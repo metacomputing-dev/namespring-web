@@ -1,4 +1,5 @@
 import type { EnergyCalculator } from './calculator/energy-calculator';
+import type { HanjaEntry } from './database/hanja-repository';
 
 /**
  * Represents the gender of the user.
@@ -25,11 +26,11 @@ export interface BirthDateTime {
 
 /**
  * Input data provided by the user for naming analysis.
- * All properties are readonly to ensure data integrity during calculation.
+ * Now contains HanjaEntry arrays to hold rich metadata for each character.
  */
 export interface UserInfo {
-  readonly lastName: string;
-  readonly firstName: string;
+  readonly lastName: HanjaEntry[];
+  readonly firstName: HanjaEntry[];
   readonly birthDateTime: BirthDateTime;
   readonly gender: Gender;
 }
@@ -37,10 +38,15 @@ export interface UserInfo {
 /**
  * Represents the calculation result for a single name candidate.
  * Includes scores and detailed calculator instances based on naming theories.
+ * Updated to use HanjaEntry[] for rich metadata support.
  */
 export interface NamingResult {
-  readonly lastName: string;
-  readonly firstName: string;
+  /**
+   * The last name (surname) and first name represented as HanjaEntry arrays
+   * to preserve stroke counts and elemental properties for each character.
+   */
+  readonly lastName: HanjaEntry[];
+  readonly firstName: HanjaEntry[];
   /**
    * The aggregated score based on various naming theories.
    */
