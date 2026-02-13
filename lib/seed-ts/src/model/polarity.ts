@@ -1,5 +1,5 @@
 /**
- * 음(陰)과 양(陽)의 기운인 극성(Polarity)과 그 조화를 정의하는 클래스입니다.
+ * Class defining Yin (陰) and Yang (陽) polarity and their harmony.
  */
 export class Polarity {
   public static readonly Negative = new Polarity('Negative', '음', '陰', '달', '어둠', '유연함');
@@ -9,12 +9,12 @@ export class Polarity {
     Harmony: { 
       id: 'Harmony', 
       name: '조화(調和)', 
-      description: '서로 다른 극성이 만나 음양의 균형을 이루고 에너지가 선순환하는 이상적인 상태입니다.' 
+      description: 'An ideal state where different polarities meet to balance Yin-Yang and create a virtuous cycle of energy.' 
     },
     Clash: { 
       id: 'Clash', 
       name: '편중(偏重)', 
-      description: '같은 극성으로 기운이 치우쳐져 유연함이나 추진력이 부족해질 수 있는 상태입니다.' 
+      description: 'A state where energy is biased toward the same polarity, which may lead to a lack of flexibility or drive.' 
     }
   } as const;
 
@@ -28,33 +28,45 @@ export class Polarity {
   ) {}
 
   /**
-   * [멤버 함수] 현재 극성과 반대되는 극성을 반환합니다.
+   * Returns the polarity corresponding to the given stroke count.
+   * Odd numbers are Positive (Yang), and even numbers are Negative (Yin).
+   * @param strokes The number of strokes to evaluate.
+   */
+  public static get(strokes: number): Polarity {
+    return strokes % 2 === 1 ? Polarity.Positive : Polarity.Negative;
+  }
+
+  /**
+   * Returns the opposite polarity of the current instance.
    */
   public getOpposite(): Polarity {
     return this === Polarity.Positive ? Polarity.Negative : Polarity.Positive;
   }
 
   /**
-   * [멤버 함수] 대상 극성과 조화로운 관계(서로 다른 극성)인지 확인합니다.
+   * Checks if the target polarity is harmonious (different from this instance).
    */
   public isHarmonious(target: Polarity): boolean {
     return this !== target;
   }
 
   /**
-   * [멤버 함수] 대상 극성과 충돌하는 관계(같은 극성)인지 확인합니다.
+   * Checks if the target polarity is clashing (same as this instance).
    */
   public isClashing(target: Polarity): boolean {
     return this === target;
   }
 
   /**
-   * [멤버 함수] 대상 극성과의 구체적인 관계 객체를 반환합니다.
+   * Returns the specific relation object with the target polarity.
    */
   public getRelation(target: Polarity): typeof Polarity.Relation[keyof typeof Polarity.Relation] {
     return this.isHarmonious(target) ? Polarity.Relation.Harmony : Polarity.Relation.Clash;
   }
 
+  /**
+   * Returns all available polarity instances.
+   */
   public static values(): Polarity[] {
     return [this.Negative, this.Positive];
   }

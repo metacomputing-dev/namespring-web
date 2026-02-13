@@ -2,48 +2,49 @@ import { EnergyCalculator, type EnergyVisitor } from './energy-calculator';
 import type { Energy } from '../model/energy';
 import { Element } from '../model/element';
 import { Polarity } from '../model/polarity';
+import type { HanjaEntry } from '../database/hanja-repository';
 
 /**
  * Calculator for the Hangul (Korean Alphabet) Five Elements and Yin-Yang based on pronunciation.
- * Analyzes initial consonants (Onsets) and stroke counts of Hangul characters.
+ * Analyzes phonetic attributes of Hangul characters provided via HanjaEntry.
+ * Polarity is determined by the vowel (Nucleus) structure, and Element by the Onset.
  */
 export class HangulCalculator extends EnergyCalculator {
   public readonly type = "Hangul";
 
   /**
-   * Represents an individual Hangul character unit within the name.
+   * Represents an individual Hangul unit within the name.
    */
-  public static Hangul = class {
+  public static NameBlock = class {
     public energy: Energy | null = null;
 
     constructor(
-      public readonly char: string,     // The Hangul character
-      public readonly position: number  // Zero-based index in the full name string
+      public readonly entry: HanjaEntry, // Holds the full data entry including the Hangul character and its components
+      public readonly position: number   // Zero-based index in the full name string
     ) {}
   };
 
-  private readonly hanguls: InstanceType<typeof HangulCalculator.Hangul>[];
+  private readonly hangulNameBlocks: InstanceType<typeof HangulCalculator.NameBlock>[];
 
   /**
-   * Initializes Hangul units for each character in the provided surname and first name.
-   * @param surname Surname string in Hangul
-   * @param firstName Given name string in Hangul
+   * Initializes Hangul units using HanjaEntry arrays for consistency.
+   * @param surnameEntries Array of entries for the surname
+   * @param firstNameEntries Array of entries for the first name
    */
-  constructor(surname: string, firstName: string) {
+  constructor(surnameEntries: HanjaEntry[], firstNameEntries: HanjaEntry[]) {
     super();
 
-    const fullText = surname + firstName;
-    this.hanguls = fullText.split('').map((char, index) => {
-      return new HangulCalculator.Hangul(char, index);
+    const fullEntries = [...surnameEntries, ...firstNameEntries];
+    this.hangulNameBlocks = fullEntries.map((entry, index) => {
+      return new HangulCalculator.NameBlock(entry, index);
     });
   }
 
   /**
-   * Triggers the energy calculation process for all Hangul units.
-   * Skips execution if all units already have calculated energy data.
+   * Triggers the energy calculation process for all Hangul name blocks.
    */
   public calculate(): void {
-    const needsCalculation = this.hanguls.some(unit => unit.energy === null);
+    const needsCalculation = this.hangulNameBlocks.some(block => block.energy === null);
 
     if (needsCalculation) {
       const visitor = new HangulCalculator.CalculationVisitor();
@@ -52,10 +53,10 @@ export class HangulCalculator extends EnergyCalculator {
   }
 
   /**
-   * Provides access to the list of Hangul units managed by this calculator.
+   * Provides access to the list of Hangul name blocks.
    */
-  public getHanguls() {
-    return this.hanguls;
+  public getNameBlocks() {
+    return this.hangulNameBlocks;
   }
 
   /**
@@ -63,43 +64,52 @@ export class HangulCalculator extends EnergyCalculator {
    */
   public static CalculationVisitor = class implements EnergyVisitor {
     public preVisit(calculator: EnergyCalculator): void {
-      // Preparation logic before visiting units
+      // Entry preparation logic
     }
 
     public visit(calculator: EnergyCalculator): void {
       if (calculator instanceof HangulCalculator) {
-        calculator.getHanguls().forEach(unit => {
-          unit.energy = {
-            polarity: this.calculatePolarity(unit.char),
-            element: this.calculateElement(unit.char)
+        calculator.getNameBlocks().forEach(block => {
+          const entry = block.entry;
+          
+          block.energy = {
+            // Determine polarity based on the vowel (Nucleus) structure
+            polarity: this.calculatePolarityFromVowel(entry.nucleus),
+            // Element is determined by the Hangul character's phonetic onset
+            element: this.calculateElementFromOnset(entry.hangul)
           };
         });
       }
     }
 
     public postVisit(calculator: EnergyCalculator): void {
-      // Finalization logic after processing all units
+      // Finalization logic
     }
 
     /**
-     * Determines Polarity (Yin-Yang) based on the parity of Hangul stroke counts.
+     * Determines Polarity based on the vowel (Nucleus) structure in Naming Theory.
+     * Yang (Positive): Vertical or Outward (ㅏ, ㅐ, ㅑ, ㅒ, ㅗ, ㅘ, ㅙ, ㅚ, ㅛ, ㅣ)
+     * Yin (Negative): Horizontal or Inward (ㅓ, ㅔ, ㅕ, ㅖ, ㅜ, ㅝ, ㅞ, ㅟ, ㅠ, ㅡ)
+     * @param nucleus The Hangul vowel character.
      */
-    public calculatePolarity(char: string): Polarity {
-      const strokeCount = this.getHangulStrokeCount(char);
-      return strokeCount % 2 === 1 ? Polarity.Positive : Polarity.Negative;
+    public calculatePolarityFromVowel(nucleus: string): Polarity {
+      const yangVowels = ['ㅏ', 'ㅐ', 'ㅑ', 'ㅒ', 'ㅗ', 'ㅘ', 'ㅙ', 'ㅚ', 'ㅛ', 'ㅣ'];
+      
+      // If the nucleus is in the yang list, return Positive, else return Negative.
+      return yangVowels.includes(nucleus) ? Polarity.Positive : Polarity.Negative;
     }
 
     /**
      * Determines the Element based on the initial consonant (Onset) classification.
+     * @param char The full Hangul character to extract onset from.
      */
-    public calculateElement(char: string): Element {
+    public calculateElementFromOnset(char: string): Element {
       const code = char.charCodeAt(0) - 0xAC00;
-      // Return Water as default for non-Hangul range characters
       if (code < 0 || code > 11171) return Element.Water;
 
       const initialIdx = Math.floor(code / 588);
       
-      // Traditional Onset Five Elements Mapping
+      // Traditional Onset Five Elements Mapping (Wun-hae version)
       // Wood (木): ㄱ, ㅋ
       if ([0, 1, 15].includes(initialIdx)) return Element.Wood;
       // Fire (火): ㄴ, ㄷ, ㄹ, ㅌ
@@ -109,20 +119,7 @@ export class HangulCalculator extends EnergyCalculator {
       // Metal (金): ㅅ, ㅈ, ㅊ
       if ([9, 10, 12, 13, 14].includes(initialIdx)) return Element.Metal;
       // Water (水): ㅁ, ㅂ, ㅍ
-      return Element.Water; // Indices: 6, 7, 8, 17
-    }
-
-    /**
-     * Retrieves the stroke count for a Hangul character using a predefined mapping or fallback.
-     */
-    public getHangulStrokeCount(char: string): number {
-      const strokeMap: Record<string, number> = {
-        'ㄱ': 2, 'ㄴ': 2, 'ㄷ': 3, 'ㄹ': 5, 'ㅁ': 4, 'ㅂ': 4, 'ㅅ': 2, 'ㅇ': 1,
-        'ㅈ': 3, 'ㅊ': 4, 'ㅋ': 3, 'ㅌ': 4, 'ㅍ': 4, 'ㅎ': 3
-      };
-      
-      // Use mapped value if available, otherwise fallback to Unicode code point for parity
-      return strokeMap[char] || char.charCodeAt(0);
+      return Element.Water;
     }
   }
 }
