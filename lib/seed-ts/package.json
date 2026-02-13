@@ -4,7 +4,22 @@
   "type": "module",
   "main": "./dist/index.js",
   "types": "./dist/index.d.ts",
+  "exports": {
+    ".": {
+      "import": "./dist/index.js",
+      "types": "./dist/index.d.ts"
+    }
+  },
   "scripts": {
-    "build": "tsc"
+    "build": "tsc -p tsconfig.json",
+    "test": "npm run build && node --test ./test/*.test.mjs",
+    "sqlite:build": "node ./scripts/build-sqlite.mjs"
+  },
+  "files": [
+    "dist"
+  ],
+  "devDependencies": {
+    "@types/node": "^22.13.10",
+    "typescript": "^5.8.2"
   }
 }

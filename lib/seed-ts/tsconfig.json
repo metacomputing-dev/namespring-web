@@ -6,7 +6,9 @@
     "verbatimModuleSyntax": true,
     "outDir": "./dist",
     "declaration": true,
-    "strict": true
+    "strict": true,
+    "types": ["node"],
+    "skipLibCheck": true
   },
   "include": ["src/**/*"]
 }
