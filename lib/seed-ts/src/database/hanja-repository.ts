@@ -1,15 +1,5 @@
-import sqlite3 from 'sqlite3';
-import path from 'path';
-import { fileURLToPath } from 'url';
+import initSqlJs, { type Database } from 'sql.js';
 
-// Calculate the current directory path for ES Modules
-const __filename = fileURLToPath(import.meta.url);
-const __dirname = path.dirname(__filename);
-
-/**
- * Interface representing a comprehensive Hanja entry for naming analysis.
- * Matches the schema in the SQLite database.
- */
 export interface HanjaEntry {
   readonly id: number;
   readonly hangul: string;
@@ -25,137 +15,105 @@ export interface HanjaEntry {
 }
 
 /**
- * Data Access Object (DAO) for interacting with the Hanja SQLite database.
- * Encapsulates SQL logic to provide domain-specific search methods.
+ * Browser-compatible Data Access Object using sql.js (WASM).
+ * Maintains the same API signature as the original Node-based DAO.
  */
 export class HanjaRepository {
-  private db: sqlite3.Database;
+  private db: Database | null = null;
+  // Public URL for the database file in Vite project
+  private readonly dbUrl: string = '/data/hanja.db'; 
+  // WASM binary location (using CDN for simplicity, or can be local in public/)
+  private readonly wasmUrl: string = 'https://sql.js.org/dist/sql-wasm.wasm';
 
   /**
-   * Initializes the repository with a connection to the database file.
-   * Path is resolved relative to this file's directory: src/database -> src/data/hanja.db
-   * @param dbPath Absolute or relative path to hanja.db.
+   * Async initialization to load WASM and the DB file.
+   * This must be called before calling any search methods.
    */
-  constructor(dbPath: string = path.join(__dirname, '../data/hanja.db')) {
-    this.db = new sqlite3.Database(dbPath, sqlite3.OPEN_READONLY, (err) => {
-      if (err) {
-        console.error('HanjaRepository: Database connection failed.', err.message);
-      }
-    });
-  }
+  public async init(): Promise<void> {
+    if (this.db) return;
 
-  /**
-   * Finds a unique Hanja entry by its specific character.
-   * @param hanja The Chinese character to search for.
-   */
-  public findByHanja(hanja: string): Promise<HanjaEntry | null> {
-    return new Promise((resolve, reject) => {
-      const sql = `SELECT * FROM hanjas WHERE hanja = ? LIMIT 1`;
-      this.db.get(sql, [hanja], (err, row) => {
-        if (err) reject(err);
-        else resolve(this.mapRowToEntry(row));
+    try {
+      const SQL = await initSqlJs({
+        locateFile: () => this.wasmUrl
       });
-    });
+
+      const response = await fetch(this.dbUrl);
+      if (!response.ok) throw new Error(`Failed to fetch DB: ${response.statusText}`);
+      
+      const buffer = await response.arrayBuffer();
+      this.db = new SQL.Database(new Uint8Array(buffer));
+      console.log('HanjaRepository: Database loaded successfully via WASM.');
+    } catch (err) {
+      console.error('HanjaRepository: Initialization failed.', err);
+      throw err;
+    }
+  }
+
+  public async findByHanja(hanja: string): Promise<HanjaEntry | null> {
+    const sql = `SELECT * FROM hanjas WHERE hanja = ? LIMIT 1`;
+    const rows = this.execute(sql, [hanja]);
+    return rows.length > 0 ? rows[0] : null;
+  }
+
+  public async findByHangul(hangul: string): Promise<HanjaEntry[]> {
+    const sql = `SELECT * FROM hanjas WHERE hangul = ? ORDER BY strokes ASC`;
+    return this.execute(sql, [hangul]);
+  }
+
+  public async findSurnamesByHangul(hangul: string): Promise<HanjaEntry[]> {
+    const sql = `SELECT * FROM hanjas WHERE hangul = ? AND is_surname = 1`;
+    return this.execute(sql, [hangul]);
+  }
+
+  public async findByResourceElement(element: string, hangul?: string): Promise<HanjaEntry[]> {
+    let sql = `SELECT * FROM hanjas WHERE resource_element = ?`;
+    const params: any[] = [element];
+
+    if (hangul) {
+      sql += ` AND hangul = ?`;
+      params.push(hangul);
+    }
+    return this.execute(sql, params);
+  }
+
+  public async findByStrokeRange(min: number, max: number): Promise<HanjaEntry[]> {
+    const sql = `SELECT * FROM hanjas WHERE strokes BETWEEN ? AND ? ORDER BY strokes ASC`;
+    return this.execute(sql, [min, max]);
+  }
+
+  public async findByOnset(onset: string): Promise<HanjaEntry[]> {
+    const sql = `SELECT * FROM hanjas WHERE onset = ? LIMIT 200`;
+    return this.execute(sql, [onset]);
   }
 
   /**
-   * Retrieves all Hanja entries associated with a specific Hangul pronunciation.
-   * @param hangul The Korean Hangul character (e.g., '미').
+   * Internal helper to execute queries and map results.
    */
-  public findByHangul(hangul: string): Promise<HanjaEntry[]> {
-    return new Promise((resolve, reject) => {
-      const sql = `SELECT * FROM hanjas WHERE hangul = ? ORDER BY strokes ASC`;
-      this.db.all(sql, [hangul], (err, rows) => {
-        if (err) reject(err);
-        else resolve(rows.map(row => this.mapRowToEntry(row)!));
-      });
-    });
+  private execute(sql: string, params: any[]): HanjaEntry[] {
+    if (!this.db) throw new Error("Database not initialized. Call init() first.");
+    
+    const stmt = this.db.prepare(sql);
+    stmt.bind(params);
+    
+    const results: HanjaEntry[] = [];
+    while (stmt.step()) {
+      results.push(this.mapRowToEntry(stmt.getAsObject()));
+    }
+    stmt.free();
+    return results;
   }
 
-  /**
-   * Finds Hanja entries allowed for use as surnames.
-   * @param hangul The Hangul character to filter by.
-   */
-  public findSurnamesByHangul(hangul: string): Promise<HanjaEntry[]> {
-    return new Promise((resolve, reject) => {
-      const sql = `SELECT * FROM hanjas WHERE hangul = ? AND is_surname = 1`;
-      this.db.all(sql, [hangul], (err, rows) => {
-        if (err) reject(err);
-        else resolve(rows.map(row => this.mapRowToEntry(row)!));
-      });
-    });
-  }
-
-  /**
-   * Searches for Hanja candidates based on a specific Resource Five Element.
-   * Useful for balancing a person's Saju (Four Pillars) energy.
-   * @param element The target Five Element (Wood, Fire, Earth, Metal, Water).
-   * @param hangul Optional filter by Hangul sound.
-   */
-  public findByResourceElement(element: string, hangul?: string): Promise<HanjaEntry[]> {
-    return new Promise((resolve, reject) => {
-      let sql = `SELECT * FROM hanjas WHERE resource_element = ?`;
-      const params: any[] = [element];
-
-      if (hangul) {
-        sql += ` AND hangul = ?`;
-        params.push(hangul);
-      }
-
-      this.db.all(sql, params, (err, rows) => {
-        if (err) reject(err);
-        else resolve(rows.map(row => this.mapRowToEntry(row)!));
-      });
-    });
-  }
-
-  /**
-   * Finds characters within a specific stroke count range.
-   * Helpful for Sagyuk (Four Frames) structural optimization.
-   * @param min Min stroke count.
-   * @param max Max stroke count.
-   */
-  public findByStrokeRange(min: number, max: number): Promise<HanjaEntry[]> {
-    return new Promise((resolve, reject) => {
-      const sql = `SELECT * FROM hanjas WHERE strokes BETWEEN ? AND ? ORDER BY strokes ASC`;
-      this.db.all(sql, [min, max], (err, rows) => {
-        if (err) reject(err);
-        else resolve(rows.map(row => this.mapRowToEntry(row)!));
-      });
-    });
-  }
-
-  /**
-   * Retrieves characters by their phonetic initial (Onset).
-   * Used to check for phonetic harmony between family name and given name.
-   * @param onset The Hangul initial consonant (e.g., 'ㄱ', 'ㄴ').
-   */
-  public findByOnset(onset: string): Promise<HanjaEntry[]> {
-    return new Promise((resolve, reject) => {
-      const sql = `SELECT * FROM hanjas WHERE onset = ? LIMIT 200`;
-      this.db.all(sql, [onset], (err, rows) => {
-        if (err) reject(err);
-        else resolve(rows.map(row => this.mapRowToEntry(row)!));
-      });
-    });
-  }
-
-  /**
-   * Maps a raw database row to the HanjaEntry interface.
-   * @param row The raw row object from SQLite.
-   */
-  private mapRowToEntry(row: any): HanjaEntry | null {
-    if (!row) return null;
+  private mapRowToEntry(row: any): HanjaEntry {
     return {
       ...row,
-      is_surname: row.is_surname === 1 // Convert integer 0/1 to boolean
+      is_surname: row.is_surname === 1
     };
   }
 
-  /**
-   * Closes the database connection.
-   */
   public close(): void {
-    this.db.close();
+    if (this.db) {
+      this.db.close();
+      this.db = null;
+    }
   }
 }

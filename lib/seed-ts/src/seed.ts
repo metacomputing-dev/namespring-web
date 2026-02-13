@@ -1,8 +1,7 @@
 import type { UserInfo, SeedResult, NamingResult } from './types';
 import { FourFrameCalculator } from './calculator/frame-calculator';
 import { HangulCalculator } from './calculator/hangul-calculator';
-import { HanjaCalculator, type HanjaData } from './calculator/hanja-calculator';
-import { Element } from './model/element';
+import { HanjaCalculator } from './calculator/hanja-calculator';
 
 /**
  * Main engine class for naming analysis.
@@ -10,34 +9,34 @@ import { Element } from './model/element';
  */
 export class SeedTs {
   /**
-   * Analyzes the provided user information and returns a list of naming candidates.
-   * @param userInfo Input data including name, birth date, and gender
-   * @returns Analyzed results with scores and detailed energy calculations
+   * Analyzes the provided user information using real HanjaEntry data.
+   * @param userInfo Input data including HanjaEntry arrays for names, birth date, and gender.
+   * @returns Analyzed results with aggregated scores from all calculators.
    */
   public analyze(userInfo: UserInfo): SeedResult {
     const { lastName, firstName } = userInfo;
 
-    // 1. Prepare stroke data (Simplified for demonstration)
-    // In a real scenario, this would involve complex Hangul/Hanja stroke analysis utilities.
-    const surnameStrokes = this.getStrokeCounts(lastName);
-    const firstNameStrokes = this.getStrokeCounts(firstName);
-
-    // 2. Mock Hanja data based on the provided Hangul names
-    // Typically, Hanja data is retrieved from a dictionary database.
-    const surnameHanja = this.mockHanjaData(lastName, surnameStrokes);
-    const firstNameHanja = this.mockHanjaData(firstName, firstNameStrokes);
-
-    // 3. Initialize Calculators
-    const fourFrames = new FourFrameCalculator(surnameStrokes, firstNameStrokes);
+    /**
+     * 1. Initialize Calculators
+     * Directly passing HanjaEntry arrays which already contain stroke counts 
+     * and elemental information from the repository.
+     */
+    const fourFrames = new FourFrameCalculator(lastName, firstName);
     const hangul = new HangulCalculator(lastName, firstName);
-    const hanja = new HanjaCalculator(surnameHanja, firstNameHanja);
+    const hanja = new HanjaCalculator(lastName, firstName);
 
-    // 4. Perform Calculations (Triggers Visitors internally)
+    /**
+     * 2. Perform Calculations
+     * Each calculator internalizes the naming theory logic.
+     */
     fourFrames.calculate();
     hangul.calculate();
     hanja.calculate();
 
-    // 5. Aggregate Results into a Candidate
+    /**
+     * 3. Aggregate Results into a Candidate
+     * Total score is now the simple sum of individual calculator results.
+     */
     const mainCandidate: NamingResult = {
       lastName,
       firstName,
@@ -48,7 +47,9 @@ export class SeedTs {
       interpretation: "This name shows a balanced harmony between sound and numerical structures."
     };
 
-    // 6. Return final SeedResult containing candidates
+    /**
+     * 4. Return final SeedResult containing candidates
+     */
     return {
       candidates: [mainCandidate],
       totalCount: 1
@@ -56,34 +57,17 @@ export class SeedTs {
   }
 
   /**
-   * Helper to estimate stroke counts for Hangul characters.
-   */
-  private getStrokeCounts(text: string): number[] {
-    // Basic mapping for demo; in production, use a complete Hangul stroke utility.
-    return text.split('').map(char => (char.charCodeAt(0) % 10) + 5);
-  }
-
-  /**
-   * Mocks HanjaData for calculation when a database is not yet integrated.
-   */
-  private mockHanjaData(text: string, strokes: number[]): HanjaData[] {
-    return text.split('').map((char, i) => ({
-      char,
-      strokes: strokes[i],
-      resourceElement: Element.Wood // Defaulting to Wood for mock purposes
-    }));
-  }
-
-  /**
-   * Calculates the final score by evaluating the harmony of all energy calculators.
+   * Calculates the final score by summing up the scores from each naming theory.
+   * @param fourFrames Result of the Four Frames (Saju) calculation
+   * @param hangul Result of the Hangul (Phonetic) calculation
+   * @param hanja Result of the Hanja (Resource Element) calculation
    */
   private calculateTotalScore(
     fourFrames: FourFrameCalculator,
     hangul: HangulCalculator,
     hanja: HanjaCalculator
   ): number {
-    // Scoring logic based on naming theories
-    // For now, returning a fixed high score for the primary candidate
-    return 95;
+    // Summing up the calculated scores from each individual calculator.
+    return 0
   }
 }

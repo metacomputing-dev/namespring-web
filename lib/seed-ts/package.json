@@ -8,9 +8,11 @@
     "build": "tsc"
   },
   "dependencies": {
+    "sql.js": "^1.14.0",
     "sqlite3": "^5.1.7"
   },
   "devDependencies": {
-    "@types/node": "^25.2.3"
+    "@types/node": "^25.2.3",
+    "@types/sql.js": "^1.4.9"
   }
 }

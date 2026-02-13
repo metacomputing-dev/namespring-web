@@ -6,7 +6,10 @@
     "verbatimModuleSyntax": true,
     "outDir": "./dist",
     "declaration": true,
-    "strict": true
+    "strict": true,
+    "types": ["node", "sql.js"], // sql.js 타입 명시
+    "allowSyntheticDefaultImports": true, // default import 허용
+    "esModuleInterop": true
   },
   "include": ["src/**/*"]
 }
