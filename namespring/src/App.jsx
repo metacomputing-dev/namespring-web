@@ -5,17 +5,22 @@ import InputForm from './InputForm';
 import NamingReport from './NamingReport';
 import DevDbViewer from './DevDbViewer';
 import DevHanjaDbViewer from './DevHanjaDbViewer';
+import DevNameStatDbViewer from './DevNameStatDbViewer';
 
 function App() {
   const tool = new URLSearchParams(window.location.search).get("tool");
   const isDevSagyeoksuViewerMode = import.meta.env.DEV && tool === "fourframe-db-viewer";
   const isDevHanjaViewerMode = import.meta.env.DEV && tool === "hanja-db-viewer";
+  const isDevNameStatViewerMode = import.meta.env.DEV && tool === "name-stat-db-viewer";
 
   if (isDevSagyeoksuViewerMode) {
     return <DevDbViewer />;
   }
   if (isDevHanjaViewerMode) {
     return <DevHanjaDbViewer />;
+  }
+  if (isDevNameStatViewerMode) {
+    return <DevNameStatDbViewer />;
   }
 
   const [isDbReady, setIsDbReady] = useState(false);
