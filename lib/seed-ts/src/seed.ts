@@ -2,6 +2,9 @@ import type { UserInfo, SeedResult, NamingResult } from './types';
 import { FourFrameCalculator } from './calculator/frame-calculator';
 import { HangulCalculator } from './calculator/hangul-calculator';
 import { HanjaCalculator } from './calculator/hanja-calculator';
+import type { Energy } from './model/energy';
+import { Polarity } from './model/polarity';
+import { Element } from './model/element';
 
 /**
  * Main engine class for naming analysis.
@@ -56,6 +59,30 @@ export class SeedTs {
     };
   }
 
+  private mockPolarScore(energy: Energy[]): number {
+    let scoreSum = 0;
+    energy.forEach(e => {
+      if(e.polarity === Polarity.Positive) {
+        scoreSum += 1;
+      } else {
+        scoreSum -= 1;
+      }
+    });
+    return energy.length - Math.abs(scoreSum);
+  }
+
+  private mockElementScore(energy: Energy[]): number {
+    let scoreSum = 0;
+    energy.forEach(e => {
+      if(e.element === Element.Wood) {
+        scoreSum += 1;
+      } else {
+        scoreSum -= 1;
+      }
+    });
+    return energy.length - Math.abs(scoreSum);
+  }
+
   /**
    * Calculates the final score by summing up the scores from each naming theory.
    * @param fourFrames Result of the Four Frames (Saju) calculation
@@ -67,7 +94,7 @@ export class SeedTs {
     hangul: HangulCalculator,
     hanja: HanjaCalculator
   ): number {
-    // Summing up the calculated scores from each individual calculator.
-    return 0
+
+     return 0;
   }
 }

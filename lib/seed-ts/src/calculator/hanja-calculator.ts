@@ -24,7 +24,7 @@ export class HanjaCalculator extends EnergyCalculator {
     ) {}
   };
 
-  private readonly hanjaNameBlocks: InstanceType<typeof HanjaCalculator.NameBlock>[];
+  public readonly hanjaNameBlocks: InstanceType<typeof HanjaCalculator.NameBlock>[];
 
   /**
    * Initializes Hanja units from provided HanjaEntry arrays.

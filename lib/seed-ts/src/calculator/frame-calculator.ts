@@ -25,7 +25,7 @@ export class FourFrameCalculator extends EnergyCalculator {
     ) {}
   };
 
-  private readonly frames: InstanceType<typeof FourFrameCalculator.Frame>[];
+  public frames: InstanceType<typeof FourFrameCalculator.Frame>[];
 
   /**
    * Initializes the four frames using Hanja entries to derive total stroke counts.
@@ -35,7 +35,7 @@ export class FourFrameCalculator extends EnergyCalculator {
    */
   constructor(surnameEntries: HanjaEntry[], firstNameEntries: HanjaEntry[]) {
     super();
-    
+    // TODO replace it to a new visitor future
     // Extract stroke counts from the database entries
     const surnameStrokes = surnameEntries.map(e => e.strokes);
     const firstNameStrokes = firstNameEntries.map(e => e.strokes);
@@ -132,6 +132,44 @@ export class FourFrameCalculator extends EnergyCalculator {
         case 7: case 8: return Element.Metal;
         default: return Element.Water; // Covers 9 and 0
       }
+    }
+
+    public calculateFourFrameNumbersFromStrokes(
+      calculator: FourFrameCalculator,
+      surnameStrokeCounts: readonly number[],
+      givenStrokeCounts: readonly number[],
+    ) {
+      const padded = [...givenStrokeCounts];
+      if (padded.length === 1) {
+        padded.push(0);
+      }
+      const mid = Math.floor(padded.length / 2);
+      const givenUpperSum = this.sum(padded.slice(0, mid));
+      const givenLowerSum = this.sum(padded.slice(mid));
+      const surnameTotal = this.sum(surnameStrokeCounts);
+      const givenTotal = this.sum(givenStrokeCounts);
+
+      calculator.frames = [
+        new FourFrameCalculator.Frame('won', this.sum(padded)),
+        new FourFrameCalculator.Frame('hyung', this.adjustTo81(surnameTotal + givenUpperSum)),
+        new FourFrameCalculator.Frame('lee', this.adjustTo81(surnameTotal + givenLowerSum)),
+        new FourFrameCalculator.Frame('jung', this.adjustTo81(surnameTotal + givenTotal))
+      ];
+    }
+
+    public adjustTo81(value: number): number {
+      if (value <= 81) {
+        return value;
+      }
+      return ((value - 1) % 81) + 1;
+    }
+
+    public sum(values: readonly number[]): number {
+      let out = 0;
+      for (const value of values) {
+        out += value;
+      }
+      return out;
     }
   }
 }

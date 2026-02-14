@@ -24,7 +24,7 @@ export class HangulCalculator extends EnergyCalculator {
     ) {}
   };
 
-  private readonly hangulNameBlocks: InstanceType<typeof HangulCalculator.NameBlock>[];
+  public readonly hangulNameBlocks: InstanceType<typeof HangulCalculator.NameBlock>[];
 
   /**
    * Initializes Hangul units using HanjaEntry arrays for consistency.
