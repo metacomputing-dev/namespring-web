@@ -4,7 +4,7 @@ import React from 'react';
  * Detailed report view focusing on Hangul and Hanja analysis.
  * FourFrame analysis is excluded for now as requested.
  */
-const NamingReport = ({ result }) => {
+const NamingReport = ({ result, onNewAnalysis }) => {
   if (!result) return null;
 
   const { lastName, firstName, totalScore, hanja, hangul, interpretation } = result;
@@ -101,7 +101,7 @@ const NamingReport = ({ result }) => {
         <button onClick={() => window.print()} className="flex-1 py-5 bg-white border-2 border-slate-200 rounded-3xl font-black text-slate-600 hover:bg-slate-50 active:scale-95 transition-all">
           PRINT REPORT
         </button>
-        <button onClick={() => window.location.reload()} className="flex-1 py-5 bg-indigo-600 text-white rounded-3xl font-black shadow-xl shadow-indigo-100 hover:bg-indigo-700 active:scale-95 transition-all">
+        <button onClick={() => (onNewAnalysis ? onNewAnalysis() : window.location.reload())} className="flex-1 py-5 bg-indigo-600 text-white rounded-3xl font-black shadow-xl shadow-indigo-100 hover:bg-indigo-700 active:scale-95 transition-all">
           NEW ANALYSIS
         </button>
       </div>
