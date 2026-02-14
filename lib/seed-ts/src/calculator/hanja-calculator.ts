@@ -1,87 +1,48 @@
-import { EnergyCalculator, type EnergyVisitor } from './energy-calculator';
-import type { Energy } from '../model/energy';
-import { Element } from '../model/element';
-import { Polarity } from '../model/polarity';
-import type { HanjaEntry } from '../database/hanja-repository';
+﻿import type { HanjaEntry } from "../database/hanja-repository.js";
+import { createEnergy, type Energy } from "../model/energy.js";
+import { polarityFromStrokeCount } from "../model/polarity.js";
+import { EnergyCalculator } from "./energy-calculator.js";
+import { lastEnergy, mergeNameEntries } from "./support.js";
 
-/**
- * Calculator for the Hanja (Chinese Character) Resource Five Elements and Yin-Yang.
- * Uses HanjaEntry from the repository to process characters based on their 
- * stored resource elements and stroke counts.
- */
+export interface HanjaChar {
+  readonly hangul: string;
+  readonly hanja: string;
+  readonly position: number;
+  readonly entry: HanjaEntry;
+  energy: Energy | null;
+}
+
 export class HanjaCalculator extends EnergyCalculator {
   public readonly type = "Hanja";
+  private readonly chars: HanjaChar[];
 
-  /**
-   * Represents an individual Hanja character's energy in the name.
-   */
-  public static NameBlock = class {
-    public energy: Energy | null = null;
-
-    constructor(
-      public readonly entry: HanjaEntry,
-      public readonly position: number
-    ) {}
-  };
-
-  private readonly hanjaNameBlocks: InstanceType<typeof HanjaCalculator.NameBlock>[];
-
-  /**
-   * Initializes Hanja units from provided HanjaEntry arrays.
-   * @param surnameEntries Array of Hanja entries for the surname
-   * @param firstNameEntries Array of Hanja entries for the first name
-   */
-  constructor(surnameEntries: HanjaEntry[], firstNameEntries: HanjaEntry[]) {
+  constructor(surnameEntries: HanjaEntry[], givenEntries: HanjaEntry[]) {
     super();
-
-    const fullEntries = [...surnameEntries, ...firstNameEntries];
-    this.hanjaNameBlocks = fullEntries.map((entry, index) => {
-      return new HanjaCalculator.NameBlock(entry, index);
-    });
+    this.chars = mergeNameEntries(surnameEntries, givenEntries).map((entry, position) => ({
+      hangul: entry.hangul,
+      hanja: entry.hanja,
+      position,
+      entry,
+      energy: null,
+    }));
   }
 
-  /**
-   * Triggers the energy calculation for all Hanja units.
-   */
   public calculate(): void {
-    const needsCalculation = this.hanjaNameBlocks.some(h => h.energy === null);
-
-    if (needsCalculation) {
-      const visitor = new HanjaCalculator.CalculationVisitor();
-      this.accept(visitor);
-    }
-  }
-
-  /**
-   * Returns the list of all Hanja units.
-   */
-  public getNameBlocks() {
-    return this.hanjaNameBlocks;
-  }
-
-  /**
-   * Internal visitor class responsible for calculating energy for Hanja.
-   */
-  public static CalculationVisitor = class implements EnergyVisitor {
-    public preVisit(calculator: EnergyCalculator): void {
-      // Entry logic before processing
-    }
-
-    public visit(calculator: EnergyCalculator): void {
-      if (calculator instanceof HanjaCalculator) {
-        calculator.getNameBlocks().forEach(block => {
-          const entry = block.entry;
-          
-          block.energy = {
-            polarity: Polarity.get(entry.strokes),
-            element: Element.get(entry.resource_element)
-          };
-        });
+    for (const item of this.chars) {
+      if (item.energy) {
+        continue;
       }
+      const polarity = item.entry.strokePolarity ?? polarityFromStrokeCount(item.entry.strokes);
+      item.energy = createEnergy(item.entry.resourceElement, polarity);
     }
 
-    public postVisit(calculator: EnergyCalculator): void {
-      // Logic after processing
+    const energy = lastEnergy(this.chars);
+    if (energy) {
+      this.setEnergy(energy);
     }
+  }
+
+  public getNameChars(): readonly HanjaChar[] {
+    return this.chars;
   }
 }

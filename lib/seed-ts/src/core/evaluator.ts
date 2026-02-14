@@ -1,5 +1,5 @@
 ﻿import {
-  DEFAULT_POLARITY_BY_PARITY,
+  DEFAULT_POLARITY_BY_BIT,
   LAST_DIGIT_ELEMENT,
   ELEMENT_INDEX,
 } from "./constants.js";
@@ -49,7 +49,6 @@ function createInsight(
   const normalizedScore = Math.trunc(clamp(score, 0, 100));
   return {
     frame,
-    domain: frame,
     score: normalizedScore,
     isPassed,
     status: statusFromPass(isPassed),
@@ -212,10 +211,6 @@ export function checkFourFrameSuriElement(arrangement: readonly Element[], given
   return new Set(checked).size > 1;
 }
 
-// Legacy export aliases
-export const checkEumYangHarmony = checkPolarityHarmony;
-export const checkOhaengSangSaeng = checkElementSangSaeng;
-export const checkSagyeokSuriOhaeng = checkFourFrameSuriElement;
 
 function bucketFromFortune(fortune: string): number {
   const f = fortune ?? "";
@@ -371,8 +366,8 @@ function countDominant(distribution: Record<Element, number>): boolean {
   return ELEMENT_KEYS.some((key) => distribution[key] >= threshold);
 }
 
-function parityToPolarity(value: number): Polarity {
-  return DEFAULT_POLARITY_BY_PARITY[(Math.abs(value) % 2) as 0 | 1];
+function bitToPolarity(value: number): Polarity {
+  return DEFAULT_POLARITY_BY_BIT[(Math.abs(value) % 2) as 0 | 1];
 }
 
 function polarityScore(eumCount: number, yangCount: number): number {
@@ -415,8 +410,8 @@ export class NameEvaluator {
     const givenLength = resolved.given.length;
     const infos = [...resolved.surname, ...resolved.given];
 
-    const surnameStrokeCounts = resolved.surname.map((entry) => entry.strokeCount ?? entry.hoeksu);
-    const givenStrokeCounts = resolved.given.map((entry) => entry.strokeCount ?? entry.hoeksu);
+    const surnameStrokeCounts = resolved.surname.map((entry) => entry.strokeCount);
+    const givenStrokeCounts = resolved.given.map((entry) => entry.strokeCount);
     const sagyeok = calculateWonHyeongIJeong(surnameStrokeCounts, givenStrokeCounts);
     const wonFortune = levelToFortune(this.luckyMap.get(sagyeok.won) ?? "\uBBF8\uC815");
     const hyeongFortune = levelToFortune(this.luckyMap.get(sagyeok.hyeong) ?? "\uBBF8\uC815");
@@ -442,7 +437,7 @@ export class NameEvaluator {
       },
     );
 
-    const strokeElementArrangement = infos.map((entry) => entry.strokeElement ?? entry.hoeksuOhaeng);
+    const strokeElementArrangement = infos.map((entry) => entry.strokeElement);
     const strokeElementDistribution = distributionFromArrangement(strokeElementArrangement);
     const strokeElementAdjacency = calculateArrayScore(strokeElementArrangement, surnameLength);
     const strokeElementBalance = calculateBalanceScore(strokeElementDistribution);
@@ -465,18 +460,18 @@ export class NameEvaluator {
     const sagyeokDistribution = distributionFromArrangement(sagyeokArrangement);
     const sagyeokAdj = calculateArrayScore(sagyeokArrangement, surnameLength);
     const sagyeokBal = calculateBalanceScore(sagyeokDistribution);
-    const sagyeokOhaengScore = (sagyeokBal + sagyeokAdj) / 2;
+    const fourFrameElementScore = (sagyeokBal + sagyeokAdj) / 2;
     const sagyeokDominant = countDominant(sagyeokDistribution);
     const sagyeokAdjThreshold = surnameLength === 2 ? 65 : 60;
-    const sagyeokOhaengPassed =
+    const fourFrameElementPassed =
       checkFourFrameSuriElement(sagyeokArrangement, givenLength) &&
       !sagyeokDominant &&
       sagyeokAdj >= sagyeokAdjThreshold &&
-      sagyeokOhaengScore >= 65;
+      fourFrameElementScore >= 65;
     const fourFrameElementInsight = createInsight(
       "SAGYEOK_OHAENG",
-      sagyeokOhaengScore,
-      sagyeokOhaengPassed,
+      fourFrameElementScore,
+      fourFrameElementPassed,
       sagyeokArrangement.join("-"),
       {
         distribution: sagyeokDistribution,
@@ -486,7 +481,7 @@ export class NameEvaluator {
     );
 
     const pronunciationElementArrangement = infos.map(
-      (entry) => entry.pronunciationElement ?? entry.pronunciationOhaeng,
+      (entry) => entry.pronunciationElement,
     );
     const pronunciationElementDistribution = distributionFromArrangement(pronunciationElementArrangement);
     const pronunciationElementAdj = calculateArrayScore(pronunciationElementArrangement, surnameLength);
@@ -511,7 +506,7 @@ export class NameEvaluator {
     );
 
     const strokePolarityArrangement = infos.map((entry) =>
-      parityToPolarity(entry.strokePolarityBit ?? entry.hoeksuEumyang),
+      bitToPolarity(entry.strokePolarityBit),
     );
     const strokeYinCount = strokePolarityArrangement.filter((value) => value === "\u9670").length;
     const strokeYangCount = strokePolarityArrangement.length - strokeYinCount;
@@ -528,7 +523,7 @@ export class NameEvaluator {
     );
 
     const pronunciationPolarityArrangement = infos.map((entry) =>
-      parityToPolarity(entry.pronunciationPolarityBit ?? entry.pronunciationEumyang),
+      bitToPolarity(entry.pronunciationPolarityBit),
     );
     const pronunciationYinCount = pronunciationPolarityArrangement.filter((value) => value === "\u9670").length;
     const pronunciationYangCount = pronunciationPolarityArrangement.length - pronunciationYinCount;
@@ -544,7 +539,7 @@ export class NameEvaluator {
       },
     );
 
-    const jawonArrangement = resolved.given.map((entry) => entry.rootElement ?? entry.jawonOhaeng);
+    const jawonArrangement = resolved.given.map((entry) => entry.rootElement);
     const jawonDistribution = distributionFromArrangement(jawonArrangement);
     const sajuCtx: SajuContext = {
       sajuDistribution: this.sajuBaseDistribution,
@@ -636,7 +631,7 @@ export class NameEvaluator {
   }
 }
 
-export function toLegacyInterpretationText(response: SeedResponse): string {
+export function buildInterpretationText(response: SeedResponse): string {
   const c = response.categoryMap;
   return [
     `SAGYEOK_SURI:${c.SAGYEOK_SURI.score}/${c.SAGYEOK_SURI.isPassed ? "Y" : "N"}`,
@@ -651,3 +646,8 @@ export function toLegacyInterpretationText(response: SeedResponse): string {
 export function sortResponsesByScore(items: SeedResponse[]): SeedResponse[] {
   return items.sort((a, b) => b.interpretation.score - a.interpretation.score);
 }
+
+
+
+
+

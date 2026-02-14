@@ -1,58 +1,51 @@
-# Seed TS Gradual Port Roadmap
+# Seed TS Refactor Roadmap (Greenfield-in-place)
 
-## Goal
-- Keep main branch structure stable while gradually converging to the `feature/seed-ts-port` runtime behavior.
-- Pass parity tests continuously during each phase.
-- Prepare clean boundaries for future sqlite integration.
+## Intent
+- Introduce a new architecture as new code, not by stretching old file layouts.
+- Keep runtime stable while progressively replacing internals.
+- Preserve the current project structure direction while absorbing validated legacy logic.
 
-## Current Baseline (Checkpoint)
-- Branch: `feature/seed-ts-gradual-main`
-- Core runtime is active from `src/core/*` via `src/seed.ts`.
-- Data is available at `src/main/resources/seed/data/*`.
-- Parity tests are added and passing.
+## Current Direction
+- Facade: `src/seed.ts`
+- Runtime architecture: `src/engine/{domain,application,ports,infrastructure}`
+- Calculation internals (reused): `src/core/*`
+- Adapter/compat zone: `src/{model,calculator,database,types.ts,compat}`
 
-## Working Principles
-- Small, reversible commits.
-- Do not change public API shape abruptly.
-- Keep legacy paths as adapters until final cleanup.
-- Use parity tests as release gate for every phase.
+## Naming Canon
+- `Element` = five elements (오행)
+- `Polarity` = yin/yang polarity (음양)
+- `Energy` = `{ element, polarity }`
+- `FourFrame` = four-frame numerology (사격)
+- `Hangul`, `Hanja`, `Sound`, `Char` = canonical terms
 
-## Phase Plan
+## Principles
+- db-only runtime
+- new modules first, legacy compatibility second
+- thin compatibility boundaries
+- deterministic behavior (query/order/ranking)
 
-## Phase 1: Stabilize runtime entrypoints + preserve team structure
-- Keep `src/seed.ts` as facade.
-- Keep `src/core/*` as single source of truth.
-- Ensure `npm test` remains green.
-- Status:
-- team-facing top-level structure is preserved (`calculator/`, `model/`, `database/`, `utils/`, `types.ts`, `data/`)
-- active runtime remains stable through (`seed.ts`, `index.ts`, `core/`, `main/resources/seed/data/`)
-- `src/legacy/` is reference-only sandbox (not primary code location)
+## Phases
+1. Architecture carve-out
+- complete: `engine` layer introduced and `seed.ts` routed through it
+- complete: runtime assembly split (`evaluate-input`, `seedts-query`, `runtime-factory`, sqlite path/four-frame modules`)
 
-## Phase 2: Type and naming consistency
-- Standardize canonical names in core:
-- `Element`, `Polarity`, `Energy`, `Frame`, `FourFrame`.
-- Keep legacy aliases for compatibility.
-- Avoid external API breakage.
+2. Adapter modularization
+- complete: `database` split (`types/sql/mapper/repository`)
+- complete: `model` split and relation helpers
+- complete: `calculator` split + shared support
+- complete: per-layer barrel exports for stable imports
 
-## Phase 3: Repository boundary hardening
-- Keep `HanjaRepository` and `StatsRepository` as abstraction boundary.
-- Validate in-memory path as default runtime.
-- Keep sqlite implementation isolated and optional.
+3. Compatibility boundaries
+- complete: `compat` converters introduced
+- in progress: external call-site migration to canonical types
 
-## Phase 4: Legacy adapter narrowing
-- Restrict legacy `src/calculator/*`, `src/model/*`, and old `src/types.ts` to adapter role only.
-- Remove duplicate logic from legacy path.
-- Keep compile surface focused on `src/core/*`.
+4. Core extraction
+- pending: move selected logic from `core` to `engine` services in small slices
 
-## Phase 5: Final cleanup
-- Remove dead legacy code after parity and integration checks are stable.
-- Keep docs and migration notes updated.
+5. Final cleanup
+- pending: remove dead adapter paths once compatibility and integration are stable
 
-## Acceptance Criteria (per phase)
-- `npm run build` passes in `lib/seed-ts`.
-- `npm test` passes in `lib/seed-ts`.
-- No unintended public API regression.
-- Changes are scoped and reviewable.
-
-## Change Log
-- 2026-02-13: Initial roadmap recorded on `feature/seed-ts-gradual-main`.
+## Acceptance Gate
+- build passes
+- compatibility tests pass
+- no runtime file-loading fallback

@@ -1,4 +1,4 @@
-import type { Element, HanjaEntry, HanjaRepository } from "./types.js";
+﻿import type { Element, HanjaEntry, HanjaRepository } from "./types.js";
 import { openSqliteDatabase, type SqliteDatabase, type SqliteStatement } from "./sqlite-runtime.js";
 
 interface HanjaRow {
@@ -15,9 +15,9 @@ interface HanjaRow {
   is_surname: unknown;
 }
 
-const DEFAULT_HOEKSU = 10;
-const EARTH: Element = "\u571F";
-const ELEMENT_SET = new Set<Element>(["\u6728", "\u706B", "\u571F", "\u91D1", "\u6C34"]);
+const DEFAULT_STROKE_COUNT = 10;
+const EARTH: Element = "土";
+const ELEMENT_SET = new Set<Element>(["木", "火", "土", "金", "水"]);
 
 function toInt(value: unknown, fallback: number): number {
   if (typeof value === "number" && Number.isFinite(value)) {
@@ -47,20 +47,13 @@ function toFallback(korean: string, hanja: string, isSurname: boolean): HanjaEnt
     hangul,
     hanja: h,
     meaning: "",
-    strokeCount: DEFAULT_HOEKSU,
+    strokeCount: DEFAULT_STROKE_COUNT,
     strokeElement: EARTH,
     rootElement: EARTH,
     pronunciationElement: EARTH,
     pronunciationPolarityBit: 0,
     strokePolarityBit: 0,
     radical: "",
-    hoeksu: DEFAULT_HOEKSU,
-    hoeksuOhaeng: EARTH,
-    jawonOhaeng: EARTH,
-    pronunciationOhaeng: EARTH,
-    pronunciationEumyang: 0,
-    hoeksuEumyang: 0,
-    boosoo: "",
     isSurname,
   };
 }
@@ -131,9 +124,7 @@ export class SqliteHanjaRepository implements HanjaRepository {
         " WHERE hangul_jungsung = ? AND is_surname = 0",
       ].join("\n"),
     );
-    this.selectSurnamePair = this.db.prepare(
-      "SELECT 1 FROM surname_pairs WHERE korean = ? AND hanja = ? LIMIT 1",
-    );
+    this.selectSurnamePair = this.db.prepare("SELECT 1 FROM surname_pairs WHERE korean = ? AND hanja = ? LIMIT 1");
   }
 
   getHanjaInfo(korean: string, hanja: string, isSurname: boolean): HanjaEntry {
@@ -158,12 +149,7 @@ export class SqliteHanjaRepository implements HanjaRepository {
   }
 
   getHanjaStrokeCount(korean: string, hanja: string, isSurname: boolean): number {
-    const info = this.getHanjaInfo(korean, hanja, isSurname);
-    return info.strokeCount || DEFAULT_HOEKSU;
-  }
-
-  getHanjaHoeksuCount(korean: string, hanja: string, isSurname: boolean): number {
-    return this.getHanjaStrokeCount(korean, hanja, isSurname);
+    return this.getHanjaInfo(korean, hanja, isSurname).strokeCount;
   }
 
   getSurnamePairs(surname: string, surnameHanja: string): Array<{ korean: string; hanja: string }> {
@@ -232,31 +218,17 @@ export class SqliteHanjaRepository implements HanjaRepository {
   }
 
   private toEntry(row: HanjaRow, isSurnameFallback: boolean): HanjaEntry {
-    const strokeCount = toInt(row.hoeksu, DEFAULT_HOEKSU);
-    const strokeElement = toElement(row.hoeksu_ohaeng, EARTH);
-    const rootElement = toElement(row.jawon_ohaeng, EARTH);
-    const pronunciationElement = toElement(row.pronunciation_ohaeng, EARTH);
-    const pronunciationPolarityBit = toBit(row.pronunciation_eumyang);
-    const strokePolarityBit = toBit(row.hoeksu_eumyang);
-    const radical = toText(row.boosoo);
     return {
       hangul: toText(row.hangul),
       hanja: toText(row.hanja),
       meaning: toText(row.meaning),
-      strokeCount,
-      strokeElement,
-      rootElement,
-      pronunciationElement,
-      pronunciationPolarityBit,
-      strokePolarityBit,
-      radical,
-      hoeksu: strokeCount,
-      hoeksuOhaeng: strokeElement,
-      jawonOhaeng: rootElement,
-      pronunciationOhaeng: pronunciationElement,
-      pronunciationEumyang: pronunciationPolarityBit,
-      hoeksuEumyang: strokePolarityBit,
-      boosoo: radical,
+      strokeCount: toInt(row.hoeksu, DEFAULT_STROKE_COUNT),
+      strokeElement: toElement(row.hoeksu_ohaeng, EARTH),
+      rootElement: toElement(row.jawon_ohaeng, EARTH),
+      pronunciationElement: toElement(row.pronunciation_ohaeng, EARTH),
+      pronunciationPolarityBit: toBit(row.pronunciation_eumyang),
+      strokePolarityBit: toBit(row.hoeksu_eumyang),
+      radical: toText(row.boosoo),
       isSurname: toInt(row.is_surname, isSurnameFallback ? 1 : 0) === 1,
     };
   }

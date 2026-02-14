@@ -2,23 +2,17 @@
 
 export type Element = "木" | "火" | "土" | "金" | "水";
 export type Polarity = "陰" | "陽";
-
-// Legacy aliases (backward compatibility)
-export type Ohaeng = Element;
-export type EumYang = Polarity;
+export type Char = string;
+export type HangulChar = Char;
+export type HanjaChar = Char;
+export type Sound = string;
 
 export interface Energy {
   element: Element;
   polarity: Polarity;
 }
 
-export type LuckyLevel =
-  | "최상운수"
-  | "상운수"
-  | "양운수"
-  | "흉운수"
-  | "최흉운수"
-  | "미정";
+export type LuckyLevel = "최상운수" | "상운수" | "양운수" | "흉운수" | "최흉운수" | "미정";
 
 export type Status = "POSITIVE" | "NEUTRAL" | "NEGATIVE";
 
@@ -34,9 +28,6 @@ export type Frame =
   | "STATISTICS"
   | "JAWON_OHAENG"
   | "EUMYANG";
-
-// Legacy alias
-export type Domain = Frame;
 
 export interface FourFrame {
   won: number;
@@ -54,10 +45,10 @@ export interface BirthInfo {
 }
 
 export interface NameInput {
-  lastNameHangul: string;
-  lastNameHanja: string;
-  firstNameHangul: string;
-  firstNameHanja: string;
+  lastNameHangul: HangulChar;
+  lastNameHanja: HanjaChar;
+  firstNameHangul: HangulChar;
+  firstNameHanja: HanjaChar;
 }
 
 export interface EvaluateRequest {
@@ -88,17 +79,12 @@ export interface SearchRequest {
 
 export interface FrameInsight {
   frame: Frame;
-  // Legacy field name kept for compatibility
-  domain: Domain;
   score: number;
   isPassed: boolean;
   status: Status;
   arrangement: string;
   details: Record<string, unknown>;
 }
-
-// Legacy alias
-export type CategoryInsight = FrameInsight;
 
 export interface Interpretation {
   score: number;
@@ -122,28 +108,16 @@ export interface SearchResult {
 }
 
 export interface HanjaEntry {
-  hangul: string;
-  hanja: string;
+  hangul: HangulChar;
+  hanja: HanjaChar;
   meaning: string;
-
-  // Canonical names
-  strokeCount?: number;
-  strokeElement?: Element;
-  rootElement?: Element;
-  pronunciationElement?: Element;
-  pronunciationPolarityBit?: 0 | 1;
-  strokePolarityBit?: 0 | 1;
-  radical?: string;
-
-  // Legacy names (kept for compatibility)
-  hoeksu: number;
-  hoeksuOhaeng: Ohaeng;
-  jawonOhaeng: Ohaeng;
-  pronunciationOhaeng: Ohaeng;
-  pronunciationEumyang: 0 | 1;
-  hoeksuEumyang: 0 | 1;
-  boosoo: string;
-
+  strokeCount: number;
+  strokeElement: Element;
+  rootElement: Element;
+  pronunciationElement: Element;
+  pronunciationPolarityBit: 0 | 1;
+  strokePolarityBit: 0 | 1;
+  radical: string;
   isSurname: boolean;
 }
 
@@ -157,8 +131,9 @@ export interface NameStatistics {
 }
 
 export interface NameBlock {
-  korean: string;
-  hanja: string;
+  korean: HangulChar;
+  hanja: HanjaChar;
+  hangul?: HangulChar;
 }
 
 export interface NameQuery {
@@ -167,8 +142,9 @@ export interface NameQuery {
 }
 
 export interface NameCombination {
-  korean: string;
-  hanja: string;
+  korean: HangulChar;
+  hanja: HanjaChar;
+  hangul?: HangulChar;
 }
 
 export interface ResolvedName {
@@ -178,8 +154,7 @@ export interface ResolvedName {
 
 export interface HanjaRepository {
   getHanjaInfo(korean: string, hanja: string, isSurname: boolean): HanjaEntry;
-  getHanjaStrokeCount?(korean: string, hanja: string, isSurname: boolean): number;
-  getHanjaHoeksuCount(korean: string, hanja: string, isSurname: boolean): number;
+  getHanjaStrokeCount(korean: string, hanja: string, isSurname: boolean): number;
   getSurnamePairs(surname: string, surnameHanja: string): Array<{ korean: string; hanja: string }>;
   isSurname(korean: string, hanja: string): boolean;
   findNameByHangul(hangul: string): readonly HanjaEntry[];

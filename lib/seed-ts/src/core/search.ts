@@ -1,4 +1,4 @@
-import { parseNameQuery } from "./query.js";
+﻿import { parseNameQuery } from "./query.js";
 import type {
   HanjaRepository,
   NameCombination,
@@ -236,10 +236,7 @@ export class NameSearchService {
   }
 
   private getStrokeCount(korean: string, hanja: string, isSurname: boolean): number {
-    if (this.repository.getHanjaStrokeCount) {
-      return this.repository.getHanjaStrokeCount(korean, hanja, isSurname);
-    }
-    return this.repository.getHanjaHoeksuCount(korean, hanja, isSurname);
+    return this.repository.getHanjaStrokeCount(korean, hanja, isSurname);
   }
 
   evaluateName(input: NameInput, birth?: SearchRequest["birth"], includeSaju?: boolean): SeedResponse {
@@ -386,3 +383,4 @@ export function normalizeSearchRequest(request: SearchRequest): SearchRequest {
     birth: toSearchBirth(request),
   };
 }
+

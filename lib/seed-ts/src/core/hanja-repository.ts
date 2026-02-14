@@ -1,22 +1,14 @@
-import path from "node:path";
-
-import { CHOSUNG_ELEMENT, DIGIT_TO_ELEMENT } from "./constants.js";
-import { extractChosung, extractJungsung, isYangVowel } from "./hangul.js";
-import { readGzipLinesSync, readJsonSync, resolveSeedDataRoot } from "./resource.js";
+﻿import { extractChosung, extractJungsung } from "./hangul.js";
 import type { Element, HanjaEntry, HanjaRepository } from "./types.js";
 import { mapPush, normalizeText } from "./utils.js";
-
-interface HanjaMetadata {
-  files?: Record<string, string>;
-}
 
 interface Pair {
   korean: string;
   hanja: string;
 }
 
-const DEFAULT_HOEKSU = 10;
-const EARTH: Element = "\u571F";
+const DEFAULT_STROKE_COUNT = 10;
+const EARTH: Element = "土";
 
 function splitPairKey(key: string): Pair | null {
   const idx = key.indexOf("/");
@@ -27,72 +19,6 @@ function splitPairKey(key: string): Pair | null {
     korean: key.slice(0, idx),
     hanja: key.slice(idx + 1),
   };
-}
-
-function parseRadicals(lines: readonly string[]): Map<string, string> {
-  const out = new Map<string, string>();
-  for (const line of lines) {
-    const idx = line.indexOf(":");
-    if (idx <= 0) {
-      continue;
-    }
-    out.set(normalizeText(line.slice(0, idx)), normalizeText(line.slice(idx + 1)));
-  }
-  return out;
-}
-
-function toElement(value: string): Element {
-  return DIGIT_TO_ELEMENT[value] ?? EARTH;
-}
-
-function parseDict(lines: readonly string[], radicals: Map<string, string>, isSurname: boolean): HanjaEntry[] {
-  const out: HanjaEntry[] = [];
-  for (const line of lines) {
-    const idx = line.indexOf(";");
-    if (idx < 0) {
-      continue;
-    }
-    const info = line.slice(0, idx);
-    const meaning = normalizeText(line.slice(idx + 1));
-    if (info.length < 6) {
-      continue;
-    }
-    const hangul = normalizeText(info.slice(0, 1));
-    const hanja = normalizeText(info.slice(1, 2));
-    const hoeksu = Number.parseInt(info.slice(2, 4), 10);
-    if (!hangul || !hanja || Number.isNaN(hoeksu)) {
-      continue;
-    }
-
-    const strokeElement = toElement(info.slice(4, 5));
-    const rootElement = toElement(info.slice(5, 6));
-    const pronunciationElement = CHOSUNG_ELEMENT[extractChosung(hangul)] ?? EARTH;
-    const pronunciationPolarityBit: 0 | 1 = isYangVowel(hangul) ? 1 : 0;
-    const strokePolarityBit: 0 | 1 = Math.abs(hoeksu) % 2 === 0 ? 0 : 1;
-    const radical = radicals.get(hanja) ?? "";
-
-    out.push({
-      hangul,
-      hanja,
-      meaning,
-      strokeCount: hoeksu,
-      strokeElement,
-      rootElement,
-      pronunciationElement,
-      pronunciationPolarityBit,
-      strokePolarityBit,
-      radical,
-      hoeksu,
-      hoeksuOhaeng: strokeElement,
-      jawonOhaeng: rootElement,
-      pronunciationOhaeng: pronunciationElement,
-      pronunciationEumyang: pronunciationPolarityBit,
-      hoeksuEumyang: strokePolarityBit,
-      boosoo: radical,
-      isSurname,
-    });
-  }
-  return out;
 }
 
 function buildIndex(entries: readonly HanjaEntry[], keyOf: (entry: HanjaEntry) => string): Map<string, HanjaEntry[]> {
@@ -110,20 +36,13 @@ function toFallback(korean: string, hanja: string, isSurname: boolean): HanjaEnt
     hangul,
     hanja: h,
     meaning: "",
-    strokeCount: DEFAULT_HOEKSU,
+    strokeCount: DEFAULT_STROKE_COUNT,
     strokeElement: EARTH,
     rootElement: EARTH,
     pronunciationElement: EARTH,
     pronunciationPolarityBit: 0,
     strokePolarityBit: 0,
     radical: "",
-    hoeksu: DEFAULT_HOEKSU,
-    hoeksuOhaeng: EARTH,
-    jawonOhaeng: EARTH,
-    pronunciationOhaeng: EARTH,
-    pronunciationEumyang: 0,
-    hoeksuEumyang: 0,
-    boosoo: "",
     isSurname,
   };
 }
@@ -177,12 +96,7 @@ export class InMemoryHanjaRepository implements HanjaRepository {
   }
 
   getHanjaStrokeCount(korean: string, hanja: string, isSurname: boolean): number {
-    const info = this.getHanjaInfo(korean, hanja, isSurname);
-    return info.strokeCount || DEFAULT_HOEKSU;
-  }
-
-  getHanjaHoeksuCount(korean: string, hanja: string, isSurname: boolean): number {
-    return this.getHanjaStrokeCount(korean, hanja, isSurname);
+    return this.getHanjaInfo(korean, hanja, isSurname).strokeCount;
   }
 
   getSurnamePairs(surname: string, surnameHanja: string): Pair[] {

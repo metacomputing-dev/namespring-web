@@ -1,4 +1,4 @@
-/**
+﻿/**
  * Script to parse the Hanja dictionary file and load it into a SQLite database.
  * Based on the logic provided in the Kotlin parser implementation.
  * Handles Hangul decomposition (Onset/Nucleus) and Naming Theory mappings.
@@ -23,12 +23,12 @@ const dictPath = path.resolve(__dirname, '../data/name_hanja_dict');
 const radicalPath = path.resolve(__dirname, '../data/radicals.txt'); // Boosoo data
 
 // Hangul decomposition maps
-const INITIALS = ['ㄱ', 'ㄲ', 'ㄴ', 'ㄷ', 'ㄸ', 'ㄹ', 'ㅁ', 'ㅂ', 'ㅃ', 'ㅅ', 'ㅆ', 'ㅇ', 'ㅈ', 'ㅉ', 'ㅊ', 'ㅋ', 'ㅌ', 'ㅍ', 'ㅎ'];
-const MEDIALS = ['ㅏ', 'ㅐ', 'ㅑ', 'ㅒ', 'ㅓ', 'ㅔ', 'ㅕ', 'ㅖ', 'ㅗ', 'ㅘ', 'ㅙ', 'ㅚ', 'ㅛ', 'ㅜ', 'ㅝ', 'ㅞ', 'ㅟ', 'ㅠ', 'ㅡ', 'ㅢ', 'ㅣ'];
+const INITIALS = ['??, '??, '??, '??, '??, '??, '??, '??, '??, '??, '??, '??, '??, '??, '??, '??, '??, '??, '??];
+const MEDIALS = ['??, '??, '??, '??, '??, '??, '??, '??, '??, '??, '??, '??, '??, '??, '??, '??, '??, '??, '??, '??, '??];
 
 /**
  * Mapping logic based on Kotlin 'when' block:
- * 1 -> 木 (Wood), 2 -> 火 (Fire), 3 -> 土 (Earth), 4 -> 金 (Metal), 5 -> 水 (Water)
+ * 1 -> ??(Wood), 2 -> ??(Fire), 3 -> ??(Earth), 4 -> ??(Metal), 5 -> 麗?(Water)
  * Typed as Record<string, string> to avoid indexing errors (ts7053).
  * @type {Record<string, string>}
  */
@@ -131,11 +131,11 @@ const startMigration = () => {
       const hangul = info[0];
       const hanja = info[1];
       
-      // info[2..3]: Strokes (Hoeksu)
+      // info[2..3]: Strokes (StrokeCount)
       const strokes = parseInt(info.substring(2, 4), 10) || 0;
       
-      // info[4]: Stroke Element (HoeksuOhaeng)
-      // info[5]: Resource Element (JawonOhaeng)
+      // info[4]: Stroke Element (StrokeElement)
+      // info[5]: Resource Element (RootElement)
       const strokeElementCode = info[4];
       const resourceElementCode = info[5];
 
@@ -171,3 +171,4 @@ const startMigration = () => {
 };
 
 startMigration();
+

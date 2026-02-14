@@ -1,75 +1,41 @@
-import type { EnergyCalculator } from './calculator/energy-calculator';
-import type { HanjaEntry } from './database/hanja-repository';
+﻿import type { EnergyCalculator } from "./calculator/energy-calculator.js";
+import type { HanjaEntry } from "./database/hanja-repository.js";
+import type { Element } from "./model/element.js";
+import type { Polarity } from "./model/polarity.js";
 
-/**
- * Represents the gender of the user.
- * Using a union type for strict type checking.
- */
-export type Gender = 'male' | 'female';
+export type Gender = "male" | "female" | "none";
+export type AnalysisType = "FourFrame" | "Sound" | "Hanja" | "Hangul";
 
-/**
- * Categorizes the types of analysis performed by the engine.
- */
-export type AnalysisType = 'FourFrame' | 'Hangul' | 'Hanja';
-
-/**
- * A structured representation of birth date and time.
- * This avoids the mutability and zero-indexing issues of the native JS Date object.
- */
 export interface BirthDateTime {
-  readonly year: number;   // e.g., 2024
-  readonly month: number;  // 1 to 12
-  readonly day: number;    // 1 to 31
-  readonly hour: number;   // 0 to 23
-  readonly minute: number; // 0 to 59
+  readonly year: number;
+  readonly month: number;
+  readonly day: number;
+  readonly hour: number;
+  readonly minute: number;
 }
 
-/**
- * Input data provided by the user for naming analysis.
- * Now contains HanjaEntry arrays to hold rich metadata for each character.
- */
 export interface UserInfo {
-  readonly lastName: HanjaEntry[];
-  readonly firstName: HanjaEntry[];
+  readonly surname: HanjaEntry[];
+  readonly givenName: HanjaEntry[];
   readonly birthDateTime: BirthDateTime;
   readonly gender: Gender;
 }
 
-/**
- * Represents the calculation result for a single name candidate.
- * Includes scores and detailed calculator instances based on naming theories.
- * Updated to use HanjaEntry[] for rich metadata support.
- */
 export interface NamingResult {
-  /**
-   * The last name (surname) and first name represented as HanjaEntry arrays
-   * to preserve stroke counts and elemental properties for each character.
-   */
-  readonly lastName: HanjaEntry[];
-  readonly firstName: HanjaEntry[];
-  /**
-   * The aggregated score based on various naming theories.
-   */
+  readonly surname: HanjaEntry[];
+  readonly givenName: HanjaEntry[];
   readonly totalScore: number;
-  /**
-   * Calculator instances containing detailed analysis for each theory.
-   */
-  readonly hanja: EnergyCalculator;
-  readonly hangul: EnergyCalculator;
-  readonly fourFrames: EnergyCalculator;
   readonly interpretation: string;
+  readonly hanja: EnergyCalculator;
+  readonly sound: EnergyCalculator;
+  readonly fourFrame: EnergyCalculator;
+  readonly summaryEnergy?: {
+    readonly element: Element;
+    readonly polarity: Polarity;
+  };
 }
 
-/**
- * The final top-level result object containing a collection of name candidates.
- */
 export interface SeedResult {
-  /**
-   * A list of name candidates calculated by the engine.
-   */
   readonly candidates: NamingResult[];
-  /**
-   * Total number of results found.
-   */
   readonly totalCount: number;
 }

@@ -1,33 +1,37 @@
-export { Seed, SeedTs } from "./seed.js";
+﻿export { Seed, SeedTs } from "./seed.js";
 
 export type {
   BirthInfo,
-  CategoryInsight,
-  Domain,
+  Char,
   Element,
   Energy,
-  EumYang,
   EvaluateRequest,
   FourFrame,
   Frame,
   FrameInsight,
   Gender,
+  HanjaChar,
   HanjaEntry,
   HanjaRepository,
+  HangulChar,
   Interpretation,
   LuckyLevel,
   NameInput,
   NameStatistics,
-  Ohaeng,
   Polarity,
   SearchRequest,
   SearchResult,
   SeedOptions,
   SeedResponse,
+  Sound,
   SqliteOptions,
   StatsRepository,
   Status,
 } from "./core/types.js";
+
+export type { SeedTsCandidate, SeedTsResult, SeedTsUserInfo } from "./engine/domain/naming.js";
+export { SeedEngine, SeedTsAnalyzer } from "./engine/application/index.js";
+export type { RuntimeContext, RuntimeContextFactory } from "./engine/ports/index.js";
 
 export { SqliteHanjaRepository } from "./core/sqlite-hanja-repository.js";
 export { SqliteStatsRepository } from "./core/sqlite-stats-repository.js";
