@@ -26,6 +26,8 @@ export abstract class EnergyCalculator {
 
   public abstract calculate(): void;
 
+  public abstract getScore(): number;
+
   public getEnergy(): Energy | null {
     return this.energy;
   }

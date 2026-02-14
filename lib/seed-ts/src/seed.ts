@@ -59,30 +59,6 @@ export class SeedTs {
     };
   }
 
-  private mockPolarScore(energy: Energy[]): number {
-    let scoreSum = 0;
-    energy.forEach(e => {
-      if(e.polarity === Polarity.Positive) {
-        scoreSum += 1;
-      } else {
-        scoreSum -= 1;
-      }
-    });
-    return energy.length - Math.abs(scoreSum);
-  }
-
-  private mockElementScore(energy: Energy[]): number {
-    let scoreSum = 0;
-    energy.forEach(e => {
-      if(e.element === Element.Wood) {
-        scoreSum += 1;
-      } else {
-        scoreSum -= 1;
-      }
-    });
-    return energy.length - Math.abs(scoreSum);
-  }
-
   /**
    * Calculates the final score by summing up the scores from each naming theory.
    * @param fourFrames Result of the Four Frames (Saju) calculation
@@ -94,7 +70,7 @@ export class SeedTs {
     hangul: HangulCalculator,
     hanja: HanjaCalculator
   ): number {
-
-     return 0;
+    // TODO Currently a simple sum, but can be weighted or adjusted based on calc. model in the future.
+    return fourFrames.getScore() + hangul.getScore() + hanja.getScore();
   }
 }

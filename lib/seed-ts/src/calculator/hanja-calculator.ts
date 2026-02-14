@@ -25,6 +25,8 @@ export class HanjaCalculator extends EnergyCalculator {
   };
 
   public readonly hanjaNameBlocks: InstanceType<typeof HanjaCalculator.NameBlock>[];
+  public polarityScore: number = 0;
+  public elementScore: number = 0;
 
   /**
    * Initializes Hanja units from provided HanjaEntry arrays.
@@ -52,6 +54,10 @@ export class HanjaCalculator extends EnergyCalculator {
     }
   }
 
+  public getScore(): number {
+    return Energy.getScore(this.hanjaNameBlocks.map(b => b.energy).filter((e): e is Energy => e !== null));
+  }
+
   /**
    * Returns the list of all Hanja units.
    */
@@ -77,6 +83,9 @@ export class HanjaCalculator extends EnergyCalculator {
             element: Element.get(entry.resource_element)
           };
         });
+        const energies = calculator.getNameBlocks().map(b => b.energy).filter((e): e is Energy => e !== null);
+        calculator.polarityScore = Energy.getPolarityScore(energies);
+        calculator.elementScore = Energy.getElementScore(energies);
       }
     }
 

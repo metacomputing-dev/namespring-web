@@ -23,8 +23,10 @@ export class HangulCalculator extends EnergyCalculator {
       public readonly position: number   // Zero-based index in the full name string
     ) {}
   };
-
+  
   public readonly hangulNameBlocks: InstanceType<typeof HangulCalculator.NameBlock>[];
+  public polarityScore: number = 0;
+  public elementScore: number = 0;
 
   /**
    * Initializes Hangul units using HanjaEntry arrays for consistency.
@@ -52,6 +54,10 @@ export class HangulCalculator extends EnergyCalculator {
     }
   }
 
+  public getScore(): number {
+    return Energy.getScore(this.hangulNameBlocks.map(b => b.energy).filter((e): e is Energy => e !== null));
+  }
+
   /**
    * Provides access to the list of Hangul name blocks.
    */
@@ -73,12 +79,13 @@ export class HangulCalculator extends EnergyCalculator {
           const entry = block.entry;
           
           block.energy = {
-            // Determine polarity based on the vowel (Nucleus) structure
             polarity: this.calculatePolarityFromVowel(entry.nucleus),
-            // Element is determined by the Hangul character's phonetic onset
             element: this.calculateElementFromOnset(entry.hangul)
           };
         });
+        const energies = calculator.getNameBlocks().map(b => b.energy).filter((e): e is Energy => e !== null);
+        calculator.polarityScore = Energy.getPolarityScore(energies);
+        calculator.elementScore = Energy.getElementScore(energies);
       }
     }
 
@@ -122,4 +129,8 @@ export class HangulCalculator extends EnergyCalculator {
       return Element.Water;
     }
   }
+}
+
+function clamp(arg0: number, arg1: number, arg2: number): number {
+  throw new Error('Function not implemented.');
 }
