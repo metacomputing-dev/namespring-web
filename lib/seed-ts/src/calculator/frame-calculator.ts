@@ -3,6 +3,7 @@ import type { Energy } from '../model/energy';
 import { Element } from '../model/element';
 import { Polarity } from '../model/polarity';
 import type { HanjaEntry } from '../database/hanja-repository';
+import { FourframeRepository } from '../database/fourframe-repository';
 
 /**
  * Calculator for the Four Frames (Won, Hyung, Lee, Jung) in naming theory.
@@ -11,21 +12,51 @@ import type { HanjaEntry } from '../database/hanja-repository';
  */
 export class FourFrameCalculator extends EnergyCalculator {
   public readonly type = "FourFrame";
+  private surnameStrokes: number[] = [];
+  private firstNameStrokes: number[] = [];
   
   /**
    * Represents an individual frame (Sagyuk) with its calculated stroke sum and energy.
    */
   public static Frame = class {
+    private static repository: FourframeRepository | null = null;
+    private static repositoryInitPromise: Promise<void> | null = null;
+
     // Stores the calculated energy (Polarity and Element)
     public energy: Energy | null = null;
+    public luckLevel: number = -1;
     
     constructor(
       public readonly type: 'won' | 'hyung' | 'lee' | 'jung',
       public readonly strokeSum: number // Total stroke count for this frame
-    ) {}
+    ) {
+      this.luckLevel = this.getLuckLevel(strokeSum);
+    }
+
+    public async getLuckLevel(index: number): Promise<number> {
+      if (this.luckLevel >= 0) {
+        return this.luckLevel;
+      }
+      
+      if (!FourFrameCalculator.Frame.repository) {
+        FourFrameCalculator.Frame.repository = new FourframeRepository();
+      }
+      if (!FourFrameCalculator.Frame.repositoryInitPromise) {
+        FourFrameCalculator.Frame.repositoryInitPromise = FourFrameCalculator.Frame.repository.init();
+      }
+
+      await FourFrameCalculator.Frame.repositoryInitPromise;
+      const entry = await FourFrameCalculator.Frame.repository.findByNumber(this.strokeSum);
+      const parsed = Number.parseInt(entry?.lucky_level ?? '0', 10);
+      this.luckLevel = Number.isNaN(parsed) ? 0 : parsed;
+      
+      return this.luckLevel;
+    }
+
   };
 
   public frames: InstanceType<typeof FourFrameCalculator.Frame>[];
+  public luckScore: number = 0;
 
   /**
    * Initializes the four frames using Hanja entries to derive total stroke counts.
@@ -37,15 +68,15 @@ export class FourFrameCalculator extends EnergyCalculator {
     super();
     // TODO replace it to a new visitor future
     // Extract stroke counts from the database entries
-    const surnameStrokes = surnameEntries.map(e => e.strokes);
-    const firstNameStrokes = firstNameEntries.map(e => e.strokes);
+    this.surnameStrokes = surnameEntries.map(e => e.strokes);
+    this.firstNameStrokes = firstNameEntries.map(e => e.strokes);
 
     // Calculate basic sums for internal logic
-    const totalSurname = surnameStrokes.reduce((acc, val) => acc + val, 0);
-    const totalFirstName = firstNameStrokes.reduce((acc, val) => acc + val, 0);
-    const firstCharOfName = firstNameStrokes[0] || 0;
-    const lastCharOfName = firstNameStrokes.length > 0 
-      ? firstNameStrokes[firstNameStrokes.length - 1] 
+    const totalSurname = this.surnameStrokes.reduce((acc, val) => acc + val, 0);
+    const totalFirstName = this.firstNameStrokes.reduce((acc, val) => acc + val, 0);
+    const firstCharOfName = this.firstNameStrokes[0] || 0;
+    const lastCharOfName = this.firstNameStrokes.length > 0 
+      ? this.firstNameStrokes[this.firstNameStrokes.length - 1] 
       : 0;
 
     // Internal calculation logic for Sagyuk (Four Frames)
@@ -80,6 +111,10 @@ export class FourFrameCalculator extends EnergyCalculator {
     }
   }
 
+  public getScore(): number {
+    return Energy.getScore(this.frames.map(f => f.energy).filter((e): e is Energy => e !== null));
+  }
+
   /**
    * Returns the list of all frames.
    */
@@ -104,6 +139,10 @@ export class FourFrameCalculator extends EnergyCalculator {
 
     public visit(calculator: EnergyCalculator): void {
       if (calculator instanceof FourFrameCalculator) {
+        this.calculateFourFrameNumbersFromStrokes(calculator, 
+          calculator.surnameStrokes, 
+          calculator.firstNameStrokes);
+
         // Calculate energy attributes for every frame in the calculator
         calculator.getFrames().forEach(frame => {
           frame.energy = {
@@ -112,11 +151,44 @@ export class FourFrameCalculator extends EnergyCalculator {
             element: this.calculateElementFromDigit(frame.strokeSum)
           };
         });
+        
+        // TODO Implement calculation model in future.
+        const frameScore = this.calculateFourFrameElementScore(calculator.getFrames()) * 50;
+        let localLuckScoreSum = 0;
+        let avrFrameLuckScore = 0;
+        calculator.getFrames().forEach(frame => {
+          localLuckScoreSum += frame.luckLevel * 10;
+        });
+        avrFrameLuckScore = localLuckScoreSum / calculator.getFrames().length;
+        calculator.luckScore = frameScore + avrFrameLuckScore;
       }
     }
 
     public postVisit(calculator: EnergyCalculator): void {
       // Finalization after all frames are processed
+    }
+
+    // TODO temporal logic
+    public calculateFourFrameElementScore(frames: FourFrameCalculator.Frame[]): number {
+      let energies = frames.map(b => b.energy).filter((e): e is Energy => e !== null);
+
+      // loop energies in 0 .. length-2 to calculate element score based on the relationship between adjacent blocks
+      for(let i = 0; i < energies.length - 1; i++) {
+        const current = energies[i];
+        const next = energies[i + 1];
+        
+        if (current.element.isOvercoming(next.element)) {
+          return 0;
+        }
+      }
+
+      const first = energies[0].element;
+      const last = energies[energies.length - 1].element;
+      if (first.isOvercoming(last)) {
+        return 0;
+      }
+
+      return 1;
     }
 
     /**
