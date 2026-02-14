@@ -7,7 +7,7 @@ import type {
 } from "./types.js";
 import { normalizeText } from "./utils.js";
 import { resolveIndexKeyFromFirstBlock, resolveIndexKeyFromName } from "./stats/index-map.js";
-import { blockMatchesAt, matchesFirstBlock } from "./stats/name-block-matcher.js";
+import { allBlocksMatch, matchesFirstBlock } from "./stats/name-block-matcher.js";
 import { createSqliteStatsCache, type SqliteStatsCache } from "./stats/sqlite-cache.js";
 import { SqliteCombinationLoader } from "./stats/sqlite-combination-loader.js";
 import {
@@ -97,19 +97,7 @@ export class SqliteStatsRepository implements StatsRepository {
       }
 
       for (const combination of combinations) {
-        if (!matchesFirstBlock(first, combination.korean)) {
-          continue;
-        }
-        const nameChars = Array.from(combination.korean);
-        const hanjaChars = Array.from(combination.hanja);
-        let ok = true;
-        for (let i = 0; i < length; i += 1) {
-          if (!blockMatchesAt(blocks[i] as NameBlock, nameChars[i] ?? "", hanjaChars[i] ?? "")) {
-            ok = false;
-            break;
-          }
-        }
-        if (ok) {
+        if (matchesFirstBlock(first, combination.korean) && allBlocksMatch(blocks, combination.korean, combination.hanja)) {
           out.push(combination);
         }
       }

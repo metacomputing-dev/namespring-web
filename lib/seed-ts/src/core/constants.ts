@@ -111,9 +111,18 @@ export const ELEMENT_INDEX: Record<Element, number> = {
   "水": 4,
 };
 
+export const POLARITY_EUM: Polarity = "陰";
+export const POLARITY_YANG: Polarity = "陽";
+
 export const DEFAULT_POLARITY_BY_BIT: Record<0 | 1, Polarity> = {
-  0: "陰",
-  1: "陽",
+  0: POLARITY_EUM,
+  1: POLARITY_YANG,
+};
+
+export const FALLBACK_ELEMENT: Element = "水";
+
+export const EMPTY_ELEMENT_DISTRIBUTION: Readonly<Record<Element, number>> = {
+  "木": 0, "火": 0, "土": 0, "金": 0, "水": 0,
 };
 
 export const CHEONGAN_ELEMENT: Record<string, Element> = {

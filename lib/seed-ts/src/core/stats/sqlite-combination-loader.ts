@@ -2,7 +2,7 @@ import { MAX_STROKE_KEYS_FOR_SQL_IN } from "../constants.js";
 import type { SqliteDatabase, SqliteStatement } from "../sqlite-runtime.js";
 import type { NameBlock, NameCombination } from "../types.js";
 import {
-  blockMatchesAt,
+  allBlocksMatch,
   isChosungOnly,
   isCompleteKorean,
   isJungsungOnly,
@@ -106,11 +106,9 @@ export class SqliteCombinationLoader {
   }
 
   private filterCombinationsByBlocks(fileId: string, blocks: NameBlock[], length: number): NameCombination[] {
-    return this.loadCombinations(fileId, length).filter((combination) => {
-      const nameChars = Array.from(combination.korean);
-      const hanjaChars = Array.from(combination.hanja);
-      return blocks.every((block, idx) => blockMatchesAt(block, nameChars[idx] ?? "", hanjaChars[idx] ?? ""));
-    });
+    return this.loadCombinations(fileId, length).filter(
+      (combination) => allBlocksMatch(blocks, combination.korean, combination.hanja),
+    );
   }
 
   private appendStrokeKeyFilter(clauses: string[], params: unknown[], strokeKeys?: ReadonlySet<string>): void {

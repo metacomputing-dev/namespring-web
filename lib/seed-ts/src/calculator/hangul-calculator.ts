@@ -1,4 +1,10 @@
-import { CHOSUNG_ELEMENT, YANG_VOWELS } from "../core/constants.js";
+import {
+  CHOSUNG_ELEMENT,
+  FALLBACK_ELEMENT,
+  POLARITY_EUM,
+  POLARITY_YANG,
+  YANG_VOWELS,
+} from "../core/constants.js";
 import { extractChosung, extractJungsung } from "../core/hangul.js";
 import type { Element, Energy, HanjaEntry, Polarity } from "../core/types.js";
 import { isPolarityBit, polarityFromBit, toEnergy } from "./energy-support.js";
@@ -15,7 +21,7 @@ function resolveElement(entry: HanjaEntry): Element {
     return entry.pronunciationElement;
   }
   const onset = extractChosung(entry.hangul);
-  return (CHOSUNG_ELEMENT[onset] ?? "\u6C34") as Element;
+  return (CHOSUNG_ELEMENT[onset] ?? FALLBACK_ELEMENT) as Element;
 }
 
 function resolvePolarity(entry: HanjaEntry): Polarity {
@@ -23,7 +29,7 @@ function resolvePolarity(entry: HanjaEntry): Polarity {
     return polarityFromBit(entry.pronunciationPolarityBit);
   }
   const vowel = extractJungsung(entry.hangul);
-  return YANG_VOWELS.has(vowel) ? "\u967D" : "\u9670";
+  return YANG_VOWELS.has(vowel) ? POLARITY_YANG : POLARITY_EUM;
 }
 
 export class HangulCalculator extends NameSequenceCalculator<SoundChar> {

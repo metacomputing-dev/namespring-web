@@ -7,6 +7,7 @@ import {
   type SajuAnalysis,
 } from "@metaintelligence/saju";
 
+import { ELEMENT_ORDER, EMPTY_ELEMENT_DISTRIBUTION } from "../constants.js";
 import type { Element, Gender } from "../types.js";
 import type {
   SajuCalculationInputSummary,
@@ -23,11 +24,11 @@ import type {
 import type { BirthInfo } from "../types.js";
 
 const OHAENG_TO_ELEMENT: Record<Ohaeng, Element> = {
-  [Ohaeng.WOOD]: "\u6728",
-  [Ohaeng.FIRE]: "\u706B",
-  [Ohaeng.EARTH]: "\u571F",
-  [Ohaeng.METAL]: "\u91D1",
-  [Ohaeng.WATER]: "\u6C34",
+  [Ohaeng.WOOD]: ELEMENT_ORDER[0],
+  [Ohaeng.FIRE]: ELEMENT_ORDER[1],
+  [Ohaeng.EARTH]: ELEMENT_ORDER[2],
+  [Ohaeng.METAL]: ELEMENT_ORDER[3],
+  [Ohaeng.WATER]: ELEMENT_ORDER[4],
 };
 
 type TenGodGroup = keyof SajuTenGodGroupCountsSummary;
@@ -44,13 +45,9 @@ const EMPTY_TEN_GOD_GROUP_COUNTS: SajuTenGodGroupCountsSummary = {
 const TEN_GOD_GROUP_KEYS: TenGodGroup[] = ["friend", "output", "wealth", "authority", "resource"];
 
 export function cloneDistribution(distribution: Record<Element, number>): Record<Element, number> {
-  return {
-    "\u6728": distribution["\u6728"] ?? 0,
-    "\u706B": distribution["\u706B"] ?? 0,
-    "\u571F": distribution["\u571F"] ?? 0,
-    "\u91D1": distribution["\u91D1"] ?? 0,
-    "\u6C34": distribution["\u6C34"] ?? 0,
-  };
+  return Object.fromEntries(
+    ELEMENT_ORDER.map((element) => [element, distribution[element] ?? 0]),
+  ) as Record<Element, number>;
 }
 
 function cloneTenGodGroupCounts(
@@ -65,26 +62,21 @@ function cloneTenGodGroupCounts(
   };
 }
 
+const TEN_GOD_GROUP_MAP: Record<string, TenGodGroup> = {
+  BI_GYEON: "friend",
+  GYEOB_JAE: "friend",
+  SIK_SIN: "output",
+  SANG_GWAN: "output",
+  PYEON_JAE: "wealth",
+  JEONG_JAE: "wealth",
+  PYEON_GWAN: "authority",
+  JEONG_GWAN: "authority",
+  PYEON_IN: "resource",
+  JEONG_IN: "resource",
+};
+
 function toTenGodGroup(value: string): TenGodGroup | null {
-  switch (value) {
-    case "BI_GYEON":
-    case "GYEOB_JAE":
-      return "friend";
-    case "SIK_SIN":
-    case "SANG_GWAN":
-      return "output";
-    case "PYEON_JAE":
-    case "JEONG_JAE":
-      return "wealth";
-    case "PYEON_GWAN":
-    case "JEONG_GWAN":
-      return "authority";
-    case "PYEON_IN":
-    case "JEONG_IN":
-      return "resource";
-    default:
-      return null;
-  }
+  return TEN_GOD_GROUP_MAP[value] ?? null;
 }
 
 export function toDayMasterSummary(analysis: SajuAnalysis): SajuDayMasterSummary {
@@ -137,15 +129,7 @@ export function fromOhaengDistribution(ohaengDistribution: Map<Ohaeng, number> |
     return null;
   }
 
-  const EMPTY_DISTRIBUTION: Record<Element, number> = {
-    "\u6728": 0,
-    "\u706B": 0,
-    "\u571F": 0,
-    "\u91D1": 0,
-    "\u6C34": 0,
-  };
-
-  const distribution = cloneDistribution(EMPTY_DISTRIBUTION);
+  const distribution = cloneDistribution(EMPTY_ELEMENT_DISTRIBUTION as Record<Element, number>);
   for (const [ohaeng, count] of ohaengDistribution.entries()) {
     const element = OHAENG_TO_ELEMENT[ohaeng];
     distribution[element] = count;

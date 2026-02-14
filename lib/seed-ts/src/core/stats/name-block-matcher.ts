@@ -90,3 +90,9 @@ export function blockMatchesAt(block: NameBlock, nameChar: string, hanjaChar: st
   const hanjaOk = block.hanja.length === 0 || block.hanja === "_" || block.hanja === hanjaChar;
   return matchesKorean(block, nameChar) && hanjaOk;
 }
+
+export function allBlocksMatch(blocks: readonly NameBlock[], korean: string, hanja: string): boolean {
+  const nameChars = Array.from(korean);
+  const hanjaChars = Array.from(hanja);
+  return blocks.every((block, idx) => blockMatchesAt(block, nameChars[idx] ?? "", hanjaChars[idx] ?? ""));
+}
