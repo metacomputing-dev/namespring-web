@@ -65,7 +65,7 @@ export function computeOptimalSorted(initial: number[], resourceCount: number): 
   const sortedCounts = [...initial].sort((a, b) => a - b);
   let remaining = resourceCount;
   let level = 0;
-  while (level < 4 && remaining > 0) {
+  while (level < ELEMENT_KEYS.length - 1 && remaining > 0) {
     const curr = sortedCounts[level] ?? 0;
     const next = sortedCounts[level + 1] ?? curr;
     const width = level + 1;

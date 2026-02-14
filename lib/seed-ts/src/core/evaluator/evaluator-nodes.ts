@@ -378,31 +378,55 @@ const STRICT_FRAMES: Frame[] = [
   "BALEUM_OHAENG", "BALEUM_EUMYANG", "SAGYEOK_OHAENG",
 ];
 
-function evaluateStrictPass(ctx: EvaluationPipelineContext, weightedScore: number): boolean {
-  return STRICT_FRAMES.every((frame) => mustInsight(ctx, frame).isPassed) &&
-    weightedScore >= NODE_STRICT_PASS_THRESHOLD;
+interface PassPolicy {
+  mode: "adaptive" | "strict";
+  sajuPriority: number;
+  allowedFailures: number;
+  threshold: number;
+  relaxableFailures: string[];
+  isPassed: boolean;
 }
 
-function evaluateAdaptivePass(
+function evaluatePassPolicy(
   ctx: EvaluationPipelineContext,
   signals: AdjustedSignal[],
   weightedScore: number,
   sajuPriority: number,
-): boolean {
-  const allowedFailures = sajuPriority >= NODE_ADAPTIVE_TWO_FAILURES_THRESHOLD ? 2 : 1;
-  const threshold = NODE_STRICT_PASS_THRESHOLD - NODE_ADAPTIVE_THRESHOLD_REDUCTION * sajuPriority;
+): PassPolicy {
+  const adaptiveMode = sajuPriority >= NODE_ADAPTIVE_MODE_THRESHOLD;
   const relaxableFailures = signals.filter(
     (s) => RELAXABLE_FRAMES.has(s.frame as RelaxableFrame) && !s.isPassed,
   );
-  const sajuInsight = mustInsight(ctx, "SAJU_JAWON_BALANCE");
-  const fourFrameInsight = mustInsight(ctx, "SAGYEOK_SURI");
-  return (
-    sajuInsight.isPassed &&
-    fourFrameInsight.score >= NODE_MANDATORY_GATE_SCORE &&
-    weightedScore >= threshold &&
-    !relaxableFailures.some((s) => s.score < NODE_SEVERE_FAILURE_THRESHOLD) &&
-    relaxableFailures.length <= allowedFailures
-  );
+  const allowedFailures = adaptiveMode
+    ? (sajuPriority >= NODE_ADAPTIVE_TWO_FAILURES_THRESHOLD ? 2 : 1)
+    : 0;
+  const threshold = adaptiveMode
+    ? NODE_STRICT_PASS_THRESHOLD - NODE_ADAPTIVE_THRESHOLD_REDUCTION * sajuPriority
+    : NODE_STRICT_PASS_THRESHOLD;
+
+  let isPassed: boolean;
+  if (adaptiveMode) {
+    const sajuInsight = mustInsight(ctx, "SAJU_JAWON_BALANCE");
+    const fourFrameInsight = mustInsight(ctx, "SAGYEOK_SURI");
+    isPassed =
+      sajuInsight.isPassed &&
+      fourFrameInsight.score >= NODE_MANDATORY_GATE_SCORE &&
+      weightedScore >= threshold &&
+      !relaxableFailures.some((s) => s.score < NODE_SEVERE_FAILURE_THRESHOLD) &&
+      relaxableFailures.length <= allowedFailures;
+  } else {
+    isPassed = STRICT_FRAMES.every((frame) => mustInsight(ctx, frame).isPassed) &&
+      weightedScore >= NODE_STRICT_PASS_THRESHOLD;
+  }
+
+  return {
+    mode: adaptiveMode ? "adaptive" : "strict",
+    sajuPriority,
+    allowedFailures,
+    threshold,
+    relaxableFailures: relaxableFailures.map((s) => s.frame),
+    isPassed,
+  };
 }
 
 function buildContributions(signals: AdjustedSignal[]): Record<string, unknown> {
@@ -439,33 +463,19 @@ export function createRootNode(): CalculatorNode<EvaluationPipelineContext> {
     backward(ctx, childPackets): { nodeId: string; signals: CalculatorSignal[] } {
       const weightedSignals = flattenSignals(childPackets).filter((s) => s.weight > 0);
       const sajuPriority = extractSajuPriority(ctx);
-      const adaptiveMode = sajuPriority >= NODE_ADAPTIVE_MODE_THRESHOLD;
       const adjusted = adjustSignals(weightedSignals, sajuPriority);
       const weightedScore = computeWeightedScore(adjusted);
+      const policy = evaluatePassPolicy(ctx, adjusted, weightedScore, sajuPriority);
 
-      const rootPassed = adaptiveMode
-        ? evaluateAdaptivePass(ctx, adjusted, weightedScore, sajuPriority)
-        : evaluateStrictPass(ctx, weightedScore);
-
-      const relaxableFailures = adjusted.filter(
-        (s) => RELAXABLE_FRAMES.has(s.frame as RelaxableFrame) && !s.isPassed,
-      );
-      const allowedFailures = adaptiveMode
-        ? (sajuPriority >= NODE_ADAPTIVE_TWO_FAILURES_THRESHOLD ? 2 : 1)
-        : 0;
-      const threshold = adaptiveMode
-        ? NODE_STRICT_PASS_THRESHOLD - NODE_ADAPTIVE_THRESHOLD_REDUCTION * sajuPriority
-        : NODE_STRICT_PASS_THRESHOLD;
-
-      const seongmyeonghak = createInsight("SEONGMYEONGHAK", weightedScore, rootPassed, "ROOT", {
+      const seongmyeonghak = createInsight("SEONGMYEONGHAK", weightedScore, policy.isPassed, "ROOT", {
         contributions: buildContributions(adjusted),
         failedFrames: adjusted.filter((s) => !s.isPassed).map((s) => s.frame),
         adaptivePolicy: {
-          mode: adaptiveMode ? "adaptive" : "strict",
-          sajuPriority,
-          allowedFailures,
-          threshold,
-          relaxableFailures: relaxableFailures.map((s) => s.frame),
+          mode: policy.mode,
+          sajuPriority: policy.sajuPriority,
+          allowedFailures: policy.allowedFailures,
+          threshold: policy.threshold,
+          relaxableFailures: policy.relaxableFailures,
         },
       });
       setInsight(ctx, seongmyeonghak);

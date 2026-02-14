@@ -5,6 +5,14 @@ const HANGUL_END = 0xd7a3;
 const CHOSUNG_DIVIDER = 21 * 28;
 const JUNGSUNG_DIVIDER = 28;
 
+function hangulOffset(char: string): number {
+  const code = char.codePointAt(0);
+  if (code === undefined || code < HANGUL_BASE || code > HANGUL_END) {
+    return -1;
+  }
+  return code - HANGUL_BASE;
+}
+
 export function extractChosung(char: string): string {
   if (!char) {
     return "";
@@ -12,24 +20,22 @@ export function extractChosung(char: string): string {
   if (CHOSUNG_LIST.includes(char as (typeof CHOSUNG_LIST)[number])) {
     return char;
   }
-  const code = char.codePointAt(0);
-  if (code === undefined || code < HANGUL_BASE || code > HANGUL_END) {
+  const offset = hangulOffset(char);
+  if (offset < 0) {
     return "";
   }
-  const idx = Math.floor((code - HANGUL_BASE) / CHOSUNG_DIVIDER);
-  return CHOSUNG_LIST[idx] ?? "";
+  return CHOSUNG_LIST[Math.floor(offset / CHOSUNG_DIVIDER)] ?? "";
 }
 
 export function extractJungsung(char: string): string {
   if (!char) {
     return "";
   }
-  const code = char.codePointAt(0);
-  if (code === undefined || code < HANGUL_BASE || code > HANGUL_END) {
+  const offset = hangulOffset(char);
+  if (offset < 0) {
     return "";
   }
-  const idx = Math.floor(((code - HANGUL_BASE) % CHOSUNG_DIVIDER) / JUNGSUNG_DIVIDER);
-  return JUNGSUNG_LIST[idx] ?? "";
+  return JUNGSUNG_LIST[Math.floor((offset % CHOSUNG_DIVIDER) / JUNGSUNG_DIVIDER)] ?? "";
 }
 
 export function isYangVowel(char: string): boolean {
