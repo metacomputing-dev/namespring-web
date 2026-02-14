@@ -1,12 +1,15 @@
 import React, { useState, useEffect, useMemo } from 'react';
 import { SeedTs } from "@seed/seed";
 import { HanjaRepository } from '@seed/database/hanja-repository';
-import InputForm from './InputForm';
-import NamingReport from './NamingReport';
 import DevDbViewer from './DevDbViewer';
 import DevHanjaDbViewer from './DevHanjaDbViewer';
 import DevNameStatDbViewer from './DevNameStatDbViewer';
 import SplashScreen from './SplashScreen';
+import FadeTransition from './FadeTransition';
+import AppBackground from './ui/AppBackground';
+import HomePage from './HomePage';
+import ReportPage from './ReportPage';
+import InputForm from './InputForm';
 
 function App() {
   const tool = new URLSearchParams(window.location.search).get("tool");
@@ -14,23 +17,19 @@ function App() {
   const isDevHanjaViewerMode = import.meta.env.DEV && tool === "hanja-db-viewer";
   const isDevNameStatViewerMode = import.meta.env.DEV && tool === "name-stat-db-viewer";
 
-  if (isDevSagyeoksuViewerMode) {
-    return <DevDbViewer />;
-  }
-  if (isDevHanjaViewerMode) {
-    return <DevHanjaDbViewer />;
-  }
-  if (isDevNameStatViewerMode) {
-    return <DevNameStatDbViewer />;
-  }
-
   const [isDbReady, setIsDbReady] = useState(false);
   const [showSplash, setShowSplash] = useState(true);
-  const [splashVisible, setSplashVisible] = useState(false);
   const [minSplashElapsed, setMinSplashElapsed] = useState(false);
+  const [page, setPage] = useState('entry');
+  const [entryUserInfo, setEntryUserInfo] = useState(() => {
+    try {
+      const raw = sessionStorage.getItem('namespring_entry_user_info');
+      return raw ? JSON.parse(raw) : null;
+    } catch {
+      return null;
+    }
+  });
   const hanjaRepo = useMemo(() => new HanjaRepository(), []);
-
-  const [analysisResult, setAnalysisResult] = useState(null);
 
   // DB Initialization
   useEffect(() => {
@@ -39,56 +38,112 @@ function App() {
 
   useEffect(() => {
     if (!showSplash) return;
-    const fadeInTimer = window.setTimeout(() => setSplashVisible(true), 20);
     const minTimer = window.setTimeout(() => setMinSplashElapsed(true), 1000);
     return () => {
-      window.clearTimeout(fadeInTimer);
       window.clearTimeout(minTimer);
     };
   }, [showSplash]);
 
   useEffect(() => {
     if (!showSplash || !isDbReady || !minSplashElapsed) return;
-    const fadeOutTimer = window.setTimeout(() => setSplashVisible(false), 100);
-    const unmountTimer = window.setTimeout(() => setShowSplash(false), 420);
-    return () => {
-      window.clearTimeout(fadeOutTimer);
-      window.clearTimeout(unmountTimer);
-    };
+    setShowSplash(false);
   }, [showSplash, isDbReady, minSplashElapsed]);
 
   const handleAnalyze = (userInfo) => {
     const engine = new SeedTs();
-    const result = engine.analyze(userInfo);
-    setAnalysisResult(result);
+    return engine.analyze(userInfo);
   };
 
-  if (showSplash) {
-    return <SplashScreen visible={splashVisible} />;
+  const getView = () => {
+    if (showSplash) {
+      return { key: 'splash', node: <SplashScreen /> };
+    }
+
+    if (!isDbReady) {
+      return {
+        key: 'loading',
+        node: (
+          <AppBackground>
+            <div className="min-h-screen flex items-center justify-center font-sans">
+              <div className="text-center animate-pulse">
+                <div className="w-16 h-16 bg-[var(--ns-primary)] rounded-full mb-4 mx-auto shadow-xl"></div>
+                <p className="text-[var(--ns-muted)] font-black tracking-widest text-[10px] uppercase">Loading Engine...</p>
+              </div>
+            </div>
+          </AppBackground>
+        ),
+      };
+    }
+
+    if (page === 'entry') {
+      return {
+        key: 'entry',
+        node: (
+          <AppBackground>
+            <div className="min-h-screen flex flex-col items-center p-6 font-sans text-[var(--ns-text)]">
+              <div className="bg-[var(--ns-surface)] p-10 rounded-[3rem] shadow-2xl border border-[var(--ns-border)] w-full max-w-2xl overflow-hidden">
+                <header className="mb-8 text-center">
+                  <h1 className="text-3xl font-black text-[var(--ns-accent-text)]">입장 정보</h1>
+                  <p className="text-[var(--ns-muted)] text-sm font-semibold">입력을 마치면 홈으로 이동해요.</p>
+                </header>
+                <InputForm
+                  hanjaRepo={hanjaRepo}
+                  isDbReady={isDbReady}
+                  onEnter={(userInfo) => {
+                    setEntryUserInfo(userInfo);
+                    try {
+                      sessionStorage.setItem('namespring_entry_user_info', JSON.stringify(userInfo));
+                    } catch {}
+                    setPage('home');
+                  }}
+                  submitLabel="입장하기"
+                />
+              </div>
+            </div>
+          </AppBackground>
+        ),
+      };
+    }
+
+    if (page === 'home') {
+      return {
+        key: 'home',
+        node: (
+          <AppBackground>
+            <HomePage onOpenReport={() => setPage('report')} />
+          </AppBackground>
+        ),
+      };
+    }
+
+    return {
+      key: 'report',
+      node: (
+        <AppBackground>
+          <ReportPage
+            hanjaRepo={hanjaRepo}
+            isDbReady={isDbReady}
+            onAnalyze={handleAnalyze}
+            initialUserInfo={entryUserInfo}
+            onBackHome={() => setPage('home')}
+          />
+        </AppBackground>
+      ),
+    };
+  };
+
+  if (isDevSagyeoksuViewerMode) {
+    return <FadeTransition transitionKey="dev-fourframe"><AppBackground><DevDbViewer /></AppBackground></FadeTransition>;
+  }
+  if (isDevHanjaViewerMode) {
+    return <FadeTransition transitionKey="dev-hanja"><AppBackground><DevHanjaDbViewer /></AppBackground></FadeTransition>;
+  }
+  if (isDevNameStatViewerMode) {
+    return <FadeTransition transitionKey="dev-name-stat"><AppBackground><DevNameStatDbViewer /></AppBackground></FadeTransition>;
   }
 
-  if (!isDbReady) return (
-    <div className="min-h-screen flex items-center justify-center bg-slate-50 font-sans">
-      <div className="text-center animate-pulse">
-        <div className="w-16 h-16 bg-indigo-600 rounded-full mb-4 mx-auto shadow-xl"></div>
-        <p className="text-slate-400 font-black tracking-widest text-[10px] uppercase">Loading Engine...</p>
-      </div>
-    </div>
-  );
-
-  return (
-    <div className="min-h-screen bg-slate-50 flex flex-col items-center p-6 font-sans">
-      <div className="bg-white p-10 rounded-[3rem] shadow-2xl border border-slate-100 w-full max-w-2xl overflow-hidden">
-        <header className="mb-12 text-center">
-          <h1 className="text-4xl font-black text-indigo-600 mb-2">이름봄</h1>
-          <p className="text-slate-400 font-bold uppercase tracking-widest text-[10px]">Professional Naming Analysis</p>
-        </header>
-
-        {!analysisResult && <InputForm hanjaRepo={hanjaRepo} isDbReady={isDbReady} onAnalyze={handleAnalyze} />}
-        {analysisResult && <NamingReport result={analysisResult.candidates[0]} onNewAnalysis={() => setAnalysisResult(null)} />}
-      </div>
-    </div>
-  );
+  const view = getView();
+  return <FadeTransition transitionKey={view.key}>{view.node}</FadeTransition>;
 }
 
 export default App;
