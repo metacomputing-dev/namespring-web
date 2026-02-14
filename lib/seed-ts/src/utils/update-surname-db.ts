@@ -79,7 +79,7 @@ const updateSurnames = () => {
       }
       
       // Verification query to see how many rows were actually marked
-      db.get("SELECT COUNT(*) as count FROM hanjas WHERE is_surname = 1", (err, row) => {
+      db.get("SELECT COUNT(*) as count FROM hanjas WHERE is_surname = 1", (err, row: { count: number } | undefined) => {
         if (!err && row) {
           console.log(`Current total surnames in database: ${row.count}`);
         }

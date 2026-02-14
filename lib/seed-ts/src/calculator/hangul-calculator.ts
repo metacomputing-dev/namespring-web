@@ -1,5 +1,5 @@
 import { EnergyCalculator, type EnergyVisitor } from './energy-calculator';
-import type { Energy } from '../model/energy';
+import { Energy } from '../model/energy';
 import { Element } from '../model/element';
 import { Polarity } from '../model/polarity';
 import type { HanjaEntry } from '../database/hanja-repository';

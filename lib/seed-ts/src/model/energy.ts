@@ -11,7 +11,7 @@ export class Energy {
   }
 
   public static getScore(energies: Energy[]): number {
-    return getPolarityScore(energies) * 0.5 + getElementScore(energies) * 0.5;
+    return Energy.getPolarityScore(energies) * 0.5 + Energy.getElementScore(energies) * 0.5;
   }
 
   public static getPolarityScore(energies: Energy[]): number {
@@ -29,10 +29,6 @@ export class Energy {
   
   
   public static getElementScore(energies: Energy[]): number {
-    let scoreSum = 0;
-    let blocks = calculator.getNameBlocks();
-    let energies = blocks.map(b => b.energy).filter((e): e is Energy => e !== null);
-
     let genCount = 0;
     let overCount = 0;
     let sameCount = 0;
@@ -51,6 +47,7 @@ export class Energy {
       }
     }
 
-    return clamp(70 + genCount * 15 - overCount * 20 - sameCount * 5, 0, 100);
+    const score = 70 + genCount * 15 - overCount * 20 - sameCount * 5;
+    return Math.min(100, Math.max(0, score));
   }
 }
