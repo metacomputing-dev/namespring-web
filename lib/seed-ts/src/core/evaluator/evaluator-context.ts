@@ -25,10 +25,6 @@ import type {
 
 export const SIGNAL_WEIGHT_MAJOR = 0.2;
 export const SIGNAL_WEIGHT_MINOR = 0.15;
-/** @deprecated Use SIGNAL_WEIGHT_MAJOR */
-export const W_MAJOR = SIGNAL_WEIGHT_MAJOR;
-/** @deprecated Use SIGNAL_WEIGHT_MINOR */
-export const W_MINOR = SIGNAL_WEIGHT_MINOR;
 
 export const ELEMENT_KEYS: Element[] = ["\u6728", "\u706B", "\u571F", "\u91D1", "\u6C34"];
 

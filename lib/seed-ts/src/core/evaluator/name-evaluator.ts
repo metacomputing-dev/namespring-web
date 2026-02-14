@@ -27,6 +27,22 @@ import {
   type SajuDistributionResolution,
 } from "./saju-distribution-resolver.js";
 
+const UNIQUE_FRAMES: Frame[] = [
+  "SEONGMYEONGHAK", "SAGYEOK_SURI", "SAJU_JAWON_BALANCE",
+  "HOEKSU_EUMYANG", "BALEUM_OHAENG", "BALEUM_EUMYANG",
+  "SAGYEOK_OHAENG", "HOEKSU_OHAENG", "STATISTICS",
+];
+
+const FRAME_ALIASES: [Frame, Frame][] = [
+  ["JAWON_OHAENG", "HOEKSU_OHAENG"],
+  ["EUMYANG", "HOEKSU_EUMYANG"],
+];
+
+const ORDERED_FRAMES: Frame[] = [
+  "SEONGMYEONGHAK", "SAGYEOK_SURI", "SAJU_JAWON_BALANCE",
+  "HOEKSU_EUMYANG", "BALEUM_OHAENG", "BALEUM_EUMYANG", "SAGYEOK_OHAENG",
+];
+
 function buildBirthCacheKey(birth: BirthInfo | undefined, gender: Gender | undefined): string | null {
   if (!birth) {
     return null;
@@ -107,39 +123,15 @@ export class NameEvaluator {
 
     executeCalculatorNode(createRootNode(), ctx);
 
-    const seongmyeonghak = mustInsight(ctx, "SEONGMYEONGHAK");
-    const fourFrameNumberInsight = mustInsight(ctx, "SAGYEOK_SURI");
-    const sajuInsight = mustInsight(ctx, "SAJU_JAWON_BALANCE");
-    const strokePolarityInsight = mustInsight(ctx, "HOEKSU_EUMYANG");
-    const pronunciationElementInsight = mustInsight(ctx, "BALEUM_OHAENG");
-    const pronunciationPolarityInsight = mustInsight(ctx, "BALEUM_EUMYANG");
-    const fourFrameElementInsight = mustInsight(ctx, "SAGYEOK_OHAENG");
-    const strokeElementInsight = mustInsight(ctx, "HOEKSU_OHAENG");
-    const statistics = mustInsight(ctx, "STATISTICS");
+    const categoryMap = Object.fromEntries(
+      UNIQUE_FRAMES.map((frame) => [frame, mustInsight(ctx, frame)]),
+    ) as Record<Frame, FrameInsight>;
+    for (const [alias, target] of FRAME_ALIASES) {
+      categoryMap[alias] = categoryMap[target];
+    }
 
-    const categoryMap: Record<Frame, FrameInsight> = {
-      SEONGMYEONGHAK: seongmyeonghak,
-      SAGYEOK_SURI: fourFrameNumberInsight,
-      SAGYEOK_OHAENG: fourFrameElementInsight,
-      HOEKSU_OHAENG: strokeElementInsight,
-      HOEKSU_EUMYANG: strokePolarityInsight,
-      BALEUM_OHAENG: pronunciationElementInsight,
-      BALEUM_EUMYANG: pronunciationPolarityInsight,
-      SAJU_JAWON_BALANCE: sajuInsight,
-      STATISTICS: statistics,
-      JAWON_OHAENG: strokeElementInsight,
-      EUMYANG: strokePolarityInsight,
-    };
-
-    const orderedCategories: FrameInsight[] = [
-      seongmyeonghak,
-      fourFrameNumberInsight,
-      sajuInsight,
-      strokePolarityInsight,
-      pronunciationElementInsight,
-      pronunciationPolarityInsight,
-      fourFrameElementInsight,
-    ];
+    const seongmyeonghak = categoryMap.SEONGMYEONGHAK;
+    const orderedCategories = ORDERED_FRAMES.map((frame) => categoryMap[frame]);
 
     return {
       name,

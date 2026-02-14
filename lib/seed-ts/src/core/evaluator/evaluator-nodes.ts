@@ -47,6 +47,7 @@ import {
   NODE_PRIORITY_PENALTY_DIVISOR,
   NODE_PRIORITY_PENALTY_WEIGHT,
   NODE_STATS_BASE_SCORE,
+  SAJU_DEFAULT_CONFIDENCE,
 } from "./scoring-constants.js";
 
 // ── Element Node Factory ──
@@ -352,7 +353,73 @@ function extractSajuPriority(ctx: EvaluationPipelineContext): number {
   return clamp(signal - penalty, 0, 1);
 }
 
-const SAJU_DEFAULT_CONFIDENCE = 0.65;
+interface AdjustedSignal extends CalculatorSignal {
+  adjustedWeight: number;
+  adjustedWeighted: number;
+}
+
+function adjustSignals(signals: CalculatorSignal[], sajuPriority: number): AdjustedSignal[] {
+  return signals.map((signal) => {
+    const multiplier = frameWeightMultiplier(signal.frame, sajuPriority);
+    const adjustedWeight = signal.weight * multiplier;
+    return { ...signal, adjustedWeight, adjustedWeighted: signal.score * adjustedWeight };
+  });
+}
+
+function computeWeightedScore(signals: AdjustedSignal[]): number {
+  const totalWeight = signals.reduce((acc, s) => acc + s.adjustedWeight, 0);
+  return totalWeight > 0
+    ? signals.reduce((acc, s) => acc + s.adjustedWeighted, 0) / totalWeight
+    : 0;
+}
+
+const STRICT_FRAMES: Frame[] = [
+  "SAGYEOK_SURI", "SAJU_JAWON_BALANCE", "HOEKSU_EUMYANG",
+  "BALEUM_OHAENG", "BALEUM_EUMYANG", "SAGYEOK_OHAENG",
+];
+
+function evaluateStrictPass(ctx: EvaluationPipelineContext, weightedScore: number): boolean {
+  return STRICT_FRAMES.every((frame) => mustInsight(ctx, frame).isPassed) &&
+    weightedScore >= NODE_STRICT_PASS_THRESHOLD;
+}
+
+function evaluateAdaptivePass(
+  ctx: EvaluationPipelineContext,
+  signals: AdjustedSignal[],
+  weightedScore: number,
+  sajuPriority: number,
+): boolean {
+  const allowedFailures = sajuPriority >= NODE_ADAPTIVE_TWO_FAILURES_THRESHOLD ? 2 : 1;
+  const threshold = NODE_STRICT_PASS_THRESHOLD - NODE_ADAPTIVE_THRESHOLD_REDUCTION * sajuPriority;
+  const relaxableFailures = signals.filter(
+    (s) => RELAXABLE_FRAMES.has(s.frame as RelaxableFrame) && !s.isPassed,
+  );
+  const sajuInsight = mustInsight(ctx, "SAJU_JAWON_BALANCE");
+  const fourFrameInsight = mustInsight(ctx, "SAGYEOK_SURI");
+  return (
+    sajuInsight.isPassed &&
+    fourFrameInsight.score >= NODE_MANDATORY_GATE_SCORE &&
+    weightedScore >= threshold &&
+    !relaxableFailures.some((s) => s.score < NODE_SEVERE_FAILURE_THRESHOLD) &&
+    relaxableFailures.length <= allowedFailures
+  );
+}
+
+function buildContributions(signals: AdjustedSignal[]): Record<string, unknown> {
+  return Object.fromEntries(
+    signals.map((s) => [
+      s.frame,
+      {
+        rawScore: s.score,
+        weight: s.weight,
+        weightMultiplier: s.weight > 0 ? s.adjustedWeight / s.weight : 1,
+        adjustedWeight: s.adjustedWeight,
+        weighted: s.adjustedWeighted,
+        isPassed: s.isPassed,
+      },
+    ]),
+  );
+}
 
 export function createRootNode(): CalculatorNode<EvaluationPipelineContext> {
   return {
@@ -370,96 +437,40 @@ export function createRootNode(): CalculatorNode<EvaluationPipelineContext> {
       ];
     },
     backward(ctx, childPackets): { nodeId: string; signals: CalculatorSignal[] } {
-      const weightedSignals = flattenSignals(childPackets).filter((signal) => signal.weight > 0);
+      const weightedSignals = flattenSignals(childPackets).filter((s) => s.weight > 0);
       const sajuPriority = extractSajuPriority(ctx);
       const adaptiveMode = sajuPriority >= NODE_ADAPTIVE_MODE_THRESHOLD;
-      const allowedFailures = adaptiveMode ? (sajuPriority >= NODE_ADAPTIVE_TWO_FAILURES_THRESHOLD ? 2 : 1) : 0;
-      const threshold = adaptiveMode ? NODE_STRICT_PASS_THRESHOLD - NODE_ADAPTIVE_THRESHOLD_REDUCTION * sajuPriority : NODE_STRICT_PASS_THRESHOLD;
+      const adjusted = adjustSignals(weightedSignals, sajuPriority);
+      const weightedScore = computeWeightedScore(adjusted);
 
-      const adjustedSignals = weightedSignals.map((signal) => {
-        const multiplier = frameWeightMultiplier(signal.frame, sajuPriority);
-        const adjustedWeight = signal.weight * multiplier;
-        return {
-          ...signal,
-          adjustedWeight,
-          adjustedWeighted: signal.score * adjustedWeight,
-        };
-      });
+      const rootPassed = adaptiveMode
+        ? evaluateAdaptivePass(ctx, adjusted, weightedScore, sajuPriority)
+        : evaluateStrictPass(ctx, weightedScore);
 
-      const totalAdjustedWeight = adjustedSignals.reduce((acc, signal) => acc + signal.adjustedWeight, 0);
-      const weightedScore =
-        totalAdjustedWeight > 0
-          ? adjustedSignals.reduce((acc, signal) => acc + signal.adjustedWeighted, 0) / totalAdjustedWeight
-          : 0;
-
-      const fourFrameNumberInsight = mustInsight(ctx, "SAGYEOK_SURI");
-      const sajuInsight = mustInsight(ctx, "SAJU_JAWON_BALANCE");
-      const strokePolarityInsight = mustInsight(ctx, "HOEKSU_EUMYANG");
-      const pronunciationElementInsight = mustInsight(ctx, "BALEUM_OHAENG");
-      const pronunciationPolarityInsight = mustInsight(ctx, "BALEUM_EUMYANG");
-      const fourFrameElementInsight = mustInsight(ctx, "SAGYEOK_OHAENG");
-      const strictPassed =
-        fourFrameNumberInsight.isPassed &&
-        sajuInsight.isPassed &&
-        strokePolarityInsight.isPassed &&
-        pronunciationElementInsight.isPassed &&
-        pronunciationPolarityInsight.isPassed &&
-        fourFrameElementInsight.isPassed &&
-        weightedScore >= NODE_STRICT_PASS_THRESHOLD;
-
-      const relaxableFailures = adjustedSignals.filter(
-        (signal) => RELAXABLE_FRAMES.has(signal.frame as RelaxableFrame) && !signal.isPassed,
+      const relaxableFailures = adjusted.filter(
+        (s) => RELAXABLE_FRAMES.has(s.frame as RelaxableFrame) && !s.isPassed,
       );
-      const severeRelaxableFailure = relaxableFailures.some((signal) => signal.score < NODE_SEVERE_FAILURE_THRESHOLD);
-      const mandatoryGate = sajuInsight.isPassed && fourFrameNumberInsight.score >= NODE_MANDATORY_GATE_SCORE;
-      const adaptivePassed =
-        mandatoryGate &&
-        weightedScore >= threshold &&
-        !severeRelaxableFailure &&
-        relaxableFailures.length <= allowedFailures;
+      const allowedFailures = adaptiveMode
+        ? (sajuPriority >= NODE_ADAPTIVE_TWO_FAILURES_THRESHOLD ? 2 : 1)
+        : 0;
+      const threshold = adaptiveMode
+        ? NODE_STRICT_PASS_THRESHOLD - NODE_ADAPTIVE_THRESHOLD_REDUCTION * sajuPriority
+        : NODE_STRICT_PASS_THRESHOLD;
 
-      const rootPassed = adaptiveMode ? adaptivePassed : strictPassed;
-
-      const failedFrames = adjustedSignals
-        .filter((signal) => !signal.isPassed)
-        .map((signal) => signal.frame);
-      const contributions = Object.fromEntries(
-        adjustedSignals.map((signal) => [
-          signal.frame,
-          {
-            rawScore: signal.score,
-            weight: signal.weight,
-            weightMultiplier: signal.weight > 0 ? signal.adjustedWeight / signal.weight : 1,
-            adjustedWeight: signal.adjustedWeight,
-            weighted: signal.adjustedWeighted,
-            isPassed: signal.isPassed,
-          },
-        ]),
-      );
-
-      const seongmyeonghak = createInsight(
-        "SEONGMYEONGHAK",
-        weightedScore,
-        rootPassed,
-        "ROOT",
-        {
-          contributions,
-          failedFrames,
-          adaptivePolicy: {
-            mode: adaptiveMode ? "adaptive" : "strict",
-            sajuPriority,
-            allowedFailures,
-            threshold,
-            relaxableFailures: relaxableFailures.map((signal) => signal.frame),
-          },
+      const seongmyeonghak = createInsight("SEONGMYEONGHAK", weightedScore, rootPassed, "ROOT", {
+        contributions: buildContributions(adjusted),
+        failedFrames: adjusted.filter((s) => !s.isPassed).map((s) => s.frame),
+        adaptivePolicy: {
+          mode: adaptiveMode ? "adaptive" : "strict",
+          sajuPriority,
+          allowedFailures,
+          threshold,
+          relaxableFailures: relaxableFailures.map((s) => s.frame),
         },
-      );
+      });
       setInsight(ctx, seongmyeonghak);
 
-      return {
-        nodeId: "root",
-        signals: [createSignal("SEONGMYEONGHAK", seongmyeonghak, 0)],
-      };
+      return { nodeId: "root", signals: [createSignal("SEONGMYEONGHAK", seongmyeonghak, 0)] };
     },
   };
 }

@@ -33,39 +33,39 @@ export class MinHeap<T> {
   }
 
   private heapifyUp(index: number): void {
-    let i = index;
-    while (i > 0) {
-      const p = Math.floor((i - 1) / 2);
-      if (this.compare(this.data[i] as T, this.data[p] as T) >= 0) {
+    let current = index;
+    while (current > 0) {
+      const parent = Math.floor((current - 1) / 2);
+      if (this.compare(this.data[current] as T, this.data[parent] as T) >= 0) {
         break;
       }
-      const t = this.data[i] as T;
-      this.data[i] = this.data[p] as T;
-      this.data[p] = t;
-      i = p;
+      const temp = this.data[current] as T;
+      this.data[current] = this.data[parent] as T;
+      this.data[parent] = temp;
+      current = parent;
     }
   }
 
   private heapifyDown(index: number): void {
-    let i = index;
-    const n = this.data.length;
+    let current = index;
+    const length = this.data.length;
     while (true) {
-      const l = i * 2 + 1;
-      const r = i * 2 + 2;
-      let s = i;
-      if (l < n && this.compare(this.data[l] as T, this.data[s] as T) < 0) {
-        s = l;
+      const leftChild = current * 2 + 1;
+      const rightChild = current * 2 + 2;
+      let smallest = current;
+      if (leftChild < length && this.compare(this.data[leftChild] as T, this.data[smallest] as T) < 0) {
+        smallest = leftChild;
       }
-      if (r < n && this.compare(this.data[r] as T, this.data[s] as T) < 0) {
-        s = r;
+      if (rightChild < length && this.compare(this.data[rightChild] as T, this.data[smallest] as T) < 0) {
+        smallest = rightChild;
       }
-      if (s === i) {
+      if (smallest === current) {
         break;
       }
-      const t = this.data[i] as T;
-      this.data[i] = this.data[s] as T;
-      this.data[s] = t;
-      i = s;
+      const temp = this.data[current] as T;
+      this.data[current] = this.data[smallest] as T;
+      this.data[smallest] = temp;
+      current = smallest;
     }
   }
 }

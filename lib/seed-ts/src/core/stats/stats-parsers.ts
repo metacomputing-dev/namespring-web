@@ -1,5 +1,6 @@
 import type { NameCombination, NameStatistics } from "../types.js";
-import { normalizeText } from "../utils.js";
+import { toText } from "../type-converters.js";
+export { toText };
 
 export type YearMap = Record<string, unknown>;
 export type RawStatsRow = Record<string, unknown>;
@@ -45,10 +46,6 @@ export function toStringList(value: unknown): string[] {
     return [];
   }
   return value.filter((entry): entry is string => typeof entry === "string");
-}
-
-export function toText(value: unknown): string {
-  return normalizeText(String(value ?? ""));
 }
 
 export function parseNameStatisticsRow(row: RawStatsRow): NameStatistics {

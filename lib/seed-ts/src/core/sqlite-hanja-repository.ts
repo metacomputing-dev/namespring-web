@@ -1,5 +1,6 @@
 ﻿import type { Element, HanjaEntry, HanjaRepository } from "./types.js";
 import { DEFAULT_HANJA_STROKE_COUNT } from "./constants.js";
+import { toText, toInt, toBit } from "./type-converters.js";
 import {
   openSqliteDatabase,
   type SqliteDatabase,
@@ -23,25 +24,9 @@ interface HanjaRow {
 const EARTH: Element = "土";
 const ELEMENT_SET = new Set<Element>(["木", "火", "土", "金", "水"]);
 
-function toInt(value: unknown, fallback: number): number {
-  if (typeof value === "number" && Number.isFinite(value)) {
-    return Math.trunc(value);
-  }
-  const parsed = Number.parseInt(String(value ?? ""), 10);
-  return Number.isNaN(parsed) ? fallback : parsed;
-}
-
-function toBit(value: unknown): 0 | 1 {
-  return toInt(value, 0) === 0 ? 0 : 1;
-}
-
 function toElement(value: unknown, fallback: Element): Element {
-  const text = String(value ?? "").trim() as Element;
+  const text = toText(value) as Element;
   return ELEMENT_SET.has(text) ? text : fallback;
-}
-
-function toText(value: unknown): string {
-  return String(value ?? "").trim();
 }
 
 function toFallback(korean: string, hanja: string, isSurname: boolean): HanjaEntry {

@@ -105,9 +105,3 @@ export function parseCompleteName(input: string): NameInput | null {
   };
 }
 
-export function isCompleteQuery(input: string): boolean {
-  const openCount = (input.match(/\[/g) ?? []).length;
-  const closeCount = (input.match(/\]/g) ?? []).length;
-  return openCount === closeCount && !input.includes("_");
-}
-
