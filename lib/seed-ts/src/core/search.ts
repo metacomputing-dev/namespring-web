@@ -106,19 +106,19 @@ function adjustTo81(value: number): number {
   return ((value - 1) % 81) + 1;
 }
 
-function calculateWonHyeongIJeong(surnameStrokeCounts: number[], givenStrokeCounts: number[]) {
+function calculateFourFrameNumbers(surnameStrokeCounts: number[], givenStrokeCounts: number[]) {
   const padded = [...givenStrokeCounts];
   if (padded.length === 1) {
     padded.push(0);
   }
   const mid = Math.floor(padded.length / 2);
-  const myeongsangja = padded.slice(0, mid).reduce((a, b) => a + b, 0);
-  const myeonghaja = padded.slice(mid).reduce((a, b) => a + b, 0);
+  const givenUpperSum = padded.slice(0, mid).reduce((a, b) => a + b, 0);
+  const givenLowerSum = padded.slice(mid).reduce((a, b) => a + b, 0);
   const surnameTotal = surnameStrokeCounts.reduce((a, b) => a + b, 0);
   return {
     won: adjustTo81(padded.reduce((a, b) => a + b, 0)),
-    hyeong: adjustTo81(surnameTotal + myeongsangja),
-    i: adjustTo81(surnameTotal + myeonghaja),
+    hyeong: adjustTo81(surnameTotal + givenUpperSum),
+    i: adjustTo81(surnameTotal + givenLowerSum),
     jeong: adjustTo81(surnameTotal + givenStrokeCounts.reduce((a, b) => a + b, 0)),
   };
 }
@@ -174,7 +174,7 @@ class FourFrameOptimizer {
     const current = new Array<number>(nameLength).fill(1);
 
     const emit = () => {
-      const result = calculateWonHyeongIJeong(surnameStrokeCounts, current);
+      const result = calculateFourFrameNumbers(surnameStrokeCounts, current);
       if (!this.validNumbers.has(result.won)) return;
       if (!this.validNumbers.has(result.hyeong)) return;
       if (nameLength > 1 && !this.validNumbers.has(result.i)) return;
@@ -383,4 +383,5 @@ export function normalizeSearchRequest(request: SearchRequest): SearchRequest {
     birth: toSearchBirth(request),
   };
 }
+
 

@@ -23,12 +23,12 @@ const dictPath = path.resolve(__dirname, '../data/name_hanja_dict');
 const radicalPath = path.resolve(__dirname, '../data/radicals.txt'); // Boosoo data
 
 // Hangul decomposition maps
-const INITIALS = ['??, '??, '??, '??, '??, '??, '??, '??, '??, '??, '??, '??, '??, '??, '??, '??, '??, '??, '??];
-const MEDIALS = ['??, '??, '??, '??, '??, '??, '??, '??, '??, '??, '??, '??, '??, '??, '??, '??, '??, '??, '??, '??, '??];
+const INITIALS = ["ㄱ", "ㄲ", "ㄴ", "ㄷ", "ㄸ", "ㄹ", "ㅁ", "ㅂ", "ㅃ", "ㅅ", "ㅆ", "ㅇ", "ㅈ", "ㅉ", "ㅊ", "ㅋ", "ㅌ", "ㅍ", "ㅎ"];
+const MEDIALS = ["ㅏ", "ㅐ", "ㅑ", "ㅒ", "ㅓ", "ㅔ", "ㅕ", "ㅖ", "ㅗ", "ㅘ", "ㅙ", "ㅚ", "ㅛ", "ㅜ", "ㅝ", "ㅞ", "ㅟ", "ㅠ", "ㅡ", "ㅢ", "ㅣ"];
 
 /**
  * Mapping logic based on Kotlin 'when' block:
- * 1 -> ??(Wood), 2 -> ??(Fire), 3 -> ??(Earth), 4 -> ??(Metal), 5 -> 麗?(Water)
+ * 1 -> 목(Wood), 2 -> 화(Fire), 3 -> 토(Earth), 4 -> 금(Metal), 5 -> 수(Water)
  * Typed as Record<string, string> to avoid indexing errors (ts7053).
  * @type {Record<string, string>}
  */

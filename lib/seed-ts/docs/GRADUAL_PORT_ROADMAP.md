@@ -9,7 +9,7 @@
 - Facade: `src/seed.ts`
 - Runtime architecture: `src/engine/{domain,application,ports,infrastructure}`
 - Calculation internals (reused): `src/core/*`
-- Adapter/compat zone: `src/{model,calculator,database,types.ts,compat}`
+- Adapter zone: `src/{model,calculator,database,types.ts}`
 
 ## Naming Canon
 - `Element` = five elements (오행)
@@ -20,7 +20,7 @@
 
 ## Principles
 - db-only runtime
-- new modules first, legacy compatibility second
+- new modules first, canonical terms first
 - thin compatibility boundaries
 - deterministic behavior (query/order/ranking)
 
@@ -35,8 +35,8 @@
 - complete: `calculator` split + shared support
 - complete: per-layer barrel exports for stable imports
 
-3. Compatibility boundaries
-- complete: `compat` converters introduced
+3. Contract cleanup
+- complete: legacy naming aliases removed from runtime code
 - in progress: external call-site migration to canonical types
 
 4. Core extraction

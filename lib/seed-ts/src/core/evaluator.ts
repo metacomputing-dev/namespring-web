@@ -229,21 +229,21 @@ function adjustTo81(value: number): number {
   return ((value - 1) % 81) + 1;
 }
 
-function calculateWonHyeongIJeong(surnameStrokeCounts: number[], givenStrokeCounts: number[]): FourFrame {
+function calculateFourFrameNumbers(surnameStrokeCounts: number[], givenStrokeCounts: number[]): FourFrame {
   const padded = [...givenStrokeCounts];
   if (padded.length === 1) {
     padded.push(0);
   }
   const mid = Math.floor(padded.length / 2);
-  const myeongsangja = padded.slice(0, mid).reduce((a, b) => a + b, 0);
-  const myeonghaja = padded.slice(mid).reduce((a, b) => a + b, 0);
+  const givenUpperSum = padded.slice(0, mid).reduce((a, b) => a + b, 0);
+  const givenLowerSum = padded.slice(mid).reduce((a, b) => a + b, 0);
   const surnameTotal = surnameStrokeCounts.reduce((a, b) => a + b, 0);
   const nameTotalOriginal = givenStrokeCounts.reduce((a, b) => a + b, 0);
   const paddedTotal = padded.reduce((a, b) => a + b, 0);
   return {
     won: adjustTo81(paddedTotal),
-    hyeong: adjustTo81(surnameTotal + myeongsangja),
-    i: adjustTo81(surnameTotal + myeonghaja),
+    hyeong: adjustTo81(surnameTotal + givenUpperSum),
+    i: adjustTo81(surnameTotal + givenLowerSum),
     jeong: adjustTo81(surnameTotal + nameTotalOriginal),
   };
 }
@@ -252,14 +252,14 @@ function levelToFortune(level: LuckyLevel): string {
   return level;
 }
 
-function computeSajuJawonScore(
+function computeSajuRootBalanceScore(
   sajuDistribution: Record<Element, number>,
-  jawonDistribution: Record<Element, number>,
+  rootElementDistribution: Record<Element, number>,
 ): { score: number; isPassed: boolean; combined: Record<Element, number> } {
   const initial = ELEMENT_KEYS.map((key) => sajuDistribution[key] ?? 0);
-  const jawon = ELEMENT_KEYS.map((key) => jawonDistribution[key] ?? 0);
-  const finalArr = ELEMENT_KEYS.map((_, idx) => initial[idx] + jawon[idx]);
-  const r = jawon.reduce((a, b) => a + b, 0);
+  const rootElementCounts = ELEMENT_KEYS.map((key) => rootElementDistribution[key] ?? 0);
+  const finalArr = ELEMENT_KEYS.map((_, idx) => initial[idx] + rootElementCounts[idx]);
+  const r = rootElementCounts.reduce((a, b) => a + b, 0);
 
   const delta = finalArr.map((value, idx) => value - initial[idx]);
   if (delta.some((value) => value < 0)) {
@@ -412,28 +412,28 @@ export class NameEvaluator {
 
     const surnameStrokeCounts = resolved.surname.map((entry) => entry.strokeCount);
     const givenStrokeCounts = resolved.given.map((entry) => entry.strokeCount);
-    const sagyeok = calculateWonHyeongIJeong(surnameStrokeCounts, givenStrokeCounts);
-    const wonFortune = levelToFortune(this.luckyMap.get(sagyeok.won) ?? "\uBBF8\uC815");
-    const hyeongFortune = levelToFortune(this.luckyMap.get(sagyeok.hyeong) ?? "\uBBF8\uC815");
-    const iFortune = levelToFortune(this.luckyMap.get(sagyeok.i) ?? "\uBBF8\uC815");
-    const jeongFortune = levelToFortune(this.luckyMap.get(sagyeok.jeong) ?? "\uBBF8\uC815");
+    const fourFrameNumbers = calculateFourFrameNumbers(surnameStrokeCounts, givenStrokeCounts);
+    const wonFortune = levelToFortune(this.luckyMap.get(fourFrameNumbers.won) ?? "\uBBF8\uC815");
+    const hyeongFortune = levelToFortune(this.luckyMap.get(fourFrameNumbers.hyeong) ?? "\uBBF8\uC815");
+    const iFortune = levelToFortune(this.luckyMap.get(fourFrameNumbers.i) ?? "\uBBF8\uC815");
+    const jeongFortune = levelToFortune(this.luckyMap.get(fourFrameNumbers.jeong) ?? "\uBBF8\uC815");
     const buckets = [bucketFromFortune(wonFortune), bucketFromFortune(hyeongFortune)];
     if (givenLength > 1) {
       buckets.push(bucketFromFortune(iFortune));
     }
     buckets.push(bucketFromFortune(jeongFortune));
-    const sagyeokScore = buckets.reduce((a, b) => a + b, 0);
-    const sagyeokPassed = buckets.length > 0 && buckets.every((value) => value >= 15);
-    const sagyeokSuri = createInsight(
+    const fourFrameNumberScore = buckets.reduce((a, b) => a + b, 0);
+    const fourFrameNumberPassed = buckets.length > 0 && buckets.every((value) => value >= 15);
+    const fourFrameNumberInsight = createInsight(
       "SAGYEOK_SURI",
-      sagyeokScore,
-      sagyeokPassed,
-      `${sagyeok.won}/${wonFortune}-${sagyeok.hyeong}/${hyeongFortune}-${sagyeok.i}/${iFortune}-${sagyeok.jeong}/${jeongFortune}`,
+      fourFrameNumberScore,
+      fourFrameNumberPassed,
+      `${fourFrameNumbers.won}/${wonFortune}-${fourFrameNumbers.hyeong}/${hyeongFortune}-${fourFrameNumbers.i}/${iFortune}-${fourFrameNumbers.jeong}/${jeongFortune}`,
       {
-        won: sagyeok.won,
-        hyeong: sagyeok.hyeong,
-        i: sagyeok.i,
-        jeong: sagyeok.jeong,
+        won: fourFrameNumbers.won,
+        hyeong: fourFrameNumbers.hyeong,
+        i: fourFrameNumbers.i,
+        jeong: fourFrameNumbers.jeong,
       },
     );
 
@@ -452,31 +452,31 @@ export class NameEvaluator {
       },
     );
 
-    const sagyeokArrangement: Element[] = [
-      LAST_DIGIT_ELEMENT[Math.abs(sagyeok.i) % 10] as Element,
-      LAST_DIGIT_ELEMENT[Math.abs(sagyeok.hyeong) % 10] as Element,
-      LAST_DIGIT_ELEMENT[Math.abs(sagyeok.won) % 10] as Element,
+    const fourFrameArrangement: Element[] = [
+      LAST_DIGIT_ELEMENT[Math.abs(fourFrameNumbers.i) % 10] as Element,
+      LAST_DIGIT_ELEMENT[Math.abs(fourFrameNumbers.hyeong) % 10] as Element,
+      LAST_DIGIT_ELEMENT[Math.abs(fourFrameNumbers.won) % 10] as Element,
     ];
-    const sagyeokDistribution = distributionFromArrangement(sagyeokArrangement);
-    const sagyeokAdj = calculateArrayScore(sagyeokArrangement, surnameLength);
-    const sagyeokBal = calculateBalanceScore(sagyeokDistribution);
-    const fourFrameElementScore = (sagyeokBal + sagyeokAdj) / 2;
-    const sagyeokDominant = countDominant(sagyeokDistribution);
-    const sagyeokAdjThreshold = surnameLength === 2 ? 65 : 60;
+    const fourFrameDistribution = distributionFromArrangement(fourFrameArrangement);
+    const fourFrameAdjacencyScore = calculateArrayScore(fourFrameArrangement, surnameLength);
+    const fourFrameBalanceScore = calculateBalanceScore(fourFrameDistribution);
+    const fourFrameElementScore = (fourFrameBalanceScore + fourFrameAdjacencyScore) / 2;
+    const fourFrameDominant = countDominant(fourFrameDistribution);
+    const fourFrameAdjacencyThreshold = surnameLength === 2 ? 65 : 60;
     const fourFrameElementPassed =
-      checkFourFrameSuriElement(sagyeokArrangement, givenLength) &&
-      !sagyeokDominant &&
-      sagyeokAdj >= sagyeokAdjThreshold &&
+      checkFourFrameSuriElement(fourFrameArrangement, givenLength) &&
+      !fourFrameDominant &&
+      fourFrameAdjacencyScore >= fourFrameAdjacencyThreshold &&
       fourFrameElementScore >= 65;
     const fourFrameElementInsight = createInsight(
       "SAGYEOK_OHAENG",
       fourFrameElementScore,
       fourFrameElementPassed,
-      sagyeokArrangement.join("-"),
+      fourFrameArrangement.join("-"),
       {
-        distribution: sagyeokDistribution,
-        adjacencyScore: sagyeokAdj,
-        balanceScore: sagyeokBal,
+        distribution: fourFrameDistribution,
+        adjacencyScore: fourFrameAdjacencyScore,
+        balanceScore: fourFrameBalanceScore,
       },
     );
 
@@ -539,27 +539,27 @@ export class NameEvaluator {
       },
     );
 
-    const jawonArrangement = resolved.given.map((entry) => entry.rootElement);
-    const jawonDistribution = distributionFromArrangement(jawonArrangement);
+    const rootElementArrangement = resolved.given.map((entry) => entry.rootElement);
+    const rootElementDistribution = distributionFromArrangement(rootElementArrangement);
     const sajuCtx: SajuContext = {
       sajuDistribution: this.sajuBaseDistribution,
     };
-    const sajuJawon = computeSajuJawonScore(sajuCtx.sajuDistribution, jawonDistribution);
+    const sajuRootBalance = computeSajuRootBalanceScore(sajuCtx.sajuDistribution, rootElementDistribution);
     const sajuInsight = createInsight(
       "SAJU_JAWON_BALANCE",
-      includeSaju ?? this.includeSajuDefault ? sajuJawon.score : sajuJawon.score,
-      sajuJawon.isPassed,
+      includeSaju ?? this.includeSajuDefault ? sajuRootBalance.score : sajuRootBalance.score,
+      sajuRootBalance.isPassed,
       "SAJU+JAWON",
       {
         sajuDistribution: sajuCtx.sajuDistribution,
-        jawonDistribution,
-        combinedDistribution: sajuJawon.combined,
+        rootElementDistribution,
+        combinedDistribution: sajuRootBalance.combined,
         birth,
       },
     );
 
     const rootScore =
-      sagyeokSuri.score * W_MAJOR +
+      fourFrameNumberInsight.score * W_MAJOR +
       sajuInsight.score * W_MAJOR +
       strokePolarityInsight.score * W_MINOR +
       pronunciationElementInsight.score * W_MINOR +
@@ -567,7 +567,7 @@ export class NameEvaluator {
       fourFrameElementInsight.score * W_MINOR;
 
     const rootPassed =
-      sagyeokSuri.isPassed &&
+      fourFrameNumberInsight.isPassed &&
       sajuInsight.isPassed &&
       strokePolarityInsight.isPassed &&
       pronunciationElementInsight.isPassed &&
@@ -595,7 +595,7 @@ export class NameEvaluator {
 
     const categoryMap: Record<Frame, FrameInsight> = {
       SEONGMYEONGHAK: seongmyeonghak,
-      SAGYEOK_SURI: sagyeokSuri,
+      SAGYEOK_SURI: fourFrameNumberInsight,
       SAGYEOK_OHAENG: fourFrameElementInsight,
       HOEKSU_OHAENG: strokeElementInsight,
       HOEKSU_EUMYANG: strokePolarityInsight,
@@ -609,7 +609,7 @@ export class NameEvaluator {
 
     const orderedCategories: FrameInsight[] = [
       seongmyeonghak,
-      sagyeokSuri,
+      fourFrameNumberInsight,
       sajuInsight,
       strokePolarityInsight,
       pronunciationElementInsight,
@@ -646,6 +646,7 @@ export function buildInterpretationText(response: SeedResponse): string {
 export function sortResponsesByScore(items: SeedResponse[]): SeedResponse[] {
   return items.sort((a, b) => b.interpretation.score - a.interpretation.score);
 }
+
 
 
 

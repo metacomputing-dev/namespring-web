@@ -9,10 +9,10 @@ import type { RuntimeContextFactory } from "../../ports/runtime-factory.js";
 import type { RuntimeContext } from "../../ports/runtime-ports.js";
 import { ensureSqliteFileExists, resolveSqlitePath } from "./sqlite-path.js";
 import {
-  ensureSagyeokMapNotEmpty,
-  extractPositiveSagyeokNumbers,
-  loadSagyeokMapFromSqlite,
-} from "./sqlite-sagyeok.js";
+  ensureFourFrameLevelMapNotEmpty,
+  extractPositiveFourFrameNumbers,
+  loadFourFrameLevelMapFromSqlite,
+} from "./sqlite-four-frame.js";
 
 export function createSqliteRuntimeContext(options: SeedOptions): RuntimeContext {
   const includeSaju = options.includeSaju ?? false;
@@ -30,11 +30,11 @@ export function createSqliteRuntimeContext(options: SeedOptions): RuntimeContext
   const hanja = SqliteHanjaRepository.create(sqlitePath);
   const stats = SqliteStatsRepository.create(sqlitePath);
 
-  const sagyeokMap = loadSagyeokMapFromSqlite(sqlitePath);
-  ensureSagyeokMapNotEmpty(sagyeokMap);
-  const validFourFrame = extractPositiveSagyeokNumbers(sagyeokMap);
+  const fourFrameLevelMap = loadFourFrameLevelMapFromSqlite(sqlitePath);
+  ensureFourFrameLevelMapNotEmpty(fourFrameLevelMap);
+  const validFourFrame = extractPositiveFourFrameNumbers(fourFrameLevelMap);
 
-  const evaluator = new NameEvaluator(sagyeokMap, stats, includeSaju, options.sajuBaseDistribution);
+  const evaluator = new NameEvaluator(fourFrameLevelMap, stats, includeSaju, options.sajuBaseDistribution);
   const searchService = new NameSearchService(hanja, stats, evaluator, validFourFrame);
 
   return {

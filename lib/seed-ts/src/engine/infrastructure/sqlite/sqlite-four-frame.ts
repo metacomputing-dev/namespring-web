@@ -2,7 +2,7 @@ import { openSqliteDatabase } from "../../../core/sqlite-runtime.js";
 import type { LuckyLevel } from "../../../core/types.js";
 import { normalizeText, toRoundedInt } from "../../../core/utils.js";
 
-interface SagyeokRow {
+interface FourFrameRow {
   number: unknown;
   lucky_level: unknown;
 }
@@ -27,11 +27,11 @@ function extractSqliteNumber(value: unknown): number | null {
   return Number.isNaN(parsed) ? null : parsed;
 }
 
-export function loadSagyeokMapFromSqlite(sqlitePath: string): Map<number, LuckyLevel> {
+export function loadFourFrameLevelMapFromSqlite(sqlitePath: string): Map<number, LuckyLevel> {
   const db = openSqliteDatabase(sqlitePath);
   try {
     const stmt = db.prepare("SELECT number, lucky_level FROM sagyeok_data ORDER BY number");
-    const rows = stmt.all() as SagyeokRow[];
+    const rows = stmt.all() as FourFrameRow[];
     const out = new Map<number, LuckyLevel>();
     for (const row of rows) {
       const number = extractSqliteNumber(row.number);
@@ -50,7 +50,7 @@ export function loadSagyeokMapFromSqlite(sqlitePath: string): Map<number, LuckyL
   }
 }
 
-export function extractPositiveSagyeokNumbers(levelMap: Map<number, LuckyLevel>): Set<number> {
+export function extractPositiveFourFrameNumbers(levelMap: Map<number, LuckyLevel>): Set<number> {
   const out = new Set<number>();
   for (const [num, level] of levelMap.entries()) {
     if (POSITIVE_LEVELS.has(level)) {
@@ -60,7 +60,7 @@ export function extractPositiveSagyeokNumbers(levelMap: Map<number, LuckyLevel>)
   return out;
 }
 
-export function ensureSagyeokMapNotEmpty(levelMap: Map<number, LuckyLevel>): void {
+export function ensureFourFrameLevelMapNotEmpty(levelMap: Map<number, LuckyLevel>): void {
   if (levelMap.size === 0) {
     throw new Error("`sagyeok_data` is empty in sqlite database. Rebuild sqlite data first.");
   }
