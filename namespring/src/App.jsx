@@ -3,8 +3,21 @@ import { SeedTs } from "@seed/seed";
 import { HanjaRepository } from '@seed/database/hanja-repository';
 import InputForm from './InputForm';
 import NamingReport from './NamingReport';
+import DevDbViewer from './DevDbViewer';
+import DevHanjaDbViewer from './DevHanjaDbViewer';
 
 function App() {
+  const tool = new URLSearchParams(window.location.search).get("tool");
+  const isDevSagyeoksuViewerMode = import.meta.env.DEV && tool === "fourframe-db-viewer";
+  const isDevHanjaViewerMode = import.meta.env.DEV && tool === "hanja-db-viewer";
+
+  if (isDevSagyeoksuViewerMode) {
+    return <DevDbViewer />;
+  }
+  if (isDevHanjaViewerMode) {
+    return <DevHanjaDbViewer />;
+  }
+
   const [isDbReady, setIsDbReady] = useState(false);
   const hanjaRepo = useMemo(() => new HanjaRepository(), []);
 
