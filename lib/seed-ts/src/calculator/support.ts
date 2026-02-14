@@ -1,5 +1,5 @@
-import type { HanjaEntry } from "../database/hanja-repository.js";
-import type { Energy } from "../model/energy.js";
+import type { HanjaEntry } from "../core/types.js";
+import type { Energy } from "../core/types.js";
 
 export function mergeNameEntries(
   surnameEntries: readonly HanjaEntry[],

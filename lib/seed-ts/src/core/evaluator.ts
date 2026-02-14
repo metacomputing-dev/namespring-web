@@ -1,12 +1,12 @@
-﻿import {
+import { FourFrameCalculator, HanjaCalculator, HangulCalculator } from "../calculator/index.js";
+import {
   DEFAULT_POLARITY_BY_BIT,
-  LAST_DIGIT_ELEMENT,
   ELEMENT_INDEX,
 } from "./constants.js";
+import { executeEvaluationNode, flattenSignals, type EvaluationNode, type EvaluationSignal } from "./evaluation-node.js";
 import type {
   BirthInfo,
   Element,
-  FourFrame,
   Frame,
   FrameInsight,
   LuckyLevel,
@@ -35,6 +35,22 @@ interface SajuContext {
   sajuDistribution: Record<Element, number>;
 }
 
+interface EvaluationPipelineContext {
+  name: NameInput;
+  resolved: ResolvedName;
+  surnameLength: number;
+  givenLength: number;
+  includeSaju: boolean;
+  birth?: BirthInfo;
+  luckyMap: Map<number, LuckyLevel>;
+  sajuBaseDistribution: Record<Element, number>;
+  stats: NameStatistics | null;
+  fourFrameCalculator: FourFrameCalculator;
+  hanjaCalculator: HanjaCalculator;
+  hangulCalculator: HangulCalculator;
+  insights: Partial<Record<Frame, FrameInsight>>;
+}
+
 function statusFromPass(pass: boolean): Status {
   return pass ? "POSITIVE" : "NEGATIVE";
 }
@@ -54,6 +70,28 @@ function createInsight(
     status: statusFromPass(isPassed),
     arrangement,
     details,
+  };
+}
+
+function setInsight(ctx: EvaluationPipelineContext, insight: FrameInsight): void {
+  ctx.insights[insight.frame] = insight;
+}
+
+function mustInsight(ctx: EvaluationPipelineContext, frame: Frame): FrameInsight {
+  const insight = ctx.insights[frame];
+  if (!insight) {
+    throw new Error(`missing insight for frame: ${frame}`);
+  }
+  return insight;
+}
+
+function createSignal(frame: Frame, insight: FrameInsight, weight: number): EvaluationSignal {
+  return {
+    key: frame,
+    frame,
+    score: insight.score,
+    isPassed: insight.isPassed,
+    weight,
   };
 }
 
@@ -211,7 +249,6 @@ export function checkFourFrameSuriElement(arrangement: readonly Element[], given
   return new Set(checked).size > 1;
 }
 
-
 function bucketFromFortune(fortune: string): number {
   const f = fortune ?? "";
   if (f.includes(FORTUNE_TOP) || f.includes("\uCD5C\uC0C1")) return 25;
@@ -220,32 +257,6 @@ function bucketFromFortune(fortune: string): number {
   if (f.includes(FORTUNE_WORST) || f.includes("\uCD5C\uD749")) return 0;
   if (f.includes(FORTUNE_BAD) || f.includes("\uD749")) return 5;
   return 10;
-}
-
-function adjustTo81(value: number): number {
-  if (value <= 81) {
-    return value;
-  }
-  return ((value - 1) % 81) + 1;
-}
-
-function calculateFourFrameNumbers(surnameStrokeCounts: number[], givenStrokeCounts: number[]): FourFrame {
-  const padded = [...givenStrokeCounts];
-  if (padded.length === 1) {
-    padded.push(0);
-  }
-  const mid = Math.floor(padded.length / 2);
-  const givenUpperSum = padded.slice(0, mid).reduce((a, b) => a + b, 0);
-  const givenLowerSum = padded.slice(mid).reduce((a, b) => a + b, 0);
-  const surnameTotal = surnameStrokeCounts.reduce((a, b) => a + b, 0);
-  const nameTotalOriginal = givenStrokeCounts.reduce((a, b) => a + b, 0);
-  const paddedTotal = padded.reduce((a, b) => a + b, 0);
-  return {
-    won: adjustTo81(paddedTotal),
-    hyeong: adjustTo81(surnameTotal + givenUpperSum),
-    i: adjustTo81(surnameTotal + givenLowerSum),
-    jeong: adjustTo81(surnameTotal + nameTotalOriginal),
-  };
 }
 
 function levelToFortune(level: LuckyLevel): string {
@@ -381,6 +392,345 @@ function polarityScore(eumCount: number, yangCount: number): number {
   return 40 + ratioScore;
 }
 
+function createFourFrameNumberNode(): EvaluationNode<EvaluationPipelineContext> {
+  return {
+    id: "four-frame-number",
+    forward(ctx): void {
+      const fourFrameNumbers = ctx.fourFrameCalculator.getFrameNumbers();
+      const wonFortune = levelToFortune(ctx.luckyMap.get(fourFrameNumbers.won) ?? "\uBBF8\uC815");
+      const hyeongFortune = levelToFortune(ctx.luckyMap.get(fourFrameNumbers.hyeong) ?? "\uBBF8\uC815");
+      const iFortune = levelToFortune(ctx.luckyMap.get(fourFrameNumbers.i) ?? "\uBBF8\uC815");
+      const jeongFortune = levelToFortune(ctx.luckyMap.get(fourFrameNumbers.jeong) ?? "\uBBF8\uC815");
+
+      const buckets = [bucketFromFortune(wonFortune), bucketFromFortune(hyeongFortune)];
+      if (ctx.givenLength > 1) {
+        buckets.push(bucketFromFortune(iFortune));
+      }
+      buckets.push(bucketFromFortune(jeongFortune));
+
+      const score = buckets.reduce((a, b) => a + b, 0);
+      const isPassed = buckets.length > 0 && buckets.every((value) => value >= 15);
+      const insight = createInsight(
+        "SAGYEOK_SURI",
+        score,
+        isPassed,
+        `${fourFrameNumbers.won}/${wonFortune}-${fourFrameNumbers.hyeong}/${hyeongFortune}-${fourFrameNumbers.i}/${iFortune}-${fourFrameNumbers.jeong}/${jeongFortune}`,
+        {
+          won: fourFrameNumbers.won,
+          hyeong: fourFrameNumbers.hyeong,
+          i: fourFrameNumbers.i,
+          jeong: fourFrameNumbers.jeong,
+        },
+      );
+      setInsight(ctx, insight);
+    },
+    backward(ctx): { nodeId: string; signals: EvaluationSignal[] } {
+      const insight = mustInsight(ctx, "SAGYEOK_SURI");
+      return {
+        nodeId: "four-frame-number",
+        signals: [createSignal("SAGYEOK_SURI", insight, W_MAJOR)],
+      };
+    },
+  };
+}
+
+function createStrokeElementNode(): EvaluationNode<EvaluationPipelineContext> {
+  return {
+    id: "stroke-element",
+    forward(ctx): void {
+      const arrangement = ctx.hanjaCalculator.getStrokeElementArrangement();
+      const distribution = distributionFromArrangement(arrangement);
+      const adjacencyScore = calculateArrayScore(arrangement, ctx.surnameLength);
+      const balanceScore = calculateBalanceScore(distribution);
+      const insight = createInsight(
+        "HOEKSU_OHAENG",
+        balanceScore,
+        balanceScore >= 60,
+        arrangement.join("-"),
+        {
+          distribution,
+          adjacencyScore,
+        },
+      );
+      setInsight(ctx, insight);
+    },
+    backward(): { nodeId: string; signals: EvaluationSignal[] } {
+      return {
+        nodeId: "stroke-element",
+        signals: [],
+      };
+    },
+  };
+}
+
+function createFourFrameElementNode(): EvaluationNode<EvaluationPipelineContext> {
+  return {
+    id: "four-frame-element",
+    forward(ctx): void {
+      const arrangement = ctx.fourFrameCalculator.getCompatibilityElementArrangement();
+      const distribution = distributionFromArrangement(arrangement);
+      const adjacencyScore = calculateArrayScore(arrangement, ctx.surnameLength);
+      const balanceScore = calculateBalanceScore(distribution);
+      const score = (balanceScore + adjacencyScore) / 2;
+      const dominant = countDominant(distribution);
+      const adjacencyThreshold = ctx.surnameLength === 2 ? 65 : 60;
+      const isPassed =
+        checkFourFrameSuriElement(arrangement, ctx.givenLength) &&
+        !dominant &&
+        adjacencyScore >= adjacencyThreshold &&
+        score >= 65;
+
+      const insight = createInsight(
+        "SAGYEOK_OHAENG",
+        score,
+        isPassed,
+        arrangement.join("-"),
+        {
+          distribution,
+          adjacencyScore,
+          balanceScore,
+        },
+      );
+      setInsight(ctx, insight);
+    },
+    backward(ctx): { nodeId: string; signals: EvaluationSignal[] } {
+      const insight = mustInsight(ctx, "SAGYEOK_OHAENG");
+      return {
+        nodeId: "four-frame-element",
+        signals: [createSignal("SAGYEOK_OHAENG", insight, W_MINOR)],
+      };
+    },
+  };
+}
+
+function createPronunciationElementNode(): EvaluationNode<EvaluationPipelineContext> {
+  return {
+    id: "pronunciation-element",
+    forward(ctx): void {
+      const arrangement = ctx.hangulCalculator.getPronunciationElementArrangement();
+      const distribution = distributionFromArrangement(arrangement);
+      const adjacencyScore = calculateArrayScore(arrangement, ctx.surnameLength);
+      const balanceScore = calculateBalanceScore(distribution);
+      const score = (balanceScore + adjacencyScore) / 2;
+      const adjacencyThreshold = ctx.surnameLength === 2 ? 65 : 60;
+      const isPassed =
+        checkElementSangSaeng(arrangement, ctx.surnameLength) &&
+        !countDominant(distribution) &&
+        adjacencyScore >= adjacencyThreshold &&
+        score >= 70;
+
+      const insight = createInsight(
+        "BALEUM_OHAENG",
+        score,
+        isPassed,
+        arrangement.join("-"),
+        {
+          distribution,
+          adjacencyScore,
+          balanceScore,
+        },
+      );
+      setInsight(ctx, insight);
+    },
+    backward(ctx): { nodeId: string; signals: EvaluationSignal[] } {
+      const insight = mustInsight(ctx, "BALEUM_OHAENG");
+      return {
+        nodeId: "pronunciation-element",
+        signals: [createSignal("BALEUM_OHAENG", insight, W_MINOR)],
+      };
+    },
+  };
+}
+
+function createStrokePolarityNode(): EvaluationNode<EvaluationPipelineContext> {
+  return {
+    id: "stroke-polarity",
+    forward(ctx): void {
+      const arrangement = ctx.hanjaCalculator.getStrokePolarityArrangement();
+      const eumCount = arrangement.filter((value) => value === "\u9670").length;
+      const yangCount = arrangement.length - eumCount;
+      const score = polarityScore(eumCount, yangCount);
+      const isPassed = checkPolarityHarmony(arrangement, ctx.surnameLength);
+
+      const insight = createInsight(
+        "HOEKSU_EUMYANG",
+        score,
+        isPassed,
+        arrangement.join(""),
+        {
+          arrangementList: arrangement,
+        },
+      );
+      setInsight(ctx, insight);
+    },
+    backward(ctx): { nodeId: string; signals: EvaluationSignal[] } {
+      const insight = mustInsight(ctx, "HOEKSU_EUMYANG");
+      return {
+        nodeId: "stroke-polarity",
+        signals: [createSignal("HOEKSU_EUMYANG", insight, W_MINOR)],
+      };
+    },
+  };
+}
+
+function createPronunciationPolarityNode(): EvaluationNode<EvaluationPipelineContext> {
+  return {
+    id: "pronunciation-polarity",
+    forward(ctx): void {
+      const arrangement = ctx.hangulCalculator.getPronunciationPolarityArrangement();
+      const eumCount = arrangement.filter((value) => value === "\u9670").length;
+      const yangCount = arrangement.length - eumCount;
+      const score = polarityScore(eumCount, yangCount);
+      const isPassed = checkPolarityHarmony(arrangement, ctx.surnameLength);
+
+      const insight = createInsight(
+        "BALEUM_EUMYANG",
+        score,
+        isPassed,
+        arrangement.join(""),
+        {
+          arrangementList: arrangement,
+        },
+      );
+      setInsight(ctx, insight);
+    },
+    backward(ctx): { nodeId: string; signals: EvaluationSignal[] } {
+      const insight = mustInsight(ctx, "BALEUM_EUMYANG");
+      return {
+        nodeId: "pronunciation-polarity",
+        signals: [createSignal("BALEUM_EUMYANG", insight, W_MINOR)],
+      };
+    },
+  };
+}
+
+function createSajuBalanceNode(): EvaluationNode<EvaluationPipelineContext> {
+  return {
+    id: "saju-balance",
+    forward(ctx): void {
+      const rootElementArrangement = ctx.resolved.given.map((entry) => entry.rootElement);
+      const rootElementDistribution = distributionFromArrangement(rootElementArrangement);
+      const sajuCtx: SajuContext = {
+        sajuDistribution: ctx.sajuBaseDistribution,
+      };
+      const sajuRootBalance = computeSajuRootBalanceScore(sajuCtx.sajuDistribution, rootElementDistribution);
+      const insight = createInsight(
+        "SAJU_JAWON_BALANCE",
+        ctx.includeSaju ? sajuRootBalance.score : sajuRootBalance.score,
+        sajuRootBalance.isPassed,
+        "SAJU+JAWON",
+        {
+          sajuDistribution: sajuCtx.sajuDistribution,
+          rootElementDistribution,
+          combinedDistribution: sajuRootBalance.combined,
+          birth: ctx.birth,
+        },
+      );
+      setInsight(ctx, insight);
+    },
+    backward(ctx): { nodeId: string; signals: EvaluationSignal[] } {
+      const insight = mustInsight(ctx, "SAJU_JAWON_BALANCE");
+      return {
+        nodeId: "saju-balance",
+        signals: [createSignal("SAJU_JAWON_BALANCE", insight, W_MAJOR)],
+      };
+    },
+  };
+}
+
+function createStatisticsNode(): EvaluationNode<EvaluationPipelineContext> {
+  return {
+    id: "statistics",
+    forward(ctx): void {
+      const statsScore = ctx.stats ? clamp(60 + ctx.stats.similarNames.length, 0, 100) : 0;
+      const insight = createInsight(
+        "STATISTICS",
+        statsScore,
+        true,
+        "stats",
+        { found: ctx.stats !== null },
+      );
+      setInsight(ctx, insight);
+    },
+    backward(): { nodeId: string; signals: EvaluationSignal[] } {
+      return {
+        nodeId: "statistics",
+        signals: [],
+      };
+    },
+  };
+}
+
+function createRootNode(): EvaluationNode<EvaluationPipelineContext> {
+  return {
+    id: "root",
+    createChildren(): EvaluationNode<EvaluationPipelineContext>[] {
+      return [
+        createFourFrameNumberNode(),
+        createStrokeElementNode(),
+        createFourFrameElementNode(),
+        createPronunciationElementNode(),
+        createStrokePolarityNode(),
+        createPronunciationPolarityNode(),
+        createSajuBalanceNode(),
+        createStatisticsNode(),
+      ];
+    },
+    backward(ctx, childPackets): { nodeId: string; signals: EvaluationSignal[] } {
+      const weightedSignals = flattenSignals(childPackets).filter((signal) => signal.weight > 0);
+      const weightedScore = weightedSignals.reduce((acc, signal) => acc + signal.score * signal.weight, 0);
+
+      const fourFrameNumberInsight = mustInsight(ctx, "SAGYEOK_SURI");
+      const sajuInsight = mustInsight(ctx, "SAJU_JAWON_BALANCE");
+      const strokePolarityInsight = mustInsight(ctx, "HOEKSU_EUMYANG");
+      const pronunciationElementInsight = mustInsight(ctx, "BALEUM_OHAENG");
+      const pronunciationPolarityInsight = mustInsight(ctx, "BALEUM_EUMYANG");
+      const fourFrameElementInsight = mustInsight(ctx, "SAGYEOK_OHAENG");
+
+      const rootPassed =
+        fourFrameNumberInsight.isPassed &&
+        sajuInsight.isPassed &&
+        strokePolarityInsight.isPassed &&
+        pronunciationElementInsight.isPassed &&
+        pronunciationPolarityInsight.isPassed &&
+        fourFrameElementInsight.isPassed &&
+        weightedScore >= 60;
+
+      const failedFrames = weightedSignals
+        .filter((signal) => !signal.isPassed)
+        .map((signal) => signal.frame);
+      const contributions = Object.fromEntries(
+        weightedSignals.map((signal) => [
+          signal.frame,
+          {
+            rawScore: signal.score,
+            weight: signal.weight,
+            weighted: signal.score * signal.weight,
+            isPassed: signal.isPassed,
+          },
+        ]),
+      );
+
+      const seongmyeonghak = createInsight(
+        "SEONGMYEONGHAK",
+        weightedScore,
+        rootPassed,
+        "ROOT",
+        {
+          contributions,
+          failedFrames,
+        },
+      );
+      setInsight(ctx, seongmyeonghak);
+
+      return {
+        nodeId: "root",
+        signals: [createSignal("SEONGMYEONGHAK", seongmyeonghak, 0)],
+      };
+    },
+  };
+}
+
 export class NameEvaluator {
   private readonly luckyMap: Map<number, LuckyLevel>;
   private readonly statsRepository: StatsRepository | null;
@@ -406,192 +756,41 @@ export class NameEvaluator {
   }
 
   evaluate(name: NameInput, resolved: ResolvedName, birth?: BirthInfo, includeSaju?: boolean): SeedResponse {
-    const surnameLength = resolved.surname.length;
-    const givenLength = resolved.given.length;
-    const infos = [...resolved.surname, ...resolved.given];
-
-    const surnameStrokeCounts = resolved.surname.map((entry) => entry.strokeCount);
-    const givenStrokeCounts = resolved.given.map((entry) => entry.strokeCount);
-    const fourFrameNumbers = calculateFourFrameNumbers(surnameStrokeCounts, givenStrokeCounts);
-    const wonFortune = levelToFortune(this.luckyMap.get(fourFrameNumbers.won) ?? "\uBBF8\uC815");
-    const hyeongFortune = levelToFortune(this.luckyMap.get(fourFrameNumbers.hyeong) ?? "\uBBF8\uC815");
-    const iFortune = levelToFortune(this.luckyMap.get(fourFrameNumbers.i) ?? "\uBBF8\uC815");
-    const jeongFortune = levelToFortune(this.luckyMap.get(fourFrameNumbers.jeong) ?? "\uBBF8\uC815");
-    const buckets = [bucketFromFortune(wonFortune), bucketFromFortune(hyeongFortune)];
-    if (givenLength > 1) {
-      buckets.push(bucketFromFortune(iFortune));
-    }
-    buckets.push(bucketFromFortune(jeongFortune));
-    const fourFrameNumberScore = buckets.reduce((a, b) => a + b, 0);
-    const fourFrameNumberPassed = buckets.length > 0 && buckets.every((value) => value >= 15);
-    const fourFrameNumberInsight = createInsight(
-      "SAGYEOK_SURI",
-      fourFrameNumberScore,
-      fourFrameNumberPassed,
-      `${fourFrameNumbers.won}/${wonFortune}-${fourFrameNumbers.hyeong}/${hyeongFortune}-${fourFrameNumbers.i}/${iFortune}-${fourFrameNumbers.jeong}/${jeongFortune}`,
-      {
-        won: fourFrameNumbers.won,
-        hyeong: fourFrameNumbers.hyeong,
-        i: fourFrameNumbers.i,
-        jeong: fourFrameNumbers.jeong,
-      },
-    );
-
-    const strokeElementArrangement = infos.map((entry) => entry.strokeElement);
-    const strokeElementDistribution = distributionFromArrangement(strokeElementArrangement);
-    const strokeElementAdjacency = calculateArrayScore(strokeElementArrangement, surnameLength);
-    const strokeElementBalance = calculateBalanceScore(strokeElementDistribution);
-    const strokeElementInsight = createInsight(
-      "HOEKSU_OHAENG",
-      strokeElementBalance,
-      strokeElementBalance >= 60,
-      strokeElementArrangement.join("-"),
-      {
-        distribution: strokeElementDistribution,
-        adjacencyScore: strokeElementAdjacency,
-      },
-    );
-
-    const fourFrameArrangement: Element[] = [
-      LAST_DIGIT_ELEMENT[Math.abs(fourFrameNumbers.i) % 10] as Element,
-      LAST_DIGIT_ELEMENT[Math.abs(fourFrameNumbers.hyeong) % 10] as Element,
-      LAST_DIGIT_ELEMENT[Math.abs(fourFrameNumbers.won) % 10] as Element,
-    ];
-    const fourFrameDistribution = distributionFromArrangement(fourFrameArrangement);
-    const fourFrameAdjacencyScore = calculateArrayScore(fourFrameArrangement, surnameLength);
-    const fourFrameBalanceScore = calculateBalanceScore(fourFrameDistribution);
-    const fourFrameElementScore = (fourFrameBalanceScore + fourFrameAdjacencyScore) / 2;
-    const fourFrameDominant = countDominant(fourFrameDistribution);
-    const fourFrameAdjacencyThreshold = surnameLength === 2 ? 65 : 60;
-    const fourFrameElementPassed =
-      checkFourFrameSuriElement(fourFrameArrangement, givenLength) &&
-      !fourFrameDominant &&
-      fourFrameAdjacencyScore >= fourFrameAdjacencyThreshold &&
-      fourFrameElementScore >= 65;
-    const fourFrameElementInsight = createInsight(
-      "SAGYEOK_OHAENG",
-      fourFrameElementScore,
-      fourFrameElementPassed,
-      fourFrameArrangement.join("-"),
-      {
-        distribution: fourFrameDistribution,
-        adjacencyScore: fourFrameAdjacencyScore,
-        balanceScore: fourFrameBalanceScore,
-      },
-    );
-
-    const pronunciationElementArrangement = infos.map(
-      (entry) => entry.pronunciationElement,
-    );
-    const pronunciationElementDistribution = distributionFromArrangement(pronunciationElementArrangement);
-    const pronunciationElementAdj = calculateArrayScore(pronunciationElementArrangement, surnameLength);
-    const pronunciationElementBalance = calculateBalanceScore(pronunciationElementDistribution);
-    const pronunciationElementScore = (pronunciationElementBalance + pronunciationElementAdj) / 2;
-    const pronunciationElementAdjThreshold = surnameLength === 2 ? 65 : 60;
-    const pronunciationElementPassed =
-      checkElementSangSaeng(pronunciationElementArrangement, surnameLength) &&
-      !countDominant(pronunciationElementDistribution) &&
-      pronunciationElementAdj >= pronunciationElementAdjThreshold &&
-      pronunciationElementScore >= 70;
-    const pronunciationElementInsight = createInsight(
-      "BALEUM_OHAENG",
-      pronunciationElementScore,
-      pronunciationElementPassed,
-      pronunciationElementArrangement.join("-"),
-      {
-        distribution: pronunciationElementDistribution,
-        adjacencyScore: pronunciationElementAdj,
-        balanceScore: pronunciationElementBalance,
-      },
-    );
-
-    const strokePolarityArrangement = infos.map((entry) =>
-      bitToPolarity(entry.strokePolarityBit),
-    );
-    const strokeYinCount = strokePolarityArrangement.filter((value) => value === "\u9670").length;
-    const strokeYangCount = strokePolarityArrangement.length - strokeYinCount;
-    const strokePolarityScore = polarityScore(strokeYinCount, strokeYangCount);
-    const strokePolarityPassed = checkPolarityHarmony(strokePolarityArrangement, surnameLength);
-    const strokePolarityInsight = createInsight(
-      "HOEKSU_EUMYANG",
-      strokePolarityScore,
-      strokePolarityPassed,
-      strokePolarityArrangement.join(""),
-      {
-        arrangementList: strokePolarityArrangement,
-      },
-    );
-
-    const pronunciationPolarityArrangement = infos.map((entry) =>
-      bitToPolarity(entry.pronunciationPolarityBit),
-    );
-    const pronunciationYinCount = pronunciationPolarityArrangement.filter((value) => value === "\u9670").length;
-    const pronunciationYangCount = pronunciationPolarityArrangement.length - pronunciationYinCount;
-    const pronunciationPolarityScore = polarityScore(pronunciationYinCount, pronunciationYangCount);
-    const pronunciationPolarityPassed = checkPolarityHarmony(pronunciationPolarityArrangement, surnameLength);
-    const pronunciationPolarityInsight = createInsight(
-      "BALEUM_EUMYANG",
-      pronunciationPolarityScore,
-      pronunciationPolarityPassed,
-      pronunciationPolarityArrangement.join(""),
-      {
-        arrangementList: pronunciationPolarityArrangement,
-      },
-    );
-
-    const rootElementArrangement = resolved.given.map((entry) => entry.rootElement);
-    const rootElementDistribution = distributionFromArrangement(rootElementArrangement);
-    const sajuCtx: SajuContext = {
-      sajuDistribution: this.sajuBaseDistribution,
-    };
-    const sajuRootBalance = computeSajuRootBalanceScore(sajuCtx.sajuDistribution, rootElementDistribution);
-    const sajuInsight = createInsight(
-      "SAJU_JAWON_BALANCE",
-      includeSaju ?? this.includeSajuDefault ? sajuRootBalance.score : sajuRootBalance.score,
-      sajuRootBalance.isPassed,
-      "SAJU+JAWON",
-      {
-        sajuDistribution: sajuCtx.sajuDistribution,
-        rootElementDistribution,
-        combinedDistribution: sajuRootBalance.combined,
-        birth,
-      },
-    );
-
-    const rootScore =
-      fourFrameNumberInsight.score * W_MAJOR +
-      sajuInsight.score * W_MAJOR +
-      strokePolarityInsight.score * W_MINOR +
-      pronunciationElementInsight.score * W_MINOR +
-      pronunciationPolarityInsight.score * W_MINOR +
-      fourFrameElementInsight.score * W_MINOR;
-
-    const rootPassed =
-      fourFrameNumberInsight.isPassed &&
-      sajuInsight.isPassed &&
-      strokePolarityInsight.isPassed &&
-      pronunciationElementInsight.isPassed &&
-      pronunciationPolarityInsight.isPassed &&
-      fourFrameElementInsight.isPassed &&
-      rootScore >= 60;
-
-    const seongmyeonghak = createInsight(
-      "SEONGMYEONGHAK",
-      rootScore,
-      rootPassed,
-      "ROOT",
-      {},
-    );
+    const fourFrameCalculator = new FourFrameCalculator(resolved.surname, resolved.given);
+    const hanjaCalculator = new HanjaCalculator(resolved.surname, resolved.given);
+    const hangulCalculator = new HangulCalculator(resolved.surname, resolved.given);
+    fourFrameCalculator.calculate();
+    hanjaCalculator.calculate();
+    hangulCalculator.calculate();
 
     const stats = this.statsRepository?.findByName(name.firstNameHangul) ?? null;
-    const statsScore = stats ? clamp(60 + stats.similarNames.length, 0, 100) : 0;
-    const statistics = createInsight(
-      "STATISTICS",
-      statsScore,
-      true,
-      "stats",
-      { found: stats !== null },
-    );
+    const ctx: EvaluationPipelineContext = {
+      name,
+      resolved,
+      surnameLength: resolved.surname.length,
+      givenLength: resolved.given.length,
+      includeSaju: includeSaju ?? this.includeSajuDefault,
+      birth,
+      luckyMap: this.luckyMap,
+      sajuBaseDistribution: this.sajuBaseDistribution,
+      stats,
+      fourFrameCalculator,
+      hanjaCalculator,
+      hangulCalculator,
+      insights: {},
+    };
+
+    executeEvaluationNode(createRootNode(), ctx);
+
+    const seongmyeonghak = mustInsight(ctx, "SEONGMYEONGHAK");
+    const fourFrameNumberInsight = mustInsight(ctx, "SAGYEOK_SURI");
+    const sajuInsight = mustInsight(ctx, "SAJU_JAWON_BALANCE");
+    const strokePolarityInsight = mustInsight(ctx, "HOEKSU_EUMYANG");
+    const pronunciationElementInsight = mustInsight(ctx, "BALEUM_OHAENG");
+    const pronunciationPolarityInsight = mustInsight(ctx, "BALEUM_EUMYANG");
+    const fourFrameElementInsight = mustInsight(ctx, "SAGYEOK_OHAENG");
+    const strokeElementInsight = mustInsight(ctx, "HOEKSU_OHAENG");
+    const statistics = mustInsight(ctx, "STATISTICS");
 
     const categoryMap: Record<Frame, FrameInsight> = {
       SEONGMYEONGHAK: seongmyeonghak,
@@ -626,7 +825,7 @@ export class NameEvaluator {
         categories: orderedCategories,
       },
       categoryMap,
-      statistics: stats as NameStatistics | null,
+      statistics: stats,
     };
   }
 }
@@ -646,9 +845,3 @@ export function buildInterpretationText(response: SeedResponse): string {
 export function sortResponsesByScore(items: SeedResponse[]): SeedResponse[] {
   return items.sort((a, b) => b.interpretation.score - a.interpretation.score);
 }
-
-
-
-
-
-

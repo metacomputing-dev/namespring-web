@@ -1,4 +1,4 @@
-﻿import type { Energy } from "../model/energy.js";
+import type { Energy } from "../core/types.js";
 
 export type EnergyCalculatorType = "Hanja" | "Sound" | "FourFrame";
 

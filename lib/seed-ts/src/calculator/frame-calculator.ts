@@ -1,12 +1,10 @@
-import type { HanjaEntry } from "../database/hanja-repository.js";
-import { elementFromStrokeLastDigit } from "../model/element.js";
-import { createEnergy, type Energy } from "../model/energy.js";
-import { polarityFromStrokeCount } from "../model/polarity.js";
+import { DEFAULT_POLARITY_BY_BIT, LAST_DIGIT_ELEMENT } from "../core/constants.js";
+import type { Element, Energy, FourFrame, HanjaEntry } from "../core/types.js";
 import { EnergyCalculator } from "./energy-calculator.js";
 
 export type FourFrameType = "won" | "hyeong" | "i" | "jeong";
 
-export interface FourFrame {
+export interface FourFrameMetric {
   type: FourFrameType;
   strokeCount: number;
   energy: Energy | null;
@@ -20,34 +18,71 @@ function sum(values: readonly number[]): number {
   return out;
 }
 
+function elementFromStrokeCount(strokeCount: number): Element {
+  return LAST_DIGIT_ELEMENT[Math.abs(strokeCount) % 10] as Element;
+}
+
+function polarityFromStrokeCount(strokeCount: number): Energy["polarity"] {
+  return DEFAULT_POLARITY_BY_BIT[(Math.abs(strokeCount) % 2) as 0 | 1];
+}
+
+function toEnergy(strokeCount: number): Energy {
+  return {
+    element: elementFromStrokeCount(strokeCount),
+    polarity: polarityFromStrokeCount(strokeCount),
+  };
+}
+
+export function adjustTo81(value: number): number {
+  if (value <= 81) {
+    return value;
+  }
+  return ((value - 1) % 81) + 1;
+}
+
+export function calculateFourFrameNumbersFromStrokes(
+  surnameStrokeCounts: readonly number[],
+  givenStrokeCounts: readonly number[],
+): FourFrame {
+  const padded = [...givenStrokeCounts];
+  if (padded.length === 1) {
+    padded.push(0);
+  }
+  const mid = Math.floor(padded.length / 2);
+  const givenUpperSum = sum(padded.slice(0, mid));
+  const givenLowerSum = sum(padded.slice(mid));
+  const surnameTotal = sum(surnameStrokeCounts);
+  const givenTotal = sum(givenStrokeCounts);
+
+  return {
+    won: adjustTo81(sum(padded)),
+    hyeong: adjustTo81(surnameTotal + givenUpperSum),
+    i: adjustTo81(surnameTotal + givenLowerSum),
+    jeong: adjustTo81(surnameTotal + givenTotal),
+  };
+}
+
 function buildFrames(
   surnameEntries: readonly HanjaEntry[],
   givenEntries: readonly HanjaEntry[],
-): FourFrame[] {
-  const surnameStrokes = surnameEntries.map((entry) => entry.strokes);
-  const givenStrokes = givenEntries.map((entry) => entry.strokes);
-
-  const paddedGiven = givenStrokes.length === 1 ? [givenStrokes[0] ?? 0, 0] : [...givenStrokes];
-  const mid = Math.floor(paddedGiven.length / 2);
-
-  const surnameTotal = sum(surnameStrokes);
-  const givenOriginalTotal = sum(givenStrokes);
-  const upper = sum(paddedGiven.slice(0, mid));
-  const lower = sum(paddedGiven.slice(mid));
+): FourFrameMetric[] {
+  const surnameStrokes = surnameEntries.map((entry) => entry.strokeCount);
+  const givenStrokes = givenEntries.map((entry) => entry.strokeCount);
+  const numbers = calculateFourFrameNumbersFromStrokes(surnameStrokes, givenStrokes);
 
   return [
-    { type: "won", strokeCount: sum(paddedGiven), energy: null },
-    { type: "hyeong", strokeCount: surnameTotal + upper, energy: null },
-    { type: "i", strokeCount: surnameTotal + lower, energy: null },
-    { type: "jeong", strokeCount: surnameTotal + givenOriginalTotal, energy: null },
+    { type: "won", strokeCount: numbers.won, energy: null },
+    { type: "hyeong", strokeCount: numbers.hyeong, energy: null },
+    { type: "i", strokeCount: numbers.i, energy: null },
+    { type: "jeong", strokeCount: numbers.jeong, energy: null },
   ];
 }
 
 export class FourFrameCalculator extends EnergyCalculator {
   public readonly type = "FourFrame";
-  private readonly frames: FourFrame[];
+  private readonly frames: FourFrameMetric[];
 
-  constructor(surnameEntries: HanjaEntry[], givenEntries: HanjaEntry[]) {
+  constructor(surnameEntries: readonly HanjaEntry[], givenEntries: readonly HanjaEntry[]) {
     super();
     this.frames = buildFrames(surnameEntries, givenEntries);
   }
@@ -57,10 +92,7 @@ export class FourFrameCalculator extends EnergyCalculator {
       if (frame.energy) {
         continue;
       }
-      frame.energy = createEnergy(
-        elementFromStrokeLastDigit(frame.strokeCount),
-        polarityFromStrokeCount(frame.strokeCount),
-      );
+      frame.energy = toEnergy(frame.strokeCount);
     }
 
     const jeong = this.getFrame("jeong");
@@ -69,11 +101,29 @@ export class FourFrameCalculator extends EnergyCalculator {
     }
   }
 
-  public getFrames(): readonly FourFrame[] {
+  public getFrames(): readonly FourFrameMetric[] {
     return this.frames;
   }
 
-  public getFrame(type: FourFrameType): FourFrame | undefined {
+  public getFrame(type: FourFrameType): FourFrameMetric | undefined {
     return this.frames.find((frame) => frame.type === type);
+  }
+
+  public getFrameNumbers(): FourFrame {
+    return {
+      won: this.getFrame("won")?.strokeCount ?? 0,
+      hyeong: this.getFrame("hyeong")?.strokeCount ?? 0,
+      i: this.getFrame("i")?.strokeCount ?? 0,
+      jeong: this.getFrame("jeong")?.strokeCount ?? 0,
+    };
+  }
+
+  public getCompatibilityElementArrangement(): Element[] {
+    const numbers = this.getFrameNumbers();
+    return [
+      elementFromStrokeCount(numbers.i),
+      elementFromStrokeCount(numbers.hyeong),
+      elementFromStrokeCount(numbers.won),
+    ];
   }
 }

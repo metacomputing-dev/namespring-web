@@ -1,6 +1,5 @@
-﻿import type { HanjaEntry } from "../database/hanja-repository.js";
-import { createEnergy, type Energy } from "../model/energy.js";
-import { polarityFromStrokeCount } from "../model/polarity.js";
+import { DEFAULT_POLARITY_BY_BIT } from "../core/constants.js";
+import type { Element, Energy, HanjaEntry, Polarity } from "../core/types.js";
 import { EnergyCalculator } from "./energy-calculator.js";
 import { lastEnergy, mergeNameEntries } from "./support.js";
 
@@ -12,11 +11,19 @@ export interface HanjaChar {
   energy: Energy | null;
 }
 
+function bitToPolarity(value: number): Polarity {
+  return DEFAULT_POLARITY_BY_BIT[(Math.abs(value) % 2) as 0 | 1];
+}
+
+function toEnergy(element: Element, polarity: Polarity): Energy {
+  return { element, polarity };
+}
+
 export class HanjaCalculator extends EnergyCalculator {
   public readonly type = "Hanja";
   private readonly chars: HanjaChar[];
 
-  constructor(surnameEntries: HanjaEntry[], givenEntries: HanjaEntry[]) {
+  constructor(surnameEntries: readonly HanjaEntry[], givenEntries: readonly HanjaEntry[]) {
     super();
     this.chars = mergeNameEntries(surnameEntries, givenEntries).map((entry, position) => ({
       hangul: entry.hangul,
@@ -32,8 +39,7 @@ export class HanjaCalculator extends EnergyCalculator {
       if (item.energy) {
         continue;
       }
-      const polarity = item.entry.strokePolarity ?? polarityFromStrokeCount(item.entry.strokes);
-      item.energy = createEnergy(item.entry.resourceElement, polarity);
+      item.energy = toEnergy(item.entry.rootElement, bitToPolarity(item.entry.strokePolarityBit));
     }
 
     const energy = lastEnergy(this.chars);
@@ -44,5 +50,17 @@ export class HanjaCalculator extends EnergyCalculator {
 
   public getNameChars(): readonly HanjaChar[] {
     return this.chars;
+  }
+
+  public getStrokeElementArrangement(): Element[] {
+    return this.chars.map((item) => item.entry.strokeElement);
+  }
+
+  public getRootElementArrangement(): Element[] {
+    return this.chars.map((item) => item.entry.rootElement);
+  }
+
+  public getStrokePolarityArrangement(): Polarity[] {
+    return this.chars.map((item) => bitToPolarity(item.entry.strokePolarityBit));
   }
 }

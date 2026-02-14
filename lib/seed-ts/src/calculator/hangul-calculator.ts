@@ -1,10 +1,6 @@
-import { CHOSUNG_ELEMENT, YANG_VOWELS } from "../core/constants.js";
+﻿import { CHOSUNG_ELEMENT, DEFAULT_POLARITY_BY_BIT, YANG_VOWELS } from "../core/constants.js";
 import { extractChosung, extractJungsung } from "../core/hangul.js";
-import type { Element as CoreElementSymbol } from "../core/types.js";
-import type { HanjaEntry } from "../database/hanja-repository.js";
-import { elementFromCoreSymbol } from "../model/element.js";
-import { createEnergy, type Energy } from "../model/energy.js";
-import type { Polarity } from "../model/polarity.js";
+import type { Element, Energy, HanjaEntry, Polarity } from "../core/types.js";
 import { EnergyCalculator } from "./energy-calculator.js";
 import { lastEnergy, mergeNameEntries } from "./support.js";
 
@@ -16,36 +12,35 @@ export interface SoundChar {
   energy: Energy | null;
 }
 
-function resolveOnset(entry: HanjaEntry): string {
-  if (entry.onset && entry.onset.length > 0) {
-    return entry.onset;
-  }
-  return extractChosung(entry.hangul);
+function bitToPolarity(value: number): Polarity {
+  return DEFAULT_POLARITY_BY_BIT[(Math.abs(value) % 2) as 0 | 1];
 }
 
-function resolveVowel(entry: HanjaEntry): string {
-  if (entry.nucleus && entry.nucleus.length > 0) {
-    return entry.nucleus;
+function resolveElement(entry: HanjaEntry): Element {
+  if (entry.pronunciationElement) {
+    return entry.pronunciationElement;
   }
-  return extractJungsung(entry.hangul);
-}
-
-function resolveElement(entry: HanjaEntry) {
-  const onset = resolveOnset(entry);
-  const coreElementSymbol = (CHOSUNG_ELEMENT[onset] ?? "水") as CoreElementSymbol;
-  return elementFromCoreSymbol(coreElementSymbol);
+  const onset = extractChosung(entry.hangul);
+  return (CHOSUNG_ELEMENT[onset] ?? "\u6C34") as Element;
 }
 
 function resolvePolarity(entry: HanjaEntry): Polarity {
-  const vowel = resolveVowel(entry);
-  return YANG_VOWELS.has(vowel) ? "Positive" : "Negative";
+  if (entry.pronunciationPolarityBit === 0 || entry.pronunciationPolarityBit === 1) {
+    return bitToPolarity(entry.pronunciationPolarityBit);
+  }
+  const vowel = extractJungsung(entry.hangul);
+  return YANG_VOWELS.has(vowel) ? "\u967D" : "\u9670";
+}
+
+function toEnergy(element: Element, polarity: Polarity): Energy {
+  return { element, polarity };
 }
 
 export class HangulCalculator extends EnergyCalculator {
   public readonly type = "Sound";
   private readonly chars: SoundChar[];
 
-  constructor(surnameEntries: HanjaEntry[], givenEntries: HanjaEntry[]) {
+  constructor(surnameEntries: readonly HanjaEntry[], givenEntries: readonly HanjaEntry[]) {
     super();
     this.chars = mergeNameEntries(surnameEntries, givenEntries).map((entry, position) => ({
       char: entry.hangul,
@@ -61,7 +56,7 @@ export class HangulCalculator extends EnergyCalculator {
       if (item.energy) {
         continue;
       }
-      item.energy = createEnergy(resolveElement(item.entry), resolvePolarity(item.entry));
+      item.energy = toEnergy(resolveElement(item.entry), resolvePolarity(item.entry));
     }
 
     const energy = lastEnergy(this.chars);
@@ -72,5 +67,13 @@ export class HangulCalculator extends EnergyCalculator {
 
   public getSoundChars(): readonly SoundChar[] {
     return this.chars;
+  }
+
+  public getPronunciationElementArrangement(): Element[] {
+    return this.chars.map((item) => resolveElement(item.entry));
+  }
+
+  public getPronunciationPolarityArrangement(): Polarity[] {
+    return this.chars.map((item) => resolvePolarity(item.entry));
   }
 }
