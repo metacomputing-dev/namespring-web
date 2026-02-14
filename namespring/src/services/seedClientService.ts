@@ -5,10 +5,19 @@ import {
   createSeedClient,
   type AnalyzeSelectionRequest,
   type HanjaEntry,
+  type SearchResult,
   type SeedClient,
   type SeedResponse,
 } from "@seed/index";
-import type { AnalysisCandidate, AnalysisResult, AnalyzeRequest, HanjaOption } from "../types";
+import { buildSearchQuery } from "../utils/naming-query";
+import type {
+  AnalysisCandidate,
+  AnalysisResult,
+  AnalyzeRequest,
+  CandidateSearchRequest,
+  CandidateSearchResult,
+  HanjaOption,
+} from "../types";
 
 const STATUS_LABEL: Record<string, string> = {
   POSITIVE: "Strong",
@@ -81,16 +90,45 @@ function toAnalysisResult(response: SeedResponse): AnalysisResult {
   };
 }
 
+function toCandidateSearchResult(
+  response: SearchResult,
+  offset: number,
+  limit: number,
+): CandidateSearchResult {
+  return {
+    candidates: response.responses.map((item) => toCandidate(item)),
+    totalCount: response.totalCount,
+    provider: "SeedClient",
+    query: response.query,
+    truncated: response.truncated,
+    offset,
+    limit,
+  };
+}
+
 export class SeedClientService {
   private clientPromise: Promise<SeedClient> | null = null;
+  private readonly hanjaLookupCache = new Map<string, HanjaOption[]>();
 
   public async initialize(): Promise<void> {
     await this.getClient();
   }
 
   public async findHanjaByHangul(hangul: string, surname = false): Promise<HanjaOption[]> {
+    const normalized = (hangul ?? "").trim();
+    if (!normalized) {
+      return [];
+    }
+    const cacheKey = `${surname ? "s" : "g"}:${normalized}`;
+    const cached = this.hanjaLookupCache.get(cacheKey);
+    if (cached) {
+      return cached;
+    }
+
     const client = await this.getClient();
-    return client.findHanjaByHangul(hangul, { surname }).map((entry) => toHanjaOption(entry));
+    const options = client.findHanjaByHangul(normalized, { surname }).map((entry) => toHanjaOption(entry));
+    this.hanjaLookupCache.set(cacheKey, options);
+    return options;
   }
 
   public async analyze(request: AnalyzeRequest): Promise<AnalysisResult> {
@@ -108,6 +146,26 @@ export class SeedClientService {
     };
     const result = client.analyzeSelection(payload);
     return toAnalysisResult(result.response);
+  }
+
+  public async searchCandidates(request: CandidateSearchRequest): Promise<CandidateSearchResult> {
+    const client = await this.getClient();
+    const query = buildSearchQuery({
+      surnameHangul: request.surnameHangul,
+      surnameHanja: request.surnameHanja,
+      constraints: request.constraints,
+    });
+
+    const result = client.searchCandidates({
+      query,
+      birth: request.birthDateTime,
+      gender: request.gender,
+      includeSaju: request.includeSaju,
+      limit: request.limit,
+      offset: request.offset,
+    });
+
+    return toCandidateSearchResult(result, request.offset, request.limit);
   }
 
   private async getClient(): Promise<SeedClient> {

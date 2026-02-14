@@ -1,5 +1,6 @@
 export type GenderOption = "female" | "male" | "none";
 export type NameTargetType = "last" | "first";
+export type KoreanConstraintKind = "empty" | "syllable" | "chosung" | "jungsung" | "invalid";
 
 export interface BirthDateTime {
   year: number;
@@ -51,6 +52,13 @@ export interface AnalysisResult {
   provider: string;
 }
 
+export interface CandidateSearchResult extends AnalysisResult {
+  query: string;
+  truncated: boolean;
+  offset: number;
+  limit: number;
+}
+
 export interface AnalyzeRequest {
   lastNameHangul: string;
   firstNameHangul: string;
@@ -59,4 +67,20 @@ export interface AnalyzeRequest {
   birthDateTime: BirthDateTime;
   gender: GenderOption;
   includeSaju: boolean;
+}
+
+export interface GivenNameConstraint {
+  korean: string;
+  hanja: string;
+}
+
+export interface CandidateSearchRequest {
+  surnameHangul: string;
+  surnameHanja: string;
+  constraints: readonly GivenNameConstraint[];
+  birthDateTime?: BirthDateTime;
+  gender: GenderOption;
+  includeSaju: boolean;
+  limit: number;
+  offset: number;
 }
