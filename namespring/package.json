@@ -7,7 +7,9 @@
     "lib/seed-ts"
   ],
   "scripts": {
+    "predev": "npm --prefix ../lib/saju-ts run build",
     "dev": "vite",
+    "prebuild": "npm --prefix ../lib/saju-ts run build",
     "build": "vite build",
     "lint": "eslint .",
     "preview": "vite preview"

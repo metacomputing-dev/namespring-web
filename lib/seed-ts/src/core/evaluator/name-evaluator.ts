@@ -9,6 +9,7 @@ import type {
   Element,
   Frame,
   FrameInsight,
+  Gender,
   LuckyLevel,
   NameInput,
   ResolvedName,
@@ -21,26 +22,59 @@ import {
   type EvaluationPipelineContext,
 } from "./evaluator-context.js";
 import { createRootNode } from "./evaluator-nodes.js";
+import {
+  resolveSajuDistribution,
+  type SajuDistributionResolution,
+} from "./saju-distribution-resolver.js";
+
+function buildBirthCacheKey(birth: BirthInfo | undefined, gender: Gender | undefined): string | null {
+  if (!birth) {
+    return null;
+  }
+  const normalizedGender = (gender ?? "NONE").toUpperCase();
+  return `${birth.year}-${birth.month}-${birth.day}-${birth.hour}-${birth.minute}|${normalizedGender}`;
+}
 
 export class NameEvaluator {
   private readonly luckyMap: Map<number, LuckyLevel>;
   private readonly statsRepository: StatsRepository | null;
-  private readonly includeSajuDefault: boolean;
-  private readonly sajuBaseDistribution: Record<Element, number>;
+  private readonly sajuFallbackDistribution: Record<Element, number>;
+  private readonly sajuDistributionCache = new Map<string, SajuDistributionResolution>();
 
   constructor(
     luckyMap: Map<number, LuckyLevel>,
     statsRepository: StatsRepository | null,
-    includeSajuDefault: boolean,
+    _includeSajuDefault: boolean,
     sajuBaseDistribution?: Partial<Record<Element, number>>,
   ) {
     this.luckyMap = luckyMap;
     this.statsRepository = statsRepository;
-    this.includeSajuDefault = includeSajuDefault;
-    this.sajuBaseDistribution = createSajuBaseDistribution(sajuBaseDistribution);
+    this.sajuFallbackDistribution = createSajuBaseDistribution(sajuBaseDistribution);
   }
 
-  evaluate(name: NameInput, resolved: ResolvedName, birth?: BirthInfo, includeSaju?: boolean): SeedResponse {
+  private resolveSajuDistribution(birth?: BirthInfo, gender?: Gender): SajuDistributionResolution {
+    const cacheKey = buildBirthCacheKey(birth, gender);
+    if (!cacheKey) {
+      return resolveSajuDistribution(birth, gender, this.sajuFallbackDistribution);
+    }
+
+    const cached = this.sajuDistributionCache.get(cacheKey);
+    if (cached) {
+      return cached;
+    }
+
+    const resolved = resolveSajuDistribution(birth, gender, this.sajuFallbackDistribution);
+    this.sajuDistributionCache.set(cacheKey, resolved);
+    return resolved;
+  }
+
+  evaluate(
+    name: NameInput,
+    resolved: ResolvedName,
+    birth?: BirthInfo,
+    _includeSaju?: boolean,
+    gender?: Gender,
+  ): SeedResponse {
     const fourFrameCalculator = new FourFrameCalculator(resolved.surname, resolved.given);
     const hanjaCalculator = new HanjaCalculator(resolved.surname, resolved.given);
     const hangulCalculator = new HangulCalculator(resolved.surname, resolved.given);
@@ -48,16 +82,22 @@ export class NameEvaluator {
     hanjaCalculator.calculate();
     hangulCalculator.calculate();
 
+    const sajuResolution = this.resolveSajuDistribution(birth, gender);
     const stats = this.statsRepository?.findByName(name.firstNameHangul) ?? null;
     const ctx: EvaluationPipelineContext = {
       name,
       resolved,
       surnameLength: resolved.surname.length,
       givenLength: resolved.given.length,
-      includeSaju: includeSaju ?? this.includeSajuDefault,
+      includeSaju: true,
       birth,
+      gender,
       luckyMap: this.luckyMap,
-      sajuBaseDistribution: this.sajuBaseDistribution,
+      sajuDistribution: sajuResolution.distribution,
+      sajuDistributionSource: sajuResolution.source,
+      sajuInput: sajuResolution.input,
+      sajuOutput: sajuResolution.output,
+      sajuCalculationError: sajuResolution.error,
       stats,
       fourFrameCalculator,
       hanjaCalculator,

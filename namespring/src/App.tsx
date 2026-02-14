@@ -1,4 +1,4 @@
-import { useMemo, useState } from "react";
+﻿import { useMemo, useState } from "react";
 import HanjaSelectionModal from "./components/HanjaSelectionModal";
 import NameInputSection from "./components/NameInputSection";
 import { useNameAnalysisForm } from "./hooks/useNameAnalysisForm";
@@ -12,7 +12,14 @@ const GENDER_OPTIONS: Array<{ label: string; value: GenderOption }> = [
 ];
 
 const GENERATOR_LENGTH_OPTIONS = [1, 2, 3, 4] as const;
-const SEARCH_LIMIT_OPTIONS = [10, 20, 30, 50, 100] as const;
+const SEARCH_LIMIT_OPTIONS = [
+  { label: "All", value: "all" },
+  { label: "10", value: "10" },
+  { label: "20", value: "20" },
+  { label: "30", value: "30" },
+  { label: "50", value: "50" },
+  { label: "100", value: "100" },
+] as const;
 
 type WorkspaceTab = "analyze" | "generate";
 
@@ -59,8 +66,6 @@ export default function App() {
     setBirthTime,
     gender,
     setGender,
-    includeSaju,
-    setIncludeSaju,
     surnameHangul,
     setSurnameHangul,
     analyzeGivenHangul,
@@ -120,7 +125,7 @@ export default function App() {
           <p className="text-xs font-bold uppercase tracking-[0.28em] text-orange-500">NameSpring Studio</p>
           <h1 className="mt-2 text-3xl font-black sm:text-4xl">Naming Analysis + Candidate Generator</h1>
           <p className="mt-2 text-sm text-slate-600">
-            Default case: 김서윤 / 金西玧 / 1995-09-21 09:30 / female / includeSaju false
+            Default case: Kim Seoyun / 金西玧 / 1995-09-21 09:30 / female
           </p>
         </header>
 
@@ -168,20 +173,9 @@ export default function App() {
             </div>
           </div>
 
-          <div className="mt-4 rounded-2xl border border-slate-200 bg-slate-50 px-4 py-3">
-            <label className="flex cursor-pointer items-center justify-between gap-3">
-              <span>
-                <span className="block text-sm font-bold text-slate-800">Include Saju</span>
-                <span className="block text-xs text-slate-500">Off by default for reproducible baseline tests.</span>
-              </span>
-              <input
-                type="checkbox"
-                checked={includeSaju}
-                onChange={(event) => setIncludeSaju(event.target.checked)}
-                className="h-5 w-5 accent-orange-500"
-              />
-            </label>
-          </div>
+          <p className="mt-4 rounded-2xl border border-slate-200 bg-slate-50 px-4 py-3 text-sm text-slate-600">
+            Saju is always included and computed from birth date/time.
+          </p>
         </section>
 
         <section className="rounded-3xl bg-white p-5 shadow-lg ring-1 ring-slate-100">
@@ -195,7 +189,7 @@ export default function App() {
               value={surnameHangul}
               onChange={setSurnameHangul}
               maxLength={2}
-              placeholder="e.g. 김, 제갈"
+              placeholder="e.g. 源, ?쒓컝"
               selectedEntries={selectedSurnameEntries}
               onSelectCharacter={openHanjaModal}
               targetType="last"
@@ -235,7 +229,7 @@ export default function App() {
               value={analyzeGivenHangul}
               onChange={setAnalyzeGivenHangul}
               maxLength={4}
-              placeholder="e.g. 서윤"
+              placeholder="e.g. ?쒖쑄"
               selectedEntries={selectedAnalyzeGivenEntries}
               onSelectCharacter={openHanjaModal}
               targetType="first"
@@ -291,13 +285,16 @@ export default function App() {
               <label className="space-y-1">
                 <span className="text-xs font-bold uppercase tracking-[0.2em] text-slate-500">Limit</span>
                 <select
-                  value={generatorLimit}
-                  onChange={(event) => setGeneratorLimit(Number(event.target.value))}
+                  value={generatorLimit === null ? "all" : String(generatorLimit)}
+                  onChange={(event) => {
+                    const value = event.target.value;
+                    setGeneratorLimit(value === "all" ? null : Number(value));
+                  }}
                   className="rounded-xl border border-slate-200 bg-slate-50 px-3 py-2 font-semibold outline-none focus:border-cyan-500"
                 >
-                  {SEARCH_LIMIT_OPTIONS.map((value) => (
-                    <option key={value} value={value}>
-                      {value}
+                  {SEARCH_LIMIT_OPTIONS.map((option) => (
+                    <option key={option.value} value={option.value}>
+                      {option.label}
                     </option>
                   ))}
                 </select>
@@ -332,7 +329,7 @@ export default function App() {
                         value={constraint.korean}
                         maxLength={1}
                         onChange={(event) => setConstraintKorean(index, event.target.value)}
-                        placeholder="가 / ㄱ / ㅏ / empty"
+                        placeholder="媛 / ??/ ??/ empty"
                         className="w-full rounded-xl border border-slate-200 bg-white px-3 py-2 text-center text-lg font-bold outline-none focus:border-cyan-500"
                       />
                     </label>
@@ -461,3 +458,5 @@ export default function App() {
     </div>
   );
 }
+
+

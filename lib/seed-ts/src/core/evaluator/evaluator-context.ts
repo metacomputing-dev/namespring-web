@@ -10,12 +10,18 @@ import type {
   Element,
   Frame,
   FrameInsight,
+  Gender,
   LuckyLevel,
   NameInput,
   NameStatistics,
   ResolvedName,
   Status,
 } from "../types.js";
+import type {
+  SajuCalculationInputSummary,
+  SajuCalculationOutputSummary,
+  SajuDistributionSource,
+} from "./saju-distribution-resolver.js";
 
 export const W_MAJOR = 0.2;
 export const W_MINOR = 0.15;
@@ -29,8 +35,13 @@ export interface EvaluationPipelineContext {
   givenLength: number;
   includeSaju: boolean;
   birth?: BirthInfo;
+  gender?: Gender;
   luckyMap: Map<number, LuckyLevel>;
-  sajuBaseDistribution: Record<Element, number>;
+  sajuDistribution: Record<Element, number>;
+  sajuDistributionSource: SajuDistributionSource;
+  sajuInput: SajuCalculationInputSummary | null;
+  sajuOutput: SajuCalculationOutputSummary | null;
+  sajuCalculationError: string | null;
   stats: NameStatistics | null;
   fourFrameCalculator: FourFrameCalculator;
   hanjaCalculator: HanjaCalculator;

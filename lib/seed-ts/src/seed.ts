@@ -23,7 +23,7 @@ function toAnalyzeSelectionSource(request: AnalyzeSelectionRequest): EvaluateReq
     name: request.name,
     birth: request.birth,
     gender: request.gender,
-    includeSaju: request.includeSaju,
+    includeSaju: true,
   };
 }
 

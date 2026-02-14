@@ -28,7 +28,7 @@ export function createBrowserWasmRuntimeContext(options: SeedClientOptions): Run
     throw new Error("browser-wasm runtime strategy options are required.");
   }
 
-  const includeSaju = options.includeSaju ?? false;
+  const includeSaju = true;
   const sqliteUseFor = options.sqlite?.useFor ?? "all";
   if (sqliteUseFor !== "all") {
     throw new Error("`sqlite.useFor` must be `all` in browser-wasm runtime mode.");

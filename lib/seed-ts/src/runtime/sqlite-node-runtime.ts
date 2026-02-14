@@ -142,7 +142,7 @@ export function ensureNodeSqliteFileExists(sqlitePath: string): void {
 }
 
 export function createSqliteNodeRuntimeContext(options: SeedClientOptions): RuntimeContext {
-  const includeSaju = options.includeSaju ?? false;
+  const includeSaju = true;
   const sqliteUseFor = options.sqlite?.useFor ?? "all";
 
   if (sqliteUseFor !== "all") {

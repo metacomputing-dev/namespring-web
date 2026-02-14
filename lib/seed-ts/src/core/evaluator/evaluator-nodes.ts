@@ -245,17 +245,22 @@ function createSajuBalanceNode(): CalculatorNode<EvaluationPipelineContext> {
     visit(ctx): void {
       const rootElementArrangement = ctx.resolved.given.map((entry) => entry.rootElement);
       const rootElementDistribution = distributionFromArrangement(rootElementArrangement);
-      const sajuRootBalance = computeSajuRootBalanceScore(ctx.sajuBaseDistribution, rootElementDistribution);
+      const sajuRootBalance = computeSajuRootBalanceScore(ctx.sajuDistribution, rootElementDistribution);
       const insight = createInsight(
         "SAJU_JAWON_BALANCE",
-        ctx.includeSaju ? sajuRootBalance.score : sajuRootBalance.score,
+        sajuRootBalance.score,
         sajuRootBalance.isPassed,
         "SAJU+JAWON",
         {
-          sajuDistribution: ctx.sajuBaseDistribution,
-          rootElementDistribution,
-          combinedDistribution: sajuRootBalance.combined,
-          birth: ctx.birth,
+          sajuDistribution: ctx.sajuDistribution,
+          sajuDistributionSource: ctx.sajuDistributionSource,
+          jawonDistribution: rootElementDistribution,
+          sajuJawonDistribution: sajuRootBalance.combined,
+          requestedBirth: ctx.birth,
+          requestedGender: ctx.gender,
+          sajuInput: ctx.sajuInput,
+          sajuOutput: ctx.sajuOutput,
+          sajuCalculationError: ctx.sajuCalculationError,
         },
       );
       setInsight(ctx, insight);

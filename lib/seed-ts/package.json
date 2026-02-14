@@ -11,9 +11,13 @@
     }
   },
   "scripts": {
+    "prebuild": "npm --prefix ../saju-ts run build",
     "build": "tsc -p tsconfig.json",
-    "test": "npm run build && node --test ./test/*.test.mjs",
+    "test": "npm run build && node --test --test-concurrency=1 ./test/*.test.mjs",
     "sqlite:build": "node ./scripts/build-sqlite.mjs"
+  },
+  "dependencies": {
+    "@metaintelligence/saju": "file:../saju-ts"
   },
   "files": [
     "dist"

@@ -15,7 +15,7 @@ import {
 } from "./sqlite-four-frame.js";
 
 export function createSqliteRuntimeContext(options: SeedOptions): RuntimeContext {
-  const includeSaju = options.includeSaju ?? false;
+  const includeSaju = true;
   const sqlitePath = resolveSqlitePath(
     options.dataRoot ?? path.resolve(process.cwd(), "lib/seed-ts/src/main/resources/seed/data"),
     options.sqlite?.path,

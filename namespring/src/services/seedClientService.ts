@@ -32,6 +32,9 @@ function resolveSeedDatabaseUrl(): string {
 
   const configuredUrl = (import.meta.env.VITE_SEED_DB_URL as string | undefined)?.trim();
   if (configuredUrl) {
+    if (import.meta.env.DEV && /^[A-Za-z]:[\\/]/.test(configuredUrl)) {
+      return `/@fs/${configuredUrl.replace(/\\/g, "/")}`;
+    }
     return configuredUrl;
   }
   return "/seed.db";
@@ -64,7 +67,32 @@ function summarizeResponse(response: SeedResponse): string {
   return `${best.arrangement} - ${label}`;
 }
 
-function toCandidate(response: SeedResponse): AnalysisCandidate {
+function asRecord(value: unknown): Record<string, unknown> | null {
+  if (!value || typeof value !== "object" || Array.isArray(value)) {
+    return null;
+  }
+  return value as Record<string, unknown>;
+}
+
+function trimSajuTrace(details: Record<string, unknown>): Record<string, unknown> {
+  const sajuOutput = asRecord(details.sajuOutput);
+  if (!sajuOutput) {
+    return details;
+  }
+  const restSajuOutput: Record<string, unknown> = { ...sajuOutput };
+  delete restSajuOutput.trace;
+  return {
+    ...details,
+    sajuOutput: restSajuOutput,
+  };
+}
+
+interface CandidateTransformOptions {
+  includeDetails: boolean;
+  includeSajuTrace: boolean;
+}
+
+function toCandidate(response: SeedResponse, options: CandidateTransformOptions): AnalysisCandidate {
   return {
     lastNameHangul: response.name.lastNameHangul,
     firstNameHangul: response.name.firstNameHangul,
@@ -77,6 +105,11 @@ function toCandidate(response: SeedResponse): AnalysisCandidate {
       score: category.score,
       status: category.status,
       arrangement: category.arrangement,
+      details: options.includeDetails
+        ? options.includeSajuTrace
+          ? category.details
+          : trimSajuTrace(category.details)
+        : undefined,
     })),
     provider: "SeedClient",
   };
@@ -84,7 +117,12 @@ function toCandidate(response: SeedResponse): AnalysisCandidate {
 
 function toAnalysisResult(response: SeedResponse): AnalysisResult {
   return {
-    candidates: [toCandidate(response)],
+    candidates: [
+      toCandidate(response, {
+        includeDetails: true,
+        includeSajuTrace: true,
+      }),
+    ],
     totalCount: 1,
     provider: "SeedClient",
   };
@@ -93,16 +131,21 @@ function toAnalysisResult(response: SeedResponse): AnalysisResult {
 function toCandidateSearchResult(
   response: SearchResult,
   offset: number,
-  limit: number,
+  limit: number | undefined,
 ): CandidateSearchResult {
   return {
-    candidates: response.responses.map((item) => toCandidate(item)),
+    candidates: response.responses.map((item, index) =>
+      toCandidate(item, {
+        includeDetails: index === 0,
+        includeSajuTrace: index === 0,
+      }),
+    ),
     totalCount: response.totalCount,
     provider: "SeedClient",
     query: response.query,
     truncated: response.truncated,
     offset,
-    limit,
+    limit: limit ?? null,
   };
 }
 
@@ -142,7 +185,7 @@ export class SeedClientService {
       },
       birth: request.birthDateTime,
       gender: request.gender,
-      includeSaju: request.includeSaju,
+      includeSaju: true,
     };
     const result = client.analyzeSelection(payload);
     return toAnalysisResult(result.response);
@@ -160,7 +203,7 @@ export class SeedClientService {
       query,
       birth: request.birthDateTime,
       gender: request.gender,
-      includeSaju: request.includeSaju,
+      includeSaju: true,
       limit: request.limit,
       offset: request.offset,
     });
@@ -188,7 +231,7 @@ export class SeedClientService {
     const binary = new Uint8Array(await response.arrayBuffer());
     const database = Runtime.openSqlJsDatabase(sqlModule, binary);
     return createSeedClient({
-      includeSaju: false,
+      includeSaju: true,
       runtime: {
         strategy: "browser-wasm",
         database,

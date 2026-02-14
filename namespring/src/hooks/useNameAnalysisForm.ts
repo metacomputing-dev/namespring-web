@@ -55,7 +55,7 @@ const DEFAULT_FIRST_NAME_ENTRIES: readonly HanjaOption[] = Object.freeze([
 ]);
 
 const DEFAULT_DB_STATUS = "Initializing Seed DB for browser runtime...";
-const DEFAULT_GENERATOR_LIMIT = 30;
+const DEFAULT_GENERATOR_LIMIT: number | null = null;
 
 function createEmptyGivenConstraints(): GivenNameConstraint[] {
   return Array.from({ length: 4 }, () => ({ korean: "", hanja: "" }));
@@ -104,12 +104,15 @@ function toJoinedHanja(entries: Array<HanjaOption | null>): string {
     .join("");
 }
 
-function normalizeLimit(value: number): number {
+function normalizeLimit(value: number | null): number | undefined {
+  if (value === null) {
+    return undefined;
+  }
   const rounded = Math.trunc(value);
   if (!Number.isFinite(rounded) || rounded <= 0) {
-    return DEFAULT_GENERATOR_LIMIT;
+    return undefined;
   }
-  return Math.min(200, rounded);
+  return rounded;
 }
 
 function normalizeOffset(value: number): number {
@@ -127,7 +130,6 @@ type NameAnalysisFormState = {
   birthDate: string;
   birthTime: string;
   gender: GenderOption;
-  includeSaju: boolean;
   surnameHangul: string;
   analyzeGivenHangul: string;
   selectedSurnameEntries: Array<HanjaOption | null>;
@@ -140,7 +142,7 @@ type NameAnalysisFormState = {
   analysisError: string | null;
   generatorLength: 1 | 2 | 3 | 4;
   generatorConstraints: GivenNameConstraint[];
-  generatorLimit: number;
+  generatorLimit: number | null;
   generatorOffset: number;
   isSearchingCandidates: boolean;
   candidateResult: CandidateSearchResult | null;
@@ -157,7 +159,6 @@ export function useNameAnalysisForm() {
   const [birthDate, setBirthDateState] = useState("1995-09-21");
   const [birthTime, setBirthTimeState] = useState("09:30");
   const [gender, setGenderState] = useState<GenderOption>("female");
-  const [includeSaju, setIncludeSajuState] = useState(false);
 
   const [surnameHangul, setSurnameHangulState] = useState(DEFAULT_SURNAME_HANGUL);
   const [analyzeGivenHangul, setAnalyzeGivenHangulState] = useState(DEFAULT_GIVEN_HANGUL);
@@ -178,7 +179,7 @@ export function useNameAnalysisForm() {
 
   const [generatorLength, setGeneratorLengthState] = useState<1 | 2 | 3 | 4>(2);
   const [generatorConstraints, setGeneratorConstraints] = useState<GivenNameConstraint[]>(createEmptyGivenConstraints());
-  const [generatorLimit, setGeneratorLimitState] = useState(DEFAULT_GENERATOR_LIMIT);
+  const [generatorLimit, setGeneratorLimitState] = useState<number | null>(DEFAULT_GENERATOR_LIMIT);
   const [generatorOffset, setGeneratorOffsetState] = useState(0);
   const [isSearchingCandidates, setIsSearchingCandidates] = useState(false);
   const [candidateResult, setCandidateResult] = useState<CandidateSearchResult | null>(null);
@@ -273,15 +274,6 @@ export function useNameAnalysisForm() {
     [clearAnalyzeOutput, clearSearchOutput],
   );
 
-  const setIncludeSaju = useCallback(
-    (value: boolean) => {
-      setIncludeSajuState(value);
-      clearAnalyzeOutput();
-      clearSearchOutput();
-    },
-    [clearAnalyzeOutput, clearSearchOutput],
-  );
-
   const setGeneratorLength = useCallback(
     (length: 1 | 2 | 3 | 4) => {
       setGeneratorLengthState(length);
@@ -291,8 +283,8 @@ export function useNameAnalysisForm() {
   );
 
   const setGeneratorLimit = useCallback(
-    (value: number) => {
-      setGeneratorLimitState(normalizeLimit(value));
+    (value: number | null) => {
+      setGeneratorLimitState(value);
       clearSearchOutput();
     },
     [clearSearchOutput],
@@ -454,7 +446,6 @@ export function useNameAnalysisForm() {
         firstNameHanja,
         birthDateTime,
         gender,
-        includeSaju,
       });
 
       if (!result.candidates[0]) {
@@ -478,7 +469,6 @@ export function useNameAnalysisForm() {
     canAnalyze,
     ctaBlockReason,
     gender,
-    includeSaju,
     seedService,
     selectedAnalyzeGivenEntries,
     selectedSurnameEntries,
@@ -540,7 +530,6 @@ export function useNameAnalysisForm() {
         constraints,
         birthDateTime,
         gender,
-        includeSaju,
         limit: normalizeLimit(generatorLimit),
         offset: normalizeOffset(generatorOffset),
       });
@@ -560,7 +549,6 @@ export function useNameAnalysisForm() {
     generatorLength,
     generatorLimit,
     generatorOffset,
-    includeSaju,
     isDbReady,
     seedService,
     selectedSurnameEntries,
@@ -580,7 +568,6 @@ export function useNameAnalysisForm() {
     birthDate,
     birthTime,
     gender,
-    includeSaju,
     surnameHangul,
     analyzeGivenHangul,
     selectedSurnameEntries,
@@ -615,7 +602,6 @@ export function useNameAnalysisForm() {
     setBirthDate,
     setBirthTime,
     setGender,
-    setIncludeSaju,
     setGeneratorLength,
     setGeneratorLimit,
     setGeneratorOffset,

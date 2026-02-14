@@ -1,6 +1,7 @@
 import { parseNameQuery } from "../query.js";
 import type {
   Element,
+  Gender,
   HanjaRepository,
   NameInput,
   Polarity,
@@ -83,9 +84,14 @@ export class NameSearchService {
     return strokeCount;
   }
 
-  evaluateName(input: NameInput, birth?: SearchRequest["birth"], includeSaju?: boolean): SeedResponse {
+  evaluateName(
+    input: NameInput,
+    birth?: SearchRequest["birth"],
+    _includeSaju?: boolean,
+    gender?: Gender,
+  ): SeedResponse {
     const resolved = toResolvedName(this.repository, input);
-    return this.evaluator.evaluate(input, resolved, birth, includeSaju);
+    return this.evaluator.evaluate(input, resolved, birth, true, gender);
   }
 
   search(request: SearchRequest): SearchResult {
@@ -105,7 +111,8 @@ export class NameSearchService {
             firstNameHanja: "",
           },
           request.birth,
-          request.includeSaju,
+          true,
+          request.gender,
         ),
       );
       return {
@@ -117,14 +124,72 @@ export class NameSearchService {
     }
 
     const nameLength = query.nameBlocks.length;
-    const limit = Math.max(1, request.limit ?? 10000);
+    const limit =
+      typeof request.limit === "number" && Number.isFinite(request.limit) && request.limit > 0
+        ? Math.trunc(request.limit)
+        : undefined;
     const offset = Math.max(0, request.offset ?? 0);
 
-    const topK = new MinHeap<RankedResponse>((a, b) => {
-      return a.response.interpretation.score - b.response.interpretation.score;
-    });
-    let truncated = false;
-    let totalPassed = 0;
+    if (limit !== undefined) {
+      const topK = new MinHeap<RankedResponse>((a, b) => {
+        return a.response.interpretation.score - b.response.interpretation.score;
+      });
+      let totalPassed = 0;
+
+      for (const surname of surnameCandidates) {
+        const pairs = this.repository.getSurnamePairs(surname.korean, surname.hanja);
+        const surnameStrokeCounts = pairs.map((pair) => this.getStrokeCount(pair.korean, pair.hanja, true));
+        const validStrokeKeys = this.optimizer.getValidCombinations(surnameStrokeCounts, nameLength);
+        const combinations = this.stats.findNameCombinations(query.nameBlocks, validStrokeKeys);
+
+        for (const combination of combinations) {
+          const strokeCounts: number[] = [];
+          const koreanChars = Array.from(combination.korean);
+          const hanjaChars = Array.from(combination.hanja);
+          for (let i = 0; i < koreanChars.length; i += 1) {
+            strokeCounts.push(this.getStrokeCount(koreanChars[i] ?? "", hanjaChars[i] ?? "", false));
+          }
+          if (!validStrokeKeys.has(toStrokeKey(strokeCounts))) {
+            continue;
+          }
+
+          const response = this.evaluateName(
+            makeNameInput(surname, combination),
+            request.birth,
+            true,
+            request.gender,
+          );
+          if (!isStrictPass(response)) {
+            continue;
+          }
+
+          const ranked: RankedResponse = { response: toPassedResponse(response) };
+          totalPassed += 1;
+          if (topK.size() < limit) {
+            topK.push(ranked);
+          } else {
+            const min = topK.peek();
+            if (min && ranked.response.interpretation.score > min.response.interpretation.score) {
+              topK.replaceTop(ranked);
+            }
+          }
+        }
+      }
+
+      const selectedRanked = topK
+        .toArray()
+        .sort((a, b) => b.response.interpretation.score - a.response.interpretation.score);
+      const selected = selectedRanked.map((value) => value.response);
+      const sliced = selected.slice(offset, offset + limit);
+      return {
+        query: request.query,
+        totalCount: selected.length,
+        responses: sliced,
+        truncated: totalPassed > selected.length,
+      };
+    }
+
+    const passedResponses: SeedResponse[] = [];
 
     for (const surname of surnameCandidates) {
       const pairs = this.repository.getSurnamePairs(surname.korean, surname.hanja);
@@ -143,34 +208,27 @@ export class NameSearchService {
           continue;
         }
 
-        const response = this.evaluateName(makeNameInput(surname, combination), request.birth, request.includeSaju);
+        const response = this.evaluateName(
+          makeNameInput(surname, combination),
+          request.birth,
+          true,
+          request.gender,
+        );
         if (!isStrictPass(response)) {
           continue;
         }
 
-        const ranked: RankedResponse = { response: toPassedResponse(response) };
-        totalPassed += 1;
-        if (topK.size() < limit) {
-          topK.push(ranked);
-        } else {
-          const min = topK.peek();
-          if (min && ranked.response.interpretation.score > min.response.interpretation.score) {
-            topK.replaceTop(ranked);
-          }
-        }
+        passedResponses.push(toPassedResponse(response));
       }
     }
 
-    const selectedRanked = topK
-      .toArray()
-      .sort((a, b) => b.response.interpretation.score - a.response.interpretation.score);
-    const selected = selectedRanked.map((value) => value.response);
-    const sliced = selected.slice(offset, offset + limit);
+    passedResponses.sort((a, b) => b.interpretation.score - a.interpretation.score);
+    const sliced = passedResponses.slice(offset);
     return {
       query: request.query,
-      totalCount: selected.length,
+      totalCount: passedResponses.length,
       responses: sliced,
-      truncated: truncated || totalPassed > selected.length,
+      truncated: false,
     };
   }
 }

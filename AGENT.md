@@ -27,3 +27,15 @@ Implement and preserve the "name generation" mode with these rules:
 Core search logic already appears to implement most of this behavior.
 Current UI flow is mainly focused on direct analyze-selection and does not expose
 full candidate generation/search flow yet.
+
+## SAJU integration note (implemented, 2026-02-14)
+
+1. `lib/saju-ts` is integrated as a git submodule.
+2. SAJU is always included in evaluation flow (UI toggle removed).
+3. SAJU distribution now resolves from birth info via `saju-ts` (`analyzeSaju`),
+   with fallback to default distribution when birth input is absent/unavailable.
+4. `SAJU_JAWON_BALANCE` details include:
+   - `sajuDistribution`,
+   - `sajuDistributionSource` (`birth` or `fallback`),
+   - `jawonDistribution`,
+   - `sajuJawonDistribution`.

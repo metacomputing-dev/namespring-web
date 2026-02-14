@@ -1,9 +1,10 @@
 import { parseCompleteName } from "../../core/query.js";
-import type { BirthInfo, EvaluateRequest, NameInput } from "../../core/types.js";
+import type { BirthInfo, EvaluateRequest, Gender, NameInput } from "../../core/types.js";
 
 export interface EvaluateInput {
   name: NameInput;
   birth?: BirthInfo;
+  gender?: Gender;
   includeSaju: boolean;
 }
 
@@ -20,24 +21,30 @@ function isNameInput(value: unknown): value is NameInput {
   );
 }
 
-export function toEvaluateInput(source: EvaluateRequest | NameInput | string, defaultIncludeSaju: boolean): EvaluateInput {
+export function toEvaluateInput(
+  source: EvaluateRequest | NameInput | string,
+  _defaultIncludeSaju: boolean,
+  birth?: BirthInfo,
+  gender?: Gender,
+): EvaluateInput {
   if (typeof source === "string") {
     const parsed = parseCompleteName(source);
     if (!parsed) {
       throw new Error("invalid evaluate query");
     }
-    return { name: parsed, includeSaju: defaultIncludeSaju };
+    return { name: parsed, birth, gender, includeSaju: true };
   }
 
   if (isNameInput(source)) {
-    return { name: source, includeSaju: defaultIncludeSaju };
+    return { name: source, birth, gender, includeSaju: true };
   }
 
   if (source.name) {
     return {
       name: source.name,
-      birth: source.birth,
-      includeSaju: source.includeSaju ?? defaultIncludeSaju,
+      birth: source.birth ?? birth,
+      gender: source.gender ?? gender,
+      includeSaju: true,
     };
   }
 
@@ -48,8 +55,9 @@ export function toEvaluateInput(source: EvaluateRequest | NameInput | string, de
     }
     return {
       name: parsed,
-      birth: source.birth,
-      includeSaju: source.includeSaju ?? defaultIncludeSaju,
+      birth: source.birth ?? birth,
+      gender: source.gender ?? gender,
+      includeSaju: true,
     };
   }
 

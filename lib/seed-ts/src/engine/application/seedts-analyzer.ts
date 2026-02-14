@@ -16,7 +16,7 @@ export class SeedTsAnalyzer {
       query: buildSeedTsQuery(userInfo.lastName, userInfo.firstName),
       limit: 1,
       offset: 0,
-      includeSaju: false,
+      includeSaju: true,
       gender: toSeedTsGender(userInfo.gender),
       birth: toSeedTsBirth(userInfo),
     });
@@ -40,7 +40,7 @@ export class SeedTsAnalyzer {
 
     const fallback = this.seed.evaluate({
       name: toSeedTsFallbackNameInput(userInfo),
-      includeSaju: false,
+      includeSaju: true,
     });
 
     return {

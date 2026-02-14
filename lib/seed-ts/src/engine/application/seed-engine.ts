@@ -25,9 +25,9 @@ export class SeedEngine {
     this.runtime = runtimeFactory.create(options);
   }
 
-  evaluate(source: EvaluateRequest | NameInput | string, _birth?: BirthInfo, _gender?: Gender): SeedResponse {
-    const input = toEvaluateInput(source, this.runtime.includeSaju);
-    return this.runtime.searchService.evaluateName(input.name, input.birth, input.includeSaju);
+  evaluate(source: EvaluateRequest | NameInput | string, birth?: BirthInfo, gender?: Gender): SeedResponse {
+    const input = toEvaluateInput(source, this.runtime.includeSaju, birth, gender);
+    return this.runtime.searchService.evaluateName(input.name, input.birth, input.includeSaju, input.gender);
   }
 
   search(request: SearchRequest): SearchResult {

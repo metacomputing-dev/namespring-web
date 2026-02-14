@@ -33,6 +33,75 @@ export interface AnalysisCategory {
   score: number;
   status: string;
   arrangement: string;
+  details?: Record<string, unknown>;
+}
+
+export interface SajuPillarSummary {
+  stemCode: string;
+  stemHangul: string;
+  stemHanja: string;
+  branchCode: string;
+  branchHangul: string;
+  branchHanja: string;
+  hangul: string;
+  hanja: string;
+}
+
+export interface SajuTraceStepSummary {
+  key: string;
+  summary: string;
+  evidence: string[];
+  citations: string[];
+  reasoning: string[];
+  confidence: number | null;
+}
+
+export interface SajuCalculationInputSummary {
+  birthYear: number;
+  birthMonth: number;
+  birthDay: number;
+  birthHour: number;
+  birthMinute: number;
+  gender: "MALE" | "FEMALE";
+  timezone: string;
+  latitude: number;
+  longitude: number;
+}
+
+export interface SajuCalculationOutputSummary {
+  pillars: {
+    year: SajuPillarSummary;
+    month: SajuPillarSummary;
+    day: SajuPillarSummary;
+    hour: SajuPillarSummary;
+  };
+  ohaengDistribution: Record<string, number>;
+  yongshin: {
+    finalYongshin: string;
+    finalHeesin: string | null;
+    gisin: string | null;
+    gusin: string | null;
+    finalConfidence: number;
+  } | null;
+  strength: {
+    level: string;
+    isStrong: boolean;
+    totalSupport: number;
+    totalOppose: number;
+  } | null;
+  trace: SajuTraceStepSummary[];
+}
+
+export interface SajuCategoryDetails {
+  sajuDistribution: Record<string, number>;
+  sajuDistributionSource: "birth" | "fallback";
+  jawonDistribution: Record<string, number>;
+  sajuJawonDistribution: Record<string, number>;
+  requestedBirth?: BirthDateTime;
+  requestedGender?: string;
+  sajuInput?: SajuCalculationInputSummary | null;
+  sajuOutput?: SajuCalculationOutputSummary | null;
+  sajuCalculationError?: string | null;
 }
 
 export interface AnalysisCandidate {
@@ -56,7 +125,7 @@ export interface CandidateSearchResult extends AnalysisResult {
   query: string;
   truncated: boolean;
   offset: number;
-  limit: number;
+  limit: number | null;
 }
 
 export interface AnalyzeRequest {
@@ -66,7 +135,6 @@ export interface AnalyzeRequest {
   firstNameHanja: string;
   birthDateTime: BirthDateTime;
   gender: GenderOption;
-  includeSaju: boolean;
 }
 
 export interface GivenNameConstraint {
@@ -80,7 +148,6 @@ export interface CandidateSearchRequest {
   constraints: readonly GivenNameConstraint[];
   birthDateTime?: BirthDateTime;
   gender: GenderOption;
-  includeSaju: boolean;
-  limit: number;
+  limit?: number;
   offset: number;
 }
