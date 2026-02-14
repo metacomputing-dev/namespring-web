@@ -31,6 +31,31 @@ const PILLAR_SLOTS = [
   { key: "hour", label: "\uC2DC\uC8FC" },
 ] as const;
 
+const TEN_GOD_GROUP_LABEL: Record<string, string> = {
+  friend: "비겁(친구성)",
+  output: "식상(표현/생산)",
+  wealth: "재성(재물/관리)",
+  authority: "관성(규범/책임)",
+  resource: "인성(학습/지원)",
+};
+
+const YONGSHIN_TYPE_LABEL: Record<string, string> = {
+  EOKBU: "억부",
+  JOHU: "조후",
+  TONGGWAN: "통관",
+  GYEOKGUK: "격국",
+  BYEONGYAK: "병약",
+  JEONWANG: "전왕",
+  HAPWHA_YONGSHIN: "합화",
+  ILHAENG_YONGSHIN: "일행득기",
+};
+
+const YONGSHIN_AGREEMENT_LABEL: Record<string, string> = {
+  FULL_AGREE: "완전 일치",
+  PARTIAL_AGREE: "부분 일치",
+  DISAGREE: "불일치",
+};
+
 function clampScore(value: number): number {
   return Math.max(0, Math.min(100, Math.round(value)));
 }
@@ -87,6 +112,28 @@ function numberLabel(value: number): string {
   return Number.isFinite(value) ? value.toFixed(1) : "-";
 }
 
+function percentLabel(value: number | null | undefined): string {
+  if (typeof value !== "number" || !Number.isFinite(value)) {
+    return "-";
+  }
+  return `${Math.round(value * 100)}%`;
+}
+
+function tenGodGroupLabel(group: string): string {
+  return TEN_GOD_GROUP_LABEL[group] ?? group;
+}
+
+function yongshinTypeLabel(type: string): string {
+  return YONGSHIN_TYPE_LABEL[type] ?? type;
+}
+
+function yongshinAgreementLabel(value: string | null | undefined): string {
+  if (!value) {
+    return "-";
+  }
+  return YONGSHIN_AGREEMENT_LABEL[value] ?? value;
+}
+
 interface NamingReportProps {
   candidate: AnalysisCandidate;
   onReset: () => void;
@@ -99,6 +146,9 @@ export default function NamingReport({ candidate, onReset }: NamingReportProps) 
   const sajuCategory = candidate.categories.find((category) => category.frame === SAJU_FRAME);
   const sajuDetails = toSajuCategoryDetails(sajuCategory?.details);
   const sajuOutput = sajuDetails?.sajuOutput ?? null;
+  const sajuScoring = sajuDetails?.sajuScoring;
+  const yongshinRecommendations = sajuOutput?.yongshin?.recommendations ?? [];
+  const tenGod = sajuOutput?.tenGod ?? null;
   const sajuTrace = sajuOutput?.trace ?? [];
 
   return (
@@ -229,24 +279,45 @@ export default function NamingReport({ candidate, onReset }: NamingReportProps) 
                 </div>
               </article>
 
+              {sajuScoring && (
+                <article className="rounded-2xl border border-cyan-200 bg-white p-4">
+                  <p className="text-xs font-bold uppercase tracking-[0.2em] text-cyan-700">Saju Naming Score Breakdown</p>
+                  <div className="mt-3 grid gap-2 sm:grid-cols-2 lg:grid-cols-4">
+                    <p className="rounded-lg bg-slate-50 px-3 py-2 text-sm text-slate-700">Balance: {clampScore(sajuScoring.balance)}</p>
+                    <p className="rounded-lg bg-slate-50 px-3 py-2 text-sm text-slate-700">Yongshin: {clampScore(sajuScoring.yongshin)}</p>
+                    <p className="rounded-lg bg-slate-50 px-3 py-2 text-sm text-slate-700">Strength: {clampScore(sajuScoring.strength)}</p>
+                    <p className="rounded-lg bg-slate-50 px-3 py-2 text-sm text-slate-700">TenGod: {clampScore(sajuScoring.tenGod)}</p>
+                  </div>
+                  <p className="mt-2 text-sm text-slate-700">
+                    Pre-Penalty: {clampScore(sajuScoring.weightedBeforePenalty)} / Penalty (Gisin+Gusin):{" "}
+                    {clampScore(sajuScoring.penalties.total)}
+                  </p>
+                  <p className="mt-1 text-xs text-slate-600">
+                    Weights / Balance {(sajuScoring.weights.balance * 100).toFixed(0)}% / Yongshin{" "}
+                    {(sajuScoring.weights.yongshin * 100).toFixed(0)}% / Strength{" "}
+                    {(sajuScoring.weights.strength * 100).toFixed(0)}% / TenGod{" "}
+                    {(sajuScoring.weights.tenGod * 100).toFixed(0)}%
+                  </p>
+                  <p className="mt-1 text-xs text-slate-600">
+                    Element matches / Yongshin {sajuScoring.elementMatches.yongshin}, Heesin {sajuScoring.elementMatches.heesin}, Gisin{" "}
+                    {sajuScoring.elementMatches.gisin}, Gusin {sajuScoring.elementMatches.gusin}
+                  </p>
+                </article>
+              )}
+
               <div className="grid gap-3 md:grid-cols-2">
                 <article className="rounded-2xl border border-cyan-200 bg-white p-4">
-                  <p className="text-xs font-bold uppercase tracking-[0.2em] text-cyan-700">Yongshin Interpretation</p>
+                  <p className="text-xs font-bold uppercase tracking-[0.2em] text-cyan-700">Day Master / Gyeokguk</p>
                   <p className="mt-2 text-sm text-slate-700">
-                    Yongshin: {ohaengCodeLabel(sajuOutput.yongshin?.finalYongshin ?? null)}
+                    Day Master: {sajuOutput.dayMaster.stemHangul} ({sajuOutput.dayMaster.stemCode}) /{" "}
+                    {ohaengCodeLabel(sajuOutput.dayMaster.elementCode)}
+                  </p>
+                  <p className="mt-1 text-sm text-slate-700">Eumyang: {sajuOutput.dayMaster.eumyangCode}</p>
+                  <p className="mt-2 text-sm text-slate-700">
+                    Gyeokguk: {sajuOutput.gyeokguk ? `${sajuOutput.gyeokguk.type} (${sajuOutput.gyeokguk.category})` : "-"}
                   </p>
                   <p className="mt-1 text-sm text-slate-700">
-                    Heesin: {ohaengCodeLabel(sajuOutput.yongshin?.finalHeesin ?? null)}
-                  </p>
-                  <p className="mt-1 text-sm text-slate-700">
-                    Gisin / Gusin: {ohaengCodeLabel(sajuOutput.yongshin?.gisin ?? null)} /{" "}
-                    {ohaengCodeLabel(sajuOutput.yongshin?.gusin ?? null)}
-                  </p>
-                  <p className="mt-1 text-sm text-slate-700">
-                    Confidence:{" "}
-                    {typeof sajuOutput.yongshin?.finalConfidence === "number"
-                      ? `${Math.round(sajuOutput.yongshin.finalConfidence * 100)}%`
-                      : "-"}
+                    Gyeokguk Confidence: {percentLabel(sajuOutput.gyeokguk?.confidence)}
                   </p>
                 </article>
 
@@ -260,8 +331,51 @@ export default function NamingReport({ candidate, onReset }: NamingReportProps) 
                     Support / Oppose: {numberLabel(sajuOutput.strength?.totalSupport ?? Number.NaN)} /{" "}
                     {numberLabel(sajuOutput.strength?.totalOppose ?? Number.NaN)}
                   </p>
+                  <p className="mt-2 text-sm text-slate-700">
+                    TenGod Dominant: {tenGod ? tenGod.dominantGroups.map((group) => tenGodGroupLabel(group)).join(", ") || "-" : "-"}
+                  </p>
+                  <p className="mt-1 text-sm text-slate-700">
+                    TenGod Weak: {tenGod ? tenGod.weakGroups.map((group) => tenGodGroupLabel(group)).join(", ") || "-" : "-"}
+                  </p>
                 </article>
               </div>
+
+              <article className="rounded-2xl border border-cyan-200 bg-white p-4">
+                <p className="text-xs font-bold uppercase tracking-[0.2em] text-cyan-700">Yongshin Interpretation</p>
+                <p className="mt-2 text-sm text-slate-700">
+                  Yongshin: {ohaengCodeLabel(sajuOutput.yongshin?.finalYongshin ?? null)}
+                </p>
+                <p className="mt-1 text-sm text-slate-700">
+                  Heesin: {ohaengCodeLabel(sajuOutput.yongshin?.finalHeesin ?? null)}
+                </p>
+                <p className="mt-1 text-sm text-slate-700">
+                  Gisin / Gusin: {ohaengCodeLabel(sajuOutput.yongshin?.gisin ?? null)} /{" "}
+                  {ohaengCodeLabel(sajuOutput.yongshin?.gusin ?? null)}
+                </p>
+                <p className="mt-1 text-sm text-slate-700">
+                  Agreement: {yongshinAgreementLabel(sajuOutput.yongshin?.agreement)}
+                </p>
+                <p className="mt-1 text-sm text-slate-700">
+                  Confidence: {percentLabel(sajuOutput.yongshin?.finalConfidence)}
+                </p>
+                <div className="mt-3 space-y-2">
+                  {yongshinRecommendations.length === 0 && (
+                    <p className="rounded-lg bg-slate-50 px-3 py-2 text-xs text-slate-600">No yongshin recommendation details.</p>
+                  )}
+                  {yongshinRecommendations.map((recommendation, index) => (
+                    <div key={`${recommendation.type}-${index}`} className="rounded-lg border border-slate-100 px-3 py-2">
+                      <p className="text-xs font-semibold text-slate-700">
+                        {yongshinTypeLabel(recommendation.type)} / {percentLabel(recommendation.confidence)}
+                      </p>
+                      <p className="mt-1 text-xs text-slate-600">
+                        Primary {ohaengCodeLabel(recommendation.primaryElement)} / Secondary{" "}
+                        {ohaengCodeLabel(recommendation.secondaryElement)}
+                      </p>
+                      <p className="mt-1 text-xs text-slate-500">{recommendation.reasoning}</p>
+                    </div>
+                  ))}
+                </div>
+              </article>
 
               <details className="rounded-2xl border border-cyan-200 bg-white p-4">
                 <summary className="cursor-pointer text-sm font-black text-cyan-800">

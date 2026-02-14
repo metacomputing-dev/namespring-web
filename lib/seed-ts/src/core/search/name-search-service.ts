@@ -1,21 +1,14 @@
 import { parseNameQuery } from "../query.js";
 import type {
-  Element,
   Gender,
   HanjaRepository,
   NameInput,
-  Polarity,
   SearchRequest,
   SearchResult,
   SeedResponse,
   StatsRepository,
 } from "../types.js";
-import {
-  NameEvaluator,
-  checkElementSangSaeng,
-  checkFourFrameSuriElement,
-  checkPolarityHarmony,
-} from "../evaluator.js";
+import { NameEvaluator } from "../evaluator.js";
 import { FourFrameOptimizer, toStrokeKey } from "./four-frame-optimizer.js";
 import { MinHeap } from "./heap.js";
 import { findSurnameCandidates, makeNameInput, toResolvedName } from "./surname-resolver.js";
@@ -26,21 +19,21 @@ interface RankedResponse {
 
 function isStrictPass(response: SeedResponse): boolean {
   const c = response.categoryMap;
-  const surnameLen = Array.from(response.name.lastNameHangul).length;
-  const givenLen = Array.from(response.name.firstNameHangul).length;
-  const fourFrameElementArr = c.SAGYEOK_OHAENG.arrangement.split("-").filter(Boolean) as Element[];
-  const pronunciationElementArr = c.BALEUM_OHAENG.arrangement.split("-").filter(Boolean) as Element[];
-  const strokePolarityArr = c.HOEKSU_EUMYANG.arrangement.split("").filter(Boolean) as Polarity[];
-  const pronunciationPolarityArr = c.BALEUM_EUMYANG.arrangement.split("").filter(Boolean) as Polarity[];
+  return response.interpretation.isPassed && c.SAJU_JAWON_BALANCE.isPassed;
+}
 
-  return (
-    c.SAGYEOK_SURI.isPassed &&
-    checkFourFrameSuriElement(fourFrameElementArr, givenLen) &&
-    checkPolarityHarmony(strokePolarityArr, surnameLen) &&
-    checkElementSangSaeng(pronunciationElementArr, surnameLen) &&
-    checkPolarityHarmony(pronunciationPolarityArr, surnameLen) &&
-    c.SAJU_JAWON_BALANCE.isPassed
-  );
+function pushTopK(heap: MinHeap<RankedResponse>, item: RankedResponse, capacity: number): void {
+  if (capacity <= 0) {
+    return;
+  }
+  if (heap.size() < capacity) {
+    heap.push(item);
+    return;
+  }
+  const min = heap.peek();
+  if (min && item.response.interpretation.score > min.response.interpretation.score) {
+    heap.replaceTop(item);
+  }
 }
 
 function toPassedResponse(response: SeedResponse): SeedResponse {
@@ -131,10 +124,15 @@ export class NameSearchService {
     const offset = Math.max(0, request.offset ?? 0);
 
     if (limit !== undefined) {
+      const selectionCapacity = Math.max(limit + offset, limit);
       const topK = new MinHeap<RankedResponse>((a, b) => {
         return a.response.interpretation.score - b.response.interpretation.score;
       });
+      const fallbackTopK = new MinHeap<RankedResponse>((a, b) => {
+        return a.response.interpretation.score - b.response.interpretation.score;
+      });
       let totalPassed = 0;
+      let totalEvaluated = 0;
 
       for (const surname of surnameCandidates) {
         const pairs = this.repository.getSurnamePairs(surname.korean, surname.hanja);
@@ -159,37 +157,40 @@ export class NameSearchService {
             true,
             request.gender,
           );
+          totalEvaluated += 1;
+          pushTopK(fallbackTopK, { response }, selectionCapacity);
           if (!isStrictPass(response)) {
             continue;
           }
 
           const ranked: RankedResponse = { response: toPassedResponse(response) };
           totalPassed += 1;
-          if (topK.size() < limit) {
-            topK.push(ranked);
-          } else {
-            const min = topK.peek();
-            if (min && ranked.response.interpretation.score > min.response.interpretation.score) {
-              topK.replaceTop(ranked);
-            }
-          }
+          pushTopK(topK, ranked, selectionCapacity);
         }
       }
 
-      const selectedRanked = topK
+      const selectedPassed = topK
         .toArray()
         .sort((a, b) => b.response.interpretation.score - a.response.interpretation.score);
+      const hasPassed = selectedPassed.length > 0;
+      const selectedRanked = hasPassed
+        ? selectedPassed
+        : fallbackTopK.toArray().sort((a, b) => b.response.interpretation.score - a.response.interpretation.score);
       const selected = selectedRanked.map((value) => value.response);
       const sliced = selected.slice(offset, offset + limit);
       return {
         query: request.query,
-        totalCount: selected.length,
+        totalCount: hasPassed ? selected.length : totalEvaluated,
         responses: sliced,
-        truncated: totalPassed > selected.length,
+        truncated: hasPassed ? totalPassed > selected.length : totalEvaluated > selected.length,
       };
     }
 
     const passedResponses: SeedResponse[] = [];
+    const fallbackTopK = new MinHeap<RankedResponse>((a, b) => {
+      return a.response.interpretation.score - b.response.interpretation.score;
+    });
+    const fallbackCapacity = Math.max(500, offset + 200);
 
     for (const surname of surnameCandidates) {
       const pairs = this.repository.getSurnamePairs(surname.korean, surname.hanja);
@@ -214,6 +215,7 @@ export class NameSearchService {
           true,
           request.gender,
         );
+        pushTopK(fallbackTopK, { response }, fallbackCapacity);
         if (!isStrictPass(response)) {
           continue;
         }
@@ -223,6 +225,19 @@ export class NameSearchService {
     }
 
     passedResponses.sort((a, b) => b.interpretation.score - a.interpretation.score);
+    if (passedResponses.length === 0) {
+      const fallbackSelected = fallbackTopK
+        .toArray()
+        .sort((a, b) => b.response.interpretation.score - a.response.interpretation.score)
+        .map((value) => value.response);
+      return {
+        query: request.query,
+        totalCount: fallbackSelected.length,
+        responses: fallbackSelected.slice(offset),
+        truncated: true,
+      };
+    }
+
     const sliced = passedResponses.slice(offset);
     return {
       query: request.query,

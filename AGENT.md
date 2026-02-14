@@ -39,3 +39,10 @@ full candidate generation/search flow yet.
    - `sajuDistributionSource` (`birth` or `fallback`),
    - `jawonDistribution`,
    - `sajuJawonDistribution`.
+
+## SAJU-aware naming optimization note (requested, 2026-02-14)
+
+1. Name recommendation must not overfit to "five-element standard deviation minimization" only.
+2. SAJU signals (yongshin/heesin/gisin/gusin, strength, gyeokguk, ten-god imbalance) should influence scoring directly.
+3. Traditional seongmyeonghak rules (four-frame numerology, pronunciation/stroke element-yinyang) remain important but can be adaptively relaxed when SAJU signal is strong.
+4. Candidate search should still return high-quality recommendations even when strict pass count is low, via ranked fallback output.

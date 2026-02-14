@@ -25,7 +25,7 @@ import {
   levelToFortune,
   polarityScore,
 } from "./evaluator-rules.js";
-import { computeSajuRootBalanceScore } from "./evaluator-saju.js";
+import { computeSajuNameScore } from "./evaluator-saju.js";
 
 function createFourFrameNumberNode(): CalculatorNode<EvaluationPipelineContext> {
   return {
@@ -245,17 +245,22 @@ function createSajuBalanceNode(): CalculatorNode<EvaluationPipelineContext> {
     visit(ctx): void {
       const rootElementArrangement = ctx.resolved.given.map((entry) => entry.rootElement);
       const rootElementDistribution = distributionFromArrangement(rootElementArrangement);
-      const sajuRootBalance = computeSajuRootBalanceScore(ctx.sajuDistribution, rootElementDistribution);
+      const sajuNameScore = computeSajuNameScore(
+        ctx.sajuDistribution,
+        rootElementDistribution,
+        ctx.sajuOutput,
+      );
       const insight = createInsight(
         "SAJU_JAWON_BALANCE",
-        sajuRootBalance.score,
-        sajuRootBalance.isPassed,
+        sajuNameScore.score,
+        sajuNameScore.isPassed,
         "SAJU+JAWON",
         {
           sajuDistribution: ctx.sajuDistribution,
           sajuDistributionSource: ctx.sajuDistributionSource,
           jawonDistribution: rootElementDistribution,
-          sajuJawonDistribution: sajuRootBalance.combined,
+          sajuJawonDistribution: sajuNameScore.combined,
+          sajuScoring: sajuNameScore.breakdown,
           requestedBirth: ctx.birth,
           requestedGender: ctx.gender,
           sajuInput: ctx.sajuInput,
@@ -298,6 +303,62 @@ function createStatisticsNode(): CalculatorNode<EvaluationPipelineContext> {
   };
 }
 
+type RelaxableFrame = "SAGYEOK_SURI" | "HOEKSU_EUMYANG" | "BALEUM_OHAENG" | "BALEUM_EUMYANG" | "SAGYEOK_OHAENG";
+
+const RELAXABLE_FRAMES = new Set<RelaxableFrame>([
+  "SAGYEOK_SURI",
+  "HOEKSU_EUMYANG",
+  "BALEUM_OHAENG",
+  "BALEUM_EUMYANG",
+  "SAGYEOK_OHAENG",
+]);
+
+function asRecord(value: unknown): Record<string, unknown> | null {
+  if (!value || typeof value !== "object" || Array.isArray(value)) {
+    return null;
+  }
+  return value as Record<string, unknown>;
+}
+
+function asFiniteNumber(value: unknown, fallback = 0): number {
+  return typeof value === "number" && Number.isFinite(value) ? value : fallback;
+}
+
+function frameWeightMultiplier(frame: string, priority: number): number {
+  if (frame === "SAJU_JAWON_BALANCE") {
+    return 1 + priority * 0.45;
+  }
+  if (RELAXABLE_FRAMES.has(frame as RelaxableFrame)) {
+    return 1 - priority * 0.3;
+  }
+  return 1;
+}
+
+function extractSajuPriority(ctx: EvaluationPipelineContext): number {
+  const sajuInsight = ctx.insights.SAJU_JAWON_BALANCE;
+  if (!sajuInsight) {
+    return 0;
+  }
+
+  const details = asRecord(sajuInsight.details);
+  const sajuScoring = asRecord(details?.sajuScoring);
+  if (!sajuScoring) {
+    return 0;
+  }
+
+  const balance = asFiniteNumber(sajuScoring.balance, 0);
+  const yongshin = asFiniteNumber(sajuScoring.yongshin, 0);
+  const penalties = asRecord(sajuScoring.penalties);
+  const penaltyTotal = asFiniteNumber(penalties?.total, 0);
+  const sajuOutput = asRecord(details?.sajuOutput);
+  const yongshinOutput = asRecord(sajuOutput?.yongshin);
+  const confidence = clamp(asFiniteNumber(yongshinOutput?.finalConfidence, 0.65), 0, 1);
+
+  const signal = ((balance + yongshin) / 200) * (0.55 + confidence * 0.45);
+  const penalty = Math.min(1, penaltyTotal / 20) * 0.25;
+  return clamp(signal - penalty, 0, 1);
+}
+
 export function createRootNode(): CalculatorNode<EvaluationPipelineContext> {
   return {
     id: "root",
@@ -315,7 +376,26 @@ export function createRootNode(): CalculatorNode<EvaluationPipelineContext> {
     },
     backward(ctx, childPackets): { nodeId: string; signals: CalculatorSignal[] } {
       const weightedSignals = flattenSignals(childPackets).filter((signal) => signal.weight > 0);
-      const weightedScore = weightedSignals.reduce((acc, signal) => acc + signal.score * signal.weight, 0);
+      const sajuPriority = extractSajuPriority(ctx);
+      const adaptiveMode = sajuPriority >= 0.55;
+      const allowedFailures = adaptiveMode ? (sajuPriority >= 0.78 ? 2 : 1) : 0;
+      const threshold = adaptiveMode ? 60 - 8 * sajuPriority : 60;
+
+      const adjustedSignals = weightedSignals.map((signal) => {
+        const multiplier = frameWeightMultiplier(signal.frame, sajuPriority);
+        const adjustedWeight = signal.weight * multiplier;
+        return {
+          ...signal,
+          adjustedWeight,
+          adjustedWeighted: signal.score * adjustedWeight,
+        };
+      });
+
+      const totalAdjustedWeight = adjustedSignals.reduce((acc, signal) => acc + signal.adjustedWeight, 0);
+      const weightedScore =
+        totalAdjustedWeight > 0
+          ? adjustedSignals.reduce((acc, signal) => acc + signal.adjustedWeighted, 0) / totalAdjustedWeight
+          : 0;
 
       const fourFrameNumberInsight = mustInsight(ctx, "SAGYEOK_SURI");
       const sajuInsight = mustInsight(ctx, "SAJU_JAWON_BALANCE");
@@ -323,8 +403,7 @@ export function createRootNode(): CalculatorNode<EvaluationPipelineContext> {
       const pronunciationElementInsight = mustInsight(ctx, "BALEUM_OHAENG");
       const pronunciationPolarityInsight = mustInsight(ctx, "BALEUM_EUMYANG");
       const fourFrameElementInsight = mustInsight(ctx, "SAGYEOK_OHAENG");
-
-      const rootPassed =
+      const strictPassed =
         fourFrameNumberInsight.isPassed &&
         sajuInsight.isPassed &&
         strokePolarityInsight.isPassed &&
@@ -333,16 +412,31 @@ export function createRootNode(): CalculatorNode<EvaluationPipelineContext> {
         fourFrameElementInsight.isPassed &&
         weightedScore >= 60;
 
-      const failedFrames = weightedSignals
+      const relaxableFailures = adjustedSignals.filter(
+        (signal) => RELAXABLE_FRAMES.has(signal.frame as RelaxableFrame) && !signal.isPassed,
+      );
+      const severeRelaxableFailure = relaxableFailures.some((signal) => signal.score < 45);
+      const mandatoryGate = sajuInsight.isPassed && fourFrameNumberInsight.score >= 35;
+      const adaptivePassed =
+        mandatoryGate &&
+        weightedScore >= threshold &&
+        !severeRelaxableFailure &&
+        relaxableFailures.length <= allowedFailures;
+
+      const rootPassed = adaptiveMode ? adaptivePassed : strictPassed;
+
+      const failedFrames = adjustedSignals
         .filter((signal) => !signal.isPassed)
         .map((signal) => signal.frame);
       const contributions = Object.fromEntries(
-        weightedSignals.map((signal) => [
+        adjustedSignals.map((signal) => [
           signal.frame,
           {
             rawScore: signal.score,
             weight: signal.weight,
-            weighted: signal.score * signal.weight,
+            weightMultiplier: signal.weight > 0 ? signal.adjustedWeight / signal.weight : 1,
+            adjustedWeight: signal.adjustedWeight,
+            weighted: signal.adjustedWeighted,
             isPassed: signal.isPassed,
           },
         ]),
@@ -356,6 +450,13 @@ export function createRootNode(): CalculatorNode<EvaluationPipelineContext> {
         {
           contributions,
           failedFrames,
+          adaptivePolicy: {
+            mode: adaptiveMode ? "adaptive" : "strict",
+            sajuPriority,
+            allowedFailures,
+            threshold,
+            relaxableFailures: relaxableFailures.map((signal) => signal.frame),
+          },
         },
       );
       setInsight(ctx, seongmyeonghak);

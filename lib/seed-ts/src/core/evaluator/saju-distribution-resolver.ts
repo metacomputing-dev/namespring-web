@@ -47,22 +47,76 @@ export interface SajuTraceStepSummary {
   confidence: number | null;
 }
 
+export interface SajuYongshinRecommendationSummary {
+  type: string;
+  primaryElement: string;
+  secondaryElement: string | null;
+  confidence: number;
+  reasoning: string;
+}
+
+export interface SajuYongshinSummary {
+  finalYongshin: string;
+  finalHeesin: string | null;
+  gisin: string | null;
+  gusin: string | null;
+  finalConfidence: number;
+  agreement: string;
+  recommendations: SajuYongshinRecommendationSummary[];
+}
+
+export interface SajuStrengthSummary {
+  level: string;
+  isStrong: boolean;
+  totalSupport: number;
+  totalOppose: number;
+}
+
+export interface SajuDayMasterSummary {
+  stemCode: string;
+  stemHangul: string;
+  stemHanja: string;
+  elementCode: string;
+  element: Element;
+  eumyangCode: string;
+}
+
+export interface SajuGyeokgukSummary {
+  type: string;
+  category: string;
+  confidence: number;
+  reasoning: string;
+  formation: {
+    quality: string;
+    breakingFactors: string[];
+    rescueFactors: string[];
+    reasoning: string;
+  } | null;
+}
+
+export interface SajuTenGodGroupCountsSummary {
+  friend: number;
+  output: number;
+  wealth: number;
+  authority: number;
+  resource: number;
+}
+
+export interface SajuTenGodSummary {
+  dayMasterStemCode: string;
+  groupCounts: SajuTenGodGroupCountsSummary;
+  dominantGroups: Array<keyof SajuTenGodGroupCountsSummary>;
+  weakGroups: Array<keyof SajuTenGodGroupCountsSummary>;
+}
+
 export interface SajuCalculationOutputSummary {
   pillars: Record<SajuPillarPosition, SajuPillarSummary>;
   ohaengDistribution: Record<Element, number>;
-  yongshin: {
-    finalYongshin: string;
-    finalHeesin: string | null;
-    gisin: string | null;
-    gusin: string | null;
-    finalConfidence: number;
-  } | null;
-  strength: {
-    level: string;
-    isStrong: boolean;
-    totalSupport: number;
-    totalOppose: number;
-  } | null;
+  dayMaster: SajuDayMasterSummary;
+  yongshin: SajuYongshinSummary | null;
+  strength: SajuStrengthSummary | null;
+  gyeokguk: SajuGyeokgukSummary | null;
+  tenGod: SajuTenGodSummary | null;
   trace: SajuTraceStepSummary[];
 }
 
@@ -90,6 +144,18 @@ const OHAENG_TO_ELEMENT: Record<Ohaeng, Element> = {
   [Ohaeng.WATER]: "\u6C34",
 };
 
+type TenGodGroup = keyof SajuTenGodGroupCountsSummary;
+
+const EMPTY_TEN_GOD_GROUP_COUNTS: SajuTenGodGroupCountsSummary = {
+  friend: 0,
+  output: 0,
+  wealth: 0,
+  authority: 0,
+  resource: 0,
+};
+
+const TEN_GOD_GROUP_KEYS: TenGodGroup[] = ["friend", "output", "wealth", "authority", "resource"];
+
 function cloneDistribution(distribution: Record<Element, number>): Record<Element, number> {
   return {
     "\u6728": distribution["\u6728"] ?? 0,
@@ -97,6 +163,54 @@ function cloneDistribution(distribution: Record<Element, number>): Record<Elemen
     "\u571F": distribution["\u571F"] ?? 0,
     "\u91D1": distribution["\u91D1"] ?? 0,
     "\u6C34": distribution["\u6C34"] ?? 0,
+  };
+}
+
+function cloneTenGodGroupCounts(
+  counts: SajuTenGodGroupCountsSummary = EMPTY_TEN_GOD_GROUP_COUNTS,
+): SajuTenGodGroupCountsSummary {
+  return {
+    friend: counts.friend ?? 0,
+    output: counts.output ?? 0,
+    wealth: counts.wealth ?? 0,
+    authority: counts.authority ?? 0,
+    resource: counts.resource ?? 0,
+  };
+}
+
+function toTenGodGroup(value: string): TenGodGroup | null {
+  switch (value) {
+    case "BI_GYEON":
+    case "GYEOB_JAE":
+      return "friend";
+    case "SIK_SIN":
+    case "SANG_GWAN":
+      return "output";
+    case "PYEON_JAE":
+    case "JEONG_JAE":
+      return "wealth";
+    case "PYEON_GWAN":
+    case "JEONG_GWAN":
+      return "authority";
+    case "PYEON_IN":
+    case "JEONG_IN":
+      return "resource";
+    default:
+      return null;
+  }
+}
+
+function toDayMasterSummary(analysis: SajuAnalysis): SajuDayMasterSummary {
+  const dayMaster = analysis.pillars.day.cheongan;
+  const dayMasterInfo = CHEONGAN_INFO[dayMaster];
+  const element = OHAENG_TO_ELEMENT[dayMasterInfo.ohaeng];
+  return {
+    stemCode: dayMaster,
+    stemHangul: dayMasterInfo.hangul,
+    stemHanja: dayMasterInfo.hanja,
+    elementCode: dayMasterInfo.ohaeng,
+    element,
+    eumyangCode: dayMasterInfo.eumyang,
   };
 }
 
@@ -172,6 +286,95 @@ function toTraceSummary(trace: readonly AnalysisTraceStep[]): SajuTraceStepSumma
   }));
 }
 
+function toYongshinSummary(analysis: SajuAnalysis): SajuYongshinSummary | null {
+  if (!analysis.yongshinResult) {
+    return null;
+  }
+
+  return {
+    finalYongshin: analysis.yongshinResult.finalYongshin,
+    finalHeesin: analysis.yongshinResult.finalHeesin ?? null,
+    gisin: analysis.yongshinResult.gisin ?? null,
+    gusin: analysis.yongshinResult.gusin ?? null,
+    finalConfidence: analysis.yongshinResult.finalConfidence,
+    agreement: analysis.yongshinResult.agreement,
+    recommendations: analysis.yongshinResult.recommendations.map((recommendation) => ({
+      type: recommendation.type,
+      primaryElement: recommendation.primaryElement,
+      secondaryElement: recommendation.secondaryElement ?? null,
+      confidence: recommendation.confidence,
+      reasoning: recommendation.reasoning,
+    })),
+  };
+}
+
+function toStrengthSummary(analysis: SajuAnalysis): SajuStrengthSummary | null {
+  if (!analysis.strengthResult) {
+    return null;
+  }
+
+  return {
+    level: analysis.strengthResult.level,
+    isStrong: analysis.strengthResult.isStrong,
+    totalSupport: analysis.strengthResult.score.totalSupport,
+    totalOppose: analysis.strengthResult.score.totalOppose,
+  };
+}
+
+function toGyeokgukSummary(analysis: SajuAnalysis): SajuGyeokgukSummary | null {
+  if (!analysis.gyeokgukResult) {
+    return null;
+  }
+
+  return {
+    type: analysis.gyeokgukResult.type,
+    category: analysis.gyeokgukResult.category,
+    confidence: analysis.gyeokgukResult.confidence,
+    reasoning: analysis.gyeokgukResult.reasoning,
+    formation: analysis.gyeokgukResult.formation
+      ? {
+          quality: analysis.gyeokgukResult.formation.quality,
+          breakingFactors: [...analysis.gyeokgukResult.formation.breakingFactors],
+          rescueFactors: [...analysis.gyeokgukResult.formation.rescueFactors],
+          reasoning: analysis.gyeokgukResult.formation.reasoning,
+        }
+      : null,
+  };
+}
+
+function toTenGodSummary(analysis: SajuAnalysis): SajuTenGodSummary | null {
+  const tenGodAnalysis = analysis.tenGodAnalysis;
+  if (!tenGodAnalysis) {
+    return null;
+  }
+
+  const groupCounts = cloneTenGodGroupCounts();
+  for (const pillarAnalysis of Object.values(tenGodAnalysis.byPosition)) {
+    if (!pillarAnalysis) {
+      continue;
+    }
+    const cheonganGroup = toTenGodGroup(pillarAnalysis.cheonganSipseong);
+    if (cheonganGroup) {
+      groupCounts[cheonganGroup] += 1;
+    }
+    const principalGroup = toTenGodGroup(pillarAnalysis.jijiPrincipalSipseong);
+    if (principalGroup) {
+      groupCounts[principalGroup] += 1;
+    }
+  }
+
+  const values = TEN_GOD_GROUP_KEYS.map((key) => groupCounts[key]);
+  const maxValue = Math.max(...values);
+  const minValue = Math.min(...values);
+
+  return {
+    dayMasterStemCode: tenGodAnalysis.dayMaster,
+    groupCounts,
+    dominantGroups: TEN_GOD_GROUP_KEYS.filter((key) => groupCounts[key] === maxValue && maxValue > 0),
+    weakGroups: TEN_GOD_GROUP_KEYS.filter((key) => groupCounts[key] === minValue),
+  };
+}
+
 function toOutputSummary(
   analysis: SajuAnalysis,
   distribution: Record<Element, number>,
@@ -184,23 +387,11 @@ function toOutputSummary(
       hour: toPillarSummary(analysis, "hour"),
     },
     ohaengDistribution: cloneDistribution(distribution),
-    yongshin: analysis.yongshinResult
-      ? {
-          finalYongshin: analysis.yongshinResult.finalYongshin,
-          finalHeesin: analysis.yongshinResult.finalHeesin ?? null,
-          gisin: analysis.yongshinResult.gisin ?? null,
-          gusin: analysis.yongshinResult.gusin ?? null,
-          finalConfidence: analysis.yongshinResult.finalConfidence,
-        }
-      : null,
-    strength: analysis.strengthResult
-      ? {
-          level: analysis.strengthResult.level,
-          isStrong: analysis.strengthResult.isStrong,
-          totalSupport: analysis.strengthResult.score.totalSupport,
-          totalOppose: analysis.strengthResult.score.totalOppose,
-        }
-      : null,
+    dayMaster: toDayMasterSummary(analysis),
+    yongshin: toYongshinSummary(analysis),
+    strength: toStrengthSummary(analysis),
+    gyeokguk: toGyeokgukSummary(analysis),
+    tenGod: toTenGodSummary(analysis),
     trace: toTraceSummary(analysis.trace),
   };
 }

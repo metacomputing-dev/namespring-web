@@ -68,6 +68,68 @@ export interface SajuCalculationInputSummary {
   longitude: number;
 }
 
+export interface SajuYongshinRecommendationSummary {
+  type: string;
+  primaryElement: string;
+  secondaryElement: string | null;
+  confidence: number;
+  reasoning: string;
+}
+
+export interface SajuYongshinSummary {
+  finalYongshin: string;
+  finalHeesin: string | null;
+  gisin: string | null;
+  gusin: string | null;
+  finalConfidence: number;
+  agreement: string;
+  recommendations: SajuYongshinRecommendationSummary[];
+}
+
+export interface SajuStrengthSummary {
+  level: string;
+  isStrong: boolean;
+  totalSupport: number;
+  totalOppose: number;
+}
+
+export interface SajuDayMasterSummary {
+  stemCode: string;
+  stemHangul: string;
+  stemHanja: string;
+  elementCode: string;
+  element: string;
+  eumyangCode: string;
+}
+
+export interface SajuGyeokgukSummary {
+  type: string;
+  category: string;
+  confidence: number;
+  reasoning: string;
+  formation: {
+    quality: string;
+    breakingFactors: string[];
+    rescueFactors: string[];
+    reasoning: string;
+  } | null;
+}
+
+export interface SajuTenGodGroupCountsSummary {
+  friend: number;
+  output: number;
+  wealth: number;
+  authority: number;
+  resource: number;
+}
+
+export interface SajuTenGodSummary {
+  dayMasterStemCode: string;
+  groupCounts: SajuTenGodGroupCountsSummary;
+  dominantGroups: Array<keyof SajuTenGodGroupCountsSummary>;
+  weakGroups: Array<keyof SajuTenGodGroupCountsSummary>;
+}
+
 export interface SajuCalculationOutputSummary {
   pillars: {
     year: SajuPillarSummary;
@@ -76,20 +138,37 @@ export interface SajuCalculationOutputSummary {
     hour: SajuPillarSummary;
   };
   ohaengDistribution: Record<string, number>;
-  yongshin: {
-    finalYongshin: string;
-    finalHeesin: string | null;
-    gisin: string | null;
-    gusin: string | null;
-    finalConfidence: number;
-  } | null;
-  strength: {
-    level: string;
-    isStrong: boolean;
-    totalSupport: number;
-    totalOppose: number;
-  } | null;
+  dayMaster: SajuDayMasterSummary;
+  yongshin: SajuYongshinSummary | null;
+  strength: SajuStrengthSummary | null;
+  gyeokguk: SajuGyeokgukSummary | null;
+  tenGod: SajuTenGodSummary | null;
   trace: SajuTraceStepSummary[];
+}
+
+export interface SajuScoringBreakdown {
+  balance: number;
+  yongshin: number;
+  strength: number;
+  tenGod: number;
+  weights: {
+    balance: number;
+    yongshin: number;
+    strength: number;
+    tenGod: number;
+  };
+  weightedBeforePenalty: number;
+  penalties: {
+    gisin: number;
+    gusin: number;
+    total: number;
+  };
+  elementMatches: {
+    yongshin: number;
+    heesin: number;
+    gisin: number;
+    gusin: number;
+  };
 }
 
 export interface SajuCategoryDetails {
@@ -97,6 +176,7 @@ export interface SajuCategoryDetails {
   sajuDistributionSource: "birth" | "fallback";
   jawonDistribution: Record<string, number>;
   sajuJawonDistribution: Record<string, number>;
+  sajuScoring?: SajuScoringBreakdown;
   requestedBirth?: BirthDateTime;
   requestedGender?: string;
   sajuInput?: SajuCalculationInputSummary | null;
