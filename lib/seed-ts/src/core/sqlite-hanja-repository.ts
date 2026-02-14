@@ -1,4 +1,5 @@
 ﻿import type { Element, HanjaEntry, HanjaRepository } from "./types.js";
+import { DEFAULT_HANJA_STROKE_COUNT } from "./constants.js";
 import {
   openSqliteDatabase,
   type SqliteDatabase,
@@ -19,8 +20,6 @@ interface HanjaRow {
   boosoo: unknown;
   is_surname: unknown;
 }
-
-const DEFAULT_STROKE_COUNT = 10;
 const EARTH: Element = "土";
 const ELEMENT_SET = new Set<Element>(["木", "火", "土", "金", "水"]);
 
@@ -52,7 +51,7 @@ function toFallback(korean: string, hanja: string, isSurname: boolean): HanjaEnt
     hangul,
     hanja: h,
     meaning: "",
-    strokeCount: DEFAULT_STROKE_COUNT,
+    strokeCount: DEFAULT_HANJA_STROKE_COUNT,
     strokeElement: EARTH,
     rootElement: EARTH,
     pronunciationElement: EARTH,
@@ -249,7 +248,7 @@ export class SqliteHanjaRepository implements HanjaRepository {
       hangul: toText(row.hangul),
       hanja: toText(row.hanja),
       meaning: toText(row.meaning),
-      strokeCount: toInt(row.hoeksu, DEFAULT_STROKE_COUNT),
+      strokeCount: toInt(row.hoeksu, DEFAULT_HANJA_STROKE_COUNT),
       strokeElement: toElement(row.hoeksu_ohaeng, EARTH),
       rootElement: toElement(row.jawon_ohaeng, EARTH),
       pronunciationElement: toElement(row.pronunciation_ohaeng, EARTH),

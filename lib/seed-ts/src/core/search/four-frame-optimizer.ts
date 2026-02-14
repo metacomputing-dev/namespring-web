@@ -1,4 +1,5 @@
 import { calculateFourFrameNumbersFromStrokes } from "../../calculator/frame-calculator.js";
+import { MAX_STROKE_COUNT_PER_CHAR } from "../constants.js";
 
 export function toStrokeKey(values: readonly number[]): string {
   return values.join(",");
@@ -38,7 +39,7 @@ export class FourFrameOptimizer {
         emit();
         return;
       }
-      for (let value = 1; value <= 40; value += 1) {
+      for (let value = 1; value <= MAX_STROKE_COUNT_PER_CHAR; value += 1) {
         current[depth] = value;
         dfs(depth + 1);
       }

@@ -1,3 +1,4 @@
+import { MAX_STROKE_KEYS_FOR_SQL_IN } from "../constants.js";
 import type { SqliteStatement } from "../sqlite-runtime.js";
 import type { NameBlock, NameCombination, NameStatistics } from "../types.js";
 
@@ -31,7 +32,7 @@ export function indexedCombinationCacheKey(
   strokeKeys?: ReadonlySet<string>,
 ): string {
   const blockKey = blocks.map((block) => `${block.korean}/${block.hanja}`).join(",");
-  if (!strokeKeys || strokeKeys.size === 0 || strokeKeys.size > 900) {
+  if (!strokeKeys || strokeKeys.size === 0 || strokeKeys.size > MAX_STROKE_KEYS_FOR_SQL_IN) {
     return `${fileId}|${blockKey}`;
   }
   const strokeKey = Array.from(strokeKeys).filter((key) => key.length > 0).sort().join(",");

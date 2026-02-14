@@ -1,4 +1,6 @@
 import type { Element, Energy, FourFrame, HanjaEntry } from "../core/types.js";
+import { FOUR_FRAME_MODULO } from "../core/constants.js";
+import { sum } from "../core/utils.js";
 import { elementFromStrokeLastDigit, elementToCoreSymbol } from "../model/element.js";
 import { polarityFromStrokeCount as modelPolarityFromStrokeCount, toCorePolarity } from "../model/polarity.js";
 import { toEnergy } from "./energy-support.js";
@@ -10,14 +12,6 @@ export interface FourFrameMetric {
   type: FourFrameType;
   strokeCount: number;
   energy: Energy | null;
-}
-
-function sum(values: readonly number[]): number {
-  let out = 0;
-  for (const value of values) {
-    out += value;
-  }
-  return out;
 }
 
 function elementFromStrokeCount(strokeCount: number): Element {
@@ -33,10 +27,10 @@ function toFrameEnergy(strokeCount: number): Energy {
 }
 
 export function adjustTo81(value: number): number {
-  if (value <= 81) {
+  if (value <= FOUR_FRAME_MODULO) {
     return value;
   }
-  return ((value - 1) % 81) + 1;
+  return ((value - 1) % FOUR_FRAME_MODULO) + 1;
 }
 
 export function calculateFourFrameNumbersFromStrokes(

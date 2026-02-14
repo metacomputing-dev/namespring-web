@@ -23,8 +23,12 @@ import type {
   SajuDistributionSource,
 } from "./saju-distribution-resolver.js";
 
-export const W_MAJOR = 0.2;
-export const W_MINOR = 0.15;
+export const SIGNAL_WEIGHT_MAJOR = 0.2;
+export const SIGNAL_WEIGHT_MINOR = 0.15;
+/** @deprecated Use SIGNAL_WEIGHT_MAJOR */
+export const W_MAJOR = SIGNAL_WEIGHT_MAJOR;
+/** @deprecated Use SIGNAL_WEIGHT_MINOR */
+export const W_MINOR = SIGNAL_WEIGHT_MINOR;
 
 export const ELEMENT_KEYS: Element[] = ["\u6728", "\u706B", "\u571F", "\u91D1", "\u6C34"];
 
@@ -107,14 +111,16 @@ export function distributionFromArrangement(arrangement: readonly Element[]): Re
   return out;
 }
 
+export const SAJU_FALLBACK_DISTRIBUTION: readonly number[] = [3, 1, 2, 0, 2];
+
 export function createSajuBaseDistribution(
   sajuBaseDistribution?: Partial<Record<Element, number>>,
 ): Record<Element, number> {
   return {
-    "\u6728": sajuBaseDistribution?.["\u6728"] ?? 3,
-    "\u706B": sajuBaseDistribution?.["\u706B"] ?? 1,
-    "\u571F": sajuBaseDistribution?.["\u571F"] ?? 2,
-    "\u91D1": sajuBaseDistribution?.["\u91D1"] ?? 0,
-    "\u6C34": sajuBaseDistribution?.["\u6C34"] ?? 2,
+    "\u6728": sajuBaseDistribution?.["\u6728"] ?? SAJU_FALLBACK_DISTRIBUTION[0]!,
+    "\u706B": sajuBaseDistribution?.["\u706B"] ?? SAJU_FALLBACK_DISTRIBUTION[1]!,
+    "\u571F": sajuBaseDistribution?.["\u571F"] ?? SAJU_FALLBACK_DISTRIBUTION[2]!,
+    "\u91D1": sajuBaseDistribution?.["\u91D1"] ?? SAJU_FALLBACK_DISTRIBUTION[3]!,
+    "\u6C34": sajuBaseDistribution?.["\u6C34"] ?? SAJU_FALLBACK_DISTRIBUTION[4]!,
   };
 }

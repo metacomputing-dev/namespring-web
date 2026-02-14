@@ -1,3 +1,4 @@
+import { MAX_STROKE_KEYS_FOR_SQL_IN } from "../constants.js";
 import type { SqliteDatabase, SqliteStatement } from "../sqlite-runtime.js";
 import type { NameBlock, NameCombination } from "../types.js";
 import {
@@ -92,7 +93,7 @@ export class SqliteCombinationLoader {
       }
     }
 
-    if (strokeKeys && strokeKeys.size > 0 && strokeKeys.size <= 900) {
+    if (strokeKeys && strokeKeys.size > 0 && strokeKeys.size <= MAX_STROKE_KEYS_FOR_SQL_IN) {
       const keys = Array.from(strokeKeys).filter((key) => key.length > 0).sort();
       if (keys.length > 0) {
         clauses.push(`stroke_key IN (${keys.map(() => "?").join(",")})`);

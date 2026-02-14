@@ -153,3 +153,9 @@ export const LUCKY_NEGATIVE_PATTERN = "흉운수";
 export const LEVEL_ORDER: LuckyLevel[] = ["최상운수", "상운수", "양운수", "흉운수", "최흉운수", "미정"];
 
 export const SANGSAENG_RELATION = new Set<string>(["木>火", "火>土", "土>金", "金>水", "水>木"]);
+
+// ── Infrastructure Constants ──
+export const DEFAULT_HANJA_STROKE_COUNT = 10;
+export const MAX_STROKE_KEYS_FOR_SQL_IN = 900;
+export const FOUR_FRAME_MODULO = 81;
+export const MAX_STROKE_COUNT_PER_CHAR = 40;

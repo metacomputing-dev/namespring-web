@@ -13,16 +13,12 @@ import { FourFrameOptimizer, toStrokeKey } from "./four-frame-optimizer.js";
 import { MinHeap } from "./heap.js";
 import { findSurnameCandidates, makeNameInput, toResolvedName } from "./surname-resolver.js";
 
-interface RankedResponse {
-  response: SeedResponse;
-}
-
 function isStrictPass(response: SeedResponse): boolean {
   const c = response.categoryMap;
   return response.interpretation.isPassed && c.SAJU_JAWON_BALANCE.isPassed;
 }
 
-function pushTopK(heap: MinHeap<RankedResponse>, item: RankedResponse, capacity: number): void {
+function pushTopK(heap: MinHeap<SeedResponse>, item: SeedResponse, capacity: number): void {
   if (capacity <= 0) {
     return;
   }
@@ -31,7 +27,7 @@ function pushTopK(heap: MinHeap<RankedResponse>, item: RankedResponse, capacity:
     return;
   }
   const min = heap.peek();
-  if (min && item.response.interpretation.score > min.response.interpretation.score) {
+  if (min && item.interpretation.score > min.interpretation.score) {
     heap.replaceTop(item);
   }
 }
@@ -45,6 +41,102 @@ function toPassedResponse(response: SeedResponse): SeedResponse {
       status: "POSITIVE",
     },
   };
+}
+
+// ── Collector Pattern ──
+
+interface SearchResultCollector {
+  collect(response: SeedResponse): void;
+  toSearchResult(query: string): SearchResult;
+}
+
+class LimitedCollector implements SearchResultCollector {
+  private readonly topK: MinHeap<SeedResponse>;
+  private readonly fallbackTopK: MinHeap<SeedResponse>;
+  private readonly selectionCapacity: number;
+  private readonly limit: number;
+  private readonly offset: number;
+  private totalPassed = 0;
+  private totalEvaluated = 0;
+
+  constructor(limit: number, offset: number) {
+    this.limit = limit;
+    this.offset = offset;
+    this.selectionCapacity = Math.max(limit + offset, limit);
+    const comparator = (a: SeedResponse, b: SeedResponse) => a.interpretation.score - b.interpretation.score;
+    this.topK = new MinHeap<SeedResponse>(comparator);
+    this.fallbackTopK = new MinHeap<SeedResponse>(comparator);
+  }
+
+  collect(response: SeedResponse): void {
+    this.totalEvaluated += 1;
+    pushTopK(this.fallbackTopK, response, this.selectionCapacity);
+    if (!isStrictPass(response)) {
+      return;
+    }
+    this.totalPassed += 1;
+    pushTopK(this.topK, toPassedResponse(response), this.selectionCapacity);
+  }
+
+  toSearchResult(query: string): SearchResult {
+    const selectedPassed = this.topK
+      .toArray()
+      .sort((a, b) => b.interpretation.score - a.interpretation.score);
+    const hasPassed = selectedPassed.length > 0;
+    const selectedRanked = hasPassed
+      ? selectedPassed
+      : this.fallbackTopK.toArray().sort((a, b) => b.interpretation.score - a.interpretation.score);
+    const sliced = selectedRanked.slice(this.offset, this.offset + this.limit);
+    return {
+      query,
+      totalCount: hasPassed ? selectedRanked.length : this.totalEvaluated,
+      responses: sliced,
+      truncated: hasPassed ? this.totalPassed > selectedRanked.length : this.totalEvaluated > selectedRanked.length,
+    };
+  }
+}
+
+class UnlimitedCollector implements SearchResultCollector {
+  private readonly passedResponses: SeedResponse[] = [];
+  private readonly fallbackTopK: MinHeap<SeedResponse>;
+  private readonly fallbackCapacity: number;
+  private readonly offset: number;
+
+  constructor(offset: number) {
+    this.offset = offset;
+    this.fallbackCapacity = Math.max(500, offset + 200);
+    this.fallbackTopK = new MinHeap<SeedResponse>(
+      (a, b) => a.interpretation.score - b.interpretation.score,
+    );
+  }
+
+  collect(response: SeedResponse): void {
+    pushTopK(this.fallbackTopK, response, this.fallbackCapacity);
+    if (isStrictPass(response)) {
+      this.passedResponses.push(toPassedResponse(response));
+    }
+  }
+
+  toSearchResult(query: string): SearchResult {
+    this.passedResponses.sort((a, b) => b.interpretation.score - a.interpretation.score);
+    if (this.passedResponses.length === 0) {
+      const fallbackSelected = this.fallbackTopK
+        .toArray()
+        .sort((a, b) => b.interpretation.score - a.interpretation.score);
+      return {
+        query,
+        totalCount: fallbackSelected.length,
+        responses: fallbackSelected.slice(this.offset),
+        truncated: true,
+      };
+    }
+    return {
+      query,
+      totalCount: this.passedResponses.length,
+      responses: this.passedResponses.slice(this.offset),
+      truncated: false,
+    };
+  }
 }
 
 export class NameSearchService {
@@ -123,127 +215,52 @@ export class NameSearchService {
         : undefined;
     const offset = Math.max(0, request.offset ?? 0);
 
-    if (limit !== undefined) {
-      const selectionCapacity = Math.max(limit + offset, limit);
-      const topK = new MinHeap<RankedResponse>((a, b) => {
-        return a.response.interpretation.score - b.response.interpretation.score;
-      });
-      const fallbackTopK = new MinHeap<RankedResponse>((a, b) => {
-        return a.response.interpretation.score - b.response.interpretation.score;
-      });
-      let totalPassed = 0;
-      let totalEvaluated = 0;
-
-      for (const surname of surnameCandidates) {
-        const pairs = this.repository.getSurnamePairs(surname.korean, surname.hanja);
-        const surnameStrokeCounts = pairs.map((pair) => this.getStrokeCount(pair.korean, pair.hanja, true));
-        const validStrokeKeys = this.optimizer.getValidCombinations(surnameStrokeCounts, nameLength);
-        const combinations = this.stats.findNameCombinations(query.nameBlocks, validStrokeKeys);
-
-        for (const combination of combinations) {
-          const strokeCounts: number[] = [];
-          const koreanChars = Array.from(combination.korean);
-          const hanjaChars = Array.from(combination.hanja);
-          for (let i = 0; i < koreanChars.length; i += 1) {
-            strokeCounts.push(this.getStrokeCount(koreanChars[i] ?? "", hanjaChars[i] ?? "", false));
-          }
-          if (!validStrokeKeys.has(toStrokeKey(strokeCounts))) {
-            continue;
-          }
-
-          const response = this.evaluateName(
-            makeNameInput(surname, combination),
-            request.birth,
-            true,
-            request.gender,
-          );
-          totalEvaluated += 1;
-          pushTopK(fallbackTopK, { response }, selectionCapacity);
-          if (!isStrictPass(response)) {
-            continue;
-          }
-
-          const ranked: RankedResponse = { response: toPassedResponse(response) };
-          totalPassed += 1;
-          pushTopK(topK, ranked, selectionCapacity);
-        }
-      }
-
-      const selectedPassed = topK
-        .toArray()
-        .sort((a, b) => b.response.interpretation.score - a.response.interpretation.score);
-      const hasPassed = selectedPassed.length > 0;
-      const selectedRanked = hasPassed
-        ? selectedPassed
-        : fallbackTopK.toArray().sort((a, b) => b.response.interpretation.score - a.response.interpretation.score);
-      const selected = selectedRanked.map((value) => value.response);
-      const sliced = selected.slice(offset, offset + limit);
-      return {
-        query: request.query,
-        totalCount: hasPassed ? selected.length : totalEvaluated,
-        responses: sliced,
-        truncated: hasPassed ? totalPassed > selected.length : totalEvaluated > selected.length,
-      };
-    }
-
-    const passedResponses: SeedResponse[] = [];
-    const fallbackTopK = new MinHeap<RankedResponse>((a, b) => {
-      return a.response.interpretation.score - b.response.interpretation.score;
-    });
-    const fallbackCapacity = Math.max(500, offset + 200);
+    const collector: SearchResultCollector = limit !== undefined
+      ? new LimitedCollector(limit, offset)
+      : new UnlimitedCollector(offset);
 
     for (const surname of surnameCandidates) {
-      const pairs = this.repository.getSurnamePairs(surname.korean, surname.hanja);
-      const surnameStrokeCounts = pairs.map((pair) => this.getStrokeCount(pair.korean, pair.hanja, true));
-      const validStrokeKeys = this.optimizer.getValidCombinations(surnameStrokeCounts, nameLength);
-      const combinations = this.stats.findNameCombinations(query.nameBlocks, validStrokeKeys);
+      this.evaluateSurnameCombinations(surname, query.nameBlocks, nameLength, request, collector);
+    }
 
-      for (const combination of combinations) {
-        const strokeCounts: number[] = [];
-        const koreanChars = Array.from(combination.korean);
-        const hanjaChars = Array.from(combination.hanja);
-        for (let i = 0; i < koreanChars.length; i += 1) {
-          strokeCounts.push(this.getStrokeCount(koreanChars[i] ?? "", hanjaChars[i] ?? "", false));
-        }
-        if (!validStrokeKeys.has(toStrokeKey(strokeCounts))) {
-          continue;
-        }
+    return collector.toSearchResult(request.query);
+  }
 
-        const response = this.evaluateName(
-          makeNameInput(surname, combination),
-          request.birth,
-          true,
-          request.gender,
-        );
-        pushTopK(fallbackTopK, { response }, fallbackCapacity);
-        if (!isStrictPass(response)) {
-          continue;
-        }
+  private evaluateSurnameCombinations(
+    surname: { korean: string; hanja: string },
+    nameBlocks: ReturnType<typeof parseNameQuery>["nameBlocks"],
+    nameLength: number,
+    request: SearchRequest,
+    collector: SearchResultCollector,
+  ): void {
+    const pairs = this.repository.getSurnamePairs(surname.korean, surname.hanja);
+    const surnameStrokeCounts = pairs.map((pair) => this.getStrokeCount(pair.korean, pair.hanja, true));
+    const validStrokeKeys = this.optimizer.getValidCombinations(surnameStrokeCounts, nameLength);
+    const combinations = this.stats.findNameCombinations(nameBlocks, validStrokeKeys);
 
-        passedResponses.push(toPassedResponse(response));
+    for (const combination of combinations) {
+      const strokeCounts = this.computeGivenStrokeCounts(combination);
+      if (!validStrokeKeys.has(toStrokeKey(strokeCounts))) {
+        continue;
       }
-    }
 
-    passedResponses.sort((a, b) => b.interpretation.score - a.interpretation.score);
-    if (passedResponses.length === 0) {
-      const fallbackSelected = fallbackTopK
-        .toArray()
-        .sort((a, b) => b.response.interpretation.score - a.response.interpretation.score)
-        .map((value) => value.response);
-      return {
-        query: request.query,
-        totalCount: fallbackSelected.length,
-        responses: fallbackSelected.slice(offset),
-        truncated: true,
-      };
+      const response = this.evaluateName(
+        makeNameInput(surname, combination),
+        request.birth,
+        true,
+        request.gender,
+      );
+      collector.collect(response);
     }
+  }
 
-    const sliced = passedResponses.slice(offset);
-    return {
-      query: request.query,
-      totalCount: passedResponses.length,
-      responses: sliced,
-      truncated: false,
-    };
+  private computeGivenStrokeCounts(combination: { korean: string; hanja: string }): number[] {
+    const koreanChars = Array.from(combination.korean);
+    const hanjaChars = Array.from(combination.hanja);
+    const strokeCounts: number[] = [];
+    for (let i = 0; i < koreanChars.length; i += 1) {
+      strokeCounts.push(this.getStrokeCount(koreanChars[i] ?? "", hanjaChars[i] ?? "", false));
+    }
+    return strokeCounts;
   }
 }

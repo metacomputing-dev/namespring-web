@@ -3,10 +3,11 @@ import {
   type CalculatorNode,
   type CalculatorSignal,
 } from "../../calculator/index.js";
+import type { Element, Frame, Polarity } from "../types.js";
 import { clamp } from "../utils.js";
 import {
-  W_MAJOR,
-  W_MINOR,
+  SIGNAL_WEIGHT_MAJOR,
+  SIGNAL_WEIGHT_MINOR,
   createInsight,
   createSignal,
   distributionFromArrangement,
@@ -26,6 +27,169 @@ import {
   polarityScore,
 } from "./evaluator-rules.js";
 import { computeSajuNameScore } from "./evaluator-saju.js";
+import {
+  NODE_FORTUNE_BUCKET_PASS,
+  NODE_STROKE_ELEMENT_PASS,
+  NODE_ADJACENCY_THRESHOLD_TWO_CHAR,
+  NODE_ADJACENCY_THRESHOLD_SINGLE_CHAR,
+  NODE_FOUR_FRAME_ELEMENT_PASS,
+  NODE_PRONUNCIATION_ELEMENT_PASS,
+  NODE_ADAPTIVE_MODE_THRESHOLD,
+  NODE_ADAPTIVE_TWO_FAILURES_THRESHOLD,
+  NODE_STRICT_PASS_THRESHOLD,
+  NODE_ADAPTIVE_THRESHOLD_REDUCTION,
+  NODE_SEVERE_FAILURE_THRESHOLD,
+  NODE_MANDATORY_GATE_SCORE,
+  NODE_SAJU_WEIGHT_BOOST,
+  NODE_RELAXABLE_WEIGHT_REDUCTION,
+  NODE_PRIORITY_SIGNAL_BASE,
+  NODE_PRIORITY_SIGNAL_CONFIDENCE,
+  NODE_PRIORITY_PENALTY_DIVISOR,
+  NODE_PRIORITY_PENALTY_WEIGHT,
+  NODE_STATS_BASE_SCORE,
+} from "./scoring-constants.js";
+
+// ── Element Node Factory ──
+
+interface ElementNodeConfig {
+  id: string;
+  frame: Frame;
+  signalWeight: number;
+  getArrangement: (ctx: EvaluationPipelineContext) => Element[];
+  computePass: (ctx: EvaluationPipelineContext, distribution: Record<Element, number>, adjacencyScore: number, balanceScore: number, score: number) => boolean;
+}
+
+function createElementNode(config: ElementNodeConfig): CalculatorNode<EvaluationPipelineContext> {
+  return {
+    id: config.id,
+    visit(ctx): void {
+      const arrangement = config.getArrangement(ctx);
+      const distribution = distributionFromArrangement(arrangement);
+      const adjacencyScore = calculateArrayScore(arrangement, ctx.surnameLength);
+      const balanceScore = calculateBalanceScore(distribution);
+      const score = (balanceScore + adjacencyScore) / 2;
+      const isPassed = config.computePass(ctx, distribution, adjacencyScore, balanceScore, score);
+      const insight = createInsight(config.frame, score, isPassed, arrangement.join("-"), {
+        distribution,
+        adjacencyScore,
+        balanceScore,
+      });
+      setInsight(ctx, insight);
+    },
+    backward(ctx): { nodeId: string; signals: CalculatorSignal[] } {
+      if (config.signalWeight === 0) {
+        return { nodeId: config.id, signals: [] };
+      }
+      const insight = mustInsight(ctx, config.frame);
+      return {
+        nodeId: config.id,
+        signals: [createSignal(config.frame, insight, config.signalWeight)],
+      };
+    },
+  };
+}
+
+// ── Polarity Node Factory ──
+
+interface PolarityNodeConfig {
+  id: string;
+  frame: Frame;
+  signalWeight: number;
+  getArrangement: (ctx: EvaluationPipelineContext) => Polarity[];
+}
+
+function createPolarityNode(config: PolarityNodeConfig): CalculatorNode<EvaluationPipelineContext> {
+  return {
+    id: config.id,
+    visit(ctx): void {
+      const arrangement = config.getArrangement(ctx);
+      const eumCount = arrangement.filter((value) => value === "\u9670").length;
+      const yangCount = arrangement.length - eumCount;
+      const score = polarityScore(eumCount, yangCount);
+      const isPassed = checkPolarityHarmony(arrangement, ctx.surnameLength);
+      const insight = createInsight(config.frame, score, isPassed, arrangement.join(""), {
+        arrangementList: arrangement,
+      });
+      setInsight(ctx, insight);
+    },
+    backward(ctx): { nodeId: string; signals: CalculatorSignal[] } {
+      const insight = mustInsight(ctx, config.frame);
+      return {
+        nodeId: config.id,
+        signals: [createSignal(config.frame, insight, config.signalWeight)],
+      };
+    },
+  };
+}
+
+// ── Concrete Nodes via Factory ──
+
+function createStrokeElementNode(): CalculatorNode<EvaluationPipelineContext> {
+  return createElementNode({
+    id: "stroke-element",
+    frame: "HOEKSU_OHAENG",
+    signalWeight: 0,
+    getArrangement: (ctx) => ctx.hanjaCalculator.getStrokeElementArrangement(),
+    computePass: (_ctx, _dist, _adj, balanceScore) => balanceScore >= NODE_STROKE_ELEMENT_PASS,
+  });
+}
+
+function createFourFrameElementNode(): CalculatorNode<EvaluationPipelineContext> {
+  return createElementNode({
+    id: "four-frame-element",
+    frame: "SAGYEOK_OHAENG",
+    signalWeight: SIGNAL_WEIGHT_MINOR,
+    getArrangement: (ctx) => ctx.fourFrameCalculator.getCompatibilityElementArrangement(),
+    computePass: (ctx, distribution, adjacencyScore, _balanceScore, score) => {
+      const adjacencyThreshold = ctx.surnameLength === 2 ? NODE_ADJACENCY_THRESHOLD_TWO_CHAR : NODE_ADJACENCY_THRESHOLD_SINGLE_CHAR;
+      return (
+        checkFourFrameSuriElement(ctx.fourFrameCalculator.getCompatibilityElementArrangement(), ctx.givenLength) &&
+        !countDominant(distribution) &&
+        adjacencyScore >= adjacencyThreshold &&
+        score >= NODE_FOUR_FRAME_ELEMENT_PASS
+      );
+    },
+  });
+}
+
+function createPronunciationElementNode(): CalculatorNode<EvaluationPipelineContext> {
+  return createElementNode({
+    id: "pronunciation-element",
+    frame: "BALEUM_OHAENG",
+    signalWeight: SIGNAL_WEIGHT_MINOR,
+    getArrangement: (ctx) => ctx.hangulCalculator.getPronunciationElementArrangement(),
+    computePass: (ctx, distribution, adjacencyScore, _balanceScore, score) => {
+      const adjacencyThreshold = ctx.surnameLength === 2 ? NODE_ADJACENCY_THRESHOLD_TWO_CHAR : NODE_ADJACENCY_THRESHOLD_SINGLE_CHAR;
+      const arrangement = ctx.hangulCalculator.getPronunciationElementArrangement();
+      return (
+        checkElementSangSaeng(arrangement, ctx.surnameLength) &&
+        !countDominant(distribution) &&
+        adjacencyScore >= adjacencyThreshold &&
+        score >= NODE_PRONUNCIATION_ELEMENT_PASS
+      );
+    },
+  });
+}
+
+function createStrokePolarityNode(): CalculatorNode<EvaluationPipelineContext> {
+  return createPolarityNode({
+    id: "stroke-polarity",
+    frame: "HOEKSU_EUMYANG",
+    signalWeight: SIGNAL_WEIGHT_MINOR,
+    getArrangement: (ctx) => ctx.hanjaCalculator.getStrokePolarityArrangement(),
+  });
+}
+
+function createPronunciationPolarityNode(): CalculatorNode<EvaluationPipelineContext> {
+  return createPolarityNode({
+    id: "pronunciation-polarity",
+    frame: "BALEUM_EUMYANG",
+    signalWeight: SIGNAL_WEIGHT_MINOR,
+    getArrangement: (ctx) => ctx.hangulCalculator.getPronunciationPolarityArrangement(),
+  });
+}
+
+// ── Unique Nodes ──
 
 function createFourFrameNumberNode(): CalculatorNode<EvaluationPipelineContext> {
   return {
@@ -44,7 +208,7 @@ function createFourFrameNumberNode(): CalculatorNode<EvaluationPipelineContext> 
       buckets.push(bucketFromFortune(jeongFortune));
 
       const score = buckets.reduce((a, b) => a + b, 0);
-      const isPassed = buckets.length > 0 && buckets.every((value) => value >= 15);
+      const isPassed = buckets.length > 0 && buckets.every((value) => value >= NODE_FORTUNE_BUCKET_PASS);
       const insight = createInsight(
         "SAGYEOK_SURI",
         score,
@@ -63,177 +227,7 @@ function createFourFrameNumberNode(): CalculatorNode<EvaluationPipelineContext> 
       const insight = mustInsight(ctx, "SAGYEOK_SURI");
       return {
         nodeId: "four-frame-number",
-        signals: [createSignal("SAGYEOK_SURI", insight, W_MAJOR)],
-      };
-    },
-  };
-}
-
-function createStrokeElementNode(): CalculatorNode<EvaluationPipelineContext> {
-  return {
-    id: "stroke-element",
-    visit(ctx): void {
-      const arrangement = ctx.hanjaCalculator.getStrokeElementArrangement();
-      const distribution = distributionFromArrangement(arrangement);
-      const adjacencyScore = calculateArrayScore(arrangement, ctx.surnameLength);
-      const balanceScore = calculateBalanceScore(distribution);
-      const insight = createInsight(
-        "HOEKSU_OHAENG",
-        balanceScore,
-        balanceScore >= 60,
-        arrangement.join("-"),
-        {
-          distribution,
-          adjacencyScore,
-        },
-      );
-      setInsight(ctx, insight);
-    },
-    backward(): { nodeId: string; signals: CalculatorSignal[] } {
-      return {
-        nodeId: "stroke-element",
-        signals: [],
-      };
-    },
-  };
-}
-
-function createFourFrameElementNode(): CalculatorNode<EvaluationPipelineContext> {
-  return {
-    id: "four-frame-element",
-    visit(ctx): void {
-      const arrangement = ctx.fourFrameCalculator.getCompatibilityElementArrangement();
-      const distribution = distributionFromArrangement(arrangement);
-      const adjacencyScore = calculateArrayScore(arrangement, ctx.surnameLength);
-      const balanceScore = calculateBalanceScore(distribution);
-      const score = (balanceScore + adjacencyScore) / 2;
-      const dominant = countDominant(distribution);
-      const adjacencyThreshold = ctx.surnameLength === 2 ? 65 : 60;
-      const isPassed =
-        checkFourFrameSuriElement(arrangement, ctx.givenLength) &&
-        !dominant &&
-        adjacencyScore >= adjacencyThreshold &&
-        score >= 65;
-
-      const insight = createInsight(
-        "SAGYEOK_OHAENG",
-        score,
-        isPassed,
-        arrangement.join("-"),
-        {
-          distribution,
-          adjacencyScore,
-          balanceScore,
-        },
-      );
-      setInsight(ctx, insight);
-    },
-    backward(ctx): { nodeId: string; signals: CalculatorSignal[] } {
-      const insight = mustInsight(ctx, "SAGYEOK_OHAENG");
-      return {
-        nodeId: "four-frame-element",
-        signals: [createSignal("SAGYEOK_OHAENG", insight, W_MINOR)],
-      };
-    },
-  };
-}
-
-function createPronunciationElementNode(): CalculatorNode<EvaluationPipelineContext> {
-  return {
-    id: "pronunciation-element",
-    visit(ctx): void {
-      const arrangement = ctx.hangulCalculator.getPronunciationElementArrangement();
-      const distribution = distributionFromArrangement(arrangement);
-      const adjacencyScore = calculateArrayScore(arrangement, ctx.surnameLength);
-      const balanceScore = calculateBalanceScore(distribution);
-      const score = (balanceScore + adjacencyScore) / 2;
-      const adjacencyThreshold = ctx.surnameLength === 2 ? 65 : 60;
-      const isPassed =
-        checkElementSangSaeng(arrangement, ctx.surnameLength) &&
-        !countDominant(distribution) &&
-        adjacencyScore >= adjacencyThreshold &&
-        score >= 70;
-
-      const insight = createInsight(
-        "BALEUM_OHAENG",
-        score,
-        isPassed,
-        arrangement.join("-"),
-        {
-          distribution,
-          adjacencyScore,
-          balanceScore,
-        },
-      );
-      setInsight(ctx, insight);
-    },
-    backward(ctx): { nodeId: string; signals: CalculatorSignal[] } {
-      const insight = mustInsight(ctx, "BALEUM_OHAENG");
-      return {
-        nodeId: "pronunciation-element",
-        signals: [createSignal("BALEUM_OHAENG", insight, W_MINOR)],
-      };
-    },
-  };
-}
-
-function createStrokePolarityNode(): CalculatorNode<EvaluationPipelineContext> {
-  return {
-    id: "stroke-polarity",
-    visit(ctx): void {
-      const arrangement = ctx.hanjaCalculator.getStrokePolarityArrangement();
-      const eumCount = arrangement.filter((value) => value === "\u9670").length;
-      const yangCount = arrangement.length - eumCount;
-      const score = polarityScore(eumCount, yangCount);
-      const isPassed = checkPolarityHarmony(arrangement, ctx.surnameLength);
-
-      const insight = createInsight(
-        "HOEKSU_EUMYANG",
-        score,
-        isPassed,
-        arrangement.join(""),
-        {
-          arrangementList: arrangement,
-        },
-      );
-      setInsight(ctx, insight);
-    },
-    backward(ctx): { nodeId: string; signals: CalculatorSignal[] } {
-      const insight = mustInsight(ctx, "HOEKSU_EUMYANG");
-      return {
-        nodeId: "stroke-polarity",
-        signals: [createSignal("HOEKSU_EUMYANG", insight, W_MINOR)],
-      };
-    },
-  };
-}
-
-function createPronunciationPolarityNode(): CalculatorNode<EvaluationPipelineContext> {
-  return {
-    id: "pronunciation-polarity",
-    visit(ctx): void {
-      const arrangement = ctx.hangulCalculator.getPronunciationPolarityArrangement();
-      const eumCount = arrangement.filter((value) => value === "\u9670").length;
-      const yangCount = arrangement.length - eumCount;
-      const score = polarityScore(eumCount, yangCount);
-      const isPassed = checkPolarityHarmony(arrangement, ctx.surnameLength);
-
-      const insight = createInsight(
-        "BALEUM_EUMYANG",
-        score,
-        isPassed,
-        arrangement.join(""),
-        {
-          arrangementList: arrangement,
-        },
-      );
-      setInsight(ctx, insight);
-    },
-    backward(ctx): { nodeId: string; signals: CalculatorSignal[] } {
-      const insight = mustInsight(ctx, "BALEUM_EUMYANG");
-      return {
-        nodeId: "pronunciation-polarity",
-        signals: [createSignal("BALEUM_EUMYANG", insight, W_MINOR)],
+        signals: [createSignal("SAGYEOK_SURI", insight, SIGNAL_WEIGHT_MAJOR)],
       };
     },
   };
@@ -274,7 +268,7 @@ function createSajuBalanceNode(): CalculatorNode<EvaluationPipelineContext> {
       const insight = mustInsight(ctx, "SAJU_JAWON_BALANCE");
       return {
         nodeId: "saju-balance",
-        signals: [createSignal("SAJU_JAWON_BALANCE", insight, W_MAJOR)],
+        signals: [createSignal("SAJU_JAWON_BALANCE", insight, SIGNAL_WEIGHT_MAJOR)],
       };
     },
   };
@@ -284,7 +278,7 @@ function createStatisticsNode(): CalculatorNode<EvaluationPipelineContext> {
   return {
     id: "statistics",
     visit(ctx): void {
-      const statsScore = ctx.stats ? clamp(60 + ctx.stats.similarNames.length, 0, 100) : 0;
+      const statsScore = ctx.stats ? clamp(NODE_STATS_BASE_SCORE + ctx.stats.similarNames.length, 0, 100) : 0;
       const insight = createInsight(
         "STATISTICS",
         statsScore,
@@ -295,13 +289,12 @@ function createStatisticsNode(): CalculatorNode<EvaluationPipelineContext> {
       setInsight(ctx, insight);
     },
     backward(): { nodeId: string; signals: CalculatorSignal[] } {
-      return {
-        nodeId: "statistics",
-        signals: [],
-      };
+      return { nodeId: "statistics", signals: [] };
     },
   };
 }
+
+// ── Root Node ──
 
 type RelaxableFrame = "SAGYEOK_SURI" | "HOEKSU_EUMYANG" | "BALEUM_OHAENG" | "BALEUM_EUMYANG" | "SAGYEOK_OHAENG";
 
@@ -326,10 +319,10 @@ function asFiniteNumber(value: unknown, fallback = 0): number {
 
 function frameWeightMultiplier(frame: string, priority: number): number {
   if (frame === "SAJU_JAWON_BALANCE") {
-    return 1 + priority * 0.45;
+    return 1 + priority * NODE_SAJU_WEIGHT_BOOST;
   }
   if (RELAXABLE_FRAMES.has(frame as RelaxableFrame)) {
-    return 1 - priority * 0.3;
+    return 1 - priority * NODE_RELAXABLE_WEIGHT_REDUCTION;
   }
   return 1;
 }
@@ -352,12 +345,14 @@ function extractSajuPriority(ctx: EvaluationPipelineContext): number {
   const penaltyTotal = asFiniteNumber(penalties?.total, 0);
   const sajuOutput = asRecord(details?.sajuOutput);
   const yongshinOutput = asRecord(sajuOutput?.yongshin);
-  const confidence = clamp(asFiniteNumber(yongshinOutput?.finalConfidence, 0.65), 0, 1);
+  const confidence = clamp(asFiniteNumber(yongshinOutput?.finalConfidence, SAJU_DEFAULT_CONFIDENCE), 0, 1);
 
-  const signal = ((balance + yongshin) / 200) * (0.55 + confidence * 0.45);
-  const penalty = Math.min(1, penaltyTotal / 20) * 0.25;
+  const signal = ((balance + yongshin) / 200) * (NODE_PRIORITY_SIGNAL_BASE + confidence * NODE_PRIORITY_SIGNAL_CONFIDENCE);
+  const penalty = Math.min(1, penaltyTotal / NODE_PRIORITY_PENALTY_DIVISOR) * NODE_PRIORITY_PENALTY_WEIGHT;
   return clamp(signal - penalty, 0, 1);
 }
+
+const SAJU_DEFAULT_CONFIDENCE = 0.65;
 
 export function createRootNode(): CalculatorNode<EvaluationPipelineContext> {
   return {
@@ -377,9 +372,9 @@ export function createRootNode(): CalculatorNode<EvaluationPipelineContext> {
     backward(ctx, childPackets): { nodeId: string; signals: CalculatorSignal[] } {
       const weightedSignals = flattenSignals(childPackets).filter((signal) => signal.weight > 0);
       const sajuPriority = extractSajuPriority(ctx);
-      const adaptiveMode = sajuPriority >= 0.55;
-      const allowedFailures = adaptiveMode ? (sajuPriority >= 0.78 ? 2 : 1) : 0;
-      const threshold = adaptiveMode ? 60 - 8 * sajuPriority : 60;
+      const adaptiveMode = sajuPriority >= NODE_ADAPTIVE_MODE_THRESHOLD;
+      const allowedFailures = adaptiveMode ? (sajuPriority >= NODE_ADAPTIVE_TWO_FAILURES_THRESHOLD ? 2 : 1) : 0;
+      const threshold = adaptiveMode ? NODE_STRICT_PASS_THRESHOLD - NODE_ADAPTIVE_THRESHOLD_REDUCTION * sajuPriority : NODE_STRICT_PASS_THRESHOLD;
 
       const adjustedSignals = weightedSignals.map((signal) => {
         const multiplier = frameWeightMultiplier(signal.frame, sajuPriority);
@@ -410,13 +405,13 @@ export function createRootNode(): CalculatorNode<EvaluationPipelineContext> {
         pronunciationElementInsight.isPassed &&
         pronunciationPolarityInsight.isPassed &&
         fourFrameElementInsight.isPassed &&
-        weightedScore >= 60;
+        weightedScore >= NODE_STRICT_PASS_THRESHOLD;
 
       const relaxableFailures = adjustedSignals.filter(
         (signal) => RELAXABLE_FRAMES.has(signal.frame as RelaxableFrame) && !signal.isPassed,
       );
-      const severeRelaxableFailure = relaxableFailures.some((signal) => signal.score < 45);
-      const mandatoryGate = sajuInsight.isPassed && fourFrameNumberInsight.score >= 35;
+      const severeRelaxableFailure = relaxableFailures.some((signal) => signal.score < NODE_SEVERE_FAILURE_THRESHOLD);
+      const mandatoryGate = sajuInsight.isPassed && fourFrameNumberInsight.score >= NODE_MANDATORY_GATE_SCORE;
       const adaptivePassed =
         mandatoryGate &&
         weightedScore >= threshold &&
