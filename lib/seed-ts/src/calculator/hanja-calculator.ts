@@ -1,21 +1,11 @@
-import { DEFAULT_POLARITY_BY_BIT } from "../core/constants.js";
 import type { Element, Energy, HanjaEntry, Polarity } from "../core/types.js";
-import { NameSequenceCalculator } from "./name-sequence-calculator.js";
+import { polarityFromBit, toEnergyFromBit } from "./energy-support.js";
+import { NameSequenceCalculator, type SequenceItemBase } from "./name-sequence-calculator.js";
 
-export interface HanjaChar {
+export interface HanjaChar extends SequenceItemBase {
   readonly hangul: string;
   readonly hanja: string;
   readonly position: number;
-  readonly entry: HanjaEntry;
-  energy: Energy | null;
-}
-
-function bitToPolarity(value: number): Polarity {
-  return DEFAULT_POLARITY_BY_BIT[(Math.abs(value) % 2) as 0 | 1];
-}
-
-function toEnergy(element: Element, polarity: Polarity): Energy {
-  return { element, polarity };
 }
 
 export class HanjaCalculator extends NameSequenceCalculator<HanjaChar> {
@@ -31,7 +21,7 @@ export class HanjaCalculator extends NameSequenceCalculator<HanjaChar> {
   }
 
   protected resolveEnergy(item: HanjaChar): Energy {
-    return toEnergy(item.entry.rootElement, bitToPolarity(item.entry.strokePolarityBit));
+    return toEnergyFromBit(item.entry.rootElement, item.entry.strokePolarityBit);
   }
 
   public getNameChars(): readonly HanjaChar[] {
@@ -47,6 +37,6 @@ export class HanjaCalculator extends NameSequenceCalculator<HanjaChar> {
   }
 
   public getStrokePolarityArrangement(): Polarity[] {
-    return this.getItems().map((item) => bitToPolarity(item.entry.strokePolarityBit));
+    return this.getItems().map((item) => polarityFromBit(item.entry.strokePolarityBit));
   }
 }

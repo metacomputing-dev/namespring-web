@@ -1,18 +1,13 @@
-﻿import { CHOSUNG_ELEMENT, DEFAULT_POLARITY_BY_BIT, YANG_VOWELS } from "../core/constants.js";
+import { CHOSUNG_ELEMENT, YANG_VOWELS } from "../core/constants.js";
 import { extractChosung, extractJungsung } from "../core/hangul.js";
 import type { Element, Energy, HanjaEntry, Polarity } from "../core/types.js";
-import { NameSequenceCalculator } from "./name-sequence-calculator.js";
+import { isPolarityBit, polarityFromBit, toEnergy } from "./energy-support.js";
+import { NameSequenceCalculator, type SequenceItemBase } from "./name-sequence-calculator.js";
 
-export interface SoundChar {
+export interface SoundChar extends SequenceItemBase {
   readonly char: string;
   readonly hanja: string;
   readonly position: number;
-  readonly entry: HanjaEntry;
-  energy: Energy | null;
-}
-
-function bitToPolarity(value: number): Polarity {
-  return DEFAULT_POLARITY_BY_BIT[(Math.abs(value) % 2) as 0 | 1];
 }
 
 function resolveElement(entry: HanjaEntry): Element {
@@ -24,15 +19,11 @@ function resolveElement(entry: HanjaEntry): Element {
 }
 
 function resolvePolarity(entry: HanjaEntry): Polarity {
-  if (entry.pronunciationPolarityBit === 0 || entry.pronunciationPolarityBit === 1) {
-    return bitToPolarity(entry.pronunciationPolarityBit);
+  if (isPolarityBit(entry.pronunciationPolarityBit)) {
+    return polarityFromBit(entry.pronunciationPolarityBit);
   }
   const vowel = extractJungsung(entry.hangul);
   return YANG_VOWELS.has(vowel) ? "\u967D" : "\u9670";
-}
-
-function toEnergy(element: Element, polarity: Polarity): Energy {
-  return { element, polarity };
 }
 
 export class HangulCalculator extends NameSequenceCalculator<SoundChar> {

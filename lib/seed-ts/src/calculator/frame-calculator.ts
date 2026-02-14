@@ -1,6 +1,7 @@
 import type { Element, Energy, FourFrame, HanjaEntry } from "../core/types.js";
 import { elementFromStrokeLastDigit, elementToCoreSymbol } from "../model/element.js";
 import { polarityFromStrokeCount as modelPolarityFromStrokeCount, toCorePolarity } from "../model/polarity.js";
+import { toEnergy } from "./energy-support.js";
 import { EnergyCalculator } from "./energy-calculator.js";
 
 export type FourFrameType = "won" | "hyeong" | "i" | "jeong";
@@ -27,11 +28,8 @@ function polarityFromStrokeCount(strokeCount: number): Energy["polarity"] {
   return toCorePolarity(modelPolarityFromStrokeCount(strokeCount));
 }
 
-function toEnergy(strokeCount: number): Energy {
-  return {
-    element: elementFromStrokeCount(strokeCount),
-    polarity: polarityFromStrokeCount(strokeCount),
-  };
+function toFrameEnergy(strokeCount: number): Energy {
+  return toEnergy(elementFromStrokeCount(strokeCount), polarityFromStrokeCount(strokeCount));
 }
 
 export function adjustTo81(value: number): number {
@@ -100,7 +98,7 @@ export class FourFrameCalculator extends EnergyCalculator {
       if (frame.energy) {
         continue;
       }
-      frame.energy = toEnergy(frame.strokeCount);
+      frame.energy = toFrameEnergy(frame.strokeCount);
     }
 
     const jeong = this.getFrame("jeong");
