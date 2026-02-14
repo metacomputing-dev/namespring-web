@@ -1,5 +1,5 @@
 import { EnergyCalculator, type EnergyVisitor } from './energy-calculator';
-import type { Energy } from '../model/energy';
+import { Energy } from '../model/energy';
 import { Element } from '../model/element';
 import { Polarity } from '../model/polarity';
 import type { HanjaEntry } from '../database/hanja-repository';
@@ -19,8 +19,8 @@ export class FourFrameCalculator extends EnergyCalculator {
    * Represents an individual frame (Sagyuk) with its calculated stroke sum and energy.
    */
   public static Frame = class {
-    private static repository: FourframeRepository | null = null;
-    private static repositoryInitPromise: Promise<void> | null = null;
+    public static repository: FourframeRepository | null = null;
+    public static repositoryInitPromise: Promise<void> | null = null;
 
     // Stores the calculated energy (Polarity and Element)
     public energy: Energy | null = null;
@@ -30,7 +30,7 @@ export class FourFrameCalculator extends EnergyCalculator {
       public readonly type: 'won' | 'hyung' | 'lee' | 'jung',
       public readonly strokeSum: number // Total stroke count for this frame
     ) {
-      this.luckLevel = this.getLuckLevel(strokeSum);
+      void this.getLuckLevel(strokeSum);
     }
 
     public async getLuckLevel(index: number): Promise<number> {
@@ -169,7 +169,7 @@ export class FourFrameCalculator extends EnergyCalculator {
     }
 
     // TODO temporal logic
-    public calculateFourFrameElementScore(frames: FourFrameCalculator.Frame[]): number {
+    public calculateFourFrameElementScore(frames: InstanceType<typeof FourFrameCalculator.Frame>[]): number {
       let energies = frames.map(b => b.energy).filter((e): e is Energy => e !== null);
 
       // loop energies in 0 .. length-2 to calculate element score based on the relationship between adjacent blocks

@@ -129,7 +129,7 @@ const createDatabase = () => {
         console.log(`Ingested ${count} rows into sagyeoksu.db`);
       }
 
-      db.get('SELECT COUNT(*) AS count FROM sagyeoksu_meanings', (countErr, row) => {
+      db.get('SELECT COUNT(*) AS count FROM sagyeoksu_meanings', (countErr, row: { count: number } | undefined) => {
         if (!countErr && row) {
           console.log(`Current total rows: ${row.count}`);
         }

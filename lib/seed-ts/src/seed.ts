@@ -71,6 +71,6 @@ export class SeedTs {
     hanja: HanjaCalculator
   ): number {
     // TODO Currently a simple sum, but can be weighted or adjusted based on calc. model in the future.
-    return fourFrames.getScore() + hangul.getScore() + hanja.getScore();
+    return (fourFrames.getScore() + hangul.getScore() + hanja.getScore()) / 3;
   }
 }

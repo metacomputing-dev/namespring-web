@@ -13,6 +13,7 @@
   },
   "devDependencies": {
     "@types/node": "^25.2.3",
-    "@types/sql.js": "^1.4.9"
+    "@types/sql.js": "^1.4.9",
+    "typescript": "^5.9.3"
   }
 }
