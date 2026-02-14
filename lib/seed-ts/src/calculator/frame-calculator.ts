@@ -1,5 +1,6 @@
-import { DEFAULT_POLARITY_BY_BIT, LAST_DIGIT_ELEMENT } from "../core/constants.js";
 import type { Element, Energy, FourFrame, HanjaEntry } from "../core/types.js";
+import { elementFromStrokeLastDigit, elementToCoreSymbol } from "../model/element.js";
+import { polarityFromStrokeCount as modelPolarityFromStrokeCount, toCorePolarity } from "../model/polarity.js";
 import { EnergyCalculator } from "./energy-calculator.js";
 
 export type FourFrameType = "won" | "hyeong" | "i" | "jeong";
@@ -19,11 +20,11 @@ function sum(values: readonly number[]): number {
 }
 
 function elementFromStrokeCount(strokeCount: number): Element {
-  return LAST_DIGIT_ELEMENT[Math.abs(strokeCount) % 10] as Element;
+  return elementToCoreSymbol(elementFromStrokeLastDigit(strokeCount));
 }
 
 function polarityFromStrokeCount(strokeCount: number): Energy["polarity"] {
-  return DEFAULT_POLARITY_BY_BIT[(Math.abs(strokeCount) % 2) as 0 | 1];
+  return toCorePolarity(modelPolarityFromStrokeCount(strokeCount));
 }
 
 function toEnergy(strokeCount: number): Energy {

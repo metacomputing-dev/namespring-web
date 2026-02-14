@@ -9,13 +9,14 @@
 - `infrastructure/sqlite/`: db-only runtime context/bootstrap
 - runtime assembly split: `input normalization`, `query translation`, `context factory`, `sqlite path/four-frame loaders`
 - `index.ts` barrels exist per layer for predictable imports
-- `core/`: mature calculation/search internals reused by the new architecture
+- `core/`: runtime calculation/search internals
+- `calculator/`: modular calculation units (`Hanja`, `Sound`, `FourFrame`) used by `core/evaluator`
+- `core/evaluation-node.ts`: forward/backward node execution utility for compositional scoring
 
-## Team-facing adapter layer
-- `model/`: `Element`, `Polarity`, `Energy`, `Char` vocabulary
-- `calculator/`: modular calculators (`Hanja`, `Sound`, `FourFrame`)
-- `database/`: repository adapter split (`types/sql/mapper/repository`)
-- `types.ts`: app-level request/response contracts
+## Compatibility Layer
+- `model/`: shared vocabulary helpers (`Element`, `Polarity`, `Energy`, terms)
+- `database/`: compatibility DAO/mapper split (`types/sql/mapper/repository`)
+- `src/types.ts`: legacy app-level contracts kept for compatibility
 
 ## Policy
 - Runtime is strictly db-only.
