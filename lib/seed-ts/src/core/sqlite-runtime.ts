@@ -1,7 +1,3 @@
-import { createRequire } from "node:module";
-
-const require = createRequire(import.meta.url);
-
 export interface SqliteStatement {
   get(...params: unknown[]): unknown;
   all(...params: unknown[]): unknown[];
@@ -14,26 +10,59 @@ export interface SqliteDatabase {
   close?: () => void;
 }
 
+export type SqliteDatabaseOpener = (dbPath: string) => SqliteDatabase;
+
+let defaultSqliteDatabaseOpener: SqliteDatabaseOpener | null = null;
+
 interface NodeSqliteModule {
   DatabaseSync: new (path: string) => SqliteDatabase;
 }
 
-function loadNodeSqlite(): NodeSqliteModule {
-  try {
-    return require("node:sqlite") as NodeSqliteModule;
-  } catch (error) {
-    throw new Error("`node:sqlite` is not available in this Node runtime.", {
-      cause: error as Error,
-    });
-  }
+interface NodeProcessLike {
+  getBuiltinModule?: (id: string) => unknown;
 }
 
-export function openSqliteDatabase(dbPath: string): SqliteDatabase {
+function openNodeSqliteDatabase(dbPath: string): SqliteDatabase | null {
+  const processObject = (globalThis as { process?: NodeProcessLike }).process;
+  const loader = processObject?.getBuiltinModule;
+  if (typeof loader !== "function") {
+    return null;
+  }
+
+  const loaded = loader("node:sqlite") ?? loader("sqlite");
+  if (!loaded) {
+    return null;
+  }
+
+  const module = loaded as NodeSqliteModule;
+  if (typeof module.DatabaseSync !== "function") {
+    return null;
+  }
+
+  return new module.DatabaseSync(dbPath);
+}
+
+export function configureSqliteDatabaseOpener(opener: SqliteDatabaseOpener | null): void {
+  defaultSqliteDatabaseOpener = opener;
+}
+
+export function openSqliteDatabase(
+  dbPath: string,
+  opener: SqliteDatabaseOpener | null = defaultSqliteDatabaseOpener,
+): SqliteDatabase {
   const normalized = (dbPath ?? "").trim();
   if (!normalized) {
     throw new Error("SQLite database path is required.");
   }
-  const sqlite = loadNodeSqlite();
-  return new sqlite.DatabaseSync(normalized);
+
+  if (!opener) {
+    const nodeDatabase = openNodeSqliteDatabase(normalized);
+    if (nodeDatabase) {
+      return nodeDatabase;
+    }
+    throw new Error("SQLite opener is not configured. Use sqlite-node runtime or pass a SqliteDatabase instance.");
+  }
+
+  return opener(normalized);
 }
 

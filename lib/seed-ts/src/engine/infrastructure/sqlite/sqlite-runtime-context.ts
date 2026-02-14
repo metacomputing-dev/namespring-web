@@ -40,6 +40,7 @@ export function createSqliteRuntimeContext(options: SeedOptions): RuntimeContext
   return {
     includeSaju,
     searchService,
+    hanjaRepository: hanja,
   };
 }
 

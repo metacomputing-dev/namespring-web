@@ -1,4 +1,8 @@
-import { openSqliteDatabase } from "../../../core/sqlite-runtime.js";
+﻿import {
+  openSqliteDatabase,
+  type SqliteDatabase,
+  type SqliteDatabaseOpener,
+} from "../../../core/sqlite-runtime.js";
 import type { LuckyLevel } from "../../../core/types.js";
 import { normalizeText, toRoundedInt } from "../../../core/utils.js";
 
@@ -12,9 +16,9 @@ const POSITIVE_LEVELS = new Set<LuckyLevel>(["최상운수", "상운수", "양�
 function normalizeLevel(value: unknown): LuckyLevel {
   const text = normalizeText(String(value ?? ""));
   if (text.includes("최상운수")) return "최상운수";
+  if (text.includes("최흉운수")) return "최흉운수";
   if (text.includes("상운수")) return "상운수";
   if (text.includes("양운수")) return "양운수";
-  if (text.includes("최흉운수")) return "최흉운수";
   if (text.includes("흉운수")) return "흉운수";
   return "미정";
 }
@@ -27,8 +31,7 @@ function extractSqliteNumber(value: unknown): number | null {
   return Number.isNaN(parsed) ? null : parsed;
 }
 
-export function loadFourFrameLevelMapFromSqlite(sqlitePath: string): Map<number, LuckyLevel> {
-  const db = openSqliteDatabase(sqlitePath);
+export function loadFourFrameLevelMapFromDatabase(db: SqliteDatabase): Map<number, LuckyLevel> {
   try {
     const stmt = db.prepare("SELECT number, lucky_level FROM sagyeok_data ORDER BY number");
     const rows = stmt.all() as FourFrameRow[];
@@ -45,6 +48,16 @@ export function loadFourFrameLevelMapFromSqlite(sqlitePath: string): Map<number,
     throw new Error("failed to load `sagyeok_data` from sqlite database", {
       cause: error as Error,
     });
+  }
+}
+
+export function loadFourFrameLevelMapFromSqlite(
+  sqlitePath: string,
+  opener?: SqliteDatabaseOpener,
+): Map<number, LuckyLevel> {
+  const db = openSqliteDatabase(sqlitePath, opener ?? null);
+  try {
+    return loadFourFrameLevelMapFromDatabase(db);
   } finally {
     db.close?.();
   }

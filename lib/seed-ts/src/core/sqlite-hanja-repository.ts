@@ -1,5 +1,10 @@
 ﻿import type { Element, HanjaEntry, HanjaRepository } from "./types.js";
-import { openSqliteDatabase, type SqliteDatabase, type SqliteStatement } from "./sqlite-runtime.js";
+import {
+  openSqliteDatabase,
+  type SqliteDatabase,
+  type SqliteDatabaseOpener,
+  type SqliteStatement,
+} from "./sqlite-runtime.js";
 
 interface HanjaRow {
   hangul: unknown;
@@ -63,13 +68,18 @@ export class SqliteHanjaRepository implements HanjaRepository {
   private readonly selectExact: SqliteStatement;
   private readonly selectByHanja: SqliteStatement;
   private readonly selectNameByHangul: SqliteStatement;
+  private readonly selectSurnameByHangul: SqliteStatement;
   private readonly selectNameByHanja: SqliteStatement;
   private readonly selectNameByChosung: SqliteStatement;
   private readonly selectNameByJungsung: SqliteStatement;
   private readonly selectSurnamePair: SqliteStatement;
 
-  static create(dbPath: string): SqliteHanjaRepository {
-    return new SqliteHanjaRepository(openSqliteDatabase(dbPath));
+  static create(dbPath: string, opener?: SqliteDatabaseOpener): SqliteHanjaRepository {
+    return new SqliteHanjaRepository(openSqliteDatabase(dbPath, opener ?? null));
+  }
+
+  static fromDatabase(db: SqliteDatabase): SqliteHanjaRepository {
+    return new SqliteHanjaRepository(db);
   }
 
   constructor(db: SqliteDatabase) {
@@ -98,6 +108,14 @@ export class SqliteHanjaRepository implements HanjaRepository {
         "       pronunciation_ohaeng, pronunciation_eumyang, hoeksu_eumyang, boosoo, is_surname",
         "  FROM hanja_entries",
         " WHERE hangul = ? AND is_surname = 0",
+      ].join("\n"),
+    );
+    this.selectSurnameByHangul = this.db.prepare(
+      [
+        "SELECT hangul, hanja, meaning, hoeksu, hoeksu_ohaeng, jawon_ohaeng,",
+        "       pronunciation_ohaeng, pronunciation_eumyang, hoeksu_eumyang, boosoo, is_surname",
+        "  FROM hanja_entries",
+        " WHERE hangul = ? AND is_surname = 1",
       ].join("\n"),
     );
     this.selectNameByHanja = this.db.prepare(
@@ -188,6 +206,15 @@ export class SqliteHanjaRepository implements HanjaRepository {
     }
     const rows = this.selectNameByHangul.all(h) as HanjaRow[];
     return rows.map((row) => this.toEntry(row, false));
+  }
+
+  findSurnameByHangul(hangul: string): readonly HanjaEntry[] {
+    const h = toText(hangul);
+    if (!h) {
+      return [];
+    }
+    const rows = this.selectSurnameByHangul.all(h) as HanjaRow[];
+    return rows.map((row) => this.toEntry(row, true));
   }
 
   findNameByHanja(hanja: string): readonly HanjaEntry[] {

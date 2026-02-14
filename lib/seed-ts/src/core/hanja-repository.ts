@@ -132,6 +132,10 @@ export class InMemoryHanjaRepository implements HanjaRepository {
     return this.nameByHangul.get(normalizeText(hangul)) ?? [];
   }
 
+  findSurnameByHangul(hangul: string): readonly HanjaEntry[] {
+    return this.surnameByHangul.get(normalizeText(hangul)) ?? [];
+  }
+
   findNameByHanja(hanja: string): readonly HanjaEntry[] {
     return this.nameByHanja.get(normalizeText(hanja)) ?? [];
   }

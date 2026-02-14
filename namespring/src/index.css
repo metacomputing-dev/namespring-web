@@ -1,1 +1,51 @@
 @import "tailwindcss";
+
+:root {
+  font-family: "Pretendard Variable", "Pretendard", "Noto Sans KR", "Apple SD Gothic Neo", sans-serif;
+  color: #0f172a;
+  background-color: #fff8ef;
+  text-rendering: optimizeLegibility;
+}
+
+* {
+  box-sizing: border-box;
+}
+
+body {
+  margin: 0;
+  min-height: 100vh;
+}
+
+.floating-orb {
+  pointer-events: none;
+  position: absolute;
+  height: 320px;
+  width: 320px;
+  border-radius: 9999px;
+  filter: blur(40px);
+  opacity: 0.4;
+  animation: float-orb 9s ease-in-out infinite;
+}
+
+.floating-orb-left {
+  top: -120px;
+  left: -80px;
+  background: radial-gradient(circle at 40% 40%, #fb7185, #fdba74);
+}
+
+.floating-orb-right {
+  right: -120px;
+  bottom: -120px;
+  background: radial-gradient(circle at 40% 40%, #22d3ee, #60a5fa);
+  animation-delay: 1.8s;
+}
+
+@keyframes float-orb {
+  0%,
+  100% {
+    transform: translateY(0px) scale(1);
+  }
+  50% {
+    transform: translateY(18px) scale(1.04);
+  }
+}

@@ -1,6 +1,8 @@
-﻿export { Seed, SeedTs } from "./seed.js";
+export { Seed, SeedClient, SeedTs, createSeedClient } from "./seed.js";
 
 export type {
+  AnalyzeSelectionRequest,
+  AnalyzeSelectionResult,
   BirthInfo,
   Char,
   Element,
@@ -12,6 +14,7 @@ export type {
   Gender,
   HanjaChar,
   HanjaEntry,
+  HanjaLookupOptions,
   HanjaRepository,
   HangulChar,
   Interpretation,
@@ -19,6 +22,7 @@ export type {
   NameInput,
   NameStatistics,
   Polarity,
+  SearchCandidatesRequest,
   SearchRequest,
   SearchResult,
   SeedOptions,
@@ -32,6 +36,14 @@ export type {
 export type { SeedTsCandidate, SeedTsResult, SeedTsUserInfo } from "./engine/domain/naming.js";
 export { SeedEngine, SeedTsAnalyzer } from "./engine/application/index.js";
 export type { RuntimeContext, RuntimeContextFactory } from "./engine/ports/index.js";
+export type {
+  BrowserWasmRuntimeOption,
+  RuntimeOption,
+  RuntimeStrategy,
+  SeedClientOptions,
+  SqliteNodeRuntimeOption,
+} from "./runtime/options.js";
+export * as Runtime from "./runtime/index.js";
 
 export * as Model from "./model/index.js";
 export * as Database from "./database/index.js";

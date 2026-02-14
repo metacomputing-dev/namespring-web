@@ -61,6 +61,13 @@ export interface EvaluateRequest {
   longitude?: number;
 }
 
+export interface AnalyzeSelectionRequest {
+  name: NameInput;
+  birth?: BirthInfo;
+  gender?: Gender;
+  includeSaju?: boolean;
+}
+
 export interface SearchRequest {
   query: string;
   birth?: BirthInfo;
@@ -76,6 +83,8 @@ export interface SearchRequest {
   limit?: number;
   offset?: number;
 }
+
+export type SearchCandidatesRequest = SearchRequest;
 
 export interface FrameInsight {
   frame: Frame;
@@ -105,6 +114,14 @@ export interface SearchResult {
   totalCount: number;
   responses: SeedResponse[];
   truncated: boolean;
+}
+
+export interface AnalyzeSelectionResult {
+  response: SeedResponse;
+}
+
+export interface HanjaLookupOptions {
+  surname?: boolean;
 }
 
 export interface HanjaEntry {
@@ -158,6 +175,7 @@ export interface HanjaRepository {
   getSurnamePairs(surname: string, surnameHanja: string): Array<{ korean: string; hanja: string }>;
   isSurname(korean: string, hanja: string): boolean;
   findNameByHangul(hangul: string): readonly HanjaEntry[];
+  findSurnameByHangul?(hangul: string): readonly HanjaEntry[];
   findNameByHanja(hanja: string): readonly HanjaEntry[];
   findNameByChosung?(chosung: string): readonly HanjaEntry[];
   findNameByJungsung?(jungsung: string): readonly HanjaEntry[];
