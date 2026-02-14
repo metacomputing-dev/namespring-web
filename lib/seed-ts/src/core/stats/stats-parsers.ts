@@ -23,6 +23,8 @@ export interface TableInfoRow {
   name: unknown;
 }
 
+const STATS_YEAR_BASE = 2000;
+
 export function parseYearMap(input: YearMap | undefined): Record<number, number> {
   if (!input) {
     return {};
@@ -35,7 +37,7 @@ export function parseYearMap(input: YearMap | undefined): Record<number, number>
     }
     const value = typeof raw === "number" ? raw : Number.parseFloat(String(raw));
     if (!Number.isNaN(value)) {
-      out[2000 + key] = value;
+      out[STATS_YEAR_BASE + key] = value;
     }
   }
   return out;

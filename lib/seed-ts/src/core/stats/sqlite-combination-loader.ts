@@ -59,6 +59,27 @@ export class SqliteCombinationLoader {
     const clauses: string[] = ["file_id = ?", "name_length = ?"];
     const params: unknown[] = [fileId, length];
 
+    if (!this.buildBlockClauses(blocks, clauses, params)) {
+      const fallback = this.filterCombinationsByBlocks(fileId, blocks, length);
+      this.cache.indexedCombinationCache.set(cacheKey, fallback);
+      return fallback;
+    }
+
+    this.appendStrokeKeyFilter(clauses, params, strokeKeys);
+
+    const sql = [
+      "SELECT name_hangul, name_hanja",
+      "  FROM stats_combinations",
+      ` WHERE ${clauses.join(" AND ")}`,
+      " ORDER BY rowid",
+    ].join("\n");
+    const rows = this.getIndexedStatement(sql).all(...params) as StatsComboRow[];
+    const out = parseCombinationRows(rows, length);
+    this.cache.indexedCombinationCache.set(cacheKey, out);
+    return out;
+  }
+
+  private buildBlockClauses(blocks: NameBlock[], clauses: string[], params: unknown[]): boolean {
     for (let i = 0; i < blocks.length; i += 1) {
       const block = blocks[i] as NameBlock;
       const pos = i + 1;
@@ -73,18 +94,7 @@ export class SqliteCombinationLoader {
         clauses.push(`j${pos} = ?`);
         params.push(block.korean);
       } else if (!isKoreanEmpty(block)) {
-        const fallback = this.loadCombinations(fileId, length).filter((combination) => {
-          const nameChars = Array.from(combination.korean);
-          const hanjaChars = Array.from(combination.hanja);
-          for (let j = 0; j < length; j += 1) {
-            if (!blockMatchesAt(blocks[j] as NameBlock, nameChars[j] ?? "", hanjaChars[j] ?? "")) {
-              return false;
-            }
-          }
-          return true;
-        });
-        this.cache.indexedCombinationCache.set(cacheKey, fallback);
-        return fallback;
+        return false;
       }
 
       if (block.hanja.length > 0 && block.hanja !== "_") {
@@ -92,25 +102,26 @@ export class SqliteCombinationLoader {
         params.push(block.hanja);
       }
     }
+    return true;
+  }
 
-    if (strokeKeys && strokeKeys.size > 0 && strokeKeys.size <= MAX_STROKE_KEYS_FOR_SQL_IN) {
-      const keys = Array.from(strokeKeys).filter((key) => key.length > 0).sort();
-      if (keys.length > 0) {
-        clauses.push(`stroke_key IN (${keys.map(() => "?").join(",")})`);
-        params.push(...keys);
-      }
+  private filterCombinationsByBlocks(fileId: string, blocks: NameBlock[], length: number): NameCombination[] {
+    return this.loadCombinations(fileId, length).filter((combination) => {
+      const nameChars = Array.from(combination.korean);
+      const hanjaChars = Array.from(combination.hanja);
+      return blocks.every((block, idx) => blockMatchesAt(block, nameChars[idx] ?? "", hanjaChars[idx] ?? ""));
+    });
+  }
+
+  private appendStrokeKeyFilter(clauses: string[], params: unknown[], strokeKeys?: ReadonlySet<string>): void {
+    if (!strokeKeys || strokeKeys.size === 0 || strokeKeys.size > MAX_STROKE_KEYS_FOR_SQL_IN) {
+      return;
     }
-
-    const sql = [
-      "SELECT name_hangul, name_hanja",
-      "  FROM stats_combinations",
-      ` WHERE ${clauses.join(" AND ")}`,
-      " ORDER BY rowid",
-    ].join("\n");
-    const rows = this.getIndexedStatement(sql).all(...params) as StatsComboRow[];
-    const out = parseCombinationRows(rows, length);
-    this.cache.indexedCombinationCache.set(cacheKey, out);
-    return out;
+    const keys = Array.from(strokeKeys).filter((key) => key.length > 0).sort();
+    if (keys.length > 0) {
+      clauses.push(`stroke_key IN (${keys.map(() => "?").join(",")})`);
+      params.push(...keys);
+    }
   }
 
   private getIndexedStatement(sql: string): SqliteStatement {

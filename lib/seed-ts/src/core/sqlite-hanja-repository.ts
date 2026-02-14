@@ -1,4 +1,4 @@
-﻿import type { Element, HanjaEntry, HanjaRepository } from "./types.js";
+import type { Element, HanjaEntry, HanjaRepository } from "./types.js";
 import { DEFAULT_HANJA_STROKE_COUNT } from "./constants.js";
 import { toText, toInt, toBit } from "./type-converters.js";
 import {
@@ -21,8 +21,19 @@ interface HanjaRow {
   boosoo: unknown;
   is_surname: unknown;
 }
+
 const EARTH: Element = "土";
 const ELEMENT_SET = new Set<Element>(["木", "火", "土", "金", "水"]);
+
+const HANJA_SELECT_FIELDS = [
+  "SELECT hangul, hanja, meaning, hoeksu, hoeksu_ohaeng, jawon_ohaeng,",
+  "       pronunciation_ohaeng, pronunciation_eumyang, hoeksu_eumyang, boosoo, is_surname",
+  "  FROM hanja_entries",
+].join("\n");
+
+function hanjaQuery(whereClause: string): string {
+  return `${HANJA_SELECT_FIELDS}\n ${whereClause}`;
+}
 
 function toElement(value: unknown, fallback: Element): Element {
   const text = toText(value) as Element;
@@ -31,10 +42,10 @@ function toElement(value: unknown, fallback: Element): Element {
 
 function toFallback(korean: string, hanja: string, isSurname: boolean): HanjaEntry {
   const hangul = (korean ?? "").trim().slice(0, 1) || "_";
-  const h = (hanja ?? "").trim().slice(0, 1) || "_";
+  const hanjaChar = (hanja ?? "").trim().slice(0, 1) || "_";
   return {
     hangul,
-    hanja: h,
+    hanja: hanjaChar,
     meaning: "",
     strokeCount: DEFAULT_HANJA_STROKE_COUNT,
     strokeElement: EARTH,
@@ -68,86 +79,35 @@ export class SqliteHanjaRepository implements HanjaRepository {
 
   constructor(db: SqliteDatabase) {
     this.db = db;
-    this.selectExact = this.db.prepare(
-      [
-        "SELECT hangul, hanja, meaning, hoeksu, hoeksu_ohaeng, jawon_ohaeng,",
-        "       pronunciation_ohaeng, pronunciation_eumyang, hoeksu_eumyang, boosoo, is_surname",
-        "  FROM hanja_entries",
-        " WHERE hangul = ? AND hanja = ? AND is_surname = ?",
-        " LIMIT 1",
-      ].join("\n"),
-    );
-    this.selectByHanja = this.db.prepare(
-      [
-        "SELECT hangul, hanja, meaning, hoeksu, hoeksu_ohaeng, jawon_ohaeng,",
-        "       pronunciation_ohaeng, pronunciation_eumyang, hoeksu_eumyang, boosoo, is_surname",
-        "  FROM hanja_entries",
-        " WHERE hanja = ? AND is_surname = ?",
-        " LIMIT 1",
-      ].join("\n"),
-    );
-    this.selectNameByHangul = this.db.prepare(
-      [
-        "SELECT hangul, hanja, meaning, hoeksu, hoeksu_ohaeng, jawon_ohaeng,",
-        "       pronunciation_ohaeng, pronunciation_eumyang, hoeksu_eumyang, boosoo, is_surname",
-        "  FROM hanja_entries",
-        " WHERE hangul = ? AND is_surname = 0",
-      ].join("\n"),
-    );
-    this.selectSurnameByHangul = this.db.prepare(
-      [
-        "SELECT hangul, hanja, meaning, hoeksu, hoeksu_ohaeng, jawon_ohaeng,",
-        "       pronunciation_ohaeng, pronunciation_eumyang, hoeksu_eumyang, boosoo, is_surname",
-        "  FROM hanja_entries",
-        " WHERE hangul = ? AND is_surname = 1",
-      ].join("\n"),
-    );
-    this.selectNameByHanja = this.db.prepare(
-      [
-        "SELECT hangul, hanja, meaning, hoeksu, hoeksu_ohaeng, jawon_ohaeng,",
-        "       pronunciation_ohaeng, pronunciation_eumyang, hoeksu_eumyang, boosoo, is_surname",
-        "  FROM hanja_entries",
-        " WHERE hanja = ? AND is_surname = 0",
-      ].join("\n"),
-    );
-    this.selectNameByChosung = this.db.prepare(
-      [
-        "SELECT hangul, hanja, meaning, hoeksu, hoeksu_ohaeng, jawon_ohaeng,",
-        "       pronunciation_ohaeng, pronunciation_eumyang, hoeksu_eumyang, boosoo, is_surname",
-        "  FROM hanja_entries",
-        " WHERE hangul_chosung = ? AND is_surname = 0",
-      ].join("\n"),
-    );
-    this.selectNameByJungsung = this.db.prepare(
-      [
-        "SELECT hangul, hanja, meaning, hoeksu, hoeksu_ohaeng, jawon_ohaeng,",
-        "       pronunciation_ohaeng, pronunciation_eumyang, hoeksu_eumyang, boosoo, is_surname",
-        "  FROM hanja_entries",
-        " WHERE hangul_jungsung = ? AND is_surname = 0",
-      ].join("\n"),
-    );
-    this.selectSurnamePair = this.db.prepare("SELECT 1 FROM surname_pairs WHERE korean = ? AND hanja = ? LIMIT 1");
+    this.selectExact = db.prepare(hanjaQuery("WHERE hangul = ? AND hanja = ? AND is_surname = ?\n LIMIT 1"));
+    this.selectByHanja = db.prepare(hanjaQuery("WHERE hanja = ? AND is_surname = ?\n LIMIT 1"));
+    this.selectNameByHangul = db.prepare(hanjaQuery("WHERE hangul = ? AND is_surname = 0"));
+    this.selectSurnameByHangul = db.prepare(hanjaQuery("WHERE hangul = ? AND is_surname = 1"));
+    this.selectNameByHanja = db.prepare(hanjaQuery("WHERE hanja = ? AND is_surname = 0"));
+    this.selectNameByChosung = db.prepare(hanjaQuery("WHERE hangul_chosung = ? AND is_surname = 0"));
+    this.selectNameByJungsung = db.prepare(hanjaQuery("WHERE hangul_jungsung = ? AND is_surname = 0"));
+    this.selectSurnamePair = db.prepare("SELECT 1 FROM surname_pairs WHERE korean = ? AND hanja = ? LIMIT 1");
   }
 
   getHanjaInfo(korean: string, hanja: string, isSurname: boolean): HanjaEntry {
-    const k = toText(korean);
-    const h = toText(hanja);
+    const koreanText = toText(korean);
+    const hanjaText = toText(hanja);
 
-    if (k && h) {
-      const exact = this.selectExact.get(k, h, isSurname ? 1 : 0) as HanjaRow | undefined;
+    if (koreanText && hanjaText) {
+      const exact = this.selectExact.get(koreanText, hanjaText, isSurname ? 1 : 0) as HanjaRow | undefined;
       if (exact) {
         return this.toEntry(exact, isSurname);
       }
     }
 
-    if (h) {
-      const byHanja = this.selectByHanja.get(h, isSurname ? 1 : 0) as HanjaRow | undefined;
+    if (hanjaText) {
+      const byHanja = this.selectByHanja.get(hanjaText, isSurname ? 1 : 0) as HanjaRow | undefined;
       if (byHanja) {
         return this.toEntry(byHanja, isSurname);
       }
     }
 
-    return toFallback(k || "_", h || "_", isSurname);
+    return toFallback(koreanText || "_", hanjaText || "_", isSurname);
   }
 
   getHanjaStrokeCount(korean: string, hanja: string, isSurname: boolean): number {
@@ -155,77 +115,64 @@ export class SqliteHanjaRepository implements HanjaRepository {
   }
 
   getSurnamePairs(surname: string, surnameHanja: string): Array<{ korean: string; hanja: string }> {
-    const k = Array.from((surname ?? "").trim());
-    const h = Array.from((surnameHanja ?? "").trim());
-    if (k.length <= 1) {
-      return [{ korean: k[0] ?? "", hanja: h[0] ?? "" }];
+    const koreanChars = Array.from((surname ?? "").trim());
+    const hanjaChars = Array.from((surnameHanja ?? "").trim());
+    if (koreanChars.length <= 1) {
+      return [{ korean: koreanChars[0] ?? "", hanja: hanjaChars[0] ?? "" }];
     }
-    const out: Array<{ korean: string; hanja: string }> = [];
-    for (let i = 0; i < k.length; i += 1) {
-      out.push({
-        korean: k[i] ?? "",
-        hanja: h[i] ?? "",
-      });
-    }
-    return out;
+    return koreanChars.map((char, idx) => ({
+      korean: char,
+      hanja: hanjaChars[idx] ?? "",
+    }));
   }
 
   isSurname(korean: string, hanja: string): boolean {
-    const k = toText(korean);
-    const h = toText(hanja);
-    if (!k || !h) {
+    const koreanText = toText(korean);
+    const hanjaText = toText(hanja);
+    if (!koreanText || !hanjaText) {
       return false;
     }
-    const pair = this.selectSurnamePair.get(k, h);
-    if (pair) {
-      return true;
-    }
-    return Boolean(this.selectExact.get(k, h, 1));
+    return Boolean(this.selectSurnamePair.get(koreanText, hanjaText) || this.selectExact.get(koreanText, hanjaText, 1));
   }
 
   findNameByHangul(hangul: string): readonly HanjaEntry[] {
-    const h = toText(hangul);
-    if (!h) {
+    const text = toText(hangul);
+    if (!text) {
       return [];
     }
-    const rows = this.selectNameByHangul.all(h) as HanjaRow[];
-    return rows.map((row) => this.toEntry(row, false));
+    return (this.selectNameByHangul.all(text) as HanjaRow[]).map((row) => this.toEntry(row, false));
   }
 
   findSurnameByHangul(hangul: string): readonly HanjaEntry[] {
-    const h = toText(hangul);
-    if (!h) {
+    const text = toText(hangul);
+    if (!text) {
       return [];
     }
-    const rows = this.selectSurnameByHangul.all(h) as HanjaRow[];
-    return rows.map((row) => this.toEntry(row, true));
+    return (this.selectSurnameByHangul.all(text) as HanjaRow[]).map((row) => this.toEntry(row, true));
   }
 
   findNameByHanja(hanja: string): readonly HanjaEntry[] {
-    const h = toText(hanja);
-    if (!h) {
+    const text = toText(hanja);
+    if (!text) {
       return [];
     }
-    const rows = this.selectNameByHanja.all(h) as HanjaRow[];
-    return rows.map((row) => this.toEntry(row, false));
+    return (this.selectNameByHanja.all(text) as HanjaRow[]).map((row) => this.toEntry(row, false));
   }
 
   findNameByChosung(chosung: string): readonly HanjaEntry[] {
-    const c = toText(chosung);
-    if (!c) {
+    const text = toText(chosung);
+    if (!text) {
       return [];
     }
-    const rows = this.selectNameByChosung.all(c) as HanjaRow[];
-    return rows.map((row) => this.toEntry(row, false));
+    return (this.selectNameByChosung.all(text) as HanjaRow[]).map((row) => this.toEntry(row, false));
   }
 
   findNameByJungsung(jungsung: string): readonly HanjaEntry[] {
-    const j = toText(jungsung);
-    if (!j) {
+    const text = toText(jungsung);
+    if (!text) {
       return [];
     }
-    const rows = this.selectNameByJungsung.all(j) as HanjaRow[];
-    return rows.map((row) => this.toEntry(row, false));
+    return (this.selectNameByJungsung.all(text) as HanjaRow[]).map((row) => this.toEntry(row, false));
   }
 
   private toEntry(row: HanjaRow, isSurnameFallback: boolean): HanjaEntry {

@@ -150,7 +150,8 @@ export const YANG_JIJI = new Set<string>(["子", "寅", "辰", "午", "申", "�
 export const LUCKY_POSITIVE_PATTERNS = ["최상운수", "상운수", "양운수"];
 export const LUCKY_NEGATIVE_PATTERN = "흉운수";
 
-export const LEVEL_ORDER: LuckyLevel[] = ["최상운수", "상운수", "양운수", "흉운수", "최흉운수", "미정"];
+export const FORTUNE_LEVEL_UNDEFINED: LuckyLevel = "미정";
+export const LEVEL_ORDER: LuckyLevel[] = ["최상운수", "상운수", "양운수", "흉운수", "최흉운수", FORTUNE_LEVEL_UNDEFINED];
 
 export const SANGSAENG_RELATION = new Set<string>(["木>火", "火>土", "土>金", "金>水", "水>木"]);
 

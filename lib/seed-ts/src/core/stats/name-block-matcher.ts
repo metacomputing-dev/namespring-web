@@ -72,33 +72,21 @@ export function isJungsungOnly(block: NameBlock): boolean {
   return block.korean.length === 1 && JUNGSUNG_ONLY.has(block.korean);
 }
 
+function matchesKorean(block: NameBlock, char: string): boolean {
+  return (
+    isKoreanEmpty(block) ||
+    (isCompleteKorean(block) && block.korean === char) ||
+    (isChosungOnly(block) && extractChosung(char) === block.korean) ||
+    (isJungsungOnly(block) && extractJungsung(char) === block.korean)
+  );
+}
+
 export function matchesFirstBlock(block: NameBlock, name: string): boolean {
-  if (name.length === 0) {
-    return false;
-  }
-  const first = Array.from(name)[0] ?? "";
-  if (isKoreanEmpty(block)) {
-    return true;
-  }
-  if (isCompleteKorean(block)) {
-    return first === block.korean;
-  }
-  if (isChosungOnly(block)) {
-    return extractChosung(first) === block.korean;
-  }
-  if (isJungsungOnly(block)) {
-    return extractJungsung(first) === block.korean;
-  }
-  return false;
+  const first = Array.from(name)[0];
+  return first !== undefined && matchesKorean(block, first);
 }
 
 export function blockMatchesAt(block: NameBlock, nameChar: string, hanjaChar: string): boolean {
-  const koreanOk =
-    isKoreanEmpty(block) ||
-    (isCompleteKorean(block) && block.korean === nameChar) ||
-    (isChosungOnly(block) && extractChosung(nameChar) === block.korean) ||
-    (isJungsungOnly(block) && extractJungsung(nameChar) === block.korean);
-
   const hanjaOk = block.hanja.length === 0 || block.hanja === "_" || block.hanja === hanjaChar;
-  return koreanOk && hanjaOk;
+  return matchesKorean(block, nameChar) && hanjaOk;
 }

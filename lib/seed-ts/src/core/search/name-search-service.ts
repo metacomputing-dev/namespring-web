@@ -14,8 +14,7 @@ import { MinHeap } from "./heap.js";
 import { findSurnameCandidates, makeNameInput, toResolvedName } from "./surname-resolver.js";
 
 function isStrictPass(response: SeedResponse): boolean {
-  const c = response.categoryMap;
-  return response.interpretation.isPassed && c.SAJU_JAWON_BALANCE.isPassed;
+  return response.interpretation.isPassed && response.categoryMap.SAJU_JAWON_BALANCE.isPassed;
 }
 
 function pushTopK(heap: MinHeap<SeedResponse>, item: SeedResponse, capacity: number): void {
@@ -96,6 +95,9 @@ class LimitedCollector implements SearchResultCollector {
   }
 }
 
+const FALLBACK_BASE_CAPACITY = 500;
+const FALLBACK_OFFSET_BUFFER = 200;
+
 class UnlimitedCollector implements SearchResultCollector {
   private readonly passedResponses: SeedResponse[] = [];
   private readonly fallbackTopK: MinHeap<SeedResponse>;
@@ -104,7 +106,7 @@ class UnlimitedCollector implements SearchResultCollector {
 
   constructor(offset: number) {
     this.offset = offset;
-    this.fallbackCapacity = Math.max(500, offset + 200);
+    this.fallbackCapacity = Math.max(FALLBACK_BASE_CAPACITY, offset + FALLBACK_OFFSET_BUFFER);
     this.fallbackTopK = new MinHeap<SeedResponse>(
       (a, b) => a.interpretation.score - b.interpretation.score,
     );

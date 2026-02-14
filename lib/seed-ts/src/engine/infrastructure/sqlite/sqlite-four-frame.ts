@@ -1,4 +1,5 @@
-﻿import {
+﻿import { FORTUNE_LEVEL_UNDEFINED } from "../../../core/constants.js";
+import {
   openSqliteDatabase,
   type SqliteDatabase,
   type SqliteDatabaseOpener,
@@ -20,7 +21,7 @@ function normalizeLevel(value: unknown): LuckyLevel {
   if (text.includes("상운수")) return "상운수";
   if (text.includes("양운수")) return "양운수";
   if (text.includes("흉운수")) return "흉운수";
-  return "미정";
+  return FORTUNE_LEVEL_UNDEFINED;
 }
 
 function extractSqliteNumber(value: unknown): number | null {

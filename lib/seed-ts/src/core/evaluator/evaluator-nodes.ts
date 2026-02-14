@@ -3,6 +3,7 @@ import {
   type CalculatorNode,
   type CalculatorSignal,
 } from "../../calculator/index.js";
+import { FORTUNE_LEVEL_UNDEFINED } from "../constants.js";
 import type { Element, Frame, Polarity } from "../types.js";
 import { clamp } from "../utils.js";
 import {
@@ -197,10 +198,11 @@ function createFourFrameNumberNode(): CalculatorNode<EvaluationPipelineContext> 
     id: "four-frame-number",
     visit(ctx): void {
       const fourFrameNumbers = ctx.fourFrameCalculator.getFrameNumbers();
-      const wonFortune = levelToFortune(ctx.luckyMap.get(fourFrameNumbers.won) ?? "\uBBF8\uC815");
-      const hyeongFortune = levelToFortune(ctx.luckyMap.get(fourFrameNumbers.hyeong) ?? "\uBBF8\uC815");
-      const iFortune = levelToFortune(ctx.luckyMap.get(fourFrameNumbers.i) ?? "\uBBF8\uC815");
-      const jeongFortune = levelToFortune(ctx.luckyMap.get(fourFrameNumbers.jeong) ?? "\uBBF8\uC815");
+      const getLucky = (num: number) => levelToFortune(ctx.luckyMap.get(num) ?? FORTUNE_LEVEL_UNDEFINED);
+      const wonFortune = getLucky(fourFrameNumbers.won);
+      const hyeongFortune = getLucky(fourFrameNumbers.hyeong);
+      const iFortune = getLucky(fourFrameNumbers.i);
+      const jeongFortune = getLucky(fourFrameNumbers.jeong);
 
       const buckets = [bucketFromFortune(wonFortune), bucketFromFortune(hyeongFortune)];
       if (ctx.givenLength > 1) {
