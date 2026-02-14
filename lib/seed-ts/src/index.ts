@@ -29,7 +29,5 @@ export type {
   Status,
 } from "./core/types.js";
 
-export { InMemoryHanjaRepository } from "./core/hanja-repository.js";
-export { InMemoryStatsRepository } from "./core/stats-repository.js";
 export { SqliteHanjaRepository } from "./core/sqlite-hanja-repository.js";
 export { SqliteStatsRepository } from "./core/sqlite-stats-repository.js";

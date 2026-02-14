@@ -184,23 +184,23 @@ export interface HanjaRepository {
   isSurname(korean: string, hanja: string): boolean;
   findNameByHangul(hangul: string): readonly HanjaEntry[];
   findNameByHanja(hanja: string): readonly HanjaEntry[];
+  findNameByChosung?(chosung: string): readonly HanjaEntry[];
+  findNameByJungsung?(jungsung: string): readonly HanjaEntry[];
 }
 
 export interface StatsRepository {
   findByName(nameHangul: string): NameStatistics | null;
-  findNameCombinations(blocks: NameBlock[]): NameCombination[];
+  findNameCombinations(blocks: NameBlock[], strokeKeys?: ReadonlySet<string>): NameCombination[];
 }
 
 export interface SqliteOptions {
-  path: string;
-  useFor?: "all" | "hanja" | "stats";
+  path?: string;
+  useFor?: "all";
 }
 
 export interface SeedOptions {
   dataRoot?: string;
   includeSaju?: boolean;
-  hanjaRepository?: HanjaRepository;
-  statsRepository?: StatsRepository;
   sqlite?: SqliteOptions;
   sajuBaseDistribution?: Partial<Record<Element, number>>;
 }

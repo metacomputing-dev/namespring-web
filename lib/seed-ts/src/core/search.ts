@@ -23,6 +23,10 @@ interface SurnameCandidate {
   hanja: string;
 }
 
+interface RankedResponse {
+  response: SeedResponse;
+}
+
 class MinHeap<T> {
   private readonly data: T[] = [];
   private readonly compare: (a: T, b: T) => number;
@@ -163,7 +167,7 @@ class FourFrameOptimizer {
     if (cached) {
       return cached;
     }
-    if (nameLength < 1 || nameLength > 3) {
+    if (nameLength < 1 || nameLength > 4) {
       throw new Error(`unsupported name length: ${nameLength}`);
     }
     const out = new Set<string>();
@@ -183,7 +187,7 @@ class FourFrameOptimizer {
         emit();
         return;
       }
-      for (let v = 1; v <= 30; v += 1) {
+      for (let v = 1; v <= 40; v += 1) {
         current[depth] = v;
         dfs(depth + 1);
       }
@@ -272,18 +276,19 @@ export class NameSearchService {
     }
 
     const nameLength = query.nameBlocks.length;
-    const combinations = this.stats.findNameCombinations(query.nameBlocks);
     const limit = Math.max(1, request.limit ?? 10000);
     const offset = Math.max(0, request.offset ?? 0);
-    const hardCap = limit + offset;
 
-    const topK = new MinHeap<SeedResponse>((a, b) => a.interpretation.score - b.interpretation.score);
+    const topK = new MinHeap<RankedResponse>((a, b) => {
+      return a.response.interpretation.score - b.response.interpretation.score;
+    });
     let truncated = false;
     let totalPassed = 0;
     for (const surname of surnameCandidates) {
       const pairs = this.repository.getSurnamePairs(surname.korean, surname.hanja);
       const surnameStrokeCounts = pairs.map((pair) => this.getStrokeCount(pair.korean, pair.hanja, true));
       const valid = this.optimizer.getValidCombinations(surnameStrokeCounts, nameLength);
+      const combinations = this.stats.findNameCombinations(query.nameBlocks, valid);
 
       for (const combination of combinations) {
         const strokeCounts: number[] = [];
@@ -324,22 +329,24 @@ export class NameSearchService {
             status: "POSITIVE",
           },
         };
+        const ranked: RankedResponse = { response: selected };
 
         totalPassed += 1;
         if (topK.size() < limit) {
-          topK.push(selected);
+          topK.push(ranked);
         } else {
           const min = topK.peek();
-          if (min && selected.interpretation.score > min.interpretation.score) {
-            topK.replaceTop(selected);
+          if (min && ranked.response.interpretation.score > min.response.interpretation.score) {
+            topK.replaceTop(ranked);
           }
         }
       }
     }
 
-    const selected = topK
+    const selectedRanked = topK
       .toArray()
-      .sort((a, b) => b.interpretation.score - a.interpretation.score);
+      .sort((a, b) => b.response.interpretation.score - a.response.interpretation.score);
+    const selected = selectedRanked.map((value) => value.response);
     const sliced = selected.slice(offset, offset + limit);
     return {
       query: request.query,

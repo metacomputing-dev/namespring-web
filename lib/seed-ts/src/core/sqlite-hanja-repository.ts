@@ -71,6 +71,8 @@ export class SqliteHanjaRepository implements HanjaRepository {
   private readonly selectByHanja: SqliteStatement;
   private readonly selectNameByHangul: SqliteStatement;
   private readonly selectNameByHanja: SqliteStatement;
+  private readonly selectNameByChosung: SqliteStatement;
+  private readonly selectNameByJungsung: SqliteStatement;
   private readonly selectSurnamePair: SqliteStatement;
 
   static create(dbPath: string): SqliteHanjaRepository {
@@ -111,6 +113,22 @@ export class SqliteHanjaRepository implements HanjaRepository {
         "       pronunciation_ohaeng, pronunciation_eumyang, hoeksu_eumyang, boosoo, is_surname",
         "  FROM hanja_entries",
         " WHERE hanja = ? AND is_surname = 0",
+      ].join("\n"),
+    );
+    this.selectNameByChosung = this.db.prepare(
+      [
+        "SELECT hangul, hanja, meaning, hoeksu, hoeksu_ohaeng, jawon_ohaeng,",
+        "       pronunciation_ohaeng, pronunciation_eumyang, hoeksu_eumyang, boosoo, is_surname",
+        "  FROM hanja_entries",
+        " WHERE hangul_chosung = ? AND is_surname = 0",
+      ].join("\n"),
+    );
+    this.selectNameByJungsung = this.db.prepare(
+      [
+        "SELECT hangul, hanja, meaning, hoeksu, hoeksu_ohaeng, jawon_ohaeng,",
+        "       pronunciation_ohaeng, pronunciation_eumyang, hoeksu_eumyang, boosoo, is_surname",
+        "  FROM hanja_entries",
+        " WHERE hangul_jungsung = ? AND is_surname = 0",
       ].join("\n"),
     );
     this.selectSurnamePair = this.db.prepare(
@@ -192,6 +210,24 @@ export class SqliteHanjaRepository implements HanjaRepository {
       return [];
     }
     const rows = this.selectNameByHanja.all(h) as HanjaRow[];
+    return rows.map((row) => this.toEntry(row, false));
+  }
+
+  findNameByChosung(chosung: string): readonly HanjaEntry[] {
+    const c = toText(chosung);
+    if (!c) {
+      return [];
+    }
+    const rows = this.selectNameByChosung.all(c) as HanjaRow[];
+    return rows.map((row) => this.toEntry(row, false));
+  }
+
+  findNameByJungsung(jungsung: string): readonly HanjaEntry[] {
+    const j = toText(jungsung);
+    if (!j) {
+      return [];
+    }
+    const rows = this.selectNameByJungsung.all(j) as HanjaRow[];
     return rows.map((row) => this.toEntry(row, false));
   }
 

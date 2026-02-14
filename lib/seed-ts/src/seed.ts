@@ -1,30 +1,29 @@
+import fs from "node:fs";
 import path from "node:path";
+import { fileURLToPath } from "node:url";
 
 import { NameEvaluator, toLegacyInterpretationText } from "./core/evaluator.js";
-import { InMemoryHanjaRepository } from "./core/hanja-repository.js";
 import { parseCompleteName } from "./core/query.js";
-import { readJsonSync, resolveSeedDataRoot } from "./core/resource.js";
 import { NameSearchService, normalizeSearchRequest } from "./core/search.js";
 import { SqliteHanjaRepository } from "./core/sqlite-hanja-repository.js";
+import { openSqliteDatabase } from "./core/sqlite-runtime.js";
 import { SqliteStatsRepository } from "./core/sqlite-stats-repository.js";
-import { InMemoryStatsRepository } from "./core/stats-repository.js";
 import type {
   BirthInfo,
   EvaluateRequest,
   Gender,
-  HanjaRepository,
   LuckyLevel,
   NameInput,
   SearchRequest,
   SearchResult,
   SeedOptions,
   SeedResponse,
-  StatsRepository,
 } from "./core/types.js";
 import { normalizeText, toRoundedInt } from "./core/utils.js";
 
-interface RawFourFrameRow {
-  [key: string]: unknown;
+interface SagyeokRow {
+  number: unknown;
+  lucky_level: unknown;
 }
 
 interface SeedTsUserInfo {
@@ -77,74 +76,61 @@ function normalizeLevel(value: unknown): LuckyLevel {
   return "\uBBF8\uC815";
 }
 
-function extractNumber(row: RawFourFrameRow): number | null {
-  const keys = ["su", "number", "num", "value", "sagyeoksu", "stroke"];
-  for (const key of keys) {
-    const v = row[key];
-    if (typeof v === "number" && Number.isFinite(v)) return toRoundedInt(v);
-    if (typeof v === "string") {
-      const n = Number.parseInt(v, 10);
-      if (!Number.isNaN(n)) return n;
-    }
+function extractSqliteNumber(value: unknown): number | null {
+  if (typeof value === "number" && Number.isFinite(value)) {
+    return toRoundedInt(value);
   }
-  for (const v of Object.values(row)) {
-    if (typeof v === "number" && Number.isFinite(v) && v >= 1 && v <= 200) return toRoundedInt(v);
-    if (typeof v === "string") {
-      const n = Number.parseInt(v, 10);
-      if (!Number.isNaN(n) && n >= 1 && n <= 200) return n;
-    }
-  }
-  return null;
+  const parsed = Number.parseInt(String(value ?? ""), 10);
+  return Number.isNaN(parsed) ? null : parsed;
 }
 
-function extractLevel(row: RawFourFrameRow): LuckyLevel {
-  const keys = ["lucky_level", "luckyLevel", "level", "grade", "category"];
-  for (const key of keys) {
-    if (key in row) {
-      return normalizeLevel(row[key]);
-    }
-  }
-  for (const value of Object.values(row)) {
-    const level = normalizeLevel(value);
-    if (level !== "\uBBF8\uC815") return level;
-  }
-  return "\uBBF8\uC815";
-}
-
-function loadFourFrameMap(dataRoot: string): Map<number, LuckyLevel> {
-  const rows = readJsonSync<unknown>(path.join(dataRoot, "sagyeoksu_data.json"));
-  const out = new Map<number, LuckyLevel>();
-  if (Array.isArray(rows)) {
+function loadFourFrameMapFromSqlite(sqlitePath: string): Map<number, LuckyLevel> {
+  const db = openSqliteDatabase(sqlitePath);
+  try {
+    const stmt = db.prepare("SELECT number, lucky_level FROM sagyeok_data ORDER BY number");
+    const rows = stmt.all() as SagyeokRow[];
+    const out = new Map<number, LuckyLevel>();
     for (const row of rows) {
-      if (!row || typeof row !== "object") {
+      const number = extractSqliteNumber(row.number);
+      if (number === null) {
         continue;
       }
-      const rec = row as RawFourFrameRow;
-      const num = extractNumber(rec);
-      if (num === null) continue;
-      out.set(num, extractLevel(rec));
+      out.set(number, normalizeLevel(row.lucky_level));
     }
     return out;
+  } catch (error) {
+    throw new Error("failed to load `sagyeok_data` from sqlite database", {
+      cause: error as Error,
+    });
+  } finally {
+    db.close?.();
+  }
+}
+
+function resolveSqlitePath(dataRoot: string, configuredPath?: string): string {
+  const configured = configuredPath?.trim();
+  if (configured && configured.length > 0) {
+    return configured;
   }
 
-  if (rows && typeof rows === "object") {
-    const root = rows as Record<string, unknown>;
-    const meanings = root.sagyeoksu_meanings;
-    if (meanings && typeof meanings === "object") {
-      for (const [key, raw] of Object.entries(meanings as Record<string, unknown>)) {
-        if (!raw || typeof raw !== "object") {
-          continue;
-        }
-        const rec = raw as RawFourFrameRow;
-        const num = extractNumber({ number: key, ...rec });
-        if (num === null) {
-          continue;
-        }
-        out.set(num, extractLevel(rec));
-      }
+  const root = dataRoot.trim();
+  const currentFile = fileURLToPath(import.meta.url);
+  const currentDir = path.dirname(currentFile);
+  const candidates = [
+    path.join(root, "sqlite", "seed.db"),
+    path.resolve(currentDir, "../main/resources/seed/data/sqlite/seed.db"),
+    path.resolve(currentDir, "../../src/main/resources/seed/data/sqlite/seed.db"),
+    path.resolve(process.cwd(), "lib/seed-ts/src/main/resources/seed/data/sqlite/seed.db"),
+    path.resolve(process.cwd(), "src/main/resources/seed/data/sqlite/seed.db"),
+    path.resolve(process.cwd(), "lib/seed-ts/data/sqlite/seed.db"),
+  ];
+
+  for (const candidate of candidates) {
+    if (fs.existsSync(candidate)) {
+      return candidate;
     }
   }
-  return out;
+  return candidates[0] as string;
 }
 
 function extractValidFourFrameNumbers(map: Map<number, LuckyLevel>): Set<number> {
@@ -158,37 +144,36 @@ function extractValidFourFrameNumbers(map: Map<number, LuckyLevel>): Set<number>
 }
 
 class Runtime {
-  readonly dataRoot: string;
   readonly includeSaju: boolean;
-  readonly hanja: HanjaRepository;
-  readonly stats: StatsRepository;
+  readonly hanja: SqliteHanjaRepository;
+  readonly stats: SqliteStatsRepository;
   readonly evaluator: NameEvaluator;
   readonly search: NameSearchService;
 
   constructor(options: SeedOptions) {
-    this.dataRoot = resolveSeedDataRoot(options.dataRoot);
     this.includeSaju = options.includeSaju ?? false;
 
-    const sqlitePath = options.sqlite?.path?.trim();
-    if (options.sqlite && !sqlitePath) {
-      throw new Error("`SeedOptions.sqlite.path` is required when sqlite option is provided.");
-    }
+    const sqlitePath = resolveSqlitePath(
+      options.dataRoot ?? path.resolve(process.cwd(), "lib/seed-ts/src/main/resources/seed/data"),
+      options.sqlite?.path,
+    );
     const sqliteUseFor = options.sqlite?.useFor ?? "all";
-    const useSqliteHanja = Boolean(sqlitePath) && (sqliteUseFor === "all" || sqliteUseFor === "hanja");
-    const useSqliteStats = Boolean(sqlitePath) && (sqliteUseFor === "all" || sqliteUseFor === "stats");
+    if (sqliteUseFor !== "all") {
+      throw new Error("`sqlite.useFor` must be `all` in sqlite-only runtime mode.");
+    }
+    if (!fs.existsSync(sqlitePath)) {
+      throw new Error(
+        `SQLite database not found: ${sqlitePath}. Run \`npm run sqlite:build\` in \`lib/seed-ts\` first.`,
+      );
+    }
 
-    this.hanja =
-      options.hanjaRepository ??
-      (useSqliteHanja
-        ? SqliteHanjaRepository.create(sqlitePath as string)
-        : InMemoryHanjaRepository.create(this.dataRoot));
-    this.stats =
-      options.statsRepository ??
-      (useSqliteStats
-        ? SqliteStatsRepository.create(sqlitePath as string)
-        : InMemoryStatsRepository.create(this.dataRoot));
+    this.hanja = SqliteHanjaRepository.create(sqlitePath);
+    this.stats = SqliteStatsRepository.create(sqlitePath);
 
-    const luckyMap = loadFourFrameMap(this.dataRoot);
+    const luckyMap = loadFourFrameMapFromSqlite(sqlitePath);
+    if (luckyMap.size === 0) {
+      throw new Error("`sagyeok_data` is empty in sqlite database. Rebuild sqlite data first.");
+    }
     const validFourFrame = extractValidFourFrameNumbers(luckyMap);
     this.evaluator = new NameEvaluator(
       luckyMap,
@@ -231,8 +216,6 @@ export class Seed {
     const hasCustom =
       options.dataRoot !== undefined ||
       options.includeSaju !== undefined ||
-      options.hanjaRepository !== undefined ||
-      options.statsRepository !== undefined ||
       options.sqlite !== undefined ||
       options.sajuBaseDistribution !== undefined;
     if (!hasCustom) {

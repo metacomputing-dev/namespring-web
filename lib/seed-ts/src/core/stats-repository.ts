@@ -147,11 +147,10 @@ export class InMemoryStatsRepository implements StatsRepository {
   private readonly fileCache = new Map<string, RawStatsFile>();
   private readonly nameCache = new Map<string, NameStatistics | null>();
 
-  static create(dataRoot?: string): InMemoryStatsRepository {
-    const root = resolveSeedDataRoot(dataRoot);
-    const statsRoot = path.join(root, "stats");
-    const indexMap = readGzipJsonSync<Record<string, string[]>>(path.join(statsRoot, "chosung_index.json.gz"));
-    return new InMemoryStatsRepository(statsRoot, indexMap);
+  static create(_dataRoot?: string): InMemoryStatsRepository {
+    throw new Error(
+      "InMemoryStatsRepository is disabled in db-only mode. Use SqliteStatsRepository.create(dbPath).",
+    );
   }
 
   constructor(statsRoot: string, indexMap: Record<string, string[]>) {
@@ -193,7 +192,7 @@ export class InMemoryStatsRepository implements StatsRepository {
     return null;
   }
 
-  findNameCombinations(blocks: NameBlock[]): NameCombination[] {
+  findNameCombinations(blocks: NameBlock[], _strokeKeys?: ReadonlySet<string>): NameCombination[] {
     if (blocks.length === 0) {
       return [];
     }

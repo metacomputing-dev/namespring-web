@@ -1,7 +1,7 @@
 import path from "node:path";
 
 import { CHOSUNG_ELEMENT, DIGIT_TO_ELEMENT } from "./constants.js";
-import { extractChosung, isYangVowel } from "./hangul.js";
+import { extractChosung, extractJungsung, isYangVowel } from "./hangul.js";
 import { readGzipLinesSync, readJsonSync, resolveSeedDataRoot } from "./resource.js";
 import type { Element, HanjaEntry, HanjaRepository } from "./types.js";
 import { mapPush, normalizeText } from "./utils.js";
@@ -137,36 +137,10 @@ export class InMemoryHanjaRepository implements HanjaRepository {
   private readonly surnameByHanja: Map<string, HanjaEntry[]>;
   private readonly surnamePairs: Set<string>;
 
-  static create(dataRoot?: string): InMemoryHanjaRepository {
-    const root = resolveSeedDataRoot(dataRoot);
-    const hanjaRoot = path.join(root, "hanja");
-    const metadata = readJsonSync<HanjaMetadata>(path.join(hanjaRoot, "metadata.json"));
-    const files = metadata.files ?? {};
-
-    const nameRadicals = parseRadicals(
-      readGzipLinesSync(path.join(hanjaRoot, files.name_hanja_dict_radicals ?? "name_hanja_dict_radicals.gz")),
+  static create(_dataRoot?: string): InMemoryHanjaRepository {
+    throw new Error(
+      "InMemoryHanjaRepository is disabled in db-only mode. Use SqliteHanjaRepository.create(dbPath).",
     );
-    const surnameRadicals = parseRadicals(
-      readGzipLinesSync(path.join(hanjaRoot, files.surname_hanja_dict_radicals ?? "surname_hanja_dict_radicals.gz")),
-    );
-
-    const nameEntries = parseDict(
-      readGzipLinesSync(path.join(hanjaRoot, files.name_hanja_dict ?? "name_hanja_dict.gz")),
-      nameRadicals,
-      false,
-    );
-    const surnameEntries = parseDict(
-      readGzipLinesSync(path.join(hanjaRoot, files.surname_hanja_dict ?? "surname_hanja_dict.gz")),
-      surnameRadicals,
-      true,
-    );
-    const surnamePairs = new Set<string>(
-      readGzipLinesSync(path.join(hanjaRoot, files.surname_pairs ?? "surname_pairs.gz")).map((line) =>
-        normalizeText(line),
-      ),
-    );
-
-    return new InMemoryHanjaRepository(nameEntries, surnameEntries, surnamePairs);
   }
 
   constructor(nameEntries: HanjaEntry[], surnameEntries: HanjaEntry[], surnamePairs: Set<string>) {
@@ -246,5 +220,21 @@ export class InMemoryHanjaRepository implements HanjaRepository {
 
   findNameByHanja(hanja: string): readonly HanjaEntry[] {
     return this.nameByHanja.get(normalizeText(hanja)) ?? [];
+  }
+
+  findNameByChosung(chosung: string): readonly HanjaEntry[] {
+    const normalized = normalizeText(chosung);
+    if (!normalized) {
+      return [];
+    }
+    return this.nameEntries.filter((entry) => extractChosung(entry.hangul) === normalized);
+  }
+
+  findNameByJungsung(jungsung: string): readonly HanjaEntry[] {
+    const normalized = normalizeText(jungsung);
+    if (!normalized) {
+      return [];
+    }
+    return this.nameEntries.filter((entry) => extractJungsung(entry.hangul) === normalized);
   }
 }

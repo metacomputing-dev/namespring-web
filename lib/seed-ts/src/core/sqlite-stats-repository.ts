@@ -23,6 +23,10 @@ interface FileIdRow {
   file_id: unknown;
 }
 
+interface TableInfoRow {
+  name: unknown;
+}
+
 const CHOSUNG_TO_ENGLISH: Record<string, string> = {
   "\u3131": "g",
   "\u3132": "gg",
@@ -186,6 +190,8 @@ export class SqliteStatsRepository implements StatsRepository {
   private readonly selectAllFiles: SqliteStatement;
   private readonly selectStatsByName: SqliteStatement;
   private readonly selectCombinationsByFileAndLength: SqliteStatement;
+  private readonly hasIndexedColumns: boolean;
+  private readonly indexedQueryCache = new Map<string, SqliteStatement>();
   private readonly nameCache = new Map<string, NameStatistics | null>();
   private readonly filesByKeyCache = new Map<string, string[]>();
   private allFilesCache: string[] | null = null;
@@ -201,14 +207,15 @@ export class SqliteStatsRepository implements StatsRepository {
       "SELECT file_id FROM stats_index WHERE chosung_key = ? ORDER BY ord, file_id",
     );
     this.selectAllFiles = this.db.prepare(
-      "SELECT file_id FROM stats_index ORDER BY chosung_key, ord, file_id",
+      "SELECT file_id FROM stats_index ORDER BY rowid",
     );
     this.selectStatsByName = this.db.prepare(
       "SELECT payload_json FROM stats_name WHERE file_id = ? AND name_hangul = ? LIMIT 1",
     );
     this.selectCombinationsByFileAndLength = this.db.prepare(
-      "SELECT name_hangul, name_hanja FROM stats_combinations WHERE file_id = ? AND name_length = ?",
+      "SELECT name_hangul, name_hanja FROM stats_combinations WHERE file_id = ? AND name_length = ? ORDER BY rowid",
     );
+    this.hasIndexedColumns = this.detectIndexedColumns();
   }
 
   findByName(nameHangul: string): NameStatistics | null {
@@ -240,7 +247,7 @@ export class SqliteStatsRepository implements StatsRepository {
     return null;
   }
 
-  findNameCombinations(blocks: NameBlock[]): NameCombination[] {
+  findNameCombinations(blocks: NameBlock[], strokeKeys?: ReadonlySet<string>): NameCombination[] {
     if (blocks.length === 0) {
       return [];
     }
@@ -249,9 +256,20 @@ export class SqliteStatsRepository implements StatsRepository {
     const files = this.filesToSearch(first);
     const out: NameCombination[] = [];
     const length = blocks.length;
+    const useIndexedQuery = this.hasIndexedColumns && length <= 3;
 
     for (const fileId of files) {
-      const combinations = this.loadCombinations(fileId, length);
+      const combinations = useIndexedQuery
+        ? this.loadCombinationsIndexed(fileId, blocks, strokeKeys)
+        : this.loadCombinations(fileId, length);
+
+      if (useIndexedQuery) {
+        for (const combination of combinations) {
+          out.push(combination);
+        }
+        continue;
+      }
+
       for (const combination of combinations) {
         if (!matchesFirstBlock(first, combination.korean)) {
           continue;
@@ -305,6 +323,109 @@ export class SqliteStatsRepository implements StatsRepository {
     const rows = this.selectAllFiles.all() as FileIdRow[];
     this.allFilesCache = rows.map((row) => toText(row.file_id)).filter((id) => id.length > 0);
     return this.allFilesCache;
+  }
+
+  private detectIndexedColumns(): boolean {
+    try {
+      const rows = this.db.prepare("PRAGMA table_info(stats_combinations)").all() as TableInfoRow[];
+      const columns = new Set(rows.map((row) => toText(row.name)));
+      const required = [
+        "k1",
+        "k2",
+        "k3",
+        "h1",
+        "h2",
+        "h3",
+        "c1",
+        "c2",
+        "c3",
+        "j1",
+        "j2",
+        "j3",
+        "stroke_key",
+      ];
+      return required.every((name) => columns.has(name));
+    } catch {
+      return false;
+    }
+  }
+
+  private getIndexedStatement(sql: string): SqliteStatement {
+    const cached = this.indexedQueryCache.get(sql);
+    if (cached) {
+      return cached;
+    }
+    const prepared = this.db.prepare(sql);
+    this.indexedQueryCache.set(sql, prepared);
+    return prepared;
+  }
+
+  private loadCombinationsIndexed(
+    fileId: string,
+    blocks: NameBlock[],
+    strokeKeys?: ReadonlySet<string>,
+  ): NameCombination[] {
+    const length = blocks.length;
+    const clauses: string[] = ["file_id = ?", "name_length = ?"];
+    const params: unknown[] = [fileId, length];
+
+    for (let i = 0; i < blocks.length; i += 1) {
+      const block = blocks[i] as NameBlock;
+      const pos = i + 1;
+
+      if (isCompleteKorean(block)) {
+        clauses.push(`k${pos} = ?`);
+        params.push(block.korean);
+      } else if (isChosungOnly(block)) {
+        clauses.push(`c${pos} = ?`);
+        params.push(block.korean);
+      } else if (isJungsungOnly(block)) {
+        clauses.push(`j${pos} = ?`);
+        params.push(block.korean);
+      } else if (!isKoreanEmpty(block)) {
+        const fallback = this.loadCombinations(fileId, length);
+        return fallback.filter((combination) => {
+          const nameChars = Array.from(combination.korean);
+          const hanjaChars = Array.from(combination.hanja);
+          for (let j = 0; j < length; j += 1) {
+            if (!blockMatchesAt(blocks[j] as NameBlock, nameChars[j] ?? "", hanjaChars[j] ?? "")) {
+              return false;
+            }
+          }
+          return true;
+        });
+      }
+
+      if (block.hanja.length > 0 && block.hanja !== "_") {
+        clauses.push(`h${pos} = ?`);
+        params.push(block.hanja);
+      }
+    }
+
+    if (strokeKeys && strokeKeys.size > 0 && strokeKeys.size <= 900) {
+      const keys = Array.from(strokeKeys).filter((key) => key.length > 0).sort();
+      if (keys.length > 0) {
+        clauses.push(`stroke_key IN (${keys.map(() => "?").join(",")})`);
+        params.push(...keys);
+      }
+    }
+
+    const sql = [
+      "SELECT name_hangul, name_hanja",
+      "  FROM stats_combinations",
+      ` WHERE ${clauses.join(" AND ")}`,
+      " ORDER BY rowid",
+    ].join("\n");
+    const rows = this.getIndexedStatement(sql).all(...params) as StatsComboRow[];
+    return rows
+      .map((row) => ({ korean: toText(row.name_hangul), hanja: toText(row.name_hanja) }))
+      .filter(
+        (value) =>
+          value.korean.length > 0 &&
+          value.hanja.length > 0 &&
+          Array.from(value.korean).length === length &&
+          Array.from(value.hanja).length === length,
+      );
   }
 
   private loadCombinations(fileId: string, length: number): NameCombination[] {
