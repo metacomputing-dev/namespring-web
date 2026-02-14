@@ -1,9 +1,16 @@
-import { FourFrameCalculator, HanjaCalculator, HangulCalculator } from "../calculator/index.js";
+import {
+  FourFrameCalculator,
+  HanjaCalculator,
+  HangulCalculator,
+  executeCalculatorNode,
+  flattenSignals,
+  type CalculatorNode,
+  type CalculatorSignal,
+} from "../calculator/index.js";
 import {
   DEFAULT_POLARITY_BY_BIT,
   ELEMENT_INDEX,
 } from "./constants.js";
-import { executeEvaluationNode, flattenSignals, type EvaluationNode, type EvaluationSignal } from "./evaluation-node.js";
 import type {
   BirthInfo,
   Element,
@@ -85,7 +92,7 @@ function mustInsight(ctx: EvaluationPipelineContext, frame: Frame): FrameInsight
   return insight;
 }
 
-function createSignal(frame: Frame, insight: FrameInsight, weight: number): EvaluationSignal {
+function createSignal(frame: Frame, insight: FrameInsight, weight: number): CalculatorSignal {
   return {
     key: frame,
     frame,
@@ -392,10 +399,10 @@ function polarityScore(eumCount: number, yangCount: number): number {
   return 40 + ratioScore;
 }
 
-function createFourFrameNumberNode(): EvaluationNode<EvaluationPipelineContext> {
+function createFourFrameNumberNode(): CalculatorNode<EvaluationPipelineContext> {
   return {
     id: "four-frame-number",
-    forward(ctx): void {
+    visit(ctx): void {
       const fourFrameNumbers = ctx.fourFrameCalculator.getFrameNumbers();
       const wonFortune = levelToFortune(ctx.luckyMap.get(fourFrameNumbers.won) ?? "\uBBF8\uC815");
       const hyeongFortune = levelToFortune(ctx.luckyMap.get(fourFrameNumbers.hyeong) ?? "\uBBF8\uC815");
@@ -424,7 +431,7 @@ function createFourFrameNumberNode(): EvaluationNode<EvaluationPipelineContext> 
       );
       setInsight(ctx, insight);
     },
-    backward(ctx): { nodeId: string; signals: EvaluationSignal[] } {
+    backward(ctx): { nodeId: string; signals: CalculatorSignal[] } {
       const insight = mustInsight(ctx, "SAGYEOK_SURI");
       return {
         nodeId: "four-frame-number",
@@ -434,10 +441,10 @@ function createFourFrameNumberNode(): EvaluationNode<EvaluationPipelineContext> 
   };
 }
 
-function createStrokeElementNode(): EvaluationNode<EvaluationPipelineContext> {
+function createStrokeElementNode(): CalculatorNode<EvaluationPipelineContext> {
   return {
     id: "stroke-element",
-    forward(ctx): void {
+    visit(ctx): void {
       const arrangement = ctx.hanjaCalculator.getStrokeElementArrangement();
       const distribution = distributionFromArrangement(arrangement);
       const adjacencyScore = calculateArrayScore(arrangement, ctx.surnameLength);
@@ -454,7 +461,7 @@ function createStrokeElementNode(): EvaluationNode<EvaluationPipelineContext> {
       );
       setInsight(ctx, insight);
     },
-    backward(): { nodeId: string; signals: EvaluationSignal[] } {
+    backward(): { nodeId: string; signals: CalculatorSignal[] } {
       return {
         nodeId: "stroke-element",
         signals: [],
@@ -463,10 +470,10 @@ function createStrokeElementNode(): EvaluationNode<EvaluationPipelineContext> {
   };
 }
 
-function createFourFrameElementNode(): EvaluationNode<EvaluationPipelineContext> {
+function createFourFrameElementNode(): CalculatorNode<EvaluationPipelineContext> {
   return {
     id: "four-frame-element",
-    forward(ctx): void {
+    visit(ctx): void {
       const arrangement = ctx.fourFrameCalculator.getCompatibilityElementArrangement();
       const distribution = distributionFromArrangement(arrangement);
       const adjacencyScore = calculateArrayScore(arrangement, ctx.surnameLength);
@@ -493,7 +500,7 @@ function createFourFrameElementNode(): EvaluationNode<EvaluationPipelineContext>
       );
       setInsight(ctx, insight);
     },
-    backward(ctx): { nodeId: string; signals: EvaluationSignal[] } {
+    backward(ctx): { nodeId: string; signals: CalculatorSignal[] } {
       const insight = mustInsight(ctx, "SAGYEOK_OHAENG");
       return {
         nodeId: "four-frame-element",
@@ -503,10 +510,10 @@ function createFourFrameElementNode(): EvaluationNode<EvaluationPipelineContext>
   };
 }
 
-function createPronunciationElementNode(): EvaluationNode<EvaluationPipelineContext> {
+function createPronunciationElementNode(): CalculatorNode<EvaluationPipelineContext> {
   return {
     id: "pronunciation-element",
-    forward(ctx): void {
+    visit(ctx): void {
       const arrangement = ctx.hangulCalculator.getPronunciationElementArrangement();
       const distribution = distributionFromArrangement(arrangement);
       const adjacencyScore = calculateArrayScore(arrangement, ctx.surnameLength);
@@ -532,7 +539,7 @@ function createPronunciationElementNode(): EvaluationNode<EvaluationPipelineCont
       );
       setInsight(ctx, insight);
     },
-    backward(ctx): { nodeId: string; signals: EvaluationSignal[] } {
+    backward(ctx): { nodeId: string; signals: CalculatorSignal[] } {
       const insight = mustInsight(ctx, "BALEUM_OHAENG");
       return {
         nodeId: "pronunciation-element",
@@ -542,10 +549,10 @@ function createPronunciationElementNode(): EvaluationNode<EvaluationPipelineCont
   };
 }
 
-function createStrokePolarityNode(): EvaluationNode<EvaluationPipelineContext> {
+function createStrokePolarityNode(): CalculatorNode<EvaluationPipelineContext> {
   return {
     id: "stroke-polarity",
-    forward(ctx): void {
+    visit(ctx): void {
       const arrangement = ctx.hanjaCalculator.getStrokePolarityArrangement();
       const eumCount = arrangement.filter((value) => value === "\u9670").length;
       const yangCount = arrangement.length - eumCount;
@@ -563,7 +570,7 @@ function createStrokePolarityNode(): EvaluationNode<EvaluationPipelineContext> {
       );
       setInsight(ctx, insight);
     },
-    backward(ctx): { nodeId: string; signals: EvaluationSignal[] } {
+    backward(ctx): { nodeId: string; signals: CalculatorSignal[] } {
       const insight = mustInsight(ctx, "HOEKSU_EUMYANG");
       return {
         nodeId: "stroke-polarity",
@@ -573,10 +580,10 @@ function createStrokePolarityNode(): EvaluationNode<EvaluationPipelineContext> {
   };
 }
 
-function createPronunciationPolarityNode(): EvaluationNode<EvaluationPipelineContext> {
+function createPronunciationPolarityNode(): CalculatorNode<EvaluationPipelineContext> {
   return {
     id: "pronunciation-polarity",
-    forward(ctx): void {
+    visit(ctx): void {
       const arrangement = ctx.hangulCalculator.getPronunciationPolarityArrangement();
       const eumCount = arrangement.filter((value) => value === "\u9670").length;
       const yangCount = arrangement.length - eumCount;
@@ -594,7 +601,7 @@ function createPronunciationPolarityNode(): EvaluationNode<EvaluationPipelineCon
       );
       setInsight(ctx, insight);
     },
-    backward(ctx): { nodeId: string; signals: EvaluationSignal[] } {
+    backward(ctx): { nodeId: string; signals: CalculatorSignal[] } {
       const insight = mustInsight(ctx, "BALEUM_EUMYANG");
       return {
         nodeId: "pronunciation-polarity",
@@ -604,10 +611,10 @@ function createPronunciationPolarityNode(): EvaluationNode<EvaluationPipelineCon
   };
 }
 
-function createSajuBalanceNode(): EvaluationNode<EvaluationPipelineContext> {
+function createSajuBalanceNode(): CalculatorNode<EvaluationPipelineContext> {
   return {
     id: "saju-balance",
-    forward(ctx): void {
+    visit(ctx): void {
       const rootElementArrangement = ctx.resolved.given.map((entry) => entry.rootElement);
       const rootElementDistribution = distributionFromArrangement(rootElementArrangement);
       const sajuCtx: SajuContext = {
@@ -628,7 +635,7 @@ function createSajuBalanceNode(): EvaluationNode<EvaluationPipelineContext> {
       );
       setInsight(ctx, insight);
     },
-    backward(ctx): { nodeId: string; signals: EvaluationSignal[] } {
+    backward(ctx): { nodeId: string; signals: CalculatorSignal[] } {
       const insight = mustInsight(ctx, "SAJU_JAWON_BALANCE");
       return {
         nodeId: "saju-balance",
@@ -638,10 +645,10 @@ function createSajuBalanceNode(): EvaluationNode<EvaluationPipelineContext> {
   };
 }
 
-function createStatisticsNode(): EvaluationNode<EvaluationPipelineContext> {
+function createStatisticsNode(): CalculatorNode<EvaluationPipelineContext> {
   return {
     id: "statistics",
-    forward(ctx): void {
+    visit(ctx): void {
       const statsScore = ctx.stats ? clamp(60 + ctx.stats.similarNames.length, 0, 100) : 0;
       const insight = createInsight(
         "STATISTICS",
@@ -652,7 +659,7 @@ function createStatisticsNode(): EvaluationNode<EvaluationPipelineContext> {
       );
       setInsight(ctx, insight);
     },
-    backward(): { nodeId: string; signals: EvaluationSignal[] } {
+    backward(): { nodeId: string; signals: CalculatorSignal[] } {
       return {
         nodeId: "statistics",
         signals: [],
@@ -661,10 +668,10 @@ function createStatisticsNode(): EvaluationNode<EvaluationPipelineContext> {
   };
 }
 
-function createRootNode(): EvaluationNode<EvaluationPipelineContext> {
+function createRootNode(): CalculatorNode<EvaluationPipelineContext> {
   return {
     id: "root",
-    createChildren(): EvaluationNode<EvaluationPipelineContext>[] {
+    createChildren(): CalculatorNode<EvaluationPipelineContext>[] {
       return [
         createFourFrameNumberNode(),
         createStrokeElementNode(),
@@ -676,7 +683,7 @@ function createRootNode(): EvaluationNode<EvaluationPipelineContext> {
         createStatisticsNode(),
       ];
     },
-    backward(ctx, childPackets): { nodeId: string; signals: EvaluationSignal[] } {
+    backward(ctx, childPackets): { nodeId: string; signals: CalculatorSignal[] } {
       const weightedSignals = flattenSignals(childPackets).filter((signal) => signal.weight > 0);
       const weightedScore = weightedSignals.reduce((acc, signal) => acc + signal.score * signal.weight, 0);
 
@@ -780,7 +787,7 @@ export class NameEvaluator {
       insights: {},
     };
 
-    executeEvaluationNode(createRootNode(), ctx);
+    executeCalculatorNode(createRootNode(), ctx);
 
     const seongmyeonghak = mustInsight(ctx, "SEONGMYEONGHAK");
     const fourFrameNumberInsight = mustInsight(ctx, "SAGYEOK_SURI");

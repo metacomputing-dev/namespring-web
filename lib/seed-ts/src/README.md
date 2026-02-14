@@ -11,7 +11,7 @@
 - `index.ts` barrels exist per layer for predictable imports
 - `core/`: runtime calculation/search internals
 - `calculator/`: modular calculation units (`Hanja`, `Sound`, `FourFrame`) used by `core/evaluator`
-- `core/evaluation-node.ts`: forward/backward node execution utility for compositional scoring
+- `calculator/calculator-graph.ts`: forward(`preVisit/visit/postVisit`) + backward propagation execution utility
 
 ## Compatibility Layer
 - `model/`: shared vocabulary helpers (`Element`, `Polarity`, `Energy`, terms)

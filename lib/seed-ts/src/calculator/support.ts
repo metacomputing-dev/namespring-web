@@ -8,6 +8,14 @@ export function mergeNameEntries(
   return [...surnameEntries, ...givenEntries];
 }
 
+export function mapNameEntries<T>(
+  surnameEntries: readonly HanjaEntry[],
+  givenEntries: readonly HanjaEntry[],
+  mapper: (entry: HanjaEntry, position: number) => T,
+): T[] {
+  return mergeNameEntries(surnameEntries, givenEntries).map((entry, position) => mapper(entry, position));
+}
+
 export function lastEnergy<T extends { energy: Energy | null }>(
   items: readonly T[],
 ): Energy | null {

@@ -1,8 +1,7 @@
 ﻿import { CHOSUNG_ELEMENT, DEFAULT_POLARITY_BY_BIT, YANG_VOWELS } from "../core/constants.js";
 import { extractChosung, extractJungsung } from "../core/hangul.js";
 import type { Element, Energy, HanjaEntry, Polarity } from "../core/types.js";
-import { EnergyCalculator } from "./energy-calculator.js";
-import { lastEnergy, mergeNameEntries } from "./support.js";
+import { NameSequenceCalculator } from "./name-sequence-calculator.js";
 
 export interface SoundChar {
   readonly char: string;
@@ -36,44 +35,32 @@ function toEnergy(element: Element, polarity: Polarity): Energy {
   return { element, polarity };
 }
 
-export class HangulCalculator extends EnergyCalculator {
+export class HangulCalculator extends NameSequenceCalculator<SoundChar> {
   public readonly type = "Sound";
-  private readonly chars: SoundChar[];
 
-  constructor(surnameEntries: readonly HanjaEntry[], givenEntries: readonly HanjaEntry[]) {
-    super();
-    this.chars = mergeNameEntries(surnameEntries, givenEntries).map((entry, position) => ({
+  protected createItem(entry: HanjaEntry, position: number): SoundChar {
+    return {
       char: entry.hangul,
       hanja: entry.hanja,
       position,
       entry,
       energy: null,
-    }));
+    };
   }
 
-  public calculate(): void {
-    for (const item of this.chars) {
-      if (item.energy) {
-        continue;
-      }
-      item.energy = toEnergy(resolveElement(item.entry), resolvePolarity(item.entry));
-    }
-
-    const energy = lastEnergy(this.chars);
-    if (energy) {
-      this.setEnergy(energy);
-    }
+  protected resolveEnergy(item: SoundChar): Energy {
+    return toEnergy(resolveElement(item.entry), resolvePolarity(item.entry));
   }
 
   public getSoundChars(): readonly SoundChar[] {
-    return this.chars;
+    return this.getItems();
   }
 
   public getPronunciationElementArrangement(): Element[] {
-    return this.chars.map((item) => resolveElement(item.entry));
+    return this.getItems().map((item) => resolveElement(item.entry));
   }
 
   public getPronunciationPolarityArrangement(): Polarity[] {
-    return this.chars.map((item) => resolvePolarity(item.entry));
+    return this.getItems().map((item) => resolvePolarity(item.entry));
   }
 }

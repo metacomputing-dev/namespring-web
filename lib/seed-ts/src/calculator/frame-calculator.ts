@@ -82,10 +82,17 @@ function buildFrames(
 export class FourFrameCalculator extends EnergyCalculator {
   public readonly type = "FourFrame";
   private readonly frames: FourFrameMetric[];
+  private readonly frameByType: Record<FourFrameType, FourFrameMetric>;
 
   constructor(surnameEntries: readonly HanjaEntry[], givenEntries: readonly HanjaEntry[]) {
     super();
     this.frames = buildFrames(surnameEntries, givenEntries);
+    this.frameByType = {
+      won: this.frames[0] as FourFrameMetric,
+      hyeong: this.frames[1] as FourFrameMetric,
+      i: this.frames[2] as FourFrameMetric,
+      jeong: this.frames[3] as FourFrameMetric,
+    };
   }
 
   public calculate(): void {
@@ -107,15 +114,15 @@ export class FourFrameCalculator extends EnergyCalculator {
   }
 
   public getFrame(type: FourFrameType): FourFrameMetric | undefined {
-    return this.frames.find((frame) => frame.type === type);
+    return this.frameByType[type];
   }
 
   public getFrameNumbers(): FourFrame {
     return {
-      won: this.getFrame("won")?.strokeCount ?? 0,
-      hyeong: this.getFrame("hyeong")?.strokeCount ?? 0,
-      i: this.getFrame("i")?.strokeCount ?? 0,
-      jeong: this.getFrame("jeong")?.strokeCount ?? 0,
+      won: this.frameByType.won.strokeCount,
+      hyeong: this.frameByType.hyeong.strokeCount,
+      i: this.frameByType.i.strokeCount,
+      jeong: this.frameByType.jeong.strokeCount,
     };
   }
 
