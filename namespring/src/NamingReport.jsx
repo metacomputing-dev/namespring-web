@@ -1,6 +1,5 @@
 import React, { useEffect, useMemo, useState } from 'react';
 import { NameStatRepository } from '@seed/database/name-stat-repository';
-import { createPortal } from 'react-dom';
 
 const TOTAL_NAME_STATS_COUNT = 50194;
 const ELEMENT_ORDER = ['Wood', 'Fire', 'Earth', 'Metal', 'Water'];
@@ -336,24 +335,15 @@ function CollapseCard({ title, subtitle, open, onToggle, children }) {
       <button
         type="button"
         onClick={onToggle}
-        className="w-full flex items-center justify-between gap-3 px-3 py-2.5 text-left"
+        className="w-full flex items-center justify-between px-6 py-5 text-left"
       >
-        <div className="min-w-0">
+        <div>
           <h3 className="text-lg font-black text-[var(--ns-accent-text)]">{title}</h3>
-          {subtitle ? <p className="text-sm text-[var(--ns-muted)] mt-1 break-keep whitespace-normal">{subtitle}</p> : null}
+          {subtitle ? <p className="text-sm text-[var(--ns-muted)] mt-1">{subtitle}</p> : null}
         </div>
-        <span className="shrink-0 inline-flex items-center justify-center w-8 h-8 rounded-full border border-[var(--ns-border)] bg-[var(--ns-surface-soft)]">
-          <svg
-            viewBox="0 0 20 20"
-            fill="none"
-            className={`w-4 h-4 text-[var(--ns-muted)] transition-transform duration-200 ${open ? 'rotate-180' : ''}`}
-            aria-hidden="true"
-          >
-            <path d="M5 8L10 13L15 8" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" />
-          </svg>
-        </span>
+        <span className="text-sm font-black text-[var(--ns-muted)]">{open ? '접기' : '펼치기'}</span>
       </button>
-      {open ? <div className="px-3 pb-3">{children}</div> : null}
+      {open ? <div className="px-6 pb-6">{children}</div> : null}
     </section>
   );
 }
@@ -362,7 +352,7 @@ function SummaryBadges({ items }) {
   return (
     <div className="flex flex-wrap gap-2">
       {items.map((item) => (
-        <span key={item.key} className={`px-2.5 py-1 rounded-full border text-xs font-black whitespace-nowrap ${item.className}`}>
+        <span key={item.key} className={`px-2.5 py-1 rounded-full border text-xs font-black ${item.className}`}>
           {item.label}
         </span>
       ))}
@@ -379,7 +369,7 @@ function GenderRatioPie({ maleRatio, femaleRatio, maleBirths, femaleBirths }) {
   };
 
   return (
-    <div className="rounded-xl border border-violet-200 bg-violet-50 px-3 py-2">
+    <div className="rounded-xl border border-violet-200 bg-violet-50 px-4 py-3">
       <p className="text-[11px] font-black text-violet-700 mb-2">성별 사용 비율</p>
       {hasData ? (
         <div className="flex items-center justify-center gap-5">
@@ -409,7 +399,6 @@ const NamingReport = ({ result, onNewAnalysis }) => {
     hangul: false,
   });
   const [openLifeDetails, setOpenLifeDetails] = useState({});
-  const [showScrollTop, setShowScrollTop] = useState(false);
   const [popularityState, setPopularityState] = useState({
     loading: true,
     error: '',
@@ -439,10 +428,6 @@ const NamingReport = ({ result, onNewAnalysis }) => {
   const hangulBlocks = getBlocks(hangul);
   const hanjaBlocks = getBlocks(hanja);
   const frameBlocks = getFrames(fourFrames);
-  const lifeFlowBlocks = useMemo(() => {
-    const order = { jung: 0, won: 1, hyung: 2, lee: 3 };
-    return [...frameBlocks].sort((a, b) => (order[a?.type] ?? 99) - (order[b?.type] ?? 99));
-  }, [frameBlocks]);
 
   const hangulScore = getCalculatorScore(hangul);
   const hanjaScore = getCalculatorScore(hanja);
@@ -564,30 +549,16 @@ const NamingReport = ({ result, onNewAnalysis }) => {
     };
   }, [firstNameHangul]);
 
-  useEffect(() => {
-    const onScroll = () => {
-      const top = window.scrollY
-        || document.documentElement.scrollTop
-        || document.body.scrollTop
-        || 0;
-      setShowScrollTop(top > 280);
-    };
-    onScroll();
-    window.addEventListener('scroll', onScroll, { passive: true });
-    return () => window.removeEventListener('scroll', onScroll);
-  }, []);
-
   return (
-    <>
-    <div className="mt-4 space-y-3 animate-in fade-in slide-in-from-bottom-6 duration-700">
-      <section className="bg-[var(--ns-surface)] rounded-[2.4rem] p-4 md:p-5 border border-[var(--ns-border)] shadow-xl relative overflow-hidden">
+    <div className="mt-8 space-y-6 animate-in fade-in slide-in-from-bottom-6 duration-700">
+      <section className="bg-[var(--ns-surface)] rounded-[2.4rem] p-7 md:p-9 border border-[var(--ns-border)] shadow-xl relative overflow-hidden">
         <div className="absolute -right-20 -top-20 w-64 h-64 bg-[var(--ns-primary)]/15 rounded-full blur-3xl" />
-        <div className="relative z-10 flex flex-col md:flex-row md:items-end md:justify-between gap-3">
+        <div className="relative z-10 flex flex-col md:flex-row md:items-end md:justify-between gap-7">
           <div>
             <p className="text-[11px] tracking-[0.22em] text-[var(--ns-muted)] font-black mb-3">이름 평가 요약</p>
             <h2 className="text-4xl md:text-5xl font-black text-[var(--ns-accent-text)]">{fullNameHangul}</h2>
             <p className="text-xl md:text-2xl text-[var(--ns-muted)] font-semibold mt-1">{fullNameHanja}</p>
-            <p className="text-[var(--ns-muted)] mt-2 leading-relaxed">{interpretation || getScoreGrade(score)}</p>
+            <p className="text-[var(--ns-muted)] mt-4 leading-relaxed">{interpretation || getScoreGrade(score)}</p>
           </div>
           <div className="text-left md:text-right">
             <p className="text-sm text-[var(--ns-muted)] font-bold mb-1">종합 점수</p>
@@ -624,9 +595,9 @@ const NamingReport = ({ result, onNewAnalysis }) => {
 
         {!popularityState.loading && popularityState.found ? (
           <div className="space-y-4">
-              <div className="rounded-xl border border-blue-200 bg-blue-50 px-3 py-2">
+            <div className="rounded-xl border border-blue-200 bg-blue-50 px-4 py-3">
               <p className="text-[11px] font-black text-blue-700 mb-1">인기도 및 인기 추세</p>
-              <div className="flex flex-wrap items-center gap-2 text-sm break-keep">
+              <div className="flex flex-wrap items-center gap-2 text-sm">
                 <span className="font-black text-blue-800">
                   현재인기도: {Math.round(popularityState.latestRank).toLocaleString()}순위 (전체 {TOTAL_NAME_STATS_COUNT})
                 </span>
@@ -639,12 +610,12 @@ const NamingReport = ({ result, onNewAnalysis }) => {
               </div>
             </div>
 
-              <div className="rounded-xl border border-emerald-200 bg-emerald-50 px-3 py-2">
+            <div className="rounded-xl border border-emerald-200 bg-emerald-50 px-4 py-3">
               <p className="text-[11px] font-black text-emerald-700 mb-2">유사 이름 리스트</p>
               {popularityState.similarNames.length ? (
                 <div className="flex flex-wrap gap-1.5">
                   {popularityState.similarNames.map((name) => (
-                    <span key={name} className="px-2 py-0.5 rounded-full text-xs font-black border border-emerald-200 bg-white text-emerald-800 whitespace-nowrap">
+                    <span key={name} className="px-2 py-0.5 rounded-full text-xs font-black border border-emerald-200 bg-white text-emerald-800">
                       {name}
                     </span>
                   ))}
@@ -694,7 +665,7 @@ const NamingReport = ({ result, onNewAnalysis }) => {
       >
 
         <div className="space-y-4">
-          {lifeFlowBlocks.map((frame, idx) => {
+          {frameBlocks.map((frame, idx) => {
             const el = normalizeElement(frame?.energy?.element);
             const pol = polarityLabel(frame?.energy?.polarity);
             const entry = frame?.entry;
@@ -715,56 +686,48 @@ const NamingReport = ({ result, onNewAnalysis }) => {
               ? entry.suitable_career.map((item) => replaceNamePlaceholder(item, fullNameHangul)).join(', ')
               : '';
             return (
-              <article key={`life-flow-${idx}`} className="rounded-2xl border border-[var(--ns-border)] bg-gradient-to-b from-[var(--ns-surface)] to-[var(--ns-surface-soft)] p-2.5 md:p-3 space-y-2">
-                <div className="flex flex-wrap items-start justify-between gap-3">
-                  <div className="min-w-0">
+              <article key={`life-flow-${idx}`} className="rounded-2xl border border-[var(--ns-border)] bg-gradient-to-b from-[var(--ns-surface)] to-[var(--ns-surface-soft)] p-4 md:p-5 space-y-3">
+                <div className="flex items-start justify-between gap-3">
+                  <div>
                     <p className="text-sm font-black text-[var(--ns-accent-text)]">{lifePhaseLabel(frame?.type)} · {frameTypeLabel(frame?.type)} ({frame?.strokeSum}수)</p>
-                    <p className="text-base font-black text-[var(--ns-text)] mt-1 break-keep whitespace-normal">{titleText}</p>
+                    <p className="text-base font-black text-[var(--ns-text)] mt-1">{titleText}</p>
                   </div>
-                  <div className="flex items-center gap-1.5 shrink-0">
+                  <div className="flex items-center gap-1.5">
                     <span className={`px-2 py-0.5 rounded-full border text-[11px] font-black ${el ? getElementSoftClass(el) : 'bg-slate-100 text-slate-700 border-slate-200'}`}>{el ? ELEMENT_LABEL[el] : '-'}</span>
                     <span className={`px-2 py-0.5 rounded-full border text-[11px] font-black ${getPolaritySoftClass(pol)}`}>{pol}</span>
                   </div>
                 </div>
 
-                <div className="rounded-xl border border-[var(--ns-border)] bg-[var(--ns-surface)] px-2.5 py-2">
-                  <p className="text-sm text-[var(--ns-muted)] leading-relaxed break-keep whitespace-normal">{summaryText}</p>
+                <div className="rounded-xl border border-[var(--ns-border)] bg-[var(--ns-surface)] px-3 py-2.5">
+                  <p className="text-sm text-[var(--ns-muted)] leading-relaxed">{summaryText}</p>
                 </div>
                 <button
                   type="button"
                   onClick={() => toggleLifeDetail(idx)}
-                  className="w-full rounded-xl border border-[var(--ns-border)] bg-[var(--ns-surface)] px-2.5 py-2 text-sm font-black text-[var(--ns-muted)] text-left flex items-center justify-between"
+                  className="w-full rounded-xl border border-[var(--ns-border)] bg-[var(--ns-surface)] px-3 py-2 text-sm font-black text-[var(--ns-muted)] text-left"
                 >
-                  <span>상세 해석</span>
-                  <svg
-                    viewBox="0 0 20 20"
-                    fill="none"
-                    className={`w-4 h-4 transition-transform duration-200 ${isOpen ? 'rotate-180' : ''}`}
-                    aria-hidden="true"
-                  >
-                    <path d="M5 8L10 13L15 8" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" />
-                  </svg>
+                  {isOpen ? '상세 해석 접기' : '상세 해석 펼치기'}
                 </button>
 
                 {isOpen ? (
                   <div className="space-y-3">
                     {entry?.detailed_explanation ? (
-                      <div className="rounded-xl border border-[var(--ns-border)] bg-[var(--ns-surface)] px-2.5 py-2">
-                        <p className="text-sm text-[var(--ns-muted)] leading-relaxed break-keep whitespace-normal">{detailedText}</p>
+                      <div className="rounded-xl border border-[var(--ns-border)] bg-[var(--ns-surface)] px-3 py-2.5">
+                        <p className="text-sm text-[var(--ns-muted)] leading-relaxed">{detailedText}</p>
                       </div>
                     ) : null}
 
                     <div className="space-y-2.5 text-sm">
                       {entry?.positive_aspects ? (
-                        <div className="rounded-xl border border-emerald-200 bg-emerald-50 text-emerald-800 px-2.5 py-2">
+                        <div className="rounded-xl border border-emerald-200 bg-emerald-50 text-emerald-800 px-3 py-2.5">
                           <p className="text-xs font-black mb-1">강점</p>
-                          <p className="leading-relaxed font-semibold break-keep whitespace-normal">{positiveText}</p>
+                          <p className="leading-relaxed font-semibold">{positiveText}</p>
                         </div>
                       ) : null}
                       {entry?.caution_points ? (
-                        <div className="rounded-xl border border-rose-200 bg-rose-50 text-rose-800 px-2.5 py-2">
+                        <div className="rounded-xl border border-rose-200 bg-rose-50 text-rose-800 px-3 py-2.5">
                           <p className="text-xs font-black mb-1">유의점</p>
-                          <p className="leading-relaxed font-semibold break-keep whitespace-normal">{cautionText}</p>
+                          <p className="leading-relaxed font-semibold">{cautionText}</p>
                         </div>
                       ) : null}
                     </div>
@@ -826,14 +789,14 @@ const NamingReport = ({ result, onNewAnalysis }) => {
               const detail = getFrameDetailScores(frameBlocks, idx);
               return (
                 <div key={`f-row-${idx}`} className="rounded-xl border border-[var(--ns-border)] bg-[var(--ns-surface-soft)] px-3 py-3 text-sm space-y-2">
-                  <div className="flex flex-wrap items-center justify-between gap-2">
-                    <span className="font-black text-[var(--ns-accent-text)] break-keep whitespace-normal">{frameTypeLabel(frame?.type)} ({frame?.strokeSum}수)</span>
-                    <div className="flex gap-1.5 shrink-0">
+                  <div className="flex items-center justify-between">
+                    <span className="font-black text-[var(--ns-accent-text)]">{frameTypeLabel(frame?.type)} ({frame?.strokeSum}수)</span>
+                    <div className="flex gap-1.5">
                       <span className={`px-2 py-0.5 rounded-full border text-[11px] font-black ${el ? getElementSoftClass(el) : 'bg-slate-100 text-slate-700 border-slate-200'}`}>{el ? ELEMENT_LABEL[el] : '-'}</span>
                       <span className={`px-2 py-0.5 rounded-full border text-[11px] font-black ${getPolaritySoftClass(pol)}`}>{pol}</span>
                     </div>
                   </div>
-                  <div className="grid grid-cols-1 sm:grid-cols-3 gap-2 text-[11px] font-black">
+                  <div className="grid grid-cols-3 gap-2 text-[11px] font-black">
                     <div className="rounded-lg border border-[var(--ns-border)] bg-[var(--ns-surface)] px-2 py-1 text-[var(--ns-muted)]">음양 {detail.polarity.toFixed(1)}</div>
                     <div className="rounded-lg border border-[var(--ns-border)] bg-[var(--ns-surface)] px-2 py-1 text-[var(--ns-muted)]">오행 {detail.element.toFixed(1)}</div>
                     <div className="rounded-lg border border-[var(--ns-border)] bg-[var(--ns-surface)] px-2 py-1 text-[var(--ns-accent-text)]">최종 {detail.final.toFixed(1)}</div>
@@ -873,9 +836,9 @@ const NamingReport = ({ result, onNewAnalysis }) => {
               const el = normalizeElement(block?.energy?.element || block?.entry?.resource_element);
               const pol = polarityLabel(block?.energy?.polarity);
               return (
-                <div key={`j-row-${idx}`} className="flex flex-wrap items-center justify-between gap-2 rounded-xl border border-[var(--ns-border)] bg-[var(--ns-surface-soft)] px-3 py-2 text-sm">
-                  <span className="font-black text-[var(--ns-accent-text)] break-keep whitespace-normal">{block?.entry?.hanja || '-'} ({block?.entry?.strokes ?? '-'}획)</span>
-                  <div className="flex gap-1.5 shrink-0">
+                <div key={`j-row-${idx}`} className="flex items-center justify-between rounded-xl border border-[var(--ns-border)] bg-[var(--ns-surface-soft)] px-3 py-2 text-sm">
+                  <span className="font-black text-[var(--ns-accent-text)]">{block?.entry?.hanja || '-'} ({block?.entry?.strokes ?? '-'}획)</span>
+                  <div className="flex gap-1.5">
                     <span className={`px-2 py-0.5 rounded-full border text-[11px] font-black ${el ? getElementSoftClass(el) : 'bg-slate-100 text-slate-700 border-slate-200'}`}>{el ? ELEMENT_LABEL[el] : '-'}</span>
                     <span className={`px-2 py-0.5 rounded-full border text-[11px] font-black ${getPolaritySoftClass(pol)}`}>{pol}</span>
                   </div>
@@ -914,9 +877,9 @@ const NamingReport = ({ result, onNewAnalysis }) => {
               const el = normalizeElement(block?.energy?.element);
               const pol = polarityLabel(block?.energy?.polarity);
               return (
-                <div key={`h-row-${idx}`} className="flex flex-wrap items-center justify-between gap-2 rounded-xl border border-[var(--ns-border)] bg-[var(--ns-surface-soft)] px-3 py-2 text-sm">
-                  <span className="font-black text-[var(--ns-accent-text)] break-keep whitespace-normal">{block?.entry?.hangul || '-'} ({block?.entry?.nucleus || '-'})</span>
-                  <div className="flex gap-1.5 shrink-0">
+                <div key={`h-row-${idx}`} className="flex items-center justify-between rounded-xl border border-[var(--ns-border)] bg-[var(--ns-surface-soft)] px-3 py-2 text-sm">
+                  <span className="font-black text-[var(--ns-accent-text)]">{block?.entry?.hangul || '-'} ({block?.entry?.nucleus || '-'})</span>
+                  <div className="flex gap-1.5">
                     <span className={`px-2 py-0.5 rounded-full border text-[11px] font-black ${el ? getElementSoftClass(el) : 'bg-slate-100 text-slate-700 border-slate-200'}`}>{el ? ELEMENT_LABEL[el] : '-'}</span>
                     <span className={`px-2 py-0.5 rounded-full border text-[11px] font-black ${getPolaritySoftClass(pol)}`}>{pol}</span>
                   </div>
@@ -941,30 +904,7 @@ const NamingReport = ({ result, onNewAnalysis }) => {
           다시 분석하기
         </button>
       </div>
-
     </div>
-    {showScrollTop
-      ? createPortal(
-          <button
-            type="button"
-            onClick={() => window.scrollTo({ top: 0, behavior: 'smooth' })}
-            aria-label="최상단으로 이동"
-            className="z-[9999] w-12 h-12 rounded-full border border-[var(--ns-border)] bg-[var(--ns-surface)] text-[var(--ns-muted)] shadow-xl inline-flex items-center justify-center"
-            style={{
-              position: 'fixed',
-              left: '50%',
-              bottom: '24px',
-              transform: 'translateX(-50%)',
-            }}
-          >
-            <svg viewBox="0 0 20 20" fill="none" className="w-5 h-5" aria-hidden="true">
-              <path d="M10 4L4.5 9.5M10 4L15.5 9.5M10 4V16" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round" />
-            </svg>
-          </button>,
-          document.body
-        )
-      : null}
-    </>
   );
 };
 

@@ -23,31 +23,54 @@ type ShardKey =
   | 'ㄱ' | 'ㄴ' | 'ㄷ' | 'ㄹ' | 'ㅁ' | 'ㅂ' | 'ㅅ'
   | 'ㅇ' | 'ㅈ' | 'ㅊ' | 'ㅋ' | 'ㅌ' | 'ㅍ' | 'ㅎ';
 
+/**
+ * Browser-compatible repository for sharded name statistics DBs.
+ * Loads only the shard needed by the first character's choseong.
+ */
 export class NameStatRepository {
-  private readonly wasmUrl = 'https://sql.js.org/dist/sql-wasm.wasm';
-  private readonly shardBaseUrl = '/data/name-stat-shards';
+  private readonly wasmUrl: string = 'https://sql.js.org/dist/sql-wasm.wasm';
+  private readonly shardBaseUrl: string = '/data/name-stat-shards';
   private sqlInstance: SqlJsStatic | null = null;
   private readonly dbByShard = new Map<ShardKey, Database>();
 
   private readonly shardFileByKey: Record<ShardKey, string> = {
-    'ㄱ': '01.db', 'ㄴ': '02.db', 'ㄷ': '03.db', 'ㄹ': '04.db',
-    'ㅁ': '05.db', 'ㅂ': '06.db', 'ㅅ': '07.db', 'ㅇ': '08.db',
-    'ㅈ': '09.db', 'ㅊ': '10.db', 'ㅋ': '11.db', 'ㅌ': '12.db',
-    'ㅍ': '13.db', 'ㅎ': '14.db',
+    'ㄱ': '01.db',
+    'ㄴ': '02.db',
+    'ㄷ': '03.db',
+    'ㄹ': '04.db',
+    'ㅁ': '05.db',
+    'ㅂ': '06.db',
+    'ㅅ': '07.db',
+    'ㅇ': '08.db',
+    'ㅈ': '09.db',
+    'ㅊ': '10.db',
+    'ㅋ': '11.db',
+    'ㅌ': '12.db',
+    'ㅍ': '13.db',
+    'ㅎ': '14.db',
   };
 
-  async init(): Promise<void> {
+  /**
+   * Optional eager init. DB shards remain lazy-loaded.
+   */
+  public async init(): Promise<void> {
     await this.ensureSqlReady();
   }
 
-  async findByName(name: string): Promise<NameStatEntry | null> {
-    const n = name?.trim();
-    if (!n) return null;
-    const shardKey = this.getShardKeyByName(n);
+  /**
+   * Finds name statistics from the proper shard selected by first character choseong.
+   */
+  public async findByName(name: string): Promise<NameStatEntry | null> {
+    const normalizedName = name?.trim();
+    if (!normalizedName) return null;
+
+    const shardKey = this.getShardKeyByName(normalizedName);
     if (!shardKey) return null;
     const db = await this.ensureShardLoaded(shardKey);
+
     const stmt = db.prepare(`SELECT * FROM name_stats WHERE name = ? LIMIT 1`);
-    stmt.bind([n]);
+    stmt.bind([normalizedName]);
+
     try {
       if (!stmt.step()) return null;
       return this.mapRowToEntry(stmt.getAsObject());
@@ -56,49 +79,70 @@ export class NameStatRepository {
     }
   }
 
-  close(): void {
-    for (const db of this.dbByShard.values()) db.close();
+  public close(): void {
+    for (const db of this.dbByShard.values()) {
+      db.close();
+    }
     this.dbByShard.clear();
   }
 
   private async ensureSqlReady(): Promise<SqlJsStatic> {
     if (this.sqlInstance) return this.sqlInstance;
-    this.sqlInstance = await initSqlJs({ locateFile: () => this.wasmUrl });
+
+    this.sqlInstance = await initSqlJs({
+      locateFile: () => this.wasmUrl,
+    });
+
     return this.sqlInstance;
   }
 
   private async ensureShardLoaded(shardKey: ShardKey): Promise<Database> {
     const cached = this.dbByShard.get(shardKey);
     if (cached) return cached;
+
     const SQL = await this.ensureSqlReady();
     const filename = this.shardFileByKey[shardKey];
-    const res = await fetch(`${this.shardBaseUrl}/${encodeURIComponent(filename)}`);
-    if (!res.ok) throw new Error(`Fetch shard ${filename} failed: ${res.status}`);
-    const db = new SQL.Database(new Uint8Array(await res.arrayBuffer()));
+    const url = `${this.shardBaseUrl}/${encodeURIComponent(filename)}`;
+
+    const response = await fetch(url);
+    if (!response.ok) {
+      throw new Error(`Failed to fetch shard DB (${filename}): ${response.status} ${response.statusText}`);
+    }
+
+    const buffer = await response.arrayBuffer();
+    const db = new SQL.Database(new Uint8Array(buffer));
     this.dbByShard.set(shardKey, db);
     return db;
   }
 
-  private static readonly DOUBLE_TO_BASE: Record<string, ShardKey> = {
-    'ㄲ': 'ㄱ', 'ㄸ': 'ㄷ', 'ㅃ': 'ㅂ', 'ㅆ': 'ㅅ', 'ㅉ': 'ㅈ',
-  };
-
   private getShardKeyByName(name: string): ShardKey | null {
-    const ch = this.extractChoseong(name[0]);
-    if (!ch) return null;
-    const mapped = NameStatRepository.DOUBLE_TO_BASE[ch] ?? ch as ShardKey;
-    return mapped in this.shardFileByKey ? mapped : null;
+    const firstChar = name[0];
+    const choseong = this.extractChoseong(firstChar);
+    if (!choseong) return null;
+
+    if (choseong === 'ㄲ') return 'ㄱ';
+    if (choseong === 'ㄸ') return 'ㄷ';
+    if (choseong === 'ㅃ') return 'ㅂ';
+    if (choseong === 'ㅆ') return 'ㅅ';
+    if (choseong === 'ㅉ') return 'ㅈ';
+
+    const base = choseong as ShardKey;
+    if (base in this.shardFileByKey) return base;
+    return null;
   }
 
   private extractChoseong(char: string): string | null {
     if (!char) return null;
     const code = char.charCodeAt(0);
     if (code < 0xac00 || code > 0xd7a3) return null;
+
     const CHOSEONG_LIST = [
-      'ㄱ','ㄲ','ㄴ','ㄷ','ㄸ','ㄹ','ㅁ','ㅂ','ㅃ',
-      'ㅅ','ㅆ','ㅇ','ㅈ','ㅉ','ㅊ','ㅋ','ㅌ','ㅍ','ㅎ',
+      'ㄱ', 'ㄲ', 'ㄴ', 'ㄷ', 'ㄸ', 'ㄹ', 'ㅁ', 'ㅂ', 'ㅃ',
+      'ㅅ', 'ㅆ', 'ㅇ', 'ㅈ', 'ㅉ', 'ㅊ', 'ㅋ', 'ㅌ', 'ㅍ', 'ㅎ',
     ] as const;
-    return CHOSEONG_LIST[Math.floor((code - 0xac00) / 588)] ?? null;
+
+    const index = Math.floor((code - 0xac00) / 588);
+    return CHOSEONG_LIST[index] ?? null;
   }
 
   private mapRowToEntry(row: Record<string, unknown>): NameStatEntry {
@@ -117,9 +161,10 @@ export class NameStatRepository {
   private parseJsonArray(value: unknown): string[] {
     if (!value) return [];
     if (Array.isArray(value)) return value.map((v) => String(v));
+
     try {
-      const p = JSON.parse(String(value));
-      return Array.isArray(p) ? p.map((v: unknown) => String(v)) : [];
+      const parsed = JSON.parse(String(value));
+      return Array.isArray(parsed) ? parsed.map((v) => String(v)) : [];
     } catch {
       return [];
     }
@@ -191,9 +236,14 @@ export class NameStatRepository {
   private parseJsonObject(value: unknown): Record<string, unknown> {
     if (!value) return {};
     try {
-      const p = JSON.parse(String(value));
-      return (p && typeof p === 'object' && !Array.isArray(p)) ? p as Record<string, unknown> : {};
-    } catch { return {}; }
+      const parsed = JSON.parse(String(value));
+      if (parsed && typeof parsed === 'object' && !Array.isArray(parsed)) {
+        return parsed as Record<string, unknown>;
+      }
+      return {};
+    } catch {
+      return {};
+    }
   }
 
   private sumBirthsByBucket(
