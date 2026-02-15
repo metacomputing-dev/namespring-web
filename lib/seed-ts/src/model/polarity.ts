@@ -14,10 +14,4 @@ export class Polarity {
   static get(strokes: number): Polarity {
     return strokes % 2 === 1 ? Polarity.Positive : Polarity.Negative;
   }
-
-  getOpposite(): Polarity {
-    return this === Polarity.Positive ? Polarity.Negative : Polarity.Positive;
-  }
-
-  isHarmonious(target: Polarity): boolean { return this !== target; }
 }

@@ -20,27 +20,17 @@ export function controlledBy(el: ElementKey): ElementKey {
   return ELEMENT_KEYS[(ELEMENT_KEYS.indexOf(el) + 3) % 5];
 }
 
-export function isSangSaeng(a: ElementKey, b: ElementKey): boolean {
-  return generates(a) === b;
-}
-
 export function isSangGeuk(a: ElementKey, b: ElementKey): boolean {
   return controls(a) === b || controls(b) === a;
 }
 
-export function elementFromSajuCode(
-  value: string | null | undefined,
-): ElementKey | null {
-  switch (value) {
-    case 'WOOD':  return 'Wood';
-    case 'FIRE':  return 'Fire';
-    case 'EARTH': return 'Earth';
-    case 'METAL': return 'Metal';
-    case 'WATER': return 'Water';
-    case 'Wood': case 'Fire': case 'Earth': case 'Metal': case 'Water':
-      return value as ElementKey;
-    default: return null;
-  }
+const SAJU_CODE_MAP: Record<string, ElementKey> = {
+  WOOD: 'Wood', FIRE: 'Fire', EARTH: 'Earth', METAL: 'Metal', WATER: 'Water',
+  Wood: 'Wood', Fire: 'Fire', Earth: 'Earth', Metal: 'Metal', Water: 'Water',
+};
+
+export function elementFromSajuCode(value: string | null | undefined): ElementKey | null {
+  return (value != null ? SAJU_CODE_MAP[value] : undefined) ?? null;
 }
 
 export function elementCount(
@@ -109,7 +99,7 @@ export function calculateArrayScore(
   for (let i = 0; i < arrangement.length - 1; i++) {
     if (surnameLength === 2 && i === 0) continue;
     const a = arrangement[i], b = arrangement[i + 1];
-    if (isSangSaeng(a, b)) ss++;
+    if (generates(a) === b) ss++;
     else if (isSangGeuk(a, b)) sg++;
     else if (a === b) sm++;
   }
@@ -119,7 +109,7 @@ export function calculateArrayScore(
 export function calculateBalanceScore(
   distribution: Readonly<Record<ElementKey, number>>,
 ): number {
-  const total = ELEMENT_KEYS.reduce((acc, k) => acc + (distribution[k] ?? 0), 0);
+  const total = totalCount(distribution);
   if (total === 0) return 0;
   const avg = total / 5;
   let dev = 0;
@@ -160,7 +150,7 @@ export function checkElementSangSaeng(
     if (surnameLength === 2 && i === 0) continue;
     if (arrangement[i] === arrangement[i + 1]) continue;
     relCount++;
-    if (isSangSaeng(arrangement[i], arrangement[i + 1])) ssCount++;
+    if (generates(arrangement[i]) === arrangement[i + 1]) ssCount++;
   }
   return relCount === 0 || ssCount / relCount >= 0.6;
 }
@@ -189,42 +179,19 @@ export function countDominant(
   return ELEMENT_KEYS.some(k => distribution[k] >= th);
 }
 
-function checkPolarityHarmony(
-  arrangement: readonly PolarityValue[],
-  surnameLength: number,
-): boolean {
-  if (arrangement.length < 2) return true;
-  const neg = arrangement.filter(v => v === 'Negative').length;
-  const pos = arrangement.length - neg;
-  if (neg === 0 || pos === 0) return false;
-  if (surnameLength === 1 && arrangement[0] === arrangement[arrangement.length - 1]) return false;
-  return true;
-}
-
-function polarityScore(negCount: number, posCount: number): number {
-  const total = Math.max(0, negCount + posCount);
-  if (total === 0) return 0;
-  const ratio = Math.min(negCount, posCount) / total;
-  const thresholds: readonly (readonly [number, number])[] = [
-    [0.4, 50], [0.3, 35], [0.2, 20],
-  ];
-  let rs = 10;
-  for (const [th, sc] of thresholds) {
-    if (ratio >= th) { rs = sc; break; }
-  }
-  return 40 + rs;
-}
-
 export function computePolarityResult(
   arrangement: readonly PolarityValue[],
   surnameLength: number,
 ): { score: number; isPassed: boolean } {
   const neg = arrangement.filter(v => v === 'Negative').length;
   const pos = arrangement.length - neg;
-  return {
-    score: polarityScore(neg, pos),
-    isPassed: checkPolarityHarmony(arrangement, surnameLength),
-  };
+  const total = neg + pos;
+  if (total === 0) return { score: 0, isPassed: true };
+  const ratio = Math.min(neg, pos) / total;
+  const rs = ratio >= 0.4 ? 50 : ratio >= 0.3 ? 35 : ratio >= 0.2 ? 20 : 10;
+  const isPassed = arrangement.length >= 2 && neg > 0 && pos > 0
+    && !(surnameLength === 1 && arrangement[0] === arrangement[arrangement.length - 1]);
+  return { score: 40 + rs, isPassed };
 }
 
 export function bucketFromFortune(fortune: string): number {

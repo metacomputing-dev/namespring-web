@@ -23,20 +23,6 @@ export class FourframeRepository extends SqliteRepository<FourframeMeaningEntry>
     super('/data/fourframe.db');
   }
 
-  async findByNumber(num: number): Promise<FourframeMeaningEntry | null> {
-    const rows = this.query(`SELECT * FROM sagyeoksu_meanings WHERE number = ? LIMIT 1`, [num], this.mapRow);
-    return rows[0] ?? null;
-  }
-
-  async findByLuckyLevel(luckyLevel: string): Promise<FourframeMeaningEntry[]> {
-    return this.query(`SELECT * FROM sagyeoksu_meanings WHERE lucky_level = ? ORDER BY number ASC`, [luckyLevel], this.mapRow);
-  }
-
-  async searchByTitleOrSummary(keyword: string, limit = 100): Promise<FourframeMeaningEntry[]> {
-    const p = `%${keyword.trim()}%`;
-    return this.query(`SELECT * FROM sagyeoksu_meanings WHERE title LIKE ? OR summary LIKE ? ORDER BY number ASC LIMIT ?`, [p, p, limit], this.mapRow);
-  }
-
   async findAll(limit = 200): Promise<FourframeMeaningEntry[]> {
     return this.query(`SELECT * FROM sagyeoksu_meanings ORDER BY number ASC LIMIT ?`, [limit], this.mapRow);
   }

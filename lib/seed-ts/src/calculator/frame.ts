@@ -98,25 +98,10 @@ export class FrameCalculator extends NameCalculator {
     };
   }
 
-  getFrameNumbers(): { won: number; hyeong: number; i: number; jeong: number } {
-    return {
-      won: this.frames.find(f => f.type === 'won')!.strokeSum,
-      hyeong: this.frames.find(f => f.type === 'hyung')!.strokeSum,
-      i: this.frames.find(f => f.type === 'lee')!.strokeSum,
-      jeong: this.frames.find(f => f.type === 'jung')!.strokeSum,
-    };
-  }
-
-  getCompatibilityElementArrangement(): string[] {
-    const n = this.getFrameNumbers();
-    return [elementFromDigit(n.i), elementFromDigit(n.hyeong), elementFromDigit(n.won)]
-      .map(el => el.english);
-  }
-
   private scoreSagyeokSuri(ctx: EvalContext): void {
-    const nums = this.getFrameNumbers();
+    const [won, hyung, lee, jung] = this.frames;
     const f = (n: number) => ctx.luckyMap.get(n) ?? '';
-    const [wonF, hyeongF, iF, jeongF] = [f(nums.won), f(nums.hyeong), f(nums.i), f(nums.jeong)];
+    const [wonF, hyeongF, iF, jeongF] = [f(won.strokeSum), f(hyung.strokeSum), f(lee.strokeSum), f(jung.strokeSum)];
 
     const buckets = [bucketFromFortune(wonF), bucketFromFortune(hyeongF)];
     if (ctx.givenLength > 1) buckets.push(bucketFromFortune(iF));
@@ -126,12 +111,13 @@ export class FrameCalculator extends NameCalculator {
     const isPassed = buckets.length > 0 && buckets.every(v => v >= 15);
 
     this.putInsight(ctx, 'SAGYEOK_SURI', score, isPassed,
-      `${nums.won}/${wonF}-${nums.hyeong}/${hyeongF}-${nums.i}/${iF}-${nums.jeong}/${jeongF}`,
-      { won: nums.won, hyeong: nums.hyeong, i: nums.i, jeong: nums.jeong });
+      `${won.strokeSum}/${wonF}-${hyung.strokeSum}/${hyeongF}-${lee.strokeSum}/${iF}-${jung.strokeSum}/${jeongF}`,
+      { won: won.strokeSum, hyeong: hyung.strokeSum, i: lee.strokeSum, jeong: jung.strokeSum });
   }
 
   private scoreSagyeokOhaeng(ctx: EvalContext): void {
-    const arrangement = this.getCompatibilityElementArrangement() as ElementKey[];
+    const arrangement = [this.frames[2], this.frames[1], this.frames[0]]
+      .map(f => elementFromDigit(f.strokeSum).english) as ElementKey[];
     const distribution = distributionFromArrangement(arrangement);
     const adjacencyScore = calculateArrayScore(arrangement, ctx.surnameLength);
     const balanceScore = calculateBalanceScore(distribution);

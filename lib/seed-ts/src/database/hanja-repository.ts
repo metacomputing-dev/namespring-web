@@ -68,19 +68,8 @@ export class HanjaRepository extends SqliteRepository<HanjaEntry> {
     return this.query(`SELECT * FROM hanjas WHERE hangul = ? AND is_surname = 1`, [hangul], this.mapRow);
   }
 
-  async findByResourceElement(element: string, hangul?: string): Promise<HanjaEntry[]> {
-    let sql = `SELECT * FROM hanjas WHERE resource_element = ?`;
-    const params: SqlValue[] = [element];
-    if (hangul) { sql += ` AND hangul = ?`; params.push(hangul); }
-    return this.query(sql, params, this.mapRow);
-  }
-
   async findByStrokeRange(min: number, max: number): Promise<HanjaEntry[]> {
     return this.query(`SELECT * FROM hanjas WHERE strokes BETWEEN ? AND ? ORDER BY strokes ASC`, [min, max], this.mapRow);
-  }
-
-  async findByOnset(onset: string): Promise<HanjaEntry[]> {
-    return this.query(`SELECT * FROM hanjas WHERE onset = ? LIMIT 200`, [onset], this.mapRow);
   }
 
   private mapRow = (row: ParamsObject): HanjaEntry => ({

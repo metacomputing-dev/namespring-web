@@ -113,6 +113,4 @@ export class HangulCalculator extends NameCalculator {
     return this.blocks;
   }
 
-  getPronunciationElementArrangement(): ElementKey[] { return this.elemArrangement; }
-  getPronunciationPolarityArrangement(): PolarityValue[] { return this.polArrangement; }
 }

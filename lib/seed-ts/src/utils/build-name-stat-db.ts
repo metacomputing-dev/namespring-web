@@ -1,6 +1,6 @@
 import fs from 'fs';
 import path from 'path';
-import { dataPath, ensureDir, openDb, runSql, closeDb } from './db-helpers.js';
+import { dataPath, openDb, runSql, closeDb } from './db-helpers.js';
 
 const CHOSEONG = [
   'ㄱ','ㄲ','ㄴ','ㄷ','ㄸ','ㄹ','ㅁ','ㅂ','ㅃ',
@@ -22,16 +22,6 @@ function toShardKey(char: string): string | null {
   return (BASE_ORDER as readonly string[]).includes(base) ? base : null;
 }
 
-function isObject(v: unknown): v is Record<string, unknown> {
-  return !!v && typeof v === 'object' && !Array.isArray(v);
-}
-
-function detectStatObjects(entry: Record<string, unknown>): Record<string, unknown>[] {
-  return Object.values(entry).filter(
-    v => isObject(v) && Object.values(v).every(b => isObject(b)),
-  ) as Record<string, unknown>[];
-}
-
 interface Row {
   name: string;
   first_char: string;
@@ -48,7 +38,9 @@ function normalizeRow(name: string, entry: Record<string, unknown>): Row {
   const shardKey = toShardKey(firstChar);
   if (!shardKey) throw new Error(`Unsupported choseong for: ${name}`);
 
-  const stats = detectStatObjects(entry);
+  const stats = Object.values(entry).filter(
+    v => !!v && typeof v === 'object' && !Array.isArray(v) && Object.values(v as Record<string, unknown>).every(b => !!b && typeof b === 'object' && !Array.isArray(b)),
+  ) as Record<string, unknown>[];
   return {
     name,
     first_char: firstChar,
@@ -63,47 +55,42 @@ function normalizeRow(name: string, entry: Record<string, unknown>): Row {
 
 async function createShardDb(dbPath: string, rows: Row[]): Promise<void> {
   const db = openDb(dbPath);
-  return new Promise((resolve, reject) => {
-    db.serialize(async () => {
-      try {
-        await runSql(db, `
-          CREATE TABLE IF NOT EXISTS name_stats (
-            id INTEGER PRIMARY KEY AUTOINCREMENT,
-            name TEXT NOT NULL UNIQUE, first_char TEXT NOT NULL, first_choseong TEXT NOT NULL,
-            similar_names_json TEXT NOT NULL, yearly_rank_json TEXT NOT NULL,
-            yearly_birth_json TEXT NOT NULL, hanja_combinations_json TEXT NOT NULL,
-            raw_entry_json TEXT NOT NULL
-          )`);
-        await runSql(db, `CREATE INDEX IF NOT EXISTS idx_name ON name_stats(name)`);
-        await runSql(db, `CREATE INDEX IF NOT EXISTS idx_choseong ON name_stats(first_choseong)`);
-        await runSql(db, `DELETE FROM name_stats`);
-        await runSql(db, 'BEGIN TRANSACTION');
+  try {
+    await runSql(db, `
+      CREATE TABLE IF NOT EXISTS name_stats (
+        id INTEGER PRIMARY KEY AUTOINCREMENT,
+        name TEXT NOT NULL UNIQUE, first_char TEXT NOT NULL, first_choseong TEXT NOT NULL,
+        similar_names_json TEXT NOT NULL, yearly_rank_json TEXT NOT NULL,
+        yearly_birth_json TEXT NOT NULL, hanja_combinations_json TEXT NOT NULL,
+        raw_entry_json TEXT NOT NULL
+      )`);
+    await runSql(db, `CREATE INDEX IF NOT EXISTS idx_name ON name_stats(name)`);
+    await runSql(db, `CREATE INDEX IF NOT EXISTS idx_choseong ON name_stats(first_choseong)`);
+    await runSql(db, `DELETE FROM name_stats`);
+    await runSql(db, 'BEGIN TRANSACTION');
 
-        const stmt = db.prepare(`
-          INSERT INTO name_stats (name, first_char, first_choseong,
-            similar_names_json, yearly_rank_json, yearly_birth_json,
-            hanja_combinations_json, raw_entry_json)
-          VALUES (?, ?, ?, ?, ?, ?, ?, ?)`);
+    const stmt = db.prepare(`
+      INSERT INTO name_stats (name, first_char, first_choseong,
+        similar_names_json, yearly_rank_json, yearly_birth_json,
+        hanja_combinations_json, raw_entry_json)
+      VALUES (?, ?, ?, ?, ?, ?, ?, ?)`);
 
-        for (const r of rows) {
-          stmt.run(
-            r.name, r.first_char, r.first_choseong,
-            r.similar_names_json, r.yearly_rank_json, r.yearly_birth_json,
-            r.hanja_combinations_json, r.raw_entry_json,
-          );
-        }
+    for (const r of rows) {
+      stmt.run(
+        r.name, r.first_char, r.first_choseong,
+        r.similar_names_json, r.yearly_rank_json, r.yearly_birth_json,
+        r.hanja_combinations_json, r.raw_entry_json,
+      );
+    }
 
-        stmt.finalize();
-        await runSql(db, 'COMMIT');
-        await closeDb(db);
-        resolve();
-      } catch (err) {
-        runSql(db, 'ROLLBACK').catch(() => {});
-        closeDb(db).catch(() => {});
-        reject(err);
-      }
-    });
-  });
+    stmt.finalize();
+    await runSql(db, 'COMMIT');
+  } catch (err) {
+    await runSql(db, 'ROLLBACK').catch(() => {});
+    throw err;
+  } finally {
+    await closeDb(db).catch(() => {});
+  }
 }
 
 async function main() {
@@ -114,7 +101,6 @@ async function main() {
     console.error(`JSON not found: ${jsonPath}`);
     process.exit(1);
   }
-  ensureDir(path.join(outDir, '_'));
 
   const root = JSON.parse(fs.readFileSync(jsonPath, 'utf8')) as Record<string, Record<string, unknown>>;
   const shards: Record<string, Row[]> = {};

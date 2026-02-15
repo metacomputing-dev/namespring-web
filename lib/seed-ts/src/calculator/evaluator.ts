@@ -14,27 +14,6 @@ export interface CalculatorPacket {
   signals: CalculatorSignal[];
 }
 
-export interface CalculatorNode<T> {
-  id: string;
-  visit?(context: T): void;
-  createChildren?(context: T): CalculatorNode<T>[];
-  backward?(context: T, childPackets: readonly CalculatorPacket[]): CalculatorPacket;
-}
-
-export function executeCalculatorNode<T>(
-  node: CalculatorNode<T>,
-  context: T,
-): CalculatorPacket {
-  node.visit?.(context);
-  const children = node.createChildren?.(context) ?? [];
-  const childPackets = children.map(c => executeCalculatorNode(c, context));
-  return node.backward?.(context, childPackets) ?? { nodeId: node.id, signals: [] };
-}
-
-export function flattenSignals(packets: readonly CalculatorPacket[]): CalculatorSignal[] {
-  return packets.flatMap(p => p.signals);
-}
-
 export interface AnalysisDetail<T = unknown> {
   readonly type: string;
   readonly score: number;
@@ -85,7 +64,7 @@ function getInsight(ctx: EvalContext, frame: EvalFrame): FrameInsight {
   return ctx.insights[frame] ?? { frame, score: 0, isPassed: false, label: 'MISSING', details: {} };
 }
 
-export abstract class NameCalculator implements CalculatorNode<EvalContext> {
+export abstract class NameCalculator {
   abstract readonly id: string;
   abstract visit(ctx: EvalContext): void;
   abstract backward(ctx: EvalContext): CalculatorPacket;
@@ -103,7 +82,7 @@ export abstract class NameCalculator implements CalculatorNode<EvalContext> {
   }
 
   protected signal(frame: EvalFrame, ctx: EvalContext, weight: number): CalculatorSignal {
-    const ins = ctx.insights[frame] ?? { frame, score: 0, isPassed: false, label: 'MISSING', details: {} };
+    const ins = getInsight(ctx, frame);
     return { key: frame, frame, score: ins.score, isPassed: ins.isPassed, weight };
   }
 }
@@ -149,8 +128,10 @@ export function evaluateName(
   (ctx.insights as Record<string, FrameInsight>)['STATISTICS'] =
     { frame: 'STATISTICS', score: 60, isPassed: true, label: 'stats', details: { found: false } };
 
-  const childPackets = calculators.map(c => executeCalculatorNode(c, ctx));
-  const signals = flattenSignals(childPackets).filter(s => s.weight > 0);
+  const signals = calculators.flatMap(c => {
+    c.visit(ctx);
+    return c.backward(ctx).signals;
+  }).filter(s => s.weight > 0);
 
   const sp = extractSajuPriority(ctx);
   const adjusted = signals.map(s => {

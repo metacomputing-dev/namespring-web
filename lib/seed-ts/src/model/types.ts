@@ -242,18 +242,6 @@ export interface CheonganRelationScoreSummary {
   readonly rationale: string;
 }
 
-export interface HapHwaEvaluationSummary {
-  readonly stem1: string;
-  readonly stem2: string;
-  readonly position1: string;
-  readonly position2: string;
-  readonly resultElement: string;
-  readonly state: string;
-  readonly confidence: number;
-  readonly reasoning: string;
-  readonly dayMasterInvolved: boolean;
-}
-
 export interface JijiRelationSummary {
   readonly type: string;
   readonly branches: string[];
@@ -283,64 +271,10 @@ export interface ShinsalHitSummary {
   readonly weightedScore: number;
 }
 
-export interface ShinsalCompositeSummary {
-  readonly patternName: string;
-  readonly interactionType: string;
-  readonly interpretation: string;
-  readonly bonusScore: number;
-}
-
-export interface PalaceSummary {
-  readonly position: string;
-  readonly koreanName: string;
-  readonly domain: string;
-  readonly agePeriod: string;
-  readonly bodyPart: string;
-  readonly sipseong: string | null;
-  readonly familyRelation: string | null;
-}
-
-export interface DaeunSummary {
-  readonly isForward: boolean;
-  readonly firstDaeunStartAge: number;
-  readonly firstDaeunStartMonths: number;
-  readonly boundaryMode: string;
-  readonly warnings: string[];
-  readonly pillars: DaeunPillarSummary[];
-}
-
-export interface DaeunPillarSummary {
-  readonly stem: string;
-  readonly branch: string;
-  readonly startAge: number;
-  readonly endAge: number;
-  readonly order: number;
-}
-
-export interface SaeunPillarSummary {
-  readonly year: number;
-  readonly stem: string;
-  readonly branch: string;
-}
-
-export interface TraceSummary {
-  readonly key: string;
-  readonly summary: string;
-  readonly evidence: string[];
-  readonly citations: string[];
-  readonly reasoning: string[];
-  readonly confidence: number | null;
-}
-
 export type Gender = 'male' | 'female';
 
-export interface BirthDateTime {
-  readonly year: number;
-  readonly month: number;
-  readonly day: number;
-  readonly hour: number;
-  readonly minute: number;
-}
+export type BirthDateTime = Pick<BirthInfo, 'year' | 'month' | 'day' | 'hour' | 'minute'>;
+
 export interface UserInfo {
   readonly lastName: HanjaEntry[];
   readonly firstName: HanjaEntry[];

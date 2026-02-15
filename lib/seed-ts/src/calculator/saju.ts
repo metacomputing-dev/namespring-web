@@ -145,12 +145,6 @@ function computeBalanceScore(
   const rc = ELEMENT_KEYS.map(k => rootDist[k] ?? 0);
   const fin = ELEMENT_KEYS.map((_, i) => ini[i] + rc[i]);
   const rt = rc.reduce((a, b) => a + b, 0);
-  const deltas = fin.map((v, i) => v - ini[i]);
-
-  if (deltas.some(v => v < 0) || deltas.reduce((a, b) => a + b, 0) !== rt) {
-    return { score: 0, isPassed: false, combined: emptyDistribution() };
-  }
-
   const opt = computeOptimalSorted(ini, rt);
   const fs = [...fin].sort((a, b) => a - b);
   const isOpt = fs.every((v, i) => v === opt[i]);
@@ -212,7 +206,6 @@ interface YongshinScoreResult {
   contextualPriority: number;
   gisinPenalty: number;
   gusinPenalty: number;
-  gisinRatio: number;
   gusinRatio: number;
   elementMatches: { yongshin: number; heesin: number; gisin: number; gusin: number };
 }
@@ -224,7 +217,7 @@ function computeYongshinScore(
   if (!y) {
     return {
       score: 50, confidence: 0, contextualPriority: 0,
-      gisinPenalty: 0, gusinPenalty: 0, gisinRatio: 0, gusinRatio: 0,
+      gisinPenalty: 0, gusinPenalty: 0, gusinRatio: 0,
       elementMatches: { yongshin: 0, heesin: 0, gisin: 0, gusin: 0 },
     };
   }
@@ -260,7 +253,7 @@ function computeYongshinScore(
     contextualPriority: rs?.contextualPriority ?? 0,
     gisinPenalty: Math.round(gr * 7 * ps),
     gusinPenalty: Math.round(gur * 14 * ps),
-    gisinRatio: gr, gusinRatio: gur,
+    gusinRatio: gur,
     elementMatches: {
       yongshin: elementCount(rd, ye),
       heesin: elementCount(rd, he),
@@ -277,19 +270,9 @@ function computeStrengthScore(
   const dm = so?.dayMaster?.element;
   if (!st || !dm) return 50;
 
-  const fav = new Set<ElementKey>();
-  const unf = new Set<ElementKey>();
-
-  if (st.isStrong) {
-    fav.add(generates(dm)).add(controls(dm)).add(controlledBy(dm));
-    unf.add(dm).add(generatedBy(dm));
-  } else {
-    fav.add(dm).add(generatedBy(dm));
-    unf.add(generates(dm)).add(controls(dm)).add(controlledBy(dm));
-  }
-
+  const isSelf = (el: ElementKey) => el === dm || el === generatedBy(dm);
   const b = normalizeSignedScore(
-    weightedElementAverage(rd, el => fav.has(el) ? 1 : unf.has(el) ? -1 : 0),
+    weightedElementAverage(rd, el => (isSelf(el) === st.isStrong) ? -1 : 1),
   );
   const sup = Math.abs(st.totalSupport);
   const opp = Math.abs(st.totalOppose);
@@ -334,9 +317,7 @@ function resolveAdaptiveWeights(
 
   const bw = clamp(0.6 - sh, 0.35, 0.6);
   const yw = clamp(0.23 + sh, 0.23, 0.48);
-  const s = bw + yw + sw + tw;
-
-  return { balance: bw / s, yongshin: yw / s, strength: sw / s, tenGod: tw / s };
+  return { balance: bw, yongshin: yw, strength: sw, tenGod: tw };
 }
 
 export function computeSajuNameScore(
@@ -357,9 +338,8 @@ export function computeSajuNameScore(
 
   const tp = yng.gisinPenalty + yng.gusinPenalty;
   const score = clamp(wbp - tp, 0, 100);
-  const hasY = sajuOutput?.yongshin != null;
-  const severe = yng.gusinRatio >= 0.75;
-  const isPassed = score >= 62 && bal.score >= 45 && (!hasY || (yng.score >= 35 && !severe));
+  const isPassed = score >= 62 && bal.score >= 45
+    && (sajuOutput?.yongshin == null || (yng.score >= 35 && yng.gusinRatio < 0.75));
 
   return {
     score, isPassed, combined: bal.combined,

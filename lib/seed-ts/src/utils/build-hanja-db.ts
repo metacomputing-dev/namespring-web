@@ -23,21 +23,18 @@ function decomposeHangul(char: string) {
   };
 }
 
-function loadRadicals(radicalPath: string): Record<string, string> {
-  const radicals: Record<string, string> = {};
-  if (!fs.existsSync(radicalPath)) return radicals;
-  for (const line of fs.readFileSync(radicalPath, 'utf8').split(/\r?\n/)) {
-    if (!line.includes(':')) continue;
-    const [key, value] = line.split(':').map(s => s.trim());
-    if (key) radicals[key] = value || '';
-  }
-  return radicals;
-}
-
 async function main() {
   const dbPath = dataPath(import.meta.url, 'hanja.db');
   const dictPath = dataPath(import.meta.url, 'name_hanja_dict');
-  const radicals = loadRadicals(dataPath(import.meta.url, 'radicals.txt'));
+  const radicals: Record<string, string> = {};
+  const radicalPath = dataPath(import.meta.url, 'radicals.txt');
+  if (fs.existsSync(radicalPath)) {
+    for (const line of fs.readFileSync(radicalPath, 'utf8').split(/\r?\n/)) {
+      if (!line.includes(':')) continue;
+      const [key, value] = line.split(':').map(s => s.trim());
+      if (key) radicals[key] = value || '';
+    }
+  }
 
   if (!fs.existsSync(dictPath)) {
     console.error(`Dictionary not found: ${dictPath}`);

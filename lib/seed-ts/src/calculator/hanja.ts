@@ -30,7 +30,7 @@ export class HanjaCalculator extends NameCalculator {
       e => new Energy(Polarity.get(e.strokes), Element.get(e.resource_element)),
     );
 
-    const elArr = this.getStrokeElementArrangement() as ElementKey[];
+    const elArr = this.entries.map(e => e.stroke_element) as ElementKey[];
     const distribution = distributionFromArrangement(elArr);
     const adjacencyScore = calculateArrayScore(elArr, ctx.surnameLength);
     const balanceScore = calculateBalanceScore(distribution);
@@ -39,7 +39,7 @@ export class HanjaCalculator extends NameCalculator {
     this.putInsight(ctx, 'HOEKSU_OHAENG', this.ohaengScore, balanceScore >= 60,
       elArr.join('-'), { distribution, adjacencyScore, balanceScore });
 
-    const polArr = this.getStrokePolarityArrangement() as PolarityValue[];
+    const polArr = this.entries.map(e => Polarity.get(e.strokes).english) as PolarityValue[];
     const pol = computePolarityResult(polArr, ctx.surnameLength);
     this.eumyangScore = pol.score;
 
@@ -76,15 +76,4 @@ export class HanjaCalculator extends NameCalculator {
     return this.entries.map((entry, i) => ({ entry, energy: this.energies[i] ?? null }));
   }
 
-  getStrokeElementArrangement(): string[] {
-    return this.entries.map(e => e.stroke_element);
-  }
-
-  getRootElementArrangement(): string[] {
-    return this.entries.map(e => e.resource_element);
-  }
-
-  getStrokePolarityArrangement(): string[] {
-    return this.entries.map(e => Polarity.get(e.strokes).english);
-  }
 }

@@ -1,17 +1,14 @@
 export class Element {
-  static readonly Wood = new Element('Wood', '목', '木', 'East', 'Blue', 'Spring');
-  static readonly Fire = new Element('Fire', '화', '火', 'South', 'Red', 'Summer');
-  static readonly Earth = new Element('Earth', '토', '土', 'Center', 'Yellow', 'Between Seasons');
-  static readonly Metal = new Element('Metal', '금', '金', 'West', 'White', 'Autumn');
-  static readonly Water = new Element('Water', '수', '水', 'North', 'Black', 'Winter');
+  static readonly Wood = new Element('Wood', '목', '木');
+  static readonly Fire = new Element('Fire', '화', '火');
+  static readonly Earth = new Element('Earth', '토', '土');
+  static readonly Metal = new Element('Metal', '금', '金');
+  static readonly Water = new Element('Water', '수', '水');
 
   private constructor(
     public readonly english: string,
     public readonly korean: string,
     public readonly hanja: string,
-    public readonly direction: string,
-    public readonly color: string,
-    public readonly season: string,
   ) {}
 
   static get(name: string): Element {
@@ -25,22 +22,15 @@ export class Element {
     }
   }
 
-  getGenerating(): Element {
-    if (this === Element.Wood) return Element.Fire;
-    if (this === Element.Fire) return Element.Earth;
-    if (this === Element.Earth) return Element.Metal;
-    if (this === Element.Metal) return Element.Water;
-    return Element.Wood;
+  isGenerating(target: Element): boolean {
+    const gen = this === Element.Wood ? Element.Fire : this === Element.Fire ? Element.Earth
+      : this === Element.Earth ? Element.Metal : this === Element.Metal ? Element.Water : Element.Wood;
+    return gen === target;
   }
 
-  getOvercoming(): Element {
-    if (this === Element.Wood) return Element.Earth;
-    if (this === Element.Earth) return Element.Water;
-    if (this === Element.Water) return Element.Fire;
-    if (this === Element.Fire) return Element.Metal;
-    return Element.Wood;
+  isOvercoming(target: Element): boolean {
+    const over = this === Element.Wood ? Element.Earth : this === Element.Earth ? Element.Water
+      : this === Element.Water ? Element.Fire : this === Element.Fire ? Element.Metal : Element.Wood;
+    return over === target;
   }
-
-  isGenerating(target: Element): boolean { return this.getGenerating() === target; }
-  isOvercoming(target: Element): boolean { return this.getOvercoming() === target; }
 }

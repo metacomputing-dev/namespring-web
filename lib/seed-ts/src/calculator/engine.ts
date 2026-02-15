@@ -1,6 +1,5 @@
 import { HanjaRepository, type HanjaEntry } from '../database/hanja-repository.js';
 import { FourframeRepository } from '../database/fourframe-repository.js';
-import { NameStatRepository } from '../database/name-stat-repository.js';
 import { Polarity } from '../model/polarity.js';
 import { HangulCalculator } from './hangul.js';
 import { HanjaCalculator } from './hanja.js';
@@ -137,7 +136,6 @@ function collectElements(...sources: (string | null | undefined | string[])[]): 
 export class SeedEngine {
   private hanjaRepo = new HanjaRepository();
   private fourFrameRepo = new FourframeRepository();
-  private nameStatRepo = new NameStatRepository();
   private initialized = false;
   private luckyMap = new Map<number, string>();
   private validFourFrameNumbers = new Set<number>();
@@ -145,7 +143,7 @@ export class SeedEngine {
 
   async init() {
     if (this.initialized) return;
-    await Promise.all([this.hanjaRepo.init(), this.fourFrameRepo.init(), this.nameStatRepo.init()]);
+    await Promise.all([this.hanjaRepo.init(), this.fourFrameRepo.init()]);
     for (const e of await this.fourFrameRepo.findAll(81)) {
       const lv = e.lucky_level ?? '';
       this.luckyMap.set(e.number, lv);
@@ -574,6 +572,5 @@ export class SeedEngine {
   close() {
     this.hanjaRepo.close();
     this.fourFrameRepo.close();
-    this.nameStatRepo.close();
   }
 }
