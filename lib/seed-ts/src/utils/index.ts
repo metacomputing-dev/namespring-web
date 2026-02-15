@@ -77,7 +77,7 @@ export const TOTAL_BANDS: readonly [number, string][] = [
 ];
 
 export const SUB_HINTS: readonly [string, number, string, number, string][] = [
-  ['hangul', 80, '음령오행(발음) 조화가 뛰어납니다.', 50, '음령오행의 음양 균형을 점검해 보세요.'],
+  ['hangul', 80, '음양오행(발음) 조화가 뛰어납니다.', 50, '음양오행의 음양 균형을 점검해 보세요.'],
   ['hanja', 80, '자원오행(한자) 배합이 우수합니다.', 50, '자원오행의 상생/상극 관계를 확인해 보세요.'],
   ['fourFrame', 80, '사격수리 배치가 길합니다.', 50, '사격수리에서 흉수가 포함되어 있습니다.'],
 ];

@@ -12,13 +12,14 @@ import { type ElementKey, elementFromSajuCode, emptyDistribution } from './scori
 import { FourFrameOptimizer } from './search.js';
 import type {
   SeedRequest, SeedResponse, SeedCandidate, SajuSummary,
-  PillarSummary, BirthInfo, NameCharInput, CharDetail
+  PillarSummary, BirthInfo, NameCharInput, CharDetail,
 } from '../model/types.js';
 import { makeFallbackEntry, buildInterpretation } from '../utils/index.js';
 
 type SajuModule = {
-  analyzeSaju: (input: any, config?: any) => any;
+  analyzeSaju: (input: any, config?: any, options?: any) => any;
   createBirthInput: (params: any) => any;
+  configFromPreset?: (preset: string) => any;
 };
 
 let sajuModule: SajuModule | null = null;
@@ -34,6 +35,88 @@ async function loadSajuModule(): Promise<SajuModule | null> {
 
 const MAX_CANDIDATES = 500;
 const OHAENG_CODES = ['WOOD', 'FIRE', 'EARTH', 'METAL', 'WATER'] as const;
+
+const CHEONGAN: Record<string, { h: string; j: string; el: string; pol: string }> = {
+  GAP: { h: '갑', j: '甲', el: 'WOOD', pol: 'YANG' },
+  EUL: { h: '을', j: '乙', el: 'WOOD', pol: 'YIN' },
+  BYEONG: { h: '병', j: '丙', el: 'FIRE', pol: 'YANG' },
+  JEONG: { h: '정', j: '丁', el: 'FIRE', pol: 'YIN' },
+  MU: { h: '무', j: '戊', el: 'EARTH', pol: 'YANG' },
+  GI: { h: '기', j: '己', el: 'EARTH', pol: 'YIN' },
+  GYEONG: { h: '경', j: '庚', el: 'METAL', pol: 'YANG' },
+  SIN: { h: '신', j: '辛', el: 'METAL', pol: 'YIN' },
+  IM: { h: '임', j: '壬', el: 'WATER', pol: 'YANG' },
+  GYE: { h: '계', j: '癸', el: 'WATER', pol: 'YIN' },
+};
+
+const JIJI: Record<string, { h: string; j: string }> = {
+  JA: { h: '자', j: '子' }, CHUK: { h: '축', j: '丑' },
+  IN: { h: '인', j: '寅' }, MYO: { h: '묘', j: '卯' },
+  JIN: { h: '진', j: '辰' }, SA: { h: '사', j: '巳' },
+  O: { h: '오', j: '午' }, MI: { h: '미', j: '未' },
+  SIN: { h: '신', j: '申' }, YU: { h: '유', j: '酉' },
+  SUL: { h: '술', j: '戌' }, HAE: { h: '해', j: '亥' },
+};
+
+const SIPSEONG_GROUP: Record<string, string> = {
+  BI_GYEON: 'friend', GYEOB_JAE: 'friend',
+  SIK_SIN: 'output', SANG_GWAN: 'output',
+  PYEON_JAE: 'wealth', JEONG_JAE: 'wealth',
+  PYEON_GWAN: 'authority', JEONG_GWAN: 'authority',
+  PYEON_IN: 'resource', JEONG_IN: 'resource',
+};
+
+const PRESET_MAP: Record<string, string> = {
+  korean: 'KOREAN_MAINSTREAM', chinese: 'TRADITIONAL_CHINESE', modern: 'MODERN_INTEGRATED',
+};
+
+function mapPillar(p: any): PillarSummary {
+  const sc = String(p?.cheongan ?? ''), bc = String(p?.jiji ?? '');
+  const si = CHEONGAN[sc], bi = JIJI[bc];
+  return {
+    stem: { code: sc, hangul: si?.h ?? sc, hanja: si?.j ?? '' },
+    branch: { code: bc, hangul: bi?.h ?? bc, hanja: bi?.j ?? '' },
+  };
+}
+
+function toStrArr(v: any): string[] {
+  if (!v) return [];
+  if (v instanceof Set) return [...v].map(String);
+  if (Array.isArray(v)) return v.map(String);
+  return [];
+}
+
+function serialize(v: unknown): unknown {
+  if (v == null || typeof v !== 'object') return v;
+  if (v instanceof Map) {
+    const o: Record<string, unknown> = {};
+    for (const [k, val] of v) o[String(k)] = serialize(val);
+    return o;
+  }
+  if (v instanceof Set) return [...v].map(x => serialize(x));
+  if (Array.isArray(v)) return v.map(x => serialize(x));
+  const o: Record<string, unknown> = {};
+  for (const k of Object.keys(v as any)) o[k] = serialize((v as any)[k]);
+  return o;
+}
+
+function emptySaju(): SajuSummary {
+  const ep: PillarSummary = { stem: { code: '', hangul: '', hanja: '' }, branch: { code: '', hangul: '', hanja: '' } };
+  return {
+    pillars: { year: ep, month: ep, day: ep, hour: ep },
+    timeCorrection: { adjustedYear: 0, adjustedMonth: 0, adjustedDay: 0, adjustedHour: 0, adjustedMinute: 0, dstCorrectionMinutes: 0, longitudeCorrectionMinutes: 0, equationOfTimeMinutes: 0 },
+    dayMaster: { stem: '', element: '', polarity: '' },
+    strength: { level: '', isStrong: false, totalSupport: 0, totalOppose: 0, deukryeong: 0, deukji: 0, deukse: 0, details: [] },
+    yongshin: { element: 'WOOD', heeshin: null, gishin: null, gushin: null, confidence: 0, agreement: '', recommendations: [] },
+    gyeokguk: { type: '', category: '', baseSipseong: null, confidence: 0, reasoning: '' },
+    ohaengDistribution: {}, deficientElements: [], excessiveElements: [],
+    cheonganRelations: [], hapHwaEvaluations: [], jijiRelations: [],
+    sibiUnseong: null, gongmang: null, tenGodAnalysis: null,
+    shinsalHits: [], shinsalComposites: [],
+    palaceAnalysis: null, daeunInfo: null, saeunPillars: [], trace: [],
+    raw: {},
+  };
+}
 
 function toCharDetail(e: HanjaEntry): CharDetail {
   return {
@@ -79,7 +162,7 @@ export class SeedEngine {
   async analyze(request: SeedRequest): Promise<SeedResponse> {
     await this.init();
     const mode = this.resolveMode(request);
-    const sajuSummary = await this.analyzeSaju(request.birth);
+    const sajuSummary = await this.analyzeSaju(request.birth, request.options);
     const { dist, output } = this.buildSajuContext(sajuSummary);
 
     let inputs: NameCharInput[][];
@@ -111,41 +194,38 @@ export class SeedEngine {
     return req.givenName?.length && req.givenName.every(c => c.hanja) ? 'evaluate' : 'recommend';
   }
 
-  private async analyzeSaju(birth: BirthInfo): Promise<SajuSummary> {
+  private async analyzeSaju(birth: BirthInfo, options?: SeedRequest['options']): Promise<SajuSummary> {
     const saju = await loadSajuModule();
-    if (saju) {
-      try {
-        const bi = saju.createBirthInput({
-          birthYear: birth.year, birthMonth: birth.month,
-          birthDay: birth.day, birthHour: birth.hour, birthMinute: birth.minute,
-          gender: birth.gender === 'male' ? 'MALE' : 'FEMALE',
-          timezone: birth.timezone ?? 'Asia/Seoul',
-          latitude: birth.latitude ?? 37.5665, longitude: birth.longitude ?? 126.978
-        });
-        return this.extractSaju(saju.analyzeSaju(bi));
-      } catch { /* fall through */ }
-    }
-    const ep: PillarSummary = {
-      stem: { code: '', hangul: '', hanja: '' },
-      branch: { code: '', hangul: '', hanja: '' }
-    };
-    return {
-      pillars: { year: ep, month: ep, day: ep, hour: ep },
-      dayMaster: { stem: '', element: '', polarity: '' },
-      strength: { level: '', isStrong: false, score: 0 },
-      yongshin: { element: 'WOOD', heeshin: null, gishin: null, gushin: null, confidence: 0, reasoning: '' },
-      gyeokguk: { type: '', category: '', confidence: 0 },
-      ohaengDistribution: {}, deficientElements: [], excessiveElements: []
-    };
+    if (!saju) return emptySaju();
+    try {
+      const bi = saju.createBirthInput({
+        birthYear: birth.year, birthMonth: birth.month,
+        birthDay: birth.day, birthHour: birth.hour, birthMinute: birth.minute,
+        gender: birth.gender === 'male' ? 'MALE' : 'FEMALE',
+        timezone: birth.timezone ?? 'Asia/Seoul',
+        latitude: birth.latitude ?? 37.5665, longitude: birth.longitude ?? 126.978,
+        name: birth.name,
+      });
+      let config: any;
+      if (options?.schoolPreset && saju.configFromPreset)
+        config = saju.configFromPreset(PRESET_MAP[options.schoolPreset] ?? 'KOREAN_MAINSTREAM');
+      if (options?.sajuConfig) config = { ...config, ...options.sajuConfig };
+      const sajuOpts = options?.sajuOptions ? {
+        daeunCount: options.sajuOptions.daeunCount,
+        saeunStartYear: options.sajuOptions.saeunStartYear,
+        saeunYearCount: options.sajuOptions.saeunYearCount,
+      } : undefined;
+      return this.extractSaju(saju.analyzeSaju(bi, config, sajuOpts));
+    } catch { return emptySaju(); }
   }
 
   private extractSaju(a: any): SajuSummary {
     const pil = a.pillars ?? a.coreResult?.pillars;
-    const sr = a.strengthResult, yr = a.yongshinResult, gr = a.gyeokgukResult;
-    const mp = (p: any): PillarSummary => ({
-      stem: { code: p?.cheongan ?? '', hangul: p?.cheongan ?? '', hanja: '' },
-      branch: { code: p?.jiji ?? '', hangul: p?.jiji ?? '', hanja: '' }
-    });
+    const cr = a.coreResult;
+    const sr = a.strengthResult;
+    const yr = a.yongshinResult;
+    const gr = a.gyeokgukResult;
+    const tga = a.tenGodAnalysis;
 
     const od: Record<string, number> = {};
     if (a.ohaengDistribution) {
@@ -163,17 +243,164 @@ export class SeedEngine {
         else if (c >= avg * 2.0) excessive.push(k);
       }
     }
+
+    const dmCode = String(pil?.day?.cheongan ?? '');
+    const dmi = CHEONGAN[dmCode];
+
+    let sibiUnseong: Record<string, string> | null = null;
+    if (a.sibiUnseong) {
+      sibiUnseong = {};
+      if (a.sibiUnseong instanceof Map) {
+        for (const [k, v] of a.sibiUnseong) sibiUnseong[String(k)] = String(v);
+      } else {
+        for (const [k, v] of Object.entries(a.sibiUnseong)) sibiUnseong[k] = String(v);
+      }
+    }
+
+    let tenGodAnalysis = null;
+    if (tga?.byPosition) {
+      const bp: Record<string, any> = {};
+      for (const [pos, info] of Object.entries(tga.byPosition)) {
+        const i = info as any;
+        bp[pos] = {
+          cheonganSipseong: String(i.cheonganSipseong ?? ''),
+          jijiPrincipalSipseong: String(i.jijiPrincipalSipseong ?? ''),
+          hiddenStems: Array.isArray(i.hiddenStems)
+            ? i.hiddenStems.map((h: any) => ({ stem: String(h.stem ?? ''), element: String(h.element ?? ''), ratio: Number(h.ratio) || 0 }))
+            : [],
+          hiddenStemSipseong: Array.isArray(i.hiddenStemSipseong)
+            ? i.hiddenStemSipseong.map((h: any) => ({ stem: String(h.stem ?? ''), sipseong: String(h.sipseong ?? '') }))
+            : [],
+        };
+      }
+      tenGodAnalysis = { dayMaster: String(tga.dayMaster ?? ''), byPosition: bp };
+    }
+
+    let palaceAnalysis: Record<string, any> | null = null;
+    if (a.palaceAnalysis) {
+      palaceAnalysis = {};
+      for (const [pos, pa] of Object.entries(a.palaceAnalysis)) {
+        const p = pa as any;
+        const pi = p.palaceInfo;
+        palaceAnalysis[pos] = {
+          position: pos, koreanName: String(pi?.koreanName ?? ''),
+          domain: String(pi?.domain ?? ''), agePeriod: String(pi?.agePeriod ?? ''),
+          bodyPart: String(pi?.bodyPart ?? ''),
+          sipseong: p.sipseong != null ? String(p.sipseong) : null,
+          familyRelation: p.familyRelation != null ? String(p.familyRelation) : null,
+        };
+      }
+    }
+
+    let daeunInfo = null;
+    if (a.daeunInfo) {
+      const di = a.daeunInfo;
+      daeunInfo = {
+        isForward: !!di.isForward,
+        firstDaeunStartAge: Number(di.firstDaeunStartAge) || 0,
+        firstDaeunStartMonths: Number(di.firstDaeunStartMonths) || 0,
+        boundaryMode: String(di.boundaryMode ?? ''),
+        warnings: Array.isArray(di.warnings) ? di.warnings.map(String) : [],
+        pillars: (Array.isArray(di.daeunPillars) ? di.daeunPillars : []).map((p: any) => ({
+          stem: String(p.pillar?.cheongan ?? ''), branch: String(p.pillar?.jiji ?? ''),
+          startAge: Number(p.startAge) || 0, endAge: Number(p.endAge) || 0, order: Number(p.order) || 0,
+        })),
+      };
+    }
+
+    const wsh = Array.isArray(a.weightedShinsalHits) ? a.weightedShinsalHits : [];
+    const shinsalHits = wsh.length > 0
+      ? wsh.map((w: any) => ({
+          type: String(w.hit?.type ?? ''), position: String(w.hit?.position ?? ''), grade: String(w.hit?.grade ?? ''),
+          baseWeight: Number(w.baseWeight) || 0, positionMultiplier: Number(w.positionMultiplier) || 0, weightedScore: Number(w.weightedScore) || 0,
+        }))
+      : (Array.isArray(a.shinsalHits) ? a.shinsalHits : []).map((h: any) => ({
+          type: String(h.type ?? ''), position: String(h.position ?? ''), grade: String(h.grade ?? ''),
+          baseWeight: 0, positionMultiplier: 0, weightedScore: 0,
+        }));
+
+    const rjr = Array.isArray(a.resolvedJijiRelations) ? a.resolvedJijiRelations : [];
+    const jijiRelations = rjr.length > 0
+      ? rjr.map((r: any) => ({
+          type: String(r.hit?.type ?? ''), branches: toStrArr(r.hit?.members), note: String(r.hit?.note ?? ''),
+          outcome: r.outcome != null ? String(r.outcome) : null, reasoning: r.reasoning != null ? String(r.reasoning) : null,
+        }))
+      : (Array.isArray(a.jijiRelations) ? a.jijiRelations : []).map((r: any) => ({
+          type: String(r.type ?? ''), branches: toStrArr(r.members), note: String(r.note ?? ''),
+          outcome: null, reasoning: null,
+        }));
+
+    const gm = a.gongmangVoidBranches;
+
     return {
-      pillars: { year: mp(pil?.year), month: mp(pil?.month), day: mp(pil?.day), hour: mp(pil?.hour) },
-      dayMaster: { stem: pil?.day?.cheongan ?? '', element: sr?.dayMasterElement ?? '', polarity: '' },
-      strength: { level: sr?.level ?? '', isStrong: sr?.isStrong ?? false, score: sr?.score?.totalSupport ?? 0 },
-      yongshin: {
-        element: yr?.finalYongshin ?? '', heeshin: yr?.finalHeesin ?? null,
-        gishin: yr?.gisin ?? null, gushin: yr?.gusin ?? null,
-        confidence: yr?.finalConfidence ?? 0, reasoning: yr?.recommendations?.[0]?.reasoning ?? ''
+      pillars: { year: mapPillar(pil?.year), month: mapPillar(pil?.month), day: mapPillar(pil?.day), hour: mapPillar(pil?.hour) },
+      timeCorrection: {
+        adjustedYear: Number(cr?.adjustedYear) || 0, adjustedMonth: Number(cr?.adjustedMonth) || 0,
+        adjustedDay: Number(cr?.adjustedDay) || 0, adjustedHour: Number(cr?.adjustedHour) || 0, adjustedMinute: Number(cr?.adjustedMinute) || 0,
+        dstCorrectionMinutes: Number(cr?.dstCorrectionMinutes) || 0,
+        longitudeCorrectionMinutes: Number(cr?.longitudeCorrectionMinutes) || 0,
+        equationOfTimeMinutes: Number(cr?.equationOfTimeMinutes) || 0,
       },
-      gyeokguk: { type: gr?.type ?? '', category: gr?.category ?? '', confidence: gr?.confidence ?? 0 },
-      ohaengDistribution: od, deficientElements: deficient, excessiveElements: excessive
+      dayMaster: {
+        stem: dmCode,
+        element: sr?.dayMasterElement ? String(sr.dayMasterElement) : (dmi?.el ?? ''),
+        polarity: dmi?.pol ?? '',
+      },
+      strength: {
+        level: String(sr?.level ?? ''), isStrong: !!sr?.isStrong,
+        totalSupport: Number(sr?.score?.totalSupport) || 0, totalOppose: Number(sr?.score?.totalOppose) || 0,
+        deukryeong: Number(sr?.score?.deukryeong) || 0, deukji: Number(sr?.score?.deukji) || 0, deukse: Number(sr?.score?.deukse) || 0,
+        details: Array.isArray(sr?.details) ? sr.details.map(String) : [],
+      },
+      yongshin: {
+        element: String(yr?.finalYongshin ?? ''),
+        heeshin: yr?.finalHeesin != null ? String(yr.finalHeesin) : null,
+        gishin: yr?.gisin != null ? String(yr.gisin) : null,
+        gushin: yr?.gusin != null ? String(yr.gusin) : null,
+        confidence: Number(yr?.finalConfidence) || 0,
+        agreement: String(yr?.agreement ?? ''),
+        recommendations: Array.isArray(yr?.recommendations) ? yr.recommendations.map((r: any) => ({
+          type: String(r.type ?? ''), primaryElement: String(r.primaryElement ?? ''),
+          secondaryElement: r.secondaryElement != null ? String(r.secondaryElement) : null,
+          confidence: Number(r.confidence) || 0, reasoning: String(r.reasoning ?? ''),
+        })) : [],
+      },
+      gyeokguk: {
+        type: String(gr?.type ?? ''), category: String(gr?.category ?? ''),
+        baseSipseong: gr?.baseSipseong != null ? String(gr.baseSipseong) : null,
+        confidence: Number(gr?.confidence) || 0, reasoning: String(gr?.reasoning ?? ''),
+      },
+      ohaengDistribution: od, deficientElements: deficient, excessiveElements: excessive,
+      cheonganRelations: (Array.isArray(a.cheonganRelations) ? a.cheonganRelations : []).map((r: any) => ({
+        type: String(r.type ?? ''), stems: toStrArr(r.members),
+        resultElement: r.resultOhaeng != null ? String(r.resultOhaeng) : null, note: String(r.note ?? ''),
+      })),
+      hapHwaEvaluations: (Array.isArray(a.hapHwaEvaluations) ? a.hapHwaEvaluations : []).map((e: any) => ({
+        stem1: String(e.stem1 ?? ''), stem2: String(e.stem2 ?? ''),
+        position1: String(e.position1 ?? ''), position2: String(e.position2 ?? ''),
+        resultElement: String(e.resultOhaeng ?? ''), state: String(e.state ?? ''),
+        confidence: Number(e.confidence) || 0, reasoning: String(e.reasoning ?? ''),
+        dayMasterInvolved: !!e.dayMasterInvolved,
+      })),
+      jijiRelations, sibiUnseong,
+      gongmang: Array.isArray(gm) && gm.length >= 2 ? [String(gm[0]), String(gm[1])] as [string, string] : null,
+      tenGodAnalysis, shinsalHits,
+      shinsalComposites: (Array.isArray(a.shinsalComposites) ? a.shinsalComposites : []).map((c: any) => ({
+        patternName: String(c.patternName ?? ''), interactionType: String(c.interactionType ?? ''),
+        interpretation: String(c.interpretation ?? ''), bonusScore: Number(c.bonusScore) || 0,
+      })),
+      palaceAnalysis, daeunInfo,
+      saeunPillars: (Array.isArray(a.saeunPillars) ? a.saeunPillars : []).map((s: any) => ({
+        year: Number(s.year) || 0, stem: String(s.pillar?.cheongan ?? ''), branch: String(s.pillar?.jiji ?? ''),
+      })),
+      trace: (Array.isArray(a.trace) ? a.trace : []).map((t: any) => ({
+        key: String(t.key ?? ''), summary: String(t.summary ?? ''),
+        evidence: Array.isArray(t.evidence) ? t.evidence.map(String) : [],
+        citations: Array.isArray(t.citations) ? t.citations.map(String) : [],
+        reasoning: Array.isArray(t.reasoning) ? t.reasoning.map(String) : [],
+        confidence: typeof t.confidence === 'number' ? t.confidence : null,
+      })),
+      raw: serialize(a) as Record<string, unknown>,
     };
   }
 
@@ -187,20 +414,34 @@ export class SeedEngine {
 
     const dmKey = elementFromSajuCode(s.dayMaster.element);
     const y = s.yongshin;
+
+    let tenGod: { groupCounts: Record<string, number> } | undefined;
+    if (s.tenGodAnalysis?.byPosition) {
+      const gc: Record<string, number> = { friend: 0, output: 0, wealth: 0, authority: 0, resource: 0 };
+      for (const info of Object.values(s.tenGodAnalysis.byPosition)) {
+        const g1 = SIPSEONG_GROUP[info.cheonganSipseong];
+        if (g1) gc[g1]++;
+        const g2 = SIPSEONG_GROUP[info.jijiPrincipalSipseong];
+        if (g2) gc[g2]++;
+      }
+      tenGod = { groupCounts: gc };
+    }
+
     return {
       dist,
       output: {
         dayMaster: dmKey ? { element: dmKey } : undefined,
-        strength: { isStrong: s.strength.isStrong, totalSupport: s.strength.score, totalOppose: 0 },
+        strength: { isStrong: s.strength.isStrong, totalSupport: s.strength.totalSupport, totalOppose: s.strength.totalOppose },
         yongshin: {
           finalYongshin: y.element, finalHeesin: y.heeshin, gisin: y.gishin, gusin: y.gushin,
           finalConfidence: y.confidence,
-          recommendations: y.reasoning
-            ? [{ type: 'EOKBU', primaryElement: y.element, secondaryElement: y.heeshin,
-                 confidence: y.confidence, reasoning: y.reasoning }]
-            : []
+          recommendations: y.recommendations.map(r => ({
+            type: r.type, primaryElement: r.primaryElement,
+            secondaryElement: r.secondaryElement,
+            confidence: r.confidence, reasoning: r.reasoning,
+          })),
         },
-        tenGod: undefined
+        tenGod,
       }
     };
   }

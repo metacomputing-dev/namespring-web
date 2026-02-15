@@ -109,6 +109,10 @@ export class HangulCalculator extends NameCalculator {
     };
   }
 
+  getNameBlocks(): ReadonlyArray<{ readonly entry: HanjaEntry; energy: Energy | null }> {
+    return this.blocks;
+  }
+
   getPronunciationElementArrangement(): ElementKey[] { return this.elemArrangement; }
   getPronunciationPolarityArrangement(): PolarityValue[] { return this.polArrangement; }
 }

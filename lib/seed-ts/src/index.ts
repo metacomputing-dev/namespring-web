@@ -6,6 +6,15 @@ export type {
   BirthInfo, NameCharInput, ScoreWeights,
   SajuSummary, PillarSummary, CharDetail,
   HangulAnalysis, HanjaAnalysis, FourFrameAnalysis, SajuCompatibility,
+  TimeCorrectionSummary, StrengthSummary,
+  YongshinSummary, YongshinRecommendationSummary,
+  GyeokgukSummary,
+  CheonganRelationSummary, HapHwaEvaluationSummary, JijiRelationSummary,
+  TenGodSummary, TenGodPositionSummary,
+  ShinsalHitSummary, ShinsalCompositeSummary,
+  PalaceSummary,
+  DaeunSummary, DaeunPillarSummary, SaeunPillarSummary,
+  TraceSummary,
 } from './model/types.js';
 
 export type { UserInfo, NamingResult, SeedResult, Gender, BirthDateTime } from './model/types.js';

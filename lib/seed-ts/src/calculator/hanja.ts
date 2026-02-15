@@ -72,6 +72,10 @@ export class HanjaCalculator extends NameCalculator {
     };
   }
 
+  getNameBlocks(): ReadonlyArray<{ readonly entry: HanjaEntry; energy: Energy | null }> {
+    return this.entries.map((entry, i) => ({ entry, energy: this.energies[i] ?? null }));
+  }
+
   getStrokeElementArrangement(): string[] {
     return this.entries.map(e => e.stroke_element);
   }
