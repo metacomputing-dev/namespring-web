@@ -11,6 +11,7 @@
     "forceConsistentCasingInFileNames": true,
     "module": "ESNext",
     "moduleResolution": "Bundler",
+    "baseUrl": ".",
     "resolveJsonModule": true,
     "isolatedModules": true,
     "noEmit": true,
@@ -20,6 +21,6 @@
       "@seed/*": ["../lib/seed-ts/src/*"] // 라이브러리 경로 매핑
     }
   },
-  "include": ["src"],
+  "include": ["src", "../lib/seed-ts/src"],
   "references": [{ "path": "./tsconfig.node.json" }]
 }
