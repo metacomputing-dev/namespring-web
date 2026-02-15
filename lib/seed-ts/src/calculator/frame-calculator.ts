@@ -3,7 +3,7 @@ import { Energy } from '../model/energy';
 import { Element } from '../model/element';
 import { Polarity } from '../model/polarity';
 import type { HanjaEntry } from '../database/hanja-repository';
-import { FourframeRepository } from '../database/fourframe-repository';
+import { FourframeRepository, type FourframeMeaningEntry } from '../database/fourframe-repository';
 
 /**
  * Calculator for the Four Frames (Won, Hyung, Lee, Jung) in naming theory.
@@ -25,6 +25,7 @@ export class FourFrameCalculator extends EnergyCalculator {
     // Stores the calculated energy (Polarity and Element)
     public energy: Energy | null = null;
     public luckLevel: number = -1;
+    public entry: FourframeMeaningEntry | null = null;
     
     constructor(
       public readonly type: 'won' | 'hyung' | 'lee' | 'jung',
@@ -47,6 +48,7 @@ export class FourFrameCalculator extends EnergyCalculator {
 
       await FourFrameCalculator.Frame.repositoryInitPromise;
       const entry = await FourFrameCalculator.Frame.repository.findByNumber(this.strokeSum);
+      this.entry = entry;
       const parsed = Number.parseInt(entry?.lucky_level ?? '0', 10);
       this.luckLevel = Number.isNaN(parsed) ? 0 : parsed;
       
