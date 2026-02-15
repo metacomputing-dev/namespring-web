@@ -1,6 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import logoPng from './assets/logo.png';
-import logoNamespring from './assets/images/logo_namespring.svg';
+import logoSvg from './assets/logo.svg';
 import NamingResultRenderer from './NamingResultRenderer';
 
 function HomeTile({ title, className, onClick }) {
@@ -10,7 +9,7 @@ function HomeTile({ title, className, onClick }) {
       className={`bg-[var(--ns-surface)] border border-[var(--ns-border)] rounded-[2.2rem] p-5 shadow-xl hover:translate-y-[-2px] transition-all text-left ${className}`}
     >
       <div className="h-full flex flex-col items-center justify-center gap-3">
-        <img src={logoPng} alt="" className="h-12 w-12 select-none" draggable="false" />
+        <img src={logoSvg} alt="" className="h-12 w-12 select-none" draggable="false" />
         <p className="text-sm md:text-base font-black text-[var(--ns-accent-text)] text-center">{title}</p>
       </div>
     </button>
@@ -57,7 +56,7 @@ function HomePage({ entryUserInfo, onAnalyzeAsync, onOpenReport }) {
     <div className="min-h-screen p-6 md:p-10 font-sans">
       <div className="max-w-4xl mx-auto">
         <div className="mb-6 flex items-center gap-3">
-          <img src={logoNamespring} alt="이름봄 로고" className="h-10 w-10 select-none" draggable="false" />
+          <img src={logoSvg} alt="이름봄 로고" className="h-10 w-10 select-none" draggable="false" />
           <h2 className="text-3xl font-black text-[var(--ns-accent-text)]">이름봄</h2>
         </div>
 

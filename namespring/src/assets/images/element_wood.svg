@@ -1,4 +1,11 @@
 <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none">
-  <path d="M12 22V14M12 14L15 12M12 14L9 12" stroke="#7ED957" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" />
-  <path d="M12 2C16.4183 2 20 5.58172 20 10C20 12.5 18.5 14.5 16 15.5C14.5 16.5 9.5 16.5 8 15.5C5.5 14.5 4 12.5 4 10C4 5.58172 7.58172 2 12 2Z" stroke="#7ED957" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" />
+  <defs>
+    <filter id="glow" x="-50%" y="-50%" width="200%" height="200%" color-interpolation-filters="sRGB">
+      <feDropShadow dx="0" dy="0" stdDeviation="1.0" flood-color="#7ED957" flood-opacity="0.6" />
+    </filter>
+  </defs>
+  <g filter="url(#glow)">
+    <path d="M12 22V14M12 14L15 12M12 14L9 12" stroke="#7ED957" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" />
+    <path d="M12 2C16.4183 2 20 5.58172 20 10C20 12.5 18.5 14.5 16 15.5C14.5 16.5 9.5 16.5 8 15.5C5.5 14.5 4 12.5 4 10C4 5.58172 7.58172 2 12 2Z" stroke="#7ED957" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" />
+  </g>
 </svg>

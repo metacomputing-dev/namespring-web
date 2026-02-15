@@ -1,5 +1,12 @@
 <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none">
-  <path d="M5 19L2 14L5 7H19L22 14L19 19H5Z" stroke="#D4AF37" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" />
-  <path d="M6 14H18" stroke="#D4AF37" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" />
-  <path d="M8 7L10 10M16 7L14 10" stroke="#D4AF37" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" />
+  <defs>
+    <filter id="glow" x="-50%" y="-50%" width="200%" height="200%" color-interpolation-filters="sRGB">
+      <feDropShadow dx="0" dy="0" stdDeviation="1.0" flood-color="#D4AF37" flood-opacity="0.6" />
+    </filter>
+  </defs>
+  <g filter="url(#glow)">
+    <path d="M5 19L2 14L5 7H19L22 14L19 19H5Z" stroke="#D4AF37" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" />
+    <path d="M6 14H18" stroke="#D4AF37" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" />
+    <path d="M8 7L10 10M16 7L14 10" stroke="#D4AF37" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" />
+  </g>
 </svg>

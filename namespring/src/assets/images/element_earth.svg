@@ -1,4 +1,11 @@
 <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none">
-  <path d="M2 20C2 20 3.5 13 8 11C8 11 11 5 16 8C16 8 20 10 22 20H2Z" stroke="#A8947B" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" />
-  <path d="M8 11L11 14M16 8L13 13" stroke="#A8947B" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" />
+  <defs>
+    <filter id="glow" x="-50%" y="-50%" width="200%" height="200%" color-interpolation-filters="sRGB">
+      <feDropShadow dx="0" dy="0" stdDeviation="1.0" flood-color="#A8947B" flood-opacity="0.6" />
+    </filter>
+  </defs>
+  <g filter="url(#glow)">
+    <path d="M2 20C2 20 3.5 13 8 11C8 11 11 5 16 8C16 8 20 10 22 20H2Z" stroke="#A8947B" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" />
+    <path d="M8 11L11 14M16 8L13 13" stroke="#A8947B" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" />
+  </g>
 </svg>

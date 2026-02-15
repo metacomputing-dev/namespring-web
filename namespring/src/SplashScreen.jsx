@@ -1,5 +1,5 @@
 import React from 'react';
-import logoPng from './assets/logo.png';
+import logoSvg from './assets/logo.svg';
 import companyLogo from './assets/logo_2025_rev01.svg';
 import AppBackground from './ui/AppBackground';
 
@@ -11,7 +11,7 @@ function SplashScreen() {
 
         <div className="flex flex-col items-center gap-4">
           <img
-            src={logoPng}
+            src={logoSvg}
             alt="NameSpring leaf logo"
             className="h-20 w-20 md:h-24 md:w-24 select-none"
             draggable="false"

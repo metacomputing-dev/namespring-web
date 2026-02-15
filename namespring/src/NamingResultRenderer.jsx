@@ -67,10 +67,10 @@ function clampCount(value) {
 function TreeSprite() {
   return (
     <svg viewBox="0 0 48 48" className="w-10 h-10" fill="none" xmlns="http://www.w3.org/2000/svg">
-      <rect x="20" y="28" width="8" height="14" rx="2" fill="#7f5a38" />
-      <circle cx="24" cy="20" r="10" fill="#3ca95a" />
-      <circle cx="17" cy="22" r="7" fill="#4fbc68" />
-      <circle cx="31" cy="22" r="7" fill="#2f9d51" />
+      <rect x="20" y="28" width="8" height="14" rx="2" fill="#7f5a38" stroke="#000000" strokeOpacity="0.5" strokeWidth="1" />
+      <circle cx="24" cy="20" r="10" fill="#3ca95a" stroke="#000000" strokeOpacity="0.5" strokeWidth="1" />
+      <circle cx="17" cy="22" r="7" fill="#4fbc68" stroke="#000000" strokeOpacity="0.5" strokeWidth="1" />
+      <circle cx="31" cy="22" r="7" fill="#2f9d51" stroke="#000000" strokeOpacity="0.5" strokeWidth="1" />
     </svg>
   );
 }
@@ -78,8 +78,11 @@ function TreeSprite() {
 function GrassSprite() {
   return (
     <svg viewBox="0 0 48 48" className="w-8 h-8" fill="none" xmlns="http://www.w3.org/2000/svg">
+      <path d="M8 38C14 30 16 22 16 10" stroke="#000000" strokeOpacity="0.5" strokeWidth="5" strokeLinecap="round" />
       <path d="M8 38C14 30 16 22 16 10" stroke="#3a9d4e" strokeWidth="3" strokeLinecap="round" />
+      <path d="M16 38C22 30 24 24 24 12" stroke="#000000" strokeOpacity="0.5" strokeWidth="5" strokeLinecap="round" />
       <path d="M16 38C22 30 24 24 24 12" stroke="#57b96b" strokeWidth="3" strokeLinecap="round" />
+      <path d="M24 38C30 30 34 22 38 11" stroke="#000000" strokeOpacity="0.5" strokeWidth="5" strokeLinecap="round" />
       <path d="M24 38C30 30 34 22 38 11" stroke="#3a9d4e" strokeWidth="3" strokeLinecap="round" />
     </svg>
   );
@@ -88,9 +91,9 @@ function GrassSprite() {
 function HouseSprite() {
   return (
     <svg viewBox="0 0 56 56" className="w-10 h-10" fill="none" xmlns="http://www.w3.org/2000/svg">
-      <rect x="14" y="24" width="28" height="22" rx="3" fill="#f5efe0" stroke="#8a7254" strokeWidth="2" />
-      <path d="M10 26L28 12L46 26" fill="#c69a66" stroke="#8a7254" strokeWidth="2" strokeLinejoin="round" />
-      <rect x="24" y="33" width="8" height="13" rx="1.5" fill="#8a7254" />
+      <rect x="14" y="24" width="28" height="22" rx="3" fill="#f5efe0" stroke="#000000" strokeOpacity="0.5" strokeWidth="1" />
+      <path d="M10 26L28 12L46 26" fill="#c69a66" stroke="#000000" strokeOpacity="0.5" strokeWidth="1" strokeLinejoin="round" />
+      <rect x="24" y="33" width="8" height="13" rx="1.5" fill="#8a7254" stroke="#000000" strokeOpacity="0.5" strokeWidth="1" />
     </svg>
   );
 }
@@ -98,6 +101,9 @@ function HouseSprite() {
 function CampfireBase() {
   return (
     <svg viewBox="0 0 64 64" className="w-24 h-24" fill="none" xmlns="http://www.w3.org/2000/svg">
+      <path d="M18 42L46 42" stroke="#000000" strokeOpacity="0.5" strokeWidth="5" strokeLinecap="round" />
+      <path d="M22 46L40 30" stroke="#000000" strokeOpacity="0.5" strokeWidth="5" strokeLinecap="round" />
+      <path d="M42 46L24 30" stroke="#000000" strokeOpacity="0.5" strokeWidth="5" strokeLinecap="round" />
       <path d="M18 42L46 42" stroke="#6f5138" strokeWidth="4" strokeLinecap="round" />
       <path d="M22 46L40 30" stroke="#7e5b3c" strokeWidth="4" strokeLinecap="round" />
       <path d="M42 46L24 30" stroke="#7e5b3c" strokeWidth="4" strokeLinecap="round" />
@@ -108,24 +114,28 @@ function CampfireBase() {
 function FireSprite() {
   return (
     <svg viewBox="0 0 24 24" className="w-8 h-8" fill="none" xmlns="http://www.w3.org/2000/svg">
-      <path d="M12 3C12 3 18 9 18 13.5C18 16.5 15.5 19 12 19C8.5 19 6 16.5 6 13.5C6 9 12 3 12 3Z" fill="#ff8f3c" />
-      <path d="M12 8C12 8 15 11 15 13C15 14.7 13.7 16 12 16C10.3 16 9 14.7 9 13C9 11 12 8 12 8Z" fill="#ffd05f" />
+      <path d="M12 3C12 3 18 9 18 13.5C18 16.5 15.5 19 12 19C8.5 19 6 16.5 6 13.5C6 9 12 3 12 3Z" fill="#ff8f3c" stroke="#000000" strokeOpacity="0.5" strokeWidth="0.5" />
+      <path d="M12 8C12 8 15 11 15 13C15 14.7 13.7 16 12 16C10.3 16 9 14.7 9 13C9 11 12 8 12 8Z" fill="#ffd05f" stroke="#000000" strokeOpacity="0.5" strokeWidth="0.5" />
     </svg>
   );
 }
 
 function NamingResultRenderer({ namingResult }) {
   const meadowGradientId = useId();
+  const moonMaskId = useId();
+  const cloudySunOutlineId = useId();
   const summary = useMemo(() => resolveSummary(namingResult), [namingResult]);
   const appliedSummary = DEV_FORCE_ALL_COUNTS_TO_FIVE
     ? {
         ...summary,
         elementCounts: { Wood: 5, Fire: 5, Earth: 5, Metal: 5, Water: 5 },
-        positiveCount: 4,
+        positiveCount: 5,
         negativeCount: 5,
       }
     : summary;
   const isNightScene = appliedSummary.negativeCount > appliedSummary.positiveCount;
+  const isEqualScene = appliedSummary.negativeCount === appliedSummary.positiveCount;
+  const isPositiveDominantScene = appliedSummary.negativeCount < appliedSummary.positiveCount;
   const woodCount = clampCount(appliedSummary.elementCounts.Wood);
   const fireCount = clampCount(appliedSummary.elementCounts.Fire);
   const earthCount = clampCount(appliedSummary.elementCounts.Earth);
@@ -148,7 +158,9 @@ function NamingResultRenderer({ namingResult }) {
   const glowStyle = {
     textShadow: isNightScene
       ? '0 0 8px rgba(8, 14, 30, 0.85), 0 0 18px rgba(8, 14, 30, 0.45)'
-      : '0 0 8px rgba(255, 255, 255, 0.85), 0 0 18px rgba(255, 255, 255, 0.55)',
+      : isPositiveDominantScene
+        ? '0 0 8px rgba(255, 236, 214, 0.9), 0 0 18px rgba(255, 220, 178, 0.6)'
+        : '0 0 8px rgba(255, 255, 255, 0.85), 0 0 18px rgba(255, 255, 255, 0.55)',
   };
   const overlayExclude = { xMin: 72, yMin: 68 };
   const isExcluded = (left, top) => parseFloat(left) >= overlayExclude.xMin && parseFloat(top) >= overlayExclude.yMin;
@@ -186,8 +198,16 @@ function NamingResultRenderer({ namingResult }) {
   ];
 
   return (
-    <div className={`relative h-full w-full rounded-[1.6rem] border overflow-hidden ${isNightScene ? 'border-[#243258]' : 'border-[#c8ddf1]'}`}>
-      <div className={`absolute inset-0 ${isNightScene ? 'bg-gradient-to-b from-[#172445] via-[#111c37] to-[#0a1429]' : 'bg-gradient-to-b from-[#dff3ff] via-[#bfe7ff] to-[#9dd9ff]'}`} />
+    <div className={`relative h-full w-full rounded-[1.6rem] border overflow-hidden ${isNightScene ? 'border-[#243258]' : isPositiveDominantScene ? 'border-[#f0b690]' : 'border-[#c8ddf1]'}`}>
+      <div
+        className={`absolute inset-0 ${
+          isNightScene
+            ? 'bg-gradient-to-b from-[#172445] via-[#111c37] to-[#0a1429]'
+            : isPositiveDominantScene
+              ? 'bg-gradient-to-b from-[#ffd4a1] via-[#ffb37e] to-[#ff9166]'
+              : 'bg-gradient-to-b from-[#dff3ff] via-[#bfe7ff] to-[#9dd9ff]'
+        }`}
+      />
 
       <div className="absolute inset-x-0 bottom-0 h-[50%]">
         <svg className="absolute inset-0 w-full h-full" viewBox="0 0 100 40" preserveAspectRatio="none">
@@ -206,15 +226,50 @@ function NamingResultRenderer({ namingResult }) {
       <div className="absolute left-5 top-8 z-10">
         {isNightScene ? (
           <svg viewBox="0 0 64 64" className="h-10 w-10 md:h-12 md:w-12" fill="none" xmlns="http://www.w3.org/2000/svg">
-            <circle cx="30" cy="30" r="14" fill="#f4f0cc" />
-            <circle cx="36" cy="26" r="14" fill="#172445" />
+            <defs>
+              <mask id={moonMaskId}>
+                <rect width="64" height="64" fill="white" />
+                <circle cx="36" cy="26" r="14" fill="black" />
+              </mask>
+            </defs>
+            <circle
+              cx="30"
+              cy="30"
+              r="14"
+              fill="#f4f0cc"
+              stroke="#000000"
+              strokeOpacity="0.5"
+              strokeWidth="1"
+              mask={`url(#${moonMaskId})`}
+            />
+          </svg>
+        ) : isEqualScene ? (
+          <svg viewBox="0 0 96 64" className="h-10 w-14 md:h-12 md:w-16" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <defs>
+              <filter id={cloudySunOutlineId} x="-30%" y="-40%" width="180%" height="200%" colorInterpolationFilters="sRGB">
+                <feMorphology in="SourceAlpha" operator="dilate" radius="1" result="expanded" />
+                <feComposite in="expanded" in2="SourceAlpha" operator="out" result="outlineOnly" />
+                <feFlood floodColor="#000000" floodOpacity="0.5" result="outlineColor" />
+                <feComposite in="outlineColor" in2="outlineOnly" operator="in" result="outlinePaint" />
+                <feMerge>
+                  <feMergeNode in="outlinePaint" />
+                  <feMergeNode in="SourceGraphic" />
+                </feMerge>
+              </filter>
+            </defs>
+            <g filter={`url(#${cloudySunOutlineId})`}>
+              <circle cx="38" cy="29" r="15" fill="#ffd56a" />
+              <circle cx="41" cy="40" r="14" fill="#ffffff" />
+              <circle cx="58" cy="39.5" r="12" fill="#ffffff" />
+              <circle cx="72" cy="41" r="8.5" fill="#ffffff" />
+              <rect x="30" y="40" width="51" height="12.5" rx="6.25" fill="#ffffff" />
+            </g>
           </svg>
         ) : (
-          <svg viewBox="0 0 96 64" className="h-10 w-14 md:h-12 md:w-16" fill="none" xmlns="http://www.w3.org/2000/svg">
-            <circle cx="30" cy="28" r="15" fill="#ffd56a" />
-            <circle cx="52" cy="34" r="13" fill="#ffffff" />
-            <circle cx="66" cy="34" r="10" fill="#ffffff" />
-            <rect x="44" y="34" width="32" height="10" rx="5" fill="#ffffff" />
+          <svg viewBox="0 0 64 64" className="h-10 w-10 md:h-12 md:w-12" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <circle cx="30" cy="30" r="15" fill="#ffcf66" stroke="#000000" strokeOpacity="0.5" strokeWidth="1" />
+            <path d="M30 8V14M30 46V52M8 30H14M46 30H52M14.8 14.8L19 19M41 41L45.2 45.2M14.8 45.2L19 41M41 19L45.2 14.8" stroke="#000000" strokeOpacity="0.5" strokeWidth="4.5" strokeLinecap="round" />
+            <path d="M30 8V14M30 46V52M8 30H14M46 30H52M14.8 14.8L19 19M41 41L45.2 45.2M14.8 45.2L19 41M41 19L45.2 14.8" stroke="#f39a2e" strokeWidth="2.5" strokeLinecap="round" />
           </svg>
         )}
       </div>
@@ -277,8 +332,8 @@ function NamingResultRenderer({ namingResult }) {
         </div>
 
         <div className="absolute right-6 bottom-5 text-right shrink-0" style={glowStyle}>
-          <p className={`text-xl md:text-2xl font-black ${isNightScene ? 'text-[#e8eefc]' : 'text-[#0f3857]'}`}>{appliedSummary.displayHangul} ({appliedSummary.displayHanja})</p>
-          <p className={`text-sm font-bold mt-1 ${isNightScene ? 'text-[#9fb2d6]' : 'text-[#365f83]'}`}>종합 점수 {appliedSummary.score}</p>
+          <p className={`text-xl md:text-2xl font-black ${isNightScene ? 'text-[#e8eefc]' : isPositiveDominantScene ? 'text-[#66361f]' : 'text-[#0f3857]'}`}>{appliedSummary.displayHangul} ({appliedSummary.displayHanja})</p>
+          <p className={`text-sm font-bold mt-1 ${isNightScene ? 'text-[#9fb2d6]' : isPositiveDominantScene ? 'text-[#8a4d2a]' : 'text-[#365f83]'}`}>종합 점수 {appliedSummary.score}</p>
         </div>
       </div>
     </div>
