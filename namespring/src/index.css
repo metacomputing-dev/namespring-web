@@ -14,6 +14,7 @@
   --ns-border: #e8e5e0;
   --ns-muted: #6b7280;
   --ns-accent-text: #2d4b2a;
+  --ns-ripple: rgba(26, 26, 26, 0.14);
 }
 
 @media (prefers-color-scheme: dark) {
@@ -29,6 +30,7 @@
     --ns-border: #2d3b2b;
     --ns-muted: #a0a7a0;
     --ns-accent-text: #d7f4c6;
+    --ns-ripple: rgba(240, 240, 240, 0.2);
   }
 }
 
@@ -42,4 +44,29 @@ body,
 .ns-fade-transition {
   transition: opacity var(--ns-fade-duration, 320ms) ease;
   will-change: opacity;
+}
+
+button,
+[role="button"] {
+  position: relative;
+  overflow: hidden;
+}
+
+button::after,
+[role="button"]::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  background: radial-gradient(circle, var(--ns-ripple) 0%, transparent 62%);
+  transform: scale(0.2);
+  opacity: 0;
+  transition: transform 380ms ease, opacity 380ms ease;
+}
+
+button:active::after,
+[role="button"]:active::after {
+  transform: scale(2.1);
+  opacity: 1;
+  transition: transform 0ms, opacity 0ms;
 }

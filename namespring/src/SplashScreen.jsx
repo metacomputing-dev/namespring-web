@@ -28,7 +28,7 @@ function SplashScreen() {
       </div>
       <div className="pointer-events-none absolute inset-x-0 bottom-6 flex items-center justify-center gap-2 text-[15px] text-[var(--ns-muted)]">
         <img src={companyLogo} alt="MetaIntelligence logo" className="h-[18px] w-[24px] opacity-45 grayscale" draggable="false" />
-        <span className="tracking-wide">~ MetaIntelligence Inc.</span>
+        <span className="tracking-wide"> MetaIntelligence Inc.</span>
       </div>
     </AppBackground>
   );
