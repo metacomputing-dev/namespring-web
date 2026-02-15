@@ -5,7 +5,7 @@ import { fileURLToPath } from 'url';
 
 export function dataPath(callerMetaUrl: string, ...segments: string[]): string {
   const dir = path.dirname(fileURLToPath(callerMetaUrl));
-  return path.resolve(dir, '../../data', ...segments);
+  return path.resolve(dir, '../data', ...segments);
 }
 
 export function ensureDir(filePath: string): void {

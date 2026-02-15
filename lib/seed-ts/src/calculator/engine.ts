@@ -4,9 +4,8 @@ import { Polarity } from '../model/polarity.js';
 import { HangulCalculator } from './hangul.js';
 import { HanjaCalculator } from './hanja.js';
 import { FrameCalculator } from './frame.js';
-import { SajuCalculator } from './saju.js';
+import { SajuCalculator, type SajuOutputSummary } from './saju.js';
 import { evaluateName, type EvalContext } from './evaluator.js';
-import type { SajuOutputSummary } from './saju.js';
 import { type ElementKey, elementFromSajuCode, emptyDistribution } from './scoring.js';
 import { FourFrameOptimizer } from './search.js';
 import type {
@@ -156,7 +155,7 @@ export class SeedEngine {
 
   async analyze(request: SeedRequest): Promise<SeedResponse> {
     await this.init();
-    const mode = this.resolveMode(request);
+    const mode = request.mode && request.mode !== 'auto' ? request.mode : (request.givenName?.length && request.givenName.every(c => c.hanja) ? 'evaluate' : 'recommend');
     const sajuSummary = await this.analyzeSaju(request.birth, request.options);
     const { dist, output } = this.buildSajuContext(sajuSummary);
 
@@ -182,11 +181,6 @@ export class SeedEngine {
       totalCount: scored.length,
       meta: { version: '2.0.0', timestamp: new Date().toISOString() }
     };
-  }
-
-  private resolveMode(req: SeedRequest): 'evaluate' | 'recommend' | 'all' {
-    if (req.mode && req.mode !== 'auto') return req.mode;
-    return req.givenName?.length && req.givenName.every(c => c.hanja) ? 'evaluate' : 'recommend';
   }
 
   private async analyzeSaju(birth: BirthInfo, options?: SeedRequest['options']): Promise<SajuSummary> {
@@ -244,22 +238,15 @@ export class SeedEngine {
     const dmCode = String(pil?.day?.cheongan ?? '');
     const dmi = CHEONGAN[dmCode];
 
-    let sibiUnseong: Record<string, string> | null = null;
-    if (a.sibiUnseong) {
-      sibiUnseong = {};
-      if (a.sibiUnseong instanceof Map) {
-        for (const [k, v] of a.sibiUnseong) sibiUnseong[String(k)] = String(v);
-      } else {
-        for (const [k, v] of Object.entries(a.sibiUnseong)) sibiUnseong[k] = String(v);
-      }
-    }
+    const sibiUnseong = a.sibiUnseong ? Object.fromEntries(
+      (a.sibiUnseong instanceof Map ? [...a.sibiUnseong] : Object.entries(a.sibiUnseong)).map(([k, v]) => [String(k), String(v)])
+    ) : null;
 
-    let tenGodAnalysis = null;
-    if (tga?.byPosition) {
-      const bp: Record<string, any> = {};
-      for (const [pos, info] of Object.entries(tga.byPosition)) {
+    const tenGodAnalysis = tga?.byPosition ? {
+      dayMaster: String(tga.dayMaster ?? ''),
+      byPosition: Object.fromEntries(Object.entries(tga.byPosition).map(([pos, info]) => {
         const i = info as any;
-        bp[pos] = {
+        return [pos, {
           cheonganSipseong: String(i.cheonganSipseong ?? ''),
           jijiPrincipalSipseong: String(i.jijiPrincipalSipseong ?? ''),
           hiddenStems: Array.isArray(i.hiddenStems)
@@ -271,31 +258,24 @@ export class SeedEngine {
           hiddenStemSipseong: Array.isArray(i.hiddenStemSipseong)
             ? i.hiddenStemSipseong.map((h: any) => ({ stem: String(h.entry?.stem ?? h.stem ?? ''), sipseong: String(h.sipseong ?? '') }))
             : [],
-        };
-      }
-      tenGodAnalysis = { dayMaster: String(tga.dayMaster ?? ''), byPosition: bp };
-    }
+        }];
+      })),
+    } : null;
 
-    let palaceAnalysis: Record<string, any> | null = null;
-    if (a.palaceAnalysis) {
-      palaceAnalysis = {};
-      for (const [pos, pa] of Object.entries(a.palaceAnalysis)) {
-        const p = pa as any;
-        const pi = p.palaceInfo;
-        palaceAnalysis[pos] = {
-          position: pos, koreanName: String(pi?.koreanName ?? ''),
-          domain: String(pi?.domain ?? ''), agePeriod: String(pi?.agePeriod ?? ''),
-          bodyPart: String(pi?.bodyPart ?? ''),
-          sipseong: p.sipseong != null ? String(p.sipseong) : null,
-          familyRelation: p.familyRelation != null ? String(p.familyRelation) : null,
-        };
-      }
-    }
+    const palaceAnalysis = a.palaceAnalysis ? Object.fromEntries(Object.entries(a.palaceAnalysis).map(([pos, pa]) => {
+      const p = pa as any, pi = p.palaceInfo;
+      return [pos, {
+        position: pos, koreanName: String(pi?.koreanName ?? ''),
+        domain: String(pi?.domain ?? ''), agePeriod: String(pi?.agePeriod ?? ''),
+        bodyPart: String(pi?.bodyPart ?? ''),
+        sipseong: p.sipseong != null ? String(p.sipseong) : null,
+        familyRelation: p.familyRelation != null ? String(p.familyRelation) : null,
+      }];
+    })) : null;
 
-    let daeunInfo = null;
-    if (a.daeunInfo) {
+    const daeunInfo = a.daeunInfo ? (() => {
       const di = a.daeunInfo;
-      daeunInfo = {
+      return {
         isForward: !!di.isForward,
         firstDaeunStartAge: Number(di.firstDaeunStartAge) || 0,
         firstDaeunStartMonths: Number(di.firstDaeunStartMonths) || 0,
@@ -306,7 +286,7 @@ export class SeedEngine {
           startAge: Number(p.startAge) || 0, endAge: Number(p.endAge) || 0, order: Number(p.order) || 0,
         })),
       };
-    }
+    })() : null;
 
     const wsh = Array.isArray(a.weightedShinsalHits) ? a.weightedShinsalHits : [];
     const gradeFromWeight = (w: number) => w >= 80 ? 'A' : w >= 50 ? 'B' : 'C';
@@ -337,6 +317,13 @@ export class SeedEngine {
         }));
 
     const gm = a.gongmangVoidBranches;
+
+    const scoredCR = Array.isArray(a.scoredCheonganRelations) ? a.scoredCheonganRelations : [];
+    const crScoreMap = new Map<string, any>();
+    for (const s of scoredCR) {
+      const key = String(s.hit?.type ?? '') + ':' + toStrArr(s.hit?.members).sort().join(',');
+      crScoreMap.set(key, s.score);
+    }
 
     return {
       ...base,
@@ -380,27 +367,19 @@ export class SeedEngine {
         confidence: Number(gr?.confidence) || 0, reasoning: String(gr?.reasoning ?? ''),
       },
       ohaengDistribution: od, deficientElements: deficient, excessiveElements: excessive,
-      cheonganRelations: (() => {
-        const scored = Array.isArray(a.scoredCheonganRelations) ? a.scoredCheonganRelations : [];
-        const scoreMap = new Map<string, any>();
-        for (const s of scored) {
-          const key = String(s.hit?.type ?? '') + ':' + toStrArr(s.hit?.members).sort().join(',');
-          scoreMap.set(key, s.score);
-        }
-        return (Array.isArray(a.cheonganRelations) ? a.cheonganRelations : []).map((r: any) => {
-          const key = String(r.type ?? '') + ':' + toStrArr(r.members).sort().join(',');
-          const sc = scoreMap.get(key);
-          return {
-            type: String(r.type ?? ''), stems: toStrArr(r.members),
-            resultElement: r.resultOhaeng != null ? String(r.resultOhaeng) : null, note: String(r.note ?? ''),
-            score: sc ? {
-              baseScore: Number(sc.baseScore) || 0, adjacencyBonus: Number(sc.adjacencyBonus) || 0,
-              outcomeMultiplier: Number(sc.outcomeMultiplier) || 0, finalScore: Number(sc.finalScore) || 0,
-              rationale: String(sc.rationale ?? ''),
-            } : null,
-          };
-        });
-      })(),
+      cheonganRelations: (Array.isArray(a.cheonganRelations) ? a.cheonganRelations : []).map((r: any) => {
+        const key = String(r.type ?? '') + ':' + toStrArr(r.members).sort().join(',');
+        const sc = crScoreMap.get(key);
+        return {
+          type: String(r.type ?? ''), stems: toStrArr(r.members),
+          resultElement: r.resultOhaeng != null ? String(r.resultOhaeng) : null, note: String(r.note ?? ''),
+          score: sc ? {
+            baseScore: Number(sc.baseScore) || 0, adjacencyBonus: Number(sc.adjacencyBonus) || 0,
+            outcomeMultiplier: Number(sc.outcomeMultiplier) || 0, finalScore: Number(sc.finalScore) || 0,
+            rationale: String(sc.rationale ?? ''),
+          } : null,
+        };
+      }),
       hapHwaEvaluations: (Array.isArray(a.hapHwaEvaluations) ? a.hapHwaEvaluations : []).map((e: any) => ({
         stem1: String(e.stem1 ?? ''), stem2: String(e.stem2 ?? ''),
         position1: String(e.position1 ?? ''), position2: String(e.position2 ?? ''),

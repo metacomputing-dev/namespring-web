@@ -1,15 +1,8 @@
 export class Polarity {
-  static readonly Negative = new Polarity('Negative', '음', '陰', '달', '어둠', '유연함');
-  static readonly Positive = new Polarity('Positive', '양', '陽', '해', '밝음', '강인함');
+  static readonly Negative = new Polarity('Negative');
+  static readonly Positive = new Polarity('Positive');
 
-  private constructor(
-    public readonly english: string,
-    public readonly korean: string,
-    public readonly hanja: string,
-    public readonly symbol: string,
-    public readonly light: string,
-    public readonly trait: string,
-  ) {}
+  private constructor(public readonly english: string) {}
 
   static get(strokes: number): Polarity {
     return strokes % 2 === 1 ? Polarity.Positive : Polarity.Negative;

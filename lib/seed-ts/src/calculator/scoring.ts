@@ -4,33 +4,22 @@ export const ELEMENT_KEYS: readonly ElementKey[] = [
   'Wood', 'Fire', 'Earth', 'Metal', 'Water',
 ] as const;
 
-export function generates(el: ElementKey): ElementKey {
-  return ELEMENT_KEYS[(ELEMENT_KEYS.indexOf(el) + 1) % 5];
-}
+const elementAt = (el: ElementKey, offset: number): ElementKey =>
+  ELEMENT_KEYS[(ELEMENT_KEYS.indexOf(el) + offset) % 5];
+export const generates = (el: ElementKey) => elementAt(el, 1);
+export const generatedBy = (el: ElementKey) => elementAt(el, 4);
+export const controls = (el: ElementKey) => elementAt(el, 2);
+export const controlledBy = (el: ElementKey) => elementAt(el, 3);
 
-export function generatedBy(el: ElementKey): ElementKey {
-  return ELEMENT_KEYS[(ELEMENT_KEYS.indexOf(el) + 4) % 5];
-}
-
-export function controls(el: ElementKey): ElementKey {
-  return ELEMENT_KEYS[(ELEMENT_KEYS.indexOf(el) + 2) % 5];
-}
-
-export function controlledBy(el: ElementKey): ElementKey {
-  return ELEMENT_KEYS[(ELEMENT_KEYS.indexOf(el) + 3) % 5];
-}
-
-export function isSangGeuk(a: ElementKey, b: ElementKey): boolean {
-  return controls(a) === b || controls(b) === a;
-}
+export const isSangGeuk = (a: ElementKey, b: ElementKey): boolean =>
+  controls(a) === b || controls(b) === a;
 
 const SAJU_CODE_MAP: Record<string, ElementKey> = {
   WOOD: 'Wood', FIRE: 'Fire', EARTH: 'Earth', METAL: 'Metal', WATER: 'Water',
-  Wood: 'Wood', Fire: 'Fire', Earth: 'Earth', Metal: 'Metal', Water: 'Water',
 };
 
 export function elementFromSajuCode(value: string | null | undefined): ElementKey | null {
-  return (value != null ? SAJU_CODE_MAP[value] : undefined) ?? null;
+  return value != null ? (SAJU_CODE_MAP[value.toUpperCase()] ?? null) : null;
 }
 
 export function elementCount(
@@ -114,13 +103,7 @@ export function calculateBalanceScore(
   const avg = total / 5;
   let dev = 0;
   for (const k of ELEMENT_KEYS) dev += Math.abs((distribution[k] ?? 0) - avg);
-  const thresholds: readonly (readonly [number, number])[] = [
-    [2, 100], [4, 85], [6, 70], [8, 55], [10, 40],
-  ];
-  for (const [th, sc] of thresholds) {
-    if (dev <= th) return sc;
-  }
-  return 25;
+  return Math.max(25, 100 - 15 * Math.ceil(Math.max(0, dev - 2) / 2));
 }
 
 export function checkElementSangSaeng(
@@ -159,24 +142,18 @@ export function checkFourFrameSuriElement(
   arrangement: readonly ElementKey[],
   givenNameLength: number,
 ): boolean {
-  const checked =
-    givenNameLength === 1 && arrangement.length === 3
-      ? arrangement.slice(0, 2)
-      : arrangement.slice();
-  if (checked.length < 2) return false;
-  for (let i = 0; i < checked.length - 1; i++) {
-    if (isSangGeuk(checked[i], checked[i + 1])) return false;
+  const len = givenNameLength === 1 && arrangement.length === 3 ? 2 : arrangement.length;
+  if (len < 2) return false;
+  for (let i = 0; i < len - 1; i++) {
+    if (isSangGeuk(arrangement[i], arrangement[i + 1])) return false;
   }
-  if (isSangGeuk(checked[checked.length - 1], checked[0])) return false;
-  return new Set(checked).size > 1;
+  if (isSangGeuk(arrangement[len - 1], arrangement[0])) return false;
+  return new Set(arrangement.slice(0, len)).size > 1;
 }
 
-export function countDominant(
-  distribution: Record<ElementKey, number>,
-): boolean {
-  const total = ELEMENT_KEYS.reduce((acc, k) => acc + distribution[k], 0);
-  const th = Math.floor(total / 2) + 1;
-  return ELEMENT_KEYS.some(k => distribution[k] >= th);
+export function countDominant(distribution: Record<ElementKey, number>): boolean {
+  const total = ELEMENT_KEYS.reduce((a, k) => a + distribution[k], 0);
+  return ELEMENT_KEYS.some(k => distribution[k] > total / 2);
 }
 
 export function computePolarityResult(
@@ -184,12 +161,10 @@ export function computePolarityResult(
   surnameLength: number,
 ): { score: number; isPassed: boolean } {
   const neg = arrangement.filter(v => v === 'Negative').length;
-  const pos = arrangement.length - neg;
-  const total = neg + pos;
-  if (total === 0) return { score: 0, isPassed: true };
-  const ratio = Math.min(neg, pos) / total;
+  if (arrangement.length === 0) return { score: 0, isPassed: true };
+  const ratio = Math.min(neg, arrangement.length - neg) / arrangement.length;
   const rs = ratio >= 0.4 ? 50 : ratio >= 0.3 ? 35 : ratio >= 0.2 ? 20 : 10;
-  const isPassed = arrangement.length >= 2 && neg > 0 && pos > 0
+  const isPassed = arrangement.length >= 2 && neg > 0 && neg < arrangement.length
     && !(surnameLength === 1 && arrangement[0] === arrangement[arrangement.length - 1]);
   return { score: 40 + rs, isPassed };
 }

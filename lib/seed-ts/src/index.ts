@@ -1,27 +1,24 @@
 export { SeedEngine } from './calculator/engine.js';
 export { SeedTs } from './seed.js';
+export type { UserInfo, NamingResult, SeedResult, Gender } from './seed.js';
 
 export type {
   SeedRequest, SeedResponse, SeedCandidate, SeedOptions,
-  BirthInfo, NameCharInput, ScoreWeights,
+  BirthInfo, NameCharInput,
   SajuSummary, PillarSummary, CharDetail,
   HangulAnalysis, HanjaAnalysis, FourFrameAnalysis, SajuCompatibility,
   TimeCorrectionSummary, StrengthSummary,
-  YongshinSummary, YongshinRecommendationSummary,
+  YongshinSummary,
   GyeokgukSummary,
-  CheonganRelationSummary, CheonganRelationScoreSummary, JijiRelationSummary,
-  TenGodSummary, TenGodPositionSummary,
+  CheonganRelationSummary, JijiRelationSummary,
+  TenGodSummary,
   ShinsalHitSummary,
 } from './model/types.js';
-
-export type { UserInfo, NamingResult, SeedResult, Gender, BirthDateTime } from './model/types.js';
 
 export { SqliteRepository, HanjaRepository } from './database/hanja-repository.js';
 export type { HanjaEntry } from './database/hanja-repository.js';
 export { FourframeRepository } from './database/fourframe-repository.js';
 export type { FourframeMeaningEntry } from './database/fourframe-repository.js';
-export { NameStatRepository } from './database/name-stat-repository.js';
-export type { NameStatEntry } from './database/name-stat-repository.js';
 
 export { NameCalculator } from './calculator/evaluator.js';
 export type { AnalysisDetail, EvalContext, EvalFrame, FrameInsight, EvaluationResult } from './calculator/evaluator.js';
@@ -43,4 +40,3 @@ export {
   CHOSEONG, JUNGSEONG, decomposeHangul, makeFallbackEntry,
   FRAME_LABELS, buildInterpretation,
 } from './utils/index.js';
-export type { HangulDecomposition } from './utils/index.js';

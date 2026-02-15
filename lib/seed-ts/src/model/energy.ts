@@ -8,8 +8,7 @@ export class Energy {
   ) {}
 
   static getScore(energies: Energy[]): number {
-    return Energy.getPolarityScore(energies) * 0.5
-      + Energy.getElementScore(energies) * 0.5;
+    return Energy.getPolarityScore(energies) * 0.5 + Energy.getElementScore(energies) * 0.5;
   }
 
   static getPolarityScore(energies: Energy[]): number {

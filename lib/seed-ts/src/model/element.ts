@@ -1,15 +1,11 @@
 export class Element {
-  static readonly Wood = new Element('Wood', '목', '木');
-  static readonly Fire = new Element('Fire', '화', '火');
-  static readonly Earth = new Element('Earth', '토', '土');
-  static readonly Metal = new Element('Metal', '금', '金');
-  static readonly Water = new Element('Water', '수', '水');
+  static readonly Wood = new Element('Wood');
+  static readonly Fire = new Element('Fire');
+  static readonly Earth = new Element('Earth');
+  static readonly Metal = new Element('Metal');
+  static readonly Water = new Element('Water');
 
-  private constructor(
-    public readonly english: string,
-    public readonly korean: string,
-    public readonly hanja: string,
-  ) {}
+  private constructor(public readonly english: string) {}
 
   static get(name: string): Element {
     switch (name) {

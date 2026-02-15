@@ -1,5 +1,3 @@
-import type { HanjaEntry } from '../database/hanja-repository.js';
-
 export interface BirthInfo {
   readonly year: number;
   readonly month: number;
@@ -7,7 +5,6 @@ export interface BirthInfo {
   readonly hour: number;
   readonly minute: number;
   readonly gender: 'male' | 'female';
-  readonly isLunar?: boolean;
   readonly timezone?: string;
   readonly latitude?: number;
   readonly longitude?: number;
@@ -32,20 +29,12 @@ export interface SeedOptions {
   readonly limit?: number;
   readonly offset?: number;
   readonly schoolPreset?: 'korean' | 'chinese' | 'modern';
-  readonly weights?: ScoreWeights;
   readonly sajuConfig?: Record<string, unknown>;
   readonly sajuOptions?: {
     readonly daeunCount?: number;
     readonly saeunStartYear?: number | null;
     readonly saeunYearCount?: number;
   };
-}
-
-export interface ScoreWeights {
-  readonly hangul?: number;
-  readonly hanja?: number;
-  readonly fourFrame?: number;
-  readonly saju?: number;
 }
 
 export interface SeedResponse {
@@ -207,15 +196,13 @@ export interface YongshinSummary {
   readonly gushin: string | null;
   readonly confidence: number;
   readonly agreement: string;
-  readonly recommendations: YongshinRecommendationSummary[];
-}
-
-export interface YongshinRecommendationSummary {
-  readonly type: string;
-  readonly primaryElement: string;
-  readonly secondaryElement: string | null;
-  readonly confidence: number;
-  readonly reasoning: string;
+  readonly recommendations: Array<{
+    readonly type: string;
+    readonly primaryElement: string;
+    readonly secondaryElement: string | null;
+    readonly confidence: number;
+    readonly reasoning: string;
+  }>;
 }
 
 export interface GyeokgukSummary {
@@ -231,15 +218,13 @@ export interface CheonganRelationSummary {
   readonly stems: string[];
   readonly resultElement: string | null;
   readonly note: string;
-  readonly score: CheonganRelationScoreSummary | null;
-}
-
-export interface CheonganRelationScoreSummary {
-  readonly baseScore: number;
-  readonly adjacencyBonus: number;
-  readonly outcomeMultiplier: number;
-  readonly finalScore: number;
-  readonly rationale: string;
+  readonly score: {
+    readonly baseScore: number;
+    readonly adjacencyBonus: number;
+    readonly outcomeMultiplier: number;
+    readonly finalScore: number;
+    readonly rationale: string;
+  } | null;
 }
 
 export interface JijiRelationSummary {
@@ -252,14 +237,12 @@ export interface JijiRelationSummary {
 
 export interface TenGodSummary {
   readonly dayMaster: string;
-  readonly byPosition: Record<string, TenGodPositionSummary>;
-}
-
-export interface TenGodPositionSummary {
-  readonly cheonganSipseong: string;
-  readonly jijiPrincipalSipseong: string;
-  readonly hiddenStems: Array<{ readonly stem: string; readonly element: string; readonly ratio: number }>;
-  readonly hiddenStemSipseong: Array<{ readonly stem: string; readonly sipseong: string }>;
+  readonly byPosition: Record<string, {
+    readonly cheonganSipseong: string;
+    readonly jijiPrincipalSipseong: string;
+    readonly hiddenStems: Array<{ readonly stem: string; readonly element: string; readonly ratio: number }>;
+    readonly hiddenStemSipseong: Array<{ readonly stem: string; readonly sipseong: string }>;
+  }>;
 }
 
 export interface ShinsalHitSummary {
@@ -271,26 +254,3 @@ export interface ShinsalHitSummary {
   readonly weightedScore: number;
 }
 
-export type Gender = 'male' | 'female';
-
-export type BirthDateTime = Pick<BirthInfo, 'year' | 'month' | 'day' | 'hour' | 'minute'>;
-
-export interface UserInfo {
-  readonly lastName: HanjaEntry[];
-  readonly firstName: HanjaEntry[];
-  readonly birthDateTime: BirthDateTime;
-  readonly gender: Gender;
-}
-export interface NamingResult {
-  readonly lastName: HanjaEntry[];
-  readonly firstName: HanjaEntry[];
-  readonly totalScore: number;
-  readonly hanja: unknown;
-  readonly hangul: unknown;
-  readonly fourFrames: unknown;
-  readonly interpretation: string;
-}
-export interface SeedResult {
-  readonly candidates: NamingResult[];
-  readonly totalCount: number;
-}

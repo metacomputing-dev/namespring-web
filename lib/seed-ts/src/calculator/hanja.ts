@@ -49,7 +49,6 @@ export class HanjaCalculator extends NameCalculator {
 
   backward(ctx: EvalContext): CalculatorPacket {
     return {
-      nodeId: this.id,
       signals: [this.signal('HOEKSU_EUMYANG', ctx, 0.6)],
     };
   }

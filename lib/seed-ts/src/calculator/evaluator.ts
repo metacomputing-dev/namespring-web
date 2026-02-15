@@ -2,7 +2,6 @@ import { type ElementKey, clamp } from './scoring.js';
 import type { SajuOutputSummary } from './saju.js';
 
 export interface CalculatorSignal {
-  key: string;
   frame: string;
   score: number;
   isPassed: boolean;
@@ -10,7 +9,6 @@ export interface CalculatorSignal {
 }
 
 export interface CalculatorPacket {
-  nodeId: string;
   signals: CalculatorSignal[];
 }
 
@@ -32,8 +30,7 @@ export type EvalFrame =
   | 'SAGYEOK_OHAENG'
   | 'HOEKSU_OHAENG'
   | 'JAWON_OHAENG'
-  | 'EUMYANG'
-  | 'STATISTICS';
+  | 'EUMYANG';
 
 export interface FrameInsight {
   frame: EvalFrame;
@@ -55,7 +52,6 @@ export interface EvalContext {
 export interface EvaluationResult {
   score: number;
   isPassed: boolean;
-  status: 'POSITIVE' | 'NEGATIVE';
   categoryMap: Record<string, FrameInsight>;
   categories: FrameInsight[];
 }
@@ -83,18 +79,16 @@ export abstract class NameCalculator {
 
   protected signal(frame: EvalFrame, ctx: EvalContext, weight: number): CalculatorSignal {
     const ins = getInsight(ctx, frame);
-    return { key: frame, frame, score: ins.score, isPassed: ins.isPassed, weight };
+    return { frame, score: ins.score, isPassed: ins.isPassed, weight };
   }
 }
-
-const RELAXABLE = new Set<EvalFrame>([
-  'SAGYEOK_SURI', 'HOEKSU_EUMYANG', 'BALEUM_OHAENG', 'BALEUM_EUMYANG', 'SAGYEOK_OHAENG',
-]);
 
 const STRICT_FRAMES: EvalFrame[] = [
   'SAGYEOK_SURI', 'SAJU_JAWON_BALANCE', 'HOEKSU_EUMYANG',
   'BALEUM_OHAENG', 'BALEUM_EUMYANG', 'SAGYEOK_OHAENG',
 ];
+
+const RELAXABLE = new Set<EvalFrame>(STRICT_FRAMES.filter(f => f !== 'SAJU_JAWON_BALANCE'));
 
 function extractSajuPriority(ctx: EvalContext): number {
   const si = ctx.insights.SAJU_JAWON_BALANCE;
@@ -125,9 +119,6 @@ export function evaluateName(
   calculators: NameCalculator[],
   ctx: EvalContext,
 ): EvaluationResult {
-  (ctx.insights as Record<string, FrameInsight>)['STATISTICS'] =
-    { frame: 'STATISTICS', score: 60, isPassed: true, label: 'stats', details: { found: false } };
-
   const signals = calculators.flatMap(c => {
     c.visit(ctx);
     return c.backward(ctx).signals;
@@ -187,16 +178,13 @@ export function evaluateName(
   for (const f of [
     'SEONGMYEONGHAK', 'SAGYEOK_SURI', 'SAJU_JAWON_BALANCE',
     'HOEKSU_EUMYANG', 'BALEUM_OHAENG', 'BALEUM_EUMYANG',
-    'SAGYEOK_OHAENG', 'HOEKSU_OHAENG', 'STATISTICS',
+    'SAGYEOK_OHAENG', 'HOEKSU_OHAENG',
   ] as EvalFrame[]) cm[f] = getInsight(ctx, f);
-  cm['JAWON_OHAENG'] = cm['HOEKSU_OHAENG'];
-  cm['EUMYANG'] = cm['HOEKSU_EUMYANG'];
 
   const sm = cm['SEONGMYEONGHAK'];
   return {
     score: sm.score,
     isPassed: sm.isPassed,
-    status: sm.isPassed ? 'POSITIVE' : 'NEGATIVE',
     categoryMap: cm,
     categories: ([
       'SEONGMYEONGHAK', 'SAGYEOK_SURI', 'SAJU_JAWON_BALANCE',

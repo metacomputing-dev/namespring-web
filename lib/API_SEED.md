@@ -16,10 +16,9 @@ class SeedEngine {
   close(): void;
 }
 
-// 동기 분석 (UI 호환 래퍼)
+// 동기 분석 (Legacy UI 호환 래퍼, DB/사주 미사용)
 class SeedTs {
   analyze(userInfo: UserInfo): SeedResult;
-  async analyzeAsync(request: SeedRequest): Promise<SeedResponse>;
 }
 ```
 
@@ -52,7 +51,6 @@ interface BirthInfo {
   readonly hour: number;        // 0-23
   readonly minute: number;      // 0-59
   readonly gender: 'male' | 'female';
-  readonly isLunar?: boolean;   // true면 음력→양력 변환
   readonly timezone?: string;   // default: 'Asia/Seoul'
   readonly latitude?: number;   // default: 37.5665
   readonly longitude?: number;  // default: 126.978
@@ -76,20 +74,12 @@ interface SeedOptions {
   readonly limit?: number;                   // default: 20
   readonly offset?: number;                  // default: 0
   readonly schoolPreset?: 'korean' | 'chinese' | 'modern';
-  readonly weights?: ScoreWeights;
   readonly sajuConfig?: Record<string, unknown>;   // saju-ts CalculationConfig 직접 전달
   readonly sajuOptions?: {
     readonly daeunCount?: number;             // 대운 수 (default: 8)
     readonly saeunStartYear?: number | null;  // 세운 시작년
     readonly saeunYearCount?: number;         // 세운 연수 (default: 10)
   };
-}
-
-interface ScoreWeights {
-  readonly hangul?: number;     // default: 25
-  readonly hanja?: number;      // default: 25
-  readonly fourFrame?: number;  // default: 25
-  readonly saju?: number;       // default: 25
 }
 ```
 
@@ -248,7 +238,7 @@ interface SajuCompatibility {
 ### SajuSummary (saju-ts 전체 분석 결과)
 
 saju-ts의 `SajuAnalysis` 전체를 직렬화 가능한 형태로 포함한다.
-`raw` 필드에 원본 전체가 보존되므로 향후 saju-ts가 확장되어도 API 변경 불필요.
+`...base` spread에 원본 전체가 보존되므로 향후 saju-ts가 확장되어도 API 변경 불필요.
 
 ```typescript
 interface SajuSummary {
@@ -278,7 +268,7 @@ interface SajuSummary {
   readonly daeunInfo: DaeunSummary | null;
   readonly saeunPillars: SaeunPillarSummary[];
   readonly trace: TraceSummary[];
-  readonly raw: Record<string, unknown>;    // saju-ts 원본 전체 (future-proof)
+  readonly [key: string]: unknown;    // saju-ts 원본 전체 (future-proof)
 }
 ```
 
@@ -297,6 +287,11 @@ interface PillarSummary {
 
 ```typescript
 interface TimeCorrectionSummary {
+  readonly standardYear: number;
+  readonly standardMonth: number;
+  readonly standardDay: number;
+  readonly standardHour: number;
+  readonly standardMinute: number;
   readonly adjustedYear: number;
   readonly adjustedMonth: number;
   readonly adjustedDay: number;
@@ -333,15 +328,13 @@ interface YongshinSummary {
   readonly gushin: string | null;
   readonly confidence: number;           // 0.0 ~ 1.0
   readonly agreement: string;            // YongshinAgreement
-  readonly recommendations: YongshinRecommendationSummary[];
-}
-
-interface YongshinRecommendationSummary {
-  readonly type: string;                 // YongshinType (EOKBU, JOHU, ...)
-  readonly primaryElement: string;
-  readonly secondaryElement: string | null;
-  readonly confidence: number;
-  readonly reasoning: string;
+  readonly recommendations: Array<{
+    readonly type: string;               // YongshinType (EOKBU, JOHU, ...)
+    readonly primaryElement: string;
+    readonly secondaryElement: string | null;
+    readonly confidence: number;
+    readonly reasoning: string;
+  }>;
 }
 ```
 
@@ -365,6 +358,13 @@ interface CheonganRelationSummary {
   readonly stems: string[];
   readonly resultElement: string | null;
   readonly note: string;
+  readonly score: {
+    readonly baseScore: number;
+    readonly adjacencyBonus: number;
+    readonly outcomeMultiplier: number;
+    readonly finalScore: number;
+    readonly rationale: string;
+  } | null;
 }
 
 interface HapHwaEvaluationSummary {
@@ -397,14 +397,12 @@ interface JijiRelationSummary {
 ```typescript
 interface TenGodSummary {
   readonly dayMaster: string;
-  readonly byPosition: Record<string, TenGodPositionSummary>;
-}
-
-interface TenGodPositionSummary {
-  readonly cheonganSipseong: string;
-  readonly jijiPrincipalSipseong: string;
-  readonly hiddenStems: Array<{ stem: string; element: string; ratio: number }>;
-  readonly hiddenStemSipseong: Array<{ stem: string; sipseong: string }>;
+  readonly byPosition: Record<string, {
+    readonly cheonganSipseong: string;
+    readonly jijiPrincipalSipseong: string;
+    readonly hiddenStems: Array<{ stem: string; element: string; ratio: number }>;
+    readonly hiddenStemSipseong: Array<{ stem: string; sipseong: string }>;
+  }>;
 }
 ```
 
@@ -488,17 +486,68 @@ interface TraceSummary {
 
 ---
 
+## Legacy API (SeedTs)
+
+기존 UI 호환을 위한 동기 래퍼. DB/사주 분석 미사용, 순수 계산만 수행.
+
+```typescript
+type Gender = 'male' | 'female';
+
+interface UserInfo {
+  readonly lastName: HanjaEntry[];
+  readonly firstName: HanjaEntry[];
+  readonly birthDateTime: { year: number; month: number; day: number; hour: number; minute: number };
+  readonly gender: Gender;
+}
+
+interface NamingResult {
+  readonly lastName: HanjaEntry[];
+  readonly firstName: HanjaEntry[];
+  readonly totalScore: number;
+  readonly hangul: unknown;       // HangulCalculator 인스턴스
+  readonly hanja: unknown;        // HanjaCalculator 인스턴스
+  readonly fourFrames: unknown;   // FrameCalculator 인스턴스
+  readonly interpretation: string;
+}
+
+interface SeedResult {
+  readonly candidates: NamingResult[];
+  readonly totalCount: number;
+}
+```
+
+**사용 예시:**
+
+```typescript
+import { SeedTs } from 'seed-ts';
+
+const engine = new SeedTs();
+const result = engine.analyze({
+  lastName: [hanjaEntry1],
+  firstName: [hanjaEntry2, hanjaEntry3],
+  birthDateTime: { year: 1986, month: 4, day: 19, hour: 5, minute: 45 },
+  gender: 'male',
+});
+
+result.candidates[0].totalScore;        // 종합 점수
+result.candidates[0].interpretation;    // 해석
+result.candidates[0].hangul;            // HangulCalculator (getNameBlocks() 지원)
+result.candidates[0].hanja;             // HanjaCalculator (getNameBlocks() 지원)
+```
+
+---
+
 ## Scoring Pipeline
 
 ```
 SeedRequest
   → init()              DB/WASM 로드 (idempotent)
-  → resolveMode()       auto/evaluate/recommend/all 결정
+  → mode 결정            auto/evaluate/recommend/all
   → analyzeSaju(birth, options)
       ├── schoolPreset → configFromPreset()
       ├── sajuConfig → CalculationConfig 병합
       ├── sajuOptions → SajuAnalysisOptions 전달
-      └── extractSaju() → SajuSummary (전체 + raw)
+      └── extractSaju() → SajuSummary (serialize-first 패턴)
   → generateCandidates() recommend/all 모드: FourFrameOptimizer로 후보 생성
   → scoreCandidate() × N:
       │
@@ -567,7 +616,7 @@ response.saju.deficientElements        // ['METAL']
 response.saju.excessiveElements        // ['FIRE']
 
 // 관계/운성
-response.saju.cheonganRelations        // 천간 합충
+response.saju.cheonganRelations        // 천간 합충 (score 포함)
 response.saju.jijiRelations            // 지지 관계 (해석 포함)
 response.saju.sibiUnseong              // 십이운성
 response.saju.gongmang                 // 공망
@@ -583,9 +632,6 @@ response.saju.saeunPillars             // 세운
 
 // 시간 보정
 response.saju.timeCorrection           // DST, 경도, 균시차 보정
-
-// 원본 전체 (future-proof)
-response.saju.raw                      // saju-ts SajuAnalysis 전체 직렬화
 
 engine.close();
 ```
@@ -605,10 +651,12 @@ SeedRequest.options.sajuOptions   → SajuAnalysisOptions
                                   → analyzeSaju(bi, config, options)
 ```
 
-**출력 추출 경로:**
+**출력 추출 경로 (serialize-first 패턴):**
 ```
 SajuAnalysis
+  → serialize(a)    → base (Map/Set/Class → 순수 JSON)
   → extractSaju()
+      ├─ { ...base } spread (원본 전체 보존)
       ├─ pillars        → PillarSummary × 4 (hangul/hanja 자동 매핑)
       ├─ coreResult     → TimeCorrectionSummary
       ├─ strengthResult → StrengthSummary (전체 점수 + details)
@@ -622,9 +670,8 @@ SajuAnalysis
       ├─ palaceAnalysis → Record<position, PalaceSummary>
       ├─ daeunInfo      → DaeunSummary (pillars 포함)
       ├─ saeunPillars   → SaeunPillarSummary[]
-      ├─ trace          → TraceSummary[]
-      └─ serialize(a)   → raw (Map/Set/Class → 순수 JSON)
+      └─ trace          → TraceSummary[]
 ```
 
 saju-ts 로드 실패 시 fallback SajuSummary를 사용하여 사주 없이도 동작.
-`raw` 필드에 원본이 완전 보존되므로 saju-ts 확장 시 API 변경 불필요.
+`...base` spread에 원본이 완전 보존되므로 saju-ts 확장 시 API 변경 불필요.

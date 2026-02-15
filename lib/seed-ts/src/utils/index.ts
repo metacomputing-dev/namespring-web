@@ -16,26 +16,12 @@ const HANGUL_END = 0xD7A3;
 const JUNGSEONG_COUNT = 21;
 const JONGSEONG_COUNT = 28;
 
-export interface HangulDecomposition {
-  readonly onset: string;
-  readonly nucleus: string;
-  readonly onsetIndex: number;
-  readonly nucleusIndex: number;
-}
-
-export function decomposeHangul(char: string): HangulDecomposition | null {
+export function decomposeHangul(char: string): { onset: string; nucleus: string } | null {
   const code = char.charCodeAt(0) - HANGUL_BASE;
   if (code < 0 || code > HANGUL_END - HANGUL_BASE) return null;
-  const onsetIndex = Math.floor(code / (JUNGSEONG_COUNT * JONGSEONG_COUNT));
-  const nucleusIndex = Math.floor(
-    (code % (JUNGSEONG_COUNT * JONGSEONG_COUNT)) / JONGSEONG_COUNT,
-  );
-  return {
-    onset: CHOSEONG[onsetIndex] ?? 'ㅇ',
-    nucleus: JUNGSEONG[nucleusIndex] ?? 'ㅏ',
-    onsetIndex,
-    nucleusIndex,
-  };
+  const onset = CHOSEONG[Math.floor(code / (JUNGSEONG_COUNT * JONGSEONG_COUNT))] ?? 'ㅇ';
+  const nucleus = JUNGSEONG[Math.floor((code % (JUNGSEONG_COUNT * JONGSEONG_COUNT)) / JONGSEONG_COUNT)] ?? 'ㅏ';
+  return { onset, nucleus };
 }
 
 export function makeFallbackEntry(hangul: string): HanjaEntry {
@@ -66,14 +52,9 @@ export const FRAME_LABELS: Readonly<Record<string, string>> = {
 
 export function buildInterpretation(ev: EvaluationResult): string {
   const { score, isPassed, categories } = ev;
-  let overall: string;
-  if (isPassed) {
-    overall = score >= 80 ? '종합적으로 매우 우수한 이름입니다.'
-      : score >= 65 ? '종합적으로 좋은 이름입니다.'
-      : '합격 기준을 충족하는 이름입니다.';
-  } else {
-    overall = score >= 55 ? '보통 수준의 이름입니다.' : '개선 여지가 있는 이름입니다.';
-  }
+  const overall = isPassed
+    ? (score >= 80 ? '종합적으로 매우 우수한 이름입니다.' : score >= 65 ? '종합적으로 좋은 이름입니다.' : '합격 기준을 충족하는 이름입니다.')
+    : (score >= 55 ? '보통 수준의 이름입니다.' : '개선 여지가 있는 이름입니다.');
   const warns = categories
     .filter((c: FrameInsight) => c.frame !== 'SEONGMYEONGHAK' && !c.isPassed && c.score < 50)
     .map((c: FrameInsight) => `${FRAME_LABELS[c.frame] ?? c.frame} 부분을 점검해 보세요.`);

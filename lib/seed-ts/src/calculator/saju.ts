@@ -11,10 +11,7 @@ import {
   totalCount,
   weightedElementAverage,
   normalizeSignedScore,
-  generates,
   generatedBy,
-  controls,
-  controlledBy,
   distributionFromArrangement,
 } from './scoring.js';
 
@@ -44,36 +41,18 @@ export interface SajuYongshinSummary {
   }>;
 }
 
-export interface SajuNameScoreBreakdown {
-  balance: number;
-  yongshin: number;
-  strength: number;
-  tenGod: number;
-  weights: {
-    balance: number;
-    yongshin: number;
-    strength: number;
-    tenGod: number;
-  };
-  weightedBeforePenalty: number;
-  penalties: {
-    gisin: number;
-    gusin: number;
-    total: number;
-  };
-  elementMatches: {
-    yongshin: number;
-    heesin: number;
-    gisin: number;
-    gusin: number;
-  };
-}
-
 export interface SajuNameScoreResult {
   score: number;
   isPassed: boolean;
   combined: Record<ElementKey, number>;
-  breakdown: SajuNameScoreBreakdown;
+  breakdown: {
+    balance: number;
+    yongshin: number;
+    strength: number;
+    tenGod: number;
+    penalties: { gisin: number; gusin: number; total: number };
+    elementMatches: { yongshin: number; heesin: number; gisin: number; gusin: number };
+  };
 }
 
 const TEN_GOD_GROUPS = ['friend', 'output', 'wealth', 'authority', 'resource'] as const;
@@ -84,9 +63,7 @@ const YTW: Record<string, number> = {
   BYEONGYAK: 0.8, JEONWANG: 0.75, HAPWHA_YONGSHIN: 0.7, ILHAENG_YONGSHIN: 0.7,
 };
 
-const CTX_TYPES = new Set([
-  'JOHU', 'TONGGWAN', 'BYEONGYAK', 'GYEOKGUK', 'HAPWHA_YONGSHIN',
-]);
+const CTX_TYPES = ['JOHU', 'TONGGWAN', 'BYEONGYAK', 'GYEOKGUK', 'HAPWHA_YONGSHIN'];
 
 function spreadOf(v: number[]): number {
   return Math.max(...v) - Math.min(...v);
@@ -127,14 +104,10 @@ function computeOptimalSorted(initial: number[], rc: number): number[] {
   return s;
 }
 
+const GROUP_OFFSET: Record<TenGodGroup, number> = { friend: 0, output: 1, wealth: 2, authority: 3, resource: 4 };
+
 function groupElement(dm: ElementKey, g: TenGodGroup): ElementKey {
-  switch (g) {
-    case 'friend':    return dm;
-    case 'resource':  return generatedBy(dm);
-    case 'output':    return generates(dm);
-    case 'wealth':    return controls(dm);
-    case 'authority': return controlledBy(dm);
-  }
+  return ELEMENT_KEYS[(ELEMENT_KEYS.indexOf(dm) + GROUP_OFFSET[g]) % 5];
 }
 
 function computeBalanceScore(
@@ -154,9 +127,7 @@ function computeBalanceScore(
   const os = spreadOf(opt);
 
   let score: number;
-  if (rt === 0 && fin.every((v, i) => v === ini[i])) {
-    score = 100;
-  } else if (isOpt) {
+  if (isOpt) {
     score = 100;
   } else {
     const man = fs.reduce((acc, v, i) => acc + Math.abs(v - opt[i]), 0);
@@ -193,27 +164,17 @@ function computeRecommendationScore(
     }) * w;
 
     tw += w;
-    if (CTX_TYPES.has(r.type)) cw += w;
+    if (CTX_TYPES.includes(r.type)) cw += w;
   }
 
   if (tw <= 0) return null;
   return { score: clamp((ws / tw) * 100, 0, 100), contextualPriority: clamp(cw / tw, 0, 1) };
 }
 
-interface YongshinScoreResult {
-  score: number;
-  confidence: number;
-  contextualPriority: number;
-  gisinPenalty: number;
-  gusinPenalty: number;
-  gusinRatio: number;
-  elementMatches: { yongshin: number; heesin: number; gisin: number; gusin: number };
-}
-
 function computeYongshinScore(
   rd: Record<ElementKey, number>,
   y: SajuYongshinSummary | null,
-): YongshinScoreResult {
+) {
   if (!y) {
     return {
       score: 50, confidence: 0, contextualPriority: 0,
@@ -307,7 +268,7 @@ function computeTenGodScore(
 
 function resolveAdaptiveWeights(
   bs: number,
-  y: Pick<YongshinScoreResult, 'score' | 'confidence' | 'contextualPriority'>,
+  y: { score: number; confidence: number; contextualPriority: number },
 ): { balance: number; yongshin: number; strength: number; tenGod: number } {
   const sw = 0.12, tw = 0.05;
   const ct = clamp((y.score - bs) / 70, 0, 1);
@@ -345,7 +306,6 @@ export function computeSajuNameScore(
     score, isPassed, combined: bal.combined,
     breakdown: {
       balance: bal.score, yongshin: yng.score, strength: str, tenGod: tg,
-      weights: w, weightedBeforePenalty: wbp,
       penalties: { gisin: yng.gisinPenalty, gusin: yng.gusinPenalty, total: tp },
       elementMatches: yng.elementMatches,
     },
@@ -384,7 +344,7 @@ export class SajuCalculator extends NameCalculator {
   }
 
   backward(ctx: EvalContext): CalculatorPacket {
-    return { nodeId: this.id, signals: [this.signal('SAJU_JAWON_BALANCE', ctx, 1.0)] };
+    return { signals: [this.signal('SAJU_JAWON_BALANCE', ctx, 1.0)] };
   }
 
   getAnalysis(): AnalysisDetail<SajuCompatibility> {

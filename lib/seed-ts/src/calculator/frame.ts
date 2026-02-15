@@ -10,18 +10,11 @@ import {
   checkFourFrameSuriElement, countDominant, bucketFromFortune,
 } from './scoring.js';
 
-function elementFromDigit(s: number): Element {
-  const d = s % 10;
-  if (d === 1 || d === 2) return Element.Wood;
-  if (d === 3 || d === 4) return Element.Fire;
-  if (d === 5 || d === 6) return Element.Earth;
-  if (d === 7 || d === 8) return Element.Metal;
-  return Element.Water;
-}
+const DIGIT_ELEMENTS = [Element.Water, Element.Wood, Element.Wood, Element.Fire, Element.Fire, Element.Earth, Element.Earth, Element.Metal, Element.Metal, Element.Water];
+function elementFromDigit(s: number): Element { return DIGIT_ELEMENTS[s % 10]; }
 
 export class Frame {
   public energy: Energy | null = null;
-  public luckLevel: number = -1;
   constructor(
     public readonly type: 'won' | 'hyung' | 'lee' | 'jung',
     public readonly strokeSum: number,
@@ -31,24 +24,19 @@ export class Frame {
 export class FrameCalculator extends NameCalculator {
   readonly id = 'frame';
   public readonly frames: Frame[];
-  private readonly surnameStrokes: number[];
-  private readonly givenNameStrokes: number[];
 
-  constructor(
-    private readonly surnameEntries: HanjaEntry[],
-    private readonly givenNameEntries: HanjaEntry[],
-  ) {
+  constructor(surnameEntries: HanjaEntry[], givenNameEntries: HanjaEntry[]) {
     super();
-    this.surnameStrokes = surnameEntries.map(e => e.strokes);
-    this.givenNameStrokes = givenNameEntries.map(e => e.strokes);
+    const surnameStrokes = surnameEntries.map(e => e.strokes);
+    const givenNameStrokes = givenNameEntries.map(e => e.strokes);
 
-    const padded = [...this.givenNameStrokes];
+    const padded = [...givenNameStrokes];
     if (padded.length === 1) padded.push(0);
     const mid = Math.floor(padded.length / 2);
     const guSum = sum(padded.slice(0, mid));
     const glSum = sum(padded.slice(mid));
-    const sT = sum(this.surnameStrokes);
-    const gT = sum(this.givenNameStrokes);
+    const sT = sum(surnameStrokes);
+    const gT = sum(givenNameStrokes);
 
     this.frames = [
       new Frame('won', sum(padded)),
@@ -68,7 +56,6 @@ export class FrameCalculator extends NameCalculator {
 
   backward(_ctx: EvalContext): CalculatorPacket {
     return {
-      nodeId: this.id,
       signals: [
         this.signal('SAGYEOK_SURI', _ctx, 1.0),
         this.signal('SAGYEOK_OHAENG', _ctx, 0.6),
@@ -90,7 +77,7 @@ export class FrameCalculator extends NameCalculator {
           type: f.type, strokeSum: f.strokeSum,
           element: f.energy?.element.english ?? '',
           polarity: f.energy?.polarity.english ?? '',
-          luckyLevel: Math.max(0, f.luckLevel),
+          luckyLevel: 0,
         })),
         elementScore: elScore,
         luckScore: 0,
@@ -101,7 +88,7 @@ export class FrameCalculator extends NameCalculator {
   private scoreSagyeokSuri(ctx: EvalContext): void {
     const [won, hyung, lee, jung] = this.frames;
     const f = (n: number) => ctx.luckyMap.get(n) ?? '';
-    const [wonF, hyeongF, iF, jeongF] = [f(won.strokeSum), f(hyung.strokeSum), f(lee.strokeSum), f(jung.strokeSum)];
+    const [wonF, hyeongF, iF, jeongF] = this.frames.map(fr => f(fr.strokeSum));
 
     const buckets = [bucketFromFortune(wonF), bucketFromFortune(hyeongF)];
     if (ctx.givenLength > 1) buckets.push(bucketFromFortune(iF));

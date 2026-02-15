@@ -10,8 +10,6 @@ import {
   checkElementSangSaeng, countDominant, computePolarityResult,
 } from './scoring.js';
 
-const SIGNAL_WEIGHT_MINOR = 0.6;
-
 const YANG_VOWELS: ReadonlySet<string> = new Set([
   'ㅏ', 'ㅐ', 'ㅑ', 'ㅒ', 'ㅗ', 'ㅘ', 'ㅙ', 'ㅚ', 'ㅛ', 'ㅣ',
 ]);
@@ -33,14 +31,9 @@ function elementFromOnset(char: string): Element {
   return ONSET_TO_ELEMENT.get(Math.floor(code / 588)) ?? Element.Water;
 }
 
-interface HangulBlock {
-  readonly entry: HanjaEntry;
-  energy: Energy | null;
-}
-
 export class HangulCalculator extends NameCalculator {
   readonly id = 'hangul';
-  private readonly blocks: HangulBlock[];
+  private readonly blocks: { readonly entry: HanjaEntry; energy: Energy | null }[];
   private elemArrangement: ElementKey[] = [];
   private polArrangement: PolarityValue[] = [];
   private elScore = 0;
@@ -82,10 +75,9 @@ export class HangulCalculator extends NameCalculator {
 
   backward(_ctx: EvalContext): CalculatorPacket {
     return {
-      nodeId: this.id,
       signals: [
-        this.signal('BALEUM_OHAENG', _ctx, SIGNAL_WEIGHT_MINOR),
-        this.signal('BALEUM_EUMYANG', _ctx, SIGNAL_WEIGHT_MINOR),
+        this.signal('BALEUM_OHAENG', _ctx, 0.6),
+        this.signal('BALEUM_EUMYANG', _ctx, 0.6),
       ],
     };
   }
