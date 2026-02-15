@@ -1,6 +1,10 @@
-import { FourFrameCalculator } from './calculator/frame-calculator.js';
-import { HangulCalculator } from './calculator/hangul-calculator.js';
-import { HanjaCalculator } from './calculator/hanja-calculator.js';
+import { HangulCalculator } from './calculator/hangul.js';
+import { HanjaCalculator } from './calculator/hanja.js';
+import { FrameCalculator } from './calculator/frame.js';
+import { SajuCalculator } from './calculator/saju.js';
+import { evaluateName } from './calculator/root.js';
+import type { EvalContext } from './calculator/base.js';
+import { emptyDistribution } from './calculator/element-cycle.js';
 import { SeedEngine } from './engine.js';
 import type { UserInfo, NamingResult, SeedResult, SeedRequest, SeedResponse } from './types.js';
 
@@ -30,7 +34,8 @@ function interpret(scores: Record<string, number>): string {
 /**
  * SeedTs -- Backward-compatible wrapper for the existing UI.
  *
- * - analyze()      : synchronous, uses calculators directly (no DB lookups).
+ * - analyze()      : synchronous, uses the DAG evaluation pipeline with
+ *                    a minimal EvalContext (no luckyMap, no saju output).
  * - analyzeAsync() : async bridge to the full SeedEngine evaluator pipeline.
  */
 export class SeedTs {
@@ -38,24 +43,38 @@ export class SeedTs {
   analyze(userInfo: UserInfo): SeedResult {
     const { lastName, firstName } = userInfo;
 
-    const calcs = [
-      new HangulCalculator(lastName, firstName),
-      new HanjaCalculator(lastName, firstName),
-      new FourFrameCalculator(lastName, firstName),
-    ] as const;
-    for (const c of calcs) c.calculate();
-    const [hangul, hanja, fourFrame] = calcs.map(c => c.getScore());
-    const total = (hangul + hanja + fourFrame) / 3;
+    const hangul = new HangulCalculator(lastName, firstName);
+    const hanja = new HanjaCalculator(lastName, firstName);
+    const frame = new FrameCalculator(lastName, firstName);
+    const saju = new SajuCalculator(lastName, firstName);
+
+    const ctx: EvalContext = {
+      surnameLength: lastName.length,
+      givenLength: firstName.length,
+      luckyMap: new Map(),
+      sajuDistribution: emptyDistribution(),
+      sajuOutput: null,
+      insights: {},
+    };
+
+    const ev = evaluateName([hangul, hanja, frame, saju], ctx);
+    const cm = ev.categoryMap;
+
+    const hangulScore = ((cm.BALEUM_OHAENG?.score ?? 0) + (cm.BALEUM_EUMYANG?.score ?? 0)) / 2;
+    const hanjaScore = ((cm.HOEKSU_EUMYANG?.score ?? 0) + (cm.SAGYEOK_OHAENG?.score ?? 0)) / 2;
+    const fourFrameScore = cm.SAGYEOK_SURI?.score ?? 0;
+    const total = ev.score;
 
     const result: NamingResult = {
       lastName,
       firstName,
       totalScore: Math.round(total * 10) / 10,
-      hangul: calcs[0],
-      hanja: calcs[1],
-      fourFrames: calcs[2],
-      interpretation: interpret({ total, hangul, hanja, fourFrame }),
+      hangul: hangul as unknown,
+      hanja: hanja as unknown,
+      fourFrames: frame as unknown,
+      interpretation: interpret({ total, hangul: hangulScore, hanja: hanjaScore, fourFrame: fourFrameScore }),
     };
+
     return { candidates: [result], totalCount: 1 };
   }
 

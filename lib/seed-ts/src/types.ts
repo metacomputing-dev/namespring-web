@@ -1,4 +1,3 @@
-import type { EnergyCalculator } from './calculator/energy-calculator.js';
 import type { HanjaEntry } from './database/hanja-repository.js';
 
 // ============================================================
@@ -236,9 +235,9 @@ export interface NamingResult {
   readonly lastName: HanjaEntry[];
   readonly firstName: HanjaEntry[];
   readonly totalScore: number;
-  readonly hanja: EnergyCalculator;
-  readonly hangul: EnergyCalculator;
-  readonly fourFrames: EnergyCalculator;
+  readonly hanja: unknown;
+  readonly hangul: unknown;
+  readonly fourFrames: unknown;
   readonly interpretation: string;
 }
 

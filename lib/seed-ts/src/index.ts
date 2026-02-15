@@ -1,4 +1,4 @@
-// Engine (main entry points)
+// Engine
 export { SeedEngine } from './engine.js';
 export { SeedTs } from './seed.js';
 
@@ -13,7 +13,7 @@ export type {
 // Backward-compat types
 export type { UserInfo, NamingResult, SeedResult, Gender, BirthDateTime } from './types.js';
 
-// Database (used directly by UI)
+// Database
 export { HanjaRepository } from './database/hanja-repository.js';
 export type { HanjaEntry } from './database/hanja-repository.js';
 export { FourframeRepository } from './database/fourframe-repository.js';
@@ -21,28 +21,19 @@ export type { FourframeMeaningEntry } from './database/fourframe-repository.js';
 export { NameStatRepository } from './database/name-stat-repository.js';
 export type { NameStatEntry } from './database/name-stat-repository.js';
 
-// Calculator (advanced usage — keep existing exports)
-export { EnergyCalculator } from './calculator/energy-calculator.js';
-export type { AnalysisDetail } from './calculator/energy-calculator.js';
-export { FourFrameCalculator, Frame } from './calculator/frame-calculator.js';
-export { HangulCalculator, HangulNameBlock } from './calculator/hangul-calculator.js';
-export { HanjaCalculator, HanjaNameBlock } from './calculator/hanja-calculator.js';
-export { SajuCalculator } from './calculator/saju-calculator.js';
-export type { SajuContext } from './calculator/saju-calculator.js';
-
-// Calculator graph
-export { executeCalculatorNode, flattenSignals } from './calculator/calculator-graph.js';
-export type { CalculatorNode, CalculatorSignal, CalculatorPacket } from './calculator/calculator-graph.js';
-
-// Evaluator (advanced usage — minimal surface from new structure)
-export { NameEvaluator } from './evaluator/evaluator.js';
-export type { EvaluationResult, EvalFrame, FrameInsight } from './evaluator/evaluator.js';
-export type { ElementKey } from './evaluator/element-cycle.js';
-export type { SajuNameScoreResult, SajuOutputSummary } from './evaluator/saju-scorer.js';
-
-// Search
-export { FourFrameOptimizer } from './evaluator/search.js';
-export { MinHeap } from './evaluator/search.js';
+// Calculator (the core evaluation framework)
+export { NameCalculator } from './calculator/base.js';
+export type { AnalysisDetail, EvalContext, EvalFrame, FrameInsight, EvaluationResult } from './calculator/base.js';
+export { HangulCalculator } from './calculator/hangul.js';
+export { HanjaCalculator } from './calculator/hanja.js';
+export { FrameCalculator, Frame } from './calculator/frame.js';
+export { SajuCalculator } from './calculator/saju.js';
+export { evaluateName } from './calculator/root.js';
+export { executeCalculatorNode, flattenSignals } from './calculator/graph.js';
+export type { CalculatorNode, CalculatorSignal, CalculatorPacket } from './calculator/graph.js';
+export type { ElementKey } from './calculator/element-cycle.js';
+export type { SajuNameScoreResult, SajuOutputSummary } from './calculator/saju-scorer.js';
+export { FourFrameOptimizer, MinHeap } from './calculator/search.js';
 
 // Model
 export { Element } from './model/element.js';

@@ -1,15 +1,17 @@
 import { HanjaRepository, type HanjaEntry } from './database/hanja-repository.js';
 import { FourframeRepository } from './database/fourframe-repository.js';
 import { NameStatRepository } from './database/name-stat-repository.js';
-import { FourFrameCalculator } from './calculator/frame-calculator.js';
-import { HangulCalculator } from './calculator/hangul-calculator.js';
-import { HanjaCalculator } from './calculator/hanja-calculator.js';
 import { Polarity } from './model/polarity.js';
-import { NameEvaluator, type EvaluationResult } from './evaluator/evaluator.js';
-import type { SajuOutputSummary } from './evaluator/saju-scorer.js';
-import type { ElementKey } from './evaluator/element-cycle.js';
-import { elementFromSajuCode, emptyDistribution } from './evaluator/element-cycle.js';
-import { FourFrameOptimizer } from './evaluator/search.js';
+import { HangulCalculator } from './calculator/hangul.js';
+import { HanjaCalculator } from './calculator/hanja.js';
+import { FrameCalculator } from './calculator/frame.js';
+import { SajuCalculator } from './calculator/saju.js';
+import { evaluateName } from './calculator/root.js';
+import type { EvaluationResult, EvalContext } from './calculator/base.js';
+import type { SajuOutputSummary } from './calculator/saju-scorer.js';
+import type { ElementKey } from './calculator/element-cycle.js';
+import { elementFromSajuCode, emptyDistribution } from './calculator/element-cycle.js';
+import { FourFrameOptimizer } from './calculator/search.js';
 import type {
   SeedRequest, SeedResponse, SeedCandidate, SajuSummary, PillarSummary,
   BirthInfo, NameCharInput, CharDetail,
@@ -51,7 +53,6 @@ export class SeedEngine {
   private initialized = false;
   private luckyMap = new Map<number, string>();
   private validFourFrameNumbers = new Set<number>();
-  private evaluator: NameEvaluator | null = null;
   private optimizer: FourFrameOptimizer | null = null;
 
   async init(): Promise<void> {
@@ -63,7 +64,6 @@ export class SeedEngine {
       if (lv.includes('최상') || lv.includes('상') || lv.includes('양'))
         this.validFourFrameNumbers.add(entry.number);
     }
-    this.evaluator = new NameEvaluator(this.luckyMap);
     this.optimizer = new FourFrameOptimizer(this.validFourFrameNumbers);
     this.initialized = true;
   }
@@ -197,9 +197,6 @@ export class SeedEngine {
   }
 
   // ── Score a single candidate ──
-  // NOTE: The evaluator creates its own calculators internally. We create a second
-  // set here for getAnalysis().data which the SeedCandidate contract requires.
-  // Eliminating this would require modifying the evaluator to expose its calculators.
 
   private async scoreCandidate(
     surname: NameCharInput[], givenName: NameCharInput[],
@@ -207,13 +204,23 @@ export class SeedEngine {
   ): Promise<SeedCandidate> {
     const se = await this.resolveEntries(surname);
     const ge = await this.resolveEntries(givenName);
-    const ev = this.evaluator!.evaluate(se, ge, sajuDist, sajuOutput);
-    const cm = ev.categoryMap;
-    const sajuBal = cm.SAJU_JAWON_BALANCE?.score ?? 0;
 
-    const hgCalc = new HangulCalculator(se, ge); hgCalc.calculate();
-    const hjCalc = new HanjaCalculator(se, ge);   hjCalc.calculate();
-    const ffCalc = new FourFrameCalculator(se, ge); ffCalc.calculate();
+    // Create calculators ONCE -- they serve as both DAG nodes AND analysis providers
+    const hangul = new HangulCalculator(se, ge);
+    const hanja = new HanjaCalculator(se, ge);
+    const frame = new FrameCalculator(se, ge);
+    const saju = new SajuCalculator(se, ge);
+
+    const ctx: EvalContext = {
+      surnameLength: se.length, givenLength: ge.length,
+      luckyMap: this.luckyMap, sajuDistribution: sajuDist,
+      sajuOutput, insights: {},
+    };
+
+    const ev = evaluateName([hangul, hanja, frame, saju], ctx);
+    const cm = ev.categoryMap;
+
+    // Get analysis from the SAME calculator instances (no duplication)
     const all = [...se, ...ge];
     const r = (v: number) => Math.round(v * 10) / 10;
 
@@ -226,21 +233,14 @@ export class SeedEngine {
         total: r(ev.score),
         hangul: r(((cm.BALEUM_OHAENG?.score ?? 0) + (cm.BALEUM_EUMYANG?.score ?? 0)) / 2),
         hanja: r(((cm.HOEKSU_EUMYANG?.score ?? 0) + (cm.SAGYEOK_OHAENG?.score ?? 0)) / 2),
-        fourFrame: r(cm.SAGYEOK_SURI?.score ?? 0), saju: r(sajuBal),
+        fourFrame: r(cm.SAGYEOK_SURI?.score ?? 0),
+        saju: r(cm.SAJU_JAWON_BALANCE?.score ?? 0),
       },
       analysis: {
-        hangul: hgCalc.getAnalysis().data, hanja: hjCalc.getAnalysis().data,
-        fourFrame: ffCalc.getAnalysis().data,
-        saju: {
-          yongshinElement: elementFromSajuCode(sajuOutput?.yongshin?.finalYongshin ?? '') ?? '',
-          heeshinElement: elementFromSajuCode(sajuOutput?.yongshin?.finalHeesin ?? null) ?? null,
-          gishinElement: elementFromSajuCode(sajuOutput?.yongshin?.gisin ?? null) ?? null,
-          nameElements: ge.map(e => e.resource_element),
-          yongshinMatchCount: 0, yongshinGeneratingCount: 0,
-          gishinMatchCount: 0, gishinOvercomingCount: 0,
-          deficiencyFillCount: 0, excessiveAvoidCount: 0,
-          dayMasterSupportScore: 0, affinityScore: sajuBal,
-        },
+        hangul: hangul.getAnalysis().data,
+        hanja: hanja.getAnalysis().data,
+        fourFrame: frame.getAnalysis().data,
+        saju: saju.getAnalysis().data,
       },
       interpretation: buildInterpretation(ev), rank: 0,
     };
