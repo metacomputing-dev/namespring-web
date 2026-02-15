@@ -83,8 +83,8 @@ function App() {
             <div className="min-h-screen flex flex-col items-center p-6 font-sans text-[var(--ns-text)]">
               <div className="bg-[var(--ns-surface)] p-10 rounded-[3rem] shadow-2xl border border-[var(--ns-border)] w-full max-w-2xl overflow-hidden">
                 <header className="mb-8 text-center">
-                  <h1 className="text-3xl font-black text-[var(--ns-accent-text)]">입장 정보</h1>
-                  <p className="text-[var(--ns-muted)] text-sm font-semibold">입력을 마치면 홈으로 이동해요.</p>
+                  <h1 className="text-3xl font-black text-[var(--ns-accent-text)]">이름봄</h1>
+                  <p className="text-[var(--ns-muted)] text-sm font-semibold">당신의 인생과 함께하는 이름</p>
                 </header>
                 <InputForm
                   hanjaRepo={hanjaRepo}
@@ -96,7 +96,7 @@ function App() {
                     } catch {}
                     setPage('home');
                   }}
-                  submitLabel="입장하기"
+                  submitLabel="시작하기"
                 />
               </div>
             </div>
