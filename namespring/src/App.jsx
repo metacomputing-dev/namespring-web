@@ -54,6 +54,12 @@ function App() {
     return engine.analyze(userInfo);
   };
 
+  const handleAnalyzeAsync = async (userInfo) => {
+    const engine = new SeedTs();
+    await Promise.resolve();
+    return engine.analyze(userInfo);
+  };
+
   const getView = () => {
     if (showSplash) {
       return { key: 'splash', node: <SplashScreen /> };
@@ -110,7 +116,11 @@ function App() {
         key: 'home',
         node: (
           <AppBackground>
-            <HomePage onOpenReport={() => setPage('report')} />
+            <HomePage
+              entryUserInfo={entryUserInfo}
+              onAnalyzeAsync={handleAnalyzeAsync}
+              onOpenReport={() => setPage('report')}
+            />
           </AppBackground>
         ),
       };
