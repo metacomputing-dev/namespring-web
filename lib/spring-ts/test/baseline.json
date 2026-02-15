@@ -1,0 +1,4103 @@
+{
+  "project": "namesprint-w",
+  "timestamp": "2026-02-15T13:12:36.101Z",
+  "birthInfo": {
+    "year": 1986,
+    "month": 4,
+    "day": 19,
+    "hour": 5,
+    "minute": 45,
+    "gender": "male"
+  },
+  "evaluate": {
+    "name": {
+      "surname": [
+        {
+          "hangul": "최",
+          "hanja": "崔",
+          "meaning": "성씨 최, 높을 최",
+          "strokes": 11,
+          "element": "Earth",
+          "polarity": "Positive"
+        }
+      ],
+      "givenName": [
+        {
+          "hangul": "성",
+          "hanja": "成",
+          "meaning": "이룰 성, 될 성",
+          "strokes": 7,
+          "element": "Fire",
+          "polarity": "Positive"
+        },
+        {
+          "hangul": "수",
+          "hanja": "秀",
+          "meaning": "빼어날 수, 성할 수",
+          "strokes": 7,
+          "element": "Wood",
+          "polarity": "Positive"
+        }
+      ],
+      "fullHangul": "최성수",
+      "fullHanja": "崔成秀"
+    },
+    "scores": {
+      "total": 55.9,
+      "hangul": 70,
+      "hanja": 57.5,
+      "fourFrame": 60,
+      "saju": 38.7
+    },
+    "analysis": {
+      "hangul": {
+        "blocks": [
+          {
+            "hangul": "최",
+            "onset": "ㅊ",
+            "nucleus": "ㅚ",
+            "element": "Metal",
+            "polarity": "Positive"
+          },
+          {
+            "hangul": "성",
+            "onset": "ㅅ",
+            "nucleus": "ㅓ",
+            "element": "Metal",
+            "polarity": "Negative"
+          },
+          {
+            "hangul": "수",
+            "onset": "ㅅ",
+            "nucleus": "ㅜ",
+            "element": "Metal",
+            "polarity": "Negative"
+          }
+        ],
+        "polarityScore": 75,
+        "elementScore": 65
+      },
+      "hanja": {
+        "blocks": [
+          {
+            "hanja": "崔",
+            "hangul": "최",
+            "strokes": 11,
+            "resourceElement": "Earth",
+            "strokeElement": "Wood",
+            "polarity": "Positive"
+          },
+          {
+            "hanja": "成",
+            "hangul": "성",
+            "strokes": 7,
+            "resourceElement": "Fire",
+            "strokeElement": "Metal",
+            "polarity": "Positive"
+          },
+          {
+            "hanja": "秀",
+            "hangul": "수",
+            "strokes": 7,
+            "resourceElement": "Wood",
+            "strokeElement": "Metal",
+            "polarity": "Positive"
+          }
+        ],
+        "polarityScore": 50,
+        "elementScore": 65
+      },
+      "fourFrame": {
+        "frames": [
+          {
+            "type": "won",
+            "strokeSum": 14,
+            "element": "Fire",
+            "polarity": "Negative",
+            "luckyLevel": 0
+          },
+          {
+            "type": "hyung",
+            "strokeSum": 18,
+            "element": "Metal",
+            "polarity": "Negative",
+            "luckyLevel": 0
+          },
+          {
+            "type": "lee",
+            "strokeSum": 18,
+            "element": "Metal",
+            "polarity": "Negative",
+            "luckyLevel": 0
+          },
+          {
+            "type": "jung",
+            "strokeSum": 25,
+            "element": "Earth",
+            "polarity": "Positive",
+            "luckyLevel": 0
+          }
+        ],
+        "elementScore": 45,
+        "luckScore": 0
+      },
+      "saju": {
+        "yongshinElement": "Fire",
+        "heeshinElement": "Wood",
+        "gishinElement": "Water",
+        "nameElements": [
+          "Fire",
+          "Wood"
+        ],
+        "yongshinMatchCount": 1,
+        "gishinMatchCount": 0,
+        "dayMasterSupportScore": 5.8847736625514315,
+        "affinityScore": 38.68732075476788
+      }
+    },
+    "interpretation": "보통 수준의 이름입니다. 사주 자원 균형 부분을 점검해 보세요."
+  },
+  "searchRecommend": {
+    "totalCount": 500,
+    "top20": [
+      {
+        "name": "최인수",
+        "hanja": "崔人手",
+        "scores": {
+          "total": 68.4,
+          "hangul": 80,
+          "hanja": 80,
+          "fourFrame": 80,
+          "saju": 38.7
+        },
+        "interpretation": "보통 수준의 이름입니다. 사주 자원 균형 부분을 점검해 보세요."
+      },
+      {
+        "name": "최미력",
+        "hanja": "崔未力",
+        "scores": {
+          "total": 68.2,
+          "hangul": 75,
+          "hanja": 83.8,
+          "fourFrame": 85,
+          "saju": 33.6
+        },
+        "interpretation": "보통 수준의 이름입니다. 사주 자원 균형 부분을 점검해 보세요."
+      },
+      {
+        "name": "최미력",
+        "hanja": "崔未力",
+        "scores": {
+          "total": 68.2,
+          "hangul": 75,
+          "hanja": 83.8,
+          "fourFrame": 85,
+          "saju": 33.6
+        },
+        "interpretation": "보통 수준의 이름입니다. 사주 자원 균형 부분을 점검해 보세요."
+      },
+      {
+        "name": "최장력",
+        "hanja": "崔仗力",
+        "scores": {
+          "total": 68,
+          "hangul": 70,
+          "hanja": 83.8,
+          "fourFrame": 85,
+          "saju": 38.9
+        },
+        "interpretation": "보통 수준의 이름입니다. 사주 자원 균형 부분을 점검해 보세요."
+      },
+      {
+        "name": "최장력",
+        "hanja": "崔仗力",
+        "scores": {
+          "total": 68,
+          "hangul": 70,
+          "hanja": 83.8,
+          "fourFrame": 85,
+          "saju": 38.9
+        },
+        "interpretation": "보통 수준의 이름입니다. 사주 자원 균형 부분을 점검해 보세요."
+      },
+      {
+        "name": "최대력",
+        "hanja": "崔代力",
+        "scores": {
+          "total": 68,
+          "hangul": 70,
+          "hanja": 83.8,
+          "fourFrame": 85,
+          "saju": 38.9
+        },
+        "interpretation": "보통 수준의 이름입니다. 사주 자원 균형 부분을 점검해 보세요."
+      },
+      {
+        "name": "최대력",
+        "hanja": "崔代力",
+        "scores": {
+          "total": 68,
+          "hangul": 70,
+          "hanja": 83.8,
+          "fourFrame": 85,
+          "saju": 38.9
+        },
+        "interpretation": "보통 수준의 이름입니다. 사주 자원 균형 부분을 점검해 보세요."
+      },
+      {
+        "name": "최자력",
+        "hanja": "崔仔力",
+        "scores": {
+          "total": 68,
+          "hangul": 70,
+          "hanja": 83.8,
+          "fourFrame": 85,
+          "saju": 38.9
+        },
+        "interpretation": "보통 수준의 이름입니다. 사주 자원 균형 부분을 점검해 보세요."
+      },
+      {
+        "name": "최자력",
+        "hanja": "崔仔力",
+        "scores": {
+          "total": 68,
+          "hangul": 70,
+          "hanja": 83.8,
+          "fourFrame": 85,
+          "saju": 38.9
+        },
+        "interpretation": "보통 수준의 이름입니다. 사주 자원 균형 부분을 점검해 보세요."
+      },
+      {
+        "name": "최이수",
+        "hanja": "崔二手",
+        "scores": {
+          "total": 67.2,
+          "hangul": 80,
+          "hanja": 80,
+          "fourFrame": 80,
+          "saju": 33.2
+        },
+        "interpretation": "보통 수준의 이름입니다. 사주 자원 균형 부분을 점검해 보세요."
+      },
+      {
+        "name": "최입수",
+        "hanja": "崔入手",
+        "scores": {
+          "total": 67.2,
+          "hangul": 80,
+          "hanja": 80,
+          "fourFrame": 80,
+          "saju": 33.2
+        },
+        "interpretation": "보통 수준의 이름입니다. 사주 자원 균형 부분을 점검해 보세요."
+      },
+      {
+        "name": "최력오",
+        "hanja": "崔力午",
+        "scores": {
+          "total": 67.2,
+          "hangul": 75,
+          "hanja": 80,
+          "fourFrame": 80,
+          "saju": 38.9
+        },
+        "interpretation": "보통 수준의 이름입니다. 사주 자원 균형 부분을 점검해 보세요."
+      },
+      {
+        "name": "최력인",
+        "hanja": "崔力仁",
+        "scores": {
+          "total": 67.2,
+          "hangul": 75,
+          "hanja": 80,
+          "fourFrame": 80,
+          "saju": 38.9
+        },
+        "interpretation": "보통 수준의 이름입니다. 사주 자원 균형 부분을 점검해 보세요."
+      },
+      {
+        "name": "최력인",
+        "hanja": "崔力引",
+        "scores": {
+          "total": 67.2,
+          "hangul": 75,
+          "hanja": 80,
+          "fourFrame": 80,
+          "saju": 38.9
+        },
+        "interpretation": "보통 수준의 이름입니다. 사주 자원 균형 부분을 점검해 보세요."
+      },
+      {
+        "name": "최력오",
+        "hanja": "崔力午",
+        "scores": {
+          "total": 67.2,
+          "hangul": 75,
+          "hanja": 80,
+          "fourFrame": 80,
+          "saju": 38.9
+        },
+        "interpretation": "보통 수준의 이름입니다. 사주 자원 균형 부분을 점검해 보세요."
+      },
+      {
+        "name": "최력인",
+        "hanja": "崔力仁",
+        "scores": {
+          "total": 67.2,
+          "hangul": 75,
+          "hanja": 80,
+          "fourFrame": 80,
+          "saju": 38.9
+        },
+        "interpretation": "보통 수준의 이름입니다. 사주 자원 균형 부분을 점검해 보세요."
+      },
+      {
+        "name": "최력인",
+        "hanja": "崔力引",
+        "scores": {
+          "total": 67.2,
+          "hangul": 75,
+          "hanja": 80,
+          "fourFrame": 80,
+          "saju": 38.9
+        },
+        "interpretation": "보통 수준의 이름입니다. 사주 자원 균형 부분을 점검해 보세요."
+      },
+      {
+        "name": "최오력",
+        "hanja": "崔午力",
+        "scores": {
+          "total": 67.2,
+          "hangul": 76.3,
+          "hanja": 78.8,
+          "fourFrame": 80,
+          "saju": 38.9
+        },
+        "interpretation": "보통 수준의 이름입니다. 사주 자원 균형 부분을 점검해 보세요."
+      },
+      {
+        "name": "최오력",
+        "hanja": "崔午力",
+        "scores": {
+          "total": 67.2,
+          "hangul": 76.3,
+          "hanja": 78.8,
+          "fourFrame": 80,
+          "saju": 38.9
+        },
+        "interpretation": "보통 수준의 이름입니다. 사주 자원 균형 부분을 점검해 보세요."
+      },
+      {
+        "name": "최인력",
+        "hanja": "崔仁力",
+        "scores": {
+          "total": 67.2,
+          "hangul": 76.3,
+          "hanja": 78.8,
+          "fourFrame": 80,
+          "saju": 38.9
+        },
+        "interpretation": "보통 수준의 이름입니다. 사주 자원 균형 부분을 점검해 보세요."
+      }
+    ]
+  },
+  "searchAll": {
+    "totalCount": 500,
+    "top20": [
+      {
+        "name": "최인수",
+        "hanja": "崔人手",
+        "scores": {
+          "total": 68.4,
+          "hangul": 80,
+          "hanja": 80,
+          "fourFrame": 80,
+          "saju": 38.7
+        },
+        "interpretation": "보통 수준의 이름입니다. 사주 자원 균형 부분을 점검해 보세요."
+      },
+      {
+        "name": "최미력",
+        "hanja": "崔未力",
+        "scores": {
+          "total": 68.2,
+          "hangul": 75,
+          "hanja": 83.8,
+          "fourFrame": 85,
+          "saju": 33.6
+        },
+        "interpretation": "보통 수준의 이름입니다. 사주 자원 균형 부분을 점검해 보세요."
+      },
+      {
+        "name": "최미력",
+        "hanja": "崔未力",
+        "scores": {
+          "total": 68.2,
+          "hangul": 75,
+          "hanja": 83.8,
+          "fourFrame": 85,
+          "saju": 33.6
+        },
+        "interpretation": "보통 수준의 이름입니다. 사주 자원 균형 부분을 점검해 보세요."
+      },
+      {
+        "name": "최장력",
+        "hanja": "崔仗力",
+        "scores": {
+          "total": 68,
+          "hangul": 70,
+          "hanja": 83.8,
+          "fourFrame": 85,
+          "saju": 38.9
+        },
+        "interpretation": "보통 수준의 이름입니다. 사주 자원 균형 부분을 점검해 보세요."
+      },
+      {
+        "name": "최장력",
+        "hanja": "崔仗力",
+        "scores": {
+          "total": 68,
+          "hangul": 70,
+          "hanja": 83.8,
+          "fourFrame": 85,
+          "saju": 38.9
+        },
+        "interpretation": "보통 수준의 이름입니다. 사주 자원 균형 부분을 점검해 보세요."
+      },
+      {
+        "name": "최대력",
+        "hanja": "崔代力",
+        "scores": {
+          "total": 68,
+          "hangul": 70,
+          "hanja": 83.8,
+          "fourFrame": 85,
+          "saju": 38.9
+        },
+        "interpretation": "보통 수준의 이름입니다. 사주 자원 균형 부분을 점검해 보세요."
+      },
+      {
+        "name": "최대력",
+        "hanja": "崔代力",
+        "scores": {
+          "total": 68,
+          "hangul": 70,
+          "hanja": 83.8,
+          "fourFrame": 85,
+          "saju": 38.9
+        },
+        "interpretation": "보통 수준의 이름입니다. 사주 자원 균형 부분을 점검해 보세요."
+      },
+      {
+        "name": "최자력",
+        "hanja": "崔仔力",
+        "scores": {
+          "total": 68,
+          "hangul": 70,
+          "hanja": 83.8,
+          "fourFrame": 85,
+          "saju": 38.9
+        },
+        "interpretation": "보통 수준의 이름입니다. 사주 자원 균형 부분을 점검해 보세요."
+      },
+      {
+        "name": "최자력",
+        "hanja": "崔仔力",
+        "scores": {
+          "total": 68,
+          "hangul": 70,
+          "hanja": 83.8,
+          "fourFrame": 85,
+          "saju": 38.9
+        },
+        "interpretation": "보통 수준의 이름입니다. 사주 자원 균형 부분을 점검해 보세요."
+      },
+      {
+        "name": "최이수",
+        "hanja": "崔二手",
+        "scores": {
+          "total": 67.2,
+          "hangul": 80,
+          "hanja": 80,
+          "fourFrame": 80,
+          "saju": 33.2
+        },
+        "interpretation": "보통 수준의 이름입니다. 사주 자원 균형 부분을 점검해 보세요."
+      },
+      {
+        "name": "최입수",
+        "hanja": "崔入手",
+        "scores": {
+          "total": 67.2,
+          "hangul": 80,
+          "hanja": 80,
+          "fourFrame": 80,
+          "saju": 33.2
+        },
+        "interpretation": "보통 수준의 이름입니다. 사주 자원 균형 부분을 점검해 보세요."
+      },
+      {
+        "name": "최력오",
+        "hanja": "崔力午",
+        "scores": {
+          "total": 67.2,
+          "hangul": 75,
+          "hanja": 80,
+          "fourFrame": 80,
+          "saju": 38.9
+        },
+        "interpretation": "보통 수준의 이름입니다. 사주 자원 균형 부분을 점검해 보세요."
+      },
+      {
+        "name": "최력인",
+        "hanja": "崔力仁",
+        "scores": {
+          "total": 67.2,
+          "hangul": 75,
+          "hanja": 80,
+          "fourFrame": 80,
+          "saju": 38.9
+        },
+        "interpretation": "보통 수준의 이름입니다. 사주 자원 균형 부분을 점검해 보세요."
+      },
+      {
+        "name": "최력인",
+        "hanja": "崔力引",
+        "scores": {
+          "total": 67.2,
+          "hangul": 75,
+          "hanja": 80,
+          "fourFrame": 80,
+          "saju": 38.9
+        },
+        "interpretation": "보통 수준의 이름입니다. 사주 자원 균형 부분을 점검해 보세요."
+      },
+      {
+        "name": "최력오",
+        "hanja": "崔力午",
+        "scores": {
+          "total": 67.2,
+          "hangul": 75,
+          "hanja": 80,
+          "fourFrame": 80,
+          "saju": 38.9
+        },
+        "interpretation": "보통 수준의 이름입니다. 사주 자원 균형 부분을 점검해 보세요."
+      },
+      {
+        "name": "최력인",
+        "hanja": "崔力仁",
+        "scores": {
+          "total": 67.2,
+          "hangul": 75,
+          "hanja": 80,
+          "fourFrame": 80,
+          "saju": 38.9
+        },
+        "interpretation": "보통 수준의 이름입니다. 사주 자원 균형 부분을 점검해 보세요."
+      },
+      {
+        "name": "최력인",
+        "hanja": "崔力引",
+        "scores": {
+          "total": 67.2,
+          "hangul": 75,
+          "hanja": 80,
+          "fourFrame": 80,
+          "saju": 38.9
+        },
+        "interpretation": "보통 수준의 이름입니다. 사주 자원 균형 부분을 점검해 보세요."
+      },
+      {
+        "name": "최오력",
+        "hanja": "崔午力",
+        "scores": {
+          "total": 67.2,
+          "hangul": 76.3,
+          "hanja": 78.8,
+          "fourFrame": 80,
+          "saju": 38.9
+        },
+        "interpretation": "보통 수준의 이름입니다. 사주 자원 균형 부분을 점검해 보세요."
+      },
+      {
+        "name": "최오력",
+        "hanja": "崔午力",
+        "scores": {
+          "total": 67.2,
+          "hangul": 76.3,
+          "hanja": 78.8,
+          "fourFrame": 80,
+          "saju": 38.9
+        },
+        "interpretation": "보통 수준의 이름입니다. 사주 자원 균형 부분을 점검해 보세요."
+      },
+      {
+        "name": "최인력",
+        "hanja": "崔仁力",
+        "scores": {
+          "total": 67.2,
+          "hangul": 76.3,
+          "hanja": 78.8,
+          "fourFrame": 80,
+          "saju": 38.9
+        },
+        "interpretation": "보통 수준의 이름입니다. 사주 자원 균형 부분을 점검해 보세요."
+      }
+    ]
+  },
+  "saju": {
+    "coreResult": {
+      "input": {
+        "birthYear": 1986,
+        "birthMonth": 4,
+        "birthDay": 19,
+        "birthHour": 5,
+        "birthMinute": 45,
+        "gender": "MALE",
+        "timezone": "Asia/Seoul",
+        "latitude": 37.5665,
+        "longitude": 126.978
+      },
+      "pillars": {
+        "year": {
+          "cheongan": "BYEONG",
+          "jiji": "IN"
+        },
+        "month": {
+          "cheongan": "IM",
+          "jiji": "JIN"
+        },
+        "day": {
+          "cheongan": "GYE",
+          "jiji": "SA"
+        },
+        "hour": {
+          "cheongan": "EUL",
+          "jiji": "MYO"
+        }
+      },
+      "standardYear": 1986,
+      "standardMonth": 4,
+      "standardDay": 19,
+      "standardHour": 5,
+      "standardMinute": 45,
+      "adjustedYear": 1986,
+      "adjustedMonth": 4,
+      "adjustedDay": 19,
+      "adjustedHour": 5,
+      "adjustedMinute": 13,
+      "dstCorrectionMinutes": 0,
+      "longitudeCorrectionMinutes": -32,
+      "equationOfTimeMinutes": 0
+    },
+    "cheonganRelations": [
+      {
+        "type": "CHUNG",
+        "stems": [
+          "BYEONG",
+          "IM"
+        ],
+        "resultElement": null,
+        "note": "병임충",
+        "score": {
+          "baseScore": 65,
+          "adjacencyBonus": 10,
+          "outcomeMultiplier": 1,
+          "finalScore": 75,
+          "rationale": "병임충(천간충): 기본점수 65점 + 인접보너스 10점 = 최종 75점"
+        }
+      }
+    ],
+    "hapHwaEvaluations": [],
+    "resolvedJijiRelations": [
+      {
+        "hit": {
+          "type": "BANGHAP",
+          "members": [
+            "IN",
+            "MYO",
+            "JIN"
+          ],
+          "note": "동방 목합"
+        },
+        "outcome": "ACTIVE",
+        "interactsWith": [
+          {
+            "type": "HYEONG",
+            "members": [
+              "IN",
+              "SA"
+            ],
+            "note": "인사형(무은)"
+          }
+        ],
+        "reasoning": "인사형(무은)(형)은 동방 목합(합)과 공존하여 합의 효력에 영향을 주지 않습니다.",
+        "score": {
+          "baseScore": 100,
+          "adjacencyBonus": 10,
+          "outcomeMultiplier": 1,
+          "finalScore": 100,
+          "rationale": "동방 목합(방합): 기본점수 100점 + 인접보너스 10점 = 최종 100점"
+        }
+      },
+      {
+        "hit": {
+          "type": "HYEONG",
+          "members": [
+            "IN",
+            "SA"
+          ],
+          "note": "인사형(무은)"
+        },
+        "outcome": "ACTIVE",
+        "interactsWith": [
+          {
+            "type": "BANGHAP",
+            "members": [
+              "IN",
+              "MYO",
+              "JIN"
+            ],
+            "note": "동방 목합"
+          }
+        ],
+        "reasoning": "인사형(무은)(형)은 동방 목합(합)에도 불구하고 해소되지 않고 유지됩니다.",
+        "score": {
+          "baseScore": 55,
+          "adjacencyBonus": 0,
+          "outcomeMultiplier": 1,
+          "finalScore": 55,
+          "rationale": "인사형(무은)(형): 기본점수 55점 = 최종 55점"
+        }
+      },
+      {
+        "hit": {
+          "type": "HAE",
+          "members": [
+            "IN",
+            "SA"
+          ],
+          "note": "인사해"
+        },
+        "outcome": "WEAKENED",
+        "interactsWith": [
+          {
+            "type": "BANGHAP",
+            "members": [
+              "IN",
+              "MYO",
+              "JIN"
+            ],
+            "note": "동방 목합"
+          },
+          {
+            "type": "HYEONG",
+            "members": [
+              "IN",
+              "SA"
+            ],
+            "note": "인사형(무은)"
+          }
+        ],
+        "reasoning": "동방 목합(방합)이(가) 우선하여 인사해(해)의 작용이 약화됩니다. 인사형(무은)(형)이(가) 우선하여 인사해(해)의 작용이 약화됩니다.",
+        "score": {
+          "baseScore": 40,
+          "adjacencyBonus": 0,
+          "outcomeMultiplier": 0.5,
+          "finalScore": 20,
+          "rationale": "인사해(해): 기본점수 40점 × 약화배율(0.5) = 최종 20점"
+        }
+      },
+      {
+        "hit": {
+          "type": "HAE",
+          "members": [
+            "MYO",
+            "JIN"
+          ],
+          "note": "묘진해"
+        },
+        "outcome": "WEAKENED",
+        "interactsWith": [
+          {
+            "type": "BANGHAP",
+            "members": [
+              "IN",
+              "MYO",
+              "JIN"
+            ],
+            "note": "동방 목합"
+          }
+        ],
+        "reasoning": "동방 목합(방합)이(가) 우선하여 묘진해(해)의 작용이 약화됩니다.",
+        "score": {
+          "baseScore": 40,
+          "adjacencyBonus": 0,
+          "outcomeMultiplier": 0.5,
+          "finalScore": 20,
+          "rationale": "묘진해(해): 기본점수 40점 × 약화배율(0.5) = 최종 20점"
+        }
+      }
+    ],
+    "scoredCheonganRelations": [
+      {
+        "hit": {
+          "type": "CHUNG",
+          "members": [
+            "BYEONG",
+            "IM"
+          ],
+          "resultOhaeng": null,
+          "note": "병임충"
+        },
+        "hapHwaEvaluation": null,
+        "score": {
+          "baseScore": 65,
+          "adjacencyBonus": 10,
+          "outcomeMultiplier": 1,
+          "finalScore": 75,
+          "rationale": "병임충(천간충): 기본점수 65점 + 인접보너스 10점 = 최종 75점"
+        }
+      }
+    ],
+    "sibiUnseong": {
+      "YEAR": "MOK_YOK",
+      "MONTH": "YANG",
+      "DAY": "TAE",
+      "HOUR": "JANG_SAENG"
+    },
+    "gongmangVoidBranches": [
+      "O",
+      "MI"
+    ],
+    "strengthResult": {
+      "dayMaster": "GYE",
+      "level": "VERY_WEAK",
+      "score": {
+        "deukryeong": 0,
+        "deukji": 1.6666666666666667,
+        "deukse": 7,
+        "totalSupport": 8.666666666666666,
+        "totalOppose": 72.33333333333333
+      },
+      "isStrong": false,
+      "details": [
+        "[득령] 월지 진(辰) 정기=무(戊) → 정관 → 실령 (0점)",
+        "[득지] 년지 인(寅): 부조 없음",
+        "[득지] 월지 진(辰): 계(비견,3일)=0.5 = 0.5점",
+        "[득지] 일지 사(巳): 경(정인,7일)=1.2 = 1.2점",
+        "[득지] 시지 묘(卯): 부조 없음",
+        "[득지] 합계: 1.7점",
+        "[득세] 년간 병(丙): 정재 → 부조 아님",
+        "[득세] 월간 임(壬): 겁재 → +7점",
+        "[득세] 시간 을(乙): 식신 → 부조 아님",
+        "[득세] 합계: 7점",
+        "---",
+        "총 부조 점수: 8.7 / 득령 0 + 득지 1.7 + 득세 7",
+        "판정: 극신약 (신약)"
+      ]
+    },
+    "yongshinResult": {
+      "recommendations": [
+        {
+          "type": "EOKBU",
+          "primaryElement": "METAL",
+          "secondaryElement": "WATER",
+          "confidence": 0.7,
+          "reasoning": "신약(身弱): 일간 WATER 약하여 인성(METAL)으로 생조, 비겁(WATER)으로 부조 필요"
+        },
+        {
+          "type": "JOHU",
+          "primaryElement": "FIRE",
+          "secondaryElement": "WOOD",
+          "confidence": 0.8,
+          "reasoning": "조후(調候): 계(癸) 일간 진(辰)월생, 궁통보감 기준 FIRE 필요, 보조 WOOD"
+        },
+        {
+          "type": "GYEOKGUK",
+          "primaryElement": "FIRE",
+          "secondaryElement": "WATER",
+          "confidence": 0.65,
+          "reasoning": "격국용신(格局用神): 식신격 — 순용: 재성이 식신의 힘을 이어받고(식신생재), 비겁이 식신을 보조"
+        }
+      ],
+      "finalYongshin": "FIRE",
+      "finalHeesin": "WOOD",
+      "gisin": "WATER",
+      "gusin": "METAL",
+      "agreement": "DISAGREE",
+      "finalConfidence": 0.7
+    },
+    "gyeokgukResult": {
+      "type": "SIKSIN",
+      "category": "NAEGYEOK",
+      "baseSipseong": "SIK_SIN",
+      "confidence": 0.9,
+      "reasoning": "일간 계(癸) 기준, 월지 진(辰)의 여기(餘氣) 을(乙)이(가) 천간에 투출(透出)하여 식신(食神)이므로 식신격(食神格)으로 판단.",
+      "formation": {
+        "quality": "WELL_FORMED",
+        "breakingFactors": [],
+        "rescueFactors": [],
+        "reasoning": "식신격 성격(成格): 식신생재(食神生財) 또는 식신제살(食神制殺) 조건이 충족되어 격국이 잘 형성됨."
+      }
+    },
+    "shinsalHits": [
+      {
+        "type": "CHEONUL_GWIIN",
+        "position": "DAY",
+        "grade": "A",
+        "baseWeight": 95,
+        "positionMultiplier": 1,
+        "weightedScore": 95
+      },
+      {
+        "type": "CHEONDEOK_GWIIN",
+        "position": "MONTH",
+        "grade": "A",
+        "baseWeight": 90,
+        "positionMultiplier": 0.85,
+        "weightedScore": 77
+      },
+      {
+        "type": "WOLDEOK_GWIIN",
+        "position": "MONTH",
+        "grade": "A",
+        "baseWeight": 90,
+        "positionMultiplier": 0.85,
+        "weightedScore": 77
+      },
+      {
+        "type": "GEOPSAL",
+        "position": "DAY",
+        "grade": "B",
+        "baseWeight": 60,
+        "positionMultiplier": 1,
+        "weightedScore": 60
+      },
+      {
+        "type": "CHEONUL_GWIIN",
+        "position": "HOUR",
+        "grade": "A",
+        "baseWeight": 95,
+        "positionMultiplier": 0.6,
+        "weightedScore": 57
+      },
+      {
+        "type": "GOSIN",
+        "position": "DAY",
+        "grade": "B",
+        "baseWeight": 50,
+        "positionMultiplier": 1,
+        "weightedScore": 50
+      },
+      {
+        "type": "DOHWA",
+        "position": "HOUR",
+        "grade": "A",
+        "baseWeight": 80,
+        "positionMultiplier": 0.6,
+        "weightedScore": 48
+      },
+      {
+        "type": "GEOPSAL",
+        "position": "YEAR",
+        "grade": "B",
+        "baseWeight": 60,
+        "positionMultiplier": 0.7,
+        "weightedScore": 42
+      },
+      {
+        "type": "GEUMYEO",
+        "position": "YEAR",
+        "grade": "B",
+        "baseWeight": 55,
+        "positionMultiplier": 0.7,
+        "weightedScore": 39
+      },
+      {
+        "type": "MUNCHANG",
+        "position": "HOUR",
+        "grade": "B",
+        "baseWeight": 60,
+        "positionMultiplier": 0.6,
+        "weightedScore": 36
+      },
+      {
+        "type": "BAEKHO",
+        "position": "DAY",
+        "grade": "C",
+        "baseWeight": 35,
+        "positionMultiplier": 1,
+        "weightedScore": 35
+      },
+      {
+        "type": "CHEOLLA_JIMANG",
+        "position": "DAY",
+        "grade": "C",
+        "baseWeight": 35,
+        "positionMultiplier": 1,
+        "weightedScore": 35
+      },
+      {
+        "type": "HAKDANG",
+        "position": "HOUR",
+        "grade": "B",
+        "baseWeight": 55,
+        "positionMultiplier": 0.6,
+        "weightedScore": 33
+      },
+      {
+        "type": "BOKSEONG_GWIIN",
+        "position": "HOUR",
+        "grade": "B",
+        "baseWeight": 50,
+        "positionMultiplier": 0.6,
+        "weightedScore": 30
+      },
+      {
+        "type": "CHEOLLA_JIMANG",
+        "position": "MONTH",
+        "grade": "C",
+        "baseWeight": 35,
+        "positionMultiplier": 0.85,
+        "weightedScore": 30
+      },
+      {
+        "type": "CHEONBOK_GWIIN",
+        "position": "DAY",
+        "grade": "C",
+        "baseWeight": 30,
+        "positionMultiplier": 1,
+        "weightedScore": 30
+      },
+      {
+        "type": "MANGSINSAL",
+        "position": "DAY",
+        "grade": "C",
+        "baseWeight": 30,
+        "positionMultiplier": 1,
+        "weightedScore": 30
+      },
+      {
+        "type": "YUKHAESAL",
+        "position": "DAY",
+        "grade": "C",
+        "baseWeight": 25,
+        "positionMultiplier": 1,
+        "weightedScore": 25
+      },
+      {
+        "type": "HYEOLINSAL",
+        "position": "DAY",
+        "grade": "C",
+        "baseWeight": 25,
+        "positionMultiplier": 1,
+        "weightedScore": 25
+      },
+      {
+        "type": "JISAL",
+        "position": "DAY",
+        "grade": "C",
+        "baseWeight": 25,
+        "positionMultiplier": 1,
+        "weightedScore": 25
+      },
+      {
+        "type": "SANGMUNSAL",
+        "position": "MONTH",
+        "grade": "C",
+        "baseWeight": 25,
+        "positionMultiplier": 0.85,
+        "weightedScore": 21
+      },
+      {
+        "type": "CHEONSAL",
+        "position": "MONTH",
+        "grade": "C",
+        "baseWeight": 25,
+        "positionMultiplier": 0.85,
+        "weightedScore": 21
+      },
+      {
+        "type": "GYEOKGAK",
+        "position": "DAY",
+        "grade": "C",
+        "baseWeight": 20,
+        "positionMultiplier": 1,
+        "weightedScore": 20
+      },
+      {
+        "type": "CHEONUI",
+        "position": "HOUR",
+        "grade": "C",
+        "baseWeight": 30,
+        "positionMultiplier": 0.6,
+        "weightedScore": 18
+      },
+      {
+        "type": "JAESAL",
+        "position": "HOUR",
+        "grade": "C",
+        "baseWeight": 30,
+        "positionMultiplier": 0.6,
+        "weightedScore": 18
+      },
+      {
+        "type": "YUKHAESAL",
+        "position": "YEAR",
+        "grade": "C",
+        "baseWeight": 25,
+        "positionMultiplier": 0.7,
+        "weightedScore": 18
+      },
+      {
+        "type": "JISAL",
+        "position": "YEAR",
+        "grade": "C",
+        "baseWeight": 25,
+        "positionMultiplier": 0.7,
+        "weightedScore": 18
+      },
+      {
+        "type": "CHEONJU_GWIIN",
+        "position": "HOUR",
+        "grade": "C",
+        "baseWeight": 30,
+        "positionMultiplier": 0.6,
+        "weightedScore": 18
+      },
+      {
+        "type": "GYEOKGAK",
+        "position": "MONTH",
+        "grade": "C",
+        "baseWeight": 20,
+        "positionMultiplier": 0.85,
+        "weightedScore": 17
+      },
+      {
+        "type": "GYEOKGAK",
+        "position": "YEAR",
+        "grade": "C",
+        "baseWeight": 20,
+        "positionMultiplier": 0.7,
+        "weightedScore": 14
+      },
+      {
+        "type": "GYEOKGAK",
+        "position": "HOUR",
+        "grade": "C",
+        "baseWeight": 20,
+        "positionMultiplier": 0.6,
+        "weightedScore": 12
+      }
+    ],
+    "weightedShinsalHits": [
+      {
+        "hit": {
+          "type": "CHEONUL_GWIIN",
+          "position": "DAY",
+          "referenceBranch": "SA",
+          "note": "계일간 → 묘,사 중 사"
+        },
+        "baseWeight": 95,
+        "positionMultiplier": 1,
+        "weightedScore": 95
+      },
+      {
+        "hit": {
+          "type": "CHEONDEOK_GWIIN",
+          "position": "MONTH",
+          "referenceBranch": "JIN",
+          "note": "월지 진 → 천덕귀인 임"
+        },
+        "baseWeight": 90,
+        "positionMultiplier": 0.85,
+        "weightedScore": 77
+      },
+      {
+        "hit": {
+          "type": "WOLDEOK_GWIIN",
+          "position": "MONTH",
+          "referenceBranch": "JIN",
+          "note": "월지 진 → 월덕귀인 임"
+        },
+        "baseWeight": 90,
+        "positionMultiplier": 0.85,
+        "weightedScore": 77
+      },
+      {
+        "hit": {
+          "type": "GEOPSAL",
+          "position": "DAY",
+          "referenceBranch": "SA",
+          "note": "겁살 사"
+        },
+        "baseWeight": 60,
+        "positionMultiplier": 1,
+        "weightedScore": 60
+      },
+      {
+        "hit": {
+          "type": "CHEONUL_GWIIN",
+          "position": "HOUR",
+          "referenceBranch": "MYO",
+          "note": "계일간 → 묘,사 중 묘"
+        },
+        "baseWeight": 95,
+        "positionMultiplier": 0.6,
+        "weightedScore": 57
+      },
+      {
+        "hit": {
+          "type": "GOSIN",
+          "position": "DAY",
+          "referenceBranch": "SA",
+          "note": "년지 인 → 고신 사"
+        },
+        "baseWeight": 50,
+        "positionMultiplier": 1,
+        "weightedScore": 50
+      },
+      {
+        "hit": {
+          "type": "DOHWA",
+          "position": "HOUR",
+          "referenceBranch": "MYO",
+          "note": "도화 묘"
+        },
+        "baseWeight": 80,
+        "positionMultiplier": 0.6,
+        "weightedScore": 48
+      },
+      {
+        "hit": {
+          "type": "GEOPSAL",
+          "position": "YEAR",
+          "referenceBranch": "IN",
+          "note": "겁살 인"
+        },
+        "baseWeight": 60,
+        "positionMultiplier": 0.7,
+        "weightedScore": 42
+      },
+      {
+        "hit": {
+          "type": "GEUMYEO",
+          "position": "YEAR",
+          "referenceBranch": "IN",
+          "note": "계일간 → 인"
+        },
+        "baseWeight": 55,
+        "positionMultiplier": 0.7,
+        "weightedScore": 39
+      },
+      {
+        "hit": {
+          "type": "MUNCHANG",
+          "position": "HOUR",
+          "referenceBranch": "MYO",
+          "note": "계일간 → 묘"
+        },
+        "baseWeight": 60,
+        "positionMultiplier": 0.6,
+        "weightedScore": 36
+      },
+      {
+        "hit": {
+          "type": "BAEKHO",
+          "position": "DAY",
+          "referenceBranch": "SA",
+          "note": "계일간 → 사"
+        },
+        "baseWeight": 35,
+        "positionMultiplier": 1,
+        "weightedScore": 35
+      },
+      {
+        "hit": {
+          "type": "CHEOLLA_JIMANG",
+          "position": "DAY",
+          "referenceBranch": "SA",
+          "note": "천라(天羅) 진+사"
+        },
+        "baseWeight": 35,
+        "positionMultiplier": 1,
+        "weightedScore": 35
+      },
+      {
+        "hit": {
+          "type": "HAKDANG",
+          "position": "HOUR",
+          "referenceBranch": "MYO",
+          "note": "계일간 → 묘"
+        },
+        "baseWeight": 55,
+        "positionMultiplier": 0.6,
+        "weightedScore": 33
+      },
+      {
+        "hit": {
+          "type": "BOKSEONG_GWIIN",
+          "position": "HOUR",
+          "referenceBranch": "MYO",
+          "note": "계일간 → 묘"
+        },
+        "baseWeight": 50,
+        "positionMultiplier": 0.6,
+        "weightedScore": 30
+      },
+      {
+        "hit": {
+          "type": "CHEOLLA_JIMANG",
+          "position": "MONTH",
+          "referenceBranch": "JIN",
+          "note": "천라(天羅) 진+사"
+        },
+        "baseWeight": 35,
+        "positionMultiplier": 0.85,
+        "weightedScore": 30
+      },
+      {
+        "hit": {
+          "type": "CHEONBOK_GWIIN",
+          "position": "DAY",
+          "referenceBranch": "SA",
+          "note": "계일간 → 사"
+        },
+        "baseWeight": 30,
+        "positionMultiplier": 1,
+        "weightedScore": 30
+      },
+      {
+        "hit": {
+          "type": "MANGSINSAL",
+          "position": "DAY",
+          "referenceBranch": "SA",
+          "note": "망신살 사"
+        },
+        "baseWeight": 30,
+        "positionMultiplier": 1,
+        "weightedScore": 30
+      },
+      {
+        "hit": {
+          "type": "YUKHAESAL",
+          "position": "DAY",
+          "referenceBranch": "SA",
+          "note": "육해살 사"
+        },
+        "baseWeight": 25,
+        "positionMultiplier": 1,
+        "weightedScore": 25
+      },
+      {
+        "hit": {
+          "type": "HYEOLINSAL",
+          "position": "DAY",
+          "referenceBranch": "SA",
+          "note": "계일간 → 사"
+        },
+        "baseWeight": 25,
+        "positionMultiplier": 1,
+        "weightedScore": 25
+      },
+      {
+        "hit": {
+          "type": "JISAL",
+          "position": "DAY",
+          "referenceBranch": "SA",
+          "note": "지살 사"
+        },
+        "baseWeight": 25,
+        "positionMultiplier": 1,
+        "weightedScore": 25
+      },
+      {
+        "hit": {
+          "type": "SANGMUNSAL",
+          "position": "MONTH",
+          "referenceBranch": "JIN",
+          "note": "년지 인 → 상문살 진"
+        },
+        "baseWeight": 25,
+        "positionMultiplier": 0.85,
+        "weightedScore": 21
+      },
+      {
+        "hit": {
+          "type": "CHEONSAL",
+          "position": "MONTH",
+          "referenceBranch": "JIN",
+          "note": "천살 진"
+        },
+        "baseWeight": 25,
+        "positionMultiplier": 0.85,
+        "weightedScore": 21
+      },
+      {
+        "hit": {
+          "type": "GYEOKGAK",
+          "position": "DAY",
+          "referenceBranch": "SA",
+          "note": "격각 사-묘 (DAY-HOUR)"
+        },
+        "baseWeight": 20,
+        "positionMultiplier": 1,
+        "weightedScore": 20
+      },
+      {
+        "hit": {
+          "type": "CHEONUI",
+          "position": "HOUR",
+          "referenceBranch": "MYO",
+          "note": "월지 진 → 천의 묘"
+        },
+        "baseWeight": 30,
+        "positionMultiplier": 0.6,
+        "weightedScore": 18
+      },
+      {
+        "hit": {
+          "type": "JAESAL",
+          "position": "HOUR",
+          "referenceBranch": "MYO",
+          "note": "재살 묘"
+        },
+        "baseWeight": 30,
+        "positionMultiplier": 0.6,
+        "weightedScore": 18
+      },
+      {
+        "hit": {
+          "type": "YUKHAESAL",
+          "position": "YEAR",
+          "referenceBranch": "IN",
+          "note": "육해살 인"
+        },
+        "baseWeight": 25,
+        "positionMultiplier": 0.7,
+        "weightedScore": 18
+      },
+      {
+        "hit": {
+          "type": "JISAL",
+          "position": "YEAR",
+          "referenceBranch": "IN",
+          "note": "지살 인"
+        },
+        "baseWeight": 25,
+        "positionMultiplier": 0.7,
+        "weightedScore": 18
+      },
+      {
+        "hit": {
+          "type": "CHEONJU_GWIIN",
+          "position": "HOUR",
+          "referenceBranch": "MYO",
+          "note": "계일간 → 묘"
+        },
+        "baseWeight": 30,
+        "positionMultiplier": 0.6,
+        "weightedScore": 18
+      },
+      {
+        "hit": {
+          "type": "GYEOKGAK",
+          "position": "MONTH",
+          "referenceBranch": "JIN",
+          "note": "격각 인-진 (YEAR-MONTH)"
+        },
+        "baseWeight": 20,
+        "positionMultiplier": 0.85,
+        "weightedScore": 17
+      },
+      {
+        "hit": {
+          "type": "GYEOKGAK",
+          "position": "YEAR",
+          "referenceBranch": "IN",
+          "note": "격각 인-진 (YEAR-MONTH)"
+        },
+        "baseWeight": 20,
+        "positionMultiplier": 0.7,
+        "weightedScore": 14
+      },
+      {
+        "hit": {
+          "type": "GYEOKGAK",
+          "position": "HOUR",
+          "referenceBranch": "MYO",
+          "note": "격각 사-묘 (DAY-HOUR)"
+        },
+        "baseWeight": 20,
+        "positionMultiplier": 0.6,
+        "weightedScore": 12
+      }
+    ],
+    "shinsalComposites": [
+      {
+        "patternName": "천을귀인+학당",
+        "interactionType": "SYNERGY",
+        "interpretation": "학업의 귀인, 스승 복. 학문의 재능에 귀인의 도움이 더해져, 좋은 스승을 만나 크게 성장할 수 있습니다.",
+        "bonusScore": 15
+      },
+      {
+        "patternName": "천덕귀인+월덕귀인",
+        "interactionType": "AMPLIFY",
+        "interpretation": "이중 해액 방어, 큰 복덕. 천덕과 월덕이 함께하면 재앙을 크게 물리치고, 위기 상황에서도 안전하게 벗어나는 큰 복을 가지고 있습니다.",
+        "bonusScore": 25
+      }
+    ],
+    "palaceAnalysis": {
+      "YEAR": {
+        "position": "YEAR",
+        "koreanName": "부모궁",
+        "domain": "부모, 조상, 어린 시절 환경",
+        "agePeriod": "1~15세",
+        "bodyPart": "머리/두뇌",
+        "sipseong": "JEONG_JAE",
+        "familyRelation": "[object Object]"
+      },
+      "MONTH": {
+        "position": "MONTH",
+        "koreanName": "형제궁",
+        "domain": "형제, 사회생활, 직업",
+        "agePeriod": "16~30세",
+        "bodyPart": "가슴/어깨",
+        "sipseong": "GYEOB_JAE",
+        "familyRelation": "[object Object]"
+      },
+      "DAY": {
+        "position": "DAY",
+        "koreanName": "배우자궁",
+        "domain": "배우자, 내면, 중년",
+        "agePeriod": "31~45세",
+        "bodyPart": "배/허리",
+        "sipseong": null,
+        "familyRelation": null
+      },
+      "HOUR": {
+        "position": "HOUR",
+        "koreanName": "자녀궁",
+        "domain": "자녀, 말년, 결과",
+        "agePeriod": "46세~",
+        "bodyPart": "다리/발",
+        "sipseong": "SIK_SIN",
+        "familyRelation": "[object Object]"
+      }
+    },
+    "daeunInfo": {
+      "isForward": true,
+      "firstDaeunStartAge": 5,
+      "firstDaeunStartMonths": 7,
+      "boundaryMode": "EXACT_TABLE",
+      "warnings": [],
+      "pillars": [
+        {
+          "stem": "GYE",
+          "branch": "SA",
+          "startAge": 5,
+          "endAge": 14,
+          "order": 1
+        },
+        {
+          "stem": "GAP",
+          "branch": "O",
+          "startAge": 15,
+          "endAge": 24,
+          "order": 2
+        },
+        {
+          "stem": "EUL",
+          "branch": "MI",
+          "startAge": 25,
+          "endAge": 34,
+          "order": 3
+        },
+        {
+          "stem": "BYEONG",
+          "branch": "SIN",
+          "startAge": 35,
+          "endAge": 44,
+          "order": 4
+        },
+        {
+          "stem": "JEONG",
+          "branch": "YU",
+          "startAge": 45,
+          "endAge": 54,
+          "order": 5
+        },
+        {
+          "stem": "MU",
+          "branch": "SUL",
+          "startAge": 55,
+          "endAge": 64,
+          "order": 6
+        },
+        {
+          "stem": "GI",
+          "branch": "HAE",
+          "startAge": 65,
+          "endAge": 74,
+          "order": 7
+        },
+        {
+          "stem": "GYEONG",
+          "branch": "JA",
+          "startAge": 75,
+          "endAge": 84,
+          "order": 8
+        }
+      ]
+    },
+    "saeunPillars": [
+      {
+        "year": 1986,
+        "stem": "BYEONG",
+        "branch": "IN"
+      },
+      {
+        "year": 1987,
+        "stem": "JEONG",
+        "branch": "MYO"
+      },
+      {
+        "year": 1988,
+        "stem": "MU",
+        "branch": "JIN"
+      },
+      {
+        "year": 1989,
+        "stem": "GI",
+        "branch": "SA"
+      },
+      {
+        "year": 1990,
+        "stem": "GYEONG",
+        "branch": "O"
+      },
+      {
+        "year": 1991,
+        "stem": "SIN",
+        "branch": "MI"
+      },
+      {
+        "year": 1992,
+        "stem": "IM",
+        "branch": "SIN"
+      },
+      {
+        "year": 1993,
+        "stem": "GYE",
+        "branch": "YU"
+      },
+      {
+        "year": 1994,
+        "stem": "GAP",
+        "branch": "SUL"
+      },
+      {
+        "year": 1995,
+        "stem": "EUL",
+        "branch": "HAE"
+      }
+    ],
+    "ohaengDistribution": {
+      "WOOD": 3,
+      "FIRE": 2,
+      "EARTH": 1,
+      "METAL": 0,
+      "WATER": 2
+    },
+    "trace": [
+      {
+        "key": "core",
+        "summary": "?�주 ?�국 계산 ?�료 ???�간 계(癸), ?��? 진(辰). ?�입 ??15?�차.",
+        "evidence": [
+          "daysSinceJeol=15"
+        ],
+        "citations": [
+          "[근거: YEONHAEJAYPYEONG, SAMMYEONGTTONGHOE — 사주 원국 산출, 신뢰도 0%]"
+        ],
+        "reasoning": [
+          "?�주: 병인, ?�주: 임진, ?�주: 계사, ?�주: 을묘"
+        ],
+        "confidence": null
+      },
+      {
+        "key": "tenGods",
+        "summary": "십성(十星) 분석 — 일간 계(癸) 기준 4주 천간·지지의 십성 배치 완료.",
+        "evidence": [
+          "YEAR: 천간=정재, 지지본기=상관",
+          "MONTH: 천간=겁재, 지지본기=정관",
+          "DAY: 천간=비견, 지지본기=정재",
+          "HOUR: 천간=식신, 지지본기=식신"
+        ],
+        "citations": [
+          "[근거: YEONHAEJAYPYEONG, SAMMYEONGTTONGHOE — 십성 배치, 신뢰도 0%]"
+        ],
+        "reasoning": [
+          "십성은 일간 계(수(水))을 기준으로 다른 천간·지지와의 오행 관계(생극제화)를 판별합니다."
+        ],
+        "confidence": null
+      },
+      {
+        "key": "hiddenStems",
+        "summary": "지장간(支藏干) 분석 — 4주 지지의 숨은 천간 추출 완료.",
+        "evidence": [
+          "YEAR: 무(YEOGI)/병(JUNGGI)/갑(JEONGGI)",
+          "MONTH: 을(YEOGI)/계(JUNGGI)/무(JEONGGI)",
+          "DAY: 무(YEOGI)/경(JUNGGI)/병(JEONGGI)",
+          "HOUR: 갑(YEOGI)/을(JEONGGI)"
+        ],
+        "citations": [
+          "[근거: YEONHAEJAYPYEONG, SAMMYEONGTTONGHOE — 지장간, 신뢰도 0%]"
+        ],
+        "reasoning": [
+          "지장간은 각 지지 속에 내포된 천간으로, 여기(餘氣)·중기(中氣)·정기(正氣)로 구분됩니다. 정기가 가장 강한 영향력을 가지며, 격국·투출 판별의 핵심입니다.",
+          "[유파 설정] 지장간 배분: STANDARD"
+        ],
+        "confidence": null
+      },
+      {
+        "key": "cheonganRelations",
+        "summary": "천간 관계 1건 감지 (합/충/극 등).",
+        "evidence": [
+          "hits=1"
+        ],
+        "citations": [
+          "[근거: YEONHAEJAYPYEONG, JEOKCHEONSU — 천간 합충, 신뢰도 0%]"
+        ],
+        "reasoning": [
+          "병(丙)과 임(壬)는 천간충(天干沖) 관계 — 같은 음양이며 서로 6간격, 오행이 상극(화(火)↔수(水))"
+        ],
+        "confidence": null
+      },
+      {
+        "key": "hapHwa",
+        "summary": "천간 합화 평가 — 합화 대상 없음. 엄격도=STRICT_FIVE_CONDITIONS, 일간보호=적용.",
+        "evidence": [
+          "합 대상 없음"
+        ],
+        "citations": [
+          "[근거: JEOKCHEONSU, JAPYEONGJINJEON — 천간 합화, 신뢰도 0%]"
+        ],
+        "reasoning": [
+          "천간합 관계가 없거나 합화 평가 대상이 없습니다."
+        ],
+        "confidence": null
+      },
+      {
+        "key": "resolvedJijiRelations",
+        "summary": "지지 관계 4건 상호작용 해소 및 점수 산출. 반합 허용.",
+        "evidence": [
+          "동방 목합: ACTIVE(100점)",
+          "인사형(무은): ACTIVE(55점)",
+          "인사해: WEAKENED(20점)",
+          "묘진해: WEAKENED(20점)"
+        ],
+        "citations": [
+          "[근거: YEONHAEJAYPYEONG, SAMMYEONGTTONGHOE — 지지 합충형파해, 신뢰도 0%]"
+        ],
+        "reasoning": [
+          "동방 목합 → ACTIVE: 인사형(무은)(형)은 동방 목합(합)과 공존하여 합의 효력에 영향을 주지 않습니다. [기본100점 + 인접보너스10점 × 배율1 = 100점]",
+          "인사형(무은) → ACTIVE: 인사형(무은)(형)은 동방 목합(합)에도 불구하고 해소되지 않고 유지됩니다. [기본55점 × 배율1 = 55점]",
+          "인사해 → WEAKENED: 동방 목합(방합)이(가) 우선하여 인사해(해)의 작용이 약화됩니다. 인사형(무은)(형)이(가) 우선하여 인사해(해)의 작용이 약화됩니다. [기본40점 × 배율0.5 = 20점]",
+          "묘진해 → WEAKENED: 동방 목합(방합)이(가) 우선하여 묘진해(해)의 작용이 약화됩니다. [기본40점 × 배율0.5 = 20점]"
+        ],
+        "confidence": null
+      },
+      {
+        "key": "scoredCheonganRelations",
+        "summary": "천간 관계 1건 점수 산출 (합화 평가 반영).",
+        "evidence": [
+          "병임충: 75점"
+        ],
+        "citations": [
+          "[근거: YEONHAEJAYPYEONG, JEOKCHEONSU — 천간 관계 점수, 신뢰도 0%]"
+        ],
+        "reasoning": [
+          "병임충: 병임충(천간충): 기본점수 65점 + 인접보너스 10점 = 최종 75점 → 75점"
+        ],
+        "confidence": null
+      },
+      {
+        "key": "sibiUnseong",
+        "summary": "십이운성 산출 — YEAR=목욕, MONTH=양, DAY=태, HOUR=장생. 토오행규칙=FOLLOW_FIRE, 음간역행=true.",
+        "evidence": [
+          "entries=4"
+        ],
+        "citations": [
+          "[근거: YEONHAEJAYPYEONG — 십이운성, 신뢰도 0%]"
+        ],
+        "reasoning": [
+          "일간 계(癸)은 수(水)·음 → 양순음역(陽順陰逆) 적용, 화토동법(火土同法)",
+          "YEAR: 일간 계 → 지지 인(寅) 역행(←) = 목욕(沐浴)",
+          "MONTH: 일간 계 → 지지 진(辰) 역행(←) = 양(養)",
+          "DAY: 일간 계 → 지지 사(巳) 역행(←) = 태(胎)",
+          "HOUR: 일간 계 → 지지 묘(卯) 역행(←) = 장생(長生)",
+          "[유파 설정] 12운성 토 규칙: FOLLOW_FIRE — FOLLOW_FIRE(화토동법, 주류), FOLLOW_WATER(수토동법), INDEPENDENT(토독립설→화토동법)"
+        ],
+        "confidence": 90
+      },
+      {
+        "key": "gongmang",
+        "summary": "공망(空亡) 계산 — 오(午)·미(未). 해당 기둥 0개.",
+        "evidence": [
+          "void=O/MI",
+          "affected=0"
+        ],
+        "citations": [
+          "[근거: YEONHAEJAYPYEONG, SAMMYEONGTTONGHOE — 공망, 신뢰도 0%]"
+        ],
+        "reasoning": [
+          "일주 계사의 육갑순(六甲旬)에서 배정되지 않는 지지 2개가 공망: 오(午)·미(未)"
+        ],
+        "confidence": 95
+      },
+      {
+        "key": "strength",
+        "summary": "일간 계(癸) 강약 판정 — 극신약(신약). 총지지력=8.7, 기준값=50.",
+        "evidence": [
+          "level=VERY_WEAK",
+          "isStrong=false",
+          "support=8.7"
+        ],
+        "citations": [
+          "[근거: JEOKCHEONSU, KOREAN_MODERN_PRACTICE — 신강신약, 신뢰도 0%]"
+        ],
+        "reasoning": [
+          "[득령] 월지 진(辰) 정기=무(戊) → 정관 → 실령 (0점)",
+          "[득지] 년지 인(寅): 부조 없음",
+          "[득지] 월지 진(辰): 계(비견,3일)=0.5 = 0.5점",
+          "[득지] 일지 사(巳): 경(정인,7일)=1.2 = 1.2점",
+          "[득지] 시지 묘(卯): 부조 없음",
+          "[득지] 합계: 1.7점",
+          "[득세] 년간 병(丙): 정재 → 부조 아님",
+          "[득세] 월간 임(壬): 겁재 → +7점",
+          "[득세] 시간 을(乙): 식신 → 부조 아님",
+          "[득세] 합계: 7점",
+          "---",
+          "총 부조 점수: 8.7 / 득령 0 + 득지 1.7 + 득세 7",
+          "판정: 극신약 (신약)"
+        ],
+        "confidence": 95
+      },
+      {
+        "key": "gyeokguk",
+        "summary": "격국 판정 — SIKSIN(NAEGYEOK). 성격: WELL_FORMED, 신뢰도=90%.",
+        "evidence": [
+          "type=SIKSIN",
+          "category=NAEGYEOK",
+          "confidence=0.90",
+          "formation=WELL_FORMED"
+        ],
+        "citations": [
+          "[근거: JAPYEONGJINJEON, MYEONGLIJEONGJON — 격국, 신뢰도 0%]"
+        ],
+        "reasoning": [
+          "격국 판별: 일간 계(癸) 기준, 월지 진(辰)의 여기(餘氣) 을(乙)이(가) 천간에 투출(透出)하여 식신(食神)이므로 식신격(食神格)으로 판단.",
+          "격국 성격: 식신격 성격(成格): 식신생재(食神生財) 또는 식신제살(食神制殺) 조건이 충족되어 격국이 잘 형성됨."
+        ],
+        "confidence": 85
+      },
+      {
+        "key": "yongshin",
+        "summary": "용신 결정 — 최종용신: 화(火), 희신: 목(木). 억부-조후 일치도: DISAGREE(신뢰도=70%). 우선순위=JOHU_FIRST, 추천수=3.",
+        "evidence": [
+          "finalYongshin=FIRE",
+          "finalHeesin=WOOD",
+          "agreement=DISAGREE",
+          "finalConfidence=0.7",
+          "recommendations=EOKBU,JOHU,GYEOKGUK"
+        ],
+        "citations": [
+          "[근거: GUNGTONGBOGAM, JEOKCHEONSU, JAPYEONGJINJEON — 용신, 신뢰도 0%]"
+        ],
+        "reasoning": [
+          "【용신 결정 3단계 우선순위 체계】",
+          "▷ 제1단계 (격국 본질): 해당 없음 — 화격·일행득기격·종격 아님",
+          "▷ 제2단계 (갈등 해소): 원국 내 강한 상극 충돌 미감지 또는 threshold 미달",
+          "▶ 제3단계 (기본): 억부+조후 기본 결정, 우선순위=JOHU_FIRST",
+          "",
+          "【개별 방법론 상세】",
+          "[억부용신] 신약(身弱): 일간 WATER 약하여 인성(METAL)으로 생조, 비겁(WATER)으로 부조 필요 → 용신: 금(金), 희신: 수(水) (신뢰도 70%)",
+          "[조후용신] 조후(調候): 계(癸) 일간 진(辰)월생, 궁통보감 기준 FIRE 필요, 보조 WOOD → 용신: 화(火), 희신: 목(木) (신뢰도 80%)",
+          "[격국용신] 격국용신(格局用神): 식신격 — 순용: 재성이 식신의 힘을 이어받고(식신생재), 비겁이 식신을 보조 → 용신: 화(火), 희신: 수(水) (신뢰도 65%)",
+          "",
+          "억부-조후 일치도: DISAGREE → 최종 신뢰도 70%",
+          "기신(忌神): 수(水) — 용신을 방해하는 오행",
+          "구신(仇神): 금(金) — 기신을 돕는 오행",
+          "[유파 설정] 용신 우선순위: JOHU_FIRST — JOHU_FIRST(조후 우선), EOKBU_FIRST(억부 우선), EQUAL_WEIGHT(동일 가중)"
+        ],
+        "confidence": 95
+      },
+      {
+        "key": "shinsal",
+        "summary": "신살 31종 감지.",
+        "evidence": [
+          "hits=31"
+        ],
+        "citations": [
+          "[근거: SAMMYEONGTTONGHOE, YEONHAEJAYPYEONG — 신살, 신뢰도 0%]"
+        ],
+        "reasoning": [
+          "참조 기준: ?쇱?+?꾩? 紐⑤몢. 감지된 31종:",
+          "CHEONUL_GWIIN(DAY): 계일간 → 묘,사 중 사",
+          "CHEONUL_GWIIN(HOUR): 계일간 → 묘,사 중 묘",
+          "DOHWA(HOUR): 도화 묘",
+          "CHEONDEOK_GWIIN(MONTH): 월지 진 → 천덕귀인 임",
+          "WOLDEOK_GWIIN(MONTH): 월지 진 → 월덕귀인 임",
+          "MUNCHANG(HOUR): 계일간 → 묘",
+          "HAKDANG(HOUR): 계일간 → 묘",
+          "GEUMYEO(YEAR): 계일간 → 인",
+          "GEOPSAL(YEAR): 겁살 인",
+          "GEOPSAL(DAY): 겁살 사",
+          "GOSIN(DAY): 년지 인 → 고신 사",
+          "BOKSEONG_GWIIN(HOUR): 계일간 → 묘",
+          "BAEKHO(DAY): 계일간 → 사",
+          "CHEONUI(HOUR): 월지 진 → 천의 묘",
+          "CHEOLLA_JIMANG(MONTH): 천라(天羅) 진+사",
+          "CHEOLLA_JIMANG(DAY): 천라(天羅) 진+사",
+          "JAESAL(HOUR): 재살 묘",
+          "GYEOKGAK(YEAR): 격각 인-진 (YEAR-MONTH)",
+          "GYEOKGAK(MONTH): 격각 인-진 (YEAR-MONTH)",
+          "GYEOKGAK(DAY): 격각 사-묘 (DAY-HOUR)",
+          "GYEOKGAK(HOUR): 격각 사-묘 (DAY-HOUR)",
+          "CHEONBOK_GWIIN(DAY): 계일간 → 사",
+          "YUKHAESAL(YEAR): 육해살 인",
+          "YUKHAESAL(DAY): 육해살 사",
+          "HYEOLINSAL(DAY): 계일간 → 사",
+          "SANGMUNSAL(MONTH): 년지 인 → 상문살 진",
+          "CHEONSAL(MONTH): 천살 진",
+          "JISAL(DAY): 지살 사",
+          "JISAL(YEAR): 지살 인",
+          "MANGSINSAL(DAY): 망신살 사",
+          "CHEONJU_GWIIN(HOUR): 계일간 → 묘"
+        ],
+        "confidence": 95
+      },
+      {
+        "key": "weightedShinsal",
+        "summary": "신살 가중치 산출 — 31건, 위치 배율 적용 (일주1.0/월주0.85/년주0.7/시주0.6).",
+        "evidence": [
+          "CHEONUL_GWIIN(DAY)=95점",
+          "CHEONDEOK_GWIIN(MONTH)=77점",
+          "WOLDEOK_GWIIN(MONTH)=77점",
+          "GEOPSAL(DAY)=60점",
+          "CHEONUL_GWIIN(HOUR)=57점"
+        ],
+        "citations": [
+          "[근거: SAMMYEONGTTONGHOE, KOREAN_MODERN_PRACTICE — 신살 가중치, 신뢰도 0%]"
+        ],
+        "reasoning": [
+          "CHEONUL_GWIIN: 기본 95점 × DAY 위치배율 1 = 95점 (계일간 → 묘,사 중 사)",
+          "CHEONDEOK_GWIIN: 기본 90점 × MONTH 위치배율 0.85 = 77점 (월지 진 → 천덕귀인 임)",
+          "WOLDEOK_GWIIN: 기본 90점 × MONTH 위치배율 0.85 = 77점 (월지 진 → 월덕귀인 임)",
+          "GEOPSAL: 기본 60점 × DAY 위치배율 1 = 60점 (겁살 사)",
+          "CHEONUL_GWIIN: 기본 95점 × HOUR 위치배율 0.6 = 57점 (계일간 → 묘,사 중 묘)",
+          "GOSIN: 기본 50점 × DAY 위치배율 1 = 50점 (년지 인 → 고신 사)",
+          "DOHWA: 기본 80점 × HOUR 위치배율 0.6 = 48점 (도화 묘)",
+          "GEOPSAL: 기본 60점 × YEAR 위치배율 0.7 = 42점 (겁살 인)",
+          "GEUMYEO: 기본 55점 × YEAR 위치배율 0.7 = 39점 (계일간 → 인)",
+          "MUNCHANG: 기본 60점 × HOUR 위치배율 0.6 = 36점 (계일간 → 묘)",
+          "BAEKHO: 기본 35점 × DAY 위치배율 1 = 35점 (계일간 → 사)",
+          "CHEOLLA_JIMANG: 기본 35점 × DAY 위치배율 1 = 35점 (천라(天羅) 진+사)",
+          "HAKDANG: 기본 55점 × HOUR 위치배율 0.6 = 33점 (계일간 → 묘)",
+          "BOKSEONG_GWIIN: 기본 50점 × HOUR 위치배율 0.6 = 30점 (계일간 → 묘)",
+          "CHEOLLA_JIMANG: 기본 35점 × MONTH 위치배율 0.85 = 30점 (천라(天羅) 진+사)",
+          "CHEONBOK_GWIIN: 기본 30점 × DAY 위치배율 1 = 30점 (계일간 → 사)",
+          "MANGSINSAL: 기본 30점 × DAY 위치배율 1 = 30점 (망신살 사)",
+          "YUKHAESAL: 기본 25점 × DAY 위치배율 1 = 25점 (육해살 사)",
+          "HYEOLINSAL: 기본 25점 × DAY 위치배율 1 = 25점 (계일간 → 사)",
+          "JISAL: 기본 25점 × DAY 위치배율 1 = 25점 (지살 사)",
+          "SANGMUNSAL: 기본 25점 × MONTH 위치배율 0.85 = 21점 (년지 인 → 상문살 진)",
+          "CHEONSAL: 기본 25점 × MONTH 위치배율 0.85 = 21점 (천살 진)",
+          "GYEOKGAK: 기본 20점 × DAY 위치배율 1 = 20점 (격각 사-묘 (DAY-HOUR))",
+          "CHEONUI: 기본 30점 × HOUR 위치배율 0.6 = 18점 (월지 진 → 천의 묘)",
+          "JAESAL: 기본 30점 × HOUR 위치배율 0.6 = 18점 (재살 묘)",
+          "YUKHAESAL: 기본 25점 × YEAR 위치배율 0.7 = 18점 (육해살 인)",
+          "JISAL: 기본 25점 × YEAR 위치배율 0.7 = 18점 (지살 인)",
+          "CHEONJU_GWIIN: 기본 30점 × HOUR 위치배율 0.6 = 18점 (계일간 → 묘)",
+          "GYEOKGAK: 기본 20점 × MONTH 위치배율 0.85 = 17점 (격각 인-진 (YEAR-MONTH))",
+          "GYEOKGAK: 기본 20점 × YEAR 위치배율 0.7 = 14점 (격각 인-진 (YEAR-MONTH))",
+          "GYEOKGAK: 기본 20점 × HOUR 위치배율 0.6 = 12점 (격각 사-묘 (DAY-HOUR))"
+        ],
+        "confidence": null
+      },
+      {
+        "key": "shinsalComposites",
+        "summary": "신살 복합 패턴 2건 감지 — 천을귀인+학당, 천덕귀인+월덕귀인.",
+        "evidence": [
+          "천을귀인+학당[SYNERGY](bonus=15)",
+          "천덕귀인+월덕귀인[AMPLIFY](bonus=25)"
+        ],
+        "citations": [
+          "[근거: KOREAN_MODERN_PRACTICE — 신살 조합 해석, 신뢰도 0%]"
+        ],
+        "reasoning": [
+          "천을귀인+학당: 학업의 귀인, 스승 복. 학문의 재능에 귀인의 도움이 더해져, 좋은 스승을 만나 크게 성장할 수 있습니다. (보너스 +15점)",
+          "천덕귀인+월덕귀인: 이중 해액 방어, 큰 복덕. 천덕과 월덕이 함께하면 재앙을 크게 물리치고, 위기 상황에서도 안전하게 벗어나는 큰 복을 가지고 있습니다. (보너스 +25점)"
+        ],
+        "confidence": null
+      },
+      {
+        "key": "palace",
+        "summary": "궁성(宮星) 분석 완료.",
+        "evidence": [
+          "YEAR=부모궁: 정재",
+          "MONTH=형제궁: 겁재",
+          "HOUR=자녀궁: 식신"
+        ],
+        "citations": [
+          "[근거: SAMMYEONGTTONGHOE, KOREAN_MODERN_PRACTICE — 궁성론, 신뢰도 0%]"
+        ],
+        "reasoning": [
+          "부모궁(부모, 조상, 어린 시절 환경): 정재 → FAVORABLE — 부모궁에 정재: 안정된 가정 환경",
+          "형제궁(형제, 사회생활, 직업): 겁재 → UNFAVORABLE — 형제궁에 겁재: 재물 손실 주의",
+          "자녀궁(자녀, 말년, 결과): 식신 → FAVORABLE — 자녀궁에 식신: 자녀복과 편안한 말년"
+        ],
+        "confidence": 85
+      },
+      {
+        "key": "daeun",
+        "summary": "대운 산출 — 순행(順行), 5세 시작, 8주기.",
+        "evidence": [
+          "forward=true",
+          "startAge=5",
+          "count=8",
+          "boundaryMode=EXACT_TABLE"
+        ],
+        "citations": [
+          "[근거: YEONHAEJAYPYEONG, JEOKCHEONSU — 대운, 신뢰도 0%]"
+        ],
+        "reasoning": [
+          "남명 + 년간 병(양) → 순행: 월주에서 다음 간지 순서로 진행",
+          "생일~다음(이전) 절기까지 일수 ÷ 3 → 대운 시작: 5세 7개월",
+          "",
+          "【대운 개별 기둥 분석】",
+          "5세 계사(癸巳): 천간 수(水)(BIHWA), 지지 화(火)(SANGGEUK) → 길흉혼재 [용신 화(火) 부합] [기신 수(水) 부합]",
+          "15세 갑오(甲午): 천간 목(木)(YEOKSAENG), 지지 화(火)(SANGGEUK) → 길(吉) [용신 화(火) 부합]",
+          "25세 을미(乙未): 천간 목(木)(YEOKSAENG), 지지 토(土)(YEOKGEUK) → 평(平)",
+          "35세 병신(丙申): 천간 화(火)(SANGGEUK), 지지 금(金)(SANGSAENG) → 길(吉) [용신 화(火) 부합]",
+          "45세 정유(丁酉): 천간 화(火)(SANGGEUK), 지지 금(金)(SANGSAENG) → 길(吉) [용신 화(火) 부합]",
+          "55세 무술(戊戌): 천간 토(土)(YEOKGEUK), 지지 토(土)(YEOKGEUK) → 평(平)",
+          "65세 기해(己亥): 천간 토(土)(YEOKGEUK), 지지 수(水)(BIHWA) → 흉(凶) [기신 수(水) 부합]",
+          "75세 경자(庚子): 천간 금(金)(SANGSAENG), 지지 수(水)(BIHWA) → 흉(凶) [기신 수(水) 부합]"
+        ],
+        "confidence": 95
+      },
+      {
+        "key": "saeun",
+        "summary": "세운(歲運) 산출 — 1986년부터 10년간.",
+        "evidence": [
+          "startYear=1986",
+          "count=10"
+        ],
+        "citations": [
+          "[근거: YEONHAEJAYPYEONG — 세운, 신뢰도 0%]"
+        ],
+        "reasoning": [
+          "세운은 60갑자 순환에 따른 해당 연도의 천간·지지 기운입니다. 기준점: 1984년=갑자(甲子)년, 60년 주기로 반복.",
+          "1986년: 병인(丙寅)년 → 화(火)·목(木) 기운",
+          "",
+          "【세운-원국 상호작용 (최근 5년)】",
+          "1986년 병인: 길",
+          "1987년 정묘: 길",
+          "1988년 무진: 평 | MONTH천간충(무↔임)",
+          "1989년 기사: 길 | DAY천간충(기↔계)",
+          "1990년 경오: 길"
+        ],
+        "confidence": 95
+      }
+    ],
+    "tenGodAnalysis": {
+      "dayMaster": "GYE",
+      "byPosition": {
+        "YEAR": {
+          "cheonganSipseong": "JEONG_JAE",
+          "jijiPrincipalSipseong": "SANG_GWAN",
+          "hiddenStems": [
+            {
+              "stem": "MU",
+              "element": "EARTH",
+              "ratio": 0.23333333333333334
+            },
+            {
+              "stem": "BYEONG",
+              "element": "FIRE",
+              "ratio": 0.23333333333333334
+            },
+            {
+              "stem": "GAP",
+              "element": "WOOD",
+              "ratio": 0.5333333333333333
+            }
+          ],
+          "hiddenStemSipseong": [
+            {
+              "stem": "MU",
+              "sipseong": "JEONG_GWAN"
+            },
+            {
+              "stem": "BYEONG",
+              "sipseong": "JEONG_JAE"
+            },
+            {
+              "stem": "GAP",
+              "sipseong": "SANG_GWAN"
+            }
+          ]
+        },
+        "MONTH": {
+          "cheonganSipseong": "GYEOB_JAE",
+          "jijiPrincipalSipseong": "JEONG_GWAN",
+          "hiddenStems": [
+            {
+              "stem": "EUL",
+              "element": "WOOD",
+              "ratio": 0.3
+            },
+            {
+              "stem": "GYE",
+              "element": "WATER",
+              "ratio": 0.1
+            },
+            {
+              "stem": "MU",
+              "element": "EARTH",
+              "ratio": 0.6
+            }
+          ],
+          "hiddenStemSipseong": [
+            {
+              "stem": "EUL",
+              "sipseong": "SIK_SIN"
+            },
+            {
+              "stem": "GYE",
+              "sipseong": "BI_GYEON"
+            },
+            {
+              "stem": "MU",
+              "sipseong": "JEONG_GWAN"
+            }
+          ]
+        },
+        "DAY": {
+          "cheonganSipseong": "BI_GYEON",
+          "jijiPrincipalSipseong": "JEONG_JAE",
+          "hiddenStems": [
+            {
+              "stem": "MU",
+              "element": "EARTH",
+              "ratio": 0.23333333333333334
+            },
+            {
+              "stem": "GYEONG",
+              "element": "METAL",
+              "ratio": 0.23333333333333334
+            },
+            {
+              "stem": "BYEONG",
+              "element": "FIRE",
+              "ratio": 0.5333333333333333
+            }
+          ],
+          "hiddenStemSipseong": [
+            {
+              "stem": "MU",
+              "sipseong": "JEONG_GWAN"
+            },
+            {
+              "stem": "GYEONG",
+              "sipseong": "JEONG_IN"
+            },
+            {
+              "stem": "BYEONG",
+              "sipseong": "JEONG_JAE"
+            }
+          ]
+        },
+        "HOUR": {
+          "cheonganSipseong": "SIK_SIN",
+          "jijiPrincipalSipseong": "SIK_SIN",
+          "hiddenStems": [
+            {
+              "stem": "GAP",
+              "element": "WOOD",
+              "ratio": 0.3333333333333333
+            },
+            {
+              "stem": "EUL",
+              "element": "WOOD",
+              "ratio": 0.6666666666666666
+            }
+          ],
+          "hiddenStemSipseong": [
+            {
+              "stem": "GAP",
+              "sipseong": "SANG_GWAN"
+            },
+            {
+              "stem": "EUL",
+              "sipseong": "SIK_SIN"
+            }
+          ]
+        }
+      }
+    },
+    "analysisResults": {
+      "strength": {
+        "dayMaster": "GYE",
+        "level": "VERY_WEAK",
+        "score": {
+          "deukryeong": 0,
+          "deukji": 1.6666666666666667,
+          "deukse": 7,
+          "totalSupport": 8.666666666666666,
+          "totalOppose": 72.33333333333333
+        },
+        "isStrong": false,
+        "details": [
+          "[득령] 월지 진(辰) 정기=무(戊) → 정관 → 실령 (0점)",
+          "[득지] 년지 인(寅): 부조 없음",
+          "[득지] 월지 진(辰): 계(비견,3일)=0.5 = 0.5점",
+          "[득지] 일지 사(巳): 경(정인,7일)=1.2 = 1.2점",
+          "[득지] 시지 묘(卯): 부조 없음",
+          "[득지] 합계: 1.7점",
+          "[득세] 년간 병(丙): 정재 → 부조 아님",
+          "[득세] 월간 임(壬): 겁재 → +7점",
+          "[득세] 시간 을(乙): 식신 → 부조 아님",
+          "[득세] 합계: 7점",
+          "---",
+          "총 부조 점수: 8.7 / 득령 0 + 득지 1.7 + 득세 7",
+          "판정: 극신약 (신약)"
+        ]
+      },
+      "yongshin": {
+        "recommendations": [
+          {
+            "type": "EOKBU",
+            "primaryElement": "METAL",
+            "secondaryElement": "WATER",
+            "confidence": 0.7,
+            "reasoning": "신약(身弱): 일간 WATER 약하여 인성(METAL)으로 생조, 비겁(WATER)으로 부조 필요"
+          },
+          {
+            "type": "JOHU",
+            "primaryElement": "FIRE",
+            "secondaryElement": "WOOD",
+            "confidence": 0.8,
+            "reasoning": "조후(調候): 계(癸) 일간 진(辰)월생, 궁통보감 기준 FIRE 필요, 보조 WOOD"
+          },
+          {
+            "type": "GYEOKGUK",
+            "primaryElement": "FIRE",
+            "secondaryElement": "WATER",
+            "confidence": 0.65,
+            "reasoning": "격국용신(格局用神): 식신격 — 순용: 재성이 식신의 힘을 이어받고(식신생재), 비겁이 식신을 보조"
+          }
+        ],
+        "finalYongshin": "FIRE",
+        "finalHeesin": "WOOD",
+        "gisin": "WATER",
+        "gusin": "METAL",
+        "agreement": "DISAGREE",
+        "finalConfidence": 0.7
+      },
+      "gyeokguk": {
+        "type": "SIKSIN",
+        "category": "NAEGYEOK",
+        "baseSipseong": "SIK_SIN",
+        "confidence": 0.9,
+        "reasoning": "일간 계(癸) 기준, 월지 진(辰)의 여기(餘氣) 을(乙)이(가) 천간에 투출(透出)하여 식신(食神)이므로 식신격(食神格)으로 판단.",
+        "formation": {
+          "quality": "WELL_FORMED",
+          "breakingFactors": [],
+          "rescueFactors": [],
+          "reasoning": "식신격 성격(成格): 식신생재(食神生財) 또는 식신제살(食神制殺) 조건이 충족되어 격국이 잘 형성됨."
+        }
+      },
+      "hapHwa": [],
+      "sibiUnseong": {
+        "YEAR": "MOK_YOK",
+        "MONTH": "YANG",
+        "DAY": "TAE",
+        "HOUR": "JANG_SAENG"
+      },
+      "gongmang": {
+        "voidBranches": [
+          "O",
+          "MI"
+        ],
+        "affectedPositions": []
+      },
+      "shinsal": [
+        {
+          "type": "CHEONUL_GWIIN",
+          "position": "DAY",
+          "referenceBranch": "SA",
+          "note": "계일간 → 묘,사 중 사"
+        },
+        {
+          "type": "CHEONUL_GWIIN",
+          "position": "HOUR",
+          "referenceBranch": "MYO",
+          "note": "계일간 → 묘,사 중 묘"
+        },
+        {
+          "type": "DOHWA",
+          "position": "HOUR",
+          "referenceBranch": "MYO",
+          "note": "도화 묘"
+        },
+        {
+          "type": "CHEONDEOK_GWIIN",
+          "position": "MONTH",
+          "referenceBranch": "JIN",
+          "note": "월지 진 → 천덕귀인 임"
+        },
+        {
+          "type": "WOLDEOK_GWIIN",
+          "position": "MONTH",
+          "referenceBranch": "JIN",
+          "note": "월지 진 → 월덕귀인 임"
+        },
+        {
+          "type": "MUNCHANG",
+          "position": "HOUR",
+          "referenceBranch": "MYO",
+          "note": "계일간 → 묘"
+        },
+        {
+          "type": "HAKDANG",
+          "position": "HOUR",
+          "referenceBranch": "MYO",
+          "note": "계일간 → 묘"
+        },
+        {
+          "type": "GEUMYEO",
+          "position": "YEAR",
+          "referenceBranch": "IN",
+          "note": "계일간 → 인"
+        },
+        {
+          "type": "GEOPSAL",
+          "position": "YEAR",
+          "referenceBranch": "IN",
+          "note": "겁살 인"
+        },
+        {
+          "type": "GEOPSAL",
+          "position": "DAY",
+          "referenceBranch": "SA",
+          "note": "겁살 사"
+        },
+        {
+          "type": "GOSIN",
+          "position": "DAY",
+          "referenceBranch": "SA",
+          "note": "년지 인 → 고신 사"
+        },
+        {
+          "type": "BOKSEONG_GWIIN",
+          "position": "HOUR",
+          "referenceBranch": "MYO",
+          "note": "계일간 → 묘"
+        },
+        {
+          "type": "BAEKHO",
+          "position": "DAY",
+          "referenceBranch": "SA",
+          "note": "계일간 → 사"
+        },
+        {
+          "type": "CHEONUI",
+          "position": "HOUR",
+          "referenceBranch": "MYO",
+          "note": "월지 진 → 천의 묘"
+        },
+        {
+          "type": "CHEOLLA_JIMANG",
+          "position": "MONTH",
+          "referenceBranch": "JIN",
+          "note": "천라(天羅) 진+사"
+        },
+        {
+          "type": "CHEOLLA_JIMANG",
+          "position": "DAY",
+          "referenceBranch": "SA",
+          "note": "천라(天羅) 진+사"
+        },
+        {
+          "type": "JAESAL",
+          "position": "HOUR",
+          "referenceBranch": "MYO",
+          "note": "재살 묘"
+        },
+        {
+          "type": "GYEOKGAK",
+          "position": "YEAR",
+          "referenceBranch": "IN",
+          "note": "격각 인-진 (YEAR-MONTH)"
+        },
+        {
+          "type": "GYEOKGAK",
+          "position": "MONTH",
+          "referenceBranch": "JIN",
+          "note": "격각 인-진 (YEAR-MONTH)"
+        },
+        {
+          "type": "GYEOKGAK",
+          "position": "DAY",
+          "referenceBranch": "SA",
+          "note": "격각 사-묘 (DAY-HOUR)"
+        },
+        {
+          "type": "GYEOKGAK",
+          "position": "HOUR",
+          "referenceBranch": "MYO",
+          "note": "격각 사-묘 (DAY-HOUR)"
+        },
+        {
+          "type": "CHEONBOK_GWIIN",
+          "position": "DAY",
+          "referenceBranch": "SA",
+          "note": "계일간 → 사"
+        },
+        {
+          "type": "YUKHAESAL",
+          "position": "YEAR",
+          "referenceBranch": "IN",
+          "note": "육해살 인"
+        },
+        {
+          "type": "YUKHAESAL",
+          "position": "DAY",
+          "referenceBranch": "SA",
+          "note": "육해살 사"
+        },
+        {
+          "type": "HYEOLINSAL",
+          "position": "DAY",
+          "referenceBranch": "SA",
+          "note": "계일간 → 사"
+        },
+        {
+          "type": "SANGMUNSAL",
+          "position": "MONTH",
+          "referenceBranch": "JIN",
+          "note": "년지 인 → 상문살 진"
+        },
+        {
+          "type": "CHEONSAL",
+          "position": "MONTH",
+          "referenceBranch": "JIN",
+          "note": "천살 진"
+        },
+        {
+          "type": "JISAL",
+          "position": "DAY",
+          "referenceBranch": "SA",
+          "note": "지살 사"
+        },
+        {
+          "type": "JISAL",
+          "position": "YEAR",
+          "referenceBranch": "IN",
+          "note": "지살 인"
+        },
+        {
+          "type": "MANGSINSAL",
+          "position": "DAY",
+          "referenceBranch": "SA",
+          "note": "망신살 사"
+        },
+        {
+          "type": "CHEONJU_GWIIN",
+          "position": "HOUR",
+          "referenceBranch": "MYO",
+          "note": "계일간 → 묘"
+        }
+      ],
+      "weightedShinsal": [
+        {
+          "hit": {
+            "type": "CHEONUL_GWIIN",
+            "position": "DAY",
+            "referenceBranch": "SA",
+            "note": "계일간 → 묘,사 중 사"
+          },
+          "baseWeight": 95,
+          "positionMultiplier": 1,
+          "weightedScore": 95
+        },
+        {
+          "hit": {
+            "type": "CHEONDEOK_GWIIN",
+            "position": "MONTH",
+            "referenceBranch": "JIN",
+            "note": "월지 진 → 천덕귀인 임"
+          },
+          "baseWeight": 90,
+          "positionMultiplier": 0.85,
+          "weightedScore": 77
+        },
+        {
+          "hit": {
+            "type": "WOLDEOK_GWIIN",
+            "position": "MONTH",
+            "referenceBranch": "JIN",
+            "note": "월지 진 → 월덕귀인 임"
+          },
+          "baseWeight": 90,
+          "positionMultiplier": 0.85,
+          "weightedScore": 77
+        },
+        {
+          "hit": {
+            "type": "GEOPSAL",
+            "position": "DAY",
+            "referenceBranch": "SA",
+            "note": "겁살 사"
+          },
+          "baseWeight": 60,
+          "positionMultiplier": 1,
+          "weightedScore": 60
+        },
+        {
+          "hit": {
+            "type": "CHEONUL_GWIIN",
+            "position": "HOUR",
+            "referenceBranch": "MYO",
+            "note": "계일간 → 묘,사 중 묘"
+          },
+          "baseWeight": 95,
+          "positionMultiplier": 0.6,
+          "weightedScore": 57
+        },
+        {
+          "hit": {
+            "type": "GOSIN",
+            "position": "DAY",
+            "referenceBranch": "SA",
+            "note": "년지 인 → 고신 사"
+          },
+          "baseWeight": 50,
+          "positionMultiplier": 1,
+          "weightedScore": 50
+        },
+        {
+          "hit": {
+            "type": "DOHWA",
+            "position": "HOUR",
+            "referenceBranch": "MYO",
+            "note": "도화 묘"
+          },
+          "baseWeight": 80,
+          "positionMultiplier": 0.6,
+          "weightedScore": 48
+        },
+        {
+          "hit": {
+            "type": "GEOPSAL",
+            "position": "YEAR",
+            "referenceBranch": "IN",
+            "note": "겁살 인"
+          },
+          "baseWeight": 60,
+          "positionMultiplier": 0.7,
+          "weightedScore": 42
+        },
+        {
+          "hit": {
+            "type": "GEUMYEO",
+            "position": "YEAR",
+            "referenceBranch": "IN",
+            "note": "계일간 → 인"
+          },
+          "baseWeight": 55,
+          "positionMultiplier": 0.7,
+          "weightedScore": 39
+        },
+        {
+          "hit": {
+            "type": "MUNCHANG",
+            "position": "HOUR",
+            "referenceBranch": "MYO",
+            "note": "계일간 → 묘"
+          },
+          "baseWeight": 60,
+          "positionMultiplier": 0.6,
+          "weightedScore": 36
+        },
+        {
+          "hit": {
+            "type": "BAEKHO",
+            "position": "DAY",
+            "referenceBranch": "SA",
+            "note": "계일간 → 사"
+          },
+          "baseWeight": 35,
+          "positionMultiplier": 1,
+          "weightedScore": 35
+        },
+        {
+          "hit": {
+            "type": "CHEOLLA_JIMANG",
+            "position": "DAY",
+            "referenceBranch": "SA",
+            "note": "천라(天羅) 진+사"
+          },
+          "baseWeight": 35,
+          "positionMultiplier": 1,
+          "weightedScore": 35
+        },
+        {
+          "hit": {
+            "type": "HAKDANG",
+            "position": "HOUR",
+            "referenceBranch": "MYO",
+            "note": "계일간 → 묘"
+          },
+          "baseWeight": 55,
+          "positionMultiplier": 0.6,
+          "weightedScore": 33
+        },
+        {
+          "hit": {
+            "type": "BOKSEONG_GWIIN",
+            "position": "HOUR",
+            "referenceBranch": "MYO",
+            "note": "계일간 → 묘"
+          },
+          "baseWeight": 50,
+          "positionMultiplier": 0.6,
+          "weightedScore": 30
+        },
+        {
+          "hit": {
+            "type": "CHEOLLA_JIMANG",
+            "position": "MONTH",
+            "referenceBranch": "JIN",
+            "note": "천라(天羅) 진+사"
+          },
+          "baseWeight": 35,
+          "positionMultiplier": 0.85,
+          "weightedScore": 30
+        },
+        {
+          "hit": {
+            "type": "CHEONBOK_GWIIN",
+            "position": "DAY",
+            "referenceBranch": "SA",
+            "note": "계일간 → 사"
+          },
+          "baseWeight": 30,
+          "positionMultiplier": 1,
+          "weightedScore": 30
+        },
+        {
+          "hit": {
+            "type": "MANGSINSAL",
+            "position": "DAY",
+            "referenceBranch": "SA",
+            "note": "망신살 사"
+          },
+          "baseWeight": 30,
+          "positionMultiplier": 1,
+          "weightedScore": 30
+        },
+        {
+          "hit": {
+            "type": "YUKHAESAL",
+            "position": "DAY",
+            "referenceBranch": "SA",
+            "note": "육해살 사"
+          },
+          "baseWeight": 25,
+          "positionMultiplier": 1,
+          "weightedScore": 25
+        },
+        {
+          "hit": {
+            "type": "HYEOLINSAL",
+            "position": "DAY",
+            "referenceBranch": "SA",
+            "note": "계일간 → 사"
+          },
+          "baseWeight": 25,
+          "positionMultiplier": 1,
+          "weightedScore": 25
+        },
+        {
+          "hit": {
+            "type": "JISAL",
+            "position": "DAY",
+            "referenceBranch": "SA",
+            "note": "지살 사"
+          },
+          "baseWeight": 25,
+          "positionMultiplier": 1,
+          "weightedScore": 25
+        },
+        {
+          "hit": {
+            "type": "SANGMUNSAL",
+            "position": "MONTH",
+            "referenceBranch": "JIN",
+            "note": "년지 인 → 상문살 진"
+          },
+          "baseWeight": 25,
+          "positionMultiplier": 0.85,
+          "weightedScore": 21
+        },
+        {
+          "hit": {
+            "type": "CHEONSAL",
+            "position": "MONTH",
+            "referenceBranch": "JIN",
+            "note": "천살 진"
+          },
+          "baseWeight": 25,
+          "positionMultiplier": 0.85,
+          "weightedScore": 21
+        },
+        {
+          "hit": {
+            "type": "GYEOKGAK",
+            "position": "DAY",
+            "referenceBranch": "SA",
+            "note": "격각 사-묘 (DAY-HOUR)"
+          },
+          "baseWeight": 20,
+          "positionMultiplier": 1,
+          "weightedScore": 20
+        },
+        {
+          "hit": {
+            "type": "CHEONUI",
+            "position": "HOUR",
+            "referenceBranch": "MYO",
+            "note": "월지 진 → 천의 묘"
+          },
+          "baseWeight": 30,
+          "positionMultiplier": 0.6,
+          "weightedScore": 18
+        },
+        {
+          "hit": {
+            "type": "JAESAL",
+            "position": "HOUR",
+            "referenceBranch": "MYO",
+            "note": "재살 묘"
+          },
+          "baseWeight": 30,
+          "positionMultiplier": 0.6,
+          "weightedScore": 18
+        },
+        {
+          "hit": {
+            "type": "YUKHAESAL",
+            "position": "YEAR",
+            "referenceBranch": "IN",
+            "note": "육해살 인"
+          },
+          "baseWeight": 25,
+          "positionMultiplier": 0.7,
+          "weightedScore": 18
+        },
+        {
+          "hit": {
+            "type": "JISAL",
+            "position": "YEAR",
+            "referenceBranch": "IN",
+            "note": "지살 인"
+          },
+          "baseWeight": 25,
+          "positionMultiplier": 0.7,
+          "weightedScore": 18
+        },
+        {
+          "hit": {
+            "type": "CHEONJU_GWIIN",
+            "position": "HOUR",
+            "referenceBranch": "MYO",
+            "note": "계일간 → 묘"
+          },
+          "baseWeight": 30,
+          "positionMultiplier": 0.6,
+          "weightedScore": 18
+        },
+        {
+          "hit": {
+            "type": "GYEOKGAK",
+            "position": "MONTH",
+            "referenceBranch": "JIN",
+            "note": "격각 인-진 (YEAR-MONTH)"
+          },
+          "baseWeight": 20,
+          "positionMultiplier": 0.85,
+          "weightedScore": 17
+        },
+        {
+          "hit": {
+            "type": "GYEOKGAK",
+            "position": "YEAR",
+            "referenceBranch": "IN",
+            "note": "격각 인-진 (YEAR-MONTH)"
+          },
+          "baseWeight": 20,
+          "positionMultiplier": 0.7,
+          "weightedScore": 14
+        },
+        {
+          "hit": {
+            "type": "GYEOKGAK",
+            "position": "HOUR",
+            "referenceBranch": "MYO",
+            "note": "격각 사-묘 (DAY-HOUR)"
+          },
+          "baseWeight": 20,
+          "positionMultiplier": 0.6,
+          "weightedScore": 12
+        }
+      ],
+      "shinsalComposites": [
+        {
+          "patternName": "천을귀인+학당",
+          "interactionType": "SYNERGY",
+          "involvedHits": [
+            {
+              "type": "CHEONUL_GWIIN",
+              "position": "DAY",
+              "referenceBranch": "SA",
+              "note": "계일간 → 묘,사 중 사"
+            },
+            {
+              "type": "CHEONUL_GWIIN",
+              "position": "HOUR",
+              "referenceBranch": "MYO",
+              "note": "계일간 → 묘,사 중 묘"
+            },
+            {
+              "type": "HAKDANG",
+              "position": "HOUR",
+              "referenceBranch": "MYO",
+              "note": "계일간 → 묘"
+            }
+          ],
+          "interpretation": "학업의 귀인, 스승 복. 학문의 재능에 귀인의 도움이 더해져, 좋은 스승을 만나 크게 성장할 수 있습니다.",
+          "bonusScore": 15
+        },
+        {
+          "patternName": "천덕귀인+월덕귀인",
+          "interactionType": "AMPLIFY",
+          "involvedHits": [
+            {
+              "type": "CHEONDEOK_GWIIN",
+              "position": "MONTH",
+              "referenceBranch": "JIN",
+              "note": "월지 진 → 천덕귀인 임"
+            },
+            {
+              "type": "WOLDEOK_GWIIN",
+              "position": "MONTH",
+              "referenceBranch": "JIN",
+              "note": "월지 진 → 월덕귀인 임"
+            }
+          ],
+          "interpretation": "이중 해액 방어, 큰 복덕. 천덕과 월덕이 함께하면 재앙을 크게 물리치고, 위기 상황에서도 안전하게 벗어나는 큰 복을 가지고 있습니다.",
+          "bonusScore": 25
+        }
+      ],
+      "palace": {
+        "YEAR": {
+          "palaceInfo": {
+            "position": "YEAR",
+            "koreanName": "부모궁",
+            "domain": "부모, 조상, 어린 시절 환경",
+            "agePeriod": "1~15세",
+            "bodyPart": "머리/두뇌",
+            "cheonganAspect": "외부적/사회적 측면",
+            "jijiAspect": "내부적/가정적 측면"
+          },
+          "sipseong": "JEONG_JAE",
+          "familyRelation": {
+            "sipseong": "JEONG_JAE",
+            "gender": "MALE",
+            "familyMember": "아내",
+            "hanja": "妻"
+          },
+          "interpretation": {
+            "favor": "FAVORABLE",
+            "summary": "부모궁에 정재: 안정된 가정 환경",
+            "detail": "부모가 근면성실하고 가정이 안정적입니다. 검소하고 실용적인 가치관이 형성됩니다."
+          }
+        },
+        "MONTH": {
+          "palaceInfo": {
+            "position": "MONTH",
+            "koreanName": "형제궁",
+            "domain": "형제, 사회생활, 직업",
+            "agePeriod": "16~30세",
+            "bodyPart": "가슴/어깨",
+            "cheonganAspect": "외부적/사회적 측면",
+            "jijiAspect": "내부적/가정적 측면"
+          },
+          "sipseong": "GYEOB_JAE",
+          "familyRelation": {
+            "sipseong": "GYEOB_JAE",
+            "gender": "MALE",
+            "familyMember": "이복형제",
+            "hanja": "異腹兄弟"
+          },
+          "interpretation": {
+            "favor": "UNFAVORABLE",
+            "summary": "형제궁에 겁재: 재물 손실 주의",
+            "detail": "사회생활에서 금전적 손실이나 동업 실패의 위험이 있습니다. 보증이나 투자에 신중을 기해야 합니다."
+          }
+        },
+        "DAY": {
+          "palaceInfo": {
+            "position": "DAY",
+            "koreanName": "배우자궁",
+            "domain": "배우자, 내면, 중년",
+            "agePeriod": "31~45세",
+            "bodyPart": "배/허리",
+            "cheonganAspect": "나 자신 (일간)",
+            "jijiAspect": "배우자"
+          },
+          "sipseong": null,
+          "familyRelation": null,
+          "interpretation": null
+        },
+        "HOUR": {
+          "palaceInfo": {
+            "position": "HOUR",
+            "koreanName": "자녀궁",
+            "domain": "자녀, 말년, 결과",
+            "agePeriod": "46세~",
+            "bodyPart": "다리/발",
+            "cheonganAspect": "외부적/사회적 측면",
+            "jijiAspect": "내부적/가정적 측면"
+          },
+          "sipseong": "SIK_SIN",
+          "familyRelation": {
+            "sipseong": "SIK_SIN",
+            "gender": "MALE",
+            "familyMember": "장모",
+            "hanja": "丈母"
+          },
+          "interpretation": {
+            "favor": "FAVORABLE",
+            "summary": "자녀궁에 식신: 자녀복과 편안한 말년",
+            "detail": "자녀가 효도하고 말년이 편안합니다. 건강하고 여유로운 노후를 보냅니다."
+          }
+        }
+      },
+      "daeun": {
+        "isForward": true,
+        "firstDaeunStartAge": 5,
+        "daeunPillars": [
+          {
+            "pillar": {
+              "cheongan": "GYE",
+              "jiji": "SA"
+            },
+            "startAge": 5,
+            "endAge": 14,
+            "order": 1
+          },
+          {
+            "pillar": {
+              "cheongan": "GAP",
+              "jiji": "O"
+            },
+            "startAge": 15,
+            "endAge": 24,
+            "order": 2
+          },
+          {
+            "pillar": {
+              "cheongan": "EUL",
+              "jiji": "MI"
+            },
+            "startAge": 25,
+            "endAge": 34,
+            "order": 3
+          },
+          {
+            "pillar": {
+              "cheongan": "BYEONG",
+              "jiji": "SIN"
+            },
+            "startAge": 35,
+            "endAge": 44,
+            "order": 4
+          },
+          {
+            "pillar": {
+              "cheongan": "JEONG",
+              "jiji": "YU"
+            },
+            "startAge": 45,
+            "endAge": 54,
+            "order": 5
+          },
+          {
+            "pillar": {
+              "cheongan": "MU",
+              "jiji": "SUL"
+            },
+            "startAge": 55,
+            "endAge": 64,
+            "order": 6
+          },
+          {
+            "pillar": {
+              "cheongan": "GI",
+              "jiji": "HAE"
+            },
+            "startAge": 65,
+            "endAge": 74,
+            "order": 7
+          },
+          {
+            "pillar": {
+              "cheongan": "GYEONG",
+              "jiji": "JA"
+            },
+            "startAge": 75,
+            "endAge": 84,
+            "order": 8
+          }
+        ],
+        "boundaryMode": "EXACT_TABLE",
+        "warnings": [],
+        "firstDaeunStartMonths": 7
+      },
+      "saeun": [
+        {
+          "year": 1986,
+          "pillar": {
+            "cheongan": "BYEONG",
+            "jiji": "IN"
+          }
+        },
+        {
+          "year": 1987,
+          "pillar": {
+            "cheongan": "JEONG",
+            "jiji": "MYO"
+          }
+        },
+        {
+          "year": 1988,
+          "pillar": {
+            "cheongan": "MU",
+            "jiji": "JIN"
+          }
+        },
+        {
+          "year": 1989,
+          "pillar": {
+            "cheongan": "GI",
+            "jiji": "SA"
+          }
+        },
+        {
+          "year": 1990,
+          "pillar": {
+            "cheongan": "GYEONG",
+            "jiji": "O"
+          }
+        },
+        {
+          "year": 1991,
+          "pillar": {
+            "cheongan": "SIN",
+            "jiji": "MI"
+          }
+        },
+        {
+          "year": 1992,
+          "pillar": {
+            "cheongan": "IM",
+            "jiji": "SIN"
+          }
+        },
+        {
+          "year": 1993,
+          "pillar": {
+            "cheongan": "GYE",
+            "jiji": "YU"
+          }
+        },
+        {
+          "year": 1994,
+          "pillar": {
+            "cheongan": "GAP",
+            "jiji": "SUL"
+          }
+        },
+        {
+          "year": 1995,
+          "pillar": {
+            "cheongan": "EUL",
+            "jiji": "HAE"
+          }
+        }
+      ],
+      "cheonganRelations": [
+        {
+          "type": "CHUNG",
+          "members": [
+            "BYEONG",
+            "IM"
+          ],
+          "resultOhaeng": null,
+          "note": "병임충"
+        }
+      ],
+      "resolvedJijiRelations": [
+        {
+          "hit": {
+            "type": "BANGHAP",
+            "members": [
+              "IN",
+              "MYO",
+              "JIN"
+            ],
+            "note": "동방 목합"
+          },
+          "outcome": "ACTIVE",
+          "interactsWith": [
+            {
+              "type": "HYEONG",
+              "members": [
+                "IN",
+                "SA"
+              ],
+              "note": "인사형(무은)"
+            }
+          ],
+          "reasoning": "인사형(무은)(형)은 동방 목합(합)과 공존하여 합의 효력에 영향을 주지 않습니다.",
+          "score": {
+            "baseScore": 100,
+            "adjacencyBonus": 10,
+            "outcomeMultiplier": 1,
+            "finalScore": 100,
+            "rationale": "동방 목합(방합): 기본점수 100점 + 인접보너스 10점 = 최종 100점"
+          }
+        },
+        {
+          "hit": {
+            "type": "HYEONG",
+            "members": [
+              "IN",
+              "SA"
+            ],
+            "note": "인사형(무은)"
+          },
+          "outcome": "ACTIVE",
+          "interactsWith": [
+            {
+              "type": "BANGHAP",
+              "members": [
+                "IN",
+                "MYO",
+                "JIN"
+              ],
+              "note": "동방 목합"
+            }
+          ],
+          "reasoning": "인사형(무은)(형)은 동방 목합(합)에도 불구하고 해소되지 않고 유지됩니다.",
+          "score": {
+            "baseScore": 55,
+            "adjacencyBonus": 0,
+            "outcomeMultiplier": 1,
+            "finalScore": 55,
+            "rationale": "인사형(무은)(형): 기본점수 55점 = 최종 55점"
+          }
+        },
+        {
+          "hit": {
+            "type": "HAE",
+            "members": [
+              "IN",
+              "SA"
+            ],
+            "note": "인사해"
+          },
+          "outcome": "WEAKENED",
+          "interactsWith": [
+            {
+              "type": "BANGHAP",
+              "members": [
+                "IN",
+                "MYO",
+                "JIN"
+              ],
+              "note": "동방 목합"
+            },
+            {
+              "type": "HYEONG",
+              "members": [
+                "IN",
+                "SA"
+              ],
+              "note": "인사형(무은)"
+            }
+          ],
+          "reasoning": "동방 목합(방합)이(가) 우선하여 인사해(해)의 작용이 약화됩니다. 인사형(무은)(형)이(가) 우선하여 인사해(해)의 작용이 약화됩니다.",
+          "score": {
+            "baseScore": 40,
+            "adjacencyBonus": 0,
+            "outcomeMultiplier": 0.5,
+            "finalScore": 20,
+            "rationale": "인사해(해): 기본점수 40점 × 약화배율(0.5) = 최종 20점"
+          }
+        },
+        {
+          "hit": {
+            "type": "HAE",
+            "members": [
+              "MYO",
+              "JIN"
+            ],
+            "note": "묘진해"
+          },
+          "outcome": "WEAKENED",
+          "interactsWith": [
+            {
+              "type": "BANGHAP",
+              "members": [
+                "IN",
+                "MYO",
+                "JIN"
+              ],
+              "note": "동방 목합"
+            }
+          ],
+          "reasoning": "동방 목합(방합)이(가) 우선하여 묘진해(해)의 작용이 약화됩니다.",
+          "score": {
+            "baseScore": 40,
+            "adjacencyBonus": 0,
+            "outcomeMultiplier": 0.5,
+            "finalScore": 20,
+            "rationale": "묘진해(해): 기본점수 40점 × 약화배율(0.5) = 최종 20점"
+          }
+        }
+      ],
+      "scoredCheonganRelations": [
+        {
+          "hit": {
+            "type": "CHUNG",
+            "members": [
+              "BYEONG",
+              "IM"
+            ],
+            "resultOhaeng": null,
+            "note": "병임충"
+          },
+          "hapHwaEvaluation": null,
+          "score": {
+            "baseScore": 65,
+            "adjacencyBonus": 10,
+            "outcomeMultiplier": 1,
+            "finalScore": 75,
+            "rationale": "병임충(천간충): 기본점수 65점 + 인접보너스 10점 = 최종 75점"
+          }
+        }
+      ],
+      "trace": [
+        {
+          "key": "core",
+          "summary": "?�주 ?�국 계산 ?�료 ???�간 계(癸), ?��? 진(辰). ?�입 ??15?�차.",
+          "evidence": [
+            "daysSinceJeol=15"
+          ],
+          "citations": [
+            "[근거: YEONHAEJAYPYEONG, SAMMYEONGTTONGHOE — 사주 원국 산출, 신뢰도 0%]"
+          ],
+          "reasoning": [
+            "?�주: 병인, ?�주: 임진, ?�주: 계사, ?�주: 을묘"
+          ],
+          "confidence": null
+        },
+        {
+          "key": "tenGods",
+          "summary": "십성(十星) 분석 — 일간 계(癸) 기준 4주 천간·지지의 십성 배치 완료.",
+          "evidence": [
+            "YEAR: 천간=정재, 지지본기=상관",
+            "MONTH: 천간=겁재, 지지본기=정관",
+            "DAY: 천간=비견, 지지본기=정재",
+            "HOUR: 천간=식신, 지지본기=식신"
+          ],
+          "citations": [
+            "[근거: YEONHAEJAYPYEONG, SAMMYEONGTTONGHOE — 십성 배치, 신뢰도 0%]"
+          ],
+          "reasoning": [
+            "십성은 일간 계(수(水))을 기준으로 다른 천간·지지와의 오행 관계(생극제화)를 판별합니다."
+          ],
+          "confidence": null
+        },
+        {
+          "key": "hiddenStems",
+          "summary": "지장간(支藏干) 분석 — 4주 지지의 숨은 천간 추출 완료.",
+          "evidence": [
+            "YEAR: 무(YEOGI)/병(JUNGGI)/갑(JEONGGI)",
+            "MONTH: 을(YEOGI)/계(JUNGGI)/무(JEONGGI)",
+            "DAY: 무(YEOGI)/경(JUNGGI)/병(JEONGGI)",
+            "HOUR: 갑(YEOGI)/을(JEONGGI)"
+          ],
+          "citations": [
+            "[근거: YEONHAEJAYPYEONG, SAMMYEONGTTONGHOE — 지장간, 신뢰도 0%]"
+          ],
+          "reasoning": [
+            "지장간은 각 지지 속에 내포된 천간으로, 여기(餘氣)·중기(中氣)·정기(正氣)로 구분됩니다. 정기가 가장 강한 영향력을 가지며, 격국·투출 판별의 핵심입니다.",
+            "[유파 설정] 지장간 배분: STANDARD"
+          ],
+          "confidence": null
+        },
+        {
+          "key": "cheonganRelations",
+          "summary": "천간 관계 1건 감지 (합/충/극 등).",
+          "evidence": [
+            "hits=1"
+          ],
+          "citations": [
+            "[근거: YEONHAEJAYPYEONG, JEOKCHEONSU — 천간 합충, 신뢰도 0%]"
+          ],
+          "reasoning": [
+            "병(丙)과 임(壬)는 천간충(天干沖) 관계 — 같은 음양이며 서로 6간격, 오행이 상극(화(火)↔수(水))"
+          ],
+          "confidence": null
+        },
+        {
+          "key": "hapHwa",
+          "summary": "천간 합화 평가 — 합화 대상 없음. 엄격도=STRICT_FIVE_CONDITIONS, 일간보호=적용.",
+          "evidence": [
+            "합 대상 없음"
+          ],
+          "citations": [
+            "[근거: JEOKCHEONSU, JAPYEONGJINJEON — 천간 합화, 신뢰도 0%]"
+          ],
+          "reasoning": [
+            "천간합 관계가 없거나 합화 평가 대상이 없습니다."
+          ],
+          "confidence": null
+        },
+        {
+          "key": "resolvedJijiRelations",
+          "summary": "지지 관계 4건 상호작용 해소 및 점수 산출. 반합 허용.",
+          "evidence": [
+            "동방 목합: ACTIVE(100점)",
+            "인사형(무은): ACTIVE(55점)",
+            "인사해: WEAKENED(20점)",
+            "묘진해: WEAKENED(20점)"
+          ],
+          "citations": [
+            "[근거: YEONHAEJAYPYEONG, SAMMYEONGTTONGHOE — 지지 합충형파해, 신뢰도 0%]"
+          ],
+          "reasoning": [
+            "동방 목합 → ACTIVE: 인사형(무은)(형)은 동방 목합(합)과 공존하여 합의 효력에 영향을 주지 않습니다. [기본100점 + 인접보너스10점 × 배율1 = 100점]",
+            "인사형(무은) → ACTIVE: 인사형(무은)(형)은 동방 목합(합)에도 불구하고 해소되지 않고 유지됩니다. [기본55점 × 배율1 = 55점]",
+            "인사해 → WEAKENED: 동방 목합(방합)이(가) 우선하여 인사해(해)의 작용이 약화됩니다. 인사형(무은)(형)이(가) 우선하여 인사해(해)의 작용이 약화됩니다. [기본40점 × 배율0.5 = 20점]",
+            "묘진해 → WEAKENED: 동방 목합(방합)이(가) 우선하여 묘진해(해)의 작용이 약화됩니다. [기본40점 × 배율0.5 = 20점]"
+          ],
+          "confidence": null
+        },
+        {
+          "key": "scoredCheonganRelations",
+          "summary": "천간 관계 1건 점수 산출 (합화 평가 반영).",
+          "evidence": [
+            "병임충: 75점"
+          ],
+          "citations": [
+            "[근거: YEONHAEJAYPYEONG, JEOKCHEONSU — 천간 관계 점수, 신뢰도 0%]"
+          ],
+          "reasoning": [
+            "병임충: 병임충(천간충): 기본점수 65점 + 인접보너스 10점 = 최종 75점 → 75점"
+          ],
+          "confidence": null
+        },
+        {
+          "key": "sibiUnseong",
+          "summary": "십이운성 산출 — YEAR=목욕, MONTH=양, DAY=태, HOUR=장생. 토오행규칙=FOLLOW_FIRE, 음간역행=true.",
+          "evidence": [
+            "entries=4"
+          ],
+          "citations": [
+            "[근거: YEONHAEJAYPYEONG — 십이운성, 신뢰도 0%]"
+          ],
+          "reasoning": [
+            "일간 계(癸)은 수(水)·음 → 양순음역(陽順陰逆) 적용, 화토동법(火土同法)",
+            "YEAR: 일간 계 → 지지 인(寅) 역행(←) = 목욕(沐浴)",
+            "MONTH: 일간 계 → 지지 진(辰) 역행(←) = 양(養)",
+            "DAY: 일간 계 → 지지 사(巳) 역행(←) = 태(胎)",
+            "HOUR: 일간 계 → 지지 묘(卯) 역행(←) = 장생(長生)",
+            "[유파 설정] 12운성 토 규칙: FOLLOW_FIRE — FOLLOW_FIRE(화토동법, 주류), FOLLOW_WATER(수토동법), INDEPENDENT(토독립설→화토동법)"
+          ],
+          "confidence": 90
+        },
+        {
+          "key": "gongmang",
+          "summary": "공망(空亡) 계산 — 오(午)·미(未). 해당 기둥 0개.",
+          "evidence": [
+            "void=O/MI",
+            "affected=0"
+          ],
+          "citations": [
+            "[근거: YEONHAEJAYPYEONG, SAMMYEONGTTONGHOE — 공망, 신뢰도 0%]"
+          ],
+          "reasoning": [
+            "일주 계사의 육갑순(六甲旬)에서 배정되지 않는 지지 2개가 공망: 오(午)·미(未)"
+          ],
+          "confidence": 95
+        },
+        {
+          "key": "strength",
+          "summary": "일간 계(癸) 강약 판정 — 극신약(신약). 총지지력=8.7, 기준값=50.",
+          "evidence": [
+            "level=VERY_WEAK",
+            "isStrong=false",
+            "support=8.7"
+          ],
+          "citations": [
+            "[근거: JEOKCHEONSU, KOREAN_MODERN_PRACTICE — 신강신약, 신뢰도 0%]"
+          ],
+          "reasoning": [
+            "[득령] 월지 진(辰) 정기=무(戊) → 정관 → 실령 (0점)",
+            "[득지] 년지 인(寅): 부조 없음",
+            "[득지] 월지 진(辰): 계(비견,3일)=0.5 = 0.5점",
+            "[득지] 일지 사(巳): 경(정인,7일)=1.2 = 1.2점",
+            "[득지] 시지 묘(卯): 부조 없음",
+            "[득지] 합계: 1.7점",
+            "[득세] 년간 병(丙): 정재 → 부조 아님",
+            "[득세] 월간 임(壬): 겁재 → +7점",
+            "[득세] 시간 을(乙): 식신 → 부조 아님",
+            "[득세] 합계: 7점",
+            "---",
+            "총 부조 점수: 8.7 / 득령 0 + 득지 1.7 + 득세 7",
+            "판정: 극신약 (신약)"
+          ],
+          "confidence": 95
+        },
+        {
+          "key": "gyeokguk",
+          "summary": "격국 판정 — SIKSIN(NAEGYEOK). 성격: WELL_FORMED, 신뢰도=90%.",
+          "evidence": [
+            "type=SIKSIN",
+            "category=NAEGYEOK",
+            "confidence=0.90",
+            "formation=WELL_FORMED"
+          ],
+          "citations": [
+            "[근거: JAPYEONGJINJEON, MYEONGLIJEONGJON — 격국, 신뢰도 0%]"
+          ],
+          "reasoning": [
+            "격국 판별: 일간 계(癸) 기준, 월지 진(辰)의 여기(餘氣) 을(乙)이(가) 천간에 투출(透出)하여 식신(食神)이므로 식신격(食神格)으로 판단.",
+            "격국 성격: 식신격 성격(成格): 식신생재(食神生財) 또는 식신제살(食神制殺) 조건이 충족되어 격국이 잘 형성됨."
+          ],
+          "confidence": 85
+        },
+        {
+          "key": "yongshin",
+          "summary": "용신 결정 — 최종용신: 화(火), 희신: 목(木). 억부-조후 일치도: DISAGREE(신뢰도=70%). 우선순위=JOHU_FIRST, 추천수=3.",
+          "evidence": [
+            "finalYongshin=FIRE",
+            "finalHeesin=WOOD",
+            "agreement=DISAGREE",
+            "finalConfidence=0.7",
+            "recommendations=EOKBU,JOHU,GYEOKGUK"
+          ],
+          "citations": [
+            "[근거: GUNGTONGBOGAM, JEOKCHEONSU, JAPYEONGJINJEON — 용신, 신뢰도 0%]"
+          ],
+          "reasoning": [
+            "【용신 결정 3단계 우선순위 체계】",
+            "▷ 제1단계 (격국 본질): 해당 없음 — 화격·일행득기격·종격 아님",
+            "▷ 제2단계 (갈등 해소): 원국 내 강한 상극 충돌 미감지 또는 threshold 미달",
+            "▶ 제3단계 (기본): 억부+조후 기본 결정, 우선순위=JOHU_FIRST",
+            "",
+            "【개별 방법론 상세】",
+            "[억부용신] 신약(身弱): 일간 WATER 약하여 인성(METAL)으로 생조, 비겁(WATER)으로 부조 필요 → 용신: 금(金), 희신: 수(水) (신뢰도 70%)",
+            "[조후용신] 조후(調候): 계(癸) 일간 진(辰)월생, 궁통보감 기준 FIRE 필요, 보조 WOOD → 용신: 화(火), 희신: 목(木) (신뢰도 80%)",
+            "[격국용신] 격국용신(格局用神): 식신격 — 순용: 재성이 식신의 힘을 이어받고(식신생재), 비겁이 식신을 보조 → 용신: 화(火), 희신: 수(水) (신뢰도 65%)",
+            "",
+            "억부-조후 일치도: DISAGREE → 최종 신뢰도 70%",
+            "기신(忌神): 수(水) — 용신을 방해하는 오행",
+            "구신(仇神): 금(金) — 기신을 돕는 오행",
+            "[유파 설정] 용신 우선순위: JOHU_FIRST — JOHU_FIRST(조후 우선), EOKBU_FIRST(억부 우선), EQUAL_WEIGHT(동일 가중)"
+          ],
+          "confidence": 95
+        },
+        {
+          "key": "shinsal",
+          "summary": "신살 31종 감지.",
+          "evidence": [
+            "hits=31"
+          ],
+          "citations": [
+            "[근거: SAMMYEONGTTONGHOE, YEONHAEJAYPYEONG — 신살, 신뢰도 0%]"
+          ],
+          "reasoning": [
+            "참조 기준: ?쇱?+?꾩? 紐⑤몢. 감지된 31종:",
+            "CHEONUL_GWIIN(DAY): 계일간 → 묘,사 중 사",
+            "CHEONUL_GWIIN(HOUR): 계일간 → 묘,사 중 묘",
+            "DOHWA(HOUR): 도화 묘",
+            "CHEONDEOK_GWIIN(MONTH): 월지 진 → 천덕귀인 임",
+            "WOLDEOK_GWIIN(MONTH): 월지 진 → 월덕귀인 임",
+            "MUNCHANG(HOUR): 계일간 → 묘",
+            "HAKDANG(HOUR): 계일간 → 묘",
+            "GEUMYEO(YEAR): 계일간 → 인",
+            "GEOPSAL(YEAR): 겁살 인",
+            "GEOPSAL(DAY): 겁살 사",
+            "GOSIN(DAY): 년지 인 → 고신 사",
+            "BOKSEONG_GWIIN(HOUR): 계일간 → 묘",
+            "BAEKHO(DAY): 계일간 → 사",
+            "CHEONUI(HOUR): 월지 진 → 천의 묘",
+            "CHEOLLA_JIMANG(MONTH): 천라(天羅) 진+사",
+            "CHEOLLA_JIMANG(DAY): 천라(天羅) 진+사",
+            "JAESAL(HOUR): 재살 묘",
+            "GYEOKGAK(YEAR): 격각 인-진 (YEAR-MONTH)",
+            "GYEOKGAK(MONTH): 격각 인-진 (YEAR-MONTH)",
+            "GYEOKGAK(DAY): 격각 사-묘 (DAY-HOUR)",
+            "GYEOKGAK(HOUR): 격각 사-묘 (DAY-HOUR)",
+            "CHEONBOK_GWIIN(DAY): 계일간 → 사",
+            "YUKHAESAL(YEAR): 육해살 인",
+            "YUKHAESAL(DAY): 육해살 사",
+            "HYEOLINSAL(DAY): 계일간 → 사",
+            "SANGMUNSAL(MONTH): 년지 인 → 상문살 진",
+            "CHEONSAL(MONTH): 천살 진",
+            "JISAL(DAY): 지살 사",
+            "JISAL(YEAR): 지살 인",
+            "MANGSINSAL(DAY): 망신살 사",
+            "CHEONJU_GWIIN(HOUR): 계일간 → 묘"
+          ],
+          "confidence": 95
+        },
+        {
+          "key": "weightedShinsal",
+          "summary": "신살 가중치 산출 — 31건, 위치 배율 적용 (일주1.0/월주0.85/년주0.7/시주0.6).",
+          "evidence": [
+            "CHEONUL_GWIIN(DAY)=95점",
+            "CHEONDEOK_GWIIN(MONTH)=77점",
+            "WOLDEOK_GWIIN(MONTH)=77점",
+            "GEOPSAL(DAY)=60점",
+            "CHEONUL_GWIIN(HOUR)=57점"
+          ],
+          "citations": [
+            "[근거: SAMMYEONGTTONGHOE, KOREAN_MODERN_PRACTICE — 신살 가중치, 신뢰도 0%]"
+          ],
+          "reasoning": [
+            "CHEONUL_GWIIN: 기본 95점 × DAY 위치배율 1 = 95점 (계일간 → 묘,사 중 사)",
+            "CHEONDEOK_GWIIN: 기본 90점 × MONTH 위치배율 0.85 = 77점 (월지 진 → 천덕귀인 임)",
+            "WOLDEOK_GWIIN: 기본 90점 × MONTH 위치배율 0.85 = 77점 (월지 진 → 월덕귀인 임)",
+            "GEOPSAL: 기본 60점 × DAY 위치배율 1 = 60점 (겁살 사)",
+            "CHEONUL_GWIIN: 기본 95점 × HOUR 위치배율 0.6 = 57점 (계일간 → 묘,사 중 묘)",
+            "GOSIN: 기본 50점 × DAY 위치배율 1 = 50점 (년지 인 → 고신 사)",
+            "DOHWA: 기본 80점 × HOUR 위치배율 0.6 = 48점 (도화 묘)",
+            "GEOPSAL: 기본 60점 × YEAR 위치배율 0.7 = 42점 (겁살 인)",
+            "GEUMYEO: 기본 55점 × YEAR 위치배율 0.7 = 39점 (계일간 → 인)",
+            "MUNCHANG: 기본 60점 × HOUR 위치배율 0.6 = 36점 (계일간 → 묘)",
+            "BAEKHO: 기본 35점 × DAY 위치배율 1 = 35점 (계일간 → 사)",
+            "CHEOLLA_JIMANG: 기본 35점 × DAY 위치배율 1 = 35점 (천라(天羅) 진+사)",
+            "HAKDANG: 기본 55점 × HOUR 위치배율 0.6 = 33점 (계일간 → 묘)",
+            "BOKSEONG_GWIIN: 기본 50점 × HOUR 위치배율 0.6 = 30점 (계일간 → 묘)",
+            "CHEOLLA_JIMANG: 기본 35점 × MONTH 위치배율 0.85 = 30점 (천라(天羅) 진+사)",
+            "CHEONBOK_GWIIN: 기본 30점 × DAY 위치배율 1 = 30점 (계일간 → 사)",
+            "MANGSINSAL: 기본 30점 × DAY 위치배율 1 = 30점 (망신살 사)",
+            "YUKHAESAL: 기본 25점 × DAY 위치배율 1 = 25점 (육해살 사)",
+            "HYEOLINSAL: 기본 25점 × DAY 위치배율 1 = 25점 (계일간 → 사)",
+            "JISAL: 기본 25점 × DAY 위치배율 1 = 25점 (지살 사)",
+            "SANGMUNSAL: 기본 25점 × MONTH 위치배율 0.85 = 21점 (년지 인 → 상문살 진)",
+            "CHEONSAL: 기본 25점 × MONTH 위치배율 0.85 = 21점 (천살 진)",
+            "GYEOKGAK: 기본 20점 × DAY 위치배율 1 = 20점 (격각 사-묘 (DAY-HOUR))",
+            "CHEONUI: 기본 30점 × HOUR 위치배율 0.6 = 18점 (월지 진 → 천의 묘)",
+            "JAESAL: 기본 30점 × HOUR 위치배율 0.6 = 18점 (재살 묘)",
+            "YUKHAESAL: 기본 25점 × YEAR 위치배율 0.7 = 18점 (육해살 인)",
+            "JISAL: 기본 25점 × YEAR 위치배율 0.7 = 18점 (지살 인)",
+            "CHEONJU_GWIIN: 기본 30점 × HOUR 위치배율 0.6 = 18점 (계일간 → 묘)",
+            "GYEOKGAK: 기본 20점 × MONTH 위치배율 0.85 = 17점 (격각 인-진 (YEAR-MONTH))",
+            "GYEOKGAK: 기본 20점 × YEAR 위치배율 0.7 = 14점 (격각 인-진 (YEAR-MONTH))",
+            "GYEOKGAK: 기본 20점 × HOUR 위치배율 0.6 = 12점 (격각 사-묘 (DAY-HOUR))"
+          ],
+          "confidence": null
+        },
+        {
+          "key": "shinsalComposites",
+          "summary": "신살 복합 패턴 2건 감지 — 천을귀인+학당, 천덕귀인+월덕귀인.",
+          "evidence": [
+            "천을귀인+학당[SYNERGY](bonus=15)",
+            "천덕귀인+월덕귀인[AMPLIFY](bonus=25)"
+          ],
+          "citations": [
+            "[근거: KOREAN_MODERN_PRACTICE — 신살 조합 해석, 신뢰도 0%]"
+          ],
+          "reasoning": [
+            "천을귀인+학당: 학업의 귀인, 스승 복. 학문의 재능에 귀인의 도움이 더해져, 좋은 스승을 만나 크게 성장할 수 있습니다. (보너스 +15점)",
+            "천덕귀인+월덕귀인: 이중 해액 방어, 큰 복덕. 천덕과 월덕이 함께하면 재앙을 크게 물리치고, 위기 상황에서도 안전하게 벗어나는 큰 복을 가지고 있습니다. (보너스 +25점)"
+          ],
+          "confidence": null
+        },
+        {
+          "key": "palace",
+          "summary": "궁성(宮星) 분석 완료.",
+          "evidence": [
+            "YEAR=부모궁: 정재",
+            "MONTH=형제궁: 겁재",
+            "HOUR=자녀궁: 식신"
+          ],
+          "citations": [
+            "[근거: SAMMYEONGTTONGHOE, KOREAN_MODERN_PRACTICE — 궁성론, 신뢰도 0%]"
+          ],
+          "reasoning": [
+            "부모궁(부모, 조상, 어린 시절 환경): 정재 → FAVORABLE — 부모궁에 정재: 안정된 가정 환경",
+            "형제궁(형제, 사회생활, 직업): 겁재 → UNFAVORABLE — 형제궁에 겁재: 재물 손실 주의",
+            "자녀궁(자녀, 말년, 결과): 식신 → FAVORABLE — 자녀궁에 식신: 자녀복과 편안한 말년"
+          ],
+          "confidence": 85
+        },
+        {
+          "key": "daeun",
+          "summary": "대운 산출 — 순행(順行), 5세 시작, 8주기.",
+          "evidence": [
+            "forward=true",
+            "startAge=5",
+            "count=8",
+            "boundaryMode=EXACT_TABLE"
+          ],
+          "citations": [
+            "[근거: YEONHAEJAYPYEONG, JEOKCHEONSU — 대운, 신뢰도 0%]"
+          ],
+          "reasoning": [
+            "남명 + 년간 병(양) → 순행: 월주에서 다음 간지 순서로 진행",
+            "생일~다음(이전) 절기까지 일수 ÷ 3 → 대운 시작: 5세 7개월",
+            "",
+            "【대운 개별 기둥 분석】",
+            "5세 계사(癸巳): 천간 수(水)(BIHWA), 지지 화(火)(SANGGEUK) → 길흉혼재 [용신 화(火) 부합] [기신 수(水) 부합]",
+            "15세 갑오(甲午): 천간 목(木)(YEOKSAENG), 지지 화(火)(SANGGEUK) → 길(吉) [용신 화(火) 부합]",
+            "25세 을미(乙未): 천간 목(木)(YEOKSAENG), 지지 토(土)(YEOKGEUK) → 평(平)",
+            "35세 병신(丙申): 천간 화(火)(SANGGEUK), 지지 금(金)(SANGSAENG) → 길(吉) [용신 화(火) 부합]",
+            "45세 정유(丁酉): 천간 화(火)(SANGGEUK), 지지 금(金)(SANGSAENG) → 길(吉) [용신 화(火) 부합]",
+            "55세 무술(戊戌): 천간 토(土)(YEOKGEUK), 지지 토(土)(YEOKGEUK) → 평(平)",
+            "65세 기해(己亥): 천간 토(土)(YEOKGEUK), 지지 수(水)(BIHWA) → 흉(凶) [기신 수(水) 부합]",
+            "75세 경자(庚子): 천간 금(金)(SANGSAENG), 지지 수(水)(BIHWA) → 흉(凶) [기신 수(水) 부합]"
+          ],
+          "confidence": 95
+        },
+        {
+          "key": "saeun",
+          "summary": "세운(歲運) 산출 — 1986년부터 10년간.",
+          "evidence": [
+            "startYear=1986",
+            "count=10"
+          ],
+          "citations": [
+            "[근거: YEONHAEJAYPYEONG — 세운, 신뢰도 0%]"
+          ],
+          "reasoning": [
+            "세운은 60갑자 순환에 따른 해당 연도의 천간·지지 기운입니다. 기준점: 1984년=갑자(甲子)년, 60년 주기로 반복.",
+            "1986년: 병인(丙寅)년 → 화(火)·목(木) 기운",
+            "",
+            "【세운-원국 상호작용 (최근 5년)】",
+            "1986년 병인: 길",
+            "1987년 정묘: 길",
+            "1988년 무진: 평 | MONTH천간충(무↔임)",
+            "1989년 기사: 길 | DAY천간충(기↔계)",
+            "1990년 경오: 길"
+          ],
+          "confidence": 95
+        }
+      ],
+      "ohaengDistribution": {
+        "WOOD": 3,
+        "FIRE": 2,
+        "EARTH": 1,
+        "METAL": 0,
+        "WATER": 2
+      },
+      "tenGods": {
+        "dayMaster": "GYE",
+        "byPosition": {
+          "YEAR": {
+            "cheonganSipseong": "JEONG_JAE",
+            "jijiPrincipalSipseong": "SANG_GWAN",
+            "hiddenStems": [
+              {
+                "stem": "MU",
+                "role": "YEOGI",
+                "days": 7
+              },
+              {
+                "stem": "BYEONG",
+                "role": "JUNGGI",
+                "days": 7
+              },
+              {
+                "stem": "GAP",
+                "role": "JEONGGI",
+                "days": 16
+              }
+            ],
+            "hiddenStemSipseong": [
+              {
+                "entry": {
+                  "stem": "MU",
+                  "role": "YEOGI",
+                  "days": 7
+                },
+                "sipseong": "JEONG_GWAN"
+              },
+              {
+                "entry": {
+                  "stem": "BYEONG",
+                  "role": "JUNGGI",
+                  "days": 7
+                },
+                "sipseong": "JEONG_JAE"
+              },
+              {
+                "entry": {
+                  "stem": "GAP",
+                  "role": "JEONGGI",
+                  "days": 16
+                },
+                "sipseong": "SANG_GWAN"
+              }
+            ]
+          },
+          "MONTH": {
+            "cheonganSipseong": "GYEOB_JAE",
+            "jijiPrincipalSipseong": "JEONG_GWAN",
+            "hiddenStems": [
+              {
+                "stem": "EUL",
+                "role": "YEOGI",
+                "days": 9
+              },
+              {
+                "stem": "GYE",
+                "role": "JUNGGI",
+                "days": 3
+              },
+              {
+                "stem": "MU",
+                "role": "JEONGGI",
+                "days": 18
+              }
+            ],
+            "hiddenStemSipseong": [
+              {
+                "entry": {
+                  "stem": "EUL",
+                  "role": "YEOGI",
+                  "days": 9
+                },
+                "sipseong": "SIK_SIN"
+              },
+              {
+                "entry": {
+                  "stem": "GYE",
+                  "role": "JUNGGI",
+                  "days": 3
+                },
+                "sipseong": "BI_GYEON"
+              },
+              {
+                "entry": {
+                  "stem": "MU",
+                  "role": "JEONGGI",
+                  "days": 18
+                },
+                "sipseong": "JEONG_GWAN"
+              }
+            ]
+          },
+          "DAY": {
+            "cheonganSipseong": "BI_GYEON",
+            "jijiPrincipalSipseong": "JEONG_JAE",
+            "hiddenStems": [
+              {
+                "stem": "MU",
+                "role": "YEOGI",
+                "days": 7
+              },
+              {
+                "stem": "GYEONG",
+                "role": "JUNGGI",
+                "days": 7
+              },
+              {
+                "stem": "BYEONG",
+                "role": "JEONGGI",
+                "days": 16
+              }
+            ],
+            "hiddenStemSipseong": [
+              {
+                "entry": {
+                  "stem": "MU",
+                  "role": "YEOGI",
+                  "days": 7
+                },
+                "sipseong": "JEONG_GWAN"
+              },
+              {
+                "entry": {
+                  "stem": "GYEONG",
+                  "role": "JUNGGI",
+                  "days": 7
+                },
+                "sipseong": "JEONG_IN"
+              },
+              {
+                "entry": {
+                  "stem": "BYEONG",
+                  "role": "JEONGGI",
+                  "days": 16
+                },
+                "sipseong": "JEONG_JAE"
+              }
+            ]
+          },
+          "HOUR": {
+            "cheonganSipseong": "SIK_SIN",
+            "jijiPrincipalSipseong": "SIK_SIN",
+            "hiddenStems": [
+              {
+                "stem": "GAP",
+                "role": "YEOGI",
+                "days": 10
+              },
+              {
+                "stem": "EUL",
+                "role": "JEONGGI",
+                "days": 20
+              }
+            ],
+            "hiddenStemSipseong": [
+              {
+                "entry": {
+                  "stem": "GAP",
+                  "role": "YEOGI",
+                  "days": 10
+                },
+                "sipseong": "SANG_GWAN"
+              },
+              {
+                "entry": {
+                  "stem": "EUL",
+                  "role": "JEONGGI",
+                  "days": 20
+                },
+                "sipseong": "SIK_SIN"
+              }
+            ]
+          }
+        }
+      }
+    },
+    "pillars": {
+      "year": {
+        "stem": {
+          "code": "BYEONG",
+          "hangul": "병",
+          "hanja": "丙"
+        },
+        "branch": {
+          "code": "IN",
+          "hangul": "인",
+          "hanja": "寅"
+        }
+      },
+      "month": {
+        "stem": {
+          "code": "IM",
+          "hangul": "임",
+          "hanja": "壬"
+        },
+        "branch": {
+          "code": "JIN",
+          "hangul": "진",
+          "hanja": "辰"
+        }
+      },
+      "day": {
+        "stem": {
+          "code": "GYE",
+          "hangul": "계",
+          "hanja": "癸"
+        },
+        "branch": {
+          "code": "SA",
+          "hangul": "사",
+          "hanja": "巳"
+        }
+      },
+      "hour": {
+        "stem": {
+          "code": "EUL",
+          "hangul": "을",
+          "hanja": "乙"
+        },
+        "branch": {
+          "code": "MYO",
+          "hangul": "묘",
+          "hanja": "卯"
+        }
+      }
+    },
+    "input": {
+      "birthYear": 1986,
+      "birthMonth": 4,
+      "birthDay": 19,
+      "birthHour": 5,
+      "birthMinute": 45,
+      "gender": "MALE",
+      "timezone": "Asia/Seoul",
+      "latitude": 37.5665,
+      "longitude": 126.978
+    },
+    "jijiRelations": [
+      {
+        "type": "BANGHAP",
+        "branches": [
+          "IN",
+          "MYO",
+          "JIN"
+        ],
+        "note": "동방 목합",
+        "outcome": "ACTIVE",
+        "reasoning": "인사형(무은)(형)은 동방 목합(합)과 공존하여 합의 효력에 영향을 주지 않습니다."
+      },
+      {
+        "type": "HYEONG",
+        "branches": [
+          "IN",
+          "SA"
+        ],
+        "note": "인사형(무은)",
+        "outcome": "ACTIVE",
+        "reasoning": "인사형(무은)(형)은 동방 목합(합)에도 불구하고 해소되지 않고 유지됩니다."
+      },
+      {
+        "type": "HAE",
+        "branches": [
+          "IN",
+          "SA"
+        ],
+        "note": "인사해",
+        "outcome": "WEAKENED",
+        "reasoning": "동방 목합(방합)이(가) 우선하여 인사해(해)의 작용이 약화됩니다. 인사형(무은)(형)이(가) 우선하여 인사해(해)의 작용이 약화됩니다."
+      },
+      {
+        "type": "HAE",
+        "branches": [
+          "MYO",
+          "JIN"
+        ],
+        "note": "묘진해",
+        "outcome": "WEAKENED",
+        "reasoning": "동방 목합(방합)이(가) 우선하여 묘진해(해)의 작용이 약화됩니다."
+      }
+    ],
+    "timeCorrection": {
+      "standardYear": 1986,
+      "standardMonth": 4,
+      "standardDay": 19,
+      "standardHour": 5,
+      "standardMinute": 45,
+      "adjustedYear": 1986,
+      "adjustedMonth": 4,
+      "adjustedDay": 19,
+      "adjustedHour": 5,
+      "adjustedMinute": 13,
+      "dstCorrectionMinutes": 0,
+      "longitudeCorrectionMinutes": -32,
+      "equationOfTimeMinutes": 0
+    },
+    "dayMaster": {
+      "stem": "GYE",
+      "element": "WATER",
+      "polarity": "YIN"
+    },
+    "strength": {
+      "level": "VERY_WEAK",
+      "isStrong": false,
+      "totalSupport": 8.666666666666666,
+      "totalOppose": 72.33333333333333,
+      "deukryeong": 0,
+      "deukji": 1.6666666666666667,
+      "deukse": 7,
+      "details": [
+        "[득령] 월지 진(辰) 정기=무(戊) → 정관 → 실령 (0점)",
+        "[득지] 년지 인(寅): 부조 없음",
+        "[득지] 월지 진(辰): 계(비견,3일)=0.5 = 0.5점",
+        "[득지] 일지 사(巳): 경(정인,7일)=1.2 = 1.2점",
+        "[득지] 시지 묘(卯): 부조 없음",
+        "[득지] 합계: 1.7점",
+        "[득세] 년간 병(丙): 정재 → 부조 아님",
+        "[득세] 월간 임(壬): 겁재 → +7점",
+        "[득세] 시간 을(乙): 식신 → 부조 아님",
+        "[득세] 합계: 7점",
+        "---",
+        "총 부조 점수: 8.7 / 득령 0 + 득지 1.7 + 득세 7",
+        "판정: 극신약 (신약)"
+      ]
+    },
+    "yongshin": {
+      "element": "FIRE",
+      "heeshin": "WOOD",
+      "gishin": "WATER",
+      "gushin": "METAL",
+      "confidence": 0.7,
+      "agreement": "DISAGREE",
+      "recommendations": [
+        {
+          "type": "EOKBU",
+          "primaryElement": "METAL",
+          "secondaryElement": "WATER",
+          "confidence": 0.7,
+          "reasoning": "신약(身弱): 일간 WATER 약하여 인성(METAL)으로 생조, 비겁(WATER)으로 부조 필요"
+        },
+        {
+          "type": "JOHU",
+          "primaryElement": "FIRE",
+          "secondaryElement": "WOOD",
+          "confidence": 0.8,
+          "reasoning": "조후(調候): 계(癸) 일간 진(辰)월생, 궁통보감 기준 FIRE 필요, 보조 WOOD"
+        },
+        {
+          "type": "GYEOKGUK",
+          "primaryElement": "FIRE",
+          "secondaryElement": "WATER",
+          "confidence": 0.65,
+          "reasoning": "격국용신(格局用神): 식신격 — 순용: 재성이 식신의 힘을 이어받고(식신생재), 비겁이 식신을 보조"
+        }
+      ]
+    },
+    "gyeokguk": {
+      "type": "SIKSIN",
+      "category": "NAEGYEOK",
+      "baseSipseong": "SIK_SIN",
+      "confidence": 0.9,
+      "reasoning": "일간 계(癸) 기준, 월지 진(辰)의 여기(餘氣) 을(乙)이(가) 천간에 투출(透出)하여 식신(食神)이므로 식신격(食神格)으로 판단."
+    },
+    "deficientElements": [
+      "METAL"
+    ],
+    "excessiveElements": [],
+    "gongmang": [
+      "O",
+      "MI"
+    ]
+  }
+}

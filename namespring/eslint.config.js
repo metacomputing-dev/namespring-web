@@ -11,7 +11,8 @@ export default defineConfig({
   plugins: [react()],
   resolve: {
     alias: {
-      '@seed': path.resolve(__dirname, '../lib/seed-ts/src')
+      '@spring': path.resolve(__dirname, '../lib/spring-ts/src'),
+      '@name': path.resolve(__dirname, '../lib/name-ts/src')
     }
   },
   server: {

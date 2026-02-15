@@ -11,16 +11,16 @@
     "forceConsistentCasingInFileNames": true,
     "module": "ESNext",
     "moduleResolution": "Bundler",
-    "baseUrl": ".",
     "resolveJsonModule": true,
     "isolatedModules": true,
     "noEmit": true,
     "jsx": "react-jsx",
     "types": ["sql.js"], // sql.js 타입을 인식하도록 추가
     "paths": {
-      "@seed/*": ["../lib/seed-ts/src/*"] // 라이브러리 경로 매핑
+      "@spring/*": ["../lib/spring-ts/src/*"],
+      "@name/*": ["../lib/name-ts/src/*"]
     }
   },
-  "include": ["src", "../lib/seed-ts/src"],
+  "include": ["src"],
   "references": [{ "path": "./tsconfig.node.json" }]
 }
