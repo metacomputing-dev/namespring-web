@@ -482,46 +482,32 @@ export class SeedEngine {
   private async generateCandidates(req: SeedRequest, saju: SajuSummary, jamoFilters?: (JamoFilter | null)[]): Promise<NameCharInput[][]> {
     const se = await this.resolveEntries(req.surname);
     const nameLen = req.givenNameLength ?? jamoFilters?.length ?? 2;
+    const hasJamo = jamoFilters?.some(f => f !== null) ?? false;
     const targets = collectElements(saju.yongshin.element, saju.yongshin.heeshin, saju.deficientElements);
     const avoids = collectElements(saju.yongshin.gishin, saju.yongshin.gushin, saju.excessiveElements);
     if (targets.size === 0) targets.add('Wood');
 
-    const out: NameCharInput[][] = [];
     const inp = (c: HanjaEntry): NameCharInput => ({ hangul: c.hangul, hanja: c.hanja });
 
-    if (nameLen <= 2) {
+    // Step 1: build per-position pools
+    const pools = await this.buildPositionPools(req, nameLen, jamoFilters, hasJamo, se, targets, avoids);
+
+    // Step 2: generate combinations, then cut to MAX_CANDIDATES
+    const out: NameCharInput[][] = [];
+    if (!hasJamo && nameLen <= 2) {
+      // optimizer-based: pools are keyed by stroke combo
       const validKeys = this.optimizer!.getValidCombinations(se.map(e => e.strokes), nameLen);
-      const needed = new Set<number>();
-      for (const key of validKeys) for (const s of key.split(',')) needed.add(Number(s));
-      const allHanja = await this.hanjaRepo.findByStrokeRange(Math.min(...needed), Math.max(...needed));
-      const pref = new Map<number, HanjaEntry[]>();
-      const acc = new Map<number, HanjaEntry[]>();
-      for (const e of allHanja) {
-        if (e.is_surname || !needed.has(e.strokes) || avoids.has(e.resource_element)) continue;
-        const map = targets.has(e.resource_element) ? pref : acc;
-        let list = map.get(e.strokes);
-        if (!list) { list = []; map.set(e.strokes, list); }
-        list.push(e);
-      }
-      const chars = (s: number, pos: number) => {
-        let list = [...(pref.get(s) ?? []), ...(acc.get(s) ?? [])];
-        const f = jamoFilters?.[pos];
-        if (f) {
-          if (f.onset) list = list.filter(e => e.onset === f.onset);
-          if (f.nucleus) list = list.filter(e => e.nucleus === f.nucleus);
-        }
-        return list;
-      };
       for (const sk of validKeys) {
         if (out.length >= MAX_CANDIDATES) break;
         const sc = sk.split(',').map(Number);
         if (nameLen === 1) {
-          for (const c of chars(sc[0], 0).slice(0, 8)) {
+          for (const c of (pools.get(sc[0]) ?? []).slice(0, 8)) {
             out.push([inp(c)]);
             if (out.length >= MAX_CANDIDATES) break;
           }
         } else {
-          const c1 = chars(sc[0], 0).slice(0, 6), c2 = chars(sc[1], 1).slice(0, 6);
+          const c1 = (pools.get(sc[0]) ?? []).slice(0, 6);
+          const c2 = (pools.get(sc[1]) ?? []).slice(0, 6);
           for (const a of c1) {
             for (const b of c2) {
               if (a.hanja === b.hanja) continue;
@@ -533,32 +519,12 @@ export class SeedEngine {
         }
       }
     } else {
-      const allPool = (await this.hanjaRepo.findByStrokeRange(1, 30))
-        .filter(e => !e.is_surname && !avoids.has(e.resource_element));
-      const pools: HanjaEntry[][] = [];
-      for (let pos = 0; pos < nameLen; pos++) {
-        const f = jamoFilters?.[pos];
-        if (f === null && req.givenName?.[pos]) {
-          const gi = req.givenName[pos];
-          if (gi.hanja) {
-            const entry = await this.hanjaRepo.findByHanja(gi.hanja);
-            pools.push(entry ? [entry] : [makeFallbackEntry(gi.hangul)]);
-          } else {
-            const entries = await this.hanjaRepo.findByHangul(gi.hangul);
-            pools.push(entries.length ? entries.slice(0, 8) : [makeFallbackEntry(gi.hangul)]);
-          }
-        } else {
-          let pool = allPool;
-          if (f?.onset) pool = pool.filter(e => e.onset === f.onset);
-          if (f?.nucleus) pool = pool.filter(e => e.nucleus === f.nucleus);
-          pool = [...pool].sort((a, b) => (targets.has(b.resource_element) ? 1 : 0) - (targets.has(a.resource_element) ? 1 : 0));
-          pools.push(pool.slice(0, 10));
-        }
-      }
+      // pool-based DFS (jamo input or 3+ chars)
+      const posArr = Array.from({ length: nameLen }, (_, i) => pools.get(i) ?? []);
       const dfs = (depth: number, current: HanjaEntry[]) => {
         if (out.length >= MAX_CANDIDATES) return;
         if (depth >= nameLen) { out.push(current.map(inp)); return; }
-        for (const c of pools[depth]) {
+        for (const c of posArr[depth]) {
           if (current.some(x => x.hanja === c.hanja)) continue;
           dfs(depth + 1, [...current, c]);
         }
@@ -566,6 +532,55 @@ export class SeedEngine {
       dfs(0, []);
     }
     return out;
+  }
+
+  private async buildPositionPools(
+    req: SeedRequest, nameLen: number, jamoFilters: (JamoFilter | null)[] | undefined,
+    hasJamo: boolean, se: HanjaEntry[], targets: Set<string>, avoids: Set<string>,
+  ): Promise<Map<number, HanjaEntry[]>> {
+    const pools = new Map<number, HanjaEntry[]>();
+
+    if (!hasJamo && nameLen <= 2) {
+      // optimizer path: key = stroke count
+      const validKeys = this.optimizer!.getValidCombinations(se.map(e => e.strokes), nameLen);
+      const needed = new Set<number>();
+      for (const key of validKeys) for (const s of key.split(',')) needed.add(Number(s));
+      const allHanja = await this.hanjaRepo.findByStrokeRange(Math.min(...needed), Math.max(...needed));
+      for (const e of allHanja) {
+        if (e.is_surname || !needed.has(e.strokes) || avoids.has(e.resource_element)) continue;
+        let list = pools.get(e.strokes);
+        if (!list) { list = []; pools.set(e.strokes, list); }
+        list.push(e);
+      }
+      // sort each stroke group: preferred elements first
+      for (const [k, list] of pools) {
+        pools.set(k, list.sort((a, b) => (targets.has(b.resource_element) ? 1 : 0) - (targets.has(a.resource_element) ? 1 : 0)));
+      }
+    } else {
+      // pool-based path: key = position index
+      const allPool = (await this.hanjaRepo.findByStrokeRange(1, 30))
+        .filter(e => !e.is_surname && !avoids.has(e.resource_element));
+      for (let pos = 0; pos < nameLen; pos++) {
+        const f = jamoFilters?.[pos];
+        if (f === null && req.givenName?.[pos]) {
+          const gi = req.givenName[pos];
+          if (gi.hanja) {
+            const entry = await this.hanjaRepo.findByHanja(gi.hanja);
+            pools.set(pos, entry ? [entry] : [makeFallbackEntry(gi.hangul)]);
+          } else {
+            const entries = await this.hanjaRepo.findByHangul(gi.hangul);
+            pools.set(pos, entries.length ? entries.slice(0, 8) : [makeFallbackEntry(gi.hangul)]);
+          }
+        } else {
+          let pool = allPool;
+          if (f?.onset) pool = pool.filter(e => e.onset === f.onset);
+          if (f?.nucleus) pool = pool.filter(e => e.nucleus === f.nucleus);
+          pool = [...pool].sort((a, b) => (targets.has(b.resource_element) ? 1 : 0) - (targets.has(a.resource_element) ? 1 : 0));
+          pools.set(pos, pool.slice(0, 10));
+        }
+      }
+    }
+    return pools;
   }
 
   private async resolveEntries(chars: NameCharInput[]): Promise<HanjaEntry[]> {
