@@ -1,76 +1,65 @@
-import type { UserInfo, SeedResult, NamingResult } from './types';
-import { FourFrameCalculator } from './calculator/frame-calculator';
-import { HangulCalculator } from './calculator/hangul-calculator';
-import { HanjaCalculator } from './calculator/hanja-calculator';
-import type { Energy } from './model/energy';
-import { Polarity } from './model/polarity';
-import { Element } from './model/element';
+import type { UserInfo, SeedResult, NamingResult, SeedRequest, SeedResponse } from './types.js';
+import { FourFrameCalculator } from './calculator/frame-calculator.js';
+import { HangulCalculator } from './calculator/hangul-calculator.js';
+import { HanjaCalculator } from './calculator/hanja-calculator.js';
+import { SeedEngine } from './engine.js';
 
 /**
- * Main engine class for naming analysis.
- * Coordinates multiple calculators to generate comprehensive naming results.
+ * Backward-compatible wrapper for the naming analysis engine.
+ * Maintains the existing UI contract (`@seed/seed` → `SeedTs`).
  */
 export class SeedTs {
+  private engine: SeedEngine | null = null;
+
   /**
-   * Analyzes the provided user information using real HanjaEntry data.
-   * @param userInfo Input data including HanjaEntry arrays for names, birth date, and gender.
-   * @returns Analyzed results with aggregated scores from all calculators.
+   * Synchronous analysis using existing UI contract.
+   * Coordinates multiple calculators to generate naming results.
    */
   public analyze(userInfo: UserInfo): SeedResult {
     const { lastName, firstName } = userInfo;
 
-    /**
-     * 1. Initialize Calculators
-     * Directly passing HanjaEntry arrays which already contain stroke counts 
-     * and elemental information from the repository.
-     */
     const fourFrames = new FourFrameCalculator(lastName, firstName);
     const hangul = new HangulCalculator(lastName, firstName);
     const hanja = new HanjaCalculator(lastName, firstName);
 
-    /**
-     * 2. Perform Calculations
-     * Each calculator internalizes the naming theory logic.
-     */
     fourFrames.calculate();
     hangul.calculate();
     hanja.calculate();
 
-    /**
-     * 3. Aggregate Results into a Candidate
-     * Total score is now the simple sum of individual calculator results.
-     */
+    const totalScore = (fourFrames.getScore() + hangul.getScore() + hanja.getScore()) / 3;
+
     const mainCandidate: NamingResult = {
       lastName,
       firstName,
-      totalScore: this.calculateTotalScore(fourFrames, hangul, hanja),
+      totalScore,
       fourFrames,
       hangul,
       hanja,
-      interpretation: "This name shows a balanced harmony between sound and numerical structures."
+      interpretation: this.buildInterpretation(totalScore),
     };
 
-    /**
-     * 4. Return final SeedResult containing candidates
-     */
     return {
       candidates: [mainCandidate],
-      totalCount: 1
+      totalCount: 1,
     };
   }
 
   /**
-   * Calculates the final score by summing up the scores from each naming theory.
-   * @param fourFrames Result of the Four Frames (Saju) calculation
-   * @param hangul Result of the Hangul (Phonetic) calculation
-   * @param hanja Result of the Hanja (Resource Element) calculation
+   * Async bridge to the new SeedEngine API.
+   * Use this for full saju-integrated analysis with recommend/search capabilities.
    */
-  private calculateTotalScore(
-    fourFrames: FourFrameCalculator,
-    hangul: HangulCalculator,
-    hanja: HanjaCalculator
-  ): number {
-    // TODO Currently a simple sum, but can be weighted or adjusted based on calc. model in the future.
-    return (fourFrames.getScore() + hangul.getScore() + hanja.getScore()) / 3;
+  public async analyzeAsync(request: SeedRequest): Promise<SeedResponse> {
+    if (!this.engine) {
+      this.engine = new SeedEngine();
+    }
+    return this.engine.analyze(request);
+  }
+
+  private buildInterpretation(totalScore: number): string {
+    if (totalScore >= 90) return '매우 우수한 이름입니다. 음양오행의 조화가 뛰어납니다.';
+    if (totalScore >= 75) return '좋은 이름입니다. 전반적인 에너지 균형이 양호합니다.';
+    if (totalScore >= 60) return '보통 수준의 이름입니다. 일부 개선 여지가 있습니다.';
+    if (totalScore >= 40) return '다소 아쉬운 이름입니다. 음양오행 조화를 점검해 보세요.';
+    return '개선이 필요한 이름입니다. 다른 조합을 고려해 보세요.';
   }
 }

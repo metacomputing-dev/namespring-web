@@ -1,33 +1,196 @@
-import type { EnergyCalculator } from './calculator/energy-calculator';
-import type { HanjaEntry } from './database/hanja-repository';
+import type { EnergyCalculator } from './calculator/energy-calculator.js';
+import type { HanjaEntry } from './database/hanja-repository.js';
 
-/**
- * Represents the gender of the user.
- * Using a union type for strict type checking.
- */
-export type Gender = 'male' | 'female';
+// ============================================================
+// Stable API Contract — Immutable Input/Output types
+// ============================================================
 
-/**
- * Categorizes the types of analysis performed by the engine.
- */
-export type AnalysisType = 'FourFrame' | 'Hangul' | 'Hanja';
-
-/**
- * A structured representation of birth date and time.
- * This avoids the mutability and zero-indexing issues of the native JS Date object.
- */
-export interface BirthDateTime {
-  readonly year: number;   // e.g., 2024
-  readonly month: number;  // 1 to 12
-  readonly day: number;    // 1 to 31
-  readonly hour: number;   // 0 to 23
-  readonly minute: number; // 0 to 59
+/** Birth date/time info — encompasses saju-ts BirthInput */
+export interface BirthInfo {
+  readonly year: number;
+  readonly month: number;       // 1-12
+  readonly day: number;         // 1-31
+  readonly hour: number;        // 0-23
+  readonly minute: number;      // 0-59
+  readonly gender: 'male' | 'female';
+  readonly isLunar?: boolean;   // true = lunar→solar conversion
+  readonly timezone?: string;   // default: 'Asia/Seoul'
+  readonly latitude?: number;   // default: 37.5665 (Seoul)
+  readonly longitude?: number;  // default: 126.978 (Seoul)
 }
 
-/**
- * Input data provided by the user for naming analysis.
- * Now contains HanjaEntry arrays to hold rich metadata for each character.
- */
+/** Single character input */
+export interface NameCharInput {
+  readonly hangul: string;
+  readonly hanja?: string;
+}
+
+/** Main API input */
+export interface SeedRequest {
+  readonly birth: BirthInfo;
+  readonly surname: NameCharInput[];       // 1-2 chars, hanja required
+  readonly givenName?: NameCharInput[];    // 0~N chars, hanja optional
+  readonly givenNameLength?: number;       // desired length for generation (default: 2)
+  readonly mode?: 'auto' | 'evaluate' | 'recommend' | 'all';
+  readonly options?: SeedOptions;
+}
+
+export interface SeedOptions {
+  readonly limit?: number;       // default: 20
+  readonly offset?: number;      // default: 0
+  readonly schoolPreset?: 'korean' | 'chinese' | 'modern';
+  readonly weights?: ScoreWeights;
+}
+
+export interface ScoreWeights {
+  readonly hangul?: number;      // default: 25
+  readonly hanja?: number;       // default: 25
+  readonly fourFrame?: number;   // default: 25
+  readonly saju?: number;        // default: 25
+}
+
+// ============================================================
+// Stable API Output types
+// ============================================================
+
+/** Saju summary extracted from saju-ts SajuAnalysis */
+export interface SajuSummary {
+  readonly pillars: {
+    readonly year: PillarSummary;
+    readonly month: PillarSummary;
+    readonly day: PillarSummary;
+    readonly hour: PillarSummary;
+  };
+  readonly dayMaster: { stem: string; element: string; polarity: string };
+  readonly strength: { level: string; isStrong: boolean; score: number };
+  readonly yongshin: {
+    element: string;
+    heeshin: string | null;
+    confidence: number;
+    reasoning: string;
+  };
+  readonly gyeokguk: { type: string; category: string; confidence: number };
+  readonly ohaengDistribution: Record<string, number>;
+}
+
+export interface PillarSummary {
+  readonly stem: { code: string; hangul: string; hanja: string };
+  readonly branch: { code: string; hangul: string; hanja: string };
+}
+
+/** Single name candidate */
+export interface SeedCandidate {
+  readonly name: {
+    readonly surname: CharDetail[];
+    readonly givenName: CharDetail[];
+    readonly fullHangul: string;
+    readonly fullHanja: string;
+  };
+  readonly scores: {
+    readonly total: number;     // weighted average (0-100)
+    readonly hangul: number;    // phonetic five elements (0-100)
+    readonly hanja: number;     // resource five elements (0-100)
+    readonly fourFrame: number; // four frames (0-100)
+    readonly saju: number;      // saju balance (0-100)
+  };
+  readonly analysis: {
+    readonly hangul: HangulAnalysis;
+    readonly hanja: HanjaAnalysis;
+    readonly fourFrame: FourFrameAnalysis;
+    readonly saju: SajuCompatibility;
+  };
+  readonly interpretation: string;
+  readonly rank: number;
+}
+
+/** Character detail */
+export interface CharDetail {
+  readonly hangul: string;
+  readonly hanja: string;
+  readonly meaning: string;
+  readonly strokes: number;
+  readonly element: string;    // resource element
+  readonly polarity: string;   // yin/yang
+}
+
+/** Hangul (phonetic) analysis detail */
+export interface HangulAnalysis {
+  readonly blocks: Array<{
+    hangul: string;
+    onset: string;
+    nucleus: string;
+    element: string;
+    polarity: string;
+  }>;
+  readonly polarityScore: number;
+  readonly elementScore: number;
+}
+
+/** Hanja (resource) analysis detail */
+export interface HanjaAnalysis {
+  readonly blocks: Array<{
+    hanja: string;
+    hangul: string;
+    strokes: number;
+    resourceElement: string;
+    strokeElement: string;
+    polarity: string;
+  }>;
+  readonly polarityScore: number;
+  readonly elementScore: number;
+}
+
+/** Four frame analysis detail */
+export interface FourFrameAnalysis {
+  readonly frames: Array<{
+    type: 'won' | 'hyung' | 'lee' | 'jung';
+    strokeSum: number;
+    element: string;
+    polarity: string;
+    luckyLevel: number;
+  }>;
+  readonly elementScore: number;
+  readonly luckScore: number;
+}
+
+/** Saju compatibility analysis detail */
+export interface SajuCompatibility {
+  readonly yongshinElement: string;
+  readonly nameElements: string[];
+  readonly matchCount: number;
+  readonly generatingCount: number;
+  readonly overcomingCount: number;
+  readonly affinityScore: number;
+}
+
+/** Main API output */
+export interface SeedResponse {
+  readonly request: SeedRequest;
+  readonly mode: 'evaluate' | 'recommend' | 'all';
+  readonly saju: SajuSummary;
+  readonly candidates: SeedCandidate[];
+  readonly totalCount: number;
+  readonly meta: {
+    readonly version: string;
+    readonly timestamp: string;
+  };
+}
+
+// ============================================================
+// Backward-compatible types (used by existing UI)
+// ============================================================
+
+export type Gender = 'male' | 'female';
+export type AnalysisType = 'FourFrame' | 'Hangul' | 'Hanja' | 'Saju';
+
+export interface BirthDateTime {
+  readonly year: number;
+  readonly month: number;
+  readonly day: number;
+  readonly hour: number;
+  readonly minute: number;
+}
+
 export interface UserInfo {
   readonly lastName: HanjaEntry[];
   readonly firstName: HanjaEntry[];
@@ -35,41 +198,17 @@ export interface UserInfo {
   readonly gender: Gender;
 }
 
-/**
- * Represents the calculation result for a single name candidate.
- * Includes scores and detailed calculator instances based on naming theories.
- * Updated to use HanjaEntry[] for rich metadata support.
- */
 export interface NamingResult {
-  /**
-   * The last name (surname) and first name represented as HanjaEntry arrays
-   * to preserve stroke counts and elemental properties for each character.
-   */
   readonly lastName: HanjaEntry[];
   readonly firstName: HanjaEntry[];
-  /**
-   * The aggregated score based on various naming theories.
-   */
   readonly totalScore: number;
-  /**
-   * Calculator instances containing detailed analysis for each theory.
-   */
   readonly hanja: EnergyCalculator;
   readonly hangul: EnergyCalculator;
   readonly fourFrames: EnergyCalculator;
   readonly interpretation: string;
 }
 
-/**
- * The final top-level result object containing a collection of name candidates.
- */
 export interface SeedResult {
-  /**
-   * A list of name candidates calculated by the engine.
-   */
   readonly candidates: NamingResult[];
-  /**
-   * Total number of results found.
-   */
   readonly totalCount: number;
 }
