@@ -61,16 +61,32 @@ export interface SajuSummary {
     readonly day: PillarSummary;
     readonly hour: PillarSummary;
   };
-  readonly dayMaster: { stem: string; element: string; polarity: string };
-  readonly strength: { level: string; isStrong: boolean; score: number };
-  readonly yongshin: {
+  readonly dayMaster: {
+    stem: string;
     element: string;
-    heeshin: string | null;
+    polarity: string;
+  };
+  readonly strength: {
+    level: string;
+    isStrong: boolean;
+    score: number;
+  };
+  readonly yongshin: {
+    element: string;         // 용신 오행
+    heeshin: string | null;  // 희신 오행
+    gishin: string | null;   // 기신 오행 (피해야 할 오행)
+    gushin: string | null;   // 구신 오행 (기신을 돕는 오행)
     confidence: number;
     reasoning: string;
   };
-  readonly gyeokguk: { type: string; category: string; confidence: number };
+  readonly gyeokguk: {
+    type: string;
+    category: string;
+    confidence: number;
+  };
   readonly ohaengDistribution: Record<string, number>;
+  readonly deficientElements: string[];   // 부족한 오행 (보충 필요)
+  readonly excessiveElements: string[];   // 과다한 오행 (피해야 할)
 }
 
 export interface PillarSummary {
@@ -88,10 +104,10 @@ export interface SeedCandidate {
   };
   readonly scores: {
     readonly total: number;     // weighted average (0-100)
-    readonly hangul: number;    // phonetic five elements (0-100)
-    readonly hanja: number;     // resource five elements (0-100)
-    readonly fourFrame: number; // four frames (0-100)
-    readonly saju: number;      // saju balance (0-100)
+    readonly hangul: number;    // 음령오행 (0-100)
+    readonly hanja: number;     // 자원오행 (0-100)
+    readonly fourFrame: number; // 사격수리 (0-100)
+    readonly saju: number;      // 사주 균형 (0-100)
   };
   readonly analysis: {
     readonly hangul: HangulAnalysis;
@@ -153,13 +169,24 @@ export interface FourFrameAnalysis {
   readonly luckScore: number;
 }
 
-/** Saju compatibility analysis detail */
+/** Saju compatibility analysis detail — 사주 전체 요소 반영 */
 export interface SajuCompatibility {
   readonly yongshinElement: string;
+  readonly heeshinElement: string | null;
+  readonly gishinElement: string | null;
   readonly nameElements: string[];
-  readonly matchCount: number;
-  readonly generatingCount: number;
-  readonly overcomingCount: number;
+  // Yongshin/Heeshin affinity
+  readonly yongshinMatchCount: number;
+  readonly yongshinGeneratingCount: number;
+  // Gishin penalty
+  readonly gishinMatchCount: number;
+  readonly gishinOvercomingCount: number;
+  // Ohaeng distribution
+  readonly deficiencyFillCount: number;      // 부족 오행 보충 수
+  readonly excessiveAvoidCount: number;      // 과다 오행 회피 수
+  // Day master context
+  readonly dayMasterSupportScore: number;    // 일간 보조 점수
+  // Composite
   readonly affinityScore: number;
 }
 

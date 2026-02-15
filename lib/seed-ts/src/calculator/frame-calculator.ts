@@ -142,10 +142,18 @@ export class FourFrameCalculator extends EnergyCalculator {
     this.luckScore = elementScore * 50 + avgLuck;
   }
 
+  /**
+   * Combined score: 50% energy harmony (음양오행) + 50% luck level (수리길흉).
+   * luckScore already combines element harmony and luck levels from doCalculate().
+   */
   public getScore(): number {
-    return Energy.getScore(
+    const energyScore = Energy.getScore(
       this.frames.map(f => f.energy).filter((e): e is Energy => e !== null),
     );
+    // luckScore ranges 0-90 (50 from element + up to 40 from luck levels)
+    // Normalize to 0-100 scale
+    const normalizedLuck = Math.min(100, (this.luckScore / 90) * 100);
+    return energyScore * 0.4 + normalizedLuck * 0.6;
   }
 
   public getFrames(): Frame[] {
@@ -154,6 +162,24 @@ export class FourFrameCalculator extends EnergyCalculator {
 
   public getFrame(type: 'won' | 'hyung' | 'lee' | 'jung'): Frame | undefined {
     return this.frames.find(f => f.type === type);
+  }
+
+  public getFrameNumbers(): { won: number; hyeong: number; i: number; jeong: number } {
+    return {
+      won: this.frames.find(f => f.type === 'won')?.strokeSum ?? 0,
+      hyeong: this.frames.find(f => f.type === 'hyung')?.strokeSum ?? 0,
+      i: this.frames.find(f => f.type === 'lee')?.strokeSum ?? 0,
+      jeong: this.frames.find(f => f.type === 'jung')?.strokeSum ?? 0,
+    };
+  }
+
+  public getCompatibilityElementArrangement(): string[] {
+    const numbers = this.getFrameNumbers();
+    return [
+      elementFromDigit(numbers.i),
+      elementFromDigit(numbers.hyeong),
+      elementFromDigit(numbers.won),
+    ].map(el => el.english);
   }
 
   public getAnalysis(): AnalysisDetail<FourFrameAnalysis> {

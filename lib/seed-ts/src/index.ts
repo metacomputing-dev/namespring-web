@@ -28,6 +28,24 @@ export { FourFrameCalculator, Frame } from './calculator/frame-calculator.js';
 export { HangulCalculator, HangulNameBlock } from './calculator/hangul-calculator.js';
 export { HanjaCalculator, HanjaNameBlock } from './calculator/hanja-calculator.js';
 export { SajuCalculator } from './calculator/saju-calculator.js';
+export type { SajuContext } from './calculator/saju-calculator.js';
+
+// Calculator graph (DAG execution)
+export { executeCalculatorNode, flattenSignals } from './calculator/calculator-graph.js';
+export type { CalculatorNode, CalculatorSignal, CalculatorPacket } from './calculator/calculator-graph.js';
+
+// Evaluator (signal-based adaptive scoring)
+export { NameEvaluator } from './evaluator/name-evaluator.js';
+export type { EvaluationResult } from './evaluator/name-evaluator.js';
+export type { EvalFrame, FrameInsight } from './evaluator/evaluator-context.js';
+export type { ElementKey } from './evaluator/element-cycle.js';
+export type { SajuNameScoreResult, SajuNameScoreBreakdown } from './evaluator/saju-name-scorer.js';
+export type { SajuOutputSummary } from './evaluator/strength-scorer.js';
+export type { SajuYongshinSummary } from './evaluator/yongshin-scorer.js';
+
+// Search (name generation)
+export { FourFrameOptimizer } from './search/four-frame-optimizer.js';
+export { MinHeap } from './search/heap.js';
 
 // Model
 export { Element } from './model/element.js';

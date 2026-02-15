@@ -90,6 +90,22 @@ export class HangulCalculator extends EnergyCalculator {
     return this.hangulNameBlocks;
   }
 
+  /** Get pronunciation element arrangement as string keys */
+  public getPronunciationElementArrangement(): string[] {
+    return this.hangulNameBlocks.map(b => {
+      const el = elementFromOnset(b.entry.hangul);
+      return el.english;
+    });
+  }
+
+  /** Get pronunciation polarity arrangement as string values */
+  public getPronunciationPolarityArrangement(): string[] {
+    return this.hangulNameBlocks.map(b => {
+      const pol = polarityFromVowel(b.entry.nucleus);
+      return pol.english;
+    });
+  }
+
   public getAnalysis(): AnalysisDetail<HangulAnalysis> {
     const energies = this.hangulNameBlocks
       .map(b => b.energy)

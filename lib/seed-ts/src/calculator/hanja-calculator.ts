@@ -57,6 +57,21 @@ export class HanjaCalculator extends EnergyCalculator {
     return this.hanjaNameBlocks;
   }
 
+  /** Get stroke element arrangement (from resource_element) */
+  public getStrokeElementArrangement(): string[] {
+    return this.hanjaNameBlocks.map(b => b.entry.stroke_element);
+  }
+
+  /** Get root element arrangement (from resource_element) */
+  public getRootElementArrangement(): string[] {
+    return this.hanjaNameBlocks.map(b => b.entry.resource_element);
+  }
+
+  /** Get stroke polarity arrangement */
+  public getStrokePolarityArrangement(): string[] {
+    return this.hanjaNameBlocks.map(b => Polarity.get(b.entry.strokes).english);
+  }
+
   public getAnalysis(): AnalysisDetail<HanjaAnalysis> {
     return {
       type: this.type,

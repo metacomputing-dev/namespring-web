@@ -15,3 +15,8 @@
      되면 실제 유효한 함수, 수식, 규칙 등을 implememt하여 나의 수고를 덜어줄 수는 있겠지만, 명심해, 새상에서 가장 완벽한 구조를     
      갖추도록 하는 게 제 1의 임무야. 그렇게 진행해줘.
      
+     -------------------------------
+
+    위와 같은 목적 및 동작 방식과, 아래 구조에 최대한 맞추어, C:\Projects\metacomputing-dev\namespring-web\lib\seed-ts\src 에서 작동하는 이름 생성 과정을 현재 브랜치(아래)에 녹여내면서, 이름 추천 모드, 전체 모드 모두 잘 동작하게 할 수 있을거야. 생성되는 이름들이 최소 거의 같거나 완전 같아야겠지 잘 녹여내었다면. 그렇게 진행 opus teammates 24명을 생성하여 철저히 협업하여 진행해줘 목적 달성을 위해.
+     - 커밋: e64e7ff — feat: complete seed-ts architecture refactoring                                                                   - - 브랜치: feature/seed-ts-refactor-with-saju-submodule                                                                            
+- 
