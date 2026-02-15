@@ -16,6 +16,8 @@ import type {
   SeedRequest, SeedResponse, SeedCandidate, SajuSummary, PillarSummary,
   BirthInfo, NameCharInput, CharDetail,
 } from './types.js';
+import { makeFallbackEntry } from './utils/korean-char.js';
+import { buildInterpretation, FRAME_LABELS } from './utils/interpretation.js';
 
 // ── saju-ts optional integration ──
 type SajuModule = { analyzeSaju: (input: any, config?: any) => any; createBirthInput: (params: any) => any };
@@ -32,13 +34,6 @@ async function loadSajuModule(): Promise<SajuModule | null> {
 
 // ── Constants ──
 const MAX_CANDIDATES = 500;
-const FRAME_LABELS: Record<string, string> = {
-  SAGYEOK_SURI: '사격수리(81수리)', SAJU_JAWON_BALANCE: '사주 자원 균형',
-  HOEKSU_EUMYANG: '획수 음양', BALEUM_OHAENG: '발음 오행',
-  BALEUM_EUMYANG: '발음 음양', SAGYEOK_OHAENG: '사격 오행',
-};
-const CHOSEONG = ['ㄱ','ㄲ','ㄴ','ㄷ','ㄸ','ㄹ','ㅁ','ㅂ','ㅃ','ㅅ','ㅆ','ㅇ','ㅈ','ㅉ','ㅊ','ㅋ','ㅌ','ㅍ','ㅎ'] as const;
-const JUNGSEONG = ['ㅏ','ㅐ','ㅑ','ㅒ','ㅓ','ㅔ','ㅕ','ㅖ','ㅗ','ㅘ','ㅙ','ㅚ','ㅛ','ㅜ','ㅝ','ㅞ','ㅟ','ㅠ','ㅡ','ㅢ','ㅣ'] as const;
 const OHAENG_CODES = ['WOOD', 'FIRE', 'EARTH', 'METAL', 'WATER'] as const;
 const EMPTY_PILLAR: PillarSummary = { stem: { code: '', hangul: '', hanja: '' }, branch: { code: '', hangul: '', hanja: '' } };
 
@@ -320,18 +315,6 @@ function toCharDetail(e: HanjaEntry): CharDetail {
   };
 }
 
-function makeFallbackEntry(hangul: string): HanjaEntry {
-  const code = hangul.charCodeAt(0) - 0xAC00;
-  const ok = code >= 0 && code <= 11171;
-  return {
-    id: 0, hangul, hanja: hangul,
-    onset: CHOSEONG[ok ? Math.floor(code / 588) : 0] ?? 'ㅇ',
-    nucleus: JUNGSEONG[ok ? Math.floor((code % 588) / 28) : 0] ?? 'ㅏ',
-    strokes: 1, stroke_element: 'Wood', resource_element: 'Earth',
-    meaning: '', radical: '', is_surname: false,
-  };
-}
-
 function collectElements(...sources: (string | null | undefined | string[])[]): Set<string> {
   const out = new Set<string>();
   for (const src of sources) {
@@ -341,13 +324,3 @@ function collectElements(...sources: (string | null | undefined | string[])[]): 
   return out;
 }
 
-function buildInterpretation(ev: EvaluationResult): string {
-  const { score, isPassed, categories } = ev;
-  const overall = isPassed
-    ? (score >= 80 ? '종합적으로 매우 우수한 이름입니다.' : score >= 65 ? '종합적으로 좋은 이름입니다.' : '합격 기준을 충족하는 이름입니다.')
-    : (score >= 55 ? '보통 수준의 이름입니다.' : '개선 여지가 있는 이름입니다.');
-  const warns = categories
-    .filter(c => c.frame !== 'SEONGMYEONGHAK' && !c.isPassed && c.score < 50)
-    .map(c => `${FRAME_LABELS[c.frame] ?? c.frame} 부분을 점검해 보세요.`);
-  return [overall, ...warns].join(' ');
-}

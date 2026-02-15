@@ -39,3 +39,10 @@ export { FourFrameOptimizer, MinHeap } from './calculator/search.js';
 export { Element } from './model/element.js';
 export { Energy } from './model/energy.js';
 export { Polarity } from './model/polarity.js';
+
+// Utils
+export {
+  CHOSEONG, JUNGSEONG, isHangulSyllable, decomposeHangul, makeFallbackEntry,
+  FRAME_LABELS, TOTAL_BANDS, SUB_HINTS, buildInterpretation, interpretScores,
+} from './utils/index.js';
+export type { HangulDecomposition } from './utils/index.js';
