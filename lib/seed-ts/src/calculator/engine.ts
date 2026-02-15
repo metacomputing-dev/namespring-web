@@ -1,28 +1,28 @@
-import { HanjaRepository, type HanjaEntry } from './database/hanja-repository.js';
-import { FourframeRepository } from './database/fourframe-repository.js';
-import { NameStatRepository } from './database/name-stat-repository.js';
-import { Polarity } from './model/polarity.js';
-import { HangulCalculator } from './calculator/hangul.js';
-import { HanjaCalculator } from './calculator/hanja.js';
-import { FrameCalculator } from './calculator/frame.js';
-import { SajuCalculator } from './calculator/saju.js';
-import { evaluateName } from './calculator/root.js';
-import type { EvaluationResult, EvalContext } from './calculator/base.js';
-import type { SajuOutputSummary } from './calculator/saju-scorer.js';
-import type { ElementKey } from './calculator/element-cycle.js';
-import { elementFromSajuCode, emptyDistribution } from './calculator/element-cycle.js';
-import { FourFrameOptimizer } from './calculator/search.js';
+import { HanjaRepository, type HanjaEntry } from '../database/hanja-repository.js';
+import { FourframeRepository } from '../database/fourframe-repository.js';
+import { NameStatRepository } from '../database/name-stat-repository.js';
+import { Polarity } from '../model/polarity.js';
+import { HangulCalculator } from './hangul.js';
+import { HanjaCalculator } from './hanja.js';
+import { FrameCalculator } from './frame.js';
+import { SajuCalculator } from './saju.js';
+import { evaluateName, type EvalContext } from './evaluator.js';
+import type { SajuOutputSummary } from './saju.js';
+import { type ElementKey, elementFromSajuCode, emptyDistribution } from './scoring.js';
+import { FourFrameOptimizer } from './search.js';
 import type {
-  SeedRequest, SeedResponse, SeedCandidate, SajuSummary, PillarSummary,
-  BirthInfo, NameCharInput, CharDetail,
-} from './types.js';
-import { makeFallbackEntry } from './utils/korean-char.js';
-import { buildInterpretation, FRAME_LABELS } from './utils/interpretation.js';
+  SeedRequest, SeedResponse, SeedCandidate, SajuSummary,
+  PillarSummary, BirthInfo, NameCharInput, CharDetail
+} from '../model/types.js';
+import { makeFallbackEntry, buildInterpretation } from '../utils/index.js';
 
-// ── saju-ts optional integration ──
-type SajuModule = { analyzeSaju: (input: any, config?: any) => any; createBirthInput: (params: any) => any };
+type SajuModule = {
+  analyzeSaju: (input: any, config?: any) => any;
+  createBirthInput: (params: any) => any;
+};
+
 let sajuModule: SajuModule | null = null;
-const SAJU_MODULE_PATH = '../../saju-ts/src/index.js';
+const SAJU_MODULE_PATH = '../../../saju-ts/src/index.js';
 
 async function loadSajuModule(): Promise<SajuModule | null> {
   if (sajuModule) return sajuModule;
@@ -32,14 +32,27 @@ async function loadSajuModule(): Promise<SajuModule | null> {
   } catch { return null; }
 }
 
-// ── Constants ──
 const MAX_CANDIDATES = 500;
 const OHAENG_CODES = ['WOOD', 'FIRE', 'EARTH', 'METAL', 'WATER'] as const;
-const EMPTY_PILLAR: PillarSummary = { stem: { code: '', hangul: '', hanja: '' }, branch: { code: '', hangul: '', hanja: '' } };
 
-// ══════════════════════════════════════════════════════════════
-// SeedEngine
-// ══════════════════════════════════════════════════════════════
+function toCharDetail(e: HanjaEntry): CharDetail {
+  return {
+    hangul: e.hangul, hanja: e.hanja, meaning: e.meaning,
+    strokes: e.strokes, element: e.resource_element,
+    polarity: Polarity.get(e.strokes).english
+  };
+}
+
+function collectElements(...sources: (string | null | undefined | string[])[]): Set<string> {
+  const out = new Set<string>();
+  for (const src of sources) {
+    for (const s of (Array.isArray(src) ? src : src ? [src] : [])) {
+      const k = elementFromSajuCode(s);
+      if (k) out.add(k);
+    }
+  }
+  return out;
+}
 
 export class SeedEngine {
   private hanjaRepo = new HanjaRepository();
@@ -50,27 +63,24 @@ export class SeedEngine {
   private validFourFrameNumbers = new Set<number>();
   private optimizer: FourFrameOptimizer | null = null;
 
-  async init(): Promise<void> {
+  async init() {
     if (this.initialized) return;
     await Promise.all([this.hanjaRepo.init(), this.fourFrameRepo.init(), this.nameStatRepo.init()]);
-    for (const entry of await this.fourFrameRepo.findAll(81)) {
-      this.luckyMap.set(entry.number, entry.lucky_level ?? '');
-      const lv = entry.lucky_level ?? '';
+    for (const e of await this.fourFrameRepo.findAll(81)) {
+      const lv = e.lucky_level ?? '';
+      this.luckyMap.set(e.number, lv);
       if (lv.includes('최상') || lv.includes('상') || lv.includes('양'))
-        this.validFourFrameNumbers.add(entry.number);
+        this.validFourFrameNumbers.add(e.number);
     }
     this.optimizer = new FourFrameOptimizer(this.validFourFrameNumbers);
     this.initialized = true;
   }
 
-  // ── Main API ──
-
   async analyze(request: SeedRequest): Promise<SeedResponse> {
     await this.init();
     const mode = this.resolveMode(request);
     const sajuSummary = await this.analyzeSaju(request.birth);
-    const sajuDist = this.buildSajuDistribution(sajuSummary);
-    const sajuOutput = this.buildSajuOutput(sajuSummary);
+    const { dist, output } = this.buildSajuContext(sajuSummary);
 
     let inputs: NameCharInput[][];
     if (mode === 'evaluate' && request.givenName?.length) {
@@ -83,7 +93,7 @@ export class SeedEngine {
     }
 
     const scored: SeedCandidate[] = [];
-    for (const gn of inputs) scored.push(await this.scoreCandidate(request.surname, gn, sajuDist, sajuOutput));
+    for (const gn of inputs) scored.push(await this.scoreCandidate(request.surname, gn, dist, output));
     scored.sort((a, b) => b.scores.total - a.scores.total);
 
     const offset = request.options?.offset ?? 0;
@@ -92,7 +102,7 @@ export class SeedEngine {
       request, mode, saju: sajuSummary,
       candidates: scored.slice(offset, offset + limit).map((c, i) => ({ ...c, rank: offset + i + 1 })),
       totalCount: scored.length,
-      meta: { version: '2.0.0', timestamp: new Date().toISOString() },
+      meta: { version: '2.0.0', timestamp: new Date().toISOString() }
     };
   }
 
@@ -101,38 +111,42 @@ export class SeedEngine {
     return req.givenName?.length && req.givenName.every(c => c.hanja) ? 'evaluate' : 'recommend';
   }
 
-  // ── Saju Analysis ──
-
   private async analyzeSaju(birth: BirthInfo): Promise<SajuSummary> {
     const saju = await loadSajuModule();
     if (saju) {
       try {
         const bi = saju.createBirthInput({
-          birthYear: birth.year, birthMonth: birth.month, birthDay: birth.day,
-          birthHour: birth.hour, birthMinute: birth.minute,
+          birthYear: birth.year, birthMonth: birth.month,
+          birthDay: birth.day, birthHour: birth.hour, birthMinute: birth.minute,
           gender: birth.gender === 'male' ? 'MALE' : 'FEMALE',
           timezone: birth.timezone ?? 'Asia/Seoul',
-          latitude: birth.latitude ?? 37.5665, longitude: birth.longitude ?? 126.978,
+          latitude: birth.latitude ?? 37.5665, longitude: birth.longitude ?? 126.978
         });
-        return this.extractSajuSummary(saju.analyzeSaju(bi));
+        return this.extractSaju(saju.analyzeSaju(bi));
       } catch { /* fall through */ }
     }
+    const ep: PillarSummary = {
+      stem: { code: '', hangul: '', hanja: '' },
+      branch: { code: '', hangul: '', hanja: '' }
+    };
     return {
-      pillars: { year: EMPTY_PILLAR, month: EMPTY_PILLAR, day: EMPTY_PILLAR, hour: EMPTY_PILLAR },
+      pillars: { year: ep, month: ep, day: ep, hour: ep },
       dayMaster: { stem: '', element: '', polarity: '' },
       strength: { level: '', isStrong: false, score: 0 },
       yongshin: { element: 'WOOD', heeshin: null, gishin: null, gushin: null, confidence: 0, reasoning: '' },
       gyeokguk: { type: '', category: '', confidence: 0 },
-      ohaengDistribution: {}, deficientElements: [], excessiveElements: [],
+      ohaengDistribution: {}, deficientElements: [], excessiveElements: []
     };
   }
 
-  private extractSajuSummary(a: any): SajuSummary {
+  private extractSaju(a: any): SajuSummary {
     const pil = a.pillars ?? a.coreResult?.pillars;
+    const sr = a.strengthResult, yr = a.yongshinResult, gr = a.gyeokgukResult;
     const mp = (p: any): PillarSummary => ({
       stem: { code: p?.cheongan ?? '', hangul: p?.cheongan ?? '', hanja: '' },
-      branch: { code: p?.jiji ?? '', hangul: p?.jiji ?? '', hanja: '' },
+      branch: { code: p?.jiji ?? '', hangul: p?.jiji ?? '', hanja: '' }
     });
+
     const od: Record<string, number> = {};
     if (a.ohaengDistribution) {
       if (a.ohaengDistribution instanceof Map) {
@@ -142,12 +156,13 @@ export class SeedEngine {
     const total = Object.values(od).reduce((s, v) => s + v, 0);
     const avg = total / 5;
     const deficient: string[] = [], excessive: string[] = [];
-    if (total > 0) for (const k of OHAENG_CODES) {
-      const c = od[k] ?? 0;
-      if (c === 0 || c <= avg * 0.4) deficient.push(k);
-      else if (c >= avg * 2.0) excessive.push(k);
+    if (total > 0) {
+      for (const k of OHAENG_CODES) {
+        const c = od[k] ?? 0;
+        if (c === 0 || c <= avg * 0.4) deficient.push(k);
+        else if (c >= avg * 2.0) excessive.push(k);
+      }
     }
-    const sr = a.strengthResult, yr = a.yongshinResult, gr = a.gyeokgukResult;
     return {
       pillars: { year: mp(pil?.year), month: mp(pil?.month), day: mp(pil?.day), hour: mp(pil?.hour) },
       dayMaster: { stem: pil?.day?.cheongan ?? '', element: sr?.dayMasterElement ?? '', polarity: '' },
@@ -155,93 +170,78 @@ export class SeedEngine {
       yongshin: {
         element: yr?.finalYongshin ?? '', heeshin: yr?.finalHeesin ?? null,
         gishin: yr?.gisin ?? null, gushin: yr?.gusin ?? null,
-        confidence: yr?.finalConfidence ?? 0, reasoning: yr?.recommendations?.[0]?.reasoning ?? '',
+        confidence: yr?.finalConfidence ?? 0, reasoning: yr?.recommendations?.[0]?.reasoning ?? ''
       },
       gyeokguk: { type: gr?.type ?? '', category: gr?.category ?? '', confidence: gr?.confidence ?? 0 },
-      ohaengDistribution: od, deficientElements: deficient, excessiveElements: excessive,
+      ohaengDistribution: od, deficientElements: deficient, excessiveElements: excessive
     };
   }
 
-  // ── Build evaluator inputs ──
-
-  private buildSajuDistribution(s: SajuSummary): Record<ElementKey, number> {
+  private buildSajuContext(s: SajuSummary): { dist: Record<ElementKey, number>; output: SajuOutputSummary | null } {
     const dist = emptyDistribution();
     for (const [code, count] of Object.entries(s.ohaengDistribution)) {
       const key = elementFromSajuCode(code);
       if (key) dist[key] += count;
     }
-    return dist;
-  }
+    if (!s.dayMaster.element && !s.yongshin.element) return { dist, output: null };
 
-  private buildSajuOutput(s: SajuSummary): SajuOutputSummary | null {
-    if (!s.dayMaster.element && !s.yongshin.element) return null;
     const dmKey = elementFromSajuCode(s.dayMaster.element);
     const y = s.yongshin;
     return {
-      dayMaster: dmKey ? { element: dmKey } : undefined,
-      strength: { isStrong: s.strength.isStrong, totalSupport: s.strength.score, totalOppose: 0 },
-      yongshin: {
-        finalYongshin: y.element, finalHeesin: y.heeshin, gisin: y.gishin, gusin: y.gushin,
-        finalConfidence: y.confidence,
-        recommendations: y.reasoning
-          ? [{ type: 'EOKBU', primaryElement: y.element, secondaryElement: y.heeshin, confidence: y.confidence, reasoning: y.reasoning }]
-          : [],
-      },
-      tenGod: undefined,
+      dist,
+      output: {
+        dayMaster: dmKey ? { element: dmKey } : undefined,
+        strength: { isStrong: s.strength.isStrong, totalSupport: s.strength.score, totalOppose: 0 },
+        yongshin: {
+          finalYongshin: y.element, finalHeesin: y.heeshin, gisin: y.gishin, gusin: y.gushin,
+          finalConfidence: y.confidence,
+          recommendations: y.reasoning
+            ? [{ type: 'EOKBU', primaryElement: y.element, secondaryElement: y.heeshin,
+                 confidence: y.confidence, reasoning: y.reasoning }]
+            : []
+        },
+        tenGod: undefined
+      }
     };
   }
 
-  // ── Score a single candidate ──
-
   private async scoreCandidate(
     surname: NameCharInput[], givenName: NameCharInput[],
-    sajuDist: Record<ElementKey, number>, sajuOutput: SajuOutputSummary | null,
+    sajuDist: Record<ElementKey, number>, sajuOutput: SajuOutputSummary | null
   ): Promise<SeedCandidate> {
     const se = await this.resolveEntries(surname);
     const ge = await this.resolveEntries(givenName);
-
-    // Create calculators ONCE -- they serve as both DAG nodes AND analysis providers
     const hangul = new HangulCalculator(se, ge);
     const hanja = new HanjaCalculator(se, ge);
     const frame = new FrameCalculator(se, ge);
     const saju = new SajuCalculator(se, ge);
-
     const ctx: EvalContext = {
       surnameLength: se.length, givenLength: ge.length,
-      luckyMap: this.luckyMap, sajuDistribution: sajuDist,
-      sajuOutput, insights: {},
+      luckyMap: this.luckyMap, sajuDistribution: sajuDist, sajuOutput, insights: {}
     };
-
     const ev = evaluateName([hangul, hanja, frame, saju], ctx);
     const cm = ev.categoryMap;
-
-    // Get analysis from the SAME calculator instances (no duplication)
     const all = [...se, ...ge];
     const r = (v: number) => Math.round(v * 10) / 10;
-
     return {
       name: {
         surname: se.map(toCharDetail), givenName: ge.map(toCharDetail),
-        fullHangul: all.map(e => e.hangul).join(''), fullHanja: all.map(e => e.hanja).join(''),
+        fullHangul: all.map(e => e.hangul).join(''), fullHanja: all.map(e => e.hanja).join('')
       },
       scores: {
         total: r(ev.score),
         hangul: r(((cm.BALEUM_OHAENG?.score ?? 0) + (cm.BALEUM_EUMYANG?.score ?? 0)) / 2),
         hanja: r(((cm.HOEKSU_EUMYANG?.score ?? 0) + (cm.SAGYEOK_OHAENG?.score ?? 0)) / 2),
         fourFrame: r(cm.SAGYEOK_SURI?.score ?? 0),
-        saju: r(cm.SAJU_JAWON_BALANCE?.score ?? 0),
+        saju: r(cm.SAJU_JAWON_BALANCE?.score ?? 0)
       },
       analysis: {
-        hangul: hangul.getAnalysis().data,
-        hanja: hanja.getAnalysis().data,
-        fourFrame: frame.getAnalysis().data,
-        saju: saju.getAnalysis().data,
+        hangul: hangul.getAnalysis().data, hanja: hanja.getAnalysis().data,
+        fourFrame: frame.getAnalysis().data, saju: saju.getAnalysis().data
       },
-      interpretation: buildInterpretation(ev), rank: 0,
+      interpretation: buildInterpretation(ev), rank: 0
     };
   }
-
-  // ── Name Generation (recommend/all mode) ──
 
   private async generateCandidates(req: SeedRequest, saju: SajuSummary): Promise<NameCharInput[][]> {
     const se = await this.resolveEntries(req.surname);
@@ -251,27 +251,30 @@ export class SeedEngine {
     const avoids = collectElements(saju.yongshin.gishin, saju.yongshin.gushin, saju.excessiveElements);
     if (targets.size === 0) targets.add('Wood');
 
-    // Collect stroke counts needed, then bulk-load hanja
     const needed = new Set<number>();
     for (const key of validKeys) for (const s of key.split(',')) needed.add(Number(s));
     const allHanja = await this.hanjaRepo.findByStrokeRange(Math.min(...needed), Math.max(...needed));
 
-    // Index by strokes: preferred (target elements) then acceptable
-    const pref = new Map<number, HanjaEntry[]>(), acc = new Map<number, HanjaEntry[]>();
+    const pref = new Map<number, HanjaEntry[]>();
+    const acc = new Map<number, HanjaEntry[]>();
     for (const e of allHanja) {
       if (e.is_surname || !needed.has(e.strokes) || avoids.has(e.resource_element)) continue;
-      const bucket = targets.has(e.resource_element) ? pref : acc;
-      (bucket.get(e.strokes) ?? (bucket.set(e.strokes, []), bucket.get(e.strokes)!)).push(e);
+      const map = targets.has(e.resource_element) ? pref : acc;
+      let list = map.get(e.strokes);
+      if (!list) { list = []; map.set(e.strokes, list); }
+      list.push(e);
     }
-    const chars = (s: number) => [...(pref.get(s) ?? []), ...(acc.get(s) ?? [])];
 
+    const chars = (s: number) => [...(pref.get(s) ?? []), ...(acc.get(s) ?? [])];
     const out: NameCharInput[][] = [];
+    const inp = (c: HanjaEntry): NameCharInput => ({ hangul: c.hangul, hanja: c.hanja });
+
     for (const sk of validKeys) {
       if (out.length >= MAX_CANDIDATES) break;
       const sc = sk.split(',').map(Number);
       if (nameLen === 1) {
         for (const c of chars(sc[0]).slice(0, 8)) {
-          out.push([{ hangul: c.hangul, hanja: c.hanja }]);
+          out.push([inp(c)]);
           if (out.length >= MAX_CANDIDATES) break;
         }
       } else {
@@ -279,7 +282,7 @@ export class SeedEngine {
         for (const a of c1) {
           for (const b of c2) {
             if (a.hanja === b.hanja) continue;
-            out.push([{ hangul: a.hangul, hanja: a.hanja }, { hangul: b.hangul, hanja: b.hanja }]);
+            out.push([inp(a), inp(b)]);
             if (out.length >= MAX_CANDIDATES) break;
           }
           if (out.length >= MAX_CANDIDATES) break;
@@ -289,38 +292,20 @@ export class SeedEngine {
     return out;
   }
 
-  // ── Entry resolution ──
-
   private async resolveEntries(chars: NameCharInput[]): Promise<HanjaEntry[]> {
     return Promise.all(chars.map(async (c) => {
-      if (c.hanja) { const e = await this.hanjaRepo.findByHanja(c.hanja); if (e) return e; }
+      if (c.hanja) {
+        const e = await this.hanjaRepo.findByHanja(c.hanja);
+        if (e) return e;
+      }
       const bh = await this.hanjaRepo.findByHangul(c.hangul);
       return bh[0] ?? makeFallbackEntry(c.hangul);
     }));
   }
 
-  close(): void {
+  close() {
     this.hanjaRepo.close();
     this.fourFrameRepo.close();
     this.nameStatRepo.close();
   }
 }
-
-// ── Pure helpers ──
-
-function toCharDetail(e: HanjaEntry): CharDetail {
-  return {
-    hangul: e.hangul, hanja: e.hanja, meaning: e.meaning,
-    strokes: e.strokes, element: e.resource_element, polarity: Polarity.get(e.strokes).english,
-  };
-}
-
-function collectElements(...sources: (string | null | undefined | string[])[]): Set<string> {
-  const out = new Set<string>();
-  for (const src of sources) {
-    if (Array.isArray(src)) { for (const s of src) { const k = elementFromSajuCode(s); if (k) out.add(k); } }
-    else if (src) { const k = elementFromSajuCode(src); if (k) out.add(k); }
-  }
-  return out;
-}
-

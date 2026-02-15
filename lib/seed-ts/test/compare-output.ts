@@ -31,7 +31,7 @@ const originalFetch = globalThis.fetch;
 };
 
 // ── Import seed-ts ──
-import { SeedEngine } from '../src/engine.js';
+import { SeedEngine } from '../src/calculator/engine.js';
 
 const birth = { year: 1986, month: 4, day: 19, hour: 5, minute: 45, gender: 'male' as const };
 

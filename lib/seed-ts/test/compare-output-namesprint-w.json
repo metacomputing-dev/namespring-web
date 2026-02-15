@@ -1,0 +1,740 @@
+{
+  "project": "namesprint-w",
+  "timestamp": "2026-02-15T10:22:23.326Z",
+  "birthInfo": {
+    "year": 1986,
+    "month": 4,
+    "day": 19,
+    "hour": 5,
+    "minute": 45,
+    "gender": "male"
+  },
+  "evaluate": {
+    "name": {
+      "surname": [
+        {
+          "hangul": "최",
+          "hanja": "崔",
+          "meaning": "성씨 최, 높을 최",
+          "strokes": 11,
+          "element": "Earth",
+          "polarity": "Positive"
+        }
+      ],
+      "givenName": [
+        {
+          "hangul": "성",
+          "hanja": "成",
+          "meaning": "이룰 성, 될 성",
+          "strokes": 7,
+          "element": "Fire",
+          "polarity": "Positive"
+        },
+        {
+          "hangul": "수",
+          "hanja": "秀",
+          "meaning": "빼어날 수, 성할 수",
+          "strokes": 7,
+          "element": "Wood",
+          "polarity": "Positive"
+        }
+      ],
+      "fullHangul": "최성수",
+      "fullHanja": "崔成秀"
+    },
+    "scores": {
+      "total": 58.1,
+      "hangul": 70,
+      "hanja": 57.5,
+      "fourFrame": 60,
+      "saju": 46.7
+    },
+    "analysis": {
+      "hangul": {
+        "blocks": [
+          {
+            "hangul": "최",
+            "onset": "ㅊ",
+            "nucleus": "ㅚ",
+            "element": "Metal",
+            "polarity": "Positive"
+          },
+          {
+            "hangul": "성",
+            "onset": "ㅅ",
+            "nucleus": "ㅓ",
+            "element": "Metal",
+            "polarity": "Negative"
+          },
+          {
+            "hangul": "수",
+            "onset": "ㅅ",
+            "nucleus": "ㅜ",
+            "element": "Metal",
+            "polarity": "Negative"
+          }
+        ],
+        "polarityScore": 75,
+        "elementScore": 65
+      },
+      "hanja": {
+        "blocks": [
+          {
+            "hanja": "崔",
+            "hangul": "최",
+            "strokes": 11,
+            "resourceElement": "Earth",
+            "strokeElement": "Wood",
+            "polarity": "Positive"
+          },
+          {
+            "hanja": "成",
+            "hangul": "성",
+            "strokes": 7,
+            "resourceElement": "Fire",
+            "strokeElement": "Metal",
+            "polarity": "Positive"
+          },
+          {
+            "hanja": "秀",
+            "hangul": "수",
+            "strokes": 7,
+            "resourceElement": "Wood",
+            "strokeElement": "Metal",
+            "polarity": "Positive"
+          }
+        ],
+        "polarityScore": 50,
+        "elementScore": 65
+      },
+      "fourFrame": {
+        "frames": [
+          {
+            "type": "won",
+            "strokeSum": 14,
+            "element": "Fire",
+            "polarity": "Negative",
+            "luckyLevel": 0
+          },
+          {
+            "type": "hyung",
+            "strokeSum": 18,
+            "element": "Metal",
+            "polarity": "Negative",
+            "luckyLevel": 0
+          },
+          {
+            "type": "lee",
+            "strokeSum": 18,
+            "element": "Metal",
+            "polarity": "Negative",
+            "luckyLevel": 0
+          },
+          {
+            "type": "jung",
+            "strokeSum": 25,
+            "element": "Earth",
+            "polarity": "Positive",
+            "luckyLevel": 0
+          }
+        ],
+        "elementScore": 45,
+        "luckScore": 0
+      },
+      "saju": {
+        "yongshinElement": "Fire",
+        "heeshinElement": "Wood",
+        "gishinElement": "Water",
+        "nameElements": [
+          "Fire",
+          "Wood"
+        ],
+        "yongshinMatchCount": 1,
+        "yongshinGeneratingCount": 0,
+        "gishinMatchCount": 0,
+        "gishinOvercomingCount": 0,
+        "deficiencyFillCount": 0,
+        "excessiveAvoidCount": 0,
+        "dayMasterSupportScore": 50,
+        "affinityScore": 46.69496674822321
+      }
+    },
+    "interpretation": "보통 수준의 이름입니다. 사주 자원 균형 부분을 점검해 보세요."
+  },
+  "searchRecommend": {
+    "totalCount": 500,
+    "top20": [
+      {
+        "name": "최인수",
+        "hanja": "崔人手",
+        "scores": {
+          "total": 70.4,
+          "hangul": 80,
+          "hanja": 80,
+          "fourFrame": 80,
+          "saju": 46.7
+        },
+        "interpretation": "보통 수준의 이름입니다. 사주 자원 균형 부분을 점검해 보세요."
+      },
+      {
+        "name": "최미력",
+        "hanja": "崔未力",
+        "scores": {
+          "total": 69.7,
+          "hangul": 75,
+          "hanja": 83.8,
+          "fourFrame": 85,
+          "saju": 39.7
+        },
+        "interpretation": "보통 수준의 이름입니다. 사주 자원 균형 부분을 점검해 보세요."
+      },
+      {
+        "name": "최미력",
+        "hanja": "崔未力",
+        "scores": {
+          "total": 69.7,
+          "hangul": 75,
+          "hanja": 83.8,
+          "fourFrame": 85,
+          "saju": 39.7
+        },
+        "interpretation": "보통 수준의 이름입니다. 사주 자원 균형 부분을 점검해 보세요."
+      },
+      {
+        "name": "최장력",
+        "hanja": "崔仗力",
+        "scores": {
+          "total": 69.5,
+          "hangul": 70,
+          "hanja": 83.8,
+          "fourFrame": 85,
+          "saju": 44.7
+        },
+        "interpretation": "보통 수준의 이름입니다. 사주 자원 균형 부분을 점검해 보세요."
+      },
+      {
+        "name": "최장력",
+        "hanja": "崔仗力",
+        "scores": {
+          "total": 69.5,
+          "hangul": 70,
+          "hanja": 83.8,
+          "fourFrame": 85,
+          "saju": 44.7
+        },
+        "interpretation": "보통 수준의 이름입니다. 사주 자원 균형 부분을 점검해 보세요."
+      },
+      {
+        "name": "최대력",
+        "hanja": "崔代力",
+        "scores": {
+          "total": 69.5,
+          "hangul": 70,
+          "hanja": 83.8,
+          "fourFrame": 85,
+          "saju": 44.7
+        },
+        "interpretation": "보통 수준의 이름입니다. 사주 자원 균형 부분을 점검해 보세요."
+      },
+      {
+        "name": "최대력",
+        "hanja": "崔代力",
+        "scores": {
+          "total": 69.5,
+          "hangul": 70,
+          "hanja": 83.8,
+          "fourFrame": 85,
+          "saju": 44.7
+        },
+        "interpretation": "보통 수준의 이름입니다. 사주 자원 균형 부분을 점검해 보세요."
+      },
+      {
+        "name": "최자력",
+        "hanja": "崔仔力",
+        "scores": {
+          "total": 69.5,
+          "hangul": 70,
+          "hanja": 83.8,
+          "fourFrame": 85,
+          "saju": 44.7
+        },
+        "interpretation": "보통 수준의 이름입니다. 사주 자원 균형 부분을 점검해 보세요."
+      },
+      {
+        "name": "최자력",
+        "hanja": "崔仔力",
+        "scores": {
+          "total": 69.5,
+          "hangul": 70,
+          "hanja": 83.8,
+          "fourFrame": 85,
+          "saju": 44.7
+        },
+        "interpretation": "보통 수준의 이름입니다. 사주 자원 균형 부분을 점검해 보세요."
+      },
+      {
+        "name": "최이수",
+        "hanja": "崔二手",
+        "scores": {
+          "total": 69.2,
+          "hangul": 80,
+          "hanja": 80,
+          "fourFrame": 80,
+          "saju": 41.4
+        },
+        "interpretation": "보통 수준의 이름입니다. 사주 자원 균형 부분을 점검해 보세요."
+      },
+      {
+        "name": "최입수",
+        "hanja": "崔入手",
+        "scores": {
+          "total": 69.2,
+          "hangul": 80,
+          "hanja": 80,
+          "fourFrame": 80,
+          "saju": 41.4
+        },
+        "interpretation": "보통 수준의 이름입니다. 사주 자원 균형 부분을 점검해 보세요."
+      },
+      {
+        "name": "최혜정",
+        "hanja": "崔恵禎",
+        "scores": {
+          "total": 69.2,
+          "hangul": 80,
+          "hanja": 75,
+          "fourFrame": 80,
+          "saju": 46.7
+        },
+        "interpretation": "보통 수준의 이름입니다. 사주 자원 균형 부분을 점검해 보세요."
+      },
+      {
+        "name": "최혜정",
+        "hanja": "崔恵精",
+        "scores": {
+          "total": 69.2,
+          "hangul": 80,
+          "hanja": 75,
+          "fourFrame": 80,
+          "saju": 46.7
+        },
+        "interpretation": "보통 수준의 이름입니다. 사주 자원 균형 부분을 점검해 보세요."
+      },
+      {
+        "name": "최혜정",
+        "hanja": "崔恵静",
+        "scores": {
+          "total": 69.2,
+          "hangul": 80,
+          "hanja": 75,
+          "fourFrame": 80,
+          "saju": 46.7
+        },
+        "interpretation": "보통 수준의 이름입니다. 사주 자원 균형 부분을 점검해 보세요."
+      },
+      {
+        "name": "최혜장",
+        "hanja": "崔恵獎",
+        "scores": {
+          "total": 69.2,
+          "hangul": 80,
+          "hanja": 75,
+          "fourFrame": 80,
+          "saju": 46.7
+        },
+        "interpretation": "보통 수준의 이름입니다. 사주 자원 균형 부분을 점검해 보세요."
+      },
+      {
+        "name": "최수인",
+        "hanja": "崔手人",
+        "scores": {
+          "total": 68.9,
+          "hangul": 75,
+          "hanja": 78.8,
+          "fourFrame": 80,
+          "saju": 46.7
+        },
+        "interpretation": "보통 수준의 이름입니다. 사주 자원 균형 부분을 점검해 보세요."
+      },
+      {
+        "name": "최력오",
+        "hanja": "崔力午",
+        "scores": {
+          "total": 68.8,
+          "hangul": 75,
+          "hanja": 80,
+          "fourFrame": 80,
+          "saju": 44.7
+        },
+        "interpretation": "보통 수준의 이름입니다. 사주 자원 균형 부분을 점검해 보세요."
+      },
+      {
+        "name": "최력인",
+        "hanja": "崔力仁",
+        "scores": {
+          "total": 68.8,
+          "hangul": 75,
+          "hanja": 80,
+          "fourFrame": 80,
+          "saju": 44.7
+        },
+        "interpretation": "보통 수준의 이름입니다. 사주 자원 균형 부분을 점검해 보세요."
+      },
+      {
+        "name": "최력인",
+        "hanja": "崔力引",
+        "scores": {
+          "total": 68.8,
+          "hangul": 75,
+          "hanja": 80,
+          "fourFrame": 80,
+          "saju": 44.7
+        },
+        "interpretation": "보통 수준의 이름입니다. 사주 자원 균형 부분을 점검해 보세요."
+      },
+      {
+        "name": "최력오",
+        "hanja": "崔力午",
+        "scores": {
+          "total": 68.8,
+          "hangul": 75,
+          "hanja": 80,
+          "fourFrame": 80,
+          "saju": 44.7
+        },
+        "interpretation": "보통 수준의 이름입니다. 사주 자원 균형 부분을 점검해 보세요."
+      }
+    ]
+  },
+  "searchAll": {
+    "totalCount": 500,
+    "top20": [
+      {
+        "name": "최인수",
+        "hanja": "崔人手",
+        "scores": {
+          "total": 70.4,
+          "hangul": 80,
+          "hanja": 80,
+          "fourFrame": 80,
+          "saju": 46.7
+        },
+        "interpretation": "보통 수준의 이름입니다. 사주 자원 균형 부분을 점검해 보세요."
+      },
+      {
+        "name": "최미력",
+        "hanja": "崔未力",
+        "scores": {
+          "total": 69.7,
+          "hangul": 75,
+          "hanja": 83.8,
+          "fourFrame": 85,
+          "saju": 39.7
+        },
+        "interpretation": "보통 수준의 이름입니다. 사주 자원 균형 부분을 점검해 보세요."
+      },
+      {
+        "name": "최미력",
+        "hanja": "崔未力",
+        "scores": {
+          "total": 69.7,
+          "hangul": 75,
+          "hanja": 83.8,
+          "fourFrame": 85,
+          "saju": 39.7
+        },
+        "interpretation": "보통 수준의 이름입니다. 사주 자원 균형 부분을 점검해 보세요."
+      },
+      {
+        "name": "최장력",
+        "hanja": "崔仗力",
+        "scores": {
+          "total": 69.5,
+          "hangul": 70,
+          "hanja": 83.8,
+          "fourFrame": 85,
+          "saju": 44.7
+        },
+        "interpretation": "보통 수준의 이름입니다. 사주 자원 균형 부분을 점검해 보세요."
+      },
+      {
+        "name": "최장력",
+        "hanja": "崔仗力",
+        "scores": {
+          "total": 69.5,
+          "hangul": 70,
+          "hanja": 83.8,
+          "fourFrame": 85,
+          "saju": 44.7
+        },
+        "interpretation": "보통 수준의 이름입니다. 사주 자원 균형 부분을 점검해 보세요."
+      },
+      {
+        "name": "최대력",
+        "hanja": "崔代力",
+        "scores": {
+          "total": 69.5,
+          "hangul": 70,
+          "hanja": 83.8,
+          "fourFrame": 85,
+          "saju": 44.7
+        },
+        "interpretation": "보통 수준의 이름입니다. 사주 자원 균형 부분을 점검해 보세요."
+      },
+      {
+        "name": "최대력",
+        "hanja": "崔代力",
+        "scores": {
+          "total": 69.5,
+          "hangul": 70,
+          "hanja": 83.8,
+          "fourFrame": 85,
+          "saju": 44.7
+        },
+        "interpretation": "보통 수준의 이름입니다. 사주 자원 균형 부분을 점검해 보세요."
+      },
+      {
+        "name": "최자력",
+        "hanja": "崔仔力",
+        "scores": {
+          "total": 69.5,
+          "hangul": 70,
+          "hanja": 83.8,
+          "fourFrame": 85,
+          "saju": 44.7
+        },
+        "interpretation": "보통 수준의 이름입니다. 사주 자원 균형 부분을 점검해 보세요."
+      },
+      {
+        "name": "최자력",
+        "hanja": "崔仔力",
+        "scores": {
+          "total": 69.5,
+          "hangul": 70,
+          "hanja": 83.8,
+          "fourFrame": 85,
+          "saju": 44.7
+        },
+        "interpretation": "보통 수준의 이름입니다. 사주 자원 균형 부분을 점검해 보세요."
+      },
+      {
+        "name": "최이수",
+        "hanja": "崔二手",
+        "scores": {
+          "total": 69.2,
+          "hangul": 80,
+          "hanja": 80,
+          "fourFrame": 80,
+          "saju": 41.4
+        },
+        "interpretation": "보통 수준의 이름입니다. 사주 자원 균형 부분을 점검해 보세요."
+      },
+      {
+        "name": "최입수",
+        "hanja": "崔入手",
+        "scores": {
+          "total": 69.2,
+          "hangul": 80,
+          "hanja": 80,
+          "fourFrame": 80,
+          "saju": 41.4
+        },
+        "interpretation": "보통 수준의 이름입니다. 사주 자원 균형 부분을 점검해 보세요."
+      },
+      {
+        "name": "최혜정",
+        "hanja": "崔恵禎",
+        "scores": {
+          "total": 69.2,
+          "hangul": 80,
+          "hanja": 75,
+          "fourFrame": 80,
+          "saju": 46.7
+        },
+        "interpretation": "보통 수준의 이름입니다. 사주 자원 균형 부분을 점검해 보세요."
+      },
+      {
+        "name": "최혜정",
+        "hanja": "崔恵精",
+        "scores": {
+          "total": 69.2,
+          "hangul": 80,
+          "hanja": 75,
+          "fourFrame": 80,
+          "saju": 46.7
+        },
+        "interpretation": "보통 수준의 이름입니다. 사주 자원 균형 부분을 점검해 보세요."
+      },
+      {
+        "name": "최혜정",
+        "hanja": "崔恵静",
+        "scores": {
+          "total": 69.2,
+          "hangul": 80,
+          "hanja": 75,
+          "fourFrame": 80,
+          "saju": 46.7
+        },
+        "interpretation": "보통 수준의 이름입니다. 사주 자원 균형 부분을 점검해 보세요."
+      },
+      {
+        "name": "최혜장",
+        "hanja": "崔恵獎",
+        "scores": {
+          "total": 69.2,
+          "hangul": 80,
+          "hanja": 75,
+          "fourFrame": 80,
+          "saju": 46.7
+        },
+        "interpretation": "보통 수준의 이름입니다. 사주 자원 균형 부분을 점검해 보세요."
+      },
+      {
+        "name": "최수인",
+        "hanja": "崔手人",
+        "scores": {
+          "total": 68.9,
+          "hangul": 75,
+          "hanja": 78.8,
+          "fourFrame": 80,
+          "saju": 46.7
+        },
+        "interpretation": "보통 수준의 이름입니다. 사주 자원 균형 부분을 점검해 보세요."
+      },
+      {
+        "name": "최력오",
+        "hanja": "崔力午",
+        "scores": {
+          "total": 68.8,
+          "hangul": 75,
+          "hanja": 80,
+          "fourFrame": 80,
+          "saju": 44.7
+        },
+        "interpretation": "보통 수준의 이름입니다. 사주 자원 균형 부분을 점검해 보세요."
+      },
+      {
+        "name": "최력인",
+        "hanja": "崔力仁",
+        "scores": {
+          "total": 68.8,
+          "hangul": 75,
+          "hanja": 80,
+          "fourFrame": 80,
+          "saju": 44.7
+        },
+        "interpretation": "보통 수준의 이름입니다. 사주 자원 균형 부분을 점검해 보세요."
+      },
+      {
+        "name": "최력인",
+        "hanja": "崔力引",
+        "scores": {
+          "total": 68.8,
+          "hangul": 75,
+          "hanja": 80,
+          "fourFrame": 80,
+          "saju": 44.7
+        },
+        "interpretation": "보통 수준의 이름입니다. 사주 자원 균형 부분을 점검해 보세요."
+      },
+      {
+        "name": "최력오",
+        "hanja": "崔力午",
+        "scores": {
+          "total": 68.8,
+          "hangul": 75,
+          "hanja": 80,
+          "fourFrame": 80,
+          "saju": 44.7
+        },
+        "interpretation": "보통 수준의 이름입니다. 사주 자원 균형 부분을 점검해 보세요."
+      }
+    ]
+  },
+  "saju": {
+    "pillars": {
+      "year": {
+        "stem": {
+          "code": "BYEONG",
+          "hangul": "BYEONG",
+          "hanja": ""
+        },
+        "branch": {
+          "code": "IN",
+          "hangul": "IN",
+          "hanja": ""
+        }
+      },
+      "month": {
+        "stem": {
+          "code": "IM",
+          "hangul": "IM",
+          "hanja": ""
+        },
+        "branch": {
+          "code": "JIN",
+          "hangul": "JIN",
+          "hanja": ""
+        }
+      },
+      "day": {
+        "stem": {
+          "code": "GYE",
+          "hangul": "GYE",
+          "hanja": ""
+        },
+        "branch": {
+          "code": "SA",
+          "hangul": "SA",
+          "hanja": ""
+        }
+      },
+      "hour": {
+        "stem": {
+          "code": "EUL",
+          "hangul": "EUL",
+          "hanja": ""
+        },
+        "branch": {
+          "code": "MYO",
+          "hangul": "MYO",
+          "hanja": ""
+        }
+      }
+    },
+    "dayMaster": {
+      "stem": "GYE",
+      "element": "",
+      "polarity": ""
+    },
+    "strength": {
+      "level": "VERY_WEAK",
+      "isStrong": false,
+      "score": 8.666666666666666
+    },
+    "yongshin": {
+      "element": "FIRE",
+      "heeshin": "WOOD",
+      "gishin": "WATER",
+      "gushin": "METAL",
+      "confidence": 0.7,
+      "reasoning": "신약(身弱): 일간 WATER 약하여 인성(METAL)으로 생조, 비겁(WATER)으로 부조 필요"
+    },
+    "gyeokguk": {
+      "type": "SIKSIN",
+      "category": "NAEGYEOK",
+      "confidence": 0.9
+    },
+    "ohaengDistribution": {
+      "WOOD": 3,
+      "FIRE": 2,
+      "EARTH": 1,
+      "METAL": 0,
+      "WATER": 2
+    },
+    "deficientElements": [
+      "METAL"
+    ],
+    "excessiveElements": []
+  }
+}

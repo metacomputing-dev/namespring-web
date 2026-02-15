@@ -1,22 +1,14 @@
-import { NameCalculator, type EvalContext, type AnalysisDetail } from './base.js';
-import type { CalculatorPacket } from './graph.js';
-import { Energy } from '../model/energy.js';
+import { NameCalculator, type EvalContext, type AnalysisDetail, type CalculatorPacket } from './evaluator.js';
 import { Element } from '../model/element.js';
 import { Polarity } from '../model/polarity.js';
+import { Energy } from '../model/energy.js';
 import type { HanjaEntry } from '../database/hanja-repository.js';
-import type { HangulAnalysis } from '../types.js';
-import type { ElementKey } from './element-cycle.js';
-import { distributionFromArrangement } from './element-cycle.js';
+import type { HangulAnalysis } from '../model/types.js';
 import {
-  calculateArrayScore, calculateBalanceScore, checkElementSangSaeng,
-  countDominant, checkPolarityHarmony, polarityScore, type PolarityValue,
-} from './rules.js';
-import {
-  NODE_ADJACENCY_THRESHOLD_SINGLE_CHAR, NODE_ADJACENCY_THRESHOLD_TWO_CHAR,
-  NODE_PRONUNCIATION_ELEMENT_PASS,
-} from './constants.js';
-
-// ── Module-private constants & helpers ──────────────────────────
+  type ElementKey, type PolarityValue,
+  distributionFromArrangement, calculateArrayScore, calculateBalanceScore,
+  checkElementSangSaeng, countDominant, computePolarityResult,
+} from './scoring.js';
 
 const SIGNAL_WEIGHT_MINOR = 0.6;
 
@@ -24,7 +16,6 @@ const YANG_VOWELS: ReadonlySet<string> = new Set([
   'ㅏ', 'ㅐ', 'ㅑ', 'ㅒ', 'ㅗ', 'ㅘ', 'ㅙ', 'ㅚ', 'ㅛ', 'ㅣ',
 ]);
 
-/** Onset index -> Element mapping (운해 version). */
 const ONSET_TO_ELEMENT: ReadonlyMap<number, Element> = new Map([
   [0, Element.Wood], [1, Element.Wood], [15, Element.Wood],
   [2, Element.Fire], [3, Element.Fire], [4, Element.Fire], [5, Element.Fire], [16, Element.Fire],
@@ -39,18 +30,13 @@ function polarityFromVowel(nucleus: string): Polarity {
 function elementFromOnset(char: string): Element {
   const code = char.charCodeAt(0) - 0xAC00;
   if (code < 0 || code > 11171) return Element.Water;
-  const initialIdx = Math.floor(code / 588);
-  return ONSET_TO_ELEMENT.get(initialIdx) ?? Element.Water;
+  return ONSET_TO_ELEMENT.get(Math.floor(code / 588)) ?? Element.Water;
 }
-
-// ── Block data ──────────────────────────────────────────────────
 
 interface HangulBlock {
   readonly entry: HanjaEntry;
   energy: Energy | null;
 }
-
-// ── HangulCalculator ────────────────────────────────────────────
 
 export class HangulCalculator extends NameCalculator {
   readonly id = 'hangul';
@@ -65,55 +51,33 @@ export class HangulCalculator extends NameCalculator {
     private givenNameEntries: HanjaEntry[],
   ) {
     super();
-    this.blocks = [...surnameEntries, ...givenNameEntries].map(
-      (entry) => ({ entry, energy: null }),
-    );
+    this.blocks = [...surnameEntries, ...givenNameEntries].map(entry => ({ entry, energy: null }));
   }
 
   visit(ctx: EvalContext): void {
-    // 1. Compute energies per block
     for (const b of this.blocks) {
-      b.energy = new Energy(
-        polarityFromVowel(b.entry.nucleus),
-        elementFromOnset(b.entry.hangul),
-      );
+      b.energy = new Energy(polarityFromVowel(b.entry.nucleus), elementFromOnset(b.entry.hangul));
     }
-
-    // 2. Build arrangements
     this.elemArrangement = this.blocks.map(b => elementFromOnset(b.entry.hangul).english as ElementKey);
     this.polArrangement = this.blocks.map(b => polarityFromVowel(b.entry.nucleus).english as PolarityValue);
 
-    // 3. Score BALEUM_OHAENG (pronunciation element) -- exact evaluator logic
     const distribution = distributionFromArrangement(this.elemArrangement);
     const adjacencyScore = calculateArrayScore(this.elemArrangement, ctx.surnameLength);
     const balance = calculateBalanceScore(distribution);
     const elemScore = (balance + adjacencyScore) / 2;
-    const threshold = ctx.surnameLength === 2
-      ? NODE_ADJACENCY_THRESHOLD_TWO_CHAR
-      : NODE_ADJACENCY_THRESHOLD_SINGLE_CHAR;
+    const threshold = ctx.surnameLength === 2 ? 65 : 60;
     const elemPassed =
       checkElementSangSaeng(this.elemArrangement, ctx.surnameLength) &&
-      !countDominant(distribution) &&
-      adjacencyScore >= threshold &&
-      elemScore >= NODE_PRONUNCIATION_ELEMENT_PASS;
+      !countDominant(distribution) && adjacencyScore >= threshold && elemScore >= 70;
+
     this.elScore = elemScore;
+    this.putInsight(ctx, 'BALEUM_OHAENG', elemScore, elemPassed,
+      this.elemArrangement.join('-'), { distribution, adjacencyScore, balanceScore: balance });
 
-    this.setInsight(ctx, NameCalculator.createInsight(
-      'BALEUM_OHAENG', elemScore, elemPassed, this.elemArrangement.join('-'),
-      { distribution, adjacencyScore, balanceScore: balance },
-    ));
-
-    // 4. Score BALEUM_EUMYANG (pronunciation polarity) -- exact evaluator logic
-    const negCount = this.polArrangement.filter(v => v === 'Negative').length;
-    const posCount = this.polArrangement.length - negCount;
-    const polScoreVal = polarityScore(negCount, posCount);
-    const polPassed = checkPolarityHarmony(this.polArrangement, ctx.surnameLength);
-    this.polScore = polScoreVal;
-
-    this.setInsight(ctx, NameCalculator.createInsight(
-      'BALEUM_EUMYANG', polScoreVal, polPassed, this.polArrangement.join(''),
-      { arrangementList: this.polArrangement },
-    ));
+    const pol = computePolarityResult(this.polArrangement, ctx.surnameLength);
+    this.polScore = pol.score;
+    this.putInsight(ctx, 'BALEUM_EUMYANG', pol.score, pol.isPassed,
+      this.polArrangement.join(''), { arrangementList: this.polArrangement });
   }
 
   backward(_ctx: EvalContext): CalculatorPacket {
@@ -135,9 +99,7 @@ export class HangulCalculator extends NameCalculator {
       elementScore: this.elScore,
       data: {
         blocks: this.blocks.map(b => ({
-          hangul: b.entry.hangul,
-          onset: b.entry.onset,
-          nucleus: b.entry.nucleus,
+          hangul: b.entry.hangul, onset: b.entry.onset, nucleus: b.entry.nucleus,
           element: b.energy?.element.english ?? '',
           polarity: b.energy?.polarity.english ?? '',
         })),
@@ -147,11 +109,6 @@ export class HangulCalculator extends NameCalculator {
     };
   }
 
-  getPronunciationElementArrangement(): ElementKey[] {
-    return this.elemArrangement;
-  }
-
-  getPronunciationPolarityArrangement(): PolarityValue[] {
-    return this.polArrangement;
-  }
+  getPronunciationElementArrangement(): ElementKey[] { return this.elemArrangement; }
+  getPronunciationPolarityArrangement(): PolarityValue[] { return this.polArrangement; }
 }

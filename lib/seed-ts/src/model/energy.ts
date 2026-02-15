@@ -1,53 +1,31 @@
-import { Polarity } from "./polarity";
-import type { Element } from "./element";
+import { Polarity } from './polarity.js';
+import type { Element } from './element.js';
 
 export class Energy {
-  public polarity: Polarity;
-  public element: Element;
+  constructor(
+    public polarity: Polarity,
+    public element: Element,
+  ) {}
 
-  constructor(polarity: Polarity, element: Element) {
-    this.polarity = polarity;
-    this.element = element;
+  static getScore(energies: Energy[]): number {
+    return Energy.getPolarityScore(energies) * 0.5
+      + Energy.getElementScore(energies) * 0.5;
   }
 
-  public static getScore(energies: Energy[]): number {
-    return Energy.getPolarityScore(energies) * 0.5 + Energy.getElementScore(energies) * 0.5;
+  static getPolarityScore(energies: Energy[]): number {
+    let sum = 0;
+    for (const e of energies) sum += e.polarity === Polarity.Positive ? 1 : -1;
+    return (energies.length - Math.abs(sum)) * 100 / energies.length;
   }
 
-  public static getPolarityScore(energies: Energy[]): number {
-    let scoreSum = 0;
-
-    energies.forEach(e => {
-      if(e.polarity === Polarity.Positive) {
-        scoreSum += 1;
-      } else {
-        scoreSum -= 1;
-      }
-    });
-    return (energies.length - Math.abs(scoreSum)) * 100 / energies.length;
-  }
-  
-  
-  public static getElementScore(energies: Energy[]): number {
-    let genCount = 0;
-    let overCount = 0;
-    let sameCount = 0;
-    // loop energies in 0 .. length-2 to calculate element score based on the relationship between adjacent blocks
-    for(let i = 0; i < energies.length - 1; i++) {
-      const current = energies[i];
-      const next = energies[i + 1];
-
-      
-      if (current.element.isGenerating(next.element)) {
-        genCount += 1;
-      } else if (current.element.isOvercoming(next.element)) {
-        overCount += 1;
-      } else if (current.element.isSameAs(next.element)) {
-        sameCount += 1; // Bonus for same element
-      }
+  static getElementScore(energies: Energy[]): number {
+    let gen = 0, over = 0, same = 0;
+    for (let i = 0; i < energies.length - 1; i++) {
+      const cur = energies[i], nxt = energies[i + 1];
+      if (cur.element.isGenerating(nxt.element)) gen++;
+      else if (cur.element.isOvercoming(nxt.element)) over++;
+      else if (cur.element === nxt.element) same++;
     }
-
-    const score = 70 + genCount * 15 - overCount * 20 - sameCount * 5;
-    return Math.min(100, Math.max(0, score));
+    return Math.min(100, Math.max(0, 70 + gen * 15 - over * 20 - same * 5));
   }
 }
