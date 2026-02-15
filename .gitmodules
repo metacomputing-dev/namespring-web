@@ -1,0 +1,4 @@
+[submodule "lib/saju-ts"]
+	path = lib/saju-ts
+	url = https://github.com/metaintelligence/saju-ts.git
+	branch = main
