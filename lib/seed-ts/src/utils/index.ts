@@ -21,6 +21,20 @@ export function decomposeHangul(char: string): { onset: string; nucleus: string 
   return { onset, nucleus };
 }
 
+export interface JamoFilter { readonly onset?: string; readonly nucleus?: string }
+
+export function parseJamoFilter(char: string): JamoFilter | null {
+  if (!char) return {};
+  const code = char.charCodeAt(0);
+  if (code >= 0x3131 && code <= 0x314E)
+    return (CHOSEONG as readonly string[]).includes(char) ? { onset: char } : {};
+  if (code >= 0x314F && code <= 0x3163) return { nucleus: char };
+  const sc = code - HANGUL_BASE;
+  if (sc >= 0 && sc <= 0xD7A3 - HANGUL_BASE && sc % 28 === 0)
+    return { onset: CHOSEONG[Math.floor(sc / 588)], nucleus: JUNGSEONG[Math.floor((sc % 588) / 28)] };
+  return null;
+}
+
 export function makeFallbackEntry(hangul: string): HanjaEntry {
   const d = decomposeHangul(hangul);
   return {

@@ -25,5 +25,5 @@ export { Energy } from './model/energy.js';
 
 export {
   CHOSEONG, JUNGSEONG, decomposeHangul, makeFallbackEntry,
-  FRAME_LABELS, buildInterpretation,
+  FRAME_LABELS, buildInterpretation, parseJamoFilter, type JamoFilter,
 } from './utils/index.js';
