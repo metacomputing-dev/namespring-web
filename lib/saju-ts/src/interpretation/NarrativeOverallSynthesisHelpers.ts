@@ -31,6 +31,10 @@ import {
 import { shinsalGyeokgukSynergyLookup } from './ShinsalGyeokgukSynergyMatrix.js';
 import { shinsalLifeInfluence } from './shinsalLifeInfluence.js';
 
+function compactText(value: string): string {
+  return value.replace(/\s+/g, ' ').trim();
+}
+
 export function buildCausalChain(a: SajuAnalysis): string {
   const steps: string[] = [];
   const dm = a.pillars.day.cheongan;
@@ -186,8 +190,8 @@ export function buildMultiMethodYongshinBasis(yr: YongshinResult, sr: StrengthRe
       continue;
     }
     parts.push(
-      rec.type === YongshinType.JOHU ? `조후론: ${rec.reasoning.substring(0, 60)}`
-        : rec.type === YongshinType.GYEOKGUK ? `격국론: ${rec.reasoning.substring(0, 60)}`
+      rec.type === YongshinType.JOHU ? `조후론: ${compactText(rec.reasoning)}`
+        : rec.type === YongshinType.GYEOKGUK ? `격국론: ${compactText(rec.reasoning)}`
           : rec.type === YongshinType.TONGGWAN ? `통관론: 상극 오행 간 충돌을 중재하기 위해 ${ohaengKorean(rec.primaryElement)}을 추천`
             : rec.type === YongshinType.BYEONGYAK ? `병약론: 과다한 오행을 제어하기 위해 ${ohaengKorean(rec.primaryElement)}을 추천`
               : rec.type === YongshinType.JEONWANG ? `전왕론: 압도적 기운의 흐름을 따르기 위해 ${ohaengKorean(rec.primaryElement)}을 추천`
@@ -277,7 +281,7 @@ export function buildLifePathSynthesis(a: SajuAnalysis): string {
 
   const ilju = a.analysisResults?.get('ilju') as IljuInterpretation | undefined;
   if (ilju) {
-    parts.push(`"${ilju.nickname}"의 일주로서, ${ilju.lifePath.substring(0, 100)}`);
+    parts.push(`"${ilju.nickname}"의 일주로서, ${compactText(ilju.lifePath)}`);
   }
 
   return parts.length === 0 ? '' : parts.join('\n');

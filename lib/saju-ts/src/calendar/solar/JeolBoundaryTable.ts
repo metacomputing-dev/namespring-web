@@ -1,5 +1,10 @@
 ﻿import { Jiji } from '../../domain/Jiji.js';
 import { JEOL_BOUNDARY_DATA } from './JeolBoundaryData.js';
+import {
+  findFirstBoundaryByKey,
+  findLastBoundaryByKey,
+  momentKey,
+} from './JeolBoundarySearch.js';
 
 export interface JeolBoundary {
   readonly year: number;
@@ -10,14 +15,6 @@ export interface JeolBoundary {
   readonly solarLongitude: number;
   readonly sajuMonthIndex: number;
   readonly branch: Jiji;
-}
-
-function momentKey(y: number, m: number, d: number, h: number, min: number): number {
-  return y * 100_000_000 + m * 1_000_000 + d * 10_000 + h * 100 + min;
-}
-
-function boundaryToKey(b: JeolBoundary): number {
-  return momentKey(b.year, b.month, b.day, b.hour, b.minute);
 }
 
 let boundaries: JeolBoundary[] | null = null;
@@ -68,16 +65,7 @@ export function sajuMonthIndexAt(
   minute: number,
 ): number | undefined {
   const key = momentKey(year, month, day, hour, minute);
-  let result: JeolBoundary | undefined;
-  for (const boundary of ensureLoaded()) {
-    const candidate = boundaryToKey(boundary);
-    if (candidate < key) {
-      result = boundary;
-      continue;
-    }
-    break;
-  }
-  return result?.sajuMonthIndex;
+  return findLastBoundaryByKey(ensureLoaded(), key, false)?.sajuMonthIndex;
 }
 
 export function nextBoundaryAfter(
@@ -88,7 +76,7 @@ export function nextBoundaryAfter(
   minute: number,
 ): JeolBoundary | undefined {
   const key = momentKey(year, month, day, hour, minute);
-  return ensureLoaded().find(boundary => boundaryToKey(boundary) > key);
+  return findFirstBoundaryByKey(ensureLoaded(), key, false);
 }
 
 export function previousBoundaryAtOrBefore(
@@ -99,13 +87,7 @@ export function previousBoundaryAtOrBefore(
   minute: number,
 ): JeolBoundary | undefined {
   const key = momentKey(year, month, day, hour, minute);
-  let result: JeolBoundary | undefined;
-  for (const boundary of ensureLoaded()) {
-    if (boundaryToKey(boundary) <= key) {
-      result = boundary;
-    }
-  }
-  return result;
+  return findLastBoundaryByKey(ensureLoaded(), key, true);
 }
 
 export function boundariesForYear(year: number): Map<number, JeolBoundary> | undefined {

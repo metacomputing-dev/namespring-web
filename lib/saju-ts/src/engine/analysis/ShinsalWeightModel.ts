@@ -1,38 +1,19 @@
 import { PillarPosition } from '../../domain/PillarPosition.js';
+import {
+  CompositeInteractionType,
+  COMPOSITE_INTERACTION_INFO,
+  type ShinsalComposite,
+  type WeightedShinsalHit,
+} from '../../domain/Relations.js';
 import { ShinsalHit, ShinsalType } from '../../domain/Shinsal.js';
 import rawWeightTable from './data/shinsalWeightTable.json';
 
-export enum CompositeInteractionType {
-    SYNERGY = 'SYNERGY',
-    AMPLIFY = 'AMPLIFY',
-    AMPLIFY_NEGATIVE = 'AMPLIFY_NEGATIVE',
-    TEMPER = 'TEMPER',
-    TRANSFORM = 'TRANSFORM',
-}
+export { CompositeInteractionType };
+export type { ShinsalComposite, WeightedShinsalHit };
 
-export const COMPOSITE_INTERACTION_KOREAN: Record<CompositeInteractionType, string> = {
-  [CompositeInteractionType.SYNERGY]: '시너지',
-  [CompositeInteractionType.AMPLIFY]: '증폭',
-  [CompositeInteractionType.AMPLIFY_NEGATIVE]: '부정증폭',
-  [CompositeInteractionType.TEMPER]: '완화',
-  [CompositeInteractionType.TRANSFORM]: '변환',
-};
-
-export interface WeightedShinsalHit {
-  readonly hit: ShinsalHit;
-  readonly baseWeight: number;
-  readonly positionMultiplier: number;
-  readonly weightedScore: number;
-}
-
-export interface ShinsalComposite {
-  readonly patternName: string;
-  readonly interactionType: CompositeInteractionType;
-  readonly involvedHits: readonly ShinsalHit[];
-  readonly interpretation: string;
-  readonly bonusScore: number;
-}
-
+export const COMPOSITE_INTERACTION_KOREAN: Record<CompositeInteractionType, string> =
+  Object.fromEntries(Object.entries(COMPOSITE_INTERACTION_INFO).map(([type, info]) => [type, info.koreanName])) as
+  Record<CompositeInteractionType, string>;
 
 function loadBaseWeightTable(): Record<ShinsalType, number> {
   const raw = rawWeightTable as Readonly<Record<string, number>>;
@@ -49,8 +30,17 @@ function loadBaseWeightTable(): Record<ShinsalType, number> {
 
 const BASE_WEIGHT_TABLE: Record<ShinsalType, number> = loadBaseWeightTable();
 
+function positionMultiplierFor(position: PillarPosition): number {
+  switch (position) {
+    case PillarPosition.DAY:   return 1.0;
+    case PillarPosition.MONTH: return 0.85;
+    case PillarPosition.YEAR:  return 0.7;
+    case PillarPosition.HOUR:  return 0.6;
+  }
+}
+
 export const ShinsalWeightCalculator = {
-    weight(hit: ShinsalHit): WeightedShinsalHit {
+  weight(hit: ShinsalHit): WeightedShinsalHit {
     const base = baseShinsalWeightFor(hit.type);
     const multiplier = shinsalPositionMultiplierFor(hit.position);
     return {
@@ -61,24 +51,17 @@ export const ShinsalWeightCalculator = {
     };
   },
 
-    weightAll(hits: readonly ShinsalHit[]): WeightedShinsalHit[] {
+  weightAll(hits: readonly ShinsalHit[]): WeightedShinsalHit[] {
     return hits
-      .map((h) => weightShinsalHit(h))
-      .sort((a, b) => b.weightedScore - a.weightedScore);
+      .map((hit) => weightShinsalHit(hit))
+      .sort((left, right) => right.weightedScore - left.weightedScore);
   },
 
-    baseWeightFor(type: ShinsalType): number {
+  baseWeightFor(type: ShinsalType): number {
     return BASE_WEIGHT_TABLE[type];
   },
 
-    positionMultiplierFor(position: PillarPosition): number {
-    switch (position) {
-      case PillarPosition.DAY:   return 1.0;
-      case PillarPosition.MONTH: return 0.85;
-      case PillarPosition.YEAR:  return 0.7;
-      case PillarPosition.HOUR:  return 0.6;
-    }
-  },
+  positionMultiplierFor,
 } as const;
 
 export const weightShinsalHit = ShinsalWeightCalculator.weight;

@@ -2,48 +2,45 @@ import { Cheongan } from '../domain/Cheongan.js';
 import { PillarPosition } from '../domain/PillarPosition.js';
 import { PillarSet } from '../domain/PillarSet.js';
 import { CheonganRelationType } from '../domain/Relations.js';
-import { PositionPair } from './RelationSignificanceData.js';
+import { createEnumValueParser } from '../domain/EnumValueParser.js';
+import {
+  normalizeCatalogPairKey,
+  PositionPair,
+  type SignificanceEntry as Significance,
+} from './RelationSignificanceData.js';
 import { inferPositionPairFromMembers } from './PositionPairResolver.js';
 import rawCheonganSignificanceCatalog from './data/cheonganSignificanceCatalog.json';
 
 export { PositionPair } from './RelationSignificanceData.js';
-
-export interface Significance {
-  readonly positionPairLabel: string;
-  readonly affectedDomains: readonly string[];
-  readonly meaning: string;
-  readonly ageWindow: string;
-  readonly isPositive: boolean;
-}
 
 interface CheonganSignificanceCatalogData {
   readonly entries: readonly (readonly [string, Significance])[];
 }
 
 const CHEONGAN_SIGNIFICANCE_CATALOG = rawCheonganSignificanceCatalog as unknown as CheonganSignificanceCatalogData;
-const CHEONGAN_RELATION_TYPE_SET: ReadonlySet<CheonganRelationType> = new Set(Object.values(CheonganRelationType));
-const POSITION_PAIR_SET: ReadonlySet<PositionPair> = new Set(Object.values(PositionPair));
-
-function toCheonganRelationType(raw: string): CheonganRelationType {
-  if (CHEONGAN_RELATION_TYPE_SET.has(raw as CheonganRelationType)) return raw as CheonganRelationType;
-  throw new Error(`Invalid CheonganRelationType in cheonganSignificanceCatalog.json: ${raw}`);
-}
-
-function toPositionPair(raw: string): PositionPair {
-  if (POSITION_PAIR_SET.has(raw as PositionPair)) return raw as PositionPair;
-  throw new Error(`Invalid PositionPair in cheonganSignificanceCatalog.json: ${raw}`);
-}
+const toCheonganRelationType = createEnumValueParser(
+  'CheonganRelationType',
+  'cheonganSignificanceCatalog.json',
+  CheonganRelationType,
+);
+const toPositionPair = createEnumValueParser(
+  'PositionPair',
+  'cheonganSignificanceCatalog.json',
+  PositionPair,
+);
 
 function tkey(type: CheonganRelationType, pair: PositionPair): string {
   return `${type}:${pair}`;
 }
 
 function normalizeTableKey(rawKey: string): string {
-  const [rawType, rawPair, ...rest] = rawKey.split(':');
-  if (!rawType || !rawPair || rest.length > 0) {
-    throw new Error(`Invalid cheongan significance key: ${rawKey}`);
-  }
-  return tkey(toCheonganRelationType(rawType), toPositionPair(rawPair));
+  return normalizeCatalogPairKey(
+    rawKey,
+    'cheongan significance',
+    toCheonganRelationType,
+    toPositionPair,
+    tkey,
+  );
 }
 
 const TABLE: ReadonlyMap<string, Significance> = new Map(

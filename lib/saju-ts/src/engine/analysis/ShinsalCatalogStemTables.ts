@@ -1,5 +1,6 @@
 import { Cheongan, CHEONGAN_VALUES } from '../../domain/Cheongan.js';
 import { Jiji, JIJI_VALUES } from '../../domain/Jiji.js';
+import { createValueParser } from '../../domain/EnumValueParser.js';
 import rawStemTables from './data/shinsalStemTables.json';
 
 type PairRow = readonly [string, string];
@@ -14,12 +15,7 @@ interface StemTablesData {
 }
 
 const STEM_TABLES_DATA = rawStemTables as unknown as StemTablesData;
-const JIJI_SET: ReadonlySet<Jiji> = new Set(JIJI_VALUES);
-
-function toJiji(value: string): Jiji {
-  if (JIJI_SET.has(value as Jiji)) return value as Jiji;
-  throw new Error(`Invalid Jiji value: ${value}`);
-}
+const toJiji = createValueParser('Jiji', 'shinsalStemTables.json', JIJI_VALUES);
 
 function toPairRows(rows: readonly PairRow[]): [Jiji, Jiji][] {
   return rows.map(([left, right]) => [toJiji(left), toJiji(right)]);

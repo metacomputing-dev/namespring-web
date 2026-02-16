@@ -14,6 +14,12 @@ import {
   toRadians,
   wrap360,
 } from './Vsop87dFallbackMathUtils.js';
+import {
+  compareBoundaryMoments,
+  findFirstBoundaryByKey,
+  findLastBoundaryByKey,
+  momentKey,
+} from './JeolBoundarySearch.js';
 
 
 const J2000 = 2451545.0;
@@ -188,37 +194,10 @@ function solveBoundary(year: number, term: JeolTermSpec): JeolBoundary {
 }
 
 
-function momentKey(y: number, m: number, d: number, h: number, min: number): number {
-  return y * 100_000_000 + m * 1_000_000 + d * 10_000 + h * 100 + min;
-}
-
-function boundaryToKey(b: JeolBoundary): number {
-  return momentKey(b.year, b.month, b.day, b.hour, b.minute);
-}
-
-function compareBoundaries(a: JeolBoundary, b: JeolBoundary): number {
-  return boundaryToKey(a) - boundaryToKey(b);
-}
-
 function sortedBoundaries(years: readonly number[]): JeolBoundary[] {
   return years
     .flatMap((y) => Vsop87dFallback.boundariesOfYear(y))
-    .sort(compareBoundaries);
-}
-
-function findLastBoundaryByKey(
-  boundaries: readonly JeolBoundary[],
-  key: number,
-  inclusive: boolean,
-): JeolBoundary | undefined {
-  let result: JeolBoundary | undefined;
-  for (const boundary of boundaries) {
-    const match = inclusive ? boundaryToKey(boundary) <= key : boundaryToKey(boundary) < key;
-    if (match) {
-      result = boundary;
-    }
-  }
-  return result;
+    .sort(compareBoundaryMoments);
 }
 
 
@@ -254,7 +233,7 @@ export const Vsop87dFallback = {
     const allBoundaries = sortedBoundaries([year, year + 1]);
 
     const key = momentKey(year, month, day, hour, minute);
-    const result = allBoundaries.find((boundary) => boundaryToKey(boundary) > key);
+    const result = findFirstBoundaryByKey(allBoundaries, key, false);
     if (!result) {
       const fallback = this.boundariesOfYear(year + 1).at(-1);
       if (!fallback) {
@@ -287,7 +266,7 @@ export const Vsop87dFallback = {
     if (cached) return cached;
 
     const boundaries = TERM_SPECS.map(spec => solveBoundary(year, spec));
-    boundaries.sort(compareBoundaries);
+    boundaries.sort(compareBoundaryMoments);
     boundaryCache.set(year, boundaries);
     return boundaries;
   },

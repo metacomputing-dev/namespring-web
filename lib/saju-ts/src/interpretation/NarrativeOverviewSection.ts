@@ -81,6 +81,9 @@ export function buildOhaengDistribution(a: SajuAnalysis): string {
   const excess = OHAENG_VALUES.filter(oh => (counts.get(oh) ?? 0) >= 3);
   const absent = OHAENG_VALUES.filter(oh => (counts.get(oh) ?? 0) === 0);
   const scarce = OHAENG_VALUES.filter(oh => (counts.get(oh) ?? 0) === 1);
+  const yongshin = a.yongshinResult?.finalYongshin ?? null;
+  const heesin = a.yongshinResult?.finalHeesin ?? null;
+  const gisin = a.yongshinResult?.gisin ?? null;
 
   if (excess.length > 0) {
     const excessNames = excess.map(oh => `${ohaengKorean(oh)}(${counts.get(oh)}개)`).join(', ');
@@ -88,11 +91,34 @@ export function buildOhaengDistribution(a: SajuAnalysis): string {
   }
   if (absent.length > 0) {
     const absentNames = absent.map(oh => ohaengKorean(oh)).join(', ');
-    lines.push(`  부재: ${absentNames} — 원국에 없으므로 대운/세운에서 보충이 중요합니다.`);
+    lines.push(`  부재: ${absentNames}`);
+    if (a.yongshinResult == null) {
+      lines.push('    · 원국에 없으므로 대운/세운에서 점진 보완이 중요합니다.');
+    } else {
+      for (const oh of absent) {
+        if (gisin === oh) {
+          lines.push(`    · ${ohaengKorean(oh)}: 기신 축이라 무리한 보충보다 운 유입 시 과다화 점검이 우선입니다.`);
+        } else if (yongshin === oh) {
+          lines.push(`    · ${ohaengKorean(oh)}: 용신 축이라 생활 루틴에서 점진 보완이 유리합니다.`);
+        } else if (heesin === oh) {
+          lines.push(`    · ${ohaengKorean(oh)}: 희신 축이라 보조 관점의 완만한 보완이 도움이 됩니다.`);
+        } else {
+          lines.push(`    · ${ohaengKorean(oh)}: 원국 부재 축이므로 과하지 않게 점진 보완이 도움이 됩니다.`);
+        }
+      }
+    }
   }
   if (scarce.length > 0 && absent.length === 0) {
-    const scarceNames = scarce.map(oh => ohaengKorean(oh)).join(', ');
-    lines.push(`  부족: ${scarceNames} — 1개뿐이므로 보강이 도움이 됩니다.`);
+    const scarceGisin = gisin != null ? scarce.filter(oh => oh === gisin) : [];
+    const scarceGeneral = scarce.filter(oh => !scarceGisin.includes(oh));
+    if (scarceGeneral.length > 0) {
+      const scarceNames = scarceGeneral.map(oh => ohaengKorean(oh)).join(', ');
+      lines.push(`  부족: ${scarceNames} — 1개뿐이므로 점진 보완이 도움이 됩니다.`);
+    }
+    if (scarceGisin.length > 0) {
+      const scarceGisinNames = scarceGisin.map(oh => ohaengKorean(oh)).join(', ');
+      lines.push(`  주의: ${scarceGisinNames} — 기신 축이므로 과한 증강보다 균형 관리가 중요합니다.`);
+    }
   }
 
   const stemList = [p.year.cheongan, p.month.cheongan, p.day.cheongan, p.hour.cheongan];

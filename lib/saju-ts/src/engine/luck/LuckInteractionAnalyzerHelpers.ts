@@ -85,6 +85,20 @@ function appendUniqueNote(notes: string[], seen: Set<string>, note: string): voi
   }
 }
 
+function collectUniqueRelations<T>(
+  targets: readonly T[],
+  noteResolver: (target: T) => readonly string[],
+): string[] {
+  const relations: string[] = [];
+  const seen = new Set<string>();
+  for (const target of targets) {
+    for (const note of noteResolver(target)) {
+      appendUniqueNote(relations, seen, note);
+    }
+  }
+  return relations;
+}
+
 function cheonganPairNotes(a: Cheongan, b: Cheongan): string[] {
   if (a === b) return [];
 
@@ -122,29 +136,13 @@ export function computeRelationFlags(
 }
 
 export function findStemRelations(luckStem: Cheongan, natalPillars: PillarSet): string[] {
-  const relations: string[] = [];
-  const seen = new Set<string>();
-
-  for (const natalStem of natalStems(natalPillars)) {
-    for (const note of cheonganPairNotes(luckStem, natalStem)) {
-      appendUniqueNote(relations, seen, note);
-    }
-  }
-
-  return relations;
+  return collectUniqueRelations(natalStems(natalPillars), natalStem =>
+    cheonganPairNotes(luckStem, natalStem));
 }
 
 export function findBranchRelations(luckBranch: Jiji, natalPillars: PillarSet): string[] {
-  const relations: string[] = [];
-  const seen = new Set<string>();
-
-  for (const natalBranch of natalBranches(natalPillars)) {
-    for (const note of matchingJijiPairNotes(luckBranch, natalBranch)) {
-      appendUniqueNote(relations, seen, note);
-    }
-  }
-
-  return relations;
+  return collectUniqueRelations(natalBranches(natalPillars), natalBranch =>
+    matchingJijiPairNotes(luckBranch, natalBranch));
 }
 
 export function mergeDaeunRelations(
@@ -197,13 +195,10 @@ export function determineLuckQualityInternal(
   hasBadRelations: boolean,
   luckBranchOhaeng: Ohaeng | null = null,
 ): LuckQuality {
-  const luckOhaengSet = new Set<Ohaeng>([luckStemOhaeng]);
-  if (luckBranchOhaeng !== null) {
-    luckOhaengSet.add(luckBranchOhaeng);
-  }
-
-  const isYongshin = yongshinElement !== null && luckOhaengSet.has(yongshinElement);
-  const isGisin = gisinElement !== null && luckOhaengSet.has(gisinElement);
+  const hasElement = (element: Ohaeng | null): boolean =>
+    element != null && (luckStemOhaeng === element || luckBranchOhaeng === element);
+  const isYongshin = hasElement(yongshinElement);
+  const isGisin = hasElement(gisinElement);
 
   if (isYongshin && hasGoodRelations) return LuckQuality.VERY_FAVORABLE;
   if (isGisin && hasBadRelations) return LuckQuality.VERY_UNFAVORABLE;
@@ -238,4 +233,3 @@ export function buildSummary(
 
   return `${pillarLabel}운: ${sipseongInfo.koreanName}(${sipseongInfo.hanja}) / ${sibiInfo.koreanName}(${sibiInfo.hanja})${yongshinDesc} -- ${qualityDesc}`;
 }
-

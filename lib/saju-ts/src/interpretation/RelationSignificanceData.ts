@@ -1,4 +1,5 @@
 import { JijiRelationType } from '../domain/Relations.js';
+import { createEnumValueParser } from '../domain/EnumValueParser.js';
 import rawRelationSignificanceCatalog from './data/relationSignificanceCatalog.json';
 
 export enum PositionPair {
@@ -16,12 +17,6 @@ export interface PositionPairInfo {
   readonly ageWindow: string;
 }
 
-export interface MeaningEntry {
-  readonly domains: readonly string[];
-  readonly meaning: string;
-  readonly isPositive: boolean;
-}
-
 export interface SignificanceEntry {
   readonly positionPairLabel: string;
   readonly affectedDomains: readonly string[];
@@ -36,29 +31,43 @@ interface RelationSignificanceCatalogData {
 }
 
 const RELATION_SIGNIFICANCE_CATALOG = rawRelationSignificanceCatalog as unknown as RelationSignificanceCatalogData;
-const POSITION_PAIR_SET: ReadonlySet<PositionPair> = new Set(Object.values(PositionPair));
-const JIJI_RELATION_TYPE_SET: ReadonlySet<JijiRelationType> = new Set(Object.values(JijiRelationType));
-
-function toPositionPair(raw: string): PositionPair {
-  if (POSITION_PAIR_SET.has(raw as PositionPair)) return raw as PositionPair;
-  throw new Error(`Invalid PositionPair in relationSignificanceCatalog.json: ${raw}`);
-}
-
-function toJijiRelationType(raw: string): JijiRelationType {
-  if (JIJI_RELATION_TYPE_SET.has(raw as JijiRelationType)) return raw as JijiRelationType;
-  throw new Error(`Invalid JijiRelationType in relationSignificanceCatalog.json: ${raw}`);
-}
+const toPositionPair = createEnumValueParser(
+  'PositionPair',
+  'relationSignificanceCatalog.json',
+  PositionPair,
+);
+const toJijiRelationType = createEnumValueParser(
+  'JijiRelationType',
+  'relationSignificanceCatalog.json',
+  JijiRelationType,
+);
 
 export function tableKey(type: JijiRelationType, pair: PositionPair): string {
   return `${type}:${pair}`;
 }
 
-function normalizeTableKey(rawKey: string): string {
-  const [rawType, rawPair, ...rest] = rawKey.split(':');
-  if (!rawType || !rawPair || rest.length > 0) {
-    throw new Error(`Invalid relation significance key: ${rawKey}`);
+export function normalizeCatalogPairKey<Left extends string, Right extends string>(
+  rawKey: string,
+  sourceName: string,
+  toLeft: (raw: string) => Left,
+  toRight: (raw: string) => Right,
+  keyBuilder: (left: Left, right: Right) => string,
+): string {
+  const [rawLeft, rawRight, ...rest] = rawKey.split(':');
+  if (!rawLeft || !rawRight || rest.length > 0) {
+    throw new Error(`Invalid ${sourceName} key: ${rawKey}`);
   }
-  return tableKey(toJijiRelationType(rawType), toPositionPair(rawPair));
+  return keyBuilder(toLeft(rawLeft), toRight(rawRight));
+}
+
+function normalizeTableKey(rawKey: string): string {
+  return normalizeCatalogPairKey(
+    rawKey,
+    'relation significance',
+    toJijiRelationType,
+    toPositionPair,
+    tableKey,
+  );
 }
 
 export const POSITION_PAIR_INFO: Record<PositionPair, PositionPairInfo> = Object.fromEntries(
@@ -70,15 +79,4 @@ export const POSITION_PAIR_INFO: Record<PositionPair, PositionPairInfo> = Object
 
 export const SIGNIFICANCE_TABLE: ReadonlyMap<string, SignificanceEntry> = new Map(
   RELATION_SIGNIFICANCE_CATALOG.entries.map(([rawKey, entry]) => [normalizeTableKey(rawKey), entry] as const),
-);
-
-export const TABLE: ReadonlyMap<string, MeaningEntry> = new Map(
-  RELATION_SIGNIFICANCE_CATALOG.entries.map(([rawKey, entry]) => [
-    normalizeTableKey(rawKey),
-    {
-      domains: entry.affectedDomains,
-      meaning: entry.meaning,
-      isPositive: entry.isPositive,
-    },
-  ] as const),
 );

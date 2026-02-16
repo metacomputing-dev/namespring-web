@@ -7,7 +7,9 @@ import {
 } from '../domain/Gyeokguk.js';
 import { CHEONGAN_INFO } from '../domain/Cheongan.js';
 import { JIJI_INFO } from '../domain/Jiji.js';
-import { isStrongSide } from '../domain/StrengthResult.js';
+import { StrengthLevel, isStrongSide } from '../domain/StrengthResult.js';
+import { PILLAR_POSITION_VALUES } from '../domain/PillarPosition.js';
+import { Sipseong } from '../domain/Sipseong.js';
 import { YongshinType, YONGSHIN_TYPE_INFO } from '../domain/YongshinResult.js';
 import type { SajuAnalysis } from '../domain/SajuAnalysis.js';
 import {
@@ -42,6 +44,9 @@ export function buildCoreCharacteristics(a: SajuAnalysis, config: CalculationCon
     const sr = a.strengthResult;
     const interp = StrengthInterpreter.interpret(sr.level);
     const levelLabel = strengthLevelKorean(sr.level);
+    const tenGodProfile = summarizeTenGodProfile(a);
+    const personality = adaptStrengthPersonality(interp.personality, sr.level, tenGodProfile);
+    const advice = adaptStrengthAdvice(interp.advice, sr.level, tenGodProfile);
     lines.push(`【신강/신약】${levelLabel} ${sentenceCite('strength.level')}`);
     lines.push('');
 
@@ -58,8 +63,14 @@ export function buildCoreCharacteristics(a: SajuAnalysis, config: CalculationCon
     lines.push(`  · 총합 ${total}점 ${comparison} 임계값 ${threshold}점 → ${levelLabel} 판정`);
     lines.push('');
 
-    lines.push(`  성격: ${interp.personality.join(', ')}`);
-    lines.push(`  조언: ${interp.advice}`);
+    lines.push(`  성격: ${personality.join(', ')}`);
+    lines.push(`  조언: ${advice}`);
+    if (a.tenGodAnalysis != null) {
+      lines.push(
+        `  십성 보정: 비겁 ${tenGodProfile.bigyeop}, 식상 ${tenGodProfile.siksang}, ` +
+        `재성 ${tenGodProfile.jaeseong}, 관성 ${tenGodProfile.gwanseong}, 인성 ${tenGodProfile.inseong}`,
+      );
+    }
 
     const scopeNote = config.hiddenStemScopeForStrength === HiddenStemScope.ALL_THREE
       ? '여기+중기+정기 모두 포함'
@@ -217,6 +228,123 @@ export function buildYongshinGuidance(a: SajuAnalysis, config: CalculationConfig
   }
 
   return lines.join('\n').trimEnd();
+}
+
+interface TenGodProfile {
+  readonly bigyeop: number;
+  readonly siksang: number;
+  readonly jaeseong: number;
+  readonly gwanseong: number;
+  readonly inseong: number;
+}
+
+function summarizeTenGodProfile(a: SajuAnalysis): TenGodProfile {
+  if (a.tenGodAnalysis == null) {
+    return { bigyeop: 0, siksang: 0, jaeseong: 0, gwanseong: 0, inseong: 0 };
+  }
+
+  let bigyeop = 0;
+  let siksang = 0;
+  let jaeseong = 0;
+  let gwanseong = 0;
+  let inseong = 0;
+
+  const add = (sipseong: Sipseong): void => {
+    if (sipseong === Sipseong.BI_GYEON || sipseong === Sipseong.GYEOB_JAE) {
+      bigyeop += 1;
+      return;
+    }
+    if (sipseong === Sipseong.SIK_SIN || sipseong === Sipseong.SANG_GWAN) {
+      siksang += 1;
+      return;
+    }
+    if (sipseong === Sipseong.PYEON_JAE || sipseong === Sipseong.JEONG_JAE) {
+      jaeseong += 1;
+      return;
+    }
+    if (sipseong === Sipseong.PYEON_GWAN || sipseong === Sipseong.JEONG_GWAN) {
+      gwanseong += 1;
+      return;
+    }
+    inseong += 1;
+  };
+
+  for (const pos of PILLAR_POSITION_VALUES) {
+    const tg = a.tenGodAnalysis.byPosition[pos];
+    if (tg == null) continue;
+    add(tg.cheonganSipseong);
+    add(tg.jijiPrincipalSipseong);
+  }
+
+  return { bigyeop, siksang, jaeseong, gwanseong, inseong };
+}
+
+function isWeakLevel(level: StrengthLevel): boolean {
+  return level === StrengthLevel.VERY_WEAK ||
+    level === StrengthLevel.WEAK ||
+    level === StrengthLevel.SLIGHTLY_WEAK;
+}
+
+function hasAssertiveSignal(profile: TenGodProfile): boolean {
+  return profile.bigyeop + profile.siksang >= 3;
+}
+
+function hasPressureSignal(profile: TenGodProfile): boolean {
+  return profile.jaeseong + profile.gwanseong >= 3;
+}
+
+function hasReflectiveSignal(profile: TenGodProfile): boolean {
+  return profile.inseong >= 3;
+}
+
+function uniqueTraits(values: readonly string[], limit: number): string[] {
+  const seen = new Set<string>();
+  const result: string[] = [];
+  for (const value of values) {
+    const normalized = value.trim();
+    if (!normalized || seen.has(normalized)) continue;
+    seen.add(normalized);
+    result.push(normalized);
+    if (result.length >= limit) break;
+  }
+  return result;
+}
+
+function adaptStrengthPersonality(
+  baseTraits: readonly string[],
+  level: StrengthLevel,
+  profile: TenGodProfile,
+): string[] {
+  let traits = [...baseTraits];
+  if (isWeakLevel(level) && hasAssertiveSignal(profile)) {
+    traits = traits.filter(trait =>
+      trait !== '타인 의존 경향이 강함' &&
+      trait !== '자기 주장이 약함' &&
+      trait !== '의지가 약할 수 있음',
+    );
+    traits.unshift('자기 기준과 표현 욕구는 분명하지만, 체력·환경 변화에 따라 기복이 생길 수 있음');
+  }
+  if (hasPressureSignal(profile)) {
+    traits.push('책임·성과 압박을 스스로 크게 짊어지는 경향');
+  }
+  if (hasReflectiveSignal(profile)) {
+    traits.push('결정 전에 충분히 검토하는 신중함');
+  }
+  return uniqueTraits(traits, 5);
+}
+
+function adaptStrengthAdvice(baseAdvice: string, level: StrengthLevel, profile: TenGodProfile): string {
+  let advice = baseAdvice;
+  if (isWeakLevel(level) && hasAssertiveSignal(profile)) {
+    advice =
+      '기본 체력은 약한 편이지만 주관과 표현 에너지가 살아 있으므로, 독주보다 협업 점검을 붙여 추진력을 안정화하는 전략이 유리합니다.';
+  }
+  if (hasPressureSignal(profile)) {
+    const normalized = advice.trimEnd();
+    const punctuated = normalized.endsWith('.') ? normalized : `${normalized}.`;
+    advice = `${punctuated} 책임 과부하를 막기 위해 우선순위를 1~2개로 압축해 운영하세요.`;
+  }
+  return advice;
 }
 
 function yongshinPriorityDescription(config: CalculationConfig): string {

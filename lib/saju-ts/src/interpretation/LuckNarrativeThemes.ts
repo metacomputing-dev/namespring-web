@@ -1,5 +1,6 @@
 import { SibiUnseong } from '../domain/SibiUnseong.js';
 import { Sipseong } from '../domain/Sipseong.js';
+import { createEnumValueParser } from '../domain/EnumValueParser.js';
 import rawLuckNarrativeThemes from './data/luckNarrativeThemes.json';
 
 export interface SipseongUnTheme {
@@ -24,18 +25,8 @@ interface LuckNarrativeThemesData {
 }
 
 const LUCK_NARRATIVE_THEMES = rawLuckNarrativeThemes as unknown as LuckNarrativeThemesData;
-const SIPSEONG_SET: ReadonlySet<Sipseong> = new Set(Object.values(Sipseong));
-const SIBI_UNSEONG_SET: ReadonlySet<SibiUnseong> = new Set(Object.values(SibiUnseong));
-
-function toSipseong(raw: string): Sipseong {
-  if (SIPSEONG_SET.has(raw as Sipseong)) return raw as Sipseong;
-  throw new Error(`Invalid Sipseong in LuckNarrativeThemes: ${raw}`);
-}
-
-function toSibiUnseong(raw: string): SibiUnseong {
-  if (SIBI_UNSEONG_SET.has(raw as SibiUnseong)) return raw as SibiUnseong;
-  throw new Error(`Invalid SibiUnseong in LuckNarrativeThemes: ${raw}`);
-}
+const toSipseong = createEnumValueParser('Sipseong', 'LuckNarrativeThemes', Sipseong);
+const toSibiUnseong = createEnumValueParser('SibiUnseong', 'LuckNarrativeThemes', SibiUnseong);
 
 export const SIPSEONG_UN_THEMES: ReadonlyMap<Sipseong, SipseongUnTheme> = new Map(
   LUCK_NARRATIVE_THEMES.sipseongThemes.map(([sipseong, theme]) => {

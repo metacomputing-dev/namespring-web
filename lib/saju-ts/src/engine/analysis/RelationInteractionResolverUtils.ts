@@ -1,4 +1,3 @@
-import { Jiji } from '../../domain/Jiji.js';
 import { JijiRelationHit } from '../../domain/Relations.js';
 
 const ADJACENT_POSITION_GAP = 1;
@@ -59,15 +58,15 @@ export function containsAll<T>(superset: ReadonlySet<T>, subset: ReadonlySet<T>)
   return true;
 }
 
-export function anyPairAdjacent(
-  setA: ReadonlySet<Jiji>,
-  setB: ReadonlySet<Jiji>,
-  branchPositions: ReadonlyMap<Jiji, readonly number[]>,
+export function anyPairAdjacent<T>(
+  setA: ReadonlySet<T>,
+  setB: ReadonlySet<T>,
+  positionsByValue: ReadonlyMap<T, readonly number[]>,
 ): boolean {
   for (const a of setA) {
-    const positionsA = branchPositions.get(a);
+    const positionsA = positionsByValue.get(a);
     for (const b of setB) {
-      if (hasAdjacentPositions(positionsA, branchPositions.get(b))) return true;
+      if (hasAdjacentPositions(positionsA, positionsByValue.get(b))) return true;
     }
   }
   return false;
@@ -86,4 +85,3 @@ export function buildOverlapGraph(hits: readonly JijiRelationHit[]): number[][] 
   }
   return graph;
 }
-

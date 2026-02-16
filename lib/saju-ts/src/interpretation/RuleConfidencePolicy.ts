@@ -47,6 +47,10 @@ const SORTED_EXPECTED_RULE_IDS: readonly string[] = [...EXPECTED_RULE_IDS].sort(
 
 const UNREGISTERED_RULE_REASON = 'Rule not registered in sentence citation registry';
 const FALLBACK_THRESHOLD_REASON = 'Confidence below policy threshold';
+const PREDICTIVE_REQUIREMENT_REASON = `Predictive rule must be >= ${PREDICTIVE_TARGET}`;
+const DETERMINISTIC_REQUIREMENT_REASON = `Deterministic rule must be >= ${DETERMINISTIC_TARGET}`;
+const STRICT_CORE_REQUIREMENT_REASON =
+  `Strict mode requires all core calculation rules >= ${DETERMINISTIC_TARGET}`;
 
 interface RuleRequirement {
   readonly required: number;
@@ -83,28 +87,13 @@ export interface ConfidencePolicySummary {
 }
 
 function requirementFor(ruleId: string, strictCalculation95: boolean): RuleRequirement {
-  if (PREDICTIVE_RULE_IDS.has(ruleId)) {
-    return {
-      required: PREDICTIVE_TARGET,
-      reason: `Predictive rule must be >= ${PREDICTIVE_TARGET}`,
-    };
-  }
-  if (DETERMINISTIC_RULE_IDS.has(ruleId)) {
-    return {
-      required: DETERMINISTIC_TARGET,
-      reason: `Deterministic rule must be >= ${DETERMINISTIC_TARGET}`,
-    };
-  }
-  if (strictCalculation95 && CORE_CALCULATION_RULE_IDS.has(ruleId)) {
-    return {
-      required: DETERMINISTIC_TARGET,
-      reason: `Strict mode requires all core calculation rules >= ${DETERMINISTIC_TARGET}`,
-    };
-  }
-  return {
-    required: 1,
-    reason: FALLBACK_THRESHOLD_REASON,
-  };
+  return PREDICTIVE_RULE_IDS.has(ruleId)
+    ? { required: PREDICTIVE_TARGET, reason: PREDICTIVE_REQUIREMENT_REASON }
+    : DETERMINISTIC_RULE_IDS.has(ruleId)
+      ? { required: DETERMINISTIC_TARGET, reason: DETERMINISTIC_REQUIREMENT_REASON }
+      : strictCalculation95 && CORE_CALCULATION_RULE_IDS.has(ruleId)
+        ? { required: DETERMINISTIC_TARGET, reason: STRICT_CORE_REQUIREMENT_REASON }
+        : { required: 1, reason: FALLBACK_THRESHOLD_REASON };
 }
 
 function auditCitations(all: SentenceCitations, strictCalculation95: boolean): ConfidenceAuditResult {

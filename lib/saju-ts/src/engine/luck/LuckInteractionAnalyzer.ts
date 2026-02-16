@@ -2,12 +2,12 @@ import { Cheongan, CHEONGAN_INFO } from '../../domain/Cheongan.js';
 import type { DaeunInfo } from '../../domain/DaeunInfo.js';
 import { JIJI_INFO } from '../../domain/Jiji.js';
 import type { DaeunAnalysis, LuckPillarAnalysis } from '../../domain/LuckInteraction.js';
-import { Ohaeng, OhaengRelation, OhaengRelations } from '../../domain/Ohaeng.js';
+import { Ohaeng } from '../../domain/Ohaeng.js';
 import { Pillar } from '../../domain/Pillar.js';
 import { PillarSet } from '../../domain/PillarSet.js';
-import { Sipseong } from '../../domain/Sipseong.js';
 import type { SaeunPillar } from '../../domain/SaeunInfo.js';
 import { calculateSibiUnseong } from '../analysis/SibiUnseongCalculator.js';
+import { determineSipseong } from '../analysis/StrengthSipseongSupport.js';
 import {
   buildSummary,
   computeRelationFlags,
@@ -16,26 +16,6 @@ import {
   findStemRelations,
   mergeDaeunRelations,
 } from './LuckInteractionAnalyzerHelpers.js';
-
-function determineSipseong(dayMaster: Cheongan, target: Cheongan): Sipseong {
-  const dayInfo = CHEONGAN_INFO[dayMaster];
-  const targetInfo = CHEONGAN_INFO[target];
-  const sameParity = dayInfo.eumyang === targetInfo.eumyang;
-  const relation = OhaengRelations.relation(dayInfo.ohaeng, targetInfo.ohaeng);
-
-  switch (relation) {
-    case OhaengRelation.BIHWA:
-      return sameParity ? Sipseong.BI_GYEON : Sipseong.GYEOB_JAE;
-    case OhaengRelation.YEOKSAENG:
-      return sameParity ? Sipseong.SIK_SIN : Sipseong.SANG_GWAN;
-    case OhaengRelation.SANGGEUK:
-      return sameParity ? Sipseong.PYEON_JAE : Sipseong.JEONG_JAE;
-    case OhaengRelation.YEOKGEUK:
-      return sameParity ? Sipseong.PYEON_GWAN : Sipseong.JEONG_GWAN;
-    case OhaengRelation.SANGSAENG:
-      return sameParity ? Sipseong.PYEON_IN : Sipseong.JEONG_IN;
-  }
-}
 
 function analyzeLuckPillar(
   luckPillar: Pillar,
@@ -79,6 +59,15 @@ function analyzeLuckPillar(
   };
 }
 
+function bindLuckPillarAnalyzer(
+  natalPillars: PillarSet,
+  dayMaster: Cheongan,
+  yongshinElement: Ohaeng | null,
+  gisinElement: Ohaeng | null,
+): (pillar: Pillar) => LuckPillarAnalysis {
+  return (pillar) => analyzeLuckPillar(pillar, natalPillars, dayMaster, yongshinElement, gisinElement);
+}
+
 function analyzeAllDaeun(
   daeunInfo: DaeunInfo,
   natalPillars: PillarSet,
@@ -86,15 +75,10 @@ function analyzeAllDaeun(
   yongshinElement: Ohaeng | null,
   gisinElement: Ohaeng | null,
 ): DaeunAnalysis[] {
+  const analyze = bindLuckPillarAnalyzer(natalPillars, dayMaster, yongshinElement, gisinElement);
   return daeunInfo.daeunPillars.map(daeunPillar => ({
     daeunPillar,
-    analysis: analyzeLuckPillar(
-      daeunPillar.pillar,
-      natalPillars,
-      dayMaster,
-      yongshinElement,
-      gisinElement,
-    ),
+    analysis: analyze(daeunPillar.pillar),
     isTransitionPeriod: daeunPillar.order > 1,
   }));
 }
@@ -107,18 +91,11 @@ function analyzeSaeun(
   yongshinElement: Ohaeng | null,
   gisinElement: Ohaeng | null,
 ): LuckPillarAnalysis[] {
+  const analyze = bindLuckPillarAnalyzer(natalPillars, dayMaster, yongshinElement, gisinElement);
   return saeunPillars.map(saeun => {
-    const baseAnalysis = analyzeLuckPillar(
-      saeun.pillar,
-      natalPillars,
-      dayMaster,
-      yongshinElement,
-      gisinElement,
-    );
+    const baseAnalysis = analyze(saeun.pillar);
 
-    if (currentDaeunPillar == null) {
-      return baseAnalysis;
-    }
+    if (currentDaeunPillar == null) return baseAnalysis;
     return mergeDaeunRelations(
       baseAnalysis,
       saeun.pillar,
@@ -135,4 +112,3 @@ export const LuckInteractionAnalyzer = {
   analyzeSaeun,
   determineLuckQuality: determineLuckQualityInternal,
 } as const;
-

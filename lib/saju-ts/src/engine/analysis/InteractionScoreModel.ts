@@ -14,6 +14,7 @@ import {
   ResolvedRelation,
   ScoredCheonganRelation,
 } from '../../domain/Relations.js';
+import { setsEqual } from '../luck/LuckInteractionRelationUtils.js';
 import { anyPairAdjacent } from './RelationInteractionResolverUtils.js';
 import { interactionOutcomeKorean, relationTypeKorean } from './RelationInteractionLabels.js';
 
@@ -180,35 +181,19 @@ const HAP_DEFAULT_SCORE = 50;
 const CHUNG_SCORE = 65;
 const CG_ADJACENCY_BONUS = 10;
 
-
-function setsEqual<T>(a: ReadonlySet<T>, b: ReadonlySet<T>): boolean {
-  if (a.size !== b.size) return false;
-  for (const item of a) {
-    if (!b.has(item)) return false;
-  }
-  return true;
-}
-
 function hasStemAdjacency(members: ReadonlySet<Cheongan>, pillars: PillarSet): boolean {
-  const memberList = [...members];
-  if (memberList.length < 2) return false;
-
-  const allStems = [
+  const positionsByStem = new Map<Cheongan, number[]>();
+  [
     pillars.year.cheongan,
     pillars.month.cheongan,
     pillars.day.cheongan,
     pillars.hour.cheongan,
-  ] as const;
-
-  const positions0 = findStemPositions(allStems, memberList[0]!);
-  const positions1 = findStemPositions(allStems, memberList[1]!);
-  return positions0.some(position0 => positions1.some(position1 => Math.abs(position0 - position1) === 1));
-}
-
-function findStemPositions(stems: readonly Cheongan[], targetStem: Cheongan): number[] {
-  return stems
-    .map((stem, index) => stem === targetStem ? index : -1)
-    .filter((index) => index >= 0);
+  ].forEach((stem, index) => {
+    const positions = positionsByStem.get(stem) ?? [];
+    positions.push(index);
+    positionsByStem.set(stem, positions);
+  });
+  return anyPairAdjacent(members, members, positionsByStem);
 }
 
 function buildCheonganRationale(

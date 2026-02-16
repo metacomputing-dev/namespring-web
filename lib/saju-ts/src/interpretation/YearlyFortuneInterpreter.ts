@@ -49,6 +49,45 @@ function findCurrentDaeun(a: SajuAnalysis, targetYear: number): DaeunPillar | nu
   return result;
 }
 
+function qualityOverviewSuffix(quality: LuckQuality): string {
+  if (quality === LuckQuality.VERY_FAVORABLE || quality === LuckQuality.FAVORABLE) {
+    return '전반 운의 뒷받침이 있어 준비된 과제는 실행력을 높이기 좋습니다.';
+  }
+  if (quality === LuckQuality.UNFAVORABLE || quality === LuckQuality.VERY_UNFAVORABLE) {
+    return '전반적으로 변동성이 큰 편이므로 확장보다 손실 관리와 점검을 우선하는 편이 안전합니다.';
+  }
+  return '전반 흐름은 중립권이므로 과속을 피하고 기본기를 유지하면 안정적으로 운영할 수 있습니다.';
+}
+
+function qualityDomainSuffix(quality: LuckQuality, domain: 'wealth' | 'career' | 'health' | 'love'): string {
+  if (quality === LuckQuality.VERY_FAVORABLE || quality === LuckQuality.FAVORABLE) {
+    if (domain === 'wealth') return '성과가 날수록 기준 없는 확장보다 수익 구조를 정리해 누적 이익을 남기세요.';
+    if (domain === 'career') return '성과가 보일 때 역할 범위를 명확히 하면 성장 속도를 안정적으로 유지할 수 있습니다.';
+    if (domain === 'health') return '무리가 누적되지 않게 회복 루틴을 함께 유지하면 컨디션 상승폭을 지킬 수 있습니다.';
+    return '관계가 열릴수록 속도 조절과 경계 설정을 함께 하면 안정감이 오래갑니다.';
+  }
+
+  if (quality === LuckQuality.UNFAVORABLE || quality === LuckQuality.VERY_UNFAVORABLE) {
+    if (domain === 'wealth') return '새 수익 확대보다 현금흐름 방어와 손실 제한 규칙을 먼저 세우세요.';
+    if (domain === 'career') return '성과 경쟁보다 실수 예방과 일정 품질 관리가 우선입니다.';
+    if (domain === 'health') return '과로 신호를 초기에 관리하고 정기 점검 주기를 짧게 가져가세요.';
+    return '오해가 커지기 쉬운 시기라 감정 반응보다 사실 확인 대화를 먼저 두는 편이 좋습니다.';
+  }
+
+  if (domain === 'wealth') return '지출·저축 비율을 고정하면 변동을 작게 만들 수 있습니다.';
+  if (domain === 'career') return '업무 우선순위를 명확히 하면 시행착오를 줄일 수 있습니다.';
+  if (domain === 'health') return '수면·식사·활동 루틴을 일정하게 유지하면 기복을 줄일 수 있습니다.';
+  return '관계에서 기대치와 역할을 먼저 맞추면 안정적인 흐름을 만들기 쉽습니다.';
+}
+
+function withQualityContext(
+  base: string,
+  quality: LuckQuality,
+  domain: 'wealth' | 'career' | 'health' | 'love',
+): string {
+  return `${base} ${qualityDomainSuffix(quality, domain)}`.trim();
+}
+
 export function yearlyFortuneToNarrative(fortune: YearlyFortune): string {
   const lines: string[] = [];
   const ci = CHEONGAN_INFO[fortune.saeunPillar.cheongan];
@@ -127,11 +166,11 @@ export function buildYearlyFortune(
     saeunPillar,
     quality: lpa.quality,
     sipseong: lpa.sipseong,
-    overview: buildOverview(targetYear, lpa.sipseong, lpa.isYongshinElement, lpa.isGisinElement, currentDaeun),
-    wealthForecast: buildWealthForecast(lpa.sipseong, isStrong),
-    careerForecast: buildCareerForecast(lpa.sipseong),
-    healthForecast: buildHealthForecast(saeunPillar, lpa.sibiUnseong),
-    loveForecast: buildLoveForecast(lpa.sipseong, analysis.input.gender),
+    overview: `${buildOverview(targetYear, lpa.sipseong, lpa.isYongshinElement, lpa.isGisinElement, currentDaeun)} ${qualityOverviewSuffix(lpa.quality)}`.trim(),
+    wealthForecast: withQualityContext(buildWealthForecast(lpa.sipseong, isStrong), lpa.quality, 'wealth'),
+    careerForecast: withQualityContext(buildCareerForecast(lpa.sipseong), lpa.quality, 'career'),
+    healthForecast: withQualityContext(buildHealthForecast(saeunPillar, lpa.sibiUnseong), lpa.quality, 'health'),
+    loveForecast: withQualityContext(buildLoveForecast(lpa.sipseong, analysis.input.gender), lpa.quality, 'love'),
     monthlyHighlights,
     bestMonths,
     cautionMonths,

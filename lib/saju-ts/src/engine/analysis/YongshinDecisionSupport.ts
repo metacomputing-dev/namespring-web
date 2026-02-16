@@ -3,47 +3,41 @@ import { Ohaeng, OhaengRelations, ohaengKoreanLabel } from '../../domain/Ohaeng.
 import { PillarSet } from '../../domain/PillarSet.js';
 import { PillarPosition } from '../../domain/PillarPosition.js';
 import { HiddenStemTable } from '../../domain/HiddenStem.js';
-import {
-  GyeokgukCategory,
-} from '../../domain/Gyeokguk.js';
+import { GyeokgukCategory } from '../../domain/Gyeokguk.js';
 import type { GyeokgukResult } from '../../domain/Gyeokguk.js';
-import {
-  YongshinType,
-  YongshinAgreement,
-  YONGSHIN_AGREEMENT_INFO,
-} from '../../domain/YongshinResult.js';
-import type {
-  YongshinRecommendation,
-} from '../../domain/YongshinResult.js';
-import {
-  YongshinPriority,
-} from '../../config/CalculationConfig.js';
+import { YongshinType, YongshinAgreement, YONGSHIN_AGREEMENT_INFO } from '../../domain/YongshinResult.js';
+import type { YongshinRecommendation } from '../../domain/YongshinResult.js';
+import { YongshinPriority } from '../../config/CalculationConfig.js';
 import type { CalculationConfig } from '../../config/CalculationConfig.js';
 import { HapState } from '../../domain/Relations.js';
 import type { HapHwaEvaluation } from '../../domain/Relations.js';
 import { SipseongCategory } from './YongshinRuleCatalog.js';
 
-export function categoryToOhaeng(category: SipseongCategory, dayMasterOhaeng: Ohaeng): Ohaeng {
-  switch (category) {
-    case SipseongCategory.BIGYEOP: return dayMasterOhaeng;
-    case SipseongCategory.SIKSANG: return OhaengRelations.generates(dayMasterOhaeng);
-    case SipseongCategory.JAE:     return OhaengRelations.controls(dayMasterOhaeng);
-    case SipseongCategory.GWAN:    return OhaengRelations.controlledBy(dayMasterOhaeng);
-    case SipseongCategory.INSEONG: return OhaengRelations.generatedBy(dayMasterOhaeng);
-  }
-}
+const CATEGORY_TO_OHAENG: Readonly<Record<SipseongCategory, (dayMaster: Ohaeng) => Ohaeng>> = {
+  [SipseongCategory.BIGYEOP]: dayMaster => dayMaster,
+  [SipseongCategory.SIKSANG]: OhaengRelations.generates,
+  [SipseongCategory.JAE]: OhaengRelations.controls,
+  [SipseongCategory.GWAN]: OhaengRelations.controlledBy,
+  [SipseongCategory.INSEONG]: OhaengRelations.generatedBy,
+};
 
+export function categoryToOhaeng(category: SipseongCategory, dayMasterOhaeng: Ohaeng): Ohaeng {
+  return CATEGORY_TO_OHAENG[category](dayMasterOhaeng);
+}
 
 export function ohaengKorean(ohaeng: Ohaeng): string {
   return ohaengKoreanLabel(ohaeng);
 }
 
+function incrementCount(counts: Map<Ohaeng, number>, element: Ohaeng): void {
+  counts.set(element, (counts.get(element) ?? 0) + 1);
+}
 
 export function countChartElements(
   pillars: PillarSet,
   hapHwaEvaluations: readonly HapHwaEvaluation[] = [],
 ): Map<Ohaeng, number> {
-  const elements: Ohaeng[] = [];
+  const counts = new Map<Ohaeng, number>();
 
   const activeHapByPosition = new Map<PillarPosition, HapHwaEvaluation>();
   for (const evalItem of hapHwaEvaluations) {
@@ -53,34 +47,27 @@ export function countChartElements(
     }
   }
 
-  const stemPositions: Array<[PillarPosition, { ohaeng: Ohaeng }]> = [
-    [PillarPosition.YEAR, { ohaeng: CHEONGAN_INFO[pillars.year.cheongan].ohaeng }],
-    [PillarPosition.MONTH, { ohaeng: CHEONGAN_INFO[pillars.month.cheongan].ohaeng }],
-    [PillarPosition.HOUR, { ohaeng: CHEONGAN_INFO[pillars.hour.cheongan].ohaeng }],
+  const stemPositions: readonly [PillarPosition, typeof pillars.year.cheongan][] = [
+    [PillarPosition.YEAR, pillars.year.cheongan],
+    [PillarPosition.MONTH, pillars.month.cheongan],
+    [PillarPosition.HOUR, pillars.hour.cheongan],
   ];
 
-  for (const [pos, stemInfo] of stemPositions) {
+  for (const [pos, stem] of stemPositions) {
     const activeHap = activeHapByPosition.get(pos);
     if (activeHap?.state === HapState.HAPWHA) {
-      elements.push(activeHap.resultOhaeng);
-    } else if (activeHap?.state === HapState.HAPGEO) {
-    } else {
-      elements.push(stemInfo.ohaeng);
+      incrementCount(counts, activeHap.resultOhaeng);
+      continue;
     }
+    if (activeHap?.state !== HapState.HAPGEO) incrementCount(counts, CHEONGAN_INFO[stem].ohaeng);
   }
 
-  elements.push(CHEONGAN_INFO[HiddenStemTable.getPrincipalStem(pillars.year.jiji)].ohaeng);
-  elements.push(CHEONGAN_INFO[HiddenStemTable.getPrincipalStem(pillars.month.jiji)].ohaeng);
-  elements.push(CHEONGAN_INFO[HiddenStemTable.getPrincipalStem(pillars.day.jiji)].ohaeng);
-  elements.push(CHEONGAN_INFO[HiddenStemTable.getPrincipalStem(pillars.hour.jiji)].ohaeng);
-
-  const counts = new Map<Ohaeng, number>();
-  for (const el of elements) {
-    counts.set(el, (counts.get(el) ?? 0) + 1);
+  const branchOrder = [pillars.year.jiji, pillars.month.jiji, pillars.day.jiji, pillars.hour.jiji];
+  for (const branch of branchOrder) {
+    incrementCount(counts, CHEONGAN_INFO[HiddenStemTable.getPrincipalStem(branch)].ohaeng);
   }
   return counts;
 }
-
 
 export function assessAgreement(
   eokbu: YongshinRecommendation,
@@ -97,7 +84,6 @@ export function assessAgreement(
   }
   return YongshinAgreement.DISAGREE;
 }
-
 
 export function resolveFinal(
   eokbu: YongshinRecommendation,
@@ -188,7 +174,6 @@ export function resolveAll(
   return [baseResult, YONGSHIN_AGREEMENT_INFO[baseAgreement].confidence];
 }
 
-
 export function resolveHeesin(
   finalYongshin: Ohaeng,
   eokbu: YongshinRecommendation,
@@ -209,7 +194,6 @@ export function resolveHeesin(
   return OhaengRelations.generatedBy(finalYongshin);
 }
 
-
 export function deriveGisin(yongshin: Ohaeng): Ohaeng {
   return OhaengRelations.controlledBy(yongshin);
 }
@@ -217,5 +201,3 @@ export function deriveGisin(yongshin: Ohaeng): Ohaeng {
 export function deriveGusin(gisin: Ohaeng): Ohaeng {
   return OhaengRelations.generatedBy(gisin);
 }
-
-

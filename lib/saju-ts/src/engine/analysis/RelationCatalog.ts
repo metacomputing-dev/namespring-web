@@ -1,4 +1,5 @@
 import { Jiji, JIJI_VALUES } from '../../domain/Jiji.js';
+import { createValueParser } from '../../domain/EnumValueParser.js';
 import rawRelationCatalog from './data/relationCatalog.json';
 
 export interface PairDef {
@@ -56,12 +57,7 @@ interface RelationCatalogData {
 }
 
 const RELATION_CATALOG_DATA = rawRelationCatalog as unknown as RelationCatalogData;
-const JIJI_SET: ReadonlySet<Jiji> = new Set(JIJI_VALUES);
-
-function toJiji(raw: string): Jiji {
-  if (JIJI_SET.has(raw as Jiji)) return raw as Jiji;
-  throw new Error(`Invalid Jiji in RelationCatalog: ${raw}`);
-}
+const toJiji = createValueParser('Jiji', 'RelationCatalog', JIJI_VALUES);
 
 function toPairDef(raw: RawPairDef): PairDef {
   return { a: toJiji(raw.a), b: toJiji(raw.b), note: raw.note };
