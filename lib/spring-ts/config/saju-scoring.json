@@ -1,0 +1,104 @@
+{
+  "yongshinTypeWeights": {
+    "EOKBU": 1.0,
+    "JOHU": 0.95,
+    "TONGGWAN": 0.9,
+    "GYEOKGUK": 0.85,
+    "BYEONGYAK": 0.8,
+    "JEONWANG": 0.75,
+    "HAPWHA_YONGSHIN": 0.7,
+    "ILHAENG_YONGSHIN": 0.7
+  },
+  "contextualTypes": ["JOHU", "TONGGWAN", "BYEONGYAK", "GYEOKGUK", "HAPWHA_YONGSHIN"],
+  "defaultTypeWeight": 0.75,
+  "defaultConfidence": 0.65,
+  "adaptiveWeights": {
+    "balanceBase": 0.6,
+    "balanceMin": 0.35,
+    "balanceMax": 0.6,
+    "yongshinBase": 0.23,
+    "yongshinMin": 0.23,
+    "yongshinMax": 0.48,
+    "strengthFixed": 0.12,
+    "tenGodFixed": 0.05,
+    "shiftDivisor": 70,
+    "confidenceWeight": 0.4,
+    "baseShiftRatio": 0.22,
+    "confidenceBoost": 0.08,
+    "baseConfidenceRatio": 0.6
+  },
+  "yongshinScoring": {
+    "affinityWeights": {
+      "gusin": -1.0,
+      "gisin": -0.65,
+      "yongshin": 1.0,
+      "heesin": 0.65
+    },
+    "recommendationBlend": {
+      "affinityRatio": 0.55,
+      "recommendationRatio": 0.45
+    },
+    "confidenceImpact": {
+      "baseRatio": 0.55,
+      "variableRatio": 0.45
+    },
+    "penalties": {
+      "gisinMultiplier": 7,
+      "gusinMultiplier": 14,
+      "penaltyScaleBase": 0.4,
+      "penaltyScaleVariable": 0.6
+    },
+    "recommendationScoring": {
+      "primaryWeight": 1.0,
+      "secondaryWeight": 0.6,
+      "fallbackConfidence": 0.6,
+      "minWeight": 0.1
+    }
+  },
+  "strengthScoring": {
+    "confidenceImpact": {
+      "baseRatio": 0.45,
+      "variableRatio": 0.55
+    },
+    "defaultIntensity": 0.35
+  },
+  "tenGodScoring": {
+    "maxInfluence": 45,
+    "negativeScale": 0.35
+  },
+  "balanceScoring": {
+    "penaltyPerMismatch": 20,
+    "penaltyPerExtraZero": 10,
+    "penaltyPerExtraSpread": 5,
+    "minPassingScore": 70
+  },
+  "penalties": {
+    "gyeokgukMinConfidence": 0.5,
+    "gyeokgukMaxPenalty": 20,
+    "jonggyeokCategory": "JONGGYEOK"
+  },
+  "deficiencyBonus": {
+    "yongshinMatch": 5,
+    "heesinMatch": 3,
+    "maxBonus": 8
+  },
+  "passing": {
+    "minScore": 62,
+    "minBalanceScore": 45,
+    "minYongshinScore": 35,
+    "maxGusinRatio": 0.55
+  },
+  "tenGodGroups": {
+    "BI_GYEON": "friend",
+    "GYEOB_JAE": "friend",
+    "SIK_SIN": "output",
+    "SANG_GWAN": "output",
+    "PYEON_JAE": "wealth",
+    "JEONG_JAE": "wealth",
+    "PYEON_GWAN": "authority",
+    "JEONG_GWAN": "authority",
+    "PYEON_IN": "resource",
+    "JEONG_IN": "resource"
+  },
+  "tenGodGroupNames": ["friend", "output", "wealth", "authority", "resource"]
+}

@@ -1,0 +1,28 @@
+{
+  "compilerOptions": {
+    "target": "ESNext",
+    "module": "ESNext",
+    "moduleResolution": "Bundler",
+    "verbatimModuleSyntax": true,
+    "outDir": "./dist",
+    "declaration": true,
+    "strict": true,
+    "resolveJsonModule": true,
+    "typeRoots": [
+      "../../namespring/node_modules/@types"
+    ],
+    "types": ["node"],
+    "skipLibCheck": true,
+    "allowSyntheticDefaultImports": true,
+    "esModuleInterop": true
+  },
+  "include": [
+    "src/**/*",
+    "config/**/*",
+    "../seed-ts/src/calculator/**/*",
+    "../seed-ts/src/database/**/*",
+    "../seed-ts/src/model/**/*",
+    "../seed-ts/src/types.ts",
+    "../seed-ts/src/seed.ts"
+  ]
+}

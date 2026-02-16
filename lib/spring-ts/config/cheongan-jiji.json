@@ -1,0 +1,36 @@
+{
+  "cheongan": {
+    "GAP":    { "hangul": "갑", "hanja": "甲", "element": "WOOD",  "polarity": "YANG" },
+    "EUL":    { "hangul": "을", "hanja": "乙", "element": "WOOD",  "polarity": "YIN"  },
+    "BYEONG": { "hangul": "병", "hanja": "丙", "element": "FIRE",  "polarity": "YANG" },
+    "JEONG":  { "hangul": "정", "hanja": "丁", "element": "FIRE",  "polarity": "YIN"  },
+    "MU":     { "hangul": "무", "hanja": "戊", "element": "EARTH", "polarity": "YANG" },
+    "GI":     { "hangul": "기", "hanja": "己", "element": "EARTH", "polarity": "YIN"  },
+    "GYEONG": { "hangul": "경", "hanja": "庚", "element": "METAL", "polarity": "YANG" },
+    "SIN":    { "hangul": "신", "hanja": "辛", "element": "METAL", "polarity": "YIN"  },
+    "IM":     { "hangul": "임", "hanja": "壬", "element": "WATER", "polarity": "YANG" },
+    "GYE":    { "hangul": "계", "hanja": "癸", "element": "WATER", "polarity": "YIN"  }
+  },
+  "jiji": {
+    "JA":   { "hangul": "자", "hanja": "子" },
+    "CHUK": { "hangul": "축", "hanja": "丑" },
+    "IN":   { "hangul": "인", "hanja": "寅" },
+    "MYO":  { "hangul": "묘", "hanja": "卯" },
+    "JIN":  { "hangul": "진", "hanja": "辰" },
+    "SA":   { "hangul": "사", "hanja": "巳" },
+    "O":    { "hangul": "오", "hanja": "午" },
+    "MI":   { "hangul": "미", "hanja": "未" },
+    "SIN":  { "hangul": "신", "hanja": "申" },
+    "YU":   { "hangul": "유", "hanja": "酉" },
+    "SUL":  { "hangul": "술", "hanja": "戌" },
+    "HAE":  { "hangul": "해", "hanja": "亥" }
+  },
+  "elementCodes": ["WOOD", "FIRE", "EARTH", "METAL", "WATER"],
+  "elementCodeToKey": {
+    "WOOD": "Wood",
+    "FIRE": "Fire",
+    "EARTH": "Earth",
+    "METAL": "Metal",
+    "WATER": "Water"
+  }
+}

@@ -1,0 +1,20 @@
+{
+  "name": "@namespring/spring-ts",
+  "version": "1.0.0",
+  "type": "module",
+  "main": "./dist/index.js",
+  "types": "./dist/index.d.ts",
+  "scripts": {
+    "build": "tsc",
+    "test": "vitest run"
+  },
+  "dependencies": {
+    "sql.js": "^1.14.0"
+  },
+  "devDependencies": {
+    "@types/node": "^22.0.0",
+    "@types/sql.js": "^1.4.9",
+    "typescript": "^5.7.0",
+    "vitest": "^3.0.0"
+  }
+}
