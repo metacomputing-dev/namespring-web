@@ -1,62 +1,50 @@
 import React, { useEffect, useState } from 'react';
-import CombiedNamingReport from './CombiedNamingReport';
+import SajuReport from './SajuReport';
 
-function CombinedReportPage({
+function SajuReportPage({
   entryUserInfo,
-  selectedCandidate,
-  onLoadCombinedReport,
+  onLoadSajuReport,
   onBackHome,
-  onBackCandidates,
-  onOpenNamingReport,
-  onOpenSajuReport,
 }) {
   const [report, setReport] = useState(null);
   const [isLoading, setIsLoading] = useState(true);
   const [error, setError] = useState('');
 
-  useEffect(() => {
-    let cancelled = false;
-
-    const run = async () => {
-      if (!entryUserInfo || !selectedCandidate || !onLoadCombinedReport) {
-        setReport(null);
-        setIsLoading(false);
-        setError('선택한 추천 이름 정보가 없습니다.');
-        return;
-      }
-
-      setIsLoading(true);
-      setError('');
+  const loadReport = async () => {
+    if (!entryUserInfo || !onLoadSajuReport) {
       setReport(null);
-      try {
-        const nextReport = await onLoadCombinedReport(entryUserInfo, selectedCandidate);
-        if (cancelled) return;
-        setReport(nextReport || null);
-        if (!nextReport) {
-          setError('통합 보고서를 불러오지 못했습니다.');
-        }
-      } catch {
-        if (cancelled) return;
-        setError('통합 보고서를 불러오지 못했습니다.');
-      } finally {
-        if (!cancelled) {
-          setIsLoading(false);
-        }
-      }
-    };
+      setIsLoading(false);
+      setError('사주 평가를 위한 입력 정보가 없습니다.');
+      return;
+    }
 
-    void run();
-    return () => {
-      cancelled = true;
-    };
-  }, [entryUserInfo, selectedCandidate, onLoadCombinedReport]);
+    setIsLoading(true);
+    setError('');
+    setReport(null);
+    try {
+      const nextReport = await onLoadSajuReport(entryUserInfo);
+      setReport(nextReport || null);
+      if (!nextReport) {
+        setError('사주 평가 보고서를 불러오지 못했습니다.');
+      }
+    } catch {
+      setError('사주 평가 보고서를 불러오지 못했습니다.');
+    } finally {
+      setIsLoading(false);
+    }
+  };
+
+  useEffect(() => {
+    void loadReport();
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [entryUserInfo, onLoadSajuReport]);
 
   return (
     <div className="min-h-screen flex flex-col items-center p-3 font-sans text-[var(--ns-text)]">
       <div className="bg-[var(--ns-surface)] p-5 rounded-[2rem] shadow-2xl border border-[var(--ns-border)] w-full max-w-2xl overflow-hidden">
         <header className="mb-4 flex items-center justify-between">
           <div>
-            <h1 className="text-3xl font-black text-[var(--ns-accent-text)]">통합 보고서</h1>
+            <h1 className="text-3xl font-black text-[var(--ns-accent-text)]">사주 평가 보고서</h1>
           </div>
           <button
             onClick={onBackHome}
@@ -73,7 +61,7 @@ function CombinedReportPage({
         {isLoading ? (
           <div className="h-40 rounded-xl border border-[var(--ns-border)] bg-[var(--ns-surface-soft)] flex flex-col items-center justify-center gap-3">
             <div className="h-12 w-12 rounded-full border-4 border-[var(--ns-primary)] border-t-transparent animate-spin" />
-            <p className="text-sm font-bold text-[var(--ns-muted)]">통합 보고서를 생성하고 있습니다.</p>
+            <p className="text-sm font-bold text-[var(--ns-muted)]">사주 보고서를 생성하고 있습니다.</p>
           </div>
         ) : null}
 
@@ -84,25 +72,20 @@ function CombinedReportPage({
             </div>
             <button
               type="button"
-              onClick={onBackCandidates}
+              onClick={loadReport}
               className="w-full py-3 bg-[var(--ns-primary)] text-[var(--ns-accent-text)] rounded-2xl font-black"
             >
-              추천 목록으로
+              다시 불러오기
             </button>
           </div>
         ) : null}
 
         {!isLoading && !error && report ? (
-          <CombiedNamingReport
-            springReport={report}
-            onBackCandidates={onBackCandidates}
-            onOpenNamingReport={onOpenNamingReport}
-            onOpenSajuReport={onOpenSajuReport}
-          />
+          <SajuReport report={report} />
         ) : null}
       </div>
     </div>
   );
 }
 
-export default CombinedReportPage;
+export default SajuReportPage;

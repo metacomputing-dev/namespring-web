@@ -13,9 +13,10 @@ import ReportPage from './ReportPage';
 import InputForm from './InputForm';
 import NamingCandidatesPage from './NamingCandidatesPage';
 import CombinedReportPage from './CombinedReportPage';
+import SajuReportPage from './SajuReportPage';
 
 const ENTRY_STORAGE_KEY = 'namespring_entry_user_info';
-const PAGE_VALUES = ['entry', 'home', 'report', 'naming-candidates', 'combined-report'];
+const PAGE_VALUES = ['entry', 'home', 'report', 'saju-report', 'naming-candidates', 'combined-report'];
 
 function normalizeEntryUserInfo(value) {
   if (!value || !Array.isArray(value.lastName) || !Array.isArray(value.firstName)) {
@@ -211,6 +212,11 @@ function App() {
     return springEngine.getSpringReport(springRequest);
   };
 
+  const handleLoadSajuReportAsync = async (userInfo) => {
+    const springRequest = toSpringRequest(userInfo);
+    return springEngine.getSajuReport(springRequest);
+  };
+
   const navigateToPage = (nextPage, options = {}) => {
     const hasEntryUserInfo = typeof options.hasEntryUserInfo === 'boolean'
       ? options.hasEntryUserInfo
@@ -325,6 +331,23 @@ function App() {
               onLoadCombinedReport={handleLoadCombinedReportAsync}
               onBackHome={() => navigateToPage('home')}
               onBackCandidates={() => navigateToPage('naming-candidates')}
+              onOpenNamingReport={() => navigateToPage('report')}
+              onOpenSajuReport={() => navigateToPage('saju-report')}
+            />
+          </AppBackground>
+        ),
+      };
+    }
+
+    if (page === 'saju-report') {
+      return {
+        key: 'saju-report',
+        node: (
+          <AppBackground>
+            <SajuReportPage
+              entryUserInfo={entryUserInfo}
+              onLoadSajuReport={handleLoadSajuReportAsync}
+              onBackHome={() => navigateToPage('home')}
             />
           </AppBackground>
         ),

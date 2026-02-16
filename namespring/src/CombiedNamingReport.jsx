@@ -1,4 +1,5 @@
 import React, { useMemo, useState } from 'react';
+import NamingResultRenderer from './NamingResultRenderer';
 
 const ELEMENT_LABEL = {
   Wood: '목',
@@ -86,7 +87,12 @@ function MetaInfoCard({ title, value, tone = 'default' }) {
   );
 }
 
-function CombiedNamingReport({ springReport, onBackCandidates }) {
+function CombiedNamingReport({
+  springReport,
+  onBackCandidates,
+  onOpenNamingReport,
+  onOpenSajuReport,
+}) {
   if (!springReport) return null;
 
   const [openCards, setOpenCards] = useState({
@@ -122,6 +128,48 @@ function CombiedNamingReport({ springReport, onBackCandidates }) {
   const recommendationTexts = Array.isArray(sajuReport?.yongshin?.recommendations)
     ? sajuReport.yongshin.recommendations.map((item) => item?.reasoning).filter(Boolean)
     : [];
+  const combinedDistributionRows = useMemo(() => {
+    const source = springReport?.combinedDistribution || {};
+    return ['Wood', 'Fire', 'Earth', 'Metal', 'Water'].map((key) => ({
+      key,
+      label: ELEMENT_LABEL[key],
+      value: Number(source[key] ?? 0),
+    }));
+  }, [springReport]);
+  const combinedDistributionMax = useMemo(() => {
+    const values = combinedDistributionRows.map((item) => item.value).filter((value) => Number.isFinite(value));
+    const max = values.length ? Math.max(...values) : 0;
+    return max > 0 ? max : 1;
+  }, [combinedDistributionRows]);
+  const nameCardData = useMemo(() => {
+    const surnameEntries = Array.isArray(namingReport?.name?.surname) ? namingReport.name.surname : [];
+    const givenEntries = Array.isArray(namingReport?.name?.givenName) ? namingReport.name.givenName : [];
+    const hangulBlocks = Array.isArray(namingReport?.analysis?.hangul?.blocks) ? namingReport.analysis.hangul.blocks : [];
+
+    return {
+      lastName: surnameEntries.map((entry) => ({
+        hangul: String(entry?.hangul ?? ''),
+        hanja: String(entry?.hanja ?? ''),
+        resource_element: String(entry?.element ?? ''),
+      })),
+      firstName: givenEntries.map((entry) => ({
+        hangul: String(entry?.hangul ?? ''),
+        hanja: String(entry?.hanja ?? ''),
+        resource_element: String(entry?.element ?? ''),
+      })),
+      totalScore: Number.isFinite(finalScore) ? finalScore : Number(namingReport?.totalScore ?? 0),
+      hangul: {
+        getNameBlocks: () =>
+          hangulBlocks.map((block) => ({
+            energy: {
+              polarity: {
+                english: String(block?.polarity ?? ''),
+              },
+            },
+          })),
+      },
+    };
+  }, [namingReport, finalScore]);
 
   const toggleCard = (key) => setOpenCards((prev) => ({ ...prev, [key]: !prev[key] }));
 
@@ -141,6 +189,31 @@ function CombiedNamingReport({ springReport, onBackCandidates }) {
           </div>
         </div>
         <p className="mt-3 text-sm text-[var(--ns-muted)] break-keep whitespace-normal">{scoreGuideText(finalScore)}</p>
+      </section>
+
+      <section className="h-44 md:h-52">
+        <NamingResultRenderer namingResult={nameCardData} />
+      </section>
+
+      <section className="rounded-[2rem] border border-[var(--ns-border)] bg-[var(--ns-surface-soft)] p-3 md:p-4">
+        <h3 className="text-lg font-black text-[var(--ns-accent-text)]">통합 오행 지표</h3>
+        <p className="text-sm text-[var(--ns-muted)] mt-1 break-keep whitespace-normal">사주 오행과 이름 자원 오행을 합산한 성분 분포예요.</p>
+        <div className="mt-3 space-y-2">
+          {combinedDistributionRows.map((item) => {
+            const widthPercent = Math.max(0, Math.min(100, (item.value / combinedDistributionMax) * 100));
+            return (
+              <div key={`combined-dist-${item.key}`} className={`rounded-xl border px-3 py-2.5 ${elementBadgeClass(item.key)}`}>
+                <div className="flex items-center justify-between text-sm font-black">
+                  <span>{item.label}</span>
+                  <span>{item.value}</span>
+                </div>
+                <div className="mt-1.5 h-2 rounded-full bg-white/60 overflow-hidden">
+                  <div className="h-full rounded-full bg-current" style={{ width: `${widthPercent}%`, opacity: 0.7 }} />
+                </div>
+              </div>
+            );
+          })}
+        </div>
       </section>
 
       <CollapseCard
@@ -252,6 +325,26 @@ function CombiedNamingReport({ springReport, onBackCandidates }) {
           추천 목록으로
         </button>
       </div>
+
+      <section className="rounded-2xl border border-[var(--ns-border)] bg-[var(--ns-surface-soft)] px-3 py-3">
+        <p className="text-sm font-black text-[var(--ns-accent-text)]">다른 보고서 보기</p>
+        <div className="mt-2 grid grid-cols-1 md:grid-cols-2 gap-2">
+          <button
+            type="button"
+            onClick={onOpenNamingReport}
+            className="w-full rounded-xl border border-[var(--ns-border)] bg-[var(--ns-surface)] px-3 py-2.5 text-sm font-black text-[var(--ns-muted)] hover:bg-[var(--ns-surface-soft)]"
+          >
+            이름 평가 보고서
+          </button>
+          <button
+            type="button"
+            onClick={onOpenSajuReport}
+            className="w-full rounded-xl border border-[var(--ns-border)] bg-[var(--ns-surface)] px-3 py-2.5 text-sm font-black text-[var(--ns-muted)] hover:bg-[var(--ns-surface-soft)]"
+          >
+            사주 평가 보고서
+          </button>
+        </div>
+      </section>
     </div>
   );
 }
