@@ -401,6 +401,84 @@ try {
   }
 
   // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+  // 10. 복성 자모 필터: 제갈_ㅇ소 (5글자 = 복성2 + 이름3)
+  // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+  console.log('\n10. [복성+자모필터] 제갈_ㅇ소 (5글자=복성2+이름3, 와일드카드+초성필터+ㅅㅗ필터)');
+  const jgBirth = { year: 1990, month: 7, day: 15, hour: 10, minute: 30, gender: 'male' as const };
+  const jgResults = await engine.getNameCandidates({
+    birth: jgBirth,
+    surname: [{ hangul: '제', hanja: '諸' }, { hangul: '갈', hanja: '葛' }],
+    givenName: [
+      { hangul: '' },      // position 0: 와일드카드
+      { hangul: 'ㅇ' },    // position 1: onset=ㅇ 필터
+      { hangul: '소' },    // position 2: onset=ㅅ, nucleus=ㅗ 필터
+    ],
+    mode: 'recommend',
+  });
+
+  console.log(`   총 후보: ${jgResults.length}`);
+
+  const jgCountOk = jgResults.length > 0;
+  if (jgCountOk) pass++; else fail++;
+  console.log(`   ${jgCountOk ? 'PASS' : 'FAIL'} 복성+자모필터 후보 생성됨`);
+
+  // 이름 3글자 확인
+  const jgLenOk = jgResults.every(r => r.namingReport.name.givenName.length === 3);
+  if (jgLenOk) pass++; else fail++;
+  console.log(`   ${jgLenOk ? 'PASS' : 'FAIL'} 이름 글자수 = 3`);
+
+  // 성씨 = 제갈 확인
+  const jgSurnameOk = jgResults.every(r =>
+    r.namingReport.name.surname.length === 2
+    && r.namingReport.name.surname[0].hangul === '제'
+    && r.namingReport.name.surname[1].hangul === '갈',
+  );
+  if (jgSurnameOk) pass++; else fail++;
+  console.log(`   ${jgSurnameOk ? 'PASS' : 'FAIL'} 성씨 = 제갈`);
+
+  // 1번째 글자 = 와일드카드 (한글 음절이면 OK)
+  const jgWildOk = jgResults.every(r => {
+    const h = r.namingReport.name.givenName[0]?.hangul;
+    if (!h) return false;
+    const code = h.charCodeAt(0);
+    return code >= 0xAC00 && code <= 0xD7A3;
+  });
+  if (jgWildOk) pass++; else fail++;
+  console.log(`   ${jgWildOk ? 'PASS' : 'FAIL'} 1번째 글자 = 와일드카드 (한글 음절)`);
+
+  // 2번째 글자 초성 = ㅇ
+  const jgOnsetOk = jgResults.every(r => {
+    const h = r.namingReport.name.givenName[1]?.hangul;
+    if (!h) return false;
+    const code = h.charCodeAt(0) - 0xAC00;
+    return Math.floor(code / 588) === 11; // ㅇ index
+  });
+  if (jgOnsetOk) pass++; else fail++;
+  console.log(`   ${jgOnsetOk ? 'PASS' : 'FAIL'} 2번째 글자 초성 = ㅇ`);
+
+  // 3번째 글자 = 소 패턴 (초성ㅅ + 중성ㅗ)
+  const jgSoOk = jgResults.every(r => {
+    const h = r.namingReport.name.givenName[2]?.hangul;
+    if (!h) return false;
+    const code = h.charCodeAt(0) - 0xAC00;
+    return Math.floor(code / 588) === 9 && Math.floor((code % 588) / 28) === 8; // ㅅ=9, ㅗ=8
+  });
+  if (jgSoOk) pass++; else fail++;
+  console.log(`   ${jgSoOk ? 'PASS' : 'FAIL'} 3번째 글자 = 소 패턴 (ㅅ+ㅗ)`);
+
+  // finalScore > 0
+  const jgScoreOk = jgResults.every(r => r.finalScore > 0);
+  if (jgScoreOk) pass++; else fail++;
+  console.log(`   ${jgScoreOk ? 'PASS' : 'FAIL'} 모든 후보 finalScore > 0`);
+
+  // top 5 출력
+  for (let i = 0; i < Math.min(5, jgResults.length); i++) {
+    const r = jgResults[i];
+    const names = r.namingReport.name.givenName;
+    console.log(`   ${String(i + 1).padStart(2)}. ${r.namingReport.name.fullHangul}(${r.namingReport.name.fullHanja}) final=${r.finalScore} elements=[${names.map(n => n.element).join(',')}]`);
+  }
+
+  // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
   // Summary
   // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
   console.log('\n' + '='.repeat(55));
