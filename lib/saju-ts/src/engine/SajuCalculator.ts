@@ -2,28 +2,15 @@ import { Pillar } from '../domain/Pillar.js';
 import { PillarSet } from '../domain/PillarSet.js';
 import { BirthInput } from '../domain/types.js';
 import { DayCutMode } from '../calendar/time/DayCutMode.js';
-import { adjustSolarTime, standardMeridianDegrees, SolarTimeAdjustment } from '../calendar/time/SolarTimeAdjuster.js';
+import { adjustSolarTime, standardMeridianDegrees, type SolarTimeAdjustment } from '../calendar/time/SolarTimeAdjuster.js';
 import { JeolBoundaryTable } from '../calendar/solar/JeolBoundaryTable.js';
 import { GanjiCycle } from './GanjiCycle.js';
 import { CalculationConfig, DEFAULT_CONFIG } from '../config/CalculationConfig.js';
 import { type Cheongan } from '../domain/Cheongan.js';
 
-export interface SajuPillarResult {
+export interface SajuPillarResult extends SolarTimeAdjustment {
   readonly input: BirthInput;
   readonly pillars: PillarSet;
-    readonly standardYear: number;
-  readonly standardMonth: number;
-  readonly standardDay: number;
-  readonly standardHour: number;
-  readonly standardMinute: number;
-    readonly adjustedYear: number;
-  readonly adjustedMonth: number;
-  readonly adjustedDay: number;
-  readonly adjustedHour: number;
-  readonly adjustedMinute: number;
-  readonly dstCorrectionMinutes: number;
-  readonly longitudeCorrectionMinutes: number;
-  readonly equationOfTimeMinutes: number;
 }
 
 interface YmdDate {
@@ -184,4 +171,3 @@ function calculateMonthPillar(
     standardMoment.day,
   );
 }
-

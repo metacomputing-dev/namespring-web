@@ -1,5 +1,6 @@
 import { GyeokgukCategory, GyeokgukType } from '../../domain/Gyeokguk.js';
 import { ShinsalType } from '../../domain/Shinsal.js';
+import { createEnumValueParser } from '../../domain/EnumValueParser.js';
 import rawShinsalSynergyData from './data.json';
 
 interface ShinsalGyeokgukSynergyData {
@@ -7,24 +8,21 @@ interface ShinsalGyeokgukSynergyData {
 }
 
 const SYNERGY_DATA = rawShinsalSynergyData as unknown as ShinsalGyeokgukSynergyData;
-const SHINSAL_TYPE_SET: ReadonlySet<ShinsalType> = new Set(Object.values(ShinsalType));
-const GYEOKGUK_TYPE_SET: ReadonlySet<GyeokgukType> = new Set(Object.values(GyeokgukType));
-const GYEOKGUK_CATEGORY_SET: ReadonlySet<GyeokgukCategory> = new Set(Object.values(GyeokgukCategory));
-
-function parseShinsalType(raw: string): ShinsalType {
-  if (SHINSAL_TYPE_SET.has(raw as ShinsalType)) return raw as ShinsalType;
-  throw new Error(`Invalid shinsal type in shinsal synergy data: ${raw}`);
-}
-
-function parseGyeokgukType(raw: string): GyeokgukType {
-  if (GYEOKGUK_TYPE_SET.has(raw as GyeokgukType)) return raw as GyeokgukType;
-  throw new Error(`Invalid gyeokguk type in shinsal synergy data: ${raw}`);
-}
-
-function parseGyeokgukCategory(raw: string): GyeokgukCategory {
-  if (GYEOKGUK_CATEGORY_SET.has(raw as GyeokgukCategory)) return raw as GyeokgukCategory;
-  throw new Error(`Invalid gyeokguk category in shinsal synergy data: ${raw}`);
-}
+const parseShinsalType = createEnumValueParser(
+  'ShinsalType',
+  'shinsal synergy data',
+  ShinsalType,
+);
+const parseGyeokgukType = createEnumValueParser(
+  'GyeokgukType',
+  'shinsal synergy data',
+  GyeokgukType,
+);
+const parseGyeokgukCategory = createEnumValueParser(
+  'GyeokgukCategory',
+  'shinsal synergy data',
+  GyeokgukCategory,
+);
 
 function synergyKey(
   shinsal: ShinsalType,

@@ -42,6 +42,15 @@ function makeBirthInput(): BirthInput {
   };
 }
 
+function currentKoreanYear(): number {
+  const parts = new Intl.DateTimeFormat('en-CA', {
+    timeZone: 'Asia/Seoul',
+    year: 'numeric',
+  }).formatToParts(new Date());
+  const yearStr = parts.find(part => part.type === 'year')?.value ?? '0';
+  return Number.parseInt(yearStr, 10);
+}
+
 function makeMinimalAnalysis(overrides?: Partial<SajuAnalysis>): SajuAnalysis {
   return {
     coreResult: {
@@ -196,6 +205,56 @@ describe('NarrativeEngine', () => {
       expect(narrative).toBeDefined();
     });
 
+    it('readableSummary is non-empty', () => {
+      const narrative = generate(makeMinimalAnalysis());
+      expect(narrative.readableSummary.length).toBeGreaterThan(0);
+      expect(narrative.readableSummary).toContain('핵심 브리핑');
+      expect(narrative.readableSummary).toContain('일생 흐름 요약');
+      expect(narrative.readableSummary).toContain('현재 시점 운세');
+      expect(narrative.readableSummary).toContain('맞춤 실행 플랜');
+      expect(narrative.readableSummary).toContain('관심사별 운세');
+      expect(narrative.readableSummary).toContain('판정 요약');
+      expect(narrative.readableSummary).toContain('본문 핵심 캡처');
+      expect(narrative.readableSummary).toContain('생활 영역 핵심');
+      expect(narrative.readableSummary).toContain('실행 가이드 5가지');
+    });
+
+    it('readableSummary does not include truncated ellipsis marker', () => {
+      const narrative = generate(makeMinimalAnalysis());
+      expect(narrative.readableSummary).not.toContain('…');
+      expect(narrative.readableSummary).not.toContain('...');
+      expect(narrative.readableSummary).not.toContain('쉬운 말 핵심');
+    });
+
+    it('readableSummary risk phrase reflects low gisin exposure instead of fixed warning text', () => {
+      const narrative = generate(makeMinimalAnalysis({
+        yongshinResult: {
+          recommendations: [{
+            type: YongshinType.EOKBU,
+            primaryElement: Ohaeng.FIRE,
+            secondaryElement: null,
+            confidence: 88,
+            reasoning: '신약 일간 보완',
+          }],
+          finalYongshin: Ohaeng.FIRE,
+          finalHeesin: Ohaeng.WOOD,
+          gisin: Ohaeng.WATER,
+          gusin: null,
+          agreement: YongshinAgreement.DISAGREE,
+          finalConfidence: 0.7,
+        },
+        ohaengDistribution: new Map<Ohaeng, number>([
+          [Ohaeng.WOOD, 3],
+          [Ohaeng.FIRE, 2],
+          [Ohaeng.EARTH, 2],
+          [Ohaeng.METAL, 1],
+          [Ohaeng.WATER, 0],
+        ]),
+      }));
+      expect(narrative.readableSummary).toContain('원국 노출이 낮아');
+      expect(narrative.readableSummary).not.toContain('강해지거나 생활 리듬이 깨질 때');
+    });
+
     it('overview is non-empty', () => {
       const narrative = generate(makeMinimalAnalysis());
       expect(narrative.overview.length).toBeGreaterThan(0);
@@ -209,6 +268,109 @@ describe('NarrativeEngine', () => {
     it('coreCharacteristics is non-empty', () => {
       const narrative = generate(makeMinimalAnalysis());
       expect(narrative.coreCharacteristics.length).toBeGreaterThan(0);
+    });
+
+    it('coreCharacteristics avoids weak-assertion wording when assertive ten-god signals are strong', () => {
+      const narrative = generate(makeMinimalAnalysis({
+        strengthResult: {
+          dayMaster: Cheongan.MU,
+          level: StrengthLevel.VERY_WEAK,
+          score: { deukryeong: 0, deukji: 2, deukse: 1, totalSupport: 3, totalOppose: 70 },
+          isStrong: false,
+          details: [],
+        },
+        tenGodAnalysis: {
+          dayMaster: Cheongan.MU,
+          byPosition: {
+            [PillarPosition.YEAR]: {
+              cheonganSipseong: Sipseong.BI_GYEON,
+              jijiPrincipalSipseong: Sipseong.SANG_GWAN,
+              hiddenStems: [],
+              hiddenStemSipseong: [],
+            },
+            [PillarPosition.MONTH]: {
+              cheonganSipseong: Sipseong.GYEOB_JAE,
+              jijiPrincipalSipseong: Sipseong.SIK_SIN,
+              hiddenStems: [],
+              hiddenStemSipseong: [],
+            },
+            [PillarPosition.DAY]: {
+              cheonganSipseong: Sipseong.BI_GYEON,
+              jijiPrincipalSipseong: Sipseong.PYEON_GWAN,
+              hiddenStems: [],
+              hiddenStemSipseong: [],
+            },
+            [PillarPosition.HOUR]: {
+              cheonganSipseong: Sipseong.SANG_GWAN,
+              jijiPrincipalSipseong: Sipseong.JEONG_JAE,
+              hiddenStems: [],
+              hiddenStemSipseong: [],
+            },
+          },
+        },
+      }));
+      expect(narrative.coreCharacteristics).toContain('자기 기준과 표현 욕구는 분명하지만');
+      expect(narrative.coreCharacteristics).not.toContain('자기 주장이 약함');
+    });
+
+    it('does not recommend unconditional supplementation for scarce gisin element', () => {
+      const narrative = generate(makeMinimalAnalysis({
+        yongshinResult: {
+          recommendations: [{
+            type: YongshinType.EOKBU,
+            primaryElement: Ohaeng.FIRE,
+            secondaryElement: null,
+            confidence: 90,
+            reasoning: '보완',
+          }],
+          finalYongshin: Ohaeng.FIRE,
+          finalHeesin: Ohaeng.WOOD,
+          gisin: Ohaeng.WATER,
+          gusin: null,
+          agreement: YongshinAgreement.FULL_AGREE,
+          finalConfidence: 0.9,
+        },
+        ohaengDistribution: new Map<Ohaeng, number>([
+          [Ohaeng.WOOD, 3],
+          [Ohaeng.FIRE, 2],
+          [Ohaeng.EARTH, 2],
+          [Ohaeng.METAL, 1],
+          [Ohaeng.WATER, 0],
+        ]),
+      }));
+
+      expect(narrative.ohaengDistribution).toContain('주의: 수(水) — 기신 축이므로 과한 증강보다 균형 관리가 중요합니다.');
+      expect(narrative.ohaengDistribution).not.toContain('수(水) — 1개뿐이므로 점진 보완이 도움이 됩니다.');
+    });
+
+    it('health section uses gisin-aware guidance wording', () => {
+      const narrative = generate(makeMinimalAnalysis({
+        yongshinResult: {
+          recommendations: [{
+            type: YongshinType.EOKBU,
+            primaryElement: Ohaeng.FIRE,
+            secondaryElement: null,
+            confidence: 90,
+            reasoning: '보완',
+          }],
+          finalYongshin: Ohaeng.FIRE,
+          finalHeesin: Ohaeng.WOOD,
+          gisin: Ohaeng.WATER,
+          gusin: null,
+          agreement: YongshinAgreement.FULL_AGREE,
+          finalConfidence: 0.9,
+        },
+        ohaengDistribution: new Map<Ohaeng, number>([
+          [Ohaeng.WOOD, 2],
+          [Ohaeng.FIRE, 2],
+          [Ohaeng.EARTH, 3],
+          [Ohaeng.METAL, 1],
+          [Ohaeng.WATER, 0],
+        ]),
+      }));
+
+      expect(narrative.lifeDomainAnalysis).toContain('기신 오행(수(水))은 과도한 증강보다 변동 시기 점검이 안전합니다.');
+      expect(narrative.lifeDomainAnalysis).not.toContain('용신 오행을 보강하는 음식·색상·계절 활동이 건강 유지에 도움이 됩니다.');
     });
 
     it('yongshinGuidance is non-empty when yongshin exists', () => {
@@ -226,6 +388,22 @@ describe('NarrativeEngine', () => {
     it('lifeDomainAnalysis is non-empty', () => {
       const narrative = generate(makeMinimalAnalysis());
       expect(narrative.lifeDomainAnalysis.length).toBeGreaterThan(0);
+    });
+
+    it('default yearly fortune targets current Korean year when target year is omitted', () => {
+      const narrative = generate(makeMinimalAnalysis());
+      expect(narrative.yearlyFortuneNarrative).toContain(`${currentKoreanYear()}`);
+      expect(narrative.readableSummary).toContain('현재 연도(');
+      expect(narrative.readableSummary).toContain('현재 월(');
+      expect(narrative.readableSummary).toContain('오늘 운세(');
+      expect(narrative.readableSummary).toContain('오늘 행동 포인트');
+      expect(narrative.readableSummary).toContain('총운:');
+      expect(narrative.readableSummary).toContain('재물운:');
+      expect(narrative.readableSummary).toContain('연애운:');
+      expect(narrative.readableSummary).toContain('가족/주거운:');
+      expect(narrative.readableSummary).toContain('자녀/후배운:');
+      expect(narrative.readableSummary).toContain('이직/변화운:');
+      expect(narrative.readableSummary).toContain('법률/분쟁운:');
     });
 
     it('overallAssessment is non-empty', () => {
@@ -260,6 +438,7 @@ describe('NarrativeEngine', () => {
     it('all major sections contain Korean characters', () => {
       const narrative = generate(makeMinimalAnalysis());
       const koreanRegex = /[\uAC00-\uD7AF]/;
+      expect(koreanRegex.test(narrative.readableSummary), 'readableSummary has Korean').toBe(true);
       expect(koreanRegex.test(narrative.overview), 'overview has Korean').toBe(true);
       expect(koreanRegex.test(narrative.coreCharacteristics), 'coreCharacteristics has Korean').toBe(true);
       expect(koreanRegex.test(narrative.yongshinGuidance), 'yongshinGuidance has Korean').toBe(true);
@@ -282,6 +461,7 @@ describe('NarrativeEngine', () => {
       const report = narrativeToFullReport(narrative);
 
       // Should contain content from multiple sections
+      expect(report).toContain('한눈에 보는 핵심 요약');
       expect(report).toContain(narrative.overview.substring(0, 20));
     });
 

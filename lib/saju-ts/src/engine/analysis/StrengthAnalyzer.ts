@@ -57,9 +57,9 @@ export function analyze(
 
   details.push('---');
   details.push(
-    `珥?遺議??먯닔: ${formatScore(totalSupport)} / ?앸졊 ${formatScore(deukryeong)} + ?앹? ${formatScore(deukji)} + ?앹꽭 ${formatScore(deukse)}`,
+    `총 부조 점수: ${formatScore(totalSupport)} / 득령 ${formatScore(deukryeong)} + 득지 ${formatScore(deukji)} + 득세 ${formatScore(deukse)}`,
   );
-  details.push(`\uD310\uC815: ${STRENGTH_LEVEL_INFO[level].koreanName} (${isStrong ? '?좉컯' : '?좎빟'})`);
+  details.push(`판정: ${STRENGTH_LEVEL_INFO[level].koreanName} (${isStrong ? '신강' : '신약'})`);
 
   return {
     dayMaster,
@@ -81,4 +81,3 @@ export const StrengthAnalyzer = {
   determineSipseong,
   isSupportingSipseong,
 } as const;
-

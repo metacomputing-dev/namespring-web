@@ -1,5 +1,7 @@
-import { Cheongan } from '../../domain/Cheongan.js';
-import { Jiji } from '../../domain/Jiji.js';
+import { Cheongan, CHEONGAN_VALUES } from '../../domain/Cheongan.js';
+import { Jiji, JIJI_VALUES } from '../../domain/Jiji.js';
+import { createValueParser } from '../../domain/EnumValueParser.js';
+import rawShinsalCoreCatalog from './data/shinsalCoreCatalog.json';
 
 export type StemOrBranch =
   | { kind: 'stem'; stem: Cheongan }
@@ -19,10 +21,28 @@ export interface SamhapGroup {
   readonly banan: Jiji;
 }
 
+const SAMHAP_FIELD_KEYS = ['yeokma', 'dohwa', 'hwagae', 'jangseong', 'geopsal', 'jaesal', 'cheonsal', 'jisal', 'mangsin', 'banan'] as const;
+
+type SamhapFieldKey = (typeof SAMHAP_FIELD_KEYS)[number];
+type RawSamhapGroup = { readonly members: readonly string[] } & Readonly<Record<SamhapFieldKey, string>>;
+
 interface MemberIndexedEntry<T> {
   readonly members: ReadonlySet<Jiji>;
   readonly value: T;
 }
+
+const SHINSAL_CORE_CATALOG = rawShinsalCoreCatalog as unknown as {
+  readonly samhapGroups: readonly RawSamhapGroup[];
+  readonly banghapEntries: readonly {
+    readonly members: readonly string[];
+    readonly gosin: string;
+    readonly gwasuk: string;
+  }[];
+  readonly goegangPillars: readonly (readonly [string, string])[];
+  readonly goransalPillars: readonly (readonly [string, string])[];
+};
+const toCheongan = createValueParser('Cheongan', 'shinsalCoreCatalog.json', CHEONGAN_VALUES);
+const toJiji = createValueParser('Jiji', 'shinsalCoreCatalog.json', JIJI_VALUES);
 
 function indexByMember<T>(
   entries: readonly MemberIndexedEntry<T>[],
@@ -36,32 +56,21 @@ function indexByMember<T>(
   return map;
 }
 
-const SAMHAP_GROUPS: readonly SamhapGroup[] = [
-  {
-    members: new Set([Jiji.IN, Jiji.O, Jiji.SUL]),
-    yeokma: Jiji.SIN, dohwa: Jiji.MYO, hwagae: Jiji.SUL,
-    jangseong: Jiji.O, geopsal: Jiji.SA, jaesal: Jiji.JA,
-    cheonsal: Jiji.CHUK, jisal: Jiji.IN, mangsin: Jiji.SA, banan: Jiji.MI,
-  },
-  {
-    members: new Set([Jiji.SA, Jiji.YU, Jiji.CHUK]),
-    yeokma: Jiji.HAE, dohwa: Jiji.O, hwagae: Jiji.CHUK,
-    jangseong: Jiji.YU, geopsal: Jiji.IN, jaesal: Jiji.MYO,
-    cheonsal: Jiji.JIN, jisal: Jiji.SA, mangsin: Jiji.SIN, banan: Jiji.SUL,
-  },
-  {
-    members: new Set([Jiji.SIN, Jiji.JA, Jiji.JIN]),
-    yeokma: Jiji.IN, dohwa: Jiji.YU, hwagae: Jiji.JIN,
-    jangseong: Jiji.JA, geopsal: Jiji.HAE, jaesal: Jiji.O,
-    cheonsal: Jiji.MI, jisal: Jiji.SIN, mangsin: Jiji.HAE, banan: Jiji.CHUK,
-  },
-  {
-    members: new Set([Jiji.HAE, Jiji.MYO, Jiji.MI]),
-    yeokma: Jiji.SA, dohwa: Jiji.JA, hwagae: Jiji.MI,
-    jangseong: Jiji.MYO, geopsal: Jiji.SIN, jaesal: Jiji.YU,
-    cheonsal: Jiji.SUL, jisal: Jiji.HAE, mangsin: Jiji.IN, banan: Jiji.JIN,
-  },
-];
+function toJijiSet(values: readonly string[]): ReadonlySet<Jiji> {
+  return new Set(values.map(toJiji));
+}
+
+function toSamhapGroup(raw: RawSamhapGroup): SamhapGroup {
+  const parsedFields = Object.fromEntries(
+    SAMHAP_FIELD_KEYS.map((key) => [key, toJiji(raw[key])] as const),
+  ) as Readonly<Record<SamhapFieldKey, Jiji>>;
+  return {
+    members: toJijiSet(raw.members),
+    ...parsedFields,
+  };
+}
+
+const SAMHAP_GROUPS: readonly SamhapGroup[] = SHINSAL_CORE_CATALOG.samhapGroups.map(toSamhapGroup);
 
 const SAMHAP_GROUP_BY_MEMBER: ReadonlyMap<Jiji, SamhapGroup> = indexByMember(
   SAMHAP_GROUPS.map(group => ({ members: group.members, value: group })),
@@ -76,12 +85,11 @@ export interface GosinGwasukEntry {
   readonly gwasuk: Jiji;
 }
 
-const BANGHAP_GOSIN_GWASUK: readonly MemberIndexedEntry<GosinGwasukEntry>[] = [
-  { members: new Set([Jiji.IN, Jiji.MYO, Jiji.JIN]), value: { gosin: Jiji.SA, gwasuk: Jiji.CHUK } },
-  { members: new Set([Jiji.SA, Jiji.O, Jiji.MI]), value: { gosin: Jiji.SIN, gwasuk: Jiji.JIN } },
-  { members: new Set([Jiji.SIN, Jiji.YU, Jiji.SUL]), value: { gosin: Jiji.HAE, gwasuk: Jiji.MI } },
-  { members: new Set([Jiji.HAE, Jiji.JA, Jiji.CHUK]), value: { gosin: Jiji.IN, gwasuk: Jiji.SUL } },
-];
+const BANGHAP_GOSIN_GWASUK: readonly MemberIndexedEntry<GosinGwasukEntry>[] = SHINSAL_CORE_CATALOG.banghapEntries
+  .map((entry) => ({
+    members: toJijiSet(entry.members),
+    value: { gosin: toJiji(entry.gosin), gwasuk: toJiji(entry.gwasuk) },
+  }));
 
 const BANGHAP_ENTRY_BY_MEMBER: ReadonlyMap<Jiji, GosinGwasukEntry> = indexByMember(
   BANGHAP_GOSIN_GWASUK,
@@ -95,17 +103,11 @@ export function pillarKey(stem: Cheongan, branch: Jiji): string {
   return `${stem}:${branch}`;
 }
 
-export const GOEGANG_PILLARS: ReadonlySet<string> = new Set([
-  pillarKey(Cheongan.GYEONG, Jiji.JIN),
-  pillarKey(Cheongan.IM, Jiji.JIN),
-  pillarKey(Cheongan.GYEONG, Jiji.SUL),
-  pillarKey(Cheongan.IM, Jiji.SUL),
-]);
+function buildPillarSet(pairs: readonly (readonly [string, string])[]): ReadonlySet<string> {
+  return new Set(
+    pairs.map(([rawStem, rawBranch]) => pillarKey(toCheongan(rawStem), toJiji(rawBranch))),
+  );
+}
 
-export const GORANSAL_PILLARS: ReadonlySet<string> = new Set([
-  pillarKey(Cheongan.EUL, Jiji.SA),
-  pillarKey(Cheongan.JEONG, Jiji.SA),
-  pillarKey(Cheongan.SIN, Jiji.HAE),
-  pillarKey(Cheongan.MU, Jiji.SIN),
-  pillarKey(Cheongan.IM, Jiji.IN),
-]);
+export const GOEGANG_PILLARS: ReadonlySet<string> = buildPillarSet(SHINSAL_CORE_CATALOG.goegangPillars);
+export const GORANSAL_PILLARS: ReadonlySet<string> = buildPillarSet(SHINSAL_CORE_CATALOG.goransalPillars);

@@ -1,4 +1,5 @@
 import { Ohaeng } from '../domain/Ohaeng.js';
+import { createEnumValueParser } from '../domain/EnumValueParser.js';
 import rawOhaengPracticalGuides from './data/ohaengPracticalGuides.json';
 
 export interface PracticalGuide {
@@ -18,12 +19,7 @@ interface OhaengPracticalGuideData {
 }
 
 const OHAENG_PRACTICAL_GUIDES = rawOhaengPracticalGuides as unknown as OhaengPracticalGuideData;
-const OHAENG_SET: ReadonlySet<Ohaeng> = new Set(Object.values(Ohaeng));
-
-function toOhaeng(raw: string): Ohaeng {
-  if (OHAENG_SET.has(raw as Ohaeng)) return raw as Ohaeng;
-  throw new Error(`Invalid Ohaeng in ohaengPracticalGuides.json: ${raw}`);
-}
+const toOhaeng = createEnumValueParser('Ohaeng', 'ohaengPracticalGuides.json', Ohaeng);
 
 const TABLE: ReadonlyMap<Ohaeng, PracticalGuide> = new Map(
   OHAENG_PRACTICAL_GUIDES.entries.map(([element, guide]) => {

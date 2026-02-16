@@ -231,6 +231,18 @@ describe('YearlyFortuneInterpreter', () => {
       );
       expect(fortune.overview).toContain('대운');
     });
+
+    it('unfavorable quality adds defensive context to overview and domain forecasts', () => {
+      const fortune = buildYearlyFortune(
+        makeMinimalAnalysis(), 2025,
+        new Pillar(Cheongan.GAP, Jiji.JA),
+        makeLPA({ quality: LuckQuality.UNFAVORABLE }),
+        makeMonthlyAnalyses(),
+      );
+      expect(fortune.overview).toContain('손실 관리');
+      expect(fortune.wealthForecast).toContain('손실 제한');
+      expect(fortune.careerForecast).toContain('실수 예방');
+    });
   });
 
   // ── Sipseong-specific forecasts ─────────────────────────────

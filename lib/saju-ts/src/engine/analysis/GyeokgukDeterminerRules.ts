@@ -15,20 +15,20 @@ import { CalculationConfig } from '../../config/CalculationConfig.js';
 import { BANGHAP_GROUPS } from './GyeokgukDeterminerHelpers.js';
 import { buildElementProfile, effectiveOhaeng, ohaengKorean } from './GyeokgukElementProfile.js';
 
+const HAPWHA_GYEOKGUK_BY_OHAENG: Readonly<Record<Ohaeng, GyeokgukType>> = {
+  [Ohaeng.EARTH]: GyeokgukType.HAPWHA_EARTH,
+  [Ohaeng.METAL]: GyeokgukType.HAPWHA_METAL,
+  [Ohaeng.WATER]: GyeokgukType.HAPWHA_WATER,
+  [Ohaeng.WOOD]: GyeokgukType.HAPWHA_WOOD,
+  [Ohaeng.FIRE]: GyeokgukType.HAPWHA_FIRE,
+};
+
 export function checkHwagyeok(
   hapHwaEvaluations: readonly HapHwaEvaluation[],
 ): GyeokgukResult | null {
   const hapwha = hapHwaEvaluations.find(e => e.state === HapState.HAPWHA);
   if (!hapwha) return null;
-
-  let hwagyeokType: GyeokgukType;
-  switch (hapwha.resultOhaeng) {
-    case Ohaeng.EARTH: hwagyeokType = GyeokgukType.HAPWHA_EARTH; break;
-    case Ohaeng.METAL: hwagyeokType = GyeokgukType.HAPWHA_METAL; break;
-    case Ohaeng.WATER: hwagyeokType = GyeokgukType.HAPWHA_WATER; break;
-    case Ohaeng.WOOD:  hwagyeokType = GyeokgukType.HAPWHA_WOOD; break;
-    case Ohaeng.FIRE:  hwagyeokType = GyeokgukType.HAPWHA_FIRE; break;
-  }
+  const hwagyeokType = HAPWHA_GYEOKGUK_BY_OHAENG[hapwha.resultOhaeng];
 
   const s1 = CHEONGAN_INFO[hapwha.stem1];
   const s2 = CHEONGAN_INFO[hapwha.stem2];
@@ -95,16 +95,16 @@ export function checkWeakJong(
   hapHwaEvaluations: readonly HapHwaEvaluation[],
 ): GyeokgukResult | null {
   const profile = buildElementProfile(dayMaster, pillars, hapHwaEvaluations);
-  const hasSelfSupport = profile.bigyeopCount > 0 || profile.inseongCount > 0;
+  if (profile.bigyeopCount > 0 || profile.inseongCount > 0) return null;
 
-  if (!hasSelfSupport && profile.gwanCount >= 3 && profile.siksangCount === 0 && profile.jaeCount === 0) {
+  if (profile.gwanCount >= 3 && profile.siksangCount === 0 && profile.jaeCount === 0) {
     return buildJongResult(GyeokgukType.JONGSAL, strength,
       `극신약 상태에서 관살이 지배적이고 비겁/인성이 없어 종살격으로 판단. ` +
       `(관=${profile.gwanCount}, 식상=${profile.siksangCount}, 재=${profile.jaeCount})`,
       distanceFromThreshold);
   }
 
-  if (!hasSelfSupport && profile.siksangCount >= 3
+  if (profile.siksangCount >= 3
     && profile.siksangCount > profile.gwanCount
     && profile.siksangCount > profile.jaeCount
   ) {
@@ -114,7 +114,7 @@ export function checkWeakJong(
       distanceFromThreshold);
   }
 
-  if (!hasSelfSupport && profile.jaeCount >= 3
+  if (profile.jaeCount >= 3
     && profile.jaeCount > profile.gwanCount
     && profile.jaeCount > profile.siksangCount
   ) {
@@ -125,7 +125,7 @@ export function checkWeakJong(
   }
 
   const opposingTotal = profile.siksangCount + profile.jaeCount + profile.gwanCount;
-  if (!hasSelfSupport && opposingTotal >= 5) {
+  if (opposingTotal >= 5) {
     return buildJongResult(GyeokgukType.JONGSE, strength,
       `극신약 상태에서 식상/재성/관성이 고루 강하고 비겁/인성이 없어 종세격으로 판단. ` +
       `(식상=${profile.siksangCount}, 재=${profile.jaeCount}, 관=${profile.gwanCount})`,
@@ -200,4 +200,3 @@ export function checkIlhaengDeukgi(
     formation: null,
   };
 }
-
