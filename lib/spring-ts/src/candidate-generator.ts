@@ -134,11 +134,14 @@ export async function buildStrokeBasedPools(
   );
 
   const pools = new Map<number, HanjaEntry[]>();
+  const seenHanja = new Set<string>();
 
   for (const hanjaEntry of allHanja) {
     if (hanjaEntry.is_surname) continue;
     if (!neededStrokes.has(hanjaEntry.strokes)) continue;
     if (avoidElements.has(hanjaEntry.resource_element)) continue;
+    if (seenHanja.has(hanjaEntry.hanja)) continue;
+    seenHanja.add(hanjaEntry.hanja);
 
     let bucket = pools.get(hanjaEntry.strokes);
     if (!bucket) {
@@ -166,8 +169,14 @@ export async function buildJamoBasedPools(
   targetElements: Set<string>,
   avoidElements: Set<string>,
 ): Promise<Map<number, HanjaEntry[]>> {
+  const seenHanja = new Set<string>();
   const fullPool = (await hanjaRepo.findByStrokeRange(STROKE_MIN, STROKE_MAX))
-    .filter(entry => !entry.is_surname && !avoidElements.has(entry.resource_element));
+    .filter(entry => {
+      if (entry.is_surname || avoidElements.has(entry.resource_element)) return false;
+      if (seenHanja.has(entry.hanja)) return false;
+      seenHanja.add(entry.hanja);
+      return true;
+    });
 
   const pools = new Map<number, HanjaEntry[]>();
 
