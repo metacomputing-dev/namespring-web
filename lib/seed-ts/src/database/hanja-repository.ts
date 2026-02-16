@@ -1,4 +1,5 @@
 import initSqlJs, { type Database } from 'sql.js';
+import { resolvePublicAssetUrl } from './runtime-url.js';
 
 export interface HanjaEntry {
   readonly id: number;
@@ -20,8 +21,8 @@ export interface HanjaEntry {
  */
 export class HanjaRepository {
   private db: Database | null = null;
-  // Public URL for the database file in Vite project
-  private readonly dbUrl: string = '/data/hanja.db'; 
+  // Public URL for the database file
+  private readonly dbUrl: string = resolvePublicAssetUrl('data/hanja.db');
   // WASM binary location (using CDN for simplicity, or can be local in public/)
   private readonly wasmUrl: string = 'https://sql.js.org/dist/sql-wasm.wasm';
 

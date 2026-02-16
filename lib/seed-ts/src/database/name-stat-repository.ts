@@ -1,4 +1,5 @@
 import initSqlJs, { type Database, type SqlJsStatic } from 'sql.js';
+import { resolvePublicAssetUrl } from './runtime-url.js';
 
 export interface NameStatEntry {
   readonly name: string;
@@ -29,7 +30,7 @@ type ShardKey =
  */
 export class NameStatRepository {
   private readonly wasmUrl: string = 'https://sql.js.org/dist/sql-wasm.wasm';
-  private readonly shardBaseUrl: string = '/data/name-stat-shards';
+  private readonly shardBaseUrl: string = resolvePublicAssetUrl('data/name-stat-shards');
   private sqlInstance: SqlJsStatic | null = null;
   private readonly dbByShard = new Map<ShardKey, Database>();
 

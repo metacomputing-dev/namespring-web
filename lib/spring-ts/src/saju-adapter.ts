@@ -88,14 +88,30 @@ type SajuModule = {
 
 let sajuModule: SajuModule | null = null;
 
+function buildSajuModuleCandidates(): string[] {
+  const configuredDistPath = SAJU_MODULE_PATH.replace('/src/', '/dist/').replace(/\.ts$/i, '.js');
+  const staticPublicPath = 'saju-ts/index.js';
+  const raw = [staticPublicPath, SAJU_MODULE_PATH, configuredDistPath];
+
+  if (typeof document === 'undefined' || !document.baseURI) {
+    return Array.from(new Set(raw));
+  }
+
+  const withAbsolute = raw.flatMap((modulePath) => {
+    try {
+      return [modulePath, new URL(modulePath, document.baseURI).toString()];
+    } catch {
+      return [modulePath];
+    }
+  });
+  return Array.from(new Set(withAbsolute));
+}
+
 async function loadSajuModule(): Promise<SajuModule | null> {
   if (sajuModule) return sajuModule;
 
-  // Try the configured path first, then fall back to dist/ (built output).
-  const candidates = [
-    SAJU_MODULE_PATH,
-    SAJU_MODULE_PATH.replace('/src/', '/dist/').replace(/\.ts$/i, '.js'),
-  ];
+  // 1) public/saju-ts/index.js (for static deploy), 2) configured dev path.
+  const candidates = buildSajuModuleCandidates();
 
   for (const modulePath of candidates) {
     try {

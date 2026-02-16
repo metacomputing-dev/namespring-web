@@ -2,8 +2,14 @@ import { defineConfig } from 'vite'
 import react from '@vitejs/plugin-react'
 import path from 'path'
 
+const explicitBase = process.env.VITE_BASE_PATH
+const repoNameFromCi = process.env.GITHUB_REPOSITORY?.split('/')[1]
+const ciBase = repoNameFromCi ? `/${repoNameFromCi}/` : '/'
+const base = explicitBase || (process.env.GITHUB_ACTIONS ? ciBase : '/')
+
 // https://vite.dev/config/
 export default defineConfig({
+  base,
   plugins: [react()],
   resolve: {
     alias: {

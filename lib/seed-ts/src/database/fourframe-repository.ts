@@ -1,4 +1,5 @@
 import initSqlJs, { type Database } from 'sql.js';
+import { resolvePublicAssetUrl } from './runtime-url.js';
 
 export interface FourframeMeaningEntry {
   readonly id: number;
@@ -23,7 +24,7 @@ export interface FourframeMeaningEntry {
  */
 export class FourframeRepository {
   private db: Database | null = null;
-  private readonly dbUrl: string = '/data/fourframe.db';
+  private readonly dbUrl: string = resolvePublicAssetUrl('data/fourframe.db');
   private readonly wasmUrl: string = 'https://sql.js.org/dist/sql-wasm.wasm';
 
   public async init(): Promise<void> {
