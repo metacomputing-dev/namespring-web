@@ -849,7 +849,7 @@
             "BYEONG",
             "IM"
           ],
-          "resultOhaeng": null,
+          "resultElement": null,
           "note": "병임충"
         },
         "hapHwaEvaluation": null,
@@ -933,7 +933,7 @@
     "gyeokgukResult": {
       "type": "SIKSIN",
       "category": "NAEGYEOK",
-      "baseSipseong": "SIK_SIN",
+      "baseTenGod": "SIK_SIN",
       "confidence": 0.9,
       "reasoning": "일간 계(癸) 기준, 월지 진(辰)의 여기(餘氣) 을(乙)이(가) 천간에 투출(透出)하여 식신(食神)이므로 식신격(食神格)으로 판단.",
       "formation": {
@@ -1557,7 +1557,7 @@
         "domain": "부모, 조상, 어린 시절 환경",
         "agePeriod": "1~15세",
         "bodyPart": "머리/두뇌",
-        "sipseong": "JEONG_JAE",
+        "tenGod": "JEONG_JAE",
         "familyRelation": "[object Object]"
       },
       "MONTH": {
@@ -1566,7 +1566,7 @@
         "domain": "형제, 사회생활, 직업",
         "agePeriod": "16~30세",
         "bodyPart": "가슴/어깨",
-        "sipseong": "GYEOB_JAE",
+        "tenGod": "GYEOB_JAE",
         "familyRelation": "[object Object]"
       },
       "DAY": {
@@ -1575,7 +1575,7 @@
         "domain": "배우자, 내면, 중년",
         "agePeriod": "31~45세",
         "bodyPart": "배/허리",
-        "sipseong": null,
+        "tenGod": null,
         "familyRelation": null
       },
       "HOUR": {
@@ -1584,7 +1584,7 @@
         "domain": "자녀, 말년, 결과",
         "agePeriod": "46세~",
         "bodyPart": "다리/발",
-        "sipseong": "SIK_SIN",
+        "tenGod": "SIK_SIN",
         "familyRelation": "[object Object]"
       }
     },
@@ -1705,7 +1705,7 @@
         "branch": "HAE"
       }
     ],
-    "ohaengDistribution": {
+    "elementDistribution": {
       "WOOD": 3,
       "FIRE": 2,
       "EARTH": 1,
@@ -2118,8 +2118,8 @@
       "dayMaster": "GYE",
       "byPosition": {
         "YEAR": {
-          "cheonganSipseong": "JEONG_JAE",
-          "jijiPrincipalSipseong": "SANG_GWAN",
+          "cheonganTenGod": "JEONG_JAE",
+          "jijiPrincipalTenGod": "SANG_GWAN",
           "hiddenStems": [
             {
               "stem": "MU",
@@ -2137,24 +2137,24 @@
               "ratio": 0.5333333333333333
             }
           ],
-          "hiddenStemSipseong": [
+          "hiddenStemTenGod": [
             {
               "stem": "MU",
-              "sipseong": "JEONG_GWAN"
+              "tenGod": "JEONG_GWAN"
             },
             {
               "stem": "BYEONG",
-              "sipseong": "JEONG_JAE"
+              "tenGod": "JEONG_JAE"
             },
             {
               "stem": "GAP",
-              "sipseong": "SANG_GWAN"
+              "tenGod": "SANG_GWAN"
             }
           ]
         },
         "MONTH": {
-          "cheonganSipseong": "GYEOB_JAE",
-          "jijiPrincipalSipseong": "JEONG_GWAN",
+          "cheonganTenGod": "GYEOB_JAE",
+          "jijiPrincipalTenGod": "JEONG_GWAN",
           "hiddenStems": [
             {
               "stem": "EUL",
@@ -2172,24 +2172,24 @@
               "ratio": 0.6
             }
           ],
-          "hiddenStemSipseong": [
+          "hiddenStemTenGod": [
             {
               "stem": "EUL",
-              "sipseong": "SIK_SIN"
+              "tenGod": "SIK_SIN"
             },
             {
               "stem": "GYE",
-              "sipseong": "BI_GYEON"
+              "tenGod": "BI_GYEON"
             },
             {
               "stem": "MU",
-              "sipseong": "JEONG_GWAN"
+              "tenGod": "JEONG_GWAN"
             }
           ]
         },
         "DAY": {
-          "cheonganSipseong": "BI_GYEON",
-          "jijiPrincipalSipseong": "JEONG_JAE",
+          "cheonganTenGod": "BI_GYEON",
+          "jijiPrincipalTenGod": "JEONG_JAE",
           "hiddenStems": [
             {
               "stem": "MU",
@@ -2207,24 +2207,24 @@
               "ratio": 0.5333333333333333
             }
           ],
-          "hiddenStemSipseong": [
+          "hiddenStemTenGod": [
             {
               "stem": "MU",
-              "sipseong": "JEONG_GWAN"
+              "tenGod": "JEONG_GWAN"
             },
             {
               "stem": "GYEONG",
-              "sipseong": "JEONG_IN"
+              "tenGod": "JEONG_IN"
             },
             {
               "stem": "BYEONG",
-              "sipseong": "JEONG_JAE"
+              "tenGod": "JEONG_JAE"
             }
           ]
         },
         "HOUR": {
-          "cheonganSipseong": "SIK_SIN",
-          "jijiPrincipalSipseong": "SIK_SIN",
+          "cheonganTenGod": "SIK_SIN",
+          "jijiPrincipalTenGod": "SIK_SIN",
           "hiddenStems": [
             {
               "stem": "GAP",
@@ -2237,14 +2237,14 @@
               "ratio": 0.6666666666666666
             }
           ],
-          "hiddenStemSipseong": [
+          "hiddenStemTenGod": [
             {
               "stem": "GAP",
-              "sipseong": "SANG_GWAN"
+              "tenGod": "SANG_GWAN"
             },
             {
               "stem": "EUL",
-              "sipseong": "SIK_SIN"
+              "tenGod": "SIK_SIN"
             }
           ]
         }
@@ -2312,7 +2312,7 @@
       "gyeokguk": {
         "type": "SIKSIN",
         "category": "NAEGYEOK",
-        "baseSipseong": "SIK_SIN",
+        "baseTenGod": "SIK_SIN",
         "confidence": 0.9,
         "reasoning": "일간 계(癸) 기준, 월지 진(辰)의 여기(餘氣) 을(乙)이(가) 천간에 투출(透出)하여 식신(食神)이므로 식신격(食神格)으로 판단.",
         "formation": {
@@ -2926,9 +2926,9 @@
             "cheonganAspect": "외부적/사회적 측면",
             "jijiAspect": "내부적/가정적 측면"
           },
-          "sipseong": "JEONG_JAE",
+          "tenGod": "JEONG_JAE",
           "familyRelation": {
-            "sipseong": "JEONG_JAE",
+            "tenGod": "JEONG_JAE",
             "gender": "MALE",
             "familyMember": "아내",
             "hanja": "妻"
@@ -2949,9 +2949,9 @@
             "cheonganAspect": "외부적/사회적 측면",
             "jijiAspect": "내부적/가정적 측면"
           },
-          "sipseong": "GYEOB_JAE",
+          "tenGod": "GYEOB_JAE",
           "familyRelation": {
-            "sipseong": "GYEOB_JAE",
+            "tenGod": "GYEOB_JAE",
             "gender": "MALE",
             "familyMember": "이복형제",
             "hanja": "異腹兄弟"
@@ -2972,7 +2972,7 @@
             "cheonganAspect": "나 자신 (일간)",
             "jijiAspect": "배우자"
           },
-          "sipseong": null,
+          "tenGod": null,
           "familyRelation": null,
           "interpretation": null
         },
@@ -2986,9 +2986,9 @@
             "cheonganAspect": "외부적/사회적 측면",
             "jijiAspect": "내부적/가정적 측면"
           },
-          "sipseong": "SIK_SIN",
+          "tenGod": "SIK_SIN",
           "familyRelation": {
-            "sipseong": "SIK_SIN",
+            "tenGod": "SIK_SIN",
             "gender": "MALE",
             "familyMember": "장모",
             "hanja": "丈母"
@@ -3160,7 +3160,7 @@
             "BYEONG",
             "IM"
           ],
-          "resultOhaeng": null,
+          "resultElement": null,
           "note": "병임충"
         }
       ],
@@ -3302,7 +3302,7 @@
               "BYEONG",
               "IM"
             ],
-            "resultOhaeng": null,
+            "resultElement": null,
             "note": "병임충"
           },
           "hapHwaEvaluation": null,
@@ -3717,7 +3717,7 @@
           "confidence": 95
         }
       ],
-      "ohaengDistribution": {
+      "elementDistribution": {
         "WOOD": 3,
         "FIRE": 2,
         "EARTH": 1,
@@ -3728,8 +3728,8 @@
         "dayMaster": "GYE",
         "byPosition": {
           "YEAR": {
-            "cheonganSipseong": "JEONG_JAE",
-            "jijiPrincipalSipseong": "SANG_GWAN",
+            "cheonganTenGod": "JEONG_JAE",
+            "jijiPrincipalTenGod": "SANG_GWAN",
             "hiddenStems": [
               {
                 "stem": "MU",
@@ -3747,14 +3747,14 @@
                 "days": 16
               }
             ],
-            "hiddenStemSipseong": [
+            "hiddenStemTenGod": [
               {
                 "entry": {
                   "stem": "MU",
                   "role": "YEOGI",
                   "days": 7
                 },
-                "sipseong": "JEONG_GWAN"
+                "tenGod": "JEONG_GWAN"
               },
               {
                 "entry": {
@@ -3762,7 +3762,7 @@
                   "role": "JUNGGI",
                   "days": 7
                 },
-                "sipseong": "JEONG_JAE"
+                "tenGod": "JEONG_JAE"
               },
               {
                 "entry": {
@@ -3770,13 +3770,13 @@
                   "role": "JEONGGI",
                   "days": 16
                 },
-                "sipseong": "SANG_GWAN"
+                "tenGod": "SANG_GWAN"
               }
             ]
           },
           "MONTH": {
-            "cheonganSipseong": "GYEOB_JAE",
-            "jijiPrincipalSipseong": "JEONG_GWAN",
+            "cheonganTenGod": "GYEOB_JAE",
+            "jijiPrincipalTenGod": "JEONG_GWAN",
             "hiddenStems": [
               {
                 "stem": "EUL",
@@ -3794,14 +3794,14 @@
                 "days": 18
               }
             ],
-            "hiddenStemSipseong": [
+            "hiddenStemTenGod": [
               {
                 "entry": {
                   "stem": "EUL",
                   "role": "YEOGI",
                   "days": 9
                 },
-                "sipseong": "SIK_SIN"
+                "tenGod": "SIK_SIN"
               },
               {
                 "entry": {
@@ -3809,7 +3809,7 @@
                   "role": "JUNGGI",
                   "days": 3
                 },
-                "sipseong": "BI_GYEON"
+                "tenGod": "BI_GYEON"
               },
               {
                 "entry": {
@@ -3817,13 +3817,13 @@
                   "role": "JEONGGI",
                   "days": 18
                 },
-                "sipseong": "JEONG_GWAN"
+                "tenGod": "JEONG_GWAN"
               }
             ]
           },
           "DAY": {
-            "cheonganSipseong": "BI_GYEON",
-            "jijiPrincipalSipseong": "JEONG_JAE",
+            "cheonganTenGod": "BI_GYEON",
+            "jijiPrincipalTenGod": "JEONG_JAE",
             "hiddenStems": [
               {
                 "stem": "MU",
@@ -3841,14 +3841,14 @@
                 "days": 16
               }
             ],
-            "hiddenStemSipseong": [
+            "hiddenStemTenGod": [
               {
                 "entry": {
                   "stem": "MU",
                   "role": "YEOGI",
                   "days": 7
                 },
-                "sipseong": "JEONG_GWAN"
+                "tenGod": "JEONG_GWAN"
               },
               {
                 "entry": {
@@ -3856,7 +3856,7 @@
                   "role": "JUNGGI",
                   "days": 7
                 },
-                "sipseong": "JEONG_IN"
+                "tenGod": "JEONG_IN"
               },
               {
                 "entry": {
@@ -3864,13 +3864,13 @@
                   "role": "JEONGGI",
                   "days": 16
                 },
-                "sipseong": "JEONG_JAE"
+                "tenGod": "JEONG_JAE"
               }
             ]
           },
           "HOUR": {
-            "cheonganSipseong": "SIK_SIN",
-            "jijiPrincipalSipseong": "SIK_SIN",
+            "cheonganTenGod": "SIK_SIN",
+            "jijiPrincipalTenGod": "SIK_SIN",
             "hiddenStems": [
               {
                 "stem": "GAP",
@@ -3883,14 +3883,14 @@
                 "days": 20
               }
             ],
-            "hiddenStemSipseong": [
+            "hiddenStemTenGod": [
               {
                 "entry": {
                   "stem": "GAP",
                   "role": "YEOGI",
                   "days": 10
                 },
-                "sipseong": "SANG_GWAN"
+                "tenGod": "SANG_GWAN"
               },
               {
                 "entry": {
@@ -3898,7 +3898,7 @@
                   "role": "JEONGGI",
                   "days": 20
                 },
-                "sipseong": "SIK_SIN"
+                "tenGod": "SIK_SIN"
               }
             ]
           }
@@ -4087,7 +4087,7 @@
     "gyeokguk": {
       "type": "SIKSIN",
       "category": "NAEGYEOK",
-      "baseSipseong": "SIK_SIN",
+      "baseTenGod": "SIK_SIN",
       "confidence": 0.9,
       "reasoning": "일간 계(癸) 기준, 월지 진(辰)의 여기(餘氣) 을(乙)이(가) 천간에 투출(透出)하여 식신(食神)이므로 식신격(食神格)으로 판단."
     },

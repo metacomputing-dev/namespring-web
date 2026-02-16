@@ -1,3 +1,12 @@
+// ---------------------------------------------------------------------------
+// SpringEngine -- the main naming-recommendation engine.
+//
+// Public API:
+//   init()    -- load database and precompute lucky number tables
+//   analyze() -- score/recommend given-name candidates for a surname + birth
+//   close()   -- release database resources
+// ---------------------------------------------------------------------------
+
 import { HanjaRepository, type HanjaEntry } from '../../name-ts/src/database/hanja-repository.js';
 import { FourframeRepository } from '../../name-ts/src/database/fourframe-repository.js';
 import { Polarity } from '../../name-ts/src/model/polarity.js';
@@ -16,16 +25,54 @@ import type {
   SpringRequest, SpringResponse, SpringCandidate, SajuSummary,
   NameCharInput, CharDetail,
 } from './types.js';
+import engineConfig from '../config/engine.json';
 
-const MAX_CANDIDATES = 500;
+// ---------------------------------------------------------------------------
+// Config -- all tuneable numbers come from engine.json
+// ---------------------------------------------------------------------------
 
-function toCharDetail(e: HanjaEntry): CharDetail {
+const MAX_CANDIDATES            = engineConfig.maxCandidates;
+const POOL_LIMIT_SINGLE_CHAR    = engineConfig.candidatePoolLimits.singleCharPerStroke;
+const POOL_LIMIT_DOUBLE_CHAR    = engineConfig.candidatePoolLimits.doubleCharPerPosition;
+const POOL_LIMIT_JAMO_FILTERED  = engineConfig.candidatePoolLimits.jamoFilteredPerPosition;
+const STROKE_MIN                = engineConfig.strokeRange.min;
+const STROKE_MAX                = engineConfig.strokeRange.max;
+const DEFAULT_OFFSET            = engineConfig.pagination.defaultOffset;
+const DEFAULT_LIMIT             = engineConfig.pagination.defaultLimit;
+const FOURFRAME_LOAD_LIMIT      = engineConfig.fourframeLoadLimit;
+const LUCKY_LEVEL_KEYWORDS      = engineConfig.luckyLevelKeywords;
+const DEFAULT_TARGET_ELEMENT    = engineConfig.defaultTargetElement;
+const ENGINE_VERSION            = engineConfig.version;
+
+// ---------------------------------------------------------------------------
+// Helpers
+// ---------------------------------------------------------------------------
+
+/** Convert a HanjaEntry into the public CharDetail shape. */
+function toCharDetail(entry: HanjaEntry): CharDetail {
   return {
-    hangul: e.hangul, hanja: e.hanja, meaning: e.meaning,
-    strokes: e.strokes, element: e.resource_element,
-    polarity: Polarity.get(e.strokes).english
+    hangul:   entry.hangul,
+    hanja:    entry.hanja,
+    meaning:  entry.meaning,
+    strokes:  entry.strokes,
+    element:  entry.resource_element,
+    polarity: Polarity.get(entry.strokes).english,
   };
 }
+
+/** Round a score to one decimal place. */
+function roundScore(value: number): number {
+  return Math.round(value * 10) / 10;
+}
+
+/** Convert a HanjaEntry into the minimal NameCharInput shape. */
+function toNameCharInput(entry: HanjaEntry): NameCharInput {
+  return { hangul: entry.hangul, hanja: entry.hanja };
+}
+
+// ---------------------------------------------------------------------------
+// SpringEngine
+// ---------------------------------------------------------------------------
 
 export class SpringEngine {
   private hanjaRepo = new HanjaRepository();
@@ -35,195 +82,555 @@ export class SpringEngine {
   private validFourFrameNumbers = new Set<number>();
   private optimizer: FourFrameOptimizer | null = null;
 
+  // -------------------------------------------------------------------------
+  // init -- three-step bootstrap
+  // -------------------------------------------------------------------------
+
   async init() {
     if (this.initialized) return;
+
+    // Step 1: Open both database repositories in parallel
     await Promise.all([this.hanjaRepo.init(), this.fourFrameRepo.init()]);
-    for (const e of await this.fourFrameRepo.findAll(81)) {
-      const lv = e.lucky_level ?? '';
-      this.luckyMap.set(e.number, lv);
-      if (lv.includes('최상') || lv.includes('상') || lv.includes('양'))
-        this.validFourFrameNumbers.add(e.number);
-    }
+
+    // Step 2: Load four-frame fortune data and build the lucky-number set
+    await this.buildLuckyNumberSet();
+
+    // Step 3: Create the four-frame optimizer used for candidate generation
     this.optimizer = new FourFrameOptimizer(this.validFourFrameNumbers);
+
     this.initialized = true;
   }
 
+  /** Scan all four-frame records and classify each by its lucky level. */
+  private async buildLuckyNumberSet(): Promise<void> {
+    const allRecords = await this.fourFrameRepo.findAll(FOURFRAME_LOAD_LIMIT);
+
+    for (const record of allRecords) {
+      const luckyLevel = record.lucky_level ?? '';
+      this.luckyMap.set(record.number, luckyLevel);
+
+      const isLucky = LUCKY_LEVEL_KEYWORDS.some(keyword => luckyLevel.includes(keyword));
+      if (isLucky) {
+        this.validFourFrameNumbers.add(record.number);
+      }
+    }
+  }
+
+  // -------------------------------------------------------------------------
+  // analyze -- the main public entry point
+  // -------------------------------------------------------------------------
+
   async analyze(request: SpringRequest): Promise<SpringResponse> {
     await this.init();
-    const jamoFilters = request.givenName?.map(c => c.hanja ? null : parseJamoFilter(c.hangul));
-    const isJamoInput = jamoFilters?.some(f => f !== null) ?? false;
-    const mode = request.mode && request.mode !== 'auto' ? request.mode : (request.givenName?.length && request.givenName.every(c => c.hanja) ? 'evaluate' : 'recommend');
-    const sajuSummary = await analyzeSaju(request.birth, request.options);
-    const { dist, output } = buildSajuContext(sajuSummary);
 
-    let inputs: NameCharInput[][];
-    if (mode === 'evaluate' && request.givenName?.length && !isJamoInput) {
-      inputs = [request.givenName];
-    } else if (mode === 'recommend' || mode === 'all' || isJamoInput) {
-      inputs = await this.generateCandidates(request, sajuSummary, isJamoInput ? jamoFilters! : undefined);
-      if (request.givenName?.length && !isJamoInput) inputs.unshift(request.givenName);
-    } else {
-      inputs = request.givenName?.length ? [request.givenName] : [];
+    // 1. Determine the operating mode
+    const jamoFilters = request.givenName?.map(
+      char => char.hanja ? null : parseJamoFilter(char.hangul),
+    );
+    const hasJamoInput = jamoFilters?.some(filter => filter !== null) ?? false;
+    const mode = this.resolveMode(request, hasJamoInput);
+
+    // 2. Run saju (four-pillar destiny) analysis on the birth data
+    const sajuSummary = await analyzeSaju(request.birth, request.options);
+    const { dist: sajuDistribution, output: sajuOutput } = buildSajuContext(sajuSummary);
+
+    // 3. Build the list of name inputs to score
+    const nameInputs = await this.collectNameInputs(
+      request, mode, hasJamoInput, jamoFilters, sajuSummary,
+    );
+
+    // 4. Score every candidate and rank by total score (descending)
+    const scoredCandidates = await this.scoreAllCandidates(
+      request.surname, nameInputs, sajuDistribution, sajuOutput,
+    );
+
+    // 5. Paginate and return
+    return this.buildResponse(request, mode, sajuSummary, scoredCandidates);
+  }
+
+  // -------------------------------------------------------------------------
+  // analyze() helper -- resolve which mode to use
+  // -------------------------------------------------------------------------
+
+  private resolveMode(
+    request: SpringRequest,
+    hasJamoInput: boolean,
+  ): 'evaluate' | 'recommend' | 'all' {
+    if (request.mode && request.mode !== 'auto') return request.mode;
+
+    // Auto-detect: if every given-name character has an explicit hanja,
+    // the user wants an evaluation; otherwise, generate recommendations.
+    const allHaveHanja = request.givenName?.length
+      && request.givenName.every(char => char.hanja);
+
+    return allHaveHanja && !hasJamoInput ? 'evaluate' : 'recommend';
+  }
+
+  // -------------------------------------------------------------------------
+  // analyze() helper -- gather name inputs depending on mode
+  // -------------------------------------------------------------------------
+
+  private async collectNameInputs(
+    request: SpringRequest,
+    mode: 'evaluate' | 'recommend' | 'all',
+    hasJamoInput: boolean,
+    jamoFilters: (JamoFilter | null)[] | undefined,
+    sajuSummary: SajuSummary,
+  ): Promise<NameCharInput[][]> {
+    const hasExplicitGivenName = request.givenName?.length && !hasJamoInput;
+
+    // Evaluate mode with a fully specified name -- just score it directly
+    if (mode === 'evaluate' && hasExplicitGivenName) {
+      return [request.givenName!];
     }
 
-    const scored: SpringCandidate[] = [];
-    for (const gn of inputs) scored.push(await this.scoreCandidate(request.surname, gn, dist, output));
-    scored.sort((a, b) => b.scores.total - a.scores.total);
+    // Recommend or all mode -- generate candidates
+    if (mode === 'recommend' || mode === 'all' || hasJamoInput) {
+      const candidates = await this.generateCandidates(
+        request,
+        sajuSummary,
+        hasJamoInput ? jamoFilters! : undefined,
+      );
 
-    const offset = request.options?.offset ?? 0;
-    const limit = request.options?.limit ?? 20;
+      // If the user also supplied an explicit name, prepend it
+      if (hasExplicitGivenName) {
+        candidates.unshift(request.givenName!);
+      }
+
+      return candidates;
+    }
+
+    // Fallback: just the explicit name, or nothing
+    return request.givenName?.length ? [request.givenName] : [];
+  }
+
+  // -------------------------------------------------------------------------
+  // analyze() helper -- score all candidates and sort
+  // -------------------------------------------------------------------------
+
+  private async scoreAllCandidates(
+    surname: NameCharInput[],
+    nameInputs: NameCharInput[][],
+    sajuDistribution: Record<ElementKey, number>,
+    sajuOutput: SajuOutputSummary | null,
+  ): Promise<SpringCandidate[]> {
+    const scored: SpringCandidate[] = [];
+
+    for (const givenNameInput of nameInputs) {
+      scored.push(
+        await this.scoreCandidate(surname, givenNameInput, sajuDistribution, sajuOutput),
+      );
+    }
+
+    scored.sort((a, b) => b.scores.total - a.scores.total);
+    return scored;
+  }
+
+  // -------------------------------------------------------------------------
+  // analyze() helper -- paginate and assemble the final response
+  // -------------------------------------------------------------------------
+
+  private buildResponse(
+    request: SpringRequest,
+    mode: 'evaluate' | 'recommend' | 'all',
+    sajuSummary: SajuSummary,
+    scoredCandidates: SpringCandidate[],
+  ): SpringResponse {
+    const offset = request.options?.offset ?? DEFAULT_OFFSET;
+    const limit  = request.options?.limit  ?? DEFAULT_LIMIT;
+
+    const page = scoredCandidates
+      .slice(offset, offset + limit)
+      .map((candidate, index) => ({ ...candidate, rank: offset + index + 1 }));
+
     return {
-      request, mode, saju: sajuSummary,
-      candidates: scored.slice(offset, offset + limit).map((c, i) => ({ ...c, rank: offset + i + 1 })),
-      totalCount: scored.length,
-      meta: { version: '2.0.0', timestamp: new Date().toISOString() }
+      request,
+      mode,
+      saju: sajuSummary,
+      candidates: page,
+      totalCount: scoredCandidates.length,
+      meta: { version: ENGINE_VERSION, timestamp: new Date().toISOString() },
     };
   }
+
+  // -------------------------------------------------------------------------
+  // scoreCandidate -- evaluate one surname + given-name combination
+  // -------------------------------------------------------------------------
 
   private async scoreCandidate(
-    surname: NameCharInput[], givenName: NameCharInput[],
-    sajuDist: Record<ElementKey, number>, sajuOutput: SajuOutputSummary | null
+    surname: NameCharInput[],
+    givenName: NameCharInput[],
+    sajuDistribution: Record<ElementKey, number>,
+    sajuOutput: SajuOutputSummary | null,
   ): Promise<SpringCandidate> {
-    const se = await this.resolveEntries(surname);
-    const ge = await this.resolveEntries(givenName);
-    const hangul = new HangulCalculator(se, ge);
-    const hanja = new HanjaCalculator(se, ge);
-    const frame = new FrameCalculator(se, ge);
-    const saju = new SajuCalculator(se, ge, sajuDist, sajuOutput);
-    const ctx: EvalContext = {
-      surnameLength: se.length, givenLength: ge.length,
-      luckyMap: this.luckyMap, insights: {}
+    const surnameEntries   = await this.resolveEntries(surname);
+    const givenNameEntries = await this.resolveEntries(givenName);
+
+    // Build one calculator per scoring category
+    const hangul = new HangulCalculator(surnameEntries, givenNameEntries);
+    const hanja  = new HanjaCalculator(surnameEntries, givenNameEntries);
+    const frame  = new FrameCalculator(surnameEntries, givenNameEntries);
+    const saju   = new SajuCalculator(surnameEntries, givenNameEntries, sajuDistribution, sajuOutput);
+
+    // Evaluate all calculators together
+    const evalContext: EvalContext = {
+      surnameLength: surnameEntries.length,
+      givenLength:   givenNameEntries.length,
+      luckyMap:      this.luckyMap,
+      insights:      {},
     };
-    const ev = springEvaluateName([hangul, hanja, frame, saju], ctx);
-    const cm = ev.categoryMap;
-    const r = (v: number) => Math.round(v * 10) / 10;
+
+    const evaluationResult = springEvaluateName([hangul, hanja, frame, saju], evalContext);
+    const categoryMap      = evaluationResult.categoryMap;
+
+    // Assemble the full name strings
+    const allEntries  = [...surnameEntries, ...givenNameEntries];
+    const fullHangul  = allEntries.map(entry => entry.hangul).join('');
+    const fullHanja   = allEntries.map(entry => entry.hanja).join('');
+
+    // Compute category sub-scores (average of related frames)
+    const hangulScore = roundScore(
+      ((categoryMap.HANGUL_ELEMENT?.score ?? 0) + (categoryMap.HANGUL_POLARITY?.score ?? 0)) / 2,
+    );
+    const hanjaScore = roundScore(
+      ((categoryMap.STROKE_POLARITY?.score ?? 0) + (categoryMap.FOURFRAME_ELEMENT?.score ?? 0)) / 2,
+    );
+
     return {
       name: {
-        surname: se.map(toCharDetail), givenName: ge.map(toCharDetail),
-        fullHangul: [...se, ...ge].map(e => e.hangul).join(''), fullHanja: [...se, ...ge].map(e => e.hanja).join('')
+        surname:    surnameEntries.map(toCharDetail),
+        givenName:  givenNameEntries.map(toCharDetail),
+        fullHangul,
+        fullHanja,
       },
       scores: {
-        total: r(ev.score),
-        hangul: r(((cm.HANGUL_ELEMENT?.score ?? 0) + (cm.HANGUL_POLARITY?.score ?? 0)) / 2),
-        hanja: r(((cm.STROKE_POLARITY?.score ?? 0) + (cm.FOURFRAME_ELEMENT?.score ?? 0)) / 2),
-        fourFrame: r(cm.FOURFRAME_LUCK?.score ?? 0),
-        saju: r(cm[SAJU_FRAME]?.score ?? 0)
+        total:     roundScore(evaluationResult.score),
+        hangul:    hangulScore,
+        hanja:     hanjaScore,
+        fourFrame: roundScore(categoryMap.FOURFRAME_LUCK?.score ?? 0),
+        saju:      roundScore(categoryMap[SAJU_FRAME]?.score ?? 0),
       },
       analysis: {
-        hangul: hangul.getAnalysis().data, hanja: hanja.getAnalysis().data,
-        fourFrame: frame.getAnalysis().data, saju: saju.getAnalysis().data
+        hangul:    hangul.getAnalysis().data,
+        hanja:     hanja.getAnalysis().data,
+        fourFrame: frame.getAnalysis().data,
+        saju:      saju.getAnalysis().data,
       },
-      interpretation: buildInterpretation(ev), rank: 0
+      interpretation: buildInterpretation(evaluationResult),
+      rank: 0,
     };
   }
 
-  private async generateCandidates(req: SpringRequest, saju: SajuSummary, jamoFilters?: (JamoFilter | null)[]): Promise<NameCharInput[][]> {
-    const se = await this.resolveEntries(req.surname);
-    const nameLen = req.givenNameLength ?? jamoFilters?.length ?? 2;
-    const hasJamo = jamoFilters?.some(f => f !== null) ?? false;
-    const targets = collectElements(saju.yongshin.element, saju.yongshin.heeshin, saju.deficientElements);
-    const avoids = collectElements(saju.yongshin.gishin, saju.yongshin.gushin, saju.excessiveElements);
-    if (targets.size === 0) targets.add('Wood');
+  // -------------------------------------------------------------------------
+  // generateCandidates -- produce an array of name-char combinations
+  //
+  // Two strategies depending on input:
+  //   1. Stroke-based (no jamo filter, 1-2 char names):
+  //      Uses the FourFrameOptimizer to find stroke combinations that
+  //      produce lucky four-frame numbers, then picks hanja per stroke.
+  //   2. Jamo-based (jamo filter present, or 3+ char names):
+  //      Builds per-position pools and explores all combinations via DFS.
+  // -------------------------------------------------------------------------
 
-    const inp = (c: HanjaEntry): NameCharInput => ({ hangul: c.hangul, hanja: c.hanja });
+  private async generateCandidates(
+    request: SpringRequest,
+    sajuSummary: SajuSummary,
+    jamoFilters?: (JamoFilter | null)[],
+  ): Promise<NameCharInput[][]> {
+    const surnameEntries = await this.resolveEntries(request.surname);
+    const nameLength     = request.givenNameLength ?? jamoFilters?.length ?? 2;
+    const hasJamoFilter  = jamoFilters?.some(filter => filter !== null) ?? false;
 
-    const pools = await this.buildPositionPools(req, nameLen, jamoFilters, hasJamo, se, targets, avoids);
+    // Determine which elements to favour / avoid based on saju analysis
+    const targetElements = collectElements(
+      sajuSummary.yongshin.element,
+      sajuSummary.yongshin.heeshin,
+      sajuSummary.deficientElements,
+    );
+    const avoidElements = collectElements(
+      sajuSummary.yongshin.gishin,
+      sajuSummary.yongshin.gushin,
+      sajuSummary.excessiveElements,
+    );
+    if (targetElements.size === 0) targetElements.add(DEFAULT_TARGET_ELEMENT);
 
-    const out: NameCharInput[][] = [];
-    if (!hasJamo && nameLen <= 2) {
-      const validKeys = this.optimizer!.getValidCombinations(se.map(e => e.strokes), nameLen);
-      for (const sk of validKeys) {
-        if (out.length >= MAX_CANDIDATES) break;
-        const sc = sk.split(',').map(Number);
-        if (nameLen === 1) {
-          for (const c of (pools.get(sc[0]) ?? []).slice(0, 8)) {
-            out.push([inp(c)]);
-            if (out.length >= MAX_CANDIDATES) break;
-          }
-        } else {
-          const c1 = (pools.get(sc[0]) ?? []).slice(0, 6);
-          const c2 = (pools.get(sc[1]) ?? []).slice(0, 6);
-          for (const a of c1) {
-            for (const b of c2) {
-              if (a.hanja === b.hanja) continue;
-              out.push([inp(a), inp(b)]);
-              if (out.length >= MAX_CANDIDATES) break;
-            }
-            if (out.length >= MAX_CANDIDATES) break;
-          }
-        }
-      }
-    } else {
-      const posArr = Array.from({ length: nameLen }, (_, i) => pools.get(i) ?? []);
-      const dfs = (depth: number, current: HanjaEntry[]) => {
-        if (out.length >= MAX_CANDIDATES) return;
-        if (depth >= nameLen) { out.push(current.map(inp)); return; }
-        for (const c of posArr[depth]) {
-          if (current.some(x => x.hanja === c.hanja)) continue;
-          dfs(depth + 1, [...current, c]);
-        }
-      };
-      dfs(0, []);
-    }
-    return out;
+    // Build per-position character pools
+    const pools = await this.buildPositionPools(
+      request, nameLength, jamoFilters, hasJamoFilter,
+      surnameEntries, targetElements, avoidElements,
+    );
+
+    // Choose the generation strategy
+    const useStrokeStrategy = !hasJamoFilter && nameLength <= 2;
+
+    return useStrokeStrategy
+      ? this.generateViaStrokeOptimizer(surnameEntries, pools, nameLength)
+      : this.generateViaDepthFirstSearch(pools, nameLength);
   }
 
-  private async buildPositionPools(
-    req: SpringRequest, nameLen: number, jamoFilters: (JamoFilter | null)[] | undefined,
-    hasJamo: boolean, se: HanjaEntry[], targets: Set<string>, avoids: Set<string>,
-  ): Promise<Map<number, HanjaEntry[]>> {
-    const pools = new Map<number, HanjaEntry[]>();
+  // -------------------------------------------------------------------------
+  // Strategy 1: Stroke-based generation
+  //
+  // The optimizer pre-filters which stroke counts produce lucky four-frame
+  // numbers. For each valid stroke combination, we pick the top characters
+  // from the pool keyed by stroke count.
+  // -------------------------------------------------------------------------
 
-    if (!hasJamo && nameLen <= 2) {
-      const validKeys = this.optimizer!.getValidCombinations(se.map(e => e.strokes), nameLen);
-      const needed = new Set<number>();
-      for (const key of validKeys) for (const s of key.split(',')) needed.add(Number(s));
-      const allHanja = await this.hanjaRepo.findByStrokeRange(Math.min(...needed), Math.max(...needed));
-      for (const e of allHanja) {
-        if (e.is_surname || !needed.has(e.strokes) || avoids.has(e.resource_element)) continue;
-        let list = pools.get(e.strokes);
-        if (!list) { list = []; pools.set(e.strokes, list); }
-        list.push(e);
-      }
-      for (const [k, list] of pools) {
-        pools.set(k, list.sort((a, b) => (targets.has(b.resource_element) ? 1 : 0) - (targets.has(a.resource_element) ? 1 : 0)));
-      }
-    } else {
-      const allPool = (await this.hanjaRepo.findByStrokeRange(1, 30))
-        .filter(e => !e.is_surname && !avoids.has(e.resource_element));
-      for (let pos = 0; pos < nameLen; pos++) {
-        const f = jamoFilters?.[pos];
-        if (f === null && req.givenName?.[pos]) {
-          const gi = req.givenName[pos];
-          if (gi.hanja) {
-            const entry = await this.hanjaRepo.findByHanja(gi.hanja);
-            pools.set(pos, entry ? [entry] : [makeFallbackEntry(gi.hangul)]);
-          } else {
-            const entries = await this.hanjaRepo.findByHangul(gi.hangul);
-            pools.set(pos, entries.length ? entries.slice(0, 8) : [makeFallbackEntry(gi.hangul)]);
-          }
-        } else {
-          let pool = allPool;
-          if (f?.onset) pool = pool.filter(e => e.onset === f.onset);
-          if (f?.nucleus) pool = pool.filter(e => e.nucleus === f.nucleus);
-          pool = [...pool].sort((a, b) => (targets.has(b.resource_element) ? 1 : 0) - (targets.has(a.resource_element) ? 1 : 0));
-          pools.set(pos, pool.slice(0, 10));
-        }
+  private generateViaStrokeOptimizer(
+    surnameEntries: HanjaEntry[],
+    pools: Map<number, HanjaEntry[]>,
+    nameLength: number,
+  ): NameCharInput[][] {
+    const surnameStrokes = surnameEntries.map(entry => entry.strokes);
+    const validStrokeCombinations = this.optimizer!.getValidCombinations(surnameStrokes, nameLength);
+    const results: NameCharInput[][] = [];
+
+    for (const strokeKey of validStrokeCombinations) {
+      if (results.length >= MAX_CANDIDATES) break;
+
+      const strokeCounts = strokeKey.split(',').map(Number);
+
+      if (nameLength === 1) {
+        this.appendSingleCharCandidates(results, pools, strokeCounts[0]);
+      } else {
+        this.appendDoubleCharCandidates(results, pools, strokeCounts);
       }
     }
+
+    return results;
+  }
+
+  /** For single-character given names: pick top characters at a stroke count. */
+  private appendSingleCharCandidates(
+    results: NameCharInput[][],
+    pools: Map<number, HanjaEntry[]>,
+    strokeCount: number,
+  ): void {
+    const candidates = (pools.get(strokeCount) ?? []).slice(0, POOL_LIMIT_SINGLE_CHAR);
+
+    for (const candidate of candidates) {
+      results.push([toNameCharInput(candidate)]);
+      if (results.length >= MAX_CANDIDATES) break;
+    }
+  }
+
+  /** For two-character given names: cross-join top characters from two stroke pools. */
+  private appendDoubleCharCandidates(
+    results: NameCharInput[][],
+    pools: Map<number, HanjaEntry[]>,
+    strokeCounts: number[],
+  ): void {
+    const firstPositionCandidates  = (pools.get(strokeCounts[0]) ?? []).slice(0, POOL_LIMIT_DOUBLE_CHAR);
+    const secondPositionCandidates = (pools.get(strokeCounts[1]) ?? []).slice(0, POOL_LIMIT_DOUBLE_CHAR);
+
+    for (const firstChar of firstPositionCandidates) {
+      for (const secondChar of secondPositionCandidates) {
+        if (firstChar.hanja === secondChar.hanja) continue; // skip identical hanja
+        results.push([toNameCharInput(firstChar), toNameCharInput(secondChar)]);
+        if (results.length >= MAX_CANDIDATES) return;
+      }
+      if (results.length >= MAX_CANDIDATES) return;
+    }
+  }
+
+  // -------------------------------------------------------------------------
+  // Strategy 2: Depth-first search generation
+  //
+  // Used when jamo filters are present or the given name has 3+ characters.
+  // Pools are keyed by positional index (0, 1, 2, ...) rather than stroke.
+  // -------------------------------------------------------------------------
+
+  private generateViaDepthFirstSearch(
+    pools: Map<number, HanjaEntry[]>,
+    nameLength: number,
+  ): NameCharInput[][] {
+    const positionPools = Array.from(
+      { length: nameLength },
+      (_, position) => pools.get(position) ?? [],
+    );
+    const results: NameCharInput[][] = [];
+
+    const explore = (depth: number, current: HanjaEntry[]): void => {
+      if (results.length >= MAX_CANDIDATES) return;
+
+      if (depth >= nameLength) {
+        results.push(current.map(toNameCharInput));
+        return;
+      }
+
+      for (const candidate of positionPools[depth]) {
+        // Skip if the same hanja character already appears in the combination
+        if (current.some(existing => existing.hanja === candidate.hanja)) continue;
+        explore(depth + 1, [...current, candidate]);
+      }
+    };
+
+    explore(0, []);
+    return results;
+  }
+
+  // -------------------------------------------------------------------------
+  // buildPositionPools -- prepare hanja options for each name position
+  //
+  // Two modes:
+  //   Stroke mode (no jamo, <= 2 chars): pools keyed by stroke count
+  //   Jamo mode (jamo filter or 3+ chars): pools keyed by position index
+  // -------------------------------------------------------------------------
+
+  private async buildPositionPools(
+    request: SpringRequest,
+    nameLength: number,
+    jamoFilters: (JamoFilter | null)[] | undefined,
+    hasJamoFilter: boolean,
+    surnameEntries: HanjaEntry[],
+    targetElements: Set<string>,
+    avoidElements: Set<string>,
+  ): Promise<Map<number, HanjaEntry[]>> {
+    const useStrokeMode = !hasJamoFilter && nameLength <= 2;
+
+    return useStrokeMode
+      ? this.buildStrokeBasedPools(surnameEntries, nameLength, targetElements, avoidElements)
+      : this.buildJamoBasedPools(request, nameLength, jamoFilters, targetElements, avoidElements);
+  }
+
+  // -------------------------------------------------------------------------
+  // Pool builder: stroke-based
+  //
+  // 1. Ask the optimizer which stroke-count combinations are valid.
+  // 2. Fetch all hanja in the needed stroke range.
+  // 3. Group by stroke count, excluding surnames and avoided elements.
+  // 4. Sort each group so target-element characters come first.
+  // -------------------------------------------------------------------------
+
+  private async buildStrokeBasedPools(
+    surnameEntries: HanjaEntry[],
+    nameLength: number,
+    targetElements: Set<string>,
+    avoidElements: Set<string>,
+  ): Promise<Map<number, HanjaEntry[]>> {
+    const surnameStrokes = surnameEntries.map(entry => entry.strokes);
+    const validCombinations = this.optimizer!.getValidCombinations(surnameStrokes, nameLength);
+
+    // Collect every stroke count that appears in a valid combination
+    const neededStrokes = new Set<number>();
+    for (const key of validCombinations) {
+      for (const part of key.split(',')) {
+        neededStrokes.add(Number(part));
+      }
+    }
+
+    // Fetch hanja in bulk for the needed stroke range
+    const allHanja = await this.hanjaRepo.findByStrokeRange(
+      Math.min(...neededStrokes),
+      Math.max(...neededStrokes),
+    );
+
+    // Group into pools, filtering out surnames and avoided elements
+    const pools = new Map<number, HanjaEntry[]>();
+
+    for (const hanjaEntry of allHanja) {
+      if (hanjaEntry.is_surname) continue;
+      if (!neededStrokes.has(hanjaEntry.strokes)) continue;
+      if (avoidElements.has(hanjaEntry.resource_element)) continue;
+
+      let bucket = pools.get(hanjaEntry.strokes);
+      if (!bucket) {
+        bucket = [];
+        pools.set(hanjaEntry.strokes, bucket);
+      }
+      bucket.push(hanjaEntry);
+    }
+
+    // Sort each bucket: target-element characters first
+    for (const [strokeCount, bucket] of pools) {
+      pools.set(strokeCount, bucket.sort((a, b) =>
+        (targetElements.has(b.resource_element) ? 1 : 0)
+        - (targetElements.has(a.resource_element) ? 1 : 0),
+      ));
+    }
+
     return pools;
   }
 
-  private async resolveEntries(chars: NameCharInput[]): Promise<HanjaEntry[]> {
-    return Promise.all(chars.map(async (c) => {
-      if (c.hanja) {
-        const e = await this.hanjaRepo.findByHanja(c.hanja);
-        if (e) return e;
+  // -------------------------------------------------------------------------
+  // Pool builder: jamo-based (or 3+ character names)
+  //
+  // Each position is resolved independently:
+  //   - If the user pinned a specific hanja or hangul, use that directly.
+  //   - Otherwise, filter the full hanja set by jamo onset/nucleus and
+  //     sort by target-element affinity.
+  // -------------------------------------------------------------------------
+
+  private async buildJamoBasedPools(
+    request: SpringRequest,
+    nameLength: number,
+    jamoFilters: (JamoFilter | null)[] | undefined,
+    targetElements: Set<string>,
+    avoidElements: Set<string>,
+  ): Promise<Map<number, HanjaEntry[]>> {
+    // Pre-load the full hanja pool (excluding surnames and avoided elements)
+    const fullPool = (await this.hanjaRepo.findByStrokeRange(STROKE_MIN, STROKE_MAX))
+      .filter(entry => !entry.is_surname && !avoidElements.has(entry.resource_element));
+
+    const pools = new Map<number, HanjaEntry[]>();
+
+    for (let position = 0; position < nameLength; position++) {
+      const jamoFilter    = jamoFilters?.[position];
+      const givenNameChar = request.givenName?.[position];
+
+      // Case A: no jamo filter at this position and user supplied a character
+      if (jamoFilter === null && givenNameChar) {
+        pools.set(position, await this.resolveFixedCharPool(givenNameChar));
+        continue;
       }
-      const bh = await this.hanjaRepo.findByHangul(c.hangul);
-      return bh[0] ?? makeFallbackEntry(c.hangul);
+
+      // Case B: filter the full pool by jamo onset/nucleus, then take top N
+      let filtered = fullPool;
+      if (jamoFilter?.onset)   filtered = filtered.filter(entry => entry.onset === jamoFilter.onset);
+      if (jamoFilter?.nucleus) filtered = filtered.filter(entry => entry.nucleus === jamoFilter.nucleus);
+
+      filtered = [...filtered].sort((a, b) =>
+        (targetElements.has(b.resource_element) ? 1 : 0)
+        - (targetElements.has(a.resource_element) ? 1 : 0),
+      );
+
+      pools.set(position, filtered.slice(0, POOL_LIMIT_JAMO_FILTERED));
+    }
+
+    return pools;
+  }
+
+  /** Resolve a single user-specified character into a 1-element pool. */
+  private async resolveFixedCharPool(givenNameChar: NameCharInput): Promise<HanjaEntry[]> {
+    if (givenNameChar.hanja) {
+      const entry = await this.hanjaRepo.findByHanja(givenNameChar.hanja);
+      return entry ? [entry] : [makeFallbackEntry(givenNameChar.hangul)];
+    }
+
+    const entries = await this.hanjaRepo.findByHangul(givenNameChar.hangul);
+    return entries.length
+      ? entries.slice(0, POOL_LIMIT_SINGLE_CHAR)
+      : [makeFallbackEntry(givenNameChar.hangul)];
+  }
+
+  // -------------------------------------------------------------------------
+  // resolveEntries -- look up full HanjaEntry records for a name
+  // -------------------------------------------------------------------------
+
+  private async resolveEntries(chars: NameCharInput[]): Promise<HanjaEntry[]> {
+    return Promise.all(chars.map(async (char) => {
+      if (char.hanja) {
+        const entry = await this.hanjaRepo.findByHanja(char.hanja);
+        if (entry) return entry;
+      }
+      const byHangul = await this.hanjaRepo.findByHangul(char.hangul);
+      return byHangul[0] ?? makeFallbackEntry(char.hangul);
     }));
   }
+
+  // -------------------------------------------------------------------------
+  // close -- release database resources
+  // -------------------------------------------------------------------------
 
   close() {
     this.hanjaRepo.close();

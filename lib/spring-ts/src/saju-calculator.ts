@@ -1,3 +1,33 @@
+/**
+ * saju-calculator.ts
+ *
+ * Scores how well a name's elemental makeup fits a person's saju (四柱) chart.
+ * The final score blends four sub-scores, each measuring a different aspect
+ * of compatibility, then subtracts penalties for harmful elements.
+ *
+ * ── Scoring Pipeline ────────────────────────────────────────────────────
+ *
+ *   1. BALANCE  — Does the name fill gaps in the chart's five-element spread?
+ *   2. YONGSHIN — Does the name contain the helpful element (yongshin)?
+ *   3. STRENGTH — Does the name counterbalance day-master strength/weakness?
+ *   4. TEN GOD  — Does the name compensate for ten-god group imbalances?
+ *
+ *   finalScore = weighted(balance, yongshin, strength, tenGod)
+ *                + deficiency bonus
+ *                - gisin penalty        (harmful element present)
+ *                - gusin penalty        (most harmful element present)
+ *                - gyeokguk penalty     (breaks jonggyeok pattern)
+ *
+ * ── Glossary ────────────────────────────────────────────────────────────
+ *  Yongshin (용신)  — the "helpful god" element the chart needs most
+ *  Heesin (희신)    — the supporting element that assists yongshin
+ *  Gisin (기신)     — a harmful element that weakens the chart
+ *  Gusin (구신)     — the MOST harmful element (worse than gisin)
+ *  Gyeokguk (격국)  — the structural pattern of the birth chart
+ *  Jonggyeok (종격) — a special gyeokguk where harmful elements break it
+ *  Ohaeng (오행)    — the Five Elements (Wood, Fire, Earth, Metal, Water)
+ * ─────────────────────────────────────────────────────────────────────────
+ */
 import { NameCalculator, type EvalContext, type AnalysisDetail, type CalculatorPacket } from '../../name-ts/src/calculator/evaluator.js';
 import type { HanjaEntry } from '../../name-ts/src/database/hanja-repository.js';
 import type { SajuCompatibility, SajuOutputSummary, SajuYongshinSummary } from './types.js';
@@ -15,6 +45,42 @@ import {
   distributionFromArrangement,
 } from '../../name-ts/src/calculator/scoring.js';
 
+// ---------------------------------------------------------------------------
+//  Configuration — loaded from JSON so non-programmers can adjust the tuning
+// ---------------------------------------------------------------------------
+import scoringConfig from '../config/saju-scoring.json';
+
+/** How much weight each yongshin recommendation type carries (1.0 = strongest). */
+const YONGSHIN_TYPE_WEIGHTS: Record<string, number> = scoringConfig.yongshinTypeWeights;
+
+/** Fallback weight when the recommendation type is not in the table. */
+const DEFAULT_TYPE_WEIGHT: number = scoringConfig.defaultTypeWeight;
+
+/** Fallback confidence when the saju engine does not report one. */
+const DEFAULT_CONFIDENCE: number = scoringConfig.defaultConfidence;
+
+/** Recommendation types that get contextual priority (school-specific methods). */
+const CONTEXTUAL_TYPES: readonly string[] = scoringConfig.contextualTypes;
+
+/** The five ten-god groups: friend, output, wealth, authority, resource. */
+const TEN_GOD_GROUPS: readonly string[] = scoringConfig.tenGodGroupNames;
+
+// Destructure the nested config sections for easier access
+const {
+  balanceScoring:   BALANCE,
+  yongshinScoring:  YONGSHIN,
+  strengthScoring:  STRENGTH,
+  tenGodScoring:    TEN_GOD,
+  adaptiveWeights:  ADAPTIVE,
+  penalties:        PENALTY,
+  deficiencyBonus:  DEFICIENCY,
+  passing:          PASSING,
+} = scoringConfig;
+
+// ---------------------------------------------------------------------------
+//  Public interface — the shape of a saju name score result
+// ---------------------------------------------------------------------------
+
 export interface SajuNameScoreResult {
   score: number;
   isPassed: boolean;
@@ -27,280 +93,464 @@ export interface SajuNameScoreResult {
   };
 }
 
-const TEN_GOD_GROUPS = ['friend', 'output', 'wealth', 'authority', 'resource'] as const;
+// =========================================================================
+//  1. BALANCE SCORE
+//     Measures how evenly the five elements are distributed after
+//     combining the saju chart distribution with the name's root elements.
+// =========================================================================
 
-const YTW: Record<string, number> = {
-  EOKBU: 1, JOHU: 0.95, TONGGWAN: 0.9, GYEOKGUK: 0.85,
-  BYEONGYAK: 0.8, JEONWANG: 0.75, HAPWHA_YONGSHIN: 0.7, ILHAENG_YONGSHIN: 0.7,
-};
+/**
+ * Computes the "optimal" sorted distribution given an initial sorted array
+ * and a budget of extra counts to distribute.  The algorithm fills from the
+ * bottom up: it raises the lowest values to the next level, then spreads
+ * any remaining budget equally.
+ */
+function computeOptimalSorted(initialCounts: number[], resourceCount: number): number[] {
+  const sortedCounts = [...initialCounts].sort((a, b) => a - b);
+  let remaining = resourceCount;
+  let level = 0;
 
-const CTX_TYPES = ['JOHU', 'TONGGWAN', 'BYEONGYAK', 'GYEOKGUK', 'HAPWHA_YONGSHIN'];
+  // Phase 1: raise the lowest elements up to match higher ones
+  while (level < ELEMENT_KEYS.length - 1 && remaining > 0) {
+    const gapToNextLevel = sortedCounts[level + 1] - sortedCounts[level];
+    const elementsAtThisLevel = level + 1;
 
-function computeOptimalSorted(initial: number[], rc: number): number[] {
-  const s = [...initial].sort((a, b) => a - b);
-  let rem = rc;
-  let lv = 0;
+    if (gapToNextLevel === 0) { level++; continue; }
 
-  while (lv < ELEMENT_KEYS.length - 1 && rem > 0) {
-    const diff = s[lv + 1] - s[lv];
-    const w = lv + 1;
-
-    if (diff === 0) { lv++; continue; }
-
-    const cost = diff * w;
-    if (rem >= cost) {
-      for (let k = 0; k <= lv; k++) s[k] += diff;
-      rem -= cost;
-      lv++;
+    const costToLevelUp = gapToNextLevel * elementsAtThisLevel;
+    if (remaining >= costToLevelUp) {
+      for (let index = 0; index <= level; index++) sortedCounts[index] += gapToNextLevel;
+      remaining -= costToLevelUp;
+      level++;
     } else {
-      const es = Math.floor(rem / w);
-      const lo = rem % w;
-      for (let k = 0; k <= lv; k++) s[k] += es;
-      for (let k = 0; k < lo; k++) s[k] += 1;
-      rem = 0;
+      const equalShare = Math.floor(remaining / elementsAtThisLevel);
+      const leftover   = remaining % elementsAtThisLevel;
+      for (let index = 0; index <= level; index++) sortedCounts[index] += equalShare;
+      for (let index = 0; index < leftover; index++) sortedCounts[index] += 1;
+      remaining = 0;
     }
   }
 
-  if (rem > 0) {
-    const es = Math.floor(rem / 5);
-    const lo = rem % 5;
-    for (let k = 0; k < 5; k++) s[k] += es;
-    for (let k = 0; k < lo; k++) s[k] += 1;
+  // Phase 2: spread any remaining budget evenly across all 5 elements
+  if (remaining > 0) {
+    const equalShare = Math.floor(remaining / 5);
+    const leftover   = remaining % 5;
+    for (let index = 0; index < 5; index++) sortedCounts[index] += equalShare;
+    for (let index = 0; index < leftover; index++) sortedCounts[index] += 1;
   }
 
-  return s;
+  return sortedCounts;
 }
 
+/**
+ * Balance score: how close is the combined (saju + name) distribution
+ * to the mathematically optimal distribution?
+ *
+ * - 100 = perfectly optimal
+ * - Loses points for: mismatch distance, extra zeros, extra spread
+ */
 function computeBalanceScore(
   sajuDist: Record<ElementKey, number>,
   rootDist: Record<ElementKey, number>,
 ): { score: number; isPassed: boolean; combined: Record<ElementKey, number> } {
-  const ini = ELEMENT_KEYS.map(k => sajuDist[k] ?? 0);
-  const rc = ELEMENT_KEYS.map(k => rootDist[k] ?? 0);
-  const fin = ELEMENT_KEYS.map((_, i) => ini[i] + rc[i]);
-  const rt = rc.reduce((a, b) => a + b, 0);
-  const opt = computeOptimalSorted(ini, rt);
-  const fs = [...fin].sort((a, b) => a - b);
-  const isOpt = fs.every((v, i) => v === opt[i]);
-  const fz = fin.filter(v => v === 0).length;
-  const oz = opt.filter(v => v === 0).length;
-  const sp = Math.max(...fin) - Math.min(...fin);
-  const os = Math.max(...opt) - Math.min(...opt);
+
+  const initialDistribution = ELEMENT_KEYS.map(key => sajuDist[key] ?? 0);
+  const rootCounts          = ELEMENT_KEYS.map(key => rootDist[key] ?? 0);
+  const finalDistribution   = ELEMENT_KEYS.map((_, index) => initialDistribution[index] + rootCounts[index]);
+
+  const rootTotal           = rootCounts.reduce((sum, count) => sum + count, 0);
+  const optimalDistribution = computeOptimalSorted(initialDistribution, rootTotal);
+
+  const finalSorted     = [...finalDistribution].sort((a, b) => a - b);
+  const isOptimal       = finalSorted.every((value, index) => value === optimalDistribution[index]);
+
+  const finalZeroCount   = finalDistribution.filter(value => value === 0).length;
+  const optimalZeroCount = optimalDistribution.filter(value => value === 0).length;
+  const finalSpread      = Math.max(...finalDistribution)   - Math.min(...finalDistribution);
+  const optimalSpread    = Math.max(...optimalDistribution)  - Math.min(...optimalDistribution);
 
   let score: number;
-  if (isOpt) {
+  if (isOptimal) {
     score = 100;
   } else {
-    const man = fs.reduce((acc, v, i) => acc + Math.abs(v - opt[i]), 0);
-    score = clamp(100 - 20 * Math.floor(man / 2) - 10 * Math.max(0, fz - oz) - 5 * Math.max(0, sp - os), 0, 100);
+    const manhattanDistance = finalSorted.reduce((sum, value, index) => sum + Math.abs(value - optimalDistribution[index]), 0);
+    score = clamp(
+      100
+        - BALANCE.penaltyPerMismatch   * Math.floor(manhattanDistance / 2)
+        - BALANCE.penaltyPerExtraZero  * Math.max(0, finalZeroCount - optimalZeroCount)
+        - BALANCE.penaltyPerExtraSpread * Math.max(0, finalSpread - optimalSpread),
+      0, 100,
+    );
   }
 
   return {
     score,
-    isPassed: isOpt || (fz <= oz && sp <= os && score >= 70),
-    combined: Object.fromEntries(ELEMENT_KEYS.map((k, i) => [k, fin[i]])) as Record<ElementKey, number>,
+    isPassed: isOptimal || (finalZeroCount <= optimalZeroCount && finalSpread <= optimalSpread && score >= BALANCE.minPassingScore),
+    combined: Object.fromEntries(ELEMENT_KEYS.map((key, index) => [key, finalDistribution[index]])) as Record<ElementKey, number>,
   };
 }
 
+// =========================================================================
+//  2. YONGSHIN SCORE
+//     Measures how strongly the name's elements align with the recommended
+//     yongshin (helpful) and heesin (supporting) elements, while penalizing
+//     gisin (harmful) and gusin (most harmful).
+// =========================================================================
+
+/**
+ * Scores how well the name matches the detailed recommendations from the
+ * saju engine (e.g., EOKBU, JOHU, TONGGWAN — various analysis methods).
+ * Each recommendation has its own confidence and method-type weight.
+ */
 function computeRecommendationScore(
-  rd: Record<ElementKey, number>,
-  y: SajuYongshinSummary,
+  rootDist: Record<ElementKey, number>,
+  yongshinData: SajuYongshinSummary,
 ): { score: number; contextualPriority: number } | null {
-  if (y.recommendations.length === 0) return null;
+  if (yongshinData.recommendations.length === 0) return null;
 
-  let ws = 0, tw = 0, cw = 0;
+  let weightedSum     = 0;
+  let totalWeight     = 0;
+  let contextWeight   = 0;
 
-  for (const r of y.recommendations) {
-    const p = elementFromSajuCode(r.primaryElement);
-    const s = elementFromSajuCode(r.secondaryElement);
-    if (!p && !s) continue;
+  for (const recommendation of yongshinData.recommendations) {
+    const primaryElement   = elementFromSajuCode(recommendation.primaryElement);
+    const secondaryElement = elementFromSajuCode(recommendation.secondaryElement);
+    if (!primaryElement && !secondaryElement) continue;
 
-    const rc = Number.isFinite(r.confidence) ? clamp(r.confidence, 0, 1) : 0.6;
-    const w = Math.max(0.1, rc * (YTW[r.type] ?? 0.75));
+    const confidence      = Number.isFinite(recommendation.confidence)
+      ? clamp(recommendation.confidence, 0, 1)
+      : YONGSHIN.recommendationScoring.fallbackConfidence;
+    const typeWeight      = Math.max(
+      YONGSHIN.recommendationScoring.minWeight,
+      confidence * (YONGSHIN_TYPE_WEIGHTS[recommendation.type] ?? DEFAULT_TYPE_WEIGHT),
+    );
 
-    ws += weightedElementAverage(rd, el => {
-      if (p && el === p) return 1;
-      if (s && el === s) return 0.6;
+    weightedSum += weightedElementAverage(rootDist, element => {
+      if (primaryElement   && element === primaryElement)   return YONGSHIN.recommendationScoring.primaryWeight;
+      if (secondaryElement && element === secondaryElement) return YONGSHIN.recommendationScoring.secondaryWeight;
       return 0;
-    }) * w;
+    }) * typeWeight;
 
-    tw += w;
-    if (CTX_TYPES.includes(r.type)) cw += w;
+    totalWeight += typeWeight;
+    if (CONTEXTUAL_TYPES.includes(recommendation.type)) contextWeight += typeWeight;
   }
 
-  if (tw <= 0) return null;
-  return { score: clamp((ws / tw) * 100, 0, 100), contextualPriority: clamp(cw / tw, 0, 1) };
+  if (totalWeight <= 0) return null;
+  return {
+    score:              clamp((weightedSum / totalWeight) * 100, 0, 100),
+    contextualPriority: clamp(contextWeight / totalWeight, 0, 1),
+  };
 }
 
+/**
+ * Computes the full yongshin sub-score by:
+ *   1. Calculating an "affinity" value — how much the name's elements lean
+ *      toward helpful vs. harmful gods
+ *   2. Blending with detailed recommendation scores (if available)
+ *   3. Scaling the result by the saju engine's confidence
+ *   4. Computing penalties for gisin/gusin presence
+ */
 function computeYongshinScore(
-  rd: Record<ElementKey, number>,
-  y: SajuYongshinSummary | null,
+  rootDist: Record<ElementKey, number>,
+  yongshinData: SajuYongshinSummary | null,
 ) {
-  if (!y) return {
+  if (!yongshinData) return {
     score: 50, confidence: 0, contextualPriority: 0,
     gisinPenalty: 0, gusinPenalty: 0, gusinRatio: 0,
     elementMatches: { yongshin: 0, heesin: 0, gisin: 0, gusin: 0 },
   };
 
-  const ye = elementFromSajuCode(y.finalYongshin);
-  const he = elementFromSajuCode(y.finalHeesin);
-  const ge = elementFromSajuCode(y.gisin);
-  const gu = elementFromSajuCode(y.gusin);
-  const conf = Number.isFinite(y.finalConfidence) ? clamp(y.finalConfidence, 0, 1) : 0.65;
+  // Resolve the four key elements from the yongshin analysis
+  const yongshinElement = elementFromSajuCode(yongshinData.finalYongshin);
+  const heesinElement   = elementFromSajuCode(yongshinData.finalHeesin);
+  const gisinElement    = elementFromSajuCode(yongshinData.gisin);
+  const gusinElement    = elementFromSajuCode(yongshinData.gusin);
 
-  const aff = weightedElementAverage(rd, el => {
-    if (gu && el === gu) return -1;
-    if (ge && el === ge) return -0.65;
-    if (ye && el === ye) return 1;
-    if (he && el === he) return 0.65;
+  const confidence = Number.isFinite(yongshinData.finalConfidence)
+    ? clamp(yongshinData.finalConfidence, 0, 1)
+    : DEFAULT_CONFIDENCE;
+
+  // Step 1: Affinity — weighted average of how each name element aligns
+  //   yongshin = +1, heesin = +0.65, gisin = -0.65, gusin = -1
+  const affinityWeights = YONGSHIN.affinityWeights;
+  const affinityValue = weightedElementAverage(rootDist, element => {
+    if (gusinElement    && element === gusinElement)    return affinityWeights.gusin;
+    if (gisinElement    && element === gisinElement)    return affinityWeights.gisin;
+    if (yongshinElement && element === yongshinElement) return affinityWeights.yongshin;
+    if (heesinElement   && element === heesinElement)   return affinityWeights.heesin;
     return 0;
   });
 
-  const rs = computeRecommendationScore(rd, y);
-  const as_ = normalizeSignedScore(aff);
-  const raw = rs === null ? as_ : 0.55 * as_ + 0.45 * rs.score;
-  const score = clamp(50 + (raw - 50) * (0.55 + conf * 0.45), 0, 100);
-  const tot = totalCount(rd);
-  const gc = elementCount(rd, ge), guc = elementCount(rd, gu);
-  const gr = tot > 0 ? gc / tot : 0, gur = tot > 0 ? guc / tot : 0;
-  const ps = 0.4 + 0.6 * conf;
+  // Step 2: Blend affinity with recommendation scores
+  const recommendationResult = computeRecommendationScore(rootDist, yongshinData);
+  const affinityScore        = normalizeSignedScore(affinityValue);
+  const blendedRawScore      = recommendationResult === null
+    ? affinityScore
+    : YONGSHIN.recommendationBlend.affinityRatio        * affinityScore
+    + YONGSHIN.recommendationBlend.recommendationRatio  * recommendationResult.score;
+
+  // Step 3: Scale by confidence — higher confidence = more impact on the score
+  const confidenceScaled = YONGSHIN.confidenceImpact.baseRatio + confidence * YONGSHIN.confidenceImpact.variableRatio;
+  const score = clamp(50 + (blendedRawScore - 50) * confidenceScaled, 0, 100);
+
+  // Step 4: Compute gisin/gusin penalties
+  const totalElements = totalCount(rootDist);
+  const gisinCount    = elementCount(rootDist, gisinElement);
+  const gusinCount    = elementCount(rootDist, gusinElement);
+  const gisinRatio    = totalElements > 0 ? gisinCount / totalElements : 0;
+  const gusinRatio    = totalElements > 0 ? gusinCount / totalElements : 0;
+
+  // Penalty scale: higher confidence = stricter penalty
+  const penaltyScale = YONGSHIN.penalties.penaltyScaleBase + YONGSHIN.penalties.penaltyScaleVariable * confidence;
 
   return {
-    score, confidence: conf,
-    contextualPriority: rs?.contextualPriority ?? 0,
-    gisinPenalty: Math.round(gr * 7 * ps),
-    gusinPenalty: Math.round(gur * 14 * ps),
-    gusinRatio: gur,
+    score,
+    confidence,
+    contextualPriority: recommendationResult?.contextualPriority ?? 0,
+    gisinPenalty: Math.round(gisinRatio * YONGSHIN.penalties.gisinMultiplier * penaltyScale),
+    gusinPenalty: Math.round(gusinRatio * YONGSHIN.penalties.gusinMultiplier * penaltyScale),
+    gusinRatio,
     elementMatches: {
-      yongshin: elementCount(rd, ye),
-      heesin: elementCount(rd, he),
-      gisin: gc, gusin: guc,
+      yongshin: elementCount(rootDist, yongshinElement),
+      heesin:   elementCount(rootDist, heesinElement),
+      gisin:    gisinCount,
+      gusin:    gusinCount,
     },
   };
 }
 
+// =========================================================================
+//  3. STRENGTH SCORE
+//     If the day master is "strong", the name should weaken it (and vice versa).
+//     This score measures whether the name's elements push in the right direction.
+// =========================================================================
+
 function computeStrengthScore(
-  rd: Record<ElementKey, number>,
-  so: SajuOutputSummary | null,
+  rootDist: Record<ElementKey, number>,
+  sajuOutput: SajuOutputSummary | null,
 ): number {
-  const st = so?.strength, dm = so?.dayMaster?.element;
-  if (!st || !dm) return 50;
-  const b = normalizeSignedScore(
-    weightedElementAverage(rd, el => ((el === dm || el === generatedBy(dm)) === st.isStrong) ? -1 : 1),
+  const strengthData  = sajuOutput?.strength;
+  const dayMasterElement = sajuOutput?.dayMaster?.element;
+  if (!strengthData || !dayMasterElement) return 50;
+
+  // For each name element, check if it supports or opposes the day master.
+  // If the day master is already strong, supporting elements are BAD (-1),
+  // and opposing elements are GOOD (+1).  Vice versa if the master is weak.
+  const balanceDirection = normalizeSignedScore(
+    weightedElementAverage(rootDist, element => {
+      const supportsStrength = (element === dayMasterElement || element === generatedBy(dayMasterElement));
+      return (supportsStrength === strengthData.isStrong) ? -1 : 1;
+    }),
   );
-  const sup = Math.abs(st.totalSupport), opp = Math.abs(st.totalOppose);
-  const sm = sup + opp;
-  const int = sm > 0 ? clamp(Math.abs(sup - opp) / sm, 0, 1) : 0.35;
-  return clamp(50 + (b - 50) * (0.45 + int * 0.55), 0, 100);
+
+  // Intensity: how lopsided is the support/oppose ratio?
+  const support   = Math.abs(strengthData.totalSupport);
+  const oppose    = Math.abs(strengthData.totalOppose);
+  const totalMagnitude = support + oppose;
+  const intensity = totalMagnitude > 0
+    ? clamp(Math.abs(support - oppose) / totalMagnitude, 0, 1)
+    : STRENGTH.defaultIntensity;
+
+  // Final score: centered at 50, scaled by intensity
+  return clamp(
+    50 + (balanceDirection - 50) * (STRENGTH.confidenceImpact.baseRatio + intensity * STRENGTH.confidenceImpact.variableRatio),
+    0, 100,
+  );
 }
+
+// =========================================================================
+//  4. TEN GOD SCORE
+//     The ten gods form five groups (friend, output, wealth, authority, resource).
+//     This score rewards names whose elements compensate for under-represented
+//     groups in the chart.
+// =========================================================================
 
 function computeTenGodScore(
-  rd: Record<ElementKey, number>,
-  so: SajuOutputSummary | null,
+  rootDist: Record<ElementKey, number>,
+  sajuOutput: SajuOutputSummary | null,
 ): number {
-  const tg = so?.tenGod, dm = so?.dayMaster?.element;
-  if (!tg || !dm) return 50;
-  const c = tg.groupCounts;
-  const tot = TEN_GOD_GROUPS.reduce((a, g) => a + (c[g] ?? 0), 0);
-  if (tot <= 0) return 50;
-  const avg = tot / TEN_GOD_GROUPS.length;
-  const ew: Record<ElementKey, number> = { Wood: 0, Fire: 0, Earth: 0, Metal: 0, Water: 0 };
-  for (const g of TEN_GOD_GROUPS) {
-    const d = (avg - (c[g] ?? 0)) / Math.max(avg, 1);
-    ew[ELEMENT_KEYS[(ELEMENT_KEYS.indexOf(dm) + TEN_GOD_GROUPS.indexOf(g)) % 5]] += d >= 0 ? d : d * 0.35;
+  const tenGodData       = sajuOutput?.tenGod;
+  const dayMasterElement = sajuOutput?.dayMaster?.element;
+  if (!tenGodData || !dayMasterElement) return 50;
+
+  const groupCounts = tenGodData.groupCounts;
+  const totalGroups = TEN_GOD_GROUPS.reduce((sum, group) => sum + (groupCounts[group] ?? 0), 0);
+  if (totalGroups <= 0) return 50;
+
+  const averageCount = totalGroups / TEN_GOD_GROUPS.length;
+
+  // For each ten-god group, compute how deficient it is relative to the average.
+  // Map that deficiency to the corresponding element (based on cycle position).
+  const elementWeights: Record<ElementKey, number> = { Wood: 0, Fire: 0, Earth: 0, Metal: 0, Water: 0 };
+  for (const group of TEN_GOD_GROUPS) {
+    const deviation = (averageCount - (groupCounts[group] ?? 0)) / Math.max(averageCount, 1);
+    const targetElement = ELEMENT_KEYS[(ELEMENT_KEYS.indexOf(dayMasterElement) + TEN_GOD_GROUPS.indexOf(group)) % 5];
+    // Positive deviation = group is under-represented, so its element is desirable.
+    // Negative deviation (over-represented) is scaled down to avoid over-penalizing.
+    elementWeights[targetElement] += deviation >= 0 ? deviation : deviation * TEN_GOD.negativeScale;
   }
-  return clamp(50 + weightedElementAverage(rd, el => clamp(ew[el], -1, 1)) * 45, 0, 100);
+
+  return clamp(
+    50 + weightedElementAverage(rootDist, element => clamp(elementWeights[element], -1, 1)) * TEN_GOD.maxInfluence,
+    0, 100,
+  );
 }
 
+// =========================================================================
+//  ADAPTIVE WEIGHT RESOLUTION
+//  The four sub-scores are not weighted equally.  When yongshin data is
+//  highly confident and diverges from the balance score, we shift weight
+//  from balance toward yongshin.
+// =========================================================================
+
 function resolveAdaptiveWeights(
-  bs: number,
-  y: { score: number; confidence: number; contextualPriority: number },
+  balanceScore: number,
+  yongshinInfo: { score: number; confidence: number; contextualPriority: number },
 ): { balance: number; yongshin: number; strength: number; tenGod: number } {
-  const ct = clamp((y.score - bs) / 70, 0, 1);
-  const cb = clamp(y.confidence, 0, 1);
-  const sh = 0.22 * ct * (0.6 + 0.4 * cb) + 0.08 * cb * clamp(y.contextualPriority, 0, 1);
+
+  // How much the yongshin score exceeds the balance score (normalized)
+  const yongshinSurplusRatio = clamp((yongshinInfo.score - balanceScore) / ADAPTIVE.shiftDivisor, 0, 1);
+  const confidenceBound      = clamp(yongshinInfo.confidence, 0, 1);
+
+  // The "weight shift" moves budget from balance to yongshin when warranted
+  const weightShift =
+    ADAPTIVE.baseShiftRatio * yongshinSurplusRatio * (ADAPTIVE.baseConfidenceRatio + ADAPTIVE.confidenceWeight * confidenceBound)
+    + ADAPTIVE.confidenceBoost * confidenceBound * clamp(yongshinInfo.contextualPriority, 0, 1);
+
   return {
-    balance: clamp(0.6 - sh, 0.35, 0.6),
-    yongshin: clamp(0.23 + sh, 0.23, 0.48),
-    strength: 0.12,
-    tenGod: 0.05,
+    balance:  clamp(ADAPTIVE.balanceBase  - weightShift, ADAPTIVE.balanceMin,  ADAPTIVE.balanceMax),
+    yongshin: clamp(ADAPTIVE.yongshinBase + weightShift, ADAPTIVE.yongshinMin, ADAPTIVE.yongshinMax),
+    strength: ADAPTIVE.strengthFixed,
+    tenGod:   ADAPTIVE.tenGodFixed,
   };
 }
 
+// =========================================================================
+//  PENALTIES & BONUSES
+// =========================================================================
+
+/**
+ * Gyeokguk penalty: in a "jonggyeok" (종격) chart, using gisin/gusin
+ * elements breaks the structural pattern and incurs an extra penalty.
+ * This penalty intentionally stacks with the gisin/gusin penalties above
+ * because in jonggyeok, harmful elements cause a "破格" (broken pattern).
+ */
 function computeGyeokgukPenalty(
   rootDist: Record<ElementKey, number>,
-  output: SajuOutputSummary | null,
+  sajuOutput: SajuOutputSummary | null,
 ): number {
-  const gy = output?.gyeokguk;
-  if (!gy || gy.category !== 'JONGGYEOK' || gy.confidence < 0.5) return 0;
+  const gyeokgukData = sajuOutput?.gyeokguk;
+  if (!gyeokgukData || gyeokgukData.category !== PENALTY.jonggyeokCategory || gyeokgukData.confidence < PENALTY.gyeokgukMinConfidence) return 0;
 
-  const ge = elementFromSajuCode(output?.yongshin?.gisin);
-  const gu = elementFromSajuCode(output?.yongshin?.gusin);
-  if (!ge && !gu) return 0;
+  const gisinElement = elementFromSajuCode(sajuOutput?.yongshin?.gisin);
+  const gusinElement = elementFromSajuCode(sajuOutput?.yongshin?.gusin);
+  if (!gisinElement && !gusinElement) return 0;
 
-  const tot = totalCount(rootDist);
-  if (tot === 0) return 0;
+  const totalElements = totalCount(rootDist);
+  if (totalElements === 0) return 0;
 
-  const gisinCount = elementCount(rootDist, ge);
-  const gusinCount = elementCount(rootDist, gu);
-  const harmfulRatio = (gisinCount + gusinCount) / tot;
+  const gisinCount      = elementCount(rootDist, gisinElement);
+  const gusinCount      = elementCount(rootDist, gusinElement);
+  const harmfulRatio    = (gisinCount + gusinCount) / totalElements;
 
-  return Math.round(harmfulRatio * 20 * clamp(gy.confidence, 0.5, 1));
+  return Math.round(harmfulRatio * PENALTY.gyeokgukMaxPenalty * clamp(gyeokgukData.confidence, 0.5, 1));
 }
 
+/**
+ * Deficiency bonus: if the saju chart is deficient in an element and the
+ * name provides it, and that element happens to be yongshin or heesin,
+ * the name gets a small bonus.  This rewards names that serve double duty.
+ */
 function computeDeficiencyBonus(
   rootDist: Record<ElementKey, number>,
-  output: SajuOutputSummary | null,
+  sajuOutput: SajuOutputSummary | null,
 ): number {
-  const defs = output?.deficientElements;
-  if (!defs?.length) return 0;
+  const deficientElements = sajuOutput?.deficientElements;
+  if (!deficientElements?.length) return 0;
 
-  const ye = elementFromSajuCode(output?.yongshin?.finalYongshin);
-  const he = elementFromSajuCode(output?.yongshin?.finalHeesin);
+  const yongshinElement = elementFromSajuCode(sajuOutput?.yongshin?.finalYongshin);
+  const heesinElement   = elementFromSajuCode(sajuOutput?.yongshin?.finalHeesin);
 
   let bonus = 0;
-  for (const def of defs) {
-    const key = elementFromSajuCode(def);
-    if (!key || elementCount(rootDist, key) === 0) continue;
+  for (const deficient of deficientElements) {
+    const elementKey = elementFromSajuCode(deficient);
+    if (!elementKey || elementCount(rootDist, elementKey) === 0) continue;
 
-    if (key === ye) bonus += 5;
-    else if (key === he) bonus += 3;
+    if (elementKey === yongshinElement)    bonus += DEFICIENCY.yongshinMatch;
+    else if (elementKey === heesinElement) bonus += DEFICIENCY.heesinMatch;
   }
-  return Math.min(bonus, 8);
+  return Math.min(bonus, DEFICIENCY.maxBonus);
 }
+
+// =========================================================================
+//  MAIN SCORING FUNCTION — composes all sub-scores into a final result
+// =========================================================================
 
 export function computeSajuNameScore(
   sajuDist: Record<ElementKey, number>,
   rootDist: Record<ElementKey, number>,
   sajuOutput: SajuOutputSummary | null,
 ): SajuNameScoreResult {
-  const bal = computeBalanceScore(sajuDist, rootDist);
-  const yng = computeYongshinScore(rootDist, sajuOutput?.yongshin ?? null);
-  const str = computeStrengthScore(rootDist, sajuOutput);
-  const tg = computeTenGodScore(rootDist, sajuOutput);
-  const w = resolveAdaptiveWeights(bal.score, yng);
-  const wbp = clamp(
-    w.balance * bal.score + w.yongshin * yng.score + w.strength * str + w.tenGod * tg,
+
+  // --- Compute the four sub-scores ---
+  const balanceResult   = computeBalanceScore(sajuDist, rootDist);
+  const yongshinResult  = computeYongshinScore(rootDist, sajuOutput?.yongshin ?? null);
+  const strengthScore   = computeStrengthScore(rootDist, sajuOutput);
+  const tenGodScore     = computeTenGodScore(rootDist, sajuOutput);
+
+  // --- Resolve adaptive weights (balance vs. yongshin trade-off) ---
+  const weight = resolveAdaptiveWeights(balanceResult.score, yongshinResult);
+
+  // --- Weighted blend of all four sub-scores ---
+  const weightedBaseScore = clamp(
+    weight.balance  * balanceResult.score
+    + weight.yongshin * yongshinResult.score
+    + weight.strength * strengthScore
+    + weight.tenGod   * tenGodScore,
     0, 100,
   );
-  const defBonus = computeDeficiencyBonus(rootDist, sajuOutput);
-  const adjusted = clamp(wbp + defBonus, 0, 100);
-  // 종격 페널티는 기신/구신 페널티와 의도적으로 중첩 적용 (종격에서 기신 사용은 파격을 유발)
-  const gyPenalty = computeGyeokgukPenalty(rootDist, sajuOutput);
-  const tp = yng.gisinPenalty + yng.gusinPenalty + gyPenalty;
-  const score = clamp(adjusted - tp, 0, 100);
-  const isPassed = score >= 62 && bal.score >= 45
-    && (sajuOutput?.yongshin == null || (yng.score >= 35 && yng.gusinRatio < 0.55));
+
+  // --- Add deficiency bonus ---
+  const deficiencyBonus = computeDeficiencyBonus(rootDist, sajuOutput);
+  const adjustedScore   = clamp(weightedBaseScore + deficiencyBonus, 0, 100);
+
+  // --- Subtract penalties ---
+  // Note: gyeokguk penalty intentionally stacks with gisin/gusin penalties.
+  // In jonggyeok charts, using gisin triggers a "破格" (broken pattern).
+  const gyeokgukPenalty = computeGyeokgukPenalty(rootDist, sajuOutput);
+  const totalPenalty    = yongshinResult.gisinPenalty + yongshinResult.gusinPenalty + gyeokgukPenalty;
+  const score           = clamp(adjustedScore - totalPenalty, 0, 100);
+
+  // --- Pass/fail determination ---
+  const isPassed =
+    score >= PASSING.minScore
+    && balanceResult.score >= PASSING.minBalanceScore
+    && (sajuOutput?.yongshin == null || (yongshinResult.score >= PASSING.minYongshinScore && yongshinResult.gusinRatio < PASSING.maxGusinRatio));
+
   return {
-    score, isPassed, combined: bal.combined,
+    score,
+    isPassed,
+    combined: balanceResult.combined,
     breakdown: {
-      balance: bal.score, yongshin: yng.score, strength: str, tenGod: tg,
-      penalties: { gisin: yng.gisinPenalty, gusin: yng.gusinPenalty, gyeokguk: gyPenalty, total: tp },
-      deficiencyBonus: defBonus,
-      elementMatches: yng.elementMatches,
+      balance:  balanceResult.score,
+      yongshin: yongshinResult.score,
+      strength: strengthScore,
+      tenGod:   tenGodScore,
+      penalties: {
+        gisin:    yongshinResult.gisinPenalty,
+        gusin:    yongshinResult.gusinPenalty,
+        gyeokguk: gyeokgukPenalty,
+        total:    totalPenalty,
+      },
+      deficiencyBonus,
+      elementMatches: yongshinResult.elementMatches,
     },
   };
 }
+
+// =========================================================================
+//  SajuCalculator — plugs into the name-ts evaluator framework
+// =========================================================================
 
 export class SajuCalculator extends NameCalculator {
   readonly id = 'saju';
@@ -317,7 +567,7 @@ export class SajuCalculator extends NameCalculator {
 
   visit(ctx: EvalContext): void {
     const rootDist = distributionFromArrangement(
-      [...this.surnameEntries, ...this.givenNameEntries].map(e => e.resource_element as ElementKey),
+      [...this.surnameEntries, ...this.givenNameEntries].map(entry => entry.resource_element as ElementKey),
     );
     this.scoreResult = computeSajuNameScore(this.sajuDistribution, rootDist, this.sajuOutput);
     this.putInsight(ctx, SAJU_FRAME, this.scoreResult.score, this.scoreResult.isPassed, 'SAJU+ELEMENT', {
@@ -335,16 +585,23 @@ export class SajuCalculator extends NameCalculator {
   }
 
   getAnalysis(): AnalysisDetail<SajuCompatibility> {
-    const bd = this.scoreResult?.breakdown, em = bd?.elementMatches, yg = this.sajuOutput?.yongshin;
+    const breakdown     = this.scoreResult?.breakdown;
+    const elementMatches = breakdown?.elementMatches;
+    const yongshinData  = this.sajuOutput?.yongshin;
     return {
-      type: 'Saju', score: this.scoreResult?.score ?? 0, polarityScore: 0, elementScore: this.scoreResult?.score ?? 0,
+      type: 'Saju',
+      score: this.scoreResult?.score ?? 0,
+      polarityScore: 0,
+      elementScore: this.scoreResult?.score ?? 0,
       data: {
-        yongshinElement: elementFromSajuCode(yg?.finalYongshin) ?? '',
-        heeshinElement: elementFromSajuCode(yg?.finalHeesin) ?? null,
-        gishinElement: elementFromSajuCode(yg?.gisin) ?? null,
-        nameElements: this.givenNameEntries.map(e => e.resource_element),
-        yongshinMatchCount: em?.yongshin ?? 0, gishinMatchCount: em?.gisin ?? 0,
-        dayMasterSupportScore: bd?.strength ?? 0, affinityScore: this.scoreResult?.score ?? 0,
+        yongshinElement:       elementFromSajuCode(yongshinData?.finalYongshin) ?? '',
+        heeshinElement:        elementFromSajuCode(yongshinData?.finalHeesin) ?? null,
+        gishinElement:         elementFromSajuCode(yongshinData?.gisin) ?? null,
+        nameElements:          this.givenNameEntries.map(entry => entry.resource_element),
+        yongshinMatchCount:    elementMatches?.yongshin ?? 0,
+        gishinMatchCount:      elementMatches?.gisin ?? 0,
+        dayMasterSupportScore: breakdown?.strength ?? 0,
+        affinityScore:         this.scoreResult?.score ?? 0,
       },
     };
   }

@@ -1,0 +1,17 @@
+{
+  "cycle": [
+    { "english": "Wood",  "korean": "목" },
+    { "english": "Fire",  "korean": "화" },
+    { "english": "Earth", "korean": "토" },
+    { "english": "Metal", "korean": "금" },
+    { "english": "Water", "korean": "수" }
+  ],
+  "polarity": {
+    "positive": { "english": "Positive", "korean": "양" },
+    "negative": { "english": "Negative", "korean": "음" }
+  },
+  "digitToElement": [
+    "Water", "Wood", "Wood", "Fire", "Fire",
+    "Earth", "Earth", "Metal", "Metal", "Water"
+  ]
+}

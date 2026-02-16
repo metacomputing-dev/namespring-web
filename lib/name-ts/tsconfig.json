@@ -7,9 +7,10 @@
     "outDir": "./dist",
     "declaration": true,
     "strict": true,
+    "resolveJsonModule": true,
     "types": ["node", "sql.js"],
     "allowSyntheticDefaultImports": true,
     "esModuleInterop": true
   },
-  "include": ["src/**/*"]
+  "include": ["src/**/*", "config/**/*"]
 }

@@ -23,6 +23,10 @@ const originalFetch = globalThis.fetch;
     if (!fs.existsSync(filePath)) return new Response(null, { status: 404, statusText: `Not found: ${filePath}` });
     return new Response(fs.readFileSync(filePath), { status: 200 });
   }
+  // sql.js WASM loading — serve from local node_modules
+  if (urlStr.includes('sql-wasm.wasm') || urlStr === WASM_PATH) {
+    return new Response(fs.readFileSync(WASM_PATH), { status: 200 });
+  }
   return originalFetch(url as any, options);
 };
 
@@ -35,7 +39,7 @@ const birth = { year: 1986, month: 4, day: 19, hour: 5, minute: 45, gender: 'mal
 
 const engine = new SpringEngine();
 const repos = [(engine as any).hanjaRepo, (engine as any).fourFrameRepo];
-for (const r of repos) if (r) (r as any).wasmUrl = WASM_PATH;
+for (const r of repos) if (r) (r as any).wasmBinaryUrl = WASM_PATH;
 
 let pass = 0;
 let fail = 0;
@@ -252,7 +256,7 @@ try {
     ['dayMaster.element exists', !!s.dayMaster?.element],
     ['strength.level exists', !!s.strength?.level],
     ['yongshin.element exists', !!s.yongshin?.element],
-    ['ohaengDistribution exists', !!s.ohaengDistribution && Object.keys(s.ohaengDistribution).length > 0],
+    ['elementDistribution exists', !!s.elementDistribution && Object.keys(s.elementDistribution).length > 0],
     ['timeCorrection exists', !!s.timeCorrection],
   ];
 

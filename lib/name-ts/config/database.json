@@ -1,0 +1,28 @@
+{
+  "sqlWasmUrl": "https://sql.js.org/dist/sql-wasm.wasm",
+  "hanja": {
+    "dbUrl": "/data/hanja.db"
+  },
+  "fourframe": {
+    "dbUrl": "/data/fourframe.db"
+  },
+  "nameStat": {
+    "shardBaseUrl": "/data/name-stat-shards",
+    "shardFileMapping": {
+      "ㄱ": "01.db",
+      "ㄴ": "02.db",
+      "ㄷ": "03.db",
+      "ㄹ": "04.db",
+      "ㅁ": "05.db",
+      "ㅂ": "06.db",
+      "ㅅ": "07.db",
+      "ㅇ": "08.db",
+      "ㅈ": "09.db",
+      "ㅊ": "10.db",
+      "ㅋ": "11.db",
+      "ㅌ": "12.db",
+      "ㅍ": "13.db",
+      "ㅎ": "14.db"
+    }
+  }
+}

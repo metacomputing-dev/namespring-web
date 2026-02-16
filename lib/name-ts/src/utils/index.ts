@@ -1,48 +1,109 @@
 import type { HanjaEntry } from '../database/hanja-repository.js';
 import type { EvaluationResult } from '../calculator/evaluator.js';
+import koreanPhonetics from '../../config/korean-phonetics.json';
+import interpretationConfig from '../../config/interpretation.json';
 
-export const CHOSEONG = [
-  'ㄱ','ㄲ','ㄴ','ㄷ','ㄸ','ㄹ','ㅁ','ㅂ','ㅃ',
-  'ㅅ','ㅆ','ㅇ','ㅈ','ㅉ','ㅊ','ㅋ','ㅌ','ㅍ','ㅎ',
-] as const;
+// ---------------------------------------------------------------------------
+// Korean phonetic tables (loaded from config/korean-phonetics.json)
+// ---------------------------------------------------------------------------
 
-export const JUNGSEONG = [
-  'ㅏ','ㅐ','ㅑ','ㅒ','ㅓ','ㅔ','ㅕ','ㅖ','ㅗ','ㅘ','ㅙ',
-  'ㅚ','ㅛ','ㅜ','ㅝ','ㅞ','ㅟ','ㅠ','ㅡ','ㅢ','ㅣ',
-] as const;
+export const CHOSEONG = koreanPhonetics.choseong as readonly string[];
+export const JUNGSEONG = koreanPhonetics.jungseong as readonly string[];
 
-const HANGUL_BASE = 0xAC00;
+const { base: HANGUL_BLOCK_START, end: HANGUL_BLOCK_END,
+        syllablesPerOnset: SYLLABLES_PER_ONSET,
+        syllablesPerNucleus: SYLLABLES_PER_NUCLEUS } = koreanPhonetics.hangulUnicode;
 
+// Unicode ranges for Hangul Compatibility Jamo block (U+3131..U+3163)
+const JAMO_CONSONANT_START = 0x3131;
+const JAMO_CONSONANT_END   = 0x314E;
+const JAMO_VOWEL_START     = 0x314F;
+const JAMO_VOWEL_END       = 0x3163;
+
+// ---------------------------------------------------------------------------
+// Hangul decomposition
+// ---------------------------------------------------------------------------
+
+/**
+ * Decomposes a single Hangul syllable character into its onset (choseong)
+ * and nucleus (jungseong) components.
+ *
+ * The Hangul Syllables Unicode block (U+AC00..U+D7A3) encodes each syllable
+ * as: base + (onset * 588) + (nucleus * 28) + coda.
+ * Subtracting the block start yields a zero-based offset we can divide.
+ */
 export function decomposeHangul(char: string): { onset: string; nucleus: string } | null {
-  const code = char.charCodeAt(0) - HANGUL_BASE;
-  if (code < 0 || code > 0xD7A3 - HANGUL_BASE) return null;
-  const onset = CHOSEONG[Math.floor(code / 588)] ?? 'ㅇ';
-  const nucleus = JUNGSEONG[Math.floor((code % 588) / 28)] ?? 'ㅏ';
+  const charCode = char.charCodeAt(0);
+  const offsetFromBlockStart = charCode - HANGUL_BLOCK_START;
+
+  if (offsetFromBlockStart < 0 || charCode > HANGUL_BLOCK_END) return null;
+
+  const onset   = CHOSEONG[Math.floor(offsetFromBlockStart / SYLLABLES_PER_ONSET)]   ?? 'ㅇ';
+  const nucleus = JUNGSEONG[Math.floor((offsetFromBlockStart % SYLLABLES_PER_ONSET) / SYLLABLES_PER_NUCLEUS)] ?? 'ㅏ';
+
   return { onset, nucleus };
 }
 
+// ---------------------------------------------------------------------------
+// Jamo filter parsing
+// ---------------------------------------------------------------------------
+
 export interface JamoFilter { readonly onset?: string; readonly nucleus?: string }
 
+/**
+ * Parses a single character into a jamo-level filter.
+ *
+ * Handles three cases:
+ *   1. Compatibility Jamo consonant (U+3131..U+314E) -- returns onset filter
+ *   2. Compatibility Jamo vowel (U+314F..U+3163)     -- returns nucleus filter
+ *   3. Full Hangul syllable with no coda (offset % 28 === 0)
+ *      -- returns both onset and nucleus filters
+ *
+ * Returns null when the character is not a recognized Hangul jamo or syllable.
+ * Returns an empty filter `{}` for edge cases (empty input, or a consonant
+ * code point that is not in the choseong table).
+ */
 export function parseJamoFilter(char: string): JamoFilter | null {
   if (!char) return {};
-  const code = char.charCodeAt(0);
-  if (code >= 0x3131 && code <= 0x314E)
-    return (CHOSEONG as readonly string[]).includes(char) ? { onset: char } : {};
-  if (code >= 0x314F && code <= 0x3163) return { nucleus: char };
-  const sc = code - HANGUL_BASE;
-  if (sc >= 0 && sc <= 0xD7A3 - HANGUL_BASE && sc % 28 === 0)
-    return { onset: CHOSEONG[Math.floor(sc / 588)], nucleus: JUNGSEONG[Math.floor((sc % 588) / 28)] };
+
+  const charCode = char.charCodeAt(0);
+
+  // Case 1: Hangul Compatibility Jamo -- consonant range
+  if (charCode >= JAMO_CONSONANT_START && charCode <= JAMO_CONSONANT_END) {
+    return CHOSEONG.includes(char) ? { onset: char } : {};
+  }
+
+  // Case 2: Hangul Compatibility Jamo -- vowel range
+  if (charCode >= JAMO_VOWEL_START && charCode <= JAMO_VOWEL_END) {
+    return { nucleus: char };
+  }
+
+  // Case 3: Full Hangul syllable (no coda -- offset divisible by syllablesPerNucleus)
+  const syllableOffset = charCode - HANGUL_BLOCK_START;
+  const isHangulSyllable   = syllableOffset >= 0 && charCode <= HANGUL_BLOCK_END;
+  const hasNoCoda          = syllableOffset % SYLLABLES_PER_NUCLEUS === 0;
+
+  if (isHangulSyllable && hasNoCoda) {
+    const onset   = CHOSEONG[Math.floor(syllableOffset / SYLLABLES_PER_ONSET)];
+    const nucleus = JUNGSEONG[Math.floor((syllableOffset % SYLLABLES_PER_ONSET) / SYLLABLES_PER_NUCLEUS)];
+    return { onset, nucleus };
+  }
+
   return null;
 }
 
+// ---------------------------------------------------------------------------
+// Fallback HanjaEntry construction
+// ---------------------------------------------------------------------------
+
 export function makeFallbackEntry(hangul: string): HanjaEntry {
-  const d = decomposeHangul(hangul);
+  const decomposed = decomposeHangul(hangul);
   return {
     id: 0,
     hangul,
     hanja: hangul,
-    onset: d?.onset ?? 'ㅇ',
-    nucleus: d?.nucleus ?? 'ㅏ',
+    onset: decomposed?.onset ?? 'ㅇ',
+    nucleus: decomposed?.nucleus ?? 'ㅏ',
     strokes: 1,
     stroke_element: 'Wood',
     resource_element: 'Earth',
@@ -52,21 +113,38 @@ export function makeFallbackEntry(hangul: string): HanjaEntry {
   };
 }
 
-export const FRAME_LABELS: Readonly<Record<string, string>> = {
-  FOURFRAME_LUCK: '사격수리(81수리)',
-  STROKE_POLARITY: '획수 음양',
-  HANGUL_ELEMENT: '발음 오행',
-  HANGUL_POLARITY: '발음 음양',
-  FOURFRAME_ELEMENT: '사격 오행',
-};
+// ---------------------------------------------------------------------------
+// Interpretation labels & builder (loaded from config/interpretation.json)
+// ---------------------------------------------------------------------------
 
-export function buildInterpretation(ev: EvaluationResult): string {
-  const { score, isPassed, categories } = ev;
-  const overall = isPassed
-    ? (score >= 80 ? '종합적으로 매우 우수한 이름입니다.' : score >= 65 ? '종합적으로 좋은 이름입니다.' : '합격 기준을 충족하는 이름입니다.')
-    : (score >= 55 ? '보통 수준의 이름입니다.' : '개선 여지가 있는 이름입니다.');
-  const warns = categories
-    .filter((c) => c.frame !== 'TOTAL' && !c.isPassed && c.score < 50)
-    .map((c) => `${FRAME_LABELS[c.frame] ?? c.frame} 부분을 점검해 보세요.`);
-  return [overall, ...warns].join(' ');
+export const FRAME_LABELS: Readonly<Record<string, string>> = interpretationConfig.frameLabels;
+
+/**
+ * Builds a human-readable interpretation string from an evaluation result.
+ *
+ * The overall message is chosen by walking the score tiers in
+ * `interpretation.json` (highest threshold first). Per-category warnings
+ * are appended for any non-TOTAL category that both failed and scored
+ * below the configured warning threshold.
+ */
+export function buildInterpretation(evaluationResult: EvaluationResult): string {
+  const { score, isPassed, categories } = evaluationResult;
+
+  // -- Determine the overall message by matching score against tier thresholds --
+  const tiers = isPassed
+    ? interpretationConfig.overallMessages
+    : interpretationConfig.failedMessages;
+
+  const sortedTiers = Object.values(tiers).sort((a, b) => b.minScore - a.minScore);
+  const overall = sortedTiers.find(tier => score >= tier.minScore)?.message
+    ?? sortedTiers[sortedTiers.length - 1].message;
+
+  // -- Collect warnings for weak categories --
+  const { warningThreshold, warningTemplate } = interpretationConfig;
+
+  const warnings = categories
+    .filter((category) => category.frame !== 'TOTAL' && !category.isPassed && category.score < warningThreshold)
+    .map((category) => warningTemplate.replace('{label}', FRAME_LABELS[category.frame] ?? category.frame));
+
+  return [overall, ...warnings].join(' ');
 }

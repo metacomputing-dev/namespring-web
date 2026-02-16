@@ -1,0 +1,74 @@
+{
+  "adjacencyScoring": {
+    "baseScore": 70,
+    "generatingBonus": 15,
+    "overcomingPenalty": -20,
+    "sameElementPenalty": -5,
+    "minScore": 0,
+    "maxScore": 100
+  },
+  "balanceScoring": {
+    "maxScore": 100,
+    "minScore": 25,
+    "penaltyPerStep": 15,
+    "excessThreshold": 2
+  },
+  "polarityScoring": {
+    "baseScore": 40,
+    "ratioTiers": [
+      { "minRatio": 0.4, "bonus": 50 },
+      { "minRatio": 0.3, "bonus": 35 },
+      { "minRatio": 0.2, "bonus": 20 },
+      { "minRatio": 0.0, "bonus": 10 }
+    ]
+  },
+  "fortuneBuckets": [
+    { "keyword": "최상", "score": 25 },
+    { "keyword": "상",   "score": 20 },
+    { "keyword": "양",   "score": 15 },
+    { "keyword": "최흉", "score": 0  },
+    { "keyword": "흉",   "score": 5  }
+  ],
+  "fortuneDefaultScore": 10,
+  "hangulElement": {
+    "doubleSurnameThreshold": 65,
+    "singleSurnameThreshold": 60,
+    "minPassingScore": 70,
+    "generatingMinRatio": 0.6,
+    "maxConsecutiveSame": 3,
+    "signalWeight": 0.6
+  },
+  "hangulPolarity": {
+    "signalWeight": 0.6
+  },
+  "strokePolarity": {
+    "signalWeight": 0.6
+  },
+  "fourframeLuck": {
+    "signalWeight": 1.0
+  },
+  "fourframeElement": {
+    "doubleSurnameThreshold": 65,
+    "singleSurnameThreshold": 60,
+    "minPassingScore": 65,
+    "signalWeight": 0.6
+  },
+  "evaluation": {
+    "minPassingScore": 60
+  },
+  "energyScoring": {
+    "polarity": {
+      "positiveWeight": 1,
+      "negativeWeight": -1
+    },
+    "element": {
+      "baseScore": 70,
+      "generatingBonus": 15,
+      "overcomingPenalty": -20,
+      "sameElementPenalty": -5,
+      "minScore": 0,
+      "maxScore": 100
+    }
+  },
+  "maxStrokeSum": 81
+}
