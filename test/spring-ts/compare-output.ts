@@ -326,6 +326,81 @@ try {
   }
 
   // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+  // 9. 자모 필터 + 와일드카드 + 고정 글자: 김ㅇ_사윤 (5글자 이름)
+  // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+  console.log('\n9. [자모필터] 김ㅇ_사윤 (5글자=성1+이름4, 자모필터+와일드카드+고정글자)');
+  const jamoBirth = { year: 1995, month: 3, day: 12, hour: 14, minute: 30, gender: 'female' as const };
+  const jamoResults = await engine.getNameCandidates({
+    birth: jamoBirth,
+    surname: [{ hangul: '김', hanja: '金' }],
+    givenName: [
+      { hangul: 'ㅇ' },    // position 0: onset=ㅇ 필터
+      { hangul: '' },      // position 1: 와일드카드 (제한 없음)
+      { hangul: '사' },    // position 2: onset=ㅅ, nucleus=ㅏ 필터
+      { hangul: '윤' },    // position 3: 고정 글자
+    ],
+    mode: 'recommend',
+  });
+
+  console.log(`   총 후보: ${jamoResults.length}`);
+
+  const jamoCountOk = jamoResults.length > 0;
+  if (jamoCountOk) pass++; else fail++;
+  console.log(`   ${jamoCountOk ? 'PASS' : 'FAIL'} 자모필터 후보 생성됨`);
+
+  // 이름 4글자 확인
+  const jamoLenOk = jamoResults.every(r => r.namingReport.name.givenName.length === 4);
+  if (jamoLenOk) pass++; else fail++;
+  console.log(`   ${jamoLenOk ? 'PASS' : 'FAIL'} 이름 글자수 = 4`);
+
+  // 1번째 글자 초성 = ㅇ
+  const jamoOnsetOk = jamoResults.every(r => {
+    const h = r.namingReport.name.givenName[0]?.hangul;
+    if (!h) return false;
+    const code = h.charCodeAt(0) - 0xAC00;
+    return Math.floor(code / 588) === 11; // ㅇ index
+  });
+  if (jamoOnsetOk) pass++; else fail++;
+  console.log(`   ${jamoOnsetOk ? 'PASS' : 'FAIL'} 1번째 글자 초성 = ㅇ`);
+
+  // 2번째 글자 = 와일드카드 (유효한 한글 음절이면 OK)
+  const jamoWildOk = jamoResults.every(r => {
+    const h = r.namingReport.name.givenName[1]?.hangul;
+    if (!h) return false;
+    const code = h.charCodeAt(0);
+    return code >= 0xAC00 && code <= 0xD7A3;
+  });
+  if (jamoWildOk) pass++; else fail++;
+  console.log(`   ${jamoWildOk ? 'PASS' : 'FAIL'} 2번째 글자 = 와일드카드 (한글 음절)`);
+
+  // 3번째 글자 = 사 패턴 (초성ㅅ + 중성ㅏ)
+  const jamoSaOk = jamoResults.every(r => {
+    const h = r.namingReport.name.givenName[2]?.hangul;
+    if (!h) return false;
+    const code = h.charCodeAt(0) - 0xAC00;
+    return Math.floor(code / 588) === 9 && Math.floor((code % 588) / 28) === 0; // ㅅ=9, ㅏ=0
+  });
+  if (jamoSaOk) pass++; else fail++;
+  console.log(`   ${jamoSaOk ? 'PASS' : 'FAIL'} 3번째 글자 = 사 패턴 (ㅅ+ㅏ)`);
+
+  // 4번째 글자 = 윤 (고정)
+  const jamoYunOk = jamoResults.every(r => r.namingReport.name.givenName[3]?.hangul === '윤');
+  if (jamoYunOk) pass++; else fail++;
+  console.log(`   ${jamoYunOk ? 'PASS' : 'FAIL'} 4번째 글자 = 윤`);
+
+  // finalScore > 0
+  const jamoScoreOk = jamoResults.every(r => r.finalScore > 0);
+  if (jamoScoreOk) pass++; else fail++;
+  console.log(`   ${jamoScoreOk ? 'PASS' : 'FAIL'} 모든 후보 finalScore > 0`);
+
+  // top 5 출력
+  for (let i = 0; i < Math.min(5, jamoResults.length); i++) {
+    const r = jamoResults[i];
+    const names = r.namingReport.name.givenName;
+    console.log(`   ${String(i + 1).padStart(2)}. ${r.namingReport.name.fullHangul}(${r.namingReport.name.fullHanja}) final=${r.finalScore} elements=[${names.map(n => n.element).join(',')}]`);
+  }
+
+  // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
   // Summary
   // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
   console.log('\n' + '='.repeat(55));
