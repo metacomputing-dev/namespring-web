@@ -1,0 +1,37 @@
+{
+  "sajuPriority": {
+    "balanceWeight": 200,
+    "confidenceBaseRatio": 0.55,
+    "confidenceVariableRatio": 0.45,
+    "penaltyDivisor": 20,
+    "maxPenaltyImpact": 0.25,
+    "defaultConfidence": 0.65
+  },
+  "weightMultipliers": {
+    "sajuBoostBase": 1.0,
+    "sajuBoostFactor": 0.45,
+    "relaxReductionBase": 1.0,
+    "relaxReductionFactor": 0.3
+  },
+  "adaptiveMode": {
+    "activationThreshold": 0.55,
+    "highPriorityThreshold": 0.78,
+    "basePassingScore": 60,
+    "scoreReductionFactor": 8,
+    "minFourframeLuckScore": 35,
+    "minRelaxableFrameScore": 45,
+    "highPriorityAllowedFailures": 2,
+    "lowPriorityAllowedFailures": 1
+  },
+  "strictMode": {
+    "passingScore": 60
+  },
+  "nameFrames": [
+    "FOURFRAME_LUCK",
+    "STROKE_POLARITY",
+    "HANGUL_ELEMENT",
+    "HANGUL_POLARITY",
+    "FOURFRAME_ELEMENT"
+  ],
+  "sajuFrameId": "SAJU_ELEMENT_BALANCE"
+}
