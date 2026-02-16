@@ -112,6 +112,8 @@ export class FrameCalculator extends NameCalculator {
   private static repo: FourframeRepository | null = null;
   private static repoInitPromise: Promise<void> | null = null;
 
+  private entryLoadPromise: Promise<void>;
+
   constructor(surnameEntries: HanjaEntry[], givenNameEntries: HanjaEntry[]) {
     super();
 
@@ -143,7 +145,12 @@ export class FrameCalculator extends NameCalculator {
     ];
 
     // Fire-and-forget: load fortune/meaning entries from the database
-    void this.loadEntries();
+    this.entryLoadPromise = this.loadEntries();
+  }
+
+  /** Await the async entry loading started in the constructor. */
+  async ensureEntriesLoaded(): Promise<void> {
+    await this.entryLoadPromise;
   }
 
   // -------------------------------------------------------------------------

@@ -145,6 +145,7 @@ export class SpringEngine {
     };
 
     const evalResult = evaluateName([hangul, hanja, frame], evalCtx);
+    await frame.ensureEntriesLoaded();
     return this.buildNamingReport(surnameEntries, givenNameEntries, evalResult, hangul, hanja, frame);
   }
 
@@ -209,6 +210,7 @@ export class SpringEngine {
         insights:      {},
       };
       const nameOnly = evaluateName([hangul, hanja, frame], nameOnlyCtx);
+      await frame.ensureEntriesLoaded();
       const namingReport = this.buildNamingReport(surnameEntries, givenNameEntries, nameOnly, hangul, hanja, frame);
 
       results.push({
