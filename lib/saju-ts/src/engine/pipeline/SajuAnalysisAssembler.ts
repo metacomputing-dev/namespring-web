@@ -8,6 +8,8 @@ import {
   type JijiRelationHit,
   type ResolvedRelation,
   type ScoredCheonganRelation,
+  type ShinsalComposite,
+  type WeightedShinsalHit,
 } from '../../domain/Relations.js';
 import { type StrengthResult } from '../../domain/StrengthResult.js';
 import { type GyeokgukResult } from '../../domain/Gyeokguk.js';
@@ -19,7 +21,6 @@ import { type TenGodAnalysis } from '../../domain/TenGodAnalysis.js';
 import { type SibiUnseong } from '../../domain/SibiUnseong.js';
 import { type AnalysisTraceStep } from '../../domain/types.js';
 import { type SajuPillarResult } from '../SajuCalculator.js';
-import { type WeightedShinsalHit, type ShinsalComposite } from '../analysis/ShinsalWeightModel.js';
 import { type GongmangResult } from '../analysis/GongmangCalculator.js';
 
 export interface FinalAnalysisContext {
@@ -45,33 +46,27 @@ export interface FinalAnalysisContext {
   tenGodAnalysis: TenGodAnalysis;
 }
 
-type AnalysisResultMapper = readonly [AnalysisResultKey, (context: FinalAnalysisContext) => unknown];
-
-const ANALYSIS_RESULT_MAPPERS: readonly AnalysisResultMapper[] = [
-  [ANALYSIS_KEYS.STRENGTH, (context) => context.strength],
-  [ANALYSIS_KEYS.YONGSHIN, (context) => context.yongshin],
-  [ANALYSIS_KEYS.GYEOKGUK, (context) => context.gyeokguk],
-  [ANALYSIS_KEYS.HAPWHA, (context) => context.hapHwaEvaluations],
-  [ANALYSIS_KEYS.SIBI_UNSEONG, (context) => context.sibiUnseong],
-  [ANALYSIS_KEYS.GONGMANG, (context) => context.gongmang],
-  [ANALYSIS_KEYS.SHINSAL, (context) => context.shinsalHits],
-  [ANALYSIS_KEYS.WEIGHTED_SHINSAL, (context) => context.weightedShinsalHits],
-  [ANALYSIS_KEYS.SHINSAL_COMPOSITES, (context) => context.shinsalComposites],
-  [ANALYSIS_KEYS.PALACE, (context) => context.palace],
-  [ANALYSIS_KEYS.DAEUN, (context) => context.daeun],
-  [ANALYSIS_KEYS.SAEUN, (context) => context.saeun],
-  [ANALYSIS_KEYS.CHEONGAN_RELATIONS, (context) => context.cheonganRelations],
-  [ANALYSIS_KEYS.RESOLVED_JIJI, (context) => context.resolvedJijiRelations],
-  [ANALYSIS_KEYS.SCORED_CHEONGAN, (context) => context.scoredCheonganRelations],
-  [ANALYSIS_KEYS.TRACE, (context) => context.trace],
-  [ANALYSIS_KEYS.OHAENG_DISTRIBUTION, (context) => context.ohaengDistribution],
-  [ANALYSIS_KEYS.TEN_GODS, (context) => context.tenGodAnalysis],
-];
-
 export function buildAnalysisResults(context: FinalAnalysisContext): Map<string, unknown> {
-  return new Map<string, unknown>(
-    ANALYSIS_RESULT_MAPPERS.map(([key, valueSelector]) => [key, valueSelector(context)]),
-  );
+  return new Map<AnalysisResultKey, unknown>([
+    [ANALYSIS_KEYS.STRENGTH, context.strength],
+    [ANALYSIS_KEYS.YONGSHIN, context.yongshin],
+    [ANALYSIS_KEYS.GYEOKGUK, context.gyeokguk],
+    [ANALYSIS_KEYS.HAPWHA, context.hapHwaEvaluations],
+    [ANALYSIS_KEYS.SIBI_UNSEONG, context.sibiUnseong],
+    [ANALYSIS_KEYS.GONGMANG, context.gongmang],
+    [ANALYSIS_KEYS.SHINSAL, context.shinsalHits],
+    [ANALYSIS_KEYS.WEIGHTED_SHINSAL, context.weightedShinsalHits],
+    [ANALYSIS_KEYS.SHINSAL_COMPOSITES, context.shinsalComposites],
+    [ANALYSIS_KEYS.PALACE, context.palace],
+    [ANALYSIS_KEYS.DAEUN, context.daeun],
+    [ANALYSIS_KEYS.SAEUN, context.saeun],
+    [ANALYSIS_KEYS.CHEONGAN_RELATIONS, context.cheonganRelations],
+    [ANALYSIS_KEYS.RESOLVED_JIJI, context.resolvedJijiRelations],
+    [ANALYSIS_KEYS.SCORED_CHEONGAN, context.scoredCheonganRelations],
+    [ANALYSIS_KEYS.TRACE, context.trace],
+    [ANALYSIS_KEYS.OHAENG_DISTRIBUTION, context.ohaengDistribution],
+    [ANALYSIS_KEYS.TEN_GODS, context.tenGodAnalysis],
+  ]);
 }
 
 export function buildSajuAnalysis(context: FinalAnalysisContext): SajuAnalysis {
@@ -102,4 +97,3 @@ export function buildSajuAnalysis(context: FinalAnalysisContext): SajuAnalysis {
     jijiRelations: context.rawJijiRelations,
   };
 }
-

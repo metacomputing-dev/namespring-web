@@ -1,5 +1,6 @@
 import { Cheongan, CHEONGAN_VALUES } from '../../domain/Cheongan.js';
 import { Jiji, JIJI_VALUES } from '../../domain/Jiji.js';
+import { createValueParser } from '../../domain/EnumValueParser.js';
 import rawBranchTables from './data/shinsalBranchTables.json';
 import { type StemOrBranch } from './ShinsalCatalogCore.js';
 
@@ -15,18 +16,8 @@ interface BranchTablesData {
 }
 
 const BRANCH_TABLE_DATA = rawBranchTables as unknown as BranchTablesData;
-const CHEONGAN_SET: ReadonlySet<Cheongan> = new Set(CHEONGAN_VALUES);
-const JIJI_SET: ReadonlySet<Jiji> = new Set(JIJI_VALUES);
-
-function toCheongan(value: string): Cheongan {
-  if (CHEONGAN_SET.has(value as Cheongan)) return value as Cheongan;
-  throw new Error(`Invalid Cheongan value: ${value}`);
-}
-
-function toJiji(value: string): Jiji {
-  if (JIJI_SET.has(value as Jiji)) return value as Jiji;
-  throw new Error(`Invalid Jiji value: ${value}`);
-}
+const toCheongan = createValueParser('Cheongan', 'shinsalBranchTables.json', CHEONGAN_VALUES);
+const toJiji = createValueParser('Jiji', 'shinsalBranchTables.json', JIJI_VALUES);
 
 function symmetricPairMap<T>(pairs: readonly (readonly [T, T])[]): ReadonlyMap<T, T> {
   const map = new Map<T, T>();

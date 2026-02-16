@@ -277,6 +277,29 @@ describe('SaeunCalculator.monthlyLuck boundary moments', () => {
 });
 
 // =========================================================================
+// sajuMonthIndexAt
+// =========================================================================
+describe('SaeunCalculator.sajuMonthIndexAt', () => {
+  it('switches from month 12 to month 1 exactly at ipchun boundary', () => {
+    // 2024 입춘: 2024-02-04 17:27
+    expect(SaeunCalculator.sajuMonthIndexAt(2024, 2, 4, 17, 26)).toBe(12);
+    expect(SaeunCalculator.sajuMonthIndexAt(2024, 2, 4, 17, 27)).toBe(1);
+  });
+
+  it('switches from month 1 to month 2 exactly at gyeongchip boundary', () => {
+    // 2024 경칩: 2024-03-05 11:23
+    expect(SaeunCalculator.sajuMonthIndexAt(2024, 3, 5, 11, 22)).toBe(1);
+    expect(SaeunCalculator.sajuMonthIndexAt(2024, 3, 5, 11, 23)).toBe(2);
+  });
+
+  it('falls back to approximate month index outside table coverage', () => {
+    // 1800 is outside precomputed boundary table range.
+    expect(SaeunCalculator.sajuMonthIndexAt(1800, 2, 4, 0, 0)).toBe(1);
+    expect(SaeunCalculator.sajuMonthIndexAt(1800, 1, 3, 0, 0)).toBe(11);
+  });
+});
+
+// =========================================================================
 // Helper
 // =========================================================================
 function momentToKey(m: { year: number; month: number; day: number; hour: number; minute: number }): number {

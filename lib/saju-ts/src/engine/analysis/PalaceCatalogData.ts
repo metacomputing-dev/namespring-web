@@ -7,6 +7,7 @@ import {
 } from '../../domain/Palace.js';
 import { PillarPosition } from '../../domain/PillarPosition.js';
 import { Sipseong } from '../../domain/Sipseong.js';
+import { createEnumValueParser } from '../../domain/EnumValueParser.js';
 import rawPalaceCatalog from './data/palaceCatalog.json';
 
 interface RawFamilyValue {
@@ -28,25 +29,9 @@ interface PalaceCatalogData {
 }
 
 const PALACE_CATALOG_DATA = rawPalaceCatalog as unknown as PalaceCatalogData;
-
-const PILLAR_POSITION_SET: ReadonlySet<PillarPosition> = new Set(Object.values(PillarPosition));
-const SIPSEONG_SET: ReadonlySet<Sipseong> = new Set(Object.values(Sipseong));
-const PALACE_FAVOR_SET: ReadonlySet<PalaceFavor> = new Set(Object.values(PalaceFavor));
-
-function toPillarPosition(raw: string): PillarPosition {
-  if (PILLAR_POSITION_SET.has(raw as PillarPosition)) return raw as PillarPosition;
-  throw new Error(`Invalid PillarPosition in PalaceCatalog: ${raw}`);
-}
-
-function toSipseong(raw: string): Sipseong {
-  if (SIPSEONG_SET.has(raw as Sipseong)) return raw as Sipseong;
-  throw new Error(`Invalid Sipseong in PalaceCatalog: ${raw}`);
-}
-
-function toPalaceFavor(raw: string): PalaceFavor {
-  if (PALACE_FAVOR_SET.has(raw as PalaceFavor)) return raw as PalaceFavor;
-  throw new Error(`Invalid PalaceFavor in PalaceCatalog: ${raw}`);
-}
+const toPillarPosition = createEnumValueParser('PillarPosition', 'PalaceCatalog', PillarPosition);
+const toSipseong = createEnumValueParser('Sipseong', 'PalaceCatalog', Sipseong);
+const toPalaceFavor = createEnumValueParser('PalaceFavor', 'PalaceCatalog', PalaceFavor);
 
 function interpKey(sipseong: Sipseong, position: PillarPosition): string {
   return `${sipseong}:${position}`;

@@ -1,19 +1,9 @@
-import { type AnalysisTraceStep, type BirthInput } from '../domain/types.js';
+﻿import { type AnalysisTraceStep, type BirthInput } from '../domain/types.js';
 import { type CalculationConfig, DEFAULT_CONFIG } from '../config/CalculationConfig.js';
 import { calculatePillars } from './SajuCalculator.js';
 import { type SajuAnalysis } from '../domain/SajuAnalysis.js';
-import { type SaeunPillar } from '../domain/SaeunInfo.js';
 import { CHEONGAN_INFO } from '../domain/Cheongan.js';
 import { JIJI_INFO } from '../domain/Jiji.js';
-import { PillarPosition } from '../domain/PillarPosition.js';
-import { type StrengthResult } from '../domain/StrengthResult.js';
-import { type GyeokgukResult, type GyeokgukFormation } from '../domain/Gyeokguk.js';
-import { type YongshinResult } from '../domain/YongshinResult.js';
-import { type DaeunInfo } from '../domain/DaeunInfo.js';
-import { type PalaceAnalysis } from '../domain/Palace.js';
-import { type TenGodAnalysis } from '../domain/TenGodAnalysis.js';
-import { type GongmangResult } from './analysis/GongmangCalculator.js';
-
 import { TenGodCalculator } from './analysis/TenGodCalculator.js';
 import { analyzeAllPillars } from './analysis/SibiUnseongCalculator.js';
 import { StrengthAnalyzer } from './analysis/StrengthAnalyzer.js';
@@ -53,12 +43,10 @@ import { detectAndTrace, tracedStep } from './pipeline/TraceHelpers.js';
 import { buildSajuAnalysis } from './pipeline/SajuAnalysisAssembler.js';
 import { analyzeRelationsBundle } from './pipeline/RelationAnalysisHelpers.js';
 import { analyzeShinsalBundle } from './pipeline/ShinsalAnalysisHelpers.js';
-
-
 export interface SajuAnalysisOptions {
-    readonly daeunCount: number;
-    readonly saeunStartYear: number | null;
-    readonly saeunYearCount: number;
+  readonly daeunCount: number;
+  readonly saeunStartYear: number | null;
+  readonly saeunYearCount: number;
 }
 
 const DEFAULT_OPTIONS: SajuAnalysisOptions = {
@@ -66,14 +54,13 @@ const DEFAULT_OPTIONS: SajuAnalysisOptions = {
   saeunStartYear: null,
   saeunYearCount: 10,
 };
-
-
 export function analyzeSaju(
   input: BirthInput,
   config: CalculationConfig = DEFAULT_CONFIG,
   options: Partial<SajuAnalysisOptions> = {},
 ): SajuAnalysis {
   const opts: SajuAnalysisOptions = { ...DEFAULT_OPTIONS, ...options };
+  const { birthYear, birthMonth, birthDay, birthHour, birthMinute, gender } = input;
 
   const coreResult = calculatePillars(input, config);
   const pillars = coreResult.pillars;
@@ -88,28 +75,32 @@ export function analyzeSaju(
   );
 
   const trace: AnalysisTraceStep[] = [];
+  const appendTrace = (...steps: AnalysisTraceStep[]): void => {
+    trace.push(...steps);
+  };
 
-  trace.push(tracedStep(
+  appendTrace(tracedStep(
     'core',
-    `?�주 ?�국 계산 ?�료 ???�간 ${dmInfo.hangul}(${dmInfo.hanja}), ` +
-    `?��? ${JIJI_INFO[pillars.month.jiji].hangul}(${JIJI_INFO[pillars.month.jiji].hanja}). ` +
-    `?�입 ??${daysSinceJeol ?? '?'}?�차.`,
+    `사주 원국 계산 완료 -- 일간 ${dmInfo.hangul}(${dmInfo.hanja}), ` +
+    `월지 ${JIJI_INFO[pillars.month.jiji].hangul}(${JIJI_INFO[pillars.month.jiji].hanja}). ` +
+    `입절 차 ${daysSinceJeol ?? '?'}일차.`,
     [`daysSinceJeol=${daysSinceJeol ?? 'N/A'}`],
     [
-      `?�주: ${CHEONGAN_INFO[pillars.year.cheongan].hangul}${JIJI_INFO[pillars.year.jiji].hangul}, ` +
-      `?�주: ${CHEONGAN_INFO[pillars.month.cheongan].hangul}${JIJI_INFO[pillars.month.jiji].hangul}, ` +
-      `?�주: ${CHEONGAN_INFO[pillars.day.cheongan].hangul}${JIJI_INFO[pillars.day.jiji].hangul}, ` +
-      `?�주: ${CHEONGAN_INFO[pillars.hour.cheongan].hangul}${JIJI_INFO[pillars.hour.jiji].hangul}`,
+      `년주: ${CHEONGAN_INFO[pillars.year.cheongan].hangul}${JIJI_INFO[pillars.year.jiji].hangul}, ` +
+      `월주: ${CHEONGAN_INFO[pillars.month.cheongan].hangul}${JIJI_INFO[pillars.month.jiji].hangul}, ` +
+      `일주: ${CHEONGAN_INFO[pillars.day.cheongan].hangul}${JIJI_INFO[pillars.day.jiji].hangul}, ` +
+      `시주: ${CHEONGAN_INFO[pillars.hour.cheongan].hangul}${JIJI_INFO[pillars.hour.jiji].hangul}`,
     ],
   ));
 
-  const tenGodAnalysis: TenGodAnalysis = TenGodCalculator.analyzePillars(
+  const tenGodAnalysis = TenGodCalculator.analyzePillars(
     dayMaster, pillars, config.hiddenStemVariant,
   );
 
-  trace.push(buildTenGodTraceStep(dmInfo, tenGodAnalysis));
-
-  trace.push(buildHiddenStemTraceStep(tenGodAnalysis, config.hiddenStemVariant));
+  appendTrace(
+    buildTenGodTraceStep(dmInfo, tenGodAnalysis),
+    buildHiddenStemTraceStep(tenGodAnalysis, config.hiddenStemVariant),
+  );
 
   const cheonganRelationAnalyzer = new CheonganRelationAnalyzer();
   const cheonganRelations = detectAndTrace(
@@ -145,38 +136,38 @@ export function analyzeSaju(
     config.allowBanhap,
   );
 
-  trace.push(buildResolvedJijiRelationsTraceStep(resolvedJijiRelations, config.allowBanhap));
-  trace.push(buildScoredCheonganRelationsTraceStep(scoredCheonganRelations));
+  appendTrace(
+    buildResolvedJijiRelationsTraceStep(resolvedJijiRelations, config.allowBanhap),
+    buildScoredCheonganRelationsTraceStep(scoredCheonganRelations),
+  );
 
   const sibiUnseong = analyzeAllPillars(dayMaster, pillars, config);
+  appendTrace(buildSibiUnseongTraceStep(sibiUnseong, pillars, dmInfo, config));
 
-  trace.push(buildSibiUnseongTraceStep(sibiUnseong, pillars, dmInfo, config));
+  const gongmang = calculateGongmang(pillars);
+  appendTrace(buildGongmangTraceStep(gongmang, pillars));
 
-  const gongmang: GongmangResult = calculateGongmang(pillars);
-
-  trace.push(buildGongmangTraceStep(gongmang, pillars));
-
-  const strength: StrengthResult = StrengthAnalyzer.analyze(
+  const strength = StrengthAnalyzer.analyze(
     pillars, config, daysSinceJeol, hapHwaEvaluations,
   );
 
-  trace.push(buildStrengthTraceStep(strength, dmInfo, config.strengthThreshold));
+  appendTrace(buildStrengthTraceStep(strength, dmInfo, config.strengthThreshold));
 
   const gyeokgukRaw = GyeokgukDeterminer.determine(
     pillars, strength, hapHwaEvaluations, config,
   );
-  const formation: GyeokgukFormation | null = GyeokgukFormationAssessor.assess(
+  const formation = GyeokgukFormationAssessor.assess(
     gyeokgukRaw, pillars, strength,
   );
-  const gyeokguk: GyeokgukResult = { ...gyeokgukRaw, formation };
+  const gyeokguk = { ...gyeokgukRaw, formation };
 
-  trace.push(buildGyeokgukTraceStep(gyeokguk));
+  appendTrace(buildGyeokgukTraceStep(gyeokguk));
 
-  const yongshin: YongshinResult = YongshinDecider.decide(
+  const yongshin = YongshinDecider.decide(
     pillars, strength.isStrong, dmInfo.ohaeng, config, gyeokguk, hapHwaEvaluations,
   );
 
-  trace.push(buildYongshinTraceStep(yongshin, config.yongshinPriority));
+  appendTrace(buildYongshinTraceStep(yongshin, config.yongshinPriority));
 
   const {
     shinsalHits,
@@ -188,39 +179,40 @@ export function analyzeSaju(
   detectAndTrace(trace, () => shinsalHits, shinsalHits =>
     buildShinsalTraceStep(shinsalHits, shinsalReferenceNote));
 
-  trace.push(buildWeightedShinsalTraceStep(weightedShinsalHits));
-
-  trace.push(buildShinsalCompositesTraceStep(shinsalComposites));
-
-  const palace: Record<PillarPosition, PalaceAnalysis> = PalaceAnalyzer.analyze(
-    pillars, dayMaster, input.gender,
+  appendTrace(
+    buildWeightedShinsalTraceStep(weightedShinsalHits),
+    buildShinsalCompositesTraceStep(shinsalComposites),
   );
 
-  trace.push(buildPalaceTraceStep(palace));
+  const palace = PalaceAnalyzer.analyze(
+    pillars, dayMaster, gender,
+  );
 
-  const daeun: DaeunInfo = DaeunCalculator.calculate(
-    pillars, input.gender,
-    input.birthYear, input.birthMonth, input.birthDay,
-    input.birthHour, input.birthMinute,
+  appendTrace(buildPalaceTraceStep(palace));
+
+  const daeun = DaeunCalculator.calculate(
+    pillars, gender,
+    birthYear, birthMonth, birthDay,
+    birthHour, birthMinute,
     opts.daeunCount,
   );
 
-  const daeunReasoning: string[] = buildDaeunReasoning(
-    input.gender,
+  const daeunReasoning = buildDaeunReasoning(
+    gender,
     pillars.year.cheongan,
     daeun,
     yongshin,
     dmInfo.ohaeng,
   );
 
-  trace.push(buildDaeunTraceStep(daeun, daeunReasoning));
+  appendTrace(buildDaeunTraceStep(daeun, daeunReasoning));
 
-  const saeunStartYear = opts.saeunStartYear ?? input.birthYear;
-  const saeun: SaeunPillar[] = SaeunCalculator.calculate(saeunStartYear, opts.saeunYearCount);
+  const saeunStartYear = opts.saeunStartYear ?? birthYear;
+  const saeun = SaeunCalculator.calculate(saeunStartYear, opts.saeunYearCount);
 
-  const saeunReasoning: string[] = buildSaeunReasoning(saeun, pillars, yongshin);
+  const saeunReasoning = buildSaeunReasoning(saeun, pillars, yongshin);
 
-  trace.push(buildSaeunTraceStep(saeunStartYear, saeun, saeunReasoning));
+  appendTrace(buildSaeunTraceStep(saeunStartYear, saeun, saeunReasoning));
 
   return buildSajuAnalysis({
     coreResult,
@@ -245,8 +237,6 @@ export function analyzeSaju(
     tenGodAnalysis,
   });
 }
-
-
 export class SajuAnalysisPipeline {
   private readonly config: CalculationConfig;
 
@@ -267,5 +257,4 @@ export class SajuAnalysisPipeline {
     });
   }
 }
-
 

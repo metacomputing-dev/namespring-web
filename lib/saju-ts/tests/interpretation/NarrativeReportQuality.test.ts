@@ -62,6 +62,14 @@ describe('NarrativeReportQuality', () => {
       const report = narrativeToFullReport(narrative);
 
       const requiredSections: [string, string][] = [
+        ['한눈에 보는 핵심 요약', 'readableSummary'],
+        ['핵심 브리핑', 'readableSummary-briefing'],
+        ['일생 흐름 요약', 'readableSummary-lifetime'],
+        ['현재 시점 운세', 'readableSummary-current'],
+        ['오늘 운세(', 'readableSummary-today'],
+        ['관심사별 운세', 'readableSummary-popular'],
+        ['맞춤 실행 플랜', 'readableSummary-plan'],
+        ['본문 핵심 캡처', 'readableSummary-highlights'],
         ['사주 원국 개요', 'overview'],
         ['오행(五行) 분포', 'ohaengDistribution'],
         ['신강', 'strengthAnalysis'],
@@ -84,6 +92,11 @@ describe('NarrativeReportQuality', () => {
 
       for (const [marker, sectionName] of requiredSections) {
         expect(report, `Missing '${marker}' (${sectionName})`).toContain(marker);
+      }
+
+      const popularTopics = ['총운:', '연애운:', '이직/변화운:', '법률/분쟁운:'];
+      for (const topic of popularTopics) {
+        expect(report, `Missing popular topic '${topic}'`).toContain(topic);
       }
     });
   });
@@ -151,9 +164,9 @@ describe('NarrativeReportQuality', () => {
       it(`${label}: detailed luck narrative is non-blank`, () => {
         const analysis = analyzeSaju(birth, config);
         const narrative = generate(analysis, config);
-        // detailedLuckNarrative may be empty if LuckNarrativeInterpreter integration is pending
-        // This test documents the expectation
-        expect(typeof narrative.detailedLuckNarrative).toBe('string');
+        expect(narrative.detailedLuckNarrative.length).toBeGreaterThan(0);
+        expect(narrative.detailedLuckNarrative).toContain('테마:');
+        expect(narrative.detailedLuckNarrative).toContain('에너지:');
       });
     }
   });
@@ -163,11 +176,9 @@ describe('NarrativeReportQuality', () => {
       const [, birth] = cases[0]!;
       const analysis = analyzeSaju(birth, config);
       const narrative = generate(analysis, config, 2026);
-      // yearlyFortuneNarrative may be empty if not yet integrated
-      expect(typeof narrative.yearlyFortuneNarrative).toBe('string');
-      if (narrative.yearlyFortuneNarrative.length > 0) {
-        expect(narrative.yearlyFortuneNarrative).toContain('2026');
-      }
+      expect(narrative.yearlyFortuneNarrative.length).toBeGreaterThan(0);
+      expect(narrative.yearlyFortuneNarrative).toContain('2026');
+      expect(narrative.yearlyFortuneNarrative).toContain('연간 운세');
     });
   });
 });

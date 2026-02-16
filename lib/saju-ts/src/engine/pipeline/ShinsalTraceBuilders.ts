@@ -1,6 +1,6 @@
+import { type ShinsalComposite, type WeightedShinsalHit } from '../../domain/Relations.js';
 import { type ShinsalHit } from '../../domain/Shinsal.js';
 import { ANALYSIS_KEYS } from '../../domain/SajuAnalysis.js';
-import { type ShinsalComposite, type WeightedShinsalHit } from '../analysis/ShinsalWeightModel.js';
 import { tracedStep } from './TraceHelpers.js';
 
 export function buildShinsalTraceStep(
@@ -56,4 +56,3 @@ export function buildShinsalCompositesTraceStep(
       : shinsalComposites.map(c => `${c.patternName}: ${c.interpretation} (보너스 +${c.bonusScore}점)`),
   );
 }
-

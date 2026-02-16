@@ -1,5 +1,6 @@
 import { SibiUnseong } from '../domain/SibiUnseong.js';
 import { PillarPosition } from '../domain/PillarPosition.js';
+import { createEnumValueParser } from '../domain/EnumValueParser.js';
 import rawSibiUnseongInterpretations from './data/sibiUnseongInterpretations.json';
 
 export interface UnseongInterpretation {
@@ -15,18 +16,16 @@ interface SibiUnseongInterpretationsData {
 }
 
 const SIBI_UNSEONG_INTERPRETATIONS = rawSibiUnseongInterpretations as unknown as SibiUnseongInterpretationsData;
-const SIBI_UNSEONG_SET: ReadonlySet<SibiUnseong> = new Set(Object.values(SibiUnseong));
-const PILLAR_POSITION_SET: ReadonlySet<PillarPosition> = new Set(Object.values(PillarPosition));
-
-function toSibiUnseong(raw: string): SibiUnseong {
-  if (SIBI_UNSEONG_SET.has(raw as SibiUnseong)) return raw as SibiUnseong;
-  throw new Error(`Invalid SibiUnseong in sibiUnseongInterpretations.json: ${raw}`);
-}
-
-function toPillarPosition(raw: string): PillarPosition {
-  if (PILLAR_POSITION_SET.has(raw as PillarPosition)) return raw as PillarPosition;
-  throw new Error(`Invalid PillarPosition in sibiUnseongInterpretations.json: ${raw}`);
-}
+const toSibiUnseong = createEnumValueParser(
+  'SibiUnseong',
+  'sibiUnseongInterpretations.json',
+  SibiUnseong,
+);
+const toPillarPosition = createEnumValueParser(
+  'PillarPosition',
+  'sibiUnseongInterpretations.json',
+  PillarPosition,
+);
 
 function key(s: SibiUnseong, p: PillarPosition): string {
   return `${s}:${p}`;

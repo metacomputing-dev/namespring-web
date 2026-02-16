@@ -5,6 +5,7 @@ import { JijiRelationType } from '../domain/Relations.js';
 import {
   POSITION_PAIR_INFO,
   PositionPair,
+  type SignificanceEntry as Significance,
   SIGNIFICANCE_TABLE,
   tableKey,
 } from './RelationSignificanceData.js';
@@ -12,14 +13,6 @@ import { inferPositionPairFromMembers } from './PositionPairResolver.js';
 
 export { POSITION_PAIR_INFO, PositionPair } from './RelationSignificanceData.js';
 export type { PositionPairInfo } from './RelationSignificanceData.js';
-
-export interface Significance {
-  readonly positionPairLabel: string;
-  readonly affectedDomains: readonly string[];
-  readonly meaning: string;
-  readonly ageWindow: string;
-  readonly isPositive: boolean;
-}
 
 export function inferPositionPair(members: ReadonlySet<Jiji>, pillars: PillarSet): PositionPair | null {
   return inferPositionPairFromMembers(members, [
@@ -38,21 +31,24 @@ function lookupSignificance(type: JijiRelationType, posPair: PositionPair): Sign
   return significance;
 }
 
-export const RelationSignificanceInterpreter = {
-  interpret(
-    relationType: JijiRelationType,
-    members: ReadonlySet<Jiji>,
-    pillars: PillarSet,
-  ): Significance | null {
-    const posPair = inferPositionPair(members, pillars);
-    if (posPair === null) return null;
-    return lookupSignificance(relationType, posPair);
-  },
+export function interpretRelationSignificance(
+  relationType: JijiRelationType,
+  members: ReadonlySet<Jiji>,
+  pillars: PillarSet,
+): Significance | null {
+  const posPair = inferPositionPair(members, pillars);
+  if (posPair === null) return null;
+  return lookupSignificance(relationType, posPair);
+}
 
-  interpretWithPair(
-    relationType: JijiRelationType,
-    posPair: PositionPair,
-  ): Significance {
-    return lookupSignificance(relationType, posPair);
-  },
+export function interpretRelationSignificanceWithPair(
+  relationType: JijiRelationType,
+  posPair: PositionPair,
+): Significance {
+  return lookupSignificance(relationType, posPair);
+}
+
+export const RelationSignificanceInterpreter = {
+  interpret: interpretRelationSignificance,
+  interpretWithPair: interpretRelationSignificanceWithPair,
 } as const;

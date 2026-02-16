@@ -1,5 +1,7 @@
 import { ClassicalSource, CLASSICAL_SOURCE_INFO } from '../domain/ClassicalSource.js';
-import { REGISTRY, SENTENCE_REGISTRY } from './RuleCitationRegistryData.js';
+import { SENTENCE_REGISTRY } from './RuleCitationSentenceRegistryData.js';
+import { REGISTRY } from './RuleCitationTraceRegistryData.js';
+import { createRegistryCitation } from './RuleCitationFactory.js';
 
 export interface RuleCitation {
   readonly sources: readonly ClassicalSource[];
@@ -8,19 +10,7 @@ export interface RuleCitation {
   readonly confidence: number;
 }
 
-export function createRuleCitation(
-  sources: ClassicalSource | readonly ClassicalSource[],
-  topic: string,
-  note: string = '',
-  confidence: number = 0,
-): RuleCitation {
-  return {
-    sources: Array.isArray(sources) ? sources : [sources],
-    topic,
-    note,
-    confidence,
-  };
-}
+export const createRuleCitation = createRegistryCitation;
 
 function sourceLabels(citation: RuleCitation): string {
   return citation.sources.map(source => CLASSICAL_SOURCE_INFO[source].shortLabel).join('+');
@@ -82,4 +72,3 @@ export const RuleCitationRegistry = {
     return new Map(REGISTRY_BY_SOURCE.get(source) ?? []);
   },
 } as const;
-
