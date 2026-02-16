@@ -24,9 +24,9 @@ export class SeedTs {
      * Directly passing HanjaEntry arrays which already contain stroke counts 
      * and elemental information from the repository.
      */
-    const fourFrames = new FourFrameCalculator(lastName, firstName);
-    const hangul = new HangulCalculator(lastName, firstName);
-    const hanja = new HanjaCalculator(lastName, firstName);
+    const fourFrames = this.createFourFrameCalculator(lastName, firstName);
+    const hangul = this.createHangulCalculator(lastName, firstName);
+    const hanja = this.createHanjaCalculator(lastName, firstName);
 
     /**
      * 2. Perform Calculations
@@ -65,12 +65,24 @@ export class SeedTs {
    * @param hangul Result of the Hangul (Phonetic) calculation
    * @param hanja Result of the Hanja (Resource Element) calculation
    */
-  private calculateTotalScore(
+  protected calculateTotalScore(
     fourFrames: FourFrameCalculator,
     hangul: HangulCalculator,
     hanja: HanjaCalculator
   ): number {
     // TODO Currently a simple sum, but can be weighted or adjusted based on calc. model in the future.
     return (fourFrames.getScore() + hangul.getScore() + hanja.getScore()) / 3;
+  }
+
+  protected createFourFrameCalculator(lastName: UserInfo['lastName'], firstName: UserInfo['firstName']): FourFrameCalculator {
+    return new FourFrameCalculator(lastName, firstName);
+  }
+
+  protected createHangulCalculator(lastName: UserInfo['lastName'], firstName: UserInfo['firstName']): HangulCalculator {
+    return new HangulCalculator(lastName, firstName);
+  }
+
+  protected createHanjaCalculator(lastName: UserInfo['lastName'], firstName: UserInfo['firstName']): HanjaCalculator {
+    return new HanjaCalculator(lastName, firstName);
   }
 }

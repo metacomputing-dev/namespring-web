@@ -12,8 +12,8 @@ import { FourframeRepository, type FourframeMeaningEntry } from '../database/fou
  */
 export class FourFrameCalculator extends EnergyCalculator {
   public readonly type = "FourFrame";
-  private surnameStrokes: number[] = [];
-  private firstNameStrokes: number[] = [];
+  protected surnameStrokes: number[] = [];
+  protected firstNameStrokes: number[] = [];
   
   /**
    * Represents an individual frame (Sagyuk) with its calculated stroke sum and energy.
@@ -129,6 +129,14 @@ export class FourFrameCalculator extends EnergyCalculator {
    */
   public getFrame(type: 'won' | 'hyung' | 'lee' | 'jung') {
     return this.frames.find(f => f.type === type);
+  }
+
+  public getSurnameStrokes(): readonly number[] {
+    return this.surnameStrokes;
+  }
+
+  public getFirstNameStrokes(): readonly number[] {
+    return this.firstNameStrokes;
   }
 
   /**

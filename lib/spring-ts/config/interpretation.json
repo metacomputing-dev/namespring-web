@@ -1,0 +1,20 @@
+﻿{
+  "frameLabels": {
+    "FOURFRAME_LUCK": "사격수리(81수리)",
+    "STROKE_POLARITY": "획수 음양",
+    "HANGUL_ELEMENT": "발음 오행",
+    "HANGUL_POLARITY": "발음 음양",
+    "FOURFRAME_ELEMENT": "사격 오행"
+  },
+  "overallMessages": {
+    "excellent": { "minScore": 80, "message": "종합적으로 매우 우수한 이름입니다." },
+    "good":      { "minScore": 65, "message": "종합적으로 좋은 이름입니다." },
+    "passing":   { "minScore": 0,  "message": "합격 기준을 충족하는 이름입니다." }
+  },
+  "failedMessages": {
+    "average":   { "minScore": 55, "message": "보통 수준의 이름입니다." },
+    "needsWork": { "minScore": 0,  "message": "개선 여지가 있는 이름입니다." }
+  },
+  "warningThreshold": 50,
+  "warningTemplate": "{label} 부분을 점검해 보세요."
+}
