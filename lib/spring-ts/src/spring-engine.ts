@@ -216,6 +216,7 @@ export class SpringEngine {
       namingReport: this.buildNamingReport(surnameEntries, givenNameEntries, nameOnly, hangul, hanja, frame),
       sajuReport,
       sajuCompatibility: saju.getAnalysis().data,
+      combinedDistribution: saju.getCombinedDistribution(),
       rank: 0,
     };
   }

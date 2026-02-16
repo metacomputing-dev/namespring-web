@@ -582,6 +582,13 @@ export class SajuCalculator implements EvaluableCalculator {
     return { signals: [createSignal(SAJU_FRAME, ctx, 1.0)] };
   }
 
+  getCombinedDistribution(): Record<ElementKey, number> {
+    if (this.scoreResult) return this.scoreResult.combined;
+    return Object.fromEntries(
+      ELEMENT_KEYS.map((key) => [key, 0]),
+    ) as Record<ElementKey, number>;
+  }
+
   getAnalysis(): AnalysisDetail<SajuCompatibility> {
     const breakdown     = this.scoreResult?.breakdown;
     const elementMatches = breakdown?.elementMatches;

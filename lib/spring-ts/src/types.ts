@@ -333,6 +333,7 @@ export interface SpringReport {
   readonly namingReport: NamingReport;
   readonly sajuReport: SajuReport;
   readonly sajuCompatibility: SajuCompatibility;
+  readonly combinedDistribution: Record<ElementKey, number>;
   rank: number;
 }
 
