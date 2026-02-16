@@ -266,6 +266,110 @@ try {
   }
 
   // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+  // 7. getNamingReport() 구조 검증
+  // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+  console.log('\n7. [getNamingReport] 구조 검증');
+  const namingReport = await engine.getNamingReport({
+    birth,
+    surname: [{ hangul: '최', hanja: '崔' }],
+    givenName: [{ hangul: '성', hanja: '成' }, { hangul: '수', hanja: '秀' }],
+  });
+
+  const nrChecks: [string, boolean][] = [
+    ['namingReport.name.fullHangul', namingReport.name.fullHangul === '최성수'],
+    ['namingReport.name.fullHanja', namingReport.name.fullHanja === '崔成秀'],
+    ['namingReport.totalScore > 0', namingReport.totalScore > 0],
+    ['namingReport.scores.hangul defined', typeof namingReport.scores.hangul === 'number'],
+    ['namingReport.scores.hanja defined', typeof namingReport.scores.hanja === 'number'],
+    ['namingReport.scores.fourFrame defined', typeof namingReport.scores.fourFrame === 'number'],
+    ['namingReport.analysis.hangul.blocks', Array.isArray(namingReport.analysis.hangul.blocks)],
+    ['namingReport.analysis.hanja.blocks', Array.isArray(namingReport.analysis.hanja.blocks)],
+    ['namingReport.analysis.fourFrame.frames', Array.isArray(namingReport.analysis.fourFrame.frames)],
+    ['namingReport.analysis.fourFrame.frames[0].type', namingReport.analysis.fourFrame.frames[0]?.type === 'won'],
+    ['namingReport.analysis.fourFrame.frames[0].element', typeof namingReport.analysis.fourFrame.frames[0]?.element === 'string'],
+    ['namingReport.analysis.fourFrame.frames[0].meaning', namingReport.analysis.fourFrame.frames[0]?.meaning !== undefined],
+    ['namingReport.analysis.fourFrame.luckScore defined', typeof namingReport.analysis.fourFrame.luckScore === 'number'],
+    ['namingReport.interpretation exists', typeof namingReport.interpretation === 'string'],
+    ['namingReport.name.surname[0].element', typeof namingReport.name.surname[0]?.element === 'string'],
+  ];
+
+  for (const [label, ok] of nrChecks) {
+    if (ok) pass++; else fail++;
+    console.log(`   ${ok ? 'PASS' : 'FAIL'} ${label}`);
+  }
+
+  // Compare naming scores with analyze() output for consistency
+  assertClose('getNamingReport.scores.hangul vs analyze', namingReport.scores.hangul, evalC.scores.hangul);
+  assertClose('getNamingReport.scores.hanja vs analyze', namingReport.scores.hanja, evalC.scores.hanja);
+  assertClose('getNamingReport.scores.fourFrame vs analyze', namingReport.scores.fourFrame, evalC.scores.fourFrame);
+
+  // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+  // 8. getSajuReport() 구조 검증
+  // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+  console.log('\n8. [getSajuReport] 구조 검증');
+  const sajuReport = await engine.getSajuReport({
+    birth,
+    surname: [{ hangul: '최', hanja: '崔' }],
+  });
+
+  const srChecks: [string, boolean][] = [
+    ['sajuReport.sajuEnabled is boolean', typeof sajuReport.sajuEnabled === 'boolean'],
+    ['sajuReport.dayMaster exists', !!sajuReport.dayMaster],
+    ['sajuReport.pillars exists', !!sajuReport.pillars],
+    ['sajuReport.yongshin exists', !!sajuReport.yongshin],
+    ['sajuReport.strength exists', !!sajuReport.strength],
+  ];
+
+  for (const [label, ok] of srChecks) {
+    if (ok) pass++; else fail++;
+    console.log(`   ${ok ? 'PASS' : 'FAIL'} ${label}`);
+  }
+  console.log(`   sajuEnabled: ${sajuReport.sajuEnabled}`);
+
+  // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+  // 9. getNameCandidates() 구조 검증
+  // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+  console.log('\n9. [getNameCandidates] 구조 검증');
+  const springReports = await engine.getNameCandidates({
+    birth,
+    surname: [{ hangul: '최', hanja: '崔' }],
+    givenNameLength: 2,
+    mode: 'recommend',
+    options: { limit: 5 },
+  });
+
+  const scOk = Array.isArray(springReports) && springReports.length > 0;
+  if (scOk) pass++; else fail++;
+  console.log(`   ${scOk ? 'PASS' : 'FAIL'} getNameCandidates returns array with results (${springReports.length})`);
+
+  if (springReports.length > 0) {
+    const first = springReports[0];
+    const scChecks: [string, boolean][] = [
+      ['springReport.finalScore > 0', first.finalScore > 0],
+      ['springReport.rank === 1', first.rank === 1],
+      ['springReport.namingReport exists', !!first.namingReport],
+      ['springReport.namingReport.name.fullHangul', typeof first.namingReport.name.fullHangul === 'string'],
+      ['springReport.namingReport.totalScore > 0', first.namingReport.totalScore > 0],
+      ['springReport.sajuReport exists', !!first.sajuReport],
+      ['springReport.sajuReport.sajuEnabled is boolean', typeof first.sajuReport.sajuEnabled === 'boolean'],
+      ['springReport.sajuCompatibility exists', !!first.sajuCompatibility],
+      ['springReport.sajuCompatibility.yongshinElement', typeof first.sajuCompatibility.yongshinElement === 'string'],
+    ];
+
+    for (const [label, ok] of scChecks) {
+      if (ok) pass++; else fail++;
+      console.log(`   ${ok ? 'PASS' : 'FAIL'} ${label}`);
+    }
+
+    // Show top 5 candidates
+    console.log('');
+    for (let i = 0; i < Math.min(5, springReports.length); i++) {
+      const r = springReports[i];
+      console.log(`   ${String(i + 1).padStart(2)}. ${r.namingReport.name.fullHangul}(${r.namingReport.name.fullHanja}) finalScore=${r.finalScore} naming=${r.namingReport.totalScore} rank=${r.rank}`);
+    }
+  }
+
+  // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
   // Summary
   // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
   console.log('\n' + '='.repeat(55));

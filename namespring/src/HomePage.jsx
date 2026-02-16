@@ -33,9 +33,9 @@ function HomePage({ entryUserInfo, onAnalyzeAsync, onOpenReport }) {
       setIsAnalyzing(true);
       setAnalyzeError('');
       try {
-        const seedResult = await onAnalyzeAsync(entryUserInfo);
+        const namingReport = await onAnalyzeAsync(entryUserInfo);
         if (cancelled) return;
-        setPreviewResult(seedResult?.candidates?.[0] ?? null);
+        setPreviewResult(namingReport ?? null);
       } catch {
         if (cancelled) return;
         setAnalyzeError('결과를 불러오지 못했습니다.');

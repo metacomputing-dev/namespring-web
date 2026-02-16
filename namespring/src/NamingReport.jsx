@@ -1,5 +1,5 @@
 import React, { useEffect, useMemo, useState } from 'react';
-import { NameStatRepository } from '@spring/index';
+import { NameStatRepository, Element } from '@spring/index';
 import { createPortal } from 'react-dom';
 
 const TOTAL_NAME_STATS_COUNT = 50194;
@@ -25,22 +25,6 @@ const POLARITY_SOFT = {
   양: 'bg-orange-50 text-orange-700 border-orange-200',
   음: 'bg-indigo-50 text-indigo-700 border-indigo-200',
 };
-
-function getBlocks(calculator) {
-  if (!calculator || typeof calculator.getNameBlocks !== 'function') return [];
-  return calculator.getNameBlocks();
-}
-
-function getFrames(calculator) {
-  if (!calculator || typeof calculator.getFrames !== 'function') return [];
-  return calculator.getFrames();
-}
-
-function getCalculatorScore(calculator) {
-  if (!calculator || typeof calculator.getScore !== 'function') return 0;
-  const score = Number(calculator.getScore());
-  return Number.isFinite(score) ? score : 0;
-}
 
 function normalizeElement(element) {
   const raw = typeof element === 'object'
@@ -71,9 +55,9 @@ function summarizeEnergies(items) {
   let negative = 0;
 
   for (const item of items) {
-    const key = normalizeElement(item?.energy?.element);
+    const key = normalizeElement(item?.element || item?.strokeElement || item?.resourceElement);
     if (key) elementCounts[key] += 1;
-    const p = polarityLabel(item?.energy?.polarity);
+    const p = polarityLabel(item?.polarity);
     if (p === '양') positive += 1;
     if (p === '음') negative += 1;
   }
@@ -298,27 +282,25 @@ function MetaInfoCard({ title, value, tone = 'default' }) {
 function getFrameDetailScores(frames, index) {
   const current = frames[index];
   const next = frames[(index + 1) % frames.length];
-  if (!current?.energy || !next?.energy) {
+  if (!current?.element || !next?.element) {
     return { polarity: 0, element: 0, final: 0 };
   }
 
-  const pair = [current.energy, next.energy];
-
   let polarityRaw = 0;
-  for (const energy of pair) {
-    const p = polarityLabel(energy?.polarity);
-    polarityRaw += p === '양' ? 1 : -1;
-  }
-  const polarityScore = (pair.length - Math.abs(polarityRaw)) * 100 / pair.length;
+  const pCur = polarityLabel(current.polarity);
+  polarityRaw += pCur === '양' ? 1 : -1;
+  const pNext = polarityLabel(next.polarity);
+  polarityRaw += pNext === '양' ? 1 : -1;
+  const polarityScore = (2 - Math.abs(polarityRaw)) * 100 / 2;
 
-  const currentElement = pair[0].element;
-  const nextElement = pair[1].element;
+  const currentEl = Element.get(normalizeElement(current.element));
+  const nextEl = Element.get(normalizeElement(next.element));
   let elementScore = 70;
-  if (currentElement?.isGenerating?.(nextElement)) {
+  if (currentEl?.isGenerating?.(nextEl)) {
     elementScore += 15;
-  } else if (currentElement?.isOvercoming?.(nextElement)) {
+  } else if (currentEl?.isOvercoming?.(nextEl)) {
     elementScore -= 20;
-  } else if (currentElement?.isSameAs?.(nextElement)) {
+  } else if (currentEl?.isSameAs?.(nextEl)) {
     elementScore -= 5;
   }
   elementScore = Math.max(0, Math.min(100, elementScore));
@@ -427,32 +409,31 @@ const NamingReport = ({ result, onNewAnalysis }) => {
     femaleRatio: 0,
   });
 
-  const { lastName, firstName, totalScore, hanja, hangul, fourFrames, interpretation } = result;
-  const fullEntries = [...lastName, ...firstName];
-  const fullNameHanja = fullEntries.map((v) => v.hanja).join('');
-  const fullNameHangul = fullEntries.map((v) => v.hangul).join('');
-  const firstNameHangul = firstName.map((v) => v.hangul).join('');
+  const { name, totalScore, scores, analysis, interpretation } = result;
+  const fullNameHangul = name.fullHangul;
+  const fullNameHanja = name.fullHanja;
+  const firstNameHangul = name.givenName.map((v) => v.hangul).join('');
 
   const score = Number(totalScore ?? 0);
   const scoreText = Number.isFinite(score) ? score.toFixed(1) : '0.0';
 
-  const hangulBlocks = getBlocks(hangul);
-  const hanjaBlocks = getBlocks(hanja);
-  const frameBlocks = getFrames(fourFrames);
+  const hangulBlocks = analysis.hangul?.blocks ?? [];
+  const hanjaBlocks = analysis.hanja?.blocks ?? [];
+  const frameBlocks = analysis.fourFrame?.frames ?? [];
   const lifeFlowBlocks = useMemo(() => {
     const order = { jung: 0, won: 1, hyung: 2, lee: 3 };
     return [...frameBlocks].sort((a, b) => (order[a?.type] ?? 99) - (order[b?.type] ?? 99));
   }, [frameBlocks]);
 
-  const hangulScore = getCalculatorScore(hangul);
-  const hanjaScore = getCalculatorScore(hanja);
-  const fourFrameScore = getCalculatorScore(fourFrames);
+  const hangulScore = Number(scores?.hangul ?? 0);
+  const hanjaScore = Number(scores?.hanja ?? 0);
+  const fourFrameScore = Number(scores?.fourFrame ?? 0);
 
-  const hangulPolarityScore = Number(hangul?.polarityScore ?? 0);
-  const hangulElementScore = Number(hangul?.elementScore ?? 0);
-  const hanjaPolarityScore = Number(hanja?.polarityScore ?? 0);
-  const hanjaElementScore = Number(hanja?.elementScore ?? 0);
-  const fourFrameLuckScore = Number(fourFrames?.luckScore ?? 0);
+  const hangulPolarityScore = Number(analysis.hangul?.polarityScore ?? 0);
+  const hangulElementScore = Number(analysis.hangul?.elementScore ?? 0);
+  const hanjaPolarityScore = Number(analysis.hanja?.polarityScore ?? 0);
+  const hanjaElementScore = Number(analysis.hanja?.elementScore ?? 0);
+  const fourFrameLuckScore = Number(analysis.fourFrame?.luckScore ?? 0);
 
   const hangulSummary = useMemo(() => summarizeEnergies(hangulBlocks), [hangulBlocks]);
   const hanjaSummary = useMemo(() => summarizeEnergies(hanjaBlocks), [hanjaBlocks]);
@@ -695,9 +676,9 @@ const NamingReport = ({ result, onNewAnalysis }) => {
 
         <div className="space-y-4">
           {lifeFlowBlocks.map((frame, idx) => {
-            const el = normalizeElement(frame?.energy?.element);
-            const pol = polarityLabel(frame?.energy?.polarity);
-            const entry = frame?.entry;
+            const el = normalizeElement(frame?.element);
+            const pol = polarityLabel(frame?.polarity);
+            const entry = frame?.meaning;
             const isOpen = Boolean(openLifeDetails[idx]);
             const titleText = replaceNamePlaceholder(entry?.title || '흐름 해석 준비중', fullNameHangul);
             const summaryText = replaceNamePlaceholder(entry?.summary || '해당 수리의 기본 의미를 불러오는 중입니다.', fullNameHangul);
@@ -821,8 +802,8 @@ const NamingReport = ({ result, onNewAnalysis }) => {
           </div>
           <div className="space-y-2">
             {frameBlocks.map((frame, idx) => {
-              const el = normalizeElement(frame?.energy?.element);
-              const pol = polarityLabel(frame?.energy?.polarity);
+              const el = normalizeElement(frame?.element);
+              const pol = polarityLabel(frame?.polarity);
               const detail = getFrameDetailScores(frameBlocks, idx);
               return (
                 <div key={`f-row-${idx}`} className="rounded-xl border border-[var(--ns-border)] bg-[var(--ns-surface-soft)] px-3 py-3 text-sm space-y-2">
@@ -870,11 +851,11 @@ const NamingReport = ({ result, onNewAnalysis }) => {
           </div>
           <div className="space-y-2">
             {hanjaBlocks.map((block, idx) => {
-              const el = normalizeElement(block?.energy?.element || block?.entry?.resource_element);
-              const pol = polarityLabel(block?.energy?.polarity);
+              const el = normalizeElement(block?.resourceElement || block?.strokeElement);
+              const pol = polarityLabel(block?.polarity);
               return (
                 <div key={`j-row-${idx}`} className="flex flex-wrap items-center justify-between gap-2 rounded-xl border border-[var(--ns-border)] bg-[var(--ns-surface-soft)] px-3 py-2 text-sm">
-                  <span className="font-black text-[var(--ns-accent-text)] break-keep whitespace-normal">{block?.entry?.hanja || '-'} ({block?.entry?.strokes ?? '-'}획)</span>
+                  <span className="font-black text-[var(--ns-accent-text)] break-keep whitespace-normal">{block?.hanja || '-'} ({block?.strokes ?? '-'}획)</span>
                   <div className="flex gap-1.5 shrink-0">
                     <span className={`px-2 py-0.5 rounded-full border text-[11px] font-black ${el ? getElementSoftClass(el) : 'bg-slate-100 text-slate-700 border-slate-200'}`}>{el ? ELEMENT_LABEL[el] : '-'}</span>
                     <span className={`px-2 py-0.5 rounded-full border text-[11px] font-black ${getPolaritySoftClass(pol)}`}>{pol}</span>
@@ -911,11 +892,11 @@ const NamingReport = ({ result, onNewAnalysis }) => {
           </div>
           <div className="space-y-2">
             {hangulBlocks.map((block, idx) => {
-              const el = normalizeElement(block?.energy?.element);
-              const pol = polarityLabel(block?.energy?.polarity);
+              const el = normalizeElement(block?.element);
+              const pol = polarityLabel(block?.polarity);
               return (
                 <div key={`h-row-${idx}`} className="flex flex-wrap items-center justify-between gap-2 rounded-xl border border-[var(--ns-border)] bg-[var(--ns-surface-soft)] px-3 py-2 text-sm">
-                  <span className="font-black text-[var(--ns-accent-text)] break-keep whitespace-normal">{block?.entry?.hangul || '-'} ({block?.entry?.nucleus || '-'})</span>
+                  <span className="font-black text-[var(--ns-accent-text)] break-keep whitespace-normal">{block?.hangul || '-'} ({block?.nucleus || '-'})</span>
                   <div className="flex gap-1.5 shrink-0">
                     <span className={`px-2 py-0.5 rounded-full border text-[11px] font-black ${el ? getElementSoftClass(el) : 'bg-slate-100 text-slate-700 border-slate-200'}`}>{el ? ELEMENT_LABEL[el] : '-'}</span>
                     <span className={`px-2 py-0.5 rounded-full border text-[11px] font-black ${getPolaritySoftClass(pol)}`}>{pol}</span>

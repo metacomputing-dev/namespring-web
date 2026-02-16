@@ -1,5 +1,5 @@
-import React, { useState, useEffect, useMemo } from 'react';
-import { NameTs, HanjaRepository } from "@spring/index";
+import React, { useState, useEffect, useRef } from 'react';
+import { SpringEngine } from "@spring/index";
 import DevDbViewer from './DevDbViewer';
 import DevHanjaDbViewer from './DevHanjaDbViewer';
 import DevNameStatDbViewer from './DevNameStatDbViewer';
@@ -9,6 +9,24 @@ import AppBackground from './ui/AppBackground';
 import HomePage from './HomePage';
 import ReportPage from './ReportPage';
 import InputForm from './InputForm';
+
+/** Convert InputForm userInfo → SpringRequest */
+function toSpringRequest(userInfo) {
+  const { lastName, firstName, birthDateTime, gender } = userInfo;
+  return {
+    birth: {
+      year: birthDateTime.year,
+      month: birthDateTime.month,
+      day: birthDateTime.day,
+      hour: birthDateTime.hour,
+      minute: birthDateTime.minute,
+      gender: gender === '남' ? 'male' : 'female',
+    },
+    surname: lastName.map((entry) => ({ hangul: entry.hangul, hanja: entry.hanja })),
+    givenName: firstName.map((entry) => ({ hangul: entry.hangul, hanja: entry.hanja })),
+    mode: 'evaluate',
+  };
+}
 
 function App() {
   const tool = new URLSearchParams(window.location.search).get("tool");
@@ -28,12 +46,16 @@ function App() {
       return null;
     }
   });
-  const hanjaRepo = useMemo(() => new HanjaRepository(), []);
+  const engineRef = useRef(null);
 
-  // DB Initialization
+  // Engine Initialization
   useEffect(() => {
-    hanjaRepo.init().then(() => setIsDbReady(true));
-  }, [hanjaRepo]);
+    const engine = new SpringEngine();
+    engine.init().then(() => {
+      engineRef.current = engine;
+      setIsDbReady(true);
+    });
+  }, []);
 
   useEffect(() => {
     if (!showSplash) return;
@@ -48,15 +70,14 @@ function App() {
     setShowSplash(false);
   }, [showSplash, isDbReady, minSplashElapsed]);
 
-  const handleAnalyze = (userInfo) => {
-    const engine = new NameTs();
-    return engine.analyze(userInfo);
+  const handleAnalyze = async (userInfo) => {
+    const request = toSpringRequest(userInfo);
+    return engineRef.current.getNamingReport(request);
   };
 
   const handleAnalyzeAsync = async (userInfo) => {
-    const engine = new NameTs();
-    await Promise.resolve();
-    return engine.analyze(userInfo);
+    const request = toSpringRequest(userInfo);
+    return engineRef.current.getNamingReport(request);
   };
 
   const getView = () => {
@@ -92,7 +113,7 @@ function App() {
                   <p className="text-[var(--ns-muted)] text-sm font-semibold">당신의 인생과 함께하는 이름</p>
                 </header>
                 <InputForm
-                  hanjaRepo={hanjaRepo}
+                  hanjaRepo={engineRef.current?.getHanjaRepository()}
                   isDbReady={isDbReady}
                   onEnter={(userInfo) => {
                     setEntryUserInfo(userInfo);
@@ -130,7 +151,7 @@ function App() {
       node: (
         <AppBackground>
           <ReportPage
-            hanjaRepo={hanjaRepo}
+            hanjaRepo={engineRef.current?.getHanjaRepository()}
             isDbReady={isDbReady}
             onAnalyze={handleAnalyze}
             initialUserInfo={entryUserInfo}

@@ -5,15 +5,18 @@ import NamingReport from './NamingReport';
 function ReportPage({ hanjaRepo, isDbReady, onAnalyze, initialUserInfo, onBackHome }) {
   const [analysisResult, setAnalysisResult] = useState(null);
 
-  const handleAnalyze = (userInfo) => {
-    const result = onAnalyze(userInfo);
+  const handleAnalyze = async (userInfo) => {
+    const result = await onAnalyze(userInfo);
     setAnalysisResult(result);
   };
 
   useEffect(() => {
     if (analysisResult || !initialUserInfo || !isDbReady) return;
-    const result = onAnalyze(initialUserInfo);
-    setAnalysisResult(result);
+    let cancelled = false;
+    onAnalyze(initialUserInfo).then((result) => {
+      if (!cancelled) setAnalysisResult(result);
+    });
+    return () => { cancelled = true; };
   }, [analysisResult, initialUserInfo, isDbReady, onAnalyze]);
 
   return (
@@ -43,7 +46,7 @@ function ReportPage({ hanjaRepo, isDbReady, onAnalyze, initialUserInfo, onBackHo
             submitLabel="이름 평가 보고서"
           />
         )}
-        {analysisResult && <NamingReport result={analysisResult.candidates[0]} onNewAnalysis={() => setAnalysisResult(null)} />}
+        {analysisResult && <NamingReport result={analysisResult} onNewAnalysis={() => setAnalysisResult(null)} />}
       </div>
     </div>
   );

@@ -7,7 +7,7 @@ export { springEvaluateName, SAJU_FRAME } from './spring-evaluator.js';
 // ─────────────────────────────────────────────────────────────────────────────
 //  2. SAJU ADAPTER & CALCULATOR
 // ─────────────────────────────────────────────────────────────────────────────
-export { analyzeSaju, buildSajuContext, emptySaju, collectElements, elementFromSajuCode } from './saju-adapter.js';
+export { analyzeSaju, analyzeSajuSafe, buildSajuContext, emptySaju, collectElements, elementFromSajuCode } from './saju-adapter.js';
 export { SajuCalculator, computeSajuNameScore, type SajuNameScoreResult } from './saju-calculator.js';
 
 // ─────────────────────────────────────────────────────────────────────────────
@@ -23,6 +23,12 @@ export type {
   SpringResponse,
   SpringCandidate,
   CharDetail,
+  // New 3-method API types
+  NamingReport,
+  NamingReportFrame,
+  NamingReportFourFrame,
+  SajuReport,
+  SpringReport,
   // Saju analysis
   SajuSummary,
   PillarSummary,

@@ -21,22 +21,20 @@ function normalizeElementName(value) {
 }
 
 function resolveSummary(result) {
-  const inputEntries = [...result.lastName, ...result.firstName];
+  const inputEntries = [...(result.name?.surname ?? []), ...(result.name?.givenName ?? [])];
   const elementCounts = { Wood: 0, Fire: 0, Earth: 0, Metal: 0, Water: 0 };
   for (const entry of inputEntries) {
-    const key = normalizeElementName(entry.resource_element);
+    const key = normalizeElementName(entry.element);
     if (key) {
       elementCounts[key] += 1;
     }
   }
 
-  const hangulBlocks = typeof result.hangul?.getNameBlocks === 'function'
-    ? result.hangul.getNameBlocks()
-    : [];
+  const hangulBlocks = result.analysis?.hangul?.blocks ?? [];
   let positiveCount = 0;
   let negativeCount = 0;
   for (const block of hangulBlocks) {
-    const polarity = block?.energy?.polarity?.english;
+    const polarity = block?.polarity;
     if (polarity === 'Positive') positiveCount += 1;
     if (polarity === 'Negative') negativeCount += 1;
   }
@@ -46,8 +44,8 @@ function resolveSummary(result) {
     positiveCount,
     negativeCount,
     score: Number(result.totalScore ?? 0).toFixed(1),
-    displayHangul: inputEntries.map((v) => v.hangul).join(''),
-    displayHanja: inputEntries.map((v) => v.hanja).join(''),
+    displayHangul: result.name?.fullHangul ?? inputEntries.map((v) => v.hangul).join(''),
+    displayHanja: result.name?.fullHanja ?? inputEntries.map((v) => v.hanja).join(''),
   };
 }
 

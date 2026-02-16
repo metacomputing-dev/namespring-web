@@ -10,13 +10,24 @@ name-ts (이름 분석) + saju-ts (사주 분석) 통합 작명 엔진.
 
 ```typescript
 class SpringEngine {
-  async init(config?: EngineInitConfig): Promise<void>;
+  async init(): Promise<void>;
+
+  // ── 3-메서드 API (신규) ──
+  async getNamingReport(request: SpringRequest): Promise<NamingReport>;      // 이름만 분석 (사주 무관)
+  async getSajuReport(request: SpringRequest): Promise<SajuReport>;          // 사주만 분석
+  async getNameCandidates(request: SpringRequest): Promise<SpringReport[]>;  // 이름 추천 (통합)
+
+  // ── 레거시 API (하위호환) ──
   async analyze(request: SpringRequest): Promise<SpringResponse>;
+
+  getHanjaRepository(): HanjaRepository;  // 한자 검색용
   close(): void;
 }
 ```
 
 비동기 API. DB 로딩, 사주 분석, 후보 생성을 모두 처리한다.
+
+saju-ts 모듈 로드 실패 시 콘솔에 warning이 출력되고, `SajuReport.sajuEnabled = false`로 이름 분석만 수행된다.
 
 ---
 
@@ -148,6 +159,79 @@ interface CharDetail {
   readonly strokes: number;
   readonly element: string;       // 자원오행 ('Wood' | 'Fire' | ...)
   readonly polarity: string;      // 음양 ('Positive' | 'Negative')
+}
+```
+
+---
+
+### NamingReport (이름 분석 결과 — getNamingReport)
+
+사주와 무관한 순수 이름 분석. name-ts 계산기 3개만 사용.
+
+```typescript
+interface NamingReport {
+  readonly name: CandidateName;
+  readonly totalScore: number;          // 이름 종합 점수 (0-100, 사주 제외)
+  readonly scores: {
+    hangul: number;                     // 발음 오행 (0-100)
+    hanja: number;                      // 획수 오행 (0-100)
+    fourFrame: number;                  // 사격 수리 (0-100)
+  };
+  readonly analysis: {
+    readonly hangul: HangulAnalysis;
+    readonly hanja: HanjaAnalysis;
+    readonly fourFrame: NamingReportFourFrame;  // 의미 데이터 포함
+  };
+  readonly interpretation: string;
+}
+```
+
+#### NamingReportFourFrame (사격 분석 + 의미)
+
+```typescript
+interface NamingReportFourFrame {
+  readonly frames: NamingReportFrame[];
+  readonly elementScore: number;
+  readonly luckScore: number;
+}
+
+interface NamingReportFrame {
+  readonly type: 'won' | 'hyung' | 'lee' | 'jung';
+  readonly strokeSum: number;
+  readonly element: string;
+  readonly polarity: string;
+  readonly luckyLevel: number;
+  readonly meaning: Record<string, unknown> | null;  // FourframeMeaningEntry
+}
+```
+
+`meaning`에는 `title`, `summary`, `detailed_explanation`, `positive_aspects`, `caution_points`, `personality_traits`, `suitable_career`, `lucky_level` 등이 포함된다.
+
+---
+
+### SajuReport (사주 분석 결과 — getSajuReport)
+
+SajuSummary에 모듈 활성화 상태 플래그를 추가한 타입.
+
+```typescript
+type SajuReport = SajuSummary & {
+  readonly sajuEnabled: boolean;  // saju-ts 모듈 로드 성공 여부
+};
+```
+
+`sajuEnabled: false`이면 사주 데이터는 모두 빈 값(empty fallback)이다.
+
+---
+
+### SpringReport (통합 결과 — getNameCandidates)
+
+```typescript
+interface SpringReport {
+  readonly finalScore: number;                  // 사주+이름 통합 점수 (0-100)
+  readonly namingReport: NamingReport;          // 이름 분석
+  readonly sajuReport: SajuReport;              // 사주 분석
+  readonly sajuCompatibility: SajuCompatibility; // 사주-이름 궁합
+  rank: number;                                 // 1-based 순위
 }
 ```
 

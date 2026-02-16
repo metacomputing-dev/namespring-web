@@ -93,7 +93,10 @@ async function loadSajuModule(): Promise<SajuModule | null> {
   try {
     sajuModule = await (Function('p', 'return import(p)')(SAJU_MODULE_PATH)) as SajuModule;
     return sajuModule;
-  } catch { return null; }
+  } catch (err: any) {
+    console.warn('[spring-ts] saju-ts 모듈 로드 실패. 사주 분석이 비활성화됩니다:', err?.message);
+    return null;
+  }
 }
 
 // ---------------------------------------------------------------------------
@@ -639,6 +642,23 @@ function extractTrace(rawSajuOutput: any) {
     reasoning:  ensureArray(traceEntry.reasoning).map(String),
     confidence: typeof traceEntry.confidence === 'number' ? traceEntry.confidence : null,
   }));
+}
+
+// ---------------------------------------------------------------------------
+//  Public: safe saju analysis with sajuEnabled flag (PR #7 review)
+// ---------------------------------------------------------------------------
+
+export async function analyzeSajuSafe(
+  birth: BirthInfo, options?: SpringRequest['options'],
+): Promise<{ summary: SajuSummary; sajuEnabled: boolean }> {
+  try {
+    const summary = await analyzeSaju(birth, options);
+    // If analyzeSaju returned an empty saju (module missing), detect via dayMaster
+    const isRealAnalysis = !!summary.dayMaster?.element;
+    return { summary, sajuEnabled: isRealAnalysis };
+  } catch {
+    return { summary: emptySaju(), sajuEnabled: false };
+  }
 }
 
 // ---------------------------------------------------------------------------

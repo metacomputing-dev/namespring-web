@@ -285,6 +285,60 @@ export interface ShinsalHitSummary {
 //     Used to bridge saju analysis with name scoring.
 // ─────────────────────────────────────────────────────────────────────────────
 
+// ─────────────────────────────────────────────────────────────────────────────
+//  4-A. NEW PUBLIC API TYPES
+//       Three dedicated report types for the new 3-method API.
+// ─────────────────────────────────────────────────────────────────────────────
+
+/** A single four-frame entry with meaning data included. */
+export interface NamingReportFrame {
+  readonly type: 'won' | 'hyung' | 'lee' | 'jung';
+  readonly strokeSum: number;
+  readonly element: string;
+  readonly polarity: string;
+  readonly luckyLevel: number;
+  readonly meaning: Record<string, unknown> | null;
+}
+
+/** Four-frame analysis with enriched frame data. */
+export interface NamingReportFourFrame {
+  readonly frames: NamingReportFrame[];
+  readonly elementScore: number;
+  readonly luckScore: number;
+}
+
+/** Pure name analysis result (no saju). Returned by getNamingReport(). */
+export interface NamingReport {
+  readonly name: CandidateName;
+  readonly totalScore: number;
+  readonly scores: { hangul: number; hanja: number; fourFrame: number };
+  readonly analysis: {
+    readonly hangul: HangulAnalysis;
+    readonly hanja: HanjaAnalysis;
+    readonly fourFrame: NamingReportFourFrame;
+  };
+  readonly interpretation: string;
+}
+
+/** Saju analysis result with module availability flag. Returned by getSajuReport(). */
+export type SajuReport = SajuSummary & {
+  readonly sajuEnabled: boolean;
+};
+
+/** Combined name + saju report. Returned by getNameCandidates(). */
+export interface SpringReport {
+  readonly finalScore: number;
+  readonly namingReport: NamingReport;
+  readonly sajuReport: SajuReport;
+  readonly sajuCompatibility: SajuCompatibility;
+  rank: number;
+}
+
+// ─────────────────────────────────────────────────────────────────────────────
+//  4-B. COMPATIBILITY & ADAPTER TYPES
+//       Used to bridge saju analysis with name scoring.
+// ─────────────────────────────────────────────────────────────────────────────
+
 /** How well a name's elemental makeup aligns with the saju yongshin. */
 export interface SajuCompatibility {
   readonly yongshinElement: string;

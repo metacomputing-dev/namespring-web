@@ -19,8 +19,10 @@ UI (namespring)
 │                                                              │
 │  1. init()  ── DB 초기화 + 사격 행운수 테이블 미리 계산       │
 │                                                              │
-│  2. analyze() ──┬── [평가 모드] 주어진 이름 1개를 채점       │
-│                 └── [추천 모드] 좋은 이름 후보 수백 개 생성   │
+│  2-A. getNamingReport()  ── 이름만 분석 (사주 무관)          │
+│  2-B. getSajuReport()    ── 사주만 분석                      │
+│  2-C. getNameCandidates()── 이름 추천 (사주+이름 통합)       │
+│  2-D. analyze()          ── 레거시 통합 API (하위호환)       │
 │                                                              │
 │  ┌─────────────────────────────────────────────────────┐     │
 │  │                분석 파이프라인                        │     │
@@ -136,9 +138,9 @@ UI (namespring)
 
 ```
 src/
-├── spring-engine.ts      # 메인 엔진: init() → analyze() → close()
+├── spring-engine.ts      # 메인 엔진: init() → getNamingReport() / getSajuReport() / getNameCandidates() / analyze() → close()
 │                         #   DB 로딩, 후보 생성, 점수 계산, 정렬, 페이지네이션
-│                         #   평가 모드(evaluate)와 추천 모드(recommend) 분기
+│                         #   3-메서드 API (이름만/사주만/통합) + 레거시 analyze() 하위호환
 │
 ├── spring-evaluator.ts   # 최종 점수 합산기
 │                         #   name-ts 점수와 saju 점수를 가중합산
@@ -146,16 +148,16 @@ src/
 │
 ├── saju-adapter.ts       # saju-ts 중재자
 │                         #   사주 엔진 호출 → raw 결과를 SajuSummary로 정규화
-│                         #   천간/지지 한글·한자 매핑, 오행 분포 계산
-│                         #   복잡한 Map/Set 구조를 JSON 안전한 객체로 변환
+│                         #   analyzeSajuSafe(): sajuEnabled 플래그 포함 안전한 분석
+│                         #   사주 모듈 로드 실패 시 warning 로그 + fallback
 │
 ├── saju-calculator.ts    # 사주↔이름 궁합 점수 계산기
 │                         #   용신 친화도, 오행 균형, 일간 강약, 십성 배치
 │                         #   4가지 요소를 적응형 가중치로 합산
 │
 ├── types.ts              # TypeScript 타입 정의
-│                         #   SpringRequest/Response, SajuSummary,
-│                         #   PillarSummary, TenGodSummary 등 모든 인터페이스
+│                         #   SpringRequest/Response, NamingReport, SajuReport, SpringReport,
+│                         #   SajuSummary, PillarSummary, TenGodSummary 등 모든 인터페이스
 │
 └── index.ts              # 외부에 공개하는 export 목록
                           #   spring-ts 자체 + name-ts 전체를 re-export
@@ -175,7 +177,7 @@ config/
 
 ```
 test/
-├── compare-output.ts      # 통합 테스트 (49개 검증): 평가/추천/복성/긴이름/사주구조 검증
+├── compare-output.ts      # 통합 테스트: 평가/추천/복성/긴이름/사주구조 + getNamingReport/getSajuReport/getNameCandidates 검증
 └── baseline.json          # 기준 출력값: 테스트의 기대 결과 (점수, 후보 목록, 사주 데이터)
 ```
 
@@ -211,40 +213,68 @@ test/
 
 ---
 
+## 초기 설정
+
+saju-ts 서브모듈이 필요한 경우 (사주 분석 활성화):
+
+```bash
+git submodule update --init --recursive
+cd lib/saju-ts && npm install && npm run build
+```
+
+saju-ts 없이도 동작합니다. 콘솔에 warning이 표시되고, `sajuEnabled: false`로 이름 분석만 수행됩니다.
+
+---
+
 ## 사용 예시
 
 ```typescript
 import { SpringEngine } from 'spring-ts';
 
-// 1. 엔진 초기화
 const engine = new SpringEngine();
-await engine.init({
-  hanjaDbUrl: '/path/to/hanja.db',
-  fourFrameDbUrl: '/path/to/fourframe.db',
-  nameStatDbUrl: '/path/to/namestat.db',
-});
+await engine.init();
 
-// 2-A. 이름 평가 (기존 이름의 점수 확인)
+// ── 1. 이름만 분석 (사주 무관) ──
+const namingReport = await engine.getNamingReport({
+  birth: { year: 1986, month: 4, day: 19, hour: 5, minute: 45, gender: 'male' },
+  surname: [{ hangul: '최', hanja: '崔' }],
+  givenName: [{ hangul: '성', hanja: '成' }, { hangul: '수', hanja: '秀' }],
+});
+namingReport.totalScore;                    // 55.9
+namingReport.scores;                        // { hangul: 70, hanja: 57.5, fourFrame: 60 }
+namingReport.analysis.fourFrame.frames;     // NamingReportFrame[] with meaning data
+
+// ── 2. 사주만 분석 ──
+const sajuReport = await engine.getSajuReport({
+  birth: { year: 1986, month: 4, day: 19, hour: 5, minute: 45, gender: 'male' },
+  surname: [{ hangul: '최', hanja: '崔' }],
+});
+sajuReport.sajuEnabled;                     // true (saju-ts 로드 성공 여부)
+sajuReport.dayMaster;                       // { stem, element, polarity }
+sajuReport.yongshin;                        // { element, heeshin, confidence, ... }
+
+// ── 3. 이름 추천 (사주+이름 통합) ──
+const candidates = await engine.getNameCandidates({
+  birth: { year: 1986, month: 4, day: 19, hour: 5, minute: 45, gender: 'male' },
+  surname: [{ hangul: '최', hanja: '崔' }],
+  givenNameLength: 2,
+  mode: 'recommend',
+});
+candidates[0].finalScore;                   // 통합 점수
+candidates[0].namingReport;                 // NamingReport (이름 분석)
+candidates[0].sajuReport;                   // SajuReport (사주 분석)
+candidates[0].sajuCompatibility;            // SajuCompatibility (궁합)
+candidates[0].rank;                         // 1
+
+// ── 4. 레거시 API (하위호환) ──
 const evalResult = await engine.analyze({
   birth: { year: 1986, month: 4, day: 19, hour: 5, minute: 45, gender: 'male' },
   surname: [{ hangul: '최', hanja: '崔' }],
   givenName: [{ hangul: '성', hanja: '成' }, { hangul: '수', hanja: '秀' }],
   mode: 'evaluate',
 });
-console.log(evalResult.candidates[0].scores);
-// { total: 55.9, hangul: 70, hanja: 57.5, fourFrame: 60, saju: 38.7 }
+evalResult.candidates[0].scores;            // { total, hangul, hanja, fourFrame, saju }
 
-// 2-B. 이름 추천 (좋은 이름 후보 생성)
-const recResult = await engine.analyze({
-  birth: { year: 1986, month: 4, day: 19, hour: 5, minute: 45, gender: 'male' },
-  surname: [{ hangul: '최', hanja: '崔' }],
-  mode: 'recommend',
-  options: { limit: 20 },
-});
-console.log(recResult.candidates.length);  // 20
-console.log(recResult.totalCount);         // 500 (전체 후보 수)
-
-// 3. 자원 해제
 engine.close();
 ```
 
