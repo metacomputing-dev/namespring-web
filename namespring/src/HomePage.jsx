@@ -1,25 +1,78 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useMemo, useState } from 'react';
 import logoSvg from './assets/logo.svg';
 import NamingResultRenderer from './NamingResultRenderer';
 
-function HomeTile({ title, className, onClick }) {
+function HomeTile({ item, onClick }) {
+  const isClickable = typeof onClick === 'function';
   return (
     <button
+      type="button"
       onClick={onClick}
-      className={`bg-[var(--ns-surface)] border border-[var(--ns-border)] rounded-[2.2rem] p-5 shadow-xl hover:translate-y-[-2px] transition-all text-left ${className}`}
+      className={[
+        'group relative overflow-hidden rounded-[2.2rem] border p-4 md:p-5 text-left min-h-[11rem]',
+        'bg-gradient-to-br shadow-[0_10px_24px_rgba(23,31,22,0.08)] transition-all duration-300',
+        isClickable ? 'hover:translate-y-[-3px] hover:shadow-[0_14px_30px_rgba(23,31,22,0.12)]' : 'cursor-default',
+        item.bgClass,
+      ].join(' ')}
+      disabled={!isClickable}
     >
-      <div className="h-full flex flex-col items-center justify-center gap-3">
-        <img src={logoSvg} alt="" className="h-12 w-12 select-none" draggable="false" />
-        <p className="text-sm md:text-base font-black text-[var(--ns-accent-text)] text-center">{title}</p>
+      <div className="flex flex-col">
+        <div className="w-14 h-14 rounded-2xl border border-[var(--ns-border)] bg-white/85 shadow-inner flex items-center justify-center">
+          <img src={logoSvg} alt="" className="h-8 w-8 select-none" draggable="false" />
+        </div>
+
+        <div className="mt-3 space-y-1.5">
+          <p className="text-[10px] md:text-[11px] font-medium tracking-wide text-[#91A0B8]">{item.subtitle}</p>
+          <h3 className="text-[1.1rem] leading-tight md:text-[1.25rem] font-semibold text-[var(--ns-accent-text)] break-keep">
+            {item.title}
+          </h3>
+          <p className="text-[11px] md:text-[12px] leading-snug font-normal text-[#73819A] break-keep">
+            {item.description}
+          </p>
+        </div>
       </div>
     </button>
   );
 }
 
-function HomePage({ entryUserInfo, onAnalyzeAsync, onOpenReport }) {
+function HomePage({ entryUserInfo, onAnalyzeAsync, onOpenReport, onOpenNamingCandidates, onOpenEntry }) {
   const [isAnalyzing, setIsAnalyzing] = useState(false);
   const [previewResult, setPreviewResult] = useState(null);
   const [analyzeError, setAnalyzeError] = useState('');
+  const menuItems = useMemo(() => ([
+    {
+      id: 1,
+      title: '이름 평가 보고서',
+      subtitle: '사주와 성명학의 깊은 분석',
+      description: '당신의 이름에 담긴 기운을 정밀하게 측정하여 리포트로 제공합니다.',
+      bgClass: 'from-[#EEF8F1] to-[#FFFFFF] border-[#DCE8DF]',
+      onClick: onOpenReport,
+    },
+    {
+      id: 2,
+      title: '작명하기',
+      subtitle: '세상에 단 하나뿐인 축복',
+      description: '사주에 부족한 성분을 채워주는 최적의 이름을 추천받으세요.',
+      bgClass: 'from-[#F8F2F8] to-[#FFFFFF] border-[#E7DDE7]',
+      onClick: onOpenNamingCandidates,
+    },
+    {
+      id: 3,
+      title: '고마움 전달하기',
+      subtitle: '마음을 나누는 따뜻한 선물',
+      description: '좋은 이름을 지어준 분께 감사의 마음을 예쁘게 전달하세요.',
+      bgClass: 'from-[#FBF7EC] to-[#FFFFFF] border-[#ECE4D2]',
+      onClick: null,
+    },
+    {
+      id: 4,
+      title: '이름봄 정보',
+      subtitle: '브랜드 철학과 가이드',
+      description: '이름봄이 추구하는 가치와 오행 분석의 원리를 소개합니다.',
+      bgClass: 'from-[#F1F4F8] to-[#FFFFFF] border-[#DFE6EE]',
+      onClick: null,
+    },
+  ]), [onOpenNamingCandidates, onOpenReport]);
 
   useEffect(() => {
     let cancelled = false;
@@ -72,7 +125,13 @@ function HomePage({ entryUserInfo, onAnalyzeAsync, onOpenReport }) {
             </div>
           )}
           {!isAnalyzing && !analyzeError && previewResult && (
-            <NamingResultRenderer namingResult={previewResult} />
+            <button
+              type="button"
+              onClick={onOpenEntry}
+              className="h-full w-full block text-left rounded-[1.6rem] overflow-hidden"
+            >
+              <NamingResultRenderer namingResult={previewResult} />
+            </button>
           )}
           {!isAnalyzing && !analyzeError && !previewResult && (
             <div className="h-full w-full rounded-[1.6rem] border border-dashed border-[var(--ns-border)] bg-[var(--ns-surface-soft)] flex items-center justify-center text-center">
@@ -81,11 +140,14 @@ function HomePage({ entryUserInfo, onAnalyzeAsync, onOpenReport }) {
           )}
         </div>
 
-        <div className="grid grid-cols-2 gap-4">
-          <HomeTile title="이름 평가 보고서" className="h-44 md:h-52" onClick={onOpenReport} />
-          <HomeTile title="작명하기" className="h-44 md:h-52" onClick={() => {}} />
-          <HomeTile title="고마움 전달하기" className="h-44 md:h-52" onClick={() => {}} />
-          <HomeTile title="이름봄 정보" className="h-44 md:h-52" onClick={() => {}} />
+        <div className="grid grid-cols-2 gap-3 md:gap-5">
+          {menuItems.map((item) => (
+            <HomeTile
+              key={item.id}
+              item={item}
+              onClick={item.onClick}
+            />
+          ))}
         </div>
       </div>
     </div>

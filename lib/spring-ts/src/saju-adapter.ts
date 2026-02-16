@@ -94,7 +94,7 @@ async function loadSajuModule(): Promise<SajuModule | null> {
   // Try the configured path first, then fall back to dist/ (built output).
   const candidates = [
     SAJU_MODULE_PATH,
-    SAJU_MODULE_PATH.replace('/src/', '/dist/'),
+    SAJU_MODULE_PATH.replace('/src/', '/dist/').replace(/\.ts$/i, '.js'),
   ];
 
   for (const modulePath of candidates) {

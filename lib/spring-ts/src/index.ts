@@ -29,6 +29,7 @@ export type {
   NamingReportFourFrame,
   SajuReport,
   SpringReport,
+  SpringCandidateSummary,
   // Saju analysis
   SajuSummary,
   PillarSummary,

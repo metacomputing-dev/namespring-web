@@ -1,6 +1,7 @@
 import React, { useState, useEffect, useMemo } from 'react';
 import { SeedTs } from "@seed/seed";
 import { HanjaRepository } from '@seed/database/hanja-repository';
+import { SpringEngine } from '@spring/spring-engine';
 import DevDbViewer from './DevDbViewer';
 import DevHanjaDbViewer from './DevHanjaDbViewer';
 import DevNameStatDbViewer from './DevNameStatDbViewer';
@@ -10,6 +11,118 @@ import AppBackground from './ui/AppBackground';
 import HomePage from './HomePage';
 import ReportPage from './ReportPage';
 import InputForm from './InputForm';
+import NamingCandidatesPage from './NamingCandidatesPage';
+import CombinedReportPage from './CombinedReportPage';
+
+const ENTRY_STORAGE_KEY = 'namespring_entry_user_info';
+const PAGE_VALUES = ['entry', 'home', 'report', 'naming-candidates', 'combined-report'];
+
+function normalizeEntryUserInfo(value) {
+  if (!value || !Array.isArray(value.lastName) || !Array.isArray(value.firstName)) {
+    return null;
+  }
+
+  const birthDateTime = value.birthDateTime || {};
+  const normalizedBirthDateTime = {
+    year: Number(birthDateTime.year) || 0,
+    month: Number(birthDateTime.month) || 0,
+    day: Number(birthDateTime.day) || 0,
+    hour: Number.isFinite(Number(birthDateTime.hour)) ? Number(birthDateTime.hour) : 12,
+    minute: Number.isFinite(Number(birthDateTime.minute)) ? Number(birthDateTime.minute) : 0,
+  };
+
+  return {
+    ...value,
+    birthDateTime: normalizedBirthDateTime,
+    gender: value.gender === 'female' ? 'female' : 'male',
+  };
+}
+
+function loadStoredEntryUserInfo() {
+  try {
+    const raw = sessionStorage.getItem(ENTRY_STORAGE_KEY);
+    return raw ? normalizeEntryUserInfo(JSON.parse(raw)) : null;
+  } catch {
+    return null;
+  }
+}
+
+function normalizePage(page, hasEntryUserInfo) {
+  const fallback = hasEntryUserInfo ? 'home' : 'entry';
+  if (!PAGE_VALUES.includes(page)) return fallback;
+  if (!hasEntryUserInfo && page !== 'entry') return 'entry';
+  return page;
+}
+
+function toSpringNameChars(entries) {
+  return (entries || [])
+    .map((entry) => ({
+      hangul: String(entry?.hangul ?? ''),
+      hanja: String(entry?.hanja ?? ''),
+    }))
+    .filter((entry) => entry.hangul.length > 0);
+}
+
+function toSpringRequest(userInfo) {
+  const normalized = normalizeEntryUserInfo(userInfo);
+  if (!normalized) {
+    throw new Error('입력 정보가 없습니다.');
+  }
+
+  const surname = toSpringNameChars(normalized.lastName);
+  const givenNameLength = Math.max(1, Math.min(4, normalized.firstName.length || 2));
+  if (!surname.length) {
+    throw new Error('성을 찾을 수 없습니다.');
+  }
+
+  return {
+    birth: {
+      year: normalized.birthDateTime.year,
+      month: normalized.birthDateTime.month,
+      day: normalized.birthDateTime.day,
+      hour: normalized.birthDateTime.hour,
+      minute: normalized.birthDateTime.minute,
+      gender: normalized.gender,
+    },
+    surname,
+    givenNameLength,
+    mode: 'recommend',
+  };
+}
+
+function toSpringReportRequest(userInfo, givenName) {
+  const base = toSpringRequest(userInfo);
+  const normalizedGivenName = (givenName || [])
+    .map((item) => ({
+      hangul: String(item?.hangul ?? ''),
+      hanja: item?.hanja ? String(item.hanja) : undefined,
+    }))
+    .filter((item) => item.hangul.length > 0);
+
+  return {
+    ...base,
+    givenName: normalizedGivenName,
+    mode: 'evaluate',
+  };
+}
+
+function toCurrentNameSpringReportRequest(userInfo) {
+  const normalized = normalizeEntryUserInfo(userInfo);
+  if (!normalized) {
+    throw new Error('입력 정보가 없습니다.');
+  }
+
+  const givenName = toSpringNameChars(normalized.firstName);
+  if (!givenName.length) {
+    throw new Error('이름을 찾을 수 없습니다.');
+  }
+
+  return {
+    ...toSpringRequest(normalized),
+    givenName,
+    mode: 'evaluate',
+  };
+}
 
 function App() {
   const tool = new URLSearchParams(window.location.search).get("tool");
@@ -20,21 +133,41 @@ function App() {
   const [isDbReady, setIsDbReady] = useState(false);
   const [showSplash, setShowSplash] = useState(true);
   const [minSplashElapsed, setMinSplashElapsed] = useState(false);
-  const [page, setPage] = useState('entry');
-  const [entryUserInfo, setEntryUserInfo] = useState(() => {
-    try {
-      const raw = sessionStorage.getItem('namespring_entry_user_info');
-      return raw ? JSON.parse(raw) : null;
-    } catch {
-      return null;
-    }
-  });
+  const [entryUserInfo, setEntryUserInfo] = useState(() => loadStoredEntryUserInfo());
+  const [selectedCandidateSummary, setSelectedCandidateSummary] = useState(null);
+  const [page, setPage] = useState(() => (loadStoredEntryUserInfo() ? 'home' : 'entry'));
   const hanjaRepo = useMemo(() => new HanjaRepository(), []);
+  const springEngine = useMemo(() => new SpringEngine(), []);
 
   // DB Initialization
   useEffect(() => {
     hanjaRepo.init().then(() => setIsDbReady(true));
   }, [hanjaRepo]);
+
+  useEffect(() => {
+    return () => {
+      springEngine.close();
+    };
+  }, [springEngine]);
+
+  useEffect(() => {
+    if (isDevSagyeoksuViewerMode || isDevHanjaViewerMode || isDevNameStatViewerMode) return;
+    window.history.replaceState({ ...(window.history.state || {}), page }, '');
+  }, [isDevSagyeoksuViewerMode, isDevHanjaViewerMode, isDevNameStatViewerMode, page]);
+
+  useEffect(() => {
+    if (isDevSagyeoksuViewerMode || isDevHanjaViewerMode || isDevNameStatViewerMode) return;
+
+    const onPopState = (event) => {
+      const nextPage = normalizePage(event.state?.page, Boolean(entryUserInfo));
+      setPage(nextPage);
+    };
+
+    window.addEventListener('popstate', onPopState);
+    return () => {
+      window.removeEventListener('popstate', onPopState);
+    };
+  }, [entryUserInfo, isDevSagyeoksuViewerMode, isDevHanjaViewerMode, isDevNameStatViewerMode]);
 
   useEffect(() => {
     if (!showSplash) return;
@@ -51,13 +184,45 @@ function App() {
 
   const handleAnalyze = (userInfo) => {
     const engine = new SeedTs();
-    return engine.analyze(userInfo);
+    return engine.analyze(normalizeEntryUserInfo(userInfo));
   };
 
   const handleAnalyzeAsync = async (userInfo) => {
     const engine = new SeedTs();
     await Promise.resolve();
-    return engine.analyze(userInfo);
+    return engine.analyze(normalizeEntryUserInfo(userInfo));
+  };
+
+  const handleRecommendAsync = async (userInfo) => {
+    const springRequest = toSpringRequest(userInfo);
+    return springEngine.getNameCandidateSummaries(springRequest);
+  };
+
+  const handleLoadCombinedReportAsync = async (userInfo, candidate) => {
+    const springRequest = toSpringReportRequest(userInfo, candidate?.givenName);
+    if (!springRequest.givenName?.length) {
+      throw new Error('선택한 후보 이름 정보가 없습니다.');
+    }
+    return springEngine.getSpringReport(springRequest);
+  };
+
+  const handleLoadCurrentNameReportAsync = async (userInfo) => {
+    const springRequest = toCurrentNameSpringReportRequest(userInfo);
+    return springEngine.getSpringReport(springRequest);
+  };
+
+  const navigateToPage = (nextPage, options = {}) => {
+    const hasEntryUserInfo = typeof options.hasEntryUserInfo === 'boolean'
+      ? options.hasEntryUserInfo
+      : Boolean(entryUserInfo);
+    const normalized = normalizePage(nextPage, hasEntryUserInfo);
+    setPage(normalized);
+    const nextState = { ...(window.history.state || {}), page: normalized };
+    if (options.replace) {
+      window.history.replaceState(nextState, '');
+    } else {
+      window.history.pushState(nextState, '');
+    }
   };
 
   const getView = () => {
@@ -96,11 +261,12 @@ function App() {
                   hanjaRepo={hanjaRepo}
                   isDbReady={isDbReady}
                   onEnter={(userInfo) => {
-                    setEntryUserInfo(userInfo);
+                    const normalized = normalizeEntryUserInfo(userInfo);
+                    setEntryUserInfo(normalized);
                     try {
-                      sessionStorage.setItem('namespring_entry_user_info', JSON.stringify(userInfo));
+                      sessionStorage.setItem(ENTRY_STORAGE_KEY, JSON.stringify(normalized));
                     } catch {}
-                    setPage('home');
+                    navigateToPage('home', { hasEntryUserInfo: Boolean(normalized) });
                   }}
                   submitLabel="시작하기"
                 />
@@ -119,7 +285,46 @@ function App() {
             <HomePage
               entryUserInfo={entryUserInfo}
               onAnalyzeAsync={handleAnalyzeAsync}
-              onOpenReport={() => setPage('report')}
+              onOpenReport={() => navigateToPage('report')}
+              onOpenNamingCandidates={() => navigateToPage('naming-candidates')}
+              onOpenEntry={() => navigateToPage('entry')}
+            />
+          </AppBackground>
+        ),
+      };
+    }
+
+    if (page === 'naming-candidates') {
+      return {
+        key: 'naming-candidates',
+        node: (
+          <AppBackground>
+            <NamingCandidatesPage
+              entryUserInfo={entryUserInfo}
+              onRecommendAsync={handleRecommendAsync}
+              onLoadCurrentSpringReport={handleLoadCurrentNameReportAsync}
+              onBackHome={() => navigateToPage('home')}
+              onOpenCombinedReport={(candidate) => {
+                setSelectedCandidateSummary(candidate || null);
+                navigateToPage('combined-report');
+              }}
+            />
+          </AppBackground>
+        ),
+      };
+    }
+
+    if (page === 'combined-report') {
+      return {
+        key: 'combined-report',
+        node: (
+          <AppBackground>
+            <CombinedReportPage
+              entryUserInfo={entryUserInfo}
+              selectedCandidate={selectedCandidateSummary}
+              onLoadCombinedReport={handleLoadCombinedReportAsync}
+              onBackHome={() => navigateToPage('home')}
+              onBackCandidates={() => navigateToPage('naming-candidates')}
             />
           </AppBackground>
         ),
@@ -135,7 +340,7 @@ function App() {
             isDbReady={isDbReady}
             onAnalyze={handleAnalyze}
             initialUserInfo={entryUserInfo}
-            onBackHome={() => setPage('home')}
+            onBackHome={() => navigateToPage('home')}
           />
         </AppBackground>
       ),

@@ -329,9 +329,21 @@ export type SajuReport = SajuSummary & {
 /** Combined name + saju report. Returned by getNameCandidates(). */
 export interface SpringReport {
   readonly finalScore: number;
+  readonly popularityRank: number | null;
   readonly namingReport: NamingReport;
   readonly sajuReport: SajuReport;
   readonly sajuCompatibility: SajuCompatibility;
+  rank: number;
+}
+
+/** Lightweight candidate item for list pages. */
+export interface SpringCandidateSummary {
+  readonly finalScore: number;
+  readonly fullHangul: string;
+  readonly fullHanja: string;
+  readonly givenHangul: string;
+  readonly givenName: NameCharInput[];
+  readonly popularityRank: number | null;
   rank: number;
 }
 

@@ -1,5 +1,5 @@
 {
-  "maxCandidates": 500,
+  "maxCandidates": 50000,
   "candidatePoolLimits": {
     "singleCharPerStroke": 8,
     "doubleCharPerPosition": 6,
@@ -27,5 +27,5 @@
     "latitude": 37.5665,
     "longitude": 126.978
   },
-  "sajuModulePath": "../../saju-ts/src/index.js"
+  "sajuModulePath": "../../saju-ts/src/index.ts"
 }

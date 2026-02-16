@@ -5,13 +5,16 @@
 //   init()              -- load database and precompute lucky number tables
 //   getNamingReport()   -- pure name analysis (no saju)
 //   getSajuReport()     -- saju analysis only
+//   getSpringReport()   -- single integrated report (name + saju)
 //   getNameCandidates() -- name recommendations with saju integration
+//   getNameCandidateSummaries() -- lightweight recommendation list for UI
 //   analyze()           -- legacy all-in-one entry point (backward compatible)
 //   close()             -- release database resources
 // ---------------------------------------------------------------------------
 
 import { HanjaRepository, type HanjaEntry } from '../../seed-ts/src/database/hanja-repository.js';
 import { FourframeRepository } from '../../seed-ts/src/database/fourframe-repository.js';
+import { NameStatRepository, type NameStatEntry } from '../../seed-ts/src/database/name-stat-repository.js';
 import { Polarity } from '../../seed-ts/src/model/polarity.js';
 import { HangulCalculator } from './calculator/hangul-calculator.js';
 import { HanjaCalculator } from './calculator/hanja-calculator.js';
@@ -26,7 +29,7 @@ import { springEvaluateName, SAJU_FRAME } from './spring-evaluator.js';
 import { analyzeSaju, analyzeSajuSafe, buildSajuContext, collectElements } from './saju-adapter.js';
 import type {
   SpringRequest, SpringResponse, SpringCandidate, SajuSummary,
-  SajuReport, NamingReport, NamingReportFrame, SpringReport,
+  SajuReport, NamingReport, NamingReportFrame, SpringReport, SpringCandidateSummary,
   NameCharInput, CharDetail,
 } from './types.js';
 import engineConfig from '../config/engine.json';
@@ -81,10 +84,12 @@ function toNameCharInput(entry: HanjaEntry): NameCharInput {
 export class SpringEngine {
   private hanjaRepo = new HanjaRepository();
   private fourFrameRepo = new FourframeRepository();
+  private nameStatRepo = new NameStatRepository();
   private initialized = false;
   private luckyMap = new Map<number, string>();
   private validFourFrameNumbers = new Set<number>();
   private optimizer: FourFrameOptimizer | null = null;
+  private readonly nameStatInfoCache = new Map<string, { exists: boolean; popularityRank: number | null }>();
 
   /** Expose the hanja repository so the UI can perform hanja lookups. */
   getHanjaRepository(): HanjaRepository { return this.hanjaRepo; }
@@ -96,8 +101,12 @@ export class SpringEngine {
   async init() {
     if (this.initialized) return;
 
-    // Step 1: Open both database repositories in parallel
-    await Promise.all([this.hanjaRepo.init(), this.fourFrameRepo.init()]);
+    // Step 1: Open repositories in parallel
+    await Promise.all([
+      this.hanjaRepo.init(),
+      this.fourFrameRepo.init(),
+      this.nameStatRepo.init(),
+    ]);
 
     // Step 2: Load four-frame fortune data and build the lucky-number set
     await this.buildLuckyNumberSet();
@@ -159,6 +168,59 @@ export class SpringEngine {
   }
 
   // -------------------------------------------------------------------------
+  // getSpringReport -- single integrated report for one explicit given name
+  // -------------------------------------------------------------------------
+
+  async getSpringReport(
+    request: SpringRequest,
+    sajuReportOverride?: SajuReport,
+  ): Promise<SpringReport> {
+    await this.init();
+
+    if (!request.givenName?.length) {
+      throw new Error('getSpringReport requires givenName input.');
+    }
+
+    const sajuReport = sajuReportOverride ?? await this.getSajuReport(request);
+    const { dist: sajuDistribution, output: sajuOutput } = buildSajuContext(sajuReport);
+    const nameStatInfo = await this.getNameStatInfo(request.givenName);
+
+    const surnameEntries   = await this.resolveEntries(request.surname);
+    const givenNameEntries = await this.resolveEntries(request.givenName);
+
+    const hangul = new HangulCalculator(surnameEntries, givenNameEntries);
+    const hanja  = new HanjaCalculator(surnameEntries, givenNameEntries);
+    const frame  = new FrameCalculator(surnameEntries, givenNameEntries);
+    const saju   = new SajuCalculator(surnameEntries, givenNameEntries, sajuDistribution, sajuOutput);
+
+    const combinedCtx: EvalContext = {
+      surnameLength: surnameEntries.length,
+      givenLength:   givenNameEntries.length,
+      luckyMap:      this.luckyMap,
+      insights:      {},
+    };
+    const combined = springEvaluateName([hangul, hanja, frame, saju], combinedCtx);
+
+    const nameOnlyCtx: EvalContext = {
+      surnameLength: surnameEntries.length,
+      givenLength:   givenNameEntries.length,
+      luckyMap:      this.luckyMap,
+      insights:      {},
+    };
+    const nameOnly = evaluateName([hangul, hanja, frame], nameOnlyCtx);
+    await frame.ensureEntriesLoaded();
+
+    return {
+      finalScore: roundScore(combined.score),
+      popularityRank: nameStatInfo.popularityRank,
+      namingReport: this.buildNamingReport(surnameEntries, givenNameEntries, nameOnly, hangul, hanja, frame),
+      sajuReport,
+      sajuCompatibility: saju.getAnalysis().data,
+      rank: 0,
+    };
+  }
+
+  // -------------------------------------------------------------------------
   // getNameCandidates -- name recommendations with saju integration
   // -------------------------------------------------------------------------
 
@@ -168,7 +230,6 @@ export class SpringEngine {
     // 1. Saju analysis
     const sajuReport = await this.getSajuReport(request);
     const sajuSummary: SajuSummary = sajuReport;
-    const { dist: sajuDistribution, output: sajuOutput } = buildSajuContext(sajuSummary);
 
     // 2. Determine mode and collect name inputs
     const jamoFilters = request.givenName?.map(
@@ -185,10 +246,49 @@ export class SpringEngine {
     const results: SpringReport[] = [];
 
     for (const givenNameInput of nameInputs) {
-      const surnameEntries   = await this.resolveEntries(request.surname);
+      const nameStatInfo = await this.getNameStatInfo(givenNameInput);
+      if (!nameStatInfo.exists) continue;
+      results.push(await this.getSpringReport(
+        { ...request, givenName: givenNameInput, mode: 'evaluate' },
+        sajuReport,
+      ));
+    }
+
+    // Sort and assign ranks
+    results.sort((a, b) => b.finalScore - a.finalScore);
+    results.forEach((r, i) => { r.rank = i + 1; });
+    return results;
+  }
+
+  // -------------------------------------------------------------------------
+  // getNameCandidateSummaries -- lightweight candidates for list rendering
+  // -------------------------------------------------------------------------
+
+  async getNameCandidateSummaries(request: SpringRequest): Promise<SpringCandidateSummary[]> {
+    await this.init();
+
+    const sajuReport = await this.getSajuReport(request);
+    const sajuSummary: SajuSummary = sajuReport;
+    const { dist: sajuDistribution, output: sajuOutput } = buildSajuContext(sajuSummary);
+
+    const jamoFilters = request.givenName?.map(
+      char => char.hanja ? null : parseJamoFilter(char.hangul),
+    );
+    const hasJamoInput = jamoFilters?.some(filter => filter !== null) ?? false;
+    const mode = this.resolveMode(request, hasJamoInput);
+
+    const nameInputs = await this.collectNameInputs(
+      request, mode, hasJamoInput, jamoFilters, sajuSummary,
+    );
+
+    const surnameEntries = await this.resolveEntries(request.surname);
+    const results: SpringCandidateSummary[] = [];
+
+    for (const givenNameInput of nameInputs) {
+      const nameStatInfo = await this.getNameStatInfo(givenNameInput);
+      if (!nameStatInfo.exists) continue;
       const givenNameEntries = await this.resolveEntries(givenNameInput);
 
-      // 4 calculators (name-ts 3 + saju 1)
       const hangul = new HangulCalculator(surnameEntries, givenNameEntries);
       const hanja  = new HanjaCalculator(surnameEntries, givenNameEntries);
       const frame  = new FrameCalculator(surnameEntries, givenNameEntries);
@@ -202,29 +302,20 @@ export class SpringEngine {
       };
       const combined = springEvaluateName([hangul, hanja, frame, saju], combinedCtx);
 
-      // Name-only evaluation for NamingReport
-      const nameOnlyCtx: EvalContext = {
-        surnameLength: surnameEntries.length,
-        givenLength:   givenNameEntries.length,
-        luckyMap:      this.luckyMap,
-        insights:      {},
-      };
-      const nameOnly = evaluateName([hangul, hanja, frame], nameOnlyCtx);
-      await frame.ensureEntriesLoaded();
-      const namingReport = this.buildNamingReport(surnameEntries, givenNameEntries, nameOnly, hangul, hanja, frame);
-
+      const allEntries = [...surnameEntries, ...givenNameEntries];
       results.push({
         finalScore: roundScore(combined.score),
-        namingReport,
-        sajuReport,
-        sajuCompatibility: saju.getAnalysis().data,
+        fullHangul: allEntries.map(entry => entry.hangul).join(''),
+        fullHanja: allEntries.map(entry => entry.hanja).join(''),
+        givenHangul: givenNameEntries.map(entry => entry.hangul).join(''),
+        givenName: givenNameEntries.map(toNameCharInput),
+        popularityRank: nameStatInfo.popularityRank,
         rank: 0,
       });
     }
 
-    // Sort and assign ranks
     results.sort((a, b) => b.finalScore - a.finalScore);
-    results.forEach((r, i) => { r.rank = i + 1; });
+    results.forEach((result, index) => { result.rank = index + 1; });
     return results;
   }
 
@@ -374,11 +465,96 @@ export class SpringEngine {
         candidates.unshift(request.givenName!);
       }
 
-      return candidates;
+      return this.filterCandidatesByNameStat(candidates);
     }
 
     // Fallback: just the explicit name, or nothing
     return request.givenName?.length ? [request.givenName] : [];
+  }
+
+  private givenNameHangulKey(givenName: NameCharInput[]): string {
+    return givenName.map((char) => String(char?.hangul ?? '')).join('').trim();
+  }
+
+  private latestPopularityRankFromEntry(entry: NameStatEntry): number | null {
+    const source = entry?.yearly_rank || {};
+    const totalBucket = source?.['전체'];
+
+    if (totalBucket && typeof totalBucket === 'object' && !Array.isArray(totalBucket)) {
+      const sorted = Object.entries(totalBucket)
+        .map(([year, rank]) => ({ year: Number(year), rank: Number(rank) }))
+        .filter((item) => Number.isFinite(item.year) && Number.isFinite(item.rank))
+        .sort((a, b) => a.year - b.year);
+      const latestFromTotal = sorted.length ? sorted[sorted.length - 1].rank : null;
+      return Number.isFinite(Number(latestFromTotal)) && Number(latestFromTotal) > 0
+        ? Number(latestFromTotal)
+        : null;
+    }
+
+    const valuesByYear = new Map<number, number[]>();
+    for (const [bucketKey, bucket] of Object.entries(source)) {
+      const flatYear = Number(bucketKey);
+      const flatValue = Number(bucket);
+      if (Number.isFinite(flatYear) && Number.isFinite(flatValue)) {
+        const list = valuesByYear.get(flatYear) || [];
+        list.push(flatValue);
+        valuesByYear.set(flatYear, list);
+        continue;
+      }
+
+      if (!bucket || typeof bucket !== 'object' || Array.isArray(bucket)) continue;
+      for (const [year, value] of Object.entries(bucket)) {
+        const y = Number(year);
+        const v = Number(value);
+        if (!Number.isFinite(y) || !Number.isFinite(v)) continue;
+        const list = valuesByYear.get(y) || [];
+        list.push(v);
+        valuesByYear.set(y, list);
+      }
+    }
+
+    if (!valuesByYear.size) return null;
+    const latestYear = Math.max(...valuesByYear.keys());
+    const values = valuesByYear.get(latestYear) || [];
+    if (!values.length) return null;
+    const avg = values.reduce((sum, value) => sum + value, 0) / values.length;
+    return Number.isFinite(avg) && avg > 0 ? avg : null;
+  }
+
+  private async getNameStatInfo(givenName: NameCharInput[]): Promise<{ exists: boolean; popularityRank: number | null }> {
+    const key = this.givenNameHangulKey(givenName);
+    if (!key) return { exists: false, popularityRank: null };
+
+    const cached = this.nameStatInfoCache.get(key);
+    if (cached) return cached;
+
+    try {
+      const found = await this.nameStatRepo.findByName(key);
+      const info = {
+        exists: Boolean(found),
+        popularityRank: found ? this.latestPopularityRankFromEntry(found) : null,
+      };
+      this.nameStatInfoCache.set(key, info);
+      return info;
+    } catch {
+      const fallback = { exists: false, popularityRank: null };
+      this.nameStatInfoCache.set(key, fallback);
+      return fallback;
+    }
+  }
+
+  private async existsInNameStat(givenName: NameCharInput[]): Promise<boolean> {
+    return (await this.getNameStatInfo(givenName)).exists;
+  }
+
+  private async filterCandidatesByNameStat(nameInputs: NameCharInput[][]): Promise<NameCharInput[][]> {
+    const filtered: NameCharInput[][] = [];
+    for (const givenNameInput of nameInputs) {
+      if (await this.existsInNameStat(givenNameInput)) {
+        filtered.push(givenNameInput);
+      }
+    }
+    return filtered;
   }
 
   // -------------------------------------------------------------------------
@@ -812,5 +988,6 @@ export class SpringEngine {
   close() {
     this.hanjaRepo.close();
     this.fourFrameRepo.close();
+    this.nameStatRepo.close();
   }
 }

@@ -16,15 +16,24 @@ function validateGivenName(value) {
   return /^[가-힣]{1,4}$/.test(value);
 }
 
-function formatDateForDisplay(isoDate) {
-  if (!isoDate) return 'YYYY.MM.DD';
-  return isoDate.replace(/-/g, '.');
+function isValidBirthTime(value) {
+  if (!/^\d{2}:\d{2}$/.test(value)) return false;
+  const [hour, minute] = value.split(':').map(Number);
+  if (!Number.isFinite(hour) || !Number.isFinite(minute)) return false;
+  return hour >= 0 && hour <= 23 && minute >= 0 && minute <= 59;
+}
+
+function formatBirthDateTimeForDisplay(isoDate, time) {
+  if (!isoDate) return 'YYYY.MM.DD HH:mm';
+  const normalizedTime = isValidBirthTime(time) ? time : 'HH:mm';
+  return `${isoDate.replace(/-/g, '.')} ${normalizedTime}`;
 }
 
 function InputForm({ hanjaRepo, isDbReady, onAnalyze, onEnter, submitLabel = '시작하기' }) {
   const [surnameInput, setSurnameInput] = useState('');
   const [givenNameInput, setGivenNameInput] = useState('');
   const [birthDate, setBirthDate] = useState('');
+  const [birthTime, setBirthTime] = useState('12:00');
   const [gender, setGender] = useState('');
 
   const [selectedSurnameEntries, setSelectedSurnameEntries] = useState([]);
@@ -43,6 +52,8 @@ function InputForm({ hanjaRepo, isDbReady, onAnalyze, onEnter, submitLabel = '�
   const isGivenNameValid = validateGivenName(givenNameHangul);
   const isNameTextValid = isSurnameValid && isGivenNameValid;
   const isBirthDateValid = /^\d{4}-\d{2}-\d{2}$/.test(birthDate);
+  const isBirthTimeValid = isValidBirthTime(birthTime);
+  const isBirthDateTimeValid = isBirthDateValid && isBirthTimeValid;
   const isGenderDone = gender !== '';
 
   useEffect(() => {
@@ -105,16 +116,17 @@ function InputForm({ hanjaRepo, isDbReady, onAnalyze, onEnter, submitLabel = '�
   };
 
   const handleSubmit = () => {
-    if (!isBirthDateValid || !isNameSelectionDone || !isGenderDone) {
+    if (!isBirthDateTimeValid || !isNameSelectionDone || !isGenderDone) {
       alert('모든 입력을 순서대로 완료해 주세요.');
       return;
     }
 
     const [year, month, day] = birthDate.split('-').map(Number);
+    const [hour, minute] = birthTime.split(':').map(Number);
     const payload = {
       lastName: selectedSurnameEntries,
       firstName: selectedGivenNameEntries,
-      birthDateTime: { year, month, day, hour: 12, minute: 0 },
+      birthDateTime: { year, month, day, hour, minute },
       gender,
     };
 
@@ -203,18 +215,29 @@ function InputForm({ hanjaRepo, isDbReady, onAnalyze, onEnter, submitLabel = '�
         {isNameSelectionDone && (
           <section className="space-y-4 bg-[var(--ns-surface-soft)] border border-[var(--ns-border)] rounded-3xl p-6 animate-in fade-in duration-300">
             <h3 className="text-base font-black text-[var(--ns-accent-text)]">{`${surnameHangul}${givenNameHangul}`}님이 언제 태어났는지 알고싶어요.</h3>
-            <label className="text-[11px] font-black text-[var(--ns-muted)] block">생년월일</label>
-            <input
-              type="date"
-              value={birthDate}
-              onChange={(e) => setBirthDate(e.target.value)}
-              className="w-full p-4 bg-[var(--ns-surface)] border border-[var(--ns-border)] rounded-2xl font-bold text-[var(--ns-text)]"
-            />
-            <p className="text-[11px] font-semibold text-[var(--ns-muted)]">{formatDateForDisplay(birthDate)}</p>
+            <label className="text-[11px] font-black text-[var(--ns-muted)] block">생년월일시분</label>
+            <div className="grid grid-cols-1 md:grid-cols-2 gap-3">
+              <input
+                type="date"
+                value={birthDate}
+                onChange={(e) => setBirthDate(e.target.value)}
+                className="w-full p-4 bg-[var(--ns-surface)] border border-[var(--ns-border)] rounded-2xl font-bold text-[var(--ns-text)]"
+              />
+              <input
+                type="time"
+                value={birthTime}
+                onChange={(e) => setBirthTime(e.target.value)}
+                step={60}
+                className="w-full p-4 bg-[var(--ns-surface)] border border-[var(--ns-border)] rounded-2xl font-bold text-[var(--ns-text)]"
+              />
+            </div>
+            <p className="text-[11px] font-semibold text-[var(--ns-muted)]">
+              {formatBirthDateTimeForDisplay(birthDate, birthTime)}
+            </p>
           </section>
         )}
 
-        {isBirthDateValid && (
+        {isBirthDateTimeValid && (
           <section className="bg-[var(--ns-surface-soft)] border border-[var(--ns-border)] rounded-3xl p-6 animate-in fade-in duration-300">
             <h3 className="text-base font-black text-[var(--ns-accent-text)] mb-3">성별은요?</h3>
             <div className="grid grid-cols-2 gap-3">
