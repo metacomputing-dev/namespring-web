@@ -70,3 +70,11 @@ button:active::after,
   opacity: 1;
   transition: transform 0ms, opacity 0ms;
 }
+
+.ns-scroll-top-fab {
+  position: fixed !important;
+  left: 50% !important;
+  bottom: 24px !important;
+  transform: translateX(-50%) !important;
+  z-index: 9999 !important;
+}

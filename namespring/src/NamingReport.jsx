@@ -569,12 +569,17 @@ const NamingReport = ({ result, onNewAnalysis }) => {
       const top = window.scrollY
         || document.documentElement.scrollTop
         || document.body.scrollTop
+        || document.getElementById('root')?.scrollTop
         || 0;
       setShowScrollTop(top > 280);
     };
     onScroll();
     window.addEventListener('scroll', onScroll, { passive: true });
-    return () => window.removeEventListener('scroll', onScroll);
+    document.addEventListener('scroll', onScroll, { passive: true, capture: true });
+    return () => {
+      window.removeEventListener('scroll', onScroll);
+      document.removeEventListener('scroll', onScroll, { capture: true });
+    };
   }, []);
 
   return (
@@ -947,15 +952,14 @@ const NamingReport = ({ result, onNewAnalysis }) => {
       ? createPortal(
           <button
             type="button"
-            onClick={() => window.scrollTo({ top: 0, behavior: 'smooth' })}
-            aria-label="최상단으로 이동"
-            className="z-[9999] w-12 h-12 rounded-full border border-[var(--ns-border)] bg-[var(--ns-surface)] text-[var(--ns-muted)] shadow-xl inline-flex items-center justify-center"
-            style={{
-              position: 'fixed',
-              left: '50%',
-              bottom: '24px',
-              transform: 'translateX(-50%)',
+            onClick={() => {
+              window.scrollTo({ top: 0, behavior: 'smooth' });
+              document.documentElement.scrollTo({ top: 0, behavior: 'smooth' });
+              document.body.scrollTo({ top: 0, behavior: 'smooth' });
+              document.getElementById('root')?.scrollTo({ top: 0, behavior: 'smooth' });
             }}
+            aria-label="최상단으로 이동"
+            className="ns-scroll-top-fab w-12 h-12 rounded-full border border-[var(--ns-border)] bg-[var(--ns-surface)] text-[var(--ns-muted)] shadow-xl inline-flex items-center justify-center"
           >
             <svg viewBox="0 0 20 20" fill="none" className="w-5 h-5" aria-hidden="true">
               <path d="M10 4L4.5 9.5M10 4L15.5 9.5M10 4V16" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round" />
