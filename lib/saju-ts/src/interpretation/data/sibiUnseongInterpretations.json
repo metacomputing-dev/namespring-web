@@ -1,0 +1,484 @@
+{
+  "entries": [
+    [
+      "JANG_SAENG:YEAR",
+      {
+        "stage": "JANG_SAENG",
+        "position": "YEAR",
+        "keyword": "시작",
+        "description": "밝고 희망찬 유년기를 보내며, 조상의 덕이 있어 좋은 환경에서 성장합니다",
+        "energy": "상승"
+      }
+    ],
+    [
+      "JANG_SAENG:MONTH",
+      {
+        "stage": "JANG_SAENG",
+        "position": "MONTH",
+        "keyword": "진출",
+        "description": "사회 진출이 순조로우며, 새로운 분야에서 성장의 기회를 얻습니다",
+        "energy": "상승"
+      }
+    ],
+    [
+      "JANG_SAENG:DAY",
+      {
+        "stage": "JANG_SAENG",
+        "position": "DAY",
+        "keyword": "희망",
+        "description": "배우자와의 관계에서 새로운 시작의 에너지가 있으며, 밝은 가정을 이룹니다",
+        "energy": "상승"
+      }
+    ],
+    [
+      "JANG_SAENG:HOUR",
+      {
+        "stage": "JANG_SAENG",
+        "position": "HOUR",
+        "keyword": "재기",
+        "description": "만년에 새로운 시작의 기운이 있으며, 자녀가 밝게 성장합니다",
+        "energy": "상승"
+      }
+    ],
+    [
+      "MOK_YOK:YEAR",
+      {
+        "stage": "MOK_YOK",
+        "position": "YEAR",
+        "keyword": "변동",
+        "description": "유년기에 환경 변화가 많으며, 자유분방한 성격이 형성됩니다",
+        "energy": "상승"
+      }
+    ],
+    [
+      "MOK_YOK:MONTH",
+      {
+        "stage": "MOK_YOK",
+        "position": "MONTH",
+        "keyword": "방황",
+        "description": "직업 변동이 잦거나 방황의 시기를 겪으며, 다양한 경험을 쌓습니다",
+        "energy": "상승"
+      }
+    ],
+    [
+      "MOK_YOK:DAY",
+      {
+        "stage": "MOK_YOK",
+        "position": "DAY",
+        "keyword": "불안정",
+        "description": "배우자와의 관계에 변동이 있을 수 있으며, 자유로운 연애관을 가집니다",
+        "energy": "상승"
+      }
+    ],
+    [
+      "MOK_YOK:HOUR",
+      {
+        "stage": "MOK_YOK",
+        "position": "HOUR",
+        "keyword": "유동",
+        "description": "만년에 생활 변동이 있으며, 자녀 문제로 마음이 불안정할 수 있습니다",
+        "energy": "상승"
+      }
+    ],
+    [
+      "GWAN_DAE:YEAR",
+      {
+        "stage": "GWAN_DAE",
+        "position": "YEAR",
+        "keyword": "성장",
+        "description": "자신감 넘치는 유년기를 보내며, 일찍부터 사회성이 발달합니다",
+        "energy": "상승"
+      }
+    ],
+    [
+      "GWAN_DAE:MONTH",
+      {
+        "stage": "GWAN_DAE",
+        "position": "MONTH",
+        "keyword": "도약",
+        "description": "사회적으로 도약하는 시기이며, 자신감을 바탕으로 경력을 쌓습니다",
+        "energy": "상승"
+      }
+    ],
+    [
+      "GWAN_DAE:DAY",
+      {
+        "stage": "GWAN_DAE",
+        "position": "DAY",
+        "keyword": "자신감",
+        "description": "배우자와의 관계에서 자신감이 넘치며, 당당한 가정을 이룹니다",
+        "energy": "상승"
+      }
+    ],
+    [
+      "GWAN_DAE:HOUR",
+      {
+        "stage": "GWAN_DAE",
+        "position": "HOUR",
+        "keyword": "발전",
+        "description": "만년에 발전적인 모습을 보이며, 자녀가 사회적으로 성장합니다",
+        "energy": "상승"
+      }
+    ],
+    [
+      "GEON_ROK:YEAR",
+      {
+        "stage": "GEON_ROK",
+        "position": "YEAR",
+        "keyword": "독립",
+        "description": "일찍부터 독립적이며, 안정적인 기반 위에서 실력을 키웁니다",
+        "energy": "정점"
+      }
+    ],
+    [
+      "GEON_ROK:MONTH",
+      {
+        "stage": "GEON_ROK",
+        "position": "MONTH",
+        "keyword": "실력",
+        "description": "실력을 바탕으로 안정적인 사회적 위치를 확보하며, 독립적으로 활동합니다",
+        "energy": "정점"
+      }
+    ],
+    [
+      "GEON_ROK:DAY",
+      {
+        "stage": "GEON_ROK",
+        "position": "DAY",
+        "keyword": "안정",
+        "description": "배우자와 안정적인 관계를 유지하며, 독립적이면서도 조화로운 가정입니다",
+        "energy": "정점"
+      }
+    ],
+    [
+      "GEON_ROK:HOUR",
+      {
+        "stage": "GEON_ROK",
+        "position": "HOUR",
+        "keyword": "자립",
+        "description": "만년에 자립적이며, 자녀도 실력을 갖추어 독립적으로 성장합니다",
+        "energy": "정점"
+      }
+    ],
+    [
+      "JE_WANG:YEAR",
+      {
+        "stage": "JE_WANG",
+        "position": "YEAR",
+        "keyword": "왕성",
+        "description": "유년기부터 에너지가 왕성하며, 강한 개성과 리더십을 보입니다",
+        "energy": "정점"
+      }
+    ],
+    [
+      "JE_WANG:MONTH",
+      {
+        "stage": "JE_WANG",
+        "position": "MONTH",
+        "keyword": "권위",
+        "description": "사회적으로 최고의 위치에 오르며, 강한 권위와 영향력을 발휘합니다",
+        "energy": "정점"
+      }
+    ],
+    [
+      "JE_WANG:DAY",
+      {
+        "stage": "JE_WANG",
+        "position": "DAY",
+        "keyword": "주도",
+        "description": "부부관계에서 주도적이며, 강한 의지로 가정을 이끌어갑니다",
+        "energy": "정점"
+      }
+    ],
+    [
+      "JE_WANG:HOUR",
+      {
+        "stage": "JE_WANG",
+        "position": "HOUR",
+        "keyword": "영향력",
+        "description": "만년에도 강한 영향력을 유지하며, 자녀가 큰 성취를 이룹니다",
+        "energy": "정점"
+      }
+    ],
+    [
+      "SWOE:YEAR",
+      {
+        "stage": "SWOE",
+        "position": "YEAR",
+        "keyword": "성숙",
+        "description": "유년기부터 성숙한 모습을 보이며, 조용하고 사려 깊은 성격이 형성됩니다",
+        "energy": "하강"
+      }
+    ],
+    [
+      "SWOE:MONTH",
+      {
+        "stage": "SWOE",
+        "position": "MONTH",
+        "keyword": "지혜",
+        "description": "경험을 통해 지혜를 축적하며, 쇠퇴기의 안정적인 경력 관리가 중요합니다",
+        "energy": "하강"
+      }
+    ],
+    [
+      "SWOE:DAY",
+      {
+        "stage": "SWOE",
+        "position": "DAY",
+        "keyword": "원숙",
+        "description": "배우자와 원숙한 관계를 유지하며, 깊은 정으로 가정을 이끕니다",
+        "energy": "하강"
+      }
+    ],
+    [
+      "SWOE:HOUR",
+      {
+        "stage": "SWOE",
+        "position": "HOUR",
+        "keyword": "경험",
+        "description": "만년에 경험의 가치를 인정받으며, 조용하고 지혜로운 노후를 보냅니다",
+        "energy": "하강"
+      }
+    ],
+    [
+      "BYEONG:YEAR",
+      {
+        "stage": "BYEONG",
+        "position": "YEAR",
+        "keyword": "허약",
+        "description": "유년기에 건강이 약하거나 내향적이며, 내면의 세계가 풍부합니다",
+        "energy": "하강"
+      }
+    ],
+    [
+      "BYEONG:MONTH",
+      {
+        "stage": "BYEONG",
+        "position": "MONTH",
+        "keyword": "성찰",
+        "description": "사회생활에서 내적 성찰의 시기를 겪으며, 건강 관리에 주의가 필요합니다",
+        "energy": "하강"
+      }
+    ],
+    [
+      "BYEONG:DAY",
+      {
+        "stage": "BYEONG",
+        "position": "DAY",
+        "keyword": "내면",
+        "description": "배우자와의 관계에서 내면적 교감이 깊으나, 체력 관리가 중요합니다",
+        "energy": "하강"
+      }
+    ],
+    [
+      "BYEONG:HOUR",
+      {
+        "stage": "BYEONG",
+        "position": "HOUR",
+        "keyword": "건강",
+        "description": "만년에 건강에 주의가 필요하며, 내적 성찰을 통해 정신적 성장을 이룹니다",
+        "energy": "하강"
+      }
+    ],
+    [
+      "SA:YEAR",
+      {
+        "stage": "SA",
+        "position": "YEAR",
+        "keyword": "전환",
+        "description": "유년기에 큰 전환점이 있으며, 이른 성숙을 경험합니다",
+        "energy": "하강"
+      }
+    ],
+    [
+      "SA:MONTH",
+      {
+        "stage": "SA",
+        "position": "MONTH",
+        "keyword": "정리",
+        "description": "사회생활에서 정리와 끝맺음의 에너지가 있으며, 과감한 전환이 필요합니다",
+        "energy": "하강"
+      }
+    ],
+    [
+      "SA:DAY",
+      {
+        "stage": "SA",
+        "position": "DAY",
+        "keyword": "결단",
+        "description": "배우자와의 관계에서 결단이 필요한 시기가 있으며, 정리와 재시작의 의미가 있습니다",
+        "energy": "하강"
+      }
+    ],
+    [
+      "SA:HOUR",
+      {
+        "stage": "SA",
+        "position": "HOUR",
+        "keyword": "마무리",
+        "description": "만년에 인생을 정리하는 에너지가 있으며, 깔끔한 마무리를 추구합니다",
+        "energy": "하강"
+      }
+    ],
+    [
+      "MYO:YEAR",
+      {
+        "stage": "MYO",
+        "position": "YEAR",
+        "keyword": "잠재",
+        "description": "유년기에 잠재된 능력이 있으며, 조용한 환경에서 내면을 키웁니다",
+        "energy": "잠재"
+      }
+    ],
+    [
+      "MYO:MONTH",
+      {
+        "stage": "MYO",
+        "position": "MONTH",
+        "keyword": "축적",
+        "description": "사회적으로 드러나지 않지만 내적으로 실력을 축적하며, 때를 기다립니다",
+        "energy": "잠재"
+      }
+    ],
+    [
+      "MYO:DAY",
+      {
+        "stage": "MYO",
+        "position": "DAY",
+        "keyword": "숨김",
+        "description": "배우자와의 관계에서 감정을 숨기는 경향이 있으며, 깊은 내면을 가집니다",
+        "energy": "잠재"
+      }
+    ],
+    [
+      "MYO:HOUR",
+      {
+        "stage": "MYO",
+        "position": "HOUR",
+        "keyword": "내면",
+        "description": "만년에 내면적 축적이 깊으며, 조용하고 사색적인 노후를 보냅니다",
+        "energy": "잠재"
+      }
+    ],
+    [
+      "JEOL:YEAR",
+      {
+        "stage": "JEOL",
+        "position": "YEAR",
+        "keyword": "단절",
+        "description": "유년기에 환경의 급격한 변화가 있으며, 새로운 시작을 위한 단절을 경험합니다",
+        "energy": "잠재"
+      }
+    ],
+    [
+      "JEOL:MONTH",
+      {
+        "stage": "JEOL",
+        "position": "MONTH",
+        "keyword": "혁신",
+        "description": "기존의 것을 끊고 새로운 가능성을 모색하며, 혁신적인 변화를 추구합니다",
+        "energy": "잠재"
+      }
+    ],
+    [
+      "JEOL:DAY",
+      {
+        "stage": "JEOL",
+        "position": "DAY",
+        "keyword": "변화",
+        "description": "배우자와의 관계에서 급격한 변화가 있을 수 있으며, 새로운 관계 형태를 만듭니다",
+        "energy": "잠재"
+      }
+    ],
+    [
+      "JEOL:HOUR",
+      {
+        "stage": "JEOL",
+        "position": "HOUR",
+        "keyword": "재생",
+        "description": "만년에 새로운 가능성이 열리며, 기존 삶과의 단절 후 재생의 기운이 있습니다",
+        "energy": "잠재"
+      }
+    ],
+    [
+      "TAE:YEAR",
+      {
+        "stage": "TAE",
+        "position": "YEAR",
+        "keyword": "잉태",
+        "description": "유년기에 새로운 가능성이 잉태되며, 잠재력이 서서히 형성됩니다",
+        "energy": "잠재"
+      }
+    ],
+    [
+      "TAE:MONTH",
+      {
+        "stage": "TAE",
+        "position": "MONTH",
+        "keyword": "준비",
+        "description": "사회적으로 새로운 도전을 준비하는 시기이며, 계획을 세우는 단계입니다",
+        "energy": "잠재"
+      }
+    ],
+    [
+      "TAE:DAY",
+      {
+        "stage": "TAE",
+        "position": "DAY",
+        "keyword": "계획",
+        "description": "배우자와 함께 새로운 계획을 세우며, 미래를 준비하는 가정입니다",
+        "energy": "잠재"
+      }
+    ],
+    [
+      "TAE:HOUR",
+      {
+        "stage": "TAE",
+        "position": "HOUR",
+        "keyword": "가능성",
+        "description": "만년에 새로운 가능성이 열리며, 다음 세대를 위한 준비를 합니다",
+        "energy": "잠재"
+      }
+    ],
+    [
+      "YANG:YEAR",
+      {
+        "stage": "YANG",
+        "position": "YEAR",
+        "keyword": "보호",
+        "description": "보호받는 유년기를 보내며, 서서히 성장하는 양육의 에너지가 있습니다",
+        "energy": "잠재"
+      }
+    ],
+    [
+      "YANG:MONTH",
+      {
+        "stage": "YANG",
+        "position": "MONTH",
+        "keyword": "육성",
+        "description": "사회적으로 서서히 실력을 키우며, 멘토의 도움을 받아 성장합니다",
+        "energy": "잠재"
+      }
+    ],
+    [
+      "YANG:DAY",
+      {
+        "stage": "YANG",
+        "position": "DAY",
+        "keyword": "돌봄",
+        "description": "배우자와 서로 돌보는 관계이며, 점진적으로 성장하는 가정을 이룹니다",
+        "energy": "잠재"
+      }
+    ],
+    [
+      "YANG:HOUR",
+      {
+        "stage": "YANG",
+        "position": "HOUR",
+        "keyword": "양육",
+        "description": "만년에 다음 세대를 양육하며, 서서히 성장하는 기운을 전달합니다",
+        "energy": "잠재"
+      }
+    ]
+  ]
+}

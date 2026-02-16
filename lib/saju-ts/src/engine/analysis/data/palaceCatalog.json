@@ -1,0 +1,468 @@
+{
+  "palaceTable": [
+    [
+      "YEAR",
+      {
+        "position": "YEAR",
+        "koreanName": "부모궁",
+        "domain": "부모, 조상, 어린 시절 환경",
+        "agePeriod": "1~15세",
+        "bodyPart": "머리/두뇌",
+        "cheonganAspect": "외부적/사회적 측면",
+        "jijiAspect": "내부적/가정적 측면"
+      }
+    ],
+    [
+      "MONTH",
+      {
+        "position": "MONTH",
+        "koreanName": "형제궁",
+        "domain": "형제, 사회생활, 직업",
+        "agePeriod": "16~30세",
+        "bodyPart": "가슴/어깨",
+        "cheonganAspect": "외부적/사회적 측면",
+        "jijiAspect": "내부적/가정적 측면"
+      }
+    ],
+    [
+      "DAY",
+      {
+        "position": "DAY",
+        "koreanName": "배우자궁",
+        "domain": "배우자, 내면, 중년",
+        "agePeriod": "31~45세",
+        "bodyPart": "배/허리",
+        "cheonganAspect": "나 자신 (일간)",
+        "jijiAspect": "배우자"
+      }
+    ],
+    [
+      "HOUR",
+      {
+        "position": "HOUR",
+        "koreanName": "자녀궁",
+        "domain": "자녀, 말년, 결과",
+        "agePeriod": "46세~",
+        "bodyPart": "다리/발",
+        "cheonganAspect": "외부적/사회적 측면",
+        "jijiAspect": "내부적/가정적 측면"
+      }
+    ]
+  ],
+  "maleFamily": [
+    [
+      "BI_GYEON",
+      {
+        "member": "형제",
+        "hanja": "兄弟"
+      }
+    ],
+    [
+      "GYEOB_JAE",
+      {
+        "member": "이복형제",
+        "hanja": "異腹兄弟"
+      }
+    ],
+    [
+      "SIK_SIN",
+      {
+        "member": "장모",
+        "hanja": "丈母"
+      }
+    ],
+    [
+      "SANG_GWAN",
+      {
+        "member": "조모",
+        "hanja": "祖母"
+      }
+    ],
+    [
+      "PYEON_JAE",
+      {
+        "member": "아버지",
+        "hanja": "父"
+      }
+    ],
+    [
+      "JEONG_JAE",
+      {
+        "member": "아내",
+        "hanja": "妻"
+      }
+    ],
+    [
+      "PYEON_GWAN",
+      {
+        "member": "아들",
+        "hanja": "子"
+      }
+    ],
+    [
+      "JEONG_GWAN",
+      {
+        "member": "딸",
+        "hanja": "女"
+      }
+    ],
+    [
+      "PYEON_IN",
+      {
+        "member": "할아버지",
+        "hanja": "祖父"
+      }
+    ],
+    [
+      "JEONG_IN",
+      {
+        "member": "어머니",
+        "hanja": "母"
+      }
+    ]
+  ],
+  "femaleFamily": [
+    [
+      "BI_GYEON",
+      {
+        "member": "자매",
+        "hanja": "姉妹"
+      }
+    ],
+    [
+      "GYEOB_JAE",
+      {
+        "member": "이복자매",
+        "hanja": "異腹姉妹"
+      }
+    ],
+    [
+      "SIK_SIN",
+      {
+        "member": "딸",
+        "hanja": "女"
+      }
+    ],
+    [
+      "SANG_GWAN",
+      {
+        "member": "아들",
+        "hanja": "子"
+      }
+    ],
+    [
+      "PYEON_JAE",
+      {
+        "member": "시아버지",
+        "hanja": "舅"
+      }
+    ],
+    [
+      "JEONG_JAE",
+      {
+        "member": "아버지",
+        "hanja": "父"
+      }
+    ],
+    [
+      "PYEON_GWAN",
+      {
+        "member": "남편",
+        "hanja": "夫"
+      }
+    ],
+    [
+      "JEONG_GWAN",
+      {
+        "member": "남편",
+        "hanja": "夫"
+      }
+    ],
+    [
+      "PYEON_IN",
+      {
+        "member": "할아버지",
+        "hanja": "祖父"
+      }
+    ],
+    [
+      "JEONG_IN",
+      {
+        "member": "어머니",
+        "hanja": "母"
+      }
+    ]
+  ],
+  "interpretationRows": [
+    [
+      "BI_GYEON",
+      "YEAR",
+      {
+        "favor": "NEUTRAL",
+        "summary": "부모궁에 비견: 형제와 함께한 성장 환경",
+        "detail": "어린 시절 형제자매와 경쟁하며 자립심이 일찍 형성됩니다. 부모의 도움보다 스스로의 힘으로 개척하는 성향이 됩니다."
+      }
+    ],
+    [
+      "BI_GYEON",
+      "MONTH",
+      {
+        "favor": "NEUTRAL",
+        "summary": "형제궁에 비견: 동업·경쟁의 사회생활",
+        "detail": "사회에서 동료나 라이벌과의 관계가 중요합니다. 협력과 경쟁이 공존하며 독립적인 사업에 적합합니다."
+      }
+    ],
+    [
+      "BI_GYEON",
+      "HOUR",
+      {
+        "favor": "NEUTRAL",
+        "summary": "자녀궁에 비견: 자녀의 독립심이 강함",
+        "detail": "자녀가 일찍 독립하려는 성향을 보입니다. 말년에 자기 사업이나 활동에 활발합니다."
+      }
+    ],
+    [
+      "GYEOB_JAE",
+      "YEAR",
+      {
+        "favor": "UNFAVORABLE",
+        "summary": "부모궁에 겁재: 유년기 가정 불안정",
+        "detail": "어린 시절 가정의 경제적 변동이 있을 수 있습니다. 형제 간 재산 분쟁이나 이복관계의 가능성을 나타냅니다."
+      }
+    ],
+    [
+      "GYEOB_JAE",
+      "MONTH",
+      {
+        "favor": "UNFAVORABLE",
+        "summary": "형제궁에 겁재: 재물 손실 주의",
+        "detail": "사회생활에서 금전적 손실이나 동업 실패의 위험이 있습니다. 보증이나 투자에 신중을 기해야 합니다."
+      }
+    ],
+    [
+      "GYEOB_JAE",
+      "HOUR",
+      {
+        "favor": "UNFAVORABLE",
+        "summary": "자녀궁에 겁재: 말년 재물 유출 주의",
+        "detail": "자녀로 인한 재정적 부담이나 말년의 재물 유출에 주의가 필요합니다."
+      }
+    ],
+    [
+      "SIK_SIN",
+      "YEAR",
+      {
+        "favor": "FAVORABLE",
+        "summary": "부모궁에 식신: 풍요로운 유년기",
+        "detail": "부모의 보살핌 속에 풍요롭게 성장합니다. 음식과 건강에 복이 있으며 낙관적인 성격의 기초가 됩니다."
+      }
+    ],
+    [
+      "SIK_SIN",
+      "MONTH",
+      {
+        "favor": "FAVORABLE",
+        "summary": "형제궁에 식신: 안정된 직업 활동",
+        "detail": "직업이 안정적이며 의식주에 관련된 분야에서 능력을 발휘합니다. 사회적 대인관계가 원만합니다."
+      }
+    ],
+    [
+      "SIK_SIN",
+      "HOUR",
+      {
+        "favor": "FAVORABLE",
+        "summary": "자녀궁에 식신: 자녀복과 편안한 말년",
+        "detail": "자녀가 효도하고 말년이 편안합니다. 건강하고 여유로운 노후를 보냅니다."
+      }
+    ],
+    [
+      "SANG_GWAN",
+      "YEAR",
+      {
+        "favor": "UNFAVORABLE",
+        "summary": "부모궁에 상관: 부모와의 갈등 가능",
+        "detail": "어린 시절 부모(특히 아버지)와의 관계에 어려움이 있을 수 있습니다. 반항적이거나 조숙한 성향을 보입니다."
+      }
+    ],
+    [
+      "SANG_GWAN",
+      "MONTH",
+      {
+        "favor": "NEUTRAL",
+        "summary": "형제궁에 상관: 창의적이나 변동이 많은 직업",
+        "detail": "예술·기술·전문직에 재능이 있으나 직장 변동이 잦을 수 있습니다. 상사와의 마찰에 주의가 필요합니다."
+      }
+    ],
+    [
+      "SANG_GWAN",
+      "HOUR",
+      {
+        "favor": "NEUTRAL",
+        "summary": "자녀궁에 상관: 자녀가 재능이 있으나 다루기 어려움",
+        "detail": "자녀가 총명하고 개성이 강하나 부모 말을 잘 듣지 않는 편입니다. 예체능 분야에 재능을 보일 수 있습니다."
+      }
+    ],
+    [
+      "PYEON_JAE",
+      "YEAR",
+      {
+        "favor": "FAVORABLE",
+        "summary": "부모궁에 편재: 아버지의 사업 수완",
+        "detail": "아버지가 사업적 수완이 있거나 경제적으로 활동적입니다. 유년기에 물질적 풍요를 경험합니다."
+      }
+    ],
+    [
+      "PYEON_JAE",
+      "MONTH",
+      {
+        "favor": "FAVORABLE",
+        "summary": "형제궁에 편재: 사업·투자에 유리",
+        "detail": "사업이나 투자 분야에서 재능을 보입니다. 자유업이나 다방면의 사업 활동에 유리합니다."
+      }
+    ],
+    [
+      "PYEON_JAE",
+      "HOUR",
+      {
+        "favor": "FAVORABLE",
+        "summary": "자녀궁에 편재: 말년의 재물 복",
+        "detail": "말년에 재물이 들어오며 자녀가 경제적으로 성공할 가능성이 있습니다."
+      }
+    ],
+    [
+      "JEONG_JAE",
+      "YEAR",
+      {
+        "favor": "FAVORABLE",
+        "summary": "부모궁에 정재: 안정된 가정 환경",
+        "detail": "부모가 근면성실하고 가정이 안정적입니다. 검소하고 실용적인 가치관이 형성됩니다."
+      }
+    ],
+    [
+      "JEONG_JAE",
+      "MONTH",
+      {
+        "favor": "FAVORABLE",
+        "summary": "형제궁에 정재: 안정된 직장 수입",
+        "detail": "월급이나 안정적인 수입이 있는 직업에 유리합니다. 꾸준한 저축과 재산 형성이 가능합니다."
+      }
+    ],
+    [
+      "JEONG_JAE",
+      "HOUR",
+      {
+        "favor": "FAVORABLE",
+        "summary": "자녀궁에 정재: 말년의 안정된 경제력",
+        "detail": "말년에 꾸준한 수입이 있으며 경제적으로 안정됩니다. 자녀가 성실합니다."
+      }
+    ],
+    [
+      "PYEON_GWAN",
+      "YEAR",
+      {
+        "favor": "UNFAVORABLE",
+        "summary": "부모궁에 편관: 엄격한 유년기 환경",
+        "detail": "어린 시절 규율이 엄격하거나 억압적인 환경에서 성장합니다. 일찍 사회를 경험하게 될 수 있습니다."
+      }
+    ],
+    [
+      "PYEON_GWAN",
+      "MONTH",
+      {
+        "favor": "NEUTRAL",
+        "summary": "형제궁에 편관: 권위·권력의 직업 경향",
+        "detail": "군인·경찰·법조 등 권위가 있는 직업에 유리합니다. 조직에서 강한 추진력을 보이나 갈등에 주의합니다."
+      }
+    ],
+    [
+      "PYEON_GWAN",
+      "HOUR",
+      {
+        "favor": "UNFAVORABLE",
+        "summary": "자녀궁에 편관: 자녀 문제 또는 말년 스트레스",
+        "detail": "자녀로 인한 걱정이 있거나 말년에 건강·스트레스 문제가 발생할 수 있습니다."
+      }
+    ],
+    [
+      "JEONG_GWAN",
+      "YEAR",
+      {
+        "favor": "FAVORABLE",
+        "summary": "부모궁에 정관: 명예로운 가문",
+        "detail": "가문이 단정하고 명예가 있습니다. 어린 시절 예의범절을 잘 배우며 바른 품성이 형성됩니다."
+      }
+    ],
+    [
+      "JEONG_GWAN",
+      "MONTH",
+      {
+        "favor": "FAVORABLE",
+        "summary": "형제궁에 정관: 안정된 공직·관리직",
+        "detail": "공무원이나 관리직에 유리하며 사회적 명예를 얻을 수 있습니다. 직장이 안정적입니다."
+      }
+    ],
+    [
+      "JEONG_GWAN",
+      "HOUR",
+      {
+        "favor": "FAVORABLE",
+        "summary": "자녀궁에 정관: 자녀가 출세하고 말년이 존경받음",
+        "detail": "자녀가 사회적으로 성공하며 말년에 존경과 명예를 누립니다."
+      }
+    ],
+    [
+      "PYEON_IN",
+      "YEAR",
+      {
+        "favor": "NEUTRAL",
+        "summary": "부모궁에 편인: 특수한 가정 환경",
+        "detail": "편모·양육 환경의 변화 또는 특수한 학문적 분위기에서 성장합니다. 조부모의 영향이 클 수 있습니다."
+      }
+    ],
+    [
+      "PYEON_IN",
+      "MONTH",
+      {
+        "favor": "NEUTRAL",
+        "summary": "형제궁에 편인: 특수 분야의 학문·기술직",
+        "detail": "전문적이거나 특수한 분야에서 활동합니다. 종교·철학·의술 등 비주류 학문에 관심이 깊습니다."
+      }
+    ],
+    [
+      "PYEON_IN",
+      "HOUR",
+      {
+        "favor": "NEUTRAL",
+        "summary": "자녀궁에 편인: 고독한 말년 가능성",
+        "detail": "말년에 학문이나 종교에 심취하거나 자녀와의 정서적 거리가 생길 수 있습니다."
+      }
+    ],
+    [
+      "JEONG_IN",
+      "YEAR",
+      {
+        "favor": "FAVORABLE",
+        "summary": "부모궁에 정인: 어머니의 사랑과 학업 복",
+        "detail": "어머니의 깊은 보살핌 속에 성장하며 학업 환경이 우수합니다. 타고난 학문적 재능의 기반입니다."
+      }
+    ],
+    [
+      "JEONG_IN",
+      "MONTH",
+      {
+        "favor": "FAVORABLE",
+        "summary": "형제궁에 정인: 학문·교육 분야 유리",
+        "detail": "교수·교사·연구직 등 학문·교육 분야에서 능력을 발휘합니다. 사회적 신뢰와 인정을 받습니다."
+      }
+    ],
+    [
+      "JEONG_IN",
+      "HOUR",
+      {
+        "favor": "FAVORABLE",
+        "summary": "자녀궁에 정인: 자녀의 효심과 학문적 성공",
+        "detail": "자녀가 학업에서 성취를 이루며 효도합니다. 말년에 정신적으로 풍요롭습니다."
+      }
+    ]
+  ]
+}

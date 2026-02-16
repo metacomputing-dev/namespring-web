@@ -1,0 +1,654 @@
+{
+  "rows": [
+    [
+      "GAP",
+      [
+        {
+          "primary": "WATER",
+          "secondary": "FIRE",
+          "note": "先用癸水, 次取丙火 -- 봄 초입, 뿌리 자양 후 보온"
+        },
+        {
+          "primary": "WATER",
+          "secondary": "METAL",
+          "note": "先用癸水, 次取庚金 -- 목왕절, 수 자양 + 금 가지치기"
+        },
+        {
+          "primary": "WATER",
+          "secondary": "METAL",
+          "note": "先用壬水, 次取庚金 -- 토왕절이나 수/금 여전히 필요"
+        },
+        {
+          "primary": "WATER",
+          "secondary": "METAL",
+          "note": "先用癸水, 次取庚金 -- 여름 진입, 수로 식힘"
+        },
+        {
+          "primary": "WATER",
+          "secondary": "METAL",
+          "note": "先用癸水, 次取庚金 -- 한여름 수 필수"
+        },
+        {
+          "primary": "WATER",
+          "secondary": "METAL",
+          "note": "先用癸水, 次取庚金 -- 토왕절, 수 보충"
+        },
+        {
+          "primary": "FIRE",
+          "secondary": "WATER",
+          "note": "先用丁火, 次取壬水 -- 금왕절, 화로 금 제어 + 수"
+        },
+        {
+          "primary": "FIRE",
+          "secondary": "WATER",
+          "note": "先用丁火, 次取壬水 -- 금강해짐, 화 필수"
+        },
+        {
+          "primary": "WOOD",
+          "secondary": "WATER",
+          "note": "先用甲木, 次取壬水 -- 가을 끝, 목으로 토 제어 + 수 자양"
+        },
+        {
+          "primary": "FIRE",
+          "secondary": "WATER",
+          "note": "先用丁火, 次取庚金 -- 초겨울, 화로 보온 우선"
+        },
+        {
+          "primary": "FIRE",
+          "secondary": "METAL",
+          "note": "先用丁火, 次取庚金 -- 한겨울, 화 보온 + 금 보조"
+        },
+        {
+          "primary": "FIRE",
+          "secondary": "WATER",
+          "note": "先用丁火, 次取壬水 -- 늦겨울, 화 보온 + 수 자양"
+        }
+      ]
+    ],
+    [
+      "EUL",
+      [
+        {
+          "primary": "FIRE",
+          "secondary": "WATER",
+          "note": "先用丙火, 次取癸水 -- 잔한 해소 우선, 뿌리 윤택"
+        },
+        {
+          "primary": "FIRE",
+          "secondary": "WATER",
+          "note": "丙君癸臣 -- 양기 상승, 병계 양투 대부대귀"
+        },
+        {
+          "primary": "WATER",
+          "secondary": "FIRE",
+          "note": "先癸後丙 -- 토왕절, 뿌리 윤택 후 설수"
+        },
+        {
+          "primary": "WATER",
+          "secondary": "FIRE",
+          "note": "專用癸水 -- 화왕, 계수로 지친 을목 구함"
+        },
+        {
+          "primary": "WATER",
+          "secondary": "FIRE",
+          "note": "專用癸水 -- 극열극조, 계수 절실"
+        },
+        {
+          "primary": "WATER",
+          "secondary": "FIRE",
+          "note": "專用癸水 -- 하절 을목 전용 계수, 병화 배용"
+        },
+        {
+          "primary": "EARTH",
+          "secondary": "FIRE",
+          "note": "先用己土 -- 경금 극 감당 어려움, 기토 필수"
+        },
+        {
+          "primary": "WATER",
+          "secondary": "FIRE",
+          "note": "先癸後丙 -- 백로 후 계수, 추분 후 병화"
+        },
+        {
+          "primary": "WATER",
+          "secondary": "METAL",
+          "note": "先用癸水, 次取辛金 -- 계수 윤택, 신금 수원"
+        },
+        {
+          "primary": "FIRE",
+          "secondary": "EARTH",
+          "note": "專用丙火 -- 을목향양, 무토로 수다목부 방지"
+        },
+        {
+          "primary": "FIRE",
+          "secondary": null,
+          "note": "專用丙火 -- 한목향양, 계수 꺼림"
+        },
+        {
+          "primary": "FIRE",
+          "secondary": null,
+          "note": "專用丙火 -- 삼동 을목, 병화 없으면 성립 불가"
+        }
+      ]
+    ],
+    [
+      "BYEONG",
+      [
+        {
+          "primary": "WATER",
+          "secondary": "METAL",
+          "note": "先用壬水, 次取庚金 -- 임수 약하므로 경금으로 수원 발생"
+        },
+        {
+          "primary": "WATER",
+          "secondary": null,
+          "note": "專用壬水 -- 목왕생화, 임수로 과열 방지"
+        },
+        {
+          "primary": "WATER",
+          "secondary": "WOOD",
+          "note": "先用壬水, 次取甲木 -- 갑목으로 토 소통(疏土)"
+        },
+        {
+          "primary": "WATER",
+          "secondary": "METAL",
+          "note": "先用壬水, 次取庚金 -- 화왕, 재자약살(財滋弱殺)"
+        },
+        {
+          "primary": "WATER",
+          "secondary": "METAL",
+          "note": "先用壬水, 次取庚金 -- 제왕, 살합인(殺合刃) 격"
+        },
+        {
+          "primary": "WATER",
+          "secondary": "METAL",
+          "note": "先用壬水, 次取庚金 -- 삼복생한, 임수+경금 보좌"
+        },
+        {
+          "primary": "WATER",
+          "secondary": "WOOD",
+          "note": "先用壬水, 次取甲木 -- 살인상생(殺印相生) 구조"
+        },
+        {
+          "primary": "WATER",
+          "secondary": "WOOD",
+          "note": "先用壬水, 次取甲木 -- 재왕, 태양 약해짐"
+        },
+        {
+          "primary": "WATER",
+          "secondary": "WOOD",
+          "note": "先用壬水, 次取甲木 -- 묘지, 갑목 관건"
+        },
+        {
+          "primary": "WOOD",
+          "secondary": "EARTH",
+          "note": "先用甲木 -- 태양 실령, 갑무경 제투하면 과갑"
+        },
+        {
+          "primary": "WOOD",
+          "secondary": "FIRE",
+          "note": "甲木關鍵 -- 갑목으로 수기 설하고 화 생성"
+        },
+        {
+          "primary": "WATER",
+          "secondary": "WOOD",
+          "note": "先用壬水, 次取甲木 -- 기진이양, 임갑 양투 과갑"
+        }
+      ]
+    ],
+    [
+      "JEONG",
+      [
+        {
+          "primary": "WOOD",
+          "secondary": null,
+          "note": "先用甲木 -- 봄의 정화는 갑목 연료만으로 충분"
+        },
+        {
+          "primary": "WOOD",
+          "secondary": null,
+          "note": "先用甲木 -- 묘월 목왕, 갑목으로 화 유지"
+        },
+        {
+          "primary": "WOOD",
+          "secondary": "WATER",
+          "note": "先用甲木, 次取壬水 -- 토왕절, 목+수 균형"
+        },
+        {
+          "primary": "WOOD",
+          "secondary": "WATER",
+          "note": "先用甲木, 次取壬水 -- 화토 동시왕, 수로 보조"
+        },
+        {
+          "primary": "WATER",
+          "secondary": "WOOD",
+          "note": "先用壬水, 次取甲木 -- 한여름 과열 방지 우선"
+        },
+        {
+          "primary": "WOOD",
+          "secondary": "WATER",
+          "note": "先用甲木, 次取壬水 -- 토왕절, 목 연료 + 수"
+        },
+        {
+          "primary": "WOOD",
+          "secondary": "METAL",
+          "note": "先用甲木, 次取庚金 -- 가을 금왕, 목+금으로 조화"
+        },
+        {
+          "primary": "WOOD",
+          "secondary": "METAL",
+          "note": "先用甲木, 次取庚金 -- 금 극이 강해짐, 목 필수"
+        },
+        {
+          "primary": "WOOD",
+          "secondary": "METAL",
+          "note": "先用甲木, 次取庚金 -- 가을 끝, 목 연료 유지"
+        },
+        {
+          "primary": "WOOD",
+          "secondary": "FIRE",
+          "note": "先用甲木, 次取丙火 -- 초겨울, 목+화로 보온"
+        },
+        {
+          "primary": "WOOD",
+          "secondary": "FIRE",
+          "note": "先用甲木, 次取庚金 -- 한겨울, 촛불 유지 필수"
+        },
+        {
+          "primary": "WOOD",
+          "secondary": "FIRE",
+          "note": "先用甲木, 次取丙火 -- 늦겨울, 목+화 보온"
+        }
+      ]
+    ],
+    [
+      "MU",
+      [
+        {
+          "primary": "FIRE",
+          "secondary": "WOOD",
+          "note": "先丙次甲次癸 -- 잔한 해소, 갑목 소토, 계수 윤택"
+        },
+        {
+          "primary": "FIRE",
+          "secondary": "WOOD",
+          "note": "先丙次甲次癸 -- 병화 조난, 갑목 소벽, 삼자 불가결"
+        },
+        {
+          "primary": "WOOD",
+          "secondary": "FIRE",
+          "note": "先甲次丙次癸 -- 무토 사령, 갑목 소토 우선"
+        },
+        {
+          "primary": "WOOD",
+          "secondary": "FIRE",
+          "note": "先甲次丙癸 -- 건록, 갑목 소벽 우선"
+        },
+        {
+          "primary": "WATER",
+          "secondary": "WOOD",
+          "note": "調候為急, 先壬次甲 -- 극열, 임수 조후 급선무"
+        },
+        {
+          "primary": "WATER",
+          "secondary": "FIRE",
+          "note": "癸水不可缺 -- 토왕절, 계수 불가결, 병화 배용"
+        },
+        {
+          "primary": "FIRE",
+          "secondary": "WATER",
+          "note": "先丙次癸 -- 한기 증가, 병화 온토 우선"
+        },
+        {
+          "primary": "FIRE",
+          "secondary": "WATER",
+          "note": "先丙次癸 -- 금왕토상, 병화 조난, 계수 윤택"
+        },
+        {
+          "primary": "WOOD",
+          "secondary": "FIRE",
+          "note": "先甲次丙 -- 무토 당권, 갑목 소토 우선"
+        },
+        {
+          "primary": "WOOD",
+          "secondary": "FIRE",
+          "note": "非甲非丙不可 -- 갑목 불령, 병화 불난"
+        },
+        {
+          "primary": "FIRE",
+          "secondary": "WOOD",
+          "note": "丙火為尚 -- 극한, 병화 최우선, 갑목 보좌"
+        },
+        {
+          "primary": "FIRE",
+          "secondary": "WOOD",
+          "note": "丙火為尚 -- 삼동 무토, 병화 없으면 소생 불가"
+        }
+      ]
+    ],
+    [
+      "GI",
+      [
+        {
+          "primary": "FIRE",
+          "secondary": "WOOD",
+          "note": "先丙解寒 -- 잔한 해소, 임수 꺼림, 수다하면 무토"
+        },
+        {
+          "primary": "WOOD",
+          "secondary": "WATER",
+          "note": "先甲疏土 -- 목왕, 갑목 소토 후 계수 윤택"
+        },
+        {
+          "primary": "FIRE",
+          "secondary": "WATER",
+          "note": "先丙後癸 -- 토난이윤(土暖而潤), 병화+계수"
+        },
+        {
+          "primary": "WATER",
+          "secondary": "FIRE",
+          "note": "調候不能無癸 -- 화기 상승, 계수 조후 불가결"
+        },
+        {
+          "primary": "WATER",
+          "secondary": "FIRE",
+          "note": "癸水調候 -- 극열, 계수 절대적, 병화 토윤 보조"
+        },
+        {
+          "primary": "WATER",
+          "secondary": "FIRE",
+          "note": "專用癸水 -- 하절 기토, 계수 핵심, 병화 배용"
+        },
+        {
+          "primary": "FIRE",
+          "secondary": "WATER",
+          "note": "先丙溫土 -- 한기 증가, 병화 온토, 계수 윤토"
+        },
+        {
+          "primary": "FIRE",
+          "secondary": "WATER",
+          "note": "先丙次癸 -- 금왕, 병화 온토, 계수 윤토"
+        },
+        {
+          "primary": "WOOD",
+          "secondary": "WATER",
+          "note": "先甲疏土 -- 토왕, 갑목 소토 우선, 계수 윤택"
+        },
+        {
+          "primary": "FIRE",
+          "secondary": "WOOD",
+          "note": "非丙不生 -- 습니한동, 병화 절대적"
+        },
+        {
+          "primary": "FIRE",
+          "secondary": "WOOD",
+          "note": "非丙暖不生 -- 극한, 전용 병화, 정화는 역부족"
+        },
+        {
+          "primary": "FIRE",
+          "secondary": "WOOD",
+          "note": "非丙不生 -- 삼동 기토, 병화 존, 갑목 참작"
+        }
+      ]
+    ],
+    [
+      "GYEONG",
+      [
+        {
+          "primary": "FIRE",
+          "secondary": "EARTH",
+          "note": "先丙暖庚性 -- 잔한, 병화로 경금 성질 따뜻하게"
+        },
+        {
+          "primary": "FIRE",
+          "secondary": "WOOD",
+          "note": "專用丁火, 借甲引丁 -- 갑목 빌려 정화 이끔"
+        },
+        {
+          "primary": "FIRE",
+          "secondary": "WOOD",
+          "note": "丁火鍛鍊 -- 완금에 정화, 왕토에 갑목"
+        },
+        {
+          "primary": "WATER",
+          "secondary": "EARTH",
+          "note": "壬水制庚 -- 화왕, 임수로 제어, 무토 보좌"
+        },
+        {
+          "primary": "WATER",
+          "secondary": null,
+          "note": "專用壬水 -- 극열, 경금 녹을 위험, 계수 차선"
+        },
+        {
+          "primary": "FIRE",
+          "secondary": "WOOD",
+          "note": "先丁後甲 -- 토왕, 정갑(丁甲) 조합"
+        },
+        {
+          "primary": "FIRE",
+          "secondary": "WOOD",
+          "note": "專用丁火, 甲引丁 -- 건록, 정화 단련 필수"
+        },
+        {
+          "primary": "FIRE",
+          "secondary": "WOOD",
+          "note": "丁甲鍛鍊 -- 금기 극왕, 왕금 정화 제련 절대적"
+        },
+        {
+          "primary": "WOOD",
+          "secondary": "WATER",
+          "note": "先甲疏土, 次壬洗 -- 토후, 갑목 소토 우선"
+        },
+        {
+          "primary": "FIRE",
+          "secondary": "WOOD",
+          "note": "水寒金寒愛丙丁 -- 한금, 정화+갑목 보조"
+        },
+        {
+          "primary": "FIRE",
+          "secondary": "WOOD",
+          "note": "丁甲取用 -- 극한, 정갑+병화 조난"
+        },
+        {
+          "primary": "FIRE",
+          "secondary": "WOOD",
+          "note": "先丙解凍, 次丁鍛鍊 -- 한동지극, 병화 해동 우선"
+        }
+      ]
+    ],
+    [
+      "SIN",
+      [
+        {
+          "primary": "EARTH",
+          "secondary": "WATER",
+          "note": "先己生身, 次壬淘洗 -- 기토 생신, 임수 도세"
+        },
+        {
+          "primary": "WATER",
+          "secondary": "WOOD",
+          "note": "壬水為尊 -- 임수 도세, 갑목으로 무기 제복"
+        },
+        {
+          "primary": "WATER",
+          "secondary": "WOOD",
+          "note": "壬水淘洗 -- 토왕, 임수 세척, 갑목 소통"
+        },
+        {
+          "primary": "WATER",
+          "secondary": "WOOD",
+          "note": "專用壬水 -- 음유지극, 단련 꺼림, 기임 겸용"
+        },
+        {
+          "primary": "WATER",
+          "secondary": "EARTH",
+          "note": "己壬兼用 -- 극열, 기토 생신, 임수 도세"
+        },
+        {
+          "primary": "WATER",
+          "secondary": "METAL",
+          "note": "壬水淘洗 -- 토왕, 경금 보조, 갑목 소토"
+        },
+        {
+          "primary": "WATER",
+          "secondary": "WOOD",
+          "note": "壬水淘洗 -- 금왕, 갑목으로 무토 제어"
+        },
+        {
+          "primary": "WATER",
+          "secondary": "WOOD",
+          "note": "專用壬水淘洗 -- 당권득령, 갑목 제토"
+        },
+        {
+          "primary": "WATER",
+          "secondary": "WOOD",
+          "note": "壬甲並用 -- 무토 사령, 갑목 소토, 임수 설왕금"
+        },
+        {
+          "primary": "WATER",
+          "secondary": "FIRE",
+          "note": "壬丙並用 -- 한기 시작, 임수+병화 조후"
+        },
+        {
+          "primary": "FIRE",
+          "secondary": "WATER",
+          "note": "先丙後壬 -- 한동, 병화 해동 후 임수 도세"
+        },
+        {
+          "primary": "FIRE",
+          "secondary": "WATER",
+          "note": "先丙後壬 -- 한동지극, 병화 해동, 임수 도세"
+        }
+      ]
+    ],
+    [
+      "IM",
+      [
+        {
+          "primary": "METAL",
+          "secondary": "FIRE",
+          "note": "專用庚金, 丙火佐 -- 삼춘 절지, 경금 수원 발생"
+        },
+        {
+          "primary": "EARTH",
+          "secondary": "METAL",
+          "note": "先戊後辛 -- 무토 제어, 신금 수원 발생"
+        },
+        {
+          "primary": "WOOD",
+          "secondary": "METAL",
+          "note": "甲疏季土 -- 토왕, 갑목 소토, 경금 보조"
+        },
+        {
+          "primary": "WATER",
+          "secondary": "METAL",
+          "note": "壬水比肩 -- 수약극, 비견 보조, 신금 발원"
+        },
+        {
+          "primary": "WATER",
+          "secondary": "METAL",
+          "note": "庚癸兩透 -- 정왕임약, 경금 수원, 계수 비겁"
+        },
+        {
+          "primary": "METAL",
+          "secondary": "WATER",
+          "note": "先辛後甲 -- 기토 당권, 신금 수원, 계수 보조"
+        },
+        {
+          "primary": "EARTH",
+          "secondary": "FIRE",
+          "note": "專用戊土 -- 경금 사령, 무토 제경, 정화 보조"
+        },
+        {
+          "primary": "WOOD",
+          "secondary": "METAL",
+          "note": "甲制戊土 -- 금백수청, 갑목 제무, 경금 보조"
+        },
+        {
+          "primary": "WOOD",
+          "secondary": "FIRE",
+          "note": "一甲制戊 -- 토왕, 갑목 제무, 병화 보조"
+        },
+        {
+          "primary": "EARTH",
+          "secondary": "FIRE",
+          "note": "戊丙庚三全 -- 지왕지극, 무토 제수, 병화 조후"
+        },
+        {
+          "primary": "EARTH",
+          "secondary": "FIRE",
+          "note": "先戊制水, 次丙調候 -- 양인방신, 무토+병화"
+        },
+        {
+          "primary": "FIRE",
+          "secondary": "WOOD",
+          "note": "專用丙火 -- 왕극복쇠, 병화 핵심, 갑목 보좌"
+        }
+      ]
+    ],
+    [
+      "GYE",
+      [
+        {
+          "primary": "METAL",
+          "secondary": "FIRE",
+          "note": "先辛生源, 次丙照暖 -- 신금 수원 발생, 병화 조난"
+        },
+        {
+          "primary": "METAL",
+          "secondary": null,
+          "note": "專以庚金 -- 을목 사령, 경금 전용, 신금 차선"
+        },
+        {
+          "primary": "FIRE",
+          "secondary": "WOOD",
+          "note": "上半丙火, 下半辛甲 -- 청명/곡우 구분"
+        },
+        {
+          "primary": "METAL",
+          "secondary": "WATER",
+          "note": "專用辛金 -- 화왕수약, 신금 투간 방묘(方妙)"
+        },
+        {
+          "primary": "METAL",
+          "secondary": "WATER",
+          "note": "庚辛生身之本 -- 지약무근, 비겁 조수 필요"
+        },
+        {
+          "primary": "METAL",
+          "secondary": "WATER",
+          "note": "庚辛活用 -- 기토 사령, 상반월 오월 동일"
+        },
+        {
+          "primary": "FIRE",
+          "secondary": "WOOD",
+          "note": "丁火用神 -- 사처봉생, 정화+갑목 과갑"
+        },
+        {
+          "primary": "METAL",
+          "secondary": "FIRE",
+          "note": "辛金用神, 丙火佐 -- 금백수청, 병신 동투 과갑"
+        },
+        {
+          "primary": "METAL",
+          "secondary": "WOOD",
+          "note": "辛甲並用 -- 실령무근, 신금 수원, 갑목 제무"
+        },
+        {
+          "primary": "METAL",
+          "secondary": "FIRE",
+          "note": "庚辛兩透 -- 왕중유약, 경금 수원, 정화 보조"
+        },
+        {
+          "primary": "FIRE",
+          "secondary": "METAL",
+          "note": "專用丙火解凍 -- 빙동지시, 금온수난, 신금 자부"
+        },
+        {
+          "primary": "FIRE",
+          "secondary": "WATER",
+          "note": "專用丙火解凍 -- 한극성빙, 임수 보조"
+        }
+      ]
+    ]
+  ]
+}

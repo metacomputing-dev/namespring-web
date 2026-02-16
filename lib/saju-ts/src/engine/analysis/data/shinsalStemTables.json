@@ -1,0 +1,73 @@
+{
+  "cheonulGwiinKorean": [
+    ["CHUK", "MI"],
+    ["JA", "SIN"],
+    ["HAE", "YU"],
+    ["HAE", "YU"],
+    ["CHUK", "MI"],
+    ["JA", "SIN"],
+    ["CHUK", "MI"],
+    ["IN", "O"],
+    ["MYO", "SA"],
+    ["MYO", "SA"]
+  ],
+  "cheonulGwiinChinese": [
+    ["CHUK", "MI"],
+    ["JA", "SIN"],
+    ["HAE", "YU"],
+    ["HAE", "YU"],
+    ["CHUK", "MI"],
+    ["JA", "SIN"],
+    ["CHUK", "MI"],
+    ["IN", "JA"],
+    ["MYO", "SA"],
+    ["MYO", "SA"]
+  ],
+  "taegukGwiin": [
+    ["JA", "O"],
+    ["SA", "YU"],
+    ["IN", "SUL"],
+    ["MYO", "HAE"],
+    ["CHUK", "MI"],
+    ["JA", "O"],
+    ["SA", "YU"],
+    ["IN", "SUL"],
+    ["MYO", "HAE"],
+    ["CHUK", "MI"]
+  ],
+  "wonjinPairs": [
+    ["JA", "MI"],
+    ["CHUK", "O"],
+    ["IN", "YU"],
+    ["MYO", "SIN"],
+    ["JIN", "HAE"],
+    ["SA", "SUL"]
+  ],
+  "singleStemTables": {
+    "munchang": ["SA", "O", "SIN", "SIN", "SIN", "YU", "HAE", "JA", "IN", "MYO"],
+    "yangin": ["MYO", "IN", "O", "SA", "O", "SA", "YU", "SIN", "JA", "HAE"],
+    "hakdang": ["HAE", "O", "IN", "YU", "IN", "YU", "SA", "JA", "SIN", "MYO"],
+    "geumyeo": ["JIN", "SA", "MI", "SIN", "MI", "SIN", "SUL", "HAE", "CHUK", "IN"],
+    "baekho": ["JIN", "MI", "SIN", "YU", "JIN", "MI", "SUL", "CHUK", "IN", "SA"],
+    "hongyeom": ["O", "SIN", "IN", "MI", "JIN", "JIN", "SUL", "YU", "JA", "SIN"],
+    "amnok": ["SIN", "YU", "HAE", "JA", "HAE", "JA", "IN", "MYO", "SA", "O"],
+    "cheongwan": ["MI", "JIN", "SA", "YU", "SUL", "MYO", "CHUK", "SIN", "IN", "O"],
+    "mungok": ["HAE", "JA", "IN", "MYO", "IN", "MYO", "SA", "O", "SIN", "YU"],
+    "gugin": ["SUL", "HAE", "CHUK", "IN", "CHUK", "IN", "JIN", "SA", "MI", "SIN"],
+    "cheonbokGwiin": ["YU", "SIN", "JA", "HAE", "MYO", "IN", "O", "SA", "O", "SA"],
+    "hyeolinsal": ["YU", "SIN", "JA", "HAE", "JA", "HAE", "MYO", "IN", "O", "SA"],
+    "cheonjuGwiin": ["SA", "O", "SA", "O", "SIN", "YU", "HAE", "JA", "IN", "MYO"]
+  },
+  "bokseong": [
+    ["IN", "JA"],
+    ["MYO", "CHUK"],
+    ["IN", "JA"],
+    ["HAE"],
+    ["SIN"],
+    ["MI"],
+    ["O"],
+    ["SA"],
+    ["JIN"],
+    ["MYO", "CHUK"]
+  ]
+}

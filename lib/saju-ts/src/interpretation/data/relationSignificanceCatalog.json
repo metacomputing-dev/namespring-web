@@ -1,0 +1,803 @@
+{
+  "pairInfoEntries": [
+    [
+      "YEAR_MONTH",
+      {
+        "label": "년-월",
+        "baseDomains": [
+          "부모",
+          "가문",
+          "유년 환경"
+        ],
+        "ageWindow": "초년(1~20세)"
+      }
+    ],
+    [
+      "YEAR_DAY",
+      {
+        "label": "년-일",
+        "baseDomains": [
+          "조상",
+          "자아 기반",
+          "사회적 뿌리"
+        ],
+        "ageWindow": "전 생애"
+      }
+    ],
+    [
+      "YEAR_HOUR",
+      {
+        "label": "년-시",
+        "baseDomains": [
+          "세대 간 연결",
+          "유년↔노년"
+        ],
+        "ageWindow": "유년/말년"
+      }
+    ],
+    [
+      "MONTH_DAY",
+      {
+        "label": "월-일",
+        "baseDomains": [
+          "직업",
+          "건강",
+          "결혼"
+        ],
+        "ageWindow": "중년(20~50세)"
+      }
+    ],
+    [
+      "MONTH_HOUR",
+      {
+        "label": "월-시",
+        "baseDomains": [
+          "직업",
+          "자녀",
+          "사회 성취"
+        ],
+        "ageWindow": "중~말년(30~60세)"
+      }
+    ],
+    [
+      "DAY_HOUR",
+      {
+        "label": "일-시",
+        "baseDomains": [
+          "배우자",
+          "자녀",
+          "노후"
+        ],
+        "ageWindow": "말년(50세~)"
+      }
+    ]
+  ],
+  "entries": [
+    [
+      "YUKHAP:YEAR_MONTH",
+      {
+        "positionPairLabel": "년-월",
+        "affectedDomains": [
+          "부모",
+          "가문"
+        ],
+        "meaning": "부모 사이의 인연이 깊고 가정이 화목합니다. 유년기에 안정적인 환경에서 성장하며, 조부모와 부모의 관계도 원만합니다.",
+        "ageWindow": "초년(1~20세)",
+        "isPositive": true
+      }
+    ],
+    [
+      "YUKHAP:YEAR_DAY",
+      {
+        "positionPairLabel": "년-일",
+        "affectedDomains": [
+          "조상",
+          "자아"
+        ],
+        "meaning": "조상의 음덕이 자신에게 이어지는 형상입니다. 가문의 좋은 기운을 물려받아 사회적 기반이 안정적입니다.",
+        "ageWindow": "전 생애",
+        "isPositive": true
+      }
+    ],
+    [
+      "YUKHAP:YEAR_HOUR",
+      {
+        "positionPairLabel": "년-시",
+        "affectedDomains": [
+          "유년",
+          "노후"
+        ],
+        "meaning": "어린 시절의 좋은 환경이 노후에까지 이어집니다. 가문과 후손 사이에 좋은 인연이 있어 대를 이어 복을 누립니다.",
+        "ageWindow": "유년/말년",
+        "isPositive": true
+      }
+    ],
+    [
+      "YUKHAP:MONTH_DAY",
+      {
+        "positionPairLabel": "월-일",
+        "affectedDomains": [
+          "직업",
+          "배우자"
+        ],
+        "meaning": "직업 환경과 자아가 조화로워 직장 생활이 안정적입니다. 배우자와의 인연이 좋고, 중년에 안정적인 결혼 생활을 영위합니다.",
+        "ageWindow": "중년(20~50세)",
+        "isPositive": true
+      }
+    ],
+    [
+      "YUKHAP:MONTH_HOUR",
+      {
+        "positionPairLabel": "월-시",
+        "affectedDomains": [
+          "직업",
+          "자녀"
+        ],
+        "meaning": "사회적 성취와 자녀 양육이 조화를 이룹니다. 직업을 통해 자녀에게 좋은 환경을 제공할 수 있습니다.",
+        "ageWindow": "중~말년(30~60세)",
+        "isPositive": true
+      }
+    ],
+    [
+      "YUKHAP:DAY_HOUR",
+      {
+        "positionPairLabel": "일-시",
+        "affectedDomains": [
+          "배우자",
+          "자녀"
+        ],
+        "meaning": "배우자와 자녀의 관계가 원만하고 가정이 화목합니다. 노후에 자녀로부터 효도를 받으며 안정적인 말년을 보냅니다.",
+        "ageWindow": "말년(50세~)",
+        "isPositive": true
+      }
+    ],
+    [
+      "SAMHAP:YEAR_MONTH",
+      {
+        "positionPairLabel": "년-월",
+        "affectedDomains": [
+          "부모",
+          "가문",
+          "유년 환경"
+        ],
+        "meaning": "년-월 위치에서 삼합(三合) 관계가 성립하여 부모, 가문, 유년 환경 영역에 영향을 줍니다.",
+        "ageWindow": "초년(1~20세)",
+        "isPositive": true
+      }
+    ],
+    [
+      "SAMHAP:YEAR_DAY",
+      {
+        "positionPairLabel": "년-일",
+        "affectedDomains": [
+          "조상",
+          "자아",
+          "사회"
+        ],
+        "meaning": "원국에 삼합이 형성되어 해당 오행의 에너지가 강하게 결집됩니다. 조상과 자신, 사회가 하나의 방향으로 연결되어 큰 힘을 발휘합니다.",
+        "ageWindow": "전 생애",
+        "isPositive": true
+      }
+    ],
+    [
+      "SAMHAP:YEAR_HOUR",
+      {
+        "positionPairLabel": "년-시",
+        "affectedDomains": [
+          "가문",
+          "후손",
+          "인생 전체"
+        ],
+        "meaning": "세 기둥이 하나의 오행으로 모이는 강력한 조화입니다. 유년부터 노년까지 일관된 기운이 흘러 인생의 큰 축이 안정적입니다. 삼합 오행이 용신이면 대길(大吉), 기신이면 과다 주의가 필요합니다.",
+        "ageWindow": "유년/말년",
+        "isPositive": true
+      }
+    ],
+    [
+      "SAMHAP:MONTH_DAY",
+      {
+        "positionPairLabel": "월-일",
+        "affectedDomains": [
+          "직업",
+          "건강",
+          "결혼"
+        ],
+        "meaning": "월-일 위치에서 삼합(三合) 관계가 성립하여 직업, 건강, 결혼 영역에 영향을 줍니다.",
+        "ageWindow": "중년(20~50세)",
+        "isPositive": true
+      }
+    ],
+    [
+      "SAMHAP:MONTH_HOUR",
+      {
+        "positionPairLabel": "월-시",
+        "affectedDomains": [
+          "직업",
+          "자녀",
+          "사회"
+        ],
+        "meaning": "사회 활동과 후반부 인생이 삼합의 오행으로 결집됩니다. 직업적 성취가 자녀에게까지 이어지는 형국입니다.",
+        "ageWindow": "중~말년(30~60세)",
+        "isPositive": true
+      }
+    ],
+    [
+      "SAMHAP:DAY_HOUR",
+      {
+        "positionPairLabel": "일-시",
+        "affectedDomains": [
+          "배우자",
+          "자녀",
+          "노후"
+        ],
+        "meaning": "일-시 위치에서 삼합(三合) 관계가 성립하여 배우자, 자녀, 노후 영역에 영향을 줍니다.",
+        "ageWindow": "말년(50세~)",
+        "isPositive": true
+      }
+    ],
+    [
+      "BANGHAP:YEAR_MONTH",
+      {
+        "positionPairLabel": "년-월",
+        "affectedDomains": [
+          "부모",
+          "가문",
+          "유년 환경"
+        ],
+        "meaning": "년-월 위치에서 방합(方合) 관계가 성립하여 부모, 가문, 유년 환경 영역에 영향을 줍니다.",
+        "ageWindow": "초년(1~20세)",
+        "isPositive": true
+      }
+    ],
+    [
+      "BANGHAP:YEAR_DAY",
+      {
+        "positionPairLabel": "년-일",
+        "affectedDomains": [
+          "전 생애",
+          "오행 과다"
+        ],
+        "meaning": "같은 계절의 세 지지가 모여 방합을 이루며, 해당 오행이 극도로 강해집니다. 이 오행이 용신이면 대단한 집중력과 성취를, 기신이면 편향과 과잉을 나타냅니다.",
+        "ageWindow": "전 생애",
+        "isPositive": true
+      }
+    ],
+    [
+      "BANGHAP:YEAR_HOUR",
+      {
+        "positionPairLabel": "년-시",
+        "affectedDomains": [
+          "인생 전체",
+          "오행 지배"
+        ],
+        "meaning": "인생 전반에 걸쳐 한 오행이 압도적으로 지배합니다. 격국과 용신에 따라 큰 성공 또는 극단적 편향의 양면성을 가집니다.",
+        "ageWindow": "유년/말년",
+        "isPositive": true
+      }
+    ],
+    [
+      "BANGHAP:MONTH_DAY",
+      {
+        "positionPairLabel": "월-일",
+        "affectedDomains": [
+          "직업",
+          "건강",
+          "결혼"
+        ],
+        "meaning": "월-일 위치에서 방합(方合) 관계가 성립하여 직업, 건강, 결혼 영역에 영향을 줍니다.",
+        "ageWindow": "중년(20~50세)",
+        "isPositive": true
+      }
+    ],
+    [
+      "BANGHAP:MONTH_HOUR",
+      {
+        "positionPairLabel": "월-시",
+        "affectedDomains": [
+          "직업",
+          "자녀",
+          "사회 성취"
+        ],
+        "meaning": "월-시 위치에서 방합(方合) 관계가 성립하여 직업, 자녀, 사회 성취 영역에 영향을 줍니다.",
+        "ageWindow": "중~말년(30~60세)",
+        "isPositive": true
+      }
+    ],
+    [
+      "BANGHAP:DAY_HOUR",
+      {
+        "positionPairLabel": "일-시",
+        "affectedDomains": [
+          "배우자",
+          "자녀",
+          "노후"
+        ],
+        "meaning": "일-시 위치에서 방합(方合) 관계가 성립하여 배우자, 자녀, 노후 영역에 영향을 줍니다.",
+        "ageWindow": "말년(50세~)",
+        "isPositive": true
+      }
+    ],
+    [
+      "BANHAP:YEAR_MONTH",
+      {
+        "positionPairLabel": "년-월",
+        "affectedDomains": [
+          "부모",
+          "잠재력"
+        ],
+        "meaning": "삼합의 일부가 형성되어 해당 오행의 잠재력이 있습니다. 대운이나 세운에서 빠진 지지가 오면 삼합이 완성되어 큰 변화가 일어납니다.",
+        "ageWindow": "초년(1~20세)",
+        "isPositive": true
+      }
+    ],
+    [
+      "BANHAP:YEAR_DAY",
+      {
+        "positionPairLabel": "년-일",
+        "affectedDomains": [
+          "조상",
+          "자아 기반",
+          "사회적 뿌리"
+        ],
+        "meaning": "년-일 위치에서 반합(半合) 관계가 성립하여 조상, 자아 기반, 사회적 뿌리 영역에 영향을 줍니다.",
+        "ageWindow": "전 생애",
+        "isPositive": true
+      }
+    ],
+    [
+      "BANHAP:YEAR_HOUR",
+      {
+        "positionPairLabel": "년-시",
+        "affectedDomains": [
+          "세대 간 연결",
+          "유년↔노년"
+        ],
+        "meaning": "년-시 위치에서 반합(半合) 관계가 성립하여 세대 간 연결, 유년↔노년 영역에 영향을 줍니다.",
+        "ageWindow": "유년/말년",
+        "isPositive": true
+      }
+    ],
+    [
+      "BANHAP:MONTH_DAY",
+      {
+        "positionPairLabel": "월-일",
+        "affectedDomains": [
+          "직업",
+          "결혼"
+        ],
+        "meaning": "직업이나 배우자 영역에서 잠재적 조화가 있으며, 대운에서 삼합이 완성되면 중년에 큰 기회가 열립니다.",
+        "ageWindow": "중년(20~50세)",
+        "isPositive": true
+      }
+    ],
+    [
+      "BANHAP:MONTH_HOUR",
+      {
+        "positionPairLabel": "월-시",
+        "affectedDomains": [
+          "직업",
+          "자녀",
+          "사회 성취"
+        ],
+        "meaning": "월-시 위치에서 반합(半合) 관계가 성립하여 직업, 자녀, 사회 성취 영역에 영향을 줍니다.",
+        "ageWindow": "중~말년(30~60세)",
+        "isPositive": true
+      }
+    ],
+    [
+      "BANHAP:DAY_HOUR",
+      {
+        "positionPairLabel": "일-시",
+        "affectedDomains": [
+          "배우자",
+          "자녀"
+        ],
+        "meaning": "배우자 · 자녀 영역에서 부분적 조화를 이루고 있습니다. 완전한 삼합이 아니므로 기대에 약간 미치지 못할 수 있으나 기본 인연은 좋습니다.",
+        "ageWindow": "말년(50세~)",
+        "isPositive": true
+      }
+    ],
+    [
+      "CHUNG:YEAR_MONTH",
+      {
+        "positionPairLabel": "년-월",
+        "affectedDomains": [
+          "부모",
+          "가문",
+          "유년기"
+        ],
+        "meaning": "부모 간의 불화나 가정 환경의 불안정이 예상됩니다. 어린 시절 이사나 전학이 잦고, 부모와의 심리적 거리가 생기기 쉽습니다. 독립이 빠른 대신 자수성가의 기질이 강합니다.",
+        "ageWindow": "초년(1~20세)",
+        "isPositive": false
+      }
+    ],
+    [
+      "CHUNG:YEAR_DAY",
+      {
+        "positionPairLabel": "년-일",
+        "affectedDomains": [
+          "조상",
+          "자아"
+        ],
+        "meaning": "고향이나 가문과의 단절이 있을 수 있습니다. 타향에서 새로운 기반을 다지는 경우가 많으며, 전통보다는 혁신을 추구합니다.",
+        "ageWindow": "전 생애",
+        "isPositive": false
+      }
+    ],
+    [
+      "CHUNG:YEAR_HOUR",
+      {
+        "positionPairLabel": "년-시",
+        "affectedDomains": [
+          "세대",
+          "유년↔노년"
+        ],
+        "meaning": "유년기의 상처가 노년에 반복되는 패턴이 있을 수 있습니다. 세대 간 소통에 적극적으로 노력해야 하며, 후손과의 관계에 주의가 필요합니다.",
+        "ageWindow": "유년/말년",
+        "isPositive": false
+      }
+    ],
+    [
+      "CHUNG:MONTH_DAY",
+      {
+        "positionPairLabel": "월-일",
+        "affectedDomains": [
+          "직업",
+          "건강",
+          "배우자"
+        ],
+        "meaning": "중년의 핵심 과제입니다. 직업 변동, 건강 악화, 부부 갈등의 가능성을 나타냅니다. 인생에서 가장 큰 변화가 이 시기에 집중되며, 특히 대운에서 충이 반복되면 전직이나 이혼의 계기가 될 수 있습니다. 반면 변화 속에 새 기회도 옵니다.",
+        "ageWindow": "중년(20~50세)",
+        "isPositive": false
+      }
+    ],
+    [
+      "CHUNG:MONTH_HOUR",
+      {
+        "positionPairLabel": "월-시",
+        "affectedDomains": [
+          "직업",
+          "자녀"
+        ],
+        "meaning": "직장 생활과 자녀 양육의 양립이 어려울 수 있습니다. 사회적 성취와 가정 사이에서 선택의 기로에 서게 되는 경우가 많습니다.",
+        "ageWindow": "중~말년(30~60세)",
+        "isPositive": false
+      }
+    ],
+    [
+      "CHUNG:DAY_HOUR",
+      {
+        "positionPairLabel": "일-시",
+        "affectedDomains": [
+          "배우자",
+          "자녀",
+          "내면"
+        ],
+        "meaning": "배우자와 자녀 사이의 갈등, 또는 자아와 미래 사이의 내면 갈등을 나타냅니다. 노후에 고독하기 쉬우나, 내면의 갈등을 일찍 인식하면 성장의 계기가 됩니다.",
+        "ageWindow": "말년(50세~)",
+        "isPositive": false
+      }
+    ],
+    [
+      "HYEONG:YEAR_MONTH",
+      {
+        "positionPairLabel": "년-월",
+        "affectedDomains": [
+          "부모",
+          "법률",
+          "유년기"
+        ],
+        "meaning": "부모의 법적 문제나 가정 내 갈등이 유년기에 영향을 줄 수 있습니다. 형살은 은밀한 고난이므로, 표면적으로는 평탄해 보여도 내면적 상처가 깊습니다.",
+        "ageWindow": "초년(1~20세)",
+        "isPositive": false
+      }
+    ],
+    [
+      "HYEONG:YEAR_DAY",
+      {
+        "positionPairLabel": "년-일",
+        "affectedDomains": [
+          "가문",
+          "자아"
+        ],
+        "meaning": "조상 대의 업보가 자신에게 영향을 미치는 형태입니다. 원인 모를 고난이나 반복되는 시련이 있을 수 있으나, 인내를 통해 극복 가능합니다.",
+        "ageWindow": "전 생애",
+        "isPositive": false
+      }
+    ],
+    [
+      "HYEONG:YEAR_HOUR",
+      {
+        "positionPairLabel": "년-시",
+        "affectedDomains": [
+          "세대",
+          "법률"
+        ],
+        "meaning": "세대 간 갈등이 법적 분쟁으로 이어질 수 있습니다. 유산이나 상속 문제에 주의가 필요합니다.",
+        "ageWindow": "유년/말년",
+        "isPositive": false
+      }
+    ],
+    [
+      "HYEONG:MONTH_DAY",
+      {
+        "positionPairLabel": "월-일",
+        "affectedDomains": [
+          "건강",
+          "직업",
+          "법률"
+        ],
+        "meaning": "중년에 건강 문제, 직장 내 갈등, 법적 분쟁의 가능성이 있습니다. 무은지형(寅巳申)이면 은혜를 베풀고 배신당하는 형태, 지세지형(丑戌未)이면 재물이나 지위를 두고 다투는 형태가 나타납니다.",
+        "ageWindow": "중년(20~50세)",
+        "isPositive": false
+      }
+    ],
+    [
+      "HYEONG:MONTH_HOUR",
+      {
+        "positionPairLabel": "월-시",
+        "affectedDomains": [
+          "직업",
+          "자녀"
+        ],
+        "meaning": "직장에서의 불이익이나 자녀와의 갈등이 예상됩니다. 사회적 활동이 가정에 부정적 영향을 미치지 않도록 균형을 잡아야 합니다.",
+        "ageWindow": "중~말년(30~60세)",
+        "isPositive": false
+      }
+    ],
+    [
+      "HYEONG:DAY_HOUR",
+      {
+        "positionPairLabel": "일-시",
+        "affectedDomains": [
+          "배우자",
+          "자녀",
+          "건강"
+        ],
+        "meaning": "배우자나 자녀와의 관계에서 예기치 못한 고난이 있을 수 있습니다. 자형(自刑)이면 자기 파괴적 성향에 주의하고, 건강 관리를 철저히 해야 합니다.",
+        "ageWindow": "말년(50세~)",
+        "isPositive": false
+      }
+    ],
+    [
+      "PA:YEAR_MONTH",
+      {
+        "positionPairLabel": "년-월",
+        "affectedDomains": [
+          "부모",
+          "가문"
+        ],
+        "meaning": "가문이나 부모의 기대가 완전히 충족되지 않는 형상입니다. 부모의 꿈을 이어받기 어렵거나, 가풍과 다른 길을 걷게 됩니다.",
+        "ageWindow": "초년(1~20세)",
+        "isPositive": false
+      }
+    ],
+    [
+      "PA:YEAR_DAY",
+      {
+        "positionPairLabel": "년-일",
+        "affectedDomains": [
+          "조상",
+          "자아 기반",
+          "사회적 뿌리"
+        ],
+        "meaning": "년-일 위치에서 파(破) 관계가 성립하여 조상, 자아 기반, 사회적 뿌리 영역에 영향을 줍니다.",
+        "ageWindow": "전 생애",
+        "isPositive": false
+      }
+    ],
+    [
+      "PA:YEAR_HOUR",
+      {
+        "positionPairLabel": "년-시",
+        "affectedDomains": [
+          "세대 간 연결",
+          "유년↔노년"
+        ],
+        "meaning": "년-시 위치에서 파(破) 관계가 성립하여 세대 간 연결, 유년↔노년 영역에 영향을 줍니다.",
+        "ageWindow": "유년/말년",
+        "isPositive": false
+      }
+    ],
+    [
+      "PA:MONTH_DAY",
+      {
+        "positionPairLabel": "월-일",
+        "affectedDomains": [
+          "직업",
+          "결혼"
+        ],
+        "meaning": "직업이나 결혼에서 처음 기대와 다른 결과가 나올 수 있습니다. 계획이 틀어지는 경험을 하지만, 유연하게 대처하면 새로운 길이 열립니다.",
+        "ageWindow": "중년(20~50세)",
+        "isPositive": false
+      }
+    ],
+    [
+      "PA:MONTH_HOUR",
+      {
+        "positionPairLabel": "월-시",
+        "affectedDomains": [
+          "직업",
+          "자녀",
+          "사회 성취"
+        ],
+        "meaning": "월-시 위치에서 파(破) 관계가 성립하여 직업, 자녀, 사회 성취 영역에 영향을 줍니다.",
+        "ageWindow": "중~말년(30~60세)",
+        "isPositive": false
+      }
+    ],
+    [
+      "PA:DAY_HOUR",
+      {
+        "positionPairLabel": "일-시",
+        "affectedDomains": [
+          "배우자",
+          "자녀"
+        ],
+        "meaning": "배우자나 자녀에 대한 기대가 충족되지 않을 수 있습니다. 파살은 충만큼 강하지 않으므로 큰 위기보다는 소소한 실망의 형태입니다.",
+        "ageWindow": "말년(50세~)",
+        "isPositive": false
+      }
+    ],
+    [
+      "HAE:YEAR_MONTH",
+      {
+        "positionPairLabel": "년-월",
+        "affectedDomains": [
+          "부모",
+          "가문"
+        ],
+        "meaning": "가정 내에서 은밀한 갈등이나 형제간 질투가 있을 수 있습니다. 표면적으로 드러나지 않으나, 가족 구성원 사이에 보이지 않는 벽이 존재합니다.",
+        "ageWindow": "초년(1~20세)",
+        "isPositive": false
+      }
+    ],
+    [
+      "HAE:YEAR_DAY",
+      {
+        "positionPairLabel": "년-일",
+        "affectedDomains": [
+          "조상",
+          "자아 기반",
+          "사회적 뿌리"
+        ],
+        "meaning": "년-일 위치에서 해(害) 관계가 성립하여 조상, 자아 기반, 사회적 뿌리 영역에 영향을 줍니다.",
+        "ageWindow": "전 생애",
+        "isPositive": false
+      }
+    ],
+    [
+      "HAE:YEAR_HOUR",
+      {
+        "positionPairLabel": "년-시",
+        "affectedDomains": [
+          "세대 간 연결",
+          "유년↔노년"
+        ],
+        "meaning": "년-시 위치에서 해(害) 관계가 성립하여 세대 간 연결, 유년↔노년 영역에 영향을 줍니다.",
+        "ageWindow": "유년/말년",
+        "isPositive": false
+      }
+    ],
+    [
+      "HAE:MONTH_DAY",
+      {
+        "positionPairLabel": "월-일",
+        "affectedDomains": [
+          "직업",
+          "건강"
+        ],
+        "meaning": "직장 내 모함이나 은밀한 방해가 있을 수 있습니다. 또한 스트레스로 인한 만성 건강 문제에 유의해야 합니다. 해살은 겉으로 드러나지 않기에 더 주의가 필요합니다.",
+        "ageWindow": "중년(20~50세)",
+        "isPositive": false
+      }
+    ],
+    [
+      "HAE:MONTH_HOUR",
+      {
+        "positionPairLabel": "월-시",
+        "affectedDomains": [
+          "직업",
+          "자녀",
+          "사회 성취"
+        ],
+        "meaning": "월-시 위치에서 해(害) 관계가 성립하여 직업, 자녀, 사회 성취 영역에 영향을 줍니다.",
+        "ageWindow": "중~말년(30~60세)",
+        "isPositive": false
+      }
+    ],
+    [
+      "HAE:DAY_HOUR",
+      {
+        "positionPairLabel": "일-시",
+        "affectedDomains": [
+          "배우자",
+          "자녀"
+        ],
+        "meaning": "가까운 사람으로부터의 은밀한 배신이나 오해가 있을 수 있습니다. 배우자나 자녀와의 관계에서 소통 부재로 인한 갈등에 유의하세요.",
+        "ageWindow": "말년(50세~)",
+        "isPositive": false
+      }
+    ],
+    [
+      "WONJIN:YEAR_MONTH",
+      {
+        "positionPairLabel": "년-월",
+        "affectedDomains": [
+          "부모",
+          "유년"
+        ],
+        "meaning": "부모와의 관계에서 미묘한 거리감이 있습니다. 원진은 미워할 수도 사랑할 수도 없는 관계로, 부모에 대한 양가감정이 평생 이어집니다.",
+        "ageWindow": "초년(1~20세)",
+        "isPositive": false
+      }
+    ],
+    [
+      "WONJIN:YEAR_DAY",
+      {
+        "positionPairLabel": "년-일",
+        "affectedDomains": [
+          "조상",
+          "자아 기반",
+          "사회적 뿌리"
+        ],
+        "meaning": "년-일 위치에서 원진(怨嗔) 관계가 성립하여 조상, 자아 기반, 사회적 뿌리 영역에 영향을 줍니다.",
+        "ageWindow": "전 생애",
+        "isPositive": false
+      }
+    ],
+    [
+      "WONJIN:YEAR_HOUR",
+      {
+        "positionPairLabel": "년-시",
+        "affectedDomains": [
+          "세대 간 연결",
+          "유년↔노년"
+        ],
+        "meaning": "년-시 위치에서 원진(怨嗔) 관계가 성립하여 세대 간 연결, 유년↔노년 영역에 영향을 줍니다.",
+        "ageWindow": "유년/말년",
+        "isPositive": false
+      }
+    ],
+    [
+      "WONJIN:MONTH_DAY",
+      {
+        "positionPairLabel": "월-일",
+        "affectedDomains": [
+          "직업",
+          "배우자"
+        ],
+        "meaning": "직장이나 배우자와의 관계에서 미묘한 불만족이 지속됩니다. 만족하지 못하면서도 떠나지 못하는 형태로, 적극적인 소통으로 해소해야 합니다.",
+        "ageWindow": "중년(20~50세)",
+        "isPositive": false
+      }
+    ],
+    [
+      "WONJIN:MONTH_HOUR",
+      {
+        "positionPairLabel": "월-시",
+        "affectedDomains": [
+          "직업",
+          "자녀",
+          "사회 성취"
+        ],
+        "meaning": "월-시 위치에서 원진(怨嗔) 관계가 성립하여 직업, 자녀, 사회 성취 영역에 영향을 줍니다.",
+        "ageWindow": "중~말년(30~60세)",
+        "isPositive": false
+      }
+    ],
+    [
+      "WONJIN:DAY_HOUR",
+      {
+        "positionPairLabel": "일-시",
+        "affectedDomains": [
+          "배우자",
+          "자녀"
+        ],
+        "meaning": "배우자나 자녀에 대한 기대와 현실 사이에 괴리가 있습니다. 가까운 사람일수록 원진의 영향이 크므로, 서로의 차이를 인정하는 자세가 중요합니다.",
+        "ageWindow": "말년(50세~)",
+        "isPositive": false
+      }
+    ]
+  ]
+}

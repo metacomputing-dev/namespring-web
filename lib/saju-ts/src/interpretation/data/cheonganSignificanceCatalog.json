@@ -1,0 +1,166 @@
+{
+  "entries": [
+    [
+      "HAP:YEAR_MONTH",
+      {
+        "positionPairLabel": "년간-월간",
+        "affectedDomains": [
+          "조상",
+          "부모",
+          "사회적 기반"
+        ],
+        "meaning": "조상과 부모의 가치관이 일치하여 안정적인 성장 환경을 제공합니다. 사회적 기반이 탄탄하며, 가문의 덕을 누리기 쉽습니다. 합화(合化)가 성립하면 가문 전체의 방향성이 한 오행으로 집중됩니다.",
+        "ageWindow": "초년(1~20세)",
+        "isPositive": true
+      }
+    ],
+    [
+      "HAP:YEAR_DAY",
+      {
+        "positionPairLabel": "년간-일간",
+        "affectedDomains": [
+          "가문",
+          "자아 정체성"
+        ],
+        "meaning": "조상의 가치관과 자신의 의지가 조화를 이룹니다. 자연스럽게 가문의 뜻을 이어받으며, 정체성이 확고합니다. 다만 합거(合去)되면 자아가 가문에 매몰될 수 있어 주의가 필요합니다.",
+        "ageWindow": "전 생애",
+        "isPositive": true
+      }
+    ],
+    [
+      "HAP:YEAR_HOUR",
+      {
+        "positionPairLabel": "년간-시간",
+        "affectedDomains": [
+          "세대 계승",
+          "유산"
+        ],
+        "meaning": "조상의 뜻이 자녀 세대에까지 이어지는 형상입니다. 가문의 정신적 유산이 잘 계승되며, 세대 간 유대가 깊습니다.",
+        "ageWindow": "유년/말년",
+        "isPositive": true
+      }
+    ],
+    [
+      "HAP:MONTH_DAY",
+      {
+        "positionPairLabel": "월간-일간",
+        "affectedDomains": [
+          "사회",
+          "직업",
+          "배우자"
+        ],
+        "meaning": "사회적 역할과 자아가 조화를 이뤄 직업에서 만족을 얻습니다. 일이 곧 자기 표현이 되며, 배우자도 자신의 사회적 활동을 지지합니다. 중년에 가장 안정적인 시기를 보내기 좋은 구조입니다.",
+        "ageWindow": "중년(20~50세)",
+        "isPositive": true
+      }
+    ],
+    [
+      "HAP:MONTH_HOUR",
+      {
+        "positionPairLabel": "월간-시간",
+        "affectedDomains": [
+          "사회적 성취",
+          "자녀"
+        ],
+        "meaning": "사회적 지위와 자녀의 관계가 조화롭습니다. 직업적 성취가 자녀에게 긍정적 영향을 주며, 자녀가 사회적 활동의 동기가 됩니다.",
+        "ageWindow": "중~말년(30~60세)",
+        "isPositive": true
+      }
+    ],
+    [
+      "HAP:DAY_HOUR",
+      {
+        "positionPairLabel": "일간-시간",
+        "affectedDomains": [
+          "자아",
+          "자녀",
+          "미래"
+        ],
+        "meaning": "자신의 의지와 자녀(미래)의 방향이 일치합니다. 자녀와의 정서적 교감이 깊고, 노후에 자녀로부터 큰 위안을 받습니다. 합화되면 말년에 새로운 정체성 변화가 일어날 수 있습니다.",
+        "ageWindow": "말년(50세~)",
+        "isPositive": true
+      }
+    ],
+    [
+      "CHUNG:YEAR_MONTH",
+      {
+        "positionPairLabel": "년간-월간",
+        "affectedDomains": [
+          "조상",
+          "부모",
+          "성장환경"
+        ],
+        "meaning": "조상의 가치관과 부모의 양육 방식이 충돌합니다. 가정 내에 세대 간 갈등이 존재하며, 어린 시절 가치관 혼란을 경험할 수 있습니다. 반면 다양한 관점을 접하여 사고가 유연해지는 장점도 있습니다.",
+        "ageWindow": "초년(1~20세)",
+        "isPositive": false
+      }
+    ],
+    [
+      "CHUNG:YEAR_DAY",
+      {
+        "positionPairLabel": "년간-일간",
+        "affectedDomains": [
+          "가문",
+          "자아"
+        ],
+        "meaning": "가문의 기대와 자신의 의지가 정면으로 부딪힙니다. 가업을 잇기보다 독자적인 길을 걷게 되며, 부모와의 가치관 차이가 큽니다. 자수성가하는 경우가 많으나, 내면의 갈등이 오래 지속될 수 있습니다.",
+        "ageWindow": "전 생애",
+        "isPositive": false
+      }
+    ],
+    [
+      "CHUNG:YEAR_HOUR",
+      {
+        "positionPairLabel": "년간-시간",
+        "affectedDomains": [
+          "세대 갈등",
+          "유산"
+        ],
+        "meaning": "세대 간 가치관이 극명하게 대립합니다. 조부모 세대와 손자녀 세대 사이에 깊은 이해의 간극이 존재하며, 가문의 유산(정신적·물질적) 계승에 마찰이 생길 수 있습니다.",
+        "ageWindow": "유년/말년",
+        "isPositive": false
+      }
+    ],
+    [
+      "CHUNG:MONTH_DAY",
+      {
+        "positionPairLabel": "월간-일간",
+        "affectedDomains": [
+          "직업",
+          "사회",
+          "건강"
+        ],
+        "meaning": "사회적 요구와 자아 사이에 갈등이 큽니다. 직업이 적성과 맞지 않거나, 직장 내에서 상사·동료와의 대립이 잦습니다. 천간충은 표면적 갈등이므로 주변에서도 이를 인지할 수 있으며, 스트레스가 건강으로 이어질 수 있습니다.",
+        "ageWindow": "중년(20~50세)",
+        "isPositive": false
+      }
+    ],
+    [
+      "CHUNG:MONTH_HOUR",
+      {
+        "positionPairLabel": "월간-시간",
+        "affectedDomains": [
+          "사회적 지위",
+          "자녀"
+        ],
+        "meaning": "사회적 성취와 자녀 양육 사이에서 갈등이 심합니다. 일과 가정의 양립이 특히 어려우며, 자녀가 부모의 직업이나 지위에 반발심을 보이는 경우도 있습니다.",
+        "ageWindow": "중~말년(30~60세)",
+        "isPositive": false
+      }
+    ],
+    [
+      "CHUNG:DAY_HOUR",
+      {
+        "positionPairLabel": "일간-시간",
+        "affectedDomains": [
+          "자아",
+          "자녀",
+          "내면"
+        ],
+        "meaning": "자기 자신의 의지와 미래 방향(자녀/노후)이 충돌합니다. 자녀와의 가치관 차이가 크고, 말년에 자신의 선택에 대한 회의가 생길 수 있습니다. 다만 이 긴장이 끊임없는 자기 성찰의 원동력이 되기도 합니다.",
+        "ageWindow": "말년(50세~)",
+        "isPositive": false
+      }
+    ]
+  ]
+}

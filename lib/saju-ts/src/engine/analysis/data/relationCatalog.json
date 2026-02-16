@@ -1,0 +1,345 @@
+{
+  "yukhapPairs": [
+    {
+      "a": "JA",
+      "b": "CHUK",
+      "note": "자축합"
+    },
+    {
+      "a": "IN",
+      "b": "HAE",
+      "note": "인해합"
+    },
+    {
+      "a": "MYO",
+      "b": "SUL",
+      "note": "묘술합"
+    },
+    {
+      "a": "JIN",
+      "b": "YU",
+      "note": "진유합"
+    },
+    {
+      "a": "SA",
+      "b": "SIN",
+      "note": "사신합"
+    },
+    {
+      "a": "O",
+      "b": "MI",
+      "note": "오미합"
+    }
+  ],
+  "samhapTriples": [
+    {
+      "a": "HAE",
+      "b": "MYO",
+      "c": "MI",
+      "note": "해묘미 목국"
+    },
+    {
+      "a": "IN",
+      "b": "O",
+      "c": "SUL",
+      "note": "인오술 화국"
+    },
+    {
+      "a": "SA",
+      "b": "YU",
+      "c": "CHUK",
+      "note": "사유축 금국"
+    },
+    {
+      "a": "SIN",
+      "b": "JA",
+      "c": "JIN",
+      "note": "신자진 수국"
+    }
+  ],
+  "banghapTriples": [
+    {
+      "a": "IN",
+      "b": "MYO",
+      "c": "JIN",
+      "note": "동방 목합"
+    },
+    {
+      "a": "SA",
+      "b": "O",
+      "c": "MI",
+      "note": "남방 화합"
+    },
+    {
+      "a": "SIN",
+      "b": "YU",
+      "c": "SUL",
+      "note": "서방 금합"
+    },
+    {
+      "a": "HAE",
+      "b": "JA",
+      "c": "CHUK",
+      "note": "북방 수합"
+    }
+  ],
+  "chungPairs": [
+    {
+      "a": "JA",
+      "b": "O",
+      "note": "자오충"
+    },
+    {
+      "a": "CHUK",
+      "b": "MI",
+      "note": "축미충"
+    },
+    {
+      "a": "IN",
+      "b": "SIN",
+      "note": "인신충"
+    },
+    {
+      "a": "MYO",
+      "b": "YU",
+      "note": "묘유충"
+    },
+    {
+      "a": "JIN",
+      "b": "SUL",
+      "note": "진술충"
+    },
+    {
+      "a": "SA",
+      "b": "HAE",
+      "note": "사해충"
+    }
+  ],
+  "hyeongTriples": [
+    {
+      "a": "IN",
+      "b": "SA",
+      "c": "SIN",
+      "note": "인사신 삼형(무은지형)"
+    },
+    {
+      "a": "CHUK",
+      "b": "SUL",
+      "c": "MI",
+      "note": "축술미 삼형(지세지형)"
+    }
+  ],
+  "hyeongPairs": [
+    {
+      "a": "IN",
+      "b": "SIN",
+      "note": "인신형(무은)"
+    },
+    {
+      "a": "IN",
+      "b": "SA",
+      "note": "인사형(무은)"
+    },
+    {
+      "a": "SA",
+      "b": "SIN",
+      "note": "사신형(무은)"
+    },
+    {
+      "a": "CHUK",
+      "b": "MI",
+      "note": "축미형(지세)"
+    },
+    {
+      "a": "CHUK",
+      "b": "SUL",
+      "note": "축술형(지세)"
+    },
+    {
+      "a": "SUL",
+      "b": "MI",
+      "note": "술미형(지세)"
+    },
+    {
+      "a": "JA",
+      "b": "MYO",
+      "note": "자묘형(무례지형)"
+    }
+  ],
+  "banhapDefs": [
+    {
+      "a": "IN",
+      "b": "O",
+      "missing": "SUL",
+      "note": "인오 생왕반합(화)"
+    },
+    {
+      "a": "O",
+      "b": "SUL",
+      "missing": "IN",
+      "note": "오술 왕고반합(화)"
+    },
+    {
+      "a": "IN",
+      "b": "SUL",
+      "missing": "O",
+      "note": "인술 생고반합(화)"
+    },
+    {
+      "a": "SA",
+      "b": "YU",
+      "missing": "CHUK",
+      "note": "사유 생왕반합(금)"
+    },
+    {
+      "a": "YU",
+      "b": "CHUK",
+      "missing": "SA",
+      "note": "유축 왕고반합(금)"
+    },
+    {
+      "a": "SA",
+      "b": "CHUK",
+      "missing": "YU",
+      "note": "사축 생고반합(금)"
+    },
+    {
+      "a": "SIN",
+      "b": "JA",
+      "missing": "JIN",
+      "note": "신자 생왕반합(수)"
+    },
+    {
+      "a": "JA",
+      "b": "JIN",
+      "missing": "SIN",
+      "note": "자진 왕고반합(수)"
+    },
+    {
+      "a": "SIN",
+      "b": "JIN",
+      "missing": "JA",
+      "note": "신진 생고반합(수)"
+    },
+    {
+      "a": "HAE",
+      "b": "MYO",
+      "missing": "MI",
+      "note": "해묘 생왕반합(목)"
+    },
+    {
+      "a": "MYO",
+      "b": "MI",
+      "missing": "HAE",
+      "note": "묘미 왕고반합(목)"
+    },
+    {
+      "a": "HAE",
+      "b": "MI",
+      "missing": "MYO",
+      "note": "해미 생고반합(목)"
+    }
+  ],
+  "selfHyeongBranches": [
+    "JIN",
+    "O",
+    "YU",
+    "HAE"
+  ],
+  "paPairs": [
+    {
+      "a": "JA",
+      "b": "YU",
+      "note": "자유파"
+    },
+    {
+      "a": "CHUK",
+      "b": "JIN",
+      "note": "축진파"
+    },
+    {
+      "a": "IN",
+      "b": "HAE",
+      "note": "인해파"
+    },
+    {
+      "a": "MYO",
+      "b": "O",
+      "note": "묘오파"
+    },
+    {
+      "a": "SA",
+      "b": "SIN",
+      "note": "사신파"
+    },
+    {
+      "a": "MI",
+      "b": "SUL",
+      "note": "미술파"
+    }
+  ],
+  "haePairs": [
+    {
+      "a": "JA",
+      "b": "MI",
+      "note": "자미해"
+    },
+    {
+      "a": "CHUK",
+      "b": "O",
+      "note": "축오해"
+    },
+    {
+      "a": "IN",
+      "b": "SA",
+      "note": "인사해"
+    },
+    {
+      "a": "MYO",
+      "b": "JIN",
+      "note": "묘진해"
+    },
+    {
+      "a": "SIN",
+      "b": "HAE",
+      "note": "신해해"
+    },
+    {
+      "a": "YU",
+      "b": "SUL",
+      "note": "유술해"
+    }
+  ],
+  "wonjinPairs": [
+    {
+      "a": "JA",
+      "b": "MI",
+      "note": "자미원진"
+    },
+    {
+      "a": "CHUK",
+      "b": "O",
+      "note": "축오원진"
+    },
+    {
+      "a": "IN",
+      "b": "YU",
+      "note": "인유원진"
+    },
+    {
+      "a": "MYO",
+      "b": "SIN",
+      "note": "묘신원진"
+    },
+    {
+      "a": "JIN",
+      "b": "HAE",
+      "note": "진해원진"
+    },
+    {
+      "a": "SA",
+      "b": "SUL",
+      "note": "사술원진"
+    }
+  ]
+}

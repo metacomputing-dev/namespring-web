@@ -1,0 +1,304 @@
+{
+  "sipseongThemes": [
+    [
+      "BI_GYEON",
+      {
+        "sipseong": "BI_GYEON",
+        "themeName": "자립·경쟁운",
+        "themeDescription": "비견운은 나와 동등한 기운이 들어오는 시기로, 독립심과 경쟁심이 강해집니다",
+        "favorableAspects": [
+          "자립심 강화",
+          "동료·형제의 도움",
+          "새로운 도전에 유리"
+        ],
+        "cautionPoints": [
+          "재물 분산 주의",
+          "고집으로 인한 갈등",
+          "동업 시 분쟁 가능"
+        ],
+        "lifeDomain": "인간관계·독립"
+      }
+    ],
+    [
+      "GYEOB_JAE",
+      {
+        "sipseong": "GYEOB_JAE",
+        "themeName": "경쟁·변동운",
+        "themeDescription": "겁재운은 경쟁과 변동이 심한 시기로, 재물의 유출입이 활발해집니다",
+        "favorableAspects": [
+          "과감한 결단력",
+          "승부사 기질 발휘",
+          "변화를 통한 성장"
+        ],
+        "cautionPoints": [
+          "재물 손실 주의",
+          "충동적 투자 경계",
+          "대인관계 마찰"
+        ],
+        "lifeDomain": "재물·경쟁"
+      }
+    ],
+    [
+      "SIK_SIN",
+      {
+        "sipseong": "SIK_SIN",
+        "themeName": "표현·풍요운",
+        "themeDescription": "식신운은 먹고 즐기는 복이 따르며, 재능 발휘와 표현력이 좋아지는 시기입니다",
+        "favorableAspects": [
+          "의식주 풍요",
+          "재능·기술 발휘",
+          "안정적인 수입"
+        ],
+        "cautionPoints": [
+          "과식·사치 주의",
+          "나태해질 수 있음",
+          "안주에 빠질 위험"
+        ],
+        "lifeDomain": "의식주·재능"
+      }
+    ],
+    [
+      "SANG_GWAN",
+      {
+        "sipseong": "SANG_GWAN",
+        "themeName": "창의·반항운",
+        "themeDescription": "상관운은 창의력과 언변이 뛰어나지만, 기존 질서에 대한 반발심이 생기는 시기입니다",
+        "favorableAspects": [
+          "창의적 아이디어",
+          "예술적 감각 발휘",
+          "언변과 표현력 향상"
+        ],
+        "cautionPoints": [
+          "상사·권위자와 충돌",
+          "구설수 주의",
+          "직장 변동 가능"
+        ],
+        "lifeDomain": "창의·언변"
+      }
+    ],
+    [
+      "PYEON_JAE",
+      {
+        "sipseong": "PYEON_JAE",
+        "themeName": "투자·유동운",
+        "themeDescription": "편재운은 큰 재물의 흐름이 있는 시기로, 투자와 사업에 적극적이게 됩니다",
+        "favorableAspects": [
+          "사업 확장 기회",
+          "투자 수익 가능",
+          "사교성 향상"
+        ],
+        "cautionPoints": [
+          "투기성 투자 주의",
+          "이성 문제 주의",
+          "과도한 지출"
+        ],
+        "lifeDomain": "재물·사업"
+      }
+    ],
+    [
+      "JEONG_JAE",
+      {
+        "sipseong": "JEONG_JAE",
+        "themeName": "안정·축적운",
+        "themeDescription": "정재운은 안정적인 수입과 꾸준한 재물 축적이 이루어지는 시기입니다",
+        "favorableAspects": [
+          "안정적 수입",
+          "저축과 자산 증식",
+          "가정의 안정"
+        ],
+        "cautionPoints": [
+          "지나친 보수성",
+          "새로운 기회 놓칠 수 있음",
+          "인색함 주의"
+        ],
+        "lifeDomain": "재물·가정"
+      }
+    ],
+    [
+      "PYEON_GWAN",
+      {
+        "sipseong": "PYEON_GWAN",
+        "themeName": "도전·압박운",
+        "themeDescription": "편관운은 강한 외부 압력과 도전이 따르지만, 이를 극복하면 큰 성장이 가능한 시기입니다",
+        "favorableAspects": [
+          "결단력과 추진력 강화",
+          "권력·지위 획득 기회",
+          "위기 극복 능력"
+        ],
+        "cautionPoints": [
+          "직업 불안정",
+          "건강 주의(과로)",
+          "법적 분쟁 조심"
+        ],
+        "lifeDomain": "직업·권력"
+      }
+    ],
+    [
+      "JEONG_GWAN",
+      {
+        "sipseong": "JEONG_GWAN",
+        "themeName": "승진·명예운",
+        "themeDescription": "정관운은 사회적 인정과 명예, 승진의 기운이 강한 시기입니다",
+        "favorableAspects": [
+          "승진·합격 가능",
+          "사회적 신뢰 획득",
+          "안정적 직업 운"
+        ],
+        "cautionPoints": [
+          "책임감 과중",
+          "자유 제약",
+          "원칙주의로 인한 경직"
+        ],
+        "lifeDomain": "명예·직업"
+      }
+    ],
+    [
+      "PYEON_IN",
+      {
+        "sipseong": "PYEON_IN",
+        "themeName": "학문·변화운",
+        "themeDescription": "편인운은 비정통적 학문이나 특수 기술에 관심이 높아지며, 사고의 전환이 일어나는 시기입니다",
+        "favorableAspects": [
+          "특수 분야 학습",
+          "직관력 향상",
+          "전문성 심화"
+        ],
+        "cautionPoints": [
+          "고독감",
+          "식신 제극(도식)으로 의식주 불안정",
+          "편협한 사고"
+        ],
+        "lifeDomain": "학문·전문성"
+      }
+    ],
+    [
+      "JEONG_IN",
+      {
+        "sipseong": "JEONG_IN",
+        "themeName": "학업·보호운",
+        "themeDescription": "정인운은 학업 성취와 어른·귀인의 도움이 따르며, 정신적 성장이 이루어지는 시기입니다",
+        "favorableAspects": [
+          "학업 성취",
+          "자격증·시험 합격",
+          "귀인의 도움"
+        ],
+        "cautionPoints": [
+          "의존성 증가",
+          "실행력 부족",
+          "이론에 치우칠 수 있음"
+        ],
+        "lifeDomain": "학업·정신성장"
+      }
+    ]
+  ],
+  "unseongThemes": [
+    [
+      "JANG_SAENG",
+      {
+        "sibiUnseong": "JANG_SAENG",
+        "energyLevel": "상승",
+        "description": "장생지에서 새로운 기운이 시작되며, 활력과 희망이 넘치는 시기입니다",
+        "actionAdvice": "새로운 시작과 계획 수립에 좋은 시기입니다. 학업, 창업, 새로운 관계 시작에 유리합니다"
+      }
+    ],
+    [
+      "MOK_YOK",
+      {
+        "sibiUnseong": "MOK_YOK",
+        "energyLevel": "변동",
+        "description": "목욕지는 변화와 불안정이 공존하며, 감정의 기복이 있는 시기입니다",
+        "actionAdvice": "감정 조절에 유의하고, 이성 문제나 구설수를 조심해야 합니다. 내면의 정화 시기로 활용하세요"
+      }
+    ],
+    [
+      "GWAN_DAE",
+      {
+        "sibiUnseong": "GWAN_DAE",
+        "energyLevel": "성장",
+        "description": "관대지는 사회적 활동이 활발해지고, 자신감과 야망이 커지는 시기입니다",
+        "actionAdvice": "적극적인 사회 활동과 자기 표현이 유리합니다. 다만 과욕은 금물입니다"
+      }
+    ],
+    [
+      "GEON_ROK",
+      {
+        "sibiUnseong": "GEON_ROK",
+        "energyLevel": "왕성",
+        "description": "건록지는 일간의 에너지가 강하여 자립심과 실행력이 최고조에 이르는 시기입니다",
+        "actionAdvice": "독립적인 활동과 주도적인 일 처리에 최적기입니다. 자기 사업이나 독립에 유리합니다"
+      }
+    ],
+    [
+      "JE_WANG",
+      {
+        "sibiUnseong": "JE_WANG",
+        "energyLevel": "최고조",
+        "description": "제왕지는 에너지가 극에 달하여 강한 추진력과 지배력을 가지는 시기입니다",
+        "actionAdvice": "최대한의 역량을 발휘할 수 있으나, 지나친 강함은 오히려 해가 됩니다. 겸손을 유지하세요"
+      }
+    ],
+    [
+      "SWOE",
+      {
+        "sibiUnseong": "SWOE",
+        "energyLevel": "하강",
+        "description": "쇠지는 전성기가 지나고 기운이 서서히 줄어드는 시기입니다",
+        "actionAdvice": "무리한 확장보다는 현 상태를 유지하며 내실을 다지는 것이 좋습니다"
+      }
+    ],
+    [
+      "BYEONG",
+      {
+        "sibiUnseong": "BYEONG",
+        "energyLevel": "약화",
+        "description": "병지는 기운이 약해져 심신이 지치기 쉬운 시기입니다",
+        "actionAdvice": "건강 관리에 신경 쓰고, 무리한 일은 피하며 충분한 휴식을 취하세요"
+      }
+    ],
+    [
+      "SA",
+      {
+        "sibiUnseong": "SA",
+        "energyLevel": "정지",
+        "description": "사지는 현재 진행 중인 일이 마무리되거나 큰 전환점을 맞는 시기입니다",
+        "actionAdvice": "기존 방식의 종결을 받아들이고, 새로운 방향을 모색하는 시간으로 활용하세요"
+      }
+    ],
+    [
+      "MYO",
+      {
+        "sibiUnseong": "MYO",
+        "energyLevel": "저장",
+        "description": "묘지는 에너지가 내면에 축적되며, 겉으로 드러나지 않지만 잠재력이 쌓이는 시기입니다",
+        "actionAdvice": "조용히 실력을 쌓고 내면을 다스리는 시기입니다. 부동산·저축 등 안정적 재테크에 유리합니다"
+      }
+    ],
+    [
+      "JEOL",
+      {
+        "sibiUnseong": "JEOL",
+        "energyLevel": "단절",
+        "description": "절지는 기존 것이 끊기고 새로운 시작의 씨앗이 뿌려지는 전환기입니다",
+        "actionAdvice": "과거에 대한 미련을 내려놓고, 전혀 새로운 분야나 환경으로의 전환을 고려해 보세요"
+      }
+    ],
+    [
+      "TAE",
+      {
+        "sibiUnseong": "TAE",
+        "energyLevel": "잠재",
+        "description": "태지는 새로운 가능성이 잉태되는 시기로, 아직 구체적이진 않지만 희망의 기운이 있습니다",
+        "actionAdvice": "구체적 성과보다는 가능성을 탐색하고 계획을 세우는 시기입니다. 조급해하지 마세요"
+      }
+    ],
+    [
+      "YANG",
+      {
+        "sibiUnseong": "YANG",
+        "energyLevel": "준비",
+        "description": "양지는 새로운 시작을 위한 준비 단계로, 서서히 기운이 충전되는 시기입니다",
+        "actionAdvice": "학습, 수련, 준비에 집중하세요. 큰 결정보다는 기반을 다지는 데 시간을 투자하세요"
+      }
+    ]
+  ]
+}

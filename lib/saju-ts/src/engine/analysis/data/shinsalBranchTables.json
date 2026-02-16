@@ -1,0 +1,38 @@
+{
+  "cheondeok": [
+    ["IN", { "kind": "stem", "stem": "JEONG" }],
+    ["MYO", { "kind": "branch", "branch": "SIN" }],
+    ["JIN", { "kind": "stem", "stem": "IM" }],
+    ["SA", { "kind": "stem", "stem": "SIN" }],
+    ["O", { "kind": "branch", "branch": "HAE" }],
+    ["MI", { "kind": "stem", "stem": "GAP" }],
+    ["SIN", { "kind": "stem", "stem": "GYE" }],
+    ["YU", { "kind": "branch", "branch": "IN" }],
+    ["SUL", { "kind": "stem", "stem": "BYEONG" }],
+    ["HAE", { "kind": "stem", "stem": "EUL" }],
+    ["JA", { "kind": "branch", "branch": "SA" }],
+    ["CHUK", { "kind": "stem", "stem": "GYEONG" }]
+  ],
+  "woldeok": [
+    ["IN", { "kind": "stem", "stem": "BYEONG" }],
+    ["MYO", { "kind": "stem", "stem": "GAP" }],
+    ["JIN", { "kind": "stem", "stem": "IM" }],
+    ["SA", { "kind": "stem", "stem": "GYEONG" }],
+    ["O", { "kind": "stem", "stem": "BYEONG" }],
+    ["MI", { "kind": "stem", "stem": "GAP" }],
+    ["SIN", { "kind": "stem", "stem": "IM" }],
+    ["YU", { "kind": "stem", "stem": "GYEONG" }],
+    ["SUL", { "kind": "stem", "stem": "BYEONG" }],
+    ["HAE", { "kind": "stem", "stem": "GAP" }],
+    ["JA", { "kind": "stem", "stem": "IM" }],
+    ["CHUK", { "kind": "stem", "stem": "GYEONG" }]
+  ],
+  "yukhaePairs": [
+    ["JA", "MI"],
+    ["CHUK", "O"],
+    ["IN", "SA"],
+    ["MYO", "JIN"],
+    ["SIN", "HAE"],
+    ["YU", "SUL"]
+  ]
+}
