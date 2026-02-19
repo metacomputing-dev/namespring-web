@@ -10,12 +10,37 @@ const STROKE_POLARITY_SIGNAL_WEIGHT = scoringRules.strokePolarity.signalWeight;
 
 export class HanjaCalculator extends SeedHanjaCalculator implements EvaluableCalculator {
   readonly id = 'hanja';
+  private readonly enabled: boolean;
 
-  constructor(surnameEntries: HanjaEntry[], givenNameEntries: HanjaEntry[]) {
+  constructor(surnameEntries: HanjaEntry[], givenNameEntries: HanjaEntry[], enabled: boolean = true) {
     super(surnameEntries, givenNameEntries);
+    this.enabled = enabled;
   }
 
   visit(ctx: EvalContext): void {
+    if (!this.enabled) {
+      this.elementScore = 0;
+      this.polarityScore = 0;
+
+      putInsight(
+        ctx,
+        'STROKE_ELEMENT',
+        100,
+        true,
+        'SKIPPED_PURE_HANGUL',
+        { skipped: true, reason: 'pure-hangul-mode' },
+      );
+      putInsight(
+        ctx,
+        'STROKE_POLARITY',
+        100,
+        true,
+        'SKIPPED_PURE_HANGUL',
+        { skipped: true, reason: 'pure-hangul-mode' },
+      );
+      return;
+    }
+
     this.calculate();
 
     const blocks = this.getNameBlocks();
@@ -55,6 +80,10 @@ export class HanjaCalculator extends SeedHanjaCalculator implements EvaluableCal
   }
 
   backward(ctx: EvalContext): CalculatorPacket {
+    if (!this.enabled) {
+      return { signals: [] };
+    }
+
     return {
       signals: [
         createSignal('STROKE_POLARITY', ctx, STROKE_POLARITY_SIGNAL_WEIGHT),
@@ -63,6 +92,27 @@ export class HanjaCalculator extends SeedHanjaCalculator implements EvaluableCal
   }
 
   getAnalysis(): AnalysisDetail<HanjaAnalysis> {
+    if (!this.enabled) {
+      return {
+        type: this.id,
+        score: 0,
+        polarityScore: 0,
+        elementScore: 0,
+        data: {
+          blocks: this.getNameBlocks().map((block) => ({
+            hanja: '',
+            hangul: block.entry.hangul,
+            strokes: block.entry.strokes,
+            resourceElement: '',
+            strokeElement: '',
+            polarity: '',
+          })),
+          polarityScore: 0,
+          elementScore: 0,
+        },
+      };
+    }
+
     return {
       type: this.id,
       score: this.getScore(),
