@@ -1,4 +1,4 @@
-import React, { useState, useEffect, useMemo } from 'react';
+import React, { useState, useEffect, useMemo, useRef, useCallback } from 'react';
 import { SeedTs } from "@seed/seed";
 import { HanjaRepository } from '@seed/database/hanja-repository';
 import { SpringEngine } from '@spring/spring-engine';
@@ -176,6 +176,10 @@ function toCurrentNameSpringReportRequest(userInfo) {
   };
 }
 
+function toRequestCacheKey(request) {
+  return JSON.stringify(request);
+}
+
 function App() {
   const tool = new URLSearchParams(window.location.search).get("tool");
   const isDevSagyeoksuViewerMode = import.meta.env.DEV && tool === "fourframe-db-viewer";
@@ -191,6 +195,8 @@ function App() {
   const [page, setPage] = useState(initialAppState.page);
   const hanjaRepo = useMemo(() => new HanjaRepository(), []);
   const springEngine = useMemo(() => new SpringEngine(), []);
+  const recommendResultCacheRef = useRef(new Map());
+  const currentNameReportCacheRef = useRef(new Map());
 
   // DB Initialization
   useEffect(() => {
@@ -246,10 +252,22 @@ function App() {
     return engine.analyze(normalizeEntryUserInfo(userInfo));
   };
 
-  const handleRecommendAsync = async (userInfo) => {
+  const handleRecommendAsync = useCallback(async (userInfo) => {
     const springRequest = toSpringRequest(userInfo);
-    return springEngine.getNameCandidateSummaries(springRequest);
-  };
+    const cacheKey = toRequestCacheKey(springRequest);
+    const cachedPromise = recommendResultCacheRef.current.get(cacheKey);
+    if (cachedPromise) {
+      return cachedPromise;
+    }
+
+    const requestPromise = springEngine.getNameCandidateSummaries(springRequest)
+      .catch((error) => {
+        recommendResultCacheRef.current.delete(cacheKey);
+        throw error;
+      });
+    recommendResultCacheRef.current.set(cacheKey, requestPromise);
+    return requestPromise;
+  }, [springEngine]);
 
   const handleLoadCombinedReportAsync = async (userInfo, candidate) => {
     const springRequest = toSpringReportRequest(userInfo, candidate?.givenName);
@@ -259,10 +277,22 @@ function App() {
     return springEngine.getSpringReport(springRequest);
   };
 
-  const handleLoadCurrentNameReportAsync = async (userInfo) => {
+  const handleLoadCurrentNameReportAsync = useCallback(async (userInfo) => {
     const springRequest = toCurrentNameSpringReportRequest(userInfo);
-    return springEngine.getSpringReport(springRequest);
-  };
+    const cacheKey = toRequestCacheKey(springRequest);
+    const cachedPromise = currentNameReportCacheRef.current.get(cacheKey);
+    if (cachedPromise) {
+      return cachedPromise;
+    }
+
+    const requestPromise = springEngine.getSpringReport(springRequest)
+      .catch((error) => {
+        currentNameReportCacheRef.current.delete(cacheKey);
+        throw error;
+      });
+    currentNameReportCacheRef.current.set(cacheKey, requestPromise);
+    return requestPromise;
+  }, [springEngine]);
 
   const handleLoadSajuReportAsync = async (userInfo) => {
     const springRequest = toSpringRequest(userInfo);

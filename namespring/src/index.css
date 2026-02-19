@@ -78,3 +78,22 @@ button:active::after,
   transform: translateX(-50%) !important;
   z-index: 9999 !important;
 }
+
+@media print {
+  @page {
+    size: A4;
+    margin: 12mm;
+  }
+
+  html,
+  body,
+  #root {
+    background: #ffffff !important;
+    color: #111827 !important;
+  }
+
+  [data-pdf-exclude="true"],
+  .ns-scroll-top-fab {
+    display: none !important;
+  }
+}

@@ -1,6 +1,6 @@
 import React, { useEffect, useMemo, useRef, useState } from 'react';
 import { NameStatRepository } from '@seed/database/name-stat-repository';
-import { createPortal } from 'react-dom';
+import { createPortal, flushSync } from 'react-dom';
 import { buildShareLinkFromEntryUserInfo } from './share-entry-user-info';
 import NamingResultRenderer from './NamingResultRenderer';
 import { REPORT_CARD_COLOR_THEME, buildReportCardStyle } from './theme/card-color-theme';
@@ -288,6 +288,83 @@ function waitForNextPaint() {
   });
 }
 
+function waitForFontsReady(timeoutMs = 2500) {
+  if (!document.fonts?.ready) {
+    return Promise.resolve();
+  }
+  return Promise.race([
+    document.fonts.ready.catch(() => undefined),
+    new Promise((resolve) => window.setTimeout(resolve, timeoutMs)),
+  ]);
+}
+
+async function waitForImagesReady(root, timeoutMs = 3000) {
+  if (!root) return;
+  const images = Array.from(root.querySelectorAll('img'));
+  if (!images.length) return;
+
+  await Promise.race([
+    Promise.all(images.map((img) => {
+      if (img.complete && img.naturalWidth > 0) {
+        return Promise.resolve();
+      }
+      if (typeof img.decode === 'function') {
+        return img.decode().catch(() => undefined);
+      }
+      return new Promise((resolve) => {
+        img.addEventListener('load', () => resolve(), { once: true });
+        img.addEventListener('error', () => resolve(), { once: true });
+      });
+    })),
+    new Promise((resolve) => window.setTimeout(resolve, timeoutMs)),
+  ]);
+}
+
+async function waitForLayoutStability(root, options = {}) {
+  if (!root) return;
+  const stableMs = Number(options.stableMs) || 180;
+  const timeoutMs = Number(options.timeoutMs) || 3000;
+  const start = performance.now();
+
+  const getSignature = () => {
+    const rect = root.getBoundingClientRect();
+    return [
+      Math.round(rect.width),
+      Math.round(rect.height),
+      Math.round(root.scrollHeight || 0),
+      Math.round(root.scrollWidth || 0),
+      Math.round(root.clientHeight || 0),
+      Math.round(root.clientWidth || 0),
+    ].join(':');
+  };
+
+  let lastSignature = getSignature();
+  let stableSince = performance.now();
+
+  while (performance.now() - start < timeoutMs) {
+    await waitForNextPaint();
+    const currentSignature = getSignature();
+    if (currentSignature === lastSignature) {
+      if (performance.now() - stableSince >= stableMs) {
+        return;
+      }
+    } else {
+      lastSignature = currentSignature;
+      stableSince = performance.now();
+    }
+  }
+}
+
+async function waitForPrintReady(root) {
+  await waitForNextPaint();
+  await Promise.all([
+    waitForFontsReady(2500),
+    waitForImagesReady(root, 3000),
+  ]);
+  await waitForLayoutStability(root, { stableMs: 180, timeoutMs: 3000 });
+  await waitForNextPaint();
+}
+
 function MetaInfoCard({ title, value, tone = 'default' }) {
   const toneClass =
     tone === 'emerald'
@@ -535,299 +612,51 @@ const NamingReport = ({ result, shareUserInfo = null }) => {
 
   const handleSavePdf = async () => {
     if (isPdfSaving || !reportRootRef.current) return;
-
     const previousOpenCards = { ...openCards };
-    setIsPdfSaving(true);
-    setOpenCards(openAllCards());
+    const previousOpenLifeDetails = { ...openLifeDetails };
+    const expandedLifeDetails = lifeFlowBlocks.reduce((acc, _, idx) => {
+      acc[idx] = true;
+      return acc;
+    }, {});
+
+    flushSync(() => {
+      setIsPdfSaving(true);
+      setOpenCards(openAllCards());
+      setOpenLifeDetails(expandedLifeDetails);
+    });
+
+    let restored = false;
+    const restoreState = () => {
+      if (restored) return;
+      restored = true;
+      setOpenCards(previousOpenCards);
+      setOpenLifeDetails(previousOpenLifeDetails);
+      setIsPdfSaving(false);
+    };
+
+    const handleAfterPrint = () => {
+      window.removeEventListener('afterprint', handleAfterPrint);
+      restoreState();
+    };
+
+    window.addEventListener('afterprint', handleAfterPrint);
 
     try {
-      await waitForNextPaint();
-      await new Promise((resolve) => window.setTimeout(resolve, 180));
-
-      const [html2canvasModule, jsPdfModule] = await Promise.all([
-        import('html2canvas'),
-        import('jspdf'),
-      ]);
-      const html2canvasLib = html2canvasModule?.default || html2canvasModule;
-      const JsPdfCtor = jsPdfModule?.jsPDF || jsPdfModule?.default?.jsPDF || jsPdfModule?.default;
-      if (typeof html2canvasLib !== 'function') {
-        throw new Error('html2canvas module load failed');
-      }
-      if (typeof JsPdfCtor !== 'function') {
-        throw new Error('jsPDF constructor load failed');
-      }
-
-      const target = reportRootRef.current;
-      const sanitizeClonedDocument = (clonedDocument) => {
-        const cloneRoot = clonedDocument.querySelector('[data-pdf-root="true"]');
-        const cloneWindow = clonedDocument.defaultView;
-        if (!cloneRoot || !cloneWindow) return;
-
-        const UNSUPPORTED_COLOR_FN = /\b(oklch|oklab|color-mix|color|lab|lch)\(/i;
-        const toSafeColor = (value, fallback = '#111827') => {
-          if (!value || value === 'transparent') return value;
-          if (!UNSUPPORTED_COLOR_FN.test(value)) return value;
-          const probe = clonedDocument.createElement('span');
-          probe.style.color = '#000000';
-          probe.style.color = value;
-          cloneRoot.appendChild(probe);
-          const resolved = cloneWindow.getComputedStyle(probe).color || '';
-          probe.remove();
-          if (!resolved || UNSUPPORTED_COLOR_FN.test(resolved)) {
-            return fallback;
-          }
-          return resolved;
-        };
-
-        const colorPropFallback = {
-          color: '#111827',
-          backgroundColor: '#ffffff',
-          borderTopColor: '#d1d5db',
-          borderRightColor: '#d1d5db',
-          borderBottomColor: '#d1d5db',
-          borderLeftColor: '#d1d5db',
-          outlineColor: '#d1d5db',
-          textDecorationColor: '#111827',
-          caretColor: '#111827',
-          webkitTextStrokeColor: '#111827',
-        };
-        const forceColorProps = Object.keys(colorPropFallback);
-
-        const normalizeShadow = (value) => (UNSUPPORTED_COLOR_FN.test(value) ? 'none' : value);
-
-        const elements = [
-          clonedDocument.documentElement,
-          clonedDocument.body,
-          ...Array.from(clonedDocument.querySelectorAll('*')),
-        ].filter(Boolean);
-        for (const element of elements) {
-          const computed = cloneWindow.getComputedStyle(element);
-          element.style.boxShadow = normalizeShadow(computed.boxShadow || 'none');
-          element.style.textShadow = normalizeShadow(computed.textShadow || 'none');
-
-          for (const prop of forceColorProps) {
-            const raw = computed[prop];
-            if (!raw) continue;
-            if (!UNSUPPORTED_COLOR_FN.test(raw)) continue;
-            const safe = toSafeColor(raw, colorPropFallback[prop]);
-            if (!safe) continue;
-            element.style[prop] = safe;
-          }
-        }
-      };
-
-      const html2CanvasBaseOptions = {
-        backgroundColor: '#ffffff',
-        useCORS: true,
-        scrollX: 0,
-        scrollY: 0,
-      };
-      const getElementCaptureOptions = (element) => {
-        const width = Math.max(
-          1,
-          Math.ceil(
-            element?.scrollWidth
-            || element?.clientWidth
-            || element?.offsetWidth
-            || target.scrollWidth
-            || 1
-          )
-        );
-        const height = Math.max(
-          1,
-          Math.ceil(
-            element?.scrollHeight
-            || element?.clientHeight
-            || element?.offsetHeight
-            || target.scrollHeight
-            || 1
-          )
-        );
-        const area = width * height;
-        let scale = 2;
-        if (area > 2_400_000) scale = 1.6;
-        if (area > 4_800_000) scale = 1.25;
-        if (area > 7_200_000) scale = 1;
-        return { width, height, scale, windowWidth: width, windowHeight: height };
-      };
-      const isCanvasLikelyBlank = (canvas) => {
-        if (!canvas || canvas.width <= 1 || canvas.height <= 1) return true;
-        const context = canvas.getContext('2d', { willReadFrequently: true });
-        if (!context) return false;
-
-        const sampleCols = 18;
-        const sampleRows = 18;
-        let visiblePointCount = 0;
-
-        for (let row = 0; row < sampleRows; row += 1) {
-          for (let col = 0; col < sampleCols; col += 1) {
-            const x = Math.min(canvas.width - 1, Math.floor((col / (sampleCols - 1 || 1)) * (canvas.width - 1)));
-            const y = Math.min(canvas.height - 1, Math.floor((row / (sampleRows - 1 || 1)) * (canvas.height - 1)));
-            const pixel = context.getImageData(x, y, 1, 1).data;
-            const alpha = pixel[3];
-            if (alpha <= 8) continue;
-            const isNearWhite = pixel[0] >= 245 && pixel[1] >= 245 && pixel[2] >= 245;
-            if (!isNearWhite) {
-              visiblePointCount += 1;
-              if (visiblePointCount >= 3) {
-                return false;
-              }
-            }
-          }
-        }
-        return true;
-      };
-      const normalizeCanvasForPdf = (canvas) => {
-        if (!canvas) return canvas;
-        const MAX_EDGE = 4096;
-        const MAX_PIXELS = 10_000_000;
-        const width = Number(canvas.width) || 0;
-        const height = Number(canvas.height) || 0;
-        if (width <= 0 || height <= 0) return canvas;
-
-        let scale = 1;
-        const edge = Math.max(width, height);
-        if (edge > MAX_EDGE) {
-          scale = Math.min(scale, MAX_EDGE / edge);
-        }
-        const area = width * height;
-        if (area > MAX_PIXELS) {
-          scale = Math.min(scale, Math.sqrt(MAX_PIXELS / area));
-        }
-        if (scale >= 0.999) {
-          return canvas;
-        }
-
-        const resized = document.createElement('canvas');
-        resized.width = Math.max(1, Math.floor(width * scale));
-        resized.height = Math.max(1, Math.floor(height * scale));
-        const resizedContext = resized.getContext('2d');
-        if (!resizedContext) {
-          return canvas;
-        }
-        resizedContext.drawImage(canvas, 0, 0, resized.width, resized.height);
-        return resized;
-      };
-      const renderElementCanvas = (element, extraOptions = {}) => html2canvasLib(element, {
-        ...html2CanvasBaseOptions,
-        ...getElementCaptureOptions(element),
-        onclone: sanitizeClonedDocument,
-        ...extraOptions,
-      });
-      const captureElementCanvas = async (element) => {
-        const shouldForceForeignObject = element instanceof HTMLElement
-          && element.dataset.pdfForceForeignObject === 'true';
-        if (shouldForceForeignObject) {
-          const forcedCanvas = await renderElementCanvas(element, {
-            foreignObjectRendering: true,
-            onclone: undefined,
-          });
-          return normalizeCanvasForPdf(forcedCanvas);
-        }
-
-        try {
-          const primaryCanvas = await renderElementCanvas(element);
-          if (!isCanvasLikelyBlank(primaryCanvas)) {
-            return normalizeCanvasForPdf(primaryCanvas);
-          }
-          const retryCanvas = await renderElementCanvas(element, {
-            foreignObjectRendering: true,
-            onclone: undefined,
-          });
-          return normalizeCanvasForPdf(retryCanvas);
-        } catch (renderError) {
-          const message = String(renderError?.message ?? renderError ?? '');
-          const isUnsupportedColorError = /unsupported color function/i.test(message);
-          const fallbackCanvas = await renderElementCanvas(element, {
-            foreignObjectRendering: true,
-            onclone: undefined,
-            scale: 1,
-          });
-          if (isCanvasLikelyBlank(fallbackCanvas) && !isUnsupportedColorError) {
-            throw renderError;
-          }
-          return normalizeCanvasForPdf(fallbackCanvas);
-        }
-      };
-
-      const pdf = new JsPdfCtor({
-        orientation: 'portrait',
-        unit: 'mm',
-        format: 'a4',
-      });
-
-      const pageWidth = pdf.internal.pageSize.getWidth();
-      const pageHeight = pdf.internal.pageSize.getHeight();
-      const margin = 8;
-      const contentWidth = pageWidth - margin * 2;
-      const contentTop = margin;
-      const contentBottom = pageHeight - margin;
-      const pageContentHeight = contentBottom - contentTop;
-      const blockGap = 3;
-
-      let cursorY = contentTop;
-      const addPage = () => {
-        pdf.addPage();
-        cursorY = contentTop;
-      };
-      const toMmHeight = (canvasWidth, heightPx) => (heightPx * contentWidth) / canvasWidth;
-      const addCanvasToPdf = (canvas) => {
-        const fullHeightMm = toMmHeight(canvas.width, canvas.height);
-        const imageData = canvas.toDataURL('image/png');
-
-        if (fullHeightMm <= pageContentHeight + 0.01) {
-          if (cursorY + fullHeightMm > contentBottom + 0.01) {
-            addPage();
-          }
-          pdf.addImage(imageData, 'PNG', margin, cursorY, contentWidth, fullHeightMm, undefined, 'FAST');
-          cursorY += fullHeightMm;
-          return;
-        }
-
-        // Preserve card boundary: oversize cards are scaled to a single page instead of being sliced.
-        if (cursorY > contentTop + 0.01) {
-          addPage();
-        }
-        const scaleToFit = pageContentHeight / fullHeightMm;
-        const drawWidth = contentWidth * scaleToFit;
-        const drawHeight = fullHeightMm * scaleToFit;
-        const drawX = margin + (contentWidth - drawWidth) / 2;
-        pdf.addImage(imageData, 'PNG', drawX, cursorY, drawWidth, drawHeight, undefined, 'FAST');
-        cursorY += drawHeight;
-      };
-
-      const cardBlocks = Array.from(target.children).filter((node) => {
-        if (!(node instanceof HTMLElement)) return false;
-        return node.dataset.pdfExclude !== 'true';
-      });
-      const blocks = cardBlocks.length ? cardBlocks : [target];
-
-      for (let index = 0; index < blocks.length; index += 1) {
-        const block = blocks[index];
-        const blockCanvas = await captureElementCanvas(block);
-        addCanvasToPdf(blockCanvas);
-
-        const isLastBlock = index === blocks.length - 1;
-        if (!isLastBlock) {
-          if (cursorY + blockGap > contentBottom) {
-            addPage();
-          } else {
-            cursorY += blockGap;
-          }
-        }
-      }
-
-      const safeName = (fullNameHangul || 'name')
-        .replace(/[\\/:*?"<>|]/g, '_')
-        .trim();
-      pdf.save(`${safeName || 'name'}_이름평가보고서.pdf`);
+      await waitForPrintReady(reportRootRef.current);
+      window.print();
     } catch (error) {
-      console.error('PDF save failed', error);
-      alert('PDF 저장에 실패했습니다. 잠시 후 다시 시도해 주세요.');
-    } finally {
-      setOpenCards(previousOpenCards);
-      setIsPdfSaving(false);
+      console.error('Print save failed', error);
+      alert('인쇄 준비에 실패했습니다. 잠시 후 다시 시도해 주세요.');
+      window.removeEventListener('afterprint', handleAfterPrint);
+      restoreState();
+      return;
     }
+
+    // afterprint가 호출되지 않는 브라우저 대비 안전 복구
+    window.setTimeout(() => {
+      window.removeEventListener('afterprint', handleAfterPrint);
+      restoreState();
+    }, 30000);
   };
 
   const handleOpenShareDialog = () => {
@@ -1348,7 +1177,7 @@ const NamingReport = ({ result, shareUserInfo = null }) => {
           disabled={isPdfSaving}
           className="flex-1 py-4 bg-[var(--ns-surface)] border border-[var(--ns-border)] rounded-2xl font-black text-[var(--ns-muted)] hover:bg-[var(--ns-surface-soft)] active:scale-95 transition-all disabled:opacity-60 disabled:cursor-not-allowed"
         >
-          {isPdfSaving ? 'PDF 생성 중...' : 'PDF로 저장하기'}
+          {isPdfSaving ? '인쇄 준비 중...' : 'PDF로 저장하기'}
         </button>
         <button
           type="button"
@@ -1360,8 +1189,18 @@ const NamingReport = ({ result, shareUserInfo = null }) => {
       </div>
 
     </div>
+    {isPdfSaving ? (
+      <div data-pdf-exclude="true" className="fixed inset-0 z-[120] bg-black/35 backdrop-blur-[2px] p-4 flex items-center justify-center">
+        <div className="w-full max-w-xs rounded-2xl border border-[var(--ns-border)] bg-[var(--ns-surface)] p-5 shadow-2xl text-center">
+          <div className="mx-auto h-10 w-10 rounded-full border-4 border-[var(--ns-primary)] border-t-transparent animate-spin" />
+          <h3 className="mt-3 text-base font-black text-[var(--ns-accent-text)]">인쇄 준비 중</h3>
+          <p className="mt-1 text-sm font-semibold text-[var(--ns-muted)]">인쇄 창에서 PDF로 저장해 주세요.</p>
+        </div>
+      </div>
+    ) : null}
     {isShareDialogOpen ? (
       <div
+        data-pdf-exclude="true"
         className="fixed inset-0 z-[100] bg-black/35 backdrop-blur-[2px] p-4 flex items-center justify-center"
         onClick={closeShareDialog}
       >
