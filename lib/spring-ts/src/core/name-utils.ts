@@ -1,4 +1,5 @@
 ﻿import type { HanjaEntry } from '../../../seed-ts/src/database/hanja-repository.js';
+import { buildHangulPseudoEntry } from '../../../seed-ts/src/utils/hangul-name-entry.js';
 import type { EvaluationResult } from './evaluator.js';
 import koreanPhonetics from '../../config/korean-phonetics.json';
 import interpretationConfig from '../../config/interpretation.json';
@@ -96,21 +97,16 @@ export function parseJamoFilter(char: string): JamoFilter | null {
 // Fallback HanjaEntry construction
 // ---------------------------------------------------------------------------
 
-export function makeFallbackEntry(hangul: string): HanjaEntry {
-  const decomposed = decomposeHangul(hangul);
-  return {
-    id: 0,
-    hangul,
-    hanja: hangul,
-    onset: decomposed?.onset ?? 'ㅇ',
-    nucleus: decomposed?.nucleus ?? 'ㅏ',
-    strokes: 1,
-    stroke_element: 'Wood',
-    resource_element: 'Earth',
-    meaning: '',
-    radical: '',
-    is_surname: false,
-  };
+export interface FallbackEntryOptions {
+  readonly hanja?: string;
+  readonly isSurname?: boolean;
+}
+
+export function makeFallbackEntry(hangul: string, options: FallbackEntryOptions = {}): HanjaEntry {
+  return buildHangulPseudoEntry(hangul, {
+    hanja: options.hanja,
+    isSurname: options.isSurname ?? false,
+  });
 }
 
 // ---------------------------------------------------------------------------
