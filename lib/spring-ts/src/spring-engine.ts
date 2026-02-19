@@ -14,7 +14,11 @@
 
 import { HanjaRepository, type HanjaEntry } from '../../seed-ts/src/database/hanja-repository.js';
 import { FourframeRepository } from '../../seed-ts/src/database/fourframe-repository.js';
-import { NameStatRepository, type NameStatEntry } from '../../seed-ts/src/database/name-stat-repository.js';
+import {
+  NameStatRepository,
+  type NameStatEntry,
+  type NameGenderRatioEntry,
+} from '../../seed-ts/src/database/name-stat-repository.js';
 import { Polarity } from '../../seed-ts/src/model/polarity.js';
 import { HangulCalculator } from './calculator/hangul-calculator.js';
 import { HanjaCalculator } from './calculator/hanja-calculator.js';
@@ -50,6 +54,12 @@ const FOURFRAME_LOAD_LIMIT      = engineConfig.fourframeLoadLimit;
 const LUCKY_LEVEL_KEYWORDS      = engineConfig.luckyLevelKeywords;
 const DEFAULT_TARGET_ELEMENT    = engineConfig.defaultTargetElement;
 const ENGINE_VERSION            = engineConfig.version;
+const DEFAULT_PURE_HANGUL_MODE: 'auto' | 'on' | 'off' = 'auto';
+const DEFAULT_USE_SURNAME_HANJA_IN_PURE = false;
+const ENABLE_HANJA_NAME_EVALUATION = false;
+const ENABLE_FOURFRAME_NAME_EVALUATION = false;
+const NAME_STYLE_MALE_RATIO_THRESHOLD = 0.62;
+const NAME_STYLE_FEMALE_RATIO_THRESHOLD = 0.62;
 
 // ---------------------------------------------------------------------------
 // Helpers
@@ -77,6 +87,45 @@ function toNameCharInput(entry: HanjaEntry): NameCharInput {
   return { hangul: entry.hangul, hanja: entry.hanja };
 }
 
+interface NameResolutionPolicy {
+  readonly pureHangulGivenName: boolean;
+  readonly useSurnameHanjaInPureHangul: boolean;
+}
+
+interface ResolveEntriesOptions {
+  readonly forceHangulOnly?: boolean;
+  readonly isSurname?: boolean;
+}
+
+type NameStyle = 'male' | 'female' | 'neutral';
+
+function normalizeRequestedNamingStyle(value: unknown): NameStyle | null {
+  if (value === 'male' || value === 'female' || value === 'neutral') {
+    return value;
+  }
+  return null;
+}
+
+function inferNameStyleFromRatio(ratioEntry: NameGenderRatioEntry | null): NameStyle | null {
+  if (!ratioEntry || ratioEntry.totalBirths <= 0) return null;
+  if (ratioEntry.maleRatio >= NAME_STYLE_MALE_RATIO_THRESHOLD && ratioEntry.maleRatio > ratioEntry.femaleRatio) {
+    return 'male';
+  }
+  if (ratioEntry.femaleRatio >= NAME_STYLE_FEMALE_RATIO_THRESHOLD && ratioEntry.femaleRatio > ratioEntry.maleRatio) {
+    return 'female';
+  }
+  return 'neutral';
+}
+
+function matchesRequestedNamingStyle(
+  requestedStyle: NameStyle | null,
+  inferredStyle: NameStyle | null,
+): boolean {
+  if (!requestedStyle) return true;
+  if (!inferredStyle) return true;
+  return requestedStyle === inferredStyle;
+}
+
 // ---------------------------------------------------------------------------
 // SpringEngine
 // ---------------------------------------------------------------------------
@@ -89,7 +138,10 @@ export class SpringEngine {
   private luckyMap = new Map<number, string>();
   private validFourFrameNumbers = new Set<number>();
   private optimizer: FourFrameOptimizer | null = null;
-  private readonly nameStatInfoCache = new Map<string, { exists: boolean; popularityRank: number | null }>();
+  private readonly nameStatInfoCache = new Map<
+    string,
+    { exists: boolean; popularityRank: number | null; inferredStyle: NameStyle | null }
+  >();
 
   /** Expose the hanja repository so the UI can perform hanja lookups. */
   getHanjaRepository(): HanjaRepository { return this.hanjaRepo; }
@@ -132,6 +184,42 @@ export class SpringEngine {
     }
   }
 
+  private resolvePureHangulMode(options?: SpringRequest['options']): 'auto' | 'on' | 'off' {
+    const raw = options?.pureHangulNameMode ?? DEFAULT_PURE_HANGUL_MODE;
+    if (raw === 'on' || raw === 'off') {
+      return raw;
+    }
+    return 'auto';
+  }
+
+  private hasExplicitHanja(char: NameCharInput): boolean {
+    const hanja = String(char.hanja ?? '').trim();
+    return hanja.length > 0 && hanja !== char.hangul;
+  }
+
+  private resolveNameResolutionPolicy(
+    givenName: NameCharInput[] | undefined,
+    options?: SpringRequest['options'],
+  ): NameResolutionPolicy {
+    const pureHangulMode = this.resolvePureHangulMode(options);
+    const givenNameChars = givenName ?? [];
+    const hasGivenName = givenNameChars.length > 0;
+    const allGivenHangulOnly = givenNameChars.length > 0
+      && givenNameChars.every((char) => !this.hasExplicitHanja(char));
+
+    const pureHangulGivenName = pureHangulMode === 'on'
+      ? hasGivenName
+      : pureHangulMode === 'off'
+        ? false
+        : allGivenHangulOnly;
+
+    return {
+      pureHangulGivenName,
+      useSurnameHanjaInPureHangul: options?.useSurnameHanjaInPureHangul
+        ?? DEFAULT_USE_SURNAME_HANJA_IN_PURE,
+    };
+  }
+
   // -------------------------------------------------------------------------
   // getNamingReport -- pure name analysis (no saju)
   // -------------------------------------------------------------------------
@@ -139,12 +227,30 @@ export class SpringEngine {
   async getNamingReport(request: SpringRequest): Promise<NamingReport> {
     await this.init();
 
-    const surnameEntries   = await this.resolveEntries(request.surname);
-    const givenNameEntries = await this.resolveEntries(request.givenName!);
+    const resolutionPolicy = this.resolveNameResolutionPolicy(
+      request.givenName,
+      request.options,
+    );
+    const surnameEntries = await this.resolveEntries(request.surname, {
+      forceHangulOnly: resolutionPolicy.pureHangulGivenName
+        && !resolutionPolicy.useSurnameHanjaInPureHangul,
+      isSurname: true,
+    });
+    const givenNameEntries = await this.resolveEntries(request.givenName!, {
+      forceHangulOnly: resolutionPolicy.pureHangulGivenName,
+    });
 
     const hangul = new HangulCalculator(surnameEntries, givenNameEntries);
-    const hanja  = new HanjaCalculator(surnameEntries, givenNameEntries);
-    const frame  = new FrameCalculator(surnameEntries, givenNameEntries);
+    const hanja = new HanjaCalculator(
+      surnameEntries,
+      givenNameEntries,
+      ENABLE_HANJA_NAME_EVALUATION && !resolutionPolicy.pureHangulGivenName,
+    );
+    const frame  = new FrameCalculator(
+      surnameEntries,
+      givenNameEntries,
+      ENABLE_FOURFRAME_NAME_EVALUATION,
+    );
 
     const evalCtx: EvalContext = {
       surnameLength: surnameEntries.length,
@@ -185,13 +291,41 @@ export class SpringEngine {
     const { dist: sajuDistribution, output: sajuOutput } = buildSajuContext(sajuReport);
     const nameStatInfo = await this.getNameStatInfo(request.givenName);
 
-    const surnameEntries   = await this.resolveEntries(request.surname);
-    const givenNameEntries = await this.resolveEntries(request.givenName);
+    const resolutionPolicy = this.resolveNameResolutionPolicy(
+      request.givenName,
+      request.options,
+    );
+    const surnameEntries = await this.resolveEntries(request.surname, {
+      forceHangulOnly: resolutionPolicy.pureHangulGivenName
+        && !resolutionPolicy.useSurnameHanjaInPureHangul,
+      isSurname: true,
+    });
+    const givenNameEntries = await this.resolveEntries(request.givenName, {
+      forceHangulOnly: resolutionPolicy.pureHangulGivenName,
+    });
 
     const hangul = new HangulCalculator(surnameEntries, givenNameEntries);
-    const hanja  = new HanjaCalculator(surnameEntries, givenNameEntries);
-    const frame  = new FrameCalculator(surnameEntries, givenNameEntries);
-    const saju   = new SajuCalculator(surnameEntries, givenNameEntries, sajuDistribution, sajuOutput);
+    const hanja  = new HanjaCalculator(
+      surnameEntries,
+      givenNameEntries,
+      ENABLE_HANJA_NAME_EVALUATION && !resolutionPolicy.pureHangulGivenName,
+    );
+    const frame  = new FrameCalculator(
+      surnameEntries,
+      givenNameEntries,
+      ENABLE_FOURFRAME_NAME_EVALUATION,
+    );
+    const hasSajuContext = Boolean(sajuOutput);
+    const saju   = new SajuCalculator(
+      surnameEntries,
+      givenNameEntries,
+      sajuDistribution,
+      sajuOutput,
+      {
+        elementSource: resolutionPolicy.pureHangulGivenName ? 'hangul' : 'resource',
+        enabled: hasSajuContext,
+      },
+    );
 
     const combinedCtx: EvalContext = {
       surnameLength: surnameEntries.length,
@@ -242,6 +376,7 @@ export class SpringEngine {
     const nameInputs = await this.collectNameInputs(
       request, mode, hasJamoInput, jamoFilters, sajuSummary,
     );
+    const requestedNamingStyle = normalizeRequestedNamingStyle(request.options?.namingStyle);
 
     // 3. Score each candidate
     const results: SpringReport[] = [];
@@ -249,6 +384,7 @@ export class SpringEngine {
     for (const givenNameInput of nameInputs) {
       const nameStatInfo = await this.getNameStatInfo(givenNameInput);
       if (!nameStatInfo.exists) continue;
+      if (!matchesRequestedNamingStyle(requestedNamingStyle, nameStatInfo.inferredStyle)) continue;
       results.push(await this.getSpringReport(
         { ...request, givenName: givenNameInput, mode: 'evaluate' },
         sajuReport,
@@ -281,19 +417,49 @@ export class SpringEngine {
     const nameInputs = await this.collectNameInputs(
       request, mode, hasJamoInput, jamoFilters, sajuSummary,
     );
+    const requestedNamingStyle = normalizeRequestedNamingStyle(request.options?.namingStyle);
 
-    const surnameEntries = await this.resolveEntries(request.surname);
     const results: SpringCandidateSummary[] = [];
 
     for (const givenNameInput of nameInputs) {
       const nameStatInfo = await this.getNameStatInfo(givenNameInput);
       if (!nameStatInfo.exists) continue;
-      const givenNameEntries = await this.resolveEntries(givenNameInput);
+      if (!matchesRequestedNamingStyle(requestedNamingStyle, nameStatInfo.inferredStyle)) continue;
+      const resolutionPolicy = this.resolveNameResolutionPolicy(
+        givenNameInput,
+        request.options,
+      );
+      const surnameEntries = await this.resolveEntries(request.surname, {
+        forceHangulOnly: resolutionPolicy.pureHangulGivenName
+          && !resolutionPolicy.useSurnameHanjaInPureHangul,
+        isSurname: true,
+      });
+      const givenNameEntries = await this.resolveEntries(givenNameInput, {
+        forceHangulOnly: resolutionPolicy.pureHangulGivenName,
+      });
 
       const hangul = new HangulCalculator(surnameEntries, givenNameEntries);
-      const hanja  = new HanjaCalculator(surnameEntries, givenNameEntries);
-      const frame  = new FrameCalculator(surnameEntries, givenNameEntries);
-      const saju   = new SajuCalculator(surnameEntries, givenNameEntries, sajuDistribution, sajuOutput);
+      const hanja  = new HanjaCalculator(
+        surnameEntries,
+        givenNameEntries,
+        ENABLE_HANJA_NAME_EVALUATION && !resolutionPolicy.pureHangulGivenName,
+      );
+      const frame  = new FrameCalculator(
+        surnameEntries,
+        givenNameEntries,
+        ENABLE_FOURFRAME_NAME_EVALUATION,
+      );
+      const hasSajuContext = Boolean(sajuOutput);
+      const saju   = new SajuCalculator(
+        surnameEntries,
+        givenNameEntries,
+        sajuDistribution,
+        sajuOutput,
+        {
+          elementSource: resolutionPolicy.pureHangulGivenName ? 'hangul' : 'resource',
+          enabled: hasSajuContext,
+        },
+      );
 
       const combinedCtx: EvalContext = {
         surnameLength: surnameEntries.length,
@@ -343,7 +509,7 @@ export class SpringEngine {
       ((categoryMap.HANGUL_ELEMENT?.score ?? 0) + (categoryMap.HANGUL_POLARITY?.score ?? 0)) / 2,
     );
     const hanjaScore = roundScore(
-      ((categoryMap.STROKE_POLARITY?.score ?? 0) + (categoryMap.FOURFRAME_ELEMENT?.score ?? 0)) / 2,
+      ((categoryMap.STROKE_POLARITY?.score ?? 0) + (categoryMap.STROKE_ELEMENT?.score ?? 0)) / 2,
     );
     const fourFrameScore = roundScore(categoryMap.FOURFRAME_LUCK?.score ?? 0);
 
@@ -410,7 +576,7 @@ export class SpringEngine {
 
     // 4. Score every candidate and rank by total score (descending)
     const scoredCandidates = await this.scoreAllCandidates(
-      request.surname, nameInputs, sajuDistribution, sajuOutput,
+      request.surname, nameInputs, sajuDistribution, sajuOutput, request.options,
     );
 
     // 5. Paginate and return
@@ -430,7 +596,14 @@ export class SpringEngine {
     // Auto-detect: if every given-name character has an explicit hanja,
     // the user wants an evaluation; otherwise, generate recommendations.
     const allHaveHanja = request.givenName?.length
-      && request.givenName.every(char => char.hanja);
+      && request.givenName.every((char) => this.hasExplicitHanja(char));
+
+    const pureHangulMode = this.resolvePureHangulMode(request.options);
+    const allGivenHangulOnly = request.givenName?.length
+      && request.givenName.every((char) => !this.hasExplicitHanja(char));
+    if (pureHangulMode === 'on' && allGivenHangulOnly && !hasJamoInput) {
+      return 'evaluate';
+    }
 
     return allHaveHanja && !hasJamoInput ? 'evaluate' : 'recommend';
   }
@@ -522,23 +695,29 @@ export class SpringEngine {
     return Number.isFinite(avg) && avg > 0 ? avg : null;
   }
 
-  private async getNameStatInfo(givenName: NameCharInput[]): Promise<{ exists: boolean; popularityRank: number | null }> {
+  private async getNameStatInfo(
+    givenName: NameCharInput[],
+  ): Promise<{ exists: boolean; popularityRank: number | null; inferredStyle: NameStyle | null }> {
     const key = this.givenNameHangulKey(givenName);
-    if (!key) return { exists: false, popularityRank: null };
+    if (!key) return { exists: false, popularityRank: null, inferredStyle: null };
 
     const cached = this.nameStatInfoCache.get(key);
     if (cached) return cached;
 
     try {
-      const found = await this.nameStatRepo.findByName(key);
+      const [found, genderRatio] = await Promise.all([
+        this.nameStatRepo.findByName(key),
+        this.nameStatRepo.findGenderRatioByName(key),
+      ]);
       const info = {
         exists: Boolean(found),
         popularityRank: found ? this.latestPopularityRankFromEntry(found) : null,
+        inferredStyle: found ? inferNameStyleFromRatio(genderRatio) : null,
       };
       this.nameStatInfoCache.set(key, info);
       return info;
     } catch {
-      const fallback = { exists: false, popularityRank: null };
+      const fallback = { exists: false, popularityRank: null, inferredStyle: null };
       this.nameStatInfoCache.set(key, fallback);
       return fallback;
     }
@@ -567,12 +746,19 @@ export class SpringEngine {
     nameInputs: NameCharInput[][],
     sajuDistribution: Record<ElementKey, number>,
     sajuOutput: SajuOutputSummary | null,
+    requestOptions?: SpringRequest['options'],
   ): Promise<SpringCandidate[]> {
     const scored: SpringCandidate[] = [];
 
     for (const givenNameInput of nameInputs) {
       scored.push(
-        await this.scoreCandidate(surname, givenNameInput, sajuDistribution, sajuOutput),
+        await this.scoreCandidate(
+          surname,
+          givenNameInput,
+          sajuDistribution,
+          sajuOutput,
+          requestOptions,
+        ),
       );
     }
 
@@ -616,15 +802,41 @@ export class SpringEngine {
     givenName: NameCharInput[],
     sajuDistribution: Record<ElementKey, number>,
     sajuOutput: SajuOutputSummary | null,
+    requestOptions?: SpringRequest['options'],
   ): Promise<SpringCandidate> {
-    const surnameEntries   = await this.resolveEntries(surname);
-    const givenNameEntries = await this.resolveEntries(givenName);
+    const resolutionPolicy = this.resolveNameResolutionPolicy(givenName, requestOptions);
+    const surnameEntries = await this.resolveEntries(surname, {
+      forceHangulOnly: resolutionPolicy.pureHangulGivenName
+        && !resolutionPolicy.useSurnameHanjaInPureHangul,
+      isSurname: true,
+    });
+    const givenNameEntries = await this.resolveEntries(givenName, {
+      forceHangulOnly: resolutionPolicy.pureHangulGivenName,
+    });
 
     // Build one calculator per scoring category
     const hangul = new HangulCalculator(surnameEntries, givenNameEntries);
-    const hanja  = new HanjaCalculator(surnameEntries, givenNameEntries);
-    const frame  = new FrameCalculator(surnameEntries, givenNameEntries);
-    const saju   = new SajuCalculator(surnameEntries, givenNameEntries, sajuDistribution, sajuOutput);
+    const hanja  = new HanjaCalculator(
+      surnameEntries,
+      givenNameEntries,
+      ENABLE_HANJA_NAME_EVALUATION && !resolutionPolicy.pureHangulGivenName,
+    );
+    const frame  = new FrameCalculator(
+      surnameEntries,
+      givenNameEntries,
+      ENABLE_FOURFRAME_NAME_EVALUATION,
+    );
+    const hasSajuContext = Boolean(sajuOutput);
+    const saju   = new SajuCalculator(
+      surnameEntries,
+      givenNameEntries,
+      sajuDistribution,
+      sajuOutput,
+      {
+        elementSource: resolutionPolicy.pureHangulGivenName ? 'hangul' : 'resource',
+        enabled: hasSajuContext,
+      },
+    );
 
     // Evaluate all calculators together
     const evalContext: EvalContext = {
@@ -647,7 +859,7 @@ export class SpringEngine {
       ((categoryMap.HANGUL_ELEMENT?.score ?? 0) + (categoryMap.HANGUL_POLARITY?.score ?? 0)) / 2,
     );
     const hanjaScore = roundScore(
-      ((categoryMap.STROKE_POLARITY?.score ?? 0) + (categoryMap.FOURFRAME_ELEMENT?.score ?? 0)) / 2,
+      ((categoryMap.STROKE_POLARITY?.score ?? 0) + (categoryMap.STROKE_ELEMENT?.score ?? 0)) / 2,
     );
 
     return {
@@ -691,7 +903,7 @@ export class SpringEngine {
     sajuSummary: SajuSummary,
     jamoFilters?: (JamoFilter | null)[],
   ): Promise<NameCharInput[][]> {
-    const surnameEntries = await this.resolveEntries(request.surname);
+    const surnameEntries = await this.resolveEntries(request.surname, { isSurname: true });
     const nameLength     = request.givenNameLength ?? jamoFilters?.length ?? 2;
     const hasJamoFilter  = jamoFilters?.some(filter => filter !== null) ?? false;
 
@@ -958,27 +1170,48 @@ export class SpringEngine {
   private async resolveFixedCharPool(givenNameChar: NameCharInput): Promise<HanjaEntry[]> {
     if (givenNameChar.hanja) {
       const entry = await this.hanjaRepo.findByHanja(givenNameChar.hanja);
-      return entry ? [entry] : [makeFallbackEntry(givenNameChar.hangul)];
+      return entry
+        ? [entry]
+        : [makeFallbackEntry(givenNameChar.hangul, { hanja: givenNameChar.hanja })];
     }
 
     const entries = await this.hanjaRepo.findByHangul(givenNameChar.hangul);
     return entries.length
       ? entries.slice(0, POOL_LIMIT_SINGLE_CHAR)
-      : [makeFallbackEntry(givenNameChar.hangul)];
+      : [makeFallbackEntry(givenNameChar.hangul, { hanja: '' })];
   }
 
   // -------------------------------------------------------------------------
   // resolveEntries -- look up full HanjaEntry records for a name
   // -------------------------------------------------------------------------
 
-  private async resolveEntries(chars: NameCharInput[]): Promise<HanjaEntry[]> {
+  private async resolveEntries(
+    chars: NameCharInput[],
+    options: ResolveEntriesOptions = {},
+  ): Promise<HanjaEntry[]> {
+    const forceHangulOnly = options.forceHangulOnly ?? false;
+    const isSurname = options.isSurname ?? false;
+
     return Promise.all(chars.map(async (char) => {
-      if (char.hanja) {
-        const entry = await this.hanjaRepo.findByHanja(char.hanja);
+      const hasHanjaField = Object.prototype.hasOwnProperty.call(char, 'hanja');
+      const normalizedHanja = String(char.hanja ?? '').trim();
+
+      if (forceHangulOnly || (hasHanjaField && normalizedHanja.length === 0)) {
+        return makeFallbackEntry(char.hangul, {
+          hanja: '',
+          isSurname,
+        });
+      }
+
+      if (normalizedHanja.length > 0) {
+        const entry = await this.hanjaRepo.findByHanja(normalizedHanja);
         if (entry) return entry;
       }
       const byHangul = await this.hanjaRepo.findByHangul(char.hangul);
-      return byHangul[0] ?? makeFallbackEntry(char.hangul);
+      return byHangul[0] ?? makeFallbackEntry(char.hangul, {
+        hanja: normalizedHanja,
+        isSurname,
+      });
     }));
   }
 

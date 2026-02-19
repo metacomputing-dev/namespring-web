@@ -1,4 +1,4 @@
-import React, { useState, useEffect, useMemo } from 'react';
+﻿import React, { useState, useEffect, useMemo, useCallback } from 'react';
 import { SeedTs } from "@seed/seed";
 import { HanjaRepository } from '@seed/database/hanja-repository';
 import { SpringEngine } from '@spring/spring-engine';
@@ -14,28 +14,62 @@ import InputForm from './InputForm';
 import NamingCandidatesPage from './NamingCandidatesPage';
 import CombinedReportPage from './CombinedReportPage';
 import SajuReportPage from './SajuReportPage';
+import CandidateNamingReportPage from './CandidateNamingReportPage';
+import CandidateSajuReportPage from './CandidateSajuReportPage';
 
 const ENTRY_STORAGE_KEY = 'namespring_entry_user_info';
-const PAGE_VALUES = ['entry', 'home', 'report', 'saju-report', 'naming-candidates', 'combined-report'];
+const PAGE_VALUES = [
+  'entry',
+  'home',
+  'report',
+  'saju-report',
+  'naming-candidates',
+  'combined-report',
+  'candidate-naming-report',
+  'candidate-saju-report',
+];
 
 function normalizeEntryUserInfo(value) {
   if (!value || !Array.isArray(value.lastName) || !Array.isArray(value.firstName)) {
     return null;
   }
 
+  const toOptionalInt = (rawValue, min, max) => {
+    if (rawValue === null || rawValue === undefined || rawValue === '') return null;
+    const n = Number(rawValue);
+    if (!Number.isFinite(n) || !Number.isInteger(n)) return null;
+    if (n < min || n > max) return null;
+    return n;
+  };
+
   const birthDateTime = value.birthDateTime || {};
+  const normalizedCalendarType = birthDateTime.calendarType === 'lunar' ? 'lunar' : 'solar';
   const normalizedBirthDateTime = {
-    year: Number(birthDateTime.year) || 0,
-    month: Number(birthDateTime.month) || 0,
-    day: Number(birthDateTime.day) || 0,
-    hour: Number.isFinite(Number(birthDateTime.hour)) ? Number(birthDateTime.hour) : 12,
-    minute: Number.isFinite(Number(birthDateTime.minute)) ? Number(birthDateTime.minute) : 0,
+    year: toOptionalInt(birthDateTime.year, 1, 9999),
+    month: toOptionalInt(birthDateTime.month, 1, 12),
+    day: toOptionalInt(birthDateTime.day, 1, 31),
+    hour: toOptionalInt(birthDateTime.hour, 0, 23),
+    minute: toOptionalInt(birthDateTime.minute, 0, 59),
+    calendarType: normalizedCalendarType,
+    isLeapMonth: normalizedCalendarType === 'lunar' && birthDateTime.isLeapMonth != null
+      ? Boolean(birthDateTime.isLeapMonth)
+      : undefined,
+  };
+
+  const options = value.options || {};
+  const pureHangulNameMode = options.pureHangulNameMode === 'on' || options.pureHangulNameMode === 'off'
+    ? options.pureHangulNameMode
+    : 'auto';
+  const normalizedOptions = {
+    pureHangulNameMode,
+    useSurnameHanjaInPureHangul: pureHangulNameMode === 'on' && Boolean(options.useSurnameHanjaInPureHangul),
   };
 
   return {
     ...value,
     birthDateTime: normalizedBirthDateTime,
     gender: value.gender === 'female' ? 'female' : 'male',
+    options: normalizedOptions,
   };
 }
 
@@ -64,11 +98,27 @@ function toSpringNameChars(entries) {
     .filter((entry) => entry.hangul.length > 0);
 }
 
-function toSpringRequest(userInfo) {
+function normalizeNamingContext(value) {
+  if (!value || typeof value !== 'object') return {};
+  return {
+    namingGender: value.namingGender === 'female' ? 'female' : value.namingGender === 'male' ? 'male' : undefined,
+    namingStyle: value.namingStyle === 'female'
+      ? 'female'
+      : value.namingStyle === 'male'
+        ? 'male'
+        : value.namingStyle === 'neutral'
+          ? 'neutral'
+          : undefined,
+  };
+}
+
+function toSpringRequest(userInfo, namingContext) {
   const normalized = normalizeEntryUserInfo(userInfo);
   if (!normalized) {
     throw new Error('입력 정보가 없습니다.');
   }
+  const normalizedNamingContext = normalizeNamingContext(namingContext);
+  const effectiveGender = normalizedNamingContext.namingGender ?? normalized.gender;
 
   const surname = toSpringNameChars(normalized.lastName);
   const givenNameLength = Math.max(1, Math.min(4, normalized.firstName.length || 2));
@@ -83,16 +133,23 @@ function toSpringRequest(userInfo) {
       day: normalized.birthDateTime.day,
       hour: normalized.birthDateTime.hour,
       minute: normalized.birthDateTime.minute,
-      gender: normalized.gender,
+      calendarType: normalized.birthDateTime.calendarType,
+      isLeapMonth: normalized.birthDateTime.isLeapMonth,
+      gender: effectiveGender,
     },
     surname,
     givenNameLength,
     mode: 'recommend',
+    options: {
+      pureHangulNameMode: normalized.options?.pureHangulNameMode ?? 'auto',
+      useSurnameHanjaInPureHangul: Boolean(normalized.options?.useSurnameHanjaInPureHangul),
+      namingStyle: normalizedNamingContext.namingStyle,
+    },
   };
 }
 
-function toSpringReportRequest(userInfo, givenName) {
-  const base = toSpringRequest(userInfo);
+function toSpringReportRequest(userInfo, givenName, namingContext) {
+  const base = toSpringRequest(userInfo, namingContext);
   const normalizedGivenName = (givenName || [])
     .map((item) => ({
       hangul: String(item?.hangul ?? ''),
@@ -107,7 +164,7 @@ function toSpringReportRequest(userInfo, givenName) {
   };
 }
 
-function toCurrentNameSpringReportRequest(userInfo) {
+function toCurrentNameSpringReportRequest(userInfo, namingContext) {
   const normalized = normalizeEntryUserInfo(userInfo);
   if (!normalized) {
     throw new Error('입력 정보가 없습니다.');
@@ -119,7 +176,7 @@ function toCurrentNameSpringReportRequest(userInfo) {
   }
 
   return {
-    ...toSpringRequest(normalized),
+    ...toSpringRequest(normalized, namingContext),
     givenName,
     mode: 'evaluate',
   };
@@ -136,6 +193,8 @@ function App() {
   const [minSplashElapsed, setMinSplashElapsed] = useState(false);
   const [entryUserInfo, setEntryUserInfo] = useState(() => loadStoredEntryUserInfo());
   const [selectedCandidateSummary, setSelectedCandidateSummary] = useState(null);
+  const [selectedNamingContext, setSelectedNamingContext] = useState(null);
+  const [selectedSpringReport, setSelectedSpringReport] = useState(null);
   const [page, setPage] = useState(() => (loadStoredEntryUserInfo() ? 'home' : 'entry'));
   const hanjaRepo = useMemo(() => new HanjaRepository(), []);
   const springEngine = useMemo(() => new SpringEngine(), []);
@@ -194,21 +253,21 @@ function App() {
     return engine.analyze(normalizeEntryUserInfo(userInfo));
   };
 
-  const handleRecommendAsync = async (userInfo) => {
-    const springRequest = toSpringRequest(userInfo);
+  const handleRecommendAsync = async (userInfo, namingContext) => {
+    const springRequest = toSpringRequest(userInfo, namingContext);
     return springEngine.getNameCandidateSummaries(springRequest);
   };
 
-  const handleLoadCombinedReportAsync = async (userInfo, candidate) => {
-    const springRequest = toSpringReportRequest(userInfo, candidate?.givenName);
+  const handleLoadCombinedReportAsync = async (userInfo, candidate, namingContext) => {
+    const springRequest = toSpringReportRequest(userInfo, candidate?.givenName, namingContext);
     if (!springRequest.givenName?.length) {
-      throw new Error('선택한 후보 이름 정보가 없습니다.');
+      throw new Error('선택된 후보 이름 정보가 없습니다.');
     }
     return springEngine.getSpringReport(springRequest);
   };
 
-  const handleLoadCurrentNameReportAsync = async (userInfo) => {
-    const springRequest = toCurrentNameSpringReportRequest(userInfo);
+  const handleLoadCurrentNameReportAsync = async (userInfo, namingContext) => {
+    const springRequest = toCurrentNameSpringReportRequest(userInfo, namingContext);
     return springEngine.getSpringReport(springRequest);
   };
 
@@ -216,6 +275,18 @@ function App() {
     const springRequest = toSpringRequest(userInfo);
     return springEngine.getSajuReport(springRequest);
   };
+
+  const handleUpdateEntryUserInfo = useCallback((userInfo) => {
+    const normalized = normalizeEntryUserInfo(userInfo);
+    setEntryUserInfo(normalized);
+    try {
+      sessionStorage.setItem(ENTRY_STORAGE_KEY, JSON.stringify(normalized));
+    } catch {}
+  }, []);
+
+  const handleCombinedReportReady = useCallback((report) => {
+    setSelectedSpringReport(report || null);
+  }, []);
 
   const navigateToPage = (nextPage, options = {}) => {
     const hasEntryUserInfo = typeof options.hasEntryUserInfo === 'boolean'
@@ -261,7 +332,7 @@ function App() {
               <div className="bg-[var(--ns-surface)] p-10 rounded-[3rem] shadow-2xl border border-[var(--ns-border)] w-full max-w-2xl overflow-hidden">
                 <header className="mb-8 text-center">
                   <h1 className="text-3xl font-black text-[var(--ns-accent-text)]">이름봄</h1>
-                  <p className="text-[var(--ns-muted)] text-sm font-semibold">당신의 인생과 함께하는 이름</p>
+                  <p className="text-[var(--ns-muted)] text-sm font-semibold">당신의 인생과 어울리는 이름</p>
                 </header>
                 <InputForm
                   hanjaRepo={hanjaRepo}
@@ -269,6 +340,9 @@ function App() {
                   onEnter={(userInfo) => {
                     const normalized = normalizeEntryUserInfo(userInfo);
                     setEntryUserInfo(normalized);
+                    setSelectedCandidateSummary(null);
+                    setSelectedNamingContext(null);
+                    setSelectedSpringReport(null);
                     try {
                       sessionStorage.setItem(ENTRY_STORAGE_KEY, JSON.stringify(normalized));
                     } catch {}
@@ -309,9 +383,12 @@ function App() {
               entryUserInfo={entryUserInfo}
               onRecommendAsync={handleRecommendAsync}
               onLoadCurrentSpringReport={handleLoadCurrentNameReportAsync}
+              onUpdateEntryUserInfo={handleUpdateEntryUserInfo}
               onBackHome={() => navigateToPage('home')}
-              onOpenCombinedReport={(candidate) => {
+              onOpenCombinedReport={(candidate, namingContext) => {
                 setSelectedCandidateSummary(candidate || null);
+                setSelectedNamingContext(normalizeNamingContext(namingContext));
+                setSelectedSpringReport(null);
                 navigateToPage('combined-report');
               }}
             />
@@ -328,11 +405,43 @@ function App() {
             <CombinedReportPage
               entryUserInfo={entryUserInfo}
               selectedCandidate={selectedCandidateSummary}
+              namingContext={selectedNamingContext}
               onLoadCombinedReport={handleLoadCombinedReportAsync}
+              onReportReady={handleCombinedReportReady}
               onBackHome={() => navigateToPage('home')}
               onBackCandidates={() => navigateToPage('naming-candidates')}
-              onOpenNamingReport={() => navigateToPage('report')}
-              onOpenSajuReport={() => navigateToPage('saju-report')}
+              onOpenNamingReport={() => navigateToPage('candidate-naming-report')}
+              onOpenSajuReport={() => navigateToPage('candidate-saju-report')}
+            />
+          </AppBackground>
+        ),
+      };
+    }
+
+    if (page === 'candidate-naming-report') {
+      return {
+        key: 'candidate-naming-report',
+        node: (
+          <AppBackground>
+            <CandidateNamingReportPage
+              springReport={selectedSpringReport}
+              onBackCombined={() => navigateToPage('combined-report')}
+              onBackHome={() => navigateToPage('home')}
+            />
+          </AppBackground>
+        ),
+      };
+    }
+
+    if (page === 'candidate-saju-report') {
+      return {
+        key: 'candidate-saju-report',
+        node: (
+          <AppBackground>
+            <CandidateSajuReportPage
+              springReport={selectedSpringReport}
+              onBackCombined={() => navigateToPage('combined-report')}
+              onBackHome={() => navigateToPage('home')}
             />
           </AppBackground>
         ),
@@ -385,3 +494,4 @@ function App() {
 }
 
 export default App;
+

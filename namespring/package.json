@@ -7,7 +7,9 @@
     "lib/seed-ts"
   ],
   "scripts": {
+    "predev": "npm --prefix ../lib/saju-ts run build",
     "dev": "vite",
+    "prebuild": "npm --prefix ../lib/saju-ts run build",
     "copy:saju": "node ./scripts/copy-saju-dist.mjs",
     "build": "vite build",
     "build:pages": "npm run copy:saju && vite build",

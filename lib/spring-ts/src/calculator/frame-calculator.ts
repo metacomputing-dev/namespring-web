@@ -19,9 +19,11 @@ export class FrameCalculator extends SeedFourFrameCalculator implements Evaluabl
   readonly id = 'frame';
   private frameElementScore = 0;
   private frameLuckScore = 0;
+  private readonly enabled: boolean;
 
-  constructor(surnameEntries: HanjaEntry[], givenNameEntries: HanjaEntry[]) {
+  constructor(surnameEntries: HanjaEntry[], givenNameEntries: HanjaEntry[], enabled: boolean = true) {
     super(surnameEntries, givenNameEntries);
+    this.enabled = enabled;
   }
 
   async ensureEntriesLoaded(): Promise<void> {
@@ -29,12 +31,39 @@ export class FrameCalculator extends SeedFourFrameCalculator implements Evaluabl
   }
 
   visit(ctx: EvalContext): void {
+    if (!this.enabled) {
+      this.frameElementScore = 0;
+      this.frameLuckScore = 0;
+
+      putInsight(
+        ctx,
+        'FOURFRAME_LUCK',
+        100,
+        true,
+        'DISABLED',
+        { disabled: true, reason: 'fourframe-evaluation-disabled' },
+      );
+      putInsight(
+        ctx,
+        'FOURFRAME_ELEMENT',
+        100,
+        true,
+        'DISABLED',
+        { disabled: true, reason: 'fourframe-evaluation-disabled' },
+      );
+      return;
+    }
+
     this.calculate();
     this.scoreFourframeLuck(ctx);
     this.scoreFourframeElement(ctx);
   }
 
   backward(ctx: EvalContext): CalculatorPacket {
+    if (!this.enabled) {
+      return { signals: [] };
+    }
+
     return {
       signals: [
         createSignal('FOURFRAME_LUCK', ctx, LUCK_SIGNAL_WEIGHT),

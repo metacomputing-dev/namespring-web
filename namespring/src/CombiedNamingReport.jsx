@@ -289,12 +289,6 @@ function CombiedNamingReport({
           <div className="rounded-xl border border-[var(--ns-border)] bg-[var(--ns-surface-soft)] p-3 font-black text-[var(--ns-muted)]">
             한글 점수: {formatScore(namingReport?.scores?.hangul)}
           </div>
-          <div className="rounded-xl border border-[var(--ns-border)] bg-[var(--ns-surface-soft)] p-3 font-black text-[var(--ns-muted)]">
-            한자 점수: {formatScore(namingReport?.scores?.hanja)}
-          </div>
-          <div className="rounded-xl border border-[var(--ns-border)] bg-[var(--ns-surface-soft)] p-3 font-black text-[var(--ns-muted)] md:col-span-2">
-            사격수리 점수: {formatScore(namingReport?.scores?.fourFrame)}
-          </div>
         </div>
       </CollapseCard>
 

@@ -115,6 +115,34 @@ function PillarCard({ label, pillar }) {
 function SajuReport({ report }) {
   if (!report) return null;
 
+  const partialInterpretation = Array.isArray(report?.partialInterpretation)
+    ? report.partialInterpretation.filter((line) => typeof line === 'string' && line.trim().length > 0)
+    : [];
+  const partialNotice = partialInterpretation.length > 0 ? (
+    <div className="mt-3 space-y-2 rounded-xl border border-[var(--ns-border)] bg-[var(--ns-surface)] px-3 py-2.5">
+      {partialInterpretation.map((line, index) => (
+        <p key={`partial-note-${index}`} className="text-sm text-[var(--ns-muted)] break-keep whitespace-normal leading-relaxed">
+          {line}
+        </p>
+      ))}
+    </div>
+  ) : null;
+
+  if (!report?.sajuEnabled) {
+    return (
+      <div className="space-y-3">
+        <section className="rounded-[2rem] border border-[var(--ns-border)] bg-[var(--ns-surface-soft)] p-4">
+          <h2 className="text-2xl font-black text-[var(--ns-accent-text)]">사주 해석</h2>
+          {partialNotice || (
+            <p className="mt-3 text-sm text-[var(--ns-muted)] break-keep whitespace-normal leading-relaxed">
+              입력된 생년월일시 정보가 없어 사주 해석을 제공하지 않습니다.
+            </p>
+          )}
+        </section>
+      </div>
+    );
+  }
+
   const [openCards, setOpenCards] = useState({
     time: true,
     pillars: true,
@@ -209,6 +237,7 @@ function SajuReport({ report }) {
           <InfoCard title="격국" value={`${report?.gyeokguk?.type || '-'} / ${report?.gyeokguk?.category || '-'}`} />
           <InfoCard title="용신" value={`${elementLabel(report?.yongshin?.element)} (${report?.yongshin?.element || '-'})`} />
         </div>
+        {partialNotice}
       </section>
 
       <CollapseCard

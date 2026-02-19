@@ -5,7 +5,10 @@ import type { HanjaEntry } from './database/hanja-repository';
  * Represents the gender of the user.
  * Using a union type for strict type checking.
  */
-export type Gender = 'male' | 'female';
+export type Gender = 'male' | 'female' | 'neutral';
+
+export type BirthCalendarType = 'solar' | 'lunar';
+export type PureHangulNameMode = 'auto' | 'on' | 'off';
 
 /**
  * Categorizes the types of analysis performed by the engine.
@@ -17,11 +20,18 @@ export type AnalysisType = 'FourFrame' | 'Hangul' | 'Hanja';
  * This avoids the mutability and zero-indexing issues of the native JS Date object.
  */
 export interface BirthDateTime {
-  readonly year: number;   // e.g., 2024
-  readonly month: number;  // 1 to 12
-  readonly day: number;    // 1 to 31
-  readonly hour: number;   // 0 to 23
-  readonly minute: number; // 0 to 59
+  readonly year?: number | null;   // e.g., 2024
+  readonly month?: number | null;  // 1 to 12
+  readonly day?: number | null;    // 1 to 31
+  readonly hour?: number | null;   // 0 to 23
+  readonly minute?: number | null; // 0 to 59
+  readonly calendarType?: BirthCalendarType;
+  readonly isLeapMonth?: boolean;
+}
+
+export interface SeedAnalysisOptions {
+  readonly pureHangulNameMode?: PureHangulNameMode;
+  readonly useSurnameHanjaInPureHangul?: boolean;
 }
 
 /**
@@ -33,6 +43,7 @@ export interface UserInfo {
   readonly firstName: HanjaEntry[];
   readonly birthDateTime: BirthDateTime;
   readonly gender: Gender;
+  readonly options?: SeedAnalysisOptions;
 }
 
 /**
