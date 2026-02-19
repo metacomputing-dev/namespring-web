@@ -17,6 +17,38 @@ function getPopularityRank(candidate) {
   return Number.isFinite(rank) && rank > 0 ? rank : null;
 }
 
+const NAME_CARD_TONES = [
+  {
+    cardGradient: 'linear-gradient(90deg, #bbf7d0 0%, #dcfce7 40%, #ffffff 100%)',
+    scoreMiniClass: 'border-emerald-200 bg-emerald-100/90 text-emerald-800',
+    popularityMiniClass: 'border-emerald-200 bg-emerald-50/95 text-emerald-700',
+  },
+  {
+    cardGradient: 'linear-gradient(90deg, #bae6fd 0%, #e0f2fe 40%, #ffffff 100%)',
+    scoreMiniClass: 'border-sky-200 bg-sky-100/90 text-sky-800',
+    popularityMiniClass: 'border-sky-200 bg-sky-50/95 text-sky-700',
+  },
+  {
+    cardGradient: 'linear-gradient(90deg, #fde68a 0%, #fef3c7 42%, #ffffff 100%)',
+    scoreMiniClass: 'border-amber-200 bg-amber-100/90 text-amber-800',
+    popularityMiniClass: 'border-amber-200 bg-amber-50/95 text-amber-700',
+  },
+  {
+    cardGradient: 'linear-gradient(90deg, #fecdd3 0%, #ffe4e6 40%, #ffffff 100%)',
+    scoreMiniClass: 'border-rose-200 bg-rose-100/90 text-rose-800',
+    popularityMiniClass: 'border-rose-200 bg-rose-50/95 text-rose-700',
+  },
+  {
+    cardGradient: 'linear-gradient(90deg, #bae6fd 0%, #cffafe 42%, #ffffff 100%)',
+    scoreMiniClass: 'border-cyan-200 bg-cyan-100/90 text-cyan-800',
+    popularityMiniClass: 'border-cyan-200 bg-cyan-50/95 text-cyan-700',
+  },
+];
+
+function getNameCardTone(index) {
+  return NAME_CARD_TONES[index % NAME_CARD_TONES.length];
+}
+
 function NamingCandidatesPage({ entryUserInfo, onRecommendAsync, onLoadCurrentSpringReport, onBackHome, onOpenCombinedReport }) {
   const [isLoading, setIsLoading] = useState(true);
   const [isCurrentLoading, setIsCurrentLoading] = useState(true);
@@ -209,23 +241,31 @@ function NamingCandidatesPage({ entryUserInfo, onRecommendAsync, onLoadCurrentSp
             <ul className="max-h-[66vh] overflow-y-auto space-y-2 pr-1">
               {sortedCandidates.map((candidate, index) => {
                 const popularityRank = getPopularityRank(candidate);
+                const tone = getNameCardTone(index);
                 return (
-                  <li key={`${candidate?.rank ?? index}-${candidate?.fullHanja ?? candidate?.namingReport?.name?.fullHanja ?? index}`} className="rounded-xl border border-[var(--ns-border)] bg-[var(--ns-surface-soft)]">
+                  <li
+                    key={`${candidate?.rank ?? index}-${candidate?.fullHanja ?? candidate?.namingReport?.name?.fullHanja ?? index}`}
+                    className="rounded-xl border border-[var(--ns-border)]"
+                    style={{ backgroundImage: tone.cardGradient }}
+                  >
                     <button
                       type="button"
                       onClick={() => onOpenCombinedReport?.(candidate)}
-                      className="w-full text-left px-4 py-3 hover:bg-white/60 transition-colors rounded-xl"
+                      className="w-full text-left px-4 py-3 rounded-xl transition-all hover:brightness-[1.015]"
                     >
                       <div className="flex flex-wrap items-center justify-between gap-2">
                         <p className="text-sm md:text-base font-black text-[var(--ns-accent-text)] break-keep whitespace-normal">
                           {getDisplayName(candidate)}
                         </p>
-                        <p className="text-sm font-black text-[var(--ns-text)]">
-                          최종 점수 {formatScore(candidate?.finalScore)}
-                        </p>
+                        <div className={`shrink-0 rounded-lg border px-2.5 py-1 text-right ${tone.scoreMiniClass}`}>
+                          <p className="text-[10px] font-black opacity-75">최종 점수</p>
+                          <p className="text-sm font-black leading-none mt-0.5">{formatScore(candidate?.finalScore)}</p>
+                        </div>
                       </div>
-                      <div className="mt-1 text-xs font-semibold text-[var(--ns-muted)] flex justify-end">
-                        인기도 {popularityRank ? `${Math.round(popularityRank).toLocaleString()}위` : '-'}
+                      <div className="mt-2 flex justify-end">
+                        <span className={`inline-flex items-center rounded-md border px-2.5 py-1 text-[11px] font-black ${tone.popularityMiniClass}`}>
+                          인기도 {popularityRank ? `${Math.round(popularityRank).toLocaleString()}위` : '-'}
+                        </span>
                       </div>
                     </button>
                   </li>

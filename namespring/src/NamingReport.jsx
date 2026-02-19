@@ -1,6 +1,7 @@
-import React, { useEffect, useMemo, useState } from 'react';
+import React, { useEffect, useMemo, useRef, useState } from 'react';
 import { NameStatRepository } from '@seed/database/name-stat-repository';
 import { createPortal } from 'react-dom';
+import { buildShareLinkFromEntryUserInfo } from './share-entry-user-info';
 
 const TOTAL_NAME_STATS_COUNT = 50194;
 const ELEMENT_ORDER = ['Wood', 'Fire', 'Earth', 'Metal', 'Water'];
@@ -277,6 +278,14 @@ function replaceNamePlaceholder(value, fullName) {
   return value.replace(/\[성함\]/g, fullName);
 }
 
+function waitForNextPaint() {
+  return new Promise((resolve) => {
+    window.requestAnimationFrame(() => {
+      window.requestAnimationFrame(resolve);
+    });
+  });
+}
+
 function MetaInfoCard({ title, value, tone = 'default' }) {
   const toneClass =
     tone === 'emerald'
@@ -285,7 +294,7 @@ function MetaInfoCard({ title, value, tone = 'default' }) {
         ? 'border-amber-200 bg-amber-50 text-amber-800'
         : tone === 'blue'
           ? 'border-blue-200 bg-blue-50 text-blue-800'
-          : 'border-[var(--ns-border)] bg-[var(--ns-surface)] text-[var(--ns-muted)]';
+          : 'border-amber-200 bg-amber-50/85 text-amber-800';
 
   return (
     <div className={`rounded-xl border px-3 py-2.5 ${toneClass}`}>
@@ -330,9 +339,19 @@ function getFrameDetailScores(frames, index) {
   };
 }
 
-function CollapseCard({ title, subtitle, open, onToggle, children }) {
+const CARD_TONE = {
+  default: 'bg-[var(--ns-surface)] border-[var(--ns-border)]',
+  popularity: 'bg-gradient-to-r from-blue-300/55 via-blue-100/60 to-white border-blue-200',
+  lifeFlow: 'bg-gradient-to-r from-amber-300/55 via-amber-100/60 to-white border-amber-200',
+  fourFrame: 'bg-gradient-to-r from-emerald-300/50 via-emerald-100/60 to-white border-emerald-200',
+  hanja: 'bg-gradient-to-r from-slate-300/50 via-slate-100/60 to-white border-slate-200',
+  hangul: 'bg-gradient-to-r from-cyan-300/50 via-cyan-100/60 to-white border-cyan-200',
+};
+
+function CollapseCard({ title, subtitle, open, onToggle, children, tone = 'default' }) {
+  const toneClass = CARD_TONE[tone] || CARD_TONE.default;
   return (
-    <section className="bg-[var(--ns-surface)] rounded-[2rem] border border-[var(--ns-border)] shadow-lg overflow-hidden">
+    <section className={`rounded-[2rem] border shadow-lg overflow-hidden ${toneClass}`}>
       <button
         type="button"
         onClick={onToggle}
@@ -342,7 +361,7 @@ function CollapseCard({ title, subtitle, open, onToggle, children }) {
           <h3 className="text-lg font-black text-[var(--ns-accent-text)]">{title}</h3>
           {subtitle ? <p className="text-sm text-[var(--ns-muted)] mt-1 break-keep whitespace-normal">{subtitle}</p> : null}
         </div>
-        <span className="shrink-0 inline-flex items-center justify-center w-8 h-8 rounded-full border border-[var(--ns-border)] bg-[var(--ns-surface-soft)]">
+        <span className="shrink-0 inline-flex items-center justify-center w-8 h-8 rounded-full border border-[var(--ns-border)] bg-white/65 backdrop-blur-[2px]">
           <svg
             viewBox="0 0 20 20"
             fill="none"
@@ -398,9 +417,10 @@ function GenderRatioPie({ maleRatio, femaleRatio, maleBirths, femaleBirths }) {
   );
 }
 
-const NamingReport = ({ result, onNewAnalysis }) => {
+const NamingReport = ({ result, shareUserInfo = null }) => {
   if (!result) return null;
 
+  const reportRootRef = useRef(null);
   const [openCards, setOpenCards] = useState({
     popularity: false,
     lifeFlow: false,
@@ -408,6 +428,10 @@ const NamingReport = ({ result, onNewAnalysis }) => {
     hanja: false,
     hangul: false,
   });
+  const [isPdfSaving, setIsPdfSaving] = useState(false);
+  const [isShareDialogOpen, setIsShareDialogOpen] = useState(false);
+  const [shareLink, setShareLink] = useState('');
+  const [isLinkCopied, setIsLinkCopied] = useState(false);
   const [openLifeDetails, setOpenLifeDetails] = useState({});
   const [showScrollTop, setShowScrollTop] = useState(false);
   const [popularityState, setPopularityState] = useState({
@@ -427,7 +451,7 @@ const NamingReport = ({ result, onNewAnalysis }) => {
     femaleRatio: 0,
   });
 
-  const { lastName, firstName, totalScore, hanja, hangul, fourFrames, interpretation } = result;
+  const { lastName, firstName, totalScore, hanja, hangul, fourFrames } = result;
   const fullEntries = [...lastName, ...firstName];
   const fullNameHanja = fullEntries.map((v) => v.hanja).join('');
   const fullNameHangul = fullEntries.map((v) => v.hangul).join('');
@@ -475,8 +499,220 @@ const NamingReport = ({ result, onNewAnalysis }) => {
   const toggleCard = (key) => {
     setOpenCards((prev) => ({ ...prev, [key]: !prev[key] }));
   };
+
+  const openAllCards = () => ({
+    popularity: true,
+    lifeFlow: true,
+    fourFrame: true,
+    hanja: true,
+    hangul: true,
+  });
+
+  const handleSavePdf = async () => {
+    if (isPdfSaving || !reportRootRef.current) return;
+
+    const previousOpenCards = { ...openCards };
+    setIsPdfSaving(true);
+    setOpenCards(openAllCards());
+
+    try {
+      await waitForNextPaint();
+      await new Promise((resolve) => window.setTimeout(resolve, 180));
+
+      const [html2canvasModule, jsPdfModule] = await Promise.all([
+        import('html2canvas'),
+        import('jspdf'),
+      ]);
+      const html2canvasLib = html2canvasModule?.default || html2canvasModule;
+      const JsPdfCtor = jsPdfModule?.jsPDF || jsPdfModule?.default?.jsPDF || jsPdfModule?.default;
+      if (typeof html2canvasLib !== 'function') {
+        throw new Error('html2canvas module load failed');
+      }
+      if (typeof JsPdfCtor !== 'function') {
+        throw new Error('jsPDF constructor load failed');
+      }
+
+      const target = reportRootRef.current;
+      const sanitizeClonedDocument = (clonedDocument) => {
+        const cloneRoot = clonedDocument.querySelector('[data-pdf-root="true"]');
+        const cloneWindow = clonedDocument.defaultView;
+        if (!cloneRoot || !cloneWindow) return;
+
+        const UNSUPPORTED_COLOR_FN = /\b(oklch|oklab|color-mix|color|lab|lch)\(/i;
+        const toSafeColor = (value, fallback = '#111827') => {
+          if (!value || value === 'transparent') return value;
+          if (!UNSUPPORTED_COLOR_FN.test(value)) return value;
+          const probe = clonedDocument.createElement('span');
+          probe.style.color = '#000000';
+          probe.style.color = value;
+          cloneRoot.appendChild(probe);
+          const resolved = cloneWindow.getComputedStyle(probe).color || '';
+          probe.remove();
+          if (!resolved || UNSUPPORTED_COLOR_FN.test(resolved)) {
+            return fallback;
+          }
+          return resolved;
+        };
+
+        const colorPropFallback = {
+          color: '#111827',
+          backgroundColor: '#ffffff',
+          borderTopColor: '#d1d5db',
+          borderRightColor: '#d1d5db',
+          borderBottomColor: '#d1d5db',
+          borderLeftColor: '#d1d5db',
+          outlineColor: '#d1d5db',
+          textDecorationColor: '#111827',
+          caretColor: '#111827',
+          fill: '#111827',
+          stroke: '#111827',
+          webkitTextStrokeColor: '#111827',
+        };
+        const forceColorProps = Object.keys(colorPropFallback);
+
+        const normalizeShadow = (value) => (UNSUPPORTED_COLOR_FN.test(value) ? 'none' : value);
+
+        const overrideStyle = clonedDocument.createElement('style');
+        overrideStyle.textContent = `
+          [data-pdf-root="true"], [data-pdf-root="true"] * {
+            background-image: none !important;
+          }
+          [data-pdf-root="true"] *, [data-pdf-root="true"] *::before, [data-pdf-root="true"] *::after {
+            box-shadow: none !important;
+            text-shadow: none !important;
+          }
+        `;
+        clonedDocument.head.appendChild(overrideStyle);
+
+        const elements = [
+          clonedDocument.documentElement,
+          clonedDocument.body,
+          ...Array.from(clonedDocument.querySelectorAll('*')),
+        ].filter(Boolean);
+        for (const element of elements) {
+          const computed = cloneWindow.getComputedStyle(element);
+          element.style.backgroundImage = 'none';
+          element.style.boxShadow = normalizeShadow(computed.boxShadow || 'none');
+          element.style.textShadow = normalizeShadow(computed.textShadow || 'none');
+
+          for (const prop of forceColorProps) {
+            const raw = computed[prop];
+            if (!raw) continue;
+            const safe = toSafeColor(raw, colorPropFallback[prop]);
+            if (!safe) continue;
+            element.style[prop] = safe;
+          }
+        }
+      };
+
+      const html2CanvasBaseOptions = {
+        backgroundColor: '#ffffff',
+        scale: 2,
+        useCORS: true,
+        scrollX: 0,
+        scrollY: 0,
+        windowWidth: target.scrollWidth,
+        windowHeight: target.scrollHeight,
+      };
+      const renderCanvas = (extraOptions = {}) => html2canvasLib(target, {
+        ...html2CanvasBaseOptions,
+        onclone: sanitizeClonedDocument,
+        ...extraOptions,
+      });
+
+      let canvas;
+      try {
+        canvas = await renderCanvas();
+      } catch (renderError) {
+        const message = String(renderError?.message ?? renderError ?? '');
+        const isUnsupportedColorError = /unsupported color function/i.test(message);
+        if (!isUnsupportedColorError) {
+          throw renderError;
+        }
+        canvas = await renderCanvas({
+          foreignObjectRendering: true,
+          onclone: undefined,
+        });
+      }
+
+      const imageData = canvas.toDataURL('image/png');
+      const pdf = new JsPdfCtor({
+        orientation: 'portrait',
+        unit: 'mm',
+        format: 'a4',
+      });
+
+      const pageWidth = pdf.internal.pageSize.getWidth();
+      const pageHeight = pdf.internal.pageSize.getHeight();
+      const margin = 8;
+      const contentWidth = pageWidth - margin * 2;
+      const contentHeight = pageHeight - margin * 2;
+      const imageHeight = (canvas.height * contentWidth) / canvas.width;
+
+      let remainingHeight = imageHeight;
+      let y = margin;
+
+      pdf.addImage(imageData, 'PNG', margin, y, contentWidth, imageHeight, undefined, 'FAST');
+      remainingHeight -= contentHeight;
+
+      while (remainingHeight > 0) {
+        pdf.addPage();
+        y = margin - (imageHeight - remainingHeight);
+        pdf.addImage(imageData, 'PNG', margin, y, contentWidth, imageHeight, undefined, 'FAST');
+        remainingHeight -= contentHeight;
+      }
+
+      const safeName = (fullNameHangul || 'name')
+        .replace(/[\\/:*?"<>|]/g, '_')
+        .trim();
+      pdf.save(`${safeName || 'name'}_이름평가보고서.pdf`);
+    } catch (error) {
+      console.error('PDF save failed', error);
+      alert('PDF 저장에 실패했습니다. 잠시 후 다시 시도해 주세요.');
+    } finally {
+      setOpenCards(previousOpenCards);
+      setIsPdfSaving(false);
+    }
+  };
+
+  const handleOpenShareDialog = () => {
+    const nextShareLink = buildShareLinkFromEntryUserInfo(shareUserInfo, window.location.href);
+    setShareLink(nextShareLink || window.location.href);
+    setIsLinkCopied(false);
+    setIsShareDialogOpen(true);
+  };
+
+  const closeShareDialog = () => {
+    setIsShareDialogOpen(false);
+    setIsLinkCopied(false);
+  };
+
   const toggleLifeDetail = (idx) => {
     setOpenLifeDetails((prev) => ({ ...prev, [idx]: !prev[idx] }));
+  };
+
+  const handleCopyShareLink = async () => {
+    if (!shareLink) return;
+
+    try {
+      if (navigator?.clipboard?.writeText) {
+        await navigator.clipboard.writeText(shareLink);
+      } else {
+        const textarea = document.createElement('textarea');
+        textarea.value = shareLink;
+        textarea.setAttribute('readonly', '');
+        textarea.style.position = 'absolute';
+        textarea.style.left = '-9999px';
+        document.body.appendChild(textarea);
+        textarea.select();
+        document.execCommand('copy');
+        document.body.removeChild(textarea);
+      }
+      setIsLinkCopied(true);
+    } catch {
+      setIsLinkCopied(false);
+      alert('클립보드 복사에 실패했습니다.');
+    }
   };
 
   useEffect(() => {
@@ -584,15 +820,14 @@ const NamingReport = ({ result, onNewAnalysis }) => {
 
   return (
     <>
-    <div className="mt-4 space-y-3 animate-in fade-in slide-in-from-bottom-6 duration-700">
-      <section className="bg-[var(--ns-surface)] rounded-[2.4rem] p-4 md:p-5 border border-[var(--ns-border)] shadow-xl relative overflow-hidden">
-        <div className="absolute -right-20 -top-20 w-64 h-64 bg-[var(--ns-primary)]/15 rounded-full blur-3xl" />
+    <div ref={reportRootRef} data-pdf-root="true" className="mt-4 space-y-3 animate-in fade-in slide-in-from-bottom-6 duration-700">
+      <section className="bg-gradient-to-r from-emerald-200/70 via-emerald-50/60 to-white rounded-[2.4rem] p-4 md:p-5 border border-emerald-200 shadow-xl relative overflow-hidden">
+        <div className="absolute -right-20 -top-20 w-64 h-64 bg-emerald-300/30 rounded-full blur-3xl" />
         <div className="relative z-10 flex flex-col md:flex-row md:items-end md:justify-between gap-3">
           <div>
             <p className="text-[11px] tracking-[0.22em] text-[var(--ns-muted)] font-black mb-3">이름 평가 요약</p>
             <h2 className="text-4xl md:text-5xl font-black text-[var(--ns-accent-text)]">{fullNameHangul}</h2>
             <p className="text-xl md:text-2xl text-[var(--ns-muted)] font-semibold mt-1">{fullNameHanja}</p>
-            <p className="text-[var(--ns-muted)] mt-2 leading-relaxed">{interpretation || getScoreGrade(score)}</p>
           </div>
           <div className="text-left md:text-right">
             <p className="text-sm text-[var(--ns-muted)] font-bold mb-1">종합 점수</p>
@@ -607,6 +842,7 @@ const NamingReport = ({ result, onNewAnalysis }) => {
         subtitle={popularityHeadline}
         open={openCards.popularity}
         onToggle={() => toggleCard('popularity')}
+        tone="popularity"
       >
 
         {popularityState.loading ? (
@@ -696,6 +932,7 @@ const NamingReport = ({ result, onNewAnalysis }) => {
         subtitle="사격수리의 원·형·이·정을 기준으로 초중말년과 전체 흐름을 풀어봅니다."
         open={openCards.lifeFlow}
         onToggle={() => toggleCard('lifeFlow')}
+        tone="lifeFlow"
       >
 
         <div className="space-y-4">
@@ -720,7 +957,7 @@ const NamingReport = ({ result, onNewAnalysis }) => {
               ? entry.suitable_career.map((item) => replaceNamePlaceholder(item, fullNameHangul)).join(', ')
               : '';
             return (
-              <article key={`life-flow-${idx}`} className="rounded-2xl border border-[var(--ns-border)] bg-gradient-to-b from-[var(--ns-surface)] to-[var(--ns-surface-soft)] p-2.5 md:p-3 space-y-2">
+              <article key={`life-flow-${idx}`} className="rounded-2xl border border-amber-200 bg-gradient-to-r from-amber-100/70 via-amber-50/55 to-white p-2.5 md:p-3 space-y-2">
                 <div className="flex flex-wrap items-start justify-between gap-3">
                   <div className="min-w-0">
                     <p className="text-sm font-black text-[var(--ns-accent-text)]">{lifePhaseLabel(frame?.type)} · {frameTypeLabel(frame?.type)} ({frame?.strokeSum}수)</p>
@@ -732,13 +969,13 @@ const NamingReport = ({ result, onNewAnalysis }) => {
                   </div>
                 </div>
 
-                <div className="rounded-xl border border-[var(--ns-border)] bg-[var(--ns-surface)] px-2.5 py-2">
+                <div className="rounded-xl border border-amber-200 bg-amber-50/95 px-2.5 py-2">
                   <p className="text-sm text-[var(--ns-muted)] leading-relaxed break-keep whitespace-normal">{summaryText}</p>
                 </div>
                 <button
                   type="button"
                   onClick={() => toggleLifeDetail(idx)}
-                  className="w-full rounded-xl border border-[var(--ns-border)] bg-[var(--ns-surface)] px-2.5 py-2 text-sm font-black text-[var(--ns-muted)] text-left flex items-center justify-between"
+                  className="w-full rounded-xl border border-amber-200 bg-amber-100/75 px-2.5 py-2 text-sm font-black text-amber-800 text-left flex items-center justify-between"
                 >
                   <span>상세 해석</span>
                   <svg
@@ -754,7 +991,7 @@ const NamingReport = ({ result, onNewAnalysis }) => {
                 {isOpen ? (
                   <div className="space-y-3">
                     {entry?.detailed_explanation ? (
-                      <div className="rounded-xl border border-[var(--ns-border)] bg-[var(--ns-surface)] px-2.5 py-2">
+                      <div className="rounded-xl border border-amber-200 bg-amber-50/95 px-2.5 py-2">
                         <p className="text-sm text-[var(--ns-muted)] leading-relaxed break-keep whitespace-normal">{detailedText}</p>
                       </div>
                     ) : null}
@@ -782,16 +1019,16 @@ const NamingReport = ({ result, onNewAnalysis }) => {
                         <MetaInfoCard title="적성 분야" value={careerText} tone="emerald" />
                       ) : null}
                       {entry?.life_period_influence ? (
-                        <MetaInfoCard title="인생 구간 영향" value={lifePeriodText} tone="default" />
+                        <MetaInfoCard title="인생 구간 영향" value={lifePeriodText} tone="amber" />
                       ) : null}
                       {entry?.opportunity_area ? (
                         <MetaInfoCard title="기회 영역" value={opportunityText} tone="amber" />
                       ) : null}
                       {entry?.challenge_period ? (
-                        <MetaInfoCard title="도전 구간" value={challengeText} tone="default" />
+                        <MetaInfoCard title="도전 구간" value={challengeText} tone="amber" />
                       ) : null}
                       {entry?.lucky_level ? (
-                        <MetaInfoCard title="길흉 단계" value={luckyLevelText} tone="default" />
+                        <MetaInfoCard title="길흉 단계" value={luckyLevelText} tone="amber" />
                       ) : null}
                     </div>
                   </div>
@@ -807,6 +1044,7 @@ const NamingReport = ({ result, onNewAnalysis }) => {
         subtitle="클릭해서 상세 점수와 프레임별 값을 확인하세요."
         open={openCards.fourFrame}
         onToggle={() => toggleCard('fourFrame')}
+        tone="fourFrame"
       >
         <div className="space-y-4">
           <SummaryBadges
@@ -821,8 +1059,8 @@ const NamingReport = ({ result, onNewAnalysis }) => {
             ]}
           />
           <div className="grid grid-cols-1 md:grid-cols-2 gap-3 text-sm">
-            <div className="rounded-xl border border-[var(--ns-border)] bg-[var(--ns-surface-soft)] p-3 font-black text-[var(--ns-muted)]">길흉 점수: {fourFrameLuckScore.toFixed(1)}</div>
-            <div className="rounded-xl border border-[var(--ns-border)] bg-[var(--ns-surface-soft)] p-3 font-black text-[var(--ns-muted)]">최종 점수: {fourFrameScore.toFixed(1)}</div>
+            <div className="rounded-xl border border-emerald-200 bg-emerald-100/85 p-3 font-black text-emerald-800">길흉 점수: {fourFrameLuckScore.toFixed(1)}</div>
+            <div className="rounded-xl border border-teal-200 bg-teal-100/85 p-3 font-black text-teal-800">최종 점수: {fourFrameScore.toFixed(1)}</div>
           </div>
           <div className="space-y-2">
             {frameBlocks.map((frame, idx) => {
@@ -830,7 +1068,7 @@ const NamingReport = ({ result, onNewAnalysis }) => {
               const pol = polarityLabel(frame?.energy?.polarity);
               const detail = getFrameDetailScores(frameBlocks, idx);
               return (
-                <div key={`f-row-${idx}`} className="rounded-xl border border-[var(--ns-border)] bg-[var(--ns-surface-soft)] px-3 py-3 text-sm space-y-2">
+                <div key={`f-row-${idx}`} className="rounded-xl border border-emerald-200 bg-gradient-to-r from-emerald-100/70 via-emerald-50/60 to-white px-3 py-3 text-sm space-y-2">
                   <div className="flex flex-wrap items-center justify-between gap-2">
                     <span className="font-black text-[var(--ns-accent-text)] break-keep whitespace-normal">{frameTypeLabel(frame?.type)} ({frame?.strokeSum}수)</span>
                     <div className="flex gap-1.5 shrink-0">
@@ -839,9 +1077,9 @@ const NamingReport = ({ result, onNewAnalysis }) => {
                     </div>
                   </div>
                   <div className="grid grid-cols-1 sm:grid-cols-3 gap-2 text-[11px] font-black">
-                    <div className="rounded-lg border border-[var(--ns-border)] bg-[var(--ns-surface)] px-2 py-1 text-[var(--ns-muted)]">음양 {detail.polarity.toFixed(1)}</div>
-                    <div className="rounded-lg border border-[var(--ns-border)] bg-[var(--ns-surface)] px-2 py-1 text-[var(--ns-muted)]">오행 {detail.element.toFixed(1)}</div>
-                    <div className="rounded-lg border border-[var(--ns-border)] bg-[var(--ns-surface)] px-2 py-1 text-[var(--ns-accent-text)]">최종 {detail.final.toFixed(1)}</div>
+                    <div className="rounded-lg border border-emerald-200 bg-emerald-100/75 px-2 py-1 text-emerald-800">음양 {detail.polarity.toFixed(1)}</div>
+                    <div className="rounded-lg border border-teal-200 bg-teal-100/75 px-2 py-1 text-teal-800">오행 {detail.element.toFixed(1)}</div>
+                    <div className="rounded-lg border border-emerald-300 bg-emerald-200/80 px-2 py-1 text-emerald-900">최종 {detail.final.toFixed(1)}</div>
                   </div>
                 </div>
               );
@@ -855,6 +1093,7 @@ const NamingReport = ({ result, onNewAnalysis }) => {
         subtitle="클릭해서 음양/오행 점수와 글자별 결과를 확인하세요."
         open={openCards.hanja}
         onToggle={() => toggleCard('hanja')}
+        tone="hanja"
       >
         <div className="space-y-4">
           <SummaryBadges
@@ -869,16 +1108,16 @@ const NamingReport = ({ result, onNewAnalysis }) => {
             ]}
           />
           <div className="grid grid-cols-1 md:grid-cols-3 gap-3 text-sm">
-            <div className="rounded-xl border border-[var(--ns-border)] bg-[var(--ns-surface-soft)] p-3 font-black text-[var(--ns-muted)]">음양 점수: {hanjaPolarityScore.toFixed(1)}</div>
-            <div className="rounded-xl border border-[var(--ns-border)] bg-[var(--ns-surface-soft)] p-3 font-black text-[var(--ns-muted)]">오행 점수: {hanjaElementScore.toFixed(1)}</div>
-            <div className="rounded-xl border border-[var(--ns-border)] bg-[var(--ns-surface-soft)] p-3 font-black text-[var(--ns-muted)]">최종 점수: {hanjaScore.toFixed(1)}</div>
+            <div className="rounded-xl border border-slate-300 bg-slate-100/90 p-3 font-black text-slate-800">음양 점수: {hanjaPolarityScore.toFixed(1)}</div>
+            <div className="rounded-xl border border-zinc-300 bg-zinc-100/90 p-3 font-black text-zinc-800">오행 점수: {hanjaElementScore.toFixed(1)}</div>
+            <div className="rounded-xl border border-slate-400 bg-slate-200/85 p-3 font-black text-slate-900">최종 점수: {hanjaScore.toFixed(1)}</div>
           </div>
           <div className="space-y-2">
             {hanjaBlocks.map((block, idx) => {
               const el = normalizeElement(block?.energy?.element || block?.entry?.resource_element);
               const pol = polarityLabel(block?.energy?.polarity);
               return (
-                <div key={`j-row-${idx}`} className="flex flex-wrap items-center justify-between gap-2 rounded-xl border border-[var(--ns-border)] bg-[var(--ns-surface-soft)] px-3 py-2 text-sm">
+                <div key={`j-row-${idx}`} className="flex flex-wrap items-center justify-between gap-2 rounded-xl border border-slate-300 bg-gradient-to-r from-slate-200/70 via-slate-100/60 to-white px-3 py-2 text-sm">
                   <span className="font-black text-[var(--ns-accent-text)] break-keep whitespace-normal">{block?.entry?.hanja || '-'} ({block?.entry?.strokes ?? '-'}획)</span>
                   <div className="flex gap-1.5 shrink-0">
                     <span className={`px-2 py-0.5 rounded-full border text-[11px] font-black ${el ? getElementSoftClass(el) : 'bg-slate-100 text-slate-700 border-slate-200'}`}>{el ? ELEMENT_LABEL[el] : '-'}</span>
@@ -896,6 +1135,7 @@ const NamingReport = ({ result, onNewAnalysis }) => {
         subtitle="클릭해서 음양/오행 점수와 음절별 결과를 확인하세요."
         open={openCards.hangul}
         onToggle={() => toggleCard('hangul')}
+        tone="hangul"
       >
         <div className="space-y-4">
           <SummaryBadges
@@ -910,16 +1150,16 @@ const NamingReport = ({ result, onNewAnalysis }) => {
             ]}
           />
           <div className="grid grid-cols-1 md:grid-cols-3 gap-3 text-sm">
-            <div className="rounded-xl border border-[var(--ns-border)] bg-[var(--ns-surface-soft)] p-3 font-black text-[var(--ns-muted)]">음양 점수: {hangulPolarityScore.toFixed(1)}</div>
-            <div className="rounded-xl border border-[var(--ns-border)] bg-[var(--ns-surface-soft)] p-3 font-black text-[var(--ns-muted)]">오행 점수: {hangulElementScore.toFixed(1)}</div>
-            <div className="rounded-xl border border-[var(--ns-border)] bg-[var(--ns-surface-soft)] p-3 font-black text-[var(--ns-muted)]">최종 점수: {hangulScore.toFixed(1)}</div>
+            <div className="rounded-xl border border-cyan-200 bg-cyan-100/85 p-3 font-black text-cyan-800">음양 점수: {hangulPolarityScore.toFixed(1)}</div>
+            <div className="rounded-xl border border-sky-200 bg-sky-100/85 p-3 font-black text-sky-800">오행 점수: {hangulElementScore.toFixed(1)}</div>
+            <div className="rounded-xl border border-cyan-300 bg-cyan-200/80 p-3 font-black text-cyan-900">최종 점수: {hangulScore.toFixed(1)}</div>
           </div>
           <div className="space-y-2">
             {hangulBlocks.map((block, idx) => {
               const el = normalizeElement(block?.energy?.element);
               const pol = polarityLabel(block?.energy?.polarity);
               return (
-                <div key={`h-row-${idx}`} className="flex flex-wrap items-center justify-between gap-2 rounded-xl border border-[var(--ns-border)] bg-[var(--ns-surface-soft)] px-3 py-2 text-sm">
+                <div key={`h-row-${idx}`} className="flex flex-wrap items-center justify-between gap-2 rounded-xl border border-cyan-200 bg-gradient-to-r from-cyan-100/70 via-cyan-50/60 to-white px-3 py-2 text-sm">
                   <span className="font-black text-[var(--ns-accent-text)] break-keep whitespace-normal">{block?.entry?.hangul || '-'} ({block?.entry?.nucleus || '-'})</span>
                   <div className="flex gap-1.5 shrink-0">
                     <span className={`px-2 py-0.5 rounded-full border text-[11px] font-black ${el ? getElementSoftClass(el) : 'bg-slate-100 text-slate-700 border-slate-200'}`}>{el ? ELEMENT_LABEL[el] : '-'}</span>
@@ -934,20 +1174,56 @@ const NamingReport = ({ result, onNewAnalysis }) => {
 
       <div className="flex gap-4 pt-2">
         <button
-          onClick={() => window.print()}
-          className="flex-1 py-4 bg-[var(--ns-surface)] border border-[var(--ns-border)] rounded-2xl font-black text-[var(--ns-muted)] hover:bg-[var(--ns-surface-soft)] active:scale-95 transition-all"
+          type="button"
+          onClick={handleSavePdf}
+          disabled={isPdfSaving}
+          className="flex-1 py-4 bg-[var(--ns-surface)] border border-[var(--ns-border)] rounded-2xl font-black text-[var(--ns-muted)] hover:bg-[var(--ns-surface-soft)] active:scale-95 transition-all disabled:opacity-60 disabled:cursor-not-allowed"
         >
-          인쇄하기
+          {isPdfSaving ? 'PDF 생성 중...' : 'PDF로 저장하기'}
         </button>
         <button
-          onClick={() => (onNewAnalysis ? onNewAnalysis() : window.location.reload())}
+          type="button"
+          onClick={handleOpenShareDialog}
           className="flex-1 py-4 bg-[var(--ns-primary)] text-[var(--ns-accent-text)] rounded-2xl font-black shadow-lg hover:brightness-95 active:scale-95 transition-all"
         >
-          다시 분석하기
+          공유하기
         </button>
       </div>
 
     </div>
+    {isShareDialogOpen ? (
+      <div
+        className="fixed inset-0 z-[100] bg-black/35 backdrop-blur-[2px] p-4 flex items-center justify-center"
+        onClick={closeShareDialog}
+      >
+        <div
+          className="w-full max-w-sm rounded-2xl border border-[var(--ns-border)] bg-[var(--ns-surface)] p-4 shadow-2xl"
+          onClick={(event) => event.stopPropagation()}
+        >
+          <h3 className="text-base font-black text-[var(--ns-accent-text)]">공유 링크</h3>
+          <p className="text-xs font-semibold text-[var(--ns-muted)] mt-1">아래 주소를 복사해 공유하세요.</p>
+          <div className="mt-3 rounded-xl border border-[var(--ns-border)] bg-[var(--ns-surface-soft)] px-3 py-2 text-xs text-[var(--ns-text)] break-all">
+            {shareLink}
+          </div>
+          <div className="mt-3 flex gap-2">
+            <button
+              type="button"
+              onClick={handleCopyShareLink}
+              className="flex-1 py-2.5 rounded-xl bg-[var(--ns-primary)] text-[var(--ns-accent-text)] font-black text-sm hover:brightness-95 transition-all"
+            >
+              {isLinkCopied ? '복사됨' : '클립보드에 복사'}
+            </button>
+            <button
+              type="button"
+              onClick={closeShareDialog}
+              className="px-4 py-2.5 rounded-xl border border-[var(--ns-border)] bg-[var(--ns-surface-soft)] text-[var(--ns-muted)] font-black text-sm"
+            >
+              닫기
+            </button>
+          </div>
+        </div>
+      </div>
+    ) : null}
     {showScrollTop
       ? createPortal(
           <button

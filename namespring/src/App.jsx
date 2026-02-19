@@ -14,6 +14,7 @@ import InputForm from './InputForm';
 import NamingCandidatesPage from './NamingCandidatesPage';
 import CombinedReportPage from './CombinedReportPage';
 import SajuReportPage from './SajuReportPage';
+import { SHARE_QUERY_KEY, parseShareEntryUserInfoToken } from './share-entry-user-info';
 
 const ENTRY_STORAGE_KEY = 'namespring_entry_user_info';
 const PAGE_VALUES = ['entry', 'home', 'report', 'saju-report', 'naming-candidates', 'combined-report'];
@@ -69,6 +70,33 @@ function loadStoredEntryUserInfo() {
   } catch {
     return null;
   }
+}
+
+function loadSharedEntryUserInfo() {
+  try {
+    const query = new URLSearchParams(window.location.search);
+    const token = query.get(SHARE_QUERY_KEY);
+    if (!token) return null;
+    return normalizeEntryUserInfo(parseShareEntryUserInfoToken(token));
+  } catch {
+    return null;
+  }
+}
+
+function loadInitialAppState() {
+  const sharedEntryUserInfo = loadSharedEntryUserInfo();
+  if (sharedEntryUserInfo) {
+    return {
+      entryUserInfo: sharedEntryUserInfo,
+      page: 'report',
+    };
+  }
+
+  const storedEntryUserInfo = loadStoredEntryUserInfo();
+  return {
+    entryUserInfo: storedEntryUserInfo,
+    page: storedEntryUserInfo ? 'home' : 'entry',
+  };
 }
 
 function normalizePage(page, hasEntryUserInfo) {
@@ -153,13 +181,14 @@ function App() {
   const isDevSagyeoksuViewerMode = import.meta.env.DEV && tool === "fourframe-db-viewer";
   const isDevHanjaViewerMode = import.meta.env.DEV && tool === "hanja-db-viewer";
   const isDevNameStatViewerMode = import.meta.env.DEV && tool === "name-stat-db-viewer";
+  const initialAppState = useMemo(() => loadInitialAppState(), []);
 
   const [isDbReady, setIsDbReady] = useState(false);
   const [showSplash, setShowSplash] = useState(true);
   const [minSplashElapsed, setMinSplashElapsed] = useState(false);
-  const [entryUserInfo, setEntryUserInfo] = useState(() => loadStoredEntryUserInfo());
+  const [entryUserInfo, setEntryUserInfo] = useState(initialAppState.entryUserInfo);
   const [selectedCandidateSummary, setSelectedCandidateSummary] = useState(null);
-  const [page, setPage] = useState(() => (loadStoredEntryUserInfo() ? 'home' : 'entry'));
+  const [page, setPage] = useState(initialAppState.page);
   const hanjaRepo = useMemo(() => new HanjaRepository(), []);
   const springEngine = useMemo(() => new SpringEngine(), []);
 
