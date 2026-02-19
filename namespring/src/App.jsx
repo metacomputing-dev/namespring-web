@@ -18,11 +18,27 @@ import SajuReportPage from './SajuReportPage';
 const ENTRY_STORAGE_KEY = 'namespring_entry_user_info';
 const PAGE_VALUES = ['entry', 'home', 'report', 'saju-report', 'naming-candidates', 'combined-report'];
 
+function cloneNameEntries(entries) {
+  if (!Array.isArray(entries)) return [];
+  return entries.map((entry) => {
+    if (!entry || typeof entry !== 'object') return {};
+    return { ...entry };
+  });
+}
+
+function toHangulText(entries) {
+  return (entries || [])
+    .map((entry) => String(entry?.hangul ?? ''))
+    .join('');
+}
+
 function normalizeEntryUserInfo(value) {
   if (!value || !Array.isArray(value.lastName) || !Array.isArray(value.firstName)) {
     return null;
   }
 
+  const normalizedLastName = cloneNameEntries(value.lastName);
+  const normalizedFirstName = cloneNameEntries(value.firstName);
   const birthDateTime = value.birthDateTime || {};
   const normalizedBirthDateTime = {
     year: Number(birthDateTime.year) || 0,
@@ -34,8 +50,15 @@ function normalizeEntryUserInfo(value) {
 
   return {
     ...value,
+    lastName: normalizedLastName,
+    firstName: normalizedFirstName,
+    lastNameText: String(value.lastNameText ?? toHangulText(normalizedLastName)),
+    firstNameText: String(value.firstNameText ?? toHangulText(normalizedFirstName)),
     birthDateTime: normalizedBirthDateTime,
     gender: value.gender === 'female' ? 'female' : 'male',
+    isNativeKoreanName: Boolean(value.isNativeKoreanName),
+    isSolarCalendar: value.isSolarCalendar !== false,
+    isBirthTimeUnknown: Boolean(value.isBirthTimeUnknown),
   };
 }
 
@@ -266,6 +289,7 @@ function App() {
                 <InputForm
                   hanjaRepo={hanjaRepo}
                   isDbReady={isDbReady}
+                  initialUserInfo={entryUserInfo}
                   onEnter={(userInfo) => {
                     const normalized = normalizeEntryUserInfo(userInfo);
                     setEntryUserInfo(normalized);
@@ -293,7 +317,13 @@ function App() {
               onAnalyzeAsync={handleAnalyzeAsync}
               onOpenReport={() => navigateToPage('report')}
               onOpenNamingCandidates={() => navigateToPage('naming-candidates')}
-              onOpenEntry={() => navigateToPage('entry')}
+              onOpenEntry={(userInfoFromHome) => {
+                const normalized = normalizeEntryUserInfo(userInfoFromHome || entryUserInfo);
+                if (normalized) {
+                  setEntryUserInfo(normalized);
+                }
+                navigateToPage('entry', { hasEntryUserInfo: Boolean(normalized) });
+              }}
             />
           </AppBackground>
         ),

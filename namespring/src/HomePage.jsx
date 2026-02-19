@@ -127,10 +127,14 @@ function HomePage({ entryUserInfo, onAnalyzeAsync, onOpenReport, onOpenNamingCan
           {!isAnalyzing && !analyzeError && previewResult && (
             <button
               type="button"
-              onClick={onOpenEntry}
+              onClick={() => onOpenEntry?.(entryUserInfo)}
               className="h-full w-full block text-left rounded-[1.6rem] overflow-hidden"
             >
-              <NamingResultRenderer namingResult={previewResult} />
+              <NamingResultRenderer
+                namingResult={previewResult}
+                birthDateTime={entryUserInfo?.birthDateTime}
+                isSolarCalendar={entryUserInfo?.isSolarCalendar}
+              />
             </button>
           )}
           {!isAnalyzing && !analyzeError && !previewResult && (
