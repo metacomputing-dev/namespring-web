@@ -69,6 +69,7 @@ export interface NamingResult {
   readonly hangul: EnergyCalculator;
   readonly fourFrames: EnergyCalculator;
   readonly interpretation: string;
+  readonly pureHangulMode?: boolean;
 }
 
 /**

@@ -56,8 +56,8 @@ const DEFAULT_TARGET_ELEMENT    = engineConfig.defaultTargetElement;
 const ENGINE_VERSION            = engineConfig.version;
 const DEFAULT_PURE_HANGUL_MODE: 'auto' | 'on' | 'off' = 'auto';
 const DEFAULT_USE_SURNAME_HANJA_IN_PURE = false;
-const ENABLE_HANJA_NAME_EVALUATION = false;
-const ENABLE_FOURFRAME_NAME_EVALUATION = false;
+const ENABLE_HANJA_NAME_EVALUATION = true;
+const ENABLE_FOURFRAME_NAME_EVALUATION = true;
 const NAME_STYLE_MALE_RATIO_THRESHOLD = 0.62;
 const NAME_STYLE_FEMALE_RATIO_THRESHOLD = 0.62;
 
@@ -249,7 +249,7 @@ export class SpringEngine {
     const frame  = new FrameCalculator(
       surnameEntries,
       givenNameEntries,
-      ENABLE_FOURFRAME_NAME_EVALUATION,
+      ENABLE_FOURFRAME_NAME_EVALUATION && !resolutionPolicy.pureHangulGivenName,
     );
 
     const evalCtx: EvalContext = {
@@ -313,7 +313,7 @@ export class SpringEngine {
     const frame  = new FrameCalculator(
       surnameEntries,
       givenNameEntries,
-      ENABLE_FOURFRAME_NAME_EVALUATION,
+      ENABLE_FOURFRAME_NAME_EVALUATION && !resolutionPolicy.pureHangulGivenName,
     );
     const hasSajuContext = Boolean(sajuOutput);
     const saju   = new SajuCalculator(
@@ -447,7 +447,7 @@ export class SpringEngine {
       const frame  = new FrameCalculator(
         surnameEntries,
         givenNameEntries,
-        ENABLE_FOURFRAME_NAME_EVALUATION,
+        ENABLE_FOURFRAME_NAME_EVALUATION && !resolutionPolicy.pureHangulGivenName,
       );
       const hasSajuContext = Boolean(sajuOutput);
       const saju   = new SajuCalculator(
@@ -824,7 +824,7 @@ export class SpringEngine {
     const frame  = new FrameCalculator(
       surnameEntries,
       givenNameEntries,
-      ENABLE_FOURFRAME_NAME_EVALUATION,
+      ENABLE_FOURFRAME_NAME_EVALUATION && !resolutionPolicy.pureHangulGivenName,
     );
     const hasSajuContext = Boolean(sajuOutput);
     const saju   = new SajuCalculator(

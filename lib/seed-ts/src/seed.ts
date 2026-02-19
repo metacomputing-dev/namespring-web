@@ -8,8 +8,8 @@ import type { Energy } from './model/energy';
 import { Polarity } from './model/polarity';
 import { Element } from './model/element';
 
-const ENABLE_HANJA_EVALUATION = false;
-const ENABLE_FOURFRAME_EVALUATION = false;
+const ENABLE_HANJA_EVALUATION = true;
+const ENABLE_FOURFRAME_EVALUATION = true;
 
 /**
  * Main engine class for naming analysis.
@@ -36,16 +36,18 @@ export class SeedTs {
     const fourFrames = this.createFourFrameCalculator(lastName, firstName);
     const hangul = this.createHangulCalculator(lastName, firstName);
     const hanja = this.createHanjaCalculator(lastName, firstName);
+    const includeFourFrame = ENABLE_FOURFRAME_EVALUATION && !pureHangulMode;
+    const includeHanja = ENABLE_HANJA_EVALUATION && !pureHangulMode;
 
     /**
      * 2. Perform Calculations
      * Each calculator internalizes the naming theory logic.
      */
-    if (ENABLE_FOURFRAME_EVALUATION) {
+    if (includeFourFrame) {
       fourFrames.calculate();
     }
     hangul.calculate();
-    if (ENABLE_HANJA_EVALUATION) {
+    if (includeHanja) {
       hanja.calculate();
     }
 
@@ -60,12 +62,13 @@ export class SeedTs {
         fourFrames,
         hangul,
         hanja,
-        ENABLE_FOURFRAME_EVALUATION,
-        ENABLE_HANJA_EVALUATION && !pureHangulMode,
+        includeFourFrame,
+        includeHanja,
       ),
       fourFrames,
       hangul,
       hanja,
+      pureHangulMode,
       interpretation: pureHangulMode
         ? 'Pure Hangul mode: evaluated mainly with Hangul phonetics.'
         : 'This name is evaluated with Hangul phonetics.'
