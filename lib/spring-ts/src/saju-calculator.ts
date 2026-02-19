@@ -30,6 +30,7 @@
  */
 import { type EvalContext, type AnalysisDetail, type CalculatorPacket, type EvaluableCalculator, putInsight, createSignal } from './core/evaluator.js';
 import type { HanjaEntry } from '../../seed-ts/src/database/hanja-repository.js';
+import { hangulElementFromSyllable } from '../../seed-ts/src/utils/hangul-name-entry.js';
 import type { SajuCompatibility, SajuOutputSummary, SajuYongshinSummary } from './types.js';
 import { elementFromSajuCode } from './saju-adapter.js';
 import { SAJU_FRAME } from './spring-evaluator.js';
@@ -92,6 +93,8 @@ export interface SajuNameScoreResult {
     elementMatches: { yongshin: number; heesin: number; gisin: number; gusin: number };
   };
 }
+
+export type SajuNameElementSource = 'resource' | 'hangul';
 
 // =========================================================================
 //  1. BALANCE SCORE
@@ -555,17 +558,41 @@ export function computeSajuNameScore(
 export class SajuCalculator implements EvaluableCalculator {
   readonly id = 'saju';
   private scoreResult: SajuNameScoreResult | null = null;
+  private readonly elementSource: SajuNameElementSource;
+  private readonly enabled: boolean;
 
   constructor(
     private surnameEntries: HanjaEntry[],
     private givenNameEntries: HanjaEntry[],
     private sajuDistribution: Record<ElementKey, number>,
     private sajuOutput: SajuOutputSummary | null,
-  ) {}
+    options: { readonly elementSource?: SajuNameElementSource; readonly enabled?: boolean } = {},
+  ) {
+    this.elementSource = options.elementSource ?? 'resource';
+    this.enabled = options.enabled ?? true;
+  }
+
+  private elementOf(entry: HanjaEntry): ElementKey {
+    if (this.elementSource === 'hangul') {
+      return hangulElementFromSyllable(entry.hangul);
+    }
+    return entry.resource_element as ElementKey;
+  }
 
   visit(ctx: EvalContext): void {
+    if (!this.enabled) {
+      this.scoreResult = null;
+      putInsight(ctx, SAJU_FRAME, 100, true, 'DISABLED_NO_SAJU_CONTEXT', {
+        disabled: true,
+        reason: 'missing-or-partial-birth-context',
+      });
+      return;
+    }
+
+    const allEntries = [...this.surnameEntries, ...this.givenNameEntries];
+    const arrangement = allEntries.map(entry => this.elementOf(entry));
     const rootDist = distributionFromArrangement(
-      [...this.surnameEntries, ...this.givenNameEntries].map(entry => entry.resource_element as ElementKey),
+      arrangement,
     );
     this.scoreResult = computeSajuNameScore(this.sajuDistribution, rootDist, this.sajuOutput);
     putInsight(ctx, SAJU_FRAME, this.scoreResult.score, this.scoreResult.isPassed, 'SAJU+ELEMENT', {
@@ -579,6 +606,9 @@ export class SajuCalculator implements EvaluableCalculator {
   }
 
   backward(ctx: EvalContext): CalculatorPacket {
+    if (!this.enabled) {
+      return { signals: [] };
+    }
     return { signals: [createSignal(SAJU_FRAME, ctx, 1.0)] };
   }
 
@@ -590,6 +620,25 @@ export class SajuCalculator implements EvaluableCalculator {
   }
 
   getAnalysis(): AnalysisDetail<SajuCompatibility> {
+    if (!this.enabled) {
+      return {
+        type: 'Saju',
+        score: 0,
+        polarityScore: 0,
+        elementScore: 0,
+        data: {
+          yongshinElement: '',
+          heeshinElement: null,
+          gishinElement: null,
+          nameElements: this.givenNameEntries.map(entry => this.elementOf(entry)),
+          yongshinMatchCount: 0,
+          gishinMatchCount: 0,
+          dayMasterSupportScore: 0,
+          affinityScore: 0,
+        },
+      };
+    }
+
     const breakdown     = this.scoreResult?.breakdown;
     const elementMatches = breakdown?.elementMatches;
     const yongshinData  = this.sajuOutput?.yongshin;
@@ -602,7 +651,7 @@ export class SajuCalculator implements EvaluableCalculator {
         yongshinElement:       elementFromSajuCode(yongshinData?.finalYongshin) ?? '',
         heeshinElement:        elementFromSajuCode(yongshinData?.finalHeesin) ?? null,
         gishinElement:         elementFromSajuCode(yongshinData?.gisin) ?? null,
-        nameElements:          this.givenNameEntries.map(entry => entry.resource_element),
+        nameElements:          this.givenNameEntries.map(entry => this.elementOf(entry)),
         yongshinMatchCount:    elementMatches?.yongshin ?? 0,
         gishinMatchCount:      elementMatches?.gisin ?? 0,
         dayMasterSupportScore: breakdown?.strength ?? 0,

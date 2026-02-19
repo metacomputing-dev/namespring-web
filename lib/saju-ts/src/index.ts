@@ -61,8 +61,15 @@ export type { HiddenStemSipseong, PillarTenGodAnalysis, TenGodAnalysis } from '.
 
 export type { IljuInterpretation } from './domain/IljuInterpretation.js';
 
-export { createBirthInput } from './domain/types.js';
-export type { BirthInput, AnalysisTraceStep } from './domain/types.js';
+export { createBirthInput, normalizeBirthDateByCalendar } from './domain/types.js';
+export type {
+  BirthInput,
+  BirthInputParams,
+  BirthCalendarType,
+  LeapMonthInput,
+  NormalizedBirthDate,
+  AnalysisTraceStep,
+} from './domain/types.js';
 
 export { DayCutMode } from './calendar/time/DayCutMode.js';
 export { adjustSolarTime, standardMeridianDegrees, lmtOffsetMinutes, equationOfTimeMinutes } from './calendar/time/SolarTimeAdjuster.js';

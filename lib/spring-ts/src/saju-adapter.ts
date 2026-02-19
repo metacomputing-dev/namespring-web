@@ -55,6 +55,12 @@ const SAJU_MODULE_PATH: string = engineConfig.sajuModulePath;
 const DEFAULT_LATITUDE: number = engineConfig.defaultCoordinates.latitude;
 const DEFAULT_LONGITUDE: number = engineConfig.defaultCoordinates.longitude;
 const DEFAULT_TIMEZONE: string = engineConfig.defaultTimezone;
+const DEFAULT_UNKNOWN_HOUR = 12;
+const DEFAULT_UNKNOWN_MINUTE = 0;
+
+const YEAR_STEM_CODES = ['GAP', 'EUL', 'BYEONG', 'JEONG', 'MU', 'GI', 'GYEONG', 'SIN', 'IM', 'GYE'] as const;
+const YEAR_BRANCH_CODES = ['JA', 'CHUK', 'IN', 'MYO', 'JIN', 'SA', 'O', 'MI', 'SIN', 'YU', 'SUL', 'HAE'] as const;
+const HOUR_BRANCH_CODES = ['JA', 'CHUK', 'IN', 'MYO', 'JIN', 'SA', 'O', 'MI', 'SIN', 'YU', 'SUL', 'HAE'] as const;
 
 // ---------------------------------------------------------------------------
 //  Type-safe constant — defines the shape of the time-correction object
@@ -90,8 +96,9 @@ let sajuModule: SajuModule | null = null;
 
 function buildSajuModuleCandidates(): string[] {
   const configuredDistPath = SAJU_MODULE_PATH.replace('/src/', '/dist/').replace(/\.ts$/i, '.js');
+  const compiledDistPath = '../../../../saju-ts/dist/index.js';
   const staticPublicPath = 'saju-ts/index.js';
-  const raw = [staticPublicPath, SAJU_MODULE_PATH, configuredDistPath];
+  const raw = [staticPublicPath, SAJU_MODULE_PATH, configuredDistPath, compiledDistPath];
 
   if (typeof document === 'undefined' || !document.baseURI) {
     return Array.from(new Set(raw));
@@ -109,6 +116,23 @@ function buildSajuModuleCandidates(): string[] {
 
 async function loadSajuModule(): Promise<SajuModule | null> {
   if (sajuModule) return sajuModule;
+
+  // Prefer bundled local dist import so saju works in app dev/build without public copy step.
+  try {
+    const bundled = await import('../../saju-ts/dist/index.js');
+    if (typeof bundled?.analyzeSaju === 'function' && typeof bundled?.createBirthInput === 'function') {
+      sajuModule = {
+        analyzeSaju: bundled.analyzeSaju as SajuModule['analyzeSaju'],
+        createBirthInput: bundled.createBirthInput as SajuModule['createBirthInput'],
+        configFromPreset: typeof bundled.configFromPreset === 'function'
+          ? (bundled.configFromPreset as SajuModule['configFromPreset'])
+          : undefined,
+      };
+      return sajuModule;
+    }
+  } catch {
+    // fallback to runtime path probing below
+  }
 
   // 1) public/saju-ts/index.js (for static deploy), 2) configured dev path.
   const candidates = buildSajuModuleCandidates();
@@ -177,6 +201,131 @@ function toStringArray(value: any): string[] {
   return [];
 }
 
+function toOptionalInt(value: unknown): number | null {
+  if (value == null || value === '') return null;
+  const parsed = Number(value);
+  if (!Number.isFinite(parsed) || !Number.isInteger(parsed)) return null;
+  return parsed;
+}
+
+interface KnownBirthParts {
+  readonly year: number | null;
+  readonly month: number | null;
+  readonly day: number | null;
+  readonly hour: number | null;
+  readonly minute: number | null;
+}
+
+function resolveKnownBirthParts(birth: BirthInfo): KnownBirthParts {
+  const year = toOptionalInt(birth.year);
+  const month = toOptionalInt(birth.month);
+  const day = toOptionalInt(birth.day);
+  const hour = toOptionalInt(birth.hour);
+  const minute = toOptionalInt(birth.minute);
+
+  return {
+    year: year && year >= 1 && year <= 9999 ? year : null,
+    month: month && month >= 1 && month <= 12 ? month : null,
+    day: day && day >= 1 && day <= 31 ? day : null,
+    hour: hour != null && hour >= 0 && hour <= 23 ? hour : null,
+    minute: minute != null && minute >= 0 && minute <= 59 ? minute : null,
+  };
+}
+
+function hasAnyKnownBirthPart(parts: KnownBirthParts): boolean {
+  return Object.values(parts).some((value) => value != null);
+}
+
+function canRunFullSaju(parts: KnownBirthParts): boolean {
+  return parts.year != null && parts.month != null && parts.day != null;
+}
+
+function seasonHintFromMonth(month: number): string {
+  if (month >= 3 && month <= 5) return '봄 기운(목) 경향';
+  if (month >= 6 && month <= 8) return '여름 기운(화) 경향';
+  if (month >= 9 && month <= 11) return '가을 기운(금) 경향';
+  return '겨울 기운(수) 경향';
+}
+
+function hourBranchCode(hour: number): string {
+  const normalized = ((hour % 24) + 24) % 24;
+  if (normalized === 23 || normalized === 0) return 'JA';
+  const index = Math.floor((normalized + 1) / 2) % 12;
+  return HOUR_BRANCH_CODES[index] ?? '';
+}
+
+function yearPillarApprox(year: number): { stemCode: string; branchCode: string } {
+  const stemCode = YEAR_STEM_CODES[((year - 4) % 10 + 10) % 10] ?? '';
+  const branchCode = YEAR_BRANCH_CODES[((year - 4) % 12 + 12) % 12] ?? '';
+  return { stemCode, branchCode };
+}
+
+function buildPartialSajuSummary(birth: BirthInfo, parts: KnownBirthParts): SajuSummary {
+  const summary = emptySaju() as SajuSummary & Record<string, unknown>;
+  const mutableSummary = summary as Record<string, any>;
+  const interpretation: string[] = [];
+
+  if (parts.year != null) {
+    const { stemCode, branchCode } = yearPillarApprox(parts.year);
+    const stemInfo = CHEONGAN[stemCode];
+    const branchInfo = JIJI[branchCode];
+
+    mutableSummary.pillars = {
+      ...summary.pillars,
+      year: {
+        stem: {
+          code: stemCode,
+          hangul: stemInfo?.hangul ?? stemCode,
+          hanja: stemInfo?.hanja ?? '',
+        },
+        branch: {
+          code: branchCode,
+          hangul: branchInfo?.hangul ?? branchCode,
+          hanja: branchInfo?.hanja ?? '',
+        },
+      },
+    };
+
+    interpretation.push(
+      `출생 연도 기준으로 연주를 추정했습니다: ${stemInfo?.hangul ?? stemCode}${branchInfo?.hangul ?? branchCode}년.`,
+    );
+  }
+
+  if (parts.month != null) {
+    interpretation.push(`출생 월 정보로 계절 경향을 반영했습니다: ${seasonHintFromMonth(parts.month)}.`);
+  }
+
+  if (parts.day != null) {
+    interpretation.push('출생 일 정보는 확인되었지만 일주/용신 분석에는 연월 정보가 더 필요합니다.');
+  }
+
+  if (parts.hour != null) {
+    const branchCode = hourBranchCode(parts.hour);
+    const branchInfo = JIJI[branchCode];
+    interpretation.push(`출생 시 정보로 시지 경향을 반영했습니다: ${branchInfo?.hangul ?? branchCode}시 구간.`);
+  }
+
+  if (parts.minute != null) {
+    interpretation.push('출생 분 정보가 있어 시간 오차 범위를 줄여 해석했습니다.');
+  }
+
+  if (birth.gender === 'neutral') {
+    interpretation.push('중성 선택으로 성별 의존 해석 항목은 중립 기준으로 처리했습니다.');
+  }
+
+  mutableSummary.partialInterpretation = interpretation;
+  mutableSummary.partialBirthInput = {
+    year: parts.year,
+    month: parts.month,
+    day: parts.day,
+    hour: parts.hour,
+    minute: parts.minute,
+    calendarType: birth.calendarType ?? 'solar',
+  };
+
+  return summary;
+}
+
 // ---------------------------------------------------------------------------
 //  Public: empty SajuSummary (fallback when analysis fails)
 // ---------------------------------------------------------------------------
@@ -235,17 +384,23 @@ export async function analyzeSaju(birth: BirthInfo, options?: SpringRequest['opt
   const saju = await loadSajuModule();
   if (!saju) return emptySaju();
 
-  try {
-    const birthInput = saju.createBirthInput({
-      birthYear: birth.year, birthMonth: birth.month,
-      birthDay: birth.day, birthHour: birth.hour, birthMinute: birth.minute,
-      gender: birth.gender === 'male' ? 'MALE' : 'FEMALE',
-      timezone:  birth.timezone  ?? DEFAULT_TIMEZONE,
-      latitude:  birth.latitude  ?? DEFAULT_LATITUDE,
-      longitude: birth.longitude ?? DEFAULT_LONGITUDE,
-      name: birth.name,
-    });
+  const parts = resolveKnownBirthParts(birth);
+  if (!hasAnyKnownBirthPart(parts)) {
+    return emptySaju();
+  }
 
+  if (!canRunFullSaju(parts)) {
+    return buildPartialSajuSummary(birth, parts);
+  }
+
+  const birthYear = parts.year;
+  const birthMonth = parts.month;
+  const birthDay = parts.day;
+  if (birthYear == null || birthMonth == null || birthDay == null) {
+    return buildPartialSajuSummary(birth, parts);
+  }
+
+  try {
     let config: any;
     if (options?.schoolPreset && saju.configFromPreset)
       config = saju.configFromPreset(PRESET_MAP[options.schoolPreset] ?? 'KOREAN_MAINSTREAM');
@@ -257,7 +412,81 @@ export async function analyzeSaju(birth: BirthInfo, options?: SpringRequest['opt
       saeunYearCount: options.sajuOptions.saeunYearCount,
     } : undefined;
 
-    return extractSaju(saju.analyzeSaju(birthInput, config, sajuOpts));
+    const analyzeWithGender = (genderCode: 'MALE' | 'FEMALE'): SajuSummary & Record<string, unknown> => {
+      const birthInput = saju.createBirthInput({
+        birthYear,
+        birthMonth,
+        birthDay,
+        birthHour: parts.hour ?? DEFAULT_UNKNOWN_HOUR,
+        birthMinute: parts.minute ?? DEFAULT_UNKNOWN_MINUTE,
+        gender: genderCode,
+        calendarType: birth.calendarType === 'lunar' ? 'LUNAR' : 'SOLAR',
+        isLeapMonth: typeof birth.isLeapMonth === 'boolean' ? birth.isLeapMonth : undefined,
+        timezone:  birth.timezone  ?? DEFAULT_TIMEZONE,
+        latitude:  birth.latitude  ?? DEFAULT_LATITUDE,
+        longitude: birth.longitude ?? DEFAULT_LONGITUDE,
+        name: birth.name,
+      });
+      return extractSaju(saju.analyzeSaju(birthInput, config, sajuOpts)) as SajuSummary & Record<string, unknown>;
+    };
+
+    let summary: SajuSummary & Record<string, unknown>;
+    let neutralBasis: 'MALE' | 'FEMALE' | null = null;
+    let neutralMaleConfidence: number | null = null;
+    let neutralFemaleConfidence: number | null = null;
+
+    if (birth.gender === 'neutral') {
+      let maleSummary: (SajuSummary & Record<string, unknown>) | null = null;
+      let femaleSummary: (SajuSummary & Record<string, unknown>) | null = null;
+
+      try { maleSummary = analyzeWithGender('MALE'); } catch {}
+      try { femaleSummary = analyzeWithGender('FEMALE'); } catch {}
+
+      if (!maleSummary && !femaleSummary) {
+        return emptySaju();
+      }
+
+      neutralMaleConfidence = maleSummary?.yongshin?.confidence ?? null;
+      neutralFemaleConfidence = femaleSummary?.yongshin?.confidence ?? null;
+
+      if (maleSummary && !femaleSummary) {
+        summary = maleSummary;
+        neutralBasis = 'MALE';
+      } else if (!maleSummary && femaleSummary) {
+        summary = femaleSummary;
+        neutralBasis = 'FEMALE';
+      } else if ((neutralFemaleConfidence ?? -1) > (neutralMaleConfidence ?? -1)) {
+        summary = femaleSummary as SajuSummary & Record<string, unknown>;
+        neutralBasis = 'FEMALE';
+      } else {
+        summary = maleSummary as SajuSummary & Record<string, unknown>;
+        neutralBasis = 'MALE';
+      }
+    } else {
+      summary = analyzeWithGender(birth.gender === 'female' ? 'FEMALE' : 'MALE');
+    }
+
+    const notes: string[] = [];
+    if (parts.hour == null || parts.minute == null) {
+      notes.push(
+        `출생 시/분 미상으로 ${String(DEFAULT_UNKNOWN_HOUR).padStart(2, '0')}:${String(DEFAULT_UNKNOWN_MINUTE).padStart(2, '0')} 기준 계산을 적용했습니다.`,
+      );
+    }
+    if (birth.gender === 'neutral') {
+      const maleConfidenceText = neutralMaleConfidence != null ? neutralMaleConfidence.toFixed(2) : '-';
+      const femaleConfidenceText = neutralFemaleConfidence != null ? neutralFemaleConfidence.toFixed(2) : '-';
+      notes.push(
+        `중성 선택으로 남/여 기준을 모두 계산했고, 신뢰도 기준으로 ${neutralBasis ?? '중립'} 결과를 사용했습니다. (남성 ${maleConfidenceText}, 여성 ${femaleConfidenceText})`,
+      );
+      summary.neutralGenderBasis = neutralBasis ?? 'UNKNOWN';
+    }
+    if (notes.length > 0) {
+      const existing = Array.isArray(summary.partialInterpretation)
+        ? summary.partialInterpretation.filter((line) => typeof line === 'string')
+        : [];
+      summary.partialInterpretation = [...existing, ...notes];
+    }
+    return summary;
   } catch { return emptySaju(); }
 }
 

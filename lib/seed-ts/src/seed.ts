@@ -1,10 +1,15 @@
-import type { UserInfo, SeedResult, NamingResult } from './types';
+import type { UserInfo, SeedResult, NamingResult, PureHangulNameMode } from './types';
 import { FourFrameCalculator } from './calculator/frame-calculator';
 import { HangulCalculator } from './calculator/hangul-calculator';
 import { HanjaCalculator } from './calculator/hanja-calculator';
+import type { HanjaEntry } from './database/hanja-repository';
+import { toHangulOnlyEntry } from './utils/hangul-name-entry';
 import type { Energy } from './model/energy';
 import { Polarity } from './model/polarity';
 import { Element } from './model/element';
+
+const ENABLE_HANJA_EVALUATION = false;
+const ENABLE_FOURFRAME_EVALUATION = false;
 
 /**
  * Main engine class for naming analysis.
@@ -17,7 +22,11 @@ export class SeedTs {
    * @returns Analyzed results with aggregated scores from all calculators.
    */
   public analyze(userInfo: UserInfo): SeedResult {
-    const { lastName, firstName } = userInfo;
+    const {
+      lastName,
+      firstName,
+      pureHangulMode,
+    } = this.resolveEntriesForAnalysis(userInfo);
 
     /**
      * 1. Initialize Calculators
@@ -32,9 +41,13 @@ export class SeedTs {
      * 2. Perform Calculations
      * Each calculator internalizes the naming theory logic.
      */
-    fourFrames.calculate();
+    if (ENABLE_FOURFRAME_EVALUATION) {
+      fourFrames.calculate();
+    }
     hangul.calculate();
-    hanja.calculate();
+    if (ENABLE_HANJA_EVALUATION) {
+      hanja.calculate();
+    }
 
     /**
      * 3. Aggregate Results into a Candidate
@@ -43,11 +56,19 @@ export class SeedTs {
     const mainCandidate: NamingResult = {
       lastName,
       firstName,
-      totalScore: this.calculateTotalScore(fourFrames, hangul, hanja),
+      totalScore: this.calculateTotalScore(
+        fourFrames,
+        hangul,
+        hanja,
+        ENABLE_FOURFRAME_EVALUATION,
+        ENABLE_HANJA_EVALUATION && !pureHangulMode,
+      ),
       fourFrames,
       hangul,
       hanja,
-      interpretation: "This name shows a balanced harmony between sound and numerical structures."
+      interpretation: pureHangulMode
+        ? 'Pure Hangul mode: evaluated mainly with Hangul phonetics.'
+        : 'This name is evaluated with Hangul phonetics.'
     };
 
     /**
@@ -68,10 +89,19 @@ export class SeedTs {
   protected calculateTotalScore(
     fourFrames: FourFrameCalculator,
     hangul: HangulCalculator,
-    hanja: HanjaCalculator
+    hanja: HanjaCalculator,
+    includeFourFrame: boolean = false,
+    includeHanja: boolean = true,
   ): number {
-    // TODO Currently a simple sum, but can be weighted or adjusted based on calc. model in the future.
-    return (fourFrames.getScore() + hangul.getScore() + hanja.getScore()) / 3;
+    // TODO Currently a simple average, but can be weighted by theory confidence in the future.
+    const scores = [hangul.getScore()];
+    if (includeFourFrame) {
+      scores.push(fourFrames.getScore());
+    }
+    if (includeHanja) {
+      scores.push(hanja.getScore());
+    }
+    return scores.reduce((sum, value) => sum + value, 0) / scores.length;
   }
 
   protected createFourFrameCalculator(lastName: UserInfo['lastName'], firstName: UserInfo['firstName']): FourFrameCalculator {
@@ -84,5 +114,37 @@ export class SeedTs {
 
   protected createHanjaCalculator(lastName: UserInfo['lastName'], firstName: UserInfo['firstName']): HanjaCalculator {
     return new HanjaCalculator(lastName, firstName);
+  }
+
+  private resolveEntriesForAnalysis(userInfo: UserInfo): {
+    lastName: HanjaEntry[];
+    firstName: HanjaEntry[];
+    pureHangulMode: boolean;
+  } {
+    const { lastName, firstName } = userInfo;
+
+    const mode: PureHangulNameMode = userInfo.options?.pureHangulNameMode ?? 'auto';
+    const useSurnameHanja = userInfo.options?.useSurnameHanjaInPureHangul ?? false;
+
+    const givenNameHasOnlyHangul = firstName.length > 0 && firstName.every((entry) => {
+      const hanja = String(entry.hanja ?? '').trim();
+      return hanja.length === 0 || hanja === entry.hangul;
+    });
+
+    const pureHangulMode = mode === 'on' || (mode !== 'off' && givenNameHasOnlyHangul);
+    if (!pureHangulMode) {
+      return { lastName, firstName, pureHangulMode: false };
+    }
+
+    const resolvedLastName = useSurnameHanja
+      ? lastName
+      : lastName.map((entry) => toHangulOnlyEntry(entry, { hanja: '' }));
+    const resolvedFirstName = firstName.map((entry) => toHangulOnlyEntry(entry, { hanja: '' }));
+
+    return {
+      lastName: resolvedLastName,
+      firstName: resolvedFirstName,
+      pureHangulMode: true,
+    };
   }
 }
