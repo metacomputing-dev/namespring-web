@@ -30,7 +30,7 @@ import { analyzeSaju, analyzeSajuSafe, buildSajuContext, collectElements } from 
 import type {
   SpringRequest, SpringResponse, SpringCandidate, SajuSummary,
   SajuReport, NamingReport, NamingReportFrame, SpringReport, SpringCandidateSummary,
-  NameCharInput, CharDetail,
+  NameCharInput, CharDetail, NameGenderTendency,
 } from './types.js';
 import engineConfig from '../config/engine.json';
 
@@ -77,6 +77,13 @@ function toNameCharInput(entry: HanjaEntry): NameCharInput {
   return { hangul: entry.hangul, hanja: entry.hanja };
 }
 
+interface NameStatInfo {
+  readonly exists: boolean;
+  readonly popularityRank: number | null;
+  readonly maleRatio: number | null;
+  readonly nameGender: NameGenderTendency;
+}
+
 // ---------------------------------------------------------------------------
 // SpringEngine
 // ---------------------------------------------------------------------------
@@ -89,7 +96,7 @@ export class SpringEngine {
   private luckyMap = new Map<number, string>();
   private validFourFrameNumbers = new Set<number>();
   private optimizer: FourFrameOptimizer | null = null;
-  private readonly nameStatInfoCache = new Map<string, { exists: boolean; popularityRank: number | null }>();
+  private readonly nameStatInfoCache = new Map<string, NameStatInfo>();
 
   /** Expose the hanja repository so the UI can perform hanja lookups. */
   getHanjaRepository(): HanjaRepository { return this.hanjaRepo; }
@@ -213,6 +220,8 @@ export class SpringEngine {
     return {
       finalScore: roundScore(combined.score),
       popularityRank: nameStatInfo.popularityRank,
+      maleRatio: nameStatInfo.maleRatio,
+      nameGender: nameStatInfo.nameGender,
       namingReport: this.buildNamingReport(surnameEntries, givenNameEntries, nameOnly, hangul, hanja, frame),
       sajuReport,
       sajuCompatibility: saju.getAnalysis().data,
@@ -249,6 +258,7 @@ export class SpringEngine {
     for (const givenNameInput of nameInputs) {
       const nameStatInfo = await this.getNameStatInfo(givenNameInput);
       if (!nameStatInfo.exists) continue;
+      if (this.isGenderMismatch(request.birth.gender, nameStatInfo.nameGender)) continue;
       results.push(await this.getSpringReport(
         { ...request, givenName: givenNameInput, mode: 'evaluate' },
         sajuReport,
@@ -288,6 +298,7 @@ export class SpringEngine {
     for (const givenNameInput of nameInputs) {
       const nameStatInfo = await this.getNameStatInfo(givenNameInput);
       if (!nameStatInfo.exists) continue;
+      if (this.isGenderMismatch(request.birth.gender, nameStatInfo.nameGender)) continue;
       const givenNameEntries = await this.resolveEntries(givenNameInput);
 
       const hangul = new HangulCalculator(surnameEntries, givenNameEntries);
@@ -311,6 +322,8 @@ export class SpringEngine {
         givenHangul: givenNameEntries.map(entry => entry.hangul).join(''),
         givenName: givenNameEntries.map(toNameCharInput),
         popularityRank: nameStatInfo.popularityRank,
+        maleRatio: nameStatInfo.maleRatio,
+        nameGender: nameStatInfo.nameGender,
         rank: 0,
       });
     }
@@ -466,7 +479,7 @@ export class SpringEngine {
         candidates.unshift(request.givenName!);
       }
 
-      return this.filterCandidatesByNameStat(candidates);
+      return this.filterCandidatesByNameStat(candidates, request.birth.gender);
     }
 
     // Fallback: just the explicit name, or nothing
@@ -522,38 +535,102 @@ export class SpringEngine {
     return Number.isFinite(avg) && avg > 0 ? avg : null;
   }
 
-  private async getNameStatInfo(givenName: NameCharInput[]): Promise<{ exists: boolean; popularityRank: number | null }> {
+  private normalizeRatio(value: number): number {
+    if (value <= 0) return 0;
+    if (value >= 1) return 1;
+    return value;
+  }
+
+  private sumBirthsByBucket(
+    yearlyBirth: Record<string, Record<string, number>>,
+    bucketNames: string[],
+  ): number {
+    let total = 0;
+    for (const bucketName of bucketNames) {
+      const bucket = yearlyBirth?.[bucketName];
+      if (!bucket || typeof bucket !== 'object') continue;
+      for (const value of Object.values(bucket)) {
+        const count = Number(value);
+        if (Number.isFinite(count) && count > 0) {
+          total += count;
+        }
+      }
+    }
+    return total;
+  }
+
+  private getGenderInfoFromEntry(entry: NameStatEntry | null): { maleRatio: number | null; nameGender: NameGenderTendency } {
+    if (!entry) {
+      return { maleRatio: null, nameGender: 'unknown' };
+    }
+
+    const maleBirths = this.sumBirthsByBucket(entry.yearly_birth, ['남자', '남']);
+    const femaleBirths = this.sumBirthsByBucket(entry.yearly_birth, ['여자', '여']);
+    const totalBirths = maleBirths + femaleBirths;
+
+    if (totalBirths <= 0) {
+      return { maleRatio: null, nameGender: 'unknown' };
+    }
+
+    const maleRatio = this.normalizeRatio(maleBirths / totalBirths);
+    return {
+      maleRatio,
+      nameGender: maleRatio >= 0.5 ? 'male' : 'female',
+    };
+  }
+
+  private isGenderMismatch(userGender: 'male' | 'female', nameGender: NameGenderTendency): boolean {
+    if (nameGender === 'unknown') return true;
+    return userGender !== nameGender;
+  }
+
+  private async getNameStatInfo(givenName: NameCharInput[]): Promise<NameStatInfo> {
     const key = this.givenNameHangulKey(givenName);
-    if (!key) return { exists: false, popularityRank: null };
+    if (!key) {
+      return {
+        exists: false,
+        popularityRank: null,
+        maleRatio: null,
+        nameGender: 'unknown',
+      };
+    }
 
     const cached = this.nameStatInfoCache.get(key);
     if (cached) return cached;
 
     try {
       const found = await this.nameStatRepo.findByName(key);
+      const genderInfo = this.getGenderInfoFromEntry(found);
       const info = {
         exists: Boolean(found),
         popularityRank: found ? this.latestPopularityRankFromEntry(found) : null,
+        maleRatio: genderInfo.maleRatio,
+        nameGender: genderInfo.nameGender,
       };
       this.nameStatInfoCache.set(key, info);
       return info;
     } catch {
-      const fallback = { exists: false, popularityRank: null };
+      const fallback: NameStatInfo = {
+        exists: false,
+        popularityRank: null,
+        maleRatio: null,
+        nameGender: 'unknown',
+      };
       this.nameStatInfoCache.set(key, fallback);
       return fallback;
     }
   }
 
-  private async existsInNameStat(givenName: NameCharInput[]): Promise<boolean> {
-    return (await this.getNameStatInfo(givenName)).exists;
-  }
-
-  private async filterCandidatesByNameStat(nameInputs: NameCharInput[][]): Promise<NameCharInput[][]> {
+  private async filterCandidatesByNameStat(
+    nameInputs: NameCharInput[][],
+    userGender: 'male' | 'female',
+  ): Promise<NameCharInput[][]> {
     const filtered: NameCharInput[][] = [];
     for (const givenNameInput of nameInputs) {
-      if (await this.existsInNameStat(givenNameInput)) {
-        filtered.push(givenNameInput);
-      }
+      const info = await this.getNameStatInfo(givenNameInput);
+      if (!info.exists) continue;
+      if (this.isGenderMismatch(userGender, info.nameGender)) continue;
+      filtered.push(givenNameInput);
     }
     return filtered;
   }

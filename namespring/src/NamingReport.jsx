@@ -2,6 +2,8 @@ import React, { useEffect, useMemo, useRef, useState } from 'react';
 import { NameStatRepository } from '@seed/database/name-stat-repository';
 import { createPortal } from 'react-dom';
 import { buildShareLinkFromEntryUserInfo } from './share-entry-user-info';
+import NamingResultRenderer from './NamingResultRenderer';
+import { REPORT_CARD_COLOR_THEME, buildReportCardStyle } from './theme/card-color-theme';
 
 const TOTAL_NAME_STATS_COUNT = 50194;
 const ELEMENT_ORDER = ['Wood', 'Fire', 'Earth', 'Metal', 'Water'];
@@ -340,18 +342,41 @@ function getFrameDetailScores(frames, index) {
 }
 
 const CARD_TONE = {
-  default: 'bg-[var(--ns-surface)] border-[var(--ns-border)]',
-  popularity: 'bg-gradient-to-r from-blue-300/55 via-blue-100/60 to-white border-blue-200',
-  lifeFlow: 'bg-gradient-to-r from-amber-300/55 via-amber-100/60 to-white border-amber-200',
-  fourFrame: 'bg-gradient-to-r from-emerald-300/50 via-emerald-100/60 to-white border-emerald-200',
-  hanja: 'bg-gradient-to-r from-slate-300/50 via-slate-100/60 to-white border-slate-200',
-  hangul: 'bg-gradient-to-r from-cyan-300/50 via-cyan-100/60 to-white border-cyan-200',
+  default: {
+    className: 'bg-[var(--ns-surface)] border-[var(--ns-border)]',
+    style: undefined,
+  },
+  popularity: {
+    className: 'bg-white',
+    style: buildReportCardStyle(REPORT_CARD_COLOR_THEME.popularity),
+  },
+  lifeFlow: {
+    className: 'bg-white',
+    style: buildReportCardStyle(REPORT_CARD_COLOR_THEME.lifeFlow),
+  },
+  fourFrame: {
+    className: 'bg-white',
+    style: buildReportCardStyle(REPORT_CARD_COLOR_THEME.fourFrame),
+  },
+  hanja: {
+    className: 'bg-white',
+    style: buildReportCardStyle(REPORT_CARD_COLOR_THEME.hanja),
+  },
+  hangul: {
+    className: 'bg-white',
+    style: buildReportCardStyle(REPORT_CARD_COLOR_THEME.hangul),
+  },
 };
+const SUMMARY_CARD_STYLE = buildReportCardStyle(REPORT_CARD_COLOR_THEME.summary);
+const SUMMARY_INNER_BORDER_STYLE = { borderColor: REPORT_CARD_COLOR_THEME.summary.border };
 
 function CollapseCard({ title, subtitle, open, onToggle, children, tone = 'default' }) {
-  const toneClass = CARD_TONE[tone] || CARD_TONE.default;
+  const toneConfig = CARD_TONE[tone] || CARD_TONE.default;
   return (
-    <section className={`rounded-[2rem] border shadow-lg overflow-hidden ${toneClass}`}>
+    <section
+      className={`rounded-[2rem] border shadow-lg overflow-hidden ${toneConfig.className}`}
+      style={toneConfig.style}
+    >
       <button
         type="button"
         onClick={onToggle}
@@ -564,25 +589,11 @@ const NamingReport = ({ result, shareUserInfo = null }) => {
           outlineColor: '#d1d5db',
           textDecorationColor: '#111827',
           caretColor: '#111827',
-          fill: '#111827',
-          stroke: '#111827',
           webkitTextStrokeColor: '#111827',
         };
         const forceColorProps = Object.keys(colorPropFallback);
 
         const normalizeShadow = (value) => (UNSUPPORTED_COLOR_FN.test(value) ? 'none' : value);
-
-        const overrideStyle = clonedDocument.createElement('style');
-        overrideStyle.textContent = `
-          [data-pdf-root="true"], [data-pdf-root="true"] * {
-            background-image: none !important;
-          }
-          [data-pdf-root="true"] *, [data-pdf-root="true"] *::before, [data-pdf-root="true"] *::after {
-            box-shadow: none !important;
-            text-shadow: none !important;
-          }
-        `;
-        clonedDocument.head.appendChild(overrideStyle);
 
         const elements = [
           clonedDocument.documentElement,
@@ -591,13 +602,13 @@ const NamingReport = ({ result, shareUserInfo = null }) => {
         ].filter(Boolean);
         for (const element of elements) {
           const computed = cloneWindow.getComputedStyle(element);
-          element.style.backgroundImage = 'none';
           element.style.boxShadow = normalizeShadow(computed.boxShadow || 'none');
           element.style.textShadow = normalizeShadow(computed.textShadow || 'none');
 
           for (const prop of forceColorProps) {
             const raw = computed[prop];
             if (!raw) continue;
+            if (!UNSUPPORTED_COLOR_FN.test(raw)) continue;
             const safe = toSafeColor(raw, colorPropFallback[prop]);
             if (!safe) continue;
             element.style[prop] = safe;
@@ -607,35 +618,138 @@ const NamingReport = ({ result, shareUserInfo = null }) => {
 
       const html2CanvasBaseOptions = {
         backgroundColor: '#ffffff',
-        scale: 2,
         useCORS: true,
         scrollX: 0,
         scrollY: 0,
-        windowWidth: target.scrollWidth,
-        windowHeight: target.scrollHeight,
       };
-      const renderCanvas = (extraOptions = {}) => html2canvasLib(target, {
+      const getElementCaptureOptions = (element) => {
+        const width = Math.max(
+          1,
+          Math.ceil(
+            element?.scrollWidth
+            || element?.clientWidth
+            || element?.offsetWidth
+            || target.scrollWidth
+            || 1
+          )
+        );
+        const height = Math.max(
+          1,
+          Math.ceil(
+            element?.scrollHeight
+            || element?.clientHeight
+            || element?.offsetHeight
+            || target.scrollHeight
+            || 1
+          )
+        );
+        const area = width * height;
+        let scale = 2;
+        if (area > 2_400_000) scale = 1.6;
+        if (area > 4_800_000) scale = 1.25;
+        if (area > 7_200_000) scale = 1;
+        return { width, height, scale, windowWidth: width, windowHeight: height };
+      };
+      const isCanvasLikelyBlank = (canvas) => {
+        if (!canvas || canvas.width <= 1 || canvas.height <= 1) return true;
+        const context = canvas.getContext('2d', { willReadFrequently: true });
+        if (!context) return false;
+
+        const sampleCols = 18;
+        const sampleRows = 18;
+        let visiblePointCount = 0;
+
+        for (let row = 0; row < sampleRows; row += 1) {
+          for (let col = 0; col < sampleCols; col += 1) {
+            const x = Math.min(canvas.width - 1, Math.floor((col / (sampleCols - 1 || 1)) * (canvas.width - 1)));
+            const y = Math.min(canvas.height - 1, Math.floor((row / (sampleRows - 1 || 1)) * (canvas.height - 1)));
+            const pixel = context.getImageData(x, y, 1, 1).data;
+            const alpha = pixel[3];
+            if (alpha <= 8) continue;
+            const isNearWhite = pixel[0] >= 245 && pixel[1] >= 245 && pixel[2] >= 245;
+            if (!isNearWhite) {
+              visiblePointCount += 1;
+              if (visiblePointCount >= 3) {
+                return false;
+              }
+            }
+          }
+        }
+        return true;
+      };
+      const normalizeCanvasForPdf = (canvas) => {
+        if (!canvas) return canvas;
+        const MAX_EDGE = 4096;
+        const MAX_PIXELS = 10_000_000;
+        const width = Number(canvas.width) || 0;
+        const height = Number(canvas.height) || 0;
+        if (width <= 0 || height <= 0) return canvas;
+
+        let scale = 1;
+        const edge = Math.max(width, height);
+        if (edge > MAX_EDGE) {
+          scale = Math.min(scale, MAX_EDGE / edge);
+        }
+        const area = width * height;
+        if (area > MAX_PIXELS) {
+          scale = Math.min(scale, Math.sqrt(MAX_PIXELS / area));
+        }
+        if (scale >= 0.999) {
+          return canvas;
+        }
+
+        const resized = document.createElement('canvas');
+        resized.width = Math.max(1, Math.floor(width * scale));
+        resized.height = Math.max(1, Math.floor(height * scale));
+        const resizedContext = resized.getContext('2d');
+        if (!resizedContext) {
+          return canvas;
+        }
+        resizedContext.drawImage(canvas, 0, 0, resized.width, resized.height);
+        return resized;
+      };
+      const renderElementCanvas = (element, extraOptions = {}) => html2canvasLib(element, {
         ...html2CanvasBaseOptions,
+        ...getElementCaptureOptions(element),
         onclone: sanitizeClonedDocument,
         ...extraOptions,
       });
-
-      let canvas;
-      try {
-        canvas = await renderCanvas();
-      } catch (renderError) {
-        const message = String(renderError?.message ?? renderError ?? '');
-        const isUnsupportedColorError = /unsupported color function/i.test(message);
-        if (!isUnsupportedColorError) {
-          throw renderError;
+      const captureElementCanvas = async (element) => {
+        const shouldForceForeignObject = element instanceof HTMLElement
+          && element.dataset.pdfForceForeignObject === 'true';
+        if (shouldForceForeignObject) {
+          const forcedCanvas = await renderElementCanvas(element, {
+            foreignObjectRendering: true,
+            onclone: undefined,
+          });
+          return normalizeCanvasForPdf(forcedCanvas);
         }
-        canvas = await renderCanvas({
-          foreignObjectRendering: true,
-          onclone: undefined,
-        });
-      }
 
-      const imageData = canvas.toDataURL('image/png');
+        try {
+          const primaryCanvas = await renderElementCanvas(element);
+          if (!isCanvasLikelyBlank(primaryCanvas)) {
+            return normalizeCanvasForPdf(primaryCanvas);
+          }
+          const retryCanvas = await renderElementCanvas(element, {
+            foreignObjectRendering: true,
+            onclone: undefined,
+          });
+          return normalizeCanvasForPdf(retryCanvas);
+        } catch (renderError) {
+          const message = String(renderError?.message ?? renderError ?? '');
+          const isUnsupportedColorError = /unsupported color function/i.test(message);
+          const fallbackCanvas = await renderElementCanvas(element, {
+            foreignObjectRendering: true,
+            onclone: undefined,
+            scale: 1,
+          });
+          if (isCanvasLikelyBlank(fallbackCanvas) && !isUnsupportedColorError) {
+            throw renderError;
+          }
+          return normalizeCanvasForPdf(fallbackCanvas);
+        }
+      };
+
       const pdf = new JsPdfCtor({
         orientation: 'portrait',
         unit: 'mm',
@@ -646,20 +760,61 @@ const NamingReport = ({ result, shareUserInfo = null }) => {
       const pageHeight = pdf.internal.pageSize.getHeight();
       const margin = 8;
       const contentWidth = pageWidth - margin * 2;
-      const contentHeight = pageHeight - margin * 2;
-      const imageHeight = (canvas.height * contentWidth) / canvas.width;
+      const contentTop = margin;
+      const contentBottom = pageHeight - margin;
+      const pageContentHeight = contentBottom - contentTop;
+      const blockGap = 3;
 
-      let remainingHeight = imageHeight;
-      let y = margin;
-
-      pdf.addImage(imageData, 'PNG', margin, y, contentWidth, imageHeight, undefined, 'FAST');
-      remainingHeight -= contentHeight;
-
-      while (remainingHeight > 0) {
+      let cursorY = contentTop;
+      const addPage = () => {
         pdf.addPage();
-        y = margin - (imageHeight - remainingHeight);
-        pdf.addImage(imageData, 'PNG', margin, y, contentWidth, imageHeight, undefined, 'FAST');
-        remainingHeight -= contentHeight;
+        cursorY = contentTop;
+      };
+      const toMmHeight = (canvasWidth, heightPx) => (heightPx * contentWidth) / canvasWidth;
+      const addCanvasToPdf = (canvas) => {
+        const fullHeightMm = toMmHeight(canvas.width, canvas.height);
+        const imageData = canvas.toDataURL('image/png');
+
+        if (fullHeightMm <= pageContentHeight + 0.01) {
+          if (cursorY + fullHeightMm > contentBottom + 0.01) {
+            addPage();
+          }
+          pdf.addImage(imageData, 'PNG', margin, cursorY, contentWidth, fullHeightMm, undefined, 'FAST');
+          cursorY += fullHeightMm;
+          return;
+        }
+
+        // Preserve card boundary: oversize cards are scaled to a single page instead of being sliced.
+        if (cursorY > contentTop + 0.01) {
+          addPage();
+        }
+        const scaleToFit = pageContentHeight / fullHeightMm;
+        const drawWidth = contentWidth * scaleToFit;
+        const drawHeight = fullHeightMm * scaleToFit;
+        const drawX = margin + (contentWidth - drawWidth) / 2;
+        pdf.addImage(imageData, 'PNG', drawX, cursorY, drawWidth, drawHeight, undefined, 'FAST');
+        cursorY += drawHeight;
+      };
+
+      const cardBlocks = Array.from(target.children).filter((node) => {
+        if (!(node instanceof HTMLElement)) return false;
+        return node.dataset.pdfExclude !== 'true';
+      });
+      const blocks = cardBlocks.length ? cardBlocks : [target];
+
+      for (let index = 0; index < blocks.length; index += 1) {
+        const block = blocks[index];
+        const blockCanvas = await captureElementCanvas(block);
+        addCanvasToPdf(blockCanvas);
+
+        const isLastBlock = index === blocks.length - 1;
+        if (!isLastBlock) {
+          if (cursorY + blockGap > contentBottom) {
+            addPage();
+          } else {
+            cursorY += blockGap;
+          }
+        }
       }
 
       const safeName = (fullNameHangul || 'name')
@@ -821,7 +976,11 @@ const NamingReport = ({ result, shareUserInfo = null }) => {
   return (
     <>
     <div ref={reportRootRef} data-pdf-root="true" className="mt-4 space-y-3 animate-in fade-in slide-in-from-bottom-6 duration-700">
-      <section className="bg-gradient-to-r from-emerald-200/70 via-emerald-50/60 to-white rounded-[2.4rem] p-4 md:p-5 border border-emerald-200 shadow-xl relative overflow-hidden">
+      <section
+        data-pdf-force-foreign-object="true"
+        className="rounded-[2.4rem] p-4 md:p-5 border shadow-xl relative overflow-hidden"
+        style={SUMMARY_CARD_STYLE}
+      >
         <div className="absolute -right-20 -top-20 w-64 h-64 bg-emerald-300/30 rounded-full blur-3xl" />
         <div className="relative z-10 flex flex-col md:flex-row md:items-end md:justify-between gap-3">
           <div>
@@ -834,6 +993,16 @@ const NamingReport = ({ result, shareUserInfo = null }) => {
             <div className="text-6xl md:text-7xl font-black text-[var(--ns-accent-text)] leading-none">{scoreText}</div>
             <p className="text-sm text-[var(--ns-muted)] font-semibold mt-2">{getScoreGrade(score)}</p>
           </div>
+        </div>
+        <div
+          className="relative z-10 mt-4 h-44 md:h-52 rounded-[1.6rem] overflow-hidden border shadow-md"
+          style={SUMMARY_INNER_BORDER_STYLE}
+        >
+          <NamingResultRenderer
+            namingResult={result}
+            birthDateTime={shareUserInfo?.birthDateTime ?? null}
+            isSolarCalendar={shareUserInfo?.isSolarCalendar}
+          />
         </div>
       </section>
 
@@ -1172,7 +1341,7 @@ const NamingReport = ({ result, shareUserInfo = null }) => {
         </div>
       </CollapseCard>
 
-      <div className="flex gap-4 pt-2">
+      <div data-pdf-exclude="true" className="flex gap-4 pt-2">
         <button
           type="button"
           onClick={handleSavePdf}
