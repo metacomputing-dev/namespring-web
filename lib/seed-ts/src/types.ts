@@ -6,6 +6,7 @@ import type { HanjaEntry } from './database/hanja-repository';
  * Using a union type for strict type checking.
  */
 export type Gender = 'male' | 'female';
+export type BirthCalendarType = 'solar' | 'lunar';
 export type PureHangulNameMode = 'auto' | 'on' | 'off';
 
 /**
@@ -23,6 +24,8 @@ export interface BirthDateTime {
   readonly day: number;    // 1 to 31
   readonly hour: number;   // 0 to 23
   readonly minute: number; // 0 to 59
+  readonly calendarType?: BirthCalendarType;
+  readonly isLeapMonth?: boolean;
 }
 
 export interface SeedAnalysisOptions {

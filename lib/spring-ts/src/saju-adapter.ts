@@ -240,6 +240,8 @@ export async function analyzeSaju(birth: BirthInfo, options?: SpringRequest['opt
       birthYear: birth.year, birthMonth: birth.month,
       birthDay: birth.day, birthHour: birth.hour, birthMinute: birth.minute,
       gender: birth.gender === 'male' ? 'MALE' : 'FEMALE',
+      calendarType: birth.calendarType === 'lunar' ? 'LUNAR' : 'SOLAR',
+      isLeapMonth: typeof birth.isLeapMonth === 'boolean' ? birth.isLeapMonth : undefined,
       timezone:  birth.timezone  ?? DEFAULT_TIMEZONE,
       latitude:  birth.latitude  ?? DEFAULT_LATITUDE,
       longitude: birth.longitude ?? DEFAULT_LONGITUDE,
