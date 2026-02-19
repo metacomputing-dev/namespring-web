@@ -40,6 +40,7 @@ function ReportPage({ hanjaRepo, isDbReady, onAnalyze, initialUserInfo, onBackHo
             hanjaRepo={hanjaRepo}
             isDbReady={isDbReady}
             onAnalyze={handleAnalyze}
+            initialUserInfo={initialUserInfo}
             submitLabel="이름 평가 보고서"
           />
         )}
