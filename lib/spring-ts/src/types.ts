@@ -9,12 +9,12 @@ import type { ElementKey } from './core/scoring.js';
 
 /** Date, time, location, and gender of the person being named. */
 export interface BirthInfo {
-  readonly year: number;
-  readonly month: number;
-  readonly day: number;
-  readonly hour: number;
-  readonly minute: number;
-  readonly gender: 'male' | 'female';
+  readonly year?: number | null;
+  readonly month?: number | null;
+  readonly day?: number | null;
+  readonly hour?: number | null;
+  readonly minute?: number | null;
+  readonly gender: 'male' | 'female' | 'neutral';
   readonly calendarType?: 'solar' | 'lunar';
   readonly isLeapMonth?: boolean;
   readonly timezone?: string;
@@ -46,6 +46,8 @@ export interface SpringOptions {
   readonly schoolPreset?: 'korean' | 'chinese' | 'modern';
   readonly sajuConfig?: Record<string, unknown>;
   readonly sajuOptions?: SajuRequestOptions;
+  readonly pureHangulNameMode?: 'auto' | 'on' | 'off';
+  readonly useSurnameHanjaInPureHangul?: boolean;
 }
 
 /** Saju-specific request options (daeun count, saeun year range). */
