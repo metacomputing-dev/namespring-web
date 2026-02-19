@@ -6,6 +6,7 @@ import type { HanjaEntry } from './database/hanja-repository';
  * Using a union type for strict type checking.
  */
 export type Gender = 'male' | 'female';
+export type PureHangulNameMode = 'auto' | 'on' | 'off';
 
 /**
  * Categorizes the types of analysis performed by the engine.
@@ -24,6 +25,11 @@ export interface BirthDateTime {
   readonly minute: number; // 0 to 59
 }
 
+export interface SeedAnalysisOptions {
+  readonly pureHangulNameMode?: PureHangulNameMode;
+  readonly useSurnameHanjaInPureHangul?: boolean;
+}
+
 /**
  * Input data provided by the user for naming analysis.
  * Now contains HanjaEntry arrays to hold rich metadata for each character.
@@ -33,6 +39,7 @@ export interface UserInfo {
   readonly firstName: HanjaEntry[];
   readonly birthDateTime: BirthDateTime;
   readonly gender: Gender;
+  readonly options?: SeedAnalysisOptions;
 }
 
 /**
@@ -58,6 +65,7 @@ export interface NamingResult {
   readonly hangul: EnergyCalculator;
   readonly fourFrames: EnergyCalculator;
   readonly interpretation: string;
+  readonly pureHangulMode?: boolean;
 }
 
 /**
