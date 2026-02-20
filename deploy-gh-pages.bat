@@ -1,6 +1,14 @@
 @echo off
 setlocal EnableExtensions EnableDelayedExpansion
 
+set "NPM_CONFIG_REGISTRY=https://registry.npmjs.org/"
+set "NPM_CONFIG_REPLACE_REGISTRY_HOST=always"
+set "NPM_CONFIG_FETCH_RETRIES=5"
+set "NPM_CONFIG_FETCH_RETRY_MINTIMEOUT=20000"
+set "NPM_CONFIG_FETCH_RETRY_MAXTIMEOUT=120000"
+set "NPM_CONFIG_AUDIT=false"
+set "NPM_CONFIG_FUND=false"
+
 set "TARGET_REMOTE=meta"
 set "TARGET_BRANCH=gh-pages"
 set "LOCAL_PAGES_BRANCH=__deploy_%TARGET_BRANCH%_%RANDOM%%RANDOM%"
