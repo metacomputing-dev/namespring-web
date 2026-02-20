@@ -162,7 +162,14 @@ function HomePage({ entryUserInfo, onLoadSajuReport, onOpenCombinedReport, onOpe
         <button
           type="button"
           onClick={() => onOpenEntry(entryUserInfo)}
-          className="ns-scroll-top-fab inline-flex h-11 w-11 items-center justify-center rounded-full border border-white/60 bg-[var(--ns-surface)]/95 text-[var(--ns-accent-text)] shadow-[0_10px_24px_rgba(15,23,42,0.22)] backdrop-blur-sm hover:brightness-95"
+          style={{
+            position: 'fixed',
+            left: '50%',
+            bottom: '24px',
+            transform: 'translateX(-50%)',
+            zIndex: 9999,
+          }}
+          className="inline-flex h-11 w-11 items-center justify-center rounded-full border border-white/60 bg-[var(--ns-surface)]/95 text-[var(--ns-accent-text)] shadow-[0_10px_24px_rgba(15,23,42,0.22)] backdrop-blur-sm hover:brightness-95"
           aria-label="입력 정보 수정"
         >
           <svg viewBox="0 0 20 20" fill="none" className="h-4 w-4" aria-hidden="true">
