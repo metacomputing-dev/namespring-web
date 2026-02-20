@@ -2,6 +2,7 @@ import React, { useEffect, useMemo, useState } from 'react';
 import logoSvg from './assets/logo.svg';
 import NamingResultRenderer from './NamingResultRenderer';
 import { HOME_CARD_COLOR_THEME, buildTileStyle } from './theme/card-color-theme';
+import { buildRenderMetricsFromSajuReport } from './naming-result-render-metrics';
 
 function HomeTile({ item, onClick }) {
   const isClickable = typeof onClick === 'function';
@@ -37,9 +38,9 @@ function HomeTile({ item, onClick }) {
   );
 }
 
-function HomePage({ entryUserInfo, onAnalyzeAsync, onOpenCombinedReport, onOpenNamingCandidates, onOpenEntry }) {
+function HomePage({ entryUserInfo, onLoadSajuReport, onOpenCombinedReport, onOpenNamingCandidates, onOpenEntry }) {
   const [isAnalyzing, setIsAnalyzing] = useState(false);
-  const [previewResult, setPreviewResult] = useState(null);
+  const [previewMetrics, setPreviewMetrics] = useState(null);
   const [analyzeError, setAnalyzeError] = useState('');
   const menuItems = useMemo(() => ([
     {
@@ -80,17 +81,19 @@ function HomePage({ entryUserInfo, onAnalyzeAsync, onOpenCombinedReport, onOpenN
     let cancelled = false;
 
     const run = async () => {
-      if (!entryUserInfo || !onAnalyzeAsync) {
-        setPreviewResult(null);
+      if (!entryUserInfo || !onLoadSajuReport) {
+        setPreviewMetrics(null);
         return;
       }
 
       setIsAnalyzing(true);
       setAnalyzeError('');
       try {
-        const seedResult = await onAnalyzeAsync(entryUserInfo);
+        const sajuReport = await onLoadSajuReport(entryUserInfo);
         if (cancelled) return;
-        setPreviewResult(seedResult?.candidates?.[0] ?? null);
+        setPreviewMetrics(buildRenderMetricsFromSajuReport(sajuReport, {
+          entryUserInfo,
+        }));
       } catch {
         if (cancelled) return;
         setAnalyzeError('결과를 불러오지 못했습니다.');
@@ -105,7 +108,7 @@ function HomePage({ entryUserInfo, onAnalyzeAsync, onOpenCombinedReport, onOpenN
     return () => {
       cancelled = true;
     };
-  }, [entryUserInfo, onAnalyzeAsync]);
+  }, [entryUserInfo, onLoadSajuReport]);
 
   return (
     <div className="min-h-screen p-6 md:p-10 font-sans">
@@ -118,7 +121,7 @@ function HomePage({ entryUserInfo, onAnalyzeAsync, onOpenCombinedReport, onOpenN
         <div className="h-44 md:h-52 mb-4">
           {isAnalyzing && (
             <div className="h-full w-full rounded-[1.6rem] border border-dashed border-[var(--ns-border)] bg-[var(--ns-surface-soft)] flex items-center justify-center text-center shadow-xl">
-              <p className="text-sm md:text-base font-bold text-[var(--ns-muted)]">이름 결과를 분석하는 중입니다...</p>
+              <p className="text-sm md:text-base font-bold text-[var(--ns-muted)]">사주 결과를 분석하는 중입니다...</p>
             </div>
           )}
           {!isAnalyzing && analyzeError && (
@@ -126,20 +129,20 @@ function HomePage({ entryUserInfo, onAnalyzeAsync, onOpenCombinedReport, onOpenN
               <p className="text-sm md:text-base font-bold text-[var(--ns-muted)]">{analyzeError}</p>
             </div>
           )}
-          {!isAnalyzing && !analyzeError && previewResult && (
+          {!isAnalyzing && !analyzeError && previewMetrics && (
             <button
               type="button"
               onClick={() => onOpenEntry?.(entryUserInfo)}
               className="h-full w-full block text-left rounded-[1.6rem] overflow-hidden"
             >
               <NamingResultRenderer
-                namingResult={previewResult}
+                renderMetrics={previewMetrics}
                 birthDateTime={entryUserInfo?.birthDateTime}
                 isSolarCalendar={entryUserInfo?.isSolarCalendar}
               />
             </button>
           )}
-          {!isAnalyzing && !analyzeError && !previewResult && (
+          {!isAnalyzing && !analyzeError && !previewMetrics && (
             <div className="h-full w-full rounded-[1.6rem] border border-dashed border-[var(--ns-border)] bg-[var(--ns-surface-soft)] flex items-center justify-center text-center">
               <p className="text-sm md:text-base font-bold text-[var(--ns-muted)]">입력한 이름 데이터가 없습니다.</p>
             </div>
