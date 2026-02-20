@@ -37,18 +37,18 @@ function HomeTile({ item, onClick }) {
   );
 }
 
-function HomePage({ entryUserInfo, onAnalyzeAsync, onOpenReport, onOpenNamingCandidates, onOpenEntry }) {
+function HomePage({ entryUserInfo, onAnalyzeAsync, onOpenCombinedReport, onOpenNamingCandidates, onOpenEntry }) {
   const [isAnalyzing, setIsAnalyzing] = useState(false);
   const [previewResult, setPreviewResult] = useState(null);
   const [analyzeError, setAnalyzeError] = useState('');
   const menuItems = useMemo(() => ([
     {
       id: 1,
-      title: '이름 평가 보고서',
-      subtitle: '사주와 성명학의 깊은 분석',
-      description: '당신의 이름에 담긴 기운을 정밀하게 측정하여 리포트로 제공합니다.',
+      title: '통합 평가 보고서',
+      subtitle: '사주와 성명학의 통합 분석',
+      description: '이름 평가와 사주 평가를 함께 묶은 종합 리포트를 제공합니다.',
       theme: HOME_CARD_COLOR_THEME.report,
-      onClick: onOpenReport,
+      onClick: onOpenCombinedReport,
     },
     {
       id: 2,
@@ -74,7 +74,7 @@ function HomePage({ entryUserInfo, onAnalyzeAsync, onOpenReport, onOpenNamingCan
       theme: HOME_CARD_COLOR_THEME.info,
       onClick: null,
     },
-  ]), [onOpenNamingCandidates, onOpenReport]);
+  ]), [onOpenCombinedReport, onOpenNamingCandidates]);
 
   useEffect(() => {
     let cancelled = false;

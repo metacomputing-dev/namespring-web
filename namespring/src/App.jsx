@@ -299,6 +299,27 @@ function App() {
     return springEngine.getSajuReport(springRequest);
   };
 
+  const handleOpenCombinedReportFromHome = useCallback(() => {
+    const normalized = normalizeEntryUserInfo(entryUserInfo);
+    if (!normalized) {
+      navigateToPage('entry', { hasEntryUserInfo: false });
+      return;
+    }
+
+    const givenName = toSpringNameChars(normalized.firstName);
+    if (!givenName.length) {
+      navigateToPage('entry', { hasEntryUserInfo: true });
+      return;
+    }
+
+    setSelectedCandidateSummary({
+      givenName,
+      fullHangul: `${normalized.lastNameText}${normalized.firstNameText}`,
+      fullHanja: `${normalized.lastName.map((v) => String(v?.hanja ?? '')).join('')}${normalized.firstName.map((v) => String(v?.hanja ?? '')).join('')}`,
+    });
+    navigateToPage('combined-report');
+  }, [entryUserInfo]);
+
   const navigateToPage = (nextPage, options = {}) => {
     const hasEntryUserInfo = typeof options.hasEntryUserInfo === 'boolean'
       ? options.hasEntryUserInfo
@@ -374,7 +395,7 @@ function App() {
             <HomePage
               entryUserInfo={entryUserInfo}
               onAnalyzeAsync={handleAnalyzeAsync}
-              onOpenReport={() => navigateToPage('report')}
+              onOpenCombinedReport={handleOpenCombinedReportFromHome}
               onOpenNamingCandidates={() => navigateToPage('naming-candidates')}
               onOpenEntry={(userInfoFromHome) => {
                 const normalized = normalizeEntryUserInfo(userInfoFromHome || entryUserInfo);

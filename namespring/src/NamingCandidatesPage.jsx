@@ -8,6 +8,7 @@ import {
 const DEFAULT_RECOMMEND_WEIGHT_A = 0.5;
 const DEFAULT_RECOMMEND_MAX_SCORE = 80;
 const FAVORITE_STORAGE_KEY = 'namespring_favorite_candidate_keys';
+const TOTAL_NAME_STATS_COUNT = 50194;
 const CHOSEONG_LIST = ['ㄱ', 'ㄲ', 'ㄴ', 'ㄷ', 'ㄸ', 'ㄹ', 'ㅁ', 'ㅂ', 'ㅃ', 'ㅅ', 'ㅆ', 'ㅇ', 'ㅈ', 'ㅉ', 'ㅊ', 'ㅋ', 'ㅌ', 'ㅍ', 'ㅎ'];
 const CHOSEONG_SET = new Set(CHOSEONG_LIST);
 
@@ -344,14 +345,14 @@ function NamingCandidatesPage({ entryUserInfo, onRecommendAsync, onLoadCurrentSp
           </div>
 
           <div className="rounded-xl border p-3" style={summaryCardStyle}>
-            <p className="text-xs font-black text-[var(--ns-muted)] mb-2">후보 요약</p>
+            <p className="text-xs font-black text-[var(--ns-muted)] mb-2">추천 이름 요약</p>
             <div className="grid grid-cols-2 gap-2">
               <div className="rounded-lg border bg-[var(--ns-surface)] px-3 py-2" style={summaryMiniStyle}>
                 <p className="text-[11px] font-black text-[var(--ns-muted)]">총점 범위</p>
                 <p className="text-sm font-black text-[var(--ns-accent-text)] break-keep whitespace-normal">{scoreRangeText}</p>
               </div>
               <div className="rounded-lg border bg-[var(--ns-surface)] px-3 py-2" style={summaryMiniStyle}>
-                <p className="text-[11px] font-black text-[var(--ns-muted)]">인기도 범위</p>
+                <p className="text-[11px] font-black text-[var(--ns-muted)]">인기도 범위 (전체 {TOTAL_NAME_STATS_COUNT})</p>
                 <p className="text-sm font-black text-[var(--ns-accent-text)] break-keep whitespace-normal">{popularityRangeText}</p>
               </div>
             </div>
@@ -359,8 +360,7 @@ function NamingCandidatesPage({ entryUserInfo, onRecommendAsync, onLoadCurrentSp
 
           <div className="flex items-center justify-between gap-3">
             <p className="text-sm font-black text-[var(--ns-muted)]">
-              총 {sortedCandidates.length}개 후보
-              {sortedCandidates.length !== candidates.length ? ` / 전체 ${candidates.length}개` : ''}
+              총 {sortedCandidates.length}개의 추천 이름을 찾았어요.
             </p>
             <div className="flex items-center gap-2">
               <button
@@ -368,19 +368,21 @@ function NamingCandidatesPage({ entryUserInfo, onRecommendAsync, onLoadCurrentSp
                 onClick={() => setShowFavoriteOnly((prev) => !prev)}
                 className={`px-3 py-2 rounded-xl border text-xs font-black transition-colors ${showFavoriteOnly ? 'border-amber-300 bg-amber-100/90 text-amber-800' : 'border-[var(--ns-border)] bg-[var(--ns-surface-soft)] text-[var(--ns-muted)]'}`}
               >
-                즐겨찾기
+                즐겨찾기★
               </button>
-              <label htmlFor="candidate-sort" className="text-xs font-black text-[var(--ns-muted)]">정렬</label>
-              <select
-                id="candidate-sort"
-                value={sortMode}
-                onChange={(e) => setSortMode(e.target.value)}
-                className="px-3 py-2 rounded-xl border border-[var(--ns-border)] bg-[var(--ns-surface-soft)] text-sm font-bold text-[var(--ns-text)]"
-              >
-                <option value="recommended">추천순</option>
-                <option value="score">점수순</option>
-                <option value="popularity">인기도순</option>
-              </select>
+              <div className="ml-2 flex items-center gap-2">
+                <label htmlFor="candidate-sort" className="text-xs font-black text-[var(--ns-muted)]">정렬</label>
+                <select
+                  id="candidate-sort"
+                  value={sortMode}
+                  onChange={(e) => setSortMode(e.target.value)}
+                  className="px-3 py-2 rounded-xl border border-[var(--ns-border)] bg-[var(--ns-surface-soft)] text-sm font-bold text-[var(--ns-text)]"
+                >
+                  <option value="recommended">추천순</option>
+                  <option value="score">점수순</option>
+                  <option value="popularity">인기도순</option>
+                </select>
+              </div>
             </div>
           </div>
           <div className="rounded-xl border border-[var(--ns-border)] bg-[var(--ns-surface-soft)] p-2.5">

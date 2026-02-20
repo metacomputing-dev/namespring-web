@@ -347,14 +347,16 @@ function InputForm({
   };
 
   const openBirthPicker = () => {
-    const base = toPickerDateValue(birthDate, birthTime) ?? new Date();
+    const existing = toPickerDateValue(birthDate, birthTime);
+    const base = existing ?? new Date();
+    const hasExistingBirthDate = Boolean(existing);
     setDraftBirthDate(new Date(base.getFullYear(), base.getMonth(), base.getDate()));
     setDraftBirthMonth(new Date(base.getFullYear(), base.getMonth(), 1));
-    setDraftBirthYear('');
+    setDraftBirthYear(hasExistingBirthDate ? String(base.getFullYear()) : '');
     setDraftBirthHour(base.getHours());
     setDraftBirthMinute(Math.floor(base.getMinutes() / 10) * 10);
-    setIsBirthYearStepDone(false);
-    setIsBirthDateStepDone(false);
+    setIsBirthYearStepDone(hasExistingBirthDate);
+    setIsBirthDateStepDone(hasExistingBirthDate);
     setIsBirthPickerOpen(true);
     window.setTimeout(() => setIsBirthPickerVisible(true), 10);
   };
