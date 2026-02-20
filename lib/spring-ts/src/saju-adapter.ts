@@ -5,26 +5,25 @@
  * of the Spring engine.  Think of this as the "interpreter" that sits between
  * the low-level Four Pillars engine and the user-facing scoring pipeline.
  *
- * ?? Glossary (?ъ＜ ?쎿윶) ??????????????????????????????????????????????????
- *  Cheongan (泥쒓컙)        10 Heavenly Stems  ??GAP, EUL, BYEONG ...
- *  Jiji (吏吏)            12 Earthly Branches ??JA, CHUK, IN ...
- *  Ohaeng (?ㅽ뻾)          Five Elements       ??WOOD, FIRE, EARTH, METAL, WATER
- *  Yongshin (?⑹떊)        The "helpful god" element that balances the chart
- *  Heesin (?ъ떊)          The supporting element that assists yongshin
- *  Gisin (湲곗떊)           The harmful element that weakens the chart
- *  Gusin (援ъ떊)           The most harmful element ??worse than gisin
- *  Sipseong (??꽦)        Ten Gods ??relationships between stems
- *  Gyeokguk (寃⑷뎅)        Structural pattern of the chart
- *  Shinsal (?좎궡)         Auspicious/inauspicious markers
- *  Gongmang (怨듬쭩)        "Void" branches in the chart
- *  Daeun (???           Major luck cycles (10-year periods)
- * ?????????????????????????????????????????????????????????????????????????
+ * Glossary
+ *  Cheongan (천간): 10 Heavenly Stems (e.g. GAP, EUL, BYEONG ...)
+ *  Jiji (지지): 12 Earthly Branches (e.g. JA, CHUK, IN ...)
+ *  Ohaeng (오행): Five Elements (WOOD, FIRE, EARTH, METAL, WATER)
+ *  Yongshin (용신): The balancing element for the chart
+ *  Heesin (희신): Supporting element for yongshin
+ *  Gisin (기신): Harmful element
+ *  Gusin (구신): Most harmful element
+ *  Sipseong (십성): Ten-god relationships between stems
+ *  Gyeokguk (격국): Structural pattern of the chart
+ *  Shinsal (신살): Auspicious/inauspicious markers
+ *  Gongmang (공망): Void branches
+ *  Daeun (대운): 10-year luck cycles
  */
 import { type ElementKey, emptyDistribution } from './core/scoring.js';
 import type { SajuOutputSummary, SpringRequest, SajuSummary, PillarSummary, BirthInfo } from './types.js';
 
 // ---------------------------------------------------------------------------
-//  Configuration ??loaded from JSON files so non-programmers can tweak them
+//  Configuration loaded from JSON files
 // ---------------------------------------------------------------------------
 import cheonganJijiConfig from '../config/cheongan-jiji.json';
 import engineConfig from '../config/engine.json';
@@ -36,10 +35,10 @@ const ELEMENT_CODE_TO_KEY: Record<string, ElementKey> = cheonganJijiConfig.eleme
 /** Canonical list of the five elements in order. */
 const ELEMENT_CODES: readonly string[] = cheonganJijiConfig.elementCodes;
 
-/** Heavenly Stems reference table ??hangul, hanja, element, polarity. */
+/** Heavenly Stems reference table (hangul, hanja, element, polarity). */
 const CHEONGAN: Record<string, { hangul: string; hanja: string; element: string; polarity: string }> = cheonganJijiConfig.cheongan;
 
-/** Earthly Branches reference table ??hangul, hanja. */
+/** Earthly Branches reference table (hangul, hanja). */
 const JIJI: Record<string, { hangul: string; hanja: string }> = cheonganJijiConfig.jiji;
 
 /** Maps each ten-god name to its group: friend/output/wealth/authority/resource. */
@@ -208,7 +207,7 @@ const SHINSAL_POSITION_KO_LABEL: Record<string, string> = {
 };
 
 // ---------------------------------------------------------------------------
-//  Type-safe constant ??defines the shape of the time-correction object
+//  Type-safe constant: keys of the time-correction object
 // ---------------------------------------------------------------------------
 const TC_KEYS = [
   'standardYear', 'standardMonth', 'standardDay', 'standardHour', 'standardMinute',
@@ -629,8 +628,8 @@ async function loadSajuModule(): Promise<SajuModule | null> {
   }
 
   console.warn(
-    '[spring-ts] saju-ts 紐⑤뱢 濡쒕뱶 ?ㅽ뙣. ?ъ＜ 遺꾩꽍??鍮꾪솢?깊솕?⑸땲??',
-    `?쒕룄??寃쎈줈: ${candidates.join(', ')}`,
+    '[spring-ts] failed to load saju-ts module; saju analysis will be disabled.',
+    `tried paths: ${candidates.join(', ')}`,
   );
   return null;
 }
@@ -639,7 +638,7 @@ async function loadSajuModule(): Promise<SajuModule | null> {
 //  Small utility helpers
 // ---------------------------------------------------------------------------
 
-/** Guarantees an array ??returns `value` if it is one, otherwise wraps it. */
+/** Guarantees an array; returns `value` if already an array, otherwise wraps it. */
 function ensureArray(value: any): any[] {
   return Array.isArray(value) ? value : [];
 }
@@ -744,10 +743,10 @@ function canRunFullSaju(parts: KnownBirthParts): boolean {
 }
 
 function seasonHintFromMonth(month: number): string {
-  if (month >= 3 && month <= 5) return '遊?湲곗슫(紐? 寃쏀뼢';
-  if (month >= 6 && month <= 8) return '?щ쫫 湲곗슫(?? 寃쏀뼢';
-  if (month >= 9 && month <= 11) return '媛??湲곗슫(湲? 寃쏀뼢';
-  return '寃⑥슱 湲곗슫(?? 寃쏀뼢';
+  if (month >= 3 && month <= 5) return '봄 기운(목 기운 경향)';
+  if (month >= 6 && month <= 8) return '여름 기운(화 기운 경향)';
+  if (month >= 9 && month <= 11) return '가을 기운(금 기운 경향)';
+  return '겨울 기운(수 기운 경향)';
 }
 
 function hourBranchCode(hour: number): string {
@@ -790,30 +789,30 @@ function buildPartialSajuSummary(birth: BirthInfo, parts: KnownBirthParts): Saju
     };
 
     interpretation.push(
-      `異쒖깮 ?곕룄 湲곗??쇰줈 ?곗＜瑜?異붿젙?덉뒿?덈떎: ${stemInfo?.hangul ?? stemCode}${branchInfo?.hangul ?? branchCode}??`,
+      `출생 연도 기준으로 연주를 추정했습니다: ${stemInfo?.hangul ?? stemCode}${branchInfo?.hangul ?? branchCode}.`,
     );
   }
 
   if (parts.month != null) {
-    interpretation.push(`異쒖깮 ???뺣낫濡?怨꾩젅 寃쏀뼢??諛섏쁺?덉뒿?덈떎: ${seasonHintFromMonth(parts.month)}.`);
+    interpretation.push(`출생 월 정보로 계절 경향을 반영했습니다: ${seasonHintFromMonth(parts.month)}.`);
   }
 
   if (parts.day != null) {
-    interpretation.push('異쒖깮 ???뺣낫???뺤씤?섏뿀吏留??쇱＜/?⑹떊 遺꾩꽍?먮뒗 ?곗썡 ?뺣낫媛 ???꾩슂?⑸땲??');
+    interpretation.push('출생 일 정보는 확인했지만 일주/용신 분석에는 연·월 정보가 함께 필요합니다.');
   }
 
   if (parts.hour != null) {
     const branchCode = hourBranchCode(parts.hour);
     const branchInfo = JIJI[branchCode];
-    interpretation.push(`異쒖깮 ???뺣낫濡??쒖? 寃쏀뼢??諛섏쁺?덉뒿?덈떎: ${branchInfo?.hangul ?? branchCode}??援ш컙.`);
+    interpretation.push(`출생 시 정보로 시지 경향을 반영했습니다: ${branchInfo?.hangul ?? branchCode} 구간.`);
   }
 
   if (parts.minute != null) {
-    interpretation.push('異쒖깮 遺??뺣낫媛 ?덉뼱 ?쒓컙 ?ㅼ감 踰붿쐞瑜?以꾩뿬 ?댁꽍?덉뒿?덈떎.');
+    interpretation.push('출생 분 정보가 있어 시간 추정 범위를 좁혀 해석했습니다.');
   }
 
   if (birth.gender === 'neutral') {
-    interpretation.push('以묒꽦 ?좏깮?쇰줈 ?깅퀎 ?섏〈 ?댁꽍 ??ぉ? 以묐┰ 湲곗??쇰줈 泥섎━?덉뒿?덈떎.');
+    interpretation.push('중성 선택으로 성별 보정 해석은 중립 기준으로 처리했습니다.');
   }
 
   mutableSummary.partialInterpretation = interpretation;
@@ -974,14 +973,14 @@ export async function analyzeSaju(birth: BirthInfo, options?: SpringRequest['opt
     const notes: string[] = [];
     if (parts.hour == null || parts.minute == null) {
       notes.push(
-        `異쒖깮 ??遺?誘몄긽?쇰줈 ${String(DEFAULT_UNKNOWN_HOUR).padStart(2, '0')}:${String(DEFAULT_UNKNOWN_MINUTE).padStart(2, '0')} 湲곗? 怨꾩궛???곸슜?덉뒿?덈떎.`,
+        `출생 시/분 미상으로 ${String(DEFAULT_UNKNOWN_HOUR).padStart(2, '0')}:${String(DEFAULT_UNKNOWN_MINUTE).padStart(2, '0')} 기준 계산을 적용했습니다.`,
       );
     }
     if (birth.gender === 'neutral') {
       const maleConfidenceText = neutralMaleConfidence != null ? neutralMaleConfidence.toFixed(2) : '-';
       const femaleConfidenceText = neutralFemaleConfidence != null ? neutralFemaleConfidence.toFixed(2) : '-';
       notes.push(
-        `以묒꽦 ?좏깮?쇰줈 ????湲곗???紐⑤몢 怨꾩궛?덇퀬, ?좊ː??湲곗??쇰줈 ${neutralBasis ?? '以묐┰'} 寃곌낵瑜??ъ슜?덉뒿?덈떎. (?⑥꽦 ${maleConfidenceText}, ?ъ꽦 ${femaleConfidenceText})`,
+        `중성 선택으로 남녀 기준을 모두 계산했고, 신뢰도 기준으로 ${neutralBasis ?? '중립'} 결과를 사용했습니다. (남성 ${maleConfidenceText}, 여성 ${femaleConfidenceText})`,
       );
       summary.neutralGenderBasis = neutralBasis ?? 'UNKNOWN';
     }
@@ -996,7 +995,7 @@ export async function analyzeSaju(birth: BirthInfo, options?: SpringRequest['opt
 }
 
 // ---------------------------------------------------------------------------
-//  extractSaju ??composed from focused extraction helpers
+//  extractSaju composed from focused extraction helpers
 // ---------------------------------------------------------------------------
 
 /**
@@ -1039,7 +1038,7 @@ export function extractSaju(rawSajuOutput: any): SajuSummary {
 }
 
 // ---------------------------------------------------------------------------
-//  Pillar extraction ??year / month / day / hour
+//  Pillar extraction: year / month / day / hour
 // ---------------------------------------------------------------------------
 
 /** Converts a single raw pillar into our PillarSummary shape (stem + branch). */
@@ -1064,12 +1063,12 @@ function extractPillars(rawPillars: any): Record<'year' | 'month' | 'day' | 'hou
 }
 
 // ---------------------------------------------------------------------------
-//  Day master ??the stem of the day pillar
+//  Day master: the stem of the day pillar
 // ---------------------------------------------------------------------------
 
 function extractDayMaster(dayStemCode: string, strengthResult: any) {
   const dayMasterInfo = CHEONGAN[dayStemCode];
-  // Theory-first: day master (?쇨컙) is defined by the day stem itself.
+  // Theory-first: day master is defined by the day stem itself.
   // Keep strengthResult as a fallback only when stem metadata is unavailable.
   const canonicalElement = normalizeElementCode(dayMasterInfo?.element) ?? '';
   const fallbackElement = normalizeElementCode(strengthResult?.dayMasterElement) ?? '';
@@ -1082,7 +1081,7 @@ function extractDayMaster(dayStemCode: string, strengthResult: any) {
 }
 
 // ---------------------------------------------------------------------------
-//  Strength ??is the day master strong or weak?
+//  Strength: whether the day master is strong or weak
 // ---------------------------------------------------------------------------
 
 function extractStrength(strengthResult: any) {
@@ -1101,7 +1100,7 @@ function extractStrength(strengthResult: any) {
 }
 
 // ---------------------------------------------------------------------------
-//  Element distribution ??how many "points" each element has in the chart
+//  Element distribution: how many points each element has in the chart
 // ---------------------------------------------------------------------------
 
 function extractElementDistribution(rawSajuOutput: any): {
@@ -1141,7 +1140,7 @@ function extractElementDistribution(rawSajuOutput: any): {
 }
 
 // ---------------------------------------------------------------------------
-//  Yongshin ??the recommended balancing element
+//  Yongshin: the recommended balancing element
 // ---------------------------------------------------------------------------
 
 function extractYongshin(yongshinResult: any) {
@@ -1169,7 +1168,7 @@ function extractYongshin(yongshinResult: any) {
 }
 
 // ---------------------------------------------------------------------------
-//  Gyeokguk ??the structural pattern of the chart
+//  Gyeokguk: the structural pattern of the chart
 // ---------------------------------------------------------------------------
 
 function extractGyeokguk(gyeokgukResult: any) {
@@ -1183,7 +1182,7 @@ function extractGyeokguk(gyeokgukResult: any) {
 }
 
 // ---------------------------------------------------------------------------
-//  Ten God analysis (??꽦 遺꾩꽍)
+//  Ten God analysis
 // ---------------------------------------------------------------------------
 
 function extractTenGodAnalysis(tenGodResult: any, dayStemCode: string) {
@@ -1216,7 +1215,7 @@ function extractTenGodAnalysis(tenGodResult: any, dayStemCode: string) {
 }
 
 // ---------------------------------------------------------------------------
-//  Shinsal hits (?좎궡 ??auspicious / inauspicious markers)
+//  Shinsal hits (auspicious / inauspicious markers)
 // ---------------------------------------------------------------------------
 
 function extractShinsalHits(rawSajuOutput: any) {
@@ -1256,7 +1255,7 @@ function extractShinsalComposites(rawSajuOutput: any) {
 }
 
 // ---------------------------------------------------------------------------
-//  Jiji relations (吏吏 愿怨???earthly branch interactions)
+//  Jiji relations (earthly branch interactions)
 // ---------------------------------------------------------------------------
 
 function extractJijiRelations(rawSajuOutput: any) {
@@ -1289,7 +1288,7 @@ function extractJijiRelations(rawSajuOutput: any) {
 }
 
 // ---------------------------------------------------------------------------
-//  Cheongan relations (泥쒓컙 愿怨???heavenly stem interactions)
+//  Cheongan relations (heavenly stem interactions)
 // ---------------------------------------------------------------------------
 
 function extractCheonganRelations(rawSajuOutput: any) {
@@ -1322,7 +1321,7 @@ function extractCheonganRelations(rawSajuOutput: any) {
 }
 
 // ---------------------------------------------------------------------------
-//  Hap-hwa evaluations (?⑺솕 ??stem combination transformations)
+//  Hap-hwa evaluations (stem combination transformations)
 // ---------------------------------------------------------------------------
 
 function extractHapHwaEvaluations(rawSajuOutput: any) {
@@ -1340,7 +1339,7 @@ function extractHapHwaEvaluations(rawSajuOutput: any) {
 }
 
 // ---------------------------------------------------------------------------
-//  Sibi unseong (??씠?댁꽦 ??twelve stages of life cycle)
+//  Sibi unseong (twelve stages of life cycle)
 // ---------------------------------------------------------------------------
 
 function extractSibiUnseong(rawSajuOutput: any) {
@@ -1354,7 +1353,7 @@ function extractSibiUnseong(rawSajuOutput: any) {
 }
 
 // ---------------------------------------------------------------------------
-//  Gongmang (怨듬쭩 ??void branches)
+//  Gongmang (void branches)
 // ---------------------------------------------------------------------------
 
 function extractGongmang(rawSajuOutput: any): [string, string] | null {
@@ -1365,7 +1364,7 @@ function extractGongmang(rawSajuOutput: any): [string, string] | null {
 }
 
 // ---------------------------------------------------------------------------
-//  Palace analysis (沅?遺꾩꽍)
+//  Palace analysis
 // ---------------------------------------------------------------------------
 
 function extractPalaceAnalysis(rawSajuOutput: any) {
@@ -1388,7 +1387,7 @@ function extractPalaceAnalysis(rawSajuOutput: any) {
 }
 
 // ---------------------------------------------------------------------------
-//  Daeun info (?????major luck cycles)
+//  Daeun info (major luck cycles)
 // ---------------------------------------------------------------------------
 
 function extractDaeunInfo(rawSajuOutput: any) {
@@ -1412,7 +1411,7 @@ function extractDaeunInfo(rawSajuOutput: any) {
 }
 
 // ---------------------------------------------------------------------------
-//  Saeun pillars (?몄슫 ??yearly luck pillars)
+//  Saeun pillars (yearly luck pillars)
 // ---------------------------------------------------------------------------
 
 function extractSaeunPillars(rawSajuOutput: any) {
