@@ -1,0 +1,690 @@
+{
+  "schemaVersion": "1",
+  "id": "builtin",
+  "name": "Built-in school preset pack",
+  "description": "Data-only presets and reusable ruleSpec blocks.",
+
+  "ruleSpecBlocks": {
+    "yongshin.ziping.roleBoost": {
+      "target": "yongshin",
+      "spec": {
+        "id": "yongshin.ziping.roleBoost",
+        "version": "0.3",
+        "description": "Month-main-tenGod → yongshin role bias (Ziping/격국 style).",
+        "base": "default",
+        "mode": "append",
+        "macros": [
+          {
+            "kind": "monthTenGodRoleBias",
+            "basis": "main",
+            "bonuses": {
+              "OFFICER": 0.35,
+              "WEALTH": 0.28,
+              "OUTPUT": 0.15,
+              "RESOURCE": -0.08,
+              "COMPANION": -0.18
+            },
+            "idPrefix": "ZIPING_ROLE",
+            "explainTemplate": "월지(본기) 십성({tenGod}) → 역할({role}) 기반 용신 가산",
+            "tags": ["SCHOOL", "ZIPING"]
+          }
+        ]
+      }
+    },
+
+    "yongshin.tongguan.bridge": {
+      "target": "yongshin",
+      "spec": {
+        "id": "yongshin.tongguan.bridge",
+        "version": "0.2",
+        "description": "Tongguan bridge bias: intensity×bonus to bridge element.",
+        "base": "default",
+        "mode": "append",
+        "macros": [
+          {
+            "kind": "tongguanBridge",
+            "intensityField": "intensity",
+            "minIntensityVar": "config.strategies.yongshin.bridge.minIntensity",
+            "bonusVar": "config.strategies.yongshin.bridge.bonus",
+            "idPrefix": "TONGGUAN",
+            "explainTemplate": "통관({pair}) 구조 → 브리지 오행({bridge}) 가산 (강도×보너스)",
+            "tags": ["SCHOOL", "TONGGUAN"]
+          }
+        ]
+      }
+    },
+
+    "yongshin.follow.jonggyeok": {
+      "target": "yongshin",
+      "spec": {
+        "id": "yongshin.follow.jonggyeok",
+        "version": "0.2",
+        "description": "Follow(jonggyeok) signal → boost dominant element as yongshin.",
+        "base": "default",
+        "mode": "append",
+        "macros": [
+          {
+            "kind": "followJonggyeok",
+            "minFactor": 0.55,
+            "bonus": 1.25,
+            "mode": "ANY",
+            "idPrefix": "FOLLOW_YONGSHIN",
+            "tags": ["SCHOOL", "FOLLOW"]
+          }
+        ]
+      }
+    },
+
+    "gyeokguk.ziping.monthGyeokTenGod": {
+      "target": "gyeokguk",
+      "spec": {
+        "id": "gyeokguk.ziping.monthGyeokTenGod",
+        "version": "0.2",
+        "description": "Month-gyeok(월지 투간/회지) tenGod → base gyeokguk scoring.",
+        "base": "default",
+        "mode": "append",
+        "macros": [
+          {
+            "kind": "monthGyeokTenGod",
+            "idPrefix": "ZIPING_MONTH_GYEOK",
+            "bonus": 1.0,
+            "tags": ["SCHOOL", "ZIPING"]
+          }
+        ]
+      }
+    },
+
+    "gyeokguk.hwagyeok.patterns": {
+      "target": "gyeokguk",
+      "spec": {
+        "id": "gyeokguk.hwagyeok.patterns",
+        "version": "0.2",
+        "description": "HwaGyeok: patterns.transformations.best.huaqiFactor → gyeokguk.HUA_QI",
+        "base": "default",
+        "mode": "append",
+        "macros": [
+          {
+            "kind": "transformationsBest",
+            "factor": "huaqi",
+            "minFactor": 0.55,
+            "bonus": 1.2,
+            "key": "gyeokguk.HUA_QI",
+            "requireDayMasterInvolved": true,
+            "idPrefix": "HWAGYEOK",
+            "explainTemplate": "합화(化氣) best(huaqiFactor) → 화격(HUA_QI) 가산",
+            "tags": ["SCHOOL", "HWAGYEOK"]
+          }
+        ]
+      }
+    },
+
+    "yongshin.zhuanwang.oneElement": {
+      "target": "yongshin",
+      "spec": {
+        "id": "yongshin.zhuanwang.oneElement",
+        "version": "0.2",
+        "description": "One-element dominance → boost dominant element as yongshin (scaled by factor).",
+        "base": "default",
+        "mode": "append",
+        "macros": [
+          {
+            "kind": "oneElementDominance",
+            "factor": "zhuanwang",
+            "minFactor": 0.55,
+            "bonus": 1.2,
+            "idPrefix": "ZHUANWANG_YONGSHIN",
+            "tags": ["SCHOOL", "ZHUAN_WANG"]
+          }
+        ]
+      }
+    },
+
+    "gyeokguk.zhuanwang.oneElement": {
+      "target": "gyeokguk",
+      "spec": {
+        "id": "gyeokguk.zhuanwang.oneElement",
+        "version": "0.2",
+        "description": "One-element dominance → score special frame gyeokguk.ZHUAN_WANG (scaled by factor).",
+        "base": "default",
+        "mode": "append",
+        "macros": [
+          {
+            "kind": "oneElementDominance",
+            "factor": "zhuanwang",
+            "minFactor": 0.55,
+            "bonus": 1.2,
+            "key": "gyeokguk.ZHUAN_WANG",
+            "idPrefix": "ZHUANWANG_GYEOK",
+            "tags": ["SCHOOL", "ZHUAN_WANG"]
+          }
+        ]
+      }
+    }
+  },
+
+  "presets": [
+    {
+      "id": "balance",
+      "name": "균형(扶抑) 중심",
+      "description": "오행 불균형(deficiency) + 신강/신약(role) 수학 모델을 중심으로 용신을 잡는다.",
+      "aliases": ["扶抑", "균형", "balance", "fuyi"],
+      "sources": ["docs/16_yongshin_methods.md"],
+      "overlay": {
+        "toggles": { "rules": true },
+        "strategies": {
+          "strength": { "model": "deLingDiShi" },
+          "yongshin": {
+            "weights": {
+              "balance": 1.0,
+              "role": 0.75,
+              "climate": 0,
+              "medicine": 0.2,
+              "tongguan": 0,
+              "follow": 0,
+              "johooTemplate": 0,
+              "transformations": 0,
+              "oneElement": 0
+            },
+            "climate": { "enabled": false }
+          }
+        }
+      }
+    },
+
+    {
+      "id": "johoo",
+      "name": "조후(調候/窮通寶鑑) 중심",
+      "description": "월지(월령)의 한난조습(env) 불균형을 먼저 보고, 기후 결핍(need)을 오행 점수로 환원한다.",
+      "aliases": ["調候", "조후", "궁통보감", "窮通寶鑑", "johoo", "qiongtong"],
+      "sources": ["docs/18_school_sources.md", "docs/20_johoo_template.md"],
+      "overlay": {
+        "toggles": { "rules": true },
+        "strategies": {
+          "strength": { "model": "deLingDiShi" },
+          "yongshin": {
+            "weights": {
+              "balance": 0.25,
+              "role": 0.2,
+              "climate": 1.2,
+              "medicine": 0.15,
+              "tongguan": 0,
+              "follow": 0,
+              "johooTemplate": 0.55,
+              "transformations": 0,
+              "oneElement": 0
+            },
+            "climate": { "enabled": true },
+            "climateUrgency": { "enabled": true, "threshold": 0.55, "maxBoost": 1.25, "reduceOthers": 0.2 },
+            "johooTemplate": { "enabled": true, "seasonMandatoryBoost": 0.35, "stemPreferenceBoost": 0.25, "enforceSummerWinter": true },
+            "methodSelector": {
+              "enabled": true,
+              "climate": { "enabled": true, "threshold": 0.55, "maxBoost": 1.25, "reduceOthers": 0.2 },
+              "medicine": { "enabled": true, "threshold": 0.2, "maxBoost": 0.75, "reduceOthers": 0.1 },
+              "johooTemplate": { "enabled": true, "scaleBy": "climate" }
+            }
+          }
+        }
+      }
+    },
+
+    {
+      "id": "johoo.strict",
+      "name": "조후(調候) 우선(엄격)",
+      "description": "조후를 최우선(调候为急)으로 두고, 다른 방법(扶抑/격국/특수격)을 더 약하게 처리한다.",
+      "aliases": ["調候.엄격", "조후.엄격", "johoo.strict"],
+      "sources": ["docs/20_johoo_template.md"],
+      "overlay": {
+        "toggles": { "rules": true },
+        "strategies": {
+          "strength": { "model": "deLingDiShi" },
+          "yongshin": {
+            "weights": {
+              "balance": 0.15,
+              "role": 0.1,
+              "climate": 1.45,
+              "medicine": 0.1,
+              "tongguan": 0,
+              "follow": 0,
+              "johooTemplate": 0.85,
+              "transformations": 0,
+              "oneElement": 0
+            },
+            "climate": { "enabled": true },
+            "climateUrgency": { "enabled": true, "threshold": 0.5, "maxBoost": 1.35, "reduceOthers": 0.35 },
+            "johooTemplate": { "enabled": true, "seasonMandatoryBoost": 0.45, "stemPreferenceBoost": 0.3, "enforceSummerWinter": true },
+            "methodSelector": {
+              "enabled": true,
+              "climate": { "enabled": true, "threshold": 0.5, "maxBoost": 1.35, "reduceOthers": 0.35 },
+              "johooTemplate": { "enabled": true, "scaleBy": "always" }
+            }
+          }
+        }
+      }
+    },
+
+    {
+      "id": "tongguan",
+      "name": "통관(通關) 중심(실험)",
+      "description": "수화/목금 등 상극 구조에서 “브리지 오행”이 강하면 해당 오행을 용신 후보로 올린다.",
+      "aliases": ["通關", "통관", "tongguan", "bridge"],
+      "sources": ["docs/22_tongguan_distribution.md"],
+      "include": { "ruleSpecBlocks": ["yongshin.tongguan.bridge"] },
+      "overlay": {
+        "toggles": { "rules": true },
+        "strategies": {
+          "strength": { "model": "deLingDiShi" },
+          "yongshin": {
+            "weights": {
+              "balance": 0.75,
+              "role": 0.3,
+              "climate": 0,
+              "medicine": 0,
+              "tongguan": 1.1,
+              "follow": 0,
+              "johooTemplate": 0,
+              "transformations": 0,
+              "oneElement": 0
+            },
+            "bridge": { "minIntensity": 0.22, "bonus": 1.4 },
+            "climate": { "enabled": false }
+          }
+        }
+      }
+    },
+
+    {
+      "id": "gyeokguk",
+      "name": "격국(格局/子平) 기반",
+      "description": "월지 “투간/회지” 십성(격)을 우선하고, 그 격의 역할(role)을 용신 후보에 가산한다(온건한 편향).",
+      "aliases": [
+        "ziping",
+        "格局",
+        "子平",
+        "격국",
+        "자평",
+        "자평진전",
+        "子平真诠",
+        "zipingzhenquan",
+        "渊海子平",
+        "淵海子平",
+        "yuanhaiziping",
+        "hybrid.gyeokguk"
+      ],
+      "sources": ["docs/19_gyeokguk_quality.md"],
+      "include": { "ruleSpecBlocks": ["yongshin.ziping.roleBoost", "gyeokguk.ziping.monthGyeokTenGod"] },
+      "overlay": {
+        "toggles": { "rules": true },
+        "strategies": {
+          "patterns": {
+            "follow": {
+              "enabled": true,
+              "jonggyeok": { "enabled": true, "typeAware": { "enabled": true } }
+            }
+          },
+          "strength": { "model": "deLingDiShi" },
+          "yongshin": {
+            "weights": {
+              "balance": 0.9,
+              "role": 0.7,
+              "climate": 0,
+              "medicine": 0,
+              "tongguan": 0,
+              "follow": 0,
+              "johooTemplate": 0,
+              "transformations": 0,
+              "oneElement": 0
+            },
+            "climate": { "enabled": false }
+          }
+        }
+      }
+    },
+
+    {
+      "id": "ziping.strict",
+      "name": "자평진전(子平真诠) 월령우선(엄격)",
+      "description": "“용신은 월령을 먼저 본다(专求月令)”를 최대한 강조: 격국(month.gyeok)과 role bias를 핵심으로 두고, 특수 프레임(종격/화격/전왕)은 기본적으로 약하게 처리.",
+      "aliases": ["子平真诠.엄격", "자평.엄격", "zipingzhenquan.strict"],
+      "sources": ["docs/19_gyeokguk_quality.md"],
+      "include": { "ruleSpecBlocks": ["yongshin.ziping.roleBoost", "gyeokguk.ziping.monthGyeokTenGod"] },
+      "overlay": {
+        "toggles": { "rules": true },
+        "strategies": {
+          "strength": { "model": "deLingDiShi" },
+          "yongshin": {
+            "weights": {
+              "balance": 0.55,
+              "role": 1.05,
+              "climate": 0,
+              "medicine": 0,
+              "tongguan": 0,
+              "follow": 0,
+              "johooTemplate": 0,
+              "transformations": 0,
+              "oneElement": 0
+            },
+            "climate": { "enabled": false }
+          },
+          "gyeokguk": {
+            "competition": {
+              "enabled": true,
+              "methods": ["tenGod", "follow", "transformations", "oneElement"],
+              "power": 2.3,
+              "minKeep": 0.25,
+              "renormalize": true,
+              "signals": { "tenGod": "monthQuality", "follow": "auto", "transformations": "auto", "oneElement": "auto" }
+            }
+          }
+        }
+      }
+    },
+
+    {
+      "id": "integrated.3d",
+      "name": "통합(구조+균형+조후) 3차원 프리셋",
+      "description": "구조(格局)·균형(扶抑)·조후(調候) 3축을 함께 사용한다.",
+      "aliases": ["구조균형조화", "integrated", "3d", "kci.integrated"],
+      "sources": ["docs/17_schools.md"],
+      "include": { "ruleSpecBlocks": ["yongshin.ziping.roleBoost", "gyeokguk.ziping.monthGyeokTenGod"] },
+      "overlay": {
+        "toggles": { "rules": true },
+        "strategies": {
+          "strength": { "model": "deLingDiShi" },
+          "yongshin": {
+            "weights": {
+              "balance": 0.7,
+              "role": 0.65,
+              "climate": 0.95,
+              "medicine": 0.25,
+              "tongguan": 0,
+              "follow": 0,
+              "johooTemplate": 0.35,
+              "transformations": 0,
+              "oneElement": 0
+            },
+            "climate": { "enabled": true },
+            "climateUrgency": { "enabled": true, "threshold": 0.55, "maxBoost": 1.15, "reduceOthers": 0.2 },
+            "johooTemplate": { "enabled": true, "seasonMandatoryBoost": 0.3, "stemPreferenceBoost": 0.22, "enforceSummerWinter": true },
+            "methodSelector": {
+              "enabled": true,
+              "climate": { "enabled": true, "threshold": 0.55, "maxBoost": 1.15, "reduceOthers": 0.2 },
+              "medicine": { "enabled": true, "threshold": 0.2, "maxBoost": 0.7, "reduceOthers": 0.1 }
+            }
+          },
+          "gyeokguk": {
+            "competition": {
+              "enabled": true,
+              "methods": ["tenGod", "follow", "transformations", "oneElement"],
+              "power": 2.0,
+              "minKeep": 0.2,
+              "renormalize": true,
+              "signals": { "tenGod": "monthQuality", "follow": "auto", "transformations": "auto", "oneElement": "auto" }
+            }
+          }
+        }
+      }
+    },
+
+    {
+      "id": "sanmingtonghui",
+      "name": "三命通会(신살/격국 병행) 실험",
+      "description": "神煞를 더 그대로 노출하기 위해 신살 조건 감쇠를 완화(비활성)하고, 격국+십성 관점을 함께 쓴다.",
+      "aliases": ["三命通会", "三命會通", "sanming", "sanmingtonghui", "wanminying", "万民英"],
+      "sources": ["docs/18_school_sources.md", "docs/11_shinsal_conditions.md"],
+      "include": { "ruleSpecBlocks": ["yongshin.ziping.roleBoost", "gyeokguk.ziping.monthGyeokTenGod"] },
+      "overlay": {
+        "toggles": { "rules": true, "fortune": true },
+        "strategies": {
+          "strength": { "model": "deLingDiShi" },
+          "shinsal": { "conditions": { "enabled": false } },
+          "yongshin": {
+            "weights": {
+              "balance": 0.8,
+              "role": 0.75,
+              "climate": 0,
+              "medicine": 0,
+              "tongguan": 0,
+              "follow": 0,
+              "johooTemplate": 0,
+              "transformations": 0,
+              "oneElement": 0
+            },
+            "climate": { "enabled": false }
+          },
+          "gyeokguk": {
+            "competition": {
+              "enabled": true,
+              "methods": ["tenGod", "follow", "transformations", "oneElement"],
+              "power": 2.0,
+              "minKeep": 0.2,
+              "renormalize": true,
+              "signals": { "tenGod": "monthQuality", "follow": "auto", "transformations": "auto", "oneElement": "auto" }
+            }
+          }
+        }
+      }
+    },
+
+    {
+      "id": "follow",
+      "name": "종격/从格(从势/从旺) 중심(실험)",
+      "description": "신강/신약이 극단 + 세력 우세일 때 흐름을 따르는 패턴을 강조한다.",
+      "aliases": ["從格", "从格", "종격", "follow", "cong", "congge"],
+      "sources": ["docs/27_jonggyeok_condition_pack.md"],
+      "include": { "ruleSpecBlocks": ["yongshin.follow.jonggyeok"] },
+      "overlay": {
+        "toggles": { "rules": true },
+        "strategies": {
+          "patterns": { "follow": { "enabled": true, "jonggyeok": { "enabled": true, "typeAware": { "enabled": true } } } },
+          "strength": { "model": "deLingDiShi" },
+          "yongshin": {
+            "weights": {
+              "balance": 0.25,
+              "role": 0.15,
+              "climate": 0,
+              "medicine": 0,
+              "tongguan": 0,
+              "follow": 1.2,
+              "johooTemplate": 0,
+              "transformations": 0,
+              "oneElement": 0
+            },
+            "follow": { "enabled": true, "weakThreshold": -0.78, "minDominanceRatio": 2.2 },
+            "climate": { "enabled": false }
+          }
+        }
+      }
+    },
+
+    {
+      "id": "ditiansui",
+      "name": "적천수(滴天髓) 종합(扶抑+調候+通關+從勢)",
+      "description": "扶抑/調候/通關/從勢를 함께 켠 “종합” 프리셋(실험적).",
+      "aliases": ["滴天髓", "적천수", "DiTianSui", "DTS", "dts", "ditian", "di-tian-sui"],
+      "sources": ["docs/16_yongshin_methods.md", "docs/20_johoo_template.md", "docs/22_tongguan_distribution.md", "docs/27_jonggyeok_condition_pack.md"],
+      "overlay": {
+        "toggles": { "rules": true },
+        "strategies": {
+          "patterns": { "follow": { "enabled": true, "jonggyeok": { "enabled": true, "typeAware": { "enabled": true } } } },
+          "strength": { "model": "deLingDiShi" },
+          "yongshin": {
+            "weights": {
+              "balance": 0.55,
+              "role": 0.35,
+              "climate": 0.7,
+              "medicine": 0.6,
+              "tongguan": 0.75,
+              "follow": 1.0,
+              "johooTemplate": 0.35,
+              "transformations": 0,
+              "oneElement": 0
+            },
+            "climate": { "enabled": true },
+            "climateUrgency": { "enabled": true, "threshold": 0.55, "maxBoost": 1.1, "reduceOthers": 0.2 },
+            "methodSelector": {
+              "enabled": true,
+              "climate": { "enabled": true, "threshold": 0.55, "maxBoost": 1.1, "reduceOthers": 0.2 },
+              "medicine": { "enabled": true, "threshold": 0.18, "maxBoost": 0.9, "reduceOthers": 0.15 },
+              "tongguan": { "enabled": true, "threshold": 0.25 },
+              "follow": { "enabled": true, "threshold": 0.55, "weakThreshold": -0.78, "minDominanceRatio": 2.2 },
+              "johooTemplate": { "enabled": true, "scaleBy": "climate" }
+            },
+            "johooTemplate": { "enabled": true, "seasonMandatoryBoost": 0.35, "stemPreferenceBoost": 0.25, "enforceSummerWinter": true },
+            "bridge": { "minIntensity": 0.22, "bonus": 1.4 },
+            "follow": { "enabled": true, "weakThreshold": -0.78, "minDominanceRatio": 2.2 }
+          }
+        }
+      }
+    },
+
+    {
+      "id": "hwagyeok",
+      "name": "화격/化气(합화) 중심(실험)",
+      "description": "천간오합 합화 신호(patterns.transformations.best.huaqiFactor)가 강할 때 화격을 올린다(실험).",
+      "aliases": ["化气", "화격", "합화", "huagyeok", "huagi", "huaqi", "transform", "transformation"],
+      "sources": ["docs/25_transformations_huaqi.md"],
+      "include": { "ruleSpecBlocks": ["gyeokguk.hwagyeok.patterns"] },
+      "overlay": {
+        "toggles": { "rules": true },
+        "strategies": {
+          "strength": { "model": "deLingDiShi" },
+          "patterns": {
+            "transformations": {
+              "enabled": true,
+              "threshold": 0.55,
+              "competition": { "enabled": true, "startRatio": 0.78, "maxPenalty": 0.35 },
+              "huaqi": {
+                "enabled": true,
+                "requireDayMasterInvolved": true,
+                "shareThreshold": 0.45,
+                "qualityThreshold": 0.55,
+                "distanceExponent": 2.5,
+                "harmThreshold": 0.18,
+                "weights": {
+                  "share": 0.2,
+                  "season": 0.15,
+                  "root": 0.1,
+                  "quality": 0.2,
+                  "distance": 0.15,
+                  "day": 0.1,
+                  "noHarm": 0.1,
+                  "origWeak": 0.0
+                },
+                "penalties": { "broken": 0.25, "mixed": 0.1, "zhuo": 0.08 }
+              }
+            }
+          },
+          "yongshin": {
+            "weights": {
+              "balance": 0.4,
+              "role": 0.2,
+              "climate": 0,
+              "medicine": 0,
+              "tongguan": 0,
+              "follow": 0,
+              "johooTemplate": 0,
+              "transformations": 1.1,
+              "oneElement": 0
+            },
+            "methodSelector": { "enabled": true, "transformations": { "enabled": true, "threshold": 0.55 } }
+          },
+          "gyeokguk": {
+            "competition": { "enabled": true, "methods": ["tenGod", "follow", "transformations", "oneElement"], "power": 2.0, "minKeep": 0.2, "renormalize": true }
+          }
+        }
+      }
+    },
+
+    {
+      "id": "zhuanwang",
+      "name": "专旺/일행득기 중심(실험)",
+      "description": "오행 분포가 극도로 편중(일행득기/专旺)될 때, 신호를 용신 및 격국 후보에 직접 반영한다.",
+      "aliases": ["专旺", "전왕", "일행득기", "oneElement", "one-element", "concentration"],
+      "sources": ["docs/26_one_element_zhuanwang.md"],
+      "include": { "ruleSpecBlocks": ["yongshin.zhuanwang.oneElement", "gyeokguk.zhuanwang.oneElement"] },
+      "overlay": {
+        "toggles": { "rules": true },
+        "strategies": {
+          "strength": { "model": "deLingDiShi" },
+          "patterns": {
+            "oneElement": {
+              "enabled": true,
+              "thresholds": { "topMin": 0.62, "dominanceRatioMin": 2.6, "entropyMax": 1.25 },
+              "zhuanwang": {
+                "enabled": true,
+                "requireDayMasterMatch": true,
+                "lingThreshold": 0.55,
+                "diThreshold": 0.35,
+                "shiThreshold": 0.25,
+                "qualityThreshold": 0.55,
+                "strongThreshold": 0.0,
+                "harmThreshold": 0.18,
+                "weights": { "match": 0.2, "ling": 0.2, "di": 0.2, "shi": 0.1, "quality": 0.2, "strong": 0.1, "noHarm": 0.1 },
+                "penalties": { "broken": 0.25, "mixed": 0.1, "zhuo": 0.08 }
+              }
+            }
+          },
+          "yongshin": {
+            "weights": { "balance": 0.45, "role": 0.2, "climate": 0, "medicine": 0, "tongguan": 0, "follow": 0, "johooTemplate": 0, "transformations": 0, "oneElement": 0 }
+          },
+          "gyeokguk": {
+            "competition": { "enabled": true, "methods": ["tenGod", "follow", "transformations", "oneElement"], "power": 2.0, "minKeep": 0.2, "renormalize": true }
+          }
+        }
+      }
+    },
+
+    {
+      "id": "shinsal.virtueStrict",
+      "name": "신살: 천덕/월덕 “일상견(日上見)” 엄격",
+      "description": "천덕/월덕(및 합) 계열을 “일간/일지 중심”으로 판정한다. (고전 문구: 须要日上见)",
+      "aliases": ["deokStrict", "일상견", "日上見", "二德扶持", "tianYueDe"],
+      "sources": ["docs/11_shinsal_conditions.md"],
+      "overlay": { "strategies": { "shinsal": { "monthDeokScope": "dayOnly" } } }
+    },
+
+    {
+      "id": "qiongTongBaoJian",
+      "name": "穷通宝鉴/궁통보감 프로필",
+      "description": "조후(調候) 중심 접근을 빠르게 적용하기 위한 프로필. 현재 엔진에서는 johoo.strict와 동일하게 동작(확장 여지).",
+      "extends": "johoo.strict",
+      "aliases": [
+        "qiongTong",
+        "qiongtong",
+        "qiongTongBaoJian",
+        "qiongtongbaojian",
+        "궁통보감",
+        "窮通寶鑑",
+        "穷通宝鉴"
+      ],
+      "sources": ["docs/18_school_sources.md"]
+    },
+
+    {
+      "id": "zipingzhenquan",
+      "name": "子平真诠/자평진전 프로필",
+      "description": "월령/격국 기반으로 용신·격국을 강하게 보는 프로필. 현재 엔진에서는 ziping.strict에 매핑(확장 여지).",
+      "extends": "ziping.strict",
+      "aliases": ["zipingZhenquan", "zipingzhenquan", "자평진전", "子平真诠", "子平真詮"],
+      "sources": ["docs/18_school_sources.md"]
+    },
+
+    {
+      "id": "yuhaiziping",
+      "name": "渊海子平/연해자평 프로필",
+      "description": "자평(子平) 계열의 종합적 관점을 반영하는 실용 프로필. 현재 엔진에서는 integrated.3d에 매핑(확장 여지).",
+      "extends": "integrated.3d",
+      "aliases": ["yuanhai", "yuanhaiziping", "yuhaiziping", "연해자평", "渊海子平", "淵海子平"],
+      "sources": ["docs/18_school_sources.md"]
+    },
+
+    {
+      "id": "shenfengTongkao",
+      "name": "神峰通考/신봉통고 프로필",
+      "description": "고전 자평서의 종합적 프레임을 반영하는 프로필. 현재 엔진에서는 integrated.3d에 매핑(확장 여지).",
+      "extends": "integrated.3d",
+      "aliases": ["shenfeng", "shenfengTongkao", "신봉통고", "神峰通考"],
+      "sources": ["docs/18_school_sources.md"]
+    }
+  ]
+}

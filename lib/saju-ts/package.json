@@ -1,41 +1,44 @@
 {
-  "name": "@metaintelligence/saju",
-  "version": "0.1.0",
-  "description": "Precision Four Pillars (사주팔자) calculation engine for Korean Saju analysis",
+  "name": "saju-math-engine",
+  "version": "0.34.3",
+  "description": "Data-driven, math-first Four Pillars (Saju / Bazi) calculation engine with stable API contracts.",
   "type": "module",
   "main": "./dist/index.js",
   "types": "./dist/index.d.ts",
   "exports": {
     ".": {
-      "import": "./dist/index.js",
-      "types": "./dist/index.d.ts"
+      "types": "./dist/index.d.ts",
+      "default": "./dist/index.js"
     }
   },
   "files": [
-    "dist"
+    "dist",
+    "docs",
+    "README.md",
+    "LICENSE"
   ],
   "scripts": {
-    "build": "tsc",
-    "test": "vitest run",
-    "test:watch": "vitest",
-    "test:coverage": "vitest run --coverage",
-    "lint": "tsc --noEmit",
-    "prepublishOnly": "npm run build"
+    "build": "tsc -p tsconfig.build.json",
+    "typecheck": "tsc -p tsconfig.json --noEmit",
+    "test": "vitest run --passWithNoTests",
+    "audit": "npm run build --silent && node tools/audit.mjs",
+    "audit:log": "npm run build --silent && node tools/audit.mjs > docs/_audit/_testlog_audit.txt",
+    "checklist:generate": "node tools/checklist.mjs generate",
+    "checklist:verify": "node tools/checklist.mjs verify",
+    "test:ci": "vitest run --passWithNoTests --reporter=dot",
+    "golden:generate": "npm run build --silent && node tools/golden.mjs generate",
+    "golden:verify": "npm run build --silent && node tools/golden.mjs verify",
+    "golden:record": "npm run golden:generate",
+    "golden:log": "npm run golden:verify > docs/_audit/_testlog_golden.txt"
   },
-  "keywords": [
-    "saju",
-    "사주",
-    "four-pillars",
-    "bazi",
-    "korean-astrology",
-    "만세력"
-  ],
-  "license": "MIT",
-  "engines": {
-    "node": ">=18.0.0"
+  "dependencies": {
+    "fflate": "^0.8.2"
   },
   "devDependencies": {
-    "typescript": "^5.7.0",
-    "vitest": "^3.0.0"
+    "typescript": "^5.9.3",
+    "vitest": "^4.0.18"
+  },
+  "engines": {
+    "node": ">=20"
   }
 }
