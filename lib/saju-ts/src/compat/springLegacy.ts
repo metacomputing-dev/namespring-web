@@ -4,14 +4,78 @@ import type { AnalysisBundle, EngineConfig, SajuRequest } from '../api/types.js'
 
 const STEM_CODES = ['GAP', 'EUL', 'BYEONG', 'JEONG', 'MU', 'GI', 'GYEONG', 'SIN', 'IM', 'GYE'] as const;
 const BRANCH_CODES = ['JA', 'CHUK', 'IN', 'MYO', 'JIN', 'SA', 'O', 'MI', 'SIN', 'YU', 'SUL', 'HAE'] as const;
+const OHAENG_CODES = ['WOOD', 'FIRE', 'EARTH', 'METAL', 'WATER'] as const;
+const OHAENG_KO_LABEL: Record<string, string> = {
+  WOOD: '목',
+  FIRE: '화',
+  EARTH: '토',
+  METAL: '금',
+  WATER: '수',
+};
+const GYEOKGUK_KO_LABEL: Record<string, string> = {
+  BI_GYEON: '비견격',
+  GYEOB_JAE: '겁재격',
+  JEONG_GWAN: '정관격',
+  PYEON_GWAN: '편관격',
+  JEONG_JAE: '정재격',
+  PYEON_JAE: '편재격',
+  SIK_SIN: '식신격',
+  SANG_GWAN: '상관격',
+  JEONG_IN: '정인격',
+  PYEON_IN: '편인격',
+  HUA_QI: '화기격',
+  ZHUAN_WANG: '전왕격',
+  CONG_GE: '종격',
+  CONG_CAI: '종재격',
+  CONG_GUAN: '종관격',
+  CONG_SHA: '종살격',
+  CONG_ER: '종아격',
+  CONG_YIN: '종인격',
+  CONG_BI: '종비격',
+};
 
 const DEFAULT_LATITUDE = 37.5665;
 const DEFAULT_LONGITUDE = 126.978;
 const DEFAULT_TIMEZONE = 'Asia/Seoul';
+const DISTRIBUTION_ROUND_DIGITS = 1;
+const DEFICIENT_AVERAGE_RATIO = 0.5;
+const EXCESSIVE_AVERAGE_RATIO = 1.7;
 
 const TEN_GOD_ALIASES: Record<string, string> = {
   GEOB_JAE: 'GYEOB_JAE',
   SIK_SHIN: 'SIK_SIN',
+};
+const GYEOKGUK_BASE_SIPSEONG_KEYS = new Set([
+  'JEONG_GWAN', 'PYEON_GWAN',
+  'JEONG_JAE', 'PYEON_JAE',
+  'SIK_SIN', 'SANG_GWAN',
+  'JEONG_IN', 'PYEON_IN',
+  'BI_GYEON', 'GYEOB_JAE',
+]);
+const JIJI_RELATION_NOTES: Record<string, string> = {
+  CHUNG: '지지 충(沖) 관계',
+  HAE: '지지 해(害) 관계',
+  PA: '지지 파(破) 관계',
+  WONJIN: '지지 원진(怨嗔) 관계',
+  HYEONG: '지지 형(刑) 관계',
+  HAP: '지지 합(合) 관계',
+  SAMHAP: '지지 삼합(三合) 관계',
+  BANGHAP: '지지 방합(方合) 관계',
+};
+const JIJI_RELATION_OUTCOMES: Record<string, string> = {
+  CHUNG: '충(沖)',
+  HAE: '해(害)',
+  PA: '파(破)',
+  WONJIN: '원진(怨嗔)',
+  HYEONG: '형(刑)',
+  HAP: '합(合)',
+  SAMHAP: '삼합(三合)',
+  BANGHAP: '방합(方合)',
+};
+const CHEONGAN_RELATION_NOTES: Record<string, string> = {
+  HAP: '천간 합(合) 관계',
+  CHUNG: '천간 충(沖) 관계',
+  GEUK: '천간 극(剋) 관계',
 };
 
 export type LegacyGender = 'MALE' | 'FEMALE';
@@ -299,12 +363,53 @@ function branchCodeFromIdx(idx: unknown): string {
   return BRANCH_CODES[normalized] ?? '';
 }
 
+function roundTo(value: unknown, digits: number): number {
+  const n = Number(value);
+  if (!Number.isFinite(n)) return 0;
+  const scale = 10 ** digits;
+  return Math.round(n * scale) / scale;
+}
+
 function scoreDiffConfidence(top: number, second: number): number {
   if (!Number.isFinite(top) || !Number.isFinite(second)) return 0.5;
   const diff = top - second;
   if (diff <= 0) return 0.35;
   if (diff >= 1) return 1;
   return Math.max(0.35, Math.min(1, diff));
+}
+
+function confidenceToPoints(confidence: number): number {
+  if (!Number.isFinite(confidence)) return 0;
+  const normalized = Math.max(0, Math.min(1, confidence <= 1 ? confidence : confidence / 100));
+  return Math.round(normalized * 100);
+}
+
+function ohaengKoLabel(code: unknown): string {
+  const normalized = String(code ?? '').trim().toUpperCase();
+  const fallback = String(code ?? '').trim();
+  return OHAENG_KO_LABEL[normalized] ?? (fallback || '-');
+}
+
+function gyeokgukKoLabel(code: unknown): string {
+  const normalized = String(code ?? '').trim().toUpperCase();
+  return GYEOKGUK_KO_LABEL[normalized] ?? (normalized || '-');
+}
+
+function buildYongshinReasoning(
+  rank: number,
+  entry: { element: string; score: number },
+  topElement: string,
+): string {
+  const primaryLabel = ohaengKoLabel(entry.element);
+  const topLabel = ohaengKoLabel(topElement || '상위');
+  const confidencePoint = confidenceToPoints(Number(entry.score));
+  if (rank === 0) {
+    return `${primaryLabel} 기운이 가장 강해 용신 1순위입니다 (신뢰도 ${confidencePoint}점).`;
+  }
+  if (rank === 1) {
+    return `${primaryLabel} 기운은 ${topLabel} 기운을 보조하는 희신 후보입니다 (신뢰도 ${confidencePoint}점).`;
+  }
+  return `${primaryLabel} 기운은 후순위 균형 보완 후보입니다 (신뢰도 ${confidencePoint}점).`;
 }
 
 function relationPositionFromBasedOn(v: unknown): string {
@@ -327,6 +432,33 @@ function topTwo(values: Array<{ element: string; score: number }>): [string, str
   const first = values[0]?.element ?? '';
   const second = values[1]?.element ?? null;
   return [first, second];
+}
+
+function deriveGyeokgukBaseSipseong(bestKeyCore: string): string | null {
+  const normalized = String(bestKeyCore ?? '').trim().toUpperCase();
+  if (!normalized) return null;
+  if (!GYEOKGUK_BASE_SIPSEONG_KEYS.has(normalized)) return null;
+  return normalizeTenGod(normalized);
+}
+
+function extractGongmangVoidBranches(bundle: AnalysisBundle): [string, string] | [] {
+  const facts = bundle.report?.facts as Record<string, unknown> | undefined;
+  const ruleFacts = facts?.['rules.facts'] as any;
+  const pair = Array.isArray(ruleFacts?.shinsal?.gongmang?.day)
+    ? ruleFacts.shinsal.gongmang.day
+    : [];
+
+  if (pair.length < 2) return [];
+  return [branchCodeFromIdx(pair[0]), branchCodeFromIdx(pair[1])];
+}
+
+function relationNoteForType(type: string, table: Record<string, string>): string {
+  return table[String(type ?? '').toUpperCase()] ?? '';
+}
+
+function relationOutcomeForType(type: string): string | null {
+  const normalized = String(type ?? '').toUpperCase();
+  return JIJI_RELATION_OUTCOMES[normalized] ?? null;
 }
 
 function normalizeLegacyConfig(raw: unknown): LegacySajuConfig {
@@ -441,10 +573,10 @@ function extractDeficientAndExcessive(distribution: Record<string, number>): {
   const deficientElements: string[] = [];
   const excessiveElements: string[] = [];
 
-  for (const code of ['WOOD', 'FIRE', 'EARTH', 'METAL', 'WATER']) {
+  for (const code of OHAENG_CODES) {
     const v = Number(distribution[code] ?? 0);
-    if (v === 0 || v <= avg * 0.4) deficientElements.push(code);
-    else if (v >= avg * 2.0) excessiveElements.push(code);
+    if (v === 0 || v <= avg * DEFICIENT_AVERAGE_RATIO) deficientElements.push(code);
+    else if (v >= avg * EXCESSIVE_AVERAGE_RATIO) excessiveElements.push(code);
   }
 
   return { deficientElements, excessiveElements };
@@ -493,6 +625,8 @@ function normalizeLegacyOutput(
   const support = Number(strength?.support ?? 0);
   const pressure = Number(strength?.pressure ?? 0);
   const components = strength?.components ?? {};
+  const strengthLevelCode = strengthIndex >= 0.15 ? 'STRONG' : strengthIndex <= -0.15 ? 'WEAK' : 'BALANCED';
+  const strengthLevelKo = strengthLevelCode === 'STRONG' ? '신강' : strengthLevelCode === 'WEAK' ? '신약' : '중화';
 
   const yongshin = bundle.summary?.yongshin as any;
   const yongshinRanking: Array<{ element: string; score: number }> = Array.isArray(yongshin?.ranking)
@@ -507,20 +641,22 @@ function normalizeLegacyOutput(
   const topScore = Number(yongshinRanking[0]?.score ?? 0);
   const secondScore = Number(yongshinRanking[1]?.score ?? 0);
   const yongshinConfidence = scoreDiffConfidence(topScore, secondScore);
+  const yongshinConfidencePoints = confidenceToPoints(yongshinConfidence);
 
   const gyeokguk = bundle.summary?.gyeokguk as any;
   const bestKey = String(gyeokguk?.best ?? '');
   const bestKeyCore = bestKey.replace(/^gyeokguk\./, '');
+  const baseSipseong = deriveGyeokgukBaseSipseong(bestKeyCore);
   const bestScore = Number(gyeokguk?.ranking?.[0]?.score ?? 0);
   const isJonggyeok = bestKeyCore.startsWith('CONG_') || bestKeyCore === 'ZHUAN_WANG';
 
   const totalDistribution = (bundle.summary?.elementDistribution as any)?.total ?? {};
   const ohaengDistribution = {
-    WOOD: Number(totalDistribution.WOOD ?? 0),
-    FIRE: Number(totalDistribution.FIRE ?? 0),
-    EARTH: Number(totalDistribution.EARTH ?? 0),
-    METAL: Number(totalDistribution.METAL ?? 0),
-    WATER: Number(totalDistribution.WATER ?? 0),
+    WOOD: roundTo(totalDistribution.WOOD ?? 0, DISTRIBUTION_ROUND_DIGITS),
+    FIRE: roundTo(totalDistribution.FIRE ?? 0, DISTRIBUTION_ROUND_DIGITS),
+    EARTH: roundTo(totalDistribution.EARTH ?? 0, DISTRIBUTION_ROUND_DIGITS),
+    METAL: roundTo(totalDistribution.METAL ?? 0, DISTRIBUTION_ROUND_DIGITS),
+    WATER: roundTo(totalDistribution.WATER ?? 0, DISTRIBUTION_ROUND_DIGITS),
   };
   const { deficientElements, excessiveElements } = extractDeficientAndExcessive(ohaengDistribution);
 
@@ -529,15 +665,21 @@ function normalizeLegacyOutput(
     type: String(relation?.type ?? ''),
     members: Array.isArray(relation?.members) ? relation.members.map((m: any) => stemCodeFromIdx(m?.idx)) : [],
     resultOhaeng: relation?.resultElement ? String(relation.resultElement) : null,
-    note: '',
+    note: relationNoteForType(String(relation?.type ?? ''), CHEONGAN_RELATION_NOTES),
   }));
 
   const branchRelations = Array.isArray(bundle.summary?.relations) ? bundle.summary.relations : [];
-  const jijiRelations = branchRelations.map((relation: any) => ({
-    type: String(relation?.type ?? ''),
-    members: Array.isArray(relation?.members) ? relation.members.map((m: any) => branchCodeFromIdx(m?.idx)) : [],
-    note: '',
-  }));
+  const jijiRelations = branchRelations.map((relation: any) => {
+    const type = String(relation?.type ?? '');
+    const note = relationNoteForType(type, JIJI_RELATION_NOTES);
+    return {
+      type,
+      members: Array.isArray(relation?.members) ? relation.members.map((m: any) => branchCodeFromIdx(m?.idx)) : [],
+      note,
+      outcome: relationOutcomeForType(type),
+      reasoning: null,
+    };
+  });
 
   const tenGods = bundle.summary?.tenGods as any;
   const hiddenStems = bundle.summary?.hiddenStems as any;
@@ -571,27 +713,35 @@ function normalizeLegacyOutput(
   }
 
   const shinsalHitsRaw = Array.isArray(bundle.summary?.shinsalHits) ? bundle.summary.shinsalHits : [];
-  const shinsalHits = shinsalHitsRaw.map((hit: any) => ({
-    type: String(hit?.name ?? ''),
-    position: relationPositionFromBasedOn(hit?.basedOn),
-    grade: gradeFromQualityWeight(hit?.qualityWeight),
-  }));
-  const weightedShinsalHits = shinsalHitsRaw.map((hit: any) => {
+  const weightedByKey = new Map<string, {
+    hit: { type: string; position: string; grade: string };
+    baseWeight: number;
+    positionMultiplier: number;
+    weightedScore: number;
+  }>();
+  for (const hit of shinsalHitsRaw) {
+    const type = String(hit?.name ?? '');
+    const position = relationPositionFromBasedOn(hit?.basedOn);
+    const grade = gradeFromQualityWeight(hit?.qualityWeight);
     const qualityWeight = Number(hit?.qualityWeight ?? 0.6);
     const positionMultiplier = 1;
     const baseWeight = Math.max(0, Math.min(100, Math.round(qualityWeight * 100)));
     const weightedScore = baseWeight * positionMultiplier;
-    return {
-      hit: {
-        type: String(hit?.name ?? ''),
-        position: relationPositionFromBasedOn(hit?.basedOn),
-        grade: gradeFromQualityWeight(hit?.qualityWeight),
-      },
+    const payload = {
+      hit: { type, position, grade },
       baseWeight,
       positionMultiplier,
       weightedScore,
     };
-  });
+    const dedupeKey = `${type}|${position}`;
+    const existing = weightedByKey.get(dedupeKey);
+    if (!existing || weightedScore > existing.weightedScore) {
+      weightedByKey.set(dedupeKey, payload);
+    }
+  }
+  const weightedShinsalHits = [...weightedByKey.values()];
+  const shinsalHits = weightedShinsalHits.map((item) => item.hit);
+  const gongmangVoidBranches = extractGongmangVoidBranches(bundle);
 
   const fortune = bundle.summary?.fortune as any;
   const decades = Array.isArray(fortune?.decades) ? fortune.decades : [];
@@ -655,7 +805,7 @@ function normalizeLegacyOutput(
     },
     strengthResult: {
       dayMasterElement: String((pillars as any)?.day?.stem?.element ?? ''),
-      level: strengthIndex >= 0.15 ? 'STRONG' : strengthIndex <= -0.15 ? 'WEAK' : 'BALANCED',
+      level: strengthLevelCode,
       isStrong: strengthIndex >= 0,
       score: {
         totalSupport: support,
@@ -665,9 +815,10 @@ function normalizeLegacyOutput(
         deukse: Number(components.companions ?? 0) + Number(components.resources ?? 0),
       },
       details: [
-        `strength.index=${strengthIndex.toFixed(3)}`,
-        `strength.support=${support.toFixed(3)}`,
-        `strength.pressure=${pressure.toFixed(3)}`,
+        `강약 판정: ${strengthLevelKo}`,
+        `강약 지수: ${strengthIndex.toFixed(3)}`,
+        `생조 합: ${support.toFixed(3)}`,
+        `극설 합: ${pressure.toFixed(3)}`,
       ],
     },
     yongshinResult: {
@@ -675,22 +826,24 @@ function normalizeLegacyOutput(
       finalHeesin: secondElement,
       gisin: worst,
       gusin: secondWorst,
-      finalConfidence: yongshinConfidence,
+      finalConfidence: yongshinConfidencePoints,
       agreement: 'RANKING',
       recommendations: yongshinRanking.slice(0, 3).map((entry: { element: string; score: number }, i: number) => ({
         type: i === 0 ? 'JOHU' : 'RANKING',
         primaryElement: entry.element,
         secondaryElement: yongshinRanking[i + 1]?.element ?? null,
-        confidence: Math.max(0, Math.min(1, Number(entry.score))),
-        reasoning: 'Derived from yongshin ranking score.',
+        confidence: confidenceToPoints(Math.max(0, Math.min(1, Number(entry.score)))),
+        reasoning: buildYongshinReasoning(i, entry, topElement),
       })),
     },
     gyeokgukResult: {
       type: bestKeyCore,
       category: isJonggyeok ? 'JONGGYEOK' : 'NORMAL',
-      baseSipseong: null,
+      baseSipseong,
       confidence: Math.max(0, Math.min(1, bestScore)),
-      reasoning: `Top candidate: ${bestKey || '-'}`,
+      reasoning: bestKeyCore
+        ? `격국 후보 중 ${gyeokgukKoLabel(bestKeyCore)}이(가) 가장 유력합니다.`
+        : '격국 후보를 확정하기 어려워 추가 검토가 필요합니다.',
     },
     ohaengDistribution,
     deficientElements,
@@ -706,7 +859,7 @@ function normalizeLegacyOutput(
     shinsalHits,
     weightedShinsalHits,
     shinsalComposites: [],
-    gongmangVoidBranches: [],
+    gongmangVoidBranches,
     daeunInfo: {
       isForward: String(fortune?.start?.direction ?? 'FORWARD') !== 'BACKWARD',
       firstDaeunStartAge: Number(fortune?.start?.startAgeYears ?? 0),

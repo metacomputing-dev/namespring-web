@@ -1,30 +1,30 @@
-/**
+﻿/**
  * saju-adapter.ts
  *
  * Translates raw saju-ts output into the SajuSummary format used by the rest
  * of the Spring engine.  Think of this as the "interpreter" that sits between
  * the low-level Four Pillars engine and the user-facing scoring pipeline.
  *
- * ── Glossary (사주 四柱) ──────────────────────────────────────────────────
- *  Cheongan (천간)        10 Heavenly Stems  — GAP, EUL, BYEONG ...
- *  Jiji (지지)            12 Earthly Branches — JA, CHUK, IN ...
- *  Ohaeng (오행)          Five Elements       — WOOD, FIRE, EARTH, METAL, WATER
- *  Yongshin (용신)        The "helpful god" element that balances the chart
- *  Heesin (희신)          The supporting element that assists yongshin
- *  Gisin (기신)           The harmful element that weakens the chart
- *  Gusin (구신)           The most harmful element — worse than gisin
- *  Sipseong (십성)        Ten Gods — relationships between stems
- *  Gyeokguk (격국)        Structural pattern of the chart
- *  Shinsal (신살)         Auspicious/inauspicious markers
- *  Gongmang (공망)        "Void" branches in the chart
- *  Daeun (대운)           Major luck cycles (10-year periods)
- * ─────────────────────────────────────────────────────────────────────────
+ * ?? Glossary (?ъ＜ ?쎿윶) ??????????????????????????????????????????????????
+ *  Cheongan (泥쒓컙)        10 Heavenly Stems  ??GAP, EUL, BYEONG ...
+ *  Jiji (吏吏)            12 Earthly Branches ??JA, CHUK, IN ...
+ *  Ohaeng (?ㅽ뻾)          Five Elements       ??WOOD, FIRE, EARTH, METAL, WATER
+ *  Yongshin (?⑹떊)        The "helpful god" element that balances the chart
+ *  Heesin (?ъ떊)          The supporting element that assists yongshin
+ *  Gisin (湲곗떊)           The harmful element that weakens the chart
+ *  Gusin (援ъ떊)           The most harmful element ??worse than gisin
+ *  Sipseong (??꽦)        Ten Gods ??relationships between stems
+ *  Gyeokguk (寃⑷뎅)        Structural pattern of the chart
+ *  Shinsal (?좎궡)         Auspicious/inauspicious markers
+ *  Gongmang (怨듬쭩)        "Void" branches in the chart
+ *  Daeun (???           Major luck cycles (10-year periods)
+ * ?????????????????????????????????????????????????????????????????????????
  */
 import { type ElementKey, emptyDistribution } from './core/scoring.js';
 import type { SajuOutputSummary, SpringRequest, SajuSummary, PillarSummary, BirthInfo } from './types.js';
 
 // ---------------------------------------------------------------------------
-//  Configuration — loaded from JSON files so non-programmers can tweak them
+//  Configuration ??loaded from JSON files so non-programmers can tweak them
 // ---------------------------------------------------------------------------
 import cheonganJijiConfig from '../config/cheongan-jiji.json';
 import engineConfig from '../config/engine.json';
@@ -36,10 +36,10 @@ const ELEMENT_CODE_TO_KEY: Record<string, ElementKey> = cheonganJijiConfig.eleme
 /** Canonical list of the five elements in order. */
 const ELEMENT_CODES: readonly string[] = cheonganJijiConfig.elementCodes;
 
-/** Heavenly Stems reference table — hangul, hanja, element, polarity. */
+/** Heavenly Stems reference table ??hangul, hanja, element, polarity. */
 const CHEONGAN: Record<string, { hangul: string; hanja: string; element: string; polarity: string }> = cheonganJijiConfig.cheongan;
 
-/** Earthly Branches reference table — hangul, hanja. */
+/** Earthly Branches reference table ??hangul, hanja. */
 const JIJI: Record<string, { hangul: string; hanja: string }> = cheonganJijiConfig.jiji;
 
 /** Maps each ten-god name to its group: friend/output/wealth/authority/resource. */
@@ -57,13 +57,158 @@ const DEFAULT_LONGITUDE: number = engineConfig.defaultCoordinates.longitude;
 const DEFAULT_TIMEZONE: string = engineConfig.defaultTimezone;
 const DEFAULT_UNKNOWN_HOUR = 12;
 const DEFAULT_UNKNOWN_MINUTE = 0;
+const DISTRIBUTION_ROUND_DIGITS = 1;
+const DEFICIENT_AVERAGE_RATIO = 0.5;
+const EXCESSIVE_AVERAGE_RATIO = 1.7;
 
 const YEAR_STEM_CODES = ['GAP', 'EUL', 'BYEONG', 'JEONG', 'MU', 'GI', 'GYEONG', 'SIN', 'IM', 'GYE'] as const;
 const YEAR_BRANCH_CODES = ['JA', 'CHUK', 'IN', 'MYO', 'JIN', 'SA', 'O', 'MI', 'SIN', 'YU', 'SUL', 'HAE'] as const;
 const HOUR_BRANCH_CODES = ['JA', 'CHUK', 'IN', 'MYO', 'JIN', 'SA', 'O', 'MI', 'SIN', 'YU', 'SUL', 'HAE'] as const;
+const TEN_GOD_CODES = [
+  'BI_GYEON', 'GYEOB_JAE', 'SIK_SIN', 'SANG_GWAN',
+  'PYEON_JAE', 'JEONG_JAE', 'PYEON_GWAN', 'JEONG_GWAN',
+  'PYEON_IN', 'JEONG_IN',
+] as const;
+const YONGSHIN_TYPE_CODES = [
+  'EOKBU', 'JOHU', 'RANKING', 'GYEOKGUK', 'TONGGWAN', 'HAPWHA_YONGSHIN', 'ILHAENG',
+] as const;
+const GYEOKGUK_CATEGORY_CODES = ['NORMAL', 'JONGGYEOK'] as const;
+
+const ELEMENT_KO_LABEL: Record<string, string> = {
+  WOOD: '\uBAA9',
+  FIRE: '\uD654',
+  EARTH: '\uD1A0',
+  METAL: '\uAE08',
+  WATER: '\uC218',
+};
+const POLARITY_KO_LABEL: Record<string, string> = {
+  YANG: '\uC591',
+  YIN: '\uC74C',
+};
+const STRENGTH_LEVEL_KO_LABEL: Record<string, string> = {
+  STRONG: '\uC2E0\uAC15',
+  WEAK: '\uC2E0\uC57D',
+  BALANCED: '\uC911\uD654',
+};
+const YONGSHIN_AGREEMENT_KO_LABEL: Record<string, string> = {
+  RANKING: '\uC21C\uC704 \uAE30\uBC18',
+  EOKBU: '\uC5B5\uBD80',
+  JOHU: '\uC870\uD6C4',
+  GYEOKGUK: '\uACA9\uAD6D',
+};
+const YONGSHIN_TYPE_KO_LABEL: Record<string, string> = {
+  EOKBU: '\uC5B5\uBD80',
+  JOHU: '\uC870\uD6C4',
+  RANKING: '\uC21C\uC704 \uCD94\uCC9C',
+  GYEOKGUK: '\uACA9\uAD6D \uAE30\uBC18',
+  TONGGWAN: '\uD1B5\uAD00',
+  HAPWHA_YONGSHIN: '\uD569\uD654\uC6A9\uC2E0',
+  ILHAENG: '\uC77C\uD589 \uC6A9\uC2E0',
+};
+const TEN_GOD_KO_LABEL: Record<string, string> = {
+  BI_GYEON: '\uBE44\uACAC',
+  GYEOB_JAE: '\uAC81\uC7AC',
+  SIK_SIN: '\uC2DD\uC2E0',
+  SANG_GWAN: '\uC0C1\uAD00',
+  PYEON_JAE: '\uD3B8\uC7AC',
+  JEONG_JAE: '\uC815\uC7AC',
+  PYEON_GWAN: '\uD3B8\uAD00',
+  JEONG_GWAN: '\uC815\uAD00',
+  PYEON_IN: '\uD3B8\uC778',
+  JEONG_IN: '\uC815\uC778',
+};
+const GYEOKGUK_CATEGORY_KO_LABEL: Record<string, string> = {
+  NORMAL: '\uC77C\uBC18',
+  JONGGYEOK: '\uC885\uACA9',
+};
+const GYEOKGUK_KO_LABEL: Record<string, string> = {
+  BI_GYEON: '\uBE44\uACAC\uACA9',
+  GYEOB_JAE: '\uAC81\uC7AC\uACA9',
+  JEONG_GWAN: '\uC815\uAD00\uACA9',
+  PYEON_GWAN: '\uD3B8\uAD00\uACA9',
+  JEONG_JAE: '\uC815\uC7AC\uACA9',
+  PYEON_JAE: '\uD3B8\uC7AC\uACA9',
+  SIK_SIN: '\uC2DD\uC2E0\uACA9',
+  SANG_GWAN: '\uC0C1\uAD00\uACA9',
+  JEONG_IN: '\uC815\uC778\uACA9',
+  PYEON_IN: '\uD3B8\uC778\uACA9',
+  HUA_QI: '\uD654\uAE30\uACA9',
+  ZHUAN_WANG: '\uC804\uC655\uACA9',
+  CONG_GE: '\uC885\uACA9',
+  CONG_CAI: '\uC885\uC7AC\uACA9',
+  CONG_GUAN: '\uC885\uAD00\uACA9',
+  CONG_SHA: '\uC885\uC0B4\uACA9',
+  CONG_ER: '\uC885\uC544\uACA9',
+  CONG_YIN: '\uC885\uC778\uACA9',
+  CONG_BI: '\uC885\uBE44\uACA9',
+};
+const JIJI_RELATION_NOTE_KO_LABEL: Record<string, string> = {
+  CHUNG: '\uC9C0\uC9C0 \uCDA9 \uAD00\uACC4',
+  HAE: '\uC9C0\uC9C0 \uD574 \uAD00\uACC4',
+  PA: '\uC9C0\uC9C0 \uD30C \uAD00\uACC4',
+  WONJIN: '\uC9C0\uC9C0 \uC6D0\uC9C4 \uAD00\uACC4',
+  HYEONG: '\uC9C0\uC9C0 \uD615 \uAD00\uACC4',
+  HAP: '\uC9C0\uC9C0 \uD569 \uAD00\uACC4',
+  SAMHAP: '\uC9C0\uC9C0 \uC0BC\uD569 \uAD00\uACC4',
+  BANGHAP: '\uC9C0\uC9C0 \uBC29\uD569 \uAD00\uACC4',
+};
+const JIJI_RELATION_OUTCOME_KO_LABEL: Record<string, string> = {
+  CHUNG: '\uCDA9',
+  HAE: '\uD574',
+  PA: '\uD30C',
+  WONJIN: '\uC6D0\uC9C4',
+  HYEONG: '\uD615',
+  HAP: '\uD569',
+  SAMHAP: '\uC0BC\uD569',
+  BANGHAP: '\uBC29\uD569',
+};
+const CHEONGAN_RELATION_NOTE_KO_LABEL: Record<string, string> = {
+  HAP: '\uCC9C\uAC04 \uD569 \uAD00\uACC4',
+  CHUNG: '\uCC9C\uAC04 \uCDA9 \uAD00\uACC4',
+  GEUK: '\uCC9C\uAC04 \uADF9 \uAD00\uACC4',
+};
+const RELATION_TYPE_KO_LABEL: Record<string, string> = {
+  HAP: '\uD569',
+  CHUNG: '\uCDA9',
+  GEUK: '\uADF9',
+  HAE: '\uD574',
+  PA: '\uD30C',
+  WONJIN: '\uC6D0\uC9C4',
+  HYEONG: '\uD615',
+  SAMHAP: '\uC0BC\uD569',
+  BANGHAP: '\uBC29\uD569',
+};
+const SHINSAL_TYPE_KO_LABEL: Record<string, string> = {
+  HAE_SAL: '\uD574\uC0B4',
+  PA_SAL: '\uD30C\uC0B4',
+  WONJIN_SAL: '\uC6D0\uC9C4\uC0B4',
+  WOL_SAL: '\uC6D4\uC0B4',
+  JANGSEONG: '\uC7A5\uC131\uC0B4',
+  BAN_AN_SAL: '\uBC18\uC548\uC0B4',
+  HUAGAI: '\uD654\uAC1C\uC0B4',
+  JAESAL: '\uC7AC\uC0B4',
+  CHEON_SAL: '\uCC9C\uC0B4',
+  CHEON_EUL_GUI_IN: '\uCC9C\uC744\uADC0\uC778',
+  GUK_IN_GUI_IN: '\uAD6D\uC778\uADC0\uC778',
+  CHEON_BOK_GUI_IN: '\uCC9C\uBCF5\uADC0\uC778',
+  BOK_SEONG_GUI_IN: '\uBCF5\uC131\uADC0\uC778',
+  WOL_DEOK_GUI_IN: '\uC6D4\uB355\uADC0\uC778',
+  WOL_DEOK_HAP: '\uC6D4\uB355\uD569',
+  DEOK_SU_GUI_IN: '\uB355\uC218\uADC0\uC778',
+  CHEON_DEOK_GUI_IN: '\uCC9C\uB355\uADC0\uC778',
+  CHEON_DEOK_HAP: '\uCC9C\uB355\uD569',
+  CHEON_WOL_DEOK: '\uCC9C\uC6D4\uB355',
+};
+const SHINSAL_POSITION_KO_LABEL: Record<string, string> = {
+  YEAR: '\uB144\uC8FC',
+  MONTH: '\uC6D4\uC8FC',
+  DAY: '\uC77C\uC8FC',
+  HOUR: '\uC2DC\uC8FC',
+  OTHER: '\uAE30\uD0C0',
+};
 
 // ---------------------------------------------------------------------------
-//  Type-safe constant — defines the shape of the time-correction object
+//  Type-safe constant ??defines the shape of the time-correction object
 // ---------------------------------------------------------------------------
 const TC_KEYS = [
   'standardYear', 'standardMonth', 'standardDay', 'standardHour', 'standardMinute',
@@ -80,7 +225,344 @@ const TC_KEYS = [
  * Returns `null` when the input is missing or unrecognized.
  */
 export function elementFromSajuCode(value: string | null | undefined): ElementKey | null {
-  return value != null ? (ELEMENT_CODE_TO_KEY[value.toUpperCase()] ?? null) : null;
+  const code = normalizeElementCode(value);
+  return code ? (ELEMENT_CODE_TO_KEY[code] ?? null) : null;
+}
+
+function roundTo(value: unknown, digits: number): number {
+  const n = Number(value);
+  if (!Number.isFinite(n)) return 0;
+  const scale = 10 ** digits;
+  return Math.round(n * scale) / scale;
+}
+
+function stripWhitespace(value: string): string {
+  return value.replace(/\s+/g, '');
+}
+
+function normalizeCodeToken(value: unknown): string {
+  const raw = String(value ?? '').trim();
+  if (!raw) return '';
+
+  const upper = raw.toUpperCase();
+  if (/^[A-Z_]+$/.test(upper)) return upper;
+
+  const bracketMatch = upper.match(/\(([A-Z_]+)\)\s*$/);
+  if (bracketMatch) return bracketMatch[1] ?? '';
+
+  return '';
+}
+
+function formatCodeDisplay(koreanLabel: string | null, code: string): string {
+  if (koreanLabel) return koreanLabel;
+  return code;
+}
+
+function normalizeElementCode(value: unknown): string | null {
+  const raw = String(value ?? '').trim();
+  if (!raw) return null;
+
+  const codeToken = normalizeCodeToken(raw);
+  if (codeToken && (ELEMENT_CODES as readonly string[]).includes(codeToken)) return codeToken;
+
+  const upper = raw.toUpperCase();
+  if ((ELEMENT_CODES as readonly string[]).includes(upper)) return upper;
+  if (/\bWOOD\b/.test(upper)) return 'WOOD';
+  if (/\bFIRE\b/.test(upper)) return 'FIRE';
+  if (/\bEARTH\b/.test(upper)) return 'EARTH';
+  if (/\bMETAL\b/.test(upper)) return 'METAL';
+  if (/\bWATER\b/.test(upper)) return 'WATER';
+
+  const compact = stripWhitespace(raw);
+  if (compact.includes('목') || compact.includes('木')) return 'WOOD';
+  if (compact.includes('화') || compact.includes('火')) return 'FIRE';
+  if (compact.includes('토') || compact.includes('土')) return 'EARTH';
+  if (compact.includes('금') || compact.includes('金')) return 'METAL';
+  if (compact.includes('수') || compact.includes('水')) return 'WATER';
+  return null;
+}
+
+function formatElementDisplay(value: unknown): string {
+  const code = normalizeElementCode(value);
+  if (!code) return String(value ?? '');
+  return formatCodeDisplay(ELEMENT_KO_LABEL[code] ?? null, code);
+}
+
+function normalizePolarityCode(value: unknown): string {
+  const raw = String(value ?? '').trim();
+  if (!raw) return '';
+
+  const codeToken = normalizeCodeToken(raw);
+  if (codeToken === 'YANG' || codeToken === 'YIN') return codeToken;
+
+  const upper = raw.toUpperCase();
+  if (upper === 'YANG' || upper === 'YIN') return upper;
+
+  const compact = stripWhitespace(raw);
+  if (compact.includes('양') || compact.includes('陽')) return 'YANG';
+  if (compact.includes('음') || compact.includes('陰')) return 'YIN';
+  return upper;
+}
+
+function formatPolarityDisplay(value: unknown): string {
+  const code = normalizePolarityCode(value);
+  if (!code) return '';
+  return formatCodeDisplay(POLARITY_KO_LABEL[code] ?? null, code);
+}
+
+function normalizeStrengthLevelCode(value: unknown): string {
+  const raw = String(value ?? '').trim();
+  if (!raw) return '';
+
+  const codeToken = normalizeCodeToken(raw);
+  if (codeToken === 'STRONG' || codeToken === 'WEAK' || codeToken === 'BALANCED') return codeToken;
+
+  const upper = raw.toUpperCase();
+  if (upper === 'STRONG' || upper === 'WEAK' || upper === 'BALANCED') return upper;
+
+  const compact = stripWhitespace(raw);
+  if (compact.includes('신강')) return 'STRONG';
+  if (compact.includes('신약')) return 'WEAK';
+  if (compact.includes('중화') || compact.includes('균형')) return 'BALANCED';
+  return upper;
+}
+
+function formatStrengthLevelDisplay(levelCode: string, isStrong: boolean): string {
+  if (!levelCode) return '';
+  if (levelCode === 'BALANCED') {
+    return isStrong
+      ? '\uC911\uD654(\uC2E0\uAC15 \uACBD\uD5A5)'
+      : '\uC911\uD654(\uC2E0\uC57D \uACBD\uD5A5)';
+  }
+  return formatCodeDisplay(STRENGTH_LEVEL_KO_LABEL[levelCode] ?? null, levelCode);
+}
+
+function normalizeYongshinAgreementCode(value: unknown): string {
+  const raw = String(value ?? '').trim();
+  if (!raw) return '';
+
+  const codeToken = normalizeCodeToken(raw);
+  if (codeToken && codeToken in YONGSHIN_AGREEMENT_KO_LABEL) return codeToken;
+
+  const upper = raw.toUpperCase();
+  if (upper in YONGSHIN_AGREEMENT_KO_LABEL) return upper;
+
+  const compact = stripWhitespace(raw);
+  if (compact.includes('순위')) return 'RANKING';
+  if (compact.includes('억부')) return 'EOKBU';
+  if (compact.includes('조후')) return 'JOHU';
+  if (compact.includes('격국')) return 'GYEOKGUK';
+  return upper;
+}
+
+function formatYongshinAgreementDisplay(value: unknown): string {
+  const code = normalizeYongshinAgreementCode(value);
+  if (!code) return '';
+  return formatCodeDisplay(YONGSHIN_AGREEMENT_KO_LABEL[code] ?? null, code);
+}
+
+function normalizeYongshinTypeCode(value: unknown): string {
+  const raw = String(value ?? '').trim();
+  if (!raw) return '';
+
+  const codeToken = normalizeCodeToken(raw);
+  if (codeToken && (YONGSHIN_TYPE_CODES as readonly string[]).includes(codeToken)) return codeToken;
+
+  const upper = raw.toUpperCase();
+  if ((YONGSHIN_TYPE_CODES as readonly string[]).includes(upper)) return upper;
+
+  const compact = stripWhitespace(raw);
+  if (compact.includes('순위')) return 'RANKING';
+  if (compact.includes('조후')) return 'JOHU';
+  if (compact.includes('억부')) return 'EOKBU';
+  if (compact.includes('격국')) return 'GYEOKGUK';
+  if (compact.includes('통관')) return 'TONGGWAN';
+  if (compact.includes('합화')) return 'HAPWHA_YONGSHIN';
+  if (compact.includes('일행')) return 'ILHAENG';
+  return upper;
+}
+
+function formatYongshinTypeDisplay(value: unknown): string {
+  const code = normalizeYongshinTypeCode(value);
+  if (!code) return '';
+  return formatCodeDisplay(YONGSHIN_TYPE_KO_LABEL[code] ?? null, code);
+}
+
+function normalizeTenGodCode(value: unknown): string {
+  const raw = String(value ?? '').trim();
+  if (!raw) return '';
+
+  const codeToken = normalizeCodeToken(raw);
+  if (codeToken && (TEN_GOD_CODES as readonly string[]).includes(codeToken)) return codeToken;
+
+  const upper = raw.toUpperCase();
+  if ((TEN_GOD_CODES as readonly string[]).includes(upper)) return upper;
+
+  const compact = stripWhitespace(raw);
+  for (const [code, label] of Object.entries(TEN_GOD_KO_LABEL)) {
+    if (compact.includes(label)) return code;
+  }
+  return upper;
+}
+
+function formatTenGodDisplay(value: unknown): string {
+  const code = normalizeTenGodCode(value);
+  if (!code) return String(value ?? '');
+  return formatCodeDisplay(TEN_GOD_KO_LABEL[code] ?? null, code);
+}
+
+function normalizeGyeokgukCategoryCode(value: unknown): string {
+  const raw = String(value ?? '').trim();
+  if (!raw) return '';
+
+  const codeToken = normalizeCodeToken(raw);
+  if (codeToken && (GYEOKGUK_CATEGORY_CODES as readonly string[]).includes(codeToken)) return codeToken;
+
+  const upper = raw.toUpperCase();
+  if ((GYEOKGUK_CATEGORY_CODES as readonly string[]).includes(upper)) return upper;
+
+  const compact = stripWhitespace(raw);
+  if (compact.includes('종격')) return 'JONGGYEOK';
+  if (compact.includes('일반')) return 'NORMAL';
+  return upper;
+}
+
+function formatGyeokgukCategoryDisplay(value: unknown): string {
+  const code = normalizeGyeokgukCategoryCode(value);
+  if (!code) return '';
+  return formatCodeDisplay(GYEOKGUK_CATEGORY_KO_LABEL[code] ?? null, code);
+}
+
+function normalizeGyeokgukTypeCode(value: unknown): string {
+  const raw = String(value ?? '').trim();
+  if (!raw) return '';
+
+  const codeToken = normalizeCodeToken(raw);
+  if (codeToken) return codeToken;
+
+  const upper = raw.toUpperCase();
+  if (/^[A-Z_]+$/.test(upper)) return upper;
+
+  const compact = stripWhitespace(raw);
+  for (const [code, label] of Object.entries(GYEOKGUK_KO_LABEL)) {
+    if (compact.includes(label)) return code;
+  }
+  return upper;
+}
+
+function formatGyeokgukTypeDisplay(value: unknown): string {
+  const code = normalizeGyeokgukTypeCode(value);
+  if (!code) return String(value ?? '');
+  return formatCodeDisplay(GYEOKGUK_KO_LABEL[code] ?? null, code);
+}
+
+function formatStemDisplay(value: unknown): string {
+  const code = String(value ?? '').trim().toUpperCase();
+  const label = CHEONGAN[code]?.hangul ?? null;
+  return formatCodeDisplay(label, code);
+}
+
+function formatBranchDisplay(value: unknown): string {
+  const code = String(value ?? '').trim().toUpperCase();
+  const label = JIJI[code]?.hangul ?? null;
+  return formatCodeDisplay(label, code);
+}
+
+function normalizeRelationTypeCode(value: unknown): string {
+  const raw = String(value ?? '').trim();
+  if (!raw) return '';
+  const codeToken = normalizeCodeToken(raw);
+  if (codeToken) return codeToken;
+  return raw.toUpperCase();
+}
+
+function formatRelationTypeDisplay(value: unknown): string {
+  const code = normalizeRelationTypeCode(value);
+  if (!code) return '';
+  return formatCodeDisplay(RELATION_TYPE_KO_LABEL[code] ?? null, code);
+}
+
+function normalizeShinsalTypeCode(value: unknown): string {
+  const raw = String(value ?? '').trim();
+  if (!raw) return '';
+  const codeToken = normalizeCodeToken(raw);
+  if (codeToken) return codeToken;
+  return raw.toUpperCase().replace(/\s+/g, '_');
+}
+
+function formatShinsalTypeDisplay(value: unknown): string {
+  const code = normalizeShinsalTypeCode(value);
+  if (!code) return '';
+  return formatCodeDisplay(SHINSAL_TYPE_KO_LABEL[code] ?? null, code);
+}
+
+function normalizeShinsalPositionCode(value: unknown): string {
+  const raw = String(value ?? '').trim();
+  if (!raw) return '';
+
+  const codeToken = normalizeCodeToken(raw);
+  if (codeToken) return codeToken;
+
+  const upper = raw.toUpperCase();
+  if (upper in SHINSAL_POSITION_KO_LABEL) return upper;
+
+  const compact = stripWhitespace(raw);
+  if (compact.includes('년주')) return 'YEAR';
+  if (compact.includes('월주')) return 'MONTH';
+  if (compact.includes('일주')) return 'DAY';
+  if (compact.includes('시주')) return 'HOUR';
+  if (compact.includes('기타')) return 'OTHER';
+  return upper;
+}
+
+function formatShinsalPositionDisplay(value: unknown): string {
+  const code = normalizeShinsalPositionCode(value);
+  if (!code) return '';
+  return formatCodeDisplay(SHINSAL_POSITION_KO_LABEL[code] ?? null, code);
+}
+
+function normalizeElementCodeList(value: unknown): string[] {
+  if (!Array.isArray(value)) return [];
+  const dedup = new Set<string>();
+  for (const item of value) {
+    const code = normalizeElementCode(item);
+    if (code) dedup.add(code);
+  }
+  return [...dedup];
+}
+
+function confidenceToPoints(value: unknown): number {
+  const n = Number(value);
+  if (!Number.isFinite(n)) return 0;
+  const normalized = Math.max(0, Math.min(1, n <= 1 ? n : n / 100));
+  return Math.round(normalized * 100);
+}
+
+function confidenceToRatio(value: unknown): number {
+  const n = Number(value);
+  if (!Number.isFinite(n)) return 0;
+  const normalized = n > 1 ? n / 100 : n;
+  return Math.max(0, Math.min(1, normalized));
+}
+
+function classifyDeficientAndExcessive(distribution: Record<string, number>): {
+  deficientElements: string[];
+  excessiveElements: string[];
+} {
+  const total = ELEMENT_CODES.reduce((sum, code) => sum + Number(distribution[code] ?? 0), 0);
+  if (total <= 0) return { deficientElements: [], excessiveElements: [] };
+
+  const average = total / ELEMENT_CODES.length;
+  const deficientElements: string[] = [];
+  const excessiveElements: string[] = [];
+
+  for (const elementCode of ELEMENT_CODES) {
+    const count = Number(distribution[elementCode] ?? 0);
+    if (count === 0 || count <= average * DEFICIENT_AVERAGE_RATIO) deficientElements.push(elementCode);
+    else if (count >= average * EXCESSIVE_AVERAGE_RATIO) excessiveElements.push(elementCode);
+  }
+
+  return { deficientElements, excessiveElements };
 }
 
 // ---------------------------------------------------------------------------
@@ -147,8 +629,8 @@ async function loadSajuModule(): Promise<SajuModule | null> {
   }
 
   console.warn(
-    '[spring-ts] saju-ts 모듈 로드 실패. 사주 분석이 비활성화됩니다.',
-    `시도한 경로: ${candidates.join(', ')}`,
+    '[spring-ts] saju-ts 紐⑤뱢 濡쒕뱶 ?ㅽ뙣. ?ъ＜ 遺꾩꽍??鍮꾪솢?깊솕?⑸땲??',
+    `?쒕룄??寃쎈줈: ${candidates.join(', ')}`,
   );
   return null;
 }
@@ -157,7 +639,7 @@ async function loadSajuModule(): Promise<SajuModule | null> {
 //  Small utility helpers
 // ---------------------------------------------------------------------------
 
-/** Guarantees an array — returns `value` if it is one, otherwise wraps it. */
+/** Guarantees an array ??returns `value` if it is one, otherwise wraps it. */
 function ensureArray(value: any): any[] {
   return Array.isArray(value) ? value : [];
 }
@@ -262,10 +744,10 @@ function canRunFullSaju(parts: KnownBirthParts): boolean {
 }
 
 function seasonHintFromMonth(month: number): string {
-  if (month >= 3 && month <= 5) return '봄 기운(목) 경향';
-  if (month >= 6 && month <= 8) return '여름 기운(화) 경향';
-  if (month >= 9 && month <= 11) return '가을 기운(금) 경향';
-  return '겨울 기운(수) 경향';
+  if (month >= 3 && month <= 5) return '遊?湲곗슫(紐? 寃쏀뼢';
+  if (month >= 6 && month <= 8) return '?щ쫫 湲곗슫(?? 寃쏀뼢';
+  if (month >= 9 && month <= 11) return '媛??湲곗슫(湲? 寃쏀뼢';
+  return '寃⑥슱 湲곗슫(?? 寃쏀뼢';
 }
 
 function hourBranchCode(hour: number): string {
@@ -308,30 +790,30 @@ function buildPartialSajuSummary(birth: BirthInfo, parts: KnownBirthParts): Saju
     };
 
     interpretation.push(
-      `출생 연도 기준으로 연주를 추정했습니다: ${stemInfo?.hangul ?? stemCode}${branchInfo?.hangul ?? branchCode}년.`,
+      `異쒖깮 ?곕룄 湲곗??쇰줈 ?곗＜瑜?異붿젙?덉뒿?덈떎: ${stemInfo?.hangul ?? stemCode}${branchInfo?.hangul ?? branchCode}??`,
     );
   }
 
   if (parts.month != null) {
-    interpretation.push(`출생 월 정보로 계절 경향을 반영했습니다: ${seasonHintFromMonth(parts.month)}.`);
+    interpretation.push(`異쒖깮 ???뺣낫濡?怨꾩젅 寃쏀뼢??諛섏쁺?덉뒿?덈떎: ${seasonHintFromMonth(parts.month)}.`);
   }
 
   if (parts.day != null) {
-    interpretation.push('출생 일 정보는 확인되었지만 일주/용신 분석에는 연월 정보가 더 필요합니다.');
+    interpretation.push('異쒖깮 ???뺣낫???뺤씤?섏뿀吏留??쇱＜/?⑹떊 遺꾩꽍?먮뒗 ?곗썡 ?뺣낫媛 ???꾩슂?⑸땲??');
   }
 
   if (parts.hour != null) {
     const branchCode = hourBranchCode(parts.hour);
     const branchInfo = JIJI[branchCode];
-    interpretation.push(`출생 시 정보로 시지 경향을 반영했습니다: ${branchInfo?.hangul ?? branchCode}시 구간.`);
+    interpretation.push(`異쒖깮 ???뺣낫濡??쒖? 寃쏀뼢??諛섏쁺?덉뒿?덈떎: ${branchInfo?.hangul ?? branchCode}??援ш컙.`);
   }
 
   if (parts.minute != null) {
-    interpretation.push('출생 분 정보가 있어 시간 오차 범위를 줄여 해석했습니다.');
+    interpretation.push('異쒖깮 遺??뺣낫媛 ?덉뼱 ?쒓컙 ?ㅼ감 踰붿쐞瑜?以꾩뿬 ?댁꽍?덉뒿?덈떎.');
   }
 
   if (birth.gender === 'neutral') {
-    interpretation.push('중성 선택으로 성별 의존 해석 항목은 중립 기준으로 처리했습니다.');
+    interpretation.push('以묒꽦 ?좏깮?쇰줈 ?깅퀎 ?섏〈 ?댁꽍 ??ぉ? 以묐┰ 湲곗??쇰줈 泥섎━?덉뒿?덈떎.');
   }
 
   mutableSummary.partialInterpretation = interpretation;
@@ -492,14 +974,14 @@ export async function analyzeSaju(birth: BirthInfo, options?: SpringRequest['opt
     const notes: string[] = [];
     if (parts.hour == null || parts.minute == null) {
       notes.push(
-        `출생 시/분 미상으로 ${String(DEFAULT_UNKNOWN_HOUR).padStart(2, '0')}:${String(DEFAULT_UNKNOWN_MINUTE).padStart(2, '0')} 기준 계산을 적용했습니다.`,
+        `異쒖깮 ??遺?誘몄긽?쇰줈 ${String(DEFAULT_UNKNOWN_HOUR).padStart(2, '0')}:${String(DEFAULT_UNKNOWN_MINUTE).padStart(2, '0')} 湲곗? 怨꾩궛???곸슜?덉뒿?덈떎.`,
       );
     }
     if (birth.gender === 'neutral') {
       const maleConfidenceText = neutralMaleConfidence != null ? neutralMaleConfidence.toFixed(2) : '-';
       const femaleConfidenceText = neutralFemaleConfidence != null ? neutralFemaleConfidence.toFixed(2) : '-';
       notes.push(
-        `중성 선택으로 남/여 기준을 모두 계산했고, 신뢰도 기준으로 ${neutralBasis ?? '중립'} 결과를 사용했습니다. (남성 ${maleConfidenceText}, 여성 ${femaleConfidenceText})`,
+        `以묒꽦 ?좏깮?쇰줈 ????湲곗???紐⑤몢 怨꾩궛?덇퀬, ?좊ː??湲곗??쇰줈 ${neutralBasis ?? '以묐┰'} 寃곌낵瑜??ъ슜?덉뒿?덈떎. (?⑥꽦 ${maleConfidenceText}, ?ъ꽦 ${femaleConfidenceText})`,
       );
       summary.neutralGenderBasis = neutralBasis ?? 'UNKNOWN';
     }
@@ -514,7 +996,7 @@ export async function analyzeSaju(birth: BirthInfo, options?: SpringRequest['opt
 }
 
 // ---------------------------------------------------------------------------
-//  extractSaju — composed from focused extraction helpers
+//  extractSaju ??composed from focused extraction helpers
 // ---------------------------------------------------------------------------
 
 /**
@@ -557,7 +1039,7 @@ export function extractSaju(rawSajuOutput: any): SajuSummary {
 }
 
 // ---------------------------------------------------------------------------
-//  Pillar extraction — year / month / day / hour
+//  Pillar extraction ??year / month / day / hour
 // ---------------------------------------------------------------------------
 
 /** Converts a single raw pillar into our PillarSummary shape (stem + branch). */
@@ -582,42 +1064,33 @@ function extractPillars(rawPillars: any): Record<'year' | 'month' | 'day' | 'hou
 }
 
 // ---------------------------------------------------------------------------
-//  Day master — the stem of the day pillar
+//  Day master ??the stem of the day pillar
 // ---------------------------------------------------------------------------
-
-function normalizeElementCode(value: unknown): string {
-  const code = String(value ?? '').trim().toUpperCase();
-  if (!code) return '';
-  if (code === 'WOOD' || code === 'FIRE' || code === 'EARTH' || code === 'METAL' || code === 'WATER') return code;
-  if (code === '목' || code === '木') return 'WOOD';
-  if (code === '화' || code === '火') return 'FIRE';
-  if (code === '토' || code === '土') return 'EARTH';
-  if (code === '금' || code === '金') return 'METAL';
-  if (code === '수' || code === '水') return 'WATER';
-  return code;
-}
 
 function extractDayMaster(dayStemCode: string, strengthResult: any) {
   const dayMasterInfo = CHEONGAN[dayStemCode];
-  // Theory-first: day master (일간) is defined by the day stem itself.
+  // Theory-first: day master (?쇨컙) is defined by the day stem itself.
   // Keep strengthResult as a fallback only when stem metadata is unavailable.
-  const canonicalElement = dayMasterInfo?.element ?? '';
-  const fallbackElement = normalizeElementCode(strengthResult?.dayMasterElement);
+  const canonicalElement = normalizeElementCode(dayMasterInfo?.element) ?? '';
+  const fallbackElement = normalizeElementCode(strengthResult?.dayMasterElement) ?? '';
+  const polarityCode = normalizePolarityCode(dayMasterInfo?.polarity ?? '');
   return {
-    stem:     dayStemCode,
+    stem:     formatStemDisplay(dayStemCode),
     element:  canonicalElement || fallbackElement,
-    polarity: dayMasterInfo?.polarity ?? '',
+    polarity: formatPolarityDisplay(polarityCode),
   };
 }
 
 // ---------------------------------------------------------------------------
-//  Strength — is the day master strong or weak?
+//  Strength ??is the day master strong or weak?
 // ---------------------------------------------------------------------------
 
 function extractStrength(strengthResult: any) {
+  const isStrong = !!strengthResult?.isStrong;
+  const levelCode = normalizeStrengthLevelCode(strengthResult?.level ?? '');
   return {
-    level:        String(strengthResult?.level ?? ''),
-    isStrong:     !!strengthResult?.isStrong,
+    level:        formatStrengthLevelDisplay(levelCode, isStrong),
+    isStrong,
     totalSupport: Number(strengthResult?.score?.totalSupport) || 0,
     totalOppose:  Number(strengthResult?.score?.totalOppose)  || 0,
     deukryeong:   Number(strengthResult?.score?.deukryeong)   || 0,
@@ -628,7 +1101,7 @@ function extractStrength(strengthResult: any) {
 }
 
 // ---------------------------------------------------------------------------
-//  Element distribution — how many "points" each element has in the chart
+//  Element distribution ??how many "points" each element has in the chart
 // ---------------------------------------------------------------------------
 
 function extractElementDistribution(rawSajuOutput: any): {
@@ -637,51 +1110,58 @@ function extractElementDistribution(rawSajuOutput: any): {
   excessiveElements: string[];
 } {
   const distribution: Record<string, number> = {};
+  const assignDistribution = (key: unknown, value: unknown) => {
+    const elementCode = normalizeElementCode(key);
+    if (!elementCode) return;
+    distribution[elementCode] = roundTo(value, DISTRIBUTION_ROUND_DIGITS);
+  };
 
   if (rawSajuOutput.ohaengDistribution) {
     if (rawSajuOutput.ohaengDistribution instanceof Map) {
       for (const [key, value] of rawSajuOutput.ohaengDistribution)
-        distribution[String(key)] = Number(value);
+        assignDistribution(key, value);
     } else {
-      Object.assign(distribution, rawSajuOutput.ohaengDistribution);
+      for (const [key, value] of Object.entries(rawSajuOutput.ohaengDistribution)) {
+        assignDistribution(key, value);
+      }
     }
   }
 
-  const total   = Object.values(distribution).reduce((sum, value) => sum + value, 0);
-  const average = total / 5;
-
-  const deficientElements: string[] = [];
-  const excessiveElements: string[] = [];
-
-  if (total > 0) {
-    for (const elementCode of ELEMENT_CODES) {
-      const count = distribution[elementCode] ?? 0;
-      if (count === 0 || count <= average * 0.4) deficientElements.push(elementCode);
-      else if (count >= average * 2.0)           excessiveElements.push(elementCode);
-    }
+  for (const code of ELEMENT_CODES) {
+    if (!Number.isFinite(distribution[code])) distribution[code] = 0;
   }
+
+  const derived = classifyDeficientAndExcessive(distribution);
+  const providedDeficient = normalizeElementCodeList(rawSajuOutput?.deficientElements);
+  const providedExcessive = normalizeElementCodeList(rawSajuOutput?.excessiveElements);
+  const deficientElements = providedDeficient.length ? providedDeficient : derived.deficientElements;
+  const excessiveElements = providedExcessive.length ? providedExcessive : derived.excessiveElements;
 
   return { distribution, deficientElements, excessiveElements };
 }
 
 // ---------------------------------------------------------------------------
-//  Yongshin — the recommended balancing element
+//  Yongshin ??the recommended balancing element
 // ---------------------------------------------------------------------------
 
 function extractYongshin(yongshinResult: any) {
+  const element = yongshinResult?.finalYongshin;
+  const heeshin = yongshinResult?.finalHeesin;
+  const gishin = yongshinResult?.gisin;
+  const gushin = yongshinResult?.gusin;
   return {
-    element:    String(yongshinResult?.finalYongshin ?? ''),
-    heeshin:    toNullableString(yongshinResult?.finalHeesin),
-    gishin:     toNullableString(yongshinResult?.gisin),
-    gushin:     toNullableString(yongshinResult?.gusin),
-    confidence: Number(yongshinResult?.finalConfidence) || 0,
-    agreement:  String(yongshinResult?.agreement ?? ''),
+    element:    normalizeElementCode(element) ?? String(element ?? ''),
+    heeshin:    normalizeElementCode(heeshin) ?? toNullableString(heeshin),
+    gishin:     normalizeElementCode(gishin) ?? toNullableString(gishin),
+    gushin:     normalizeElementCode(gushin) ?? toNullableString(gushin),
+    confidence: confidenceToPoints(yongshinResult?.finalConfidence),
+    agreement:  formatYongshinAgreementDisplay(yongshinResult?.agreement),
     recommendations: ensureArray(yongshinResult?.recommendations).map(
       ({ type, primaryElement, secondaryElement, confidence, reasoning }: any) => ({
-        type:             String(type ?? ''),
-        primaryElement:   String(primaryElement ?? ''),
-        secondaryElement: toNullableString(secondaryElement),
-        confidence:       Number(confidence) || 0,
+        type:             formatYongshinTypeDisplay(type),
+        primaryElement:   formatElementDisplay(primaryElement),
+        secondaryElement: secondaryElement == null ? null : formatElementDisplay(secondaryElement),
+        confidence:       confidenceToPoints(confidence),
         reasoning:        String(reasoning ?? ''),
       }),
     ),
@@ -689,45 +1169,45 @@ function extractYongshin(yongshinResult: any) {
 }
 
 // ---------------------------------------------------------------------------
-//  Gyeokguk — the structural pattern of the chart
+//  Gyeokguk ??the structural pattern of the chart
 // ---------------------------------------------------------------------------
 
 function extractGyeokguk(gyeokgukResult: any) {
   return {
-    type:          String(gyeokgukResult?.type ?? ''),
-    category:      String(gyeokgukResult?.category ?? ''),
-    baseTenGod:  toNullableString(gyeokgukResult?.baseSipseong),
+    type:          formatGyeokgukTypeDisplay(gyeokgukResult?.type),
+    category:      formatGyeokgukCategoryDisplay(gyeokgukResult?.category),
+    baseTenGod:    gyeokgukResult?.baseSipseong ? formatTenGodDisplay(gyeokgukResult.baseSipseong) : null,
     confidence:    Number(gyeokgukResult?.confidence) || 0,
     reasoning:     String(gyeokgukResult?.reasoning ?? ''),
   };
 }
 
 // ---------------------------------------------------------------------------
-//  Ten God analysis (십성 분석)
+//  Ten God analysis (??꽦 遺꾩꽍)
 // ---------------------------------------------------------------------------
 
 function extractTenGodAnalysis(tenGodResult: any, dayStemCode: string) {
   if (!tenGodResult?.byPosition) return null;
 
   return {
-    dayMaster: dayStemCode || String(tenGodResult.dayMaster ?? ''),
+    dayMaster: formatStemDisplay(dayStemCode || tenGodResult.dayMaster),
     byPosition: Object.fromEntries(
       Object.entries(tenGodResult.byPosition).map(([position, positionInfo]) => {
         const info = positionInfo as any;
         return [position, {
-          cheonganTenGod:      String(info.cheonganSipseong ?? ''),
-          jijiPrincipalTenGod: String(info.jijiPrincipalSipseong ?? ''),
+          cheonganTenGod:      formatTenGodDisplay(info.cheonganSipseong),
+          jijiPrincipalTenGod: formatTenGodDisplay(info.jijiPrincipalSipseong),
           hiddenStems: ensureArray(info.hiddenStems).map((hidden: any) => {
             const stemCode = String(hidden.stem ?? '');
             return {
-              stem:    stemCode,
-              element: CHEONGAN[stemCode]?.element ?? '',
+              stem:    formatStemDisplay(stemCode),
+              element: formatElementDisplay(CHEONGAN[stemCode]?.element ?? ''),
               ratio:   Number(hidden.ratio ?? (hidden.days ? hidden.days / 30 : 0)) || 0,
             };
           }),
           hiddenStemTenGod: ensureArray(info.hiddenStemSipseong).map((hidden: any) => ({
-            stem:   String(hidden.entry?.stem ?? hidden.stem ?? ''),
-            tenGod: String(hidden.sipseong ?? ''),
+            stem:   formatStemDisplay(hidden.entry?.stem ?? hidden.stem ?? ''),
+            tenGod: formatTenGodDisplay(hidden.sipseong),
           })),
         }];
       }),
@@ -736,7 +1216,7 @@ function extractTenGodAnalysis(tenGodResult: any, dayStemCode: string) {
 }
 
 // ---------------------------------------------------------------------------
-//  Shinsal hits (신살 — auspicious / inauspicious markers)
+//  Shinsal hits (?좎궡 ??auspicious / inauspicious markers)
 // ---------------------------------------------------------------------------
 
 function extractShinsalHits(rawSajuOutput: any) {
@@ -750,10 +1230,11 @@ function extractShinsalHits(rawSajuOutput: any) {
   return sourceHits.map((item: any) => {
     const hitData    = isWeighted ? item.hit : item;
     const baseWeight = isWeighted ? Number(item.baseWeight) || 0 : 0;
+    const gradeCode = String(hitData?.grade || '') || (isWeighted ? gradeFromWeight(baseWeight) : 'C');
     return {
-      type:               String(hitData?.type     ?? ''),
-      position:           String(hitData?.position ?? ''),
-      grade:              String(hitData?.grade || '') || (isWeighted ? gradeFromWeight(baseWeight) : 'C'),
+      type:               formatShinsalTypeDisplay(hitData?.type),
+      position:           formatShinsalPositionDisplay(hitData?.position),
+      grade:              formatCodeDisplay(null, gradeCode),
       baseWeight,
       positionMultiplier: isWeighted ? Number(item.positionMultiplier) || 0 : 0,
       weightedScore:      isWeighted ? Number(item.weightedScore)      || 0 : 0,
@@ -775,7 +1256,7 @@ function extractShinsalComposites(rawSajuOutput: any) {
 }
 
 // ---------------------------------------------------------------------------
-//  Jiji relations (지지 관계 — earthly branch interactions)
+//  Jiji relations (吏吏 愿怨???earthly branch interactions)
 // ---------------------------------------------------------------------------
 
 function extractJijiRelations(rawSajuOutput: any) {
@@ -785,18 +1266,30 @@ function extractJijiRelations(rawSajuOutput: any) {
 
   return sourceRelations.map((item: any) => {
     const hitData = isResolved ? item.hit : item;
+    const typeCode = normalizeRelationTypeCode(hitData?.type ?? item.type ?? '');
+    const rawOutcome = isResolved ? item.outcome : (item.outcome ?? hitData?.outcome);
+    const rawReasoning = isResolved ? item.reasoning : (item.reasoning ?? hitData?.reasoning);
+    const note = String(hitData?.note ?? (item.note ?? JIJI_RELATION_NOTE_KO_LABEL[typeCode] ?? ''));
+    const outcome = toNullableString(rawOutcome ?? JIJI_RELATION_OUTCOME_KO_LABEL[typeCode] ?? null);
+    let reasoning = toNullableString(rawReasoning);
+    if (reasoning) {
+      const normalizedReasoning = stripWhitespace(reasoning);
+      if (normalizedReasoning === stripWhitespace(note) || (outcome && normalizedReasoning === stripWhitespace(outcome))) {
+        reasoning = null;
+      }
+    }
     return {
-      type:      String(hitData?.type ?? (item.type ?? '')),
-      branches:  toStringArray(hitData?.members ?? item.members),
-      note:      String(hitData?.note ?? (item.note ?? '')),
-      outcome:   isResolved ? toNullableString(item.outcome)   : null,
-      reasoning: isResolved ? toNullableString(item.reasoning) : null,
+      type:      formatRelationTypeDisplay(typeCode),
+      branches:  toStringArray(hitData?.members ?? item.members).map(formatBranchDisplay),
+      note,
+      outcome,
+      reasoning,
     };
   });
 }
 
 // ---------------------------------------------------------------------------
-//  Cheongan relations (천간 관계 — heavenly stem interactions)
+//  Cheongan relations (泥쒓컙 愿怨???heavenly stem interactions)
 // ---------------------------------------------------------------------------
 
 function extractCheonganRelations(rawSajuOutput: any) {
@@ -804,18 +1297,19 @@ function extractCheonganRelations(rawSajuOutput: any) {
   const scoredRelations = ensureArray(rawSajuOutput.scoredCheonganRelations);
   const scoreByKey = new Map<string, any>();
   for (const scored of scoredRelations) {
-    const lookupKey = String(scored.hit?.type ?? '') + ':' + toStringArray(scored.hit?.members).sort().join(',');
+    const lookupKey = normalizeRelationTypeCode(scored.hit?.type ?? '') + ':' + toStringArray(scored.hit?.members).sort().join(',');
     scoreByKey.set(lookupKey, scored.score);
   }
 
   return ensureArray(rawSajuOutput.cheonganRelations).map((relation: any) => {
-    const lookupKey    = String(relation.type ?? '') + ':' + toStringArray(relation.members).sort().join(',');
+    const typeCode = normalizeRelationTypeCode(relation.type ?? '');
+    const lookupKey    = String(typeCode) + ':' + toStringArray(relation.members).sort().join(',');
     const scoreData    = scoreByKey.get(lookupKey);
     return {
-      type:          String(relation.type ?? ''),
-      stems:         toStringArray(relation.members),
-      resultElement: toNullableString(relation.resultOhaeng),
-      note:          String(relation.note ?? ''),
+      type:          formatRelationTypeDisplay(typeCode),
+      stems:         toStringArray(relation.members).map(formatStemDisplay),
+      resultElement: relation.resultOhaeng != null ? formatElementDisplay(relation.resultOhaeng) : null,
+      note:          String(relation.note ?? CHEONGAN_RELATION_NOTE_KO_LABEL[typeCode] ?? ''),
       score: scoreData ? {
         baseScore:          Number(scoreData.baseScore)          || 0,
         adjacencyBonus:     Number(scoreData.adjacencyBonus)     || 0,
@@ -828,7 +1322,7 @@ function extractCheonganRelations(rawSajuOutput: any) {
 }
 
 // ---------------------------------------------------------------------------
-//  Hap-hwa evaluations (합화 — stem combination transformations)
+//  Hap-hwa evaluations (?⑺솕 ??stem combination transformations)
 // ---------------------------------------------------------------------------
 
 function extractHapHwaEvaluations(rawSajuOutput: any) {
@@ -846,7 +1340,7 @@ function extractHapHwaEvaluations(rawSajuOutput: any) {
 }
 
 // ---------------------------------------------------------------------------
-//  Sibi unseong (십이운성 — twelve stages of life cycle)
+//  Sibi unseong (??씠?댁꽦 ??twelve stages of life cycle)
 // ---------------------------------------------------------------------------
 
 function extractSibiUnseong(rawSajuOutput: any) {
@@ -860,18 +1354,18 @@ function extractSibiUnseong(rawSajuOutput: any) {
 }
 
 // ---------------------------------------------------------------------------
-//  Gongmang (공망 — void branches)
+//  Gongmang (怨듬쭩 ??void branches)
 // ---------------------------------------------------------------------------
 
 function extractGongmang(rawSajuOutput: any): [string, string] | null {
   const branches = rawSajuOutput.gongmangVoidBranches;
   return Array.isArray(branches) && branches.length >= 2
-    ? [String(branches[0]), String(branches[1])]
+    ? [formatBranchDisplay(branches[0]), formatBranchDisplay(branches[1])]
     : null;
 }
 
 // ---------------------------------------------------------------------------
-//  Palace analysis (궁 분석)
+//  Palace analysis (沅?遺꾩꽍)
 // ---------------------------------------------------------------------------
 
 function extractPalaceAnalysis(rawSajuOutput: any) {
@@ -894,7 +1388,7 @@ function extractPalaceAnalysis(rawSajuOutput: any) {
 }
 
 // ---------------------------------------------------------------------------
-//  Daeun info (대운 — major luck cycles)
+//  Daeun info (?????major luck cycles)
 // ---------------------------------------------------------------------------
 
 function extractDaeunInfo(rawSajuOutput: any) {
@@ -918,7 +1412,7 @@ function extractDaeunInfo(rawSajuOutput: any) {
 }
 
 // ---------------------------------------------------------------------------
-//  Saeun pillars (세운 — yearly luck pillars)
+//  Saeun pillars (?몄슫 ??yearly luck pillars)
 // ---------------------------------------------------------------------------
 
 function extractSaeunPillars(rawSajuOutput: any) {
@@ -976,14 +1470,18 @@ export function buildSajuContext(sajuSummary: SajuSummary): { dist: Record<Eleme
 
   const dayMasterKey = elementFromSajuCode(sajuSummary.dayMaster.element);
   const yongshinData = sajuSummary.yongshin;
+  const finalYongshin = normalizeElementCode(yongshinData.element);
+  const finalHeesin = normalizeElementCode(yongshinData.heeshin);
+  const gisin = normalizeElementCode(yongshinData.gishin);
+  const gusin = normalizeElementCode(yongshinData.gushin);
 
   // Count ten-god group occurrences across all pillar positions
   let tenGod: { groupCounts: Record<string, number> } | undefined;
   if (sajuSummary.tenGodAnalysis?.byPosition) {
     const groupCounts: Record<string, number> = { friend: 0, output: 0, wealth: 0, authority: 0, resource: 0 };
     for (const positionInfo of Object.values(sajuSummary.tenGodAnalysis.byPosition)) {
-      const stemGroup   = TEN_GOD_GROUP[positionInfo.cheonganTenGod];
-      const branchGroup = TEN_GOD_GROUP[positionInfo.jijiPrincipalTenGod];
+      const stemGroup   = TEN_GOD_GROUP[normalizeTenGodCode(positionInfo.cheonganTenGod)];
+      const branchGroup = TEN_GOD_GROUP[normalizeTenGodCode(positionInfo.jijiPrincipalTenGod)];
       if (stemGroup)   groupCounts[stemGroup]++;
       if (branchGroup) groupCounts[branchGroup]++;
     }
@@ -1000,25 +1498,33 @@ export function buildSajuContext(sajuSummary: SajuSummary): { dist: Record<Eleme
         totalOppose:  sajuSummary.strength.totalOppose,
       },
       yongshin: {
-        finalYongshin:   yongshinData.element,
-        finalHeesin:     yongshinData.heeshin,
-        gisin:           yongshinData.gishin,
-        gusin:           yongshinData.gushin,
-        finalConfidence: yongshinData.confidence,
+        finalYongshin:   finalYongshin ?? String(yongshinData.element ?? ''),
+        finalHeesin:     finalHeesin ?? null,
+        gisin:           gisin ?? null,
+        gusin:           gusin ?? null,
+        finalConfidence: confidenceToRatio(yongshinData.confidence),
         recommendations: yongshinData.recommendations.map(
           ({ type, primaryElement, secondaryElement, confidence, reasoning }) => ({
-            type, primaryElement, secondaryElement, confidence, reasoning,
+            type: normalizeYongshinTypeCode(type),
+            primaryElement: normalizeElementCode(primaryElement) ?? String(primaryElement ?? ''),
+            secondaryElement: normalizeElementCode(secondaryElement),
+            confidence: confidenceToRatio(confidence),
+            reasoning,
           }),
         ),
       },
       tenGod,
       gyeokguk: sajuSummary.gyeokguk?.type ? {
-        category:   String(sajuSummary.gyeokguk.category   ?? ''),
-        type:       String(sajuSummary.gyeokguk.type        ?? ''),
+        category:   normalizeGyeokgukCategoryCode(sajuSummary.gyeokguk.category ?? ''),
+        type:       normalizeGyeokgukTypeCode(sajuSummary.gyeokguk.type ?? ''),
         confidence: Number(sajuSummary.gyeokguk.confidence) || 0,
       } : undefined,
-      deficientElements: sajuSummary.deficientElements?.length ? sajuSummary.deficientElements : undefined,
-      excessiveElements: sajuSummary.excessiveElements?.length ? sajuSummary.excessiveElements : undefined,
+      deficientElements: sajuSummary.deficientElements?.length
+        ? normalizeElementCodeList(sajuSummary.deficientElements)
+        : undefined,
+      excessiveElements: sajuSummary.excessiveElements?.length
+        ? normalizeElementCodeList(sajuSummary.excessiveElements)
+        : undefined,
     },
   };
 }
