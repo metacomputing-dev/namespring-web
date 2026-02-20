@@ -15,12 +15,19 @@ export default defineConfig({
     alias: {
       '@seed': path.resolve(__dirname, '../lib/seed-ts/src'),
       '@spring': path.resolve(__dirname, '../lib/spring-ts/src'),
+      // saju-ts artifacts import this package via bare specifier.
+      // Pin alias to app-local dependency so @fs-loaded modules resolve consistently.
+      'fflate': path.resolve(__dirname, 'node_modules/fflate/esm/browser.js'),
     }
   },
   optimizeDeps: {
     exclude: ['react-day-picker'],
   },
   server: {
+    fs: {
+      // Allow loading workspace sibling packages in dev (e.g. ../lib/saju-ts/src).
+      allow: [path.resolve(__dirname, '..')],
+    },
     // Required for SQLite WASM (SharedArrayBuffer support)
     headers: {
       "Cross-Origin-Opener-Policy": "same-origin",
