@@ -115,6 +115,41 @@ function toSpringNameChars(entries) {
     .filter((entry) => entry.hangul.length > 0);
 }
 
+function toOptionalText(...values) {
+  for (const value of values) {
+    if (typeof value !== 'string') continue;
+    const trimmed = value.trim();
+    if (trimmed.length > 0) return trimmed;
+  }
+  return undefined;
+}
+
+function toOptionalNumber(...values) {
+  for (const value of values) {
+    const n = Number(value);
+    if (Number.isFinite(n)) return n;
+  }
+  return undefined;
+}
+
+function readBirthGeoOverridesFromQuery() {
+  if (typeof window === 'undefined') return {};
+  const query = new URLSearchParams(window.location.search);
+  return {
+    region: toOptionalText(query.get('region'), query.get('birthRegion')),
+    city: toOptionalText(query.get('city'), query.get('birthCity')),
+    birthPlace: toOptionalText(
+      query.get('birthPlace'),
+      query.get('birthLocation'),
+      query.get('location'),
+      query.get('place'),
+    ),
+    latitude: toOptionalNumber(query.get('latitude'), query.get('lat')),
+    longitude: toOptionalNumber(query.get('longitude'), query.get('lng'), query.get('lon')),
+    timezone: toOptionalText(query.get('timezone'), query.get('tz')),
+  };
+}
+
 function toSpringRequest(userInfo) {
   const normalized = normalizeEntryUserInfo(userInfo);
   if (!normalized) {
@@ -136,6 +171,48 @@ function toSpringRequest(userInfo) {
     && rawHour <= 23
     && rawMinute >= 0
     && rawMinute <= 59;
+  const queryGeo = readBirthGeoOverridesFromQuery();
+  const region = toOptionalText(
+    queryGeo.region,
+    normalized.region,
+    normalized.birthRegion,
+    normalized.regionName,
+    normalized.province,
+    normalized.sido,
+  );
+  const city = toOptionalText(
+    queryGeo.city,
+    normalized.city,
+    normalized.birthCity,
+    normalized.cityName,
+    normalized.sigungu,
+  );
+  const birthPlace = toOptionalText(
+    queryGeo.birthPlace,
+    normalized.birthPlace,
+    normalized.birthLocation,
+    normalized.location,
+    normalized.place,
+    normalized.address,
+  );
+  const latitude = toOptionalNumber(
+    queryGeo.latitude,
+    normalized.latitude,
+    normalized.birthLatitude,
+    normalized.lat,
+  );
+  const longitude = toOptionalNumber(
+    queryGeo.longitude,
+    normalized.longitude,
+    normalized.birthLongitude,
+    normalized.lng,
+    normalized.lon,
+  );
+  const timezone = toOptionalText(
+    queryGeo.timezone,
+    normalized.timezone,
+    normalized.birthTimezone,
+  );
 
   return {
     birth: {
@@ -146,6 +223,12 @@ function toSpringRequest(userInfo) {
       minute: hasKnownBirthTime ? rawMinute : null,
       gender: normalized.gender,
       calendarType: normalized.isSolarCalendar === false ? 'lunar' : 'solar',
+      region,
+      city,
+      birthPlace,
+      latitude,
+      longitude,
+      timezone,
     },
     surname,
     givenNameLength,

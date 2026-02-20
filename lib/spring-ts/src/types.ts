@@ -17,6 +17,9 @@ export interface BirthInfo {
   readonly gender: 'male' | 'female' | 'neutral';
   readonly calendarType?: 'solar' | 'lunar';
   readonly isLeapMonth?: boolean;
+  readonly region?: string;
+  readonly city?: string;
+  readonly birthPlace?: string;
   readonly timezone?: string;
   readonly latitude?: number;
   readonly longitude?: number;

@@ -6,7 +6,8 @@
   "types": "./dist/index.d.ts",
   "scripts": {
     "build": "tsc",
-    "test:golden": "npx tsx test/compare-output.ts"
+    "test:golden": "npx tsx test/compare-output.ts",
+    "test:region": "npx tsx test/verify-region-coordinate-resolution.ts"
   },
   "dependencies": {
     "sql.js": "^1.14.0",
