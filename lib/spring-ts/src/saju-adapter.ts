@@ -858,11 +858,13 @@ function toLegacySajuTimePolicyConfig(
 
   const patch: Record<string, unknown> = {};
 
-  // trueSolarTime controls equation-of-time only.
-  // Legacy bridge may still apply longitude-based local-time shift even when
-  // longitudeCorrectionEnabled=false, so we keep longitudeCorrectionEnabled on
-  // and neutralize by baseline when user asks longitudeCorrection=off.
-  patch.trueSolarTimeEnabled = trueSolarTimeToggle === 'on';
+  // In legacy bridge, both longitude correction and equation-of-time are behind
+  // `trueSolarTimeEnabled`. Keep the two product toggles independent by:
+  // - enabling trueSolar pipeline if either toggle is on
+  // - enabling equation-of-time only when trueSolarTime toggle is on
+  // - neutralizing longitude shift when longitude toggle is off
+  const shouldEnableTrueSolarPipeline = trueSolarTimeToggle === 'on' || longitudeCorrectionToggle === 'on';
+  patch.trueSolarTimeEnabled = shouldEnableTrueSolarPipeline;
   patch.includeEquationOfTime = trueSolarTimeToggle === 'on';
   patch.longitudeCorrectionEnabled = true;
   if (longitudeCorrectionToggle === 'off') {
