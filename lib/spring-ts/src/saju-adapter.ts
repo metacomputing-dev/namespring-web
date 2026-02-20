@@ -917,23 +917,50 @@ function toStringArray(value: any): string[] {
   return [];
 }
 
-function toLegacySajuTimePolicyConfig(options?: SpringRequest['options']): Record<string, unknown> {
+type PolicyToggle = 'on' | 'off';
+
+function resolvePolicyToggle(value: unknown, fallback: PolicyToggle): PolicyToggle {
+  if (value === 'on' || value === 'off') return value;
+  return fallback;
+}
+
+function toLegacySajuTimePolicyConfig(
+  options: SpringRequest['options'] | undefined,
+  longitudeForLmtNeutralization: number,
+): Record<string, unknown> {
   const policy = options?.sajuTimePolicy;
-  if (!policy) return {};
+
+  // Product defaults:
+  // - true solar time: off
+  // - longitude correction: on
+  // - yaza: off
+  const trueSolarTimeToggle = resolvePolicyToggle(policy?.trueSolarTime, 'off');
+  const longitudeCorrectionToggle = resolvePolicyToggle(policy?.longitudeCorrection, 'on');
+  const yazaToggle = resolvePolicyToggle(policy?.yaza, 'off');
 
   const patch: Record<string, unknown> = {};
 
-  if (policy.trueSolarTime === 'on') patch.trueSolarTimeEnabled = true;
-  else if (policy.trueSolarTime === 'off') patch.trueSolarTimeEnabled = false;
+  // We need true-solar pipeline enabled whenever either component is requested.
+  // If trueSolarTime=off but longitudeCorrection=on, apply longitude-only correction.
+  // If trueSolarTime=on but longitudeCorrection=off, apply EoT-only correction.
+  const enableSolarPipeline = trueSolarTimeToggle === 'on' || longitudeCorrectionToggle === 'on';
+  patch.trueSolarTimeEnabled = enableSolarPipeline;
+  patch.includeEquationOfTime = trueSolarTimeToggle === 'on';
 
-  if (policy.longitudeCorrection === 'on') patch.longitudeCorrectionEnabled = true;
-  else if (policy.longitudeCorrection === 'off') patch.longitudeCorrectionEnabled = false;
+  if (enableSolarPipeline) {
+    patch.longitudeCorrectionEnabled = true;
+    if (longitudeCorrectionToggle === 'off') {
+      // Neutralize longitude correction by aligning baseline to raw longitude.
+      // In legacy bridge this yields effectiveLongitude == standardMeridian.
+      patch.lmtBaselineLongitude = longitudeForLmtNeutralization;
+    }
+  } else {
+    patch.longitudeCorrectionEnabled = false;
+  }
 
-  if (policy.yaza === 'on') patch.yazaEnabled = true;
-  else if (policy.yaza === 'off') patch.yazaEnabled = false;
-
-  if (policy.yazaMode === '23:00') patch.yazaMode = 'YAZA_23_TO_01_NEXTDAY';
-  else if (policy.yazaMode === '23:30') patch.yazaMode = 'YAZA_23_30_TO_01_30_NEXTDAY';
+  patch.yazaEnabled = yazaToggle === 'on';
+  if (policy?.yazaMode === '23:00') patch.yazaMode = 'YAZA_23_TO_01_NEXTDAY';
+  else if (policy?.yazaMode === '23:30') patch.yazaMode = 'YAZA_23_30_TO_01_30_NEXTDAY';
 
   return patch;
 }
@@ -1142,7 +1169,7 @@ export async function analyzeSaju(birth: BirthInfo, options?: SpringRequest['opt
     let config: any;
     if (options?.schoolPreset && saju.configFromPreset)
       config = saju.configFromPreset(PRESET_MAP[options.schoolPreset] ?? 'KOREAN_MAINSTREAM');
-    const timePolicyConfig = toLegacySajuTimePolicyConfig(options);
+    const timePolicyConfig = toLegacySajuTimePolicyConfig(options, resolvedCoordinates.longitude);
     if (Object.keys(timePolicyConfig).length) config = { ...config, ...timePolicyConfig };
     if (options?.sajuConfig) config = { ...config, ...options.sajuConfig };
 
