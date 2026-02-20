@@ -43,9 +43,41 @@ export type LegacyDayCutMode =
   | 'YAZA_23_30_TO_01_30_NEXTDAY'
   | 'JOJA_SPLIT';
 
+export type LegacyYazaMode = Extract<
+  LegacyDayCutMode,
+  'YAZA_23_TO_01_NEXTDAY' | 'YAZA_23_30_TO_01_30_NEXTDAY'
+>;
+
 export interface LegacySajuConfig {
+  /**
+   * Master switch for true-solar-time correction.
+   * Default: false
+   */
+  trueSolarTimeEnabled?: boolean;
+
   dayCutMode?: LegacyDayCutMode;
+
+  /**
+   * Legacy EoT toggle used when trueSolarTimeEnabled=true.
+   * Default: true
+   */
   includeEquationOfTime?: boolean;
+
+  /**
+   * Apply manseoryeok baseline-meridian correction to longitude.
+   * Default: true
+   */
+  longitudeCorrectionEnabled?: boolean;
+
+  /**
+   * Convenience switch for YAZA day-cut behavior.
+   * - false: MIDNIGHT_00
+   * - true:  yazaMode/dayCutMode or default YAZA_23_30_TO_01_30_NEXTDAY
+   * Default: false
+   */
+  yazaEnabled?: boolean;
+  yazaMode?: LegacyYazaMode;
+
   lmtBaselineLongitude?: number;
   calendar?: Partial<EngineConfig['calendar']>;
   toggles?: Partial<EngineConfig['toggles']>;
@@ -93,6 +125,11 @@ const PRESET_CONFIGS: Record<string, LegacySajuConfig> = {
   },
 };
 
+const DEFAULT_TRUE_SOLAR_TIME_ENABLED = false;
+const DEFAULT_LONGITUDE_CORRECTION_ENABLED = true;
+const DEFAULT_YAZA_ENABLED = false;
+const DEFAULT_YAZA_MODE: LegacyYazaMode = 'YAZA_23_30_TO_01_30_NEXTDAY';
+
 function toInt(v: unknown, fallback: number): number {
   const n = Number(v);
   return Number.isFinite(n) ? Math.trunc(n) : fallback;
@@ -139,8 +176,25 @@ function mapDayCutMode(mode: LegacyDayCutMode | undefined): DayCutMapping {
     case 'YAZA_23_30_TO_01_30_NEXTDAY':
       return { dayBoundary: 'ziSplit23', dayCutShiftMinutes: -30 };
     default:
-      return { dayBoundary: 'ziSplit23', dayCutShiftMinutes: -30 };
+      return { dayBoundary: 'midnight', dayCutShiftMinutes: 0 };
   }
+}
+
+function isYazaMode(mode: unknown): mode is LegacyYazaMode {
+  return mode === 'YAZA_23_TO_01_NEXTDAY' || mode === 'YAZA_23_30_TO_01_30_NEXTDAY';
+}
+
+function resolveDayCutMode(legacy: LegacySajuConfig): LegacyDayCutMode {
+  if (typeof legacy.yazaEnabled === 'boolean') {
+    if (!legacy.yazaEnabled) return 'MIDNIGHT_00';
+    if (isYazaMode(legacy.dayCutMode)) return legacy.dayCutMode;
+    if (isYazaMode(legacy.yazaMode)) return legacy.yazaMode;
+    return DEFAULT_YAZA_MODE;
+  }
+
+  if (legacy.dayCutMode) return legacy.dayCutMode;
+  if (DEFAULT_YAZA_ENABLED) return DEFAULT_YAZA_MODE;
+  return 'MIDNIGHT_00';
 }
 
 function parseOffsetToken(token: string): number | null {
@@ -296,13 +350,14 @@ function buildEngineConfig(
   legacy: LegacySajuConfig,
   timeZone: string,
 ): { config: EngineConfig; dayCutShiftMinutes: number } {
-  const dayCut = mapDayCutMode(legacy.dayCutMode);
+  const dayCut = mapDayCutMode(resolveDayCutMode(legacy));
+  const trueSolarTimeEnabled = legacy.trueSolarTimeEnabled ?? DEFAULT_TRUE_SOLAR_TIME_ENABLED;
   const includeEquationOfTime = legacy.includeEquationOfTime ?? true;
 
   let cfg = cloneConfig();
   cfg.calendar.dayBoundary = dayCut.dayBoundary;
-  cfg.calendar.trueSolarTime.enabled = true;
-  cfg.calendar.trueSolarTime.equationOfTime = includeEquationOfTime ? 'approx' : 'off';
+  cfg.calendar.trueSolarTime.enabled = trueSolarTimeEnabled;
+  cfg.calendar.trueSolarTime.equationOfTime = trueSolarTimeEnabled && includeEquationOfTime ? 'approx' : 'off';
   cfg.calendar.trueSolarTime.applyTo = 'dayAndHour';
   cfg.calendar.solarTerms = {
     method: 'meeus',
@@ -338,12 +393,14 @@ function makeRequest(
   const stdMeridian = inferStandardMeridian(offsetMinutes);
   const rawLongitude = Number.isFinite(input.longitude) ? Number(input.longitude) : DEFAULT_LONGITUDE;
   const latitude = Number.isFinite(input.latitude) ? Number(input.latitude) : DEFAULT_LATITUDE;
+  const longitudeCorrectionEnabled = legacy.longitudeCorrectionEnabled ?? DEFAULT_LONGITUDE_CORRECTION_ENABLED;
+  const baselineLongitude = Number.isFinite(legacy.lmtBaselineLongitude)
+    ? Number(legacy.lmtBaselineLongitude)
+    : stdMeridian;
 
-  const effectiveLongitude = effectiveLongitudeForLegacyLmt(
-    rawLongitude,
-    legacy.lmtBaselineLongitude,
-    stdMeridian,
-  );
+  const effectiveLongitude = longitudeCorrectionEnabled
+    ? effectiveLongitudeForLegacyLmt(rawLongitude, baselineLongitude, stdMeridian)
+    : rawLongitude;
 
   const instant = civilToIsoInstant(analysisLocal, offsetMinutes);
   const sex: SajuRequest['sex'] = input.gender === 'FEMALE' ? 'F' : 'M';

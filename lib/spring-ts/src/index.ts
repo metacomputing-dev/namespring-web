@@ -19,6 +19,7 @@ export type {
   NameCharInput,
   SpringRequest,
   SpringOptions,
+  SajuTimePolicyOptions,
   // Output
   SpringResponse,
   SpringCandidate,

@@ -201,6 +201,27 @@ function toStringArray(value: any): string[] {
   return [];
 }
 
+function toLegacySajuTimePolicyConfig(options?: SpringRequest['options']): Record<string, unknown> {
+  const policy = options?.sajuTimePolicy;
+  if (!policy) return {};
+
+  const patch: Record<string, unknown> = {};
+
+  if (policy.trueSolarTime === 'on') patch.trueSolarTimeEnabled = true;
+  else if (policy.trueSolarTime === 'off') patch.trueSolarTimeEnabled = false;
+
+  if (policy.longitudeCorrection === 'on') patch.longitudeCorrectionEnabled = true;
+  else if (policy.longitudeCorrection === 'off') patch.longitudeCorrectionEnabled = false;
+
+  if (policy.yaza === 'on') patch.yazaEnabled = true;
+  else if (policy.yaza === 'off') patch.yazaEnabled = false;
+
+  if (policy.yazaMode === '23:00') patch.yazaMode = 'YAZA_23_TO_01_NEXTDAY';
+  else if (policy.yazaMode === '23:30') patch.yazaMode = 'YAZA_23_30_TO_01_30_NEXTDAY';
+
+  return patch;
+}
+
 function toOptionalInt(value: unknown): number | null {
   if (value == null || value === '') return null;
   const parsed = Number(value);
@@ -404,6 +425,8 @@ export async function analyzeSaju(birth: BirthInfo, options?: SpringRequest['opt
     let config: any;
     if (options?.schoolPreset && saju.configFromPreset)
       config = saju.configFromPreset(PRESET_MAP[options.schoolPreset] ?? 'KOREAN_MAINSTREAM');
+    const timePolicyConfig = toLegacySajuTimePolicyConfig(options);
+    if (Object.keys(timePolicyConfig).length) config = { ...config, ...timePolicyConfig };
     if (options?.sajuConfig) config = { ...config, ...options.sajuConfig };
 
     const sajuOpts = options?.sajuOptions ? {

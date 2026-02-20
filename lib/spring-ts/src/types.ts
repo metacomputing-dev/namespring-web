@@ -44,10 +44,19 @@ export interface SpringOptions {
   readonly limit?: number;
   readonly offset?: number;
   readonly schoolPreset?: 'korean' | 'chinese' | 'modern';
+  readonly sajuTimePolicy?: SajuTimePolicyOptions;
   readonly sajuConfig?: Record<string, unknown>;
   readonly sajuOptions?: SajuRequestOptions;
   readonly pureHangulNameMode?: 'auto' | 'on' | 'off';
   readonly useSurnameHanjaInPureHangul?: boolean;
+}
+
+/** High-level time-policy toggles bridged to saju-ts legacy config. */
+export interface SajuTimePolicyOptions {
+  readonly trueSolarTime?: 'on' | 'off';
+  readonly longitudeCorrection?: 'on' | 'off';
+  readonly yaza?: 'on' | 'off';
+  readonly yazaMode?: '23:00' | '23:30';
 }
 
 /** Saju-specific request options (daeun count, saeun year range). */
