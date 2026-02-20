@@ -100,26 +100,26 @@ async function runCase(
 async function main(): Promise<void> {
   // Region-resolution checks (TST on + longitude on)
   const defaultSeoul = await runCase('default-seoul', {}, POLICY_TST_ON_LON_ON as any);
-  const daeguRegion = await runCase('daegu-region', { region: 'daegu' }, POLICY_TST_ON_LON_ON as any);
-  const daeguCity = await runCase('daegu-city-alias', { city: 'Daegu' }, POLICY_TST_ON_LON_ON as any);
+  const daeguRegion = await runCase('daegu-region', { region: '대구' }, POLICY_TST_ON_LON_ON as any);
+  const daeguCity = await runCase('daegu-city-alias', { city: '대구' }, POLICY_TST_ON_LON_ON as any);
   const daeguBirthPlace = await runCase(
     'daegu-birthPlace-alias',
-    { birthPlace: 'Daegu Suseong-gu' },
+    { birthPlace: '대구 수성구' },
     POLICY_TST_ON_LON_ON as any,
   );
   const explicitCoordinatePriority = await runCase(
     'explicit-coordinate-priority',
-    { region: 'seoul', latitude: 35.8714, longitude: 128.6014 },
+    { region: '서울', latitude: 35.8714, longitude: 128.6014 },
     POLICY_TST_ON_LON_ON as any,
   );
   const boundarySeoul = await runCase(
     'boundary-01:34-seoul',
-    { hour: 1, minute: 34, region: 'seoul' },
+    { hour: 1, minute: 34, region: '서울' },
     POLICY_TST_ON_LON_ON as any,
   );
   const boundaryDaegu = await runCase(
     'boundary-01:34-daegu',
-    { hour: 1, minute: 34, region: 'daegu' },
+    { hour: 1, minute: 34, region: '대구' },
     POLICY_TST_ON_LON_ON as any,
   );
 
@@ -136,11 +136,11 @@ async function main(): Promise<void> {
   assertEqual('Boundary 01:34 Daegu hour stem', boundaryDaegu.hourStem, 'JEONG');
 
   // Time-policy matrix checks for real input case (1989-01-10 01:30 male, Daegu)
-  const matrixDefault = await runCase('matrix-default', { region: 'daegu' }, undefined);
-  const matrixOffOn = await runCase('matrix-tst-off-lon-on', { region: 'daegu' }, POLICY_TST_OFF_LON_ON as any);
-  const matrixOnOn = await runCase('matrix-tst-on-lon-on', { region: 'daegu' }, POLICY_TST_ON_LON_ON as any);
-  const matrixOnOff = await runCase('matrix-tst-on-lon-off', { region: 'daegu' }, POLICY_TST_ON_LON_OFF as any);
-  const matrixOffOff = await runCase('matrix-tst-off-lon-off', { region: 'daegu' }, POLICY_TST_OFF_LON_OFF as any);
+  const matrixDefault = await runCase('matrix-default', { region: '대구' }, undefined);
+  const matrixOffOn = await runCase('matrix-tst-off-lon-on', { region: '대구' }, POLICY_TST_OFF_LON_ON as any);
+  const matrixOnOn = await runCase('matrix-tst-on-lon-on', { region: '대구' }, POLICY_TST_ON_LON_ON as any);
+  const matrixOnOff = await runCase('matrix-tst-on-lon-off', { region: '대구' }, POLICY_TST_ON_LON_OFF as any);
+  const matrixOffOff = await runCase('matrix-tst-off-lon-off', { region: '대구' }, POLICY_TST_OFF_LON_OFF as any);
 
   // Defaults should match product policy: TST off + longitude on + yaza off.
   assertNear('Default lon correction (Daegu)', matrixDefault.longitudeCorrectionMinutes, -25.5944, 0.01);

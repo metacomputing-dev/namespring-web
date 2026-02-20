@@ -18,6 +18,7 @@ import { SHARE_QUERY_KEY, parseShareEntryUserInfoToken } from './share-entry-use
 
 const ENTRY_STORAGE_KEY = 'namespring_entry_user_info';
 const PAGE_VALUES = ['entry', 'home', 'report', 'saju-report', 'naming-candidates', 'combined-report'];
+const DEFAULT_BIRTH_REGION_LABEL = '서울';
 
 function cloneNameEntries(entries) {
   if (!Array.isArray(entries)) return [];
@@ -60,6 +61,10 @@ function normalizeEntryUserInfo(value) {
     isNativeKoreanName: Boolean(value.isNativeKoreanName),
     isSolarCalendar: value.isSolarCalendar !== false,
     isBirthTimeUnknown: Boolean(value.isBirthTimeUnknown),
+    useYajasiAdjustment: Boolean(value.useYajasiAdjustment),
+    useTrueSolarTimeAdjustment: Boolean(value.useTrueSolarTimeAdjustment),
+    useBirthLongitudeAdjustment: value.useBirthLongitudeAdjustment !== false,
+    birthLongitudeOption: String(value.birthLongitudeOption ?? DEFAULT_BIRTH_REGION_LABEL).trim() || DEFAULT_BIRTH_REGION_LABEL,
   };
 }
 
@@ -126,6 +131,8 @@ function toOptionalText(...values) {
 
 function toOptionalNumber(...values) {
   for (const value of values) {
+    if (value === null || value === undefined) continue;
+    if (typeof value === 'string' && value.trim().length === 0) continue;
     const n = Number(value);
     if (Number.isFinite(n)) return n;
   }
@@ -171,9 +178,16 @@ function toSpringRequest(userInfo) {
     && rawHour <= 23
     && rawMinute >= 0
     && rawMinute <= 59;
+  const useYajasiAdjustment = Boolean(normalized.useYajasiAdjustment);
+  const useTrueSolarTimeAdjustment = Boolean(normalized.useTrueSolarTimeAdjustment);
+  const useBirthLongitudeAdjustment = normalized.useBirthLongitudeAdjustment !== false;
+  const selectedBirthRegion = useBirthLongitudeAdjustment
+    ? toOptionalText(normalized.birthLongitudeOption)
+    : undefined;
   const queryGeo = readBirthGeoOverridesFromQuery();
   const region = toOptionalText(
     queryGeo.region,
+    selectedBirthRegion,
     normalized.region,
     normalized.birthRegion,
     normalized.regionName,
@@ -189,6 +203,7 @@ function toSpringRequest(userInfo) {
   );
   const birthPlace = toOptionalText(
     queryGeo.birthPlace,
+    selectedBirthRegion,
     normalized.birthPlace,
     normalized.birthLocation,
     normalized.location,
@@ -213,6 +228,13 @@ function toSpringRequest(userInfo) {
     normalized.timezone,
     normalized.birthTimezone,
   );
+  const sajuTimePolicy = hasKnownBirthTime
+    ? {
+      trueSolarTime: useTrueSolarTimeAdjustment ? 'on' : 'off',
+      longitudeCorrection: useBirthLongitudeAdjustment ? 'on' : 'off',
+      yaza: useYajasiAdjustment ? 'on' : 'off',
+    }
+    : undefined;
 
   return {
     birth: {
@@ -233,6 +255,7 @@ function toSpringRequest(userInfo) {
     surname,
     givenNameLength,
     mode: 'recommend',
+    options: sajuTimePolicy ? { sajuTimePolicy } : undefined,
   };
 }
 

@@ -1,5 +1,7 @@
 import React, { useEffect, useMemo, useRef, useState } from 'react';
 import { DayPicker } from 'react-day-picker';
+import { KOREA_REGION_PRIMARY_ALIASES } from '@spring/region-coordinates';
+import { analyzeSaju } from '@spring/saju-adapter';
 
 function limitLength(value, max) {
   return Array.from(value).slice(0, max).join('');
@@ -30,6 +32,13 @@ const DAY_PICKER_COMPACT_STYLE = {
   '--rdp-nav_button-width': '1.9rem',
   '--rdp-weekday-padding': '0.2rem 0',
 };
+const DEFAULT_BIRTH_REGION_LABEL = '서울';
+const BIRTH_REGION_OPTIONS = Array.from(
+  new Set([
+    DEFAULT_BIRTH_REGION_LABEL,
+    ...(Array.isArray(KOREA_REGION_PRIMARY_ALIASES) ? KOREA_REGION_PRIMARY_ALIASES : []),
+  ]),
+).filter((item) => typeof item === 'string' && item.trim().length > 0);
 
 function decomposeHangulSyllable(char) {
   const code = char.charCodeAt(0) - 0xAC00;
@@ -70,6 +79,33 @@ function formatBirthDateTimeForDisplay(isoDate, time, isBirthTimeUnknown, isSola
   if (isBirthTimeUnknown) return `${isoDate.replace(/-/g, '.')} (시각 미상) ${calendarTypeLabel}`;
   const normalizedTime = isValidBirthTime(time) ? time : 'HH:mm';
   return `${isoDate.replace(/-/g, '.')} ${normalizedTime} ${calendarTypeLabel}`;
+}
+
+function toBirthDateTimeParts(isoDate, time, isBirthTimeUnknown) {
+  if (!isValidBirthDate(isoDate)) return null;
+  const [year, month, day] = isoDate.split('-').map(Number);
+  if (isBirthTimeUnknown) {
+    return { year, month, day, hour: 12, minute: 0 };
+  }
+  if (!isValidBirthTime(time)) return null;
+  const [hour, minute] = time.split(':').map(Number);
+  return { year, month, day, hour, minute };
+}
+
+function isValidCorrectedBirthDateTimeParts(parts) {
+  if (!parts) return false;
+  const isoDate = `${String(parts.year).padStart(4, '0')}-${formatTwoDigits(parts.month)}-${formatTwoDigits(parts.day)}`;
+  const isoTime = `${formatTwoDigits(parts.hour)}:${formatTwoDigits(parts.minute)}`;
+  return isValidBirthDate(isoDate) && isValidBirthTime(isoTime);
+}
+
+function formatBirthDateTimePartsForDisplay(parts, isSolarCalendar) {
+  if (!isValidCorrectedBirthDateTimeParts(parts)) {
+    return formatBirthDateTimeForDisplay('', '', false, isSolarCalendar);
+  }
+  const isoDate = `${String(parts.year).padStart(4, '0')}-${formatTwoDigits(parts.month)}-${formatTwoDigits(parts.day)}`;
+  const isoTime = `${formatTwoDigits(parts.hour)}:${formatTwoDigits(parts.minute)}`;
+  return formatBirthDateTimeForDisplay(isoDate, isoTime, false, isSolarCalendar);
 }
 
 function formatTwoDigits(value) {
@@ -178,6 +214,11 @@ function toNativeKoreanEntries(hangulText, isSurname) {
   });
 }
 
+function normalizeBirthRegionOption(value) {
+  const text = String(value ?? '').trim();
+  return BIRTH_REGION_OPTIONS.includes(text) ? text : DEFAULT_BIRTH_REGION_LABEL;
+}
+
 function buildInitialFormState(initialUserInfo) {
   const surnameEntries = Array.isArray(initialUserInfo?.lastName) ? initialUserInfo.lastName : [];
   const givenNameEntries = Array.isArray(initialUserInfo?.firstName) ? initialUserInfo.firstName : [];
@@ -201,7 +242,7 @@ function buildInitialFormState(initialUserInfo) {
     useYajasiAdjustment: Boolean(initialUserInfo?.useYajasiAdjustment),
     useTrueSolarTimeAdjustment: Boolean(initialUserInfo?.useTrueSolarTimeAdjustment),
     useBirthLongitudeAdjustment: initialUserInfo?.useBirthLongitudeAdjustment !== false,
-    birthLongitudeOption: String(initialUserInfo?.birthLongitudeOption ?? ''),
+    birthLongitudeOption: normalizeBirthRegionOption(initialUserInfo?.birthLongitudeOption),
     isNativeKoreanName,
     selectedSurnameEntries: toSelectedEntries(surnameEntries, surnameInput),
     selectedGivenNameEntries: toSelectedEntries(givenNameEntries, givenNameInput),
@@ -229,6 +270,14 @@ function InputForm({
   const [useBirthLongitudeAdjustment, setUseBirthLongitudeAdjustment] = useState(initialFormState.useBirthLongitudeAdjustment);
   const [birthLongitudeOption, setBirthLongitudeOption] = useState(initialFormState.birthLongitudeOption);
   const [isNativeKoreanName, setIsNativeKoreanName] = useState(initialFormState.isNativeKoreanName);
+  const [correctedBirthDateTimeParts, setCorrectedBirthDateTimeParts] = useState(() => (
+    toBirthDateTimeParts(
+      initialFormState.birthDate,
+      initialFormState.birthTime,
+      initialFormState.isBirthTimeUnknown,
+    )
+  ));
+  const [isCorrectionPreviewLoading, setIsCorrectionPreviewLoading] = useState(false);
 
   const [selectedSurnameEntries, setSelectedSurnameEntries] = useState(initialFormState.selectedSurnameEntries);
   const [selectedGivenNameEntries, setSelectedGivenNameEntries] = useState(initialFormState.selectedGivenNameEntries);
@@ -259,6 +308,7 @@ function InputForm({
   const yearCommitTimerRef = useRef(null);
   const hourWheelTimerRef = useRef(null);
   const minuteWheelTimerRef = useRef(null);
+  const correctionRequestIdRef = useRef(0);
   const yearWheelSyncRef = useRef(false);
   const hasAutoScrollInitializedRef = useRef(false);
   const prevStepVisibilityRef = useRef({
@@ -278,6 +328,13 @@ function InputForm({
   const isBirthTimeValid = isBirthTimeUnknown || isValidBirthTime(birthTime);
   const isBirthDateTimeValid = isBirthDateValid && isBirthTimeValid;
   const isGenderDone = gender !== '';
+  const correctedBirthDateTimeLabel = useMemo(() => {
+    if (isBirthTimeUnknown) {
+      return formatBirthDateTimeForDisplay(birthDate, birthTime, true, isSolarCalendar);
+    }
+    const fallback = toBirthDateTimeParts(birthDate, birthTime, false);
+    return formatBirthDateTimePartsForDisplay(correctedBirthDateTimeParts ?? fallback, isSolarCalendar);
+  }, [birthDate, birthTime, correctedBirthDateTimeParts, isBirthTimeUnknown, isSolarCalendar]);
   const hourOptions = useMemo(() => Array.from({ length: 24 }, (_, value) => value), []);
   const minuteOptions = useMemo(() => Array.from({ length: 60 }, (_, value) => value), []);
   const selectableYears = useMemo(() => {
@@ -299,6 +356,15 @@ function InputForm({
     setUseBirthLongitudeAdjustment(initialFormState.useBirthLongitudeAdjustment);
     setBirthLongitudeOption(initialFormState.birthLongitudeOption);
     setIsNativeKoreanName(initialFormState.isNativeKoreanName);
+    setCorrectedBirthDateTimeParts(
+      toBirthDateTimeParts(
+        initialFormState.birthDate,
+        initialFormState.birthTime,
+        initialFormState.isBirthTimeUnknown,
+      ),
+    );
+    setIsCorrectionPreviewLoading(false);
+    correctionRequestIdRef.current += 1;
     setSelectedSurnameEntries(initialFormState.selectedSurnameEntries);
     setSelectedGivenNameEntries(initialFormState.selectedGivenNameEntries);
   }, [initialFormState]);
@@ -511,6 +577,88 @@ function InputForm({
       setBirthTime('12:00');
     }
   };
+
+  useEffect(() => {
+    if (!isBirthDateTimeValid || isBirthTimeUnknown) {
+      correctionRequestIdRef.current += 1;
+      setIsCorrectionPreviewLoading(false);
+      setCorrectedBirthDateTimeParts(toBirthDateTimeParts(birthDate, birthTime, isBirthTimeUnknown));
+      return;
+    }
+
+    const baseParts = toBirthDateTimeParts(birthDate, birthTime, false);
+    if (!baseParts) {
+      correctionRequestIdRef.current += 1;
+      setIsCorrectionPreviewLoading(false);
+      setCorrectedBirthDateTimeParts(null);
+      return;
+    }
+
+    const requestId = correctionRequestIdRef.current + 1;
+    correctionRequestIdRef.current = requestId;
+    setIsCorrectionPreviewLoading(true);
+
+    const runCorrectionPreview = async () => {
+      try {
+        const summary = await analyzeSaju(
+          {
+            year: baseParts.year,
+            month: baseParts.month,
+            day: baseParts.day,
+            hour: baseParts.hour,
+            minute: baseParts.minute,
+            gender: 'male',
+            calendarType: isSolarCalendar ? 'solar' : 'lunar',
+            region: useBirthLongitudeAdjustment ? birthLongitudeOption : undefined,
+            birthPlace: useBirthLongitudeAdjustment ? birthLongitudeOption : undefined,
+          },
+          {
+            sajuTimePolicy: {
+              yaza: useYajasiAdjustment ? 'on' : 'off',
+              trueSolarTime: useTrueSolarTimeAdjustment ? 'on' : 'off',
+              longitudeCorrection: useBirthLongitudeAdjustment ? 'on' : 'off',
+            },
+          },
+        );
+
+        if (correctionRequestIdRef.current !== requestId) return;
+
+        const timeCorrection = summary?.timeCorrection;
+        const nextParts = {
+          year: Number(timeCorrection?.adjustedYear),
+          month: Number(timeCorrection?.adjustedMonth),
+          day: Number(timeCorrection?.adjustedDay),
+          hour: Number(timeCorrection?.adjustedHour),
+          minute: Number(timeCorrection?.adjustedMinute),
+        };
+
+        if (isValidCorrectedBirthDateTimeParts(nextParts)) {
+          setCorrectedBirthDateTimeParts(nextParts);
+        } else {
+          setCorrectedBirthDateTimeParts(baseParts);
+        }
+      } catch {
+        if (correctionRequestIdRef.current !== requestId) return;
+        setCorrectedBirthDateTimeParts(baseParts);
+      } finally {
+        if (correctionRequestIdRef.current === requestId) {
+          setIsCorrectionPreviewLoading(false);
+        }
+      }
+    };
+
+    runCorrectionPreview();
+  }, [
+    birthDate,
+    birthTime,
+    birthLongitudeOption,
+    isBirthDateTimeValid,
+    isBirthTimeUnknown,
+    isSolarCalendar,
+    useBirthLongitudeAdjustment,
+    useTrueSolarTimeAdjustment,
+    useYajasiAdjustment,
+  ]);
 
   useEffect(() => {
     if (!isBirthPickerOpen || !isBirthYearStepDone || !isBirthDateStepDone || isBirthTimeUnknown) return;
@@ -782,7 +930,13 @@ function InputForm({
                   <input
                     type="checkbox"
                     checked={useBirthLongitudeAdjustment}
-                    onChange={(e) => setUseBirthLongitudeAdjustment(e.target.checked)}
+                    onChange={(e) => {
+                      const checked = e.target.checked;
+                      setUseBirthLongitudeAdjustment(checked);
+                      if (checked && !birthLongitudeOption) {
+                        setBirthLongitudeOption(DEFAULT_BIRTH_REGION_LABEL);
+                      }
+                    }}
                     className="h-4 w-4 rounded border-[var(--ns-border)] accent-[var(--ns-primary)]"
                   />
                   출생 위치(경도) 보정
@@ -793,16 +947,20 @@ function InputForm({
                     onChange={(e) => setBirthLongitudeOption(e.target.value)}
                     className="ml-auto min-w-[92px] p-2 bg-[var(--ns-surface)] border border-[var(--ns-border)] rounded-xl text-xs font-semibold text-[var(--ns-text)]"
                   >
-                    <option value="" />
+                    {BIRTH_REGION_OPTIONS.map((regionLabel) => (
+                      <option key={`birth-region-${regionLabel}`} value={regionLabel}>
+                        {regionLabel}
+                      </option>
+                    ))}
                   </select>
                 )}
               </div>
             </div>
 
             <div className="pt-1">
-              <p className="text-[11px] font-black text-[var(--ns-muted)]">보정된 출생년도</p>
+              <p className="text-[11px] font-black text-[var(--ns-muted)]">보정된 생년월일시분</p>
               <p className="text-[11px] font-semibold text-[var(--ns-muted)] mt-1">
-                {formatBirthDateTimeForDisplay(birthDate, birthTime, isBirthTimeUnknown, isSolarCalendar)}
+                {isCorrectionPreviewLoading ? '보정 계산 중...' : correctedBirthDateTimeLabel}
               </p>
             </div>
           </section>

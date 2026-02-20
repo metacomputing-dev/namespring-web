@@ -28,6 +28,7 @@ import type { SajuOutputSummary, SpringRequest, SajuSummary, PillarSummary, Birt
 import cheonganJijiConfig from '../config/cheongan-jiji.json';
 import engineConfig from '../config/engine.json';
 import sajuScoringConfig from '../config/saju-scoring.json';
+import { KOREA_REGION_COORDINATES, type RegionCoordinate } from './region-coordinates.js';
 
 /** Maps uppercase element codes ("WOOD") to display keys ("Wood"). */
 const ELEMENT_CODE_TO_KEY: Record<string, ElementKey> = cheonganJijiConfig.elementCodeToKey as Record<string, ElementKey>;
@@ -60,136 +61,6 @@ const DISTRIBUTION_ROUND_DIGITS = 1;
 const DEFICIENT_AVERAGE_RATIO = 0.5;
 const EXCESSIVE_AVERAGE_RATIO = 1.7;
 const DEFAULT_REGION_CODE = 'SEOUL';
-
-interface RegionCoordinate {
-  code: string;
-  latitude: number;
-  longitude: number;
-  timezone: string;
-  aliases: string[];
-}
-
-const KOREA_REGION_COORDINATES: ReadonlyArray<RegionCoordinate> = [
-  {
-    code: 'SEOUL',
-    latitude: 37.5665,
-    longitude: 126.9780,
-    timezone: 'Asia/Seoul',
-    aliases: ['seoul', '\uC11C\uC6B8', '\uC11C\uC6B8\uC2DC', '\uC11C\uC6B8\uD2B9\uBCC4\uC2DC'],
-  },
-  {
-    code: 'BUSAN',
-    latitude: 35.1796,
-    longitude: 129.0756,
-    timezone: 'Asia/Seoul',
-    aliases: ['busan', '\uBD80\uC0B0', '\uBD80\uC0B0\uC2DC', '\uBD80\uC0B0\uAD11\uC5ED\uC2DC'],
-  },
-  {
-    code: 'DAEGU',
-    latitude: 35.8714,
-    longitude: 128.6014,
-    timezone: 'Asia/Seoul',
-    aliases: ['daegu', '\uB300\uAD6C', '\uB300\uAD6C\uC2DC', '\uB300\uAD6C\uAD11\uC5ED\uC2DC'],
-  },
-  {
-    code: 'INCHEON',
-    latitude: 37.4563,
-    longitude: 126.7052,
-    timezone: 'Asia/Seoul',
-    aliases: ['incheon', '\uC778\uCC9C', '\uC778\uCC9C\uC2DC', '\uC778\uCC9C\uAD11\uC5ED\uC2DC'],
-  },
-  {
-    code: 'GWANGJU',
-    latitude: 35.1595,
-    longitude: 126.8526,
-    timezone: 'Asia/Seoul',
-    aliases: ['gwangju', '\uAD11\uC8FC', '\uAD11\uC8FC\uC2DC', '\uAD11\uC8FC\uAD11\uC5ED\uC2DC'],
-  },
-  {
-    code: 'DAEJEON',
-    latitude: 36.3504,
-    longitude: 127.3845,
-    timezone: 'Asia/Seoul',
-    aliases: ['daejeon', '\uB300\uC804', '\uB300\uC804\uC2DC', '\uB300\uC804\uAD11\uC5ED\uC2DC'],
-  },
-  {
-    code: 'ULSAN',
-    latitude: 35.5384,
-    longitude: 129.3114,
-    timezone: 'Asia/Seoul',
-    aliases: ['ulsan', '\uC6B8\uC0B0', '\uC6B8\uC0B0\uC2DC', '\uC6B8\uC0B0\uAD11\uC5ED\uC2DC'],
-  },
-  {
-    code: 'SEJONG',
-    latitude: 36.4801,
-    longitude: 127.2890,
-    timezone: 'Asia/Seoul',
-    aliases: ['sejong', '\uC138\uC885', '\uC138\uC885\uC2DC', '\uC138\uC885\uD2B9\uBCC4\uC790\uCE58\uC2DC'],
-  },
-  {
-    code: 'GYEONGGI',
-    latitude: 37.2636,
-    longitude: 127.0286,
-    timezone: 'Asia/Seoul',
-    aliases: ['gyeonggi', '\uACBD\uAE30', '\uACBD\uAE30\uB3C4', '\uACBD\uAE30\uD2B9\uBCC4\uC790\uCE58\uB3C4'],
-  },
-  {
-    code: 'GANGWON',
-    latitude: 37.8813,
-    longitude: 127.7298,
-    timezone: 'Asia/Seoul',
-    aliases: ['gangwon', '\uAC15\uC6D0', '\uAC15\uC6D0\uB3C4', '\uAC15\uC6D0\uD2B9\uBCC4\uC790\uCE58\uB3C4'],
-  },
-  {
-    code: 'CHUNGBUK',
-    latitude: 36.6424,
-    longitude: 127.4890,
-    timezone: 'Asia/Seoul',
-    aliases: ['chungbuk', '\uCDA9\uBD81', '\uCDA9\uCCAD\uBD81\uB3C4', '\uCDA9\uBD81\uB3C4'],
-  },
-  {
-    code: 'CHUNGNAM',
-    latitude: 36.6588,
-    longitude: 126.6728,
-    timezone: 'Asia/Seoul',
-    aliases: ['chungnam', '\uCDA9\uB0A8', '\uCDA9\uCCAD\uB0A8\uB3C4', '\uCDA9\uB0A8\uB3C4'],
-  },
-  {
-    code: 'JEONBUK',
-    latitude: 35.8242,
-    longitude: 127.1479,
-    timezone: 'Asia/Seoul',
-    aliases: ['jeonbuk', '\uC804\uBD81', '\uC804\uB77C\uBD81\uB3C4', '\uC804\uBD81\uD2B9\uBCC4\uC790\uCE58\uB3C4'],
-  },
-  {
-    code: 'JEONNAM',
-    latitude: 34.9906,
-    longitude: 126.4817,
-    timezone: 'Asia/Seoul',
-    aliases: ['jeonnam', '\uC804\uB0A8', '\uC804\uB77C\uB0A8\uB3C4', '\uC804\uB0A8\uB3C4'],
-  },
-  {
-    code: 'GYEONGBUK',
-    latitude: 36.5684,
-    longitude: 128.7294,
-    timezone: 'Asia/Seoul',
-    aliases: ['gyeongbuk', '\uACBD\uBD81', '\uACBD\uC0C1\uBD81\uB3C4', '\uACBD\uBD81\uB3C4'],
-  },
-  {
-    code: 'GYEONGNAM',
-    latitude: 35.2279,
-    longitude: 128.6811,
-    timezone: 'Asia/Seoul',
-    aliases: ['gyeongnam', '\uACBD\uB0A8', '\uACBD\uC0C1\uB0A8\uB3C4', '\uACBD\uB0A8\uB3C4'],
-  },
-  {
-    code: 'JEJU',
-    latitude: 33.4996,
-    longitude: 126.5312,
-    timezone: 'Asia/Seoul',
-    aliases: ['jeju', '\uC81C\uC8FC', '\uC81C\uC8FC\uB3C4', '\uC81C\uC8FC\uD2B9\uBCC4\uC790\uCE58\uB3C4'],
-  },
-];
 
 const YEAR_STEM_CODES = ['GAP', 'EUL', 'BYEONG', 'JEONG', 'MU', 'GI', 'GYEONG', 'SIN', 'IM', 'GYE'] as const;
 const YEAR_BRANCH_CODES = ['JA', 'CHUK', 'IN', 'MYO', 'JIN', 'SA', 'O', 'MI', 'SIN', 'YU', 'SUL', 'HAE'] as const;
@@ -391,7 +262,7 @@ const DEFAULT_REGION_COORDINATE = KOREA_REGION_COORDINATES.find((entry) => entry
     latitude: DEFAULT_LATITUDE,
     longitude: DEFAULT_LONGITUDE,
     timezone: DEFAULT_TIMEZONE,
-    aliases: ['seoul'],
+    aliases: ['서울'],
   };
 
 interface ResolvedBirthCoordinates {
@@ -940,22 +811,17 @@ function toLegacySajuTimePolicyConfig(
 
   const patch: Record<string, unknown> = {};
 
-  // We need true-solar pipeline enabled whenever either component is requested.
-  // If trueSolarTime=off but longitudeCorrection=on, apply longitude-only correction.
-  // If trueSolarTime=on but longitudeCorrection=off, apply EoT-only correction.
-  const enableSolarPipeline = trueSolarTimeToggle === 'on' || longitudeCorrectionToggle === 'on';
-  patch.trueSolarTimeEnabled = enableSolarPipeline;
+  // trueSolarTime controls equation-of-time only.
+  // Legacy bridge may still apply longitude-based local-time shift even when
+  // longitudeCorrectionEnabled=false, so we keep longitudeCorrectionEnabled on
+  // and neutralize by baseline when user asks longitudeCorrection=off.
+  patch.trueSolarTimeEnabled = trueSolarTimeToggle === 'on';
   patch.includeEquationOfTime = trueSolarTimeToggle === 'on';
-
-  if (enableSolarPipeline) {
-    patch.longitudeCorrectionEnabled = true;
-    if (longitudeCorrectionToggle === 'off') {
-      // Neutralize longitude correction by aligning baseline to raw longitude.
-      // In legacy bridge this yields effectiveLongitude == standardMeridian.
-      patch.lmtBaselineLongitude = longitudeForLmtNeutralization;
-    }
-  } else {
-    patch.longitudeCorrectionEnabled = false;
+  patch.longitudeCorrectionEnabled = true;
+  if (longitudeCorrectionToggle === 'off') {
+    // Neutralize longitude correction by aligning baseline to raw longitude.
+    // In legacy bridge this yields effectiveLongitude == standardMeridian.
+    patch.lmtBaselineLongitude = longitudeForLmtNeutralization;
   }
 
   patch.yazaEnabled = yazaToggle === 'on';
@@ -1166,12 +1032,18 @@ export async function analyzeSaju(birth: BirthInfo, options?: SpringRequest['opt
   const resolvedCoordinates = resolveBirthCoordinates(birth);
 
   try {
-    let config: any;
-    if (options?.schoolPreset && saju.configFromPreset)
-      config = saju.configFromPreset(PRESET_MAP[options.schoolPreset] ?? 'KOREAN_MAINSTREAM');
+    // Always seed legacy config from a preset first.
+    // Some saju-ts versions throw when only partial policy patch is provided.
+    let config: any = {};
+    if (saju.configFromPreset) {
+      const presetKey = options?.schoolPreset ?? 'korean';
+      const presetCode = PRESET_MAP[presetKey] ?? PRESET_MAP.korean ?? 'KOREAN_MAINSTREAM';
+      config = { ...(saju.configFromPreset(presetCode) ?? {}) };
+    }
     const timePolicyConfig = toLegacySajuTimePolicyConfig(options, resolvedCoordinates.longitude);
     if (Object.keys(timePolicyConfig).length) config = { ...config, ...timePolicyConfig };
     if (options?.sajuConfig) config = { ...config, ...options.sajuConfig };
+    const finalConfig = Object.keys(config).length > 0 ? config : undefined;
 
     const sajuOpts = options?.sajuOptions ? {
       daeunCount:     options.sajuOptions.daeunCount,
@@ -1194,7 +1066,7 @@ export async function analyzeSaju(birth: BirthInfo, options?: SpringRequest['opt
         longitude: resolvedCoordinates.longitude,
         name: birth.name,
       });
-      return extractSaju(saju.analyzeSaju(birthInput, config, sajuOpts)) as SajuSummary & Record<string, unknown>;
+      return extractSaju(saju.analyzeSaju(birthInput, finalConfig, sajuOpts)) as SajuSummary & Record<string, unknown>;
     };
 
     let summary: SajuSummary & Record<string, unknown>;
