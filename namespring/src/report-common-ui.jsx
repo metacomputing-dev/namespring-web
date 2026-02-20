@@ -197,7 +197,16 @@ export function ReportActionButtons({
   isPdfSaving,
   onSavePdf,
   onShare,
+  onBack = null,
 }) {
+  const handleBack = () => {
+    if (typeof onBack === 'function') {
+      onBack();
+      return;
+    }
+    window.history.back();
+  };
+
   return (
     <div data-pdf-exclude="true" className="flex gap-4 pt-2">
       <button
@@ -214,6 +223,13 @@ export function ReportActionButtons({
         className="flex-1 py-4 bg-[var(--ns-primary)] text-[var(--ns-accent-text)] rounded-2xl font-black shadow-lg hover:brightness-95 active:scale-95 transition-all"
       >
         공유하기
+      </button>
+      <button
+        type="button"
+        onClick={handleBack}
+        className="flex-1 py-4 bg-[var(--ns-surface)] border border-[var(--ns-border)] rounded-2xl font-black text-[var(--ns-muted)] hover:bg-[var(--ns-surface-soft)] active:scale-95 transition-all"
+      >
+        뒤로가기
       </button>
     </div>
   );

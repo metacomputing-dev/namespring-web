@@ -12,6 +12,35 @@ import {
 const ELEMENT_CODE_ORDER = ['WOOD', 'FIRE', 'EARTH', 'METAL', 'WATER'];
 const POSITION_ORDER = ['YEAR', 'MONTH', 'DAY', 'HOUR'];
 const POSITION_LABEL = { YEAR: '년주', MONTH: '월주', DAY: '일주', HOUR: '시주' };
+const POSITION_KEY_BY_CODE = { YEAR: 'year', MONTH: 'month', DAY: 'day', HOUR: 'hour' };
+
+const STEM_ELEMENT_BY_CODE = {
+  GAP: 'WOOD',
+  EUL: 'WOOD',
+  BYEONG: 'FIRE',
+  JEONG: 'FIRE',
+  MU: 'EARTH',
+  GI: 'EARTH',
+  GYEONG: 'METAL',
+  SIN: 'METAL',
+  IM: 'WATER',
+  GYE: 'WATER',
+};
+
+const BRANCH_ELEMENT_BY_CODE = {
+  JA: 'WATER',
+  CHUK: 'EARTH',
+  IN: 'WOOD',
+  MYO: 'WOOD',
+  JIN: 'EARTH',
+  SA: 'FIRE',
+  O: 'FIRE',
+  MI: 'EARTH',
+  SIN: 'METAL',
+  YU: 'METAL',
+  SUL: 'EARTH',
+  HAE: 'WATER',
+};
 
 function toElementKey(value) {
   const raw = String(value ?? '').trim().toUpperCase();
@@ -70,6 +99,22 @@ function strengthGuide(strength) {
   return `${level} / ${strength.isStrong ? '신강' : '신약'}`;
 }
 
+function resolvePillarPartElement(part, partType) {
+  const direct = toElementKey(
+    part?.element
+    ?? part?.fiveElement
+    ?? part?.ohaeng
+    ?? part?.resource_element
+    ?? '',
+  );
+  if (direct) return direct;
+
+  const code = String(part?.code ?? '').trim().toUpperCase();
+  if (!code) return '';
+  if (partType === 'stem') return STEM_ELEMENT_BY_CODE[code] || '';
+  return BRANCH_ELEMENT_BY_CODE[code] || '';
+}
+
 function CollapseCard({ title, subtitle, open, onToggle, children }) {
   return (
     <section className="bg-[var(--ns-surface)] rounded-[2rem] border border-[var(--ns-border)] shadow-lg overflow-hidden">
@@ -107,20 +152,6 @@ function InfoCard({ title, value }) {
   );
 }
 
-function PillarCard({ label, pillar }) {
-  return (
-    <div className="rounded-xl border border-[var(--ns-border)] bg-[var(--ns-surface-soft)] px-3 py-2.5">
-      <p className="text-[11px] font-black text-[var(--ns-muted)] mb-1">{label}</p>
-      <p className="text-sm text-[var(--ns-text)] font-black">
-        {pillar?.stem?.hangul || '-'}({pillar?.stem?.hanja || '-'}) / {pillar?.branch?.hangul || '-'}({pillar?.branch?.hanja || '-'})
-      </p>
-      <p className="text-xs text-[var(--ns-muted)] mt-1">
-        {pillar?.stem?.code || '-'} / {pillar?.branch?.code || '-'}
-      </p>
-    </div>
-  );
-}
-
 function SajuReport({ report, shareUserInfo = null }) {
   if (!report) return null;
 
@@ -140,12 +171,33 @@ function SajuReport({ report, shareUserInfo = null }) {
     setOpenCards((prev) => ({ ...prev, [key]: !prev[key] }));
   };
 
-  const pillarRows = useMemo(() => ([
-    ['년주', report?.pillars?.year],
-    ['월주', report?.pillars?.month],
-    ['일주', report?.pillars?.day],
-    ['시주', report?.pillars?.hour],
-  ]), [report]);
+  const pillarGridCells = useMemo(
+    () => POSITION_ORDER.map((positionCode) => {
+      const pillarKey = POSITION_KEY_BY_CODE[positionCode];
+      const pillar = report?.pillars?.[pillarKey] || {};
+      const stem = pillar?.stem || {};
+      const branch = pillar?.branch || {};
+      const stemElement = resolvePillarPartElement(stem, 'stem');
+      const branchElement = resolvePillarPartElement(branch, 'branch');
+      return {
+        positionCode,
+        positionLabel: POSITION_LABEL[positionCode] || positionCode,
+        stem: {
+          hangul: stem?.hangul || '-',
+          hanja: stem?.hanja || '-',
+          code: stem?.code || '-',
+          element: stemElement,
+        },
+        branch: {
+          hangul: branch?.hangul || '-',
+          hanja: branch?.hanja || '-',
+          code: branch?.code || '-',
+          element: branchElement,
+        },
+      };
+    }),
+    [report]
+  );
 
   const distributionRows = useMemo(() => {
     const raw = report?.elementDistribution || {};
@@ -267,6 +319,7 @@ function SajuReport({ report, shareUserInfo = null }) {
             renderMetrics={sajuRenderMetrics}
             birthDateTime={shareUserInfo?.birthDateTime ?? null}
             isSolarCalendar={shareUserInfo?.isSolarCalendar}
+            isBirthTimeUnknown={shareUserInfo?.isBirthTimeUnknown}
           />
         </div>
       </section>
@@ -310,10 +363,40 @@ function SajuReport({ report, shareUserInfo = null }) {
         open={openCards.pillars}
         onToggle={() => toggleCard('pillars')}
       >
-        <div className="grid grid-cols-1 md:grid-cols-2 gap-2">
-          {pillarRows.map(([label, pillar]) => (
-            <PillarCard key={label} label={label} pillar={pillar} />
-          ))}
+        <div className="space-y-3">
+          <div>
+            <p className="text-[11px] font-black text-[var(--ns-muted)] mb-1.5">천간</p>
+            <div className="grid grid-cols-4 gap-1.5">
+              {pillarGridCells.map((cell) => (
+                <div key={`stem-${cell.positionCode}`} className={`rounded-xl border px-2 py-2 ${elementCardClass(cell.stem.element)}`}>
+                  <p className="text-[10px] font-black opacity-80">{cell.positionLabel}</p>
+                  <p className="text-sm leading-tight font-black mt-0.5">
+                    {cell.stem.hangul}
+                    <span className="text-[10px] font-semibold ml-0.5">({cell.stem.hanja})</span>
+                  </p>
+                  <p className="text-[10px] font-black mt-1">{elementLabel(cell.stem.element)} 오행</p>
+                  <p className="text-[10px] opacity-75">{cell.stem.code}</p>
+                </div>
+              ))}
+            </div>
+          </div>
+
+          <div>
+            <p className="text-[11px] font-black text-[var(--ns-muted)] mb-1.5">지지</p>
+            <div className="grid grid-cols-4 gap-1.5">
+              {pillarGridCells.map((cell) => (
+                <div key={`branch-${cell.positionCode}`} className={`rounded-xl border px-2 py-2 ${elementCardClass(cell.branch.element)}`}>
+                  <p className="text-[10px] font-black opacity-80">{cell.positionLabel}</p>
+                  <p className="text-sm leading-tight font-black mt-0.5">
+                    {cell.branch.hangul}
+                    <span className="text-[10px] font-semibold ml-0.5">({cell.branch.hanja})</span>
+                  </p>
+                  <p className="text-[10px] font-black mt-1">{elementLabel(cell.branch.element)} 오행</p>
+                  <p className="text-[10px] opacity-75">{cell.branch.code}</p>
+                </div>
+              ))}
+            </div>
+          </div>
         </div>
       </CollapseCard>
 

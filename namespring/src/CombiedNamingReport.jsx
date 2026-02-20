@@ -1,6 +1,7 @@
 import React, { useCallback, useMemo, useRef, useState } from 'react';
 import NamingResultRenderer from './NamingResultRenderer';
 import { buildRenderMetricsFromSajuReport } from './naming-result-render-metrics';
+import FiveElementRadarChart from './FiveElementRadarChart';
 import {
   ReportActionButtons,
   ReportPrintOverlay,
@@ -16,6 +17,7 @@ const ELEMENT_LABEL = {
   Metal: '금',
   Water: '수',
 };
+const ELEMENT_KEYS = ['Wood', 'Fire', 'Earth', 'Metal', 'Water'];
 
 function normalizeElement(value) {
   const raw = String(value ?? '').trim().toLowerCase();
@@ -139,7 +141,7 @@ function CombiedNamingReport({
     : [];
   const combinedDistributionRows = useMemo(() => {
     const source = springReport?.combinedDistribution || {};
-    return ['Wood', 'Fire', 'Earth', 'Metal', 'Water'].map((key) => ({
+    return ELEMENT_KEYS.map((key) => ({
       key,
       label: ELEMENT_LABEL[key],
       value: Number(source[key] ?? 0),
@@ -217,27 +219,33 @@ function CombiedNamingReport({
           renderMetrics={nameCardRenderMetrics}
           birthDateTime={shareUserInfo?.birthDateTime ?? null}
           isSolarCalendar={shareUserInfo?.isSolarCalendar}
+          isBirthTimeUnknown={shareUserInfo?.isBirthTimeUnknown}
         />
       </section>
 
       <section className="rounded-[2rem] border border-[var(--ns-border)] bg-[var(--ns-surface-soft)] p-3 md:p-4">
         <h3 className="text-lg font-black text-[var(--ns-accent-text)]">통합 오행 지표</h3>
         <p className="text-sm text-[var(--ns-muted)] mt-1 break-keep whitespace-normal">사주 오행과 이름 자원 오행을 합산한 성분 분포예요.</p>
-        <div className="mt-3 space-y-2">
-          {combinedDistributionRows.map((item) => {
-            const widthPercent = Math.max(0, Math.min(100, (item.value / combinedDistributionMax) * 100));
-            return (
-              <div key={`combined-dist-${item.key}`} className={`rounded-xl border px-3 py-2.5 ${elementBadgeClass(item.key)}`}>
-                <div className="flex items-center justify-between text-sm font-black">
-                  <span>{item.label}</span>
-                  <span>{item.value}</span>
+        <div className="mt-3 grid grid-cols-1 md:grid-cols-[220px_1fr] gap-3 md:items-center">
+          <div className="rounded-xl border border-[var(--ns-border)] bg-[var(--ns-surface)] px-2 py-2">
+            <FiveElementRadarChart rows={combinedDistributionRows} size={220} maxValue={combinedDistributionMax} />
+          </div>
+          <div className="space-y-2">
+            {combinedDistributionRows.map((item) => {
+              const widthPercent = Math.max(0, Math.min(100, (item.value / combinedDistributionMax) * 100));
+              return (
+                <div key={`combined-dist-${item.key}`} className={`rounded-xl border px-3 py-2.5 ${elementBadgeClass(item.key)}`}>
+                  <div className="flex items-center justify-between text-sm font-black">
+                    <span>{item.label}</span>
+                    <span>{item.value}</span>
+                  </div>
+                  <div className="mt-1.5 h-2 rounded-full bg-white/60 overflow-hidden">
+                    <div className="h-full rounded-full bg-current" style={{ width: `${widthPercent}%`, opacity: 0.7 }} />
+                  </div>
                 </div>
-                <div className="mt-1.5 h-2 rounded-full bg-white/60 overflow-hidden">
-                  <div className="h-full rounded-full bg-current" style={{ width: `${widthPercent}%`, opacity: 0.7 }} />
-                </div>
-              </div>
-            );
-          })}
+              );
+            })}
+          </div>
         </div>
       </section>
 
@@ -336,31 +344,49 @@ function CombiedNamingReport({
         </div>
       </CollapseCard>
 
+      <section className="rounded-2xl border border-[var(--ns-border)] bg-[var(--ns-surface-soft)] px-3 py-3">
+        <p className="text-sm font-black text-[var(--ns-accent-text)]">다른 보고서 보기</p>
+        <div className="mt-2 grid grid-cols-2 gap-2">
+          <button
+            type="button"
+            onClick={onOpenNamingReport}
+            className="w-full rounded-xl border border-[var(--ns-border)] bg-[var(--ns-surface)] px-3 py-3 text-left hover:bg-[var(--ns-surface-soft)] transition-colors"
+          >
+            <span className="inline-flex items-center gap-1.5 text-sm font-black text-[var(--ns-accent-text)]">
+              <svg viewBox="0 0 20 20" fill="none" className="w-4 h-4" aria-hidden="true">
+                <path d="M6 3H14C15.1 3 16 3.9 16 5V15C16 16.1 15.1 17 14 17H6C4.9 17 4 16.1 4 15V5C4 3.9 4.9 3 6 3Z" stroke="currentColor" strokeWidth="1.6" />
+                <path d="M7 7H13M7 10H13M7 13H11" stroke="currentColor" strokeWidth="1.6" strokeLinecap="round" />
+              </svg>
+              이름 평가 보고서
+            </span>
+            <span className="mt-1 block text-[11px] leading-relaxed font-semibold text-[var(--ns-muted)] break-keep whitespace-normal">
+              당신의 이름을 성명학 기반으로 한 평가 결과를 알려드려요.
+            </span>
+          </button>
+          <button
+            type="button"
+            onClick={onOpenSajuReport}
+            className="w-full rounded-xl border border-[var(--ns-border)] bg-[var(--ns-surface)] px-3 py-3 text-left hover:bg-[var(--ns-surface-soft)] transition-colors"
+          >
+            <span className="inline-flex items-center gap-1.5 text-sm font-black text-[var(--ns-accent-text)]">
+              <svg viewBox="0 0 20 20" fill="none" className="w-4 h-4" aria-hidden="true">
+                <path d="M10 5V10L13.2 12.2" stroke="currentColor" strokeWidth="1.6" strokeLinecap="round" strokeLinejoin="round" />
+                <circle cx="10" cy="10" r="6.5" stroke="currentColor" strokeWidth="1.6" />
+              </svg>
+              사주 평가 보고서
+            </span>
+            <span className="mt-1 block text-[11px] leading-relaxed font-semibold text-[var(--ns-muted)] break-keep whitespace-normal">
+              당신의 출생시각을 사주명리학 기반으로 한 평가 결과를 알려드려요.
+            </span>
+          </button>
+        </div>
+      </section>
+
       <ReportActionButtons
         isPdfSaving={isPdfSaving}
         onSavePdf={handleSavePdf}
         onShare={handleOpenShareDialog}
       />
-
-      <section className="rounded-2xl border border-[var(--ns-border)] bg-[var(--ns-surface-soft)] px-3 py-3">
-        <p className="text-sm font-black text-[var(--ns-accent-text)]">다른 보고서 보기</p>
-        <div className="mt-2 grid grid-cols-1 md:grid-cols-2 gap-2">
-          <button
-            type="button"
-            onClick={onOpenNamingReport}
-            className="w-full rounded-xl border border-[var(--ns-border)] bg-[var(--ns-surface)] px-3 py-2.5 text-sm font-black text-[var(--ns-muted)] hover:bg-[var(--ns-surface-soft)]"
-          >
-            이름 평가 보고서
-          </button>
-          <button
-            type="button"
-            onClick={onOpenSajuReport}
-            className="w-full rounded-xl border border-[var(--ns-border)] bg-[var(--ns-surface)] px-3 py-2.5 text-sm font-black text-[var(--ns-muted)] hover:bg-[var(--ns-surface-soft)]"
-          >
-            사주 평가 보고서
-          </button>
-        </div>
-      </section>
     </div>
     <ReportPrintOverlay isPdfSaving={isPdfSaving} />
     <ReportShareDialog

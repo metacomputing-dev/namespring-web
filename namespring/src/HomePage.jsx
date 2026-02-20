@@ -139,6 +139,7 @@ function HomePage({ entryUserInfo, onLoadSajuReport, onOpenCombinedReport, onOpe
                 renderMetrics={previewMetrics}
                 birthDateTime={entryUserInfo?.birthDateTime}
                 isSolarCalendar={entryUserInfo?.isSolarCalendar}
+                isBirthTimeUnknown={entryUserInfo?.isBirthTimeUnknown}
               />
             </button>
           )}

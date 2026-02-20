@@ -79,6 +79,17 @@ button:active::after,
   z-index: 9999 !important;
 }
 
+.ns-wheel-scroll {
+  -ms-overflow-style: none;
+  scrollbar-width: none;
+}
+
+.ns-wheel-scroll::-webkit-scrollbar {
+  display: none;
+  width: 0;
+  height: 0;
+}
+
 @media print {
   @page {
     size: A4;
