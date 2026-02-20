@@ -17,6 +17,9 @@ export default defineConfig({
       '@spring': path.resolve(__dirname, '../lib/spring-ts/src'),
     }
   },
+  optimizeDeps: {
+    exclude: ['react-day-picker'],
+  },
   server: {
     // Required for SQLite WASM (SharedArrayBuffer support)
     headers: {

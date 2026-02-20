@@ -1,4 +1,4 @@
-import React, { useState, useEffect, useMemo } from 'react';
+import React, { useState, useEffect, useMemo, useRef, useCallback } from 'react';
 import { SeedTs } from "@seed/seed";
 import { HanjaRepository } from '@seed/database/hanja-repository';
 import { SpringEngine } from '@spring/spring-engine';
@@ -14,15 +14,32 @@ import InputForm from './InputForm';
 import NamingCandidatesPage from './NamingCandidatesPage';
 import CombinedReportPage from './CombinedReportPage';
 import SajuReportPage from './SajuReportPage';
+import { SHARE_QUERY_KEY, parseShareEntryUserInfoToken } from './share-entry-user-info';
 
 const ENTRY_STORAGE_KEY = 'namespring_entry_user_info';
 const PAGE_VALUES = ['entry', 'home', 'report', 'saju-report', 'naming-candidates', 'combined-report'];
+
+function cloneNameEntries(entries) {
+  if (!Array.isArray(entries)) return [];
+  return entries.map((entry) => {
+    if (!entry || typeof entry !== 'object') return {};
+    return { ...entry };
+  });
+}
+
+function toHangulText(entries) {
+  return (entries || [])
+    .map((entry) => String(entry?.hangul ?? ''))
+    .join('');
+}
 
 function normalizeEntryUserInfo(value) {
   if (!value || !Array.isArray(value.lastName) || !Array.isArray(value.firstName)) {
     return null;
   }
 
+  const normalizedLastName = cloneNameEntries(value.lastName);
+  const normalizedFirstName = cloneNameEntries(value.firstName);
   const birthDateTime = value.birthDateTime || {};
   const normalizedBirthDateTime = {
     year: Number(birthDateTime.year) || 0,
@@ -34,8 +51,15 @@ function normalizeEntryUserInfo(value) {
 
   return {
     ...value,
+    lastName: normalizedLastName,
+    firstName: normalizedFirstName,
+    lastNameText: String(value.lastNameText ?? toHangulText(normalizedLastName)),
+    firstNameText: String(value.firstNameText ?? toHangulText(normalizedFirstName)),
     birthDateTime: normalizedBirthDateTime,
     gender: value.gender === 'female' ? 'female' : 'male',
+    isNativeKoreanName: Boolean(value.isNativeKoreanName),
+    isSolarCalendar: value.isSolarCalendar !== false,
+    isBirthTimeUnknown: Boolean(value.isBirthTimeUnknown),
   };
 }
 
@@ -46,6 +70,33 @@ function loadStoredEntryUserInfo() {
   } catch {
     return null;
   }
+}
+
+function loadSharedEntryUserInfo() {
+  try {
+    const query = new URLSearchParams(window.location.search);
+    const token = query.get(SHARE_QUERY_KEY);
+    if (!token) return null;
+    return normalizeEntryUserInfo(parseShareEntryUserInfoToken(token));
+  } catch {
+    return null;
+  }
+}
+
+function loadInitialAppState() {
+  const sharedEntryUserInfo = loadSharedEntryUserInfo();
+  if (sharedEntryUserInfo) {
+    return {
+      entryUserInfo: sharedEntryUserInfo,
+      page: 'report',
+    };
+  }
+
+  const storedEntryUserInfo = loadStoredEntryUserInfo();
+  return {
+    entryUserInfo: storedEntryUserInfo,
+    page: storedEntryUserInfo ? 'home' : 'entry',
+  };
 }
 
 function normalizePage(page, hasEntryUserInfo) {
@@ -125,20 +176,27 @@ function toCurrentNameSpringReportRequest(userInfo) {
   };
 }
 
+function toRequestCacheKey(request) {
+  return JSON.stringify(request);
+}
+
 function App() {
   const tool = new URLSearchParams(window.location.search).get("tool");
   const isDevSagyeoksuViewerMode = import.meta.env.DEV && tool === "fourframe-db-viewer";
   const isDevHanjaViewerMode = import.meta.env.DEV && tool === "hanja-db-viewer";
   const isDevNameStatViewerMode = import.meta.env.DEV && tool === "name-stat-db-viewer";
+  const initialAppState = useMemo(() => loadInitialAppState(), []);
 
   const [isDbReady, setIsDbReady] = useState(false);
   const [showSplash, setShowSplash] = useState(true);
   const [minSplashElapsed, setMinSplashElapsed] = useState(false);
-  const [entryUserInfo, setEntryUserInfo] = useState(() => loadStoredEntryUserInfo());
+  const [entryUserInfo, setEntryUserInfo] = useState(initialAppState.entryUserInfo);
   const [selectedCandidateSummary, setSelectedCandidateSummary] = useState(null);
-  const [page, setPage] = useState(() => (loadStoredEntryUserInfo() ? 'home' : 'entry'));
+  const [page, setPage] = useState(initialAppState.page);
   const hanjaRepo = useMemo(() => new HanjaRepository(), []);
   const springEngine = useMemo(() => new SpringEngine(), []);
+  const recommendResultCacheRef = useRef(new Map());
+  const currentNameReportCacheRef = useRef(new Map());
 
   // DB Initialization
   useEffect(() => {
@@ -194,10 +252,22 @@ function App() {
     return engine.analyze(normalizeEntryUserInfo(userInfo));
   };
 
-  const handleRecommendAsync = async (userInfo) => {
+  const handleRecommendAsync = useCallback(async (userInfo) => {
     const springRequest = toSpringRequest(userInfo);
-    return springEngine.getNameCandidateSummaries(springRequest);
-  };
+    const cacheKey = toRequestCacheKey(springRequest);
+    const cachedPromise = recommendResultCacheRef.current.get(cacheKey);
+    if (cachedPromise) {
+      return cachedPromise;
+    }
+
+    const requestPromise = springEngine.getNameCandidateSummaries(springRequest)
+      .catch((error) => {
+        recommendResultCacheRef.current.delete(cacheKey);
+        throw error;
+      });
+    recommendResultCacheRef.current.set(cacheKey, requestPromise);
+    return requestPromise;
+  }, [springEngine]);
 
   const handleLoadCombinedReportAsync = async (userInfo, candidate) => {
     const springRequest = toSpringReportRequest(userInfo, candidate?.givenName);
@@ -207,10 +277,22 @@ function App() {
     return springEngine.getSpringReport(springRequest);
   };
 
-  const handleLoadCurrentNameReportAsync = async (userInfo) => {
+  const handleLoadCurrentNameReportAsync = useCallback(async (userInfo) => {
     const springRequest = toCurrentNameSpringReportRequest(userInfo);
-    return springEngine.getSpringReport(springRequest);
-  };
+    const cacheKey = toRequestCacheKey(springRequest);
+    const cachedPromise = currentNameReportCacheRef.current.get(cacheKey);
+    if (cachedPromise) {
+      return cachedPromise;
+    }
+
+    const requestPromise = springEngine.getSpringReport(springRequest)
+      .catch((error) => {
+        currentNameReportCacheRef.current.delete(cacheKey);
+        throw error;
+      });
+    currentNameReportCacheRef.current.set(cacheKey, requestPromise);
+    return requestPromise;
+  }, [springEngine]);
 
   const handleLoadSajuReportAsync = async (userInfo) => {
     const springRequest = toSpringRequest(userInfo);
@@ -266,6 +348,7 @@ function App() {
                 <InputForm
                   hanjaRepo={hanjaRepo}
                   isDbReady={isDbReady}
+                  initialUserInfo={entryUserInfo}
                   onEnter={(userInfo) => {
                     const normalized = normalizeEntryUserInfo(userInfo);
                     setEntryUserInfo(normalized);
@@ -293,7 +376,13 @@ function App() {
               onAnalyzeAsync={handleAnalyzeAsync}
               onOpenReport={() => navigateToPage('report')}
               onOpenNamingCandidates={() => navigateToPage('naming-candidates')}
-              onOpenEntry={() => navigateToPage('entry')}
+              onOpenEntry={(userInfoFromHome) => {
+                const normalized = normalizeEntryUserInfo(userInfoFromHome || entryUserInfo);
+                if (normalized) {
+                  setEntryUserInfo(normalized);
+                }
+                navigateToPage('entry', { hasEntryUserInfo: Boolean(normalized) });
+              }}
             />
           </AppBackground>
         ),

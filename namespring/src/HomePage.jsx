@@ -1,9 +1,11 @@
 import React, { useEffect, useMemo, useState } from 'react';
 import logoSvg from './assets/logo.svg';
 import NamingResultRenderer from './NamingResultRenderer';
+import { HOME_CARD_COLOR_THEME, buildTileStyle } from './theme/card-color-theme';
 
 function HomeTile({ item, onClick }) {
   const isClickable = typeof onClick === 'function';
+  const tileStyle = useMemo(() => buildTileStyle(item.theme), [item.theme]);
   return (
     <button
       type="button"
@@ -12,8 +14,8 @@ function HomeTile({ item, onClick }) {
         'group relative overflow-hidden rounded-[2.2rem] border p-4 md:p-5 text-left min-h-[11rem]',
         'bg-gradient-to-br shadow-[0_10px_24px_rgba(23,31,22,0.08)] transition-all duration-300',
         isClickable ? 'hover:translate-y-[-3px] hover:shadow-[0_14px_30px_rgba(23,31,22,0.12)]' : 'cursor-default',
-        item.bgClass,
       ].join(' ')}
+      style={tileStyle}
       disabled={!isClickable}
     >
       <div className="flex flex-col">
@@ -45,7 +47,7 @@ function HomePage({ entryUserInfo, onAnalyzeAsync, onOpenReport, onOpenNamingCan
       title: '이름 평가 보고서',
       subtitle: '사주와 성명학의 깊은 분석',
       description: '당신의 이름에 담긴 기운을 정밀하게 측정하여 리포트로 제공합니다.',
-      bgClass: 'from-[#EEF8F1] to-[#FFFFFF] border-[#DCE8DF]',
+      theme: HOME_CARD_COLOR_THEME.report,
       onClick: onOpenReport,
     },
     {
@@ -53,7 +55,7 @@ function HomePage({ entryUserInfo, onAnalyzeAsync, onOpenReport, onOpenNamingCan
       title: '작명하기',
       subtitle: '세상에 단 하나뿐인 축복',
       description: '사주에 부족한 성분을 채워주는 최적의 이름을 추천받으세요.',
-      bgClass: 'from-[#F8F2F8] to-[#FFFFFF] border-[#E7DDE7]',
+      theme: HOME_CARD_COLOR_THEME.naming,
       onClick: onOpenNamingCandidates,
     },
     {
@@ -61,7 +63,7 @@ function HomePage({ entryUserInfo, onAnalyzeAsync, onOpenReport, onOpenNamingCan
       title: '고마움 전달하기',
       subtitle: '마음을 나누는 따뜻한 선물',
       description: '좋은 이름을 지어준 분께 감사의 마음을 예쁘게 전달하세요.',
-      bgClass: 'from-[#FBF7EC] to-[#FFFFFF] border-[#ECE4D2]',
+      theme: HOME_CARD_COLOR_THEME.gratitude,
       onClick: null,
     },
     {
@@ -69,7 +71,7 @@ function HomePage({ entryUserInfo, onAnalyzeAsync, onOpenReport, onOpenNamingCan
       title: '이름봄 정보',
       subtitle: '브랜드 철학과 가이드',
       description: '이름봄이 추구하는 가치와 오행 분석의 원리를 소개합니다.',
-      bgClass: 'from-[#F1F4F8] to-[#FFFFFF] border-[#DFE6EE]',
+      theme: HOME_CARD_COLOR_THEME.info,
       onClick: null,
     },
   ]), [onOpenNamingCandidates, onOpenReport]);
@@ -127,10 +129,14 @@ function HomePage({ entryUserInfo, onAnalyzeAsync, onOpenReport, onOpenNamingCan
           {!isAnalyzing && !analyzeError && previewResult && (
             <button
               type="button"
-              onClick={onOpenEntry}
+              onClick={() => onOpenEntry?.(entryUserInfo)}
               className="h-full w-full block text-left rounded-[1.6rem] overflow-hidden"
             >
-              <NamingResultRenderer namingResult={previewResult} />
+              <NamingResultRenderer
+                namingResult={previewResult}
+                birthDateTime={entryUserInfo?.birthDateTime}
+                isSolarCalendar={entryUserInfo?.isSolarCalendar}
+              />
             </button>
           )}
           {!isAnalyzing && !analyzeError && !previewResult && (

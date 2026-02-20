@@ -330,10 +330,15 @@ export type SajuReport = SajuSummary & {
   readonly sajuEnabled: boolean;
 };
 
+/** Gender tendency inferred from name-stat birth distribution. */
+export type NameGenderTendency = 'male' | 'female' | 'unknown';
+
 /** Combined name + saju report. Returned by getNameCandidates(). */
 export interface SpringReport {
   readonly finalScore: number;
   readonly popularityRank: number | null;
+  readonly maleRatio: number | null;
+  readonly nameGender: NameGenderTendency;
   readonly namingReport: NamingReport;
   readonly sajuReport: SajuReport;
   readonly sajuCompatibility: SajuCompatibility;
@@ -349,6 +354,8 @@ export interface SpringCandidateSummary {
   readonly givenHangul: string;
   readonly givenName: NameCharInput[];
   readonly popularityRank: number | null;
+  readonly maleRatio: number | null;
+  readonly nameGender: NameGenderTendency;
   rank: number;
 }
 

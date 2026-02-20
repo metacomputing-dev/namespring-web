@@ -51,17 +51,37 @@ function resolveSummary(result) {
   };
 }
 
-function SymbolIcon({ src, label }) {
+function SymbolIcon({ src, label, textColorClass }) {
   return (
     <div className="flex items-center gap-1.5 min-w-0">
       <img src={src} alt={label} className="w-5 h-5 md:w-5 md:h-5" draggable="false" />
-      <span className="text-[10px] font-black text-[var(--ns-muted)] whitespace-nowrap">{label}</span>
+      <span className={`text-[10px] font-black whitespace-nowrap ${textColorClass}`}>{label}</span>
     </div>
   );
 }
 
 function clampCount(value) {
   return Math.max(0, Math.min(5, Number(value) || 0));
+}
+
+function formatCalendarTypeLabel(isSolarCalendar) {
+  return isSolarCalendar === false ? '음력' : '양력';
+}
+
+function formatBirthDateTimeForCard(birthDateTime, isSolarCalendar) {
+  const year = Number(birthDateTime?.year);
+  const month = Number(birthDateTime?.month);
+  const day = Number(birthDateTime?.day);
+  const hour = Number(birthDateTime?.hour);
+  const minute = Number(birthDateTime?.minute);
+  const isDateValid = Number.isInteger(year) && year > 0
+    && Number.isInteger(month) && month >= 1 && month <= 12
+    && Number.isInteger(day) && day >= 1 && day <= 31;
+  const isTimeValid = Number.isInteger(hour) && hour >= 0 && hour <= 23
+    && Number.isInteger(minute) && minute >= 0 && minute <= 59;
+  if (!isDateValid || !isTimeValid) return '';
+
+  return `${String(year).padStart(4, '0')}.${String(month).padStart(2, '0')}.${String(day).padStart(2, '0')} ${String(hour).padStart(2, '0')}:${String(minute).padStart(2, '0')} ${formatCalendarTypeLabel(isSolarCalendar)}`;
 }
 
 function TreeSprite() {
@@ -120,11 +140,15 @@ function FireSprite() {
   );
 }
 
-function NamingResultRenderer({ namingResult }) {
+function NamingResultRenderer({ namingResult, birthDateTime = null, isSolarCalendar = true }) {
   const meadowGradientId = useId();
   const moonMaskId = useId();
   const cloudySunOutlineId = useId();
   const summary = useMemo(() => resolveSummary(namingResult), [namingResult]);
+  const birthDateTimeText = useMemo(
+    () => formatBirthDateTimeForCard(birthDateTime, isSolarCalendar),
+    [birthDateTime, isSolarCalendar],
+  );
   const appliedSummary = DEV_FORCE_ALL_COUNTS_TO_FIVE
     ? {
         ...summary,
@@ -155,12 +179,11 @@ function NamingResultRenderer({ namingResult }) {
   const topShift = -waterGrow * 0.12;
   const bottomShift = waterGrow * 0.48;
   const f = (value) => Number(value).toFixed(1);
+  const textColorClass = isNightScene ? 'text-white' : 'text-black';
   const glowStyle = {
     textShadow: isNightScene
-      ? '0 0 8px rgba(8, 14, 30, 0.85), 0 0 18px rgba(8, 14, 30, 0.45)'
-      : isPositiveDominantScene
-        ? '0 0 8px rgba(255, 236, 214, 0.9), 0 0 18px rgba(255, 220, 178, 0.6)'
-        : '0 0 8px rgba(255, 255, 255, 0.85), 0 0 18px rgba(255, 255, 255, 0.55)',
+      ? '0 0 8px rgba(0, 0, 0, 0.9), 0 0 18px rgba(0, 0, 0, 0.6)'
+      : '0 0 8px rgba(255, 255, 255, 0.95), 0 0 18px rgba(255, 255, 255, 0.65)',
   };
   const overlayExclude = { xMin: 72, yMin: 68 };
   const isExcluded = (left, top) => parseFloat(left) >= overlayExclude.xMin && parseFloat(top) >= overlayExclude.yMin;
@@ -326,14 +349,17 @@ function NamingResultRenderer({ namingResult }) {
         <div className="absolute top-5 right-6 flex items-center flex-wrap justify-end gap-x-3 gap-y-2">
           {symbolItems.map((item) => (
             <div key={item.label} style={glowStyle}>
-              <SymbolIcon src={item.src} label={item.label} />
+              <SymbolIcon src={item.src} label={item.label} textColorClass={textColorClass} />
             </div>
           ))}
         </div>
 
         <div className="absolute right-6 bottom-5 text-right shrink-0" style={glowStyle}>
-          <p className={`text-xl md:text-2xl font-black ${isNightScene ? 'text-[#e8eefc]' : isPositiveDominantScene ? 'text-[#66361f]' : 'text-[#0f3857]'}`}>{appliedSummary.displayHangul} ({appliedSummary.displayHanja})</p>
-          <p className={`text-sm font-bold mt-1 ${isNightScene ? 'text-[#9fb2d6]' : isPositiveDominantScene ? 'text-[#8a4d2a]' : 'text-[#365f83]'}`}>종합 점수 {appliedSummary.score}</p>
+          <p className={`text-xl md:text-2xl font-black ${textColorClass}`}>{appliedSummary.displayHangul} ({appliedSummary.displayHanja})</p>
+          {birthDateTimeText && (
+            <p className={`text-[11px] md:text-xs font-semibold mt-1 ${textColorClass}`}>{birthDateTimeText}</p>
+          )}
+          <p className={`text-sm font-bold mt-1 ${textColorClass}`}>종합 점수 {appliedSummary.score}</p>
         </div>
       </div>
     </div>

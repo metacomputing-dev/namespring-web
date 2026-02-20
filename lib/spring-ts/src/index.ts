@@ -30,6 +30,7 @@ export type {
   SajuReport,
   SpringReport,
   SpringCandidateSummary,
+  NameGenderTendency,
   // Saju analysis
   SajuSummary,
   PillarSummary,

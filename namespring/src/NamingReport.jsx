@@ -1,6 +1,9 @@
-import React, { useEffect, useMemo, useState } from 'react';
+import React, { useEffect, useMemo, useRef, useState } from 'react';
 import { NameStatRepository } from '@seed/database/name-stat-repository';
-import { createPortal } from 'react-dom';
+import { createPortal, flushSync } from 'react-dom';
+import { buildShareLinkFromEntryUserInfo } from './share-entry-user-info';
+import NamingResultRenderer from './NamingResultRenderer';
+import { REPORT_CARD_COLOR_THEME, buildReportCardStyle } from './theme/card-color-theme';
 
 const TOTAL_NAME_STATS_COUNT = 50194;
 const ELEMENT_ORDER = ['Wood', 'Fire', 'Earth', 'Metal', 'Water'];
@@ -277,6 +280,91 @@ function replaceNamePlaceholder(value, fullName) {
   return value.replace(/\[성함\]/g, fullName);
 }
 
+function waitForNextPaint() {
+  return new Promise((resolve) => {
+    window.requestAnimationFrame(() => {
+      window.requestAnimationFrame(resolve);
+    });
+  });
+}
+
+function waitForFontsReady(timeoutMs = 2500) {
+  if (!document.fonts?.ready) {
+    return Promise.resolve();
+  }
+  return Promise.race([
+    document.fonts.ready.catch(() => undefined),
+    new Promise((resolve) => window.setTimeout(resolve, timeoutMs)),
+  ]);
+}
+
+async function waitForImagesReady(root, timeoutMs = 3000) {
+  if (!root) return;
+  const images = Array.from(root.querySelectorAll('img'));
+  if (!images.length) return;
+
+  await Promise.race([
+    Promise.all(images.map((img) => {
+      if (img.complete && img.naturalWidth > 0) {
+        return Promise.resolve();
+      }
+      if (typeof img.decode === 'function') {
+        return img.decode().catch(() => undefined);
+      }
+      return new Promise((resolve) => {
+        img.addEventListener('load', () => resolve(), { once: true });
+        img.addEventListener('error', () => resolve(), { once: true });
+      });
+    })),
+    new Promise((resolve) => window.setTimeout(resolve, timeoutMs)),
+  ]);
+}
+
+async function waitForLayoutStability(root, options = {}) {
+  if (!root) return;
+  const stableMs = Number(options.stableMs) || 180;
+  const timeoutMs = Number(options.timeoutMs) || 3000;
+  const start = performance.now();
+
+  const getSignature = () => {
+    const rect = root.getBoundingClientRect();
+    return [
+      Math.round(rect.width),
+      Math.round(rect.height),
+      Math.round(root.scrollHeight || 0),
+      Math.round(root.scrollWidth || 0),
+      Math.round(root.clientHeight || 0),
+      Math.round(root.clientWidth || 0),
+    ].join(':');
+  };
+
+  let lastSignature = getSignature();
+  let stableSince = performance.now();
+
+  while (performance.now() - start < timeoutMs) {
+    await waitForNextPaint();
+    const currentSignature = getSignature();
+    if (currentSignature === lastSignature) {
+      if (performance.now() - stableSince >= stableMs) {
+        return;
+      }
+    } else {
+      lastSignature = currentSignature;
+      stableSince = performance.now();
+    }
+  }
+}
+
+async function waitForPrintReady(root) {
+  await waitForNextPaint();
+  await Promise.all([
+    waitForFontsReady(2500),
+    waitForImagesReady(root, 3000),
+  ]);
+  await waitForLayoutStability(root, { stableMs: 180, timeoutMs: 3000 });
+  await waitForNextPaint();
+}
+
 function MetaInfoCard({ title, value, tone = 'default' }) {
   const toneClass =
     tone === 'emerald'
@@ -285,7 +373,7 @@ function MetaInfoCard({ title, value, tone = 'default' }) {
         ? 'border-amber-200 bg-amber-50 text-amber-800'
         : tone === 'blue'
           ? 'border-blue-200 bg-blue-50 text-blue-800'
-          : 'border-[var(--ns-border)] bg-[var(--ns-surface)] text-[var(--ns-muted)]';
+          : 'border-amber-200 bg-amber-50/85 text-amber-800';
 
   return (
     <div className={`rounded-xl border px-3 py-2.5 ${toneClass}`}>
@@ -330,9 +418,42 @@ function getFrameDetailScores(frames, index) {
   };
 }
 
-function CollapseCard({ title, subtitle, open, onToggle, children }) {
+const CARD_TONE = {
+  default: {
+    className: 'bg-[var(--ns-surface)] border-[var(--ns-border)]',
+    style: undefined,
+  },
+  popularity: {
+    className: 'bg-white',
+    style: buildReportCardStyle(REPORT_CARD_COLOR_THEME.popularity),
+  },
+  lifeFlow: {
+    className: 'bg-white',
+    style: buildReportCardStyle(REPORT_CARD_COLOR_THEME.lifeFlow),
+  },
+  fourFrame: {
+    className: 'bg-white',
+    style: buildReportCardStyle(REPORT_CARD_COLOR_THEME.fourFrame),
+  },
+  hanja: {
+    className: 'bg-white',
+    style: buildReportCardStyle(REPORT_CARD_COLOR_THEME.hanja),
+  },
+  hangul: {
+    className: 'bg-white',
+    style: buildReportCardStyle(REPORT_CARD_COLOR_THEME.hangul),
+  },
+};
+const SUMMARY_CARD_STYLE = buildReportCardStyle(REPORT_CARD_COLOR_THEME.summary);
+const SUMMARY_INNER_BORDER_STYLE = { borderColor: REPORT_CARD_COLOR_THEME.summary.border };
+
+function CollapseCard({ title, subtitle, open, onToggle, children, tone = 'default' }) {
+  const toneConfig = CARD_TONE[tone] || CARD_TONE.default;
   return (
-    <section className="bg-[var(--ns-surface)] rounded-[2rem] border border-[var(--ns-border)] shadow-lg overflow-hidden">
+    <section
+      className={`rounded-[2rem] border shadow-lg overflow-hidden ${toneConfig.className}`}
+      style={toneConfig.style}
+    >
       <button
         type="button"
         onClick={onToggle}
@@ -342,7 +463,7 @@ function CollapseCard({ title, subtitle, open, onToggle, children }) {
           <h3 className="text-lg font-black text-[var(--ns-accent-text)]">{title}</h3>
           {subtitle ? <p className="text-sm text-[var(--ns-muted)] mt-1 break-keep whitespace-normal">{subtitle}</p> : null}
         </div>
-        <span className="shrink-0 inline-flex items-center justify-center w-8 h-8 rounded-full border border-[var(--ns-border)] bg-[var(--ns-surface-soft)]">
+        <span className="shrink-0 inline-flex items-center justify-center w-8 h-8 rounded-full border border-[var(--ns-border)] bg-white/65 backdrop-blur-[2px]">
           <svg
             viewBox="0 0 20 20"
             fill="none"
@@ -398,9 +519,10 @@ function GenderRatioPie({ maleRatio, femaleRatio, maleBirths, femaleBirths }) {
   );
 }
 
-const NamingReport = ({ result, onNewAnalysis }) => {
+const NamingReport = ({ result, shareUserInfo = null }) => {
   if (!result) return null;
 
+  const reportRootRef = useRef(null);
   const [openCards, setOpenCards] = useState({
     popularity: false,
     lifeFlow: false,
@@ -408,6 +530,10 @@ const NamingReport = ({ result, onNewAnalysis }) => {
     hanja: false,
     hangul: false,
   });
+  const [isPdfSaving, setIsPdfSaving] = useState(false);
+  const [isShareDialogOpen, setIsShareDialogOpen] = useState(false);
+  const [shareLink, setShareLink] = useState('');
+  const [isLinkCopied, setIsLinkCopied] = useState(false);
   const [openLifeDetails, setOpenLifeDetails] = useState({});
   const [showScrollTop, setShowScrollTop] = useState(false);
   const [popularityState, setPopularityState] = useState({
@@ -427,7 +553,7 @@ const NamingReport = ({ result, onNewAnalysis }) => {
     femaleRatio: 0,
   });
 
-  const { lastName, firstName, totalScore, hanja, hangul, fourFrames, interpretation } = result;
+  const { lastName, firstName, totalScore, hanja, hangul, fourFrames } = result;
   const fullEntries = [...lastName, ...firstName];
   const fullNameHanja = fullEntries.map((v) => v.hanja).join('');
   const fullNameHangul = fullEntries.map((v) => v.hangul).join('');
@@ -475,8 +601,102 @@ const NamingReport = ({ result, onNewAnalysis }) => {
   const toggleCard = (key) => {
     setOpenCards((prev) => ({ ...prev, [key]: !prev[key] }));
   };
+
+  const openAllCards = () => ({
+    popularity: true,
+    lifeFlow: true,
+    fourFrame: true,
+    hanja: true,
+    hangul: true,
+  });
+
+  const handleSavePdf = async () => {
+    if (isPdfSaving || !reportRootRef.current) return;
+    const previousOpenCards = { ...openCards };
+    const previousOpenLifeDetails = { ...openLifeDetails };
+    const expandedLifeDetails = lifeFlowBlocks.reduce((acc, _, idx) => {
+      acc[idx] = true;
+      return acc;
+    }, {});
+
+    flushSync(() => {
+      setIsPdfSaving(true);
+      setOpenCards(openAllCards());
+      setOpenLifeDetails(expandedLifeDetails);
+    });
+
+    let restored = false;
+    const restoreState = () => {
+      if (restored) return;
+      restored = true;
+      setOpenCards(previousOpenCards);
+      setOpenLifeDetails(previousOpenLifeDetails);
+      setIsPdfSaving(false);
+    };
+
+    const handleAfterPrint = () => {
+      window.removeEventListener('afterprint', handleAfterPrint);
+      restoreState();
+    };
+
+    window.addEventListener('afterprint', handleAfterPrint);
+
+    try {
+      await waitForPrintReady(reportRootRef.current);
+      window.print();
+    } catch (error) {
+      console.error('Print save failed', error);
+      alert('인쇄 준비에 실패했습니다. 잠시 후 다시 시도해 주세요.');
+      window.removeEventListener('afterprint', handleAfterPrint);
+      restoreState();
+      return;
+    }
+
+    // afterprint가 호출되지 않는 브라우저 대비 안전 복구
+    window.setTimeout(() => {
+      window.removeEventListener('afterprint', handleAfterPrint);
+      restoreState();
+    }, 30000);
+  };
+
+  const handleOpenShareDialog = () => {
+    const nextShareLink = buildShareLinkFromEntryUserInfo(shareUserInfo, window.location.href);
+    setShareLink(nextShareLink || window.location.href);
+    setIsLinkCopied(false);
+    setIsShareDialogOpen(true);
+  };
+
+  const closeShareDialog = () => {
+    setIsShareDialogOpen(false);
+    setIsLinkCopied(false);
+  };
+
   const toggleLifeDetail = (idx) => {
     setOpenLifeDetails((prev) => ({ ...prev, [idx]: !prev[idx] }));
+  };
+
+  const handleCopyShareLink = async () => {
+    if (!shareLink) return;
+
+    try {
+      if (navigator?.clipboard?.writeText) {
+        await navigator.clipboard.writeText(shareLink);
+      } else {
+        const textarea = document.createElement('textarea');
+        textarea.value = shareLink;
+        textarea.setAttribute('readonly', '');
+        textarea.style.position = 'absolute';
+        textarea.style.left = '-9999px';
+        document.body.appendChild(textarea);
+        textarea.select();
+        document.execCommand('copy');
+        document.body.removeChild(textarea);
+      }
+      setIsLinkCopied(true);
+    } catch {
+      setIsLinkCopied(false);
+      alert('클립보드 복사에 실패했습니다.');
+    }
   };
 
   useEffect(() => {
@@ -584,21 +804,34 @@ const NamingReport = ({ result, onNewAnalysis }) => {
 
   return (
     <>
-    <div className="mt-4 space-y-3 animate-in fade-in slide-in-from-bottom-6 duration-700">
-      <section className="bg-[var(--ns-surface)] rounded-[2.4rem] p-4 md:p-5 border border-[var(--ns-border)] shadow-xl relative overflow-hidden">
-        <div className="absolute -right-20 -top-20 w-64 h-64 bg-[var(--ns-primary)]/15 rounded-full blur-3xl" />
+    <div ref={reportRootRef} data-pdf-root="true" className="mt-4 space-y-3 animate-in fade-in slide-in-from-bottom-6 duration-700">
+      <section
+        data-pdf-force-foreign-object="true"
+        className="rounded-[2.4rem] p-4 md:p-5 border shadow-xl relative overflow-hidden"
+        style={SUMMARY_CARD_STYLE}
+      >
+        <div className="absolute -right-20 -top-20 w-64 h-64 bg-emerald-300/30 rounded-full blur-3xl" />
         <div className="relative z-10 flex flex-col md:flex-row md:items-end md:justify-between gap-3">
           <div>
             <p className="text-[11px] tracking-[0.22em] text-[var(--ns-muted)] font-black mb-3">이름 평가 요약</p>
             <h2 className="text-4xl md:text-5xl font-black text-[var(--ns-accent-text)]">{fullNameHangul}</h2>
             <p className="text-xl md:text-2xl text-[var(--ns-muted)] font-semibold mt-1">{fullNameHanja}</p>
-            <p className="text-[var(--ns-muted)] mt-2 leading-relaxed">{interpretation || getScoreGrade(score)}</p>
           </div>
           <div className="text-left md:text-right">
             <p className="text-sm text-[var(--ns-muted)] font-bold mb-1">종합 점수</p>
             <div className="text-6xl md:text-7xl font-black text-[var(--ns-accent-text)] leading-none">{scoreText}</div>
             <p className="text-sm text-[var(--ns-muted)] font-semibold mt-2">{getScoreGrade(score)}</p>
           </div>
+        </div>
+        <div
+          className="relative z-10 mt-4 h-44 md:h-52 rounded-[1.6rem] overflow-hidden border shadow-md"
+          style={SUMMARY_INNER_BORDER_STYLE}
+        >
+          <NamingResultRenderer
+            namingResult={result}
+            birthDateTime={shareUserInfo?.birthDateTime ?? null}
+            isSolarCalendar={shareUserInfo?.isSolarCalendar}
+          />
         </div>
       </section>
 
@@ -607,6 +840,7 @@ const NamingReport = ({ result, onNewAnalysis }) => {
         subtitle={popularityHeadline}
         open={openCards.popularity}
         onToggle={() => toggleCard('popularity')}
+        tone="popularity"
       >
 
         {popularityState.loading ? (
@@ -696,6 +930,7 @@ const NamingReport = ({ result, onNewAnalysis }) => {
         subtitle="사격수리의 원·형·이·정을 기준으로 초중말년과 전체 흐름을 풀어봅니다."
         open={openCards.lifeFlow}
         onToggle={() => toggleCard('lifeFlow')}
+        tone="lifeFlow"
       >
 
         <div className="space-y-4">
@@ -720,7 +955,7 @@ const NamingReport = ({ result, onNewAnalysis }) => {
               ? entry.suitable_career.map((item) => replaceNamePlaceholder(item, fullNameHangul)).join(', ')
               : '';
             return (
-              <article key={`life-flow-${idx}`} className="rounded-2xl border border-[var(--ns-border)] bg-gradient-to-b from-[var(--ns-surface)] to-[var(--ns-surface-soft)] p-2.5 md:p-3 space-y-2">
+              <article key={`life-flow-${idx}`} className="rounded-2xl border border-amber-200 bg-gradient-to-r from-amber-100/70 via-amber-50/55 to-white p-2.5 md:p-3 space-y-2">
                 <div className="flex flex-wrap items-start justify-between gap-3">
                   <div className="min-w-0">
                     <p className="text-sm font-black text-[var(--ns-accent-text)]">{lifePhaseLabel(frame?.type)} · {frameTypeLabel(frame?.type)} ({frame?.strokeSum}수)</p>
@@ -732,13 +967,13 @@ const NamingReport = ({ result, onNewAnalysis }) => {
                   </div>
                 </div>
 
-                <div className="rounded-xl border border-[var(--ns-border)] bg-[var(--ns-surface)] px-2.5 py-2">
+                <div className="rounded-xl border border-amber-200 bg-amber-50/95 px-2.5 py-2">
                   <p className="text-sm text-[var(--ns-muted)] leading-relaxed break-keep whitespace-normal">{summaryText}</p>
                 </div>
                 <button
                   type="button"
                   onClick={() => toggleLifeDetail(idx)}
-                  className="w-full rounded-xl border border-[var(--ns-border)] bg-[var(--ns-surface)] px-2.5 py-2 text-sm font-black text-[var(--ns-muted)] text-left flex items-center justify-between"
+                  className="w-full rounded-xl border border-amber-200 bg-amber-100/75 px-2.5 py-2 text-sm font-black text-amber-800 text-left flex items-center justify-between"
                 >
                   <span>상세 해석</span>
                   <svg
@@ -754,7 +989,7 @@ const NamingReport = ({ result, onNewAnalysis }) => {
                 {isOpen ? (
                   <div className="space-y-3">
                     {entry?.detailed_explanation ? (
-                      <div className="rounded-xl border border-[var(--ns-border)] bg-[var(--ns-surface)] px-2.5 py-2">
+                      <div className="rounded-xl border border-amber-200 bg-amber-50/95 px-2.5 py-2">
                         <p className="text-sm text-[var(--ns-muted)] leading-relaxed break-keep whitespace-normal">{detailedText}</p>
                       </div>
                     ) : null}
@@ -782,16 +1017,16 @@ const NamingReport = ({ result, onNewAnalysis }) => {
                         <MetaInfoCard title="적성 분야" value={careerText} tone="emerald" />
                       ) : null}
                       {entry?.life_period_influence ? (
-                        <MetaInfoCard title="인생 구간 영향" value={lifePeriodText} tone="default" />
+                        <MetaInfoCard title="인생 구간 영향" value={lifePeriodText} tone="amber" />
                       ) : null}
                       {entry?.opportunity_area ? (
                         <MetaInfoCard title="기회 영역" value={opportunityText} tone="amber" />
                       ) : null}
                       {entry?.challenge_period ? (
-                        <MetaInfoCard title="도전 구간" value={challengeText} tone="default" />
+                        <MetaInfoCard title="도전 구간" value={challengeText} tone="amber" />
                       ) : null}
                       {entry?.lucky_level ? (
-                        <MetaInfoCard title="길흉 단계" value={luckyLevelText} tone="default" />
+                        <MetaInfoCard title="길흉 단계" value={luckyLevelText} tone="amber" />
                       ) : null}
                     </div>
                   </div>
@@ -807,6 +1042,7 @@ const NamingReport = ({ result, onNewAnalysis }) => {
         subtitle="클릭해서 상세 점수와 프레임별 값을 확인하세요."
         open={openCards.fourFrame}
         onToggle={() => toggleCard('fourFrame')}
+        tone="fourFrame"
       >
         <div className="space-y-4">
           <SummaryBadges
@@ -821,8 +1057,8 @@ const NamingReport = ({ result, onNewAnalysis }) => {
             ]}
           />
           <div className="grid grid-cols-1 md:grid-cols-2 gap-3 text-sm">
-            <div className="rounded-xl border border-[var(--ns-border)] bg-[var(--ns-surface-soft)] p-3 font-black text-[var(--ns-muted)]">길흉 점수: {fourFrameLuckScore.toFixed(1)}</div>
-            <div className="rounded-xl border border-[var(--ns-border)] bg-[var(--ns-surface-soft)] p-3 font-black text-[var(--ns-muted)]">최종 점수: {fourFrameScore.toFixed(1)}</div>
+            <div className="rounded-xl border border-emerald-200 bg-emerald-100/85 p-3 font-black text-emerald-800">길흉 점수: {fourFrameLuckScore.toFixed(1)}</div>
+            <div className="rounded-xl border border-teal-200 bg-teal-100/85 p-3 font-black text-teal-800">최종 점수: {fourFrameScore.toFixed(1)}</div>
           </div>
           <div className="space-y-2">
             {frameBlocks.map((frame, idx) => {
@@ -830,7 +1066,7 @@ const NamingReport = ({ result, onNewAnalysis }) => {
               const pol = polarityLabel(frame?.energy?.polarity);
               const detail = getFrameDetailScores(frameBlocks, idx);
               return (
-                <div key={`f-row-${idx}`} className="rounded-xl border border-[var(--ns-border)] bg-[var(--ns-surface-soft)] px-3 py-3 text-sm space-y-2">
+                <div key={`f-row-${idx}`} className="rounded-xl border border-emerald-200 bg-gradient-to-r from-emerald-100/70 via-emerald-50/60 to-white px-3 py-3 text-sm space-y-2">
                   <div className="flex flex-wrap items-center justify-between gap-2">
                     <span className="font-black text-[var(--ns-accent-text)] break-keep whitespace-normal">{frameTypeLabel(frame?.type)} ({frame?.strokeSum}수)</span>
                     <div className="flex gap-1.5 shrink-0">
@@ -839,9 +1075,9 @@ const NamingReport = ({ result, onNewAnalysis }) => {
                     </div>
                   </div>
                   <div className="grid grid-cols-1 sm:grid-cols-3 gap-2 text-[11px] font-black">
-                    <div className="rounded-lg border border-[var(--ns-border)] bg-[var(--ns-surface)] px-2 py-1 text-[var(--ns-muted)]">음양 {detail.polarity.toFixed(1)}</div>
-                    <div className="rounded-lg border border-[var(--ns-border)] bg-[var(--ns-surface)] px-2 py-1 text-[var(--ns-muted)]">오행 {detail.element.toFixed(1)}</div>
-                    <div className="rounded-lg border border-[var(--ns-border)] bg-[var(--ns-surface)] px-2 py-1 text-[var(--ns-accent-text)]">최종 {detail.final.toFixed(1)}</div>
+                    <div className="rounded-lg border border-emerald-200 bg-emerald-100/75 px-2 py-1 text-emerald-800">음양 {detail.polarity.toFixed(1)}</div>
+                    <div className="rounded-lg border border-teal-200 bg-teal-100/75 px-2 py-1 text-teal-800">오행 {detail.element.toFixed(1)}</div>
+                    <div className="rounded-lg border border-emerald-300 bg-emerald-200/80 px-2 py-1 text-emerald-900">최종 {detail.final.toFixed(1)}</div>
                   </div>
                 </div>
               );
@@ -855,6 +1091,7 @@ const NamingReport = ({ result, onNewAnalysis }) => {
         subtitle="클릭해서 음양/오행 점수와 글자별 결과를 확인하세요."
         open={openCards.hanja}
         onToggle={() => toggleCard('hanja')}
+        tone="hanja"
       >
         <div className="space-y-4">
           <SummaryBadges
@@ -869,16 +1106,16 @@ const NamingReport = ({ result, onNewAnalysis }) => {
             ]}
           />
           <div className="grid grid-cols-1 md:grid-cols-3 gap-3 text-sm">
-            <div className="rounded-xl border border-[var(--ns-border)] bg-[var(--ns-surface-soft)] p-3 font-black text-[var(--ns-muted)]">음양 점수: {hanjaPolarityScore.toFixed(1)}</div>
-            <div className="rounded-xl border border-[var(--ns-border)] bg-[var(--ns-surface-soft)] p-3 font-black text-[var(--ns-muted)]">오행 점수: {hanjaElementScore.toFixed(1)}</div>
-            <div className="rounded-xl border border-[var(--ns-border)] bg-[var(--ns-surface-soft)] p-3 font-black text-[var(--ns-muted)]">최종 점수: {hanjaScore.toFixed(1)}</div>
+            <div className="rounded-xl border border-slate-300 bg-slate-100/90 p-3 font-black text-slate-800">음양 점수: {hanjaPolarityScore.toFixed(1)}</div>
+            <div className="rounded-xl border border-zinc-300 bg-zinc-100/90 p-3 font-black text-zinc-800">오행 점수: {hanjaElementScore.toFixed(1)}</div>
+            <div className="rounded-xl border border-slate-400 bg-slate-200/85 p-3 font-black text-slate-900">최종 점수: {hanjaScore.toFixed(1)}</div>
           </div>
           <div className="space-y-2">
             {hanjaBlocks.map((block, idx) => {
               const el = normalizeElement(block?.energy?.element || block?.entry?.resource_element);
               const pol = polarityLabel(block?.energy?.polarity);
               return (
-                <div key={`j-row-${idx}`} className="flex flex-wrap items-center justify-between gap-2 rounded-xl border border-[var(--ns-border)] bg-[var(--ns-surface-soft)] px-3 py-2 text-sm">
+                <div key={`j-row-${idx}`} className="flex flex-wrap items-center justify-between gap-2 rounded-xl border border-slate-300 bg-gradient-to-r from-slate-200/70 via-slate-100/60 to-white px-3 py-2 text-sm">
                   <span className="font-black text-[var(--ns-accent-text)] break-keep whitespace-normal">{block?.entry?.hanja || '-'} ({block?.entry?.strokes ?? '-'}획)</span>
                   <div className="flex gap-1.5 shrink-0">
                     <span className={`px-2 py-0.5 rounded-full border text-[11px] font-black ${el ? getElementSoftClass(el) : 'bg-slate-100 text-slate-700 border-slate-200'}`}>{el ? ELEMENT_LABEL[el] : '-'}</span>
@@ -896,6 +1133,7 @@ const NamingReport = ({ result, onNewAnalysis }) => {
         subtitle="클릭해서 음양/오행 점수와 음절별 결과를 확인하세요."
         open={openCards.hangul}
         onToggle={() => toggleCard('hangul')}
+        tone="hangul"
       >
         <div className="space-y-4">
           <SummaryBadges
@@ -910,16 +1148,16 @@ const NamingReport = ({ result, onNewAnalysis }) => {
             ]}
           />
           <div className="grid grid-cols-1 md:grid-cols-3 gap-3 text-sm">
-            <div className="rounded-xl border border-[var(--ns-border)] bg-[var(--ns-surface-soft)] p-3 font-black text-[var(--ns-muted)]">음양 점수: {hangulPolarityScore.toFixed(1)}</div>
-            <div className="rounded-xl border border-[var(--ns-border)] bg-[var(--ns-surface-soft)] p-3 font-black text-[var(--ns-muted)]">오행 점수: {hangulElementScore.toFixed(1)}</div>
-            <div className="rounded-xl border border-[var(--ns-border)] bg-[var(--ns-surface-soft)] p-3 font-black text-[var(--ns-muted)]">최종 점수: {hangulScore.toFixed(1)}</div>
+            <div className="rounded-xl border border-cyan-200 bg-cyan-100/85 p-3 font-black text-cyan-800">음양 점수: {hangulPolarityScore.toFixed(1)}</div>
+            <div className="rounded-xl border border-sky-200 bg-sky-100/85 p-3 font-black text-sky-800">오행 점수: {hangulElementScore.toFixed(1)}</div>
+            <div className="rounded-xl border border-cyan-300 bg-cyan-200/80 p-3 font-black text-cyan-900">최종 점수: {hangulScore.toFixed(1)}</div>
           </div>
           <div className="space-y-2">
             {hangulBlocks.map((block, idx) => {
               const el = normalizeElement(block?.energy?.element);
               const pol = polarityLabel(block?.energy?.polarity);
               return (
-                <div key={`h-row-${idx}`} className="flex flex-wrap items-center justify-between gap-2 rounded-xl border border-[var(--ns-border)] bg-[var(--ns-surface-soft)] px-3 py-2 text-sm">
+                <div key={`h-row-${idx}`} className="flex flex-wrap items-center justify-between gap-2 rounded-xl border border-cyan-200 bg-gradient-to-r from-cyan-100/70 via-cyan-50/60 to-white px-3 py-2 text-sm">
                   <span className="font-black text-[var(--ns-accent-text)] break-keep whitespace-normal">{block?.entry?.hangul || '-'} ({block?.entry?.nucleus || '-'})</span>
                   <div className="flex gap-1.5 shrink-0">
                     <span className={`px-2 py-0.5 rounded-full border text-[11px] font-black ${el ? getElementSoftClass(el) : 'bg-slate-100 text-slate-700 border-slate-200'}`}>{el ? ELEMENT_LABEL[el] : '-'}</span>
@@ -932,22 +1170,68 @@ const NamingReport = ({ result, onNewAnalysis }) => {
         </div>
       </CollapseCard>
 
-      <div className="flex gap-4 pt-2">
+      <div data-pdf-exclude="true" className="flex gap-4 pt-2">
         <button
-          onClick={() => window.print()}
-          className="flex-1 py-4 bg-[var(--ns-surface)] border border-[var(--ns-border)] rounded-2xl font-black text-[var(--ns-muted)] hover:bg-[var(--ns-surface-soft)] active:scale-95 transition-all"
+          type="button"
+          onClick={handleSavePdf}
+          disabled={isPdfSaving}
+          className="flex-1 py-4 bg-[var(--ns-surface)] border border-[var(--ns-border)] rounded-2xl font-black text-[var(--ns-muted)] hover:bg-[var(--ns-surface-soft)] active:scale-95 transition-all disabled:opacity-60 disabled:cursor-not-allowed"
         >
-          인쇄하기
+          {isPdfSaving ? '인쇄 준비 중...' : 'PDF로 저장하기'}
         </button>
         <button
-          onClick={() => (onNewAnalysis ? onNewAnalysis() : window.location.reload())}
+          type="button"
+          onClick={handleOpenShareDialog}
           className="flex-1 py-4 bg-[var(--ns-primary)] text-[var(--ns-accent-text)] rounded-2xl font-black shadow-lg hover:brightness-95 active:scale-95 transition-all"
         >
-          다시 분석하기
+          공유하기
         </button>
       </div>
 
     </div>
+    {isPdfSaving ? (
+      <div data-pdf-exclude="true" className="fixed inset-0 z-[120] bg-black/35 backdrop-blur-[2px] p-4 flex items-center justify-center">
+        <div className="w-full max-w-xs rounded-2xl border border-[var(--ns-border)] bg-[var(--ns-surface)] p-5 shadow-2xl text-center">
+          <div className="mx-auto h-10 w-10 rounded-full border-4 border-[var(--ns-primary)] border-t-transparent animate-spin" />
+          <h3 className="mt-3 text-base font-black text-[var(--ns-accent-text)]">인쇄 준비 중</h3>
+          <p className="mt-1 text-sm font-semibold text-[var(--ns-muted)]">인쇄 창에서 PDF로 저장해 주세요.</p>
+        </div>
+      </div>
+    ) : null}
+    {isShareDialogOpen ? (
+      <div
+        data-pdf-exclude="true"
+        className="fixed inset-0 z-[100] bg-black/35 backdrop-blur-[2px] p-4 flex items-center justify-center"
+        onClick={closeShareDialog}
+      >
+        <div
+          className="w-full max-w-sm rounded-2xl border border-[var(--ns-border)] bg-[var(--ns-surface)] p-4 shadow-2xl"
+          onClick={(event) => event.stopPropagation()}
+        >
+          <h3 className="text-base font-black text-[var(--ns-accent-text)]">공유 링크</h3>
+          <p className="text-xs font-semibold text-[var(--ns-muted)] mt-1">아래 주소를 복사해 공유하세요.</p>
+          <div className="mt-3 rounded-xl border border-[var(--ns-border)] bg-[var(--ns-surface-soft)] px-3 py-2 text-xs text-[var(--ns-text)] break-all">
+            {shareLink}
+          </div>
+          <div className="mt-3 flex gap-2">
+            <button
+              type="button"
+              onClick={handleCopyShareLink}
+              className="flex-1 py-2.5 rounded-xl bg-[var(--ns-primary)] text-[var(--ns-accent-text)] font-black text-sm hover:brightness-95 transition-all"
+            >
+              {isLinkCopied ? '복사됨' : '클립보드에 복사'}
+            </button>
+            <button
+              type="button"
+              onClick={closeShareDialog}
+              className="px-4 py-2.5 rounded-xl border border-[var(--ns-border)] bg-[var(--ns-surface-soft)] text-[var(--ns-muted)] font-black text-sm"
+            >
+              닫기
+            </button>
+          </div>
+        </div>
+      </div>
+    ) : null}
     {showScrollTop
       ? createPortal(
           <button
