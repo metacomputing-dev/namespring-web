@@ -743,26 +743,26 @@ function buildSajuModuleCandidates(): string[] {
   const isLocalDevHost = isBrowser
     && typeof window.location?.hostname === 'string'
     && /^(localhost|127\.0\.0\.1|0\.0\.0\.0)$/.test(window.location.hostname);
-  const raw = isLocalDevHost
-    // In Vite dev, prefer source directly to avoid probing dist artifacts that
-    // may contain bare imports (e.g. "fflate") outside the app graph.
-    ? [SAJU_MODULE_PATH]
-    : isBrowser
-      ? [staticPublicPath, SAJU_MODULE_PATH]
-      : [staticPublicPath, SAJU_MODULE_PATH, configuredDistPath, compiledDistPath];
 
-  if (!isBrowser || !document.baseURI) {
-    return Array.from(new Set(raw));
+  if (isBrowser) {
+    const baseUri = document.baseURI || window.location.href;
+    let publicAbsolute = staticPublicPath;
+    try {
+      publicAbsolute = new URL(staticPublicPath, baseUri).toString();
+    } catch {
+      publicAbsolute = staticPublicPath;
+    }
+
+    if (isLocalDevHost) {
+      // In local Vite dev, prefer source import first.
+      return Array.from(new Set([SAJU_MODULE_PATH, publicAbsolute, staticPublicPath]));
+    }
+
+    // In deployed browser env, only probe the public asset path.
+    return [publicAbsolute];
   }
 
-  const withAbsolute = raw.flatMap((modulePath) => {
-    try {
-      return [modulePath, new URL(modulePath, document.baseURI).toString()];
-    } catch {
-      return [modulePath];
-    }
-  });
-  return Array.from(new Set(withAbsolute));
+  return Array.from(new Set([staticPublicPath, SAJU_MODULE_PATH, configuredDistPath, compiledDistPath]));
 }
 
 async function loadSajuModule(): Promise<SajuModule | null> {
