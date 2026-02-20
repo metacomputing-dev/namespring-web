@@ -525,25 +525,28 @@ export function extractSaju(rawSajuOutput: any): SajuSummary {
   const serializedOutput = deepSerialize(rawSajuOutput) as Record<string, unknown>;
   const rawPillars       = rawSajuOutput.pillars ?? rawSajuOutput.coreResult?.pillars;
   const coreResult       = rawSajuOutput.coreResult;
+  const pillars = extractPillars(rawPillars);
+  const dayStemCode = String(pillars.day.stem.code ?? '');
+  const elementDistribution = extractElementDistribution(rawSajuOutput);
 
   return {
     ...serializedOutput,
 
-    pillars:              extractPillars(rawPillars),
+    pillars,
     timeCorrection:       extractNumericFields(coreResult, TC_KEYS) as any,
-    dayMaster:            extractDayMaster(rawPillars, rawSajuOutput.strengthResult),
+    dayMaster:            extractDayMaster(dayStemCode, rawSajuOutput.strengthResult),
     strength:             extractStrength(rawSajuOutput.strengthResult),
     yongshin:             extractYongshin(rawSajuOutput.yongshinResult),
     gyeokguk:             extractGyeokguk(rawSajuOutput.gyeokgukResult),
-    elementDistribution:   extractElementDistribution(rawSajuOutput).distribution,
-    deficientElements:    extractElementDistribution(rawSajuOutput).deficientElements,
-    excessiveElements:    extractElementDistribution(rawSajuOutput).excessiveElements,
+    elementDistribution:  elementDistribution.distribution,
+    deficientElements:    elementDistribution.deficientElements,
+    excessiveElements:    elementDistribution.excessiveElements,
     cheonganRelations:    extractCheonganRelations(rawSajuOutput),
     hapHwaEvaluations:    extractHapHwaEvaluations(rawSajuOutput),
     jijiRelations:        extractJijiRelations(rawSajuOutput),
     sibiUnseong:          extractSibiUnseong(rawSajuOutput),
     gongmang:             extractGongmang(rawSajuOutput),
-    tenGodAnalysis:       extractTenGodAnalysis(rawSajuOutput.tenGodAnalysis),
+    tenGodAnalysis:       extractTenGodAnalysis(rawSajuOutput.tenGodAnalysis, dayStemCode),
     shinsalHits:          extractShinsalHits(rawSajuOutput),
     shinsalComposites:    extractShinsalComposites(rawSajuOutput),
     palaceAnalysis:       extractPalaceAnalysis(rawSajuOutput),
@@ -582,12 +585,27 @@ function extractPillars(rawPillars: any): Record<'year' | 'month' | 'day' | 'hou
 //  Day master — the stem of the day pillar
 // ---------------------------------------------------------------------------
 
-function extractDayMaster(rawPillars: any, strengthResult: any) {
-  const dayMasterCode = String(rawPillars?.day?.cheongan ?? '');
-  const dayMasterInfo = CHEONGAN[dayMasterCode];
+function normalizeElementCode(value: unknown): string {
+  const code = String(value ?? '').trim().toUpperCase();
+  if (!code) return '';
+  if (code === 'WOOD' || code === 'FIRE' || code === 'EARTH' || code === 'METAL' || code === 'WATER') return code;
+  if (code === '목' || code === '木') return 'WOOD';
+  if (code === '화' || code === '火') return 'FIRE';
+  if (code === '토' || code === '土') return 'EARTH';
+  if (code === '금' || code === '金') return 'METAL';
+  if (code === '수' || code === '水') return 'WATER';
+  return code;
+}
+
+function extractDayMaster(dayStemCode: string, strengthResult: any) {
+  const dayMasterInfo = CHEONGAN[dayStemCode];
+  // Theory-first: day master (일간) is defined by the day stem itself.
+  // Keep strengthResult as a fallback only when stem metadata is unavailable.
+  const canonicalElement = dayMasterInfo?.element ?? '';
+  const fallbackElement = normalizeElementCode(strengthResult?.dayMasterElement);
   return {
-    stem:     dayMasterCode,
-    element:  strengthResult?.dayMasterElement ? String(strengthResult.dayMasterElement) : (dayMasterInfo?.element ?? ''),
+    stem:     dayStemCode,
+    element:  canonicalElement || fallbackElement,
     polarity: dayMasterInfo?.polarity ?? '',
   };
 }
@@ -688,11 +706,11 @@ function extractGyeokguk(gyeokgukResult: any) {
 //  Ten God analysis (십성 분석)
 // ---------------------------------------------------------------------------
 
-function extractTenGodAnalysis(tenGodResult: any) {
+function extractTenGodAnalysis(tenGodResult: any, dayStemCode: string) {
   if (!tenGodResult?.byPosition) return null;
 
   return {
-    dayMaster: String(tenGodResult.dayMaster ?? ''),
+    dayMaster: dayStemCode || String(tenGodResult.dayMaster ?? ''),
     byPosition: Object.fromEntries(
       Object.entries(tenGodResult.byPosition).map(([position, positionInfo]) => {
         const info = positionInfo as any;
