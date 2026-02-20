@@ -76,6 +76,19 @@ function formatTwoDigits(value) {
   return String(value).padStart(2, '0');
 }
 
+function clampMinute(value) {
+  return Math.max(0, Math.min(59, Number(value) || 0));
+}
+
+const WHEEL_ITEM_HEIGHT = 34;
+const WHEEL_VISIBLE_ROWS = 3;
+const WHEEL_VIEWPORT_HEIGHT = WHEEL_ITEM_HEIGHT * WHEEL_VISIBLE_ROWS;
+const WHEEL_SPACER_HEIGHT = (WHEEL_VIEWPORT_HEIGHT - WHEEL_ITEM_HEIGHT) / 2;
+
+function clampWheelIndex(value, maxIndex) {
+  return Math.max(0, Math.min(maxIndex, Number(value) || 0));
+}
+
 function formatDateToIso(date) {
   return `${String(date.getFullYear()).padStart(4, '0')}-${formatTwoDigits(date.getMonth() + 1)}-${formatTwoDigits(date.getDate())}`;
 }
@@ -222,6 +235,7 @@ function InputForm({
   const [draftBirthDate, setDraftBirthDate] = useState(null);
   const [draftBirthMonth, setDraftBirthMonth] = useState(null);
   const [draftBirthYear, setDraftBirthYear] = useState('');
+  const [draftBirthYearPreview, setDraftBirthYearPreview] = useState('');
   const [draftBirthHour, setDraftBirthHour] = useState(12);
   const [draftBirthMinute, setDraftBirthMinute] = useState(0);
   const [isBirthYearStepDone, setIsBirthYearStepDone] = useState(false);
@@ -230,6 +244,14 @@ function InputForm({
   const birthStepRef = useRef(null);
   const genderStepRef = useRef(null);
   const submitStepRef = useRef(null);
+  const yearWheelRef = useRef(null);
+  const hourWheelRef = useRef(null);
+  const minuteWheelRef = useRef(null);
+  const yearWheelTimerRef = useRef(null);
+  const yearCommitTimerRef = useRef(null);
+  const hourWheelTimerRef = useRef(null);
+  const minuteWheelTimerRef = useRef(null);
+  const yearWheelSyncRef = useRef(false);
   const hasAutoScrollInitializedRef = useRef(false);
   const prevStepVisibilityRef = useRef({
     isNameTextValid: false,
@@ -249,7 +271,7 @@ function InputForm({
   const isBirthDateTimeValid = isBirthDateValid && isBirthTimeValid;
   const isGenderDone = gender !== '';
   const hourOptions = useMemo(() => Array.from({ length: 24 }, (_, value) => value), []);
-  const minuteOptions = useMemo(() => [0, 10, 20, 30, 40, 50], []);
+  const minuteOptions = useMemo(() => Array.from({ length: 60 }, (_, value) => value), []);
   const selectableYears = useMemo(() => {
     const startYear = 1900;
     const endYear = new Date().getFullYear();
@@ -276,6 +298,15 @@ function InputForm({
   useEffect(() => {
     setSelectedGivenNameEntries((prev) => new Array(givenNameHangul.length).fill(null).map((_, i) => prev[i] || null));
   }, [givenNameHangul]);
+
+  useEffect(() => {
+    return () => {
+      if (yearWheelTimerRef.current) window.clearTimeout(yearWheelTimerRef.current);
+      if (yearCommitTimerRef.current) window.clearTimeout(yearCommitTimerRef.current);
+      if (hourWheelTimerRef.current) window.clearTimeout(hourWheelTimerRef.current);
+      if (minuteWheelTimerRef.current) window.clearTimeout(minuteWheelTimerRef.current);
+    };
+  }, []);
 
   const isSurnameSelectionDone =
     selectedSurnameEntries.length === surnameHangul.length
@@ -350,11 +381,14 @@ function InputForm({
     const existing = toPickerDateValue(birthDate, birthTime);
     const base = existing ?? new Date();
     const hasExistingBirthDate = Boolean(existing);
+    const initialYear = hasExistingBirthDate ? base.getFullYear() : new Date().getFullYear();
     setDraftBirthDate(new Date(base.getFullYear(), base.getMonth(), base.getDate()));
     setDraftBirthMonth(new Date(base.getFullYear(), base.getMonth(), 1));
-    setDraftBirthYear(hasExistingBirthDate ? String(base.getFullYear()) : '');
+    setDraftBirthYear(String(initialYear));
+    setDraftBirthYearPreview(String(initialYear));
     setDraftBirthHour(base.getHours());
-    setDraftBirthMinute(Math.floor(base.getMinutes() / 10) * 10);
+    const normalizedMinute = clampMinute(base.getMinutes());
+    setDraftBirthMinute(normalizedMinute);
     setIsBirthYearStepDone(hasExistingBirthDate);
     setIsBirthDateStepDone(hasExistingBirthDate);
     setIsBirthPickerOpen(true);
@@ -362,6 +396,10 @@ function InputForm({
   };
 
   const closeBirthPicker = () => {
+    if (yearCommitTimerRef.current) {
+      window.clearTimeout(yearCommitTimerRef.current);
+      yearCommitTimerRef.current = null;
+    }
     setIsBirthPickerVisible(false);
     window.setTimeout(() => setIsBirthPickerOpen(false), 220);
   };
@@ -379,17 +417,68 @@ function InputForm({
     closeBirthPicker();
   };
 
-  const handleDraftBirthYearChange = (value) => {
-    const nextYear = Number(value);
+  const handleDraftBirthYearSelect = (yearValue) => {
+    const nextYear = Number(yearValue);
     if (!Number.isInteger(nextYear)) return;
+    if (String(nextYear) === draftBirthYear) return;
 
     const baseDate = draftBirthDate ?? draftBirthMonth ?? new Date();
     const month = baseDate.getMonth();
     setDraftBirthYear(String(nextYear));
+    setDraftBirthYearPreview(String(nextYear));
     setDraftBirthMonth(new Date(nextYear, month, 1));
     setDraftBirthDate(null);
     setIsBirthYearStepDone(true);
     setIsBirthDateStepDone(false);
+  };
+
+  const scheduleDraftBirthYearCommit = (yearValue) => {
+    if (yearCommitTimerRef.current) {
+      window.clearTimeout(yearCommitTimerRef.current);
+    }
+
+    yearCommitTimerRef.current = window.setTimeout(() => {
+      handleDraftBirthYearSelect(yearValue);
+      yearCommitTimerRef.current = null;
+    }, 500);
+  };
+
+  useEffect(() => {
+    if (!isBirthPickerOpen) return;
+    const selectedYear = Number(draftBirthYear);
+    if (!Number.isInteger(selectedYear)) return;
+    const selectedIndex = selectableYears.indexOf(selectedYear);
+    if (selectedIndex < 0) return;
+
+    yearWheelSyncRef.current = true;
+    const timer = window.setTimeout(() => {
+      yearWheelRef.current?.scrollTo({ top: selectedIndex * WHEEL_ITEM_HEIGHT, behavior: 'auto' });
+      window.setTimeout(() => {
+        yearWheelSyncRef.current = false;
+      }, 120);
+    }, 0);
+    return () => window.clearTimeout(timer);
+  }, [isBirthPickerOpen, draftBirthYear, selectableYears]);
+
+  const handleYearWheelScroll = () => {
+    if (yearWheelSyncRef.current) return;
+    const wheel = yearWheelRef.current;
+    if (!wheel) return;
+
+    const selectedIndex = clampWheelIndex(
+      Math.round(wheel.scrollTop / WHEEL_ITEM_HEIGHT),
+      Math.max(0, selectableYears.length - 1),
+    );
+    const nextYear = selectableYears[selectedIndex];
+    if (String(nextYear) !== draftBirthYearPreview) {
+      setDraftBirthYearPreview(String(nextYear));
+    }
+    scheduleDraftBirthYearCommit(nextYear);
+
+    if (yearWheelTimerRef.current) window.clearTimeout(yearWheelTimerRef.current);
+    yearWheelTimerRef.current = window.setTimeout(() => {
+      wheel.scrollTo({ top: selectedIndex * WHEEL_ITEM_HEIGHT, behavior: 'smooth' });
+    }, 90);
   };
 
   const handleNativeKoreanNameToggle = (checked) => {
@@ -409,6 +498,41 @@ function InputForm({
     if (!isValidBirthTime(birthTime)) {
       setBirthTime('12:00');
     }
+  };
+
+  useEffect(() => {
+    if (!isBirthPickerOpen || !isBirthYearStepDone || !isBirthDateStepDone || isBirthTimeUnknown) return;
+    const timer = window.setTimeout(() => {
+      const hourWheel = hourWheelRef.current;
+      const minuteWheel = minuteWheelRef.current;
+      if (hourWheel) hourWheel.scrollTo({ top: draftBirthHour * WHEEL_ITEM_HEIGHT, behavior: 'auto' });
+      if (minuteWheel) minuteWheel.scrollTo({ top: draftBirthMinute * WHEEL_ITEM_HEIGHT, behavior: 'auto' });
+    }, 0);
+    return () => window.clearTimeout(timer);
+  }, [isBirthPickerOpen, isBirthYearStepDone, isBirthDateStepDone, isBirthTimeUnknown, draftBirthHour, draftBirthMinute]);
+
+  const handleHourWheelScroll = () => {
+    const wheel = hourWheelRef.current;
+    if (!wheel) return;
+
+    if (hourWheelTimerRef.current) window.clearTimeout(hourWheelTimerRef.current);
+    hourWheelTimerRef.current = window.setTimeout(() => {
+      const settledHour = clampWheelIndex(Math.round(wheel.scrollTop / WHEEL_ITEM_HEIGHT), 23);
+      wheel.scrollTo({ top: settledHour * WHEEL_ITEM_HEIGHT, behavior: 'auto' });
+      setDraftBirthHour((prev) => (prev === settledHour ? prev : settledHour));
+    }, 120);
+  };
+
+  const handleMinuteWheelScroll = () => {
+    const wheel = minuteWheelRef.current;
+    if (!wheel) return;
+
+    if (minuteWheelTimerRef.current) window.clearTimeout(minuteWheelTimerRef.current);
+    minuteWheelTimerRef.current = window.setTimeout(() => {
+      const settledMinute = clampMinute(Math.round(wheel.scrollTop / WHEEL_ITEM_HEIGHT));
+      wheel.scrollTo({ top: settledMinute * WHEEL_ITEM_HEIGHT, behavior: 'auto' });
+      setDraftBirthMinute((prev) => (prev === settledMinute ? prev : settledMinute));
+    }, 120);
   };
 
   const searchHanja = async (char, type, index) => {
@@ -474,18 +598,18 @@ function InputForm({
 
   return (
     <>
-      <div className="space-y-8 animate-in fade-in duration-500">
-        <section className="space-y-6 bg-[var(--ns-surface-soft)] border border-[var(--ns-border)] rounded-3xl p-6">
+      <div className="space-y-4 md:space-y-8 animate-in fade-in duration-500">
+        <section className="space-y-3 md:space-y-6 bg-[var(--ns-surface-soft)] border border-[var(--ns-border)] rounded-3xl p-3 md:p-6">
           <h3 className="text-base font-black text-[var(--ns-accent-text)]">당신의 이름을 알려주세요.</h3>
 
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-2 md:gap-4">
             <div className="md:col-span-1">
               <label className="text-[11px] font-black text-[var(--ns-muted)] mb-2 block">성</label>
               <input
                 type="text"
                 value={surnameInput}
                 onChange={(e) => setSurnameInput(limitLength(e.target.value.replace(/\s/g, ''), 2))}
-                className="w-full p-4 bg-[var(--ns-surface)] border border-[var(--ns-border)] rounded-2xl text-2xl font-black text-center text-[var(--ns-text)]"
+                className="w-full p-2.5 md:p-4 bg-[var(--ns-surface)] border border-[var(--ns-border)] rounded-2xl text-2xl font-black text-center text-[var(--ns-text)]"
                 maxLength={2}
                 placeholder="성"
               />
@@ -497,7 +621,7 @@ function InputForm({
                 type="text"
                 value={givenNameInput}
                 onChange={(e) => setGivenNameInput(limitLength(e.target.value.replace(/\s/g, ''), 4))}
-                className="w-full p-4 bg-[var(--ns-surface)] border border-[var(--ns-border)] rounded-2xl text-2xl font-black text-center tracking-widest text-[var(--ns-text)]"
+                className="w-full p-2.5 md:p-4 bg-[var(--ns-surface)] border border-[var(--ns-border)] rounded-2xl text-2xl font-black text-center tracking-widest text-[var(--ns-text)]"
                 maxLength={4}
                 placeholder="이름"
               />
@@ -505,12 +629,12 @@ function InputForm({
           </div>
 
           {isNameTextValid && (
-            <div ref={nameStepRef} className="space-y-3">
-              <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
+            <div ref={nameStepRef} className="space-y-2 md:space-y-3">
+              <div className="grid grid-cols-1 md:grid-cols-3 gap-2 md:gap-4">
                 {surnameHangul.length >= 1 && isSurnameValid && (
                   <div className={`animate-in fade-in duration-200 ${isNativeKoreanName ? 'md:col-span-3' : 'md:col-span-1'}`}>
                     <p className="text-[11px] font-black text-[var(--ns-muted)] mb-2">성 한자 고르기</p>
-                    <div className="flex gap-2 min-h-[84px]">
+                    <div className="flex gap-1 md:gap-2 min-h-[64px] md:min-h-[84px]">
                       {surnameHangul.split('').map((char, i) => (
                         <button
                           key={`${char}-${i}`}
@@ -529,12 +653,12 @@ function InputForm({
                 {!isNativeKoreanName && givenNameHangul.length >= 1 && isGivenNameValid && (
                   <div className="animate-in fade-in duration-200 md:col-span-2">
                     <p className="text-[11px] font-black text-[var(--ns-muted)] mb-2">이름 한자 고르기</p>
-                    <div className="grid grid-cols-2 gap-2 min-h-[84px]">
+                    <div className="grid grid-cols-2 gap-1 md:gap-2 min-h-[64px] md:min-h-[84px]">
                       {givenNameHangul.split('').map((char, i) => (
                         <button
                           key={`${char}-${i}`}
                           onClick={() => searchHanja(char, 'first', i)}
-                          className="h-20 border-2 border-dashed border-[var(--ns-border)] rounded-2xl flex items-center justify-center hover:border-[var(--ns-primary)] bg-[var(--ns-surface)]"
+                          className="h-14 md:h-20 border-2 border-dashed border-[var(--ns-border)] rounded-2xl flex items-center justify-center hover:border-[var(--ns-primary)] bg-[var(--ns-surface)]"
                         >
                           {selectedGivenNameEntries[i]
                             ? <span className="text-3xl font-serif font-black text-[var(--ns-text)]">{selectedGivenNameEntries[i].hanja}</span>
@@ -560,29 +684,42 @@ function InputForm({
         </section>
 
         {isNameSelectionDone && (
-          <section ref={birthStepRef} className="space-y-4 bg-[var(--ns-surface-soft)] border border-[var(--ns-border)] rounded-3xl p-6 animate-in fade-in duration-300">
+          <section ref={birthStepRef} className="space-y-2 md:space-y-4 bg-[var(--ns-surface-soft)] border border-[var(--ns-border)] rounded-3xl p-3 md:p-6 animate-in fade-in duration-300">
             <h3 className="text-base font-black text-[var(--ns-accent-text)]">{`${surnameHangul}${givenNameHangul}`}님이 언제 태어났는지 알고싶어요.</h3>
             <label className="text-[11px] font-black text-[var(--ns-muted)] block">생년월일시분</label>
-            <div className="space-y-3">
+            <div className="space-y-2 md:space-y-3">
               <button
                 type="button"
                 onClick={openBirthPicker}
-                className="w-full p-4 bg-[var(--ns-surface)] border border-[var(--ns-border)] rounded-2xl font-bold text-left text-[var(--ns-text)] flex items-center justify-between"
+                className="w-full p-2.5 md:p-4 bg-[var(--ns-surface)] border border-[var(--ns-border)] rounded-2xl font-bold text-left text-[var(--ns-text)] flex items-center justify-between"
               >
                 <span>{formatBirthDateTimeForDisplay(birthDate, birthTime, isBirthTimeUnknown, isSolarCalendar)}</span>
                 <span className="text-xs font-black text-[var(--ns-muted)]">선택</span>
               </button>
-              <div className="flex flex-wrap items-center gap-4">
-                <label className="flex items-center gap-2 text-xs font-black text-[var(--ns-muted)] select-none">
-                  <input
-                    type="checkbox"
-                    checked={isSolarCalendar}
-                    onChange={(e) => setIsSolarCalendar(e.target.checked)}
-                    className="h-4 w-4 rounded border-[var(--ns-border)] accent-[var(--ns-primary)]"
-                  />
-                  양력
-                </label>
-                <label className="flex items-center gap-2 text-xs font-black text-[var(--ns-muted)] select-none">
+              <div className="flex items-center gap-2 md:gap-4 w-full">
+                <fieldset className="flex items-center gap-2 md:gap-3 shrink-0">
+                  <label className="flex items-center gap-2 text-xs font-black text-[var(--ns-muted)] select-none">
+                    <input
+                      type="radio"
+                      name="calendarType"
+                      checked={isSolarCalendar}
+                      onChange={() => setIsSolarCalendar(true)}
+                      className="h-4 w-4 border-[var(--ns-border)] accent-[var(--ns-primary)]"
+                    />
+                    양력
+                  </label>
+                  <label className="flex items-center gap-2 text-xs font-black text-[var(--ns-muted)] select-none">
+                    <input
+                      type="radio"
+                      name="calendarType"
+                      checked={!isSolarCalendar}
+                      onChange={() => setIsSolarCalendar(false)}
+                      className="h-4 w-4 border-[var(--ns-border)] accent-[var(--ns-primary)]"
+                    />
+                    음력
+                  </label>
+                </fieldset>
+                <label className="ml-auto flex items-center gap-2 text-xs font-black text-[var(--ns-muted)] select-none">
                   <input
                     type="checkbox"
                     checked={isBirthTimeUnknown}
@@ -600,20 +737,20 @@ function InputForm({
         )}
 
         {isBirthDateTimeValid && (
-          <section ref={genderStepRef} className="bg-[var(--ns-surface-soft)] border border-[var(--ns-border)] rounded-3xl p-6 animate-in fade-in duration-300">
-            <h3 className="text-base font-black text-[var(--ns-accent-text)] mb-3">성별은요?</h3>
-            <div className="grid grid-cols-2 gap-3">
+          <section ref={genderStepRef} className="bg-[var(--ns-surface-soft)] border border-[var(--ns-border)] rounded-3xl p-3 md:p-6 animate-in fade-in duration-300">
+            <h3 className="text-base font-black text-[var(--ns-accent-text)] mb-2 md:mb-3">성별은요?</h3>
+            <div className="grid grid-cols-2 gap-2 md:gap-3">
               <button
                 type="button"
                 onClick={() => setGender('female')}
-                className={`py-3 rounded-2xl font-black text-sm border ${gender === 'female' ? 'bg-[var(--ns-primary)] text-[var(--ns-accent-text)] border-[var(--ns-primary)]' : 'bg-[var(--ns-surface)] text-[var(--ns-muted)] border-[var(--ns-border)]'}`}
+                className={`py-2 md:py-3 rounded-2xl font-black text-sm border ${gender === 'female' ? 'bg-[var(--ns-primary)] text-[var(--ns-accent-text)] border-[var(--ns-primary)]' : 'bg-[var(--ns-surface)] text-[var(--ns-muted)] border-[var(--ns-border)]'}`}
               >
                 여성
               </button>
               <button
                 type="button"
                 onClick={() => setGender('male')}
-                className={`py-3 rounded-2xl font-black text-sm border ${gender === 'male' ? 'bg-[var(--ns-primary)] text-[var(--ns-accent-text)] border-[var(--ns-primary)]' : 'bg-[var(--ns-surface)] text-[var(--ns-muted)] border-[var(--ns-border)]'}`}
+                className={`py-2 md:py-3 rounded-2xl font-black text-sm border ${gender === 'male' ? 'bg-[var(--ns-primary)] text-[var(--ns-accent-text)] border-[var(--ns-primary)]' : 'bg-[var(--ns-surface)] text-[var(--ns-muted)] border-[var(--ns-border)]'}`}
               >
                 남성
               </button>
@@ -626,7 +763,7 @@ function InputForm({
             ref={submitStepRef}
             onClick={handleSubmit}
             disabled={!isDbReady}
-            className="w-full py-6 bg-[var(--ns-primary)] text-[var(--ns-accent-text)] rounded-[2rem] font-black text-lg hover:brightness-95 transition-all disabled:opacity-60 disabled:cursor-not-allowed animate-in fade-in duration-300"
+            className="w-full py-3 md:py-6 bg-[var(--ns-primary)] text-[var(--ns-accent-text)] rounded-[2rem] font-black text-base md:text-lg hover:brightness-95 transition-all disabled:opacity-60 disabled:cursor-not-allowed animate-in fade-in duration-300"
           >
             {submitLabel}
           </button>
@@ -635,36 +772,56 @@ function InputForm({
 
       {isBirthPickerOpen && (
         <div
-          className={`fixed inset-0 backdrop-blur-sm flex items-center justify-center p-3 md:p-4 z-50 transition-colors duration-200 ${isBirthPickerVisible ? 'bg-black/35' : 'bg-black/0'}`}
+          className={`fixed inset-0 backdrop-blur-sm flex items-center justify-center p-2 md:p-4 z-50 transition-colors duration-200 ${isBirthPickerVisible ? 'bg-black/35' : 'bg-black/0'}`}
           onClick={closeBirthPicker}
         >
           <div
             className={`bg-[var(--ns-surface)] rounded-[2rem] w-full max-w-md max-h-[92vh] overflow-y-auto shadow-2xl border border-[var(--ns-border)] transition-all duration-200 ${isBirthPickerVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-2'}`}
             onClick={(event) => event.stopPropagation()}
           >
-            <div className="px-5 py-4 bg-[var(--ns-surface-soft)] border-b border-[var(--ns-border)] flex justify-between items-center">
+            <div className="px-3 py-2.5 md:px-5 md:py-4 bg-[var(--ns-surface-soft)] border-b border-[var(--ns-border)] flex justify-between items-center">
               <h3 className="font-black text-[var(--ns-text)] tracking-tight">생년월일시분 선택</h3>
               <button onClick={closeBirthPicker} className="text-[var(--ns-muted)] hover:text-[var(--ns-primary)] text-2xl font-bold">&times;</button>
             </div>
 
-            <div className="px-4 py-3 space-y-3">
-              <div className="mx-auto w-full max-w-[266px] space-y-3">
+            <div className="px-2.5 py-2 md:px-4 md:py-3 space-y-2 md:space-y-3">
+              <div className="mx-auto w-full max-w-[220px] md:max-w-[266px] space-y-2 md:space-y-3">
                 <div className="space-y-1 animate-in fade-in duration-150">
                   <label className="text-[11px] font-black text-[var(--ns-muted)] block">년도 선택</label>
-                  <select
-                    value={draftBirthYear}
-                    onChange={(event) => handleDraftBirthYearChange(event.target.value)}
-                    className="w-full px-3 py-2 bg-[var(--ns-surface-soft)] border border-[var(--ns-border)] rounded-xl text-sm font-bold text-[var(--ns-text)]"
-                  >
-                    <option value="" disabled>
-                      년도 선택
-                    </option>
-                    {selectableYears.map((year) => (
-                      <option key={year} value={year}>
-                        {year}년
-                      </option>
-                    ))}
-                  </select>
+                  <div className="relative rounded-xl border border-[var(--ns-border)] bg-[var(--ns-surface-soft)] overflow-hidden">
+                    <div className="pointer-events-none absolute inset-x-1 top-1/2 -translate-y-1/2 h-[34px] rounded-lg border border-[var(--ns-border)] bg-white/55" />
+                    <div
+                      ref={yearWheelRef}
+                      onScroll={handleYearWheelScroll}
+                      className="ns-wheel-scroll relative z-10 overflow-y-auto"
+                      style={{ height: `${WHEEL_VIEWPORT_HEIGHT}px` }}
+                    >
+                      <div style={{ height: `${WHEEL_SPACER_HEIGHT}px` }} />
+                      {selectableYears.map((year) => (
+                        <button
+                          key={`year-wheel-${year}`}
+                          type="button"
+                          onClick={() => {
+                            if (yearCommitTimerRef.current) {
+                              window.clearTimeout(yearCommitTimerRef.current);
+                              yearCommitTimerRef.current = null;
+                            }
+                            setDraftBirthYearPreview(String(year));
+                            handleDraftBirthYearSelect(year);
+                            const index = selectableYears.indexOf(year);
+                            if (index >= 0) {
+                              yearWheelRef.current?.scrollTo({ top: index * WHEEL_ITEM_HEIGHT, behavior: 'smooth' });
+                            }
+                          }}
+                          className={`w-full text-center font-black text-sm ${String(year) === draftBirthYearPreview ? 'text-[var(--ns-accent-text)]' : 'text-[var(--ns-muted)]'}`}
+                          style={{ height: `${WHEEL_ITEM_HEIGHT}px` }}
+                        >
+                          {year}년
+                        </button>
+                      ))}
+                      <div style={{ height: `${WHEEL_SPACER_HEIGHT}px` }} />
+                    </div>
+                  </div>
                 </div>
 
                 {isBirthYearStepDone && (
@@ -706,45 +863,75 @@ function InputForm({
                 {isBirthYearStepDone && isBirthDateStepDone && !isBirthTimeUnknown && (
                   <div className="space-y-2 animate-in fade-in duration-200">
                     <p className="text-[11px] font-black text-[var(--ns-muted)]">시/분 선택</p>
-                    <div className="grid grid-cols-2 gap-2">
-                      <label className="space-y-0.5">
+                    <div className="grid grid-cols-2 gap-1.5 md:gap-2">
+                      <label className="block min-w-0 space-y-0.5">
                         <span className="text-[11px] font-black text-[var(--ns-muted)] block">시</span>
-                        <select
-                          value={draftBirthHour}
-                          onChange={(event) => setDraftBirthHour(Number(event.target.value))}
-                          className="w-full px-3 py-2.5 bg-[var(--ns-surface-soft)] border border-[var(--ns-border)] rounded-xl text-sm font-bold text-[var(--ns-text)]"
-                        >
-                          {hourOptions.map((hour) => (
-                            <option key={hour} value={hour}>
-                              {formatTwoDigits(hour)}시
-                            </option>
-                          ))}
-                        </select>
+                        <div className="relative rounded-xl border border-[var(--ns-border)] bg-[var(--ns-surface-soft)] overflow-hidden">
+                          <div className="pointer-events-none absolute inset-x-1 top-1/2 -translate-y-1/2 h-[34px] rounded-lg border border-[var(--ns-border)] bg-white/55" />
+                          <div
+                            ref={hourWheelRef}
+                            onScroll={handleHourWheelScroll}
+                            className="ns-wheel-scroll relative z-10 overflow-y-auto"
+                            style={{ height: `${WHEEL_VIEWPORT_HEIGHT}px` }}
+                          >
+                            <div style={{ height: `${WHEEL_SPACER_HEIGHT}px` }} />
+                            {hourOptions.map((hour) => (
+                              <button
+                                key={`hour-wheel-${hour}`}
+                                type="button"
+                                onClick={() => {
+                                  setDraftBirthHour(hour);
+                                  hourWheelRef.current?.scrollTo({ top: hour * WHEEL_ITEM_HEIGHT, behavior: 'smooth' });
+                                }}
+                                className={`w-full text-center font-black text-sm ${hour === draftBirthHour ? 'text-[var(--ns-accent-text)]' : 'text-[var(--ns-muted)]'}`}
+                                style={{ height: `${WHEEL_ITEM_HEIGHT}px` }}
+                              >
+                                {formatTwoDigits(hour)}시
+                              </button>
+                            ))}
+                            <div style={{ height: `${WHEEL_SPACER_HEIGHT}px` }} />
+                          </div>
+                        </div>
                       </label>
-                      <label className="space-y-0.5">
+                      <label className="block min-w-0 space-y-0.5">
                         <span className="text-[11px] font-black text-[var(--ns-muted)] block">분</span>
-                        <select
-                          value={draftBirthMinute}
-                          onChange={(event) => setDraftBirthMinute(Number(event.target.value))}
-                          className="w-full px-3 py-2.5 bg-[var(--ns-surface-soft)] border border-[var(--ns-border)] rounded-xl text-sm font-bold text-[var(--ns-text)]"
-                        >
-                          {minuteOptions.map((minute) => (
-                            <option key={minute} value={minute}>
-                              {formatTwoDigits(minute)}분
-                            </option>
-                          ))}
-                        </select>
+                        <div className="relative rounded-xl border border-[var(--ns-border)] bg-[var(--ns-surface-soft)] overflow-hidden">
+                          <div className="pointer-events-none absolute inset-x-1 top-1/2 -translate-y-1/2 h-[34px] rounded-lg border border-[var(--ns-border)] bg-white/55" />
+                          <div
+                            ref={minuteWheelRef}
+                            onScroll={handleMinuteWheelScroll}
+                            className="ns-wheel-scroll relative z-10 overflow-y-auto"
+                            style={{ height: `${WHEEL_VIEWPORT_HEIGHT}px` }}
+                          >
+                            <div style={{ height: `${WHEEL_SPACER_HEIGHT}px` }} />
+                            {minuteOptions.map((minute) => (
+                              <button
+                                key={`minute-wheel-${minute}`}
+                                type="button"
+                                onClick={() => {
+                                  setDraftBirthMinute(minute);
+                                  minuteWheelRef.current?.scrollTo({ top: minute * WHEEL_ITEM_HEIGHT, behavior: 'smooth' });
+                                }}
+                                className={`w-full text-center font-black text-sm ${minute === draftBirthMinute ? 'text-[var(--ns-accent-text)]' : 'text-[var(--ns-muted)]'}`}
+                                style={{ height: `${WHEEL_ITEM_HEIGHT}px` }}
+                              >
+                                {formatTwoDigits(minute)}분
+                              </button>
+                            ))}
+                            <div style={{ height: `${WHEEL_SPACER_HEIGHT}px` }} />
+                          </div>
+                        </div>
                       </label>
                     </div>
                   </div>
                 )}
               </div>
 
-              <div className="grid grid-cols-2 gap-2">
+              <div className="grid grid-cols-2 gap-1.5 md:gap-2">
                 <button
                   type="button"
                   onClick={closeBirthPicker}
-                  className="py-2.5 rounded-2xl font-black text-sm border bg-[var(--ns-surface-soft)] text-[var(--ns-muted)] border-[var(--ns-border)]"
+                  className="py-2 md:py-2.5 rounded-2xl font-black text-sm border bg-[var(--ns-surface-soft)] text-[var(--ns-muted)] border-[var(--ns-border)]"
                 >
                   취소
                 </button>
@@ -752,7 +939,7 @@ function InputForm({
                   type="button"
                   onClick={applyBirthPicker}
                   disabled={!isBirthYearStepDone || !isBirthDateStepDone}
-                  className="py-2.5 rounded-2xl font-black text-sm border bg-[var(--ns-primary)] text-[var(--ns-accent-text)] border-[var(--ns-primary)] disabled:opacity-50 disabled:cursor-not-allowed"
+                  className="py-2 md:py-2.5 rounded-2xl font-black text-sm border bg-[var(--ns-primary)] text-[var(--ns-accent-text)] border-[var(--ns-primary)] disabled:opacity-50 disabled:cursor-not-allowed"
                 >
                   적용
                 </button>
@@ -763,33 +950,33 @@ function InputForm({
       )}
 
       {isModalOpen && (
-        <div className={`fixed inset-0 backdrop-blur-sm flex items-center justify-center p-4 z-50 transition-colors duration-200 ${isModalVisible ? 'bg-black/35' : 'bg-black/0'}`}>
-          <div className={`bg-[var(--ns-surface)] rounded-[2.5rem] w-full max-w-md overflow-hidden shadow-2xl border border-[var(--ns-border)] transition-all duration-200 ${isModalVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-2'}`}>
-            <div className="p-6 bg-[var(--ns-surface-soft)] border-b border-[var(--ns-border)] flex justify-between items-center">
+        <div className={`fixed inset-0 backdrop-blur-sm flex items-center justify-center p-2 md:p-4 z-50 transition-colors duration-200 ${isModalVisible ? 'bg-black/35' : 'bg-black/0'}`}>
+          <div className={`bg-[var(--ns-surface)] rounded-[2rem] md:rounded-[2.5rem] w-full max-w-md overflow-hidden shadow-2xl border border-[var(--ns-border)] transition-all duration-200 ${isModalVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-2'}`}>
+            <div className="p-3 md:p-6 bg-[var(--ns-surface-soft)] border-b border-[var(--ns-border)] flex justify-between items-center">
               <h3 className="font-black text-[var(--ns-text)] tracking-tight">'{modalTarget.char}' 한자 고르기</h3>
               <button onClick={closeModal} className="text-[var(--ns-muted)] hover:text-[var(--ns-primary)] text-2xl font-bold">&times;</button>
             </div>
 
-            <div className="px-4 pt-4">
+            <div className="px-2.5 pt-2.5 md:px-4 md:pt-4">
               <input
                 type="text"
                 value={hanjaSearchKeyword}
                 onChange={(e) => setHanjaSearchKeyword(e.target.value)}
                 placeholder="한글로 뜻 검색"
-                className="w-full p-3 bg-[var(--ns-surface-soft)] border border-[var(--ns-border)] rounded-xl text-sm font-semibold text-[var(--ns-text)]"
+                className="w-full p-2.5 md:p-3 bg-[var(--ns-surface-soft)] border border-[var(--ns-border)] rounded-xl text-sm font-semibold text-[var(--ns-text)]"
               />
             </div>
 
-            <div className="p-4 max-h-[50vh] overflow-y-auto space-y-2">
+            <div className="p-2.5 md:p-4 max-h-[50vh] overflow-y-auto space-y-1.5 md:space-y-2">
               {filteredHanjaOptions.length === 0 && (
-                <div className="p-6 text-center text-sm font-semibold text-[var(--ns-muted)]">
+                <div className="p-3 md:p-6 text-center text-sm font-semibold text-[var(--ns-muted)]">
                   검색 결과가 없습니다.
                 </div>
               )}
               {filteredHanjaOptions.map((item, idx) => (
-                <button key={idx} onClick={() => handleSelectHanja(item)} className="w-full flex items-center justify-between p-4 hover:bg-[var(--ns-primary)] rounded-2xl transition-all group border border-transparent hover:text-[var(--ns-accent-text)]">
-                  <div className="flex items-center gap-4">
-                    <span className="text-4xl font-serif font-black text-[var(--ns-text)] group-hover:text-[var(--ns-accent-text)]">{item.hanja}</span>
+                <button key={idx} onClick={() => handleSelectHanja(item)} className="w-full flex items-center justify-between p-2.5 md:p-4 hover:bg-[var(--ns-primary)] rounded-xl md:rounded-2xl transition-all group border border-transparent hover:text-[var(--ns-accent-text)]">
+                  <div className="flex items-center gap-2 md:gap-4">
+                    <span className="text-3xl md:text-4xl font-serif font-black text-[var(--ns-text)] group-hover:text-[var(--ns-accent-text)]">{item.hanja}</span>
                     <div className="text-left">
                       <p className="text-sm font-black text-[var(--ns-text)] group-hover:text-[var(--ns-accent-text)]">{item.meaning}</p>
                       <p className="text-[10px] opacity-70 font-bold">{item.strokes}획 · {item.hangul}</p>

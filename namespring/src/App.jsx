@@ -127,14 +127,25 @@ function toSpringRequest(userInfo) {
     throw new Error('성을 찾을 수 없습니다.');
   }
 
+  const rawHour = Number(normalized.birthDateTime.hour);
+  const rawMinute = Number(normalized.birthDateTime.minute);
+  const hasKnownBirthTime = !normalized.isBirthTimeUnknown
+    && Number.isInteger(rawHour)
+    && Number.isInteger(rawMinute)
+    && rawHour >= 0
+    && rawHour <= 23
+    && rawMinute >= 0
+    && rawMinute <= 59;
+
   return {
     birth: {
       year: normalized.birthDateTime.year,
       month: normalized.birthDateTime.month,
       day: normalized.birthDateTime.day,
-      hour: normalized.birthDateTime.hour,
-      minute: normalized.birthDateTime.minute,
+      hour: hasKnownBirthTime ? rawHour : null,
+      minute: hasKnownBirthTime ? rawMinute : null,
       gender: normalized.gender,
+      calendarType: normalized.isSolarCalendar === false ? 'lunar' : 'solar',
     },
     surname,
     givenNameLength,
@@ -355,7 +366,7 @@ function App() {
         node: (
           <AppBackground>
             <div className="min-h-screen flex flex-col items-center p-6 font-sans text-[var(--ns-text)]">
-              <div className="bg-[var(--ns-surface)] p-10 rounded-[3rem] shadow-2xl border border-[var(--ns-border)] w-full max-w-2xl overflow-hidden">
+              <div className="bg-[var(--ns-surface)] p-5 rounded-[3rem] shadow-2xl border border-[var(--ns-border)] w-full max-w-2xl overflow-hidden">
                 <header className="mb-8 text-center">
                   <h1 className="text-3xl font-black text-[var(--ns-accent-text)]">이름봄</h1>
                   <p className="text-[var(--ns-muted)] text-sm font-semibold">당신의 인생과 함께하는 이름</p>

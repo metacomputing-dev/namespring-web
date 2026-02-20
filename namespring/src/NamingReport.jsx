@@ -686,6 +686,7 @@ const NamingReport = ({ result, shareUserInfo = null }) => {
             renderMetrics={nameCardRenderMetrics}
             birthDateTime={shareUserInfo?.birthDateTime ?? null}
             isSolarCalendar={shareUserInfo?.isSolarCalendar}
+            isBirthTimeUnknown={shareUserInfo?.isBirthTimeUnknown}
           />
         </div>
       </section>

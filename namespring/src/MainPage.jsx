@@ -4,7 +4,7 @@ import logoSvg from './assets/logo.svg';
 function MainPage({ onEnter }) {
   return (
     <div className="min-h-screen flex items-center justify-center p-6 font-sans text-[var(--ns-text)]">
-      <div className="bg-[var(--ns-surface)] p-10 rounded-[3rem] shadow-2xl border border-[var(--ns-border)] w-full max-w-2xl overflow-hidden text-center">
+      <div className="bg-[var(--ns-surface)] p-5 rounded-[3rem] shadow-2xl border border-[var(--ns-border)] w-full max-w-2xl overflow-hidden text-center">
         <img
           src={logoSvg}
           alt="이름봄 로고"

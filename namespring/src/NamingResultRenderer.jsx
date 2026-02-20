@@ -77,15 +77,23 @@ function SymbolIcon({ src, label, textColorClass }) {
   );
 }
 
-function clampCount(value) {
-  return Math.max(0, Math.min(5, Number(value) || 0));
+function toVisualSpriteCount(value) {
+  const normalized = Math.floor(Math.max(0, Number(value) || 0));
+  return Math.min(5, normalized);
+}
+
+function formatElementCountLabel(value) {
+  const numeric = Number(value);
+  if (!Number.isFinite(numeric)) return '0';
+  if (Number.isInteger(numeric)) return String(numeric);
+  return numeric.toFixed(1);
 }
 
 function formatCalendarTypeLabel(isSolarCalendar) {
   return isSolarCalendar === false ? '음력' : '양력';
 }
 
-function formatBirthDateTimeForCard(birthDateTime, isSolarCalendar) {
+function formatBirthDateTimeForCard(birthDateTime, isSolarCalendar, isBirthTimeUnknown) {
   const year = Number(birthDateTime?.year);
   const month = Number(birthDateTime?.month);
   const day = Number(birthDateTime?.day);
@@ -94,9 +102,14 @@ function formatBirthDateTimeForCard(birthDateTime, isSolarCalendar) {
   const isDateValid = Number.isInteger(year) && year > 0
     && Number.isInteger(month) && month >= 1 && month <= 12
     && Number.isInteger(day) && day >= 1 && day <= 31;
+  if (!isDateValid) return '';
+  if (isBirthTimeUnknown) {
+    return `${String(year).padStart(4, '0')}.${String(month).padStart(2, '0')}.${String(day).padStart(2, '0')} (시각 미상) ${formatCalendarTypeLabel(isSolarCalendar)}`;
+  }
+
   const isTimeValid = Number.isInteger(hour) && hour >= 0 && hour <= 23
     && Number.isInteger(minute) && minute >= 0 && minute <= 59;
-  if (!isDateValid || !isTimeValid) return '';
+  if (!isTimeValid) return '';
 
   return `${String(year).padStart(4, '0')}.${String(month).padStart(2, '0')}.${String(day).padStart(2, '0')} ${String(hour).padStart(2, '0')}:${String(minute).padStart(2, '0')} ${formatCalendarTypeLabel(isSolarCalendar)}`;
 }
@@ -162,6 +175,7 @@ function NamingResultRenderer({
   renderMetrics = null,
   birthDateTime = null,
   isSolarCalendar = true,
+  isBirthTimeUnknown = false,
 }) {
   const meadowGradientId = useId();
   const moonMaskId = useId();
@@ -171,8 +185,8 @@ function NamingResultRenderer({
     [namingResult, renderMetrics],
   );
   const birthDateTimeText = useMemo(
-    () => formatBirthDateTimeForCard(birthDateTime, isSolarCalendar),
-    [birthDateTime, isSolarCalendar],
+    () => formatBirthDateTimeForCard(birthDateTime, isSolarCalendar, isBirthTimeUnknown),
+    [birthDateTime, isSolarCalendar, isBirthTimeUnknown],
   );
   const appliedSummary = DEV_FORCE_ALL_COUNTS_TO_FIVE
     ? {
@@ -185,18 +199,24 @@ function NamingResultRenderer({
   const isNightScene = appliedSummary.negativeCount > appliedSummary.positiveCount;
   const isEqualScene = appliedSummary.negativeCount === appliedSummary.positiveCount;
   const isPositiveDominantScene = appliedSummary.negativeCount < appliedSummary.positiveCount;
-  const woodCount = clampCount(appliedSummary.elementCounts.Wood);
-  const fireCount = clampCount(appliedSummary.elementCounts.Fire);
-  const earthCount = clampCount(appliedSummary.elementCounts.Earth);
-  const metalCount = clampCount(appliedSummary.elementCounts.Metal);
-  const waterCount = clampCount(appliedSummary.elementCounts.Water);
+  const woodValue = Math.max(0, toSafeNumber(appliedSummary.elementCounts.Wood, 0));
+  const fireValue = Math.max(0, toSafeNumber(appliedSummary.elementCounts.Fire, 0));
+  const earthValue = Math.max(0, toSafeNumber(appliedSummary.elementCounts.Earth, 0));
+  const metalValue = Math.max(0, toSafeNumber(appliedSummary.elementCounts.Metal, 0));
+  const waterValue = Math.max(0, toSafeNumber(appliedSummary.elementCounts.Water, 0));
+
+  const woodCount = toVisualSpriteCount(woodValue);
+  const fireCount = toVisualSpriteCount(fireValue);
+  const earthCount = toVisualSpriteCount(earthValue);
+  const metalCount = toVisualSpriteCount(metalValue);
+  const waterCount = toVisualSpriteCount(waterValue);
 
   const symbolItems = [
-    { label: `목 ${appliedSummary.elementCounts.Wood}`, src: elementWood },
-    { label: `화 ${appliedSummary.elementCounts.Fire}`, src: elementFire },
-    { label: `토 ${appliedSummary.elementCounts.Earth}`, src: elementEarth },
-    { label: `금 ${appliedSummary.elementCounts.Metal}`, src: elementMetal },
-    { label: `수 ${appliedSummary.elementCounts.Water}`, src: elementWater },
+    { label: `목 ${formatElementCountLabel(woodValue)}`, src: elementWood },
+    { label: `화 ${formatElementCountLabel(fireValue)}`, src: elementFire },
+    { label: `토 ${formatElementCountLabel(earthValue)}`, src: elementEarth },
+    { label: `금 ${formatElementCountLabel(metalValue)}`, src: elementMetal },
+    { label: `수 ${formatElementCountLabel(waterValue)}`, src: elementWater },
     { label: `음 ${appliedSummary.negativeCount}`, src: polarityNegative },
     { label: `양 ${appliedSummary.positiveCount}`, src: polarityPositive },
   ];
