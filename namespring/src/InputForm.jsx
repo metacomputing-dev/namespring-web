@@ -198,6 +198,10 @@ function buildInitialFormState(initialUserInfo) {
     isSolarCalendar: initialUserInfo?.isSolarCalendar !== false,
     isBirthTimeUnknown: Boolean(initialUserInfo?.isBirthTimeUnknown),
     gender: normalizeGender(initialUserInfo?.gender),
+    useYajasiAdjustment: Boolean(initialUserInfo?.useYajasiAdjustment),
+    useTrueSolarTimeAdjustment: Boolean(initialUserInfo?.useTrueSolarTimeAdjustment),
+    useBirthLongitudeAdjustment: initialUserInfo?.useBirthLongitudeAdjustment !== false,
+    birthLongitudeOption: String(initialUserInfo?.birthLongitudeOption ?? ''),
     isNativeKoreanName,
     selectedSurnameEntries: toSelectedEntries(surnameEntries, surnameInput),
     selectedGivenNameEntries: toSelectedEntries(givenNameEntries, givenNameInput),
@@ -220,6 +224,10 @@ function InputForm({
   const [isSolarCalendar, setIsSolarCalendar] = useState(initialFormState.isSolarCalendar);
   const [isBirthTimeUnknown, setIsBirthTimeUnknown] = useState(initialFormState.isBirthTimeUnknown);
   const [gender, setGender] = useState(initialFormState.gender);
+  const [useYajasiAdjustment, setUseYajasiAdjustment] = useState(initialFormState.useYajasiAdjustment);
+  const [useTrueSolarTimeAdjustment, setUseTrueSolarTimeAdjustment] = useState(initialFormState.useTrueSolarTimeAdjustment);
+  const [useBirthLongitudeAdjustment, setUseBirthLongitudeAdjustment] = useState(initialFormState.useBirthLongitudeAdjustment);
+  const [birthLongitudeOption, setBirthLongitudeOption] = useState(initialFormState.birthLongitudeOption);
   const [isNativeKoreanName, setIsNativeKoreanName] = useState(initialFormState.isNativeKoreanName);
 
   const [selectedSurnameEntries, setSelectedSurnameEntries] = useState(initialFormState.selectedSurnameEntries);
@@ -286,6 +294,10 @@ function InputForm({
     setIsSolarCalendar(initialFormState.isSolarCalendar);
     setIsBirthTimeUnknown(initialFormState.isBirthTimeUnknown);
     setGender(initialFormState.gender);
+    setUseYajasiAdjustment(initialFormState.useYajasiAdjustment);
+    setUseTrueSolarTimeAdjustment(initialFormState.useTrueSolarTimeAdjustment);
+    setUseBirthLongitudeAdjustment(initialFormState.useBirthLongitudeAdjustment);
+    setBirthLongitudeOption(initialFormState.birthLongitudeOption);
     setIsNativeKoreanName(initialFormState.isNativeKoreanName);
     setSelectedSurnameEntries(initialFormState.selectedSurnameEntries);
     setSelectedGivenNameEntries(initialFormState.selectedGivenNameEntries);
@@ -585,6 +597,10 @@ function InputForm({
       isNativeKoreanName,
       isSolarCalendar,
       isBirthTimeUnknown,
+      useYajasiAdjustment,
+      useTrueSolarTimeAdjustment,
+      useBirthLongitudeAdjustment,
+      birthLongitudeOption: useBirthLongitudeAdjustment ? birthLongitudeOption : '',
     };
 
     if (onEnter) {
@@ -733,6 +749,62 @@ function InputForm({
             <p className="text-[11px] font-semibold text-[var(--ns-muted)]">
               {formatBirthDateTimeForDisplay(birthDate, birthTime, isBirthTimeUnknown, isSolarCalendar)}
             </p>
+          </section>
+        )}
+
+        {isBirthDateTimeValid && !isBirthTimeUnknown && (
+          <section className="space-y-2 md:space-y-3 bg-[var(--ns-surface-soft)] border border-[var(--ns-border)] rounded-3xl p-3 md:p-6 animate-in fade-in duration-300">
+            <h3 className="text-base font-black text-[var(--ns-accent-text)]">당신의 사주를 계산할 때 참고할게요</h3>
+            <p className="text-[11px] font-semibold text-[var(--ns-muted)]">잘 모를 때는 그대로 두셔도 좋아요.</p>
+            <div className="space-y-2 md:space-y-2.5">
+              <label className="flex items-center gap-2 text-xs font-black text-[var(--ns-muted)] select-none">
+                <input
+                  type="checkbox"
+                  checked={useYajasiAdjustment}
+                  onChange={(e) => setUseYajasiAdjustment(e.target.checked)}
+                  className="h-4 w-4 rounded border-[var(--ns-border)] accent-[var(--ns-primary)]"
+                />
+                야자시 보정
+              </label>
+
+              <label className="flex items-center gap-2 text-xs font-black text-[var(--ns-muted)] select-none">
+                <input
+                  type="checkbox"
+                  checked={useTrueSolarTimeAdjustment}
+                  onChange={(e) => setUseTrueSolarTimeAdjustment(e.target.checked)}
+                  className="h-4 w-4 rounded border-[var(--ns-border)] accent-[var(--ns-primary)]"
+                />
+                진태양시 보정
+              </label>
+
+              <div className="flex items-center gap-2 md:gap-3">
+                <label className="flex items-center gap-2 text-xs font-black text-[var(--ns-muted)] select-none">
+                  <input
+                    type="checkbox"
+                    checked={useBirthLongitudeAdjustment}
+                    onChange={(e) => setUseBirthLongitudeAdjustment(e.target.checked)}
+                    className="h-4 w-4 rounded border-[var(--ns-border)] accent-[var(--ns-primary)]"
+                  />
+                  출생 위치(경도) 보정
+                </label>
+                {useBirthLongitudeAdjustment && (
+                  <select
+                    value={birthLongitudeOption}
+                    onChange={(e) => setBirthLongitudeOption(e.target.value)}
+                    className="ml-auto min-w-[92px] p-2 bg-[var(--ns-surface)] border border-[var(--ns-border)] rounded-xl text-xs font-semibold text-[var(--ns-text)]"
+                  >
+                    <option value="" />
+                  </select>
+                )}
+              </div>
+            </div>
+
+            <div className="pt-1">
+              <p className="text-[11px] font-black text-[var(--ns-muted)]">보정된 출생년도</p>
+              <p className="text-[11px] font-semibold text-[var(--ns-muted)] mt-1">
+                {formatBirthDateTimeForDisplay(birthDate, birthTime, isBirthTimeUnknown, isSolarCalendar)}
+              </p>
+            </div>
           </section>
         )}
 

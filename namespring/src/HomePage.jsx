@@ -130,18 +130,15 @@ function HomePage({ entryUserInfo, onLoadSajuReport, onOpenCombinedReport, onOpe
             </div>
           )}
           {!isAnalyzing && !analyzeError && previewMetrics && (
-            <button
-              type="button"
-              onClick={() => onOpenEntry?.(entryUserInfo)}
-              className="h-full w-full block text-left rounded-[1.6rem] overflow-hidden"
-            >
+            <div className="h-full w-full block text-left rounded-[1.6rem] overflow-hidden">
               <NamingResultRenderer
                 renderMetrics={previewMetrics}
                 birthDateTime={entryUserInfo?.birthDateTime}
+                gender={entryUserInfo?.gender}
                 isSolarCalendar={entryUserInfo?.isSolarCalendar}
                 isBirthTimeUnknown={entryUserInfo?.isBirthTimeUnknown}
               />
-            </button>
+            </div>
           )}
           {!isAnalyzing && !analyzeError && !previewMetrics && (
             <div className="h-full w-full rounded-[1.6rem] border border-dashed border-[var(--ns-border)] bg-[var(--ns-surface-soft)] flex items-center justify-center text-center">
@@ -160,6 +157,20 @@ function HomePage({ entryUserInfo, onLoadSajuReport, onOpenCombinedReport, onOpe
           ))}
         </div>
       </div>
+
+      {typeof onOpenEntry === 'function' && (
+        <button
+          type="button"
+          onClick={() => onOpenEntry(entryUserInfo)}
+          className="ns-scroll-top-fab inline-flex h-11 w-11 items-center justify-center rounded-full border border-white/60 bg-[var(--ns-surface)]/95 text-[var(--ns-accent-text)] shadow-[0_10px_24px_rgba(15,23,42,0.22)] backdrop-blur-sm hover:brightness-95"
+          aria-label="입력 정보 수정"
+        >
+          <svg viewBox="0 0 20 20" fill="none" className="h-4 w-4" aria-hidden="true">
+            <path d="M3.5 13.8L13.5 3.8L16.2 6.5L6.2 16.5L3 17L3.5 13.8Z" stroke="currentColor" strokeWidth="1.5" strokeLinejoin="round" />
+            <path d="M12.1 5.2L14.8 7.9" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" />
+          </svg>
+        </button>
+      )}
     </div>
   );
 }

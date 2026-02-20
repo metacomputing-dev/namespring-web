@@ -114,6 +114,10 @@ function formatBirthDateTimeForCard(birthDateTime, isSolarCalendar, isBirthTimeU
   return `${String(year).padStart(4, '0')}.${String(month).padStart(2, '0')}.${String(day).padStart(2, '0')} ${String(hour).padStart(2, '0')}:${String(minute).padStart(2, '0')} ${formatCalendarTypeLabel(isSolarCalendar)}`;
 }
 
+function normalizeGenderForCard(value) {
+  return value === 'female' || value === 'male' ? value : '';
+}
+
 function TreeSprite() {
   return (
     <svg viewBox="0 0 48 48" className="w-10 h-10" fill="none" xmlns="http://www.w3.org/2000/svg">
@@ -174,6 +178,7 @@ function NamingResultRenderer({
   namingResult = null,
   renderMetrics = null,
   birthDateTime = null,
+  gender = '',
   isSolarCalendar = true,
   isBirthTimeUnknown = false,
 }) {
@@ -188,6 +193,8 @@ function NamingResultRenderer({
     () => formatBirthDateTimeForCard(birthDateTime, isSolarCalendar, isBirthTimeUnknown),
     [birthDateTime, isSolarCalendar, isBirthTimeUnknown],
   );
+  const normalizedGender = normalizeGenderForCard(gender);
+  const genderBadgeText = normalizedGender === 'female' ? '여' : normalizedGender === 'male' ? '남' : '';
   const appliedSummary = DEV_FORCE_ALL_COUNTS_TO_FIVE
     ? {
         ...summary,
@@ -404,8 +411,19 @@ function NamingResultRenderer({
             {appliedSummary.displayHangul}
             {appliedSummary.displayHanja ? ` (${appliedSummary.displayHanja})` : ''}
           </p>
-          {birthDateTimeText && (
-            <p className={`text-[11px] md:text-xs font-semibold mt-1 ${textColorClass}`}>{birthDateTimeText}</p>
+          {(genderBadgeText || birthDateTimeText) && (
+            <p className={`text-[11px] md:text-xs font-semibold mt-1 flex items-center justify-end ${textColorClass}`}>
+              {genderBadgeText && (
+                <span
+                  className={`mr-1.5 inline-flex h-4 min-w-4 items-center justify-center rounded-full border text-[10px] font-black ${
+                    isNightScene ? 'border-white/70 text-white' : 'border-black/60 text-black'
+                  }`}
+                >
+                  {genderBadgeText}
+                </span>
+              )}
+              <span>{birthDateTimeText}</span>
+            </p>
           )}
           {appliedSummary.score ? (
             <p className={`text-sm font-bold mt-1 ${textColorClass}`}>종합 점수 {appliedSummary.score}</p>

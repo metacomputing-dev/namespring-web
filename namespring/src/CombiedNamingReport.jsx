@@ -218,6 +218,7 @@ function CombiedNamingReport({
         <NamingResultRenderer
           renderMetrics={nameCardRenderMetrics}
           birthDateTime={shareUserInfo?.birthDateTime ?? null}
+          gender={shareUserInfo?.gender}
           isSolarCalendar={shareUserInfo?.isSolarCalendar}
           isBirthTimeUnknown={shareUserInfo?.isBirthTimeUnknown}
         />
