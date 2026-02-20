@@ -318,6 +318,7 @@ function SajuReport({ report, shareUserInfo = null }) {
           <NamingResultRenderer
             renderMetrics={sajuRenderMetrics}
             birthDateTime={shareUserInfo?.birthDateTime ?? null}
+            gender={shareUserInfo?.gender}
             isSolarCalendar={shareUserInfo?.isSolarCalendar}
             isBirthTimeUnknown={shareUserInfo?.isBirthTimeUnknown}
           />

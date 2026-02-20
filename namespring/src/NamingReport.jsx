@@ -682,12 +682,13 @@ const NamingReport = ({ result, shareUserInfo = null }) => {
           className="relative z-10 mt-4 h-44 md:h-52 rounded-[1.6rem] overflow-hidden border shadow-md"
           style={SUMMARY_INNER_BORDER_STYLE}
         >
-          <NamingResultRenderer
-            renderMetrics={nameCardRenderMetrics}
-            birthDateTime={shareUserInfo?.birthDateTime ?? null}
-            isSolarCalendar={shareUserInfo?.isSolarCalendar}
-            isBirthTimeUnknown={shareUserInfo?.isBirthTimeUnknown}
-          />
+        <NamingResultRenderer
+          renderMetrics={nameCardRenderMetrics}
+          birthDateTime={shareUserInfo?.birthDateTime ?? null}
+          gender={shareUserInfo?.gender}
+          isSolarCalendar={shareUserInfo?.isSolarCalendar}
+          isBirthTimeUnknown={shareUserInfo?.isBirthTimeUnknown}
+        />
         </div>
       </section>
 
