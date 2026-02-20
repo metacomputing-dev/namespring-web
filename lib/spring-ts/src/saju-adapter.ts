@@ -75,6 +75,17 @@ const YONGSHIN_TYPE_CODES = [
 ] as const;
 const GYEOKGUK_CATEGORY_CODES = ['NORMAL', 'JONGGYEOK'] as const;
 
+/** Alias map: alternative romanizations → canonical code used in label tables. */
+const CODE_ALIASES: Record<string, string> = {
+  SIK_SHIN: 'SIK_SIN',
+  GEOB_JAE: 'GYEOB_JAE',
+};
+
+/** Resolves code aliases to canonical form. */
+function resolveCodeAlias(code: string): string {
+  return CODE_ALIASES[code] ?? code;
+}
+
 const ELEMENT_KO_LABEL: Record<string, string> = {
   WOOD: '\uBAA9',
   FIRE: '\uD654',
@@ -107,41 +118,41 @@ const YONGSHIN_TYPE_KO_LABEL: Record<string, string> = {
   ILHAENG: '\uC77C\uD589 \uC6A9\uC2E0',
 };
 const TEN_GOD_KO_LABEL: Record<string, string> = {
-  BI_GYEON: '\uBE44\uACAC',
-  GYEOB_JAE: '\uAC81\uC7AC',
-  SIK_SIN: '\uC2DD\uC2E0',
-  SANG_GWAN: '\uC0C1\uAD00',
-  PYEON_JAE: '\uD3B8\uC7AC',
-  JEONG_JAE: '\uC815\uC7AC',
-  PYEON_GWAN: '\uD3B8\uAD00',
-  JEONG_GWAN: '\uC815\uAD00',
-  PYEON_IN: '\uD3B8\uC778',
-  JEONG_IN: '\uC815\uC778',
+  BI_GYEON: '비견',
+  GYEOB_JAE: '겁재',
+  SIK_SIN: '식신',
+  SANG_GWAN: '상관',
+  PYEON_JAE: '편재',
+  JEONG_JAE: '정재',
+  PYEON_GWAN: '편관',
+  JEONG_GWAN: '정관',
+  PYEON_IN: '편인',
+  JEONG_IN: '정인',
 };
 const GYEOKGUK_CATEGORY_KO_LABEL: Record<string, string> = {
   NORMAL: '\uC77C\uBC18',
   JONGGYEOK: '\uC885\uACA9',
 };
 const GYEOKGUK_KO_LABEL: Record<string, string> = {
-  BI_GYEON: '\uBE44\uACAC\uACA9',
-  GYEOB_JAE: '\uAC81\uC7AC\uACA9',
-  JEONG_GWAN: '\uC815\uAD00\uACA9',
-  PYEON_GWAN: '\uD3B8\uAD00\uACA9',
-  JEONG_JAE: '\uC815\uC7AC\uACA9',
-  PYEON_JAE: '\uD3B8\uC7AC\uACA9',
-  SIK_SIN: '\uC2DD\uC2E0\uACA9',
-  SANG_GWAN: '\uC0C1\uAD00\uACA9',
-  JEONG_IN: '\uC815\uC778\uACA9',
-  PYEON_IN: '\uD3B8\uC778\uACA9',
-  HUA_QI: '\uD654\uAE30\uACA9',
-  ZHUAN_WANG: '\uC804\uC655\uACA9',
-  CONG_GE: '\uC885\uACA9',
-  CONG_CAI: '\uC885\uC7AC\uACA9',
-  CONG_GUAN: '\uC885\uAD00\uACA9',
-  CONG_SHA: '\uC885\uC0B4\uACA9',
-  CONG_ER: '\uC885\uC544\uACA9',
-  CONG_YIN: '\uC885\uC778\uACA9',
-  CONG_BI: '\uC885\uBE44\uACA9',
+  BI_GYEON: '비견격',
+  GYEOB_JAE: '겁재격',
+  JEONG_GWAN: '정관격',
+  PYEON_GWAN: '편관격',
+  JEONG_JAE: '정재격',
+  PYEON_JAE: '편재격',
+  SIK_SIN: '식신격',
+  SANG_GWAN: '상관격',
+  JEONG_IN: '정인격',
+  PYEON_IN: '편인격',
+  HUA_QI: '화기격',
+  ZHUAN_WANG: '전왕격',
+  CONG_GE: '종격',
+  CONG_CAI: '종재격',
+  CONG_GUAN: '종관격',
+  CONG_SHA: '종살격',
+  CONG_ER: '종아격',
+  CONG_YIN: '종인격',
+  CONG_BI: '종비격',
 };
 const JIJI_RELATION_NOTE_KO_LABEL: Record<string, string> = {
   CHUNG: '\uC9C0\uC9C0 \uCDA9 \uAD00\uACC4',
@@ -180,26 +191,64 @@ const RELATION_TYPE_KO_LABEL: Record<string, string> = {
   BANGHAP: '\uBC29\uD569',
 };
 const SHINSAL_TYPE_KO_LABEL: Record<string, string> = {
-  HAE_SAL: '\uD574\uC0B4',
-  PA_SAL: '\uD30C\uC0B4',
-  WONJIN_SAL: '\uC6D0\uC9C4\uC0B4',
-  WOL_SAL: '\uC6D4\uC0B4',
-  JANGSEONG: '\uC7A5\uC131\uC0B4',
-  BAN_AN_SAL: '\uBC18\uC548\uC0B4',
-  HUAGAI: '\uD654\uAC1C\uC0B4',
-  JAESAL: '\uC7AC\uC0B4',
-  CHEON_SAL: '\uCC9C\uC0B4',
-  CHEON_EUL_GUI_IN: '\uCC9C\uC744\uADC0\uC778',
-  GUK_IN_GUI_IN: '\uAD6D\uC778\uADC0\uC778',
-  CHEON_BOK_GUI_IN: '\uCC9C\uBCF5\uADC0\uC778',
-  BOK_SEONG_GUI_IN: '\uBCF5\uC131\uADC0\uC778',
-  WOL_DEOK_GUI_IN: '\uC6D4\uB355\uADC0\uC778',
-  WOL_DEOK_HAP: '\uC6D4\uB355\uD569',
-  DEOK_SU_GUI_IN: '\uB355\uC218\uADC0\uC778',
-  CHEON_DEOK_GUI_IN: '\uCC9C\uB355\uADC0\uC778',
-  CHEON_DEOK_HAP: '\uCC9C\uB355\uD569',
-  CHEON_WOL_DEOK: '\uCC9C\uC6D4\uB355',
+  // 관계 기반 살 (relation-based)
+  CHUNG_SAL: '충살',
+  HYEONG_SAL: '형살',
+  HAE_SAL: '해살',
+  PA_SAL: '파살',
+  WONJIN_SAL: '원진살',
+  GEOKGAK_SAL: '격각살',
+  // 12신살 (twelve sal)
+  JI_SAL: '지살',
+  DOHWA: '도화',
+  WOL_SAL: '월살',
+  MANG_SHIN_SAL: '망신살',
+  JANGSEONG: '장성살',
+  BAN_AN_SAL: '반안살',
+  YEOKMA: '역마',
+  YUK_HAE_SAL: '육해살',
+  HUAGAI: '화개살',
+  GEOB_SAL: '겁살',
+  JAESAL: '재살',
+  CHEON_SAL: '천살',
+  // 홍란/천희
+  HONG_LUAN: '홍란',
+  CHEON_HUI: '천희',
+  // 공망
+  GONGMANG: '공망',
+  // 일간 기준 귀인/살 (day-stem based)
+  CHEON_EUL_GUI_IN: '천을귀인',
+  TAE_GEUK_GUI_IN: '태극귀인',
+  MUN_CHANG_GUI_IN: '문창귀인',
+  MUN_GOK_GUI_IN: '문곡귀인',
+  HAK_DANG_GUI_IN: '학당귀인',
+  BI_IN_SAL: '비인살',
+  YANG_IN: '양인',
+  LOK_SHIN: '록신',
+  GUK_IN_GUI_IN: '국인귀인',
+  CHEON_JU_GUI_IN: '천주귀인',
+  CHEON_GWAN_GUI_IN: '천관귀인',
+  CHEON_BOK_GUI_IN: '천복귀인',
+  BOK_SEONG_GUI_IN: '복성귀인',
+  GEUM_YEO_GUI_IN: '금여귀인',
+  HONG_YEOM_SAL: '홍염살',
+  // 월지 기준 귀인 (month-branch based)
+  WOL_DEOK_GUI_IN: '월덕귀인',
+  WOL_DEOK_HAP: '월덕합',
+  DEOK_SU_GUI_IN: '덕수귀인',
+  CHEON_DEOK_GUI_IN: '천덕귀인',
+  CHEON_DEOK_HAP: '천덕합',
+  CHEON_UI: '천의',
+  // 복합/특수
+  CHEON_WOL_DEOK: '천월덕',
+  CHEON_SA: '천사일',
+  // 일주 기반
+  KUI_GANG: '괴강',
+  BAEK_HO: '백호',
 };
+const SHINSAL_TYPE_COMPACT_TO_CODE: Record<string, string> = Object.fromEntries(
+  Object.keys(SHINSAL_TYPE_KO_LABEL).map((code) => [code.replace(/_/g, ''), code]),
+);
 const SHINSAL_POSITION_KO_LABEL: Record<string, string> = {
   YEAR: '\uB144\uC8FC',
   MONTH: '\uC6D4\uC8FC',
@@ -350,10 +399,10 @@ function normalizeCodeToken(value: unknown): string {
   if (!raw) return '';
 
   const upper = raw.toUpperCase();
-  if (/^[A-Z_]+$/.test(upper)) return upper;
+  if (/^[A-Z_]+$/.test(upper)) return resolveCodeAlias(upper);
 
   const bracketMatch = upper.match(/\(([A-Z_]+)\)\s*$/);
-  if (bracketMatch) return bracketMatch[1] ?? '';
+  if (bracketMatch) return resolveCodeAlias(bracketMatch[1] ?? '');
 
   return '';
 }
@@ -591,8 +640,13 @@ function normalizeShinsalTypeCode(value: unknown): string {
   const raw = String(value ?? '').trim();
   if (!raw) return '';
   const codeToken = normalizeCodeToken(raw);
-  if (codeToken) return codeToken;
-  return raw.toUpperCase().replace(/\s+/g, '_');
+  if (codeToken) {
+    const compact = codeToken.replace(/[^A-Z]/g, '');
+    return SHINSAL_TYPE_COMPACT_TO_CODE[compact] ?? codeToken;
+  }
+  const upper = raw.toUpperCase().replace(/\s+/g, '_');
+  const compact = upper.replace(/[^A-Z]/g, '');
+  return SHINSAL_TYPE_COMPACT_TO_CODE[compact] ?? upper;
 }
 
 function formatShinsalTypeDisplay(value: unknown): string {

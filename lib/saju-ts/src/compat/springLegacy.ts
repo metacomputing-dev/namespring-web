@@ -392,7 +392,8 @@ function ohaengKoLabel(code: unknown): string {
 
 function gyeokgukKoLabel(code: unknown): string {
   const normalized = String(code ?? '').trim().toUpperCase();
-  return GYEOKGUK_KO_LABEL[normalized] ?? (normalized || '-');
+  const canonical = TEN_GOD_ALIASES[normalized] ?? normalized;
+  return GYEOKGUK_KO_LABEL[canonical] ?? GYEOKGUK_KO_LABEL[normalized] ?? (normalized || '-');
 }
 
 function buildYongshinReasoning(
