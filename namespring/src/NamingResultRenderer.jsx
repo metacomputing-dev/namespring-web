@@ -6,48 +6,65 @@ import elementFire from './assets/images/element_fire.svg';
 import elementEarth from './assets/images/element_earth.svg';
 import elementMetal from './assets/images/element_metal.svg';
 import elementWater from './assets/images/element_water.svg';
+import { buildRenderMetricsFromNamingResult, normalizeElementKey } from './naming-result-render-metrics';
 
 // TEMP DEV FLAG: set to false (or remove) after scene tuning is done.
 const DEV_FORCE_ALL_COUNTS_TO_FIVE = false;
 
-function normalizeElementName(value) {
-  const normalized = String(value ?? '').trim().toLowerCase();
-  if (normalized === 'wood' || normalized === '목') return 'Wood';
-  if (normalized === 'fire' || normalized === '화') return 'Fire';
-  if (normalized === 'earth' || normalized === '토') return 'Earth';
-  if (normalized === 'metal' || normalized === '금') return 'Metal';
-  if (normalized === 'water' || normalized === '수') return 'Water';
-  return '';
+function createEmptyElementCounts() {
+  return { Wood: 0, Fire: 0, Earth: 0, Metal: 0, Water: 0 };
 }
 
-function resolveSummary(result) {
-  const inputEntries = [...result.lastName, ...result.firstName];
-  const elementCounts = { Wood: 0, Fire: 0, Earth: 0, Metal: 0, Water: 0 };
-  for (const entry of inputEntries) {
-    const key = normalizeElementName(entry.resource_element);
-    if (key) {
-      elementCounts[key] += 1;
-    }
+function toSafeNumber(value, fallback = 0) {
+  const numeric = Number(value);
+  return Number.isFinite(numeric) ? numeric : fallback;
+}
+
+function normalizeScoreText(value) {
+  if (value === null || value === undefined) return '';
+  const text = String(value).trim();
+  if (!text) return '';
+  const numeric = Number(text);
+  if (Number.isFinite(numeric)) return numeric.toFixed(1);
+  return text;
+}
+
+function normalizeElementCounts(rawElementCounts) {
+  const elementCounts = createEmptyElementCounts();
+  if (!rawElementCounts || typeof rawElementCounts !== 'object') {
+    return elementCounts;
   }
 
-  const hangulBlocks = typeof result.hangul?.getNameBlocks === 'function'
-    ? result.hangul.getNameBlocks()
-    : [];
-  let positiveCount = 0;
-  let negativeCount = 0;
-  for (const block of hangulBlocks) {
-    const polarity = block?.energy?.polarity?.english;
-    if (polarity === 'Positive') positiveCount += 1;
-    if (polarity === 'Negative') negativeCount += 1;
+  for (const [rawKey, rawValue] of Object.entries(rawElementCounts)) {
+    const normalizedKey = normalizeElementKey(rawKey);
+    if (!normalizedKey) continue;
+    elementCounts[normalizedKey] += toSafeNumber(rawValue, 0);
+  }
+
+  return elementCounts;
+}
+
+function resolveSummaryFromInput(namingResult, renderMetrics) {
+  const base = namingResult ? buildRenderMetricsFromNamingResult(namingResult) : {
+    elementCounts: createEmptyElementCounts(),
+    positiveCount: 0,
+    negativeCount: 0,
+    score: '',
+    displayHangul: '',
+    displayHanja: '',
+  };
+
+  if (!renderMetrics || typeof renderMetrics !== 'object') {
+    return base;
   }
 
   return {
-    elementCounts,
-    positiveCount,
-    negativeCount,
-    score: Number(result.totalScore ?? 0).toFixed(1),
-    displayHangul: inputEntries.map((v) => v.hangul).join(''),
-    displayHanja: inputEntries.map((v) => v.hanja).join(''),
+    elementCounts: normalizeElementCounts(renderMetrics.elementCounts ?? base.elementCounts),
+    positiveCount: toSafeNumber(renderMetrics.positiveCount, base.positiveCount),
+    negativeCount: toSafeNumber(renderMetrics.negativeCount, base.negativeCount),
+    score: normalizeScoreText(renderMetrics.score ?? base.score),
+    displayHangul: String(renderMetrics.displayHangul ?? base.displayHangul ?? ''),
+    displayHanja: String(renderMetrics.displayHanja ?? base.displayHanja ?? ''),
   };
 }
 
@@ -140,11 +157,19 @@ function FireSprite() {
   );
 }
 
-function NamingResultRenderer({ namingResult, birthDateTime = null, isSolarCalendar = true }) {
+function NamingResultRenderer({
+  namingResult = null,
+  renderMetrics = null,
+  birthDateTime = null,
+  isSolarCalendar = true,
+}) {
   const meadowGradientId = useId();
   const moonMaskId = useId();
   const cloudySunOutlineId = useId();
-  const summary = useMemo(() => resolveSummary(namingResult), [namingResult]);
+  const summary = useMemo(
+    () => resolveSummaryFromInput(namingResult, renderMetrics),
+    [namingResult, renderMetrics],
+  );
   const birthDateTimeText = useMemo(
     () => formatBirthDateTimeForCard(birthDateTime, isSolarCalendar),
     [birthDateTime, isSolarCalendar],
@@ -355,11 +380,16 @@ function NamingResultRenderer({ namingResult, birthDateTime = null, isSolarCalen
         </div>
 
         <div className="absolute right-6 bottom-5 text-right shrink-0" style={glowStyle}>
-          <p className={`text-xl md:text-2xl font-black ${textColorClass}`}>{appliedSummary.displayHangul} ({appliedSummary.displayHanja})</p>
+          <p className={`text-xl md:text-2xl font-black ${textColorClass}`}>
+            {appliedSummary.displayHangul}
+            {appliedSummary.displayHanja ? ` (${appliedSummary.displayHanja})` : ''}
+          </p>
           {birthDateTimeText && (
             <p className={`text-[11px] md:text-xs font-semibold mt-1 ${textColorClass}`}>{birthDateTimeText}</p>
           )}
-          <p className={`text-sm font-bold mt-1 ${textColorClass}`}>종합 점수 {appliedSummary.score}</p>
+          {appliedSummary.score ? (
+            <p className={`text-sm font-bold mt-1 ${textColorClass}`}>종합 점수 {appliedSummary.score}</p>
+          ) : null}
         </div>
       </div>
     </div>

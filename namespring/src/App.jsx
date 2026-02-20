@@ -246,12 +246,6 @@ function App() {
     return engine.analyze(normalizeEntryUserInfo(userInfo));
   };
 
-  const handleAnalyzeAsync = async (userInfo) => {
-    const engine = new SeedTs();
-    await Promise.resolve();
-    return engine.analyze(normalizeEntryUserInfo(userInfo));
-  };
-
   const handleRecommendAsync = useCallback(async (userInfo) => {
     const springRequest = toSpringRequest(userInfo);
     const cacheKey = toRequestCacheKey(springRequest);
@@ -394,7 +388,7 @@ function App() {
           <AppBackground>
             <HomePage
               entryUserInfo={entryUserInfo}
-              onAnalyzeAsync={handleAnalyzeAsync}
+              onLoadSajuReport={handleLoadSajuReportAsync}
               onOpenCombinedReport={handleOpenCombinedReportFromHome}
               onOpenNamingCandidates={() => navigateToPage('naming-candidates')}
               onOpenEntry={(userInfoFromHome) => {

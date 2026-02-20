@@ -1,4 +1,13 @@
-import React, { useMemo, useState } from 'react';
+import React, { useCallback, useMemo, useRef, useState } from 'react';
+import NamingResultRenderer from './NamingResultRenderer';
+import { buildRenderMetricsFromSajuReport } from './naming-result-render-metrics';
+import {
+  ReportActionButtons,
+  ReportPrintOverlay,
+  ReportScrollTopFab,
+  ReportShareDialog,
+  useReportActions,
+} from './report-common-ui';
 
 const ELEMENT_CODE_ORDER = ['WOOD', 'FIRE', 'EARTH', 'METAL', 'WATER'];
 const POSITION_ORDER = ['YEAR', 'MONTH', 'DAY', 'HOUR'];
@@ -112,9 +121,10 @@ function PillarCard({ label, pillar }) {
   );
 }
 
-function SajuReport({ report }) {
+function SajuReport({ report, shareUserInfo = null }) {
   if (!report) return null;
 
+  const reportRootRef = useRef(null);
   const [openCards, setOpenCards] = useState({
     time: true,
     pillars: true,
@@ -181,9 +191,52 @@ function SajuReport({ report }) {
   const cheonganRelations = Array.isArray(report?.cheonganRelations) ? report.cheonganRelations : [];
   const jijiRelations = Array.isArray(report?.jijiRelations) ? report.jijiRelations : [];
   const shinsalHits = Array.isArray(report?.shinsalHits) ? report.shinsalHits : [];
+  const sajuRenderMetrics = useMemo(
+    () => buildRenderMetricsFromSajuReport(report, {
+      entryUserInfo: shareUserInfo,
+    }),
+    [report, shareUserInfo]
+  );
+
+  const prepareBeforePrint = useCallback(() => {
+    const previousOpenCards = { ...openCards };
+    setOpenCards({
+      time: true,
+      pillars: true,
+      strength: true,
+      yongshin: true,
+      elements: true,
+      tenGod: true,
+      relations: true,
+      shinsal: true,
+    });
+    return { previousOpenCards };
+  }, [openCards]);
+
+  const restoreAfterPrint = useCallback((payload) => {
+    if (!payload?.previousOpenCards) return;
+    setOpenCards(payload.previousOpenCards);
+  }, []);
+
+  const {
+    isPdfSaving,
+    isShareDialogOpen,
+    shareLink,
+    isLinkCopied,
+    handleSavePdf,
+    handleOpenShareDialog,
+    closeShareDialog,
+    handleCopyShareLink,
+  } = useReportActions({
+    reportRootRef,
+    shareUserInfo,
+    prepareBeforePrint,
+    restoreAfterPrint,
+  });
 
   return (
-    <div className="space-y-4">
+    <>
+    <div ref={reportRootRef} data-pdf-root="true" className="space-y-4">
       <section className="rounded-[2rem] border border-[var(--ns-border)] bg-[var(--ns-surface-soft)] p-3 md:p-4">
         <div className="flex flex-wrap items-start justify-between gap-3">
           <div>
@@ -208,6 +261,13 @@ function SajuReport({ report }) {
           <InfoCard title="강약 판정" value={strengthGuide(report?.strength)} />
           <InfoCard title="격국" value={`${report?.gyeokguk?.type || '-'} / ${report?.gyeokguk?.category || '-'}`} />
           <InfoCard title="용신" value={`${elementLabel(report?.yongshin?.element)} (${report?.yongshin?.element || '-'})`} />
+        </div>
+        <div className="mt-3 h-44 md:h-52 rounded-[1.6rem] overflow-hidden border border-[var(--ns-border)] shadow-md">
+          <NamingResultRenderer
+            renderMetrics={sajuRenderMetrics}
+            birthDateTime={shareUserInfo?.birthDateTime ?? null}
+            isSolarCalendar={shareUserInfo?.isSolarCalendar}
+          />
         </div>
       </section>
 
@@ -466,7 +526,22 @@ function SajuReport({ report }) {
           )}
         </div>
       </CollapseCard>
+      <ReportActionButtons
+        isPdfSaving={isPdfSaving}
+        onSavePdf={handleSavePdf}
+        onShare={handleOpenShareDialog}
+      />
     </div>
+    <ReportPrintOverlay isPdfSaving={isPdfSaving} />
+    <ReportShareDialog
+      isOpen={isShareDialogOpen}
+      shareLink={shareLink}
+      isLinkCopied={isLinkCopied}
+      onCopy={handleCopyShareLink}
+      onClose={closeShareDialog}
+    />
+    <ReportScrollTopFab />
+    </>
   );
 }
 

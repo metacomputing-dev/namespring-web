@@ -81,7 +81,7 @@ function SajuReportPage({
         ) : null}
 
         {!isLoading && !error && report ? (
-          <SajuReport report={report} />
+          <SajuReport report={report} shareUserInfo={entryUserInfo} />
         ) : null}
       </div>
     </div>

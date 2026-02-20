@@ -1,5 +1,13 @@
-import React, { useMemo, useState } from 'react';
+import React, { useCallback, useMemo, useRef, useState } from 'react';
 import NamingResultRenderer from './NamingResultRenderer';
+import { buildRenderMetricsFromSajuReport } from './naming-result-render-metrics';
+import {
+  ReportActionButtons,
+  ReportPrintOverlay,
+  ReportScrollTopFab,
+  ReportShareDialog,
+  useReportActions,
+} from './report-common-ui';
 
 const ELEMENT_LABEL = {
   Wood: '목',
@@ -89,12 +97,13 @@ function MetaInfoCard({ title, value, tone = 'default' }) {
 
 function CombiedNamingReport({
   springReport,
-  onBackCandidates,
   onOpenNamingReport,
   onOpenSajuReport,
+  shareUserInfo = null,
 }) {
   if (!springReport) return null;
 
+  const reportRootRef = useRef(null);
   const [openCards, setOpenCards] = useState({
     saju: true,
     compatibility: true,
@@ -141,40 +150,52 @@ function CombiedNamingReport({
     const max = values.length ? Math.max(...values) : 0;
     return max > 0 ? max : 1;
   }, [combinedDistributionRows]);
-  const nameCardData = useMemo(() => {
-    const surnameEntries = Array.isArray(namingReport?.name?.surname) ? namingReport.name.surname : [];
-    const givenEntries = Array.isArray(namingReport?.name?.givenName) ? namingReport.name.givenName : [];
-    const hangulBlocks = Array.isArray(namingReport?.analysis?.hangul?.blocks) ? namingReport.analysis.hangul.blocks : [];
-
-    return {
-      lastName: surnameEntries.map((entry) => ({
-        hangul: String(entry?.hangul ?? ''),
-        hanja: String(entry?.hanja ?? ''),
-        resource_element: String(entry?.element ?? ''),
-      })),
-      firstName: givenEntries.map((entry) => ({
-        hangul: String(entry?.hangul ?? ''),
-        hanja: String(entry?.hanja ?? ''),
-        resource_element: String(entry?.element ?? ''),
-      })),
-      totalScore: Number.isFinite(finalScore) ? finalScore : Number(namingReport?.totalScore ?? 0),
-      hangul: {
-        getNameBlocks: () =>
-          hangulBlocks.map((block) => ({
-            energy: {
-              polarity: {
-                english: String(block?.polarity ?? ''),
-              },
-            },
-          })),
-      },
-    };
-  }, [namingReport, finalScore]);
+  const nameCardRenderMetrics = useMemo(
+    () => buildRenderMetricsFromSajuReport(sajuReport, {
+      displayHangul: fullHangul === '-' ? '' : fullHangul,
+      displayHanja: fullHanja === '-' ? '' : fullHanja,
+      score: finalScore,
+    }),
+    [sajuReport, fullHangul, fullHanja, finalScore]
+  );
 
   const toggleCard = (key) => setOpenCards((prev) => ({ ...prev, [key]: !prev[key] }));
 
+  const prepareBeforePrint = useCallback(() => {
+    const previousOpenCards = { ...openCards };
+    setOpenCards({
+      saju: true,
+      compatibility: true,
+      scores: true,
+      interpretation: true,
+    });
+    return { previousOpenCards };
+  }, [openCards]);
+
+  const restoreAfterPrint = useCallback((payload) => {
+    if (!payload?.previousOpenCards) return;
+    setOpenCards(payload.previousOpenCards);
+  }, []);
+
+  const {
+    isPdfSaving,
+    isShareDialogOpen,
+    shareLink,
+    isLinkCopied,
+    handleSavePdf,
+    handleOpenShareDialog,
+    closeShareDialog,
+    handleCopyShareLink,
+  } = useReportActions({
+    reportRootRef,
+    shareUserInfo,
+    prepareBeforePrint,
+    restoreAfterPrint,
+  });
+
   return (
-    <div className="space-y-4">
+    <>
+    <div ref={reportRootRef} data-pdf-root="true" className="space-y-4">
       <section className="rounded-[2rem] border border-[var(--ns-border)] bg-[var(--ns-surface-soft)] p-3 md:p-4">
         <div className="flex flex-wrap items-start justify-between gap-3">
           <div>
@@ -192,7 +213,11 @@ function CombiedNamingReport({
       </section>
 
       <section className="h-44 md:h-52">
-        <NamingResultRenderer namingResult={nameCardData} />
+        <NamingResultRenderer
+          renderMetrics={nameCardRenderMetrics}
+          birthDateTime={shareUserInfo?.birthDateTime ?? null}
+          isSolarCalendar={shareUserInfo?.isSolarCalendar}
+        />
       </section>
 
       <section className="rounded-[2rem] border border-[var(--ns-border)] bg-[var(--ns-surface-soft)] p-3 md:p-4">
@@ -311,20 +336,11 @@ function CombiedNamingReport({
         </div>
       </CollapseCard>
 
-      <div className="flex gap-4 pt-2">
-        <button
-          onClick={() => window.print()}
-          className="flex-1 py-4 bg-[var(--ns-surface)] border border-[var(--ns-border)] rounded-2xl font-black text-[var(--ns-muted)] hover:bg-[var(--ns-surface-soft)] active:scale-95 transition-all"
-        >
-          인쇄하기
-        </button>
-        <button
-          onClick={onBackCandidates}
-          className="flex-1 py-4 bg-[var(--ns-primary)] text-[var(--ns-accent-text)] rounded-2xl font-black shadow-lg hover:brightness-95 active:scale-95 transition-all"
-        >
-          추천 목록으로
-        </button>
-      </div>
+      <ReportActionButtons
+        isPdfSaving={isPdfSaving}
+        onSavePdf={handleSavePdf}
+        onShare={handleOpenShareDialog}
+      />
 
       <section className="rounded-2xl border border-[var(--ns-border)] bg-[var(--ns-surface-soft)] px-3 py-3">
         <p className="text-sm font-black text-[var(--ns-accent-text)]">다른 보고서 보기</p>
@@ -346,6 +362,16 @@ function CombiedNamingReport({
         </div>
       </section>
     </div>
+    <ReportPrintOverlay isPdfSaving={isPdfSaving} />
+    <ReportShareDialog
+      isOpen={isShareDialogOpen}
+      shareLink={shareLink}
+      isLinkCopied={isLinkCopied}
+      onCopy={handleCopyShareLink}
+      onClose={closeShareDialog}
+    />
+    <ReportScrollTopFab />
+    </>
   );
 }
 

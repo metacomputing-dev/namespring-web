@@ -95,9 +95,9 @@ function CombinedReportPage({
         {!isLoading && !error && report ? (
           <CombiedNamingReport
             springReport={report}
-            onBackCandidates={onBackCandidates}
             onOpenNamingReport={onOpenNamingReport}
             onOpenSajuReport={onOpenSajuReport}
+            shareUserInfo={entryUserInfo}
           />
         ) : null}
       </div>
