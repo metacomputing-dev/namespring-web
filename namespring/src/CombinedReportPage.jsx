@@ -1,5 +1,55 @@
 import React, { useEffect, useState } from 'react';
+import { buildSpringReport } from '@spring/report/buildIntegratedReport';
 import CombiedNamingReport from './CombiedNamingReport';
+
+function resolveTargetName(entryUserInfo, selectedCandidate, springReport) {
+  const candidateName = String(selectedCandidate?.fullHangul ?? '').trim();
+  if (candidateName) return candidateName;
+
+  const reportName = String(springReport?.namingReport?.name?.fullHangul ?? '').trim();
+  if (reportName) return reportName;
+
+  const last = String(entryUserInfo?.lastNameText ?? '').trim();
+  const first = String(entryUserInfo?.firstNameText ?? '').trim();
+  const fromEntry = `${last}${first}`.trim();
+  return fromEntry || undefined;
+}
+
+function toBirthInfo(entryUserInfo) {
+  const birthDateTime = entryUserInfo?.birthDateTime;
+  if (!birthDateTime || typeof birthDateTime !== 'object') return undefined;
+
+  const year = Number(birthDateTime.year);
+  const month = Number(birthDateTime.month);
+  const day = Number(birthDateTime.day);
+  const hour = Number(birthDateTime.hour);
+  const minute = Number(birthDateTime.minute);
+  const birthInfo = {};
+
+  if (Number.isFinite(year) && year > 0) birthInfo.year = year;
+  if (Number.isFinite(month) && month > 0) birthInfo.month = month;
+  if (Number.isFinite(day) && day > 0) birthInfo.day = day;
+  if (Number.isFinite(hour) && hour >= 0 && hour <= 23) birthInfo.hour = hour;
+  if (Number.isFinite(minute) && minute >= 0 && minute <= 59) birthInfo.minute = minute;
+
+  return Object.keys(birthInfo).length ? birthInfo : undefined;
+}
+
+function buildIntegratedReportFromSpring(entryUserInfo, selectedCandidate, springReport) {
+  if (!springReport) return null;
+
+  try {
+    return buildSpringReport(springReport, {
+      name: resolveTargetName(entryUserInfo, selectedCandidate, springReport),
+      gender: entryUserInfo?.gender === 'female' ? 'female' : 'male',
+      birthInfo: toBirthInfo(entryUserInfo),
+      today: new Date(),
+    });
+  } catch (error) {
+    console.error('Failed to build integrated report for UI', error);
+    return null;
+  }
+}
 
 function CombinedReportPage({
   entryUserInfo,
@@ -10,7 +60,8 @@ function CombinedReportPage({
   onOpenNamingReport,
   onOpenSajuReport,
 }) {
-  const [report, setReport] = useState(null);
+  const [springReport, setSpringReport] = useState(null);
+  const [integratedReport, setIntegratedReport] = useState(null);
   const [isLoading, setIsLoading] = useState(true);
   const [error, setError] = useState('');
 
@@ -19,20 +70,27 @@ function CombinedReportPage({
 
     const run = async () => {
       if (!entryUserInfo || !selectedCandidate || !onLoadCombinedReport) {
-        setReport(null);
+        setSpringReport(null);
+        setIntegratedReport(null);
         setIsLoading(false);
-        setError('선택한 추천 이름 정보가 없습니다.');
+        setError('선택된 추천 이름 정보가 없습니다.');
         return;
       }
 
       setIsLoading(true);
       setError('');
-      setReport(null);
+      setSpringReport(null);
+      setIntegratedReport(null);
+
       try {
-        const nextReport = await onLoadCombinedReport(entryUserInfo, selectedCandidate);
+        const nextSpringReport = await onLoadCombinedReport(entryUserInfo, selectedCandidate);
         if (cancelled) return;
-        setReport(nextReport || null);
-        if (!nextReport) {
+
+        setSpringReport(nextSpringReport || null);
+        const nextIntegratedReport = buildIntegratedReportFromSpring(entryUserInfo, selectedCandidate, nextSpringReport);
+        setIntegratedReport(nextIntegratedReport);
+
+        if (!nextSpringReport) {
           setError('통합 보고서를 불러오지 못했습니다.');
         }
       } catch {
@@ -53,7 +111,7 @@ function CombinedReportPage({
 
   return (
     <div className="min-h-screen flex flex-col items-center p-3 font-sans text-[var(--ns-text)]">
-      <div className="bg-[var(--ns-surface)] p-5 rounded-[2rem] shadow-2xl border border-[var(--ns-border)] w-full max-w-2xl overflow-hidden">
+      <div className="bg-[var(--ns-surface)] p-5 rounded-[2rem] shadow-2xl border border-[var(--ns-border)] w-full max-w-5xl overflow-hidden">
         <header className="mb-4 flex items-center justify-between">
           <div>
             <h1 className="text-3xl font-black text-[var(--ns-accent-text)]">통합 보고서</h1>
@@ -92,9 +150,10 @@ function CombinedReportPage({
           </div>
         ) : null}
 
-        {!isLoading && !error && report ? (
+        {!isLoading && !error && springReport ? (
           <CombiedNamingReport
-            springReport={report}
+            springReport={springReport}
+            integratedReport={integratedReport}
             onOpenNamingReport={onOpenNamingReport}
             onOpenSajuReport={onOpenSajuReport}
             shareUserInfo={entryUserInfo}
