@@ -739,9 +739,19 @@ function buildSajuModuleCandidates(): string[] {
   const configuredDistPath = SAJU_MODULE_PATH.replace('/src/', '/dist/').replace(/\.ts$/i, '.js');
   const compiledDistPath = '../../../../saju-ts/dist/index.js';
   const staticPublicPath = 'saju-ts/index.js';
-  const raw = [staticPublicPath, SAJU_MODULE_PATH, configuredDistPath, compiledDistPath];
+  const isBrowser = typeof window !== 'undefined' && typeof document !== 'undefined';
+  const isLocalDevHost = isBrowser
+    && typeof window.location?.hostname === 'string'
+    && /^(localhost|127\.0\.0\.1|0\.0\.0\.0)$/.test(window.location.hostname);
+  const raw = isLocalDevHost
+    // In Vite dev, prefer source directly to avoid probing dist artifacts that
+    // may contain bare imports (e.g. "fflate") outside the app graph.
+    ? [SAJU_MODULE_PATH]
+    : isBrowser
+      ? [staticPublicPath, SAJU_MODULE_PATH]
+      : [staticPublicPath, SAJU_MODULE_PATH, configuredDistPath, compiledDistPath];
 
-  if (typeof document === 'undefined' || !document.baseURI) {
+  if (!isBrowser || !document.baseURI) {
     return Array.from(new Set(raw));
   }
 
@@ -757,23 +767,6 @@ function buildSajuModuleCandidates(): string[] {
 
 async function loadSajuModule(): Promise<SajuModule | null> {
   if (sajuModule) return sajuModule;
-
-  // Prefer bundled local dist import so saju works in app dev/build without public copy step.
-  try {
-    const bundled = await import('../../saju-ts/dist/index.js');
-    if (typeof bundled?.analyzeSaju === 'function' && typeof bundled?.createBirthInput === 'function') {
-      sajuModule = {
-        analyzeSaju: bundled.analyzeSaju as SajuModule['analyzeSaju'],
-        createBirthInput: bundled.createBirthInput as SajuModule['createBirthInput'],
-        configFromPreset: typeof bundled.configFromPreset === 'function'
-          ? (bundled.configFromPreset as SajuModule['configFromPreset'])
-          : undefined,
-      };
-      return sajuModule;
-    }
-  } catch {
-    // fallback to runtime path probing below
-  }
 
   // 1) public/saju-ts/index.js (for static deploy), 2) configured dev path.
   const candidates = buildSajuModuleCandidates();
