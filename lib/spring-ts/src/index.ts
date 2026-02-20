@@ -3,6 +3,7 @@
 // ─────────────────────────────────────────────────────────────────────────────
 export { SpringEngine } from './spring-engine.js';
 export { springEvaluateName, SAJU_FRAME } from './spring-evaluator.js';
+export { buildIntegratedReport, buildSajuOnlyReport, buildSpringReport } from './report/buildIntegratedReport.js';
 
 // ─────────────────────────────────────────────────────────────────────────────
 //  2. SAJU ADAPTER & CALCULATOR
@@ -45,6 +46,33 @@ export type {
   SajuOutputSummary,
   SajuYongshinSummary,
 } from './types.js';
+export type {
+  ReportInput,
+  ReportOptions,
+  ReportSectionId,
+  ReportSection,
+  ReportSubsection,
+  ReportParagraph,
+  ReportTable,
+  ReportChart,
+  ReportHighlight,
+  IntegratedReport,
+  ReportMeta,
+  ElementCode,
+  YinYangCode,
+  StemCode,
+  BranchCode,
+  TenGodCode,
+  LifeStageCode,
+  StrengthLevel,
+  ShinsalType,
+  YongshinMatchGrade,
+  SectionGenerator,
+  MultiSectionGenerator,
+  ConditionalTemplate,
+  ParameterizedTemplate,
+  ContextualSentencePool,
+} from './report/types.js';
 
 // ─────────────────────────────────────────────────────────────────────────────
 //  4. RE-EXPORTED NAME-TS MODELS
