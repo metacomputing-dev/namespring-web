@@ -3,6 +3,18 @@ const STEM_YIN_CODES = new Set(['EUL', 'JEONG', 'GI', 'SIN', 'GYE']);
 const BRANCH_YANG_CODES = new Set(['JA', 'IN', 'JIN', 'O', 'SIN', 'SUL']);
 const BRANCH_YIN_CODES = new Set(['CHUK', 'MYO', 'SA', 'MI', 'YU', 'HAE']);
 
+// 천간/지지 코드 → 오행 코드 (비가중치 개수 집계용)
+const STEM_ELEMENT = {
+  GAP: 'WOOD', EUL: 'WOOD', BYEONG: 'FIRE', JEONG: 'FIRE',
+  MU: 'EARTH', GI: 'EARTH', GYEONG: 'METAL', SIN: 'METAL',
+  IM: 'WATER', GYE: 'WATER',
+};
+const BRANCH_ELEMENT = {
+  JA: 'WATER', CHUK: 'EARTH', IN: 'WOOD', MYO: 'WOOD',
+  JIN: 'EARTH', SA: 'FIRE', O: 'FIRE', MI: 'EARTH',
+  SIN: 'METAL', YU: 'METAL', SUL: 'EARTH', HAE: 'WATER',
+};
+
 export function normalizeElementKey(value) {
   const normalized = String(value ?? '').trim().toLowerCase();
   if (normalized === 'wood' || normalized === '목') return 'Wood';
@@ -112,11 +124,16 @@ export function buildRenderMetricsFromSajuReport(
   options = {},
 ) {
   const elementCounts = createEmptyElementCounts();
-  const distribution = sajuReport?.elementDistribution || {};
-  for (const [rawKey, rawValue] of Object.entries(distribution)) {
-    const key = normalizeElementKey(rawKey);
-    if (!key) continue;
-    elementCounts[key] += toFiniteNumber(rawValue, 0);
+  // 가중치 없이 4주(천간4 + 지지4)의 오행을 코드→오행 매핑으로 단순 개수(정수) 집계
+  const pillarKeys = ['year', 'month', 'day', 'hour'];
+  for (const pk of pillarKeys) {
+    const pillar = sajuReport?.pillars?.[pk];
+    const stemCode = String(pillar?.stem?.code ?? '').toUpperCase();
+    const branchCode = String(pillar?.branch?.code ?? '').toUpperCase();
+    const stemEl = normalizeElementKey(STEM_ELEMENT[stemCode]);
+    if (stemEl) elementCounts[stemEl] += 1;
+    const branchEl = normalizeElementKey(BRANCH_ELEMENT[branchCode]);
+    if (branchEl) elementCounts[branchEl] += 1;
   }
 
   const { positiveCount, negativeCount } = getPolarityCountsFromSajuPillars(sajuReport);

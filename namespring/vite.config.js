@@ -15,8 +15,7 @@ export default defineConfig({
     alias: {
       '@seed': path.resolve(__dirname, '../lib/seed-ts/src'),
       '@spring': path.resolve(__dirname, '../lib/spring-ts/src'),
-      // saju-ts artifacts import this package via bare specifier.
-      // Pin alias to app-local dependency so @fs-loaded modules resolve consistently.
+      '@saju': path.resolve(__dirname, '../lib/saju-ts/src'),
       'fflate': path.resolve(__dirname, 'node_modules/fflate/esm/browser.js'),
     }
   },

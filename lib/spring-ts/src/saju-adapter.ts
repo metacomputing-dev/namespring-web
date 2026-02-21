@@ -49,8 +49,6 @@ const TEN_GOD_GROUP: Record<string, string> = sajuScoringConfig.tenGodGroups;
 const PRESET_MAP: Record<string, string> = engineConfig.presetMapping;
 
 /** Relative path used to dynamically import the saju-ts engine. */
-const SAJU_MODULE_PATH: string = engineConfig.sajuModulePath;
-
 /** Default coordinates (Seoul) and timezone for birth info. */
 const DEFAULT_LATITUDE: number = engineConfig.defaultCoordinates.latitude;
 const DEFAULT_LONGITUDE: number = engineConfig.defaultCoordinates.longitude;
@@ -735,56 +733,17 @@ type SajuModule = {
 
 let sajuModule: SajuModule | null = null;
 
-function buildSajuModuleCandidates(): string[] {
-  const configuredDistPath = SAJU_MODULE_PATH.replace('/src/', '/dist/').replace(/\.ts$/i, '.js');
-  const compiledDistPath = '../../../../saju-ts/dist/index.js';
-  const staticPublicPath = 'saju-ts/index.js';
-  const isBrowser = typeof window !== 'undefined' && typeof document !== 'undefined';
-  const isLocalDevHost = isBrowser
-    && typeof window.location?.hostname === 'string'
-    && /^(localhost|127\.0\.0\.1|0\.0\.0\.0)$/.test(window.location.hostname);
-
-  if (isBrowser) {
-    const baseUri = document.baseURI || window.location.href;
-    let publicAbsolute = staticPublicPath;
-    try {
-      publicAbsolute = new URL(staticPublicPath, baseUri).toString();
-    } catch {
-      publicAbsolute = staticPublicPath;
-    }
-
-    if (isLocalDevHost) {
-      // In local Vite dev, prefer source import first.
-      return Array.from(new Set([SAJU_MODULE_PATH, publicAbsolute, staticPublicPath]));
-    }
-
-    // In deployed browser env, only probe the public asset path.
-    return [publicAbsolute];
-  }
-
-  return Array.from(new Set([staticPublicPath, SAJU_MODULE_PATH, configuredDistPath, compiledDistPath]));
-}
-
 async function loadSajuModule(): Promise<SajuModule | null> {
   if (sajuModule) return sajuModule;
 
-  // 1) public/saju-ts/index.js (for static deploy), 2) configured dev path.
-  const candidates = buildSajuModuleCandidates();
-
-  for (const modulePath of candidates) {
-    try {
-      sajuModule = await (Function('p', 'return import(p)')(modulePath)) as SajuModule;
-      return sajuModule;
-    } catch {
-      // try next candidate
-    }
+  try {
+    // Vite alias @saju → ../lib/saju-ts/src (소스에서 직접 빌드, dist 불필요)
+    sajuModule = await import('@saju/index') as SajuModule;
+    return sajuModule;
+  } catch (err) {
+    console.warn('[spring-ts] failed to load saju-ts module; saju analysis will be disabled.', err);
+    return null;
   }
-
-  console.warn(
-    '[spring-ts] failed to load saju-ts module; saju analysis will be disabled.',
-    `tried paths: ${candidates.join(', ')}`,
-  );
-  return null;
 }
 
 // ---------------------------------------------------------------------------
