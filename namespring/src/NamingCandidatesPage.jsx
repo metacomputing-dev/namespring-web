@@ -427,7 +427,7 @@ function NamingCandidatesPage({ entryUserInfo, onRecommendAsync, onLoadCurrentSp
                     <div className="flex items-start gap-2 px-2.5 py-2.5">
                       <button
                         type="button"
-                        onClick={() => onOpenCombinedReport?.(candidate)}
+                        onClick={() => onOpenCombinedReport?.(candidate, candidates)}
                         className="flex-1 min-w-0 text-left rounded-lg px-2 py-1 transition-all hover:brightness-[1.015]"
                       >
                         <div className="flex flex-wrap items-center justify-between gap-2">

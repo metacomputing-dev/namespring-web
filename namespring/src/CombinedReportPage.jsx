@@ -1,59 +1,10 @@
 import React, { useEffect, useState } from 'react';
-import { buildSpringReport } from '@spring/report/buildIntegratedReport';
-import CombiedNamingReport from './CombiedNamingReport';
-
-function resolveTargetName(entryUserInfo, selectedCandidate, springReport) {
-  const candidateName = String(selectedCandidate?.fullHangul ?? '').trim();
-  if (candidateName) return candidateName;
-
-  const reportName = String(springReport?.namingReport?.name?.fullHangul ?? '').trim();
-  if (reportName) return reportName;
-
-  const last = String(entryUserInfo?.lastNameText ?? '').trim();
-  const first = String(entryUserInfo?.firstNameText ?? '').trim();
-  const fromEntry = `${last}${first}`.trim();
-  return fromEntry || undefined;
-}
-
-function toBirthInfo(entryUserInfo) {
-  const birthDateTime = entryUserInfo?.birthDateTime;
-  if (!birthDateTime || typeof birthDateTime !== 'object') return undefined;
-
-  const year = Number(birthDateTime.year);
-  const month = Number(birthDateTime.month);
-  const day = Number(birthDateTime.day);
-  const hour = Number(birthDateTime.hour);
-  const minute = Number(birthDateTime.minute);
-  const birthInfo = {};
-
-  if (Number.isFinite(year) && year > 0) birthInfo.year = year;
-  if (Number.isFinite(month) && month > 0) birthInfo.month = month;
-  if (Number.isFinite(day) && day > 0) birthInfo.day = day;
-  if (Number.isFinite(hour) && hour >= 0 && hour <= 23) birthInfo.hour = hour;
-  if (Number.isFinite(minute) && minute >= 0 && minute <= 59) birthInfo.minute = minute;
-
-  return Object.keys(birthInfo).length ? birthInfo : undefined;
-}
-
-function buildIntegratedReportFromSpring(entryUserInfo, selectedCandidate, springReport) {
-  if (!springReport) return null;
-
-  try {
-    return buildSpringReport(springReport, {
-      name: resolveTargetName(entryUserInfo, selectedCandidate, springReport),
-      gender: entryUserInfo?.gender === 'female' ? 'female' : 'male',
-      birthInfo: toBirthInfo(entryUserInfo),
-      today: new Date(),
-    });
-  } catch (error) {
-    console.error('Failed to build integrated report for UI', error);
-    return null;
-  }
-}
+import IntegratedReportView from './IntegratedReportView';
 
 function CombinedReportPage({
   entryUserInfo,
   selectedCandidate,
+  candidates = [],
   onLoadCombinedReport,
   onBackHome,
   onBackCandidates,
@@ -61,7 +12,6 @@ function CombinedReportPage({
   onOpenSajuReport,
 }) {
   const [springReport, setSpringReport] = useState(null);
-  const [integratedReport, setIntegratedReport] = useState(null);
   const [isLoading, setIsLoading] = useState(true);
   const [error, setError] = useState('');
 
@@ -71,7 +21,6 @@ function CombinedReportPage({
     const run = async () => {
       if (!entryUserInfo || !selectedCandidate || !onLoadCombinedReport) {
         setSpringReport(null);
-        setIntegratedReport(null);
         setIsLoading(false);
         setError('선택된 추천 이름 정보가 없습니다.');
         return;
@@ -80,15 +29,12 @@ function CombinedReportPage({
       setIsLoading(true);
       setError('');
       setSpringReport(null);
-      setIntegratedReport(null);
 
       try {
         const nextSpringReport = await onLoadCombinedReport(entryUserInfo, selectedCandidate);
         if (cancelled) return;
 
         setSpringReport(nextSpringReport || null);
-        const nextIntegratedReport = buildIntegratedReportFromSpring(entryUserInfo, selectedCandidate, nextSpringReport);
-        setIntegratedReport(nextIntegratedReport);
 
         if (!nextSpringReport) {
           setError('통합 보고서를 불러오지 못했습니다.');
@@ -114,7 +60,8 @@ function CombinedReportPage({
       <div className="bg-[var(--ns-surface)] p-5 rounded-[2rem] shadow-2xl border border-[var(--ns-border)] w-full max-w-5xl overflow-hidden">
         <header className="mb-4 flex items-center justify-between">
           <div>
-            <h1 className="text-3xl font-black text-[var(--ns-accent-text)]">통합 보고서</h1>
+            <h1 className="text-3xl font-black text-[var(--ns-accent-text)]">통합 분석</h1>
+            <p className="text-xs text-[var(--ns-muted)] mt-0.5">이름과 사주의 유기적 관계를 분석합니다</p>
           </div>
           <button
             onClick={onBackHome}
@@ -131,7 +78,7 @@ function CombinedReportPage({
         {isLoading ? (
           <div className="h-40 rounded-xl border border-[var(--ns-border)] bg-[var(--ns-surface-soft)] flex flex-col items-center justify-center gap-3">
             <div className="h-12 w-12 rounded-full border-4 border-[var(--ns-primary)] border-t-transparent animate-spin" />
-            <p className="text-sm font-bold text-[var(--ns-muted)]">통합 보고서를 생성하고 있습니다.</p>
+            <p className="text-sm font-bold text-[var(--ns-muted)]">이름과 사주의 관계를 분석하고 있어요.</p>
           </div>
         ) : null}
 
@@ -151,9 +98,9 @@ function CombinedReportPage({
         ) : null}
 
         {!isLoading && !error && springReport ? (
-          <CombiedNamingReport
+          <IntegratedReportView
             springReport={springReport}
-            integratedReport={integratedReport}
+            candidates={candidates}
             onOpenNamingReport={onOpenNamingReport}
             onOpenSajuReport={onOpenSajuReport}
             shareUserInfo={entryUserInfo}
