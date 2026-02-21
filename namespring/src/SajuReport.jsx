@@ -8,6 +8,7 @@ import {
   ReportShareDialog,
   useReportActions,
 } from './report-common-ui';
+import PremiumSajuView from './PremiumSajuReportView';
 
 const ELEMENT_CODE_ORDER = ['WOOD', 'FIRE', 'EARTH', 'METAL', 'WATER'];
 const POSITION_ORDER = ['YEAR', 'MONTH', 'DAY', 'HOUR'];
@@ -155,6 +156,11 @@ function InfoCard({ title, value }) {
 function SajuReport({ report, shareUserInfo = null }) {
   if (!report) return null;
 
+  if (report.premiumReport?.sections?.length) {
+    return <PremiumSajuView report={report} shareUserInfo={shareUserInfo} />;
+  }
+
+  // === Raw fallback view (existing) ===
   const reportRootRef = useRef(null);
   const [openCards, setOpenCards] = useState({
     time: true,

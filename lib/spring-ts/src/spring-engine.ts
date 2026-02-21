@@ -242,7 +242,14 @@ export class SpringEngine {
 
   async getSajuReport(request: SpringRequest): Promise<SajuReport> {
     const { summary, sajuEnabled } = await analyzeSajuSafe(request.birth, request.options);
-    return { ...summary, sajuEnabled };
+    let premiumReport;
+    if (sajuEnabled && summary.dayMaster?.element) {
+      try {
+        const { buildPremiumSajuReport } = await import('./report/index.js');
+        premiumReport = buildPremiumSajuReport(summary, request.birth);
+      } catch { /* premium report is optional, proceed without it */ }
+    }
+    return { ...summary, sajuEnabled, premiumReport };
   }
 
   // -------------------------------------------------------------------------

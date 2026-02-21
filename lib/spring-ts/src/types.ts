@@ -340,6 +340,7 @@ export interface NamingReport {
 /** Saju analysis result with module availability flag. Returned by getSajuReport(). */
 export type SajuReport = SajuSummary & {
   readonly sajuEnabled: boolean;
+  readonly premiumReport?: import('./report/types.js').PremiumSajuReport;
 };
 
 /** Gender tendency inferred from name-stat birth distribution. */

@@ -86,3 +86,26 @@ export {
   CHOSEONG, JUNGSEONG, decomposeHangul, makeFallbackEntry,
   FRAME_LABELS, buildInterpretation, parseJamoFilter, type JamoFilter,
 } from './core/name-utils.js';
+
+// ─────────────────────────────────────────────────────────────────────────────
+//  8. PREMIUM SAJU REPORT
+// ─────────────────────────────────────────────────────────────────────────────
+export { buildPremiumSajuReport } from './report/index.js';
+export type {
+  PremiumSajuReport,
+  PremiumReportSection,
+  ReportParagraph,
+  ReportTable,
+  ReportChart,
+  ReportHighlight,
+  ReportSubsection,
+  PremiumSectionId,
+} from './report/index.js';
+export { computeDateFortune } from './report/index.js';
+export type { PillarFortune, DateFortuneResult } from './report/index.js';
+export {
+  generateDetailedYearFortune,
+  generateDetailedMonthFortune,
+  generateDetailedDayFortune,
+} from './report/index.js';
+export type { DetailedFortuneReport, YongshinInfo } from './report/index.js';
