@@ -1,0 +1,178 @@
+﻿import type { BranchCode } from '../types.js';
+
+export interface BranchEncyclopediaEntry {
+  readonly code: BranchCode;
+  readonly hangul: string;
+  readonly hanja: string;
+  readonly animal: string;
+  readonly season: string;
+  readonly time: string;
+  readonly vibe: string;
+  readonly strengths: readonly string[];
+  readonly cautions: readonly string[];
+  readonly relationshipTips: readonly string[];
+  readonly lifestyleTips: readonly string[];
+}
+
+export const BRANCH_ENCYCLOPEDIA: Record<BranchCode, BranchEncyclopediaEntry> = {
+  JA: {
+    code: 'JA',
+    hangul: '자',
+    hanja: '子',
+    animal: '쥐',
+    season: '한겨울 시작',
+    time: '23:00-01:00',
+    vibe: '눈치 빠르고 정보 감각이 좋은 기운',
+    strengths: ['상황 파악이 빠름', '아이디어가 많음', '적응력이 좋음'],
+    cautions: ['생각이 많아 잠을 설침', '마음을 숨기다 오해를 받기 쉬움', '시작만 많고 마무리가 약해질 수 있음'],
+    relationshipTips: ['속마음을 짧게라도 자주 말하기', '연락 템포를 일정하게 맞추기', '혼자 정리할 시간도 존중받기'],
+    lifestyleTips: ['늦은 밤 루틴을 단순하게 만들기', '메모로 생각을 비워두기', '카페인 시간을 줄여 수면 지키기'],
+  },
+  CHUK: {
+    code: 'CHUK',
+    hangul: '축',
+    hanja: '丑',
+    animal: '소',
+    season: '늦겨울',
+    time: '01:00-03:00',
+    vibe: '묵직하고 꾸준히 밀어붙이는 기운',
+    strengths: ['끈기가 강함', '현실 감각이 좋음', '책임감이 큼'],
+    cautions: ['고집이 세질 수 있음', '감정 표현이 늦음', '변화에 둔해 기회를 놓칠 수 있음'],
+    relationshipTips: ['말이 서툴면 행동으로 애정 표현하기', '사소한 칭찬을 자주 주고받기', '갈등을 오래 끌지 않기'],
+    lifestyleTips: ['아침 스트레칭으로 몸을 깨우기', '할 일 우선순위를 3개만 정하기', '소화에 무리 없는 식사 습관 만들기'],
+  },
+  IN: {
+    code: 'IN',
+    hangul: '인',
+    hanja: '寅',
+    animal: '호랑이',
+    season: '초봄',
+    time: '03:00-05:00',
+    vibe: '시원하고 추진력 있는 개척자 기운',
+    strengths: ['결단이 빠름', '도전 정신이 큼', '리더십이 자연스러움'],
+    cautions: ['성급하게 결론 내릴 수 있음', '직설적으로 말해 상처를 줄 수 있음', '힘 조절을 못 하면 번아웃이 옴'],
+    relationshipTips: ['지적보다 제안을 먼저 하기', '상대 속도에 맞춰 기다려주기', '사과는 빠르게, 설명은 짧게 하기'],
+    lifestyleTips: ['강도 높은 운동 후 충분히 회복하기', '주 1회는 일정 비우기', '큰 목표를 작은 단계로 쪼개기'],
+  },
+  MYO: {
+    code: 'MYO',
+    hangul: '묘',
+    hanja: '卯',
+    animal: '토끼',
+    season: '한봄',
+    time: '05:00-07:00',
+    vibe: '부드럽고 감각적인 균형 기운',
+    strengths: ['배려가 섬세함', '미적 감각이 좋음', '사람 사이 조율을 잘함'],
+    cautions: ['눈치를 너무 봄', '결정을 미루기 쉬움', '갈등을 피하다 스트레스가 쌓임'],
+    relationshipTips: ['싫은 점도 부드럽게 말하기', '기대치를 미리 맞추기', '상대 문제를 내 책임으로 끌어오지 않기'],
+    lifestyleTips: ['정리된 공간에서 집중하기', '산책으로 감정 환기하기', 'SNS 과몰입 시간 줄이기'],
+  },
+  JIN: {
+    code: 'JIN',
+    hangul: '진',
+    hanja: '辰',
+    animal: '용',
+    season: '봄 끝자락',
+    time: '07:00-09:00',
+    vibe: '스케일이 크고 존재감이 강한 기운',
+    strengths: ['큰 그림을 잘 봄', '카리스마가 있음', '위기에서 중심을 잡음'],
+    cautions: ['완벽주의가 심해질 수 있음', '자존심이 상하면 닫히기 쉬움', '과한 책임을 혼자 짊어짐'],
+    relationshipTips: ['약한 모습도 솔직히 공유하기', '조언 전 공감을 먼저 하기', '주도권을 번갈아 갖기'],
+    lifestyleTips: ['과로 신호를 수치로 체크하기', '일정 사이 휴식 블록 넣기', '물 충분히 마시고 순환 관리하기'],
+  },
+  SA: {
+    code: 'SA',
+    hangul: '사',
+    hanja: '巳',
+    animal: '뱀',
+    season: '초여름',
+    time: '09:00-11:00',
+    vibe: '집중력과 통찰이 깊은 기운',
+    strengths: ['분석력이 좋음', '핵심을 빨리 봄', '몰입하면 성과가 큼'],
+    cautions: ['의심이 많아질 수 있음', '혼자 끙끙 앓기 쉬움', '예민함이 피로로 이어질 수 있음'],
+    relationshipTips: ['마음이 불편할 때 바로 말하기', '확인 질문으로 오해 줄이기', '신뢰를 쌓을 시간을 충분히 주기'],
+    lifestyleTips: ['집중 시간과 회복 시간을 분리하기', '목과 어깨 긴장 자주 풀기', '정보 과다 섭취를 끊어주기'],
+  },
+  O: {
+    code: 'O',
+    hangul: '오',
+    hanja: '午',
+    animal: '말',
+    season: '한여름',
+    time: '11:00-13:00',
+    vibe: '밝고 에너지가 넘치는 표현 기운',
+    strengths: ['활동성이 높음', '분위기를 띄움', '실행 속도가 빠름'],
+    cautions: ['열정 과속으로 지칠 수 있음', '말이 앞서 실수가 생길 수 있음', '지루함을 못 견뎌 산만해질 수 있음'],
+    relationshipTips: ['흥분했을 때 말 속도 줄이기', '중요 약속은 문자로 재확인하기', '혼자만의 자유 시간도 확보하기'],
+    lifestyleTips: ['땀 배출 후 수분 보충하기', '운동 강약을 번갈아 조절하기', '하루 마감 루틴으로 에너지 정리하기'],
+  },
+  MI: {
+    code: 'MI',
+    hangul: '미',
+    hanja: '未',
+    animal: '양',
+    season: '여름 끝자락',
+    time: '13:00-15:00',
+    vibe: '따뜻하고 돌봄이 강한 안정 기운',
+    strengths: ['공감 능력이 좋음', '꾸준히 돌보는 힘이 있음', '팀 분위기를 편하게 만듦'],
+    cautions: ['걱정을 혼자 많이 안음', '거절을 어려워함', '타인 감정에 쉽게 지침'],
+    relationshipTips: ['도와줄 범위를 먼저 정하기', '부탁을 받으면 답변 시간을 두기', '서로의 휴식 방식을 존중하기'],
+    lifestyleTips: ['소화 편한 식단 유지하기', '따뜻한 스트레칭으로 긴장 풀기', '잠들기 전 걱정 목록을 적어 비우기'],
+  },
+  SIN_BRANCH: {
+    code: 'SIN_BRANCH',
+    hangul: '신',
+    hanja: '申',
+    animal: '원숭이',
+    season: '초가을',
+    time: '15:00-17:00',
+    vibe: '재치 있고 문제 해결이 빠른 기운',
+    strengths: ['순발력이 좋음', '유연하게 대처함', '학습 속도가 빠름'],
+    cautions: ['흥미가 떨어지면 집중이 끊김', '말장난이 오해를 만들 수 있음', '얕게 넓게 하다 깊이가 약해질 수 있음'],
+    relationshipTips: ['가벼운 말 뒤에 진심을 덧붙이기', '약속은 작은 것도 지키기', '장난과 무례의 경계 확인하기'],
+    lifestyleTips: ['짧은 집중 타이머 활용하기', '새로운 일은 한 번에 1개만 추가하기', '손목과 팔 피로를 자주 풀기'],
+  },
+  YU: {
+    code: 'YU',
+    hangul: '유',
+    hanja: '酉',
+    animal: '닭',
+    season: '한가을',
+    time: '17:00-19:00',
+    vibe: '정리력과 기준이 분명한 기운',
+    strengths: ['분석과 정리가 뛰어남', '원칙을 잘 지킴', '완성도를 높이는 힘이 있음'],
+    cautions: ['비판적으로 보일 수 있음', '작은 오류에 과몰입하기 쉬움', '스스로를 너무 몰아붙임'],
+    relationshipTips: ['지적은 요청받을 때만 하기', '칭찬과 피드백 비율 맞추기', '결론보다 감정 확인을 먼저 하기'],
+    lifestyleTips: ['할 일 목록을 시간 단위로 쪼개기', '눈과 어깨 휴식 알람 설정하기', '완벽 대신 완료 기준 정하기'],
+  },
+  SUL: {
+    code: 'SUL',
+    hangul: '술',
+    hanja: '戌',
+    animal: '개',
+    season: '늦가을',
+    time: '19:00-21:00',
+    vibe: '의리와 책임을 지키는 보호자 기운',
+    strengths: ['신뢰를 잘 쌓음', '정의감이 강함', '끝까지 책임지는 힘이 있음'],
+    cautions: ['경계심이 강해 마음 여는 데 시간이 걸림', '원칙 충돌 시 고집이 세짐', '타인의 문제를 과하게 떠안을 수 있음'],
+    relationshipTips: ['서운함을 쌓기 전에 말하기', '도움의 선을 명확히 정하기', '상대의 다름을 틀림으로 보지 않기'],
+    lifestyleTips: ['저녁에 과한 걱정 루프 끊기', '가벼운 유산소로 긴장 풀기', '관계 스트레스 기록 후 정리하기'],
+  },
+  HAE: {
+    code: 'HAE',
+    hangul: '해',
+    hanja: '亥',
+    animal: '돼지',
+    season: '초겨울',
+    time: '21:00-23:00',
+    vibe: '포용력 있고 여유를 만드는 기운',
+    strengths: ['마음이 넓음', '회복 탄력이 좋음', '사람을 편안하게 해줌'],
+    cautions: ['경계가 약해 손해를 볼 수 있음', '미루는 습관이 생기기 쉬움', '감정 소비가 커질 수 있음'],
+    relationshipTips: ['좋은 사람이어도 경계선 세우기', '부탁을 바로 수락하지 않기', '혼자 회복하는 시간을 일정에 넣기'],
+    lifestyleTips: ['수면 시간을 고정하기', '짠 음식과 야식을 줄이기', '물가 산책이나 명상으로 마음 정리하기'],
+  },
+};
+
+export function getBranchEncyclopediaEntry(branchCode: BranchCode): BranchEncyclopediaEntry {
+  return BRANCH_ENCYCLOPEDIA[branchCode];
+}

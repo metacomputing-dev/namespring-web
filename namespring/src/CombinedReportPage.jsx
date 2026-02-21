@@ -1,16 +1,17 @@
 import React, { useEffect, useState } from 'react';
-import CombiedNamingReport from './CombiedNamingReport';
+import IntegratedReportView from './IntegratedReportView';
 
 function CombinedReportPage({
   entryUserInfo,
   selectedCandidate,
+  candidates = [],
   onLoadCombinedReport,
   onBackHome,
   onBackCandidates,
   onOpenNamingReport,
   onOpenSajuReport,
 }) {
-  const [report, setReport] = useState(null);
+  const [springReport, setSpringReport] = useState(null);
   const [isLoading, setIsLoading] = useState(true);
   const [error, setError] = useState('');
 
@@ -19,20 +20,23 @@ function CombinedReportPage({
 
     const run = async () => {
       if (!entryUserInfo || !selectedCandidate || !onLoadCombinedReport) {
-        setReport(null);
+        setSpringReport(null);
         setIsLoading(false);
-        setError('선택한 추천 이름 정보가 없습니다.');
+        setError('선택된 추천 이름 정보가 없습니다.');
         return;
       }
 
       setIsLoading(true);
       setError('');
-      setReport(null);
+      setSpringReport(null);
+
       try {
-        const nextReport = await onLoadCombinedReport(entryUserInfo, selectedCandidate);
+        const nextSpringReport = await onLoadCombinedReport(entryUserInfo, selectedCandidate);
         if (cancelled) return;
-        setReport(nextReport || null);
-        if (!nextReport) {
+
+        setSpringReport(nextSpringReport || null);
+
+        if (!nextSpringReport) {
           setError('통합 보고서를 불러오지 못했습니다.');
         }
       } catch {
@@ -53,10 +57,11 @@ function CombinedReportPage({
 
   return (
     <div className="min-h-screen flex flex-col items-center p-3 font-sans text-[var(--ns-text)]">
-      <div className="bg-[var(--ns-surface)] p-5 rounded-[2rem] shadow-2xl border border-[var(--ns-border)] w-full max-w-2xl overflow-hidden">
+      <div className="bg-[var(--ns-surface)] p-5 rounded-[2rem] shadow-2xl border border-[var(--ns-border)] w-full max-w-5xl overflow-hidden">
         <header className="mb-4 flex items-center justify-between">
           <div>
-            <h1 className="text-3xl font-black text-[var(--ns-accent-text)]">통합 보고서</h1>
+            <h1 className="text-3xl font-black text-[var(--ns-accent-text)]">통합 분석</h1>
+            <p className="text-xs text-[var(--ns-muted)] mt-0.5">이름과 사주의 유기적 관계를 분석합니다</p>
           </div>
           <button
             onClick={onBackHome}
@@ -73,7 +78,7 @@ function CombinedReportPage({
         {isLoading ? (
           <div className="h-40 rounded-xl border border-[var(--ns-border)] bg-[var(--ns-surface-soft)] flex flex-col items-center justify-center gap-3">
             <div className="h-12 w-12 rounded-full border-4 border-[var(--ns-primary)] border-t-transparent animate-spin" />
-            <p className="text-sm font-bold text-[var(--ns-muted)]">통합 보고서를 생성하고 있습니다.</p>
+            <p className="text-sm font-bold text-[var(--ns-muted)]">이름과 사주의 관계를 분석하고 있어요.</p>
           </div>
         ) : null}
 
@@ -92,9 +97,10 @@ function CombinedReportPage({
           </div>
         ) : null}
 
-        {!isLoading && !error && report ? (
-          <CombiedNamingReport
-            springReport={report}
+        {!isLoading && !error && springReport ? (
+          <IntegratedReportView
+            springReport={springReport}
+            candidates={candidates}
             onOpenNamingReport={onOpenNamingReport}
             onOpenSajuReport={onOpenSajuReport}
             shareUserInfo={entryUserInfo}

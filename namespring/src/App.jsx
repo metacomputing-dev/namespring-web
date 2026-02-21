@@ -309,6 +309,7 @@ function App() {
   const [minSplashElapsed, setMinSplashElapsed] = useState(false);
   const [entryUserInfo, setEntryUserInfo] = useState(initialAppState.entryUserInfo);
   const [selectedCandidateSummary, setSelectedCandidateSummary] = useState(null);
+  const [allCandidateSummaries, setAllCandidateSummaries] = useState([]);
   const [page, setPage] = useState(initialAppState.page);
   const hanjaRepo = useMemo(() => new HanjaRepository(), []);
   const springEngine = useMemo(() => new SpringEngine(), []);
@@ -531,8 +532,9 @@ function App() {
               onRecommendAsync={handleRecommendAsync}
               onLoadCurrentSpringReport={handleLoadCurrentNameReportAsync}
               onBackHome={() => navigateToPage('home')}
-              onOpenCombinedReport={(candidate) => {
+              onOpenCombinedReport={(candidate, candidatesList) => {
                 setSelectedCandidateSummary(candidate || null);
+                setAllCandidateSummaries(Array.isArray(candidatesList) ? candidatesList : []);
                 navigateToPage('combined-report');
               }}
             />
@@ -549,6 +551,7 @@ function App() {
             <CombinedReportPage
               entryUserInfo={entryUserInfo}
               selectedCandidate={selectedCandidateSummary}
+              candidates={allCandidateSummaries}
               onLoadCombinedReport={handleLoadCombinedReportAsync}
               onBackHome={() => navigateToPage('home')}
               onBackCandidates={() => navigateToPage('naming-candidates')}

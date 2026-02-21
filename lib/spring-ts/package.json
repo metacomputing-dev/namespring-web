@@ -7,7 +7,18 @@
   "scripts": {
     "build": "tsc",
     "test:golden": "npx tsx test/compare-output.ts",
-    "test:region": "npx tsx test/verify-region-coordinate-resolution.ts"
+    "test:region": "npx tsx test/verify-region-coordinate-resolution.ts",
+    "test:report:smoke": "npx tsx test/verify-report-smoke.ts",
+    "test:report:saju-only": "npx tsx test/verify-report-saju-only.ts",
+    "test:report:sections": "npx tsx test/verify-report-sections.ts",
+    "test:report:generate-manual-pack": "npx tsx test/generate-manual-quality-scenarios.ts",
+    "test:report": "npm run test:report:smoke && npm run test:report:saju-only && npm run test:report:sections",
+    "test:report:naming-engine": "npx tsx test/verify-naming-score-engine.ts",
+    "test:report:integration": "npx tsx test/verify-saju-name-integration.ts",
+    "test:report:encyclopedia": "npx tsx test/verify-encyclopedia-lookups.ts",
+    "test:report:saeun": "npx tsx test/verify-report-saeun.ts",
+    "test:report:action-plan": "npx tsx test/verify-report-action-plan.ts",
+    "test:report:extended": "npm run test:report:naming-engine && npm run test:report:integration && npm run test:report:encyclopedia && npm run test:report:saeun && npm run test:report:action-plan"
   },
   "dependencies": {
     "sql.js": "^1.14.0",
