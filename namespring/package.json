@@ -8,9 +8,8 @@
   ],
   "scripts": {
     "dev": "vite",
-    "copy:saju": "node ./scripts/copy-saju-dist.mjs",
     "build": "vite build",
-    "build:pages": "npm run copy:saju && vite build",
+    "build:pages": "vite build",
     "lint": "eslint .",
     "preview": "vite preview"
   },
