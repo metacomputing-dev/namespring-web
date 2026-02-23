@@ -21,6 +21,7 @@ import type {
   FortuneAdvice,
   FortuneWarning,
   FortuneCategory,
+  FortuneTimeSeries,
 } from '../types.js';
 import type { ElementCode, BranchCode } from '../types.js';
 
@@ -30,6 +31,7 @@ import {
   getDailyFortune,
   getWeeklyFortunes,
   getFortuneGrade,
+  getHourStemElement,
   checkFortuneRelations,
 } from '../common/fortuneCalculator.js';
 import type { FortuneGanzhi } from '../common/fortuneCalculator.js';
@@ -46,6 +48,7 @@ import {
   ELEMENT_ORGAN,
   STEM_BY_CODE,
   BRANCH_BY_CODE,
+  BRANCHES,
 } from '../common/elementMaps.js';
 
 // ---------------------------------------------------------------------------
@@ -685,6 +688,136 @@ function computeWeeklyGrade(
 }
 
 // ---------------------------------------------------------------------------
+//  Time-series computation
+// ---------------------------------------------------------------------------
+
+/** 4-hour blocks (6 data points): adjacent 시진 pairs */
+const DAILY_BLOCKS: { label: string; branches: [number, number] }[] = [
+  { label: '심야', branches: [0, 1] },   // 子丑 (23~03)
+  { label: '새벽', branches: [2, 3] },   // 寅卯 (03~07)
+  { label: '오전', branches: [4, 5] },   // 辰巳 (07~11)
+  { label: '오후', branches: [6, 7] },   // 午未 (11~15)
+  { label: '저녁', branches: [8, 9] },   // 申酉 (15~19)
+  { label: '밤',   branches: [10, 11] }, // 戌亥 (19~23)
+];
+
+/** Branch index → element (derived from BRANCHES) */
+const BRANCH_ELEMENT: ElementCode[] = BRANCHES.map(b => b.element);
+
+const DAY_LABELS = ['일', '월', '화', '수', '목', '금', '토'];
+
+function blendedGrade(
+  stemEl: ElementCode,
+  branchEl: ElementCode,
+  natal: NatalData,
+): number {
+  const stemG = getFortuneGrade(stemEl, natal.yongshinElement, natal.heeshinElement, natal.gishinElement);
+  const branchG = getFortuneGrade(branchEl, natal.yongshinElement, natal.heeshinElement, natal.gishinElement);
+  return stemG * 0.7 + branchG * 0.3;
+}
+
+function gradeToScore(grade: number): number {
+  return Math.max(20, Math.min(100, Math.round(grade * 20)));
+}
+
+function computeDailyTimeSeries(
+  targetDate: Date,
+  natal: NatalData,
+): FortuneTimeSeries {
+  const daily = getDailyFortune(targetDate);
+  const dayStemIdx = daily.stemIndex;
+
+  const points = DAILY_BLOCKS.map((block) => {
+    const [b1, b2] = block.branches;
+    const stemEl1 = getHourStemElement(dayStemIdx, b1);
+    const stemEl2 = getHourStemElement(dayStemIdx, b2);
+    const branchEl1 = BRANCH_ELEMENT[b1];
+    const branchEl2 = BRANCH_ELEMENT[b2];
+
+    const g1 = blendedGrade(stemEl1, branchEl1, natal);
+    const g2 = blendedGrade(stemEl2, branchEl2, natal);
+    const avg = (g1 + g2) / 2;
+
+    return { label: block.label, value: gradeToScore(avg) };
+  });
+
+  return { points };
+}
+
+function computeWeeklyTimeSeries(
+  startDate: Date,
+  natal: NatalData,
+): FortuneTimeSeries {
+  const dailyFortunes = getWeeklyFortunes(startDate);
+  const points = dailyFortunes.map((df) => ({
+    label: DAY_LABELS[df.dayOfWeek],
+    value: gradeToScore(blendedGrade(df.stemElement, df.branchElement, natal)),
+  }));
+  return { points };
+}
+
+function computeMonthlyTimeSeries(
+  targetDate: Date,
+  natal: NatalData,
+): FortuneTimeSeries {
+  const year = targetDate.getFullYear();
+  const month = targetDate.getMonth(); // 0-based
+  const daysInMonth = new Date(year, month + 1, 0).getDate();
+
+  // Compute daily grades for every day in the month
+  const dailyGrades: number[] = [];
+  for (let d = 1; d <= daysInMonth; d++) {
+    const df = getDailyFortune(new Date(year, month, d));
+    dailyGrades.push(blendedGrade(df.stemElement, df.branchElement, natal));
+  }
+
+  // Build week boundaries; fold short remainders (<= 3 days) into the last full week
+  const boundaries: number[] = [];
+  for (let start = 0; start < daysInMonth; start += 7) {
+    boundaries.push(start);
+  }
+  const lastStart = boundaries[boundaries.length - 1];
+  if (boundaries.length >= 2 && daysInMonth - lastStart <= 3) {
+    boundaries.pop();
+  }
+
+  const points = boundaries.map((start, i) => {
+    const end = i < boundaries.length - 1 ? boundaries[i + 1] : daysInMonth;
+    const weekGrades = dailyGrades.slice(start, end);
+    const avg = weekGrades.reduce((s, g) => s + g, 0) / weekGrades.length;
+    return { label: `${i + 1}주`, value: gradeToScore(avg) };
+  });
+
+  return { points };
+}
+
+function computeYearlyTimeSeries(
+  targetDate: Date,
+  natal: NatalData,
+): FortuneTimeSeries {
+  const year = targetDate.getFullYear();
+  const points = [];
+  for (let m = 1; m <= 12; m++) {
+    const mf = getMonthlyFortuneSolar(year, m);
+    const grade = blendedGrade(mf.stemElement, mf.branchElement, natal);
+    points.push({ label: `${m}월`, value: gradeToScore(grade) });
+  }
+  return { points };
+}
+
+function computeTimeSeries(
+  periodKind: FortunePeriodKind,
+  targetDate: Date,
+  natal: NatalData,
+): FortuneTimeSeries | undefined {
+  if (periodKind === 'daily') return computeDailyTimeSeries(targetDate, natal);
+  if (periodKind === 'weekly') return computeWeeklyTimeSeries(targetDate, natal);
+  if (periodKind === 'monthly') return computeMonthlyTimeSeries(targetDate, natal);
+  if (periodKind === 'yearly') return computeYearlyTimeSeries(targetDate, natal);
+  return undefined;
+}
+
+// ---------------------------------------------------------------------------
 //  Main builder
 // ---------------------------------------------------------------------------
 
@@ -731,6 +864,8 @@ export function buildPeriodFortuneCard(
     ? computeWeeklyCategoryScores(targetDate, natal)
     : computeCategoryScores(effectiveStemEl, natal);
 
+  const timeSeries = computeTimeSeries(periodKind, targetDate, natal);
+
   return {
     title: PERIOD_TITLE[periodKind] ?? '운세',
     periodKind,
@@ -741,5 +876,6 @@ export function buildPeriodFortuneCard(
     badActions,
     warning,
     categoryScores,
+    ...(timeSeries ? { timeSeries } : {}),
   };
 }

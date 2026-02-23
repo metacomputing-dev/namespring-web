@@ -22,6 +22,7 @@ import {
   GANZHI_60,
   yearToGanzhiIndex,
   julianDayToGanzhiIndex,
+  STEMS,
   BRANCHES,
   BRANCH_BY_CODE,
   ELEMENT_KOREAN_SHORT,
@@ -837,4 +838,32 @@ export function checkFortuneRelations(
   }
 
   return results;
+}
+
+
+// =============================================================================
+//  8. Hour stem element -- Five Rat Rule (五鼠遁法 / 오자기법)
+// =============================================================================
+
+/**
+ * Computes the heavenly stem element of a given hour (시진) using the
+ * Five Rat Rule (오자기법 / 五鼠遁法).
+ *
+ * Formula: hourStemIndex = ((dayStemIndex % 5) * 2 + branchIndex) % 10
+ *
+ * Same principle as the Five Tiger Rule (오호기법) for months, but hours
+ * start from 子 (branch index 0) instead of 寅 (index 2), so there is
+ * no +2 offset.
+ *
+ * @param dayStemIndex Day stem index (0~9)
+ * @param branchIndex  Hour branch index (0=子, 1=丑, ..., 11=亥)
+ * @returns Element of the hour stem
+ *
+ * @example
+ * getHourStemElement(0, 0)  // 甲 day, 子 hour → 甲(stem 0) → 'WOOD'
+ * getHourStemElement(0, 2)  // 甲 day, 寅 hour → 丙(stem 2) → 'FIRE'
+ */
+export function getHourStemElement(dayStemIndex: number, branchIndex: number): ElementCode {
+  const hourStemIdx = ((dayStemIndex % 5) * 2 + branchIndex) % 10;
+  return STEMS[hourStemIdx].element;
 }

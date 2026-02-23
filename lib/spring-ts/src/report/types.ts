@@ -143,6 +143,19 @@ export interface CautionsCard {
   readonly cautions: FortuneWarning[];
 }
 
+// ── Time-series data ──────────────────────────────────────────────────────
+
+/** Single data point for fortune time-series charts */
+export interface FortuneTimeSeriesPoint {
+  readonly label: string;
+  readonly value: number;
+}
+
+/** Time-series data for period fortune charts */
+export interface FortuneTimeSeries {
+  readonly points: FortuneTimeSeriesPoint[];
+}
+
 // ── 카드 7: 기간별 운세 ──────────────────────────────────────────────────
 
 export interface PeriodFortuneCard {
@@ -155,6 +168,7 @@ export interface PeriodFortuneCard {
   readonly badActions: FortuneAdvice[];
   readonly warning: FortuneWarning;
   readonly categoryScores: Record<FortuneCategory, StarRating>;
+  readonly timeSeries?: FortuneTimeSeries;
 }
 
 // ── 카드 7b: 생애 시기별 운세 ────────────────────────────────────────────

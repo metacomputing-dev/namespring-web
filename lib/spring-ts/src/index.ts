@@ -105,6 +105,8 @@ export type {
   PersonalityCard,
   StrengthsWeaknessesCard,
   CautionsCard,
+  FortuneTimeSeriesPoint,
+  FortuneTimeSeries,
   PeriodFortuneCard,
   LifeStageFortuneCard,
   CategoryFortuneCard,
