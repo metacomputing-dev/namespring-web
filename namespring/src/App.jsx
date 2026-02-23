@@ -259,7 +259,7 @@ function toSpringRequest(userInfo) {
   };
 }
 
-function toSpringReportRequest(userInfo, givenName) {
+function toFortuneReportRequest(userInfo, givenName) {
   const base = toSpringRequest(userInfo);
   const normalizedGivenName = (givenName || [])
     .map((item) => ({
@@ -269,9 +269,10 @@ function toSpringReportRequest(userInfo, givenName) {
     .filter((item) => item.hangul.length > 0);
 
   return {
-    ...base,
+    birth: base.birth,
+    surname: base.surname,
     givenName: normalizedGivenName,
-    mode: 'evaluate',
+    options: base.options,
   };
 }
 
@@ -381,11 +382,11 @@ function App() {
   }, [springEngine]);
 
   const handleLoadCombinedReportAsync = async (userInfo, candidate) => {
-    const springRequest = toSpringReportRequest(userInfo, candidate?.givenName);
-    if (!springRequest.givenName?.length) {
+    const fortuneRequest = toFortuneReportRequest(userInfo, candidate?.givenName);
+    if (!fortuneRequest.givenName?.length) {
       throw new Error('선택한 후보 이름 정보가 없습니다.');
     }
-    return springEngine.getSpringReport(springRequest);
+    return springEngine.getFortuneReport(fortuneRequest);
   };
 
   const handleLoadCurrentNameReportAsync = useCallback(async (userInfo) => {

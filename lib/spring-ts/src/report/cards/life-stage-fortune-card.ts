@@ -90,6 +90,11 @@ function gradeToStars(grade: number): StarRating {
   return 1;
 }
 
+function floorAge(value: number): number {
+  if (!Number.isFinite(value)) return 0;
+  return Math.floor(value);
+}
+
 /**
  * Adjust the stem-only fortune grade by considering the branch element.
  * - Branch matches yongshin: +1
@@ -293,7 +298,9 @@ export function buildLifeStageFortuneCard(
     const pillarDisplay = `${stemHangul}${branchHangul}`;
 
     // Age range
-    const ageRange = `${dp.startAge}세 ~ ${dp.endAge}세`;
+    const flooredStartAge = floorAge(dp.startAge);
+    const flooredEndAge = floorAge(dp.endAge);
+    const ageRange = `${flooredStartAge}세 ~ ${flooredEndAge}세`;
 
     // Check if this is the current stage
     if (
@@ -304,13 +311,13 @@ export function buildLifeStageFortuneCard(
       currentStageIndex = i;
     }
 
-    const summary = makeStageSummary(stemEl, branchEl, grade, dp.startAge, dp.endAge);
+    const summary = makeStageSummary(stemEl, branchEl, grade, flooredStartAge, flooredEndAge);
     const highlights = makeHighlights(stemEl, branchEl, grade, yongshinElement);
 
     stages.push({
       ageRange,
-      startAge: dp.startAge,
-      endAge: dp.endAge,
+      startAge: flooredStartAge,
+      endAge: flooredEndAge,
       pillarDisplay,
       stars,
       summary,

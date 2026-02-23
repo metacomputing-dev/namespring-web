@@ -95,7 +95,7 @@ function CombinedReportPage({
 
         {!isLoading && !error && report ? (
           <CombiedNamingReport
-            springReport={report}
+            fortuneReport={report}
             onOpenNamingReport={onOpenNamingReport}
             onOpenSajuReport={onOpenSajuReport}
             shareUserInfo={entryUserInfo}
