@@ -1287,9 +1287,12 @@ export class SpringEngine {
     }
 
     // 3. Parse target date
-    const targetDate = request.targetDate
+    const parsedTargetDate = request.targetDate
       ? new Date(request.targetDate)
       : new Date();
+    const targetDate = Number.isNaN(parsedTargetDate.getTime())
+      ? new Date()
+      : parsedTargetDate;
 
     // 4. Build the fortune report
     return buildFortuneReport(saju, targetDate, springReport);

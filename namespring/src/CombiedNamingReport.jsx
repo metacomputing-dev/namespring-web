@@ -132,52 +132,22 @@ function buildEightPillarComponents(pillars) {
 }
 
 function periodTrendFromCard(card) {
-  const stars = toStars(card?.stars);
-  const categoryScores = CATEGORY_ORDER
-    .map((category) => Number(card?.categoryScores?.[category]) || stars)
-    .map((score) => clamp(Math.round(score * 20), 20, 100));
-
-  if (card?.periodKind === 'daily') {
-    const seed = categoryScores[0] ?? 60;
-    return [seed - 4, seed + 3, seed - 2, categoryScores[1] ?? seed, seed + 1, categoryScores[2] ?? seed, seed]
-      .map((value) => clamp(value, 20, 100));
-  }
-  if (card?.periodKind === 'weekly') {
-    const a = categoryScores[0] ?? 60;
-    const b = categoryScores[1] ?? 60;
-    const c = categoryScores[2] ?? 60;
-    const d = categoryScores[3] ?? 60;
-    const e = categoryScores[4] ?? 60;
-    return [a, b, c, d, e, Math.round((b + d) / 2), Math.round((a + e) / 2)].map((v) => clamp(v, 20, 100));
-  }
-  if (card?.periodKind === 'monthly') {
-    const base = clamp(Math.round(stars * 20), 20, 100);
-    return [base - 8, base - 3, base + 2, base + 5, base + 1, base + 4, base + 7, base + 3].map((v) => clamp(v, 20, 100));
-  }
-  if (card?.periodKind === 'yearly') {
-    const base = clamp(Math.round(stars * 20), 20, 100);
-    return [
-      base - 9,
-      base - 5,
-      base - 2,
-      base + 1,
-      base + 4,
-      base + 2,
-      base,
-      base + 3,
-      base + 5,
-      base + 2,
-      base + 4,
-      base + 6,
-    ].map((v) => clamp(v, 20, 100));
-  }
-  return categoryScores.length ? categoryScores : [60, 62, 58, 64, 61];
+  const rawPoints = asArray(card?.timeSeries?.points);
+  return rawPoints
+    .map((point, index) => ({
+      label: String(point?.label || index + 1),
+      value: clamp(Math.round(Number(point?.value) || 0), 0, 100),
+    }))
+    .filter((item) => Number.isFinite(item.value));
 }
 
 function lifeStageTrend(card) {
   const stages = asArray(card?.stages);
-  if (!stages.length) return [60, 62, 58, 64, 61];
-  return stages.map((stage) => clamp(Math.round(toStars(stage?.stars) * 20), 20, 100));
+  if (!stages.length) return [];
+  return stages.map((stage, index) => ({
+    label: String(stage?.ageRange || `${index + 1}단계`),
+    value: clamp(Math.round(toStars(stage?.stars) * 20), 20, 100),
+  }));
 }
 
 function DomainRadarChart({ items }) {
@@ -562,12 +532,19 @@ function CombiedNamingReport({
                   <div className="space-y-2.5">
                     <StarRating score={toStars(item?.stars)} />
                     <p className="text-sm font-semibold text-[var(--ns-text)]">{item?.summary || '-'}</p>
-                    <TimeSeriesChart
-                      points={trend}
-                      valueFormatter={(value) => `${Math.round(value)}`}
-                      stroke="var(--ns-tone-info-text)"
-                      showPointLabels
-                    />
+                    {trend.length ? (
+                      <TimeSeriesChart
+                        points={trend}
+                        valueFormatter={(value) => `${Math.round(value)}`}
+                        stroke="var(--ns-tone-info-text)"
+                        showPointLabels
+                        smooth
+                      />
+                    ) : (
+                      <div className="rounded-xl border border-[var(--ns-border)] bg-[var(--ns-surface)]/20 px-3 py-2">
+                        <p className="text-xs font-semibold text-[var(--ns-muted)]">시계열 데이터가 준비되지 않았어요.</p>
+                      </div>
+                    )}
                     <div className="grid grid-cols-1 md:grid-cols-2 gap-2 text-sm">
                       <div className="rounded-xl border border-[var(--ns-tone-success-border)] bg-[var(--ns-tone-success-bg)]/20 px-3 py-2 space-y-1.5">
                         <p className="text-[11px] font-black text-[var(--ns-tone-success-text)]">좋은 행동</p>
@@ -607,12 +584,19 @@ function CombiedNamingReport({
               className={PERIOD_MINI_CARD_CLASS}
             >
               <div className="space-y-2.5">
-                <TimeSeriesChart
-                  points={lifeStageTrend(lifeStageFortune)}
-                  valueFormatter={(value) => `${Math.round(value)}`}
-                  stroke="var(--ns-tone-info-text)"
-                  showPointLabels
-                />
+                {lifeStageTrend(lifeStageFortune).length ? (
+                  <TimeSeriesChart
+                    points={lifeStageTrend(lifeStageFortune)}
+                    valueFormatter={(value) => `${Math.round(value)}`}
+                    stroke="var(--ns-tone-info-text)"
+                    showPointLabels
+                    smooth
+                  />
+                ) : (
+                  <div className="rounded-xl border border-[var(--ns-border)] bg-[var(--ns-surface)]/20 px-3 py-2">
+                    <p className="text-xs font-semibold text-[var(--ns-muted)]">시계열 데이터가 준비되지 않았어요.</p>
+                  </div>
+                )}
                 <div className="space-y-1.5">
                   {asArray(lifeStageFortune?.stages).map((stage, stageIndex) => {
                     const isCurrent = Number(lifeStageFortune?.currentStageIndex) === stageIndex;

@@ -57,10 +57,11 @@ function computeCurrentAge(saju: SajuSummary, targetDate: Date): number {
 //  Safe card builder wrappers
 // ---------------------------------------------------------------------------
 
-function safeCall<T>(builder: () => T, fallback: T): T {
+function safeCall<T>(builder: () => T, fallback: T, context = 'unknown-card'): T {
   try {
     return builder();
-  } catch {
+  } catch (error) {
+    console.error(`[spring-ts] Fortune report builder failed: ${context}`, error);
     return fallback;
   }
 }
@@ -192,21 +193,25 @@ export function buildFortuneReport(
   const dailyFortune = safeCall(
     () => buildPeriodFortuneCard(saju, 'daily', targetDate),
     makeFallbackPeriodFortune('daily', '오늘'),
+    'dailyFortune',
   );
 
   const weeklyFortune = safeCall(
     () => buildPeriodFortuneCard(saju, 'weekly', targetDate),
     makeFallbackPeriodFortune('weekly', '이번 주'),
+    'weeklyFortune',
   );
 
   const monthlyFortune = safeCall(
     () => buildPeriodFortuneCard(saju, 'monthly', targetDate),
     makeFallbackPeriodFortune('monthly', '이번 달'),
+    'monthlyFortune',
   );
 
   const yearlyFortune = safeCall(
     () => buildPeriodFortuneCard(saju, 'yearly', targetDate),
     makeFallbackPeriodFortune('yearly', '올해'),
+    'yearlyFortune',
   );
 
   // ── 8. Life stage fortune ──

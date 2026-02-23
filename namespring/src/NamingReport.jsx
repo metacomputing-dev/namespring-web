@@ -236,7 +236,10 @@ function YearlySeriesChart({
       {sorted.length ? (
         <>
           <TimeSeriesChart
-            points={sorted.map((item) => Number(item?.[valueKey] ?? 0))}
+            points={sorted.map((item) => ({
+              label: `${item?.year ?? ''}`,
+              value: Number(item?.[valueKey] ?? 0),
+            }))}
             stroke={toneClass.line}
             valueFormatter={(value) => Math.round(Number(value) || 0).toLocaleString()}
             invertMinToTop={invertMinToTop}
