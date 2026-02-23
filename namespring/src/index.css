@@ -15,6 +15,55 @@
   --ns-muted: #6b7280;
   --ns-accent-text: #2d4b2a;
   --ns-ripple: rgba(26, 26, 26, 0.14);
+  --ns-share-btn-bg: #7ed957;
+  --ns-share-btn-text: #2d4b2a;
+  --ns-share-btn-border: #6ec74c;
+
+  /* Report semantic tones (light) */
+  --ns-tone-wood-bg: #ecfdf5;
+  --ns-tone-wood-border: #a7f3d0;
+  --ns-tone-wood-text: #047857;
+  --ns-tone-fire-bg: #fff1f2;
+  --ns-tone-fire-border: #fecdd3;
+  --ns-tone-fire-text: #be123c;
+  --ns-tone-earth-bg: #fffbeb;
+  --ns-tone-earth-border: #fde68a;
+  --ns-tone-earth-text: #b45309;
+  --ns-tone-metal-bg: #f5f7fa;
+  --ns-tone-metal-border: #d6dde6;
+  --ns-tone-metal-text: #4b5563;
+  --ns-tone-water-bg: #eff6ff;
+  --ns-tone-water-border: #bfdbfe;
+  --ns-tone-water-text: #1d4ed8;
+
+  --ns-tone-success-bg: #ecfdf5;
+  --ns-tone-success-border: #a7f3d0;
+  --ns-tone-success-text: #047857;
+  --ns-tone-warn-bg: #fffbeb;
+  --ns-tone-warn-border: #fde68a;
+  --ns-tone-warn-text: #b45309;
+  --ns-tone-info-bg: #eff6ff;
+  --ns-tone-info-border: #bfdbfe;
+  --ns-tone-info-text: #1d4ed8;
+  --ns-tone-danger-bg: #fff1f2;
+  --ns-tone-danger-border: #fecdd3;
+  --ns-tone-danger-text: #be123c;
+  --ns-tone-indigo-bg: #eef2ff;
+  --ns-tone-indigo-border: #c7d2fe;
+  --ns-tone-indigo-text: #4338ca;
+  --ns-tone-cyan-bg: #ecfeff;
+  --ns-tone-cyan-border: #a5f3fc;
+  --ns-tone-cyan-text: #155e75;
+  --ns-tone-neutral-bg: #f4f4f5;
+  --ns-tone-neutral-border: #d4d4d8;
+  --ns-tone-neutral-text: #3f3f46;
+
+  --ns-tone-indigo-line: #4f46e5;
+  --ns-tone-indigo-area: rgba(99, 102, 241, 0.18);
+  --ns-tone-amber-line: #d97706;
+  --ns-tone-amber-area: rgba(245, 158, 11, 0.2);
+
+  --ns-report-grad-end: #ffffff;
 }
 
 @media (prefers-color-scheme: dark) {
@@ -31,6 +80,55 @@
     --ns-muted: #a0a7a0;
     --ns-accent-text: #d7f4c6;
     --ns-ripple: rgba(240, 240, 240, 0.2);
+    --ns-share-btn-bg: #2f5e4a;
+    --ns-share-btn-text: #d8f4e6;
+    --ns-share-btn-border: #427860;
+
+    /* Report semantic tones (dark) */
+    --ns-tone-wood-bg: #153528;
+    --ns-tone-wood-border: #2f5e4a;
+    --ns-tone-wood-text: #86e2bf;
+    --ns-tone-fire-bg: #3a1f2a;
+    --ns-tone-fire-border: #5c3342;
+    --ns-tone-fire-text: #ff9cb8;
+    --ns-tone-earth-bg: #3b321f;
+    --ns-tone-earth-border: #5e5133;
+    --ns-tone-earth-text: #f3ca7a;
+    --ns-tone-metal-bg: #252c32;
+    --ns-tone-metal-border: #3c4853;
+    --ns-tone-metal-text: #c8d0d8;
+    --ns-tone-water-bg: #172a40;
+    --ns-tone-water-border: #2f4663;
+    --ns-tone-water-text: #91beff;
+
+    --ns-tone-success-bg: #153528;
+    --ns-tone-success-border: #2f5e4a;
+    --ns-tone-success-text: #86e2bf;
+    --ns-tone-warn-bg: #3b321f;
+    --ns-tone-warn-border: #5e5133;
+    --ns-tone-warn-text: #f3ca7a;
+    --ns-tone-info-bg: #172a40;
+    --ns-tone-info-border: #2f4663;
+    --ns-tone-info-text: #91beff;
+    --ns-tone-danger-bg: #3a1f2a;
+    --ns-tone-danger-border: #5c3342;
+    --ns-tone-danger-text: #ff9cb8;
+    --ns-tone-indigo-bg: #232943;
+    --ns-tone-indigo-border: #3a4567;
+    --ns-tone-indigo-text: #a8b8ff;
+    --ns-tone-cyan-bg: #14313b;
+    --ns-tone-cyan-border: #2b5260;
+    --ns-tone-cyan-text: #8dd4e7;
+    --ns-tone-neutral-bg: #2a2f34;
+    --ns-tone-neutral-border: #3d454e;
+    --ns-tone-neutral-text: #c6cdd5;
+
+    --ns-tone-indigo-line: #8ea2ff;
+    --ns-tone-indigo-area: rgba(142, 162, 255, 0.24);
+    --ns-tone-amber-line: #f2c16f;
+    --ns-tone-amber-area: rgba(242, 193, 111, 0.22);
+
+    --ns-report-grad-end: #0b1110;
   }
 }
 

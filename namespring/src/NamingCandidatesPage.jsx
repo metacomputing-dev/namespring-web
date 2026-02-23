@@ -453,9 +453,9 @@ function NamingCandidatesPage({ entryUserInfo, onRecommendAsync, onLoadCurrentSp
                         onClick={() => toggleFavoriteCandidate(candidateKey)}
                         aria-label={isFavorite ? '즐겨찾기 해제' : '즐겨찾기'}
                         title={isFavorite ? '즐겨찾기 해제' : '즐겨찾기'}
-                        className="shrink-0 mt-1 w-9 h-9 rounded-lg border border-[var(--ns-border)] bg-white/80 hover:bg-white text-slate-400 inline-flex items-center justify-center"
+                        className="shrink-0 mt-1 w-9 h-9 rounded-lg border border-[var(--ns-border)] bg-[var(--ns-surface)]/80 hover:bg-[var(--ns-surface)] text-[var(--ns-muted)] inline-flex items-center justify-center"
                       >
-                        <svg viewBox="0 0 20 20" className={`w-5 h-5 ${isFavorite ? 'text-amber-400' : 'text-slate-300'}`} aria-hidden="true">
+                        <svg viewBox="0 0 20 20" className={`w-5 h-5 ${isFavorite ? 'text-amber-400' : 'text-[var(--ns-muted)]/60'}`} aria-hidden="true">
                           <path
                             d="M10 1.7L12.6 6.9L18.3 7.7L14.1 11.8L15.1 17.5L10 14.8L4.9 17.5L5.9 11.8L1.7 7.7L7.4 6.9L10 1.7Z"
                             fill={isFavorite ? 'currentColor' : 'none'}

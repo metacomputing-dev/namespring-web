@@ -1,6 +1,7 @@
 import React, { useCallback, useMemo, useRef, useState } from 'react';
 import NamingResultRenderer from './NamingResultRenderer';
 import { buildRenderMetricsFromSajuReport } from './naming-result-render-metrics';
+import { getElementToneClass, getMetaToneClass } from './theme/report-ui-theme';
 import {
   ReportActionButtons,
   ReportPrintOverlay,
@@ -65,13 +66,7 @@ function elementLabel(value) {
 }
 
 function elementCardClass(value) {
-  const key = toElementKey(value);
-  if (key === 'WOOD') return 'border-emerald-200 bg-emerald-50 text-emerald-800';
-  if (key === 'FIRE') return 'border-rose-200 bg-rose-50 text-rose-800';
-  if (key === 'EARTH') return 'border-amber-200 bg-amber-50 text-amber-800';
-  if (key === 'METAL') return 'border-slate-200 bg-slate-100 text-slate-800';
-  if (key === 'WATER') return 'border-blue-200 bg-blue-50 text-blue-800';
-  return 'border-[var(--ns-border)] bg-[var(--ns-surface-soft)] text-[var(--ns-muted)]';
+  return getElementToneClass(toElementKey(value));
 }
 
 function asNumber(value, fallback = 0) {
@@ -297,11 +292,11 @@ function SajuReport({ report, shareUserInfo = null }) {
               엔진에서 계산된 실제 사주 값을 기준으로 정리했어요.
             </p>
           </div>
-          <div className={`rounded-xl border px-3 py-2 text-right ${report?.sajuEnabled ? 'border-emerald-200 bg-emerald-50' : 'border-amber-200 bg-amber-50'}`}>
-            <p className={`text-xs font-black ${report?.sajuEnabled ? 'text-emerald-700' : 'text-amber-700'}`}>
+          <div className={`rounded-xl border px-3 py-2 text-right ${report?.sajuEnabled ? getMetaToneClass('success') : getMetaToneClass('warn')}`}>
+            <p className={`text-xs font-black ${report?.sajuEnabled ? 'text-[var(--ns-tone-success-text)]' : 'text-[var(--ns-tone-warn-text)]'}`}>
               분석 상태
             </p>
-            <p className={`text-lg font-black ${report?.sajuEnabled ? 'text-emerald-800' : 'text-amber-800'}`}>
+            <p className={`text-lg font-black ${report?.sajuEnabled ? 'text-[var(--ns-tone-success-text)]' : 'text-[var(--ns-tone-warn-text)]'}`}>
               {report?.sajuEnabled ? '활성' : '비활성'}
             </p>
           </div>
@@ -489,7 +484,7 @@ function SajuReport({ report, shareUserInfo = null }) {
                 <span>{elementLabel(row.key)} ({row.key})</span>
                 <span>{row.value} ({row.ratio}%)</span>
               </div>
-              <div className="mt-1.5 h-2 rounded-full bg-white/60 overflow-hidden">
+              <div className="mt-1.5 h-2 rounded-full bg-[var(--ns-surface)]/60 overflow-hidden">
                 <div className="h-full rounded-full bg-current" style={{ width: `${row.ratio}%`, opacity: 0.7 }} />
               </div>
             </div>
@@ -630,3 +625,4 @@ function SajuReport({ report, shareUserInfo = null }) {
 }
 
 export default SajuReport;
+
