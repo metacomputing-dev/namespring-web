@@ -4,6 +4,7 @@ import NamingResultRenderer from './NamingResultRenderer';
 import { buildRenderMetricsFromNamingResult } from './naming-result-render-metrics';
 import { REPORT_CARD_COLOR_THEME, buildReportCardStyle } from './theme/card-color-theme';
 import { getElementToneClass, getMetaToneClass, getPolarityToneClass } from './theme/report-ui-theme';
+import { CollapsibleCard, TimeSeriesChart } from './report-modules-ui';
 import {
   ReportActionButtons,
   ReportPrintOverlay,
@@ -188,27 +189,6 @@ function getPopularityTrendLabel(rankSeries) {
   return '유지';
 }
 
-function buildSeriesPath(series, width, height, valueKey, invertMinToTop = false, padding = 12) {
-  if (!series.length) return '';
-  const values = series.map((item) => Number(item?.[valueKey] ?? 0));
-  const min = Math.min(...values);
-  const max = Math.max(...values);
-  const span = max - min || 1;
-  const xSpan = Math.max(1, series.length - 1);
-
-  const points = series.map((item, idx) => {
-    const x = padding + (idx / xSpan) * (width - padding * 2);
-    const value = Number(item?.[valueKey] ?? 0);
-    const ratio = (value - min) / span;
-    const y = invertMinToTop
-      ? padding + ratio * (height - padding * 2)
-      : height - padding - ratio * (height - padding * 2);
-    return `${x.toFixed(1)},${y.toFixed(1)}`;
-  });
-
-  return `M ${points.join(' L ')}`;
-}
-
 function YearlySeriesChart({
   title,
   subtitle,
@@ -218,11 +198,7 @@ function YearlySeriesChart({
   tone = 'emerald',
   invertMinToTop = false,
 }) {
-  const width = 520;
-  const height = 170;
   const sorted = [...series].sort((a, b) => a.year - b.year);
-  const line = buildSeriesPath(sorted, width, height, valueKey, invertMinToTop, 14);
-  const area = line ? `${line} L ${width - 14},${height - 14} L 14,${height - 14} Z` : '';
 
   const toneClass = tone === 'indigo'
     ? {
@@ -252,10 +228,11 @@ function YearlySeriesChart({
       </div>
       {sorted.length ? (
         <>
-          <svg viewBox={`0 0 ${width} ${height}`} className="w-full h-36">
-            {area ? <path d={area} fill={toneClass.area} /> : null}
-            {line ? <path d={line} fill="none" stroke={toneClass.line} strokeWidth="3" strokeLinecap="round" strokeLinejoin="round" /> : null}
-          </svg>
+          <TimeSeriesChart
+            points={sorted.map((item) => Number(item?.[valueKey] ?? 0))}
+            stroke={toneClass.line}
+            valueFormatter={(value) => Math.round(Number(value) || 0).toLocaleString()}
+          />
           <div className="flex items-center justify-between text-xs">
             <span className={toneClass.title}>{firstYear}년</span>
             <span className={`${toneClass.title} font-black`}>최근 {Math.round(latestValue).toLocaleString()}{unit}</span>
@@ -350,38 +327,6 @@ const CARD_TONE = {
 };
 const SUMMARY_CARD_STYLE = buildReportCardStyle(REPORT_CARD_COLOR_THEME.summary);
 const SUMMARY_INNER_BORDER_STYLE = { borderColor: REPORT_CARD_COLOR_THEME.summary.border };
-
-function CollapseCard({ title, subtitle, open, onToggle, children, tone = 'default' }) {
-  const toneConfig = CARD_TONE[tone] || CARD_TONE.default;
-  return (
-    <section
-      className={`rounded-[2rem] border shadow-lg overflow-hidden ${toneConfig.className}`}
-      style={toneConfig.style}
-    >
-      <button
-        type="button"
-        onClick={onToggle}
-        className="w-full flex items-center justify-between gap-3 px-3 py-2.5 text-left"
-      >
-        <div className="min-w-0">
-          <h3 className="text-lg font-black text-[var(--ns-accent-text)]">{title}</h3>
-          {subtitle ? <p className="text-sm text-[var(--ns-muted)] mt-1 break-keep whitespace-normal">{subtitle}</p> : null}
-        </div>
-        <span className="shrink-0 inline-flex items-center justify-center w-8 h-8 rounded-full border border-[var(--ns-border)] bg-[var(--ns-surface)]/65 backdrop-blur-[2px]">
-          <svg
-            viewBox="0 0 20 20"
-            fill="none"
-            className={`w-4 h-4 text-[var(--ns-muted)] transition-transform duration-200 ${open ? 'rotate-180' : ''}`}
-            aria-hidden="true"
-          >
-            <path d="M5 8L10 13L15 8" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" />
-          </svg>
-        </span>
-      </button>
-      {open ? <div className="px-3 pb-3">{children}</div> : null}
-    </section>
-  );
-}
 
 function SummaryBadges({ items }) {
   return (
@@ -675,12 +620,13 @@ const NamingReport = ({ result, shareUserInfo = null }) => {
         </div>
       </section>
 
-      <CollapseCard
+      <CollapsibleCard
         title="인기도"
         subtitle={popularityHeadline}
         open={openCards.popularity}
         onToggle={() => toggleCard('popularity')}
         tone="popularity"
+        toneMap={CARD_TONE}
       >
 
         {popularityState.loading ? (
@@ -763,14 +709,15 @@ const NamingReport = ({ result, shareUserInfo = null }) => {
             />
           </div>
         ) : null}
-      </CollapseCard>
+      </CollapsibleCard>
 
-      <CollapseCard
+      <CollapsibleCard
         title="인생의 흐름"
         subtitle="사격수리의 원·형·이·정을 기준으로 초중말년과 전체 흐름을 풀어봅니다."
         open={openCards.lifeFlow}
         onToggle={() => toggleCard('lifeFlow')}
         tone="lifeFlow"
+        toneMap={CARD_TONE}
       >
 
         <div className="space-y-4">
@@ -875,14 +822,15 @@ const NamingReport = ({ result, shareUserInfo = null }) => {
             );
           })}
         </div>
-      </CollapseCard>
+      </CollapsibleCard>
 
-      <CollapseCard
+      <CollapsibleCard
         title={`사격수리 평가 (${fourFrameScore.toFixed(1)}점)`}
         subtitle="클릭해서 상세 점수와 프레임별 값을 확인하세요."
         open={openCards.fourFrame}
         onToggle={() => toggleCard('fourFrame')}
         tone="fourFrame"
+        toneMap={CARD_TONE}
       >
         <div className="space-y-4">
           <SummaryBadges
@@ -924,14 +872,15 @@ const NamingReport = ({ result, shareUserInfo = null }) => {
             })}
           </div>
         </div>
-      </CollapseCard>
+      </CollapsibleCard>
 
-      <CollapseCard
+      <CollapsibleCard
         title={`한자 평가 (${hanjaScore.toFixed(1)}점)`}
         subtitle="클릭해서 음양/오행 점수와 글자별 결과를 확인하세요."
         open={openCards.hanja}
         onToggle={() => toggleCard('hanja')}
         tone="hanja"
+        toneMap={CARD_TONE}
       >
         <div className="space-y-4">
           <SummaryBadges
@@ -966,14 +915,15 @@ const NamingReport = ({ result, shareUserInfo = null }) => {
             })}
           </div>
         </div>
-      </CollapseCard>
+      </CollapsibleCard>
 
-      <CollapseCard
+      <CollapsibleCard
         title={`한글 평가 (${hangulScore.toFixed(1)}점)`}
         subtitle="클릭해서 음양/오행 점수와 음절별 결과를 확인하세요."
         open={openCards.hangul}
         onToggle={() => toggleCard('hangul')}
         tone="hangul"
+        toneMap={CARD_TONE}
       >
         <div className="space-y-4">
           <SummaryBadges
@@ -1008,7 +958,7 @@ const NamingReport = ({ result, shareUserInfo = null }) => {
             })}
           </div>
         </div>
-      </CollapseCard>
+      </CollapsibleCard>
 
       <ReportActionButtons
         isPdfSaving={isPdfSaving}
@@ -1031,5 +981,8 @@ const NamingReport = ({ result, shareUserInfo = null }) => {
 };
 
 export default NamingReport;
+
+
+
 
 

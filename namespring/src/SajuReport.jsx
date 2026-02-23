@@ -2,6 +2,7 @@ import React, { useCallback, useMemo, useRef, useState } from 'react';
 import NamingResultRenderer from './NamingResultRenderer';
 import { buildRenderMetricsFromSajuReport } from './naming-result-render-metrics';
 import { getElementToneClass, getMetaToneClass } from './theme/report-ui-theme';
+import { CollapsibleCard } from './report-modules-ui';
 import {
   ReportActionButtons,
   ReportPrintOverlay,
@@ -108,34 +109,6 @@ function resolvePillarPartElement(part, partType) {
   if (!code) return '';
   if (partType === 'stem') return STEM_ELEMENT_BY_CODE[code] || '';
   return BRANCH_ELEMENT_BY_CODE[code] || '';
-}
-
-function CollapseCard({ title, subtitle, open, onToggle, children }) {
-  return (
-    <section className="bg-[var(--ns-surface)] rounded-[2rem] border border-[var(--ns-border)] shadow-lg overflow-hidden">
-      <button
-        type="button"
-        onClick={onToggle}
-        className="w-full flex items-center justify-between gap-3 px-3 py-2.5 text-left"
-      >
-        <div className="min-w-0">
-          <h3 className="text-lg font-black text-[var(--ns-accent-text)]">{title}</h3>
-          {subtitle ? <p className="text-sm text-[var(--ns-muted)] mt-1 break-keep whitespace-normal">{subtitle}</p> : null}
-        </div>
-        <span className="shrink-0 inline-flex items-center justify-center w-8 h-8 rounded-full border border-[var(--ns-border)] bg-[var(--ns-surface-soft)]">
-          <svg
-            viewBox="0 0 20 20"
-            fill="none"
-            className={`w-4 h-4 text-[var(--ns-muted)] transition-transform duration-200 ${open ? 'rotate-180' : ''}`}
-            aria-hidden="true"
-          >
-            <path d="M5 8L10 13L15 8" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" />
-          </svg>
-        </span>
-      </button>
-      {open ? <div className="px-3 pb-3">{children}</div> : null}
-    </section>
-  );
 }
 
 function InfoCard({ title, value }) {
@@ -320,7 +293,7 @@ function SajuReport({ report, shareUserInfo = null }) {
         </div>
       </section>
 
-      <CollapseCard
+      <CollapsibleCard
         title="시간 보정"
         subtitle="입력된 시간과 보정 후 시간을 비교해서 보여줘요."
         open={openCards.time}
@@ -351,9 +324,9 @@ function SajuReport({ report, shareUserInfo = null }) {
           <InfoCard title="경도 보정(분)" value={String(asNumber(report?.timeCorrection?.longitudeCorrectionMinutes, 0))} />
           <InfoCard title="균시차(분)" value={String(asNumber(report?.timeCorrection?.equationOfTimeMinutes, 0))} />
         </div>
-      </CollapseCard>
+      </CollapsibleCard>
 
-      <CollapseCard
+      <CollapsibleCard
         title="사주 기둥"
         subtitle="년주·월주·일주·시주의 천간/지지 실제 값이에요."
         open={openCards.pillars}
@@ -394,9 +367,9 @@ function SajuReport({ report, shareUserInfo = null }) {
             </div>
           </div>
         </div>
-      </CollapseCard>
+      </CollapsibleCard>
 
-      <CollapseCard
+      <CollapsibleCard
         title="강약 분석"
         subtitle="득령·득지·득세와 판정 상세 문장을 그대로 표시해요."
         open={openCards.strength}
@@ -422,9 +395,9 @@ function SajuReport({ report, shareUserInfo = null }) {
             </div>
           ) : null}
         </div>
-      </CollapseCard>
+      </CollapsibleCard>
 
-      <CollapseCard
+      <CollapsibleCard
         title="용신 · 격국"
         subtitle="용신/희신/기신/구신과 격국 해석을 실제 값 그대로 보여줘요."
         open={openCards.yongshin}
@@ -469,9 +442,9 @@ function SajuReport({ report, shareUserInfo = null }) {
             </p>
           </div>
         </div>
-      </CollapseCard>
+      </CollapsibleCard>
 
-      <CollapseCard
+      <CollapsibleCard
         title="오행 분포"
         subtitle="오행 분포와 부족/과다 오행을 실제 분포값으로 표시해요."
         open={openCards.elements}
@@ -500,9 +473,9 @@ function SajuReport({ report, shareUserInfo = null }) {
             />
           </div>
         </div>
-      </CollapseCard>
+      </CollapsibleCard>
 
-      <CollapseCard
+      <CollapsibleCard
         title="십성 분석"
         subtitle="사주 각 주의 천간 십성과 지지 본기 십성, 지장간 정보를 보여줘요."
         open={openCards.tenGod}
@@ -533,9 +506,9 @@ function SajuReport({ report, shareUserInfo = null }) {
             </div>
           )) : <p className="text-sm text-[var(--ns-muted)]">십성 분석 정보가 없습니다.</p>}
         </div>
-      </CollapseCard>
+      </CollapsibleCard>
 
-      <CollapseCard
+      <CollapsibleCard
         title="천간 · 지지 관계"
         subtitle="합/충/형/파/해 등 관계 해석 값과 점수 정보를 보여줘요."
         open={openCards.relations}
@@ -574,9 +547,9 @@ function SajuReport({ report, shareUserInfo = null }) {
             )) : <p className="text-sm text-[var(--ns-muted)]">지지 관계 정보가 없습니다.</p>}
           </section>
         </div>
-      </CollapseCard>
+      </CollapsibleCard>
 
-      <CollapseCard
+      <CollapsibleCard
         title="신살 · 공망"
         subtitle="신살 히트와 공망 값을 실제 계산 결과 그대로 확인해요."
         open={openCards.shinsal}
@@ -604,7 +577,7 @@ function SajuReport({ report, shareUserInfo = null }) {
             <p className="text-sm text-[var(--ns-muted)]">신살 정보가 없습니다.</p>
           )}
         </div>
-      </CollapseCard>
+      </CollapsibleCard>
       <ReportActionButtons
         isPdfSaving={isPdfSaving}
         onSavePdf={handleSavePdf}
@@ -625,4 +598,5 @@ function SajuReport({ report, shareUserInfo = null }) {
 }
 
 export default SajuReport;
+
 
