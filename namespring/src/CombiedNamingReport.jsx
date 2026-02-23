@@ -6,9 +6,45 @@ import {
   ReportShareDialog,
   useReportActions,
 } from './report-common-ui';
-import { CollapsibleCard, CollapsibleMiniCard, StarRating, TimeSeriesChart } from './report-modules-ui';
+import {
+  CollapsibleCard,
+  CollapsibleMiniCard,
+  REPORT_HOME_CARD_TONE_MAP,
+  StarRating,
+  TimeSeriesChart,
+  getNestedGradientClass,
+  getNestedMiniCardClass,
+  getNestedToneBgClass,
+} from './report-modules-ui';
+import { getElementToneClass } from './theme/report-ui-theme';
 
 const CATEGORY_ORDER = ['wealth', 'health', 'academic', 'romance', 'family'];
+
+const CARD_TONE = {
+  fit: REPORT_HOME_CARD_TONE_MAP.report,
+  summary: REPORT_HOME_CARD_TONE_MAP.info,
+  periods: REPORT_HOME_CARD_TONE_MAP.gratitude,
+  domains: REPORT_HOME_CARD_TONE_MAP.naming,
+};
+
+const SUMMARY_MINI_CARD_CLASSES = [
+  getNestedMiniCardClass('info'),
+  getNestedMiniCardClass('success'),
+  getNestedMiniCardClass('cyan'),
+  getNestedMiniCardClass('warn'),
+  getNestedMiniCardClass('danger'),
+];
+
+const PERIOD_MINI_CARD_CLASS =
+  getNestedMiniCardClass('warn');
+
+const DOMAIN_MINI_CARD_CLASS_BY_CATEGORY = {
+  wealth: getNestedMiniCardClass('success'),
+  health: getNestedMiniCardClass('danger'),
+  academic: getNestedMiniCardClass('info'),
+  romance: getNestedMiniCardClass('indigo'),
+  family: getNestedMiniCardClass('cyan'),
+};
 
 function clamp(value, min, max) {
   return Math.max(min, Math.min(max, value));
@@ -35,6 +71,64 @@ function getNameLabelFromUserInfo(shareUserInfo) {
 
 function buildMiniKey(section, key) {
   return `${section}:${key}`;
+}
+
+function splitPillarElements(elementText) {
+  const raw = String(elementText ?? '');
+  const [stemElement, branchElement] = raw.split('/').map((part) => part?.trim() || '');
+  return { stemElement, branchElement };
+}
+
+function normalizeElementKey(value) {
+  const raw = String(value ?? '').trim().toUpperCase();
+  if (!raw) return '';
+  if (raw === 'WOOD' || raw.includes('목') || raw.includes('나무')) return 'WOOD';
+  if (raw === 'FIRE' || raw.includes('화') || raw.includes('불')) return 'FIRE';
+  if (raw === 'EARTH' || raw.includes('토') || raw.includes('흙')) return 'EARTH';
+  if (raw === 'METAL' || raw.includes('금') || raw.includes('쇠')) return 'METAL';
+  if (raw === 'WATER' || raw.includes('수') || raw.includes('물')) return 'WATER';
+  return '';
+}
+
+function getPillarElementCardClass(elementKey) {
+  return getElementToneClass(elementKey || '');
+}
+
+function buildEightPillarComponents(pillars) {
+  const list = asArray(pillars);
+  const rows = [];
+
+  list.forEach((pillar, index) => {
+    const position = pillar?.position || `기둥 ${index + 1}`;
+    const { stemElement, branchElement } = splitPillarElements(pillar?.element);
+    rows.push({
+      key: `stem-${index}`,
+      label: `${position} 천간`,
+      value: pillar?.stem || '-',
+      element: stemElement || '-',
+      elementKey: normalizeElementKey(stemElement),
+    });
+    rows.push({
+      key: `branch-${index}`,
+      label: `${position} 지지`,
+      value: pillar?.branch || '-',
+      element: branchElement || '-',
+      elementKey: normalizeElementKey(branchElement),
+    });
+  });
+
+  while (rows.length < 8) {
+    const idx = rows.length + 1;
+    rows.push({
+      key: `empty-${idx}`,
+      label: `성분 ${idx}`,
+      value: '-',
+      element: '-',
+      elementKey: '',
+    });
+  }
+
+  return rows.slice(0, 8);
 }
 
 function periodTrendFromCard(card) {
@@ -113,13 +207,63 @@ function DomainRadarChart({ items }) {
     return p;
   });
 
+  const labelPoints = safe.map((item, idx) => {
+    const angle = -Math.PI / 2 + idx * angleStep;
+    const lineEndX = center + Math.cos(angle) * radius;
+    const lineEndY = center + Math.sin(angle) * radius;
+    const labelRadius = radius + 18;
+    const labelX = center + Math.cos(angle) * labelRadius;
+    const labelY = center + Math.sin(angle) * labelRadius;
+    const normalized = ((angle % (Math.PI * 2)) + Math.PI * 2) % (Math.PI * 2);
+    const textAnchor =
+      normalized < Math.PI * 0.25 || normalized > Math.PI * 1.75
+        ? 'start'
+        : normalized > Math.PI * 0.75 && normalized < Math.PI * 1.25
+          ? 'end'
+          : 'middle';
+    return {
+      key: item?.category || `label-${idx}`,
+      title: String(item?.title || '').replace(/운$/u, ''),
+      lineEndX,
+      lineEndY,
+      labelX,
+      labelY,
+      textAnchor,
+    };
+  });
+
   return (
-    <div className="rounded-xl border border-[var(--ns-border)] bg-[var(--ns-surface)]/55 p-2">
+    <div className="rounded-xl border border-[var(--ns-border)] bg-[var(--ns-surface)]/20 p-2">
       <svg viewBox="0 0 220 220" className="w-full h-56">
         {ring.map((poly, idx) => (
           <polygon key={`ring-${idx}`} points={poly} fill="none" stroke="var(--ns-border)" strokeWidth="1" />
         ))}
+        {labelPoints.map((point) => (
+          <line
+            key={`axis-${point.key}`}
+            x1={center}
+            y1={center}
+            x2={point.lineEndX}
+            y2={point.lineEndY}
+            stroke="var(--ns-border)"
+            strokeWidth="1"
+            strokeOpacity="0.8"
+          />
+        ))}
         <polygon points={points} fill="var(--ns-tone-info-bg)" fillOpacity="0.4" stroke="var(--ns-tone-info-text)" strokeWidth="2" />
+        {labelPoints.map((point) => (
+          <text
+            key={`text-${point.key}`}
+            x={point.labelX}
+            y={point.labelY}
+            textAnchor={point.textAnchor}
+            fontSize="10"
+            fill="var(--ns-accent-text)"
+            style={{ fontWeight: 800 }}
+          >
+            {point.title}
+          </text>
+        ))}
       </svg>
     </div>
   );
@@ -163,12 +307,12 @@ function CombiedNamingReport({
         body: (
           <div className="space-y-2">
             <p className="text-sm font-semibold text-[var(--ns-text)]">{overview?.overallSummary || '-'}</p>
-            <div className="grid grid-cols-1 md:grid-cols-2 gap-2 text-xs">
-              {asArray(overview?.pillars).map((pillar, index) => (
-                <div key={`pillar-${index}`} className="rounded-lg border border-[var(--ns-border)] bg-[var(--ns-surface)] px-2.5 py-2">
-                  <p className="font-black text-[var(--ns-muted)]">{pillar?.position || `기둥 ${index + 1}`}</p>
-                  <p className="font-semibold text-[var(--ns-text)]">{`${pillar?.stem || '-'}${pillar?.branch || '-'}`}</p>
-                  <p className="text-[var(--ns-muted)]">{pillar?.element || '-'}</p>
+            <div className="grid grid-cols-2 md:grid-cols-4 gap-2 text-xs">
+              {buildEightPillarComponents(overview?.pillars).map((item) => (
+                <div key={item.key} className={`rounded-xl border px-2 py-2 ${getPillarElementCardClass(item.elementKey)}`}>
+                  <p className="text-[10px] font-black opacity-80">{item.label}</p>
+                  <p className="text-sm leading-tight font-black mt-0.5">{item.value}</p>
+                  <p className="text-[10px] font-black mt-1">{item.element}</p>
                 </div>
               ))}
             </div>
@@ -202,7 +346,7 @@ function CombiedNamingReport({
             <p className="text-sm font-semibold text-[var(--ns-text)]">{personality?.summary || '-'}</p>
             <div className="space-y-1.5">
               {asArray(personality?.traits).map((trait, index) => (
-                <div key={`trait-${index}`} className="rounded-lg border border-[var(--ns-border)] bg-[var(--ns-surface)] px-2.5 py-2">
+                <div key={`trait-${index}`} className="rounded-lg border border-[var(--ns-border)] bg-[var(--ns-surface)]/20 px-2.5 py-2">
                   <p className="text-xs font-black text-[var(--ns-accent-text)]">{trait?.trait || '-'}</p>
                   <p className="text-sm font-semibold text-[var(--ns-text)]">{trait?.description || '-'}</p>
                   <p className="text-[11px] text-[var(--ns-muted)]">근거: {trait?.source || '-'}</p>
@@ -218,7 +362,7 @@ function CombiedNamingReport({
         subtitle: '강점과 보완점',
         body: (
           <div className="grid grid-cols-1 md:grid-cols-2 gap-2">
-            <div className="rounded-lg border border-[var(--ns-tone-success-border)] bg-[var(--ns-tone-success-bg)] px-2.5 py-2 space-y-1.5">
+            <div className="rounded-lg border border-[var(--ns-tone-success-border)] bg-[var(--ns-tone-success-bg)]/20 px-2.5 py-2 space-y-1.5">
               <p className="text-xs font-black text-[var(--ns-tone-success-text)]">강점</p>
               {asArray(strengths?.strengths).map((item, index) => (
                 <div key={`strength-${index}`}>
@@ -227,7 +371,7 @@ function CombiedNamingReport({
                 </div>
               ))}
             </div>
-            <div className="rounded-lg border border-[var(--ns-tone-danger-border)] bg-[var(--ns-tone-danger-bg)] px-2.5 py-2 space-y-1.5">
+            <div className="rounded-lg border border-[var(--ns-tone-danger-border)] bg-[var(--ns-tone-danger-bg)]/20 px-2.5 py-2 space-y-1.5">
               <p className="text-xs font-black text-[var(--ns-tone-danger-text)]">보완점</p>
               {asArray(strengths?.weaknesses).map((item, index) => (
                 <div key={`weakness-${index}`}>
@@ -246,7 +390,7 @@ function CombiedNamingReport({
         body: (
           <div className="space-y-1.5">
             {asArray(cautions?.cautions).map((item, index) => (
-              <div key={`caution-${index}`} className="rounded-lg border border-[var(--ns-tone-warn-border)] bg-[var(--ns-tone-warn-bg)] px-2.5 py-2">
+              <div key={`caution-${index}`} className="rounded-lg border border-[var(--ns-tone-warn-border)] bg-[var(--ns-tone-warn-bg)]/20 px-2.5 py-2">
                 <p className="text-sm font-semibold text-[var(--ns-text)]">신호: {item?.signal || '-'}</p>
                 <p className="text-sm text-[var(--ns-text)]">대응: {item?.response || '-'}</p>
                 <p className="text-[11px] text-[var(--ns-muted)]">이유: {item?.reason || '-'}</p>
@@ -329,8 +473,10 @@ function CombiedNamingReport({
           subtitle="사주와 성명학을 함께 고려한 결과 카드입니다."
           open={openSections.fit}
           onToggle={() => toggleSection('fit')}
+          tone="fit"
+          toneMap={CARD_TONE}
         >
-          <div className="rounded-2xl border border-[var(--ns-tone-success-border)] bg-[var(--ns-tone-success-bg)] p-4">
+          <div className="rounded-2xl border border-[var(--ns-tone-success-border)] bg-gradient-to-r from-[var(--ns-tone-success-bg)] via-[var(--ns-surface-soft)] to-[var(--ns-report-grad-end)] p-4">
             <div className="flex flex-wrap items-start justify-between gap-3">
               <div>
                 <p className="text-xs font-black text-[var(--ns-tone-success-text)]">이름 적합도 결과</p>
@@ -342,15 +488,15 @@ function CombiedNamingReport({
               </div>
             </div>
             <div className="mt-3 grid grid-cols-1 md:grid-cols-3 gap-2 text-sm">
-              <div className="rounded-xl border border-[var(--ns-border)] bg-[var(--ns-surface)]/70 px-3 py-2">
+              <div className="rounded-xl border border-[var(--ns-border)] bg-[var(--ns-surface)]/20 px-3 py-2">
                 <p className="text-[11px] font-black text-[var(--ns-muted)]">한 줄 결론</p>
                 <p className="font-semibold text-[var(--ns-text)]">{nameCompatibility?.summary || '이름 적합도 분석 결과를 준비 중입니다.'}</p>
               </div>
-              <div className="rounded-xl border border-[var(--ns-border)] bg-[var(--ns-surface)]/70 px-3 py-2">
+              <div className="rounded-xl border border-[var(--ns-border)] bg-[var(--ns-surface)]/20 px-3 py-2">
                 <p className="text-[11px] font-black text-[var(--ns-muted)]">핵심 점수</p>
                 <p className="font-semibold text-[var(--ns-text)]">{`종합 ${Math.round(Number(nameCompatibility?.overallScore) || 0)} / 사주 ${Math.round(Number(nameCompatibility?.sajuCompatibilityScore) || 0)} / 이름 ${Math.round(Number(nameCompatibility?.nameAnalysisScore) || 0)}`}</p>
               </div>
-              <div className="rounded-xl border border-[var(--ns-border)] bg-[var(--ns-surface)]/70 px-3 py-2">
+              <div className="rounded-xl border border-[var(--ns-border)] bg-[var(--ns-surface)]/20 px-3 py-2">
                 <p className="text-[11px] font-black text-[var(--ns-muted)]">조언 이유</p>
                 <p className="font-semibold text-[var(--ns-text)]">{asArray(nameCompatibility?.details)[0] || '세부 설명이 준비 중입니다.'}</p>
               </div>
@@ -370,9 +516,11 @@ function CombiedNamingReport({
           subtitle="전문 용어를 줄이고, 이해하기 쉬운 핵심만 모았습니다."
           open={openSections.summary}
           onToggle={() => toggleSection('summary')}
+          tone="summary"
+          toneMap={CARD_TONE}
         >
-          <div className="space-y-2.5">
-            {summaryCards.map((item) => {
+          <div className={`space-y-2.5 rounded-2xl border border-[var(--ns-tone-info-border)] ${getNestedGradientClass('info')} p-2`}>
+            {summaryCards.map((item, summaryIndex) => {
               const key = buildMiniKey('summary', item.key);
               return (
                 <CollapsibleMiniCard
@@ -381,6 +529,7 @@ function CombiedNamingReport({
                   subtitle={item.subtitle}
                   open={Boolean(openMini[key])}
                   onToggle={() => toggleMini(key)}
+                  className={SUMMARY_MINI_CARD_CLASSES[summaryIndex % SUMMARY_MINI_CARD_CLASSES.length]}
                 >
                   {item.body}
                 </CollapsibleMiniCard>
@@ -394,8 +543,10 @@ function CombiedNamingReport({
           subtitle="기간별 점수, 좋은 행동/피해야 할 행동, 주의 신호 대응을 함께 제공합니다."
           open={openSections.periods}
           onToggle={() => toggleSection('periods')}
+          tone="periods"
+          toneMap={CARD_TONE}
         >
-          <div className="space-y-2.5">
+          <div className={`space-y-2.5 rounded-2xl border border-[var(--ns-tone-warn-border)] ${getNestedGradientClass('warn')} p-2`}>
             {periodCards.map((item, index) => {
               const miniKey = buildMiniKey('period', item?.periodKind || String(index));
               const trend = periodTrendFromCard(item);
@@ -406,6 +557,7 @@ function CombiedNamingReport({
                   subtitle={item?.periodLabel || '기간 정보 없음'}
                   open={Boolean(openMini[miniKey])}
                   onToggle={() => toggleMini(miniKey)}
+                  className={PERIOD_MINI_CARD_CLASS}
                 >
                   <div className="space-y-2.5">
                     <StarRating score={toStars(item?.stars)} />
@@ -417,7 +569,7 @@ function CombiedNamingReport({
                       showPointLabels
                     />
                     <div className="grid grid-cols-1 md:grid-cols-2 gap-2 text-sm">
-                      <div className="rounded-xl border border-[var(--ns-tone-success-border)] bg-[var(--ns-tone-success-bg)] px-3 py-2 space-y-1.5">
+                      <div className="rounded-xl border border-[var(--ns-tone-success-border)] bg-[var(--ns-tone-success-bg)]/20 px-3 py-2 space-y-1.5">
                         <p className="text-[11px] font-black text-[var(--ns-tone-success-text)]">좋은 행동</p>
                         {asArray(item?.goodActions).map((advice, adviceIndex) => (
                           <div key={`good-${miniKey}-${adviceIndex}`}>
@@ -426,7 +578,7 @@ function CombiedNamingReport({
                           </div>
                         ))}
                       </div>
-                      <div className="rounded-xl border border-[var(--ns-tone-danger-border)] bg-[var(--ns-tone-danger-bg)] px-3 py-2 space-y-1.5">
+                      <div className="rounded-xl border border-[var(--ns-tone-danger-border)] bg-[var(--ns-tone-danger-bg)]/20 px-3 py-2 space-y-1.5">
                         <p className="text-[11px] font-black text-[var(--ns-tone-danger-text)]">피해야 할 행동</p>
                         {asArray(item?.badActions).map((advice, adviceIndex) => (
                           <div key={`bad-${miniKey}-${adviceIndex}`}>
@@ -435,7 +587,7 @@ function CombiedNamingReport({
                           </div>
                         ))}
                       </div>
-                      <div className="rounded-xl border border-[var(--ns-tone-warn-border)] bg-[var(--ns-tone-warn-bg)] px-3 py-2 md:col-span-2">
+                      <div className="rounded-xl border border-[var(--ns-tone-warn-border)] bg-[var(--ns-tone-warn-bg)]/20 px-3 py-2 md:col-span-2">
                         <p className="text-[11px] font-black text-[var(--ns-tone-warn-text)]">주의 신호 · 대응</p>
                         <p className="font-semibold text-[var(--ns-text)]">신호: {item?.warning?.signal || '-'}</p>
                         <p className="text-sm text-[var(--ns-text)]">대응: {item?.warning?.response || '-'}</p>
@@ -452,6 +604,7 @@ function CombiedNamingReport({
               subtitle="연령대별 운세 흐름"
               open={Boolean(openMini[buildMiniKey('period', 'life-stage')])}
               onToggle={() => toggleMini(buildMiniKey('period', 'life-stage'))}
+              className={PERIOD_MINI_CARD_CLASS}
             >
               <div className="space-y-2.5">
                 <TimeSeriesChart
@@ -466,7 +619,7 @@ function CombiedNamingReport({
                     return (
                       <div
                         key={`stage-${stageIndex}`}
-                        className={`rounded-lg border px-2.5 py-2 ${isCurrent ? 'border-[var(--ns-tone-success-border)] bg-[var(--ns-tone-success-bg)]' : 'border-[var(--ns-border)] bg-[var(--ns-surface)]'}`}
+                        className={`rounded-lg border px-2.5 py-2 ${isCurrent ? 'border-[var(--ns-tone-success-border)] bg-[var(--ns-tone-success-bg)]/20' : 'border-[var(--ns-border)] bg-[var(--ns-surface)]/20'}`}
                       >
                         <div className="flex items-center justify-between gap-2">
                           <p className="text-sm font-black text-[var(--ns-accent-text)]">{`${stage?.ageRange || '-'} · ${stage?.pillarDisplay || '-'}`}</p>
@@ -490,33 +643,36 @@ function CombiedNamingReport({
           subtitle="분야별 별점과 실행 조언을 함께 확인하세요."
           open={openSections.domains}
           onToggle={() => toggleSection('domains')}
+          tone="domains"
+          toneMap={CARD_TONE}
         >
-          <div className="grid grid-cols-1 md:grid-cols-[220px_1fr] gap-3">
+          <div className={`grid grid-cols-1 md:grid-cols-[220px_1fr] gap-3 rounded-2xl border border-[var(--ns-tone-indigo-border)] ${getNestedGradientClass('indigo')} p-2`}>
             <DomainRadarChart items={categoryCards} />
             <div className="space-y-2.5">
               {categoryCards.map((item, index) => {
                 const key = buildMiniKey('domain', item?.category || String(index));
                 return (
-                  <CollapsibleMiniCard
-                    key={key}
-                    title={item?.title || '분야 운세'}
-                    subtitle="분야별 실행 조언"
-                    open={Boolean(openMini[key])}
-                    onToggle={() => toggleMini(key)}
-                  >
+                <CollapsibleMiniCard
+                  key={key}
+                  title={item?.title || '분야 운세'}
+                  subtitle="분야별 실행 조언"
+                  open={Boolean(openMini[key])}
+                  onToggle={() => toggleMini(key)}
+                  className={DOMAIN_MINI_CARD_CLASS_BY_CATEGORY[item?.category] || DOMAIN_MINI_CARD_CLASS_BY_CATEGORY.wealth}
+                >
                     <div className="space-y-2">
                       <StarRating score={toStars(item?.stars)} />
                       <p className="text-sm font-semibold text-[var(--ns-text)]">{item?.summary || '-'}</p>
                       <div className="space-y-1.5">
                         {asArray(item?.advice).map((advice, adviceIndex) => (
-                          <div key={`domain-advice-${index}-${adviceIndex}`} className="rounded-lg border border-[var(--ns-border)] bg-[var(--ns-surface)] px-2.5 py-2">
+                          <div key={`domain-advice-${index}-${adviceIndex}`} className="rounded-lg border border-[var(--ns-border)] bg-[var(--ns-surface)]/20 px-2.5 py-2">
                             <p className="text-sm font-semibold text-[var(--ns-text)]">{advice?.text || '-'}</p>
                             <p className="text-[11px] text-[var(--ns-muted)]">이유: {advice?.reason || '-'}</p>
                           </div>
                         ))}
                       </div>
                       {item?.caution ? (
-                        <div className="rounded-lg border border-[var(--ns-tone-warn-border)] bg-[var(--ns-tone-warn-bg)] px-2.5 py-2">
+                        <div className="rounded-lg border border-[var(--ns-tone-warn-border)] bg-[var(--ns-tone-warn-bg)]/20 px-2.5 py-2">
                           <p className="text-sm font-semibold text-[var(--ns-text)]">주의: {item.caution.signal}</p>
                           <p className="text-sm text-[var(--ns-text)]">대응: {item.caution.response}</p>
                           <p className="text-[11px] text-[var(--ns-muted)]">이유: {item.caution.reason}</p>
@@ -530,13 +686,13 @@ function CombiedNamingReport({
           </div>
         </CollapsibleCard>
 
-        <section className="rounded-2xl border border-[var(--ns-border)] bg-[var(--ns-surface-soft)] px-3 py-3">
+        <section className="rounded-2xl border border-[var(--ns-tone-info-border)] bg-gradient-to-r from-[var(--ns-tone-info-bg)] via-[var(--ns-surface-soft)] to-[var(--ns-report-grad-end)] px-3 py-3">
           <p className="text-sm font-black text-[var(--ns-accent-text)]">다른 보고서 보기</p>
           <div className="mt-2 grid grid-cols-2 gap-2">
             <button
               type="button"
               onClick={onOpenNamingReport}
-              className="w-full rounded-xl border border-[var(--ns-border)] bg-[var(--ns-surface)] px-3 py-3 text-left hover:bg-[var(--ns-surface-soft)] transition-colors"
+              className="w-full rounded-xl border border-[var(--ns-border)] bg-[var(--ns-surface)]/20 px-3 py-3 text-left hover:bg-[var(--ns-surface-soft)]/20 transition-colors"
             >
               <span className="inline-flex items-center gap-1.5 text-sm font-black text-[var(--ns-accent-text)]">이름 평가 보고서</span>
               <span className="mt-1 block text-[11px] leading-relaxed font-semibold text-[var(--ns-muted)]">성명학 중심 상세 결과를 확인합니다.</span>
@@ -544,7 +700,7 @@ function CombiedNamingReport({
             <button
               type="button"
               onClick={onOpenSajuReport}
-              className="w-full rounded-xl border border-[var(--ns-border)] bg-[var(--ns-surface)] px-3 py-3 text-left hover:bg-[var(--ns-surface-soft)] transition-colors"
+              className="w-full rounded-xl border border-[var(--ns-border)] bg-[var(--ns-surface)]/20 px-3 py-3 text-left hover:bg-[var(--ns-surface-soft)]/20 transition-colors"
             >
               <span className="inline-flex items-center gap-1.5 text-sm font-black text-[var(--ns-accent-text)]">사주 평가 보고서</span>
               <span className="mt-1 block text-[11px] leading-relaxed font-semibold text-[var(--ns-muted)]">사주 중심 상세 결과를 확인합니다.</span>
@@ -573,3 +729,6 @@ function CombiedNamingReport({
 }
 
 export default CombiedNamingReport;
+
+
+

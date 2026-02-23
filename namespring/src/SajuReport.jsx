@@ -1,4 +1,4 @@
-import React, { useCallback, useMemo, useRef, useState } from 'react';
+﻿import React, { useCallback, useMemo, useRef, useState } from 'react';
 import NamingResultRenderer from './NamingResultRenderer';
 import { buildRenderMetricsFromSajuReport } from './naming-result-render-metrics';
 import { getElementToneClass, getMetaToneClass } from './theme/report-ui-theme';
@@ -113,7 +113,7 @@ function resolvePillarPartElement(part, partType) {
 
 function InfoCard({ title, value }) {
   return (
-    <div className="rounded-xl border border-[var(--ns-border)] bg-[var(--ns-surface-soft)] px-3 py-2.5">
+    <div className="rounded-xl border border-[var(--ns-border)] bg-[var(--ns-surface-soft)]/20 px-3 py-2.5">
       <p className="text-[11px] font-black text-[var(--ns-muted)] mb-1">{title}</p>
       <p className="text-sm text-[var(--ns-text)] break-keep whitespace-normal">{value || '-'}</p>
     </div>
@@ -257,7 +257,7 @@ function SajuReport({ report, shareUserInfo = null }) {
   return (
     <>
     <div ref={reportRootRef} data-pdf-root="true" className="space-y-4">
-      <section className="rounded-[2rem] border border-[var(--ns-border)] bg-[var(--ns-surface-soft)] p-3 md:p-4">
+      <section className="rounded-[2rem] border border-[var(--ns-border)] bg-[var(--ns-surface-soft)]/20 p-3 md:p-4">
         <div className="flex flex-wrap items-start justify-between gap-3">
           <div>
             <h2 className="text-2xl font-black text-[var(--ns-accent-text)]">사주 핵심 요약</h2>
@@ -385,7 +385,7 @@ function SajuReport({ report, shareUserInfo = null }) {
             <InfoCard title="득세" value={formatNumber(report?.strength?.deukse)} />
           </div>
           {Array.isArray(report?.strength?.details) && report.strength.details.length ? (
-            <div className="rounded-xl border border-[var(--ns-border)] bg-[var(--ns-surface-soft)] px-3 py-2.5 space-y-1">
+            <div className="rounded-xl border border-[var(--ns-border)] bg-[var(--ns-surface-soft)]/20 px-3 py-2.5 space-y-1">
               <p className="text-[11px] font-black text-[var(--ns-muted)]">상세 로그</p>
               {report.strength.details.map((line, index) => (
                 <p key={`strength-line-${index}`} className="text-xs text-[var(--ns-text)] break-keep whitespace-normal leading-relaxed">
@@ -416,7 +416,7 @@ function SajuReport({ report, shareUserInfo = null }) {
           {Array.isArray(report?.yongshin?.recommendations) && report.yongshin.recommendations.length ? (
             <div className="space-y-2">
               {report.yongshin.recommendations.map((item, index) => (
-                <div key={`recommend-${item?.type || 'type'}-${index}`} className="rounded-xl border border-[var(--ns-border)] bg-[var(--ns-surface-soft)] px-3 py-2.5">
+                <div key={`recommend-${item?.type || 'type'}-${index}`} className="rounded-xl border border-[var(--ns-border)] bg-[var(--ns-surface-soft)]/20 px-3 py-2.5">
                   <p className="text-[11px] font-black text-[var(--ns-muted)] mb-1">{item?.type || `추천 ${index + 1}`}</p>
                   <p className="text-xs text-[var(--ns-muted)] mb-1">
                     주 오행: {item?.primaryElement || '-'} / 보조 오행: {item?.secondaryElement || '-'} / 신뢰도: {formatNumber(item?.confidence, 2)}
@@ -435,7 +435,7 @@ function SajuReport({ report, shareUserInfo = null }) {
             <InfoCard title="기준 십성" value={report?.gyeokguk?.baseTenGod || '-'} />
             <InfoCard title="격국 신뢰도" value={formatNumber(report?.gyeokguk?.confidence, 2)} />
           </div>
-          <div className="rounded-xl border border-[var(--ns-border)] bg-[var(--ns-surface-soft)] px-3 py-2.5">
+          <div className="rounded-xl border border-[var(--ns-border)] bg-[var(--ns-surface-soft)]/20 px-3 py-2.5">
             <p className="text-[11px] font-black text-[var(--ns-muted)] mb-1">격국 해석</p>
             <p className="text-sm text-[var(--ns-text)] break-keep whitespace-normal leading-relaxed">
               {report?.gyeokguk?.reasoning || '-'}
@@ -457,7 +457,7 @@ function SajuReport({ report, shareUserInfo = null }) {
                 <span>{elementLabel(row.key)} ({row.key})</span>
                 <span>{row.value} ({row.ratio}%)</span>
               </div>
-              <div className="mt-1.5 h-2 rounded-full bg-[var(--ns-surface)]/60 overflow-hidden">
+              <div className="mt-1.5 h-2 rounded-full bg-[var(--ns-surface)]/20 overflow-hidden">
                 <div className="h-full rounded-full bg-current" style={{ width: `${row.ratio}%`, opacity: 0.7 }} />
               </div>
             </div>
@@ -484,7 +484,7 @@ function SajuReport({ report, shareUserInfo = null }) {
         <div className="space-y-2">
           <InfoCard title="일간 기준" value={report?.tenGodAnalysis?.dayMaster || '-'} />
           {tenGodRows.length ? tenGodRows.map(({ position, data }) => (
-            <div key={`ten-god-${position}`} className="rounded-xl border border-[var(--ns-border)] bg-[var(--ns-surface-soft)] px-3 py-2.5">
+            <div key={`ten-god-${position}`} className="rounded-xl border border-[var(--ns-border)] bg-[var(--ns-surface-soft)]/20 px-3 py-2.5">
               <p className="text-[11px] font-black text-[var(--ns-muted)] mb-1">
                 {POSITION_LABEL[position] || position}
               </p>
@@ -518,7 +518,7 @@ function SajuReport({ report, shareUserInfo = null }) {
           <section className="space-y-2">
             <p className="text-sm font-black text-[var(--ns-accent-text)]">천간 관계</p>
             {cheonganRelations.length ? cheonganRelations.map((item, index) => (
-              <div key={`cg-${index}`} className="rounded-xl border border-[var(--ns-border)] bg-[var(--ns-surface-soft)] px-3 py-2.5">
+              <div key={`cg-${index}`} className="rounded-xl border border-[var(--ns-border)] bg-[var(--ns-surface-soft)]/20 px-3 py-2.5">
                 <p className="text-sm font-black text-[var(--ns-text)]">{item?.type || '-'}</p>
                 <p className="text-xs text-[var(--ns-muted)] mt-1 break-keep whitespace-normal">
                   멤버: {(Array.isArray(item?.stems) ? item.stems.join(', ') : '-')} / 결과오행: {item?.resultElement || '-'}
@@ -536,7 +536,7 @@ function SajuReport({ report, shareUserInfo = null }) {
           <section className="space-y-2">
             <p className="text-sm font-black text-[var(--ns-accent-text)]">지지 관계</p>
             {jijiRelations.length ? jijiRelations.map((item, index) => (
-              <div key={`jj-${index}`} className="rounded-xl border border-[var(--ns-border)] bg-[var(--ns-surface-soft)] px-3 py-2.5">
+              <div key={`jj-${index}`} className="rounded-xl border border-[var(--ns-border)] bg-[var(--ns-surface-soft)]/20 px-3 py-2.5">
                 <p className="text-sm font-black text-[var(--ns-text)]">{item?.type || '-'}</p>
                 <p className="text-xs text-[var(--ns-muted)] mt-1 break-keep whitespace-normal">
                   멤버: {(Array.isArray(item?.branches) ? item.branches.join(', ') : '-')} / 결과: {item?.outcome || '-'}
@@ -563,7 +563,7 @@ function SajuReport({ report, shareUserInfo = null }) {
           {shinsalHits.length ? (
             <div className="space-y-2">
               {shinsalHits.map((item, index) => (
-                <div key={`shinsal-${index}`} className="rounded-xl border border-[var(--ns-border)] bg-[var(--ns-surface-soft)] px-3 py-2.5">
+                <div key={`shinsal-${index}`} className="rounded-xl border border-[var(--ns-border)] bg-[var(--ns-surface-soft)]/20 px-3 py-2.5">
                   <p className="text-sm font-black text-[var(--ns-text)]">
                     {item?.type || '-'} ({item?.position || '-'})
                   </p>
@@ -598,5 +598,8 @@ function SajuReport({ report, shareUserInfo = null }) {
 }
 
 export default SajuReport;
+
+
+
 
 
