@@ -1019,7 +1019,7 @@ function InputForm({
                 <div className="space-y-1 animate-in fade-in duration-150">
                   <label className="text-[11px] font-black text-[var(--ns-muted)] block">년도 선택</label>
                   <div className="relative rounded-xl border border-[var(--ns-border)] bg-[var(--ns-surface-soft)] overflow-hidden">
-                    <div className="pointer-events-none absolute inset-x-1 top-1/2 -translate-y-1/2 h-[34px] rounded-lg border border-[var(--ns-border)] bg-white/55" />
+                    <div className="pointer-events-none absolute inset-x-1 top-1/2 -translate-y-1/2 h-[34px] rounded-lg border border-[var(--ns-border)] bg-[var(--ns-surface)]/55" />
                     <div
                       ref={yearWheelRef}
                       onScroll={handleYearWheelScroll}
@@ -1097,7 +1097,7 @@ function InputForm({
                       <label className="block min-w-0 space-y-0.5">
                         <span className="text-[11px] font-black text-[var(--ns-muted)] block">시</span>
                         <div className="relative rounded-xl border border-[var(--ns-border)] bg-[var(--ns-surface-soft)] overflow-hidden">
-                          <div className="pointer-events-none absolute inset-x-1 top-1/2 -translate-y-1/2 h-[34px] rounded-lg border border-[var(--ns-border)] bg-white/55" />
+                          <div className="pointer-events-none absolute inset-x-1 top-1/2 -translate-y-1/2 h-[34px] rounded-lg border border-[var(--ns-border)] bg-[var(--ns-surface)]/55" />
                           <div
                             ref={hourWheelRef}
                             onScroll={handleHourWheelScroll}
@@ -1126,7 +1126,7 @@ function InputForm({
                       <label className="block min-w-0 space-y-0.5">
                         <span className="text-[11px] font-black text-[var(--ns-muted)] block">분</span>
                         <div className="relative rounded-xl border border-[var(--ns-border)] bg-[var(--ns-surface-soft)] overflow-hidden">
-                          <div className="pointer-events-none absolute inset-x-1 top-1/2 -translate-y-1/2 h-[34px] rounded-lg border border-[var(--ns-border)] bg-white/55" />
+                          <div className="pointer-events-none absolute inset-x-1 top-1/2 -translate-y-1/2 h-[34px] rounded-lg border border-[var(--ns-border)] bg-[var(--ns-surface)]/55" />
                           <div
                             ref={minuteWheelRef}
                             onScroll={handleMinuteWheelScroll}

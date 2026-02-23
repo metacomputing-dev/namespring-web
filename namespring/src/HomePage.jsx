@@ -1,12 +1,12 @@
 import React, { useEffect, useMemo, useState } from 'react';
 import logoSvg from './assets/logo.svg';
 import NamingResultRenderer from './NamingResultRenderer';
-import { HOME_CARD_COLOR_THEME, buildTileStyle } from './theme/card-color-theme';
+import { HOME_CARD_COLOR_THEME, HOME_CARD_COLOR_THEME_DARK, buildTileStyle } from './theme/card-color-theme';
 import { buildRenderMetricsFromSajuReport } from './naming-result-render-metrics';
 
-function HomeTile({ item, onClick }) {
+function HomeTile({ item, onClick, isDarkMode }) {
   const isClickable = typeof onClick === 'function';
-  const tileStyle = useMemo(() => buildTileStyle(item.theme), [item.theme]);
+  const tileStyle = useMemo(() => buildTileStyle(isDarkMode ? item.themeDark : item.theme), [isDarkMode, item.theme, item.themeDark]);
   return (
     <button
       type="button"
@@ -20,16 +20,16 @@ function HomeTile({ item, onClick }) {
       disabled={!isClickable}
     >
       <div className="flex flex-col">
-        <div className="w-14 h-14 rounded-2xl border border-[var(--ns-border)] bg-white/85 shadow-inner flex items-center justify-center">
+        <div className="w-14 h-14 rounded-2xl border border-[var(--ns-border)] bg-[var(--ns-surface)]/85 shadow-inner flex items-center justify-center">
           <img src={logoSvg} alt="" className="h-8 w-8 select-none" draggable="false" />
         </div>
 
         <div className="mt-3 space-y-1.5">
-          <p className="text-[10px] md:text-[11px] font-medium tracking-wide text-[#91A0B8]">{item.subtitle}</p>
+          <p className="text-[10px] md:text-[11px] font-medium tracking-wide text-[var(--ns-muted)]">{item.subtitle}</p>
           <h3 className="text-[1.1rem] leading-tight md:text-[1.25rem] font-semibold text-[var(--ns-accent-text)] break-keep">
             {item.title}
           </h3>
-          <p className="text-[11px] md:text-[12px] leading-snug font-normal text-[#73819A] break-keep">
+          <p className="text-[11px] md:text-[12px] leading-snug font-normal text-[var(--ns-muted)] break-keep">
             {item.description}
           </p>
         </div>
@@ -42,6 +42,20 @@ function HomePage({ entryUserInfo, onLoadSajuReport, onOpenCombinedReport, onOpe
   const [isAnalyzing, setIsAnalyzing] = useState(false);
   const [previewMetrics, setPreviewMetrics] = useState(null);
   const [analyzeError, setAnalyzeError] = useState('');
+  const [isDarkMode, setIsDarkMode] = useState(() => {
+    if (typeof window === 'undefined' || typeof window.matchMedia !== 'function') return false;
+    return window.matchMedia('(prefers-color-scheme: dark)').matches;
+  });
+
+  useEffect(() => {
+    if (typeof window === 'undefined' || typeof window.matchMedia !== 'function') return undefined;
+    const media = window.matchMedia('(prefers-color-scheme: dark)');
+    const onChange = (event) => setIsDarkMode(event.matches);
+    setIsDarkMode(media.matches);
+    media.addEventListener('change', onChange);
+    return () => media.removeEventListener('change', onChange);
+  }, []);
+
   const menuItems = useMemo(() => ([
     {
       id: 1,
@@ -49,6 +63,7 @@ function HomePage({ entryUserInfo, onLoadSajuReport, onOpenCombinedReport, onOpe
       subtitle: '사주와 성명학의 통합 분석',
       description: '이름 평가와 사주 평가를 함께 묶은 종합 리포트를 제공합니다.',
       theme: HOME_CARD_COLOR_THEME.report,
+      themeDark: HOME_CARD_COLOR_THEME_DARK.report,
       onClick: onOpenCombinedReport,
     },
     {
@@ -57,6 +72,7 @@ function HomePage({ entryUserInfo, onLoadSajuReport, onOpenCombinedReport, onOpe
       subtitle: '세상에 단 하나뿐인 축복',
       description: '사주에 부족한 성분을 채워주는 최적의 이름을 추천받으세요.',
       theme: HOME_CARD_COLOR_THEME.naming,
+      themeDark: HOME_CARD_COLOR_THEME_DARK.naming,
       onClick: onOpenNamingCandidates,
     },
     {
@@ -65,6 +81,7 @@ function HomePage({ entryUserInfo, onLoadSajuReport, onOpenCombinedReport, onOpe
       subtitle: '마음을 나누는 따뜻한 선물',
       description: '좋은 이름을 지어준 분께 감사의 마음을 예쁘게 전달하세요.',
       theme: HOME_CARD_COLOR_THEME.gratitude,
+      themeDark: HOME_CARD_COLOR_THEME_DARK.gratitude,
       onClick: null,
     },
     {
@@ -73,6 +90,7 @@ function HomePage({ entryUserInfo, onLoadSajuReport, onOpenCombinedReport, onOpe
       subtitle: '브랜드 철학과 가이드',
       description: '이름봄이 추구하는 가치와 오행 분석의 원리를 소개합니다.',
       theme: HOME_CARD_COLOR_THEME.info,
+      themeDark: HOME_CARD_COLOR_THEME_DARK.info,
       onClick: null,
     },
   ]), [onOpenCombinedReport, onOpenNamingCandidates]);
@@ -153,6 +171,7 @@ function HomePage({ entryUserInfo, onLoadSajuReport, onOpenCombinedReport, onOpe
               key={item.id}
               item={item}
               onClick={item.onClick}
+              isDarkMode={isDarkMode}
             />
           ))}
         </div>
@@ -169,7 +188,7 @@ function HomePage({ entryUserInfo, onLoadSajuReport, onOpenCombinedReport, onOpe
             transform: 'translateX(-50%)',
             zIndex: 9999,
           }}
-          className="inline-flex h-11 w-11 items-center justify-center rounded-full border border-white/60 bg-[var(--ns-surface)]/95 text-[var(--ns-accent-text)] shadow-[0_10px_24px_rgba(15,23,42,0.22)] backdrop-blur-sm hover:brightness-95"
+          className="inline-flex h-11 w-11 items-center justify-center rounded-full border border-[var(--ns-border)] bg-[var(--ns-surface)]/95 text-[var(--ns-accent-text)] shadow-[0_10px_24px_rgba(15,23,42,0.22)] backdrop-blur-sm hover:brightness-95"
           aria-label="입력 정보 수정"
         >
           <svg viewBox="0 0 20 20" fill="none" className="h-4 w-4" aria-hidden="true">

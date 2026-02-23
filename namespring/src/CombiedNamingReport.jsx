@@ -2,6 +2,7 @@ import React, { useCallback, useMemo, useRef, useState } from 'react';
 import NamingResultRenderer from './NamingResultRenderer';
 import { buildRenderMetricsFromSajuReport } from './naming-result-render-metrics';
 import FiveElementRadarChart from './FiveElementRadarChart';
+import { getElementToneClass, getMetaToneClass } from './theme/report-ui-theme';
 import {
   ReportActionButtons,
   ReportPrintOverlay,
@@ -30,12 +31,9 @@ function normalizeElement(value) {
 }
 
 function elementBadgeClass(element) {
-  if (element === 'Wood') return 'border-emerald-200 bg-emerald-50 text-emerald-700';
-  if (element === 'Fire') return 'border-rose-200 bg-rose-50 text-rose-700';
-  if (element === 'Earth') return 'border-amber-200 bg-amber-50 text-amber-700';
-  if (element === 'Metal') return 'border-slate-200 bg-slate-100 text-slate-700';
-  if (element === 'Water') return 'border-blue-200 bg-blue-50 text-blue-700';
-  return 'border-[var(--ns-border)] bg-[var(--ns-surface-soft)] text-[var(--ns-muted)]';
+  const normalized = normalizeElement(element);
+  const key = normalized ? normalized.toUpperCase() : '';
+  return getElementToneClass(key);
 }
 
 function formatScore(value) {
@@ -80,14 +78,7 @@ function CollapseCard({ title, subtitle, open, onToggle, children }) {
 }
 
 function MetaInfoCard({ title, value, tone = 'default' }) {
-  const toneClass =
-    tone === 'emerald'
-      ? 'border-emerald-200 bg-emerald-50 text-emerald-800'
-      : tone === 'amber'
-        ? 'border-amber-200 bg-amber-50 text-amber-800'
-        : tone === 'blue'
-          ? 'border-blue-200 bg-blue-50 text-blue-800'
-          : 'border-[var(--ns-border)] bg-[var(--ns-surface)] text-[var(--ns-muted)]';
+  const toneClass = getMetaToneClass(tone);
 
   return (
     <div className={`rounded-xl border px-3 py-2.5 ${toneClass}`}>
@@ -206,9 +197,9 @@ function CombiedNamingReport({
             </h2>
             <p className="text-sm text-[var(--ns-muted)] mt-1 break-keep whitespace-normal">통합 점수 안내를 포함한 이름·사주 결합 보고서</p>
           </div>
-          <div className="rounded-xl border border-emerald-200 bg-emerald-50 px-3 py-2 text-right">
-            <p className="text-xs font-black text-emerald-700">통합 점수</p>
-            <p className="text-2xl font-black text-emerald-800">{formatScore(finalScore)}</p>
+          <div className="rounded-xl border border-[var(--ns-tone-success-border)] bg-[var(--ns-tone-success-bg)] px-3 py-2 text-right">
+            <p className="text-xs font-black text-[var(--ns-tone-success-text)]">통합 점수</p>
+            <p className="text-2xl font-black text-[var(--ns-tone-success-text)]">{formatScore(finalScore)}</p>
           </div>
         </div>
         <p className="mt-3 text-sm text-[var(--ns-muted)] break-keep whitespace-normal">{scoreGuideText(finalScore)}</p>
@@ -240,7 +231,7 @@ function CombiedNamingReport({
                     <span>{item.label}</span>
                     <span>{item.value}</span>
                   </div>
-                  <div className="mt-1.5 h-2 rounded-full bg-white/60 overflow-hidden">
+                  <div className="mt-1.5 h-2 rounded-full bg-[var(--ns-surface)]/60 overflow-hidden">
                     <div className="h-full rounded-full bg-current" style={{ width: `${widthPercent}%`, opacity: 0.7 }} />
                   </div>
                 </div>
@@ -403,3 +394,4 @@ function CombiedNamingReport({
 }
 
 export default CombiedNamingReport;
+

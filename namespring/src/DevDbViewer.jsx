@@ -117,11 +117,11 @@ function DevDbViewer() {
   };
 
   return (
-    <div className="min-h-screen bg-slate-50 text-slate-900 p-4 md:p-8 font-sans">
+    <div className="min-h-screen p-4 md:p-8 font-sans text-[var(--ns-text)]">
       <div className="max-w-7xl mx-auto">
-        <div className="bg-white border border-slate-200 rounded-3xl p-6 mb-6">
-          <p className="text-xs font-black tracking-widest text-slate-400 uppercase mb-2">Internal Dev Tool</p>
-          <h1 className="text-2xl font-black text-slate-800 mb-4">사격수리 DB Viewer</h1>
+        <div className="bg-[var(--ns-surface)] border border-[var(--ns-border)] rounded-3xl p-6 mb-6">
+          <p className="text-xs font-black tracking-widest text-[var(--ns-muted)] uppercase mb-2">Internal Dev Tool</p>
+          <h1 className="text-2xl font-black text-[var(--ns-accent-text)] mb-4">사격수리 DB Viewer</h1>
           <div className="flex flex-wrap gap-3 items-center">
             <label className="cursor-pointer">
               <input type="file" accept=".db,.sqlite,.sqlite3" onChange={handleFileUpload} className="hidden" />
@@ -134,9 +134,9 @@ function DevDbViewer() {
               value={userName}
               onChange={(e) => setUserName(e.target.value)}
               placeholder="이름(치환용)"
-              className="px-3 py-2 rounded-xl bg-slate-50 border border-slate-200 text-sm"
+              className="px-3 py-2 rounded-xl bg-[var(--ns-surface-soft)] border border-[var(--ns-border)] text-sm"
             />
-            <span className="text-xs text-slate-500">
+            <span className="text-xs text-[var(--ns-muted)]">
               {isSqlReady ? "sql.js ready" : "sql.js loading..."}
             </span>
           </div>
@@ -145,13 +145,13 @@ function DevDbViewer() {
 
         <div className="grid grid-cols-1 lg:grid-cols-12 gap-6">
           <div className="lg:col-span-4 space-y-4">
-            <div className="bg-white border border-slate-200 rounded-2xl p-4 space-y-3">
+            <div className="bg-[var(--ns-surface)] border border-[var(--ns-border)] rounded-2xl p-4 space-y-3">
               <input
                 type="text"
                 value={searchTerm}
                 onChange={(e) => setSearchTerm(e.target.value)}
                 placeholder="번호/제목/요약 검색"
-                className="w-full px-3 py-2 rounded-xl bg-slate-50 border border-slate-200 text-sm"
+                className="w-full px-3 py-2 rounded-xl bg-[var(--ns-surface-soft)] border border-[var(--ns-border)] text-sm"
               />
               <div className="flex flex-wrap gap-2">
                 {levels.map((level) => (
@@ -159,7 +159,7 @@ function DevDbViewer() {
                     key={level}
                     onClick={() => setSelectedLevel(level)}
                     className={`px-3 py-1.5 rounded-xl text-xs font-bold ${
-                      selectedLevel === level ? "bg-indigo-600 text-white" : "bg-slate-100 text-slate-600"
+                      selectedLevel === level ? "bg-indigo-600 text-white" : "bg-[var(--ns-surface-soft)] text-[var(--ns-muted)]"
                     }`}
                   >
                     {level}
@@ -168,19 +168,19 @@ function DevDbViewer() {
               </div>
             </div>
 
-            <div className="bg-white border border-slate-200 rounded-2xl overflow-hidden max-h-[65vh] overflow-y-auto">
+            <div className="bg-[var(--ns-surface)] border border-[var(--ns-border)] rounded-2xl overflow-hidden max-h-[65vh] overflow-y-auto">
               {filteredRows.map((item) => (
                 <button
                   key={item.number}
                   onClick={() => setSelectedItem(item)}
-                  className={`w-full text-left px-4 py-3 border-b border-slate-100 hover:bg-slate-50 ${
-                    selectedItem?.number === item.number ? "bg-indigo-50" : ""
+                  className={`w-full text-left px-4 py-3 border-b border-[var(--ns-border)] hover:bg-[var(--ns-surface-soft)] ${
+                    selectedItem?.number === item.number ? "bg-[var(--ns-surface-soft)]" : ""
                   }`}
                 >
                   <div className="flex items-center justify-between">
                     <div>
-                      <p className="font-bold text-slate-800 text-sm">{item.number}. {item.title}</p>
-                      <p className="text-xs text-slate-500">{item.summary}</p>
+                      <p className="font-bold text-[var(--ns-accent-text)] text-sm">{item.number}. {item.title}</p>
+                      <p className="text-xs text-[var(--ns-muted)]">{item.summary}</p>
                     </div>
                     <span className={`text-[10px] text-white px-2 py-1 rounded-full ${LUCKY_COLORS[item.lucky_level] || "bg-slate-500"}`}>
                       {item.lucky_level}
@@ -193,32 +193,32 @@ function DevDbViewer() {
 
           <div className="lg:col-span-8">
             {!selectedItem && (
-              <div className="bg-white border border-dashed border-slate-300 rounded-2xl p-10 text-center text-slate-500">
+              <div className="bg-[var(--ns-surface)] border border-dashed border-[var(--ns-border)] rounded-2xl p-10 text-center text-[var(--ns-muted)]">
                 왼쪽 목록에서 항목을 선택하세요.
               </div>
             )}
 
             {selectedItem && (
-              <div className="bg-white border border-slate-200 rounded-2xl p-6 space-y-6">
+              <div className="bg-[var(--ns-surface)] border border-[var(--ns-border)] rounded-2xl p-6 space-y-6">
                 <div>
-                  <p className="text-xs text-slate-400 font-black uppercase tracking-widest mb-1">
+                  <p className="text-xs text-[var(--ns-muted)] font-black uppercase tracking-widest mb-1">
                     {selectedItem.lucky_level}
                   </p>
-                  <h2 className="text-3xl font-black text-slate-900">
+                  <h2 className="text-3xl font-black text-[var(--ns-accent-text)]">
                     {selectedItem.number}. {selectedItem.title}
                   </h2>
-                  <p className="text-slate-600 mt-2">{selectedItem.summary}</p>
+                  <p className="text-[var(--ns-muted)] mt-2">{selectedItem.summary}</p>
                 </div>
 
                 <section>
-                  <h3 className="font-black text-slate-800 mb-2">종합 해설</h3>
-                  <p className="text-slate-700 leading-relaxed">
+                  <h3 className="font-black text-[var(--ns-accent-text)] mb-2">종합 해설</h3>
+                  <p className="text-[var(--ns-text)] leading-relaxed">
                     {replacePlaceholder(selectedItem.detailed_explanation, userName)}
                   </p>
                 </section>
 
                 <section>
-                  <h3 className="font-black text-slate-800 mb-2">강점</h3>
+                  <h3 className="font-black text-[var(--ns-accent-text)] mb-2">강점</h3>
                   <div className="flex flex-wrap gap-2">
                     {selectedItem.positive_aspects.map((itemText) => (
                       <span key={itemText} className="px-3 py-1.5 bg-indigo-50 text-indigo-700 text-xs font-bold rounded-lg">
@@ -229,25 +229,25 @@ function DevDbViewer() {
                 </section>
 
                 <section>
-                  <h3 className="font-black text-slate-800 mb-2">주의점</h3>
-                  <p className="text-slate-700 leading-relaxed">
+                  <h3 className="font-black text-[var(--ns-accent-text)] mb-2">주의점</h3>
+                  <p className="text-[var(--ns-text)] leading-relaxed">
                     {replacePlaceholder(selectedItem.caution_points, userName)}
                   </p>
                 </section>
 
                 <section>
-                  <h3 className="font-black text-slate-800 mb-2">생애 흐름</h3>
-                  <p className="text-slate-700 leading-relaxed">
+                  <h3 className="font-black text-[var(--ns-accent-text)] mb-2">생애 흐름</h3>
+                  <p className="text-[var(--ns-text)] leading-relaxed">
                     {replacePlaceholder(selectedItem.life_period_influence, userName)}
                   </p>
                 </section>
 
                 {selectedItem.personality_traits.length > 0 && (
                   <section>
-                    <h3 className="font-black text-slate-800 mb-2">성향 키워드</h3>
+                    <h3 className="font-black text-[var(--ns-accent-text)] mb-2">성향 키워드</h3>
                     <div className="flex flex-wrap gap-2">
                       {selectedItem.personality_traits.map((trait) => (
-                        <span key={trait} className="px-3 py-1.5 bg-slate-100 text-slate-700 text-xs font-semibold rounded-lg">
+                        <span key={trait} className="px-3 py-1.5 bg-[var(--ns-surface-soft)] text-[var(--ns-text)] text-xs font-semibold rounded-lg">
                           {trait}
                         </span>
                       ))}
@@ -257,7 +257,7 @@ function DevDbViewer() {
 
                 {selectedItem.suitable_career.length > 0 && (
                   <section>
-                    <h3 className="font-black text-slate-800 mb-2">적합 직업</h3>
+                    <h3 className="font-black text-[var(--ns-accent-text)] mb-2">적합 직업</h3>
                     <div className="flex flex-wrap gap-2">
                       {selectedItem.suitable_career.map((career) => (
                         <span key={career} className="px-3 py-1.5 bg-emerald-50 text-emerald-700 text-xs font-semibold rounded-lg">

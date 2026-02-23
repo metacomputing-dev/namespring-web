@@ -220,7 +220,7 @@ export function ReportActionButtons({
       <button
         type="button"
         onClick={onShare}
-        className="flex-1 py-4 bg-[var(--ns-primary)] text-[var(--ns-accent-text)] rounded-2xl font-black shadow-lg hover:brightness-95 active:scale-95 transition-all"
+        className="flex-1 py-4 bg-[var(--ns-share-btn-bg)] text-[var(--ns-share-btn-text)] border border-[var(--ns-share-btn-border)] rounded-2xl font-black shadow-lg hover:brightness-95 active:scale-95 transition-all"
       >
         공유하기
       </button>
