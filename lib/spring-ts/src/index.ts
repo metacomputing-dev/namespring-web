@@ -86,3 +86,26 @@ export {
   CHOSEONG, JUNGSEONG, decomposeHangul, makeFallbackEntry,
   FRAME_LABELS, buildInterpretation, parseJamoFilter, type JamoFilter,
 } from './core/name-utils.js';
+
+// ─────────────────────────────────────────────────────────────────────────────
+//  8. FORTUNE REPORT
+// ─────────────────────────────────────────────────────────────────────────────
+export { buildFortuneReport } from './report/buildFortuneReport.js';
+export type {
+  FortuneReport,
+  FortuneReportRequest,
+  FortuneCategory,
+  FortunePeriodKind,
+  FortuneAdvice,
+  FortuneWarning,
+  StarRating,
+  NameCompatibilityCard,
+  OverviewSummaryCard,
+  LifeFortuneOverviewCard,
+  PersonalityCard,
+  StrengthsWeaknessesCard,
+  CautionsCard,
+  PeriodFortuneCard,
+  LifeStageFortuneCard,
+  CategoryFortuneCard,
+} from './report/types.js';

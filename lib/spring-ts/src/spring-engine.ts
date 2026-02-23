@@ -36,6 +36,8 @@ import type {
   NameCharInput, CharDetail, NameGenderTendency,
 } from './types.js';
 import engineConfig from '../config/engine.json';
+import { buildFortuneReport } from './report/buildFortuneReport.js';
+import type { FortuneReportRequest, FortuneReport } from './report/types.js';
 
 // ---------------------------------------------------------------------------
 // Config -- all tuneable numbers come from engine.json
@@ -1247,6 +1249,50 @@ export class SpringEngine {
         isSurname,
       });
     }));
+  }
+
+  // -------------------------------------------------------------------------
+  // getFortuneReport -- fortune report combining saju + optional name analysis
+  // -------------------------------------------------------------------------
+
+  async getFortuneReport(request: FortuneReportRequest): Promise<FortuneReport> {
+    await this.init();
+
+    // 1. Run saju analysis
+    const sajuReport = await this.getSajuReport({
+      birth: request.birth,
+      surname: request.surname ?? [],
+      options: request.options,
+    });
+    const saju: SajuSummary = sajuReport;
+
+    // 2. Optionally run spring report if name is provided
+    let springReport: SpringReport | null = null;
+    if (request.givenName && request.givenName.length > 0) {
+      try {
+        springReport = await this.getSpringReport(
+          {
+            birth: request.birth,
+            surname: request.surname ?? [],
+            givenName: request.givenName,
+            mode: 'evaluate',
+            options: request.options,
+          },
+          sajuReport,
+        );
+      } catch {
+        // Name analysis failed -- proceed without it
+        springReport = null;
+      }
+    }
+
+    // 3. Parse target date
+    const targetDate = request.targetDate
+      ? new Date(request.targetDate)
+      : new Date();
+
+    // 4. Build the fortune report
+    return buildFortuneReport(saju, targetDate, springReport);
   }
 
   // -------------------------------------------------------------------------
