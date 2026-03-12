@@ -15,6 +15,7 @@ import NamingCandidatesPage from './NamingCandidatesPage';
 import CombinedReportPage from './CombinedReportPage';
 import SajuReportPage from './SajuReportPage';
 import { SHARE_QUERY_KEY, parseShareEntryUserInfoToken } from './share-entry-user-info';
+import { useNavigate } from 'react-router-dom';
 
 const ENTRY_STORAGE_KEY = 'namespring_entry_user_info';
 const PAGE_VALUES = ['entry', 'home', 'report', 'saju-report', 'naming-candidates', 'combined-report'];
@@ -303,6 +304,7 @@ function App() {
   const isDevSagyeoksuViewerMode = import.meta.env.DEV && tool === "fourframe-db-viewer";
   const isDevHanjaViewerMode = import.meta.env.DEV && tool === "hanja-db-viewer";
   const isDevNameStatViewerMode = import.meta.env.DEV && tool === "name-stat-db-viewer";
+  const navigate = useNavigate();
   const initialAppState = useMemo(() => loadInitialAppState(), []);
 
   const [isDbReady, setIsDbReady] = useState(false);
@@ -509,6 +511,9 @@ function App() {
               onLoadSajuReport={handleLoadSajuReportAsync}
               onOpenCombinedReport={handleOpenCombinedReportFromHome}
               onOpenNamingCandidates={() => navigateToPage('naming-candidates')}
+              onOpenSupport={() => {
+                navigate('/support');
+              }}
               onOpenEntry={(userInfoFromHome) => {
                 const normalized = normalizeEntryUserInfo(userInfoFromHome || entryUserInfo);
                 if (normalized) {
