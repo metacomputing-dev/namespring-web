@@ -3,6 +3,7 @@ import logoSvg from './assets/logo.svg';
 import NamingResultRenderer from './NamingResultRenderer';
 import { HOME_CARD_COLOR_THEME, HOME_CARD_COLOR_THEME_DARK, buildTileStyle } from './theme/card-color-theme';
 import { buildRenderMetricsFromSajuReport } from './naming-result-render-metrics';
+import { SUPPORT_PRODUCT_NAME } from '../shared/types/payment';
 
 function HomeTile({ item, onClick, isDarkMode }) {
   const isClickable = typeof onClick === 'function';
@@ -38,7 +39,7 @@ function HomeTile({ item, onClick, isDarkMode }) {
   );
 }
 
-function HomePage({ entryUserInfo, onLoadSajuReport, onOpenCombinedReport, onOpenNamingCandidates, onOpenEntry }) {
+function HomePage({ entryUserInfo, onLoadSajuReport, onOpenCombinedReport, onOpenNamingCandidates, onOpenSupport, onOpenEntry }) {
   const [isAnalyzing, setIsAnalyzing] = useState(false);
   const [previewMetrics, setPreviewMetrics] = useState(null);
   const [analyzeError, setAnalyzeError] = useState('');
@@ -77,12 +78,12 @@ function HomePage({ entryUserInfo, onLoadSajuReport, onOpenCombinedReport, onOpe
     },
     {
       id: 3,
-      title: '고마움 전달하기',
-      subtitle: '마음을 나누는 따뜻한 선물',
-      description: '좋은 이름을 지어준 분께 감사의 마음을 예쁘게 전달하세요.',
+      title: SUPPORT_PRODUCT_NAME,
+      subtitle: 'Support the developer with one coffee.',
+      description: 'A single 900 KRW payment. Login is not required.',
       theme: HOME_CARD_COLOR_THEME.gratitude,
       themeDark: HOME_CARD_COLOR_THEME_DARK.gratitude,
-      onClick: null,
+      onClick: onOpenSupport,
     },
     {
       id: 4,
@@ -93,7 +94,7 @@ function HomePage({ entryUserInfo, onLoadSajuReport, onOpenCombinedReport, onOpe
       themeDark: HOME_CARD_COLOR_THEME_DARK.info,
       onClick: null,
     },
-  ]), [onOpenCombinedReport, onOpenNamingCandidates]);
+  ]), [onOpenCombinedReport, onOpenNamingCandidates, onOpenSupport]);
 
   useEffect(() => {
     let cancelled = false;

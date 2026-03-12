@@ -1,0 +1,22 @@
+{
+  "buildCommand": "npm run build:vercel",
+  "functions": {
+    "api/**/*.ts": {
+      "runtime": "nodejs20.x"
+    }
+  },
+  "rewrites": [
+    {
+      "source": "/support",
+      "destination": "/index.html"
+    },
+    {
+      "source": "/payment/success",
+      "destination": "/index.html"
+    },
+    {
+      "source": "/payment/fail",
+      "destination": "/index.html"
+    }
+  ]
+}
