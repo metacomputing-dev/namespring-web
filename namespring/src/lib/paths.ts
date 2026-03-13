@@ -2,6 +2,10 @@ function trimSlashes(value: string) {
   return value.replace(/^\/+|\/+$/g, "");
 }
 
+function normalizeOrigin(origin: string) {
+  return origin.replace(/\/+$/g, "");
+}
+
 export function getBasePath() {
   const rawBase = String(import.meta.env.BASE_URL || "/").trim();
   if (!rawBase || rawBase === "/") {
@@ -22,6 +26,20 @@ export function withBasePath(path: string) {
   return `${basePath}${cleanPath}`;
 }
 
-export function toAbsoluteAppUrl(path: string) {
-  return new URL(withBasePath(path), window.location.origin).toString();
+function toAbsoluteRootPath(path: string) {
+  const cleanPath = trimSlashes(path);
+  return cleanPath ? `/${cleanPath}` : "/";
+}
+
+export function toAbsoluteAppUrl(
+  path: string,
+  options?: { originOverride?: string | null; includeBasePath?: boolean },
+) {
+  const includeBasePath = options?.includeBasePath !== false;
+  const finalPath = includeBasePath ? withBasePath(path) : toAbsoluteRootPath(path);
+  const origin = options?.originOverride
+    ? normalizeOrigin(options.originOverride)
+    : window.location.origin;
+
+  return new URL(finalPath, `${origin}/`).toString();
 }

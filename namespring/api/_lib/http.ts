@@ -11,6 +11,34 @@ export class ApiHttpError extends Error {
   }
 }
 
+export interface NodeStyleResponseLike {
+  setHeader?: (name: string, value: string) => void;
+  status: (code: number) => {
+    json: (payload: unknown) => void;
+  };
+}
+
+type RequestWithBody =
+  | Request
+  | {
+    method?: string;
+    body?: unknown;
+    [key: string]: unknown;
+  };
+
+function hasWebRequestBodyParser(value: unknown): value is { text: () => Promise<string> } {
+  return typeof (value as { text?: unknown })?.text === "function";
+}
+
+function toWebJsonResponse(statusCode: number, payload: unknown): Response {
+  return new Response(JSON.stringify(payload), {
+    status: statusCode,
+    headers: {
+      "Content-Type": "application/json; charset=utf-8",
+    },
+  });
+}
+
 export function assertPostMethod(req: { method?: string }, res?: { setHeader?: (name: string, value: string) => void }) {
   if (req.method === "POST") {
     return;
@@ -22,7 +50,20 @@ export function assertPostMethod(req: { method?: string }, res?: { setHeader?: (
   throw new ApiHttpError(405, "METHOD_NOT_ALLOWED", "Only POST is supported.");
 }
 
-export async function readJsonBody<T>(req: { body?: unknown; [key: string]: unknown }): Promise<T> {
+export async function readJsonBody<T>(req: RequestWithBody): Promise<T> {
+  if (hasWebRequestBodyParser(req)) {
+    const raw = (await req.text()).trim();
+    if (!raw) {
+      return {} as T;
+    }
+
+    try {
+      return JSON.parse(raw) as T;
+    } catch (error) {
+      throw new ApiHttpError(400, "INVALID_JSON", "Request body must be valid JSON.", error);
+    }
+  }
+
   if (req.body !== undefined && req.body !== null) {
     if (typeof req.body === "string") {
       try {
@@ -77,12 +118,16 @@ export function requirePositiveInteger(value: unknown, fieldName: string): numbe
   return numeric;
 }
 
-export function sendJson(res: { status: (code: number) => { json: (payload: unknown) => void } }, statusCode: number, payload: unknown) {
-  res.status(statusCode).json(payload);
+export function sendJson(res: NodeStyleResponseLike | undefined, statusCode: number, payload: unknown): Response | void {
+  if (res && typeof res.status === "function") {
+    res.status(statusCode).json(payload);
+    return;
+  }
+  return toWebJsonResponse(statusCode, payload);
 }
 
 export function handleApiError(
-  res: { status: (code: number) => { json: (payload: unknown) => void } },
+  res: NodeStyleResponseLike | undefined,
   error: unknown,
   fallbackMessage = "Unexpected server error.",
 ) {

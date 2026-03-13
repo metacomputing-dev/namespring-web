@@ -1,15 +1,16 @@
-import type { RefundRequest, RefundResponse } from "../../shared/types/payment";
-import { getRequiredEnv } from "../_lib/env";
+import type { RefundRequest, RefundResponse } from "../../shared/types/payment.js";
+import { getRequiredEnv } from "../_lib/env.js";
 import {
   ApiHttpError,
   assertPostMethod,
   handleApiError,
+  type NodeStyleResponseLike,
   readJsonBody,
   requireNonEmptyString,
   sendJson,
-} from "../_lib/http";
-import { getPaymentRecord, updatePaymentRecord } from "../_lib/payments-repository";
-import { cancelTossPayment, TossApiError } from "../_lib/toss";
+} from "../_lib/http.js";
+import { getPaymentRecord, updatePaymentRecord } from "../_lib/payments-repository.js";
+import { cancelTossPayment, TossApiError } from "../_lib/toss.js";
 
 function nowIso() {
   return new Date().toISOString();
@@ -23,20 +24,36 @@ function normalizeOptionalReason(value: unknown): string {
   return trimmed || "Operator approved refund.";
 }
 
-function getHeaderValue(headers: Record<string, unknown>, key: string): string | null {
-  const value = headers[key] ?? headers[key.toLowerCase()] ?? headers[key.toUpperCase()];
+function getHeaderValue(headers: Headers | Record<string, unknown> | undefined, key: string): string | null {
+  if (!headers) {
+    return null;
+  }
+
+  if (typeof (headers as Headers).get === "function") {
+    const fromHeaders = (headers as Headers).get(key);
+    if (!fromHeaders) {
+      return null;
+    }
+    const trimmed = fromHeaders.trim();
+    return trimmed || null;
+  }
+
+  const headerRecord = headers as Record<string, unknown>;
+  const value = headerRecord[key] ?? headerRecord[key.toLowerCase()] ?? headerRecord[key.toUpperCase()];
   if (typeof value === "string") {
-    return value;
+    const trimmed = value.trim();
+    return trimmed || null;
   }
   if (Array.isArray(value) && value.length && typeof value[0] === "string") {
-    return value[0];
+    const trimmed = value[0].trim();
+    return trimmed || null;
   }
   return null;
 }
 
-function assertAdminAuthorized(req: { headers?: Record<string, unknown> }) {
+function assertAdminAuthorized(req: { headers?: Headers | Record<string, unknown> }) {
   const expected = getRequiredEnv("ADMIN_REFUND_TOKEN");
-  const provided = getHeaderValue(req.headers ?? {}, "x-admin-token");
+  const provided = getHeaderValue(req.headers, "x-admin-token");
   if (!provided || provided !== expected) {
     throw new ApiHttpError(401, "UNAUTHORIZED", "Invalid admin token.");
   }
@@ -51,8 +68,8 @@ function extractRefundedAt(cancelResult: { cancels?: Array<{ canceledAt?: string
 }
 
 export default async function handler(
-  req: { method?: string; body?: unknown; headers?: Record<string, unknown> },
-  res: { setHeader?: (name: string, value: string) => void; status: (code: number) => { json: (payload: unknown) => void } },
+  req: Request | { method?: string; body?: unknown; headers?: Headers | Record<string, unknown>; [key: string]: unknown },
+  res?: NodeStyleResponseLike,
 ) {
   try {
     assertPostMethod(req, res);

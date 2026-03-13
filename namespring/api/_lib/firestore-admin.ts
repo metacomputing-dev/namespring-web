@@ -1,7 +1,7 @@
 import { cert, getApps, initializeApp, type ServiceAccount } from "firebase-admin/app";
 import { getFirestore, type Firestore } from "firebase-admin/firestore";
-import { getOptionalEnv } from "./env";
-import { ApiHttpError } from "./http";
+import { getOptionalEnv } from "./env.js";
+import { ApiHttpError } from "./http.js";
 
 let cachedFirestore: Firestore | null = null;
 

@@ -1,6 +1,6 @@
-import type { PaymentRecord } from "../../shared/types/payment";
-import { SUPPORT_AMOUNT } from "../../shared/types/payment";
-import { getFirestoreDb } from "./firestore-admin";
+import type { PaymentRecord } from "../../shared/types/payment.js";
+import { SUPPORT_AMOUNT } from "../../shared/types/payment.js";
+import { getFirestoreDb } from "./firestore-admin.js";
 
 const PAYMENTS_COLLECTION = "payments";
 
