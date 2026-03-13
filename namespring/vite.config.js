@@ -30,6 +30,7 @@ export default defineConfig(({ mode }) => {
         '@seed': path.resolve(__dirname, '../lib/seed-ts/src'),
         '@spring': path.resolve(__dirname, '../lib/spring-ts/src'),
         '@saju': path.resolve(__dirname, '../lib/saju-ts/src'),
+        'sql.js': path.resolve(__dirname, 'node_modules/sql.js'),
         'fflate': path.resolve(__dirname, 'node_modules/fflate/esm/browser.js'),
       }
     },
