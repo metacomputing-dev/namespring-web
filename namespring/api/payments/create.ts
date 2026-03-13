@@ -1,13 +1,13 @@
-import type { CreatePaymentRequest, CreatePaymentResponse } from "../../shared/types/payment";
-import { SUPPORT_AMOUNT, SUPPORT_ORDER_NAME } from "../../shared/types/payment";
-import { normalizeOptionalEmail } from "../_lib/email";
-import { assertPostMethod, handleApiError, readJsonBody, sendJson } from "../_lib/http";
-import { generateOrderId } from "../_lib/order-id";
-import { createReadyPayment } from "../_lib/payments-repository";
+import type { CreatePaymentRequest, CreatePaymentResponse } from "../../shared/types/payment.js";
+import { SUPPORT_AMOUNT, SUPPORT_ORDER_NAME } from "../../shared/types/payment.js";
+import { normalizeOptionalEmail } from "../_lib/email.js";
+import { assertPostMethod, handleApiError, readJsonBody, sendJson, type NodeStyleResponseLike } from "../_lib/http.js";
+import { generateOrderId } from "../_lib/order-id.js";
+import { createReadyPayment } from "../_lib/payments-repository.js";
 
 export default async function handler(
-  req: { method?: string; body?: unknown },
-  res: { setHeader?: (name: string, value: string) => void; status: (code: number) => { json: (payload: unknown) => void } },
+  req: Request | { method?: string; body?: unknown; [key: string]: unknown },
+  res?: NodeStyleResponseLike,
 ) {
   try {
     assertPostMethod(req, res);

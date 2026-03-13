@@ -8,6 +8,7 @@
   ],
   "scripts": {
     "dev": "vite",
+    "dev:vercel": "npx vercel@latest dev --cwd ..",
     "build": "vite build",
     "build:vercel": "npm run setup:libs && vite build",
     "build:pages": "vite build",

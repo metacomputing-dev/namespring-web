@@ -1,4 +1,4 @@
-import { ApiHttpError } from "./http";
+import { ApiHttpError } from "./http.js";
 
 export function getOptionalEnv(name: string): string | undefined {
   const value = process.env[name];

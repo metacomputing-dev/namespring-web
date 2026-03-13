@@ -1,5 +1,5 @@
-import { getOptionalEnv, getRequiredEnv } from "./env";
-import { ApiHttpError } from "./http";
+import { getOptionalEnv, getRequiredEnv } from "./env.js";
+import { ApiHttpError } from "./http.js";
 
 const DEFAULT_TOSS_API_BASE_URL = "https://api.tosspayments.com";
 

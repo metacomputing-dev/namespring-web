@@ -16,6 +16,7 @@ import CombinedReportPage from './CombinedReportPage';
 import SajuReportPage from './SajuReportPage';
 import { SHARE_QUERY_KEY, parseShareEntryUserInfoToken } from './share-entry-user-info';
 import { useNavigate } from 'react-router-dom';
+import { getFrontRuntimeConfig } from './lib/runtime';
 
 const ENTRY_STORAGE_KEY = 'namespring_entry_user_info';
 const PAGE_VALUES = ['entry', 'home', 'report', 'saju-report', 'naming-candidates', 'combined-report'];
@@ -299,12 +300,20 @@ function toRequestCacheKey(request) {
   return JSON.stringify(request);
 }
 
+function buildAbsoluteSupportUrl(paymentAppOrigin) {
+  if (!paymentAppOrigin) {
+    return null;
+  }
+  return new URL('/support', `${paymentAppOrigin.replace(/\/+$/g, '')}/`).toString();
+}
+
 function App() {
   const tool = new URLSearchParams(window.location.search).get("tool");
   const isDevSagyeoksuViewerMode = import.meta.env.DEV && tool === "fourframe-db-viewer";
   const isDevHanjaViewerMode = import.meta.env.DEV && tool === "hanja-db-viewer";
   const isDevNameStatViewerMode = import.meta.env.DEV && tool === "name-stat-db-viewer";
   const navigate = useNavigate();
+  const runtimeConfig = useMemo(() => getFrontRuntimeConfig(), []);
   const initialAppState = useMemo(() => loadInitialAppState(), []);
 
   const [isDbReady, setIsDbReady] = useState(false);
@@ -512,6 +521,14 @@ function App() {
               onOpenCombinedReport={handleOpenCombinedReportFromHome}
               onOpenNamingCandidates={() => navigateToPage('naming-candidates')}
               onOpenSupport={() => {
+                const externalSupportUrl = buildAbsoluteSupportUrl(runtimeConfig.paymentAppOrigin);
+                if (externalSupportUrl) {
+                  const externalOrigin = new URL(externalSupportUrl).origin;
+                  if (externalOrigin !== window.location.origin) {
+                    window.location.assign(externalSupportUrl);
+                    return;
+                  }
+                }
                 navigate('/support');
               }}
               onOpenEntry={(userInfoFromHome) => {

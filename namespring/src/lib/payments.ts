@@ -8,6 +8,7 @@ import type {
 import { SUPPORT_AMOUNT } from "../../shared/types/payment";
 import { postJson } from "./api";
 import { toAbsoluteAppUrl } from "./paths";
+import { getFrontRuntimeConfig } from "./runtime";
 import { getTossPaymentClient } from "./toss";
 
 export async function createPayment(email: string | null): Promise<CreatePaymentResponse> {
@@ -27,6 +28,7 @@ export async function requestCardPayment(params: {
   }
 
   const paymentClient = await getTossPaymentClient();
+  const { paymentAppOrigin } = getFrontRuntimeConfig();
 
   await paymentClient.requestPayment({
     method: "CARD",
@@ -37,8 +39,14 @@ export async function requestCardPayment(params: {
     orderId: params.orderId,
     orderName: params.orderName,
     customerEmail: params.customerEmail ?? undefined,
-    successUrl: toAbsoluteAppUrl("/payment/success"),
-    failUrl: toAbsoluteAppUrl("/payment/fail"),
+    successUrl: toAbsoluteAppUrl("/payment/success", {
+      originOverride: paymentAppOrigin,
+      includeBasePath: !paymentAppOrigin,
+    }),
+    failUrl: toAbsoluteAppUrl("/payment/fail", {
+      originOverride: paymentAppOrigin,
+      includeBasePath: !paymentAppOrigin,
+    }),
   });
 }
 

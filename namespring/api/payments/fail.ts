@@ -1,6 +1,14 @@
-import type { FailPaymentRequest, FailPaymentResponse, PaymentStatus } from "../../shared/types/payment";
-import { ApiHttpError, assertPostMethod, handleApiError, readJsonBody, requireNonEmptyString, sendJson } from "../_lib/http";
-import { createFailedFallbackPayment, getPaymentRecord, updatePaymentRecord } from "../_lib/payments-repository";
+import type { FailPaymentRequest, FailPaymentResponse, PaymentStatus } from "../../shared/types/payment.js";
+import {
+  ApiHttpError,
+  assertPostMethod,
+  handleApiError,
+  type NodeStyleResponseLike,
+  readJsonBody,
+  requireNonEmptyString,
+  sendJson,
+} from "../_lib/http.js";
+import { createFailedFallbackPayment, getPaymentRecord, updatePaymentRecord } from "../_lib/payments-repository.js";
 
 const CANCELED_CODES = new Set(["USER_CANCEL", "PAY_PROCESS_CANCELED"]);
 
@@ -24,8 +32,8 @@ function nowIso() {
 }
 
 export default async function handler(
-  req: { method?: string; body?: unknown },
-  res: { setHeader?: (name: string, value: string) => void; status: (code: number) => { json: (payload: unknown) => void } },
+  req: Request | { method?: string; body?: unknown; [key: string]: unknown },
+  res?: NodeStyleResponseLike,
 ) {
   try {
     assertPostMethod(req, res);

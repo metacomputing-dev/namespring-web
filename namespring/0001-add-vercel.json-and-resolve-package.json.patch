@@ -1,0 +1,81 @@
+From 85d030ad31cde046019c9877443f7daac8e62d55 Mon Sep 17 00:00:00 2001
+From: Artrointel <artrointel@gmail.com>
+Date: Thu, 12 Mar 2026 19:15:06 +0900
+Subject: [PATCH] add vercel.json and resolve package.json
+
+---
+ namespring/package-lock.json |  9 ++++++++-
+ namespring/package.json      |  3 ++-
+ namespring/vercel.json       | 19 +++++++++++++++++++
+ 3 files changed, 29 insertions(+), 2 deletions(-)
+ create mode 100644 namespring/vercel.json
+
+diff --git a/namespring/package-lock.json b/namespring/package-lock.json
+index 37397d7..a478eb4 100644
+--- a/namespring/package-lock.json
++++ b/namespring/package-lock.json
+@@ -16,7 +16,8 @@
+         "jspdf": "^4.2.0",
+         "react": "^19.2.0",
+         "react-day-picker": "^9.13.2",
+-        "react-dom": "^19.2.0"
++        "react-dom": "^19.2.0",
++        "sql.js": "^1.14.1"
+       },
+       "devDependencies": {
+         "@eslint/js": "^9.39.1",
+@@ -3323,6 +3324,12 @@
+         "node": ">=0.10.0"
+       }
+     },
++    "node_modules/sql.js": {
++      "version": "1.14.1",
++      "resolved": "https://registry.npmjs.org/sql.js/-/sql.js-1.14.1.tgz",
++      "integrity": "sha512-gcj8zBWU5cFsi9WUP+4bFNXAyF1iRpA3LLyS/DP5xlrNzGmPIizUeBggKa8DbDwdqaKwUcTEnChtd2grWo/x/A==",
++      "license": "MIT"
++    },
+     "node_modules/stackblur-canvas": {
+       "version": "2.7.0",
+       "resolved": "https://registry.npmjs.org/stackblur-canvas/-/stackblur-canvas-2.7.0.tgz",
+diff --git a/namespring/package.json b/namespring/package.json
+index 7399d5d..2690f6b 100644
+--- a/namespring/package.json
++++ b/namespring/package.json
+@@ -19,7 +19,8 @@
+     "jspdf": "^4.2.0",
+     "react": "^19.2.0",
+     "react-day-picker": "^9.13.2",
+-    "react-dom": "^19.2.0"
++    "react-dom": "^19.2.0",
++    "sql.js": "^1.14.1"
+   },
+   "devDependencies": {
+     "@eslint/js": "^9.39.1",
+diff --git a/namespring/vercel.json b/namespring/vercel.json
+new file mode 100644
+index 0000000..224d117
+--- /dev/null
++++ b/namespring/vercel.json
+@@ -0,0 +1,19 @@
++{
++  "framework": "vite",
++  "buildCommand": "npm run build",
++  "outputDirectory": "dist",
++  "rewrites": [
++    {
++      "source": "/support",
++      "destination": "/index.html"
++    },
++    {
++      "source": "/payment/success",
++      "destination": "/index.html"
++    },
++    {
++      "source": "/payment/fail",
++      "destination": "/index.html"
++    }
++  ]
++}
+-- 
+2.45.1.windows.1
+

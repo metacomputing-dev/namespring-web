@@ -1,24 +1,25 @@
-import type { ConfirmPaymentRequest, ConfirmPaymentResponse, PaymentStatus } from "../../shared/types/payment";
-import { SUPPORT_AMOUNT } from "../../shared/types/payment";
+import type { ConfirmPaymentRequest, ConfirmPaymentResponse, PaymentStatus } from "../../shared/types/payment.js";
+import { SUPPORT_AMOUNT } from "../../shared/types/payment.js";
 import {
   ApiHttpError,
   assertPostMethod,
   handleApiError,
+  type NodeStyleResponseLike,
   readJsonBody,
   requireNonEmptyString,
   requirePositiveInteger,
   sendJson,
-} from "../_lib/http";
-import { getPaymentRecord, updatePaymentRecord } from "../_lib/payments-repository";
-import { confirmTossPayment, TossApiError } from "../_lib/toss";
+} from "../_lib/http.js";
+import { getPaymentRecord, updatePaymentRecord } from "../_lib/payments-repository.js";
+import { confirmTossPayment, TossApiError } from "../_lib/toss.js";
 
 function nowIso() {
   return new Date().toISOString();
 }
 
 export default async function handler(
-  req: { method?: string; body?: unknown },
-  res: { setHeader?: (name: string, value: string) => void; status: (code: number) => { json: (payload: unknown) => void } },
+  req: Request | { method?: string; body?: unknown; [key: string]: unknown },
+  res?: NodeStyleResponseLike,
 ) {
   let orderIdForFailureTracking = "";
 

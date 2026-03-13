@@ -1,4 +1,4 @@
-import { ApiHttpError } from "./http";
+import { ApiHttpError } from "./http.js";
 
 const EMAIL_REGEX = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
 
