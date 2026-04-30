@@ -228,3 +228,11 @@ exports[`KASI 2027 24-term boundary regression > reports how many terms meet the
   "totalTerms": 24,
 }
 `;
+
+exports[`KASI 2027 24-term boundary regression — solarPrecision modes > records max abs delta per precision mode (snapshot, expect monotonic improvement) 1`] = `
+{
+  "classical": 1.224,
+  "iau1980_full": 0.711,
+  "iau1980_top10": 0.7,
+}
+`;
