@@ -234,3 +234,11 @@ export interface FortuneReport {
   readonly categoryFortunes: Record<FortuneCategory, CategoryFortuneCard>;
   readonly meta: ReportMeta;
 }
+
+/** Optional knobs forwarded to buildFortuneReport / buildPeriodFortuneCard.
+ *  Each field is optional and falls through to the legacy default when
+ *  unset, so existing callers that pass no options observe no change. */
+export interface FortuneReportOptions {
+  /** Boundary precision for monthly fortune lookup (PR7). */
+  readonly fortuneCascadeMode?: 'simple' | 'jie_based' | 'full_5layer';
+}

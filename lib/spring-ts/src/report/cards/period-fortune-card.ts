@@ -178,6 +178,7 @@ function computePillarForPeriod(
   saju: SajuSummary,
   periodKind: FortunePeriodKind,
   targetDate: Date,
+  options?: { readonly fortuneCascadeMode?: 'simple' | 'jie_based' | 'full_5layer' },
 ): PeriodPillar | null {
   const year = targetDate.getFullYear();
 
@@ -216,7 +217,9 @@ function computePillarForPeriod(
 
   if (periodKind === 'monthly') {
     const solarMonth = targetDate.getMonth() + 1;
-    const mf = getMonthlyFortuneSolar(year, solarMonth);
+    const day = targetDate.getDate();
+    const mode = options?.fortuneCascadeMode === 'jie_based' ? 'jie_based' as const : 'simple' as const;
+    const mf = getMonthlyFortuneSolar(year, solarMonth, { day, mode });
     return { ganzhi: mf, label: `${year}년 ${solarMonth}월` };
   }
 
@@ -825,11 +828,12 @@ export function buildPeriodFortuneCard(
   saju: SajuSummary,
   periodKind: FortunePeriodKind,
   targetDate: Date,
+  options?: { readonly fortuneCascadeMode?: 'simple' | 'jie_based' | 'full_5layer' },
 ): PeriodFortuneCard {
   const natal = extractNatalData(saju);
 
   // Compute the period pillar
-  const pillarResult = computePillarForPeriod(saju, periodKind, targetDate);
+  const pillarResult = computePillarForPeriod(saju, periodKind, targetDate, options);
   const ganzhi = pillarResult?.ganzhi ?? getYearlyFortune(targetDate.getFullYear());
   const periodLabel = pillarResult?.label ?? `${targetDate.getFullYear()}년`;
 
