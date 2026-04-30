@@ -1,0 +1,50 @@
+{
+  "_meta": {
+    "source": "KASI 천문우주지식정보 2026년 4월 월별 음양력 공개표",
+    "extractedFrom": "saju_master/examples/kasi_fixture_2026_04_*.json + docs/v1_1_kasi_terms_and_flow_notes.md",
+    "usage": "saju-ts 사주 4주 + 음력 변환 회귀 검증",
+    "timezone": "Asia/Seoul (KST = UTC+9)",
+    "year": 2026,
+    "month": 4,
+    "totalCases": 4,
+    "ambiguousCase": 1
+  },
+  "fixtures": [
+    {
+      "solarDate": "2026-04-01",
+      "yearGanji": "丙午",
+      "monthGanji": "辛卯",
+      "dayGanji": "乙巳",
+      "lunarDate": "2026-02-14",
+      "note": "청명(2026-04-05 추정) 이전이므로 월주 = 卯월 (辛卯)"
+    },
+    {
+      "solarDate": "2026-04-17",
+      "yearGanji": "丙午",
+      "monthGanji": "壬辰",
+      "dayGanji": "辛酉",
+      "lunarDate": "2026-03-01",
+      "note": "청명 후, 입춘 후 → 丙午年 壬辰月. 음력 3월 시작일."
+    },
+    {
+      "solarDate": "2026-04-20",
+      "yearGanji": "丙午",
+      "monthGanji": "壬辰",
+      "dayGanji": "甲子",
+      "lunarDate": "2026-03-04"
+    },
+    {
+      "solarDate": "2026-04-24",
+      "yearGanji": "丙午",
+      "monthGanji": "壬辰",
+      "dayGanji": "戊辰",
+      "lunarDate": "2026-03-08"
+    }
+  ],
+  "ambiguousCase": {
+    "solarDateTime": "2026-04-06T12:00:00+09:00",
+    "lunarMonthGanji_byKoreanLunarCalendar": "辛卯",
+    "sajuMonthGanji_by12JieQi": "壬辰",
+    "explanation": "음력 월건(辛卯)은 음력 3월 1일(4/17) 전이므로 卯월 표기. 사주 월주(壬辰)는 청명(4/5 추정) 입절 후이므로 辰월. 두 값 모두 옳음 — 검증 범위가 다름."
+  }
+}
