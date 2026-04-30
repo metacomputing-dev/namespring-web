@@ -72,27 +72,52 @@ check('normalizeToOrthodoxHanja: 崔 → 崔 (orthodox already)',
 check('normalizeToOrthodoxHanja: ㅁ → ㅁ (unknown identity)',
   normalizeToOrthodoxHanja('ㅁ') === 'ㅁ');
 
-// ── (2) Legal annotation (still undefined until data import) ─────────────
+// ── (2) Legal annotation — outside the seed list returns undefined ───────
+//        (PR-I-1 ships with a 50-char seed; the full 9,389 import is later)
 const dummyEntry = {
   id: 1, hangul: '최', hanja: '崔', onset: 'ㅊ', nucleus: 'ㅚ',
   strokes: 11, stroke_element: 'Earth', resource_element: 'Earth',
   meaning: '성씨 최', radical: '山', is_surname: true,
 };
 const annotation = getLegalAnnotation(dummyEntry);
-check('getLegalAnnotation.legalRegistrable === undefined (data not imported)',
+check('getLegalAnnotation.legalRegistrable === undefined (崔 outside the seed)',
   annotation.legalRegistrable === undefined);
 check('getLegalAnnotation.isVariantOf === undefined',
   annotation.isVariantOf === undefined);
+
+// ── (2b) Legal annotation — inside the PR-I-1 seed returns true ──────────
+const seedEntry = {
+  id: 2, hangul: '가', hanja: '佳', onset: 'ㄱ', nucleus: 'ㅏ',
+  strokes: 8, stroke_element: 'Earth', resource_element: 'Earth',
+  meaning: '아름다울 가', radical: '人', is_surname: false,
+};
+const seedAnno = getLegalAnnotation(seedEntry);
+check('getLegalAnnotation.legalRegistrable === true (佳 in PR-I-1 seed)',
+  seedAnno.legalRegistrable === true);
+
+// ── (2c) Legal annotation — variant resolves to its 정자 ────────────────
+const variantEntry = {
+  id: 3, hangul: '국', hanja: '国', onset: 'ㄱ', nucleus: 'ㅜ',
+  strokes: 8, stroke_element: 'Wood', resource_element: 'Wood',
+  meaning: '나라 국', radical: '囗', is_surname: false,
+};
+const variantAnno = getLegalAnnotation(variantEntry);
+check('getLegalAnnotation.isVariantOf === 國 for 国',
+  variantAnno.isVariantOf === '國');
 
 // ── (3) Default isHanjaUsableForLegalName: accept unknown ────────────────
 check('isHanjaUsableForLegalName(entry) default — accept unknown',
   isHanjaUsableForLegalName(dummyEntry) === true,
   'curated pool 보존');
+check('isHanjaUsableForLegalName(seedEntry) default — accept known-true',
+  isHanjaUsableForLegalName(seedEntry) === true);
 
-// ── (4) requireLegalRegistrable: true rejects unknown ────────────────────
-check('requireLegalRegistrable:true rejects unknown',
+// ── (4) requireLegalRegistrable: true rejects unknown, accepts known-true ──
+check('requireLegalRegistrable:true rejects 崔 (status unknown)',
   isHanjaUsableForLegalName(dummyEntry, { requireLegalRegistrable: true }) === false,
-  '데이터 import 전 strict mode 동작');
+  '시드 외 conservative reject');
+check('requireLegalRegistrable:true accepts 佳 (in seed)',
+  isHanjaUsableForLegalName(seedEntry, { requireLegalRegistrable: true }) === true);
 
 // ── (5) End-to-end: declared flags do not break baseline ─────────────────
 const engine = new SpringEngine();
