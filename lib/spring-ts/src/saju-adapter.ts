@@ -20,7 +20,10 @@
  *  Daeun (대운): 10-year luck cycles
  */
 import { type ElementKey, emptyDistribution } from './core/scoring.js';
-import type { SajuOutputSummary, SpringRequest, SajuSummary, PillarSummary, BirthInfo } from './types.js';
+import type {
+  SajuOutputSummary, SpringRequest, SajuSummary, PillarSummary, BirthInfo,
+  SajuPillarPosition, SajuTenGodPositionGroup,
+} from './types.js';
 
 // ---------------------------------------------------------------------------
 //  Configuration loaded from JSON files
@@ -1644,17 +1647,61 @@ export function buildSajuContext(sajuSummary: SajuSummary): { dist: Record<Eleme
   const gisin = normalizeElementCode(yongshinData.gishin);
   const gusin = normalizeElementCode(yongshinData.gushin);
 
-  // Count ten-god group occurrences across all pillar positions
-  let tenGod: { groupCounts: Record<string, number> } | undefined;
+  // Count ten-god group occurrences across all pillar positions, AND surface
+  // the per-pillar detail so callers (e.g., precisionConfig.tenGodMode=
+  // 'positional_weighted') can apply pillar-specific weights without
+  // re-deriving them from the raw saju summary.
+  let tenGod: SajuOutputSummary['tenGod'];
   if (sajuSummary.tenGodAnalysis?.byPosition) {
     const groupCounts: Record<string, number> = { friend: 0, output: 0, wealth: 0, authority: 0, resource: 0 };
+    const byPosition: Partial<Record<SajuPillarPosition, SajuTenGodPositionGroup>> = {};
+
+    // First pass — replicate the original groupCounts logic exactly so the
+    // existing aggregate value is preserved bit-for-bit. The byPosition
+    // detail is built in a separate pass that only enumerates the four
+    // canonical pillar positions.
     for (const positionInfo of Object.values(sajuSummary.tenGodAnalysis.byPosition)) {
       const stemGroup   = TEN_GOD_GROUP[normalizeTenGodCode(positionInfo.cheonganTenGod)];
       const branchGroup = TEN_GOD_GROUP[normalizeTenGodCode(positionInfo.jijiPrincipalTenGod)];
       if (stemGroup)   groupCounts[stemGroup]++;
       if (branchGroup) groupCounts[branchGroup]++;
     }
-    tenGod = { groupCounts };
+
+    // Second pass — surface the per-pillar detail (year/month/day/hour) for
+    // precisionConfig.tenGodMode='positional_weighted'. Pillars outside the
+    // four canonical positions are intentionally skipped here; they still
+    // contribute to groupCounts above.
+    for (const rawPos of ['year', 'month', 'day', 'hour'] as const) {
+      const positionInfo = sajuSummary.tenGodAnalysis.byPosition[rawPos];
+      if (!positionInfo) continue;
+
+      const cheonganGroup        = TEN_GOD_GROUP[normalizeTenGodCode(positionInfo.cheonganTenGod)];
+      const jijiPrincipalGroup   = TEN_GOD_GROUP[normalizeTenGodCode(positionInfo.jijiPrincipalTenGod)];
+
+      const hiddenStemTenGodMap = new Map<string, string>();
+      for (const hs of positionInfo.hiddenStemTenGod ?? []) {
+        if (hs.stem) hiddenStemTenGodMap.set(hs.stem, hs.tenGod);
+      }
+      const hiddenStems = (positionInfo.hiddenStems ?? []).map((hs) => ({
+        stem: hs.stem,
+        element: elementFromSajuCode(hs.element) ?? null,
+        ratio: Number(hs.ratio) || 0,
+        group: TEN_GOD_GROUP[normalizeTenGodCode(hiddenStemTenGodMap.get(hs.stem) ?? '')],
+      }));
+
+      byPosition[rawPos] = {
+        cheonganGroup,
+        jijiPrincipalGroup,
+        hiddenStems: hiddenStems.length > 0 ? hiddenStems : undefined,
+      };
+    }
+
+    tenGod = {
+      groupCounts,
+      byPosition: Object.keys(byPosition).length > 0
+        ? byPosition as Record<SajuPillarPosition, SajuTenGodPositionGroup>
+        : undefined,
+    };
   }
 
   return {
