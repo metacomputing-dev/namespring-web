@@ -436,6 +436,10 @@ export function angleDiffDeg(aDeg: number, bDeg: number): number {
   return d;
 }
 
+export type AberrationModel = 'constant' | 'rCorrected';
+
+const DEFAULT_ABERRATION_MODEL: AberrationModel = 'constant';
+
 /**
  * Apparent solar ecliptic longitude (degrees) for a given Julian Day.
  *
@@ -444,8 +448,16 @@ export function angleDiffDeg(aDeg: number, bDeg: number): number {
  * 2) compute Earth's heliocentric longitude via VSOP87 periodic terms (SPA)
  * 3) convert to Sun's geocentric longitude (add 180°)
  * 4) apply small aberration + nutation correction using the dominant Ω term
+ *
+ * The optional `aberrationModel` parameter selects between the constant
+ * R=1 approximation (default, current behavior) and an R-corrected model
+ * that uses the VSOP87 R-series. The R-corrected branch differs from
+ * the constant by at most ±0.34″ (peak at perihelion/aphelion).
  */
-export function solarApparentLongitudeDeg(jdUtc: number): number {
+export function solarApparentLongitudeDeg(
+  jdUtc: number,
+  aberrationModel: AberrationModel = DEFAULT_ABERRATION_MODEL,
+): number {
   // Convert to Terrestrial Time (TT) as required by the VSOP87 series.
   const dT = deltaTSecondsFromJulianDayUtc(jdUtc);
   const jdTT = jdUtc + dT / 86400;
@@ -464,14 +476,22 @@ export function solarApparentLongitudeDeg(jdUtc: number): number {
   // Dominant nutation term: Δψ ≈ -0.00478 sin Ω (degrees)
   const omega = 125.04 - 1934.136 * T;
 
-  // Aberration (approx, assuming R≈1 AU): -20.4898" ≈ -0.00569°
-  const lambda = theta - 0.00569 - 0.00478 * sinDeg(omega);
+  // Aberration: constant R=1 by default, R-corrected when requested.
+  const aberrationDeg =
+    aberrationModel === 'rCorrected'
+      ? -20.4898 / earthDistanceAU(jme) / 3600
+      : -0.00569;
+
+  const lambda = theta + aberrationDeg - 0.00478 * sinDeg(omega);
 
   return mod360(lambda);
 }
 
-export function solarLongitudeAtUtcMsDeg(utcMs: number): number {
-  return solarApparentLongitudeDeg(utcMsToJulianDay(utcMs));
+export function solarLongitudeAtUtcMsDeg(
+  utcMs: number,
+  aberrationModel: AberrationModel = DEFAULT_ABERRATION_MODEL,
+): number {
+  return solarApparentLongitudeDeg(utcMsToJulianDay(utcMs), aberrationModel);
 }
 
 /**
@@ -490,10 +510,13 @@ export function solarLongitudeAtUtcMsDeg(utcMs: number): number {
  * Note: not yet wired into the engine; will be consumed by an upcoming
  * Newton-Raphson root finder option.
  */
-export function solarLongitudeRateDegPerDay(jdUtc: number): number {
+export function solarLongitudeRateDegPerDay(
+  jdUtc: number,
+  aberrationModel: AberrationModel = DEFAULT_ABERRATION_MODEL,
+): number {
   const h = 0.01; // ~14.4 minutes — central difference, well-behaved.
-  const lonBefore = solarApparentLongitudeDeg(jdUtc - h);
-  const lonAfter = solarApparentLongitudeDeg(jdUtc + h);
+  const lonBefore = solarApparentLongitudeDeg(jdUtc - h, aberrationModel);
+  const lonAfter = solarApparentLongitudeDeg(jdUtc + h, aberrationModel);
   let diff = lonAfter - lonBefore;
   if (diff > 180) diff -= 360;
   else if (diff < -180) diff += 360;

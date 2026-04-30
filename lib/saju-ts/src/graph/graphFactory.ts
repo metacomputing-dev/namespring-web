@@ -199,7 +199,9 @@ export function buildGraph(): Graph {
 
         const method = cal.solarTerms?.method === 'approx' ? 'approx' : 'meeus';
         const algorithm = cal.solarTerms?.algorithm === 'newton' ? 'newton' : 'bisection';
-        return getSolarTermsAround(ldt.date.y, method, algorithm);
+        const aberrationModel =
+          cal.aberrationModel === 'rCorrected' ? 'rCorrected' : 'constant';
+        return getSolarTermsAround(ldt.date.y, method, algorithm, aberrationModel);
       },
     }),
   );

@@ -89,6 +89,17 @@ export interface EngineConfig {
       algorithm?: 'bisection' | 'newton';
     };
 
+    /**
+     * Annual-aberration model used by `solarApparentLongitudeDeg`.
+     *
+     * - 'constant' (default): assume Earth-Sun distance R = 1 AU and
+     *   subtract a constant -20.4898″ ≈ -0.00569° from the longitude.
+     * - 'rCorrected': compute R(t) from VSOP87 R-series and subtract
+     *   -20.4898″ / R(t). Peak difference vs 'constant' is ±0.34″ at
+     *   perihelion/aphelion (≈ ±1.4 sec in solar-term timing).
+     */
+    aberrationModel?: 'constant' | 'rCorrected';
+
     trueSolarTime: {
       enabled: boolean;
       equationOfTime: 'off' | 'approx';

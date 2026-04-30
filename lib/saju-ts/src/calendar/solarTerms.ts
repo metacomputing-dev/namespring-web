@@ -1,6 +1,10 @@
 import { mod } from '../core/mod.js';
 import { julianDayToUtcMs, utcMsToJulianDay } from './julian.js';
-import { solarApparentLongitudeDeg, solarLongitudeRateDegPerDay } from './solar.js';
+import {
+  solarApparentLongitudeDeg,
+  solarLongitudeRateDegPerDay,
+  type AberrationModel,
+} from './solar.js';
 
 /**
  * Solar-term utilities.
@@ -15,6 +19,7 @@ export type SolarTermMethod = 'approx' | 'meeus';
 export type SolarTermAlgorithm = 'bisection' | 'newton';
 
 const DEFAULT_ALGORITHM: SolarTermAlgorithm = 'bisection';
+const DEFAULT_ABERRATION: AberrationModel = 'constant';
 
 /**
  * 24절기(二十四節氣) — identified by the target longitude (deg) of Sun's
@@ -167,8 +172,11 @@ function angleDiffDeg(a: number, b: number): number {
 /**
  * Keep the legacy export name for compatibility; delegate to shared solar model.
  */
-export function sunApparentLongitudeDeg(jd: number): number {
-  return solarApparentLongitudeDeg(jd);
+export function sunApparentLongitudeDeg(
+  jd: number,
+  aberrationModel: AberrationModel = DEFAULT_ABERRATION,
+): number {
+  return solarApparentLongitudeDeg(jd, aberrationModel);
 }
 
 /** Re-exported for convenience (and backward-compat). */
@@ -209,6 +217,7 @@ function findBracketForLongitude(
   year: number,
   targetLongitude: number,
   approx: { m: number; d: number },
+  aberrationModel: AberrationModel = DEFAULT_ABERRATION,
 ): { aJd: number; bJd: number } {
   // Start from a rough UTC guess and scan for a sign change.
   const guessUtcMs = Date.UTC(year, approx.m - 1, approx.d, 0, 0, 0);
@@ -216,11 +225,11 @@ function findBracketForLongitude(
 
   const windowDays = 30; // conservative
   let prevJd = guessJd - windowDays;
-  let prevF = angleDiffDeg(sunApparentLongitudeDeg(prevJd), targetLongitude);
+  let prevF = angleDiffDeg(sunApparentLongitudeDeg(prevJd, aberrationModel), targetLongitude);
 
   for (let k = 1; k <= windowDays * 2; k++) {
     const jd = guessJd - windowDays + k;
-    const f = angleDiffDeg(sunApparentLongitudeDeg(jd), targetLongitude);
+    const f = angleDiffDeg(sunApparentLongitudeDeg(jd, aberrationModel), targetLongitude);
 
     if (prevF === 0) return { aJd: prevJd, bJd: prevJd };
     if (f === 0) return { aJd: jd, bJd: jd };
@@ -257,16 +266,20 @@ function findBracketForLongitude(
  * Note: not yet wired into the engine; an upcoming commit will let the
  * caller dispatch between bisection and this function via config.
  */
-function newtonLongitudeRoot(jd0: number, targetLongitude: number): number {
+function newtonLongitudeRoot(
+  jd0: number,
+  targetLongitude: number,
+  aberrationModel: AberrationModel = DEFAULT_ABERRATION,
+): number {
   const maxIter = 10;
   const tolDeg = 1e-7;
   let jd = jd0;
 
   for (let i = 0; i < maxIter; i++) {
-    const f = angleDiffDeg(sunApparentLongitudeDeg(jd), targetLongitude);
+    const f = angleDiffDeg(sunApparentLongitudeDeg(jd, aberrationModel), targetLongitude);
     if (Math.abs(f) < tolDeg) return jd;
 
-    const dfdt = solarLongitudeRateDegPerDay(jd);
+    const dfdt = solarLongitudeRateDegPerDay(jd, aberrationModel);
     if (!Number.isFinite(dfdt) || Math.abs(dfdt) < 1e-9) {
       return jd;
     }
@@ -277,13 +290,18 @@ function newtonLongitudeRoot(jd0: number, targetLongitude: number): number {
   return jd;
 }
 
-function bisectLongitudeRoot(aJd: number, bJd: number, targetLongitude: number): number {
+function bisectLongitudeRoot(
+  aJd: number,
+  bJd: number,
+  targetLongitude: number,
+  aberrationModel: AberrationModel = DEFAULT_ABERRATION,
+): number {
   if (aJd === bJd) return aJd;
 
   let a = aJd;
   let b = bJd;
-  let fa = angleDiffDeg(sunApparentLongitudeDeg(a), targetLongitude);
-  let fb = angleDiffDeg(sunApparentLongitudeDeg(b), targetLongitude);
+  let fa = angleDiffDeg(sunApparentLongitudeDeg(a, aberrationModel), targetLongitude);
+  let fb = angleDiffDeg(sunApparentLongitudeDeg(b, aberrationModel), targetLongitude);
 
   if (fa === 0) return a;
   if (fb === 0) return b;
@@ -295,7 +313,7 @@ function bisectLongitudeRoot(aJd: number, bJd: number, targetLongitude: number):
 
   for (let i = 0; i < 64; i++) {
     const mid = (a + b) / 2;
-    const fm = angleDiffDeg(sunApparentLongitudeDeg(mid), targetLongitude);
+    const fm = angleDiffDeg(sunApparentLongitudeDeg(mid, aberrationModel), targetLongitude);
 
     if (fm === 0) return mid;
 
@@ -322,6 +340,7 @@ export function solarTermUtcMsForLongitude(
   longitude: number,
   method: SolarTermMethod,
   algorithm: SolarTermAlgorithm = DEFAULT_ALGORITHM,
+  aberrationModel: AberrationModel = DEFAULT_ABERRATION,
 ): number {
   const normalized = modDeg(longitude);
   const approx = APPROX_BY_LONGITUDE.get(normalized) ?? roughApproxDateForLongitude(year, normalized);
@@ -330,11 +349,11 @@ export function solarTermUtcMsForLongitude(
     return Date.UTC(year, approx.m - 1, approx.d, 0, 0, 0);
   }
 
-  const { aJd, bJd } = findBracketForLongitude(year, normalized, approx);
+  const { aJd, bJd } = findBracketForLongitude(year, normalized, approx, aberrationModel);
   const rootJd =
     algorithm === 'newton'
-      ? newtonLongitudeRoot((aJd + bJd) / 2, normalized)
-      : bisectLongitudeRoot(aJd, bJd, normalized);
+      ? newtonLongitudeRoot((aJd + bJd) / 2, normalized, aberrationModel)
+      : bisectLongitudeRoot(aJd, bJd, normalized, aberrationModel);
   return Math.round(julianDayToUtcMs(rootJd));
 }
 
@@ -345,8 +364,9 @@ export function getSolarTerms(
   year: number,
   method: SolarTermMethod,
   algorithm: SolarTermAlgorithm = DEFAULT_ALGORITHM,
+  aberrationModel: AberrationModel = DEFAULT_ABERRATION,
 ): SolarTermInstant[] {
-  const key = `${method}:${algorithm}:${year}`;
+  const key = `${method}:${algorithm}:${aberrationModel}:${year}`;
   const cached = cacheSolar.get(key);
   if (cached) return cached;
 
@@ -354,7 +374,7 @@ export function getSolarTerms(
     id: spec.id,
     year,
     longitude: modDeg(spec.longitude),
-    utcMs: solarTermUtcMsForLongitude(year, spec.longitude, method, algorithm),
+    utcMs: solarTermUtcMsForLongitude(year, spec.longitude, method, algorithm, aberrationModel),
   })).sort((a, b) => a.utcMs - b.utcMs);
 
   cacheSolar.set(key, out);
@@ -365,12 +385,13 @@ export function getJieBoundaries(
   year: number,
   method: SolarTermMethod,
   algorithm: SolarTermAlgorithm = DEFAULT_ALGORITHM,
+  aberrationModel: AberrationModel = DEFAULT_ABERRATION,
 ): SolarTermInstant[] {
-  const key = `${method}:${algorithm}:${year}`;
+  const key = `${method}:${algorithm}:${aberrationModel}:${year}`;
   const cached = cacheJie.get(key);
   if (cached) return cached;
 
-  const out = getSolarTerms(year, method, algorithm)
+  const out = getSolarTerms(year, method, algorithm, aberrationModel)
     .filter((t) => isJieTermId(t.id))
     .sort((a, b) => a.utcMs - b.utcMs);
 
@@ -382,11 +403,12 @@ export function getSolarTermsAround(
   baseYear: number,
   method: SolarTermMethod,
   algorithm: SolarTermAlgorithm = DEFAULT_ALGORITHM,
+  aberrationModel: AberrationModel = DEFAULT_ABERRATION,
 ): SolarTermsAround {
   const terms = [
-    ...getSolarTerms(baseYear - 1, method, algorithm),
-    ...getSolarTerms(baseYear, method, algorithm),
-    ...getSolarTerms(baseYear + 1, method, algorithm),
+    ...getSolarTerms(baseYear - 1, method, algorithm, aberrationModel),
+    ...getSolarTerms(baseYear, method, algorithm, aberrationModel),
+    ...getSolarTerms(baseYear + 1, method, algorithm, aberrationModel),
   ].sort((a, b) => a.utcMs - b.utcMs);
 
   return { baseYear, method, terms };
@@ -396,11 +418,12 @@ export function getJieBoundariesAround(
   baseYear: number,
   method: SolarTermMethod,
   algorithm: SolarTermAlgorithm = DEFAULT_ALGORITHM,
+  aberrationModel: AberrationModel = DEFAULT_ABERRATION,
 ): JieBoundariesAround {
   const terms = [
-    ...getJieBoundaries(baseYear - 1, method, algorithm),
-    ...getJieBoundaries(baseYear, method, algorithm),
-    ...getJieBoundaries(baseYear + 1, method, algorithm),
+    ...getJieBoundaries(baseYear - 1, method, algorithm, aberrationModel),
+    ...getJieBoundaries(baseYear, method, algorithm, aberrationModel),
+    ...getJieBoundaries(baseYear + 1, method, algorithm, aberrationModel),
   ].sort((a, b) => a.utcMs - b.utcMs);
 
   return { baseYear, method, terms };
@@ -410,8 +433,9 @@ export function getLiChunUtcMs(
   year: number,
   method: SolarTermMethod,
   algorithm: SolarTermAlgorithm = DEFAULT_ALGORITHM,
+  aberrationModel: AberrationModel = DEFAULT_ABERRATION,
 ): number {
-  const terms = getJieBoundaries(year, method, algorithm);
+  const terms = getJieBoundaries(year, method, algorithm, aberrationModel);
   const liChun = terms.find((t) => t.id === 'LICHUN');
   if (!liChun) throw new Error('Invariant: LICHUN missing from Jie terms');
   return liChun.utcMs;
