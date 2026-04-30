@@ -1117,6 +1117,13 @@ export async function analyzeSaju(birth: BirthInfo, options?: SpringRequest['opt
         equationOfTime: 'precise',
       },
     };
+    // PR-H-S5 — opt-in routing of a saju-ts-side school.id when the caller
+    // explicitly requests one. Default unset → preserves preset-derived
+    // school selection (no behavior change for existing callers).
+    const sajuSchoolId = (options?.precisionConfig as any)?.sajuSchoolId;
+    if (typeof sajuSchoolId === 'string' && sajuSchoolId.length > 0) {
+      config.school = { ...(config.school ?? {}), id: sajuSchoolId };
+    }
     if (options?.sajuConfig) config = { ...config, ...options.sajuConfig };
     const finalConfig = Object.keys(config).length > 0 ? config : undefined;
 
