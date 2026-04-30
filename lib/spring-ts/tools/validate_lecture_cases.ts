@@ -99,7 +99,18 @@ interface LectureCase {
     month_ten_god: string;
     decision_ten_god: string;
     activity_keywords: string[];
+    /** PR-N-1: prose-extracted gyeokguk (final form — the 변격 form
+     *  if the chart undergoes 변격, otherwise the natural 월지 form). */
+    gyeokguk?: string;
+    /** PR-N-1: prose-extracted classical 정격 form, present only when
+     *  the chart undergoes 변격 (e.g., 칠살격 → 편인격). When absent,
+     *  `gyeokguk` is itself the classical 정격 form. */
+    gyeokguk_initial?: string;
+    gyeokguk_compound?: string[];
+    yongshin?: string;
+    yongshin_compound?: string[];
   };
+  prose_quotes?: Array<{ source_text: string; page: number; section: string; quote: string }>;
 }
 
 function loadLectureCases(): LectureCase[] {
@@ -129,6 +140,13 @@ interface CaseValidation {
   /** keywordTenGods entries that are actually present in the chart. */
   keywordsMatched: string[];
   keywordsMissing: string[];
+  /** PR-N-1: classical 정격 (saju-ts month_ten_god + '격') matches
+   *  prose-extracted 정격 form (`expected.gyeokguk_initial` if 변격
+   *  chart, else `expected.gyeokguk`). When `expected.gyeokguk` is
+   *  unset, this check returns N/A. */
+  gyeokgukClassicalCheck: 'PASS' | 'FAIL' | 'N/A';
+  gyeokgukClassicalComputed: string | null;
+  gyeokgukClassicalExpected: string | null;
 }
 
 const TEN_GOD_KO_VALUES = new Set(Object.values(TEN_GOD_KO));
@@ -174,6 +192,20 @@ function validateCase(c: LectureCase): CaseValidation {
   const keywordsMatched = keywordTenGods.filter((k) => present.has(k));
   const keywordsMissing = keywordTenGods.filter((k) => !present.has(k));
 
+  // PR-N-1: classical 정격 form derivation.
+  // Rule: classical 정격 = month_branch_ten_god + '격'. The prose's
+  // `gyeokguk_initial` records the 정격 form when the chart undergoes
+  // 변격 (e.g., 칠살격 → 편인격); otherwise prose's `gyeokguk` is itself
+  // the 정격 form.
+  const proseGyeokguk = c.expected.gyeokguk ?? null;
+  const proseInitial = c.expected.gyeokguk_initial ?? proseGyeokguk;
+  let gyeokgukClassicalCheck: 'PASS' | 'FAIL' | 'N/A' = 'N/A';
+  let gyeokgukClassicalComputed: string | null = null;
+  if (proseInitial) {
+    gyeokgukClassicalComputed = `${monthKo}격`;
+    gyeokgukClassicalCheck = gyeokgukClassicalComputed === proseInitial ? 'PASS' : 'FAIL';
+  }
+
   return {
     monthPass: monthKo === c.expected.month_ten_god,
     decisionPass: decisionKo === c.expected.decision_ten_god,
@@ -185,6 +217,9 @@ function validateCase(c: LectureCase): CaseValidation {
     keywordTenGods,
     keywordsMatched,
     keywordsMissing,
+    gyeokgukClassicalCheck,
+    gyeokgukClassicalComputed,
+    gyeokgukClassicalExpected: proseInitial,
   };
 }
 
@@ -198,6 +233,9 @@ function main(): void {
   let decisionFail = 0;
   let keywordExpected = 0;
   let keywordMatched = 0;
+  let geokPass = 0;
+  let geokFail = 0;
+  let geokNA = 0;
 
   for (const c of cases) {
     const r = validateCase(c);
@@ -218,6 +256,15 @@ function main(): void {
       keywordExpected += r.keywordTenGods.length;
       keywordMatched += r.keywordsMatched.length;
     }
+    if (r.gyeokgukClassicalCheck !== 'N/A') {
+      const detail = r.gyeokgukClassicalCheck === 'PASS'
+        ? `classical 정격: ${r.gyeokgukClassicalComputed}`
+        : `classical 정격: ${r.gyeokgukClassicalComputed} (prose expected ${r.gyeokgukClassicalExpected})`;
+      console.log(`    [${r.gyeokgukClassicalCheck}] ${detail}`);
+      if (r.gyeokgukClassicalCheck === 'PASS') geokPass += 1; else geokFail += 1;
+    } else {
+      geokNA += 1;
+    }
     if (r.monthPass) monthPass += 1; else monthFail += 1;
     if (r.decisionPass) decisionPass += 1; else decisionFail += 1;
   }
@@ -225,7 +272,8 @@ function main(): void {
   console.log(`\nMonth-branch ten-god:           ${monthPass} PASS / ${monthFail} FAIL`);
   console.log(`Decision (day-branch):          ${decisionPass} PASS / ${decisionFail} FAIL`);
   console.log(`Activity keyword ten-gods:      ${keywordMatched} / ${keywordExpected} present`);
-  const totalFail = monthFail + decisionFail + (keywordExpected - keywordMatched);
+  console.log(`Classical 정격 vs prose 정격:    ${geokPass} PASS / ${geokFail} FAIL / ${geokNA} N/A`);
+  const totalFail = monthFail + decisionFail + (keywordExpected - keywordMatched) + geokFail;
   process.exit(totalFail === 0 ? 0 : 1);
 }
 

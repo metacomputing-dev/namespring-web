@@ -26,12 +26,22 @@
       "정관",
       "겁재",
       "편재"
-    ]
+    ],
+    "gyeokguk": "정관격",
+    "yongshin": "정관"
   },
   "source_note": "교안 14차시 실례: 월지 正官, 용신 正官과 劫財·偏財, 일지 殺.",
   "copyrightNote": [
     "Pillars (year/month/day/hour ganzhi) are facts and are not subject to copyright.",
     "expected and source_note are paraphrased ≤ 50자 summaries of the lecture explanation.",
     "No verbatim prose from the lecture transcript is reproduced here."
+  ],
+  "prose_quotes": [
+    {
+      "source_text": "명리심리상담사 교안",
+      "page": 127,
+      "section": "제 14차시 명리상담 실례 1",
+      "quote": "월지가 正官이라 공명정대하다. 용신이 正官이면서 劫財도 있으니"
+    }
   ]
 }

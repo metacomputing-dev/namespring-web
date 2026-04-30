@@ -25,12 +25,22 @@
     "activity_keywords": [
       "정인",
       "戊癸合"
-    ]
+    ],
+    "gyeokguk": "정관격",
+    "yongshin": "정인"
   },
   "source_note": "교안 14차시 실례: 월지 正官, 용신 正印이 戊癸合, 일지 偏印.",
   "copyrightNote": [
     "Pillars (year/month/day/hour ganzhi) are facts and are not subject to copyright.",
     "expected and source_note are paraphrased ≤ 50자 summaries of the lecture explanation.",
     "No verbatim prose from the lecture transcript is reproduced here."
+  ],
+  "prose_quotes": [
+    {
+      "source_text": "명리심리상담사 교안",
+      "page": 125,
+      "section": "제 14차시 명리상담 실례 1",
+      "quote": "월지가 正官이라 공명정대하다. 용신이 正印이라 착하지만 戊癸合되어 게을러서"
+    }
   ]
 }

@@ -26,6 +26,12 @@
       "상관",
       "편관",
       "편재"
+    ],
+    "gyeokguk": "식신격",
+    "gyeokguk_compound": [
+      "식신",
+      "상관",
+      "편관"
     ]
   },
   "source_note": "교안 14차시 실례: 월지 食神, 傷官과 殺 투출 겸격, 일지 偏財.",
@@ -33,5 +39,13 @@
     "Pillars (year/month/day/hour ganzhi) are facts and are not subject to copyright.",
     "expected and source_note are paraphrased ≤ 50자 summaries of the lecture explanation.",
     "No verbatim prose from the lecture transcript is reproduced here."
+  ],
+  "prose_quotes": [
+    {
+      "source_text": "명리심리상담사 교안",
+      "page": 123,
+      "section": "제 14차시 명리상담 실례 1",
+      "quote": "월지가 食神이라 낙천적이다. 傷官과 殺이 투출한 兼格이라 불(傷官) 칼(殺)같은 성격이다."
+    }
   ]
 }

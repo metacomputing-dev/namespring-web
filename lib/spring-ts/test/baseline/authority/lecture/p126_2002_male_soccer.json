@@ -27,12 +27,21 @@
       "편재",
       "겁재",
       "상신"
-    ]
+    ],
+    "gyeokguk": "편관격"
   },
   "source_note": "교안 14차시 실례: 월지 殺, 正印·偏財·劫財, 일지 未土 偏財.",
   "copyrightNote": [
     "Pillars (year/month/day/hour ganzhi) are facts and are not subject to copyright.",
     "expected and source_note are paraphrased ≤ 50자 summaries of the lecture explanation.",
     "No verbatim prose from the lecture transcript is reproduced here."
+  ],
+  "prose_quotes": [
+    {
+      "source_text": "명리심리상담사 교안",
+      "page": 126,
+      "section": "제 14차시 명리상담 실례 1",
+      "quote": "월지가 殺이라 자존심이 강하다. 천간에 正印이 있어 착하고, 偏財가 있어"
+    }
   ]
 }
