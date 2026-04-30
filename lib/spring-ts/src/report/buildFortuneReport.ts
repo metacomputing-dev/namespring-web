@@ -162,7 +162,7 @@ export function buildFortuneReport(
 
   // ── 2. Overview summary ──
   const overviewSummary = safeCall(
-    () => buildOverviewSummaryCard(saju),
+    () => buildOverviewSummaryCard(saju, { narrativeStyle: options?.narrativeStyle }),
     FALLBACK_OVERVIEW_SUMMARY,
   );
 

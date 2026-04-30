@@ -8,8 +8,14 @@
 //  1. Re-exported input types
 // ─────────────────────────────────────────────────────────────────────────────
 
-import type { SajuSummary, BirthInfo, SajuAxisStrengthMap, EvidenceRow, SajuJudgmentStrength } from '../types.js';
-export type { SajuSummary, BirthInfo, SajuAxisStrengthMap, EvidenceRow, SajuJudgmentStrength };
+import type {
+  SajuSummary, BirthInfo,
+  SajuAxisStrengthMap, EvidenceRow, SajuJudgmentStrength, CounterexampleRow,
+} from '../types.js';
+export type {
+  SajuSummary, BirthInfo,
+  SajuAxisStrengthMap, EvidenceRow, SajuJudgmentStrength, CounterexampleRow,
+};
 
 // ─────────────────────────────────────────────────────────────────────────────
 //  2. Code types (used by elementMaps and card builders)
@@ -112,6 +118,14 @@ export interface OverviewSummaryCard {
    *  Each row carries the supporting chart features and (when known) a
    *  weakness condition under which the claim should be revised. */
   readonly evidence?: readonly EvidenceRow[];
+  /** PR10 — narrative-style variant texts. Populated when
+   *  `precisionConfig.narrativeStyle` selects the matching style or 'sideBySide'. */
+  readonly expertText?: string;
+  readonly plainText?: string;
+  readonly counselorText?: string;
+  /** PR10 — counterexample rows. Each row lists a weakening condition +
+   *  the revised claim to use when that condition holds. */
+  readonly counterexamples?: readonly CounterexampleRow[];
 }
 
 // ── 카드 3: 인생 운세 총평 ───────────────────────────────────────────────
@@ -250,4 +264,13 @@ export interface FortuneReport {
 export interface FortuneReportOptions {
   /** Boundary precision for monthly fortune lookup (PR7). */
   readonly fortuneCascadeMode?: 'simple' | 'jie_based' | 'full_5layer';
+  /** Narrative style for cards that surface variant texts (PR10). */
+  readonly narrativeStyle?: 'expert' | 'plain' | 'counselor' | 'sideBySide';
+  /** Reading focus — drives saju_master/situational_tone_engine routing
+   *  in cards that surface focus-aware text (PR10). */
+  readonly readingFocus?:
+    | 'auto' | 'full'
+    | 'career' | 'wealth' | 'relationship'
+    | 'study_document' | 'expression_children'
+    | 'health_stress' | 'movement' | 'family';
 }

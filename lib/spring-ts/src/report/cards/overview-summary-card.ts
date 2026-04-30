@@ -6,8 +6,13 @@
  * and combines them into a concise, friendly-tone summary card.
  */
 
-import type { SajuSummary, SajuAxisStrengthMap, EvidenceRow, SajuOutputSummary } from '../../types.js';
+import type { SajuSummary, SajuAxisStrengthMap, EvidenceRow, SajuOutputSummary, CounterexampleRow } from '../../types.js';
 import type { OverviewSummaryCard, PillarDisplay, ElementCode } from '../types.js';
+
+/** PR10 — options forwarded from buildFortuneReport. */
+export interface OverviewSummaryCardOptions {
+  readonly narrativeStyle?: 'expert' | 'plain' | 'counselor' | 'sideBySide';
+}
 import {
   ELEMENT_KOREAN_SHORT,
   ELEMENT_NATURE,
@@ -89,7 +94,10 @@ function ieyo(word: string): string {
 //  Builder
 // ---------------------------------------------------------------------------
 
-export function buildOverviewSummaryCard(saju: SajuSummary): OverviewSummaryCard {
+export function buildOverviewSummaryCard(
+  saju: SajuSummary,
+  options?: OverviewSummaryCardOptions,
+): OverviewSummaryCard {
   // ── 1. Four pillars ──
   const pillars: PillarDisplay[] = PILLAR_POSITIONS.map(({ key, label }) => {
     const p = saju.pillars[key];
@@ -276,6 +284,48 @@ export function buildOverviewSummaryCard(saju: SajuSummary): OverviewSummaryCard
     strength: yongshinTier,
   });
 
+  // ── 8. Narrative styles + counterexamples (PR10) ──────────────────────
+  // The plain style is the existing tone (already in `overallSummary`).
+  // 'expert' uses classical 명리 terminology; 'counselor' uses flowing
+  // counselor paragraphs. 'sideBySide' populates both expert and plain.
+  const style = options?.narrativeStyle;
+  const includeExpert    = style === 'expert'    || style === 'sideBySide';
+  const includePlain     = style === 'plain'     || style === 'sideBySide';
+  const includeCounselor = style === 'counselor';
+
+  const expertText = includeExpert
+    ? buildExpertOverviewText({
+        stemHangul: stemInfo?.hangul ?? dayMaster.stem,
+        dayMasterEl,
+        strengthLevelKorean: strengthKorean,
+        yongshinElementCode: yongshin.element,
+        yongshinKorean,
+        gyeokgukType: saju.gyeokguk?.type ?? '',
+      })
+    : undefined;
+  const plainText     = includePlain ? overallSummary : undefined;
+  const counselorText = includeCounselor
+    ? buildCounselorOverviewText(stemInfo?.hangul ?? dayMaster.stem, yongshinFriendly, strengthKorean)
+    : undefined;
+
+  // Counterexamples — currently surfaced when yongshin is low-confidence so a
+  // user / counselor can see which condition would flip the recommendation.
+  const counterexamples: CounterexampleRow[] | undefined =
+    yongshinTier === 'candidate' || yongshinTier === 'deferred'
+      ? [
+          {
+            condition: '월령(月令)이 지장간 중 정기와 어긋나거나, 격국 안정성 낮음',
+            revisedClaim: `용신을 ${yongshinFriendly}로 단정하기보다, 조후·통관 후보를 함께 검토하세요.`,
+            appliesWhen: yongshinTier,
+          },
+          {
+            condition: '시간 미상 또는 입절 경계(±1 일) 이내 출생',
+            revisedClaim: '시진 변경 시 격국·용신 후보가 달라질 수 있으니 두 가지 가능성을 함께 살펴보세요.',
+            appliesWhen: yongshinTier,
+          },
+        ]
+      : undefined;
+
   return {
     title: '총평 요약',
     pillars,
@@ -286,5 +336,41 @@ export function buildOverviewSummaryCard(saju: SajuSummary): OverviewSummaryCard
     overallSummary,
     axisStrength,
     evidence,
+    expertText,
+    plainText,
+    counselorText,
+    counterexamples,
   };
+}
+
+// ---------------------------------------------------------------------------
+//  Narrative style helpers (PR10)
+// ---------------------------------------------------------------------------
+
+/** Classical 명리 terminology version of the overview. */
+function buildExpertOverviewText(args: {
+  stemHangul: string;
+  dayMasterEl: ElementCode | null;
+  strengthLevelKorean: string;
+  yongshinElementCode: string;
+  yongshinKorean: string;
+  gyeokgukType: string;
+}): string {
+  const elKo = args.dayMasterEl ? ELEMENT_KOREAN_SHORT[args.dayMasterEl] : '';
+  const segments: string[] = [];
+  segments.push(`일간 ${args.stemHangul}(${elKo}). 신강·신약 판정: ${args.strengthLevelKorean}.`);
+  if (args.gyeokgukType) {
+    segments.push(`격국: ${args.gyeokgukType}.`);
+  }
+  segments.push(`용신: ${args.yongshinElementCode}(${args.yongshinKorean}).`);
+  return segments.join(' ');
+}
+
+/** Counselor-tone flowing paragraph. */
+function buildCounselorOverviewText(
+  stemHangul: string,
+  yongshinFriendly: string,
+  strengthKorean: string,
+): string {
+  return `${stemHangul} 일간으로 보면, 지금의 에너지 흐름은 ${strengthKorean} 쪽에 가깝습니다. ${yongshinFriendly} 기운을 일상에 조금씩 들이는 편이 큰 흐름과 잘 맞아요. 큰 결정 앞에서는 이 방향을 기준으로 삼으면 흔들리지 않게 됩니다.`;
 }
