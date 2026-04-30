@@ -1,6 +1,6 @@
 {
   "project": "namesprint-w",
-  "timestamp": "2026-02-15T13:12:36.101Z",
+  "timestamp": "2026-04-30T06:30:00.000Z",
   "birthInfo": {
     "year": 1986,
     "month": 4,
@@ -43,11 +43,11 @@
       "fullHanja": "崔成秀"
     },
     "scores": {
-      "total": 55.9,
+      "total": 55.1,
       "hangul": 70,
-      "hanja": 57.5,
+      "hanja": 25,
       "fourFrame": 60,
-      "saju": 38.7
+      "saju": 33.1
     },
     "analysis": {
       "hangul": {
@@ -158,7 +158,7 @@
     "interpretation": "보통 수준의 이름입니다. 사주 자원 균형 부분을 점검해 보세요."
   },
   "searchRecommend": {
-    "totalCount": 500,
+    "totalCount": 348,
     "top20": [
       {
         "name": "최인수",
