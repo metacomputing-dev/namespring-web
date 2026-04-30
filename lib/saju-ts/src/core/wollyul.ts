@@ -1,4 +1,10 @@
 import type { BranchIdx, StemIdx } from './cycle.js';
+import {
+  hiddenStemsOfBranch,
+  type HiddenStem,
+  type HiddenStemRole,
+  type HiddenStemWeightPolicy,
+} from './hiddenStems.js';
 import { mod } from './mod.js';
 import type { Qi } from './wollyulData.js';
 import { WOLLYUL_SEGMENTS } from './wollyulData.js';
@@ -104,3 +110,73 @@ export function findSaryeong(
     monthLengthDays: safeMonth,
   };
 }
+
+/**
+ * Solar-month context that the dynamic saryeong schemes need.
+ *
+ * The graph layer is the natural place to assemble these (it already
+ * has the previous and next 節氣 boundaries); pure consumers of this
+ * module shouldn't have to know about VSOP87 or julian arithmetic.
+ */
+export interface JieData {
+  /** Days elapsed since the previous 節氣 boundary at the chart instant. */
+  elapsedDays: number;
+  /** Astronomical length of the current 節氣 segment (≈ 29.5..30.5 days). */
+  monthLengthDays: number;
+}
+
+/**
+ * Saryeong-aware extension of `hiddenStemsOfBranch`.
+ *
+ * Sibling-pattern decision: `hiddenStemsOfBranch` stays a pure
+ * branch→table lookup with no jie-data dependency. This function adds
+ * the `JieData` parameter and the `saryeongScheme` policy field that
+ * the dynamic schemes need.
+ *
+ * Behavior:
+ *   - `policy.saryeongScheme` undefined → forwards verbatim to
+ *     `hiddenStemsOfBranch(branch, policy)`. Default callers and the
+ *     existing static schemes are unaffected.
+ *   - 'classical' | 'scaled' → returns the WOLLYUL_SEGMENTS rows for
+ *     the branch, with weight 1.0 on the commanding stem (chosen by
+ *     `findSaryeong`) and 0.0 on the rest.
+ *
+ * Note: WOLLYUL_SEGMENTS and rawHiddenStemsTable disagree on the
+ * residual-qi entries for branches where saju-ts collapses to a
+ * single hidden stem (e.g. 子). The saryeong path therefore returns
+ * the full WOLLYUL_SEGMENTS rows, not the simplified static table.
+ */
+function qiToRole(qi: Qi): HiddenStemRole {
+  if (qi === 'JEONG') return 'MAIN';
+  if (qi === 'JUNG') return 'MIDDLE';
+  return 'RESIDUAL';
+}
+
+export function hiddenStemsForChart(
+  branch: BranchIdx,
+  jieData: JieData,
+  policy: HiddenStemWeightPolicy & { saryeongScheme?: SaryeongScheme } = {},
+): HiddenStem[] {
+  const scheme = policy.saryeongScheme;
+  if (!scheme) {
+    return hiddenStemsOfBranch(branch, policy);
+  }
+
+  const b = mod(branch, 12);
+  const segments = WOLLYUL_SEGMENTS[b];
+  const commanding = findSaryeong(
+    branch,
+    jieData.elapsedDays,
+    jieData.monthLengthDays,
+    scheme,
+  );
+
+  return segments.map((seg) => ({
+    stem: seg.stem,
+    role: qiToRole(seg.qi),
+    weight: seg.stem === commanding.stem ? 1.0 : 0.0,
+  }));
+}
+
+// Re-export StemIdx for downstream typings without an extra import line.
+export type { StemIdx };
