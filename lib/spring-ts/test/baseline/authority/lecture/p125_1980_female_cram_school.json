@@ -1,0 +1,37 @@
+{
+  "case_id": "A1-p125_1980_female_cram_school",
+  "source": {
+    "tradition": "lecture",
+    "text": "명리심리상담사 교안",
+    "page": 125,
+    "author": "(uploaded)",
+    "volume": null,
+    "category": "14차시 사례"
+  },
+  "subject": {
+    "birth_year": 1980,
+    "sex": "female",
+    "profession": "교습소 운영"
+  },
+  "pillars": {
+    "year_pillar": "庚申",
+    "month_pillar": "甲申",
+    "day_pillar": "壬子",
+    "hour_pillar": "己酉"
+  },
+  "expected": {
+    "month_ten_god": "편인",
+    "decision_ten_god": "겁재",
+    "activity_keywords": [
+      "편인",
+      "정관",
+      "申子半合"
+    ]
+  },
+  "source_note": "교안 14차시 실례: 월지 偏印, 용신 偏印·正官, 일지 陽刃/비겁 구조.",
+  "copyrightNote": [
+    "Pillars (year/month/day/hour ganzhi) are facts and are not subject to copyright.",
+    "expected and source_note are paraphrased ≤ 50자 summaries of the lecture explanation.",
+    "No verbatim prose from the lecture transcript is reproduced here."
+  ]
+}

@@ -1,0 +1,37 @@
+{
+  "case_id": "A1-p127_1964_male_public_exec",
+  "source": {
+    "tradition": "lecture",
+    "text": "명리심리상담사 교안",
+    "page": 127,
+    "author": "(uploaded)",
+    "volume": null,
+    "category": "14차시 사례"
+  },
+  "subject": {
+    "birth_year": 1964,
+    "sex": "male",
+    "profession": "공기업 중역"
+  },
+  "pillars": {
+    "year_pillar": "甲辰",
+    "month_pillar": "壬申",
+    "day_pillar": "庚子",
+    "hour_pillar": "乙酉"
+  },
+  "expected": {
+    "month_ten_god": "비견",
+    "decision_ten_god": "상관",
+    "activity_keywords": [
+      "식신",
+      "정재",
+      "편재"
+    ]
+  },
+  "source_note": "교안 14차시 실례: 월지 比肩, 용신 食神, 正財와 偏財, 일지 傷官.",
+  "copyrightNote": [
+    "Pillars (year/month/day/hour ganzhi) are facts and are not subject to copyright.",
+    "expected and source_note are paraphrased ≤ 50자 summaries of the lecture explanation.",
+    "No verbatim prose from the lecture transcript is reproduced here."
+  ]
+}

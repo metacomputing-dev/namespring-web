@@ -1,0 +1,37 @@
+{
+  "case_id": "A1-p127_1964_female_haenyeo_doctorate",
+  "source": {
+    "tradition": "lecture",
+    "text": "명리심리상담사 교안",
+    "page": 127,
+    "author": "(uploaded)",
+    "volume": null,
+    "category": "14차시 사례"
+  },
+  "subject": {
+    "birth_year": 1964,
+    "sex": "female",
+    "profession": "해녀·음식점·박사과정"
+  },
+  "pillars": {
+    "year_pillar": "甲辰",
+    "month_pillar": "乙亥",
+    "day_pillar": "丙寅",
+    "hour_pillar": "甲午"
+  },
+  "expected": {
+    "month_ten_god": "편관",
+    "decision_ten_god": "편인",
+    "activity_keywords": [
+      "편인",
+      "정인",
+      "살인상생"
+    ]
+  },
+  "source_note": "교안 15차시 실례: 亥월 丙화 七殺格, 甲·乙 인성 투간, 일지 偏印.",
+  "copyrightNote": [
+    "Pillars (year/month/day/hour ganzhi) are facts and are not subject to copyright.",
+    "expected and source_note are paraphrased ≤ 50자 summaries of the lecture explanation.",
+    "No verbatim prose from the lecture transcript is reproduced here."
+  ]
+}

@@ -1,0 +1,37 @@
+{
+  "case_id": "A1-p123_1966_female_childcare",
+  "source": {
+    "tradition": "lecture",
+    "text": "명리심리상담사 교안",
+    "page": 123,
+    "author": "(uploaded)",
+    "volume": null,
+    "category": "14차시 사례"
+  },
+  "subject": {
+    "birth_year": 1966,
+    "sex": "female",
+    "profession": "어린이집 보육교사"
+  },
+  "pillars": {
+    "year_pillar": "丙午",
+    "month_pillar": "壬辰",
+    "day_pillar": "丙申",
+    "hour_pillar": "己亥"
+  },
+  "expected": {
+    "month_ten_god": "식신",
+    "decision_ten_god": "편재",
+    "activity_keywords": [
+      "상관",
+      "편관",
+      "편재"
+    ]
+  },
+  "source_note": "교안 14차시 실례: 월지 食神, 傷官과 殺 투출 겸격, 일지 偏財.",
+  "copyrightNote": [
+    "Pillars (year/month/day/hour ganzhi) are facts and are not subject to copyright.",
+    "expected and source_note are paraphrased ≤ 50자 summaries of the lecture explanation.",
+    "No verbatim prose from the lecture transcript is reproduced here."
+  ]
+}
