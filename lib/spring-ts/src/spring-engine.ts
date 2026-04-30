@@ -1373,7 +1373,12 @@ export class SpringEngine {
       : parsedTargetDate;
 
     // 4. Build the fortune report
-    return buildFortuneReport(saju, targetDate, springReport);
+    const fortuneCascadeMode = request.options?.precisionConfig?.fortuneCascadeMode;
+    return buildFortuneReport(saju, targetDate, springReport, {
+      fortuneCascadeMode: fortuneCascadeMode === 'jie_based' || fortuneCascadeMode === 'full_5layer'
+        ? fortuneCascadeMode
+        : 'simple',
+    });
   }
 
   // -------------------------------------------------------------------------
