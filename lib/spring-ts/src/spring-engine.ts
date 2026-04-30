@@ -112,6 +112,7 @@ export class SpringEngine {
   private fourFrameRepo = new FourframeRepository();
   private nameStatRepo = new NameStatRepository();
   private initialized = false;
+  private initPromise: Promise<void> | null = null;
   private luckyMap = new Map<number, string>();
   private validFourFrameNumbers = new Set<number>();
   private optimizer: FourFrameOptimizer | null = null;
@@ -124,23 +125,36 @@ export class SpringEngine {
   // init -- three-step bootstrap
   // -------------------------------------------------------------------------
 
-  async init() {
+  async init(): Promise<void> {
+    // Fast path: already initialized.
     if (this.initialized) return;
+    // Concurrent init: every caller awaits the same promise rather than
+    // re-running the heavy steps below.
+    if (this.initPromise) return this.initPromise;
 
-    // Step 1: Open repositories in parallel
-    await Promise.all([
-      this.hanjaRepo.init(),
-      this.fourFrameRepo.init(),
-      this.nameStatRepo.init(),
-    ]);
+    this.initPromise = (async () => {
+      try {
+        // Step 1: Open repositories in parallel
+        await Promise.all([
+          this.hanjaRepo.init(),
+          this.fourFrameRepo.init(),
+          this.nameStatRepo.init(),
+        ]);
 
-    // Step 2: Load four-frame fortune data and build the lucky-number set
-    await this.buildLuckyNumberSet();
+        // Step 2: Load four-frame fortune data and build the lucky-number set
+        await this.buildLuckyNumberSet();
 
-    // Step 3: Create the four-frame optimizer used for candidate generation
-    this.optimizer = new FourFrameOptimizer(this.validFourFrameNumbers);
+        // Step 3: Create the four-frame optimizer used for candidate generation
+        this.optimizer = new FourFrameOptimizer(this.validFourFrameNumbers);
 
-    this.initialized = true;
+        this.initialized = true;
+      } catch (err) {
+        // Failed init: clear the cached promise so a subsequent caller can retry.
+        this.initPromise = null;
+        throw err;
+      }
+    })();
+    return this.initPromise;
   }
 
   /** Scan all four-frame records and classify each by its lucky level. */
