@@ -19,7 +19,7 @@
  * 모든 텍스트는 ~해요/~에요 체를 사용합니다.
  */
 
-import type { SajuSummary } from '../../types.js';
+import type { SajuSummary, EvidenceRow, SajuAxisStrengthMap } from '../../types.js';
 import type {
   LifeStageFortuneCard,
   LifeStageFortuneEntry,
@@ -325,9 +325,40 @@ export function buildLifeStageFortuneCard(
     });
   }
 
+  // ── PR-J-7b — narrative foundations (axisStrength + evidence) ──
+  const sajuAxis = (saju as unknown as { axisStrength?: SajuAxisStrengthMap }).axisStrength;
+  const evidence: EvidenceRow[] = [];
+
+  // Daewoon row — life-stage stars derive from the daewoon flow against
+  // the chart's yongshin/gishin alignment. One summary row anchored on
+  // the current stage (or first stage when current is unknown).
+  const focusIndex = currentStageIndex ?? 0;
+  const focusStage = stages[focusIndex];
+  if (focusStage) {
+    const supporting: string[] = [
+      `현재 시기: ${focusStage.ageRange}`,
+      `대운 기둥: ${focusStage.pillarDisplay}`,
+      `별점: ${focusStage.stars}/5`,
+    ];
+    if (saju.yongshin?.element) {
+      supporting.push(`용신: ${saju.yongshin.element}`);
+    }
+    evidence.push({
+      axis: 'daewoon',
+      claim: focusStage.summary || `${focusStage.ageRange} 시기는 ${focusStage.pillarDisplay} 대운으로 흐름이 정해져요.`,
+      supportingFeatures: supporting,
+      weakness: focusStage.stars <= 2
+        ? '별점이 낮은 대운에서는 보수적인 결정과 회복 루틴을 우선하세요.'
+        : undefined,
+      strength: sajuAxis?.yongshin,
+    });
+  }
+
   return {
     title: '생애 시기별 운세',
     stages,
     currentStageIndex,
+    axisStrength: sajuAxis,
+    evidence: evidence.length > 0 ? evidence : undefined,
   };
 }

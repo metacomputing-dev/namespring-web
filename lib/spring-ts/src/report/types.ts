@@ -282,6 +282,13 @@ export interface LifeStageFortuneCard {
   readonly title: '생애 시기별 운세';
   readonly stages: LifeStageFortuneEntry[];
   readonly currentStageIndex: number | null;
+  /** Per-axis judgment strength (PR-J-7b). Optional. */
+  readonly axisStrength?: SajuAxisStrengthMap;
+  /** Optional row-level evidence backing the life-stage rating + flow
+   *  (PR-J-7b). Anchors on daewoon transitions + the chart's yongshin
+   *  alignment so the consumer can render "왜 이 시기에 별점이 좋은가?"
+   *  beneath the stage list. */
+  readonly evidence?: readonly EvidenceRow[];
 }
 
 // ── 카드 8: 5대 분야별 운세 ──────────────────────────────────────────────
