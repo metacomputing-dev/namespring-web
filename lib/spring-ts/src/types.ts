@@ -189,6 +189,19 @@ export interface PrecisionConfig {
     | 'study_document' | 'expression_children'
     | 'health_stress' | 'movement' | 'family';
 
+  /** Saju-ts school identifier (PR-H-S5). saju-ts ships ~24 schools via
+   *  schools/packs/builtin.pack.json (balance / johoo / johoo.strict /
+   *  tongguan / gyeokguk / ziping.strict / integrated.3d / sanmingtonghui /
+   *  follow / ditiansui / hwagyeok / zhuanwang / shinsal.virtueStrict /
+   *  qiongTongBaoJian / zipingzhenquan / yuhaiziping / shenfengTongkao /
+   *  …). spring-ts's existing `schoolPreset` only exposes 3 high-level
+   *  presets; this opt-in routes a saju-ts-side `school.id` into the
+   *  legacy config so power users can target a specific 학파. Default
+   *  unset = saju-ts uses its preset-derived school. spring-ts's own
+   *  scoring is unaffected — this only changes the saju-ts analysis the
+   *  adapter receives. */
+  readonly sajuSchoolId?: string;
+
   readonly [key: string]: unknown;
 }
 
