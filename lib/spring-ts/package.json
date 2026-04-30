@@ -37,7 +37,8 @@
     "validate:jonheom": "npx tsx tools/validate_jonheom_cases.ts",
     "validate:jonheom-smc": "node tools/validate_jonheom_saju_master.mjs",
     "validate:korean-modern": "npx tsx tools/validate_korean_modern_authority.ts",
-    "measure:alternative-rules": "npx tsx tools/measure_alternative_gyeokguk_rules.ts"
+    "measure:alternative-rules": "npx tsx tools/measure_alternative_gyeokguk_rules.ts",
+    "validate:tyme4ts": "npx tsx tools/cross_validate_tyme4ts.ts"
   },
   "dependencies": {
     "sql.js": "^1.14.0",
@@ -46,6 +47,7 @@
   "devDependencies": {
     "@types/node": "^25.2.3",
     "@types/sql.js": "^1.4.9",
+    "tyme4ts": "^1.4.6",
     "typescript": "^5.9.3"
   }
 }
