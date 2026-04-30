@@ -50,7 +50,18 @@ interface Fixture {
   id: string;
   label: string;
   axis: string[];
-  birth: { year: number; month: number; day: number; hour: number; minute: number; gender: 'male' | 'female' | 'neutral' };
+  birth: {
+    year: number;
+    month: number;
+    day: number;
+    /** Hour 0-23 when known. Null for 시간미상 (unknown-hour) fixtures —
+     *  saju-adapter falls back to noon (12:00) when hour is null per
+     *  DEFAULT_UNKNOWN_HOUR. PR-L-2 loosens this from `number` so
+     *  follow-up fixture additions can express the unknown case. */
+    hour: number | null;
+    minute: number;
+    gender: 'male' | 'female' | 'neutral';
+  };
   surname: Array<{ hangul: string; hanja?: string }>;
   givenName: Array<{ hangul: string; hanja?: string }>;
 }
