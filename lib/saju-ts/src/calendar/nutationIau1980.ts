@@ -118,3 +118,90 @@ function evaluateNutationLongitudeSeries(T: number, terms: readonly NutLongTerm[
 export function nutationLongitudeDegTop10(T: number): number {
   return evaluateNutationLongitudeSeries(T, NUTATION_LONGITUDE_TOP10);
 }
+
+/**
+ * Full IAU 1980 nutation-in-longitude series — all 63 rows from
+ * NREL/TP-560-34302 Table A.4.3 (= IERS 1980 / Wahr 1981 series).
+ *
+ * Listed in the same order and with the same amplitudes as the table.
+ * Amplitudes a, b are stored as 0.0001 arcsec / 0.0001 arcsec per
+ * century, exactly as printed.
+ */
+const NUTATION_LONGITUDE_FULL: readonly NutLongTerm[] = [
+  // Rows 1-16 (NREL Table A.4.3, page A-13)
+  { D:  0, M:  0, Mp:  0, F:  0, Omega: 1, A: -171996, Ap: -174.2 },
+  { D: -2, M:  0, Mp:  0, F:  2, Omega: 2, A:  -13187, Ap:   -1.6 },
+  { D:  0, M:  0, Mp:  0, F:  2, Omega: 2, A:   -2274, Ap:   -0.2 },
+  { D:  0, M:  0, Mp:  0, F:  0, Omega: 2, A:    2062, Ap:    0.2 },
+  { D:  0, M:  1, Mp:  0, F:  0, Omega: 0, A:    1426, Ap:   -3.4 },
+  { D:  0, M:  0, Mp:  1, F:  0, Omega: 0, A:     712, Ap:    0.1 },
+  { D: -2, M:  1, Mp:  0, F:  2, Omega: 2, A:    -517, Ap:    1.2 },
+  { D:  0, M:  0, Mp:  0, F:  2, Omega: 1, A:    -386, Ap:   -0.4 },
+  { D:  0, M:  0, Mp:  1, F:  2, Omega: 2, A:    -301, Ap:    0.0 },
+  { D: -2, M: -1, Mp:  0, F:  2, Omega: 2, A:     217, Ap:   -0.5 },
+  { D: -2, M:  0, Mp:  1, F:  0, Omega: 0, A:    -158, Ap:    0.0 },
+  { D: -2, M:  0, Mp:  0, F:  2, Omega: 1, A:     129, Ap:    0.1 },
+  { D:  0, M:  0, Mp: -1, F:  2, Omega: 2, A:     123, Ap:    0.0 },
+  { D:  2, M:  0, Mp:  0, F:  0, Omega: 0, A:      63, Ap:    0.0 },
+  { D:  0, M:  0, Mp:  1, F:  0, Omega: 1, A:      63, Ap:    0.1 },
+  { D:  2, M:  0, Mp: -1, F:  2, Omega: 2, A:     -59, Ap:    0.0 },
+  // Rows 17-49 (NREL Table A.4.3, page A-14)
+  { D:  0, M:  0, Mp: -1, F:  0, Omega: 1, A:     -58, Ap:   -0.1 },
+  { D:  0, M:  0, Mp:  1, F:  2, Omega: 1, A:     -51, Ap:    0.0 },
+  { D: -2, M:  0, Mp:  2, F:  0, Omega: 0, A:      48, Ap:    0.0 },
+  { D:  0, M:  0, Mp: -2, F:  2, Omega: 1, A:      46, Ap:    0.0 },
+  { D:  2, M:  0, Mp:  0, F:  2, Omega: 2, A:     -38, Ap:    0.0 },
+  { D:  0, M:  0, Mp:  2, F:  2, Omega: 2, A:     -31, Ap:    0.0 },
+  { D:  0, M:  0, Mp:  2, F:  0, Omega: 0, A:      29, Ap:    0.0 },
+  { D: -2, M:  0, Mp:  1, F:  2, Omega: 2, A:      29, Ap:    0.0 },
+  { D:  0, M:  0, Mp:  0, F:  2, Omega: 0, A:      26, Ap:    0.0 },
+  { D: -2, M:  0, Mp:  0, F:  2, Omega: 0, A:     -22, Ap:    0.0 },
+  { D:  0, M:  0, Mp: -1, F:  2, Omega: 1, A:      21, Ap:    0.0 },
+  { D:  0, M:  2, Mp:  0, F:  0, Omega: 0, A:      17, Ap:   -0.1 },
+  { D:  2, M:  0, Mp: -1, F:  0, Omega: 1, A:      16, Ap:    0.0 },
+  { D: -2, M:  2, Mp:  0, F:  2, Omega: 2, A:     -16, Ap:    0.1 },
+  { D:  0, M:  1, Mp:  0, F:  0, Omega: 1, A:     -15, Ap:    0.0 },
+  { D: -2, M:  0, Mp:  1, F:  0, Omega: 1, A:     -13, Ap:    0.0 },
+  { D:  0, M: -1, Mp:  0, F:  0, Omega: 1, A:     -12, Ap:    0.0 },
+  { D:  0, M:  0, Mp:  2, F: -2, Omega: 0, A:      11, Ap:    0.0 },
+  { D:  2, M:  0, Mp: -1, F:  2, Omega: 1, A:     -10, Ap:    0.0 },
+  { D:  2, M:  0, Mp:  1, F:  2, Omega: 2, A:      -8, Ap:    0.0 },
+  { D:  0, M:  1, Mp:  0, F:  2, Omega: 2, A:       7, Ap:    0.0 },
+  { D: -2, M:  1, Mp:  1, F:  0, Omega: 0, A:      -7, Ap:    0.0 },
+  { D:  0, M: -1, Mp:  0, F:  2, Omega: 2, A:      -7, Ap:    0.0 },
+  { D:  2, M:  0, Mp:  0, F:  2, Omega: 1, A:      -7, Ap:    0.0 },
+  { D:  2, M:  0, Mp:  1, F:  0, Omega: 0, A:       6, Ap:    0.0 },
+  { D: -2, M:  0, Mp:  2, F:  2, Omega: 2, A:       6, Ap:    0.0 },
+  { D: -2, M:  0, Mp:  1, F:  2, Omega: 1, A:       6, Ap:    0.0 },
+  { D:  2, M:  0, Mp: -2, F:  0, Omega: 1, A:      -6, Ap:    0.0 },
+  { D:  2, M:  0, Mp:  0, F:  0, Omega: 1, A:      -6, Ap:    0.0 },
+  { D:  0, M: -1, Mp:  1, F:  0, Omega: 0, A:       5, Ap:    0.0 },
+  { D: -2, M: -1, Mp:  0, F:  2, Omega: 1, A:      -5, Ap:    0.0 },
+  { D: -2, M:  0, Mp:  0, F:  0, Omega: 1, A:      -5, Ap:    0.0 },
+  { D:  0, M:  0, Mp:  2, F:  2, Omega: 1, A:      -5, Ap:    0.0 },
+  { D: -2, M:  0, Mp:  2, F:  0, Omega: 1, A:       4, Ap:    0.0 },
+  // Rows 50-63 (NREL Table A.4.3, page A-15)
+  { D: -2, M:  1, Mp:  0, F:  2, Omega: 1, A:       4, Ap:    0.0 },
+  { D:  0, M:  0, Mp:  1, F: -2, Omega: 0, A:       4, Ap:    0.0 },
+  { D: -1, M:  0, Mp:  1, F:  0, Omega: 0, A:      -4, Ap:    0.0 },
+  { D: -2, M:  1, Mp:  0, F:  0, Omega: 0, A:      -4, Ap:    0.0 },
+  { D:  1, M:  0, Mp:  0, F:  0, Omega: 0, A:      -4, Ap:    0.0 },
+  { D:  0, M:  0, Mp:  1, F:  2, Omega: 0, A:       3, Ap:    0.0 },
+  { D:  0, M:  0, Mp: -2, F:  2, Omega: 2, A:      -3, Ap:    0.0 },
+  { D: -1, M: -1, Mp:  1, F:  0, Omega: 0, A:      -3, Ap:    0.0 },
+  { D:  0, M:  1, Mp:  1, F:  0, Omega: 0, A:      -3, Ap:    0.0 },
+  { D:  0, M: -1, Mp:  1, F:  2, Omega: 2, A:      -3, Ap:    0.0 },
+  { D:  2, M: -1, Mp: -1, F:  2, Omega: 2, A:      -3, Ap:    0.0 },
+  { D:  0, M:  0, Mp:  3, F:  2, Omega: 2, A:      -3, Ap:    0.0 },
+  { D:  2, M: -1, Mp:  0, F:  2, Omega: 2, A:      -3, Ap:    0.0 },
+];
+
+/**
+ * Δψ (nutation in ecliptic longitude) using the full 63-row IAU 1980
+ * series. Returned in degrees. Suitable for Phase-5 'iau1980_full'
+ * precision (≈ ±0.1″ residual); the dispatch hookup follows in a later
+ * commit.
+ */
+export function nutationLongitudeDegFull(T: number): number {
+  return evaluateNutationLongitudeSeries(T, NUTATION_LONGITUDE_FULL);
+}
