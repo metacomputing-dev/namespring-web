@@ -10,7 +10,7 @@
  * All text uses friendly Korean (~해요 / ~에요 tone).
  */
 
-import type { SajuSummary } from '../../types.js';
+import type { SajuSummary, EvidenceRow, SajuAxisStrengthMap } from '../../types.js';
 import type { StrengthsWeaknessesCard, FortuneAdvice, ElementCode } from '../types.js';
 import type { StemCode, TenGodCode } from '../types.js';
 import {
@@ -21,6 +21,7 @@ import {
 import { STEM_ENCYCLOPEDIA } from '../knowledge/stemEncyclopedia.js';
 import { TEN_GOD_ENCYCLOPEDIA } from '../knowledge/tenGodEncyclopedia.js';
 import { STRENGTH_ENCYCLOPEDIA } from '../knowledge/strengthEncyclopedia.js';
+import { findGyeokgukEntry } from '../knowledge/gyeokgukEncyclopedia.js';
 
 // ---------------------------------------------------------------------------
 //  Ten-god helpers (shared with personality-card)
@@ -222,10 +223,50 @@ export function buildStrengthsWeaknessesCard(saju: SajuSummary): StrengthsWeakne
     });
   }
 
+  // ── PR-J-5b — narrative foundations (axisStrength + evidence) ──
+  const sajuAxis = (saju as unknown as { axisStrength?: SajuAxisStrengthMap }).axisStrength;
+  const evidence: EvidenceRow[] = [];
+
+  // Stem-derived row — uses PR-J-3 classicalImagery as a supporting feature.
+  const stemEntryForEvidence = stemCode ? STEM_ENCYCLOPEDIA[stemCode] : null;
+  if (stemEntryForEvidence && stemInfo && stemEntryForEvidence.strengths.length > 0) {
+    const supporting: string[] = [
+      `일간 ${stemInfo.hangul}(${stemEntryForEvidence.element})`,
+    ];
+    if (stemEntryForEvidence.classicalImagery) {
+      supporting.push(`고전 비유: ${stemEntryForEvidence.classicalImagery}`);
+    }
+    evidence.push({
+      axis: 'dayMaster',
+      claim: stemEntryForEvidence.strengths[0],
+      supportingFeatures: supporting,
+      weakness: stemEntryForEvidence.cautions[0],
+      strength: sajuAxis?.strength,
+    });
+  }
+
+  // Gyeokguk-derived row — same shape as overview / personality wires.
+  const gyeokgukForEvidence = findGyeokgukEntry(saju.gyeokguk?.type);
+  if (gyeokgukForEvidence?.principle) {
+    const supporting: string[] = [`격국: ${gyeokgukForEvidence.korean}`];
+    if (gyeokgukForEvidence.helpful?.length) {
+      supporting.push(`성(成) 조건: ${gyeokgukForEvidence.helpful[0]}`);
+    }
+    evidence.push({
+      axis: 'gyeokguk',
+      claim: gyeokgukForEvidence.principle,
+      supportingFeatures: supporting,
+      weakness: gyeokgukForEvidence.disease?.[0],
+      strength: sajuAxis?.gyeokguk,
+    });
+  }
+
   return {
     title: '나의 장/단점',
     strengths,
     weaknesses,
+    axisStrength: sajuAxis,
+    evidence: evidence.length > 0 ? evidence : undefined,
   };
 }
 
