@@ -556,25 +556,18 @@ export function meanObliquityDeg(T: number): number {
  * Mean longitude of the Sun (L₀) in degrees, reduced to [0, 360).
  *
  * Polynomial in `T` (Julian centuries from J2000.0 in TT) from Meeus,
- * Astronomical Algorithms 2nd ed., eq. 28.2 (the long-period form
- * used by the precise Equation-of-Time formula). Includes terms up
- * to T⁵; the omitted T⁶+ terms are well below 1 mas in practice.
+ * Astronomical Algorithms 2nd ed., eq. 25.2.
+ *
+ * (Meeus also has eq. 28.2, which uses τ = T / 10 — Julian millennia
+ * — and adds T³, T⁴, T⁵ terms for sub-mas accuracy. We deliberately
+ * use 25.2 here because the consumer cares about minute-level Equation
+ * of Time, where the residual of 25.2 is well below 1 ms.)
  *
  * Used by the precise Equation-of-Time path; not yet wired.
  */
 export function sunMeanLongitudeDeg(T: number): number {
   const T2 = T * T;
-  const T3 = T2 * T;
-  const T4 = T3 * T;
-  const T5 = T4 * T;
-  const L0 =
-    280.4664567 +
-    360007.6982779 * T +
-    0.03032028 * T2 +
-    T3 / 49931 -
-    T4 / 15300 -
-    T5 / 2000000;
-  return mod360(L0);
+  return mod360(280.46646 + 36000.76983 * T + 0.0003032 * T2);
 }
 
 /**
