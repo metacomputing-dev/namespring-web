@@ -454,10 +454,39 @@ export interface SajuOutputSummary {
   dayMaster?: { element: ElementKey };
   strength?: { isStrong: boolean; totalSupport: number; totalOppose: number };
   yongshin?: SajuYongshinSummary;
-  tenGod?: { groupCounts: Record<string, number> };
+  tenGod?: {
+    groupCounts: Record<string, number>;
+    /** Per-pillar ten-god detail (year/month/day/hour). Optional — populated
+     *  by the adapter when the upstream saju engine surfaces tenGodAnalysis.
+     *  Used by precisionConfig.tenGodMode='positional_weighted' to apply
+     *  position-specific weights (천간 4.0, 지지 정기 1.8, 지장간 1.2/0.7/0.45). */
+    byPosition?: Record<SajuPillarPosition, SajuTenGodPositionGroup>;
+  };
   gyeokguk?: { category: string; type: string; confidence: number };
   deficientElements?: string[];
   excessiveElements?: string[];
+}
+
+/** Pillar position keys used by SajuOutputSummary.tenGod.byPosition. */
+export type SajuPillarPosition = 'year' | 'month' | 'day' | 'hour';
+
+/** Per-pillar ten-god group exposure for positional weighting. */
+export interface SajuTenGodPositionGroup {
+  /** Group of the heavenly stem (천간) at this pillar.
+   *  One of: 'friend' | 'output' | 'wealth' | 'authority' | 'resource', or
+   *  undefined when the upstream engine cannot resolve it. */
+  readonly cheonganGroup?: string;
+  /** Group of the earthly branch's principal hidden stem (지지 정기). */
+  readonly jijiPrincipalGroup?: string;
+  /** All hidden stems (지장간) of the earthly branch with their ratios.
+   *  When present each entry's `group` is the ten-god group of that stem
+   *  relative to the day master. */
+  readonly hiddenStems?: ReadonlyArray<{
+    readonly stem: string;
+    readonly element: ElementKey | null;
+    readonly ratio: number;
+    readonly group?: string;
+  }>;
 }
 
 /** Yongshin details as returned by the saju calculator. */
