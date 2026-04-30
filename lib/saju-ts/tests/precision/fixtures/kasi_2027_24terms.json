@@ -1,0 +1,39 @@
+{
+  "_meta": {
+    "source": "KASI 천문우주지식정보 달력자료 2027년 화면 24절기 표",
+    "extractedFrom": "saju_master/saju_master/kasi_terms.py:51-76",
+    "officialStatus": "unofficial_calendar_data — 2년 후 자료, 월력요항 공식발표 전 자료라는 KASI 자체 주의문 포함",
+    "usage": "saju-ts 분 단위 회귀 검증 보조 기준. 통과 기준: ±2분 이내",
+    "timezone": "Asia/Seoul (KST = UTC+9)",
+    "year": 2027,
+    "totalTerms": 24,
+    "jieTerms": 12,
+    "zhongTerms": 12
+  },
+  "terms": [
+    { "name": "소한", "hanja": "小寒", "kind": "jie",   "branch": "丑", "degree": 285.0, "month": 1,  "day": 5,  "hour": 23, "minute": 10, "kstIso": "2027-01-05T23:10:00+09:00" },
+    { "name": "대한", "hanja": "大寒", "kind": "zhong", "branch": null, "degree": 300.0, "month": 1,  "day": 20, "hour": 16, "minute": 30, "kstIso": "2027-01-20T16:30:00+09:00" },
+    { "name": "입춘", "hanja": "立春", "kind": "jie",   "branch": "寅", "degree": 315.0, "month": 2,  "day": 4,  "hour": 10, "minute": 46, "kstIso": "2027-02-04T10:46:00+09:00" },
+    { "name": "우수", "hanja": "雨水", "kind": "zhong", "branch": null, "degree": 330.0, "month": 2,  "day": 19, "hour": 6,  "minute": 33, "kstIso": "2027-02-19T06:33:00+09:00" },
+    { "name": "경칩", "hanja": "驚蟄", "kind": "jie",   "branch": "卯", "degree": 345.0, "month": 3,  "day": 6,  "hour": 4,  "minute": 40, "kstIso": "2027-03-06T04:40:00+09:00" },
+    { "name": "춘분", "hanja": "春分", "kind": "zhong", "branch": null, "degree": 0.0,   "month": 3,  "day": 21, "hour": 5,  "minute": 25, "kstIso": "2027-03-21T05:25:00+09:00" },
+    { "name": "청명", "hanja": "淸明", "kind": "jie",   "branch": "辰", "degree": 15.0,  "month": 4,  "day": 5,  "hour": 9,  "minute": 17, "kstIso": "2027-04-05T09:17:00+09:00" },
+    { "name": "곡우", "hanja": "穀雨", "kind": "zhong", "branch": null, "degree": 30.0,  "month": 4,  "day": 20, "hour": 16, "minute": 18, "kstIso": "2027-04-20T16:18:00+09:00" },
+    { "name": "입하", "hanja": "立夏", "kind": "jie",   "branch": "巳", "degree": 45.0,  "month": 5,  "day": 6,  "hour": 2,  "minute": 25, "kstIso": "2027-05-06T02:25:00+09:00" },
+    { "name": "소만", "hanja": "小滿", "kind": "zhong", "branch": null, "degree": 60.0,  "month": 5,  "day": 21, "hour": 15, "minute": 18, "kstIso": "2027-05-21T15:18:00+09:00" },
+    { "name": "망종", "hanja": "芒種", "kind": "jie",   "branch": "午", "degree": 75.0,  "month": 6,  "day": 6,  "hour": 6,  "minute": 26, "kstIso": "2027-06-06T06:26:00+09:00" },
+    { "name": "하지", "hanja": "夏至", "kind": "zhong", "branch": null, "degree": 90.0,  "month": 6,  "day": 21, "hour": 23, "minute": 11, "kstIso": "2027-06-21T23:11:00+09:00" },
+    { "name": "소서", "hanja": "小暑", "kind": "jie",   "branch": "未", "degree": 105.0, "month": 7,  "day": 7,  "hour": 16, "minute": 37, "kstIso": "2027-07-07T16:37:00+09:00" },
+    { "name": "대서", "hanja": "大暑", "kind": "zhong", "branch": null, "degree": 120.0, "month": 7,  "day": 23, "hour": 10, "minute": 5,  "kstIso": "2027-07-23T10:05:00+09:00" },
+    { "name": "입추", "hanja": "立秋", "kind": "jie",   "branch": "申", "degree": 135.0, "month": 8,  "day": 8,  "hour": 2,  "minute": 27, "kstIso": "2027-08-08T02:27:00+09:00" },
+    { "name": "처서", "hanja": "處暑", "kind": "zhong", "branch": null, "degree": 150.0, "month": 8,  "day": 23, "hour": 17, "minute": 14, "kstIso": "2027-08-23T17:14:00+09:00" },
+    { "name": "백로", "hanja": "白露", "kind": "jie",   "branch": "酉", "degree": 165.0, "month": 9,  "day": 8,  "hour": 5,  "minute": 28, "kstIso": "2027-09-08T05:28:00+09:00" },
+    { "name": "추분", "hanja": "秋分", "kind": "zhong", "branch": null, "degree": 180.0, "month": 9,  "day": 23, "hour": 15, "minute": 2,  "kstIso": "2027-09-23T15:02:00+09:00" },
+    { "name": "한로", "hanja": "寒露", "kind": "jie",   "branch": "戌", "degree": 195.0, "month": 10, "day": 8,  "hour": 21, "minute": 17, "kstIso": "2027-10-08T21:17:00+09:00" },
+    { "name": "상강", "hanja": "霜降", "kind": "zhong", "branch": null, "degree": 210.0, "month": 10, "day": 24, "hour": 0,  "minute": 33, "kstIso": "2027-10-24T00:33:00+09:00" },
+    { "name": "입동", "hanja": "立冬", "kind": "jie",   "branch": "亥", "degree": 225.0, "month": 11, "day": 8,  "hour": 0,  "minute": 39, "kstIso": "2027-11-08T00:39:00+09:00" },
+    { "name": "소설", "hanja": "小雪", "kind": "zhong", "branch": null, "degree": 240.0, "month": 11, "day": 22, "hour": 22, "minute": 16, "kstIso": "2027-11-22T22:16:00+09:00" },
+    { "name": "대설", "hanja": "大雪", "kind": "jie",   "branch": "子", "degree": 255.0, "month": 12, "day": 7,  "hour": 17, "minute": 38, "kstIso": "2027-12-07T17:38:00+09:00" },
+    { "name": "동지", "hanja": "冬至", "kind": "zhong", "branch": null, "degree": 270.0, "month": 12, "day": 22, "hour": 11, "minute": 42, "kstIso": "2027-12-22T11:42:00+09:00" }
+  ]
+}
