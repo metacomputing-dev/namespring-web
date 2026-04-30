@@ -1,0 +1,41 @@
+{
+  "case_id": "B-fix-02",
+  "source": {
+    "tool": "saju_master_project_v9_2",
+    "version": "9.2",
+    "command": "python -m saju_master.cli --year 1992 --month 9 --day 15 --hour 12 --minute 0 --sex female --json",
+    "capturedAt": "2026-04-30T13:19:40.512Z"
+  },
+  "expected": {
+    "gyeokgukType": "편관격",
+    "gyeokgukCategory": "일반",
+    "yongshinElement": "WATER",
+    "yongshinHeeshin": "WOOD",
+    "strengthLevel": "신약",
+    "tenGodEnumeration": [],
+    "shinsalEnumeration": [],
+    "scores": {
+      "totalScore": null,
+      "hangul": null,
+      "hanja": null,
+      "fourFrame": null
+    }
+  },
+  "cards": {
+    "surfacedCardTypes": [
+      "gyeokguk",
+      "yongshin",
+      "sipsin",
+      "shinsal",
+      "johu"
+    ]
+  },
+  "axisStrength": {
+    "yongshin": "practical",
+    "gyeokguk": "practical",
+    "strength": "definite"
+  },
+  "hedge": {
+    "shouldHedge": true
+  }
+}

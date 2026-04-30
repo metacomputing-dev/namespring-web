@@ -72,28 +72,50 @@ Each file is a JSON object capturing the saju_master output that
 - **axisStrength** — D4 dimension consumes saju_master's 4-tier
   judgment-strength labels for hedge precision/recall.
 
-## Capture procedure (Phase L follow-up PR-L-7)
+## Capture procedure
 
-`tools/capture_saju_master_runs.mjs` (TBD) takes the existing fixture
-list and invokes saju_master CLI per fixture, writing each output as
-`<fixture-id>.json` here. License: saju_master is the local reference
-project; outputs are derived data and stored under the same project
-license as spring-ts.
+`tools/capture_saju_master_runs.mjs` (wired in PR-M-1) walks the fixture
+list and invokes the saju_master CLI per fixture, writing each output
+as `<fixture-id>.json` here. Required environment:
+
+- `SAJU_MASTER_DIR` — path to the extracted `saju_master_project_v9_2`
+  tree. Defaults to `<repo-root>/../saju_master_project_v9_2` when not
+  set.
+- `SAJU_MASTER_PYTHON` — Python interpreter with `pyswisseph` and
+  `korean-lunar-calendar` installed. The script auto-detects common
+  conda env paths (e.g. `C:\miniconda3\envs\py311\python.exe`) when the
+  variable is unset.
+
+Run via:
+
+```bash
+npm run capture:oracles                                # all 12 fixtures
+node tools/capture_saju_master_runs.mjs --fixtures fix-01,fix-08
+node tools/capture_saju_master_runs.mjs --dry-run      # preview only
+```
+
+License: saju_master is the local reference project; the captured
+JSONs are derived data stored under the same project license as
+spring-ts.
 
 ## Status
 
-The directory **intentionally ships empty** of oracle files. An earlier
-`fix-01.json` placeholder copied the spring-ts snapshot's expected
-values back into the gate, which made `quality_gate.mjs` D1/D3 PASS on
-a circular comparison. That placeholder has been removed.
+The directory ships with a full 12-fixture capture (PR-M-1, dated
+2026-04-30) using saju_master_project_v9_2. The captured JSON is the
+saju_master implementation's view of each fixture's
+`gyeokgukType / yongshinElement / strengthLevel` and is **not a
+ground-truth oracle**; it is a reference for cross-implementation
+consistency.
 
-`tools/capture_saju_master_runs.mjs` is wired in as a placeholder entry
-point but the underlying saju_master CLI is not materialised in this
-checkout — invoking it currently exits with code 2 and instructions to
-extract `saju_master_project_v9_2.zip` into a sibling directory. Once
-the CLI is available, `npm run capture:oracles` populates this
-directory in bulk.
+Several fixtures (e.g. fix-02, fix-06, fix-10) show categorical
+disagreement between spring-ts and saju_master. Both implementations
+descend from the same broad 자평 tradition, so the disagreement
+generally reflects either (a) different rule for picking the primary
+gyeokguk when multiple ten-gods transparent on the month branch, or
+(b) different boundary policy for 중화 vs 신약/신강. `quality_gate.mjs`
+D1 reports these as FAIL, which is informative — but FAIL here means
+"two implementations disagree", not "spring-ts is wrong". See the PR
+description for the per-fixture diff.
 
-Until oracle data lands, `quality_gate.mjs` correctly reports **N/A**
-on this fixture's reference-B-driven dimensions, which is the truthful
-state.
+Authoritative resolution requires a Reference A authority case (see
+sibling `authority/` directory).
