@@ -9,7 +9,10 @@
     "typecheck": "tsc --noEmit",
     "test:env": "npx tsx test/integration/saju-ts-load.test.ts",
     "test:golden": "npx tsx test/compare-output.ts",
-    "test:region": "npx tsx test/verify-region-coordinate-resolution.ts"
+    "test:region": "npx tsx test/verify-region-coordinate-resolution.ts",
+    "test:snapshot": "npx tsx tools/baseline_snapshot.ts verify",
+    "snapshot:capture": "npx tsx tools/baseline_snapshot.ts capture",
+    "validate:regression": "node tools/measure_regression.mjs --baseline main --branch HEAD"
   },
   "dependencies": {
     "sql.js": "^1.14.0",
