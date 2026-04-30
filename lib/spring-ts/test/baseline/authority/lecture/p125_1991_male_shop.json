@@ -1,0 +1,36 @@
+{
+  "case_id": "A1-p125_1991_male_shop",
+  "source": {
+    "tradition": "lecture",
+    "text": "명리심리상담사 교안",
+    "page": 125,
+    "author": "(uploaded)",
+    "volume": null,
+    "category": "14차시 사례"
+  },
+  "subject": {
+    "birth_year": 1991,
+    "sex": "male",
+    "profession": "상점 점원"
+  },
+  "pillars": {
+    "year_pillar": "辛未",
+    "month_pillar": "癸巳",
+    "day_pillar": "辛丑",
+    "hour_pillar": "戊子"
+  },
+  "expected": {
+    "month_ten_god": "정관",
+    "decision_ten_god": "편인",
+    "activity_keywords": [
+      "정인",
+      "戊癸合"
+    ]
+  },
+  "source_note": "교안 14차시 실례: 월지 正官, 용신 正印이 戊癸合, 일지 偏印.",
+  "copyrightNote": [
+    "Pillars (year/month/day/hour ganzhi) are facts and are not subject to copyright.",
+    "expected and source_note are paraphrased ≤ 50자 summaries of the lecture explanation.",
+    "No verbatim prose from the lecture transcript is reproduced here."
+  ]
+}

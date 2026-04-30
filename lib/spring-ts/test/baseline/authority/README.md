@@ -73,14 +73,22 @@ Per F-A16 §4: 출처 명기 + paraphrase 정책 준수. fair use limited.
 
 ## Status
 
-The directory **intentionally ships empty** of case files. An earlier
-`fix-01.json` placeholder mirrored the spring-ts snapshot's expected
-values back into the gate, which made `quality_gate.mjs` D1 report PASS
-on a circular comparison (spring-ts checked against itself). That
-placeholder has been removed.
+PR-M-4 (2026-04-30) added a sub-track at `lecture/` containing 11
+cases distilled from the 명리심리상담사 교안 (14차시 + 15차시 사례),
+mirrored from `saju_master.casebook.LECTURE_CASES`. See
+[`lecture/README.md`](./lecture/README.md) for schema and provenance.
 
-Real cases land here only when the maintainer extracts pillars + ≤50자
-paraphrase from a published Reference A text (사주첩경 / 명리요강 /
-명리실관). Until then `quality_gate.mjs` correctly reports **N/A** on
-this fixture's reference-A-driven dimensions, which is the truthful
-state.
+The lecture sub-track uses a **different schema** than this
+directory's `<fixture-id>.json` form: it is keyed by case_id, holds
+pillar-input fixtures, and expects ten-god positions rather than
+gyeokguk/yongshinElement. `quality_gate.mjs` does not currently
+consume the lecture sub-track — see PR-M-5 (planned) for the
+validation runner.
+
+The flat top-level `<fixture-id>.json` files (matching the schema in
+the next section) are still pending. Real cases for the 12-fixture
+calendar-input track will land as the maintainer secures pillars +
+≤50자 paraphrase from a published Reference A text (사주첩경 / 박재완
+명리요강 / 박재완 명리실관). Until then `quality_gate.mjs` continues
+to report **N/A** on those fixtures' reference-A-driven dimensions,
+which remains the truthful state.
