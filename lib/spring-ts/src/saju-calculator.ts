@@ -51,13 +51,16 @@ import {
 // ---------------------------------------------------------------------------
 import scoringConfig from '../config/saju-scoring.json';
 import scoringRules from '../config/scoring-rules.json';
+import { loadPreset, type SchoolPresetData, type SchoolPresetName } from './preset-loader.js';
 
 /** Backward-signal weight for the SAJU_FRAME — default 1.0, externalized so
  *  schoolPreset (PR4) can re-balance saju vs name signal without code change. */
 const SAJU_SIGNAL_WEIGHT: number = (scoringRules as { saju?: { signalWeight?: number } }).saju?.signalWeight ?? 1.0;
 
-/** How much weight each yongshin recommendation type carries (1.0 = strongest). */
-const YONGSHIN_TYPE_WEIGHTS: Record<string, number> = scoringConfig.yongshinTypeWeights;
+/** How much weight each yongshin recommendation type carries (1.0 = strongest).
+ *  Default mirrors saju-scoring.json. When precisionConfig.useSchoolPreset is
+ *  true, SajuCalculator routes through the preset's table instead. */
+const DEFAULT_YONGSHIN_TYPE_WEIGHTS: Record<string, number> = scoringConfig.yongshinTypeWeights;
 
 /** Fallback weight when the recommendation type is not in the table. */
 const DEFAULT_TYPE_WEIGHT: number = scoringConfig.defaultTypeWeight;
@@ -213,6 +216,7 @@ function computeBalanceScore(
 function computeRecommendationScore(
   rootDist: Record<ElementKey, number>,
   yongshinData: SajuYongshinSummary,
+  yongshinTypeWeights: Record<string, number>,
 ): { score: number; contextualPriority: number } | null {
   if (yongshinData.recommendations.length === 0) return null;
 
@@ -230,7 +234,7 @@ function computeRecommendationScore(
       : YONGSHIN.recommendationScoring.fallbackConfidence;
     const typeWeight      = Math.max(
       YONGSHIN.recommendationScoring.minWeight,
-      confidence * (YONGSHIN_TYPE_WEIGHTS[recommendation.type] ?? DEFAULT_TYPE_WEIGHT),
+      confidence * (yongshinTypeWeights[recommendation.type] ?? DEFAULT_TYPE_WEIGHT),
     );
 
     weightedSum += weightedElementAverage(rootDist, element => {
@@ -261,6 +265,7 @@ function computeRecommendationScore(
 function computeYongshinScore(
   rootDist: Record<ElementKey, number>,
   yongshinData: SajuYongshinSummary | null,
+  yongshinTypeWeights: Record<string, number>,
 ) {
   if (!yongshinData) return {
     score: 50, confidence: 0, contextualPriority: 0,
@@ -290,7 +295,7 @@ function computeYongshinScore(
   });
 
   // Step 2: Blend affinity with recommendation scores
-  const recommendationResult = computeRecommendationScore(rootDist, yongshinData);
+  const recommendationResult = computeRecommendationScore(rootDist, yongshinData, yongshinTypeWeights);
   const affinityScore        = normalizeSignedScore(affinityValue);
   const blendedRawScore      = recommendationResult === null
     ? affinityScore
@@ -498,11 +503,17 @@ export function computeSajuNameScore(
   sajuDist: Record<ElementKey, number>,
   rootDist: Record<ElementKey, number>,
   sajuOutput: SajuOutputSummary | null,
+  presetOverride?: SchoolPresetData | null,
 ): SajuNameScoreResult {
+
+  // School preset routing — null preset (the default for legacy callers)
+  // means "use the saju-scoring.json defaults", which equals the 'korean'
+  // preset's values exactly. Default-mode regression is therefore zero.
+  const yongshinTypeWeights = presetOverride?.yongshinTypeWeights ?? DEFAULT_YONGSHIN_TYPE_WEIGHTS;
 
   // --- Compute the four sub-scores ---
   const balanceResult   = computeBalanceScore(sajuDist, rootDist);
-  const yongshinResult  = computeYongshinScore(rootDist, sajuOutput?.yongshin ?? null);
+  const yongshinResult  = computeYongshinScore(rootDist, sajuOutput?.yongshin ?? null, yongshinTypeWeights);
   const strengthScore   = computeStrengthScore(rootDist, sajuOutput);
   const tenGodScore     = computeTenGodScore(rootDist, sajuOutput);
 
@@ -565,16 +576,28 @@ export class SajuCalculator implements EvaluableCalculator {
   private scoreResult: SajuNameScoreResult | null = null;
   private readonly elementSource: SajuNameElementSource;
   private readonly enabled: boolean;
+  private readonly presetData: SchoolPresetData | null;
 
   constructor(
     private surnameEntries: HanjaEntry[],
     private givenNameEntries: HanjaEntry[],
     private sajuDistribution: Record<ElementKey, number>,
     private sajuOutput: SajuOutputSummary | null,
-    options: { readonly elementSource?: SajuNameElementSource; readonly enabled?: boolean } = {},
+    options: {
+      readonly elementSource?: SajuNameElementSource;
+      readonly enabled?: boolean;
+      /** When true, route school-dependent weights through
+       *  config/presets/<schoolPreset>.json instead of the saju-scoring.json
+       *  defaults. Default false → no behavior change. */
+      readonly useSchoolPreset?: boolean;
+      readonly schoolPreset?: SchoolPresetName;
+    } = {},
   ) {
     this.elementSource = options.elementSource ?? 'resource';
     this.enabled = options.enabled ?? true;
+    this.presetData = options.useSchoolPreset === true
+      ? loadPreset(options.schoolPreset)
+      : null;
   }
 
   private elementOf(entry: HanjaEntry): ElementKey {
@@ -611,7 +634,7 @@ export class SajuCalculator implements EvaluableCalculator {
     const rootDist = distributionFromArrangement(
       arrangement,
     );
-    this.scoreResult = computeSajuNameScore(this.sajuDistribution, rootDist, this.sajuOutput);
+    this.scoreResult = computeSajuNameScore(this.sajuDistribution, rootDist, this.sajuOutput, this.presetData);
     putInsight(ctx, SAJU_FRAME, this.scoreResult.score, this.scoreResult.isPassed, 'SAJU+ELEMENT', {
       sajuDistribution: this.sajuDistribution,
       distributionSource: this.sajuOutput ? 'saju-ts' : 'fallback',

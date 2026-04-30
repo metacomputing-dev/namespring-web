@@ -28,6 +28,7 @@ import { FourFrameOptimizer } from './calculator/search.js';
 import { makeFallbackEntry, buildInterpretation, parseJamoFilter, type JamoFilter } from './core/name-utils.js';
 import type { SajuOutputSummary } from './types.js';
 import { SajuCalculator } from './saju-calculator.js';
+import type { SchoolPresetName } from './preset-loader.js';
 import { springEvaluateName, SAJU_FRAME } from './spring-evaluator.js';
 import { analyzeSaju, analyzeSajuSafe, buildSajuContext, collectElements } from './saju-adapter.js';
 import type {
@@ -186,6 +187,21 @@ export class SpringEngine {
     return hanja.length > 0 && hanja !== char.hangul;
   }
 
+  /** Extracts the school-preset routing for SajuCalculator from a request's
+   *  options. `useSchoolPreset` defaults to false (legacy behavior) and the
+   *  resolved schoolPreset is forwarded as-is. SajuCalculator itself returns
+   *  null presetData when useSchoolPreset is false, so the path collapses
+   *  into the saju-scoring.json defaults. */
+  private resolveSajuPreset(options?: SpringRequest['options']): {
+    readonly useSchoolPreset: boolean;
+    readonly schoolPreset?: SchoolPresetName;
+  } {
+    return {
+      useSchoolPreset: options?.precisionConfig?.useSchoolPreset === true,
+      schoolPreset: options?.schoolPreset,
+    };
+  }
+
   private resolveNameResolutionPolicy(
     givenName: NameCharInput[] | undefined,
     options?: SpringRequest['options'],
@@ -313,6 +329,7 @@ export class SpringEngine {
       {
         elementSource: resolutionPolicy.pureHangulGivenName ? 'hangul' : 'resource',
         enabled: hasSajuContext,
+        ...this.resolveSajuPreset(request.options),
       },
     );
 
@@ -911,6 +928,7 @@ export class SpringEngine {
       {
         elementSource: resolutionPolicy.pureHangulGivenName ? 'hangul' : 'resource',
         enabled: hasSajuContext,
+        ...this.resolveSajuPreset(requestOptions),
       },
     );
 
