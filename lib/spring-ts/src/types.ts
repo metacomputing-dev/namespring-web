@@ -215,6 +215,23 @@ export interface PrecisionConfig {
    *  own scoring is unaffected. */
   readonly saryeongScheme?: 'classical' | 'scaled';
 
+  /** Aberration of light model for solar longitude (PR-H-S8). saju-ts
+   *  defaults to 'constant' (~±1.4 sec residual on solar-term timing);
+   *  'rCorrected' applies the dλ/dt correction from Meeus 25.10 for sub-
+   *  second-arc accuracy. spring-ts default unset → preserves
+   *  'constant'. Use 'rCorrected' for sub-second-class precision when
+   *  paired with `solarPrecision: 'iau1980_full'`. */
+  readonly aberrationModel?: 'constant' | 'rCorrected';
+
+  /** Nutation precision tier for solar longitude (PR-H-S8). saju-ts
+   *  default is 'classical' (±9″ residual); spring-ts upgrades to
+   *  'iau1980_top10' (±1″) by default in PR-H-S3. This opt-in lets the
+   *  caller request the full 63-row IAU 1980 series ('iau1980_full',
+   *  ±0.1″ residual) for cases where boundary timing is critical
+   *  (e.g. authority-case validation in Phase L). Default unset = the
+   *  PR-H-S3 default ('iau1980_top10') is used. */
+  readonly solarPrecision?: 'classical' | 'iau1980_top10' | 'iau1980_full';
+
   readonly [key: string]: unknown;
 }
 
