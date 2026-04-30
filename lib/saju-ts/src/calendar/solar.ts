@@ -367,3 +367,29 @@ export function solarApparentLongitudeDeg(jdUtc: number): number {
 export function solarLongitudeAtUtcMsDeg(utcMs: number): number {
   return solarApparentLongitudeDeg(utcMsToJulianDay(utcMs));
 }
+
+/**
+ * Time derivative of the apparent solar ecliptic longitude in deg/day.
+ *
+ * Computed by central finite difference around `jdUtc` with a small step.
+ * Used by Newton-Raphson root finders that need dλ/dt at the current
+ * estimate; the analytic derivative is not required because the step
+ * size is small enough that the central-difference error is well below
+ * the tolerance any solar-term root finder cares about.
+ *
+ * Output is the *prograde* (forward-in-time) rate. The angular difference
+ * is unwrapped to (-180, 180] before being divided by the step so that
+ * the 360°↔0° boundary does not produce a spurious huge derivative.
+ *
+ * Note: not yet wired into the engine; will be consumed by an upcoming
+ * Newton-Raphson root finder option.
+ */
+export function solarLongitudeRateDegPerDay(jdUtc: number): number {
+  const h = 0.01; // ~14.4 minutes — central difference, well-behaved.
+  const lonBefore = solarApparentLongitudeDeg(jdUtc - h);
+  const lonAfter = solarApparentLongitudeDeg(jdUtc + h);
+  let diff = lonAfter - lonBefore;
+  if (diff > 180) diff -= 360;
+  else if (diff < -180) diff += 360;
+  return diff / (2 * h);
+}
