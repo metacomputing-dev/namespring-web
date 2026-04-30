@@ -578,6 +578,16 @@ export interface SajuOutputSummary {
    *  cheonganRelations above. Used by cautions and life-overview cards to
    *  surface 합·충·형·파·해 evidence rows. */
   jijiRelations?: readonly JijiRelationSummary[];
+  /** Shinsal (신살) hits weighted by quality grade × pillar position multiplier
+   *  (PR-H-B). Mirrors `SajuSummary.shinsalHits` — additive optional readonly
+   *  array, undefined when the source produces no hits. Used by life-overview
+   *  / cautions narrative cards (Phase J) and provides evidence rows. */
+  shinsalHits?: readonly ShinsalHitSummary[];
+  /** Void branches (공망 = 旬中空亡) tuple for the chart's day pillar
+   *  (PR-H-B). Mirrors `SajuSummary.gongmang`. Two branch codes when the
+   *  upstream engine reports them; undefined otherwise. Used by cautions
+   *  card narrative as a hedge-trigger. */
+  gongmang?: readonly [string, string];
 }
 
 export type SajuJudgmentStrength = 'definite' | 'practical' | 'candidate' | 'deferred';

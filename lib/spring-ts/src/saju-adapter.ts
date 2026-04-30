@@ -1759,6 +1759,13 @@ export function buildSajuContext(sajuSummary: SajuSummary): { dist: Record<Eleme
       jijiRelations: sajuSummary.jijiRelations?.length
         ? sajuSummary.jijiRelations
         : undefined,
+      // PR-H-B: surface 신살 hits + 공망 with the same additive-passthrough
+      // policy as PR-H-A. shinsalHits arrives already weighted (qualityWeight
+      // × positionMultiplier) from the upstream summary; we do not re-derive.
+      shinsalHits: sajuSummary.shinsalHits?.length
+        ? sajuSummary.shinsalHits
+        : undefined,
+      gongmang: sajuSummary.gongmang ?? undefined,
     },
   };
 }
