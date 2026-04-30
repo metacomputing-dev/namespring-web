@@ -256,6 +256,14 @@ export interface PeriodFortuneCard {
   readonly warning: FortuneWarning;
   readonly categoryScores: Record<FortuneCategory, StarRating>;
   readonly timeSeries?: FortuneTimeSeries;
+  /** Per-axis judgment strength (PR-J-7a). Same 4-tier model.
+   *  Optional. */
+  readonly axisStrength?: SajuAxisStrengthMap;
+  /** Optional row-level evidence backing the period star rating + tone
+   *  (PR-J-7a). Anchors on the period pillar's stem/branch element vs
+   *  yongshin / gishin so the consumer can render "이 별점은 왜?" beneath
+   *  each daily / weekly / monthly / yearly card. */
+  readonly evidence?: readonly EvidenceRow[];
 }
 
 // ── 카드 7b: 생애 시기별 운세 ────────────────────────────────────────────

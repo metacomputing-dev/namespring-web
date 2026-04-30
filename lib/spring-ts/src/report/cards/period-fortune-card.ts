@@ -13,7 +13,7 @@
  * 모든 텍스트는 ~해요/~에요 체를 사용합니다.
  */
 
-import type { SajuSummary } from '../../types.js';
+import type { SajuSummary, EvidenceRow, SajuAxisStrengthMap } from '../../types.js';
 import type {
   PeriodFortuneCard,
   FortunePeriodKind,
@@ -870,6 +870,45 @@ export function buildPeriodFortuneCard(
 
   const timeSeries = computeTimeSeries(periodKind, targetDate, natal);
 
+  // ── PR-J-7a — narrative foundations (axisStrength + evidence) ──
+  const sajuAxis = (saju as unknown as { axisStrength?: SajuAxisStrengthMap }).axisStrength;
+  const evidence: EvidenceRow[] = [];
+
+  const stemKo = elementKo(effectiveStemEl);
+  const branchKo = elementKo(effectiveBranchEl);
+  const yongshinKo = natal.yongshinElement ? elementKo(natal.yongshinElement) : null;
+  const gishinKo = natal.gishinElement ? elementKo(natal.gishinElement) : null;
+
+  const isYongshinAligned = !!natal.yongshinElement && effectiveStemEl === natal.yongshinElement;
+  const isGishinAligned = !!natal.gishinElement && effectiveStemEl === natal.gishinElement;
+
+  let periodClaim: string;
+  if (isYongshinAligned) {
+    periodClaim = `이 시기의 천간 ${stemKo}이(가) 용신과 일치하여 흐름이 좋은 시기예요.`;
+  } else if (isGishinAligned) {
+    periodClaim = `이 시기의 천간 ${stemKo}이(가) 기신과 겹쳐 주의가 필요한 시기예요.`;
+  } else {
+    periodClaim = `이 시기 천간 ${stemKo}, 지지 ${branchKo}의 흐름을 반영한 평가예요.`;
+  }
+
+  const periodSupporting: string[] = [
+    `기간 라벨: ${periodLabel}`,
+    `천간/지지: ${ganzhi.stem}/${ganzhi.branch} (${stemKo}/${branchKo})`,
+    `별점: ${stars}/5`,
+  ];
+  if (yongshinKo) periodSupporting.push(`용신: ${yongshinKo}`);
+  if (gishinKo) periodSupporting.push(`기신: ${gishinKo}`);
+
+  evidence.push({
+    axis: 'period',
+    claim: periodClaim,
+    supportingFeatures: periodSupporting,
+    weakness: stars <= 2
+      ? '별점이 낮은 시기엔 큰 결정을 늦추고 기본 컨디션 관리에 집중하세요.'
+      : undefined,
+    strength: sajuAxis?.yongshin,
+  });
+
   return {
     title: PERIOD_TITLE[periodKind] ?? '운세',
     periodKind,
@@ -881,5 +920,7 @@ export function buildPeriodFortuneCard(
     warning,
     categoryScores,
     ...(timeSeries ? { timeSeries } : {}),
+    axisStrength: sajuAxis,
+    evidence,
   };
 }
