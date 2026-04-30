@@ -287,6 +287,26 @@ function earthHeliocentricLongitudeDeg(jme: number): number {
 }
 
 /**
+ * Earth-Sun distance in astronomical units (AU) at the given Julian
+ * millennium argument `jme = (JDE − 2451545.0) / 365250`.
+ *
+ * Uses the 59-term VSOP87 R-series above. Range over a year is roughly
+ * 0.9833 AU (perihelion, early January) to 1.0167 AU (aphelion, early
+ * July), so the result is always positive and close to 1.
+ *
+ * Used by the opt-in R-corrected aberration model added in a follow-up
+ * commit; not yet called from the default longitude pipeline.
+ */
+export function earthDistanceAU(jme: number): number {
+  const r0 = sumVsopTerms(R0, jme);
+  const r1 = sumVsopTerms(R1, jme);
+  const r2 = sumVsopTerms(R2, jme);
+  const r3 = sumVsopTerms(R3, jme);
+  const r4 = sumVsopTerms(R4, jme);
+  return (r0 + r1 * jme + r2 * jme ** 2 + r3 * jme ** 3 + r4 * jme ** 4) / 1e8;
+}
+
+/**
  * Approximate ΔT (TT − UT1) in seconds.
  *
  * Polynomial pieces from NASA's eclipse.gsfc ΔT polynomials
