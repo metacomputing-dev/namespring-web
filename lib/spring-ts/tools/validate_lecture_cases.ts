@@ -125,6 +125,8 @@ function loadLectureCases(): LectureCase[] {
 
 interface CaseValidation {
   monthPass: boolean;
+  decisionCheck: 'PASS' | 'FAIL' | 'N/A';
+  monthCheck?: 'PASS' | 'FAIL';
   decisionPass: boolean;
   monthComputed: string;
   monthExpected: string;
@@ -206,13 +208,21 @@ function validateCase(c: LectureCase): CaseValidation {
     gyeokgukClassicalCheck = gyeokgukClassicalComputed === proseInitial ? 'PASS' : 'FAIL';
   }
 
+  const monthHasExpected = !!c.expected.month_ten_god;
+  const decisionHasExpected = !!c.expected.decision_ten_god;
+  const decisionCheck: 'PASS' | 'FAIL' | 'N/A' = decisionHasExpected
+    ? (decisionKo === c.expected.decision_ten_god ? 'PASS' : 'FAIL')
+    : 'N/A';
+
   return {
-    monthPass: monthKo === c.expected.month_ten_god,
-    decisionPass: decisionKo === c.expected.decision_ten_god,
+    monthPass: monthHasExpected && monthKo === c.expected.month_ten_god,
+    monthCheck: monthHasExpected ? (monthKo === c.expected.month_ten_god ? 'PASS' : 'FAIL') : undefined,
+    decisionPass: decisionCheck === 'PASS',
+    decisionCheck,
     monthComputed: monthKo,
-    monthExpected: c.expected.month_ten_god,
+    monthExpected: c.expected.month_ten_god ?? '',
     decisionComputed: decisionKo,
-    decisionExpected: c.expected.decision_ten_god,
+    decisionExpected: c.expected.decision_ten_god ?? '',
     presentTenGods: present,
     keywordTenGods,
     keywordsMatched,
@@ -229,8 +239,10 @@ function main(): void {
 
   let monthPass = 0;
   let monthFail = 0;
+  let monthNA = 0;
   let decisionPass = 0;
   let decisionFail = 0;
+  let decisionNA = 0;
   let keywordExpected = 0;
   let keywordMatched = 0;
   let geokPass = 0;
@@ -240,13 +252,21 @@ function main(): void {
   for (const c of cases) {
     const r = validateCase(c);
     const idShort = c.case_id.replace(/^A1-/, '');
-    const monthTag = r.monthPass ? 'PASS' : 'FAIL';
-    const decisionTag = r.decisionPass ? 'PASS' : 'FAIL';
-    const monthDetail = r.monthPass ? `month=${r.monthComputed}` : `month=${r.monthComputed} (expected ${r.monthExpected})`;
-    const decisionDetail = r.decisionPass ? `decision=${r.decisionComputed}` : `decision=${r.decisionComputed} (expected ${r.decisionExpected})`;
     console.log(`  ${idShort}:`);
-    console.log(`    [${monthTag}] ${monthDetail}`);
-    console.log(`    [${decisionTag}] ${decisionDetail}`);
+    if (r.monthCheck) {
+      const detail = r.monthCheck === 'PASS' ? `month=${r.monthComputed}` : `month=${r.monthComputed} (expected ${r.monthExpected})`;
+      console.log(`    [${r.monthCheck}] ${detail}`);
+      if (r.monthCheck === 'PASS') monthPass += 1; else monthFail += 1;
+    } else {
+      monthNA += 1;
+    }
+    if (r.decisionCheck === 'PASS' || r.decisionCheck === 'FAIL') {
+      const detail = r.decisionCheck === 'PASS' ? `decision=${r.decisionComputed}` : `decision=${r.decisionComputed} (expected ${r.decisionExpected})`;
+      console.log(`    [${r.decisionCheck}] ${detail}`);
+      if (r.decisionCheck === 'PASS') decisionPass += 1; else decisionFail += 1;
+    } else {
+      decisionNA += 1;
+    }
     const kwStatus = r.keywordsMissing.length === 0 ? 'PASS' : 'FAIL';
     if (r.keywordTenGods.length > 0) {
       const detail = r.keywordsMissing.length === 0
@@ -265,12 +285,10 @@ function main(): void {
     } else {
       geokNA += 1;
     }
-    if (r.monthPass) monthPass += 1; else monthFail += 1;
-    if (r.decisionPass) decisionPass += 1; else decisionFail += 1;
   }
 
-  console.log(`\nMonth-branch ten-god:           ${monthPass} PASS / ${monthFail} FAIL`);
-  console.log(`Decision (day-branch):          ${decisionPass} PASS / ${decisionFail} FAIL`);
+  console.log(`\nMonth-branch ten-god:           ${monthPass} PASS / ${monthFail} FAIL / ${monthNA} N/A`);
+  console.log(`Decision (day-branch):          ${decisionPass} PASS / ${decisionFail} FAIL / ${decisionNA} N/A`);
   console.log(`Activity keyword ten-gods:      ${keywordMatched} / ${keywordExpected} present`);
   console.log(`Classical 정격 vs prose 정격:    ${geokPass} PASS / ${geokFail} FAIL / ${geokNA} N/A`);
   const totalFail = monthFail + decisionFail + (keywordExpected - keywordMatched) + geokFail;

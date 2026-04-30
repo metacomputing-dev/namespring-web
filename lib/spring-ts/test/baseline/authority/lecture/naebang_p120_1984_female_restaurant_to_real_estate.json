@@ -1,0 +1,47 @@
+{
+  "case_id": "A1-naebang_p120_1984_female_restaurant_to_real_estate",
+  "source": {
+    "tradition": "lecture",
+    "text": "명리심리상담사 교안",
+    "page": 120,
+    "author": "(uploaded)",
+    "volume": null,
+    "category": "내방사주(來訪四柱) 적용"
+  },
+  "subject": {
+    "birth_year": 1984,
+    "sex": "female",
+    "profession": "식당 운영 → 매매업 전환"
+  },
+  "pillars": {
+    "year_pillar": "甲子",
+    "month_pillar": "甲戌",
+    "day_pillar": "乙巳",
+    "hour_pillar": "戊寅"
+  },
+  "expected": {
+    "month_ten_god": "정재",
+    "gyeokguk": "정재격",
+    "yongshin": "재",
+    "yongshin_compound": [
+      "정재",
+      "편재"
+    ],
+    "sangshin": "상관",
+    "byeong": "겁재"
+  },
+  "source_note": "내방사주 1번. 식당 운영자가 매매업 전환 시기 자문 — 월지·천간 용신 財, 겁재 양투로 패격 위기, 巳화 상관이 상신.",
+  "copyrightNote": [
+    "Pillars (year/month/day/hour ganzhi) are facts and are not subject to copyright.",
+    "expected, source_note, and prose_quote are paraphrased ≤ 50자 summaries.",
+    "No verbatim prose from the lecture transcript is reproduced verbatim beyond the cited classical-format judgment lines."
+  ],
+  "prose_quotes": [
+    {
+      "source_text": "명리심리상담사 교안",
+      "page": 120,
+      "section": "13차시 내방사주(來訪四柱)와 적용",
+      "quote": "월지와 천간에 투출한 용신이 財이다. 지지에서는 월지의 상관 巳화가 상신(相神) 역할을 하고 있어서 다행이지만 천간에는 년간과 월간에 겁재 甲목이 양투(兩透)하여 있으므로 겁재가 병(病)이 된다."
+    }
+  ]
+}
