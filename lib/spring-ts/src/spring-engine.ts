@@ -55,6 +55,7 @@ const FOURFRAME_LOAD_LIMIT      = engineConfig.fourframeLoadLimit;
 const LUCKY_LEVEL_KEYWORDS      = engineConfig.luckyLevelKeywords;
 const DEFAULT_TARGET_ELEMENT    = engineConfig.defaultTargetElement;
 const ENGINE_VERSION            = engineConfig.version;
+const NAME_STAT_INFO_CACHE_LIMIT = (engineConfig as { nameStatInfoCacheLimit?: number }).nameStatInfoCacheLimit ?? 1000;
 const DEFAULT_PURE_HANGUL_MODE: 'auto' | 'on' | 'off' = 'auto';
 const DEFAULT_USE_SURNAME_HANJA_IN_PURE = false;
 const ENABLE_HANJA_NAME_EVALUATION = true;
@@ -747,7 +748,7 @@ export class SpringEngine {
       };
     }
 
-    const cached = this.nameStatInfoCache.get(key);
+    const cached = this.cacheGetNameStatInfo(key);
     if (cached) return cached;
 
     try {
@@ -759,7 +760,7 @@ export class SpringEngine {
         maleRatio: genderInfo.maleRatio,
         nameGender: genderInfo.nameGender,
       };
-      this.nameStatInfoCache.set(key, info);
+      this.cacheSetNameStatInfo(key, info);
       return info;
     } catch {
       const fallback: NameStatInfo = {
@@ -768,9 +769,34 @@ export class SpringEngine {
         maleRatio: null,
         nameGender: 'unknown',
       };
-      this.nameStatInfoCache.set(key, fallback);
+      this.cacheSetNameStatInfo(key, fallback);
       return fallback;
     }
+  }
+
+  // LRU helpers for nameStatInfoCache.
+  // The Map preserves insertion order, so re-inserting an entry on hit keeps
+  // hot keys at the recent end; the bounded set drops only the oldest entry
+  // when the limit is exceeded. This avoids unbounded growth across the up
+  // to MAX_CANDIDATES (50000) candidates a single recommendation pass can
+  // touch.
+
+  private cacheGetNameStatInfo(key: string): NameStatInfo | undefined {
+    const value = this.nameStatInfoCache.get(key);
+    if (value === undefined) return undefined;
+    this.nameStatInfoCache.delete(key);
+    this.nameStatInfoCache.set(key, value);
+    return value;
+  }
+
+  private cacheSetNameStatInfo(key: string, value: NameStatInfo): void {
+    if (this.nameStatInfoCache.has(key)) {
+      this.nameStatInfoCache.delete(key);
+    } else if (this.nameStatInfoCache.size >= NAME_STAT_INFO_CACHE_LIMIT) {
+      const oldest = this.nameStatInfoCache.keys().next().value;
+      if (oldest !== undefined) this.nameStatInfoCache.delete(oldest);
+    }
+    this.nameStatInfoCache.set(key, value);
   }
 
   private async filterCandidatesByNameStat(
