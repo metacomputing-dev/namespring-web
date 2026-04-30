@@ -71,6 +71,47 @@ export interface PrecisionConfig {
    *  defaults exactly, so enabling this flag with schoolPreset='korean'
    *  (or unset) leaves behavior unchanged. */
   readonly useSchoolPreset?: boolean;
+
+  // ── PR5: compatibility scoring opt-in modes ────────────────────────────
+  // Each mode defaults to its first variant (= legacy behavior).
+  // Enabling a non-default variant changes scoring behavior in a documented,
+  // testable way; default-mode regression is preserved.
+
+  /** Balance score algorithm.
+   *  - 'mathematical' (default): saju-calculator.computeOptimalSorted —
+   *    deficiency-fill toward the lowest-count element first.
+   *  - 'yongshin_first': bonus for name elements that match the chart's
+   *    yongshin element, on top of the mathematical score.
+   *  - 'classical_jonggyeok_aware': in 종격 charts, do not penalize
+   *    concentration on the dominant element. */
+  readonly balanceMode?: 'mathematical' | 'yongshin_first' | 'classical_jonggyeok_aware';
+
+  /** Yongshin score algorithm.
+   *  - 'classical_blend' (default): affinity ⊕ recommendation blend.
+   *  - 'chengbai_strict': additional penalty when yongshin confidence is low
+   *    (≈ chengbai 패격 detection until saju-ts surfaces the explicit score). */
+  readonly yongshinMode?: 'classical_blend' | 'chengbai_strict';
+
+  /** Day-master strength integration.
+   *  - 'binary' (default): isStrong toggle drives -1 / +1 direction.
+   *  - 'continuous': use totalSupport / totalOppose as a graded intensity. */
+  readonly strengthMode?: 'binary' | 'continuous';
+
+  /** Ten-god scoring.
+   *  - 'simple_count' (default): 1-per-pillar group counts.
+   *  - 'positional_weighted': pillar weights from the saju-ts byPosition
+   *    table (year/month/day/hour distinct, hidden stem ratios applied). */
+  readonly tenGodMode?: 'simple_count' | 'positional_weighted';
+
+  /** Gyeokguk-driven penalty curve.
+   *  - 'jonggyeok_only' (default): single JONGGYEOK category, hard cliff
+   *    at confidence ≥ 0.5.
+   *  - 'multi_special': 9-way 종격 (deferred to a future PR — needs the
+   *    adapter info richness from PR6).
+   *  - 'chengbai_strict': replace the 0.5 cliff with a smooth tanh curve
+   *    so confidence 0.49 vs 0.50 no longer flips the penalty on/off. */
+  readonly gyeokgukMode?: 'jonggyeok_only' | 'multi_special' | 'chengbai_strict';
+
   readonly [key: string]: unknown;
 }
 
