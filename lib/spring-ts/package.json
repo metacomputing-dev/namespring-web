@@ -30,7 +30,8 @@
     "validate:regression": "node tools/measure_regression.mjs --baseline main --branch HEAD",
     "validate:default-change": "node tools/measure_default_change.mjs --baseline main --branch HEAD",
     "quality:gate": "node tools/quality_gate.mjs",
-    "capture:oracles": "node tools/capture_saju_master_runs.mjs"
+    "capture:oracles": "node tools/capture_saju_master_runs.mjs",
+    "validate:lecture": "npx tsx tools/validate_lecture_cases.ts"
   },
   "dependencies": {
     "sql.js": "^1.14.0",
