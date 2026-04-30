@@ -736,12 +736,32 @@ let sajuModule: SajuModule | null = null;
 async function loadSajuModule(): Promise<SajuModule | null> {
   if (sajuModule) return sajuModule;
 
+  // Two-stage import: Vite alias first (UI/SPA build context), then Node ESM
+  // fallback (CLI / tsx / vitest contexts). The Vite alias `@saju → lib/saju-ts/src`
+  // is configured in `namespring/vite.config`; outside Vite, that bare specifier
+  // is unresolvable and Node throws ERR_MODULE_NOT_FOUND, so we fall through to
+  // the relative path to the built dist.
+  // Stage 1: Vite alias. `@saju/index` is a bare specifier resolved by Vite
+  // alone, so TypeScript's module checker cannot verify it — assigning it to a
+  // variable defers the path string past the type-resolution stage.
+  const viteAliasSpecifier = '@saju/index';
   try {
-    // Vite alias @saju → ../lib/saju-ts/src (소스에서 직접 빌드, dist 불필요)
-    sajuModule = await import('@saju/index') as SajuModule;
+    sajuModule = await import(/* @vite-ignore */ viteAliasSpecifier) as SajuModule;
+    return sajuModule;
+  } catch {
+    // Vite alias unavailable — try Node ESM resolvable path next.
+  }
+
+  try {
+    sajuModule = await import('../../saju-ts/dist/index.js') as SajuModule;
     return sajuModule;
   } catch (err) {
-    console.warn('[spring-ts] failed to load saju-ts module; saju analysis will be disabled.', err);
+    console.warn(
+      '[spring-ts] failed to load saju-ts module; saju analysis will be disabled. ' +
+      'Tried Vite alias "@saju/index" and Node ESM "../../saju-ts/dist/index.js". ' +
+      'Run "npm run build" in lib/saju-ts to produce dist/.',
+      err,
+    );
     return null;
   }
 }
