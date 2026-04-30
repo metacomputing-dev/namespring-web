@@ -117,6 +117,16 @@ export interface NameCompatibilityCard {
   readonly nameAnalysisScore: number;
   readonly summary: string;
   readonly details: string[];
+  /** Per-axis judgment strength (PR-J-8b). Optional. Note: this card
+   *  is anchored on SpringReport (not SajuSummary), so the underlying
+   *  axisStrength here represents how confident the *name compatibility
+   *  evaluation* is — distinct from saju-axis confidences. */
+  readonly axisStrength?: SajuAxisStrengthMap;
+  /** Optional row-level evidence backing the name-compatibility rating
+   *  (PR-J-8b). Anchors on overall / saju-compatibility / name-analysis
+   *  sub-scores so the consumer can trace how the headline star count
+   *  was derived. */
+  readonly evidence?: readonly EvidenceRow[];
 }
 
 // ── 카드 2: 총평 요약 ────────────────────────────────────────────────────

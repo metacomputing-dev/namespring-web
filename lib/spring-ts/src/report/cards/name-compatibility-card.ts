@@ -12,7 +12,7 @@
  * Returns null when springReport is null (no name data available).
  */
 
-import type { SpringReport } from '../../types.js';
+import type { SpringReport, EvidenceRow } from '../../types.js';
 import type { NameCompatibilityCard, StarRating } from '../types.js';
 
 // ---------------------------------------------------------------------------
@@ -113,6 +113,44 @@ export function buildNameCompatibilityCard(
     );
   }
 
+  // ── PR-J-8b — narrative foundations (evidence) ──
+  // Note: NameCompatibilityCard is anchored on SpringReport, not on the
+  // saju engine's axisStrength. The evidence rows therefore explain how
+  // the headline star count was computed from the three sub-scores.
+  const evidence: EvidenceRow[] = [
+    {
+      axis: 'overallScore',
+      claim: `종합 ${Math.round(overallScore)}점 — 별 ${overallStars}개 평가의 직접적 근거예요.`,
+      supportingFeatures: [
+        `종합 점수: ${Math.round(overallScore)} / 100`,
+        `사주 궁합 점수: ${Math.round(sajuCompatibilityScore)} / 100`,
+        `이름 분석 점수: ${Math.round(nameAnalysisScore)} / 100`,
+      ],
+      weakness: overallScore < 60
+        ? '종합 점수가 60점 미만이면 이름 보완 또는 다른 후보를 함께 검토하세요.'
+        : undefined,
+    },
+  ];
+
+  if (yongshinElement) {
+    const matchCount = springReport.sajuCompatibility.yongshinMatchCount;
+    const gishinCount = springReport.sajuCompatibility.gishinMatchCount;
+    evidence.push({
+      axis: 'yongshinAlignment',
+      claim: matchCount > 0
+        ? `이름이 용신(${yongshinElement}) 오행을 ${matchCount}개 보강하고 있어요.`
+        : '이름의 용신 직접 보강은 없지만, 전체 균형이 일정 부분 보완해요.',
+      supportingFeatures: [
+        `용신: ${yongshinElement}`,
+        `용신 일치 글자 수: ${matchCount}`,
+        `기신 겹침 글자 수: ${gishinCount}`,
+      ],
+      weakness: gishinCount > matchCount
+        ? '기신 겹침이 용신 일치보다 많은 구성이라 한자 후보 추가 검토가 도움이 돼요.'
+        : undefined,
+    });
+  }
+
   return {
     title: '이름 적합도 평가',
     overallStars,
@@ -121,5 +159,6 @@ export function buildNameCompatibilityCard(
     nameAnalysisScore,
     summary,
     details,
+    evidence,
   };
 }
