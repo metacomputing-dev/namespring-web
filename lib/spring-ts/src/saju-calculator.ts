@@ -673,6 +673,7 @@ export class SajuCalculator implements EvaluableCalculator {
   private readonly elementSource: SajuNameElementSource;
   private readonly enabled: boolean;
   private readonly presetData: SchoolPresetData | null;
+  private readonly scoringOverrides: ScoringPrecisionOverrides | undefined;
 
   constructor(
     private surnameEntries: HanjaEntry[],
@@ -687,6 +688,9 @@ export class SajuCalculator implements EvaluableCalculator {
        *  defaults. Default false → no behavior change. */
       readonly useSchoolPreset?: boolean;
       readonly schoolPreset?: SchoolPresetName;
+      /** Per-sub-score opt-in mode flags (PR5). Each unspecified field
+       *  falls through to legacy default in computeSajuNameScore. */
+      readonly scoringOverrides?: ScoringPrecisionOverrides;
     } = {},
   ) {
     this.elementSource = options.elementSource ?? 'resource';
@@ -694,6 +698,7 @@ export class SajuCalculator implements EvaluableCalculator {
     this.presetData = options.useSchoolPreset === true
       ? loadPreset(options.schoolPreset)
       : null;
+    this.scoringOverrides = options.scoringOverrides;
   }
 
   private elementOf(entry: HanjaEntry): ElementKey {
@@ -730,7 +735,11 @@ export class SajuCalculator implements EvaluableCalculator {
     const rootDist = distributionFromArrangement(
       arrangement,
     );
-    this.scoreResult = computeSajuNameScore(this.sajuDistribution, rootDist, this.sajuOutput, this.presetData);
+    this.scoreResult = computeSajuNameScore(
+      this.sajuDistribution, rootDist, this.sajuOutput,
+      this.presetData,
+      this.scoringOverrides,
+    );
     putInsight(ctx, SAJU_FRAME, this.scoreResult.score, this.scoreResult.isPassed, 'SAJU+ELEMENT', {
       sajuDistribution: this.sajuDistribution,
       distributionSource: this.sajuOutput ? 'saju-ts' : 'fallback',
