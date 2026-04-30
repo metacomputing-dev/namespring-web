@@ -6,6 +6,8 @@
   "types": "./dist/index.d.ts",
   "scripts": {
     "build": "tsc",
+    "typecheck": "tsc --noEmit",
+    "test:env": "npx tsx test/integration/saju-ts-load.test.ts",
     "test:golden": "npx tsx test/compare-output.ts",
     "test:region": "npx tsx test/verify-region-coordinate-resolution.ts"
   },
