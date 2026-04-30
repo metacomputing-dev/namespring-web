@@ -50,6 +50,11 @@ import {
 //  Configuration — loaded from JSON so non-programmers can adjust the tuning
 // ---------------------------------------------------------------------------
 import scoringConfig from '../config/saju-scoring.json';
+import scoringRules from '../config/scoring-rules.json';
+
+/** Backward-signal weight for the SAJU_FRAME — default 1.0, externalized so
+ *  schoolPreset (PR4) can re-balance saju vs name signal without code change. */
+const SAJU_SIGNAL_WEIGHT: number = (scoringRules as { saju?: { signalWeight?: number } }).saju?.signalWeight ?? 1.0;
 
 /** How much weight each yongshin recommendation type carries (1.0 = strongest). */
 const YONGSHIN_TYPE_WEIGHTS: Record<string, number> = scoringConfig.yongshinTypeWeights;
@@ -609,7 +614,7 @@ export class SajuCalculator implements EvaluableCalculator {
     if (!this.enabled) {
       return { signals: [] };
     }
-    return { signals: [createSignal(SAJU_FRAME, ctx, 1.0)] };
+    return { signals: [createSignal(SAJU_FRAME, ctx, SAJU_SIGNAL_WEIGHT)] };
   }
 
   getCombinedDistribution(): Record<ElementKey, number> {
