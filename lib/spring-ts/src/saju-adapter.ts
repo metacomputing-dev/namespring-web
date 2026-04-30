@@ -1124,6 +1124,19 @@ export async function analyzeSaju(birth: BirthInfo, options?: SpringRequest['opt
     if (typeof sajuSchoolId === 'string' && sajuSchoolId.length > 0) {
       config.school = { ...(config.school ?? {}), id: sajuSchoolId };
     }
+    // PR-H-S6 — opt-in routing of saryeongScheme into saju-ts's
+    // weights.hiddenStems policy. When unset, saju-ts uses its
+    // static scheme (existing behavior).
+    const saryeongScheme = (options?.precisionConfig as any)?.saryeongScheme;
+    if (saryeongScheme === 'classical' || saryeongScheme === 'scaled') {
+      config.weights = {
+        ...(config.weights ?? {}),
+        hiddenStems: {
+          ...(config.weights?.hiddenStems ?? {}),
+          saryeongScheme,
+        },
+      };
+    }
     if (options?.sajuConfig) config = { ...config, ...options.sajuConfig };
     const finalConfig = Object.keys(config).length > 0 ? config : undefined;
 
