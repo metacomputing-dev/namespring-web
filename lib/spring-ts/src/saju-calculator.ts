@@ -102,6 +102,18 @@ export interface SajuNameScoreResult {
   };
 }
 
+/** Opt-in scoring-mode overrides forwarded to computeSajuNameScore.
+ *  Each variant is documented on the matching PrecisionConfig field
+ *  (see types.ts). When undefined or omitted, each sub-score uses the
+ *  legacy default — guaranteeing default-mode regression 0. */
+export interface ScoringPrecisionOverrides {
+  readonly balanceMode?: 'mathematical' | 'yongshin_first' | 'classical_jonggyeok_aware';
+  readonly yongshinMode?: 'classical_blend' | 'chengbai_strict';
+  readonly strengthMode?: 'binary' | 'continuous';
+  readonly tenGodMode?: 'simple_count' | 'positional_weighted';
+  readonly gyeokgukMode?: 'jonggyeok_only' | 'multi_special' | 'chengbai_strict';
+}
+
 export type SajuNameElementSource = 'resource' | 'hangul';
 
 // =========================================================================
@@ -160,9 +172,13 @@ function computeOptimalSorted(initialCounts: number[], resourceCount: number): n
  * - 100 = perfectly optimal
  * - Loses points for: mismatch distance, extra zeros, extra spread
  */
+type BalanceMode = 'mathematical' | 'yongshin_first' | 'classical_jonggyeok_aware';
+
 function computeBalanceScore(
   sajuDist: Record<ElementKey, number>,
   rootDist: Record<ElementKey, number>,
+  mode: BalanceMode = 'mathematical',
+  sajuOutput?: SajuOutputSummary | null,
 ): { score: number; isPassed: boolean; combined: Record<ElementKey, number> } {
 
   const initialDistribution = ELEMENT_KEYS.map(key => sajuDist[key] ?? 0);
@@ -192,6 +208,26 @@ function computeBalanceScore(
         - BALANCE.penaltyPerExtraSpread * Math.max(0, finalSpread - optimalSpread),
       0, 100,
     );
+  }
+
+  // ── Opt-in mode adjustments ─────────────────────────────────────────────
+  // Default 'mathematical' is unchanged from the original implementation.
+  // 'yongshin_first': add a small bonus for name elements that match the
+  //                   chart's yongshin element (≈ 5 per matched count, capped).
+  // 'classical_jonggyeok_aware': in 종격 charts, lift the score floor so
+  //                              the deficiency-fill heuristic doesn't
+  //                              wrongly fault concentration patterns.
+  if (mode === 'yongshin_first') {
+    const yongshinElement = elementFromSajuCode(sajuOutput?.yongshin?.finalYongshin);
+    if (yongshinElement) {
+      const yongshinNameCount = rootDist[yongshinElement] ?? 0;
+      score = clamp(score + yongshinNameCount * 5, 0, 100);
+    }
+  } else if (mode === 'classical_jonggyeok_aware') {
+    const gyeokguk = sajuOutput?.gyeokguk;
+    if (gyeokguk?.category === PENALTY.jonggyeokCategory && (gyeokguk.confidence ?? 0) >= 0.5) {
+      score = Math.max(score, 70);
+    }
   }
 
   return {
@@ -511,6 +547,7 @@ export function computeSajuNameScore(
   rootDist: Record<ElementKey, number>,
   sajuOutput: SajuOutputSummary | null,
   presetOverride?: SchoolPresetData | null,
+  scoringOverrides?: ScoringPrecisionOverrides,
 ): SajuNameScoreResult {
 
   // School preset routing — null preset (the default for legacy callers)
@@ -520,7 +557,11 @@ export function computeSajuNameScore(
   const adaptiveOverride    = presetOverride?.adaptiveWeights ?? null;
 
   // --- Compute the four sub-scores ---
-  const balanceResult   = computeBalanceScore(sajuDist, rootDist);
+  const balanceResult   = computeBalanceScore(
+    sajuDist, rootDist,
+    scoringOverrides?.balanceMode ?? 'mathematical',
+    sajuOutput,
+  );
   const yongshinResult  = computeYongshinScore(rootDist, sajuOutput?.yongshin ?? null, yongshinTypeWeights);
   const strengthScore   = computeStrengthScore(rootDist, sajuOutput);
   const tenGodScore     = computeTenGodScore(rootDist, sajuOutput);
