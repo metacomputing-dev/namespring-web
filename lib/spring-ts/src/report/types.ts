@@ -162,6 +162,15 @@ export interface LifeFortuneOverviewCard {
   readonly stars: StarRating;
   readonly summary: string;
   readonly highlights: string[];
+  /** Per-axis judgment strength (PR-J-5c). Mirrors the 4-tier model on
+   *  OverviewSummaryCard / PersonalityCard / StrengthsWeaknessesCard.
+   *  Optional. */
+  readonly axisStrength?: SajuAxisStrengthMap;
+  /** Optional row-level evidence backing the life-fortune star rating
+   *  and highlights (PR-J-5c). Pulls from yongshin axis + gyeokguk
+   *  encyclopedia so the consumer can render "이 별점은 어떤 근거인가?"
+   *  beneath the headline rating. */
+  readonly evidence?: readonly EvidenceRow[];
 }
 
 // ── 카드 4: 나의 성향 ────────────────────────────────────────────────────
