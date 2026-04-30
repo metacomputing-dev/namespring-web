@@ -47,6 +47,9 @@
   "fourframeLuck": {
     "signalWeight": 1.0
   },
+  "saju": {
+    "signalWeight": 1.0
+  },
   "fourframeElement": {
     "doubleSurnameThreshold": 65,
     "singleSurnameThreshold": 60,
