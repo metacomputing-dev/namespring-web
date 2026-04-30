@@ -581,7 +581,19 @@ export class SajuCalculator implements EvaluableCalculator {
     if (this.elementSource === 'hangul') {
       return hangulElementFromSyllable(entry.hangul);
     }
-    return entry.resource_element as ElementKey;
+    // The HanjaEntry.resource_element column can be empty or carry a non-
+    // canonical string in older DB rows. Without this guard, the bare cast
+    // would propagate `undefined` through distributionFromArrangement and
+    // produce NaN scores. Fallback to Earth (neutral) and warn once.
+    const raw = entry.resource_element;
+    if (raw === 'Wood' || raw === 'Fire' || raw === 'Earth' || raw === 'Metal' || raw === 'Water') {
+      return raw;
+    }
+    console.warn(
+      `[spring-ts] Unknown resource_element ${JSON.stringify(raw)} for ` +
+      `${entry.hangul}/${entry.hanja}; falling back to Earth.`,
+    );
+    return 'Earth';
   }
 
   visit(ctx: EvalContext): void {
