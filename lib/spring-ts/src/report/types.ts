@@ -64,6 +64,33 @@ export type StarRating = 1 | 2 | 3 | 4 | 5;
 /** 5대 운세 분야 */
 export type FortuneCategory = 'wealth' | 'health' | 'academic' | 'romance' | 'family';
 
+/** Extended category union (PR12). Adds 4 saju_master event_domain_map
+ *  parallels that the original 5 collapsed:
+ *    - career             별도 직업운 (관성 중심) — 기존 'academic' 라벨 위에 분리
+ *    - study_document     학업 / 문서 (인성 중심) — 기존 'academic' 의 study 측면
+ *    - expression_children 표현 / 자녀 (식상 중심) — 기존 'academic' 의 output 측면
+ *    - health_stress      건강 / 스트레스 (조후 + 충해) — 기존 'health' 강화
+ *    - movement           이동 / 변동 (역마 + 충) — 신규 도메인
+ *  Cards (today) carry only the 5-element FortuneCategory; `subDomains`
+ *  surfaces additional 도메인 detail when present. */
+export type FortuneCategoryExtended =
+  | FortuneCategory
+  | 'career'
+  | 'study_document'
+  | 'expression_children'
+  | 'health_stress'
+  | 'movement';
+
+/** A sub-domain row inside a `CategoryFortuneCard` (PR12). Each row carries
+ *  a finer-grained life-domain breakdown so a UI can render
+ *  "재물 안에서도 정재(안정)는 좋고 편재(투자)는 주의" 같은 differentiation. */
+export interface CategoryFortuneSubDomain {
+  readonly name: FortuneCategoryExtended;
+  readonly title: string;
+  readonly stars: StarRating;
+  readonly narrative: string;
+}
+
 /** 기간 유형 */
 export type FortunePeriodKind = 'daily' | 'weekly' | 'monthly' | 'yearly' | 'decade';
 
@@ -221,6 +248,10 @@ export interface CategoryFortuneCard {
   readonly summary: string;
   readonly advice: FortuneAdvice[];
   readonly caution: FortuneWarning | null;
+  /** Optional sub-domain rows (PR12). When present, the UI can render
+   *  finer-grained 도메인 breakdowns alongside the headline `summary`.
+   *  saju_master/event_domain_map.py is the doctrine reference. */
+  readonly subDomains?: readonly CategoryFortuneSubDomain[];
 }
 
 // ── 운세 보고서 요청/응답 ────────────────────────────────────────────────
