@@ -386,25 +386,36 @@ function computeYongshinScore(
 function computeStrengthScore(
   rootDist: Record<ElementKey, number>,
   sajuOutput: SajuOutputSummary | null,
+  mode: 'binary' | 'continuous' = 'binary',
 ): number {
   const strengthData  = sajuOutput?.strength;
   const dayMasterElement = sajuOutput?.dayMaster?.element;
   if (!strengthData || !dayMasterElement) return 50;
 
-  // For each name element, check if it supports or opposes the day master.
-  // If the day master is already strong, supporting elements are BAD (-1),
-  // and opposing elements are GOOD (+1).  Vice versa if the master is weak.
+  // 'continuous' mode replaces the binary isStrong toggle with a graded
+  // strength signal derived from totalSupport / totalOppose. Charts that
+  // are nearly balanced (e.g., support 3.0 / oppose 2.9) no longer commit
+  // to a hard "strong" verdict; the name's contribution scales smoothly
+  // across the borderline.
+  const support   = Math.abs(strengthData.totalSupport);
+  const oppose    = Math.abs(strengthData.totalOppose);
+  const totalMagnitude = support + oppose;
+  const strongness = totalMagnitude > 0 ? (support - oppose) / totalMagnitude : 0; // [-1, 1]
+
   const balanceDirection = normalizeSignedScore(
     weightedElementAverage(rootDist, element => {
       const supportsStrength = (element === dayMasterElement || element === generatedBy(dayMasterElement));
+      if (mode === 'continuous') {
+        // Continuous: ideal alignment for a name element scales with how
+        // strong/weak the chart actually is. supportsStrength → -strongness
+        // (oppose strong charts, support weak ones); !supportsStrength → +strongness.
+        return supportsStrength ? -strongness : strongness;
+      }
       return (supportsStrength === strengthData.isStrong) ? -1 : 1;
     }),
   );
 
   // Intensity: how lopsided is the support/oppose ratio?
-  const support   = Math.abs(strengthData.totalSupport);
-  const oppose    = Math.abs(strengthData.totalOppose);
-  const totalMagnitude = support + oppose;
   const intensity = totalMagnitude > 0
     ? clamp(Math.abs(support - oppose) / totalMagnitude, 0, 1)
     : STRENGTH.defaultIntensity;
@@ -575,7 +586,10 @@ export function computeSajuNameScore(
     rootDist, sajuOutput?.yongshin ?? null, yongshinTypeWeights,
     scoringOverrides?.yongshinMode ?? 'classical_blend',
   );
-  const strengthScore   = computeStrengthScore(rootDist, sajuOutput);
+  const strengthScore   = computeStrengthScore(
+    rootDist, sajuOutput,
+    scoringOverrides?.strengthMode ?? 'binary',
+  );
   const tenGodScore     = computeTenGodScore(rootDist, sajuOutput);
 
   // --- Resolve adaptive weights (balance vs. yongshin trade-off) ---
