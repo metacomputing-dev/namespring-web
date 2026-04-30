@@ -122,6 +122,26 @@ export interface PrecisionConfig {
    *    deferred). */
   readonly fortuneCascadeMode?: 'simple' | 'jie_based' | 'full_5layer';
 
+  // ── PR8: adaptive evaluator opt-in flags ──────────────────────────────
+
+  /** Sajupriority curve shape used by `extractSajuPriority`.
+   *  - 'linear' (default): raw signalStrength - penaltyDeduction, clamped.
+   *  - 'tanh': sigmoid-shaped — softens both 0 and 1 extremes so a single
+   *    very-high or very-low signal cannot over-rotate the adaptive
+   *    weight system. Replaces the linear cliff with `0.5 + 0.5·tanh(…)`. */
+  readonly sajuPriorityCurve?: 'linear' | 'tanh';
+
+  /** Unknown-hour safety guard.
+   *  When true AND the birth.hour is missing, the evaluator dampens the
+   *  saju priority by `unknownTimeSajuDamp` (default 0.5) so a 시간미상
+   *  saju cannot dominate the adaptive policy. Declared here; wiring lands
+   *  alongside the curve change so both paths share a single test fixture. */
+  readonly unknownHourGuard?: boolean;
+
+  /** Multiplier applied to saju priority when `unknownHourGuard` is true
+   *  and birth.hour is missing. Default 0.5 (halve). Range [0, 1]. */
+  readonly unknownTimeSajuDamp?: number;
+
   readonly [key: string]: unknown;
 }
 
