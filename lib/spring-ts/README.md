@@ -224,6 +224,22 @@ cd lib/saju-ts && npm install && npm run build
 
 saju-ts 없이도 동작합니다. 콘솔에 warning이 표시되고, `sajuEnabled: false`로 이름 분석만 수행됩니다.
 
+### Node ESM 환경에서 실행
+
+spring-ts 는 두 가지 환경에서 saju-ts 를 동적으로 로드합니다:
+
+1. **Vite (UI) 환경** — `namespring/` 의 `vite.config` 에 정의된 alias `@saju → lib/saju-ts/src` 로 소스 직접 import
+2. **Node ESM 환경** (CLI / tsx / vitest 등) — `lib/saju-ts/dist/index.js` 로 fallback import
+
+따라서 Node ESM 으로 spring-ts 를 실행하려면 **`lib/saju-ts` 가 빌드되어 있어야** 합니다:
+
+```bash
+cd lib/saju-ts && npm run build      # dist/ 생성
+cd ../spring-ts && npm run test:env  # saju-ts 가 Node ESM 으로 로드되는지 확인
+```
+
+`lib/saju-ts/dist/index.js` 가 없으면 Node 환경에서 `sajuEnabled: false` 로 동작합니다 (Vite 환경은 영향 없음).
+
 ---
 
 ## 사용 예시
