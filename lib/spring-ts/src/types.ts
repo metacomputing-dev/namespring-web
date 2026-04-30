@@ -452,6 +452,37 @@ export interface ShinsalHitSummary {
   readonly weightedScore: number;
 }
 
+/** A single 대운 (10-year luck cycle) pillar entry. */
+export interface DaeunPillarSummary {
+  readonly stem: string;
+  readonly branch: string;
+  readonly startAge: number;
+  readonly endAge: number;
+  readonly order: number;
+}
+
+/** Daeun (대운, 10-year luck cycles) overview for a chart. Mirrors the
+ *  shape that `saju-adapter.ts:extractDaeunInfo` already produces and that
+ *  the LifeStageFortuneCard / FortuneCascade builders consume. PR-H-D
+ *  formalises this as an interface so SajuOutputSummary can declare it
+ *  type-safely; SajuSummary picks it up via the existing
+ *  `[key: string]: unknown` index signature without a breaking change. */
+export interface DaeunInfoSummary {
+  readonly isForward: boolean;
+  readonly firstDaeunStartAge: number;
+  readonly firstDaeunStartMonths: number;
+  readonly boundaryMode: string;
+  readonly warnings: readonly string[];
+  readonly pillars: readonly DaeunPillarSummary[];
+}
+
+/** A single 세운 (yearly luck) pillar entry. */
+export interface SaeunPillarSummary {
+  readonly year: number;
+  readonly stem: string;
+  readonly branch: string;
+}
+
 // ─────────────────────────────────────────────────────────────────────────────
 //  4. COMPATIBILITY & ADAPTER TYPES
 //     Used to bridge saju analysis with name scoring.
@@ -588,6 +619,16 @@ export interface SajuOutputSummary {
    *  upstream engine reports them; undefined otherwise. Used by cautions
    *  card narrative as a hedge-trigger. */
   gongmang?: readonly [string, string];
+  /** Daeun (대운, 10-year luck cycles) overview (PR-H-D). Lifts
+   *  SajuSummary.daeunInfo into the scoring/output path so the
+   *  LifeStageFortuneCard builder can surface narrative + transitions
+   *  detail (decade pillars + isForward direction + boundaryMode +
+   *  warnings) without re-fetching the full SajuSummary. */
+  daeunInfo?: DaeunInfoSummary | null;
+  /** Saeun (세운, yearly luck) pillar list (PR-H-D). Mirrors the existing
+   *  SajuSummary.saeunPillars production. Used by the period fortune card
+   *  builders for year-level trace + transitions. */
+  saeunPillars?: readonly SaeunPillarSummary[];
 }
 
 export type SajuJudgmentStrength = 'definite' | 'practical' | 'candidate' | 'deferred';

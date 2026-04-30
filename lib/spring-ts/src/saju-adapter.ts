@@ -1766,6 +1766,14 @@ export function buildSajuContext(sajuSummary: SajuSummary): { dist: Record<Eleme
         ? sajuSummary.shinsalHits
         : undefined,
       gongmang: sajuSummary.gongmang ?? undefined,
+      // PR-H-D: surface 대운 / 세운 richness so the LifeStageFortuneCard +
+      // PeriodFortuneCard builders can read transitions without re-fetching
+      // the full SajuSummary. Both are already produced by extractDaeunInfo
+      // / extractSaeunPillars; we just lift them into the output path.
+      daeunInfo: (sajuSummary as any).daeunInfo ?? undefined,
+      saeunPillars: ((sajuSummary as any).saeunPillars as readonly any[] | undefined)?.length
+        ? (sajuSummary as any).saeunPillars
+        : undefined,
     },
   };
 }
