@@ -112,7 +112,18 @@ export interface EngineConfig {
 
     trueSolarTime: {
       enabled: boolean;
-      equationOfTime: 'off' | 'approx';
+      /**
+       * Equation-of-Time model.
+       *
+       * - 'off' (default in the legacy default): EoT contribution is 0
+       *   minutes; only the longitude correction is applied.
+       * - 'approx': NOAA Solar Calculator Fourier approximation
+       *   (≈ ±10–30 sec residual).
+       * - 'precise': VSOP87-derived (Meeus eq. 28.1) using the same
+       *   precision settings (`solarPrecision`, `aberrationModel`)
+       *   that the engine uses elsewhere. Sub-second accuracy.
+       */
+      equationOfTime: 'off' | 'approx' | 'precise';
 
       /**
        * Scope of application:

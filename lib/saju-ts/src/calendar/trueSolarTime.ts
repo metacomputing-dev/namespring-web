@@ -1,6 +1,8 @@
 import type { EngineConfig, SajuRequest } from '../api/types.js';
 import type { LocalDateTime } from './iso.js';
 import { addDays } from './pillars.js';
+import { equationOfTimeMinutesPrecise } from './solar.js';
+import { utcMsToJulianDay } from './julian.js';
 
 const MS_PER_DAY = 86_400_000;
 
@@ -23,7 +25,7 @@ export interface TrueSolarTimeCorrection {
   /** Reason if not applied even though enabled. */
   reason?: string;
 
-  method: 'none' | 'approx';
+  method: 'none' | 'approx' | 'precise';
 
   longitudeDeg?: number;
   standardMeridianDeg?: number;
@@ -113,17 +115,25 @@ export function computeTrueSolarTimeCorrection(args: {
   const stdMer = (offsetMinutes / 60) * 15;
   const lonCorr = longitudeCorrectionMinutes(offsetMinutes, lon);
 
-  const eot =
-    policy.equationOfTime === 'approx'
-      ? equationOfTimeMinutesApprox(utcMs)
-      : 0;
+  let eot: number;
+  let method: TrueSolarTimeCorrection['method'];
+  if (policy.equationOfTime === 'precise') {
+    eot = equationOfTimeMinutesPrecise(utcMsToJulianDay(utcMs));
+    method = 'precise';
+  } else if (policy.equationOfTime === 'approx') {
+    eot = equationOfTimeMinutesApprox(utcMs);
+    method = 'approx';
+  } else {
+    eot = 0;
+    method = 'none';
+  }
 
   const total = lonCorr + eot;
 
   return {
     enabled: true,
     applied: true,
-    method: policy.equationOfTime === 'approx' ? 'approx' : 'none',
+    method,
     longitudeDeg: lon,
     standardMeridianDeg: stdMer,
     longitudeCorrectionMinutes: lonCorr,
