@@ -23,6 +23,7 @@ import type { ElementDistribution } from '../core/elementDistribution.js';
 import { elementDistributionFromPillars } from '../core/elementDistribution.js';
 import type { HiddenStem } from '../core/hiddenStems.js';
 import { hiddenStemsOfBranch } from '../core/hiddenStems.js';
+import { hiddenStemsForChart } from '../core/wollyul.js';
 import type { LifeStage, LifeStagePolicy } from '../core/lifeStage.js';
 import { lifeStageOf } from '../core/lifeStage.js';
 import type { StemRelation } from '../core/stemRelations.js';
@@ -375,7 +376,7 @@ export function buildGraph(): Graph {
   nodes.push(
     n<FourPillars<HiddenStem[]>>({
       id: 'hiddenStems.branches',
-      deps: ['pillars.year', 'pillars.month', 'pillars.day', 'pillars.hour', 'policy.weights'],
+      deps: ['pillars.year', 'pillars.month', 'pillars.day', 'pillars.hour', 'policy.weights', 'month.jieData'],
       explain: '네 지지의 지장간 목록(천간 인덱스 + 역할 + 가중치)을 생성한다.',
       compute: (_ctx, get) => {
         const y = get<PillarIdx>('pillars.year');
@@ -385,11 +386,23 @@ export function buildGraph(): Graph {
         const w = get<EngineWeights>('policy.weights');
         const policy = w.hiddenStems ?? { scheme: 'standard' };
 
+        // Saryeong scheme requires (elapsedDays, monthLengthDays) — only
+        // available when calendar.solarTermsAround was computed and the
+        // chart instant sits between two jie. If either is missing, fall
+        // back to the static lookup so the engine never silently breaks.
+        const jieData = get<JieData | null>('month.jieData');
+        const useSaryeong = !!policy.saryeongScheme && jieData != null;
+
+        const oneBranch = (branch: number): HiddenStem[] =>
+          useSaryeong
+            ? hiddenStemsForChart(branch, jieData!, policy)
+            : hiddenStemsOfBranch(branch, policy);
+
         return fp(
-          hiddenStemsOfBranch(y.branch, policy),
-          hiddenStemsOfBranch(m.branch, policy),
-          hiddenStemsOfBranch(d.branch, policy),
-          hiddenStemsOfBranch(h.branch, policy),
+          oneBranch(y.branch),
+          oneBranch(m.branch),
+          oneBranch(d.branch),
+          oneBranch(h.branch),
         );
       },
     }),
