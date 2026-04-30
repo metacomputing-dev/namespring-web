@@ -1098,13 +1098,25 @@ export async function analyzeSaju(birth: BirthInfo, options?: SpringRequest['opt
     // empirically confirms whether the residual change shifts any fixture's
     // pillars; if so this falls under PRINCIPLES_v2.md §2.1 (controlled
     // change + DEFAULT_CHANGELOG entry).
+    // PR-H-S8 — opt-in advanced precision overrides for power users who want
+    // sub-second arc-second-class accuracy. Default unset → defaults from
+    // PR-H-S3 ('iau1980_top10') / saju-ts ('constant') apply.
+    const advancedAberration = (options?.precisionConfig as any)?.aberrationModel;
+    const advancedSolarPrecision = (options?.precisionConfig as any)?.solarPrecision;
     config.calendar = {
       ...(config.calendar ?? {}),
       solarTerms: {
         ...(config.calendar?.solarTerms ?? {}),
         algorithm: 'newton',
       },
-      solarPrecision: 'iau1980_top10',
+      solarPrecision: (advancedSolarPrecision === 'classical' ||
+                       advancedSolarPrecision === 'iau1980_top10' ||
+                       advancedSolarPrecision === 'iau1980_full')
+        ? advancedSolarPrecision
+        : 'iau1980_top10',
+      ...(advancedAberration === 'rCorrected' || advancedAberration === 'constant'
+        ? { aberrationModel: advancedAberration }
+        : {}),
       // PR-H-S4 — when the caller opts into trueSolarTime, use saju-ts's
       // 'precise' Equation-of-Time model (Meeus eq. 28.1, VSOP87-derived,
       // sub-second accuracy). Default-mode (`trueSolarTimeEnabled: false`)
