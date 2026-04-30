@@ -1105,6 +1105,17 @@ export async function analyzeSaju(birth: BirthInfo, options?: SpringRequest['opt
         algorithm: 'newton',
       },
       solarPrecision: 'iau1980_top10',
+      // PR-H-S4 — when the caller opts into trueSolarTime, use saju-ts's
+      // 'precise' Equation-of-Time model (Meeus eq. 28.1, VSOP87-derived,
+      // sub-second accuracy). Default-mode (`trueSolarTimeEnabled: false`)
+      // is unaffected because EoT only contributes when trueSolarTime is
+      // enabled. spring-ts's existing toLegacySajuTimePolicyConfig sets
+      // trueSolarTimeEnabled from the user's `policy.trueSolarTime` toggle
+      // (default 'off') so this is purely an opt-in precision upgrade.
+      trueSolarTime: {
+        ...(config.calendar?.trueSolarTime ?? {}),
+        equationOfTime: 'precise',
+      },
     };
     if (options?.sajuConfig) config = { ...config, ...options.sajuConfig };
     const finalConfig = Object.keys(config).length > 0 ? config : undefined;
