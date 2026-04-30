@@ -302,6 +302,7 @@ function computeYongshinScore(
   rootDist: Record<ElementKey, number>,
   yongshinData: SajuYongshinSummary | null,
   yongshinTypeWeights: Record<string, number>,
+  mode: 'classical_blend' | 'chengbai_strict' = 'classical_blend',
 ) {
   if (!yongshinData) return {
     score: 50, confidence: 0, contextualPriority: 0,
@@ -340,7 +341,15 @@ function computeYongshinScore(
 
   // Step 3: Scale by confidence — higher confidence = more impact on the score
   const confidenceScaled = YONGSHIN.confidenceImpact.baseRatio + confidence * YONGSHIN.confidenceImpact.variableRatio;
-  const score = clamp(50 + (blendedRawScore - 50) * confidenceScaled, 0, 100);
+  let score = clamp(50 + (blendedRawScore - 50) * confidenceScaled, 0, 100);
+
+  // chengbai_strict mode: low-confidence yongshin signals a likely 패격
+  // pattern (until saju-ts surfaces an explicit chengbai score). Trim the
+  // yongshin score by 10 below confidence 0.4 so candidates that match a
+  // weak yongshin no longer rank as if it were certain.
+  if (mode === 'chengbai_strict' && confidence < 0.4) {
+    score = clamp(score - 10, 0, 100);
+  }
 
   // Step 4: Compute gisin/gusin penalties
   const totalElements = totalCount(rootDist);
@@ -562,7 +571,10 @@ export function computeSajuNameScore(
     scoringOverrides?.balanceMode ?? 'mathematical',
     sajuOutput,
   );
-  const yongshinResult  = computeYongshinScore(rootDist, sajuOutput?.yongshin ?? null, yongshinTypeWeights);
+  const yongshinResult  = computeYongshinScore(
+    rootDist, sajuOutput?.yongshin ?? null, yongshinTypeWeights,
+    scoringOverrides?.yongshinMode ?? 'classical_blend',
+  );
   const strengthScore   = computeStrengthScore(rootDist, sajuOutput);
   const tenGodScore     = computeTenGodScore(rootDist, sajuOutput);
 
