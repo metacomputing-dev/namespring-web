@@ -1,6 +1,6 @@
 import { mod } from '../core/mod.js';
 import { julianDayToUtcMs, utcMsToJulianDay } from './julian.js';
-import { solarApparentLongitudeDeg } from './solar.js';
+import { solarApparentLongitudeDeg, solarLongitudeRateDegPerDay } from './solar.js';
 
 /**
  * Solar-term utilities.
@@ -233,6 +233,45 @@ function findBracketForLongitude(
   throw new Error(
     `Unable to bracket solar term for year=${year}, target=${targetLongitude}° within ±${windowDays} days of ${approx.m}/${approx.d}.`,
   );
+}
+
+/**
+ * Newton-Raphson longitude root finder.
+ *
+ * Returns a JD whose apparent solar longitude equals `targetLongitude`,
+ * starting from `jd0` and using the analytic-ish derivative provided by
+ * {@link solarLongitudeRateDegPerDay}. Converges in roughly 5 iterations
+ * for solar-term targets because λ(t) is locally near-linear at the
+ * sub-day scale.
+ *
+ * Failure modes (degenerate derivative, non-finite values) cause the
+ * function to return its current best estimate rather than throw, so
+ * the caller can layer a robust fallback (e.g. bisection) around it.
+ *
+ * Tolerance is fixed at ~1e-7° (≈ 0.0004″), well below the engine's
+ * underlying solar-longitude precision.
+ *
+ * Note: not yet wired into the engine; an upcoming commit will let the
+ * caller dispatch between bisection and this function via config.
+ */
+function newtonLongitudeRoot(jd0: number, targetLongitude: number): number {
+  const maxIter = 10;
+  const tolDeg = 1e-7;
+  let jd = jd0;
+
+  for (let i = 0; i < maxIter; i++) {
+    const f = angleDiffDeg(sunApparentLongitudeDeg(jd), targetLongitude);
+    if (Math.abs(f) < tolDeg) return jd;
+
+    const dfdt = solarLongitudeRateDegPerDay(jd);
+    if (!Number.isFinite(dfdt) || Math.abs(dfdt) < 1e-9) {
+      return jd;
+    }
+
+    jd -= f / dfdt;
+  }
+
+  return jd;
 }
 
 function bisectLongitudeRoot(aJd: number, bJd: number, targetLongitude: number): number {
