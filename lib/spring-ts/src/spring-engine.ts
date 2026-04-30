@@ -1320,5 +1320,12 @@ export class SpringEngine {
     this.hanjaRepo.close();
     this.fourFrameRepo.close();
     this.nameStatRepo.close();
+    // Reset lifecycle state so a subsequent init() reopens cleanly.
+    this.initialized = false;
+    this.initPromise = null;
+    this.luckyMap.clear();
+    this.validFourFrameNumbers.clear();
+    this.nameStatInfoCache.clear();
+    this.optimizer = null;
   }
 }
