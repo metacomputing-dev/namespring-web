@@ -75,6 +75,18 @@ export interface EngineConfig {
       method: 'meeus' | 'approx';
       /** If true, compute 24 terms even if current policies don't strictly need them. */
       alwaysCompute?: boolean;
+      /**
+       * Root-finding algorithm used by `method='meeus'`.
+       *
+       * - 'bisection' (default): robust linear convergence, ~20 iterations.
+       * - 'newton': quadratic convergence, ~5 iterations. Same target
+       *   tolerance, so the resulting instant agrees with bisection to
+       *   well within 1 ms.
+       *
+       * Only affects performance, not output, when both algorithms run
+       * to convergence.
+       */
+      algorithm?: 'bisection' | 'newton';
     };
 
     trueSolarTime: {
