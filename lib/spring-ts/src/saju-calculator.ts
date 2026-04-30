@@ -514,9 +514,21 @@ function resolveAdaptiveWeights(
 function computeGyeokgukPenalty(
   rootDist: Record<ElementKey, number>,
   sajuOutput: SajuOutputSummary | null,
+  mode: 'jonggyeok_only' | 'multi_special' | 'chengbai_strict' = 'jonggyeok_only',
 ): number {
   const gyeokgukData = sajuOutput?.gyeokguk;
-  if (!gyeokgukData || gyeokgukData.category !== PENALTY.jonggyeokCategory || gyeokgukData.confidence < PENALTY.gyeokgukMinConfidence) return 0;
+  if (!gyeokgukData) return 0;
+  if (gyeokgukData.category !== PENALTY.jonggyeokCategory) return 0;
+
+  // 'jonggyeok_only' (default) keeps the original cliff: penalty is 0
+  // below confidence 0.5 and clamps the multiplier to [0.5, 1] above it.
+  // 'chengbai_strict' replaces the cliff with a smooth tanh curve so the
+  // 0.49→0.50 boundary no longer flips the penalty on/off — borderline
+  // 종격 charts now incur a partial penalty proportional to confidence.
+  // 'multi_special' reserved for PR6 (needs the 9-way 종격 surface).
+  if (mode !== 'chengbai_strict' && gyeokgukData.confidence < PENALTY.gyeokgukMinConfidence) {
+    return 0;
+  }
 
   const gisinElement = elementFromSajuCode(sajuOutput?.yongshin?.gisin);
   const gusinElement = elementFromSajuCode(sajuOutput?.yongshin?.gusin);
@@ -529,7 +541,13 @@ function computeGyeokgukPenalty(
   const gusinCount      = elementCount(rootDist, gusinElement);
   const harmfulRatio    = (gisinCount + gusinCount) / totalElements;
 
-  return Math.round(harmfulRatio * PENALTY.gyeokgukMaxPenalty * clamp(gyeokgukData.confidence, 0.5, 1));
+  const confidenceFactor = mode === 'chengbai_strict'
+    // Smooth: 0 at confidence 0.0, 0.5 at confidence 0.5, ~1 at confidence 1.0.
+    ? clamp(0.5 + 0.5 * Math.tanh((gyeokgukData.confidence - 0.5) * 4), 0, 1)
+    // Default cliff: confidence ≥ 0.5 already gated above; clamp to [0.5, 1].
+    : clamp(gyeokgukData.confidence, 0.5, 1);
+
+  return Math.round(harmfulRatio * PENALTY.gyeokgukMaxPenalty * confidenceFactor);
 }
 
 /**
@@ -611,7 +629,10 @@ export function computeSajuNameScore(
   // --- Subtract penalties ---
   // Note: gyeokguk penalty intentionally stacks with gisin/gusin penalties.
   // In jonggyeok charts, using gisin triggers a "破格" (broken pattern).
-  const gyeokgukPenalty = computeGyeokgukPenalty(rootDist, sajuOutput);
+  const gyeokgukPenalty = computeGyeokgukPenalty(
+    rootDist, sajuOutput,
+    scoringOverrides?.gyeokgukMode ?? 'jonggyeok_only',
+  );
   const totalPenalty    = yongshinResult.gisinPenalty + yongshinResult.gusinPenalty + gyeokgukPenalty;
   const score           = clamp(adjustedScore - totalPenalty, 0, 100);
 
