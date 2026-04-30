@@ -232,6 +232,17 @@ export interface PrecisionConfig {
    *  PR-H-S3 default ('iau1980_top10') is used. */
   readonly solarPrecision?: 'classical' | 'iau1980_top10' | 'iau1980_full';
 
+  /** Whether `CategoryFortuneCard.subDomains` is populated (PR-K-1
+   *  declaration — spring-info/09_finalization/02_event_domain_wireup.md).
+   *
+   *  Default false / unset = subDomains stays undefined (PR12 contract,
+   *  preserves the existing 5-category surface). When true, the category
+   *  builder will populate 1-3 sub-domain rows per category drawing on
+   *  saju_master/event_domain_map.py mappings (career / study_document /
+   *  expression_children / health_stress / movement). The data + builder
+   *  wire lands in a follow-up PR; this PR declares the option only. */
+  readonly surfaceSubDomains?: boolean;
+
   /** Evaluator mode for sajuPriority extraction (PR-K-8 declaration —
    *  spring-info/09_finalization/06_multi_axis_evaluator.md).
    *
