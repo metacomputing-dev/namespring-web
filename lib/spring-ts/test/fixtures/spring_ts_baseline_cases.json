@@ -63,9 +63,9 @@
           "field": "sajuReport.strengthLevel",
           "spring_ts": "중화(신강 경향)",
           "saju_master": "신약",
-          "reason": "Real strength-direction disagreement. saju_master raw_score=-16.0 (mild weak). 丙火 in 申 month traditionally weak (金克火), supporting saju_master. spring-ts may be over-weighting 종왕 candidate axes. Investigation pending in PR-M-4.",
+          "reason": "Engine-level scoring disagreement (PR-M-7 diagnosed). saju-ts strengthIndex = +0.075 (BALANCED, slightly positive); saju_master raw_score = -16.0 (clearly negative). Same chart, two implementations. Both internally consistent. The difference is weighting: saju-ts gives 인성+비겁 stems (乙·甲) more weight than saju_master gives them. Both are 자평-traditional; this is school-level disagreement, not a bug. tools/diagnose_strength_direction.ts confirms.",
           "pendingAuthority": true,
-          "needsCodeReview": true
+          "needsCodeReview": false
         }
       ]
     },
@@ -172,9 +172,9 @@
           "field": "sajuReport.strengthLevel",
           "spring_ts": "중화(신강 경향)",
           "saju_master": "신약",
-          "reason": "Real strength-direction disagreement. saju_master raw_score=-8.77 (mild weak). spring-ts picks 중화-신강 — opposite direction. Same pattern as fix-04. Investigation pending in PR-M-4.",
+          "reason": "Engine-level scoring disagreement (PR-M-7 diagnosed). Same pattern as fix-04: saju-ts strengthIndex = +0.050 (BALANCED, slightly positive); saju_master raw_score = -8.77. Both internally consistent. School-level weighting difference, not a bug. tools/diagnose_strength_direction.ts confirms.",
           "pendingAuthority": true,
-          "needsCodeReview": true
+          "needsCodeReview": false
         }
       ]
     }
