@@ -736,24 +736,31 @@ let sajuModule: SajuModule | null = null;
 async function loadSajuModule(): Promise<SajuModule | null> {
   if (sajuModule) return sajuModule;
 
-  // Two-stage import: Vite alias first (UI/SPA build context), then Node ESM
-  // fallback (CLI / tsx / vitest contexts). The Vite alias `@saju → lib/saju-ts/src`
-  // is configured in `namespring/vite.config`; outside Vite, that bare specifier
-  // is unresolvable and Node throws ERR_MODULE_NOT_FOUND, so we fall through to
-  // the relative path to the built dist.
-  // Stage 1: Vite alias. `@saju/index` is a bare specifier resolved by Vite
-  // alone, so TypeScript's module checker cannot verify it — assigning it to a
-  // variable defers the path string past the type-resolution stage.
-  const viteAliasSpecifier = '@saju/index';
+  // Two-stage import — order matters:
+  //
+  //   Stage 1 — Vite alias as a literal specifier so Vite's build-time
+  //             resolver applies `@saju → lib/saju-ts/src`. The literal MUST
+  //             be inline (`import('@saju/index')`); a variable would defeat
+  //             Vite's static analysis and the alias would not be applied.
+  //   Stage 2 — Node ESM fallback. `@vite-ignore` + variable indirection
+  //             instructs Vite to skip the path at build time (so the unbuilt
+  //             `../../saju-ts/dist` is not chunked into the SPA bundle).
+
+  // Stage 1
   try {
-    sajuModule = await import(/* @vite-ignore */ viteAliasSpecifier) as SajuModule;
+    // @ts-expect-error — bare specifier resolved by Vite alias at build time;
+    //                    invisible to tsc, and unresolvable in Node ESM
+    //                    (catch handles the latter).
+    sajuModule = await import('@saju/index') as SajuModule;
     return sajuModule;
   } catch {
-    // Vite alias unavailable — try Node ESM resolvable path next.
+    // Vite alias unavailable (e.g., Node CLI / tsx / vitest) — try Stage 2.
   }
 
+  // Stage 2
   try {
-    sajuModule = await import('../../saju-ts/dist/index.js') as SajuModule;
+    const nodeFallback = '../../saju-ts/dist/index.js';
+    sajuModule = await import(/* @vite-ignore */ nodeFallback) as SajuModule;
     return sajuModule;
   } catch (err) {
     console.warn(
