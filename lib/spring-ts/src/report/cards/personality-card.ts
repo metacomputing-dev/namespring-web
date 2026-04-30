@@ -9,7 +9,7 @@
  * All text is written in friendly Korean (~해요 / ~에요 tone).
  */
 
-import type { SajuSummary } from '../../types.js';
+import type { SajuSummary, EvidenceRow, SajuAxisStrengthMap } from '../../types.js';
 import type { PersonalityCard, PersonalityTrait } from '../types.js';
 import type { StemCode, TenGodCode } from '../types.js';
 import {
@@ -221,10 +221,67 @@ export function buildPersonalityCard(saju: SajuSummary): PersonalityCard {
 
   const summary = summaryParts.join(' ');
 
+  // ── Narrative foundations (PR-J-5a) ──────────────────────────────────
+  // Surfaces axisStrength + evidence rows so the consumer can hedge
+  // personality claims when their underlying axis is low-confidence.
+  const sajuAxis = (saju as unknown as { axisStrength?: SajuAxisStrengthMap }).axisStrength;
+  const evidence: EvidenceRow[] = [];
+
+  if (stemEntry && stemInfo) {
+    const supporting: string[] = [
+      `일간 ${stemInfo.hangul}(${stemEntry.element}) — ${stemEntry.coreKeywords.slice(0, 2).join(', ')}`,
+    ];
+    if (stemEntry.classicalImagery) supporting.push(`고전 비유: ${stemEntry.classicalImagery}`);
+    evidence.push({
+      axis: 'dayMaster',
+      claim: stemEntry.personality[0] ?? `${stemInfo.hangul} 일간의 기본 성향이에요.`,
+      supportingFeatures: supporting,
+      strength: sajuAxis?.strength,
+    });
+  }
+
+  // Ten-god dominant trait — sourced from PR-J-2 expertKeywords/brightSide.
+  if (dominantCategory && saju.tenGodAnalysis) {
+    const repCode = findRepresentativeTenGod(dominantCategory, saju.tenGodAnalysis);
+    const tgEntry = repCode
+      ? TEN_GOD_ENCYCLOPEDIA[repCode as TenGodCode] ?? null
+      : null;
+    if (tgEntry) {
+      const supporting: string[] = [
+        `우세 십성 계열: ${CATEGORY_KOREAN[dominantCategory]} (대표 ${tgEntry.korean})`,
+      ];
+      if (tgEntry.expertKeywords?.length) {
+        supporting.push(`고전 키워드: ${tgEntry.expertKeywords.slice(0, 3).join(', ')}`);
+      }
+      evidence.push({
+        axis: 'tenGod',
+        claim: tgEntry.brightSide?.[0] ?? tgEntry.coreRole,
+        supportingFeatures: supporting,
+        weakness: tgEntry.shadowSide?.[0],
+        strength: undefined,
+      });
+    }
+  }
+
+  // Gyeokguk row — same shape as overview-summary's PR-J-4 wire.
+  if (gyeokgukEntry?.principle) {
+    const supporting: string[] = [`격국: ${gyeokgukEntry.korean}`];
+    if (gyeokgukEntry.helpful?.length) supporting.push(`성(成) 조건: ${gyeokgukEntry.helpful[0]}`);
+    evidence.push({
+      axis: 'gyeokguk',
+      claim: gyeokgukEntry.principle,
+      supportingFeatures: supporting,
+      weakness: gyeokgukEntry.disease?.[0],
+      strength: sajuAxis?.gyeokguk,
+    });
+  }
+
   return {
     title: '나의 성향',
     traits,
     summary,
+    axisStrength: sajuAxis,
+    evidence: evidence.length > 0 ? evidence : undefined,
   };
 }
 

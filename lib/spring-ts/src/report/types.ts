@@ -176,6 +176,17 @@ export interface PersonalityCard {
   readonly title: '나의 성향';
   readonly traits: PersonalityTrait[];
   readonly summary: string;
+  /** Per-axis judgment strength (PR-J-5a). Mirrors the same 4-tier hedge
+   *  model that OverviewSummaryCard uses, so the consumer can dial down
+   *  confidence on traits sourced from low-confidence axes (yongshin /
+   *  gyeokguk / strength). Optional. */
+  readonly axisStrength?: SajuAxisStrengthMap;
+  /** Optional row-level evidence backing personality claims (PR-J-5a).
+   *  Surfaces the chart features that drove each trait — e.g. the day
+   *  master + classical imagery for the dayMaster row, the gyeokguk
+   *  principle for the gyeokguk row, 천간/지지 relations for the
+   *  relations row. Empty when no axis can supply rows. */
+  readonly evidence?: readonly EvidenceRow[];
 }
 
 // ── 카드 5: 나의 장/단점 ─────────────────────────────────────────────────
