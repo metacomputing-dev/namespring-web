@@ -717,6 +717,19 @@ export function computeSajuNameScore(
 //  SajuCalculator — plugs into the name-ts evaluator framework
 // =========================================================================
 
+/** Hints surfaced from SajuCalculator into ctx.insights[SAJU_FRAME].details
+ *  for spring-evaluator's `extractSajuPriority` to consume. PR8 introduces
+ *  these so the evaluator's priority curve and unknown-hour guard can stay
+ *  driven by precisionConfig without changing springEvaluateName's signature. */
+export interface SajuEvaluatorHints {
+  readonly sajuPriorityCurve?: 'linear' | 'tanh';
+  readonly unknownHourGuard?: boolean;
+  /** Multiplier applied when guard fires AND birth.hour is missing. */
+  readonly unknownTimeSajuDamp?: number;
+  /** Set by spring-engine when the request's birth.hour is null/undefined. */
+  readonly isHourUnknown?: boolean;
+}
+
 export class SajuCalculator implements EvaluableCalculator {
   readonly id = 'saju';
   private scoreResult: SajuNameScoreResult | null = null;
@@ -724,6 +737,7 @@ export class SajuCalculator implements EvaluableCalculator {
   private readonly enabled: boolean;
   private readonly presetData: SchoolPresetData | null;
   private readonly scoringOverrides: ScoringPrecisionOverrides | undefined;
+  private readonly evaluatorHints: SajuEvaluatorHints | undefined;
 
   constructor(
     private surnameEntries: HanjaEntry[],
@@ -741,6 +755,8 @@ export class SajuCalculator implements EvaluableCalculator {
       /** Per-sub-score opt-in mode flags (PR5). Each unspecified field
        *  falls through to legacy default in computeSajuNameScore. */
       readonly scoringOverrides?: ScoringPrecisionOverrides;
+      /** Hints forwarded to spring-evaluator via ctx.insights details (PR8). */
+      readonly evaluatorHints?: SajuEvaluatorHints;
     } = {},
   ) {
     this.elementSource = options.elementSource ?? 'resource';
@@ -749,6 +765,7 @@ export class SajuCalculator implements EvaluableCalculator {
       ? loadPreset(options.schoolPreset)
       : null;
     this.scoringOverrides = options.scoringOverrides;
+    this.evaluatorHints = options.evaluatorHints;
   }
 
   private elementOf(entry: HanjaEntry): ElementKey {
@@ -797,6 +814,9 @@ export class SajuCalculator implements EvaluableCalculator {
       combinedDistribution: this.scoreResult.combined,
       scoring: this.scoreResult.breakdown,
       analysisOutput: this.sajuOutput,
+      // PR8: surface evaluator hints so spring-evaluator's extractSajuPriority
+      // can apply the curve / guard without changing springEvaluateName's signature.
+      evaluatorHints: this.evaluatorHints,
     });
   }
 
