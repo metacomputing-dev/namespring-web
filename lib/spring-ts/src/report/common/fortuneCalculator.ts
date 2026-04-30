@@ -345,22 +345,64 @@ function getMonthlyFortune(year: number, month: number): MonthlyFortune {
 }
 
 /**
+ * 24절기 중 12 절(節)의 평균 양력 진입일.
+ *
+ * 'jie_based' 모드에서 boundary 의 day 비교에 사용합니다.
+ * 실제 절기 시각은 매년 ±1 일 변동하지만 이 평균치로 ±1 일 정밀도 달성 —
+ * 기존 'simple' 모드 (양력 월 기반, ±5 일 오차) 대비 ~5 배 정확.
+ *
+ *  1월 6일  소한 → 축월 시작
+ *  2월 4일  입춘 → 인월 시작
+ *  3월 6일  경칩 → 묘월 시작
+ *  4월 5일  청명 → 진월 시작
+ *  5월 6일  입하 → 사월 시작
+ *  6월 6일  망종 → 오월 시작
+ *  7월 7일  소서 → 미월 시작
+ *  8월 8일  입추 → 신월 시작
+ *  9월 8일  백로 → 유월 시작
+ * 10월 8일  한로 → 술월 시작
+ * 11월 7일  입동 → 해월 시작
+ * 12월 7일  대설 → 자월 시작
+ */
+const JIE_MONTH_BOUNDARY_DAY: Readonly<Record<number, number>> = {
+  1: 6, 2: 4, 3: 6, 4: 5, 5: 6, 6: 6,
+  7: 7, 8: 8, 9: 8, 10: 8, 11: 7, 12: 7,
+};
+
+/**
  * 양력 연도와 양력 월로부터 월운 간지를 산출합니다 (편의 함수).
  *
- * 양력 월을 절기 기준 월로 근사 변환하여 계산합니다.
- * 절기 입절일(보통 양력 5~7일경) 전후의 정확한 판단이 필요한 경우
- * 별도의 절기 데이터를 활용해야 합니다.
+ * 'simple' 모드 (default): 양력 월을 절기 기준 월로 근사 변환.
+ * 'jie_based' 모드: day 인자가 주어지면 12절기 boundary 와 비교해
+ *                    boundary 이전이면 이전 fortune month 의 간지를 사용.
  *
  * @param solarYear  양력 연도
  * @param solarMonth 양력 월 (1~12)
+ * @param options.day   양력 일 (1~31). 'jie_based' 모드에서만 의미가 있음.
+ * @param options.mode  'simple' | 'jie_based'. default 'simple'.
  * @returns MonthlyFortune 월운 간지 정보
  */
-export function getMonthlyFortuneSolar(solarYear: number, solarMonth: number): MonthlyFortune {
+export function getMonthlyFortuneSolar(
+  solarYear: number,
+  solarMonth: number,
+  options?: { readonly day?: number; readonly mode?: 'simple' | 'jie_based' },
+): MonthlyFortune {
+  // jie_based mode: shift to previous fortune month when the day is before
+  // the jie boundary for the current solar month.
+  if (options?.mode === 'jie_based' && typeof options.day === 'number') {
+    const jieDay = JIE_MONTH_BOUNDARY_DAY[solarMonth];
+    if (jieDay !== undefined && options.day < jieDay) {
+      const prevSolarMonth = solarMonth === 1 ? 12 : solarMonth - 1;
+      const prevSolarYear  = solarMonth === 1 ? solarYear - 1 : solarYear;
+      // Recurse without mode/day so the previous month is resolved as
+      // 'simple' (we are already past its jie boundary by definition).
+      return getMonthlyFortuneSolar(prevSolarYear, prevSolarMonth);
+    }
+  }
+
+  // simple (default) — preserves original behavior.
   const fortuneMonth = solarMonthToFortuneMonth(solarMonth);
-
-  // 양력 1월은 전년도 축월(12월)이므로 연도를 조정
   const fortuneYear = solarMonth === 1 ? solarYear - 1 : solarYear;
-
   return getMonthlyFortune(fortuneYear, fortuneMonth);
 }
 
