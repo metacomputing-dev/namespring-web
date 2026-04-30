@@ -16,6 +16,10 @@ function sinDeg(xDeg: number): number {
   return Math.sin(xDeg * DEG2RAD);
 }
 
+function cosDeg(xDeg: number): number {
+  return Math.cos(xDeg * DEG2RAD);
+}
+
 function radToDeg(rad: number): number {
   return rad * RAD2DEG;
 }
@@ -607,6 +611,60 @@ export function solarApparentRADeg(
     Math.cos(lambdaRad),
   );
   return mod360(alphaRad * RAD2DEG);
+}
+
+/**
+ * Equation of Time in minutes, computed from VSOP87-based apparent
+ * geometry. Implements Meeus, Astronomical Algorithms 2nd ed.,
+ * eq. 28.1:
+ *
+ *   E = L₀ − 0.0057183° − α + Δψ · cos ε
+ *
+ * where L₀ is the Sun's mean longitude (28.2), α is its apparent
+ * right ascension, Δψ is the nutation in longitude consistent with
+ * the requested `solarPrecision`, and ε is the IAU 1980 mean
+ * obliquity. The result is reduced to (-720, 720] minutes.
+ *
+ * Compared with the existing NOAA-style `equationOfTimeMinutesApprox`,
+ * this branch derives every term from the same VSOP87 longitude
+ * pipeline that the engine already uses for solar terms, so its
+ * accuracy is set by `solarPrecision` rather than by a fixed Fourier
+ * truncation.
+ *
+ * Not yet called from any production path; the dispatch flag follows
+ * in a later commit.
+ */
+export function equationOfTimeMinutesPrecise(
+  jdUtc: number,
+  aberrationModel: AberrationModel = DEFAULT_ABERRATION_MODEL,
+  solarPrecision: SolarPrecision = DEFAULT_SOLAR_PRECISION,
+): number {
+  const dT = deltaTSecondsFromJulianDayUtc(jdUtc);
+  const jdTT = jdUtc + dT / 86400;
+  const T = (jdTT - 2451545.0) / 36525.0;
+
+  const L0 = sunMeanLongitudeDeg(T);
+  const alpha = solarApparentRADeg(jdUtc, aberrationModel, solarPrecision);
+  const epsilon = meanObliquityDeg(T);
+
+  // Δψ in degrees, consistent with the requested precision mode.
+  let dpsi: number;
+  if (solarPrecision === 'iau1980_full') {
+    dpsi = nutationLongitudeDegFull(T);
+  } else if (solarPrecision === 'iau1980_top10') {
+    dpsi = nutationLongitudeDegTop10(T);
+  } else {
+    // Classical: dominant Ω term only.
+    const omega = 125.04 - 1934.136 * T;
+    dpsi = -0.00478 * sinDeg(omega);
+  }
+
+  let eDeg = L0 - 0.0057183 - alpha + dpsi * cosDeg(epsilon);
+  // Reduce to (-180, 180] degrees → (-720, 720] minutes. In practice
+  // |E| < 0.3°, so this only matters at the 360° wrap discontinuity.
+  eDeg = ((eDeg + 180) % 360) - 180;
+
+  return eDeg * 4;
 }
 
 export function solarLongitudeRateDegPerDay(
