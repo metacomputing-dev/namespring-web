@@ -191,14 +191,34 @@ export class SpringEngine {
    *  options. `useSchoolPreset` defaults to false (legacy behavior) and the
    *  resolved schoolPreset is forwarded as-is. SajuCalculator itself returns
    *  null presetData when useSchoolPreset is false, so the path collapses
-   *  into the saju-scoring.json defaults. */
+   *  into the saju-scoring.json defaults.
+   *
+   *  Also forwards the PR5 per-sub-score scoringOverrides flags (balanceMode,
+   *  yongshinMode, strengthMode, tenGodMode, gyeokgukMode). When the precision
+   *  config block is absent, scoringOverrides is undefined and each sub-score
+   *  falls through to its legacy default. */
   private resolveSajuPreset(options?: SpringRequest['options']): {
     readonly useSchoolPreset: boolean;
     readonly schoolPreset?: SchoolPresetName;
+    readonly scoringOverrides?: {
+      readonly balanceMode?: 'mathematical' | 'yongshin_first' | 'classical_jonggyeok_aware';
+      readonly yongshinMode?: 'classical_blend' | 'chengbai_strict';
+      readonly strengthMode?: 'binary' | 'continuous';
+      readonly tenGodMode?: 'simple_count' | 'positional_weighted';
+      readonly gyeokgukMode?: 'jonggyeok_only' | 'multi_special' | 'chengbai_strict';
+    };
   } {
+    const pc = options?.precisionConfig;
     return {
-      useSchoolPreset: options?.precisionConfig?.useSchoolPreset === true,
+      useSchoolPreset: pc?.useSchoolPreset === true,
       schoolPreset: options?.schoolPreset,
+      scoringOverrides: pc ? {
+        balanceMode: pc.balanceMode,
+        yongshinMode: pc.yongshinMode,
+        strengthMode: pc.strengthMode,
+        tenGodMode: pc.tenGodMode,
+        gyeokgukMode: pc.gyeokgukMode,
+      } : undefined,
     };
   }
 
