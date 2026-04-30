@@ -1,0 +1,38 @@
+{
+  "case_id": "A2-jonheom_15_朱瑞",
+  "source": {
+    "tradition": "classical",
+    "text": "命理存验 (人鉴)",
+    "author": "林庚白",
+    "edition": "1933 / 1947 expanded",
+    "page_in_compilation": 1118,
+    "compilation": "사주고전종합.pdf (provided by user)",
+    "category": "近代名人 명조"
+  },
+  "subject": {
+    "name_hanja": "朱瑞",
+    "name_korean": "주서"
+  },
+  "pillars": {
+    "year_pillar": "癸未",
+    "month_pillar": "乙丑",
+    "day_pillar": "壬戌",
+    "hour_pillar": "庚子"
+  },
+  "expected": {
+    "gyeokguk": "殺印격",
+    "gyeokguk_alt": "정관격",
+    "yongshin": "상관",
+    "gyeokguk_basis": "殺(戊 戌中) + 印(庚 시간) composite, 月上乙 制殺"
+  },
+  "prose_quote": {
+    "verbatim": "殺印身弱, 月上乙木, 制煞爲權.",
+    "extracted_from": "PDF page image (visual reading); prose 한자 정상 식별",
+    "page_image": ".tmp/pdf-pages/jonheom/p1118.png"
+  },
+  "copyrightNote": [
+    "Pillars (year/month/day/hour ganzhi) are factual data, not copyrighted.",
+    "prose_quote is a verbatim short classical-format judgment phrase from public-domain text (1933 Qing-Republican era).",
+    "expected fields are interpretive paraphrase ≤ 50자."
+  ]
+}
