@@ -1087,12 +1087,24 @@ export async function analyzeSaju(birth: BirthInfo, options?: SpringRequest['opt
     // tolerance — i.e., output-identical. Newton is ~5 iterations (vs ~20 for
     // bisection); we adopt it as default to amortise the cost of the more
     // accurate solar-term lookups that later phases will surface.
+    //
+    // PR-H-S3 — additionally request the IAU 1980 top-10 nutation series for
+    // solar apparent longitude. saju-ts (api/types.ts:103-111) reports
+    //   classical:      ±9″ residual (default in saju-ts)
+    //   iau1980_top10:  ±1″ residual (9× tighter)
+    //   iau1980_full:   ±0.1″ residual (90× tighter, slower)
+    // We choose the middle option as the spring-ts default — it's what
+    // F-A14's audit recommends as the "default-on" tier. Snapshot regression
+    // empirically confirms whether the residual change shifts any fixture's
+    // pillars; if so this falls under PRINCIPLES_v2.md §2.1 (controlled
+    // change + DEFAULT_CHANGELOG entry).
     config.calendar = {
       ...(config.calendar ?? {}),
       solarTerms: {
         ...(config.calendar?.solarTerms ?? {}),
         algorithm: 'newton',
       },
+      solarPrecision: 'iau1980_top10',
     };
     if (options?.sajuConfig) config = { ...config, ...options.sajuConfig };
     const finalConfig = Object.keys(config).length > 0 ? config : undefined;
