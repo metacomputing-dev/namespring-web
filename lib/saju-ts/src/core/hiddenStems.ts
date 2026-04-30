@@ -30,6 +30,21 @@ export interface HiddenStemWeightPolicy {
     two?: { main: number; residual: number };
     three?: { main: number; middle: number; residual: number };
   };
+
+  /**
+   * Optional dynamic 司令 (commanding-stem) scheme that depends on the
+   * elapsed days inside the current 節氣 month.
+   *
+   * When set, `core/wollyul.ts:hiddenStemsForChart` returns the
+   * `WOLLYUL_SEGMENTS` rows for the branch with weight 1.0 on the
+   * commanding stem and 0.0 on the rest. When unset, behavior falls
+   * through to `hiddenStemsOfBranch` and the static `scheme` /
+   * `standard` settings above.
+   *
+   * - 'classical': literal 餘氣→中氣→正氣 day counts (saju_master parity)
+   * - 'scaled':    same counts scaled to the actual astronomical month
+   */
+  saryeongScheme?: 'classical' | 'scaled';
 }
 
 const M: HiddenStemRole = 'MAIN';

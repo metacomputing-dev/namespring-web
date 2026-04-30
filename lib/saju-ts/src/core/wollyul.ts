@@ -155,7 +155,7 @@ function qiToRole(qi: Qi): HiddenStemRole {
 export function hiddenStemsForChart(
   branch: BranchIdx,
   jieData: JieData,
-  policy: HiddenStemWeightPolicy & { saryeongScheme?: SaryeongScheme } = {},
+  policy: HiddenStemWeightPolicy = {},
 ): HiddenStem[] {
   const scheme = policy.saryeongScheme;
   if (!scheme) {
