@@ -36,7 +36,8 @@
     "validate:classical-engines": "node tools/compare_engines_classical.mjs",
     "validate:jonheom": "npx tsx tools/validate_jonheom_cases.ts",
     "validate:jonheom-smc": "node tools/validate_jonheom_saju_master.mjs",
-    "validate:korean-modern": "npx tsx tools/validate_korean_modern_authority.ts"
+    "validate:korean-modern": "npx tsx tools/validate_korean_modern_authority.ts",
+    "measure:alternative-rules": "npx tsx tools/measure_alternative_gyeokguk_rules.ts"
   },
   "dependencies": {
     "sql.js": "^1.14.0",
