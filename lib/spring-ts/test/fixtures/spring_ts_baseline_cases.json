@@ -89,6 +89,14 @@
       "birth": { "year": 1995, "month": 8, "day": 15, "hour": null, "minute": 0, "gender": "female" },
       "surname": [{ "hangul": "이", "hanja": "李" }],
       "givenName": [{ "hangul": "지", "hanja": "智" }, { "hangul": "혜", "hanja": "慧" }]
+    },
+    {
+      "id": "fix-12",
+      "label": "1991-03-20 male — borderline-strength (춘분 즈음, 중화 후보)",
+      "axis": ["borderline-strength", "edge", "yang-wood"],
+      "birth": { "year": 1991, "month": 3, "day": 20, "hour": 11, "minute": 30, "gender": "male" },
+      "surname": [{ "hangul": "정", "hanja": "鄭" }],
+      "givenName": [{ "hangul": "민", "hanja": "敏" }, { "hangul": "재", "hanja": "在" }]
     }
   ]
 }

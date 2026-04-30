@@ -1,8 +1,8 @@
 {
   "version": "1.0.0",
-  "capturedAt": "2026-04-30T12:02:14.055Z",
+  "capturedAt": "2026-04-30T12:04:00.164Z",
   "targetDate": "2026-04-30T00:00:00.000Z",
-  "fixtureCount": 11,
+  "fixtureCount": 12,
   "results": [
     {
       "id": "fix-01",
@@ -876,6 +876,87 @@
             "finalScore": 77.3,
             "fullHangul": "리해정",
             "fullHanja": "李駭貞",
+            "rank": 5
+          }
+        ],
+        "fortuneReport": {
+          "overviewTitle": "총평 요약",
+          "dailyStars": 1,
+          "yearlyStars": 5,
+          "lifeStars": 3,
+          "personalityTraitCount": 6
+        }
+      }
+    },
+    {
+      "id": "fix-12",
+      "label": "1991-03-20 male — borderline-strength (춘분 즈음, 중화 후보)",
+      "axis": [
+        "borderline-strength",
+        "edge",
+        "yang-wood"
+      ],
+      "output": {
+        "namingReport": {
+          "totalScore": 63.7,
+          "scores": {
+            "hangul": 80,
+            "hanja": 37.5,
+            "fourFrame": 35
+          },
+          "fullHangul": "정민재",
+          "fullHanja": "鄭敏在"
+        },
+        "sajuReport": {
+          "sajuEnabled": true,
+          "dayMaster": {
+            "stem": "기",
+            "element": "EARTH",
+            "polarity": "음"
+          },
+          "strengthLevel": "중화(신강 경향)",
+          "isStrong": true,
+          "yongshinElement": "FIRE",
+          "yongshinHeeshin": "METAL",
+          "gyeokgukType": "편관격",
+          "gyeokgukCategory": "일반",
+          "gyeokgukConfidence": 0.9199999999999999,
+          "deficientElements": [
+            "WATER"
+          ],
+          "excessiveElements": [
+            "EARTH"
+          ]
+        },
+        "candidatesTop5": [
+          {
+            "finalScore": 78.5,
+            "fullHangul": "정오정",
+            "fullHanja": "鄭午淀",
+            "rank": 1
+          },
+          {
+            "finalScore": 78.5,
+            "fullHangul": "정오정",
+            "fullHanja": "鄭午淨",
+            "rank": 2
+          },
+          {
+            "finalScore": 75.2,
+            "fullHangul": "정사인",
+            "fullHanja": "鄭四人",
+            "rank": 3
+          },
+          {
+            "finalScore": 75.2,
+            "fullHangul": "정오우",
+            "fullHanja": "鄭午又",
+            "rank": 4
+          },
+          {
+            "finalScore": 75.2,
+            "fullHangul": "정단우",
+            "fullHanja": "鄭丹又",
             "rank": 5
           }
         ],
