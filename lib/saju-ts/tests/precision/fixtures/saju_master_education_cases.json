@@ -1,0 +1,123 @@
+{
+  "_meta": {
+    "source": "명리심리상담사_전정훈 교안 + saju_master v9.2 검증",
+    "extractedFrom": "saju_master/docs/validation.md, saju_master/examples/sample_*.json",
+    "usage": "saju-ts 사주 4주 + 격국/용신 회귀 검증",
+    "timezone": "Asia/Seoul (KST = UTC+9)",
+    "totalCases": 4
+  },
+  "cases": [
+    {
+      "id": "edu-1982-11-18",
+      "birth": {
+        "instant": "1982-11-18T08:00:00+09:00",
+        "sex": "M",
+        "lunarBirth": "1982-10-03 (음력)"
+      },
+      "expected": {
+        "yearGanji": "壬戌",
+        "monthGanji": "辛亥",
+        "dayGanji": "乙巳",
+        "hourGanji": "庚辰",
+        "ipchun": "1982-02-04 (壬戌年 시작)"
+      },
+      "additionalChecks": {
+        "ipdong": "1982-11-08 추정 (亥月 시작)",
+        "elapsedSinceIpdong_days": 10.2,
+        "saryeong": "甲 中氣 사령 (亥월 戊7·甲7·壬16, 7~14일에 中氣)"
+      },
+      "note": "교안 4차시 핵심 예제. saju_master v9.2 examples/sample_1982_11_18_0800_v9_2_full.json"
+    },
+    {
+      "id": "edu-1972-female",
+      "birth": {
+        "year": 1972,
+        "sex": "F",
+        "directGanjiInput": true
+      },
+      "expected": {
+        "yearGanji": "壬子",
+        "monthGanji": "辛亥",
+        "dayGanji": "己巳",
+        "hourGanji": "丙寅"
+      },
+      "additionalChecks": {
+        "monthGyeok": "정재격 (월지 亥에서)"
+      },
+      "note": "교안 14-15차시 상담 실례. 직접 간지 입력 검증."
+    },
+    {
+      "id": "edu-1966-female",
+      "birth": {
+        "year": 1966,
+        "sex": "F",
+        "directGanjiInput": true
+      },
+      "expected": {
+        "yearGanji": "丙午",
+        "monthGanji": "壬辰",
+        "dayGanji": "丙申",
+        "hourGanji": "己亥"
+      },
+      "additionalChecks": {
+        "monthGyeok": "辰월 식신 본성, 살·상관 투출 겸격"
+      },
+      "note": "교안 14-15차시 상담 실례."
+    },
+    {
+      "id": "edu-1964-female",
+      "birth": {
+        "year": 1964,
+        "sex": "F",
+        "directGanjiInput": true
+      },
+      "expected": {
+        "yearGanji": "甲辰",
+        "monthGanji": "乙亥",
+        "dayGanji": "丙寅",
+        "hourGanji": "甲午"
+      },
+      "additionalChecks": {
+        "monthGyeok": "亥월 칠살 본성, 편인·정인 투출"
+      },
+      "note": "교안 14-15차시 상담 실례."
+    }
+  ],
+  "additionalSamples": [
+    {
+      "id": "day-pillar-2000-01-01",
+      "solarDate": "2000-01-01",
+      "expected": { "dayGanji": "戊午" },
+      "note": "교안 일주 기준 샘플"
+    },
+    {
+      "id": "ipchun-2024",
+      "boundary": "2024-02-04 입춘",
+      "expected": {
+        "before": { "yearGanji": "癸卯", "monthBranch": "丑" },
+        "after":  { "yearGanji": "甲辰", "monthBranch": "寅" }
+      }
+    },
+    {
+      "id": "longitude-correction-seoul-2024-01-01",
+      "birth": {
+        "instant": "2024-01-01T23:10:00+09:00",
+        "location": { "lat": 37.5665, "lon": 126.978 }
+      },
+      "expected": {
+        "afterLongitudeCorrection_localTime": "22:38",
+        "hourBranch": "亥"
+      },
+      "note": "평균태양시 보정 ~32분 (4 × (126.978 - 135) = -32.09분)"
+    },
+    {
+      "id": "korean-dst-1987-10-11",
+      "birth": {
+        "instant": "1987-10-11T02:30:00+09:00 (ambiguous)"
+      },
+      "expected": {
+        "ambiguous": "DST 종료로 두 fold 모두 유효"
+      }
+    }
+  ]
+}
