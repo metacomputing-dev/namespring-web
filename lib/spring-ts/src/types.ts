@@ -567,6 +567,17 @@ export interface SajuOutputSummary {
    *    'deferred'  (보류형) — conf < 0.45, omit or fully hedge
    *  Cards (PR9 onwards) use this to choose narrative wording. */
   axisStrength?: SajuAxisStrengthMap;
+  /** Heavenly-stem (천간) relations among the chart's four pillars (PR-H-A).
+   *  Surfaces the same shape that `SajuSummary.cheonganRelations` already
+   *  exposes — additive optional so default-mode regression is preserved.
+   *  Used by the cautions / personality narrative cards (Phase J) to surface
+   *  합·충·극 to the user without re-fetching the SajuSummary. */
+  cheonganRelations?: readonly CheonganRelationSummary[];
+  /** Earthly-branch (지지) relations among the chart's four pillars (PR-H-A).
+   *  Mirrors `SajuSummary.jijiRelations`. Same opt-in / additive policy as
+   *  cheonganRelations above. Used by cautions and life-overview cards to
+   *  surface 합·충·형·파·해 evidence rows. */
+  jijiRelations?: readonly JijiRelationSummary[];
 }
 
 export type SajuJudgmentStrength = 'definite' | 'practical' | 'candidate' | 'deferred';
