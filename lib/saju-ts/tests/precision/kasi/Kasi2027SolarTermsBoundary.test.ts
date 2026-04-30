@@ -83,3 +83,45 @@ describe('KASI 2027 24-term boundary regression', () => {
     }).toMatchSnapshot();
   });
 });
+
+describe('KASI 2027 24-term boundary regression — solarPrecision modes', () => {
+  function maxAbsMinutesAtPrecision(
+    precision: 'classical' | 'iau1980_top10' | 'iau1980_full',
+  ): { maxAbsMinutes: number; perTermMinutes: number[] } {
+    const perTermMinutes: number[] = [];
+    for (const term of fixture.terms) {
+      const expectedMs = new Date(term.kstIso).getTime();
+      const computedMs = solarTermUtcMsForLongitude(
+        2027,
+        term.degree,
+        'meeus',
+        'bisection',
+        'constant',
+        precision,
+      );
+      perTermMinutes.push((computedMs - expectedMs) / MS_PER_MIN);
+    }
+    return {
+      maxAbsMinutes: Number(
+        Math.max(...perTermMinutes.map((d) => Math.abs(d))).toFixed(3),
+      ),
+      perTermMinutes,
+    };
+  }
+
+  it('all three precision modes stay within the ±10 min envelope', () => {
+    for (const p of ['classical', 'iau1980_top10', 'iau1980_full'] as const) {
+      const { maxAbsMinutes } = maxAbsMinutesAtPrecision(p);
+      expect(maxAbsMinutes).toBeLessThan(BASELINE_TOL_MIN);
+    }
+  });
+
+  it('records max abs delta per precision mode (snapshot, expect monotonic improvement)', () => {
+    const summary = {
+      classical: maxAbsMinutesAtPrecision('classical').maxAbsMinutes,
+      iau1980_top10: maxAbsMinutesAtPrecision('iau1980_top10').maxAbsMinutes,
+      iau1980_full: maxAbsMinutesAtPrecision('iau1980_full').maxAbsMinutes,
+    };
+    expect(summary).toMatchSnapshot();
+  });
+});
