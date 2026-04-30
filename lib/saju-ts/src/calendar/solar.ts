@@ -534,6 +534,20 @@ export function solarLongitudeAtUtcMsDeg(
  * Note: not yet wired into the engine; will be consumed by an upcoming
  * Newton-Raphson root finder option.
  */
+/**
+ * Mean obliquity of the ecliptic (ε₀) in degrees, IAU 1980 model.
+ *
+ * Polynomial in `T` (Julian centuries from J2000.0 in TT). Matches
+ * Meeus, Astronomical Algorithms 2nd ed., eq. 22.2 (truncated to T³ —
+ * higher orders contribute well below an arcsecond over the supported
+ * date range).
+ *
+ * Used by the precise Equation-of-Time path; not yet wired.
+ */
+export function meanObliquityDeg(T: number): number {
+  return 23.4392911 - 0.0130042 * T - 1.64e-7 * T * T + 5.04e-7 * T * T * T;
+}
+
 export function solarLongitudeRateDegPerDay(
   jdUtc: number,
   aberrationModel: AberrationModel = DEFAULT_ABERRATION_MODEL,
