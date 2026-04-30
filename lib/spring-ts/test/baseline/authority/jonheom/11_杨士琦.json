@@ -1,0 +1,38 @@
+{
+  "case_id": "A2-jonheom_11_杨士琦",
+  "source": {
+    "tradition": "classical",
+    "text": "命理存验 (人鉴)",
+    "author": "林庚白",
+    "edition": "1933 / 1947 expanded",
+    "page_in_compilation": 1117,
+    "compilation": "사주고전종합.pdf (provided by user)",
+    "category": "近代名人 명조"
+  },
+  "subject": {
+    "name_hanja": "杨士琦",
+    "name_korean": "양사기"
+  },
+  "pillars": {
+    "year_pillar": "辛巳",
+    "month_pillar": "辛丑",
+    "day_pillar": "丁亥",
+    "hour_pillar": "甲辰"
+  },
+  "expected": {
+    "gyeokguk": "정인격",
+    "gyeokguk_alt": "식신격",
+    "yongshin": "정인",
+    "gyeokguk_basis": "時干 甲木 透出 印授"
+  },
+  "prose_quote": {
+    "verbatim": "丁亥爲飘飘印授, 而冬中甲木透出時, 尤爲可貴, 唯系邪破印, 是其所忌.",
+    "extracted_from": "PDF page image (visual reading); prose 한자 정상 식별",
+    "page_image": ".tmp/pdf-pages/jonheom/p1117.png"
+  },
+  "copyrightNote": [
+    "Pillars (year/month/day/hour ganzhi) are factual data, not copyrighted.",
+    "prose_quote is a verbatim short classical-format judgment phrase from public-domain text (1933 Qing-Republican era).",
+    "expected fields are interpretive paraphrase ≤ 50자."
+  ]
+}

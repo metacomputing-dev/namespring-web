@@ -1,0 +1,38 @@
+{
+  "case_id": "A2-jonheom_07_钱能训",
+  "source": {
+    "tradition": "classical",
+    "text": "命理存验 (人鉴)",
+    "author": "林庚白",
+    "edition": "1933 / 1947 expanded",
+    "page_in_compilation": 1116,
+    "compilation": "사주고전종합.pdf (provided by user)",
+    "category": "近代名人 명조"
+  },
+  "subject": {
+    "name_hanja": "钱能训",
+    "name_korean": "전능훈"
+  },
+  "pillars": {
+    "year_pillar": "戊午",
+    "month_pillar": "乙丑",
+    "day_pillar": "壬申",
+    "hour_pillar": "乙巳"
+  },
+  "expected": {
+    "gyeokguk": "인수격",
+    "gyeokguk_alt": "정관격",
+    "yongshin": "인수",
+    "gyeokguk_basis": "中氣 辛金 印星 當令"
+  },
+  "prose_quote": {
+    "verbatim": "辛金當令, 八字虽缺金, 而玄朗暗藏, 可以爲用. 印當令爲印授强健.",
+    "extracted_from": "PDF page image (visual reading); prose 한자 정상 식별",
+    "page_image": ".tmp/pdf-pages/jonheom/p1116.png"
+  },
+  "copyrightNote": [
+    "Pillars (year/month/day/hour ganzhi) are factual data, not copyrighted.",
+    "prose_quote is a verbatim short classical-format judgment phrase from public-domain text (1933 Qing-Republican era).",
+    "expected fields are interpretive paraphrase ≤ 50자."
+  ]
+}

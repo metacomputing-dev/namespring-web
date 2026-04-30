@@ -1,0 +1,38 @@
+{
+  "case_id": "A2-jonheom_18_孙中山",
+  "source": {
+    "tradition": "classical",
+    "text": "命理存验 (人鉴)",
+    "author": "林庚白",
+    "edition": "1933 / 1947 expanded",
+    "page_in_compilation": 1119,
+    "compilation": "사주고전종합.pdf (provided by user)",
+    "category": "近代名人 명조"
+  },
+  "subject": {
+    "name_hanja": "孙中山",
+    "name_korean": "손중산"
+  },
+  "pillars": {
+    "year_pillar": "乙丑",
+    "month_pillar": "丙戌",
+    "day_pillar": "辛酉",
+    "hour_pillar": "壬辰"
+  },
+  "expected": {
+    "gyeokguk": "정인격",
+    "gyeokguk_alt": "정인격",
+    "yongshin": "정인",
+    "gyeokguk_basis": "月支 戌 정기 戊 정인"
+  },
+  "prose_quote": {
+    "verbatim": "官印偏備, 而帶偏財. 三命局秀風騰刑.",
+    "extracted_from": "PDF page image (visual reading); prose 한자 정상 식별",
+    "page_image": ".tmp/pdf-pages/jonheom/p1119.png"
+  },
+  "copyrightNote": [
+    "Pillars (year/month/day/hour ganzhi) are factual data, not copyrighted.",
+    "prose_quote is a verbatim short classical-format judgment phrase from public-domain text (1933 Qing-Republican era).",
+    "expected fields are interpretive paraphrase ≤ 50자."
+  ]
+}

@@ -1,0 +1,38 @@
+{
+  "case_id": "A2-jonheom_05_瞿鸿玑",
+  "source": {
+    "tradition": "classical",
+    "text": "命理存验 (人鉴)",
+    "author": "林庚白",
+    "edition": "1933 / 1947 expanded",
+    "page_in_compilation": 1115,
+    "compilation": "사주고전종합.pdf (provided by user)",
+    "category": "近代名人 명조"
+  },
+  "subject": {
+    "name_hanja": "瞿鸿玑",
+    "name_korean": "구홍기"
+  },
+  "pillars": {
+    "year_pillar": "庚戌",
+    "month_pillar": "癸未",
+    "day_pillar": "乙亥",
+    "hour_pillar": "丙戌"
+  },
+  "expected": {
+    "gyeokguk": "정관격",
+    "gyeokguk_alt": "편재격",
+    "yongshin": "정관",
+    "gyeokguk_basis": "年干 庚 正官 透出"
+  },
+  "prose_quote": {
+    "verbatim": "水火傷官, 正官透出, 得根於未, 命宮又坐戊水日時, 皆寓佳象.",
+    "extracted_from": "PDF page image (visual reading); prose 한자 정상 식별",
+    "page_image": ".tmp/pdf-pages/jonheom/p1115.png"
+  },
+  "copyrightNote": [
+    "Pillars (year/month/day/hour ganzhi) are factual data, not copyrighted.",
+    "prose_quote is a verbatim short classical-format judgment phrase from public-domain text (1933 Qing-Republican era).",
+    "expected fields are interpretive paraphrase ≤ 50자."
+  ]
+}
