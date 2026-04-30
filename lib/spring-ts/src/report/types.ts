@@ -304,6 +304,13 @@ export interface CategoryFortuneCard {
    *  finer-grained 도메인 breakdowns alongside the headline `summary`.
    *  saju_master/event_domain_map.py is the doctrine reference. */
   readonly subDomains?: readonly CategoryFortuneSubDomain[];
+  /** Per-axis judgment strength (PR-J-8a). Optional. */
+  readonly axisStrength?: SajuAxisStrengthMap;
+  /** Optional row-level evidence backing the category star + advice
+   *  (PR-J-8a). Anchors on the category's primary element vs the
+   *  chart's yongshin/gishin so the consumer can render "이 영역의
+   *  별점은 어떤 근거인가?" beneath each card. */
+  readonly evidence?: readonly EvidenceRow[];
 }
 
 // ── 운세 보고서 요청/응답 ────────────────────────────────────────────────
