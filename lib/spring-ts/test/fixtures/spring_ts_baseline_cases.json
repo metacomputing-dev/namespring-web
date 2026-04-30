@@ -139,9 +139,9 @@
           "field": "sajuReport.gyeokgukType",
           "spring_ts": "편재격",
           "saju_master": "비견격",
-          "reason": "소설 boundary edge. saju_master geok_codes=['BiJian','ZhengCai'] (겸격) — picks BiJian. spring-ts picks 편재격 (PianCai) which is not in saju_master's compound list. Likely jie-boundary policy difference produces different month branch; investigation pending.",
+          "reason": "Engine-level rule disagreement (PR-M-8 diagnosed via tools/diagnose_fix10_pillars.ts). Both engines agree on the four pillars (戊戌/癸亥/戊午). They diverge on 격국 selection: spring-ts uses 'month branch main hidden ten god' = 壬(亥 정기) → 편재. saju_master uses 'transparent stem matched to hidden by same-element' rule and finds: year 戊 matches 亥-여기 戊 → BiJian, month 癸 matches 亥-정기 壬 by same-element water → ZhengCai. saju_master surfaces compound [BiJian, ZhengCai] and picks BiJian by score. spring-ts's 편재 is not in saju_master's compound list because no transparent stem matches the main qi with same polarity. Both rules are 자평-traditional. Hour pillar also differs (spring-ts=己未, saju_master=庚申) but doesn't affect month-branch gyeokguk selection.",
           "pendingAuthority": true,
-          "needsCodeReview": true
+          "needsCodeReview": false
         },
         {
           "field": "sajuReport.yongshinElement",
@@ -149,6 +149,14 @@
           "saju_master": null,
           "reason": "saju_master returned no balancing_candidates for this 中和-or-약중강 strength state. spring-ts emits METAL via the deterministic strength-then-yongshin path. Defensible (filling in where saju_master defers).",
           "pendingAuthority": false
+        },
+        {
+          "field": "pillars.hour",
+          "spring_ts": "己未",
+          "saju_master": "庚申",
+          "reason": "15:00 sits exactly on the 未時/申時 boundary. spring-ts uses 13:00–15:00 = 未時 (boundary inclusive at 15:00). saju_master uses 15:00–17:00 = 申時 (boundary inclusive at 15:00). Documented hour-boundary policy difference. Independent of the gyeokguk diff above.",
+          "pendingAuthority": false,
+          "needsCodeReview": false
         }
       ]
     },
