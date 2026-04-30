@@ -23,6 +23,7 @@ import { type ElementKey, emptyDistribution } from './core/scoring.js';
 import type {
   SajuOutputSummary, SpringRequest, SajuSummary, PillarSummary, BirthInfo,
   SajuPillarPosition, SajuTenGodPositionGroup,
+  SajuAxisStrengthMap, SajuJudgmentStrength,
 } from './types.js';
 
 // ---------------------------------------------------------------------------
@@ -1741,6 +1742,50 @@ export function buildSajuContext(sajuSummary: SajuSummary): { dist: Record<Eleme
       excessiveElements: sajuSummary.excessiveElements?.length
         ? normalizeElementCodeList(sajuSummary.excessiveElements)
         : undefined,
+      axisStrength: deriveAxisStrength(sajuSummary),
     },
   };
+}
+
+/** Bins each axis's saju-engine confidence into the 4-tier rhetoric model
+ *  (PR9). Returns undefined when no axis carries usable confidence so the
+ *  optional field stays absent rather than empty.
+ *
+ *  Thresholds match saju_master/judgment_expression_engine.py:_score_to_mode
+ *  (≥0.85 definite / ≥0.65 practical / ≥0.45 candidate / else deferred). */
+function deriveAxisStrength(sajuSummary: SajuSummary): SajuAxisStrengthMap | undefined {
+  const out: { -readonly [K in keyof SajuAxisStrengthMap]?: SajuJudgmentStrength } = {};
+
+  // yongshin axis — direct confidence from the engine.
+  const yongshinConf = sajuSummary.yongshin?.confidence;
+  if (typeof yongshinConf === 'number' && Number.isFinite(yongshinConf)) {
+    out.yongshin = toJudgmentStrength(confidenceToRatio(yongshinConf));
+  }
+
+  // gyeokguk axis — direct confidence on `sajuSummary.gyeokguk.confidence`.
+  const gyeokgukConf = sajuSummary.gyeokguk?.confidence;
+  if (typeof gyeokgukConf === 'number' && Number.isFinite(gyeokgukConf)) {
+    out.gyeokguk = toJudgmentStrength(gyeokgukConf);
+  }
+
+  // strength axis — derive a confidence from the support / oppose lopsidedness.
+  const support = Number(sajuSummary.strength?.totalSupport) || 0;
+  const oppose  = Number(sajuSummary.strength?.totalOppose)  || 0;
+  const total   = Math.abs(support) + Math.abs(oppose);
+  if (total > 0) {
+    const lopsidedness = Math.abs(Math.abs(support) - Math.abs(oppose)) / total;
+    out.strength = toJudgmentStrength(lopsidedness);
+  }
+
+  // chengbai / johu / fortuneHierarchy / rectification — saju-ts does not yet
+  // surface explicit confidences for these. Future PR can populate.
+
+  return Object.keys(out).length > 0 ? (out as SajuAxisStrengthMap) : undefined;
+}
+
+function toJudgmentStrength(confidence: number): SajuJudgmentStrength {
+  if (confidence >= 0.85) return 'definite';
+  if (confidence >= 0.65) return 'practical';
+  if (confidence >= 0.45) return 'candidate';
+  return 'deferred';
 }
