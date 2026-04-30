@@ -32,7 +32,8 @@
     "quality:gate": "node tools/quality_gate.mjs",
     "capture:oracles": "node tools/capture_saju_master_runs.mjs",
     "validate:lecture": "npx tsx tools/validate_lecture_cases.ts",
-    "validate:lecture-smc": "node tools/validate_lecture_saju_master.mjs"
+    "validate:lecture-smc": "node tools/validate_lecture_saju_master.mjs",
+    "validate:classical-engines": "node tools/compare_engines_classical.mjs"
   },
   "dependencies": {
     "sql.js": "^1.14.0",
