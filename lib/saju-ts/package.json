@@ -29,7 +29,10 @@
     "golden:generate": "npm run build --silent && node tools/golden.mjs generate",
     "golden:verify": "npm run build --silent && node tools/golden.mjs verify",
     "golden:record": "npm run golden:generate",
-    "golden:log": "npm run golden:verify > docs/_audit/_testlog_golden.txt"
+    "golden:log": "npm run golden:verify > docs/_audit/_testlog_golden.txt",
+    "validate:kasi": "npm run build --silent && node tools/validate_kasi_2027.mjs",
+    "validate:xref": "npm run build --silent && node tools/validate_saju_master_xref.mjs",
+    "validate:all": "npm run validate:kasi && npm run validate:xref"
   },
   "dependencies": {
     "fflate": "^0.8.2"
