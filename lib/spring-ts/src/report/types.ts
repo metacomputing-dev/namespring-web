@@ -195,6 +195,14 @@ export interface StrengthsWeaknessesCard {
   readonly title: '나의 장/단점';
   readonly strengths: FortuneAdvice[];
   readonly weaknesses: FortuneAdvice[];
+  /** Per-axis judgment strength (PR-J-5b). Same 4-tier hedge model as
+   *  OverviewSummaryCard / PersonalityCard. Optional. */
+  readonly axisStrength?: SajuAxisStrengthMap;
+  /** Optional row-level evidence backing each strength / weakness claim
+   *  (PR-J-5b). Pulls from PR-J-1's gyeokguk success rules and PR-J-2's
+   *  ten-god expert tone so a UI can surface the chart features that
+   *  drove each item. */
+  readonly evidence?: readonly EvidenceRow[];
 }
 
 // ── 카드 6: 유의점 ───────────────────────────────────────────────────────
