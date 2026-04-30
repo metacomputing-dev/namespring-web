@@ -81,6 +81,14 @@
       "birth": { "year": 2018, "month": 11, "day": 22, "hour": 15, "minute": 0, "gender": "female" },
       "surname": [{ "hangul": "한", "hanja": "韓" }],
       "givenName": [{ "hangul": "서", "hanja": "瑞" }, { "hangul": "연", "hanja": "蓮" }]
+    },
+    {
+      "id": "fix-11",
+      "label": "1995-08-15 female — 시간미상 (unknown-hour)",
+      "axis": ["unknown-hour", "edge", "yin-fire"],
+      "birth": { "year": 1995, "month": 8, "day": 15, "hour": null, "minute": 0, "gender": "female" },
+      "surname": [{ "hangul": "이", "hanja": "李" }],
+      "givenName": [{ "hangul": "지", "hanja": "智" }, { "hangul": "혜", "hanja": "慧" }]
     }
   ]
 }
