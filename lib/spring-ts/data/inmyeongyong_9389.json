@@ -1,0 +1,17 @@
+{
+  "schemaVersion": "1.0.0",
+  "source": "대법원 가족관계의 등록 등에 관한 규칙 별표 1 (인명용 한자 표)",
+  "sourceVersion": "2024-06",
+  "license": "KOGL Type 1 (공공저작물 자유이용허락) — 출처 명시 시 자유 이용 가능",
+  "expectedTotalDistinct": 9389,
+  "note": "대법원 별표 1 의 인명용 한자 list. 본 file 은 PR-I-1 의 schema + 50-char seed sample 만 보유. 전체 9,389 list import 는 OCR/PDF extract 가 끝난 별도 data PR 에서 수행 — 그때까지 isHanjaUsableForLegalName 의 default 는 conservative 'accept unknown' 정책을 유지한다.",
+  "registrable": [
+    "佳", "家", "假", "可", "加", "嘉", "歌", "稼", "賈",
+    "各", "刻", "却", "客", "脚", "覺", "閣",
+    "干", "幹", "懇", "看", "簡", "肝", "間",
+    "感", "減", "甘", "監", "鑑",
+    "甲", "岬",
+    "江", "強", "康", "彊", "强", "綱", "羌", "腔", "講",
+    "介", "個", "凱", "改", "皆", "蓋"
+  ]
+}

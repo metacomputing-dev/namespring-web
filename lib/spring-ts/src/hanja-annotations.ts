@@ -25,6 +25,7 @@
  */
 
 import type { HanjaEntry } from '../../seed-ts/src/database/hanja-repository.js';
+import inmyeongyongData from '../data/inmyeongyong_9389.json';
 
 /** PR11 annotations layered over the seed-ts HanjaEntry. */
 export interface HanjaLegalAnnotation {
@@ -74,13 +75,34 @@ export function normalizeToOrthodoxHanja(hanja: string): string {
   return VARIANT_TO_ORTHODOX[hanja] ?? hanja;
 }
 
-/** Returns the legal-registrability annotation for a HanjaEntry. Until
- *  the official 9,389-character list is imported, this returns undefined
- *  (= status unknown) for every entry. PR12+ will replace the body with
- *  a real lookup against config/inmyeongyong-hanja.json. */
+/** Set of registrable hanja loaded from the official 인명용 list. PR-I-1
+ *  bootstraps this with a 50-char seed; the full 9,389 import lands in a
+ *  later data PR (data/inmyeongyong_9389.json `registrable` array). */
+const REGISTRABLE_HANJA: ReadonlySet<string> = new Set(
+  (inmyeongyongData as { registrable: string[] }).registrable ?? [],
+);
+
+/** Returns the legal-registrability annotation for a HanjaEntry.
+ *
+ *  When the hanja appears in the imported 인명용 list (대법원 별표 1),
+ *  `legalRegistrable: true`. When the dataset is incomplete (still in
+ *  seed phase), characters outside the seed return `undefined` — i.e.
+ *  status unknown — so `isHanjaUsableForLegalName`'s conservative default
+ *  ("accept unknown") preserves the curated pool's behavior. The 異體字
+ *  isVariantOf field is populated separately by PR-I-5 (별표 2 import). */
 export function getLegalAnnotation(entry: HanjaEntry): HanjaLegalAnnotation {
-  void entry;  // intentionally unused until the data import lands
-  return { legalRegistrable: undefined, isVariantOf: undefined };
+  const hanja = entry?.hanja;
+  if (typeof hanja !== 'string' || hanja.length === 0) {
+    return { legalRegistrable: undefined, isVariantOf: undefined };
+  }
+  // Normalize to 정자 first — variant inputs share registrability with
+  // their orthodox form per 별표 2's pairing convention.
+  const orthodox = normalizeToOrthodoxHanja(hanja);
+  const isOnList = REGISTRABLE_HANJA.has(orthodox);
+  return {
+    legalRegistrable: isOnList ? true : undefined,
+    isVariantOf: orthodox !== hanja ? orthodox : undefined,
+  };
 }
 
 /** Filter helper for candidate generation. Returns true when the hanja
