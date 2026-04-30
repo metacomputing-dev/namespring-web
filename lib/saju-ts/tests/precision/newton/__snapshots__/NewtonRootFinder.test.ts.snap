@@ -1,0 +1,13 @@
+// Vitest Snapshot v1, https://vitest.dev/guide/snapshot.html
+
+exports[`Newton root finder > records max abs delta across the 25 sample pairs (snapshot) 1`] = `
+{
+  "maxAbsDeltaMs": 324,
+  "worst": {
+    "bs": 949668052478,
+    "deg": 315,
+    "nw": 949668052154,
+    "year": 2000,
+  },
+}
+`;
