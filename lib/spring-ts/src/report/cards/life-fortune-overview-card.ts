@@ -6,12 +6,13 @@
  * balance. Produces a friendly Korean summary and highlights.
  */
 
-import type { SajuSummary } from '../../types.js';
+import type { SajuSummary, EvidenceRow, SajuAxisStrengthMap } from '../../types.js';
 import type { LifeFortuneOverviewCard, StarRating, ElementCode } from '../types.js';
 import {
   STRENGTH_KOREAN,
   elementCodeToKorean,
 } from '../common/elementMaps.js';
+import { findGyeokgukEntry } from '../knowledge/gyeokgukEncyclopedia.js';
 
 import type { StrengthLevel } from '../types.js';
 
@@ -213,10 +214,57 @@ export function buildLifeFortuneOverviewCard(saju: SajuSummary): LifeFortuneOver
   const summary = buildSummary(saju, stars);
   const highlights = buildHighlights(saju);
 
+  // ── PR-J-5c — narrative foundations (axisStrength + evidence) ──
+  const sajuAxis = (saju as unknown as { axisStrength?: SajuAxisStrengthMap }).axisStrength;
+  const evidence: EvidenceRow[] = [];
+
+  // Yongshin row — anchors the "왜 이 별점인가" rationale on the user's
+  // primary balancing element. Hedge wording when the yongshin tier is
+  // 'candidate' / 'deferred' so a low-confidence yongshin doesn't drive
+  // an over-confident life-fortune narrative.
+  const yongshinTier = sajuAxis?.yongshin;
+  const yongshinElement = saju.yongshin?.element;
+  if (yongshinElement) {
+    const yongshinKorean = elementCodeToKorean(yongshinElement) ?? yongshinElement;
+    const isHedged = yongshinTier === 'candidate' || yongshinTier === 'deferred';
+    evidence.push({
+      axis: 'yongshin',
+      claim: isHedged
+        ? `용신 ${yongshinKorean} — 신뢰도가 낮아 보조 기운 함께 활용 권장.`
+        : `용신 ${yongshinKorean} — 균형의 핵심 기운으로 활용 시 운세가 견고해져요.`,
+      supportingFeatures: [
+        `용신 후보: ${yongshinElement}`,
+        ...(saju.yongshin?.heeshin ? [`희신: ${saju.yongshin.heeshin}`] : []),
+      ],
+      weakness: isHedged
+        ? '용신 신뢰도가 0.65 미만이라 차트에 따라 다른 학파의 추천이 더 적합할 수 있음.'
+        : undefined,
+      strength: yongshinTier,
+    });
+  }
+
+  // Gyeokguk row — same shape as overview / personality wires.
+  const gyeokgukEntry = findGyeokgukEntry(saju.gyeokguk?.type);
+  if (gyeokgukEntry?.principle) {
+    const supporting: string[] = [`격국: ${gyeokgukEntry.korean}`];
+    if (gyeokgukEntry.helpful?.length) {
+      supporting.push(`성(成) 조건: ${gyeokgukEntry.helpful[0]}`);
+    }
+    evidence.push({
+      axis: 'gyeokguk',
+      claim: gyeokgukEntry.principle,
+      supportingFeatures: supporting,
+      weakness: gyeokgukEntry.disease?.[0],
+      strength: sajuAxis?.gyeokguk,
+    });
+  }
+
   return {
     title: '인생 운세 총평',
     stars,
     summary,
     highlights,
+    axisStrength: sajuAxis,
+    evidence: evidence.length > 0 ? evidence : undefined,
   };
 }
