@@ -1,0 +1,29 @@
+{
+  "schoolName": "Modern Integrated (한국 현대 통합 — 조후 강조)",
+  "description": "Modern integrated school giving 조후 (climate-driven yongshin) the dominant weight — common in contemporary Korean naming services that prioritize seasonal balance over classical 격국 structure. Compared to korean.json: JOHU bumped above EOKBU; GYEOKGUK slightly demoted.",
+  "yongshinTypeWeights": {
+    "EOKBU": 0.95,
+    "JOHU": 1.0,
+    "TONGGWAN": 0.9,
+    "GYEOKGUK": 0.8,
+    "BYEONGYAK": 0.8,
+    "JEONWANG": 0.7,
+    "HAPWHA_YONGSHIN": 0.7,
+    "ILHAENG_YONGSHIN": 0.7
+  },
+  "adaptiveWeights": {
+    "balanceBase": 0.58,
+    "balanceMin": 0.33,
+    "balanceMax": 0.58,
+    "yongshinBase": 0.25,
+    "yongshinMin": 0.25,
+    "yongshinMax": 0.5,
+    "strengthFixed": 0.12,
+    "tenGodFixed": 0.05,
+    "shiftDivisor": 70,
+    "confidenceWeight": 0.4,
+    "baseShiftRatio": 0.22,
+    "confidenceBoost": 0.08,
+    "baseConfidenceRatio": 0.6
+  }
+}
