@@ -12,6 +12,9 @@ import { solarApparentLongitudeDeg, solarLongitudeRateDegPerDay } from './solar.
  */
 
 export type SolarTermMethod = 'approx' | 'meeus';
+export type SolarTermAlgorithm = 'bisection' | 'newton';
+
+const DEFAULT_ALGORITHM: SolarTermAlgorithm = 'bisection';
 
 /**
  * 24절기(二十四節氣) — identified by the target longitude (deg) of Sun's
@@ -314,7 +317,12 @@ function bisectLongitudeRoot(aJd: number, bJd: number, targetLongitude: number):
 /**
  * Core solver: find UTC ms when the Sun's apparent longitude reaches a target value.
  */
-export function solarTermUtcMsForLongitude(year: number, longitude: number, method: SolarTermMethod): number {
+export function solarTermUtcMsForLongitude(
+  year: number,
+  longitude: number,
+  method: SolarTermMethod,
+  algorithm: SolarTermAlgorithm = DEFAULT_ALGORITHM,
+): number {
   const normalized = modDeg(longitude);
   const approx = APPROX_BY_LONGITUDE.get(normalized) ?? roughApproxDateForLongitude(year, normalized);
 
@@ -323,15 +331,22 @@ export function solarTermUtcMsForLongitude(year: number, longitude: number, meth
   }
 
   const { aJd, bJd } = findBracketForLongitude(year, normalized, approx);
-  const rootJd = bisectLongitudeRoot(aJd, bJd, normalized);
+  const rootJd =
+    algorithm === 'newton'
+      ? newtonLongitudeRoot((aJd + bJd) / 2, normalized)
+      : bisectLongitudeRoot(aJd, bJd, normalized);
   return Math.round(julianDayToUtcMs(rootJd));
 }
 
 const cacheSolar = new Map<string, SolarTermInstant[]>();
 const cacheJie = new Map<string, SolarTermInstant[]>();
 
-export function getSolarTerms(year: number, method: SolarTermMethod): SolarTermInstant[] {
-  const key = `${method}:${year}`;
+export function getSolarTerms(
+  year: number,
+  method: SolarTermMethod,
+  algorithm: SolarTermAlgorithm = DEFAULT_ALGORITHM,
+): SolarTermInstant[] {
+  const key = `${method}:${algorithm}:${year}`;
   const cached = cacheSolar.get(key);
   if (cached) return cached;
 
@@ -339,19 +354,23 @@ export function getSolarTerms(year: number, method: SolarTermMethod): SolarTermI
     id: spec.id,
     year,
     longitude: modDeg(spec.longitude),
-    utcMs: solarTermUtcMsForLongitude(year, spec.longitude, method),
+    utcMs: solarTermUtcMsForLongitude(year, spec.longitude, method, algorithm),
   })).sort((a, b) => a.utcMs - b.utcMs);
 
   cacheSolar.set(key, out);
   return out;
 }
 
-export function getJieBoundaries(year: number, method: SolarTermMethod): SolarTermInstant[] {
-  const key = `${method}:${year}`;
+export function getJieBoundaries(
+  year: number,
+  method: SolarTermMethod,
+  algorithm: SolarTermAlgorithm = DEFAULT_ALGORITHM,
+): SolarTermInstant[] {
+  const key = `${method}:${algorithm}:${year}`;
   const cached = cacheJie.get(key);
   if (cached) return cached;
 
-  const out = getSolarTerms(year, method)
+  const out = getSolarTerms(year, method, algorithm)
     .filter((t) => isJieTermId(t.id))
     .sort((a, b) => a.utcMs - b.utcMs);
 
@@ -359,28 +378,40 @@ export function getJieBoundaries(year: number, method: SolarTermMethod): SolarTe
   return out;
 }
 
-export function getSolarTermsAround(baseYear: number, method: SolarTermMethod): SolarTermsAround {
+export function getSolarTermsAround(
+  baseYear: number,
+  method: SolarTermMethod,
+  algorithm: SolarTermAlgorithm = DEFAULT_ALGORITHM,
+): SolarTermsAround {
   const terms = [
-    ...getSolarTerms(baseYear - 1, method),
-    ...getSolarTerms(baseYear, method),
-    ...getSolarTerms(baseYear + 1, method),
+    ...getSolarTerms(baseYear - 1, method, algorithm),
+    ...getSolarTerms(baseYear, method, algorithm),
+    ...getSolarTerms(baseYear + 1, method, algorithm),
   ].sort((a, b) => a.utcMs - b.utcMs);
 
   return { baseYear, method, terms };
 }
 
-export function getJieBoundariesAround(baseYear: number, method: SolarTermMethod): JieBoundariesAround {
+export function getJieBoundariesAround(
+  baseYear: number,
+  method: SolarTermMethod,
+  algorithm: SolarTermAlgorithm = DEFAULT_ALGORITHM,
+): JieBoundariesAround {
   const terms = [
-    ...getJieBoundaries(baseYear - 1, method),
-    ...getJieBoundaries(baseYear, method),
-    ...getJieBoundaries(baseYear + 1, method),
+    ...getJieBoundaries(baseYear - 1, method, algorithm),
+    ...getJieBoundaries(baseYear, method, algorithm),
+    ...getJieBoundaries(baseYear + 1, method, algorithm),
   ].sort((a, b) => a.utcMs - b.utcMs);
 
   return { baseYear, method, terms };
 }
 
-export function getLiChunUtcMs(year: number, method: SolarTermMethod): number {
-  const terms = getJieBoundaries(year, method);
+export function getLiChunUtcMs(
+  year: number,
+  method: SolarTermMethod,
+  algorithm: SolarTermAlgorithm = DEFAULT_ALGORITHM,
+): number {
+  const terms = getJieBoundaries(year, method, algorithm);
   const liChun = terms.find((t) => t.id === 'LICHUN');
   if (!liChun) throw new Error('Invariant: LICHUN missing from Jie terms');
   return liChun.utcMs;
