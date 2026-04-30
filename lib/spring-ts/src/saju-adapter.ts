@@ -1748,6 +1748,17 @@ export function buildSajuContext(sajuSummary: SajuSummary): { dist: Record<Eleme
         ? normalizeElementCodeList(sajuSummary.excessiveElements)
         : undefined,
       axisStrength: deriveAxisStrength(sajuSummary),
+      // PR-H-A: surface the 천간/지지 relation arrays that SajuSummary already
+      // carries. Adapter passthrough — the upstream engine is the source of
+      // truth; we do not re-derive. When the source is empty/absent we leave
+      // the field undefined (rather than emit []) so downstream consumers can
+      // distinguish "no relations on this chart" from "absent in the summary".
+      cheonganRelations: sajuSummary.cheonganRelations?.length
+        ? sajuSummary.cheonganRelations
+        : undefined,
+      jijiRelations: sajuSummary.jijiRelations?.length
+        ? sajuSummary.jijiRelations
+        : undefined,
     },
   };
 }
