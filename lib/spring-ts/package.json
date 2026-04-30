@@ -29,7 +29,8 @@
     "snapshot:capture": "npx tsx tools/baseline_snapshot.ts capture",
     "validate:regression": "node tools/measure_regression.mjs --baseline main --branch HEAD",
     "validate:default-change": "node tools/measure_default_change.mjs --baseline main --branch HEAD",
-    "quality:gate": "node tools/quality_gate.mjs"
+    "quality:gate": "node tools/quality_gate.mjs",
+    "capture:oracles": "node tools/capture_saju_master_runs.mjs"
   },
   "dependencies": {
     "sql.js": "^1.14.0",
