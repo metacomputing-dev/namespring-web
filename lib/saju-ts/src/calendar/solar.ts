@@ -548,6 +548,42 @@ export function meanObliquityDeg(T: number): number {
   return 23.4392911 - 0.0130042 * T - 1.64e-7 * T * T + 5.04e-7 * T * T * T;
 }
 
+/**
+ * Apparent geocentric right ascension of the Sun (α), in degrees.
+ *
+ * Computed by rotating the apparent ecliptic longitude `λ` (which
+ * already carries aberration and the requested nutation model) into
+ * equatorial coordinates with the IAU 1980 mean obliquity:
+ *
+ *   tan α = cos ε · sin λ / cos λ
+ *
+ * Result is reduced to [0°, 360°). Optional `aberrationModel` and
+ * `solarPrecision` flow through to `solarApparentLongitudeDeg`.
+ *
+ * Used by the precise Equation-of-Time path; not yet wired.
+ */
+export function solarApparentRADeg(
+  jdUtc: number,
+  aberrationModel: AberrationModel = DEFAULT_ABERRATION_MODEL,
+  solarPrecision: SolarPrecision = DEFAULT_SOLAR_PRECISION,
+): number {
+  const dT = deltaTSecondsFromJulianDayUtc(jdUtc);
+  const jdTT = jdUtc + dT / 86400;
+  const T = (jdTT - 2451545.0) / 36525.0;
+
+  const lambda = solarApparentLongitudeDeg(jdUtc, aberrationModel, solarPrecision);
+  const epsilon = meanObliquityDeg(T);
+
+  const lambdaRad = lambda * DEG2RAD;
+  const epsilonRad = epsilon * DEG2RAD;
+
+  const alphaRad = Math.atan2(
+    Math.cos(epsilonRad) * Math.sin(lambdaRad),
+    Math.cos(lambdaRad),
+  );
+  return mod360(alphaRad * RAD2DEG);
+}
+
 export function solarLongitudeRateDegPerDay(
   jdUtc: number,
   aberrationModel: AberrationModel = DEFAULT_ABERRATION_MODEL,
