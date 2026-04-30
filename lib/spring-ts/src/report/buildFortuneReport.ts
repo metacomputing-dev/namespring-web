@@ -8,7 +8,7 @@
  */
 
 import type { SajuSummary, SpringReport } from '../types.js';
-import type { FortuneReport, ReportMeta, FortuneCategory } from './types.js';
+import type { FortuneReport, FortuneReportOptions, ReportMeta, FortuneCategory } from './types.js';
 
 // Card builders
 import { buildOverviewSummaryCard } from './cards/overview-summary-card.js';
@@ -151,6 +151,7 @@ export function buildFortuneReport(
   saju: SajuSummary,
   targetDate: Date,
   springReport: SpringReport | null,
+  options?: FortuneReportOptions,
 ): FortuneReport {
   const currentAge = computeCurrentAge(saju, targetDate);
 
@@ -191,25 +192,25 @@ export function buildFortuneReport(
 
   // ── 7. Period fortune cards ──
   const dailyFortune = safeCall(
-    () => buildPeriodFortuneCard(saju, 'daily', targetDate),
+    () => buildPeriodFortuneCard(saju, 'daily', targetDate, options),
     makeFallbackPeriodFortune('daily', '오늘'),
     'dailyFortune',
   );
 
   const weeklyFortune = safeCall(
-    () => buildPeriodFortuneCard(saju, 'weekly', targetDate),
+    () => buildPeriodFortuneCard(saju, 'weekly', targetDate, options),
     makeFallbackPeriodFortune('weekly', '이번 주'),
     'weeklyFortune',
   );
 
   const monthlyFortune = safeCall(
-    () => buildPeriodFortuneCard(saju, 'monthly', targetDate),
+    () => buildPeriodFortuneCard(saju, 'monthly', targetDate, options),
     makeFallbackPeriodFortune('monthly', '이번 달'),
     'monthlyFortune',
   );
 
   const yearlyFortune = safeCall(
-    () => buildPeriodFortuneCard(saju, 'yearly', targetDate),
+    () => buildPeriodFortuneCard(saju, 'yearly', targetDate, options),
     makeFallbackPeriodFortune('yearly', '올해'),
     'yearlyFortune',
   );
