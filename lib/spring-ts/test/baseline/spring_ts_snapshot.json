@@ -1,8 +1,8 @@
 {
   "version": "1.0.0",
-  "capturedAt": "2026-04-30T07:40:02.453Z",
+  "capturedAt": "2026-04-30T12:02:14.055Z",
   "targetDate": "2026-04-30T00:00:00.000Z",
-  "fixtureCount": 10,
+  "fixtureCount": 11,
   "results": [
     {
       "id": "fix-01",
@@ -802,6 +802,87 @@
           "overviewTitle": "총평 요약",
           "dailyStars": 4,
           "yearlyStars": 2,
+          "lifeStars": 3,
+          "personalityTraitCount": 6
+        }
+      }
+    },
+    {
+      "id": "fix-11",
+      "label": "1995-08-15 female — 시간미상 (unknown-hour)",
+      "axis": [
+        "unknown-hour",
+        "edge",
+        "yin-fire"
+      ],
+      "output": {
+        "namingReport": {
+          "totalScore": 53.5,
+          "scores": {
+            "hangul": 71.3,
+            "hanja": 37.5,
+            "fourFrame": 5
+          },
+          "fullHangul": "리지혜",
+          "fullHanja": "李智慧"
+        },
+        "sajuReport": {
+          "sajuEnabled": true,
+          "dayMaster": {
+            "stem": "무",
+            "element": "EARTH",
+            "polarity": "양"
+          },
+          "strengthLevel": "중화(신약 경향)",
+          "isStrong": false,
+          "yongshinElement": "FIRE",
+          "yongshinHeeshin": "METAL",
+          "gyeokgukType": "비견격",
+          "gyeokgukCategory": "일반",
+          "gyeokgukConfidence": 0.24192307692307694,
+          "deficientElements": [
+            "METAL"
+          ],
+          "excessiveElements": [
+            "WOOD"
+          ]
+        },
+        "candidatesTop5": [
+          {
+            "finalScore": 77.3,
+            "fullHangul": "리해정",
+            "fullHanja": "李諧亭",
+            "rank": 1
+          },
+          {
+            "finalScore": 77.3,
+            "fullHangul": "리해정",
+            "fullHanja": "李諧侹",
+            "rank": 2
+          },
+          {
+            "finalScore": 77.3,
+            "fullHangul": "리해정",
+            "fullHanja": "李諧炡",
+            "rank": 3
+          },
+          {
+            "finalScore": 77.3,
+            "fullHangul": "리해정",
+            "fullHanja": "李駭訂",
+            "rank": 4
+          },
+          {
+            "finalScore": 77.3,
+            "fullHangul": "리해정",
+            "fullHanja": "李駭貞",
+            "rank": 5
+          }
+        ],
+        "fortuneReport": {
+          "overviewTitle": "총평 요약",
+          "dailyStars": 1,
+          "yearlyStars": 5,
           "lifeStars": 3,
           "personalityTraitCount": 6
         }
