@@ -243,6 +243,10 @@ export interface SajuSummary {
   readonly tenGodAnalysis: TenGodSummary | null;
   readonly shinsalHits: ShinsalHitSummary[];
   readonly gongmang: [string, string] | null;
+  /** Per-axis judgment strength (PR9). Mirrors SajuOutputSummary.axisStrength
+   *  so card builders that receive only the SajuSummary can access the same
+   *  4-tier rhetoric model the adapter derives. */
+  readonly axisStrength?: SajuAxisStrengthMap;
   readonly [key: string]: unknown;
 }
 

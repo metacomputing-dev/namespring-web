@@ -1184,7 +1184,7 @@ export function extractSaju(rawSajuOutput: any): SajuSummary {
   const dayStemCode = String(pillars.day.stem.code ?? '');
   const elementDistribution = extractElementDistribution(rawSajuOutput);
 
-  return {
+  const summary = {
     ...serializedOutput,
 
     pillars,
@@ -1209,6 +1209,11 @@ export function extractSaju(rawSajuOutput: any): SajuSummary {
     saeunPillars:         extractSaeunPillars(rawSajuOutput),
     trace:                extractTrace(rawSajuOutput),
   } as SajuSummary;
+
+  // PR9 — surface the axis strength on the SajuSummary itself so card
+  // builders that receive only the summary (e.g., buildOverviewSummaryCard)
+  // can apply hedge wording without re-deriving it from the raw output.
+  return { ...summary, axisStrength: deriveAxisStrength(summary) };
 }
 
 // ---------------------------------------------------------------------------
