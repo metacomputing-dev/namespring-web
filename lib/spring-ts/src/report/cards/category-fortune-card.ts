@@ -16,7 +16,7 @@
  * 모든 텍스트는 ~해요/~에요 체를 사용합니다.
  */
 
-import type { SajuSummary } from '../../types.js';
+import type { SajuSummary, EvidenceRow, SajuAxisStrengthMap } from '../../types.js';
 import type {
   CategoryFortuneCard,
   FortuneCategory,
@@ -547,6 +547,38 @@ export function buildCategoryFortuneCards(
 
     const caution = makeCaution(category, stars, fortuneEl, catEls);
 
+    // ── PR-J-8a — narrative foundations (axisStrength + evidence) ──
+    const sajuAxis = (saju as unknown as { axisStrength?: SajuAxisStrengthMap }).axisStrength;
+    const isYongshinAligned = catEls.primary === yongshinElement;
+    const isGishinAligned   = !!gishinElement && catEls.primary === gishinElement;
+
+    let claim: string;
+    if (isYongshinAligned) {
+      claim = `${CATEGORY_TITLE[category]} 영역의 핵심 오행 ${elementKo(catEls.primary)}이(가) 용신과 일치하여 흐름이 좋은 영역이에요.`;
+    } else if (isGishinAligned) {
+      claim = `${CATEGORY_TITLE[category]} 영역의 핵심 오행 ${elementKo(catEls.primary)}이(가) 기신과 겹쳐 보수적 운영이 좋아요.`;
+    } else {
+      claim = `${CATEGORY_TITLE[category]} 영역은 ${elementKo(catEls.primary)} 기운을 중심으로 평가했어요.`;
+    }
+
+    const supporting: string[] = [
+      `카테고리 핵심: ${elementKo(catEls.primary)}`,
+      `올해 천간 오행: ${elementKo(fortuneEl)}`,
+      `별점: ${stars}/5`,
+    ];
+    if (yongshinElement) supporting.push(`용신: ${elementKo(yongshinElement)}`);
+    if (gishinElement) supporting.push(`기신: ${elementKo(gishinElement)}`);
+
+    const evidence: EvidenceRow[] = [{
+      axis: 'category',
+      claim,
+      supportingFeatures: supporting,
+      weakness: stars <= 2
+        ? `${CATEGORY_TITLE[category]} 영역에서 큰 결정은 운이 회복되는 시기로 미루는 것이 안전해요.`
+        : undefined,
+      strength: sajuAxis?.yongshin,
+    }];
+
     result[category] = {
       title: CATEGORY_TITLE[category],
       category,
@@ -554,6 +586,8 @@ export function buildCategoryFortuneCards(
       summary,
       advice,
       caution,
+      axisStrength: sajuAxis,
+      evidence,
     };
   }
 
