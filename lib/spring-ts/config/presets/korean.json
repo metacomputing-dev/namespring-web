@@ -1,0 +1,29 @@
+{
+  "schoolName": "Korean Mainstream (이석영 사주첩경 / 한국 현대 작명 표준)",
+  "description": "Default Korean naming-school weights — mirrors the values in saju-scoring.json so enabling this preset is identical to leaving precisionConfig.useSchoolPreset off.",
+  "yongshinTypeWeights": {
+    "EOKBU": 1.0,
+    "JOHU": 0.95,
+    "TONGGWAN": 0.9,
+    "GYEOKGUK": 0.85,
+    "BYEONGYAK": 0.8,
+    "JEONWANG": 0.75,
+    "HAPWHA_YONGSHIN": 0.7,
+    "ILHAENG_YONGSHIN": 0.7
+  },
+  "adaptiveWeights": {
+    "balanceBase": 0.6,
+    "balanceMin": 0.35,
+    "balanceMax": 0.6,
+    "yongshinBase": 0.23,
+    "yongshinMin": 0.23,
+    "yongshinMax": 0.48,
+    "strengthFixed": 0.12,
+    "tenGodFixed": 0.05,
+    "shiftDivisor": 70,
+    "confidenceWeight": 0.4,
+    "baseShiftRatio": 0.22,
+    "confidenceBoost": 0.08,
+    "baseConfidenceRatio": 0.6
+  }
+}
