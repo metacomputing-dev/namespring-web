@@ -75,13 +75,21 @@ describe('IAU 1980 top-10 nutation', () => {
     expect(sumAbsArcsec / 100).toBeGreaterThan(0.1);
   });
 
-  it("'iau1980_full' falls through to 'iau1980_top10' until the full table lands", () => {
-    // This test documents the explicit fallthrough contract and will
-    // need to be updated when the full 63-row dispatch is wired.
-    for (const jd of sampleJulianDays().slice(0, 10)) {
+  it("'iau1980_full' is close to but not byte-equal to 'iau1980_top10' (full now wired)", () => {
+    // Earlier in this PR the 'iau1980_full' branch fell through to
+    // top-10 because the full table had not yet been added. Once the
+    // 63-row dispatch is in place, the two modes are *close* (the 53
+    // omitted rows together contribute ≲ 1″) but no longer identical.
+    let maxAbsArcsec = 0;
+    let anyDifferent = false;
+    for (const jd of sampleJulianDays().slice(0, 20)) {
       const top10 = solarApparentLongitudeDeg(jd, 'constant', 'iau1980_top10');
       const full = solarApparentLongitudeDeg(jd, 'constant', 'iau1980_full');
-      expect(full).toBe(top10);
+      const absArcsec = Math.abs(top10 - full) * ARCSEC_PER_DEG;
+      if (absArcsec > maxAbsArcsec) maxAbsArcsec = absArcsec;
+      if (top10 !== full) anyDifferent = true;
     }
+    expect(anyDifferent).toBe(true);
+    expect(maxAbsArcsec).toBeLessThan(1.5);
   });
 });

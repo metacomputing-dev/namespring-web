@@ -1,5 +1,8 @@
 import { julianDayToUtcMs, utcMsToJulianDay } from './julian.js';
-import { nutationLongitudeDegTop10 } from './nutationIau1980.js';
+import {
+  nutationLongitudeDegFull,
+  nutationLongitudeDegTop10,
+} from './nutationIau1980.js';
 
 const DEG2RAD = Math.PI / 180;
 const RAD2DEG = 180 / Math.PI;
@@ -488,9 +491,9 @@ export function solarApparentLongitudeDeg(
 
   // Nutation in longitude (Δψ).
   let dpsiDeg: number;
-  if (solarPrecision === 'iau1980_top10' || solarPrecision === 'iau1980_full') {
-    // 'iau1980_full' falls through to top10 until the full 63-row table
-    // and dispatch are introduced. The behavioural difference is < 1″.
+  if (solarPrecision === 'iau1980_full') {
+    dpsiDeg = nutationLongitudeDegFull(T);
+  } else if (solarPrecision === 'iau1980_top10') {
     dpsiDeg = nutationLongitudeDegTop10(T);
   } else {
     // Classical: single dominant Ω term Δψ ≈ -0.00478 sin Ω (degrees).
