@@ -437,12 +437,38 @@ function computeStrengthScore(
 function computeTenGodScore(
   rootDist: Record<ElementKey, number>,
   sajuOutput: SajuOutputSummary | null,
+  mode: 'simple_count' | 'positional_weighted' = 'simple_count',
 ): number {
   const tenGodData       = sajuOutput?.tenGod;
   const dayMasterElement = sajuOutput?.dayMaster?.element;
   if (!tenGodData || !dayMasterElement) return 50;
 
-  const groupCounts = tenGodData.groupCounts;
+  // 'simple_count' (default): use the pre-aggregated groupCounts.
+  // 'positional_weighted': re-derive groupCounts from byPosition with
+  //   pillar-specific weights (saju_master/career_matrix.py:62-75):
+  //     천간 (cheongan)        4.0
+  //     지지 정기 (principal)   1.8
+  //     지장간 (hidden) by ratio  1.2 / 0.7 / 0.45
+  //   Falls through to simple_count when byPosition is unavailable.
+  let groupCounts: Record<string, number>;
+  if (mode === 'positional_weighted' && tenGodData.byPosition) {
+    groupCounts = { friend: 0, output: 0, wealth: 0, authority: 0, resource: 0 };
+    const HIDDEN_WEIGHTS = [1.2, 0.7, 0.45] as const;
+    for (const positionInfo of Object.values(tenGodData.byPosition)) {
+      if (!positionInfo) continue;
+      if (positionInfo.cheonganGroup)      groupCounts[positionInfo.cheonganGroup]      = (groupCounts[positionInfo.cheonganGroup]      ?? 0) + 4.0;
+      if (positionInfo.jijiPrincipalGroup) groupCounts[positionInfo.jijiPrincipalGroup] = (groupCounts[positionInfo.jijiPrincipalGroup] ?? 0) + 1.8;
+      const sortedHidden = (positionInfo.hiddenStems ?? []).slice().sort((a, b) => b.ratio - a.ratio);
+      sortedHidden.forEach((hs, i) => {
+        if (hs.group && i < HIDDEN_WEIGHTS.length) {
+          groupCounts[hs.group] = (groupCounts[hs.group] ?? 0) + HIDDEN_WEIGHTS[i];
+        }
+      });
+    }
+  } else {
+    groupCounts = tenGodData.groupCounts;
+  }
+
   const totalGroups = TEN_GOD_GROUPS.reduce((sum, group) => sum + (groupCounts[group] ?? 0), 0);
   if (totalGroups <= 0) return 50;
 
@@ -608,7 +634,10 @@ export function computeSajuNameScore(
     rootDist, sajuOutput,
     scoringOverrides?.strengthMode ?? 'binary',
   );
-  const tenGodScore     = computeTenGodScore(rootDist, sajuOutput);
+  const tenGodScore     = computeTenGodScore(
+    rootDist, sajuOutput,
+    scoringOverrides?.tenGodMode ?? 'simple_count',
+  );
 
   // --- Resolve adaptive weights (balance vs. yongshin trade-off) ---
   const weight = resolveAdaptiveWeights(balanceResult.score, yongshinResult, adaptiveOverride);
