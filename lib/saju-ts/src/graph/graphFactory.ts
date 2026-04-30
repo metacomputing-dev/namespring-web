@@ -12,7 +12,9 @@ import {
 } from '../calendar/pillars.js';
 import type { JieBoundariesAround, SolarTermsAround } from '../calendar/solarTerms.js';
 import { getSolarTermsAround, isJieTermId } from '../calendar/solarTerms.js';
+import type { SolarTermInstant } from '../calendar/solarTerms.js';
 import type { LocalDateTime } from '../calendar/iso.js';
+import type { JieData } from '../core/wollyul.js';
 import type { TrueSolarTimeCorrection } from '../calendar/trueSolarTime.js';
 import { applyMinuteOffsetToLocalDateTime, computeTrueSolarTimeCorrection } from '../calendar/trueSolarTime.js';
 import type { DetectedRelation } from '../core/branchRelations.js';
@@ -208,6 +210,40 @@ export function buildGraph(): Graph {
               ? 'iau1980_top10'
               : 'classical';
         return getSolarTermsAround(ldt.date.y, method, algorithm, aberrationModel, solarPrecision);
+      },
+    }),
+  );
+
+  nodes.push(
+    n<JieData | null>({
+      id: 'month.jieData',
+      deps: ['time.utcMs', 'calendar.solarTermsAround'],
+      explain: '현재 월(節氣 boundary)의 시작 시각과 길이 — saryeong scheme 입력으로 사용.',
+      compute: (_ctx, get) => {
+        const utcMs = get<number>('time.utcMs');
+        const sta = get<{ terms: SolarTermInstant[] } | null>('calendar.solarTermsAround');
+        if (!sta) return null;
+
+        // 사주 월주는 12절(節)만 사용. zhongqi는 무시.
+        const jieTerms = sta.terms.filter((t) => isJieTermId(t.id));
+
+        let prev: SolarTermInstant | null = null;
+        let next: SolarTermInstant | null = null;
+        for (const t of jieTerms) {
+          if (t.utcMs <= utcMs) {
+            prev = t;
+          } else {
+            next = t;
+            break;
+          }
+        }
+        if (!prev || !next) return null;
+
+        const msPerDay = 86_400_000;
+        return {
+          elapsedDays: (utcMs - prev.utcMs) / msPerDay,
+          monthLengthDays: (next.utcMs - prev.utcMs) / msPerDay,
+        };
       },
     }),
   );
