@@ -26,6 +26,14 @@
       "편인",
       "정인",
       "살인상생"
+    ],
+    "gyeokguk": "편인격",
+    "gyeokguk_initial": "편관격",
+    "gyeokguk_transformation_note": "亥월 丙화라 칠살격(七殺格)이다... 칠살격이 편인격으로 변격(變格)",
+    "yongshin": "편인",
+    "yongshin_compound": [
+      "편인",
+      "정인"
     ]
   },
   "source_note": "교안 15차시 실례: 亥월 丙화 七殺格, 甲·乙 인성 투간, 일지 偏印.",
@@ -33,5 +41,13 @@
     "Pillars (year/month/day/hour ganzhi) are facts and are not subject to copyright.",
     "expected and source_note are paraphrased ≤ 50자 summaries of the lecture explanation.",
     "No verbatim prose from the lecture transcript is reproduced here."
+  ],
+  "prose_quotes": [
+    {
+      "source_text": "명리심리상담사 교안",
+      "page": 127,
+      "section": "제 14차시 명리상담 실례 1",
+      "quote": "亥월 丙화라 칠살격(七殺格)이다... 천간(天干)은 월지(月支)인 亥水 중에서 중기(中氣)인 甲목 즉 편인 甲목이 년간(年干)과 시간(時干)에 함께 투간(透干)... 칠살격이 편인격으로 변격(變格)이 된 사주가 된다."
+    }
   ]
 }

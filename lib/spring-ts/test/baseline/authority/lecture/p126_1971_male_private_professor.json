@@ -26,6 +26,10 @@
       "정재",
       "편재",
       "겁재"
+    ],
+    "gyeokguk": "정인격",
+    "yongshin_compound": [
+      "정인"
     ]
   },
   "source_note": "교안 14차시 실례: 월지 正印, 천간 正偏財, 劫財, 일지 食神.",
@@ -33,5 +37,13 @@
     "Pillars (year/month/day/hour ganzhi) are facts and are not subject to copyright.",
     "expected and source_note are paraphrased ≤ 50자 summaries of the lecture explanation.",
     "No verbatim prose from the lecture transcript is reproduced here."
+  ],
+  "prose_quotes": [
+    {
+      "source_text": "명리심리상담사 교안",
+      "page": 126,
+      "section": "제 14차시 명리상담 실례 1",
+      "quote": "월지가 正印이라 착하고 어질다. 印이 用神인데, 대운이 財고 세운이 傷官이라"
+    }
   ]
 }

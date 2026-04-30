@@ -26,12 +26,21 @@
       "상관견관",
       "정관",
       "편재"
-    ]
+    ],
+    "gyeokguk": "상관격"
   },
   "source_note": "교안 14차시 실례: 월지와 년지가 傷官見官, 천간 正官 둘과 偏財, 일지 殺.",
   "copyrightNote": [
     "Pillars (year/month/day/hour ganzhi) are facts and are not subject to copyright.",
     "expected and source_note are paraphrased ≤ 50자 summaries of the lecture explanation.",
     "No verbatim prose from the lecture transcript is reproduced here."
+  ],
+  "prose_quotes": [
+    {
+      "source_text": "명리심리상담사 교안",
+      "page": 124,
+      "section": "제 14차시 명리상담 실례 1",
+      "quote": "월지와 년지가 傷官見官이라... 천간에 正官 둘과 偏財가 투출해있기 때문에"
+    }
   ]
 }

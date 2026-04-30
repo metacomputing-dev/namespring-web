@@ -26,12 +26,22 @@
       "식신",
       "정재",
       "丙辛合"
-    ]
+    ],
+    "gyeokguk": "정재격",
+    "yongshin": "정재"
   },
   "source_note": "교안 14차시 실례: 본성 월지·용신 正財, 일지 正印, 丁未대운 戊戌년 파산 설명.",
   "copyrightNote": [
     "Pillars (year/month/day/hour ganzhi) are facts and are not subject to copyright.",
     "expected and source_note are paraphrased ≤ 50자 summaries of the lecture explanation.",
     "No verbatim prose from the lecture transcript is reproduced here."
+  ],
+  "prose_quotes": [
+    {
+      "source_text": "명리심리상담사 교안",
+      "page": 122,
+      "section": "제 14차시 명리상담 실례 1",
+      "quote": "월지와 용신이 다 같이 正財라 치밀하다."
+    }
   ]
 }
