@@ -12,7 +12,7 @@
  * 모든 텍스트는 ~해요/~에요 체를 사용합니다.
  */
 
-import type { SajuSummary } from '../../types.js';
+import type { SajuSummary, SajuAxisStrengthMap, CounterexampleRow } from '../../types.js';
 import type { CautionsCard, FortuneWarning } from '../types.js';
 import type { ElementCode } from '../types.js';
 import { findShinsalEntry } from '../knowledge/shinsalEncyclopedia.js';
@@ -217,8 +217,40 @@ export function buildCautionsCard(saju: SajuSummary): CautionsCard {
     });
   }
 
+  // ── PR-J-6 — narrative foundations (axisStrength + counterexamples) ──
+  const sajuAxis = (saju as unknown as { axisStrength?: SajuAxisStrengthMap }).axisStrength;
+  const counterexamples: CounterexampleRow[] = [];
+
+  // Counterexample 1 — strong yongshin support flips most cautions to lighter.
+  if (sajuAxis?.yongshin === 'definite') {
+    counterexamples.push({
+      condition: '용신 신뢰도가 매우 높고 운에서 용신·희신이 강하게 들어오는 시기',
+      revisedClaim: '경고 수위는 한 단계 낮추되 기본 관리 루틴은 그대로 유지하세요. 용신이 굳건한 시기엔 흉살의 영향이 약해져요.',
+      appliesWhen: 'definite',
+    });
+  }
+
+  // Counterexample 2 — low-confidence yongshin escalates most cautions.
+  if (sajuAxis?.yongshin === 'candidate' || sajuAxis?.yongshin === 'deferred') {
+    counterexamples.push({
+      condition: '용신 신뢰도가 낮은 차트 (학파 간 추천이 갈리는 경우)',
+      revisedClaim: '경고를 한 가지 학파의 시각으로만 받아들이기보다, 조후·통관 등 다른 보조 기준으로 한 번 더 살펴보세요.',
+      appliesWhen: sajuAxis.yongshin,
+    });
+  }
+
+  // Counterexample 3 — gongmang adds time-based qualification.
+  if (saju.gongmang) {
+    counterexamples.push({
+      condition: '공망이 있는 위치(年/月/日/時 중 하나)와 관련된 경고',
+      revisedClaim: '공망 위치의 경고는 발현 시점이 늦어지거나 약해지는 경향이 있어요. 운에서 그 위치가 충돌(冲) 받는 해에 비로소 강해질 수 있어요.',
+    });
+  }
+
   return {
     title: '유의점',
     cautions,
+    axisStrength: sajuAxis,
+    counterexamples: counterexamples.length > 0 ? counterexamples : undefined,
   };
 }

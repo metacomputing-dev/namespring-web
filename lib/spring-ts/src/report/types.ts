@@ -219,6 +219,15 @@ export interface StrengthsWeaknessesCard {
 export interface CautionsCard {
   readonly title: '유의점';
   readonly cautions: FortuneWarning[];
+  /** Per-axis judgment strength (PR-J-6). Allows the consumer to dial
+   *  down the urgency of cautions whose underlying axis is low-confidence.
+   *  Optional. */
+  readonly axisStrength?: SajuAxisStrengthMap;
+  /** Counterexample rows surfacing chart configurations under which a
+   *  caution should weaken or revise (PR-J-6). Per F-A7's framing, every
+   *  CautionsCard row is already a warning — counterexamples expose the
+   *  conditions where the warning does NOT apply. Optional. */
+  readonly counterexamples?: readonly CounterexampleRow[];
 }
 
 // ── Time-series data ──────────────────────────────────────────────────────
