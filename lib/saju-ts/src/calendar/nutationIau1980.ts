@@ -49,3 +49,72 @@ export function fundamentalArgsDeg(T: number): FundamentalArgsDeg {
     Omega: 125.04452 - 1934.136261 * T + 0.0020708 * T2 + T3 / 450000,
   };
 }
+
+/**
+ * One row of the IAU 1980 nutation-in-longitude series.
+ *
+ * Each row contributes (A + A'·T)·sin(Σ multiplier·argument) to Δψ,
+ * where the amplitudes A, A' are stored in 1e-4 arcsec for parity with
+ * NREL/TP-560-34302 Table 4-7 and pvlib.spa's NUTATION_ABCD_ARRAY.
+ */
+interface NutLongTerm {
+  D: number;
+  M: number;
+  Mp: number;
+  F: number;
+  Omega: number;
+  /** Amplitude in 0.0001 arcsec. */
+  A: number;
+  /** First-order time variation in 0.0001 arcsec / century. */
+  Ap: number;
+}
+
+/**
+ * Top 10 amplitude rows of the IAU 1980 nutation-in-longitude series.
+ *
+ * Sufficient for ≈ 1″ precision on Δψ (full series has 63 rows and is
+ * added in a later commit). Single-Ω-only would be roughly 9″.
+ */
+const NUTATION_LONGITUDE_TOP10: readonly NutLongTerm[] = [
+  { D:  0, M:  0, Mp:  0, F:  0, Omega: 1, A: -171996, Ap: -174.2 },
+  { D: -2, M:  0, Mp:  0, F:  2, Omega: 2, A:  -13187, Ap:   -1.6 },
+  { D:  0, M:  0, Mp:  0, F:  2, Omega: 2, A:   -2274, Ap:   -0.2 },
+  { D:  0, M:  0, Mp:  0, F:  0, Omega: 2, A:    2062, Ap:    0.2 },
+  { D:  0, M:  1, Mp:  0, F:  0, Omega: 0, A:    1426, Ap:   -3.4 },
+  { D:  0, M:  0, Mp:  1, F:  0, Omega: 0, A:     712, Ap:    0.1 },
+  { D: -2, M:  1, Mp:  0, F:  2, Omega: 2, A:    -517, Ap:    1.2 },
+  { D:  0, M:  0, Mp:  0, F:  2, Omega: 1, A:    -386, Ap:   -0.4 },
+  { D:  0, M:  0, Mp:  1, F:  2, Omega: 2, A:    -301, Ap:    0.0 },
+  { D: -2, M: -1, Mp:  0, F:  2, Omega: 2, A:     217, Ap:   -0.5 },
+];
+
+const DEG_PER_ARCSEC = 1 / 3600;
+const RAD_PER_DEG = Math.PI / 180;
+
+function evaluateNutationLongitudeSeries(T: number, terms: readonly NutLongTerm[]): number {
+  const args = fundamentalArgsDeg(T);
+  let dpsiUnits = 0; // accumulated in 0.0001 arcsec
+  for (const t of terms) {
+    const argDeg =
+      t.D * args.D +
+      t.M * args.M +
+      t.Mp * args.Mp +
+      t.F * args.F +
+      t.Omega * args.Omega;
+    dpsiUnits += (t.A + t.Ap * T) * Math.sin(argDeg * RAD_PER_DEG);
+  }
+  // 0.0001 arcsec → degrees
+  return dpsiUnits * 1e-4 * DEG_PER_ARCSEC;
+}
+
+/**
+ * Δψ (nutation in ecliptic longitude) using the top 10 IAU 1980
+ * amplitude rows. Returned in degrees.
+ *
+ * Suitable for Phase-5 'iau1980_top10' precision; the full 63-row
+ * version is added in a later commit. Not yet wired into
+ * solarApparentLongitudeDeg.
+ */
+export function nutationLongitudeDegTop10(T: number): number {
+  return evaluateNutationLongitudeSeries(T, NUTATION_LONGITUDE_TOP10);
+}
