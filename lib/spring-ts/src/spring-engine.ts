@@ -28,13 +28,14 @@ import { FourFrameOptimizer } from './calculator/search.js';
 import { makeFallbackEntry, buildInterpretation, parseJamoFilter, type JamoFilter } from './core/name-utils.js';
 import type { SajuOutputSummary } from './types.js';
 import { SajuCalculator } from './saju-calculator.js';
+import type { SajuEvaluatorHints } from './saju-calculator.js';
 import type { SchoolPresetName } from './preset-loader.js';
 import { springEvaluateName, SAJU_FRAME } from './spring-evaluator.js';
 import { analyzeSaju, analyzeSajuSafe, buildSajuContext, collectElements } from './saju-adapter.js';
 import type {
   SpringRequest, SpringResponse, SpringCandidate, SajuSummary,
   SajuReport, NamingReport, NamingReportFrame, SpringReport, SpringCandidateSummary,
-  NameCharInput, CharDetail, NameGenderTendency,
+  NameCharInput, CharDetail, NameGenderTendency, BirthInfo,
 } from './types.js';
 import engineConfig from '../config/engine.json';
 import { buildFortuneReport } from './report/buildFortuneReport.js';
@@ -197,6 +198,28 @@ export class SpringEngine {
    *  yongshinMode, strengthMode, tenGodMode, gyeokgukMode). When the precision
    *  config block is absent, scoringOverrides is undefined and each sub-score
    *  falls through to its legacy default. */
+  /** Build the evaluator-side hints (PR8) from a request's precisionConfig +
+   *  birth.hour presence. Returns undefined when no PR8 flag is active so
+   *  SajuCalculator's putInsight can store undefined → spring-evaluator's
+   *  extractSajuPriority falls through to the linear default. */
+  private resolveEvaluatorHints(birth: BirthInfo | undefined, options?: SpringRequest['options']): SajuEvaluatorHints | undefined {
+    const pc = options?.precisionConfig;
+    if (!pc) return undefined;
+
+    const hints: { -readonly [K in keyof SajuEvaluatorHints]?: SajuEvaluatorHints[K] } = {};
+    if (pc.sajuPriorityCurve === 'tanh') {
+      hints.sajuPriorityCurve = 'tanh';
+    }
+    if (pc.unknownHourGuard === true) {
+      hints.unknownHourGuard = true;
+      hints.isHourUnknown = birth?.hour == null;
+      if (typeof pc.unknownTimeSajuDamp === 'number') {
+        hints.unknownTimeSajuDamp = pc.unknownTimeSajuDamp;
+      }
+    }
+    return Object.keys(hints).length > 0 ? hints as SajuEvaluatorHints : undefined;
+  }
+
   private resolveSajuPreset(options?: SpringRequest['options']): {
     readonly useSchoolPreset: boolean;
     readonly schoolPreset?: SchoolPresetName;
@@ -350,6 +373,7 @@ export class SpringEngine {
         elementSource: resolutionPolicy.pureHangulGivenName ? 'hangul' : 'resource',
         enabled: hasSajuContext,
         ...this.resolveSajuPreset(request.options),
+        evaluatorHints: this.resolveEvaluatorHints(request.birth, request.options),
       },
     );
 
@@ -603,6 +627,7 @@ export class SpringEngine {
     // 4. Score every candidate and rank by total score (descending)
     const scoredCandidates = await this.scoreAllCandidates(
       request.surname, nameInputs, sajuDistribution, sajuOutput, request.options,
+      this.resolveEvaluatorHints(request.birth, request.options),
     );
 
     // 5. Paginate and return
@@ -860,6 +885,7 @@ export class SpringEngine {
     sajuDistribution: Record<ElementKey, number>,
     sajuOutput: SajuOutputSummary | null,
     requestOptions?: SpringRequest['options'],
+    evaluatorHints?: SajuEvaluatorHints,
   ): Promise<SpringCandidate[]> {
     const scored: SpringCandidate[] = [];
 
@@ -871,6 +897,7 @@ export class SpringEngine {
           sajuDistribution,
           sajuOutput,
           requestOptions,
+          evaluatorHints,
         ),
       );
     }
@@ -916,6 +943,7 @@ export class SpringEngine {
     sajuDistribution: Record<ElementKey, number>,
     sajuOutput: SajuOutputSummary | null,
     requestOptions?: SpringRequest['options'],
+    evaluatorHints?: SajuEvaluatorHints,
   ): Promise<SpringCandidate> {
     const resolutionPolicy = this.resolveNameResolutionPolicy(givenName, requestOptions);
     const surnameEntries = await this.resolveEntries(surname, {
@@ -949,6 +977,7 @@ export class SpringEngine {
         elementSource: resolutionPolicy.pureHangulGivenName ? 'hangul' : 'resource',
         enabled: hasSajuContext,
         ...this.resolveSajuPreset(requestOptions),
+        evaluatorHints,
       },
     );
 
