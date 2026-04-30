@@ -106,9 +106,7 @@ export interface EngineConfig {
      * - 'classical' (default): single dominant Ω term, ≈ ±9″ residual
      *   from full IAU 1980 series.
      * - 'iau1980_top10': top-10 IAU 1980 longitude rows, ≈ ±1″.
-     * - 'iau1980_full': full 63 IAU 1980 rows, ≈ ±0.1″ (full table is
-     *   added in a follow-up commit; until then this option behaves
-     *   like 'iau1980_top10').
+     * - 'iau1980_full': full 63 IAU 1980 rows, ≈ ±0.1″.
      */
     solarPrecision?: 'classical' | 'iau1980_top10' | 'iau1980_full';
 
