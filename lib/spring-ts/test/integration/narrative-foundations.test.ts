@@ -125,6 +125,33 @@ if (Array.isArray(evidence)) {
   const dayMasterRow = evidence.find(r => r.axis === 'dayMaster');
   check('dayMaster row exists',
     dayMasterRow != null);
+
+  // ── (3b) PR-J-4 — gyeokguk evidence row from encyclopedia ──────────────
+  const gyeokgukRow = evidence.find(r => r.axis === 'gyeokguk');
+  const sajuType = sajuReport.gyeokguk?.type;
+  // Encyclopedia carries PR-J-1 success rules for the 10 정격 only;
+  // 별격 entries (HUA_QI / ZHUAN_WANG / 7 CONG_*) don't yet have a
+  // `principle` so the row is silently skipped for those charts.
+  const isJeonggyeokWithPrinciple = !!sajuType && [
+    '비견격', '겁재격',
+    '정관격', '편관격',
+    '정재격', '편재격',
+    '식신격', '상관격',
+    '정인격', '편인격',
+  ].includes(sajuType);
+  if (isJeonggyeokWithPrinciple) {
+    check('gyeokguk evidence row exists for 정격 (PR-J-4)',
+      gyeokgukRow != null,
+      `gyeokgukType=${sajuType}`);
+    check('gyeokguk row carries claim + supportingFeatures',
+      gyeokgukRow != null
+        && typeof gyeokgukRow.claim === 'string' && gyeokgukRow.claim.length > 0
+        && Array.isArray(gyeokgukRow.supportingFeatures)
+        && gyeokgukRow.supportingFeatures.length >= 1);
+    check('gyeokguk row supportingFeatures references the 격 name',
+      gyeokgukRow != null
+        && gyeokgukRow.supportingFeatures.some(f => f.includes(sajuType!)));
+  }
 }
 
 // ── (4) Hedge wording surfaces only when yongshin tier is candidate / deferred ─

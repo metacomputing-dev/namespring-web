@@ -23,6 +23,7 @@ import {
 } from '../common/elementMaps.js';
 import { STEM_ENCYCLOPEDIA } from '../knowledge/stemEncyclopedia.js';
 import { STRENGTH_ENCYCLOPEDIA } from '../knowledge/strengthEncyclopedia.js';
+import { GYEOKGUK_ENCYCLOPEDIA } from '../knowledge/gyeokgukEncyclopedia.js';
 
 import type { StemCode, StrengthLevel } from '../types.js';
 
@@ -283,6 +284,35 @@ export function buildOverviewSummaryCard(
       : undefined,
     strength: yongshinTier,
   });
+
+  // Gyeokguk row — PR-J-4. Surfaces the 격국 success-rule encyclopedia entry
+  // (PR-J-1) so the report's evidence layer carries classical principle /
+  // helpful / disease / remedy alongside the simpler pillar/strength/yongshin
+  // claims. Only emitted when the encyclopedia has a matching `korean`
+  // entry; that's true for the 10 정격 with PR-J-1 fields populated and
+  // silent for the 9 별격 (PR-J-1's chengbai-only sourcing).
+  //
+  // SajuSummary.gyeokguk.type carries the Korean label ('식신격', '비견격',
+  // …); we match it against encyclopedia entries by their `korean` field
+  // so the wire is robust to enum-vs-Korean shape mismatches.
+  const gyeokgukType = saju.gyeokguk?.type;
+  const gyeokgukEntry = gyeokgukType
+    ? Object.values(GYEOKGUK_ENCYCLOPEDIA).find((entry) => entry.korean === gyeokgukType)
+    : undefined;
+  if (gyeokgukEntry?.principle) {
+    const gyeokgukSupporting: string[] = [`격국: ${gyeokgukEntry.korean}`];
+    if (gyeokgukEntry.helpful?.length) {
+      gyeokgukSupporting.push(`성(成) 조건: ${gyeokgukEntry.helpful[0]}`);
+    }
+    const gyeokgukWeakness = gyeokgukEntry.disease?.[0];
+    evidence.push({
+      axis: 'gyeokguk',
+      claim: gyeokgukEntry.principle,
+      supportingFeatures: gyeokgukSupporting,
+      weakness: gyeokgukWeakness,
+      strength: axisStrength?.gyeokguk,
+    });
+  }
 
   // ── 8. Narrative styles + counterexamples (PR10) ──────────────────────
   // The plain style is the existing tone (already in `overallSummary`).
