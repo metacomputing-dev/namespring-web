@@ -7,6 +7,30 @@
  *
  * Each entry provides description, strengths, cautions, and career hints
  * for the premium saju report gyeokguk-yongshin section.
+ *
+ * ── Attribution / verification status ──────────────────────────────────
+ * The descriptive prose, strengths, cautions, and careerHints arrays are
+ * curated phrasing aligned with the broad consensus of Korean myeongri
+ * teaching.
+ *
+ * The optional `principle` / `helpful` / `disease` / `remedy` fields
+ * (added in PR-J-1 and PR-J-1b for 격국 success-rule narrative evidence)
+ * are paraphrased summaries of the 자평 (Ziping) tradition, **composed
+ * from training-data knowledge of classical commentary, not transcribed
+ * from primary sources, and not citation-verified against a specific
+ * authority text** (e.g., 子平眞詮 / 滴天髓 / 사주첩경).
+ *
+ * Treat them as best-effort defaults that surface the right axis to
+ * the reader; replace any individual entry with a citation-anchored
+ * version once a Reference A authority case is sourced for the
+ * relevant fixture (see `test/baseline/authority/README.md`). The
+ * encyclopedia consumers (`OverviewSummaryCard` evidence rows) carry
+ * the runtime `axisStrength.gyeokguk` tier, so a low-confidence chart
+ * already presents these claims with weaker rhetoric (candidate /
+ * deferred) — but a high-confidence chart will still tag them
+ * `definite`, which the citation status above does not yet justify.
+ * Future work: surface a per-row "citation-verified" flag separate
+ * from the engine confidence tier.
  */
 
 /** Union type for all 19 gyeokguk codes used in the system */

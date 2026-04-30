@@ -73,7 +73,14 @@ Per F-A16 §4: 출처 명기 + paraphrase 정책 준수. fair use limited.
 
 ## Status
 
-PR-L-5 (this PR) seeds the directory with one **placeholder** case
-(`fix-01-placeholder.json`) so the schema is testable by `quality_gate.mjs`
-even before real cases ship. Real cases land as the maintainer secures
-copies of the source texts (별도 사용자 작업).
+The directory **intentionally ships empty** of case files. An earlier
+`fix-01.json` placeholder mirrored the spring-ts snapshot's expected
+values back into the gate, which made `quality_gate.mjs` D1 report PASS
+on a circular comparison (spring-ts checked against itself). That
+placeholder has been removed.
+
+Real cases land here only when the maintainer extracts pillars + ≤50자
+paraphrase from a published Reference A text (사주첩경 / 명리요강 /
+명리실관). Until then `quality_gate.mjs` correctly reports **N/A** on
+this fixture's reference-A-driven dimensions, which is the truthful
+state.

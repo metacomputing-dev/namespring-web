@@ -82,7 +82,18 @@ license as spring-ts.
 
 ## Status
 
-PR-L-4 (this PR) seeds the directory with one **placeholder** for
-fix-01 so `quality_gate.mjs` D3 can be exercised before bulk capture.
-PR-L-7 lands the capture wrapper and PR-L-10 lands the actual oracle
-output for all 10 baseline fixtures.
+The directory **intentionally ships empty** of oracle files. An earlier
+`fix-01.json` placeholder copied the spring-ts snapshot's expected
+values back into the gate, which made `quality_gate.mjs` D1/D3 PASS on
+a circular comparison. That placeholder has been removed.
+
+`tools/capture_saju_master_runs.mjs` is wired in as a placeholder entry
+point but the underlying saju_master CLI is not materialised in this
+checkout — invoking it currently exits with code 2 and instructions to
+extract `saju_master_project_v9_2.zip` into a sibling directory. Once
+the CLI is available, `npm run capture:oracles` populates this
+directory in bulk.
+
+Until oracle data lands, `quality_gate.mjs` correctly reports **N/A**
+on this fixture's reference-B-driven dimensions, which is the truthful
+state.
