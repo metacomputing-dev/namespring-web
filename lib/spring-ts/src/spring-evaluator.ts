@@ -134,7 +134,37 @@ function extractSajuPriority(ctx: EvalContext): number {
   const penaltyFraction = Math.min(1, penaltyTotal / SAJU_PRIORITY_CONFIG.penaltyDivisor);
   const penaltyDeduction = penaltyFraction * SAJU_PRIORITY_CONFIG.maxPenaltyImpact;
 
-  return clamp(signalStrength - penaltyDeduction, 0, 1);
+  // -- Step 4: Apply opt-in curve / guard -----------------------------------
+  //
+  //  PR8 introduces two adaptive-evaluator hints surfaced via the SajuCalculator
+  //  insight details. Both default to no-op when the precisionConfig flags
+  //  are unset, preserving the linear path:
+  //
+  //    sajuPriorityCurve='tanh'  → softens both 0 and 1 extremes
+  //    unknownHourGuard:true     → dampens priority by unknownTimeSajuDamp
+  //                                (default 0.5) when birth.hour is missing
+
+  const evaluatorHints = (details?.evaluatorHints ?? {}) as {
+    sajuPriorityCurve?: 'linear' | 'tanh';
+    unknownHourGuard?: boolean;
+    unknownTimeSajuDamp?: number;
+    isHourUnknown?: boolean;
+  };
+  const rawPriority = signalStrength - penaltyDeduction;
+  let priority = clamp(rawPriority, 0, 1);
+
+  if (evaluatorHints.sajuPriorityCurve === 'tanh') {
+    priority = clamp(0.5 + 0.5 * Math.tanh((rawPriority - 0.5) * 4), 0, 1);
+  }
+
+  if (evaluatorHints.unknownHourGuard === true && evaluatorHints.isHourUnknown === true) {
+    const damp = typeof evaluatorHints.unknownTimeSajuDamp === 'number'
+      ? clamp(evaluatorHints.unknownTimeSajuDamp, 0, 1)
+      : 0.5;
+    priority = priority * damp;
+  }
+
+  return clamp(priority, 0, 1);
 }
 
 // =========================================================================
