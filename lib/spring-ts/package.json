@@ -31,7 +31,8 @@
     "validate:default-change": "node tools/measure_default_change.mjs --baseline main --branch HEAD",
     "quality:gate": "node tools/quality_gate.mjs",
     "capture:oracles": "node tools/capture_saju_master_runs.mjs",
-    "validate:lecture": "npx tsx tools/validate_lecture_cases.ts"
+    "validate:lecture": "npx tsx tools/validate_lecture_cases.ts",
+    "validate:lecture-smc": "node tools/validate_lecture_saju_master.mjs"
   },
   "dependencies": {
     "sql.js": "^1.14.0",
