@@ -1,6 +1,6 @@
 {
-  "version": "1.0.0",
-  "generatedNote": "10 diverse fixtures for spring-ts regression baseline. Covers 5-element × 2-polarity sample + 자시/입춘/곡우/입하/처서/소설 jie boundaries + 조후 winter + 종왕 candidate. Each PR's snapshot test runs against this fixture set.",
+  "version": "1.0.1",
+  "generatedNote": "12 diverse fixtures for spring-ts regression baseline. Covers 5-element × 2-polarity sample + 자시/입춘/곡우/입하/처서/소설 jie boundaries + 조후 winter + 종왕 candidate + unknown-hour + borderline-strength. Each PR's snapshot test runs against this fixture set. PR-M-3 added per-fixture `disagreementNotes` documenting documented disagreements between spring-ts and saju_master that the quality gate surfaces but cannot auto-resolve without Reference A authority cases.",
   "fixtures": [
     {
       "id": "fix-01",
@@ -16,7 +16,16 @@
       "axis": ["normal", "yang-water", "autumn"],
       "birth": { "year": 1992, "month": 9, "day": 15, "hour": 12, "minute": 0, "gender": "female" },
       "surname": [{ "hangul": "김", "hanja": "金" }],
-      "givenName": [{ "hangul": "지", "hanja": "智" }, { "hangul": "은", "hanja": "恩" }]
+      "givenName": [{ "hangul": "지", "hanja": "智" }, { "hangul": "은", "hanja": "恩" }],
+      "disagreementNotes": [
+        {
+          "field": "sajuReport.gyeokgukType",
+          "spring_ts": "정관격",
+          "saju_master": "편관격",
+          "reason": "saju_master self-flags as status='미정/혼잡' with confidence score 0.25. Both 정관 and 편관 are defensible candidates when 月令 정기/중기 disambiguation is ambiguous.",
+          "pendingAuthority": true
+        }
+      ]
     },
     {
       "id": "fix-03",
@@ -24,7 +33,23 @@
       "axis": ["jaza-edge", "yang-water", "winter"],
       "birth": { "year": 2000, "month": 1, "day": 1, "hour": 0, "minute": 30, "gender": "male" },
       "surname": [{ "hangul": "이", "hanja": "李" }],
-      "givenName": [{ "hangul": "민", "hanja": "敏" }, { "hangul": "준", "hanja": "俊" }]
+      "givenName": [{ "hangul": "민", "hanja": "敏" }, { "hangul": "준", "hanja": "俊" }],
+      "disagreementNotes": [
+        {
+          "field": "sajuReport.gyeokgukType",
+          "spring_ts": "편관격",
+          "saju_master": "편재격",
+          "reason": "자시 boundary edge. saju_master self-flags as status='미정/혼잡' with confidence score 1.812. Different night-zi policies produce different month branches and therefore different 격국. Authority adjudication required.",
+          "pendingAuthority": true
+        },
+        {
+          "field": "sajuReport.yongshinElement",
+          "spring_ts": "WOOD",
+          "saju_master": "FIRE",
+          "reason": "Driven by the gyeokguk diff above; resolves once gyeokguk is adjudicated.",
+          "pendingAuthority": true
+        }
+      ]
     },
     {
       "id": "fix-04",
@@ -32,7 +57,17 @@
       "axis": ["jonggwang-candidate", "yang-fire", "summer"],
       "birth": { "year": 1965, "month": 8, "day": 8, "hour": 19, "minute": 0, "gender": "female" },
       "surname": [{ "hangul": "박", "hanja": "朴" }],
-      "givenName": [{ "hangul": "영", "hanja": "英" }, { "hangul": "희", "hanja": "姬" }]
+      "givenName": [{ "hangul": "영", "hanja": "英" }, { "hangul": "희", "hanja": "姬" }],
+      "disagreementNotes": [
+        {
+          "field": "sajuReport.strengthLevel",
+          "spring_ts": "중화(신강 경향)",
+          "saju_master": "신약",
+          "reason": "Real strength-direction disagreement. saju_master raw_score=-16.0 (mild weak). 丙火 in 申 month traditionally weak (金克火), supporting saju_master. spring-ts may be over-weighting 종왕 candidate axes. Investigation pending in PR-M-4.",
+          "pendingAuthority": true,
+          "needsCodeReview": true
+        }
+      ]
     },
     {
       "id": "fix-05",
@@ -48,7 +83,16 @@
       "axis": ["normal", "yang-metal", "summer"],
       "birth": { "year": 1978, "month": 6, "day": 15, "hour": 14, "minute": 0, "gender": "female" },
       "surname": [{ "hangul": "강", "hanja": "姜" }],
-      "givenName": [{ "hangul": "수", "hanja": "秀" }, { "hangul": "빈", "hanja": "彬" }]
+      "givenName": [{ "hangul": "수", "hanja": "秀" }, { "hangul": "빈", "hanja": "彬" }],
+      "disagreementNotes": [
+        {
+          "field": "sajuReport.gyeokgukType",
+          "spring_ts": "겁재격",
+          "saju_master": "비견격",
+          "reason": "saju_master geok_codes=['BiJian','JieCai'] (겸격 — both 비견·겁재 present). Tie-break choice: saju_master picks BiJian (비견) by classical 정기 priority; spring-ts picks JieCai (겁재) by alternative weighting. Both are within saju_master's own compound-격 list. Documented school disagreement.",
+          "pendingAuthority": true
+        }
+      ]
     },
     {
       "id": "fix-07",
@@ -56,7 +100,16 @@
       "axis": ["jie-ipchun", "edge", "spring-onset"],
       "birth": { "year": 1957, "month": 2, "day": 4, "hour": 12, "minute": 0, "gender": "male" },
       "surname": [{ "hangul": "윤", "hanja": "尹" }],
-      "givenName": [{ "hangul": "태", "hanja": "泰" }, { "hangul": "호", "hanja": "鎬" }]
+      "givenName": [{ "hangul": "태", "hanja": "泰" }, { "hangul": "호", "hanja": "鎬" }],
+      "disagreementNotes": [
+        {
+          "field": "sajuReport.gyeokgukType",
+          "spring_ts": "겁재격",
+          "saju_master": "비견격",
+          "reason": "Same pattern as fix-06: saju_master geok_codes=['BiJian','JieCai']. spring-ts picks JieCai, saju_master picks BiJian. 겸격 tie-break disagreement.",
+          "pendingAuthority": true
+        }
+      ]
     },
     {
       "id": "fix-08",
@@ -80,7 +133,24 @@
       "axis": ["jie-soseol", "winter-onset", "yin-water"],
       "birth": { "year": 2018, "month": 11, "day": 22, "hour": 15, "minute": 0, "gender": "female" },
       "surname": [{ "hangul": "한", "hanja": "韓" }],
-      "givenName": [{ "hangul": "서", "hanja": "瑞" }, { "hangul": "연", "hanja": "蓮" }]
+      "givenName": [{ "hangul": "서", "hanja": "瑞" }, { "hangul": "연", "hanja": "蓮" }],
+      "disagreementNotes": [
+        {
+          "field": "sajuReport.gyeokgukType",
+          "spring_ts": "편재격",
+          "saju_master": "비견격",
+          "reason": "소설 boundary edge. saju_master geok_codes=['BiJian','ZhengCai'] (겸격) — picks BiJian. spring-ts picks 편재격 (PianCai) which is not in saju_master's compound list. Likely jie-boundary policy difference produces different month branch; investigation pending.",
+          "pendingAuthority": true,
+          "needsCodeReview": true
+        },
+        {
+          "field": "sajuReport.yongshinElement",
+          "spring_ts": "METAL",
+          "saju_master": null,
+          "reason": "saju_master returned no balancing_candidates for this 中和-or-약중강 strength state. spring-ts emits METAL via the deterministic strength-then-yongshin path. Defensible (filling in where saju_master defers).",
+          "pendingAuthority": false
+        }
+      ]
     },
     {
       "id": "fix-11",
@@ -96,7 +166,17 @@
       "axis": ["borderline-strength", "edge", "yang-wood"],
       "birth": { "year": 1991, "month": 3, "day": 20, "hour": 11, "minute": 30, "gender": "male" },
       "surname": [{ "hangul": "정", "hanja": "鄭" }],
-      "givenName": [{ "hangul": "민", "hanja": "敏" }, { "hangul": "재", "hanja": "在" }]
+      "givenName": [{ "hangul": "민", "hanja": "敏" }, { "hangul": "재", "hanja": "在" }],
+      "disagreementNotes": [
+        {
+          "field": "sajuReport.strengthLevel",
+          "spring_ts": "중화(신강 경향)",
+          "saju_master": "신약",
+          "reason": "Real strength-direction disagreement. saju_master raw_score=-8.77 (mild weak). spring-ts picks 중화-신강 — opposite direction. Same pattern as fix-04. Investigation pending in PR-M-4.",
+          "pendingAuthority": true,
+          "needsCodeReview": true
+        }
+      ]
     }
   ]
 }
