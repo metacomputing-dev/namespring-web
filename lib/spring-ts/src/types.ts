@@ -232,6 +232,22 @@ export interface PrecisionConfig {
    *  PR-H-S3 default ('iau1980_top10') is used. */
   readonly solarPrecision?: 'classical' | 'iau1980_top10' | 'iau1980_full';
 
+  /** Evaluator mode for sajuPriority extraction (PR-K-8 declaration —
+   *  spring-info/09_finalization/06_multi_axis_evaluator.md).
+   *
+   *  - 'single' (default): existing day-master + yongshin-priority
+   *    pipeline (`extractSajuPriority` Step 4 in PR8 design).
+   *  - 'multi_axis' (opt-in, future): weights multiple axes
+   *    (yongshin / gyeokguk / strength / chengbai / johu /
+   *    fortuneHierarchy / rectification) into the priority calculation,
+   *    matching saju_master/weighted_judgment_scoreboard. Activates only
+   *    when the chart's axisStrength supplies ≥ 2 axes.
+   *
+   *  This PR declares the option; the multi_axis branch in
+   *  extractSajuPriority Step 3.5 lands in a follow-up PR (PR-K-9).
+   *  Default unset = 'single' = no behavior change. */
+  readonly evaluatorMode?: 'single' | 'multi_axis';
+
   readonly [key: string]: unknown;
 }
 
