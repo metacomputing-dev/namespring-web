@@ -184,6 +184,24 @@ export interface RuleFacts {
     mainHiddenStem: StemIdx;
     mainTenGod: TenGod;
 
+    /**
+     * Optional 月令 司令字 (commanding-stem) facts. Populated only
+     * when `weights.hiddenStems.saryeongScheme` is set and the engine
+     * could compute the elapsed-day position inside the 節氣 month.
+     *
+     * - `stem`/`tenGod`: which hidden stem currently rules
+     * - `qi`: 餘氣 / 中氣 / 正氣 segment label
+     * - `elapsedDays`/`monthLengthDays`: position diagnostic
+     */
+    saryeong?: {
+      scheme: 'classical' | 'scaled';
+      stem: StemIdx;
+      qi: 'CHO' | 'JUNG' | 'JEONG';
+      tenGod: TenGod;
+      elapsedDays: number;
+      monthLengthDays: number;
+    };
+
     /** Month-branch hidden stems (本气/中气/余气) with ten-god + visibility. */
     hiddenStems: Array<{
       stem: StemIdx;
@@ -2957,8 +2975,19 @@ export function buildRuleFacts(args: {
   pillars: { year: PillarIdx; month: PillarIdx; day: PillarIdx; hour: PillarIdx };
   elementDistribution: ElementDistribution;
   scoring: PillarsScoringResult;
+  /**
+   * Optional 月令 司令字 facts (only present when the engine resolved
+   * a saryeongScheme + jieData pair). Forwarded onto `facts.month.saryeong`.
+   */
+  saryeong?: {
+    scheme: 'classical' | 'scaled';
+    stem: StemIdx;
+    qi: 'CHO' | 'JUNG' | 'JEONG';
+    elapsedDays: number;
+    monthLengthDays: number;
+  };
 }): RuleFacts {
-  const { config, pillars, elementDistribution, scoring } = args;
+  const { config, pillars, elementDistribution, scoring, saryeong } = args;
 
   const stems: StemIdx[] = [pillars.year.stem, pillars.month.stem, pillars.day.stem, pillars.hour.stem];
   const branches: BranchIdx[] = [pillars.year.branch, pillars.month.branch, pillars.day.branch, pillars.hour.branch];
@@ -3244,6 +3273,16 @@ export function buildRuleFacts(args: {
       hiddenStems: monthHiddenStems,
       mainHiddenStemVisible: monthMainVisible,
       gyeok: { stem: gyeokStem, tenGod: gyeokTenGod, method: gyeokMethod, support: groupSupport, candidates: monthGyeokCandidates, quality: monthGyeokQuality },
+      saryeong: saryeong
+        ? {
+            scheme: saryeong.scheme,
+            stem: saryeong.stem,
+            qi: saryeong.qi,
+            tenGod: tenGodOf(pillars.day.stem, saryeong.stem),
+            elapsedDays: saryeong.elapsedDays,
+            monthLengthDays: saryeong.monthLengthDays,
+          }
+        : undefined,
     },
 
     elements: {

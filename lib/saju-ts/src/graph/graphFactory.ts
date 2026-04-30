@@ -23,7 +23,8 @@ import type { ElementDistribution } from '../core/elementDistribution.js';
 import { elementDistributionFromPillars } from '../core/elementDistribution.js';
 import type { HiddenStem } from '../core/hiddenStems.js';
 import { hiddenStemsOfBranch } from '../core/hiddenStems.js';
-import { hiddenStemsForChart } from '../core/wollyul.js';
+import { findSaryeong, hiddenStemsForChart } from '../core/wollyul.js';
+import type { SaryeongResult } from '../core/wollyul.js';
 import type { LifeStage, LifeStagePolicy } from '../core/lifeStage.js';
 import { lifeStageOf } from '../core/lifeStage.js';
 import type { StemRelation } from '../core/stemRelations.js';
@@ -211,6 +212,22 @@ export function buildGraph(): Graph {
               ? 'iau1980_top10'
               : 'classical';
         return getSolarTermsAround(ldt.date.y, method, algorithm, aberrationModel, solarPrecision);
+      },
+    }),
+  );
+
+  nodes.push(
+    n<SaryeongResult | null>({
+      id: 'month.saryeong',
+      deps: ['pillars.month', 'month.jieData', 'policy.weights'],
+      explain: '월령 사령자(司令字) — `weights.hiddenStems.saryeongScheme` 설정 시에만 계산.',
+      compute: (_ctx, get) => {
+        const m = get<PillarIdx>('pillars.month');
+        const jieData = get<JieData | null>('month.jieData');
+        const w = get<EngineWeights>('policy.weights');
+        const scheme = w.hiddenStems?.saryeongScheme;
+        if (!scheme || !jieData) return null;
+        return findSaryeong(m.branch, jieData.elapsedDays, jieData.monthLengthDays, scheme);
       },
     }),
   );
@@ -552,7 +569,7 @@ export function buildGraph(): Graph {
   nodes.push(
     n<RuleFacts>({
       id: 'rules.facts',
-      deps: ['pillars.year', 'pillars.month', 'pillars.day', 'pillars.hour', 'elements.distribution', 'scores.pillars', 'policy.rules'],
+      deps: ['pillars.year', 'pillars.month', 'pillars.day', 'pillars.hour', 'elements.distribution', 'scores.pillars', 'policy.rules', 'month.saryeong', 'month.jieData'],
       explain: 'DSL 룰 엔진에 투입할 fact-base(정규화된 수치/특징)를 구성한다.',
       compute: (ctx, get) => {
         const y = get<PillarIdx>('pillars.year');
@@ -562,7 +579,23 @@ export function buildGraph(): Graph {
         const ed = get<ElementDistribution>('elements.distribution');
         const scoring = get<PillarsScoringResult>('scores.pillars');
 
-        return buildRuleFacts({ config: ctx.config, pillars: { year: y, month: m, day: d, hour: h }, elementDistribution: ed, scoring });
+        const sar = get<SaryeongResult | null>('month.saryeong');
+        const jieData = get<JieData | null>('month.jieData');
+        return buildRuleFacts({
+          config: ctx.config,
+          pillars: { year: y, month: m, day: d, hour: h },
+          elementDistribution: ed,
+          scoring,
+          saryeong: sar && jieData
+            ? {
+                scheme: sar.scheme,
+                stem: sar.stem,
+                qi: sar.qi,
+                elapsedDays: jieData.elapsedDays,
+                monthLengthDays: jieData.monthLengthDays,
+              }
+            : undefined,
+        });
       },
     }),
   );
