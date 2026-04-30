@@ -142,7 +142,41 @@ export interface PrecisionConfig {
    *  and birth.hour is missing. Default 0.5 (halve). Range [0, 1]. */
   readonly unknownTimeSajuDamp?: number;
 
+  // ── PR10: narrative expansion flags ────────────────────────────────────
+
+  /** Narrative style for fortune report cards.
+   *  - undefined / 'plain' (default): existing user-friendly tone
+   *  - 'expert':  classical 명리 terminology (격국, 용신, 십성, 조후 …)
+   *  - 'counselor': flowing 상담가 paragraphs (event → fortune → advice)
+   *  - 'sideBySide': both expert + plain populated for parallel display
+   *  Cards expose the variant text in their `expertText`/`plainText`/
+   *  `counselorText` optional fields when this flag is set. */
+  readonly narrativeStyle?: 'expert' | 'plain' | 'counselor' | 'sideBySide';
+
+  /** Reading focus — routes the report to a specific life-domain emphasis.
+   *  Mirrors saju_master/situational_tone_engine: `auto` (default), `full`,
+   *  `career`, `wealth`, `relationship`, `study_document`,
+   *  `expression_children`, `health_stress`, `movement`, `family`. */
+  readonly readingFocus?:
+    | 'auto' | 'full'
+    | 'career' | 'wealth' | 'relationship'
+    | 'study_document' | 'expression_children'
+    | 'health_stress' | 'movement' | 'family';
+
   readonly [key: string]: unknown;
+}
+
+/** A counterexample row — saju_master/counterexample_refinement_engine
+ *  surfaces these so a high-end reading does not just state a judgment but
+ *  also the conditions under which it should weaken or revise. Cards can
+ *  carry an optional `counterexamples?: CounterexampleRow[]` to expose them. */
+export interface CounterexampleRow {
+  /** The counterexample / weakening condition. */
+  readonly condition: string;
+  /** The revised claim to use when the condition triggers. */
+  readonly revisedClaim: string;
+  /** Which judgment-strength tier the counterexample applies to. Optional. */
+  readonly appliesWhen?: SajuJudgmentStrength;
 }
 
 /** High-level time-policy toggles bridged to saju-ts legacy config. */
