@@ -201,7 +201,13 @@ export function buildGraph(): Graph {
         const algorithm = cal.solarTerms?.algorithm === 'newton' ? 'newton' : 'bisection';
         const aberrationModel =
           cal.aberrationModel === 'rCorrected' ? 'rCorrected' : 'constant';
-        return getSolarTermsAround(ldt.date.y, method, algorithm, aberrationModel);
+        const solarPrecision =
+          cal.solarPrecision === 'iau1980_full'
+            ? 'iau1980_full'
+            : cal.solarPrecision === 'iau1980_top10'
+              ? 'iau1980_top10'
+              : 'classical';
+        return getSolarTermsAround(ldt.date.y, method, algorithm, aberrationModel, solarPrecision);
       },
     }),
   );

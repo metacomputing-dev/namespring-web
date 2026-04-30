@@ -1,4 +1,5 @@
 import { julianDayToUtcMs, utcMsToJulianDay } from './julian.js';
+import { nutationLongitudeDegTop10 } from './nutationIau1980.js';
 
 const DEG2RAD = Math.PI / 180;
 const RAD2DEG = 180 / Math.PI;
@@ -437,8 +438,10 @@ export function angleDiffDeg(aDeg: number, bDeg: number): number {
 }
 
 export type AberrationModel = 'constant' | 'rCorrected';
+export type SolarPrecision = 'classical' | 'iau1980_top10' | 'iau1980_full';
 
 const DEFAULT_ABERRATION_MODEL: AberrationModel = 'constant';
+const DEFAULT_SOLAR_PRECISION: SolarPrecision = 'classical';
 
 /**
  * Apparent solar ecliptic longitude (degrees) for a given Julian Day.
@@ -447,16 +450,21 @@ const DEFAULT_ABERRATION_MODEL: AberrationModel = 'constant';
  * 1) convert to TT using ΔT polynomials (good to a few seconds)
  * 2) compute Earth's heliocentric longitude via VSOP87 periodic terms (SPA)
  * 3) convert to Sun's geocentric longitude (add 180°)
- * 4) apply small aberration + nutation correction using the dominant Ω term
+ * 4) apply aberration + nutation correction
  *
- * The optional `aberrationModel` parameter selects between the constant
- * R=1 approximation (default, current behavior) and an R-corrected model
- * that uses the VSOP87 R-series. The R-corrected branch differs from
- * the constant by at most ±0.34″ (peak at perihelion/aphelion).
+ * Optional parameters:
+ *  - `aberrationModel`: 'constant' (R=1, default) or 'rCorrected'
+ *    using `earthDistanceAU(jme)`. Differs by at most ±0.34″.
+ *  - `solarPrecision`: nutation model.
+ *      • 'classical' (default): single dominant Ω term, ≈ ±9″ residual
+ *      • 'iau1980_top10': top-10 IAU 1980 longitude rows, ≈ ±1″
+ *      • 'iau1980_full': full 63 IAU 1980 rows (added in a later
+ *        commit; falls through to top10 for now)
  */
 export function solarApparentLongitudeDeg(
   jdUtc: number,
   aberrationModel: AberrationModel = DEFAULT_ABERRATION_MODEL,
+  solarPrecision: SolarPrecision = DEFAULT_SOLAR_PRECISION,
 ): number {
   // Convert to Terrestrial Time (TT) as required by the VSOP87 series.
   const dT = deltaTSecondsFromJulianDayUtc(jdUtc);
@@ -472,17 +480,25 @@ export function solarApparentLongitudeDeg(
   // Sun geocentric longitude (deg)
   const theta = mod360(L + 180.0);
 
-  // Ω: longitude of ascending node of the Moon's mean orbit on the ecliptic.
-  // Dominant nutation term: Δψ ≈ -0.00478 sin Ω (degrees)
-  const omega = 125.04 - 1934.136 * T;
-
   // Aberration: constant R=1 by default, R-corrected when requested.
   const aberrationDeg =
     aberrationModel === 'rCorrected'
       ? -20.4898 / earthDistanceAU(jme) / 3600
       : -0.00569;
 
-  const lambda = theta + aberrationDeg - 0.00478 * sinDeg(omega);
+  // Nutation in longitude (Δψ).
+  let dpsiDeg: number;
+  if (solarPrecision === 'iau1980_top10' || solarPrecision === 'iau1980_full') {
+    // 'iau1980_full' falls through to top10 until the full 63-row table
+    // and dispatch are introduced. The behavioural difference is < 1″.
+    dpsiDeg = nutationLongitudeDegTop10(T);
+  } else {
+    // Classical: single dominant Ω term Δψ ≈ -0.00478 sin Ω (degrees).
+    const omega = 125.04 - 1934.136 * T;
+    dpsiDeg = -0.00478 * sinDeg(omega);
+  }
+
+  const lambda = theta + aberrationDeg + dpsiDeg;
 
   return mod360(lambda);
 }
@@ -490,8 +506,13 @@ export function solarApparentLongitudeDeg(
 export function solarLongitudeAtUtcMsDeg(
   utcMs: number,
   aberrationModel: AberrationModel = DEFAULT_ABERRATION_MODEL,
+  solarPrecision: SolarPrecision = DEFAULT_SOLAR_PRECISION,
 ): number {
-  return solarApparentLongitudeDeg(utcMsToJulianDay(utcMs), aberrationModel);
+  return solarApparentLongitudeDeg(
+    utcMsToJulianDay(utcMs),
+    aberrationModel,
+    solarPrecision,
+  );
 }
 
 /**
@@ -513,10 +534,11 @@ export function solarLongitudeAtUtcMsDeg(
 export function solarLongitudeRateDegPerDay(
   jdUtc: number,
   aberrationModel: AberrationModel = DEFAULT_ABERRATION_MODEL,
+  solarPrecision: SolarPrecision = DEFAULT_SOLAR_PRECISION,
 ): number {
   const h = 0.01; // ~14.4 minutes — central difference, well-behaved.
-  const lonBefore = solarApparentLongitudeDeg(jdUtc - h, aberrationModel);
-  const lonAfter = solarApparentLongitudeDeg(jdUtc + h, aberrationModel);
+  const lonBefore = solarApparentLongitudeDeg(jdUtc - h, aberrationModel, solarPrecision);
+  const lonAfter = solarApparentLongitudeDeg(jdUtc + h, aberrationModel, solarPrecision);
   let diff = lonAfter - lonBefore;
   if (diff > 180) diff -= 360;
   else if (diff < -180) diff += 360;
