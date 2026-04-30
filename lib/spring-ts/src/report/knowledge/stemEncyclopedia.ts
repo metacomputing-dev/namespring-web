@@ -20,6 +20,14 @@ export interface StemEncyclopediaEntry {
   readonly recommendedHabits: readonly string[];
   readonly relationshipTips: readonly string[];
   readonly studyWorkTips: readonly string[];
+  /** Classical Chinese metaphor that 자평·적천수 use to describe this 천간
+   *  (PR-J-3). Examples: 甲 → 棟梁之木, 丙 → 太陽之火. Pairs with the
+   *  expert narrative track to ground modern explanations in classical
+   *  imagery. Optional. */
+  readonly classicalImagery?: string;
+  /** One-line classical interpretation expanding the imagery — what
+   *  conditions let the 천간 thrive vs. wither (PR-J-3). Optional. */
+  readonly classicalNote?: string;
 }
 
 export const STEM_ENCYCLOPEDIA: Record<StemCode, StemEncyclopediaEntry> = {
@@ -65,6 +73,8 @@ export const STEM_ENCYCLOPEDIA: Record<StemCode, StemEncyclopediaEntry> = {
       '실수 노트를 만들면 다음 시도에서 성장 속도가 빨라져요.',
       '혼자 밀어붙이기보다 중간 점검 피드백을 받으면 완성도가 높아요.',
     ],
+    classicalImagery: '동량지목(棟梁之木) — 대들보가 되는 큰 나무',
+    classicalNote: '뿌리(印)가 깊고 庚金의 도끼로 다듬어지면 큰 그릇이 되지만, 토양이 메마르거나 화기가 폭발하면 곧기만 한 채 휘어지지 못한다.',
   },
   EUL: {
     korean: '을',
@@ -108,6 +118,8 @@ export const STEM_ENCYCLOPEDIA: Record<StemCode, StemEncyclopediaEntry> = {
       '혼자 오래 끌기보다 중간마다 질문하면 효율이 높아요.',
       '완성 80%에서 먼저 제출하고 피드백으로 100%를 만드세요.',
     ],
+    classicalImagery: '화초지목(花草之木) — 화초·덩굴처럼 부드러운 나무',
+    classicalNote: '습한 토양과 따뜻한 햇볕(丙火) 속에 자라면 꽃을 피우지만, 庚金의 도끼나 메마른 戊土 위에선 시든다. 유연하지만 환경 의존도가 큰 草木의 형상.',
   },
   BYEONG: {
     korean: '병',
@@ -151,6 +163,8 @@ export const STEM_ENCYCLOPEDIA: Record<StemCode, StemEncyclopediaEntry> = {
       '혼자보다 팀 미션에서 동기부여가 잘 살아나요.',
       '마감 하루 전 임시 완성본을 만들어 리스크를 줄이세요.',
     ],
+    classicalImagery: '태양지화(太陽之火) — 하늘에 떠 만물을 비추는 큰 불',
+    classicalNote: '木의 뿌리(印)와 적당한 水의 견제가 있으면 광명이 사방에 미치지만, 火가 과중하거나 水가 폭주하면 빛이 흐려진다. 양화는 안에서 타기보다 밖으로 빛나야 한다.',
   },
   JEONG: {
     korean: '정',
@@ -194,6 +208,8 @@ export const STEM_ENCYCLOPEDIA: Record<StemCode, StemEncyclopediaEntry> = {
       '집중 시간대를 정해 같은 시간에 공부하면 효과가 커요.',
       '세부 검토 능력이 좋아 최종 점검 역할에 유리해요.',
     ],
+    classicalImagery: '등촉지화(燈燭之火) — 등불·촛불처럼 작고 정밀한 불',
+    classicalNote: '甲乙木의 땔감과 庚金의 심지가 있어야 오래 타며, 비바람(壬癸)을 만나면 꺼지기 쉽다. 작아도 어둠을 비추는 정성과 지속의 火.',
   },
   MU: {
     korean: '무',
@@ -237,6 +253,8 @@ export const STEM_ENCYCLOPEDIA: Record<StemCode, StemEncyclopediaEntry> = {
       '행정, 운영, 관리, 엔지니어링처럼 구조적 업무에 잘 맞아요.',
       '혼자 책임지기보다 중간 공유로 리스크를 분산하세요.',
     ],
+    classicalImagery: '성장지토(城牆之土) — 성벽·둑처럼 두꺼운 양토',
+    classicalNote: '丙火의 따뜻함과 적당한 木의 분소(分疏)가 있으면 만물을 길러낸다. 木이 과중하면 무너지고, 水가 범람하면 휩쓸린다. 단단함이 미덕인 양토(陽土).',
   },
   GI: {
     korean: '기',
@@ -280,6 +298,8 @@ export const STEM_ENCYCLOPEDIA: Record<StemCode, StemEncyclopediaEntry> = {
       '교육 보조, 운영 지원, 품질 관리 업무와 잘 맞아요.',
       '완벽주의보다 "오늘 분량 완료"에 초점을 두세요.',
     ],
+    classicalImagery: '전원지토(田園之土) — 논밭·텃밭처럼 부드럽고 비옥한 음토',
+    classicalNote: '癸水의 비와 丙丁火의 햇볕이 알맞으면 곡식을 길러낸다. 水가 부족하면 메마르고, 木이 과중하면 부풀려져 흙이 흩어진다. 양육과 인내의 음토(陰土).',
   },
   GYEONG: {
     korean: '경',
@@ -323,6 +343,8 @@ export const STEM_ENCYCLOPEDIA: Record<StemCode, StemEncyclopediaEntry> = {
       '법, 기술, 보안, 운영처럼 기준이 중요한 분야와 잘 맞아요.',
       '팀 과제에서는 목표 관리 역할을 맡으면 효율이 높아요.',
     ],
+    classicalImagery: '검극지금(劍戟之金) — 검과 도끼처럼 단련된 양금',
+    classicalNote: '丁火의 단련을 받으면 명검이 되어 큰 일을 결단한다. 火가 부족하면 거칠고, 水가 과중하면 녹슨다. 결단력과 정의의 칼날인 양금(陽金).',
   },
   SIN: {
     korean: '신',
@@ -366,6 +388,8 @@ export const STEM_ENCYCLOPEDIA: Record<StemCode, StemEncyclopediaEntry> = {
       '디자인, 언어, 분석형 과제에서 디테일 강점이 살아나요.',
       '마감 직전 수정 폭을 줄이려면 중간 제출을 습관화하세요.',
     ],
+    classicalImagery: '주옥지금(珠玉之金) — 보석·珠玉처럼 다듬어진 음금',
+    classicalNote: '壬水로 닦아내면 빛이 나며, 丁火의 가벼운 광택이 더해지면 명품이 된다. 火가 과중하면 녹고, 土가 두꺼우면 매장된다. 정교함과 품격의 음금(陰金).',
   },
   IM: {
     korean: '임',
@@ -409,6 +433,8 @@ export const STEM_ENCYCLOPEDIA: Record<StemCode, StemEncyclopediaEntry> = {
       '언어, 국제, 데이터, 전략 영역과 궁합이 좋아요.',
       '장기 목표는 월간, 주간, 일간으로 쪼개 실행력을 높이세요.',
     ],
+    classicalImagery: '강호지수(江湖之水) — 강과 호수처럼 큰 양수',
+    classicalNote: '木의 흐름을 따라 만물을 윤택하게 한다. 戊土의 둑이 있으면 길이 잡히고, 火와 균형이 맞으면 따뜻한 흐름이 된다. 둑이 부재하면 범람하고, 火가 폭주하면 증발한다.',
   },
   GYE: {
     korean: '계',
@@ -452,6 +478,8 @@ export const STEM_ENCYCLOPEDIA: Record<StemCode, StemEncyclopediaEntry> = {
       '배운 내용을 누군가에게 설명하면 이해가 깊어져요.',
       '과몰입 피로를 막기 위해 종료 시간을 미리 정해두세요.',
     ],
+    classicalImagery: '우로지수(雨露之水) — 비와 이슬처럼 부드러운 음수',
+    classicalNote: '대지에 스며들어 만물을 길러낸다. 戊土가 두꺼우면 흙에 묻혀 흐려지고, 火가 폭주하면 증발한다. 적당한 戊·丙의 균형 속에서 작은 씨앗을 자라게 하는 양육의 음수(陰水).',
   },
 };
 
