@@ -1,0 +1,32 @@
+{
+  "schemaVersion": "spring-val.authority-case.v1-extended",
+  "case_id": "A1-fig-lee_kunhee",
+  "status": "extracted",
+  "source": {
+    "kind": "collected_from_modern_korean_myeongri",
+    "collected_in": "spring-val/claude/case-studies/",
+    "source_count": 3,
+    "collected_at": "2026-05-01",
+    "copyright_policy": "Pillars factual; prose <=50 chars paraphrase."
+  },
+  "subject": {
+    "korean": "이건희",
+    "hanja": "李健熙",
+    "role": "Samsung 회장"
+  },
+  "birth": {
+    "year_pillar": "辛巳",
+    "month_pillar": "辛丑",
+    "day_pillar": "壬戌",
+    "hour_pillar": "乙巳",
+    "gender": "male",
+    "solar_date": "1942-01-09"
+  },
+  "expected": {
+    "gyeokguk": "정인격",
+    "gyeokguk_basis": "잡기정인격: 月支 丑 中氣 辛金 투간",
+    "sources_count": 3,
+    "comparable": true
+  },
+  "prose_quote": "雜氣正印格 — 축중 신금이 투간되어 정인 활성화."
+}

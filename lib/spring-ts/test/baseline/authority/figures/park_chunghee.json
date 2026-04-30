@@ -1,0 +1,33 @@
+{
+  "schemaVersion": "spring-val.authority-case.v1-extended",
+  "case_id": "A1-fig-park_chunghee",
+  "status": "extracted",
+  "source": {
+    "kind": "collected_from_modern_korean_myeongri",
+    "collected_in": "spring-val/claude/case-studies/",
+    "source_count": 2,
+    "collected_at": "2026-05-01",
+    "copyright_policy": "Pillars factual; prose <=50 chars paraphrase."
+  },
+  "subject": {
+    "korean": "박정희",
+    "hanja": "朴正熙",
+    "role": "제5-9대 대통령"
+  },
+  "birth": {
+    "year_pillar": "丁巳",
+    "month_pillar": "辛亥",
+    "day_pillar": "庚申",
+    "hour_pillar": "戊寅",
+    "gender": "male",
+    "solar_date": "1917-11-14"
+  },
+  "expected": {
+    "gyeokguk": null,
+    "yongshin_element": "FIRE",
+    "special_pattern": "인신사해 사충 + 조후",
+    "sources_count": 2,
+    "comparable": false
+  },
+  "prose_quote": "庚金 일간 with 인신사해 사충 + 조후용신 火 강조."
+}

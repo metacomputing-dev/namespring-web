@@ -1,0 +1,32 @@
+{
+  "schemaVersion": "spring-val.authority-case.v1-extended",
+  "case_id": "A1-fig-jeong_juyeong",
+  "status": "extracted",
+  "source": {
+    "kind": "collected_from_modern_korean_myeongri",
+    "collected_in": "spring-val/claude/case-studies/",
+    "source_count": 2,
+    "collected_at": "2026-05-01",
+    "copyright_policy": "Pillars factual; prose <=50 chars paraphrase."
+  },
+  "subject": {
+    "korean": "정주영",
+    "hanja": "鄭周永",
+    "role": "Hyundai 창업자"
+  },
+  "birth": {
+    "year_pillar": "乙卯",
+    "month_pillar": "丁亥",
+    "day_pillar": "庚申",
+    "hour_pillar": "丁丑",
+    "gender": "male",
+    "solar_date": "1915-11-25"
+  },
+  "expected": {
+    "gyeokguk": null,
+    "special_pattern": "오행구족격",
+    "sources_count": 2,
+    "comparable": false
+  },
+  "prose_quote": "오행구족격 (5요소 다 갖춤) — special pattern, 정·편 격국 attribution 적음."
+}

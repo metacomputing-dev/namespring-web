@@ -1,0 +1,32 @@
+{
+  "schemaVersion": "spring-val.authority-case.v1-extended",
+  "case_id": "A1-fig-lee_myungbak",
+  "status": "extracted",
+  "source": {
+    "kind": "collected_from_modern_korean_myeongri",
+    "collected_in": "spring-val/claude/case-studies/",
+    "source_count": 2,
+    "collected_at": "2026-05-01",
+    "copyright_policy": "Pillars factual; prose <=50 chars paraphrase."
+  },
+  "subject": {
+    "korean": "이명박",
+    "hanja": "李明博",
+    "role": "제17대 대통령"
+  },
+  "birth": {
+    "year_pillar": "辛巳",
+    "month_pillar": "庚子",
+    "day_pillar": "辛丑",
+    "hour_pillar": "辛卯",
+    "gender": "male",
+    "solar_date": "1941-12-19"
+  },
+  "expected": {
+    "gyeokguk": null,
+    "special_pattern": "四金 사주 / diamond",
+    "sources_count": 2,
+    "comparable": false
+  },
+  "prose_quote": "四金 사주 — 천간 4 모두 金 (辛庚辛辛). 五虎遁/五鼠遁 verified."
+}
