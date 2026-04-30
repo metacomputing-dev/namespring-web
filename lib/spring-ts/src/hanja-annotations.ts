@@ -6,11 +6,22 @@
  * can answer "is this hanja legally registrable for a Korean given name?"
  * without modifying seed-ts's DB schema.
  *
- * Future PRs will populate the annotation map from the official 인명용
- * 한자 list (대법원 가족관계의 등록 등에 관한 규칙 별표 1·2; 2024-06
- * 기준 9,389 자) once the data is imported under config/. For now the
- * lookup returns undefined, signaling "unknown legal status" so callers
- * can decide whether to filter or accept the hanja.
+ * IMPORTANT — POOL POLICY (per maintainer note 2026-04-30):
+ *
+ *   The default hanja pool is the existing seed-ts DB (~5,000 entries).
+ *   That set was *intentionally curated* for naming quality — every
+ *   character was hand-picked for naming-suitability, so a hanja being
+ *   in the DB is itself a positive quality signal.
+ *
+ *   The full 인명용 한자 list (대법원 가족관계의 등록 등에 관한 규칙
+ *   별표 1·2; 2024-06 기준 9,389 자) is BROADER but unfiltered for
+ *   naming aesthetics. It must therefore be opt-in via
+ *   `precisionConfig.hanjaPool='inmyeongyong_full'`, never the default.
+ *
+ *   Until the 9,389-character list is imported (separate data PR),
+ *   `getLegalAnnotation` reports `legalRegistrable: undefined` for every
+ *   entry. Callers default to "accept unknown" so the existing curated
+ *   pool keeps flowing through unchanged.
  */
 
 import type { HanjaEntry } from '../../seed-ts/src/database/hanja-repository.js';

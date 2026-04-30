@@ -142,6 +142,32 @@ export interface PrecisionConfig {
    *  and birth.hour is missing. Default 0.5 (halve). Range [0, 1]. */
   readonly unknownTimeSajuDamp?: number;
 
+  // ── PR11: data / naming-specific opt-in flags ─────────────────────────
+
+  /** Hanja candidate pool for name generation (PR11).
+   *  - undefined / 'curated' (default): existing ~5,000-entry seed-ts DB.
+   *    Every character in this set was hand-picked for naming quality, so
+   *    membership itself is a positive signal — this is the production-
+   *    safe default and matches all baseline-snapshot fixtures.
+   *  - 'inmyeongyong_full': all 9,389 characters from 대법원 인명용
+   *    한자 list (별표 1·2, 2024-06). Broader but unfiltered for naming
+   *    aesthetics. Activates only when the data fixture is imported in a
+   *    follow-up PR; today this value is declared but the candidate
+   *    generator still reads from the curated DB. */
+  readonly hanjaPool?: 'curated' | 'inmyeongyong_full';
+
+  /** Pure-hangul element-mapping schema (PR11).
+   *  Different naming schools assign different elements to certain
+   *  consonants and vowels. spring-info/05_naming_specific/01_pure_hangul_mode.md
+   *  documents the citations.
+   *  - 'classic_phonetic' (default): 훈민정음 해례식
+   *  - 'modern_korean': 한국 작명원 표준 (ㅣ→Yang, ㅡ→Yin)
+   *  - 'expanded': 권위 자료 절충 변형
+   *  Today this flag is declared but the existing hangul-element module
+   *  uses a single hard-coded schema; per-schema routing lands in a
+   *  follow-up PR alongside the test fixtures that exercise each variant. */
+  readonly pureHangulSchema?: 'classic_phonetic' | 'modern_korean' | 'expanded';
+
   // ── PR10: narrative expansion flags ────────────────────────────────────
 
   /** Narrative style for fortune report cards.
