@@ -495,6 +495,51 @@ export interface SajuOutputSummary {
   gyeokguk?: { category: string; type: string; confidence: number };
   deficientElements?: string[];
   excessiveElements?: string[];
+  /** Per-axis judgment strength (PR9). Bins each axis's saju-engine
+   *  confidence into the 4-tier rhetoric model:
+   *    'definite'  (확정형) — conf ≥ 0.85, can state as fact
+   *    'practical' (실전형) — conf ≥ 0.65, can state with mild hedge
+   *    'candidate' (후보형) — conf ≥ 0.45, must hedge as possibility
+   *    'deferred'  (보류형) — conf < 0.45, omit or fully hedge
+   *  Cards (PR9 onwards) use this to choose narrative wording. */
+  axisStrength?: SajuAxisStrengthMap;
+}
+
+export type SajuJudgmentStrength = 'definite' | 'practical' | 'candidate' | 'deferred';
+
+/** Each saju axis's judgment strength (PR9). All entries optional —
+ *  an axis is included only when the upstream engine reports a confidence
+ *  for it. Matches the 7 axes documented in
+ *  spring-info/03_adaptive_evaluator/01_saju_priority.md §2. */
+export interface SajuAxisStrengthMap {
+  readonly yongshin?: SajuJudgmentStrength;
+  readonly gyeokguk?: SajuJudgmentStrength;
+  readonly strength?: SajuJudgmentStrength;
+  readonly chengbai?: SajuJudgmentStrength;
+  readonly johu?: SajuJudgmentStrength;
+  readonly fortuneHierarchy?: SajuJudgmentStrength;
+  readonly rectification?: SajuJudgmentStrength;
+}
+
+/** Evidence backing a single narrative claim (PR9).
+ *
+ *  saju_master `interpretation_evidence_bridge.py:expert_evidence_table`
+ *  surfaces a row per claim: axis, the claim itself, supporting chart
+ *  features, optional weakness / counterexample, and the judgment
+ *  strength of the claim. spring-ts cards (overview/personality/...)
+ *  include an optional `evidence` array of these rows so a downstream
+ *  UI can render "이 주장은 무엇을 근거로 하는가?" beneath each card. */
+export interface EvidenceRow {
+  /** Saju axis the claim is anchored on (e.g., 'yongshin', 'gyeokguk'). */
+  readonly axis: string;
+  /** The claim being made, in user-facing language. */
+  readonly claim: string;
+  /** Concrete chart features that support the claim. */
+  readonly supportingFeatures: readonly string[];
+  /** Conditions under which the claim weakens or revises (optional). */
+  readonly weakness?: string;
+  /** Judgment-strength tier of this claim. Aligns with `SajuAxisStrengthMap`. */
+  readonly strength?: SajuJudgmentStrength;
 }
 
 /** Pillar position keys used by SajuOutputSummary.tenGod.byPosition. */
