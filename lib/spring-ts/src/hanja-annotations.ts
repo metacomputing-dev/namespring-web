@@ -26,6 +26,7 @@
 
 import type { HanjaEntry } from '../../seed-ts/src/database/hanja-repository.js';
 import inmyeongyongData from '../data/inmyeongyong_9389.json';
+import byeolpyo2Data from '../data/byeolpyo2_variants.json';
 
 /** PR11 annotations layered over the seed-ts HanjaEntry. */
 export interface HanjaLegalAnnotation {
@@ -41,33 +42,14 @@ export interface HanjaLegalAnnotation {
   readonly isVariantOf?: string;
 }
 
-/** A small canonical 異體字 lookup. Each row maps a non-canonical form
- *  to its 정자. The full table is imported from a separate fixture file
- *  in a follow-up PR — these entries are seed values to demonstrate the
- *  normalization path end-to-end without bringing in a 1000+ entry list. */
-const VARIANT_TO_ORTHODOX: Readonly<Record<string, string>> = {
-  // 약자 (simplified) → 정자 (orthodox)
-  '国': '國',  // 나라 국
-  '会': '會',  // 모일 회
-  '読': '讀',  // 읽을 독
-  '体': '體',  // 몸 체
-  '気': '氣',  // 기운 기
-  '画': '畫',  // 그림 화
-  '応': '應',  // 응할 응
-  '広': '廣',  // 넓을 광
-  '対': '對',  // 대할 대
-  '参': '參',  // 참여할 참
-  '帯': '帶',  // 띠 대
-  '関': '關',  // 관계할 관
-  '転': '轉',  // 구를 전
-  '伝': '傳',  // 전할 전
-  '当': '當',  // 마땅할 당
-  '楽': '樂',  // 즐거울 락
-  '帰': '歸',  // 돌아갈 귀
-  '実': '實',  // 열매 실
-  '宝': '寶',  // 보배 보
-  '点': '點',  // 점 점
-};
+/** Variant → 정자 lookup table. Sourced from `data/byeolpyo2_variants.json`
+ *  which mirrors 대법원 가족관계의 등록 등에 관한 규칙 별표 2 (이체자
+ *  매핑). PR-I-5 replaces PR11's 20-row seed (which contained Japanese
+ *  shinjitai mixed in with Korean variants) with a Korean-administrative-
+ *  rule-aligned seed of ~50 rows; the full ~280-row import lands in a
+ *  follow-up data PR. */
+const VARIANT_TO_ORTHODOX: Readonly<Record<string, string>> =
+  (byeolpyo2Data as { variantToOrthodox: Record<string, string> }).variantToOrthodox;
 
 /** Returns the orthodox (정자) form of a hanja, or the input itself when
  *  the hanja is already orthodox / has no known variant. */
