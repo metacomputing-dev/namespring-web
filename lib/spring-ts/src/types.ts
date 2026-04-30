@@ -202,6 +202,19 @@ export interface PrecisionConfig {
    *  adapter receives. */
   readonly sajuSchoolId?: string;
 
+  /** Saryeong (司令) hidden-stem scheme (PR-H-S6). When set, saju-ts's
+   *  `core/wollyul.ts:hiddenStemsForChart` weights the commanding stem
+   *  per its WOLLYUL_SEGMENTS rule (1.0 on the commanding stem, 0.0 on
+   *  the rest) instead of falling back to the static 7/3 or 6/3/1 split.
+   *
+   *  - 'classical': 餘氣 → 中氣 → 正氣 literal day counts (saju_master parity)
+   *  - 'scaled':    same counts scaled to the astronomical month length
+   *
+   *  Default unset = saju-ts uses the static `standard` scheme (existing
+   *  behavior). Targets the 사령 정밀화 (per F-A14 §1.4); spring-ts's
+   *  own scoring is unaffected. */
+  readonly saryeongScheme?: 'classical' | 'scaled';
+
   readonly [key: string]: unknown;
 }
 
