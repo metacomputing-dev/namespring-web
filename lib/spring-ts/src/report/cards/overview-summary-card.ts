@@ -6,7 +6,7 @@
  * and combines them into a concise, friendly-tone summary card.
  */
 
-import type { SajuSummary } from '../../types.js';
+import type { SajuSummary, SajuAxisStrengthMap, EvidenceRow, SajuOutputSummary } from '../../types.js';
 import type { OverviewSummaryCard, PillarDisplay, ElementCode } from '../types.js';
 import {
   ELEMENT_KOREAN_SHORT,
@@ -222,6 +222,60 @@ export function buildOverviewSummaryCard(saju: SajuSummary): OverviewSummaryCard
 
   const overallSummary = summaryParts.join(' ');
 
+  // ── 7. Narrative foundations (PR9) ─────────────────────────────────────
+  // Surface the upstream judgment-strength + per-claim evidence so a UI
+  // (or a future audience-translation layer) can adapt the wording: a
+  // 'definite' yongshin is stated as fact, a 'candidate' one is hedged.
+  const sajuOutput = saju as unknown as { axisStrength?: SajuAxisStrengthMap };
+  const axisStrength = sajuOutput.axisStrength;
+
+  const evidence: EvidenceRow[] = [];
+
+  // Day master row — anchored on yongshin + strength axes.
+  if (stemInfo) {
+    const supportingFeatures: string[] = [
+      `${stemInfo.hangul}(${stemInfo.element ?? ''}) 일간 — ${dayMasterFriendly} 기운`,
+    ];
+    if (stemEntry) supportingFeatures.push(`기본 성향: ${stemEntry.coreKeywords.slice(0, 2).join(', ')}`);
+    evidence.push({
+      axis: 'dayMaster',
+      claim: dayMasterDescription,
+      supportingFeatures,
+      strength: axisStrength?.strength,
+    });
+  }
+
+  // Strength row — independent claim, 4-tier strength from axisStrength.
+  evidence.push({
+    axis: 'strength',
+    claim: strengthDescription,
+    supportingFeatures: [
+      `totalSupport ${strength.totalSupport}, totalOppose ${strength.totalOppose}`,
+      `level: ${strength.level}`,
+    ],
+    strength: axisStrength?.strength,
+  });
+
+  // Yongshin row — 4-tier strength from axisStrength.yongshin. Hedge wording
+  // when 'candidate' / 'deferred' so we don't overclaim a low-confidence yongshin.
+  const yongshinTier = axisStrength?.yongshin;
+  const isHedged = yongshinTier === 'candidate' || yongshinTier === 'deferred';
+  evidence.push({
+    axis: 'yongshin',
+    claim: isHedged
+      ? `${yongshinDescription} (다만 용신 신뢰도가 낮은 편이라 다른 보조 기운도 함께 살펴보세요.)`
+      : yongshinDescription,
+    supportingFeatures: [
+      `용신 후보: ${yongshin.element}`,
+      `confidence: ${yongshin.confidence ?? 'n/a'}`,
+      ...(yongshin.heeshin ? [`희신: ${yongshin.heeshin}`] : []),
+    ],
+    weakness: isHedged
+      ? '용신 신뢰도가 0.65 미만이라 차트에 따라 다른 학파(조후 / 통관)의 추천이 더 적합할 수 있음.'
+      : undefined,
+    strength: yongshinTier,
+  });
+
   return {
     title: '총평 요약',
     pillars,
@@ -230,5 +284,7 @@ export function buildOverviewSummaryCard(saju: SajuSummary): OverviewSummaryCard
     yongshinDescription,
     elementBalance,
     overallSummary,
+    axisStrength,
+    evidence,
   };
 }

@@ -8,8 +8,8 @@
 //  1. Re-exported input types
 // ─────────────────────────────────────────────────────────────────────────────
 
-import type { SajuSummary, BirthInfo } from '../types.js';
-export type { SajuSummary, BirthInfo };
+import type { SajuSummary, BirthInfo, SajuAxisStrengthMap, EvidenceRow, SajuJudgmentStrength } from '../types.js';
+export type { SajuSummary, BirthInfo, SajuAxisStrengthMap, EvidenceRow, SajuJudgmentStrength };
 
 // ─────────────────────────────────────────────────────────────────────────────
 //  2. Code types (used by elementMaps and card builders)
@@ -103,6 +103,15 @@ export interface OverviewSummaryCard {
   readonly yongshinDescription: string;
   readonly elementBalance: string;
   readonly overallSummary: string;
+  /** Per-axis judgment strength (PR9). Mirrors `SajuOutputSummary.axisStrength`
+   *  so the consuming UI can apply hedge wording or render a strength
+   *  indicator next to each claim. Optional — absent when the upstream saju
+   *  engine doesn't report axis confidences. */
+  readonly axisStrength?: SajuAxisStrengthMap;
+  /** Optional row-level evidence backing each claim in this card (PR9).
+   *  Each row carries the supporting chart features and (when known) a
+   *  weakness condition under which the claim should be revised. */
+  readonly evidence?: readonly EvidenceRow[];
 }
 
 // ── 카드 3: 인생 운세 총평 ───────────────────────────────────────────────
