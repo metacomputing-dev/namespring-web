@@ -1081,6 +1081,19 @@ export async function analyzeSaju(birth: BirthInfo, options?: SpringRequest['opt
     }
     const timePolicyConfig = toLegacySajuTimePolicyConfig(options, resolvedCoordinates.longitude);
     if (Object.keys(timePolicyConfig).length) config = { ...config, ...timePolicyConfig };
+    // PR-H-S2 — request Newton root-finder for solar-term boundary lookup.
+    // saju-ts (api/types.ts:79-89) documents that 'newton' has the same target
+    // tolerance as 'bisection' so the resulting instant agrees to the chosen
+    // tolerance — i.e., output-identical. Newton is ~5 iterations (vs ~20 for
+    // bisection); we adopt it as default to amortise the cost of the more
+    // accurate solar-term lookups that later phases will surface.
+    config.calendar = {
+      ...(config.calendar ?? {}),
+      solarTerms: {
+        ...(config.calendar?.solarTerms ?? {}),
+        algorithm: 'newton',
+      },
+    };
     if (options?.sajuConfig) config = { ...config, ...options.sajuConfig };
     const finalConfig = Object.keys(config).length > 0 ? config : undefined;
 
