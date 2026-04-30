@@ -1,0 +1,28 @@
+{
+  "schemaVersion": "spring-val.authority-case.v1-extended",
+  "case_id": "A1-chu-37_jonga",
+  "status": "extracted",
+  "source": {
+    "kind": "collected_from_modern_korean_myeongri",
+    "collected_in": "spring-val/claude/korean-modern/01-lee-seokyoung-chumyeongga.md",
+    "origin": "이석영 추명가 명조집 (community 60-case web extract)",
+    "case_index_in_source": 37,
+    "collected_at": "2026-05-01",
+    "copyright_policy": "Pillars factual; prose <=50 chars paraphrase."
+  },
+  "page_label": "추명가 37번 - 소실 몸에서 得子",
+  "birth": {
+    "year_pillar": "己酉",
+    "month_pillar": "戊辰",
+    "day_pillar": "丙辰",
+    "hour_pillar": "己亥",
+    "gender": "unknown"
+  },
+  "expected": {
+    "gyeokguk": "종아격",
+    "gyeokguk_classical_form": "식신격",
+    "gyeokguk_basis": "종아격 — 식상 (土) dominant",
+    "comparable": "partial"
+  },
+  "prose_quote": "종아격 (Following-Output pattern)."
+}

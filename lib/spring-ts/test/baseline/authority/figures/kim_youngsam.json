@@ -1,0 +1,35 @@
+{
+  "schemaVersion": "spring-val.authority-case.v1-extended",
+  "case_id": "A1-fig-kim_youngsam",
+  "status": "extracted",
+  "source": {
+    "kind": "collected_from_modern_korean_myeongri",
+    "collected_in": "spring-val/claude/case-studies/",
+    "source_count": 3,
+    "collected_at": "2026-05-01",
+    "copyright_policy": "Pillars factual; prose <=50 chars paraphrase."
+  },
+  "subject": {
+    "korean": "김영삼",
+    "hanja": "金泳三",
+    "role": "제14대 대통령"
+  },
+  "birth": {
+    "year_pillar": "丁卯",
+    "month_pillar": "壬子",
+    "day_pillar": "乙未",
+    "hour_pillar": "甲申",
+    "gender": "male",
+    "solar_date": "1928-01-26"
+  },
+  "expected": {
+    "gyeokguk": "정인격",
+    "gyeokguk_alt": [
+      "관인격"
+    ],
+    "gyeokguk_basis": "정인격 — 月支 子 정기 癸水 정인 (乙木 일간)",
+    "sources_count": 3,
+    "comparable": true
+  },
+  "prose_quote": "정인격 / 관인격 — 자월 을목 with 임수 정인."
+}

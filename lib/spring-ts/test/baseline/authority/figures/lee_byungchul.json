@@ -1,0 +1,37 @@
+{
+  "schemaVersion": "spring-val.authority-case.v1-extended",
+  "case_id": "A1-fig-lee_byungchul",
+  "status": "extracted",
+  "source": {
+    "kind": "collected_from_modern_korean_myeongri",
+    "collected_in": "spring-val/claude/case-studies/",
+    "source_count": 3,
+    "collected_at": "2026-05-01",
+    "copyright_policy": "Pillars factual; prose <=50 chars paraphrase."
+  },
+  "subject": {
+    "korean": "이병철",
+    "hanja": "李秉喆",
+    "role": "Samsung 창업자"
+  },
+  "birth": {
+    "year_pillar": "庚戌",
+    "month_pillar": "戊寅",
+    "day_pillar": "戊申",
+    "hour_pillar": "壬戌",
+    "gender": "male",
+    "solar_date": "1910-02-12"
+  },
+  "expected": {
+    "gyeokguk": "편관격",
+    "gyeokguk_alt": [
+      "시상일위편재격",
+      "식신생재",
+      "재다신약"
+    ],
+    "special_pattern": "양팔통",
+    "sources_count": 3,
+    "comparable": true
+  },
+  "prose_quote": "시상일위편재격 / 양팔통 / 정·편 격 primary는 편관격, 다중 attribution."
+}

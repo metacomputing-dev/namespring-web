@@ -1,0 +1,32 @@
+{
+  "schemaVersion": "spring-val.authority-case.v1-extended",
+  "case_id": "A1-fig-roh_moohyun",
+  "status": "extracted",
+  "source": {
+    "kind": "collected_from_modern_korean_myeongri",
+    "collected_in": "spring-val/claude/case-studies/",
+    "source_count": 2,
+    "collected_at": "2026-05-01",
+    "copyright_policy": "Pillars factual; prose <=50 chars paraphrase."
+  },
+  "subject": {
+    "korean": "노무현",
+    "hanja": "盧武鉉",
+    "role": "제16대 대통령"
+  },
+  "birth": {
+    "year_pillar": "丙戌",
+    "month_pillar": "丙申",
+    "day_pillar": "戊寅",
+    "hour_pillar": "丙辰",
+    "gender": "male",
+    "solar_date": "1946-09-01"
+  },
+  "expected": {
+    "gyeokguk": null,
+    "special_pattern": "양팔통",
+    "sources_count": 2,
+    "comparable": false
+  },
+  "prose_quote": "양팔통 (8 글자 모두 양). special pattern."
+}

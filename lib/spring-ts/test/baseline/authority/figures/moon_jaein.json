@@ -1,0 +1,32 @@
+{
+  "schemaVersion": "spring-val.authority-case.v1-extended",
+  "case_id": "A1-fig-moon_jaein",
+  "status": "extracted",
+  "source": {
+    "kind": "collected_from_modern_korean_myeongri",
+    "collected_in": "spring-val/claude/case-studies/",
+    "source_count": 3,
+    "collected_at": "2026-05-01",
+    "copyright_policy": "Pillars factual; prose <=50 chars paraphrase."
+  },
+  "subject": {
+    "korean": "문재인",
+    "hanja": "文在寅",
+    "role": "제19대 대통령"
+  },
+  "birth": {
+    "year_pillar": "壬辰",
+    "month_pillar": "癸丑",
+    "day_pillar": "乙亥",
+    "hour_pillar": "丙子",
+    "gender": "male",
+    "solar_date": "1953-01-24"
+  },
+  "expected": {
+    "gyeokguk": "편인격",
+    "gyeokguk_basis": "편인격: 月支 丑 中氣 癸水 편인 투간",
+    "sources_count": 3,
+    "comparable": true
+  },
+  "prose_quote": "편인격 — 月支 丑중 癸水 편인 투간. 축월 을목 일주."
+}

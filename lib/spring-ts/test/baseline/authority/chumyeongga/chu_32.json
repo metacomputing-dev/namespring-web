@@ -1,0 +1,28 @@
+{
+  "schemaVersion": "spring-val.authority-case.v1-extended",
+  "case_id": "A1-chu-32_jongjae",
+  "status": "extracted",
+  "source": {
+    "kind": "collected_from_modern_korean_myeongri",
+    "collected_in": "spring-val/claude/korean-modern/01-lee-seokyoung-chumyeongga.md",
+    "origin": "이석영 추명가 명조집 (community 60-case web extract)",
+    "case_index_in_source": 32,
+    "collected_at": "2026-05-01",
+    "copyright_policy": "Pillars factual; prose <=50 chars paraphrase."
+  },
+  "page_label": "추명가 32번 - 부친 이복형제",
+  "birth": {
+    "year_pillar": "癸亥",
+    "month_pillar": "癸亥",
+    "day_pillar": "己亥",
+    "hour_pillar": "丙寅",
+    "gender": "unknown"
+  },
+  "expected": {
+    "gyeokguk": "종재격",
+    "gyeokguk_classical_form": "정재격",
+    "gyeokguk_basis": "종재격 — 재성 (水) dominant, weak 일간 己土",
+    "comparable": "partial"
+  },
+  "prose_quote": "종재격 (Following-Wealth pattern)."
+}
