@@ -537,6 +537,23 @@ function resolveAdaptiveWeights(
  * This penalty intentionally stacks with the gisin/gusin penalties above
  * because in jonggyeok, harmful elements cause a "破格" (broken pattern).
  */
+/** Per-종격 type penalty multiplier for `gyeokgukMode='multi_special'`.
+ *  Captures classical doctrine that different 종격 patterns have different
+ *  vulnerability to 破格 — values from saju_master/chengbai.py and
+ *  spring-info/02_compatibility_scoring/05_penalties.md §4. Unknown types
+ *  fall back to 1.0 (= same as the default jonggyeok_only behavior). */
+const MULTI_SPECIAL_PENALTY_MULTIPLIERS: Record<string, number> = {
+  CONG_SHA: 1.25,   // 종살격 — 살을 따르는 격, 강한 살 발현 시 가장 위험
+  CONG_GUAN: 1.10,  // 종관격
+  HUA_QI: 1.05,     // 화기격
+  CONG_GE: 1.00,    // 종격 (일반)
+  CONG_CAI: 1.00,   // 종재격
+  CONG_YIN: 1.00,   // 종인격
+  CONG_ER: 0.95,    // 종아격 — 식상이 자연 흐름
+  CONG_BI: 0.90,    // 종비격 — 비겁이 동지
+  ZHUAN_WANG: 0.85, // 전왕격 — dominant 자체가 매우 강해 약간의 gisin 도 흡수
+};
+
 function computeGyeokgukPenalty(
   rootDist: Record<ElementKey, number>,
   sajuOutput: SajuOutputSummary | null,
@@ -548,10 +565,10 @@ function computeGyeokgukPenalty(
 
   // 'jonggyeok_only' (default) keeps the original cliff: penalty is 0
   // below confidence 0.5 and clamps the multiplier to [0.5, 1] above it.
-  // 'chengbai_strict' replaces the cliff with a smooth tanh curve so the
-  // 0.49→0.50 boundary no longer flips the penalty on/off — borderline
-  // 종격 charts now incur a partial penalty proportional to confidence.
-  // 'multi_special' reserved for PR6 (needs the 9-way 종격 surface).
+  // 'chengbai_strict' replaces the cliff with a smooth tanh curve.
+  // 'multi_special' keeps the cliff but applies a type-specific multiplier
+  //   so 전왕격 (less vulnerable) and 종살격 (more vulnerable) no longer
+  //   share an identical penalty.
   if (mode !== 'chengbai_strict' && gyeokgukData.confidence < PENALTY.gyeokgukMinConfidence) {
     return 0;
   }
@@ -573,7 +590,11 @@ function computeGyeokgukPenalty(
     // Default cliff: confidence ≥ 0.5 already gated above; clamp to [0.5, 1].
     : clamp(gyeokgukData.confidence, 0.5, 1);
 
-  return Math.round(harmfulRatio * PENALTY.gyeokgukMaxPenalty * confidenceFactor);
+  const typeMultiplier = mode === 'multi_special'
+    ? (MULTI_SPECIAL_PENALTY_MULTIPLIERS[gyeokgukData.type] ?? 1.0)
+    : 1.0;
+
+  return Math.round(harmfulRatio * PENALTY.gyeokgukMaxPenalty * confidenceFactor * typeMultiplier);
 }
 
 /**
