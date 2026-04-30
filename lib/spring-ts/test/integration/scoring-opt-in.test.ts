@@ -59,6 +59,8 @@ const balanceJgk             = await evalWith({ balanceMode: 'classical_jonggyeo
 const yongshinCb             = await evalWith({ yongshinMode: 'chengbai_strict' });
 const strengthCont           = await evalWith({ strengthMode: 'continuous' });
 const gyeokgukCb             = await evalWith({ gyeokgukMode: 'chengbai_strict' });
+const tenGodPositional       = await evalWith({ tenGodMode: 'positional_weighted' });
+const gyeokgukMultiSpecial   = await evalWith({ gyeokgukMode: 'multi_special' });
 
 let pass = 0;
 let fail = 0;
@@ -80,10 +82,12 @@ console.log('balance.classical_jgk    :', balanceJgk);
 console.log('yongshin.chengbai_strict :', yongshinCb);
 console.log('strength.continuous      :', strengthCont);
 console.log('gyeokguk.chengbai_strict :', gyeokgukCb);
+console.log('tenGod.positional_weighted:', tenGodPositional);
+console.log('gyeokguk.multi_special   :', gyeokgukMultiSpecial);
 console.log('');
 
 // — All scores finite and in [0, 100] —
-const allResults = [baseline, empty, balanceYf, balanceJgk, yongshinCb, strengthCont, gyeokgukCb];
+const allResults = [baseline, empty, balanceYf, balanceJgk, yongshinCb, strengthCont, gyeokgukCb, tenGodPositional, gyeokgukMultiSpecial];
 for (const r of allResults) {
   check('saju score finite + [0,100]', Number.isFinite(r.saju) && r.saju >= 0 && r.saju <= 100, `${r.saju}`);
   check('total score finite + [0,100]', Number.isFinite(r.total) && r.total >= 0 && r.total <= 100, `${r.total}`);
@@ -121,6 +125,23 @@ check('gyeokguk.chengbai_strict ≡ baseline (non-종격 fixture)',
 //   so this mode also tends to be a no-op here. Just verify it doesn't crash.
 check('yongshin.chengbai_strict produces valid score',
   Number.isFinite(yongshinCb.saju));
+
+// — PR6 modes (positional_weighted / multi_special) ────────────────────────
+
+// tenGod.positional_weighted: re-derives groupCounts from byPosition with
+// pillar weights. For non-종격 charts, score may shift slightly because
+// weighted counts change relative ten-god deviation; 비종격 fixture should
+// produce a finite score and stay within [0, 100].
+check('tenGod.positional_weighted produces valid score',
+  Number.isFinite(tenGodPositional.saju) && tenGodPositional.saju >= 0 && tenGodPositional.saju <= 100,
+  `saju ${tenGodPositional.saju}`);
+
+// gyeokguk.multi_special: applies per-type 종격 multipliers. Non-종격
+// fixture (1986-04-19) sees no penalty → equal to baseline. The mode is
+// a no-op when category !== 'JONGGYEOK', confirming the cliff is preserved.
+check('gyeokguk.multi_special ≡ baseline (non-종격 fixture)',
+  gyeokgukMultiSpecial.saju === baseline.saju && gyeokgukMultiSpecial.total === baseline.total,
+  '종격 fixture 부재 시 jonggyeok_only 와 동일');
 
 engine.close();
 
