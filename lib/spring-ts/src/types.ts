@@ -112,6 +112,16 @@ export interface PrecisionConfig {
    *    so confidence 0.49 vs 0.50 no longer flips the penalty on/off. */
   readonly gyeokgukMode?: 'jonggyeok_only' | 'multi_special' | 'chengbai_strict';
 
+  /** Fortune-cascade boundary precision (PR7).
+   *  - 'simple' (default): solar-month approximation. Fast but 절기 boundary
+   *    오차가 평균 ±5 일 발생 (12 절기 × 5 일 ≈ 60 일/년 ≈ 16% 정확도 손실).
+   *  - 'jie_based': use a 12-jie approximate-day lookup so birthdays within
+   *    ±1 day of the actual jie boundary fall on the correct fortune month.
+   *    Needs a Date or {month, day} of the target — see buildFortuneReport.
+   *  - 'full_5layer': reserved (대운/세운/절운/일진/시진 5-layer cascade —
+   *    deferred). */
+  readonly fortuneCascadeMode?: 'simple' | 'jie_based' | 'full_5layer';
+
   readonly [key: string]: unknown;
 }
 
