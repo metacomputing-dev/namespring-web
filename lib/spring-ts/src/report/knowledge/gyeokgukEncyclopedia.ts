@@ -30,6 +30,20 @@ export interface GyeokgukEncyclopediaEntry {
   readonly strengths: readonly string[];
   readonly cautions: readonly string[];
   readonly careerHints: readonly string[];
+  /** Core operating principle of the 격국 in classical 자평 terms.
+   *  PR-J-1 — sourced from saju_master/chengbai.py GEOK_SUCCESS_RULES.
+   *  Optional so existing 19 entries that don't yet carry it remain valid. */
+  readonly principle?: string;
+  /** "Helpful" elements / configurations that let the 격국 manifest its
+   *  positive aspect (성). PR-J-1 / chengbai.py. Optional. */
+  readonly helpful?: readonly string[];
+  /** Common "diseases" — chart configurations that prevent the 격국 from
+   *  operating cleanly (敗). PR-J-1 / chengbai.py. Optional. */
+  readonly disease?: readonly string[];
+  /** Classical "remedies" — chart elements or fortune events that cure
+   *  the 격국's disease and restore balance. PR-J-1 / chengbai.py.
+   *  Optional. */
+  readonly remedy?: readonly string[];
 }
 
 export const GYEOKGUK_ENCYCLOPEDIA: Record<GyeokgukCode, GyeokgukEncyclopediaEntry> = {
@@ -56,6 +70,10 @@ export const GYEOKGUK_ENCYCLOPEDIA: Record<GyeokgukCode, GyeokgukEncyclopediaEnt
       '자율성이 큰 직무나 개인 브랜드형 일이 잘 맞아요.',
       '프리랜서, 공동창업, 현장 운영 등 자기 추진력이 중요한 분야가 유리해요.',
     ],
+    principle: '일간과 같은 오행이 월령에 자리하여 본인의 자력이 격을 이룬다.',
+    helpful: ['관성 또는 식상이 격을 다스리는 구조', '재성이 적절히 분산되어 갈등을 줄이는 배치'],
+    disease: ['비겁이 과중하여 재물·관성을 깨뜨리는 군겁쟁재(群劫爭財)', '관성이 약해 통제가 부족한 구조'],
+    remedy: ['관성·식상이 운에서 들어와 비겁을 제어하거나 설기', '재성을 보호하는 인성·식상 운'],
   },
   GYEOB_JAE: {
     korean: '겁재격',
@@ -77,6 +95,10 @@ export const GYEOKGUK_ENCYCLOPEDIA: Record<GyeokgukCode, GyeokgukEncyclopediaEnt
       '영업, 협상, 프로젝트 리딩처럼 속도전 분야에 강해요.',
       '사업개발, 세일즈, 신규 시장 개척 업무와 잘 맞아요.',
     ],
+    principle: '월령에 비겁이 강하게 자리하여 일간이 군겁의 도움을 얻는다.',
+    helpful: ['관성·식상이 비겁을 다스리는 구조', '재성을 보호하는 인성의 통관'],
+    disease: ['재성이 약한데 비겁이 다투는 군겁쟁재', '관성 부재로 통제가 풀려 충동적 손실 발생'],
+    remedy: ['관성 운으로 통제력 회복', '식상 운으로 비겁의 힘을 설기하여 재성 보호'],
   },
   JEONG_GWAN: {
     korean: '정관격',
@@ -98,6 +120,10 @@ export const GYEOKGUK_ENCYCLOPEDIA: Record<GyeokgukCode, GyeokgukEncyclopediaEnt
       '조직 관리, 공공, 법/행정 같은 체계형 업무와 잘 맞아요.',
       '명확한 역할 체계가 있는 대규모 조직에서 성과가 좋아요.',
     ],
+    principle: '월령에 정관이 자리하여 일간이 합리적 통제를 받는다.',
+    helpful: ['재성 생관(財生官)으로 정관이 뿌리를 얻음', '인성이 관성을 보호하여 관인상생(官印相生)을 이룸'],
+    disease: ['상관이 정관을 깨뜨리는 상관견관(傷官見官)', '비겁이 재성을 손상시켜 관성 뿌리를 끊음'],
+    remedy: ['재성·인성 운으로 관성 보호', '식상 충돌을 피하는 운에서 안정 회복'],
   },
   PYEON_GWAN: {
     korean: '편관격',
@@ -119,6 +145,10 @@ export const GYEOKGUK_ENCYCLOPEDIA: Record<GyeokgukCode, GyeokgukEncyclopediaEnt
       '보안, 리스크 관리, 운영 총괄처럼 판단이 중요한 일에 유리해요.',
       '긴급 대응이나 고책임 의사결정이 필요한 분야에서 강해요.',
     ],
+    principle: '월령에 칠살(편관)이 자리하여 일간을 강하게 압박한다.',
+    helpful: ['식신제살(食神制殺)로 살을 다스림', '인성으로 살을 화하여 살인상생(殺印相生)을 이룸'],
+    disease: ['신약하여 살의 제어를 받지 못함', '식신·인성 부재로 살이 폭주'],
+    remedy: ['일간을 부조하는 인성·비겁 운', '식신이 들어와 칠살을 제어하는 운'],
   },
   JEONG_JAE: {
     korean: '정재격',
@@ -140,6 +170,10 @@ export const GYEOKGUK_ENCYCLOPEDIA: Record<GyeokgukCode, GyeokgukEncyclopediaEnt
       '재무, 회계, 운영, 자산 관리 같은 관리형 직무에 강해요.',
       '프로세스 품질과 비용 효율이 중요한 환경이 잘 맞아요.',
     ],
+    principle: '월령에 정재가 자리하여 정당한 노력으로 재물을 얻는다.',
+    helpful: ['신왕재왕(身旺財旺)의 균형 구조', '식상이 재성을 생하는 식상생재(食傷生財)'],
+    disease: ['비겁이 재성을 다투는 군비쟁재(群比爭財)', '신약하여 재성을 감당하지 못함'],
+    remedy: ['관성 운으로 비겁을 제압', '인성·비겁이 일간을 부조하여 재성을 받는 힘을 키움'],
   },
   PYEON_JAE: {
     korean: '편재격',
@@ -161,6 +195,10 @@ export const GYEOKGUK_ENCYCLOPEDIA: Record<GyeokgukCode, GyeokgukEncyclopediaEnt
       '사업, 투자, 세일즈, 제휴 같은 확장형 분야가 잘 맞아요.',
       '외부 네트워크와 협업이 핵심인 직무가 좋아요.',
     ],
+    principle: '월령에 편재가 자리하여 유동적 재물 흐름을 통해 부를 이룬다.',
+    helpful: ['신왕한 일간이 편재를 감당함', '재생관(財生官)으로 편재가 사회적 권위와 결합'],
+    disease: ['신약하여 재성에 끌려가 사기·낭비로 손실', '비겁이 다투어 재물이 분산'],
+    remedy: ['관성·인성 운으로 일간을 보강', '식상이 들어와 재성을 안정적으로 생함'],
   },
   SIK_SIN: {
     korean: '식신격',
@@ -182,6 +220,10 @@ export const GYEOKGUK_ENCYCLOPEDIA: Record<GyeokgukCode, GyeokgukEncyclopediaEnt
       '콘텐츠 제작, 연구개발, 전문기술직에 강점이 있어요.',
       '교육, 코칭, 제품 운영 등 반복 품질이 중요한 직군에 맞아요.',
     ],
+    principle: '월령에 식신이 자리하여 일간의 기운이 자연스럽게 표현된다.',
+    helpful: ['식신생재(食神生財)로 결과물이 가치로 전환', '편관을 제어하는 식신제살의 안전한 흐름'],
+    disease: ['편인이 식신을 깨뜨리는 효신탈식(梟神奪食)', '식신이 과중하여 일간을 설기'],
+    remedy: ['재성 운으로 식신의 결과물을 수확', '비겁·인성 운으로 일간 보강'],
   },
   SANG_GWAN: {
     korean: '상관격',
@@ -203,6 +245,10 @@ export const GYEOKGUK_ENCYCLOPEDIA: Record<GyeokgukCode, GyeokgukEncyclopediaEnt
       '기획, 마케팅, 브랜딩, 콘텐츠 전략 분야에 유리해요.',
       '문제 재정의가 중요한 전략/혁신 역할에서 강해요.',
     ],
+    principle: '월령에 상관이 자리하여 일간의 기운을 변형해 표출한다.',
+    helpful: ['상관패인(傷官佩印)으로 인성이 상관의 거친 면을 다듬음', '상관생재(傷官生財)로 결과물이 부로 전환'],
+    disease: ['상관견관(傷官見官)으로 정관을 깨뜨림', '신약·인성 부재로 상관이 폭주'],
+    remedy: ['인성 운으로 상관을 통제', '재성 운으로 상관의 에너지를 안정적으로 흘려보냄'],
   },
   JEONG_IN: {
     korean: '정인격',
@@ -224,6 +270,10 @@ export const GYEOKGUK_ENCYCLOPEDIA: Record<GyeokgukCode, GyeokgukEncyclopediaEnt
       '교육, 상담, 연구, 기획 지원 업무에 잘 맞아요.',
       '지식 정리와 전달이 핵심인 역할에서 강점이 커요.',
     ],
+    principle: '월령에 정인이 자리하여 일간이 보호와 학습 자원을 받는다.',
+    helpful: ['관성이 인성을 생하는 관인상생', '재성이 적절히 인성을 견제하여 게으름을 막음'],
+    disease: ['재성이 강해 인성을 손상시키는 탐재괴인(貪財壞印)', '인성이 과중하여 일간이 게으르고 결단력 부족'],
+    remedy: ['관성 운으로 재성을 다스리고 인성을 보호', '식상 운으로 정체된 인성을 흘러내림'],
   },
   PYEON_IN: {
     korean: '편인격',
@@ -245,6 +295,10 @@ export const GYEOKGUK_ENCYCLOPEDIA: Record<GyeokgukCode, GyeokgukEncyclopediaEnt
       '리서치, 데이터 분석, 전문 컨설팅과 궁합이 좋아요.',
       '정답이 없는 문제를 푸는 환경에서 잠재력이 커요.',
     ],
+    principle: '월령에 편인이 자리하여 일간이 비주류 자원과 직관을 통해 성장한다.',
+    helpful: ['칠살을 화하여 살인상생을 이룸', '식상이 적당히 동반되어 표현 통로가 열림'],
+    disease: ['편인이 식신을 깨뜨리는 효신탈식', '편인 과중으로 결정 지연·고립'],
+    remedy: ['재성 운으로 편인을 통제', '식신 운으로 표현 통로 회복'],
   },
 
   // ---------------------------------------------------------------------------
