@@ -419,22 +419,29 @@ function computeTenGodScore(
 function resolveAdaptiveWeights(
   balanceScore: number,
   yongshinInfo: { score: number; confidence: number; contextualPriority: number },
+  adaptiveOverride: Record<string, number> | null,
 ): { balance: number; yongshin: number; strength: number; tenGod: number } {
 
+  // School-preset routing: when adaptiveOverride is null, the destructured
+  // ADAPTIVE constant from saju-scoring.json is used (= default behavior).
+  // When set, individual fields are overlaid on top of ADAPTIVE so the
+  // preset only needs to declare values that diverge from default.
+  const tuning = adaptiveOverride ? { ...ADAPTIVE, ...adaptiveOverride } : ADAPTIVE;
+
   // How much the yongshin score exceeds the balance score (normalized)
-  const yongshinSurplusRatio = clamp((yongshinInfo.score - balanceScore) / ADAPTIVE.shiftDivisor, 0, 1);
+  const yongshinSurplusRatio = clamp((yongshinInfo.score - balanceScore) / tuning.shiftDivisor, 0, 1);
   const confidenceBound      = clamp(yongshinInfo.confidence, 0, 1);
 
   // The "weight shift" moves budget from balance to yongshin when warranted
   const weightShift =
-    ADAPTIVE.baseShiftRatio * yongshinSurplusRatio * (ADAPTIVE.baseConfidenceRatio + ADAPTIVE.confidenceWeight * confidenceBound)
-    + ADAPTIVE.confidenceBoost * confidenceBound * clamp(yongshinInfo.contextualPriority, 0, 1);
+    tuning.baseShiftRatio * yongshinSurplusRatio * (tuning.baseConfidenceRatio + tuning.confidenceWeight * confidenceBound)
+    + tuning.confidenceBoost * confidenceBound * clamp(yongshinInfo.contextualPriority, 0, 1);
 
   return {
-    balance:  clamp(ADAPTIVE.balanceBase  - weightShift, ADAPTIVE.balanceMin,  ADAPTIVE.balanceMax),
-    yongshin: clamp(ADAPTIVE.yongshinBase + weightShift, ADAPTIVE.yongshinMin, ADAPTIVE.yongshinMax),
-    strength: ADAPTIVE.strengthFixed,
-    tenGod:   ADAPTIVE.tenGodFixed,
+    balance:  clamp(tuning.balanceBase  - weightShift, tuning.balanceMin,  tuning.balanceMax),
+    yongshin: clamp(tuning.yongshinBase + weightShift, tuning.yongshinMin, tuning.yongshinMax),
+    strength: tuning.strengthFixed,
+    tenGod:   tuning.tenGodFixed,
   };
 }
 
@@ -510,6 +517,7 @@ export function computeSajuNameScore(
   // means "use the saju-scoring.json defaults", which equals the 'korean'
   // preset's values exactly. Default-mode regression is therefore zero.
   const yongshinTypeWeights = presetOverride?.yongshinTypeWeights ?? DEFAULT_YONGSHIN_TYPE_WEIGHTS;
+  const adaptiveOverride    = presetOverride?.adaptiveWeights ?? null;
 
   // --- Compute the four sub-scores ---
   const balanceResult   = computeBalanceScore(sajuDist, rootDist);
@@ -518,7 +526,7 @@ export function computeSajuNameScore(
   const tenGodScore     = computeTenGodScore(rootDist, sajuOutput);
 
   // --- Resolve adaptive weights (balance vs. yongshin trade-off) ---
-  const weight = resolveAdaptiveWeights(balanceResult.score, yongshinResult);
+  const weight = resolveAdaptiveWeights(balanceResult.score, yongshinResult, adaptiveOverride);
 
   // --- Weighted blend of all four sub-scores ---
   const weightedBaseScore = clamp(
