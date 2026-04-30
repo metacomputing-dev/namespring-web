@@ -119,6 +119,43 @@ interface CaseValidation {
   monthExpected: string;
   decisionComputed: string;
   decisionExpected: string;
+  /** Set of ten-god Korean names present anywhere in the chart's
+   *  pillar stems + branch main hidden stems (8 stems total). */
+  presentTenGods: Set<string>;
+  /** Subset of expected.activity_keywords that are pure ten-god names
+   *  (filtered to TEN_GOD_KO values). Composite idioms like 丙辛合 /
+   *  살인상생 are skipped since they need richer chart inspection. */
+  keywordTenGods: string[];
+  /** keywordTenGods entries that are actually present in the chart. */
+  keywordsMatched: string[];
+  keywordsMissing: string[];
+}
+
+const TEN_GOD_KO_VALUES = new Set(Object.values(TEN_GOD_KO));
+
+function chartTenGods(c: LectureCase): Set<string> {
+  const dayStemHanja = c.pillars.day_pillar.charAt(0);
+  const dayIdx = stemIdx(dayStemHanja);
+  const result = new Set<string>();
+  // Day master itself is BiJian by definition; include for completeness.
+  result.add('비견');
+  for (const key of ['year_pillar', 'month_pillar', 'hour_pillar'] as const) {
+    const pillar = c.pillars[key];
+    const stemHanja = pillar.charAt(0);
+    const branchHanja = pillar.charAt(1);
+    if (stemHanja !== dayStemHanja) {
+      const code = tenGodOf(dayIdx, stemIdx(stemHanja));
+      result.add(TEN_GOD_KO[code] ?? code);
+    }
+    const branchMain = mainHiddenStem(branchHanja);
+    const branchCode = tenGodOf(dayIdx, branchMain);
+    result.add(TEN_GOD_KO[branchCode] ?? branchCode);
+  }
+  // Day branch hidden main:
+  const dayBranchMain = mainHiddenStem(c.pillars.day_pillar.charAt(1));
+  const dayBranchCode = tenGodOf(dayIdx, dayBranchMain);
+  result.add(TEN_GOD_KO[dayBranchCode] ?? dayBranchCode);
+  return result;
 }
 
 function validateCase(c: LectureCase): CaseValidation {
@@ -132,6 +169,11 @@ function validateCase(c: LectureCase): CaseValidation {
   const monthKo = TEN_GOD_KO[monthCode] ?? monthCode;
   const decisionKo = TEN_GOD_KO[decisionCode] ?? decisionCode;
 
+  const present = chartTenGods(c);
+  const keywordTenGods = (c.expected.activity_keywords ?? []).filter((k) => TEN_GOD_KO_VALUES.has(k));
+  const keywordsMatched = keywordTenGods.filter((k) => present.has(k));
+  const keywordsMissing = keywordTenGods.filter((k) => !present.has(k));
+
   return {
     monthPass: monthKo === c.expected.month_ten_god,
     decisionPass: decisionKo === c.expected.decision_ten_god,
@@ -139,6 +181,10 @@ function validateCase(c: LectureCase): CaseValidation {
     monthExpected: c.expected.month_ten_god,
     decisionComputed: decisionKo,
     decisionExpected: c.expected.decision_ten_god,
+    presentTenGods: present,
+    keywordTenGods,
+    keywordsMatched,
+    keywordsMissing,
   };
 }
 
@@ -150,6 +196,8 @@ function main(): void {
   let monthFail = 0;
   let decisionPass = 0;
   let decisionFail = 0;
+  let keywordExpected = 0;
+  let keywordMatched = 0;
 
   for (const c of cases) {
     const r = validateCase(c);
@@ -161,13 +209,23 @@ function main(): void {
     console.log(`  ${idShort}:`);
     console.log(`    [${monthTag}] ${monthDetail}`);
     console.log(`    [${decisionTag}] ${decisionDetail}`);
+    const kwStatus = r.keywordsMissing.length === 0 ? 'PASS' : 'FAIL';
+    if (r.keywordTenGods.length > 0) {
+      const detail = r.keywordsMissing.length === 0
+        ? `keyword ten-gods present: [${r.keywordsMatched.join(', ')}]`
+        : `keyword ten-gods missing: [${r.keywordsMissing.join(', ')}] (matched: [${r.keywordsMatched.join(', ')}])`;
+      console.log(`    [${kwStatus}] ${detail}`);
+      keywordExpected += r.keywordTenGods.length;
+      keywordMatched += r.keywordsMatched.length;
+    }
     if (r.monthPass) monthPass += 1; else monthFail += 1;
     if (r.decisionPass) decisionPass += 1; else decisionFail += 1;
   }
 
-  console.log(`\nMonth-branch ten-god:    ${monthPass} PASS / ${monthFail} FAIL`);
-  console.log(`Decision (day-branch):   ${decisionPass} PASS / ${decisionFail} FAIL`);
-  const totalFail = monthFail + decisionFail;
+  console.log(`\nMonth-branch ten-god:           ${monthPass} PASS / ${monthFail} FAIL`);
+  console.log(`Decision (day-branch):          ${decisionPass} PASS / ${decisionFail} FAIL`);
+  console.log(`Activity keyword ten-gods:      ${keywordMatched} / ${keywordExpected} present`);
+  const totalFail = monthFail + decisionFail + (keywordExpected - keywordMatched);
   process.exit(totalFail === 0 ? 0 : 1);
 }
 
