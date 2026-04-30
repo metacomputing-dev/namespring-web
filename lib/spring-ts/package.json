@@ -22,7 +22,7 @@
     "test:adapter-relations": "npx tsx test/integration/adapter-relations.test.ts",
     "test:adapter-shinsal-gongmang": "npx tsx test/integration/adapter-shinsal-gongmang.test.ts",
     "test:adapter-daewoon": "npx tsx test/integration/adapter-daewoon.test.ts",
-    "test:integration": "npm run test:env && npm run test:saju-disabled && npm run test:presets && npm run test:scoring && npm run test:jie && npm run test:adaptive && npm run test:narrative && npm run test:narrative-expansion && npm run test:hanja && npm run test:category && npm run test:quality-gate && npm run test:measure-default-change && npm run test:adapter-relations && npm run test:adapter-shinsal-gongmang && npm run test:adapter-daewoon",
+    "test:integration": "npm run test:env && npm run test:saju-disabled && npm run test:presets && npm run test:scoring && npm run test:jie && npm run test:adaptive && npm run test:narrative && npm run test:narrative-expansion && npm run test:hanja && npm run test:category && npm run test:quality-gate && npm run test:measure-default-change && npm run test:adapter-relations && npm run test:adapter-shinsal-gongmang && npm run test:adapter-daewoon && npm run validate:lecture",
     "test:golden": "npx tsx test/compare-output.ts",
     "test:region": "npx tsx test/verify-region-coordinate-resolution.ts",
     "test:snapshot": "npx tsx tools/baseline_snapshot.ts verify",
