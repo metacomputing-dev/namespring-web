@@ -1,0 +1,695 @@
+{
+  "collection_id": "A2-myeongri_jonheom",
+  "source": {
+    "text": "命理存验 (50례 + 67례)",
+    "compiled_in": "《四柱古籍综合集》",
+    "license_note": "Pillars are factual data (no copyright); prose evaluation is not extracted (한자 폰트 매핑 깨짐)."
+  },
+  "method": "Auto-extracted via tools/extract_myeongri_jonheom.mjs (this PR). Per-case prose evaluation requires OCR or human re-typing — out of scope for now.",
+  "cases": [
+    {
+      "case_id": "mlj_p1114_1",
+      "source": {
+        "tradition": "classical",
+        "text": "命理存验",
+        "page": 1114,
+        "volume": "清代名理存验",
+        "category": "命理存验 사례"
+      },
+      "pillars": {
+        "year_pillar": "乙未",
+        "month_pillar": "丁亥",
+        "day_pillar": "乙丑",
+        "hour_pillar": "丁亥"
+      },
+      "first_daewoon": "戊子",
+      "note": "4 pillars + first daeun extracted from PDF text (PyPDF2/pypdf). Prose evaluation in PDF is 한자 깨짐 — gyeokguk/yongshin/strength expected fields cannot be reliably extracted from this PDF text. Used as a regression sample for inter-engine comparison only."
+    },
+    {
+      "case_id": "mlj_p1114_2",
+      "source": {
+        "tradition": "classical",
+        "text": "命理存验",
+        "page": 1114,
+        "volume": "清代名理存验",
+        "category": "命理存验 사례"
+      },
+      "pillars": {
+        "year_pillar": "甲戌",
+        "month_pillar": "甲戌",
+        "day_pillar": "甲寅",
+        "hour_pillar": "甲戌"
+      },
+      "first_daewoon": "乙亥",
+      "note": "4 pillars + first daeun extracted from PDF text (PyPDF2/pypdf). Prose evaluation in PDF is 한자 깨짐 — gyeokguk/yongshin/strength expected fields cannot be reliably extracted from this PDF text. Used as a regression sample for inter-engine comparison only."
+    },
+    {
+      "case_id": "mlj_p1115_1",
+      "source": {
+        "tradition": "classical",
+        "text": "命理存验",
+        "page": 1115,
+        "volume": "清代名理存验",
+        "category": "命理存验 사례"
+      },
+      "pillars": {
+        "year_pillar": "庚戌",
+        "month_pillar": "癸未",
+        "day_pillar": "乙亥",
+        "hour_pillar": "丙戌"
+      },
+      "first_daewoon": "甲申",
+      "note": "4 pillars + first daeun extracted from PDF text (PyPDF2/pypdf). Prose evaluation in PDF is 한자 깨짐 — gyeokguk/yongshin/strength expected fields cannot be reliably extracted from this PDF text. Used as a regression sample for inter-engine comparison only."
+    },
+    {
+      "case_id": "mlj_p1116_1",
+      "source": {
+        "tradition": "classical",
+        "text": "命理存验",
+        "page": 1116,
+        "volume": "清代名理存验",
+        "category": "命理存验 사례"
+      },
+      "pillars": {
+        "year_pillar": "戊午",
+        "month_pillar": "乙丑",
+        "day_pillar": "壬申",
+        "hour_pillar": "乙巳"
+      },
+      "first_daewoon": "丙寅",
+      "note": "4 pillars + first daeun extracted from PDF text (PyPDF2/pypdf). Prose evaluation in PDF is 한자 깨짐 — gyeokguk/yongshin/strength expected fields cannot be reliably extracted from this PDF text. Used as a regression sample for inter-engine comparison only."
+    },
+    {
+      "case_id": "mlj_p1116_2",
+      "source": {
+        "tradition": "classical",
+        "text": "命理存验",
+        "page": 1116,
+        "volume": "清代名理存验",
+        "category": "命理存验 사례"
+      },
+      "pillars": {
+        "year_pillar": "己巳",
+        "month_pillar": "丁丑",
+        "day_pillar": "癸丑",
+        "hour_pillar": "丙辰"
+      },
+      "first_daewoon": "丙子",
+      "note": "4 pillars + first daeun extracted from PDF text (PyPDF2/pypdf). Prose evaluation in PDF is 한자 깨짐 — gyeokguk/yongshin/strength expected fields cannot be reliably extracted from this PDF text. Used as a regression sample for inter-engine comparison only."
+    },
+    {
+      "case_id": "mlj_p1116_3",
+      "source": {
+        "tradition": "classical",
+        "text": "命理存验",
+        "page": 1116,
+        "volume": "清代名理存验",
+        "category": "命理存验 사례"
+      },
+      "pillars": {
+        "year_pillar": "癸卯",
+        "month_pillar": "丙辰",
+        "day_pillar": "庚申",
+        "hour_pillar": "辛巳"
+      },
+      "first_daewoon": "乙卯",
+      "note": "4 pillars + first daeun extracted from PDF text (PyPDF2/pypdf). Prose evaluation in PDF is 한자 깨짐 — gyeokguk/yongshin/strength expected fields cannot be reliably extracted from this PDF text. Used as a regression sample for inter-engine comparison only."
+    },
+    {
+      "case_id": "mlj_p1117_1",
+      "source": {
+        "tradition": "classical",
+        "text": "命理存验",
+        "page": 1117,
+        "volume": "清代名理存验",
+        "category": "命理存验 사례"
+      },
+      "pillars": {
+        "year_pillar": "乙亥",
+        "month_pillar": "乙酉",
+        "day_pillar": "己卯",
+        "hour_pillar": "庚午"
+      },
+      "first_daewoon": "甲申",
+      "note": "4 pillars + first daeun extracted from PDF text (PyPDF2/pypdf). Prose evaluation in PDF is 한자 깨짐 — gyeokguk/yongshin/strength expected fields cannot be reliably extracted from this PDF text. Used as a regression sample for inter-engine comparison only."
+    },
+    {
+      "case_id": "mlj_p1117_2",
+      "source": {
+        "tradition": "classical",
+        "text": "命理存验",
+        "page": 1117,
+        "volume": "清代名理存验",
+        "category": "命理存验 사례"
+      },
+      "pillars": {
+        "year_pillar": "壬寅",
+        "month_pillar": "丁未",
+        "day_pillar": "己卯",
+        "hour_pillar": "乙亥"
+      },
+      "first_daewoon": "戊申",
+      "note": "4 pillars + first daeun extracted from PDF text (PyPDF2/pypdf). Prose evaluation in PDF is 한자 깨짐 — gyeokguk/yongshin/strength expected fields cannot be reliably extracted from this PDF text. Used as a regression sample for inter-engine comparison only."
+    },
+    {
+      "case_id": "mlj_p1117_3",
+      "source": {
+        "tradition": "classical",
+        "text": "命理存验",
+        "page": 1117,
+        "volume": "清代名理存验",
+        "category": "命理存验 사례"
+      },
+      "pillars": {
+        "year_pillar": "甲戌",
+        "month_pillar": "乙亥",
+        "day_pillar": "戊子",
+        "hour_pillar": "癸亥"
+      },
+      "first_daewoon": "丙子",
+      "note": "4 pillars + first daeun extracted from PDF text (PyPDF2/pypdf). Prose evaluation in PDF is 한자 깨짐 — gyeokguk/yongshin/strength expected fields cannot be reliably extracted from this PDF text. Used as a regression sample for inter-engine comparison only."
+    },
+    {
+      "case_id": "mlj_p1118_1",
+      "source": {
+        "tradition": "classical",
+        "text": "命理存验",
+        "page": 1118,
+        "volume": "清代名理存验",
+        "category": "命理存验 사례"
+      },
+      "pillars": {
+        "year_pillar": "庚申",
+        "month_pillar": "甲申",
+        "day_pillar": "癸丑",
+        "hour_pillar": "癸酉"
+      },
+      "first_daewoon": "乙酉",
+      "note": "4 pillars + first daeun extracted from PDF text (PyPDF2/pypdf). Prose evaluation in PDF is 한자 깨짐 — gyeokguk/yongshin/strength expected fields cannot be reliably extracted from this PDF text. Used as a regression sample for inter-engine comparison only."
+    },
+    {
+      "case_id": "mlj_p1118_2",
+      "source": {
+        "tradition": "classical",
+        "text": "命理存验",
+        "page": 1118,
+        "volume": "清代名理存验",
+        "category": "命理存验 사례"
+      },
+      "pillars": {
+        "year_pillar": "己未",
+        "month_pillar": "庚午",
+        "day_pillar": "戊戌",
+        "hour_pillar": "壬子"
+      },
+      "first_daewoon": "己巳",
+      "note": "4 pillars + first daeun extracted from PDF text (PyPDF2/pypdf). Prose evaluation in PDF is 한자 깨짐 — gyeokguk/yongshin/strength expected fields cannot be reliably extracted from this PDF text. Used as a regression sample for inter-engine comparison only."
+    },
+    {
+      "case_id": "mlj_p1118_3",
+      "source": {
+        "tradition": "classical",
+        "text": "命理存验",
+        "page": 1118,
+        "volume": "清代名理存验",
+        "category": "命理存验 사례"
+      },
+      "pillars": {
+        "year_pillar": "癸未",
+        "month_pillar": "乙丑",
+        "day_pillar": "壬戌",
+        "hour_pillar": "庚子"
+      },
+      "first_daewoon": "甲子",
+      "note": "4 pillars + first daeun extracted from PDF text (PyPDF2/pypdf). Prose evaluation in PDF is 한자 깨짐 — gyeokguk/yongshin/strength expected fields cannot be reliably extracted from this PDF text. Used as a regression sample for inter-engine comparison only."
+    },
+    {
+      "case_id": "mlj_p1118_4",
+      "source": {
+        "tradition": "classical",
+        "text": "命理存验",
+        "page": 1118,
+        "volume": "清代名理存验",
+        "category": "命理存验 사례"
+      },
+      "pillars": {
+        "year_pillar": "丁丑",
+        "month_pillar": "癸卯",
+        "day_pillar": "辛卯",
+        "hour_pillar": "戊戌"
+      },
+      "first_daewoon": "壬寅",
+      "note": "4 pillars + first daeun extracted from PDF text (PyPDF2/pypdf). Prose evaluation in PDF is 한자 깨짐 — gyeokguk/yongshin/strength expected fields cannot be reliably extracted from this PDF text. Used as a regression sample for inter-engine comparison only."
+    },
+    {
+      "case_id": "mlj_p1119_1",
+      "source": {
+        "tradition": "classical",
+        "text": "命理存验",
+        "page": 1119,
+        "volume": "清代名理存验",
+        "category": "命理存验 사례"
+      },
+      "pillars": {
+        "year_pillar": "庚申",
+        "month_pillar": "己丑",
+        "day_pillar": "癸酉",
+        "hour_pillar": "癸丑"
+      },
+      "first_daewoon": "庚寅",
+      "note": "4 pillars + first daeun extracted from PDF text (PyPDF2/pypdf). Prose evaluation in PDF is 한자 깨짐 — gyeokguk/yongshin/strength expected fields cannot be reliably extracted from this PDF text. Used as a regression sample for inter-engine comparison only."
+    },
+    {
+      "case_id": "mlj_p1119_2",
+      "source": {
+        "tradition": "classical",
+        "text": "命理存验",
+        "page": 1119,
+        "volume": "清代名理存验",
+        "category": "命理存验 사례"
+      },
+      "pillars": {
+        "year_pillar": "乙丑",
+        "month_pillar": "丁亥",
+        "day_pillar": "丁酉",
+        "hour_pillar": "壬寅"
+      },
+      "first_daewoon": "丙戌",
+      "note": "4 pillars + first daeun extracted from PDF text (PyPDF2/pypdf). Prose evaluation in PDF is 한자 깨짐 — gyeokguk/yongshin/strength expected fields cannot be reliably extracted from this PDF text. Used as a regression sample for inter-engine comparison only."
+    },
+    {
+      "case_id": "mlj_p1120_1",
+      "source": {
+        "tradition": "classical",
+        "text": "命理存验",
+        "page": 1120,
+        "volume": "清代名理存验",
+        "category": "命理存验 사례"
+      },
+      "pillars": {
+        "year_pillar": "乙卯",
+        "month_pillar": "丙戌",
+        "day_pillar": "癸酉",
+        "hour_pillar": "丙辰"
+      },
+      "first_daewoon": "乙酉",
+      "note": "4 pillars + first daeun extracted from PDF text (PyPDF2/pypdf). Prose evaluation in PDF is 한자 깨짐 — gyeokguk/yongshin/strength expected fields cannot be reliably extracted from this PDF text. Used as a regression sample for inter-engine comparison only."
+    },
+    {
+      "case_id": "mlj_p1120_2",
+      "source": {
+        "tradition": "classical",
+        "text": "命理存验",
+        "page": 1120,
+        "volume": "清代名理存验",
+        "category": "命理存验 사례"
+      },
+      "pillars": {
+        "year_pillar": "甲子",
+        "month_pillar": "甲戌",
+        "day_pillar": "丁巳",
+        "hour_pillar": "癸卯"
+      },
+      "first_daewoon": "乙亥",
+      "note": "4 pillars + first daeun extracted from PDF text (PyPDF2/pypdf). Prose evaluation in PDF is 한자 깨짐 — gyeokguk/yongshin/strength expected fields cannot be reliably extracted from this PDF text. Used as a regression sample for inter-engine comparison only."
+    },
+    {
+      "case_id": "mlj_p1121_1",
+      "source": {
+        "tradition": "classical",
+        "text": "命理存验",
+        "page": 1121,
+        "volume": "清代名理存验",
+        "category": "命理存验 사례"
+      },
+      "pillars": {
+        "year_pillar": "乙丑",
+        "month_pillar": "己卯",
+        "day_pillar": "乙亥",
+        "hour_pillar": "壬午"
+      },
+      "first_daewoon": "戊寅",
+      "note": "4 pillars + first daeun extracted from PDF text (PyPDF2/pypdf). Prose evaluation in PDF is 한자 깨짐 — gyeokguk/yongshin/strength expected fields cannot be reliably extracted from this PDF text. Used as a regression sample for inter-engine comparison only."
+    },
+    {
+      "case_id": "mlj_p1121_2",
+      "source": {
+        "tradition": "classical",
+        "text": "命理存验",
+        "page": 1121,
+        "volume": "清代名理存验",
+        "category": "命理存验 사례"
+      },
+      "pillars": {
+        "year_pillar": "辛酉",
+        "month_pillar": "丙申",
+        "day_pillar": "庚子",
+        "hour_pillar": "丙戌"
+      },
+      "first_daewoon": "乙未",
+      "note": "4 pillars + first daeun extracted from PDF text (PyPDF2/pypdf). Prose evaluation in PDF is 한자 깨짐 — gyeokguk/yongshin/strength expected fields cannot be reliably extracted from this PDF text. Used as a regression sample for inter-engine comparison only."
+    },
+    {
+      "case_id": "mlj_p1122_1",
+      "source": {
+        "tradition": "classical",
+        "text": "命理存验",
+        "page": 1122,
+        "volume": "清代名理存验",
+        "category": "命理存验 사례"
+      },
+      "pillars": {
+        "year_pillar": "乙亥",
+        "month_pillar": "己卯",
+        "day_pillar": "庚辰",
+        "hour_pillar": "辛巳"
+      },
+      "first_daewoon": "戊寅",
+      "note": "4 pillars + first daeun extracted from PDF text (PyPDF2/pypdf). Prose evaluation in PDF is 한자 깨짐 — gyeokguk/yongshin/strength expected fields cannot be reliably extracted from this PDF text. Used as a regression sample for inter-engine comparison only."
+    },
+    {
+      "case_id": "mlj_p1122_2",
+      "source": {
+        "tradition": "classical",
+        "text": "命理存验",
+        "page": 1122,
+        "volume": "清代名理存验",
+        "category": "命理存验 사례"
+      },
+      "pillars": {
+        "year_pillar": "甲戌",
+        "month_pillar": "戊辰",
+        "day_pillar": "己酉",
+        "hour_pillar": "戊辰"
+      },
+      "first_daewoon": "己巳",
+      "note": "4 pillars + first daeun extracted from PDF text (PyPDF2/pypdf). Prose evaluation in PDF is 한자 깨짐 — gyeokguk/yongshin/strength expected fields cannot be reliably extracted from this PDF text. Used as a regression sample for inter-engine comparison only."
+    },
+    {
+      "case_id": "mlj_p1123_1",
+      "source": {
+        "tradition": "classical",
+        "text": "命理存验",
+        "page": 1123,
+        "volume": "清代名理存验",
+        "category": "命理存验 사례"
+      },
+      "pillars": {
+        "year_pillar": "癸未",
+        "month_pillar": "庚申",
+        "day_pillar": "庚寅",
+        "hour_pillar": "壬午"
+      },
+      "first_daewoon": "己未",
+      "note": "4 pillars + first daeun extracted from PDF text (PyPDF2/pypdf). Prose evaluation in PDF is 한자 깨짐 — gyeokguk/yongshin/strength expected fields cannot be reliably extracted from this PDF text. Used as a regression sample for inter-engine comparison only."
+    },
+    {
+      "case_id": "mlj_p1123_2",
+      "source": {
+        "tradition": "classical",
+        "text": "命理存验",
+        "page": 1123,
+        "volume": "清代名理存验",
+        "category": "命理存验 사례"
+      },
+      "pillars": {
+        "year_pillar": "壬午",
+        "month_pillar": "庚戌",
+        "day_pillar": "己酉",
+        "hour_pillar": "庚午"
+      },
+      "first_daewoon": "辛亥",
+      "note": "4 pillars + first daeun extracted from PDF text (PyPDF2/pypdf). Prose evaluation in PDF is 한자 깨짐 — gyeokguk/yongshin/strength expected fields cannot be reliably extracted from this PDF text. Used as a regression sample for inter-engine comparison only."
+    },
+    {
+      "case_id": "mlj_p1124_1",
+      "source": {
+        "tradition": "classical",
+        "text": "命理存验",
+        "page": 1124,
+        "volume": "清代名理存验",
+        "category": "命理存验 사례"
+      },
+      "pillars": {
+        "year_pillar": "乙酉",
+        "month_pillar": "庚辰",
+        "day_pillar": "甲寅",
+        "hour_pillar": "己巳"
+      },
+      "first_daewoon": "己卯",
+      "note": "4 pillars + first daeun extracted from PDF text (PyPDF2/pypdf). Prose evaluation in PDF is 한자 깨짐 — gyeokguk/yongshin/strength expected fields cannot be reliably extracted from this PDF text. Used as a regression sample for inter-engine comparison only."
+    },
+    {
+      "case_id": "mlj_p1124_2",
+      "source": {
+        "tradition": "classical",
+        "text": "命理存验",
+        "page": 1124,
+        "volume": "清代名理存验",
+        "category": "命理存验 사례"
+      },
+      "pillars": {
+        "year_pillar": "丁丑",
+        "month_pillar": "戊申",
+        "day_pillar": "壬戌",
+        "hour_pillar": "丙午"
+      },
+      "first_daewoon": "丁未",
+      "note": "4 pillars + first daeun extracted from PDF text (PyPDF2/pypdf). Prose evaluation in PDF is 한자 깨짐 — gyeokguk/yongshin/strength expected fields cannot be reliably extracted from this PDF text. Used as a regression sample for inter-engine comparison only."
+    },
+    {
+      "case_id": "mlj_p1125_1",
+      "source": {
+        "tradition": "classical",
+        "text": "命理存验",
+        "page": 1125,
+        "volume": "清代名理存验",
+        "category": "命理存验 사례"
+      },
+      "pillars": {
+        "year_pillar": "己未",
+        "month_pillar": "丁卯",
+        "day_pillar": "丁卯",
+        "hour_pillar": "乙巳"
+      },
+      "first_daewoon": "丙寅",
+      "note": "4 pillars + first daeun extracted from PDF text (PyPDF2/pypdf). Prose evaluation in PDF is 한자 깨짐 — gyeokguk/yongshin/strength expected fields cannot be reliably extracted from this PDF text. Used as a regression sample for inter-engine comparison only."
+    },
+    {
+      "case_id": "mlj_p1125_2",
+      "source": {
+        "tradition": "classical",
+        "text": "命理存验",
+        "page": 1125,
+        "volume": "清代名理存验",
+        "category": "命理存验 사례"
+      },
+      "pillars": {
+        "year_pillar": "己未",
+        "month_pillar": "丁卯",
+        "day_pillar": "丁巳",
+        "hour_pillar": "庚子"
+      },
+      "first_daewoon": "丙寅",
+      "note": "4 pillars + first daeun extracted from PDF text (PyPDF2/pypdf). Prose evaluation in PDF is 한자 깨짐 — gyeokguk/yongshin/strength expected fields cannot be reliably extracted from this PDF text. Used as a regression sample for inter-engine comparison only."
+    },
+    {
+      "case_id": "mlj_p1125_3",
+      "source": {
+        "tradition": "classical",
+        "text": "命理存验",
+        "page": 1125,
+        "volume": "清代名理存验",
+        "category": "命理存验 사례"
+      },
+      "pillars": {
+        "year_pillar": "戊寅",
+        "month_pillar": "辛酉",
+        "day_pillar": "丁巳",
+        "hour_pillar": "丁未"
+      },
+      "first_daewoon": "壬戌",
+      "note": "4 pillars + first daeun extracted from PDF text (PyPDF2/pypdf). Prose evaluation in PDF is 한자 깨짐 — gyeokguk/yongshin/strength expected fields cannot be reliably extracted from this PDF text. Used as a regression sample for inter-engine comparison only."
+    },
+    {
+      "case_id": "mlj_p1127_1",
+      "source": {
+        "tradition": "classical",
+        "text": "命理存验",
+        "page": 1127,
+        "volume": "清代名理存验",
+        "category": "命理存验 사례"
+      },
+      "pillars": {
+        "year_pillar": "庚午",
+        "month_pillar": "癸未",
+        "day_pillar": "庚申",
+        "hour_pillar": "丁亥"
+      },
+      "first_daewoon": "甲申",
+      "note": "4 pillars + first daeun extracted from PDF text (PyPDF2/pypdf). Prose evaluation in PDF is 한자 깨짐 — gyeokguk/yongshin/strength expected fields cannot be reliably extracted from this PDF text. Used as a regression sample for inter-engine comparison only."
+    },
+    {
+      "case_id": "mlj_p1127_2",
+      "source": {
+        "tradition": "classical",
+        "text": "命理存验",
+        "page": 1127,
+        "volume": "清代名理存验",
+        "category": "命理存验 사례"
+      },
+      "pillars": {
+        "year_pillar": "丙子",
+        "month_pillar": "戊戌",
+        "day_pillar": "甲子",
+        "hour_pillar": "辛未"
+      },
+      "first_daewoon": "己亥",
+      "note": "4 pillars + first daeun extracted from PDF text (PyPDF2/pypdf). Prose evaluation in PDF is 한자 깨짐 — gyeokguk/yongshin/strength expected fields cannot be reliably extracted from this PDF text. Used as a regression sample for inter-engine comparison only."
+    },
+    {
+      "case_id": "mlj_p1128_1",
+      "source": {
+        "tradition": "classical",
+        "text": "命理存验",
+        "page": 1128,
+        "volume": "清代名理存验",
+        "category": "命理存验 사례"
+      },
+      "pillars": {
+        "year_pillar": "丁卯",
+        "month_pillar": "甲辰",
+        "day_pillar": "丙子",
+        "hour_pillar": "丙申"
+      },
+      "first_daewoon": "癸卯",
+      "note": "4 pillars + first daeun extracted from PDF text (PyPDF2/pypdf). Prose evaluation in PDF is 한자 깨짐 — gyeokguk/yongshin/strength expected fields cannot be reliably extracted from this PDF text. Used as a regression sample for inter-engine comparison only."
+    },
+    {
+      "case_id": "mlj_p1128_2",
+      "source": {
+        "tradition": "classical",
+        "text": "命理存验",
+        "page": 1128,
+        "volume": "清代名理存验",
+        "category": "命理存验 사례"
+      },
+      "pillars": {
+        "year_pillar": "癸丑",
+        "month_pillar": "戊午",
+        "day_pillar": "己巳",
+        "hour_pillar": "丁卯"
+      },
+      "first_daewoon": "丁巳",
+      "note": "4 pillars + first daeun extracted from PDF text (PyPDF2/pypdf). Prose evaluation in PDF is 한자 깨짐 — gyeokguk/yongshin/strength expected fields cannot be reliably extracted from this PDF text. Used as a regression sample for inter-engine comparison only."
+    },
+    {
+      "case_id": "mlj_p1128_3",
+      "source": {
+        "tradition": "classical",
+        "text": "命理存验",
+        "page": 1128,
+        "volume": "清代名理存验",
+        "category": "命理存验 사례"
+      },
+      "pillars": {
+        "year_pillar": "己未",
+        "month_pillar": "乙亥",
+        "day_pillar": "癸亥",
+        "hour_pillar": "丙辰"
+      },
+      "first_daewoon": "甲戌",
+      "note": "4 pillars + first daeun extracted from PDF text (PyPDF2/pypdf). Prose evaluation in PDF is 한자 깨짐 — gyeokguk/yongshin/strength expected fields cannot be reliably extracted from this PDF text. Used as a regression sample for inter-engine comparison only."
+    },
+    {
+      "case_id": "mlj_p1129_1",
+      "source": {
+        "tradition": "classical",
+        "text": "命理存验",
+        "page": 1129,
+        "volume": "清代名理存验",
+        "category": "命理存验 사례"
+      },
+      "pillars": {
+        "year_pillar": "己卯",
+        "month_pillar": "甲戌",
+        "day_pillar": "乙亥",
+        "hour_pillar": "庚辰"
+      },
+      "first_daewoon": "癸酉",
+      "note": "4 pillars + first daeun extracted from PDF text (PyPDF2/pypdf). Prose evaluation in PDF is 한자 깨짐 — gyeokguk/yongshin/strength expected fields cannot be reliably extracted from this PDF text. Used as a regression sample for inter-engine comparison only."
+    },
+    {
+      "case_id": "mlj_p1130_1",
+      "source": {
+        "tradition": "classical",
+        "text": "命理存验",
+        "page": 1130,
+        "volume": "清代名理存验",
+        "category": "命理存验 사례"
+      },
+      "pillars": {
+        "year_pillar": "壬申",
+        "month_pillar": "辛亥",
+        "day_pillar": "戊辰",
+        "hour_pillar": "甲寅"
+      },
+      "first_daewoon": "壬子",
+      "note": "4 pillars + first daeun extracted from PDF text (PyPDF2/pypdf). Prose evaluation in PDF is 한자 깨짐 — gyeokguk/yongshin/strength expected fields cannot be reliably extracted from this PDF text. Used as a regression sample for inter-engine comparison only."
+    },
+    {
+      "case_id": "mlj_p1130_2",
+      "source": {
+        "tradition": "classical",
+        "text": "命理存验",
+        "page": 1130,
+        "volume": "清代名理存验",
+        "category": "命理存验 사례"
+      },
+      "pillars": {
+        "year_pillar": "癸酉",
+        "month_pillar": "乙卯",
+        "day_pillar": "己巳",
+        "hour_pillar": "己巳"
+      },
+      "first_daewoon": "甲寅",
+      "note": "4 pillars + first daeun extracted from PDF text (PyPDF2/pypdf). Prose evaluation in PDF is 한자 깨짐 — gyeokguk/yongshin/strength expected fields cannot be reliably extracted from this PDF text. Used as a regression sample for inter-engine comparison only."
+    },
+    {
+      "case_id": "mlj_p1131_1",
+      "source": {
+        "tradition": "classical",
+        "text": "命理存验",
+        "page": 1131,
+        "volume": "清代名理存验",
+        "category": "命理存验 사례"
+      },
+      "pillars": {
+        "year_pillar": "壬午",
+        "month_pillar": "戊申",
+        "day_pillar": "己酉",
+        "hour_pillar": "戊辰"
+      },
+      "first_daewoon": "己酉",
+      "note": "4 pillars + first daeun extracted from PDF text (PyPDF2/pypdf). Prose evaluation in PDF is 한자 깨짐 — gyeokguk/yongshin/strength expected fields cannot be reliably extracted from this PDF text. Used as a regression sample for inter-engine comparison only."
+    },
+    {
+      "case_id": "mlj_p1131_2",
+      "source": {
+        "tradition": "classical",
+        "text": "命理存验",
+        "page": 1131,
+        "volume": "清代名理存验",
+        "category": "命理存验 사례"
+      },
+      "pillars": {
+        "year_pillar": "丁亥",
+        "month_pillar": "癸丑",
+        "day_pillar": "己亥",
+        "hour_pillar": "戊辰"
+      },
+      "first_daewoon": "壬子",
+      "note": "4 pillars + first daeun extracted from PDF text (PyPDF2/pypdf). Prose evaluation in PDF is 한자 깨짐 — gyeokguk/yongshin/strength expected fields cannot be reliably extracted from this PDF text. Used as a regression sample for inter-engine comparison only."
+    }
+  ]
+}
