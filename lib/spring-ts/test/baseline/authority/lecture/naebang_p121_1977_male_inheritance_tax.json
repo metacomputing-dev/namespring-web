@@ -1,0 +1,43 @@
+{
+  "case_id": "A1-naebang_p121_1977_male_inheritance_tax",
+  "source": {
+    "tradition": "lecture",
+    "text": "명리심리상담사 교안",
+    "page": 121,
+    "author": "(uploaded)",
+    "volume": null,
+    "category": "내방사주(來訪四柱) 적용"
+  },
+  "subject": {
+    "birth_year": 1977,
+    "sex": "male",
+    "profession": "상속·세금 자문"
+  },
+  "pillars": {
+    "year_pillar": "丁巳",
+    "month_pillar": "癸卯",
+    "day_pillar": "辛未",
+    "hour_pillar": "甲午"
+  },
+  "expected": {
+    "month_ten_god": "편재",
+    "gyeokguk": "편재격",
+    "yongshin": "정재",
+    "sangshin": "식신",
+    "byeong": "칠살"
+  },
+  "source_note": "내방사주 3번. 상속·세금 자문 — 월지 편재, 시간 甲목 정재 용신, 월간 癸수 식신 상신, 년간 丁화 칠살 병.",
+  "copyrightNote": [
+    "Pillars (year/month/day/hour ganzhi) are facts and are not subject to copyright.",
+    "expected, source_note, and prose_quote are paraphrased ≤ 50자 summaries.",
+    "No verbatim prose from the lecture transcript is reproduced verbatim beyond the cited classical-format judgment lines."
+  ],
+  "prose_quotes": [
+    {
+      "source_text": "명리심리상담사 교안",
+      "page": 121,
+      "section": "13차시 내방사주(來訪四柱)와 적용",
+      "quote": "월지가 편재이고, 천간에 투출한 용신은 시간의 甲목 정재이다. 년간에서 丁화 칠살을 만나 패격(敗格)이 될 것이나 월간의 癸수 식신이 살을 극(剋)하면서 재를 생(生)하고 있으므로 상신(相神)이 된다."
+    }
+  ]
+}

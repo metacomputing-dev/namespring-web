@@ -1,0 +1,44 @@
+{
+  "case_id": "A1-naebang_p121_2002_female_alt_school_dropout",
+  "source": {
+    "tradition": "lecture",
+    "text": "명리심리상담사 교안",
+    "page": 121,
+    "author": "(uploaded)",
+    "volume": null,
+    "category": "내방사주(來訪四柱) 적용"
+  },
+  "subject": {
+    "birth_year": 2002,
+    "sex": "female",
+    "profession": "대안학교 자퇴"
+  },
+  "pillars": {
+    "year_pillar": "壬午",
+    "month_pillar": "庚戌",
+    "day_pillar": "己未",
+    "hour_pillar": "辛未"
+  },
+  "expected": {
+    "month_ten_god": "겁재",
+    "gyeokguk_initial": "겁재격",
+    "gyeokguk": "식신격",
+    "gyeokguk_transformation_note": "월지가 겁재이고, 천간에 투출한 용신은 월지장간 戌 중의 辛금 즉 식신이다",
+    "yongshin": "식신",
+    "sangshin": "정재"
+  },
+  "source_note": "내방사주 2번. 대안학교 자퇴 시기 자문 — 월지 겁재이나 戌중 辛금 식신 투출로 식신격 변격, 壬수 정재로 식상생재 성격.",
+  "copyrightNote": [
+    "Pillars (year/month/day/hour ganzhi) are facts and are not subject to copyright.",
+    "expected, source_note, and prose_quote are paraphrased ≤ 50자 summaries.",
+    "No verbatim prose from the lecture transcript is reproduced verbatim beyond the cited classical-format judgment lines."
+  ],
+  "prose_quotes": [
+    {
+      "source_text": "명리심리상담사 교안",
+      "page": 121,
+      "section": "13차시 내방사주(來訪四柱)와 적용",
+      "quote": "월지가 겁재이고, 천간에 투출한 용신은 월지장간 戌 중의 辛금 즉 식신이다. 월간에 상관 庚금이 함께 투출하였으므로 격이 조금 떨어진 경우이다. 그러나 년간에서 만난 정재 壬수가 있어 식상생재(食傷生財)가 되어 그나마 성격(成格)이 되었다."
+    }
+  ]
+}
