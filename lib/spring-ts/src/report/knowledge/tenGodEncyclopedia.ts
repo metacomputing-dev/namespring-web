@@ -24,6 +24,18 @@ export interface TenGodEncyclopediaEntry {
   readonly learningStyle: readonly string[];
   readonly relationStyle: readonly string[];
   readonly careerHints: readonly string[];
+  /** Classical 자평 keywords used by experts when writing about this 십성
+   *  (PR-J-2). Sourced from saju_master encyclopedia tone packs. Surfaces
+   *  in the OverviewSummaryCard `expertText` and EvidenceRow contexts so
+   *  the report can keep its plain tone for default users while letting
+   *  the 'expert' narrative style cite the classical vocabulary. */
+  readonly expertKeywords?: readonly string[];
+  /** Bright-side classical narrative — short phrasings of how the 십성
+   *  manifests when the chart's structure supports it. Optional. */
+  readonly brightSide?: readonly string[];
+  /** Shadow-side classical narrative — short phrasings of how the 십성
+   *  shows its weakness when the structure doesn't support it. Optional. */
+  readonly shadowSide?: readonly string[];
 }
 
 export const TEN_GOD_ENCYCLOPEDIA: Record<TenGodCode, TenGodEncyclopediaEntry> = {
@@ -57,6 +69,9 @@ export const TEN_GOD_ENCYCLOPEDIA: Record<TenGodCode, TenGodEncyclopediaEntry> =
       '프리랜서, 공동창업, 영업 조직처럼 추진력이 중요한 환경이 좋아요.',
       '협업과 개인 성과를 함께 보는 직무에서 존재감이 커져요.',
     ],
+    expertKeywords: ['자아', '동기상조(同氣相助)', '독립자율', '동료의식'],
+    brightSide: ['신왕재왕에서 비견은 동료를 얻어 일을 같이 한다.', '비겁이 적절하면 자수성가의 기반이 된다.'],
+    shadowSide: ['군겁쟁재(群劫爭財)로 재물이 분산된다.', '비겁 과중은 결단을 흐리고 의지처를 잃게 한다.'],
   },
   GEOB_JAE: {
     korean: '겁재',
@@ -88,6 +103,9 @@ export const TEN_GOD_ENCYCLOPEDIA: Record<TenGodCode, TenGodEncyclopediaEntry> =
       '신규 시장 개척, 초기 조직, 턴어라운드 프로젝트에 강해요.',
       '성과 기반 보상 체계에서 잠재력이 크게 드러나요.',
     ],
+    expertKeywords: ['겁탈', '승부근성', '불굴', '약탈재(掠奪財)'],
+    brightSide: ['겁재가 통제될 때 위기를 돌파하는 추진력이 된다.', '신왕한 일간이 겁재를 받으면 동지를 얻는다.'],
+    shadowSide: ['겁재 과중은 재성을 다투어 손재를 부른다.', '관성이 부재하면 겁재가 폭주해 분쟁이 잦다.'],
   },
   SIK_SHIN: {
     korean: '식신',
@@ -119,6 +137,9 @@ export const TEN_GOD_ENCYCLOPEDIA: Record<TenGodCode, TenGodEncyclopediaEntry> =
       '반복 품질이 중요한 직군에서 강점이 커요.',
       '고객 경험을 꾸준히 개선하는 역할에서 빛나요.',
     ],
+    expertKeywords: ['생재(生財)', '온화', '여유', '복록(福祿)'],
+    brightSide: ['식신생재로 결과물이 자연스럽게 부로 전환된다.', '식신제살로 칠살을 다스려 신상의 안정을 얻는다.'],
+    shadowSide: ['편인이 식신을 깨뜨리면 효신탈식(梟神奪食)으로 결과가 끊긴다.', '식신 과중은 일간을 설기해 무력감을 부른다.'],
   },
   SANG_GWAN: {
     korean: '상관',
@@ -150,6 +171,9 @@ export const TEN_GOD_ENCYCLOPEDIA: Record<TenGodCode, TenGodEncyclopediaEntry> =
       '문제 재정의가 중요한 전략/혁신 역할에서 강해요.',
       '개인 브랜딩이 가능한 환경에서 성과가 크게 나요.',
     ],
+    expertKeywords: ['총명', '재예(才藝)', '기운설(氣運洩)', '불복(不服)'],
+    brightSide: ['상관패인(傷官佩印)이면 재능이 다듬어져 명예를 얻는다.', '상관생재로 재주가 부와 결합된다.'],
+    shadowSide: ['상관견관(傷官見官)으로 직책과 명예가 흔들린다.', '신약·인성 부재에서 상관은 불만과 충돌을 부른다.'],
   },
   PYEON_JAE: {
     korean: '편재',
@@ -181,6 +205,9 @@ export const TEN_GOD_ENCYCLOPEDIA: Record<TenGodCode, TenGodEncyclopediaEntry> =
       '외부 네트워크와 협업이 핵심인 직무가 잘 맞아요.',
       '시장 감각과 숫자 감각을 함께 쓰는 역할에서 성과가 좋아요.',
     ],
+    expertKeywords: ['유동재', '횡재', '풍류', '대인(大人)'],
+    brightSide: ['신왕재왕에서 편재가 활용되면 큰 부를 이룬다.', '재생관(財生官)으로 재물이 사회적 지위로 전환된다.'],
+    shadowSide: ['신약하면 편재에 끌려가 사기·낭비로 손실이 잦다.', '비겁이 다투면 재물 분산과 인간관계 마찰이 커진다.'],
   },
   JEONG_JAE: {
     korean: '정재',
@@ -212,6 +239,9 @@ export const TEN_GOD_ENCYCLOPEDIA: Record<TenGodCode, TenGodEncyclopediaEntry> =
       '프로세스 품질과 비용 효율이 중요한 환경이 잘 맞아요.',
       '중장기 자산 설계가 가능한 역할에서 강점이 커져요.',
     ],
+    expertKeywords: ['고정재', '근면', '정도재(正道財)', '실속'],
+    brightSide: ['신왕재왕이 균형을 이루면 정재로 정당한 부를 축적한다.', '식상생재로 노동의 결실이 안정적으로 이어진다.'],
+    shadowSide: ['군비쟁재(群比爭財)에서는 재물 형성이 더디다.', '신약·재성 과중은 끌려다니는 결혼·재물 관계를 부른다.'],
   },
   PYEON_GWAN: {
     korean: '편관',
@@ -243,6 +273,9 @@ export const TEN_GOD_ENCYCLOPEDIA: Record<TenGodCode, TenGodEncyclopediaEntry> =
       '긴급 대응이나 고책임 의사결정이 필요한 분야에서 강해요.',
       '원칙과 실행을 동시에 요구하는 조직에서 존재감이 커요.',
     ],
+    expertKeywords: ['칠살(七殺)', '권위', '강제', '제압(制壓)'],
+    brightSide: ['식신제살(食神制殺)이면 권위가 안정되고 명예를 얻는다.', '살인상생(殺印相生)으로 칠살이 인성으로 화하면 큰 그릇이 된다.'],
+    shadowSide: ['신약 칠살은 압박을 견디지 못해 질병·사고가 잦다.', '편관 과중은 폭력·독선의 위험을 부른다.'],
   },
   JEONG_GWAN: {
     korean: '정관',
@@ -274,6 +307,9 @@ export const TEN_GOD_ENCYCLOPEDIA: Record<TenGodCode, TenGodEncyclopediaEntry> =
       '기준 수립과 품질 관리가 중요한 조직에서 강점이 커요.',
       '명확한 역할 체계가 있는 대규모 조직에서 성과가 좋아요.',
     ],
+    expertKeywords: ['관록(官祿)', '신용', '공직', '청렴'],
+    brightSide: ['관인상생(官印相生)으로 정관이 인성과 결합되면 학자적 권위를 얻는다.', '재생관(財生官)으로 재물과 명예가 함께 이른다.'],
+    shadowSide: ['상관견관(傷官見官)이면 직장·명예가 흔들린다.', '관성 과중에서 신약은 부담에 짓눌려 질환을 부른다.'],
   },
   PYEON_IN: {
     korean: '편인',
@@ -305,6 +341,9 @@ export const TEN_GOD_ENCYCLOPEDIA: Record<TenGodCode, TenGodEncyclopediaEntry> =
       '정답이 없는 문제를 푸는 환경에서 잠재력이 커요.',
       '전문성 브랜딩이 가능한 프리미엄 영역과 잘 맞아요.',
     ],
+    expertKeywords: ['도식(倒食)', '편지(偏智)', '신비', '전문성'],
+    brightSide: ['살인상생에서 편인이 칠살을 화하면 깊은 통찰을 얻는다.', '편인이 적당하면 비주류·전문 분야에서 성공을 이룬다.'],
+    shadowSide: ['편인이 식신을 깨뜨리는 효신탈식은 결과 단절을 부른다.', '편인 과중은 결단력 부족·고립으로 이어진다.'],
   },
   JEONG_IN: {
     korean: '정인',
@@ -336,6 +375,9 @@ export const TEN_GOD_ENCYCLOPEDIA: Record<TenGodCode, TenGodEncyclopediaEntry> =
       '지식 정리와 전달이 핵심인 역할에서 강점이 커요.',
       '장기 성장형 커리어 트랙에서 안정적으로 성과를 내요.',
     ],
+    expertKeywords: ['생부(生扶)', '학문', '인덕(人德)', '안정'],
+    brightSide: ['관인상생으로 정인은 학자적 권위를 이룬다.', '신약일 때 정인은 일간을 부조해 위기를 넘기는 기둥이 된다.'],
+    shadowSide: ['탐재괴인(貪財壞印)으로 재성이 인성을 깨뜨리면 학업·결실이 흔들린다.', '인성 과중은 의존과 게으름을 부른다.'],
   },
 };
 
