@@ -1,0 +1,86 @@
+{
+  "version": "1.0.0",
+  "generatedNote": "10 diverse fixtures for spring-ts regression baseline. Covers 5-element × 2-polarity sample + 자시/입춘/곡우/입하/처서/소설 jie boundaries + 조후 winter + 종왕 candidate. Each PR's snapshot test runs against this fixture set.",
+  "fixtures": [
+    {
+      "id": "fix-01",
+      "label": "1986-04-19 male — 戊土 일간 (README example)",
+      "axis": ["normal", "yang-earth", "spring"],
+      "birth": { "year": 1986, "month": 4, "day": 19, "hour": 5, "minute": 45, "gender": "male" },
+      "surname": [{ "hangul": "최", "hanja": "崔" }],
+      "givenName": [{ "hangul": "성", "hanja": "成" }, { "hangul": "수", "hanja": "秀" }]
+    },
+    {
+      "id": "fix-02",
+      "label": "1992-09-15 female — 壬水 일간, 가을",
+      "axis": ["normal", "yang-water", "autumn"],
+      "birth": { "year": 1992, "month": 9, "day": 15, "hour": 12, "minute": 0, "gender": "female" },
+      "surname": [{ "hangul": "김", "hanja": "金" }],
+      "givenName": [{ "hangul": "지", "hanja": "智" }, { "hangul": "은", "hanja": "恩" }]
+    },
+    {
+      "id": "fix-03",
+      "label": "2000-01-01 00:30 male — 子時 boundary edge",
+      "axis": ["jaza-edge", "yang-water", "winter"],
+      "birth": { "year": 2000, "month": 1, "day": 1, "hour": 0, "minute": 30, "gender": "male" },
+      "surname": [{ "hangul": "이", "hanja": "李" }],
+      "givenName": [{ "hangul": "민", "hanja": "敏" }, { "hangul": "준", "hanja": "俊" }]
+    },
+    {
+      "id": "fix-04",
+      "label": "1965-08-08 19:00 female — 丙火 일간, 종왕 후보 (강한 火)",
+      "axis": ["jonggwang-candidate", "yang-fire", "summer"],
+      "birth": { "year": 1965, "month": 8, "day": 8, "hour": 19, "minute": 0, "gender": "female" },
+      "surname": [{ "hangul": "박", "hanja": "朴" }],
+      "givenName": [{ "hangul": "영", "hanja": "英" }, { "hangul": "희", "hanja": "姬" }]
+    },
+    {
+      "id": "fix-05",
+      "label": "2005-12-25 06:00 male — 겨울 조후 case (한랭)",
+      "axis": ["johu-winter", "yin-wood", "winter"],
+      "birth": { "year": 2005, "month": 12, "day": 25, "hour": 6, "minute": 0, "gender": "male" },
+      "surname": [{ "hangul": "정", "hanja": "鄭" }],
+      "givenName": [{ "hangul": "서", "hanja": "瑞" }, { "hangul": "준", "hanja": "俊" }]
+    },
+    {
+      "id": "fix-06",
+      "label": "1978-06-15 14:00 female — 庚金 일간, 여름",
+      "axis": ["normal", "yang-metal", "summer"],
+      "birth": { "year": 1978, "month": 6, "day": 15, "hour": 14, "minute": 0, "gender": "female" },
+      "surname": [{ "hangul": "강", "hanja": "姜" }],
+      "givenName": [{ "hangul": "수", "hanja": "秀" }, { "hangul": "빈", "hanja": "彬" }]
+    },
+    {
+      "id": "fix-07",
+      "label": "1957-02-04 male — 입춘 boundary",
+      "axis": ["jie-ipchun", "edge", "spring-onset"],
+      "birth": { "year": 1957, "month": 2, "day": 4, "hour": 12, "minute": 0, "gender": "male" },
+      "surname": [{ "hangul": "윤", "hanja": "尹" }],
+      "givenName": [{ "hangul": "태", "hanja": "泰" }, { "hangul": "호", "hanja": "鎬" }]
+    },
+    {
+      "id": "fix-08",
+      "label": "2020-08-23 female — 처서 boundary",
+      "axis": ["jie-cheoseo", "yin-earth", "late-summer"],
+      "birth": { "year": 2020, "month": 8, "day": 23, "hour": 9, "minute": 0, "gender": "female" },
+      "surname": [{ "hangul": "조", "hanja": "趙" }],
+      "givenName": [{ "hangul": "하", "hanja": "夏" }, { "hangul": "은", "hanja": "恩" }]
+    },
+    {
+      "id": "fix-09",
+      "label": "1988-05-05 male — 입하 boundary",
+      "axis": ["jie-ipha", "edge", "summer-onset"],
+      "birth": { "year": 1988, "month": 5, "day": 5, "hour": 10, "minute": 0, "gender": "male" },
+      "surname": [{ "hangul": "최", "hanja": "崔" }],
+      "givenName": [{ "hangul": "명", "hanja": "明" }, { "hangul": "수", "hanja": "秀" }]
+    },
+    {
+      "id": "fix-10",
+      "label": "2018-11-22 female — 소설 boundary",
+      "axis": ["jie-soseol", "winter-onset", "yin-water"],
+      "birth": { "year": 2018, "month": 11, "day": 22, "hour": 15, "minute": 0, "gender": "female" },
+      "surname": [{ "hangul": "한", "hanja": "韓" }],
+      "givenName": [{ "hangul": "서", "hanja": "瑞" }, { "hangul": "연", "hanja": "蓮" }]
+    }
+  ]
+}
