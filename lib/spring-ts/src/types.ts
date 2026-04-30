@@ -52,6 +52,26 @@ export interface SpringOptions {
   readonly sajuOptions?: SajuRequestOptions;
   readonly pureHangulNameMode?: 'auto' | 'on' | 'off';
   readonly useSurnameHanjaInPureHangul?: boolean;
+  /** Opt-in toggles for internal-precision improvements. All sub-fields are
+   *  optional and default to undefined / false, preserving existing behavior. */
+  readonly precisionConfig?: PrecisionConfig;
+}
+
+/**
+ * Opt-in precision toggles. Every flag is optional, default behavior is
+ * preserved when no flag is set. Sub-fields are added by future PRs as
+ * each precision improvement lands; the type is intentionally open-ended
+ * (`readonly [key: string]: unknown`) so adding a new flag never breaks
+ * existing callers.
+ */
+export interface PrecisionConfig {
+  /** When true, route SajuCalculator's school-dependent weights through
+   *  config/presets/<schoolPreset>.json instead of the default
+   *  saju-scoring.json values. The 'korean' preset mirrors the current
+   *  defaults exactly, so enabling this flag with schoolPreset='korean'
+   *  (or unset) leaves behavior unchanged. */
+  readonly useSchoolPreset?: boolean;
+  readonly [key: string]: unknown;
 }
 
 /** High-level time-policy toggles bridged to saju-ts legacy config. */
