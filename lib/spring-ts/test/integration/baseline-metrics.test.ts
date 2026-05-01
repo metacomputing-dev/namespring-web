@@ -118,6 +118,18 @@ check('RPI summary has A-G axis scores',
 check('RPI truth separation reports no current engine rule failures',
   rpiSummary.truthSeparation?.engineRuleFailureCount === 0,
   JSON.stringify(rpiSummary.truthSeparation));
+check('ten-god v1/v2 comparison artifact is present',
+  rpiSummary.tenGodPositionWeighting?.baselineComparison?.modeA === 'positional_weighted' &&
+    rpiSummary.tenGodPositionWeighting?.baselineComparison?.modeB === 'positional_weighted_v2');
+check('ten-god v1/v2 artifact covers all current default fixtures',
+  rpiSummary.tenGodPositionWeighting?.baselineComparison?.defaultFixtures?.total === bySourceTier.baseline.fixtureCount,
+  JSON.stringify(rpiSummary.tenGodPositionWeighting?.baselineComparison?.defaultFixtures));
+check('ten-god v1/v2 artifact covers jonggyeok stress fixtures',
+  rpiSummary.tenGodPositionWeighting?.baselineComparison?.jonggyeokFixtures?.total === 9,
+  JSON.stringify(rpiSummary.tenGodPositionWeighting?.baselineComparison?.jonggyeokFixtures));
+check('ten-god v1/v2 artifact records row-level deltas',
+  (rpiSummary.tenGodPositionWeighting?.baselineComparison?.defaultFixtures?.rows ?? []).every((row: any) =>
+    row.id && Number.isFinite(row.v1?.saju) && Number.isFinite(row.v2?.saju) && Number.isFinite(row.delta?.saju)));
 
 console.log(`\nBaseline metrics: ${pass} PASS / ${fail} FAIL`);
 process.exit(fail > 0 ? 1 : 0);

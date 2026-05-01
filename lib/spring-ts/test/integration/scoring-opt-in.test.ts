@@ -61,6 +61,7 @@ const yongshinConsensusAware = await evalWith({ yongshinMode: 'consensus_aware' 
 const strengthCont           = await evalWith({ strengthMode: 'continuous' });
 const gyeokgukCb             = await evalWith({ gyeokgukMode: 'chengbai_strict' });
 const tenGodPositional       = await evalWith({ tenGodMode: 'positional_weighted' });
+const tenGodPositionalV2     = await evalWith({ tenGodMode: 'positional_weighted_v2' });
 const gyeokgukMultiSpecial   = await evalWith({ gyeokgukMode: 'multi_special' });
 
 let pass = 0;
@@ -85,11 +86,12 @@ console.log('yongshin.consensus_aware :', yongshinConsensusAware);
 console.log('strength.continuous      :', strengthCont);
 console.log('gyeokguk.chengbai_strict :', gyeokgukCb);
 console.log('tenGod.positional_weighted:', tenGodPositional);
+console.log('tenGod.positional_weighted_v2:', tenGodPositionalV2);
 console.log('gyeokguk.multi_special   :', gyeokgukMultiSpecial);
 console.log('');
 
 // — All scores finite and in [0, 100] —
-const allResults = [baseline, empty, balanceYf, balanceJgk, yongshinCb, yongshinConsensusAware, strengthCont, gyeokgukCb, tenGodPositional, gyeokgukMultiSpecial];
+const allResults = [baseline, empty, balanceYf, balanceJgk, yongshinCb, yongshinConsensusAware, strengthCont, gyeokgukCb, tenGodPositional, tenGodPositionalV2, gyeokgukMultiSpecial];
 for (const r of allResults) {
   check('saju score finite + [0,100]', Number.isFinite(r.saju) && r.saju >= 0 && r.saju <= 100, `${r.saju}`);
   check('total score finite + [0,100]', Number.isFinite(r.total) && r.total >= 0 && r.total <= 100, `${r.total}`);
@@ -99,6 +101,10 @@ for (const r of allResults) {
 check('precisionConfig:{} ≡ baseline',
   empty.saju === baseline.saju && empty.total === baseline.total,
   `saju ${empty.saju}=${baseline.saju}`);
+
+check('explicit PR-5.1 tenGod mode still equals current default before v2 default flip',
+  tenGodPositional.saju === baseline.saju && tenGodPositional.total === baseline.total,
+  `saju ${tenGodPositional.saju}=${baseline.saju}`);
 
 // — balanceMode='yongshin_first' is purely additive (bonus when name has the
 //   yongshin element, no-op otherwise) — therefore can never produce a LOWER
@@ -142,6 +148,10 @@ check('yongshin.consensus_aware is distinguishable from baseline on conflict fix
 check('tenGod.positional_weighted produces valid score',
   Number.isFinite(tenGodPositional.saju) && tenGodPositional.saju >= 0 && tenGodPositional.saju <= 100,
   `saju ${tenGodPositional.saju}`);
+
+check('tenGod.positional_weighted_v2 is opt-in and finite',
+  Number.isFinite(tenGodPositionalV2.saju) && tenGodPositionalV2.saju >= 0 && tenGodPositionalV2.saju <= 100,
+  `saju ${tenGodPositionalV2.saju}, default ${baseline.saju}`);
 
 // gyeokguk.multi_special: applies per-type 종격 multipliers. Non-종격
 // fixture (1986-04-19) sees no penalty → equal to baseline. The mode is
