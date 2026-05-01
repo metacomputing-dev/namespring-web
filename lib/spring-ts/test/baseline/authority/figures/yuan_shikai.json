@@ -30,5 +30,15 @@
     "sources_count": 3,
     "comparable": true
   },
-  "prose_quote": "財格 — 일간 丁 with 月支 酉 financial structure."
+  "prose_quote": "財格 — 일간 丁 with 月支 酉 financial structure.",
+  "sourceTier": {
+    "tier": "T3_AUTHORED_INTERPRETATION",
+    "sourceType": "modern_korean_myeongri_extract",
+    "sourceUrl": null,
+    "accessedAt": "2026-05-01",
+    "quoteShort": null,
+    "humanInterpretation": "Collected modern Korean myeongri extraction with named/provenance context; usable only as reviewed interpretation evidence.",
+    "copyrightNote": "Pillars are factual; prose is paraphrased or kept as short snippets only.",
+    "authorityTruthEligible": true
+  }
 }

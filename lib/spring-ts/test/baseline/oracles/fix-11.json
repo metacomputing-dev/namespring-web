@@ -37,5 +37,15 @@
   },
   "hedge": {
     "shouldHedge": false
+  },
+  "sourceTier": {
+    "tier": "T2_REFERENCE_IMPLEMENTATION",
+    "sourceType": "reference_implementation",
+    "sourceUrl": null,
+    "accessedAt": "2026-05-01",
+    "quoteShort": null,
+    "humanInterpretation": "saju_master comparison capture used for compatibility and divergence tracking, not standalone authority truth.",
+    "copyrightNote": "Derived local implementation output; no external source prose copied.",
+    "authorityTruthEligible": false
   }
 }

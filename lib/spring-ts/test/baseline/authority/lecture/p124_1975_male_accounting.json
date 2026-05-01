@@ -42,5 +42,15 @@
       "section": "제 14차시 명리상담 실례 1",
       "quote": "월지와 년지가 傷官見官이라... 천간에 正官 둘과 偏財가 투출해있기 때문에"
     }
-  ]
+  ],
+  "sourceTier": {
+    "tier": "T3_AUTHORED_INTERPRETATION",
+    "sourceType": "lecture_casebook",
+    "sourceUrl": null,
+    "accessedAt": "2026-05-01",
+    "quoteShort": null,
+    "humanInterpretation": "Lecture-derived case with paraphrased expected fields and limited short quotes; usable as reviewed modern interpretation evidence.",
+    "copyrightNote": "Pillars are factual; expected fields are paraphrased; quotes must remain short.",
+    "authorityTruthEligible": true
+  }
 }

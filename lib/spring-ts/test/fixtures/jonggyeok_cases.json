@@ -158,5 +158,15 @@
       "engineCurrentType": "비견격 또는 겁재격 — 비겁 dominant 인식, 종격 미발화",
       "disagreementReason": "saju-ts 의 GYEOK_CONG_BI 룰은 patterns.follow.friendFactor 기반 — 본 chart 는 寅 중 甲(관성) + 巳 중 庚(식상) 통관 가능성으로 ‘완전 從格’ 미충족."
     }
-  ]
+  ],
+  "sourceTier": {
+    "tier": "T1_HYPOTHESIS",
+    "sourceType": "training_derived",
+    "sourceUrl": null,
+    "accessedAt": "2026-05-01",
+    "quoteShort": null,
+    "humanInterpretation": "AI/training-derived doctrinal fixture retained for pillar consistency and regression observation only; not citation anchored.",
+    "copyrightNote": "No source prose copied; expected doctrine is not authority truth.",
+    "authorityTruthEligible": false
+  }
 }

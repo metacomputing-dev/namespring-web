@@ -34,5 +34,15 @@
     "Pillars (year/month/day/hour ganzhi) are factual data, not copyrighted.",
     "prose_quote is a verbatim short classical-format judgment phrase from public-domain text (1933 Qing-Republican era).",
     "expected fields are interpretive paraphrase ≤ 50자."
-  ]
+  ],
+  "sourceTier": {
+    "tier": "T4_PRIMARY_TEXT",
+    "sourceType": "classical_primary_text",
+    "sourceUrl": null,
+    "accessedAt": "2026-05-01",
+    "quoteShort": null,
+    "humanInterpretation": "Classical primary text extraction with short quoted basis and human-mapped expected fields.",
+    "copyrightNote": "Short classical quote only; expected fields are human interpretation.",
+    "authorityTruthEligible": true
+  }
 }

@@ -42,5 +42,15 @@
     "辛金 일간이 인성(土) 압도 → '從印格' (CONG_YIN) 후보 도리와 본격 편인격 경계",
     "식상 水 가 적어 표현력 부족 → 'isolation' 경향",
     "도식(倒食) 위험: 편인이 식신을 극함"
-  ]
+  ],
+  "sourceTier": {
+    "tier": "T1_HYPOTHESIS",
+    "sourceType": "training_derived",
+    "sourceUrl": null,
+    "accessedAt": "2026-05-01",
+    "quoteShort": null,
+    "humanInterpretation": "AI/training-derived doctrinal fixture retained for pillar consistency and regression observation only; not citation anchored.",
+    "copyrightNote": "No source prose copied; expected doctrine is not authority truth.",
+    "authorityTruthEligible": false
+  }
 }

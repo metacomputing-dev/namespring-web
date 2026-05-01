@@ -46,5 +46,15 @@
     "月支 酉가 旺 - 申酉 二支 정관 강성",
     "癸水 年干 인성 = 일간 甲에 자원",
     "정관격은 신왕 + 인성 통관이 전형이나 본 case 는 신약 → '정관용인' (官印相生) 구조"
-  ]
+  ],
+  "sourceTier": {
+    "tier": "T1_HYPOTHESIS",
+    "sourceType": "training_derived",
+    "sourceUrl": null,
+    "accessedAt": "2026-05-01",
+    "quoteShort": null,
+    "humanInterpretation": "AI/training-derived doctrinal fixture retained for pillar consistency and regression observation only; not citation anchored.",
+    "copyrightNote": "No source prose copied; expected doctrine is not authority truth.",
+    "authorityTruthEligible": false
+  }
 }
