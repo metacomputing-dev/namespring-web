@@ -12,6 +12,42 @@ import { compete, renormalizeScale } from '../core/competition.js';
 
 export type YongshinRole = 'COMPANION' | 'RESOURCE' | 'OUTPUT' | 'WEALTH' | 'OFFICER';
 
+export type YongshinConsensusAxisName =
+  | 'eokbu'
+  | 'johu'
+  | 'gyeokguk'
+  | 'tonggwan'
+  | 'byeongyak'
+  | 'siksangFlow';
+
+export type YongshinConsensusConflictLevel = 'none' | 'low' | 'medium' | 'high';
+
+export interface YongshinConsensusAxisScore {
+  element: Element | null;
+  score: number;
+  scores: Record<Element, number>;
+  evidence: string[];
+}
+
+export interface YongshinConsensusFinalScore {
+  element: Element;
+  confidence: number;
+  topMargin: number;
+  conflictLevel: YongshinConsensusConflictLevel;
+  competingElements: Element[];
+  evidence: string[];
+}
+
+export interface YongshinConsensusScoreboard {
+  eokbu: YongshinConsensusAxisScore;
+  johu: YongshinConsensusAxisScore;
+  gyeokguk: YongshinConsensusAxisScore;
+  tonggwan: YongshinConsensusAxisScore;
+  byeongyak: YongshinConsensusAxisScore;
+  siksangFlow: YongshinConsensusAxisScore;
+  final: YongshinConsensusFinalScore;
+}
+
 export interface YongshinPolicy {
   weights: {
     balance: number;
@@ -124,6 +160,7 @@ export interface YongshinResult {
   best: Element;
   ranking: Array<{ element: Element; score: number }>;
   scores: Record<Element, number>;
+  consensus: YongshinConsensusScoreboard;
   base: {
     deficiency: Record<Element, number>;
     role: Record<Element, { role: YongshinRole; preference: number }>;
@@ -316,10 +353,174 @@ function clamp01(x: number): number {
   return Math.min(1, Math.max(0, x));
 }
 
+function round6(x: number): number {
+  return Math.round(x * 1_000_000) / 1_000_000;
+}
+
 function maxValue(v: Record<string, number>): number {
   let m = -Infinity;
   for (const x of Object.values(v)) if (typeof x === 'number' && Number.isFinite(x)) m = Math.max(m, x);
   return Number.isFinite(m) ? m : 0;
+}
+
+function normalizeScoreMap(raw: Record<Element, number>): Record<Element, number> {
+  const values = ELEMENT_ORDER.map((element) => asNumber(raw[element], 0));
+  const min = Math.min(...values);
+  const max = Math.max(...values);
+  if (!(max > min)) {
+    return { WOOD: 0, FIRE: 0, EARTH: 0, METAL: 0, WATER: 0 };
+  }
+
+  const out = { WOOD: 0, FIRE: 0, EARTH: 0, METAL: 0, WATER: 0 } as Record<Element, number>;
+  for (const element of ELEMENT_ORDER) {
+    out[element] = round6(clamp01((asNumber(raw[element], 0) - min) / (max - min)));
+  }
+  return out;
+}
+
+function bestElement(scores: Record<Element, number>): { element: Element | null; score: number } {
+  let best: Element | null = null;
+  let score = -Infinity;
+  for (const element of ELEMENT_ORDER) {
+    const current = asNumber(scores[element], 0);
+    if (current > score) {
+      best = element;
+      score = current;
+    }
+  }
+  if (!best || score <= 0) return { element: null, score: 0 };
+  return { element: best, score };
+}
+
+function axisScore(raw: Record<Element, number>, evidence: string[]): YongshinConsensusAxisScore {
+  const scores = normalizeScoreMap(raw);
+  const best = bestElement(scores);
+  return {
+    element: best.element,
+    score: round6(best.score),
+    scores,
+    evidence,
+  };
+}
+
+function buildYongshinConsensus(args: {
+  facts: RuleFacts;
+  ranking: Array<{ element: Element; score: number }>;
+  deficiency: Record<Element, number>;
+  roleInfo: Record<Element, { role: YongshinRole; preference: number }>;
+  climateScores: Record<Element, number>;
+  templateBonus: Record<Element, number>;
+  medicineScores: Record<Element, number>;
+  tongguanScores: Record<Element, number>;
+  followScores: Record<Element, number>;
+}): YongshinConsensusScoreboard {
+  const {
+    facts,
+    ranking,
+    deficiency,
+    roleInfo,
+    climateScores,
+    templateBonus,
+    medicineScores,
+    tongguanScores,
+    followScores,
+  } = args;
+
+  const eokbuRaw = { WOOD: 0, FIRE: 0, EARTH: 0, METAL: 0, WATER: 0 } as Record<Element, number>;
+  for (const element of ELEMENT_ORDER) {
+    const rolePreference = (asNumber(roleInfo[element]?.preference, 0) + 1) / 2;
+    eokbuRaw[element] = 0.55 * asNumber(deficiency[element], 0) + 0.45 * rolePreference;
+  }
+
+  const johuRaw = { WOOD: 0, FIRE: 0, EARTH: 0, METAL: 0, WATER: 0 } as Record<Element, number>;
+  for (const element of ELEMENT_ORDER) {
+    johuRaw[element] = asNumber(climateScores[element], 0) + 0.35 * asNumber(templateBonus[element], 0);
+  }
+
+  const gyeokgukRaw = { WOOD: 0, FIRE: 0, EARTH: 0, METAL: 0, WATER: 0 } as Record<Element, number>;
+  const monthGyeok: any = (facts as any).month?.gyeok ?? {};
+  const quality = monthGyeok?.quality ?? {};
+  const qualityFactor = clamp01(asNumber(quality?.multiplier, 1));
+  const monthCandidates = Array.isArray(monthGyeok?.candidates) ? monthGyeok.candidates : [];
+  for (const candidate of monthCandidates) {
+    const element = candidate?.element;
+    if (!(ELEMENT_ORDER as readonly string[]).includes(element)) continue;
+    const visibility = candidate?.visibleInChart === true ? 1 : 0.45;
+    const roleWeight = String(candidate?.role ?? '').toUpperCase() === 'MAIN' ? 1 : 0.75;
+    const score = asNumber(candidate?.score, 0) * qualityFactor * visibility * roleWeight;
+    gyeokgukRaw[element as Element] = Math.max(gyeokgukRaw[element as Element], score);
+  }
+
+  const outputRaw = { WOOD: 0, FIRE: 0, EARTH: 0, METAL: 0, WATER: 0 } as Record<Element, number>;
+  const outputPressure = clamp01(asNumber((facts as any).strength?.components?.outputs, 0) / Math.max(1e-9, asNumber((facts as any).strength?.total, 0)));
+  for (const element of ELEMENT_ORDER) {
+    outputRaw[element] = (facts.dayMasterRoleByElement as any)[element] === 'OUTPUT'
+      ? asNumber((facts.elements.normalized as any)[element], 0) + outputPressure
+      : 0;
+  }
+
+  const eokbu = axisScore(eokbuRaw, [
+    `strengthIndex=${round6(facts.strength.index)}`,
+    `support=${round6(facts.strength.support)}`,
+    `pressure=${round6(facts.strength.pressure)}`,
+  ]);
+  const johu = axisScore(johuRaw, [
+    `climateNeedTemp=${round6(asNumber((facts as any).climate?.need?.temp, 0))}`,
+    `climateNeedMoist=${round6(asNumber((facts as any).climate?.need?.moist, 0))}`,
+  ]);
+  const gyeokguk = axisScore(gyeokgukRaw, [
+    `monthGyeokTenGod=${String(monthGyeok?.tenGod ?? '')}`,
+    `quality=${round6(qualityFactor)}`,
+  ]);
+  const tonggwan = axisScore(tongguanScores, [
+    `maxIntensity=${round6(asNumber((facts as any).tongguan?.maxIntensity, 0))}`,
+    `dominance=${round6(asNumber((facts as any).tongguan?.dominance, 0))}`,
+  ]);
+  const byeongyak = axisScore(medicineScores, [
+    'medicine=controls_excess_elements',
+  ]);
+  const siksangFlow = axisScore(outputRaw, [
+    `outputPressure=${round6(outputPressure)}`,
+  ]);
+
+  const axes = [eokbu, johu, gyeokguk, tonggwan, byeongyak, siksangFlow];
+  const top = ranking[0] ?? { element: 'WOOD' as Element, score: 0 };
+  const second = ranking[1] ?? { element: top.element, score: top.score };
+  const margin = asNumber(top.score, 0) - asNumber(second.score, 0);
+  const confidence = margin <= 0 ? 0.35 : clamp01(Math.max(0.35, margin));
+
+  const disagree = axes.filter((axis) => axis.element && axis.element !== top.element && axis.score >= 0.2);
+  const activeScore = axes.reduce((sum, axis) => sum + (axis.element ? axis.score : 0), 0);
+  const disagreeScore = disagree.reduce((sum, axis) => sum + axis.score, 0);
+  const conflictRatio = activeScore > 0 ? disagreeScore / activeScore : 0;
+  const conflictSignal = Math.max(conflictRatio, 1 - confidence);
+  const conflictLevel: YongshinConsensusConflictLevel =
+    conflictSignal >= 0.6 ? 'high' :
+      conflictSignal >= 0.38 ? 'medium' :
+        conflictSignal >= 0.18 ? 'low' :
+          'none';
+  const competingElements = Array.from(new Set(disagree.map((axis) => axis.element).filter((element): element is Element => Boolean(element))));
+
+  return {
+    eokbu,
+    johu,
+    gyeokguk,
+    tonggwan,
+    byeongyak,
+    siksangFlow,
+    final: {
+      element: top.element,
+      confidence: round6(confidence),
+      topMargin: round6(margin),
+      conflictLevel,
+      competingElements,
+      evidence: [
+        `selected=${top.element}`,
+        `topMargin=${round6(margin)}`,
+        `conflictRatio=${round6(conflictRatio)}`,
+      ],
+    },
+  };
 }
 
 function dominantPressureRole(components: { outputs: number; wealth: number; officers: number }): YongshinRole {
@@ -1082,11 +1283,23 @@ methodSelectorOut = out;
 
   const ranking = order.map((e) => ({ element: e, score: finalScores[e] }));
   const best = ranking[0]?.element ?? 'WOOD';
+  const consensus = buildYongshinConsensus({
+    facts,
+    ranking,
+    deficiency,
+    roleInfo,
+    climateScores: (climateFacts.scores ?? {}) as Record<Element, number>,
+    templateBonus,
+    medicineScores,
+    tongguanScores,
+    followScores,
+  });
 
   return {
     best,
     ranking,
     scores: finalScores,
+    consensus,
     base: {
       deficiency,
       role: roleInfo,

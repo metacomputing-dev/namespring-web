@@ -360,6 +360,33 @@ export interface YongshinView {
   best: string;
   ranking: Array<{ element: string; score: number }>;
   strengthIndex: number;
+  consensus?: YongshinConsensusView;
+}
+
+export type YongshinConsensusConflictLevelView = 'none' | 'low' | 'medium' | 'high';
+
+export interface YongshinConsensusAxisView {
+  element: string | null;
+  score: number;
+  scores: Record<string, number>;
+  evidence: string[];
+}
+
+export interface YongshinConsensusView {
+  eokbu: YongshinConsensusAxisView;
+  johu: YongshinConsensusAxisView;
+  gyeokguk: YongshinConsensusAxisView;
+  tonggwan: YongshinConsensusAxisView;
+  byeongyak: YongshinConsensusAxisView;
+  siksangFlow: YongshinConsensusAxisView;
+  final: {
+    element: string;
+    confidence: number;
+    topMargin: number;
+    conflictLevel: YongshinConsensusConflictLevelView;
+    competingElements: string[];
+    evidence: string[];
+  };
 }
 
 export interface GyeokgukView {

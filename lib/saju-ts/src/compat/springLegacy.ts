@@ -953,6 +953,10 @@ function normalizeLegacyOutput(
   const secondScore = Number(yongshinRanking[1]?.score ?? 0);
   const yongshinConfidence = scoreDiffConfidence(topScore, secondScore);
   const yongshinConfidencePoints = confidenceToPoints(yongshinConfidence);
+  const yongshinConsensus =
+    yongshin?.consensus && typeof yongshin.consensus === 'object'
+      ? yongshin.consensus
+      : undefined;
 
   const gyeokguk = bundle.summary?.gyeokguk as any;
   const bestKey = String(gyeokguk?.best ?? '');
@@ -1143,6 +1147,7 @@ function normalizeLegacyOutput(
       gusin: secondWorst,
       finalConfidence: yongshinConfidencePoints,
       agreement: 'RANKING',
+      consensus: yongshinConsensus,
       recommendations: yongshinRanking.slice(0, 3).map((entry: { element: string; score: number }, i: number) => ({
         type: i === 0 ? 'JOHU' : 'RANKING',
         primaryElement: entry.element,
