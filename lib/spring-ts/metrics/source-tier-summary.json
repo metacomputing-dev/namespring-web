@@ -1,15 +1,15 @@
 {
   "schemaVersion": "spring-ts.source-tier-summary.v1",
   "status": "PASS",
-  "scanned": 70,
+  "scanned": 75,
   "violationCount": 0,
-  "authorityTruthEligibleCount": 43,
-  "nonEligibleCount": 27,
+  "authorityTruthEligibleCount": 46,
+  "nonEligibleCount": 29,
   "byTier": {
     "T3_AUTHORED_INTERPRETATION": {
-      "recordCount": 29,
+      "recordCount": 30,
       "authorityTruthEligible": 25,
-      "nonEligible": 4,
+      "nonEligible": 5,
       "files": [
         "test/baseline/authority/chumyeongga/chu_32.json",
         "test/baseline/authority/chumyeongga/chu_37.json",
@@ -36,6 +36,7 @@
         "test/baseline/authority/lecture/p127_1964_female_haenyeo_doctorate.json",
         "test/baseline/authority/lecture/p127_1964_male_public_exec.json",
         "test/baseline/authority/lecture/p127_1975_female_national_professor.json",
+        "data/sources/kasi-solar-terms.sources.json#sources[3].sourceTier:spring_ts_solar_term_oracle_policy",
         "data/sources/phonetic.sources.json",
         "data/sources/phonetic.sources.json#sources[2].sourceTier:phonetic_flow_display_policy",
         "data/sources/phonetic.sources.json#sources[3].sourceTier:phonetic_score_separation_policy",
@@ -91,10 +92,14 @@
       ]
     },
     "T5_OFFICIAL": {
-      "recordCount": 14,
-      "authorityTruthEligible": 12,
-      "nonEligible": 2,
+      "recordCount": 18,
+      "authorityTruthEligible": 15,
+      "nonEligible": 3,
       "files": [
+        "data/sources/kasi-solar-terms.sources.json",
+        "data/sources/kasi-solar-terms.sources.json#sources[0].sourceTier:data_go_kr_kasi_special_day_info_15012690",
+        "data/sources/kasi-solar-terms.sources.json#sources[1].sourceTier:kasi_spcde_get24divisionsinfo",
+        "data/sources/kasi-solar-terms.sources.json#sources[2].sourceTier:kasi_calendar_data_24_terms_table",
         "data/sources/legal-hanja.sources.json",
         "data/sources/legal-hanja.sources.json#sources[0].sourceTier:law_go_kr_rule_article_37_2025_07_19",
         "data/sources/legal-hanja.sources.json#sources[1].sourceTier:law_go_kr_byeolpyo1_2024_05_30",
@@ -142,6 +147,31 @@
       "recordCount": 12,
       "authorityTruthEligible": 0,
       "nonEligible": 12
+    },
+    "official_kasi_special_day_api_registry": {
+      "recordCount": 1,
+      "authorityTruthEligible": 1,
+      "nonEligible": 0
+    },
+    "official_public_data_catalog": {
+      "recordCount": 1,
+      "authorityTruthEligible": 1,
+      "nonEligible": 0
+    },
+    "official_kasi_solar_term_api": {
+      "recordCount": 1,
+      "authorityTruthEligible": 1,
+      "nonEligible": 0
+    },
+    "official_kasi_calendar_data_preview": {
+      "recordCount": 1,
+      "authorityTruthEligible": 0,
+      "nonEligible": 1
+    },
+    "internal_oracle_policy": {
+      "recordCount": 1,
+      "authorityTruthEligible": 0,
+      "nonEligible": 1
     },
     "official_law_registry": {
       "recordCount": 2,
