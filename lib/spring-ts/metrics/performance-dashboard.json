@@ -1,0 +1,550 @@
+{
+  "schemaVersion": "spring-ts.performance-dashboard.v1",
+  "artifactKind": "phase_9_2_performance_dashboard",
+  "generatedAt": "2026-05-02T00:00:00.000Z",
+  "snapshotTargetDate": "2026-04-30T00:00:00.000Z",
+  "inputs": {
+    "rpiSummary": "metrics/rpi-summary.json",
+    "sourceTierSummary": "metrics/source-tier-summary.json",
+    "bySourceTier": "metrics/bySourceTier.json",
+    "deterministicCalibration": "metrics/deterministic-calibration.json",
+    "ruleAbTests": "metrics/rule-ab-tests.json"
+  },
+  "privacy": {
+    "sourceFree": true,
+    "aggregateOnly": true,
+    "authorityUsage": "not_authority_truth",
+    "rawFixtureRowsStored": false,
+    "rawPersonalFieldsStored": false,
+    "rawFeedbackStoredInRepo": false
+  },
+  "rpiTrendReport": {
+    "trendKind": "single_snapshot_baseline",
+    "current": {
+      "rawScore": 45,
+      "rawMaxPoints": 100,
+      "measuredScore": 45,
+      "measuredMaxPoints": 60,
+      "measuredPercent": 75
+    },
+    "axisCount": 7,
+    "measuredAxisCount": 5,
+    "truthInsufficientAxisCount": 1,
+    "notMeasuredAxisCount": 1,
+    "axes": {
+      "A_calculationAccuracy": {
+        "score": 15,
+        "maxPoints": 15,
+        "percent": 100,
+        "status": "PASS"
+      },
+      "B_legalHanjaData": {
+        "score": 10,
+        "maxPoints": 15,
+        "percent": 66.6667,
+        "status": "PARTIAL_OFFICIAL_DENOMINATOR"
+      },
+      "C_gyeokgukYongshinRuleQuality": {
+        "score": 0,
+        "maxPoints": 25,
+        "percent": 0,
+        "status": "INSUFFICIENT_TRUTH"
+      },
+      "D_tenGodPositionWeighting": {
+        "score": 0,
+        "maxPoints": 10,
+        "percent": 0,
+        "status": "MEASURED_OPT_IN_V2"
+      },
+      "E_namingIntegratedScore": {
+        "score": 0,
+        "maxPoints": 15,
+        "percent": 0,
+        "status": "NOT_MEASURED"
+      },
+      "F_explainabilityUxSurface": {
+        "score": 10,
+        "maxPoints": 10,
+        "percent": 100,
+        "status": "PASS"
+      },
+      "G_validationGovernance": {
+        "score": 10,
+        "maxPoints": 10,
+        "percent": 100,
+        "status": "PASS"
+      }
+    }
+  },
+  "sourceTierCoverageReport": {
+    "status": "PASS",
+    "scanned": 97,
+    "violationCount": 0,
+    "authorityTruthEligibleCount": 55,
+    "nonEligibleCount": 32,
+    "authorityTruthEligibleRate": 63.2184,
+    "byTier": {
+      "T3_AUTHORED_INTERPRETATION": {
+        "recordCount": 31,
+        "authorityTruthEligible": 25,
+        "nonEligible": 6,
+        "eligibleRate": 80.6452
+      },
+      "T4_PRIMARY_TEXT": {
+        "recordCount": 12,
+        "authorityTruthEligible": 9,
+        "nonEligible": 3,
+        "eligibleRate": 75
+      },
+      "T1_HYPOTHESIS": {
+        "recordCount": 7,
+        "authorityTruthEligible": 0,
+        "nonEligible": 7,
+        "eligibleRate": 0
+      },
+      "T2_REFERENCE_IMPLEMENTATION": {
+        "recordCount": 13,
+        "authorityTruthEligible": 0,
+        "nonEligible": 13,
+        "eligibleRate": 0
+      },
+      "T5_OFFICIAL": {
+        "recordCount": 24,
+        "authorityTruthEligible": 21,
+        "nonEligible": 3,
+        "eligibleRate": 87.5
+      }
+    },
+    "baselineByReferenceTier": {
+      "T2_REFERENCE_IMPLEMENTATION": {
+        "fixtureCount": 12,
+        "truthBuckets": {
+          "insufficient_source_truth": 12,
+          "authority_match": 0,
+          "engine_rule_failure": 0
+        }
+      },
+      "NO_REFERENCE": {
+        "fixtureCount": 3,
+        "truthBuckets": {
+          "insufficient_source_truth": 3,
+          "authority_match": 0,
+          "engine_rule_failure": 0
+        }
+      }
+    },
+    "truthSeparation": {
+      "insufficientSourceTruthCount": 15,
+      "authorityMatchCount": 0,
+      "engineRuleFailureCount": 0
+    }
+  },
+  "sourceTierPromotionGate": {
+    "calibrationStatus": "INSUFFICIENT_AUTHORITY_TRUTH",
+    "eligibleObjectiveFixtureCount": 0,
+    "tierWeights": {
+      "T5_OFFICIAL": 5,
+      "T4_PRIMARY_TEXT": 4,
+      "T3_AUTHORED_INTERPRETATION": 2,
+      "T2_REFERENCE_IMPLEMENTATION": 0,
+      "T1_HYPOTHESIS": 0,
+      "T0_UNSOURCED": 0,
+      "NO_REFERENCE": 0
+    },
+    "lowTierPolicy": "T2, T1, T0, and NO_REFERENCE have zero objective weight and cannot promote rule weights",
+    "ruleAbSourceTierGate": {
+      "requiredBeforeDefaultChange": true,
+      "status": "BLOCKED",
+      "authorityObjectiveStatus": "INSUFFICIENT_AUTHORITY_TRUTH",
+      "eligibleObjectiveFixtureCount": 0,
+      "minimumEligibleObjectiveFixtures": 3,
+      "lowTierPolicy": "T2, T1, T0, and NO_REFERENCE feedback is diagnostic only and cannot promote defaults."
+    }
+  },
+  "ruleModeComparisonReport": {
+    "baselineMode": "monthly_main",
+    "modeCount": 3,
+    "modes": {
+      "monthly_main": {
+        "measurementStatus": "MEASURED",
+        "total": 27,
+        "pass": 17,
+        "partial": 0,
+        "diff": 10,
+        "comparable": 27,
+        "passRate": 70.4,
+        "winLossVsMonthlyMain": {
+          "wins": 0,
+          "losses": 0,
+          "net": 0,
+          "passDelta": 0,
+          "passRateDelta": 0,
+          "baselineMode": "monthly_main"
+        }
+      },
+      "jungki_transparent": {
+        "measurementStatus": "MEASURED",
+        "total": 27,
+        "pass": 14,
+        "partial": 0,
+        "diff": 13,
+        "comparable": 27,
+        "passRate": 59.3,
+        "winLossVsMonthlyMain": {
+          "wins": 0,
+          "losses": 3,
+          "net": -3,
+          "passDelta": -3,
+          "passRateDelta": -11.1,
+          "baselineMode": "monthly_main"
+        }
+      },
+      "composite_classical": {
+        "measurementStatus": "MEASURED_CANDIDATE_EVIDENCE",
+        "selectionPolicy": "evidence_only_never_promote",
+        "total": 27,
+        "pass": 17,
+        "partial": 0,
+        "diff": 10,
+        "comparable": 27,
+        "passRate": 70.4,
+        "winLossVsMonthlyMain": {
+          "wins": 0,
+          "losses": 0,
+          "net": 0,
+          "passDelta": 0,
+          "passRateDelta": 0,
+          "baselineMode": "monthly_main"
+        },
+        "candidateCoverage": {
+          "covered": 23,
+          "comparable": 27,
+          "coverageRate": 85.2,
+          "coverageMode": "authority_label_present_in_evidence_candidates"
+        },
+        "sourceTierNonRegressionVsMonthlyMain": {
+          "status": "PASS",
+          "baselineMode": "monthly_main",
+          "basis": "selected agreement only; composite_classical candidates are evidence-only"
+        }
+      }
+    },
+    "compositeQualityGate": {
+      "status": "PASS",
+      "thresholds": {
+        "monthlyMainSelectedAgreement": {
+          "minPass": 17,
+          "comparable": 27
+        },
+        "compositeSelectedAgreement": {
+          "minNetVsMonthlyMain": 0
+        },
+        "compositeCandidateCoverage": {
+          "total": {
+            "minCovered": 23,
+            "comparable": 27
+          },
+          "bySourceTier": {
+            "T3_AUTHORED_INTERPRETATION": {
+              "minCovered": 20,
+              "comparable": 21
+            },
+            "T4_PRIMARY_TEXT": {
+              "minCovered": 3,
+              "comparable": 6
+            }
+          },
+          "bySourceGroup": {
+            "lecture": {
+              "minCovered": 14,
+              "comparable": 14
+            },
+            "jonheom": {
+              "minCovered": 3,
+              "comparable": 6
+            },
+            "korean_modern_figures_and_chumyeongga": {
+              "minCovered": 6,
+              "comparable": 7
+            }
+          }
+        }
+      },
+      "checks": [
+        {
+          "id": "monthly_main_default_selected_agreement",
+          "status": "PASS",
+          "description": "Default monthly_main selected agreement must not fall below the Phase P baseline.",
+          "actual": {
+            "pass": 17,
+            "comparable": 27
+          },
+          "threshold": {
+            "minPass": 17,
+            "comparable": 27
+          }
+        },
+        {
+          "id": "composite_selected_non_regression",
+          "status": "PASS",
+          "description": "Composite mode is evidence-only; selected agreement must not regress against monthly_main.",
+          "actual": {
+            "netVsMonthlyMain": 0
+          },
+          "threshold": {
+            "minNetVsMonthlyMain": 0
+          }
+        },
+        {
+          "id": "composite_total_candidate_coverage",
+          "status": "PASS",
+          "description": "Authority label must remain visible in composite candidates for the measured subset.",
+          "actual": {
+            "covered": 23,
+            "comparable": 27
+          },
+          "threshold": {
+            "minCovered": 23,
+            "comparable": 27
+          }
+        },
+        {
+          "id": "composite_source_tier_T3_AUTHORED_INTERPRETATION_candidate_coverage",
+          "status": "PASS",
+          "description": "T3_AUTHORED_INTERPRETATION composite candidate coverage must stay above the authority subset threshold.",
+          "actual": {
+            "covered": 20,
+            "comparable": 21
+          },
+          "threshold": {
+            "minCovered": 20,
+            "comparable": 21
+          }
+        },
+        {
+          "id": "composite_source_tier_T4_PRIMARY_TEXT_candidate_coverage",
+          "status": "PASS",
+          "description": "T4_PRIMARY_TEXT composite candidate coverage must stay above the authority subset threshold.",
+          "actual": {
+            "covered": 3,
+            "comparable": 6
+          },
+          "threshold": {
+            "minCovered": 3,
+            "comparable": 6
+          }
+        },
+        {
+          "id": "composite_source_group_lecture_candidate_coverage",
+          "status": "PASS",
+          "description": "lecture composite candidate coverage must stay above the authority subset threshold.",
+          "actual": {
+            "covered": 14,
+            "comparable": 14
+          },
+          "threshold": {
+            "minCovered": 14,
+            "comparable": 14
+          }
+        },
+        {
+          "id": "composite_source_group_jonheom_candidate_coverage",
+          "status": "PASS",
+          "description": "jonheom composite candidate coverage must stay above the authority subset threshold.",
+          "actual": {
+            "covered": 3,
+            "comparable": 6
+          },
+          "threshold": {
+            "minCovered": 3,
+            "comparable": 6
+          }
+        },
+        {
+          "id": "composite_source_group_korean_modern_figures_and_chumyeongga_candidate_coverage",
+          "status": "PASS",
+          "description": "korean_modern_figures_and_chumyeongga composite candidate coverage must stay above the authority subset threshold.",
+          "actual": {
+            "covered": 6,
+            "comparable": 7
+          },
+          "threshold": {
+            "minCovered": 6,
+            "comparable": 7
+          }
+        }
+      ],
+      "sourceTierDashboard": {
+        "T3_AUTHORED_INTERPRETATION": {
+          "selectedAgreement": {
+            "pass": 16,
+            "comparable": 21,
+            "passRate": 76.2
+          },
+          "candidateCoverage": {
+            "covered": 20,
+            "comparable": 21,
+            "coverageRate": 95.2,
+            "coverageMode": "authority_label_present_in_evidence_candidates"
+          },
+          "nonRegression": {
+            "status": "PASS",
+            "baselineMode": "monthly_main",
+            "basis": "selected agreement only; composite_classical candidates are evidence-only"
+          }
+        },
+        "T4_PRIMARY_TEXT": {
+          "selectedAgreement": {
+            "pass": 1,
+            "comparable": 6,
+            "passRate": 16.7
+          },
+          "candidateCoverage": {
+            "covered": 3,
+            "comparable": 6,
+            "coverageRate": 50,
+            "coverageMode": "authority_label_present_in_evidence_candidates"
+          },
+          "nonRegression": {
+            "status": "PASS",
+            "baselineMode": "monthly_main",
+            "basis": "selected agreement only; composite_classical candidates are evidence-only"
+          }
+        }
+      }
+    }
+  },
+  "namingCandidateDiversityReport": {
+    "metricLimit": "feedback proxy; direct candidate-list diversity is asserted in pareto-candidates.test.ts today",
+    "schoolPresetDiversity": {
+      "presetCount": 6,
+      "fixtureCount": 15,
+      "changedPresetCount": 5,
+      "authorityFixtureCoverage": {
+        "scorableAuthorityFixtures": 0,
+        "nonScorableAuthorityFixtures": 76,
+        "pillarOnlyAuthorityFixtures": 75,
+        "ruleSnippetCollections": 1,
+        "note": "Authority casebooks are source-tiered, but current records are not full naming-score inputs with birth + surname + givenName."
+      },
+      "presets": [
+        {
+          "presetId": "korean",
+          "fixtureCount": 15,
+          "changedFromDefault": 0,
+          "changedRate": 0,
+          "averageTotalDelta": 0,
+          "averageSajuDelta": 0
+        },
+        {
+          "presetId": "chinese",
+          "fixtureCount": 15,
+          "changedFromDefault": 15,
+          "changedRate": 100,
+          "averageTotalDelta": -0.7067,
+          "averageSajuDelta": -2.5933
+        },
+        {
+          "presetId": "modern",
+          "fixtureCount": 15,
+          "changedFromDefault": 14,
+          "changedRate": 93.3333,
+          "averageTotalDelta": -0.1133,
+          "averageSajuDelta": -0.4467
+        },
+        {
+          "presetId": "korean_modern",
+          "fixtureCount": 15,
+          "changedFromDefault": 15,
+          "changedRate": 100,
+          "averageTotalDelta": -0.1667,
+          "averageSajuDelta": -0.6733
+        },
+        {
+          "presetId": "classical_text",
+          "fixtureCount": 15,
+          "changedFromDefault": 15,
+          "changedRate": 100,
+          "averageTotalDelta": -0.8133,
+          "averageSajuDelta": -3.0867
+        },
+        {
+          "presetId": "naming_safe",
+          "fixtureCount": 15,
+          "changedFromDefault": 15,
+          "changedRate": 100,
+          "averageTotalDelta": 0.18,
+          "averageSajuDelta": 0.7067
+        }
+      ]
+    },
+    "rankingStrategyDiversity": {
+      "experimentId": "candidate_ranking_strategy_feedback",
+      "variants": [
+        {
+          "variantId": "score_desc_current",
+          "role": "control",
+          "paretoFrontierCandidates": false,
+          "surfaceNamingScoreVector": false,
+          "yongshinMode": null,
+          "nameElementStrategy": null
+        },
+        {
+          "variantId": "pareto_frontier",
+          "role": "treatment",
+          "paretoFrontierCandidates": true,
+          "surfaceNamingScoreVector": true,
+          "yongshinMode": null,
+          "nameElementStrategy": null
+        },
+        {
+          "variantId": "pareto_conflict_aware_safe",
+          "role": "treatment",
+          "paretoFrontierCandidates": true,
+          "surfaceNamingScoreVector": true,
+          "yongshinMode": "consensus_aware",
+          "nameElementStrategy": "safeFallback"
+        }
+      ],
+      "strategyCount": 3,
+      "winningVariantId": "pareto_conflict_aware_safe",
+      "decision": "blocked_source_tier_gate",
+      "blockedBy": [
+        "source_tier_default_promotion_gate"
+      ],
+      "rows": [
+        {
+          "variantId": "score_desc_current",
+          "role": "control",
+          "exposures": 160,
+          "compositeFeedbackScore": 0.328125,
+          "deltaVsControl": 0,
+          "candidateNameRejectionRate": 0.1375
+        },
+        {
+          "variantId": "pareto_frontier",
+          "role": "treatment",
+          "exposures": 160,
+          "compositeFeedbackScore": 0.421875,
+          "deltaVsControl": 0.09375,
+          "candidateNameRejectionRate": 0.1
+        },
+        {
+          "variantId": "pareto_conflict_aware_safe",
+          "role": "treatment",
+          "exposures": 160,
+          "compositeFeedbackScore": 0.495313,
+          "deltaVsControl": 0.167188,
+          "candidateNameRejectionRate": 0.06875
+        }
+      ]
+    }
+  },
+  "releaseGates": {
+    "qualityGateOverall": "PASS",
+    "sourceTierStatus": "PASS",
+    "sourceTierViolationCount": 0,
+    "defaultPromotionDecision": "keep_current_default",
+    "sourceTierDefaultPromotionGate": "BLOCKED"
+  }
+}
