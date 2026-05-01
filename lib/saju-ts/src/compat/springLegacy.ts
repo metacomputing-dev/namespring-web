@@ -63,6 +63,17 @@ const GYEOKGUK_BASE_SIPSEONG_KEYS = new Set([
   'JEONG_IN', 'PYEON_IN',
   'BI_GYEON', 'GYEOB_JAE',
 ]);
+const COMPOSITE_CLASSICAL_FEATURE_WEIGHTS = {
+  monthMainMatch: 0.30,
+  stemTransparency: 0.18,
+  rootSupport: 0.14,
+  seasonalCommand: 0.12,
+  transformationSupport: 0.10,
+  purityScore: 0.08,
+  usefulGodAlignment: 0.08,
+  sourceTierBoost: 0.05,
+  stabilityAcrossModes: 0.05,
+} as const;
 const JIJI_RELATION_NOTES: Record<string, string> = {
   CHUNG: '지지 충(沖) 관계',
   HAE: '지지 해(害) 관계',
@@ -507,6 +518,159 @@ function gyeokgukCandidateRuleNotes(candidate: any): { supportingRules: string[]
   return { supportingRules, blockingRules };
 }
 
+function compositeStatus(score: number): string {
+  if (score >= 0.6) return 'candidate_evidence';
+  if (score >= 0.35) return 'low_confidence_evidence';
+  return 'trace_only';
+}
+
+function compositeFeature(
+  name: keyof typeof COMPOSITE_CLASSICAL_FEATURE_WEIGHTS,
+  scoreInput: unknown,
+  reason: string,
+): any {
+  const score = clamp01(scoreInput);
+  const weight = COMPOSITE_CLASSICAL_FEATURE_WEIGHTS[name];
+  return {
+    name,
+    score: roundTo(score, 6),
+    weight,
+    contribution: roundTo(score * weight, 6),
+    reason,
+  };
+}
+
+function elementCode(value: unknown): string {
+  return String(value ?? '').trim().toUpperCase();
+}
+
+function compositeTransformSupport(ruleFacts: any, element: string): number {
+  if (!element) return 0;
+  const bestTransform = ruleFacts?.patterns?.transformations?.best;
+  const transformElement = elementCode(bestTransform?.resultElement);
+  const transformFactor = clamp01(
+    bestTransform?.huaqiFactor ??
+    bestTransform?.effectiveFactor ??
+    bestTransform?.factor ??
+    0,
+  );
+
+  const oneElement = ruleFacts?.patterns?.elements?.oneElement;
+  const oneElementCode = elementCode(oneElement?.element);
+  const oneElementFactor = clamp01(oneElement?.zhuanwangFactor ?? oneElement?.factor ?? 0);
+
+  return Math.max(
+    transformElement === element ? transformFactor : 0,
+    oneElementCode === element ? oneElementFactor * 0.5 : 0,
+  );
+}
+
+function buildCompositeClassicalScore(args: {
+  type: string;
+  monthCandidate: any;
+  notes: { supportingRules: string[]; blockingRules: string[] };
+  ruleFacts: any;
+  ranking: any[];
+  yongshinRanking: any[];
+}): any {
+  const { type, monthCandidate, notes, ruleFacts, ranking, yongshinRanking } = args;
+  const monthGyeok = ruleFacts?.month?.gyeok ?? {};
+  const monthCandidates = Array.isArray(monthGyeok?.candidates) ? monthGyeok.candidates : [];
+  const quality = monthGyeok?.quality ?? {};
+  const normalizedElements = ruleFacts?.elements?.normalized ?? {};
+
+  const candidateElement = elementCode(monthCandidate?.element);
+  const monthMainType = normalizeGyeokgukKey(ruleFacts?.month?.mainTenGod);
+  const role = String(monthCandidate?.role ?? '').toUpperCase();
+  const maxWeight = Math.max(1e-9, ...monthCandidates.map((candidate: any) => Number(candidate?.weight ?? 0)));
+  const maxMonthScore = Math.max(1e-9, ...monthCandidates.map((candidate: any) => Number(candidate?.score ?? 0)));
+  const candidateWeight = Number(monthCandidate?.weight ?? 0);
+  const candidateFactScore = Number(monthCandidate?.score ?? 0);
+  const elementShare = clamp01(normalizedElements?.[candidateElement] ?? 0);
+  const rankingScore = clamp01(ranking.find((entry) => normalizeGyeokgukKey(entry?.key) === type)?.score ?? 0);
+  const topYongshinElement = elementCode(yongshinRanking[0]?.element);
+  const secondYongshinElement = elementCode(yongshinRanking[1]?.element);
+  const thirdYongshinElement = elementCode(yongshinRanking[2]?.element);
+
+  const monthMainMatch = type && type === monthMainType ? 1 : 0;
+  const stemTransparency = monthCandidate?.visibleInChart === true ? 1 : 0;
+  const rootSupport = Math.max(
+    clamp01(candidateWeight / maxWeight),
+    elementShare,
+    clamp01(candidateFactScore / maxMonthScore) * 0.75,
+  );
+  const roleCommand = role === 'MAIN' ? 1 : role === 'MIDDLE' ? 0.72 : role === 'RESIDUAL' ? 0.45 : 0;
+  const seasonalCommand = clamp01(0.65 * roleCommand + 0.35 * clamp01(candidateWeight / maxWeight));
+  const transformationSupport = compositeTransformSupport(ruleFacts, candidateElement);
+  const qClarity = clamp01(quality?.clarity ?? 1);
+  const qIntegrity = clamp01(quality?.integrity ?? 1);
+  const qMultiplier = clamp01(quality?.multiplier ?? 1);
+  const purityScore = clamp01((qClarity + qIntegrity + qMultiplier) / 3);
+  const usefulGodAlignment =
+    candidateElement && candidateElement === topYongshinElement
+      ? 1
+      : candidateElement && candidateElement === secondYongshinElement
+        ? 0.6
+        : candidateElement && candidateElement === thirdYongshinElement
+          ? 0.3
+          : 0;
+  const sourceTierBoost = 0;
+  const stabilityAcrossModes = Math.max(
+    rankingScore,
+    monthMainMatch,
+    stemTransparency ? 0.55 : 0,
+  );
+
+  const features = [
+    compositeFeature('monthMainMatch', monthMainMatch, monthMainMatch ? 'matches month main hidden ten-god' : 'not the month main hidden ten-god'),
+    compositeFeature('stemTransparency', stemTransparency, stemTransparency ? 'hidden stem is transparent in chart stems' : 'hidden stem is not transparent'),
+    compositeFeature('rootSupport', rootSupport, `hidden-stem weight ${roundTo(candidateWeight, 3)} and element share ${roundTo(elementShare, 3)}`),
+    compositeFeature('seasonalCommand', seasonalCommand, role ? `month hidden role ${role}` : 'no month hidden role'),
+    compositeFeature('transformationSupport', transformationSupport, transformationSupport > 0 ? 'matches transformation or one-element signal' : 'no matching transformation signal'),
+    compositeFeature('purityScore', purityScore, `quality clarity ${roundTo(qClarity, 3)}, integrity ${roundTo(qIntegrity, 3)}`),
+    compositeFeature('usefulGodAlignment', usefulGodAlignment, usefulGodAlignment > 0 ? 'candidate element aligns with yongshin ranking' : 'candidate element does not align with yongshin ranking'),
+    compositeFeature('sourceTierBoost', sourceTierBoost, 'engine-derived T2 evidence gets no authority boost'),
+    compositeFeature('stabilityAcrossModes', stabilityAcrossModes, `default ranking score ${roundTo(rankingScore, 3)}`),
+  ];
+
+  const topScoreGap = clamp01(quality?.details?.gap ?? 0);
+  const damagePenalty = clamp01(Number(quality?.damage ?? 0) / 3) * 0.12;
+  const brokenPenalty = quality?.broken === true ? 0.12 : 0;
+  const mixedPenalty = quality?.mixed === true ? 0.07 : 0;
+  const ambiguityPenalty = (1 - topScoreGap) * 0.05;
+  const blockingPenalty = notes.blockingRules.length > 0 ? 0.05 : 0;
+  const closeCompetitors = monthCandidates.filter((candidate: any) => {
+    const otherType = normalizeGyeokgukKey(candidate?.tenGod);
+    if (!otherType || otherType === type) return false;
+    return Math.abs(Number(candidate?.score ?? 0) - candidateFactScore) <= 0.08;
+  }).length;
+  const conflictPenalty = Math.min(0.06, closeCompetitors * 0.03);
+  const breakerPenalty = roundTo(
+    damagePenalty + brokenPenalty + mixedPenalty + ambiguityPenalty + blockingPenalty + conflictPenalty,
+    6,
+  );
+  const rawScore = features.reduce((sum, feature) => sum + Number(feature.contribution ?? 0), 0);
+  const score = roundTo(clamp01(rawScore - breakerPenalty), 6);
+
+  return {
+    model: 'composite_classical',
+    score,
+    confidence: score,
+    status: compositeStatus(score),
+    selectionPolicy: 'evidence_only_never_promote',
+    selectedByComposite: false,
+    breakerPenalty,
+    features,
+    basisRules: [
+      'month_hidden_stem_candidates',
+      'stem_transparency',
+      'month_gyeok_quality',
+      'transformation_and_one_element_signals',
+      'yongshin_element_alignment',
+    ],
+  };
+}
+
 function buildGyeokgukCandidates(bundle: AnalysisBundle, bestKeyCore: string, bestScore: number): any[] {
   const facts = bundle.report?.facts as Record<string, unknown> | undefined;
   const ruleFacts = facts?.['rules.facts'] as any;
@@ -539,6 +703,16 @@ function buildGyeokgukCandidates(bundle: AnalysisBundle, bestKeyCore: string, be
     const score = Number(scoreInput);
     const finalScore = Number.isFinite(score) ? score : 0;
     const notes = gyeokgukCandidateRuleNotes(monthCandidate);
+    const compositeClassical = buildCompositeClassicalScore({
+      type,
+      monthCandidate,
+      notes,
+      ruleFacts,
+      ranking,
+      yongshinRanking: Array.isArray((bundle.summary?.yongshin as any)?.ranking)
+        ? (bundle.summary?.yongshin as any).ranking
+        : [],
+    });
     candidates.push({
       type,
       category: gyeokgukCategoryCode(type),
@@ -547,6 +721,7 @@ function buildGyeokgukCandidates(bundle: AnalysisBundle, bestKeyCore: string, be
       confidence: clamp01(finalScore),
       supportingRules: notes.supportingRules,
       blockingRules: notes.blockingRules,
+      compositeClassical,
       sourceTier: GYEOKGUK_CANDIDATE_SOURCE_TIER,
     });
   };

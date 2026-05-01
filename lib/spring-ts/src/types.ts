@@ -604,7 +604,39 @@ export interface GyeokgukCandidateSummary {
   readonly confidence: number;
   readonly supportingRules: readonly string[];
   readonly blockingRules: readonly string[];
+  readonly compositeClassical?: GyeokgukCompositeClassicalScore;
   readonly sourceTier: SourceTierMetadata;
+}
+
+/** Evidence-only composite-classical score for a gyeokguk candidate. */
+export interface GyeokgukCompositeClassicalScore {
+  readonly model: 'composite_classical';
+  readonly score: number;
+  readonly confidence: number;
+  readonly status: 'candidate_evidence' | 'low_confidence_evidence' | 'trace_only';
+  readonly selectionPolicy: 'evidence_only_never_promote';
+  readonly selectedByComposite: false;
+  readonly breakerPenalty: number;
+  readonly features: readonly GyeokgukCompositeClassicalFeatureScore[];
+  readonly basisRules: readonly string[];
+}
+
+/** One weighted input to the composite-classical candidate score. */
+export interface GyeokgukCompositeClassicalFeatureScore {
+  readonly name:
+    | 'monthMainMatch'
+    | 'stemTransparency'
+    | 'rootSupport'
+    | 'seasonalCommand'
+    | 'transformationSupport'
+    | 'purityScore'
+    | 'usefulGodAlignment'
+    | 'sourceTierBoost'
+    | 'stabilityAcrossModes';
+  readonly score: number;
+  readonly weight: number;
+  readonly contribution: number;
+  readonly reason: string;
 }
 
 /** A relationship between two heavenly stems (cheongan). */
