@@ -1,10 +1,10 @@
 {
   "schemaVersion": "spring-ts.source-tier-summary.v1",
   "status": "PASS",
-  "scanned": 86,
+  "scanned": 97,
   "violationCount": 0,
   "authorityTruthEligibleCount": 55,
-  "nonEligibleCount": 31,
+  "nonEligibleCount": 32,
   "byTier": {
     "T3_AUTHORED_INTERPRETATION": {
       "recordCount": 31,
@@ -45,11 +45,12 @@
       ]
     },
     "T4_PRIMARY_TEXT": {
-      "recordCount": 11,
+      "recordCount": 12,
       "authorityTruthEligible": 9,
-      "nonEligible": 2,
+      "nonEligible": 3,
       "files": [
         "test/baseline/authority/classical/myeongri_jonheom_pillars.json",
+        "test/baseline/authority/classical/public_text_rule_snippets.json",
         "test/baseline/authority/jonheom/05_瞿鸿玑.json",
         "test/baseline/authority/jonheom/07_钱能训.json",
         "test/baseline/authority/jonheom/10_伍廷芳.json",
@@ -135,6 +136,11 @@
       "nonEligible": 0
     },
     "classical_primary_text_pillars_only": {
+      "recordCount": 1,
+      "authorityTruthEligible": 0,
+      "nonEligible": 1
+    },
+    "classical_public_rule_snippet_fixture": {
       "recordCount": 1,
       "authorityTruthEligible": 0,
       "nonEligible": 1
