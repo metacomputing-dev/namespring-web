@@ -71,6 +71,15 @@ const modes = bySourceTier.ruleModeBreakdown?.modes ?? {};
 check('monthly_main rule mode is present', !!modes.monthly_main);
 check('jungki_transparent rule mode is present', !!modes.jungki_transparent);
 check('composite_classical rule mode is present', !!modes.composite_classical);
+check('rule modes expose total win/loss vs monthly_main',
+  typeof modes.jungki_transparent?.winLossVsMonthlyMain?.wins === 'number' &&
+    typeof modes.jungki_transparent?.winLossVsMonthlyMain?.losses === 'number',
+  JSON.stringify(modes.jungki_transparent?.winLossVsMonthlyMain));
+check('rule modes expose source-tier win/loss vs monthly_main',
+  Object.values(modes.jungki_transparent?.bySourceTier ?? {}).every((bucket: any) =>
+    typeof bucket?.winLossVsMonthlyMain?.wins === 'number' &&
+    typeof bucket?.winLossVsMonthlyMain?.losses === 'number'),
+  JSON.stringify(modes.jungki_transparent?.bySourceTier));
 
 const presets = bySourceTier.schoolPresetBreakdown?.presets ?? {};
 check('korean schoolPreset breakdown is present', presets.korean?.fixtureCount === 15);

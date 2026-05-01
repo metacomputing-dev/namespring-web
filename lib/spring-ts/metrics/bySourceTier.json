@@ -116,6 +116,14 @@
         "passOrPartialRate": 70.4,
         "phasePSourceRow": "monthly_main",
         "measurementStatus": "MEASURED",
+        "winLossVsMonthlyMain": {
+          "wins": 0,
+          "losses": 0,
+          "net": 0,
+          "passDelta": 0,
+          "passRateDelta": 0,
+          "baselineMode": "monthly_main"
+        },
         "bySourceTier": {
           "T3_AUTHORED_INTERPRETATION": {
             "total": 21,
@@ -126,7 +134,15 @@
             "comparable": 21,
             "passRate": 76.2,
             "computedPassRate": 76.2,
-            "passOrPartialRate": 76.2
+            "passOrPartialRate": 76.2,
+            "winLossVsMonthlyMain": {
+              "wins": 0,
+              "losses": 0,
+              "net": 0,
+              "passDelta": 0,
+              "passRateDelta": 0,
+              "baselineMode": "monthly_main"
+            }
           },
           "T4_PRIMARY_TEXT": {
             "total": 6,
@@ -137,7 +153,15 @@
             "comparable": 6,
             "passRate": 16.7,
             "computedPassRate": 16.7,
-            "passOrPartialRate": 16.7
+            "passOrPartialRate": 16.7,
+            "winLossVsMonthlyMain": {
+              "wins": 0,
+              "losses": 0,
+              "net": 0,
+              "passDelta": 0,
+              "passRateDelta": 0,
+              "baselineMode": "monthly_main"
+            }
           }
         },
         "bySourceGroup": {
@@ -150,7 +174,15 @@
             "comparable": 14,
             "passRate": 100,
             "computedPassRate": 100,
-            "passOrPartialRate": 100
+            "passOrPartialRate": 100,
+            "winLossVsMonthlyMain": {
+              "wins": 0,
+              "losses": 0,
+              "net": 0,
+              "passDelta": 0,
+              "passRateDelta": 0,
+              "baselineMode": "monthly_main"
+            }
           },
           "jonheom": {
             "total": 6,
@@ -161,7 +193,15 @@
             "comparable": 6,
             "passRate": 17,
             "computedPassRate": 16.7,
-            "passOrPartialRate": 17
+            "passOrPartialRate": 17,
+            "winLossVsMonthlyMain": {
+              "wins": 0,
+              "losses": 0,
+              "net": 0,
+              "passDelta": 0,
+              "passRateDelta": 0,
+              "baselineMode": "monthly_main"
+            }
           },
           "korean_modern_figures_and_chumyeongga": {
             "total": 7,
@@ -172,7 +212,15 @@
             "comparable": 7,
             "passRate": 57,
             "computedPassRate": 28.6,
-            "passOrPartialRate": 57
+            "passOrPartialRate": 57,
+            "winLossVsMonthlyMain": {
+              "wins": 0,
+              "losses": 0,
+              "net": 0,
+              "passDelta": 0,
+              "passRateDelta": 0,
+              "baselineMode": "monthly_main"
+            }
           }
         }
       },
@@ -188,6 +236,14 @@
         "passOrPartialRate": 59.3,
         "phasePSourceRow": "jungki_transparent",
         "measurementStatus": "MEASURED",
+        "winLossVsMonthlyMain": {
+          "wins": 0,
+          "losses": 3,
+          "net": -3,
+          "passDelta": -3,
+          "passRateDelta": -11.1,
+          "baselineMode": "monthly_main"
+        },
         "bySourceTier": {
           "T3_AUTHORED_INTERPRETATION": {
             "total": 21,
@@ -198,7 +254,15 @@
             "comparable": 21,
             "passRate": 61.9,
             "computedPassRate": 61.9,
-            "passOrPartialRate": 61.9
+            "passOrPartialRate": 61.9,
+            "winLossVsMonthlyMain": {
+              "wins": 0,
+              "losses": 3,
+              "net": -3,
+              "passDelta": -3,
+              "passRateDelta": -14.3,
+              "baselineMode": "monthly_main"
+            }
           },
           "T4_PRIMARY_TEXT": {
             "total": 6,
@@ -209,7 +273,15 @@
             "comparable": 6,
             "passRate": 16.7,
             "computedPassRate": 16.7,
-            "passOrPartialRate": 16.7
+            "passOrPartialRate": 16.7,
+            "winLossVsMonthlyMain": {
+              "wins": 0,
+              "losses": 0,
+              "net": 0,
+              "passDelta": 0,
+              "passRateDelta": 0,
+              "baselineMode": "monthly_main"
+            }
           }
         },
         "bySourceGroup": {
@@ -222,7 +294,15 @@
             "comparable": 14,
             "passRate": 71,
             "computedPassRate": 71.4,
-            "passOrPartialRate": 71
+            "passOrPartialRate": 71,
+            "winLossVsMonthlyMain": {
+              "wins": 0,
+              "losses": 4,
+              "net": -4,
+              "passDelta": -4,
+              "passRateDelta": -28.6,
+              "baselineMode": "monthly_main"
+            }
           },
           "jonheom": {
             "total": 6,
@@ -233,7 +313,15 @@
             "comparable": 6,
             "passRate": 17,
             "computedPassRate": 16.7,
-            "passOrPartialRate": 17
+            "passOrPartialRate": 17,
+            "winLossVsMonthlyMain": {
+              "wins": 0,
+              "losses": 0,
+              "net": 0,
+              "passDelta": 0,
+              "passRateDelta": 0,
+              "baselineMode": "monthly_main"
+            }
           },
           "korean_modern_figures_and_chumyeongga": {
             "total": 7,
@@ -244,7 +332,15 @@
             "comparable": 7,
             "passRate": 71,
             "computedPassRate": 42.9,
-            "passOrPartialRate": 71
+            "passOrPartialRate": 71,
+            "winLossVsMonthlyMain": {
+              "wins": 1,
+              "losses": 0,
+              "net": 1,
+              "passDelta": 1,
+              "passRateDelta": 14.3,
+              "baselineMode": "monthly_main"
+            }
           }
         }
       },
@@ -260,6 +356,14 @@
         "passOrPartialRate": 55.6,
         "phasePSourceRow": "full_transparent",
         "measurementStatus": "PROXY_FULL_TRANSPARENT",
+        "winLossVsMonthlyMain": {
+          "wins": 0,
+          "losses": 4,
+          "net": -4,
+          "passDelta": -4,
+          "passRateDelta": -14.8,
+          "baselineMode": "monthly_main"
+        },
         "bySourceTier": {
           "T3_AUTHORED_INTERPRETATION": {
             "total": 21,
@@ -270,7 +374,15 @@
             "comparable": 21,
             "passRate": 57.1,
             "computedPassRate": 57.1,
-            "passOrPartialRate": 57.1
+            "passOrPartialRate": 57.1,
+            "winLossVsMonthlyMain": {
+              "wins": 0,
+              "losses": 4,
+              "net": -4,
+              "passDelta": -4,
+              "passRateDelta": -19,
+              "baselineMode": "monthly_main"
+            }
           },
           "T4_PRIMARY_TEXT": {
             "total": 6,
@@ -281,7 +393,15 @@
             "comparable": 6,
             "passRate": 16.7,
             "computedPassRate": 16.7,
-            "passOrPartialRate": 16.7
+            "passOrPartialRate": 16.7,
+            "winLossVsMonthlyMain": {
+              "wins": 0,
+              "losses": 0,
+              "net": 0,
+              "passDelta": 0,
+              "passRateDelta": 0,
+              "baselineMode": "monthly_main"
+            }
           }
         },
         "bySourceGroup": {
@@ -294,7 +414,15 @@
             "comparable": 14,
             "passRate": 64,
             "computedPassRate": 64.3,
-            "passOrPartialRate": 64
+            "passOrPartialRate": 64,
+            "winLossVsMonthlyMain": {
+              "wins": 0,
+              "losses": 5,
+              "net": -5,
+              "passDelta": -5,
+              "passRateDelta": -35.7,
+              "baselineMode": "monthly_main"
+            }
           },
           "jonheom": {
             "total": 6,
@@ -305,7 +433,15 @@
             "comparable": 6,
             "passRate": 17,
             "computedPassRate": 16.7,
-            "passOrPartialRate": 17
+            "passOrPartialRate": 17,
+            "winLossVsMonthlyMain": {
+              "wins": 0,
+              "losses": 0,
+              "net": 0,
+              "passDelta": 0,
+              "passRateDelta": 0,
+              "baselineMode": "monthly_main"
+            }
           },
           "korean_modern_figures_and_chumyeongga": {
             "total": 7,
@@ -316,7 +452,15 @@
             "comparable": 7,
             "passRate": 71,
             "computedPassRate": 42.9,
-            "passOrPartialRate": 71
+            "passOrPartialRate": 71,
+            "winLossVsMonthlyMain": {
+              "wins": 1,
+              "losses": 0,
+              "net": 1,
+              "passDelta": 1,
+              "passRateDelta": 14.3,
+              "baselineMode": "monthly_main"
+            }
           }
         }
       }
