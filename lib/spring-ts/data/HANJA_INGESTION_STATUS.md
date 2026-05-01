@@ -40,7 +40,7 @@ Opt-in to full 9,495 list:
 
 ```ts
 const r = getLegalAnnotation(entry, { pool: 'inmyeongyong_full' });
-// r.legalRegistrable: boolean  (definitive yes/no for all 9,495 list members)
+// r.legalRegistrable: boolean  (local mirror yes/no; +106 delta remains non-authority)
 ```
 
 Strict registrability filter:
@@ -60,7 +60,11 @@ isHanjaUsableForLegalName(entry, {
    keeps those entries non-authority until T5-confirmed. Exact character-level
    official diff extraction remains pending.
 3. **2,541 empty dic entries** (27%) — supplementary 의미 source needed (Unihan kKorean cross-reference).
-4. **Candidate generator wiring** — `precisionConfig.hanjaPool` is now consumed by hanja-annotations.ts; the spring-engine candidate generator path that threads it through is a follow-up (low priority — annotation API surface is sufficient for downstream filters).
+4. **Candidate generator wiring** — PR-2.2 wires
+   `precisionConfig.hanjaPool='inmyeongyong_full'` into recommendation
+   generation. Remaining enrichment risk: generated full-pool entries use
+   reading-derived jamo and stroke-derived scoring elements until PR-2.3 adds
+   authoritative radical/Unihan metadata.
 
 ## Verification commands
 
@@ -68,6 +72,8 @@ isHanjaUsableForLegalName(entry, {
 node tools/inspect_delvier_db.mjs           # re-inspect db (PR-P-5)
 node tools/generate_inmyeongyong_full.mjs   # regenerate full json (PR-P-6)
 npm run test:hanja                          # 17 PASS / 0 FAIL
+npm run test:legal-hanja                    # legal reconciliation regressions
+npm run test:hanja-pool                     # full-pool generator wiring
 npm run test:snapshot                       # 12/12 PASS (no behavioral regression)
 ```
 
