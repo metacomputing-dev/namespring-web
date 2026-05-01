@@ -206,7 +206,12 @@ export class SpringEngine {
     const pc = options?.precisionConfig ?? {};
 
     const hints: { -readonly [K in keyof SajuEvaluatorHints]?: SajuEvaluatorHints[K] } = {};
-    if (pc.sajuPriorityCurve === 'tanh') {
+    // PR-Q-9 (Phase M-D3): sajuPriorityCurve default flips 'linear' → 'tanh'.
+    // Smoothing the cliff at priority=0/1 reduces over-rotation when a single
+    // saju signal sits near the threshold. Callers can opt out with
+    // explicit `'linear'`.
+    const curveMode: 'linear' | 'tanh' = pc.sajuPriorityCurve ?? 'tanh';
+    if (curveMode === 'tanh') {
       hints.sajuPriorityCurve = 'tanh';
     }
     // PR-Q-8 (Phase M-D2): unknownHourGuard default flips false → true.
