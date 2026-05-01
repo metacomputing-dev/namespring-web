@@ -160,13 +160,19 @@ export interface PrecisionConfig {
    *  Different naming schools assign different elements to certain
    *  consonants and vowels. spring-info/05_naming_specific/01_pure_hangul_mode.md
    *  documents the citations.
+   *  - 'auto' (PR-Q-22 K-4): schoolPreset 기반 자동 라우팅 (korean →
+   *    classic_phonetic, chinese → classic_phonetic + signal cap, modern →
+   *    modern_korean). 명시적 schema 가 unset 일 때 schoolPreset 으로 결정.
    *  - 'classic_phonetic' (default): 훈민정음 해례식
    *  - 'modern_korean': 한국 작명원 표준 (ㅣ→Yang, ㅡ→Yin)
    *  - 'expanded': 권위 자료 절충 변형
    *  Today this flag is declared but the existing hangul-element module
-   *  uses a single hard-coded schema; per-schema routing lands in a
-   *  follow-up PR alongside the test fixtures that exercise each variant. */
-  readonly pureHangulSchema?: 'classic_phonetic' | 'modern_korean' | 'expanded';
+   *  uses a single hard-coded schema; per-schema element-mapping routing
+   *  lands in a future PR (spring-info/09_finalization/05_pure_hangul_schema_wireup.md).
+   *  The 'auto' option (PR-Q-22) routes the schema selection by schoolPreset
+   *  but still uses the underlying single-schema mapping until the full
+   *  wire-up lands. */
+  readonly pureHangulSchema?: 'auto' | 'classic_phonetic' | 'modern_korean' | 'expanded';
 
   /** Surface palace (12궁) information on `SajuOutputSummary` when `true`.
    *  Off by default — consumers must opt-in.
