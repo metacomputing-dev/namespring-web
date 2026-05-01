@@ -1,0 +1,700 @@
+﻿/**
+ * scripts/compute-rpi.ts
+ *
+ * Generates the Phase 0 baseline dashboard artifacts without changing the
+ * quality gate contract:
+ *
+ *   metrics/bySourceTier.json
+ *   metrics/source-tier-summary.json
+ *   metrics/rpi-summary.json
+ *
+ * Usage:
+ *   npx tsx scripts/compute-rpi.ts
+ *   npx tsx scripts/compute-rpi.ts --out-dir /tmp/spring-ts-metrics
+ */
+import fs from 'node:fs';
+import path from 'node:path';
+import { spawnSync } from 'node:child_process';
+import { fileURLToPath } from 'node:url';
+
+import { SpringEngine } from '../src/index.js';
+
+const __dirname = path.dirname(fileURLToPath(import.meta.url));
+const SPRING_TS_ROOT = path.resolve(__dirname, '..');
+const NAMESPRING_DATA = path.resolve(SPRING_TS_ROOT, '../../namespring/public/data');
+const WASM_PATH = path.resolve(SPRING_TS_ROOT, 'node_modules/sql.js/dist/sql-wasm.wasm');
+
+const FIXTURES_PATH = path.resolve(SPRING_TS_ROOT, 'test/fixtures/spring_ts_baseline_cases.json');
+const JONGGYEOK_FIXTURES_PATH = path.resolve(SPRING_TS_ROOT, 'test/fixtures/jonggyeok_cases.json');
+const SNAPSHOT_PATH = path.resolve(SPRING_TS_ROOT, 'test/baseline/spring_ts_snapshot.json');
+const PHASE_P_RESULTS_PATH = path.resolve(SPRING_TS_ROOT, 'test/baseline/PHASE_P_RESULTS.md');
+const AUTHORITY_DIR = path.resolve(SPRING_TS_ROOT, 'test/baseline/authority');
+const ORACLES_DIR = path.resolve(SPRING_TS_ROOT, 'test/baseline/oracles');
+const QUALITY_GATE = path.resolve(SPRING_TS_ROOT, 'tools/quality_gate.mjs');
+
+const TIER_NO_REFERENCE = 'NO_REFERENCE';
+const MIN_AUTHORITY_TRUTH_TIER = 3;
+
+type Status = 'PASS' | 'FAIL' | 'N/A';
+type SchoolPresetName = 'korean' | 'chinese' | 'modern';
+
+interface SourceTier {
+  tier?: string;
+  sourceType?: string | null;
+  sourceUrl?: string | null;
+  accessedAt?: string | null;
+  quoteShort?: string | null;
+  humanInterpretation?: string | null;
+  copyrightNote?: string | null;
+  authorityTruthEligible?: boolean;
+}
+
+interface BaselineFixture {
+  id: string;
+  label: string;
+  axis?: string[];
+  birth: {
+    year: number;
+    month: number;
+    day: number;
+    hour: number | null;
+    minute: number;
+    gender: 'male' | 'female' | 'neutral';
+  };
+  surname: Array<{ hangul: string; hanja?: string }>;
+  givenName: Array<{ hangul: string; hanja?: string }>;
+}
+
+interface QualityGateFixture {
+  fixtureId: string;
+  label: string;
+  status: Status;
+  dimensions: Record<string, { status: Status; reason?: string; failedCount?: number; totalChecks?: number }>;
+  measuredCount?: number;
+  failedCount?: number;
+}
+
+interface QualityGateReport {
+  overall: Status;
+  sourceTierAudit: {
+    status: 'PASS' | 'FAIL';
+    scanned: number;
+    violations: unknown[];
+  };
+  totals: { pass: number; fail: number; na: number; total: number };
+  dimensions: Record<string, { pass: number; fail: number; na: number; status: Status }>;
+  fixtures: QualityGateFixture[];
+  generatedAt?: string;
+  qualityGateExitCode?: number;
+}
+
+interface SourceTierRecord {
+  file: string;
+  tier: string;
+  tierRank: number | null;
+  sourceType: string;
+  authorityTruthEligible: boolean;
+}
+
+interface ReferenceProfile {
+  tier: string;
+  tierRank: number | null;
+  sourceType: string;
+  authorityTruthEligible: boolean;
+  referenceKind: 'authority' | 'oracle' | 'none';
+  truthBucket: 'authority_truth' | 'insufficient_source_truth';
+  reason: string;
+}
+
+
+function parseArgs(argv: string[]): { outDir: string; json: boolean } {
+  const args = {
+    outDir: path.resolve(SPRING_TS_ROOT, 'metrics'),
+    json: false,
+  };
+  for (let i = 2; i < argv.length; i += 1) {
+    if (argv[i] === '--out-dir' && argv[i + 1]) {
+      args.outDir = path.resolve(argv[i + 1]);
+      i += 1;
+    } else if (argv[i] === '--json') {
+      args.json = true;
+    }
+  }
+  return args;
+}
+
+function readJson<T = any>(filePath: string): T {
+  return JSON.parse(fs.readFileSync(filePath, 'utf-8')) as T;
+}
+
+function writeJson(filePath: string, data: unknown): void {
+  fs.mkdirSync(path.dirname(filePath), { recursive: true });
+  fs.writeFileSync(filePath, JSON.stringify(data, null, 2) + '\n', 'utf-8');
+}
+
+function toRel(filePath: string): string {
+  return path.relative(SPRING_TS_ROOT, filePath).replaceAll(path.sep, '/');
+}
+
+function walkJsonFiles(dir: string): string[] {
+  if (!fs.existsSync(dir)) return [];
+  const out: string[] = [];
+  for (const entry of fs.readdirSync(dir, { withFileTypes: true })) {
+    const fullPath = path.join(dir, entry.name);
+    if (entry.isDirectory()) out.push(...walkJsonFiles(fullPath));
+    else if (entry.isFile() && entry.name.endsWith('.json')) out.push(fullPath);
+  }
+  return out.sort();
+}
+
+function parseTierRank(sourceTier: SourceTier | null | undefined): number | null {
+  const tier = sourceTier?.tier;
+  if (typeof tier !== 'string') return null;
+  const match = tier.match(/^T([0-5])_/);
+  return match ? Number(match[1]) : null;
+}
+
+function sourceTierRecord(filePath: string, sourceTier: SourceTier | null | undefined): SourceTierRecord {
+  return {
+    file: toRel(filePath),
+    tier: sourceTier?.tier ?? 'MISSING_SOURCE_TIER',
+    tierRank: parseTierRank(sourceTier),
+    sourceType: sourceTier?.sourceType ?? 'unknown',
+    authorityTruthEligible: sourceTier?.authorityTruthEligible === true,
+  };
+}
+
+function increment(bucket: Record<string, number>, key: string, n = 1): void {
+  bucket[key] = (bucket[key] ?? 0) + n;
+}
+
+function emptyStatusCounts(): Record<Status, number> {
+  return { PASS: 0, FAIL: 0, 'N/A': 0 };
+}
+
+function scanSourceTiers(): { records: SourceTierRecord[]; byTier: Record<string, any>; bySourceType: Record<string, any> } {
+  const files = [
+    ...walkJsonFiles(AUTHORITY_DIR),
+    ...walkJsonFiles(ORACLES_DIR),
+  ];
+  if (fs.existsSync(JONGGYEOK_FIXTURES_PATH)) files.push(JONGGYEOK_FIXTURES_PATH);
+
+  const records = files.map((filePath) => {
+    const data = readJson(filePath);
+    return sourceTierRecord(filePath, data.sourceTier);
+  });
+
+  const byTier: Record<string, any> = {};
+  const bySourceType: Record<string, any> = {};
+  for (const record of records) {
+    const tierBucket = byTier[record.tier] ?? {
+      recordCount: 0,
+      authorityTruthEligible: 0,
+      nonEligible: 0,
+      files: [],
+    };
+    tierBucket.recordCount += 1;
+    if (record.authorityTruthEligible) tierBucket.authorityTruthEligible += 1;
+    else tierBucket.nonEligible += 1;
+    tierBucket.files.push(record.file);
+    byTier[record.tier] = tierBucket;
+
+    const typeBucket = bySourceType[record.sourceType] ?? {
+      recordCount: 0,
+      authorityTruthEligible: 0,
+      nonEligible: 0,
+    };
+    typeBucket.recordCount += 1;
+    if (record.authorityTruthEligible) typeBucket.authorityTruthEligible += 1;
+    else typeBucket.nonEligible += 1;
+    bySourceType[record.sourceType] = typeBucket;
+  }
+
+  return { records, byTier, bySourceType };
+}
+
+function runQualityGate(): QualityGateReport {
+  const result = spawnSync(process.execPath, [QUALITY_GATE, '--json'], {
+    cwd: SPRING_TS_ROOT,
+    encoding: 'utf-8',
+  });
+  if (!result.stdout) {
+    throw new Error(`quality_gate.mjs produced no JSON. stderr=${result.stderr}`);
+  }
+  const report = JSON.parse(result.stdout) as QualityGateReport;
+  report.qualityGateExitCode = result.status ?? 0;
+  return report;
+}
+
+function loadBaselineFixtures(): BaselineFixture[] {
+  return readJson<{ fixtures: BaselineFixture[] }>(FIXTURES_PATH).fixtures;
+}
+
+function loadDirectAuthority(fixtureId: string): any | null {
+  const filePath = path.join(AUTHORITY_DIR, `${fixtureId}.json`);
+  if (!fs.existsSync(filePath)) return null;
+  return readJson(filePath);
+}
+
+function loadOracle(fixtureId: string): any | null {
+  const filePath = path.join(ORACLES_DIR, `${fixtureId}.json`);
+  if (!fs.existsSync(filePath)) return null;
+  return readJson(filePath);
+}
+
+function referenceProfileForFixture(fixtureId: string): ReferenceProfile {
+  const authority = loadDirectAuthority(fixtureId);
+  if (authority?.sourceTier) {
+    const tierRank = parseTierRank(authority.sourceTier);
+    const eligible = authority.sourceTier.authorityTruthEligible === true &&
+      tierRank !== null &&
+      tierRank >= MIN_AUTHORITY_TRUTH_TIER;
+    return {
+      tier: authority.sourceTier.tier,
+      tierRank,
+      sourceType: authority.sourceTier.sourceType ?? 'unknown',
+      authorityTruthEligible: eligible,
+      referenceKind: 'authority',
+      truthBucket: eligible ? 'authority_truth' : 'insufficient_source_truth',
+      reason: eligible ? 'eligible authority reference' : 'authority record is not eligible as truth',
+    };
+  }
+
+  const oracle = loadOracle(fixtureId);
+  if (oracle?.sourceTier) {
+    const tierRank = parseTierRank(oracle.sourceTier);
+    const eligible = oracle.sourceTier.authorityTruthEligible === true &&
+      tierRank !== null &&
+      tierRank >= MIN_AUTHORITY_TRUTH_TIER;
+    return {
+      tier: oracle.sourceTier.tier,
+      tierRank,
+      sourceType: oracle.sourceTier.sourceType ?? 'unknown',
+      authorityTruthEligible: eligible,
+      referenceKind: 'oracle',
+      truthBucket: eligible ? 'authority_truth' : 'insufficient_source_truth',
+      reason: eligible ? 'oracle promoted to eligible authority truth' : 'reference implementation is comparison-only',
+    };
+  }
+
+  return {
+    tier: TIER_NO_REFERENCE,
+    tierRank: null,
+    sourceType: 'none',
+    authorityTruthEligible: false,
+    referenceKind: 'none',
+    truthBucket: 'insufficient_source_truth',
+    reason: 'no authority or oracle record linked to this fixture',
+  };
+}
+
+function buildQualityByReferenceTier(gate: QualityGateReport): Record<string, any> {
+  const byTier: Record<string, any> = {};
+  for (const fixture of gate.fixtures) {
+    const profile = referenceProfileForFixture(fixture.fixtureId);
+    const bucket = byTier[profile.tier] ?? {
+      fixtureCount: 0,
+      fixtureStatus: emptyStatusCounts(),
+      dimensionStatus: {},
+      truthBuckets: {
+        insufficient_source_truth: 0,
+        authority_match: 0,
+        engine_rule_failure: 0,
+      },
+      references: {},
+    };
+
+    bucket.fixtureCount += 1;
+    bucket.fixtureStatus[fixture.status] += 1;
+    increment(bucket.references, profile.referenceKind);
+
+    const d1 = fixture.dimensions?.D1;
+    if (d1?.status === 'FAIL' && profile.authorityTruthEligible) {
+      bucket.truthBuckets.engine_rule_failure += 1;
+    } else if (d1?.status === 'PASS' && profile.authorityTruthEligible) {
+      bucket.truthBuckets.authority_match += 1;
+    } else {
+      bucket.truthBuckets.insufficient_source_truth += 1;
+    }
+
+    for (const [dimension, result] of Object.entries(fixture.dimensions ?? {})) {
+      const dimBucket = bucket.dimensionStatus[dimension] ?? emptyStatusCounts();
+      dimBucket[result.status] += 1;
+      bucket.dimensionStatus[dimension] = dimBucket;
+    }
+
+    byTier[profile.tier] = bucket;
+  }
+  return byTier;
+}
+
+function buildRuleModeBreakdown(): any {
+  const phaseP = fs.readFileSync(PHASE_P_RESULTS_PATH, 'utf-8');
+  const sourceKeys = ['lecture', 'jonheom', 'korean_modern'] as const;
+  const sourceTierByKey: Record<typeof sourceKeys[number], string> = {
+    lecture: 'T3_AUTHORED_INTERPRETATION',
+    jonheom: 'T4_PRIMARY_TEXT',
+    korean_modern: 'T3_AUTHORED_INTERPRETATION',
+  };
+  const sourceLabels: Record<typeof sourceKeys[number], string> = {
+    lecture: 'lecture',
+    jonheom: 'jonheom',
+    korean_modern: 'korean_modern_figures_and_chumyeongga',
+  };
+  const phasePRows: Record<string, string> = {
+    monthly_main: 'monthly_main',
+    jungki_transparent: 'jungki_transparent',
+    composite_classical: 'full_transparent',
+  };
+
+  function parsePhasePRow(rowName: string): Array<{ pass: number; comparable: number; statedPercent: number }> {
+    const line = phaseP.split(/\r?\n/).find((l) => l.trim().startsWith(rowName));
+    if (!line) throw new Error(`Cannot find ${rowName} in ${PHASE_P_RESULTS_PATH}`);
+    const matches = [...line.matchAll(/(\d+)\s*\/\s*(\d+)\s*\((\d+(?:\.\d+)?)%\)/g)];
+    if (matches.length !== 4) throw new Error(`Cannot parse ${rowName} table row in ${PHASE_P_RESULTS_PATH}`);
+    return matches.map((m) => ({
+      pass: Number(m[1]),
+      comparable: Number(m[2]),
+      statedPercent: Number(m[3]),
+    }));
+  }
+
+  function summaryFrom(pass: number, comparable: number, statedPercent?: number, extra: Record<string, any> = {}): any {
+    const diff = comparable - pass;
+    const computedPassRate = comparable > 0 ? Number(((pass / comparable) * 100).toFixed(1)) : null;
+    const passRate = statedPercent ?? computedPassRate;
+    return {
+      total: comparable,
+      pass,
+      partial: 0,
+      diff,
+      na: 0,
+      comparable,
+      passRate,
+      computedPassRate,
+      passOrPartialRate: passRate,
+      ...extra,
+    };
+  }
+
+  const modes: Record<string, any> = {};
+  for (const [mode, phasePRow] of Object.entries(phasePRows)) {
+    const cells = parsePhasePRow(phasePRow);
+    const bySourceGroup: Record<string, any> = {};
+    const bySourceTier: Record<string, { pass: number; comparable: number }> = {};
+
+    sourceKeys.forEach((sourceKey, i) => {
+      const cell = cells[i];
+      const sourceLabel = sourceLabels[sourceKey];
+      const tier = sourceTierByKey[sourceKey];
+      bySourceGroup[sourceLabel] = summaryFrom(cell.pass, cell.comparable, cell.statedPercent);
+      const tierBucket = bySourceTier[tier] ?? { pass: 0, comparable: 0 };
+      tierBucket.pass += cell.pass;
+      tierBucket.comparable += cell.comparable;
+      bySourceTier[tier] = tierBucket;
+    });
+
+    const totalCell = cells[3];
+    const tierSummary: Record<string, any> = {};
+    for (const [tier, bucket] of Object.entries(bySourceTier)) {
+      tierSummary[tier] = summaryFrom(bucket.pass, bucket.comparable);
+    }
+
+    modes[mode] = summaryFrom(totalCell.pass, totalCell.comparable, totalCell.statedPercent, {
+      phasePSourceRow: phasePRow,
+      measurementStatus: mode === 'composite_classical' ? 'PROXY_FULL_TRANSPARENT' : 'MEASURED',
+      bySourceTier: tierSummary,
+      bySourceGroup,
+    });
+  }
+
+  return {
+    metric: 'authority gyeokguk agreement by deterministic rule-mode candidate',
+    note: 'monthly_main and jungki_transparent mirror Phase P measurement. composite_classical is a dashboard proxy using the existing full_transparent measurement until a true composite engine exists. passRate preserves the Phase P stated rate; computedPassRate is the literal numerator/denominator check.',
+    source: 'test/baseline/PHASE_P_RESULTS.md',
+    modes,
+  };
+}
+
+function patchFetchForEngine(): void {
+  const originalFetch = globalThis.fetch;
+  (globalThis as any).fetch = async (url: string | URL | Request, options?: any) => {
+    const urlStr = typeof url === 'string' ? url : url instanceof URL ? url.toString() : '';
+    if (urlStr.startsWith('/data/')) {
+      const filePath = path.join(NAMESPRING_DATA, urlStr.replace('/data/', ''));
+      if (!fs.existsSync(filePath)) return new Response(null, { status: 404 });
+      return new Response(fs.readFileSync(filePath), { status: 200 });
+    }
+    if (urlStr.includes('sql-wasm.wasm') || urlStr === WASM_PATH) {
+      return new Response(fs.readFileSync(WASM_PATH), { status: 200 });
+    }
+    return originalFetch(url as any, options);
+  };
+}
+
+async function scoreFixture(engine: SpringEngine, fixture: BaselineFixture, options: any): Promise<{ total: number; saju: number }> {
+  const result = await engine.analyze({
+    birth: fixture.birth,
+    surname: fixture.surname,
+    givenName: fixture.givenName,
+    mode: 'evaluate',
+    options,
+  });
+  const candidate = result.candidates[0];
+  return {
+    total: candidate.scores.total,
+    saju: candidate.scores.saju,
+  };
+}
+
+function addSchoolDelta(bucket: any, totalDelta: number, sajuDelta: number, referenceTier: string): void {
+  bucket.fixtureCount += 1;
+  bucket.totalDeltaSum += totalDelta;
+  bucket.sajuDeltaSum += sajuDelta;
+  bucket.minTotalDelta = Math.min(bucket.minTotalDelta, totalDelta);
+  bucket.maxTotalDelta = Math.max(bucket.maxTotalDelta, totalDelta);
+  bucket.minSajuDelta = Math.min(bucket.minSajuDelta, sajuDelta);
+  bucket.maxSajuDelta = Math.max(bucket.maxSajuDelta, sajuDelta);
+  if (Math.abs(totalDelta) > 1e-9 || Math.abs(sajuDelta) > 1e-9) bucket.changedFromDefault += 1;
+  else bucket.unchangedFromDefault += 1;
+
+  const tierBucket = bucket.byReferenceTier[referenceTier] ?? {
+    fixtureCount: 0,
+    changedFromDefault: 0,
+    unchangedFromDefault: 0,
+  };
+  tierBucket.fixtureCount += 1;
+  if (Math.abs(totalDelta) > 1e-9 || Math.abs(sajuDelta) > 1e-9) tierBucket.changedFromDefault += 1;
+  else tierBucket.unchangedFromDefault += 1;
+  bucket.byReferenceTier[referenceTier] = tierBucket;
+}
+
+function finalizeSchoolBucket(bucket: any): any {
+  const fixtureCount = bucket.fixtureCount;
+  return {
+    fixtureCount,
+    changedFromDefault: bucket.changedFromDefault,
+    unchangedFromDefault: bucket.unchangedFromDefault,
+    averageTotalDelta: fixtureCount > 0 ? Number((bucket.totalDeltaSum / fixtureCount).toFixed(4)) : null,
+    averageSajuDelta: fixtureCount > 0 ? Number((bucket.sajuDeltaSum / fixtureCount).toFixed(4)) : null,
+    minTotalDelta: Number(bucket.minTotalDelta.toFixed(4)),
+    maxTotalDelta: Number(bucket.maxTotalDelta.toFixed(4)),
+    minSajuDelta: Number(bucket.minSajuDelta.toFixed(4)),
+    maxSajuDelta: Number(bucket.maxSajuDelta.toFixed(4)),
+    byReferenceTier: bucket.byReferenceTier,
+  };
+}
+
+async function buildSchoolPresetBreakdown(fixtures: BaselineFixture[]): Promise<any> {
+  patchFetchForEngine();
+  const engine = new SpringEngine();
+  const repos: any[] = [(engine as any).hanjaRepo, (engine as any).fourFrameRepo];
+  for (const repo of repos) {
+    if (!repo) continue;
+    (repo as any).wasmUrl = WASM_PATH;
+  }
+  await engine.init();
+
+  const presetOptions: Record<SchoolPresetName, any> = {
+    korean: { precisionConfig: { useSchoolPreset: true }, schoolPreset: 'korean' },
+    chinese: { precisionConfig: { useSchoolPreset: true }, schoolPreset: 'chinese' },
+    modern: { precisionConfig: { useSchoolPreset: true }, schoolPreset: 'modern' },
+  };
+  const buckets: Record<string, any> = {};
+  for (const preset of Object.keys(presetOptions)) {
+    buckets[preset] = {
+      fixtureCount: 0,
+      changedFromDefault: 0,
+      unchangedFromDefault: 0,
+      totalDeltaSum: 0,
+      sajuDeltaSum: 0,
+      minTotalDelta: Number.POSITIVE_INFINITY,
+      maxTotalDelta: Number.NEGATIVE_INFINITY,
+      minSajuDelta: Number.POSITIVE_INFINITY,
+      maxSajuDelta: Number.NEGATIVE_INFINITY,
+      byReferenceTier: {},
+    };
+  }
+
+  try {
+    for (const fixture of fixtures) {
+      const baseline = await scoreFixture(engine, fixture, undefined);
+      const profile = referenceProfileForFixture(fixture.id);
+      for (const [preset, options] of Object.entries(presetOptions)) {
+        const scored = await scoreFixture(engine, fixture, options);
+        addSchoolDelta(
+          buckets[preset],
+          scored.total - baseline.total,
+          scored.saju - baseline.saju,
+          profile.tier,
+        );
+      }
+    }
+  } finally {
+    engine.close();
+  }
+
+  const presets: Record<string, any> = {};
+  for (const [preset, bucket] of Object.entries(buckets)) {
+    presets[preset] = finalizeSchoolBucket(bucket);
+  }
+  return {
+    metric: 'runtime score delta against default mode; this is not authority accuracy',
+    presets,
+  };
+}
+
+function scoreAxisFromDimension(gate: QualityGateReport, dimension: string, points: number, notMeasuredReason: string): any {
+  const d = gate.dimensions[dimension];
+  const measured = (d?.pass ?? 0) + (d?.fail ?? 0);
+  if (!d || measured === 0) {
+    return {
+      maxPoints: points,
+      score: 0,
+      status: 'NOT_MEASURED',
+      reason: notMeasuredReason,
+    };
+  }
+  const score = points * ((d.pass ?? 0) / measured);
+  return {
+    maxPoints: points,
+    score: Number(score.toFixed(2)),
+    status: d.fail > 0 ? 'FAIL' : 'PASS',
+    pass: d.pass,
+    fail: d.fail,
+    na: d.na,
+  };
+}
+
+function buildRpiSummary(gate: QualityGateReport, sourceSummary: any, bySourceTier: any): any {
+  const axisScores = {
+    A_calculationAccuracy: scoreAxisFromDimension(gate, 'D5', 15, 'No calculation-specific official oracle axis beyond D5 stability yet.'),
+    B_legalHanjaData: {
+      maxPoints: 15,
+      score: 0,
+      status: 'NOT_MEASURED',
+      reason: 'Legal hanja reconciliation is scheduled for Phase 2.',
+    },
+    C_gyeokgukYongshinRuleQuality: {
+      maxPoints: 25,
+      score: 0,
+      status: 'INSUFFICIENT_TRUTH',
+      reason: 'Current baseline fixtures have no T3+ authority-truth D1 denominator.',
+      insufficientTruthCount: bySourceTier.truthSeparation.insufficientSourceTruthCount,
+      engineRuleFailureCount: bySourceTier.truthSeparation.engineRuleFailureCount,
+    },
+    D_tenGodPositionWeighting: {
+      maxPoints: 10,
+      score: 0,
+      status: 'NOT_MEASURED',
+      reason: 'Ten-god positional divergence metric is scheduled for Phase 5.',
+    },
+    E_namingIntegratedScore: {
+      maxPoints: 15,
+      score: 0,
+      status: 'NOT_MEASURED',
+      reason: 'Naming score vector and Pareto metrics are scheduled for Phase 6.',
+    },
+    F_explainabilityUxSurface: scoreAxisFromDimension(gate, 'D3', 10, 'No card-surface fixture denominator available.'),
+    G_validationGovernance: {
+      maxPoints: 10,
+      score: sourceSummary.status === 'PASS' ? 10 : 0,
+      status: sourceSummary.status,
+      sourceTierScanned: sourceSummary.scanned,
+      sourceTierViolations: sourceSummary.violationCount,
+    },
+  };
+
+  const axes = Object.values(axisScores);
+  const rawScore = axes.reduce((sum: number, axis: any) => sum + axis.score, 0);
+  const measuredAxes = axes.filter((axis: any) => axis.status !== 'NOT_MEASURED' && axis.status !== 'INSUFFICIENT_TRUTH');
+  const measuredMaxPoints = measuredAxes.reduce((sum: number, axis: any) => sum + axis.maxPoints, 0);
+  const measuredScore = measuredAxes.reduce((sum: number, axis: any) => sum + axis.score, 0);
+
+  return {
+    schemaVersion: 'spring-ts.rpi-summary.v1',
+    note: 'Unmeasured or truth-insufficient axes score 0 in rawRpi and are also reported separately to avoid mixing missing truth with engine failure.',
+    rawRpi: {
+      score: Number(rawScore.toFixed(2)),
+      maxPoints: 100,
+    },
+    measuredOnlyRpi: {
+      score: Number(measuredScore.toFixed(2)),
+      maxPoints: measuredMaxPoints,
+      percent: measuredMaxPoints > 0 ? Number(((measuredScore / measuredMaxPoints) * 100).toFixed(1)) : null,
+    },
+    axisScores,
+    qualityGate: {
+      overall: gate.overall,
+      totals: gate.totals,
+      dimensions: gate.dimensions,
+      exitCode: gate.qualityGateExitCode,
+    },
+    truthSeparation: bySourceTier.truthSeparation,
+  };
+}
+
+async function main(): Promise<void> {
+  const args = parseArgs(process.argv);
+  const fixtures = loadBaselineFixtures();
+  const snapshot = readJson(SNAPSHOT_PATH);
+  const gate = runQualityGate();
+  const sourceScan = scanSourceTiers();
+
+  const sourceSummary = {
+    schemaVersion: 'spring-ts.source-tier-summary.v1',
+    status: gate.sourceTierAudit.status,
+    scanned: gate.sourceTierAudit.scanned,
+    violationCount: gate.sourceTierAudit.violations.length,
+    authorityTruthEligibleCount: sourceScan.records.filter((r) => r.authorityTruthEligible).length,
+    nonEligibleCount: sourceScan.records.filter((r) => !r.authorityTruthEligible).length,
+    byTier: sourceScan.byTier,
+    bySourceType: sourceScan.bySourceType,
+  };
+
+  const qualityGateByReferenceTier = buildQualityByReferenceTier(gate);
+  const truthSeparation = {
+    insufficientSourceTruthCount: Object.values(qualityGateByReferenceTier)
+      .reduce((sum: number, bucket: any) => sum + bucket.truthBuckets.insufficient_source_truth, 0),
+    authorityMatchCount: Object.values(qualityGateByReferenceTier)
+      .reduce((sum: number, bucket: any) => sum + bucket.truthBuckets.authority_match, 0),
+    engineRuleFailureCount: Object.values(qualityGateByReferenceTier)
+      .reduce((sum: number, bucket: any) => sum + bucket.truthBuckets.engine_rule_failure, 0),
+  };
+
+  const bySourceTier = {
+    schemaVersion: 'spring-ts.by-source-tier.v1',
+    baseline: {
+      fixtureCount: fixtures.length,
+      snapshotVersion: snapshot.version,
+      snapshotTargetDate: snapshot.targetDate,
+      snapshotFixtureCount: snapshot.fixtureCount,
+    },
+    qualityGateByReferenceTier,
+    truthSeparation,
+    ruleModeBreakdown: buildRuleModeBreakdown(),
+    schoolPresetBreakdown: await buildSchoolPresetBreakdown(fixtures),
+  };
+
+  const rpiSummary = buildRpiSummary(gate, sourceSummary, bySourceTier);
+
+  writeJson(path.join(args.outDir, 'bySourceTier.json'), bySourceTier);
+  writeJson(path.join(args.outDir, 'source-tier-summary.json'), sourceSummary);
+  writeJson(path.join(args.outDir, 'rpi-summary.json'), rpiSummary);
+
+  const result = {
+    outDir: args.outDir,
+    files: ['bySourceTier.json', 'source-tier-summary.json', 'rpi-summary.json'],
+    rawRpi: rpiSummary.rawRpi,
+    truthSeparation,
+  };
+  if (args.json) console.log(JSON.stringify(result, null, 2));
+  else {
+    console.log(`Baseline metrics written to ${args.outDir}`);
+    console.log(`  rawRpi=${result.rawRpi.score}/${result.rawRpi.maxPoints}`);
+    console.log(`  insufficientTruth=${truthSeparation.insufficientSourceTruthCount}, engineRuleFailure=${truthSeparation.engineRuleFailureCount}`);
+  }
+}
+
+await main();
+

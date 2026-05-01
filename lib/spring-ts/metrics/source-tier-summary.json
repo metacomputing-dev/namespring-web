@@ -1,0 +1,121 @@
+{
+  "schemaVersion": "spring-ts.source-tier-summary.v1",
+  "status": "PASS",
+  "scanned": 51,
+  "violationCount": 0,
+  "authorityTruthEligibleCount": 31,
+  "nonEligibleCount": 20,
+  "byTier": {
+    "T3_AUTHORED_INTERPRETATION": {
+      "recordCount": 25,
+      "authorityTruthEligible": 25,
+      "nonEligible": 0,
+      "files": [
+        "test/baseline/authority/chumyeongga/chu_32.json",
+        "test/baseline/authority/chumyeongga/chu_37.json",
+        "test/baseline/authority/figures/jeong_juyeong.json",
+        "test/baseline/authority/figures/kim_youngsam.json",
+        "test/baseline/authority/figures/lee_byungchul.json",
+        "test/baseline/authority/figures/lee_kunhee.json",
+        "test/baseline/authority/figures/lee_myungbak.json",
+        "test/baseline/authority/figures/moon_jaein.json",
+        "test/baseline/authority/figures/park_chunghee.json",
+        "test/baseline/authority/figures/roh_moohyun.json",
+        "test/baseline/authority/figures/yuan_shikai.json",
+        "test/baseline/authority/lecture/naebang_p120_1984_female_restaurant_to_real_estate.json",
+        "test/baseline/authority/lecture/naebang_p121_1977_male_inheritance_tax.json",
+        "test/baseline/authority/lecture/naebang_p121_2002_female_alt_school_dropout.json",
+        "test/baseline/authority/lecture/p122_1972_female_experience_learning.json",
+        "test/baseline/authority/lecture/p123_1966_female_childcare.json",
+        "test/baseline/authority/lecture/p124_1975_male_accounting.json",
+        "test/baseline/authority/lecture/p124_1976_male_interior.json",
+        "test/baseline/authority/lecture/p125_1980_female_cram_school.json",
+        "test/baseline/authority/lecture/p125_1991_male_shop.json",
+        "test/baseline/authority/lecture/p126_1971_male_private_professor.json",
+        "test/baseline/authority/lecture/p126_2002_male_soccer.json",
+        "test/baseline/authority/lecture/p127_1964_female_haenyeo_doctorate.json",
+        "test/baseline/authority/lecture/p127_1964_male_public_exec.json",
+        "test/baseline/authority/lecture/p127_1975_female_national_professor.json"
+      ]
+    },
+    "T4_PRIMARY_TEXT": {
+      "recordCount": 7,
+      "authorityTruthEligible": 6,
+      "nonEligible": 1,
+      "files": [
+        "test/baseline/authority/classical/myeongri_jonheom_pillars.json",
+        "test/baseline/authority/jonheom/05_瞿鸿玑.json",
+        "test/baseline/authority/jonheom/07_钱能训.json",
+        "test/baseline/authority/jonheom/10_伍廷芳.json",
+        "test/baseline/authority/jonheom/11_杨士琦.json",
+        "test/baseline/authority/jonheom/15_朱瑞.json",
+        "test/baseline/authority/jonheom/18_孙中山.json"
+      ]
+    },
+    "T1_HYPOTHESIS": {
+      "recordCount": 7,
+      "authorityTruthEligible": 0,
+      "nonEligible": 7,
+      "files": [
+        "test/baseline/authority/training_derived/td_01_jeonggwan_sinkang.json",
+        "test/baseline/authority/training_derived/td_02_jongjae_buwi.json",
+        "test/baseline/authority/training_derived/td_03_siksinsangaeng.json",
+        "test/baseline/authority/training_derived/td_04_insungtuchu_haksja.json",
+        "test/baseline/authority/training_derived/td_05_chunggeuk_hyungmyeong.json",
+        "test/baseline/authority/training_derived/td_06_johu_hanmyeong.json",
+        "test/fixtures/jonggyeok_cases.json"
+      ]
+    },
+    "T2_REFERENCE_IMPLEMENTATION": {
+      "recordCount": 12,
+      "authorityTruthEligible": 0,
+      "nonEligible": 12,
+      "files": [
+        "test/baseline/oracles/fix-01.json",
+        "test/baseline/oracles/fix-02.json",
+        "test/baseline/oracles/fix-03.json",
+        "test/baseline/oracles/fix-04.json",
+        "test/baseline/oracles/fix-05.json",
+        "test/baseline/oracles/fix-06.json",
+        "test/baseline/oracles/fix-07.json",
+        "test/baseline/oracles/fix-08.json",
+        "test/baseline/oracles/fix-09.json",
+        "test/baseline/oracles/fix-10.json",
+        "test/baseline/oracles/fix-11.json",
+        "test/baseline/oracles/fix-12.json"
+      ]
+    }
+  },
+  "bySourceType": {
+    "modern_korean_myeongri_extract": {
+      "recordCount": 11,
+      "authorityTruthEligible": 11,
+      "nonEligible": 0
+    },
+    "classical_primary_text_pillars_only": {
+      "recordCount": 1,
+      "authorityTruthEligible": 0,
+      "nonEligible": 1
+    },
+    "classical_primary_text": {
+      "recordCount": 6,
+      "authorityTruthEligible": 6,
+      "nonEligible": 0
+    },
+    "lecture_casebook": {
+      "recordCount": 14,
+      "authorityTruthEligible": 14,
+      "nonEligible": 0
+    },
+    "training_derived": {
+      "recordCount": 7,
+      "authorityTruthEligible": 0,
+      "nonEligible": 7
+    },
+    "reference_implementation": {
+      "recordCount": 12,
+      "authorityTruthEligible": 0,
+      "nonEligible": 12
+    }
+  }
+}
