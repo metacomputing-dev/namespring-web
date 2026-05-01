@@ -185,6 +185,33 @@
           "needsCodeReview": false
         }
       ]
+    },
+    {
+      "id": "fix-13",
+      "label": "1989-07-23 male — borderline-strength practical tier (정재격, 여름 yongshin=WATER)",
+      "axis": ["borderline-strength", "practical-tier", "summer"],
+      "birth": { "year": 1989, "month": 7, "day": 23, "hour": 10, "minute": 0, "gender": "male" },
+      "surname": [{ "hangul": "김", "hanja": "金" }],
+      "givenName": [{ "hangul": "민", "hanja": "敏" }, { "hangul": "수", "hanja": "秀" }],
+      "expectedAxisStrengthTier": "practical"
+    },
+    {
+      "id": "fix-14",
+      "label": "1980-08-07 male — borderline-strength candidate tier (정관격, 가을 yongshin=WOOD)",
+      "axis": ["borderline-strength", "candidate-tier", "autumn"],
+      "birth": { "year": 1980, "month": 8, "day": 7, "hour": 4, "minute": 0, "gender": "male" },
+      "surname": [{ "hangul": "박", "hanja": "朴" }],
+      "givenName": [{ "hangul": "지", "hanja": "智" }, { "hangul": "현", "hanja": "賢" }],
+      "expectedAxisStrengthTier": "candidate"
+    },
+    {
+      "id": "fix-15",
+      "label": "1985-03-21 male — borderline-strength deferred tier (편관격, 춘분 yongshin=METAL)",
+      "axis": ["borderline-strength", "deferred-tier", "spring"],
+      "birth": { "year": 1985, "month": 3, "day": 21, "hour": 4, "minute": 0, "gender": "male" },
+      "surname": [{ "hangul": "이", "hanja": "李" }],
+      "givenName": [{ "hangul": "성", "hanja": "成" }, { "hangul": "민", "hanja": "敏" }],
+      "expectedAxisStrengthTier": "deferred"
     }
   ]
 }
