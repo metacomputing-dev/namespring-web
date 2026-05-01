@@ -31,7 +31,12 @@
 import { type EvalContext, type AnalysisDetail, type CalculatorPacket, type EvaluableCalculator, putInsight, createSignal } from './core/evaluator.js';
 import type { HanjaEntry } from '../../seed-ts/src/database/hanja-repository.js';
 import { hangulElementFromSyllable } from '../../seed-ts/src/utils/hangul-name-entry.js';
-import type { SajuCompatibility, SajuOutputSummary, SajuYongshinSummary } from './types.js';
+import type {
+  SajuCompatibility,
+  SajuOutputSummary,
+  SajuYongshinSummary,
+  YongshinConsensusConflictLevel,
+} from './types.js';
 import { elementFromSajuCode } from './saju-adapter.js';
 import { SAJU_FRAME } from './spring-evaluator.js';
 import {
@@ -73,6 +78,12 @@ const CONTEXTUAL_TYPES: readonly string[] = scoringConfig.contextualTypes;
 
 /** The five ten-god groups: friend, output, wealth, authority, resource. */
 const TEN_GOD_GROUPS: readonly string[] = scoringConfig.tenGodGroupNames;
+const CONSENSUS_CONFLICT_WEIGHT: Record<YongshinConsensusConflictLevel, number> = {
+  none: 0,
+  low: 0.08,
+  medium: 0.14,
+  high: 0.2,
+};
 
 // Destructure the nested config sections for easier access
 const {
@@ -99,6 +110,13 @@ export interface SajuNameScoreResult {
     penalties: { gisin: number; gusin: number; gyeokguk: number; total: number };
     deficiencyBonus: number;
     elementMatches: { yongshin: number; heesin: number; gisin: number; gusin: number };
+    yongshinConsensus?: {
+      conflictLevel: YongshinConsensusConflictLevel;
+      competingElements: readonly string[];
+      confidence: number;
+      topMargin: number;
+      scoreGuardApplied: boolean;
+    };
   };
 }
 
@@ -108,7 +126,7 @@ export interface SajuNameScoreResult {
  *  legacy default — guaranteeing default-mode regression 0. */
 export interface ScoringPrecisionOverrides {
   readonly balanceMode?: 'mathematical' | 'yongshin_first' | 'classical_jonggyeok_aware';
-  readonly yongshinMode?: 'classical_blend' | 'chengbai_strict';
+  readonly yongshinMode?: 'classical_blend' | 'chengbai_strict' | 'consensus_aware';
   readonly strengthMode?: 'binary' | 'continuous';
   readonly tenGodMode?: 'simple_count' | 'positional_weighted';
   readonly gyeokgukMode?: 'jonggyeok_only' | 'multi_special' | 'chengbai_strict';
@@ -302,12 +320,13 @@ function computeYongshinScore(
   rootDist: Record<ElementKey, number>,
   yongshinData: SajuYongshinSummary | null,
   yongshinTypeWeights: Record<string, number>,
-  mode: 'classical_blend' | 'chengbai_strict' = 'classical_blend',
+  mode: 'classical_blend' | 'chengbai_strict' | 'consensus_aware' = 'classical_blend',
 ) {
   if (!yongshinData) return {
     score: 50, confidence: 0, contextualPriority: 0,
     gisinPenalty: 0, gusinPenalty: 0, gusinRatio: 0,
     elementMatches: { yongshin: 0, heesin: 0, gisin: 0, gusin: 0 },
+    consensus: undefined,
   };
 
   // Resolve the four key elements from the yongshin analysis
@@ -319,6 +338,15 @@ function computeYongshinScore(
   const confidence = Number.isFinite(yongshinData.finalConfidence)
     ? clamp(yongshinData.finalConfidence, 0, 1)
     : DEFAULT_CONFIDENCE;
+  const consensus = yongshinData.consensus
+    ? {
+        conflictLevel: yongshinData.consensus.final.conflictLevel,
+        competingElements: yongshinData.consensus.final.competingElements,
+        confidence: yongshinData.consensus.final.confidence,
+        topMargin: yongshinData.consensus.final.topMargin,
+        scoreGuardApplied: false,
+      }
+    : undefined;
 
   // Step 1: Affinity — weighted average of how each name element aligns
   //   yongshin = +1, heesin = +0.65, gisin = -0.65, gusin = -1
@@ -334,10 +362,27 @@ function computeYongshinScore(
   // Step 2: Blend affinity with recommendation scores
   const recommendationResult = computeRecommendationScore(rootDist, yongshinData, yongshinTypeWeights);
   const affinityScore        = normalizeSignedScore(affinityValue);
-  const blendedRawScore      = recommendationResult === null
+  let blendedRawScore        = recommendationResult === null
     ? affinityScore
     : YONGSHIN.recommendationBlend.affinityRatio        * affinityScore
     + YONGSHIN.recommendationBlend.recommendationRatio  * recommendationResult.score;
+
+  if (mode === 'consensus_aware' && consensus) {
+    const conflictWeight = CONSENSUS_CONFLICT_WEIGHT[consensus.conflictLevel] ?? 0;
+    const competingElements = consensus.competingElements
+      .map((element) => elementFromSajuCode(element))
+      .filter((element): element is ElementKey => Boolean(element));
+    if (conflictWeight > 0) {
+      const consensusAffinity = weightedElementAverage(rootDist, element => {
+        if (yongshinElement && element === yongshinElement) return affinityWeights.yongshin;
+        if (heesinElement && element === heesinElement) return affinityWeights.heesin;
+        if (competingElements.includes(element)) return 0.45;
+        return 0;
+      });
+      blendedRawScore = (1 - conflictWeight) * blendedRawScore + conflictWeight * normalizeSignedScore(consensusAffinity);
+      consensus.scoreGuardApplied = true;
+    }
+  }
 
   // Step 3: Scale by confidence — higher confidence = more impact on the score
   const confidenceScaled = YONGSHIN.confidenceImpact.baseRatio + confidence * YONGSHIN.confidenceImpact.variableRatio;
@@ -347,7 +392,7 @@ function computeYongshinScore(
   // pattern (until saju-ts surfaces an explicit chengbai score). Trim the
   // yongshin score by 10 below confidence 0.4 so candidates that match a
   // weak yongshin no longer rank as if it were certain.
-  if (mode === 'chengbai_strict' && confidence < 0.4) {
+  if ((mode === 'chengbai_strict' || mode === 'consensus_aware') && confidence < 0.4) {
     score = clamp(score - 10, 0, 100);
   }
 
@@ -368,6 +413,7 @@ function computeYongshinScore(
     gisinPenalty: Math.round(gisinRatio * YONGSHIN.penalties.gisinMultiplier * penaltyScale),
     gusinPenalty: Math.round(gusinRatio * YONGSHIN.penalties.gusinMultiplier * penaltyScale),
     gusinRatio,
+    consensus,
     elementMatches: {
       yongshin: elementCount(rootDist, yongshinElement),
       heesin:   elementCount(rootDist, heesinElement),
@@ -709,6 +755,7 @@ export function computeSajuNameScore(
       },
       deficiencyBonus,
       elementMatches: yongshinResult.elementMatches,
+      yongshinConsensus: yongshinResult.consensus,
     },
   };
 }
@@ -878,6 +925,8 @@ export class SajuCalculator implements EvaluableCalculator {
         gishinMatchCount:      elementMatches?.gisin ?? 0,
         dayMasterSupportScore: breakdown?.strength ?? 0,
         affinityScore:         this.scoreResult?.score ?? 0,
+        yongshinConsensusConflictLevel: breakdown?.yongshinConsensus?.conflictLevel,
+        yongshinConsensusCompetingElements: breakdown?.yongshinConsensus?.competingElements,
       },
     };
   }

@@ -424,7 +424,7 @@ export class SpringEngine {
     readonly schoolPreset?: SchoolPresetName;
     readonly scoringOverrides?: {
       readonly balanceMode?: 'mathematical' | 'yongshin_first' | 'classical_jonggyeok_aware';
-      readonly yongshinMode?: 'classical_blend' | 'chengbai_strict';
+      readonly yongshinMode?: 'classical_blend' | 'chengbai_strict' | 'consensus_aware';
       readonly strengthMode?: 'binary' | 'continuous';
       readonly tenGodMode?: 'simple_count' | 'positional_weighted';
       readonly gyeokgukMode?: 'jonggyeok_only' | 'multi_special' | 'chengbai_strict';
