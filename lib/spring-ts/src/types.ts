@@ -447,6 +447,7 @@ export interface SpringCandidate {
   readonly scores: Record<'total' | 'hangul' | 'hanja' | 'fourFrame' | 'saju', number>;
   readonly scoreVector?: NamingScoreVector;
   readonly strengthProfile?: CandidateStrengthProfile;
+  readonly explanation?: NamingExplanation;
   readonly analysis: CandidateAnalysis;
   readonly interpretation: string;
   readonly rank: number;
@@ -888,6 +889,31 @@ export interface CandidateStrengthProfile {
   readonly paretoFrontier: boolean;
 }
 
+export type NamingExplanationSignalKind = 'strength' | 'caution' | 'unavailable';
+export type NamingExplanationPhraseMode =
+  | 'assertive'
+  | 'practical'
+  | 'candidate'
+  | 'deferred'
+  | 'displayOnly';
+
+export interface NamingExplanationSignal {
+  readonly axis: keyof NamingScoreVector;
+  readonly kind: NamingExplanationSignalKind;
+  readonly phraseMode: NamingExplanationPhraseMode;
+  readonly label: string;
+  readonly value: number | null;
+  readonly sourceTier: SourceTierMetadata;
+  readonly phrase: string;
+}
+
+export interface NamingExplanation {
+  readonly summary: string;
+  readonly strengths: readonly string[];
+  readonly cautions: readonly string[];
+  readonly signals: readonly NamingExplanationSignal[];
+}
+
 /** Pure name analysis result (no saju). Returned by getNamingReport(). */
 export interface NamingReport {
   readonly name: CandidateName;
@@ -902,6 +928,7 @@ export interface NamingReport {
   };
   readonly nameTrend?: NameTrendAnalysis;
   readonly phonetic?: PhoneticAnalysis;
+  readonly explanation?: NamingExplanation;
   readonly interpretation: string;
 }
 

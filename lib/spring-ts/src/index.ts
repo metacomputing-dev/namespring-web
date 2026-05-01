@@ -35,6 +35,10 @@ export type {
   CharDetail,
   // New 3-method API types
   NamingScoreVector,
+  NamingExplanation,
+  NamingExplanationPhraseMode,
+  NamingExplanationSignal,
+  NamingExplanationSignalKind,
   CandidateStrengthProfile,
   CandidateStrengthProfileId,
   SajuNameSafetyPosture,
@@ -64,6 +68,8 @@ export type {
   YongshinConsensusScoreboard,
   CheonganRelationSummary,
   TenGodSummary,
+  SourceTierMetadata,
+  SajuJudgmentStrength,
   // Compatibility & adapter
   SajuCompatibility,
   TenGodPositionEvidence,
@@ -146,6 +152,7 @@ export {
   CHOSEONG, JUNGSEONG, decomposeHangul, makeFallbackEntry,
   FRAME_LABELS, buildInterpretation, parseJamoFilter, type JamoFilter,
 } from './core/name-utils.js';
+export { buildNamingExplanation, selectNamingPhraseMode } from './naming-explanation.js';
 
 // ─────────────────────────────────────────────────────────────────────────────
 //  8. FORTUNE REPORT
