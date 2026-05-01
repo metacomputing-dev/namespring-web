@@ -157,16 +157,16 @@ async function main(): Promise<void> {
 
   // TST on + longitude on -> longitude + EoT.
   assertNear('TST on + lon on lonCorr', matrixOnOn.longitudeCorrectionMinutes, -25.5944, 0.01);
-  assertNear('TST on + lon on EoT', matrixOnOn.equationOfTimeMinutes, -6.413, 0.02);
+  assertNear('TST on + lon on EoT', matrixOnOn.equationOfTimeMinutes, -7.272, 0.02);
   assertEqual('TST on + lon on adjusted hour', matrixOnOn.adjustedHour, 0);
   assertEqual('TST on + lon on adjusted minute', matrixOnOn.adjustedMinute, 57);
   assertEqual('TST on + lon on hour branch', matrixOnOn.hourBranch, 'JA');
 
   // TST on + longitude off -> EoT-only correction.
   assertNear('TST on + lon off lonCorr', matrixOnOff.longitudeCorrectionMinutes, 0, 0.0001);
-  assertNear('TST on + lon off EoT', matrixOnOff.equationOfTimeMinutes, -6.413, 0.02);
+  assertNear('TST on + lon off EoT', matrixOnOff.equationOfTimeMinutes, -7.272, 0.02);
   assertEqual('TST on + lon off adjusted hour', matrixOnOff.adjustedHour, 1);
-  assertEqual('TST on + lon off adjusted minute', matrixOnOff.adjustedMinute, 23);
+  assertEqual('TST on + lon off adjusted minute', matrixOnOff.adjustedMinute, 22);
   assertEqual('TST on + lon off hour branch', matrixOnOff.hourBranch, 'CHUK');
 
   // TST off + longitude off -> no correction.

@@ -2,13 +2,12 @@
  * test/integration/adaptive-evaluator.test.ts
  *
  * Verifies the PR8 adaptive-evaluator opt-ins:
- *   - sajuPriorityCurve: 'linear' (default) | 'tanh'
+ *   - sajuPriorityCurve: 'linear' | 'tanh' (current default)
  *   - unknownHourGuard + unknownTimeSajuDamp
  *
  * Each mode is checked end-to-end on the standard 1986-04-19 fixture.
- * Default behavior must match baseline. Tanh curve must produce a valid
- * score. unknownHourGuard with hour=null must produce a different score
- * than guard with a known hour.
+ * Tanh/linear curves must produce valid scores. unknownHourGuard defaults on
+ * and must change unknown-hour adaptive weighting versus explicit opt-out.
  *
  * Run: npm run test:adaptive
  *      (or: npx tsx test/integration/adaptive-evaluator.test.ts)
@@ -66,7 +65,8 @@ const linearExplicit       = await evalWith(fullBirth, { sajuPriorityCurve: 'lin
 const tanh                 = await evalWith(fullBirth, { sajuPriorityCurve: 'tanh' });
 const guardKnownHour       = await evalWith(fullBirth, { unknownHourGuard: true });
 const guardUnknownHour     = await evalWith(noHourBirth, { unknownHourGuard: true, unknownTimeSajuDamp: 0.5 });
-const noGuardUnknownHour   = await evalWith(noHourBirth);
+const defaultUnknownHour   = await evalWith(noHourBirth);
+const noGuardUnknownHour   = await evalWith(noHourBirth, { unknownHourGuard: false });
 
 let pass = 0;
 let fail = 0;
@@ -86,14 +86,16 @@ console.log('linear (explicit)          :', linearExplicit);
 console.log('tanh                       :', tanh);
 console.log('guard + known hour         :', guardKnownHour);
 console.log('guard + unknown hour       :', guardUnknownHour);
+console.log('default + unknown hour     :', defaultUnknownHour);
 console.log('no guard + unknown hour    :', noGuardUnknownHour);
 console.log('');
 
-// — Default + linear-explicit ≡ baseline —
+// — Default now uses the tanh curve; explicit linear is still valid but may differ. —
 check('precisionConfig 미설정 ≡ baseline', true, 'tautological — baseline IS no-config');
-check('sajuPriorityCurve:"linear" ≡ baseline (explicit equals default)',
-  linearExplicit.saju === baseline.saju && linearExplicit.total === baseline.total,
-  `saju ${linearExplicit.saju}=${baseline.saju}`);
+check('sajuPriorityCurve:"linear" produces finite score',
+  Number.isFinite(linearExplicit.saju) && linearExplicit.saju >= 0 && linearExplicit.saju <= 100);
+check('sajuPriorityCurve:"linear" produces finite total',
+  Number.isFinite(linearExplicit.total) && linearExplicit.total >= 0 && linearExplicit.total <= 100);
 
 // — Tanh curve produces valid finite score —
 check('tanh produces finite score',
@@ -113,17 +115,21 @@ check('guard + unknown hour produces finite total',
   `total ${guardUnknownHour.total}`);
 
 // — Guard inactive when precisionConfig.unknownHourGuard is unset —
-check('no guard + unknown hour: priority unaffected by hour absence',
-  Number.isFinite(noGuardUnknownHour.total) && noGuardUnknownHour.total >= 0 && noGuardUnknownHour.total <= 100);
+check('unknownHourGuard defaults on for unknown-hour input',
+  defaultUnknownHour.total === guardUnknownHour.total,
+  `default=${defaultUnknownHour.total}, explicit=${guardUnknownHour.total}`);
+check('unknownHourGuard changes unknown-hour adaptive weighting',
+  guardUnknownHour.total !== noGuardUnknownHour.total,
+  `guard=${guardUnknownHour.total}, noGuard=${noGuardUnknownHour.total}`);
 
 // — All four valid scores —
-const allResults = [baseline, linearExplicit, tanh, guardKnownHour, guardUnknownHour, noGuardUnknownHour];
+const allResults = [baseline, linearExplicit, tanh, guardKnownHour, guardUnknownHour, defaultUnknownHour, noGuardUnknownHour];
 let allValid = true;
 for (const r of allResults) {
   if (!Number.isFinite(r.saju) || r.saju < 0 || r.saju > 100) allValid = false;
   if (!Number.isFinite(r.total) || r.total < 0 || r.total > 100) allValid = false;
 }
-check('all 6 paths produce valid [0,100] saju + total', allValid);
+check('all 7 paths produce valid [0,100] saju + total', allValid);
 
 engine.close();
 
