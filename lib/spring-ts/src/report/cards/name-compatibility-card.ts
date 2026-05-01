@@ -78,6 +78,7 @@ export function buildNameCompatibilityCard(
   const sajuCompatibilityScore = springReport.sajuCompatibility.affinityScore;
   const nameAnalysisScore = springReport.namingReport.totalScore;
   const nameTrend = springReport.nameTrend ?? springReport.namingReport.nameTrend;
+  const phonetic = springReport.phonetic ?? springReport.namingReport.phonetic;
   const overallStars = scoreToStars(overallScore);
 
   // ── Summary ──
@@ -95,6 +96,13 @@ export function buildNameCompatibilityCard(
       nameTrend.trendFit == null
         ? `Name trend: ${nameTrend.status}. ${nameTrend.evidence[0] ?? 'No trend evidence available.'}`
         : `Name trend: fit ${Math.round(nameTrend.trendFit)}/100, risk ${Math.round(nameTrend.trendRisk ?? 0)}/100 (${nameTrend.status}).`,
+    );
+  }
+  if (phonetic) {
+    details.push(
+      phonetic.phoneticScore == null
+        ? `Phonetic flow: ${phonetic.status}. ${phonetic.evidence[0] ?? 'No phonetic evidence available.'}`
+        : `Phonetic flow: ${Math.round(phonetic.phoneticScore)}/100 (${phonetic.status}), family boundary ${Math.round(phonetic.familyNameFitScore ?? 0)}/100.`,
     );
   }
 
@@ -168,6 +176,16 @@ export function buildNameCompatibilityCard(
       weakness: 'Trend evidence is display-only and is not part of the headline star calculation.',
     });
   }
+  if (phonetic) {
+    evidence.push({
+      axis: 'phonetic',
+      claim: phonetic.phoneticScore == null
+        ? 'Phonetic flow evidence is unavailable for this name.'
+        : `Phonetic flow score is ${Math.round(phonetic.phoneticScore)} / 100 with status ${phonetic.status}.`,
+      supportingFeatures: [...phonetic.evidence],
+      weakness: 'Phonetic evidence is display-only and is not part of the headline star calculation.',
+    });
+  }
 
   return {
     title: '이름 적합도 평가',
@@ -176,6 +194,7 @@ export function buildNameCompatibilityCard(
     sajuCompatibilityScore,
     nameAnalysisScore,
     ...(nameTrend ? { nameTrend } : {}),
+    ...(phonetic ? { phonetic } : {}),
     summary,
     details,
     evidence,
