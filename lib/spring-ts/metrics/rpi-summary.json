@@ -7,8 +7,8 @@
   },
   "measuredOnlyRpi": {
     "score": 45,
-    "maxPoints": 50,
-    "percent": 90
+    "maxPoints": 60,
+    "percent": 75
   },
   "axisScores": {
     "A_calculationAccuracy": {
@@ -40,8 +40,124 @@
     "D_tenGodPositionWeighting": {
       "maxPoints": 10,
       "score": 0,
-      "status": "NOT_MEASURED",
-      "reason": "Ten-god positional divergence metric is scheduled for Phase 5."
+      "status": "MEASURED_NULL_EFFECT",
+      "reason": "The positional_weighted branch is wired, but observed candidate-level divergence is 0/21 under the current normalization pipeline.",
+      "observedEngineDivergence": {
+        "defaultFixtures": {
+          "diverged": 0,
+          "total": 12
+        },
+        "jonggyeokFixtures": {
+          "diverged": 0,
+          "total": 9
+        },
+        "combined": {
+          "diverged": 0,
+          "total": 21
+        },
+        "source": "test/integration/md8-tengod-divergence.test.ts"
+      },
+      "syntheticFixtures": {
+        "note": "Aggregate groupCounts are held constant while one friend signal moves across source layer and pillar position.",
+        "simpleCountUniqueScores": 1,
+        "sourceLayerDivergence": {
+          "monthStem": 62.857143,
+          "monthHidden": 85.357143,
+          "diverges": true
+        },
+        "pillarPositionCollapse": {
+          "monthStemEqualsHourStem": true,
+          "monthHiddenEqualsHourHidden": true
+        },
+        "rows": [
+          {
+            "id": "monthStem",
+            "simpleScore": 77.692308,
+            "positionalScore": 62.857143,
+            "weightedGroupCounts": {
+              "friend": 4,
+              "output": 7.2,
+              "wealth": 4.8,
+              "authority": 0,
+              "resource": 12
+            },
+            "averageCount": 5.6,
+            "deviations": {
+              "friend": 0.285714,
+              "output": -0.285714,
+              "wealth": 0.142857,
+              "authority": 1,
+              "resource": -1.142857
+            },
+            "contributionCount": 12
+          },
+          {
+            "id": "hourStem",
+            "simpleScore": 77.692308,
+            "positionalScore": 62.857143,
+            "weightedGroupCounts": {
+              "friend": 4,
+              "output": 7.2,
+              "wealth": 4.8,
+              "authority": 0,
+              "resource": 12
+            },
+            "averageCount": 5.6,
+            "deviations": {
+              "friend": 0.285714,
+              "output": -0.285714,
+              "wealth": 0.142857,
+              "authority": 1,
+              "resource": -1.142857
+            },
+            "contributionCount": 12
+          },
+          {
+            "id": "monthHidden",
+            "simpleScore": 77.692308,
+            "positionalScore": 85.357143,
+            "weightedGroupCounts": {
+              "friend": 1.2,
+              "output": 7.2,
+              "wealth": 3.6,
+              "authority": 0,
+              "resource": 16
+            },
+            "averageCount": 5.6,
+            "deviations": {
+              "friend": 0.785714,
+              "output": -0.285714,
+              "wealth": 0.357143,
+              "authority": 1,
+              "resource": -1.857143
+            },
+            "contributionCount": 12
+          },
+          {
+            "id": "hourHidden",
+            "simpleScore": 77.692308,
+            "positionalScore": 85.357143,
+            "weightedGroupCounts": {
+              "friend": 1.2,
+              "output": 7.2,
+              "wealth": 3.6,
+              "authority": 0,
+              "resource": 16
+            },
+            "averageCount": 5.6,
+            "deviations": {
+              "friend": 0.785714,
+              "output": -0.285714,
+              "wealth": 0.357143,
+              "authority": 1,
+              "resource": -1.857143
+            },
+            "contributionCount": 12
+          }
+        ]
+      },
+      "normalizationPoint": "src/saju-calculator.ts computeTenGodScore: averageCount and per-group deviation",
+      "nextPrTarget": "PR-5.2 should change the normalization/anchor point so source-layer and pillar-position visibility survive beyond raw groupCounts."
     },
     "E_namingIntegratedScore": {
       "maxPoints": 15,
@@ -111,5 +227,142 @@
     "insufficientSourceTruthCount": 15,
     "authorityMatchCount": 0,
     "engineRuleFailureCount": 0
+  },
+  "tenGodPositionWeighting": {
+    "metric": "ten-god positional weighting null-effect diagnosis",
+    "status": "MEASURED_NULL_EFFECT",
+    "score": 0,
+    "maxPoints": 10,
+    "observedEngineDivergence": {
+      "defaultFixtures": {
+        "diverged": 0,
+        "total": 12
+      },
+      "jonggyeokFixtures": {
+        "diverged": 0,
+        "total": 9
+      },
+      "combined": {
+        "diverged": 0,
+        "total": 21
+      },
+      "source": "test/integration/md8-tengod-divergence.test.ts"
+    },
+    "currentMechanism": {
+      "sourceLayerWeights": {
+        "cheongan": 4,
+        "jijiPrincipal": 1.8,
+        "hiddenStemByRank": [
+          1.2,
+          0.7,
+          0.45
+        ]
+      },
+      "pillarPositionWeights": "not implemented: year/month/day/hour are currently iterated with equal pillar weight",
+      "hiddenStemRatioUse": "ratio only sorts hidden stems before fixed rank weights; it is not multiplied into weight",
+      "normalization": "deviation_from_average_count",
+      "normalizationPoint": "src/saju-calculator.ts computeTenGodScore: averageCount and per-group deviation",
+      "downstreamBlendWeight": 0.05
+    },
+    "syntheticFixtures": {
+      "note": "Aggregate groupCounts are held constant while one friend signal moves across source layer and pillar position.",
+      "simpleCountUniqueScores": 1,
+      "sourceLayerDivergence": {
+        "monthStem": 62.857143,
+        "monthHidden": 85.357143,
+        "diverges": true
+      },
+      "pillarPositionCollapse": {
+        "monthStemEqualsHourStem": true,
+        "monthHiddenEqualsHourHidden": true
+      },
+      "rows": [
+        {
+          "id": "monthStem",
+          "simpleScore": 77.692308,
+          "positionalScore": 62.857143,
+          "weightedGroupCounts": {
+            "friend": 4,
+            "output": 7.2,
+            "wealth": 4.8,
+            "authority": 0,
+            "resource": 12
+          },
+          "averageCount": 5.6,
+          "deviations": {
+            "friend": 0.285714,
+            "output": -0.285714,
+            "wealth": 0.142857,
+            "authority": 1,
+            "resource": -1.142857
+          },
+          "contributionCount": 12
+        },
+        {
+          "id": "hourStem",
+          "simpleScore": 77.692308,
+          "positionalScore": 62.857143,
+          "weightedGroupCounts": {
+            "friend": 4,
+            "output": 7.2,
+            "wealth": 4.8,
+            "authority": 0,
+            "resource": 12
+          },
+          "averageCount": 5.6,
+          "deviations": {
+            "friend": 0.285714,
+            "output": -0.285714,
+            "wealth": 0.142857,
+            "authority": 1,
+            "resource": -1.142857
+          },
+          "contributionCount": 12
+        },
+        {
+          "id": "monthHidden",
+          "simpleScore": 77.692308,
+          "positionalScore": 85.357143,
+          "weightedGroupCounts": {
+            "friend": 1.2,
+            "output": 7.2,
+            "wealth": 3.6,
+            "authority": 0,
+            "resource": 16
+          },
+          "averageCount": 5.6,
+          "deviations": {
+            "friend": 0.785714,
+            "output": -0.285714,
+            "wealth": 0.357143,
+            "authority": 1,
+            "resource": -1.857143
+          },
+          "contributionCount": 12
+        },
+        {
+          "id": "hourHidden",
+          "simpleScore": 77.692308,
+          "positionalScore": 85.357143,
+          "weightedGroupCounts": {
+            "friend": 1.2,
+            "output": 7.2,
+            "wealth": 3.6,
+            "authority": 0,
+            "resource": 16
+          },
+          "averageCount": 5.6,
+          "deviations": {
+            "friend": 0.785714,
+            "output": -0.285714,
+            "wealth": 0.357143,
+            "authority": 1,
+            "resource": -1.857143
+          },
+          "contributionCount": 12
+        }
+      ]
+    },
+    "nextPrTarget": "PR-5.2 should change the normalization/anchor point so source-layer and pillar-position visibility survive beyond raw groupCounts."
   }
 }
