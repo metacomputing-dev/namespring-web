@@ -198,6 +198,10 @@ check('fixture references the KASI solar-term fixture',
   fixture.sourceFixture === 'data/kasi-solar-terms/kasi_2026_24terms.json');
 check('source fixture still has 12 jie terms',
   sourceFixture.terms.filter((term) => term.kind === 'jie').length === 12);
+check('timezone normalization cases require offset-aware ISO input',
+  fixture.timezoneNormalizationCases.every((row) => OFFSET_ISO_RE.test(row.inputIso)));
+check('offset-less ISO rejection is represented',
+  fixture.invalidIsoCases.length > 0);
 
 const termResults = new Map<string, { before: SajuSummary; after: SajuSummary }>();
 for (const termCase of fixture.solarTermBoundaryCases) {
