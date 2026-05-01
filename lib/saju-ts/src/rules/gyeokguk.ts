@@ -3,7 +3,7 @@ import type { RuleMatch, RuleSet } from './dsl.js';
 import { evalRuleSet } from './dsl.js';
 import { DEFAULT_GYEOKGUK_RULESET } from './defaultRuleSets.js';
 import { compileGyeokgukRuleSpec } from './spec/compileGyeokgukSpec.js';
-import type { RuleFacts } from './facts.js';
+import type { DayMasterRole, RuleFacts } from './facts.js';
 import { compete, renormalizeScale } from '../core/competition.js';
 
 export type GyeokgukCompetitionMethod = 'follow' | 'transformations' | 'oneElement' | 'tenGod';
@@ -130,12 +130,41 @@ export interface GyeokgukCompetition {
   affected: Record<string, { before: number; after: number }>;
 }
 
+export type JonggyeokStatus = 'none' | 'possible' | 'candidate' | 'selected' | 'blocked';
+
+export type JonggyeokSubtype =
+  | 'cong_cai'
+  | 'cong_guan'
+  | 'cong_sha'
+  | 'cong_er'
+  | 'cong_yin'
+  | 'cong_bi'
+  | 'zhuan_wang'
+  | 'hua_qi';
+
+export interface JonggyeokCandidate {
+  subtype: JonggyeokSubtype;
+  status: JonggyeokStatus;
+  score: number;
+  confidence: number;
+  followPressure: number;
+  dayMasterIsolation: number;
+  rootWeakness: number;
+  dominantElementShare: number;
+  breakerPenalty: number;
+  selectedReason?: string;
+  blockedReason?: string;
+  evidence: string[];
+}
+
 export interface GyeokgukResult {
   best: string | null;
   ranking: Array<{ key: string; score: number }>;
   scores: Record<string, number>;
   /** Optional debug payload for special-frame competition (alias of basis.competition). */
   competition?: GyeokgukCompetition;
+  /** Evidence-only jonggyeok candidates. This never promotes the selected gyeokguk. */
+  jonggyeokCandidates: JonggyeokCandidate[];
   basis: {
     /** 월지 본기 십성 */
     monthMainTenGod: string;
@@ -240,6 +269,14 @@ function asNumber(x: unknown, fallback: number): number {
 
 function clamp01(x: number): number {
   return Math.min(1, Math.max(0, x));
+}
+
+function round6(x: number): number {
+  return Math.round(x * 1_000_000) / 1_000_000;
+}
+
+function finite01(x: unknown, fallback = 0): number {
+  return clamp01(asNumber(x, fallback));
 }
 
 function absSum(scores: Record<string, number>, keys: string[]): number {
@@ -362,6 +399,257 @@ function readTenGodSignal(facts: RuleFacts, selector: TenGodSignalSelector | num
   }
 
   return 0.5;
+}
+
+const JONGGYEOK_SUBTYPES: JonggyeokSubtype[] = [
+  'cong_cai',
+  'cong_guan',
+  'cong_sha',
+  'cong_er',
+  'cong_yin',
+  'cong_bi',
+  'zhuan_wang',
+  'hua_qi',
+];
+
+const CONG_SUBTYPE_ROLES: Record<Exclude<JonggyeokSubtype, 'zhuan_wang' | 'hua_qi'>, DayMasterRole> = {
+  cong_cai: 'WEALTH',
+  cong_guan: 'OFFICER',
+  cong_sha: 'OFFICER',
+  cong_er: 'OUTPUT',
+  cong_yin: 'RESOURCE',
+  cong_bi: 'COMPANION',
+};
+
+const CONG_SUBTYPE_TEN_GODS: Record<Exclude<JonggyeokSubtype, 'zhuan_wang' | 'hua_qi'>, string[]> = {
+  cong_cai: ['PYEON_JAE', 'JEONG_JAE'],
+  cong_guan: ['JEONG_GWAN'],
+  cong_sha: ['PYEON_GWAN'],
+  cong_er: ['SIK_SHIN', 'SANG_GWAN'],
+  cong_yin: ['PYEON_IN', 'JEONG_IN'],
+  cong_bi: ['BI_GYEON', 'GEOB_JAE'],
+};
+
+function keyCore(key: string | null | undefined): string {
+  return String(key ?? '').replace(/^gyeokguk\./, '').toUpperCase();
+}
+
+function selectedJonggyeokSubtype(best: string | null): JonggyeokSubtype | null {
+  const core = keyCore(best);
+  if (core === 'HUA_QI') return 'hua_qi';
+  if (core === 'ZHUAN_WANG') return 'zhuan_wang';
+  if (core === 'CONG_CAI') return 'cong_cai';
+  if (core === 'CONG_GUAN') return 'cong_guan';
+  if (core === 'CONG_SHA') return 'cong_sha';
+  if (core === 'CONG_ER') return 'cong_er';
+  if (core === 'CONG_YIN') return 'cong_yin';
+  if (core === 'CONG_BI') return 'cong_bi';
+  return null;
+}
+
+function componentShare(facts: RuleFacts, name: keyof RuleFacts['strength']['components'], total: number): number {
+  return total > 0 ? finite01(facts.strength.components[name] / total) : 0;
+}
+
+function elementShare(facts: RuleFacts, element: string | null | undefined): number {
+  if (!element) return 0;
+  return finite01((facts.elements.normalized as any)[element]);
+}
+
+function strongestElementForRole(facts: RuleFacts, role: DayMasterRole): { element: string | null; share: number } {
+  let bestElement: string | null = null;
+  let bestShare = 0;
+  for (const [element, rawShare] of Object.entries(facts.elements.normalized as unknown as Record<string, number>)) {
+    if ((facts.dayMasterRoleByElement as any)[element] !== role) continue;
+    const share = finite01(rawShare);
+    if (share > bestShare) {
+      bestElement = element;
+      bestShare = share;
+    }
+  }
+  return { element: bestElement, share: bestShare };
+}
+
+function tenGodGroupShare(facts: RuleFacts, tenGods: string[]): number {
+  const scores = (facts as any).tenGodScores ?? {};
+  const total = Object.values(scores).reduce((sum: number, raw: unknown) => sum + Math.max(0, asNumber(raw, 0)), 0);
+  if (total <= 0) return 0;
+  return finite01(tenGods.reduce((sum, key) => sum + Math.max(0, asNumber(scores[key], 0)), 0) / total);
+}
+
+function rolePressureShare(role: DayMasterRole, shares: Record<DayMasterRole, number>): number {
+  return finite01(shares[role]);
+}
+
+function statusFromScore(score: number, blockedReason: string | undefined, selectedReason: string | undefined): JonggyeokStatus {
+  if (selectedReason) return 'selected';
+  if (blockedReason && score >= 0.18) return 'blocked';
+  if (score >= 0.68) return 'candidate';
+  if (score >= 0.28) return 'possible';
+  return 'none';
+}
+
+function buildJonggyeokCandidates(facts: RuleFacts, best: string | null): JonggyeokCandidate[] {
+  const c = facts.strength.components;
+  const total = Math.max(
+    1e-9,
+    asNumber(c.companions, 0) + asNumber(c.resources, 0) + asNumber(c.outputs, 0) + asNumber(c.wealth, 0) + asNumber(c.officers, 0),
+  );
+  const shares: Record<DayMasterRole, number> = {
+    COMPANION: componentShare(facts, 'companions', total),
+    RESOURCE: componentShare(facts, 'resources', total),
+    OUTPUT: componentShare(facts, 'outputs', total),
+    WEALTH: componentShare(facts, 'wealth', total),
+    OFFICER: componentShare(facts, 'officers', total),
+  };
+  const supportShare = finite01(shares.COMPANION + shares.RESOURCE);
+  const pressureShare = finite01(shares.OUTPUT + shares.WEALTH + shares.OFFICER);
+  const rootWeakness = finite01(1 - supportShare / 0.46);
+  const dayMasterIsolation = finite01((pressureShare - supportShare + 0.5) / 1.35);
+  const followSignal = readFollowSignal(facts, 'auto');
+  const selectedSubtype = selectedJonggyeokSubtype(best);
+
+  const q = (facts as any).month?.gyeok?.quality ?? {};
+  const qualityPenalty =
+    (q?.broken === true ? 0.18 : 0) +
+    (q?.mixed === true ? 0.08 : 0) +
+    (q?.qingZhuo === 'ZHUO' ? 0.05 : 0) +
+    finite01(asNumber(q?.damage, 0) / 3) * 0.12;
+
+  const candidates: JonggyeokCandidate[] = [];
+
+  for (const subtype of JONGGYEOK_SUBTYPES) {
+    if (subtype === 'zhuan_wang' || subtype === 'hua_qi') continue;
+
+    const role = CONG_SUBTYPE_ROLES[subtype];
+    const roleShare = rolePressureShare(role, shares);
+    const tgShare = tenGodGroupShare(facts, CONG_SUBTYPE_TEN_GODS[subtype]);
+    const roleElement = strongestElementForRole(facts, role);
+    const dominantElementShare = Math.max(roleElement.share, tgShare * 0.85);
+    const followPressure = finite01(Math.max(followSignal, roleShare, tgShare));
+    const supportRole = role === 'RESOURCE' || role === 'COMPANION';
+    const blockerReasons: string[] = [];
+    if (!supportRole && supportShare >= 0.52) blockerReasons.push('day_master_support_too_visible');
+    if (supportRole && pressureShare >= 0.58) blockerReasons.push('opposing_pressure_too_visible');
+    if (q?.broken === true && roleShare < 0.4) blockerReasons.push('month_gyeok_broken');
+    if (dominantElementShare < 0.18 && followPressure < 0.28) blockerReasons.push('dominant_target_weak');
+
+    const blockerPenalty =
+      (blockerReasons.includes('day_master_support_too_visible') ? 0.2 : 0) +
+      (blockerReasons.includes('opposing_pressure_too_visible') ? 0.14 : 0) +
+      (blockerReasons.includes('month_gyeok_broken') ? 0.1 : 0) +
+      (blockerReasons.includes('dominant_target_weak') ? 0.08 : 0);
+    const breakerPenalty = finite01(qualityPenalty + blockerPenalty);
+    const baseScore =
+      0.28 * followPressure +
+      0.2 * roleShare +
+      0.18 * tgShare +
+      0.16 * dayMasterIsolation +
+      0.12 * rootWeakness +
+      0.12 * dominantElementShare;
+    const score = finite01(baseScore - breakerPenalty);
+    const selectedReason = selectedSubtype === subtype ? `${keyCore(best)} already selected by gyeokguk ranking` : undefined;
+    const blockedReason = blockerReasons.length > 0 ? blockerReasons.join(';') : undefined;
+    const status = statusFromScore(score, blockedReason, selectedReason);
+    const evidence = [
+      `role=${role}`,
+      `roleShare=${round6(roleShare)}`,
+      `tenGodShare=${round6(tgShare)}`,
+      `supportShare=${round6(supportShare)}`,
+      `pressureShare=${round6(pressureShare)}`,
+      `dominantElement=${roleElement.element ?? 'NONE'}`,
+    ];
+
+    candidates.push({
+      subtype,
+      status,
+      score: round6(score),
+      confidence: round6(score),
+      followPressure: round6(followPressure),
+      dayMasterIsolation: round6(dayMasterIsolation),
+      rootWeakness: round6(rootWeakness),
+      dominantElementShare: round6(dominantElementShare),
+      breakerPenalty: round6(breakerPenalty),
+      selectedReason,
+      blockedReason,
+      evidence,
+    });
+  }
+
+  const oneEl: any = (facts as any).patterns?.elements?.oneElement ?? {};
+  const oneElementFactor = readOneElementSignal(facts, 'auto');
+  const oneElementShare = elementShare(facts, oneEl?.element);
+  const oneElementDayMatch = oneEl?.element === facts.dayMaster.element;
+  const zhuanBlockers: string[] = [];
+  if (oneElementFactor > 0.2 && !oneElementDayMatch) zhuanBlockers.push('dominant_element_not_day_master');
+  if (q?.broken === true && oneElementFactor < 0.45) zhuanBlockers.push('month_gyeok_broken');
+  const zhuanBreaker = finite01(qualityPenalty + (zhuanBlockers.length ? 0.18 : 0));
+  const zhuanScore = finite01(
+    0.58 * oneElementFactor +
+    0.24 * oneElementShare +
+    0.18 * (oneElementDayMatch ? 1 : 0) -
+    zhuanBreaker,
+  );
+  const zhuanSelected = selectedSubtype === 'zhuan_wang'
+    ? `${keyCore(best)} already selected by gyeokguk ranking`
+    : undefined;
+  candidates.push({
+    subtype: 'zhuan_wang',
+    status: statusFromScore(zhuanScore, zhuanBlockers.join(';') || undefined, zhuanSelected),
+    score: round6(zhuanScore),
+    confidence: round6(zhuanScore),
+    followPressure: round6(oneElementFactor),
+    dayMasterIsolation: round6(oneElementDayMatch ? 0 : dayMasterIsolation),
+    rootWeakness: round6(oneElementDayMatch ? 0 : rootWeakness),
+    dominantElementShare: round6(oneElementShare),
+    breakerPenalty: round6(zhuanBreaker),
+    selectedReason: zhuanSelected,
+    blockedReason: zhuanBlockers.join(';') || undefined,
+    evidence: [
+      `oneElement=${String(oneEl?.element ?? 'NONE')}`,
+      `oneElementFactor=${round6(oneElementFactor)}`,
+      `dayMasterMatch=${oneElementDayMatch ? 1 : 0}`,
+    ],
+  });
+
+  const transform: any = (facts as any).patterns?.transformations?.best ?? {};
+  const huaqiFactor = readTransformSignal(facts, 'auto');
+  const huaqiShare = elementShare(facts, transform?.resultElement);
+  const dayInvolved = transform?.huaqiDetails?.flags?.dayInvolved === true;
+  const huaqiBlockers: string[] = [];
+  if (huaqiFactor > 0.2 && !dayInvolved) huaqiBlockers.push('day_master_not_involved');
+  if (q?.broken === true && huaqiFactor < 0.45) huaqiBlockers.push('month_gyeok_broken');
+  const huaqiBreaker = finite01(qualityPenalty + (huaqiBlockers.length ? 0.18 : 0));
+  const huaqiScore = finite01(
+    0.62 * huaqiFactor +
+    0.2 * huaqiShare +
+    0.18 * (dayInvolved ? 1 : 0) -
+    huaqiBreaker,
+  );
+  const huaqiSelected = selectedSubtype === 'hua_qi'
+    ? `${keyCore(best)} already selected by gyeokguk ranking`
+    : undefined;
+  candidates.push({
+    subtype: 'hua_qi',
+    status: statusFromScore(huaqiScore, huaqiBlockers.join(';') || undefined, huaqiSelected),
+    score: round6(huaqiScore),
+    confidence: round6(huaqiScore),
+    followPressure: round6(huaqiFactor),
+    dayMasterIsolation: round6(dayInvolved ? dayMasterIsolation : finite01(dayMasterIsolation * 0.7)),
+    rootWeakness: round6(rootWeakness),
+    dominantElementShare: round6(huaqiShare),
+    breakerPenalty: round6(huaqiBreaker),
+    selectedReason: huaqiSelected,
+    blockedReason: huaqiBlockers.join(';') || undefined,
+    evidence: [
+      `pair=${String(transform?.pair ?? 'NONE')}`,
+      `resultElement=${String(transform?.resultElement ?? 'NONE')}`,
+      `huaqiFactor=${round6(huaqiFactor)}`,
+      `dayInvolved=${dayInvolved ? 1 : 0}`,
+    ],
+  });
+
+  return candidates;
 }
 
 function normalizeMethods(methods: unknown, fallback: string[]): string[] {
@@ -719,12 +1007,14 @@ export function computeGyeokguk(config: EngineConfig, facts: RuleFacts): Gyeokgu
     .map(([key, score]) => ({ key, score }));
 
   const best = ranking.length && ranking[0]!.score > 0 ? ranking[0]!.key : null;
+  const jonggyeokCandidates = buildJonggyeokCandidates(facts, best);
 
   return {
     best,
     ranking,
     scores,
     competition: comp ?? undefined,
+    jonggyeokCandidates,
     basis: {
       monthMainTenGod: facts.month.mainTenGod,
       monthGyeokTenGod: facts.month.gyeok.tenGod,
