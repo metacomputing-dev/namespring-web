@@ -1,15 +1,15 @@
 {
   "schemaVersion": "spring-ts.source-tier-summary.v1",
   "status": "PASS",
-  "scanned": 65,
+  "scanned": 70,
   "violationCount": 0,
-  "authorityTruthEligibleCount": 41,
-  "nonEligibleCount": 24,
+  "authorityTruthEligibleCount": 43,
+  "nonEligibleCount": 27,
   "byTier": {
     "T3_AUTHORED_INTERPRETATION": {
-      "recordCount": 26,
+      "recordCount": 29,
       "authorityTruthEligible": 25,
-      "nonEligible": 1,
+      "nonEligible": 4,
       "files": [
         "test/baseline/authority/chumyeongga/chu_32.json",
         "test/baseline/authority/chumyeongga/chu_37.json",
@@ -36,6 +36,9 @@
         "test/baseline/authority/lecture/p127_1964_female_haenyeo_doctorate.json",
         "test/baseline/authority/lecture/p127_1964_male_public_exec.json",
         "test/baseline/authority/lecture/p127_1975_female_national_professor.json",
+        "data/sources/phonetic.sources.json",
+        "data/sources/phonetic.sources.json#sources[2].sourceTier:phonetic_flow_display_policy",
+        "data/sources/phonetic.sources.json#sources[3].sourceTier:phonetic_score_separation_policy",
         "data/sources/unihan.sources.json#sources[2].sourceTier:radical_element_hint_policy"
       ]
     },
@@ -88,8 +91,8 @@
       ]
     },
     "T5_OFFICIAL": {
-      "recordCount": 12,
-      "authorityTruthEligible": 10,
+      "recordCount": 14,
+      "authorityTruthEligible": 12,
       "nonEligible": 2,
       "files": [
         "data/sources/legal-hanja.sources.json",
@@ -101,6 +104,8 @@
         "data/sources/name-trend.sources.json#sources[1].sourceTier:scourt_statistics_service_info",
         "data/sources/name-trend.sources.json#sources[2].sourceTier:scourt_report_metadata_observed_1811",
         "data/sources/name-trend.sources.json#sources[3].sourceTier:scourt_copyright_policy",
+        "data/sources/phonetic.sources.json#sources[0].sourceTier:unicode_hangul_decomposition_algorithm_17_0_0",
+        "data/sources/phonetic.sources.json#sources[1].sourceTier:nikl_standard_pronunciation_batchim_assimilation",
         "data/sources/unihan.sources.json",
         "data/sources/unihan.sources.json#sources[0].sourceTier:unicode_uax38_unihan_17_0_0",
         "data/sources/unihan.sources.json#sources[1].sourceTier:unicode_ucd_unihan_zip_17_0_0"
@@ -174,6 +179,31 @@
       "nonEligible": 1
     },
     "official_copyright_policy": {
+      "recordCount": 1,
+      "authorityTruthEligible": 0,
+      "nonEligible": 1
+    },
+    "internal_phonetic_rule_policy": {
+      "recordCount": 1,
+      "authorityTruthEligible": 0,
+      "nonEligible": 1
+    },
+    "unicode_standard_hangul_algorithm": {
+      "recordCount": 1,
+      "authorityTruthEligible": 1,
+      "nonEligible": 0
+    },
+    "official_korean_pronunciation_rule": {
+      "recordCount": 1,
+      "authorityTruthEligible": 1,
+      "nonEligible": 0
+    },
+    "authored_phonetic_naming_heuristic": {
+      "recordCount": 1,
+      "authorityTruthEligible": 0,
+      "nonEligible": 1
+    },
+    "internal_scoring_policy": {
       "recordCount": 1,
       "authorityTruthEligible": 0,
       "nonEligible": 1
