@@ -42,6 +42,7 @@ import { buildFortuneReport } from './report/buildFortuneReport.js';
 import type { FortuneReportRequest, FortuneReport } from './report/types.js';
 import { getLegalAnnotation, type HanjaLegalStatus, type HanjaPool } from './hanja-annotations.js';
 import inmyeongyongFullData from '../data/inmyeongyong_9389_full.json';
+import { getEnrichedStrokeCount, getUnihanMetadata } from './hanja-unihan.js';
 
 // ---------------------------------------------------------------------------
 // Config -- all tuneable numbers come from engine.json
@@ -73,16 +74,20 @@ const FULL_POOL_ID_BASE = 900_000;
 /** Convert a HanjaEntry into the public CharDetail shape. */
 function toCharDetail(entry: HanjaEntry, pool: HanjaPool = 'curated'): CharDetail {
   const legal = getLegalAnnotation(entry, { pool });
+  const enrichedStrokes = getEnrichedStrokeCount(entry.hanja, entry.strokes);
+  const unihan = getUnihanMetadata(entry.hanja);
   return {
     hangul:   entry.hangul,
     hanja:    entry.hanja,
     meaning:  entry.meaning,
-    strokes:  entry.strokes,
+    strokes:  enrichedStrokes,
     element:  entry.resource_element,
-    polarity: Polarity.get(entry.strokes).english,
+    polarity: Polarity.get(enrichedStrokes).english,
     legalStatus: legal.legalStatus,
     legalRegistrable: legal.legalRegistrable,
     isVariantOf: legal.isVariantOf,
+    unihan,
+    radicalElementHint: unihan?.radicalElementHint,
   };
 }
 
@@ -90,6 +95,7 @@ interface FullPoolDataEntry {
   readonly hanja: string;
   readonly readings: readonly string[];
   readonly meaning: string | null;
+  readonly radicalId: number | null;
   readonly strokeCount: number | null;
 }
 
@@ -131,9 +137,11 @@ function getFullLegalPoolEntries(): readonly HanjaEntry[] {
   const seen = new Set<string>();
 
   for (const item of entries) {
-    const strokes = Number(item.strokeCount);
+    const localStrokes = Number(item.strokeCount);
+    const strokes = getEnrichedStrokeCount(item.hanja, localStrokes);
     if (!Number.isInteger(strokes) || strokes < STROKE_MIN || strokes > STROKE_MAX) continue;
     if (typeof item.hanja !== 'string' || !isSingleGlyph(item.hanja)) continue;
+    const unihan = getUnihanMetadata(item.hanja);
 
     for (const rawReading of item.readings ?? []) {
       const hangul = String(rawReading ?? '').trim();
@@ -145,8 +153,8 @@ function getFullLegalPoolEntries(): readonly HanjaEntry[] {
       seen.add(key);
 
       // The local full pool does not carry radical/resource 오행 metadata.
-      // Use a stroke-derived element so opt-in candidates remain scoreable;
-      // PR-2.3 enriches this with Unihan/radical metadata.
+      // Use a stroke-derived element so opt-in candidates remain scoreable.
+      // Unihan radical data is exposed separately as a non-authority hint.
       const element = elementFromStrokeCount(strokes);
       out.push({
         id: FULL_POOL_ID_BASE + out.length,
@@ -158,7 +166,7 @@ function getFullLegalPoolEntries(): readonly HanjaEntry[] {
         stroke_element: element,
         resource_element: element,
         meaning: item.meaning ?? '',
-        radical: '',
+        radical: String(unihan?.radicalNumber ?? item.radicalId ?? ''),
         is_surname: false,
       });
     }
