@@ -1,0 +1,306 @@
+{
+  "schemaVersion": "spring-ts.public-text-rule-extraction.v1",
+  "collectionId": "A7R-public-text-rule-snippets",
+  "accessedAt": "2026-05-02",
+  "sourceRegistry": "data/sources/classical-myeongri.sources.json",
+  "vocabularyDictionary": "data/classical-vocabulary/classical-myeongri-vocabulary.json",
+  "sourceTier": {
+    "tier": "T4_PRIMARY_TEXT",
+    "sourceType": "classical_public_rule_snippet_fixture",
+    "sourceUrl": null,
+    "accessedAt": "2026-05-02",
+    "quoteShort": null,
+    "humanInterpretation": "Public classical rule snippets mapped to existing spring-ts and saju-ts feature anchors; fixture is evidence support only, not a case-truth denominator.",
+    "copyrightNote": "Stores short public-domain classical quotes only, with human interpretation separated from quoted text.",
+    "authorityTruthEligible": false
+  },
+  "usagePolicy": {
+    "noBulkCopy": true,
+    "maxQuoteChars": 80,
+    "allowed": [
+      "short public-domain quotes",
+      "source IDs from the registry",
+      "source URLs",
+      "human-authored interpretation",
+      "internal rule and feature anchors"
+    ],
+    "prohibited": [
+      "bulk OCR text",
+      "chapter copy",
+      "long continuous excerpts",
+      "unreviewed machine translation as authority truth"
+    ]
+  },
+  "snippets": [
+    {
+      "id": "stem_transparency_renyuan_touwang",
+      "group": "stemTransparency",
+      "sourceId": "yuanhai_ziping",
+      "sourceLocator": "先看月令，次看淺深; Wikisource lines 4532-4538",
+      "quoteShort": "人元三用，透旺為真。",
+      "feature": {
+        "surface": "GyeokgukCompositeClassicalFeatureScore.name",
+        "fieldPath": "sajuReport.gyeokguk.compositeClassical.features[].name",
+        "code": "stemTransparency",
+        "scoreKey": null,
+        "engineRef": "lib/spring-ts/src/types.ts:GyeokgukCompositeClassicalFeatureScore.name"
+      },
+      "linkedVocabularyTermIds": ["gyeokguk_jeong_gwan", "gyeokguk_pyeon_gwan"],
+      "ruleEvidenceEligible": true,
+      "humanInterpretation": "Visible/transparent human-hidden stems are mapped to the existing stemTransparency evidence feature.",
+      "sourceTier": {
+        "tier": "T4_PRIMARY_TEXT",
+        "sourceType": "classical_public_rule_snippet",
+        "sourceUrl": "https://zh.wikisource.org/zh-hant/%E6%B7%B5%E6%B5%B7%E5%AD%90%E5%B9%B3%E5%A4%A7%E5%85%A8",
+        "accessedAt": "2026-05-02",
+        "quoteShort": "人元三用，透旺為真。",
+        "humanInterpretation": "Short primary-text support for mapping stem transparency to a composite classical feature.",
+        "copyrightNote": "Short public-domain quote only; no surrounding source prose copied.",
+        "authorityTruthEligible": false
+      }
+    },
+    {
+      "id": "stem_transparency_toucai_guilu",
+      "group": "stemTransparency",
+      "sourceId": "yuanhai_ziping",
+      "sourceLocator": "先看月令，次看淺深; Wikisource line 4687",
+      "quoteShort": "庚日申時，透財歸祿。",
+      "feature": {
+        "surface": "GyeokgukCompositeClassicalFeatureScore.name",
+        "fieldPath": "sajuReport.gyeokguk.compositeClassical.features[].name",
+        "code": "stemTransparency",
+        "scoreKey": null,
+        "engineRef": "lib/spring-ts/src/types.ts:GyeokgukCompositeClassicalFeatureScore.name"
+      },
+      "linkedVocabularyTermIds": ["ten_god_jeong_jae", "ten_god_pyeon_jae"],
+      "ruleEvidenceEligible": true,
+      "humanInterpretation": "A transparent wealth stem is treated as a code-level transparency signal, not as a copied interpretation.",
+      "sourceTier": {
+        "tier": "T4_PRIMARY_TEXT",
+        "sourceType": "classical_public_rule_snippet",
+        "sourceUrl": "https://zh.wikisource.org/zh-hant/%E6%B7%B5%E6%B5%B7%E5%AD%90%E5%B9%B3%E5%A4%A7%E5%85%A8",
+        "accessedAt": "2026-05-02",
+        "quoteShort": "庚日申時，透財歸祿。",
+        "humanInterpretation": "Short primary-text support for visible wealth-stem transparency.",
+        "copyrightNote": "Short public-domain quote only; no surrounding source prose copied.",
+        "authorityTruthEligible": false
+      }
+    },
+    {
+      "id": "seasonal_command_month_order",
+      "group": "seasonalCommand",
+      "sourceId": "yuanhai_ziping",
+      "sourceLocator": "先看月令，次看淺深; Wikisource line 4532",
+      "quoteShort": "年根為本，月令為中。",
+      "feature": {
+        "surface": "GyeokgukCompositeClassicalFeatureScore.name",
+        "fieldPath": "sajuReport.gyeokguk.compositeClassical.features[].name",
+        "code": "seasonalCommand",
+        "scoreKey": null,
+        "engineRef": "lib/spring-ts/src/types.ts:GyeokgukCompositeClassicalFeatureScore.name"
+      },
+      "linkedVocabularyTermIds": ["gyeokguk_jeong_gwan", "gyeokguk_jeong_jae"],
+      "ruleEvidenceEligible": true,
+      "humanInterpretation": "The month command is mapped to the seasonalCommand composite evidence feature.",
+      "sourceTier": {
+        "tier": "T4_PRIMARY_TEXT",
+        "sourceType": "classical_public_rule_snippet",
+        "sourceUrl": "https://zh.wikisource.org/zh-hant/%E6%B7%B5%E6%B5%B7%E5%AD%90%E5%B9%B3%E5%A4%A7%E5%85%A8",
+        "accessedAt": "2026-05-02",
+        "quoteShort": "年根為本，月令為中。",
+        "humanInterpretation": "Short primary-text support for month-command weighting.",
+        "copyrightNote": "Short public-domain quote only; no surrounding source prose copied.",
+        "authorityTruthEligible": false
+      }
+    },
+    {
+      "id": "seasonal_command_de_ling",
+      "group": "seasonalCommand",
+      "sourceId": "yuanhai_ziping",
+      "sourceLocator": "先看月令，次看淺深; Wikisource line 4532",
+      "quoteShort": "日主要強，月提得令。",
+      "feature": {
+        "surface": "GyeokgukCompositeClassicalFeatureScore.name",
+        "fieldPath": "sajuReport.gyeokguk.compositeClassical.features[].name",
+        "code": "seasonalCommand",
+        "scoreKey": null,
+        "engineRef": "lib/spring-ts/src/types.ts:GyeokgukCompositeClassicalFeatureScore.name"
+      },
+      "linkedVocabularyTermIds": ["gyeokguk_bi_gyeon", "gyeokguk_gyeob_jae"],
+      "ruleEvidenceEligible": true,
+      "humanInterpretation": "The month branch's seasonal command is mapped to existing seasonal-command scoring.",
+      "sourceTier": {
+        "tier": "T4_PRIMARY_TEXT",
+        "sourceType": "classical_public_rule_snippet",
+        "sourceUrl": "https://zh.wikisource.org/zh-hant/%E6%B7%B5%E6%B5%B7%E5%AD%90%E5%B9%B3%E5%A4%A7%E5%85%A8",
+        "accessedAt": "2026-05-02",
+        "quoteShort": "日主要強，月提得令。",
+        "humanInterpretation": "Short primary-text support for seasonal command as a strength/frame feature.",
+        "copyrightNote": "Short public-domain quote only; no surrounding source prose copied.",
+        "authorityTruthEligible": false
+      }
+    },
+    {
+      "id": "special_frame_cong_cai",
+      "group": "specialFrame",
+      "sourceId": "yuanhai_ziping",
+      "sourceLocator": "棄命從殺論; Wikisource lines 4787-4791",
+      "quoteShort": "棄命從財，須要會財。",
+      "feature": {
+        "surface": "gyeokguk special-frame score",
+        "fieldPath": "sajuReport.gyeokguk.jonggyeokCandidates[].subtype",
+        "code": "CONG_CAI",
+        "scoreKey": "gyeokguk.CONG_CAI",
+        "engineRef": "lib/saju-ts/src/rules/defaultRuleSets.ts:GYEOK_CONG_CAI"
+      },
+      "linkedVocabularyTermIds": ["gyeokguk_cong_cai", "ten_god_jeong_jae", "ten_god_pyeon_jae"],
+      "ruleEvidenceEligible": true,
+      "humanInterpretation": "Follow-wealth vocabulary is mapped to the existing CONG_CAI special-frame score key.",
+      "sourceTier": {
+        "tier": "T4_PRIMARY_TEXT",
+        "sourceType": "classical_public_rule_snippet",
+        "sourceUrl": "https://zh.wikisource.org/zh-hant/%E6%B7%B5%E6%B5%B7%E5%AD%90%E5%B9%B3%E5%A4%A7%E5%85%A8",
+        "accessedAt": "2026-05-02",
+        "quoteShort": "棄命從財，須要會財。",
+        "humanInterpretation": "Short primary-text support for CONG_CAI follow-wealth evidence.",
+        "copyrightNote": "Short public-domain quote only; no surrounding source prose copied.",
+        "authorityTruthEligible": false
+      }
+    },
+    {
+      "id": "special_frame_cong_sha",
+      "group": "specialFrame",
+      "sourceId": "yuanhai_ziping",
+      "sourceLocator": "棄命從殺論; Wikisource lines 4787-4791",
+      "quoteShort": "棄命從殺，須要會殺。",
+      "feature": {
+        "surface": "gyeokguk special-frame score",
+        "fieldPath": "sajuReport.gyeokguk.jonggyeokCandidates[].subtype",
+        "code": "CONG_SHA",
+        "scoreKey": "gyeokguk.CONG_SHA",
+        "engineRef": "lib/saju-ts/src/rules/defaultRuleSets.ts:GYEOK_CONG_SHA"
+      },
+      "linkedVocabularyTermIds": ["gyeokguk_cong_sha", "ten_god_pyeon_gwan"],
+      "ruleEvidenceEligible": true,
+      "humanInterpretation": "Follow-kill vocabulary is mapped to the existing CONG_SHA special-frame score key.",
+      "sourceTier": {
+        "tier": "T4_PRIMARY_TEXT",
+        "sourceType": "classical_public_rule_snippet",
+        "sourceUrl": "https://zh.wikisource.org/zh-hant/%E6%B7%B5%E6%B5%B7%E5%AD%90%E5%B9%B3%E5%A4%A7%E5%85%A8",
+        "accessedAt": "2026-05-02",
+        "quoteShort": "棄命從殺，須要會殺。",
+        "humanInterpretation": "Short primary-text support for CONG_SHA follow-kill evidence.",
+        "copyrightNote": "Short public-domain quote only; no surrounding source prose copied.",
+        "authorityTruthEligible": false
+      }
+    },
+    {
+      "id": "special_frame_zhuan_wang",
+      "group": "specialFrame",
+      "sourceId": "yuanhai_ziping",
+      "sourceLocator": "先看月令，次看淺深; Wikisource line 4689",
+      "quoteShort": "天元一氣，地物相同。",
+      "feature": {
+        "surface": "gyeokguk special-frame score",
+        "fieldPath": "sajuReport.gyeokguk.jonggyeokCandidates[].subtype",
+        "code": "ZHUAN_WANG",
+        "scoreKey": "gyeokguk.ZHUAN_WANG",
+        "engineRef": "lib/saju-ts/src/rules/defaultRuleSets.ts:GYEOK_ZHUAN_WANG"
+      },
+      "linkedVocabularyTermIds": ["gyeokguk_zhuan_wang"],
+      "ruleEvidenceEligible": true,
+      "humanInterpretation": "One-qi/same-material phrasing is mapped to one-element dominance evidence.",
+      "sourceTier": {
+        "tier": "T4_PRIMARY_TEXT",
+        "sourceType": "classical_public_rule_snippet",
+        "sourceUrl": "https://zh.wikisource.org/zh-hant/%E6%B7%B5%E6%B5%B7%E5%AD%90%E5%B9%B3%E5%A4%A7%E5%85%A8",
+        "accessedAt": "2026-05-02",
+        "quoteShort": "天元一氣，地物相同。",
+        "humanInterpretation": "Short primary-text support for ZHUAN_WANG one-element evidence.",
+        "copyrightNote": "Short public-domain quote only; no surrounding source prose copied.",
+        "authorityTruthEligible": false
+      }
+    },
+    {
+      "id": "useful_god_conflict_fire_water_wood_metal",
+      "group": "usefulGodConflict",
+      "sourceId": "yuanhai_ziping",
+      "sourceLocator": "先看月令，次看淺深; Wikisource line 4536",
+      "quoteShort": "用火愁水，用木愁金。",
+      "feature": {
+        "surface": "yongshin conflict evidence",
+        "fieldPath": "sajuReport.yongshin.gishin",
+        "code": "GISIN",
+        "scoreKey": null,
+        "engineRef": "lib/spring-ts/src/types.ts:SajuYongshinSummary.gisin"
+      },
+      "linkedVocabularyTermIds": ["yongshin_yongshin", "yongshin_gisin"],
+      "ruleEvidenceEligible": true,
+      "humanInterpretation": "Useful-god conflict language is mapped to the existing avoid/gisin feature surface.",
+      "sourceTier": {
+        "tier": "T4_PRIMARY_TEXT",
+        "sourceType": "classical_public_rule_snippet",
+        "sourceUrl": "https://zh.wikisource.org/zh-hant/%E6%B7%B5%E6%B5%B7%E5%AD%90%E5%B9%B3%E5%A4%A7%E5%85%A8",
+        "accessedAt": "2026-05-02",
+        "quoteShort": "用火愁水，用木愁金。",
+        "humanInterpretation": "Short primary-text support for useful-god conflict mapping.",
+        "copyrightNote": "Short public-domain quote only; no surrounding source prose copied.",
+        "authorityTruthEligible": false
+      }
+    },
+    {
+      "id": "disease_remedy_remove_disease",
+      "group": "usefulGodConflict",
+      "sourceId": "yuanhai_ziping",
+      "sourceLocator": "五言獨步; Wikisource line 4796",
+      "quoteShort": "有病方為貴，無傷不是奇；格中如去病，財祿兩相隨。",
+      "feature": {
+        "surface": "gyeokguk composite classical evidence",
+        "fieldPath": "sajuReport.gyeokguk.compositeClassical.features[].name",
+        "code": "usefulGodAlignment",
+        "scoreKey": null,
+        "engineRef": "lib/spring-ts/src/types.ts:GyeokgukCompositeClassicalFeatureScore.name"
+      },
+      "linkedVocabularyTermIds": ["yongshin_byeongyak", "disease_remedy_byeong", "disease_remedy_yak"],
+      "ruleEvidenceEligible": true,
+      "humanInterpretation": "Disease/remedy language is mapped to existing breaker/remedy evidence rather than copied interpretation.",
+      "sourceTier": {
+        "tier": "T4_PRIMARY_TEXT",
+        "sourceType": "classical_public_rule_snippet",
+        "sourceUrl": "https://zh.wikisource.org/zh-hant/%E6%B7%B5%E6%B5%B7%E5%AD%90%E5%B9%B3%E5%A4%A7%E5%85%A8",
+        "accessedAt": "2026-05-02",
+        "quoteShort": "有病方為貴，無傷不是奇；格中如去病，財祿兩相隨。",
+        "humanInterpretation": "Short primary-text support for disease/remedy useful-god alignment.",
+        "copyrightNote": "Short public-domain quote only; no surrounding source prose copied.",
+        "authorityTruthEligible": false
+      }
+    },
+    {
+      "id": "tongguan_bridge",
+      "group": "usefulGodConflict",
+      "sourceId": "ditian_sui_chanwei",
+      "sourceLocator": "通關; Wikisource line 3108",
+      "quoteShort": "通關者，引通克制之神也。",
+      "feature": {
+        "surface": "yongshin rule specs",
+        "fieldPath": "rules.spec.yongshin.throughBridge",
+        "code": "TONGGUAN",
+        "scoreKey": "yongshin.tongguan.bridge",
+        "engineRef": "lib/saju-ts/src/rules/spec/yongshinSpec.ts:tongguanBridge"
+      },
+      "linkedVocabularyTermIds": ["yongshin_tong_gwan"],
+      "ruleEvidenceEligible": true,
+      "humanInterpretation": "Tongguan bridge language is mapped to the existing throughBridge/tongguan rule-spec surface.",
+      "sourceTier": {
+        "tier": "T4_PRIMARY_TEXT",
+        "sourceType": "classical_public_rule_snippet",
+        "sourceUrl": "https://zh.wikisource.org/zh-hant/%E6%BB%B4%E5%A4%A9%E9%AB%93%E9%97%A1%E5%BE%AE",
+        "accessedAt": "2026-05-02",
+        "quoteShort": "通關者，引通克制之神也。",
+        "humanInterpretation": "Short primary-text support for tongguan/throughBridge useful-god evidence.",
+        "copyrightNote": "Short public-domain quote only; no surrounding source prose copied.",
+        "authorityTruthEligible": false
+      }
+    }
+  ]
+}
