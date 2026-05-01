@@ -35,6 +35,8 @@ import type {
   SajuCompatibility,
   SajuOutputSummary,
   SajuYongshinSummary,
+  TenGodPositionEvidence,
+  TenGodPositionEvidenceContribution,
   YongshinConsensusConflictLevel,
 } from './types.js';
 import { elementFromSajuCode } from './saju-adapter.js';
@@ -783,6 +785,55 @@ function computeTenGodScore(
   return computeTenGodScoreDiagnostics(rootDist, sajuOutput, mode).score;
 }
 
+function roundEvidenceNumber(value: number | undefined): number | undefined {
+  return value == null || !Number.isFinite(value)
+    ? undefined
+    : Number(value.toFixed(6));
+}
+
+function roundRecord<T extends string>(record: Record<T, number> | undefined): Record<T, number> | undefined {
+  if (!record) return undefined;
+  return Object.fromEntries(
+    Object.entries(record).map(([key, value]) => [key, roundEvidenceNumber(value as number) ?? 0]),
+  ) as Record<T, number>;
+}
+
+function toTenGodPositionEvidence(diagnostics: TenGodScoreDiagnostics | null): TenGodPositionEvidence | undefined {
+  if (!diagnostics || diagnostics.fallbackReason === 'missing_ten_god_or_day_master') return undefined;
+  const topContributions = diagnostics.positionContributions
+    .slice()
+    .sort((a, b) => (b.visibility ?? b.weight) - (a.visibility ?? a.weight))
+    .slice(0, 5)
+    .map((row): TenGodPositionEvidenceContribution => ({
+      position: row.position,
+      source: row.source,
+      group: row.group,
+      weight: roundEvidenceNumber(row.weight) ?? 0,
+      ...(roundEvidenceNumber(row.presence) != null ? { presence: roundEvidenceNumber(row.presence) } : {}),
+      ...(roundEvidenceNumber(row.visibility) != null ? { visibility: roundEvidenceNumber(row.visibility) } : {}),
+      ...(row.stem ? { stem: row.stem } : {}),
+      ...(row.element != null ? { element: row.element } : {}),
+      ...(roundEvidenceNumber(row.ratio) != null ? { ratio: roundEvidenceNumber(row.ratio) } : {}),
+      ...(row.rank != null ? { rank: row.rank } : {}),
+    }));
+
+  return {
+    requestedMode: diagnostics.requestedMode,
+    effectiveMode: diagnostics.effectiveMode,
+    score: roundEvidenceNumber(diagnostics.score) ?? diagnostics.score,
+    normalization: diagnostics.normalization,
+    topContributions,
+    groupCounts: roundRecord(diagnostics.groupCounts) ?? diagnostics.groupCounts,
+    deviations: roundRecord(diagnostics.deviations) ?? diagnostics.deviations,
+    elementWeights: roundRecord(diagnostics.elementWeights) ?? diagnostics.elementWeights,
+    ...(roundRecord(diagnostics.presenceCounts) ? { presenceCounts: roundRecord(diagnostics.presenceCounts) } : {}),
+    ...(roundRecord(diagnostics.visibilityCounts) ? { visibilityCounts: roundRecord(diagnostics.visibilityCounts) } : {}),
+    ...(roundEvidenceNumber(diagnostics.expectedPresenceByChartShape) != null ? { expectedPresenceByChartShape: roundEvidenceNumber(diagnostics.expectedPresenceByChartShape) } : {}),
+    ...(roundEvidenceNumber(diagnostics.meanVisibilityPerPresence) != null ? { meanVisibilityPerPresence: roundEvidenceNumber(diagnostics.meanVisibilityPerPresence) } : {}),
+    ...(diagnostics.fallbackReason ? { fallbackReason: diagnostics.fallbackReason } : {}),
+  };
+}
+
 // =========================================================================
 //  ADAPTIVE WEIGHT RESOLUTION
 //  The four sub-scores are not weighted equally.  When yongshin data is
@@ -1033,6 +1084,7 @@ export interface SajuEvaluatorHints {
 export class SajuCalculator implements EvaluableCalculator {
   readonly id = 'saju';
   private scoreResult: SajuNameScoreResult | null = null;
+  private tenGodDiagnostics: TenGodScoreDiagnostics | null = null;
   private readonly elementSource: SajuNameElementSource;
   private readonly enabled: boolean;
   private readonly presetData: SchoolPresetData | null;
@@ -1090,6 +1142,7 @@ export class SajuCalculator implements EvaluableCalculator {
   visit(ctx: EvalContext): void {
     if (!this.enabled) {
       this.scoreResult = null;
+      this.tenGodDiagnostics = null;
       putInsight(ctx, SAJU_FRAME, 100, true, 'DISABLED_NO_SAJU_CONTEXT', {
         disabled: true,
         reason: 'missing-or-partial-birth-context',
@@ -1107,12 +1160,18 @@ export class SajuCalculator implements EvaluableCalculator {
       this.presetData,
       this.scoringOverrides,
     );
+    this.tenGodDiagnostics = computeTenGodScoreDiagnostics(
+      rootDist,
+      this.sajuOutput,
+      this.scoringOverrides?.tenGodMode ?? 'simple_count',
+    );
     putInsight(ctx, SAJU_FRAME, this.scoreResult.score, this.scoreResult.isPassed, 'SAJU+ELEMENT', {
       sajuDistribution: this.sajuDistribution,
       distributionSource: this.sajuOutput ? 'saju-ts' : 'fallback',
       elementDistribution: rootDist,
       combinedDistribution: this.scoreResult.combined,
       scoring: this.scoreResult.breakdown,
+      tenGodPositionEvidence: toTenGodPositionEvidence(this.tenGodDiagnostics),
       analysisOutput: this.sajuOutput,
       // PR8: surface evaluator hints so spring-evaluator's extractSajuPriority
       // can apply the curve / guard without changing springEvaluateName's signature.
@@ -1157,6 +1216,7 @@ export class SajuCalculator implements EvaluableCalculator {
     const breakdown     = this.scoreResult?.breakdown;
     const elementMatches = breakdown?.elementMatches;
     const yongshinData  = this.sajuOutput?.yongshin;
+    const tenGodPositionEvidence = toTenGodPositionEvidence(this.tenGodDiagnostics);
     return {
       type: 'Saju',
       score: this.scoreResult?.score ?? 0,
@@ -1173,6 +1233,7 @@ export class SajuCalculator implements EvaluableCalculator {
         affinityScore:         this.scoreResult?.score ?? 0,
         yongshinConsensusConflictLevel: breakdown?.yongshinConsensus?.conflictLevel,
         yongshinConsensusCompetingElements: breakdown?.yongshinConsensus?.competingElements,
+        tenGodPositionEvidence,
       },
     };
   }

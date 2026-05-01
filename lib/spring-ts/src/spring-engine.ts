@@ -579,7 +579,9 @@ export class SpringEngine {
     }
 
     const sajuReport = sajuReportOverride ?? await this.getSajuReport(request);
-    const { dist: sajuDistribution, output: sajuOutput } = buildSajuContext(sajuReport);
+    const { dist: sajuDistribution, output: sajuOutput } = buildSajuContext(sajuReport, {
+      includeTenGodByPosition: request.options?.precisionConfig?.tenGodMode === 'positional_weighted_v2',
+    });
     const nameStatInfo = await this.getNameStatInfo(request.givenName);
 
     const resolutionPolicy = this.resolveNameResolutionPolicy(
@@ -717,7 +719,9 @@ export class SpringEngine {
 
     const sajuReport = await this.getSajuReport(request);
     const sajuSummary: SajuSummary = sajuReport;
-    const { dist: sajuDistribution, output: sajuOutput } = buildSajuContext(sajuSummary);
+    const { dist: sajuDistribution, output: sajuOutput } = buildSajuContext(sajuSummary, {
+      includeTenGodByPosition: request.options?.precisionConfig?.tenGodMode === 'positional_weighted_v2',
+    });
 
     const jamoFilters = request.givenName?.map(
       char => char.hanja ? null : parseJamoFilter(char.hangul),
@@ -892,7 +896,9 @@ export class SpringEngine {
 
     // 2. Run saju (four-pillar destiny) analysis on the birth data
     const sajuSummary = await analyzeSaju(request.birth, request.options);
-    const { dist: sajuDistribution, output: sajuOutput } = buildSajuContext(sajuSummary);
+    const { dist: sajuDistribution, output: sajuOutput } = buildSajuContext(sajuSummary, {
+      includeTenGodByPosition: request.options?.precisionConfig?.tenGodMode === 'positional_weighted_v2',
+    });
 
     // 3. Build the list of name inputs to score
     const nameInputs = await this.collectNameInputs(

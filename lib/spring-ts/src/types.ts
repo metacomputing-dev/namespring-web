@@ -887,6 +887,39 @@ export interface SpringCandidateSummary {
 //       Used to bridge saju analysis with name scoring.
 // ─────────────────────────────────────────────────────────────────────────────
 
+export type TenGodEvidenceSource = 'cheongan' | 'jijiPrincipal' | 'hiddenStem';
+export type TenGodEvidenceMode = 'simple_count' | 'positional_weighted' | 'positional_weighted_v2';
+export type TenGodEvidenceNormalization = 'deviation_from_average_count' | 'presence_visibility_expected_by_chart_shape';
+
+export interface TenGodPositionEvidenceContribution {
+  readonly position: string;
+  readonly source: TenGodEvidenceSource;
+  readonly group: string;
+  readonly weight: number;
+  readonly presence?: number;
+  readonly visibility?: number;
+  readonly stem?: string;
+  readonly element?: ElementKey | null;
+  readonly ratio?: number;
+  readonly rank?: number;
+}
+
+export interface TenGodPositionEvidence {
+  readonly requestedMode: TenGodEvidenceMode;
+  readonly effectiveMode: TenGodEvidenceMode;
+  readonly score: number;
+  readonly normalization: TenGodEvidenceNormalization;
+  readonly topContributions: readonly TenGodPositionEvidenceContribution[];
+  readonly groupCounts: Record<string, number>;
+  readonly deviations: Record<string, number>;
+  readonly elementWeights: Record<ElementKey, number>;
+  readonly presenceCounts?: Record<string, number>;
+  readonly visibilityCounts?: Record<string, number>;
+  readonly expectedPresenceByChartShape?: number;
+  readonly meanVisibilityPerPresence?: number;
+  readonly fallbackReason?: string;
+}
+
 /** How well a name's elemental makeup aligns with the saju yongshin. */
 export interface SajuCompatibility {
   readonly yongshinElement: string;
@@ -899,6 +932,7 @@ export interface SajuCompatibility {
   readonly affinityScore: number;
   readonly yongshinConsensusConflictLevel?: YongshinConsensusConflictLevel;
   readonly yongshinConsensusCompetingElements?: readonly string[];
+  readonly tenGodPositionEvidence?: TenGodPositionEvidence;
 }
 
 /** Lightweight saju summary used by the SajuCalculator adapter. */
