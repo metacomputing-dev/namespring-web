@@ -1,0 +1,50 @@
+{
+  "schemaVersion": "spring-val.authority-case.v1-extended",
+  "case_id": "A1-td-05-chunggeuk-hyungmyeong",
+  "status": "training_derived",
+  "verificationStatus": "pending_book_check",
+  "source": {
+    "kind": "training_derived",
+    "ai_model": "claude-opus-4-7",
+    "doctrine_basis": "사주첩경 흉명 경고 케이스 표준 — 사주 충극 다중 발생 + 일간 약 → 인생 부침 큰 흉명. '寅申巳亥 사충' 시 더 위태.",
+    "collected_at": "2026-05-01",
+    "copyright_policy": "Pillars factual; doctrine analysis training-derived not citation-anchored."
+  },
+  "page_label": "충극 흉명 경고 - 신약 종살격 위태 (training-derived)",
+  "birth": {
+    "year_pillar": "壬子",
+    "month_pillar": "壬子",
+    "day_pillar": "丙子",
+    "hour_pillar": "壬辰",
+    "gender": "male",
+    "birth_date_iso": "1972-12-11T09:00:00",
+    "verified_by_engine": "saju-ts default chengbai_strict mode"
+  },
+  "expected": {
+    "gyeokguk": "정관격",
+    "gyeokguk_classical_form": "정관격",
+    "gyeokguk_basis": "丙火 일간 + 壬水 천간 3개 (편관) + 子 지지 3개 (水 76%) + 辰 (수고). 일간 火 자원 부재 → 從殺격 후보 또는 '편관 過旺 흉명'.",
+    "yongshinElement": "WOOD",
+    "heeshinElement": "FIRE",
+    "strengthLevel": "신약(극약)",
+    "isStrong": false,
+    "tenGodEmphasis": ["편관"],
+    "evaluation": "丙火 일간이 동지 子月에 절지 + 壬水 편관 압도 → '편관 過旺' 흉명. 從殺격으로 분류 가능하나 木(인성) 부재로 從格 cleanliness 부족. 인성운(寅卯)에 길, 火 비겁운에는 충돌(火↔水).",
+    "summary50char": "丙火 극약 편관과다. 從殺/正官격 경계 흉명.",
+    "comparable": "partial",
+    "doctrinalAlternative": {
+      "gyeokguk_alt": "CONG_SHA",
+      "alt_basis": "편관 76% 압도 → 從殺격 (양일간+양편관 polarity). saju-ts default 는 정관격으로 분류."
+    }
+  },
+  "narrative": { "charsPerClaim": 32, "evidenceRowsPerClaim": 3, "counterexampleCountPerCard": 2 },
+  "hedge": {
+    "shouldHedge": true,
+    "reason": "흉명 경고 시 hedge 강함 — '편관 過旺者必有災' 위험 신호. 사주첩경의 'caution + counterexample 다중 surface' 원칙 적용."
+  },
+  "doctrineNotes": [
+    "丙火 일간 子月 절지 + 壬水 3 천간 (七殺 압도)",
+    "辰 중 戊(식상) 통관 가능성 → 從殺 cleanliness 부족",
+    "木(인성)운에 통관, 火(비겁)운에는 火↔水 충돌"
+  ]
+}

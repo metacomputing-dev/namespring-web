@@ -1,0 +1,50 @@
+{
+  "schemaVersion": "spring-val.authority-case.v1-extended",
+  "case_id": "A1-td-02-jongjae-buwi",
+  "status": "training_derived",
+  "verificationStatus": "pending_book_check",
+  "source": {
+    "kind": "training_derived",
+    "ai_model": "claude-opus-4-7",
+    "doctrine_basis": "적천수 천미 / 命理存验 종재격 부귀 표준 케이스. 일간 약 + 재성 압도 → 종재. 임철초의 '從財者富'.",
+    "collected_at": "2026-05-01",
+    "copyright_policy": "Pillars factual; doctrine analysis training-derived not citation-anchored."
+  },
+  "page_label": "종재격 부귀 - 표준 케이스 (training-derived)",
+  "birth": {
+    "year_pillar": "戊午",
+    "month_pillar": "己未",
+    "day_pillar": "甲戌",
+    "hour_pillar": "戊辰",
+    "gender": "male",
+    "birth_date_iso": "1978-07-11T09:00:00",
+    "verified_by_engine": "saju-ts default chengbai_strict mode"
+  },
+  "expected": {
+    "gyeokguk": "종재격",
+    "gyeokguk_classical_form": "정재격",
+    "gyeokguk_basis": "甲木 일간 + 戊己 천간 4개 + 戌未辰 토 지지 (土 64%) → 일간 약 + 재성 압도. 火(식상) 14% 가 재성을 생함 → '從財格 with 식상통관' = 부귀 형국.",
+    "yongshinElement": "EARTH",
+    "heeshinElement": "FIRE",
+    "strengthLevel": "신약(종격 후보)",
+    "isStrong": false,
+    "tenGodEmphasis": ["정재", "편재", "식신"],
+    "evaluation": "재성 압도 + 식상 통관으로 從財 + 通關. 비겁운(木)에 흉, 인성운(水)에 도운다 — 그러나 본 사주 자체는 부귀 형국. 임철초의 '從財者富' 분류.",
+    "summary50char": "재성 압도 식상통관 부귀 종재격. 인성운 길.",
+    "comparable": "comparable",
+    "doctrinalAlternative": {
+      "gyeokguk_alt": "CONG_CAI",
+      "alt_basis": "saju-ts default 모드는 정재격으로 분류. 종격 의도가 있어도 '월지 未토 정재' 룰이 우선."
+    }
+  },
+  "narrative": { "charsPerClaim": 30, "evidenceRowsPerClaim": 2, "counterexampleCountPerCard": 1 },
+  "hedge": {
+    "shouldHedge": true,
+    "reason": "종재격 vs 정재격 (신약) 의 경계 — 일간 통근 (戌중 甲) 일부 있어 100% 從格 cleanliness 미충족. 적천수 doctrine 은 從財, 자평 doctrine 은 정재격."
+  },
+  "doctrineNotes": [
+    "甲木 일간이 미약 (午未 火氣 강 + 戊己 4 천간)",
+    "인성 水 부재 = 從格 cleanliness ↑",
+    "火 식상이 재성을 생함 = 통관 (從財 with 食傷)"
+  ]
+}

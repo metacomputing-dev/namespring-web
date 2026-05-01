@@ -1,0 +1,50 @@
+{
+  "schemaVersion": "spring-val.authority-case.v1-extended",
+  "case_id": "A1-td-03-siksinsangaeng",
+  "status": "training_derived",
+  "verificationStatus": "pending_book_check",
+  "source": {
+    "kind": "training_derived",
+    "ai_model": "claude-opus-4-7",
+    "doctrine_basis": "박재완 명리실관 식신생재격 표준. 신왕 + 식신 + 재성 의 흐름 = 부유한 사업가 명. '식상생재' 격국 patterns.",
+    "collected_at": "2026-05-01",
+    "copyright_policy": "Pillars factual; doctrine analysis training-derived not citation-anchored."
+  },
+  "page_label": "식신생재격 부유 사업가 (training-derived)",
+  "birth": {
+    "year_pillar": "壬午",
+    "month_pillar": "丙午",
+    "day_pillar": "丁未",
+    "hour_pillar": "丁未",
+    "gender": "male",
+    "birth_date_iso": "1942-06-23T15:00:00",
+    "verified_by_engine": "saju-ts default chengbai_strict mode"
+  },
+  "expected": {
+    "gyeokguk": "비견격",
+    "gyeokguk_classical_form": "비견격",
+    "gyeokguk_basis": "丁火 일간 + 火 강성 (午午未未, 火 63%). 일간 신왕 + 식상(土) + 재성(金/水) 보조. 식신생재격 후보 또는 從旺격으로도 분류 가능.",
+    "yongshinElement": "WATER",
+    "heeshinElement": "METAL",
+    "strengthLevel": "신왕",
+    "isStrong": true,
+    "tenGodEmphasis": ["비견", "겁재"],
+    "evaluation": "신왕 火氣 압도. 壬水 정관(年干) 이 너무 약하여 用神 부족 — 從旺격 후보. 비겁운에 강, 식상운에 길. 火 일색이라 재물도 火土流로 흐름.",
+    "summary50char": "丁火 신왕 從旺 후보. 食傷生財 부유 흐름.",
+    "comparable": "comparable",
+    "doctrinalAlternative": {
+      "gyeokguk_alt": "ZHUAN_WANG",
+      "alt_basis": "炎上格 (火 一氣) — 從旺격 변형. saju-ts default 모드는 비견격으로 분류."
+    }
+  },
+  "narrative": { "charsPerClaim": 30, "evidenceRowsPerClaim": 2, "counterexampleCountPerCard": 1 },
+  "hedge": {
+    "shouldHedge": true,
+    "reason": "비견격(정격) vs 從旺격(별격) 경계. 火氣 63% 가 從旺 임계 (75%) 미달이지만 일색 경향이 강해 doctrine 분기."
+  },
+  "doctrineNotes": [
+    "丁火 일간 + 4 火 지지 + 丙火 月간 = 火氣 一氣性",
+    "壬水 年干 정관이 자원 (午未) 通根 失 = 약",
+    "從旺격 doctrine: '一氣全占者必貴'"
+  ]
+}
