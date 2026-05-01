@@ -40,12 +40,12 @@
     "D_tenGodPositionWeighting": {
       "maxPoints": 10,
       "score": 0,
-      "status": "MEASURED_NULL_EFFECT",
-      "reason": "The positional_weighted branch is wired, but observed candidate-level divergence is 0/21 under the current normalization pipeline.",
+      "status": "MEASURED_OPT_IN_V2",
+      "reason": "positional_weighted_v2 is opt-in and now records presence/visibility deltas against the PR-5.1 default; no authority denominator is promoted yet.",
       "observedEngineDivergence": {
         "defaultFixtures": {
           "diverged": 0,
-          "total": 12
+          "total": 15
         },
         "jonggyeokFixtures": {
           "diverged": 0,
@@ -53,7 +53,7 @@
         },
         "combined": {
           "diverged": 0,
-          "total": 21
+          "total": 24
         },
         "source": "test/integration/md8-tengod-divergence.test.ts"
       },
@@ -69,11 +69,20 @@
           "monthStemEqualsHourStem": true,
           "monthHiddenEqualsHourHidden": true
         },
+        "optInV2Divergence": {
+          "monthStem": 48.8375,
+          "hourStem": 69.821429,
+          "monthHidden": 83.128571,
+          "hourHidden": 90.071429,
+          "stemPillarDiverges": true,
+          "hiddenPillarDiverges": true
+        },
         "rows": [
           {
             "id": "monthStem",
             "simpleScore": 77.692308,
             "positionalScore": 62.857143,
+            "positionalV2Score": 48.8375,
             "weightedGroupCounts": {
               "friend": 4,
               "output": 7.2,
@@ -81,6 +90,22 @@
               "authority": 0,
               "resource": 12
             },
+            "v2VisibilityCounts": {
+              "friend": 5.4,
+              "output": 7.2,
+              "wealth": 4.8,
+              "authority": 0,
+              "resource": 10.6
+            },
+            "v2PresenceCounts": {
+              "friend": 1,
+              "output": 4,
+              "wealth": 4,
+              "authority": 0,
+              "resource": 3
+            },
+            "expectedPresenceByChartShape": 2.4,
+            "meanVisibilityPerPresence": 2.333333,
             "averageCount": 5.6,
             "deviations": {
               "friend": 0.285714,
@@ -95,6 +120,7 @@
             "id": "hourStem",
             "simpleScore": 77.692308,
             "positionalScore": 62.857143,
+            "positionalV2Score": 69.821429,
             "weightedGroupCounts": {
               "friend": 4,
               "output": 7.2,
@@ -102,6 +128,22 @@
               "authority": 0,
               "resource": 12
             },
+            "v2VisibilityCounts": {
+              "friend": 3,
+              "output": 7.2,
+              "wealth": 4.8,
+              "authority": 0,
+              "resource": 13
+            },
+            "v2PresenceCounts": {
+              "friend": 1,
+              "output": 4,
+              "wealth": 4,
+              "authority": 0,
+              "resource": 3
+            },
+            "expectedPresenceByChartShape": 2.4,
+            "meanVisibilityPerPresence": 2.333333,
             "averageCount": 5.6,
             "deviations": {
               "friend": 0.285714,
@@ -116,6 +158,7 @@
             "id": "monthHidden",
             "simpleScore": 77.692308,
             "positionalScore": 85.357143,
+            "positionalV2Score": 83.128571,
             "weightedGroupCounts": {
               "friend": 1.2,
               "output": 7.2,
@@ -123,6 +166,22 @@
               "authority": 0,
               "resource": 16
             },
+            "v2VisibilityCounts": {
+              "friend": 1.62,
+              "output": 7.2,
+              "wealth": 3.18,
+              "authority": 0,
+              "resource": 16
+            },
+            "v2PresenceCounts": {
+              "friend": 1,
+              "output": 4,
+              "wealth": 3,
+              "authority": 0,
+              "resource": 4
+            },
+            "expectedPresenceByChartShape": 2.4,
+            "meanVisibilityPerPresence": 2.333333,
             "averageCount": 5.6,
             "deviations": {
               "friend": 0.785714,
@@ -137,6 +196,7 @@
             "id": "hourHidden",
             "simpleScore": 77.692308,
             "positionalScore": 85.357143,
+            "positionalV2Score": 90.071429,
             "weightedGroupCounts": {
               "friend": 1.2,
               "output": 7.2,
@@ -144,6 +204,22 @@
               "authority": 0,
               "resource": 16
             },
+            "v2VisibilityCounts": {
+              "friend": 0.9,
+              "output": 7.2,
+              "wealth": 3.9,
+              "authority": 0,
+              "resource": 16
+            },
+            "v2PresenceCounts": {
+              "friend": 1,
+              "output": 4,
+              "wealth": 3,
+              "authority": 0,
+              "resource": 4
+            },
+            "expectedPresenceByChartShape": 2.4,
+            "meanVisibilityPerPresence": 2.333333,
             "averageCount": 5.6,
             "deviations": {
               "friend": 0.785714,
@@ -156,8 +232,620 @@
           }
         ]
       },
+      "baselineComparison": {
+        "modeA": "positional_weighted",
+        "modeB": "positional_weighted_v2",
+        "note": "v2 is opt-in; this artifact compares PR-5.1 default behavior with the PR-5.2 candidate mode.",
+        "defaultFixtures": {
+          "total": 15,
+          "v1V2Diverged": 0,
+          "simpleVsV1Diverged": 0,
+          "totalAbsDelta": {
+            "saju": 0,
+            "total": 0
+          },
+          "rows": [
+            {
+              "id": "fix-01",
+              "label": "1986-04-19 male — 戊土 일간 (README example)",
+              "simple": {
+                "total": 56.2,
+                "saju": 35.5
+              },
+              "v1": {
+                "total": 56.2,
+                "saju": 35.5
+              },
+              "v2": {
+                "total": 56.2,
+                "saju": 35.5
+              },
+              "simpleVsV1Delta": {
+                "total": 0,
+                "saju": 0
+              },
+              "delta": {
+                "total": 0,
+                "saju": 0
+              }
+            },
+            {
+              "id": "fix-02",
+              "label": "1992-09-15 female — 壬水 일간, 가을",
+              "simple": {
+                "total": 53.8,
+                "saju": 42.1
+              },
+              "v1": {
+                "total": 53.8,
+                "saju": 42.1
+              },
+              "v2": {
+                "total": 53.8,
+                "saju": 42.1
+              },
+              "simpleVsV1Delta": {
+                "total": 0,
+                "saju": 0
+              },
+              "delta": {
+                "total": 0,
+                "saju": 0
+              }
+            },
+            {
+              "id": "fix-03",
+              "label": "2000-01-01 00:30 male — 子時 boundary edge",
+              "simple": {
+                "total": 62.9,
+                "saju": 57
+              },
+              "v1": {
+                "total": 62.9,
+                "saju": 57
+              },
+              "v2": {
+                "total": 62.9,
+                "saju": 57
+              },
+              "simpleVsV1Delta": {
+                "total": 0,
+                "saju": 0
+              },
+              "delta": {
+                "total": 0,
+                "saju": 0
+              }
+            },
+            {
+              "id": "fix-04",
+              "label": "1965-08-08 19:00 female — 丙火 일간, 종왕 후보 (강한 火)",
+              "simple": {
+                "total": 57.6,
+                "saju": 34.9
+              },
+              "v1": {
+                "total": 57.6,
+                "saju": 34.9
+              },
+              "v2": {
+                "total": 57.6,
+                "saju": 34.9
+              },
+              "simpleVsV1Delta": {
+                "total": 0,
+                "saju": 0
+              },
+              "delta": {
+                "total": 0,
+                "saju": 0
+              }
+            },
+            {
+              "id": "fix-05",
+              "label": "2005-12-25 06:00 male — 겨울 조후 case (한랭)",
+              "simple": {
+                "total": 58.1,
+                "saju": 57.6
+              },
+              "v1": {
+                "total": 58.1,
+                "saju": 57.6
+              },
+              "v2": {
+                "total": 58.1,
+                "saju": 57.6
+              },
+              "simpleVsV1Delta": {
+                "total": 0,
+                "saju": 0
+              },
+              "delta": {
+                "total": 0,
+                "saju": 0
+              }
+            },
+            {
+              "id": "fix-06",
+              "label": "1978-06-15 14:00 female — 庚金 일간, 여름",
+              "simple": {
+                "total": 57.9,
+                "saju": 40.9
+              },
+              "v1": {
+                "total": 57.9,
+                "saju": 40.9
+              },
+              "v2": {
+                "total": 57.9,
+                "saju": 40.9
+              },
+              "simpleVsV1Delta": {
+                "total": 0,
+                "saju": 0
+              },
+              "delta": {
+                "total": 0,
+                "saju": 0
+              }
+            },
+            {
+              "id": "fix-07",
+              "label": "1957-02-04 male — 입춘 boundary",
+              "simple": {
+                "total": 64.2,
+                "saju": 43
+              },
+              "v1": {
+                "total": 64.2,
+                "saju": 43
+              },
+              "v2": {
+                "total": 64.2,
+                "saju": 43
+              },
+              "simpleVsV1Delta": {
+                "total": 0,
+                "saju": 0
+              },
+              "delta": {
+                "total": 0,
+                "saju": 0
+              }
+            },
+            {
+              "id": "fix-08",
+              "label": "2020-08-23 female — 처서 boundary",
+              "simple": {
+                "total": 57.6,
+                "saju": 55.1
+              },
+              "v1": {
+                "total": 57.6,
+                "saju": 55.1
+              },
+              "v2": {
+                "total": 57.6,
+                "saju": 55.1
+              },
+              "simpleVsV1Delta": {
+                "total": 0,
+                "saju": 0
+              },
+              "delta": {
+                "total": 0,
+                "saju": 0
+              }
+            },
+            {
+              "id": "fix-09",
+              "label": "1988-05-05 male — 입하 boundary",
+              "simple": {
+                "total": 61.9,
+                "saju": 47.9
+              },
+              "v1": {
+                "total": 61.9,
+                "saju": 47.9
+              },
+              "v2": {
+                "total": 61.9,
+                "saju": 47.9
+              },
+              "simpleVsV1Delta": {
+                "total": 0,
+                "saju": 0
+              },
+              "delta": {
+                "total": 0,
+                "saju": 0
+              }
+            },
+            {
+              "id": "fix-10",
+              "label": "2018-11-22 female — 소설 boundary",
+              "simple": {
+                "total": 76.1,
+                "saju": 81.6
+              },
+              "v1": {
+                "total": 76.1,
+                "saju": 81.6
+              },
+              "v2": {
+                "total": 76.1,
+                "saju": 81.6
+              },
+              "simpleVsV1Delta": {
+                "total": 0,
+                "saju": 0
+              },
+              "delta": {
+                "total": 0,
+                "saju": 0
+              }
+            },
+            {
+              "id": "fix-11",
+              "label": "1995-08-15 female — 시간미상 (unknown-hour)",
+              "simple": {
+                "total": 51.9,
+                "saju": 46.8
+              },
+              "v1": {
+                "total": 51.9,
+                "saju": 46.8
+              },
+              "v2": {
+                "total": 51.9,
+                "saju": 46.8
+              },
+              "simpleVsV1Delta": {
+                "total": 0,
+                "saju": 0
+              },
+              "delta": {
+                "total": 0,
+                "saju": 0
+              }
+            },
+            {
+              "id": "fix-12",
+              "label": "1991-03-20 male — borderline-strength (춘분 즈음, 중화 후보)",
+              "simple": {
+                "total": 54.2,
+                "saju": 22.8
+              },
+              "v1": {
+                "total": 54.2,
+                "saju": 22.8
+              },
+              "v2": {
+                "total": 54.2,
+                "saju": 22.8
+              },
+              "simpleVsV1Delta": {
+                "total": 0,
+                "saju": 0
+              },
+              "delta": {
+                "total": 0,
+                "saju": 0
+              }
+            },
+            {
+              "id": "fix-13",
+              "label": "1989-07-23 male — borderline-strength practical tier (정재격, 여름 yongshin=WATER)",
+              "simple": {
+                "total": 58.3,
+                "saju": 41.3
+              },
+              "v1": {
+                "total": 58.3,
+                "saju": 41.3
+              },
+              "v2": {
+                "total": 58.3,
+                "saju": 41.3
+              },
+              "simpleVsV1Delta": {
+                "total": 0,
+                "saju": 0
+              },
+              "delta": {
+                "total": 0,
+                "saju": 0
+              }
+            },
+            {
+              "id": "fix-14",
+              "label": "1980-08-07 male — borderline-strength candidate tier (정관격, 가을 yongshin=WOOD)",
+              "simple": {
+                "total": 70.5,
+                "saju": 69.7
+              },
+              "v1": {
+                "total": 70.5,
+                "saju": 69.7
+              },
+              "v2": {
+                "total": 70.5,
+                "saju": 69.7
+              },
+              "simpleVsV1Delta": {
+                "total": 0,
+                "saju": 0
+              },
+              "delta": {
+                "total": 0,
+                "saju": 0
+              }
+            },
+            {
+              "id": "fix-15",
+              "label": "1985-03-21 male — borderline-strength deferred tier (편관격, 춘분 yongshin=METAL)",
+              "simple": {
+                "total": 59.9,
+                "saju": 50.2
+              },
+              "v1": {
+                "total": 59.9,
+                "saju": 50.2
+              },
+              "v2": {
+                "total": 59.9,
+                "saju": 50.2
+              },
+              "simpleVsV1Delta": {
+                "total": 0,
+                "saju": 0
+              },
+              "delta": {
+                "total": 0,
+                "saju": 0
+              }
+            }
+          ]
+        },
+        "jonggyeokFixtures": {
+          "total": 9,
+          "v1V2Diverged": 0,
+          "simpleVsV1Diverged": 0,
+          "totalAbsDelta": {
+            "saju": 0,
+            "total": 0
+          },
+          "rows": [
+            {
+              "id": "fix-jong-01",
+              "label": "1958-07-11 21:00 male — HUA_QI 化氣格 (甲己合化土)",
+              "expectedJonggyeokType": "HUA_QI",
+              "simple": {
+                "total": 61.9,
+                "saju": 54.3
+              },
+              "v1": {
+                "total": 61.9,
+                "saju": 54.3
+              },
+              "v2": {
+                "total": 61.9,
+                "saju": 54.3
+              },
+              "simpleVsV1Delta": {
+                "total": 0,
+                "saju": 0
+              },
+              "delta": {
+                "total": 0,
+                "saju": 0
+              }
+            },
+            {
+              "id": "fix-jong-02",
+              "label": "1942-06-23 15:00 male — ZHUAN_WANG 一氣格 (炎上格 火)",
+              "expectedJonggyeokType": "ZHUAN_WANG",
+              "simple": {
+                "total": 59.1,
+                "saju": 41.8
+              },
+              "v1": {
+                "total": 59.1,
+                "saju": 41.8
+              },
+              "v2": {
+                "total": 59.1,
+                "saju": 41.8
+              },
+              "simpleVsV1Delta": {
+                "total": 0,
+                "saju": 0
+              },
+              "delta": {
+                "total": 0,
+                "saju": 0
+              }
+            },
+            {
+              "id": "fix-jong-03",
+              "label": "1958-07-11 09:00 male — CONG_GE 종격 (稼穡格 土 一氣)",
+              "expectedJonggyeokType": "CONG_GE",
+              "simple": {
+                "total": 75,
+                "saju": 85.5
+              },
+              "v1": {
+                "total": 75,
+                "saju": 85.5
+              },
+              "v2": {
+                "total": 75,
+                "saju": 85.5
+              },
+              "simpleVsV1Delta": {
+                "total": 0,
+                "saju": 0
+              },
+              "delta": {
+                "total": 0,
+                "saju": 0
+              }
+            },
+            {
+              "id": "fix-jong-04",
+              "label": "1978-07-11 09:00 male — CONG_CAI 종재격",
+              "expectedJonggyeokType": "CONG_CAI",
+              "simple": {
+                "total": 51.3,
+                "saju": 28.3
+              },
+              "v1": {
+                "total": 51.3,
+                "saju": 28.3
+              },
+              "v2": {
+                "total": 51.3,
+                "saju": 28.3
+              },
+              "simpleVsV1Delta": {
+                "total": 0,
+                "saju": 0
+              },
+              "delta": {
+                "total": 0,
+                "saju": 0
+              }
+            },
+            {
+              "id": "fix-jong-05",
+              "label": "1933-09-15 15:00 male — CONG_GUAN 종관격 (정관 dominant)",
+              "expectedJonggyeokType": "CONG_GUAN",
+              "simple": {
+                "total": 56.4,
+                "saju": 40.8
+              },
+              "v1": {
+                "total": 56.4,
+                "saju": 40.8
+              },
+              "v2": {
+                "total": 56.4,
+                "saju": 40.8
+              },
+              "simpleVsV1Delta": {
+                "total": 0,
+                "saju": 0
+              },
+              "delta": {
+                "total": 0,
+                "saju": 0
+              }
+            },
+            {
+              "id": "fix-jong-06",
+              "label": "1972-12-11 09:00 male — CONG_SHA 종살격 (편관 dominant)",
+              "expectedJonggyeokType": "CONG_SHA",
+              "simple": {
+                "total": 60.3,
+                "saju": 31.9
+              },
+              "v1": {
+                "total": 60.3,
+                "saju": 31.9
+              },
+              "v2": {
+                "total": 60.3,
+                "saju": 31.9
+              },
+              "simpleVsV1Delta": {
+                "total": 0,
+                "saju": 0
+              },
+              "delta": {
+                "total": 0,
+                "saju": 0
+              }
+            },
+            {
+              "id": "fix-jong-07",
+              "label": "2018-07-23 03:00 male — CONG_ER 종아격",
+              "expectedJonggyeokType": "CONG_ER",
+              "simple": {
+                "total": 60.4,
+                "saju": 65
+              },
+              "v1": {
+                "total": 60.4,
+                "saju": 65
+              },
+              "v2": {
+                "total": 60.4,
+                "saju": 65
+              },
+              "simpleVsV1Delta": {
+                "total": 0,
+                "saju": 0
+              },
+              "delta": {
+                "total": 0,
+                "saju": 0
+              }
+            },
+            {
+              "id": "fix-jong-08",
+              "label": "1958-07-23 03:00 male — CONG_YIN 종인격",
+              "expectedJonggyeokType": "CONG_YIN",
+              "simple": {
+                "total": 64.2,
+                "saju": 16.6
+              },
+              "v1": {
+                "total": 64.2,
+                "saju": 16.6
+              },
+              "v2": {
+                "total": 64.2,
+                "saju": 16.6
+              },
+              "simpleVsV1Delta": {
+                "total": 0,
+                "saju": 0
+              },
+              "delta": {
+                "total": 0,
+                "saju": 0
+              }
+            },
+            {
+              "id": "fix-jong-09",
+              "label": "1938-08-05 03:00 male — CONG_BI 종비격 / 從强格",
+              "expectedJonggyeokType": "CONG_BI",
+              "simple": {
+                "total": 61.9,
+                "saju": 61.7
+              },
+              "v1": {
+                "total": 61.9,
+                "saju": 61.7
+              },
+              "v2": {
+                "total": 61.9,
+                "saju": 61.7
+              },
+              "simpleVsV1Delta": {
+                "total": 0,
+                "saju": 0
+              },
+              "delta": {
+                "total": 0,
+                "saju": 0
+              }
+            }
+          ]
+        }
+      },
       "normalizationPoint": "src/saju-calculator.ts computeTenGodScore: averageCount and per-group deviation",
-      "nextPrTarget": "PR-5.2 should change the normalization/anchor point so source-layer and pillar-position visibility survive beyond raw groupCounts."
+      "nextPrTarget": "PR-5.3 should surface the ten-god position evidence so users can see which positions drive the score."
     },
     "E_namingIntegratedScore": {
       "maxPoints": 15,
@@ -230,13 +918,13 @@
   },
   "tenGodPositionWeighting": {
     "metric": "ten-god positional weighting null-effect diagnosis",
-    "status": "MEASURED_NULL_EFFECT",
+    "status": "MEASURED_OPT_IN_V2",
     "score": 0,
     "maxPoints": 10,
     "observedEngineDivergence": {
       "defaultFixtures": {
         "diverged": 0,
-        "total": 12
+        "total": 15
       },
       "jonggyeokFixtures": {
         "diverged": 0,
@@ -244,7 +932,7 @@
       },
       "combined": {
         "diverged": 0,
-        "total": 21
+        "total": 24
       },
       "source": "test/integration/md8-tengod-divergence.test.ts"
     },
@@ -276,11 +964,20 @@
         "monthStemEqualsHourStem": true,
         "monthHiddenEqualsHourHidden": true
       },
+      "optInV2Divergence": {
+        "monthStem": 48.8375,
+        "hourStem": 69.821429,
+        "monthHidden": 83.128571,
+        "hourHidden": 90.071429,
+        "stemPillarDiverges": true,
+        "hiddenPillarDiverges": true
+      },
       "rows": [
         {
           "id": "monthStem",
           "simpleScore": 77.692308,
           "positionalScore": 62.857143,
+          "positionalV2Score": 48.8375,
           "weightedGroupCounts": {
             "friend": 4,
             "output": 7.2,
@@ -288,6 +985,22 @@
             "authority": 0,
             "resource": 12
           },
+          "v2VisibilityCounts": {
+            "friend": 5.4,
+            "output": 7.2,
+            "wealth": 4.8,
+            "authority": 0,
+            "resource": 10.6
+          },
+          "v2PresenceCounts": {
+            "friend": 1,
+            "output": 4,
+            "wealth": 4,
+            "authority": 0,
+            "resource": 3
+          },
+          "expectedPresenceByChartShape": 2.4,
+          "meanVisibilityPerPresence": 2.333333,
           "averageCount": 5.6,
           "deviations": {
             "friend": 0.285714,
@@ -302,6 +1015,7 @@
           "id": "hourStem",
           "simpleScore": 77.692308,
           "positionalScore": 62.857143,
+          "positionalV2Score": 69.821429,
           "weightedGroupCounts": {
             "friend": 4,
             "output": 7.2,
@@ -309,6 +1023,22 @@
             "authority": 0,
             "resource": 12
           },
+          "v2VisibilityCounts": {
+            "friend": 3,
+            "output": 7.2,
+            "wealth": 4.8,
+            "authority": 0,
+            "resource": 13
+          },
+          "v2PresenceCounts": {
+            "friend": 1,
+            "output": 4,
+            "wealth": 4,
+            "authority": 0,
+            "resource": 3
+          },
+          "expectedPresenceByChartShape": 2.4,
+          "meanVisibilityPerPresence": 2.333333,
           "averageCount": 5.6,
           "deviations": {
             "friend": 0.285714,
@@ -323,6 +1053,7 @@
           "id": "monthHidden",
           "simpleScore": 77.692308,
           "positionalScore": 85.357143,
+          "positionalV2Score": 83.128571,
           "weightedGroupCounts": {
             "friend": 1.2,
             "output": 7.2,
@@ -330,6 +1061,22 @@
             "authority": 0,
             "resource": 16
           },
+          "v2VisibilityCounts": {
+            "friend": 1.62,
+            "output": 7.2,
+            "wealth": 3.18,
+            "authority": 0,
+            "resource": 16
+          },
+          "v2PresenceCounts": {
+            "friend": 1,
+            "output": 4,
+            "wealth": 3,
+            "authority": 0,
+            "resource": 4
+          },
+          "expectedPresenceByChartShape": 2.4,
+          "meanVisibilityPerPresence": 2.333333,
           "averageCount": 5.6,
           "deviations": {
             "friend": 0.785714,
@@ -344,6 +1091,7 @@
           "id": "hourHidden",
           "simpleScore": 77.692308,
           "positionalScore": 85.357143,
+          "positionalV2Score": 90.071429,
           "weightedGroupCounts": {
             "friend": 1.2,
             "output": 7.2,
@@ -351,6 +1099,22 @@
             "authority": 0,
             "resource": 16
           },
+          "v2VisibilityCounts": {
+            "friend": 0.9,
+            "output": 7.2,
+            "wealth": 3.9,
+            "authority": 0,
+            "resource": 16
+          },
+          "v2PresenceCounts": {
+            "friend": 1,
+            "output": 4,
+            "wealth": 3,
+            "authority": 0,
+            "resource": 4
+          },
+          "expectedPresenceByChartShape": 2.4,
+          "meanVisibilityPerPresence": 2.333333,
           "averageCount": 5.6,
           "deviations": {
             "friend": 0.785714,
@@ -363,6 +1127,618 @@
         }
       ]
     },
-    "nextPrTarget": "PR-5.2 should change the normalization/anchor point so source-layer and pillar-position visibility survive beyond raw groupCounts."
+    "baselineComparison": {
+      "modeA": "positional_weighted",
+      "modeB": "positional_weighted_v2",
+      "note": "v2 is opt-in; this artifact compares PR-5.1 default behavior with the PR-5.2 candidate mode.",
+      "defaultFixtures": {
+        "total": 15,
+        "v1V2Diverged": 0,
+        "simpleVsV1Diverged": 0,
+        "totalAbsDelta": {
+          "saju": 0,
+          "total": 0
+        },
+        "rows": [
+          {
+            "id": "fix-01",
+            "label": "1986-04-19 male — 戊土 일간 (README example)",
+            "simple": {
+              "total": 56.2,
+              "saju": 35.5
+            },
+            "v1": {
+              "total": 56.2,
+              "saju": 35.5
+            },
+            "v2": {
+              "total": 56.2,
+              "saju": 35.5
+            },
+            "simpleVsV1Delta": {
+              "total": 0,
+              "saju": 0
+            },
+            "delta": {
+              "total": 0,
+              "saju": 0
+            }
+          },
+          {
+            "id": "fix-02",
+            "label": "1992-09-15 female — 壬水 일간, 가을",
+            "simple": {
+              "total": 53.8,
+              "saju": 42.1
+            },
+            "v1": {
+              "total": 53.8,
+              "saju": 42.1
+            },
+            "v2": {
+              "total": 53.8,
+              "saju": 42.1
+            },
+            "simpleVsV1Delta": {
+              "total": 0,
+              "saju": 0
+            },
+            "delta": {
+              "total": 0,
+              "saju": 0
+            }
+          },
+          {
+            "id": "fix-03",
+            "label": "2000-01-01 00:30 male — 子時 boundary edge",
+            "simple": {
+              "total": 62.9,
+              "saju": 57
+            },
+            "v1": {
+              "total": 62.9,
+              "saju": 57
+            },
+            "v2": {
+              "total": 62.9,
+              "saju": 57
+            },
+            "simpleVsV1Delta": {
+              "total": 0,
+              "saju": 0
+            },
+            "delta": {
+              "total": 0,
+              "saju": 0
+            }
+          },
+          {
+            "id": "fix-04",
+            "label": "1965-08-08 19:00 female — 丙火 일간, 종왕 후보 (강한 火)",
+            "simple": {
+              "total": 57.6,
+              "saju": 34.9
+            },
+            "v1": {
+              "total": 57.6,
+              "saju": 34.9
+            },
+            "v2": {
+              "total": 57.6,
+              "saju": 34.9
+            },
+            "simpleVsV1Delta": {
+              "total": 0,
+              "saju": 0
+            },
+            "delta": {
+              "total": 0,
+              "saju": 0
+            }
+          },
+          {
+            "id": "fix-05",
+            "label": "2005-12-25 06:00 male — 겨울 조후 case (한랭)",
+            "simple": {
+              "total": 58.1,
+              "saju": 57.6
+            },
+            "v1": {
+              "total": 58.1,
+              "saju": 57.6
+            },
+            "v2": {
+              "total": 58.1,
+              "saju": 57.6
+            },
+            "simpleVsV1Delta": {
+              "total": 0,
+              "saju": 0
+            },
+            "delta": {
+              "total": 0,
+              "saju": 0
+            }
+          },
+          {
+            "id": "fix-06",
+            "label": "1978-06-15 14:00 female — 庚金 일간, 여름",
+            "simple": {
+              "total": 57.9,
+              "saju": 40.9
+            },
+            "v1": {
+              "total": 57.9,
+              "saju": 40.9
+            },
+            "v2": {
+              "total": 57.9,
+              "saju": 40.9
+            },
+            "simpleVsV1Delta": {
+              "total": 0,
+              "saju": 0
+            },
+            "delta": {
+              "total": 0,
+              "saju": 0
+            }
+          },
+          {
+            "id": "fix-07",
+            "label": "1957-02-04 male — 입춘 boundary",
+            "simple": {
+              "total": 64.2,
+              "saju": 43
+            },
+            "v1": {
+              "total": 64.2,
+              "saju": 43
+            },
+            "v2": {
+              "total": 64.2,
+              "saju": 43
+            },
+            "simpleVsV1Delta": {
+              "total": 0,
+              "saju": 0
+            },
+            "delta": {
+              "total": 0,
+              "saju": 0
+            }
+          },
+          {
+            "id": "fix-08",
+            "label": "2020-08-23 female — 처서 boundary",
+            "simple": {
+              "total": 57.6,
+              "saju": 55.1
+            },
+            "v1": {
+              "total": 57.6,
+              "saju": 55.1
+            },
+            "v2": {
+              "total": 57.6,
+              "saju": 55.1
+            },
+            "simpleVsV1Delta": {
+              "total": 0,
+              "saju": 0
+            },
+            "delta": {
+              "total": 0,
+              "saju": 0
+            }
+          },
+          {
+            "id": "fix-09",
+            "label": "1988-05-05 male — 입하 boundary",
+            "simple": {
+              "total": 61.9,
+              "saju": 47.9
+            },
+            "v1": {
+              "total": 61.9,
+              "saju": 47.9
+            },
+            "v2": {
+              "total": 61.9,
+              "saju": 47.9
+            },
+            "simpleVsV1Delta": {
+              "total": 0,
+              "saju": 0
+            },
+            "delta": {
+              "total": 0,
+              "saju": 0
+            }
+          },
+          {
+            "id": "fix-10",
+            "label": "2018-11-22 female — 소설 boundary",
+            "simple": {
+              "total": 76.1,
+              "saju": 81.6
+            },
+            "v1": {
+              "total": 76.1,
+              "saju": 81.6
+            },
+            "v2": {
+              "total": 76.1,
+              "saju": 81.6
+            },
+            "simpleVsV1Delta": {
+              "total": 0,
+              "saju": 0
+            },
+            "delta": {
+              "total": 0,
+              "saju": 0
+            }
+          },
+          {
+            "id": "fix-11",
+            "label": "1995-08-15 female — 시간미상 (unknown-hour)",
+            "simple": {
+              "total": 51.9,
+              "saju": 46.8
+            },
+            "v1": {
+              "total": 51.9,
+              "saju": 46.8
+            },
+            "v2": {
+              "total": 51.9,
+              "saju": 46.8
+            },
+            "simpleVsV1Delta": {
+              "total": 0,
+              "saju": 0
+            },
+            "delta": {
+              "total": 0,
+              "saju": 0
+            }
+          },
+          {
+            "id": "fix-12",
+            "label": "1991-03-20 male — borderline-strength (춘분 즈음, 중화 후보)",
+            "simple": {
+              "total": 54.2,
+              "saju": 22.8
+            },
+            "v1": {
+              "total": 54.2,
+              "saju": 22.8
+            },
+            "v2": {
+              "total": 54.2,
+              "saju": 22.8
+            },
+            "simpleVsV1Delta": {
+              "total": 0,
+              "saju": 0
+            },
+            "delta": {
+              "total": 0,
+              "saju": 0
+            }
+          },
+          {
+            "id": "fix-13",
+            "label": "1989-07-23 male — borderline-strength practical tier (정재격, 여름 yongshin=WATER)",
+            "simple": {
+              "total": 58.3,
+              "saju": 41.3
+            },
+            "v1": {
+              "total": 58.3,
+              "saju": 41.3
+            },
+            "v2": {
+              "total": 58.3,
+              "saju": 41.3
+            },
+            "simpleVsV1Delta": {
+              "total": 0,
+              "saju": 0
+            },
+            "delta": {
+              "total": 0,
+              "saju": 0
+            }
+          },
+          {
+            "id": "fix-14",
+            "label": "1980-08-07 male — borderline-strength candidate tier (정관격, 가을 yongshin=WOOD)",
+            "simple": {
+              "total": 70.5,
+              "saju": 69.7
+            },
+            "v1": {
+              "total": 70.5,
+              "saju": 69.7
+            },
+            "v2": {
+              "total": 70.5,
+              "saju": 69.7
+            },
+            "simpleVsV1Delta": {
+              "total": 0,
+              "saju": 0
+            },
+            "delta": {
+              "total": 0,
+              "saju": 0
+            }
+          },
+          {
+            "id": "fix-15",
+            "label": "1985-03-21 male — borderline-strength deferred tier (편관격, 춘분 yongshin=METAL)",
+            "simple": {
+              "total": 59.9,
+              "saju": 50.2
+            },
+            "v1": {
+              "total": 59.9,
+              "saju": 50.2
+            },
+            "v2": {
+              "total": 59.9,
+              "saju": 50.2
+            },
+            "simpleVsV1Delta": {
+              "total": 0,
+              "saju": 0
+            },
+            "delta": {
+              "total": 0,
+              "saju": 0
+            }
+          }
+        ]
+      },
+      "jonggyeokFixtures": {
+        "total": 9,
+        "v1V2Diverged": 0,
+        "simpleVsV1Diverged": 0,
+        "totalAbsDelta": {
+          "saju": 0,
+          "total": 0
+        },
+        "rows": [
+          {
+            "id": "fix-jong-01",
+            "label": "1958-07-11 21:00 male — HUA_QI 化氣格 (甲己合化土)",
+            "expectedJonggyeokType": "HUA_QI",
+            "simple": {
+              "total": 61.9,
+              "saju": 54.3
+            },
+            "v1": {
+              "total": 61.9,
+              "saju": 54.3
+            },
+            "v2": {
+              "total": 61.9,
+              "saju": 54.3
+            },
+            "simpleVsV1Delta": {
+              "total": 0,
+              "saju": 0
+            },
+            "delta": {
+              "total": 0,
+              "saju": 0
+            }
+          },
+          {
+            "id": "fix-jong-02",
+            "label": "1942-06-23 15:00 male — ZHUAN_WANG 一氣格 (炎上格 火)",
+            "expectedJonggyeokType": "ZHUAN_WANG",
+            "simple": {
+              "total": 59.1,
+              "saju": 41.8
+            },
+            "v1": {
+              "total": 59.1,
+              "saju": 41.8
+            },
+            "v2": {
+              "total": 59.1,
+              "saju": 41.8
+            },
+            "simpleVsV1Delta": {
+              "total": 0,
+              "saju": 0
+            },
+            "delta": {
+              "total": 0,
+              "saju": 0
+            }
+          },
+          {
+            "id": "fix-jong-03",
+            "label": "1958-07-11 09:00 male — CONG_GE 종격 (稼穡格 土 一氣)",
+            "expectedJonggyeokType": "CONG_GE",
+            "simple": {
+              "total": 75,
+              "saju": 85.5
+            },
+            "v1": {
+              "total": 75,
+              "saju": 85.5
+            },
+            "v2": {
+              "total": 75,
+              "saju": 85.5
+            },
+            "simpleVsV1Delta": {
+              "total": 0,
+              "saju": 0
+            },
+            "delta": {
+              "total": 0,
+              "saju": 0
+            }
+          },
+          {
+            "id": "fix-jong-04",
+            "label": "1978-07-11 09:00 male — CONG_CAI 종재격",
+            "expectedJonggyeokType": "CONG_CAI",
+            "simple": {
+              "total": 51.3,
+              "saju": 28.3
+            },
+            "v1": {
+              "total": 51.3,
+              "saju": 28.3
+            },
+            "v2": {
+              "total": 51.3,
+              "saju": 28.3
+            },
+            "simpleVsV1Delta": {
+              "total": 0,
+              "saju": 0
+            },
+            "delta": {
+              "total": 0,
+              "saju": 0
+            }
+          },
+          {
+            "id": "fix-jong-05",
+            "label": "1933-09-15 15:00 male — CONG_GUAN 종관격 (정관 dominant)",
+            "expectedJonggyeokType": "CONG_GUAN",
+            "simple": {
+              "total": 56.4,
+              "saju": 40.8
+            },
+            "v1": {
+              "total": 56.4,
+              "saju": 40.8
+            },
+            "v2": {
+              "total": 56.4,
+              "saju": 40.8
+            },
+            "simpleVsV1Delta": {
+              "total": 0,
+              "saju": 0
+            },
+            "delta": {
+              "total": 0,
+              "saju": 0
+            }
+          },
+          {
+            "id": "fix-jong-06",
+            "label": "1972-12-11 09:00 male — CONG_SHA 종살격 (편관 dominant)",
+            "expectedJonggyeokType": "CONG_SHA",
+            "simple": {
+              "total": 60.3,
+              "saju": 31.9
+            },
+            "v1": {
+              "total": 60.3,
+              "saju": 31.9
+            },
+            "v2": {
+              "total": 60.3,
+              "saju": 31.9
+            },
+            "simpleVsV1Delta": {
+              "total": 0,
+              "saju": 0
+            },
+            "delta": {
+              "total": 0,
+              "saju": 0
+            }
+          },
+          {
+            "id": "fix-jong-07",
+            "label": "2018-07-23 03:00 male — CONG_ER 종아격",
+            "expectedJonggyeokType": "CONG_ER",
+            "simple": {
+              "total": 60.4,
+              "saju": 65
+            },
+            "v1": {
+              "total": 60.4,
+              "saju": 65
+            },
+            "v2": {
+              "total": 60.4,
+              "saju": 65
+            },
+            "simpleVsV1Delta": {
+              "total": 0,
+              "saju": 0
+            },
+            "delta": {
+              "total": 0,
+              "saju": 0
+            }
+          },
+          {
+            "id": "fix-jong-08",
+            "label": "1958-07-23 03:00 male — CONG_YIN 종인격",
+            "expectedJonggyeokType": "CONG_YIN",
+            "simple": {
+              "total": 64.2,
+              "saju": 16.6
+            },
+            "v1": {
+              "total": 64.2,
+              "saju": 16.6
+            },
+            "v2": {
+              "total": 64.2,
+              "saju": 16.6
+            },
+            "simpleVsV1Delta": {
+              "total": 0,
+              "saju": 0
+            },
+            "delta": {
+              "total": 0,
+              "saju": 0
+            }
+          },
+          {
+            "id": "fix-jong-09",
+            "label": "1938-08-05 03:00 male — CONG_BI 종비격 / 從强格",
+            "expectedJonggyeokType": "CONG_BI",
+            "simple": {
+              "total": 61.9,
+              "saju": 61.7
+            },
+            "v1": {
+              "total": 61.9,
+              "saju": 61.7
+            },
+            "v2": {
+              "total": 61.9,
+              "saju": 61.7
+            },
+            "simpleVsV1Delta": {
+              "total": 0,
+              "saju": 0
+            },
+            "delta": {
+              "total": 0,
+              "saju": 0
+            }
+          }
+        ]
+      }
+    },
+    "nextPrTarget": "PR-5.3 should surface the ten-god position evidence so users can see which positions drive the score."
   }
 }
