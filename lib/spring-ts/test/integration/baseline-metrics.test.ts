@@ -61,6 +61,14 @@ check('reference-tier fixture buckets cover the full baseline',
 check('non-authority reference fixtures remain visible',
   !!qByTier.T2_REFERENCE_IMPLEMENTATION || !!qByTier.NO_REFERENCE,
   `tiers=${Object.keys(qByTier).join(', ')}`);
+check('T2 reference fixtures do not become authority truth',
+  qByTier.T2_REFERENCE_IMPLEMENTATION?.truthBuckets?.insufficient_source_truth === qByTier.T2_REFERENCE_IMPLEMENTATION?.fixtureCount &&
+    qByTier.T2_REFERENCE_IMPLEMENTATION?.truthBuckets?.authority_match === 0,
+  JSON.stringify(qByTier.T2_REFERENCE_IMPLEMENTATION?.truthBuckets));
+check('NO_REFERENCE fixtures do not become authority truth',
+  qByTier.NO_REFERENCE?.truthBuckets?.insufficient_source_truth === qByTier.NO_REFERENCE?.fixtureCount &&
+    qByTier.NO_REFERENCE?.truthBuckets?.authority_match === 0,
+  JSON.stringify(qByTier.NO_REFERENCE?.truthBuckets));
 
 check('insufficient source truth is separated from engine rule failure',
   bySourceTier.truthSeparation?.engineRuleFailureCount === 0 &&
@@ -142,6 +150,12 @@ check('RPI summary has A-G axis scores',
 check('RPI truth separation reports no current engine rule failures',
   rpiSummary.truthSeparation?.engineRuleFailureCount === 0,
   JSON.stringify(rpiSummary.truthSeparation));
+check('RPI rule-quality axis stays truth-insufficient instead of fitting low-tier rows',
+  rpiSummary.axisScores?.C_gyeokgukYongshinRuleQuality?.status === 'INSUFFICIENT_TRUTH' &&
+    rpiSummary.axisScores.C_gyeokgukYongshinRuleQuality.score === 0 &&
+    rpiSummary.truthSeparation?.insufficientSourceTruthCount === 15 &&
+    rpiSummary.truthSeparation?.authorityMatchCount === 0,
+  JSON.stringify(rpiSummary.axisScores?.C_gyeokgukYongshinRuleQuality));
 check('ten-god v1/v2 comparison artifact is present',
   rpiSummary.tenGodPositionWeighting?.baselineComparison?.modeA === 'positional_weighted' &&
     rpiSummary.tenGodPositionWeighting?.baselineComparison?.modeB === 'positional_weighted_v2');
