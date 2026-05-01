@@ -128,18 +128,23 @@ export interface ScoringPrecisionOverrides {
   readonly balanceMode?: 'mathematical' | 'yongshin_first' | 'classical_jonggyeok_aware';
   readonly yongshinMode?: 'classical_blend' | 'chengbai_strict' | 'consensus_aware';
   readonly strengthMode?: 'binary' | 'continuous';
-  readonly tenGodMode?: 'simple_count' | 'positional_weighted';
+  readonly tenGodMode?: 'simple_count' | 'positional_weighted' | 'positional_weighted_v2';
   readonly gyeokgukMode?: 'jonggyeok_only' | 'multi_special' | 'chengbai_strict';
 }
 
 export type SajuNameElementSource = 'resource' | 'hangul';
 export type TenGodScoreMode = NonNullable<ScoringPrecisionOverrides['tenGodMode']>;
+export type TenGodScoreNormalization =
+  | 'deviation_from_average_count'
+  | 'presence_visibility_expected_by_chart_shape';
 
 export interface TenGodPositionContribution {
   readonly position: string;
   readonly source: 'cheongan' | 'jijiPrincipal' | 'hiddenStem';
   readonly group: string;
   readonly weight: number;
+  readonly presence?: number;
+  readonly visibility?: number;
   readonly stem?: string;
   readonly element?: ElementKey | null;
   readonly ratio?: number;
@@ -150,13 +155,18 @@ export interface TenGodScoreDiagnostics {
   readonly requestedMode: TenGodScoreMode;
   readonly effectiveMode: TenGodScoreMode;
   readonly score: number;
-  readonly normalization: 'deviation_from_average_count';
+  readonly normalization: TenGodScoreNormalization;
   readonly groupCounts: Record<string, number>;
   readonly totalGroups: number;
   readonly averageCount: number;
   readonly deviations: Record<string, number>;
   readonly elementWeights: Record<ElementKey, number>;
   readonly positionContributions: readonly TenGodPositionContribution[];
+  readonly presenceCounts?: Record<string, number>;
+  readonly visibilityCounts?: Record<string, number>;
+  readonly expectedPresenceByChartShape?: number;
+  readonly meanVisibilityPerPresence?: number;
+  readonly visibilityDeviations?: Record<string, number>;
   readonly fallbackReason?: string;
 }
 
@@ -514,6 +524,25 @@ function emptyElementWeights(): Record<ElementKey, number> {
   return { Wood: 0, Fire: 0, Earth: 0, Metal: 0, Water: 0 };
 }
 
+const TEN_GOD_V1_HIDDEN_WEIGHTS = [1.2, 0.7, 0.45] as const;
+const TEN_GOD_V2_SOURCE_VISIBILITY = {
+  cheongan: 4.0,
+  jijiPrincipal: 1.8,
+  hiddenStemByRank: TEN_GOD_V1_HIDDEN_WEIGHTS,
+} as const;
+const TEN_GOD_V2_PILLAR_VISIBILITY: Record<string, number> = {
+  year: 0.85,
+  month: 1.35,
+  day: 1.05,
+  hour: 0.75,
+};
+const TEN_GOD_V2_VISIBILITY_DEVIATION_WEIGHT = 0.5;
+
+function hiddenStemPresence(ratio: number | undefined): number {
+  if (ratio == null || !Number.isFinite(ratio)) return 1;
+  return clamp(ratio > 1 ? ratio / 100 : ratio, 0, 1);
+}
+
 export function computeTenGodScoreDiagnostics(
   rootDist: Record<ElementKey, number>,
   sajuOutput: SajuOutputSummary | null,
@@ -521,7 +550,7 @@ export function computeTenGodScoreDiagnostics(
 ): TenGodScoreDiagnostics {
   const tenGodData       = sajuOutput?.tenGod;
   const dayMasterElement = sajuOutput?.dayMaster?.element;
-  const normalization = 'deviation_from_average_count' as const;
+  let normalization: TenGodScoreNormalization = 'deviation_from_average_count';
   if (!tenGodData || !dayMasterElement) {
     return {
       requestedMode: mode,
@@ -549,9 +578,10 @@ export function computeTenGodScoreDiagnostics(
   let effectiveMode: TenGodScoreMode = mode;
   let fallbackReason: string | undefined;
   const positionContributions: TenGodPositionContribution[] = [];
+  let presenceCounts: Record<string, number> | undefined;
+  let visibilityCounts: Record<string, number> | undefined;
   if (mode === 'positional_weighted' && tenGodData.byPosition) {
     groupCounts = emptyTenGodGroupCounts();
-    const HIDDEN_WEIGHTS = [1.2, 0.7, 0.45] as const;
     const addContribution = (
       contribution: TenGodPositionContribution,
     ): void => {
@@ -578,7 +608,7 @@ export function computeTenGodScoreDiagnostics(
       }
       const sortedHidden = (positionInfo.hiddenStems ?? []).slice().sort((a, b) => b.ratio - a.ratio);
       sortedHidden.forEach((hs, i) => {
-        if (hs.group && i < HIDDEN_WEIGHTS.length) {
+        if (hs.group && i < TEN_GOD_V1_HIDDEN_WEIGHTS.length) {
           addContribution({
             position,
             source: 'hiddenStem',
@@ -587,14 +617,73 @@ export function computeTenGodScoreDiagnostics(
             ratio: hs.ratio,
             rank: i + 1,
             group: hs.group,
-            weight: HIDDEN_WEIGHTS[i],
+            weight: TEN_GOD_V1_HIDDEN_WEIGHTS[i],
+          });
+        }
+      });
+    }
+  } else if (mode === 'positional_weighted_v2' && tenGodData.byPosition) {
+    normalization = 'presence_visibility_expected_by_chart_shape';
+    presenceCounts = emptyTenGodGroupCounts();
+    visibilityCounts = emptyTenGodGroupCounts();
+    groupCounts = visibilityCounts;
+    const addContribution = (
+      contribution: TenGodPositionContribution & { readonly presence: number; readonly visibility: number },
+    ): void => {
+      presenceCounts![contribution.group] = (presenceCounts![contribution.group] ?? 0) + contribution.presence;
+      visibilityCounts![contribution.group] = (visibilityCounts![contribution.group] ?? 0) + contribution.visibility;
+      positionContributions.push(contribution);
+    };
+    for (const [position, positionInfo] of Object.entries(tenGodData.byPosition)) {
+      if (!positionInfo) continue;
+      const pillarVisibility = TEN_GOD_V2_PILLAR_VISIBILITY[position] ?? 1;
+      if (positionInfo.cheonganGroup) {
+        const presence = 1;
+        const visibility = presence * TEN_GOD_V2_SOURCE_VISIBILITY.cheongan * pillarVisibility;
+        addContribution({
+          position,
+          source: 'cheongan',
+          group: positionInfo.cheonganGroup,
+          weight: visibility,
+          presence,
+          visibility,
+        });
+      }
+      if (positionInfo.jijiPrincipalGroup) {
+        const presence = 1;
+        const visibility = presence * TEN_GOD_V2_SOURCE_VISIBILITY.jijiPrincipal * pillarVisibility;
+        addContribution({
+          position,
+          source: 'jijiPrincipal',
+          group: positionInfo.jijiPrincipalGroup,
+          weight: visibility,
+          presence,
+          visibility,
+        });
+      }
+      const sortedHidden = (positionInfo.hiddenStems ?? []).slice().sort((a, b) => b.ratio - a.ratio);
+      sortedHidden.forEach((hs, i) => {
+        if (hs.group && i < TEN_GOD_V2_SOURCE_VISIBILITY.hiddenStemByRank.length) {
+          const presence = hiddenStemPresence(hs.ratio);
+          const visibility = presence * TEN_GOD_V2_SOURCE_VISIBILITY.hiddenStemByRank[i] * pillarVisibility;
+          addContribution({
+            position,
+            source: 'hiddenStem',
+            stem: hs.stem,
+            element: hs.element,
+            ratio: hs.ratio,
+            rank: i + 1,
+            group: hs.group,
+            weight: visibility,
+            presence,
+            visibility,
           });
         }
       });
     }
   } else {
     groupCounts = { ...tenGodData.groupCounts };
-    if (mode === 'positional_weighted') {
+    if (mode === 'positional_weighted' || mode === 'positional_weighted_v2') {
       effectiveMode = 'simple_count';
       fallbackReason = 'byPosition_unavailable';
     }
@@ -613,6 +702,8 @@ export function computeTenGodScoreDiagnostics(
       deviations: emptyTenGodGroupCounts(),
       elementWeights: emptyElementWeights(),
       positionContributions,
+      presenceCounts,
+      visibilityCounts,
       fallbackReason: fallbackReason ?? 'zero_total_group_count',
     };
   }
@@ -623,8 +714,36 @@ export function computeTenGodScoreDiagnostics(
   // Map that deficiency to the corresponding element (based on cycle position).
   const elementWeights = emptyElementWeights();
   const deviations = emptyTenGodGroupCounts();
+  let expectedPresenceByChartShape: number | undefined;
+  let meanVisibilityPerPresence: number | undefined;
+  let visibilityDeviations: Record<string, number> | undefined;
+  const totalPresence = presenceCounts
+    ? TEN_GOD_GROUPS.reduce((sum, group) => sum + (presenceCounts![group] ?? 0), 0)
+    : 0;
   for (const group of TEN_GOD_GROUPS) {
-    const deviation = (averageCount - (groupCounts[group] ?? 0)) / Math.max(averageCount, 1);
+    let deviation: number;
+    if (normalization === 'presence_visibility_expected_by_chart_shape' && presenceCounts && visibilityCounts) {
+      expectedPresenceByChartShape ??= totalPresence / TEN_GOD_GROUPS.length;
+      meanVisibilityPerPresence ??= totalGroups / Math.max(totalPresence, 1);
+      visibilityDeviations ??= emptyTenGodGroupCounts();
+      const presenceCount = presenceCounts[group] ?? 0;
+      const visibilityCount = visibilityCounts[group] ?? 0;
+      const presenceDeviation = (
+        (expectedPresenceByChartShape - presenceCount)
+        / Math.max(expectedPresenceByChartShape, 1)
+      );
+      const expectedVisibilityForObservedPresence = presenceCount * meanVisibilityPerPresence;
+      const visibilityDeviation = presenceCount > 0
+        ? (
+            (expectedVisibilityForObservedPresence - visibilityCount)
+            / Math.max(expectedVisibilityForObservedPresence, 1)
+          )
+        : 0;
+      visibilityDeviations[group] = visibilityDeviation;
+      deviation = presenceDeviation + TEN_GOD_V2_VISIBILITY_DEVIATION_WEIGHT * visibilityDeviation;
+    } else {
+      deviation = (averageCount - (groupCounts[group] ?? 0)) / Math.max(averageCount, 1);
+    }
     deviations[group] = deviation;
     const targetElement = ELEMENT_KEYS[(ELEMENT_KEYS.indexOf(dayMasterElement) + TEN_GOD_GROUPS.indexOf(group)) % 5];
     // Positive deviation = group is under-represented, so its element is desirable.
@@ -647,6 +766,11 @@ export function computeTenGodScoreDiagnostics(
     deviations,
     elementWeights,
     positionContributions,
+    presenceCounts,
+    visibilityCounts,
+    expectedPresenceByChartShape,
+    meanVisibilityPerPresence,
+    visibilityDeviations,
     fallbackReason,
   };
 }

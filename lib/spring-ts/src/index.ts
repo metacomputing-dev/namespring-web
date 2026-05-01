@@ -15,6 +15,7 @@ export {
   type SajuNameScoreResult,
   type TenGodPositionContribution,
   type TenGodScoreDiagnostics,
+  type TenGodScoreNormalization,
 } from './saju-calculator.js';
 
 // ─────────────────────────────────────────────────────────────────────────────
