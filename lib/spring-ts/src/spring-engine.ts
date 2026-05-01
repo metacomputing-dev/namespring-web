@@ -183,6 +183,23 @@ export class SpringEngine {
     return 'auto';
   }
 
+  /** PR-Q-24 K-4 + K-5 full wire — resolve hangul signal cap.
+   *  Per spec spring-info/09_finalization/05_pure_hangul_schema_wireup.md §1.2
+   *  학파별 의도 매트릭스. Cap 의 우선순위:
+   *   1. 명시적 `precisionConfig.pureHangulSignalCap` (caller override)
+   *   2. `pureHangulSchema='auto'` + `schoolPreset='chinese'` → 0.7
+   *   3. else 1.0 (no cap, current behavior preserved). */
+  private resolveHangulSignalCap(options?: SpringRequest['options']): number {
+    const pc = options?.precisionConfig;
+    if (typeof pc?.pureHangulSignalCap === 'number') {
+      return Math.max(0, Math.min(1, pc.pureHangulSignalCap));
+    }
+    if (pc?.pureHangulSchema === 'auto' && options?.schoolPreset === 'chinese') {
+      return 0.7;
+    }
+    return 1.0;
+  }
+
   private hasExplicitHanja(char: NameCharInput): boolean {
     const hanja = String(char.hanja ?? '').trim();
     return hanja.length > 0 && hanja !== char.hangul;
@@ -314,7 +331,7 @@ export class SpringEngine {
       forceHangulOnly: resolutionPolicy.pureHangulGivenName,
     });
 
-    const hangul = new HangulCalculator(surnameEntries, givenNameEntries);
+    const hangul = new HangulCalculator(surnameEntries, givenNameEntries, this.resolveHangulSignalCap(request.options));
     const hanja = new HanjaCalculator(
       surnameEntries,
       givenNameEntries,
@@ -378,7 +395,7 @@ export class SpringEngine {
       forceHangulOnly: resolutionPolicy.pureHangulGivenName,
     });
 
-    const hangul = new HangulCalculator(surnameEntries, givenNameEntries);
+    const hangul = new HangulCalculator(surnameEntries, givenNameEntries, this.resolveHangulSignalCap(request.options));
     const hanja  = new HanjaCalculator(
       surnameEntries,
       givenNameEntries,
@@ -512,7 +529,7 @@ export class SpringEngine {
         forceHangulOnly: resolutionPolicy.pureHangulGivenName,
       });
 
-      const hangul = new HangulCalculator(surnameEntries, givenNameEntries);
+      const hangul = new HangulCalculator(surnameEntries, givenNameEntries, this.resolveHangulSignalCap(request.options));
       const hanja  = new HanjaCalculator(
         surnameEntries,
         givenNameEntries,
@@ -982,7 +999,7 @@ export class SpringEngine {
     });
 
     // Build one calculator per scoring category
-    const hangul = new HangulCalculator(surnameEntries, givenNameEntries);
+    const hangul = new HangulCalculator(surnameEntries, givenNameEntries, this.resolveHangulSignalCap(requestOptions));
     const hanja  = new HanjaCalculator(
       surnameEntries,
       givenNameEntries,
