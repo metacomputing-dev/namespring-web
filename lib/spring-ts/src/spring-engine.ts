@@ -36,7 +36,7 @@ import type {
   SpringRequest, SpringResponse, SpringCandidate, SajuSummary,
   SajuReport, NamingReport, NamingReportFrame, SpringReport, SpringCandidateSummary,
   NameCharInput, CharDetail, NameGenderTendency, BirthInfo, NamingScoreVector,
-  CandidateStrengthProfile,
+  CandidateStrengthProfile, NameElementStrategy,
 } from './types.js';
 import engineConfig from '../config/engine.json';
 import { buildFortuneReport } from './report/buildFortuneReport.js';
@@ -487,6 +487,7 @@ export class SpringEngine {
       readonly tenGodMode?: 'simple_count' | 'positional_weighted' | 'positional_weighted_v2';
       readonly gyeokgukMode?: 'jonggyeok_only' | 'multi_special' | 'chengbai_strict';
     };
+    readonly elementStrategy?: NameElementStrategy;
   } {
     const pc = options?.precisionConfig;
     return {
@@ -510,6 +511,7 @@ export class SpringEngine {
         tenGodMode: pc?.tenGodMode ?? 'positional_weighted',
         gyeokgukMode: pc?.gyeokgukMode ?? 'chengbai_strict',
       },
+      elementStrategy: pc?.nameElementStrategy,
     };
   }
 
