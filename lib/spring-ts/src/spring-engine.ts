@@ -203,14 +203,18 @@ export class SpringEngine {
    *  SajuCalculator's putInsight can store undefined → spring-evaluator's
    *  extractSajuPriority falls through to the linear default. */
   private resolveEvaluatorHints(birth: BirthInfo | undefined, options?: SpringRequest['options']): SajuEvaluatorHints | undefined {
-    const pc = options?.precisionConfig;
-    if (!pc) return undefined;
+    const pc = options?.precisionConfig ?? {};
 
     const hints: { -readonly [K in keyof SajuEvaluatorHints]?: SajuEvaluatorHints[K] } = {};
     if (pc.sajuPriorityCurve === 'tanh') {
       hints.sajuPriorityCurve = 'tanh';
     }
-    if (pc.unknownHourGuard === true) {
+    // PR-Q-8 (Phase M-D2): unknownHourGuard default flips false → true.
+    // The guard only takes effect when `birth.hour == null` (시간미상);
+    // hour-known fixtures are unaffected. Callers can opt out explicitly
+    // with `precisionConfig.unknownHourGuard: false`.
+    const guardEnabled = pc.unknownHourGuard !== false;
+    if (guardEnabled) {
       hints.unknownHourGuard = true;
       hints.isHourUnknown = birth?.hour == null;
       if (typeof pc.unknownTimeSajuDamp === 'number') {
