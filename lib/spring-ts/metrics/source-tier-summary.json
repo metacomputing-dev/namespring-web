@@ -1,10 +1,10 @@
 {
   "schemaVersion": "spring-ts.source-tier-summary.v1",
   "status": "PASS",
-  "scanned": 60,
+  "scanned": 65,
   "violationCount": 0,
-  "authorityTruthEligibleCount": 38,
-  "nonEligibleCount": 22,
+  "authorityTruthEligibleCount": 41,
+  "nonEligibleCount": 24,
   "byTier": {
     "T3_AUTHORED_INTERPRETATION": {
       "recordCount": 26,
@@ -88,14 +88,19 @@
       ]
     },
     "T5_OFFICIAL": {
-      "recordCount": 7,
-      "authorityTruthEligible": 7,
-      "nonEligible": 0,
+      "recordCount": 12,
+      "authorityTruthEligible": 10,
+      "nonEligible": 2,
       "files": [
         "data/sources/legal-hanja.sources.json",
         "data/sources/legal-hanja.sources.json#sources[0].sourceTier:law_go_kr_rule_article_37_2025_07_19",
         "data/sources/legal-hanja.sources.json#sources[1].sourceTier:law_go_kr_byeolpyo1_2024_05_30",
         "data/sources/legal-hanja.sources.json#sources[2].sourceTier:scourt_press_2024_05_23",
+        "data/sources/name-trend.sources.json",
+        "data/sources/name-trend.sources.json#sources[0].sourceTier:scourt_birth_name_rank_1811",
+        "data/sources/name-trend.sources.json#sources[1].sourceTier:scourt_statistics_service_info",
+        "data/sources/name-trend.sources.json#sources[2].sourceTier:scourt_report_metadata_observed_1811",
+        "data/sources/name-trend.sources.json#sources[3].sourceTier:scourt_copyright_policy",
         "data/sources/unihan.sources.json",
         "data/sources/unihan.sources.json#sources[0].sourceTier:unicode_uax38_unihan_17_0_0",
         "data/sources/unihan.sources.json#sources[1].sourceTier:unicode_ucd_unihan_zip_17_0_0"
@@ -149,6 +154,26 @@
       "nonEligible": 0
     },
     "third_party_mirror": {
+      "recordCount": 1,
+      "authorityTruthEligible": 0,
+      "nonEligible": 1
+    },
+    "official_court_statistics": {
+      "recordCount": 2,
+      "authorityTruthEligible": 2,
+      "nonEligible": 0
+    },
+    "official_court_statistics_guide": {
+      "recordCount": 1,
+      "authorityTruthEligible": 1,
+      "nonEligible": 0
+    },
+    "official_report_endpoint_observed": {
+      "recordCount": 1,
+      "authorityTruthEligible": 0,
+      "nonEligible": 1
+    },
+    "official_copyright_policy": {
       "recordCount": 1,
       "authorityTruthEligible": 0,
       "nonEligible": 1

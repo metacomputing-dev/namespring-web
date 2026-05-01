@@ -61,7 +61,7 @@
       "maxPoints": 10,
       "score": 10,
       "status": "PASS",
-      "sourceTierScanned": 60,
+      "sourceTierScanned": 65,
       "sourceTierViolations": 0
     }
   },

@@ -1,0 +1,73 @@
+{
+  "schemaVersion": "spring-ts.name-trend-sources.v1",
+  "accessedAt": "2026-05-01",
+  "sourceTier": {
+    "tier": "T5_OFFICIAL",
+    "sourceType": "official_court_statistics",
+    "sourceUrl": "https://stfamily.scourt.go.kr/st/StFrrStatcsView.do?pgmId=090000000025",
+    "accessedAt": "2026-05-01",
+    "quoteShort": null,
+    "humanInterpretation": "The Supreme Court Electronic Family Relation Registration statistics page exposes ranked birth-registration Hangul given-name counts by year, gender, and region.",
+    "copyrightNote": "Small attributed fixture subset only; no bulk mirror of the court statistics service. Copyright policy: https://stfamily.scourt.go.kr/sm/SmBottomCopyProtecPolic.do",
+    "authorityTruthEligible": true
+  },
+  "sources": [
+    {
+      "id": "scourt_birth_name_rank_1811",
+      "label": "Supreme Court upper birth-registration name ranking report",
+      "reportId": 1811,
+      "sourceTier": {
+        "tier": "T5_OFFICIAL",
+        "sourceType": "official_court_statistics",
+        "sourceUrl": "https://stfamily.scourt.go.kr/st/StFrrStatcsView.do?pgmId=090000000025",
+        "accessedAt": "2026-05-01",
+        "quoteShort": null,
+        "humanInterpretation": "Official court report used for the fixture rows in data/hangul-name-trends.json. Rows are limited to completed years, all regions, gender-specific queries, and top 20 names.",
+        "copyrightNote": "Only rank/name/count facts for a small deterministic fixture subset are committed. Copyright policy: https://stfamily.scourt.go.kr/sm/SmBottomCopyProtecPolic.do",
+        "authorityTruthEligible": true
+      }
+    },
+    {
+      "id": "scourt_statistics_service_info",
+      "label": "Supreme Court family-registration statistics service guide",
+      "sourceTier": {
+        "tier": "T5_OFFICIAL",
+        "sourceType": "official_court_statistics_guide",
+        "sourceUrl": "https://stfamily.scourt.go.kr/st/StFrrStatcsInq.do",
+        "accessedAt": "2026-05-01",
+        "quoteShort": null,
+        "humanInterpretation": "Official statistics service context for family-registration event statistics and provisional daily aggregation.",
+        "copyrightNote": "Source URL and paraphrase only. Copyright policy: https://stfamily.scourt.go.kr/sm/SmBottomCopyProtecPolic.do",
+        "authorityTruthEligible": true
+      }
+    },
+    {
+      "id": "scourt_report_metadata_observed_1811",
+      "label": "Observed WISE report metadata endpoint for report 1811",
+      "sourceTier": {
+        "tier": "T5_OFFICIAL",
+        "sourceType": "official_report_endpoint_observed",
+        "sourceUrl": "https://stfamily.scourt.go.kr/ds/report/1811/info/json.do",
+        "accessedAt": "2026-05-01",
+        "quoteShort": null,
+        "humanInterpretation": "Observed official report metadata identifies the grid fields used by the fixture: rank, name, share label, and count. This endpoint is used only to document how the fixture was captured.",
+        "copyrightNote": "Endpoint metadata is not mirrored beyond field names and source URL. Copyright policy: https://stfamily.scourt.go.kr/sm/SmBottomCopyProtecPolic.do",
+        "authorityTruthEligible": false
+      }
+    },
+    {
+      "id": "scourt_copyright_policy",
+      "label": "Supreme Court statistics copyright policy",
+      "sourceTier": {
+        "tier": "T5_OFFICIAL",
+        "sourceType": "official_copyright_policy",
+        "sourceUrl": "https://stfamily.scourt.go.kr/sm/SmBottomCopyProtecPolic.do",
+        "accessedAt": "2026-05-01",
+        "quoteShort": null,
+        "humanInterpretation": "Official court copyright policy is retained for attribution and reuse audit notes.",
+        "copyrightNote": "Referenced by URL and paraphrase only.",
+        "authorityTruthEligible": false
+      }
+    }
+  ]
+}

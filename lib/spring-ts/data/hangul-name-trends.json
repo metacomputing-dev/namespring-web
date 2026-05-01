@@ -1,0 +1,1837 @@
+{
+  "schemaVersion": "spring-ts.hangul-name-trends.v1",
+  "accessedAt": "2026-05-01",
+  "asOfYear": 2024,
+  "sourceTier": {
+    "tier": "T5_OFFICIAL",
+    "sourceType": "official_court_statistics",
+    "sourceUrl": "https://stfamily.scourt.go.kr/st/StFrrStatcsView.do?pgmId=090000000025",
+    "accessedAt": "2026-05-01",
+    "quoteShort": null,
+    "humanInterpretation": "Supreme Court family-registration statistics provide ranked birth-registration Hangul given names by query year and gender for records since 2008-01-01. Counts are treated as an accessed-at fixture snapshot, not immutable census facts.",
+    "copyrightNote": "Small attributed fixture subset only; no bulk mirror of the court statistics service. Copyright policy: https://stfamily.scourt.go.kr/sm/SmBottomCopyProtecPolic.do",
+    "authorityTruthEligible": true
+  },
+  "query": {
+    "reportId": 1811,
+    "reportTitle": "상위 출생신고 이름 현황",
+    "queryYears": [
+      2008,
+      2012,
+      2016,
+      2020,
+      2024
+    ],
+    "genderCodes": {
+      "male": "1",
+      "female": "2"
+    },
+    "regionFilter": "all",
+    "excludedNames": [
+      "기타"
+    ],
+    "maxRankPerYearGender": 20
+  },
+  "rows": [
+    {
+      "name": "민준",
+      "gender": "male",
+      "year": 2008,
+      "rank": 1,
+      "count": 2619,
+      "sourceId": "scourt_birth_name_rank_1811",
+      "sourceTier": "T5_OFFICIAL"
+    },
+    {
+      "name": "지훈",
+      "gender": "male",
+      "year": 2008,
+      "rank": 2,
+      "count": 2170,
+      "sourceId": "scourt_birth_name_rank_1811",
+      "sourceTier": "T5_OFFICIAL"
+    },
+    {
+      "name": "현우",
+      "gender": "male",
+      "year": 2008,
+      "rank": 3,
+      "count": 1931,
+      "sourceId": "scourt_birth_name_rank_1811",
+      "sourceTier": "T5_OFFICIAL"
+    },
+    {
+      "name": "준서",
+      "gender": "male",
+      "year": 2008,
+      "rank": 4,
+      "count": 1885,
+      "sourceId": "scourt_birth_name_rank_1811",
+      "sourceTier": "T5_OFFICIAL"
+    },
+    {
+      "name": "우진",
+      "gender": "male",
+      "year": 2008,
+      "rank": 5,
+      "count": 1808,
+      "sourceId": "scourt_birth_name_rank_1811",
+      "sourceTier": "T5_OFFICIAL"
+    },
+    {
+      "name": "건우",
+      "gender": "male",
+      "year": 2008,
+      "rank": 6,
+      "count": 1705,
+      "sourceId": "scourt_birth_name_rank_1811",
+      "sourceTier": "T5_OFFICIAL"
+    },
+    {
+      "name": "예준",
+      "gender": "male",
+      "year": 2008,
+      "rank": 7,
+      "count": 1691,
+      "sourceId": "scourt_birth_name_rank_1811",
+      "sourceTier": "T5_OFFICIAL"
+    },
+    {
+      "name": "현준",
+      "gender": "male",
+      "year": 2008,
+      "rank": 8,
+      "count": 1616,
+      "sourceId": "scourt_birth_name_rank_1811",
+      "sourceTier": "T5_OFFICIAL"
+    },
+    {
+      "name": "도현",
+      "gender": "male",
+      "year": 2008,
+      "rank": 9,
+      "count": 1577,
+      "sourceId": "scourt_birth_name_rank_1811",
+      "sourceTier": "T5_OFFICIAL"
+    },
+    {
+      "name": "준혁",
+      "gender": "male",
+      "year": 2008,
+      "rank": 10,
+      "count": 1576,
+      "sourceId": "scourt_birth_name_rank_1811",
+      "sourceTier": "T5_OFFICIAL"
+    },
+    {
+      "name": "동현",
+      "gender": "male",
+      "year": 2008,
+      "rank": 11,
+      "count": 1555,
+      "sourceId": "scourt_birth_name_rank_1811",
+      "sourceTier": "T5_OFFICIAL"
+    },
+    {
+      "name": "민재",
+      "gender": "male",
+      "year": 2008,
+      "rank": 12,
+      "count": 1471,
+      "sourceId": "scourt_birth_name_rank_1811",
+      "sourceTier": "T5_OFFICIAL"
+    },
+    {
+      "name": "서준",
+      "gender": "male",
+      "year": 2008,
+      "rank": 13,
+      "count": 1460,
+      "sourceId": "scourt_birth_name_rank_1811",
+      "sourceTier": "T5_OFFICIAL"
+    },
+    {
+      "name": "승현",
+      "gender": "male",
+      "year": 2008,
+      "rank": 14,
+      "count": 1418,
+      "sourceId": "scourt_birth_name_rank_1811",
+      "sourceTier": "T5_OFFICIAL"
+    },
+    {
+      "name": "승민",
+      "gender": "male",
+      "year": 2008,
+      "rank": 15,
+      "count": 1390,
+      "sourceId": "scourt_birth_name_rank_1811",
+      "sourceTier": "T5_OFFICIAL"
+    },
+    {
+      "name": "민성",
+      "gender": "male",
+      "year": 2008,
+      "rank": 16,
+      "count": 1366,
+      "sourceId": "scourt_birth_name_rank_1811",
+      "sourceTier": "T5_OFFICIAL"
+    },
+    {
+      "name": "시우",
+      "gender": "male",
+      "year": 2008,
+      "rank": 17,
+      "count": 1238,
+      "sourceId": "scourt_birth_name_rank_1811",
+      "sourceTier": "T5_OFFICIAL"
+    },
+    {
+      "name": "준영",
+      "gender": "male",
+      "year": 2008,
+      "rank": 18,
+      "count": 1226,
+      "sourceId": "scourt_birth_name_rank_1811",
+      "sourceTier": "T5_OFFICIAL"
+    },
+    {
+      "name": "서진",
+      "gender": "male",
+      "year": 2008,
+      "rank": 19,
+      "count": 1160,
+      "sourceId": "scourt_birth_name_rank_1811",
+      "sourceTier": "T5_OFFICIAL"
+    },
+    {
+      "name": "정우",
+      "gender": "male",
+      "year": 2008,
+      "rank": 20,
+      "count": 1156,
+      "sourceId": "scourt_birth_name_rank_1811",
+      "sourceTier": "T5_OFFICIAL"
+    },
+    {
+      "name": "서연",
+      "gender": "female",
+      "year": 2008,
+      "rank": 1,
+      "count": 3288,
+      "sourceId": "scourt_birth_name_rank_1811",
+      "sourceTier": "T5_OFFICIAL"
+    },
+    {
+      "name": "민서",
+      "gender": "female",
+      "year": 2008,
+      "rank": 2,
+      "count": 2865,
+      "sourceId": "scourt_birth_name_rank_1811",
+      "sourceTier": "T5_OFFICIAL"
+    },
+    {
+      "name": "지민",
+      "gender": "female",
+      "year": 2008,
+      "rank": 3,
+      "count": 2803,
+      "sourceId": "scourt_birth_name_rank_1811",
+      "sourceTier": "T5_OFFICIAL"
+    },
+    {
+      "name": "서현",
+      "gender": "female",
+      "year": 2008,
+      "rank": 4,
+      "count": 2626,
+      "sourceId": "scourt_birth_name_rank_1811",
+      "sourceTier": "T5_OFFICIAL"
+    },
+    {
+      "name": "서윤",
+      "gender": "female",
+      "year": 2008,
+      "rank": 5,
+      "count": 2478,
+      "sourceId": "scourt_birth_name_rank_1811",
+      "sourceTier": "T5_OFFICIAL"
+    },
+    {
+      "name": "예은",
+      "gender": "female",
+      "year": 2008,
+      "rank": 6,
+      "count": 2346,
+      "sourceId": "scourt_birth_name_rank_1811",
+      "sourceTier": "T5_OFFICIAL"
+    },
+    {
+      "name": "하은",
+      "gender": "female",
+      "year": 2008,
+      "rank": 7,
+      "count": 2123,
+      "sourceId": "scourt_birth_name_rank_1811",
+      "sourceTier": "T5_OFFICIAL"
+    },
+    {
+      "name": "지우",
+      "gender": "female",
+      "year": 2008,
+      "rank": 8,
+      "count": 2101,
+      "sourceId": "scourt_birth_name_rank_1811",
+      "sourceTier": "T5_OFFICIAL"
+    },
+    {
+      "name": "수빈",
+      "gender": "female",
+      "year": 2008,
+      "rank": 9,
+      "count": 2089,
+      "sourceId": "scourt_birth_name_rank_1811",
+      "sourceTier": "T5_OFFICIAL"
+    },
+    {
+      "name": "윤서",
+      "gender": "female",
+      "year": 2008,
+      "rank": 10,
+      "count": 1995,
+      "sourceId": "scourt_birth_name_rank_1811",
+      "sourceTier": "T5_OFFICIAL"
+    },
+    {
+      "name": "유진",
+      "gender": "female",
+      "year": 2008,
+      "rank": 11,
+      "count": 1956,
+      "sourceId": "scourt_birth_name_rank_1811",
+      "sourceTier": "T5_OFFICIAL"
+    },
+    {
+      "name": "은서",
+      "gender": "female",
+      "year": 2008,
+      "rank": 12,
+      "count": 1915,
+      "sourceId": "scourt_birth_name_rank_1811",
+      "sourceTier": "T5_OFFICIAL"
+    },
+    {
+      "name": "예진",
+      "gender": "female",
+      "year": 2008,
+      "rank": 13,
+      "count": 1881,
+      "sourceId": "scourt_birth_name_rank_1811",
+      "sourceTier": "T5_OFFICIAL"
+    },
+    {
+      "name": "지윤",
+      "gender": "female",
+      "year": 2008,
+      "rank": 14,
+      "count": 1873,
+      "sourceId": "scourt_birth_name_rank_1811",
+      "sourceTier": "T5_OFFICIAL"
+    },
+    {
+      "name": "민지",
+      "gender": "female",
+      "year": 2008,
+      "rank": 15,
+      "count": 1809,
+      "sourceId": "scourt_birth_name_rank_1811",
+      "sourceTier": "T5_OFFICIAL"
+    },
+    {
+      "name": "예원",
+      "gender": "female",
+      "year": 2008,
+      "rank": 16,
+      "count": 1797,
+      "sourceId": "scourt_birth_name_rank_1811",
+      "sourceTier": "T5_OFFICIAL"
+    },
+    {
+      "name": "지원",
+      "gender": "female",
+      "year": 2008,
+      "rank": 17,
+      "count": 1790,
+      "sourceId": "scourt_birth_name_rank_1811",
+      "sourceTier": "T5_OFFICIAL"
+    },
+    {
+      "name": "서영",
+      "gender": "female",
+      "year": 2008,
+      "rank": 18,
+      "count": 1741,
+      "sourceId": "scourt_birth_name_rank_1811",
+      "sourceTier": "T5_OFFICIAL"
+    },
+    {
+      "name": "수민",
+      "gender": "female",
+      "year": 2008,
+      "rank": 19,
+      "count": 1656,
+      "sourceId": "scourt_birth_name_rank_1811",
+      "sourceTier": "T5_OFFICIAL"
+    },
+    {
+      "name": "가은",
+      "gender": "female",
+      "year": 2008,
+      "rank": 20,
+      "count": 1576,
+      "sourceId": "scourt_birth_name_rank_1811",
+      "sourceTier": "T5_OFFICIAL"
+    },
+    {
+      "name": "민준",
+      "gender": "male",
+      "year": 2012,
+      "rank": 1,
+      "count": 3695,
+      "sourceId": "scourt_birth_name_rank_1811",
+      "sourceTier": "T5_OFFICIAL"
+    },
+    {
+      "name": "서준",
+      "gender": "male",
+      "year": 2012,
+      "rank": 2,
+      "count": 2993,
+      "sourceId": "scourt_birth_name_rank_1811",
+      "sourceTier": "T5_OFFICIAL"
+    },
+    {
+      "name": "주원",
+      "gender": "male",
+      "year": 2012,
+      "rank": 3,
+      "count": 2774,
+      "sourceId": "scourt_birth_name_rank_1811",
+      "sourceTier": "T5_OFFICIAL"
+    },
+    {
+      "name": "예준",
+      "gender": "male",
+      "year": 2012,
+      "rank": 4,
+      "count": 2365,
+      "sourceId": "scourt_birth_name_rank_1811",
+      "sourceTier": "T5_OFFICIAL"
+    },
+    {
+      "name": "시우",
+      "gender": "male",
+      "year": 2012,
+      "rank": 5,
+      "count": 2355,
+      "sourceId": "scourt_birth_name_rank_1811",
+      "sourceTier": "T5_OFFICIAL"
+    },
+    {
+      "name": "준서",
+      "gender": "male",
+      "year": 2012,
+      "rank": 6,
+      "count": 2346,
+      "sourceId": "scourt_birth_name_rank_1811",
+      "sourceTier": "T5_OFFICIAL"
+    },
+    {
+      "name": "도윤",
+      "gender": "male",
+      "year": 2012,
+      "rank": 7,
+      "count": 2301,
+      "sourceId": "scourt_birth_name_rank_1811",
+      "sourceTier": "T5_OFFICIAL"
+    },
+    {
+      "name": "현우",
+      "gender": "male",
+      "year": 2012,
+      "rank": 8,
+      "count": 2066,
+      "sourceId": "scourt_birth_name_rank_1811",
+      "sourceTier": "T5_OFFICIAL"
+    },
+    {
+      "name": "건우",
+      "gender": "male",
+      "year": 2012,
+      "rank": 9,
+      "count": 2057,
+      "sourceId": "scourt_birth_name_rank_1811",
+      "sourceTier": "T5_OFFICIAL"
+    },
+    {
+      "name": "지훈",
+      "gender": "male",
+      "year": 2012,
+      "rank": 10,
+      "count": 2039,
+      "sourceId": "scourt_birth_name_rank_1811",
+      "sourceTier": "T5_OFFICIAL"
+    },
+    {
+      "name": "지후",
+      "gender": "male",
+      "year": 2012,
+      "rank": 11,
+      "count": 1991,
+      "sourceId": "scourt_birth_name_rank_1811",
+      "sourceTier": "T5_OFFICIAL"
+    },
+    {
+      "name": "도현",
+      "gender": "male",
+      "year": 2012,
+      "rank": 12,
+      "count": 1913,
+      "sourceId": "scourt_birth_name_rank_1811",
+      "sourceTier": "T5_OFFICIAL"
+    },
+    {
+      "name": "준우",
+      "gender": "male",
+      "year": 2012,
+      "rank": 13,
+      "count": 1817,
+      "sourceId": "scourt_birth_name_rank_1811",
+      "sourceTier": "T5_OFFICIAL"
+    },
+    {
+      "name": "민재",
+      "gender": "male",
+      "year": 2012,
+      "rank": 14,
+      "count": 1812,
+      "sourceId": "scourt_birth_name_rank_1811",
+      "sourceTier": "T5_OFFICIAL"
+    },
+    {
+      "name": "지호",
+      "gender": "male",
+      "year": 2012,
+      "rank": 15,
+      "count": 1772,
+      "sourceId": "scourt_birth_name_rank_1811",
+      "sourceTier": "T5_OFFICIAL"
+    },
+    {
+      "name": "준혁",
+      "gender": "male",
+      "year": 2012,
+      "rank": 16,
+      "count": 1622,
+      "sourceId": "scourt_birth_name_rank_1811",
+      "sourceTier": "T5_OFFICIAL"
+    },
+    {
+      "name": "우진",
+      "gender": "male",
+      "year": 2012,
+      "rank": 17,
+      "count": 1600,
+      "sourceId": "scourt_birth_name_rank_1811",
+      "sourceTier": "T5_OFFICIAL"
+    },
+    {
+      "name": "현준",
+      "gender": "male",
+      "year": 2012,
+      "rank": 18,
+      "count": 1551,
+      "sourceId": "scourt_birth_name_rank_1811",
+      "sourceTier": "T5_OFFICIAL"
+    },
+    {
+      "name": "승현",
+      "gender": "male",
+      "year": 2012,
+      "rank": 19,
+      "count": 1436,
+      "sourceId": "scourt_birth_name_rank_1811",
+      "sourceTier": "T5_OFFICIAL"
+    },
+    {
+      "name": "선우",
+      "gender": "male",
+      "year": 2012,
+      "rank": 20,
+      "count": 1410,
+      "sourceId": "scourt_birth_name_rank_1811",
+      "sourceTier": "T5_OFFICIAL"
+    },
+    {
+      "name": "서연",
+      "gender": "female",
+      "year": 2012,
+      "rank": 1,
+      "count": 3272,
+      "sourceId": "scourt_birth_name_rank_1811",
+      "sourceTier": "T5_OFFICIAL"
+    },
+    {
+      "name": "서현",
+      "gender": "female",
+      "year": 2012,
+      "rank": 2,
+      "count": 3171,
+      "sourceId": "scourt_birth_name_rank_1811",
+      "sourceTier": "T5_OFFICIAL"
+    },
+    {
+      "name": "서윤",
+      "gender": "female",
+      "year": 2012,
+      "rank": 3,
+      "count": 2990,
+      "sourceId": "scourt_birth_name_rank_1811",
+      "sourceTier": "T5_OFFICIAL"
+    },
+    {
+      "name": "민서",
+      "gender": "female",
+      "year": 2012,
+      "rank": 4,
+      "count": 2851,
+      "sourceId": "scourt_birth_name_rank_1811",
+      "sourceTier": "T5_OFFICIAL"
+    },
+    {
+      "name": "지우",
+      "gender": "female",
+      "year": 2012,
+      "rank": 5,
+      "count": 2735,
+      "sourceId": "scourt_birth_name_rank_1811",
+      "sourceTier": "T5_OFFICIAL"
+    },
+    {
+      "name": "윤서",
+      "gender": "female",
+      "year": 2012,
+      "rank": 6,
+      "count": 2447,
+      "sourceId": "scourt_birth_name_rank_1811",
+      "sourceTier": "T5_OFFICIAL"
+    },
+    {
+      "name": "지민",
+      "gender": "female",
+      "year": 2012,
+      "rank": 7,
+      "count": 2440,
+      "sourceId": "scourt_birth_name_rank_1811",
+      "sourceTier": "T5_OFFICIAL"
+    },
+    {
+      "name": "하윤",
+      "gender": "female",
+      "year": 2012,
+      "rank": 8,
+      "count": 2293,
+      "sourceId": "scourt_birth_name_rank_1811",
+      "sourceTier": "T5_OFFICIAL"
+    },
+    {
+      "name": "은서",
+      "gender": "female",
+      "year": 2012,
+      "rank": 9,
+      "count": 2279,
+      "sourceId": "scourt_birth_name_rank_1811",
+      "sourceTier": "T5_OFFICIAL"
+    },
+    {
+      "name": "채원",
+      "gender": "female",
+      "year": 2012,
+      "rank": 10,
+      "count": 2272,
+      "sourceId": "scourt_birth_name_rank_1811",
+      "sourceTier": "T5_OFFICIAL"
+    },
+    {
+      "name": "하은",
+      "gender": "female",
+      "year": 2012,
+      "rank": 11,
+      "count": 2123,
+      "sourceId": "scourt_birth_name_rank_1811",
+      "sourceTier": "T5_OFFICIAL"
+    },
+    {
+      "name": "지윤",
+      "gender": "female",
+      "year": 2012,
+      "rank": 12,
+      "count": 2001,
+      "sourceId": "scourt_birth_name_rank_1811",
+      "sourceTier": "T5_OFFICIAL"
+    },
+    {
+      "name": "연우",
+      "gender": "female",
+      "year": 2012,
+      "rank": 13,
+      "count": 1989,
+      "sourceId": "scourt_birth_name_rank_1811",
+      "sourceTier": "T5_OFFICIAL"
+    },
+    {
+      "name": "예은",
+      "gender": "female",
+      "year": 2012,
+      "rank": 14,
+      "count": 1845,
+      "sourceId": "scourt_birth_name_rank_1811",
+      "sourceTier": "T5_OFFICIAL"
+    },
+    {
+      "name": "소율",
+      "gender": "female",
+      "year": 2012,
+      "rank": 15,
+      "count": 1762,
+      "sourceId": "scourt_birth_name_rank_1811",
+      "sourceTier": "T5_OFFICIAL"
+    },
+    {
+      "name": "다은",
+      "gender": "female",
+      "year": 2012,
+      "rank": 16,
+      "count": 1706,
+      "sourceId": "scourt_birth_name_rank_1811",
+      "sourceTier": "T5_OFFICIAL"
+    },
+    {
+      "name": "지유",
+      "gender": "female",
+      "year": 2012,
+      "rank": 17,
+      "count": 1687,
+      "sourceId": "scourt_birth_name_rank_1811",
+      "sourceTier": "T5_OFFICIAL"
+    },
+    {
+      "name": "예원",
+      "gender": "female",
+      "year": 2012,
+      "rank": 18,
+      "count": 1659,
+      "sourceId": "scourt_birth_name_rank_1811",
+      "sourceTier": "T5_OFFICIAL"
+    },
+    {
+      "name": "수빈",
+      "gender": "female",
+      "year": 2012,
+      "rank": 19,
+      "count": 1552,
+      "sourceId": "scourt_birth_name_rank_1811",
+      "sourceTier": "T5_OFFICIAL"
+    },
+    {
+      "name": "지원",
+      "gender": "female",
+      "year": 2012,
+      "rank": 20,
+      "count": 1541,
+      "sourceId": "scourt_birth_name_rank_1811",
+      "sourceTier": "T5_OFFICIAL"
+    },
+    {
+      "name": "민준",
+      "gender": "male",
+      "year": 2016,
+      "rank": 1,
+      "count": 2952,
+      "sourceId": "scourt_birth_name_rank_1811",
+      "sourceTier": "T5_OFFICIAL"
+    },
+    {
+      "name": "서준",
+      "gender": "male",
+      "year": 2016,
+      "rank": 2,
+      "count": 2878,
+      "sourceId": "scourt_birth_name_rank_1811",
+      "sourceTier": "T5_OFFICIAL"
+    },
+    {
+      "name": "하준",
+      "gender": "male",
+      "year": 2016,
+      "rank": 2,
+      "count": 2878,
+      "sourceId": "scourt_birth_name_rank_1811",
+      "sourceTier": "T5_OFFICIAL"
+    },
+    {
+      "name": "도윤",
+      "gender": "male",
+      "year": 2016,
+      "rank": 4,
+      "count": 2780,
+      "sourceId": "scourt_birth_name_rank_1811",
+      "sourceTier": "T5_OFFICIAL"
+    },
+    {
+      "name": "예준",
+      "gender": "male",
+      "year": 2016,
+      "rank": 5,
+      "count": 2523,
+      "sourceId": "scourt_birth_name_rank_1811",
+      "sourceTier": "T5_OFFICIAL"
+    },
+    {
+      "name": "주원",
+      "gender": "male",
+      "year": 2016,
+      "rank": 6,
+      "count": 2509,
+      "sourceId": "scourt_birth_name_rank_1811",
+      "sourceTier": "T5_OFFICIAL"
+    },
+    {
+      "name": "지호",
+      "gender": "male",
+      "year": 2016,
+      "rank": 7,
+      "count": 2159,
+      "sourceId": "scourt_birth_name_rank_1811",
+      "sourceTier": "T5_OFFICIAL"
+    },
+    {
+      "name": "시우",
+      "gender": "male",
+      "year": 2016,
+      "rank": 8,
+      "count": 2149,
+      "sourceId": "scourt_birth_name_rank_1811",
+      "sourceTier": "T5_OFFICIAL"
+    },
+    {
+      "name": "준우",
+      "gender": "male",
+      "year": 2016,
+      "rank": 9,
+      "count": 1929,
+      "sourceId": "scourt_birth_name_rank_1811",
+      "sourceTier": "T5_OFFICIAL"
+    },
+    {
+      "name": "유준",
+      "gender": "male",
+      "year": 2016,
+      "rank": 10,
+      "count": 1824,
+      "sourceId": "scourt_birth_name_rank_1811",
+      "sourceTier": "T5_OFFICIAL"
+    },
+    {
+      "name": "지후",
+      "gender": "male",
+      "year": 2016,
+      "rank": 11,
+      "count": 1761,
+      "sourceId": "scourt_birth_name_rank_1811",
+      "sourceTier": "T5_OFFICIAL"
+    },
+    {
+      "name": "도현",
+      "gender": "male",
+      "year": 2016,
+      "rank": 12,
+      "count": 1632,
+      "sourceId": "scourt_birth_name_rank_1811",
+      "sourceTier": "T5_OFFICIAL"
+    },
+    {
+      "name": "서진",
+      "gender": "male",
+      "year": 2016,
+      "rank": 13,
+      "count": 1572,
+      "sourceId": "scourt_birth_name_rank_1811",
+      "sourceTier": "T5_OFFICIAL"
+    },
+    {
+      "name": "준서",
+      "gender": "male",
+      "year": 2016,
+      "rank": 14,
+      "count": 1562,
+      "sourceId": "scourt_birth_name_rank_1811",
+      "sourceTier": "T5_OFFICIAL"
+    },
+    {
+      "name": "시윤",
+      "gender": "male",
+      "year": 2016,
+      "rank": 15,
+      "count": 1538,
+      "sourceId": "scourt_birth_name_rank_1811",
+      "sourceTier": "T5_OFFICIAL"
+    },
+    {
+      "name": "건우",
+      "gender": "male",
+      "year": 2016,
+      "rank": 16,
+      "count": 1518,
+      "sourceId": "scourt_birth_name_rank_1811",
+      "sourceTier": "T5_OFFICIAL"
+    },
+    {
+      "name": "현우",
+      "gender": "male",
+      "year": 2016,
+      "rank": 17,
+      "count": 1473,
+      "sourceId": "scourt_birth_name_rank_1811",
+      "sourceTier": "T5_OFFICIAL"
+    },
+    {
+      "name": "선우",
+      "gender": "male",
+      "year": 2016,
+      "rank": 18,
+      "count": 1446,
+      "sourceId": "scourt_birth_name_rank_1811",
+      "sourceTier": "T5_OFFICIAL"
+    },
+    {
+      "name": "지훈",
+      "gender": "male",
+      "year": 2016,
+      "rank": 19,
+      "count": 1427,
+      "sourceId": "scourt_birth_name_rank_1811",
+      "sourceTier": "T5_OFFICIAL"
+    },
+    {
+      "name": "연우",
+      "gender": "male",
+      "year": 2016,
+      "rank": 20,
+      "count": 1426,
+      "sourceId": "scourt_birth_name_rank_1811",
+      "sourceTier": "T5_OFFICIAL"
+    },
+    {
+      "name": "서윤",
+      "gender": "female",
+      "year": 2016,
+      "rank": 1,
+      "count": 2798,
+      "sourceId": "scourt_birth_name_rank_1811",
+      "sourceTier": "T5_OFFICIAL"
+    },
+    {
+      "name": "서연",
+      "gender": "female",
+      "year": 2016,
+      "rank": 2,
+      "count": 2525,
+      "sourceId": "scourt_birth_name_rank_1811",
+      "sourceTier": "T5_OFFICIAL"
+    },
+    {
+      "name": "하윤",
+      "gender": "female",
+      "year": 2016,
+      "rank": 3,
+      "count": 2404,
+      "sourceId": "scourt_birth_name_rank_1811",
+      "sourceTier": "T5_OFFICIAL"
+    },
+    {
+      "name": "지유",
+      "gender": "female",
+      "year": 2016,
+      "rank": 4,
+      "count": 2400,
+      "sourceId": "scourt_birth_name_rank_1811",
+      "sourceTier": "T5_OFFICIAL"
+    },
+    {
+      "name": "지우",
+      "gender": "female",
+      "year": 2016,
+      "rank": 5,
+      "count": 2337,
+      "sourceId": "scourt_birth_name_rank_1811",
+      "sourceTier": "T5_OFFICIAL"
+    },
+    {
+      "name": "하은",
+      "gender": "female",
+      "year": 2016,
+      "rank": 6,
+      "count": 2059,
+      "sourceId": "scourt_birth_name_rank_1811",
+      "sourceTier": "T5_OFFICIAL"
+    },
+    {
+      "name": "지아",
+      "gender": "female",
+      "year": 2016,
+      "rank": 7,
+      "count": 1970,
+      "sourceId": "scourt_birth_name_rank_1811",
+      "sourceTier": "T5_OFFICIAL"
+    },
+    {
+      "name": "수아",
+      "gender": "female",
+      "year": 2016,
+      "rank": 8,
+      "count": 1942,
+      "sourceId": "scourt_birth_name_rank_1811",
+      "sourceTier": "T5_OFFICIAL"
+    },
+    {
+      "name": "서현",
+      "gender": "female",
+      "year": 2016,
+      "rank": 9,
+      "count": 1870,
+      "sourceId": "scourt_birth_name_rank_1811",
+      "sourceTier": "T5_OFFICIAL"
+    },
+    {
+      "name": "하린",
+      "gender": "female",
+      "year": 2016,
+      "rank": 10,
+      "count": 1798,
+      "sourceId": "scourt_birth_name_rank_1811",
+      "sourceTier": "T5_OFFICIAL"
+    },
+    {
+      "name": "민서",
+      "gender": "female",
+      "year": 2016,
+      "rank": 11,
+      "count": 1761,
+      "sourceId": "scourt_birth_name_rank_1811",
+      "sourceTier": "T5_OFFICIAL"
+    },
+    {
+      "name": "다은",
+      "gender": "female",
+      "year": 2016,
+      "rank": 12,
+      "count": 1755,
+      "sourceId": "scourt_birth_name_rank_1811",
+      "sourceTier": "T5_OFFICIAL"
+    },
+    {
+      "name": "채원",
+      "gender": "female",
+      "year": 2016,
+      "rank": 13,
+      "count": 1748,
+      "sourceId": "scourt_birth_name_rank_1811",
+      "sourceTier": "T5_OFFICIAL"
+    },
+    {
+      "name": "서우",
+      "gender": "female",
+      "year": 2016,
+      "rank": 14,
+      "count": 1708,
+      "sourceId": "scourt_birth_name_rank_1811",
+      "sourceTier": "T5_OFFICIAL"
+    },
+    {
+      "name": "윤서",
+      "gender": "female",
+      "year": 2016,
+      "rank": 15,
+      "count": 1595,
+      "sourceId": "scourt_birth_name_rank_1811",
+      "sourceTier": "T5_OFFICIAL"
+    },
+    {
+      "name": "지안",
+      "gender": "female",
+      "year": 2016,
+      "rank": 16,
+      "count": 1565,
+      "sourceId": "scourt_birth_name_rank_1811",
+      "sourceTier": "T5_OFFICIAL"
+    },
+    {
+      "name": "소율",
+      "gender": "female",
+      "year": 2016,
+      "rank": 17,
+      "count": 1531,
+      "sourceId": "scourt_birth_name_rank_1811",
+      "sourceTier": "T5_OFFICIAL"
+    },
+    {
+      "name": "서아",
+      "gender": "female",
+      "year": 2016,
+      "rank": 18,
+      "count": 1507,
+      "sourceId": "scourt_birth_name_rank_1811",
+      "sourceTier": "T5_OFFICIAL"
+    },
+    {
+      "name": "지윤",
+      "gender": "female",
+      "year": 2016,
+      "rank": 19,
+      "count": 1464,
+      "sourceId": "scourt_birth_name_rank_1811",
+      "sourceTier": "T5_OFFICIAL"
+    },
+    {
+      "name": "예린",
+      "gender": "female",
+      "year": 2016,
+      "rank": 20,
+      "count": 1421,
+      "sourceId": "scourt_birth_name_rank_1811",
+      "sourceTier": "T5_OFFICIAL"
+    },
+    {
+      "name": "도윤",
+      "gender": "male",
+      "year": 2020,
+      "rank": 1,
+      "count": 2393,
+      "sourceId": "scourt_birth_name_rank_1811",
+      "sourceTier": "T5_OFFICIAL"
+    },
+    {
+      "name": "서준",
+      "gender": "male",
+      "year": 2020,
+      "rank": 1,
+      "count": 2393,
+      "sourceId": "scourt_birth_name_rank_1811",
+      "sourceTier": "T5_OFFICIAL"
+    },
+    {
+      "name": "하준",
+      "gender": "male",
+      "year": 2020,
+      "rank": 3,
+      "count": 1991,
+      "sourceId": "scourt_birth_name_rank_1811",
+      "sourceTier": "T5_OFFICIAL"
+    },
+    {
+      "name": "은우",
+      "gender": "male",
+      "year": 2020,
+      "rank": 4,
+      "count": 1921,
+      "sourceId": "scourt_birth_name_rank_1811",
+      "sourceTier": "T5_OFFICIAL"
+    },
+    {
+      "name": "시우",
+      "gender": "male",
+      "year": 2020,
+      "rank": 5,
+      "count": 1901,
+      "sourceId": "scourt_birth_name_rank_1811",
+      "sourceTier": "T5_OFFICIAL"
+    },
+    {
+      "name": "이준",
+      "gender": "male",
+      "year": 2020,
+      "rank": 6,
+      "count": 1761,
+      "sourceId": "scourt_birth_name_rank_1811",
+      "sourceTier": "T5_OFFICIAL"
+    },
+    {
+      "name": "지호",
+      "gender": "male",
+      "year": 2020,
+      "rank": 7,
+      "count": 1643,
+      "sourceId": "scourt_birth_name_rank_1811",
+      "sourceTier": "T5_OFFICIAL"
+    },
+    {
+      "name": "예준",
+      "gender": "male",
+      "year": 2020,
+      "rank": 8,
+      "count": 1462,
+      "sourceId": "scourt_birth_name_rank_1811",
+      "sourceTier": "T5_OFFICIAL"
+    },
+    {
+      "name": "유준",
+      "gender": "male",
+      "year": 2020,
+      "rank": 9,
+      "count": 1380,
+      "sourceId": "scourt_birth_name_rank_1811",
+      "sourceTier": "T5_OFFICIAL"
+    },
+    {
+      "name": "주원",
+      "gender": "male",
+      "year": 2020,
+      "rank": 10,
+      "count": 1261,
+      "sourceId": "scourt_birth_name_rank_1811",
+      "sourceTier": "T5_OFFICIAL"
+    },
+    {
+      "name": "건우",
+      "gender": "male",
+      "year": 2020,
+      "rank": 11,
+      "count": 1257,
+      "sourceId": "scourt_birth_name_rank_1811",
+      "sourceTier": "T5_OFFICIAL"
+    },
+    {
+      "name": "도현",
+      "gender": "male",
+      "year": 2020,
+      "rank": 12,
+      "count": 1256,
+      "sourceId": "scourt_birth_name_rank_1811",
+      "sourceTier": "T5_OFFICIAL"
+    },
+    {
+      "name": "수호",
+      "gender": "male",
+      "year": 2020,
+      "rank": 13,
+      "count": 1252,
+      "sourceId": "scourt_birth_name_rank_1811",
+      "sourceTier": "T5_OFFICIAL"
+    },
+    {
+      "name": "민준",
+      "gender": "male",
+      "year": 2020,
+      "rank": 14,
+      "count": 1245,
+      "sourceId": "scourt_birth_name_rank_1811",
+      "sourceTier": "T5_OFFICIAL"
+    },
+    {
+      "name": "연우",
+      "gender": "male",
+      "year": 2020,
+      "rank": 15,
+      "count": 1241,
+      "sourceId": "scourt_birth_name_rank_1811",
+      "sourceTier": "T5_OFFICIAL"
+    },
+    {
+      "name": "선우",
+      "gender": "male",
+      "year": 2020,
+      "rank": 16,
+      "count": 1167,
+      "sourceId": "scourt_birth_name_rank_1811",
+      "sourceTier": "T5_OFFICIAL"
+    },
+    {
+      "name": "이안",
+      "gender": "male",
+      "year": 2020,
+      "rank": 16,
+      "count": 1167,
+      "sourceId": "scourt_birth_name_rank_1811",
+      "sourceTier": "T5_OFFICIAL"
+    },
+    {
+      "name": "우진",
+      "gender": "male",
+      "year": 2020,
+      "rank": 18,
+      "count": 1133,
+      "sourceId": "scourt_birth_name_rank_1811",
+      "sourceTier": "T5_OFFICIAL"
+    },
+    {
+      "name": "준우",
+      "gender": "male",
+      "year": 2020,
+      "rank": 19,
+      "count": 1130,
+      "sourceId": "scourt_birth_name_rank_1811",
+      "sourceTier": "T5_OFFICIAL"
+    },
+    {
+      "name": "서진",
+      "gender": "male",
+      "year": 2020,
+      "rank": 20,
+      "count": 1092,
+      "sourceId": "scourt_birth_name_rank_1811",
+      "sourceTier": "T5_OFFICIAL"
+    },
+    {
+      "name": "서아",
+      "gender": "female",
+      "year": 2020,
+      "rank": 1,
+      "count": 2099,
+      "sourceId": "scourt_birth_name_rank_1811",
+      "sourceTier": "T5_OFFICIAL"
+    },
+    {
+      "name": "하윤",
+      "gender": "female",
+      "year": 2020,
+      "rank": 2,
+      "count": 1911,
+      "sourceId": "scourt_birth_name_rank_1811",
+      "sourceTier": "T5_OFFICIAL"
+    },
+    {
+      "name": "지안",
+      "gender": "female",
+      "year": 2020,
+      "rank": 3,
+      "count": 1808,
+      "sourceId": "scourt_birth_name_rank_1811",
+      "sourceTier": "T5_OFFICIAL"
+    },
+    {
+      "name": "서윤",
+      "gender": "female",
+      "year": 2020,
+      "rank": 4,
+      "count": 1581,
+      "sourceId": "scourt_birth_name_rank_1811",
+      "sourceTier": "T5_OFFICIAL"
+    },
+    {
+      "name": "하은",
+      "gender": "female",
+      "year": 2020,
+      "rank": 5,
+      "count": 1542,
+      "sourceId": "scourt_birth_name_rank_1811",
+      "sourceTier": "T5_OFFICIAL"
+    },
+    {
+      "name": "아린",
+      "gender": "female",
+      "year": 2020,
+      "rank": 6,
+      "count": 1494,
+      "sourceId": "scourt_birth_name_rank_1811",
+      "sourceTier": "T5_OFFICIAL"
+    },
+    {
+      "name": "하린",
+      "gender": "female",
+      "year": 2020,
+      "rank": 7,
+      "count": 1479,
+      "sourceId": "scourt_birth_name_rank_1811",
+      "sourceTier": "T5_OFFICIAL"
+    },
+    {
+      "name": "아윤",
+      "gender": "female",
+      "year": 2020,
+      "rank": 8,
+      "count": 1449,
+      "sourceId": "scourt_birth_name_rank_1811",
+      "sourceTier": "T5_OFFICIAL"
+    },
+    {
+      "name": "지우",
+      "gender": "female",
+      "year": 2020,
+      "rank": 9,
+      "count": 1378,
+      "sourceId": "scourt_birth_name_rank_1811",
+      "sourceTier": "T5_OFFICIAL"
+    },
+    {
+      "name": "수아",
+      "gender": "female",
+      "year": 2020,
+      "rank": 10,
+      "count": 1356,
+      "sourceId": "scourt_birth_name_rank_1811",
+      "sourceTier": "T5_OFFICIAL"
+    },
+    {
+      "name": "시아",
+      "gender": "female",
+      "year": 2020,
+      "rank": 11,
+      "count": 1327,
+      "sourceId": "scourt_birth_name_rank_1811",
+      "sourceTier": "T5_OFFICIAL"
+    },
+    {
+      "name": "나은",
+      "gender": "female",
+      "year": 2020,
+      "rank": 12,
+      "count": 1321,
+      "sourceId": "scourt_birth_name_rank_1811",
+      "sourceTier": "T5_OFFICIAL"
+    },
+    {
+      "name": "지유",
+      "gender": "female",
+      "year": 2020,
+      "rank": 13,
+      "count": 1318,
+      "sourceId": "scourt_birth_name_rank_1811",
+      "sourceTier": "T5_OFFICIAL"
+    },
+    {
+      "name": "지아",
+      "gender": "female",
+      "year": 2020,
+      "rank": 14,
+      "count": 1317,
+      "sourceId": "scourt_birth_name_rank_1811",
+      "sourceTier": "T5_OFFICIAL"
+    },
+    {
+      "name": "서연",
+      "gender": "female",
+      "year": 2020,
+      "rank": 15,
+      "count": 1152,
+      "sourceId": "scourt_birth_name_rank_1811",
+      "sourceTier": "T5_OFFICIAL"
+    },
+    {
+      "name": "유나",
+      "gender": "female",
+      "year": 2020,
+      "rank": 16,
+      "count": 1091,
+      "sourceId": "scourt_birth_name_rank_1811",
+      "sourceTier": "T5_OFFICIAL"
+    },
+    {
+      "name": "예나",
+      "gender": "female",
+      "year": 2020,
+      "rank": 17,
+      "count": 1073,
+      "sourceId": "scourt_birth_name_rank_1811",
+      "sourceTier": "T5_OFFICIAL"
+    },
+    {
+      "name": "서우",
+      "gender": "female",
+      "year": 2020,
+      "rank": 18,
+      "count": 1063,
+      "sourceId": "scourt_birth_name_rank_1811",
+      "sourceTier": "T5_OFFICIAL"
+    },
+    {
+      "name": "다은",
+      "gender": "female",
+      "year": 2020,
+      "rank": 19,
+      "count": 1042,
+      "sourceId": "scourt_birth_name_rank_1811",
+      "sourceTier": "T5_OFFICIAL"
+    },
+    {
+      "name": "유주",
+      "gender": "female",
+      "year": 2020,
+      "rank": 20,
+      "count": 984,
+      "sourceId": "scourt_birth_name_rank_1811",
+      "sourceTier": "T5_OFFICIAL"
+    },
+    {
+      "name": "이준",
+      "gender": "male",
+      "year": 2024,
+      "rank": 1,
+      "count": 1872,
+      "sourceId": "scourt_birth_name_rank_1811",
+      "sourceTier": "T5_OFFICIAL"
+    },
+    {
+      "name": "하준",
+      "gender": "male",
+      "year": 2024,
+      "rank": 2,
+      "count": 1780,
+      "sourceId": "scourt_birth_name_rank_1811",
+      "sourceTier": "T5_OFFICIAL"
+    },
+    {
+      "name": "도윤",
+      "gender": "male",
+      "year": 2024,
+      "rank": 3,
+      "count": 1759,
+      "sourceId": "scourt_birth_name_rank_1811",
+      "sourceTier": "T5_OFFICIAL"
+    },
+    {
+      "name": "은우",
+      "gender": "male",
+      "year": 2024,
+      "rank": 4,
+      "count": 1614,
+      "sourceId": "scourt_birth_name_rank_1811",
+      "sourceTier": "T5_OFFICIAL"
+    },
+    {
+      "name": "시우",
+      "gender": "male",
+      "year": 2024,
+      "rank": 5,
+      "count": 1597,
+      "sourceId": "scourt_birth_name_rank_1811",
+      "sourceTier": "T5_OFFICIAL"
+    },
+    {
+      "name": "서준",
+      "gender": "male",
+      "year": 2024,
+      "rank": 6,
+      "count": 1541,
+      "sourceId": "scourt_birth_name_rank_1811",
+      "sourceTier": "T5_OFFICIAL"
+    },
+    {
+      "name": "선우",
+      "gender": "male",
+      "year": 2024,
+      "rank": 7,
+      "count": 1485,
+      "sourceId": "scourt_birth_name_rank_1811",
+      "sourceTier": "T5_OFFICIAL"
+    },
+    {
+      "name": "유준",
+      "gender": "male",
+      "year": 2024,
+      "rank": 8,
+      "count": 1412,
+      "sourceId": "scourt_birth_name_rank_1811",
+      "sourceTier": "T5_OFFICIAL"
+    },
+    {
+      "name": "이안",
+      "gender": "male",
+      "year": 2024,
+      "rank": 9,
+      "count": 1400,
+      "sourceId": "scourt_birth_name_rank_1811",
+      "sourceTier": "T5_OFFICIAL"
+    },
+    {
+      "name": "태오",
+      "gender": "male",
+      "year": 2024,
+      "rank": 10,
+      "count": 1392,
+      "sourceId": "scourt_birth_name_rank_1811",
+      "sourceTier": "T5_OFFICIAL"
+    },
+    {
+      "name": "수호",
+      "gender": "male",
+      "year": 2024,
+      "rank": 11,
+      "count": 1383,
+      "sourceId": "scourt_birth_name_rank_1811",
+      "sourceTier": "T5_OFFICIAL"
+    },
+    {
+      "name": "도현",
+      "gender": "male",
+      "year": 2024,
+      "rank": 12,
+      "count": 1379,
+      "sourceId": "scourt_birth_name_rank_1811",
+      "sourceTier": "T5_OFFICIAL"
+    },
+    {
+      "name": "이현",
+      "gender": "male",
+      "year": 2024,
+      "rank": 13,
+      "count": 1327,
+      "sourceId": "scourt_birth_name_rank_1811",
+      "sourceTier": "T5_OFFICIAL"
+    },
+    {
+      "name": "지호",
+      "gender": "male",
+      "year": 2024,
+      "rank": 14,
+      "count": 1320,
+      "sourceId": "scourt_birth_name_rank_1811",
+      "sourceTier": "T5_OFFICIAL"
+    },
+    {
+      "name": "도하",
+      "gender": "male",
+      "year": 2024,
+      "rank": 15,
+      "count": 1283,
+      "sourceId": "scourt_birth_name_rank_1811",
+      "sourceTier": "T5_OFFICIAL"
+    },
+    {
+      "name": "우주",
+      "gender": "male",
+      "year": 2024,
+      "rank": 16,
+      "count": 1257,
+      "sourceId": "scourt_birth_name_rank_1811",
+      "sourceTier": "T5_OFFICIAL"
+    },
+    {
+      "name": "예준",
+      "gender": "male",
+      "year": 2024,
+      "rank": 17,
+      "count": 1153,
+      "sourceId": "scourt_birth_name_rank_1811",
+      "sourceTier": "T5_OFFICIAL"
+    },
+    {
+      "name": "주원",
+      "gender": "male",
+      "year": 2024,
+      "rank": 18,
+      "count": 1061,
+      "sourceId": "scourt_birth_name_rank_1811",
+      "sourceTier": "T5_OFFICIAL"
+    },
+    {
+      "name": "로운",
+      "gender": "male",
+      "year": 2024,
+      "rank": 19,
+      "count": 1051,
+      "sourceId": "scourt_birth_name_rank_1811",
+      "sourceTier": "T5_OFFICIAL"
+    },
+    {
+      "name": "지한",
+      "gender": "male",
+      "year": 2024,
+      "rank": 20,
+      "count": 1050,
+      "sourceId": "scourt_birth_name_rank_1811",
+      "sourceTier": "T5_OFFICIAL"
+    },
+    {
+      "name": "서아",
+      "gender": "female",
+      "year": 2024,
+      "rank": 1,
+      "count": 1927,
+      "sourceId": "scourt_birth_name_rank_1811",
+      "sourceTier": "T5_OFFICIAL"
+    },
+    {
+      "name": "이서",
+      "gender": "female",
+      "year": 2024,
+      "rank": 2,
+      "count": 1925,
+      "sourceId": "scourt_birth_name_rank_1811",
+      "sourceTier": "T5_OFFICIAL"
+    },
+    {
+      "name": "하린",
+      "gender": "female",
+      "year": 2024,
+      "rank": 3,
+      "count": 1493,
+      "sourceId": "scourt_birth_name_rank_1811",
+      "sourceTier": "T5_OFFICIAL"
+    },
+    {
+      "name": "지유",
+      "gender": "female",
+      "year": 2024,
+      "rank": 4,
+      "count": 1423,
+      "sourceId": "scourt_birth_name_rank_1811",
+      "sourceTier": "T5_OFFICIAL"
+    },
+    {
+      "name": "지안",
+      "gender": "female",
+      "year": 2024,
+      "rank": 5,
+      "count": 1398,
+      "sourceId": "scourt_birth_name_rank_1811",
+      "sourceTier": "T5_OFFICIAL"
+    },
+    {
+      "name": "하윤",
+      "gender": "female",
+      "year": 2024,
+      "rank": 5,
+      "count": 1398,
+      "sourceId": "scourt_birth_name_rank_1811",
+      "sourceTier": "T5_OFFICIAL"
+    },
+    {
+      "name": "아윤",
+      "gender": "female",
+      "year": 2024,
+      "rank": 7,
+      "count": 1397,
+      "sourceId": "scourt_birth_name_rank_1811",
+      "sourceTier": "T5_OFFICIAL"
+    },
+    {
+      "name": "지아",
+      "gender": "female",
+      "year": 2024,
+      "rank": 8,
+      "count": 1365,
+      "sourceId": "scourt_birth_name_rank_1811",
+      "sourceTier": "T5_OFFICIAL"
+    },
+    {
+      "name": "아린",
+      "gender": "female",
+      "year": 2024,
+      "rank": 9,
+      "count": 1281,
+      "sourceId": "scourt_birth_name_rank_1811",
+      "sourceTier": "T5_OFFICIAL"
+    },
+    {
+      "name": "시아",
+      "gender": "female",
+      "year": 2024,
+      "rank": 10,
+      "count": 1278,
+      "sourceId": "scourt_birth_name_rank_1811",
+      "sourceTier": "T5_OFFICIAL"
+    },
+    {
+      "name": "서윤",
+      "gender": "female",
+      "year": 2024,
+      "rank": 11,
+      "count": 1255,
+      "sourceId": "scourt_birth_name_rank_1811",
+      "sourceTier": "T5_OFFICIAL"
+    },
+    {
+      "name": "지우",
+      "gender": "female",
+      "year": 2024,
+      "rank": 12,
+      "count": 1120,
+      "sourceId": "scourt_birth_name_rank_1811",
+      "sourceTier": "T5_OFFICIAL"
+    },
+    {
+      "name": "유나",
+      "gender": "female",
+      "year": 2024,
+      "rank": 13,
+      "count": 1037,
+      "sourceId": "scourt_birth_name_rank_1811",
+      "sourceTier": "T5_OFFICIAL"
+    },
+    {
+      "name": "유주",
+      "gender": "female",
+      "year": 2024,
+      "rank": 14,
+      "count": 1027,
+      "sourceId": "scourt_birth_name_rank_1811",
+      "sourceTier": "T5_OFFICIAL"
+    },
+    {
+      "name": "채아",
+      "gender": "female",
+      "year": 2024,
+      "rank": 15,
+      "count": 1003,
+      "sourceId": "scourt_birth_name_rank_1811",
+      "sourceTier": "T5_OFFICIAL"
+    },
+    {
+      "name": "수아",
+      "gender": "female",
+      "year": 2024,
+      "rank": 16,
+      "count": 974,
+      "sourceId": "scourt_birth_name_rank_1811",
+      "sourceTier": "T5_OFFICIAL"
+    },
+    {
+      "name": "윤서",
+      "gender": "female",
+      "year": 2024,
+      "rank": 17,
+      "count": 971,
+      "sourceId": "scourt_birth_name_rank_1811",
+      "sourceTier": "T5_OFFICIAL"
+    },
+    {
+      "name": "윤슬",
+      "gender": "female",
+      "year": 2024,
+      "rank": 18,
+      "count": 967,
+      "sourceId": "scourt_birth_name_rank_1811",
+      "sourceTier": "T5_OFFICIAL"
+    },
+    {
+      "name": "서하",
+      "gender": "female",
+      "year": 2024,
+      "rank": 19,
+      "count": 943,
+      "sourceId": "scourt_birth_name_rank_1811",
+      "sourceTier": "T5_OFFICIAL"
+    },
+    {
+      "name": "리아",
+      "gender": "female",
+      "year": 2024,
+      "rank": 20,
+      "count": 917,
+      "sourceId": "scourt_birth_name_rank_1811",
+      "sourceTier": "T5_OFFICIAL"
+    }
+  ]
+}
