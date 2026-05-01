@@ -1,0 +1,232 @@
+{
+  "lowRisk": {
+    "summary": "종합적으로 좋은 이름입니다. 발음 오행 부분을 점검해 보세요. Primary candidate profile: Phonetic stability. Official data supports strong legal registrability (90/100). yongshin alignment has no usable evidence, so this explanation avoids a firm claim.",
+    "strengths": [
+      "Official data supports strong legal registrability (90/100).",
+      "Display-only scoring shows strong element balance (84/100).",
+      "Display-only scoring shows strong hanja meaning coverage (88/100).",
+      "Display-only scoring shows strong phonetic flow (92/100).",
+      "Display-only scoring shows strong surname-given phonetic fit (86/100).",
+      "Display-only scoring shows a low risk screen (18/100)."
+    ],
+    "cautions": [
+      "yongshin alignment has no usable evidence, so this explanation avoids a firm claim.",
+      "birth-era name trend has no usable evidence, so this explanation avoids a firm claim."
+    ],
+    "signals": [
+      {
+        "axis": "legal",
+        "kind": "strength",
+        "phraseMode": "assertive",
+        "value": 90,
+        "sourceTier": {
+          "tier": "T5_OFFICIAL",
+          "authorityTruthEligible": true
+        },
+        "phrase": "Official data supports strong legal registrability (90/100)."
+      },
+      {
+        "axis": "yongshinFit",
+        "kind": "unavailable",
+        "phraseMode": "deferred",
+        "value": null,
+        "sourceTier": {
+          "tier": "T2_REFERENCE_IMPLEMENTATION",
+          "authorityTruthEligible": false
+        },
+        "phrase": "yongshin alignment has no usable evidence, so this explanation avoids a firm claim."
+      },
+      {
+        "axis": "elementBalance",
+        "kind": "strength",
+        "phraseMode": "displayOnly",
+        "value": 84,
+        "sourceTier": {
+          "tier": "T2_REFERENCE_IMPLEMENTATION",
+          "authorityTruthEligible": false
+        },
+        "phrase": "Display-only scoring shows strong element balance (84/100)."
+      },
+      {
+        "axis": "hanjaMeaning",
+        "kind": "strength",
+        "phraseMode": "displayOnly",
+        "value": 88,
+        "sourceTier": {
+          "tier": "T3_AUTHORED_INTERPRETATION",
+          "authorityTruthEligible": false
+        },
+        "phrase": "Display-only scoring shows strong hanja meaning coverage (88/100)."
+      },
+      {
+        "axis": "phonetic",
+        "kind": "strength",
+        "phraseMode": "displayOnly",
+        "value": 92,
+        "sourceTier": {
+          "tier": "T3_AUTHORED_INTERPRETATION",
+          "authorityTruthEligible": false
+        },
+        "phrase": "Display-only scoring shows strong phonetic flow (92/100)."
+      },
+      {
+        "axis": "eraFit",
+        "kind": "unavailable",
+        "phraseMode": "deferred",
+        "value": null,
+        "sourceTier": {
+          "tier": "T5_OFFICIAL",
+          "authorityTruthEligible": true
+        },
+        "phrase": "birth-era name trend has no usable evidence, so this explanation avoids a firm claim."
+      },
+      {
+        "axis": "familyFit",
+        "kind": "strength",
+        "phraseMode": "displayOnly",
+        "value": 86,
+        "sourceTier": {
+          "tier": "T3_AUTHORED_INTERPRETATION",
+          "authorityTruthEligible": false
+        },
+        "phrase": "Display-only scoring shows strong surname-given phonetic fit (86/100)."
+      },
+      {
+        "axis": "risk",
+        "kind": "strength",
+        "phraseMode": "displayOnly",
+        "value": 18,
+        "sourceTier": {
+          "tier": "T2_REFERENCE_IMPLEMENTATION",
+          "authorityTruthEligible": false
+        },
+        "phrase": "Display-only scoring shows a low risk screen (18/100)."
+      }
+    ]
+  },
+  "highRisk": {
+    "summary": "종합적으로 좋은 이름입니다. 발음 오행 부분을 점검해 보세요. Primary candidate profile: Risk managed. Evidence suggests strong legal registrability (90/100). Display-only scoring shows weak saju-name fit (42/100); treat it as a review point, not a conclusion.",
+    "strengths": [
+      "Evidence suggests strong legal registrability (90/100).",
+      "Display-only scoring shows strong element balance (84/100).",
+      "Display-only scoring shows strong hanja meaning coverage (88/100).",
+      "Display-only scoring shows strong phonetic flow (92/100).",
+      "Display-only scoring shows strong surname-given phonetic fit (86/100)."
+    ],
+    "cautions": [
+      "Display-only scoring shows weak saju-name fit (42/100); treat it as a review point, not a conclusion.",
+      "yongshin alignment has no usable evidence, so this explanation avoids a firm claim.",
+      "birth-era name trend has no usable evidence, so this explanation avoids a firm claim.",
+      "Display-only scoring shows elevated risk (72/100); compare safer alternatives before relying on the final score."
+    ],
+    "signals": [
+      {
+        "axis": "legal",
+        "kind": "strength",
+        "phraseMode": "candidate",
+        "value": 90,
+        "sourceTier": {
+          "tier": "T5_OFFICIAL",
+          "authorityTruthEligible": true
+        },
+        "phrase": "Evidence suggests strong legal registrability (90/100)."
+      },
+      {
+        "axis": "sajuFit",
+        "kind": "caution",
+        "phraseMode": "displayOnly",
+        "value": 42,
+        "sourceTier": {
+          "tier": "T2_REFERENCE_IMPLEMENTATION",
+          "authorityTruthEligible": false
+        },
+        "phrase": "Display-only scoring shows weak saju-name fit (42/100); treat it as a review point, not a conclusion."
+      },
+      {
+        "axis": "yongshinFit",
+        "kind": "unavailable",
+        "phraseMode": "deferred",
+        "value": null,
+        "sourceTier": {
+          "tier": "T2_REFERENCE_IMPLEMENTATION",
+          "authorityTruthEligible": false
+        },
+        "phrase": "yongshin alignment has no usable evidence, so this explanation avoids a firm claim."
+      },
+      {
+        "axis": "elementBalance",
+        "kind": "strength",
+        "phraseMode": "displayOnly",
+        "value": 84,
+        "sourceTier": {
+          "tier": "T2_REFERENCE_IMPLEMENTATION",
+          "authorityTruthEligible": false
+        },
+        "phrase": "Display-only scoring shows strong element balance (84/100)."
+      },
+      {
+        "axis": "hanjaMeaning",
+        "kind": "strength",
+        "phraseMode": "displayOnly",
+        "value": 88,
+        "sourceTier": {
+          "tier": "T3_AUTHORED_INTERPRETATION",
+          "authorityTruthEligible": false
+        },
+        "phrase": "Display-only scoring shows strong hanja meaning coverage (88/100)."
+      },
+      {
+        "axis": "phonetic",
+        "kind": "strength",
+        "phraseMode": "displayOnly",
+        "value": 92,
+        "sourceTier": {
+          "tier": "T3_AUTHORED_INTERPRETATION",
+          "authorityTruthEligible": false
+        },
+        "phrase": "Display-only scoring shows strong phonetic flow (92/100)."
+      },
+      {
+        "axis": "eraFit",
+        "kind": "unavailable",
+        "phraseMode": "deferred",
+        "value": null,
+        "sourceTier": {
+          "tier": "T5_OFFICIAL",
+          "authorityTruthEligible": true
+        },
+        "phrase": "birth-era name trend has no usable evidence, so this explanation avoids a firm claim."
+      },
+      {
+        "axis": "familyFit",
+        "kind": "strength",
+        "phraseMode": "displayOnly",
+        "value": 86,
+        "sourceTier": {
+          "tier": "T3_AUTHORED_INTERPRETATION",
+          "authorityTruthEligible": false
+        },
+        "phrase": "Display-only scoring shows strong surname-given phonetic fit (86/100)."
+      },
+      {
+        "axis": "risk",
+        "kind": "caution",
+        "phraseMode": "displayOnly",
+        "value": 72,
+        "sourceTier": {
+          "tier": "T2_REFERENCE_IMPLEMENTATION",
+          "authorityTruthEligible": false
+        },
+        "phrase": "Display-only scoring shows elevated risk (72/100); compare safer alternatives before relying on the final score."
+      }
+    ]
+  },
+  "fallback": {
+    "summary": "종합적으로 좋은 이름입니다. 발음 오행 부분을 점검해 보세요. Score-vector evidence is not surfaced, so the explanation is limited to category pass/fail rules.",
+    "strengths": [],
+    "cautions": [
+      "Score-vector evidence is unavailable; avoid treating this as a detailed naming diagnosis."
+    ],
+    "signals": []
+  }
+}
