@@ -17,7 +17,12 @@ import path from 'node:path';
 import { spawnSync } from 'node:child_process';
 import { fileURLToPath } from 'node:url';
 
-import { SpringEngine } from '../src/index.js';
+import {
+  SpringEngine,
+  computeTenGodScoreDiagnostics,
+  type ElementKey,
+  type SajuOutputSummary,
+} from '../src/index.js';
 
 const __dirname = path.dirname(fileURLToPath(import.meta.url));
 const SPRING_TS_ROOT = path.resolve(__dirname, '..');
@@ -89,6 +94,8 @@ interface QualityGateReport {
   generatedAt?: string;
   qualityGateExitCode?: number;
 }
+
+type TenGodSyntheticFixtureId = 'monthStem' | 'hourStem' | 'monthHidden' | 'hourHidden';
 
 interface SourceTierRecord {
   file: string;
@@ -832,7 +839,103 @@ function scoreLegalHanjaAxis(): any {
   };
 }
 
+function buildSyntheticTenGodOutput(id: TenGodSyntheticFixtureId): SajuOutputSummary {
+  const groupCounts = { friend: 1, output: 4, wealth: 4, authority: 0, resource: 4 };
+  const basePosition = () => ({
+    cheonganGroup: 'resource',
+    jijiPrincipalGroup: 'output',
+    hiddenStems: [{ stem: 'MU', element: 'Earth' as ElementKey, ratio: 100, group: 'wealth' }],
+  });
+  const byPosition = {
+    year: basePosition(),
+    month: basePosition(),
+    day: basePosition(),
+    hour: basePosition(),
+  };
+
+  if (id === 'monthStem') byPosition.month.cheonganGroup = 'friend';
+  if (id === 'hourStem') byPosition.hour.cheonganGroup = 'friend';
+  if (id === 'monthHidden') {
+    byPosition.month.hiddenStems = [{ stem: 'GAP', element: 'Wood', ratio: 100, group: 'friend' }];
+  }
+  if (id === 'hourHidden') {
+    byPosition.hour.hiddenStems = [{ stem: 'GAP', element: 'Wood', ratio: 100, group: 'friend' }];
+  }
+
+  return {
+    dayMaster: { element: 'Wood' },
+    tenGod: {
+      groupCounts,
+      byPosition,
+    },
+  };
+}
+
+function buildTenGodPositionWeightingDiagnosis(): any {
+  const rootWood: Record<ElementKey, number> = { Wood: 1, Fire: 0, Earth: 0, Metal: 0, Water: 0 };
+  const ids: TenGodSyntheticFixtureId[] = ['monthStem', 'hourStem', 'monthHidden', 'hourHidden'];
+  const synthetic = ids.map((id) => {
+    const simple = computeTenGodScoreDiagnostics(rootWood, buildSyntheticTenGodOutput(id), 'simple_count');
+    const positional = computeTenGodScoreDiagnostics(rootWood, buildSyntheticTenGodOutput(id), 'positional_weighted');
+    return {
+      id,
+      simpleScore: Number(simple.score.toFixed(6)),
+      positionalScore: Number(positional.score.toFixed(6)),
+      weightedGroupCounts: Object.fromEntries(
+        Object.entries(positional.groupCounts).map(([group, value]) => [group, Number(value.toFixed(6))]),
+      ),
+      averageCount: Number(positional.averageCount.toFixed(6)),
+      deviations: Object.fromEntries(
+        Object.entries(positional.deviations).map(([group, value]) => [group, Number(value.toFixed(6))]),
+      ),
+      contributionCount: positional.positionContributions.length,
+    };
+  });
+  const byId = Object.fromEntries(synthetic.map((row) => [row.id, row])) as Record<TenGodSyntheticFixtureId, typeof synthetic[number]>;
+
+  return {
+    metric: 'ten-god positional weighting null-effect diagnosis',
+    status: 'MEASURED_NULL_EFFECT',
+    score: 0,
+    maxPoints: 10,
+    observedEngineDivergence: {
+      defaultFixtures: { diverged: 0, total: 12 },
+      jonggyeokFixtures: { diverged: 0, total: 9 },
+      combined: { diverged: 0, total: 21 },
+      source: 'test/integration/md8-tengod-divergence.test.ts',
+    },
+    currentMechanism: {
+      sourceLayerWeights: {
+        cheongan: 4.0,
+        jijiPrincipal: 1.8,
+        hiddenStemByRank: [1.2, 0.7, 0.45],
+      },
+      pillarPositionWeights: 'not implemented: year/month/day/hour are currently iterated with equal pillar weight',
+      hiddenStemRatioUse: 'ratio only sorts hidden stems before fixed rank weights; it is not multiplied into weight',
+      normalization: 'deviation_from_average_count',
+      normalizationPoint: 'src/saju-calculator.ts computeTenGodScore: averageCount and per-group deviation',
+      downstreamBlendWeight: 0.05,
+    },
+    syntheticFixtures: {
+      note: 'Aggregate groupCounts are held constant while one friend signal moves across source layer and pillar position.',
+      simpleCountUniqueScores: new Set(synthetic.map((row) => row.simpleScore)).size,
+      sourceLayerDivergence: {
+        monthStem: byId.monthStem.positionalScore,
+        monthHidden: byId.monthHidden.positionalScore,
+        diverges: byId.monthStem.positionalScore !== byId.monthHidden.positionalScore,
+      },
+      pillarPositionCollapse: {
+        monthStemEqualsHourStem: byId.monthStem.positionalScore === byId.hourStem.positionalScore,
+        monthHiddenEqualsHourHidden: byId.monthHidden.positionalScore === byId.hourHidden.positionalScore,
+      },
+      rows: synthetic,
+    },
+    nextPrTarget: 'PR-5.2 should change the normalization/anchor point so source-layer and pillar-position visibility survive beyond raw groupCounts.',
+  };
+}
+
 function buildRpiSummary(gate: QualityGateReport, sourceSummary: any, bySourceTier: any): any {
+  const tenGodDiagnosis = buildTenGodPositionWeightingDiagnosis();
   const axisScores = {
     A_calculationAccuracy: scoreAxisFromDimension(gate, 'D5', 15, 'No calculation-specific official oracle axis beyond D5 stability yet.'),
     B_legalHanjaData: scoreLegalHanjaAxis(),
@@ -846,9 +949,13 @@ function buildRpiSummary(gate: QualityGateReport, sourceSummary: any, bySourceTi
     },
     D_tenGodPositionWeighting: {
       maxPoints: 10,
-      score: 0,
-      status: 'NOT_MEASURED',
-      reason: 'Ten-god positional divergence metric is scheduled for Phase 5.',
+      score: tenGodDiagnosis.score,
+      status: tenGodDiagnosis.status,
+      reason: 'The positional_weighted branch is wired, but observed candidate-level divergence is 0/21 under the current normalization pipeline.',
+      observedEngineDivergence: tenGodDiagnosis.observedEngineDivergence,
+      syntheticFixtures: tenGodDiagnosis.syntheticFixtures,
+      normalizationPoint: tenGodDiagnosis.currentMechanism.normalizationPoint,
+      nextPrTarget: tenGodDiagnosis.nextPrTarget,
     },
     E_namingIntegratedScore: {
       maxPoints: 15,
@@ -892,6 +999,7 @@ function buildRpiSummary(gate: QualityGateReport, sourceSummary: any, bySourceTi
       exitCode: gate.qualityGateExitCode,
     },
     truthSeparation: bySourceTier.truthSeparation,
+    tenGodPositionWeighting: tenGodDiagnosis,
   };
 }
 

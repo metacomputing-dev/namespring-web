@@ -22,7 +22,7 @@ mixed with engine failure.
 | Metric | Current |
 |---|---:|
 | Raw governed RPI | 45 / 100 |
-| Measured-only RPI | 45 / 50 |
+| Measured-only RPI | 45 / 60 |
 | Source-tier audit | PASS |
 | Source-tier records scanned | 82 |
 | Authority-truth eligible records | 52 |
@@ -35,10 +35,36 @@ mixed with engine failure.
 | A. Calculation accuracy | 15 | 15 | PASS | D5 edge/stability checks: 8 PASS / 0 FAIL |
 | B. Legal hanja/data | 15 | 10 | PARTIAL_OFFICIAL_DENOMINATOR | 9,389 official allowed entries mirrored; 106 candidate deltas remain unresolved |
 | C. Gyeokguk/yongshin rules | 25 | 0 | INSUFFICIENT_TRUTH | D1 has no T3+ authority-truth denominator for baseline fixtures |
-| D. Ten-god position weighting | 10 | 0 | NOT_MEASURED | Phase 5 metric not implemented yet |
+| D. Ten-god position weighting | 10 | 0 | MEASURED_NULL_EFFECT | `positional_weighted` is wired but observed candidate-level divergence is 0 / 21 |
 | E. Integrated naming score | 15 | 0 | NOT_MEASURED | Phase 6 score-vector metric not implemented yet |
 | F. Explainability/UX surface | 10 | 10 | PASS | D3 card surface checks: 12 PASS / 0 FAIL |
 | G. Validation/governance | 10 | 10 | PASS | Source-tier audit PASS, 0 violations |
+
+## Ten-God Position Weighting
+
+`tenGodMode='positional_weighted'` is no longer unmeasured. PR-5.1 records it
+as measured but null-effect: the branch is wired, yet current candidate-level
+observation remains 0 / 21 divergence.
+
+| Fixture set | Diverged | Total |
+|---|---:|---:|
+| Default baseline fixtures | 0 | 12 |
+| Jonggyeok stress fixtures | 0 | 9 |
+| Combined observation | 0 | 21 |
+
+The synthetic scorer-only fixture now distinguishes source layer:
+
+| Synthetic case | simple_count | positional_weighted |
+|---|---:|---:|
+| monthStem | 77.692308 | 62.857143 |
+| hourStem | 77.692308 | 62.857143 |
+| monthHidden | 77.692308 | 85.357143 |
+| hourHidden | 77.692308 | 85.357143 |
+
+This shows the current source-layer weights are visible before normalization,
+but month/hour pillar position still collapses. The next implementation point is
+`src/saju-calculator.ts` inside `computeTenGodScore`, where raw weighted
+`groupCounts` are normalized through `deviation_from_average_count`.
 
 ## Truth Separation
 
