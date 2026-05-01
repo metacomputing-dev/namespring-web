@@ -257,10 +257,12 @@ export class SpringEngine {
       // PR-Q-11 (Phase M-D5): yongshinMode default flips
       // 'classical_blend' → 'chengbai_strict'. Stricter penalty when
       // yongshin confidence is low. Callers can opt out via 'classical_blend'.
+      // PR-Q-13 (Phase M-D7): strengthMode default flips 'binary' → 'continuous'.
+      // 신강도 graded 평가 (totalSupport/totalOppose 비율). narrative richness ↑.
       scoringOverrides: {
         balanceMode: pc?.balanceMode,
         yongshinMode: pc?.yongshinMode ?? 'chengbai_strict',
-        strengthMode: pc?.strengthMode,
+        strengthMode: pc?.strengthMode ?? 'continuous',
         tenGodMode: pc?.tenGodMode,
         gyeokgukMode: pc?.gyeokgukMode ?? 'chengbai_strict',
       },
