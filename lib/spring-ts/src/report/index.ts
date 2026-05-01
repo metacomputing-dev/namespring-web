@@ -13,6 +13,7 @@ export type {
   StarRating,
   ReportMeta,
   NamingScoreVector,
+  CandidateStrengthProfile,
   NameCompatibilityCard,
   OverviewSummaryCard,
   LifeFortuneOverviewCard,
