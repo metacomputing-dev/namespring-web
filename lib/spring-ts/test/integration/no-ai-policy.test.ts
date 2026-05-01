@@ -351,6 +351,47 @@ check('transitive optional and peer LLM dependencies are blocked in package-lock
         violation.path === 'node_modules/normal-runtime/node_modules/@anthropic-ai/sdk'),
   JSON.stringify(transitiveOptionalDependency.json.violations));
 
+const hoistedTransitiveDependencyRoot = createRoot((root) => {
+  writeJson(path.join(root, 'package.json'), {
+    name: 'tmp-spring-ts',
+    version: '0.0.0',
+    dependencies: {
+      'normal-runtime': '^1.0.0',
+    },
+    devDependencies: {},
+  });
+  writeJson(path.join(root, 'package-lock.json'), {
+    name: 'tmp-spring-ts',
+    version: '0.0.0',
+    lockfileVersion: 3,
+    packages: {
+      '': {
+        name: 'tmp-spring-ts',
+        version: '0.0.0',
+        dependencies: {
+          'normal-runtime': '^1.0.0',
+        },
+      },
+      'node_modules/normal-runtime': {
+        version: '1.0.0',
+        optionalDependencies: {
+          openai: '^5.0.0',
+        },
+      },
+      'node_modules/openai': {
+        version: '5.0.0',
+      },
+    },
+  });
+});
+const hoistedTransitiveDependency = runGate(hoistedTransitiveDependencyRoot);
+check('hoisted transitive LLM dependencies are blocked in package-lock',
+  hoistedTransitiveDependency.code === 1 &&
+    hoistedTransitiveDependency.json.status === 'FAIL' &&
+    (hoistedTransitiveDependency.json.violations ?? []).some((violation: any) =>
+      violation.packageName === 'openai' && violation.path === 'node_modules/openai'),
+  JSON.stringify(hoistedTransitiveDependency.json.violations));
+
 const devDependencyRoot = createRoot((root) => {
   writeJson(path.join(root, 'package.json'), {
     name: 'tmp-spring-ts',
