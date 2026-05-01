@@ -12,6 +12,7 @@ import type {
   SajuSummary, BirthInfo,
   SajuAxisStrengthMap, EvidenceRow, SajuJudgmentStrength, CounterexampleRow,
   CandidateStrengthProfile, NamingScoreVector, TenGodPositionEvidence,
+  NameElementStrategyEvidence, SajuNameSafetyProfile, SajuNameSafetyPosture,
 } from '../types.js';
 import type { NameTrendAnalysis } from '../name-trend.js';
 import type { PhoneticAnalysis } from '../phonetic-rules.js';
@@ -19,6 +20,7 @@ export type {
   SajuSummary, BirthInfo,
   SajuAxisStrengthMap, EvidenceRow, SajuJudgmentStrength, CounterexampleRow,
   CandidateStrengthProfile, NamingScoreVector, TenGodPositionEvidence,
+  NameElementStrategyEvidence, SajuNameSafetyProfile, SajuNameSafetyPosture,
 };
 export type { NameTrendAnalysis } from '../name-trend.js';
 export type { PhoneticAnalysis } from '../phonetic-rules.js';
@@ -125,6 +127,8 @@ export interface NameCompatibilityCard {
   readonly strengthProfile?: CandidateStrengthProfile;
   readonly nameTrend?: NameTrendAnalysis;
   readonly phonetic?: PhoneticAnalysis;
+  readonly safetyProfile?: SajuNameSafetyProfile;
+  readonly elementStrategyEvidence?: NameElementStrategyEvidence;
   readonly tenGodPositionEvidence?: TenGodPositionEvidence;
   readonly summary: string;
   readonly details: string[];

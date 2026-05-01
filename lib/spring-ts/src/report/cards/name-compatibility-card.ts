@@ -12,7 +12,7 @@
  * Returns null when springReport is null (no name data available).
  */
 
-import type { SpringReport, EvidenceRow } from '../../types.js';
+import type { SpringReport, EvidenceRow, SajuNameSafetyProfile } from '../../types.js';
 import type { NameCompatibilityCard, StarRating } from '../types.js';
 
 // ---------------------------------------------------------------------------
@@ -92,6 +92,72 @@ function scoreVectorFeatureLabels(vector: NonNullable<SpringReport['scoreVector'
   return labels;
 }
 
+function classifySafetyProfile(
+  springReport: SpringReport,
+): SajuNameSafetyProfile | undefined {
+  const scoredProfile = springReport.sajuCompatibility.safetyProfile;
+  if (scoredProfile) return scoredProfile;
+
+  const scoreVector = springReport.scoreVector ?? springReport.namingReport.scoreVector;
+  const conflictLevel = springReport.sajuCompatibility.yongshinConsensusConflictLevel;
+  const competingElements = springReport.sajuCompatibility.yongshinConsensusCompetingElements ?? [];
+  const yongshinMatchCount = springReport.sajuCompatibility.yongshinMatchCount;
+  const gishinMatchCount = springReport.sajuCompatibility.gishinMatchCount;
+  const vectorRisk = scoreVector?.risk ?? 35;
+  const conflictRisk = conflictLevel === 'high'
+    ? 45
+    : conflictLevel === 'medium'
+      ? 30
+      : conflictLevel === 'low'
+        ? 12
+        : 0;
+  const harmfulRisk = gishinMatchCount > yongshinMatchCount ? 30 : 0;
+  const riskScore = Math.min(100, Math.round(vectorRisk * 0.55 + conflictRisk + harmfulRisk));
+  const aggressive = riskScore >= 60 || conflictLevel === 'high' || gishinMatchCount > yongshinMatchCount;
+  const safe = riskScore <= 30
+    && (conflictLevel == null || conflictLevel === 'none' || conflictLevel === 'low')
+    && gishinMatchCount <= yongshinMatchCount;
+  const posture = aggressive ? 'aggressive' : safe ? 'safe' : 'balanced';
+  const strategy = aggressive ? 'aggressive_reinforcement' : 'safe_balance';
+  const reasons = [
+    `risk ${riskScore}`,
+    `vector risk ${scoreVector?.risk ?? 'n/a'}`,
+    `strategy ${strategy}`,
+    `consensus conflict: ${conflictLevel ?? 'none'}`,
+    `yongshin matches ${yongshinMatchCount}`,
+    `gishin matches ${gishinMatchCount}`,
+    ...(competingElements.length ? [`competing elements: ${competingElements.join(',')}`] : []),
+  ];
+
+  return {
+    posture,
+    strategy,
+    riskScore,
+    ...(conflictLevel ? { conflictLevel } : {}),
+    competingElements,
+    yongshinRatio: yongshinMatchCount > 0 ? 1 : 0,
+    heesinRatio: 0,
+    gishinRatio: gishinMatchCount > 0 ? 1 : 0,
+    gusinRatio: 0,
+    reasons,
+  };
+}
+
+function safetyProfileFeatureLabels(profile: SajuNameSafetyProfile): string[] {
+  return [
+    `posture ${profile.posture}`,
+    `strategy ${profile.strategy}`,
+    `risk ${profile.riskScore}`,
+    `consensus conflict: ${profile.conflictLevel ?? 'none'}`,
+    `competing elements: ${profile.competingElements.join(',') || '-'}`,
+    `yongshinRatio ${profile.yongshinRatio.toFixed(2)}`,
+    `heesinRatio ${profile.heesinRatio.toFixed(2)}`,
+    `gishinRatio ${profile.gishinRatio.toFixed(2)}`,
+    `gusinRatio ${profile.gusinRatio.toFixed(2)}`,
+    ...profile.reasons,
+  ];
+}
+
 // ---------------------------------------------------------------------------
 //  Builder
 // ---------------------------------------------------------------------------
@@ -109,6 +175,8 @@ export function buildNameCompatibilityCard(
   const tenGodPositionEvidence = springReport.sajuCompatibility.tenGodPositionEvidence;
   const scoreVector = springReport.scoreVector ?? springReport.namingReport.scoreVector;
   const strengthProfile = springReport.strengthProfile ?? springReport.namingReport.strengthProfile;
+  const safetyProfile = classifySafetyProfile(springReport);
+  const elementStrategyEvidence = springReport.sajuCompatibility.elementStrategyEvidence;
   const overallStars = scoreToStars(overallScore);
 
   // ── Summary ──
@@ -149,6 +217,11 @@ export function buildNameCompatibilityCard(
         '이름에 용신 오행과 직접 일치하는 글자는 없지만, 전체 균형으로 보완하고 있어요.',
       );
     }
+  }
+  if (safetyProfile) {
+    details.push(
+      `Saju-name safety: ${safetyProfile.posture} (${safetyProfile.strategy}, risk ${safetyProfile.riskScore}/100).`,
+    );
   }
 
   // Gishin caution if present
@@ -193,6 +266,34 @@ export function buildNameCompatibilityCard(
       ],
       weakness: gishinCount > matchCount
         ? '기신 겹침이 용신 일치보다 많은 구성이라 한자 후보 추가 검토가 도움이 돼요.'
+        : undefined,
+    });
+  }
+  if (safetyProfile) {
+    evidence.push({
+      axis: 'candidateSafetyProfile',
+      claim: `Saju-name safety posture is ${safetyProfile.posture} using ${safetyProfile.strategy}.`,
+      supportingFeatures: safetyProfileFeatureLabels(safetyProfile),
+      weakness: safetyProfile.posture === 'aggressive'
+        ? 'Consensus conflict or concentrated yongshin reinforcement is high enough to compare safer balanced candidates.'
+        : undefined,
+    });
+  }
+  if (elementStrategyEvidence) {
+    evidence.push({
+      axis: 'nameElementStrategy',
+      claim: `Name element strategy ${elementStrategyEvidence.effectiveStrategy} used ${elementStrategyEvidence.fallbackCount} conservative fallbacks.`,
+      supportingFeatures: [
+        `requested ${elementStrategyEvidence.requestedStrategy}`,
+        `effective ${elementStrategyEvidence.effectiveStrategy}`,
+        `safe ${elementStrategyEvidence.safe}`,
+        `fallbackCount ${elementStrategyEvidence.fallbackCount}`,
+        `aggressiveCount ${elementStrategyEvidence.aggressiveCount}`,
+        ...elementStrategyEvidence.decisions.map((decision) =>
+          `${decision.scope}[${decision.index}] ${decision.hangul}/${decision.hanja || '-'} -> ${decision.selectedElement} via ${decision.source} (${decision.safety})`),
+      ],
+      weakness: elementStrategyEvidence.aggressiveCount > 0
+        ? 'At least one name element used aggressive provenance and should be reviewed before ranking.'
         : undefined,
     });
   }
@@ -255,6 +356,8 @@ export function buildNameCompatibilityCard(
     ...(strengthProfile ? { strengthProfile } : {}),
     ...(nameTrend ? { nameTrend } : {}),
     ...(phonetic ? { phonetic } : {}),
+    ...(safetyProfile ? { safetyProfile } : {}),
+    ...(elementStrategyEvidence ? { elementStrategyEvidence } : {}),
     ...(tenGodPositionEvidence ? { tenGodPositionEvidence } : {}),
     summary,
     details,
