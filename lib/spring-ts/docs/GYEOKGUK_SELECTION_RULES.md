@@ -55,5 +55,21 @@ matrix that drove the rule-mode baseline.
 `metrics/bySourceTier.json` under `ruleModeBreakdown`. Each selector mode now
 includes `winLossVsMonthlyMain` at total, source-group, and source-tier levels.
 
-`composite_classical` is still a dashboard proxy backed by the existing
-`full_transparent` measurement. It is not a production selector mode.
+## Composite Classical Evidence
+
+`composite_classical` is not a selector. It is an evidence score attached to
+each surfaced gyeokguk candidate. The score combines month-main agreement,
+stem transparency, root support, seasonal command, transformation support,
+month-gyeok purity, yongshin-element alignment, source-tier boost, and
+stability across existing rule modes, then subtracts a breaker penalty.
+
+Every composite candidate is marked with
+`selectionPolicy: evidence_only_never_promote` and
+`selectedByComposite: false`. Low-confidence candidates can appear as evidence,
+but they cannot replace the selected gyeokguk.
+
+In metrics, `composite_classical` selected agreement is measured as
+`monthly_main` for non-regression. Candidate coverage is reported separately:
+the current authority matrix has 23 of 27 comparable cases where the authority
+label is present in evidence candidates, including 3 of 6 in the classical
+`jonheom` subset. That coverage is evidence, not authority accuracy.
