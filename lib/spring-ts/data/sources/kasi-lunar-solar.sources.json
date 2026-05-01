@@ -1,0 +1,110 @@
+{
+  "schemaVersion": "spring-ts.kasi-lunar-solar-sources.v1",
+  "accessedAt": "2026-05-01",
+  "sourceTier": {
+    "tier": "T5_OFFICIAL",
+    "sourceType": "official_kasi_lunar_solar_api_registry",
+    "sourceUrl": "https://www.data.go.kr/data/15012679/openapi.do",
+    "accessedAt": "2026-05-01",
+    "quoteShort": null,
+    "humanInterpretation": "Public Data Portal catalog for KASI lunisolar calendar information, including solar-to-lunar and lunar-to-solar conversion operations.",
+    "copyrightNote": "Source URLs and normalized metadata only; no bulk API response mirror embedded.",
+    "authorityTruthEligible": true
+  },
+  "sourceTierScope": "Direct date-conversion facts returned by the KASI public-data API or KASI monthly lunisolar table are authority-truth eligible. Fixture selection policy and current product limitations are internal interpretation records and are not authority-truth eligible.",
+  "sources": [
+    {
+      "id": "data_go_kr_kasi_lunar_solar_info_15012679",
+      "label": "KASI lunisolar information public-data catalog",
+      "provider": "Korea Astronomy and Space Science Institute",
+      "sourceTier": {
+        "tier": "T5_OFFICIAL",
+        "sourceType": "official_public_data_catalog",
+        "sourceUrl": "https://www.data.go.kr/data/15012679/openapi.do",
+        "accessedAt": "2026-05-01",
+        "quoteShort": null,
+        "humanInterpretation": "Official catalog record for KASI lunisolar information. The catalog lists REST/XML access, the KASI provider, and detailed functions for solar/lunar calendar records.",
+        "copyrightNote": "Catalog URL and paraphrase only.",
+        "authorityTruthEligible": true
+      }
+    },
+    {
+      "id": "kasi_lrsrcld_get_lun_cal_info",
+      "label": "KASI getLunCalInfo operation",
+      "operation": "getLunCalInfo",
+      "serviceBaseUrl": "https://apis.data.go.kr/B090041/openapi/service/LrsrCldInfoService",
+      "sourceTier": {
+        "tier": "T5_OFFICIAL",
+        "sourceType": "official_kasi_lunar_solar_api",
+        "sourceUrl": "https://www.data.go.kr/data/15012679/openapi.do",
+        "accessedAt": "2026-05-01",
+        "quoteShort": null,
+        "humanInterpretation": "Official KASI operation used to retrieve lunar calendar fields for a Gregorian solar date, including leap-month status.",
+        "copyrightNote": "Endpoint metadata only; API keys and bulk response payloads are not committed here.",
+        "authorityTruthEligible": true
+      }
+    },
+    {
+      "id": "kasi_lrsrcld_get_spcify_lun_cal_info",
+      "label": "KASI getSpcifyLunCalInfo operation",
+      "operation": "getSpcifyLunCalInfo",
+      "serviceBaseUrl": "https://apis.data.go.kr/B090041/openapi/service/LrsrCldInfoService",
+      "sourceTier": {
+        "tier": "T5_OFFICIAL",
+        "sourceType": "official_kasi_lunar_solar_api",
+        "sourceUrl": "https://astro.kasi.re.kr/pageView/31",
+        "accessedAt": "2026-05-01",
+        "quoteShort": null,
+        "humanInterpretation": "KASI Open API page and linked public-data service describe the specific-lunar-date operation. It carries an explicit leapMonth parameter, so it is preferred for lunar-to-solar leap-month checks.",
+        "copyrightNote": "Endpoint metadata only; API keys and bulk response payloads are not committed here.",
+        "authorityTruthEligible": true
+      }
+    },
+    {
+      "id": "kasi_lrsrcld_get_sol_cal_info",
+      "label": "KASI getSolCalInfo operation",
+      "operation": "getSolCalInfo",
+      "serviceBaseUrl": "https://apis.data.go.kr/B090041/openapi/service/LrsrCldInfoService",
+      "sourceTier": {
+        "tier": "T5_OFFICIAL",
+        "sourceType": "official_kasi_lunar_solar_api",
+        "sourceUrl": "https://www.data.go.kr/data/15012679/openapi.do",
+        "accessedAt": "2026-05-01",
+        "quoteShort": null,
+        "humanInterpretation": "Official KASI operation for lunar-to-solar lookup. It is recorded for completeness, but regression fetches prefer getSpcifyLunCalInfo when leap-month disambiguation is required.",
+        "copyrightNote": "Endpoint metadata only; API keys and bulk response payloads are not committed here.",
+        "authorityTruthEligible": true
+      }
+    },
+    {
+      "id": "kasi_monthly_lunisolar_table",
+      "label": "KASI monthly lunisolar table",
+      "operation": "monthlyLunisolarCalendar",
+      "serviceBaseUrl": "https://astro.kasi.re.kr/life/pageView/5",
+      "sourceTier": {
+        "tier": "T5_OFFICIAL",
+        "sourceType": "official_kasi_lunisolar_calendar_table",
+        "sourceUrl": "https://astro.kasi.re.kr/life/pageView/5",
+        "accessedAt": "2026-05-01",
+        "quoteShort": null,
+        "humanInterpretation": "KASI-hosted monthly table gives a Gregorian-to-lunar correspondence for each displayed day and is used for the committed no-key fixture rows.",
+        "copyrightNote": "Small normalized date facts only; no copied prose or bulk mirror.",
+        "authorityTruthEligible": true
+      }
+    },
+    {
+      "id": "spring_ts_lunar_solar_oracle_policy",
+      "label": "Spring-ts lunar-solar oracle policy",
+      "sourceTier": {
+        "tier": "T3_AUTHORED_INTERPRETATION",
+        "sourceType": "internal_oracle_policy",
+        "sourceUrl": null,
+        "accessedAt": "2026-05-01",
+        "quoteShort": null,
+        "humanInterpretation": "Defines fixture selection, leap-month treatment, and the current product limitation that lunar user input is retained but not automatically converted.",
+        "copyrightNote": "Internal policy summary; no external prose copied.",
+        "authorityTruthEligible": false
+      }
+    }
+  ]
+}

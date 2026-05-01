@@ -1,0 +1,129 @@
+{
+  "_meta": {
+    "schemaVersion": "spring-ts.kasi-lunar-solar-fixture.v1",
+    "source": "KASI monthly lunisolar table",
+    "sourceUrl": "https://astro.kasi.re.kr/life/pageView/5",
+    "fetchedAt": "2026-05-01T00:00:00Z",
+    "accessedAt": "2026-05-01",
+    "timezone": "Asia/Seoul (KST = UTC+9)",
+    "calendarBasis": "Gregorian solar date to Korean lunisolar date",
+    "years": [2025, 2026],
+    "totalCases": 13,
+    "requiredTags": [
+      "normal_month",
+      "leap_month",
+      "lunar_month_end",
+      "lunar_month_start",
+      "lunar_new_year_boundary",
+      "solar_year_boundary"
+    ],
+    "dataGoKrCrossCheck": {
+      "status": "SKIPPED_NO_SERVICE_KEY",
+      "env": ["KASI_LUNISOLAR_SERVICE_KEY", "KASI_DATA_GO_KR_SERVICE_KEY", "DATA_GO_KR_SERVICE_KEY"],
+      "preferredLeapOperation": "getSpcifyLunCalInfo"
+    },
+    "sourceTier": {
+      "tier": "T5_OFFICIAL",
+      "sourceType": "official_kasi_lunisolar_calendar_table",
+      "sourceUrl": "https://astro.kasi.re.kr/life/pageView/5",
+      "accessedAt": "2026-05-01",
+      "quoteShort": null,
+      "humanInterpretation": "KASI-hosted monthly lunisolar table provides normalized Gregorian-to-lunar correspondence rows used for leap-month and boundary regression checks.",
+      "copyrightNote": "Small normalized date facts only; no copied prose or bulk mirror.",
+      "authorityTruthEligible": true
+    }
+  },
+  "cases": [
+    {
+      "id": "solar-2025-07-24-lunar-2025-06-30",
+      "tags": ["normal_month", "lunar_month_end", "pre_leap_boundary"],
+      "solar": { "year": 2025, "month": 7, "day": 24, "iso": "2025-07-24" },
+      "lunar": { "year": 2025, "month": 6, "day": 30, "isLeapMonth": false, "label": "2025-06-30" },
+      "raw": { "lunLeapmonth": "평", "solWeekKo": "목", "solJd": "2025-07-11" }
+    },
+    {
+      "id": "solar-2025-07-25-lunar-2025-leap-06-01",
+      "tags": ["leap_month", "lunar_month_start", "leap_month_start"],
+      "solar": { "year": 2025, "month": 7, "day": 25, "iso": "2025-07-25" },
+      "lunar": { "year": 2025, "month": 6, "day": 1, "isLeapMonth": true, "label": "2025-leap-06-01" },
+      "raw": { "lunLeapmonth": "윤", "solWeekKo": "금", "solJd": "2025-07-12" }
+    },
+    {
+      "id": "solar-2025-08-22-lunar-2025-leap-06-29",
+      "tags": ["leap_month", "lunar_month_end", "leap_month_end"],
+      "solar": { "year": 2025, "month": 8, "day": 22, "iso": "2025-08-22" },
+      "lunar": { "year": 2025, "month": 6, "day": 29, "isLeapMonth": true, "label": "2025-leap-06-29" },
+      "raw": { "lunLeapmonth": "윤", "solWeekKo": "금", "solJd": "2025-08-09" }
+    },
+    {
+      "id": "solar-2025-08-23-lunar-2025-07-01",
+      "tags": ["normal_month", "lunar_month_start", "post_leap_boundary"],
+      "solar": { "year": 2025, "month": 8, "day": 23, "iso": "2025-08-23" },
+      "lunar": { "year": 2025, "month": 7, "day": 1, "isLeapMonth": false, "label": "2025-07-01" },
+      "raw": { "lunLeapmonth": "평", "solWeekKo": "토", "solJd": "2025-08-10" }
+    },
+    {
+      "id": "solar-2025-12-31-lunar-11-12",
+      "tags": ["solar_year_boundary", "solar_year_end"],
+      "solar": { "year": 2025, "month": 12, "day": 31, "iso": "2025-12-31" },
+      "lunar": { "year": 2025, "month": 11, "day": 12, "isLeapMonth": false, "label": "2025-11-12" },
+      "raw": { "lunLeapmonth": "평", "solWeekKo": "수", "solJd": "2025-12-18" }
+    },
+    {
+      "id": "solar-2026-01-01-lunar-2025-11-13",
+      "tags": ["solar_year_boundary", "solar_year_start"],
+      "solar": { "year": 2026, "month": 1, "day": 1, "iso": "2026-01-01" },
+      "lunar": { "year": 2025, "month": 11, "day": 13, "isLeapMonth": false, "label": "2025-11-13" },
+      "raw": { "lunLeapmonth": "평", "solWeekKo": "목", "solJd": "2025-12-19" }
+    },
+    {
+      "id": "solar-2026-02-16-lunar-2025-12-29",
+      "tags": ["lunar_new_year_boundary", "lunar_year_end"],
+      "solar": { "year": 2026, "month": 2, "day": 16, "iso": "2026-02-16" },
+      "lunar": { "year": 2025, "month": 12, "day": 29, "isLeapMonth": false, "label": "2025-12-29" },
+      "raw": { "lunLeapmonth": "평", "solWeekKo": "월", "solJd": "2026-02-03" }
+    },
+    {
+      "id": "solar-2026-02-17-lunar-2026-01-01",
+      "tags": ["lunar_new_year_boundary", "lunar_year_start", "lunar_month_start"],
+      "solar": { "year": 2026, "month": 2, "day": 17, "iso": "2026-02-17" },
+      "lunar": { "year": 2026, "month": 1, "day": 1, "isLeapMonth": false, "label": "2026-01-01" },
+      "raw": { "lunLeapmonth": "평", "solWeekKo": "화", "solJd": "2026-02-04" }
+    },
+    {
+      "id": "solar-2026-04-01-lunar-2026-02-14",
+      "tags": ["normal_month"],
+      "solar": { "year": 2026, "month": 4, "day": 1, "iso": "2026-04-01" },
+      "lunar": { "year": 2026, "month": 2, "day": 14, "isLeapMonth": false, "label": "2026-02-14" },
+      "raw": { "lunLeapmonth": "평", "solWeekKo": "수", "solJd": "2026-03-19" }
+    },
+    {
+      "id": "solar-2026-05-16-lunar-2026-03-30",
+      "tags": ["normal_month", "lunar_month_end"],
+      "solar": { "year": 2026, "month": 5, "day": 16, "iso": "2026-05-16" },
+      "lunar": { "year": 2026, "month": 3, "day": 30, "isLeapMonth": false, "label": "2026-03-30" },
+      "raw": { "lunLeapmonth": "평", "solWeekKo": "토", "solJd": "2026-05-03" }
+    },
+    {
+      "id": "solar-2026-05-17-lunar-2026-04-01",
+      "tags": ["normal_month", "lunar_month_start"],
+      "solar": { "year": 2026, "month": 5, "day": 17, "iso": "2026-05-17" },
+      "lunar": { "year": 2026, "month": 4, "day": 1, "isLeapMonth": false, "label": "2026-04-01" },
+      "raw": { "lunLeapmonth": "평", "solWeekKo": "일", "solJd": "2026-05-04" }
+    },
+    {
+      "id": "solar-2026-07-13-lunar-2026-05-29",
+      "tags": ["normal_month", "lunar_month_end"],
+      "solar": { "year": 2026, "month": 7, "day": 13, "iso": "2026-07-13" },
+      "lunar": { "year": 2026, "month": 5, "day": 29, "isLeapMonth": false, "label": "2026-05-29" },
+      "raw": { "lunLeapmonth": "평", "solWeekKo": "월", "solJd": "2026-06-30" }
+    },
+    {
+      "id": "solar-2026-07-14-lunar-2026-06-01",
+      "tags": ["normal_month", "lunar_month_start"],
+      "solar": { "year": 2026, "month": 7, "day": 14, "iso": "2026-07-14" },
+      "lunar": { "year": 2026, "month": 6, "day": 1, "isLeapMonth": false, "label": "2026-06-01" },
+      "raw": { "lunLeapmonth": "평", "solWeekKo": "화", "solJd": "2026-07-01" }
+    }
+  ]
+}
