@@ -117,6 +117,12 @@ if (Array.isArray(evidence)) {
   check('yongshin row carries 4-tier strength',
     yongshinRow != null && isTier(yongshinRow.strength),
     `${yongshinRow?.strength}`);
+  check('yongshin row carries consensus conflict feature',
+    yongshinRow != null &&
+      yongshinRow.supportingFeatures.some(f => f.startsWith('consensus conflict:')));
+  check('yongshin row carries consensus axes feature',
+    yongshinRow != null &&
+      yongshinRow.supportingFeatures.some(f => f.startsWith('consensus axes:')));
 
   const strengthRow = evidence.find(r => r.axis === 'strength');
   check('strength row exists',
