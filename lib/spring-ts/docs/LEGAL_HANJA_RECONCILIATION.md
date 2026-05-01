@@ -31,15 +31,32 @@ non-authority truth until each entry is T5-confirmed.
 - `allowed`: orthodox Hanja appears in the active legal pool.
 - `variantAllowed`: input is a known variant and its orthodox form appears in
   the active legal pool.
-- `hangulOnly`: no Hanja code point is present.
+- `hangulOnly`: no Hanja glyph is present.
 - `unknown`: the active pool is intentionally non-definitive or the official
   delta is not yet resolved.
-- `notAllowed`: full-pool lookup definitively misses the normalized Hanja.
+- `notAllowed`: local full-pool lookup misses the normalized Hanja.
 
 Default `curated` mode preserves legacy behavior: seed hits are `allowed`, and
-non-seed entries are `unknown`. Opt-in `inmyeongyong_full` mode gives definitive
-`allowed` / `variantAllowed` / `notAllowed` decisions against the local full
-pool while still exposing the official +106 reconciliation gap in data.
+non-seed entries are `unknown`. Opt-in `inmyeongyong_full` mode gives local
+mirror-backed `allowed` / `variantAllowed` / `notAllowed` decisions against the
+local full pool while still exposing the official +106 reconciliation gap in
+data.
+
+## Candidate Generation
+
+`precisionConfig.hanjaPool='inmyeongyong_full'` now switches recommendation
+generation to the local full-Hanja mirror data file. The converter emits one
+candidate entry per usable reading and excludes rows whose reading or positive
+stroke count cannot be justified. Legal non-standard glyph rows from the mirror
+are preserved. Because the full source does not yet carry radical/resource 오행,
+generated full-pool entries use stroke-derived scoring elements as an interim
+scoreable fallback; those derived resource elements are not used for pre-score
+candidate exclusion. PR-2.3 should replace that fallback with authoritative
+Unihan/radical metadata.
+
+Generated candidates outside the active legal pool are removed before scoring,
+and `SpringResponse.meta.candidateRejections` exposes grouped rejection reasons
+for caller/UI messaging.
 
 ## Verification
 
@@ -48,6 +65,7 @@ Run:
 ```powershell
 npm run test:legal-hanja
 npm run test:hanja
+npm run test:hanja-pool
 ```
 
 Broader release checks should also run `npm run typecheck`, `npm run
