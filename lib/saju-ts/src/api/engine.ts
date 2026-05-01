@@ -236,6 +236,7 @@ export function createEngine(config: Partial<EngineConfig> = {}): Engine {
           best: ys.best,
           ranking: ys.ranking,
           strengthIndex: ys.base.strengthIndex,
+          consensus: ys.consensus,
         };
 
         const gg = results.get('rules.gyeokguk') as GyeokgukResult;
