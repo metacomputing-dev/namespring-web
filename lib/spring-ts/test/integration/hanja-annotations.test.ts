@@ -5,8 +5,8 @@
  *
  *   1. normalizeToOrthodoxHanja maps 약자 → 정자 for the seeded list
  *      and is identity for orthodox / unknown forms.
- *   2. getLegalAnnotation returns { undefined, undefined } today
- *      (= status unknown until the 9,389-character data fixture imports).
+ *   2. getLegalAnnotation separates legalStatus buckets while preserving
+ *      legacy boolean semantics.
  *   3. isHanjaUsableForLegalName defaults to "accept unknown" so the
  *      existing curated pool keeps flowing through unchanged.
  *   4. requireLegalRegistrable: true tightens the filter to "must be
@@ -80,8 +80,12 @@ const dummyEntry = {
   meaning: '성씨 최', radical: '山', is_surname: true,
 };
 const annotation = getLegalAnnotation(dummyEntry);
+check('getLegalAnnotation.legalStatus === hangulOnly for non-Han input',
+  getLegalAnnotation({ ...dummyEntry, hanja: 'ㅁ' }).legalStatus === 'hangulOnly');
 check('getLegalAnnotation.legalRegistrable === undefined (崔 outside the seed)',
   annotation.legalRegistrable === undefined);
+check('getLegalAnnotation.legalStatus === unknown (崔 outside the seed)',
+  annotation.legalStatus === 'unknown');
 check('getLegalAnnotation.isVariantOf === undefined',
   annotation.isVariantOf === undefined);
 
@@ -94,6 +98,8 @@ const seedEntry = {
 const seedAnno = getLegalAnnotation(seedEntry);
 check('getLegalAnnotation.legalRegistrable === true (佳 in PR-I-1 seed)',
   seedAnno.legalRegistrable === true);
+check('getLegalAnnotation.legalStatus === allowed (佳 in PR-I-1 seed)',
+  seedAnno.legalStatus === 'allowed');
 
 // ── (2c) Legal annotation — variant resolves to its 정자 ────────────────
 const variantEntry = {
@@ -104,6 +110,21 @@ const variantEntry = {
 const variantAnno = getLegalAnnotation(variantEntry);
 check('getLegalAnnotation.isVariantOf === 國 for 国',
   variantAnno.isVariantOf === '國');
+
+const fullPoolAnno = getLegalAnnotation(dummyEntry, { pool: 'inmyeongyong_full' });
+check('full pool: 崔 is allowed',
+  fullPoolAnno.legalRegistrable === true && fullPoolAnno.legalStatus === 'allowed');
+const fullPoolVariantAnno = getLegalAnnotation(variantEntry, { pool: 'inmyeongyong_full' });
+check('full pool: 国 is variantAllowed',
+  fullPoolVariantAnno.legalRegistrable === true && fullPoolVariantAnno.legalStatus === 'variantAllowed');
+const notAllowedEntry = {
+  id: 4, hangul: '답', hanja: '龘', onset: 'ㄷ', nucleus: 'ㅏ',
+  strokes: 48, stroke_element: 'Water', resource_element: 'Water',
+  meaning: '용이 가는 모양', radical: '龍', is_surname: false,
+};
+const notAllowedAnno = getLegalAnnotation(notAllowedEntry, { pool: 'inmyeongyong_full' });
+check('full pool: non-list Hanja is notAllowed',
+  notAllowedAnno.legalRegistrable === false && notAllowedAnno.legalStatus === 'notAllowed');
 
 // ── (3) Default isHanjaUsableForLegalName: accept unknown ────────────────
 check('isHanjaUsableForLegalName(entry) default — accept unknown',
@@ -156,6 +177,15 @@ check('hanjaPool="inmyeongyong_full" returns finite score',
 check('hanjaPool="inmyeongyong_full" ≡ baseline (declared, not wired yet)',
   hanjaPoolInmyeongyongFull.scores.total === baseline.scores.total,
   'data fixture 도입 전까지 동작 동일');
+const fullPoolChars = [
+  ...hanjaPoolInmyeongyongFull.name.surname,
+  ...hanjaPoolInmyeongyongFull.name.givenName,
+];
+check('candidate CharDetail surfaces legalStatus for every char',
+  fullPoolChars.every((char: any) => typeof char.legalStatus === 'string'),
+  fullPoolChars.map((char: any) => `${char.hanja}:${char.legalStatus}`).join(', '));
+check('inmyeongyong_full candidate chars are allowed',
+  fullPoolChars.every((char: any) => char.legalStatus === 'allowed'));
 
 check('pureHangulSchema="classic_phonetic" ≡ baseline (default)',
   pureHangulClassic.scores.total === baseline.scores.total);
