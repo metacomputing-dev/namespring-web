@@ -230,6 +230,12 @@ export interface PrecisionConfig {
    *  and Saju compatibility logic are unchanged. */
   readonly surfacePhoneticEvidence?: boolean;
 
+  /** Surface the pre-final multi-axis naming score vector.
+   *  Display-only in PR-6.1: when true, reports may include
+   *  `scoreVector`, but final scores, ranking, generation, legal/Hanja,
+   *  and Saju compatibility logic are unchanged. */
+  readonly surfaceNamingScoreVector?: boolean;
+
   /** Surface palace (12궁) information on `SajuOutputSummary` when `true`.
    *  Off by default — consumers must opt-in.
    *
@@ -426,6 +432,7 @@ export interface CandidateRejectionSummary {
 export interface SpringCandidate {
   readonly name: CandidateName;
   readonly scores: Record<'total' | 'hangul' | 'hanja' | 'fourFrame' | 'saju', number>;
+  readonly scoreVector?: NamingScoreVector;
   readonly analysis: CandidateAnalysis;
   readonly interpretation: string;
   readonly rank: number;
@@ -829,11 +836,34 @@ export interface NamingReportFourFrame {
   readonly luckScore: number;
 }
 
+/** Pre-final multi-axis score vector for candidate comparison. */
+export interface NamingScoreVector {
+  /** Legal registrability quality, 0..100. */
+  readonly legal: number | null;
+  /** Integrated saju-name fit, 0..100; null when no saju frame was evaluated. */
+  readonly sajuFit: number | null;
+  /** Yongshin-specific fit, 0..100; null when no saju scoring detail exists. */
+  readonly yongshinFit: number | null;
+  /** Name and saju element-balance quality, 0..100. */
+  readonly elementBalance: number | null;
+  /** Hanja meaning coverage quality, 0..100; null for pure Hangul names. */
+  readonly hanjaMeaning: number | null;
+  /** Phonetic flow quality, 0..100; null when unavailable. */
+  readonly phonetic: number | null;
+  /** Birth-era name trend quality, 0..100; null when unavailable. */
+  readonly eraFit: number | null;
+  /** Surname-to-given phonetic fit, 0..100; null when unavailable. */
+  readonly familyFit: number | null;
+  /** Aggregate caution level, 0..100, where higher means more risk. */
+  readonly risk: number;
+}
+
 /** Pure name analysis result (no saju). Returned by getNamingReport(). */
 export interface NamingReport {
   readonly name: CandidateName;
   readonly totalScore: number;
   readonly scores: { hangul: number; hanja: number; fourFrame: number };
+  readonly scoreVector?: NamingScoreVector;
   readonly analysis: {
     readonly hangul: HangulAnalysis;
     readonly hanja: HanjaAnalysis;
@@ -855,6 +885,7 @@ export type NameGenderTendency = 'male' | 'female' | 'unknown';
 /** Combined name + saju report. Returned by getNameCandidates(). */
 export interface SpringReport {
   readonly finalScore: number;
+  readonly scoreVector?: NamingScoreVector;
   readonly popularityRank: number | null;
   readonly maleRatio: number | null;
   readonly nameGender: NameGenderTendency;
@@ -870,6 +901,7 @@ export interface SpringReport {
 /** Lightweight candidate item for list pages. */
 export interface SpringCandidateSummary {
   readonly finalScore: number;
+  readonly scoreVector?: NamingScoreVector;
   readonly fullHangul: string;
   readonly fullHanja: string;
   readonly givenHangul: string;

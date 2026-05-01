@@ -12,6 +12,7 @@ export type {
   FortuneWarning,
   StarRating,
   ReportMeta,
+  NamingScoreVector,
   NameCompatibilityCard,
   OverviewSummaryCard,
   LifeFortuneOverviewCard,
