@@ -153,6 +153,17 @@ export {
   FRAME_LABELS, buildInterpretation, parseJamoFilter, type JamoFilter,
 } from './core/name-utils.js';
 export { buildNamingExplanation, selectNamingPhraseMode } from './naming-explanation.js';
+export {
+  SCHOOL_PRESET_ORDER,
+  isSchoolPresetName,
+  loadPreset,
+  resolveSchoolPresetMetadata,
+  resolveSchoolPresetName,
+  type SchoolPresetData,
+  type SchoolPresetMetadata,
+  type SchoolPresetName,
+  type SchoolPresetSelectionSource,
+} from './preset-loader.js';
 
 // ─────────────────────────────────────────────────────────────────────────────
 //  8. FORTUNE REPORT
