@@ -63,6 +63,13 @@ export {
   type RadicalElementHintSourceTier,
   type UnihanVariantLinks,
 } from './hanja-unihan.js';
+export {
+  getNameTrendAnalysis,
+  type NameTrendAnalysis,
+  type NameTrendGender,
+  type NameTrendPoint,
+  type NameTrendStatus,
+} from './name-trend.js';
 
 // ─────────────────────────────────────────────────────────────────────────────
 //  4. RE-EXPORTED NAME-TS MODELS

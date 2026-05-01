@@ -3,6 +3,7 @@ import type { FourframeMeaningEntry } from '../../seed-ts/src/database/fourframe
 import type { ElementKey } from './core/scoring.js';
 import type { HanjaLegalStatus } from './hanja-annotations.js';
 import type { HanjaUnihanMetadata, RadicalElementHint } from './hanja-unihan.js';
+import type { NameTrendAnalysis } from './name-trend.js';
 
 // ─────────────────────────────────────────────────────────────────────────────
 //  1. INPUT TYPES
@@ -205,6 +206,12 @@ export interface PrecisionConfig {
    *  Current declaration-only form does NOT yet activate ternary classification.
    *  Future PR will land the seed-ts side change. */
   readonly pureHangulPolarityModel?: 'binary' | 'ternary';
+
+  /** Surface official birth-registration Hangul name trend evidence.
+   *  Display-only in PR-2.4: when true, reports may include
+   *  `nameTrend`/`trendFit`/`trendRisk`, but scores, ranking, generation,
+   *  and legal/Hanja logic are unchanged. */
+  readonly surfaceNameTrend?: boolean;
 
   /** Surface palace (12궁) information on `SajuOutputSummary` when `true`.
    *  Off by default — consumers must opt-in.
@@ -421,6 +428,7 @@ export interface CandidateAnalysis {
   readonly hanja: HanjaAnalysis;
   readonly fourFrame: FourFrameAnalysis;
   readonly saju: SajuCompatibility;
+  readonly nameTrend?: NameTrendAnalysis;
 }
 
 /** Properties of a single character (hangul + hanja + metadata). */
@@ -689,6 +697,7 @@ export interface NamingReport {
     readonly hanja: HanjaAnalysis;
     readonly fourFrame: NamingReportFourFrame;
   };
+  readonly nameTrend?: NameTrendAnalysis;
   readonly interpretation: string;
 }
 
@@ -706,6 +715,7 @@ export interface SpringReport {
   readonly popularityRank: number | null;
   readonly maleRatio: number | null;
   readonly nameGender: NameGenderTendency;
+  readonly nameTrend?: NameTrendAnalysis;
   readonly namingReport: NamingReport;
   readonly sajuReport: SajuReport;
   readonly sajuCompatibility: SajuCompatibility;
@@ -723,6 +733,7 @@ export interface SpringCandidateSummary {
   readonly popularityRank: number | null;
   readonly maleRatio: number | null;
   readonly nameGender: NameGenderTendency;
+  readonly nameTrend?: NameTrendAnalysis;
   rank: number;
 }
 
