@@ -83,6 +83,11 @@ historic Phase P table includes stated percentages that do not always equal the
 literal numerator/denominator. The dashboard preserves both instead of hiding
 the discrepancy.
 
+Each rule mode also carries `winLossVsMonthlyMain` at total, source-group, and
+source-tier levels. This is an aggregate delta view against the production
+default, so `jungki_transparent` can be inspected without implying that it is
+safe for public default use.
+
 ## School-Preset Split
 
 School presets are measured as deterministic runtime score deltas from the
