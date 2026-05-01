@@ -410,6 +410,37 @@ function buildRuleModeBreakdown(): any {
     };
   }
 
+  function winLossVsDefault(
+    current: { pass: number; comparable: number },
+    baseline: { pass: number; comparable: number },
+  ): any {
+    const passDelta = current.pass - baseline.pass;
+    const currentRate = current.comparable > 0 ? current.pass / current.comparable : null;
+    const baselineRate = baseline.comparable > 0 ? baseline.pass / baseline.comparable : null;
+    return {
+      wins: Math.max(0, passDelta),
+      losses: Math.max(0, -passDelta),
+      net: passDelta,
+      passDelta,
+      passRateDelta:
+        currentRate == null || baselineRate == null
+          ? null
+          : Number(((currentRate - baselineRate) * 100).toFixed(1)),
+      baselineMode: 'monthly_main',
+    };
+  }
+
+  const defaultCells = parsePhasePRow('monthly_main');
+  const defaultBySourceTier: Record<string, { pass: number; comparable: number }> = {};
+  sourceKeys.forEach((sourceKey, i) => {
+    const tier = sourceTierByKey[sourceKey];
+    const cell = defaultCells[i];
+    const bucket = defaultBySourceTier[tier] ?? { pass: 0, comparable: 0 };
+    bucket.pass += cell.pass;
+    bucket.comparable += cell.comparable;
+    defaultBySourceTier[tier] = bucket;
+  });
+
   const modes: Record<string, any> = {};
   for (const [mode, phasePRow] of Object.entries(phasePRows)) {
     const cells = parsePhasePRow(phasePRow);
@@ -418,9 +449,12 @@ function buildRuleModeBreakdown(): any {
 
     sourceKeys.forEach((sourceKey, i) => {
       const cell = cells[i];
+      const defaultCell = defaultCells[i];
       const sourceLabel = sourceLabels[sourceKey];
       const tier = sourceTierByKey[sourceKey];
-      bySourceGroup[sourceLabel] = summaryFrom(cell.pass, cell.comparable, cell.statedPercent);
+      bySourceGroup[sourceLabel] = summaryFrom(cell.pass, cell.comparable, cell.statedPercent, {
+        winLossVsMonthlyMain: winLossVsDefault(cell, defaultCell),
+      });
       const tierBucket = bySourceTier[tier] ?? { pass: 0, comparable: 0 };
       tierBucket.pass += cell.pass;
       tierBucket.comparable += cell.comparable;
@@ -430,12 +464,15 @@ function buildRuleModeBreakdown(): any {
     const totalCell = cells[3];
     const tierSummary: Record<string, any> = {};
     for (const [tier, bucket] of Object.entries(bySourceTier)) {
-      tierSummary[tier] = summaryFrom(bucket.pass, bucket.comparable);
+      tierSummary[tier] = summaryFrom(bucket.pass, bucket.comparable, undefined, {
+        winLossVsMonthlyMain: winLossVsDefault(bucket, defaultBySourceTier[tier] ?? { pass: 0, comparable: 0 }),
+      });
     }
 
     modes[mode] = summaryFrom(totalCell.pass, totalCell.comparable, totalCell.statedPercent, {
       phasePSourceRow: phasePRow,
       measurementStatus: mode === 'composite_classical' ? 'PROXY_FULL_TRANSPARENT' : 'MEASURED',
+      winLossVsMonthlyMain: winLossVsDefault(totalCell, defaultCells[3]),
       bySourceTier: tierSummary,
       bySourceGroup,
     });
