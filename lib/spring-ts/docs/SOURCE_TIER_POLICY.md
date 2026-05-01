@@ -72,3 +72,11 @@ or regression observations when `authorityTruthEligible` is `false`.
   metadata and source URLs only; later rule fixtures must keep classical
   verbatim quote fields at or below 80 Unicode code points and must not bulk
   copy source text.
+
+## Non-Authority Feedback Aggregates
+
+`metrics/feedback-aggregate.json` is product feedback telemetry, not a source
+record. It must stay source-free, aggregate-only, and marked
+`authorityUsage: "not_authority_truth"`. It must not contain `sourceTier`
+objects, quotes, source URLs, raw feedback rows, names, birth data, session IDs,
+or free-text comments, and it must never enter authority-truth denominators.
