@@ -5,6 +5,7 @@ import type { HanjaLegalStatus } from './hanja-annotations.js';
 import type { HanjaUnihanMetadata, RadicalElementHint } from './hanja-unihan.js';
 import type { NameTrendAnalysis } from './name-trend.js';
 import type { PhoneticAnalysis } from './phonetic-rules.js';
+import type { SchoolPresetMetadata, SchoolPresetName } from './preset-loader.js';
 
 // ─────────────────────────────────────────────────────────────────────────────
 //  1. INPUT TYPES
@@ -53,7 +54,7 @@ export interface SpringRequest {
 export interface SpringOptions {
   readonly limit?: number;
   readonly offset?: number;
-  readonly schoolPreset?: 'korean' | 'chinese' | 'modern';
+  readonly schoolPreset?: SchoolPresetName;
   readonly sajuTimePolicy?: SajuTimePolicyOptions;
   readonly sajuConfig?: Record<string, unknown>;
   readonly sajuOptions?: SajuRequestOptions;
@@ -427,6 +428,7 @@ export interface ResponseMeta {
   readonly version: string;
   readonly timestamp: string;
   readonly hanjaPool?: PrecisionConfig['hanjaPool'];
+  readonly schoolPreset?: SchoolPresetMetadata;
   readonly candidateRejections?: CandidateRejectionSummary[];
 }
 
@@ -945,6 +947,7 @@ export interface SpringReport {
   readonly finalScore: number;
   readonly scoreVector?: NamingScoreVector;
   readonly strengthProfile?: CandidateStrengthProfile;
+  readonly schoolPreset?: SchoolPresetMetadata;
   readonly popularityRank: number | null;
   readonly maleRatio: number | null;
   readonly nameGender: NameGenderTendency;

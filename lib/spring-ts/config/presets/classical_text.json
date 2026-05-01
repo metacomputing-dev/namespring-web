@@ -1,0 +1,29 @@
+{
+  "schoolName": "Classical Text",
+  "description": "Primary-text-oriented classical preset. It gives gyeokguk, disease-remedy, and bridge/mediator rules more influence while keeping runtime deltas separated from authority-truth claims.",
+  "yongshinTypeWeights": {
+    "EOKBU": 0.95,
+    "JOHU": 0.82,
+    "TONGGWAN": 0.95,
+    "GYEOKGUK": 1.0,
+    "BYEONGYAK": 0.9,
+    "JEONWANG": 0.82,
+    "HAPWHA_YONGSHIN": 0.78,
+    "ILHAENG_YONGSHIN": 0.78
+  },
+  "adaptiveWeights": {
+    "balanceBase": 0.52,
+    "balanceMin": 0.29,
+    "balanceMax": 0.52,
+    "yongshinBase": 0.31,
+    "yongshinMin": 0.31,
+    "yongshinMax": 0.56,
+    "strengthFixed": 0.12,
+    "tenGodFixed": 0.05,
+    "shiftDivisor": 70,
+    "confidenceWeight": 0.4,
+    "baseShiftRatio": 0.22,
+    "confidenceBoost": 0.08,
+    "baseConfidenceRatio": 0.6
+  }
+}

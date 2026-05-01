@@ -20,7 +20,10 @@
   "presetMapping": {
     "korean": "KOREAN_MAINSTREAM",
     "chinese": "TRADITIONAL_CHINESE",
-    "modern": "MODERN_INTEGRATED"
+    "modern": "MODERN_INTEGRATED",
+    "korean_modern": "MODERN_INTEGRATED",
+    "classical_text": "TRADITIONAL_CHINESE",
+    "naming_safe": "KOREAN_MAINSTREAM"
   },
   "defaultTimezone": "Asia/Seoul",
   "defaultCoordinates": {
