@@ -1,0 +1,255 @@
+{
+  "schemaVersion": "spring-ts.boundary-chart-goldens.v1",
+  "sourceFixture": "data/kasi-solar-terms/kasi_2026_24terms.json",
+  "notes": [
+    "All pillar expectations use ASCII stem-branch codes from spring-ts.",
+    "Solar-term cases use KASI-hosted 2026 jie terms with +/-3 minute guard points.",
+    "The KASI source fixture is minute-resolution and carries a 10 minute engine envelope, so these cases guard stable before/after behavior rather than claiming sub-minute authority truth."
+  ],
+  "zeroCorrectionPolicy": {
+    "sajuTimePolicy": {
+      "trueSolarTime": "off",
+      "longitudeCorrection": "off",
+      "yaza": "off"
+    }
+  },
+  "solarTermBoundaryCases": [
+    {
+      "id": "jie-xiaohan-2026",
+      "termId": "XIAOHAN",
+      "termKstIso": "2026-01-05T17:23:00+09:00",
+      "before": {
+        "birth": { "year": 2026, "month": 1, "day": 5, "hour": 17, "minute": 20, "gender": "male", "timezone": "Asia/Seoul", "calendarType": "solar" },
+        "expected": { "year": "EUL-SA", "month": "MU-JA", "day": "GI-MYO", "hour": "GYE-YU" }
+      },
+      "after": {
+        "birth": { "year": 2026, "month": 1, "day": 5, "hour": 17, "minute": 26, "gender": "male", "timezone": "Asia/Seoul", "calendarType": "solar" },
+        "expected": { "year": "EUL-SA", "month": "GI-CHUK", "day": "GI-MYO", "hour": "GYE-YU" }
+      }
+    },
+    {
+      "id": "jie-lichun-2026",
+      "termId": "LICHUN",
+      "termKstIso": "2026-02-04T05:02:00+09:00",
+      "before": {
+        "birth": { "year": 2026, "month": 2, "day": 4, "hour": 4, "minute": 59, "gender": "male", "timezone": "Asia/Seoul", "calendarType": "solar" },
+        "expected": { "year": "EUL-SA", "month": "GI-CHUK", "day": "GI-YU", "hour": "BYEONG-IN" }
+      },
+      "after": {
+        "birth": { "year": 2026, "month": 2, "day": 4, "hour": 5, "minute": 5, "gender": "male", "timezone": "Asia/Seoul", "calendarType": "solar" },
+        "expected": { "year": "BYEONG-O", "month": "GYEONG-IN", "day": "GI-YU", "hour": "JEONG-MYO" }
+      }
+    },
+    {
+      "id": "jie-jingzhe-2026",
+      "termId": "JINGZHE",
+      "termKstIso": "2026-03-05T22:59:00+09:00",
+      "before": {
+        "birth": { "year": 2026, "month": 3, "day": 5, "hour": 22, "minute": 56, "gender": "male", "timezone": "Asia/Seoul", "calendarType": "solar" },
+        "expected": { "year": "BYEONG-O", "month": "GYEONG-IN", "day": "MU-IN", "hour": "GYE-HAE" }
+      },
+      "after": {
+        "birth": { "year": 2026, "month": 3, "day": 5, "hour": 23, "minute": 2, "gender": "male", "timezone": "Asia/Seoul", "calendarType": "solar" },
+        "expected": { "year": "BYEONG-O", "month": "SIN-MYO", "day": "MU-IN", "hour": "IM-JA" }
+      }
+    },
+    {
+      "id": "jie-qingming-2026",
+      "termId": "QINGMING",
+      "termKstIso": "2026-04-05T03:40:00+09:00",
+      "before": {
+        "birth": { "year": 2026, "month": 4, "day": 5, "hour": 3, "minute": 37, "gender": "male", "timezone": "Asia/Seoul", "calendarType": "solar" },
+        "expected": { "year": "BYEONG-O", "month": "SIN-MYO", "day": "GI-YU", "hour": "BYEONG-IN" }
+      },
+      "after": {
+        "birth": { "year": 2026, "month": 4, "day": 5, "hour": 3, "minute": 43, "gender": "male", "timezone": "Asia/Seoul", "calendarType": "solar" },
+        "expected": { "year": "BYEONG-O", "month": "IM-JIN", "day": "GI-YU", "hour": "BYEONG-IN" }
+      }
+    },
+    {
+      "id": "jie-lixia-2026",
+      "termId": "LIXIA",
+      "termKstIso": "2026-05-05T20:49:00+09:00",
+      "before": {
+        "birth": { "year": 2026, "month": 5, "day": 5, "hour": 20, "minute": 46, "gender": "male", "timezone": "Asia/Seoul", "calendarType": "solar" },
+        "expected": { "year": "BYEONG-O", "month": "IM-JIN", "day": "GI-MYO", "hour": "GAP-SUL" }
+      },
+      "after": {
+        "birth": { "year": 2026, "month": 5, "day": 5, "hour": 20, "minute": 52, "gender": "male", "timezone": "Asia/Seoul", "calendarType": "solar" },
+        "expected": { "year": "BYEONG-O", "month": "GYE-SA", "day": "GI-MYO", "hour": "GAP-SUL" }
+      }
+    },
+    {
+      "id": "jie-mangzhong-2026",
+      "termId": "MANGZHONG",
+      "termKstIso": "2026-06-06T00:48:00+09:00",
+      "before": {
+        "birth": { "year": 2026, "month": 6, "day": 6, "hour": 0, "minute": 45, "gender": "male", "timezone": "Asia/Seoul", "calendarType": "solar" },
+        "expected": { "year": "BYEONG-O", "month": "GYE-SA", "day": "SIN-HAE", "hour": "MU-JA" }
+      },
+      "after": {
+        "birth": { "year": 2026, "month": 6, "day": 6, "hour": 0, "minute": 51, "gender": "male", "timezone": "Asia/Seoul", "calendarType": "solar" },
+        "expected": { "year": "BYEONG-O", "month": "GAP-O", "day": "SIN-HAE", "hour": "MU-JA" }
+      }
+    },
+    {
+      "id": "jie-xiaoshu-2026",
+      "termId": "XIAOSHU",
+      "termKstIso": "2026-07-07T10:57:00+09:00",
+      "before": {
+        "birth": { "year": 2026, "month": 7, "day": 7, "hour": 10, "minute": 54, "gender": "male", "timezone": "Asia/Seoul", "calendarType": "solar" },
+        "expected": { "year": "BYEONG-O", "month": "GAP-O", "day": "IM-O", "hour": "EUL-SA" }
+      },
+      "after": {
+        "birth": { "year": 2026, "month": 7, "day": 7, "hour": 11, "minute": 0, "gender": "male", "timezone": "Asia/Seoul", "calendarType": "solar" },
+        "expected": { "year": "BYEONG-O", "month": "EUL-MI", "day": "IM-O", "hour": "BYEONG-O" }
+      }
+    },
+    {
+      "id": "jie-liqiu-2026",
+      "termId": "LIQIU",
+      "termKstIso": "2026-08-07T20:43:00+09:00",
+      "before": {
+        "birth": { "year": 2026, "month": 8, "day": 7, "hour": 20, "minute": 40, "gender": "male", "timezone": "Asia/Seoul", "calendarType": "solar" },
+        "expected": { "year": "BYEONG-O", "month": "EUL-MI", "day": "GYE-CHUK", "hour": "IM-SUL" }
+      },
+      "after": {
+        "birth": { "year": 2026, "month": 8, "day": 7, "hour": 20, "minute": 46, "gender": "male", "timezone": "Asia/Seoul", "calendarType": "solar" },
+        "expected": { "year": "BYEONG-O", "month": "BYEONG-SIN", "day": "GYE-CHUK", "hour": "IM-SUL" }
+      }
+    },
+    {
+      "id": "jie-bailu-2026",
+      "termId": "BAILU",
+      "termKstIso": "2026-09-07T23:41:00+09:00",
+      "before": {
+        "birth": { "year": 2026, "month": 9, "day": 7, "hour": 23, "minute": 38, "gender": "male", "timezone": "Asia/Seoul", "calendarType": "solar" },
+        "expected": { "year": "BYEONG-O", "month": "BYEONG-SIN", "day": "GAP-SIN", "hour": "GAP-JA" }
+      },
+      "after": {
+        "birth": { "year": 2026, "month": 9, "day": 7, "hour": 23, "minute": 44, "gender": "male", "timezone": "Asia/Seoul", "calendarType": "solar" },
+        "expected": { "year": "BYEONG-O", "month": "JEONG-YU", "day": "GAP-SIN", "hour": "GAP-JA" }
+      }
+    },
+    {
+      "id": "jie-hanlu-2026",
+      "termId": "HANLU",
+      "termKstIso": "2026-10-08T15:29:00+09:00",
+      "before": {
+        "birth": { "year": 2026, "month": 10, "day": 8, "hour": 15, "minute": 26, "gender": "male", "timezone": "Asia/Seoul", "calendarType": "solar" },
+        "expected": { "year": "BYEONG-O", "month": "JEONG-YU", "day": "EUL-MYO", "hour": "GAP-SIN" }
+      },
+      "after": {
+        "birth": { "year": 2026, "month": 10, "day": 8, "hour": 15, "minute": 32, "gender": "male", "timezone": "Asia/Seoul", "calendarType": "solar" },
+        "expected": { "year": "BYEONG-O", "month": "MU-SUL", "day": "EUL-MYO", "hour": "GAP-SIN" }
+      }
+    },
+    {
+      "id": "jie-lidong-2026",
+      "termId": "LIDONG",
+      "termKstIso": "2026-11-07T18:52:00+09:00",
+      "before": {
+        "birth": { "year": 2026, "month": 11, "day": 7, "hour": 18, "minute": 49, "gender": "male", "timezone": "Asia/Seoul", "calendarType": "solar" },
+        "expected": { "year": "BYEONG-O", "month": "MU-SUL", "day": "EUL-YU", "hour": "EUL-YU" }
+      },
+      "after": {
+        "birth": { "year": 2026, "month": 11, "day": 7, "hour": 18, "minute": 55, "gender": "male", "timezone": "Asia/Seoul", "calendarType": "solar" },
+        "expected": { "year": "BYEONG-O", "month": "GI-HAE", "day": "EUL-YU", "hour": "EUL-YU" }
+      }
+    },
+    {
+      "id": "jie-daxue-2026",
+      "termId": "DAXUE",
+      "termKstIso": "2026-12-07T11:53:00+09:00",
+      "before": {
+        "birth": { "year": 2026, "month": 12, "day": 7, "hour": 11, "minute": 50, "gender": "male", "timezone": "Asia/Seoul", "calendarType": "solar" },
+        "expected": { "year": "BYEONG-O", "month": "GI-HAE", "day": "EUL-MYO", "hour": "IM-O" }
+      },
+      "after": {
+        "birth": { "year": 2026, "month": 12, "day": 7, "hour": 11, "minute": 56, "gender": "male", "timezone": "Asia/Seoul", "calendarType": "solar" },
+        "expected": { "year": "BYEONG-O", "month": "GYEONG-JA", "day": "EUL-MYO", "hour": "IM-O" }
+      }
+    }
+  ],
+  "hourTransitionCases": [
+    {
+      "id": "late-night-2259-hae",
+      "birth": { "year": 2026, "month": 4, "day": 5, "hour": 22, "minute": 59, "gender": "male", "timezone": "Asia/Seoul", "calendarType": "solar" },
+      "expected": { "year": "BYEONG-O", "month": "IM-JIN", "day": "GI-YU", "hour": "EUL-HAE" }
+    },
+    {
+      "id": "late-night-2300-ja",
+      "birth": { "year": 2026, "month": 4, "day": 5, "hour": 23, "minute": 0, "gender": "male", "timezone": "Asia/Seoul", "calendarType": "solar" },
+      "expected": { "year": "BYEONG-O", "month": "IM-JIN", "day": "GI-YU", "hour": "GAP-JA" }
+    },
+    {
+      "id": "late-night-2359-ja",
+      "birth": { "year": 2026, "month": 4, "day": 5, "hour": 23, "minute": 59, "gender": "male", "timezone": "Asia/Seoul", "calendarType": "solar" },
+      "expected": { "year": "BYEONG-O", "month": "IM-JIN", "day": "GI-YU", "hour": "GAP-JA" }
+    },
+    {
+      "id": "midnight-0000-next-day-ja",
+      "birth": { "year": 2026, "month": 4, "day": 6, "hour": 0, "minute": 0, "gender": "male", "timezone": "Asia/Seoul", "calendarType": "solar" },
+      "expected": { "year": "BYEONG-O", "month": "IM-JIN", "day": "GYEONG-SUL", "hour": "BYEONG-JA" }
+    },
+    {
+      "id": "midnight-0059-next-day-ja",
+      "birth": { "year": 2026, "month": 4, "day": 6, "hour": 0, "minute": 59, "gender": "male", "timezone": "Asia/Seoul", "calendarType": "solar" },
+      "expected": { "year": "BYEONG-O", "month": "IM-JIN", "day": "GYEONG-SUL", "hour": "BYEONG-JA" }
+    },
+    {
+      "id": "midnight-0100-next-day-chuk",
+      "birth": { "year": 2026, "month": 4, "day": 6, "hour": 1, "minute": 0, "gender": "male", "timezone": "Asia/Seoul", "calendarType": "solar" },
+      "expected": { "year": "BYEONG-O", "month": "IM-JIN", "day": "GYEONG-SUL", "hour": "JEONG-CHUK" }
+    }
+  ],
+  "timezoneNormalizationCases": [
+    {
+      "id": "lichun-same-instant-kst",
+      "inputIso": "2026-02-04T05:05:00+09:00",
+      "timezone": "Asia/Seoul",
+      "expected": { "year": "BYEONG-O", "month": "GYEONG-IN", "day": "GI-YU", "hour": "JEONG-MYO" }
+    },
+    {
+      "id": "lichun-same-instant-utc",
+      "inputIso": "2026-02-03T20:05:00Z",
+      "timezone": "UTC",
+      "expected": { "year": "BYEONG-O", "month": "GYEONG-IN", "day": "MU-SIN", "hour": "IM-SUL" }
+    },
+    {
+      "id": "lichun-before-same-instant-kst",
+      "inputIso": "2026-02-04T04:59:00+09:00",
+      "timezone": "Asia/Seoul",
+      "expected": { "year": "EUL-SA", "month": "GI-CHUK", "day": "GI-YU", "hour": "BYEONG-IN" }
+    },
+    {
+      "id": "lichun-before-same-instant-utc",
+      "inputIso": "2026-02-03T19:59:00Z",
+      "timezone": "UTC",
+      "expected": { "year": "EUL-SA", "month": "GI-CHUK", "day": "MU-SIN", "hour": "IM-SUL" }
+    }
+  ],
+  "invalidIsoCases": [
+    {
+      "id": "missing-offset",
+      "inputIso": "2026-02-04T05:02:00",
+      "expectedMessageIncludes": "timezone offset"
+    }
+  ],
+  "longitudeNormalizationCases": [
+    {
+      "id": "seoul-default-longitude-crosses-previous-day",
+      "birth": { "year": 1989, "month": 1, "day": 10, "hour": 0, "minute": 10, "gender": "male", "timezone": "Asia/Seoul", "region": "Seoul", "calendarType": "solar" },
+      "options": { "sajuTimePolicy": { "trueSolarTime": "off", "longitudeCorrection": "on", "yaza": "off" } },
+      "expected": { "year": "MU-JIN", "month": "EUL-CHUK", "day": "GI-SA", "hour": "GAP-JA" },
+      "expectedTimeCorrection": { "adjustedYear": 1989, "adjustedMonth": 1, "adjustedDay": 9, "adjustedHour": 23, "adjustedMinute": 37, "longitudeCorrectionMinutes": -32.088, "equationOfTimeMinutes": 0 }
+    },
+    {
+      "id": "daegu-default-longitude-crosses-previous-day",
+      "birth": { "year": 1989, "month": 1, "day": 10, "hour": 0, "minute": 10, "gender": "male", "timezone": "Asia/Seoul", "latitude": 35.8714, "longitude": 128.6014, "calendarType": "solar" },
+      "options": { "sajuTimePolicy": { "trueSolarTime": "off", "longitudeCorrection": "on", "yaza": "off" } },
+      "expected": { "year": "MU-JIN", "month": "EUL-CHUK", "day": "GI-SA", "hour": "GAP-JA" },
+      "expectedTimeCorrection": { "adjustedYear": 1989, "adjustedMonth": 1, "adjustedDay": 9, "adjustedHour": 23, "adjustedMinute": 44, "longitudeCorrectionMinutes": -25.5944, "equationOfTimeMinutes": 0 }
+    }
+  ]
+}
