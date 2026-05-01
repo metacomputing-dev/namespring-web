@@ -63,4 +63,16 @@ export { stemHanja, branchHanja, stemElement, branchElement, stemYinYang, branch
 export { tenGodOf } from './core/tenGod.js';
 export { detectBranchRelations } from './core/branchRelations.js';
 export { hiddenStemsOfBranch, rawHiddenStemsTable } from './core/hiddenStems.js';
+export {
+  analyzePalaces,
+  PALACE_INFO,
+  type PalaceMeta,
+  type PalacePosition,
+  type PalaceRootStatus,
+  type PalaceStatus,
+  type PalaceView,
+  type PalaceReport,
+  type PalacePillarInput,
+  type PalacePillarsInput,
+} from './core/palace.js';
 export { elementDistributionFromPillars } from './core/elementDistribution.js';
