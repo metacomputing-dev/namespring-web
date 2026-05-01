@@ -103,6 +103,15 @@ function classifySafetyProfile(
   const competingElements = springReport.sajuCompatibility.yongshinConsensusCompetingElements ?? [];
   const yongshinMatchCount = springReport.sajuCompatibility.yongshinMatchCount;
   const gishinMatchCount = springReport.sajuCompatibility.gishinMatchCount;
+  if (
+    !scoreVector &&
+    !conflictLevel &&
+    !springReport.sajuCompatibility.yongshinElement &&
+    yongshinMatchCount === 0 &&
+    gishinMatchCount === 0
+  ) {
+    return undefined;
+  }
   const vectorRisk = scoreVector?.risk ?? 35;
   const conflictRisk = conflictLevel === 'high'
     ? 45
