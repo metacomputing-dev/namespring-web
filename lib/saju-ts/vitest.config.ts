@@ -8,6 +8,7 @@ export default defineConfig({
       'src/api/**/*.test.ts',
       'src/calendar/**/*.test.ts',
       'src/core/**/*.test.ts',
+      'src/rules/**/*.test.ts',
       'tests/precision/**/*.test.ts',
     ],
     globals: true,
