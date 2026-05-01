@@ -364,7 +364,7 @@ function getMonthlyFortune(year: number, month: number): MonthlyFortune {
  * 11월 7일  입동 → 해월 시작
  * 12월 7일  대설 → 자월 시작
  */
-const JIE_MONTH_BOUNDARY_DAY: Readonly<Record<number, number>> = {
+export const JIE_MONTH_BOUNDARY_DAY: Readonly<Record<number, number>> = {
   1: 6, 2: 4, 3: 6, 4: 5, 5: 6, 6: 6,
   7: 7, 8: 8, 9: 8, 10: 8, 11: 7, 12: 7,
 };
