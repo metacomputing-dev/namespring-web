@@ -184,6 +184,27 @@ check(
     compositeQualityGate?.sourceTierDashboard?.[tier]?.nonRegression?.status === 'PASS'),
   JSON.stringify(compositeQualityGate?.sourceTierDashboard),
 );
+check(
+  'composite authority dashboard excludes low-tier references',
+  JSON.stringify(Object.keys(compositeQualityGate?.sourceTierDashboard ?? {}).sort()) ===
+    JSON.stringify(['T3_AUTHORED_INTERPRETATION', 'T4_PRIMARY_TEXT']) &&
+    !('T2_REFERENCE_IMPLEMENTATION' in (compositeQualityGate?.sourceTierDashboard ?? {})) &&
+    !('T1_HYPOTHESIS' in (compositeQualityGate?.sourceTierDashboard ?? {})) &&
+    !('NO_REFERENCE' in (compositeQualityGate?.sourceTierDashboard ?? {})),
+  JSON.stringify(Object.keys(compositeQualityGate?.sourceTierDashboard ?? {}).sort()),
+);
+const compositeMode = bySourceTier.ruleModeBreakdown?.modes?.composite_classical;
+check(
+  'composite_classical remains evidence-only and never-promote',
+  compositeMode?.selectionPolicy === 'evidence_only_never_promote' &&
+    compositeMode?.selectedAgreementMode === 'monthly_main' &&
+    Object.values(compositeMode?.bySourceTier ?? {}).every((bucket: any) =>
+      bucket?.sourceTierNonRegressionVsMonthlyMain?.status === 'PASS'),
+  JSON.stringify({
+    selectionPolicy: compositeMode?.selectionPolicy,
+    selectedAgreementMode: compositeMode?.selectedAgreementMode,
+  }),
+);
 
 const fixtures = readJson<{ fixtures: readonly BaselineFixture[] }>(FIXTURE_PATH).fixtures;
 const selectedJonggyeokFixtures: string[] = [];
