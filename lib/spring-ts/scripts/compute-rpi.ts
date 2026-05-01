@@ -30,6 +30,8 @@ const SNAPSHOT_PATH = path.resolve(SPRING_TS_ROOT, 'test/baseline/spring_ts_snap
 const PHASE_P_RESULTS_PATH = path.resolve(SPRING_TS_ROOT, 'test/baseline/PHASE_P_RESULTS.md');
 const AUTHORITY_DIR = path.resolve(SPRING_TS_ROOT, 'test/baseline/authority');
 const ORACLES_DIR = path.resolve(SPRING_TS_ROOT, 'test/baseline/oracles');
+const DATA_SOURCES_DIR = path.resolve(SPRING_TS_ROOT, 'data/sources');
+const LEGAL_HANJA_RECONCILIATION_PATH = path.resolve(SPRING_TS_ROOT, 'data/legal-hanja-reconciliation.json');
 const QUALITY_GATE = path.resolve(SPRING_TS_ROOT, 'tools/quality_gate.mjs');
 
 const TIER_NO_REFERENCE = 'NO_REFERENCE';
@@ -176,6 +178,7 @@ function scanSourceTiers(): { records: SourceTierRecord[]; byTier: Record<string
   const files = [
     ...walkJsonFiles(AUTHORITY_DIR),
     ...walkJsonFiles(ORACLES_DIR),
+    ...walkJsonFiles(DATA_SOURCES_DIR),
   ];
   if (fs.existsSync(JONGGYEOK_FIXTURES_PATH)) files.push(JONGGYEOK_FIXTURES_PATH);
 
@@ -566,15 +569,44 @@ function scoreAxisFromDimension(gate: QualityGateReport, dimension: string, poin
   };
 }
 
-function buildRpiSummary(gate: QualityGateReport, sourceSummary: any, bySourceTier: any): any {
-  const axisScores = {
-    A_calculationAccuracy: scoreAxisFromDimension(gate, 'D5', 15, 'No calculation-specific official oracle axis beyond D5 stability yet.'),
-    B_legalHanjaData: {
+function scoreLegalHanjaAxis(): any {
+  if (!fs.existsSync(LEGAL_HANJA_RECONCILIATION_PATH)) {
+    return {
       maxPoints: 15,
       score: 0,
       status: 'NOT_MEASURED',
       reason: 'Legal hanja reconciliation is scheduled for Phase 2.',
-    },
+    };
+  }
+  const reconciliation = readJson(LEGAL_HANJA_RECONCILIATION_PATH);
+  const policy = reconciliation.legalStatusPolicy ?? {};
+  const hasRequiredStatuses = ['allowed', 'variantAllowed', 'hangulOnly', 'unknown']
+    .every((status) => typeof policy[status] === 'string');
+  const officialCount = reconciliation.officialBasis?.announcedAllowedCount;
+  const candidateCount = reconciliation.candidateMirror?.totalCount;
+  const delta = reconciliation.candidateMirror?.unresolvedDeltaCount;
+  const lawDiffVisible = reconciliation.reconciliation?.lawEffectiveDateDiffVisible === true;
+  const partialPass = hasRequiredStatuses
+    && officialCount === 9389
+    && candidateCount === 9495
+    && delta === 106
+    && lawDiffVisible;
+  return {
+    maxPoints: 15,
+    score: partialPass ? 10 : 0,
+    status: partialPass ? 'PARTIAL_OFFICIAL_DENOMINATOR' : 'FAIL',
+    officialAllowedCount: officialCount,
+    candidateMirrorCount: candidateCount,
+    unresolvedDeltaCount: delta,
+    lawEffectiveDateDiffVisible: lawDiffVisible,
+    requiredStatusesPresent: hasRequiredStatuses,
+  };
+}
+
+function buildRpiSummary(gate: QualityGateReport, sourceSummary: any, bySourceTier: any): any {
+  const axisScores = {
+    A_calculationAccuracy: scoreAxisFromDimension(gate, 'D5', 15, 'No calculation-specific official oracle axis beyond D5 stability yet.'),
+    B_legalHanjaData: scoreLegalHanjaAxis(),
     C_gyeokgukYongshinRuleQuality: {
       maxPoints: 25,
       score: 0,

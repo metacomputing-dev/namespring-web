@@ -2,13 +2,13 @@
   "schemaVersion": "spring-ts.rpi-summary.v1",
   "note": "Unmeasured or truth-insufficient axes score 0 in rawRpi and are also reported separately to avoid mixing missing truth with engine failure.",
   "rawRpi": {
-    "score": 35,
+    "score": 45,
     "maxPoints": 100
   },
   "measuredOnlyRpi": {
-    "score": 35,
-    "maxPoints": 35,
-    "percent": 100
+    "score": 45,
+    "maxPoints": 50,
+    "percent": 90
   },
   "axisScores": {
     "A_calculationAccuracy": {
@@ -21,9 +21,13 @@
     },
     "B_legalHanjaData": {
       "maxPoints": 15,
-      "score": 0,
-      "status": "NOT_MEASURED",
-      "reason": "Legal hanja reconciliation is scheduled for Phase 2."
+      "score": 10,
+      "status": "PARTIAL_OFFICIAL_DENOMINATOR",
+      "officialAllowedCount": 9389,
+      "candidateMirrorCount": 9495,
+      "unresolvedDeltaCount": 106,
+      "lawEffectiveDateDiffVisible": true,
+      "requiredStatusesPresent": true
     },
     "C_gyeokgukYongshinRuleQuality": {
       "maxPoints": 25,
@@ -57,7 +61,7 @@
       "maxPoints": 10,
       "score": 10,
       "status": "PASS",
-      "sourceTierScanned": 51,
+      "sourceTierScanned": 52,
       "sourceTierViolations": 0
     }
   },
