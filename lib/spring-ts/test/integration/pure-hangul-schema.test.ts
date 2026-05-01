@@ -97,7 +97,7 @@ for (const schema of schemas) {
 }
 
 // (3) schoolPreset routing target (K-4 'auto' declaration target)
-for (const preset of ['korean', 'chinese', 'modern'] as const) {
+for (const preset of ['korean', 'chinese', 'modern', 'korean_modern', 'classical_text', 'naming_safe'] as const) {
   let crashed = false;
   try {
     const cands = await engine.getNameCandidates({
@@ -193,6 +193,17 @@ check(`schoolPreset='chinese' + 'auto' schema applies cap (different from baseli
   (reportAuto?.totalScore ?? 0) !== (reportFull?.totalScore ?? 0),
   `auto=${reportAuto?.totalScore} vs baseline=${reportFull?.totalScore}`);
 
+const reportClassicalAuto: any = await engine.getNamingReport({
+  ...hanjaReq,
+  options: {
+    schoolPreset: 'classical_text',
+    precisionConfig: { pureHangulSchema: 'auto' },
+  } as any,
+});
+check(`schoolPreset='classical_text' + 'auto' schema applies cap (different from baseline)`,
+  (reportClassicalAuto?.totalScore ?? 0) !== (reportFull?.totalScore ?? 0),
+  `classical auto=${reportClassicalAuto?.totalScore} vs baseline=${reportFull?.totalScore}`);
+
 // (8) PR-Q-25 K-6 full wire — polarity ternary affects names with ㅡ/ㅣ vowels
 //     이름 '지수' (ㅣ + ㅜ) — ternary mode 에서 ㅣ neutral 처리되어 polarity 약화
 console.log('\nK-6 full wire — polarity ternary effect:');
@@ -225,6 +236,17 @@ console.log(`  schoolPreset='modern' + auto totalScore=${reportModernAuto?.total
 check(`schoolPreset='modern' + 'auto' schema applies ternary (different from binary)`,
   (reportModernAuto?.totalScore ?? 0) !== (reportBinary?.totalScore ?? 0),
   `modern auto=${reportModernAuto?.totalScore} vs binary=${reportBinary?.totalScore}`);
+
+const reportKoreanModernAuto: any = await engine.getNamingReport({
+  ...tenaryReq,
+  options: {
+    schoolPreset: 'korean_modern',
+    precisionConfig: { pureHangulSchema: 'auto' },
+  } as any,
+});
+check(`schoolPreset='korean_modern' + 'auto' schema applies ternary (different from binary)`,
+  (reportKoreanModernAuto?.totalScore ?? 0) !== (reportBinary?.totalScore ?? 0),
+  `korean_modern auto=${reportKoreanModernAuto?.totalScore} vs binary=${reportBinary?.totalScore}`);
 
 engine.close();
 

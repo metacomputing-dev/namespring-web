@@ -16,6 +16,7 @@ import type {
 } from '../types.js';
 import type { NameTrendAnalysis } from '../name-trend.js';
 import type { PhoneticAnalysis } from '../phonetic-rules.js';
+import type { SchoolPresetMetadata } from '../preset-loader.js';
 export type {
   SajuSummary, BirthInfo,
   SajuAxisStrengthMap, EvidenceRow, SajuJudgmentStrength, CounterexampleRow,
@@ -355,6 +356,7 @@ export interface ReportMeta {
   readonly targetName?: string;
   readonly targetGender?: string;
   readonly engineVersion?: string;
+  readonly schoolPreset?: SchoolPresetMetadata;
   readonly uncertainties?: readonly ReportUncertainty[];
 }
 
@@ -407,4 +409,6 @@ export interface FortuneReportOptions {
    *  When true, builder populates 1-3 sub-domain rows per card drawing on
    *  saju_master/event_domain_map.py FINE_DOMAIN_KEYWORDS + TEN_GOD_TOPIC_HINTS. */
   readonly surfaceSubDomains?: boolean;
+  /** Report-wide selected doctrine lens and whether it affected scoring. */
+  readonly schoolPreset?: SchoolPresetMetadata;
 }

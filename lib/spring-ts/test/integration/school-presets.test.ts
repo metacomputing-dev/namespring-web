@@ -35,7 +35,7 @@ const originalFetch = globalThis.fetch;
   return originalFetch(url as any, options);
 };
 
-import { SpringEngine } from '../../src/index.js';
+import { SCHOOL_PRESET_ORDER, SpringEngine } from '../../src/index.js';
 
 const birth = { year: 1986, month: 4, day: 19, hour: 5, minute: 45, gender: 'male' as const };
 const surname = [{ hangul: '최', hanja: '崔' }];
@@ -59,7 +59,11 @@ const baseline      = await evaluateWith(undefined);                            
 const korean        = await evaluateWith({ precisionConfig: { useSchoolPreset: true }, schoolPreset: 'korean' });
 const chinese       = await evaluateWith({ precisionConfig: { useSchoolPreset: true }, schoolPreset: 'chinese' });
 const modern        = await evaluateWith({ precisionConfig: { useSchoolPreset: true }, schoolPreset: 'modern' });
+const koreanModern  = await evaluateWith({ precisionConfig: { useSchoolPreset: true }, schoolPreset: 'korean_modern' });
+const classicalText = await evaluateWith({ precisionConfig: { useSchoolPreset: true }, schoolPreset: 'classical_text' });
+const namingSafe    = await evaluateWith({ precisionConfig: { useSchoolPreset: true }, schoolPreset: 'naming_safe' });
 const chineseOptOff = await evaluateWith({ precisionConfig: { useSchoolPreset: false }, schoolPreset: 'chinese' });
+const safeOptOff    = await evaluateWith({ precisionConfig: { useSchoolPreset: false }, schoolPreset: 'naming_safe' });
 
 let pass = 0;
 let fail = 0;
@@ -79,7 +83,11 @@ console.log('Baseline   :', baseline);
 console.log('Korean     :', korean);
 console.log('Chinese    :', chinese);
 console.log('Modern     :', modern);
+console.log('Korean mod :', koreanModern);
+console.log('Classical  :', classicalText);
+console.log('Naming safe:', namingSafe);
 console.log('Chinese off:', chineseOptOff);
+console.log('Safe off   :', safeOptOff);
 console.log('');
 
 check(
@@ -110,6 +118,66 @@ check(
   'chinese ≠ modern (different schools produce different scores)',
   chinese.saju !== modern.saju || chinese.total !== modern.total,
   'school presets are not aliases',
+);
+
+check(
+  'new preset names are exported in the public order',
+  ['korean_modern', 'classical_text', 'naming_safe'].every((preset) =>
+    (SCHOOL_PRESET_ORDER as readonly string[]).includes(preset)),
+  SCHOOL_PRESET_ORDER.join(','),
+);
+
+for (const [preset, score] of Object.entries({ koreanModern, classicalText, namingSafe })) {
+  check(
+    `${preset} preset produces a valid score`,
+    Number.isFinite(score.saju) && Number.isFinite(score.total) &&
+      score.saju >= 0 && score.saju <= 100 &&
+      score.total >= 0 && score.total <= 100,
+    JSON.stringify(score),
+  );
+}
+
+check(
+  'new presets are visible as distinct score lenses',
+  new Set([chinese, modern, koreanModern, classicalText, namingSafe]
+    .map((score) => `${score.saju}:${score.total}`)).size >= 4,
+  'at least four non-default score profiles are visible',
+);
+
+check(
+  'naming_safe with useSchoolPreset:false is opt-in-gated (≡ baseline)',
+  safeOptOff.saju === baseline.saju && safeOptOff.total === baseline.total,
+  'new presets are also gated',
+);
+
+const fortuneReport: any = await engine.getFortuneReport({
+  birth,
+  surname,
+  givenName,
+  options: { precisionConfig: { useSchoolPreset: true }, schoolPreset: 'classical_text' },
+});
+check(
+  'fortune report surfaces selected school preset and tradeoffs',
+  fortuneReport?.meta?.schoolPreset?.selected === 'classical_text' &&
+    fortuneReport.meta.schoolPreset.useSchoolPreset === true &&
+    Array.isArray(fortuneReport.meta.schoolPreset.tradeoffs) &&
+    fortuneReport.meta.schoolPreset.tradeoffs.length >= 2,
+  JSON.stringify(fortuneReport?.meta?.schoolPreset),
+);
+
+const response: any = await engine.analyze({
+  birth,
+  surname,
+  givenName,
+  mode: 'evaluate',
+  options: { schoolPreset: 'naming_safe' },
+});
+check(
+  'analyze meta shows inactive preset when opt-in flag is absent',
+  response?.meta?.schoolPreset?.selected === 'naming_safe' &&
+    response.meta.schoolPreset.useSchoolPreset === false &&
+    response.meta.schoolPreset.scoringEffect === 'inactive',
+  JSON.stringify(response?.meta?.schoolPreset),
 );
 
 engine.close();
