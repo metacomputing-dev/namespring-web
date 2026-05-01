@@ -166,6 +166,7 @@ const aiAuthority = runGate(aiAuthorityRoot);
 check('aiGenerated authority truth is blocked',
   aiAuthority.code === 1 &&
     aiAuthority.json.status === 'FAIL' &&
+    codes(aiAuthority).includes('ai_sourceType_not_marked') &&
     codes(aiAuthority).includes('ai_authority_truth_eligible') &&
     codes(aiAuthority).includes('ai_high_tier_source') &&
     markerPaths(aiAuthority).includes('$.aiGenerated'),
@@ -187,6 +188,24 @@ check('AI-marked records without sourceTier are blocked',
     markerPaths(missingSourceTier).includes('$.aiGenerated'),
   JSON.stringify(missingSourceTier.json.violations));
 
+const unclearSourceTypeRoot = createRoot((root) => {
+  writeJson(path.join(root, 'test/unclear-source-type.json'), {
+    aiGenerated: true,
+    sourceTier: sourceTier({
+      tier: 'T1_HYPOTHESIS',
+      sourceType: 'manual_review',
+      authorityTruthEligible: false,
+    }),
+  });
+});
+const unclearSourceType = runGate(unclearSourceTypeRoot);
+check('AI-marked records require AI provenance in sourceType',
+  unclearSourceType.code === 1 &&
+    unclearSourceType.json.status === 'FAIL' &&
+    codes(unclearSourceType).includes('ai_sourceType_not_marked') &&
+    markerPaths(unclearSourceType).includes('$.aiGenerated'),
+  JSON.stringify(unclearSourceType.json.violations));
+
 const syntheticHighTierRoot = createRoot((root) => {
   writeJson(path.join(root, 'test/synthetic-high-tier.json'), {
     expected: {
@@ -203,6 +222,7 @@ const syntheticHighTier = runGate(syntheticHighTierRoot);
 check('model-generated records cannot use T3+ tiers even when non-authority',
   syntheticHighTier.code === 1 &&
     syntheticHighTier.json.status === 'FAIL' &&
+    codes(syntheticHighTier).includes('ai_sourceType_not_marked') &&
     codes(syntheticHighTier).includes('ai_high_tier_source') &&
     markerPaths(syntheticHighTier).includes('$.expected.note'),
   JSON.stringify(syntheticHighTier.json.violations));
