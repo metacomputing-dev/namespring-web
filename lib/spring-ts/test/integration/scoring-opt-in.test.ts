@@ -57,6 +57,7 @@ const empty                  = await evalWith({});
 const balanceYf              = await evalWith({ balanceMode: 'yongshin_first' });
 const balanceJgk             = await evalWith({ balanceMode: 'classical_jonggyeok_aware' });
 const yongshinCb             = await evalWith({ yongshinMode: 'chengbai_strict' });
+const yongshinConsensusAware = await evalWith({ yongshinMode: 'consensus_aware' });
 const strengthCont           = await evalWith({ strengthMode: 'continuous' });
 const gyeokgukCb             = await evalWith({ gyeokgukMode: 'chengbai_strict' });
 const tenGodPositional       = await evalWith({ tenGodMode: 'positional_weighted' });
@@ -80,6 +81,7 @@ console.log('precisionConfig: {}      :', empty);
 console.log('balance.yongshin_first   :', balanceYf);
 console.log('balance.classical_jgk    :', balanceJgk);
 console.log('yongshin.chengbai_strict :', yongshinCb);
+console.log('yongshin.consensus_aware :', yongshinConsensusAware);
 console.log('strength.continuous      :', strengthCont);
 console.log('gyeokguk.chengbai_strict :', gyeokgukCb);
 console.log('tenGod.positional_weighted:', tenGodPositional);
@@ -87,7 +89,7 @@ console.log('gyeokguk.multi_special   :', gyeokgukMultiSpecial);
 console.log('');
 
 // — All scores finite and in [0, 100] —
-const allResults = [baseline, empty, balanceYf, balanceJgk, yongshinCb, strengthCont, gyeokgukCb, tenGodPositional, gyeokgukMultiSpecial];
+const allResults = [baseline, empty, balanceYf, balanceJgk, yongshinCb, yongshinConsensusAware, strengthCont, gyeokgukCb, tenGodPositional, gyeokgukMultiSpecial];
 for (const r of allResults) {
   check('saju score finite + [0,100]', Number.isFinite(r.saju) && r.saju >= 0 && r.saju <= 100, `${r.saju}`);
   check('total score finite + [0,100]', Number.isFinite(r.total) && r.total >= 0 && r.total <= 100, `${r.total}`);
@@ -125,6 +127,11 @@ check('gyeokguk.chengbai_strict ≡ baseline (non-종격 fixture)',
 //   so this mode also tends to be a no-op here. Just verify it doesn't crash.
 check('yongshin.chengbai_strict produces valid score',
   Number.isFinite(yongshinCb.saju));
+check('yongshin.consensus_aware produces valid score',
+  Number.isFinite(yongshinConsensusAware.saju));
+check('yongshin.consensus_aware is distinguishable from baseline on conflict fixture',
+  yongshinConsensusAware.saju !== baseline.saju || yongshinConsensusAware.total !== baseline.total,
+  `saju ${yongshinConsensusAware.saju} vs ${baseline.saju}`);
 
 // — PR6 modes (positional_weighted / multi_special) ────────────────────────
 
