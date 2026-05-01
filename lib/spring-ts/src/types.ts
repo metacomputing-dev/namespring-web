@@ -119,6 +119,14 @@ export interface PrecisionConfig {
    *    so confidence 0.49 vs 0.50 no longer flips the penalty on/off. */
   readonly gyeokgukMode?: 'jonggyeok_only' | 'multi_special' | 'chengbai_strict';
 
+  /** Month-gyeok selector policy.
+   *  Default unset preserves the existing saju-ts month-gyeok selector.
+   *  - 'monthly_main': use the month branch main hidden stem.
+   *  - 'jungki_transparent': internal/expert opt-in; use the month branch
+   *    middle hidden stem only when that stem is transparent in a non-day
+   *    heavenly stem, otherwise fall back to monthly_main. */
+  readonly gyeokgukSelectionRule?: 'monthly_main' | 'jungki_transparent';
+
   /** Fortune-cascade boundary precision (PR7).
    *  - 'simple' (default): solar-month approximation. Fast but 절기 boundary
    *    오차가 평균 ±5 일 발생 (12 절기 × 5 일 ≈ 60 일/년 ≈ 16% 정확도 손실).

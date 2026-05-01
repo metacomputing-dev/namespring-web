@@ -143,6 +143,8 @@ export interface GyeokgukResult {
     monthGyeokTenGod: string;
     /** 월지 격 선정 방법 */
     monthGyeokMethod: string;
+    /** Month-gyeok selector policy used to choose monthGyeokTenGod. */
+    monthGyeokSelectionRule: string;
     /** 청탁/파격 품질 지표 */
     monthGyeokQuality?: RuleFacts['month']['gyeok']['quality'];
 
@@ -727,6 +729,7 @@ export function computeGyeokguk(config: EngineConfig, facts: RuleFacts): Gyeokgu
       monthMainTenGod: facts.month.mainTenGod,
       monthGyeokTenGod: facts.month.gyeok.tenGod,
       monthGyeokMethod: facts.month.gyeok.method,
+      monthGyeokSelectionRule: facts.month.gyeok.selectionRule,
       monthGyeokQuality: facts.month.gyeok.quality,
       competition: comp ?? undefined,
     },

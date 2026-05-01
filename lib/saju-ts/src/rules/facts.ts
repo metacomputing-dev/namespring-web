@@ -225,6 +225,7 @@ export interface RuleFacts {
       stem: StemIdx;
       tenGod: TenGod;
       method: 'MAIN_EXPOSED' | 'VISIBLE_HIDDEN' | 'GROUP_SUPPORTED' | 'MAIN_FALLBACK';
+      selectionRule: GyeokgukSelectionRule;
 
       /** Optional “会支” support info (삼합/방합) used when no stem is exposed. */
       support?: { type: 'SAMHAP' | 'BANGHAP'; element: Element; members: BranchIdx[] } | null;
@@ -2118,6 +2119,13 @@ const DEFAULT_GYEOK_QUALITY_POLICY = {
 };
 
 type GyeokQualityMethod = RuleFacts['month']['gyeok']['method'];
+export type GyeokgukSelectionRule = 'legacy_visible_hidden' | 'monthly_main' | 'jungki_transparent';
+
+function readGyeokgukSelectionRule(config: EngineConfig): GyeokgukSelectionRule {
+  const raw = (config.strategies as any)?.gyeokguk?.selectionRule;
+  if (raw === 'monthly_main' || raw === 'jungki_transparent') return raw;
+  return 'legacy_visible_hidden';
+}
 
 function computeMonthGyeokQuality(args: {
   config: EngineConfig;
@@ -3181,12 +3189,27 @@ export function buildRuleFacts(args: {
     .sort((a, b) => b.score - a.score);
 
   const monthMainVisible = stems.includes(monthMain);
+  const selectionRule = readGyeokgukSelectionRule(config);
+  const nonDayTransparentStems = [pillars.year.stem, pillars.month.stem, pillars.hour.stem];
   const bestVisible = monthGyeokCandidates.find((c) => c.visibleInChart);
   const bestGroup = groupEl ? monthGyeokCandidates.find((c) => c.element === groupEl) : null;
+  const transparentMiddle = monthGyeokCandidates.find(
+    (c) => c.role === 'MIDDLE' && nonDayTransparentStems.includes(c.stem),
+  );
 
-  const gyeokStem = monthMainVisible ? monthMain : (bestVisible?.stem ?? bestGroup?.stem ?? monthMain);
+  const gyeokStem =
+    selectionRule === 'jungki_transparent'
+      ? (transparentMiddle?.stem ?? monthMain)
+      : selectionRule === 'monthly_main'
+        ? monthMain
+        : monthMainVisible ? monthMain : (bestVisible?.stem ?? bestGroup?.stem ?? monthMain);
   const gyeokTenGod = tenGodOf(dayStem, gyeokStem);
-  const gyeokMethod = monthMainVisible ? 'MAIN_EXPOSED' : (bestVisible ? 'VISIBLE_HIDDEN' : (bestGroup ? 'GROUP_SUPPORTED' : 'MAIN_FALLBACK'));
+  const gyeokMethod =
+    selectionRule === 'jungki_transparent'
+      ? (transparentMiddle ? 'VISIBLE_HIDDEN' : (monthMainVisible ? 'MAIN_EXPOSED' : 'MAIN_FALLBACK'))
+      : selectionRule === 'monthly_main'
+        ? (monthMainVisible ? 'MAIN_EXPOSED' : 'MAIN_FALLBACK')
+        : monthMainVisible ? 'MAIN_EXPOSED' : (bestVisible ? 'VISIBLE_HIDDEN' : (bestGroup ? 'GROUP_SUPPORTED' : 'MAIN_FALLBACK'));
 
   const { normalized, sum } = normalizeVector(elementDistribution.total);
 
@@ -3272,7 +3295,7 @@ export function buildRuleFacts(args: {
       mainTenGod: monthMainTG,
       hiddenStems: monthHiddenStems,
       mainHiddenStemVisible: monthMainVisible,
-      gyeok: { stem: gyeokStem, tenGod: gyeokTenGod, method: gyeokMethod, support: groupSupport, candidates: monthGyeokCandidates, quality: monthGyeokQuality },
+      gyeok: { stem: gyeokStem, tenGod: gyeokTenGod, method: gyeokMethod, selectionRule, support: groupSupport, candidates: monthGyeokCandidates, quality: monthGyeokQuality },
       saryeong: saryeong
         ? {
             scheme: saryeong.scheme,
