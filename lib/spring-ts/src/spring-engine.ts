@@ -250,13 +250,17 @@ export class SpringEngine {
     return {
       useSchoolPreset: pc?.useSchoolPreset === true,
       schoolPreset: options?.schoolPreset,
-      scoringOverrides: pc ? {
-        balanceMode: pc.balanceMode,
-        yongshinMode: pc.yongshinMode,
-        strengthMode: pc.strengthMode,
-        tenGodMode: pc.tenGodMode,
-        gyeokgukMode: pc.gyeokgukMode,
-      } : undefined,
+      // PR-Q-10 (Phase M-D4): gyeokgukMode default flips
+      // 'jonggyeok_only' → 'chengbai_strict'. Smooth penalty curve replaces
+      // the 0.5-confidence cliff (saju_master chengbai parity). Callers can
+      // opt out via explicit `'jonggyeok_only'` or `'multi_special'`.
+      scoringOverrides: {
+        balanceMode: pc?.balanceMode,
+        yongshinMode: pc?.yongshinMode,
+        strengthMode: pc?.strengthMode,
+        tenGodMode: pc?.tenGodMode,
+        gyeokgukMode: pc?.gyeokgukMode ?? 'chengbai_strict',
+      },
     };
   }
 
