@@ -22,6 +22,7 @@ export type {
   SajuTimePolicyOptions,
   // Output
   SpringResponse,
+  CandidateRejectionSummary,
   SpringCandidate,
   CharDetail,
   // New 3-method API types

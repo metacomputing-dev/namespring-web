@@ -153,11 +153,10 @@ export interface PrecisionConfig {
    *    Every character in this set was hand-picked for naming quality, so
    *    membership itself is a positive signal — this is the production-
    *    safe default and matches all baseline-snapshot fixtures.
-   *  - 'inmyeongyong_full': all 9,389 characters from 대법원 인명용
-   *    한자 list (별표 1·2, 2024-06). Broader but unfiltered for naming
-   *    aesthetics. Activates only when the data fixture is imported in a
-   *    follow-up PR; today this value is declared but the candidate
-   *    generator still reads from the curated DB. */
+   *  - 'inmyeongyong_full': opt into the full legal-Hanja data file for
+   *    recommendation generation. Broader but unfiltered for naming
+   *    aesthetics, so it remains explicit opt-in and uses derived scoring
+   *    metadata until radical/Unihan enrichment lands. */
   readonly hanjaPool?: 'curated' | 'inmyeongyong_full';
 
   /** Pure-hangul element-mapping schema (PR11).
@@ -383,6 +382,19 @@ export interface SpringResponse {
 export interface ResponseMeta {
   readonly version: string;
   readonly timestamp: string;
+  readonly hanjaPool?: PrecisionConfig['hanjaPool'];
+  readonly candidateRejections?: CandidateRejectionSummary[];
+}
+
+export interface CandidateRejectionSummary {
+  readonly reason: string;
+  readonly count: number;
+  readonly examples: Array<{
+    readonly hangul?: string;
+    readonly hanja?: string;
+    readonly legalStatus?: HanjaLegalStatus;
+    readonly detail?: string;
+  }>;
 }
 
 /** A single name candidate with scores and detailed analysis. */

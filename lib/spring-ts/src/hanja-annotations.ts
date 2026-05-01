@@ -18,10 +18,9 @@
  *   naming aesthetics. It must therefore be opt-in via
  *   `precisionConfig.hanjaPool='inmyeongyong_full'`, never the default.
  *
- *   Until the 9,389-character list is imported (separate data PR),
- *   `getLegalAnnotation` reports `legalRegistrable: undefined` for every
- *   entry. Callers default to "accept unknown" so the existing curated
- *   pool keeps flowing through unchanged.
+ *   Full-pool mode is backed by the local 9,495-entry mirror plus the
+ *   reconciliation ledger. The official 9,389 denominator is tracked
+ *   separately so callers can keep the default curated path conservative.
  */
 
 import type { HanjaEntry } from '../../seed-ts/src/database/hanja-repository.js';
@@ -47,9 +46,9 @@ export interface HanjaLegalAnnotation {
   /** Public reconciliation bucket for UI/candidate surfaces.
    *  - allowed: orthodox hanja appears in the active legal pool
    *  - variantAllowed: input is a known variant whose orthodox form is legal
-   *  - hangulOnly: no hanja code point is present
+   *  - hangulOnly: no hanja glyph is present
    *  - unknown: active pool is intentionally non-definitive
-   *  - notAllowed: definitive full-pool miss
+   *  - notAllowed: local full-pool miss
    */
   readonly legalStatus: HanjaLegalStatus;
   /** When this hanja is a 異體字, the canonical 정자 form. Otherwise undefined.
@@ -81,9 +80,11 @@ const REGISTRABLE_HANJA: ReadonlySet<string> = new Set(
   (inmyeongyongData as { registrable: string[] }).registrable ?? [],
 );
 
-/** Set of registrable hanja from the full 9,495-entry list (PR-P-6).
+/** Set of locally recognized hanja glyphs from the full 9,495-entry mirror (PR-P-6).
  *  Sourced from delvier/KoreaSCourtCode webhanja.db — Korean Supreme
  *  Court mirror, 2024-07-16 refresh, post 2024-06-11 expansion.
+ *  The +106 mirror delta remains non-authority until reconciled against
+ *  the official 9,389-character denominator.
  *  Activated by `precisionConfig.hanjaPool: 'inmyeongyong_full'`. */
 interface FullEntry {
   readonly hanja: string;
@@ -116,9 +117,9 @@ function hasHanIdeograph(hanja: string): boolean {
  *
  *  - `pool='curated'` (default): 50-char seed; gives `undefined` for
  *    most input — matches existing baseline-snapshot fixtures.
- *  - `pool='inmyeongyong_full'`: full 9,495 list — set
- *    `legalRegistrable: false` only when explicitly absent from the full
- *    list, enabling stricter downstream filtering.
+ *  - `pool='inmyeongyong_full'`: local full 9,495 mirror — set
+ *    `legalRegistrable: false` only when explicitly absent from the local
+ *    full list, enabling stricter downstream filtering.
  *
  *  The 異體字 isVariantOf field is populated separately by PR-I-5
  *  (별표 2 variants). */
@@ -127,7 +128,7 @@ export function getLegalAnnotation(
   options?: { readonly pool?: HanjaPool },
 ): HanjaLegalAnnotation {
   const hanja = entry?.hanja;
-  if (typeof hanja !== 'string' || isBlankHanja(hanja) || !hasHanIdeograph(hanja)) {
+  if (typeof hanja !== 'string' || isBlankHanja(hanja)) {
     return { legalRegistrable: undefined, legalStatus: 'hangulOnly', isVariantOf: undefined };
   }
   // Normalize to 정자 first — variant inputs share registrability with
@@ -135,12 +136,18 @@ export function getLegalAnnotation(
   const orthodox = normalizeToOrthodoxHanja(hanja);
   const isVariant = orthodox !== hanja;
   const pool = options?.pool ?? 'curated';
+  const appearsInLocalFullPool = FULL_REGISTRABLE_HANJA.has(orthodox);
+  if (!hasHanIdeograph(hanja) && !appearsInLocalFullPool) {
+    return pool === 'inmyeongyong_full'
+      ? { legalRegistrable: false, legalStatus: 'notAllowed', isVariantOf: isVariant ? orthodox : undefined }
+      : { legalRegistrable: undefined, legalStatus: 'hangulOnly', isVariantOf: undefined };
+  }
   let legalRegistrable: boolean | undefined;
   let legalStatus: HanjaLegalStatus;
   if (pool === 'inmyeongyong_full') {
-    // Full pool: definitive yes/no, never unknown — every non-list hanja
-    // is explicitly NOT registrable.
-    legalRegistrable = FULL_REGISTRABLE_HANJA.has(orthodox);
+    // Full pool: local mirror yes/no, never unknown — every non-list hanja
+    // is explicitly rejected by this opt-in filter.
+    legalRegistrable = appearsInLocalFullPool;
     legalStatus = legalRegistrable
       ? isVariant ? 'variantAllowed' : 'allowed'
       : 'notAllowed';

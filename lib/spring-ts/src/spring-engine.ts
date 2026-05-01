@@ -25,7 +25,7 @@ import { FrameCalculator } from './calculator/frame-calculator.js';
 import { evaluateName, type EvalContext, type EvaluationResult } from './core/evaluator.js';
 import { type ElementKey, bucketFromFortune } from './core/scoring.js';
 import { FourFrameOptimizer } from './calculator/search.js';
-import { makeFallbackEntry, buildInterpretation, parseJamoFilter, type JamoFilter } from './core/name-utils.js';
+import { makeFallbackEntry, buildInterpretation, parseJamoFilter, decomposeHangul, type JamoFilter } from './core/name-utils.js';
 import type { SajuOutputSummary } from './types.js';
 import { SajuCalculator } from './saju-calculator.js';
 import type { SajuEvaluatorHints } from './saju-calculator.js';
@@ -40,7 +40,8 @@ import type {
 import engineConfig from '../config/engine.json';
 import { buildFortuneReport } from './report/buildFortuneReport.js';
 import type { FortuneReportRequest, FortuneReport } from './report/types.js';
-import { getLegalAnnotation, type HanjaPool } from './hanja-annotations.js';
+import { getLegalAnnotation, type HanjaLegalStatus, type HanjaPool } from './hanja-annotations.js';
+import inmyeongyongFullData from '../data/inmyeongyong_9389_full.json';
 
 // ---------------------------------------------------------------------------
 // Config -- all tuneable numbers come from engine.json
@@ -63,6 +64,7 @@ const DEFAULT_PURE_HANGUL_MODE: 'auto' | 'on' | 'off' = 'auto';
 const DEFAULT_USE_SURNAME_HANJA_IN_PURE = false;
 const ENABLE_HANJA_NAME_EVALUATION = true;
 const ENABLE_FOURFRAME_NAME_EVALUATION = true;
+const FULL_POOL_ID_BASE = 900_000;
 
 // ---------------------------------------------------------------------------
 // Helpers
@@ -82,6 +84,88 @@ function toCharDetail(entry: HanjaEntry, pool: HanjaPool = 'curated'): CharDetai
     legalRegistrable: legal.legalRegistrable,
     isVariantOf: legal.isVariantOf,
   };
+}
+
+interface FullPoolDataEntry {
+  readonly hanja: string;
+  readonly readings: readonly string[];
+  readonly meaning: string | null;
+  readonly strokeCount: number | null;
+}
+
+interface CandidateRejectionBucket {
+  readonly reason: string;
+  count: number;
+  examples: Array<{
+    readonly hangul?: string;
+    readonly hanja?: string;
+    readonly legalStatus?: HanjaLegalStatus;
+    readonly detail?: string;
+  }>;
+}
+
+function isSingleGlyph(value: string): boolean {
+  return Array.from(value.trim()).length === 1;
+}
+
+function isSingleHangulSyllable(value: string): boolean {
+  return /^[\uAC00-\uD7A3]$/.test(value);
+}
+
+function elementFromStrokeCount(strokes: number): ElementKey {
+  const digit = ((strokes % 10) + 10) % 10;
+  if (digit === 1 || digit === 2) return 'Wood';
+  if (digit === 3 || digit === 4) return 'Fire';
+  if (digit === 5 || digit === 6) return 'Earth';
+  if (digit === 7 || digit === 8) return 'Metal';
+  return 'Water';
+}
+
+let fullLegalPoolCache: readonly HanjaEntry[] | null = null;
+
+function getFullLegalPoolEntries(): readonly HanjaEntry[] {
+  if (fullLegalPoolCache) return fullLegalPoolCache;
+
+  const entries = ((inmyeongyongFullData as { entries: readonly FullPoolDataEntry[] }).entries ?? []);
+  const out: HanjaEntry[] = [];
+  const seen = new Set<string>();
+
+  for (const item of entries) {
+    const strokes = Number(item.strokeCount);
+    if (!Number.isInteger(strokes) || strokes < STROKE_MIN || strokes > STROKE_MAX) continue;
+    if (typeof item.hanja !== 'string' || !isSingleGlyph(item.hanja)) continue;
+
+    for (const rawReading of item.readings ?? []) {
+      const hangul = String(rawReading ?? '').trim();
+      if (!isSingleHangulSyllable(hangul)) continue;
+      const decomposed = decomposeHangul(hangul);
+      if (!decomposed) continue;
+      const key = `${hangul}\u0000${item.hanja}`;
+      if (seen.has(key)) continue;
+      seen.add(key);
+
+      // The local full pool does not carry radical/resource 오행 metadata.
+      // Use a stroke-derived element so opt-in candidates remain scoreable;
+      // PR-2.3 enriches this with Unihan/radical metadata.
+      const element = elementFromStrokeCount(strokes);
+      out.push({
+        id: FULL_POOL_ID_BASE + out.length,
+        hangul,
+        hanja: item.hanja,
+        onset: decomposed.onset,
+        nucleus: decomposed.nucleus,
+        strokes,
+        stroke_element: element,
+        resource_element: element,
+        meaning: item.meaning ?? '',
+        radical: '',
+        is_surname: false,
+      });
+    }
+  }
+
+  fullLegalPoolCache = out;
+  return fullLegalPoolCache;
 }
 
 /** Round a score to one decimal place. */
@@ -116,6 +200,7 @@ interface NameResolutionPolicy {
 interface ResolveEntriesOptions {
   readonly forceHangulOnly?: boolean;
   readonly isSurname?: boolean;
+  readonly hanjaPool?: HanjaPool;
 }
 
 // ---------------------------------------------------------------------------
@@ -132,6 +217,7 @@ export class SpringEngine {
   private validFourFrameNumbers = new Set<number>();
   private optimizer: FourFrameOptimizer | null = null;
   private readonly nameStatInfoCache = new Map<string, NameStatInfo>();
+  private readonly candidateRejections = new Map<string, CandidateRejectionBucket>();
 
   /** Expose the hanja repository so the UI can perform hanja lookups. */
   getHanjaRepository(): HanjaRepository { return this.hanjaRepo; }
@@ -199,6 +285,42 @@ export class SpringEngine {
     return options?.precisionConfig?.hanjaPool === 'inmyeongyong_full'
       ? 'inmyeongyong_full'
       : 'curated';
+  }
+
+  private resetCandidateRejections(): void {
+    this.candidateRejections.clear();
+  }
+
+  private recordCandidateRejection(
+    reason: string,
+    entry: Partial<NameCharInput>,
+    detail?: string,
+  ): void {
+    const bucket = this.candidateRejections.get(reason) ?? {
+      reason,
+      count: 0,
+      examples: [],
+    };
+    bucket.count += 1;
+    if (bucket.examples.length < 5) {
+      bucket.examples.push({
+        hangul: entry.hangul,
+        hanja: entry.hanja,
+        legalStatus: entry.legalStatus,
+        detail,
+      });
+    }
+    this.candidateRejections.set(reason, bucket);
+  }
+
+  private candidateRejectionSummary(): CandidateRejectionBucket[] {
+    return Array.from(this.candidateRejections.values())
+      .map((bucket) => ({
+        reason: bucket.reason,
+        count: bucket.count,
+        examples: bucket.examples,
+      }))
+      .sort((a, b) => a.reason.localeCompare(b.reason));
   }
 
   /** PR-Q-24 K-4 + K-5 full wire — resolve hangul signal cap.
@@ -357,13 +479,16 @@ export class SpringEngine {
       request.givenName,
       request.options,
     );
+    const hanjaPool = this.resolveHanjaPool(request.options);
     const surnameEntries = await this.resolveEntries(request.surname, {
       forceHangulOnly: resolutionPolicy.pureHangulGivenName
         && !resolutionPolicy.useSurnameHanjaInPureHangul,
       isSurname: true,
+      hanjaPool,
     });
     const givenNameEntries = await this.resolveEntries(request.givenName!, {
       forceHangulOnly: resolutionPolicy.pureHangulGivenName,
+      hanjaPool,
     });
 
     const hangul = new HangulCalculator(surnameEntries, givenNameEntries, this.resolveHangulSignalCap(request.options), this.resolveHangulPolarityModel(request.options));
@@ -421,13 +546,16 @@ export class SpringEngine {
       request.givenName,
       request.options,
     );
+    const hanjaPool = this.resolveHanjaPool(request.options);
     const surnameEntries = await this.resolveEntries(request.surname, {
       forceHangulOnly: resolutionPolicy.pureHangulGivenName
         && !resolutionPolicy.useSurnameHanjaInPureHangul,
       isSurname: true,
+      hanjaPool,
     });
     const givenNameEntries = await this.resolveEntries(request.givenName, {
       forceHangulOnly: resolutionPolicy.pureHangulGivenName,
+      hanjaPool,
     });
 
     const hangul = new HangulCalculator(surnameEntries, givenNameEntries, this.resolveHangulSignalCap(request.options), this.resolveHangulPolarityModel(request.options));
@@ -559,9 +687,11 @@ export class SpringEngine {
         forceHangulOnly: resolutionPolicy.pureHangulGivenName
           && !resolutionPolicy.useSurnameHanjaInPureHangul,
         isSurname: true,
+        hanjaPool: this.resolveHanjaPool(request.options),
       });
       const givenNameEntries = await this.resolveEntries(givenNameInput, {
         forceHangulOnly: resolutionPolicy.pureHangulGivenName,
+        hanjaPool: this.resolveHanjaPool(request.options),
       });
 
       const hangul = new HangulCalculator(surnameEntries, givenNameEntries, this.resolveHangulSignalCap(request.options), this.resolveHangulPolarityModel(request.options));
@@ -686,6 +816,7 @@ export class SpringEngine {
 
   async analyze(request: SpringRequest): Promise<SpringResponse> {
     await this.init();
+    this.resetCandidateRejections();
 
     // 1. Determine the operating mode
     const jamoFilters = request.givenName?.map(
@@ -1008,7 +1139,12 @@ export class SpringEngine {
       saju: sajuSummary,
       candidates: page,
       totalCount: scoredCandidates.length,
-      meta: { version: ENGINE_VERSION, timestamp: new Date().toISOString() },
+      meta: {
+        version: ENGINE_VERSION,
+        timestamp: new Date().toISOString(),
+        hanjaPool: this.resolveHanjaPool(request.options),
+        candidateRejections: this.candidateRejectionSummary(),
+      },
     };
   }
 
@@ -1025,13 +1161,16 @@ export class SpringEngine {
     evaluatorHints?: SajuEvaluatorHints,
   ): Promise<SpringCandidate> {
     const resolutionPolicy = this.resolveNameResolutionPolicy(givenName, requestOptions);
+    const hanjaPool = this.resolveHanjaPool(requestOptions);
     const surnameEntries = await this.resolveEntries(surname, {
       forceHangulOnly: resolutionPolicy.pureHangulGivenName
         && !resolutionPolicy.useSurnameHanjaInPureHangul,
       isSurname: true,
+      hanjaPool,
     });
     const givenNameEntries = await this.resolveEntries(givenName, {
       forceHangulOnly: resolutionPolicy.pureHangulGivenName,
+      hanjaPool,
     });
 
     // Build one calculator per scoring category
@@ -1086,8 +1225,8 @@ export class SpringEngine {
 
     return {
       name: {
-        surname:    surnameEntries.map(entry => toCharDetail(entry, this.resolveHanjaPool(requestOptions))),
-        givenName:  givenNameEntries.map(entry => toCharDetail(entry, this.resolveHanjaPool(requestOptions))),
+        surname:    surnameEntries.map(entry => toCharDetail(entry, hanjaPool)),
+        givenName:  givenNameEntries.map(entry => toCharDetail(entry, hanjaPool)),
         fullHangul,
         fullHanja,
       },
@@ -1125,7 +1264,8 @@ export class SpringEngine {
     sajuSummary: SajuSummary,
     jamoFilters?: (JamoFilter | null)[],
   ): Promise<NameCharInput[][]> {
-    const surnameEntries = await this.resolveEntries(request.surname, { isSurname: true });
+    const hanjaPool      = this.resolveHanjaPool(request.options);
+    const surnameEntries = await this.resolveEntries(request.surname, { isSurname: true, hanjaPool });
     const nameLength     = request.givenNameLength ?? jamoFilters?.length ?? 2;
     const hasJamoFilter  = jamoFilters?.some(filter => filter !== null) ?? false;
 
@@ -1145,15 +1285,39 @@ export class SpringEngine {
     // Build per-position character pools
     const pools = await this.buildPositionPools(
       request, nameLength, jamoFilters, hasJamoFilter,
-      surnameEntries, targetElements, avoidElements,
+      surnameEntries, targetElements, avoidElements, hanjaPool,
     );
 
     // Choose the generation strategy
     const useStrokeStrategy = !hasJamoFilter && nameLength <= 2;
 
-    return useStrokeStrategy
-      ? this.generateViaStrokeOptimizer(surnameEntries, pools, nameLength)
-      : this.generateViaDepthFirstSearch(pools, nameLength);
+    const generated = useStrokeStrategy
+      ? this.generateViaStrokeOptimizer(surnameEntries, pools, nameLength, hanjaPool)
+      : this.generateViaDepthFirstSearch(pools, nameLength, hanjaPool);
+    return this.filterGeneratedCandidatesByLegalStatus(generated, hanjaPool);
+  }
+
+  private filterGeneratedCandidatesByLegalStatus(
+    candidates: NameCharInput[][],
+    hanjaPool: HanjaPool,
+  ): NameCharInput[][] {
+    if (hanjaPool !== 'inmyeongyong_full') return candidates;
+
+    const filtered: NameCharInput[][] = [];
+    for (const candidate of candidates) {
+      const rejected = candidate.find((char) =>
+        char.legalStatus !== 'allowed' && char.legalStatus !== 'variantAllowed');
+      if (rejected) {
+        this.recordCandidateRejection(
+          'outside_legal_hanja_pool',
+          rejected,
+          'Candidate removed before scoring because its Hanja is outside the active legal pool.',
+        );
+        continue;
+      }
+      filtered.push(candidate);
+    }
+    return filtered;
   }
 
   // -------------------------------------------------------------------------
@@ -1168,6 +1332,7 @@ export class SpringEngine {
     surnameEntries: HanjaEntry[],
     pools: Map<number, HanjaEntry[]>,
     nameLength: number,
+    hanjaPool: HanjaPool,
   ): NameCharInput[][] {
     const surnameStrokes = surnameEntries.map(entry => entry.strokes);
     const validStrokeCombinations = this.optimizer!.getValidCombinations(surnameStrokes, nameLength);
@@ -1179,9 +1344,9 @@ export class SpringEngine {
       const strokeCounts = strokeKey.split(',').map(Number);
 
       if (nameLength === 1) {
-        this.appendSingleCharCandidates(results, pools, strokeCounts[0]);
+        this.appendSingleCharCandidates(results, pools, strokeCounts[0], hanjaPool);
       } else {
-        this.appendDoubleCharCandidates(results, pools, strokeCounts);
+        this.appendDoubleCharCandidates(results, pools, strokeCounts, hanjaPool);
       }
     }
 
@@ -1193,11 +1358,12 @@ export class SpringEngine {
     results: NameCharInput[][],
     pools: Map<number, HanjaEntry[]>,
     strokeCount: number,
+    hanjaPool: HanjaPool,
   ): void {
     const candidates = (pools.get(strokeCount) ?? []).slice(0, POOL_LIMIT_SINGLE_CHAR);
 
     for (const candidate of candidates) {
-      results.push([toNameCharInput(candidate)]);
+      results.push([toNameCharInput(candidate, hanjaPool)]);
       if (results.length >= MAX_CANDIDATES) break;
     }
   }
@@ -1207,6 +1373,7 @@ export class SpringEngine {
     results: NameCharInput[][],
     pools: Map<number, HanjaEntry[]>,
     strokeCounts: number[],
+    hanjaPool: HanjaPool,
   ): void {
     const firstPositionCandidates  = (pools.get(strokeCounts[0]) ?? []).slice(0, POOL_LIMIT_DOUBLE_CHAR);
     const secondPositionCandidates = (pools.get(strokeCounts[1]) ?? []).slice(0, POOL_LIMIT_DOUBLE_CHAR);
@@ -1214,7 +1381,10 @@ export class SpringEngine {
     for (const firstChar of firstPositionCandidates) {
       for (const secondChar of secondPositionCandidates) {
         if (firstChar.hanja === secondChar.hanja) continue; // skip identical hanja
-        results.push([toNameCharInput(firstChar), toNameCharInput(secondChar)]);
+        results.push([
+          toNameCharInput(firstChar, hanjaPool),
+          toNameCharInput(secondChar, hanjaPool),
+        ]);
         if (results.length >= MAX_CANDIDATES) return;
       }
       if (results.length >= MAX_CANDIDATES) return;
@@ -1231,6 +1401,7 @@ export class SpringEngine {
   private generateViaDepthFirstSearch(
     pools: Map<number, HanjaEntry[]>,
     nameLength: number,
+    hanjaPool: HanjaPool,
   ): NameCharInput[][] {
     const positionPools = Array.from(
       { length: nameLength },
@@ -1242,7 +1413,7 @@ export class SpringEngine {
       if (results.length >= MAX_CANDIDATES) return;
 
       if (depth >= nameLength) {
-        results.push(current.map(entry => toNameCharInput(entry)));
+        results.push(current.map(entry => toNameCharInput(entry, hanjaPool)));
         return;
       }
 
@@ -1273,12 +1444,25 @@ export class SpringEngine {
     surnameEntries: HanjaEntry[],
     targetElements: Set<string>,
     avoidElements: Set<string>,
+    hanjaPool: HanjaPool,
   ): Promise<Map<number, HanjaEntry[]>> {
     const useStrokeMode = !hasJamoFilter && nameLength <= 2;
 
     return useStrokeMode
-      ? this.buildStrokeBasedPools(surnameEntries, nameLength, targetElements, avoidElements)
-      : this.buildJamoBasedPools(request, nameLength, jamoFilters, targetElements, avoidElements);
+      ? this.buildStrokeBasedPools(surnameEntries, nameLength, targetElements, avoidElements, hanjaPool)
+      : this.buildJamoBasedPools(request, nameLength, jamoFilters, targetElements, avoidElements, hanjaPool);
+  }
+
+  private async findGenerationPoolByStrokeRange(
+    min: number,
+    max: number,
+    hanjaPool: HanjaPool,
+  ): Promise<HanjaEntry[]> {
+    if (hanjaPool === 'curated') {
+      return this.hanjaRepo.findByStrokeRange(min, max);
+    }
+    return getFullLegalPoolEntries()
+      .filter((entry) => entry.strokes >= min && entry.strokes <= max);
   }
 
   // -------------------------------------------------------------------------
@@ -1295,6 +1479,7 @@ export class SpringEngine {
     nameLength: number,
     targetElements: Set<string>,
     avoidElements: Set<string>,
+    hanjaPool: HanjaPool,
   ): Promise<Map<number, HanjaEntry[]>> {
     const surnameStrokes = surnameEntries.map(entry => entry.strokes);
     const validCombinations = this.optimizer!.getValidCombinations(surnameStrokes, nameLength);
@@ -1308,18 +1493,21 @@ export class SpringEngine {
     }
 
     // Fetch hanja in bulk for the needed stroke range
-    const allHanja = await this.hanjaRepo.findByStrokeRange(
+    const allHanja = await this.findGenerationPoolByStrokeRange(
       Math.min(...neededStrokes),
       Math.max(...neededStrokes),
+      hanjaPool,
     );
 
-    // Group into pools, filtering out surnames and avoided elements
+    // Group into pools. Full-pool resource elements are stroke-derived until
+    // PR-2.3, so only curated entries use resource 오행 for pre-score exclusion.
     const pools = new Map<number, HanjaEntry[]>();
+    const canFilterAvoidedResourceElement = hanjaPool === 'curated';
 
     for (const hanjaEntry of allHanja) {
       if (hanjaEntry.is_surname) continue;
       if (!neededStrokes.has(hanjaEntry.strokes)) continue;
-      if (avoidElements.has(hanjaEntry.resource_element)) continue;
+      if (canFilterAvoidedResourceElement && avoidElements.has(hanjaEntry.resource_element)) continue;
 
       let bucket = pools.get(hanjaEntry.strokes);
       if (!bucket) {
@@ -1355,10 +1543,16 @@ export class SpringEngine {
     jamoFilters: (JamoFilter | null)[] | undefined,
     targetElements: Set<string>,
     avoidElements: Set<string>,
+    hanjaPool: HanjaPool,
   ): Promise<Map<number, HanjaEntry[]>> {
-    // Pre-load the full hanja pool (excluding surnames and avoided elements)
-    const fullPool = (await this.hanjaRepo.findByStrokeRange(STROKE_MIN, STROKE_MAX))
-      .filter(entry => !entry.is_surname && !avoidElements.has(entry.resource_element));
+    // Pre-load the full hanja pool. Full-pool resource elements are
+    // stroke-derived until PR-2.3, so only curated entries use resource 오행
+    // for pre-score exclusion.
+    const canFilterAvoidedResourceElement = hanjaPool === 'curated';
+    const fullPool = (await this.findGenerationPoolByStrokeRange(STROKE_MIN, STROKE_MAX, hanjaPool))
+      .filter(entry =>
+        !entry.is_surname
+        && (!canFilterAvoidedResourceElement || !avoidElements.has(entry.resource_element)));
 
     const pools = new Map<number, HanjaEntry[]>();
 
@@ -1368,7 +1562,7 @@ export class SpringEngine {
 
       // Case A: no jamo filter at this position and user supplied a character
       if (jamoFilter === null && givenNameChar) {
-        pools.set(position, await this.resolveFixedCharPool(givenNameChar));
+        pools.set(position, await this.resolveFixedCharPool(givenNameChar, hanjaPool));
         continue;
       }
 
@@ -1389,15 +1583,23 @@ export class SpringEngine {
   }
 
   /** Resolve a single user-specified character into a 1-element pool. */
-  private async resolveFixedCharPool(givenNameChar: NameCharInput): Promise<HanjaEntry[]> {
+  private async resolveFixedCharPool(givenNameChar: NameCharInput, hanjaPool: HanjaPool): Promise<HanjaEntry[]> {
     if (givenNameChar.hanja) {
       const entry = await this.hanjaRepo.findByHanja(givenNameChar.hanja);
-      return entry
-        ? [entry]
-        : [makeFallbackEntry(givenNameChar.hangul, { hanja: givenNameChar.hanja })];
+      if (entry) return [entry];
+      if (hanjaPool === 'inmyeongyong_full') {
+        const fullMatches = getFullLegalPoolEntries()
+          .filter((candidate) => candidate.hanja === givenNameChar.hanja)
+          .sort((a, b) =>
+            Number(b.hangul === givenNameChar.hangul) - Number(a.hangul === givenNameChar.hangul));
+        if (fullMatches.length) return [fullMatches[0]];
+      }
+      return [makeFallbackEntry(givenNameChar.hangul, { hanja: givenNameChar.hanja })];
     }
 
-    const entries = await this.hanjaRepo.findByHangul(givenNameChar.hangul);
+    const entries = hanjaPool === 'inmyeongyong_full'
+      ? getFullLegalPoolEntries().filter((entry) => entry.hangul === givenNameChar.hangul)
+      : await this.hanjaRepo.findByHangul(givenNameChar.hangul);
     return entries.length
       ? entries.slice(0, POOL_LIMIT_SINGLE_CHAR)
       : [makeFallbackEntry(givenNameChar.hangul, { hanja: '' })];
@@ -1413,6 +1615,7 @@ export class SpringEngine {
   ): Promise<HanjaEntry[]> {
     const forceHangulOnly = options.forceHangulOnly ?? false;
     const isSurname = options.isSurname ?? false;
+    const hanjaPool = options.hanjaPool ?? 'curated';
 
     return Promise.all(chars.map(async (char) => {
       const hasHanjaField = Object.prototype.hasOwnProperty.call(char, 'hanja');
@@ -1428,8 +1631,19 @@ export class SpringEngine {
       if (normalizedHanja.length > 0) {
         const entry = await this.hanjaRepo.findByHanja(normalizedHanja);
         if (entry) return entry;
+        if (hanjaPool === 'inmyeongyong_full') {
+          const fullMatches = getFullLegalPoolEntries()
+            .filter((candidate) => candidate.hanja === normalizedHanja)
+            .sort((a, b) =>
+              Number(b.hangul === char.hangul) - Number(a.hangul === char.hangul));
+          if (fullMatches.length) return { ...fullMatches[0], is_surname: isSurname };
+        }
       }
-      const byHangul = await this.hanjaRepo.findByHangul(char.hangul);
+      const byHangul = hanjaPool === 'inmyeongyong_full'
+        ? getFullLegalPoolEntries()
+          .filter((entry) => entry.hangul === char.hangul)
+          .map((entry) => ({ ...entry, is_surname: isSurname }))
+        : await this.hanjaRepo.findByHangul(char.hangul);
       return byHangul[0] ?? makeFallbackEntry(char.hangul, {
         hanja: normalizedHanja,
         isSurname,
