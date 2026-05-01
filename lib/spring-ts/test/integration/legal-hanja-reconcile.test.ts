@@ -57,10 +57,13 @@ const full = readJson('data/inmyeongyong_9389_full.json');
 const variants = readJson('data/byeolpyo2_variants.json');
 const sources = readJson('data/sources/legal-hanja.sources.json');
 const reconciliation = readJson('data/legal-hanja-reconciliation.json');
+const unihanMetadata = readJson('data/unihan-hanja-metadata.json');
 
-const fullEntries: Array<{ hanja: string; codepoint: string; readings: string[]; meaning: string | null; radicalId: number | null }> = full.entries;
+const fullEntries: Array<{ hanja: string; codepoint: string; readings: string[]; meaning: string | null; radicalId: number | null; strokeCount: number | null }> = full.entries;
 const fullSet = new Set(fullEntries.map((e) => e.hanja));
 const variantToOrthodox: Record<string, string> = variants.variantToOrthodox;
+const unihanEntries: any[] = unihanMetadata.entries ?? [];
+const unihanByHanja = new Map(unihanEntries.map((item: any) => [item.hanja, item]));
 
 check('full data count matches metadata',
   fullEntries.length === full.totalCount && full.totalCount === 9495,
@@ -107,6 +110,30 @@ check('candidate mirror status counts cover every local entry',
 check('official reconciliation status counts cover the mirror denominator',
   Object.values(reconciliation.officialReconciliationStatusCounts)
     .reduce((sum: number, count: any) => sum + Number(count), 0) === fullEntries.length);
+const unihanVariantLinkCount = unihanEntries
+  .reduce((sum, item) => sum + Object.values(item.variants ?? {})
+    .reduce((innerSum: number, links: any) => innerSum + (Array.isArray(links) ? links.length : 0), 0), 0);
+const unihanRadicalHintCount = unihanEntries
+  .filter((item) => item.radicalElementHint?.sourceTier === 'T3_AUTHORED_INTERPRETATION').length;
+const zeroStrokeResolvedByUnihan = fullEntries
+  .filter((item) => {
+    const localStroke = Number(item.strokeCount);
+    const unihanTotal = Number(unihanByHanja.get(item.hanja)?.totalStrokes);
+    return (!Number.isFinite(localStroke) || localStroke <= 0) && Number.isInteger(unihanTotal) && unihanTotal > 0;
+  }).length;
+check('Unihan enrichment coverage is reproducible',
+  reconciliation.unihanEnrichment?.entriesWithUnihanMetadata === unihanEntries.length &&
+    reconciliation.unihanEnrichment?.localRowsWithoutUnihan === fullEntries.length - unihanEntries.length &&
+    reconciliation.unihanEnrichment?.zeroStrokeResolvedByUnihan === zeroStrokeResolvedByUnihan &&
+    reconciliation.unihanEnrichment?.radicalHintCount === unihanRadicalHintCount &&
+    reconciliation.unihanEnrichment?.variantLinkCount === unihanVariantLinkCount,
+  JSON.stringify({
+    entriesWithUnihanMetadata: unihanEntries.length,
+    localRowsWithoutUnihan: fullEntries.length - unihanEntries.length,
+    zeroStrokeResolvedByUnihan,
+    radicalHintCount: unihanRadicalHintCount,
+    variantLinkCount: unihanVariantLinkCount,
+  }));
 
 const sourceRecords = [sources.sourceTier, ...sources.sources.map((s: any) => s.sourceTier)];
 check('legal source registry includes T5 official source records',
