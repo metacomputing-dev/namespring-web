@@ -193,6 +193,39 @@ check(`schoolPreset='chinese' + 'auto' schema applies cap (different from baseli
   (reportAuto?.totalScore ?? 0) !== (reportFull?.totalScore ?? 0),
   `auto=${reportAuto?.totalScore} vs baseline=${reportFull?.totalScore}`);
 
+// (8) PR-Q-25 K-6 full wire — polarity ternary affects names with ㅡ/ㅣ vowels
+//     이름 '지수' (ㅣ + ㅜ) — ternary mode 에서 ㅣ neutral 처리되어 polarity 약화
+console.log('\nK-6 full wire — polarity ternary effect:');
+const tenaryReq = {
+  birth: { year: 1986, month: 4, day: 19, hour: 5, minute: 45, gender: 'male' as const },
+  surname: [{ hangul: '최', hanja: '崔' }],
+  givenName: [{ hangul: '지', hanja: '智' }, { hangul: '수', hanja: '秀' }],
+};
+const reportBinary: any = await engine.getNamingReport(tenaryReq);
+const reportTernary: any = await engine.getNamingReport({
+  ...tenaryReq,
+  options: { precisionConfig: { pureHangulPolarityModel: 'ternary' } } as any,
+});
+console.log(`  binary  totalScore=${reportBinary?.totalScore}`);
+console.log(`  ternary totalScore=${reportTernary?.totalScore}`);
+const polarityChanged = (reportBinary?.totalScore ?? 0) !== (reportTernary?.totalScore ?? 0);
+check(`K-6 ternary changes totalScore on name with ㅣ/ㅡ vowel (wire active)`,
+  polarityChanged,
+  `delta=${((reportBinary?.totalScore ?? 0) - (reportTernary?.totalScore ?? 0)).toFixed(3)}`);
+
+// (9) modern schoolPreset + 'auto' schema → ternary auto-resolution
+const reportModernAuto: any = await engine.getNamingReport({
+  ...tenaryReq,
+  options: {
+    schoolPreset: 'modern',
+    precisionConfig: { pureHangulSchema: 'auto' },
+  } as any,
+});
+console.log(`  schoolPreset='modern' + auto totalScore=${reportModernAuto?.totalScore}`);
+check(`schoolPreset='modern' + 'auto' schema applies ternary (different from binary)`,
+  (reportModernAuto?.totalScore ?? 0) !== (reportBinary?.totalScore ?? 0),
+  `modern auto=${reportModernAuto?.totalScore} vs binary=${reportBinary?.totalScore}`);
+
 engine.close();
 
 console.log(`\nPureHangulSchema fixture: ${pass} PASS / ${fail} FAIL`);
