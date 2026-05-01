@@ -1200,6 +1200,20 @@ export async function analyzeSaju(birth: BirthInfo, options?: SpringRequest['opt
         },
       };
     }
+    // PR-4.2 — opt-in month-gyeok selector mode. Default unset preserves the
+    // existing saju-ts selector. jungki_transparent is reserved for
+    // expert/internal comparative runs that intentionally use middle-qi
+    // transparency.
+    const gyeokgukSelectionRule = (options?.precisionConfig as any)?.gyeokgukSelectionRule;
+    if (gyeokgukSelectionRule === 'monthly_main' || gyeokgukSelectionRule === 'jungki_transparent') {
+      config.strategies = {
+        ...(config.strategies ?? {}),
+        gyeokguk: {
+          ...(config.strategies?.gyeokguk ?? {}),
+          selectionRule: gyeokgukSelectionRule,
+        },
+      };
+    }
     if (options?.sajuConfig) config = { ...config, ...options.sajuConfig };
     const finalConfig = Object.keys(config).length > 0 ? config : undefined;
 
