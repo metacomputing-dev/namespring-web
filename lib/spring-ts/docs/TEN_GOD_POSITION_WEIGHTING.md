@@ -18,10 +18,11 @@ This means the branch is wired but currently null-effect at the candidate score
 surface.
 
 PR-5.2 separately records v1/v2 comparison rows in
-`metrics/rpi-summary.json.tenGodPositionWeighting.baselineComparison`. Current
-baseline fixtures remain unchanged (`0 / 15` v1/v2 divergence), while synthetic
-fixtures prove the v2 formula can preserve source-layer and pillar-position
-differences.
+`metrics/rpi-summary.json.tenGodPositionWeighting.baselineComparison`. PR-5.3
+also lets the v2 opt-in path consume canonical `YEAR/MONTH/DAY/HOUR`
+ten-god positions, so current artifacts record `10 / 15` default-fixture v1/v2
+divergence and `5 / 9` jonggyeok-fixture v1/v2 divergence. The public default
+still does not change.
 
 ## Why It Cancels
 
@@ -108,9 +109,12 @@ element-weight blend.
 
 ## Next PR Target
 
-PR-5.3 should surface the ten-god position evidence in the report layer so the
-user can see whether the score is driven by month/hour, heavenly-stem,
-principal-branch, or hidden-stem evidence.
+PR-5.3 surfaces the ten-god position evidence in the report layer through
+`SpringReport.sajuCompatibility.tenGodPositionEvidence` and
+`NameCompatibilityCard.tenGodPositionEvidence`. The card also adds an
+`evidence` row with `axis='tenGodPosition'`, so consumers can show whether the
+score is driven by month/hour, heavenly-stem, principal-branch, or hidden-stem
+evidence.
 
 Run the full PR-5.1 check:
 
