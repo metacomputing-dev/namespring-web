@@ -1,0 +1,495 @@
+{
+  "_meta": {
+    "schemaVersion": "spring-ts.kasi-solar-terms-fixture.v1",
+    "source": "KASI calendarData 24절기 table",
+    "sourceUrl": "https://astro.kasi.re.kr/life/post/calendarData?year=2026",
+    "fetchUrl": "https://astro.kasi.re.kr/almanacContent",
+    "fetchedAt": "2026-05-01T00:00:00Z",
+    "accessedAt": "2026-05-01",
+    "timezone": "Asia/Seoul (KST = UTC+9)",
+    "year": 2026,
+    "totalTerms": 24,
+    "jieTerms": 12,
+    "zhongTerms": 12,
+    "resolution": "minute",
+    "allowedEngineErrorMinutes": 10,
+    "aspirationalErrorMinutes": 2,
+    "allowedSpringApproxDayErrorDays": 1,
+    "calendarDataNotice": "KASI calendarData carries a non-official-data notice; official 월력요항 publication should supersede this minute fixture when available.",
+    "dataGoKrCrossCheck": {
+      "status": "SKIPPED_NO_SERVICE_KEY",
+      "env": [
+        "KASI_DATA_GO_KR_SERVICE_KEY",
+        "DATA_GO_KR_SERVICE_KEY"
+      ]
+    },
+    "sourceTier": {
+      "tier": "T5_OFFICIAL",
+      "sourceType": "official_kasi_calendar_data_preview",
+      "sourceUrl": "https://astro.kasi.re.kr/life/post/calendarData",
+      "accessedAt": "2026-05-01",
+      "quoteShort": null,
+      "humanInterpretation": "KASI-hosted calendarData table provides normalized 24 solar-term dates and minute-level KST times for regression comparison; it is not treated as authority truth while the source page warns to use official 월력요항 for official publication.",
+      "copyrightNote": "Small normalized fact fixture only; no copied prose or bulk mirror.",
+      "authorityTruthEligible": false
+    }
+  },
+  "terms": [
+    {
+      "id": "XIAOHAN",
+      "name": "소한",
+      "hanja": "小寒",
+      "kind": "jie",
+      "branch": "丑",
+      "degree": 285,
+      "month": 1,
+      "day": 5,
+      "hour": 17,
+      "minute": 23,
+      "kstIso": "2026-01-05T17:23:00+09:00",
+      "source": {
+        "month": 1,
+        "day": 5,
+        "hour": 17,
+        "minute": 23
+      }
+    },
+    {
+      "id": "DAHAN",
+      "name": "대한",
+      "hanja": "大寒",
+      "kind": "zhong",
+      "branch": null,
+      "degree": 300,
+      "month": 1,
+      "day": 20,
+      "hour": 10,
+      "minute": 45,
+      "kstIso": "2026-01-20T10:45:00+09:00",
+      "source": {
+        "month": 1,
+        "day": 20,
+        "hour": 10,
+        "minute": 45
+      }
+    },
+    {
+      "id": "LICHUN",
+      "name": "입춘",
+      "hanja": "立春",
+      "kind": "jie",
+      "branch": "寅",
+      "degree": 315,
+      "month": 2,
+      "day": 4,
+      "hour": 5,
+      "minute": 2,
+      "kstIso": "2026-02-04T05:02:00+09:00",
+      "source": {
+        "month": 2,
+        "day": 4,
+        "hour": 5,
+        "minute": 2
+      }
+    },
+    {
+      "id": "YUSHUI",
+      "name": "우수",
+      "hanja": "雨水",
+      "kind": "zhong",
+      "branch": null,
+      "degree": 330,
+      "month": 2,
+      "day": 19,
+      "hour": 0,
+      "minute": 52,
+      "kstIso": "2026-02-19T00:52:00+09:00",
+      "source": {
+        "month": 2,
+        "day": 19,
+        "hour": 0,
+        "minute": 52
+      }
+    },
+    {
+      "id": "JINGZHE",
+      "name": "경칩",
+      "hanja": "驚蟄",
+      "kind": "jie",
+      "branch": "卯",
+      "degree": 345,
+      "month": 3,
+      "day": 5,
+      "hour": 22,
+      "minute": 59,
+      "kstIso": "2026-03-05T22:59:00+09:00",
+      "source": {
+        "month": 3,
+        "day": 5,
+        "hour": 22,
+        "minute": 59
+      }
+    },
+    {
+      "id": "CHUNFEN",
+      "name": "춘분",
+      "hanja": "春分",
+      "kind": "zhong",
+      "branch": null,
+      "degree": 0,
+      "month": 3,
+      "day": 20,
+      "hour": 23,
+      "minute": 46,
+      "kstIso": "2026-03-20T23:46:00+09:00",
+      "source": {
+        "month": 3,
+        "day": 20,
+        "hour": 23,
+        "minute": 46
+      }
+    },
+    {
+      "id": "QINGMING",
+      "name": "청명",
+      "hanja": "淸明",
+      "kind": "jie",
+      "branch": "辰",
+      "degree": 15,
+      "month": 4,
+      "day": 5,
+      "hour": 3,
+      "minute": 40,
+      "kstIso": "2026-04-05T03:40:00+09:00",
+      "source": {
+        "month": 4,
+        "day": 5,
+        "hour": 3,
+        "minute": 40
+      }
+    },
+    {
+      "id": "GUYU",
+      "name": "곡우",
+      "hanja": "穀雨",
+      "kind": "zhong",
+      "branch": null,
+      "degree": 30,
+      "month": 4,
+      "day": 20,
+      "hour": 10,
+      "minute": 39,
+      "kstIso": "2026-04-20T10:39:00+09:00",
+      "source": {
+        "month": 4,
+        "day": 20,
+        "hour": 10,
+        "minute": 39
+      }
+    },
+    {
+      "id": "LIXIA",
+      "name": "입하",
+      "hanja": "立夏",
+      "kind": "jie",
+      "branch": "巳",
+      "degree": 45,
+      "month": 5,
+      "day": 5,
+      "hour": 20,
+      "minute": 49,
+      "kstIso": "2026-05-05T20:49:00+09:00",
+      "source": {
+        "month": 5,
+        "day": 5,
+        "hour": 20,
+        "minute": 49
+      }
+    },
+    {
+      "id": "XIAOMAN",
+      "name": "소만",
+      "hanja": "小滿",
+      "kind": "zhong",
+      "branch": null,
+      "degree": 60,
+      "month": 5,
+      "day": 21,
+      "hour": 9,
+      "minute": 37,
+      "kstIso": "2026-05-21T09:37:00+09:00",
+      "source": {
+        "month": 5,
+        "day": 21,
+        "hour": 9,
+        "minute": 37
+      }
+    },
+    {
+      "id": "MANGZHONG",
+      "name": "망종",
+      "hanja": "芒種",
+      "kind": "jie",
+      "branch": "午",
+      "degree": 75,
+      "month": 6,
+      "day": 6,
+      "hour": 0,
+      "minute": 48,
+      "kstIso": "2026-06-06T00:48:00+09:00",
+      "source": {
+        "month": 6,
+        "day": 6,
+        "hour": 0,
+        "minute": 48
+      }
+    },
+    {
+      "id": "XIAZHI",
+      "name": "하지",
+      "hanja": "夏至",
+      "kind": "zhong",
+      "branch": null,
+      "degree": 90,
+      "month": 6,
+      "day": 21,
+      "hour": 17,
+      "minute": 25,
+      "kstIso": "2026-06-21T17:25:00+09:00",
+      "source": {
+        "month": 6,
+        "day": 21,
+        "hour": 17,
+        "minute": 25
+      }
+    },
+    {
+      "id": "XIAOSHU",
+      "name": "소서",
+      "hanja": "小暑",
+      "kind": "jie",
+      "branch": "未",
+      "degree": 105,
+      "month": 7,
+      "day": 7,
+      "hour": 10,
+      "minute": 57,
+      "kstIso": "2026-07-07T10:57:00+09:00",
+      "source": {
+        "month": 7,
+        "day": 7,
+        "hour": 10,
+        "minute": 57
+      }
+    },
+    {
+      "id": "DASHU",
+      "name": "대서",
+      "hanja": "大暑",
+      "kind": "zhong",
+      "branch": null,
+      "degree": 120,
+      "month": 7,
+      "day": 23,
+      "hour": 4,
+      "minute": 13,
+      "kstIso": "2026-07-23T04:13:00+09:00",
+      "source": {
+        "month": 7,
+        "day": 23,
+        "hour": 4,
+        "minute": 13
+      }
+    },
+    {
+      "id": "LIQIU",
+      "name": "입추",
+      "hanja": "立秋",
+      "kind": "jie",
+      "branch": "申",
+      "degree": 135,
+      "month": 8,
+      "day": 7,
+      "hour": 20,
+      "minute": 43,
+      "kstIso": "2026-08-07T20:43:00+09:00",
+      "source": {
+        "month": 8,
+        "day": 7,
+        "hour": 20,
+        "minute": 43
+      }
+    },
+    {
+      "id": "CHUSHU",
+      "name": "처서",
+      "hanja": "處暑",
+      "kind": "zhong",
+      "branch": null,
+      "degree": 150,
+      "month": 8,
+      "day": 23,
+      "hour": 11,
+      "minute": 19,
+      "kstIso": "2026-08-23T11:19:00+09:00",
+      "source": {
+        "month": 8,
+        "day": 23,
+        "hour": 11,
+        "minute": 19
+      }
+    },
+    {
+      "id": "BAILU",
+      "name": "백로",
+      "hanja": "白露",
+      "kind": "jie",
+      "branch": "酉",
+      "degree": 165,
+      "month": 9,
+      "day": 7,
+      "hour": 23,
+      "minute": 41,
+      "kstIso": "2026-09-07T23:41:00+09:00",
+      "source": {
+        "month": 9,
+        "day": 7,
+        "hour": 23,
+        "minute": 41
+      }
+    },
+    {
+      "id": "QIUFEN",
+      "name": "추분",
+      "hanja": "秋分",
+      "kind": "zhong",
+      "branch": null,
+      "degree": 180,
+      "month": 9,
+      "day": 23,
+      "hour": 9,
+      "minute": 5,
+      "kstIso": "2026-09-23T09:05:00+09:00",
+      "source": {
+        "month": 9,
+        "day": 23,
+        "hour": 9,
+        "minute": 5
+      }
+    },
+    {
+      "id": "HANLU",
+      "name": "한로",
+      "hanja": "寒露",
+      "kind": "jie",
+      "branch": "戌",
+      "degree": 195,
+      "month": 10,
+      "day": 8,
+      "hour": 15,
+      "minute": 29,
+      "kstIso": "2026-10-08T15:29:00+09:00",
+      "source": {
+        "month": 10,
+        "day": 8,
+        "hour": 15,
+        "minute": 29
+      }
+    },
+    {
+      "id": "SHUANGJIANG",
+      "name": "상강",
+      "hanja": "霜降",
+      "kind": "zhong",
+      "branch": null,
+      "degree": 210,
+      "month": 10,
+      "day": 23,
+      "hour": 18,
+      "minute": 38,
+      "kstIso": "2026-10-23T18:38:00+09:00",
+      "source": {
+        "month": 10,
+        "day": 23,
+        "hour": 18,
+        "minute": 38
+      }
+    },
+    {
+      "id": "LIDONG",
+      "name": "입동",
+      "hanja": "立冬",
+      "kind": "jie",
+      "branch": "亥",
+      "degree": 225,
+      "month": 11,
+      "day": 7,
+      "hour": 18,
+      "minute": 52,
+      "kstIso": "2026-11-07T18:52:00+09:00",
+      "source": {
+        "month": 11,
+        "day": 7,
+        "hour": 18,
+        "minute": 52
+      }
+    },
+    {
+      "id": "XIAOXUE",
+      "name": "소설",
+      "hanja": "小雪",
+      "kind": "zhong",
+      "branch": null,
+      "degree": 240,
+      "month": 11,
+      "day": 22,
+      "hour": 16,
+      "minute": 23,
+      "kstIso": "2026-11-22T16:23:00+09:00",
+      "source": {
+        "month": 11,
+        "day": 22,
+        "hour": 16,
+        "minute": 23
+      }
+    },
+    {
+      "id": "DAXUE",
+      "name": "대설",
+      "hanja": "大雪",
+      "kind": "jie",
+      "branch": "子",
+      "degree": 255,
+      "month": 12,
+      "day": 7,
+      "hour": 11,
+      "minute": 53,
+      "kstIso": "2026-12-07T11:53:00+09:00",
+      "source": {
+        "month": 12,
+        "day": 7,
+        "hour": 11,
+        "minute": 53
+      }
+    },
+    {
+      "id": "DONGZHI",
+      "name": "동지",
+      "hanja": "冬至",
+      "kind": "zhong",
+      "branch": null,
+      "degree": 270,
+      "month": 12,
+      "day": 22,
+      "hour": 5,
+      "minute": 50,
+      "kstIso": "2026-12-22T05:50:00+09:00",
+      "source": {
+        "month": 12,
+        "day": 22,
+        "hour": 5,
+        "minute": 50
+      }
+    }
+  ]
+}
