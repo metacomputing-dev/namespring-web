@@ -1614,12 +1614,59 @@ function extractGyeokgukCandidates(value: unknown): readonly GyeokgukCandidateSu
         confidence: confidenceToRatio(candidate?.confidence),
         supportingRules: ensureArray(candidate?.supportingRules).map((rule) => String(rule)),
         blockingRules: ensureArray(candidate?.blockingRules).map((rule) => String(rule)),
+        compositeClassical: extractCompositeClassicalScore(candidate?.compositeClassical),
         sourceTier: extractSourceTier(candidate?.sourceTier),
       };
     })
     .filter((candidate): candidate is GyeokgukCandidateSummary => candidate !== null);
 
   return candidates.length > 0 ? candidates : undefined;
+}
+
+function extractCompositeClassicalScore(value: any): GyeokgukCandidateSummary['compositeClassical'] | undefined {
+  if (!value || typeof value !== 'object' || Array.isArray(value)) return undefined;
+  if (value.model !== 'composite_classical') return undefined;
+
+  const featureNames = new Set([
+    'monthMainMatch',
+    'stemTransparency',
+    'rootSupport',
+    'seasonalCommand',
+    'transformationSupport',
+    'purityScore',
+    'usefulGodAlignment',
+    'sourceTierBoost',
+    'stabilityAcrossModes',
+  ]);
+  const status = value.status === 'candidate_evidence' ||
+    value.status === 'low_confidence_evidence' ||
+    value.status === 'trace_only'
+    ? value.status
+    : 'trace_only';
+
+  return {
+    model: 'composite_classical',
+    score: confidenceToRatio(value.score),
+    confidence: confidenceToRatio(value.confidence),
+    status,
+    selectionPolicy: 'evidence_only_never_promote',
+    selectedByComposite: false,
+    breakerPenalty: Number.isFinite(Number(value.breakerPenalty)) ? Number(value.breakerPenalty) : 0,
+    features: ensureArray(value.features)
+      .map((feature) => {
+        const name = String(feature?.name ?? '');
+        if (!featureNames.has(name)) return null;
+        return {
+          name: name as any,
+          score: confidenceToRatio(feature?.score),
+          weight: Number.isFinite(Number(feature?.weight)) ? Number(feature.weight) : 0,
+          contribution: Number.isFinite(Number(feature?.contribution)) ? Number(feature.contribution) : 0,
+          reason: String(feature?.reason ?? ''),
+        };
+      })
+      .filter((feature): feature is any => feature !== null),
+    basisRules: ensureArray(value.basisRules).map((rule) => String(rule)),
+  };
 }
 
 function extractSourceTier(value: any): SourceTierMetadata {
