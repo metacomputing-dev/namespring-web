@@ -35,6 +35,8 @@ export type {
   CharDetail,
   // New 3-method API types
   NamingScoreVector,
+  CandidateStrengthProfile,
+  CandidateStrengthProfileId,
   NamingReport,
   NamingReportFrame,
   NamingReportFourFrame,

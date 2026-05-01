@@ -236,6 +236,12 @@ export interface PrecisionConfig {
    *  and Saju compatibility logic are unchanged. */
   readonly surfaceNamingScoreVector?: boolean;
 
+  /** Opt into Pareto/diversity-aware candidate ordering.
+   *  PR-6.2 keeps raw `finalScore` unchanged, but recommendation lists may
+   *  reorder close candidates so the top set covers distinct strengths and
+   *  avoids repeated syllable/Hanja patterns. */
+  readonly paretoFrontierCandidates?: boolean;
+
   /** Surface palace (12궁) information on `SajuOutputSummary` when `true`.
    *  Off by default — consumers must opt-in.
    *
@@ -433,6 +439,7 @@ export interface SpringCandidate {
   readonly name: CandidateName;
   readonly scores: Record<'total' | 'hangul' | 'hanja' | 'fourFrame' | 'saju', number>;
   readonly scoreVector?: NamingScoreVector;
+  readonly strengthProfile?: CandidateStrengthProfile;
   readonly analysis: CandidateAnalysis;
   readonly interpretation: string;
   readonly rank: number;
@@ -858,12 +865,29 @@ export interface NamingScoreVector {
   readonly risk: number;
 }
 
+export type CandidateStrengthProfileId =
+  | 'saju_reinforcement'
+  | 'phonetic_stability'
+  | 'era_balance'
+  | 'legal_meaning'
+  | 'risk_managed'
+  | 'balanced';
+
+export interface CandidateStrengthProfile {
+  readonly id: CandidateStrengthProfileId;
+  readonly label: string;
+  readonly primaryAxis: keyof NamingScoreVector | 'balanced';
+  readonly reasons: readonly string[];
+  readonly paretoFrontier: boolean;
+}
+
 /** Pure name analysis result (no saju). Returned by getNamingReport(). */
 export interface NamingReport {
   readonly name: CandidateName;
   readonly totalScore: number;
   readonly scores: { hangul: number; hanja: number; fourFrame: number };
   readonly scoreVector?: NamingScoreVector;
+  readonly strengthProfile?: CandidateStrengthProfile;
   readonly analysis: {
     readonly hangul: HangulAnalysis;
     readonly hanja: HanjaAnalysis;
@@ -886,6 +910,7 @@ export type NameGenderTendency = 'male' | 'female' | 'unknown';
 export interface SpringReport {
   readonly finalScore: number;
   readonly scoreVector?: NamingScoreVector;
+  readonly strengthProfile?: CandidateStrengthProfile;
   readonly popularityRank: number | null;
   readonly maleRatio: number | null;
   readonly nameGender: NameGenderTendency;
@@ -902,6 +927,7 @@ export interface SpringReport {
 export interface SpringCandidateSummary {
   readonly finalScore: number;
   readonly scoreVector?: NamingScoreVector;
+  readonly strengthProfile?: CandidateStrengthProfile;
   readonly fullHangul: string;
   readonly fullHanja: string;
   readonly givenHangul: string;
