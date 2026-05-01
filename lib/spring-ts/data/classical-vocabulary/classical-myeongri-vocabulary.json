@@ -1,0 +1,1426 @@
+{
+  "schemaVersion": "spring-ts.classical-myeongri-vocabulary.v1",
+  "accessedAt": "2026-05-02",
+  "sourceRegistry": "data/sources/classical-myeongri.sources.json",
+  "sourceTier": {
+    "tier": "T3_AUTHORED_INTERPRETATION",
+    "sourceType": "classical_vocabulary_dictionary",
+    "sourceUrl": null,
+    "accessedAt": "2026-05-02",
+    "quoteShort": null,
+    "humanInterpretation": "Human-authored terminology mapping from public classical myeongri terms to existing spring-ts and saju-ts code features.",
+    "copyrightNote": "Stores terms, source IDs, and internal feature anchors only; no copied chapters, OCR dumps, or translation corpus.",
+    "authorityTruthEligible": false
+  },
+  "usagePolicy": {
+    "noBulkCopy": true,
+    "maxQuoteChars": 80,
+    "dictionaryKind": "term_to_feature_mapping",
+    "requiresCodeSurface": true,
+    "allowed": [
+      "classical term labels",
+      "source IDs from the registry",
+      "short quotations",
+      "human paraphrase",
+      "internal code feature anchors"
+    ],
+    "prohibited": [
+      "bulk OCR text",
+      "chapter copy",
+      "long continuous excerpts",
+      "copied translation tables",
+      "unreviewed machine translation as authority truth"
+    ]
+  },
+  "lookupPolicy": {
+    "canonicalAnchor": "mapsTo.fieldPath plus mapsTo.code",
+    "mappingOnly": true,
+    "requiresCodeSurface": true,
+    "useForAuthorityTruth": false
+  },
+  "categories": [
+    "tenGod",
+    "gyeokguk",
+    "relation",
+    "yongshinMethod",
+    "diseaseRemedy",
+    "compoundIdiom"
+  ],
+  "entries": [
+    {
+      "termId": "ten_god_bi_gyeon",
+      "term": "비견",
+      "hanja": "比肩",
+      "category": "tenGod",
+      "aliases": ["比肩", "bijian", "bi_gyeon"],
+      "displayGlossKo": "나와 같은 오행과 같은 음양의 십성",
+      "mapsTo": {
+        "surface": "tenGodAnalysis / tenGodPositionEvidence",
+        "fieldPath": "sajuReport.tenGodAnalysis.byPosition.*.tenGod",
+        "code": "BI_GYEON",
+        "group": "friend",
+        "axis": "tenGod"
+      },
+      "relatedCodes": ["gyeokguk.BI_GYEON"],
+      "status": "direct",
+      "sourceRefs": [
+        {
+          "sourceId": "yuanhai_ziping",
+          "locator": "ten-god terminology",
+          "quoteShort": null,
+          "interpretation": "Maps the classical term to the existing companion ten-god code."
+        }
+      ]
+    },
+    {
+      "termId": "ten_god_gyeob_jae",
+      "term": "겁재",
+      "hanja": "劫財",
+      "category": "tenGod",
+      "aliases": ["劫財", "jiecai", "gyeob_jae", "geob_jae"],
+      "displayGlossKo": "나와 같은 오행과 다른 음양의 십성",
+      "mapsTo": {
+        "surface": "tenGodAnalysis / tenGodPositionEvidence",
+        "fieldPath": "sajuReport.tenGodAnalysis.byPosition.*.tenGod",
+        "code": "GYEOB_JAE",
+        "group": "friend",
+        "axis": "tenGod"
+      },
+      "relatedCodes": ["gyeokguk.GEOB_JAE"],
+      "status": "direct",
+      "sourceRefs": [
+        {
+          "sourceId": "yuanhai_ziping",
+          "locator": "ten-god terminology",
+          "quoteShort": null,
+          "interpretation": "Keeps the spring-ts spelling while retaining GEOB_JAE as an engine alias."
+        }
+      ]
+    },
+    {
+      "termId": "ten_god_sik_sin",
+      "term": "식신",
+      "hanja": "食神",
+      "category": "tenGod",
+      "aliases": ["食神", "shishen", "sik_sin", "sik_shin"],
+      "displayGlossKo": "내가 생하는 오행과 같은 음양의 십성",
+      "mapsTo": {
+        "surface": "tenGodAnalysis / tenGodPositionEvidence",
+        "fieldPath": "sajuReport.tenGodAnalysis.byPosition.*.tenGod",
+        "code": "SIK_SIN",
+        "group": "output",
+        "axis": "tenGod"
+      },
+      "relatedCodes": ["gyeokguk.SIK_SHIN"],
+      "status": "direct",
+      "sourceRefs": [
+        {
+          "sourceId": "yuanhai_ziping",
+          "locator": "ten-god terminology",
+          "quoteShort": null,
+          "interpretation": "Maps the classical output star term to the existing SIK_SIN code."
+        }
+      ]
+    },
+    {
+      "termId": "ten_god_sang_gwan",
+      "term": "상관",
+      "hanja": "傷官",
+      "category": "tenGod",
+      "aliases": ["傷官", "shangguan", "sang_gwan"],
+      "displayGlossKo": "내가 생하는 오행과 다른 음양의 십성",
+      "mapsTo": {
+        "surface": "tenGodAnalysis / tenGodPositionEvidence",
+        "fieldPath": "sajuReport.tenGodAnalysis.byPosition.*.tenGod",
+        "code": "SANG_GWAN",
+        "group": "output",
+        "axis": "tenGod"
+      },
+      "relatedCodes": ["gyeokguk.SANG_GWAN"],
+      "status": "direct",
+      "sourceRefs": [
+        {
+          "sourceId": "yuanhai_ziping",
+          "locator": "ten-god terminology",
+          "quoteShort": null,
+          "interpretation": "Maps the classical output star term to the existing SANG_GWAN code."
+        }
+      ]
+    },
+    {
+      "termId": "ten_god_pyeon_jae",
+      "term": "편재",
+      "hanja": "偏財",
+      "category": "tenGod",
+      "aliases": ["偏財", "piancai", "pyeon_jae"],
+      "displayGlossKo": "내가 극하는 오행과 같은 음양의 십성",
+      "mapsTo": {
+        "surface": "tenGodAnalysis / tenGodPositionEvidence",
+        "fieldPath": "sajuReport.tenGodAnalysis.byPosition.*.tenGod",
+        "code": "PYEON_JAE",
+        "group": "wealth",
+        "axis": "tenGod"
+      },
+      "relatedCodes": ["gyeokguk.PYEON_JAE"],
+      "status": "direct",
+      "sourceRefs": [
+        {
+          "sourceId": "sanming_tonghui",
+          "locator": "ten-god terminology",
+          "quoteShort": null,
+          "interpretation": "Maps the classical wealth star term to the existing PYEON_JAE code."
+        }
+      ]
+    },
+    {
+      "termId": "ten_god_jeong_jae",
+      "term": "정재",
+      "hanja": "正財",
+      "category": "tenGod",
+      "aliases": ["正財", "zhengcai", "jeong_jae"],
+      "displayGlossKo": "내가 극하는 오행과 다른 음양의 십성",
+      "mapsTo": {
+        "surface": "tenGodAnalysis / tenGodPositionEvidence",
+        "fieldPath": "sajuReport.tenGodAnalysis.byPosition.*.tenGod",
+        "code": "JEONG_JAE",
+        "group": "wealth",
+        "axis": "tenGod"
+      },
+      "relatedCodes": ["gyeokguk.JEONG_JAE"],
+      "status": "direct",
+      "sourceRefs": [
+        {
+          "sourceId": "sanming_tonghui",
+          "locator": "ten-god terminology",
+          "quoteShort": null,
+          "interpretation": "Maps the classical wealth star term to the existing JEONG_JAE code."
+        }
+      ]
+    },
+    {
+      "termId": "ten_god_pyeon_gwan",
+      "term": "편관",
+      "hanja": "偏官",
+      "category": "tenGod",
+      "aliases": ["偏官", "七殺", "七煞", "qisha", "pyeon_gwan"],
+      "displayGlossKo": "나를 극하는 오행과 같은 음양의 십성",
+      "mapsTo": {
+        "surface": "tenGodAnalysis / tenGodPositionEvidence",
+        "fieldPath": "sajuReport.tenGodAnalysis.byPosition.*.tenGod",
+        "code": "PYEON_GWAN",
+        "group": "officer",
+        "axis": "tenGod"
+      },
+      "relatedCodes": ["gyeokguk.PYEON_GWAN"],
+      "status": "direct",
+      "sourceRefs": [
+        {
+          "sourceId": "yuanhai_ziping",
+          "locator": "ten-god terminology",
+          "quoteShort": null,
+          "interpretation": "Links the classical kill/officer aliases to the PYEON_GWAN code."
+        }
+      ]
+    },
+    {
+      "termId": "ten_god_jeong_gwan",
+      "term": "정관",
+      "hanja": "正官",
+      "category": "tenGod",
+      "aliases": ["正官", "zhengguan", "jeong_gwan"],
+      "displayGlossKo": "나를 극하는 오행과 다른 음양의 십성",
+      "mapsTo": {
+        "surface": "tenGodAnalysis / tenGodPositionEvidence",
+        "fieldPath": "sajuReport.tenGodAnalysis.byPosition.*.tenGod",
+        "code": "JEONG_GWAN",
+        "group": "officer",
+        "axis": "tenGod"
+      },
+      "relatedCodes": ["gyeokguk.JEONG_GWAN"],
+      "status": "direct",
+      "sourceRefs": [
+        {
+          "sourceId": "yuanhai_ziping",
+          "locator": "ten-god terminology",
+          "quoteShort": null,
+          "interpretation": "Maps the classical officer star term to the existing JEONG_GWAN code."
+        }
+      ]
+    },
+    {
+      "termId": "ten_god_pyeon_in",
+      "term": "편인",
+      "hanja": "偏印",
+      "category": "tenGod",
+      "aliases": ["偏印", "梟神", "xiaoshen", "pyeon_in"],
+      "displayGlossKo": "나를 생하는 오행과 같은 음양의 십성",
+      "mapsTo": {
+        "surface": "tenGodAnalysis / tenGodPositionEvidence",
+        "fieldPath": "sajuReport.tenGodAnalysis.byPosition.*.tenGod",
+        "code": "PYEON_IN",
+        "group": "resource",
+        "axis": "tenGod"
+      },
+      "relatedCodes": ["gyeokguk.PYEON_IN"],
+      "status": "direct",
+      "sourceRefs": [
+        {
+          "sourceId": "sanming_tonghui",
+          "locator": "ten-god terminology",
+          "quoteShort": null,
+          "interpretation": "Maps the classical resource star term to the existing PYEON_IN code."
+        }
+      ]
+    },
+    {
+      "termId": "ten_god_jeong_in",
+      "term": "정인",
+      "hanja": "正印",
+      "category": "tenGod",
+      "aliases": ["正印", "印綬", "yinshou", "jeong_in"],
+      "displayGlossKo": "나를 생하는 오행과 다른 음양의 십성",
+      "mapsTo": {
+        "surface": "tenGodAnalysis / tenGodPositionEvidence",
+        "fieldPath": "sajuReport.tenGodAnalysis.byPosition.*.tenGod",
+        "code": "JEONG_IN",
+        "group": "resource",
+        "axis": "tenGod"
+      },
+      "relatedCodes": ["gyeokguk.JEONG_IN"],
+      "status": "direct",
+      "sourceRefs": [
+        {
+          "sourceId": "sanming_tonghui",
+          "locator": "ten-god terminology",
+          "quoteShort": null,
+          "interpretation": "Maps the classical resource star term to the existing JEONG_IN code."
+        }
+      ]
+    },
+    {
+      "termId": "gyeokguk_jeong_gwan",
+      "term": "정관격",
+      "hanja": "正官格",
+      "category": "gyeokguk",
+      "aliases": ["正官格", "zhengguan ge", "jeong_gwan_gyeok"],
+      "displayGlossKo": "정관을 월령 격국 중심으로 삼는 정격",
+      "mapsTo": {
+        "surface": "gyeokguk",
+        "fieldPath": "sajuReport.gyeokguk.type",
+        "code": "JEONG_GWAN",
+        "group": "NORMAL",
+        "axis": "gyeokguk"
+      },
+      "relatedCodes": ["tenGod.JEONG_GWAN", "gyeokguk.JEONG_GWAN"],
+      "status": "direct",
+      "sourceRefs": [
+        {
+          "sourceId": "yuanhai_ziping",
+          "locator": "frame terminology",
+          "quoteShort": null,
+          "interpretation": "Maps the classical frame label to the existing normal gyeokguk code."
+        }
+      ]
+    },
+    {
+      "termId": "gyeokguk_pyeon_gwan",
+      "term": "편관격",
+      "hanja": "偏官格",
+      "category": "gyeokguk",
+      "aliases": ["七殺格", "偏官格", "qisha ge", "pyeon_gwan_gyeok"],
+      "displayGlossKo": "편관 또는 칠살을 월령 격국 중심으로 삼는 정격",
+      "mapsTo": {
+        "surface": "gyeokguk",
+        "fieldPath": "sajuReport.gyeokguk.type",
+        "code": "PYEON_GWAN",
+        "group": "NORMAL",
+        "axis": "gyeokguk"
+      },
+      "relatedCodes": ["tenGod.PYEON_GWAN", "gyeokguk.PYEON_GWAN"],
+      "status": "direct",
+      "sourceRefs": [
+        {
+          "sourceId": "yuanhai_ziping",
+          "locator": "frame terminology",
+          "quoteShort": null,
+          "interpretation": "Maps the kill/officer frame label to the existing normal gyeokguk code."
+        }
+      ]
+    },
+    {
+      "termId": "gyeokguk_jeong_jae",
+      "term": "정재격",
+      "hanja": "正財格",
+      "category": "gyeokguk",
+      "aliases": ["正財格", "zhengcai ge", "jeong_jae_gyeok"],
+      "displayGlossKo": "정재를 월령 격국 중심으로 삼는 정격",
+      "mapsTo": {
+        "surface": "gyeokguk",
+        "fieldPath": "sajuReport.gyeokguk.type",
+        "code": "JEONG_JAE",
+        "group": "NORMAL",
+        "axis": "gyeokguk"
+      },
+      "relatedCodes": ["tenGod.JEONG_JAE", "gyeokguk.JEONG_JAE"],
+      "status": "direct",
+      "sourceRefs": [
+        {
+          "sourceId": "sanming_tonghui",
+          "locator": "frame terminology",
+          "quoteShort": null,
+          "interpretation": "Maps the wealth frame label to the existing normal gyeokguk code."
+        }
+      ]
+    },
+    {
+      "termId": "gyeokguk_pyeon_jae",
+      "term": "편재격",
+      "hanja": "偏財格",
+      "category": "gyeokguk",
+      "aliases": ["偏財格", "piancai ge", "pyeon_jae_gyeok"],
+      "displayGlossKo": "편재를 월령 격국 중심으로 삼는 정격",
+      "mapsTo": {
+        "surface": "gyeokguk",
+        "fieldPath": "sajuReport.gyeokguk.type",
+        "code": "PYEON_JAE",
+        "group": "NORMAL",
+        "axis": "gyeokguk"
+      },
+      "relatedCodes": ["tenGod.PYEON_JAE", "gyeokguk.PYEON_JAE"],
+      "status": "direct",
+      "sourceRefs": [
+        {
+          "sourceId": "sanming_tonghui",
+          "locator": "frame terminology",
+          "quoteShort": null,
+          "interpretation": "Maps the wealth frame label to the existing normal gyeokguk code."
+        }
+      ]
+    },
+    {
+      "termId": "gyeokguk_sik_sin",
+      "term": "식신격",
+      "hanja": "食神格",
+      "category": "gyeokguk",
+      "aliases": ["食神格", "shishen ge", "sik_sin_gyeok", "sik_shin_gyeok"],
+      "displayGlossKo": "식신을 월령 격국 중심으로 삼는 정격",
+      "mapsTo": {
+        "surface": "gyeokguk",
+        "fieldPath": "sajuReport.gyeokguk.type",
+        "code": "SIK_SIN",
+        "group": "NORMAL",
+        "axis": "gyeokguk"
+      },
+      "relatedCodes": ["tenGod.SIK_SIN", "gyeokguk.SIK_SHIN"],
+      "status": "direct",
+      "sourceRefs": [
+        {
+          "sourceId": "yuanhai_ziping",
+          "locator": "frame terminology",
+          "quoteShort": null,
+          "interpretation": "Maps the output frame label to the existing normal gyeokguk code."
+        }
+      ]
+    },
+    {
+      "termId": "gyeokguk_sang_gwan",
+      "term": "상관격",
+      "hanja": "傷官格",
+      "category": "gyeokguk",
+      "aliases": ["傷官格", "shangguan ge", "sang_gwan_gyeok"],
+      "displayGlossKo": "상관을 월령 격국 중심으로 삼는 정격",
+      "mapsTo": {
+        "surface": "gyeokguk",
+        "fieldPath": "sajuReport.gyeokguk.type",
+        "code": "SANG_GWAN",
+        "group": "NORMAL",
+        "axis": "gyeokguk"
+      },
+      "relatedCodes": ["tenGod.SANG_GWAN", "gyeokguk.SANG_GWAN"],
+      "status": "direct",
+      "sourceRefs": [
+        {
+          "sourceId": "yuanhai_ziping",
+          "locator": "frame terminology",
+          "quoteShort": null,
+          "interpretation": "Maps the output frame label to the existing normal gyeokguk code."
+        }
+      ]
+    },
+    {
+      "termId": "gyeokguk_jeong_in",
+      "term": "정인격",
+      "hanja": "正印格",
+      "category": "gyeokguk",
+      "aliases": ["正印格", "yinshou ge", "jeong_in_gyeok"],
+      "displayGlossKo": "정인을 월령 격국 중심으로 삼는 정격",
+      "mapsTo": {
+        "surface": "gyeokguk",
+        "fieldPath": "sajuReport.gyeokguk.type",
+        "code": "JEONG_IN",
+        "group": "NORMAL",
+        "axis": "gyeokguk"
+      },
+      "relatedCodes": ["tenGod.JEONG_IN", "gyeokguk.JEONG_IN"],
+      "status": "direct",
+      "sourceRefs": [
+        {
+          "sourceId": "sanming_tonghui",
+          "locator": "frame terminology",
+          "quoteShort": null,
+          "interpretation": "Maps the resource frame label to the existing normal gyeokguk code."
+        }
+      ]
+    },
+    {
+      "termId": "gyeokguk_pyeon_in",
+      "term": "편인격",
+      "hanja": "偏印格",
+      "category": "gyeokguk",
+      "aliases": ["偏印格", "xiaoshen ge", "pyeon_in_gyeok"],
+      "displayGlossKo": "편인을 월령 격국 중심으로 삼는 정격",
+      "mapsTo": {
+        "surface": "gyeokguk",
+        "fieldPath": "sajuReport.gyeokguk.type",
+        "code": "PYEON_IN",
+        "group": "NORMAL",
+        "axis": "gyeokguk"
+      },
+      "relatedCodes": ["tenGod.PYEON_IN", "gyeokguk.PYEON_IN"],
+      "status": "direct",
+      "sourceRefs": [
+        {
+          "sourceId": "sanming_tonghui",
+          "locator": "frame terminology",
+          "quoteShort": null,
+          "interpretation": "Maps the resource frame label to the existing normal gyeokguk code."
+        }
+      ]
+    },
+    {
+      "termId": "gyeokguk_bi_gyeon",
+      "term": "비견격",
+      "hanja": "比肩格",
+      "category": "gyeokguk",
+      "aliases": ["比肩格", "bijian ge", "bi_gyeon_gyeok"],
+      "displayGlossKo": "비견을 월령 격국 중심으로 삼는 정격",
+      "mapsTo": {
+        "surface": "gyeokguk",
+        "fieldPath": "sajuReport.gyeokguk.type",
+        "code": "BI_GYEON",
+        "group": "NORMAL",
+        "axis": "gyeokguk"
+      },
+      "relatedCodes": ["tenGod.BI_GYEON", "gyeokguk.BI_GYEON"],
+      "status": "direct",
+      "sourceRefs": [
+        {
+          "sourceId": "yuanhai_ziping",
+          "locator": "frame terminology",
+          "quoteShort": null,
+          "interpretation": "Maps the companion frame label to the existing normal gyeokguk code."
+        }
+      ]
+    },
+    {
+      "termId": "gyeokguk_gyeob_jae",
+      "term": "겁재격",
+      "hanja": "劫財格",
+      "category": "gyeokguk",
+      "aliases": ["劫財格", "jiecai ge", "gyeob_jae_gyeok", "geob_jae_gyeok"],
+      "displayGlossKo": "겁재를 월령 격국 중심으로 삼는 정격",
+      "mapsTo": {
+        "surface": "gyeokguk",
+        "fieldPath": "sajuReport.gyeokguk.type",
+        "code": "GYEOB_JAE",
+        "group": "NORMAL",
+        "axis": "gyeokguk"
+      },
+      "relatedCodes": ["tenGod.GYEOB_JAE", "gyeokguk.GEOB_JAE"],
+      "status": "direct",
+      "sourceRefs": [
+        {
+          "sourceId": "yuanhai_ziping",
+          "locator": "frame terminology",
+          "quoteShort": null,
+          "interpretation": "Maps the companion frame label to the existing normal gyeokguk code."
+        }
+      ]
+    },
+    {
+      "termId": "gyeokguk_hua_qi",
+      "term": "화기격",
+      "hanja": "化氣格",
+      "category": "gyeokguk",
+      "aliases": ["合化格", "化氣", "hua_qi", "hap_hwa_gyeok"],
+      "displayGlossKo": "천간 합화 신호를 중심으로 보는 특수 격국",
+      "mapsTo": {
+        "surface": "gyeokguk / hapHwaEvaluations",
+        "fieldPath": "sajuReport.gyeokguk.jonggyeokCandidates[].subtype",
+        "code": "HUA_QI",
+        "group": "JONGGYEOK",
+        "axis": "gyeokguk"
+      },
+      "relatedCodes": ["gyeokguk.HUA_QI", "HAPWHA_YONGSHIN"],
+      "status": "direct",
+      "sourceRefs": [
+        {
+          "sourceId": "ditian_sui_chanwei",
+          "locator": "special-frame terminology",
+          "quoteShort": null,
+          "interpretation": "Maps classical transformation-frame vocabulary to the existing HUA_QI evidence code."
+        }
+      ]
+    },
+    {
+      "termId": "gyeokguk_zhuan_wang",
+      "term": "전왕격",
+      "hanja": "專旺格",
+      "category": "gyeokguk",
+      "aliases": ["專旺", "專旺格", "zhuan_wang", "one_element_frame"],
+      "displayGlossKo": "한 오행 세력이 편중된 특수 격국 후보",
+      "mapsTo": {
+        "surface": "gyeokguk",
+        "fieldPath": "sajuReport.gyeokguk.jonggyeokCandidates[].subtype",
+        "code": "ZHUAN_WANG",
+        "group": "JONGGYEOK",
+        "axis": "gyeokguk"
+      },
+      "relatedCodes": ["gyeokguk.ZHUAN_WANG"],
+      "status": "direct",
+      "sourceRefs": [
+        {
+          "sourceId": "sanming_tonghui",
+          "locator": "special-frame terminology",
+          "quoteShort": null,
+          "interpretation": "Maps one-element dominance terminology to the existing ZHUAN_WANG evidence code."
+        }
+      ]
+    },
+    {
+      "termId": "gyeokguk_cong_ge",
+      "term": "종격",
+      "hanja": "從格",
+      "category": "gyeokguk",
+      "aliases": ["從格", "cong_ge", "follow_frame"],
+      "displayGlossKo": "일간이 특정 세력 흐름을 따르는 특수 격국 후보",
+      "mapsTo": {
+        "surface": "gyeokguk",
+        "fieldPath": "sajuReport.gyeokguk.jonggyeokCandidates[].subtype",
+        "code": "CONG_GE",
+        "group": "JONGGYEOK",
+        "axis": "gyeokguk"
+      },
+      "relatedCodes": ["gyeokguk.CONG_GE"],
+      "status": "direct",
+      "sourceRefs": [
+        {
+          "sourceId": "sanming_tonghui",
+          "locator": "special-frame terminology",
+          "quoteShort": null,
+          "interpretation": "Maps generic follow-frame vocabulary to the existing CONG_GE evidence code."
+        }
+      ]
+    },
+    {
+      "termId": "gyeokguk_cong_cai",
+      "term": "종재격",
+      "hanja": "從財格",
+      "category": "gyeokguk",
+      "aliases": ["從財", "cong_cai"],
+      "displayGlossKo": "재성 세력을 따르는 종격 후보",
+      "mapsTo": {
+        "surface": "gyeokguk",
+        "fieldPath": "sajuReport.gyeokguk.jonggyeokCandidates[].subtype",
+        "code": "CONG_CAI",
+        "group": "JONGGYEOK",
+        "axis": "gyeokguk"
+      },
+      "relatedCodes": ["gyeokguk.CONG_CAI", "JEONG_JAE", "PYEON_JAE"],
+      "status": "direct",
+      "sourceRefs": [
+        {
+          "sourceId": "sanming_tonghui",
+          "locator": "special-frame terminology",
+          "quoteShort": null,
+          "interpretation": "Maps wealth-follow frame vocabulary to the existing CONG_CAI evidence code."
+        }
+      ]
+    },
+    {
+      "termId": "gyeokguk_cong_guan",
+      "term": "종관격",
+      "hanja": "從官格",
+      "category": "gyeokguk",
+      "aliases": ["從官", "cong_guan"],
+      "displayGlossKo": "관성 세력을 따르는 종격 후보",
+      "mapsTo": {
+        "surface": "gyeokguk",
+        "fieldPath": "sajuReport.gyeokguk.jonggyeokCandidates[].subtype",
+        "code": "CONG_GUAN",
+        "group": "JONGGYEOK",
+        "axis": "gyeokguk"
+      },
+      "relatedCodes": ["gyeokguk.CONG_GUAN", "JEONG_GWAN"],
+      "status": "direct",
+      "sourceRefs": [
+        {
+          "sourceId": "sanming_tonghui",
+          "locator": "special-frame terminology",
+          "quoteShort": null,
+          "interpretation": "Maps officer-follow frame vocabulary to the existing CONG_GUAN evidence code."
+        }
+      ]
+    },
+    {
+      "termId": "gyeokguk_cong_sha",
+      "term": "종살격",
+      "hanja": "從殺格",
+      "category": "gyeokguk",
+      "aliases": ["從殺", "從煞", "cong_sha"],
+      "displayGlossKo": "칠살 세력을 따르는 종격 후보",
+      "mapsTo": {
+        "surface": "gyeokguk",
+        "fieldPath": "sajuReport.gyeokguk.jonggyeokCandidates[].subtype",
+        "code": "CONG_SHA",
+        "group": "JONGGYEOK",
+        "axis": "gyeokguk"
+      },
+      "relatedCodes": ["gyeokguk.CONG_SHA", "PYEON_GWAN"],
+      "status": "direct",
+      "sourceRefs": [
+        {
+          "sourceId": "sanming_tonghui",
+          "locator": "special-frame terminology",
+          "quoteShort": null,
+          "interpretation": "Maps kill-follow frame vocabulary to the existing CONG_SHA evidence code."
+        }
+      ]
+    },
+    {
+      "termId": "gyeokguk_cong_er",
+      "term": "종아격",
+      "hanja": "從兒格",
+      "category": "gyeokguk",
+      "aliases": ["從兒", "cong_er"],
+      "displayGlossKo": "식상 세력을 따르는 종격 후보",
+      "mapsTo": {
+        "surface": "gyeokguk",
+        "fieldPath": "sajuReport.gyeokguk.jonggyeokCandidates[].subtype",
+        "code": "CONG_ER",
+        "group": "JONGGYEOK",
+        "axis": "gyeokguk"
+      },
+      "relatedCodes": ["gyeokguk.CONG_ER", "SIK_SIN", "SANG_GWAN"],
+      "status": "direct",
+      "sourceRefs": [
+        {
+          "sourceId": "sanming_tonghui",
+          "locator": "special-frame terminology",
+          "quoteShort": null,
+          "interpretation": "Maps output-follow frame vocabulary to the existing CONG_ER evidence code."
+        }
+      ]
+    },
+    {
+      "termId": "gyeokguk_cong_yin",
+      "term": "종인격",
+      "hanja": "從印格",
+      "category": "gyeokguk",
+      "aliases": ["從印", "cong_yin"],
+      "displayGlossKo": "인성 세력을 따르는 종격 후보",
+      "mapsTo": {
+        "surface": "gyeokguk",
+        "fieldPath": "sajuReport.gyeokguk.jonggyeokCandidates[].subtype",
+        "code": "CONG_YIN",
+        "group": "JONGGYEOK",
+        "axis": "gyeokguk"
+      },
+      "relatedCodes": ["gyeokguk.CONG_YIN", "JEONG_IN", "PYEON_IN"],
+      "status": "direct",
+      "sourceRefs": [
+        {
+          "sourceId": "sanming_tonghui",
+          "locator": "special-frame terminology",
+          "quoteShort": null,
+          "interpretation": "Maps resource-follow frame vocabulary to the existing CONG_YIN evidence code."
+        }
+      ]
+    },
+    {
+      "termId": "gyeokguk_cong_bi",
+      "term": "종비격",
+      "hanja": "從比格",
+      "category": "gyeokguk",
+      "aliases": ["從比", "cong_bi"],
+      "displayGlossKo": "비겁 세력을 따르는 종격 후보",
+      "mapsTo": {
+        "surface": "gyeokguk",
+        "fieldPath": "sajuReport.gyeokguk.jonggyeokCandidates[].subtype",
+        "code": "CONG_BI",
+        "group": "JONGGYEOK",
+        "axis": "gyeokguk"
+      },
+      "relatedCodes": ["gyeokguk.CONG_BI", "BI_GYEON", "GYEOB_JAE"],
+      "status": "direct",
+      "sourceRefs": [
+        {
+          "sourceId": "sanming_tonghui",
+          "locator": "special-frame terminology",
+          "quoteShort": null,
+          "interpretation": "Maps companion-follow frame vocabulary to the existing CONG_BI evidence code."
+        }
+      ]
+    },
+    {
+      "termId": "relation_cheongan_hap",
+      "term": "천간합",
+      "hanja": "天干合",
+      "category": "relation",
+      "aliases": ["干合", "五合", "cheongan_hap", "tiangan_he"],
+      "displayGlossKo": "두 천간의 합 관계",
+      "mapsTo": {
+        "surface": "cheonganRelations",
+        "fieldPath": "sajuReport.cheonganRelations[].type",
+        "code": "HAP",
+        "group": null,
+        "axis": "relation"
+      },
+      "relatedCodes": ["relations.stems", "HAPWHA_YONGSHIN"],
+      "status": "direct",
+      "sourceRefs": [
+        {
+          "sourceId": "ditian_sui_chanwei",
+          "locator": "stem relation terminology",
+          "quoteShort": null,
+          "interpretation": "Maps stem-combination terminology to the existing stem relation code."
+        }
+      ]
+    },
+    {
+      "termId": "relation_cheongan_chung",
+      "term": "천간충",
+      "hanja": "天干沖",
+      "category": "relation",
+      "aliases": ["天干衝", "cheongan_chung", "tiangan_chong"],
+      "displayGlossKo": "두 천간의 충 관계",
+      "mapsTo": {
+        "surface": "cheonganRelations",
+        "fieldPath": "sajuReport.cheonganRelations[].type",
+        "code": "CHUNG",
+        "group": null,
+        "axis": "relation"
+      },
+      "relatedCodes": ["relations.stems"],
+      "status": "direct",
+      "sourceRefs": [
+        {
+          "sourceId": "sanming_tonghui",
+          "locator": "stem relation terminology",
+          "quoteShort": null,
+          "interpretation": "Maps stem-clash terminology to the existing stem relation code."
+        }
+      ]
+    },
+    {
+      "termId": "relation_jiji_hap",
+      "term": "지지합",
+      "hanja": "地支合",
+      "category": "relation",
+      "aliases": ["六合", "jiji_hap", "dizhi_he"],
+      "displayGlossKo": "두 지지의 합 관계",
+      "mapsTo": {
+        "surface": "jijiRelations",
+        "fieldPath": "sajuReport.jijiRelations[].type",
+        "code": "HAP",
+        "group": null,
+        "axis": "relation"
+      },
+      "relatedCodes": ["relations.branches"],
+      "status": "direct",
+      "sourceRefs": [
+        {
+          "sourceId": "sanming_tonghui",
+          "locator": "branch relation terminology",
+          "quoteShort": null,
+          "interpretation": "Maps branch-combination terminology to the existing branch relation code."
+        }
+      ]
+    },
+    {
+      "termId": "relation_samhap",
+      "term": "삼합",
+      "hanja": "三合",
+      "category": "relation",
+      "aliases": ["三合局", "samhap", "sanhe"],
+      "displayGlossKo": "세 지지의 삼합 관계",
+      "mapsTo": {
+        "surface": "jijiRelations",
+        "fieldPath": "sajuReport.jijiRelations[].type",
+        "code": "SAMHAP",
+        "group": null,
+        "axis": "relation"
+      },
+      "relatedCodes": ["relations.branches"],
+      "status": "direct",
+      "sourceRefs": [
+        {
+          "sourceId": "sanming_tonghui",
+          "locator": "branch relation terminology",
+          "quoteShort": null,
+          "interpretation": "Maps three-branch combination terminology to the existing branch relation code."
+        }
+      ]
+    },
+    {
+      "termId": "relation_banghap",
+      "term": "방합",
+      "hanja": "方合",
+      "category": "relation",
+      "aliases": ["方局", "banghap", "fanghe"],
+      "displayGlossKo": "계절 방위로 묶이는 지지 합 관계",
+      "mapsTo": {
+        "surface": "jijiRelations",
+        "fieldPath": "sajuReport.jijiRelations[].type",
+        "code": "BANGHAP",
+        "group": null,
+        "axis": "relation"
+      },
+      "relatedCodes": ["relations.branches"],
+      "status": "direct",
+      "sourceRefs": [
+        {
+          "sourceId": "sanming_tonghui",
+          "locator": "branch relation terminology",
+          "quoteShort": null,
+          "interpretation": "Maps directional branch-combination terminology to the existing branch relation code."
+        }
+      ]
+    },
+    {
+      "termId": "relation_jiji_chung",
+      "term": "지지충",
+      "hanja": "地支沖",
+      "category": "relation",
+      "aliases": ["地支衝", "jiji_chung", "dizhi_chong"],
+      "displayGlossKo": "두 지지의 충 관계",
+      "mapsTo": {
+        "surface": "jijiRelations",
+        "fieldPath": "sajuReport.jijiRelations[].type",
+        "code": "CHUNG",
+        "group": null,
+        "axis": "relation"
+      },
+      "relatedCodes": ["relations.branches"],
+      "status": "direct",
+      "sourceRefs": [
+        {
+          "sourceId": "sanming_tonghui",
+          "locator": "branch relation terminology",
+          "quoteShort": null,
+          "interpretation": "Maps branch-clash terminology to the existing branch relation code."
+        }
+      ]
+    },
+    {
+      "termId": "relation_hyeong",
+      "term": "형",
+      "hanja": "刑",
+      "category": "relation",
+      "aliases": ["刑", "삼형", "hyeong", "xing"],
+      "displayGlossKo": "지지의 형살 관계",
+      "mapsTo": {
+        "surface": "jijiRelations",
+        "fieldPath": "sajuReport.jijiRelations[].type",
+        "code": "HYEONG",
+        "group": null,
+        "axis": "relation"
+      },
+      "relatedCodes": ["relations.branches", "chart.relations.hyeongBranches"],
+      "status": "direct",
+      "sourceRefs": [
+        {
+          "sourceId": "sanming_tonghui",
+          "locator": "branch relation terminology",
+          "quoteShort": null,
+          "interpretation": "Maps branch penalty terminology to the existing branch relation code."
+        }
+      ]
+    },
+    {
+      "termId": "relation_hae",
+      "term": "해",
+      "hanja": "害",
+      "category": "relation",
+      "aliases": ["六害", "hae", "hai"],
+      "displayGlossKo": "지지의 해 관계",
+      "mapsTo": {
+        "surface": "jijiRelations",
+        "fieldPath": "sajuReport.jijiRelations[].type",
+        "code": "HAE",
+        "group": null,
+        "axis": "relation"
+      },
+      "relatedCodes": ["relations.branches", "chart.relations.haeBranches"],
+      "status": "direct",
+      "sourceRefs": [
+        {
+          "sourceId": "sanming_tonghui",
+          "locator": "branch relation terminology",
+          "quoteShort": null,
+          "interpretation": "Maps branch-harm terminology to the existing branch relation code."
+        }
+      ]
+    },
+    {
+      "termId": "relation_pa",
+      "term": "파",
+      "hanja": "破",
+      "category": "relation",
+      "aliases": ["破", "pa", "po"],
+      "displayGlossKo": "지지의 파 관계",
+      "mapsTo": {
+        "surface": "jijiRelations",
+        "fieldPath": "sajuReport.jijiRelations[].type",
+        "code": "PA",
+        "group": null,
+        "axis": "relation"
+      },
+      "relatedCodes": ["relations.branches", "chart.relations.paBranches"],
+      "status": "direct",
+      "sourceRefs": [
+        {
+          "sourceId": "sanming_tonghui",
+          "locator": "branch relation terminology",
+          "quoteShort": null,
+          "interpretation": "Maps branch-break terminology to the existing branch relation code."
+        }
+      ]
+    },
+    {
+      "termId": "relation_wonjin",
+      "term": "원진",
+      "hanja": "元嗔",
+      "category": "relation",
+      "aliases": ["怨嗔", "wonjin"],
+      "displayGlossKo": "원진 조건으로 계산되는 지지 관계",
+      "mapsTo": {
+        "surface": "shinsal condition facts",
+        "fieldPath": "chart.relations.wonjinBranches",
+        "code": "WONJIN",
+        "group": null,
+        "axis": "relation"
+      },
+      "relatedCodes": ["chart.relations.wonjinBranches"],
+      "status": "direct",
+      "sourceRefs": [
+        {
+          "sourceId": "sanming_tonghui",
+          "locator": "branch relation terminology",
+          "quoteShort": null,
+          "interpretation": "Maps wonjin terminology to the existing relation fact path used by shinsal conditions."
+        }
+      ]
+    },
+    {
+      "termId": "relation_hap_hwa",
+      "term": "합화",
+      "hanja": "合化",
+      "category": "relation",
+      "aliases": ["hap_hwa", "hehua"],
+      "displayGlossKo": "합이 오행 변화 신호로 이어지는 관계",
+      "mapsTo": {
+        "surface": "hapHwaEvaluations / gyeokguk transformations",
+        "fieldPath": "sajuReport.hapHwaEvaluations[]",
+        "code": "HAPWHA_YONGSHIN",
+        "group": "transformation",
+        "axis": "relation"
+      },
+      "relatedCodes": ["gyeokguk.HUA_QI", "patterns.transformations"],
+      "status": "direct",
+      "sourceRefs": [
+        {
+          "sourceId": "ditian_sui_chanwei",
+          "locator": "transformation terminology",
+          "quoteShort": null,
+          "interpretation": "Maps transformation vocabulary to existing hap-hwa and HUA_QI evidence surfaces."
+        }
+      ]
+    },
+    {
+      "termId": "yongshin_tong_gwan",
+      "term": "통관",
+      "hanja": "通關",
+      "category": "yongshinMethod",
+      "aliases": ["通关", "tongguan", "through_bridge"],
+      "displayGlossKo": "막힌 오행 흐름을 중간 오행으로 잇는 용신 방식",
+      "mapsTo": {
+        "surface": "yongshin rule specs",
+        "fieldPath": "rules.spec.yongshin.throughBridge",
+        "code": "TONGGUAN",
+        "group": "bridge",
+        "axis": "yongshin"
+      },
+      "relatedCodes": ["yongshin.tongguan.bridge"],
+      "status": "direct",
+      "sourceRefs": [
+        {
+          "sourceId": "ditian_sui_chanwei",
+          "locator": "useful-god method terminology",
+          "quoteShort": null,
+          "interpretation": "Maps bridge-method vocabulary to the existing throughBridge rule-spec surface."
+        }
+      ]
+    },
+    {
+      "termId": "yongshin_yongshin",
+      "term": "용신",
+      "hanja": "用神",
+      "category": "yongshinMethod",
+      "aliases": ["用神", "yongshen", "useful_god"],
+      "displayGlossKo": "판단에서 가장 우선하는 보완 오행 또는 역할",
+      "mapsTo": {
+        "surface": "yongshin",
+        "fieldPath": "sajuReport.yongshin.element",
+        "code": "YONGSHIN",
+        "group": null,
+        "axis": "yongshin"
+      },
+      "relatedCodes": ["SajuYongshinSummary.finalYongshin"],
+      "status": "direct",
+      "sourceRefs": [
+        {
+          "sourceId": "ditian_sui_chanwei",
+          "locator": "useful-god terminology",
+          "quoteShort": null,
+          "interpretation": "Maps useful-god vocabulary to the selected yongshin field."
+        }
+      ]
+    },
+    {
+      "termId": "yongshin_heesin",
+      "term": "희신",
+      "hanja": "喜神",
+      "category": "yongshinMethod",
+      "aliases": ["喜神", "xishen", "heesin"],
+      "displayGlossKo": "용신을 보조하는 선호 오행 또는 역할",
+      "mapsTo": {
+        "surface": "yongshin",
+        "fieldPath": "sajuReport.yongshin.heeshin",
+        "code": "HEESIN",
+        "group": null,
+        "axis": "yongshin"
+      },
+      "relatedCodes": ["SajuYongshinSummary.finalHeesin"],
+      "status": "direct",
+      "sourceRefs": [
+        {
+          "sourceId": "ditian_sui_chanwei",
+          "locator": "useful-god terminology",
+          "quoteShort": null,
+          "interpretation": "Maps favorable-helper vocabulary to the yongshin helper field."
+        }
+      ]
+    },
+    {
+      "termId": "yongshin_gisin",
+      "term": "기신",
+      "hanja": "忌神",
+      "category": "yongshinMethod",
+      "aliases": ["忌神", "jishen", "gisin", "gishin"],
+      "displayGlossKo": "피하거나 낮추는 쪽으로 보는 오행 또는 역할",
+      "mapsTo": {
+        "surface": "yongshin",
+        "fieldPath": "sajuReport.yongshin.gishin",
+        "code": "GISIN",
+        "group": null,
+        "axis": "yongshin"
+      },
+      "relatedCodes": ["SajuYongshinSummary.gisin"],
+      "status": "direct",
+      "sourceRefs": [
+        {
+          "sourceId": "ditian_sui_chanwei",
+          "locator": "useful-god terminology",
+          "quoteShort": null,
+          "interpretation": "Maps unfavorable-god vocabulary to the yongshin avoid field."
+        }
+      ]
+    },
+    {
+      "termId": "yongshin_gushin",
+      "term": "구신",
+      "hanja": "仇神",
+      "category": "yongshinMethod",
+      "aliases": ["仇神", "choushen", "gushin"],
+      "displayGlossKo": "기신과 함께 부정적으로 다루는 보조 오행 또는 역할",
+      "mapsTo": {
+        "surface": "yongshin",
+        "fieldPath": "sajuReport.yongshin.gushin",
+        "code": "GUSHIN",
+        "group": null,
+        "axis": "yongshin"
+      },
+      "relatedCodes": ["SajuYongshinSummary.gusin"],
+      "status": "direct",
+      "sourceRefs": [
+        {
+          "sourceId": "ditian_sui_chanwei",
+          "locator": "useful-god terminology",
+          "quoteShort": null,
+          "interpretation": "Maps adverse-helper vocabulary to the yongshin adverse field."
+        }
+      ]
+    },
+    {
+      "termId": "yongshin_johu",
+      "term": "조후",
+      "hanja": "調候",
+      "category": "yongshinMethod",
+      "aliases": ["調候用神", "johu", "climate_useful_god"],
+      "displayGlossKo": "계절 한난조습을 보정하는 용신 방식",
+      "mapsTo": {
+        "surface": "yongshinConsensus",
+        "fieldPath": "sajuReport.yongshinConsensus.johu",
+        "code": "JOHU",
+        "group": null,
+        "axis": "johu"
+      },
+      "relatedCodes": ["PrecisionConfig.surfaceJohu"],
+      "status": "direct",
+      "sourceRefs": [
+        {
+          "sourceId": "ditian_sui_chanwei",
+          "locator": "useful-god method terminology",
+          "quoteShort": null,
+          "interpretation": "Maps climate-adjustment vocabulary to the existing johu consensus axis."
+        }
+      ]
+    },
+    {
+      "termId": "yongshin_bu_eok",
+      "term": "부억",
+      "hanja": "扶抑",
+      "category": "yongshinMethod",
+      "aliases": ["扶抑用神", "bueok", "support_suppress"],
+      "displayGlossKo": "강약 균형에 따라 돕거나 억제하는 용신 방식",
+      "mapsTo": {
+        "surface": "precisionConfig / yongshin scoring",
+        "fieldPath": "precisionConfig.yongshinMode",
+        "code": "classical_blend",
+        "group": "balance",
+        "axis": "yongshin"
+      },
+      "relatedCodes": ["SajuYongshinSummary.consensus", "StrengthSummary"],
+      "status": "direct",
+      "sourceRefs": [
+        {
+          "sourceId": "ditian_sui_chanwei",
+          "locator": "useful-god method terminology",
+          "quoteShort": null,
+          "interpretation": "Maps support-suppress vocabulary to the existing classical blend yongshin mode."
+        }
+      ]
+    },
+    {
+      "termId": "yongshin_byeongyak",
+      "term": "병약",
+      "hanja": "病藥",
+      "category": "yongshinMethod",
+      "aliases": ["病藥用神", "byeongyak", "disease_medicine"],
+      "displayGlossKo": "문제가 되는 병과 이를 푸는 약을 나누는 용신 방식",
+      "mapsTo": {
+        "surface": "yongshinConsensus",
+        "fieldPath": "sajuReport.yongshinConsensus.byeongyak",
+        "code": "BYEONGYAK",
+        "group": null,
+        "axis": "byeongyak"
+      },
+      "relatedCodes": ["gyeokgukEncyclopedia.disease", "gyeokgukEncyclopedia.remedy"],
+      "status": "direct",
+      "sourceRefs": [
+        {
+          "sourceId": "ditian_sui_chanwei",
+          "locator": "disease-remedy terminology",
+          "quoteShort": null,
+          "interpretation": "Maps disease-medicine vocabulary to the existing byeongyak consensus axis."
+        }
+      ]
+    },
+    {
+      "termId": "disease_remedy_byeong",
+      "term": "병",
+      "hanja": "病",
+      "category": "diseaseRemedy",
+      "aliases": ["病", "byeong", "disease"],
+      "displayGlossKo": "격국 또는 용신 판단에서 제거해야 할 문제 신호",
+      "mapsTo": {
+        "surface": "gyeokguk composite classical evidence",
+        "fieldPath": "sajuReport.gyeokguk.compositeClassical.breakerPenalty",
+        "code": "DISEASE",
+        "group": "breaker",
+        "axis": "gyeokguk"
+      },
+      "relatedCodes": ["GyeokgukCompositeClassicalScore.breakerPenalty"],
+      "status": "direct",
+      "sourceRefs": [
+        {
+          "sourceId": "ditian_sui_chanwei",
+          "locator": "disease-remedy terminology",
+          "quoteShort": null,
+          "interpretation": "Maps disease vocabulary to existing breaker-penalty evidence rather than source prose."
+        }
+      ]
+    },
+    {
+      "termId": "disease_remedy_yak",
+      "term": "약",
+      "hanja": "藥",
+      "category": "diseaseRemedy",
+      "aliases": ["藥", "yak", "remedy"],
+      "displayGlossKo": "병을 풀거나 격국 성립을 돕는 보완 신호",
+      "mapsTo": {
+        "surface": "gyeokguk composite classical evidence",
+        "fieldPath": "sajuReport.gyeokguk.compositeClassical.features[].name",
+        "code": "usefulGodAlignment",
+        "group": "remedy",
+        "axis": "gyeokguk"
+      },
+      "relatedCodes": ["GyeokgukCompositeClassicalFeatureScore.usefulGodAlignment"],
+      "status": "direct",
+      "sourceRefs": [
+        {
+          "sourceId": "ditian_sui_chanwei",
+          "locator": "disease-remedy terminology",
+          "quoteShort": null,
+          "interpretation": "Maps remedy vocabulary to existing useful-god-alignment evidence."
+        }
+      ]
+    },
+    {
+      "termId": "disease_remedy_seong_gyeok",
+      "term": "성격",
+      "hanja": "成格",
+      "category": "diseaseRemedy",
+      "aliases": ["成格", "seong_gyeok", "complete_frame"],
+      "displayGlossKo": "격국이 성립하는 쪽의 품질 판단",
+      "mapsTo": {
+        "surface": "gyeokguk composite classical evidence",
+        "fieldPath": "sajuReport.gyeokguk.compositeClassical.status",
+        "code": "candidate_evidence",
+        "group": "chengbai",
+        "axis": "gyeokguk"
+      },
+      "relatedCodes": ["PrecisionConfig.gyeokgukMode.chengbai_strict"],
+      "status": "direct",
+      "sourceRefs": [
+        {
+          "sourceId": "yuanhai_ziping",
+          "locator": "frame quality terminology",
+          "quoteShort": null,
+          "interpretation": "Maps completion vocabulary to existing frame-quality evidence fields."
+        }
+      ]
+    },
+    {
+      "termId": "disease_remedy_pa_gyeok",
+      "term": "파격",
+      "hanja": "破格",
+      "category": "diseaseRemedy",
+      "aliases": ["敗格", "破格", "pa_gyeok", "broken_frame"],
+      "displayGlossKo": "격국을 깨는 쪽의 품질 판단",
+      "mapsTo": {
+        "surface": "gyeokguk composite classical evidence",
+        "fieldPath": "sajuReport.gyeokguk.compositeClassical.breakerPenalty",
+        "code": "BREAKER_PENALTY",
+        "group": "chengbai",
+        "axis": "gyeokguk"
+      },
+      "relatedCodes": ["GyeokgukCompositeClassicalScore.breakerPenalty"],
+      "status": "direct",
+      "sourceRefs": [
+        {
+          "sourceId": "yuanhai_ziping",
+          "locator": "frame quality terminology",
+          "quoteShort": null,
+          "interpretation": "Maps broken-frame vocabulary to existing breaker-penalty evidence fields."
+        }
+      ]
+    },
+    {
+      "termId": "compound_sanggwan_gyeongwan",
+      "term": "상관견관",
+      "hanja": "傷官見官",
+      "category": "compoundIdiom",
+      "aliases": ["傷官見官", "shangguan_jianguan"],
+      "displayGlossKo": "상관과 정관의 충돌을 보는 복합 관용어",
+      "mapsTo": {
+        "surface": "gyeokgukEncyclopedia",
+        "fieldPath": "GYEOKGUK_ENCYCLOPEDIA.*.disease[]",
+        "code": null,
+        "group": null,
+        "axis": "gyeokguk"
+      },
+      "relatedCodes": ["SANG_GWAN", "JEONG_GWAN"],
+      "status": "compound",
+      "sourceRefs": [
+        {
+          "sourceId": "yuanhai_ziping",
+          "locator": "compound terminology",
+          "quoteShort": null,
+          "interpretation": "Maps the idiom to constituent ten-god codes and disease/remedy evidence fields."
+        }
+      ]
+    },
+    {
+      "termId": "compound_sikshin_saengjae",
+      "term": "식신생재",
+      "hanja": "食神生財",
+      "category": "compoundIdiom",
+      "aliases": ["食神生財", "shishen_shengcai"],
+      "displayGlossKo": "식신이 재성을 생하는 흐름을 보는 복합 관용어",
+      "mapsTo": {
+        "surface": "gyeokgukEncyclopedia",
+        "fieldPath": "GYEOKGUK_ENCYCLOPEDIA.*.helpful[]",
+        "code": null,
+        "group": null,
+        "axis": "gyeokguk"
+      },
+      "relatedCodes": ["SIK_SIN", "JEONG_JAE", "PYEON_JAE"],
+      "status": "compound",
+      "sourceRefs": [
+        {
+          "sourceId": "yuanhai_ziping",
+          "locator": "compound terminology",
+          "quoteShort": null,
+          "interpretation": "Maps the idiom to constituent ten-god codes and helpful evidence fields."
+        }
+      ]
+    },
+    {
+      "termId": "compound_salin_sangsaeng",
+      "term": "살인상생",
+      "hanja": "殺印相生",
+      "category": "compoundIdiom",
+      "aliases": ["殺印相生", "sha_yin_xiangsheng"],
+      "displayGlossKo": "칠살과 인성의 상생 흐름을 보는 복합 관용어",
+      "mapsTo": {
+        "surface": "gyeokgukEncyclopedia / yongshinConsensus",
+        "fieldPath": "GYEOKGUK_ENCYCLOPEDIA.*.helpful[]",
+        "code": null,
+        "group": null,
+        "axis": "gyeokguk"
+      },
+      "relatedCodes": ["PYEON_GWAN", "JEONG_IN", "PYEON_IN"],
+      "status": "compound",
+      "sourceRefs": [
+        {
+          "sourceId": "ditian_sui_chanwei",
+          "locator": "compound terminology",
+          "quoteShort": null,
+          "interpretation": "Maps the idiom to constituent ten-god codes and helpful evidence fields."
+        }
+      ]
+    }
+  ]
+}
