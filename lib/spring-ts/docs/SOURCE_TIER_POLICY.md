@@ -47,6 +47,10 @@ as authority truth, the gate fails with a source-tier violation. Low-tier
 records can remain in the repository as hypotheses, compatibility references,
 or regression observations when `authorityTruthEligible` is `false`.
 
+`npm run ci:no-ai-policy` adds the Phase 9.3 recursive guard for AI-derived
+records and runtime LLM dependencies. See `NO_AI_POLICY.md` for the exact
+markers and runtime dependency denylist.
+
 ## Current Source Classes
 
 - `test/fixtures/jonggyeok_cases.json`: `T1_HYPOTHESIS`; training-derived

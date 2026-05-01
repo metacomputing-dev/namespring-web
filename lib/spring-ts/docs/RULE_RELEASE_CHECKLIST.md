@@ -43,6 +43,8 @@ link the relevant release checklist evidence.
 - Confirm any new fixture or source has an explicit source tier and source kind.
 - Confirm promotion or calibration artifacts keep low-tier data diagnostic
   unless `sourceTier.authorityTruthEligible === true` and tier rank is `T3+`.
+- Run `npm run ci:no-ai-policy` for fixture, source registry, dependency, or
+  runtime-source changes that could affect No-AI compliance.
 - Link `SOURCE_TIER_POLICY.md`, `DETERMINISTIC_CALIBRATION.md`, or the relevant
   metrics artifact when the PR affects authority gates.
 
