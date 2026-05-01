@@ -21,9 +21,18 @@ const POLARITY_SIGNAL_WEIGHT = polarityRules.signalWeight;
 
 export class HangulCalculator extends SeedHangulCalculator implements EvaluableCalculator {
   readonly id = 'hangul';
+  // PR-Q-24 (K-5 full wire): optional confidence cap on hangul signals.
+  // chinese 학파의 발음오행 confidence 하향 doctrine.
+  private readonly signalCap: number;
 
-  constructor(surnameEntries: HanjaEntry[], givenNameEntries: HanjaEntry[]) {
+  constructor(
+    surnameEntries: HanjaEntry[],
+    givenNameEntries: HanjaEntry[],
+    signalCap: number = 1.0,
+  ) {
     super(surnameEntries, givenNameEntries);
+    // Clamp to [0, 1] to prevent unintentional amplification or negative weights.
+    this.signalCap = Math.max(0, Math.min(1, Number(signalCap) || 1));
   }
 
   visit(ctx: EvalContext): void {
@@ -84,8 +93,8 @@ export class HangulCalculator extends SeedHangulCalculator implements EvaluableC
   backward(ctx: EvalContext): CalculatorPacket {
     return {
       signals: [
-        createSignal('HANGUL_ELEMENT', ctx, ELEMENT_SIGNAL_WEIGHT),
-        createSignal('HANGUL_POLARITY', ctx, POLARITY_SIGNAL_WEIGHT),
+        createSignal('HANGUL_ELEMENT', ctx, ELEMENT_SIGNAL_WEIGHT * this.signalCap),
+        createSignal('HANGUL_POLARITY', ctx, POLARITY_SIGNAL_WEIGHT * this.signalCap),
       ],
     };
   }

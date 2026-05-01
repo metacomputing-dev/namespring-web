@@ -157,6 +157,42 @@ try {
 }
 if (crashedK56) check(`K-5/K-6 acceptance`, false);
 
+// (6) PR-Q-24 K-5 full wire — signal cap actually changes evaluation
+//     on a HANJA name (mixed signal case where weighted-average changes).
+//     Note: pure-hangul name only fires HANGUL_* signals, so the cap
+//     cancels in numerator/denominator — no effect.  HANJA-included names
+//     mix HANGUL + STROKE signals, where cap shifts the relative weight.
+console.log('\nK-5 full wire — signal cap effect on hanja-included name:');
+const hanjaReq = {
+  birth: { year: 1986, month: 4, day: 19, hour: 5, minute: 45, gender: 'male' as const },
+  surname: [{ hangul: '최', hanja: '崔' }],
+  givenName: [{ hangul: '성', hanja: '成' }, { hangul: '수', hanja: '秀' }],
+};
+const reportFull: any = await engine.getNamingReport(hanjaReq);
+const reportCapped: any = await engine.getNamingReport({
+  ...hanjaReq,
+  options: { precisionConfig: { pureHangulSignalCap: 0.5 } } as any,
+});
+console.log(`  cap=1.0 totalScore=${reportFull?.totalScore}`);
+console.log(`  cap=0.5 totalScore=${reportCapped?.totalScore}`);
+const totalChanged = (reportFull?.totalScore ?? 0) !== (reportCapped?.totalScore ?? 0);
+check(`K-5 cap=0.5 changes totalScore on hanja-included name (wire active)`,
+  totalChanged,
+  `delta=${((reportFull?.totalScore ?? 0) - (reportCapped?.totalScore ?? 0)).toFixed(3)}`);
+
+// (7) chinese schoolPreset + 'auto' schema → cap 0.7 auto-resolution
+const reportAuto: any = await engine.getNamingReport({
+  ...hanjaReq,
+  options: {
+    schoolPreset: 'chinese',
+    precisionConfig: { pureHangulSchema: 'auto' },
+  } as any,
+});
+console.log(`  schoolPreset='chinese' + auto totalScore=${reportAuto?.totalScore}`);
+check(`schoolPreset='chinese' + 'auto' schema applies cap (different from baseline)`,
+  (reportAuto?.totalScore ?? 0) !== (reportFull?.totalScore ?? 0),
+  `auto=${reportAuto?.totalScore} vs baseline=${reportFull?.totalScore}`);
+
 engine.close();
 
 console.log(`\nPureHangulSchema fixture: ${pass} PASS / ${fail} FAIL`);
