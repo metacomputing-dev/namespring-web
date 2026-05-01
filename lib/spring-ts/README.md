@@ -477,7 +477,15 @@ await engine.getNameCandidates({
   },
 });
 
-// 9,495 인명용 한자 풀 사용
+// Internal/expert gyeokguk selector comparison. Default behavior is unchanged.
+await engine.getSajuReport({
+  ...request,
+  options: {
+    precisionConfig: { gyeokgukSelectionRule: 'jungki_transparent' },
+  },
+});
+
+// Full legal-Hanja candidate pool.
 await engine.getNameCandidates({
   ...request,
   options: {
