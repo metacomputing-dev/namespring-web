@@ -93,6 +93,18 @@ const violationPath = path.join(AUTHORITY_DIR, '__source_tier_violation_test__.j
 try {
   fs.writeFileSync(violationPath, JSON.stringify({
     sourceTier: {
+      tier: 'T3_AUTHORED_INTERPRETATION',
+      sourceType: 'temporary_test_fixture',
+      sourceUrl: null,
+      accessedAt: '2026-05-01',
+      quoteShort: null,
+      humanInterpretation: 'Temporary test fixture root record.',
+      copyrightNote: 'No source prose.',
+      authorityTruthEligible: true,
+    },
+    sources: [{
+      id: 'nested_low_tier_violation',
+      sourceTier: {
       tier: 'T1_HYPOTHESIS',
       sourceType: 'training_derived',
       sourceUrl: null,
@@ -101,7 +113,8 @@ try {
       humanInterpretation: 'Temporary test fixture that must never be authority truth.',
       copyrightNote: 'No source prose.',
       authorityTruthEligible: true,
-    },
+      },
+    }],
   }, null, 2) + '\n', 'utf-8');
   const violationRun = runGate(['--json']);
   let violationReport: any = null;
@@ -114,7 +127,9 @@ try {
     violationRun.status === 1 && violationReport?.sourceTierAudit?.status === 'FAIL',
     `status=${violationRun.status}`);
   check('source-tier violation reports low_tier_authority_truth',
-    violationReport?.sourceTierAudit?.violations?.some((v: any) => v.code === 'low_tier_authority_truth'));
+    violationReport?.sourceTierAudit?.violations?.some((v: any) =>
+      v.code === 'low_tier_authority_truth' &&
+      v.sourceTierPath === 'sources[0].sourceTier'));
 } finally {
   if (fs.existsSync(violationPath)) fs.unlinkSync(violationPath);
 }

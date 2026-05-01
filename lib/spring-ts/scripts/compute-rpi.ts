@@ -92,6 +92,8 @@ interface QualityGateReport {
 
 interface SourceTierRecord {
   file: string;
+  sourceTierPath: string;
+  sourceId: string | null;
   tier: string;
   tierRank: number | null;
   sourceType: string;
@@ -156,14 +158,42 @@ function parseTierRank(sourceTier: SourceTier | null | undefined): number | null
   return match ? Number(match[1]) : null;
 }
 
-function sourceTierRecord(filePath: string, sourceTier: SourceTier | null | undefined): SourceTierRecord {
+function sourceTierRecord(
+  filePath: string,
+  sourceTier: SourceTier | null | undefined,
+  sourceTierPath = 'sourceTier',
+  sourceId: string | null = null,
+): SourceTierRecord {
   return {
     file: toRel(filePath),
+    sourceTierPath,
+    sourceId,
     tier: sourceTier?.tier ?? 'MISSING_SOURCE_TIER',
     tierRank: parseTierRank(sourceTier),
     sourceType: sourceTier?.sourceType ?? 'unknown',
     authorityTruthEligible: sourceTier?.authorityTruthEligible === true,
   };
+}
+
+function sourceTierRecordsForFile(filePath: string, data: any): SourceTierRecord[] {
+  const records = [sourceTierRecord(filePath, data?.sourceTier)];
+  if (Array.isArray(data?.sources)) {
+    data.sources.forEach((source: any, index: number) => {
+      records.push(sourceTierRecord(
+        filePath,
+        source?.sourceTier,
+        `sources[${index}].sourceTier`,
+        typeof source?.id === 'string' ? source.id : null,
+      ));
+    });
+  }
+  return records;
+}
+
+function sourceTierRecordLabel(record: SourceTierRecord): string {
+  if (record.sourceTierPath === 'sourceTier') return record.file;
+  const idSuffix = record.sourceId ? `:${record.sourceId}` : '';
+  return `${record.file}#${record.sourceTierPath}${idSuffix}`;
 }
 
 function increment(bucket: Record<string, number>, key: string, n = 1): void {
@@ -182,9 +212,9 @@ function scanSourceTiers(): { records: SourceTierRecord[]; byTier: Record<string
   ];
   if (fs.existsSync(JONGGYEOK_FIXTURES_PATH)) files.push(JONGGYEOK_FIXTURES_PATH);
 
-  const records = files.map((filePath) => {
+  const records = files.flatMap((filePath) => {
     const data = readJson(filePath);
-    return sourceTierRecord(filePath, data.sourceTier);
+    return sourceTierRecordsForFile(filePath, data);
   });
 
   const byTier: Record<string, any> = {};
@@ -199,7 +229,7 @@ function scanSourceTiers(): { records: SourceTierRecord[]; byTier: Record<string
     tierBucket.recordCount += 1;
     if (record.authorityTruthEligible) tierBucket.authorityTruthEligible += 1;
     else tierBucket.nonEligible += 1;
-    tierBucket.files.push(record.file);
+    tierBucket.files.push(sourceTierRecordLabel(record));
     byTier[record.tier] = tierBucket;
 
     const typeBucket = bySourceType[record.sourceType] ?? {
