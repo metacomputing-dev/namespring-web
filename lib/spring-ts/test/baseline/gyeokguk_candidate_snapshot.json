@@ -1,0 +1,635 @@
+{
+  "schemaVersion": "spring-ts.gyeokguk-candidate-snapshot.v1",
+  "sourceFixture": "test/fixtures/spring_ts_baseline_cases.json",
+  "fixtureCount": 15,
+  "results": [
+    {
+      "id": "fix-01",
+      "selected": {
+        "type": "식신격",
+        "category": "일반",
+        "baseTenGod": null,
+        "confidence": 0.521257
+      },
+      "candidates": [
+        {
+          "type": "식신격",
+          "category": "일반",
+          "baseTenGod": "식신",
+          "score": 0.521257,
+          "confidence": 0.521257,
+          "sourceTier": "T2_REFERENCE_IMPLEMENTATION",
+          "sourceType": "reference_implementation",
+          "reasonCodes": [
+            "monthHiddenStem:EUL",
+            "role:MIDDLE",
+            "visibleInChart",
+            "weight:0.30",
+            "VISIBLE",
+            "BANGHAP_ELEMENT",
+            "blocking:MONTH_BRANCH_DAMAGED"
+          ]
+        },
+        {
+          "type": "정관격",
+          "category": "일반",
+          "baseTenGod": "정관",
+          "score": 0.65,
+          "confidence": 0.65,
+          "sourceTier": "T2_REFERENCE_IMPLEMENTATION",
+          "sourceType": "reference_implementation",
+          "reasonCodes": [
+            "monthHiddenStem:MU",
+            "role:MAIN",
+            "weight:0.60",
+            "MAIN",
+            "blocking:MONTH_BRANCH_DAMAGED"
+          ]
+        },
+        {
+          "type": "비견격",
+          "category": "일반",
+          "baseTenGod": "비견",
+          "score": 0.55,
+          "confidence": 0.55,
+          "sourceTier": "T2_REFERENCE_IMPLEMENTATION",
+          "sourceType": "reference_implementation",
+          "reasonCodes": [
+            "monthHiddenStem:GYE",
+            "role:RESIDUAL",
+            "visibleInChart",
+            "weight:0.10",
+            "VISIBLE",
+            "blocking:MONTH_BRANCH_DAMAGED"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "fix-02",
+      "selected": {
+        "type": "정관격",
+        "category": "일반",
+        "baseTenGod": "정관",
+        "confidence": 0.87
+      },
+      "candidates": [
+        {
+          "type": "정관격",
+          "category": "일반",
+          "baseTenGod": "정관",
+          "score": 0.87,
+          "confidence": 0.87,
+          "sourceTier": "T2_REFERENCE_IMPLEMENTATION",
+          "sourceType": "reference_implementation",
+          "reasonCodes": [
+            "monthHiddenStem:SIN",
+            "role:MAIN",
+            "weight:1.00",
+            "MAIN"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "fix-03",
+      "selected": {
+        "type": "편관격",
+        "category": "일반",
+        "baseTenGod": "편관",
+        "confidence": 0.538889
+      },
+      "candidates": [
+        {
+          "type": "편관격",
+          "category": "일반",
+          "baseTenGod": "편관",
+          "score": 0.538889,
+          "confidence": 0.538889,
+          "sourceTier": "T2_REFERENCE_IMPLEMENTATION",
+          "sourceType": "reference_implementation",
+          "reasonCodes": [
+            "monthHiddenStem:GYE",
+            "role:MAIN",
+            "weight:1.00",
+            "MAIN",
+            "blocking:MONTH_BRANCH_DAMAGED"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "fix-04",
+      "selected": {
+        "type": "편관격",
+        "category": "일반",
+        "baseTenGod": "편관",
+        "confidence": 0.332615
+      },
+      "candidates": [
+        {
+          "type": "편관격",
+          "category": "일반",
+          "baseTenGod": "편관",
+          "score": 0.332615,
+          "confidence": 0.332615,
+          "sourceTier": "T2_REFERENCE_IMPLEMENTATION",
+          "sourceType": "reference_implementation",
+          "reasonCodes": [
+            "monthHiddenStem:GYEONG",
+            "role:MAIN",
+            "weight:0.60",
+            "MAIN",
+            "blocking:MONTH_BRANCH_DAMAGED"
+          ]
+        },
+        {
+          "type": "편인격",
+          "category": "일반",
+          "baseTenGod": "편인",
+          "score": 0.2,
+          "confidence": 0.2,
+          "sourceTier": "T2_REFERENCE_IMPLEMENTATION",
+          "sourceType": "reference_implementation",
+          "reasonCodes": [
+            "monthHiddenStem:IM",
+            "role:MIDDLE",
+            "weight:0.30",
+            "blocking:MONTH_BRANCH_DAMAGED"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "fix-05",
+      "selected": {
+        "type": "비견격",
+        "category": "일반",
+        "baseTenGod": "비견",
+        "confidence": 0.263514
+      },
+      "candidates": [
+        {
+          "type": "비견격",
+          "category": "일반",
+          "baseTenGod": "비견",
+          "score": 0.263514,
+          "confidence": 0.263514,
+          "sourceTier": "T2_REFERENCE_IMPLEMENTATION",
+          "sourceType": "reference_implementation",
+          "reasonCodes": [
+            "monthHiddenStem:GYE",
+            "role:MAIN",
+            "visibleInChart",
+            "weight:1.00",
+            "MAIN",
+            "VISIBLE",
+            "blocking:MONTH_BRANCH_DAMAGED"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "fix-06",
+      "selected": {
+        "type": "겁재격",
+        "category": "일반",
+        "baseTenGod": null,
+        "confidence": 0.466667
+      },
+      "candidates": [
+        {
+          "type": "겁재격",
+          "category": "일반",
+          "baseTenGod": "겁재",
+          "score": 0.466667,
+          "confidence": 0.466667,
+          "sourceTier": "T2_REFERENCE_IMPLEMENTATION",
+          "sourceType": "reference_implementation",
+          "reasonCodes": [
+            "monthHiddenStem:GI",
+            "role:RESIDUAL",
+            "visibleInChart",
+            "weight:0.30",
+            "VISIBLE",
+            "blocking:MONTH_BRANCH_DAMAGED"
+          ]
+        },
+        {
+          "type": "정인격",
+          "category": "일반",
+          "baseTenGod": "정인",
+          "score": 0.75,
+          "confidence": 0.75,
+          "sourceTier": "T2_REFERENCE_IMPLEMENTATION",
+          "sourceType": "reference_implementation",
+          "reasonCodes": [
+            "monthHiddenStem:JEONG",
+            "role:MAIN",
+            "weight:0.70",
+            "MAIN",
+            "blocking:MONTH_BRANCH_DAMAGED"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "fix-07",
+      "selected": {
+        "type": "겁재격",
+        "category": "일반",
+        "baseTenGod": null,
+        "confidence": 0.571111
+      },
+      "candidates": [
+        {
+          "type": "겁재격",
+          "category": "일반",
+          "baseTenGod": "겁재",
+          "score": 0.571111,
+          "confidence": 0.571111,
+          "sourceTier": "T2_REFERENCE_IMPLEMENTATION",
+          "sourceType": "reference_implementation",
+          "reasonCodes": [
+            "monthHiddenStem:BYEONG",
+            "role:MIDDLE",
+            "visibleInChart",
+            "weight:0.30",
+            "VISIBLE",
+            "blocking:MONTH_BRANCH_DAMAGED"
+          ]
+        },
+        {
+          "type": "정인격",
+          "category": "일반",
+          "baseTenGod": "정인",
+          "score": 0.65,
+          "confidence": 0.65,
+          "sourceTier": "T2_REFERENCE_IMPLEMENTATION",
+          "sourceType": "reference_implementation",
+          "reasonCodes": [
+            "monthHiddenStem:GAP",
+            "role:MAIN",
+            "weight:0.60",
+            "MAIN",
+            "blocking:MONTH_BRANCH_DAMAGED"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "fix-08",
+      "selected": {
+        "type": "식신격",
+        "category": "일반",
+        "baseTenGod": null,
+        "confidence": 0.875
+      },
+      "candidates": [
+        {
+          "type": "식신격",
+          "category": "일반",
+          "baseTenGod": "식신",
+          "score": 0.875,
+          "confidence": 0.875,
+          "sourceTier": "T2_REFERENCE_IMPLEMENTATION",
+          "sourceType": "reference_implementation",
+          "reasonCodes": [
+            "monthHiddenStem:GYEONG",
+            "role:MAIN",
+            "visibleInChart",
+            "weight:0.60",
+            "MAIN",
+            "VISIBLE"
+          ]
+        },
+        {
+          "type": "비견격",
+          "category": "일반",
+          "baseTenGod": "비견",
+          "score": 0.65,
+          "confidence": 0.65,
+          "sourceTier": "T2_REFERENCE_IMPLEMENTATION",
+          "sourceType": "reference_implementation",
+          "reasonCodes": [
+            "monthHiddenStem:MU",
+            "role:RESIDUAL",
+            "visibleInChart",
+            "weight:0.10",
+            "VISIBLE"
+          ]
+        },
+        {
+          "type": "편재격",
+          "category": "일반",
+          "baseTenGod": "편재",
+          "score": 0.65,
+          "confidence": 0.65,
+          "sourceTier": "T2_REFERENCE_IMPLEMENTATION",
+          "sourceType": "reference_implementation",
+          "reasonCodes": [
+            "monthHiddenStem:IM",
+            "role:MIDDLE",
+            "weight:0.30",
+            "SAMHAP_ELEMENT"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "fix-09",
+      "selected": {
+        "type": "편인격",
+        "category": "일반",
+        "baseTenGod": "편인",
+        "confidence": 0.543981
+      },
+      "candidates": [
+        {
+          "type": "편인격",
+          "category": "일반",
+          "baseTenGod": "편인",
+          "score": 0.543981,
+          "confidence": 0.543981,
+          "sourceTier": "T2_REFERENCE_IMPLEMENTATION",
+          "sourceType": "reference_implementation",
+          "reasonCodes": [
+            "monthHiddenStem:MU",
+            "role:MAIN",
+            "visibleInChart",
+            "weight:0.60",
+            "MAIN",
+            "VISIBLE",
+            "blocking:MONTH_BRANCH_DAMAGED"
+          ]
+        },
+        {
+          "type": "정재격",
+          "category": "일반",
+          "baseTenGod": "정재",
+          "score": 0.2,
+          "confidence": 0.2,
+          "sourceTier": "T2_REFERENCE_IMPLEMENTATION",
+          "sourceType": "reference_implementation",
+          "reasonCodes": [
+            "monthHiddenStem:EUL",
+            "role:MIDDLE",
+            "weight:0.30",
+            "blocking:MONTH_BRANCH_DAMAGED"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "fix-10",
+      "selected": {
+        "type": "편재격",
+        "category": "일반",
+        "baseTenGod": "편재",
+        "confidence": 0.803382
+      },
+      "candidates": [
+        {
+          "type": "편재격",
+          "category": "일반",
+          "baseTenGod": "편재",
+          "score": 0.803382,
+          "confidence": 0.803382,
+          "sourceTier": "T2_REFERENCE_IMPLEMENTATION",
+          "sourceType": "reference_implementation",
+          "reasonCodes": [
+            "monthHiddenStem:IM",
+            "role:MAIN",
+            "weight:0.70",
+            "MAIN"
+          ]
+        },
+        {
+          "type": "편관격",
+          "category": "일반",
+          "baseTenGod": "편관",
+          "score": 0.3,
+          "confidence": 0.3,
+          "sourceTier": "T2_REFERENCE_IMPLEMENTATION",
+          "sourceType": "reference_implementation",
+          "reasonCodes": [
+            "monthHiddenStem:GAP",
+            "role:RESIDUAL",
+            "weight:0.30"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "fix-11",
+      "selected": {
+        "type": "비견격",
+        "category": "일반",
+        "baseTenGod": "비견",
+        "confidence": 0.241923
+      },
+      "candidates": [
+        {
+          "type": "비견격",
+          "category": "일반",
+          "baseTenGod": "비견",
+          "score": 0.241923,
+          "confidence": 0.241923,
+          "sourceTier": "T2_REFERENCE_IMPLEMENTATION",
+          "sourceType": "reference_implementation",
+          "reasonCodes": [
+            "monthHiddenStem:MU",
+            "role:RESIDUAL",
+            "visibleInChart",
+            "weight:0.10",
+            "VISIBLE",
+            "blocking:MONTH_BRANCH_DAMAGED"
+          ]
+        },
+        {
+          "type": "식신격",
+          "category": "일반",
+          "baseTenGod": "식신",
+          "score": 0.65,
+          "confidence": 0.65,
+          "sourceTier": "T2_REFERENCE_IMPLEMENTATION",
+          "sourceType": "reference_implementation",
+          "reasonCodes": [
+            "monthHiddenStem:GYEONG",
+            "role:MAIN",
+            "weight:0.60",
+            "MAIN",
+            "blocking:MONTH_BRANCH_DAMAGED"
+          ]
+        },
+        {
+          "type": "편재격",
+          "category": "일반",
+          "baseTenGod": "편재",
+          "score": 0.2,
+          "confidence": 0.2,
+          "sourceTier": "T2_REFERENCE_IMPLEMENTATION",
+          "sourceType": "reference_implementation",
+          "reasonCodes": [
+            "monthHiddenStem:IM",
+            "role:MIDDLE",
+            "weight:0.30",
+            "blocking:MONTH_BRANCH_DAMAGED"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "fix-12",
+      "selected": {
+        "type": "편관격",
+        "category": "일반",
+        "baseTenGod": "편관",
+        "confidence": 0.92
+      },
+      "candidates": [
+        {
+          "type": "편관격",
+          "category": "일반",
+          "baseTenGod": "편관",
+          "score": 0.92,
+          "confidence": 0.92,
+          "sourceTier": "T2_REFERENCE_IMPLEMENTATION",
+          "sourceType": "reference_implementation",
+          "reasonCodes": [
+            "monthHiddenStem:EUL",
+            "role:MAIN",
+            "weight:1.00",
+            "MAIN"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "fix-13",
+      "selected": {
+        "type": "정재격",
+        "category": "일반",
+        "baseTenGod": "정재",
+        "confidence": 0.963654
+      },
+      "candidates": [
+        {
+          "type": "정재격",
+          "category": "일반",
+          "baseTenGod": "정재",
+          "score": 0.963654,
+          "confidence": 0.963654,
+          "sourceTier": "T2_REFERENCE_IMPLEMENTATION",
+          "sourceType": "reference_implementation",
+          "reasonCodes": [
+            "monthHiddenStem:GI",
+            "role:MAIN",
+            "visibleInChart",
+            "weight:0.60",
+            "MAIN",
+            "VISIBLE"
+          ]
+        },
+        {
+          "type": "상관격",
+          "category": "일반",
+          "baseTenGod": "상관",
+          "score": 0.3,
+          "confidence": 0.3,
+          "sourceTier": "T2_REFERENCE_IMPLEMENTATION",
+          "sourceType": "reference_implementation",
+          "reasonCodes": [
+            "monthHiddenStem:JEONG",
+            "role:MIDDLE",
+            "weight:0.30"
+          ]
+        },
+        {
+          "type": "겁재격",
+          "category": "일반",
+          "baseTenGod": "겁재",
+          "score": 0.1,
+          "confidence": 0.1,
+          "sourceTier": "T2_REFERENCE_IMPLEMENTATION",
+          "sourceType": "reference_implementation",
+          "reasonCodes": [
+            "monthHiddenStem:EUL",
+            "role:RESIDUAL",
+            "weight:0.10"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "fix-14",
+      "selected": {
+        "type": "정관격",
+        "category": "일반",
+        "baseTenGod": "정관",
+        "confidence": 0.371154
+      },
+      "candidates": [
+        {
+          "type": "정관격",
+          "category": "일반",
+          "baseTenGod": "정관",
+          "score": 0.371154,
+          "confidence": 0.371154,
+          "sourceTier": "T2_REFERENCE_IMPLEMENTATION",
+          "sourceType": "reference_implementation",
+          "reasonCodes": [
+            "monthHiddenStem:GI",
+            "role:MAIN",
+            "weight:0.60",
+            "MAIN",
+            "blocking:MONTH_BRANCH_DAMAGED"
+          ]
+        },
+        {
+          "type": "정재격",
+          "category": "일반",
+          "baseTenGod": "정재",
+          "score": 0.2,
+          "confidence": 0.2,
+          "sourceTier": "T2_REFERENCE_IMPLEMENTATION",
+          "sourceType": "reference_implementation",
+          "reasonCodes": [
+            "monthHiddenStem:JEONG",
+            "role:MIDDLE",
+            "weight:0.30",
+            "blocking:MONTH_BRANCH_DAMAGED"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "fix-15",
+      "selected": {
+        "type": "편관격",
+        "category": "일반",
+        "baseTenGod": "편관",
+        "confidence": 0.975
+      },
+      "candidates": [
+        {
+          "type": "편관격",
+          "category": "일반",
+          "baseTenGod": "편관",
+          "score": 0.975,
+          "confidence": 0.975,
+          "sourceTier": "T2_REFERENCE_IMPLEMENTATION",
+          "sourceType": "reference_implementation",
+          "reasonCodes": [
+            "monthHiddenStem:EUL",
+            "role:MAIN",
+            "visibleInChart",
+            "weight:1.00",
+            "MAIN",
+            "VISIBLE"
+          ]
+        }
+      ]
+    }
+  ]
+}
