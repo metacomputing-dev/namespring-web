@@ -13,7 +13,7 @@ import path from 'node:path';
 import { fileURLToPath } from 'node:url';
 
 import { analyzeSaju } from '../../src/saju-adapter.js';
-import type { BirthInfo, GyeokgukCandidateSummary } from '../../src/types.js';
+import type { BirthInfo, GyeokgukCandidateSummary, JonggyeokCandidateSummary } from '../../src/types.js';
 
 interface BaselineFixture {
   readonly id: string;
@@ -64,6 +64,7 @@ const FIXTURE_PATH = path.resolve(SPRING_TS_ROOT, 'test/fixtures/spring_ts_basel
 const BASELINE_SNAPSHOT_PATH = path.resolve(SPRING_TS_ROOT, 'test/baseline/spring_ts_snapshot.json');
 const GYEOKGUK_SNAPSHOT_PATH = path.resolve(SPRING_TS_ROOT, 'test/baseline/gyeokguk_candidate_snapshot.json');
 const UPDATE = process.argv.includes('--update');
+const JONGGYEOK_SUBTYPE_COUNT = 8;
 
 let pass = 0;
 let fail = 0;
@@ -117,6 +118,18 @@ function asCandidateRow(candidate: GyeokgukCandidateSummary): CandidateSnapshotR
   };
 }
 
+function isNormalized(candidate: JonggyeokCandidateSummary): boolean {
+  return [
+    candidate.score,
+    candidate.confidence,
+    candidate.followPressure,
+    candidate.dayMasterIsolation,
+    candidate.rootWeakness,
+    candidate.dominantElementShare,
+    candidate.breakerPenalty,
+  ].every((value) => Number.isFinite(value) && value >= 0 && value <= 1);
+}
+
 const fixtures = readJson<{ fixtures: readonly BaselineFixture[] }>(FIXTURE_PATH).fixtures;
 const selectedBaseline = readJson<any>(BASELINE_SNAPSHOT_PATH);
 const selectedById = new Map<string, any>(
@@ -131,6 +144,7 @@ for (const fixture of fixtures) {
   const summary = await analyzeSaju(fixture.birth);
   const selected = summary.gyeokguk;
   const candidates = selected.candidates ?? [];
+  const jonggyeokCandidates = selected.jonggyeokCandidates ?? [];
   const storedSelected = selectedById.get(fixture.id);
 
   check(`${fixture.id}: selected type unchanged`,
@@ -160,6 +174,13 @@ for (const fixture of fixtures) {
       candidate.compositeClassical.features.length === 9));
   check(`${fixture.id}: composite evidence never promotes selected`,
     candidates.every((candidate) => candidate.compositeClassical?.selectedByComposite === false));
+  check(`${fixture.id}: jonggyeok candidates expose all v1 subtypes`,
+    jonggyeokCandidates.length === JONGGYEOK_SUBTYPE_COUNT,
+    `count=${jonggyeokCandidates.length}`);
+  check(`${fixture.id}: jonggyeok candidate scores normalized`,
+    jonggyeokCandidates.every(isNormalized));
+  check(`${fixture.id}: regular baseline does not select jonggyeok`,
+    jonggyeokCandidates.every((candidate) => candidate.status !== 'selected'));
 
   const sortedAlternatives = candidates.slice(1).every((candidate, index, alternatives) => {
     if (index === 0) return true;
