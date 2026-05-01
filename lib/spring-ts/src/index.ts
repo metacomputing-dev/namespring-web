@@ -34,6 +34,7 @@ export type {
   SpringCandidate,
   CharDetail,
   // New 3-method API types
+  NamingScoreVector,
   NamingReport,
   NamingReportFrame,
   NamingReportFourFrame,
