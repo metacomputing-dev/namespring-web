@@ -1,6 +1,6 @@
 {
   "version": "1.0.0",
-  "capturedAt": "2026-05-01T00:24:12.143Z",
+  "capturedAt": "2026-05-01T00:26:43.583Z",
   "targetDate": "2026-04-30T00:00:00.000Z",
   "fixtureCount": 12,
   "results": [
@@ -60,20 +60,20 @@
           },
           {
             "finalScore": 79.2,
+            "fullHangul": "최영작",
+            "fullHanja": "崔永勺",
+            "rank": 3
+          },
+          {
+            "finalScore": 79.2,
             "fullHangul": "최영탁",
             "fullHanja": "崔齡鐸",
-            "rank": 3
+            "rank": 4
           },
           {
             "finalScore": 79.1,
             "fullHangul": "최요주",
             "fullHanja": "崔了鑄",
-            "rank": 4
-          },
-          {
-            "finalScore": 79.1,
-            "fullHangul": "최영작",
-            "fullHanja": "崔永勺",
             "rank": 5
           }
         ],
@@ -124,31 +124,31 @@
         },
         "candidatesTop5": [
           {
-            "finalScore": 76.8,
+            "finalScore": 77.3,
             "fullHangul": "김미규",
             "fullHanja": "金味叫",
             "rank": 1
           },
           {
-            "finalScore": 76.1,
+            "finalScore": 76.5,
             "fullHangul": "김미정",
             "fullHanja": "金味靚",
             "rank": 2
           },
           {
-            "finalScore": 75.8,
+            "finalScore": 76.3,
             "fullHangul": "김미수",
             "fullHanja": "金味囚",
             "rank": 3
           },
           {
-            "finalScore": 75.8,
+            "finalScore": 76.3,
             "fullHangul": "김미정",
             "fullHanja": "金味霆",
             "rank": 4
           },
           {
-            "finalScore": 75.7,
+            "finalScore": 76.2,
             "fullHangul": "김수미",
             "fullHanja": "金受未",
             "rank": 5
@@ -282,31 +282,31 @@
         },
         "candidatesTop5": [
           {
-            "finalScore": 76.2,
+            "finalScore": 76.6,
             "fullHangul": "박혜정",
             "fullHanja": "朴恵町",
             "rank": 1
           },
           {
-            "finalScore": 76.2,
+            "finalScore": 76.6,
             "fullHangul": "박시정",
             "fullHanja": "朴恃町",
             "rank": 2
           },
           {
-            "finalScore": 76.2,
+            "finalScore": 76.6,
             "fullHangul": "박시정",
             "fullHanja": "朴時町",
             "rank": 3
           },
           {
-            "finalScore": 75.8,
+            "finalScore": 76.2,
             "fullHangul": "박해정",
             "fullHanja": "朴奚町",
             "rank": 4
           },
           {
-            "finalScore": 75.8,
+            "finalScore": 76.2,
             "fullHangul": "박시정",
             "fullHanja": "朴翅町",
             "rank": 5
@@ -363,31 +363,31 @@
         },
         "candidatesTop5": [
           {
-            "finalScore": 76.7,
+            "finalScore": 77.2,
             "fullHangul": "정반정",
             "fullHanja": "鄭反珵",
             "rank": 1
           },
           {
-            "finalScore": 76.7,
+            "finalScore": 77.2,
             "fullHangul": "정반정",
             "fullHanja": "鄭反珽",
             "rank": 2
           },
           {
-            "finalScore": 76,
+            "finalScore": 76.4,
             "fullHangul": "정아대",
             "fullHanja": "鄭牙貸",
             "rank": 3
           },
           {
-            "finalScore": 75.8,
+            "finalScore": 76.2,
             "fullHangul": "정우대",
             "fullHanja": "鄭友貸",
             "rank": 4
           },
           {
-            "finalScore": 74.6,
+            "finalScore": 75.1,
             "fullHangul": "정우작",
             "fullHanja": "鄭友勺",
             "rank": 5
@@ -446,33 +446,33 @@
         },
         "candidatesTop5": [
           {
-            "finalScore": 79.7,
+            "finalScore": 79.9,
             "fullHangul": "강라예",
             "fullHanja": "姜裸乂",
             "rank": 1
           },
           {
-            "finalScore": 78.5,
+            "finalScore": 78.7,
             "fullHangul": "강혜정",
             "fullHanja": "姜兮幀",
             "rank": 2
           },
           {
-            "finalScore": 78.5,
+            "finalScore": 78.7,
             "fullHangul": "강아정",
             "fullHanja": "姜牙幀",
             "rank": 3
           },
           {
-            "finalScore": 77.4,
+            "finalScore": 77.6,
             "fullHangul": "강수비",
             "fullHanja": "姜手匕",
             "rank": 4
           },
           {
-            "finalScore": 77.3,
-            "fullHangul": "강린예",
-            "fullHanja": "姜藺乂",
+            "finalScore": 77.5,
+            "fullHangul": "강혜정",
+            "fullHanja": "姜兮淀",
             "rank": 5
           }
         ],
@@ -527,31 +527,31 @@
         },
         "candidatesTop5": [
           {
-            "finalScore": 79,
+            "finalScore": 79.1,
             "fullHangul": "윤장정",
             "fullHanja": "尹薔婷",
             "rank": 1
           },
           {
-            "finalScore": 79,
+            "finalScore": 79.1,
             "fullHangul": "윤장정",
             "fullHanja": "尹障幀",
             "rank": 2
           },
           {
-            "finalScore": 79,
+            "finalScore": 79.1,
             "fullHangul": "윤신장",
             "fullHanja": "尹薪場",
             "rank": 3
           },
           {
-            "finalScore": 78.7,
+            "finalScore": 78.8,
             "fullHangul": "윤정신",
             "fullHanja": "尹婷薪",
             "rank": 4
           },
           {
-            "finalScore": 78.2,
+            "finalScore": 78.4,
             "fullHangul": "윤장정",
             "fullHanja": "尹薔幀",
             "rank": 5
@@ -604,31 +604,31 @@
         },
         "candidatesTop5": [
           {
-            "finalScore": 75.5,
+            "finalScore": 75.6,
             "fullHangul": "조해정",
             "fullHanja": "趙懈町",
             "rank": 1
           },
           {
-            "finalScore": 75.5,
+            "finalScore": 75.6,
             "fullHangul": "조혜신",
             "fullHanja": "趙蹊伸",
             "rank": 2
           },
           {
-            "finalScore": 74.5,
+            "finalScore": 74.7,
             "fullHangul": "조혜정",
             "fullHanja": "趙恵町",
             "rank": 3
           },
           {
-            "finalScore": 74.5,
+            "finalScore": 74.7,
             "fullHangul": "조혜진",
             "fullHanja": "趙恵辰",
             "rank": 4
           },
           {
-            "finalScore": 74.5,
+            "finalScore": 74.7,
             "fullHangul": "조혜정",
             "fullHanja": "趙蹊町",
             "rank": 5
@@ -686,31 +686,31 @@
         },
         "candidatesTop5": [
           {
-            "finalScore": 78.9,
+            "finalScore": 79,
             "fullHangul": "최시우",
             "fullHanja": "崔市又",
             "rank": 1
           },
           {
-            "finalScore": 78.9,
+            "finalScore": 79,
             "fullHangul": "최시우",
             "fullHanja": "崔示又",
             "rank": 2
           },
           {
-            "finalScore": 78.2,
+            "finalScore": 78.3,
             "fullHangul": "최우수",
             "fullHanja": "崔又手",
             "rank": 3
           },
           {
-            "finalScore": 78.2,
+            "finalScore": 78.3,
             "fullHangul": "최우재",
             "fullHanja": "崔又才",
             "rank": 4
           },
           {
-            "finalScore": 78.1,
+            "finalScore": 78.2,
             "fullHangul": "최오정",
             "fullHanja": "崔鼇楨",
             "rank": 5
@@ -849,31 +849,31 @@
         },
         "candidatesTop5": [
           {
-            "finalScore": 77.9,
+            "finalScore": 78,
             "fullHangul": "리해정",
             "fullHanja": "李諧亭",
             "rank": 1
           },
           {
-            "finalScore": 77.9,
+            "finalScore": 78,
             "fullHangul": "리해정",
             "fullHanja": "李諧侹",
             "rank": 2
           },
           {
-            "finalScore": 77.9,
+            "finalScore": 78,
             "fullHangul": "리해정",
             "fullHanja": "李諧炡",
             "rank": 3
           },
           {
-            "finalScore": 77.9,
+            "finalScore": 78,
             "fullHangul": "리해정",
             "fullHanja": "李駭訂",
             "rank": 4
           },
           {
-            "finalScore": 77.9,
+            "finalScore": 78,
             "fullHangul": "리해정",
             "fullHanja": "李駭貞",
             "rank": 5
@@ -930,33 +930,33 @@
         },
         "candidatesTop5": [
           {
-            "finalScore": 78.5,
+            "finalScore": 78.9,
             "fullHangul": "정오정",
             "fullHanja": "鄭午淀",
             "rank": 1
           },
           {
-            "finalScore": 78.5,
+            "finalScore": 78.9,
             "fullHangul": "정오정",
             "fullHanja": "鄭午淨",
             "rank": 2
           },
           {
-            "finalScore": 75.2,
-            "fullHangul": "정사인",
-            "fullHanja": "鄭四人",
+            "finalScore": 75.8,
+            "fullHangul": "정오정",
+            "fullHanja": "鄭午珵",
             "rank": 3
           },
           {
-            "finalScore": 75.2,
-            "fullHangul": "정오우",
-            "fullHanja": "鄭午又",
+            "finalScore": 75.5,
+            "fullHangul": "정사인",
+            "fullHanja": "鄭四人",
             "rank": 4
           },
           {
-            "finalScore": 75.2,
-            "fullHangul": "정단우",
-            "fullHanja": "鄭丹又",
+            "finalScore": 75.5,
+            "fullHangul": "정오우",
+            "fullHanja": "鄭午又",
             "rank": 5
           }
         ],
