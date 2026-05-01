@@ -1588,7 +1588,7 @@ function extractGyeokguk(gyeokgukResult: any) {
 
 function extractGyeokgukCandidates(value: unknown): readonly GyeokgukCandidateSummary[] | undefined {
   const candidates = ensureArray(value)
-    .map((candidate) => {
+    .map((candidate): GyeokgukCandidateSummary | null => {
       const type = formatGyeokgukTypeDisplay(candidate?.type);
       if (!type) return null;
       const score = Number(candidate?.score);
@@ -1601,7 +1601,7 @@ function extractGyeokgukCandidates(value: unknown): readonly GyeokgukCandidateSu
         supportingRules: ensureArray(candidate?.supportingRules).map((rule) => String(rule)),
         blockingRules: ensureArray(candidate?.blockingRules).map((rule) => String(rule)),
         sourceTier: extractSourceTier(candidate?.sourceTier),
-      } satisfies GyeokgukCandidateSummary;
+      };
     })
     .filter((candidate): candidate is GyeokgukCandidateSummary => candidate !== null);
 
