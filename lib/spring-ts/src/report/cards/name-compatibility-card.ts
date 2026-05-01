@@ -78,6 +78,20 @@ function tenGodContributionLabel(row: NonNullable<SpringReport['sajuCompatibilit
   return details.join(' ');
 }
 
+function scoreVectorFeatureLabels(vector: NonNullable<SpringReport['scoreVector']>): string[] {
+  const labels: string[] = [];
+  labels.push(`legal ${vector.legal ?? 'n/a'}`);
+  labels.push(`sajuFit ${vector.sajuFit ?? 'n/a'}`);
+  labels.push(`yongshinFit ${vector.yongshinFit ?? 'n/a'}`);
+  labels.push(`elementBalance ${vector.elementBalance ?? 'n/a'}`);
+  labels.push(`hanjaMeaning ${vector.hanjaMeaning ?? 'n/a'}`);
+  labels.push(`phonetic ${vector.phonetic ?? 'n/a'}`);
+  labels.push(`eraFit ${vector.eraFit ?? 'n/a'}`);
+  labels.push(`familyFit ${vector.familyFit ?? 'n/a'}`);
+  labels.push(`risk ${vector.risk}`);
+  return labels;
+}
+
 // ---------------------------------------------------------------------------
 //  Builder
 // ---------------------------------------------------------------------------
@@ -93,6 +107,7 @@ export function buildNameCompatibilityCard(
   const nameTrend = springReport.nameTrend ?? springReport.namingReport.nameTrend;
   const phonetic = springReport.phonetic ?? springReport.namingReport.phonetic;
   const tenGodPositionEvidence = springReport.sajuCompatibility.tenGodPositionEvidence;
+  const scoreVector = springReport.scoreVector ?? springReport.namingReport.scoreVector;
   const overallStars = scoreToStars(overallScore);
 
   // ── Summary ──
@@ -211,6 +226,16 @@ export function buildNameCompatibilityCard(
       weakness: tenGodPositionEvidence.fallbackReason,
     });
   }
+  if (scoreVector) {
+    evidence.push({
+      axis: 'namingScoreVector',
+      claim: 'Pre-final naming score vector separates legal, saju, element, meaning, phonetic, era, family, and risk axes.',
+      supportingFeatures: scoreVectorFeatureLabels(scoreVector),
+      weakness: scoreVector.risk >= 60
+        ? 'Risk axis is high enough to compare this candidate against alternatives instead of relying on the final score alone.'
+        : undefined,
+    });
+  }
 
   return {
     title: '이름 적합도 평가',
@@ -218,6 +243,7 @@ export function buildNameCompatibilityCard(
     overallScore,
     sajuCompatibilityScore,
     nameAnalysisScore,
+    ...(scoreVector ? { scoreVector } : {}),
     ...(nameTrend ? { nameTrend } : {}),
     ...(phonetic ? { phonetic } : {}),
     ...(tenGodPositionEvidence ? { tenGodPositionEvidence } : {}),
