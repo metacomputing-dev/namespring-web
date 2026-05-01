@@ -201,5 +201,57 @@ check('--fixtures fix-01 narrows fixtures to 1', fixReport && fixReport.fixtures
 check('--fixtures fix-01 returns the fix-01 fixture',
   fixReport && fixReport.fixtures?.[0]?.fixtureId === 'fix-01');
 
+// — (7) source-tiered snippet arrays are scanned —
+const snippetQuoteLimitPath = path.join(AUTHORITY_DIR, '__classical_snippet_quote_limit_test__.json');
+try {
+  fs.writeFileSync(snippetQuoteLimitPath, JSON.stringify({
+    schemaVersion: 'spring-ts.classical-rule-snippets.test',
+    sourceTier: {
+      tier: 'T4_PRIMARY_TEXT',
+      sourceType: 'classical_public_rule_snippet_fixture',
+      sourceUrl: null,
+      accessedAt: '2026-05-02',
+      quoteShort: null,
+      humanInterpretation: 'Temporary classical snippet fixture used to verify snippet source-tier scanning.',
+      copyrightNote: 'Synthetic quote text for test only.',
+      authorityTruthEligible: false,
+    },
+    snippets: [
+      {
+        id: 'temporary_snippet_quote_limit',
+        sourceTier: {
+          tier: 'T4_PRIMARY_TEXT',
+          sourceType: 'classical_public_rule_snippet',
+          sourceUrl: null,
+          accessedAt: '2026-05-02',
+          quoteShort: 'x'.repeat(81),
+          humanInterpretation: 'Temporary snippet row used to verify short-quote enforcement.',
+          copyrightNote: 'Synthetic quote text for test only.',
+          authorityTruthEligible: false,
+        },
+      },
+    ],
+  }, null, 2) + '\n', 'utf-8');
+  const snippetRun = runGate(['--json']);
+  let snippetReport: any = null;
+  try {
+    snippetReport = JSON.parse(snippetRun.stdout);
+  } catch {
+    /* fall-through */
+  }
+  check('classical snippets[] sourceTier is scanned by quality gate',
+    snippetRun.status === 1 && snippetReport?.sourceTierAudit?.status === 'FAIL',
+    `status=${snippetRun.status}`);
+  check('classical snippets[] quote-limit violation reports path and length',
+    snippetReport?.sourceTierAudit?.violations?.some((v: any) =>
+      v.code === 'classical_quote_too_long' &&
+      v.file === 'test/baseline/authority/__classical_snippet_quote_limit_test__.json' &&
+      v.quotePath === 'snippets[0].sourceTier.quoteShort' &&
+      v.limit === 80 &&
+      v.length === 81));
+} finally {
+  if (fs.existsSync(snippetQuoteLimitPath)) fs.unlinkSync(snippetQuoteLimitPath);
+}
+
 console.log(`\nQuality gate smoke: ${pass} PASS / ${fail} FAIL`);
 process.exit(fail > 0 ? 1 : 0);
