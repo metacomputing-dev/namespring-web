@@ -1240,6 +1240,13 @@ export async function analyzeSaju(birth: BirthInfo, options?: SpringRequest['opt
       if (palace) summary = { ...summary, palace } as typeof summary;
     }
 
+    // PR-Q-6: surface 60갑자 納音 when precisionConfig.surfaceNaeum is opted-in.
+    const surfaceNaeum = (options?.precisionConfig as any)?.surfaceNaeum === true;
+    if (surfaceNaeum) {
+      const naeum = computeNaeumSummary(summary.pillars);
+      if (naeum) summary = { ...summary, naeum } as typeof summary;
+    }
+
     return summary;
   } catch { return emptySaju(); }
 }
@@ -1349,6 +1356,37 @@ function computePalaceSummary(pillars: SajuSummary['pillars']): import('./types.
     };
   }
   return { positions, rule: report.rule, caution: report.caution };
+}
+
+/** PR-Q-6: build the SajuSummary.naeum optional field by calling saju-ts's
+ *  `analyzeNaeum` (PR-Q-6) on the summary's four pillars (using ganzhi
+ *  hanja strings). Returns undefined when day pillar is unresolvable. */
+function computeNaeumSummary(pillars: SajuSummary['pillars']): import('./types.js').NaeumSummary | undefined {
+  // eslint-disable-next-line @typescript-eslint/no-require-imports
+  const sajuTsCore = require('../../saju-ts/src/index.js') as {
+    analyzeNaeum: (input: any) => any;
+  };
+
+  const day = pillars.day;
+  if (!day) return undefined;
+  const naeumInput: any = {};
+  for (const pos of ['year', 'month', 'day', 'hour'] as const) {
+    const p = pillars[pos];
+    if (!p) continue;
+    const stem = p.stem.hanja ?? '';
+    const branch = p.branch.hanja ?? '';
+    if (!stem || !branch) continue;
+    naeumInput[pos] = { ganzhi: stem + branch };
+  }
+
+  const report = sajuTsCore.analyzeNaeum(naeumInput);
+  if (!report) return undefined;
+
+  return {
+    positions: report.positions,
+    elementCounts: report.elementCounts,
+    caution: report.caution,
+  };
 }
 
 // ---------------------------------------------------------------------------
@@ -1912,6 +1950,8 @@ export function buildSajuContext(sajuSummary: SajuSummary): { dist: Record<Eleme
       // PR-Q-5: forward palace summary when the adapter populated it
       // (precisionConfig.surfacePalace=true). undefined otherwise.
       palace: sajuSummary.palace ?? undefined,
+      // PR-Q-6: forward naeum summary when surfaceNaeum=true. undefined otherwise.
+      naeum: sajuSummary.naeum ?? undefined,
     },
   };
 }
