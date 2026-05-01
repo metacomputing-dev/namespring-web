@@ -43,6 +43,7 @@ import type { FortuneReportRequest, FortuneReport } from './report/types.js';
 import { getLegalAnnotation, type HanjaLegalStatus, type HanjaPool } from './hanja-annotations.js';
 import inmyeongyongFullData from '../data/inmyeongyong_9389_full.json';
 import { getEnrichedStrokeCount, getUnihanMetadata } from './hanja-unihan.js';
+import { getNameTrendAnalysis, type NameTrendAnalysis } from './name-trend.js';
 
 // ---------------------------------------------------------------------------
 // Config -- all tuneable numbers come from engine.json
@@ -476,6 +477,16 @@ export class SpringEngine {
     };
   }
 
+  private resolveNameTrend(
+    givenName: NameCharInput[] | undefined,
+    birth: BirthInfo,
+    options?: SpringRequest['options'],
+  ): NameTrendAnalysis | undefined {
+    return options?.precisionConfig?.surfaceNameTrend
+      ? getNameTrendAnalysis(givenName, birth)
+      : undefined;
+  }
+
   // -------------------------------------------------------------------------
   // getNamingReport -- pure name analysis (no saju)
   // -------------------------------------------------------------------------
@@ -520,7 +531,16 @@ export class SpringEngine {
 
     const evalResult = evaluateName([hangul, hanja, frame], evalCtx);
     await frame.ensureEntriesLoaded();
-    return this.buildNamingReport(surnameEntries, givenNameEntries, evalResult, hangul, hanja, frame, this.resolveHanjaPool(request.options));
+    return this.buildNamingReport(
+      surnameEntries,
+      givenNameEntries,
+      evalResult,
+      hangul,
+      hanja,
+      frame,
+      this.resolveHanjaPool(request.options),
+      this.resolveNameTrend(request.givenName, request.birth, request.options),
+    );
   }
 
   // -------------------------------------------------------------------------
@@ -608,12 +628,24 @@ export class SpringEngine {
     const nameOnly = evaluateName([hangul, hanja, frame], nameOnlyCtx);
     await frame.ensureEntriesLoaded();
 
+    const nameTrend = this.resolveNameTrend(request.givenName, request.birth, request.options);
+
     return {
       finalScore: roundScore(combined.score),
       popularityRank: nameStatInfo.popularityRank,
       maleRatio: nameStatInfo.maleRatio,
       nameGender: nameStatInfo.nameGender,
-      namingReport: this.buildNamingReport(surnameEntries, givenNameEntries, nameOnly, hangul, hanja, frame, this.resolveHanjaPool(request.options)),
+      ...(nameTrend ? { nameTrend } : {}),
+      namingReport: this.buildNamingReport(
+        surnameEntries,
+        givenNameEntries,
+        nameOnly,
+        hangul,
+        hanja,
+        frame,
+        this.resolveHanjaPool(request.options),
+        nameTrend,
+      ),
       sajuReport,
       sajuCompatibility: saju.getAnalysis().data,
       combinedDistribution: saju.getCombinedDistribution(),
@@ -734,6 +766,7 @@ export class SpringEngine {
       const combined = springEvaluateName([hangul, hanja, frame, saju], combinedCtx);
 
       const allEntries = [...surnameEntries, ...givenNameEntries];
+      const nameTrend = this.resolveNameTrend(givenNameInput, request.birth, request.options);
       results.push({
         finalScore: roundScore(combined.score),
         fullHangul: allEntries.map(entry => entry.hangul).join(''),
@@ -743,6 +776,7 @@ export class SpringEngine {
         popularityRank: nameStatInfo.popularityRank,
         maleRatio: nameStatInfo.maleRatio,
         nameGender: nameStatInfo.nameGender,
+        ...(nameTrend ? { nameTrend } : {}),
         rank: 0,
       });
     }
@@ -764,6 +798,7 @@ export class SpringEngine {
     hanja: HanjaCalculator,
     frame: FrameCalculator,
     hanjaPool: HanjaPool = 'curated',
+    nameTrend?: NameTrendAnalysis,
   ): NamingReport {
     const categoryMap = evalResult.categoryMap;
     const frames = frame.frames;
@@ -814,6 +849,7 @@ export class SpringEngine {
           luckScore,
         },
       },
+      ...(nameTrend ? { nameTrend } : {}),
       interpretation: buildInterpretation(evalResult),
     };
   }
@@ -844,7 +880,7 @@ export class SpringEngine {
 
     // 4. Score every candidate and rank by total score (descending)
     const scoredCandidates = await this.scoreAllCandidates(
-      request.surname, nameInputs, sajuDistribution, sajuOutput, request.options,
+      request.surname, nameInputs, sajuDistribution, sajuOutput, request.birth, request.options,
       this.resolveEvaluatorHints(request.birth, request.options),
     );
 
@@ -1102,6 +1138,7 @@ export class SpringEngine {
     nameInputs: NameCharInput[][],
     sajuDistribution: Record<ElementKey, number>,
     sajuOutput: SajuOutputSummary | null,
+    birth: BirthInfo,
     requestOptions?: SpringRequest['options'],
     evaluatorHints?: SajuEvaluatorHints,
   ): Promise<SpringCandidate[]> {
@@ -1114,6 +1151,7 @@ export class SpringEngine {
           givenNameInput,
           sajuDistribution,
           sajuOutput,
+          birth,
           requestOptions,
           evaluatorHints,
         ),
@@ -1165,6 +1203,7 @@ export class SpringEngine {
     givenName: NameCharInput[],
     sajuDistribution: Record<ElementKey, number>,
     sajuOutput: SajuOutputSummary | null,
+    birth: BirthInfo,
     requestOptions?: SpringRequest['options'],
     evaluatorHints?: SajuEvaluatorHints,
   ): Promise<SpringCandidate> {
@@ -1222,6 +1261,7 @@ export class SpringEngine {
     const allEntries  = [...surnameEntries, ...givenNameEntries];
     const fullHangul  = allEntries.map(entry => entry.hangul).join('');
     const fullHanja   = allEntries.map(entry => entry.hanja).join('');
+    const nameTrend = this.resolveNameTrend(givenName, birth, requestOptions);
 
     // Compute category sub-scores (average of related frames)
     const hangulScore = roundScore(
@@ -1250,6 +1290,7 @@ export class SpringEngine {
         hanja:     hanja.getAnalysis().data,
         fourFrame: frame.getAnalysis().data,
         saju:      saju.getAnalysis().data,
+        ...(nameTrend ? { nameTrend } : {}),
       },
       interpretation: buildInterpretation(evaluationResult),
       rank: 0,

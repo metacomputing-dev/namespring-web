@@ -77,6 +77,7 @@ export function buildNameCompatibilityCard(
   const overallScore = springReport.finalScore;
   const sajuCompatibilityScore = springReport.sajuCompatibility.affinityScore;
   const nameAnalysisScore = springReport.namingReport.totalScore;
+  const nameTrend = springReport.nameTrend ?? springReport.namingReport.nameTrend;
   const overallStars = scoreToStars(overallScore);
 
   // ── Summary ──
@@ -89,6 +90,13 @@ export function buildNameCompatibilityCard(
     sajuCompatibilityDetail(sajuCompatibilityScore),
     nameAnalysisDetail(nameAnalysisScore),
   ];
+  if (nameTrend) {
+    details.push(
+      nameTrend.trendFit == null
+        ? `Name trend: ${nameTrend.status}. ${nameTrend.evidence[0] ?? 'No trend evidence available.'}`
+        : `Name trend: fit ${Math.round(nameTrend.trendFit)}/100, risk ${Math.round(nameTrend.trendRisk ?? 0)}/100 (${nameTrend.status}).`,
+    );
+  }
 
   // Add a yongshin alignment detail if available
   const yongshinElement = springReport.sajuCompatibility.yongshinElement;
@@ -150,6 +158,16 @@ export function buildNameCompatibilityCard(
         : undefined,
     });
   }
+  if (nameTrend) {
+    evidence.push({
+      axis: 'nameTrend',
+      claim: nameTrend.trendFit == null
+        ? 'Hangul name trend evidence is unavailable for this name and birth year.'
+        : `Hangul name trend fit is ${Math.round(nameTrend.trendFit)} / 100 with risk ${Math.round(nameTrend.trendRisk ?? 0)} / 100.`,
+      supportingFeatures: [...nameTrend.evidence],
+      weakness: 'Trend evidence is display-only and is not part of the headline star calculation.',
+    });
+  }
 
   return {
     title: '이름 적합도 평가',
@@ -157,6 +175,7 @@ export function buildNameCompatibilityCard(
     overallScore,
     sajuCompatibilityScore,
     nameAnalysisScore,
+    ...(nameTrend ? { nameTrend } : {}),
     summary,
     details,
     evidence,

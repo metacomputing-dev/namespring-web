@@ -12,10 +12,12 @@ import type {
   SajuSummary, BirthInfo,
   SajuAxisStrengthMap, EvidenceRow, SajuJudgmentStrength, CounterexampleRow,
 } from '../types.js';
+import type { NameTrendAnalysis } from '../name-trend.js';
 export type {
   SajuSummary, BirthInfo,
   SajuAxisStrengthMap, EvidenceRow, SajuJudgmentStrength, CounterexampleRow,
 };
+export type { NameTrendAnalysis } from '../name-trend.js';
 
 // ─────────────────────────────────────────────────────────────────────────────
 //  2. Code types (used by elementMaps and card builders)
@@ -115,6 +117,7 @@ export interface NameCompatibilityCard {
   readonly overallScore: number;
   readonly sajuCompatibilityScore: number;
   readonly nameAnalysisScore: number;
+  readonly nameTrend?: NameTrendAnalysis;
   readonly summary: string;
   readonly details: string[];
   /** Per-axis judgment strength (PR-J-8b). Optional. Note: this card
