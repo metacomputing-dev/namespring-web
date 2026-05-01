@@ -46,7 +46,9 @@ mixed with engine failure.
 as measured but null-effect: the branch is wired, yet current candidate-level
 observation remains 0 / 24 divergence. PR-5.2 adds
 `tenGodMode='positional_weighted_v2'` as an opt-in candidate mode and records
-v1/v2 comparison rows in `metrics/rpi-summary.json`.
+v1/v2 comparison rows in `metrics/rpi-summary.json`. PR-5.3 lets that v2
+opt-in path consume canonical `YEAR/MONTH/DAY/HOUR` ten-god positions without
+changing the public default path.
 
 | Fixture set | Diverged | Total |
 |---|---:|---:|
@@ -67,8 +69,9 @@ source layer plus pillar position in v2:
 This shows the current source-layer weights are visible before normalization,
 but month/hour pillar position still collapses in v1. The v2 opt-in path keeps
 `presenceCounts` separate from `visibilityCounts` and anchors deviations through
-`expectedPresenceByChartShape`; current baseline fixtures remain unchanged at
-the candidate score surface (`0 / 15` v1/v2 divergence).
+`expectedPresenceByChartShape`; current metrics record `10 / 15` default
+fixtures and `5 / 9` jonggyeok fixtures diverging between v1 and v2 while
+simple vs v1 remains `0 / 24`.
 
 ## Truth Separation
 
