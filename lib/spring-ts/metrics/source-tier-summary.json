@@ -1,15 +1,15 @@
 {
   "schemaVersion": "spring-ts.source-tier-summary.v1",
   "status": "PASS",
-  "scanned": 52,
+  "scanned": 60,
   "violationCount": 0,
-  "authorityTruthEligibleCount": 32,
-  "nonEligibleCount": 20,
+  "authorityTruthEligibleCount": 38,
+  "nonEligibleCount": 22,
   "byTier": {
     "T3_AUTHORED_INTERPRETATION": {
-      "recordCount": 25,
+      "recordCount": 26,
       "authorityTruthEligible": 25,
-      "nonEligible": 0,
+      "nonEligible": 1,
       "files": [
         "test/baseline/authority/chumyeongga/chu_32.json",
         "test/baseline/authority/chumyeongga/chu_37.json",
@@ -35,7 +35,8 @@
         "test/baseline/authority/lecture/p126_2002_male_soccer.json",
         "test/baseline/authority/lecture/p127_1964_female_haenyeo_doctorate.json",
         "test/baseline/authority/lecture/p127_1964_male_public_exec.json",
-        "test/baseline/authority/lecture/p127_1975_female_national_professor.json"
+        "test/baseline/authority/lecture/p127_1975_female_national_professor.json",
+        "data/sources/unihan.sources.json#sources[2].sourceTier:radical_element_hint_policy"
       ]
     },
     "T4_PRIMARY_TEXT": {
@@ -67,9 +68,9 @@
       ]
     },
     "T2_REFERENCE_IMPLEMENTATION": {
-      "recordCount": 12,
+      "recordCount": 13,
       "authorityTruthEligible": 0,
-      "nonEligible": 12,
+      "nonEligible": 13,
       "files": [
         "test/baseline/oracles/fix-01.json",
         "test/baseline/oracles/fix-02.json",
@@ -82,15 +83,22 @@
         "test/baseline/oracles/fix-09.json",
         "test/baseline/oracles/fix-10.json",
         "test/baseline/oracles/fix-11.json",
-        "test/baseline/oracles/fix-12.json"
+        "test/baseline/oracles/fix-12.json",
+        "data/sources/legal-hanja.sources.json#sources[3].sourceTier:delvier_koreascourtcode_2024_07_16"
       ]
     },
     "T5_OFFICIAL": {
-      "recordCount": 1,
-      "authorityTruthEligible": 1,
+      "recordCount": 7,
+      "authorityTruthEligible": 7,
       "nonEligible": 0,
       "files": [
-        "data/sources/legal-hanja.sources.json"
+        "data/sources/legal-hanja.sources.json",
+        "data/sources/legal-hanja.sources.json#sources[0].sourceTier:law_go_kr_rule_article_37_2025_07_19",
+        "data/sources/legal-hanja.sources.json#sources[1].sourceTier:law_go_kr_byeolpyo1_2024_05_30",
+        "data/sources/legal-hanja.sources.json#sources[2].sourceTier:scourt_press_2024_05_23",
+        "data/sources/unihan.sources.json",
+        "data/sources/unihan.sources.json#sources[0].sourceTier:unicode_uax38_unihan_17_0_0",
+        "data/sources/unihan.sources.json#sources[1].sourceTier:unicode_ucd_unihan_zip_17_0_0"
       ]
     }
   },
@@ -126,9 +134,39 @@
       "nonEligible": 12
     },
     "official_law_registry": {
+      "recordCount": 2,
+      "authorityTruthEligible": 2,
+      "nonEligible": 0
+    },
+    "official_law_attachment": {
       "recordCount": 1,
       "authorityTruthEligible": 1,
       "nonEligible": 0
+    },
+    "official_press_release": {
+      "recordCount": 1,
+      "authorityTruthEligible": 1,
+      "nonEligible": 0
+    },
+    "third_party_mirror": {
+      "recordCount": 1,
+      "authorityTruthEligible": 0,
+      "nonEligible": 1
+    },
+    "unicode_standard_annex": {
+      "recordCount": 2,
+      "authorityTruthEligible": 2,
+      "nonEligible": 0
+    },
+    "unicode_ucd": {
+      "recordCount": 1,
+      "authorityTruthEligible": 1,
+      "nonEligible": 0
+    },
+    "internal_rule_policy": {
+      "recordCount": 1,
+      "authorityTruthEligible": 0,
+      "nonEligible": 1
     }
   }
 }
