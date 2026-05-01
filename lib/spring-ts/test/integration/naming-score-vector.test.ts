@@ -141,7 +141,8 @@ const summaries = await engine.getNameCandidateSummaries({
 check('default report omits scoreVector',
   defaultReport.scoreVector === undefined &&
     defaultReport.strengthProfile === undefined &&
-    defaultReport.namingReport.scoreVector === undefined);
+    defaultReport.namingReport.scoreVector === undefined &&
+    defaultReport.namingReport.explanation === undefined);
 check('score vector does not change final score',
   defaultReport.finalScore === vectorReport.finalScore,
   `${defaultReport.finalScore}=${vectorReport.finalScore}`);
@@ -153,6 +154,9 @@ check('NamingReport exposes pure-name vector with null saju axes',
   namingReport.scoreVector?.sajuFit === null &&
     namingReport.scoreVector?.yongshinFit === null &&
     namingReport.scoreVector?.hanjaMeaning === 100);
+check('NamingReport exposes deterministic explanation when vector is surfaced',
+  namingReport.explanation?.summary === namingReport.interpretation &&
+    namingReport.explanation?.signals.some((signal) => signal.axis === 'yongshinFit' && signal.kind === 'unavailable') === true);
 check('pure Hangul vector keeps hanjaMeaning inapplicable',
   pureVectorReport.scoreVector?.hanjaMeaning === null &&
     pureVectorReport.scoreVector?.phonetic !== null);
@@ -161,7 +165,8 @@ check('NameCompatibilityCard forwards scoreVector and evidence row',
     vectorRow?.supportingFeatures.some((feature) => feature.startsWith('legal ')) === true &&
     card?.strengthProfile?.id === vectorReport.strengthProfile?.id);
 check('legacy analyze candidate exposes scoreVector',
-  analyzeResponse.candidates[0]?.scoreVector?.legal === vectorReport.scoreVector?.legal);
+  analyzeResponse.candidates[0]?.scoreVector?.legal === vectorReport.scoreVector?.legal &&
+    analyzeResponse.candidates[0]?.explanation?.summary === analyzeResponse.candidates[0]?.interpretation);
 check('candidate summaries expose scoreVector',
   summaries[0]?.scoreVector?.risk === vectorReport.scoreVector?.risk &&
     summaries[0]?.strengthProfile?.id === vectorReport.strengthProfile?.id);
