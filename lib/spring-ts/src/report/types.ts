@@ -373,4 +373,10 @@ export interface FortuneReportOptions {
     | 'career' | 'wealth' | 'relationship'
     | 'study_document' | 'expression_children'
     | 'health_stress' | 'movement' | 'family';
+  /** Whether `CategoryFortuneCard.subDomains` is populated (PR-K-1 wire-up,
+   *  spec spring-info/09_finalization/02_event_domain_wireup.md §4).
+   *  Default unset/false = subDomains stays undefined (PR12 contract).
+   *  When true, builder populates 1-3 sub-domain rows per card drawing on
+   *  saju_master/event_domain_map.py FINE_DOMAIN_KEYWORDS + TEN_GOD_TOPIC_HINTS. */
+  readonly surfaceSubDomains?: boolean;
 }

@@ -19,12 +19,25 @@
 import type { SajuSummary, EvidenceRow, SajuAxisStrengthMap } from '../../types.js';
 import type {
   CategoryFortuneCard,
+  CategoryFortuneSubDomain,
   FortuneCategory,
+  FortuneCategoryExtended,
+  FortuneReportOptions,
   StarRating,
   FortuneAdvice,
   FortuneWarning,
 } from '../types.js';
 import type { ElementCode } from '../types.js';
+import {
+  SUB_DOMAIN_NARRATIVES,
+  SUB_DOMAIN_TITLE,
+  SUB_DOMAIN_PLAN,
+  computeSubDomainGrade,
+  getExtendedCategoryElements,
+  gradeBucket,
+  shouldSurfaceConditional,
+  type SubDomainGateInput,
+} from './category-fortune-subdomain-data.js';
 
 import {
   getYearlyFortune,
@@ -471,6 +484,7 @@ function makeCaution(
 export function buildCategoryFortuneCards(
   saju: SajuSummary,
   targetDate: Date,
+  options?: Pick<FortuneReportOptions, 'surfaceSubDomains'>,
 ): Record<FortuneCategory, CategoryFortuneCard> {
   // Extract natal data
   const dayMasterElement = toElementCode(saju.dayMaster?.element) ?? 'EARTH';
@@ -579,6 +593,10 @@ export function buildCategoryFortuneCards(
       strength: sajuAxis?.yongshin,
     }];
 
+    const subDomains = options?.surfaceSubDomains
+      ? buildSubDomainRows(category, dayMasterElement, fortuneEl, yongshinGrade, saju)
+      : undefined;
+
     result[category] = {
       title: CATEGORY_TITLE[category],
       category,
@@ -588,8 +606,62 @@ export function buildCategoryFortuneCards(
       caution,
       axisStrength: sajuAxis,
       evidence,
+      ...(subDomains && subDomains.length > 0 ? { subDomains } : {}),
     };
   }
 
   return result;
+}
+
+// ---------------------------------------------------------------------------
+//  PR-K-1 — sub-domain row assembly (surfaceSubDomains opt-in)
+// ---------------------------------------------------------------------------
+
+function buildSubDomainRows(
+  category: FortuneCategory,
+  dayMasterEl: ElementCode,
+  fortuneEl: ElementCode,
+  yongshinGrade: number,
+  saju: SajuSummary,
+): CategoryFortuneSubDomain[] {
+  const plan = SUB_DOMAIN_PLAN[category];
+  const gate: SubDomainGateInput = extractSubDomainGate(saju);
+  const candidates: FortuneCategoryExtended[] = [
+    plan.always,
+    ...plan.conditional.filter((sub) => shouldSurfaceConditional(sub, gate)),
+  ];
+  return candidates.slice(0, 3).map((name) => {
+    const els = getExtendedCategoryElements(name, dayMasterEl);
+    const grade = computeSubDomainGrade(fortuneEl, els, yongshinGrade);
+    const stars = gradeToStars(Math.round(grade));
+    return {
+      name,
+      title: SUB_DOMAIN_TITLE[name],
+      stars,
+      narrative: SUB_DOMAIN_NARRATIVES[name][gradeBucket(stars)],
+    };
+  });
+}
+
+function extractSubDomainGate(saju: SajuSummary): SubDomainGateInput {
+  const tenGod = (saju as Record<string, unknown>).tenGodAnalysis as
+    | { groupCounts?: Partial<Record<string, number>> }
+    | undefined;
+  const shinsalHits = (saju as Record<string, unknown>).shinsalHits as
+    | Array<{ name?: string }>
+    | undefined;
+  const yeokmaHits = Array.isArray(shinsalHits)
+    ? shinsalHits.filter((h) => h?.name === '역마' || h?.name === 'YEOKMA').length
+    : 0;
+  const jijiRelations = (saju as Record<string, unknown>).resolvedJijiRelations as
+    | Array<{ kind?: string }>
+    | undefined;
+  const chungHits = Array.isArray(jijiRelations)
+    ? jijiRelations.filter((r) => r?.kind === '충' || r?.kind === 'CHUNG').length
+    : 0;
+  return {
+    groupCounts: tenGod?.groupCounts,
+    yeokmaHits,
+    chungHits,
+  };
 }

@@ -1439,6 +1439,7 @@ export class SpringEngine {
         : 'simple',
       narrativeStyle: pc?.narrativeStyle,
       readingFocus: pc?.readingFocus,
+      surfaceSubDomains: pc?.surfaceSubDomains,
     });
   }
 
