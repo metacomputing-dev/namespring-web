@@ -142,6 +142,7 @@ NameSpring 이 `request.options.precisionConfig` 를 통해 활성화 가능한
 | `surfaceJohu` | `boolean` | 조후 분석 노출 (default false) |
 | `surfaceNamingScoreVector` | `boolean` | pre-final naming axes `scoreVector` surface (default false, display-only) |
 | `paretoFrontierCandidates` | `boolean` | Pareto/diversity-aware candidate ordering + strength profile surface (default false) |
+| `namingReport.explanation` | object | deterministic rule-template explanation derived from `scoreVector`; phrases are capped by source tier, confidence, and risk |
 | `evaluatorMode` | `'single' \| 'multi_axis'` | 7-axis 가중 priority 계산 (default 'single') |
 | `pureHangulSchema` | `'auto' \| 'classic_phonetic' \| 'modern_korean' \| 'expanded'` | 한글-only 이름의 element-mapping schema (default 'classic_phonetic') |
 | `pureHangulSignalCap` | `number [0,1]` | hangul signal weight 곱셈 cap. `pureHangulSchema='auto' + schoolPreset='chinese'` 시 0.7 자동 |
