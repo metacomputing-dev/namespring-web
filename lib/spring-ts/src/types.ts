@@ -581,6 +581,7 @@ export interface GyeokgukSummary {
   readonly confidence: number;
   readonly reasoning: string;
   readonly candidates?: readonly GyeokgukCandidateSummary[];
+  readonly jonggyeokCandidates?: readonly JonggyeokCandidateSummary[];
 }
 
 /** Source-tier metadata matching test/baseline/schema/sourceTier.schema.json. */
@@ -593,6 +594,35 @@ export interface SourceTierMetadata {
   readonly humanInterpretation: string;
   readonly copyrightNote: string;
   readonly authorityTruthEligible: boolean;
+}
+
+export type JonggyeokCandidateStatus = 'none' | 'possible' | 'candidate' | 'selected' | 'blocked';
+
+export type JonggyeokSubtype =
+  | 'cong_cai'
+  | 'cong_guan'
+  | 'cong_sha'
+  | 'cong_er'
+  | 'cong_yin'
+  | 'cong_bi'
+  | 'zhuan_wang'
+  | 'hua_qi';
+
+/** Evidence-only jonggyeok classifier output. */
+export interface JonggyeokCandidateSummary {
+  readonly subtype: JonggyeokSubtype;
+  readonly status: JonggyeokCandidateStatus;
+  readonly score: number;
+  readonly confidence: number;
+  readonly followPressure: number;
+  readonly dayMasterIsolation: number;
+  readonly rootWeakness: number;
+  readonly dominantElementShare: number;
+  readonly breakerPenalty: number;
+  readonly selectedReason?: string;
+  readonly blockedReason?: string;
+  readonly evidence: readonly string[];
+  readonly sourceTier: SourceTierMetadata;
 }
 
 /** Display-only candidate evidence for the selected gyeokguk. */

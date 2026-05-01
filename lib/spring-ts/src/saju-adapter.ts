@@ -24,7 +24,7 @@ import type {
   SajuOutputSummary, SpringRequest, SajuSummary, PillarSummary, BirthInfo,
   SajuPillarPosition, SajuTenGodPositionGroup,
   SajuAxisStrengthMap, SajuJudgmentStrength, SajuInputUncertaintyAxis,
-  GyeokgukCandidateSummary, SourceTierMetadata,
+  GyeokgukCandidateSummary, JonggyeokCandidateSummary, SourceTierMetadata,
 } from './types.js';
 
 // ---------------------------------------------------------------------------
@@ -95,6 +95,17 @@ const YONGSHIN_TYPE_CODES = [
   'EOKBU', 'JOHU', 'RANKING', 'GYEOKGUK', 'TONGGWAN', 'HAPWHA_YONGSHIN', 'ILHAENG',
 ] as const;
 const GYEOKGUK_CATEGORY_CODES = ['NORMAL', 'JONGGYEOK'] as const;
+const JONGGYEOK_SUBTYPE_CODES = [
+  'cong_cai',
+  'cong_guan',
+  'cong_sha',
+  'cong_er',
+  'cong_yin',
+  'cong_bi',
+  'zhuan_wang',
+  'hua_qi',
+] as const;
+const JONGGYEOK_STATUS_CODES = ['none', 'possible', 'candidate', 'selected', 'blocked'] as const;
 
 /** Alias map: alternative romanizations → canonical code used in label tables. */
 const CODE_ALIASES: Record<string, string> = {
@@ -1597,6 +1608,7 @@ function extractGyeokguk(gyeokgukResult: any) {
     confidence:    Number(gyeokgukResult?.confidence) || 0,
     reasoning:     String(gyeokgukResult?.reasoning ?? ''),
     candidates:    extractGyeokgukCandidates(gyeokgukResult?.candidates),
+    jonggyeokCandidates: extractJonggyeokCandidates(gyeokgukResult?.jonggyeokCandidates),
   };
 }
 
@@ -1619,6 +1631,36 @@ function extractGyeokgukCandidates(value: unknown): readonly GyeokgukCandidateSu
       };
     })
     .filter((candidate): candidate is GyeokgukCandidateSummary => candidate !== null);
+
+  return candidates.length > 0 ? candidates : undefined;
+}
+
+function extractJonggyeokCandidates(value: unknown): readonly JonggyeokCandidateSummary[] | undefined {
+  const subtypeSet = new Set<string>(JONGGYEOK_SUBTYPE_CODES);
+  const statusSet = new Set<string>(JONGGYEOK_STATUS_CODES);
+  const candidates = ensureArray(value)
+    .map((candidate): JonggyeokCandidateSummary | null => {
+      const subtype = String(candidate?.subtype ?? '');
+      if (!subtypeSet.has(subtype)) return null;
+      const rawStatus = String(candidate?.status ?? 'none');
+      const status = statusSet.has(rawStatus) ? rawStatus : 'none';
+      return {
+        subtype: subtype as JonggyeokCandidateSummary['subtype'],
+        status: status as JonggyeokCandidateSummary['status'],
+        score: confidenceToRatio(candidate?.score),
+        confidence: confidenceToRatio(candidate?.confidence),
+        followPressure: confidenceToRatio(candidate?.followPressure),
+        dayMasterIsolation: confidenceToRatio(candidate?.dayMasterIsolation),
+        rootWeakness: confidenceToRatio(candidate?.rootWeakness),
+        dominantElementShare: confidenceToRatio(candidate?.dominantElementShare),
+        breakerPenalty: confidenceToRatio(candidate?.breakerPenalty),
+        selectedReason: typeof candidate?.selectedReason === 'string' ? candidate.selectedReason : undefined,
+        blockedReason: typeof candidate?.blockedReason === 'string' ? candidate.blockedReason : undefined,
+        evidence: ensureArray(candidate?.evidence).map((entry) => String(entry)),
+        sourceTier: extractSourceTier(candidate?.sourceTier),
+      };
+    })
+    .filter((candidate): candidate is JonggyeokCandidateSummary => candidate !== null);
 
   return candidates.length > 0 ? candidates : undefined;
 }
