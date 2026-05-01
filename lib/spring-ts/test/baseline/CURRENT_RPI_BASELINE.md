@@ -15,25 +15,25 @@ Artifacts:
 ## Summary
 
 This is a governed measurement baseline, not a claim that the product is
-35/100 in user-facing quality. Axes without a current source-backed denominator
+45/100 in user-facing quality. Axes without a current source-backed denominator
 score `0` in `rawRpi` and are called out separately so missing truth is not
 mixed with engine failure.
 
 | Metric | Current |
 |---|---:|
-| Raw governed RPI | 35 / 100 |
-| Measured-only RPI | 35 / 35 |
+| Raw governed RPI | 45 / 100 |
+| Measured-only RPI | 45 / 50 |
 | Source-tier audit | PASS |
-| Source-tier records scanned | 51 |
-| Authority-truth eligible records | 31 |
-| Non-eligible records | 20 |
+| Source-tier records scanned | 82 |
+| Authority-truth eligible records | 52 |
+| Non-eligible records | 30 |
 
 ## A-G Axis Baseline
 
 | Axis | Max | Current | Status | Basis |
 |---|---:|---:|---|---|
 | A. Calculation accuracy | 15 | 15 | PASS | D5 edge/stability checks: 8 PASS / 0 FAIL |
-| B. Legal hanja/data | 15 | 0 | NOT_MEASURED | Phase 2 legal-hanja reconciliation not implemented yet |
+| B. Legal hanja/data | 15 | 10 | PARTIAL_OFFICIAL_DENOMINATOR | 9,389 official allowed entries mirrored; 106 candidate deltas remain unresolved |
 | C. Gyeokguk/yongshin rules | 25 | 0 | INSUFFICIENT_TRUTH | D1 has no T3+ authority-truth denominator for baseline fixtures |
 | D. Ten-god position weighting | 10 | 0 | NOT_MEASURED | Phase 5 metric not implemented yet |
 | E. Integrated naming score | 15 | 0 | NOT_MEASURED | Phase 6 score-vector metric not implemented yet |

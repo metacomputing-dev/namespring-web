@@ -63,4 +63,7 @@ or regression observations when `authorityTruthEligible` is `false`.
   public-data API registry and `authorityTruthEligible: false` for the
   KASI-hosted calendarData minute table until it is reconciled with the
   official monthly almanac publication.
-
+- `data/sources/kasi-lunar-solar.sources.json`: `T5_OFFICIAL` for the KASI
+  public-data lunisolar API registry and KASI monthly lunisolar table direct
+  date-conversion facts; internal fixture-selection and product-limit policy
+  rows remain non-eligible `T3_AUTHORED_INTERPRETATION`.
