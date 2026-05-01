@@ -40,6 +40,16 @@ const DEFAULT_TIMEZONE = 'Asia/Seoul';
 const DISTRIBUTION_ROUND_DIGITS = 1;
 const DEFICIENT_AVERAGE_RATIO = 0.5;
 const EXCESSIVE_AVERAGE_RATIO = 1.7;
+const GYEOKGUK_CANDIDATE_SOURCE_TIER = {
+  tier: 'T2_REFERENCE_IMPLEMENTATION',
+  sourceType: 'reference_implementation',
+  sourceUrl: null,
+  accessedAt: '2026-05-01',
+  quoteShort: null,
+  humanInterpretation: 'Derived from saju-ts month-gyeok and gyeokguk ranking internals; display-only evidence, not authority truth.',
+  copyrightNote: 'No quoted source text; implementation-derived metadata only.',
+  authorityTruthEligible: false,
+} as const;
 
 const TEN_GOD_ALIASES: Record<string, string> = {
   GEOB_JAE: 'GYEOB_JAE',
@@ -442,6 +452,130 @@ function deriveGyeokgukBaseSipseong(bestKeyCore: string): string | null {
   return normalizeTenGod(normalized);
 }
 
+function clamp01(value: unknown): number {
+  const n = Number(value);
+  if (!Number.isFinite(n)) return 0;
+  return Math.max(0, Math.min(1, n));
+}
+
+function normalizeGyeokgukKey(value: unknown): string {
+  const raw = String(value ?? '').replace(/^gyeokguk\./, '').trim().toUpperCase();
+  return TEN_GOD_ALIASES[raw] ?? raw;
+}
+
+function isJonggyeokGyeokgukKey(value: string): boolean {
+  return value.startsWith('CONG_') || value === 'ZHUAN_WANG';
+}
+
+function gyeokgukCategoryCode(value: string): string {
+  return isJonggyeokGyeokgukKey(value) ? 'JONGGYEOK' : 'NORMAL';
+}
+
+function gyeokgukCandidateRuleNotes(candidate: any): { supportingRules: string[]; blockingRules: string[] } {
+  if (!candidate || typeof candidate !== 'object') {
+    return { supportingRules: [], blockingRules: [] };
+  }
+
+  const reasons = Array.isArray(candidate?.reasons) ? candidate.reasons.map((reason: any) => String(reason)) : [];
+  const supportingRules: string[] = [];
+  const blockingRules: string[] = [];
+
+  if (candidate?.stem != null) {
+    const stem = stemCodeFromIdx(candidate?.stem?.idx ?? candidate?.stem);
+    if (stem) supportingRules.push(`monthHiddenStem:${stem}`);
+  }
+
+  const role = String(candidate?.role ?? '');
+  if (role) supportingRules.push(`role:${role}`);
+
+  const weight = Number(candidate?.weight);
+  if (Number.isFinite(weight) && !reasons.some((reason) => reason.startsWith('weight:'))) {
+    supportingRules.push(`weight:${roundTo(weight, 3)}`);
+  }
+
+  if (candidate?.visibleInChart === true) supportingRules.push('visibleInChart');
+
+  for (const reason of reasons) {
+    if (reason === 'MONTH_BRANCH_DAMAGED') {
+      blockingRules.push(reason);
+    } else if (!supportingRules.includes(reason)) {
+      supportingRules.push(reason);
+    }
+  }
+
+  return { supportingRules, blockingRules };
+}
+
+function buildGyeokgukCandidates(bundle: AnalysisBundle, bestKeyCore: string, bestScore: number): any[] {
+  const facts = bundle.report?.facts as Record<string, unknown> | undefined;
+  const ruleFacts = facts?.['rules.facts'] as any;
+  const monthCandidates = Array.isArray(ruleFacts?.month?.gyeok?.candidates)
+    ? ruleFacts.month.gyeok.candidates
+    : [];
+
+  const monthByType = new Map<string, any>();
+  for (const candidate of monthCandidates) {
+    const type = normalizeGyeokgukKey(candidate?.tenGod);
+    if (!type) continue;
+    const existing = monthByType.get(type);
+    if (!existing || Number(candidate?.score ?? 0) > Number(existing?.score ?? 0)) {
+      monthByType.set(type, candidate);
+    }
+  }
+
+  const ranking = Array.isArray((bundle.summary?.gyeokguk as any)?.ranking)
+    ? (bundle.summary?.gyeokguk as any).ranking
+    : [];
+  const candidates: any[] = [];
+  const seen = new Set<string>();
+  const selectedType = normalizeGyeokgukKey(bestKeyCore);
+
+  const addCandidate = (typeInput: unknown, scoreInput: unknown, monthCandidate: any): void => {
+    const type = normalizeGyeokgukKey(typeInput);
+    if (!type || seen.has(type)) return;
+    seen.add(type);
+
+    const score = Number(scoreInput);
+    const finalScore = Number.isFinite(score) ? score : 0;
+    const notes = gyeokgukCandidateRuleNotes(monthCandidate);
+    candidates.push({
+      type,
+      category: gyeokgukCategoryCode(type),
+      baseSipseong: deriveGyeokgukBaseSipseong(type),
+      score: finalScore,
+      confidence: clamp01(finalScore),
+      supportingRules: notes.supportingRules,
+      blockingRules: notes.blockingRules,
+      sourceTier: GYEOKGUK_CANDIDATE_SOURCE_TIER,
+    });
+  };
+
+  for (const entry of ranking) {
+    const type = normalizeGyeokgukKey(entry?.key);
+    const score = Number(entry?.score);
+    if (type !== selectedType && (!Number.isFinite(score) || score <= 0)) continue;
+    addCandidate(type, entry?.score, monthByType.get(type));
+  }
+
+  for (const candidate of monthCandidates) {
+    const score = Number(candidate?.score);
+    if (!Number.isFinite(score) || score <= 0) continue;
+    addCandidate(candidate?.tenGod, candidate?.score, candidate);
+  }
+
+  if (bestKeyCore && !seen.has(bestKeyCore)) {
+    addCandidate(bestKeyCore, bestScore, monthByType.get(bestKeyCore));
+  }
+
+  return candidates.sort((a, b) => {
+    if (a.type === selectedType && b.type !== selectedType) return -1;
+    if (b.type === selectedType && a.type !== selectedType) return 1;
+    return Number(b.score ?? 0) - Number(a.score ?? 0) ||
+      Number(b.confidence ?? 0) - Number(a.confidence ?? 0) ||
+      String(a.type).localeCompare(String(b.type));
+  });
+}
+
 function extractGongmangVoidBranches(bundle: AnalysisBundle): [string, string] | [] {
   const facts = bundle.report?.facts as Record<string, unknown> | undefined;
   const ruleFacts = facts?.['rules.facts'] as any;
@@ -650,6 +784,7 @@ function normalizeLegacyOutput(
   const baseSipseong = deriveGyeokgukBaseSipseong(bestKeyCore);
   const bestScore = Number(gyeokguk?.ranking?.[0]?.score ?? 0);
   const isJonggyeok = bestKeyCore.startsWith('CONG_') || bestKeyCore === 'ZHUAN_WANG';
+  const gyeokgukCandidates = buildGyeokgukCandidates(bundle, bestKeyCore, bestScore);
 
   const totalDistribution = (bundle.summary?.elementDistribution as any)?.total ?? {};
   const ohaengDistribution = {
@@ -845,6 +980,7 @@ function normalizeLegacyOutput(
       reasoning: bestKeyCore
         ? `격국 후보 중 ${gyeokgukKoLabel(bestKeyCore)}이(가) 가장 유력합니다.`
         : '격국 후보를 확정하기 어려워 추가 검토가 필요합니다.',
+      candidates: gyeokgukCandidates,
     },
     ohaengDistribution,
     deficientElements,
