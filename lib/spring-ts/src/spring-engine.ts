@@ -254,9 +254,12 @@ export class SpringEngine {
       // 'jonggyeok_only' → 'chengbai_strict'. Smooth penalty curve replaces
       // the 0.5-confidence cliff (saju_master chengbai parity). Callers can
       // opt out via explicit `'jonggyeok_only'` or `'multi_special'`.
+      // PR-Q-11 (Phase M-D5): yongshinMode default flips
+      // 'classical_blend' → 'chengbai_strict'. Stricter penalty when
+      // yongshin confidence is low. Callers can opt out via 'classical_blend'.
       scoringOverrides: {
         balanceMode: pc?.balanceMode,
-        yongshinMode: pc?.yongshinMode,
+        yongshinMode: pc?.yongshinMode ?? 'chengbai_strict',
         strengthMode: pc?.strengthMode,
         tenGodMode: pc?.tenGodMode,
         gyeokgukMode: pc?.gyeokgukMode ?? 'chengbai_strict',
