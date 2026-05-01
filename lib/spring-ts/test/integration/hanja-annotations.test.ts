@@ -170,13 +170,13 @@ check('hanjaPool="curated" ≡ baseline (default)',
   hanjaPoolCurated.scores.total === baseline.scores.total,
   `${hanjaPoolCurated.scores.total}=${baseline.scores.total}`);
 
-// inmyeongyong_full not yet wired to candidate generator; should still
-// produce a valid finite score equal to baseline (no behavior change).
+// Explicit evaluate mode should still produce a valid finite score equal to
+// baseline; PR-2.2 wires the full pool only into recommendation generation.
 check('hanjaPool="inmyeongyong_full" returns finite score',
   Number.isFinite(hanjaPoolInmyeongyongFull.scores.total));
-check('hanjaPool="inmyeongyong_full" ≡ baseline (declared, not wired yet)',
+check('hanjaPool="inmyeongyong_full" ≡ baseline for explicit evaluate',
   hanjaPoolInmyeongyongFull.scores.total === baseline.scores.total,
-  'data fixture 도입 전까지 동작 동일');
+  '명시 한자 평가는 후보 생성 풀 변경과 독립');
 const fullPoolChars = [
   ...hanjaPoolInmyeongyongFull.name.surname,
   ...hanjaPoolInmyeongyongFull.name.givenName,
