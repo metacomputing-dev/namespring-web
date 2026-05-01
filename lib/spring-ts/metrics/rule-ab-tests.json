@@ -1,0 +1,328 @@
+{
+  "schemaVersion": "spring-ts.rule-ab-tests.v1",
+  "artifactKind": "deterministic_rule_ab_test_plan",
+  "generatedAt": "2026-05-02T00:00:00.000Z",
+  "inputs": {
+    "feedbackKind": "source_free_aggregate_snapshots",
+    "calibrationMetric": "metrics/deterministic-calibration.json"
+  },
+  "privacy": {
+    "sourceFree": true,
+    "aggregateOnly": true,
+    "rawFeedbackStoredInRepo": false,
+    "assignmentKeyStoredInRepo": false,
+    "personalFieldsStoredInRepo": false
+  },
+  "assignmentPolicy": {
+    "deterministicHash": "fnv1a32",
+    "bucketCount": 10000,
+    "assignmentUnit": "pseudonymous_visitor_or_request_key",
+    "rawAssignmentKeysStored": false,
+    "mlAllowed": false,
+    "randomAssignmentAtRuntime": false
+  },
+  "promotionPolicy": {
+    "preRegistered": true,
+    "sourceTierGateRequired": true,
+    "deterministicCalibrationRequired": true,
+    "defaultMutationAllowedWithoutGate": false,
+    "lowTierFeedbackCanPromoteDefault": false
+  },
+  "sourceTierGate": {
+    "requiredBeforeDefaultChange": true,
+    "status": "BLOCKED",
+    "authorityObjectiveStatus": "INSUFFICIENT_AUTHORITY_TRUTH",
+    "eligibleObjectiveFixtureCount": 0,
+    "minimumEligibleObjectiveFixtures": 3,
+    "lowTierPolicy": "T2, T1, T0, and NO_REFERENCE feedback is diagnostic only and cannot promote defaults."
+  },
+  "experiments": [
+    {
+      "experimentId": "default_vs_expert_preset_feedback",
+      "label": "Default versus expert preset feedback",
+      "status": "planned",
+      "assignmentUnit": "pseudonymous_visitor_or_request_key",
+      "saltVersion": "rule-ab-2026-05-02-v1",
+      "hypothesis": "Expert preset lenses may improve structured feedback without overriding source-tier authority gates.",
+      "primaryMetric": "accurate_feedback_rate",
+      "guardrailMetrics": [
+        "candidate_name_rejection_rate",
+        "sample_ratio_mismatch",
+        "source_tier_default_promotion_gate"
+      ],
+      "promotionCriteria": {
+        "preRegistered": true,
+        "sourceTierGateRequired": true,
+        "deterministicCalibrationRequired": true,
+        "minVariantExposures": 50,
+        "minPositiveDelta": 0.03,
+        "defaultMutationAllowedWithoutGate": false,
+        "lowTierFeedbackCanPromoteDefault": false
+      },
+      "variants": [
+        {
+          "variantId": "default_current",
+          "role": "control",
+          "label": "Current default",
+          "allocationBps": 5000,
+          "comparisonTarget": "current default SpringOptions"
+        },
+        {
+          "variantId": "expert_korean_modern",
+          "role": "treatment",
+          "label": "Korean modern expert preset",
+          "allocationBps": 2000,
+          "comparisonTarget": "schoolPreset=korean_modern",
+          "options": {
+            "schoolPreset": "korean_modern",
+            "precisionConfig": {
+              "useSchoolPreset": true,
+              "surfaceNamingScoreVector": true
+            }
+          }
+        },
+        {
+          "variantId": "expert_classical_text",
+          "role": "treatment",
+          "label": "Classical text expert preset",
+          "allocationBps": 1500,
+          "comparisonTarget": "schoolPreset=classical_text",
+          "options": {
+            "schoolPreset": "classical_text",
+            "precisionConfig": {
+              "useSchoolPreset": true,
+              "surfaceNamingScoreVector": true
+            }
+          }
+        },
+        {
+          "variantId": "expert_naming_safe",
+          "role": "treatment",
+          "label": "Naming safe expert preset",
+          "allocationBps": 1500,
+          "comparisonTarget": "schoolPreset=naming_safe",
+          "options": {
+            "schoolPreset": "naming_safe",
+            "precisionConfig": {
+              "useSchoolPreset": true,
+              "surfaceNamingScoreVector": true
+            }
+          }
+        }
+      ]
+    },
+    {
+      "experimentId": "candidate_ranking_strategy_feedback",
+      "label": "Candidate ranking strategy feedback",
+      "status": "planned",
+      "assignmentUnit": "pseudonymous_visitor_or_request_key",
+      "saltVersion": "rule-ab-2026-05-02-v1",
+      "hypothesis": "Pareto and conflict-aware ranking can improve candidate feedback while keeping raw scores auditable.",
+      "primaryMetric": "accurate_feedback_rate",
+      "guardrailMetrics": [
+        "candidate_name_rejection_rate",
+        "sample_ratio_mismatch",
+        "source_tier_default_promotion_gate"
+      ],
+      "promotionCriteria": {
+        "preRegistered": true,
+        "sourceTierGateRequired": true,
+        "deterministicCalibrationRequired": true,
+        "minVariantExposures": 50,
+        "minPositiveDelta": 0.03,
+        "defaultMutationAllowedWithoutGate": false,
+        "lowTierFeedbackCanPromoteDefault": false
+      },
+      "variants": [
+        {
+          "variantId": "score_desc_current",
+          "role": "control",
+          "label": "Current score-descending order",
+          "allocationBps": 5000,
+          "comparisonTarget": "current candidate ordering"
+        },
+        {
+          "variantId": "pareto_frontier",
+          "role": "treatment",
+          "label": "Pareto frontier candidate ordering",
+          "allocationBps": 2500,
+          "comparisonTarget": "precisionConfig.paretoFrontierCandidates=true",
+          "options": {
+            "precisionConfig": {
+              "paretoFrontierCandidates": true,
+              "surfaceNamingScoreVector": true
+            }
+          }
+        },
+        {
+          "variantId": "pareto_conflict_aware_safe",
+          "role": "treatment",
+          "label": "Pareto plus conflict-aware safe fallback",
+          "allocationBps": 2500,
+          "comparisonTarget": "pareto + consensus_aware + safeFallback",
+          "options": {
+            "precisionConfig": {
+              "paretoFrontierCandidates": true,
+              "surfaceNamingScoreVector": true,
+              "yongshinMode": "consensus_aware",
+              "nameElementStrategy": "safeFallback"
+            }
+          }
+        }
+      ]
+    }
+  ],
+  "comparisons": [
+    {
+      "experimentId": "default_vs_expert_preset_feedback",
+      "controlVariantId": "default_current",
+      "rows": [
+        {
+          "variantId": "default_current",
+          "role": "control",
+          "exposures": 160,
+          "cardFeedbackTotal": 160,
+          "accurateFeedback": 96,
+          "negativeFeedback": 64,
+          "candidateNameRejections": 16,
+          "accurateFeedbackRate": 0.6,
+          "negativeFeedbackRate": 0.4,
+          "candidateNameRejectionRate": 0.1,
+          "compositeFeedbackScore": 0.375,
+          "deltaVsControl": 0,
+          "meetsSampleGate": true
+        },
+        {
+          "variantId": "expert_korean_modern",
+          "role": "treatment",
+          "exposures": 160,
+          "cardFeedbackTotal": 160,
+          "accurateFeedback": 104,
+          "negativeFeedback": 56,
+          "candidateNameRejections": 13,
+          "accurateFeedbackRate": 0.65,
+          "negativeFeedbackRate": 0.35,
+          "candidateNameRejectionRate": 0.08125,
+          "compositeFeedbackScore": 0.454688,
+          "deltaVsControl": 0.079688,
+          "meetsSampleGate": true
+        },
+        {
+          "variantId": "expert_classical_text",
+          "role": "treatment",
+          "exposures": 160,
+          "cardFeedbackTotal": 160,
+          "accurateFeedback": 102,
+          "negativeFeedback": 58,
+          "candidateNameRejections": 18,
+          "accurateFeedbackRate": 0.6375,
+          "negativeFeedbackRate": 0.3625,
+          "candidateNameRejectionRate": 0.1125,
+          "compositeFeedbackScore": 0.428125,
+          "deltaVsControl": 0.053125,
+          "meetsSampleGate": true
+        },
+        {
+          "variantId": "expert_naming_safe",
+          "role": "treatment",
+          "exposures": 160,
+          "cardFeedbackTotal": 160,
+          "accurateFeedback": 110,
+          "negativeFeedback": 50,
+          "candidateNameRejections": 10,
+          "accurateFeedbackRate": 0.6875,
+          "negativeFeedbackRate": 0.3125,
+          "candidateNameRejectionRate": 0.0625,
+          "compositeFeedbackScore": 0.515625,
+          "deltaVsControl": 0.140625,
+          "meetsSampleGate": true
+        }
+      ],
+      "winningVariantId": "expert_naming_safe",
+      "decision": "blocked_source_tier_gate",
+      "blockedBy": [
+        "source_tier_default_promotion_gate"
+      ],
+      "promotionCriteria": {
+        "preRegistered": true,
+        "sourceTierGateRequired": true,
+        "deterministicCalibrationRequired": true,
+        "minVariantExposures": 50,
+        "minPositiveDelta": 0.03,
+        "defaultMutationAllowedWithoutGate": false,
+        "lowTierFeedbackCanPromoteDefault": false
+      }
+    },
+    {
+      "experimentId": "candidate_ranking_strategy_feedback",
+      "controlVariantId": "score_desc_current",
+      "rows": [
+        {
+          "variantId": "score_desc_current",
+          "role": "control",
+          "exposures": 160,
+          "cardFeedbackTotal": 160,
+          "accurateFeedback": 92,
+          "negativeFeedback": 68,
+          "candidateNameRejections": 22,
+          "accurateFeedbackRate": 0.575,
+          "negativeFeedbackRate": 0.425,
+          "candidateNameRejectionRate": 0.1375,
+          "compositeFeedbackScore": 0.328125,
+          "deltaVsControl": 0,
+          "meetsSampleGate": true
+        },
+        {
+          "variantId": "pareto_frontier",
+          "role": "treatment",
+          "exposures": 160,
+          "cardFeedbackTotal": 160,
+          "accurateFeedback": 101,
+          "negativeFeedback": 59,
+          "candidateNameRejections": 16,
+          "accurateFeedbackRate": 0.63125,
+          "negativeFeedbackRate": 0.36875,
+          "candidateNameRejectionRate": 0.1,
+          "compositeFeedbackScore": 0.421875,
+          "deltaVsControl": 0.09375,
+          "meetsSampleGate": true
+        },
+        {
+          "variantId": "pareto_conflict_aware_safe",
+          "role": "treatment",
+          "exposures": 160,
+          "cardFeedbackTotal": 160,
+          "accurateFeedback": 108,
+          "negativeFeedback": 52,
+          "candidateNameRejections": 11,
+          "accurateFeedbackRate": 0.675,
+          "negativeFeedbackRate": 0.325,
+          "candidateNameRejectionRate": 0.06875,
+          "compositeFeedbackScore": 0.495313,
+          "deltaVsControl": 0.167188,
+          "meetsSampleGate": true
+        }
+      ],
+      "winningVariantId": "pareto_conflict_aware_safe",
+      "decision": "blocked_source_tier_gate",
+      "blockedBy": [
+        "source_tier_default_promotion_gate"
+      ],
+      "promotionCriteria": {
+        "preRegistered": true,
+        "sourceTierGateRequired": true,
+        "deterministicCalibrationRequired": true,
+        "minVariantExposures": 50,
+        "minPositiveDelta": 0.03,
+        "defaultMutationAllowedWithoutGate": false,
+        "lowTierFeedbackCanPromoteDefault": false
+      }
+    }
+  ],
+  "defaultPromotionDecision": {
+    "decision": "keep_current_default",
+    "reason": "Experiment winners are insufficient without the source-tier default promotion gate.",
+    "winningExperimentCount": 2,
+    "blockedWinningExperimentCount": 2
+  }
+}
