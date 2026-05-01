@@ -15,12 +15,14 @@
  * Run: npm run test:quality-gate
  */
 import path from 'node:path';
+import fs from 'node:fs';
 import { execFileSync } from 'node:child_process';
 import { fileURLToPath } from 'node:url';
 
 const __dirname = path.dirname(fileURLToPath(import.meta.url));
 const SPRING_TS_ROOT = path.resolve(__dirname, '../..');
 const GATE = path.resolve(SPRING_TS_ROOT, 'tools/quality_gate.mjs');
+const AUTHORITY_DIR = path.resolve(SPRING_TS_ROOT, 'test/baseline/authority');
 
 let pass = 0;
 let fail = 0;
@@ -67,11 +69,14 @@ try {
 check('--json output parses as valid JSON', jsonParseOk);
 check('JSON has overall field', jsonReport && typeof jsonReport.overall === 'string',
   jsonReport ? `overall=${jsonReport.overall}` : 'no jsonReport');
+check('JSON has passing sourceTierAudit', jsonReport &&
+  jsonReport.sourceTierAudit?.status === 'PASS',
+  jsonReport ? `sourceTierAudit=${jsonReport.sourceTierAudit?.status}` : 'no jsonReport');
 check('JSON has dimensions D1-D5', jsonReport &&
   ['D1', 'D2', 'D3', 'D4', 'D5'].every((d) => d in jsonReport.dimensions));
 check('JSON has fixtures array', jsonReport && Array.isArray(jsonReport.fixtures));
-check('JSON fixtures count matches snapshot (10)',
-  jsonReport && jsonReport.fixtures.length === 10,
+check('JSON fixtures count matches snapshot (15)',
+  jsonReport && jsonReport.fixtures.length === 15,
   `got ${jsonReport?.fixtures?.length}`);
 
 // ── (3) D5 detects existing edge fixtures ───────────────────────────────
@@ -79,10 +84,40 @@ const d5Pass = jsonReport?.fixtures?.filter(
   (f: any) => f.dimensions?.D5?.status === 'PASS'
 ) ?? [];
 const d5PassIds = d5Pass.map((f: any) => f.fixtureId).sort();
-check('D5 detects ≥3 edge fixtures from existing axis tags',
+check('D5 detects at least 3 edge fixtures from existing axis tags',
   d5Pass.length >= 3, `detected: ${d5PassIds.join(', ')}`);
 check('D5 includes fix-03 (jaza-edge)', d5PassIds.includes('fix-03'));
 check('D5 includes fix-04 (jonggwang-candidate)', d5PassIds.includes('fix-04'));
+
+const violationPath = path.join(AUTHORITY_DIR, '__source_tier_violation_test__.json');
+try {
+  fs.writeFileSync(violationPath, JSON.stringify({
+    sourceTier: {
+      tier: 'T1_HYPOTHESIS',
+      sourceType: 'training_derived',
+      sourceUrl: null,
+      accessedAt: '2026-05-01',
+      quoteShort: null,
+      humanInterpretation: 'Temporary test fixture that must never be authority truth.',
+      copyrightNote: 'No source prose.',
+      authorityTruthEligible: true,
+    },
+  }, null, 2) + '\n', 'utf-8');
+  const violationRun = runGate(['--json']);
+  let violationReport: any = null;
+  try {
+    violationReport = JSON.parse(violationRun.stdout);
+  } catch {
+    /* fall-through */
+  }
+  check('T1 authorityTruthEligible=true blocks quality gate',
+    violationRun.status === 1 && violationReport?.sourceTierAudit?.status === 'FAIL',
+    `status=${violationRun.status}`);
+  check('source-tier violation reports low_tier_authority_truth',
+    violationReport?.sourceTierAudit?.violations?.some((v: any) => v.code === 'low_tier_authority_truth'));
+} finally {
+  if (fs.existsSync(violationPath)) fs.unlinkSync(violationPath);
+}
 
 // ── (4) --dimensions filter ─────────────────────────────────────────────
 const dimFilter = runGate(['--dimensions', 'D5', '--json']);
