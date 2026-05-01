@@ -123,6 +123,7 @@ export function buildOverviewSummaryCard(
 
   // ── 2. Day master description ──
   const { dayMaster, strength, yongshin } = saju;
+  const yongshinConsensus = saju.yongshinConsensus ?? yongshin.consensus;
   const stemInfo = lookupStemInfo(dayMaster.stem);
   const stemCode = stemInfo?.code as StemCode | undefined;
   const stemEntry = stemCode ? STEM_ENCYCLOPEDIA[stemCode] : null;
@@ -283,6 +284,21 @@ export function buildOverviewSummaryCard(
   // when 'candidate' / 'deferred' so we don't overclaim a low-confidence yongshin.
   const yongshinTier = axisStrength?.yongshin;
   const isHedged = yongshinTier === 'candidate' || yongshinTier === 'deferred';
+  const consensusAxes = yongshinConsensus
+    ? ([
+        ['eokbu', yongshinConsensus.eokbu.element],
+        ['johu', yongshinConsensus.johu.element],
+        ['gyeokguk', yongshinConsensus.gyeokguk.element],
+        ['tonggwan', yongshinConsensus.tonggwan.element],
+        ['byeongyak', yongshinConsensus.byeongyak.element],
+        ['siksangFlow', yongshinConsensus.siksangFlow.element],
+      ] as const)
+        .filter(([, element]) => Boolean(element))
+        .map(([axis, element]) => `${axis}:${element}`)
+    : [];
+  const consensusWeakness = yongshinConsensus && yongshinConsensus.final.conflictLevel !== 'none'
+    ? `yongshin consensus conflict ${yongshinConsensus.final.conflictLevel}: ${yongshinConsensus.final.competingElements.join(', ')}`
+    : undefined;
   evidence.push({
     axis: 'yongshin',
     claim: isHedged
@@ -291,11 +307,15 @@ export function buildOverviewSummaryCard(
     supportingFeatures: [
       `용신 후보: ${yongshin.element}`,
       `confidence: ${yongshin.confidence ?? 'n/a'}`,
+      ...(yongshinConsensus ? [
+        `consensus conflict: ${yongshinConsensus.final.conflictLevel}`,
+        `consensus axes: ${consensusAxes.join(', ') || '-'}`,
+      ] : []),
       ...(yongshin.heeshin ? [`희신: ${yongshin.heeshin}`] : []),
     ],
     weakness: isHedged
       ? '용신 신뢰도가 0.65 미만이라 차트에 따라 다른 학파(조후 / 통관)의 추천이 더 적합할 수 있음.'
-      : undefined,
+      : consensusWeakness,
     strength: yongshinTier,
   });
 

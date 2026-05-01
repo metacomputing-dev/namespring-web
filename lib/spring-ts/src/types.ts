@@ -96,8 +96,10 @@ export interface PrecisionConfig {
   /** Yongshin score algorithm.
    *  - 'classical_blend' (default): affinity ⊕ recommendation blend.
    *  - 'chengbai_strict': additional penalty when yongshin confidence is low
-   *    (≈ chengbai 패격 detection until saju-ts surfaces the explicit score). */
-  readonly yongshinMode?: 'classical_blend' | 'chengbai_strict';
+   *    (≈ chengbai 패격 detection until saju-ts surfaces the explicit score).
+   *  - 'consensus_aware': blends final yongshin affinity with the consensus
+   *    scoreboard's competing elements when independent methods disagree. */
+  readonly yongshinMode?: 'classical_blend' | 'chengbai_strict' | 'consensus_aware';
 
   /** Day-master strength integration.
    *  - 'binary' (default): isStrong toggle drives -1 / +1 direction.
@@ -480,6 +482,7 @@ export interface SajuSummary {
   readonly dayMaster: DayMasterSummary;
   readonly strength: StrengthSummary;
   readonly yongshin: YongshinSummary;
+  readonly yongshinConsensus?: YongshinConsensusScoreboard;
   readonly gyeokguk: GyeokgukSummary;
   readonly elementDistribution: Record<string, number>;
   readonly deficientElements: string[];
@@ -562,6 +565,7 @@ export interface YongshinSummary {
   readonly confidence: number;
   readonly agreement: string;
   readonly recommendations: YongshinRecommendation[];
+  readonly consensus?: YongshinConsensusScoreboard;
 }
 
 /** A single yongshin recommendation with its rationale. */
@@ -571,6 +575,40 @@ export interface YongshinRecommendation {
   readonly secondaryElement: string | null;
   readonly confidence: number;
   readonly reasoning: string;
+}
+
+export type YongshinConsensusAxisName =
+  | 'eokbu'
+  | 'johu'
+  | 'gyeokguk'
+  | 'tonggwan'
+  | 'byeongyak'
+  | 'siksangFlow';
+
+export type YongshinConsensusConflictLevel = 'none' | 'low' | 'medium' | 'high';
+
+export interface YongshinConsensusAxisScore {
+  readonly element: string | null;
+  readonly score: number;
+  readonly scores: Readonly<Record<string, number>>;
+  readonly evidence: readonly string[];
+}
+
+export interface YongshinConsensusScoreboard {
+  readonly eokbu: YongshinConsensusAxisScore;
+  readonly johu: YongshinConsensusAxisScore;
+  readonly gyeokguk: YongshinConsensusAxisScore;
+  readonly tonggwan: YongshinConsensusAxisScore;
+  readonly byeongyak: YongshinConsensusAxisScore;
+  readonly siksangFlow: YongshinConsensusAxisScore;
+  readonly final: {
+    readonly element: string;
+    readonly confidence: number;
+    readonly topMargin: number;
+    readonly conflictLevel: YongshinConsensusConflictLevel;
+    readonly competingElements: readonly string[];
+    readonly evidence: readonly string[];
+  };
 }
 
 /** The structural pattern (gyeokguk) of the birth chart. */
@@ -859,6 +897,8 @@ export interface SajuCompatibility {
   readonly gishinMatchCount: number;
   readonly dayMasterSupportScore: number;
   readonly affinityScore: number;
+  readonly yongshinConsensusConflictLevel?: YongshinConsensusConflictLevel;
+  readonly yongshinConsensusCompetingElements?: readonly string[];
 }
 
 /** Lightweight saju summary used by the SajuCalculator adapter. */
@@ -866,6 +906,7 @@ export interface SajuOutputSummary {
   dayMaster?: { element: ElementKey };
   strength?: { isStrong: boolean; totalSupport: number; totalOppose: number };
   yongshin?: SajuYongshinSummary;
+  yongshinConsensus?: YongshinConsensusScoreboard;
   tenGod?: {
     groupCounts: Record<string, number>;
     /** Per-pillar ten-god detail (year/month/day/hour). Optional — populated
@@ -1076,4 +1117,5 @@ export interface SajuYongshinSummary {
   gusin: string | null;
   finalConfidence: number;
   recommendations: YongshinRecommendation[];
+  consensus?: YongshinConsensusScoreboard;
 }

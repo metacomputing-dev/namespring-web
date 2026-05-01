@@ -25,6 +25,7 @@ import type {
   SajuPillarPosition, SajuTenGodPositionGroup,
   SajuAxisStrengthMap, SajuJudgmentStrength, SajuInputUncertaintyAxis,
   GyeokgukCandidateSummary, JonggyeokCandidateSummary, SourceTierMetadata,
+  YongshinConsensusScoreboard,
 } from './types.js';
 
 // ---------------------------------------------------------------------------
@@ -95,6 +96,7 @@ const YONGSHIN_TYPE_CODES = [
   'EOKBU', 'JOHU', 'RANKING', 'GYEOKGUK', 'TONGGWAN', 'HAPWHA_YONGSHIN', 'ILHAENG',
 ] as const;
 const GYEOKGUK_CATEGORY_CODES = ['NORMAL', 'JONGGYEOK'] as const;
+const YONGSHIN_CONFLICT_LEVELS = ['none', 'low', 'medium', 'high'] as const;
 const JONGGYEOK_SUBTYPE_CODES = [
   'cong_cai',
   'cong_guan',
@@ -1352,6 +1354,7 @@ export function extractSaju(rawSajuOutput: any): SajuSummary {
     dayMaster:            extractDayMaster(dayStemCode, rawSajuOutput.strengthResult),
     strength:             extractStrength(rawSajuOutput.strengthResult),
     yongshin:             extractYongshin(rawSajuOutput.yongshinResult),
+    yongshinConsensus:    extractYongshinConsensus(rawSajuOutput.yongshinResult?.consensus),
     gyeokguk:             extractGyeokguk(rawSajuOutput.gyeokgukResult),
     elementDistribution:  elementDistribution.distribution,
     deficientElements:    elementDistribution.deficientElements,
@@ -1577,6 +1580,7 @@ function extractYongshin(yongshinResult: any) {
   const heeshin = yongshinResult?.finalHeesin;
   const gishin = yongshinResult?.gisin;
   const gushin = yongshinResult?.gusin;
+  const consensus = extractYongshinConsensus(yongshinResult?.consensus);
   return {
     element:    normalizeElementCode(element) ?? String(element ?? ''),
     heeshin:    normalizeElementCode(heeshin) ?? toNullableString(heeshin),
@@ -1584,6 +1588,7 @@ function extractYongshin(yongshinResult: any) {
     gushin:     normalizeElementCode(gushin) ?? toNullableString(gushin),
     confidence: confidenceToPoints(yongshinResult?.finalConfidence),
     agreement:  formatYongshinAgreementDisplay(yongshinResult?.agreement),
+    consensus,
     recommendations: ensureArray(yongshinResult?.recommendations).map(
       ({ type, primaryElement, secondaryElement, confidence, reasoning }: any) => ({
         type:             formatYongshinTypeDisplay(type),
@@ -1593,6 +1598,52 @@ function extractYongshin(yongshinResult: any) {
         reasoning:        String(reasoning ?? ''),
       }),
     ),
+  };
+}
+
+function extractYongshinConsensus(value: any): YongshinConsensusScoreboard | undefined {
+  if (!value || typeof value !== 'object' || Array.isArray(value)) return undefined;
+
+  const extractAxis = (axisName: string): YongshinConsensusScoreboard['eokbu'] => {
+    const axis = value[axisName] && typeof value[axisName] === 'object' ? value[axisName] : {};
+    const scoresRaw = axis.scores && typeof axis.scores === 'object' && !Array.isArray(axis.scores)
+      ? axis.scores
+      : {};
+    const scores: Record<string, number> = {};
+    for (const element of ELEMENT_CODES) {
+      scores[element] = confidenceToRatio((scoresRaw as any)[element]);
+    }
+    return {
+      element: normalizeElementCode(axis.element),
+      score: confidenceToRatio(axis.score),
+      scores,
+      evidence: ensureArray(axis.evidence).map((entry) => String(entry)),
+    };
+  };
+
+  const finalRaw = value.final && typeof value.final === 'object' ? value.final : {};
+  const conflict = String(finalRaw.conflictLevel ?? 'none');
+  const conflictLevel = (YONGSHIN_CONFLICT_LEVELS as readonly string[]).includes(conflict)
+    ? conflict as YongshinConsensusScoreboard['final']['conflictLevel']
+    : 'none';
+
+  return {
+    eokbu: extractAxis('eokbu'),
+    johu: extractAxis('johu'),
+    gyeokguk: extractAxis('gyeokguk'),
+    tonggwan: extractAxis('tonggwan'),
+    byeongyak: extractAxis('byeongyak'),
+    siksangFlow: extractAxis('siksangFlow'),
+    final: {
+      element: normalizeElementCode(finalRaw.element) ?? '',
+      confidence: confidenceToRatio(finalRaw.confidence),
+      topMargin: Number.isFinite(Number(finalRaw.topMargin)) ? Number(finalRaw.topMargin) : 0,
+      conflictLevel,
+      competingElements: ensureArray(finalRaw.competingElements)
+        .map((entry) => normalizeElementCode(entry))
+        .filter((entry): entry is string => Boolean(entry)),
+      evidence: ensureArray(finalRaw.evidence).map((entry) => String(entry)),
+    },
   };
 }
 
@@ -2015,6 +2066,7 @@ export function buildSajuContext(sajuSummary: SajuSummary): { dist: Record<Eleme
 
   const dayMasterKey = elementFromSajuCode(sajuSummary.dayMaster.element);
   const yongshinData = sajuSummary.yongshin;
+  const yongshinConsensus = sajuSummary.yongshinConsensus ?? yongshinData.consensus;
   const finalYongshin = normalizeElementCode(yongshinData.element);
   const finalHeesin = normalizeElementCode(yongshinData.heeshin);
   const gisin = normalizeElementCode(yongshinData.gishin);
@@ -2092,6 +2144,7 @@ export function buildSajuContext(sajuSummary: SajuSummary): { dist: Record<Eleme
         gisin:           gisin ?? null,
         gusin:           gusin ?? null,
         finalConfidence: confidenceToRatio(yongshinData.confidence),
+        consensus:        yongshinConsensus,
         recommendations: yongshinData.recommendations.map(
           ({ type, primaryElement, secondaryElement, confidence, reasoning }) => ({
             type: normalizeYongshinTypeCode(type),
@@ -2102,6 +2155,7 @@ export function buildSajuContext(sajuSummary: SajuSummary): { dist: Record<Eleme
           }),
         ),
       },
+      yongshinConsensus,
       tenGod,
       gyeokguk: sajuSummary.gyeokguk?.type ? {
         category:   normalizeGyeokgukCategoryCode(sajuSummary.gyeokguk.category ?? ''),

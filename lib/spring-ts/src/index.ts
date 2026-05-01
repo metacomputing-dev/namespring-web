@@ -39,6 +39,10 @@ export type {
   TimeCorrectionSummary,
   StrengthSummary,
   YongshinSummary,
+  YongshinConsensusAxisName,
+  YongshinConsensusAxisScore,
+  YongshinConsensusConflictLevel,
+  YongshinConsensusScoreboard,
   CheonganRelationSummary,
   TenGodSummary,
   // Compatibility & adapter
