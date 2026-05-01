@@ -134,7 +134,50 @@ try {
   if (fs.existsSync(violationPath)) fs.unlinkSync(violationPath);
 }
 
-// ── (4) --dimensions filter ─────────────────────────────────────────────
+// ── (4) classical quote length enforcement ──────────────────────────────
+const quoteLimitPath = path.join(AUTHORITY_DIR, '__classical_quote_limit_test__.json');
+try {
+  fs.writeFileSync(quoteLimitPath, JSON.stringify({
+    source: {
+      tradition: 'classical',
+      text: 'temporary classical quote limit fixture',
+    },
+    prose_quote: {
+      verbatim: 'x'.repeat(81),
+    },
+    sourceTier: {
+      tier: 'T4_PRIMARY_TEXT',
+      sourceType: 'classical_primary_text',
+      sourceUrl: null,
+      accessedAt: '2026-05-01',
+      quoteShort: null,
+      humanInterpretation: 'Temporary classical fixture used to verify short-quote enforcement.',
+      copyrightNote: 'Synthetic quote text for test only.',
+      authorityTruthEligible: true,
+    },
+  }, null, 2) + '\n', 'utf-8');
+  const quoteRun = runGate(['--json']);
+  let quoteReport: any = null;
+  try {
+    quoteReport = JSON.parse(quoteRun.stdout);
+  } catch {
+    /* fall-through */
+  }
+  check('classical prose_quote.verbatim over limit blocks quality gate',
+    quoteRun.status === 1 && quoteReport?.sourceTierAudit?.status === 'FAIL',
+    `status=${quoteRun.status}`);
+  check('classical quote-limit violation reports path and length',
+    quoteReport?.sourceTierAudit?.violations?.some((v: any) =>
+      v.code === 'classical_quote_too_long' &&
+      v.file === 'test/baseline/authority/__classical_quote_limit_test__.json' &&
+      v.quotePath === 'prose_quote.verbatim' &&
+      v.limit === 80 &&
+      v.length === 81));
+} finally {
+  if (fs.existsSync(quoteLimitPath)) fs.unlinkSync(quoteLimitPath);
+}
+
+// ── (5) --dimensions filter ─────────────────────────────────────────────
 const dimFilter = runGate(['--dimensions', 'D5', '--json']);
 let dimReport: any = null;
 try {
@@ -146,7 +189,7 @@ check('--dimensions D5 limits the dimensions set', dimReport &&
   Object.keys(dimReport.dimensions ?? {}).length === 1 &&
   'D5' in dimReport.dimensions);
 
-// ── (5) --fixtures filter ───────────────────────────────────────────────
+// ── (6) --fixtures filter ───────────────────────────────────────────────
 const fixFilter = runGate(['--fixtures', 'fix-01', '--json']);
 let fixReport: any = null;
 try {
