@@ -23,7 +23,7 @@ import { type ElementKey, emptyDistribution } from './core/scoring.js';
 import type {
   SajuOutputSummary, SpringRequest, SajuSummary, PillarSummary, BirthInfo,
   SajuPillarPosition, SajuTenGodPositionGroup,
-  SajuAxisStrengthMap, SajuJudgmentStrength,
+  SajuAxisStrengthMap, SajuJudgmentStrength, SajuInputUncertaintyAxis,
 } from './types.js';
 
 // ---------------------------------------------------------------------------
@@ -59,6 +59,14 @@ const DEFAULT_LONGITUDE: number = engineConfig.defaultCoordinates.longitude;
 const DEFAULT_TIMEZONE: string = engineConfig.defaultTimezone;
 const DEFAULT_UNKNOWN_HOUR = 12;
 const DEFAULT_UNKNOWN_MINUTE = 0;
+const UNKNOWN_HOUR_AFFECTED_AXES: readonly SajuInputUncertaintyAxis[] = [
+  'hourPillar',
+  'yongshin',
+  'gyeokguk',
+  'strength',
+  'tenGod',
+  'fortuneTiming',
+];
 const DISTRIBUTION_ROUND_DIGITS = 1;
 const DEFICIENT_AVERAGE_RATIO = 0.5;
 const EXCESSIVE_AVERAGE_RATIO = 1.7;
@@ -1149,16 +1157,17 @@ export async function analyzeSaju(birth: BirthInfo, options?: SpringRequest['opt
         ? { aberrationModel: advancedAberration }
         : {}),
       // PR-H-S4 — when the caller opts into trueSolarTime, use saju-ts's
-      // 'precise' Equation-of-Time model (Meeus eq. 28.1, VSOP87-derived,
-      // sub-second accuracy). Default-mode (`trueSolarTimeEnabled: false`)
-      // is unaffected because EoT only contributes when trueSolarTime is
-      // enabled. spring-ts's existing toLegacySajuTimePolicyConfig sets
-      // trueSolarTimeEnabled from the user's `policy.trueSolarTime` toggle
-      // (default 'off') so this is purely an opt-in precision upgrade.
-      trueSolarTime: {
-        ...(config.calendar?.trueSolarTime ?? {}),
-        equationOfTime: 'precise',
-      },
+      // 'precise' Equation-of-Time model. Keep default mode longitude-only:
+      // setting equationOfTime here while trueSolarTime is off would override
+      // the legacy bridge's `includeEquationOfTime=false` policy.
+      ...(options?.sajuTimePolicy?.trueSolarTime === 'on'
+        ? {
+            trueSolarTime: {
+              ...(config.calendar?.trueSolarTime ?? {}),
+              equationOfTime: 'precise',
+            },
+          }
+        : {}),
     };
     // PR-H-S5 — opt-in routing of a saju-ts-side school.id when the caller
     // explicitly requests one. Default unset → preserves preset-derived
@@ -1248,6 +1257,7 @@ export async function analyzeSaju(birth: BirthInfo, options?: SpringRequest['opt
       notes.push(
         `출생 시/분 미상으로 ${String(DEFAULT_UNKNOWN_HOUR).padStart(2, '0')}:${String(DEFAULT_UNKNOWN_MINUTE).padStart(2, '0')} 기준 계산을 적용했습니다.`,
       );
+      applyUnknownHourUncertainty(summary);
     }
     if (birth.gender === 'neutral') {
       const maleConfidenceText = neutralMaleConfidence != null ? neutralMaleConfidence.toFixed(2) : '-';
@@ -1951,7 +1961,8 @@ export function buildSajuContext(sajuSummary: SajuSummary): { dist: Record<Eleme
       excessiveElements: sajuSummary.excessiveElements?.length
         ? normalizeElementCodeList(sajuSummary.excessiveElements)
         : undefined,
-      axisStrength: deriveAxisStrength(sajuSummary),
+      axisStrength: sajuSummary.axisStrength ?? deriveAxisStrength(sajuSummary),
+      inputUncertainty: sajuSummary.inputUncertainty,
       // PR-H-A: surface the 천간/지지 relation arrays that SajuSummary already
       // carries. Adapter passthrough — the upstream engine is the source of
       // truth; we do not re-derive. When the source is empty/absent we leave
@@ -2021,6 +2032,38 @@ function deriveAxisStrength(sajuSummary: SajuSummary): SajuAxisStrengthMap | und
   // surface explicit confidences for these. Future PR can populate.
 
   return Object.keys(out).length > 0 ? (out as SajuAxisStrengthMap) : undefined;
+}
+
+function applyUnknownHourUncertainty(summary: SajuSummary & Record<string, unknown>): void {
+  const mutableSummary = summary as Record<string, any>;
+  const current = summary.axisStrength ?? deriveAxisStrength(summary);
+  const downgraded: { -readonly [K in keyof SajuAxisStrengthMap]?: SajuJudgmentStrength } = { ...(current ?? {}) };
+
+  for (const axis of ['yongshin', 'gyeokguk', 'strength'] as const) {
+    const next = downgradeJudgmentStrength(current?.[axis]);
+    if (next) downgraded[axis] = next;
+  }
+
+  if (Object.keys(downgraded).length > 0) {
+    mutableSummary.axisStrength = downgraded as SajuAxisStrengthMap;
+  }
+
+  mutableSummary.inputUncertainty = {
+    ...(summary.inputUncertainty as object | undefined),
+    unknownHour: {
+      fallbackHour: DEFAULT_UNKNOWN_HOUR,
+      fallbackMinute: DEFAULT_UNKNOWN_MINUTE,
+      affectedAxes: UNKNOWN_HOUR_AFFECTED_AXES,
+      confidenceTierShift: 'downgrade-one-step',
+      message: 'Birth hour or minute is missing. The engine used 12:00 as a calculation fallback, so hour-sensitive conclusions should be treated as provisional.',
+    },
+  };
+}
+
+function downgradeJudgmentStrength(value: SajuJudgmentStrength | undefined): SajuJudgmentStrength | undefined {
+  if (value === 'definite') return 'practical';
+  if (value === 'practical') return 'candidate';
+  return value;
 }
 
 function toJudgmentStrength(confidence: number): SajuJudgmentStrength {
