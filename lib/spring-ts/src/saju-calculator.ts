@@ -133,6 +133,32 @@ export interface ScoringPrecisionOverrides {
 }
 
 export type SajuNameElementSource = 'resource' | 'hangul';
+export type TenGodScoreMode = NonNullable<ScoringPrecisionOverrides['tenGodMode']>;
+
+export interface TenGodPositionContribution {
+  readonly position: string;
+  readonly source: 'cheongan' | 'jijiPrincipal' | 'hiddenStem';
+  readonly group: string;
+  readonly weight: number;
+  readonly stem?: string;
+  readonly element?: ElementKey | null;
+  readonly ratio?: number;
+  readonly rank?: number;
+}
+
+export interface TenGodScoreDiagnostics {
+  readonly requestedMode: TenGodScoreMode;
+  readonly effectiveMode: TenGodScoreMode;
+  readonly score: number;
+  readonly normalization: 'deviation_from_average_count';
+  readonly groupCounts: Record<string, number>;
+  readonly totalGroups: number;
+  readonly averageCount: number;
+  readonly deviations: Record<string, number>;
+  readonly elementWeights: Record<ElementKey, number>;
+  readonly positionContributions: readonly TenGodPositionContribution[];
+  readonly fallbackReason?: string;
+}
 
 // =========================================================================
 //  1. BALANCE SCORE
@@ -480,14 +506,37 @@ function computeStrengthScore(
 //     groups in the chart.
 // =========================================================================
 
-function computeTenGodScore(
+function emptyTenGodGroupCounts(): Record<string, number> {
+  return Object.fromEntries(TEN_GOD_GROUPS.map((group) => [group, 0]));
+}
+
+function emptyElementWeights(): Record<ElementKey, number> {
+  return { Wood: 0, Fire: 0, Earth: 0, Metal: 0, Water: 0 };
+}
+
+export function computeTenGodScoreDiagnostics(
   rootDist: Record<ElementKey, number>,
   sajuOutput: SajuOutputSummary | null,
-  mode: 'simple_count' | 'positional_weighted' = 'simple_count',
-): number {
+  mode: TenGodScoreMode = 'simple_count',
+): TenGodScoreDiagnostics {
   const tenGodData       = sajuOutput?.tenGod;
   const dayMasterElement = sajuOutput?.dayMaster?.element;
-  if (!tenGodData || !dayMasterElement) return 50;
+  const normalization = 'deviation_from_average_count' as const;
+  if (!tenGodData || !dayMasterElement) {
+    return {
+      requestedMode: mode,
+      effectiveMode: mode,
+      score: 50,
+      normalization,
+      groupCounts: emptyTenGodGroupCounts(),
+      totalGroups: 0,
+      averageCount: 0,
+      deviations: emptyTenGodGroupCounts(),
+      elementWeights: emptyElementWeights(),
+      positionContributions: [],
+      fallbackReason: 'missing_ten_god_or_day_master',
+    };
+  }
 
   // 'simple_count' (default): use the pre-aggregated groupCounts.
   // 'positional_weighted': re-derive groupCounts from byPosition with
@@ -497,44 +546,117 @@ function computeTenGodScore(
   //     지장간 (hidden) by ratio  1.2 / 0.7 / 0.45
   //   Falls through to simple_count when byPosition is unavailable.
   let groupCounts: Record<string, number>;
+  let effectiveMode: TenGodScoreMode = mode;
+  let fallbackReason: string | undefined;
+  const positionContributions: TenGodPositionContribution[] = [];
   if (mode === 'positional_weighted' && tenGodData.byPosition) {
-    groupCounts = { friend: 0, output: 0, wealth: 0, authority: 0, resource: 0 };
+    groupCounts = emptyTenGodGroupCounts();
     const HIDDEN_WEIGHTS = [1.2, 0.7, 0.45] as const;
-    for (const positionInfo of Object.values(tenGodData.byPosition)) {
+    const addContribution = (
+      contribution: TenGodPositionContribution,
+    ): void => {
+      groupCounts[contribution.group] = (groupCounts[contribution.group] ?? 0) + contribution.weight;
+      positionContributions.push(contribution);
+    };
+    for (const [position, positionInfo] of Object.entries(tenGodData.byPosition)) {
       if (!positionInfo) continue;
-      if (positionInfo.cheonganGroup)      groupCounts[positionInfo.cheonganGroup]      = (groupCounts[positionInfo.cheonganGroup]      ?? 0) + 4.0;
-      if (positionInfo.jijiPrincipalGroup) groupCounts[positionInfo.jijiPrincipalGroup] = (groupCounts[positionInfo.jijiPrincipalGroup] ?? 0) + 1.8;
+      if (positionInfo.cheonganGroup) {
+        addContribution({
+          position,
+          source: 'cheongan',
+          group: positionInfo.cheonganGroup,
+          weight: 4.0,
+        });
+      }
+      if (positionInfo.jijiPrincipalGroup) {
+        addContribution({
+          position,
+          source: 'jijiPrincipal',
+          group: positionInfo.jijiPrincipalGroup,
+          weight: 1.8,
+        });
+      }
       const sortedHidden = (positionInfo.hiddenStems ?? []).slice().sort((a, b) => b.ratio - a.ratio);
       sortedHidden.forEach((hs, i) => {
         if (hs.group && i < HIDDEN_WEIGHTS.length) {
-          groupCounts[hs.group] = (groupCounts[hs.group] ?? 0) + HIDDEN_WEIGHTS[i];
+          addContribution({
+            position,
+            source: 'hiddenStem',
+            stem: hs.stem,
+            element: hs.element,
+            ratio: hs.ratio,
+            rank: i + 1,
+            group: hs.group,
+            weight: HIDDEN_WEIGHTS[i],
+          });
         }
       });
     }
   } else {
-    groupCounts = tenGodData.groupCounts;
+    groupCounts = { ...tenGodData.groupCounts };
+    if (mode === 'positional_weighted') {
+      effectiveMode = 'simple_count';
+      fallbackReason = 'byPosition_unavailable';
+    }
   }
 
   const totalGroups = TEN_GOD_GROUPS.reduce((sum, group) => sum + (groupCounts[group] ?? 0), 0);
-  if (totalGroups <= 0) return 50;
+  if (totalGroups <= 0) {
+    return {
+      requestedMode: mode,
+      effectiveMode,
+      score: 50,
+      normalization,
+      groupCounts,
+      totalGroups,
+      averageCount: 0,
+      deviations: emptyTenGodGroupCounts(),
+      elementWeights: emptyElementWeights(),
+      positionContributions,
+      fallbackReason: fallbackReason ?? 'zero_total_group_count',
+    };
+  }
 
   const averageCount = totalGroups / TEN_GOD_GROUPS.length;
 
   // For each ten-god group, compute how deficient it is relative to the average.
   // Map that deficiency to the corresponding element (based on cycle position).
-  const elementWeights: Record<ElementKey, number> = { Wood: 0, Fire: 0, Earth: 0, Metal: 0, Water: 0 };
+  const elementWeights = emptyElementWeights();
+  const deviations = emptyTenGodGroupCounts();
   for (const group of TEN_GOD_GROUPS) {
     const deviation = (averageCount - (groupCounts[group] ?? 0)) / Math.max(averageCount, 1);
+    deviations[group] = deviation;
     const targetElement = ELEMENT_KEYS[(ELEMENT_KEYS.indexOf(dayMasterElement) + TEN_GOD_GROUPS.indexOf(group)) % 5];
     // Positive deviation = group is under-represented, so its element is desirable.
     // Negative deviation (over-represented) is scaled down to avoid over-penalizing.
     elementWeights[targetElement] += deviation >= 0 ? deviation : deviation * TEN_GOD.negativeScale;
   }
 
-  return clamp(
+  const score = clamp(
     50 + weightedElementAverage(rootDist, element => clamp(elementWeights[element], -1, 1)) * TEN_GOD.maxInfluence,
     0, 100,
   );
+  return {
+    requestedMode: mode,
+    effectiveMode,
+    score,
+    normalization,
+    groupCounts,
+    totalGroups,
+    averageCount,
+    deviations,
+    elementWeights,
+    positionContributions,
+    fallbackReason,
+  };
+}
+
+function computeTenGodScore(
+  rootDist: Record<ElementKey, number>,
+  sajuOutput: SajuOutputSummary | null,
+  mode: TenGodScoreMode = 'simple_count',
+): number {
+  return computeTenGodScoreDiagnostics(rootDist, sajuOutput, mode).score;
 }
 
 // =========================================================================
