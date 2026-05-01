@@ -259,11 +259,13 @@ export class SpringEngine {
       // yongshin confidence is low. Callers can opt out via 'classical_blend'.
       // PR-Q-13 (Phase M-D7): strengthMode default flips 'binary' → 'continuous'.
       // 신강도 graded 평가 (totalSupport/totalOppose 비율). narrative richness ↑.
+      // PR-Q-14 (Phase M-D8): tenGodMode default flips 'simple_count' →
+      // 'positional_weighted'. 월지 / 일간 / 시지 위치별 가중. 격국 도출 정확도 ↑.
       scoringOverrides: {
         balanceMode: pc?.balanceMode,
         yongshinMode: pc?.yongshinMode ?? 'chengbai_strict',
         strengthMode: pc?.strengthMode ?? 'continuous',
-        tenGodMode: pc?.tenGodMode,
+        tenGodMode: pc?.tenGodMode ?? 'positional_weighted',
         gyeokgukMode: pc?.gyeokgukMode ?? 'chengbai_strict',
       },
     };
