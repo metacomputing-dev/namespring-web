@@ -67,3 +67,8 @@ or regression observations when `authorityTruthEligible` is `false`.
   public-data lunisolar API registry and KASI monthly lunisolar table direct
   date-conversion facts; internal fixture-selection and product-limit policy
   rows remain non-eligible `T3_AUTHORED_INTERPRETATION`.
+- `data/sources/classical-myeongri.sources.json`: `T4_PRIMARY_TEXT` registry
+  for public classical myeongri texts. The registry stores bibliographic
+  metadata and source URLs only; later rule fixtures must keep classical
+  verbatim quote fields at or below 80 Unicode code points and must not bulk
+  copy source text.
