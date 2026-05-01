@@ -16,6 +16,10 @@ not available for direct citation.
 - **Expected classifications reflect mainstream 명리 doctrine** (월지 정기
   rule + 격국 + 용신 + 강약 standard analysis).
 
+Source tier rule: every case in this directory is `T1_HYPOTHESIS` with
+`authorityTruthEligible: false`. These records are regression hypotheses only
+until replaced by citation-anchored evidence.
+
 ## Verification path
 
 When source books become available:
