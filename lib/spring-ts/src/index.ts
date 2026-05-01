@@ -54,6 +54,15 @@ export {
   type HanjaLegalStatus,
   type HanjaPool,
 } from './hanja-annotations.js';
+export {
+  getEnrichedStrokeCount,
+  getRadicalElementHint,
+  getUnihanMetadata,
+  type HanjaUnihanMetadata,
+  type RadicalElementHint,
+  type RadicalElementHintSourceTier,
+  type UnihanVariantLinks,
+} from './hanja-unihan.js';
 
 // ─────────────────────────────────────────────────────────────────────────────
 //  4. RE-EXPORTED NAME-TS MODELS

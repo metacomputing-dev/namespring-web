@@ -2,6 +2,7 @@ import type { HangulAnalysis, HanjaAnalysis, FourFrameAnalysis } from './core/mo
 import type { FourframeMeaningEntry } from '../../seed-ts/src/database/fourframe-repository.js';
 import type { ElementKey } from './core/scoring.js';
 import type { HanjaLegalStatus } from './hanja-annotations.js';
+import type { HanjaUnihanMetadata, RadicalElementHint } from './hanja-unihan.js';
 
 // ─────────────────────────────────────────────────────────────────────────────
 //  1. INPUT TYPES
@@ -433,6 +434,8 @@ export interface CharDetail {
   readonly legalStatus: HanjaLegalStatus;
   readonly legalRegistrable?: boolean;
   readonly isVariantOf?: string;
+  readonly unihan?: HanjaUnihanMetadata;
+  readonly radicalElementHint?: RadicalElementHint;
 }
 
 // ─────────────────────────────────────────────────────────────────────────────
