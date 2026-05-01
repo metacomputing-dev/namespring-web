@@ -26,6 +26,7 @@ import { evaluateName, type EvalContext, type EvaluationResult } from './core/ev
 import { type ElementKey, bucketFromFortune } from './core/scoring.js';
 import { FourFrameOptimizer } from './calculator/search.js';
 import { makeFallbackEntry, buildInterpretation, parseJamoFilter, decomposeHangul, type JamoFilter } from './core/name-utils.js';
+import { buildNamingExplanation } from './naming-explanation.js';
 import type { SajuOutputSummary } from './types.js';
 import { SajuCalculator } from './saju-calculator.js';
 import type { SajuEvaluatorHints } from './saju-calculator.js';
@@ -1432,6 +1433,9 @@ export class SpringEngine {
 
     const frameAnalysis = frame.getAnalysis();
     const luckScore = roundScore(categoryMap.FOURFRAME_LUCK?.score ?? 0);
+    const explanation = scoreVector
+      ? buildNamingExplanation({ evaluationResult: evalResult, scoreVector, strengthProfile })
+      : undefined;
 
     return {
       name: {
@@ -1459,7 +1463,8 @@ export class SpringEngine {
       },
       ...(nameTrend ? { nameTrend } : {}),
       ...(phonetic ? { phonetic } : {}),
-      interpretation: buildInterpretation(evalResult),
+      ...(explanation ? { explanation } : {}),
+      interpretation: explanation?.summary ?? buildInterpretation(evalResult),
     };
   }
 
@@ -1897,6 +1902,9 @@ export class SpringEngine {
     const strengthProfile = scoreVector
       ? this.deriveCandidateStrengthProfile(scoreVector)
       : undefined;
+    const explanation = scoreVector
+      ? buildNamingExplanation({ evaluationResult, scoreVector, strengthProfile })
+      : undefined;
 
     // Compute category sub-scores (average of related frames)
     const hangulScore = roundScore(
@@ -1922,6 +1930,7 @@ export class SpringEngine {
       },
       ...(scoreVector ? { scoreVector } : {}),
       ...(strengthProfile ? { strengthProfile } : {}),
+      ...(explanation ? { explanation } : {}),
       analysis: {
         hangul:    hangul.getAnalysis().data,
         hanja:     hanja.getAnalysis().data,
@@ -1930,7 +1939,7 @@ export class SpringEngine {
         ...(nameTrend ? { nameTrend } : {}),
         ...(phonetic ? { phonetic } : {}),
       },
-      interpretation: buildInterpretation(evaluationResult),
+      interpretation: explanation?.summary ?? buildInterpretation(evaluationResult),
       rank: 0,
     };
   }
