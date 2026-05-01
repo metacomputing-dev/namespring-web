@@ -13,11 +13,13 @@ import type {
   SajuAxisStrengthMap, EvidenceRow, SajuJudgmentStrength, CounterexampleRow,
 } from '../types.js';
 import type { NameTrendAnalysis } from '../name-trend.js';
+import type { PhoneticAnalysis } from '../phonetic-rules.js';
 export type {
   SajuSummary, BirthInfo,
   SajuAxisStrengthMap, EvidenceRow, SajuJudgmentStrength, CounterexampleRow,
 };
 export type { NameTrendAnalysis } from '../name-trend.js';
+export type { PhoneticAnalysis } from '../phonetic-rules.js';
 
 // ─────────────────────────────────────────────────────────────────────────────
 //  2. Code types (used by elementMaps and card builders)
@@ -118,6 +120,7 @@ export interface NameCompatibilityCard {
   readonly sajuCompatibilityScore: number;
   readonly nameAnalysisScore: number;
   readonly nameTrend?: NameTrendAnalysis;
+  readonly phonetic?: PhoneticAnalysis;
   readonly summary: string;
   readonly details: string[];
   /** Per-axis judgment strength (PR-J-8b). Optional. Note: this card

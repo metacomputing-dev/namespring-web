@@ -4,6 +4,7 @@ import type { ElementKey } from './core/scoring.js';
 import type { HanjaLegalStatus } from './hanja-annotations.js';
 import type { HanjaUnihanMetadata, RadicalElementHint } from './hanja-unihan.js';
 import type { NameTrendAnalysis } from './name-trend.js';
+import type { PhoneticAnalysis } from './phonetic-rules.js';
 
 // ─────────────────────────────────────────────────────────────────────────────
 //  1. INPUT TYPES
@@ -212,6 +213,12 @@ export interface PrecisionConfig {
    *  `nameTrend`/`trendFit`/`trendRisk`, but scores, ranking, generation,
    *  and legal/Hanja logic are unchanged. */
   readonly surfaceNameTrend?: boolean;
+
+  /** Surface Korean syllable transition and surname-boundary phonetic evidence.
+   *  Display-only in PR-2.5: when true, reports may include `phonetic`
+   *  warnings and scores, but scoring, ranking, generation, legal/Hanja,
+   *  and Saju compatibility logic are unchanged. */
+  readonly surfacePhoneticEvidence?: boolean;
 
   /** Surface palace (12궁) information on `SajuOutputSummary` when `true`.
    *  Off by default — consumers must opt-in.
@@ -429,6 +436,7 @@ export interface CandidateAnalysis {
   readonly fourFrame: FourFrameAnalysis;
   readonly saju: SajuCompatibility;
   readonly nameTrend?: NameTrendAnalysis;
+  readonly phonetic?: PhoneticAnalysis;
 }
 
 /** Properties of a single character (hangul + hanja + metadata). */
@@ -698,6 +706,7 @@ export interface NamingReport {
     readonly fourFrame: NamingReportFourFrame;
   };
   readonly nameTrend?: NameTrendAnalysis;
+  readonly phonetic?: PhoneticAnalysis;
   readonly interpretation: string;
 }
 
@@ -716,6 +725,7 @@ export interface SpringReport {
   readonly maleRatio: number | null;
   readonly nameGender: NameGenderTendency;
   readonly nameTrend?: NameTrendAnalysis;
+  readonly phonetic?: PhoneticAnalysis;
   readonly namingReport: NamingReport;
   readonly sajuReport: SajuReport;
   readonly sajuCompatibility: SajuCompatibility;
@@ -734,6 +744,7 @@ export interface SpringCandidateSummary {
   readonly maleRatio: number | null;
   readonly nameGender: NameGenderTendency;
   readonly nameTrend?: NameTrendAnalysis;
+  readonly phonetic?: PhoneticAnalysis;
   rank: number;
 }
 

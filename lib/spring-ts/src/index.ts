@@ -70,6 +70,16 @@ export {
   type NameTrendPoint,
   type NameTrendStatus,
 } from './name-trend.js';
+export {
+  getPhoneticAnalysis,
+  type PhoneticAnalysis,
+  type PhoneticBoundaryKind,
+  type PhoneticRiskLevel,
+  type PhoneticSignal,
+  type PhoneticStatus,
+  type PhoneticSyllable,
+  type PhoneticTransition,
+} from './phonetic-rules.js';
 
 // ─────────────────────────────────────────────────────────────────────────────
 //  4. RE-EXPORTED NAME-TS MODELS

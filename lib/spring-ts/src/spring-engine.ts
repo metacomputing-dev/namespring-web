@@ -44,6 +44,7 @@ import { getLegalAnnotation, type HanjaLegalStatus, type HanjaPool } from './han
 import inmyeongyongFullData from '../data/inmyeongyong_9389_full.json';
 import { getEnrichedStrokeCount, getUnihanMetadata } from './hanja-unihan.js';
 import { getNameTrendAnalysis, type NameTrendAnalysis } from './name-trend.js';
+import { getPhoneticAnalysis, type PhoneticAnalysis } from './phonetic-rules.js';
 
 // ---------------------------------------------------------------------------
 // Config -- all tuneable numbers come from engine.json
@@ -487,6 +488,16 @@ export class SpringEngine {
       : undefined;
   }
 
+  private resolvePhoneticAnalysis(
+    surname: NameCharInput[] | undefined,
+    givenName: NameCharInput[] | undefined,
+    options?: SpringRequest['options'],
+  ): PhoneticAnalysis | undefined {
+    return options?.precisionConfig?.surfacePhoneticEvidence
+      ? getPhoneticAnalysis(surname, givenName)
+      : undefined;
+  }
+
   // -------------------------------------------------------------------------
   // getNamingReport -- pure name analysis (no saju)
   // -------------------------------------------------------------------------
@@ -540,6 +551,7 @@ export class SpringEngine {
       frame,
       this.resolveHanjaPool(request.options),
       this.resolveNameTrend(request.givenName, request.birth, request.options),
+      this.resolvePhoneticAnalysis(request.surname, request.givenName, request.options),
     );
   }
 
@@ -629,6 +641,7 @@ export class SpringEngine {
     await frame.ensureEntriesLoaded();
 
     const nameTrend = this.resolveNameTrend(request.givenName, request.birth, request.options);
+    const phonetic = this.resolvePhoneticAnalysis(request.surname, request.givenName, request.options);
 
     return {
       finalScore: roundScore(combined.score),
@@ -636,6 +649,7 @@ export class SpringEngine {
       maleRatio: nameStatInfo.maleRatio,
       nameGender: nameStatInfo.nameGender,
       ...(nameTrend ? { nameTrend } : {}),
+      ...(phonetic ? { phonetic } : {}),
       namingReport: this.buildNamingReport(
         surnameEntries,
         givenNameEntries,
@@ -645,6 +659,7 @@ export class SpringEngine {
         frame,
         this.resolveHanjaPool(request.options),
         nameTrend,
+        phonetic,
       ),
       sajuReport,
       sajuCompatibility: saju.getAnalysis().data,
@@ -767,6 +782,7 @@ export class SpringEngine {
 
       const allEntries = [...surnameEntries, ...givenNameEntries];
       const nameTrend = this.resolveNameTrend(givenNameInput, request.birth, request.options);
+      const phonetic = this.resolvePhoneticAnalysis(request.surname, givenNameInput, request.options);
       results.push({
         finalScore: roundScore(combined.score),
         fullHangul: allEntries.map(entry => entry.hangul).join(''),
@@ -777,6 +793,7 @@ export class SpringEngine {
         maleRatio: nameStatInfo.maleRatio,
         nameGender: nameStatInfo.nameGender,
         ...(nameTrend ? { nameTrend } : {}),
+        ...(phonetic ? { phonetic } : {}),
         rank: 0,
       });
     }
@@ -799,6 +816,7 @@ export class SpringEngine {
     frame: FrameCalculator,
     hanjaPool: HanjaPool = 'curated',
     nameTrend?: NameTrendAnalysis,
+    phonetic?: PhoneticAnalysis,
   ): NamingReport {
     const categoryMap = evalResult.categoryMap;
     const frames = frame.frames;
@@ -850,6 +868,7 @@ export class SpringEngine {
         },
       },
       ...(nameTrend ? { nameTrend } : {}),
+      ...(phonetic ? { phonetic } : {}),
       interpretation: buildInterpretation(evalResult),
     };
   }
@@ -1262,6 +1281,7 @@ export class SpringEngine {
     const fullHangul  = allEntries.map(entry => entry.hangul).join('');
     const fullHanja   = allEntries.map(entry => entry.hanja).join('');
     const nameTrend = this.resolveNameTrend(givenName, birth, requestOptions);
+    const phonetic = this.resolvePhoneticAnalysis(surname, givenName, requestOptions);
 
     // Compute category sub-scores (average of related frames)
     const hangulScore = roundScore(
@@ -1291,6 +1311,7 @@ export class SpringEngine {
         fourFrame: frame.getAnalysis().data,
         saju:      saju.getAnalysis().data,
         ...(nameTrend ? { nameTrend } : {}),
+        ...(phonetic ? { phonetic } : {}),
       },
       interpretation: buildInterpretation(evaluationResult),
       rank: 0,
