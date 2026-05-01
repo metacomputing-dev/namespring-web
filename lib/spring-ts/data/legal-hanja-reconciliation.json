@@ -31,9 +31,21 @@
   "legalStatusPolicy": {
     "allowed": "Orthodox Hanja appears in the active legal pool.",
     "variantAllowed": "Input Hanja is a known variant and the normalized orthodox Hanja appears in the active legal pool.",
-    "hangulOnly": "No Hanja code point is present; name remains eligible for Hangul-only handling.",
+    "hangulOnly": "No Hanja glyph is present; name remains eligible for Hangul-only handling.",
     "unknown": "The active curated pool is intentionally non-definitive, or official confirmation has not yet been extracted.",
-    "notAllowed": "The definitive full pool does not contain the normalized Hanja."
+    "notAllowed": "The local full pool does not contain the normalized Hanja."
+  },
+  "unihanEnrichment": {
+    "file": "data/unihan-hanja-metadata.json",
+    "sourceRegistry": "data/sources/unihan.sources.json",
+    "unicodeVersion": "17.0.0",
+    "entriesWithUnihanMetadata": 9090,
+    "localRowsWithoutUnihan": 405,
+    "localZeroStrokeCount": 198,
+    "zeroStrokeResolvedByUnihan": 197,
+    "radicalHintCount": 1749,
+    "variantLinkCount": 6208,
+    "radicalElementPolicy": "Unicode radical metadata is T5 official; Five-Element radical mapping is exposed only as a T3_AUTHORED_INTERPRETATION hint."
   },
   "candidateMirrorStatusCounts": {
     "allowed": 9416,

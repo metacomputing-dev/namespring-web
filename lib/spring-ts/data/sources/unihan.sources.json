@@ -1,0 +1,64 @@
+{
+  "schemaVersion": "spring-ts.unihan-sources.v1",
+  "accessedAt": "2026-05-01",
+  "sourceTier": {
+    "tier": "T5_OFFICIAL",
+    "sourceType": "unicode_standard_annex",
+    "sourceUrl": "https://www.unicode.org/reports/tr38/",
+    "accessedAt": "2026-05-01",
+    "quoteShort": null,
+    "humanInterpretation": "UAX #38 documents the Unihan database format and properties, including kRSUnicode, kTotalStrokes, and variant fields.",
+    "copyrightNote": "Official Unicode documentation referenced by URL and paraphrase only; see https://www.unicode.org/license.txt for Unicode license terms.",
+    "authorityTruthEligible": true
+  },
+  "sourceTierScope": "Top-level sourceTier applies only to official Unicode source mechanics. Each row in sources[] carries its own sourceTier, including the non-authority radical hint policy.",
+  "sources": [
+    {
+      "id": "unicode_uax38_unihan_17_0_0",
+      "label": "Unicode Standard Annex #38, Unicode Han Database",
+      "unicodeVersion": "17.0.0",
+      "sourceTier": {
+        "tier": "T5_OFFICIAL",
+        "sourceType": "unicode_standard_annex",
+        "sourceUrl": "https://www.unicode.org/reports/tr38/",
+        "accessedAt": "2026-05-01",
+        "quoteShort": null,
+        "humanInterpretation": "UAX #38 is the official reference for Unihan.zip mechanics and property semantics.",
+        "copyrightNote": "No long Unicode text embedded; URL and short paraphrase retained; see https://www.unicode.org/license.txt.",
+        "authorityTruthEligible": true
+      }
+    },
+    {
+      "id": "unicode_ucd_unihan_zip_17_0_0",
+      "label": "Unicode Character Database Unihan.zip",
+      "unicodeVersion": "17.0.0",
+      "archiveUrl": "https://www.unicode.org/Public/17.0.0/ucd/Unihan.zip",
+      "localResearchPath": "C:/Projects/metaintelligence/spring-master/sources/unihan-17.0.0/Unihan.zip",
+      "sourceTier": {
+        "tier": "T5_OFFICIAL",
+        "sourceType": "unicode_ucd",
+        "sourceUrl": "https://www.unicode.org/Public/17.0.0/ucd/Unihan.zip",
+        "accessedAt": "2026-05-01",
+        "quoteShort": null,
+        "humanInterpretation": "The official Unihan 17.0.0 archive is parsed into a local metadata overlay for Korean legal-Hanja rows.",
+        "copyrightNote": "Archive is not vendored wholesale; only derived factual metadata needed by spring-ts is committed; see https://www.unicode.org/license.txt.",
+        "authorityTruthEligible": true
+      }
+    },
+    {
+      "id": "radical_element_hint_policy",
+      "label": "Five-element radical hint policy",
+      "localResearchPath": "C:/Projects/metaintelligence/spring-master/unihan-enrichment-research-2026-05-01.md",
+      "sourceTier": {
+        "tier": "T3_AUTHORED_INTERPRETATION",
+        "sourceType": "internal_rule_policy",
+        "sourceUrl": null,
+        "accessedAt": "2026-05-01",
+        "quoteShort": null,
+        "humanInterpretation": "Only the five obvious Kangxi radicals 木, 火, 土, 金, 水 are mapped to Five Element hints; the mapping is not authority truth and must not be used as a hard pass/fail criterion.",
+        "copyrightNote": "Internal policy note; no external copyrighted prose copied.",
+        "authorityTruthEligible": false
+      }
+    }
+  ]
+}
