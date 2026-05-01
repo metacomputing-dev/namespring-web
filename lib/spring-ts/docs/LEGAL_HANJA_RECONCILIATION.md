@@ -48,11 +48,16 @@ data.
 generation to the local full-Hanja mirror data file. The converter emits one
 candidate entry per usable reading and excludes rows whose reading or positive
 stroke count cannot be justified. Legal non-standard glyph rows from the mirror
-are preserved. Because the full source does not yet carry radical/resource 오행,
-generated full-pool entries use stroke-derived scoring elements as an interim
-scoreable fallback; those derived resource elements are not used for pre-score
-candidate exclusion. PR-2.3 should replace that fallback with authoritative
-Unihan/radical metadata.
+are preserved. Unihan 17.0.0 now fills local zero-stroke rows when
+`kTotalStrokes` is available and exposes `kRSUnicode` radical-stroke metadata as
+an overlay. Because radical-to-Five-Element mapping is interpretive, not Unicode
+authority data, `radicalElementHint` is surfaced as a
+`T3_AUTHORED_INTERPRETATION` hint and is not used as a hard legal or scoring
+truth.
+
+Generated full-pool entries still keep stroke-derived scoring elements as an
+interim scoreable fallback; those derived resource elements are not used for
+pre-score candidate exclusion.
 
 Generated candidates outside the active legal pool are removed before scoring,
 and `SpringResponse.meta.candidateRejections` exposes grouped rejection reasons
@@ -66,6 +71,7 @@ Run:
 npm run test:legal-hanja
 npm run test:hanja
 npm run test:hanja-pool
+npm run test:unihan
 ```
 
 Broader release checks should also run `npm run typecheck`, `npm run
