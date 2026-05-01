@@ -22,6 +22,11 @@
  *      Same as monthly_full but 中氣 takes priority over 정기 when both
  *      are transparent (the 잡기 case). This is the 잡기정인격 rule.
  *
+ *   5. **composite_classical**:
+ *      Evidence-only candidate mode. Selected agreement is monthly_main,
+ *      while coverage checks whether any month-hidden candidate can surface
+ *      the authority label.
+ *
  * Reports per-source: PASS / DIFF / N/A counts and rate.
  *
  * Usage: npx tsx tools/measure_alternative_gyeokguk_rules.ts
@@ -68,6 +73,9 @@ const FAMILY: Record<string, Set<string>> = {
   '종인격': new Set(['정인격', '편인격']),
   '종비격': new Set(['비견격', '겁재격']),
   '종왕격': new Set(['비견격', '겁재격', '정인격', '편인격']),
+  '인수격': new Set(['정인격', '편인격']),
+  '관살격': new Set(['정관격', '편관격']),
+  '殺印격': new Set(['정관격', '편관격', '정인격', '편인격']),
 };
 
 function stemIdx(h: string): number { return STEM_HANJA_ORDER.indexOf(h as typeof STEM_HANJA_ORDER[number]); }
@@ -133,11 +141,27 @@ function ruleMonthlyPriorityTransparent(c: CaseRec): string {
   return `${TEN_GOD_KO[tenGodOf(dIdx, main)] ?? '?'}격`;
 }
 
+function ruleCompositeClassical(c: CaseRec): string {
+  // Candidate evidence mode is not a production selector; selected agreement
+  // intentionally remains monthly_main for non-regression measurement.
+  return ruleMonthlyMain(c);
+}
+
+function compositeClassicalCandidates(c: CaseRec): string[] {
+  const dIdx = stemIdx(c.pillars.day_pillar.charAt(0));
+  const bIdx = branchIdx(c.pillars.month_pillar.charAt(1));
+  const hidden = HIDDEN_STEMS[bIdx] ?? [];
+  return [...new Set(hidden
+    .filter((stem): stem is number => stem !== undefined)
+    .map((stem) => `${TEN_GOD_KO[tenGodOf(dIdx, stem)] ?? '?'}격`))];
+}
+
 const RULES = {
   monthly_main: ruleMonthlyMain,
   monthly_jungki_transparent: ruleMonthlyJungkiTransparent,
   monthly_full_transparent: ruleMonthlyFullTransparent,
   monthly_priority_transparent: ruleMonthlyPriorityTransparent,
+  composite_classical: ruleCompositeClassical,
 };
 
 interface SourceTally {
@@ -213,12 +237,75 @@ function compareResult(computed: string, c: CaseRec): 'PASS' | 'PARTIAL' | 'DIFF
   return 'DIFF';
 }
 
+function candidateCoversAuthority(candidates: string[], c: CaseRec): boolean | null {
+  if (c.comparable === false || !c.expected_gyeokguk) return null;
+  if (candidates.includes(c.expected_gyeokguk)) return true;
+  const expectedFamily = FAMILY[c.expected_gyeokguk];
+  if (expectedFamily && candidates.some((candidate) => expectedFamily.has(candidate))) return true;
+  if (c.expected_alt_gyeokguk?.some((alt) => candidates.includes(alt))) return true;
+  return false;
+}
+
 function main(): void {
   const sources = loadAllCases();
+  const json = process.argv.includes('--json');
+
+  const sourceSummaries: Array<{
+    source: string;
+    selectedAgreement: Record<string, { pass: number; partial: number; diff: number; na: number }>;
+    compositeCandidateCoverage: { covered: number; comparable: number };
+  }> = [];
+
+  for (const src of sources) {
+    const selectedAgreement: Record<string, { pass: number; partial: number; diff: number; na: number }> = {};
+    for (const ruleName of Object.keys(RULES) as Array<keyof typeof RULES>) {
+      selectedAgreement[ruleName] = { pass: 0, partial: 0, diff: 0, na: 0 };
+    }
+    const compositeCandidateCoverage = { covered: 0, comparable: 0 };
+
+    for (const c of src.cases) {
+      for (const ruleName of Object.keys(RULES) as Array<keyof typeof RULES>) {
+        const computed = RULES[ruleName](c);
+        const r = compareResult(computed, c);
+        const tally = selectedAgreement[ruleName];
+        if (r === 'PASS') tally.pass += 1;
+        else if (r === 'PARTIAL') tally.partial += 1;
+        else if (r === 'DIFF') tally.diff += 1;
+        else tally.na += 1;
+      }
+
+      const covered = candidateCoversAuthority(compositeClassicalCandidates(c), c);
+      if (covered !== null) {
+        compositeCandidateCoverage.comparable += 1;
+        if (covered) compositeCandidateCoverage.covered += 1;
+      }
+    }
+
+    sourceSummaries.push({ source: src.source, selectedAgreement, compositeCandidateCoverage });
+  }
+
+  if (json) {
+    const totals: Record<string, { pass: number; partial: number; diff: number; na: number }> = {};
+    for (const ruleName of Object.keys(RULES)) totals[ruleName] = { pass: 0, partial: 0, diff: 0, na: 0 };
+    const coverageTotal = { covered: 0, comparable: 0 };
+    for (const src of sourceSummaries) {
+      for (const [ruleName, tally] of Object.entries(src.selectedAgreement)) {
+        totals[ruleName].pass += tally.pass;
+        totals[ruleName].partial += tally.partial;
+        totals[ruleName].diff += tally.diff;
+        totals[ruleName].na += tally.na;
+      }
+      coverageTotal.covered += src.compositeCandidateCoverage.covered;
+      coverageTotal.comparable += src.compositeCandidateCoverage.comparable;
+    }
+    console.log(JSON.stringify({ sources: sourceSummaries, totals, compositeCandidateCoverage: coverageTotal }, null, 2));
+    return;
+  }
+
   console.log(`measure_alternative_gyeokguk_rules — ${sources.reduce((n, s) => n + s.cases.length, 0)} cases across ${sources.length} sources\n`);
 
-  const headers = ['SOURCE', 'monthly_main', 'jungki_t', 'full_t', 'priority_t'];
-  const widths = [40, 14, 12, 10, 13];
+  const headers = ['SOURCE', 'monthly_main', 'jungki_t', 'full_t', 'priority_t', 'composite_c'];
+  const widths = [40, 14, 12, 12, 14, 14];
   console.log(headers.map((h, i) => h.padEnd(widths[i])).join(''));
   console.log(widths.map((w) => '-'.repeat(w - 1)).join(' '));
 
@@ -227,18 +314,10 @@ function main(): void {
     grandTotals[ruleName] = { pass: 0, partial: 0, diff: 0, na: 0 };
   }
 
-  for (const src of sources) {
+  for (const src of sourceSummaries) {
     const row: string[] = [src.source.length > 39 ? src.source.slice(0, 38) + '…' : src.source];
     for (const ruleName of Object.keys(RULES) as Array<keyof typeof RULES>) {
-      let pass = 0, partial = 0, diff = 0, na = 0;
-      for (const c of src.cases) {
-        const computed = RULES[ruleName](c);
-        const r = compareResult(computed, c);
-        if (r === 'PASS') pass += 1;
-        else if (r === 'PARTIAL') partial += 1;
-        else if (r === 'DIFF') diff += 1;
-        else na += 1;
-      }
+      const { pass, partial, diff, na } = src.selectedAgreement[ruleName];
       const comparable = pass + partial + diff;
       const rate = comparable > 0 ? (((pass + partial) / comparable) * 100).toFixed(0) : '-';
       row.push(`${pass}/${comparable} ${rate}%`);
@@ -267,6 +346,14 @@ function main(): void {
   console.log('  jungki_transparent   — if 中氣 transparent in 천간, use 中氣; else fall back to main.');
   console.log('  full_transparent     — among 정기/中氣/餘氣, prefer transparent. priority main>middle>residual.');
   console.log('  priority_transparent — same as full but 中氣 priority > 정기 (the 잡기 rule).');
+  console.log('  composite_classical  — evidence-only candidate score; selected agreement is monthly_main.');
+  console.log();
+  console.log('Composite candidate coverage (authority label present in evidence candidates):');
+  for (const src of sourceSummaries) {
+    const cov = src.compositeCandidateCoverage;
+    const rate = cov.comparable > 0 ? (((cov.covered / cov.comparable) * 100).toFixed(1)) : '-';
+    console.log(`  ${src.source}: ${cov.covered} of ${cov.comparable} (${rate}%)`);
+  }
 }
 
 main();
