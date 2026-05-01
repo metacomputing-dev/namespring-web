@@ -168,6 +168,22 @@ export interface PrecisionConfig {
    *  follow-up PR alongside the test fixtures that exercise each variant. */
   readonly pureHangulSchema?: 'classic_phonetic' | 'modern_korean' | 'expanded';
 
+  /** Surface johu (조후 / climate balance) on `SajuOutputSummary` and
+   *  `OverviewSummaryCard` evidence rows when `true`. Off by default —
+   *  consumers must opt-in.
+   *
+   *  Per Phase H-G (`spring-info/09_finalization/17_adapter_richness_phase2.md`
+   *  bucket C), saju-ts does not yet surface a confidence score for the
+   *  johu axis, so spring-ts reads `bundle.summary.johu` (when present)
+   *  and emits a structured `SajuOutputSummary.johu` field with the
+   *  classical 조후 useful-stems list and seasonal note. axisStrength
+   *  for this axis remains absent until saju-ts produces a johu
+   *  confidence (deferred — F-A14 audit, "saju-ts does not yet surface
+   *  explicit confidences for chengbai / johu / fortuneHierarchy /
+   *  rectification"). When that lands, the same flag activates the
+   *  axisStrength.johu population without API change. */
+  readonly surfaceJohu?: boolean;
+
   // ── PR10: narrative expansion flags ────────────────────────────────────
 
   /** Narrative style for fortune report cards.
