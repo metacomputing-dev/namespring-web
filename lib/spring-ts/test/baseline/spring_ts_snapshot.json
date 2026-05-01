@@ -1,8 +1,8 @@
 {
   "version": "1.0.0",
-  "capturedAt": "2026-05-01T00:40:35.560Z",
+  "capturedAt": "2026-05-01T01:17:01.770Z",
   "targetDate": "2026-04-30T00:00:00.000Z",
-  "fixtureCount": 12,
+  "fixtureCount": 15,
   "results": [
     {
       "id": "fix-01",
@@ -964,6 +964,252 @@
           "overviewTitle": "총평 요약",
           "dailyStars": 1,
           "yearlyStars": 5,
+          "lifeStars": 3,
+          "personalityTraitCount": 6
+        }
+      }
+    },
+    {
+      "id": "fix-13",
+      "label": "1989-07-23 male — borderline-strength practical tier (정재격, 여름 yongshin=WATER)",
+      "axis": [
+        "borderline-strength",
+        "practical-tier",
+        "summer"
+      ],
+      "output": {
+        "namingReport": {
+          "totalScore": 63.8,
+          "scores": {
+            "hangul": 76.3,
+            "hanja": 37.5,
+            "fourFrame": 40
+          },
+          "fullHangul": "김민수",
+          "fullHanja": "金敏秀"
+        },
+        "sajuReport": {
+          "sajuEnabled": true,
+          "dayMaster": {
+            "stem": "갑",
+            "element": "WOOD",
+            "polarity": "양"
+          },
+          "strengthLevel": "신약",
+          "isStrong": false,
+          "yongshinElement": "WATER",
+          "yongshinHeeshin": "WOOD",
+          "gyeokgukType": "정재격",
+          "gyeokgukCategory": "일반",
+          "gyeokgukConfidence": 0.9636538461538462,
+          "deficientElements": [
+            "WATER"
+          ],
+          "excessiveElements": [
+            "EARTH"
+          ]
+        },
+        "candidatesTop5": [
+          {
+            "finalScore": 80.7,
+            "fullHangul": "김왕수",
+            "fullHanja": "金枉囚",
+            "rank": 1
+          },
+          {
+            "finalScore": 80.7,
+            "fullHangul": "김왕정",
+            "fullHanja": "金枉霆",
+            "rank": 2
+          },
+          {
+            "finalScore": 80.7,
+            "fullHangul": "김왕정",
+            "fullHanja": "金汪靚",
+            "rank": 3
+          },
+          {
+            "finalScore": 79.4,
+            "fullHangul": "김정수",
+            "fullHanja": "金定囚",
+            "rank": 4
+          },
+          {
+            "finalScore": 78.5,
+            "fullHangul": "김수왕",
+            "fullHanja": "金囚枉",
+            "rank": 5
+          }
+        ],
+        "fortuneReport": {
+          "overviewTitle": "총평 요약",
+          "dailyStars": 4,
+          "yearlyStars": 3,
+          "lifeStars": 3,
+          "personalityTraitCount": 6
+        }
+      }
+    },
+    {
+      "id": "fix-14",
+      "label": "1980-08-07 male — borderline-strength candidate tier (정관격, 가을 yongshin=WOOD)",
+      "axis": [
+        "borderline-strength",
+        "candidate-tier",
+        "autumn"
+      ],
+      "output": {
+        "namingReport": {
+          "totalScore": 70.7,
+          "scores": {
+            "hangul": 76.3,
+            "hanja": 37.5,
+            "fourFrame": 65
+          },
+          "fullHangul": "박지현",
+          "fullHanja": "朴智賢"
+        },
+        "sajuReport": {
+          "sajuEnabled": true,
+          "dayMaster": {
+            "stem": "임",
+            "element": "WATER",
+            "polarity": "양"
+          },
+          "strengthLevel": "신강",
+          "isStrong": true,
+          "yongshinElement": "WOOD",
+          "yongshinHeeshin": "FIRE",
+          "gyeokgukType": "정관격",
+          "gyeokgukCategory": "일반",
+          "gyeokgukConfidence": 0.3711538461538461,
+          "deficientElements": [
+            "WOOD",
+            "FIRE",
+            "EARTH"
+          ],
+          "excessiveElements": [
+            "WATER"
+          ]
+        },
+        "candidatesTop5": [
+          {
+            "finalScore": 83.1,
+            "fullHangul": "박대혜",
+            "fullHanja": "朴隊慧",
+            "rank": 1
+          },
+          {
+            "finalScore": 83.1,
+            "fullHangul": "박대혜",
+            "fullHanja": "朴隊暳",
+            "rank": 2
+          },
+          {
+            "finalScore": 82.2,
+            "fullHangul": "박정기",
+            "fullHanja": "朴町羈",
+            "rank": 3
+          },
+          {
+            "finalScore": 81.9,
+            "fullHangul": "박기정",
+            "fullHanja": "朴羈町",
+            "rank": 4
+          },
+          {
+            "finalScore": 80.8,
+            "fullHangul": "박정수",
+            "fullHanja": "朴情獸",
+            "rank": 5
+          }
+        ],
+        "fortuneReport": {
+          "overviewTitle": "총평 요약",
+          "dailyStars": 5,
+          "yearlyStars": 4,
+          "lifeStars": 2,
+          "personalityTraitCount": 6
+        }
+      }
+    },
+    {
+      "id": "fix-15",
+      "label": "1985-03-21 male — borderline-strength deferred tier (편관격, 춘분 yongshin=METAL)",
+      "axis": [
+        "borderline-strength",
+        "deferred-tier",
+        "spring"
+      ],
+      "output": {
+        "namingReport": {
+          "totalScore": 63.1,
+          "scores": {
+            "hangul": 75,
+            "hanja": 25,
+            "fourFrame": 60
+          },
+          "fullHangul": "리성민",
+          "fullHanja": "李成敏"
+        },
+        "sajuReport": {
+          "sajuEnabled": true,
+          "dayMaster": {
+            "stem": "기",
+            "element": "EARTH",
+            "polarity": "음"
+          },
+          "strengthLevel": "신강",
+          "isStrong": true,
+          "yongshinElement": "METAL",
+          "yongshinHeeshin": "WATER",
+          "gyeokgukType": "편관격",
+          "gyeokgukCategory": "일반",
+          "gyeokgukConfidence": 0.9750000000000001,
+          "deficientElements": [
+            "METAL",
+            "WATER"
+          ],
+          "excessiveElements": [
+            "EARTH"
+          ]
+        },
+        "candidatesTop5": [
+          {
+            "finalScore": 80.5,
+            "fullHangul": "리왕정",
+            "fullHanja": "李汪整",
+            "rank": 1
+          },
+          {
+            "finalScore": 80.5,
+            "fullHangul": "리왕정",
+            "fullHanja": "李汪諪",
+            "rank": 2
+          },
+          {
+            "finalScore": 80.5,
+            "fullHangul": "리왕정",
+            "fullHanja": "李汪錠",
+            "rank": 3
+          },
+          {
+            "finalScore": 79.4,
+            "fullHangul": "리영수",
+            "fullHanja": "李濚戍",
+            "rank": 4
+          },
+          {
+            "finalScore": 79.4,
+            "fullHangul": "리영수",
+            "fullHanja": "李濚收",
+            "rank": 5
+          }
+        ],
+        "fortuneReport": {
+          "overviewTitle": "총평 요약",
+          "dailyStars": 3,
+          "yearlyStars": 2,
           "lifeStars": 3,
           "personalityTraitCount": 6
         }
