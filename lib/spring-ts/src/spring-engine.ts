@@ -35,7 +35,7 @@ import { analyzeSaju, analyzeSajuSafe, buildSajuContext, collectElements } from 
 import type {
   SpringRequest, SpringResponse, SpringCandidate, SajuSummary,
   SajuReport, NamingReport, NamingReportFrame, SpringReport, SpringCandidateSummary,
-  NameCharInput, CharDetail, NameGenderTendency, BirthInfo,
+  NameCharInput, CharDetail, NameGenderTendency, BirthInfo, NamingScoreVector,
 } from './types.js';
 import engineConfig from '../config/engine.json';
 import { buildFortuneReport } from './report/buildFortuneReport.js';
@@ -181,6 +181,45 @@ function getFullLegalPoolEntries(): readonly HanjaEntry[] {
 /** Round a score to one decimal place. */
 function roundScore(value: number): number {
   return Math.round(value * 10) / 10;
+}
+
+function clampScore(value: number): number {
+  return Math.max(0, Math.min(100, roundScore(value)));
+}
+
+function finiteScore(value: unknown): number | null {
+  if (value == null) return null;
+  const numeric = Number(value);
+  return Number.isFinite(numeric) ? clampScore(numeric) : null;
+}
+
+function averageScores(values: Array<number | null | undefined>): number | null {
+  const finite = values.filter((value): value is number => typeof value === 'number' && Number.isFinite(value));
+  if (!finite.length) return null;
+  return clampScore(finite.reduce((sum, value) => sum + value, 0) / finite.length);
+}
+
+function hasHanIdeograph(value: string | undefined): boolean {
+  return typeof value === 'string' && /\p{Script=Han}/u.test(value);
+}
+
+function scoreLegalStatus(status: HanjaLegalStatus): number {
+  if (status === 'allowed' || status === 'variantAllowed' || status === 'hangulOnly') return 100;
+  if (status === 'unknown') return 75;
+  return 0;
+}
+
+function computeLegalScore(entries: readonly HanjaEntry[], hanjaPool: HanjaPool): number | null {
+  if (!entries.length) return null;
+  return averageScores(entries.map((entry) =>
+    scoreLegalStatus(getLegalAnnotation(entry, { pool: hanjaPool }).legalStatus)));
+}
+
+function computeHanjaMeaningScore(entries: readonly HanjaEntry[]): number | null {
+  const hanjaEntries = entries.filter((entry) => hasHanIdeograph(entry.hanja));
+  if (!hanjaEntries.length) return null;
+  return averageScores(hanjaEntries.map((entry) =>
+    typeof entry.meaning === 'string' && entry.meaning.trim().length > 0 ? 100 : 40));
 }
 
 /** Convert a HanjaEntry into the minimal NameCharInput shape. */
@@ -498,6 +537,76 @@ export class SpringEngine {
       : undefined;
   }
 
+  private shouldSurfaceNamingScoreVector(options?: SpringRequest['options']): boolean {
+    return options?.precisionConfig?.surfaceNamingScoreVector === true;
+  }
+
+  private resolveNamingScoreVectorEvidence(
+    surname: NameCharInput[] | undefined,
+    givenName: NameCharInput[] | undefined,
+    birth: BirthInfo,
+    options: SpringRequest['options'] | undefined,
+    surfacedNameTrend?: NameTrendAnalysis,
+    surfacedPhonetic?: PhoneticAnalysis,
+  ): { readonly nameTrend?: NameTrendAnalysis; readonly phonetic?: PhoneticAnalysis } {
+    if (!this.shouldSurfaceNamingScoreVector(options)) return {};
+    return {
+      nameTrend: surfacedNameTrend ?? getNameTrendAnalysis(givenName, birth),
+      phonetic: surfacedPhonetic ?? getPhoneticAnalysis(surname, givenName),
+    };
+  }
+
+  private buildNamingScoreVector(
+    evaluationResult: EvaluationResult,
+    surnameEntries: HanjaEntry[],
+    givenNameEntries: HanjaEntry[],
+    hangul: HangulCalculator,
+    hanja: HanjaCalculator,
+    frame: FrameCalculator,
+    hanjaPool: HanjaPool,
+    nameTrend?: NameTrendAnalysis,
+    phonetic?: PhoneticAnalysis,
+  ): NamingScoreVector {
+    const allEntries = [...surnameEntries, ...givenNameEntries];
+    const hasHanja = allEntries.some((entry) => hasHanIdeograph(entry.hanja));
+    const sajuInsight = evaluationResult.categoryMap[SAJU_FRAME];
+    const sajuScoring = (sajuInsight?.details as Record<string, any> | undefined)?.scoring as Record<string, any> | undefined;
+    const penalties = sajuScoring?.penalties as Record<string, any> | undefined;
+    const hangulElement = finiteScore(hangul.getAnalysis().data.elementScore);
+    const hanjaElement = hasHanja ? finiteScore(hanja.getAnalysis().data.elementScore) : null;
+    const frameElement = hasHanja ? finiteScore(frame.getAnalysis().data.elementScore) : null;
+    const legal = computeLegalScore(allEntries, hanjaPool);
+    const phoneticScore = finiteScore(phonetic?.phoneticScore);
+    const familyFit = finiteScore(phonetic?.familyNameFitScore);
+    const trendRisk = finiteScore(nameTrend?.trendRisk);
+    const penaltyRisk = finiteScore(penalties?.total);
+    const riskCandidates = [
+      legal == null ? null : 100 - legal,
+      phoneticScore == null ? null : 100 - phoneticScore,
+      familyFit == null ? null : 100 - familyFit,
+      trendRisk,
+      penaltyRisk,
+    ].filter((value): value is number => typeof value === 'number' && Number.isFinite(value));
+    const risk = Math.max(0, ...riskCandidates);
+
+    return {
+      legal,
+      sajuFit: finiteScore(sajuInsight?.score),
+      yongshinFit: finiteScore(sajuScoring?.yongshin),
+      elementBalance: averageScores([
+        hangulElement,
+        hanjaElement,
+        frameElement,
+        finiteScore(sajuScoring?.balance),
+      ]),
+      hanjaMeaning: computeHanjaMeaningScore(givenNameEntries),
+      phonetic: phoneticScore,
+      eraFit: finiteScore(nameTrend?.eraFitScore ?? nameTrend?.trendFit),
+      familyFit,
+      risk: clampScore(risk),
+    };
+  }
+
   // -------------------------------------------------------------------------
   // getNamingReport -- pure name analysis (no saju)
   // -------------------------------------------------------------------------
@@ -542,6 +651,29 @@ export class SpringEngine {
 
     const evalResult = evaluateName([hangul, hanja, frame], evalCtx);
     await frame.ensureEntriesLoaded();
+    const nameTrend = this.resolveNameTrend(request.givenName, request.birth, request.options);
+    const phonetic = this.resolvePhoneticAnalysis(request.surname, request.givenName, request.options);
+    const vectorEvidence = this.resolveNamingScoreVectorEvidence(
+      request.surname,
+      request.givenName,
+      request.birth,
+      request.options,
+      nameTrend,
+      phonetic,
+    );
+    const scoreVector = this.shouldSurfaceNamingScoreVector(request.options)
+      ? this.buildNamingScoreVector(
+        evalResult,
+        surnameEntries,
+        givenNameEntries,
+        hangul,
+        hanja,
+        frame,
+        hanjaPool,
+        vectorEvidence.nameTrend,
+        vectorEvidence.phonetic,
+      )
+      : undefined;
     return this.buildNamingReport(
       surnameEntries,
       givenNameEntries,
@@ -549,9 +681,10 @@ export class SpringEngine {
       hangul,
       hanja,
       frame,
-      this.resolveHanjaPool(request.options),
-      this.resolveNameTrend(request.givenName, request.birth, request.options),
-      this.resolvePhoneticAnalysis(request.surname, request.givenName, request.options),
+      hanjaPool,
+      nameTrend,
+      phonetic,
+      scoreVector,
     );
   }
 
@@ -644,9 +777,44 @@ export class SpringEngine {
 
     const nameTrend = this.resolveNameTrend(request.givenName, request.birth, request.options);
     const phonetic = this.resolvePhoneticAnalysis(request.surname, request.givenName, request.options);
+    const vectorEvidence = this.resolveNamingScoreVectorEvidence(
+      request.surname,
+      request.givenName,
+      request.birth,
+      request.options,
+      nameTrend,
+      phonetic,
+    );
+    const scoreVector = this.shouldSurfaceNamingScoreVector(request.options)
+      ? this.buildNamingScoreVector(
+        combined,
+        surnameEntries,
+        givenNameEntries,
+        hangul,
+        hanja,
+        frame,
+        this.resolveHanjaPool(request.options),
+        vectorEvidence.nameTrend,
+        vectorEvidence.phonetic,
+      )
+      : undefined;
+    const namingScoreVector = this.shouldSurfaceNamingScoreVector(request.options)
+      ? this.buildNamingScoreVector(
+        nameOnly,
+        surnameEntries,
+        givenNameEntries,
+        hangul,
+        hanja,
+        frame,
+        this.resolveHanjaPool(request.options),
+        vectorEvidence.nameTrend,
+        vectorEvidence.phonetic,
+      )
+      : undefined;
 
     return {
       finalScore: roundScore(combined.score),
+      ...(scoreVector ? { scoreVector } : {}),
       popularityRank: nameStatInfo.popularityRank,
       maleRatio: nameStatInfo.maleRatio,
       nameGender: nameStatInfo.nameGender,
@@ -662,6 +830,7 @@ export class SpringEngine {
         this.resolveHanjaPool(request.options),
         nameTrend,
         phonetic,
+        namingScoreVector,
       ),
       sajuReport,
       sajuCompatibility: saju.getAnalysis().data,
@@ -789,8 +958,30 @@ export class SpringEngine {
       const allEntries = [...surnameEntries, ...givenNameEntries];
       const nameTrend = this.resolveNameTrend(givenNameInput, request.birth, request.options);
       const phonetic = this.resolvePhoneticAnalysis(request.surname, givenNameInput, request.options);
+      const vectorEvidence = this.resolveNamingScoreVectorEvidence(
+        request.surname,
+        givenNameInput,
+        request.birth,
+        request.options,
+        nameTrend,
+        phonetic,
+      );
+      const scoreVector = this.shouldSurfaceNamingScoreVector(request.options)
+        ? this.buildNamingScoreVector(
+          combined,
+          surnameEntries,
+          givenNameEntries,
+          hangul,
+          hanja,
+          frame,
+          this.resolveHanjaPool(request.options),
+          vectorEvidence.nameTrend,
+          vectorEvidence.phonetic,
+        )
+        : undefined;
       results.push({
         finalScore: roundScore(combined.score),
+        ...(scoreVector ? { scoreVector } : {}),
         fullHangul: allEntries.map(entry => entry.hangul).join(''),
         fullHanja: allEntries.map(entry => entry.hanja).join(''),
         givenHangul: givenNameEntries.map(entry => entry.hangul).join(''),
@@ -823,6 +1014,7 @@ export class SpringEngine {
     hanjaPool: HanjaPool = 'curated',
     nameTrend?: NameTrendAnalysis,
     phonetic?: PhoneticAnalysis,
+    scoreVector?: NamingScoreVector,
   ): NamingReport {
     const categoryMap = evalResult.categoryMap;
     const frames = frame.frames;
@@ -864,6 +1056,7 @@ export class SpringEngine {
         hanja: hanjaScore,
         fourFrame: fourFrameScore,
       },
+      ...(scoreVector ? { scoreVector } : {}),
       analysis: {
         hangul: hangul.getAnalysis().data,
         hanja: hanja.getAnalysis().data,
@@ -1290,6 +1483,27 @@ export class SpringEngine {
     const fullHanja   = allEntries.map(entry => entry.hanja).join('');
     const nameTrend = this.resolveNameTrend(givenName, birth, requestOptions);
     const phonetic = this.resolvePhoneticAnalysis(surname, givenName, requestOptions);
+    const vectorEvidence = this.resolveNamingScoreVectorEvidence(
+      surname,
+      givenName,
+      birth,
+      requestOptions,
+      nameTrend,
+      phonetic,
+    );
+    const scoreVector = this.shouldSurfaceNamingScoreVector(requestOptions)
+      ? this.buildNamingScoreVector(
+        evaluationResult,
+        surnameEntries,
+        givenNameEntries,
+        hangul,
+        hanja,
+        frame,
+        hanjaPool,
+        vectorEvidence.nameTrend,
+        vectorEvidence.phonetic,
+      )
+      : undefined;
 
     // Compute category sub-scores (average of related frames)
     const hangulScore = roundScore(
@@ -1313,6 +1527,7 @@ export class SpringEngine {
         fourFrame: roundScore(categoryMap.FOURFRAME_LUCK?.score ?? 0),
         saju:      roundScore(categoryMap[SAJU_FRAME]?.score ?? 0),
       },
+      ...(scoreVector ? { scoreVector } : {}),
       analysis: {
         hangul:    hangul.getAnalysis().data,
         hanja:     hanja.getAnalysis().data,
