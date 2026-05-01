@@ -135,7 +135,13 @@ default mode, not as authority accuracy.
 | korean | 15 | 0 | 0.0000 | 0.0000 |
 | chinese | 15 | 15 | -0.7067 | -2.5933 |
 | modern | 15 | 14 | -0.1133 | -0.4467 |
+| korean_modern | 15 | 15 | -0.1667 | -0.6733 |
+| classical_text | 15 | 15 | -0.8133 | -3.0867 |
+| naming_safe | 15 | 15 | 0.1800 | 0.7067 |
 
-The Korean preset is a zero-op by design. Chinese and modern presets alter
-scores, but those deltas are not promoted to authority accuracy without a
-source-tiered denominator.
+The Korean preset is a zero-op by design. The other presets alter scores, but
+those deltas are not promoted to authority accuracy without a source-tiered
+denominator. `schoolPresetBreakdown.rows` now carries row-level default and
+preset scores for the 15 scorable baseline fixtures, while
+`authorityFixtureCoverage` records that the current authority casebooks are not
+full `birth + surname + givenName` naming-score inputs.

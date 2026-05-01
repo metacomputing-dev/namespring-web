@@ -108,9 +108,33 @@ check('composite_classical improves classical candidate coverage over selected a
   JSON.stringify(modes.composite_classical?.bySourceGroup?.jonheom));
 
 const presets = bySourceTier.schoolPresetBreakdown?.presets ?? {};
-check('korean schoolPreset breakdown is present', presets.korean?.fixtureCount === 15);
-check('chinese schoolPreset breakdown is present', presets.chinese?.fixtureCount === 15);
-check('modern schoolPreset breakdown is present', presets.modern?.fixtureCount === 15);
+const expectedPresetNames = ['korean', 'chinese', 'modern', 'korean_modern', 'classical_text', 'naming_safe'];
+for (const preset of expectedPresetNames) {
+  check(`${preset} schoolPreset breakdown is present`, presets[preset]?.fixtureCount === 15);
+}
+const presetRows = bySourceTier.schoolPresetBreakdown?.rows ?? [];
+check('schoolPreset rows cover the baseline fixtures',
+  presetRows.length === bySourceTier.baseline?.fixtureCount,
+  `rows=${presetRows.length}, fixtures=${bySourceTier.baseline?.fixtureCount}`);
+check('schoolPreset rows expose default and every preset score',
+  presetRows.every((row: any) =>
+    row.scores?.default &&
+      expectedPresetNames.every((preset) => row.scores?.[preset] && row.deltaVsDefault?.[preset])),
+  `presets=${expectedPresetNames.join(',')}`);
+check('korean preset remains zero-delta row by row',
+  presetRows.every((row: any) =>
+    row.deltaVsDefault?.korean?.total === 0 && row.deltaVsDefault?.korean?.saju === 0));
+check('aggregate preset counts equal row count',
+  expectedPresetNames.every((preset) => presets[preset]?.fixtureCount === presetRows.length));
+check('schoolPreset rows expose source-tier comparison metadata',
+  presetRows.every((row: any) =>
+    typeof row.referenceTier === 'string' &&
+      typeof row.sourceType === 'string' &&
+      typeof row.truthBucket === 'string' &&
+      typeof row.authorityTruthEligible === 'boolean'));
+check('current authority fixtures are tracked as non-scorable for naming preset deltas',
+  bySourceTier.schoolPresetBreakdown?.authorityFixtureCoverage?.scorableAuthorityFixtures === 0,
+  JSON.stringify(bySourceTier.schoolPresetBreakdown?.authorityFixtureCoverage));
 
 check('RPI summary has A-G axis scores',
   rpiSummary.axisScores &&
