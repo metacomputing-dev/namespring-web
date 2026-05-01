@@ -149,8 +149,26 @@ function extractSajuPriority(ctx: EvalContext): number {
     unknownHourGuard?: boolean;
     unknownTimeSajuDamp?: number;
     isHourUnknown?: boolean;
+    evaluatorMode?: 'single' | 'multi_axis';
   };
-  const rawPriority = signalStrength - penaltyDeduction;
+
+  // -- Step 3.5: multi_axis priority override (PR-Q-7) ----------------------
+  //
+  //  Per spring-info/09_finalization/06_multi_axis_evaluator.md §4.2,
+  //  when evaluatorMode='multi_axis' AND axisStrength carries ≥2 axes,
+  //  replace rawPriority with the axisStrength weighted blend (saju_master
+  //  weighted_judgment_scoreboard parity). Falls back to single-mode when
+  //  axisStrength is unset or carries <2 axes (information-poor → no
+  //  degradation policy).
+
+  let rawPriority = signalStrength - penaltyDeduction;
+  if (evaluatorHints.evaluatorMode === 'multi_axis') {
+    const axisStrength = (analysisOutput as { axisStrength?: Record<string, string> } | undefined)?.axisStrength;
+    const multiAxisPriority = deriveMultiAxisPriority(axisStrength);
+    if (multiAxisPriority !== null) {
+      rawPriority = multiAxisPriority;
+    }
+  }
   let priority = clamp(rawPriority, 0, 1);
 
   if (evaluatorHints.sajuPriorityCurve === 'tanh') {
@@ -165,6 +183,38 @@ function extractSajuPriority(ctx: EvalContext): number {
   }
 
   return clamp(priority, 0, 1);
+}
+
+// PR-Q-7: multi_axis priority blend.
+// Per spring-info/09_finalization/06_multi_axis_evaluator.md §4.2.
+const MULTI_AXIS_TIER_VALUE: Record<string, number> = {
+  definite:  0.92,
+  practical: 0.75,
+  candidate: 0.55,
+  deferred:  0.30,
+};
+const MULTI_AXIS_WEIGHTS: Record<string, number> = {
+  yongshin:         1.20,
+  gyeokguk:         1.15,
+  chengbai:         1.10,
+  fortuneHierarchy: 1.05,
+  strength:         1.00,
+  johu:             1.00,
+  rectification:    0.90,
+};
+
+function deriveMultiAxisPriority(axis: Record<string, string> | undefined): number | null {
+  if (!axis) return null;
+  const entries = Object.entries(axis).filter(([, tier]) => tier in MULTI_AXIS_TIER_VALUE);
+  if (entries.length < 2) return null;
+  let totalWeight = 0;
+  let weighted = 0;
+  for (const [key, tier] of entries) {
+    const w = MULTI_AXIS_WEIGHTS[key] ?? 1;
+    totalWeight += w;
+    weighted += w * MULTI_AXIS_TIER_VALUE[tier]!;
+  }
+  return totalWeight > 0 ? weighted / totalWeight : null;
 }
 
 // =========================================================================
