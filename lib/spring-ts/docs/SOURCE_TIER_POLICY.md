@@ -59,4 +59,8 @@ or regression observations when `authorityTruthEligible` is `false`.
   lecture-derived cases with paraphrased expected fields.
 - `test/baseline/authority/jonheom/*.json`: `T4_PRIMARY_TEXT`; short classical
   quotations and human extraction from source images.
+- `data/sources/kasi-solar-terms.sources.json`: `T5_OFFICIAL` for the KASI
+  public-data API registry and `authorityTruthEligible: false` for the
+  KASI-hosted calendarData minute table until it is reconciled with the
+  official monthly almanac publication.
 
