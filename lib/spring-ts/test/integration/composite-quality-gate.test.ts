@@ -10,15 +10,28 @@
  *   COMPOSITE_GATE_BASELINE_REF=origin/main
  *   COMPOSITE_GATE_BRANCH_REF=HEAD
  */
-import { execFileSync } from 'node:child_process';
+import { execFileSync, execSync } from 'node:child_process';
+import fs from 'node:fs';
 import path from 'node:path';
 import { fileURLToPath } from 'node:url';
 
 const __dirname = path.dirname(fileURLToPath(import.meta.url));
 const SPRING_TS_ROOT = path.resolve(__dirname, '../..');
+const METRICS_PATH = path.resolve(SPRING_TS_ROOT, 'metrics/bySourceTier.json');
 
 const BASELINE_REF = process.env.COMPOSITE_GATE_BASELINE_REF ?? 'main';
 const BRANCH_REF = process.env.COMPOSITE_GATE_BRANCH_REF ?? 'HEAD';
+const MONTHLY_MAIN_THRESHOLD = { minPass: 17, comparable: 27 };
+const COMPOSITE_TOTAL_COVERAGE_THRESHOLD = { minCovered: 23, comparable: 27 };
+const COMPOSITE_SOURCE_TIER_THRESHOLDS = {
+  T3_AUTHORED_INTERPRETATION: { minCovered: 20, comparable: 21 },
+  T4_PRIMARY_TEXT: { minCovered: 3, comparable: 6 },
+} as const;
+const COMPOSITE_SOURCE_GROUP_THRESHOLDS = [
+  { id: 'lecture', sourceIndex: 0, minCovered: 14, comparable: 14 },
+  { id: 'jonheom', sourceIndex: 1, minCovered: 3, comparable: 6 },
+  { id: 'korean_modern_figures_and_chumyeongga', sourceIndex: 2, minCovered: 6, comparable: 7 },
+] as const;
 
 let pass = 0;
 let fail = 0;
@@ -31,6 +44,14 @@ function check(label: string, cond: boolean, evidence?: string): void {
     fail += 1;
     console.log(`  FAIL ${label}${evidence ? ` (${evidence})` : ''}`);
   }
+}
+
+function readJson<T>(filePath: string): T {
+  return JSON.parse(fs.readFileSync(filePath, 'utf-8')) as T;
+}
+
+function comparableCount(tally: any): number {
+  return Number(tally?.pass ?? 0) + Number(tally?.partial ?? 0) + Number(tally?.diff ?? 0);
 }
 
 function runDefaultRegressionGate(): any | null {
@@ -73,6 +94,85 @@ if (regressionReport) {
     `diffs=${regressionReport.totalDiffs}`,
   );
 }
+
+const matrix = JSON.parse(execSync('npm run measure:alternative-rules --silent -- --json', {
+  cwd: SPRING_TS_ROOT,
+  encoding: 'utf-8',
+  stdio: ['ignore', 'pipe', 'pipe'],
+  shell: true,
+}));
+
+const monthlyMain = matrix.totals?.monthly_main;
+const composite = matrix.totals?.composite_classical;
+const monthlyComparable = comparableCount(monthlyMain);
+const compositeComparable = comparableCount(composite);
+
+check(
+  'monthly_main authority subset selected agreement meets gate threshold',
+  monthlyMain?.pass >= MONTHLY_MAIN_THRESHOLD.minPass &&
+    monthlyComparable === MONTHLY_MAIN_THRESHOLD.comparable,
+  `pass=${monthlyMain?.pass}, comparable=${monthlyComparable}`,
+);
+check(
+  'composite_classical selected agreement does not regress against monthly_main',
+  composite?.pass >= monthlyMain?.pass && compositeComparable === monthlyComparable,
+  `composite=${composite?.pass}/${compositeComparable}, monthly=${monthlyMain?.pass}/${monthlyComparable}`,
+);
+check(
+  'composite_classical total authority candidate coverage meets threshold',
+  matrix.compositeCandidateCoverage?.covered >= COMPOSITE_TOTAL_COVERAGE_THRESHOLD.minCovered &&
+    matrix.compositeCandidateCoverage?.comparable === COMPOSITE_TOTAL_COVERAGE_THRESHOLD.comparable,
+  JSON.stringify(matrix.compositeCandidateCoverage),
+);
+
+const sourceTierCoverage: Record<string, { covered: number; comparable: number }> = {};
+for (const [index, source] of (matrix.sources ?? []).entries()) {
+  const tier = index === 1 ? 'T4_PRIMARY_TEXT' : 'T3_AUTHORED_INTERPRETATION';
+  const bucket = sourceTierCoverage[tier] ?? { covered: 0, comparable: 0 };
+  bucket.covered += Number(source.compositeCandidateCoverage?.covered ?? 0);
+  bucket.comparable += Number(source.compositeCandidateCoverage?.comparable ?? 0);
+  sourceTierCoverage[tier] = bucket;
+}
+
+for (const [tier, threshold] of Object.entries(COMPOSITE_SOURCE_TIER_THRESHOLDS)) {
+  const coverage = sourceTierCoverage[tier];
+  check(
+    `${tier} composite authority candidate coverage meets gate threshold`,
+    coverage?.covered >= threshold.minCovered && coverage?.comparable === threshold.comparable,
+    JSON.stringify(coverage),
+  );
+}
+
+for (const threshold of COMPOSITE_SOURCE_GROUP_THRESHOLDS) {
+  const coverage = matrix.sources?.[threshold.sourceIndex]?.compositeCandidateCoverage;
+  check(
+    `${threshold.id} composite authority candidate coverage meets gate threshold`,
+    coverage?.covered >= threshold.minCovered && coverage?.comparable === threshold.comparable,
+    JSON.stringify(coverage),
+  );
+}
+
+execSync('npm run metrics:baseline', {
+  cwd: SPRING_TS_ROOT,
+  stdio: ['ignore', 'pipe', 'pipe'],
+  shell: true,
+});
+const bySourceTier = readJson<any>(METRICS_PATH);
+const compositeQualityGate = bySourceTier.ruleModeBreakdown?.compositeQualityGate;
+check(
+  'baseline metrics dashboard exposes composite quality gate status',
+  compositeQualityGate?.status === 'PASS' &&
+    Array.isArray(compositeQualityGate?.checks) &&
+    compositeQualityGate.checks.length >= 7,
+  `status=${compositeQualityGate?.status}, checks=${compositeQualityGate?.checks?.length}`,
+);
+check(
+  'baseline metrics dashboard exposes source-tier composite performance',
+  ['T3_AUTHORED_INTERPRETATION', 'T4_PRIMARY_TEXT'].every((tier) =>
+    compositeQualityGate?.sourceTierDashboard?.[tier]?.candidateCoverage &&
+    compositeQualityGate?.sourceTierDashboard?.[tier]?.nonRegression?.status === 'PASS'),
+  JSON.stringify(compositeQualityGate?.sourceTierDashboard),
+);
 
 console.log(`\nComposite quality gate: ${pass} PASS / ${fail} FAIL`);
 process.exit(fail > 0 ? 1 : 0);

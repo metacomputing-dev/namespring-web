@@ -388,6 +388,22 @@ function buildRuleModeBreakdown(): any {
     T3_AUTHORED_INTERPRETATION: { covered: 20, comparable: 21 },
     T4_PRIMARY_TEXT: { covered: 3, comparable: 6 },
   };
+  const compositeQualityGateThresholds = {
+    monthlyMainSelectedAgreement: { minPass: 17, comparable: 27 },
+    compositeSelectedAgreement: { minNetVsMonthlyMain: 0 },
+    compositeCandidateCoverage: {
+      total: { minCovered: 23, comparable: 27 },
+      bySourceTier: {
+        T3_AUTHORED_INTERPRETATION: { minCovered: 20, comparable: 21 },
+        T4_PRIMARY_TEXT: { minCovered: 3, comparable: 6 },
+      },
+      bySourceGroup: {
+        lecture: { minCovered: 14, comparable: 14 },
+        jonheom: { minCovered: 3, comparable: 6 },
+        korean_modern_figures_and_chumyeongga: { minCovered: 6, comparable: 7 },
+      },
+    },
+  };
 
   function parsePhasePRow(rowName: string): Array<{ pass: number; comparable: number; statedPercent: number }> {
     const line = phaseP.split(/\r?\n/).find((l) => l.trim().startsWith(rowName));
@@ -527,10 +543,107 @@ function buildRuleModeBreakdown(): any {
     });
   }
 
+  function qualityGateCheck(
+    id: string,
+    description: string,
+    passed: boolean,
+    actual: Record<string, any>,
+    threshold: Record<string, any>,
+  ): any {
+    return {
+      id,
+      status: passed ? 'PASS' : 'FAIL',
+      description,
+      actual,
+      threshold,
+    };
+  }
+
+  const monthlyMain = modes.monthly_main;
+  const composite = modes.composite_classical;
+  const compositeGateChecks = [
+    qualityGateCheck(
+      'monthly_main_default_selected_agreement',
+      'Default monthly_main selected agreement must not fall below the Phase P baseline.',
+      monthlyMain.pass >= compositeQualityGateThresholds.monthlyMainSelectedAgreement.minPass &&
+        monthlyMain.comparable === compositeQualityGateThresholds.monthlyMainSelectedAgreement.comparable,
+      { pass: monthlyMain.pass, comparable: monthlyMain.comparable },
+      compositeQualityGateThresholds.monthlyMainSelectedAgreement,
+    ),
+    qualityGateCheck(
+      'composite_selected_non_regression',
+      'Composite mode is evidence-only; selected agreement must not regress against monthly_main.',
+      composite.winLossVsMonthlyMain?.net >=
+        compositeQualityGateThresholds.compositeSelectedAgreement.minNetVsMonthlyMain,
+      { netVsMonthlyMain: composite.winLossVsMonthlyMain?.net },
+      compositeQualityGateThresholds.compositeSelectedAgreement,
+    ),
+    qualityGateCheck(
+      'composite_total_candidate_coverage',
+      'Authority label must remain visible in composite candidates for the measured subset.',
+      composite.candidateCoverage?.covered >=
+        compositeQualityGateThresholds.compositeCandidateCoverage.total.minCovered &&
+        composite.candidateCoverage?.comparable ===
+          compositeQualityGateThresholds.compositeCandidateCoverage.total.comparable,
+      {
+        covered: composite.candidateCoverage?.covered,
+        comparable: composite.candidateCoverage?.comparable,
+      },
+      compositeQualityGateThresholds.compositeCandidateCoverage.total,
+    ),
+  ];
+
+  for (const [tier, threshold] of Object.entries(
+    compositeQualityGateThresholds.compositeCandidateCoverage.bySourceTier,
+  )) {
+    const coverage = composite.bySourceTier?.[tier]?.candidateCoverage;
+    compositeGateChecks.push(qualityGateCheck(
+      `composite_source_tier_${tier}_candidate_coverage`,
+      `${tier} composite candidate coverage must stay above the authority subset threshold.`,
+      coverage?.covered >= threshold.minCovered && coverage?.comparable === threshold.comparable,
+      { covered: coverage?.covered, comparable: coverage?.comparable },
+      threshold,
+    ));
+  }
+
+  for (const [sourceGroup, threshold] of Object.entries(
+    compositeQualityGateThresholds.compositeCandidateCoverage.bySourceGroup,
+  )) {
+    const coverage = composite.bySourceGroup?.[sourceGroup]?.candidateCoverage;
+    compositeGateChecks.push(qualityGateCheck(
+      `composite_source_group_${sourceGroup}_candidate_coverage`,
+      `${sourceGroup} composite candidate coverage must stay above the authority subset threshold.`,
+      coverage?.covered >= threshold.minCovered && coverage?.comparable === threshold.comparable,
+      { covered: coverage?.covered, comparable: coverage?.comparable },
+      threshold,
+    ));
+  }
+
+  const sourceTierDashboard = Object.fromEntries(
+    Object.entries(composite.bySourceTier ?? {}).map(([tier, bucket]: [string, any]) => [
+      tier,
+      {
+        selectedAgreement: {
+          pass: bucket.pass,
+          comparable: bucket.comparable,
+          passRate: bucket.passRate,
+        },
+        candidateCoverage: bucket.candidateCoverage,
+        nonRegression: bucket.sourceTierNonRegressionVsMonthlyMain,
+      },
+    ]),
+  );
+
   return {
     metric: 'authority gyeokguk agreement by deterministic rule-mode candidate',
     note: 'monthly_main and jungki_transparent mirror Phase P measurement. composite_classical is an evidence-only candidate score: selected agreement remains monthly_main for non-regression, while candidateCoverage reports whether the authority label appears in surfaced candidates. passRate preserves the Phase P stated rate; computedPassRate is the literal numerator/denominator check.',
     source: 'test/baseline/PHASE_P_RESULTS.md',
+    compositeQualityGate: {
+      status: compositeGateChecks.every((check) => check.status === 'PASS') ? 'PASS' : 'FAIL',
+      thresholds: compositeQualityGateThresholds,
+      checks: compositeGateChecks,
+      sourceTierDashboard,
+    },
     modes,
   };
 }
