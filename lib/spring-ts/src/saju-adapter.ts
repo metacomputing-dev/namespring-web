@@ -24,6 +24,7 @@ import type {
   SajuOutputSummary, SpringRequest, SajuSummary, PillarSummary, BirthInfo,
   SajuPillarPosition, SajuTenGodPositionGroup,
   SajuAxisStrengthMap, SajuJudgmentStrength, SajuInputUncertaintyAxis,
+  GyeokgukCandidateSummary, SourceTierMetadata,
 } from './types.js';
 
 // ---------------------------------------------------------------------------
@@ -71,6 +72,16 @@ const DISTRIBUTION_ROUND_DIGITS = 1;
 const DEFICIENT_AVERAGE_RATIO = 0.5;
 const EXCESSIVE_AVERAGE_RATIO = 1.7;
 const DEFAULT_REGION_CODE = 'SEOUL';
+const GYEOKGUK_CANDIDATE_SOURCE_TIER: SourceTierMetadata = {
+  tier: 'T2_REFERENCE_IMPLEMENTATION',
+  sourceType: 'reference_implementation',
+  sourceUrl: null,
+  accessedAt: '2026-05-01',
+  quoteShort: null,
+  humanInterpretation: 'Derived from saju-ts month-gyeok and gyeokguk ranking internals; display-only evidence, not authority truth.',
+  copyrightNote: 'No quoted source text; implementation-derived metadata only.',
+  authorityTruthEligible: false,
+};
 
 const YEAR_STEM_CODES = ['GAP', 'EUL', 'BYEONG', 'JEONG', 'MU', 'GI', 'GYEONG', 'SIN', 'IM', 'GYE'] as const;
 const YEAR_BRANCH_CODES = ['JA', 'CHUK', 'IN', 'MYO', 'JIN', 'SA', 'O', 'MI', 'SIN', 'YU', 'SUL', 'HAE'] as const;
@@ -1571,6 +1582,45 @@ function extractGyeokguk(gyeokgukResult: any) {
     baseTenGod:    gyeokgukResult?.baseSipseong ? formatTenGodDisplay(gyeokgukResult.baseSipseong) : null,
     confidence:    Number(gyeokgukResult?.confidence) || 0,
     reasoning:     String(gyeokgukResult?.reasoning ?? ''),
+    candidates:    extractGyeokgukCandidates(gyeokgukResult?.candidates),
+  };
+}
+
+function extractGyeokgukCandidates(value: unknown): readonly GyeokgukCandidateSummary[] | undefined {
+  const candidates = ensureArray(value)
+    .map((candidate) => {
+      const type = formatGyeokgukTypeDisplay(candidate?.type);
+      if (!type) return null;
+      const score = Number(candidate?.score);
+      return {
+        type,
+        category: formatGyeokgukCategoryDisplay(candidate?.category),
+        baseTenGod: candidate?.baseSipseong ? formatTenGodDisplay(candidate.baseSipseong) : null,
+        score: Number.isFinite(score) ? score : 0,
+        confidence: confidenceToRatio(candidate?.confidence),
+        supportingRules: ensureArray(candidate?.supportingRules).map((rule) => String(rule)),
+        blockingRules: ensureArray(candidate?.blockingRules).map((rule) => String(rule)),
+        sourceTier: extractSourceTier(candidate?.sourceTier),
+      } satisfies GyeokgukCandidateSummary;
+    })
+    .filter((candidate): candidate is GyeokgukCandidateSummary => candidate !== null);
+
+  return candidates.length > 0 ? candidates : undefined;
+}
+
+function extractSourceTier(value: any): SourceTierMetadata {
+  if (!value || typeof value !== 'object' || Array.isArray(value)) {
+    return GYEOKGUK_CANDIDATE_SOURCE_TIER;
+  }
+  return {
+    tier: typeof value.tier === 'string' ? value.tier : GYEOKGUK_CANDIDATE_SOURCE_TIER.tier,
+    sourceType: typeof value.sourceType === 'string' ? value.sourceType : GYEOKGUK_CANDIDATE_SOURCE_TIER.sourceType,
+    sourceUrl: typeof value.sourceUrl === 'string' || value.sourceUrl === null ? value.sourceUrl : null,
+    accessedAt: typeof value.accessedAt === 'string' ? value.accessedAt : GYEOKGUK_CANDIDATE_SOURCE_TIER.accessedAt,
+    quoteShort: typeof value.quoteShort === 'string' || value.quoteShort === null ? value.quoteShort : null,
+    humanInterpretation: typeof value.humanInterpretation === 'string' ? value.humanInterpretation : GYEOKGUK_CANDIDATE_SOURCE_TIER.humanInterpretation,
+    copyrightNote: typeof value.copyrightNote === 'string' ? value.copyrightNote : GYEOKGUK_CANDIDATE_SOURCE_TIER.copyrightNote,
+    authorityTruthEligible: typeof value.authorityTruthEligible === 'boolean' ? value.authorityTruthEligible : false,
   };
 }
 
