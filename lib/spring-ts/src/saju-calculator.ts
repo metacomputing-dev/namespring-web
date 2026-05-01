@@ -32,7 +32,14 @@ import { type EvalContext, type AnalysisDetail, type CalculatorPacket, type Eval
 import type { HanjaEntry } from '../../seed-ts/src/database/hanja-repository.js';
 import { hangulElementFromSyllable } from '../../seed-ts/src/utils/hangul-name-entry.js';
 import type {
+  NameElementResolutionEvidence,
+  NameElementResolutionSource,
+  NameElementResolutionSafety,
+  NameElementStrategy,
+  NameElementStrategyEvidence,
   SajuCompatibility,
+  SajuNameSafetyProfile,
+  SajuNameSafetyStrategy,
   SajuOutputSummary,
   SajuYongshinSummary,
   TenGodPositionEvidence,
@@ -86,6 +93,8 @@ const CONSENSUS_CONFLICT_WEIGHT: Record<YongshinConsensusConflictLevel, number> 
   medium: 0.14,
   high: 0.2,
 };
+const CONSENSUS_CLEAR_TOP_MARGIN = 0.2;
+const CONSENSUS_AGGRESSIVE_REINFORCEMENT_MAX_PENALTY = 12;
 
 // Destructure the nested config sections for easier access
 const {
@@ -119,6 +128,7 @@ export interface SajuNameScoreResult {
       topMargin: number;
       scoreGuardApplied: boolean;
     };
+    safetyProfile?: SajuNameSafetyProfile;
   };
 }
 
@@ -139,6 +149,111 @@ export type TenGodScoreMode = NonNullable<ScoringPrecisionOverrides['tenGodMode'
 export type TenGodScoreNormalization =
   | 'deviation_from_average_count'
   | 'presence_visibility_expected_by_chart_shape';
+
+type YongshinConsensusScoreDetail = NonNullable<SajuNameScoreResult['breakdown']['yongshinConsensus']>;
+
+interface YongshinScoreResult {
+  readonly score: number;
+  readonly confidence: number;
+  readonly contextualPriority: number;
+  readonly gisinPenalty: number;
+  readonly gusinPenalty: number;
+  readonly gusinRatio: number;
+  readonly elementMatches: { yongshin: number; heesin: number; gisin: number; gusin: number };
+  readonly consensus?: YongshinConsensusScoreDetail;
+  readonly safetyProfile?: SajuNameSafetyProfile;
+}
+
+type NameElementScope = NameElementResolutionEvidence['scope'];
+
+function isElementKey(value: unknown): value is ElementKey {
+  return value === 'Wood' || value === 'Fire' || value === 'Earth' || value === 'Metal' || value === 'Water';
+}
+
+function safetyStrategyFor(
+  mode: ScoringPrecisionOverrides['yongshinMode'] | undefined,
+  aggressiveReinforcement: number,
+): SajuNameSafetyStrategy {
+  if (mode !== 'consensus_aware') return 'legacy_direct_reinforcement';
+  return aggressiveReinforcement >= 0.5 ? 'aggressive_reinforcement' : 'safe_balance';
+}
+
+function buildSajuNameSafetyProfile(params: {
+  readonly rootDist: Record<ElementKey, number>;
+  readonly yongshinElement: ElementKey | null;
+  readonly heesinElement: ElementKey | null;
+  readonly gisinElement: ElementKey | null;
+  readonly gusinElement: ElementKey | null;
+  readonly consensus?: YongshinConsensusScoreDetail;
+  readonly mode: ScoringPrecisionOverrides['yongshinMode'];
+}): SajuNameSafetyProfile {
+  const total = totalCount(params.rootDist);
+  const yongshinRatio = total > 0 ? elementCount(params.rootDist, params.yongshinElement) / total : 0;
+  const heesinRatio = total > 0 ? elementCount(params.rootDist, params.heesinElement) / total : 0;
+  const gishinRatio = total > 0 ? elementCount(params.rootDist, params.gisinElement) / total : 0;
+  const gusinRatio = total > 0 ? elementCount(params.rootDist, params.gusinElement) / total : 0;
+  const conflictWeight = params.consensus
+    ? (CONSENSUS_CONFLICT_WEIGHT[params.consensus.conflictLevel] ?? 0)
+    : 0;
+  const conflictSeverity = clamp(conflictWeight / CONSENSUS_CONFLICT_WEIGHT.high, 0, 1);
+  const unclearFactor = params.consensus
+    ? clamp(1 - Math.max(0, params.consensus.topMargin) / CONSENSUS_CLEAR_TOP_MARGIN, 0, 1)
+    : 0;
+  const aggressiveReinforcement = clamp((yongshinRatio - Math.max(0.5, heesinRatio)) / 0.5, 0, 1);
+  const harmfulRatio = clamp(gishinRatio * 0.6 + gusinRatio, 0, 1);
+  const riskScore = Math.round(clamp(
+    conflictSeverity * unclearFactor * 45
+    + aggressiveReinforcement * conflictSeverity * 35
+    + harmfulRatio * 35,
+    0,
+    100,
+  ));
+
+  const strategy = safetyStrategyFor(params.mode, aggressiveReinforcement);
+  const conflictLevel = params.consensus?.conflictLevel;
+  const aggressiveConflict = params.mode === 'consensus_aware'
+    && conflictLevel !== undefined
+    && (conflictLevel === 'medium' || conflictLevel === 'high')
+    && aggressiveReinforcement >= 0.5;
+  const posture: SajuNameSafetyProfile['posture'] = riskScore >= 60 || aggressiveConflict
+    ? 'aggressive'
+    : riskScore <= 30 && harmfulRatio <= 0.25 && (!conflictLevel || conflictLevel === 'none' || conflictLevel === 'low')
+      ? 'safe'
+      : 'balanced';
+
+  const reasons: string[] = [
+    `risk ${riskScore}`,
+    `strategy ${strategy}`,
+    `yongshinRatio ${yongshinRatio.toFixed(2)}`,
+    `heesinRatio ${heesinRatio.toFixed(2)}`,
+    `gishinRatio ${gishinRatio.toFixed(2)}`,
+    `gusinRatio ${gusinRatio.toFixed(2)}`,
+  ];
+  if (conflictLevel) {
+    reasons.push(`consensus conflict: ${conflictLevel}`);
+  }
+  if (params.consensus?.competingElements.length) {
+    reasons.push(`competing elements: ${params.consensus.competingElements.join(',')}`);
+  }
+  if (strategy === 'safe_balance') {
+    reasons.push('safe balance keeps uncertain yongshin signals from dominating the name.');
+  } else if (strategy === 'aggressive_reinforcement') {
+    reasons.push('aggressive reinforcement concentrates on one yongshin element while consensus is uncertain.');
+  }
+
+  return {
+    posture,
+    strategy,
+    riskScore,
+    ...(conflictLevel ? { conflictLevel } : {}),
+    competingElements: params.consensus?.competingElements ?? [],
+    yongshinRatio,
+    heesinRatio,
+    gishinRatio,
+    gusinRatio,
+    reasons,
+  };
+}
 
 export interface TenGodPositionContribution {
   readonly position: string;
@@ -359,12 +474,13 @@ function computeYongshinScore(
   yongshinData: SajuYongshinSummary | null,
   yongshinTypeWeights: Record<string, number>,
   mode: 'classical_blend' | 'chengbai_strict' | 'consensus_aware' = 'classical_blend',
-) {
+): YongshinScoreResult {
   if (!yongshinData) return {
     score: 50, confidence: 0, contextualPriority: 0,
     gisinPenalty: 0, gusinPenalty: 0, gusinRatio: 0,
     elementMatches: { yongshin: 0, heesin: 0, gisin: 0, gusin: 0 },
     consensus: undefined,
+    safetyProfile: undefined,
   };
 
   // Resolve the four key elements from the yongshin analysis
@@ -414,10 +530,11 @@ function computeYongshinScore(
       const consensusAffinity = weightedElementAverage(rootDist, element => {
         if (yongshinElement && element === yongshinElement) return affinityWeights.yongshin;
         if (heesinElement && element === heesinElement) return affinityWeights.heesin;
-        if (competingElements.includes(element)) return 0.45;
+        if (competingElements.includes(element)) return 0;
         return 0;
       });
-      blendedRawScore = (1 - conflictWeight) * blendedRawScore + conflictWeight * normalizeSignedScore(consensusAffinity);
+      const guardedRawScore = (1 - conflictWeight) * blendedRawScore + conflictWeight * normalizeSignedScore(consensusAffinity);
+      blendedRawScore = Math.min(blendedRawScore, guardedRawScore);
       consensus.scoreGuardApplied = true;
     }
   }
@@ -425,6 +542,34 @@ function computeYongshinScore(
   // Step 3: Scale by confidence — higher confidence = more impact on the score
   const confidenceScaled = YONGSHIN.confidenceImpact.baseRatio + confidence * YONGSHIN.confidenceImpact.variableRatio;
   let score = clamp(50 + (blendedRawScore - 50) * confidenceScaled, 0, 100);
+
+  const totalElements = totalCount(rootDist);
+  const yongshinCount = elementCount(rootDist, yongshinElement);
+  const heesinCount   = elementCount(rootDist, heesinElement);
+  const gisinCount    = elementCount(rootDist, gisinElement);
+  const gusinCount    = elementCount(rootDist, gusinElement);
+  const gisinRatio    = totalElements > 0 ? gisinCount / totalElements : 0;
+  const gusinRatio    = totalElements > 0 ? gusinCount / totalElements : 0;
+
+  if (mode === 'consensus_aware' && consensus) {
+    const conflictWeight = CONSENSUS_CONFLICT_WEIGHT[consensus.conflictLevel] ?? 0;
+    if (conflictWeight > 0 && totalElements > 0) {
+      const yongshinRatio = yongshinCount / totalElements;
+      const heesinRatio = heesinCount / totalElements;
+      const conflictSeverity = clamp(conflictWeight / CONSENSUS_CONFLICT_WEIGHT.high, 0, 1);
+      const unclearFactor = clamp(1 - Math.max(0, consensus.topMargin) / CONSENSUS_CLEAR_TOP_MARGIN, 0, 1);
+      const aggressiveReinforcement = clamp((yongshinRatio - Math.max(0.5, heesinRatio)) / 0.5, 0, 1);
+      score = clamp(
+        score - CONSENSUS_AGGRESSIVE_REINFORCEMENT_MAX_PENALTY
+          * conflictSeverity
+          * unclearFactor
+          * confidenceScaled
+          * aggressiveReinforcement,
+        0,
+        100,
+      );
+    }
+  }
 
   // chengbai_strict mode: low-confidence yongshin signals a likely 패격
   // pattern (until saju-ts surfaces an explicit chengbai score). Trim the
@@ -434,15 +579,17 @@ function computeYongshinScore(
     score = clamp(score - 10, 0, 100);
   }
 
-  // Step 4: Compute gisin/gusin penalties
-  const totalElements = totalCount(rootDist);
-  const gisinCount    = elementCount(rootDist, gisinElement);
-  const gusinCount    = elementCount(rootDist, gusinElement);
-  const gisinRatio    = totalElements > 0 ? gisinCount / totalElements : 0;
-  const gusinRatio    = totalElements > 0 ? gusinCount / totalElements : 0;
-
   // Penalty scale: higher confidence = stricter penalty
   const penaltyScale = YONGSHIN.penalties.penaltyScaleBase + YONGSHIN.penalties.penaltyScaleVariable * confidence;
+  const safetyProfile = buildSajuNameSafetyProfile({
+    rootDist,
+    yongshinElement,
+    heesinElement,
+    gisinElement,
+    gusinElement,
+    consensus,
+    mode,
+  });
 
   return {
     score,
@@ -452,9 +599,10 @@ function computeYongshinScore(
     gusinPenalty: Math.round(gusinRatio * YONGSHIN.penalties.gusinMultiplier * penaltyScale),
     gusinRatio,
     consensus,
+    safetyProfile,
     elementMatches: {
-      yongshin: elementCount(rootDist, yongshinElement),
-      heesin:   elementCount(rootDist, heesinElement),
+      yongshin: yongshinCount,
+      heesin:   heesinCount,
       gisin:    gisinCount,
       gusin:    gusinCount,
     },
@@ -1053,6 +1201,7 @@ export function computeSajuNameScore(
       deficiencyBonus,
       elementMatches: yongshinResult.elementMatches,
       yongshinConsensus: yongshinResult.consensus,
+      safetyProfile: yongshinResult.safetyProfile,
     },
   };
 }
@@ -1090,6 +1239,9 @@ export class SajuCalculator implements EvaluableCalculator {
   private readonly presetData: SchoolPresetData | null;
   private readonly scoringOverrides: ScoringPrecisionOverrides | undefined;
   private readonly evaluatorHints: SajuEvaluatorHints | undefined;
+  private readonly elementStrategy: NameElementStrategy;
+  private nameElements: ElementKey[] = [];
+  private elementStrategyEvidence: NameElementStrategyEvidence | undefined;
 
   constructor(
     private surnameEntries: HanjaEntry[],
@@ -1107,6 +1259,8 @@ export class SajuCalculator implements EvaluableCalculator {
       /** Per-sub-score opt-in mode flags (PR5). Each unspecified field
        *  falls through to legacy default in computeSajuNameScore. */
       readonly scoringOverrides?: ScoringPrecisionOverrides;
+      /** Conservative fallback for missing/invalid resource_element rows. */
+      readonly elementStrategy?: NameElementStrategy;
       /** Hints forwarded to spring-evaluator via ctx.insights details (PR8). */
       readonly evaluatorHints?: SajuEvaluatorHints;
     } = {},
@@ -1118,9 +1272,10 @@ export class SajuCalculator implements EvaluableCalculator {
       : null;
     this.scoringOverrides = options.scoringOverrides;
     this.evaluatorHints = options.evaluatorHints;
+    this.elementStrategy = options.elementStrategy ?? 'legacy';
   }
 
-  private elementOf(entry: HanjaEntry): ElementKey {
+  private legacyElementOf(entry: HanjaEntry): ElementKey {
     if (this.elementSource === 'hangul') {
       return hangulElementFromSyllable(entry.hangul);
     }
@@ -1139,10 +1294,90 @@ export class SajuCalculator implements EvaluableCalculator {
     return 'Earth';
   }
 
+  private resolveElement(
+    entry: HanjaEntry,
+    scope: NameElementScope,
+    index: number,
+  ): NameElementResolutionEvidence {
+    if (this.elementSource === 'hangul') {
+      const selectedElement = hangulElementFromSyllable(entry.hangul);
+      return {
+        scope,
+        index,
+        hangul: entry.hangul,
+        hanja: entry.hanja,
+        selectedElement,
+        source: 'hangulPhonetic',
+        safety: 'safe',
+        reason: 'Pure-Hangul mode uses the established Hangul phonetic element mapping.',
+      };
+    }
+
+    const raw = entry.resource_element;
+    if (isElementKey(raw)) {
+      return {
+        scope,
+        index,
+        hangul: entry.hangul,
+        hanja: entry.hanja,
+        selectedElement: raw,
+        source: 'resourceElement',
+        safety: 'safe',
+        reason: 'Canonical resource_element was available on the Hanja row.',
+      };
+    }
+
+    if (this.elementStrategy === 'safeFallback') {
+      return {
+        scope,
+        index,
+        hangul: entry.hangul,
+        hanja: entry.hanja,
+        selectedElement: hangulElementFromSyllable(entry.hangul),
+        source: 'hangulPhonetic',
+        safety: 'fallback',
+        reason: 'Missing or invalid resource_element fell back to conservative Hangul phonetic evidence.',
+      };
+    }
+
+    console.warn(
+      `[spring-ts] Unknown resource_element ${JSON.stringify(raw)} for ` +
+      `${entry.hangul}/${entry.hanja}; falling back to Earth.`,
+    );
+    return {
+      scope,
+      index,
+      hangul: entry.hangul,
+      hanja: entry.hanja,
+      selectedElement: 'Earth',
+      source: 'neutralEarth',
+      safety: 'fallback',
+      reason: 'Legacy fallback uses neutral Earth when resource_element is missing or invalid.',
+    };
+  }
+
+  private buildElementStrategyEvidence(
+    decisions: readonly NameElementResolutionEvidence[],
+  ): NameElementStrategyEvidence | undefined {
+    if (this.elementStrategy !== 'safeFallback') return undefined;
+    const fallbackCount = decisions.filter((decision) => decision.safety === 'fallback').length;
+    const aggressiveCount = decisions.filter((decision) => decision.safety === 'aggressive').length;
+    return {
+      requestedStrategy: this.elementStrategy,
+      effectiveStrategy: 'safeFallback',
+      safe: aggressiveCount === 0,
+      fallbackCount,
+      aggressiveCount,
+      decisions,
+    };
+  }
+
   visit(ctx: EvalContext): void {
     if (!this.enabled) {
       this.scoreResult = null;
       this.tenGodDiagnostics = null;
+      this.nameElements = [];
+      this.elementStrategyEvidence = undefined;
       putInsight(ctx, SAJU_FRAME, 100, true, 'DISABLED_NO_SAJU_CONTEXT', {
         disabled: true,
         reason: 'missing-or-partial-birth-context',
@@ -1150,8 +1385,12 @@ export class SajuCalculator implements EvaluableCalculator {
       return;
     }
 
-    const allEntries = [...this.surnameEntries, ...this.givenNameEntries];
-    const arrangement = allEntries.map(entry => this.elementOf(entry));
+    const surnameDecisions = this.surnameEntries.map((entry, index) => this.resolveElement(entry, 'surname', index));
+    const givenNameDecisions = this.givenNameEntries.map((entry, index) => this.resolveElement(entry, 'givenName', index));
+    const allDecisions = [...surnameDecisions, ...givenNameDecisions];
+    const arrangement = allDecisions.map(decision => decision.selectedElement);
+    this.nameElements = givenNameDecisions.map(decision => decision.selectedElement);
+    this.elementStrategyEvidence = this.buildElementStrategyEvidence(allDecisions);
     const rootDist = distributionFromArrangement(
       arrangement,
     );
@@ -1172,6 +1411,7 @@ export class SajuCalculator implements EvaluableCalculator {
       combinedDistribution: this.scoreResult.combined,
       scoring: this.scoreResult.breakdown,
       tenGodPositionEvidence: toTenGodPositionEvidence(this.tenGodDiagnostics),
+      elementStrategyEvidence: this.elementStrategyEvidence,
       analysisOutput: this.sajuOutput,
       // PR8: surface evaluator hints so spring-evaluator's extractSajuPriority
       // can apply the curve / guard without changing springEvaluateName's signature.
@@ -1204,7 +1444,7 @@ export class SajuCalculator implements EvaluableCalculator {
           yongshinElement: '',
           heeshinElement: null,
           gishinElement: null,
-          nameElements: this.givenNameEntries.map(entry => this.elementOf(entry)),
+          nameElements: this.givenNameEntries.map(entry => this.legacyElementOf(entry)),
           yongshinMatchCount: 0,
           gishinMatchCount: 0,
           dayMasterSupportScore: 0,
@@ -1226,13 +1466,17 @@ export class SajuCalculator implements EvaluableCalculator {
         yongshinElement:       elementFromSajuCode(yongshinData?.finalYongshin) ?? '',
         heeshinElement:        elementFromSajuCode(yongshinData?.finalHeesin) ?? null,
         gishinElement:         elementFromSajuCode(yongshinData?.gisin) ?? null,
-        nameElements:          this.givenNameEntries.map(entry => this.elementOf(entry)),
+        nameElements:          this.nameElements.length > 0
+          ? this.nameElements
+          : this.givenNameEntries.map(entry => this.legacyElementOf(entry)),
         yongshinMatchCount:    elementMatches?.yongshin ?? 0,
         gishinMatchCount:      elementMatches?.gisin ?? 0,
         dayMasterSupportScore: breakdown?.strength ?? 0,
         affinityScore:         this.scoreResult?.score ?? 0,
         yongshinConsensusConflictLevel: breakdown?.yongshinConsensus?.conflictLevel,
         yongshinConsensusCompetingElements: breakdown?.yongshinConsensus?.competingElements,
+        safetyProfile: breakdown?.safetyProfile,
+        elementStrategyEvidence: this.elementStrategyEvidence,
         tenGodPositionEvidence,
       },
     };

@@ -218,6 +218,13 @@ export interface PrecisionConfig {
    *  Future PR will land the seed-ts side change. */
   readonly pureHangulPolarityModel?: 'binary' | 'ternary';
 
+  /** Name-element resolution strategy for SajuCalculator.
+   *  - undefined / 'legacy': keep the current resource_element path exactly.
+   *  - 'safeFallback': when a Hanja row lacks a canonical resource element,
+   *    use conservative Hangul phonetic element evidence instead of treating
+   *    weak metadata as an aggressive scoring source. */
+  readonly nameElementStrategy?: NameElementStrategy;
+
   /** Surface official birth-registration Hangul name trend evidence.
    *  Display-only in PR-2.4: when true, reports may include
    *  `nameTrend`/`trendFit`/`trendRisk`, but scores, ranking, generation,
@@ -978,6 +985,52 @@ export interface TenGodPositionEvidence {
   readonly fallbackReason?: string;
 }
 
+export type SajuNameSafetyPosture = 'safe' | 'balanced' | 'aggressive';
+export type SajuNameSafetyStrategy =
+  | 'legacy_direct_reinforcement'
+  | 'safe_balance'
+  | 'aggressive_reinforcement';
+
+export interface SajuNameSafetyProfile {
+  readonly posture: SajuNameSafetyPosture;
+  readonly strategy: SajuNameSafetyStrategy;
+  readonly riskScore: number;
+  readonly conflictLevel?: YongshinConsensusConflictLevel;
+  readonly competingElements: readonly string[];
+  readonly yongshinRatio: number;
+  readonly heesinRatio: number;
+  readonly gishinRatio: number;
+  readonly gusinRatio: number;
+  readonly reasons: readonly string[];
+}
+
+export type NameElementStrategy = 'legacy' | 'safeFallback';
+export type NameElementResolutionSource =
+  | 'resourceElement'
+  | 'hangulPhonetic'
+  | 'neutralEarth';
+export type NameElementResolutionSafety = 'safe' | 'fallback' | 'aggressive';
+
+export interface NameElementResolutionEvidence {
+  readonly scope: 'surname' | 'givenName';
+  readonly index: number;
+  readonly hangul: string;
+  readonly hanja: string;
+  readonly selectedElement: ElementKey;
+  readonly source: NameElementResolutionSource;
+  readonly safety: NameElementResolutionSafety;
+  readonly reason: string;
+}
+
+export interface NameElementStrategyEvidence {
+  readonly requestedStrategy: NameElementStrategy;
+  readonly effectiveStrategy: NameElementStrategy;
+  readonly safe: boolean;
+  readonly fallbackCount: number;
+  readonly aggressiveCount: number;
+  readonly decisions: readonly NameElementResolutionEvidence[];
+}
+
 /** How well a name's elemental makeup aligns with the saju yongshin. */
 export interface SajuCompatibility {
   readonly yongshinElement: string;
@@ -990,6 +1043,8 @@ export interface SajuCompatibility {
   readonly affinityScore: number;
   readonly yongshinConsensusConflictLevel?: YongshinConsensusConflictLevel;
   readonly yongshinConsensusCompetingElements?: readonly string[];
+  readonly safetyProfile?: SajuNameSafetyProfile;
+  readonly elementStrategyEvidence?: NameElementStrategyEvidence;
   readonly tenGodPositionEvidence?: TenGodPositionEvidence;
 }
 
