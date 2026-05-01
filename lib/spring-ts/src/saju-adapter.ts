@@ -995,6 +995,33 @@ function buildPartialSajuSummary(birth: BirthInfo, parts: KnownBirthParts): Saju
   return summary;
 }
 
+function buildUnsupportedLunarSajuSummary(birth: BirthInfo, parts: KnownBirthParts): SajuSummary {
+  const summary = emptySaju() as SajuSummary & Record<string, unknown>;
+  const mutableSummary = summary as Record<string, any>;
+
+  mutableSummary.partialInterpretation = [
+    '음력 생년월일은 KASI 음양력 변환으로 양력 생년월일을 확정한 뒤 사주 분석해야 합니다. 현재 엔진은 자동 변환을 적용하지 않아 사주 분석을 비활성화했습니다.',
+  ];
+  mutableSummary.partialBirthInput = {
+    year: parts.year,
+    month: parts.month,
+    day: parts.day,
+    hour: parts.hour,
+    minute: parts.minute,
+    calendarType: birth.calendarType ?? 'lunar',
+    isLeapMonth: birth.isLeapMonth === true,
+  };
+  mutableSummary.disabledReason = 'lunar-input-requires-kasi-conversion';
+  mutableSummary.calendarPolicy = {
+    inputCalendar: 'lunar',
+    conversionRequired: 'KASI LrsrCldInfoService',
+    conversionStatus: 'not-integrated',
+    leapMonth: birth.isLeapMonth === true,
+  };
+
+  return summary;
+}
+
 // ---------------------------------------------------------------------------
 //  Public: empty SajuSummary (fallback when analysis fails)
 // ---------------------------------------------------------------------------
@@ -1056,6 +1083,10 @@ export async function analyzeSaju(birth: BirthInfo, options?: SpringRequest['opt
   const parts = resolveKnownBirthParts(birth);
   if (!hasAnyKnownBirthPart(parts)) {
     return emptySaju();
+  }
+
+  if (birth.calendarType === 'lunar') {
+    return buildUnsupportedLunarSajuSummary(birth, parts);
   }
 
   if (!canRunFullSaju(parts)) {
