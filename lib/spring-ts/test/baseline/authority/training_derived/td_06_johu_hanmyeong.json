@@ -1,0 +1,50 @@
+{
+  "schemaVersion": "spring-val.authority-case.v1-extended",
+  "case_id": "A1-td-06-johu-hanmyeong",
+  "status": "training_derived",
+  "verificationStatus": "pending_book_check",
+  "source": {
+    "kind": "training_derived",
+    "ai_model": "claude-opus-4-7",
+    "doctrine_basis": "적천수 천미 조후 결핍 한랭 격국. '冬月生木需見火, 夏月生木需見水' — 木 일간이 한겨울 출생 시 火 조후 부재 → 빈명/약명.",
+    "collected_at": "2026-05-01",
+    "copyright_policy": "Pillars factual; doctrine analysis training-derived not citation-anchored."
+  },
+  "page_label": "조후 결핍 한랭 격국 - 木 일간 동월 (training-derived)",
+  "birth": {
+    "year_pillar": "壬申",
+    "month_pillar": "壬子",
+    "day_pillar": "壬子",
+    "hour_pillar": "辛丑",
+    "gender": "male",
+    "birth_date_iso": "1932-12-17T03:00:00",
+    "verified_by_engine": "saju-ts default chengbai_strict mode"
+  },
+  "expected": {
+    "gyeokguk": "비견격",
+    "gyeokguk_classical_form": "비견격",
+    "gyeokguk_basis": "壬水 일간 + 壬水 비견 2개 + 子 지지 2개 + 申 + 丑 → 水 70% (一氣). 從旺격 (潤下格) 후보. 그러나 火氣 0% — 조후 결핍.",
+    "yongshinElement": "FIRE",
+    "heeshinElement": "WOOD",
+    "strengthLevel": "신왕(從旺격)",
+    "isStrong": true,
+    "tenGodEmphasis": ["비견", "겁재"],
+    "evaluation": "壬水 일간이 子月 한랭에 압도 → 潤下格 (從旺 水) 후보. 그러나 火 조후 부재 → '한랭 격국' 으로 빈명/약명. 火運(인오)에 따뜻해져야 길.",
+    "summary50char": "壬水 從旺 潤下 한랭. 火運 조후 길.",
+    "comparable": "comparable",
+    "doctrinalAlternative": {
+      "gyeokguk_alt": "ZHUAN_WANG",
+      "alt_basis": "潤下格 (水 一氣) — saju-ts default 는 비견격으로 분류. 임철초의 '潤下者必貴'."
+    }
+  },
+  "narrative": { "charsPerClaim": 28, "evidenceRowsPerClaim": 2, "counterexampleCountPerCard": 1 },
+  "hedge": {
+    "shouldHedge": true,
+    "reason": "조후 결핍 시 hedge — 從旺 doctrine 으로는 길명이지만 '無火 한랭' 으로는 빈명. 적천수의 양면 분석."
+  },
+  "doctrineNotes": [
+    "壬水 일간 + 子월 + 申 (수왕지) + 丑 (수고) → 水 一氣 70%",
+    "天干 壬辛 모두 金水 = 인성+비겁 흐름",
+    "火 0% → 적천수 '冬月生水必賴火 — 無火 則寒苦無依'"
+  ]
+}

@@ -1,0 +1,50 @@
+{
+  "schemaVersion": "spring-val.authority-case.v1-extended",
+  "case_id": "A1-td-01-jeonggwan-sinkang",
+  "status": "training_derived",
+  "verificationStatus": "pending_book_check",
+  "source": {
+    "kind": "training_derived",
+    "ai_model": "claude-opus-4-7",
+    "doctrine_basis": "사주첩경 / 적천수 정관격 신왕 표준 케이스. 월지 정기가 정관, 일간 통근 강, 인성 보조 → 길명.",
+    "collected_at": "2026-05-01",
+    "copyright_policy": "Pillars factual; doctrine analysis training-derived not citation-anchored."
+  },
+  "page_label": "정관격 신왕 - 표준 길명 (training-derived)",
+  "birth": {
+    "year_pillar": "癸酉",
+    "month_pillar": "辛酉",
+    "day_pillar": "甲申",
+    "hour_pillar": "辛未",
+    "gender": "male",
+    "birth_date_iso": "1933-09-15T15:00:00",
+    "verified_by_engine": "saju-ts default chengbai_strict mode"
+  },
+  "expected": {
+    "gyeokguk": "정관격",
+    "gyeokguk_classical_form": "정관격",
+    "gyeokguk_basis": "월지 酉(申酉戌方 金) 정기 辛 → 일간 甲의 정관. 천간 辛 2개 透干. 월지 정관 격국 성립.",
+    "yongshinElement": "WATER",
+    "heeshinElement": "WOOD",
+    "strengthLevel": "신약(편차)",
+    "isStrong": false,
+    "tenGodEmphasis": ["정관", "정인"],
+    "evaluation": "正官格이라 길명 후보이나 一干一支 통근 失로 신약 → 정인(癸水) 보조가 핵심. 木 비겁운에 명달.",
+    "summary50char": "정관 격국이나 일간 약. 인성운 길, 관살혼잡 흉.",
+    "comparable": "comparable"
+  },
+  "narrative": {
+    "charsPerClaim": 25,
+    "evidenceRowsPerClaim": 2,
+    "counterexampleCountPerCard": 1
+  },
+  "hedge": {
+    "shouldHedge": false,
+    "reason": null
+  },
+  "doctrineNotes": [
+    "月支 酉가 旺 - 申酉 二支 정관 강성",
+    "癸水 年干 인성 = 일간 甲에 자원",
+    "정관격은 신왕 + 인성 통관이 전형이나 본 case 는 신약 → '정관용인' (官印相生) 구조"
+  ]
+}

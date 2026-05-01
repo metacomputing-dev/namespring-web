@@ -1,0 +1,46 @@
+{
+  "schemaVersion": "spring-val.authority-case.v1-extended",
+  "case_id": "A1-td-04-insungtuchu-haksja",
+  "status": "training_derived",
+  "verificationStatus": "pending_book_check",
+  "source": {
+    "kind": "training_derived",
+    "ai_model": "claude-opus-4-7",
+    "doctrine_basis": "이석영 사주첩경 / 박재완 명리실관 인성투출 학자명 표준. 신약 + 인성 강 → '관인상생' (官印相生) 학자/문인.",
+    "collected_at": "2026-05-01",
+    "copyright_policy": "Pillars factual; doctrine analysis training-derived not citation-anchored."
+  },
+  "page_label": "인성투출 학자 - 정인격 (training-derived)",
+  "birth": {
+    "year_pillar": "戊戌",
+    "month_pillar": "己未",
+    "day_pillar": "辛丑",
+    "hour_pillar": "己丑",
+    "gender": "male",
+    "birth_date_iso": "1958-07-23T03:00:00",
+    "verified_by_engine": "saju-ts default chengbai_strict mode"
+  },
+  "expected": {
+    "gyeokguk": "편인격",
+    "gyeokguk_classical_form": "편인격",
+    "gyeokguk_basis": "辛金 일간 + 戊己己戊 4 천간 인성 (土生金) + 戌未丑丑 토 지지 (土 67.5%). 인성 압도 + 일간 통근 약 → 편인격 (戊 = 편인 of 辛).",
+    "yongshinElement": "WATER",
+    "heeshinElement": "WOOD",
+    "strengthLevel": "신왕(인성통근)",
+    "isStrong": true,
+    "tenGodEmphasis": ["편인", "정인"],
+    "evaluation": "인성 압도하여 학문 깊이 ↑. 식상(水) 으로 인성 설기하여 표현력. 적천수의 '印星太旺者好學' 분류. 학문/연구/저술 길.",
+    "summary50char": "편인 압도 학자 명. 식상으로 표현 출구.",
+    "comparable": "comparable"
+  },
+  "narrative": { "charsPerClaim": 28, "evidenceRowsPerClaim": 2, "counterexampleCountPerCard": 1 },
+  "hedge": {
+    "shouldHedge": false,
+    "reason": null
+  },
+  "doctrineNotes": [
+    "辛金 일간이 인성(土) 압도 → '從印格' (CONG_YIN) 후보 도리와 본격 편인격 경계",
+    "식상 水 가 적어 표현력 부족 → 'isolation' 경향",
+    "도식(倒食) 위험: 편인이 식신을 극함"
+  ]
+}
