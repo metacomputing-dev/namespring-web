@@ -146,12 +146,13 @@ NameSpring 이 `request.options.precisionConfig` 를 통해 활성화 가능한
 | `pureHangulSchema` | `'auto' \| 'classic_phonetic' \| 'modern_korean' \| 'expanded'` | 한글-only 이름의 element-mapping schema (default 'classic_phonetic') |
 | `pureHangulSignalCap` | `number [0,1]` | hangul signal weight 곱셈 cap. `pureHangulSchema='auto' + schoolPreset='chinese'` 시 0.7 자동 |
 | `pureHangulPolarityModel` | `'binary' \| 'ternary'` | ㅡ/ㅣ 중성모음 처리. `pureHangulSchema='auto' + schoolPreset='modern'` 시 'ternary' 자동 |
+| `nameElementStrategy` | `'legacy' \| 'safeFallback'` | invalid/missing `resource_element` rows can fall back to conservative Hangul phonetic evidence and surface provenance via `elementStrategyEvidence` |
 | `narrativeStyle` | `'expert' \| 'plain' \| 'counselor' \| 'sideBySide'` | 카드 narrative 톤 (PR10) |
 | `readingFocus` | `'auto' \| 'full' \| 'career' \| ...` | 카드 focus tone (PR10) |
 | `unknownHourGuard` | `boolean` | 시간미상 사주 saju score damp (default true) |
 | `sajuPriorityCurve` | `'linear' \| 'tanh'` | sajuPriority blending 곡선 (default 'tanh') |
 | `gyeokgukMode` | `'jonggyeok_only' \| 'chengbai_strict' \| 'multi_special'` | 격국 분류 doctrine (default 'chengbai_strict') |
-| `yongshinMode` | `'classical_blend' \| 'chengbai_strict'` | 용신 분류 doctrine (default 'chengbai_strict') |
+| `yongshinMode` | `'classical_blend' \| 'chengbai_strict' \| 'consensus_aware'` | 용신 분류 doctrine (default 'chengbai_strict'); `consensus_aware` guards high-conflict reinforcement and surfaces `safetyProfile` |
 | `strengthMode` | `'binary' \| 'continuous'` | 신강도 평가 모델 (default 'continuous') |
 | `tenGodMode` | `'simple_count' \| 'positional_weighted' \| 'positional_weighted_v2'` | 십성 가중 (default 'positional_weighted', v2 opt-in) |
 | `fortuneCascadeMode` | `'simple' \| 'jie_based' \| 'full_5layer'` | 월운 boundary 정확도 (default 'jie_based') |
