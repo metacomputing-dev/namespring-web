@@ -54,6 +54,8 @@ link the relevant release checklist evidence.
 - Make school disagreement, source-tier limits, and safety posture visible when
   they are material to the user.
 - Keep technical terms consistent with existing report cards and docs.
+- If the wording changes a recommendation, include the report card, evidence
+  row, or explanation surface where the changed wording appears.
 
 ## PR Body Requirement
 
