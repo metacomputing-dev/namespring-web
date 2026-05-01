@@ -40,6 +40,7 @@ const DEFAULT_TIMEZONE = 'Asia/Seoul';
 const DISTRIBUTION_ROUND_DIGITS = 1;
 const DEFICIENT_AVERAGE_RATIO = 0.5;
 const EXCESSIVE_AVERAGE_RATIO = 1.7;
+const MIN_GYEOKGUK_CANDIDATE_SCORE = 1e-9;
 const GYEOKGUK_CANDIDATE_SOURCE_TIER = {
   tier: 'T2_REFERENCE_IMPLEMENTATION',
   sourceType: 'reference_implementation',
@@ -489,7 +490,7 @@ function gyeokgukCandidateRuleNotes(candidate: any): { supportingRules: string[]
   if (role) supportingRules.push(`role:${role}`);
 
   const weight = Number(candidate?.weight);
-  if (Number.isFinite(weight) && !reasons.some((reason) => reason.startsWith('weight:'))) {
+  if (Number.isFinite(weight) && !reasons.some((reason: string) => reason.startsWith('weight:'))) {
     supportingRules.push(`weight:${roundTo(weight, 3)}`);
   }
 
@@ -553,13 +554,13 @@ function buildGyeokgukCandidates(bundle: AnalysisBundle, bestKeyCore: string, be
   for (const entry of ranking) {
     const type = normalizeGyeokgukKey(entry?.key);
     const score = Number(entry?.score);
-    if (type !== selectedType && (!Number.isFinite(score) || score <= 0)) continue;
+    if (type !== selectedType && (!Number.isFinite(score) || score <= MIN_GYEOKGUK_CANDIDATE_SCORE)) continue;
     addCandidate(type, entry?.score, monthByType.get(type));
   }
 
   for (const candidate of monthCandidates) {
     const score = Number(candidate?.score);
-    if (!Number.isFinite(score) || score <= 0) continue;
+    if (!Number.isFinite(score) || score <= MIN_GYEOKGUK_CANDIDATE_SCORE) continue;
     addCandidate(candidate?.tenGod, candidate?.score, candidate);
   }
 
