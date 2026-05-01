@@ -417,6 +417,9 @@ export interface SajuSummary {
    *  `options.precisionConfig.surfacePalace === true`. Default-mode
    *  callers see this field as `undefined`. */
   readonly palace?: PalaceSummary;
+  /** 60갑자 納音 summary (PR-Q-6). Populated when
+   *  `options.precisionConfig.surfaceNaeum === true`. */
+  readonly naeum?: NaeumSummary;
   readonly [key: string]: unknown;
 }
 
@@ -745,6 +748,9 @@ export interface SajuOutputSummary {
    *  meta (조상궁/부모궁/배우자궁/자식궁) plus its main hidden ten-god,
    *  길신 flag, root status, and overall good/caution/normal status. */
   palace?: PalaceSummary;
+  /** 60갑자 納音 summary (PR-Q-6). Surfaced when
+   *  `precisionConfig.surfaceNaeum === true`. */
+  naeum?: NaeumSummary;
 }
 
 /** 12궁 palace analysis surfaced on SajuOutputSummary (PR-Q-5).
@@ -781,6 +787,29 @@ export interface PalaceSummaryPosition {
   readonly hasSupportingRoot: boolean;
   /** Overall status: 'good' (길신 + supporting root) / 'caution' (흉신) / 'normal'. */
   readonly status: 'good' | 'caution' | 'normal';
+}
+
+/** 60갑자 納音 (sound of the pillar) summary surfaced on SajuOutputSummary
+ *  when `precisionConfig.surfaceNaeum === true` (PR-Q-6). Mirrors saju-ts
+ *  `NaeumReport`. */
+export interface NaeumSummary {
+  readonly positions: Readonly<Record<'year' | 'month' | 'day' | 'hour', NaeumSummaryPosition | undefined>>;
+  /** Element-hanja (金/木/水/火/土) → count of pillars matching that 納音 element. */
+  readonly elementCounts: Readonly<Record<string, number>>;
+  readonly caution: string;
+}
+
+export interface NaeumSummaryPosition {
+  /** Ganzhi of the pillar (e.g., '甲子'). */
+  readonly pillar: string;
+  /** 한자 명칭 (e.g., '海中金'). */
+  readonly nameHanja: string;
+  /** 한글 명칭 (e.g., '해중금'). */
+  readonly nameKorean: string;
+  /** 5요소 한자 (金/木/水/火/土). */
+  readonly elementHanja: string;
+  /** 비유 의미. */
+  readonly meaning: string;
 }
 
 export type SajuJudgmentStrength = 'definite' | 'practical' | 'candidate' | 'deferred';

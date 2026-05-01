@@ -61,6 +61,7 @@ export { compileShinsalConditionsRuleSpec } from './rules/spec/compileShinsalCon
 
 export { stemHanja, branchHanja, stemElement, branchElement, stemYinYang, branchYinYang } from './core/cycle.js';
 export { tenGodOf } from './core/tenGod.js';
+export { stemIdxFromHanja, branchIdxFromHanja, stemHanja, branchHanja } from './core/cycle.js';
 export { detectBranchRelations } from './core/branchRelations.js';
 export { hiddenStemsOfBranch, rawHiddenStemsTable } from './core/hiddenStems.js';
 export {
@@ -75,4 +76,14 @@ export {
   type PalacePillarInput,
   type PalacePillarsInput,
 } from './core/palace.js';
+export {
+  analyzeNaeum,
+  NAEUM_PAIR_TABLE,
+  NAEUM_BY_GANZHI,
+  type NaeumEntry,
+  type NaeumPosition,
+  type NaeumPillarInput,
+  type NaeumPositionView,
+  type NaeumReport,
+} from './core/naeum.js';
 export { elementDistributionFromPillars } from './core/elementDistribution.js';
