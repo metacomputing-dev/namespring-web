@@ -413,6 +413,10 @@ export interface SajuSummary {
    *  so card builders that receive only the SajuSummary can access the same
    *  4-tier rhetoric model the adapter derives. */
   readonly axisStrength?: SajuAxisStrengthMap;
+  /** 12궁 palace analysis (PR-Q-5). Populated by the adapter when
+   *  `options.precisionConfig.surfacePalace === true`. Default-mode
+   *  callers see this field as `undefined`. */
+  readonly palace?: PalaceSummary;
   readonly [key: string]: unknown;
 }
 
@@ -735,6 +739,48 @@ export interface SajuOutputSummary {
    *  SajuSummary.saeunPillars production. Used by the period fortune card
    *  builders for year-level trace + transitions. */
   saeunPillars?: readonly SaeunPillarSummary[];
+  /** 12궁 palace analysis (PR-Q-5). Surfaced by the saju-adapter only when
+   *  `precisionConfig.surfacePalace === true` and the adapter has access to
+   *  saju-ts's `analyzePalaces`. Each position carries the canonical
+   *  meta (조상궁/부모궁/배우자궁/자식궁) plus its main hidden ten-god,
+   *  길신 flag, root status, and overall good/caution/normal status. */
+  palace?: PalaceSummary;
+}
+
+/** 12궁 palace analysis surfaced on SajuOutputSummary (PR-Q-5).
+ *  Mirror of saju-ts `PalaceReport` with the field shapes simplified
+ *  to plain strings (vs StemIdx/BranchIdx) so spring-ts callers do not
+ *  have to import saju-ts internal types. */
+export interface PalaceSummary {
+  readonly positions: Readonly<Record<'year' | 'month' | 'day' | 'hour', PalaceSummaryPosition | undefined>>;
+  readonly rule: string;
+  readonly caution: string;
+}
+
+export interface PalaceSummaryPosition {
+  /** 조상궁 / 부모궁 / 배우자궁 / 자식궁 */
+  readonly name: string;
+  /** 초년 / 청년 / 장년 / 말년 */
+  readonly period: string;
+  /** 1~20세 / 21~40세 / 41~60세 / 61~80세 */
+  readonly ageRange: string;
+  /** 뿌리 根 / 묘목 苗 / 꽃 花 / 열매 實 */
+  readonly metaphor: string;
+  /** Topic phrase from saju_master palace.py PALACE_INFO[pos].topic. */
+  readonly topic: string;
+  /** Main hidden stem of the branch (정기) — Korean reading (e.g., '갑'/'을'/...). */
+  readonly mainHiddenStem: string;
+  /** Korean ten-god name of mainHiddenStem relative to day stem
+   *  (e.g., '식신'/'정인'/...). */
+  readonly mainTenGod: string;
+  /** Whether mainTenGod is in the 길신 (吉神) group. */
+  readonly isGilshin: boolean;
+  /** Whether the branch contains the day-master's same-element root. */
+  readonly hasDayMasterRoot: boolean;
+  /** Whether the branch contains 비겁 / 인성 supporting hidden stems. */
+  readonly hasSupportingRoot: boolean;
+  /** Overall status: 'good' (길신 + supporting root) / 'caution' (흉신) / 'normal'. */
+  readonly status: 'good' | 'caution' | 'normal';
 }
 
 export type SajuJudgmentStrength = 'definite' | 'practical' | 'candidate' | 'deferred';

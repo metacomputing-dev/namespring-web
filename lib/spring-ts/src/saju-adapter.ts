@@ -1232,6 +1232,14 @@ export async function analyzeSaju(birth: BirthInfo, options?: SpringRequest['opt
         : [];
       summary.partialInterpretation = [...existing, ...notes];
     }
+    // PR-Q-5: surface 12궁 palace analysis when precisionConfig.surfacePalace
+    // is opted-in. Off by default; the field stays absent in the summary.
+    const surfacePalace = (options?.precisionConfig as any)?.surfacePalace === true;
+    if (surfacePalace) {
+      const palace = computePalaceSummary(summary.pillars);
+      if (palace) summary = { ...summary, palace } as typeof summary;
+    }
+
     return summary;
   } catch { return emptySaju(); }
 }
@@ -1282,6 +1290,65 @@ export function extractSaju(rawSajuOutput: any): SajuSummary {
   // builders that receive only the summary (e.g., buildOverviewSummaryCard)
   // can apply hedge wording without re-deriving it from the raw output.
   return { ...summary, axisStrength: deriveAxisStrength(summary) };
+}
+
+/** PR-Q-5: build the SajuSummary.palace optional field by calling saju-ts's
+ *  `analyzePalaces` (PR-Q-4) on the summary's four pillars. Returns undefined
+ *  when day pillar is unresolvable. */
+function computePalaceSummary(pillars: SajuSummary['pillars']): import('./types.js').PalaceSummary | undefined {
+  // Lazy import — saju-ts's `analyzePalaces` is only loaded when the opt-in
+  // is active. Avoids paying the cost on every analyzeSaju call.
+  // eslint-disable-next-line @typescript-eslint/no-require-imports
+  const sajuTsCore = require('../../saju-ts/src/index.js') as {
+    analyzePalaces: (input: any) => any;
+    stemIdxFromHanja: (h: string) => number | null;
+    branchIdxFromHanja: (h: string) => number | null;
+    stemHanja: (idx: number) => string;
+  };
+
+  const day = pillars.day;
+  if (!day) return undefined;
+  const dayStemIdx = sajuTsCore.stemIdxFromHanja(day.stem.hanja ?? '');
+  const dayBranchIdx = sajuTsCore.branchIdxFromHanja(day.branch.hanja ?? '');
+  if (dayStemIdx === null || dayBranchIdx === null) return undefined;
+
+  const palaceInput: any = { day: { stem: dayStemIdx, branch: dayBranchIdx } };
+  for (const pos of ['year', 'month', 'hour'] as const) {
+    const p = pillars[pos];
+    if (!p) continue;
+    const sIdx = sajuTsCore.stemIdxFromHanja(p.stem.hanja ?? '');
+    const bIdx = sajuTsCore.branchIdxFromHanja(p.branch.hanja ?? '');
+    if (sIdx === null || bIdx === null) continue;
+    palaceInput[pos] = { stem: sIdx, branch: bIdx };
+  }
+
+  const report = sajuTsCore.analyzePalaces(palaceInput);
+  if (!report) return undefined;
+
+  const tenGodKo: Record<string, string> = {
+    BI_GYEON: '비견', GEOB_JAE: '겁재', SIK_SHIN: '식신', SANG_GWAN: '상관',
+    PYEON_JAE: '편재', JEONG_JAE: '정재', PYEON_GWAN: '편관', JEONG_GWAN: '정관',
+    PYEON_IN: '편인', JEONG_IN: '정인',
+  };
+  const positions: any = { year: undefined, month: undefined, day: undefined, hour: undefined };
+  for (const pos of ['year', 'month', 'day', 'hour'] as const) {
+    const view = report.positions[pos];
+    if (!view) continue;
+    positions[pos] = {
+      name: view.meta.name,
+      period: view.meta.period,
+      ageRange: view.meta.ageRange,
+      metaphor: view.meta.metaphor,
+      topic: view.meta.topic,
+      mainHiddenStem: sajuTsCore.stemHanja(view.mainHiddenStem),
+      mainTenGod: tenGodKo[view.mainTenGod] ?? view.mainTenGod,
+      isGilshin: view.isGilshin,
+      hasDayMasterRoot: view.root.hasDayMasterRoot,
+      hasSupportingRoot: view.root.hasSupportingRoot,
+      status: view.status,
+    };
+  }
+  return { positions, rule: report.rule, caution: report.caution };
 }
 
 // ---------------------------------------------------------------------------
@@ -1842,6 +1909,9 @@ export function buildSajuContext(sajuSummary: SajuSummary): { dist: Record<Eleme
       saeunPillars: ((sajuSummary as any).saeunPillars as readonly any[] | undefined)?.length
         ? (sajuSummary as any).saeunPillars
         : undefined,
+      // PR-Q-5: forward palace summary when the adapter populated it
+      // (precisionConfig.surfacePalace=true). undefined otherwise.
+      palace: sajuSummary.palace ?? undefined,
     },
   };
 }
