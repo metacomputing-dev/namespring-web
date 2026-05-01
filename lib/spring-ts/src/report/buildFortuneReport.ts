@@ -248,6 +248,7 @@ export function buildFortuneReport(
   const meta: ReportMeta = {
     version: '1.0.0',
     generatedAt: new Date().toISOString(),
+    schoolPreset: options?.schoolPreset,
     uncertainties: buildReportUncertainties(saju),
   };
 

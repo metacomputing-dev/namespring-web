@@ -30,7 +30,11 @@ import { buildNamingExplanation } from './naming-explanation.js';
 import type { SajuOutputSummary } from './types.js';
 import { SajuCalculator } from './saju-calculator.js';
 import type { SajuEvaluatorHints } from './saju-calculator.js';
-import type { SchoolPresetName } from './preset-loader.js';
+import {
+  resolveSchoolPresetMetadata,
+  type SchoolPresetMetadata,
+  type SchoolPresetName,
+} from './preset-loader.js';
 import { springEvaluateName, SAJU_FRAME } from './spring-evaluator.js';
 import { analyzeSaju, analyzeSajuSafe, buildSajuContext, collectElements } from './saju-adapter.js';
 import type {
@@ -392,18 +396,28 @@ export class SpringEngine {
       .sort((a, b) => a.reason.localeCompare(b.reason));
   }
 
+  private resolveSchoolPresetMeta(options?: SpringRequest['options']): SchoolPresetMetadata {
+    return resolveSchoolPresetMetadata(
+      options?.schoolPreset,
+      options?.precisionConfig?.useSchoolPreset === true,
+    );
+  }
+
   /** PR-Q-24 K-4 + K-5 full wire — resolve hangul signal cap.
    *  Per spec spring-info/09_finalization/05_pure_hangul_schema_wireup.md §1.2
    *  학파별 의도 매트릭스. Cap 의 우선순위:
    *   1. 명시적 `precisionConfig.pureHangulSignalCap` (caller override)
-   *   2. `pureHangulSchema='auto'` + `schoolPreset='chinese'` → 0.7
+   *   2. `pureHangulSchema='auto'` + classical structure presets → 0.7
    *   3. else 1.0 (no cap, current behavior preserved). */
   private resolveHangulSignalCap(options?: SpringRequest['options']): number {
     const pc = options?.precisionConfig;
     if (typeof pc?.pureHangulSignalCap === 'number') {
       return Math.max(0, Math.min(1, pc.pureHangulSignalCap));
     }
-    if (pc?.pureHangulSchema === 'auto' && options?.schoolPreset === 'chinese') {
+    if (
+      pc?.pureHangulSchema === 'auto' &&
+      (options?.schoolPreset === 'chinese' || options?.schoolPreset === 'classical_text')
+    ) {
       return 0.7;
     }
     return 1.0;
@@ -413,14 +427,17 @@ export class SpringEngine {
    *  Per spec spring-info/09_finalization/05_pure_hangul_schema_wireup.md §1.2,
    *  modern 학파 (한국 작명원 표준) 는 ternary 모델 — ㅣ/ㅡ 중성. 우선순위:
    *   1. 명시적 `precisionConfig.pureHangulPolarityModel` (caller override)
-   *   2. `pureHangulSchema='auto'` + `schoolPreset='modern'` → 'ternary'
+   *   2. `pureHangulSchema='auto'` + modern Korean presets → 'ternary'
    *   3. else 'binary' (default behavior preserved). */
   private resolveHangulPolarityModel(options?: SpringRequest['options']): 'binary' | 'ternary' {
     const pc = options?.precisionConfig;
     if (pc?.pureHangulPolarityModel === 'ternary' || pc?.pureHangulPolarityModel === 'binary') {
       return pc.pureHangulPolarityModel;
     }
-    if (pc?.pureHangulSchema === 'auto' && options?.schoolPreset === 'modern') {
+    if (
+      pc?.pureHangulSchema === 'auto' &&
+      (options?.schoolPreset === 'modern' || options?.schoolPreset === 'korean_modern')
+    ) {
       return 'ternary';
     }
     return 'binary';
@@ -1205,6 +1222,7 @@ export class SpringEngine {
       finalScore: roundScore(combined.score),
       ...(scoreVector ? { scoreVector } : {}),
       ...(strengthProfile ? { strengthProfile } : {}),
+      schoolPreset: this.resolveSchoolPresetMeta(request.options),
       popularityRank: nameStatInfo.popularityRank,
       maleRatio: nameStatInfo.maleRatio,
       nameGender: nameStatInfo.nameGender,
@@ -1804,6 +1822,7 @@ export class SpringEngine {
         version: ENGINE_VERSION,
         timestamp: new Date().toISOString(),
         hanjaPool: this.resolveHanjaPool(request.options),
+        schoolPreset: this.resolveSchoolPresetMeta(request.options),
         candidateRejections: this.candidateRejectionSummary(),
       },
     };
@@ -2403,6 +2422,7 @@ export class SpringEngine {
         : 'simple',
       narrativeStyle: pc?.narrativeStyle,
       readingFocus: pc?.readingFocus,
+      schoolPreset: this.resolveSchoolPresetMeta(request.options),
       // PR-Q-16 (Phase K-1 PR-B): surfaceSubDomains default flips
       // false → true. Each CategoryFortuneCard now carries 1-3 sub-domain
       // rows (saju_master/event_domain_map.py doctrine). Callers can opt

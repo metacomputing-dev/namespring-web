@@ -96,6 +96,10 @@ check(`SpringReport.namingReport.name.fullHangul is string`,
   typeof springReport?.namingReport?.name?.fullHangul === 'string');
 check(`SpringReport.namingReport.name.fullHanja is string`,
   typeof springReport?.namingReport?.name?.fullHanja === 'string');
+check(`SpringReport.schoolPreset is additive default metadata`,
+  springReport?.schoolPreset?.selected === 'korean' &&
+    springReport.schoolPreset.source === 'default' &&
+    springReport.schoolPreset.scoringEffect === 'inactive');
 
 // ── (2) getFortuneReport — full surface ─────────────────────────────────
 const fortuneReport: any = await engine.getFortuneReport(namespringRequest);
@@ -108,6 +112,10 @@ const FORTUNE_SECTIONS = [
 for (const section of FORTUNE_SECTIONS) {
   check(`FortuneReport.${section} present`, fortuneReport?.[section] != null);
 }
+check(`FortuneReport.meta.schoolPreset is additive default metadata`,
+  fortuneReport?.meta?.schoolPreset?.selected === 'korean' &&
+    fortuneReport.meta.schoolPreset.source === 'default' &&
+    fortuneReport.meta.schoolPreset.scoringEffect === 'inactive');
 
 // categoryFortunes 5 default categories (NameSpring's CATEGORY_ORDER)
 const CATEGORIES = ['wealth', 'health', 'academic', 'romance', 'family'] as const;
