@@ -1,0 +1,126 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://namespring.local/spring-ts/classicalSourceRegistry.schema.json",
+  "title": "spring-ts Classical Source Registry",
+  "type": "object",
+  "additionalProperties": true,
+  "required": [
+    "schemaVersion",
+    "accessedAt",
+    "sourceTier",
+    "usagePolicy",
+    "sources"
+  ],
+  "properties": {
+    "schemaVersion": {
+      "const": "spring-ts.classical-myeongri-sources.v1"
+    },
+    "accessedAt": {
+      "type": "string",
+      "pattern": "^\\d{4}-\\d{2}-\\d{2}$"
+    },
+    "sourceTier": {
+      "$ref": "sourceTier.schema.json"
+    },
+    "usagePolicy": {
+      "type": "object",
+      "additionalProperties": true,
+      "required": [
+        "noBulkCopy",
+        "maxQuoteChars",
+        "allowed",
+        "prohibited"
+      ],
+      "properties": {
+        "noBulkCopy": {
+          "const": true
+        },
+        "maxQuoteChars": {
+          "type": "integer",
+          "minimum": 1,
+          "maximum": 80
+        },
+        "allowed": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          },
+          "minItems": 1
+        },
+        "prohibited": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          },
+          "minItems": 1
+        }
+      }
+    },
+    "sources": {
+      "type": "array",
+      "minItems": 3,
+      "items": {
+        "type": "object",
+        "additionalProperties": true,
+        "required": [
+          "id",
+          "title",
+          "titleOriginal",
+          "dynasty",
+          "author",
+          "sourceUrl",
+          "accessedAt",
+          "usageLimit",
+          "tier",
+          "sourceTier"
+        ],
+        "properties": {
+          "id": {
+            "type": "string",
+            "pattern": "^[a-z0-9_]+$"
+          },
+          "title": {
+            "type": "string",
+            "minLength": 1
+          },
+          "titleOriginal": {
+            "type": "string",
+            "minLength": 1
+          },
+          "dynasty": {
+            "type": "string",
+            "minLength": 1
+          },
+          "author": {
+            "type": "string",
+            "minLength": 1
+          },
+          "sourceUrl": {
+            "type": "string",
+            "format": "uri"
+          },
+          "accessedAt": {
+            "type": "string",
+            "pattern": "^\\d{4}-\\d{2}-\\d{2}$"
+          },
+          "usageLimit": {
+            "type": "object",
+            "additionalProperties": true,
+            "required": [
+              "noBulkCopy",
+              "maxQuoteChars",
+              "allowed",
+              "prohibited"
+            ]
+          },
+          "tier": {
+            "const": "T4_PRIMARY_TEXT"
+          },
+          "sourceTier": {
+            "$ref": "sourceTier.schema.json"
+          }
+        }
+      }
+    }
+  }
+}
