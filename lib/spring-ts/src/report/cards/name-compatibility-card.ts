@@ -108,6 +108,7 @@ export function buildNameCompatibilityCard(
   const phonetic = springReport.phonetic ?? springReport.namingReport.phonetic;
   const tenGodPositionEvidence = springReport.sajuCompatibility.tenGodPositionEvidence;
   const scoreVector = springReport.scoreVector ?? springReport.namingReport.scoreVector;
+  const strengthProfile = springReport.strengthProfile ?? springReport.namingReport.strengthProfile;
   const overallStars = scoreToStars(overallScore);
 
   // ── Summary ──
@@ -236,6 +237,13 @@ export function buildNameCompatibilityCard(
         : undefined,
     });
   }
+  if (strengthProfile) {
+    evidence.push({
+      axis: 'candidateStrengthProfile',
+      claim: `Candidate profile: ${strengthProfile.label}${strengthProfile.paretoFrontier ? ' (Pareto frontier)' : ''}.`,
+      supportingFeatures: [...strengthProfile.reasons],
+    });
+  }
 
   return {
     title: '이름 적합도 평가',
@@ -244,6 +252,7 @@ export function buildNameCompatibilityCard(
     sajuCompatibilityScore,
     nameAnalysisScore,
     ...(scoreVector ? { scoreVector } : {}),
+    ...(strengthProfile ? { strengthProfile } : {}),
     ...(nameTrend ? { nameTrend } : {}),
     ...(phonetic ? { phonetic } : {}),
     ...(tenGodPositionEvidence ? { tenGodPositionEvidence } : {}),
