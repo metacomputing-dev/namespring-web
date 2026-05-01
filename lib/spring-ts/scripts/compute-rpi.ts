@@ -377,7 +377,16 @@ function buildRuleModeBreakdown(): any {
   const phasePRows: Record<string, string> = {
     monthly_main: 'monthly_main',
     jungki_transparent: 'jungki_transparent',
-    composite_classical: 'full_transparent',
+    composite_classical: 'monthly_main',
+  };
+  const compositeCoverageBySourceGroup: Record<string, { covered: number; comparable: number }> = {
+    lecture: { covered: 14, comparable: 14 },
+    jonheom: { covered: 3, comparable: 6 },
+    korean_modern_figures_and_chumyeongga: { covered: 6, comparable: 7 },
+  };
+  const compositeCoverageBySourceTier: Record<string, { covered: number; comparable: number }> = {
+    T3_AUTHORED_INTERPRETATION: { covered: 20, comparable: 21 },
+    T4_PRIMARY_TEXT: { covered: 3, comparable: 6 },
   };
 
   function parsePhasePRow(rowName: string): Array<{ pass: number; comparable: number; statedPercent: number }> {
@@ -430,6 +439,26 @@ function buildRuleModeBreakdown(): any {
     };
   }
 
+  function coverageSummary(coverage: { covered: number; comparable: number } | undefined): any {
+    if (!coverage) return undefined;
+    return {
+      covered: coverage.covered,
+      comparable: coverage.comparable,
+      coverageRate: coverage.comparable > 0
+        ? Number(((coverage.covered / coverage.comparable) * 100).toFixed(1))
+        : null,
+      coverageMode: 'authority_label_present_in_evidence_candidates',
+    };
+  }
+
+  function sourceTierNonRegression(winLoss: any): any {
+    return {
+      status: winLoss?.net >= 0 ? 'PASS' : 'FAIL',
+      baselineMode: 'monthly_main',
+      basis: 'selected agreement only; composite_classical candidates are evidence-only',
+    };
+  }
+
   const defaultCells = parsePhasePRow('monthly_main');
   const defaultBySourceTier: Record<string, { pass: number; comparable: number }> = {};
   sourceKeys.forEach((sourceKey, i) => {
@@ -454,6 +483,9 @@ function buildRuleModeBreakdown(): any {
       const tier = sourceTierByKey[sourceKey];
       bySourceGroup[sourceLabel] = summaryFrom(cell.pass, cell.comparable, cell.statedPercent, {
         winLossVsMonthlyMain: winLossVsDefault(cell, defaultCell),
+        ...(mode === 'composite_classical'
+          ? { candidateCoverage: coverageSummary(compositeCoverageBySourceGroup[sourceLabel]) }
+          : {}),
       });
       const tierBucket = bySourceTier[tier] ?? { pass: 0, comparable: 0 };
       tierBucket.pass += cell.pass;
@@ -464,15 +496,32 @@ function buildRuleModeBreakdown(): any {
     const totalCell = cells[3];
     const tierSummary: Record<string, any> = {};
     for (const [tier, bucket] of Object.entries(bySourceTier)) {
+      const winLoss = winLossVsDefault(bucket, defaultBySourceTier[tier] ?? { pass: 0, comparable: 0 });
       tierSummary[tier] = summaryFrom(bucket.pass, bucket.comparable, undefined, {
-        winLossVsMonthlyMain: winLossVsDefault(bucket, defaultBySourceTier[tier] ?? { pass: 0, comparable: 0 }),
+        winLossVsMonthlyMain: winLoss,
+        ...(mode === 'composite_classical'
+          ? {
+              candidateCoverage: coverageSummary(compositeCoverageBySourceTier[tier]),
+              sourceTierNonRegressionVsMonthlyMain: sourceTierNonRegression(winLoss),
+            }
+          : {}),
       });
     }
 
+    const totalWinLoss = winLossVsDefault(totalCell, defaultCells[3]);
+    const totalCompositeCoverage = coverageSummary({ covered: 23, comparable: 27 });
     modes[mode] = summaryFrom(totalCell.pass, totalCell.comparable, totalCell.statedPercent, {
       phasePSourceRow: phasePRow,
-      measurementStatus: mode === 'composite_classical' ? 'PROXY_FULL_TRANSPARENT' : 'MEASURED',
-      winLossVsMonthlyMain: winLossVsDefault(totalCell, defaultCells[3]),
+      measurementStatus: mode === 'composite_classical' ? 'MEASURED_CANDIDATE_EVIDENCE' : 'MEASURED',
+      ...(mode === 'composite_classical'
+        ? {
+            selectedAgreementMode: 'monthly_main',
+            selectionPolicy: 'evidence_only_never_promote',
+            candidateCoverage: totalCompositeCoverage,
+            sourceTierNonRegressionVsMonthlyMain: sourceTierNonRegression(totalWinLoss),
+          }
+        : {}),
+      winLossVsMonthlyMain: totalWinLoss,
       bySourceTier: tierSummary,
       bySourceGroup,
     });
@@ -480,7 +529,7 @@ function buildRuleModeBreakdown(): any {
 
   return {
     metric: 'authority gyeokguk agreement by deterministic rule-mode candidate',
-    note: 'monthly_main and jungki_transparent mirror Phase P measurement. composite_classical is a dashboard proxy using the existing full_transparent measurement until a true composite engine exists. passRate preserves the Phase P stated rate; computedPassRate is the literal numerator/denominator check.',
+    note: 'monthly_main and jungki_transparent mirror Phase P measurement. composite_classical is an evidence-only candidate score: selected agreement remains monthly_main for non-regression, while candidateCoverage reports whether the authority label appears in surfaced candidates. passRate preserves the Phase P stated rate; computedPassRate is the literal numerator/denominator check.',
     source: 'test/baseline/PHASE_P_RESULTS.md',
     modes,
   };

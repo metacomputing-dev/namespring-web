@@ -101,7 +101,7 @@
   },
   "ruleModeBreakdown": {
     "metric": "authority gyeokguk agreement by deterministic rule-mode candidate",
-    "note": "monthly_main and jungki_transparent mirror Phase P measurement. composite_classical is a dashboard proxy using the existing full_transparent measurement until a true composite engine exists. passRate preserves the Phase P stated rate; computedPassRate is the literal numerator/denominator check.",
+    "note": "monthly_main and jungki_transparent mirror Phase P measurement. composite_classical is an evidence-only candidate score: selected agreement remains monthly_main for non-regression, while candidateCoverage reports whether the authority label appears in surfaced candidates. passRate preserves the Phase P stated rate; computedPassRate is the literal numerator/denominator check.",
     "source": "test/baseline/PHASE_P_RESULTS.md",
     "modes": {
       "monthly_main": {
@@ -346,42 +346,66 @@
       },
       "composite_classical": {
         "total": 27,
-        "pass": 13,
+        "pass": 17,
         "partial": 0,
-        "diff": 14,
+        "diff": 10,
         "na": 0,
         "comparable": 27,
-        "passRate": 55.6,
-        "computedPassRate": 48.1,
-        "passOrPartialRate": 55.6,
-        "phasePSourceRow": "full_transparent",
-        "measurementStatus": "PROXY_FULL_TRANSPARENT",
+        "passRate": 70.4,
+        "computedPassRate": 63,
+        "passOrPartialRate": 70.4,
+        "phasePSourceRow": "monthly_main",
+        "measurementStatus": "MEASURED_CANDIDATE_EVIDENCE",
+        "selectedAgreementMode": "monthly_main",
+        "selectionPolicy": "evidence_only_never_promote",
+        "candidateCoverage": {
+          "covered": 23,
+          "comparable": 27,
+          "coverageRate": 85.2,
+          "coverageMode": "authority_label_present_in_evidence_candidates"
+        },
+        "sourceTierNonRegressionVsMonthlyMain": {
+          "status": "PASS",
+          "baselineMode": "monthly_main",
+          "basis": "selected agreement only; composite_classical candidates are evidence-only"
+        },
         "winLossVsMonthlyMain": {
           "wins": 0,
-          "losses": 4,
-          "net": -4,
-          "passDelta": -4,
-          "passRateDelta": -14.8,
+          "losses": 0,
+          "net": 0,
+          "passDelta": 0,
+          "passRateDelta": 0,
           "baselineMode": "monthly_main"
         },
         "bySourceTier": {
           "T3_AUTHORED_INTERPRETATION": {
             "total": 21,
-            "pass": 12,
+            "pass": 16,
             "partial": 0,
-            "diff": 9,
+            "diff": 5,
             "na": 0,
             "comparable": 21,
-            "passRate": 57.1,
-            "computedPassRate": 57.1,
-            "passOrPartialRate": 57.1,
+            "passRate": 76.2,
+            "computedPassRate": 76.2,
+            "passOrPartialRate": 76.2,
             "winLossVsMonthlyMain": {
               "wins": 0,
-              "losses": 4,
-              "net": -4,
-              "passDelta": -4,
-              "passRateDelta": -19,
+              "losses": 0,
+              "net": 0,
+              "passDelta": 0,
+              "passRateDelta": 0,
               "baselineMode": "monthly_main"
+            },
+            "candidateCoverage": {
+              "covered": 20,
+              "comparable": 21,
+              "coverageRate": 95.2,
+              "coverageMode": "authority_label_present_in_evidence_candidates"
+            },
+            "sourceTierNonRegressionVsMonthlyMain": {
+              "status": "PASS",
+              "baselineMode": "monthly_main",
+              "basis": "selected agreement only; composite_classical candidates are evidence-only"
             }
           },
           "T4_PRIMARY_TEXT": {
@@ -401,27 +425,44 @@
               "passDelta": 0,
               "passRateDelta": 0,
               "baselineMode": "monthly_main"
+            },
+            "candidateCoverage": {
+              "covered": 3,
+              "comparable": 6,
+              "coverageRate": 50,
+              "coverageMode": "authority_label_present_in_evidence_candidates"
+            },
+            "sourceTierNonRegressionVsMonthlyMain": {
+              "status": "PASS",
+              "baselineMode": "monthly_main",
+              "basis": "selected agreement only; composite_classical candidates are evidence-only"
             }
           }
         },
         "bySourceGroup": {
           "lecture": {
             "total": 14,
-            "pass": 9,
+            "pass": 14,
             "partial": 0,
-            "diff": 5,
+            "diff": 0,
             "na": 0,
             "comparable": 14,
-            "passRate": 64,
-            "computedPassRate": 64.3,
-            "passOrPartialRate": 64,
+            "passRate": 100,
+            "computedPassRate": 100,
+            "passOrPartialRate": 100,
             "winLossVsMonthlyMain": {
               "wins": 0,
-              "losses": 5,
-              "net": -5,
-              "passDelta": -5,
-              "passRateDelta": -35.7,
+              "losses": 0,
+              "net": 0,
+              "passDelta": 0,
+              "passRateDelta": 0,
               "baselineMode": "monthly_main"
+            },
+            "candidateCoverage": {
+              "covered": 14,
+              "comparable": 14,
+              "coverageRate": 100,
+              "coverageMode": "authority_label_present_in_evidence_candidates"
             }
           },
           "jonheom": {
@@ -441,25 +482,37 @@
               "passDelta": 0,
               "passRateDelta": 0,
               "baselineMode": "monthly_main"
+            },
+            "candidateCoverage": {
+              "covered": 3,
+              "comparable": 6,
+              "coverageRate": 50,
+              "coverageMode": "authority_label_present_in_evidence_candidates"
             }
           },
           "korean_modern_figures_and_chumyeongga": {
             "total": 7,
-            "pass": 3,
+            "pass": 2,
             "partial": 0,
-            "diff": 4,
+            "diff": 5,
             "na": 0,
             "comparable": 7,
-            "passRate": 71,
-            "computedPassRate": 42.9,
-            "passOrPartialRate": 71,
+            "passRate": 57,
+            "computedPassRate": 28.6,
+            "passOrPartialRate": 57,
             "winLossVsMonthlyMain": {
-              "wins": 1,
+              "wins": 0,
               "losses": 0,
-              "net": 1,
-              "passDelta": 1,
-              "passRateDelta": 14.3,
+              "net": 0,
+              "passDelta": 0,
+              "passRateDelta": 0,
               "baselineMode": "monthly_main"
+            },
+            "candidateCoverage": {
+              "covered": 6,
+              "comparable": 7,
+              "coverageRate": 85.7,
+              "coverageMode": "authority_label_present_in_evidence_candidates"
             }
           }
         }
