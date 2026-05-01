@@ -11,6 +11,11 @@ Each file under this directory is a JSON record extracted from a published
 Korean myeongri reference (Reference A). The `tools/quality_gate.mjs`
 D1/D2/D4 dimensions consume these files when present.
 
+Every JSON authority-style record must include `sourceTier` metadata. Records
+with `authorityTruthEligible: false`, or any `T0_*`/`T1_*` tier, may remain in
+this tree only as hypotheses or regression observations; they cannot drive
+pass/fail authority accuracy.
+
 Filenames are `<fixture-id>.json` matching an entry in
 `test/fixtures/spring_ts_baseline_cases.json`. When the fixture id has no
 authority case, the file is simply absent and `quality_gate.mjs` reports

@@ -1,0 +1,59 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://namespring.local/spring-ts/sourceTier.schema.json",
+  "title": "spring-ts Source Tier Metadata",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "tier",
+    "sourceType",
+    "sourceUrl",
+    "accessedAt",
+    "quoteShort",
+    "humanInterpretation",
+    "copyrightNote",
+    "authorityTruthEligible"
+  ],
+  "properties": {
+    "tier": {
+      "type": "string",
+      "pattern": "^T[0-5]_[A-Z0-9_]+$",
+      "description": "Evidence tier and subtype, e.g. T5_OFFICIAL or T1_HYPOTHESIS."
+    },
+    "sourceType": {
+      "type": "string",
+      "minLength": 1,
+      "description": "Stable source class such as official_api, primary_text, lecture, training_derived, or reference_implementation."
+    },
+    "sourceUrl": {
+      "type": ["string", "null"],
+      "format": "uri",
+      "description": "Canonical public URL when available. Null is allowed for local user-provided or implementation-derived artifacts."
+    },
+    "accessedAt": {
+      "type": "string",
+      "pattern": "^\\d{4}-\\d{2}-\\d{2}(T\\d{2}:\\d{2}:\\d{2}(\\.\\d{3})?Z)?$",
+      "description": "Access date or UTC timestamp."
+    },
+    "quoteShort": {
+      "type": ["string", "null"],
+      "maxLength": 240,
+      "description": "Short supporting quote only when copyright policy permits it."
+    },
+    "humanInterpretation": {
+      "type": "string",
+      "minLength": 1,
+      "description": "Human-authored summary of how the source supports this fixture or rule."
+    },
+    "copyrightNote": {
+      "type": "string",
+      "minLength": 1,
+      "description": "Usage limits and copyright handling note."
+    },
+    "authorityTruthEligible": {
+      "type": "boolean",
+      "description": "True only when this record may be used in pass/fail authority accuracy denominators."
+    }
+  }
+}
+

@@ -13,6 +13,10 @@ saju_master_project_v9_2 CLI for one fixture. The
 present, and the `tools/capture_saju_master_runs.mjs` wrapper (Phase L
 follow-up) populates them in bulk.
 
+These JSON files are `T2_REFERENCE_IMPLEMENTATION` records. They are retained
+for compatibility and divergence tracking, but `authorityTruthEligible` is
+`false`; they must not be treated as pass/fail authority truth.
+
 Filenames are `<fixture-id>.json` matching an entry in
 `test/fixtures/spring_ts_baseline_cases.json`. Absent file =
 quality_gate's reference-B-driven checks report N/A on that fixture.
