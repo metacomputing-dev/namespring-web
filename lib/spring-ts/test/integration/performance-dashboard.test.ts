@@ -190,8 +190,8 @@ check('dashboard stores no raw names, birth data, source URLs, or assignment key
   collectForbiddenKeyPaths(artifact).length === 0,
   collectForbiddenKeyPaths(artifact).slice(0, 5).join(', '));
 check('dashboard does not reference top-level namespring paths',
-  collectStringMatches(artifact, /(^|\/)namespring(\/|$)/).length === 0,
-  collectStringMatches(artifact, /(^|\/)namespring(\/|$)/).slice(0, 5).join(', '));
+  collectStringMatches(artifact, /(^|[\\/])namespring([\\/]|$)/).length === 0,
+  collectStringMatches(artifact, /(^|[\\/])namespring([\\/]|$)/).slice(0, 5).join(', '));
 
 console.log(`\nPerformance dashboard: ${pass} PASS / ${fail} FAIL`);
 process.exit(fail > 0 ? 1 : 0);
