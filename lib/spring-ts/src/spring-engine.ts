@@ -1424,8 +1424,11 @@ export class SpringEngine {
       : parsedTargetDate;
 
     // 4. Build the fortune report
+    // PR-Q-12 (Phase M-D6): fortuneCascadeMode default flips
+    // 'simple' → 'jie_based'. saju-ts 의 정확한 절기 boundary 사용 — 60 일 / 년
+    // (16%) 정확도 회복. Callers can opt out via explicit 'simple'.
     const pc = request.options?.precisionConfig;
-    const fortuneCascadeMode = pc?.fortuneCascadeMode;
+    const fortuneCascadeMode = pc?.fortuneCascadeMode ?? 'jie_based';
     return buildFortuneReport(saju, targetDate, springReport, {
       fortuneCascadeMode: fortuneCascadeMode === 'jie_based' || fortuneCascadeMode === 'full_5layer'
         ? fortuneCascadeMode
