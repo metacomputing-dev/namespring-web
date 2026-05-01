@@ -28,5 +28,15 @@
     "sources_count": 2,
     "comparable": false
   },
-  "prose_quote": "양팔통 (8 글자 모두 양). special pattern."
+  "prose_quote": "양팔통 (8 글자 모두 양). special pattern.",
+  "sourceTier": {
+    "tier": "T3_AUTHORED_INTERPRETATION",
+    "sourceType": "modern_korean_myeongri_extract",
+    "sourceUrl": null,
+    "accessedAt": "2026-05-01",
+    "quoteShort": null,
+    "humanInterpretation": "Collected modern Korean myeongri extraction with named/provenance context; usable only as reviewed interpretation evidence.",
+    "copyrightNote": "Pillars are factual; prose is paraphrased or kept as short snippets only.",
+    "authorityTruthEligible": true
+  }
 }

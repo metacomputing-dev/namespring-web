@@ -691,5 +691,15 @@
       "first_daewoon": "壬子",
       "note": "4 pillars + first daeun extracted from PDF text (PyPDF2/pypdf). Prose evaluation in PDF is 한자 깨짐 — gyeokguk/yongshin/strength expected fields cannot be reliably extracted from this PDF text. Used as a regression sample for inter-engine comparison only."
     }
-  ]
+  ],
+  "sourceTier": {
+    "tier": "T4_PRIMARY_TEXT",
+    "sourceType": "classical_primary_text_pillars_only",
+    "sourceUrl": null,
+    "accessedAt": "2026-05-01",
+    "quoteShort": null,
+    "humanInterpretation": "Primary-text pillar collection retained for inter-engine comparison; prose judgments were not reliably extracted.",
+    "copyrightNote": "Pillars are factual; no source prose evaluation is stored.",
+    "authorityTruthEligible": false
+  }
 }

@@ -46,5 +46,15 @@
     "丙火 일간 子月 절지 + 壬水 3 천간 (七殺 압도)",
     "辰 중 戊(식상) 통관 가능성 → 從殺 cleanliness 부족",
     "木(인성)운에 통관, 火(비겁)운에는 火↔水 충돌"
-  ]
+  ],
+  "sourceTier": {
+    "tier": "T1_HYPOTHESIS",
+    "sourceType": "training_derived",
+    "sourceUrl": null,
+    "accessedAt": "2026-05-01",
+    "quoteShort": null,
+    "humanInterpretation": "AI/training-derived doctrinal fixture retained for pillar consistency and regression observation only; not citation anchored.",
+    "copyrightNote": "No source prose copied; expected doctrine is not authority truth.",
+    "authorityTruthEligible": false
+  }
 }

@@ -24,5 +24,15 @@
     "gyeokguk_basis": "종재격 — 재성 (水) dominant, weak 일간 己土",
     "comparable": "partial"
   },
-  "prose_quote": "종재격 (Following-Wealth pattern)."
+  "prose_quote": "종재격 (Following-Wealth pattern).",
+  "sourceTier": {
+    "tier": "T3_AUTHORED_INTERPRETATION",
+    "sourceType": "modern_korean_myeongri_extract",
+    "sourceUrl": null,
+    "accessedAt": "2026-05-01",
+    "quoteShort": null,
+    "humanInterpretation": "Collected modern Korean myeongri extraction with named/provenance context; usable only as reviewed interpretation evidence.",
+    "copyrightNote": "Pillars are factual; prose is paraphrased or kept as short snippets only.",
+    "authorityTruthEligible": true
+  }
 }

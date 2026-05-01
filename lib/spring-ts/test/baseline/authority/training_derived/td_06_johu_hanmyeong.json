@@ -46,5 +46,15 @@
     "壬水 일간 + 子월 + 申 (수왕지) + 丑 (수고) → 水 一氣 70%",
     "天干 壬辛 모두 金水 = 인성+비겁 흐름",
     "火 0% → 적천수 '冬月生水必賴火 — 無火 則寒苦無依'"
-  ]
+  ],
+  "sourceTier": {
+    "tier": "T1_HYPOTHESIS",
+    "sourceType": "training_derived",
+    "sourceUrl": null,
+    "accessedAt": "2026-05-01",
+    "quoteShort": null,
+    "humanInterpretation": "AI/training-derived doctrinal fixture retained for pillar consistency and regression observation only; not citation anchored.",
+    "copyrightNote": "No source prose copied; expected doctrine is not authority truth.",
+    "authorityTruthEligible": false
+  }
 }

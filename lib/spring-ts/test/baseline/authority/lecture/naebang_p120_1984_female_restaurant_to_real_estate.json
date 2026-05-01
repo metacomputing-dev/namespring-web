@@ -43,5 +43,15 @@
       "section": "13차시 내방사주(來訪四柱)와 적용",
       "quote": "월지와 천간에 투출한 용신이 財이다. 지지에서는 월지의 상관 巳화가 상신(相神) 역할을 하고 있어서 다행이지만 천간에는 년간과 월간에 겁재 甲목이 양투(兩透)하여 있으므로 겁재가 병(病)이 된다."
     }
-  ]
+  ],
+  "sourceTier": {
+    "tier": "T3_AUTHORED_INTERPRETATION",
+    "sourceType": "lecture_casebook",
+    "sourceUrl": null,
+    "accessedAt": "2026-05-01",
+    "quoteShort": null,
+    "humanInterpretation": "Lecture-derived case with paraphrased expected fields and limited short quotes; usable as reviewed modern interpretation evidence.",
+    "copyrightNote": "Pillars are factual; expected fields are paraphrased; quotes must remain short.",
+    "authorityTruthEligible": true
+  }
 }

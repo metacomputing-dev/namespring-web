@@ -46,5 +46,15 @@
     "甲木 일간이 미약 (午未 火氣 강 + 戊己 4 천간)",
     "인성 水 부재 = 從格 cleanliness ↑",
     "火 식상이 재성을 생함 = 통관 (從財 with 食傷)"
-  ]
+  ],
+  "sourceTier": {
+    "tier": "T1_HYPOTHESIS",
+    "sourceType": "training_derived",
+    "sourceUrl": null,
+    "accessedAt": "2026-05-01",
+    "quoteShort": null,
+    "humanInterpretation": "AI/training-derived doctrinal fixture retained for pillar consistency and regression observation only; not citation anchored.",
+    "copyrightNote": "No source prose copied; expected doctrine is not authority truth.",
+    "authorityTruthEligible": false
+  }
 }

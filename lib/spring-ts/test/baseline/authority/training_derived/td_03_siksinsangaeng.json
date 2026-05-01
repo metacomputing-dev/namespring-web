@@ -46,5 +46,15 @@
     "丁火 일간 + 4 火 지지 + 丙火 月간 = 火氣 一氣性",
     "壬水 年干 정관이 자원 (午未) 通根 失 = 약",
     "從旺격 doctrine: '一氣全占者必貴'"
-  ]
+  ],
+  "sourceTier": {
+    "tier": "T1_HYPOTHESIS",
+    "sourceType": "training_derived",
+    "sourceUrl": null,
+    "accessedAt": "2026-05-01",
+    "quoteShort": null,
+    "humanInterpretation": "AI/training-derived doctrinal fixture retained for pillar consistency and regression observation only; not citation anchored.",
+    "copyrightNote": "No source prose copied; expected doctrine is not authority truth.",
+    "authorityTruthEligible": false
+  }
 }
