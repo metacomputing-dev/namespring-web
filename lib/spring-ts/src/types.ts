@@ -572,6 +572,31 @@ export interface GyeokgukSummary {
   readonly baseTenGod: string | null;
   readonly confidence: number;
   readonly reasoning: string;
+  readonly candidates?: readonly GyeokgukCandidateSummary[];
+}
+
+/** Source-tier metadata matching test/baseline/schema/sourceTier.schema.json. */
+export interface SourceTierMetadata {
+  readonly tier: string;
+  readonly sourceType: string;
+  readonly sourceUrl: string | null;
+  readonly accessedAt: string;
+  readonly quoteShort: string | null;
+  readonly humanInterpretation: string;
+  readonly copyrightNote: string;
+  readonly authorityTruthEligible: boolean;
+}
+
+/** Display-only candidate evidence for the selected gyeokguk. */
+export interface GyeokgukCandidateSummary {
+  readonly type: string;
+  readonly category: string;
+  readonly baseTenGod: string | null;
+  readonly score: number;
+  readonly confidence: number;
+  readonly supportingRules: readonly string[];
+  readonly blockingRules: readonly string[];
+  readonly sourceTier: SourceTierMetadata;
 }
 
 /** A relationship between two heavenly stems (cheongan). */
