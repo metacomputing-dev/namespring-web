@@ -1,0 +1,66 @@
+[
+  {
+    "id": "choi_sungsu_hanja",
+    "fullHangul": "최성수",
+    "fullHanja": "崔成秀",
+    "scores": {
+      "final": 56.2,
+      "naming": 62.6,
+      "saju": 35.495945
+    },
+    "scoreVector": {
+      "legal": 75,
+      "sajuFit": 35.5,
+      "yongshinFit": 25.6,
+      "elementBalance": 60.5,
+      "hanjaMeaning": 100,
+      "phonetic": 98.2,
+      "eraFit": null,
+      "familyFit": 100,
+      "risk": 25
+    },
+    "namingScoreVector": {
+      "legal": 75,
+      "sajuFit": null,
+      "yongshinFit": null,
+      "elementBalance": 65,
+      "hanjaMeaning": 100,
+      "phonetic": 98.2,
+      "eraFit": null,
+      "familyFit": 100,
+      "risk": 25
+    }
+  },
+  {
+    "id": "park_minjun_pure_hangul",
+    "fullHangul": "박민준",
+    "fullHanja": "",
+    "scores": {
+      "final": 65.5,
+      "naming": 75,
+      "saju": 56.354052
+    },
+    "scoreVector": {
+      "legal": 100,
+      "sajuFit": 56.4,
+      "yongshinFit": 50.6,
+      "elementBalance": 66.8,
+      "hanjaMeaning": null,
+      "phonetic": 87.4,
+      "eraFit": 35,
+      "familyFit": 82,
+      "risk": 75
+    },
+    "namingScoreVector": {
+      "legal": 100,
+      "sajuFit": null,
+      "yongshinFit": null,
+      "elementBalance": 75,
+      "hanjaMeaning": null,
+      "phonetic": 87.4,
+      "eraFit": 35,
+      "familyFit": 82,
+      "risk": 75
+    }
+  }
+]
