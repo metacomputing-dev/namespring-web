@@ -311,10 +311,10 @@ const transitiveOptionalDependencyRoot = createRoot((root) => {
           '@anthropic-ai/sdk': '^1.0.0',
         },
       },
-      'node_modules/openai': {
+      'node_modules/normal-runtime/node_modules/openai': {
         version: '5.0.0',
       },
-      'node_modules/@anthropic-ai/sdk': {
+      'node_modules/normal-runtime/node_modules/@anthropic-ai/sdk': {
         version: '1.0.0',
       },
     },
@@ -325,9 +325,10 @@ check('transitive optional and peer LLM dependencies are blocked in package-lock
   transitiveOptionalDependency.code === 1 &&
     transitiveOptionalDependency.json.status === 'FAIL' &&
     (transitiveOptionalDependency.json.violations ?? []).some((violation: any) =>
-      violation.packageName === 'openai' && violation.path === 'node_modules/openai') &&
+      violation.packageName === 'openai' && violation.path === 'node_modules/normal-runtime/node_modules/openai') &&
     (transitiveOptionalDependency.json.violations ?? []).some((violation: any) =>
-      violation.packageName === '@anthropic-ai/sdk' && violation.path === 'node_modules/@anthropic-ai/sdk'),
+      violation.packageName === '@anthropic-ai/sdk' &&
+        violation.path === 'node_modules/normal-runtime/node_modules/@anthropic-ai/sdk'),
   JSON.stringify(transitiveOptionalDependency.json.violations));
 
 const devDependencyRoot = createRoot((root) => {
