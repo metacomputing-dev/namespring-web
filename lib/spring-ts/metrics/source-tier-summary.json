@@ -1,9 +1,9 @@
 {
   "schemaVersion": "spring-ts.source-tier-summary.v1",
   "status": "PASS",
-  "scanned": 51,
+  "scanned": 52,
   "violationCount": 0,
-  "authorityTruthEligibleCount": 31,
+  "authorityTruthEligibleCount": 32,
   "nonEligibleCount": 20,
   "byTier": {
     "T3_AUTHORED_INTERPRETATION": {
@@ -84,6 +84,14 @@
         "test/baseline/oracles/fix-11.json",
         "test/baseline/oracles/fix-12.json"
       ]
+    },
+    "T5_OFFICIAL": {
+      "recordCount": 1,
+      "authorityTruthEligible": 1,
+      "nonEligible": 0,
+      "files": [
+        "data/sources/legal-hanja.sources.json"
+      ]
     }
   },
   "bySourceType": {
@@ -116,6 +124,11 @@
       "recordCount": 12,
       "authorityTruthEligible": 0,
       "nonEligible": 12
+    },
+    "official_law_registry": {
+      "recordCount": 1,
+      "authorityTruthEligible": 1,
+      "nonEligible": 0
     }
   }
 }
