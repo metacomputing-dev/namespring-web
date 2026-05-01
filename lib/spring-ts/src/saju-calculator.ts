@@ -728,6 +728,13 @@ export interface SajuEvaluatorHints {
   readonly unknownTimeSajuDamp?: number;
   /** Set by spring-engine when the request's birth.hour is null/undefined. */
   readonly isHourUnknown?: boolean;
+  /** Evaluator priority extraction mode (PR-Q-7).
+   *  - 'single' (default): existing balance + yongshin × confidence path.
+   *  - 'multi_axis': replaces signal-strength priority with the
+   *    `axisStrength` (PR9) weighted blend when ≥2 axes are present.
+   *    Falls back to single-mode priority when axisStrength is unset
+   *    or carries < 2 axes (information-poor → no degradation). */
+  readonly evaluatorMode?: 'single' | 'multi_axis';
 }
 
 export class SajuCalculator implements EvaluableCalculator {

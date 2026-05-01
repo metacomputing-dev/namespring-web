@@ -217,6 +217,12 @@ export class SpringEngine {
         hints.unknownTimeSajuDamp = pc.unknownTimeSajuDamp;
       }
     }
+    // PR-Q-7: forward evaluatorMode opt-in to extractSajuPriority Step 3.5.
+    // Default 'single' is the legacy linear path; 'multi_axis' uses the
+    // axisStrength weighted blend when ≥2 axes are present.
+    if (pc.evaluatorMode === 'multi_axis') {
+      hints.evaluatorMode = 'multi_axis';
+    }
     return Object.keys(hints).length > 0 ? hints as SajuEvaluatorHints : undefined;
   }
 
