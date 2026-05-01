@@ -80,6 +80,32 @@ check('rule modes expose source-tier win/loss vs monthly_main',
     typeof bucket?.winLossVsMonthlyMain?.wins === 'number' &&
     typeof bucket?.winLossVsMonthlyMain?.losses === 'number'),
   JSON.stringify(modes.jungki_transparent?.bySourceTier));
+check('composite_classical is measured as evidence-only candidate mode',
+  modes.composite_classical?.measurementStatus === 'MEASURED_CANDIDATE_EVIDENCE' &&
+    modes.composite_classical?.phasePSourceRow === 'monthly_main' &&
+    modes.composite_classical?.selectionPolicy === 'evidence_only_never_promote',
+  JSON.stringify({
+    status: modes.composite_classical?.measurementStatus,
+    sourceRow: modes.composite_classical?.phasePSourceRow,
+    policy: modes.composite_classical?.selectionPolicy,
+  }));
+check('composite_classical selected agreement is not worse than monthly_main',
+  modes.composite_classical?.winLossVsMonthlyMain?.net === 0 &&
+    modes.composite_classical?.sourceTierNonRegressionVsMonthlyMain?.status === 'PASS',
+  JSON.stringify(modes.composite_classical?.winLossVsMonthlyMain));
+check('composite_classical source-tier non-regression passes',
+  Object.values(modes.composite_classical?.bySourceTier ?? {}).every((bucket: any) =>
+    bucket?.winLossVsMonthlyMain?.net === 0 &&
+    bucket?.sourceTierNonRegressionVsMonthlyMain?.status === 'PASS'),
+  JSON.stringify(modes.composite_classical?.bySourceTier));
+check('composite_classical authority candidate coverage is tracked',
+  modes.composite_classical?.candidateCoverage?.covered === 23 &&
+    modes.composite_classical?.candidateCoverage?.comparable === 27,
+  JSON.stringify(modes.composite_classical?.candidateCoverage));
+check('composite_classical improves classical candidate coverage over selected agreement',
+  modes.composite_classical?.bySourceGroup?.jonheom?.candidateCoverage?.covered === 3 &&
+    modes.composite_classical?.bySourceGroup?.jonheom?.pass === 1,
+  JSON.stringify(modes.composite_classical?.bySourceGroup?.jonheom));
 
 const presets = bySourceTier.schoolPresetBreakdown?.presets ?? {};
 check('korean schoolPreset breakdown is present', presets.korean?.fixtureCount === 15);

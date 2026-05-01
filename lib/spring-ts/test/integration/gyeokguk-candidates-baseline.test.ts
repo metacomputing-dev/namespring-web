@@ -27,6 +27,14 @@ interface CandidateSnapshotRow {
   readonly baseTenGod: string | null;
   readonly score: number;
   readonly confidence: number;
+  readonly compositeClassical: {
+    readonly score: number;
+    readonly confidence: number;
+    readonly status: string;
+    readonly breakerPenalty: number;
+    readonly selectedByComposite: boolean;
+    readonly topFeatures: readonly string[];
+  } | null;
   readonly sourceTier: string;
   readonly sourceType: string;
   readonly reasonCodes: readonly string[];
@@ -44,7 +52,7 @@ interface GyeokgukSnapshotRow {
 }
 
 interface GyeokgukSnapshotFile {
-  readonly schemaVersion: 'spring-ts.gyeokguk-candidate-snapshot.v1';
+  readonly schemaVersion: 'spring-ts.gyeokguk-candidate-snapshot.v2';
   readonly sourceFixture: 'test/fixtures/spring_ts_baseline_cases.json';
   readonly fixtureCount: number;
   readonly results: readonly GyeokgukSnapshotRow[];
@@ -79,12 +87,27 @@ function round(value: number): number {
 }
 
 function asCandidateRow(candidate: GyeokgukCandidateSummary): CandidateSnapshotRow {
+  const composite = candidate.compositeClassical ?? null;
   return {
     type: candidate.type,
     category: candidate.category,
     baseTenGod: candidate.baseTenGod,
     score: round(candidate.score),
     confidence: round(candidate.confidence),
+    compositeClassical: composite
+      ? {
+          score: round(composite.score),
+          confidence: round(composite.confidence),
+          status: composite.status,
+          breakerPenalty: round(composite.breakerPenalty),
+          selectedByComposite: composite.selectedByComposite,
+          topFeatures: composite.features
+            .slice()
+            .sort((a, b) => b.contribution - a.contribution)
+            .slice(0, 3)
+            .map((feature) => feature.name),
+        }
+      : null,
     sourceTier: candidate.sourceTier.tier,
     sourceType: candidate.sourceTier.sourceType,
     reasonCodes: [
@@ -130,6 +153,13 @@ for (const fixture of fixtures) {
     candidates.every((candidate) =>
       candidate.sourceTier.tier === 'T2_REFERENCE_IMPLEMENTATION' &&
       candidate.sourceTier.authorityTruthEligible === false));
+  check(`${fixture.id}: candidates carry composite_classical evidence`,
+    candidates.every((candidate) =>
+      candidate.compositeClassical?.model === 'composite_classical' &&
+      candidate.compositeClassical.selectionPolicy === 'evidence_only_never_promote' &&
+      candidate.compositeClassical.features.length === 9));
+  check(`${fixture.id}: composite evidence never promotes selected`,
+    candidates.every((candidate) => candidate.compositeClassical?.selectedByComposite === false));
 
   const sortedAlternatives = candidates.slice(1).every((candidate, index, alternatives) => {
     if (index === 0) return true;
@@ -152,7 +182,7 @@ for (const fixture of fixtures) {
 }
 
 const snapshot: GyeokgukSnapshotFile = {
-  schemaVersion: 'spring-ts.gyeokguk-candidate-snapshot.v1',
+  schemaVersion: 'spring-ts.gyeokguk-candidate-snapshot.v2',
   sourceFixture: 'test/fixtures/spring_ts_baseline_cases.json',
   fixtureCount: fixtures.length,
   results,
