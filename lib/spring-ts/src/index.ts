@@ -8,7 +8,14 @@ export { springEvaluateName, SAJU_FRAME } from './spring-evaluator.js';
 //  2. SAJU ADAPTER & CALCULATOR
 // ─────────────────────────────────────────────────────────────────────────────
 export { analyzeSaju, analyzeSajuSafe, buildSajuContext, emptySaju, collectElements, elementFromSajuCode } from './saju-adapter.js';
-export { SajuCalculator, computeSajuNameScore, type SajuNameScoreResult } from './saju-calculator.js';
+export {
+  SajuCalculator,
+  computeSajuNameScore,
+  computeTenGodScoreDiagnostics,
+  type SajuNameScoreResult,
+  type TenGodPositionContribution,
+  type TenGodScoreDiagnostics,
+} from './saju-calculator.js';
 
 // ─────────────────────────────────────────────────────────────────────────────
 //  3. SPRING TYPES
