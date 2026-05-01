@@ -110,7 +110,7 @@ export interface PrecisionConfig {
    *  - 'simple_count' (default): 1-per-pillar group counts.
    *  - 'positional_weighted': pillar weights from the saju-ts byPosition
    *    table (year/month/day/hour distinct, hidden stem ratios applied). */
-  readonly tenGodMode?: 'simple_count' | 'positional_weighted';
+  readonly tenGodMode?: 'simple_count' | 'positional_weighted' | 'positional_weighted_v2';
 
   /** Gyeokguk-driven penalty curve.
    *  - 'jonggyeok_only' (default): single JONGGYEOK category, hard cliff
@@ -911,7 +911,7 @@ export interface SajuOutputSummary {
     groupCounts: Record<string, number>;
     /** Per-pillar ten-god detail (year/month/day/hour). Optional — populated
      *  by the adapter when the upstream saju engine surfaces tenGodAnalysis.
-     *  Used by precisionConfig.tenGodMode='positional_weighted' to apply
+     *  Used by positional ten-god modes to apply
      *  position-specific weights (천간 4.0, 지지 정기 1.8, 지장간 1.2/0.7/0.45). */
     byPosition?: Record<SajuPillarPosition, SajuTenGodPositionGroup>;
   };

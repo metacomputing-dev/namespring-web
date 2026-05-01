@@ -426,7 +426,7 @@ export class SpringEngine {
       readonly balanceMode?: 'mathematical' | 'yongshin_first' | 'classical_jonggyeok_aware';
       readonly yongshinMode?: 'classical_blend' | 'chengbai_strict' | 'consensus_aware';
       readonly strengthMode?: 'binary' | 'continuous';
-      readonly tenGodMode?: 'simple_count' | 'positional_weighted';
+      readonly tenGodMode?: 'simple_count' | 'positional_weighted' | 'positional_weighted_v2';
       readonly gyeokgukMode?: 'jonggyeok_only' | 'multi_special' | 'chengbai_strict';
     };
   } {
@@ -769,6 +769,8 @@ export class SpringEngine {
         {
           elementSource: resolutionPolicy.pureHangulGivenName ? 'hangul' : 'resource',
           enabled: hasSajuContext,
+          ...this.resolveSajuPreset(request.options),
+          evaluatorHints: this.resolveEvaluatorHints(request.birth, request.options),
         },
       );
 

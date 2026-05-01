@@ -151,7 +151,7 @@ NameSpring 이 `request.options.precisionConfig` 를 통해 활성화 가능한
 | `gyeokgukMode` | `'jonggyeok_only' \| 'chengbai_strict' \| 'multi_special'` | 격국 분류 doctrine (default 'chengbai_strict') |
 | `yongshinMode` | `'classical_blend' \| 'chengbai_strict'` | 용신 분류 doctrine (default 'chengbai_strict') |
 | `strengthMode` | `'binary' \| 'continuous'` | 신강도 평가 모델 (default 'continuous') |
-| `tenGodMode` | `'simple_count' \| 'positional_weighted'` | 십성 가중 (default 'positional_weighted', 효과 측정 X) |
+| `tenGodMode` | `'simple_count' \| 'positional_weighted' \| 'positional_weighted_v2'` | 십성 가중 (default 'positional_weighted', v2 opt-in) |
 | `fortuneCascadeMode` | `'simple' \| 'jie_based' \| 'full_5layer'` | 월운 boundary 정확도 (default 'jie_based') |
 | `hanjaPool` | `'curated' \| 'inmyeongyong_full'` | 추천 pool 크기 (default 'curated') |
 | `sajuSchoolId` | `string` | saju-ts school preset (PR-H-S5 opt-in) |
