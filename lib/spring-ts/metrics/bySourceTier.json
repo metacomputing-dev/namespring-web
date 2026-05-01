@@ -1,0 +1,399 @@
+{
+  "schemaVersion": "spring-ts.by-source-tier.v1",
+  "baseline": {
+    "fixtureCount": 15,
+    "snapshotVersion": "1.0.0",
+    "snapshotTargetDate": "2026-04-30T00:00:00.000Z",
+    "snapshotFixtureCount": 15
+  },
+  "qualityGateByReferenceTier": {
+    "T2_REFERENCE_IMPLEMENTATION": {
+      "fixtureCount": 12,
+      "fixtureStatus": {
+        "PASS": 12,
+        "FAIL": 0,
+        "N/A": 0
+      },
+      "dimensionStatus": {
+        "D1": {
+          "PASS": 0,
+          "FAIL": 0,
+          "N/A": 12
+        },
+        "D2": {
+          "PASS": 0,
+          "FAIL": 0,
+          "N/A": 12
+        },
+        "D3": {
+          "PASS": 12,
+          "FAIL": 0,
+          "N/A": 0
+        },
+        "D4": {
+          "PASS": 0,
+          "FAIL": 0,
+          "N/A": 12
+        },
+        "D5": {
+          "PASS": 5,
+          "FAIL": 0,
+          "N/A": 7
+        }
+      },
+      "truthBuckets": {
+        "insufficient_source_truth": 12,
+        "authority_match": 0,
+        "engine_rule_failure": 0
+      },
+      "references": {
+        "oracle": 12
+      }
+    },
+    "NO_REFERENCE": {
+      "fixtureCount": 3,
+      "fixtureStatus": {
+        "PASS": 3,
+        "FAIL": 0,
+        "N/A": 0
+      },
+      "dimensionStatus": {
+        "D1": {
+          "PASS": 0,
+          "FAIL": 0,
+          "N/A": 3
+        },
+        "D2": {
+          "PASS": 0,
+          "FAIL": 0,
+          "N/A": 3
+        },
+        "D3": {
+          "PASS": 0,
+          "FAIL": 0,
+          "N/A": 3
+        },
+        "D4": {
+          "PASS": 0,
+          "FAIL": 0,
+          "N/A": 3
+        },
+        "D5": {
+          "PASS": 3,
+          "FAIL": 0,
+          "N/A": 0
+        }
+      },
+      "truthBuckets": {
+        "insufficient_source_truth": 3,
+        "authority_match": 0,
+        "engine_rule_failure": 0
+      },
+      "references": {
+        "none": 3
+      }
+    }
+  },
+  "truthSeparation": {
+    "insufficientSourceTruthCount": 15,
+    "authorityMatchCount": 0,
+    "engineRuleFailureCount": 0
+  },
+  "ruleModeBreakdown": {
+    "metric": "authority gyeokguk agreement by deterministic rule-mode candidate",
+    "note": "monthly_main and jungki_transparent mirror Phase P measurement. composite_classical is a dashboard proxy using the existing full_transparent measurement until a true composite engine exists. passRate preserves the Phase P stated rate; computedPassRate is the literal numerator/denominator check.",
+    "source": "test/baseline/PHASE_P_RESULTS.md",
+    "modes": {
+      "monthly_main": {
+        "total": 27,
+        "pass": 17,
+        "partial": 0,
+        "diff": 10,
+        "na": 0,
+        "comparable": 27,
+        "passRate": 70.4,
+        "computedPassRate": 63,
+        "passOrPartialRate": 70.4,
+        "phasePSourceRow": "monthly_main",
+        "measurementStatus": "MEASURED",
+        "bySourceTier": {
+          "T3_AUTHORED_INTERPRETATION": {
+            "total": 21,
+            "pass": 16,
+            "partial": 0,
+            "diff": 5,
+            "na": 0,
+            "comparable": 21,
+            "passRate": 76.2,
+            "computedPassRate": 76.2,
+            "passOrPartialRate": 76.2
+          },
+          "T4_PRIMARY_TEXT": {
+            "total": 6,
+            "pass": 1,
+            "partial": 0,
+            "diff": 5,
+            "na": 0,
+            "comparable": 6,
+            "passRate": 16.7,
+            "computedPassRate": 16.7,
+            "passOrPartialRate": 16.7
+          }
+        },
+        "bySourceGroup": {
+          "lecture": {
+            "total": 14,
+            "pass": 14,
+            "partial": 0,
+            "diff": 0,
+            "na": 0,
+            "comparable": 14,
+            "passRate": 100,
+            "computedPassRate": 100,
+            "passOrPartialRate": 100
+          },
+          "jonheom": {
+            "total": 6,
+            "pass": 1,
+            "partial": 0,
+            "diff": 5,
+            "na": 0,
+            "comparable": 6,
+            "passRate": 17,
+            "computedPassRate": 16.7,
+            "passOrPartialRate": 17
+          },
+          "korean_modern_figures_and_chumyeongga": {
+            "total": 7,
+            "pass": 2,
+            "partial": 0,
+            "diff": 5,
+            "na": 0,
+            "comparable": 7,
+            "passRate": 57,
+            "computedPassRate": 28.6,
+            "passOrPartialRate": 57
+          }
+        }
+      },
+      "jungki_transparent": {
+        "total": 27,
+        "pass": 14,
+        "partial": 0,
+        "diff": 13,
+        "na": 0,
+        "comparable": 27,
+        "passRate": 59.3,
+        "computedPassRate": 51.9,
+        "passOrPartialRate": 59.3,
+        "phasePSourceRow": "jungki_transparent",
+        "measurementStatus": "MEASURED",
+        "bySourceTier": {
+          "T3_AUTHORED_INTERPRETATION": {
+            "total": 21,
+            "pass": 13,
+            "partial": 0,
+            "diff": 8,
+            "na": 0,
+            "comparable": 21,
+            "passRate": 61.9,
+            "computedPassRate": 61.9,
+            "passOrPartialRate": 61.9
+          },
+          "T4_PRIMARY_TEXT": {
+            "total": 6,
+            "pass": 1,
+            "partial": 0,
+            "diff": 5,
+            "na": 0,
+            "comparable": 6,
+            "passRate": 16.7,
+            "computedPassRate": 16.7,
+            "passOrPartialRate": 16.7
+          }
+        },
+        "bySourceGroup": {
+          "lecture": {
+            "total": 14,
+            "pass": 10,
+            "partial": 0,
+            "diff": 4,
+            "na": 0,
+            "comparable": 14,
+            "passRate": 71,
+            "computedPassRate": 71.4,
+            "passOrPartialRate": 71
+          },
+          "jonheom": {
+            "total": 6,
+            "pass": 1,
+            "partial": 0,
+            "diff": 5,
+            "na": 0,
+            "comparable": 6,
+            "passRate": 17,
+            "computedPassRate": 16.7,
+            "passOrPartialRate": 17
+          },
+          "korean_modern_figures_and_chumyeongga": {
+            "total": 7,
+            "pass": 3,
+            "partial": 0,
+            "diff": 4,
+            "na": 0,
+            "comparable": 7,
+            "passRate": 71,
+            "computedPassRate": 42.9,
+            "passOrPartialRate": 71
+          }
+        }
+      },
+      "composite_classical": {
+        "total": 27,
+        "pass": 13,
+        "partial": 0,
+        "diff": 14,
+        "na": 0,
+        "comparable": 27,
+        "passRate": 55.6,
+        "computedPassRate": 48.1,
+        "passOrPartialRate": 55.6,
+        "phasePSourceRow": "full_transparent",
+        "measurementStatus": "PROXY_FULL_TRANSPARENT",
+        "bySourceTier": {
+          "T3_AUTHORED_INTERPRETATION": {
+            "total": 21,
+            "pass": 12,
+            "partial": 0,
+            "diff": 9,
+            "na": 0,
+            "comparable": 21,
+            "passRate": 57.1,
+            "computedPassRate": 57.1,
+            "passOrPartialRate": 57.1
+          },
+          "T4_PRIMARY_TEXT": {
+            "total": 6,
+            "pass": 1,
+            "partial": 0,
+            "diff": 5,
+            "na": 0,
+            "comparable": 6,
+            "passRate": 16.7,
+            "computedPassRate": 16.7,
+            "passOrPartialRate": 16.7
+          }
+        },
+        "bySourceGroup": {
+          "lecture": {
+            "total": 14,
+            "pass": 9,
+            "partial": 0,
+            "diff": 5,
+            "na": 0,
+            "comparable": 14,
+            "passRate": 64,
+            "computedPassRate": 64.3,
+            "passOrPartialRate": 64
+          },
+          "jonheom": {
+            "total": 6,
+            "pass": 1,
+            "partial": 0,
+            "diff": 5,
+            "na": 0,
+            "comparable": 6,
+            "passRate": 17,
+            "computedPassRate": 16.7,
+            "passOrPartialRate": 17
+          },
+          "korean_modern_figures_and_chumyeongga": {
+            "total": 7,
+            "pass": 3,
+            "partial": 0,
+            "diff": 4,
+            "na": 0,
+            "comparable": 7,
+            "passRate": 71,
+            "computedPassRate": 42.9,
+            "passOrPartialRate": 71
+          }
+        }
+      }
+    }
+  },
+  "schoolPresetBreakdown": {
+    "metric": "runtime score delta against default mode; this is not authority accuracy",
+    "presets": {
+      "korean": {
+        "fixtureCount": 15,
+        "changedFromDefault": 0,
+        "unchangedFromDefault": 15,
+        "averageTotalDelta": 0,
+        "averageSajuDelta": 0,
+        "minTotalDelta": 0,
+        "maxTotalDelta": 0,
+        "minSajuDelta": 0,
+        "maxSajuDelta": 0,
+        "byReferenceTier": {
+          "T2_REFERENCE_IMPLEMENTATION": {
+            "fixtureCount": 12,
+            "changedFromDefault": 0,
+            "unchangedFromDefault": 12
+          },
+          "NO_REFERENCE": {
+            "fixtureCount": 3,
+            "changedFromDefault": 0,
+            "unchangedFromDefault": 3
+          }
+        }
+      },
+      "chinese": {
+        "fixtureCount": 15,
+        "changedFromDefault": 15,
+        "unchangedFromDefault": 0,
+        "averageTotalDelta": -0.7067,
+        "averageSajuDelta": -2.5933,
+        "minTotalDelta": -7.2,
+        "maxTotalDelta": 2.8,
+        "minSajuDelta": -26.9,
+        "maxSajuDelta": 13.7,
+        "byReferenceTier": {
+          "T2_REFERENCE_IMPLEMENTATION": {
+            "fixtureCount": 12,
+            "changedFromDefault": 12,
+            "unchangedFromDefault": 0
+          },
+          "NO_REFERENCE": {
+            "fixtureCount": 3,
+            "changedFromDefault": 3,
+            "unchangedFromDefault": 0
+          }
+        }
+      },
+      "modern": {
+        "fixtureCount": 15,
+        "changedFromDefault": 14,
+        "unchangedFromDefault": 1,
+        "averageTotalDelta": -0.1133,
+        "averageSajuDelta": -0.4467,
+        "minTotalDelta": -0.3,
+        "maxTotalDelta": 0.1,
+        "minSajuDelta": -1,
+        "maxSajuDelta": 0.3,
+        "byReferenceTier": {
+          "T2_REFERENCE_IMPLEMENTATION": {
+            "fixtureCount": 12,
+            "changedFromDefault": 11,
+            "unchangedFromDefault": 1
+          },
+          "NO_REFERENCE": {
+            "fixtureCount": 3,
+            "changedFromDefault": 3,
+            "unchangedFromDefault": 0
+          }
+        }
+      }
+    }
+  }
+}

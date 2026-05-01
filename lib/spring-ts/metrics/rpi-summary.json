@@ -1,0 +1,111 @@
+{
+  "schemaVersion": "spring-ts.rpi-summary.v1",
+  "note": "Unmeasured or truth-insufficient axes score 0 in rawRpi and are also reported separately to avoid mixing missing truth with engine failure.",
+  "rawRpi": {
+    "score": 35,
+    "maxPoints": 100
+  },
+  "measuredOnlyRpi": {
+    "score": 35,
+    "maxPoints": 35,
+    "percent": 100
+  },
+  "axisScores": {
+    "A_calculationAccuracy": {
+      "maxPoints": 15,
+      "score": 15,
+      "status": "PASS",
+      "pass": 8,
+      "fail": 0,
+      "na": 7
+    },
+    "B_legalHanjaData": {
+      "maxPoints": 15,
+      "score": 0,
+      "status": "NOT_MEASURED",
+      "reason": "Legal hanja reconciliation is scheduled for Phase 2."
+    },
+    "C_gyeokgukYongshinRuleQuality": {
+      "maxPoints": 25,
+      "score": 0,
+      "status": "INSUFFICIENT_TRUTH",
+      "reason": "Current baseline fixtures have no T3+ authority-truth D1 denominator.",
+      "insufficientTruthCount": 15,
+      "engineRuleFailureCount": 0
+    },
+    "D_tenGodPositionWeighting": {
+      "maxPoints": 10,
+      "score": 0,
+      "status": "NOT_MEASURED",
+      "reason": "Ten-god positional divergence metric is scheduled for Phase 5."
+    },
+    "E_namingIntegratedScore": {
+      "maxPoints": 15,
+      "score": 0,
+      "status": "NOT_MEASURED",
+      "reason": "Naming score vector and Pareto metrics are scheduled for Phase 6."
+    },
+    "F_explainabilityUxSurface": {
+      "maxPoints": 10,
+      "score": 10,
+      "status": "PASS",
+      "pass": 12,
+      "fail": 0,
+      "na": 3
+    },
+    "G_validationGovernance": {
+      "maxPoints": 10,
+      "score": 10,
+      "status": "PASS",
+      "sourceTierScanned": 51,
+      "sourceTierViolations": 0
+    }
+  },
+  "qualityGate": {
+    "overall": "PASS",
+    "totals": {
+      "pass": 15,
+      "fail": 0,
+      "na": 0,
+      "total": 15
+    },
+    "dimensions": {
+      "D1": {
+        "pass": 0,
+        "fail": 0,
+        "na": 15,
+        "status": "N/A"
+      },
+      "D2": {
+        "pass": 0,
+        "fail": 0,
+        "na": 15,
+        "status": "N/A"
+      },
+      "D3": {
+        "pass": 12,
+        "fail": 0,
+        "na": 3,
+        "status": "PASS"
+      },
+      "D4": {
+        "pass": 0,
+        "fail": 0,
+        "na": 15,
+        "status": "N/A"
+      },
+      "D5": {
+        "pass": 8,
+        "fail": 0,
+        "na": 7,
+        "status": "PASS"
+      }
+    },
+    "exitCode": 0
+  },
+  "truthSeparation": {
+    "insufficientSourceTruthCount": 15,
+    "authorityMatchCount": 0,
+    "engineRuleFailureCount": 0
+  }
+}
