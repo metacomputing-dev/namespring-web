@@ -2055,7 +2055,10 @@ export async function analyzeSajuSafe(
 //  Public: build a condensed saju context for the name-scoring pipeline
 // ---------------------------------------------------------------------------
 
-export function buildSajuContext(sajuSummary: SajuSummary): { dist: Record<ElementKey, number>; output: SajuOutputSummary | null } {
+export function buildSajuContext(
+  sajuSummary: SajuSummary,
+  options: { readonly includeTenGodByPosition?: boolean } = {},
+): { dist: Record<ElementKey, number>; output: SajuOutputSummary | null } {
   const dist = emptyDistribution();
   for (const [code, count] of Object.entries(sajuSummary.elementDistribution)) {
     const key = elementFromSajuCode(code);
@@ -2093,11 +2096,20 @@ export function buildSajuContext(sajuSummary: SajuSummary): { dist: Record<Eleme
     }
 
     // Second pass — surface the per-pillar detail (year/month/day/hour) for
-    // precisionConfig.tenGodMode='positional_weighted'. Pillars outside the
+    // precisionConfig.tenGodMode='positional_weighted_v2'. Pillars outside the
     // four canonical positions are intentionally skipped here; they still
     // contribute to groupCounts above.
-    for (const rawPos of ['year', 'month', 'day', 'hour'] as const) {
-      const positionInfo = sajuSummary.tenGodAnalysis.byPosition[rawPos];
+    const canonicalPositions: ReadonlyArray<{ readonly out: SajuPillarPosition; readonly aliases: readonly string[] }> = [
+      { out: 'year', aliases: ['year', 'YEAR'] },
+      { out: 'month', aliases: ['month', 'MONTH'] },
+      { out: 'day', aliases: ['day', 'DAY'] },
+      { out: 'hour', aliases: ['hour', 'HOUR'] },
+    ];
+    for (const { out, aliases } of canonicalPositions) {
+      const allowedAliases = options.includeTenGodByPosition ? aliases : [out];
+      const positionInfo = allowedAliases
+        .map((alias) => sajuSummary.tenGodAnalysis?.byPosition[alias])
+        .find(Boolean);
       if (!positionInfo) continue;
 
       const cheonganGroup        = TEN_GOD_GROUP[normalizeTenGodCode(positionInfo.cheonganTenGod)];
@@ -2114,7 +2126,7 @@ export function buildSajuContext(sajuSummary: SajuSummary): { dist: Record<Eleme
         group: TEN_GOD_GROUP[normalizeTenGodCode(hiddenStemTenGodMap.get(hs.stem) ?? '')],
       }));
 
-      byPosition[rawPos] = {
+      byPosition[out] = {
         cheonganGroup,
         jijiPrincipalGroup,
         hiddenStems: hiddenStems.length > 0 ? hiddenStems : undefined,

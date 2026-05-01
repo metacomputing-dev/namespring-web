@@ -55,6 +55,8 @@ export type {
   TenGodSummary,
   // Compatibility & adapter
   SajuCompatibility,
+  TenGodPositionEvidence,
+  TenGodPositionEvidenceContribution,
   SajuOutputSummary,
   SajuYongshinSummary,
 } from './types.js';

@@ -65,6 +65,19 @@ function nameAnalysisDetail(score: number): string {
   return `이름 분석 점수는 ${Math.round(score)}점이에요. 이름의 획수나 오행 구성에 보완 여지가 있어요.`;
 }
 
+function tenGodContributionLabel(row: NonNullable<SpringReport['sajuCompatibility']['tenGodPositionEvidence']>['topContributions'][number]): string {
+  const impact = row.visibility ?? row.weight;
+  const details = [
+    `${row.position}/${row.source}/${row.group}`,
+    `impact ${impact.toFixed(2)}`,
+  ];
+  if (row.stem) details.push(`stem ${row.stem}`);
+  if (row.ratio != null) details.push(`ratio ${Math.round(row.ratio)}`);
+  if (row.rank != null) details.push(`rank ${row.rank}`);
+  if (row.presence != null) details.push(`presence ${row.presence.toFixed(2)}`);
+  return details.join(' ');
+}
+
 // ---------------------------------------------------------------------------
 //  Builder
 // ---------------------------------------------------------------------------
@@ -79,6 +92,7 @@ export function buildNameCompatibilityCard(
   const nameAnalysisScore = springReport.namingReport.totalScore;
   const nameTrend = springReport.nameTrend ?? springReport.namingReport.nameTrend;
   const phonetic = springReport.phonetic ?? springReport.namingReport.phonetic;
+  const tenGodPositionEvidence = springReport.sajuCompatibility.tenGodPositionEvidence;
   const overallStars = scoreToStars(overallScore);
 
   // ── Summary ──
@@ -186,6 +200,17 @@ export function buildNameCompatibilityCard(
       weakness: 'Phonetic evidence is display-only and is not part of the headline star calculation.',
     });
   }
+  if (tenGodPositionEvidence && tenGodPositionEvidence.topContributions.length > 0) {
+    evidence.push({
+      axis: 'tenGodPosition',
+      claim: `Ten-god score ${Math.round(tenGodPositionEvidence.score)} uses ${tenGodPositionEvidence.effectiveMode} position evidence.`,
+      supportingFeatures: [
+        `normalization: ${tenGodPositionEvidence.normalization}`,
+        ...tenGodPositionEvidence.topContributions.map(tenGodContributionLabel),
+      ],
+      weakness: tenGodPositionEvidence.fallbackReason,
+    });
+  }
 
   return {
     title: '이름 적합도 평가',
@@ -195,6 +220,7 @@ export function buildNameCompatibilityCard(
     nameAnalysisScore,
     ...(nameTrend ? { nameTrend } : {}),
     ...(phonetic ? { phonetic } : {}),
+    ...(tenGodPositionEvidence ? { tenGodPositionEvidence } : {}),
     summary,
     details,
     evidence,
