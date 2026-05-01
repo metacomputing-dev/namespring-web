@@ -1,6 +1,6 @@
 {
   "version": "1.0.0",
-  "capturedAt": "2026-04-30T12:04:00.164Z",
+  "capturedAt": "2026-05-01T00:24:12.143Z",
   "targetDate": "2026-04-30T00:00:00.000Z",
   "fixtureCount": 12,
   "results": [
@@ -849,31 +849,31 @@
         },
         "candidatesTop5": [
           {
-            "finalScore": 77.3,
+            "finalScore": 77.9,
             "fullHangul": "리해정",
             "fullHanja": "李諧亭",
             "rank": 1
           },
           {
-            "finalScore": 77.3,
+            "finalScore": 77.9,
             "fullHangul": "리해정",
             "fullHanja": "李諧侹",
             "rank": 2
           },
           {
-            "finalScore": 77.3,
+            "finalScore": 77.9,
             "fullHangul": "리해정",
             "fullHanja": "李諧炡",
             "rank": 3
           },
           {
-            "finalScore": 77.3,
+            "finalScore": 77.9,
             "fullHangul": "리해정",
             "fullHanja": "李駭訂",
             "rank": 4
           },
           {
-            "finalScore": 77.3,
+            "finalScore": 77.9,
             "fullHangul": "리해정",
             "fullHanja": "李駭貞",
             "rank": 5
