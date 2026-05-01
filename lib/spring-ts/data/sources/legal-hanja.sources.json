@@ -1,0 +1,83 @@
+{
+  "schemaVersion": "spring-ts.legal-hanja-sources.v1",
+  "accessedAt": "2026-05-01",
+  "sourceTier": {
+    "tier": "T5_OFFICIAL",
+    "sourceType": "official_law_registry",
+    "sourceUrl": "https://www.law.go.kr/LSW/lumLsLinkPop.do?chrClsCd=010202&lspttninfSeq=104326",
+    "accessedAt": "2026-05-01",
+    "quoteShort": null,
+    "humanInterpretation": "Current law.go.kr linked rule text anchors the legal definition of Korean personal-name Hanja under Article 37.",
+    "copyrightNote": "Official law metadata and short paraphrase only; source URL retained for verification.",
+    "authorityTruthEligible": true
+  },
+  "sources": [
+    {
+      "id": "law_go_kr_rule_article_37_2025_07_19",
+      "label": "Family Relations Registration Rule Article 37",
+      "effectiveDate": "2025-07-19",
+      "ruleNumber": "Supreme Court Rule No. 3220",
+      "sourceTier": {
+        "tier": "T5_OFFICIAL",
+        "sourceType": "official_law_registry",
+        "sourceUrl": "https://www.law.go.kr/LSW/lumLsLinkPop.do?chrClsCd=010202&lspttninfSeq=104326",
+        "accessedAt": "2026-05-01",
+        "quoteShort": null,
+        "humanInterpretation": "Article 37 defines the permitted Hanja range as Education Ministry basic Hanja plus Appendix 1, and restricts variants to Appendix 2.",
+        "copyrightNote": "Official legal text used by reference and paraphrase; no long statutory excerpt embedded.",
+        "authorityTruthEligible": true
+      }
+    },
+    {
+      "id": "law_go_kr_byeolpyo1_2024_05_30",
+      "label": "Appendix 1 additional personal-name Hanja table",
+      "amendmentDate": "2024-05-30",
+      "expansionEffectiveDate": "2024-06-11",
+      "attachmentUrl": "http://www.law.go.kr/BYL/grtFile/law0105692024053003151KC_000100E.hwpx",
+      "sourceTier": {
+        "tier": "T5_OFFICIAL",
+        "sourceType": "official_law_attachment",
+        "sourceUrl": "https://www.law.go.kr/LSW/flDownload.do?bylClsCd=110201&flSeq=153523501",
+        "accessedAt": "2026-05-01",
+        "quoteShort": null,
+        "humanInterpretation": "law.go.kr exposes the 2024-05-30 Appendix 1 attachment used for the 2024-06-11 legal-Hanja expansion.",
+        "copyrightNote": "Official attachment URL and metadata only; glyph table contents are not reproduced here.",
+        "authorityTruthEligible": true
+      }
+    },
+    {
+      "id": "scourt_press_2024_05_23",
+      "label": "Supreme Court announcement of 9,389-character expansion",
+      "announcedTotalAllowedCount": 9389,
+      "announcedDelta": 1070,
+      "previousAllowedCount": 8319,
+      "sourceTier": {
+        "tier": "T5_OFFICIAL",
+        "sourceType": "official_press_release",
+        "sourceUrl": "https://www.scourt.go.kr/portal/news/NewsViewAction.work?gubun=6&seqnum=2642",
+        "accessedAt": "2026-05-01",
+        "quoteShort": null,
+        "humanInterpretation": "Supreme Court announcement establishes the official public total of 9,389 personal-name Hanja after the 2024 expansion.",
+        "copyrightNote": "Official announcement metadata and paraphrase only.",
+        "authorityTruthEligible": true
+      }
+    },
+    {
+      "id": "delvier_koreascourtcode_2024_07_16",
+      "label": "KoreaSCourtCode webhanja.db mirror",
+      "candidateTotalCount": 9495,
+      "officialCountRecordedByMirror": 9389,
+      "unresolvedDelta": 106,
+      "sourceTier": {
+        "tier": "T2_REFERENCE_IMPLEMENTATION",
+        "sourceType": "third_party_mirror",
+        "sourceUrl": "https://github.com/delvier/KoreaSCourtCode",
+        "accessedAt": "2026-05-01",
+        "quoteShort": null,
+        "humanInterpretation": "Third-party mirror currently powers the 9,495-entry local candidate pool but is not authority truth for the +106 delta.",
+        "copyrightNote": "MIT-licensed repository metadata referenced; local factual fields are treated as data pending official reconciliation.",
+        "authorityTruthEligible": false
+      }
+    }
+  ]
+}
