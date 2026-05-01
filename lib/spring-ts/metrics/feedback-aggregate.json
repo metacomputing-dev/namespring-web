@@ -1,0 +1,64 @@
+{
+  "schemaVersion": "spring-ts.feedback-aggregate.v1",
+  "artifactKind": "privacy_preserving_aggregate_feedback",
+  "authorityUsage": "not_authority_truth",
+  "generatedAt": "2026-05-02T00:00:00.000Z",
+  "window": {
+    "startDate": "2026-05-01",
+    "endDate": "2026-05-31",
+    "timezone": "Asia/Seoul"
+  },
+  "privacy": {
+    "sourceFree": true,
+    "aggregateOnly": true,
+    "rawFeedbackStoredInRepo": false,
+    "minBucketCount": 10,
+    "prohibitedFields": [
+      "birth",
+      "birthday",
+      "birthDate",
+      "birthTime",
+      "calendarType",
+      "city",
+      "comment",
+      "day",
+      "email",
+      "examples",
+      "freeText",
+      "fullHangul",
+      "fullHanja",
+      "gender",
+      "hanja",
+      "hangul",
+      "hour",
+      "ip",
+      "minute",
+      "month",
+      "name",
+      "phone",
+      "quote",
+      "quoteShort",
+      "rawEvent",
+      "rawRow",
+      "rawText",
+      "sessionId",
+      "sourceId",
+      "sourceText",
+      "sourceTier",
+      "sourceUrl",
+      "userId",
+      "year"
+    ]
+  },
+  "retention": {
+    "rawFeedbackRetentionDays": 0,
+    "aggregateRetentionDays": 730
+  },
+  "totals": {
+    "events": 0,
+    "cardFeedback": 0,
+    "candidateNameRejections": 0
+  },
+  "cardFeedback": {},
+  "candidateNameRejections": {}
+}
