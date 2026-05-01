@@ -23,6 +23,7 @@ import {
   type ElementKey,
   type SajuOutputSummary,
 } from '../src/index.js';
+import { SCHOOL_PRESET_ORDER, type SchoolPresetName } from '../src/preset-loader.js';
 
 const __dirname = path.dirname(fileURLToPath(import.meta.url));
 const SPRING_TS_ROOT = path.resolve(__dirname, '..');
@@ -43,7 +44,6 @@ const TIER_NO_REFERENCE = 'NO_REFERENCE';
 const MIN_AUTHORITY_TRUTH_TIER = 3;
 
 type Status = 'PASS' | 'FAIL' | 'N/A';
-type SchoolPresetName = 'korean' | 'chinese' | 'modern';
 
 interface SourceTier {
   tier?: string;
@@ -769,7 +769,19 @@ async function buildTenGodModeComparison(fixtures: BaselineFixture[]): Promise<a
   }
 }
 
-function addSchoolDelta(bucket: any, totalDelta: number, sajuDelta: number, referenceTier: string): void {
+function updateSchoolSubBucket(parent: Record<string, any>, key: string, changed: boolean): void {
+  const bucket = parent[key] ?? {
+    fixtureCount: 0,
+    changedFromDefault: 0,
+    unchangedFromDefault: 0,
+  };
+  bucket.fixtureCount += 1;
+  if (changed) bucket.changedFromDefault += 1;
+  else bucket.unchangedFromDefault += 1;
+  parent[key] = bucket;
+}
+
+function addSchoolDelta(bucket: any, totalDelta: number, sajuDelta: number, profile: ReferenceProfile): void {
   bucket.fixtureCount += 1;
   bucket.totalDeltaSum += totalDelta;
   bucket.sajuDeltaSum += sajuDelta;
@@ -777,18 +789,12 @@ function addSchoolDelta(bucket: any, totalDelta: number, sajuDelta: number, refe
   bucket.maxTotalDelta = Math.max(bucket.maxTotalDelta, totalDelta);
   bucket.minSajuDelta = Math.min(bucket.minSajuDelta, sajuDelta);
   bucket.maxSajuDelta = Math.max(bucket.maxSajuDelta, sajuDelta);
-  if (Math.abs(totalDelta) > 1e-9 || Math.abs(sajuDelta) > 1e-9) bucket.changedFromDefault += 1;
+  const changed = Math.abs(totalDelta) > 1e-9 || Math.abs(sajuDelta) > 1e-9;
+  if (changed) bucket.changedFromDefault += 1;
   else bucket.unchangedFromDefault += 1;
-
-  const tierBucket = bucket.byReferenceTier[referenceTier] ?? {
-    fixtureCount: 0,
-    changedFromDefault: 0,
-    unchangedFromDefault: 0,
-  };
-  tierBucket.fixtureCount += 1;
-  if (Math.abs(totalDelta) > 1e-9 || Math.abs(sajuDelta) > 1e-9) tierBucket.changedFromDefault += 1;
-  else tierBucket.unchangedFromDefault += 1;
-  bucket.byReferenceTier[referenceTier] = tierBucket;
+  updateSchoolSubBucket(bucket.byReferenceTier, profile.tier, changed);
+  updateSchoolSubBucket(bucket.bySourceType, profile.sourceType, changed);
+  updateSchoolSubBucket(bucket.byTruthBucket, profile.truthBucket, changed);
 }
 
 function finalizeSchoolBucket(bucket: any): any {
@@ -804,6 +810,53 @@ function finalizeSchoolBucket(bucket: any): any {
     minSajuDelta: Number(bucket.minSajuDelta.toFixed(4)),
     maxSajuDelta: Number(bucket.maxSajuDelta.toFixed(4)),
     byReferenceTier: bucket.byReferenceTier,
+    bySourceType: bucket.bySourceType,
+    byTruthBucket: bucket.byTruthBucket,
+  };
+}
+
+function hasScorableNameFixtureShape(record: any): boolean {
+  return record?.birth &&
+    Array.isArray(record?.surname) &&
+    Array.isArray(record?.givenName);
+}
+
+function buildAuthorityFixtureCoverage(): any {
+  let scorableAuthorityFixtures = 0;
+  let nonScorableAuthorityFixtures = 0;
+  let pillarOnlyAuthorityFixtures = 0;
+  let ruleSnippetCollections = 0;
+
+  for (const filePath of walkJsonFiles(AUTHORITY_DIR)) {
+    const data = readJson(filePath);
+    const records = Array.isArray(data?.cases)
+      ? data.cases
+      : Array.isArray(data?.fixtures)
+        ? data.fixtures
+        : [data];
+
+    for (const record of records) {
+      if (hasScorableNameFixtureShape(record)) {
+        scorableAuthorityFixtures += 1;
+      } else {
+        nonScorableAuthorityFixtures += 1;
+      }
+      if (record?.pillars || record?.birth?.year_pillar || record?.birth?.day_pillar) {
+        pillarOnlyAuthorityFixtures += 1;
+      }
+    }
+
+    if (Array.isArray(data?.snippets)) {
+      ruleSnippetCollections += 1;
+    }
+  }
+
+  return {
+    scorableAuthorityFixtures,
+    nonScorableAuthorityFixtures,
+    pillarOnlyAuthorityFixtures,
+    ruleSnippetCollections,
+    note: 'Authority casebooks are source-tiered, but current records are not full naming-score inputs with birth + surname + givenName.',
   };
 }
 
@@ -817,11 +870,12 @@ async function buildSchoolPresetBreakdown(fixtures: BaselineFixture[]): Promise<
   }
   await engine.init();
 
-  const presetOptions: Record<SchoolPresetName, any> = {
-    korean: { precisionConfig: { useSchoolPreset: true }, schoolPreset: 'korean' },
-    chinese: { precisionConfig: { useSchoolPreset: true }, schoolPreset: 'chinese' },
-    modern: { precisionConfig: { useSchoolPreset: true }, schoolPreset: 'modern' },
-  };
+  const presetOptions = Object.fromEntries(
+    SCHOOL_PRESET_ORDER.map((preset) => [
+      preset,
+      { precisionConfig: { useSchoolPreset: true }, schoolPreset: preset },
+    ]),
+  ) as Record<SchoolPresetName, any>;
   const buckets: Record<string, any> = {};
   for (const preset of Object.keys(presetOptions)) {
     buckets[preset] = {
@@ -835,22 +889,42 @@ async function buildSchoolPresetBreakdown(fixtures: BaselineFixture[]): Promise<
       minSajuDelta: Number.POSITIVE_INFINITY,
       maxSajuDelta: Number.NEGATIVE_INFINITY,
       byReferenceTier: {},
+      bySourceType: {},
+      byTruthBucket: {},
     };
   }
 
+  const rows: any[] = [];
   try {
     for (const fixture of fixtures) {
       const baseline = await scoreFixture(engine, fixture, undefined);
       const profile = referenceProfileForFixture(fixture.id);
+      const scores: Record<string, { total: number; saju: number }> = {
+        default: roundScorePair(baseline),
+      };
+      const deltaVsDefault: Record<string, { total: number; saju: number }> = {};
       for (const [preset, options] of Object.entries(presetOptions)) {
         const scored = await scoreFixture(engine, fixture, options);
+        scores[preset] = roundScorePair(scored);
+        deltaVsDefault[preset] = scoreDelta(scored, baseline);
         addSchoolDelta(
           buckets[preset],
           scored.total - baseline.total,
           scored.saju - baseline.saju,
-          profile.tier,
+          profile,
         );
       }
+      rows.push({
+        fixtureId: fixture.id,
+        label: fixture.label,
+        referenceTier: profile.tier,
+        referenceKind: profile.referenceKind,
+        sourceType: profile.sourceType,
+        truthBucket: profile.truthBucket,
+        authorityTruthEligible: profile.authorityTruthEligible,
+        scores,
+        deltaVsDefault,
+      });
     }
   } finally {
     engine.close();
@@ -862,7 +936,11 @@ async function buildSchoolPresetBreakdown(fixtures: BaselineFixture[]): Promise<
   }
   return {
     metric: 'runtime score delta against default mode; this is not authority accuracy',
+    comparisonBasis: 'scorable baseline fixtures only',
+    presetOrder: SCHOOL_PRESET_ORDER,
     presets,
+    rows,
+    authorityFixtureCoverage: buildAuthorityFixtureCoverage(),
   };
 }
 
