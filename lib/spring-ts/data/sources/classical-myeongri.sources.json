@@ -1,0 +1,143 @@
+{
+  "schemaVersion": "spring-ts.classical-myeongri-sources.v1",
+  "accessedAt": "2026-05-02",
+  "sourceTier": {
+    "tier": "T4_PRIMARY_TEXT",
+    "sourceType": "classical_primary_text_registry",
+    "sourceUrl": null,
+    "accessedAt": "2026-05-02",
+    "quoteShort": null,
+    "humanInterpretation": "Registry of public classical myeongri primary texts approved for rule extraction, short quotation, and human paraphrase only.",
+    "copyrightNote": "Registry stores bibliographic metadata and URLs only; no bulk source text is copied.",
+    "authorityTruthEligible": false
+  },
+  "sourceTierScope": "Top-level sourceTier describes the registry. Each source row carries its own T4_PRIMARY_TEXT sourceTier and may support later rule extraction only when the extracted fixture keeps quotes short and links back to a registered source.",
+  "usagePolicy": {
+    "noBulkCopy": true,
+    "maxQuoteChars": 80,
+    "allowed": [
+      "bibliographic metadata",
+      "source URLs",
+      "short quotations",
+      "human paraphrase",
+      "factual pillars",
+      "rule identifiers extracted by humans"
+    ],
+    "prohibited": [
+      "bulk OCR text",
+      "chapter copy",
+      "long continuous excerpts",
+      "unreviewed machine translation as authority truth"
+    ]
+  },
+  "sources": [
+    {
+      "id": "yuanhai_ziping",
+      "title": "Yuanhai Ziping",
+      "titleOriginal": "淵海子平",
+      "dynasty": "Ming",
+      "author": "Yang Cong",
+      "sourceUrl": "https://zh.wikisource.org/zh-hant/%E6%B7%B5%E6%B5%B7%E5%AD%90%E5%B9%B3%E5%A4%A7%E5%85%A8",
+      "accessedAt": "2026-05-02",
+      "usageLimit": {
+        "noBulkCopy": true,
+        "maxQuoteChars": 80,
+        "allowed": [
+          "bibliographic metadata",
+          "short quotations",
+          "human paraphrase",
+          "rule extraction"
+        ],
+        "prohibited": [
+          "bulk OCR text",
+          "chapter copy",
+          "long continuous excerpts"
+        ]
+      },
+      "tier": "T4_PRIMARY_TEXT",
+      "registryNotes": "Wikisource metadata lists Yang Cong and flags the page as incomplete/source provenance pending; downstream authority fixtures must preserve this caveat.",
+      "sourceTier": {
+        "tier": "T4_PRIMARY_TEXT",
+        "sourceType": "classical_primary_text_registry",
+        "sourceUrl": "https://zh.wikisource.org/zh-hant/%E6%B7%B5%E6%B5%B7%E5%AD%90%E5%B9%B3%E5%A4%A7%E5%85%A8",
+        "accessedAt": "2026-05-02",
+        "quoteShort": null,
+        "humanInterpretation": "Public-domain classical myeongri primary text registry row for Yuanhai Ziping; source provenance caveat must be carried into extracted rules.",
+        "copyrightNote": "Public-domain original is linked by URL; repository stores metadata and short quotes only, not bulk Wikisource text.",
+        "authorityTruthEligible": true
+      }
+    },
+    {
+      "id": "ditian_sui_chanwei",
+      "title": "Ditian Sui Chanwei",
+      "titleOriginal": "滴天髓闡微",
+      "dynasty": "Qing",
+      "author": "Ren Tieqiao",
+      "sourceUrl": "https://zh.wikisource.org/zh-hant/%E6%BB%B4%E5%A4%A9%E9%AB%93%E9%97%A1%E5%BE%AE",
+      "accessedAt": "2026-05-02",
+      "usageLimit": {
+        "noBulkCopy": true,
+        "maxQuoteChars": 80,
+        "allowed": [
+          "bibliographic metadata",
+          "short quotations",
+          "human paraphrase",
+          "rule extraction"
+        ],
+        "prohibited": [
+          "bulk OCR text",
+          "chapter copy",
+          "long continuous excerpts"
+        ]
+      },
+      "tier": "T4_PRIMARY_TEXT",
+      "registryNotes": "Wikisource metadata lists Ren Tieqiao and public-domain status for the Qing work.",
+      "sourceTier": {
+        "tier": "T4_PRIMARY_TEXT",
+        "sourceType": "classical_primary_text_registry",
+        "sourceUrl": "https://zh.wikisource.org/zh-hant/%E6%BB%B4%E5%A4%A9%E9%AB%93%E9%97%A1%E5%BE%AE",
+        "accessedAt": "2026-05-02",
+        "quoteShort": null,
+        "humanInterpretation": "Public-domain classical myeongri primary text registry row for Ditian Sui Chanwei.",
+        "copyrightNote": "Public-domain original is linked by URL; repository stores metadata and short quotes only, not bulk Wikisource text.",
+        "authorityTruthEligible": true
+      }
+    },
+    {
+      "id": "sanming_tonghui",
+      "title": "Sanming Tonghui",
+      "titleOriginal": "三命通會",
+      "dynasty": "Ming",
+      "author": "Wan Minying",
+      "sourceUrl": "https://zh.wikisource.org/wiki/%E4%B8%89%E5%91%BD%E9%80%9A%E6%9C%83",
+      "accessedAt": "2026-05-02",
+      "usageLimit": {
+        "noBulkCopy": true,
+        "maxQuoteChars": 80,
+        "allowed": [
+          "bibliographic metadata",
+          "short quotations",
+          "human paraphrase",
+          "rule extraction"
+        ],
+        "prohibited": [
+          "bulk OCR text",
+          "chapter copy",
+          "long continuous excerpts"
+        ]
+      },
+      "tier": "T4_PRIMARY_TEXT",
+      "registryNotes": "Wikisource metadata lists Wan Minying and notes missing volumes 10 through 12 on the hosted text.",
+      "sourceTier": {
+        "tier": "T4_PRIMARY_TEXT",
+        "sourceType": "classical_primary_text_registry",
+        "sourceUrl": "https://zh.wikisource.org/wiki/%E4%B8%89%E5%91%BD%E9%80%9A%E6%9C%83",
+        "accessedAt": "2026-05-02",
+        "quoteShort": null,
+        "humanInterpretation": "Public-domain classical myeongri primary text registry row for Sanming Tonghui.",
+        "copyrightNote": "Public-domain original is linked by URL; repository stores metadata and short quotes only, not bulk Wikisource text.",
+        "authorityTruthEligible": true
+      }
+    }
+  ]
+}
