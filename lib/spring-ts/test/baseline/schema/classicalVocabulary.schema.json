@@ -1,0 +1,245 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://namespring.local/spring-ts/classicalVocabulary.schema.json",
+  "title": "spring-ts Classical Vocabulary Dictionary",
+  "type": "object",
+  "additionalProperties": true,
+  "required": [
+    "schemaVersion",
+    "accessedAt",
+    "sourceRegistry",
+    "sourceTier",
+    "usagePolicy",
+    "lookupPolicy",
+    "categories",
+    "entries"
+  ],
+  "properties": {
+    "schemaVersion": {
+      "const": "spring-ts.classical-myeongri-vocabulary.v1"
+    },
+    "accessedAt": {
+      "type": "string",
+      "pattern": "^\\d{4}-\\d{2}-\\d{2}$"
+    },
+    "sourceRegistry": {
+      "const": "data/sources/classical-myeongri.sources.json"
+    },
+    "sourceTier": {
+      "$ref": "sourceTier.schema.json"
+    },
+    "usagePolicy": {
+      "type": "object",
+      "additionalProperties": true,
+      "required": [
+        "noBulkCopy",
+        "maxQuoteChars",
+        "dictionaryKind",
+        "requiresCodeSurface",
+        "allowed",
+        "prohibited"
+      ],
+      "properties": {
+        "noBulkCopy": {
+          "const": true
+        },
+        "maxQuoteChars": {
+          "type": "integer",
+          "minimum": 1,
+          "maximum": 80
+        },
+        "dictionaryKind": {
+          "const": "term_to_feature_mapping"
+        },
+        "requiresCodeSurface": {
+          "const": true
+        },
+        "allowed": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          },
+          "minItems": 1
+        },
+        "prohibited": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          },
+          "minItems": 1
+        }
+      }
+    },
+    "lookupPolicy": {
+      "type": "object",
+      "additionalProperties": true,
+      "required": [
+        "canonicalAnchor",
+        "mappingOnly",
+        "requiresCodeSurface",
+        "useForAuthorityTruth"
+      ],
+      "properties": {
+        "canonicalAnchor": {
+          "type": "string",
+          "minLength": 1
+        },
+        "mappingOnly": {
+          "const": true
+        },
+        "requiresCodeSurface": {
+          "const": true
+        },
+        "useForAuthorityTruth": {
+          "const": false
+        }
+      }
+    },
+    "categories": {
+      "type": "array",
+      "items": {
+        "enum": [
+          "tenGod",
+          "gyeokguk",
+          "relation",
+          "yongshinMethod",
+          "diseaseRemedy",
+          "compoundIdiom"
+        ]
+      },
+      "minItems": 6,
+      "uniqueItems": true
+    },
+    "entries": {
+      "type": "array",
+      "minItems": 30,
+      "items": {
+        "type": "object",
+        "additionalProperties": true,
+        "required": [
+          "termId",
+          "term",
+          "hanja",
+          "category",
+          "aliases",
+          "displayGlossKo",
+          "mapsTo",
+          "relatedCodes",
+          "status",
+          "sourceRefs"
+        ],
+        "properties": {
+          "termId": {
+            "type": "string",
+            "pattern": "^[a-z0-9_]+$"
+          },
+          "term": {
+            "type": "string",
+            "minLength": 1
+          },
+          "hanja": {
+            "type": ["string", "null"]
+          },
+          "category": {
+            "enum": [
+              "tenGod",
+              "gyeokguk",
+              "relation",
+              "yongshinMethod",
+              "diseaseRemedy",
+              "compoundIdiom"
+            ]
+          },
+          "aliases": {
+            "type": "array",
+            "items": {
+              "type": "string",
+              "minLength": 1
+            }
+          },
+          "displayGlossKo": {
+            "type": "string",
+            "minLength": 1
+          },
+          "mapsTo": {
+            "type": "object",
+            "additionalProperties": false,
+            "required": [
+              "surface",
+              "fieldPath",
+              "code",
+              "group",
+              "axis"
+            ],
+            "properties": {
+              "surface": {
+                "type": "string",
+                "minLength": 1
+              },
+              "fieldPath": {
+                "type": "string",
+                "minLength": 1
+              },
+              "code": {
+                "type": ["string", "null"]
+              },
+              "group": {
+                "type": ["string", "null"]
+              },
+              "axis": {
+                "type": ["string", "null"]
+              }
+            }
+          },
+          "relatedCodes": {
+            "type": "array",
+            "items": {
+              "type": "string",
+              "minLength": 1
+            }
+          },
+          "status": {
+            "enum": [
+              "direct",
+              "compound",
+              "displayOnly",
+              "gap"
+            ]
+          },
+          "sourceRefs": {
+            "type": "array",
+            "minItems": 1,
+            "items": {
+              "type": "object",
+              "additionalProperties": false,
+              "required": [
+                "sourceId",
+                "locator",
+                "quoteShort",
+                "interpretation"
+              ],
+              "properties": {
+                "sourceId": {
+                  "type": "string",
+                  "pattern": "^[a-z0-9_]+$"
+                },
+                "locator": {
+                  "type": "string",
+                  "minLength": 1
+                },
+                "quoteShort": {
+                  "type": ["string", "null"],
+                  "maxLength": 80
+                },
+                "interpretation": {
+                  "type": "string",
+                  "minLength": 1
+                }
+              }
+            }
+          }
+        }
+      }
+    }
+  }
+}
