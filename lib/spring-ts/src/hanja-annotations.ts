@@ -29,6 +29,13 @@ import inmyeongyongData from '../data/inmyeongyong_9389.json';
 import inmyeongyongFullData from '../data/inmyeongyong_9389_full.json';
 import byeolpyo2Data from '../data/byeolpyo2_variants.json';
 
+export type HanjaLegalStatus =
+  | 'allowed'
+  | 'variantAllowed'
+  | 'hangulOnly'
+  | 'unknown'
+  | 'notAllowed';
+
 /** PR11 annotations layered over the seed-ts HanjaEntry. */
 export interface HanjaLegalAnnotation {
   /** Whether the hanja is on Korea's 인명용 한자 list (대법원 별표 1·2).
@@ -37,6 +44,14 @@ export interface HanjaLegalAnnotation {
    *  - undefined: status unknown (current default until data imported)
    */
   readonly legalRegistrable?: boolean;
+  /** Public reconciliation bucket for UI/candidate surfaces.
+   *  - allowed: orthodox hanja appears in the active legal pool
+   *  - variantAllowed: input is a known variant whose orthodox form is legal
+   *  - hangulOnly: no hanja code point is present
+   *  - unknown: active pool is intentionally non-definitive
+   *  - notAllowed: definitive full-pool miss
+   */
+  readonly legalStatus: HanjaLegalStatus;
   /** When this hanja is a 異體字, the canonical 정자 form. Otherwise undefined.
    *  Lookup is symmetric — both 정자 and 약자 entries can reference each
    *  other via this field. */
@@ -84,6 +99,14 @@ const FULL_REGISTRABLE_HANJA: ReadonlySet<string> = new Set(
 
 export type HanjaPool = 'curated' | 'inmyeongyong_full';
 
+function isBlankHanja(hanja: string): boolean {
+  return hanja.trim().length === 0;
+}
+
+function hasHanIdeograph(hanja: string): boolean {
+  return /\p{Script=Han}/u.test(hanja);
+}
+
 /** Returns the legal-registrability annotation for a HanjaEntry.
  *
  *  When the hanja appears in the active pool's 인명용 list, returns
@@ -104,26 +127,35 @@ export function getLegalAnnotation(
   options?: { readonly pool?: HanjaPool },
 ): HanjaLegalAnnotation {
   const hanja = entry?.hanja;
-  if (typeof hanja !== 'string' || hanja.length === 0) {
-    return { legalRegistrable: undefined, isVariantOf: undefined };
+  if (typeof hanja !== 'string' || isBlankHanja(hanja) || !hasHanIdeograph(hanja)) {
+    return { legalRegistrable: undefined, legalStatus: 'hangulOnly', isVariantOf: undefined };
   }
   // Normalize to 정자 first — variant inputs share registrability with
   // their orthodox form per 별표 2's pairing convention.
   const orthodox = normalizeToOrthodoxHanja(hanja);
+  const isVariant = orthodox !== hanja;
   const pool = options?.pool ?? 'curated';
   let legalRegistrable: boolean | undefined;
+  let legalStatus: HanjaLegalStatus;
   if (pool === 'inmyeongyong_full') {
     // Full pool: definitive yes/no, never unknown — every non-list hanja
     // is explicitly NOT registrable.
     legalRegistrable = FULL_REGISTRABLE_HANJA.has(orthodox);
+    legalStatus = legalRegistrable
+      ? isVariant ? 'variantAllowed' : 'allowed'
+      : 'notAllowed';
   } else {
     // Curated seed: only positive matches get true; everything else is
     // 'unknown' so the conservative default preserves existing behavior.
     legalRegistrable = REGISTRABLE_HANJA.has(orthodox) ? true : undefined;
+    legalStatus = legalRegistrable
+      ? isVariant ? 'variantAllowed' : 'allowed'
+      : 'unknown';
   }
   return {
     legalRegistrable,
-    isVariantOf: orthodox !== hanja ? orthodox : undefined,
+    legalStatus,
+    isVariantOf: isVariant ? orthodox : undefined,
   };
 }
 
