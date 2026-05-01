@@ -48,6 +48,22 @@ const VALID_TYPES = new Set([
   'HUA_QI', 'ZHUAN_WANG', 'CONG_GE', 'CONG_CAI', 'CONG_GUAN',
   'CONG_SHA', 'CONG_ER', 'CONG_YIN', 'CONG_BI',
 ]);
+const VALID_CANDIDATE_SUBTYPES = new Set([
+  'hua_qi', 'zhuan_wang', 'cong_cai', 'cong_guan',
+  'cong_sha', 'cong_er', 'cong_yin', 'cong_bi',
+]);
+const VALID_CANDIDATE_STATUSES = new Set(['none', 'possible', 'candidate', 'selected', 'blocked']);
+const EXPECTED_TYPE_TO_SUBTYPE: Record<string, string | null> = {
+  HUA_QI: 'hua_qi',
+  ZHUAN_WANG: 'zhuan_wang',
+  CONG_GE: null,
+  CONG_CAI: 'cong_cai',
+  CONG_GUAN: 'cong_guan',
+  CONG_SHA: 'cong_sha',
+  CONG_ER: 'cong_er',
+  CONG_YIN: 'cong_yin',
+  CONG_BI: 'cong_bi',
+};
 
 interface JonggyeokFixture {
   id: string;
@@ -96,6 +112,7 @@ check(`sourceTier marks collection as T1 hypothesis`,
   data.sourceTier?.authorityTruthEligible === false);
 
 const observedEngineTypes: Record<string, string> = {};
+let fixtureCandidateObservations = 0;
 
 for (const fix of fixtures) {
   // (1) doctrinal fields present + valid
@@ -137,6 +154,36 @@ for (const fix of fixtures) {
   // (4) record what engine actually outputs (no assertion — engine ≠ doctrine for these)
   const engineType = sj.gyeokgukResult?.type ?? sj.gyeokguk?.type ?? '?';
   observedEngineTypes[fix.id] = engineType;
+
+  const jonggyeokCandidates = sj.gyeokgukResult?.jonggyeokCandidates ?? sj.gyeokguk?.jonggyeokCandidates ?? [];
+  check(`${fix.id}: jonggyeok candidate surface has 8 subtypes`,
+    Array.isArray(jonggyeokCandidates) && jonggyeokCandidates.length === 8,
+    `count=${jonggyeokCandidates.length}`);
+  check(`${fix.id}: jonggyeok candidate subtype/status schema valid`,
+    jonggyeokCandidates.every((candidate: any) =>
+      VALID_CANDIDATE_SUBTYPES.has(candidate?.subtype) &&
+      VALID_CANDIDATE_STATUSES.has(candidate?.status)));
+  check(`${fix.id}: jonggyeok candidate numeric evidence normalized`,
+    jonggyeokCandidates.every((candidate: any) => [
+      candidate?.score,
+      candidate?.confidence,
+      candidate?.followPressure,
+      candidate?.dayMasterIsolation,
+      candidate?.rootWeakness,
+      candidate?.dominantElementShare,
+      candidate?.breakerPenalty,
+    ].every((value) => Number.isFinite(Number(value)) && Number(value) >= 0 && Number(value) <= 1)));
+  check(`${fix.id}: default mode does not select jonggyeok from T1 hypothesis`,
+    jonggyeokCandidates.every((candidate: any) => candidate?.status !== 'selected'));
+
+  const expectedSubtype = EXPECTED_TYPE_TO_SUBTYPE[fix.expectedJonggyeokType] ?? null;
+  if (expectedSubtype) {
+    const observed = jonggyeokCandidates.find((candidate: any) => candidate?.subtype === expectedSubtype);
+    check(`${fix.id}: expected subtype is present as observation-only evidence`,
+      observed != null,
+      expectedSubtype);
+    if (observed && observed.status !== 'none') fixtureCandidateObservations += 1;
+  }
 }
 
 console.log('\nEngine output vs doctrinal expected (informational):');
@@ -151,6 +198,9 @@ const matchCount = Object.entries(observedEngineTypes).filter(
   ([id, et]) => et.startsWith(fixtures.find((f) => f.id === id)!.expectedJonggyeokType),
 ).length;
 console.log(`\nEngine matches doctrinal type: ${matchCount}/${fixtures.length} (expected 0 in chengbai_strict default mode)`);
+check('candidate evidence surfaces for multiple T1 hypothesis fixtures',
+  fixtureCandidateObservations >= 3,
+  `observed=${fixtureCandidateObservations}`);
 
 engine.close();
 
