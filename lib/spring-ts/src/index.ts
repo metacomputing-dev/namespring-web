@@ -202,7 +202,34 @@ export {
 } from './feedback.js';
 
 // ─────────────────────────────────────────────────────────────────────────────
-//  8. FORTUNE REPORT
+//  8. EXPERIMENTS
+// ─────────────────────────────────────────────────────────────────────────────
+export {
+  RULE_AB_TEST_SCHEMA_VERSION,
+  RULE_EXPERIMENT_ASSIGNMENT_SCHEMA_VERSION,
+  RULE_EXPERIMENT_BUCKET_COUNT,
+  RULE_EXPERIMENT_MIN_POSITIVE_DELTA,
+  RULE_EXPERIMENT_MIN_VARIANT_EXPOSURES,
+  RULE_EXPERIMENT_DEFINITIONS,
+  assignRuleExperiment,
+  compareRuleExperimentVariants,
+  hashRuleExperimentKey,
+  type RuleExperimentAssignment,
+  type RuleExperimentAssignmentInput,
+  type RuleExperimentComparison,
+  type RuleExperimentComparisonContext,
+  type RuleExperimentComparisonRow,
+  type RuleExperimentDecision,
+  type RuleExperimentDefinition,
+  type RuleExperimentId,
+  type RuleExperimentPromotionCriteria,
+  type RuleExperimentVariant,
+  type RuleExperimentVariantFeedbackSnapshot,
+  type RuleExperimentVariantRole,
+} from './experiments.js';
+
+// ─────────────────────────────────────────────────────────────────────────────
+//  9. FORTUNE REPORT
 // ─────────────────────────────────────────────────────────────────────────────
 export { buildFortuneReport } from './report/buildFortuneReport.js';
 export type {
