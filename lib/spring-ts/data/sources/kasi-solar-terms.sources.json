@@ -1,0 +1,78 @@
+{
+  "schemaVersion": "spring-ts.kasi-solar-term-sources.v1",
+  "accessedAt": "2026-05-01",
+  "sourceTier": {
+    "tier": "T5_OFFICIAL",
+    "sourceType": "official_kasi_special_day_api_registry",
+    "sourceUrl": "https://www.data.go.kr/data/15012690/openapi.do",
+    "accessedAt": "2026-05-01",
+    "quoteShort": null,
+    "humanInterpretation": "Public Data Portal catalog for KASI Special Day Information, including the 24 solar-term operation used for date-level oracle checks.",
+    "copyrightNote": "Source URLs and normalized metadata only; no bulk API response mirror embedded.",
+    "authorityTruthEligible": true
+  },
+  "sourceTierScope": "The top-level record describes the official KASI public-data API registry. Minute-level KASI calendarData fixtures are tracked separately because that page carries a non-official-data notice and should not enter authority denominators until reconciled with the published monthly almanac.",
+  "sources": [
+    {
+      "id": "data_go_kr_kasi_special_day_info_15012690",
+      "label": "KASI Special Day Information public-data catalog",
+      "provider": "Korea Astronomy and Space Science Institute",
+      "sourceTier": {
+        "tier": "T5_OFFICIAL",
+        "sourceType": "official_public_data_catalog",
+        "sourceUrl": "https://www.data.go.kr/data/15012690/openapi.do",
+        "accessedAt": "2026-05-01",
+        "quoteShort": null,
+        "humanInterpretation": "Official catalog record for KASI special-day data. The catalog lists REST/XML access, the KASI provider, and detailed functions including 24 solar-term information.",
+        "copyrightNote": "Catalog URL and paraphrase only.",
+        "authorityTruthEligible": true
+      }
+    },
+    {
+      "id": "kasi_spcde_get24divisionsinfo",
+      "label": "KASI get24DivisionsInfo operation",
+      "operation": "get24DivisionsInfo",
+      "serviceBaseUrl": "https://apis.data.go.kr/B090041/openapi/service/SpcdeInfoService",
+      "sourceTier": {
+        "tier": "T5_OFFICIAL",
+        "sourceType": "official_kasi_solar_term_api",
+        "sourceUrl": "https://www.data.go.kr/data/15012690/openapi.do",
+        "accessedAt": "2026-05-01",
+        "quoteShort": null,
+        "humanInterpretation": "Official KASI special-day operation used to retrieve 24 solar-term dates by solar year and optional solar month.",
+        "copyrightNote": "Endpoint metadata only; API keys and bulk response payloads are not committed here.",
+        "authorityTruthEligible": true
+      }
+    },
+    {
+      "id": "kasi_calendar_data_24_terms_table",
+      "label": "KASI calendarData 24 solar-term table",
+      "operation": "almanacContent",
+      "serviceBaseUrl": "https://astro.kasi.re.kr/almanacContent",
+      "sourceTier": {
+        "tier": "T5_OFFICIAL",
+        "sourceType": "official_kasi_calendar_data_preview",
+        "sourceUrl": "https://astro.kasi.re.kr/life/post/calendarData",
+        "accessedAt": "2026-05-01",
+        "quoteShort": null,
+        "humanInterpretation": "KASI-hosted calendarData table exposes minute-level KST times for the 24 solar terms. The page itself says official monthly almanac publication should be used for official authority.",
+        "copyrightNote": "Only normalized date/time facts for a small fixture year are committed.",
+        "authorityTruthEligible": false
+      }
+    },
+    {
+      "id": "spring_ts_solar_term_oracle_policy",
+      "label": "Spring-ts solar-term oracle policy",
+      "sourceTier": {
+        "tier": "T3_AUTHORED_INTERPRETATION",
+        "sourceType": "internal_oracle_policy",
+        "sourceUrl": null,
+        "accessedAt": "2026-05-01",
+        "quoteShort": null,
+        "humanInterpretation": "Defines how KASI date-level and minute-level records are consumed in regression tests and how current loose engine tolerance differs from the aspirational minute-resolution target.",
+        "copyrightNote": "Internal policy summary; no external prose copied.",
+        "authorityTruthEligible": false
+      }
+    }
+  ]
+}
