@@ -200,6 +200,23 @@ export class SpringEngine {
     return 1.0;
   }
 
+  /** PR-Q-25 K-6 full wire — resolve hangul polarity model.
+   *  Per spec spring-info/09_finalization/05_pure_hangul_schema_wireup.md §1.2,
+   *  modern 학파 (한국 작명원 표준) 는 ternary 모델 — ㅣ/ㅡ 중성. 우선순위:
+   *   1. 명시적 `precisionConfig.pureHangulPolarityModel` (caller override)
+   *   2. `pureHangulSchema='auto'` + `schoolPreset='modern'` → 'ternary'
+   *   3. else 'binary' (default behavior preserved). */
+  private resolveHangulPolarityModel(options?: SpringRequest['options']): 'binary' | 'ternary' {
+    const pc = options?.precisionConfig;
+    if (pc?.pureHangulPolarityModel === 'ternary' || pc?.pureHangulPolarityModel === 'binary') {
+      return pc.pureHangulPolarityModel;
+    }
+    if (pc?.pureHangulSchema === 'auto' && options?.schoolPreset === 'modern') {
+      return 'ternary';
+    }
+    return 'binary';
+  }
+
   private hasExplicitHanja(char: NameCharInput): boolean {
     const hanja = String(char.hanja ?? '').trim();
     return hanja.length > 0 && hanja !== char.hangul;
@@ -331,7 +348,7 @@ export class SpringEngine {
       forceHangulOnly: resolutionPolicy.pureHangulGivenName,
     });
 
-    const hangul = new HangulCalculator(surnameEntries, givenNameEntries, this.resolveHangulSignalCap(request.options));
+    const hangul = new HangulCalculator(surnameEntries, givenNameEntries, this.resolveHangulSignalCap(request.options), this.resolveHangulPolarityModel(request.options));
     const hanja = new HanjaCalculator(
       surnameEntries,
       givenNameEntries,
@@ -395,7 +412,7 @@ export class SpringEngine {
       forceHangulOnly: resolutionPolicy.pureHangulGivenName,
     });
 
-    const hangul = new HangulCalculator(surnameEntries, givenNameEntries, this.resolveHangulSignalCap(request.options));
+    const hangul = new HangulCalculator(surnameEntries, givenNameEntries, this.resolveHangulSignalCap(request.options), this.resolveHangulPolarityModel(request.options));
     const hanja  = new HanjaCalculator(
       surnameEntries,
       givenNameEntries,
@@ -529,7 +546,7 @@ export class SpringEngine {
         forceHangulOnly: resolutionPolicy.pureHangulGivenName,
       });
 
-      const hangul = new HangulCalculator(surnameEntries, givenNameEntries, this.resolveHangulSignalCap(request.options));
+      const hangul = new HangulCalculator(surnameEntries, givenNameEntries, this.resolveHangulSignalCap(request.options), this.resolveHangulPolarityModel(request.options));
       const hanja  = new HanjaCalculator(
         surnameEntries,
         givenNameEntries,
@@ -999,7 +1016,7 @@ export class SpringEngine {
     });
 
     // Build one calculator per scoring category
-    const hangul = new HangulCalculator(surnameEntries, givenNameEntries, this.resolveHangulSignalCap(requestOptions));
+    const hangul = new HangulCalculator(surnameEntries, givenNameEntries, this.resolveHangulSignalCap(requestOptions), this.resolveHangulPolarityModel(requestOptions));
     const hanja  = new HanjaCalculator(
       surnameEntries,
       givenNameEntries,

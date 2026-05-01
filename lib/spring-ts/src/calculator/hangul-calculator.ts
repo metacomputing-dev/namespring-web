@@ -24,15 +24,21 @@ export class HangulCalculator extends SeedHangulCalculator implements EvaluableC
   // PR-Q-24 (K-5 full wire): optional confidence cap on hangul signals.
   // chinese 학파의 발음오행 confidence 하향 doctrine.
   private readonly signalCap: number;
+  // PR-Q-25 (K-6 full wire): polarity model selection.
+  // 'binary' (default): yang vs yin, ㅣ→Yang ㅡ→Yin (현재 동작)
+  // 'ternary': ㅡ/ㅣ 중성모음 분류 후 polarity arrangement 에서 제외 (한국 모던 작명 표준)
+  private readonly polarityModel: 'binary' | 'ternary';
 
   constructor(
     surnameEntries: HanjaEntry[],
     givenNameEntries: HanjaEntry[],
     signalCap: number = 1.0,
+    polarityModel: 'binary' | 'ternary' = 'binary',
   ) {
     super(surnameEntries, givenNameEntries);
     // Clamp to [0, 1] to prevent unintentional amplification or negative weights.
     this.signalCap = Math.max(0, Math.min(1, Number(signalCap) || 1));
+    this.polarityModel = polarityModel;
   }
 
   visit(ctx: EvalContext): void {
@@ -42,7 +48,18 @@ export class HangulCalculator extends SeedHangulCalculator implements EvaluableC
     const elementArrangement = blocks
       .map((block) => block.energy?.element.english as ElementKey)
       .filter((element): element is ElementKey => !!element);
+
+    // PR-Q-25 K-6: ternary polarity model — ㅡ/ㅣ 중성모음 (가중치 0) 처리.
+    // 한국 모던 작명 표준 (좋은이름닷컴 등): vertical(ㅏㅑㅗㅛ) Yang, horizontal
+    // (ㅓㅕㅜㅠ) Yin, neutral (ㅡㅣ) 중성. 본 wire 는 중성 블록을 polarity
+    // arrangement 에서 제외하여 균형 측정에 영향 0.
+    const NEUTRAL_NUCLEI = new Set(['ㅡ', 'ㅣ']);
     const polarityArrangement = blocks
+      .filter((block) => {
+        if (this.polarityModel === 'binary') return true;
+        // ternary: drop ㅡ/ㅣ blocks from arrangement
+        return !NEUTRAL_NUCLEI.has(String(block.entry.nucleus ?? ''));
+      })
       .map((block) => block.energy?.polarity.english as PolarityValue)
       .filter((polarity): polarity is PolarityValue => !!polarity);
 
