@@ -239,6 +239,39 @@ function DomainRadarChart({ items }) {
   );
 }
 
+export function CategorySubDomainBreakdown({ subDomains }) {
+  const rows = asArray(subDomains)
+    .filter((row) => row && (row.title || row.name || row.narrative))
+    .slice(0, 3);
+  if (!rows.length) return null;
+
+  return (
+    <div className="grid grid-cols-1 sm:grid-cols-2 xl:grid-cols-3 gap-2">
+      {rows.map((row, index) => {
+        const title = row?.title || row?.name || `세부 항목 ${index + 1}`;
+        return (
+          <div
+            key={`${row?.name || 'sub-domain'}-${index}`}
+            className="min-h-[104px] rounded-lg border border-[var(--ns-border)] bg-[var(--ns-surface)]/20 px-2.5 py-2"
+          >
+            <div className="flex min-w-0 flex-wrap items-start justify-between gap-x-2 gap-y-1">
+              <p className="min-w-0 text-xs font-black leading-snug text-[var(--ns-accent-text)] break-keep">
+                {title}
+              </p>
+              <p className="shrink-0 text-[11px] font-black text-[var(--ns-tone-warn-text)]">
+                {`${toStars(row?.stars).toFixed(1)} / 5`}
+              </p>
+            </div>
+            <p className="mt-1.5 text-xs leading-relaxed font-semibold text-[var(--ns-text)] break-keep">
+              {row?.narrative || '-'}
+            </p>
+          </div>
+        );
+      })}
+    </div>
+  );
+}
+
 function CombiedNamingReport({
   fortuneReport,
   onOpenNamingReport,
@@ -647,6 +680,7 @@ function CombiedNamingReport({
                     <div className="space-y-2">
                       <StarRating score={toStars(item?.stars)} />
                       <p className="text-sm font-semibold text-[var(--ns-text)]">{item?.summary || '-'}</p>
+                      <CategorySubDomainBreakdown subDomains={item?.subDomains} />
                       <div className="space-y-1.5">
                         {asArray(item?.advice).map((advice, adviceIndex) => (
                           <div key={`domain-advice-${index}-${adviceIndex}`} className="rounded-lg border border-[var(--ns-border)] bg-[var(--ns-surface)]/20 px-2.5 py-2">
