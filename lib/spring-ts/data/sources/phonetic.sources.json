@@ -1,0 +1,73 @@
+{
+  "schemaVersion": "spring-ts.phonetic-sources.v1",
+  "accessedAt": "2026-05-01",
+  "sourceTier": {
+    "tier": "T3_AUTHORED_INTERPRETATION",
+    "sourceType": "internal_phonetic_rule_policy",
+    "sourceUrl": null,
+    "accessedAt": "2026-05-01",
+    "quoteShort": null,
+    "humanInterpretation": "Registry for display-only Korean name phonetic-flow heuristics. Official sources explain decomposition and pronunciation concepts; warning severity is an authored naming heuristic.",
+    "copyrightNote": "Source URLs and paraphrases only; no long copyrighted excerpts embedded.",
+    "authorityTruthEligible": false
+  },
+  "sourceTierScope": "Top-level sourceTier describes the authored naming-rule policy. Each row in sources[] carries its own sourceTier; Unicode decomposition mechanics and standard-pronunciation references are scoped separately from display-only naming warnings.",
+  "sources": [
+    {
+      "id": "unicode_hangul_decomposition_algorithm_17_0_0",
+      "label": "Unicode Hangul decomposition algorithm",
+      "sourceTier": {
+        "tier": "T5_OFFICIAL",
+        "sourceType": "unicode_standard_hangul_algorithm",
+        "sourceUrl": "https://www.unicode.org/versions/latest/core-spec/chapter-3/",
+        "accessedAt": "2026-05-01",
+        "quoteShort": null,
+        "humanInterpretation": "Unicode Chapter 3 defines the Hangul decomposition constants used to split a precomposed syllable into initial, medial, and final positions.",
+        "copyrightNote": "Official Unicode documentation referenced by URL and paraphrase only. Unicode terms: https://www.unicode.org/license.txt",
+        "authorityTruthEligible": true
+      }
+    },
+    {
+      "id": "nikl_standard_pronunciation_batchim_assimilation",
+      "label": "National Institute of Korean Language standard pronunciation rules",
+      "sourceTier": {
+        "tier": "T5_OFFICIAL",
+        "sourceType": "official_korean_pronunciation_rule",
+        "sourceUrl": "https://korean.go.kr/kornorms/regltn/regltnView.do?regltn_code=0002",
+        "accessedAt": "2026-05-01",
+        "quoteShort": null,
+        "humanInterpretation": "The official standard-pronunciation rules document batchim, assimilation, liquidization, and tensification contexts that justify checking coda-to-onset boundaries.",
+        "copyrightNote": "National Institute of Korean Language page referenced by URL and paraphrase only.",
+        "authorityTruthEligible": true
+      }
+    },
+    {
+      "id": "phonetic_flow_display_policy",
+      "label": "Display-only Korean name phonetic-flow policy",
+      "sourceTier": {
+        "tier": "T3_AUTHORED_INTERPRETATION",
+        "sourceType": "authored_phonetic_naming_heuristic",
+        "sourceUrl": null,
+        "accessedAt": "2026-05-01",
+        "quoteShort": null,
+        "humanInterpretation": "Maps deterministic Hangul coda/onset patterns to conservative naming warnings. The policy does not claim official preferred names or official severity.",
+        "copyrightNote": "Internal policy summary; no copyrighted prose copied.",
+        "authorityTruthEligible": false
+      }
+    },
+    {
+      "id": "phonetic_score_separation_policy",
+      "label": "Display-only score separation policy",
+      "sourceTier": {
+        "tier": "T3_AUTHORED_INTERPRETATION",
+        "sourceType": "internal_scoring_policy",
+        "sourceUrl": null,
+        "accessedAt": "2026-05-01",
+        "quoteShort": null,
+        "humanInterpretation": "Phonetic score is surfaced as evidence only and is not part of Spring total scores, ranks, generation filters, legal-Hanja checks, or Saju compatibility scoring.",
+        "copyrightNote": "Internal policy summary; no external copyrighted prose copied.",
+        "authorityTruthEligible": false
+      }
+    }
+  ]
+}
