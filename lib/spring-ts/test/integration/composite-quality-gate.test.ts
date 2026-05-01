@@ -15,12 +15,23 @@ import fs from 'node:fs';
 import path from 'node:path';
 import { fileURLToPath } from 'node:url';
 
+import { analyzeSaju } from '../../src/saju-adapter.js';
+import type { BirthInfo } from '../../src/types.js';
+
+interface BaselineFixture {
+  readonly id: string;
+  readonly label: string;
+  readonly birth: BirthInfo;
+}
+
 const __dirname = path.dirname(fileURLToPath(import.meta.url));
 const SPRING_TS_ROOT = path.resolve(__dirname, '../..');
+const FIXTURE_PATH = path.resolve(SPRING_TS_ROOT, 'test/fixtures/spring_ts_baseline_cases.json');
 const METRICS_PATH = path.resolve(SPRING_TS_ROOT, 'metrics/bySourceTier.json');
 
 const BASELINE_REF = process.env.COMPOSITE_GATE_BASELINE_REF ?? 'main';
 const BRANCH_REF = process.env.COMPOSITE_GATE_BRANCH_REF ?? 'HEAD';
+const MAX_SELECTED_JONGGYEOK_RATIO = 0;
 const MONTHLY_MAIN_THRESHOLD = { minPass: 17, comparable: 27 };
 const COMPOSITE_TOTAL_COVERAGE_THRESHOLD = { minCovered: 23, comparable: 27 };
 const COMPOSITE_SOURCE_TIER_THRESHOLDS = {
@@ -172,6 +183,23 @@ check(
     compositeQualityGate?.sourceTierDashboard?.[tier]?.candidateCoverage &&
     compositeQualityGate?.sourceTierDashboard?.[tier]?.nonRegression?.status === 'PASS'),
   JSON.stringify(compositeQualityGate?.sourceTierDashboard),
+);
+
+const fixtures = readJson<{ fixtures: readonly BaselineFixture[] }>(FIXTURE_PATH).fixtures;
+const selectedJonggyeokFixtures: string[] = [];
+for (const fixture of fixtures) {
+  const summary = await analyzeSaju(fixture.birth);
+  const selected = (summary.gyeokguk.jonggyeokCandidates ?? [])
+    .some((candidate) => candidate.status === 'selected');
+  if (selected) selectedJonggyeokFixtures.push(fixture.id);
+}
+const selectedJonggyeokRatio = fixtures.length > 0
+  ? selectedJonggyeokFixtures.length / fixtures.length
+  : 1;
+check(
+  'regular baseline selected jonggyeok ratio stays at zero',
+  selectedJonggyeokRatio <= MAX_SELECTED_JONGGYEOK_RATIO,
+  `selected=${selectedJonggyeokFixtures.length}/${fixtures.length}: ${selectedJonggyeokFixtures.join(',')}`,
 );
 
 console.log(`\nComposite quality gate: ${pass} PASS / ${fail} FAIL`);
