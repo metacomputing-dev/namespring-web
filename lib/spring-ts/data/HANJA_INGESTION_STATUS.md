@@ -62,18 +62,21 @@ isHanjaUsableForLegalName(entry, {
 3. **2,541 empty dic entries** (27%) — supplementary 의미 source needed (Unihan kKorean cross-reference).
 4. **Candidate generator wiring** — PR-2.2 wires
    `precisionConfig.hanjaPool='inmyeongyong_full'` into recommendation
-   generation. Remaining enrichment risk: generated full-pool entries use
-   reading-derived jamo and stroke-derived scoring elements until PR-2.3 adds
-   authoritative radical/Unihan metadata.
+   generation. PR-2.3 adds a Unihan 17.0.0 overlay for `kRSUnicode`,
+   `kTotalStrokes`, and variants. Remaining enrichment risk: generated
+   full-pool entries still use stroke-derived scoring elements; Unihan radical
+   data is exposed only as `radicalElementHint`, not a hard scoring truth.
 
 ## Verification commands
 
 ```
 node tools/inspect_delvier_db.mjs           # re-inspect db (PR-P-5)
 node tools/generate_inmyeongyong_full.mjs   # regenerate full json (PR-P-6)
+npm run ingest:unihan                       # regenerate Unihan overlay (PR-2.3)
 npm run test:hanja                          # 17 PASS / 0 FAIL
 npm run test:legal-hanja                    # legal reconciliation regressions
 npm run test:hanja-pool                     # full-pool generator wiring
+npm run test:unihan                         # Unihan metadata overlay
 npm run test:snapshot                       # 12/12 PASS (no behavioral regression)
 ```
 
