@@ -1,10 +1,10 @@
 {
   "schemaVersion": "spring-ts.source-tier-summary.v1",
   "status": "PASS",
-  "scanned": 82,
+  "scanned": 86,
   "violationCount": 0,
-  "authorityTruthEligibleCount": 52,
-  "nonEligibleCount": 30,
+  "authorityTruthEligibleCount": 55,
+  "nonEligibleCount": 31,
   "byTier": {
     "T3_AUTHORED_INTERPRETATION": {
       "recordCount": 31,
@@ -45,9 +45,9 @@
       ]
     },
     "T4_PRIMARY_TEXT": {
-      "recordCount": 7,
-      "authorityTruthEligible": 6,
-      "nonEligible": 1,
+      "recordCount": 11,
+      "authorityTruthEligible": 9,
+      "nonEligible": 2,
       "files": [
         "test/baseline/authority/classical/myeongri_jonheom_pillars.json",
         "test/baseline/authority/jonheom/05_瞿鸿玑.json",
@@ -55,7 +55,11 @@
         "test/baseline/authority/jonheom/10_伍廷芳.json",
         "test/baseline/authority/jonheom/11_杨士琦.json",
         "test/baseline/authority/jonheom/15_朱瑞.json",
-        "test/baseline/authority/jonheom/18_孙中山.json"
+        "test/baseline/authority/jonheom/18_孙中山.json",
+        "data/sources/classical-myeongri.sources.json",
+        "data/sources/classical-myeongri.sources.json#sources[0].sourceTier:yuanhai_ziping",
+        "data/sources/classical-myeongri.sources.json#sources[1].sourceTier:ditian_sui_chanwei",
+        "data/sources/classical-myeongri.sources.json#sources[2].sourceTier:sanming_tonghui"
       ]
     },
     "T1_HYPOTHESIS": {
@@ -154,6 +158,11 @@
       "recordCount": 12,
       "authorityTruthEligible": 0,
       "nonEligible": 12
+    },
+    "classical_primary_text_registry": {
+      "recordCount": 4,
+      "authorityTruthEligible": 3,
+      "nonEligible": 1
     },
     "official_kasi_lunar_solar_api_registry": {
       "recordCount": 1,
