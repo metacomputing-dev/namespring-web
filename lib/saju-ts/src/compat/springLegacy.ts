@@ -961,6 +961,9 @@ function normalizeLegacyOutput(
   const bestScore = Number(gyeokguk?.ranking?.[0]?.score ?? 0);
   const isJonggyeok = bestKeyCore.startsWith('CONG_') || bestKeyCore === 'ZHUAN_WANG';
   const gyeokgukCandidates = buildGyeokgukCandidates(bundle, bestKeyCore, bestScore);
+  const jonggyeokCandidates = Array.isArray(gyeokguk?.jonggyeokCandidates)
+    ? gyeokguk.jonggyeokCandidates
+    : [];
 
   const totalDistribution = (bundle.summary?.elementDistribution as any)?.total ?? {};
   const ohaengDistribution = {
@@ -1157,6 +1160,7 @@ function normalizeLegacyOutput(
         ? `격국 후보 중 ${gyeokgukKoLabel(bestKeyCore)}이(가) 가장 유력합니다.`
         : '격국 후보를 확정하기 어려워 추가 검토가 필요합니다.',
       candidates: gyeokgukCandidates,
+      jonggyeokCandidates,
     },
     ohaengDistribution,
     deficientElements,

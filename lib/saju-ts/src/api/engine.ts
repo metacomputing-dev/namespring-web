@@ -239,7 +239,11 @@ export function createEngine(config: Partial<EngineConfig> = {}): Engine {
         };
 
         const gg = results.get('rules.gyeokguk') as GyeokgukResult;
-        summary.gyeokguk = { best: gg.best, ranking: gg.ranking };
+        summary.gyeokguk = {
+          best: gg.best,
+          ranking: gg.ranking,
+          jonggyeokCandidates: gg.jonggyeokCandidates,
+        };
 
         const ss = results.get('rules.shinsal') as ShinsalResult;
 

@@ -365,6 +365,22 @@ export interface YongshinView {
 export interface GyeokgukView {
   best: string | null;
   ranking: Array<{ key: string; score: number }>;
+  jonggyeokCandidates?: JonggyeokCandidateView[];
+}
+
+export interface JonggyeokCandidateView {
+  subtype: string;
+  status: 'none' | 'possible' | 'candidate' | 'selected' | 'blocked';
+  score: number;
+  confidence: number;
+  followPressure: number;
+  dayMasterIsolation: number;
+  rootWeakness: number;
+  dominantElementShare: number;
+  breakerPenalty: number;
+  selectedReason?: string;
+  blockedReason?: string;
+  evidence: string[];
 }
 
 export interface ShinsalView {
