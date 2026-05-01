@@ -167,7 +167,7 @@ if (UPDATE || !fs.existsSync(GYEOKGUK_SNAPSHOT_PATH)) {
   fs.writeFileSync(GYEOKGUK_SNAPSHOT_PATH, serialized);
   console.log(`\nUpdated ${path.relative(SPRING_TS_ROOT, GYEOKGUK_SNAPSHOT_PATH)}`);
 } else {
-  const expected = fs.readFileSync(GYEOKGUK_SNAPSHOT_PATH, 'utf-8');
+  const expected = fs.readFileSync(GYEOKGUK_SNAPSHOT_PATH, 'utf-8').replace(/\r\n/g, '\n');
   check('focused gyeokguk candidate snapshot matches', serialized === expected);
 }
 
