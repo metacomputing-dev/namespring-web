@@ -35,7 +35,7 @@ mixed with engine failure.
 | A. Calculation accuracy | 15 | 15 | PASS | D5 edge/stability checks: 8 PASS / 0 FAIL |
 | B. Legal hanja/data | 15 | 10 | PARTIAL_OFFICIAL_DENOMINATOR | 9,389 official allowed entries mirrored; 106 candidate deltas remain unresolved |
 | C. Gyeokguk/yongshin rules | 25 | 0 | INSUFFICIENT_TRUTH | D1 has no T3+ authority-truth denominator for baseline fixtures |
-| D. Ten-god position weighting | 10 | 0 | MEASURED_NULL_EFFECT | `positional_weighted` is wired but observed candidate-level divergence is 0 / 21 |
+| D. Ten-god position weighting | 10 | 0 | MEASURED_OPT_IN_V2 | `positional_weighted_v2` is opt-in; simple vs v1 divergence remains 0 / 24 and v1/v2 baseline comparison is recorded |
 | E. Integrated naming score | 15 | 0 | NOT_MEASURED | Phase 6 score-vector metric not implemented yet |
 | F. Explainability/UX surface | 10 | 10 | PASS | D3 card surface checks: 12 PASS / 0 FAIL |
 | G. Validation/governance | 10 | 10 | PASS | Source-tier audit PASS, 0 violations |
@@ -44,27 +44,31 @@ mixed with engine failure.
 
 `tenGodMode='positional_weighted'` is no longer unmeasured. PR-5.1 records it
 as measured but null-effect: the branch is wired, yet current candidate-level
-observation remains 0 / 21 divergence.
+observation remains 0 / 24 divergence. PR-5.2 adds
+`tenGodMode='positional_weighted_v2'` as an opt-in candidate mode and records
+v1/v2 comparison rows in `metrics/rpi-summary.json`.
 
 | Fixture set | Diverged | Total |
 |---|---:|---:|
-| Default baseline fixtures | 0 | 12 |
+| Default baseline fixtures | 0 | 15 |
 | Jonggyeok stress fixtures | 0 | 9 |
-| Combined observation | 0 | 21 |
+| Combined observation | 0 | 24 |
 
-The synthetic scorer-only fixture now distinguishes source layer:
+The synthetic scorer-only fixture now distinguishes source layer in v1 and both
+source layer plus pillar position in v2:
 
-| Synthetic case | simple_count | positional_weighted |
-|---|---:|---:|
-| monthStem | 77.692308 | 62.857143 |
-| hourStem | 77.692308 | 62.857143 |
-| monthHidden | 77.692308 | 85.357143 |
-| hourHidden | 77.692308 | 85.357143 |
+| Synthetic case | simple_count | positional_weighted | positional_weighted_v2 |
+|---|---:|---:|---:|
+| monthStem | 77.692308 | 62.857143 | 48.837500 |
+| hourStem | 77.692308 | 62.857143 | 69.821429 |
+| monthHidden | 77.692308 | 85.357143 | 83.128571 |
+| hourHidden | 77.692308 | 85.357143 | 90.071429 |
 
 This shows the current source-layer weights are visible before normalization,
-but month/hour pillar position still collapses. The next implementation point is
-`src/saju-calculator.ts` inside `computeTenGodScore`, where raw weighted
-`groupCounts` are normalized through `deviation_from_average_count`.
+but month/hour pillar position still collapses in v1. The v2 opt-in path keeps
+`presenceCounts` separate from `visibilityCounts` and anchors deviations through
+`expectedPresenceByChartShape`; current baseline fixtures remain unchanged at
+the candidate score surface (`0 / 15` v1/v2 divergence).
 
 ## Truth Separation
 

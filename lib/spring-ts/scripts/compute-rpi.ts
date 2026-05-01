@@ -72,6 +72,11 @@ interface BaselineFixture {
   givenName: Array<{ hangul: string; hanja?: string }>;
 }
 
+type ScorableFixture = Pick<BaselineFixture, 'id' | 'birth' | 'surname' | 'givenName'> & {
+  label?: string;
+  expectedJonggyeokType?: string;
+};
+
 interface QualityGateFixture {
   fixtureId: string;
   label: string;
@@ -671,7 +676,7 @@ function patchFetchForEngine(): void {
   };
 }
 
-async function scoreFixture(engine: SpringEngine, fixture: BaselineFixture, options: any): Promise<{ total: number; saju: number }> {
+async function scoreFixture(engine: SpringEngine, fixture: ScorableFixture, options: any): Promise<{ total: number; saju: number }> {
   const result = await engine.analyze({
     birth: fixture.birth,
     surname: fixture.surname,
@@ -684,6 +689,84 @@ async function scoreFixture(engine: SpringEngine, fixture: BaselineFixture, opti
     total: candidate.scores.total,
     saju: candidate.scores.saju,
   };
+}
+
+function roundScorePair(score: { total: number; saju: number }): { total: number; saju: number } {
+  return {
+    total: Number(score.total.toFixed(4)),
+    saju: Number(score.saju.toFixed(4)),
+  };
+}
+
+function scoreDelta(
+  after: { total: number; saju: number },
+  before: { total: number; saju: number },
+): { total: number; saju: number } {
+  return {
+    total: Number((after.total - before.total).toFixed(4)),
+    saju: Number((after.saju - before.saju).toFixed(4)),
+  };
+}
+
+function summarizeTenGodRows(rows: any[]): any {
+  const v1V2Diverged = rows.filter((row) =>
+    Math.abs(row.delta.saju) > 1e-9 || Math.abs(row.delta.total) > 1e-9);
+  const simpleVsV1Diverged = rows.filter((row) =>
+    Math.abs(row.simpleVsV1Delta.saju) > 1e-9 || Math.abs(row.simpleVsV1Delta.total) > 1e-9);
+  return {
+    total: rows.length,
+    v1V2Diverged: v1V2Diverged.length,
+    simpleVsV1Diverged: simpleVsV1Diverged.length,
+    totalAbsDelta: {
+      saju: Number(rows.reduce((sum, row) => sum + Math.abs(row.delta.saju), 0).toFixed(4)),
+      total: Number(rows.reduce((sum, row) => sum + Math.abs(row.delta.total), 0).toFixed(4)),
+    },
+    rows,
+  };
+}
+
+async function buildTenGodModeComparison(fixtures: BaselineFixture[]): Promise<any> {
+  patchFetchForEngine();
+  const engine = new SpringEngine();
+  const repos: any[] = [(engine as any).hanjaRepo, (engine as any).fourFrameRepo];
+  for (const repo of repos) {
+    if (!repo) continue;
+    (repo as any).wasmUrl = WASM_PATH;
+  }
+  await engine.init();
+
+  const compareFixture = async (fixture: ScorableFixture): Promise<any> => {
+    const simple = await scoreFixture(engine, fixture, { precisionConfig: { tenGodMode: 'simple_count' } });
+    const v1 = await scoreFixture(engine, fixture, { precisionConfig: { tenGodMode: 'positional_weighted' } });
+    const v2 = await scoreFixture(engine, fixture, { precisionConfig: { tenGodMode: 'positional_weighted_v2' } });
+    return {
+      id: fixture.id,
+      ...(fixture.label ? { label: fixture.label } : {}),
+      ...(fixture.expectedJonggyeokType ? { expectedJonggyeokType: fixture.expectedJonggyeokType } : {}),
+      simple: roundScorePair(simple),
+      v1: roundScorePair(v1),
+      v2: roundScorePair(v2),
+      simpleVsV1Delta: scoreDelta(v1, simple),
+      delta: scoreDelta(v2, v1),
+    };
+  };
+
+  try {
+    const jonggyeokFixtures = readJson<{ fixtures: ScorableFixture[] }>(JONGGYEOK_FIXTURES_PATH).fixtures;
+    const defaultRows: any[] = [];
+    for (const fixture of fixtures) defaultRows.push(await compareFixture(fixture));
+    const jonggyeokRows: any[] = [];
+    for (const fixture of jonggyeokFixtures) jonggyeokRows.push(await compareFixture(fixture));
+    return {
+      modeA: 'positional_weighted',
+      modeB: 'positional_weighted_v2',
+      note: 'v2 is opt-in; this artifact compares PR-5.1 default behavior with the PR-5.2 candidate mode.',
+      defaultFixtures: summarizeTenGodRows(defaultRows),
+      jonggyeokFixtures: summarizeTenGodRows(jonggyeokRows),
+    };
+  } finally {
+    engine.close();
+  }
 }
 
 function addSchoolDelta(bucket: any, totalDelta: number, sajuDelta: number, referenceTier: string): void {
@@ -871,19 +954,33 @@ function buildSyntheticTenGodOutput(id: TenGodSyntheticFixtureId): SajuOutputSum
   };
 }
 
-function buildTenGodPositionWeightingDiagnosis(): any {
+function buildTenGodPositionWeightingDiagnosis(baselineComparison: any): any {
   const rootWood: Record<ElementKey, number> = { Wood: 1, Fire: 0, Earth: 0, Metal: 0, Water: 0 };
   const ids: TenGodSyntheticFixtureId[] = ['monthStem', 'hourStem', 'monthHidden', 'hourHidden'];
   const synthetic = ids.map((id) => {
     const simple = computeTenGodScoreDiagnostics(rootWood, buildSyntheticTenGodOutput(id), 'simple_count');
     const positional = computeTenGodScoreDiagnostics(rootWood, buildSyntheticTenGodOutput(id), 'positional_weighted');
+    const positionalV2 = computeTenGodScoreDiagnostics(rootWood, buildSyntheticTenGodOutput(id), 'positional_weighted_v2');
     return {
       id,
       simpleScore: Number(simple.score.toFixed(6)),
       positionalScore: Number(positional.score.toFixed(6)),
+      positionalV2Score: Number(positionalV2.score.toFixed(6)),
       weightedGroupCounts: Object.fromEntries(
         Object.entries(positional.groupCounts).map(([group, value]) => [group, Number(value.toFixed(6))]),
       ),
+      v2VisibilityCounts: Object.fromEntries(
+        Object.entries(positionalV2.visibilityCounts ?? {}).map(([group, value]) => [group, Number(value.toFixed(6))]),
+      ),
+      v2PresenceCounts: Object.fromEntries(
+        Object.entries(positionalV2.presenceCounts ?? {}).map(([group, value]) => [group, Number(value.toFixed(6))]),
+      ),
+      expectedPresenceByChartShape: positionalV2.expectedPresenceByChartShape == null
+        ? null
+        : Number(positionalV2.expectedPresenceByChartShape.toFixed(6)),
+      meanVisibilityPerPresence: positionalV2.meanVisibilityPerPresence == null
+        ? null
+        : Number(positionalV2.meanVisibilityPerPresence.toFixed(6)),
       averageCount: Number(positional.averageCount.toFixed(6)),
       deviations: Object.fromEntries(
         Object.entries(positional.deviations).map(([group, value]) => [group, Number(value.toFixed(6))]),
@@ -895,13 +992,22 @@ function buildTenGodPositionWeightingDiagnosis(): any {
 
   return {
     metric: 'ten-god positional weighting null-effect diagnosis',
-    status: 'MEASURED_NULL_EFFECT',
+    status: 'MEASURED_OPT_IN_V2',
     score: 0,
     maxPoints: 10,
     observedEngineDivergence: {
-      defaultFixtures: { diverged: 0, total: 12 },
-      jonggyeokFixtures: { diverged: 0, total: 9 },
-      combined: { diverged: 0, total: 21 },
+      defaultFixtures: {
+        diverged: baselineComparison.defaultFixtures.simpleVsV1Diverged,
+        total: baselineComparison.defaultFixtures.total,
+      },
+      jonggyeokFixtures: {
+        diverged: baselineComparison.jonggyeokFixtures.simpleVsV1Diverged,
+        total: baselineComparison.jonggyeokFixtures.total,
+      },
+      combined: {
+        diverged: baselineComparison.defaultFixtures.simpleVsV1Diverged + baselineComparison.jonggyeokFixtures.simpleVsV1Diverged,
+        total: baselineComparison.defaultFixtures.total + baselineComparison.jonggyeokFixtures.total,
+      },
       source: 'test/integration/md8-tengod-divergence.test.ts',
     },
     currentMechanism: {
@@ -928,14 +1034,23 @@ function buildTenGodPositionWeightingDiagnosis(): any {
         monthStemEqualsHourStem: byId.monthStem.positionalScore === byId.hourStem.positionalScore,
         monthHiddenEqualsHourHidden: byId.monthHidden.positionalScore === byId.hourHidden.positionalScore,
       },
+      optInV2Divergence: {
+        monthStem: byId.monthStem.positionalV2Score,
+        hourStem: byId.hourStem.positionalV2Score,
+        monthHidden: byId.monthHidden.positionalV2Score,
+        hourHidden: byId.hourHidden.positionalV2Score,
+        stemPillarDiverges: byId.monthStem.positionalV2Score !== byId.hourStem.positionalV2Score,
+        hiddenPillarDiverges: byId.monthHidden.positionalV2Score !== byId.hourHidden.positionalV2Score,
+      },
       rows: synthetic,
     },
-    nextPrTarget: 'PR-5.2 should change the normalization/anchor point so source-layer and pillar-position visibility survive beyond raw groupCounts.',
+    baselineComparison,
+    nextPrTarget: 'PR-5.3 should surface the ten-god position evidence so users can see which positions drive the score.',
   };
 }
 
-function buildRpiSummary(gate: QualityGateReport, sourceSummary: any, bySourceTier: any): any {
-  const tenGodDiagnosis = buildTenGodPositionWeightingDiagnosis();
+function buildRpiSummary(gate: QualityGateReport, sourceSummary: any, bySourceTier: any, tenGodBaselineComparison: any): any {
+  const tenGodDiagnosis = buildTenGodPositionWeightingDiagnosis(tenGodBaselineComparison);
   const axisScores = {
     A_calculationAccuracy: scoreAxisFromDimension(gate, 'D5', 15, 'No calculation-specific official oracle axis beyond D5 stability yet.'),
     B_legalHanjaData: scoreLegalHanjaAxis(),
@@ -951,9 +1066,10 @@ function buildRpiSummary(gate: QualityGateReport, sourceSummary: any, bySourceTi
       maxPoints: 10,
       score: tenGodDiagnosis.score,
       status: tenGodDiagnosis.status,
-      reason: 'The positional_weighted branch is wired, but observed candidate-level divergence is 0/21 under the current normalization pipeline.',
+      reason: 'positional_weighted_v2 is opt-in and now records presence/visibility deltas against the PR-5.1 default; no authority denominator is promoted yet.',
       observedEngineDivergence: tenGodDiagnosis.observedEngineDivergence,
       syntheticFixtures: tenGodDiagnosis.syntheticFixtures,
+      baselineComparison: tenGodDiagnosis.baselineComparison,
       normalizationPoint: tenGodDiagnosis.currentMechanism.normalizationPoint,
       nextPrTarget: tenGodDiagnosis.nextPrTarget,
     },
@@ -1045,7 +1161,8 @@ async function main(): Promise<void> {
     schoolPresetBreakdown: await buildSchoolPresetBreakdown(fixtures),
   };
 
-  const rpiSummary = buildRpiSummary(gate, sourceSummary, bySourceTier);
+  const tenGodBaselineComparison = await buildTenGodModeComparison(fixtures);
+  const rpiSummary = buildRpiSummary(gate, sourceSummary, bySourceTier, tenGodBaselineComparison);
 
   writeJson(path.join(args.outDir, 'bySourceTier.json'), bySourceTier);
   writeJson(path.join(args.outDir, 'source-tier-summary.json'), sourceSummary);

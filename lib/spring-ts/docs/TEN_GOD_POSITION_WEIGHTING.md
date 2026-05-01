@@ -1,21 +1,27 @@
 # Ten-God Position Weighting
 
-PR-5.1 documents the current `tenGodMode='positional_weighted'` behavior. It
-does not change scoring semantics. The goal is to make the null effect
-measurable before PR-5.2 changes the scoring formula.
+PR-5.1 documents the current `tenGodMode='positional_weighted'` behavior.
+PR-5.2 adds `tenGodMode='positional_weighted_v2'` as an opt-in candidate mode
+without changing the public default.
 
 ## Current Result
 
-Observed engine-level divergence is `0 / 21`:
+Observed simple-count vs PR-5.1 engine-level divergence is `0 / 24`:
 
 | Fixture set | Diverged | Total | Source |
 | --- | ---:| ---:| --- |
-| Default baseline fixtures | 0 | 12 | documented by `md8-tengod-divergence.test.ts` |
+| Default baseline fixtures | 0 | 15 | `metrics/rpi-summary.json` |
 | Jonggyeok stress fixtures | 0 | 9 | `test/fixtures/jonggyeok_cases.json` |
-| Combined observation | 0 | 21 | PR-5.1 RPI dashboard |
+| Combined observation | 0 | 24 | PR-5.2 RPI dashboard |
 
 This means the branch is wired but currently null-effect at the candidate score
 surface.
+
+PR-5.2 separately records v1/v2 comparison rows in
+`metrics/rpi-summary.json.tenGodPositionWeighting.baselineComparison`. Current
+baseline fixtures remain unchanged (`0 / 15` v1/v2 divergence), while synthetic
+fixtures prove the v2 formula can preserve source-layer and pillar-position
+differences.
 
 ## Why It Cancels
 
@@ -58,13 +64,53 @@ The expected PR-5.1 behavior is:
 - diagnostics expose raw weighted counts, `averageCount`, and post-normalized
   group deviations.
 
+The expected PR-5.2 opt-in behavior is:
+
+- `positional_weighted_v2` keeps `presenceCounts` separate from
+  `visibilityCounts`.
+- `expectedPresenceByChartShape` anchors the deficiency calculation.
+- month/hour stem signals diverge.
+- month/hour hidden-stem signals diverge through pillar visibility.
+- default lower-level scoring remains `simple_count`; SpringEngine default
+  remains `positional_weighted`.
+
+## PR-5.2 Formula
+
+For v2, every position contribution records:
+
+```ts
+presence = source === 'hiddenStem' ? clamp(ratio / 100, 0, 1) : 1
+visibility = presence * sourceVisibility * pillarVisibility
+```
+
+Current visibility constants are:
+
+| Layer | Visibility |
+| --- | ---:|
+| Heavenly stem | 4.0 |
+| Branch principal hidden stem | 1.8 |
+| Hidden stems by ratio rank | 1.2 / 0.7 / 0.45 |
+| Year pillar | 0.85 |
+| Month pillar | 1.35 |
+| Day pillar | 1.05 |
+| Hour pillar | 0.75 |
+
+The score combines presence imbalance and visibility imbalance:
+
+```ts
+presenceDeviation = (expectedPresenceByChartShape - presenceCount) / expectedPresenceByChartShape
+visibilityDeviation = (expectedVisibilityForObservedPresence - visibilityCount) / expectedVisibilityForObservedPresence
+rawDeviation = presenceDeviation + 0.5 * visibilityDeviation
+```
+
+Negative deviations still use the existing `TEN_GOD.negativeScale` before the
+element-weight blend.
+
 ## Next PR Target
 
-PR-5.2 should change the normalization anchor so source-layer and
-pillar-position visibility survive beyond raw `groupCounts`. The specific
-patch point is `src/saju-calculator.ts` inside `computeTenGodScore`, after raw
-position contributions are collected and before `deviation_from_average_count`
-collapses them.
+PR-5.3 should surface the ten-god position evidence in the report layer so the
+user can see whether the score is driven by month/hour, heavenly-stem,
+principal-branch, or hidden-stem evidence.
 
 Run the full PR-5.1 check:
 
