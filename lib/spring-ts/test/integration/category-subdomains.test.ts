@@ -55,6 +55,10 @@ const fortuneOptIn = await engine.getFortuneReport({
   ...baseRequest,
   options: { precisionConfig: { surfaceSubDomains: true } } as any,
 });
+const fortuneOptOut = await engine.getFortuneReport({
+  ...baseRequest,
+  options: { precisionConfig: { surfaceSubDomains: false } } as any,
+});
 
 let pass = 0;
 let fail = 0;
@@ -72,10 +76,18 @@ console.log('PR-K-1 sub-domain wire-up\n');
 
 const cats: FortuneCategory[] = ['wealth', 'health', 'academic', 'romance', 'family'];
 
-// (1) default unchanged
+// (1) default behavior — PR-Q-16 (Phase K-1 PR-B) flipped default to true.
+//     Both fortuneDefault and fortuneOptIn now produce subDomains.
 for (const c of cats) {
-  check(`default: ${c}.subDomains undefined`,
-    fortuneDefault.categoryFortunes[c].subDomains === undefined);
+  check(`default flip: ${c}.subDomains populated`,
+    Array.isArray(fortuneDefault.categoryFortunes[c].subDomains)
+      && fortuneDefault.categoryFortunes[c].subDomains!.length >= 1);
+}
+
+// (1b) explicit opt-out preserves legacy contract
+for (const c of cats) {
+  check(`opt-out: ${c}.subDomains undefined when surfaceSubDomains=false`,
+    fortuneOptOut.categoryFortunes[c].subDomains === undefined);
 }
 
 // (2) opt-in surfaces 1-3 rows per card

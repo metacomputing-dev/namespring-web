@@ -643,10 +643,36 @@ function buildSubDomainRows(
   });
 }
 
+// PR-Q-16 — TenGodSummary surfaces only byPosition (cheonganTenGod /
+// jijiPrincipalTenGod) with Korean labels. We aggregate to a 5-group count
+// here without depending on the saju-adapter's internal mapping.
+const TEN_GOD_KO_TO_GROUP: Record<string, string> = {
+  '비견': 'friend',
+  '겁재': 'friend',
+  '식신': 'output',
+  '상관': 'output',
+  '편재': 'wealth',
+  '정재': 'wealth',
+  '편관': 'authority',
+  '정관': 'authority',
+  '편인': 'resource',
+  '정인': 'resource',
+};
+
 function extractSubDomainGate(saju: SajuSummary): SubDomainGateInput {
-  const tenGod = (saju as Record<string, unknown>).tenGodAnalysis as
-    | { groupCounts?: Partial<Record<string, number>> }
-    | undefined;
+  const groupCounts: Record<string, number> = {
+    friend: 0, output: 0, wealth: 0, authority: 0, resource: 0,
+  };
+  const byPosition = saju.tenGodAnalysis?.byPosition;
+  if (byPosition) {
+    for (const positionInfo of Object.values(byPosition)) {
+      if (!positionInfo) continue;
+      const cheonganGroup = TEN_GOD_KO_TO_GROUP[positionInfo.cheonganTenGod];
+      const jijiGroup = TEN_GOD_KO_TO_GROUP[positionInfo.jijiPrincipalTenGod];
+      if (cheonganGroup) groupCounts[cheonganGroup]++;
+      if (jijiGroup) groupCounts[jijiGroup]++;
+    }
+  }
   const shinsalHits = (saju as Record<string, unknown>).shinsalHits as
     | Array<{ name?: string }>
     | undefined;
@@ -660,7 +686,7 @@ function extractSubDomainGate(saju: SajuSummary): SubDomainGateInput {
     ? jijiRelations.filter((r) => r?.kind === '충' || r?.kind === 'CHUNG').length
     : 0;
   return {
-    groupCounts: tenGod?.groupCounts,
+    groupCounts,
     yeokmaHits,
     chungHits,
   };

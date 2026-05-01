@@ -83,12 +83,15 @@ for (const cat of expected) {
       && typeof card.stars === 'number');
 }
 
-// ── (2) subDomains absent by default ────────────────────────────────────
+// ── (2) subDomains populated by default ─────────────────────────────────
+//   (PR-Q-16 Phase K-1 PR-B: default flip false → true. The wire-up from
+//   PR-Q-15 produces 1-3 rows per card.)
 for (const cat of expected) {
   const card = fortune.categoryFortunes[cat];
-  check(`${cat}: subDomains is undefined (default behavior preserved)`,
-    card.subDomains === undefined,
-    'PR12 wire-up deferred to follow-up PR');
+  check(`${cat}: subDomains populated (PR-K-1 PR-B default true)`,
+    Array.isArray(card.subDomains) && card.subDomains.length >= 1
+      && card.subDomains.length <= 3,
+    card.subDomains ? `len=${card.subDomains.length}` : 'undefined');
 }
 
 // ── (3) FortuneCategoryExtended union compile-time check ─────────────────

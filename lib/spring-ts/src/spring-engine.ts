@@ -1439,7 +1439,11 @@ export class SpringEngine {
         : 'simple',
       narrativeStyle: pc?.narrativeStyle,
       readingFocus: pc?.readingFocus,
-      surfaceSubDomains: pc?.surfaceSubDomains,
+      // PR-Q-16 (Phase K-1 PR-B): surfaceSubDomains default flips
+      // false → true. Each CategoryFortuneCard now carries 1-3 sub-domain
+      // rows (saju_master/event_domain_map.py doctrine). Callers can opt
+      // out via explicit `surfaceSubDomains: false`.
+      surfaceSubDomains: pc?.surfaceSubDomains ?? true,
     });
   }
 
