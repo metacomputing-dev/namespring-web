@@ -70,6 +70,9 @@ for (const f of files) {
 
   check(`${f}: source.kind === 'training_derived'`,
     data.source?.kind === 'training_derived');
+  check(`${f}: sourceTier marks T1 hypothesis only`,
+    data.sourceTier?.tier === 'T1_HYPOTHESIS' &&
+    data.sourceTier?.authorityTruthEligible === false);
   check(`${f}: verificationStatus === 'pending_book_check'`,
     data.verificationStatus === 'pending_book_check');
   check(`${f}: doctrine_basis non-empty`,

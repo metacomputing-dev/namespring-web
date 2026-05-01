@@ -91,6 +91,9 @@ console.log('PR-Q-20 (Phase L-1) jonggyeok 9-way fixture validation\n');
 check(`fixture count = 9`, fixtures.length === 9, `actual=${fixtures.length}`);
 check(`sourcePolicy declares training-data origin`,
   typeof data.sourcePolicy === 'string' && data.sourcePolicy.includes('training'));
+check(`sourceTier marks collection as T1 hypothesis`,
+  data.sourceTier?.tier === 'T1_HYPOTHESIS' &&
+  data.sourceTier?.authorityTruthEligible === false);
 
 const observedEngineTypes: Record<string, string> = {};
 
