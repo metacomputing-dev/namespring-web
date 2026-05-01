@@ -1,0 +1,281 @@
+/**
+ * scripts/compute-performance-dashboard.ts
+ *
+ * Phase 9.2 performance dashboard.
+ *
+ * Aggregates existing deterministic metrics into a compact dashboard so RPI,
+ * source-tier coverage, rule-mode comparison, and naming candidate diversity
+ * are tracked by numbers instead of narrative impressions.
+ *
+ * Usage:
+ *   npx tsx scripts/compute-performance-dashboard.ts
+ *   npx tsx scripts/compute-performance-dashboard.ts --out-dir /tmp/dashboard
+ */
+import fs from 'node:fs';
+import path from 'node:path';
+import { fileURLToPath } from 'node:url';
+
+const __dirname = path.dirname(fileURLToPath(import.meta.url));
+const SPRING_TS_ROOT = path.resolve(__dirname, '..');
+const GENERATED_AT = '2026-05-02T00:00:00.000Z';
+const SCHEMA_VERSION = 'spring-ts.performance-dashboard.v1';
+
+interface Args {
+  readonly outDir: string;
+  readonly metricsDir: string;
+  readonly json: boolean;
+}
+
+function parseArgs(argv: string[]): Args {
+  const mutable: { -readonly [K in keyof Args]: Args[K] } = {
+    outDir: path.resolve(SPRING_TS_ROOT, 'metrics'),
+    metricsDir: path.resolve(SPRING_TS_ROOT, 'metrics'),
+    json: false,
+  };
+  for (let i = 2; i < argv.length; i += 1) {
+    if (argv[i] === '--out-dir' && argv[i + 1]) {
+      mutable.outDir = path.resolve(argv[i + 1]);
+      i += 1;
+    } else if (argv[i] === '--metrics-dir' && argv[i + 1]) {
+      mutable.metricsDir = path.resolve(argv[i + 1]);
+      i += 1;
+    } else if (argv[i] === '--json') {
+      mutable.json = true;
+    }
+  }
+  return mutable;
+}
+
+function readJson<T = any>(filePath: string): T {
+  return JSON.parse(fs.readFileSync(filePath, 'utf-8')) as T;
+}
+
+function writeJson(filePath: string, data: unknown): void {
+  fs.mkdirSync(path.dirname(filePath), { recursive: true });
+  fs.writeFileSync(filePath, JSON.stringify(data, null, 2) + '\n', 'utf-8');
+}
+
+function round(value: number): number {
+  return Number(value.toFixed(4));
+}
+
+function percent(numerator: number, denominator: number): number | null {
+  if (denominator <= 0) return null;
+  return round((numerator / denominator) * 100);
+}
+
+function buildRpiTrendReport(rpi: any): any {
+  const axes = Object.fromEntries(Object.entries(rpi.axisScores ?? {}).map(([axisId, axis]: [string, any]) => [
+    axisId,
+    {
+      score: axis.score,
+      maxPoints: axis.maxPoints,
+      percent: percent(Number(axis.score ?? 0), Number(axis.maxPoints ?? 0)),
+      status: axis.status,
+    },
+  ]));
+  const axisRows = Object.values(axes) as any[];
+  return {
+    trendKind: 'single_snapshot_baseline',
+    current: {
+      rawScore: rpi.rawRpi?.score,
+      rawMaxPoints: rpi.rawRpi?.maxPoints,
+      measuredScore: rpi.measuredOnlyRpi?.score,
+      measuredMaxPoints: rpi.measuredOnlyRpi?.maxPoints,
+      measuredPercent: rpi.measuredOnlyRpi?.percent,
+    },
+    axisCount: axisRows.length,
+    measuredAxisCount: axisRows.filter((axis) =>
+      axis.status !== 'NOT_MEASURED' && axis.status !== 'INSUFFICIENT_TRUTH').length,
+    truthInsufficientAxisCount: axisRows.filter((axis) => axis.status === 'INSUFFICIENT_TRUTH').length,
+    notMeasuredAxisCount: axisRows.filter((axis) => axis.status === 'NOT_MEASURED').length,
+    axes,
+  };
+}
+
+function buildSourceTierCoverageReport(sourceSummary: any, bySourceTier: any): any {
+  const byTier = Object.fromEntries(Object.entries(sourceSummary.byTier ?? {}).map(([tier, bucket]: [string, any]) => [
+    tier,
+    {
+      recordCount: bucket.recordCount,
+      authorityTruthEligible: bucket.authorityTruthEligible,
+      nonEligible: bucket.nonEligible,
+      eligibleRate: percent(Number(bucket.authorityTruthEligible ?? 0), Number(bucket.recordCount ?? 0)),
+    },
+  ]));
+  const baselineByReferenceTier = Object.fromEntries(
+    Object.entries(bySourceTier.qualityGateByReferenceTier ?? {}).map(([tier, bucket]: [string, any]) => [
+      tier,
+      {
+        fixtureCount: bucket.fixtureCount,
+        pass: bucket.pass,
+        partial: bucket.partial,
+        diff: bucket.diff,
+        na: bucket.na,
+        truthBuckets: bucket.truthBuckets,
+      },
+    ]),
+  );
+  return {
+    status: sourceSummary.status,
+    scanned: sourceSummary.scanned,
+    violationCount: sourceSummary.violationCount,
+    authorityTruthEligibleCount: sourceSummary.authorityTruthEligibleCount,
+    nonEligibleCount: sourceSummary.nonEligibleCount,
+    authorityTruthEligibleRate: percent(
+      Number(sourceSummary.authorityTruthEligibleCount ?? 0),
+      Number(sourceSummary.authorityTruthEligibleCount ?? 0) + Number(sourceSummary.nonEligibleCount ?? 0),
+    ),
+    byTier,
+    baselineByReferenceTier,
+    truthSeparation: bySourceTier.truthSeparation,
+  };
+}
+
+function buildRuleModeComparisonReport(bySourceTier: any): any {
+  const modes = bySourceTier.ruleModeBreakdown?.modes ?? {};
+  return {
+    baselineMode: 'monthly_main',
+    modeCount: Object.keys(modes).length,
+    modes: Object.fromEntries(Object.entries(modes).map(([modeId, mode]: [string, any]) => [
+      modeId,
+      {
+        measurementStatus: mode.measurementStatus,
+        selectionPolicy: mode.selectionPolicy,
+        total: mode.total,
+        pass: mode.pass,
+        partial: mode.partial,
+        diff: mode.diff,
+        comparable: mode.comparable,
+        passRate: mode.passRate,
+        winLossVsMonthlyMain: mode.winLossVsMonthlyMain,
+        candidateCoverage: mode.candidateCoverage,
+        sourceTierNonRegressionVsMonthlyMain: mode.sourceTierNonRegressionVsMonthlyMain,
+      },
+    ])),
+    compositeQualityGate: bySourceTier.ruleModeBreakdown?.compositeQualityGate,
+  };
+}
+
+function buildNamingCandidateDiversityReport(bySourceTier: any, ruleAbTests: any): any {
+  const presets = bySourceTier.schoolPresetBreakdown?.presets ?? {};
+  const presetRows = Object.entries(presets).map(([presetId, preset]: [string, any]) => ({
+    presetId,
+    fixtureCount: preset.fixtureCount,
+    changedFromDefault: preset.changedFromDefault,
+    changedRate: percent(Number(preset.changedFromDefault ?? 0), Number(preset.fixtureCount ?? 0)),
+    averageTotalDelta: preset.averageTotalDelta,
+    averageSajuDelta: preset.averageSajuDelta,
+  }));
+  const rankingComparison = (ruleAbTests.comparisons ?? [])
+    .find((comparison: any) => comparison.experimentId === 'candidate_ranking_strategy_feedback');
+  const rankingExperiment = (ruleAbTests.experiments ?? [])
+    .find((experiment: any) => experiment.experimentId === 'candidate_ranking_strategy_feedback');
+  return {
+    metricLimit: 'feedback proxy; direct candidate-list diversity is asserted in pareto-candidates.test.ts today',
+    schoolPresetDiversity: {
+      presetCount: presetRows.length,
+      fixtureCount: bySourceTier.schoolPresetBreakdown?.rows?.length ?? 0,
+      changedPresetCount: presetRows.filter((row) => Number(row.changedFromDefault ?? 0) > 0).length,
+      authorityFixtureCoverage: bySourceTier.schoolPresetBreakdown?.authorityFixtureCoverage,
+      presets: presetRows,
+    },
+    rankingStrategyDiversity: rankingComparison
+      ? {
+        experimentId: rankingComparison.experimentId,
+        variants: (rankingExperiment?.variants ?? []).map((variant: any) => ({
+          variantId: variant.variantId,
+          role: variant.role,
+          paretoFrontierCandidates: variant.options?.precisionConfig?.paretoFrontierCandidates === true,
+          surfaceNamingScoreVector: variant.options?.precisionConfig?.surfaceNamingScoreVector === true,
+          yongshinMode: variant.options?.precisionConfig?.yongshinMode ?? null,
+          nameElementStrategy: variant.options?.precisionConfig?.nameElementStrategy ?? null,
+        })),
+        strategyCount: rankingComparison.rows?.length ?? 0,
+        winningVariantId: rankingComparison.winningVariantId,
+        decision: rankingComparison.decision,
+        blockedBy: rankingComparison.blockedBy,
+        rows: (rankingComparison.rows ?? []).map((row: any) => ({
+          variantId: row.variantId,
+          role: row.role,
+          exposures: row.exposures,
+          compositeFeedbackScore: row.compositeFeedbackScore,
+          deltaVsControl: row.deltaVsControl,
+          candidateNameRejectionRate: row.candidateNameRejectionRate,
+        })),
+      }
+      : null,
+  };
+}
+
+function buildDashboard(metricsDir: string): any {
+  const rpi = readJson(path.join(metricsDir, 'rpi-summary.json'));
+  const sourceSummary = readJson(path.join(metricsDir, 'source-tier-summary.json'));
+  const bySourceTier = readJson(path.join(metricsDir, 'bySourceTier.json'));
+  const deterministicCalibration = readJson(path.join(metricsDir, 'deterministic-calibration.json'));
+  const ruleAbTests = readJson(path.join(metricsDir, 'rule-ab-tests.json'));
+  return {
+    schemaVersion: SCHEMA_VERSION,
+    artifactKind: 'phase_9_2_performance_dashboard',
+    generatedAt: GENERATED_AT,
+    snapshotTargetDate: bySourceTier.baseline?.snapshotTargetDate,
+    inputs: {
+      rpiSummary: 'metrics/rpi-summary.json',
+      sourceTierSummary: 'metrics/source-tier-summary.json',
+      bySourceTier: 'metrics/bySourceTier.json',
+      deterministicCalibration: 'metrics/deterministic-calibration.json',
+      ruleAbTests: 'metrics/rule-ab-tests.json',
+    },
+    privacy: {
+      sourceFree: true,
+      aggregateOnly: true,
+      authorityUsage: 'not_authority_truth',
+      rawFixtureRowsStored: false,
+      rawPersonalFieldsStored: false,
+      rawFeedbackStoredInRepo: false,
+    },
+    rpiTrendReport: buildRpiTrendReport(rpi),
+    sourceTierCoverageReport: buildSourceTierCoverageReport(sourceSummary, bySourceTier),
+    sourceTierPromotionGate: {
+      calibrationStatus: deterministicCalibration.sourceTierObjective?.status,
+      eligibleObjectiveFixtureCount: deterministicCalibration.sourceTierObjective?.eligibleObjectiveFixtureCount,
+      tierWeights: deterministicCalibration.sourceTierObjective?.tierWeights,
+      lowTierPolicy: deterministicCalibration.sourceTierObjective?.lowTierPolicy,
+      ruleAbSourceTierGate: ruleAbTests.sourceTierGate,
+    },
+    ruleModeComparisonReport: buildRuleModeComparisonReport(bySourceTier),
+    namingCandidateDiversityReport: buildNamingCandidateDiversityReport(bySourceTier, ruleAbTests),
+    releaseGates: {
+      qualityGateOverall: rpi.qualityGate?.overall,
+      sourceTierStatus: sourceSummary.status,
+      sourceTierViolationCount: sourceSummary.violationCount,
+      defaultPromotionDecision: ruleAbTests.defaultPromotionDecision?.decision,
+      sourceTierDefaultPromotionGate: ruleAbTests.sourceTierGate?.status,
+    },
+  };
+}
+
+async function main(): Promise<void> {
+  const args = parseArgs(process.argv);
+  const dashboard = buildDashboard(args.metricsDir);
+  const outPath = path.join(args.outDir, 'performance-dashboard.json');
+  writeJson(outPath, dashboard);
+  const summary = {
+    outPath,
+    schemaVersion: dashboard.schemaVersion,
+    rawRpi: dashboard.rpiTrendReport.current.rawScore,
+    sourceTierStatus: dashboard.sourceTierCoverageReport.status,
+    ruleModeCount: dashboard.ruleModeComparisonReport.modeCount,
+    presetCount: dashboard.namingCandidateDiversityReport.schoolPresetDiversity.presetCount,
+  };
+  if (args.json) console.log(JSON.stringify(summary, null, 2));
+  else {
+    console.log(`Performance dashboard written to ${outPath}`);
+    console.log(`  rawRpi=${summary.rawRpi}`);
+    console.log(`  sourceTier=${summary.sourceTierStatus}`);
+    console.log(`  ruleModes=${summary.ruleModeCount}`);
+    console.log(`  presets=${summary.presetCount}`);
+  }
+}
+
+await main();
