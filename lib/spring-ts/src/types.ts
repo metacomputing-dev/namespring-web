@@ -492,6 +492,7 @@ export interface SajuSummary {
   /** 60갑자 納音 summary (PR-Q-6). Populated when
    *  `options.precisionConfig.surfaceNaeum === true`. */
   readonly naeum?: NaeumSummary;
+  readonly inputUncertainty?: SajuInputUncertainty;
   readonly [key: string]: unknown;
 }
 
@@ -829,6 +830,11 @@ export interface SajuOutputSummary {
   /** 60갑자 納音 summary (PR-Q-6). Surfaced when
    *  `precisionConfig.surfaceNaeum === true`. */
   naeum?: NaeumSummary;
+  /** Input-completeness uncertainty. This is separate from doctrinal
+   *  `axisStrength`: e.g. unknown birth hour means the engine used a
+   *  documented fallback time, so hour-sensitive conclusions should be
+   *  labeled and hedged even when the calculated chart is internally valid. */
+  inputUncertainty?: SajuInputUncertainty;
 }
 
 /** 12궁 palace analysis surfaced on SajuOutputSummary (PR-Q-5).
@@ -904,6 +910,24 @@ export interface SajuAxisStrengthMap {
   readonly johu?: SajuJudgmentStrength;
   readonly fortuneHierarchy?: SajuJudgmentStrength;
   readonly rectification?: SajuJudgmentStrength;
+}
+
+export type SajuInputUncertaintyAxis =
+  | 'hourPillar'
+  | 'yongshin'
+  | 'gyeokguk'
+  | 'strength'
+  | 'tenGod'
+  | 'fortuneTiming';
+
+export interface SajuInputUncertainty {
+  readonly unknownHour?: {
+    readonly fallbackHour: number;
+    readonly fallbackMinute: number;
+    readonly affectedAxes: readonly SajuInputUncertaintyAxis[];
+    readonly confidenceTierShift: 'downgrade-one-step';
+    readonly message: string;
+  };
 }
 
 /** Evidence backing a single narrative claim (PR9).

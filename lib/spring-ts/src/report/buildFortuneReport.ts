@@ -8,7 +8,7 @@
  */
 
 import type { SajuSummary, SpringReport } from '../types.js';
-import type { FortuneReport, FortuneReportOptions, ReportMeta, FortuneCategory } from './types.js';
+import type { FortuneReport, FortuneReportOptions, ReportMeta, ReportUncertainty, FortuneCategory } from './types.js';
 
 // Card builders
 import { buildOverviewSummaryCard } from './cards/overview-summary-card.js';
@@ -143,6 +143,23 @@ const FALLBACK_CATEGORY_FORTUNES: Record<FortuneCategory, CategoryFortuneCard> =
   family: makeFallbackCategoryFortune('family', '가정운'),
 };
 
+function buildReportUncertainties(saju: SajuSummary): readonly ReportUncertainty[] | undefined {
+  const uncertainty = saju.inputUncertainty?.unknownHour;
+  if (!uncertainty) return undefined;
+
+  return [{
+    id: 'unknown-hour',
+    severity: 'medium',
+    message: uncertainty.message,
+    affectedAxes: uncertainty.affectedAxes,
+    fallback: {
+      hour: uncertainty.fallbackHour,
+      minute: uncertainty.fallbackMinute,
+      timezone: 'Asia/Seoul',
+    },
+  }];
+}
+
 // ---------------------------------------------------------------------------
 //  Public builder
 // ---------------------------------------------------------------------------
@@ -231,6 +248,7 @@ export function buildFortuneReport(
   const meta: ReportMeta = {
     version: '1.0.0',
     generatedAt: new Date().toISOString(),
+    uncertainties: buildReportUncertainties(saju),
   };
 
   return {

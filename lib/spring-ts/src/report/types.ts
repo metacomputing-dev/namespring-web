@@ -346,6 +346,19 @@ export interface ReportMeta {
   readonly targetName?: string;
   readonly targetGender?: string;
   readonly engineVersion?: string;
+  readonly uncertainties?: readonly ReportUncertainty[];
+}
+
+export interface ReportUncertainty {
+  readonly id: string;
+  readonly severity: 'info' | 'medium' | 'high';
+  readonly message: string;
+  readonly affectedAxes: readonly string[];
+  readonly fallback?: {
+    readonly hour: number;
+    readonly minute: number;
+    readonly timezone: string;
+  };
 }
 
 export interface FortuneReport {

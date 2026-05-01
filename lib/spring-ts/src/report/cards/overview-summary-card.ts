@@ -239,6 +239,20 @@ export function buildOverviewSummaryCard(
   const axisStrength = sajuOutput.axisStrength;
 
   const evidence: EvidenceRow[] = [];
+  const unknownHour = saju.inputUncertainty?.unknownHour;
+
+  if (unknownHour) {
+    evidence.push({
+      axis: 'inputTime',
+      claim: unknownHour.message,
+      supportingFeatures: [
+        `fallback time ${String(unknownHour.fallbackHour).padStart(2, '0')}:${String(unknownHour.fallbackMinute).padStart(2, '0')}`,
+        `affected axes: ${unknownHour.affectedAxes.join(', ')}`,
+      ],
+      weakness: 'Hour pillar, yongshin, gyeokguk, strength, ten-god position, and fortune-timing conclusions may change when the birth time is known.',
+      strength: 'candidate',
+    });
+  }
 
   // Day master row — anchored on yongshin + strength axes.
   if (stemInfo) {
