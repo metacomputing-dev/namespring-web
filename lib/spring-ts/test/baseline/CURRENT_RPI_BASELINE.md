@@ -69,14 +69,18 @@ cases in the insufficient-truth bucket.
 ## Rule-Mode Split
 
 `monthly_main` and `jungki_transparent` mirror Phase P. `composite_classical`
-is currently a dashboard proxy using the existing `full_transparent`
-measurement until a true composite engine exists.
+is an evidence-only candidate score. Its selected agreement is intentionally
+measured as `monthly_main` for non-regression; authority-label candidate
+coverage is reported separately.
 
 | Rule mode | Phase P stated pass rate | Literal pass/comparable |
 |---|---:|---:|
 | monthly_main | 70.4% | 17 / 27 |
 | jungki_transparent | 59.3% | 14 / 27 |
-| composite_classical proxy | 55.6% | 13 / 27 |
+| composite_classical selected agreement | 70.4% | 17 / 27 |
+
+Composite candidate coverage is 23 / 27 overall. In the classical `jonheom`
+subset, selected agreement remains 1 / 6 while candidate coverage is 3 / 6.
 
 `metrics/bySourceTier.json` also includes `computedPassRate` because the
 historic Phase P table includes stated percentages that do not always equal the
