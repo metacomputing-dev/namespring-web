@@ -40,6 +40,7 @@ import type {
 import engineConfig from '../config/engine.json';
 import { buildFortuneReport } from './report/buildFortuneReport.js';
 import type { FortuneReportRequest, FortuneReport } from './report/types.js';
+import { getLegalAnnotation, type HanjaPool } from './hanja-annotations.js';
 
 // ---------------------------------------------------------------------------
 // Config -- all tuneable numbers come from engine.json
@@ -68,7 +69,8 @@ const ENABLE_FOURFRAME_NAME_EVALUATION = true;
 // ---------------------------------------------------------------------------
 
 /** Convert a HanjaEntry into the public CharDetail shape. */
-function toCharDetail(entry: HanjaEntry): CharDetail {
+function toCharDetail(entry: HanjaEntry, pool: HanjaPool = 'curated'): CharDetail {
+  const legal = getLegalAnnotation(entry, { pool });
   return {
     hangul:   entry.hangul,
     hanja:    entry.hanja,
@@ -76,6 +78,9 @@ function toCharDetail(entry: HanjaEntry): CharDetail {
     strokes:  entry.strokes,
     element:  entry.resource_element,
     polarity: Polarity.get(entry.strokes).english,
+    legalStatus: legal.legalStatus,
+    legalRegistrable: legal.legalRegistrable,
+    isVariantOf: legal.isVariantOf,
   };
 }
 
@@ -85,8 +90,15 @@ function roundScore(value: number): number {
 }
 
 /** Convert a HanjaEntry into the minimal NameCharInput shape. */
-function toNameCharInput(entry: HanjaEntry): NameCharInput {
-  return { hangul: entry.hangul, hanja: entry.hanja };
+function toNameCharInput(entry: HanjaEntry, pool: HanjaPool = 'curated'): NameCharInput {
+  const legal = getLegalAnnotation(entry, { pool });
+  return {
+    hangul: entry.hangul,
+    hanja: entry.hanja,
+    legalStatus: legal.legalStatus,
+    legalRegistrable: legal.legalRegistrable,
+    isVariantOf: legal.isVariantOf,
+  };
 }
 
 interface NameStatInfo {
@@ -181,6 +193,12 @@ export class SpringEngine {
       return raw;
     }
     return 'auto';
+  }
+
+  private resolveHanjaPool(options?: SpringRequest['options']): HanjaPool {
+    return options?.precisionConfig?.hanjaPool === 'inmyeongyong_full'
+      ? 'inmyeongyong_full'
+      : 'curated';
   }
 
   /** PR-Q-24 K-4 + K-5 full wire — resolve hangul signal cap.
@@ -369,7 +387,7 @@ export class SpringEngine {
 
     const evalResult = evaluateName([hangul, hanja, frame], evalCtx);
     await frame.ensureEntriesLoaded();
-    return this.buildNamingReport(surnameEntries, givenNameEntries, evalResult, hangul, hanja, frame);
+    return this.buildNamingReport(surnameEntries, givenNameEntries, evalResult, hangul, hanja, frame, this.resolveHanjaPool(request.options));
   }
 
   // -------------------------------------------------------------------------
@@ -459,7 +477,7 @@ export class SpringEngine {
       popularityRank: nameStatInfo.popularityRank,
       maleRatio: nameStatInfo.maleRatio,
       nameGender: nameStatInfo.nameGender,
-      namingReport: this.buildNamingReport(surnameEntries, givenNameEntries, nameOnly, hangul, hanja, frame),
+      namingReport: this.buildNamingReport(surnameEntries, givenNameEntries, nameOnly, hangul, hanja, frame, this.resolveHanjaPool(request.options)),
       sajuReport,
       sajuCompatibility: saju.getAnalysis().data,
       combinedDistribution: saju.getCombinedDistribution(),
@@ -583,7 +601,7 @@ export class SpringEngine {
         fullHangul: allEntries.map(entry => entry.hangul).join(''),
         fullHanja: allEntries.map(entry => entry.hanja).join(''),
         givenHangul: givenNameEntries.map(entry => entry.hangul).join(''),
-        givenName: givenNameEntries.map(toNameCharInput),
+        givenName: givenNameEntries.map(entry => toNameCharInput(entry, this.resolveHanjaPool(request.options))),
         popularityRank: nameStatInfo.popularityRank,
         maleRatio: nameStatInfo.maleRatio,
         nameGender: nameStatInfo.nameGender,
@@ -607,6 +625,7 @@ export class SpringEngine {
     hangul: HangulCalculator,
     hanja: HanjaCalculator,
     frame: FrameCalculator,
+    hanjaPool: HanjaPool = 'curated',
   ): NamingReport {
     const categoryMap = evalResult.categoryMap;
     const frames = frame.frames;
@@ -637,8 +656,8 @@ export class SpringEngine {
 
     return {
       name: {
-        surname:    surnameEntries.map(toCharDetail),
-        givenName:  givenNameEntries.map(toCharDetail),
+        surname:    surnameEntries.map(entry => toCharDetail(entry, hanjaPool)),
+        givenName:  givenNameEntries.map(entry => toCharDetail(entry, hanjaPool)),
         fullHangul,
         fullHanja,
       },
@@ -1067,8 +1086,8 @@ export class SpringEngine {
 
     return {
       name: {
-        surname:    surnameEntries.map(toCharDetail),
-        givenName:  givenNameEntries.map(toCharDetail),
+        surname:    surnameEntries.map(entry => toCharDetail(entry, this.resolveHanjaPool(requestOptions))),
+        givenName:  givenNameEntries.map(entry => toCharDetail(entry, this.resolveHanjaPool(requestOptions))),
         fullHangul,
         fullHanja,
       },
@@ -1223,7 +1242,7 @@ export class SpringEngine {
       if (results.length >= MAX_CANDIDATES) return;
 
       if (depth >= nameLength) {
-        results.push(current.map(toNameCharInput));
+        results.push(current.map(entry => toNameCharInput(entry)));
         return;
       }
 

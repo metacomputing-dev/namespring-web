@@ -45,6 +45,14 @@ export type {
   SajuOutputSummary,
   SajuYongshinSummary,
 } from './types.js';
+export {
+  getLegalAnnotation,
+  isHanjaUsableForLegalName,
+  normalizeToOrthodoxHanja,
+  type HanjaLegalAnnotation,
+  type HanjaLegalStatus,
+  type HanjaPool,
+} from './hanja-annotations.js';
 
 // ─────────────────────────────────────────────────────────────────────────────
 //  4. RE-EXPORTED NAME-TS MODELS

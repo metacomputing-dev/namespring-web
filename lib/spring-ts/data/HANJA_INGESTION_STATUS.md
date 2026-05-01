@@ -55,7 +55,10 @@ isHanjaUsableForLegalName(entry, {
 ## Outstanding
 
 1. **2024 별표 2 hwpx re-discovery** — pattern `..._000200E.hwpx` likely exists alongside the 별표 1 hwpx found in PR-P-5. Currently using 1997 PDF derived pairs.
-2. **9,495 vs 9,389 reconciliation** — delvier has +106 entries vs official Korean court count. Possibly multi-reading expansion or post-2024-06-11 absorption. Diff against efamily.scourt.go.kr live lookup pending.
+2. **9,495 vs 9,389 reconciliation** — PR-2.1 records official sources,
+   exposes the +106 mirror delta in `legal-hanja-reconciliation.json`, and
+   keeps those entries non-authority until T5-confirmed. Exact character-level
+   official diff extraction remains pending.
 3. **2,541 empty dic entries** (27%) — supplementary 의미 source needed (Unihan kKorean cross-reference).
 4. **Candidate generator wiring** — `precisionConfig.hanjaPool` is now consumed by hanja-annotations.ts; the spring-engine candidate generator path that threads it through is a follow-up (low priority — annotation API surface is sufficient for downstream filters).
 

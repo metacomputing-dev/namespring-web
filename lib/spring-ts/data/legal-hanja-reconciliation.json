@@ -1,0 +1,65 @@
+{
+  "schemaVersion": "spring-ts.legal-hanja-reconciliation.v1",
+  "asOf": "2026-05-01",
+  "officialBasis": {
+    "currentRuleEffectiveDate": "2025-07-19",
+    "expansionEffectiveDate": "2024-06-11",
+    "appendix1AmendmentDate": "2024-05-30",
+    "announcedAllowedCount": 9389,
+    "sourceRegistry": "data/sources/legal-hanja.sources.json"
+  },
+  "candidateMirror": {
+    "file": "data/inmyeongyong_9389_full.json",
+    "source": "delvier/KoreaSCourtCode webhanja.db",
+    "sourceVersion": "2024-07-16 refresh, post 2024-06-11 expansion",
+    "totalCount": 9495,
+    "officialCountRecordedByMirror": 9389,
+    "unresolvedDeltaCount": 106,
+    "fieldStats": {
+      "multiReading": 863,
+      "noReading": 1,
+      "noMeaning": 2541,
+      "noRadical": 0
+    }
+  },
+  "variantPolicy": {
+    "file": "data/byeolpyo2_variants.json",
+    "knownVariantPairCount": 112,
+    "candidateEntriesRecognizedAsVariantAllowed": 79,
+    "normalizationRule": "Classify a known variant as variantAllowed when its orthodox form appears in the active legal pool."
+  },
+  "legalStatusPolicy": {
+    "allowed": "Orthodox Hanja appears in the active legal pool.",
+    "variantAllowed": "Input Hanja is a known variant and the normalized orthodox Hanja appears in the active legal pool.",
+    "hangulOnly": "No Hanja code point is present; name remains eligible for Hangul-only handling.",
+    "unknown": "The active curated pool is intentionally non-definitive, or official confirmation has not yet been extracted.",
+    "notAllowed": "The definitive full pool does not contain the normalized Hanja."
+  },
+  "candidateMirrorStatusCounts": {
+    "allowed": 9416,
+    "variantAllowed": 79,
+    "hangulOnly": 0,
+    "unknown": 0,
+    "notAllowed": 0
+  },
+  "officialReconciliationStatusCounts": {
+    "allowed": 9389,
+    "variantAllowed": 0,
+    "hangulOnly": 0,
+    "unknown": 106,
+    "notAllowed": 0
+  },
+  "reconciliation": {
+    "status": "PARTIAL_OFFICIAL_DENOMINATOR",
+    "lawEffectiveDateDiffVisible": true,
+    "officialDistinctCount": 9389,
+    "candidateDistinctCount": 9495,
+    "unresolvedCandidateDeltaCount": 106,
+    "resolvedDeltaCount": 0,
+    "notes": [
+      "The current local full pool keeps the 9,495 mirror entries available for opt-in lookup.",
+      "The official 9,389 denominator is recorded from T5 official sources.",
+      "The +106 mirror delta remains unknown until the official Appendix 1/2 glyph tables are fully machine-extracted or each extra entry is T5-confirmed."
+    ]
+  }
+}

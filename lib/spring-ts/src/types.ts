@@ -1,6 +1,7 @@
 import type { HangulAnalysis, HanjaAnalysis, FourFrameAnalysis } from './core/model-types.js';
 import type { FourframeMeaningEntry } from '../../seed-ts/src/database/fourframe-repository.js';
 import type { ElementKey } from './core/scoring.js';
+import type { HanjaLegalStatus } from './hanja-annotations.js';
 
 // ─────────────────────────────────────────────────────────────────────────────
 //  1. INPUT TYPES
@@ -30,6 +31,9 @@ export interface BirthInfo {
 export interface NameCharInput {
   readonly hangul: string;
   readonly hanja?: string;
+  readonly legalStatus?: HanjaLegalStatus;
+  readonly legalRegistrable?: boolean;
+  readonly isVariantOf?: string;
 }
 
 /** Top-level request sent to the Spring engine. */
@@ -414,6 +418,9 @@ export interface CharDetail {
   readonly strokes: number;
   readonly element: string;
   readonly polarity: string;
+  readonly legalStatus: HanjaLegalStatus;
+  readonly legalRegistrable?: boolean;
+  readonly isVariantOf?: string;
 }
 
 // ─────────────────────────────────────────────────────────────────────────────
