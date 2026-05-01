@@ -329,6 +329,37 @@ export function buildOverviewSummaryCard(
   }
 
   // ── 8. Narrative styles + counterexamples (PR10) ──────────────────────
+  // Gyeokguk candidate disagreement row. Evidence-only; selected gyeokguk stays unchanged.
+  const gyeokgukCandidates = saju.gyeokguk?.candidates ?? [];
+  const alternativeGyeokgukCandidates = gyeokgukCandidates
+    .filter((candidate) =>
+      candidate.type &&
+      candidate.type !== gyeokgukType &&
+      (candidate.score > 0 || candidate.confidence > 0))
+    .slice(0, 3);
+  if (alternativeGyeokgukCandidates.length > 0) {
+    const candidateNotes = alternativeGyeokgukCandidates.map((candidate) => {
+      const support = candidate.supportingRules.slice(0, 3).join(', ');
+      const confidencePct = Math.round(candidate.confidence * 100);
+      return support
+        ? `${candidate.type} 후보(score ${candidate.score.toFixed(3)}, confidence ${confidencePct}%): ${support}`
+        : `${candidate.type} 후보(score ${candidate.score.toFixed(3)}, confidence ${confidencePct}%)`;
+    });
+    const blockingNotes = alternativeGyeokgukCandidates
+      .flatMap((candidate) => candidate.blockingRules)
+      .slice(0, 4);
+    evidence.push({
+      axis: 'gyeokgukCandidates',
+      claim: '격국 후보 간 이견이 있어 선택 격국은 보조 후보와 함께 해석해야 합니다.',
+      supportingFeatures: [
+        `선택 격국: ${gyeokgukType ?? '-'}`,
+        ...candidateNotes,
+      ],
+      weakness: blockingNotes.length > 0 ? blockingNotes.join(' / ') : undefined,
+      strength: axisStrength?.gyeokguk,
+    });
+  }
+
   // The plain style is the existing tone (already in `overallSummary`).
   // 'expert' uses classical 명리 terminology; 'counselor' uses flowing
   // counselor paragraphs. 'sideBySide' populates both expert and plain.
