@@ -168,6 +168,26 @@ export interface PrecisionConfig {
    *  follow-up PR alongside the test fixtures that exercise each variant. */
   readonly pureHangulSchema?: 'classic_phonetic' | 'modern_korean' | 'expanded';
 
+  /** Surface palace (12궁) information on `SajuOutputSummary` when `true`.
+   *  Off by default — consumers must opt-in.
+   *
+   *  Per Phase H-E (`spring-info/09_finalization/FINALIZATION_PLAN.md` §4.1
+   *  PR H-E), saju-ts does not currently carry palace data. This flag is
+   *  declared now so consumers can request it; the actual surfacing
+   *  activates when saju-ts ports the saju_master `palace.py` table
+   *  (year-pillar + month-branch → 12 palaces). Until that lands,
+   *  `surfacePalace: true` produces no additional output. */
+  readonly surfacePalace?: boolean;
+
+  /** Surface naeum (納音 / 60甲子 sound table) on `SajuOutputSummary`
+   *  when `true`. Off by default.
+   *
+   *  Per Phase H-F (FINALIZATION_PLAN.md §4.1 PR H-F), saju-ts does not
+   *  currently carry naeum data. This flag is declared now; saju-ts will
+   *  port the saju_master `naeum.py` 60-pair table in a follow-up. Until
+   *  then `surfaceNaeum: true` produces no additional output. */
+  readonly surfaceNaeum?: boolean;
+
   /** Surface johu (조후 / climate balance) on `SajuOutputSummary` and
    *  `OverviewSummaryCard` evidence rows when `true`. Off by default —
    *  consumers must opt-in.
