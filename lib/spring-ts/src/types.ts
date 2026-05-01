@@ -174,6 +174,34 @@ export interface PrecisionConfig {
    *  wire-up lands. */
   readonly pureHangulSchema?: 'auto' | 'classic_phonetic' | 'modern_korean' | 'expanded';
 
+  /** Pure-hangul signal confidence cap (PR-Q-23 K-5 declaration only).
+   *  Multiplier applied to HANGUL_ELEMENT/HANGUL_POLARITY signal contributions.
+   *  - undefined (default) | 1.0: no cap (current behavior)
+   *  - 0.7: chinese 학파의 발음오행 confidence 하향 (자평진전 doctrine —
+   *    한자가 정도, 발음은 부차)
+   *
+   *  Per spec spring-info/09_finalization/05_pure_hangul_schema_wireup.md §1.2,
+   *  this declaration enables future engine wiring (HangulCalculator weights
+   *  multiplied by cap at signal creation time). Current declaration-only
+   *  form does NOT yet apply the cap — future PR will wire the multiplier
+   *  in `src/calculator/hangul-calculator.ts:backward()`.
+   *
+   *  When schoolPreset='chinese' AND pureHangulSchema='auto', the engine
+   *  should auto-resolve cap=0.7 (future K-5 full wire). Until then this
+   *  field is opt-in only. */
+  readonly pureHangulSignalCap?: number;
+
+  /** Pure-hangul polarity model (PR-Q-23 K-6 declaration only).
+   *  - 'binary' (default): yang vs yin only (현재 동작)
+   *  - 'ternary': yang / yin / neutral — ㅡ/ㅣ 모음 별도 처리. 한국 모던
+   *    작명 표준 (좋은이름닷컴 등) 의 절충안 doctrine.
+   *
+   *  Per spec spring-info/09_finalization/05_pure_hangul_schema_wireup.md §1.2,
+   *  this declaration enables future yangVowels 표 확장 + neutral weighting.
+   *  Current declaration-only form does NOT yet activate ternary classification.
+   *  Future PR will land the seed-ts side change. */
+  readonly pureHangulPolarityModel?: 'binary' | 'ternary';
+
   /** Surface palace (12궁) information on `SajuOutputSummary` when `true`.
    *  Off by default — consumers must opt-in.
    *

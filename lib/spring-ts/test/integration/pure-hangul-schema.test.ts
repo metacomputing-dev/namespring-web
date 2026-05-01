@@ -133,6 +133,30 @@ console.log(`  ${allSame ? 'IDENTICAL' : 'DIVERGED'} (expected IDENTICAL until p
 check(`4 schemas yield identical scores on hanja name (declaration-only stub)`,
   allSame, `scores=${scoresOnHanjaName.join(',')}`);
 
+// (5) PR-Q-23 K-5/K-6 declaration acceptance
+console.log('\nK-5/K-6 (PR-Q-23) declaration acceptance:');
+const k5Cap = 0.7;
+const k6Polarity: 'binary' | 'ternary' = 'ternary';
+let crashedK56 = false;
+try {
+  const cands = await engine.getNameCandidates({
+    ...baseRequest,
+    options: {
+      limit: 1,
+      precisionConfig: {
+        pureHangulSchema: 'auto',
+        pureHangulSignalCap: k5Cap,
+        pureHangulPolarityModel: k6Polarity,
+      },
+    } as any,
+  });
+  check(`K-5 cap + K-6 polarityModel options accepted (no crash)`,
+    cands.length > 0);
+} catch (e) {
+  crashedK56 = true;
+}
+if (crashedK56) check(`K-5/K-6 acceptance`, false);
+
 engine.close();
 
 console.log(`\nPureHangulSchema fixture: ${pass} PASS / ${fail} FAIL`);
