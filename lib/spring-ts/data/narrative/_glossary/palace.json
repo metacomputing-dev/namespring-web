@@ -34,7 +34,7 @@
       "category": "palace",
       "brief": "배우자·연인·반려와의 흐름을 보는 자리예요.",
       "detailed": "12궁 중 배우자와 가까운 짝의 결을 비추는 자리예요. 보통 일지(일주 아래 글자)와 연결돼요. 이 자리가 안정적이면 결혼·연인 관계가 든든하고, 흔들림이 잦으면 거리·조율이 필요한 시기가 있다고 봐요.",
-      "related": ["dayPillar", "romance"],
+      "related": ["dayPillar", "geumyeo"],
       "aiGenerated": true,
       "sourceTier": { "tier": "T1_HYPOTHESIS", "sourceType": "training_derived", "sourceUrl": null, "accessedAt": "2026-05-02", "quoteShort": null, "humanInterpretation": "AI-derived plain-language definition of 배우자궁. Display-only.", "copyrightNote": "No source prose copied.", "authorityTruthEligible": false }
     },
@@ -94,7 +94,7 @@
       "category": "palace",
       "brief": "12궁 전통에서 부부·짝의 자리를 비추는 궁이에요.",
       "detailed": "처궁은 12궁 전통에서 부부·반려·가까운 짝의 결을 비추는 자리예요. 4기둥 전통의 '배우자궁'과 결이 비슷하지만, 12궁에서는 별도의 자리로 두고 짝의 결·만남의 자리를 더 세세히 풀어요. 결혼·인연 시기에 함께 살피는 자리예요.",
-      "related": ["baeujagung", "romance"],
+      "related": ["baeujagung", "geumyeo"],
       "aiGenerated": true,
       "sourceTier": { "tier": "T1_HYPOTHESIS", "sourceType": "training_derived", "sourceUrl": null, "accessedAt": "2026-05-02", "quoteShort": null, "humanInterpretation": "AI-derived plain-language definition of 처궁. Display-only.", "copyrightNote": "No source prose copied.", "authorityTruthEligible": false }
     },
@@ -142,7 +142,7 @@
       "category": "palace",
       "brief": "이동·여행·바깥 활동의 흐름을 비추는 궁이에요.",
       "detailed": "천이궁은 12궁 중 이동·이사·해외·바깥 활동의 결을 비추는 자리예요. 이 궁이 활발하면 한 자리에 묶이지 않고 새 환경에서 결과를 만드는 결이라, 이동의 자리에서 강점이 살아나는 결로 풀어요.",
-      "related": ["yeokma", "movement"],
+      "related": ["yeokma"],
       "aiGenerated": true,
       "sourceTier": { "tier": "T1_HYPOTHESIS", "sourceType": "training_derived", "sourceUrl": null, "accessedAt": "2026-05-02", "quoteShort": null, "humanInterpretation": "AI-derived plain-language definition of 천이궁. Display-only.", "copyrightNote": "No source prose copied.", "authorityTruthEligible": false }
     }

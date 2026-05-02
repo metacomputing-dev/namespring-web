@@ -13,7 +13,7 @@
 ## 1. 호환성 보증 (현재)
 
 `test/integration/namespring-compat.test.ts` 가 NameSpring 의 실제 사용
-패턴을 그대로 simulate 하여 backward-compat 을 검증한다 (123/123 PASS).
+패턴을 그대로 simulate 하여 backward-compat 을 검증한다 (140/140 PASS).
 
 ### 1.1 NameSpring 이 의존하는 fields (전부 보존됨)
 
@@ -127,7 +127,7 @@ UI 활용: 카드 하단 "이 별점의 근거는?" 펼침 영역.
 60갑자 納音 (sound-of-pillar) 분석. opt-in via
 `precisionConfig.surfaceNaeum=true` (default off).
 
-### 2.6 `FortuneReport.tieredMatrix` (Phase 1, this PR)
+### 2.6 `FortuneReport.tieredMatrix` (Phase 2, this PR)
 
 운세 = `기간(5) × 분야(1 총운 + 10 분야) × depth(brief/standard/expert)`
 의 입체적 큐브. opt-in via `precisionConfig.surfaceTieredMatrix=true`
@@ -187,10 +187,11 @@ interface TaggedParagraph {
 
 특징:
 - **2 차원 매트릭스**: 5 기간 × 11 카테고리 = 55 cell, 각 3 depth = 165 텍스트 단위.
+- **콘텐츠 풀**: 166개 fragment bundle / 1,837 narrative fragments / 130 glossary entries.
 - **인라인 태그 + glossary**: `#용신`/`#천을귀인` 클릭 → `glossary.entries[tagId]` (brief + detailed 정의).
 - **결정성**: 같은 (birth, targetDate) → 같은 fragment. `meta.selectionSeed` 노출.
 - **NameSpring 무수정 호환**: flag 미설정 시 `tieredMatrix === undefined`. 이미 `namespring-compat.test.ts`가 negative assert로 검증.
-- **Phase 1 = placeholder content** (`meta.contentSource = 'placeholder'`). Phase 2 fan-out 후 `'authored'`.
+- **Phase 2 authored content**: authored fragment가 하나 이상 로드되면 `meta.contentSource = 'authored'`; `_seed` placeholder는 fallback으로만 유지.
 
 자세한 구조: [docs/TIERED_MATRIX_SPEC.md](./docs/TIERED_MATRIX_SPEC.md).
 
@@ -282,5 +283,5 @@ cd lib/spring-ts
 npx tsx test/integration/namespring-compat.test.ts
 ```
 
-123/123 PASS 가 backward-compat 보증선이다. 이 test 가 깨지면 NameSpring 영향
+140/140 PASS 가 backward-compat 보증선이다. 이 test 가 깨지면 NameSpring 영향
 가능성 ↑ — 즉시 조사 필요.

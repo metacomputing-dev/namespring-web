@@ -78,9 +78,6 @@ function isNodeRuntime(): boolean {
   return typeof process !== 'undefined' && Boolean(process.versions?.node);
 }
 
-let cached: ReadonlyMap<CellKey, readonly NarrativeFragment[]> | null = null;
-let cachedFragmentCount = 0;
-
 function listFragmentBundles(rootDir: string): string[] {
   const out: string[] = [];
   if (!fs.existsSync(rootDir)) return out;
@@ -103,48 +100,55 @@ function listFragmentBundles(rootDir: string): string[] {
 export interface FragmentRegistry {
   get(category: string, period: TieredPeriodKind, depth: TieredDepth): readonly NarrativeFragment[];
   totalFragmentCount: number;
+  contentSource: 'placeholder' | 'authored';
 }
 
+let cachedRegistry: FragmentRegistry | null = null;
+
 export function loadFragmentRegistry(): FragmentRegistry {
-  if (!cached) {
-    const map = new Map<CellKey, NarrativeFragment[]>();
-    let count = 0;
-    if (isNodeRuntime()) {
-      // All fs / path resolution deferred until first call so module evaluation
-      // does not touch externalized node builtins on a browser bundle.
-      const here = path.dirname(fileURLToPath(import.meta.url));
-      const narrativeDir = path.resolve(here, '../../../data/narrative');
-      for (const file of listFragmentBundles(narrativeDir)) {
-        let bundle: FragmentBundle;
-        try {
-          bundle = JSON.parse(fs.readFileSync(file, 'utf-8')) as FragmentBundle;
-        } catch {
-          continue;
-        }
-        if (!Array.isArray(bundle?.fragments)) continue;
-        for (const frag of bundle.fragments) {
-          if (!frag?.axis) continue;
-          const key = cellKey(frag.axis.category, frag.axis.period, frag.axis.depth);
-          const list = map.get(key);
-          if (list) list.push(frag);
-          else map.set(key, [frag]);
-          count += 1;
-        }
+  if (cachedRegistry) return cachedRegistry;
+
+  const map = new Map<CellKey, NarrativeFragment[]>();
+  let count = 0;
+  let authoredCount = 0;
+
+  if (isNodeRuntime()) {
+    // All fs / path resolution deferred until first call so module evaluation
+    // does not touch externalized node builtins on a browser bundle.
+    const here = path.dirname(fileURLToPath(import.meta.url));
+    const narrativeDir = path.resolve(here, '../../../data/narrative');
+    for (const file of listFragmentBundles(narrativeDir)) {
+      let bundle: FragmentBundle;
+      try {
+        bundle = JSON.parse(fs.readFileSync(file, 'utf-8')) as FragmentBundle;
+      } catch {
+        continue;
+      }
+      if (!Array.isArray(bundle?.fragments)) continue;
+      const isSeedBundle = file.includes(`${path.sep}_seed${path.sep}`);
+      for (const frag of bundle.fragments) {
+        if (!frag?.axis) continue;
+        const key = cellKey(frag.axis.category, frag.axis.period, frag.axis.depth);
+        const list = map.get(key);
+        if (list) list.push(frag);
+        else map.set(key, [frag]);
+        count += 1;
+        if (!isSeedBundle) authoredCount += 1;
       }
     }
-    cached = map;
-    cachedFragmentCount = count;
   }
-  return {
-    get(category, period, depth) {
-      return cached!.get(cellKey(category, period, depth)) ?? [];
+
+  cachedRegistry = Object.freeze({
+    get(category: string, period: TieredPeriodKind, depth: TieredDepth) {
+      return map.get(cellKey(category, period, depth)) ?? [];
     },
-    totalFragmentCount: cachedFragmentCount,
-  };
+    totalFragmentCount: count,
+    contentSource: authoredCount > 0 ? 'authored' : 'placeholder',
+  });
+  return cachedRegistry;
 }
 
 /** Test-only — clear the memo cache so a test can re-load freshly. */
 export function _clearFragmentRegistryCacheForTesting(): void {
-  cached = null;
-  cachedFragmentCount = 0;
+  cachedRegistry = null;
 }
