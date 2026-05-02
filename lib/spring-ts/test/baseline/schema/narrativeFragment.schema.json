@@ -216,7 +216,11 @@
           "label": { "type": "string", "minLength": 1 },
           "valueExpression": {
             "type": "string",
-            "description": "Reference to a numeric path inside the saju feature vector (e.g., 'sajuCompatibility.affinityScore'). Resolved at build time."
+            "pattern": "^(feature|cell)(\\.[A-Za-z_][A-Za-z0-9_]*)+$",
+            "not": {
+              "pattern": "(^|\\.)(__proto__|prototype|constructor)(\\.|$)"
+            },
+            "description": "Reference to a deterministic numeric path, currently feature.* or cell.*. Resolved at build time without JavaScript evaluation."
           },
           "unit": { "type": "string" },
           "sourceTier": { "$ref": "https://namespring.local/spring-ts/sourceTier.schema.json" }
