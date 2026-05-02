@@ -1,0 +1,1528 @@
+{
+  "schemaVersion": "spring-ts.narrative-fragment-bundle.v1",
+  "bundleId": "overall.life.brief_metal_daymaster_tuple_density_20260502_a",
+  "contractVersion": "1.0.0",
+  "generatedBy": "codex.metal-daymaster-tuple-density-20260502-a",
+  "fragments": [
+    {
+      "schemaVersion": "spring-ts.narrative-fragment.v1",
+      "fragmentId": "overall.life.brief.tuple_metal_earth_extreme_strong_flow.501",
+      "axis": {
+        "category": "overall",
+        "period": "life",
+        "depth": "brief"
+      },
+      "gating": {
+        "dayMasterElement": [
+          "METAL"
+        ],
+        "yongshinElement": [
+          "EARTH"
+        ],
+        "dayMasterStrength": [
+          "EXTREME_STRONG"
+        ]
+      },
+      "templateTokens": [
+        {
+          "kind": "text",
+          "value": "쇠 일간의 큰 흐름은 기준, 정리, 결단을 중심으로 움직여요. 판단과 절제가 매우 강해 스스로도 답답함을 느낄 수 있어요. 흙 용신은 기준이 마르지 않도록 기반과 회복력을 보태는 보강점이에요."
+        }
+      ],
+      "tags": [],
+      "aiGenerated": true,
+      "sourceTier": {
+        "tier": "T1_HYPOTHESIS",
+        "sourceType": "training_derived",
+        "sourceUrl": null,
+        "accessedAt": "2026-05-02",
+        "quoteShort": null,
+        "humanInterpretation": "Tuple-density expansion for metal day-master, yongshin element, and strength branching. AI-derived display text; not authority truth.",
+        "copyrightNote": "No source prose copied; original hypothesis text.",
+        "authorityTruthEligible": false
+      }
+    },
+    {
+      "schemaVersion": "spring-ts.narrative-fragment.v1",
+      "fragmentId": "overall.life.brief.tuple_metal_earth_extreme_strong_practice.502",
+      "axis": {
+        "category": "overall",
+        "period": "life",
+        "depth": "brief"
+      },
+      "gating": {
+        "dayMasterElement": [
+          "METAL"
+        ],
+        "yongshinElement": [
+          "EARTH"
+        ],
+        "dayMasterStrength": [
+          "EXTREME_STRONG"
+        ]
+      },
+      "templateTokens": [
+        {
+          "kind": "text",
+          "value": "쇠 일간에 극신강 흐름이 겹치면 판단의 선명함과 관계의 온도를 함께 봐야 해요. 완벽한 기준보다 지금 통과 가능한 기준을 먼저 세워보세요. 판단 전에 몸의 피로와 현실 조건을 먼저 확인해 보세요."
+        }
+      ],
+      "tags": [],
+      "aiGenerated": true,
+      "sourceTier": {
+        "tier": "T1_HYPOTHESIS",
+        "sourceType": "training_derived",
+        "sourceUrl": null,
+        "accessedAt": "2026-05-02",
+        "quoteShort": null,
+        "humanInterpretation": "Tuple-density expansion for metal day-master, yongshin element, and strength branching. AI-derived display text; not authority truth.",
+        "copyrightNote": "No source prose copied; original hypothesis text.",
+        "authorityTruthEligible": false
+      }
+    },
+    {
+      "schemaVersion": "spring-ts.narrative-fragment.v1",
+      "fragmentId": "overall.life.brief.tuple_metal_earth_extreme_weak_flow.503",
+      "axis": {
+        "category": "overall",
+        "period": "life",
+        "depth": "brief"
+      },
+      "gating": {
+        "dayMasterElement": [
+          "METAL"
+        ],
+        "yongshinElement": [
+          "EARTH"
+        ],
+        "dayMasterStrength": [
+          "EXTREME_WEAK"
+        ]
+      },
+      "templateTokens": [
+        {
+          "kind": "text",
+          "value": "쇠 일간의 큰 흐름은 기준, 정리, 결단을 중심으로 움직여요. 결정의 날이 무뎌져 남의 기준에 흔들리기 쉬워요. 흙 용신은 기준이 마르지 않도록 기반과 회복력을 보태는 보강점이에요."
+        }
+      ],
+      "tags": [],
+      "aiGenerated": true,
+      "sourceTier": {
+        "tier": "T1_HYPOTHESIS",
+        "sourceType": "training_derived",
+        "sourceUrl": null,
+        "accessedAt": "2026-05-02",
+        "quoteShort": null,
+        "humanInterpretation": "Tuple-density expansion for metal day-master, yongshin element, and strength branching. AI-derived display text; not authority truth.",
+        "copyrightNote": "No source prose copied; original hypothesis text.",
+        "authorityTruthEligible": false
+      }
+    },
+    {
+      "schemaVersion": "spring-ts.narrative-fragment.v1",
+      "fragmentId": "overall.life.brief.tuple_metal_earth_extreme_weak_practice.504",
+      "axis": {
+        "category": "overall",
+        "period": "life",
+        "depth": "brief"
+      },
+      "gating": {
+        "dayMasterElement": [
+          "METAL"
+        ],
+        "yongshinElement": [
+          "EARTH"
+        ],
+        "dayMasterStrength": [
+          "EXTREME_WEAK"
+        ]
+      },
+      "templateTokens": [
+        {
+          "kind": "text",
+          "value": "쇠 일간에 극신약 흐름이 겹치면 판단의 선명함과 관계의 온도를 함께 봐야 해요. 작은 선택부터 직접 결정해 자신감을 회복하는 게 중요해요. 판단 전에 몸의 피로와 현실 조건을 먼저 확인해 보세요."
+        }
+      ],
+      "tags": [],
+      "aiGenerated": true,
+      "sourceTier": {
+        "tier": "T1_HYPOTHESIS",
+        "sourceType": "training_derived",
+        "sourceUrl": null,
+        "accessedAt": "2026-05-02",
+        "quoteShort": null,
+        "humanInterpretation": "Tuple-density expansion for metal day-master, yongshin element, and strength branching. AI-derived display text; not authority truth.",
+        "copyrightNote": "No source prose copied; original hypothesis text.",
+        "authorityTruthEligible": false
+      }
+    },
+    {
+      "schemaVersion": "spring-ts.narrative-fragment.v1",
+      "fragmentId": "overall.life.brief.tuple_metal_earth_strong_flow.505",
+      "axis": {
+        "category": "overall",
+        "period": "life",
+        "depth": "brief"
+      },
+      "gating": {
+        "dayMasterElement": [
+          "METAL"
+        ],
+        "yongshinElement": [
+          "EARTH"
+        ],
+        "dayMasterStrength": [
+          "STRONG"
+        ]
+      },
+      "templateTokens": [
+        {
+          "kind": "text",
+          "value": "쇠 일간의 큰 흐름은 기준, 정리, 결단을 중심으로 움직여요. 판단이 빠르고 기준이 분명하지만 말이 단단해질 수 있어요. 흙 용신은 기준이 마르지 않도록 기반과 회복력을 보태는 보강점이에요."
+        }
+      ],
+      "tags": [],
+      "aiGenerated": true,
+      "sourceTier": {
+        "tier": "T1_HYPOTHESIS",
+        "sourceType": "training_derived",
+        "sourceUrl": null,
+        "accessedAt": "2026-05-02",
+        "quoteShort": null,
+        "humanInterpretation": "Tuple-density expansion for metal day-master, yongshin element, and strength branching. AI-derived display text; not authority truth.",
+        "copyrightNote": "No source prose copied; original hypothesis text.",
+        "authorityTruthEligible": false
+      }
+    },
+    {
+      "schemaVersion": "spring-ts.narrative-fragment.v1",
+      "fragmentId": "overall.life.brief.tuple_metal_earth_strong_practice.506",
+      "axis": {
+        "category": "overall",
+        "period": "life",
+        "depth": "brief"
+      },
+      "gating": {
+        "dayMasterElement": [
+          "METAL"
+        ],
+        "yongshinElement": [
+          "EARTH"
+        ],
+        "dayMasterStrength": [
+          "STRONG"
+        ]
+      },
+      "templateTokens": [
+        {
+          "kind": "text",
+          "value": "쇠 일간에 신강 흐름이 겹치면 판단의 선명함과 관계의 온도를 함께 봐야 해요. 결론을 말하기 전에 상대가 받아들일 순서를 먼저 정리하세요. 판단 전에 몸의 피로와 현실 조건을 먼저 확인해 보세요."
+        }
+      ],
+      "tags": [],
+      "aiGenerated": true,
+      "sourceTier": {
+        "tier": "T1_HYPOTHESIS",
+        "sourceType": "training_derived",
+        "sourceUrl": null,
+        "accessedAt": "2026-05-02",
+        "quoteShort": null,
+        "humanInterpretation": "Tuple-density expansion for metal day-master, yongshin element, and strength branching. AI-derived display text; not authority truth.",
+        "copyrightNote": "No source prose copied; original hypothesis text.",
+        "authorityTruthEligible": false
+      }
+    },
+    {
+      "schemaVersion": "spring-ts.narrative-fragment.v1",
+      "fragmentId": "overall.life.brief.tuple_metal_earth_weak_flow.507",
+      "axis": {
+        "category": "overall",
+        "period": "life",
+        "depth": "brief"
+      },
+      "gating": {
+        "dayMasterElement": [
+          "METAL"
+        ],
+        "yongshinElement": [
+          "EARTH"
+        ],
+        "dayMasterStrength": [
+          "WEAK"
+        ]
+      },
+      "templateTokens": [
+        {
+          "kind": "text",
+          "value": "쇠 일간의 큰 흐름은 기준, 정리, 결단을 중심으로 움직여요. 기준은 필요하지만 끝까지 밀고 갈 힘이 부족할 수 있어요. 흙 용신은 기준이 마르지 않도록 기반과 회복력을 보태는 보강점이에요."
+        }
+      ],
+      "tags": [],
+      "aiGenerated": true,
+      "sourceTier": {
+        "tier": "T1_HYPOTHESIS",
+        "sourceType": "training_derived",
+        "sourceUrl": null,
+        "accessedAt": "2026-05-02",
+        "quoteShort": null,
+        "humanInterpretation": "Tuple-density expansion for metal day-master, yongshin element, and strength branching. AI-derived display text; not authority truth.",
+        "copyrightNote": "No source prose copied; original hypothesis text.",
+        "authorityTruthEligible": false
+      }
+    },
+    {
+      "schemaVersion": "spring-ts.narrative-fragment.v1",
+      "fragmentId": "overall.life.brief.tuple_metal_earth_weak_practice.508",
+      "axis": {
+        "category": "overall",
+        "period": "life",
+        "depth": "brief"
+      },
+      "gating": {
+        "dayMasterElement": [
+          "METAL"
+        ],
+        "yongshinElement": [
+          "EARTH"
+        ],
+        "dayMasterStrength": [
+          "WEAK"
+        ]
+      },
+      "templateTokens": [
+        {
+          "kind": "text",
+          "value": "쇠 일간에 신약 흐름이 겹치면 판단의 선명함과 관계의 온도를 함께 봐야 해요. 결정 후 바로 실행할 작은 행동을 붙이면 흐름이 끊기지 않아요. 판단 전에 몸의 피로와 현실 조건을 먼저 확인해 보세요."
+        }
+      ],
+      "tags": [],
+      "aiGenerated": true,
+      "sourceTier": {
+        "tier": "T1_HYPOTHESIS",
+        "sourceType": "training_derived",
+        "sourceUrl": null,
+        "accessedAt": "2026-05-02",
+        "quoteShort": null,
+        "humanInterpretation": "Tuple-density expansion for metal day-master, yongshin element, and strength branching. AI-derived display text; not authority truth.",
+        "copyrightNote": "No source prose copied; original hypothesis text.",
+        "authorityTruthEligible": false
+      }
+    },
+    {
+      "schemaVersion": "spring-ts.narrative-fragment.v1",
+      "fragmentId": "overall.life.brief.tuple_metal_fire_balanced_flow.509",
+      "axis": {
+        "category": "overall",
+        "period": "life",
+        "depth": "brief"
+      },
+      "gating": {
+        "dayMasterElement": [
+          "METAL"
+        ],
+        "yongshinElement": [
+          "FIRE"
+        ],
+        "dayMasterStrength": [
+          "BALANCED"
+        ]
+      },
+      "templateTokens": [
+        {
+          "kind": "text",
+          "value": "쇠 일간의 큰 흐름은 기준, 정리, 결단을 중심으로 움직여요. 기준과 유연성이 비교적 함께 움직이는 상태예요. 불 용신은 차가운 기준에 온기와 설득력을 더하는 보강점이에요."
+        }
+      ],
+      "tags": [],
+      "aiGenerated": true,
+      "sourceTier": {
+        "tier": "T1_HYPOTHESIS",
+        "sourceType": "training_derived",
+        "sourceUrl": null,
+        "accessedAt": "2026-05-02",
+        "quoteShort": null,
+        "humanInterpretation": "Tuple-density expansion for metal day-master, yongshin element, and strength branching. AI-derived display text; not authority truth.",
+        "copyrightNote": "No source prose copied; original hypothesis text.",
+        "authorityTruthEligible": false
+      }
+    },
+    {
+      "schemaVersion": "spring-ts.narrative-fragment.v1",
+      "fragmentId": "overall.life.brief.tuple_metal_fire_balanced_practice.510",
+      "axis": {
+        "category": "overall",
+        "period": "life",
+        "depth": "brief"
+      },
+      "gating": {
+        "dayMasterElement": [
+          "METAL"
+        ],
+        "yongshinElement": [
+          "FIRE"
+        ],
+        "dayMasterStrength": [
+          "BALANCED"
+        ]
+      },
+      "templateTokens": [
+        {
+          "kind": "text",
+          "value": "쇠 일간에 균형 흐름이 겹치면 판단의 선명함과 관계의 온도를 함께 봐야 해요. 정한 원칙을 지키되 예외 기준도 미리 정하면 안정적이에요. 규칙만 말하기보다 왜 필요한지 짧게 설명하면 관계가 부드러워져요."
+        }
+      ],
+      "tags": [],
+      "aiGenerated": true,
+      "sourceTier": {
+        "tier": "T1_HYPOTHESIS",
+        "sourceType": "training_derived",
+        "sourceUrl": null,
+        "accessedAt": "2026-05-02",
+        "quoteShort": null,
+        "humanInterpretation": "Tuple-density expansion for metal day-master, yongshin element, and strength branching. AI-derived display text; not authority truth.",
+        "copyrightNote": "No source prose copied; original hypothesis text.",
+        "authorityTruthEligible": false
+      }
+    },
+    {
+      "schemaVersion": "spring-ts.narrative-fragment.v1",
+      "fragmentId": "overall.life.brief.tuple_metal_fire_extreme_weak_flow.511",
+      "axis": {
+        "category": "overall",
+        "period": "life",
+        "depth": "brief"
+      },
+      "gating": {
+        "dayMasterElement": [
+          "METAL"
+        ],
+        "yongshinElement": [
+          "FIRE"
+        ],
+        "dayMasterStrength": [
+          "EXTREME_WEAK"
+        ]
+      },
+      "templateTokens": [
+        {
+          "kind": "text",
+          "value": "쇠 일간의 큰 흐름은 기준, 정리, 결단을 중심으로 움직여요. 결정의 날이 무뎌져 남의 기준에 흔들리기 쉬워요. 불 용신은 차가운 기준에 온기와 설득력을 더하는 보강점이에요."
+        }
+      ],
+      "tags": [],
+      "aiGenerated": true,
+      "sourceTier": {
+        "tier": "T1_HYPOTHESIS",
+        "sourceType": "training_derived",
+        "sourceUrl": null,
+        "accessedAt": "2026-05-02",
+        "quoteShort": null,
+        "humanInterpretation": "Tuple-density expansion for metal day-master, yongshin element, and strength branching. AI-derived display text; not authority truth.",
+        "copyrightNote": "No source prose copied; original hypothesis text.",
+        "authorityTruthEligible": false
+      }
+    },
+    {
+      "schemaVersion": "spring-ts.narrative-fragment.v1",
+      "fragmentId": "overall.life.brief.tuple_metal_fire_extreme_weak_practice.512",
+      "axis": {
+        "category": "overall",
+        "period": "life",
+        "depth": "brief"
+      },
+      "gating": {
+        "dayMasterElement": [
+          "METAL"
+        ],
+        "yongshinElement": [
+          "FIRE"
+        ],
+        "dayMasterStrength": [
+          "EXTREME_WEAK"
+        ]
+      },
+      "templateTokens": [
+        {
+          "kind": "text",
+          "value": "쇠 일간에 극신약 흐름이 겹치면 판단의 선명함과 관계의 온도를 함께 봐야 해요. 작은 선택부터 직접 결정해 자신감을 회복하는 게 중요해요. 규칙만 말하기보다 왜 필요한지 짧게 설명하면 관계가 부드러워져요."
+        }
+      ],
+      "tags": [],
+      "aiGenerated": true,
+      "sourceTier": {
+        "tier": "T1_HYPOTHESIS",
+        "sourceType": "training_derived",
+        "sourceUrl": null,
+        "accessedAt": "2026-05-02",
+        "quoteShort": null,
+        "humanInterpretation": "Tuple-density expansion for metal day-master, yongshin element, and strength branching. AI-derived display text; not authority truth.",
+        "copyrightNote": "No source prose copied; original hypothesis text.",
+        "authorityTruthEligible": false
+      }
+    },
+    {
+      "schemaVersion": "spring-ts.narrative-fragment.v1",
+      "fragmentId": "overall.life.brief.tuple_metal_fire_strong_flow.513",
+      "axis": {
+        "category": "overall",
+        "period": "life",
+        "depth": "brief"
+      },
+      "gating": {
+        "dayMasterElement": [
+          "METAL"
+        ],
+        "yongshinElement": [
+          "FIRE"
+        ],
+        "dayMasterStrength": [
+          "STRONG"
+        ]
+      },
+      "templateTokens": [
+        {
+          "kind": "text",
+          "value": "쇠 일간의 큰 흐름은 기준, 정리, 결단을 중심으로 움직여요. 판단이 빠르고 기준이 분명하지만 말이 단단해질 수 있어요. 불 용신은 차가운 기준에 온기와 설득력을 더하는 보강점이에요."
+        }
+      ],
+      "tags": [],
+      "aiGenerated": true,
+      "sourceTier": {
+        "tier": "T1_HYPOTHESIS",
+        "sourceType": "training_derived",
+        "sourceUrl": null,
+        "accessedAt": "2026-05-02",
+        "quoteShort": null,
+        "humanInterpretation": "Tuple-density expansion for metal day-master, yongshin element, and strength branching. AI-derived display text; not authority truth.",
+        "copyrightNote": "No source prose copied; original hypothesis text.",
+        "authorityTruthEligible": false
+      }
+    },
+    {
+      "schemaVersion": "spring-ts.narrative-fragment.v1",
+      "fragmentId": "overall.life.brief.tuple_metal_fire_strong_practice.514",
+      "axis": {
+        "category": "overall",
+        "period": "life",
+        "depth": "brief"
+      },
+      "gating": {
+        "dayMasterElement": [
+          "METAL"
+        ],
+        "yongshinElement": [
+          "FIRE"
+        ],
+        "dayMasterStrength": [
+          "STRONG"
+        ]
+      },
+      "templateTokens": [
+        {
+          "kind": "text",
+          "value": "쇠 일간에 신강 흐름이 겹치면 판단의 선명함과 관계의 온도를 함께 봐야 해요. 결론을 말하기 전에 상대가 받아들일 순서를 먼저 정리하세요. 규칙만 말하기보다 왜 필요한지 짧게 설명하면 관계가 부드러워져요."
+        }
+      ],
+      "tags": [],
+      "aiGenerated": true,
+      "sourceTier": {
+        "tier": "T1_HYPOTHESIS",
+        "sourceType": "training_derived",
+        "sourceUrl": null,
+        "accessedAt": "2026-05-02",
+        "quoteShort": null,
+        "humanInterpretation": "Tuple-density expansion for metal day-master, yongshin element, and strength branching. AI-derived display text; not authority truth.",
+        "copyrightNote": "No source prose copied; original hypothesis text.",
+        "authorityTruthEligible": false
+      }
+    },
+    {
+      "schemaVersion": "spring-ts.narrative-fragment.v1",
+      "fragmentId": "overall.life.brief.tuple_metal_fire_weak_flow.515",
+      "axis": {
+        "category": "overall",
+        "period": "life",
+        "depth": "brief"
+      },
+      "gating": {
+        "dayMasterElement": [
+          "METAL"
+        ],
+        "yongshinElement": [
+          "FIRE"
+        ],
+        "dayMasterStrength": [
+          "WEAK"
+        ]
+      },
+      "templateTokens": [
+        {
+          "kind": "text",
+          "value": "쇠 일간의 큰 흐름은 기준, 정리, 결단을 중심으로 움직여요. 기준은 필요하지만 끝까지 밀고 갈 힘이 부족할 수 있어요. 불 용신은 차가운 기준에 온기와 설득력을 더하는 보강점이에요."
+        }
+      ],
+      "tags": [],
+      "aiGenerated": true,
+      "sourceTier": {
+        "tier": "T1_HYPOTHESIS",
+        "sourceType": "training_derived",
+        "sourceUrl": null,
+        "accessedAt": "2026-05-02",
+        "quoteShort": null,
+        "humanInterpretation": "Tuple-density expansion for metal day-master, yongshin element, and strength branching. AI-derived display text; not authority truth.",
+        "copyrightNote": "No source prose copied; original hypothesis text.",
+        "authorityTruthEligible": false
+      }
+    },
+    {
+      "schemaVersion": "spring-ts.narrative-fragment.v1",
+      "fragmentId": "overall.life.brief.tuple_metal_fire_weak_practice.516",
+      "axis": {
+        "category": "overall",
+        "period": "life",
+        "depth": "brief"
+      },
+      "gating": {
+        "dayMasterElement": [
+          "METAL"
+        ],
+        "yongshinElement": [
+          "FIRE"
+        ],
+        "dayMasterStrength": [
+          "WEAK"
+        ]
+      },
+      "templateTokens": [
+        {
+          "kind": "text",
+          "value": "쇠 일간에 신약 흐름이 겹치면 판단의 선명함과 관계의 온도를 함께 봐야 해요. 결정 후 바로 실행할 작은 행동을 붙이면 흐름이 끊기지 않아요. 규칙만 말하기보다 왜 필요한지 짧게 설명하면 관계가 부드러워져요."
+        }
+      ],
+      "tags": [],
+      "aiGenerated": true,
+      "sourceTier": {
+        "tier": "T1_HYPOTHESIS",
+        "sourceType": "training_derived",
+        "sourceUrl": null,
+        "accessedAt": "2026-05-02",
+        "quoteShort": null,
+        "humanInterpretation": "Tuple-density expansion for metal day-master, yongshin element, and strength branching. AI-derived display text; not authority truth.",
+        "copyrightNote": "No source prose copied; original hypothesis text.",
+        "authorityTruthEligible": false
+      }
+    },
+    {
+      "schemaVersion": "spring-ts.narrative-fragment.v1",
+      "fragmentId": "overall.life.brief.tuple_metal_metal_balanced_flow.517",
+      "axis": {
+        "category": "overall",
+        "period": "life",
+        "depth": "brief"
+      },
+      "gating": {
+        "dayMasterElement": [
+          "METAL"
+        ],
+        "yongshinElement": [
+          "METAL"
+        ],
+        "dayMasterStrength": [
+          "BALANCED"
+        ]
+      },
+      "templateTokens": [
+        {
+          "kind": "text",
+          "value": "쇠 일간의 큰 흐름은 기준, 정리, 결단을 중심으로 움직여요. 기준과 유연성이 비교적 함께 움직이는 상태예요. 쇠 용신은 정리와 결단력을 더욱 선명하게 만드는 보강점이에요."
+        }
+      ],
+      "tags": [],
+      "aiGenerated": true,
+      "sourceTier": {
+        "tier": "T1_HYPOTHESIS",
+        "sourceType": "training_derived",
+        "sourceUrl": null,
+        "accessedAt": "2026-05-02",
+        "quoteShort": null,
+        "humanInterpretation": "Tuple-density expansion for metal day-master, yongshin element, and strength branching. AI-derived display text; not authority truth.",
+        "copyrightNote": "No source prose copied; original hypothesis text.",
+        "authorityTruthEligible": false
+      }
+    },
+    {
+      "schemaVersion": "spring-ts.narrative-fragment.v1",
+      "fragmentId": "overall.life.brief.tuple_metal_metal_balanced_practice.518",
+      "axis": {
+        "category": "overall",
+        "period": "life",
+        "depth": "brief"
+      },
+      "gating": {
+        "dayMasterElement": [
+          "METAL"
+        ],
+        "yongshinElement": [
+          "METAL"
+        ],
+        "dayMasterStrength": [
+          "BALANCED"
+        ]
+      },
+      "templateTokens": [
+        {
+          "kind": "text",
+          "value": "쇠 일간에 균형 흐름이 겹치면 판단의 선명함과 관계의 온도를 함께 봐야 해요. 정한 원칙을 지키되 예외 기준도 미리 정하면 안정적이에요. 핵심 기준 세 가지를 정하고 그 밖의 선택지는 줄여보세요."
+        }
+      ],
+      "tags": [],
+      "aiGenerated": true,
+      "sourceTier": {
+        "tier": "T1_HYPOTHESIS",
+        "sourceType": "training_derived",
+        "sourceUrl": null,
+        "accessedAt": "2026-05-02",
+        "quoteShort": null,
+        "humanInterpretation": "Tuple-density expansion for metal day-master, yongshin element, and strength branching. AI-derived display text; not authority truth.",
+        "copyrightNote": "No source prose copied; original hypothesis text.",
+        "authorityTruthEligible": false
+      }
+    },
+    {
+      "schemaVersion": "spring-ts.narrative-fragment.v1",
+      "fragmentId": "overall.life.brief.tuple_metal_metal_extreme_strong_flow.519",
+      "axis": {
+        "category": "overall",
+        "period": "life",
+        "depth": "brief"
+      },
+      "gating": {
+        "dayMasterElement": [
+          "METAL"
+        ],
+        "yongshinElement": [
+          "METAL"
+        ],
+        "dayMasterStrength": [
+          "EXTREME_STRONG"
+        ]
+      },
+      "templateTokens": [
+        {
+          "kind": "text",
+          "value": "쇠 일간의 큰 흐름은 기준, 정리, 결단을 중심으로 움직여요. 판단과 절제가 매우 강해 스스로도 답답함을 느낄 수 있어요. 쇠 용신은 정리와 결단력을 더욱 선명하게 만드는 보강점이에요."
+        }
+      ],
+      "tags": [],
+      "aiGenerated": true,
+      "sourceTier": {
+        "tier": "T1_HYPOTHESIS",
+        "sourceType": "training_derived",
+        "sourceUrl": null,
+        "accessedAt": "2026-05-02",
+        "quoteShort": null,
+        "humanInterpretation": "Tuple-density expansion for metal day-master, yongshin element, and strength branching. AI-derived display text; not authority truth.",
+        "copyrightNote": "No source prose copied; original hypothesis text.",
+        "authorityTruthEligible": false
+      }
+    },
+    {
+      "schemaVersion": "spring-ts.narrative-fragment.v1",
+      "fragmentId": "overall.life.brief.tuple_metal_metal_extreme_strong_practice.520",
+      "axis": {
+        "category": "overall",
+        "period": "life",
+        "depth": "brief"
+      },
+      "gating": {
+        "dayMasterElement": [
+          "METAL"
+        ],
+        "yongshinElement": [
+          "METAL"
+        ],
+        "dayMasterStrength": [
+          "EXTREME_STRONG"
+        ]
+      },
+      "templateTokens": [
+        {
+          "kind": "text",
+          "value": "쇠 일간에 극신강 흐름이 겹치면 판단의 선명함과 관계의 온도를 함께 봐야 해요. 완벽한 기준보다 지금 통과 가능한 기준을 먼저 세워보세요. 핵심 기준 세 가지를 정하고 그 밖의 선택지는 줄여보세요."
+        }
+      ],
+      "tags": [],
+      "aiGenerated": true,
+      "sourceTier": {
+        "tier": "T1_HYPOTHESIS",
+        "sourceType": "training_derived",
+        "sourceUrl": null,
+        "accessedAt": "2026-05-02",
+        "quoteShort": null,
+        "humanInterpretation": "Tuple-density expansion for metal day-master, yongshin element, and strength branching. AI-derived display text; not authority truth.",
+        "copyrightNote": "No source prose copied; original hypothesis text.",
+        "authorityTruthEligible": false
+      }
+    },
+    {
+      "schemaVersion": "spring-ts.narrative-fragment.v1",
+      "fragmentId": "overall.life.brief.tuple_metal_metal_strong_flow.521",
+      "axis": {
+        "category": "overall",
+        "period": "life",
+        "depth": "brief"
+      },
+      "gating": {
+        "dayMasterElement": [
+          "METAL"
+        ],
+        "yongshinElement": [
+          "METAL"
+        ],
+        "dayMasterStrength": [
+          "STRONG"
+        ]
+      },
+      "templateTokens": [
+        {
+          "kind": "text",
+          "value": "쇠 일간의 큰 흐름은 기준, 정리, 결단을 중심으로 움직여요. 판단이 빠르고 기준이 분명하지만 말이 단단해질 수 있어요. 쇠 용신은 정리와 결단력을 더욱 선명하게 만드는 보강점이에요."
+        }
+      ],
+      "tags": [],
+      "aiGenerated": true,
+      "sourceTier": {
+        "tier": "T1_HYPOTHESIS",
+        "sourceType": "training_derived",
+        "sourceUrl": null,
+        "accessedAt": "2026-05-02",
+        "quoteShort": null,
+        "humanInterpretation": "Tuple-density expansion for metal day-master, yongshin element, and strength branching. AI-derived display text; not authority truth.",
+        "copyrightNote": "No source prose copied; original hypothesis text.",
+        "authorityTruthEligible": false
+      }
+    },
+    {
+      "schemaVersion": "spring-ts.narrative-fragment.v1",
+      "fragmentId": "overall.life.brief.tuple_metal_metal_strong_practice.522",
+      "axis": {
+        "category": "overall",
+        "period": "life",
+        "depth": "brief"
+      },
+      "gating": {
+        "dayMasterElement": [
+          "METAL"
+        ],
+        "yongshinElement": [
+          "METAL"
+        ],
+        "dayMasterStrength": [
+          "STRONG"
+        ]
+      },
+      "templateTokens": [
+        {
+          "kind": "text",
+          "value": "쇠 일간에 신강 흐름이 겹치면 판단의 선명함과 관계의 온도를 함께 봐야 해요. 결론을 말하기 전에 상대가 받아들일 순서를 먼저 정리하세요. 핵심 기준 세 가지를 정하고 그 밖의 선택지는 줄여보세요."
+        }
+      ],
+      "tags": [],
+      "aiGenerated": true,
+      "sourceTier": {
+        "tier": "T1_HYPOTHESIS",
+        "sourceType": "training_derived",
+        "sourceUrl": null,
+        "accessedAt": "2026-05-02",
+        "quoteShort": null,
+        "humanInterpretation": "Tuple-density expansion for metal day-master, yongshin element, and strength branching. AI-derived display text; not authority truth.",
+        "copyrightNote": "No source prose copied; original hypothesis text.",
+        "authorityTruthEligible": false
+      }
+    },
+    {
+      "schemaVersion": "spring-ts.narrative-fragment.v1",
+      "fragmentId": "overall.life.brief.tuple_metal_metal_weak_flow.523",
+      "axis": {
+        "category": "overall",
+        "period": "life",
+        "depth": "brief"
+      },
+      "gating": {
+        "dayMasterElement": [
+          "METAL"
+        ],
+        "yongshinElement": [
+          "METAL"
+        ],
+        "dayMasterStrength": [
+          "WEAK"
+        ]
+      },
+      "templateTokens": [
+        {
+          "kind": "text",
+          "value": "쇠 일간의 큰 흐름은 기준, 정리, 결단을 중심으로 움직여요. 기준은 필요하지만 끝까지 밀고 갈 힘이 부족할 수 있어요. 쇠 용신은 정리와 결단력을 더욱 선명하게 만드는 보강점이에요."
+        }
+      ],
+      "tags": [],
+      "aiGenerated": true,
+      "sourceTier": {
+        "tier": "T1_HYPOTHESIS",
+        "sourceType": "training_derived",
+        "sourceUrl": null,
+        "accessedAt": "2026-05-02",
+        "quoteShort": null,
+        "humanInterpretation": "Tuple-density expansion for metal day-master, yongshin element, and strength branching. AI-derived display text; not authority truth.",
+        "copyrightNote": "No source prose copied; original hypothesis text.",
+        "authorityTruthEligible": false
+      }
+    },
+    {
+      "schemaVersion": "spring-ts.narrative-fragment.v1",
+      "fragmentId": "overall.life.brief.tuple_metal_metal_weak_practice.524",
+      "axis": {
+        "category": "overall",
+        "period": "life",
+        "depth": "brief"
+      },
+      "gating": {
+        "dayMasterElement": [
+          "METAL"
+        ],
+        "yongshinElement": [
+          "METAL"
+        ],
+        "dayMasterStrength": [
+          "WEAK"
+        ]
+      },
+      "templateTokens": [
+        {
+          "kind": "text",
+          "value": "쇠 일간에 신약 흐름이 겹치면 판단의 선명함과 관계의 온도를 함께 봐야 해요. 결정 후 바로 실행할 작은 행동을 붙이면 흐름이 끊기지 않아요. 핵심 기준 세 가지를 정하고 그 밖의 선택지는 줄여보세요."
+        }
+      ],
+      "tags": [],
+      "aiGenerated": true,
+      "sourceTier": {
+        "tier": "T1_HYPOTHESIS",
+        "sourceType": "training_derived",
+        "sourceUrl": null,
+        "accessedAt": "2026-05-02",
+        "quoteShort": null,
+        "humanInterpretation": "Tuple-density expansion for metal day-master, yongshin element, and strength branching. AI-derived display text; not authority truth.",
+        "copyrightNote": "No source prose copied; original hypothesis text.",
+        "authorityTruthEligible": false
+      }
+    },
+    {
+      "schemaVersion": "spring-ts.narrative-fragment.v1",
+      "fragmentId": "overall.life.brief.tuple_metal_water_balanced_flow.525",
+      "axis": {
+        "category": "overall",
+        "period": "life",
+        "depth": "brief"
+      },
+      "gating": {
+        "dayMasterElement": [
+          "METAL"
+        ],
+        "yongshinElement": [
+          "WATER"
+        ],
+        "dayMasterStrength": [
+          "BALANCED"
+        ]
+      },
+      "templateTokens": [
+        {
+          "kind": "text",
+          "value": "쇠 일간의 큰 흐름은 기준, 정리, 결단을 중심으로 움직여요. 기준과 유연성이 비교적 함께 움직이는 상태예요. 물 용신은 딱딱해진 판단을 유연하게 풀어주는 보강점이에요."
+        }
+      ],
+      "tags": [],
+      "aiGenerated": true,
+      "sourceTier": {
+        "tier": "T1_HYPOTHESIS",
+        "sourceType": "training_derived",
+        "sourceUrl": null,
+        "accessedAt": "2026-05-02",
+        "quoteShort": null,
+        "humanInterpretation": "Tuple-density expansion for metal day-master, yongshin element, and strength branching. AI-derived display text; not authority truth.",
+        "copyrightNote": "No source prose copied; original hypothesis text.",
+        "authorityTruthEligible": false
+      }
+    },
+    {
+      "schemaVersion": "spring-ts.narrative-fragment.v1",
+      "fragmentId": "overall.life.brief.tuple_metal_water_balanced_practice.526",
+      "axis": {
+        "category": "overall",
+        "period": "life",
+        "depth": "brief"
+      },
+      "gating": {
+        "dayMasterElement": [
+          "METAL"
+        ],
+        "yongshinElement": [
+          "WATER"
+        ],
+        "dayMasterStrength": [
+          "BALANCED"
+        ]
+      },
+      "templateTokens": [
+        {
+          "kind": "text",
+          "value": "쇠 일간에 균형 흐름이 겹치면 판단의 선명함과 관계의 온도를 함께 봐야 해요. 정한 원칙을 지키되 예외 기준도 미리 정하면 안정적이에요. 결론을 늦추더라도 정보와 대안을 더 모으면 선택이 가벼워져요."
+        }
+      ],
+      "tags": [],
+      "aiGenerated": true,
+      "sourceTier": {
+        "tier": "T1_HYPOTHESIS",
+        "sourceType": "training_derived",
+        "sourceUrl": null,
+        "accessedAt": "2026-05-02",
+        "quoteShort": null,
+        "humanInterpretation": "Tuple-density expansion for metal day-master, yongshin element, and strength branching. AI-derived display text; not authority truth.",
+        "copyrightNote": "No source prose copied; original hypothesis text.",
+        "authorityTruthEligible": false
+      }
+    },
+    {
+      "schemaVersion": "spring-ts.narrative-fragment.v1",
+      "fragmentId": "overall.life.brief.tuple_metal_water_extreme_strong_flow.527",
+      "axis": {
+        "category": "overall",
+        "period": "life",
+        "depth": "brief"
+      },
+      "gating": {
+        "dayMasterElement": [
+          "METAL"
+        ],
+        "yongshinElement": [
+          "WATER"
+        ],
+        "dayMasterStrength": [
+          "EXTREME_STRONG"
+        ]
+      },
+      "templateTokens": [
+        {
+          "kind": "text",
+          "value": "쇠 일간의 큰 흐름은 기준, 정리, 결단을 중심으로 움직여요. 판단과 절제가 매우 강해 스스로도 답답함을 느낄 수 있어요. 물 용신은 딱딱해진 판단을 유연하게 풀어주는 보강점이에요."
+        }
+      ],
+      "tags": [],
+      "aiGenerated": true,
+      "sourceTier": {
+        "tier": "T1_HYPOTHESIS",
+        "sourceType": "training_derived",
+        "sourceUrl": null,
+        "accessedAt": "2026-05-02",
+        "quoteShort": null,
+        "humanInterpretation": "Tuple-density expansion for metal day-master, yongshin element, and strength branching. AI-derived display text; not authority truth.",
+        "copyrightNote": "No source prose copied; original hypothesis text.",
+        "authorityTruthEligible": false
+      }
+    },
+    {
+      "schemaVersion": "spring-ts.narrative-fragment.v1",
+      "fragmentId": "overall.life.brief.tuple_metal_water_extreme_strong_practice.528",
+      "axis": {
+        "category": "overall",
+        "period": "life",
+        "depth": "brief"
+      },
+      "gating": {
+        "dayMasterElement": [
+          "METAL"
+        ],
+        "yongshinElement": [
+          "WATER"
+        ],
+        "dayMasterStrength": [
+          "EXTREME_STRONG"
+        ]
+      },
+      "templateTokens": [
+        {
+          "kind": "text",
+          "value": "쇠 일간에 극신강 흐름이 겹치면 판단의 선명함과 관계의 온도를 함께 봐야 해요. 완벽한 기준보다 지금 통과 가능한 기준을 먼저 세워보세요. 결론을 늦추더라도 정보와 대안을 더 모으면 선택이 가벼워져요."
+        }
+      ],
+      "tags": [],
+      "aiGenerated": true,
+      "sourceTier": {
+        "tier": "T1_HYPOTHESIS",
+        "sourceType": "training_derived",
+        "sourceUrl": null,
+        "accessedAt": "2026-05-02",
+        "quoteShort": null,
+        "humanInterpretation": "Tuple-density expansion for metal day-master, yongshin element, and strength branching. AI-derived display text; not authority truth.",
+        "copyrightNote": "No source prose copied; original hypothesis text.",
+        "authorityTruthEligible": false
+      }
+    },
+    {
+      "schemaVersion": "spring-ts.narrative-fragment.v1",
+      "fragmentId": "overall.life.brief.tuple_metal_water_extreme_weak_flow.529",
+      "axis": {
+        "category": "overall",
+        "period": "life",
+        "depth": "brief"
+      },
+      "gating": {
+        "dayMasterElement": [
+          "METAL"
+        ],
+        "yongshinElement": [
+          "WATER"
+        ],
+        "dayMasterStrength": [
+          "EXTREME_WEAK"
+        ]
+      },
+      "templateTokens": [
+        {
+          "kind": "text",
+          "value": "쇠 일간의 큰 흐름은 기준, 정리, 결단을 중심으로 움직여요. 결정의 날이 무뎌져 남의 기준에 흔들리기 쉬워요. 물 용신은 딱딱해진 판단을 유연하게 풀어주는 보강점이에요."
+        }
+      ],
+      "tags": [],
+      "aiGenerated": true,
+      "sourceTier": {
+        "tier": "T1_HYPOTHESIS",
+        "sourceType": "training_derived",
+        "sourceUrl": null,
+        "accessedAt": "2026-05-02",
+        "quoteShort": null,
+        "humanInterpretation": "Tuple-density expansion for metal day-master, yongshin element, and strength branching. AI-derived display text; not authority truth.",
+        "copyrightNote": "No source prose copied; original hypothesis text.",
+        "authorityTruthEligible": false
+      }
+    },
+    {
+      "schemaVersion": "spring-ts.narrative-fragment.v1",
+      "fragmentId": "overall.life.brief.tuple_metal_water_extreme_weak_practice.530",
+      "axis": {
+        "category": "overall",
+        "period": "life",
+        "depth": "brief"
+      },
+      "gating": {
+        "dayMasterElement": [
+          "METAL"
+        ],
+        "yongshinElement": [
+          "WATER"
+        ],
+        "dayMasterStrength": [
+          "EXTREME_WEAK"
+        ]
+      },
+      "templateTokens": [
+        {
+          "kind": "text",
+          "value": "쇠 일간에 극신약 흐름이 겹치면 판단의 선명함과 관계의 온도를 함께 봐야 해요. 작은 선택부터 직접 결정해 자신감을 회복하는 게 중요해요. 결론을 늦추더라도 정보와 대안을 더 모으면 선택이 가벼워져요."
+        }
+      ],
+      "tags": [],
+      "aiGenerated": true,
+      "sourceTier": {
+        "tier": "T1_HYPOTHESIS",
+        "sourceType": "training_derived",
+        "sourceUrl": null,
+        "accessedAt": "2026-05-02",
+        "quoteShort": null,
+        "humanInterpretation": "Tuple-density expansion for metal day-master, yongshin element, and strength branching. AI-derived display text; not authority truth.",
+        "copyrightNote": "No source prose copied; original hypothesis text.",
+        "authorityTruthEligible": false
+      }
+    },
+    {
+      "schemaVersion": "spring-ts.narrative-fragment.v1",
+      "fragmentId": "overall.life.brief.tuple_metal_water_weak_flow.531",
+      "axis": {
+        "category": "overall",
+        "period": "life",
+        "depth": "brief"
+      },
+      "gating": {
+        "dayMasterElement": [
+          "METAL"
+        ],
+        "yongshinElement": [
+          "WATER"
+        ],
+        "dayMasterStrength": [
+          "WEAK"
+        ]
+      },
+      "templateTokens": [
+        {
+          "kind": "text",
+          "value": "쇠 일간의 큰 흐름은 기준, 정리, 결단을 중심으로 움직여요. 기준은 필요하지만 끝까지 밀고 갈 힘이 부족할 수 있어요. 물 용신은 딱딱해진 판단을 유연하게 풀어주는 보강점이에요."
+        }
+      ],
+      "tags": [],
+      "aiGenerated": true,
+      "sourceTier": {
+        "tier": "T1_HYPOTHESIS",
+        "sourceType": "training_derived",
+        "sourceUrl": null,
+        "accessedAt": "2026-05-02",
+        "quoteShort": null,
+        "humanInterpretation": "Tuple-density expansion for metal day-master, yongshin element, and strength branching. AI-derived display text; not authority truth.",
+        "copyrightNote": "No source prose copied; original hypothesis text.",
+        "authorityTruthEligible": false
+      }
+    },
+    {
+      "schemaVersion": "spring-ts.narrative-fragment.v1",
+      "fragmentId": "overall.life.brief.tuple_metal_water_weak_practice.532",
+      "axis": {
+        "category": "overall",
+        "period": "life",
+        "depth": "brief"
+      },
+      "gating": {
+        "dayMasterElement": [
+          "METAL"
+        ],
+        "yongshinElement": [
+          "WATER"
+        ],
+        "dayMasterStrength": [
+          "WEAK"
+        ]
+      },
+      "templateTokens": [
+        {
+          "kind": "text",
+          "value": "쇠 일간에 신약 흐름이 겹치면 판단의 선명함과 관계의 온도를 함께 봐야 해요. 결정 후 바로 실행할 작은 행동을 붙이면 흐름이 끊기지 않아요. 결론을 늦추더라도 정보와 대안을 더 모으면 선택이 가벼워져요."
+        }
+      ],
+      "tags": [],
+      "aiGenerated": true,
+      "sourceTier": {
+        "tier": "T1_HYPOTHESIS",
+        "sourceType": "training_derived",
+        "sourceUrl": null,
+        "accessedAt": "2026-05-02",
+        "quoteShort": null,
+        "humanInterpretation": "Tuple-density expansion for metal day-master, yongshin element, and strength branching. AI-derived display text; not authority truth.",
+        "copyrightNote": "No source prose copied; original hypothesis text.",
+        "authorityTruthEligible": false
+      }
+    },
+    {
+      "schemaVersion": "spring-ts.narrative-fragment.v1",
+      "fragmentId": "overall.life.brief.tuple_metal_wood_balanced_flow.533",
+      "axis": {
+        "category": "overall",
+        "period": "life",
+        "depth": "brief"
+      },
+      "gating": {
+        "dayMasterElement": [
+          "METAL"
+        ],
+        "yongshinElement": [
+          "WOOD"
+        ],
+        "dayMasterStrength": [
+          "BALANCED"
+        ]
+      },
+      "templateTokens": [
+        {
+          "kind": "text",
+          "value": "쇠 일간의 큰 흐름은 기준, 정리, 결단을 중심으로 움직여요. 기준과 유연성이 비교적 함께 움직이는 상태예요. 나무 용신은 기준을 현실 성장 방향으로 쓰게 해주는 보강점이에요."
+        }
+      ],
+      "tags": [],
+      "aiGenerated": true,
+      "sourceTier": {
+        "tier": "T1_HYPOTHESIS",
+        "sourceType": "training_derived",
+        "sourceUrl": null,
+        "accessedAt": "2026-05-02",
+        "quoteShort": null,
+        "humanInterpretation": "Tuple-density expansion for metal day-master, yongshin element, and strength branching. AI-derived display text; not authority truth.",
+        "copyrightNote": "No source prose copied; original hypothesis text.",
+        "authorityTruthEligible": false
+      }
+    },
+    {
+      "schemaVersion": "spring-ts.narrative-fragment.v1",
+      "fragmentId": "overall.life.brief.tuple_metal_wood_balanced_practice.534",
+      "axis": {
+        "category": "overall",
+        "period": "life",
+        "depth": "brief"
+      },
+      "gating": {
+        "dayMasterElement": [
+          "METAL"
+        ],
+        "yongshinElement": [
+          "WOOD"
+        ],
+        "dayMasterStrength": [
+          "BALANCED"
+        ]
+      },
+      "templateTokens": [
+        {
+          "kind": "text",
+          "value": "쇠 일간에 균형 흐름이 겹치면 판단의 선명함과 관계의 온도를 함께 봐야 해요. 정한 원칙을 지키되 예외 기준도 미리 정하면 안정적이에요. 비판보다 개선안을 먼저 정리하면 다음 단계가 보입니다."
+        }
+      ],
+      "tags": [],
+      "aiGenerated": true,
+      "sourceTier": {
+        "tier": "T1_HYPOTHESIS",
+        "sourceType": "training_derived",
+        "sourceUrl": null,
+        "accessedAt": "2026-05-02",
+        "quoteShort": null,
+        "humanInterpretation": "Tuple-density expansion for metal day-master, yongshin element, and strength branching. AI-derived display text; not authority truth.",
+        "copyrightNote": "No source prose copied; original hypothesis text.",
+        "authorityTruthEligible": false
+      }
+    },
+    {
+      "schemaVersion": "spring-ts.narrative-fragment.v1",
+      "fragmentId": "overall.life.brief.tuple_metal_wood_extreme_strong_flow.535",
+      "axis": {
+        "category": "overall",
+        "period": "life",
+        "depth": "brief"
+      },
+      "gating": {
+        "dayMasterElement": [
+          "METAL"
+        ],
+        "yongshinElement": [
+          "WOOD"
+        ],
+        "dayMasterStrength": [
+          "EXTREME_STRONG"
+        ]
+      },
+      "templateTokens": [
+        {
+          "kind": "text",
+          "value": "쇠 일간의 큰 흐름은 기준, 정리, 결단을 중심으로 움직여요. 판단과 절제가 매우 강해 스스로도 답답함을 느낄 수 있어요. 나무 용신은 기준을 현실 성장 방향으로 쓰게 해주는 보강점이에요."
+        }
+      ],
+      "tags": [],
+      "aiGenerated": true,
+      "sourceTier": {
+        "tier": "T1_HYPOTHESIS",
+        "sourceType": "training_derived",
+        "sourceUrl": null,
+        "accessedAt": "2026-05-02",
+        "quoteShort": null,
+        "humanInterpretation": "Tuple-density expansion for metal day-master, yongshin element, and strength branching. AI-derived display text; not authority truth.",
+        "copyrightNote": "No source prose copied; original hypothesis text.",
+        "authorityTruthEligible": false
+      }
+    },
+    {
+      "schemaVersion": "spring-ts.narrative-fragment.v1",
+      "fragmentId": "overall.life.brief.tuple_metal_wood_extreme_strong_practice.536",
+      "axis": {
+        "category": "overall",
+        "period": "life",
+        "depth": "brief"
+      },
+      "gating": {
+        "dayMasterElement": [
+          "METAL"
+        ],
+        "yongshinElement": [
+          "WOOD"
+        ],
+        "dayMasterStrength": [
+          "EXTREME_STRONG"
+        ]
+      },
+      "templateTokens": [
+        {
+          "kind": "text",
+          "value": "쇠 일간에 극신강 흐름이 겹치면 판단의 선명함과 관계의 온도를 함께 봐야 해요. 완벽한 기준보다 지금 통과 가능한 기준을 먼저 세워보세요. 비판보다 개선안을 먼저 정리하면 다음 단계가 보입니다."
+        }
+      ],
+      "tags": [],
+      "aiGenerated": true,
+      "sourceTier": {
+        "tier": "T1_HYPOTHESIS",
+        "sourceType": "training_derived",
+        "sourceUrl": null,
+        "accessedAt": "2026-05-02",
+        "quoteShort": null,
+        "humanInterpretation": "Tuple-density expansion for metal day-master, yongshin element, and strength branching. AI-derived display text; not authority truth.",
+        "copyrightNote": "No source prose copied; original hypothesis text.",
+        "authorityTruthEligible": false
+      }
+    },
+    {
+      "schemaVersion": "spring-ts.narrative-fragment.v1",
+      "fragmentId": "overall.life.brief.tuple_metal_wood_extreme_weak_flow.537",
+      "axis": {
+        "category": "overall",
+        "period": "life",
+        "depth": "brief"
+      },
+      "gating": {
+        "dayMasterElement": [
+          "METAL"
+        ],
+        "yongshinElement": [
+          "WOOD"
+        ],
+        "dayMasterStrength": [
+          "EXTREME_WEAK"
+        ]
+      },
+      "templateTokens": [
+        {
+          "kind": "text",
+          "value": "쇠 일간의 큰 흐름은 기준, 정리, 결단을 중심으로 움직여요. 결정의 날이 무뎌져 남의 기준에 흔들리기 쉬워요. 나무 용신은 기준을 현실 성장 방향으로 쓰게 해주는 보강점이에요."
+        }
+      ],
+      "tags": [],
+      "aiGenerated": true,
+      "sourceTier": {
+        "tier": "T1_HYPOTHESIS",
+        "sourceType": "training_derived",
+        "sourceUrl": null,
+        "accessedAt": "2026-05-02",
+        "quoteShort": null,
+        "humanInterpretation": "Tuple-density expansion for metal day-master, yongshin element, and strength branching. AI-derived display text; not authority truth.",
+        "copyrightNote": "No source prose copied; original hypothesis text.",
+        "authorityTruthEligible": false
+      }
+    },
+    {
+      "schemaVersion": "spring-ts.narrative-fragment.v1",
+      "fragmentId": "overall.life.brief.tuple_metal_wood_extreme_weak_practice.538",
+      "axis": {
+        "category": "overall",
+        "period": "life",
+        "depth": "brief"
+      },
+      "gating": {
+        "dayMasterElement": [
+          "METAL"
+        ],
+        "yongshinElement": [
+          "WOOD"
+        ],
+        "dayMasterStrength": [
+          "EXTREME_WEAK"
+        ]
+      },
+      "templateTokens": [
+        {
+          "kind": "text",
+          "value": "쇠 일간에 극신약 흐름이 겹치면 판단의 선명함과 관계의 온도를 함께 봐야 해요. 작은 선택부터 직접 결정해 자신감을 회복하는 게 중요해요. 비판보다 개선안을 먼저 정리하면 다음 단계가 보입니다."
+        }
+      ],
+      "tags": [],
+      "aiGenerated": true,
+      "sourceTier": {
+        "tier": "T1_HYPOTHESIS",
+        "sourceType": "training_derived",
+        "sourceUrl": null,
+        "accessedAt": "2026-05-02",
+        "quoteShort": null,
+        "humanInterpretation": "Tuple-density expansion for metal day-master, yongshin element, and strength branching. AI-derived display text; not authority truth.",
+        "copyrightNote": "No source prose copied; original hypothesis text.",
+        "authorityTruthEligible": false
+      }
+    },
+    {
+      "schemaVersion": "spring-ts.narrative-fragment.v1",
+      "fragmentId": "overall.life.brief.tuple_metal_wood_strong_flow.539",
+      "axis": {
+        "category": "overall",
+        "period": "life",
+        "depth": "brief"
+      },
+      "gating": {
+        "dayMasterElement": [
+          "METAL"
+        ],
+        "yongshinElement": [
+          "WOOD"
+        ],
+        "dayMasterStrength": [
+          "STRONG"
+        ]
+      },
+      "templateTokens": [
+        {
+          "kind": "text",
+          "value": "쇠 일간의 큰 흐름은 기준, 정리, 결단을 중심으로 움직여요. 판단이 빠르고 기준이 분명하지만 말이 단단해질 수 있어요. 나무 용신은 기준을 현실 성장 방향으로 쓰게 해주는 보강점이에요."
+        }
+      ],
+      "tags": [],
+      "aiGenerated": true,
+      "sourceTier": {
+        "tier": "T1_HYPOTHESIS",
+        "sourceType": "training_derived",
+        "sourceUrl": null,
+        "accessedAt": "2026-05-02",
+        "quoteShort": null,
+        "humanInterpretation": "Tuple-density expansion for metal day-master, yongshin element, and strength branching. AI-derived display text; not authority truth.",
+        "copyrightNote": "No source prose copied; original hypothesis text.",
+        "authorityTruthEligible": false
+      }
+    },
+    {
+      "schemaVersion": "spring-ts.narrative-fragment.v1",
+      "fragmentId": "overall.life.brief.tuple_metal_wood_strong_practice.540",
+      "axis": {
+        "category": "overall",
+        "period": "life",
+        "depth": "brief"
+      },
+      "gating": {
+        "dayMasterElement": [
+          "METAL"
+        ],
+        "yongshinElement": [
+          "WOOD"
+        ],
+        "dayMasterStrength": [
+          "STRONG"
+        ]
+      },
+      "templateTokens": [
+        {
+          "kind": "text",
+          "value": "쇠 일간에 신강 흐름이 겹치면 판단의 선명함과 관계의 온도를 함께 봐야 해요. 결론을 말하기 전에 상대가 받아들일 순서를 먼저 정리하세요. 비판보다 개선안을 먼저 정리하면 다음 단계가 보입니다."
+        }
+      ],
+      "tags": [],
+      "aiGenerated": true,
+      "sourceTier": {
+        "tier": "T1_HYPOTHESIS",
+        "sourceType": "training_derived",
+        "sourceUrl": null,
+        "accessedAt": "2026-05-02",
+        "quoteShort": null,
+        "humanInterpretation": "Tuple-density expansion for metal day-master, yongshin element, and strength branching. AI-derived display text; not authority truth.",
+        "copyrightNote": "No source prose copied; original hypothesis text.",
+        "authorityTruthEligible": false
+      }
+    }
+  ]
+}
