@@ -1,0 +1,140 @@
+{
+  "schemaVersion": "spring-ts.narrative-fragment-bundle.v1",
+  "bundleId": "career.thisWeek.brief",
+  "contractVersion": "1.0.0",
+  "generatedBy": "phase2.agent-6.career",
+  "fragments": [
+    {
+      "schemaVersion": "spring-ts.narrative-fragment.v1",
+      "fragmentId": "career.thisWeek.brief.wildcard.001",
+      "axis": { "category": "career", "period": "thisWeek", "depth": "brief" },
+      "gating": {},
+      "templateTokens": [
+        { "kind": "text", "value": "이번 주는 한 가지 책임을 매듭짓기 좋은 결이에요." }
+      ],
+      "tags": [],
+      "aiGenerated": true,
+      "sourceTier": { "tier": "T1_HYPOTHESIS", "sourceType": "training_derived", "sourceUrl": null, "accessedAt": "2026-05-02", "quoteShort": null, "humanInterpretation": "Phase 2 agent-6 (career) brief thisWeek wildcard. Display-only narrative.", "copyrightNote": "No source prose copied; original.", "authorityTruthEligible": false }
+    },
+    {
+      "schemaVersion": "spring-ts.narrative-fragment.v1",
+      "fragmentId": "career.thisWeek.brief.strong.aligned.002",
+      "axis": { "category": "career", "period": "thisWeek", "depth": "brief" },
+      "gating": { "dayMasterStrength": ["STRONG", "EXTREME_STRONG"], "yongshinAlignment": ["aligned"] },
+      "templateTokens": [
+        { "kind": "text", "value": "굵직한 결정 한 가지가 자리의 폭을 한 번 더 넓혀 줘요." }
+      ],
+      "tags": [],
+      "aiGenerated": true,
+      "sourceTier": { "tier": "T1_HYPOTHESIS", "sourceType": "training_derived", "sourceUrl": null, "accessedAt": "2026-05-02", "quoteShort": null, "humanInterpretation": "Phase 2 agent-6 (career) brief thisWeek: strong+aligned. Display-only narrative.", "copyrightNote": "No source prose copied; original.", "authorityTruthEligible": false }
+    },
+    {
+      "schemaVersion": "spring-ts.narrative-fragment.v1",
+      "fragmentId": "career.thisWeek.brief.weak.aligned.003",
+      "axis": { "category": "career", "period": "thisWeek", "depth": "brief" },
+      "gating": { "dayMasterStrength": ["WEAK", "EXTREME_WEAK"], "yongshinAlignment": ["aligned"] },
+      "templateTokens": [
+        { "kind": "text", "value": "윗사람·동료의 도움이 결의 길잡이가 되는 한 주예요." }
+      ],
+      "tags": [],
+      "aiGenerated": true,
+      "sourceTier": { "tier": "T1_HYPOTHESIS", "sourceType": "training_derived", "sourceUrl": null, "accessedAt": "2026-05-02", "quoteShort": null, "humanInterpretation": "Phase 2 agent-6 (career) brief thisWeek: weak+aligned. Display-only narrative.", "copyrightNote": "No source prose copied; original.", "authorityTruthEligible": false }
+    },
+    {
+      "schemaVersion": "spring-ts.narrative-fragment.v1",
+      "fragmentId": "career.thisWeek.brief.balanced.neutral.004",
+      "axis": { "category": "career", "period": "thisWeek", "depth": "brief" },
+      "gating": { "dayMasterStrength": ["BALANCED"], "yongshinAlignment": ["neutral"] },
+      "templateTokens": [
+        { "kind": "text", "value": "꾸준한 페이스가 작은 마무리를 키워 가는 결이에요." }
+      ],
+      "tags": [],
+      "aiGenerated": true,
+      "sourceTier": { "tier": "T1_HYPOTHESIS", "sourceType": "training_derived", "sourceUrl": null, "accessedAt": "2026-05-02", "quoteShort": null, "humanInterpretation": "Phase 2 agent-6 (career) brief thisWeek: balanced. Display-only narrative.", "copyrightNote": "No source prose copied; original.", "authorityTruthEligible": false }
+    },
+    {
+      "schemaVersion": "spring-ts.narrative-fragment.v1",
+      "fragmentId": "career.thisWeek.brief.conflicting.005",
+      "axis": { "category": "career", "period": "thisWeek", "depth": "brief" },
+      "gating": { "yongshinAlignment": ["conflicting"] },
+      "templateTokens": [
+        { "kind": "text", "value": "큰 결정은 주말로 미뤄 두면 결이 또렷해져요." }
+      ],
+      "tags": [],
+      "aiGenerated": true,
+      "sourceTier": { "tier": "T1_HYPOTHESIS", "sourceType": "training_derived", "sourceUrl": null, "accessedAt": "2026-05-02", "quoteShort": null, "humanInterpretation": "Phase 2 agent-6 (career) brief thisWeek: conflicting. Display-only narrative.", "copyrightNote": "No source prose copied; original.", "authorityTruthEligible": false }
+    },
+    {
+      "schemaVersion": "spring-ts.narrative-fragment.v1",
+      "fragmentId": "career.thisWeek.brief.age0_19.006",
+      "axis": { "category": "career", "period": "thisWeek", "depth": "brief" },
+      "gating": { "ageBand": ["0-9", "10-19"] },
+      "templateTokens": [
+        { "kind": "text", "value": "이번 주 마음에 닿는 관심사를 한 번 더 살펴봐요." }
+      ],
+      "tags": [],
+      "aiGenerated": true,
+      "sourceTier": { "tier": "T1_HYPOTHESIS", "sourceType": "training_derived", "sourceUrl": null, "accessedAt": "2026-05-02", "quoteShort": null, "humanInterpretation": "Phase 2 agent-6 (career) brief thisWeek: youth. Display-only narrative.", "copyrightNote": "No source prose copied; original.", "authorityTruthEligible": false }
+    },
+    {
+      "schemaVersion": "spring-ts.narrative-fragment.v1",
+      "fragmentId": "career.thisWeek.brief.age20_29.007",
+      "axis": { "category": "career", "period": "thisWeek", "depth": "brief" },
+      "gating": { "ageBand": ["20-29"] },
+      "templateTokens": [
+        { "kind": "text", "value": "한 가지 시도가 다음 자리로 이어지는 결이에요." }
+      ],
+      "tags": [],
+      "aiGenerated": true,
+      "sourceTier": { "tier": "T1_HYPOTHESIS", "sourceType": "training_derived", "sourceUrl": null, "accessedAt": "2026-05-02", "quoteShort": null, "humanInterpretation": "Phase 2 agent-6 (career) brief thisWeek: 20s. Display-only narrative.", "copyrightNote": "No source prose copied; original.", "authorityTruthEligible": false }
+    },
+    {
+      "schemaVersion": "spring-ts.narrative-fragment.v1",
+      "fragmentId": "career.thisWeek.brief.age30_39.008",
+      "axis": { "category": "career", "period": "thisWeek", "depth": "brief" },
+      "gating": { "ageBand": ["30-39"] },
+      "templateTokens": [
+        { "kind": "text", "value": "맡은 사람·일을 한 번 더 챙겨 가는 한 주예요." }
+      ],
+      "tags": [],
+      "aiGenerated": true,
+      "sourceTier": { "tier": "T1_HYPOTHESIS", "sourceType": "training_derived", "sourceUrl": null, "accessedAt": "2026-05-02", "quoteShort": null, "humanInterpretation": "Phase 2 agent-6 (career) brief thisWeek: 30s. Display-only narrative.", "copyrightNote": "No source prose copied; original.", "authorityTruthEligible": false }
+    },
+    {
+      "schemaVersion": "spring-ts.narrative-fragment.v1",
+      "fragmentId": "career.thisWeek.brief.age40plus.009",
+      "axis": { "category": "career", "period": "thisWeek", "depth": "brief" },
+      "gating": { "ageBand": ["40-54", "55-69", "70+"] },
+      "templateTokens": [
+        { "kind": "text", "value": "이번 주는 길게 쌓아 온 결이 자리를 정돈해 줘요." }
+      ],
+      "tags": [],
+      "aiGenerated": true,
+      "sourceTier": { "tier": "T1_HYPOTHESIS", "sourceType": "training_derived", "sourceUrl": null, "accessedAt": "2026-05-02", "quoteShort": null, "humanInterpretation": "Phase 2 agent-6 (career) brief thisWeek: 40+ adult. Display-only narrative.", "copyrightNote": "No source prose copied; original.", "authorityTruthEligible": false }
+    },
+    {
+      "schemaVersion": "spring-ts.narrative-fragment.v1",
+      "fragmentId": "career.thisWeek.brief.female.010",
+      "axis": { "category": "career", "period": "thisWeek", "depth": "brief" },
+      "gating": { "gender": ["female"] },
+      "templateTokens": [
+        { "kind": "text", "value": "한 자리에서 색을 입혀 가는 한 주예요." }
+      ],
+      "tags": [],
+      "aiGenerated": true,
+      "sourceTier": { "tier": "T1_HYPOTHESIS", "sourceType": "training_derived", "sourceUrl": null, "accessedAt": "2026-05-02", "quoteShort": null, "humanInterpretation": "Phase 2 agent-6 (career) brief thisWeek: female. Display-only narrative.", "copyrightNote": "No source prose copied; original.", "authorityTruthEligible": false }
+    },
+    {
+      "schemaVersion": "spring-ts.narrative-fragment.v1",
+      "fragmentId": "career.thisWeek.brief.male.011",
+      "axis": { "category": "career", "period": "thisWeek", "depth": "brief" },
+      "gating": { "gender": ["male"] },
+      "templateTokens": [
+        { "kind": "text", "value": "받은 자리를 단단히 받쳐 주는 한 주예요." }
+      ],
+      "tags": [],
+      "aiGenerated": true,
+      "sourceTier": { "tier": "T1_HYPOTHESIS", "sourceType": "training_derived", "sourceUrl": null, "accessedAt": "2026-05-02", "quoteShort": null, "humanInterpretation": "Phase 2 agent-6 (career) brief thisWeek: male. Display-only narrative.", "copyrightNote": "No source prose copied; original.", "authorityTruthEligible": false }
+    }
+  ]
+}

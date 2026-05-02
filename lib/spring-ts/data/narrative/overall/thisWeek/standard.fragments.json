@@ -1,0 +1,386 @@
+{
+  "schemaVersion": "spring-ts.narrative-fragment-bundle.v1",
+  "bundleId": "overall.thisWeek.standard",
+  "contractVersion": "1.0.0",
+  "generatedBy": "phase2.agent-15",
+  "fragments": [
+    {
+      "schemaVersion": "spring-ts.narrative-fragment.v1",
+      "fragmentId": "overall.thisWeek.standard.wildcard.001",
+      "axis": { "category": "overall", "period": "thisWeek", "depth": "standard" },
+      "gating": {},
+      "templateTokens": [
+        { "kind": "text", "value": "이번 주의 큰 그림을 보면, 잔잔한 호수처럼 큰 파도 없이 흐르는 결이에요. 익숙한 페이스를 지키면 자연스럽게 결과가 따라오고, 작은 신호도 흘려 듣지 않으면 결정의 질이 한 단계 올라가요. 한 주를 시작할 때 한 가지 우선순위만 정해도 마무리가 단단해져요." }
+      ],
+      "livingTips": [
+        "주 시작에 한 가지 우선순위를 정해요",
+        "주 마감에 짧은 점검 시간을 둬요"
+      ],
+      "cautions": [
+        "급한 결정만 한 박자 늦추면 충분해요"
+      ],
+      "tags": [],
+      "aiGenerated": true,
+      "sourceTier": {
+        "tier": "T1_HYPOTHESIS", "sourceType": "training_derived", "sourceUrl": null,
+        "accessedAt": "2026-05-02", "quoteShort": null,
+        "humanInterpretation": "Phase 2 overall fragment, agent-15.",
+        "copyrightNote": "No source prose copied; original.",
+        "authorityTruthEligible": false
+      }
+    },
+    {
+      "schemaVersion": "spring-ts.narrative-fragment.v1",
+      "fragmentId": "overall.thisWeek.standard.extreme_strong.aligned.002",
+      "axis": { "category": "overall", "period": "thisWeek", "depth": "standard" },
+      "gating": {
+        "dayMasterStrength": ["EXTREME_STRONG"],
+        "yongshinAlignment": ["aligned"]
+      },
+      "templateTokens": [
+        { "kind": "text", "value": "이번 주 기운이 또렷해서 굵직한 일 하나를 끌고 가기 좋은 흐름이에요. 한낮의 햇살이 한 자리에 오래 머무는 느낌처럼, 영향력이 또렷해지는 자리가 와요. 결정 자리에서 내가 먼저 방향을 잡으면 따라오는 결이 자연스러워요. 다만 한 방향으로만 달리면 곁의 결과 어긋날 수 있어요. 한 주의 중간쯤 한 번 멈추어 살피면, 마무리 자리가 더 단단해져요." }
+      ],
+      "livingTips": [
+        "주 중반에 한 번 결을 점검해요",
+        "한 가지에 힘을 모아 끝까지 끌어요"
+      ],
+      "cautions": [
+        "혼자 다 끌고 가는 결만 살짝 풀어요"
+      ],
+      "tags": [],
+      "aiGenerated": true,
+      "sourceTier": {
+        "tier": "T1_HYPOTHESIS", "sourceType": "training_derived", "sourceUrl": null,
+        "accessedAt": "2026-05-02", "quoteShort": null,
+        "humanInterpretation": "Phase 2 overall fragment, agent-15.",
+        "copyrightNote": "No source prose copied; original.",
+        "authorityTruthEligible": false
+      }
+    },
+    {
+      "schemaVersion": "spring-ts.narrative-fragment.v1",
+      "fragmentId": "overall.thisWeek.standard.strong.aligned.003",
+      "axis": { "category": "overall", "period": "thisWeek", "depth": "standard" },
+      "gating": {
+        "dayMasterStrength": ["STRONG"],
+        "yongshinAlignment": ["aligned"]
+      },
+      "templateTokens": [
+        { "kind": "text", "value": "이번 주 결이 단단한 줄기처럼 잘 잡히는 흐름이에요. 잘 다진 흙 위에 한 걸음씩 디디는 느낌이라 흔들림이 적어요. 한 번 시작한 일을 자연스럽게 마무리하는 결이 한 주의 강점이에요. 다 떠안기보다, 끝낼 일에 집중하면 흐름이 더 매끄러워져요." }
+      ],
+      "livingTips": [
+        "이번 주 끝낼 한 가지를 정해요",
+        "남은 일은 다음 주로 적어 둬요"
+      ],
+      "cautions": [
+        "전부 다 마치려는 마음만 살짝 내려둬요"
+      ],
+      "tags": [],
+      "aiGenerated": true,
+      "sourceTier": {
+        "tier": "T1_HYPOTHESIS", "sourceType": "training_derived", "sourceUrl": null,
+        "accessedAt": "2026-05-02", "quoteShort": null,
+        "humanInterpretation": "Phase 2 overall fragment, agent-15.",
+        "copyrightNote": "No source prose copied; original.",
+        "authorityTruthEligible": false
+      }
+    },
+    {
+      "schemaVersion": "spring-ts.narrative-fragment.v1",
+      "fragmentId": "overall.thisWeek.standard.strong.aligned.male.age30_39.004",
+      "axis": { "category": "overall", "period": "thisWeek", "depth": "standard" },
+      "gating": {
+        "gender": ["male"],
+        "ageBand": ["30-39"],
+        "dayMasterStrength": ["STRONG"],
+        "yongshinAlignment": ["aligned"]
+      },
+      "templateTokens": [
+        { "kind": "text", "value": "활동기의 단단한 결이 이번 주에 잘 모이는 흐름이에요. 잘 다진 흙 위에 짧은 결정을 차곡차곡 쌓아 가는 느낌이라, 책임 자리가 또렷해져요. 한 번 잡은 약속은 자연스럽게 신뢰가 돼요. 다만 모든 결정을 혼자 짊어지지는 않아도 돼요. 곁의 결을 한 번 더 들으면 한 주 마무리가 한결 부드러워져요." }
+      ],
+      "livingTips": [
+        "주 중반 큰 한 가지를 일찍 끝내요",
+        "회의 전 결정 기준을 메모해요"
+      ],
+      "cautions": [
+        "혼자 결정 짓기 전에 한 번 물어봐요"
+      ],
+      "tags": [],
+      "aiGenerated": true,
+      "sourceTier": {
+        "tier": "T1_HYPOTHESIS", "sourceType": "training_derived", "sourceUrl": null,
+        "accessedAt": "2026-05-02", "quoteShort": null,
+        "humanInterpretation": "Phase 2 overall fragment, agent-15.",
+        "copyrightNote": "No source prose copied; original.",
+        "authorityTruthEligible": false
+      }
+    },
+    {
+      "schemaVersion": "spring-ts.narrative-fragment.v1",
+      "fragmentId": "overall.thisWeek.standard.strong.neutral.005",
+      "axis": { "category": "overall", "period": "thisWeek", "depth": "standard" },
+      "gating": {
+        "dayMasterStrength": ["STRONG"],
+        "yongshinAlignment": ["neutral"]
+      },
+      "templateTokens": [
+        { "kind": "text", "value": "이번 주 기운은 충분한데 방향이 살짝 흩어진 결이에요. 작은 결정을 쌓아 가는 흐름이 잘 맞고, 큰 결정은 한 박자 늦추면 더 또렷해져요. 비교에 흔들리지 않는 자기 페이스가 한 주의 큰 강점이에요." }
+      ],
+      "livingTips": [
+        "큰 결정 전에 한 번 더 적어 봐요",
+        "이번 주는 작은 한 걸음만 디뎌요"
+      ],
+      "cautions": [
+        "조급함이 올라올 때 한 박자 늦춰요"
+      ],
+      "tags": [],
+      "aiGenerated": true,
+      "sourceTier": {
+        "tier": "T1_HYPOTHESIS", "sourceType": "training_derived", "sourceUrl": null,
+        "accessedAt": "2026-05-02", "quoteShort": null,
+        "humanInterpretation": "Phase 2 overall fragment, agent-15.",
+        "copyrightNote": "No source prose copied; original.",
+        "authorityTruthEligible": false
+      }
+    },
+    {
+      "schemaVersion": "spring-ts.narrative-fragment.v1",
+      "fragmentId": "overall.thisWeek.standard.balanced.aligned.006",
+      "axis": { "category": "overall", "period": "thisWeek", "depth": "standard" },
+      "gating": {
+        "dayMasterStrength": ["BALANCED"],
+        "yongshinAlignment": ["aligned"]
+      },
+      "templateTokens": [
+        { "kind": "text", "value": "이번 주 결이 골고루 잡힌 무리수 없는 흐름이에요. 봄볕이 골고루 닿은 들판처럼 어떤 일도 자기 결로 풀어내기 좋아요. 큰 변화보다 잔잔한 누적이 한 주의 자산이 돼요. 익숙한 결을 지키되 작은 새로움 한 가지를 더하면, 마무리가 더 풍성해져요." }
+      ],
+      "livingTips": [
+        "이번 주 작은 새 시도 한 가지를 더해요",
+        "기분 좋은 일 한 가지를 기록해 둬요"
+      ],
+      "cautions": [
+        "지나치게 평탄해 보일 때 자책하지 않아요"
+      ],
+      "tags": [],
+      "aiGenerated": true,
+      "sourceTier": {
+        "tier": "T1_HYPOTHESIS", "sourceType": "training_derived", "sourceUrl": null,
+        "accessedAt": "2026-05-02", "quoteShort": null,
+        "humanInterpretation": "Phase 2 overall fragment, agent-15.",
+        "copyrightNote": "No source prose copied; original.",
+        "authorityTruthEligible": false
+      }
+    },
+    {
+      "schemaVersion": "spring-ts.narrative-fragment.v1",
+      "fragmentId": "overall.thisWeek.standard.balanced.aligned.female.age20_29.007",
+      "axis": { "category": "overall", "period": "thisWeek", "depth": "standard" },
+      "gating": {
+        "gender": ["female"],
+        "ageBand": ["20-29"],
+        "dayMasterStrength": ["BALANCED"],
+        "yongshinAlignment": ["aligned"]
+      },
+      "templateTokens": [
+        { "kind": "text", "value": "청년기의 고른 결이 이번 주에 잘 모이는 흐름이에요. 새싹이 봄비를 받는 모습처럼, 작은 시도가 자연스럽게 결과로 이어지기 좋아요. 한 가지에 너무 묶이기보다 가볍게 여러 결을 만나 봐도 괜찮아요. 자기 페이스를 지키면 비교의 마음이 자연스럽게 가라앉아요." }
+      ],
+      "livingTips": [
+        "이번 주 가볍게 시도해 볼 한 가지를 정해요",
+        "관심 가는 결을 짧게 적어 둬요"
+      ],
+      "cautions": [
+        "비교의 마음이 올라올 때 잠시 거리를 둬요"
+      ],
+      "tags": [],
+      "aiGenerated": true,
+      "sourceTier": {
+        "tier": "T1_HYPOTHESIS", "sourceType": "training_derived", "sourceUrl": null,
+        "accessedAt": "2026-05-02", "quoteShort": null,
+        "humanInterpretation": "Phase 2 overall fragment, agent-15.",
+        "copyrightNote": "No source prose copied; original.",
+        "authorityTruthEligible": false
+      }
+    },
+    {
+      "schemaVersion": "spring-ts.narrative-fragment.v1",
+      "fragmentId": "overall.thisWeek.standard.balanced.neutral.008",
+      "axis": { "category": "overall", "period": "thisWeek", "depth": "standard" },
+      "gating": {
+        "dayMasterStrength": ["BALANCED"],
+        "yongshinAlignment": ["neutral"]
+      },
+      "templateTokens": [
+        { "kind": "text", "value": "이번 주 결은 잔잔한 호수처럼 큰 파도 없이 흐르는 흐름이에요. 큰 자극은 적은 편이라, 자기 페이스를 다듬기 좋아요. 일상의 작은 결을 정리해 두면 다음 주가 한결 가벼워져요. 변화가 적다고 느낄 때, 작은 호기심 한 가지를 살짝 더해 봐요." }
+      ],
+      "livingTips": [
+        "이번 주 한 가지 정리할 자리를 골라요",
+        "관심 가는 일을 한 줄로 적어 둬요"
+      ],
+      "cautions": [
+        "지루함이 올라올 때 자책하지 않아요"
+      ],
+      "tags": [],
+      "aiGenerated": true,
+      "sourceTier": {
+        "tier": "T1_HYPOTHESIS", "sourceType": "training_derived", "sourceUrl": null,
+        "accessedAt": "2026-05-02", "quoteShort": null,
+        "humanInterpretation": "Phase 2 overall fragment, agent-15.",
+        "copyrightNote": "No source prose copied; original.",
+        "authorityTruthEligible": false
+      }
+    },
+    {
+      "schemaVersion": "spring-ts.narrative-fragment.v1",
+      "fragmentId": "overall.thisWeek.standard.balanced.conflicting.009",
+      "axis": { "category": "overall", "period": "thisWeek", "depth": "standard" },
+      "gating": {
+        "dayMasterStrength": ["BALANCED"],
+        "yongshinAlignment": ["conflicting"]
+      },
+      "templateTokens": [
+        { "kind": "text", "value": "이번 주 결이 두 갈래로 한 번 갈리는 자리가 있어요. 가지가 두 방향으로 자라는 나무처럼, 어느 쪽을 먼저 잡을지 잠시 고민이 될 수 있어요. 두 결 모두 가능성은 있으니, 한쪽이 막히면 다른 쪽을 살펴봐도 괜찮아요. 큰 결정은 다음 주로 미뤄도 흐름은 흐트러지지 않아요." }
+      ],
+      "livingTips": [
+        "큰 결정은 한 박자 늦춰요",
+        "두 가지 길을 한 번씩 적어 봐요"
+      ],
+      "cautions": [
+        "한쪽으로만 답을 짜내려 하지 않아요"
+      ],
+      "tags": [],
+      "aiGenerated": true,
+      "sourceTier": {
+        "tier": "T1_HYPOTHESIS", "sourceType": "training_derived", "sourceUrl": null,
+        "accessedAt": "2026-05-02", "quoteShort": null,
+        "humanInterpretation": "Phase 2 overall fragment, agent-15.",
+        "copyrightNote": "No source prose copied; original.",
+        "authorityTruthEligible": false
+      }
+    },
+    {
+      "schemaVersion": "spring-ts.narrative-fragment.v1",
+      "fragmentId": "overall.thisWeek.standard.weak.aligned.010",
+      "axis": { "category": "overall", "period": "thisWeek", "depth": "standard" },
+      "gating": {
+        "dayMasterStrength": ["WEAK"],
+        "yongshinAlignment": ["aligned"]
+      },
+      "templateTokens": [
+        { "kind": "text", "value": "이번 주는 혼자 끌기보다 함께 가는 결이 잘 맞는 흐름이에요. 새싹이 햇볕과 비를 함께 받듯이, 곁의 손길이 한 주의 결을 든든하게 받쳐 줘요. 큰 일을 한 번에 처리하기보다 짧은 결을 자주 챙기는 흐름이 잘 맞아요. 도움받는 것을 미루지 않고 받아들이는 결이 한 주의 강점이에요." }
+      ],
+      "livingTips": [
+        "이번 주 한 사람과 짧게 의논해요",
+        "작은 일부터 한 가지 끝내요"
+      ],
+      "cautions": [
+        "혼자 다 처리하려는 결만 살짝 풀어요"
+      ],
+      "tags": [],
+      "aiGenerated": true,
+      "sourceTier": {
+        "tier": "T1_HYPOTHESIS", "sourceType": "training_derived", "sourceUrl": null,
+        "accessedAt": "2026-05-02", "quoteShort": null,
+        "humanInterpretation": "Phase 2 overall fragment, agent-15.",
+        "copyrightNote": "No source prose copied; original.",
+        "authorityTruthEligible": false
+      }
+    },
+    {
+      "schemaVersion": "spring-ts.narrative-fragment.v1",
+      "fragmentId": "overall.thisWeek.standard.weak.neutral.age40_54.011",
+      "axis": { "category": "overall", "period": "thisWeek", "depth": "standard" },
+      "gating": {
+        "ageBand": ["40-54"],
+        "dayMasterStrength": ["WEAK"],
+        "yongshinAlignment": ["neutral"]
+      },
+      "templateTokens": [
+        { "kind": "text", "value": "장년기의 차분한 결이 이번 주에 부드럽게 이어지는 흐름이에요. 처음엔 잔잔한 강줄기였다가 흐를수록 깊어지는 모양처럼, 늦은 출발도 마무리가 단단해요. 무리해서 흐름을 만들기보다 익숙한 결을 지키는 게 잘 맞아요. 짧은 휴식 한 박자가 한 주의 가장 큰 자산이 돼요." }
+      ],
+      "livingTips": [
+        "한 주 중에 짧은 휴식 한 번을 챙겨요",
+        "이번 주 끝낼 한 가지에만 힘을 모아요"
+      ],
+      "cautions": [
+        "한 번에 다 바꾸려는 결만 살짝 줄여요"
+      ],
+      "tags": [],
+      "aiGenerated": true,
+      "sourceTier": {
+        "tier": "T1_HYPOTHESIS", "sourceType": "training_derived", "sourceUrl": null,
+        "accessedAt": "2026-05-02", "quoteShort": null,
+        "humanInterpretation": "Phase 2 overall fragment, agent-15.",
+        "copyrightNote": "No source prose copied; original.",
+        "authorityTruthEligible": false
+      }
+    },
+    {
+      "schemaVersion": "spring-ts.narrative-fragment.v1",
+      "fragmentId": "overall.thisWeek.standard.extreme_weak.conflicting.012",
+      "axis": { "category": "overall", "period": "thisWeek", "depth": "standard" },
+      "gating": {
+        "dayMasterStrength": ["EXTREME_WEAK"],
+        "yongshinAlignment": ["conflicting"]
+      },
+      "templateTokens": [
+        { "kind": "text", "value": "이번 주 결이 천천히 풀리는 흐름이라, 작은 결만 챙기고 큰 결정은 미루는 게 잘 맞아요. 깊은 우물에 물이 천천히 차오르는 모양처럼, 한 번에 채우기보다 시간을 두는 게 좋아요. 갑작스러운 전환은 결이 어긋나기 쉬우니 한 박자 늦춰요. 한 가지 약속을 작게 끝내는 것만으로 충분한 한 주예요." }
+      ],
+      "livingTips": [
+        "이번 주는 작은 한 가지만 끝내요",
+        "큰 결정은 메모만 해 둬요"
+      ],
+      "cautions": [
+        "급한 결정만 줄이면 흐름이 부드러워져요"
+      ],
+      "tags": [],
+      "aiGenerated": true,
+      "sourceTier": {
+        "tier": "T1_HYPOTHESIS", "sourceType": "training_derived", "sourceUrl": null,
+        "accessedAt": "2026-05-02", "quoteShort": null,
+        "humanInterpretation": "Phase 2 overall fragment, agent-15.",
+        "copyrightNote": "No source prose copied; original.",
+        "authorityTruthEligible": false
+      }
+    },
+    {
+      "schemaVersion": "spring-ts.narrative-fragment.v1",
+      "fragmentId": "overall.thisWeek.standard.child.001",
+      "axis": {
+        "category": "overall",
+        "period": "thisWeek",
+        "depth": "standard"
+      },
+      "gating": {
+        "ageBand": [
+          "0-9"
+        ]
+      },
+      "templateTokens": [
+        {
+          "kind": "text",
+          "value": "아이는 이번 주 새로 보는 것에 눈이 반짝이는 흐름이에요. 친구·가족과 함께 보내는 시간이 결을 풍성하게 채워 줘요.\n\n익숙한 놀이를 깊게 즐기다가 한 번씩 새로운 시도를 가볍게 더해 보면 좋은 한 주가 돼요. 무리하지 않는 자리에서 즐거움이 자연스럽게 자라는 결이에요.\n\n중간에 살짝 피곤해 보이면 잠자는 시간만 한 시간 일찍 챙기는 것으로 충분해요. 함께 보내는 시간의 따뜻함이 가장 큰 자산이에요."
+        }
+      ],
+      "tags": [],
+      "livingTips": [
+        "잠자기 전 다정한 인사 한마디",
+        "함께 식사하는 자리 챙기기",
+        "잘 노는 자리를 응원해 주기"
+      ],
+      "cautions": [
+        "비교하는 말은 한 발 물러 두기"
+      ],
+      "aiGenerated": true,
+      "sourceTier": {
+        "tier": "T1_HYPOTHESIS",
+        "sourceType": "training_derived",
+        "sourceUrl": null,
+        "accessedAt": "2026-05-02",
+        "quoteShort": null,
+        "humanInterpretation": "Phase 2 overall standard thisWeek (ageBand 0-9). Caregiver-shared tone; sleep/eat/play frame; no career/romance. AI-derived; no source prose copied.",
+        "copyrightNote": "No source prose copied; original phrasing.",
+        "authorityTruthEligible": false
+      }
+    }
+  ]
+}

@@ -1,0 +1,182 @@
+{
+  "schemaVersion": "spring-ts.narrative-fragment-bundle.v1",
+  "bundleId": "romance.thisWeek.standard",
+  "contractVersion": "1.0.0",
+  "fragments": [
+    {
+      "schemaVersion": "spring-ts.narrative-fragment.v1",
+      "fragmentId": "romance.thisWeek.standard.adult.001",
+      "axis": { "category": "romance", "period": "thisWeek", "depth": "standard" },
+      "gating": { "ageBand": ["20-29", "30-39", "40-54", "55-69", "70+"] },
+      "templateTokens": [
+        { "kind": "text", "value": "이번 주의 인연 결을 살펴보면, 큰 사건보다 일상 속에서 사람과의 거리가 한 번씩 정돈되는 흐름이에요. 가까운 사람에게 짧은 안부 한 줄, 따뜻한 말 한마디가 평소보다 길게 닿는 시기예요." },
+        { "kind": "text", "value": " 새 인연이 살짝 들어올 자리도 보일 수 있어요. 처음 만나는 자리에서 무리해서 자기를 부풀리는 대신 자연스러운 결을 보여 주면, 어울리는 사람이 자연스럽게 머물러요." },
+        { "kind": "text", "value": " 갈등이 잠깐 보여도 길게 끌지 않으면 이번 주 안에 자연스럽게 풀려요. 큰 결정은 한 박자 늦추고, 작은 다정함을 자주 두는 결로 한 주를 보내면 잘 어울려요." }
+      ],
+      "tags": [],
+      "livingTips": ["곁의 사람에게 안부를 자주 전해요", "처음 만나는 자리에선 자연스럽게 두어요"],
+      "cautions": ["급한 결정만 미루면 충분해요"],
+      "aiGenerated": true,
+      "sourceTier": {
+        "tier": "T1_HYPOTHESIS",
+        "sourceType": "training_derived",
+        "sourceUrl": null,
+        "accessedAt": "2026-05-02",
+        "quoteShort": null,
+        "humanInterpretation": "Phase 2 romance bundle (thisWeek/standard wildcard). No source prose copied.",
+        "copyrightNote": "No source prose copied; original phrasing.",
+        "authorityTruthEligible": false
+      }
+    },
+    {
+      "schemaVersion": "spring-ts.narrative-fragment.v1",
+      "fragmentId": "romance.thisWeek.standard.child.001",
+      "axis": { "category": "romance", "period": "thisWeek", "depth": "standard" },
+      "gating": { "ageBand": ["0-9"] },
+      "templateTokens": [
+        { "kind": "text", "value": "이번 주 아이의 결은 친구·가족과의 자리에서 가장 또렷하게 살아나요. 단체 활동·놀이 자리에서 서로의 마음을 알아 가는 결이 평소보다 잘 자라는 시기예요." },
+        { "kind": "text", "value": " 새 친구를 사귀는 자리가 생기면, 자기 페이스대로 어울릴 수 있도록 충분한 여유를 두세요. 잠깐의 다툼이 생기면 부모·선생님이 옆에서 조용히 결을 다듬어 주는 것만으로도 회복이 빨라져요." },
+        { "kind": "text", "value": " 한 주 동안 좋아하는 사람들과 함께 웃는 시간이 자주 있으면, 마음의 결이 한층 부드러워져요." }
+      ],
+      "tags": [],
+      "livingTips": ["가족과 자주 어울리게 해 주세요", "친구와의 자리를 따뜻하게 챙겨요"],
+      "cautions": [],
+      "aiGenerated": true,
+      "sourceTier": {
+        "tier": "T1_HYPOTHESIS",
+        "sourceType": "training_derived",
+        "sourceUrl": null,
+        "accessedAt": "2026-05-02",
+        "quoteShort": null,
+        "humanInterpretation": "Phase 2 romance bundle (thisWeek/standard, ageBand 0-9). Friendship-framed.",
+        "copyrightNote": "No source prose copied; original phrasing.",
+        "authorityTruthEligible": false
+      }
+    },
+    {
+      "schemaVersion": "spring-ts.narrative-fragment.v1",
+      "fragmentId": "romance.thisWeek.standard.teen.001",
+      "axis": { "category": "romance", "period": "thisWeek", "depth": "standard" },
+      "gating": { "ageBand": ["10-19"] },
+      "templateTokens": [
+        { "kind": "text", "value": "이번 주는 또래·친구와의 결이 살짝 도드라지는 시기예요. 단체 활동·동아리·발표 자리에서 자기 색이 또렷해지고, 함께하는 친구 사이의 신뢰가 한 단계 단단해지기 좋은 흐름이에요." },
+        { "kind": "text", "value": " 마음이 가는 친구가 있으면 짧은 안부나 가벼운 한마디를 건네 보면 좋아요. 너무 큰 결심을 내세우는 대신 일상의 결을 함께 즐기는 자리로 두면 어울려요." },
+        { "kind": "text", "value": " 한 주 동안 사람들과의 자리가 늘어나면 살짝 들뜨기 쉬우니, 자기 페이스를 지키면서 흐름을 따라가는 결이 잘 맞아요." }
+      ],
+      "tags": [],
+      "livingTips": ["친구와의 자리를 즐겁게 두어요", "한마디씩 솔직하게 표현해요"],
+      "cautions": ["성급한 결심은 미뤄요"],
+      "aiGenerated": true,
+      "sourceTier": {
+        "tier": "T1_HYPOTHESIS",
+        "sourceType": "training_derived",
+        "sourceUrl": null,
+        "accessedAt": "2026-05-02",
+        "quoteShort": null,
+        "humanInterpretation": "Phase 2 romance bundle (thisWeek/standard, ageBand 10-19). Friendship-framed.",
+        "copyrightNote": "No source prose copied; original phrasing.",
+        "authorityTruthEligible": false
+      }
+    },
+    {
+      "schemaVersion": "spring-ts.narrative-fragment.v1",
+      "fragmentId": "romance.thisWeek.standard.young_adult.001",
+      "axis": { "category": "romance", "period": "thisWeek", "depth": "standard" },
+      "gating": { "ageBand": ["20-29"] },
+      "templateTokens": [
+        { "kind": "text", "value": "이번 주는 새로운 사람과의 결이 부드럽게 가까워지는 시기예요. 모임·소개·우연한 자리 어디에서도 처음 만나는 사람과 자연스럽게 대화가 이어지는 흐름이에요." },
+        { "kind": "text", "value": " 마음이 가는 사람이 생기면 무리해서 결정을 내세우는 대신, 짧은 인사·안부로 결을 잡으면 잘 어울려요. 자기 자리를 단단히 가꾸는 일과 새 인연을 가꾸는 일은 서로 어긋나지 않아요. 자기다움을 보여 주는 결이 가장 강한 매력이에요." },
+        { "kind": "text", "value": " 한 주의 끝에 마음에 남은 신호가 있다면 메모해 두세요. 결정의 시기는 그다음 주에 천천히 가늠해도 충분해요." }
+      ],
+      "tags": [],
+      "livingTips": ["짧은 안부로 결을 잡아요", "자기다움을 그대로 보여 줘요"],
+      "cautions": ["빠른 결정만 줄이면 충분해요"],
+      "aiGenerated": true,
+      "sourceTier": {
+        "tier": "T1_HYPOTHESIS",
+        "sourceType": "training_derived",
+        "sourceUrl": null,
+        "accessedAt": "2026-05-02",
+        "quoteShort": null,
+        "humanInterpretation": "Phase 2 romance bundle (thisWeek/standard, ageBand 20-29). Possibility framing.",
+        "copyrightNote": "No source prose copied; original phrasing.",
+        "authorityTruthEligible": false
+      }
+    },
+    {
+      "schemaVersion": "spring-ts.narrative-fragment.v1",
+      "fragmentId": "romance.thisWeek.standard.midlife.001",
+      "axis": { "category": "romance", "period": "thisWeek", "depth": "standard" },
+      "gating": { "ageBand": ["30-39", "40-54"] },
+      "templateTokens": [
+        { "kind": "text", "value": "이번 주는 곁의 사람과의 일상 결을 가다듬는 시기예요. 큰 사건이 들어오기보다 함께 있는 시간 안에서 작은 다정함이 쌓이는 흐름이라, 평소보다 한 박자 더 정성스러운 표현이 도움이 돼요." },
+        { "kind": "text", "value": " 가족·반려·동료에게 짧은 안부 메시지나 같이 보내는 식사 자리 한 번이 평소의 한 달치 자산만큼 결을 단단히 만들어 줘요. 일과 관계 사이에서 균형이 잠깐 흔들릴 수 있으니, 이번 주는 관계 쪽에 5분의 정성을 더 두면 충분해요." },
+        { "kind": "text", "value": " 갈등의 신호가 살짝 보이면 서로의 입장을 천천히 들어 보세요. 큰 결정은 미루고 일상의 결을 챙기는 결로 한 주를 보내면 잘 어울려요." }
+      ],
+      "tags": [],
+      "livingTips": ["짧은 안부 한 줄을 자주 보내요", "함께하는 식사 자리를 만들어요"],
+      "cautions": ["일과 관계의 균형만 챙기면 충분해요"],
+      "aiGenerated": true,
+      "sourceTier": {
+        "tier": "T1_HYPOTHESIS",
+        "sourceType": "training_derived",
+        "sourceUrl": null,
+        "accessedAt": "2026-05-02",
+        "quoteShort": null,
+        "humanInterpretation": "Phase 2 romance bundle (thisWeek/standard, ageBand 30-39/40-54).",
+        "copyrightNote": "No source prose copied; original phrasing.",
+        "authorityTruthEligible": false
+      }
+    },
+    {
+      "schemaVersion": "spring-ts.narrative-fragment.v1",
+      "fragmentId": "romance.thisWeek.standard.late_life.001",
+      "axis": { "category": "romance", "period": "thisWeek", "depth": "standard" },
+      "gating": { "ageBand": ["55-69", "70+"] },
+      "templateTokens": [
+        { "kind": "text", "value": "이번 주는 오랜 인연과 함께하는 시간이 잔잔히 살아나는 흐름이에요. 한동안 연락이 뜸했던 사람에게 짧은 안부를 전하면, 그 한 줄이 평소보다 길게 마음에 남아요." },
+        { "kind": "text", "value": " 가족과 함께 보내는 자리가 있으면 일상의 사소한 이야기에 한 박자 더 귀를 기울여 보세요. 큰 의미를 부여하지 않아도 그 시간만으로 관계의 결이 따뜻해져요." },
+        { "kind": "text", "value": " 외로움이 잠깐 들어오는 시기에도 그 결을 부드럽게 받아들이고, 작은 일상에 마음을 두면 한 주의 흐름이 자연스럽게 회복돼요." }
+      ],
+      "tags": [],
+      "livingTips": ["오랜 친구에게 안부를 전해요", "가족 이야기에 귀를 기울여요"],
+      "cautions": [],
+      "aiGenerated": true,
+      "sourceTier": {
+        "tier": "T1_HYPOTHESIS",
+        "sourceType": "training_derived",
+        "sourceUrl": null,
+        "accessedAt": "2026-05-02",
+        "quoteShort": null,
+        "humanInterpretation": "Phase 2 romance bundle (thisWeek/standard, ageBand 55-69/70+).",
+        "copyrightNote": "No source prose copied; original phrasing.",
+        "authorityTruthEligible": false
+      }
+    },
+    {
+      "schemaVersion": "spring-ts.narrative-fragment.v1",
+      "fragmentId": "romance.thisWeek.standard.aligned.001",
+      "axis": { "category": "romance", "period": "thisWeek", "depth": "standard" },
+      "gating": { "yongshinAlignment": ["aligned"], "ageBand": ["20-29", "30-39", "40-54", "55-69", "70+"] },
+      "templateTokens": [
+        { "kind": "text", "value": "이번 주의 인연 결은 사주의 핵심 기운이 잘 받쳐 주는 흐름이에요. 사람과 사람 사이의 결이 자연스럽게 부드러워지고, 평소 어렵게 느껴지던 표현도 한결 쉽게 흘러가는 시기예요." },
+        { "kind": "text", "value": " 새 인연이 들어올 자리도, 곁의 사람과 한 단계 가까워질 자리도 골고루 열려 있어요. 작은 정성이 평소보다 길게 마음에 남는 결이라, 한 주 동안 한마디씩 정성을 두면 인연 자산이 제법 쌓여요." },
+        { "kind": "text", "value": " 큰 결정을 내리지 않아도 한 주의 흐름 자체가 관계의 결을 단단히 만들어 줘요." }
+      ],
+      "tags": [],
+      "livingTips": ["하루 한 사람씩 정성을 두어요", "표현을 한 박자 정성스럽게 골라요"],
+      "cautions": ["과한 자신감만 다스리면 충분해요"],
+      "aiGenerated": true,
+      "sourceTier": {
+        "tier": "T1_HYPOTHESIS",
+        "sourceType": "training_derived",
+        "sourceUrl": null,
+        "accessedAt": "2026-05-02",
+        "quoteShort": null,
+        "humanInterpretation": "Phase 2 romance bundle (thisWeek/standard, yongshin aligned).",
+        "copyrightNote": "No source prose copied; original phrasing.",
+        "authorityTruthEligible": false
+      }
+    }
+  ]
+}

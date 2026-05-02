@@ -1,0 +1,148 @@
+{
+  "schemaVersion": "spring-ts.narrative-fragment-bundle.v1",
+  "bundleId": "career.thisWeek.standard",
+  "contractVersion": "1.0.0",
+  "generatedBy": "phase2.agent-6.career",
+  "fragments": [
+    {
+      "schemaVersion": "spring-ts.narrative-fragment.v1",
+      "fragmentId": "career.thisWeek.standard.wildcard.001",
+      "axis": { "category": "career", "period": "thisWeek", "depth": "standard" },
+      "gating": {},
+      "templateTokens": [
+        { "kind": "text", "value": "이번 주의 직업 결을 한 줄로 그리면, 한 가지 책임을 단단히 매듭짓기 좋은 흐름이에요. 큰 결정의 기회보다 작은 마무리의 결이 자리를 자라게 하는 결이라, 미뤄 둔 일 하나를 골라 끝까지 챙기면 좋아요. 회의·연락이 많아도 자기 페이스를 잃지 않으면 결이 단단해져요. 작은 인정의 한마디를 받쳐 줄 사람 한 명을 미리 정해 두면 결정의 무게가 가벼워져요. 이번 주의 매듭이 다음 주의 자리 폭을 결정하는 결이에요." }
+      ],
+      "tags": [],
+      "livingTips": ["미뤄 둔 한 가지 끝맺기", "한 사람에게 한 줄 인정받기"],
+      "cautions": ["여러 결정 동시에 벌이지 않기"],
+      "aiGenerated": true,
+      "sourceTier": { "tier": "T1_HYPOTHESIS", "sourceType": "training_derived", "sourceUrl": null, "accessedAt": "2026-05-02", "quoteShort": null, "humanInterpretation": "Phase 2 agent-6 (career) standard thisWeek wildcard. Display-only narrative.", "copyrightNote": "No source prose copied; original.", "authorityTruthEligible": false }
+    },
+    {
+      "schemaVersion": "spring-ts.narrative-fragment.v1",
+      "fragmentId": "career.thisWeek.standard.strong.aligned.002",
+      "axis": { "category": "career", "period": "thisWeek", "depth": "standard" },
+      "gating": { "dayMasterStrength": ["STRONG", "EXTREME_STRONG"], "yongshinAlignment": ["aligned"] },
+      "templateTokens": [
+        { "kind": "text", "value": "이번 주의 직업 결은 굵직한 결정 한 가지가 자리의 폭을 한 단계 넓혀 주는 흐름이에요. 어깨가 단단한 결이라 책임의 무게가 큰 일도 자기 페이스로 끌고 갈 수 있어요. 한 번에 여러 결정을 묶기보다 가장 큰 한 가지를 먼저 매듭짓고, 작은 일들로 옮겨 가면 결이 깔끔해져요. 후배·동료에게 결정의 결을 짧게 공유해 두면 다음 결정에서 도움받기 좋아요. 이번 주의 매듭이 한 달 자리의 폭을 또렷하게 만들어 줘요." }
+      ],
+      "tags": [],
+      "livingTips": ["가장 큰 결정은 주 초반에 매듭짓기", "결정 결을 한 줄로 공유하기"],
+      "cautions": ["혼자 모든 결정 떠안지 않기"],
+      "aiGenerated": true,
+      "sourceTier": { "tier": "T1_HYPOTHESIS", "sourceType": "training_derived", "sourceUrl": null, "accessedAt": "2026-05-02", "quoteShort": null, "humanInterpretation": "Phase 2 agent-6 (career) standard thisWeek: strong+aligned. Display-only narrative.", "copyrightNote": "No source prose copied; original.", "authorityTruthEligible": false }
+    },
+    {
+      "schemaVersion": "spring-ts.narrative-fragment.v1",
+      "fragmentId": "career.thisWeek.standard.weak.aligned.003",
+      "axis": { "category": "career", "period": "thisWeek", "depth": "standard" },
+      "gating": { "dayMasterStrength": ["WEAK", "EXTREME_WEAK"], "yongshinAlignment": ["aligned"] },
+      "templateTokens": [
+        { "kind": "text", "value": "이번 주의 직업 결은 윗사람·동료의 도움이 결의 길잡이가 되는 흐름이에요. 어깨가 가벼운 결일수록 혼자 끌고 가기보다 신뢰할 만한 한 사람의 의견을 짧게라도 듣고 가면 결정의 결이 또렷해져요. 도움받는 일을 부담스러워하지 말고 한 줄짜리 질문으로 짧게 의견을 받으면 부담이 적어요. 큰 결정이 들어왔다면 메모해 두고 며칠 묵혀 두는 결이 자기다워요. 이번 주의 작은 의지처가 한 달의 결을 조용히 받쳐 줘요." }
+      ],
+      "tags": [],
+      "livingTips": ["주 1회 멘토 한 사람에게 묻기", "큰 결정은 며칠 묵혀 두기"],
+      "cautions": ["혼자 안고 결정하지 않기"],
+      "aiGenerated": true,
+      "sourceTier": { "tier": "T1_HYPOTHESIS", "sourceType": "training_derived", "sourceUrl": null, "accessedAt": "2026-05-02", "quoteShort": null, "humanInterpretation": "Phase 2 agent-6 (career) standard thisWeek: weak+aligned. Display-only narrative.", "copyrightNote": "No source prose copied; original.", "authorityTruthEligible": false }
+    },
+    {
+      "schemaVersion": "spring-ts.narrative-fragment.v1",
+      "fragmentId": "career.thisWeek.standard.balanced.neutral.004",
+      "axis": { "category": "career", "period": "thisWeek", "depth": "standard" },
+      "gating": { "dayMasterStrength": ["BALANCED"], "yongshinAlignment": ["neutral"] },
+      "templateTokens": [
+        { "kind": "text", "value": "이번 주의 직업 결은 익숙한 페이스로 작은 일을 빈틈없이 챙기는 흐름이에요. 큰 결정보다 평소 미뤄 두었던 정리·점검에 무게를 두면 다음 주가 가벼워져요. 주 초반에 한 주의 결을 짧게 적어 두고, 주말에 다시 한 번 점검해 두면 자리의 결이 한결 깔끔해져요. 새 자극이 들어와도 일단 메모해 두고 다음 주로 넘기는 결이 잘 맞아요. 이번 주의 정돈이 한 달의 결정 한 가지를 가볍게 만들어 줘요." }
+      ],
+      "tags": [],
+      "livingTips": ["주 초반에 한 주 결을 적어 두기", "주말에 한 번 더 점검하기"],
+      "cautions": ["새 자극은 메모로 옮겨 두기"],
+      "aiGenerated": true,
+      "sourceTier": { "tier": "T1_HYPOTHESIS", "sourceType": "training_derived", "sourceUrl": null, "accessedAt": "2026-05-02", "quoteShort": null, "humanInterpretation": "Phase 2 agent-6 (career) standard thisWeek: balanced. Display-only narrative.", "copyrightNote": "No source prose copied; original.", "authorityTruthEligible": false }
+    },
+    {
+      "schemaVersion": "spring-ts.narrative-fragment.v1",
+      "fragmentId": "career.thisWeek.standard.conflicting.005",
+      "axis": { "category": "career", "period": "thisWeek", "depth": "standard" },
+      "gating": { "yongshinAlignment": ["conflicting"] },
+      "templateTokens": [
+        { "kind": "text", "value": "이번 주의 직업 결은 부담이 약간 무겁게 들어오는 흐름이에요. 큰 결정을 즉답하기보다 며칠 묵혀 두면 결이 또렷해지고, 응원해 줄 사람 한 명에게 짧게 한마디 듣고 가면 무게가 가벼워져요. 회의·메일에서 마음이 무거워질 수 있는데, 자기 페이스를 흔들지 말고 가장 작은 한 가지부터 매듭짓는 결로 가면 좋아요. 이번 주에 다 풀지 못한 일은 다음 주로 넘겨 두는 결정이 더 자기다워요. 부담을 다룬 한 주가 자기 결을 단단하게 만들어요." }
+      ],
+      "tags": [],
+      "livingTips": ["응원해 줄 한 사람에게 짧게 묻기", "큰 결정은 며칠 묵혀 두기"],
+      "cautions": ["즉답하지 않아도 괜찮아요"],
+      "aiGenerated": true,
+      "sourceTier": { "tier": "T1_HYPOTHESIS", "sourceType": "training_derived", "sourceUrl": null, "accessedAt": "2026-05-02", "quoteShort": null, "humanInterpretation": "Phase 2 agent-6 (career) standard thisWeek: conflicting. Display-only narrative.", "copyrightNote": "No source prose copied; original.", "authorityTruthEligible": false }
+    },
+    {
+      "schemaVersion": "spring-ts.narrative-fragment.v1",
+      "fragmentId": "career.thisWeek.standard.age10_19.006",
+      "axis": { "category": "career", "period": "thisWeek", "depth": "standard" },
+      "gating": { "ageBand": ["10-19"] },
+      "templateTokens": [
+        { "kind": "text", "value": "이번 주는 마음에 닿는 관심사를 한 번 더 또렷이 살펴 두기 좋은 흐름이에요. 어떤 일을 할 때 시간이 빠르게 지나가는지를 짧게 적어 두면 미래의 자리가 자기에게 맞춰져 와요. 어른의 직업 단어에 너무 빨리 자기를 끼워 맞추지 않아도 괜찮아요. 한 가지 관심사에 대해 한 주 동안 자료 한두 페이지를 모아 두면 그게 다음 단계의 디딤돌이에요. 작은 호기심의 결이 길게 자라는 한 주예요." }
+      ],
+      "tags": [],
+      "livingTips": ["관심사 자료 한두 장 모아 두기", "시간이 빨리 간 일 적어 두기"],
+      "cautions": ["어른의 직업명에 갇히지 않기"],
+      "aiGenerated": true,
+      "sourceTier": { "tier": "T1_HYPOTHESIS", "sourceType": "training_derived", "sourceUrl": null, "accessedAt": "2026-05-02", "quoteShort": null, "humanInterpretation": "Phase 2 agent-6 (career) standard thisWeek: 10-19 youth. Display-only narrative.", "copyrightNote": "No source prose copied; original.", "authorityTruthEligible": false }
+    },
+    {
+      "schemaVersion": "spring-ts.narrative-fragment.v1",
+      "fragmentId": "career.thisWeek.standard.age20_29.007",
+      "axis": { "category": "career", "period": "thisWeek", "depth": "standard" },
+      "gating": { "ageBand": ["20-29"] },
+      "templateTokens": [
+        { "kind": "text", "value": "이번 주의 직업 결은 첫 자리에서의 작은 시도가 다음 자리의 결로 이어지는 흐름이에요. 큰 자리·큰 인정을 미리 그리기보다, 지금 자리에서 작게라도 인정받는 결을 한 번 만들어 두면 자기 자리가 단단해져요. 같이 일하는 사람 한 명에게 솔직한 의견을 들어 두면 결이 한결 가벼워져요. 이번 주의 시도에서 받은 반응을 메모해 두면 다음 결정의 자산이 돼요. 시작의 결이 또렷해지는 한 주예요." }
+      ],
+      "tags": [],
+      "livingTips": ["시도 한 가지 후 반응 메모", "한 사람에게 솔직한 의견 듣기"],
+      "cautions": ["빠른 인정만 좇지 않기"],
+      "aiGenerated": true,
+      "sourceTier": { "tier": "T1_HYPOTHESIS", "sourceType": "training_derived", "sourceUrl": null, "accessedAt": "2026-05-02", "quoteShort": null, "humanInterpretation": "Phase 2 agent-6 (career) standard thisWeek: 20s. Display-only narrative.", "copyrightNote": "No source prose copied; original.", "authorityTruthEligible": false }
+    },
+    {
+      "schemaVersion": "spring-ts.narrative-fragment.v1",
+      "fragmentId": "career.thisWeek.standard.age30_39.008",
+      "axis": { "category": "career", "period": "thisWeek", "depth": "standard" },
+      "gating": { "ageBand": ["30-39"] },
+      "templateTokens": [
+        { "kind": "text", "value": "이번 주의 직업 결은 받은 자리에 책임을 한 줄 더 쌓아 가는 흐름이에요. 후배·동료의 작은 질문에 짧게라도 답을 주면 자기 자리의 결이 한결 단단해져요. 큰 결정의 무게가 들어올 때는 함께 의논할 사람 한 명을 미리 정해 두면 흔들림이 적어요. 한 번에 너무 많은 일을 떠안기보다는 우선되는 두 가지에 무게를 두는 결이 잘 맞아요. 이번 주의 신뢰의 한 줄이 다음 자리의 디딤돌이 돼요." }
+      ],
+      "tags": [],
+      "livingTips": ["우선되는 두 가지에 무게 두기", "함께 의논할 사람 정하기"],
+      "cautions": ["일·가족 균형 한쪽으로 기울지 않기"],
+      "aiGenerated": true,
+      "sourceTier": { "tier": "T1_HYPOTHESIS", "sourceType": "training_derived", "sourceUrl": null, "accessedAt": "2026-05-02", "quoteShort": null, "humanInterpretation": "Phase 2 agent-6 (career) standard thisWeek: 30s. Display-only narrative.", "copyrightNote": "No source prose copied; original.", "authorityTruthEligible": false }
+    },
+    {
+      "schemaVersion": "spring-ts.narrative-fragment.v1",
+      "fragmentId": "career.thisWeek.standard.age40_54.009",
+      "axis": { "category": "career", "period": "thisWeek", "depth": "standard" },
+      "gating": { "ageBand": ["40-54"] },
+      "templateTokens": [
+        { "kind": "text", "value": "이번 주의 직업 결은 그동안 쌓아 온 신뢰가 자리를 정돈해 주는 흐름이에요. 큰 결정의 무게가 들어올 때 한 박자 늦춰 두면 결이 또렷해지고, 후배 한 명에게 길을 알려 주는 시간을 잡아 두면 자기 자리도 함께 자라요. 자기 분야 밖의 새 결을 한 줄씩 더해 두면 다음 분기의 자리가 좁아지지 않아요. 한 주의 결정 결을 짧게 글로 정리해 두는 습관이 큰 자산이 돼요." }
+      ],
+      "tags": [],
+      "livingTips": ["큰 결정은 한 박자 늦추기", "후배에게 길 한 번 알려 주기"],
+      "cautions": ["자기 분야에만 갇히지 않기"],
+      "aiGenerated": true,
+      "sourceTier": { "tier": "T1_HYPOTHESIS", "sourceType": "training_derived", "sourceUrl": null, "accessedAt": "2026-05-02", "quoteShort": null, "humanInterpretation": "Phase 2 agent-6 (career) standard thisWeek: 40-54. Display-only narrative.", "copyrightNote": "No source prose copied; original.", "authorityTruthEligible": false }
+    },
+    {
+      "schemaVersion": "spring-ts.narrative-fragment.v1",
+      "fragmentId": "career.thisWeek.standard.age55plus.010",
+      "axis": { "category": "career", "period": "thisWeek", "depth": "standard" },
+      "gating": { "ageBand": ["55-69", "70+"] },
+      "templateTokens": [
+        { "kind": "text", "value": "이번 주의 직업 결은 오래 쌓아 온 결을 후배에게 한 줄 나누기 좋은 흐름이에요. 큰 결정·새 도전보다 후배·동료의 결정을 옆에서 비춰 주는 자리에 무게를 두면 결이 부드러워져요. 자기 노하우 한 가지를 짧은 글이나 대화로 풀어 두면, 그게 누군가의 자리의 디딤돌이 돼요. 무리한 일정보다 자기 페이스의 결을 우선 두는 게 좋아요. 한 주의 한 줄 나눔이 자기 결의 또 다른 자리를 만들어 줘요." }
+      ],
+      "tags": [],
+      "livingTips": ["주 1회 노하우 한 줄 정리", "후배 결정에 짧은 의견 주기"],
+      "cautions": ["무리한 일정 늘리지 않기"],
+      "aiGenerated": true,
+      "sourceTier": { "tier": "T1_HYPOTHESIS", "sourceType": "training_derived", "sourceUrl": null, "accessedAt": "2026-05-02", "quoteShort": null, "humanInterpretation": "Phase 2 agent-6 (career) standard thisWeek: 55+ legacy. Display-only narrative.", "copyrightNote": "No source prose copied; original.", "authorityTruthEligible": false }
+    }
+  ]
+}

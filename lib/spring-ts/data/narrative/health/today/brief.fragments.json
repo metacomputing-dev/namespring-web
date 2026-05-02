@@ -1,0 +1,220 @@
+{
+  "schemaVersion": "spring-ts.narrative-fragment-bundle.v1",
+  "bundleId": "health-today-brief",
+  "contractVersion": "1.0.0",
+  "generatedBy": "phase2-agent-2-health",
+  "fragments": [
+    {
+      "schemaVersion": "spring-ts.narrative-fragment.v1",
+      "fragmentId": "health.today.brief.wild.001",
+      "axis": { "category": "health", "period": "today", "depth": "brief" },
+      "gating": {},
+      "templateTokens": [
+        { "kind": "text", "value": "오늘은 한 박자 천천히 가는 결이 잘 맞아요." }
+      ],
+      "tags": [],
+      "aiGenerated": true,
+      "sourceTier": {
+        "tier": "T1_HYPOTHESIS",
+        "sourceType": "training_derived",
+        "sourceUrl": null,
+        "accessedAt": "2026-05-02",
+        "quoteShort": null,
+        "humanInterpretation": "Phase 2 health-category brief today — wildcard. Display-only narrative.",
+        "copyrightNote": "No source prose copied; original interpretation.",
+        "authorityTruthEligible": false
+      }
+    },
+    {
+      "schemaVersion": "spring-ts.narrative-fragment.v1",
+      "fragmentId": "health.today.brief.wild.002",
+      "axis": { "category": "health", "period": "today", "depth": "brief" },
+      "gating": {},
+      "templateTokens": [
+        { "kind": "text", "value": "오늘 컨디션은 충분한 수면이 가장 큰 약이에요." }
+      ],
+      "tags": [],
+      "aiGenerated": true,
+      "sourceTier": {
+        "tier": "T1_HYPOTHESIS",
+        "sourceType": "training_derived",
+        "sourceUrl": null,
+        "accessedAt": "2026-05-02",
+        "quoteShort": null,
+        "humanInterpretation": "Phase 2 health brief today — wildcard backup. Display-only narrative.",
+        "copyrightNote": "No source prose copied; original interpretation.",
+        "authorityTruthEligible": false
+      }
+    },
+    {
+      "schemaVersion": "spring-ts.narrative-fragment.v1",
+      "fragmentId": "health.today.brief.strong.001",
+      "axis": { "category": "health", "period": "today", "depth": "brief" },
+      "gating": {
+        "dayMasterStrength": ["STRONG", "EXTREME_STRONG"]
+      },
+      "templateTokens": [
+        { "kind": "text", "value": "기운이 가득한 날이지만 무리수만 줄여요." }
+      ],
+      "tags": [],
+      "aiGenerated": true,
+      "sourceTier": {
+        "tier": "T1_HYPOTHESIS",
+        "sourceType": "training_derived",
+        "sourceUrl": null,
+        "accessedAt": "2026-05-02",
+        "quoteShort": null,
+        "humanInterpretation": "Phase 2 health brief today — strong day master. Display-only narrative.",
+        "copyrightNote": "No source prose copied; original interpretation.",
+        "authorityTruthEligible": false
+      }
+    },
+    {
+      "schemaVersion": "spring-ts.narrative-fragment.v1",
+      "fragmentId": "health.today.brief.weak.001",
+      "axis": { "category": "health", "period": "today", "depth": "brief" },
+      "gating": {
+        "dayMasterStrength": ["WEAK", "EXTREME_WEAK"]
+      },
+      "templateTokens": [
+        { "kind": "text", "value": "오늘은 잘 쉬고 따뜻하게 챙기는 결로." }
+      ],
+      "tags": [],
+      "aiGenerated": true,
+      "sourceTier": {
+        "tier": "T1_HYPOTHESIS",
+        "sourceType": "training_derived",
+        "sourceUrl": null,
+        "accessedAt": "2026-05-02",
+        "quoteShort": null,
+        "humanInterpretation": "Phase 2 health brief today — weak day master. Display-only narrative.",
+        "copyrightNote": "No source prose copied; original interpretation.",
+        "authorityTruthEligible": false
+      }
+    },
+    {
+      "schemaVersion": "spring-ts.narrative-fragment.v1",
+      "fragmentId": "health.today.brief.balanced.001",
+      "axis": { "category": "health", "period": "today", "depth": "brief" },
+      "gating": {
+        "dayMasterStrength": ["BALANCED"]
+      },
+      "templateTokens": [
+        { "kind": "text", "value": "익숙한 페이스가 오늘도 가장 잘 맞아요." }
+      ],
+      "tags": [],
+      "aiGenerated": true,
+      "sourceTier": {
+        "tier": "T1_HYPOTHESIS",
+        "sourceType": "training_derived",
+        "sourceUrl": null,
+        "accessedAt": "2026-05-02",
+        "quoteShort": null,
+        "humanInterpretation": "Phase 2 health brief today — balanced. Display-only narrative.",
+        "copyrightNote": "No source prose copied; original interpretation.",
+        "authorityTruthEligible": false
+      }
+    },
+    {
+      "schemaVersion": "spring-ts.narrative-fragment.v1",
+      "fragmentId": "health.today.brief.aligned.001",
+      "axis": { "category": "health", "period": "today", "depth": "brief" },
+      "gating": {
+        "yongshinAlignment": ["aligned"]
+      },
+      "templateTokens": [
+        { "kind": "text", "value": "기운이 잘 풀려 산책 한 번이 큰 보약이에요." }
+      ],
+      "tags": [],
+      "aiGenerated": true,
+      "sourceTier": {
+        "tier": "T1_HYPOTHESIS",
+        "sourceType": "training_derived",
+        "sourceUrl": null,
+        "accessedAt": "2026-05-02",
+        "quoteShort": null,
+        "humanInterpretation": "Phase 2 health brief today — aligned yongshin. Display-only narrative.",
+        "copyrightNote": "No source prose copied; original interpretation.",
+        "authorityTruthEligible": false
+      }
+    },
+    {
+      "schemaVersion": "spring-ts.narrative-fragment.v1",
+      "fragmentId": "health.today.brief.neutral.001",
+      "axis": { "category": "health", "period": "today", "depth": "brief" },
+      "gating": {
+        "yongshinAlignment": ["neutral"]
+      },
+      "templateTokens": [
+        { "kind": "text", "value": "오늘은 평소 페이스로 가도 충분해요." }
+      ],
+      "tags": [],
+      "aiGenerated": true,
+      "sourceTier": {
+        "tier": "T1_HYPOTHESIS",
+        "sourceType": "training_derived",
+        "sourceUrl": null,
+        "accessedAt": "2026-05-02",
+        "quoteShort": null,
+        "humanInterpretation": "Phase 2 health brief today — neutral yongshin. Display-only narrative.",
+        "copyrightNote": "No source prose copied; original interpretation.",
+        "authorityTruthEligible": false
+      }
+    },
+    {
+      "schemaVersion": "spring-ts.narrative-fragment.v1",
+      "fragmentId": "health.today.brief.conflicting.001",
+      "axis": { "category": "health", "period": "today", "depth": "brief" },
+      "gating": {
+        "yongshinAlignment": ["conflicting"]
+      },
+      "templateTokens": [
+        { "kind": "text", "value": "오늘은 강행군 대신 짧은 휴식 한 번을." }
+      ],
+      "tags": [],
+      "aiGenerated": true,
+      "sourceTier": {
+        "tier": "T1_HYPOTHESIS",
+        "sourceType": "training_derived",
+        "sourceUrl": null,
+        "accessedAt": "2026-05-02",
+        "quoteShort": null,
+        "humanInterpretation": "Phase 2 health brief today — conflicting. Display-only narrative.",
+        "copyrightNote": "No source prose copied; original interpretation.",
+        "authorityTruthEligible": false
+      }
+    },
+    {
+      "schemaVersion": "spring-ts.narrative-fragment.v1",
+      "fragmentId": "health.today.brief.child.001",
+      "axis": {
+        "category": "health",
+        "period": "today",
+        "depth": "brief"
+      },
+      "gating": {
+        "ageBand": [
+          "0-9"
+        ]
+      },
+      "templateTokens": [
+        {
+          "kind": "text",
+          "value": "아이는 오늘 활기차게 움직이는 결이에요. 잘 먹고 잘 자면 충분해요."
+        }
+      ],
+      "tags": [],
+      "aiGenerated": true,
+      "sourceTier": {
+        "tier": "T1_HYPOTHESIS",
+        "sourceType": "training_derived",
+        "sourceUrl": null,
+        "accessedAt": "2026-05-02",
+        "quoteShort": null,
+        "humanInterpretation": "Phase 2 health brief today (ageBand 0-9). Caregiver-shared tone; sleep/eat/play frame; no career/romance. AI-derived; no source prose copied.",
+        "copyrightNote": "No source prose copied; original phrasing.",
+        "authorityTruthEligible": false
+      }
+    }
+  ]
+}

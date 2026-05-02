@@ -1,0 +1,219 @@
+{
+  "schemaVersion": "spring-ts.narrative-fragment-bundle.v1",
+  "bundleId": "movement-thisWeek-brief",
+  "contractVersion": "1.0.0",
+  "generatedBy": "phase2-agent-10-movement",
+  "fragmentCount": 10,
+  "fragments": [
+    {
+      "schemaVersion": "spring-ts.narrative-fragment.v1",
+      "fragmentId": "movement.thisWeek.brief.wildcard.001",
+      "axis": { "category": "movement", "period": "thisWeek", "depth": "brief" },
+      "gating": {},
+      "templateTokens": [
+        { "kind": "text", "value": "이번 주는 평소보다 동선이 한 번 넓어지는 결이에요." }
+      ],
+      "tags": [],
+      "aiGenerated": true,
+      "sourceTier": {
+        "tier": "T1_HYPOTHESIS",
+        "sourceType": "training_derived",
+        "sourceUrl": null,
+        "accessedAt": "2026-05-02",
+        "quoteShort": null,
+        "humanInterpretation": "Phase 2 movement-category fragment authored by agent-10 under data/narrative/_contract/v1.json. Display-only narrative for the tiered-matrix movement axis.",
+        "copyrightNote": "No source prose copied; original authored prose.",
+        "authorityTruthEligible": false
+      }
+    },
+    {
+      "schemaVersion": "spring-ts.narrative-fragment.v1",
+      "fragmentId": "movement.thisWeek.brief.0_9.002",
+      "axis": { "category": "movement", "period": "thisWeek", "depth": "brief" },
+      "gating": { "ageBand": ["0-9"] },
+      "templateTokens": [
+        { "kind": "text", "value": "이번 주는 아이가 새 자리에서 즐거움을 더 잘 만나는 결이에요." }
+      ],
+      "tags": [],
+      "aiGenerated": true,
+      "sourceTier": {
+        "tier": "T1_HYPOTHESIS",
+        "sourceType": "training_derived",
+        "sourceUrl": null,
+        "accessedAt": "2026-05-02",
+        "quoteShort": null,
+        "humanInterpretation": "Phase 2 movement-category fragment authored by agent-10 under data/narrative/_contract/v1.json. Display-only narrative for the tiered-matrix movement axis.",
+        "copyrightNote": "No source prose copied; original authored prose.",
+        "authorityTruthEligible": false
+      }
+    },
+    {
+      "schemaVersion": "spring-ts.narrative-fragment.v1",
+      "fragmentId": "movement.thisWeek.brief.10_19.003",
+      "axis": { "category": "movement", "period": "thisWeek", "depth": "brief" },
+      "gating": { "ageBand": ["10-19"] },
+      "templateTokens": [
+        { "kind": "text", "value": "이번 주는 짧은 여행·체험의 자리가 시야를 넓혀 줘요." }
+      ],
+      "tags": [],
+      "aiGenerated": true,
+      "sourceTier": {
+        "tier": "T1_HYPOTHESIS",
+        "sourceType": "training_derived",
+        "sourceUrl": null,
+        "accessedAt": "2026-05-02",
+        "quoteShort": null,
+        "humanInterpretation": "Phase 2 movement-category fragment authored by agent-10 under data/narrative/_contract/v1.json. Display-only narrative for the tiered-matrix movement axis.",
+        "copyrightNote": "No source prose copied; original authored prose.",
+        "authorityTruthEligible": false
+      }
+    },
+    {
+      "schemaVersion": "spring-ts.narrative-fragment.v1",
+      "fragmentId": "movement.thisWeek.brief.20_29.004",
+      "axis": { "category": "movement", "period": "thisWeek", "depth": "brief" },
+      "gating": { "ageBand": ["20-29"] },
+      "templateTokens": [
+        { "kind": "text", "value": "이번 주는 새 자리·새 사람과 닿는 자리가 자주 열려요." }
+      ],
+      "tags": [],
+      "aiGenerated": true,
+      "sourceTier": {
+        "tier": "T1_HYPOTHESIS",
+        "sourceType": "training_derived",
+        "sourceUrl": null,
+        "accessedAt": "2026-05-02",
+        "quoteShort": null,
+        "humanInterpretation": "Phase 2 movement-category fragment authored by agent-10 under data/narrative/_contract/v1.json. Display-only narrative for the tiered-matrix movement axis.",
+        "copyrightNote": "No source prose copied; original authored prose.",
+        "authorityTruthEligible": false
+      }
+    },
+    {
+      "schemaVersion": "spring-ts.narrative-fragment.v1",
+      "fragmentId": "movement.thisWeek.brief.30_39.005",
+      "axis": { "category": "movement", "period": "thisWeek", "depth": "brief" },
+      "gating": { "ageBand": ["30-39"] },
+      "templateTokens": [
+        { "kind": "text", "value": "이번 주는 출장·외근 일정이 한 번 또렷하게 잡혀요." }
+      ],
+      "tags": [],
+      "aiGenerated": true,
+      "sourceTier": {
+        "tier": "T1_HYPOTHESIS",
+        "sourceType": "training_derived",
+        "sourceUrl": null,
+        "accessedAt": "2026-05-02",
+        "quoteShort": null,
+        "humanInterpretation": "Phase 2 movement-category fragment authored by agent-10 under data/narrative/_contract/v1.json. Display-only narrative for the tiered-matrix movement axis.",
+        "copyrightNote": "No source prose copied; original authored prose.",
+        "authorityTruthEligible": false
+      }
+    },
+    {
+      "schemaVersion": "spring-ts.narrative-fragment.v1",
+      "fragmentId": "movement.thisWeek.brief.40_54.006",
+      "axis": { "category": "movement", "period": "thisWeek", "depth": "brief" },
+      "gating": { "ageBand": ["40-54"] },
+      "templateTokens": [
+        { "kind": "text", "value": "이번 주는 외근·출장 일정이 빡빡하게 짜이는 결이에요." }
+      ],
+      "tags": [],
+      "aiGenerated": true,
+      "sourceTier": {
+        "tier": "T1_HYPOTHESIS",
+        "sourceType": "training_derived",
+        "sourceUrl": null,
+        "accessedAt": "2026-05-02",
+        "quoteShort": null,
+        "humanInterpretation": "Phase 2 movement-category fragment authored by agent-10 under data/narrative/_contract/v1.json. Display-only narrative for the tiered-matrix movement axis.",
+        "copyrightNote": "No source prose copied; original authored prose.",
+        "authorityTruthEligible": false
+      }
+    },
+    {
+      "schemaVersion": "spring-ts.narrative-fragment.v1",
+      "fragmentId": "movement.thisWeek.brief.55_69.007",
+      "axis": { "category": "movement", "period": "thisWeek", "depth": "brief" },
+      "gating": { "ageBand": ["55-69"] },
+      "templateTokens": [
+        { "kind": "text", "value": "이번 주는 가까운 자리의 모임·외출이 잘 어울려요." }
+      ],
+      "tags": [],
+      "aiGenerated": true,
+      "sourceTier": {
+        "tier": "T1_HYPOTHESIS",
+        "sourceType": "training_derived",
+        "sourceUrl": null,
+        "accessedAt": "2026-05-02",
+        "quoteShort": null,
+        "humanInterpretation": "Phase 2 movement-category fragment authored by agent-10 under data/narrative/_contract/v1.json. Display-only narrative for the tiered-matrix movement axis.",
+        "copyrightNote": "No source prose copied; original authored prose.",
+        "authorityTruthEligible": false
+      }
+    },
+    {
+      "schemaVersion": "spring-ts.narrative-fragment.v1",
+      "fragmentId": "movement.thisWeek.brief.70plus.008",
+      "axis": { "category": "movement", "period": "thisWeek", "depth": "brief" },
+      "gating": { "ageBand": ["70+"] },
+      "templateTokens": [
+        { "kind": "text", "value": "이번 주는 동네 한 바퀴 산책이 가장 잘 어울리는 결이에요." }
+      ],
+      "tags": [],
+      "aiGenerated": true,
+      "sourceTier": {
+        "tier": "T1_HYPOTHESIS",
+        "sourceType": "training_derived",
+        "sourceUrl": null,
+        "accessedAt": "2026-05-02",
+        "quoteShort": null,
+        "humanInterpretation": "Phase 2 movement-category fragment authored by agent-10 under data/narrative/_contract/v1.json. Display-only narrative for the tiered-matrix movement axis.",
+        "copyrightNote": "No source prose copied; original authored prose.",
+        "authorityTruthEligible": false
+      }
+    },
+    {
+      "schemaVersion": "spring-ts.narrative-fragment.v1",
+      "fragmentId": "movement.thisWeek.brief.strong_aligned.009",
+      "axis": { "category": "movement", "period": "thisWeek", "depth": "brief" },
+      "gating": { "dayMasterStrength": ["STRONG"], "yongshinAlignment": ["aligned"] },
+      "templateTokens": [
+        { "kind": "text", "value": "이번 주는 새 자리에서 추진력이 시원하게 풀려요." }
+      ],
+      "tags": [],
+      "aiGenerated": true,
+      "sourceTier": {
+        "tier": "T1_HYPOTHESIS",
+        "sourceType": "training_derived",
+        "sourceUrl": null,
+        "accessedAt": "2026-05-02",
+        "quoteShort": null,
+        "humanInterpretation": "Phase 2 movement-category fragment authored by agent-10 under data/narrative/_contract/v1.json. Display-only narrative for the tiered-matrix movement axis.",
+        "copyrightNote": "No source prose copied; original authored prose.",
+        "authorityTruthEligible": false
+      }
+    },
+    {
+      "schemaVersion": "spring-ts.narrative-fragment.v1",
+      "fragmentId": "movement.thisWeek.brief.weak_neutral.010",
+      "axis": { "category": "movement", "period": "thisWeek", "depth": "brief" },
+      "gating": { "dayMasterStrength": ["WEAK"], "yongshinAlignment": ["neutral"] },
+      "templateTokens": [
+        { "kind": "text", "value": "이번 주는 익숙한 동선을 지키면 호흡이 편안해져요." }
+      ],
+      "tags": [],
+      "aiGenerated": true,
+      "sourceTier": {
+        "tier": "T1_HYPOTHESIS",
+        "sourceType": "training_derived",
+        "sourceUrl": null,
+        "accessedAt": "2026-05-02",
+        "quoteShort": null,
+        "humanInterpretation": "Phase 2 movement-category fragment authored by agent-10 under data/narrative/_contract/v1.json. Display-only narrative for the tiered-matrix movement axis.",
+        "copyrightNote": "No source prose copied; original authored prose.",
+        "authorityTruthEligible": false
+      }
+    }
+  ]
+}

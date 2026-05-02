@@ -1,0 +1,254 @@
+{
+  "schemaVersion": "spring-ts.narrative-fragment-bundle.v1",
+  "bundleId": "health_stress.thisWeek.brief",
+  "contractVersion": "1.0.0",
+  "generatedBy": "phase2/agent-9-health_stress",
+  "fragmentCount": 10,
+  "fragments": [
+    {
+      "schemaVersion": "spring-ts.narrative-fragment.v1",
+      "fragmentId": "health_stress.thisWeek.brief.wildcard.001",
+      "axis": { "category": "health_stress", "period": "thisWeek", "depth": "brief" },
+      "gating": { "ageBand": ["20-29", "30-39", "40-54", "55-69", "70+"] },
+      "templateTokens": [
+        { "kind": "text", "value": "이번 주는 짐을 덜어 두는 자리가 좋아요." },
+        { "kind": "text", "value": " 한 박자 늦추는 호흡으로 균형이 와요." }
+      ],
+      "tags": [],
+      "aiGenerated": true,
+      "sourceTier": {
+        "tier": "T1_HYPOTHESIS",
+        "sourceType": "training_derived",
+        "sourceUrl": null,
+        "accessedAt": "2026-05-02",
+        "quoteShort": null,
+        "humanInterpretation": "Phase 2 wildcard brief, thisWeek.",
+        "copyrightNote": "No source prose copied; original interpretation.",
+        "authorityTruthEligible": false
+      }
+    },
+    {
+      "schemaVersion": "spring-ts.narrative-fragment.v1",
+      "fragmentId": "health_stress.thisWeek.brief.strong_aligned.001",
+      "axis": { "category": "health_stress", "period": "thisWeek", "depth": "brief" },
+      "gating": {
+        "dayMasterStrength": ["STRONG", "EXTREME_STRONG"],
+        "yongshinAlignment": ["aligned"]
+      },
+      "templateTokens": [
+        { "kind": "text", "value": "이번 주는 단단한 결 위에 쉼이 잘 얹혀요." },
+        { "kind": "text", "value": " 강도를 한 칸 낮추면 마무리가 또렷해요." }
+      ],
+      "tags": [],
+      "aiGenerated": true,
+      "sourceTier": {
+        "tier": "T1_HYPOTHESIS",
+        "sourceType": "training_derived",
+        "sourceUrl": null,
+        "accessedAt": "2026-05-02",
+        "quoteShort": null,
+        "humanInterpretation": "Phase 2 brief, STRONG + aligned, thisWeek.",
+        "copyrightNote": "No source prose copied; original interpretation.",
+        "authorityTruthEligible": false
+      }
+    },
+    {
+      "schemaVersion": "spring-ts.narrative-fragment.v1",
+      "fragmentId": "health_stress.thisWeek.brief.balanced_aligned.001",
+      "axis": { "category": "health_stress", "period": "thisWeek", "depth": "brief" },
+      "gating": {
+        "dayMasterStrength": ["BALANCED"],
+        "yongshinAlignment": ["aligned"]
+      },
+      "templateTokens": [
+        { "kind": "text", "value": "이번 주는 마음과 몸의 결이 고른 흐름이에요." },
+        { "kind": "text", "value": " 짧은 산책을 매일 챙겨요." }
+      ],
+      "tags": [],
+      "aiGenerated": true,
+      "sourceTier": {
+        "tier": "T1_HYPOTHESIS",
+        "sourceType": "training_derived",
+        "sourceUrl": null,
+        "accessedAt": "2026-05-02",
+        "quoteShort": null,
+        "humanInterpretation": "Phase 2 brief, BALANCED + aligned, thisWeek.",
+        "copyrightNote": "No source prose copied; original interpretation.",
+        "authorityTruthEligible": false
+      }
+    },
+    {
+      "schemaVersion": "spring-ts.narrative-fragment.v1",
+      "fragmentId": "health_stress.thisWeek.brief.weak_neutral.001",
+      "axis": { "category": "health_stress", "period": "thisWeek", "depth": "brief" },
+      "gating": {
+        "dayMasterStrength": ["WEAK", "EXTREME_WEAK"],
+        "yongshinAlignment": ["neutral"]
+      },
+      "templateTokens": [
+        { "kind": "text", "value": "이번 주는 무리하지 않는 결이 약이에요." },
+        { "kind": "text", "value": " 일찍 잠드는 자리를 챙겨요." }
+      ],
+      "tags": [],
+      "aiGenerated": true,
+      "sourceTier": {
+        "tier": "T1_HYPOTHESIS",
+        "sourceType": "training_derived",
+        "sourceUrl": null,
+        "accessedAt": "2026-05-02",
+        "quoteShort": null,
+        "humanInterpretation": "Phase 2 brief, WEAK + neutral, thisWeek.",
+        "copyrightNote": "No source prose copied; original interpretation.",
+        "authorityTruthEligible": false
+      }
+    },
+    {
+      "schemaVersion": "spring-ts.narrative-fragment.v1",
+      "fragmentId": "health_stress.thisWeek.brief.weak_conflicting.001",
+      "axis": { "category": "health_stress", "period": "thisWeek", "depth": "brief" },
+      "gating": {
+        "dayMasterStrength": ["WEAK", "EXTREME_WEAK"],
+        "yongshinAlignment": ["conflicting"]
+      },
+      "templateTokens": [
+        { "kind": "text", "value": "이번 주는 짐을 잠시 내려놓는 시간이 필요해요." },
+        { "kind": "text", "value": " 큰 결정은 다음 주로 미뤄요." }
+      ],
+      "tags": [],
+      "aiGenerated": true,
+      "sourceTier": {
+        "tier": "T1_HYPOTHESIS",
+        "sourceType": "training_derived",
+        "sourceUrl": null,
+        "accessedAt": "2026-05-02",
+        "quoteShort": null,
+        "humanInterpretation": "Phase 2 brief, WEAK + conflicting, thisWeek.",
+        "copyrightNote": "No source prose copied; original interpretation.",
+        "authorityTruthEligible": false
+      }
+    },
+    {
+      "schemaVersion": "spring-ts.narrative-fragment.v1",
+      "fragmentId": "health_stress.thisWeek.brief.male_30_39.001",
+      "axis": { "category": "health_stress", "period": "thisWeek", "depth": "brief" },
+      "gating": {
+        "gender": ["male"],
+        "ageBand": ["30-39", "40-54"]
+      },
+      "templateTokens": [
+        { "kind": "text", "value": "이번 주는 어깨를 풀어 주는 결이에요." },
+        { "kind": "text", "value": " 활동성 쉼이 잘 맞아요." }
+      ],
+      "tags": [],
+      "aiGenerated": true,
+      "sourceTier": {
+        "tier": "T1_HYPOTHESIS",
+        "sourceType": "training_derived",
+        "sourceUrl": null,
+        "accessedAt": "2026-05-02",
+        "quoteShort": null,
+        "humanInterpretation": "Phase 2 brief, male 30-54, thisWeek.",
+        "copyrightNote": "No source prose copied; original interpretation.",
+        "authorityTruthEligible": false
+      }
+    },
+    {
+      "schemaVersion": "spring-ts.narrative-fragment.v1",
+      "fragmentId": "health_stress.thisWeek.brief.female_20_29.001",
+      "axis": { "category": "health_stress", "period": "thisWeek", "depth": "brief" },
+      "gating": {
+        "gender": ["female"],
+        "ageBand": ["20-29", "30-39"]
+      },
+      "templateTokens": [
+        { "kind": "text", "value": "이번 주는 마음을 비우는 시간이 필요해요." },
+        { "kind": "text", "value": " 들어 주는 사람을 가까이 두면 좋아요." }
+      ],
+      "tags": [],
+      "aiGenerated": true,
+      "sourceTier": {
+        "tier": "T1_HYPOTHESIS",
+        "sourceType": "training_derived",
+        "sourceUrl": null,
+        "accessedAt": "2026-05-02",
+        "quoteShort": null,
+        "humanInterpretation": "Phase 2 brief, female 20-39, thisWeek.",
+        "copyrightNote": "No source prose copied; original interpretation.",
+        "authorityTruthEligible": false
+      }
+    },
+    {
+      "schemaVersion": "spring-ts.narrative-fragment.v1",
+      "fragmentId": "health_stress.thisWeek.brief.youth_10_19.001",
+      "axis": { "category": "health_stress", "period": "thisWeek", "depth": "brief" },
+      "gating": {
+        "ageBand": ["10-19"]
+      },
+      "templateTokens": [
+        { "kind": "text", "value": "이번 주는 잠을 충분히 챙기는 자리예요." },
+        { "kind": "text", "value": " 햇빛 아래 짧은 산책이 좋아요." }
+      ],
+      "tags": [],
+      "aiGenerated": true,
+      "sourceTier": {
+        "tier": "T1_HYPOTHESIS",
+        "sourceType": "training_derived",
+        "sourceUrl": null,
+        "accessedAt": "2026-05-02",
+        "quoteShort": null,
+        "humanInterpretation": "Phase 2 brief, age 10-19, thisWeek.",
+        "copyrightNote": "No source prose copied; original interpretation.",
+        "authorityTruthEligible": false
+      }
+    },
+    {
+      "schemaVersion": "spring-ts.narrative-fragment.v1",
+      "fragmentId": "health_stress.thisWeek.brief.senior_55_69.001",
+      "axis": { "category": "health_stress", "period": "thisWeek", "depth": "brief" },
+      "gating": {
+        "ageBand": ["55-69", "70+"]
+      },
+      "templateTokens": [
+        { "kind": "text", "value": "이번 주는 익숙한 일상에서 쉼이 와요." },
+        { "kind": "text", "value": " 가까운 사람과의 시간이 약이에요." }
+      ],
+      "tags": [],
+      "aiGenerated": true,
+      "sourceTier": {
+        "tier": "T1_HYPOTHESIS",
+        "sourceType": "training_derived",
+        "sourceUrl": null,
+        "accessedAt": "2026-05-02",
+        "quoteShort": null,
+        "humanInterpretation": "Phase 2 brief, age 55+, thisWeek.",
+        "copyrightNote": "No source prose copied; original interpretation.",
+        "authorityTruthEligible": false
+      }
+    },
+    {
+      "schemaVersion": "spring-ts.narrative-fragment.v1",
+      "fragmentId": "health_stress.thisWeek.brief.fire_strong.001",
+      "axis": { "category": "health_stress", "period": "thisWeek", "depth": "brief" },
+      "gating": {
+        "dayMasterElement": ["FIRE"],
+        "dayMasterStrength": ["STRONG", "EXTREME_STRONG"]
+      },
+      "templateTokens": [
+        { "kind": "text", "value": "이번 주는 시원한 자리에서 쉼이 잘 와요." },
+        { "kind": "text", "value": " 그늘 자리를 자주 만들어요." }
+      ],
+      "tags": [],
+      "aiGenerated": true,
+      "sourceTier": {
+        "tier": "T1_HYPOTHESIS",
+        "sourceType": "training_derived",
+        "sourceUrl": null,
+        "accessedAt": "2026-05-02",
+        "quoteShort": null,
+        "humanInterpretation": "Phase 2 brief, FIRE strong, thisWeek.",
+        "copyrightNote": "No source prose copied; original interpretation.",
+        "authorityTruthEligible": false
+      }
+    }
+  ]
+}

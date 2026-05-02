@@ -1,0 +1,287 @@
+{
+  "schemaVersion": "spring-ts.narrative-fragment-bundle.v1",
+  "bundleId": "romance.life.expert",
+  "contractVersion": "1.0.0",
+  "fragments": [
+    {
+      "schemaVersion": "spring-ts.narrative-fragment.v1",
+      "fragmentId": "romance.life.expert.adult.001",
+      "axis": { "category": "romance", "period": "life", "depth": "expert" },
+      "gating": { "ageBand": ["20-29", "30-39", "40-54", "55-69", "70+"] },
+      "templateTokens": [
+        { "kind": "text", "value": "인생 전반의 인연 결은 " },
+        { "kind": "tag", "tagId": "baeujagung", "label": "배우자궁" },
+        { "kind": "text", "value": "의 모양과 가장 가까이 맞물려 작용해요. 일지 자리의 안정성이 짝과의 거리·신뢰의 결을 가늠하는 첫 단서가 돼요." },
+        { "kind": "text", "value": " 그 위에 " },
+        { "kind": "tag", "tagId": "jeonggwan", "label": "정관" },
+        { "kind": "text", "value": "이 또렷하면 약속·책임의 결이 단단해지고, " },
+        { "kind": "tag", "tagId": "pyeongwan", "label": "편관" },
+        { "kind": "text", "value": "이 강하면 강한 결단의 자리에서 관계의 결이 빛을 내요." },
+        { "kind": "text", "value": " 표현의 결로는 " },
+        { "kind": "tag", "tagId": "sikshin", "label": "식신" },
+        { "kind": "text", "value": "과 " },
+        { "kind": "tag", "tagId": "sanggwan", "label": "상관" },
+        { "kind": "text", "value": "이 인연의 색을 더해 줘요." },
+        { "kind": "text", "value": " 매력의 결로는 " },
+        { "kind": "tag", "tagId": "dohwa", "label": "도화" },
+        { "kind": "text", "value": "와 " },
+        { "kind": "tag", "tagId": "hongyeom", "label": "홍염" },
+        { "kind": "text", "value": "이 어떤 자리에 머물러 있는지를 함께 살펴보면, 평생의 인연 결이 자연스럽게 그려져요." }
+      ],
+      "tags": ["baeujagung", "jeonggwan", "pyeongwan", "sikshin", "sanggwan", "dohwa", "hongyeom"],
+      "aiGenerated": true,
+      "sourceTier": {
+        "tier": "T1_HYPOTHESIS",
+        "sourceType": "training_derived",
+        "sourceUrl": null,
+        "accessedAt": "2026-05-02",
+        "quoteShort": null,
+        "humanInterpretation": "Phase 2 romance bundle (life/expert wildcard). AI-derived; classical anchors used as plain-language tags. No source prose copied.",
+        "copyrightNote": "No source prose copied; original phrasing.",
+        "authorityTruthEligible": false
+      }
+    },
+    {
+      "schemaVersion": "spring-ts.narrative-fragment.v1",
+      "fragmentId": "romance.life.expert.teen.001",
+      "axis": { "category": "romance", "period": "life", "depth": "expert" },
+      "gating": { "ageBand": ["10-19"] },
+      "templateTokens": [
+        { "kind": "text", "value": "10대의 인연 결은 본격적인 짝의 자리보다 또래·집단의 결을 먼저 풀어요. 이 시기엔 " },
+        { "kind": "tag", "tagId": "sikshin", "label": "식신" },
+        { "kind": "text", "value": "과 " },
+        { "kind": "tag", "tagId": "sanggwan", "label": "상관" },
+        { "kind": "text", "value": "이 만들어 내는 표현의 결이 친구와의 신뢰를 잇는 다리예요." },
+        { "kind": "text", "value": " 매력의 결인 " },
+        { "kind": "tag", "tagId": "dohwa", "label": "도화" },
+        { "kind": "text", "value": "와 " },
+        { "kind": "tag", "tagId": "hongyeom", "label": "홍염" },
+        { "kind": "text", "value": "이 또렷하면 무대·발표·창작 자리에서 자기 색이 또렷해져요. 책임의 결인 " },
+        { "kind": "tag", "tagId": "jeonggwan", "label": "정관" },
+        { "kind": "text", "value": "은 진로·약속의 자리에서 자라기 시작해요." },
+        { "kind": "text", "value": " 짝과 관련한 큰 결정은 한참 뒤의 이야기로 두고, 지금은 자기다움을 다듬는 결을 충분히 누리는 자리예요." }
+      ],
+      "tags": ["sikshin", "sanggwan", "dohwa", "hongyeom", "jeonggwan"],
+      "aiGenerated": true,
+      "sourceTier": {
+        "tier": "T1_HYPOTHESIS",
+        "sourceType": "training_derived",
+        "sourceUrl": null,
+        "accessedAt": "2026-05-02",
+        "quoteShort": null,
+        "humanInterpretation": "Phase 2 romance bundle (life/expert, ageBand 10-19). Reframed for teens; no marriage determinism. No source prose copied.",
+        "copyrightNote": "No source prose copied; original phrasing.",
+        "authorityTruthEligible": false
+      }
+    },
+    {
+      "schemaVersion": "spring-ts.narrative-fragment.v1",
+      "fragmentId": "romance.life.expert.young_adult.aligned.001",
+      "axis": { "category": "romance", "period": "life", "depth": "expert" },
+      "gating": { "ageBand": ["20-29"], "yongshinAlignment": ["aligned"] },
+      "templateTokens": [
+        { "kind": "text", "value": "20대의 인연 결이 사주의 핵심 기운과 잘 맞물려 흘러가는 자리예요. " },
+        { "kind": "tag", "tagId": "baeujagung", "label": "배우자궁" },
+        { "kind": "text", "value": "의 토대가 안정적이고, " },
+        { "kind": "tag", "tagId": "jeonggwan", "label": "정관" },
+        { "kind": "text", "value": "이나 " },
+        { "kind": "tag", "tagId": "sikshin", "label": "식신" },
+        { "kind": "text", "value": "이 부드럽게 자리를 잡고 있어요." },
+        { "kind": "text", "value": " 매력의 결인 " },
+        { "kind": "tag", "tagId": "dohwa", "label": "도화" },
+        { "kind": "text", "value": "가 함께 비추면 사람을 모으는 자리가 자주 열리고, 그 자리에서 결이 맞는 인연이 자연스럽게 머물러요." },
+        { "kind": "text", "value": " 큰 약속의 시기를 못 박지 않아도 흐름이 무르익을 때 길이 자연스럽게 보이는 결이에요. 자기를 단단히 가꾸는 일이 곧 가장 큰 인연 자산이라는 점을 떠올리면, 이 시기의 흐름이 한결 또렷해져요." }
+      ],
+      "tags": ["baeujagung", "jeonggwan", "sikshin", "dohwa"],
+      "aiGenerated": true,
+      "sourceTier": {
+        "tier": "T1_HYPOTHESIS",
+        "sourceType": "training_derived",
+        "sourceUrl": null,
+        "accessedAt": "2026-05-02",
+        "quoteShort": null,
+        "humanInterpretation": "Phase 2 romance bundle (life/expert, ageBand 20-29 aligned). AI-derived; possibility framing only. No source prose copied.",
+        "copyrightNote": "No source prose copied; original phrasing.",
+        "authorityTruthEligible": false
+      }
+    },
+    {
+      "schemaVersion": "spring-ts.narrative-fragment.v1",
+      "fragmentId": "romance.life.expert.midlife.aligned.001",
+      "axis": { "category": "romance", "period": "life", "depth": "expert" },
+      "gating": { "ageBand": ["30-39", "40-54"], "yongshinAlignment": ["aligned"] },
+      "templateTokens": [
+        { "kind": "text", "value": "장년기의 인연 결이 사주의 핵심 기운과 든든히 맞물려 있는 자리예요. " },
+        { "kind": "tag", "tagId": "baeujagung", "label": "배우자궁" },
+        { "kind": "text", "value": "이 안정적으로 자리하고, " },
+        { "kind": "tag", "tagId": "jeonggwan", "label": "정관" },
+        { "kind": "text", "value": "의 결이 약속·신뢰의 토대를 단단히 받쳐 줘요." },
+        { "kind": "text", "value": " 표현의 결인 " },
+        { "kind": "tag", "tagId": "sikshin", "label": "식신" },
+        { "kind": "text", "value": "이 곁에 있으면 곁의 사람에게 따뜻한 말이 자주 흘러가요. 매력의 결인 " },
+        { "kind": "tag", "tagId": "hongyeom", "label": "홍염" },
+        { "kind": "text", "value": "이 함께 머물면 오래된 관계 안에서도 새로운 다정함이 자라요." },
+        { "kind": "text", "value": " 큰 결정의 시기를 미리 단정하지 않아도 결이 무르익을 때 자연스럽게 길이 열리는 흐름이에요. 갈등이 와도 결국 신뢰의 결이 다시 자리를 잡는 모양이라, 작은 표현을 자주 두는 습관이 가장 큰 자산이 돼요." }
+      ],
+      "tags": ["baeujagung", "jeonggwan", "sikshin", "hongyeom"],
+      "aiGenerated": true,
+      "sourceTier": {
+        "tier": "T1_HYPOTHESIS",
+        "sourceType": "training_derived",
+        "sourceUrl": null,
+        "accessedAt": "2026-05-02",
+        "quoteShort": null,
+        "humanInterpretation": "Phase 2 romance bundle (life/expert, ageBand 30-39/40-54 aligned). AI-derived. No source prose copied.",
+        "copyrightNote": "No source prose copied; original phrasing.",
+        "authorityTruthEligible": false
+      }
+    },
+    {
+      "schemaVersion": "spring-ts.narrative-fragment.v1",
+      "fragmentId": "romance.life.expert.midlife.conflicting.001",
+      "axis": { "category": "romance", "period": "life", "depth": "expert" },
+      "gating": { "ageBand": ["30-39", "40-54"], "yongshinAlignment": ["conflicting"] },
+      "templateTokens": [
+        { "kind": "text", "value": "장년기 인연 결의 흐름이 사주의 핵심 기운과 약간 어긋나는 자리에 있어요. 이 모양은 관계가 막혀 있다는 뜻이 아니라, " },
+        { "kind": "tag", "tagId": "baeujagung", "label": "배우자궁" },
+        { "kind": "text", "value": "의 결을 천천히 다듬어야 더 단단해진다는 신호로 풀려요." },
+        { "kind": "text", "value": " " },
+        { "kind": "tag", "tagId": "pyeongwan", "label": "편관" },
+        { "kind": "text", "value": "이나 " },
+        { "kind": "tag", "tagId": "sanggwan", "label": "상관" },
+        { "kind": "text", "value": "의 결이 강하게 비치면 빠른 결단이나 날카로운 표현이 잠깐의 거리감을 만들 수 있으니, 한 박자 늦추는 습관이 큰 도움이 돼요." },
+        { "kind": "text", "value": " " },
+        { "kind": "tag", "tagId": "jeonggwan", "label": "정관" },
+        { "kind": "text", "value": "의 결을 자주 빌려 약속·정성의 자리를 늘리면, 인연의 결이 다시 안정된 자리로 돌아와요. 시기마다 거리감이 다른 결로 흐를 수 있다는 점을 받아들이면, 어느 시기에도 흔들림이 줄어요." }
+      ],
+      "tags": ["baeujagung", "pyeongwan", "sanggwan", "jeonggwan"],
+      "aiGenerated": true,
+      "sourceTier": {
+        "tier": "T1_HYPOTHESIS",
+        "sourceType": "training_derived",
+        "sourceUrl": null,
+        "accessedAt": "2026-05-02",
+        "quoteShort": null,
+        "humanInterpretation": "Phase 2 romance bundle (life/expert, ageBand 30-39/40-54 conflicting). Reframed; no determinism. No source prose copied.",
+        "copyrightNote": "No source prose copied; original phrasing.",
+        "authorityTruthEligible": false
+      }
+    },
+    {
+      "schemaVersion": "spring-ts.narrative-fragment.v1",
+      "fragmentId": "romance.life.expert.late_life.001",
+      "axis": { "category": "romance", "period": "life", "depth": "expert" },
+      "gating": { "ageBand": ["55-69", "70+"] },
+      "templateTokens": [
+        { "kind": "text", "value": "후반기 인연 결은 " },
+        { "kind": "tag", "tagId": "baeujagung", "label": "배우자궁" },
+        { "kind": "text", "value": "의 자리가 한층 깊어지는 시기예요. 새로운 자극보다는 오래 함께한 사람과의 결이 한 번 더 또렷해져요." },
+        { "kind": "text", "value": " " },
+        { "kind": "tag", "tagId": "jeonggwan", "label": "정관" },
+        { "kind": "text", "value": "의 결이 든든하면 가족·반려와의 신뢰가 단단해지고, " },
+        { "kind": "tag", "tagId": "sikshin", "label": "식신" },
+        { "kind": "text", "value": "의 결이 살아 있으면 일상 속 다정한 표현이 잔잔히 흘러가요." },
+        { "kind": "text", "value": " 자리가 비어 있던 결도 시간이 흐르며 작은 다정함으로 채워지는 모양이라, 큰 결정보다는 곁의 사람에게 시선을 자주 두는 일이 가장 큰 자산이 돼요." }
+      ],
+      "tags": ["baeujagung", "jeonggwan", "sikshin"],
+      "aiGenerated": true,
+      "sourceTier": {
+        "tier": "T1_HYPOTHESIS",
+        "sourceType": "training_derived",
+        "sourceUrl": null,
+        "accessedAt": "2026-05-02",
+        "quoteShort": null,
+        "humanInterpretation": "Phase 2 romance bundle (life/expert, ageBand 55-69/70+). Warm tone for late life. No source prose copied.",
+        "copyrightNote": "No source prose copied; original phrasing.",
+        "authorityTruthEligible": false
+      }
+    },
+    {
+      "schemaVersion": "spring-ts.narrative-fragment.v1",
+      "fragmentId": "romance.life.expert.dohwa_strong.001",
+      "axis": { "category": "romance", "period": "life", "depth": "expert" },
+      "gating": { "ageBand": ["20-29", "30-39", "40-54"] },
+      "templateTokens": [
+        { "kind": "text", "value": "사람들의 시선이 자주 모이는 결이 또렷한 사주예요. " },
+        { "kind": "tag", "tagId": "dohwa", "label": "도화" },
+        { "kind": "text", "value": "의 결이 강하면 무대·서비스·창작 자리에서 매력이 쉽게 빛나고, " },
+        { "kind": "tag", "tagId": "hongyeom", "label": "홍염" },
+        { "kind": "text", "value": "이 함께 머물면 그 빛이 한층 부드러워져요." },
+        { "kind": "text", "value": " 인연의 자리가 자주 바뀌는 결로 풀릴 수 있으니, " },
+        { "kind": "tag", "tagId": "jeonggwan", "label": "정관" },
+        { "kind": "text", "value": "처럼 약속·책임의 결을 함께 길러 두면 관계의 토대가 흔들리지 않아요." },
+        { "kind": "text", "value": " 매력의 결을 자기 일·표현에 잘 쓰면, 사람과의 거리가 자연스럽게 단단해져요. 화려한 자리만 좇는 결만 다스리면, 평생의 인연 자산이 한결 깊어지는 흐름이에요." }
+      ],
+      "tags": ["dohwa", "hongyeom", "jeonggwan"],
+      "aiGenerated": true,
+      "sourceTier": {
+        "tier": "T1_HYPOTHESIS",
+        "sourceType": "training_derived",
+        "sourceUrl": null,
+        "accessedAt": "2026-05-02",
+        "quoteShort": null,
+        "humanInterpretation": "Phase 2 romance bundle (life/expert, dohwa-anchored). AI-derived; no determinism. No source prose copied.",
+        "copyrightNote": "No source prose copied; original phrasing.",
+        "authorityTruthEligible": false
+      }
+    },
+    {
+      "schemaVersion": "spring-ts.narrative-fragment.v1",
+      "fragmentId": "romance.life.expert.adult.strong.001",
+      "axis": { "category": "romance", "period": "life", "depth": "expert" },
+      "gating": { "ageBand": ["20-29", "30-39", "40-54"], "dayMasterStrength": ["STRONG", "EXTREME_STRONG"] },
+      "templateTokens": [
+        { "kind": "text", "value": "사주의 일간이 강한 결이라, 인연 자리에서도 먼저 다가가고 자기 색을 분명히 드러내는 흐름이 잘 살아 있어요. " },
+        { "kind": "tag", "tagId": "baeujagung", "label": "배우자궁" },
+        { "kind": "text", "value": "의 자리에서 결단·표현이 또렷하게 드러나는 결이에요." },
+        { "kind": "text", "value": " 책임의 결인 " },
+        { "kind": "tag", "tagId": "jeonggwan", "label": "정관" },
+        { "kind": "text", "value": "을 함께 챙기면 자기 주도의 결이 약속·신뢰로 잘 자리 잡고, 매력의 결인 " },
+        { "kind": "tag", "tagId": "dohwa", "label": "도화" },
+        { "kind": "text", "value": "이 함께 비치면 사람을 끌어모으는 자리가 자주 만들어져요." },
+        { "kind": "text", "value": " 다만 자기 결을 너무 강하게 밀어붙이면 곁의 사람이 거리를 둘 수 있어요. 한 박자 듣고, 곁의 결을 받아들이는 자리도 남겨 두는 결이 평생의 인연 자산을 길게 받쳐 줘요." }
+      ],
+      "tags": ["baeujagung", "jeonggwan", "dohwa"],
+      "aiGenerated": true,
+      "sourceTier": {
+        "tier": "T1_HYPOTHESIS",
+        "sourceType": "training_derived",
+        "sourceUrl": null,
+        "accessedAt": "2026-05-02",
+        "quoteShort": null,
+        "humanInterpretation": "Phase 2 romance bundle (life/expert, adult STRONG). Initiating tone for strong day-master.",
+        "copyrightNote": "No source prose copied; original phrasing.",
+        "authorityTruthEligible": false
+      }
+    },
+    {
+      "schemaVersion": "spring-ts.narrative-fragment.v1",
+      "fragmentId": "romance.life.expert.adult.weak.001",
+      "axis": { "category": "romance", "period": "life", "depth": "expert" },
+      "gating": { "ageBand": ["20-29", "30-39", "40-54"], "dayMasterStrength": ["WEAK", "EXTREME_WEAK"] },
+      "templateTokens": [
+        { "kind": "text", "value": "사주의 일간이 부드러운 결이라, 인연 자리에서 먼저 손을 내밀기보다 다가오는 결을 받아들이는 흐름이 자연스러워요. " },
+        { "kind": "tag", "tagId": "baeujagung", "label": "배우자궁" },
+        { "kind": "text", "value": "의 자리에서 들어오는 결을 따뜻하게 맞이하는 결이 또렷해요." },
+        { "kind": "text", "value": " 따뜻한 표현의 결인 " },
+        { "kind": "tag", "tagId": "sikshin", "label": "식신" },
+        { "kind": "text", "value": "이 살아 있으면 곁의 사람에게 한결같은 다정함이 자연스럽게 흘러가고, 책임의 결인 " },
+        { "kind": "tag", "tagId": "jeonggwan", "label": "정관" },
+        { "kind": "text", "value": "이 자리를 잡으면 신뢰의 토대가 단단해져요." },
+        { "kind": "text", "value": " 다만 자기 마음을 표현하지 못하고 묵혀 두면 거리가 멀어질 수 있어요. 짧은 한마디라도 자기 결을 자주 드러내는 결이 평생의 관계 자산을 단단히 받쳐 주는 토대가 돼요." }
+      ],
+      "tags": ["baeujagung", "sikshin", "jeonggwan"],
+      "aiGenerated": true,
+      "sourceTier": {
+        "tier": "T1_HYPOTHESIS",
+        "sourceType": "training_derived",
+        "sourceUrl": null,
+        "accessedAt": "2026-05-02",
+        "quoteShort": null,
+        "humanInterpretation": "Phase 2 romance bundle (life/expert, adult WEAK). Receptive tone for weak day-master.",
+        "copyrightNote": "No source prose copied; original phrasing.",
+        "authorityTruthEligible": false
+      }
+    }
+  ]
+}

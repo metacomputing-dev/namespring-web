@@ -1,0 +1,400 @@
+{
+  "schemaVersion": "spring-ts.narrative-fragment-bundle.v1",
+  "bundleId": "wealth.life.brief",
+  "contractVersion": "1.0.0",
+  "generatedBy": "phase2.agent-1.wealth",
+  "fragments": [
+    {
+      "schemaVersion": "spring-ts.narrative-fragment.v1",
+      "fragmentId": "wealth.life.brief.wildcard.001",
+      "axis": { "category": "wealth", "period": "life", "depth": "brief" },
+      "gating": { "ageBand": ["20-29", "30-39", "40-54", "55-69", "70+"] },
+      "templateTokens": [
+        { "kind": "text", "value": "평생의 재물 흐름은 " },
+        { "kind": "slot", "name": "headline", "type": "phrase" },
+        { "kind": "text", "value": "." }
+      ],
+      "slots": {
+        "headline": [
+          "차곡차곡 모이는 결이에요",
+          "단단하게 자리 잡는 결이에요",
+          "흐름이 또렷해지는 결이에요"
+        ]
+      },
+      "tags": [],
+      "aiGenerated": true,
+      "sourceTier": {
+        "tier": "T1_HYPOTHESIS",
+        "sourceType": "training_derived",
+        "sourceUrl": null,
+        "accessedAt": "2026-05-02",
+        "quoteShort": null,
+        "humanInterpretation": "Phase 2 wealth fragment, agent-1.",
+        "copyrightNote": "No source prose copied; original.",
+        "authorityTruthEligible": false
+      }
+    },
+    {
+      "schemaVersion": "spring-ts.narrative-fragment.v1",
+      "fragmentId": "wealth.life.brief.strong.aligned.002",
+      "axis": { "category": "wealth", "period": "life", "depth": "brief" },
+      "gating": {
+        "dayMasterStrength": ["STRONG", "EXTREME_STRONG"],
+        "yongshinAlignment": ["aligned"]
+      },
+      "templateTokens": [
+        { "kind": "text", "value": "평생 동안 " },
+        { "kind": "slot", "name": "imagery", "type": "phrase" },
+        { "kind": "text", "value": " 재물 결이에요." }
+      ],
+      "slots": {
+        "imagery": [
+          "큰 흐름을 능숙하게 잡는",
+          "흐름이 단단해지는",
+          "기회를 넓게 펼치는"
+        ]
+      },
+      "tags": [],
+      "aiGenerated": true,
+      "sourceTier": {
+        "tier": "T1_HYPOTHESIS",
+        "sourceType": "training_derived",
+        "sourceUrl": null,
+        "accessedAt": "2026-05-02",
+        "quoteShort": null,
+        "humanInterpretation": "Phase 2 wealth fragment, agent-1.",
+        "copyrightNote": "No source prose copied; original.",
+        "authorityTruthEligible": false
+      }
+    },
+    {
+      "schemaVersion": "spring-ts.narrative-fragment.v1",
+      "fragmentId": "wealth.life.brief.balanced.aligned.003",
+      "axis": { "category": "wealth", "period": "life", "depth": "brief" },
+      "gating": {
+        "dayMasterStrength": ["BALANCED"],
+        "yongshinAlignment": ["aligned"]
+      },
+      "templateTokens": [
+        { "kind": "text", "value": "평생의 재물은 " },
+        { "kind": "slot", "name": "tone", "type": "phrase" },
+        { "kind": "text", "value": " 흐름이에요." }
+      ],
+      "slots": {
+        "tone": [
+          "균형이 잘 잡힌",
+          "안정과 기회가 함께 가는",
+          "차곡차곡 자리 잡는"
+        ]
+      },
+      "tags": [],
+      "aiGenerated": true,
+      "sourceTier": {
+        "tier": "T1_HYPOTHESIS",
+        "sourceType": "training_derived",
+        "sourceUrl": null,
+        "accessedAt": "2026-05-02",
+        "quoteShort": null,
+        "humanInterpretation": "Phase 2 wealth fragment, agent-1.",
+        "copyrightNote": "No source prose copied; original.",
+        "authorityTruthEligible": false
+      }
+    },
+    {
+      "schemaVersion": "spring-ts.narrative-fragment.v1",
+      "fragmentId": "wealth.life.brief.weak.neutral.004",
+      "axis": { "category": "wealth", "period": "life", "depth": "brief" },
+      "gating": {
+        "dayMasterStrength": ["WEAK", "EXTREME_WEAK"],
+        "yongshinAlignment": ["neutral"]
+      },
+      "templateTokens": [
+        { "kind": "text", "value": "평생의 재물은 " },
+        { "kind": "slot", "name": "tone", "type": "phrase" },
+        { "kind": "text", "value": "." }
+      ],
+      "slots": {
+        "tone": [
+          "꾸준함이 큰 자산이 되는 흐름이에요",
+          "관리의 결이 또렷해지는 흐름이에요",
+          "한 박자 천천히 모이는 결이에요"
+        ]
+      },
+      "tags": [],
+      "aiGenerated": true,
+      "sourceTier": {
+        "tier": "T1_HYPOTHESIS",
+        "sourceType": "training_derived",
+        "sourceUrl": null,
+        "accessedAt": "2026-05-02",
+        "quoteShort": null,
+        "humanInterpretation": "Phase 2 wealth fragment, agent-1.",
+        "copyrightNote": "No source prose copied; original.",
+        "authorityTruthEligible": false
+      }
+    },
+    {
+      "schemaVersion": "spring-ts.narrative-fragment.v1",
+      "fragmentId": "wealth.life.brief.conflicting.005",
+      "axis": { "category": "wealth", "period": "life", "depth": "brief" },
+      "gating": {
+        "yongshinAlignment": ["conflicting"]
+      },
+      "templateTokens": [
+        { "kind": "text", "value": "평생의 재물은 " },
+        { "kind": "slot", "name": "tone", "type": "phrase" },
+        { "kind": "text", "value": "." }
+      ],
+      "slots": {
+        "tone": [
+          "욕심만 한 박자 줄이면 든든해지는 결이에요",
+          "큰 무리수만 피하면 차분히 모이는 흐름이에요",
+          "기준을 또렷이 두면 흐름이 부드러워져요"
+        ]
+      },
+      "tags": [],
+      "aiGenerated": true,
+      "sourceTier": {
+        "tier": "T1_HYPOTHESIS",
+        "sourceType": "training_derived",
+        "sourceUrl": null,
+        "accessedAt": "2026-05-02",
+        "quoteShort": null,
+        "humanInterpretation": "Phase 2 wealth fragment, agent-1.",
+        "copyrightNote": "No source prose copied; original.",
+        "authorityTruthEligible": false
+      }
+    },
+    {
+      "schemaVersion": "spring-ts.narrative-fragment.v1",
+      "fragmentId": "wealth.life.brief.male.20_29.006",
+      "axis": { "category": "wealth", "period": "life", "depth": "brief" },
+      "gating": {
+        "gender": ["male"],
+        "ageBand": ["20-29"]
+      },
+      "templateTokens": [
+        { "kind": "text", "value": "초반의 재물은 " },
+        { "kind": "slot", "name": "phrase", "type": "phrase" },
+        { "kind": "text", "value": "." }
+      ],
+      "slots": {
+        "phrase": [
+          "시도 속에서 결이 잡히는 시기예요",
+          "작은 성공이 큰 자산이 되는 흐름이에요",
+          "관리 습관을 들이기 좋은 결이에요"
+        ]
+      },
+      "tags": [],
+      "aiGenerated": true,
+      "sourceTier": {
+        "tier": "T1_HYPOTHESIS",
+        "sourceType": "training_derived",
+        "sourceUrl": null,
+        "accessedAt": "2026-05-02",
+        "quoteShort": null,
+        "humanInterpretation": "Phase 2 wealth fragment, agent-1.",
+        "copyrightNote": "No source prose copied; original.",
+        "authorityTruthEligible": false
+      }
+    },
+    {
+      "schemaVersion": "spring-ts.narrative-fragment.v1",
+      "fragmentId": "wealth.life.brief.female.30_39.007",
+      "axis": { "category": "wealth", "period": "life", "depth": "brief" },
+      "gating": {
+        "gender": ["female"],
+        "ageBand": ["30-39"]
+      },
+      "templateTokens": [
+        { "kind": "text", "value": "삼십 대의 재물은 " },
+        { "kind": "slot", "name": "phrase", "type": "phrase" },
+        { "kind": "text", "value": "." }
+      ],
+      "slots": {
+        "phrase": [
+          "꾸준한 관리가 큰 결과로 이어지는 결이에요",
+          "균형 잡힌 선택이 자산을 키우는 흐름이에요",
+          "기회와 안정이 함께 들어오는 시기예요"
+        ]
+      },
+      "tags": [],
+      "aiGenerated": true,
+      "sourceTier": {
+        "tier": "T1_HYPOTHESIS",
+        "sourceType": "training_derived",
+        "sourceUrl": null,
+        "accessedAt": "2026-05-02",
+        "quoteShort": null,
+        "humanInterpretation": "Phase 2 wealth fragment, agent-1.",
+        "copyrightNote": "No source prose copied; original.",
+        "authorityTruthEligible": false
+      }
+    },
+    {
+      "schemaVersion": "spring-ts.narrative-fragment.v1",
+      "fragmentId": "wealth.life.brief.40_54.008",
+      "axis": { "category": "wealth", "period": "life", "depth": "brief" },
+      "gating": {
+        "ageBand": ["40-54"]
+      },
+      "templateTokens": [
+        { "kind": "text", "value": "중년의 재물은 " },
+        { "kind": "slot", "name": "phrase", "type": "phrase" },
+        { "kind": "text", "value": "." }
+      ],
+      "slots": {
+        "phrase": [
+          "쌓아 온 결이 단단히 자리 잡는 시기예요",
+          "관리의 기준이 또렷해지는 흐름이에요",
+          "큰 그림을 그리기 좋은 자리에 들어와요"
+        ]
+      },
+      "tags": [],
+      "aiGenerated": true,
+      "sourceTier": {
+        "tier": "T1_HYPOTHESIS",
+        "sourceType": "training_derived",
+        "sourceUrl": null,
+        "accessedAt": "2026-05-02",
+        "quoteShort": null,
+        "humanInterpretation": "Phase 2 wealth fragment, agent-1.",
+        "copyrightNote": "No source prose copied; original.",
+        "authorityTruthEligible": false
+      }
+    },
+    {
+      "schemaVersion": "spring-ts.narrative-fragment.v1",
+      "fragmentId": "wealth.life.brief.55_69.009",
+      "axis": { "category": "wealth", "period": "life", "depth": "brief" },
+      "gating": {
+        "ageBand": ["55-69", "70+"]
+      },
+      "templateTokens": [
+        { "kind": "text", "value": "후반기의 재물은 " },
+        { "kind": "slot", "name": "phrase", "type": "phrase" },
+        { "kind": "text", "value": "." }
+      ],
+      "slots": {
+        "phrase": [
+          "지나온 결의 결실이 차분히 이어지는 시기예요",
+          "여유로운 관리가 잘 어울리는 흐름이에요",
+          "주변과 나누는 결이 자연스러워져요"
+        ]
+      },
+      "tags": [],
+      "aiGenerated": true,
+      "sourceTier": {
+        "tier": "T1_HYPOTHESIS",
+        "sourceType": "training_derived",
+        "sourceUrl": null,
+        "accessedAt": "2026-05-02",
+        "quoteShort": null,
+        "humanInterpretation": "Phase 2 wealth fragment, agent-1.",
+        "copyrightNote": "No source prose copied; original.",
+        "authorityTruthEligible": false
+      }
+    },
+    {
+      "schemaVersion": "spring-ts.narrative-fragment.v1",
+      "fragmentId": "wealth.life.brief.strong.male.40_54.010",
+      "axis": { "category": "wealth", "period": "life", "depth": "brief" },
+      "gating": {
+        "gender": ["male"],
+        "ageBand": ["40-54"],
+        "dayMasterStrength": ["STRONG", "EXTREME_STRONG"]
+      },
+      "templateTokens": [
+        { "kind": "text", "value": "추진력이 단단한 시기, " },
+        { "kind": "slot", "name": "phrase", "type": "phrase" },
+        { "kind": "text", "value": "." }
+      ],
+      "slots": {
+        "phrase": [
+          "큰 거래의 결이 또렷해져요",
+          "관리와 확장이 함께 이뤄지는 흐름이에요",
+          "주관 있는 결정이 결실로 이어져요"
+        ]
+      },
+      "tags": [],
+      "aiGenerated": true,
+      "sourceTier": {
+        "tier": "T1_HYPOTHESIS",
+        "sourceType": "training_derived",
+        "sourceUrl": null,
+        "accessedAt": "2026-05-02",
+        "quoteShort": null,
+        "humanInterpretation": "Phase 2 wealth fragment, agent-1.",
+        "copyrightNote": "No source prose copied; original.",
+        "authorityTruthEligible": false
+      }
+    },
+    {
+      "schemaVersion": "spring-ts.narrative-fragment.v1",
+      "fragmentId": "wealth.life.brief.weak.female.20_29.011",
+      "axis": { "category": "wealth", "period": "life", "depth": "brief" },
+      "gating": {
+        "gender": ["female"],
+        "ageBand": ["20-29"],
+        "dayMasterStrength": ["WEAK", "EXTREME_WEAK"]
+      },
+      "templateTokens": [
+        { "kind": "text", "value": "이십 대의 재물은 " },
+        { "kind": "slot", "name": "phrase", "type": "phrase" },
+        { "kind": "text", "value": "." }
+      ],
+      "slots": {
+        "phrase": [
+          "작은 결을 모으는 즐거움이 단단해지는 시기예요",
+          "꾸준한 습관이 가장 큰 무기가 되는 결이에요",
+          "차분한 관리가 빛을 내는 흐름이에요"
+        ]
+      },
+      "tags": [],
+      "aiGenerated": true,
+      "sourceTier": {
+        "tier": "T1_HYPOTHESIS",
+        "sourceType": "training_derived",
+        "sourceUrl": null,
+        "accessedAt": "2026-05-02",
+        "quoteShort": null,
+        "humanInterpretation": "Phase 2 wealth fragment, agent-1.",
+        "copyrightNote": "No source prose copied; original.",
+        "authorityTruthEligible": false
+      }
+    },
+    {
+      "schemaVersion": "spring-ts.narrative-fragment.v1",
+      "fragmentId": "wealth.life.brief.neutral.10_19.012",
+      "axis": { "category": "wealth", "period": "life", "depth": "brief" },
+      "gating": {
+        "gender": ["neutral"],
+        "ageBand": ["10-19"]
+      },
+      "templateTokens": [
+        { "kind": "text", "value": "지금 시기의 재물 결은 " },
+        { "kind": "slot", "name": "phrase", "type": "phrase" },
+        { "kind": "text", "value": "." }
+      ],
+      "slots": {
+        "phrase": [
+          "관리 습관을 익히기 좋은 출발이에요",
+          "용돈 기록이 큰 자산이 되는 시기예요",
+          "작은 모음의 즐거움이 자라는 결이에요"
+        ]
+      },
+      "tags": [],
+      "aiGenerated": true,
+      "sourceTier": {
+        "tier": "T1_HYPOTHESIS",
+        "sourceType": "training_derived",
+        "sourceUrl": null,
+        "accessedAt": "2026-05-02",
+        "quoteShort": null,
+        "humanInterpretation": "Phase 2 wealth fragment, agent-1.",
+        "copyrightNote": "No source prose copied; original.",
+        "authorityTruthEligible": false
+      }
+    }
+  ]
+}

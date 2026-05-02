@@ -1,0 +1,345 @@
+{
+  "schemaVersion": "spring-ts.narrative-fragment-bundle.v1",
+  "bundleId": "academic-life-expert",
+  "contractVersion": "1.0.0",
+  "generatedBy": "phase2-agent-3-academic",
+  "fragmentCount": 11,
+  "fragments": [
+    {
+      "schemaVersion": "spring-ts.narrative-fragment.v1",
+      "fragmentId": "academic.life.expert.wildcard.001",
+      "axis": { "category": "academic", "period": "life", "depth": "expert", "tone": "expert" },
+      "gating": {},
+      "templateTokens": [
+        { "kind": "text", "value": "평생의 학업 흐름은 " },
+        { "kind": "tag", "tagId": "jeongin", "label": "정인" },
+        { "kind": "text", "value": "·" },
+        { "kind": "tag", "tagId": "pyeonin", "label": "편인" },
+        { "kind": "text", "value": " 두 결의 도움을 어느 자리에서 받느냐에 따라 결이 갈려요." },
+        { "kind": "text", "value": " 인성의 흐름이 일간을 안정적으로 받쳐 주는 자리에서는 차분히 깊어지는 결이 자라고, " },
+        { "kind": "tag", "tagId": "sikshin", "label": "식신" },
+        { "kind": "text", "value": "·" },
+        { "kind": "tag", "tagId": "sanggwan", "label": "상관" },
+        { "kind": "text", "value": "이 짝을 이뤄 표현으로 풀어 주면 익힌 것을 결과물로 정리하는 자리가 자주 생겨요." },
+        { "kind": "text", "value": " 격국의 중심이 " },
+        { "kind": "tag", "tagId": "jeongingyeok", "label": "정인격" },
+        { "kind": "text", "value": " 또는 " },
+        { "kind": "tag", "tagId": "pyeoningyeok", "label": "편인격" },
+        { "kind": "text", "value": "에 가까운 모양이라면 학문·자격·전문성에 무게가 실리는 결이고, " },
+        { "kind": "tag", "tagId": "sikshingyeok", "label": "식신격" },
+        { "kind": "text", "value": "에 가까우면 익힌 것을 작품·강의로 풀어 내는 결이 강해져요." }
+      ],
+      "tags": ["jeongin", "pyeonin", "sikshin", "sanggwan", "jeongingyeok", "pyeoningyeok", "sikshingyeok"],
+      "aiGenerated": true,
+      "sourceTier": {
+        "tier": "T1_HYPOTHESIS",
+        "sourceType": "training_derived",
+        "sourceUrl": null,
+        "accessedAt": "2026-05-02",
+        "quoteShort": null,
+        "humanInterpretation": "Phase 2 academic-category fragment authored by agent-3 under data/narrative/_contract/v1.json. Display-only narrative for the tiered-matrix academic axis.",
+        "copyrightNote": "No source prose copied; original authored prose.",
+        "authorityTruthEligible": false
+      }
+    },
+    {
+      "schemaVersion": "spring-ts.narrative-fragment.v1",
+      "fragmentId": "academic.life.expert.jeongingyeok.002",
+      "axis": { "category": "academic", "period": "life", "depth": "expert", "tone": "expert" },
+      "gating": { "gyeokguk": ["jeongingyeok"] },
+      "templateTokens": [
+        { "kind": "text", "value": "사주 모양의 중심이 " },
+        { "kind": "tag", "tagId": "jeongingyeok", "label": "정인격" },
+        { "kind": "text", "value": "에 가까운 결이라, 평생 학업 흐름이 정통 학문·돌봄·후원의 결로 꾸준히 자라는 모양이에요." },
+        { "kind": "text", "value": " " },
+        { "kind": "tag", "tagId": "jeongin", "label": "정인" },
+        { "kind": "text", "value": "은 일간을 따뜻하게 받쳐 주는 결이라, 부모·스승·책의 도움을 잘 받고 차분히 깊어지는 자리가 잦아요." },
+        { "kind": "text", "value": " 인성이 너무 두텁게 쌓이면 결정이 느려질 수 있는데, " },
+        { "kind": "tag", "tagId": "sikshin", "label": "식신" },
+        { "kind": "text", "value": "이 짝을 이뤄 익힌 것을 풀어 주면 그 흐름이 자연스레 작품·문서로 정리돼요." },
+        { "kind": "text", "value": " 운에서 인성을 거스르는 자리가 와도 그동안 모은 자산이 든든해, 빠른 결단보다 천천히 음미하는 결이 잘 어울리는 사주예요." }
+      ],
+      "tags": ["jeongingyeok", "jeongin", "sikshin"],
+      "aiGenerated": true,
+      "sourceTier": {
+        "tier": "T1_HYPOTHESIS",
+        "sourceType": "training_derived",
+        "sourceUrl": null,
+        "accessedAt": "2026-05-02",
+        "quoteShort": null,
+        "humanInterpretation": "Phase 2 academic-category fragment authored by agent-3 under data/narrative/_contract/v1.json. Display-only narrative for the tiered-matrix academic axis.",
+        "copyrightNote": "No source prose copied; original authored prose.",
+        "authorityTruthEligible": false
+      }
+    },
+    {
+      "schemaVersion": "spring-ts.narrative-fragment.v1",
+      "fragmentId": "academic.life.expert.pyeoningyeok.003",
+      "axis": { "category": "academic", "period": "life", "depth": "expert", "tone": "expert" },
+      "gating": { "gyeokguk": ["pyeoningyeok"] },
+      "templateTokens": [
+        { "kind": "text", "value": "사주 모양의 중심이 " },
+        { "kind": "tag", "tagId": "pyeoningyeok", "label": "편인격" },
+        { "kind": "text", "value": "에 가까운 결이라, 평생 학업 흐름이 깊이 파고드는 학문·예술·전문 기술 쪽으로 자라는 모양이에요." },
+        { "kind": "text", "value": " " },
+        { "kind": "tag", "tagId": "pyeonin", "label": "편인" },
+        { "kind": "text", "value": "은 보통과 다른 결의 도움이라, 자기만의 시각으로 한 분야를 깊이 다루는 자리가 자주 생겨요." },
+        { "kind": "text", "value": " " },
+        { "kind": "tag", "tagId": "hwagae", "label": "화개" },
+        { "kind": "text", "value": "가 함께 자리한 결이 보이면 안으로 들어가는 깊이가 더해져 글·작품·연구 자리에 잘 어울리는 결이 되어요." },
+        { "kind": "text", "value": " 사람과 한 발짝 거리를 두기 쉬운 결이라, 가까운 동료·스승과의 짧은 대화 자리를 정기적으로 챙겨 두면 시야가 더 넓어져요." }
+      ],
+      "tags": ["pyeoningyeok", "pyeonin", "hwagae"],
+      "aiGenerated": true,
+      "sourceTier": {
+        "tier": "T1_HYPOTHESIS",
+        "sourceType": "training_derived",
+        "sourceUrl": null,
+        "accessedAt": "2026-05-02",
+        "quoteShort": null,
+        "humanInterpretation": "Phase 2 academic-category fragment authored by agent-3 under data/narrative/_contract/v1.json. Display-only narrative for the tiered-matrix academic axis.",
+        "copyrightNote": "No source prose copied; original authored prose.",
+        "authorityTruthEligible": false
+      }
+    },
+    {
+      "schemaVersion": "spring-ts.narrative-fragment.v1",
+      "fragmentId": "academic.life.expert.sikshingyeok.004",
+      "axis": { "category": "academic", "period": "life", "depth": "expert", "tone": "expert" },
+      "gating": { "gyeokguk": ["sikshingyeok"] },
+      "templateTokens": [
+        { "kind": "text", "value": "사주 모양의 중심이 " },
+        { "kind": "tag", "tagId": "sikshingyeok", "label": "식신격" },
+        { "kind": "text", "value": "에 가까운 결이라, 학업이 익힘에서 끝나지 않고 표현·작품으로 풀려 나가는 결이에요." },
+        { "kind": "text", "value": " " },
+        { "kind": "tag", "tagId": "sikshin", "label": "식신" },
+        { "kind": "text", "value": "은 내가 만들어 내는 결과물의 결이라, 같은 분량을 익혔어도 자기 말로 정리해 내는 자리에서 깊이가 살아나요." },
+        { "kind": "text", "value": " 인성이 함께 받쳐 주는 시기에는 강의·책·논문 같은 긴 호흡의 결과물이 잘 어울리고, 인성이 약한 시기에는 짧은 글·발표로 자기 결을 정리해 두면 다음 결의 토양이 돼요." },
+        { "kind": "text", "value": " 분위기가 부드러운 결이라 함께 배우는 사람들과의 자리도 자기 자산이 되어 줘요." }
+      ],
+      "tags": ["sikshingyeok", "sikshin"],
+      "aiGenerated": true,
+      "sourceTier": {
+        "tier": "T1_HYPOTHESIS",
+        "sourceType": "training_derived",
+        "sourceUrl": null,
+        "accessedAt": "2026-05-02",
+        "quoteShort": null,
+        "humanInterpretation": "Phase 2 academic-category fragment authored by agent-3 under data/narrative/_contract/v1.json. Display-only narrative for the tiered-matrix academic axis.",
+        "copyrightNote": "No source prose copied; original authored prose.",
+        "authorityTruthEligible": false
+      }
+    },
+    {
+      "schemaVersion": "spring-ts.narrative-fragment.v1",
+      "fragmentId": "academic.life.expert.sanggwangyeok.005",
+      "axis": { "category": "academic", "period": "life", "depth": "expert", "tone": "expert" },
+      "gating": { "gyeokguk": ["sanggwangyeok"] },
+      "templateTokens": [
+        { "kind": "text", "value": "사주 모양의 중심이 " },
+        { "kind": "tag", "tagId": "sanggwangyeok", "label": "상관격" },
+        { "kind": "text", "value": "에 가까운 결이라, 학업 흐름이 정형 틀보다 자기 색이 또렷한 자리에서 빛을 내는 모양이에요." },
+        { "kind": "text", "value": " " },
+        { "kind": "tag", "tagId": "sanggwan", "label": "상관" },
+        { "kind": "text", "value": "은 톡톡 튀는 표현·창의의 결이라, 같은 주제를 다루더라도 자기만의 각도가 자연스럽게 나오는 결이 보여요." },
+        { "kind": "text", "value": " " },
+        { "kind": "tag", "tagId": "jeongin", "label": "정인" },
+        { "kind": "text", "value": "이 함께 받쳐 주는 자리에서는 비판력이 깊이로 익는 결이 자라고, 인성이 약한 시기에는 짧고 또렷한 글·발표로 자기 결을 정리해 두면 좋은 토양이 돼요." },
+        { "kind": "text", "value": " 큰 무대를 만나면 또래보다 빠르게 두각을 내는 결이 잦은 사주예요." }
+      ],
+      "tags": ["sanggwangyeok", "sanggwan", "jeongin"],
+      "aiGenerated": true,
+      "sourceTier": {
+        "tier": "T1_HYPOTHESIS",
+        "sourceType": "training_derived",
+        "sourceUrl": null,
+        "accessedAt": "2026-05-02",
+        "quoteShort": null,
+        "humanInterpretation": "Phase 2 academic-category fragment authored by agent-3 under data/narrative/_contract/v1.json. Display-only narrative for the tiered-matrix academic axis.",
+        "copyrightNote": "No source prose copied; original authored prose.",
+        "authorityTruthEligible": false
+      }
+    },
+    {
+      "schemaVersion": "spring-ts.narrative-fragment.v1",
+      "fragmentId": "academic.life.expert.weak_aligned.006",
+      "axis": { "category": "academic", "period": "life", "depth": "expert", "tone": "expert" },
+      "gating": { "dayMasterStrength": ["WEAK", "EXTREME_WEAK"], "yongshinAlignment": ["aligned"] },
+      "templateTokens": [
+        { "kind": "text", "value": "일간이 약한 자리에 " },
+        { "kind": "tag", "tagId": "yongshin", "label": "용신" },
+        { "kind": "text", "value": "이 잘 맞물려 있어, 학업 흐름이 곁의 도움으로 단단해지는 결이에요." },
+        { "kind": "text", "value": " " },
+        { "kind": "tag", "tagId": "jeongin", "label": "정인" },
+        { "kind": "text", "value": "·" },
+        { "kind": "tag", "tagId": "pyeonin", "label": "편인" },
+        { "kind": "text", "value": " 같은 인성의 결을 만나는 시기에 깊이가 자라기 좋고, 같은 결의 책·스승·동료가 자기 무기가 되어 줘요." },
+        { "kind": "text", "value": " 큰 결과를 한꺼번에 내려는 결보다, " },
+        { "kind": "tag", "tagId": "heeshin", "label": "희신" },
+        { "kind": "text", "value": "이 받쳐 주는 자리에서 한 단계씩 마무리해 가는 식이 잘 어울려요." },
+        { "kind": "text", "value": " 도움 청하는 한 마디가 가장 큰 자산이 되어 주는 사주예요." }
+      ],
+      "tags": ["yongshin", "jeongin", "pyeonin", "heeshin"],
+      "aiGenerated": true,
+      "sourceTier": {
+        "tier": "T1_HYPOTHESIS",
+        "sourceType": "training_derived",
+        "sourceUrl": null,
+        "accessedAt": "2026-05-02",
+        "quoteShort": null,
+        "humanInterpretation": "Phase 2 academic-category fragment authored by agent-3 under data/narrative/_contract/v1.json. Display-only narrative for the tiered-matrix academic axis.",
+        "copyrightNote": "No source prose copied; original authored prose.",
+        "authorityTruthEligible": false
+      }
+    },
+    {
+      "schemaVersion": "spring-ts.narrative-fragment.v1",
+      "fragmentId": "academic.life.expert.strong_aligned.007",
+      "axis": { "category": "academic", "period": "life", "depth": "expert", "tone": "expert" },
+      "gating": { "dayMasterStrength": ["STRONG", "EXTREME_STRONG"], "yongshinAlignment": ["aligned"] },
+      "templateTokens": [
+        { "kind": "text", "value": "일간이 강한 자리에 " },
+        { "kind": "tag", "tagId": "yongshin", "label": "용신" },
+        { "kind": "text", "value": "이 잘 맞물려, 학업 흐름이 자기 안의 힘으로 깊이 파고드는 결이에요." },
+        { "kind": "text", "value": " " },
+        { "kind": "tag", "tagId": "sikshin", "label": "식신" },
+        { "kind": "text", "value": "·" },
+        { "kind": "tag", "tagId": "sanggwan", "label": "상관" },
+        { "kind": "text", "value": "이 자기 결을 풀어 주는 자리에서 익힌 것이 결과물로 정리되는 결이 잦아요." },
+        { "kind": "text", "value": " 인성이 너무 두텁다면 식상의 결이 그 흐름을 풀어 주고, 인성이 약하다면 책·스승의 결을 의도적으로 곁에 두는 것이 균형 잡는 길이에요." },
+        { "kind": "text", "value": " 한 분야의 깊이가 자기 무기가 되는 사주이지만, 곁의 분야 한두 개를 함께 두면 시야가 더 단단해져요." }
+      ],
+      "tags": ["yongshin", "sikshin", "sanggwan"],
+      "aiGenerated": true,
+      "sourceTier": {
+        "tier": "T1_HYPOTHESIS",
+        "sourceType": "training_derived",
+        "sourceUrl": null,
+        "accessedAt": "2026-05-02",
+        "quoteShort": null,
+        "humanInterpretation": "Phase 2 academic-category fragment authored by agent-3 under data/narrative/_contract/v1.json. Display-only narrative for the tiered-matrix academic axis.",
+        "copyrightNote": "No source prose copied; original authored prose.",
+        "authorityTruthEligible": false
+      }
+    },
+    {
+      "schemaVersion": "spring-ts.narrative-fragment.v1",
+      "fragmentId": "academic.life.expert.balanced.008",
+      "axis": { "category": "academic", "period": "life", "depth": "expert", "tone": "expert" },
+      "gating": { "dayMasterStrength": ["BALANCED"] },
+      "templateTokens": [
+        { "kind": "text", "value": "일간이 균형 잡힌 자리라, 학업 흐름의 결이 큰 굴곡 없이 익숙한 자리에서 깊어지는 모양이에요." },
+        { "kind": "text", "value": " " },
+        { "kind": "tag", "tagId": "jeongin", "label": "정인" },
+        { "kind": "text", "value": "과 " },
+        { "kind": "tag", "tagId": "sikshin", "label": "식신" },
+        { "kind": "text", "value": "이 어느 한 쪽으로 치우치지 않고 함께 도와주는 결이 자주 보여, 익히는 결과 풀어 내는 결이 자연스럽게 짝을 이뤄요." },
+        { "kind": "text", "value": " 새로운 자극이 필요할 때엔 익숙한 분야 곁의 한 걸음이 가장 잘 어울리고, 그 작은 변주가 다음 결의 씨앗이 돼요." },
+        { "kind": "text", "value": " 운에서 " },
+        { "kind": "tag", "tagId": "yongshin", "label": "용신" },
+        { "kind": "text", "value": "이 들어오는 자리에서는 익혀 둔 것이 한 번에 결로 묶이는 자리가 보여요." }
+      ],
+      "tags": ["jeongin", "sikshin", "yongshin"],
+      "aiGenerated": true,
+      "sourceTier": {
+        "tier": "T1_HYPOTHESIS",
+        "sourceType": "training_derived",
+        "sourceUrl": null,
+        "accessedAt": "2026-05-02",
+        "quoteShort": null,
+        "humanInterpretation": "Phase 2 academic-category fragment authored by agent-3 under data/narrative/_contract/v1.json. Display-only narrative for the tiered-matrix academic axis.",
+        "copyrightNote": "No source prose copied; original authored prose.",
+        "authorityTruthEligible": false
+      }
+    },
+    {
+      "schemaVersion": "spring-ts.narrative-fragment.v1",
+      "fragmentId": "academic.life.expert.hwagae.009",
+      "axis": { "category": "academic", "period": "life", "depth": "expert", "tone": "expert" },
+      "gating": {},
+      "templateTokens": [
+        { "kind": "text", "value": "사주에 " },
+        { "kind": "tag", "tagId": "hwagae", "label": "화개" },
+        { "kind": "text", "value": "의 결이 보이면, 학업 흐름이 안으로 파고드는 자리에서 깊이를 만드는 사주예요." },
+        { "kind": "text", "value": " 화개는 예술·철학·종교의 향기를 가진 신호라, 같은 주제도 자기만의 사색을 거쳐 풀어 내는 결이 자연스럽게 자라요." },
+        { "kind": "text", "value": " " },
+        { "kind": "tag", "tagId": "pyeonin", "label": "편인" },
+        { "kind": "text", "value": "과 짝을 이루는 자리에서는 한 분야의 깊이가 더 또렷해지고, 글·작품으로 풀어 내는 결이 잘 어울려요." },
+        { "kind": "text", "value": " 너무 안으로만 들어가지 않게 가까운 동료의 짧은 대화 자리를 정기적으로 챙겨 두면 균형이 잡혀요." }
+      ],
+      "tags": ["hwagae", "pyeonin"],
+      "aiGenerated": true,
+      "sourceTier": {
+        "tier": "T1_HYPOTHESIS",
+        "sourceType": "training_derived",
+        "sourceUrl": null,
+        "accessedAt": "2026-05-02",
+        "quoteShort": null,
+        "humanInterpretation": "Phase 2 academic-category fragment authored by agent-3 under data/narrative/_contract/v1.json. Display-only narrative for the tiered-matrix academic axis.",
+        "copyrightNote": "No source prose copied; original authored prose.",
+        "authorityTruthEligible": false
+      }
+    },
+    {
+      "schemaVersion": "spring-ts.narrative-fragment.v1",
+      "fragmentId": "academic.life.expert.10_19.010",
+      "axis": { "category": "academic", "period": "life", "depth": "expert", "tone": "expert" },
+      "gating": { "ageBand": ["10-19"] },
+      "templateTokens": [
+        { "kind": "text", "value": "10대의 학업 결을 격국·십성으로 바라보면, " },
+        { "kind": "tag", "tagId": "jeongin", "label": "정인" },
+        { "kind": "text", "value": "이 받쳐 주는 자리에서 차분히 깊어지는 결이 자라기 좋아요." },
+        { "kind": "text", "value": " 인성의 흐름이 부족한 자리에서는 책·스승의 결을 의도적으로 곁에 두는 것이 곧 자기 자산이 되어 줘요." },
+        { "kind": "text", "value": " " },
+        { "kind": "tag", "tagId": "sikshin", "label": "식신" },
+        { "kind": "text", "value": "·" },
+        { "kind": "tag", "tagId": "sanggwan", "label": "상관" },
+        { "kind": "text", "value": "이 함께 보이는 결이라면 익힌 것을 자기 말로 풀어 보는 자리가 깊이를 만들고, 학교 안의 발표·토론이 좋은 무대가 되어요." },
+        { "kind": "text", "value": " 격국이 또렷하지 않은 시기엔 자기 호흡을 지키며 한 단원씩 마무리해 가는 결이 가장 잘 어울려요." }
+      ],
+      "tags": ["jeongin", "sikshin", "sanggwan"],
+      "aiGenerated": true,
+      "sourceTier": {
+        "tier": "T1_HYPOTHESIS",
+        "sourceType": "training_derived",
+        "sourceUrl": null,
+        "accessedAt": "2026-05-02",
+        "quoteShort": null,
+        "humanInterpretation": "Phase 2 academic-category fragment authored by agent-3 under data/narrative/_contract/v1.json. Display-only narrative for the tiered-matrix academic axis.",
+        "copyrightNote": "No source prose copied; original authored prose.",
+        "authorityTruthEligible": false
+      }
+    },
+    {
+      "schemaVersion": "spring-ts.narrative-fragment.v1",
+      "fragmentId": "academic.life.expert.30plus.011",
+      "axis": { "category": "academic", "period": "life", "depth": "expert", "tone": "expert" },
+      "gating": { "ageBand": ["30-39", "40-54"] },
+      "templateTokens": [
+        { "kind": "text", "value": "30대~50대의 학업 결을 격국·십성으로 바라보면, 인성과 식상의 균형이 어떤 자리로 짜여 있느냐가 결을 가르는 중심이에요." },
+        { "kind": "text", "value": " " },
+        { "kind": "tag", "tagId": "jeongin", "label": "정인" },
+        { "kind": "text", "value": "이 두텁게 받쳐 주는 자리에서는 자격·전문성의 깊이가 자기 자리를 만들어 가고, " },
+        { "kind": "tag", "tagId": "sikshin", "label": "식신" },
+        { "kind": "text", "value": "이 짝을 이루는 자리에서는 익힌 것이 책·강의·작품의 결로 풀려 나가요." },
+        { "kind": "text", "value": " " },
+        { "kind": "tag", "tagId": "yongshin", "label": "용신" },
+        { "kind": "text", "value": "이 인성의 자리에 들어오는 시기에는 새로운 자격·심화 학습이 잘 어울리고, " },
+        { "kind": "tag", "tagId": "heeshin", "label": "희신" },
+        { "kind": "text", "value": "이 식상의 자리에 들어오면 그동안 익힌 것을 한 번 정리해 내는 자리가 보여요." }
+      ],
+      "tags": ["jeongin", "sikshin", "yongshin", "heeshin"],
+      "aiGenerated": true,
+      "sourceTier": {
+        "tier": "T1_HYPOTHESIS",
+        "sourceType": "training_derived",
+        "sourceUrl": null,
+        "accessedAt": "2026-05-02",
+        "quoteShort": null,
+        "humanInterpretation": "Phase 2 academic-category fragment authored by agent-3 under data/narrative/_contract/v1.json. Display-only narrative for the tiered-matrix academic axis.",
+        "copyrightNote": "No source prose copied; original authored prose.",
+        "authorityTruthEligible": false
+      }
+    }
+  ]
+}

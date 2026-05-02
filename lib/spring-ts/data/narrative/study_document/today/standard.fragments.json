@@ -1,0 +1,178 @@
+{
+  "schemaVersion": "spring-ts.narrative-fragment-bundle.v1",
+  "bundleId": "study_document.today.standard",
+  "contractVersion": "1.0.0",
+  "generatedBy": "phase2-agent-7",
+  "fragments": [
+    {
+      "schemaVersion": "spring-ts.narrative-fragment.v1",
+      "fragmentId": "study_document.today.standard.wildcard.001",
+      "axis": { "category": "study_document", "period": "today", "depth": "standard" },
+      "gating": {},
+      "templateTokens": [
+        { "kind": "text", "value": "오늘은 시험·자격·서류 어느 쪽이든 한 자리만 또렷하게 마무리하면 충분한 날이에요. 한꺼번에 여러 일을 끌어안기보다, 한 가지의 깊이를 챙기는 흐름이 잘 맞아요.\n\n흙을 한 줌 더 다지는 그림을 떠올려 보면 좋아요. 오늘 한 자리가 다음 며칠의 단단함을 만들어요.\n\n잘 풀리는 면은, 미뤄 둔 한 장의 서류·기록을 정리하는 자리예요. 작은 정돈이 하루를 가볍게 해 줘요.\n\n살짝 주의할 점은, 큰 서명을 즉흥적으로 하지 않는 면이에요. 중요한 결정은 하루를 더 두는 것이 잘 맞아요.\n\n오늘의 한 줄이 며칠 뒤의 키가 되는 결이에요." }
+      ],
+      "tags": [],
+      "livingTips": [
+        "메일·서류 한 건은 오늘 마무리해요",
+        "중요한 서명은 24시간 묵혀요"
+      ],
+      "cautions": ["여러 자료를 동시에 열어 두지 않아요"],
+      "aiGenerated": true,
+      "sourceTier": { "tier": "T1_HYPOTHESIS", "sourceType": "training_derived", "sourceUrl": null, "accessedAt": "2026-05-02", "quoteShort": null, "humanInterpretation": "AI-derived standard fragment for study_document.today wildcard. Display-only.", "copyrightNote": "No source prose copied; original.", "authorityTruthEligible": false }
+    },
+    {
+      "schemaVersion": "spring-ts.narrative-fragment.v1",
+      "fragmentId": "study_document.today.standard.aligned.002",
+      "axis": { "category": "study_document", "period": "today", "depth": "standard" },
+      "gating": { "yongshinAlignment": ["aligned"] },
+      "templateTokens": [
+        { "kind": "text", "value": "오늘은 흐름이 자기와 잘 맞아, 미뤄 둔 서류·자격 일을 풀어 가기 좋은 날이에요. 한 번 손에 잡힌 일이 의외로 빠르게 마무리에 닿는 결이에요.\n\n잘 다진 흙에 비가 적당히 내리는 그림을 떠올려 보면 좋아요. 환경이 받쳐 주는 날이라, 큰 힘을 들이지 않아도 한 단계가 진행돼요.\n\n잘 풀리는 면은, 평소 막히던 신청·등록 자리가 빨리 통과되는 자리예요. 줄을 서야 했던 일이 오늘은 한 번에 풀리기도 해요.\n\n살짝 주의할 점은, 흐름이 좋다고 자기 검토를 건너뛰지 않는 면이에요. 빠르게 풀린 만큼 한 번 더 살펴보면 결이 더 단단해져요.\n\n준비된 사람에게 길이 보이는 날이에요." }
+      ],
+      "tags": [],
+      "livingTips": [
+        "미뤄 둔 신청·등록 한 건을 처리해요",
+        "서류는 사진으로 한 번 백업해요"
+      ],
+      "cautions": ["빠르다고 검토를 생략하지 않아요"],
+      "aiGenerated": true,
+      "sourceTier": { "tier": "T1_HYPOTHESIS", "sourceType": "training_derived", "sourceUrl": null, "accessedAt": "2026-05-02", "quoteShort": null, "humanInterpretation": "AI-derived standard fragment for study_document.today aligned. Display-only.", "copyrightNote": "No source prose copied; original.", "authorityTruthEligible": false }
+    },
+    {
+      "schemaVersion": "spring-ts.narrative-fragment.v1",
+      "fragmentId": "study_document.today.standard.conflicting.003",
+      "axis": { "category": "study_document", "period": "today", "depth": "standard" },
+      "gating": { "yongshinAlignment": ["conflicting"] },
+      "templateTokens": [
+        { "kind": "text", "value": "오늘은 서류·계약 흐름이 조금 빡빡할 수 있어요. 큰 결정보다는 검토와 정리에 더 어울리는 날이에요.\n\n돌이 많은 흙을 고르는 그림을 떠올려 보면 좋아요. 한 번에 평평해지지 않아도 매번 조금씩 결이 다듬어지는 자리예요.\n\n잘 풀리는 면은, 작은 오류·누락을 발견하기 쉬운 자리예요. 평소 지나쳤을 한 줄을 오늘은 또렷이 보게 되는 결이에요.\n\n살짝 주의할 점은, 서명 직전의 충동적 결정이에요. 큰 문서는 오늘 가져오고, 결정은 내일로 미루는 페이스가 잘 맞아요.\n\n오늘의 검토 한 번이 며칠 뒤의 후회를 막아 줘요." }
+      ],
+      "tags": [],
+      "livingTips": [
+        "큰 계약은 내일로 미뤄요",
+        "오늘은 검토 위주로 움직여요"
+      ],
+      "cautions": ["충동적 서명은 피해요"],
+      "aiGenerated": true,
+      "sourceTier": { "tier": "T1_HYPOTHESIS", "sourceType": "training_derived", "sourceUrl": null, "accessedAt": "2026-05-02", "quoteShort": null, "humanInterpretation": "AI-derived standard fragment for study_document.today conflicting. Display-only.", "copyrightNote": "No source prose copied; original.", "authorityTruthEligible": false }
+    },
+    {
+      "schemaVersion": "spring-ts.narrative-fragment.v1",
+      "fragmentId": "study_document.today.standard.young.004",
+      "axis": { "category": "study_document", "period": "today", "depth": "standard" },
+      "gating": { "ageBand": ["0-9", "10-19"] },
+      "templateTokens": [
+        { "kind": "text", "value": "오늘은 학교 시험·읽기쓰기 자리에서 한 단원만 또렷이 마무리하면 충분한 날이에요. 한꺼번에 많은 분량보다, 깊게 한 자리가 잘 맞아요.\n\n새 노트 첫 장을 또박또박 써 내려가는 그림을 떠올려 보면 좋아요. 오늘의 한 페이지가 다음 주 시험을 가볍게 해 줘요.\n\n잘 풀리는 면은, 좋아하는 과목 한 가지에 집중할 때 결과가 또렷한 자리예요. 모든 과목을 한 번에 잡지 않아도 돼요.\n\n살짝 주의할 점은, 친구와 비교하다 자기 페이스를 잃는 면이에요. 어제 자기와만 비교해도 충분해요.\n\n오늘 받은 작은 칭찬 한마디가 큰 자산이 되는 시기예요." }
+      ],
+      "tags": [],
+      "livingTips": [
+        "오늘은 한 과목만 깊게 봐요",
+        "어제 자기와만 비교해요"
+      ],
+      "cautions": ["친구와의 비교는 짧게 끊어요"],
+      "aiGenerated": true,
+      "sourceTier": { "tier": "T1_HYPOTHESIS", "sourceType": "training_derived", "sourceUrl": null, "accessedAt": "2026-05-02", "quoteShort": null, "humanInterpretation": "AI-derived standard fragment for study_document.today young. Display-only.", "copyrightNote": "No source prose copied; original.", "authorityTruthEligible": false }
+    },
+    {
+      "schemaVersion": "spring-ts.narrative-fragment.v1",
+      "fragmentId": "study_document.today.standard.youngadult.005",
+      "axis": { "category": "study_document", "period": "today", "depth": "standard" },
+      "gating": { "ageBand": ["20-29"] },
+      "templateTokens": [
+        { "kind": "text", "value": "오늘은 자격증·이력서·증명 서류 자리에서 한 건만 마무리하면 충분한 결이에요. 신청·접수·제출 같은 행정 한 자리가 잘 풀려요.\n\n흙에 첫 기둥을 박는 그림을 떠올려 보면 좋아요. 오늘 한 자리가 향후 몇 달의 트랙을 정해 주는 결이에요.\n\n잘 풀리는 면은, 평소 미뤄 둔 신청·등록을 마무리할 때 가벼워지는 자리예요. 첫 한 건이 풀리면 다음 단계가 보여요.\n\n살짝 주의할 점은, 너무 많은 갈래를 동시에 열어 두는 면이에요. 오늘은 한 트랙만 또렷이 챙기는 페이스가 잘 맞아요.\n\n첫 자격이 손에 들어오는 시기를 향해 한 걸음 더 가는 날이에요." }
+      ],
+      "tags": [],
+      "livingTips": [
+        "신청·등록 한 건은 오늘 마무리해요",
+        "이력서 폴더를 한 번 정돈해요"
+      ],
+      "cautions": ["여러 시험을 동시에 신청하지 않아요"],
+      "aiGenerated": true,
+      "sourceTier": { "tier": "T1_HYPOTHESIS", "sourceType": "training_derived", "sourceUrl": null, "accessedAt": "2026-05-02", "quoteShort": null, "humanInterpretation": "AI-derived standard fragment for study_document.today young-adult. Display-only.", "copyrightNote": "No source prose copied; original.", "authorityTruthEligible": false }
+    },
+    {
+      "schemaVersion": "spring-ts.narrative-fragment.v1",
+      "fragmentId": "study_document.today.standard.midage.006",
+      "axis": { "category": "study_document", "period": "today", "depth": "standard" },
+      "gating": { "ageBand": ["30-39", "40-54"] },
+      "templateTokens": [
+        { "kind": "text", "value": "오늘은 계약·법률문서·자격 갱신 자리에서 검토 한 단계가 잘 풀리는 날이에요. 새 결정보다는 정돈·확인의 결이 더 또렷해요.\n\n잘 다진 흙 위에 기둥을 다시 점검하는 그림을 떠올려 보면 좋아요. 한 번 점검한 자리는 몇 년의 흐름을 또렷하게 해 줘요.\n\n잘 풀리는 면은, 작은 조항·기한·날짜 같은 디테일을 발견하는 자리예요. 평소 지나쳤을 한 줄이 오늘 또렷이 보여요.\n\n살짝 주의할 점은, 가까운 사이의 서류 생략이에요. 오늘처럼 결이 또렷한 날엔 종이 한 장으로 정리해 두면 든든해요.\n\n오늘의 점검이 몇 년 뒤의 후회를 막아 줘요." }
+      ],
+      "tags": [],
+      "livingTips": [
+        "기존 계약을 한 건 점검해요",
+        "기한·날짜는 따로 메모해요"
+      ],
+      "cautions": ["가까운 사이일수록 서류로 정돈해요"],
+      "aiGenerated": true,
+      "sourceTier": { "tier": "T1_HYPOTHESIS", "sourceType": "training_derived", "sourceUrl": null, "accessedAt": "2026-05-02", "quoteShort": null, "humanInterpretation": "AI-derived standard fragment for study_document.today mid-age. Display-only.", "copyrightNote": "No source prose copied; original.", "authorityTruthEligible": false }
+    },
+    {
+      "schemaVersion": "spring-ts.narrative-fragment.v1",
+      "fragmentId": "study_document.today.standard.senior.007",
+      "axis": { "category": "study_document", "period": "today", "depth": "standard" },
+      "gating": { "ageBand": ["55-69", "70+"] },
+      "templateTokens": [
+        { "kind": "text", "value": "오늘은 그동안의 자격·서류를 한 자리에 정리하기 좋은 날이에요. 새 시작보다는 정돈·전수의 결이 잘 맞아요.\n\n오래 쓴 책장의 한 칸을 정리하는 그림을 떠올려 보면 좋아요. 한 칸의 정리가 며칠의 마음을 가볍게 해 줘요.\n\n잘 풀리는 면은, 무엇을 남기고 무엇을 정리할지 또렷하게 보이는 자리예요. 결정의 기준이 분명해지는 날이에요.\n\n살짝 주의할 점은, 중요한 서류를 한 군데에만 두는 면이에요. 자격증·등기·계약 사진본을 한 군데 더 두면 든든해요.\n\n정리 자체가 새로운 자산이 되는 날이에요." }
+      ],
+      "tags": [],
+      "livingTips": [
+        "주요 서류 사진본을 두 곳에 둬요",
+        "한 폴더씩 차근차근 정돈해요"
+      ],
+      "cautions": ["한 곳에만 보관하지 않아요"],
+      "aiGenerated": true,
+      "sourceTier": { "tier": "T1_HYPOTHESIS", "sourceType": "training_derived", "sourceUrl": null, "accessedAt": "2026-05-02", "quoteShort": null, "humanInterpretation": "AI-derived standard fragment for study_document.today senior. Display-only.", "copyrightNote": "No source prose copied; original.", "authorityTruthEligible": false }
+    },
+    {
+      "schemaVersion": "spring-ts.narrative-fragment.v1",
+      "fragmentId": "study_document.today.standard.strong.008",
+      "axis": { "category": "study_document", "period": "today", "depth": "standard" },
+      "gating": { "dayMasterStrength": ["STRONG", "EXTREME_STRONG"] },
+      "templateTokens": [
+        { "kind": "text", "value": "오늘은 추진력으로 미뤄 둔 자격·서류 일을 한 번에 마무리하기 좋은 결이에요. 시작과 끝을 같은 자리에서 정리하면 가벼워져요.\n\n단단한 흙 위에 빠르게 한 자리를 마무리하는 그림을 떠올려 보면 좋아요. 속도가 무기인 날이에요.\n\n잘 풀리는 면은, 한 번 결심하면 끝까지 가는 자리예요. 외부 도움 없이도 스스로 결과를 만들어 내요.\n\n살짝 주의할 점은, 빠른 만큼 검토 한 단계를 건너뛰는 면이에요. 서명 전 한 번의 점검이 결의 차이를 만들어요.\n\n속도와 정확함이 함께 가는 페이스가 가장 잘 맞아요." }
+      ],
+      "tags": [],
+      "livingTips": [
+        "마무리 직전 한 번 점검해요",
+        "오늘 시작한 일은 오늘 마무리해요"
+      ],
+      "cautions": ["속도에 가려 검토를 생략하지 않아요"],
+      "aiGenerated": true,
+      "sourceTier": { "tier": "T1_HYPOTHESIS", "sourceType": "training_derived", "sourceUrl": null, "accessedAt": "2026-05-02", "quoteShort": null, "humanInterpretation": "AI-derived standard fragment for study_document.today strong. Display-only.", "copyrightNote": "No source prose copied; original.", "authorityTruthEligible": false }
+    },
+    {
+      "schemaVersion": "spring-ts.narrative-fragment.v1",
+      "fragmentId": "study_document.today.standard.weak.009",
+      "axis": { "category": "study_document", "period": "today", "depth": "standard" },
+      "gating": { "dayMasterStrength": ["WEAK", "EXTREME_WEAK"] },
+      "templateTokens": [
+        { "kind": "text", "value": "오늘은 도와줄 사람·기관·자료를 떠올려 한 가지를 풀어 가기 좋은 결이에요. 혼자 다 짊어지기보다 한 번 도움을 청하는 페이스가 잘 맞아요.\n\n좋은 비를 받는 흙의 그림을 떠올려 보면 좋아요. 환경의 도움을 잘 골라 받는 자리예요.\n\n잘 풀리는 면은, 누군가의 한마디 조언으로 막혔던 자리가 풀리는 결이에요. 부끄럼 없이 한 번 물어보면 가벼워져요.\n\n살짝 주의할 점은, 조언이 너무 많아 결정을 미루는 면이에요. 두 명까지만 듣고 결정은 본인이 내리는 페이스가 잘 맞아요.\n\n천천히 깊어지는 결은 오늘의 한 걸음으로도 충분해요." }
+      ],
+      "tags": [],
+      "livingTips": [
+        "도움 청할 한 명을 떠올려요",
+        "조언은 두 명까지만 모아요"
+      ],
+      "cautions": ["여러 의견에 결정을 미루지 않아요"],
+      "aiGenerated": true,
+      "sourceTier": { "tier": "T1_HYPOTHESIS", "sourceType": "training_derived", "sourceUrl": null, "accessedAt": "2026-05-02", "quoteShort": null, "humanInterpretation": "AI-derived standard fragment for study_document.today weak. Display-only.", "copyrightNote": "No source prose copied; original.", "authorityTruthEligible": false }
+    },
+    {
+      "schemaVersion": "spring-ts.narrative-fragment.v1",
+      "fragmentId": "study_document.today.standard.balanced.010",
+      "axis": { "category": "study_document", "period": "today", "depth": "standard" },
+      "gating": { "dayMasterStrength": ["BALANCED"] },
+      "templateTokens": [
+        { "kind": "text", "value": "오늘은 균형 있는 결이라, 어떤 자리든 무리하지 않으면 한 단계 진행되는 날이에요.\n\n잘 다진 흙에 골고루 비가 내리는 그림을 떠올려 보면 좋아요. 한쪽에 쏠리지 않는 자리라, 무엇이 급한지 또렷이 보여요.\n\n잘 풀리는 면은, 우선순위를 정하기 좋은 자리예요. 오늘 해야 할 한 가지와 미뤄도 되는 한 가지가 잘 구분돼요.\n\n살짝 주의할 점은, 균형이 좋은 만큼 큰 도전을 미루는 면이에요. 익숙한 자리에서 한 발만 더 나가 보면 새로운 결이 보여요.\n\n오늘의 한 자리가 며칠 뒤의 흐름을 가볍게 해 줘요." }
+      ],
+      "tags": [],
+      "livingTips": [
+        "오늘의 한 가지를 정해요",
+        "익숙함에서 한 발만 더 나가요"
+      ],
+      "cautions": ["미뤄도 되는 일과 섞지 않아요"],
+      "aiGenerated": true,
+      "sourceTier": { "tier": "T1_HYPOTHESIS", "sourceType": "training_derived", "sourceUrl": null, "accessedAt": "2026-05-02", "quoteShort": null, "humanInterpretation": "AI-derived standard fragment for study_document.today balanced. Display-only.", "copyrightNote": "No source prose copied; original.", "authorityTruthEligible": false }
+    }
+  ]
+}

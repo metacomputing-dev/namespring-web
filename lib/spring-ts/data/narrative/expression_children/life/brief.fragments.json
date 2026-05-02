@@ -1,0 +1,261 @@
+{
+  "schemaVersion": "spring-ts.narrative-fragment-bundle.v1",
+  "bundleId": "expression_children-life-brief",
+  "contractVersion": "1.0.0",
+  "generatedBy": "phase2-agent-8-expression_children",
+  "fragmentCount": 12,
+  "fragments": [
+    {
+      "schemaVersion": "spring-ts.narrative-fragment.v1",
+      "fragmentId": "expression_children.life.brief.wildcard.001",
+      "axis": { "category": "expression_children", "period": "life", "depth": "brief" },
+      "gating": {},
+      "templateTokens": [
+        { "kind": "text", "value": "평생 자기 색이 뚜렷해지는 표현의 결이에요." }
+      ],
+      "tags": [],
+      "aiGenerated": true,
+      "sourceTier": {
+        "tier": "T1_HYPOTHESIS",
+        "sourceType": "training_derived",
+        "sourceUrl": null,
+        "accessedAt": "2026-05-02",
+        "quoteShort": null,
+        "humanInterpretation": "Phase 2 expression_children-category fragment authored by agent-8 under data/narrative/_contract/v1.json. Display-only narrative for the tiered-matrix expression_children axis.",
+        "copyrightNote": "No source prose copied; original authored prose.",
+        "authorityTruthEligible": false
+      }
+    },
+    {
+      "schemaVersion": "spring-ts.narrative-fragment.v1",
+      "fragmentId": "expression_children.life.brief.0_9.002",
+      "axis": { "category": "expression_children", "period": "life", "depth": "brief" },
+      "gating": { "ageBand": ["0-9"] },
+      "templateTokens": [
+        { "kind": "text", "value": "좋아하는 놀이로 자기 색이 풀려 나오는 시기예요." }
+      ],
+      "tags": [],
+      "aiGenerated": true,
+      "sourceTier": {
+        "tier": "T1_HYPOTHESIS",
+        "sourceType": "training_derived",
+        "sourceUrl": null,
+        "accessedAt": "2026-05-02",
+        "quoteShort": null,
+        "humanInterpretation": "Phase 2 expression_children-category fragment authored by agent-8 under data/narrative/_contract/v1.json. Display-only narrative for the tiered-matrix expression_children axis.",
+        "copyrightNote": "No source prose copied; original authored prose.",
+        "authorityTruthEligible": false
+      }
+    },
+    {
+      "schemaVersion": "spring-ts.narrative-fragment.v1",
+      "fragmentId": "expression_children.life.brief.10_19.003",
+      "axis": { "category": "expression_children", "period": "life", "depth": "brief" },
+      "gating": { "ageBand": ["10-19"] },
+      "templateTokens": [
+        { "kind": "text", "value": "자기만의 표현 결이 또래보다 일찍 잡혀요." }
+      ],
+      "tags": [],
+      "aiGenerated": true,
+      "sourceTier": {
+        "tier": "T1_HYPOTHESIS",
+        "sourceType": "training_derived",
+        "sourceUrl": null,
+        "accessedAt": "2026-05-02",
+        "quoteShort": null,
+        "humanInterpretation": "Phase 2 expression_children-category fragment authored by agent-8 under data/narrative/_contract/v1.json. Display-only narrative for the tiered-matrix expression_children axis.",
+        "copyrightNote": "No source prose copied; original authored prose.",
+        "authorityTruthEligible": false
+      }
+    },
+    {
+      "schemaVersion": "spring-ts.narrative-fragment.v1",
+      "fragmentId": "expression_children.life.brief.20_29.004",
+      "axis": { "category": "expression_children", "period": "life", "depth": "brief" },
+      "gating": { "ageBand": ["20-29"] },
+      "templateTokens": [
+        { "kind": "text", "value": "자기 무대를 만들어 보는 표현의 시기예요." }
+      ],
+      "tags": [],
+      "aiGenerated": true,
+      "sourceTier": {
+        "tier": "T1_HYPOTHESIS",
+        "sourceType": "training_derived",
+        "sourceUrl": null,
+        "accessedAt": "2026-05-02",
+        "quoteShort": null,
+        "humanInterpretation": "Phase 2 expression_children-category fragment authored by agent-8 under data/narrative/_contract/v1.json. Display-only narrative for the tiered-matrix expression_children axis.",
+        "copyrightNote": "No source prose copied; original authored prose.",
+        "authorityTruthEligible": false
+      }
+    },
+    {
+      "schemaVersion": "spring-ts.narrative-fragment.v1",
+      "fragmentId": "expression_children.life.brief.30_39.005",
+      "axis": { "category": "expression_children", "period": "life", "depth": "brief" },
+      "gating": { "ageBand": ["30-39"] },
+      "templateTokens": [
+        { "kind": "text", "value": "표현이 깊어지고 다음 세대로 이어지는 결이 함께 자라요." }
+      ],
+      "tags": [],
+      "aiGenerated": true,
+      "sourceTier": {
+        "tier": "T1_HYPOTHESIS",
+        "sourceType": "training_derived",
+        "sourceUrl": null,
+        "accessedAt": "2026-05-02",
+        "quoteShort": null,
+        "humanInterpretation": "Phase 2 expression_children-category fragment authored by agent-8 under data/narrative/_contract/v1.json. Display-only narrative for the tiered-matrix expression_children axis.",
+        "copyrightNote": "No source prose copied; original authored prose.",
+        "authorityTruthEligible": false
+      }
+    },
+    {
+      "schemaVersion": "spring-ts.narrative-fragment.v1",
+      "fragmentId": "expression_children.life.brief.40_54.006",
+      "axis": { "category": "expression_children", "period": "life", "depth": "brief" },
+      "gating": { "ageBand": ["40-54"] },
+      "templateTokens": [
+        { "kind": "text", "value": "쌓아 온 표현이 결실로 익어 가는 결이에요." }
+      ],
+      "tags": [],
+      "aiGenerated": true,
+      "sourceTier": {
+        "tier": "T1_HYPOTHESIS",
+        "sourceType": "training_derived",
+        "sourceUrl": null,
+        "accessedAt": "2026-05-02",
+        "quoteShort": null,
+        "humanInterpretation": "Phase 2 expression_children-category fragment authored by agent-8 under data/narrative/_contract/v1.json. Display-only narrative for the tiered-matrix expression_children axis.",
+        "copyrightNote": "No source prose copied; original authored prose.",
+        "authorityTruthEligible": false
+      }
+    },
+    {
+      "schemaVersion": "spring-ts.narrative-fragment.v1",
+      "fragmentId": "expression_children.life.brief.55_69.007",
+      "axis": { "category": "expression_children", "period": "life", "depth": "brief" },
+      "gating": { "ageBand": ["55-69"] },
+      "templateTokens": [
+        { "kind": "text", "value": "자기 색을 다음 세대로 이어 주는 결이 깊어져요." }
+      ],
+      "tags": [],
+      "aiGenerated": true,
+      "sourceTier": {
+        "tier": "T1_HYPOTHESIS",
+        "sourceType": "training_derived",
+        "sourceUrl": null,
+        "accessedAt": "2026-05-02",
+        "quoteShort": null,
+        "humanInterpretation": "Phase 2 expression_children-category fragment authored by agent-8 under data/narrative/_contract/v1.json. Display-only narrative for the tiered-matrix expression_children axis.",
+        "copyrightNote": "No source prose copied; original authored prose.",
+        "authorityTruthEligible": false
+      }
+    },
+    {
+      "schemaVersion": "spring-ts.narrative-fragment.v1",
+      "fragmentId": "expression_children.life.brief.70plus.008",
+      "axis": { "category": "expression_children", "period": "life", "depth": "brief" },
+      "gating": { "ageBand": ["70+"] },
+      "templateTokens": [
+        { "kind": "text", "value": "표현의 여유가 깊어지고 풍요로운 결이 흘러요." }
+      ],
+      "tags": [],
+      "aiGenerated": true,
+      "sourceTier": {
+        "tier": "T1_HYPOTHESIS",
+        "sourceType": "training_derived",
+        "sourceUrl": null,
+        "accessedAt": "2026-05-02",
+        "quoteShort": null,
+        "humanInterpretation": "Phase 2 expression_children-category fragment authored by agent-8 under data/narrative/_contract/v1.json. Display-only narrative for the tiered-matrix expression_children axis.",
+        "copyrightNote": "No source prose copied; original authored prose.",
+        "authorityTruthEligible": false
+      }
+    },
+    {
+      "schemaVersion": "spring-ts.narrative-fragment.v1",
+      "fragmentId": "expression_children.life.brief.strong_aligned.009",
+      "axis": { "category": "expression_children", "period": "life", "depth": "brief" },
+      "gating": { "dayMasterStrength": ["STRONG"], "yongshinAlignment": ["aligned"] },
+      "templateTokens": [
+        { "kind": "text", "value": "표현이 시원하게 풀려 나오는 결이에요." }
+      ],
+      "tags": [],
+      "aiGenerated": true,
+      "sourceTier": {
+        "tier": "T1_HYPOTHESIS",
+        "sourceType": "training_derived",
+        "sourceUrl": null,
+        "accessedAt": "2026-05-02",
+        "quoteShort": null,
+        "humanInterpretation": "Phase 2 expression_children-category fragment authored by agent-8 under data/narrative/_contract/v1.json. Display-only narrative for the tiered-matrix expression_children axis.",
+        "copyrightNote": "No source prose copied; original authored prose.",
+        "authorityTruthEligible": false
+      }
+    },
+    {
+      "schemaVersion": "spring-ts.narrative-fragment.v1",
+      "fragmentId": "expression_children.life.brief.weak_neutral.010",
+      "axis": { "category": "expression_children", "period": "life", "depth": "brief" },
+      "gating": { "dayMasterStrength": ["WEAK"], "yongshinAlignment": ["neutral"] },
+      "templateTokens": [
+        { "kind": "text", "value": "조금씩 다듬으며 자기 결을 찾아 가는 표현이에요." }
+      ],
+      "tags": [],
+      "aiGenerated": true,
+      "sourceTier": {
+        "tier": "T1_HYPOTHESIS",
+        "sourceType": "training_derived",
+        "sourceUrl": null,
+        "accessedAt": "2026-05-02",
+        "quoteShort": null,
+        "humanInterpretation": "Phase 2 expression_children-category fragment authored by agent-8 under data/narrative/_contract/v1.json. Display-only narrative for the tiered-matrix expression_children axis.",
+        "copyrightNote": "No source prose copied; original authored prose.",
+        "authorityTruthEligible": false
+      }
+    },
+    {
+      "schemaVersion": "spring-ts.narrative-fragment.v1",
+      "fragmentId": "expression_children.life.brief.balanced_aligned.011",
+      "axis": { "category": "expression_children", "period": "life", "depth": "brief" },
+      "gating": { "dayMasterStrength": ["BALANCED"], "yongshinAlignment": ["aligned"] },
+      "templateTokens": [
+        { "kind": "text", "value": "균형 잡힌 표현이 길게 이어지는 결이에요." }
+      ],
+      "tags": [],
+      "aiGenerated": true,
+      "sourceTier": {
+        "tier": "T1_HYPOTHESIS",
+        "sourceType": "training_derived",
+        "sourceUrl": null,
+        "accessedAt": "2026-05-02",
+        "quoteShort": null,
+        "humanInterpretation": "Phase 2 expression_children-category fragment authored by agent-8 under data/narrative/_contract/v1.json. Display-only narrative for the tiered-matrix expression_children axis.",
+        "copyrightNote": "No source prose copied; original authored prose.",
+        "authorityTruthEligible": false
+      }
+    },
+    {
+      "schemaVersion": "spring-ts.narrative-fragment.v1",
+      "fragmentId": "expression_children.life.brief.strong_conflicting.012",
+      "axis": { "category": "expression_children", "period": "life", "depth": "brief" },
+      "gating": { "dayMasterStrength": ["STRONG"], "yongshinAlignment": ["conflicting"] },
+      "templateTokens": [
+        { "kind": "text", "value": "표현이 강해 무대만 잘 만나면 빛이 나는 결이에요." }
+      ],
+      "tags": [],
+      "aiGenerated": true,
+      "sourceTier": {
+        "tier": "T1_HYPOTHESIS",
+        "sourceType": "training_derived",
+        "sourceUrl": null,
+        "accessedAt": "2026-05-02",
+        "quoteShort": null,
+        "humanInterpretation": "Phase 2 expression_children-category fragment authored by agent-8 under data/narrative/_contract/v1.json. Display-only narrative for the tiered-matrix expression_children axis.",
+        "copyrightNote": "No source prose copied; original authored prose.",
+        "authorityTruthEligible": false
+      }
+    }
+  ]
+}

@@ -1,0 +1,294 @@
+{
+  "schemaVersion": "spring-ts.narrative-fragment-bundle.v1",
+  "bundleId": "overall.life.brief",
+  "contractVersion": "1.0.0",
+  "generatedBy": "phase2.agent-15",
+  "fragments": [
+    {
+      "schemaVersion": "spring-ts.narrative-fragment.v1",
+      "fragmentId": "overall.life.brief.wildcard.001",
+      "axis": { "category": "overall", "period": "life", "depth": "brief" },
+      "gating": {},
+      "templateTokens": [
+        { "kind": "text", "value": "한 평생 흐름이 큰 흠 없이 이어지는 결이에요." }
+      ],
+      "tags": [],
+      "aiGenerated": true,
+      "sourceTier": {
+        "tier": "T1_HYPOTHESIS", "sourceType": "training_derived", "sourceUrl": null,
+        "accessedAt": "2026-05-02", "quoteShort": null,
+        "humanInterpretation": "Phase 2 overall fragment, agent-15.",
+        "copyrightNote": "No source prose copied; original.",
+        "authorityTruthEligible": false
+      }
+    },
+    {
+      "schemaVersion": "spring-ts.narrative-fragment.v1",
+      "fragmentId": "overall.life.brief.extreme_strong.aligned.002",
+      "axis": { "category": "overall", "period": "life", "depth": "brief" },
+      "gating": {
+        "dayMasterStrength": ["EXTREME_STRONG"],
+        "yongshinAlignment": ["aligned"]
+      },
+      "templateTokens": [
+        { "kind": "text", "value": "기운이 또렷해서 평생 굵직한 자리를 잡아 가요." }
+      ],
+      "tags": [],
+      "aiGenerated": true,
+      "sourceTier": {
+        "tier": "T1_HYPOTHESIS", "sourceType": "training_derived", "sourceUrl": null,
+        "accessedAt": "2026-05-02", "quoteShort": null,
+        "humanInterpretation": "Phase 2 overall fragment, agent-15.",
+        "copyrightNote": "No source prose copied; original.",
+        "authorityTruthEligible": false
+      }
+    },
+    {
+      "schemaVersion": "spring-ts.narrative-fragment.v1",
+      "fragmentId": "overall.life.brief.strong.aligned.003",
+      "axis": { "category": "overall", "period": "life", "depth": "brief" },
+      "gating": {
+        "dayMasterStrength": ["STRONG"],
+        "yongshinAlignment": ["aligned"]
+      },
+      "templateTokens": [
+        { "kind": "text", "value": "사주 줄기가 단단해서 한 걸음 한 걸음이 또렷해져요." }
+      ],
+      "tags": [],
+      "aiGenerated": true,
+      "sourceTier": {
+        "tier": "T1_HYPOTHESIS", "sourceType": "training_derived", "sourceUrl": null,
+        "accessedAt": "2026-05-02", "quoteShort": null,
+        "humanInterpretation": "Phase 2 overall fragment, agent-15.",
+        "copyrightNote": "No source prose copied; original.",
+        "authorityTruthEligible": false
+      }
+    },
+    {
+      "schemaVersion": "spring-ts.narrative-fragment.v1",
+      "fragmentId": "overall.life.brief.strong.aligned.male.age30_39.004",
+      "axis": { "category": "overall", "period": "life", "depth": "brief" },
+      "gating": {
+        "gender": ["male"],
+        "ageBand": ["30-39"],
+        "dayMasterStrength": ["STRONG"],
+        "yongshinAlignment": ["aligned"]
+      },
+      "templateTokens": [
+        { "kind": "text", "value": "흐름이 든든해서 굵직한 결정을 끌고 가는 시기가 길게 이어져요." }
+      ],
+      "tags": [],
+      "aiGenerated": true,
+      "sourceTier": {
+        "tier": "T1_HYPOTHESIS", "sourceType": "training_derived", "sourceUrl": null,
+        "accessedAt": "2026-05-02", "quoteShort": null,
+        "humanInterpretation": "Phase 2 overall fragment, agent-15.",
+        "copyrightNote": "No source prose copied; original.",
+        "authorityTruthEligible": false
+      }
+    },
+    {
+      "schemaVersion": "spring-ts.narrative-fragment.v1",
+      "fragmentId": "overall.life.brief.strong.neutral.005",
+      "axis": { "category": "overall", "period": "life", "depth": "brief" },
+      "gating": {
+        "dayMasterStrength": ["STRONG"],
+        "yongshinAlignment": ["neutral"]
+      },
+      "templateTokens": [
+        { "kind": "text", "value": "기운은 넉넉해도, 자리 잡는 결을 천천히 골라 가는 결이에요." }
+      ],
+      "tags": [],
+      "aiGenerated": true,
+      "sourceTier": {
+        "tier": "T1_HYPOTHESIS", "sourceType": "training_derived", "sourceUrl": null,
+        "accessedAt": "2026-05-02", "quoteShort": null,
+        "humanInterpretation": "Phase 2 overall fragment, agent-15.",
+        "copyrightNote": "No source prose copied; original.",
+        "authorityTruthEligible": false
+      }
+    },
+    {
+      "schemaVersion": "spring-ts.narrative-fragment.v1",
+      "fragmentId": "overall.life.brief.balanced.aligned.006",
+      "axis": { "category": "overall", "period": "life", "depth": "brief" },
+      "gating": {
+        "dayMasterStrength": ["BALANCED"],
+        "yongshinAlignment": ["aligned"]
+      },
+      "templateTokens": [
+        { "kind": "text", "value": "큰 기복 없이 골고루 자라는 흐름이에요." }
+      ],
+      "tags": [],
+      "aiGenerated": true,
+      "sourceTier": {
+        "tier": "T1_HYPOTHESIS", "sourceType": "training_derived", "sourceUrl": null,
+        "accessedAt": "2026-05-02", "quoteShort": null,
+        "humanInterpretation": "Phase 2 overall fragment, agent-15.",
+        "copyrightNote": "No source prose copied; original.",
+        "authorityTruthEligible": false
+      }
+    },
+    {
+      "schemaVersion": "spring-ts.narrative-fragment.v1",
+      "fragmentId": "overall.life.brief.balanced.aligned.female.age20_29.007",
+      "axis": { "category": "overall", "period": "life", "depth": "brief" },
+      "gating": {
+        "gender": ["female"],
+        "ageBand": ["20-29"],
+        "dayMasterStrength": ["BALANCED"],
+        "yongshinAlignment": ["aligned"]
+      },
+      "templateTokens": [
+        { "kind": "text", "value": "고른 결이라, 새로운 시작이 자연스럽게 잘 풀려요." }
+      ],
+      "tags": [],
+      "aiGenerated": true,
+      "sourceTier": {
+        "tier": "T1_HYPOTHESIS", "sourceType": "training_derived", "sourceUrl": null,
+        "accessedAt": "2026-05-02", "quoteShort": null,
+        "humanInterpretation": "Phase 2 overall fragment, agent-15.",
+        "copyrightNote": "No source prose copied; original.",
+        "authorityTruthEligible": false
+      }
+    },
+    {
+      "schemaVersion": "spring-ts.narrative-fragment.v1",
+      "fragmentId": "overall.life.brief.balanced.neutral.008",
+      "axis": { "category": "overall", "period": "life", "depth": "brief" },
+      "gating": {
+        "dayMasterStrength": ["BALANCED"],
+        "yongshinAlignment": ["neutral"]
+      },
+      "templateTokens": [
+        { "kind": "text", "value": "은근한 결로 자기 페이스를 지키면 길게 잘 풀려요." }
+      ],
+      "tags": [],
+      "aiGenerated": true,
+      "sourceTier": {
+        "tier": "T1_HYPOTHESIS", "sourceType": "training_derived", "sourceUrl": null,
+        "accessedAt": "2026-05-02", "quoteShort": null,
+        "humanInterpretation": "Phase 2 overall fragment, agent-15.",
+        "copyrightNote": "No source prose copied; original.",
+        "authorityTruthEligible": false
+      }
+    },
+    {
+      "schemaVersion": "spring-ts.narrative-fragment.v1",
+      "fragmentId": "overall.life.brief.balanced.conflicting.009",
+      "axis": { "category": "overall", "period": "life", "depth": "brief" },
+      "gating": {
+        "dayMasterStrength": ["BALANCED"],
+        "yongshinAlignment": ["conflicting"]
+      },
+      "templateTokens": [
+        { "kind": "text", "value": "결이 갈릴 때가 있지만, 한 걸음 늦추면 충분히 회복돼요." }
+      ],
+      "tags": [],
+      "aiGenerated": true,
+      "sourceTier": {
+        "tier": "T1_HYPOTHESIS", "sourceType": "training_derived", "sourceUrl": null,
+        "accessedAt": "2026-05-02", "quoteShort": null,
+        "humanInterpretation": "Phase 2 overall fragment, agent-15.",
+        "copyrightNote": "No source prose copied; original.",
+        "authorityTruthEligible": false
+      }
+    },
+    {
+      "schemaVersion": "spring-ts.narrative-fragment.v1",
+      "fragmentId": "overall.life.brief.weak.aligned.010",
+      "axis": { "category": "overall", "period": "life", "depth": "brief" },
+      "gating": {
+        "dayMasterStrength": ["WEAK"],
+        "yongshinAlignment": ["aligned"]
+      },
+      "templateTokens": [
+        { "kind": "text", "value": "도움받는 자리가 잘 열려, 함께 가는 결로 자라요." }
+      ],
+      "tags": [],
+      "aiGenerated": true,
+      "sourceTier": {
+        "tier": "T1_HYPOTHESIS", "sourceType": "training_derived", "sourceUrl": null,
+        "accessedAt": "2026-05-02", "quoteShort": null,
+        "humanInterpretation": "Phase 2 overall fragment, agent-15.",
+        "copyrightNote": "No source prose copied; original.",
+        "authorityTruthEligible": false
+      }
+    },
+    {
+      "schemaVersion": "spring-ts.narrative-fragment.v1",
+      "fragmentId": "overall.life.brief.weak.neutral.age40_54.011",
+      "axis": { "category": "overall", "period": "life", "depth": "brief" },
+      "gating": {
+        "ageBand": ["40-54"],
+        "dayMasterStrength": ["WEAK"],
+        "yongshinAlignment": ["neutral"]
+      },
+      "templateTokens": [
+        { "kind": "text", "value": "느긋한 보폭이 잘 맞아, 천천히 단단해지는 시기가 와요." }
+      ],
+      "tags": [],
+      "aiGenerated": true,
+      "sourceTier": {
+        "tier": "T1_HYPOTHESIS", "sourceType": "training_derived", "sourceUrl": null,
+        "accessedAt": "2026-05-02", "quoteShort": null,
+        "humanInterpretation": "Phase 2 overall fragment, agent-15.",
+        "copyrightNote": "No source prose copied; original.",
+        "authorityTruthEligible": false
+      }
+    },
+    {
+      "schemaVersion": "spring-ts.narrative-fragment.v1",
+      "fragmentId": "overall.life.brief.extreme_weak.conflicting.012",
+      "axis": { "category": "overall", "period": "life", "depth": "brief" },
+      "gating": {
+        "dayMasterStrength": ["EXTREME_WEAK"],
+        "yongshinAlignment": ["conflicting"]
+      },
+      "templateTokens": [
+        { "kind": "text", "value": "급한 결정만 줄이면, 잔잔한 결로 충분히 풀려가요." }
+      ],
+      "tags": [],
+      "aiGenerated": true,
+      "sourceTier": {
+        "tier": "T1_HYPOTHESIS", "sourceType": "training_derived", "sourceUrl": null,
+        "accessedAt": "2026-05-02", "quoteShort": null,
+        "humanInterpretation": "Phase 2 overall fragment, agent-15.",
+        "copyrightNote": "No source prose copied; original.",
+        "authorityTruthEligible": false
+      }
+    },
+    {
+      "schemaVersion": "spring-ts.narrative-fragment.v1",
+      "fragmentId": "overall.life.brief.child.001",
+      "axis": {
+        "category": "overall",
+        "period": "life",
+        "depth": "brief"
+      },
+      "gating": {
+        "ageBand": [
+          "0-9"
+        ]
+      },
+      "templateTokens": [
+        {
+          "kind": "text",
+          "value": "아이는 호기심으로 자라는 결이에요. 매일의 작은 즐거움이 평생의 뿌리예요."
+        }
+      ],
+      "tags": [],
+      "aiGenerated": true,
+      "sourceTier": {
+        "tier": "T1_HYPOTHESIS",
+        "sourceType": "training_derived",
+        "sourceUrl": null,
+        "accessedAt": "2026-05-02",
+        "quoteShort": null,
+        "humanInterpretation": "Phase 2 overall brief life (ageBand 0-9). Caregiver-shared tone; sleep/eat/play frame; no career/romance. AI-derived; no source prose copied.",
+        "copyrightNote": "No source prose copied; original phrasing.",
+        "authorityTruthEligible": false
+      }
+    }
+  ]
+}

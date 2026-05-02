@@ -1,0 +1,236 @@
+{
+  "schemaVersion": "spring-ts.narrative-fragment-bundle.v1",
+  "bundleId": "expression_children-thisMonth-expert",
+  "contractVersion": "1.0.0",
+  "generatedBy": "phase2-agent-8-expression_children",
+  "fragmentCount": 9,
+  "fragments": [
+    {
+      "schemaVersion": "spring-ts.narrative-fragment.v1",
+      "fragmentId": "expression_children.thisMonth.expert.wildcard.001",
+      "axis": { "category": "expression_children", "period": "thisMonth", "depth": "expert", "tone": "expert" },
+      "gating": {},
+      "templateTokens": [
+        { "kind": "text", "value": "이번 달의 표현 결은 " },
+        { "kind": "tag", "tagId": "sikshin", "label": "식신" },
+        { "kind": "text", "value": "·" },
+        { "kind": "tag", "tagId": "sanggwan", "label": "상관" },
+        { "kind": "text", "value": "이 월운에서 어떻게 자리하는지로 풀어요. 월운이 식상의 결을 받쳐 주면 한 달 안에 결과의 한 매듭이 또렷이 정리되는 풀이가 정확해요." }
+      ],
+      "tags": ["sikshin", "sanggwan"],
+      "aiGenerated": true,
+      "sourceTier": {
+        "tier": "T1_HYPOTHESIS",
+        "sourceType": "training_derived",
+        "sourceUrl": null,
+        "accessedAt": "2026-05-02",
+        "quoteShort": null,
+        "humanInterpretation": "Phase 2 expression_children-category expert fragment authored by agent-8 under data/narrative/_contract/v1.json. Display-only narrative for the tiered-matrix expression_children axis.",
+        "copyrightNote": "No source prose copied; original authored prose.",
+        "authorityTruthEligible": false
+      }
+    },
+    {
+      "schemaVersion": "spring-ts.narrative-fragment.v1",
+      "fragmentId": "expression_children.thisMonth.expert.sikshingyeok.002",
+      "axis": { "category": "expression_children", "period": "thisMonth", "depth": "expert", "tone": "expert" },
+      "gating": { "gyeokguk": ["sikshingyeok"] },
+      "templateTokens": [
+        { "kind": "text", "value": "이번 달은 " },
+        { "kind": "tag", "tagId": "sikshingyeok", "label": "식신격" },
+        { "kind": "text", "value": "의 월운 결로 풀어요. " },
+        { "kind": "tag", "tagId": "sikshin", "label": "식신" },
+        { "kind": "text", "value": "이 자기 자리를 잘 받으면 표현·서비스·결과물의 결이 부드럽게 풀리고, 한 달 안에 한 매듭이 또렷이 정리되는 풀이가 정확해요." }
+      ],
+      "tags": ["sikshingyeok", "sikshin"],
+      "aiGenerated": true,
+      "sourceTier": {
+        "tier": "T1_HYPOTHESIS",
+        "sourceType": "training_derived",
+        "sourceUrl": null,
+        "accessedAt": "2026-05-02",
+        "quoteShort": null,
+        "humanInterpretation": "Phase 2 expression_children-category expert fragment authored by agent-8 under data/narrative/_contract/v1.json. Display-only narrative for the tiered-matrix expression_children axis.",
+        "copyrightNote": "No source prose copied; original authored prose.",
+        "authorityTruthEligible": false
+      }
+    },
+    {
+      "schemaVersion": "spring-ts.narrative-fragment.v1",
+      "fragmentId": "expression_children.thisMonth.expert.sanggwangyeok.003",
+      "axis": { "category": "expression_children", "period": "thisMonth", "depth": "expert", "tone": "expert" },
+      "gating": { "gyeokguk": ["sanggwangyeok"] },
+      "templateTokens": [
+        { "kind": "text", "value": "이번 달은 " },
+        { "kind": "tag", "tagId": "sanggwangyeok", "label": "상관격" },
+        { "kind": "text", "value": "의 월운 결로 풀어요. " },
+        { "kind": "tag", "tagId": "sanggwan", "label": "상관" },
+        { "kind": "text", "value": "이 강하게 발휘되는 한 달이라 자기 색이 또렷이 잡혀요. 윗사람·규칙과의 결은 한 박자 늦추는 풀이가 정확해요." }
+      ],
+      "tags": ["sanggwangyeok", "sanggwan"],
+      "aiGenerated": true,
+      "sourceTier": {
+        "tier": "T1_HYPOTHESIS",
+        "sourceType": "training_derived",
+        "sourceUrl": null,
+        "accessedAt": "2026-05-02",
+        "quoteShort": null,
+        "humanInterpretation": "Phase 2 expression_children-category expert fragment authored by agent-8 under data/narrative/_contract/v1.json. Display-only narrative for the tiered-matrix expression_children axis.",
+        "copyrightNote": "No source prose copied; original authored prose.",
+        "authorityTruthEligible": false
+      }
+    },
+    {
+      "schemaVersion": "spring-ts.narrative-fragment.v1",
+      "fragmentId": "expression_children.thisMonth.expert.dohwa_strong.004",
+      "axis": { "category": "expression_children", "period": "thisMonth", "depth": "expert", "tone": "expert" },
+      "gating": { "dayMasterStrength": ["STRONG"] },
+      "templateTokens": [
+        { "kind": "text", "value": "일간이 강한 결의 월운은 " },
+        { "kind": "tag", "tagId": "sikshin", "label": "식신" },
+        { "kind": "text", "value": "·" },
+        { "kind": "tag", "tagId": "sanggwan", "label": "상관" },
+        { "kind": "text", "value": "이 시원하게 풀리는 흐름으로 풀어요. " },
+        { "kind": "tag", "tagId": "dohwa", "label": "도화" },
+        { "kind": "text", "value": "가 함께 자리하면 표현에 매력·시선이 실리는 풀이가 자연스러워요." }
+      ],
+      "tags": ["sikshin", "sanggwan", "dohwa"],
+      "aiGenerated": true,
+      "sourceTier": {
+        "tier": "T1_HYPOTHESIS",
+        "sourceType": "training_derived",
+        "sourceUrl": null,
+        "accessedAt": "2026-05-02",
+        "quoteShort": null,
+        "humanInterpretation": "Phase 2 expression_children-category expert fragment authored by agent-8 under data/narrative/_contract/v1.json. Display-only narrative for the tiered-matrix expression_children axis.",
+        "copyrightNote": "No source prose copied; original authored prose.",
+        "authorityTruthEligible": false
+      }
+    },
+    {
+      "schemaVersion": "spring-ts.narrative-fragment.v1",
+      "fragmentId": "expression_children.thisMonth.expert.weak_aligned.005",
+      "axis": { "category": "expression_children", "period": "thisMonth", "depth": "expert", "tone": "expert" },
+      "gating": { "dayMasterStrength": ["WEAK"], "yongshinAlignment": ["aligned"] },
+      "templateTokens": [
+        { "kind": "text", "value": "일간이 약하지만 흐름이 도와주는 월운은 " },
+        { "kind": "tag", "tagId": "sikshin", "label": "식신" },
+        { "kind": "text", "value": "을 작게, 자주 풀어 두는 흐름으로 풀어요. 한 번에 큰 발화보다 가까운 자리의 매듭들이 모여 결을 단단히 해 주는 풀이가 정확해요." }
+      ],
+      "tags": ["sikshin"],
+      "aiGenerated": true,
+      "sourceTier": {
+        "tier": "T1_HYPOTHESIS",
+        "sourceType": "training_derived",
+        "sourceUrl": null,
+        "accessedAt": "2026-05-02",
+        "quoteShort": null,
+        "humanInterpretation": "Phase 2 expression_children-category expert fragment authored by agent-8 under data/narrative/_contract/v1.json. Display-only narrative for the tiered-matrix expression_children axis.",
+        "copyrightNote": "No source prose copied; original authored prose.",
+        "authorityTruthEligible": false
+      }
+    },
+    {
+      "schemaVersion": "spring-ts.narrative-fragment.v1",
+      "fragmentId": "expression_children.thisMonth.expert.30_39.006",
+      "axis": { "category": "expression_children", "period": "thisMonth", "depth": "expert", "tone": "expert" },
+      "gating": { "ageBand": ["30-39"] },
+      "templateTokens": [
+        { "kind": "text", "value": "이 연령대 월운의 풀이는 " },
+        { "kind": "tag", "tagId": "sikshin", "label": "식신" },
+        { "kind": "text", "value": "이 자기 자리에 안착해 가는 단계로 봐요. " },
+        { "kind": "tag", "tagId": "jasikgung", "label": "자식궁" },
+        { "kind": "text", "value": "도 함께 살피지만 한 달 단위에서는 형태를 단정하지 않고 가능성으로 두는 풀이가 안전해요." }
+      ],
+      "tags": ["sikshin", "jasikgung"],
+      "aiGenerated": true,
+      "sourceTier": {
+        "tier": "T1_HYPOTHESIS",
+        "sourceType": "training_derived",
+        "sourceUrl": null,
+        "accessedAt": "2026-05-02",
+        "quoteShort": null,
+        "humanInterpretation": "Phase 2 expression_children-category expert fragment authored by agent-8 under data/narrative/_contract/v1.json. Display-only narrative for the tiered-matrix expression_children axis.",
+        "copyrightNote": "No source prose copied; original authored prose.",
+        "authorityTruthEligible": false
+      }
+    },
+    {
+      "schemaVersion": "spring-ts.narrative-fragment.v1",
+      "fragmentId": "expression_children.thisMonth.expert.40_54.007",
+      "axis": { "category": "expression_children", "period": "thisMonth", "depth": "expert", "tone": "expert" },
+      "gating": { "ageBand": ["40-54"] },
+      "templateTokens": [
+        { "kind": "text", "value": "이 연령대의 월운은 " },
+        { "kind": "tag", "tagId": "sikshin", "label": "식신" },
+        { "kind": "text", "value": "이 결실을 한 매듭 정리하는 단계로 풀어요. " },
+        { "kind": "tag", "tagId": "hourPillar", "label": "시주" },
+        { "kind": "text", "value": "·" },
+        { "kind": "tag", "tagId": "jasikgung", "label": "자식궁" },
+        { "kind": "text", "value": "이 안정적이면 한 달 안의 정리 한 번이 길게 가는 결로 작용하는 풀이가 정확해요." }
+      ],
+      "tags": ["sikshin", "hourPillar", "jasikgung"],
+      "aiGenerated": true,
+      "sourceTier": {
+        "tier": "T1_HYPOTHESIS",
+        "sourceType": "training_derived",
+        "sourceUrl": null,
+        "accessedAt": "2026-05-02",
+        "quoteShort": null,
+        "humanInterpretation": "Phase 2 expression_children-category expert fragment authored by agent-8 under data/narrative/_contract/v1.json. Display-only narrative for the tiered-matrix expression_children axis.",
+        "copyrightNote": "No source prose copied; original authored prose.",
+        "authorityTruthEligible": false
+      }
+    },
+    {
+      "schemaVersion": "spring-ts.narrative-fragment.v1",
+      "fragmentId": "expression_children.thisMonth.expert.55_69.008",
+      "axis": { "category": "expression_children", "period": "thisMonth", "depth": "expert", "tone": "expert" },
+      "gating": { "ageBand": ["55-69"] },
+      "templateTokens": [
+        { "kind": "text", "value": "이 연령대의 월운은 " },
+        { "kind": "tag", "tagId": "sikshin", "label": "식신" },
+        { "kind": "text", "value": "이 다음 세대로 결을 잇는 단계로 풀어요. " },
+        { "kind": "tag", "tagId": "jasikgung", "label": "자식궁" },
+        { "kind": "text", "value": "을 함께 살피되 형태는 자연스럽게 두는 풀이가 정확해요." }
+      ],
+      "tags": ["sikshin", "jasikgung"],
+      "aiGenerated": true,
+      "sourceTier": {
+        "tier": "T1_HYPOTHESIS",
+        "sourceType": "training_derived",
+        "sourceUrl": null,
+        "accessedAt": "2026-05-02",
+        "quoteShort": null,
+        "humanInterpretation": "Phase 2 expression_children-category expert fragment authored by agent-8 under data/narrative/_contract/v1.json. Display-only narrative for the tiered-matrix expression_children axis.",
+        "copyrightNote": "No source prose copied; original authored prose.",
+        "authorityTruthEligible": false
+      }
+    },
+    {
+      "schemaVersion": "spring-ts.narrative-fragment.v1",
+      "fragmentId": "expression_children.thisMonth.expert.70plus.009",
+      "axis": { "category": "expression_children", "period": "thisMonth", "depth": "expert", "tone": "expert" },
+      "gating": { "ageBand": ["70+"] },
+      "templateTokens": [
+        { "kind": "text", "value": "이 시기의 월운은 " },
+        { "kind": "tag", "tagId": "sikshin", "label": "식신" },
+        { "kind": "text", "value": "이 가장 부드럽게 풀리는 결로 봐요. " },
+        { "kind": "tag", "tagId": "jasikgung", "label": "자식궁" },
+        { "kind": "text", "value": "은 후반의 결실 자리라 자연스럽게 두고 그 달의 즐거움 쪽에 무게를 두는 풀이가 정확해요." }
+      ],
+      "tags": ["sikshin", "jasikgung"],
+      "aiGenerated": true,
+      "sourceTier": {
+        "tier": "T1_HYPOTHESIS",
+        "sourceType": "training_derived",
+        "sourceUrl": null,
+        "accessedAt": "2026-05-02",
+        "quoteShort": null,
+        "humanInterpretation": "Phase 2 expression_children-category expert fragment authored by agent-8 under data/narrative/_contract/v1.json. Display-only narrative for the tiered-matrix expression_children axis.",
+        "copyrightNote": "No source prose copied; original authored prose.",
+        "authorityTruthEligible": false
+      }
+    }
+  ]
+}

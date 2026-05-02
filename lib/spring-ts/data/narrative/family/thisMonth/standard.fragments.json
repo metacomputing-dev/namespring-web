@@ -1,0 +1,339 @@
+{
+  "schemaVersion": "spring-ts.narrative-fragment-bundle.v1",
+  "bundleId": "family.thisMonth.standard",
+  "contractVersion": "1.0.0",
+  "ownerAgent": "agent-5",
+  "fragmentCount": 11,
+  "fragments": [
+    {
+      "schemaVersion": "spring-ts.narrative-fragment.v1",
+      "fragmentId": "family.thisMonth.standard.wildcard.001",
+      "axis": { "category": "family", "period": "thisMonth", "depth": "standard", "tone": "plain" },
+      "gating": {},
+      "templateTokens": [
+        { "kind": "text", "value": "이번 달은 가족의 결을 한 달의 호흡으로 차분히 다듬어 가는 자리예요. 한 주의 안부, 주말의 한 자리, 월말의 짧은 정리가 모이면 자연스럽게 한 달의 결이 만들어져요. 큰 일을 새로 시작하기보다는, 미뤄 둔 안부 자리를 한 사람씩 챙기는 흐름이 잘 맞아요. 가족 외에도 가까운 친구·이웃이 가족의 결로 들어오는 한 달이니, 폭을 넓게 두고 결을 펼쳐 두세요. 한 달이 끝날 때 결을 한 줄 메모해 두면 다음 달의 결이 더 부드러워져요." }
+      ],
+      "slots": {},
+      "tags": [],
+      "livingTips": [
+        "주중 안부 한 번 이상",
+        "한 달 한 번 모임 자리",
+        "월말 결 한 줄 메모"
+      ],
+      "cautions": [
+        "한 자리에 결이 몰리지 않게"
+      ],
+      "aiGenerated": true,
+      "sourceTier": {
+        "tier": "T1_HYPOTHESIS",
+        "sourceType": "training_derived",
+        "sourceUrl": null,
+        "accessedAt": "2026-05-02",
+        "quoteShort": null,
+        "humanInterpretation": "AI-derived thisMonth-period family standard fragment authored by agent-5 (Phase 2 fan-out). Display-only narrative.",
+        "copyrightNote": "No source prose copied; original prose.",
+        "authorityTruthEligible": false
+      }
+    },
+    {
+      "schemaVersion": "spring-ts.narrative-fragment.v1",
+      "fragmentId": "family.thisMonth.standard.young.002",
+      "axis": { "category": "family", "period": "thisMonth", "depth": "standard", "tone": "plain" },
+      "gating": { "ageBand": ["0-9"] },
+      "templateTokens": [
+        { "kind": "text", "value": "이번 달 아이의 결은 보호자와의 일상 호흡이 모여 만들어지는 자리예요. 한 달의 익숙한 결을 따뜻하게 지키고, 가끔 새로운 자리를 같이 만들어 가는 흐름이 잘 맞아요. 큰 변화를 한 번에 더하기보다는 작은 결을 차곡차곡 쌓아 두면 결이 단단해져요. 친구와의 자리도 가족의 안전한 분위기에서 시작될 때 가장 잘 자라요. 잠들기 전 다정한 한마디, 함께한 식사 자리가 자라나는 결의 큰 자산이에요." }
+      ],
+      "slots": {},
+      "tags": [],
+      "livingTips": [
+        "한 달 한 번 새 자리 같이",
+        "익숙한 호흡 지키기",
+        "잘한 일 자주 짚어 주기"
+      ],
+      "cautions": [
+        "비교하는 말은 미루기"
+      ],
+      "aiGenerated": true,
+      "sourceTier": {
+        "tier": "T1_HYPOTHESIS",
+        "sourceType": "training_derived",
+        "sourceUrl": null,
+        "accessedAt": "2026-05-02",
+        "quoteShort": null,
+        "humanInterpretation": "AI-derived thisMonth-period family standard fragment authored by agent-5 (Phase 2 fan-out). Display-only narrative.",
+        "copyrightNote": "No source prose copied; original prose.",
+        "authorityTruthEligible": false
+      }
+    },
+    {
+      "schemaVersion": "spring-ts.narrative-fragment.v1",
+      "fragmentId": "family.thisMonth.standard.teen.003",
+      "axis": { "category": "family", "period": "thisMonth", "depth": "standard", "tone": "plain" },
+      "gating": { "ageBand": ["10-19"] },
+      "templateTokens": [
+        { "kind": "text", "value": "이번 달 가족 결은 자기 일정 안에서 가족 자리에 한 호흡씩 닿는 자리예요. 학업·친구 자리가 비중인 한 달이지만, 주말의 한 자리가 결을 따뜻하게 데우는 큰 결이에요. 큰 결정 자리가 있다면 마음이 차분해진 자리에서 의논하는 흐름이 잘 맞고, 즉답은 한 박자 미뤄 두는 자리도 좋아요. 가족과 친구의 결을 같이 챙기는 한 달이니, 한쪽으로만 쏠리지 않도록 폭을 골고루 두세요. 한 달의 작은 결이 한 해의 큰 자산이 돼요." }
+      ],
+      "slots": {},
+      "tags": [],
+      "livingTips": [
+        "주말 한 자리 함께",
+        "고마운 일 짧게 표현",
+        "월말 짧은 안부 한 통"
+      ],
+      "cautions": [
+        "큰 결정은 한 박자 미루기"
+      ],
+      "aiGenerated": true,
+      "sourceTier": {
+        "tier": "T1_HYPOTHESIS",
+        "sourceType": "training_derived",
+        "sourceUrl": null,
+        "accessedAt": "2026-05-02",
+        "quoteShort": null,
+        "humanInterpretation": "AI-derived thisMonth-period family standard fragment authored by agent-5 (Phase 2 fan-out). Display-only narrative.",
+        "copyrightNote": "No source prose copied; original prose.",
+        "authorityTruthEligible": false
+      }
+    },
+    {
+      "schemaVersion": "spring-ts.narrative-fragment.v1",
+      "fragmentId": "family.thisMonth.standard.young_adult.004",
+      "axis": { "category": "family", "period": "thisMonth", "depth": "standard", "tone": "plain" },
+      "gating": { "ageBand": ["20-29"] },
+      "templateTokens": [
+        { "kind": "text", "value": "이번 달은 본가와 자기 자리 사이의 결을 천천히 다듬는 자리예요. 한 달에 한 번 본가 방문이나 영상 통화 한 번이 결의 거리를 자연스럽게 좁혀 줘요. 자기 살림의 작은 결을 정리하면서 부모님 안부도 같이 챙기는 흐름이 잘 맞고, 형제와의 모임 한 번이 한 달의 따뜻한 결로 모여요. 친구·연인의 자리가 큰 비중이지만, 가족 결도 한 자리는 비워 두면 평생의 자산이 돼요. 매달의 작은 결이 단단한 뿌리예요." }
+      ],
+      "slots": {},
+      "tags": [],
+      "livingTips": [
+        "한 달 한 번 본가 방문",
+        "형제 모임 한 번 챙기기",
+        "받은 도움 한 달 안 답"
+      ],
+      "cautions": [
+        "재정 결합은 한 박자 미루기"
+      ],
+      "aiGenerated": true,
+      "sourceTier": {
+        "tier": "T1_HYPOTHESIS",
+        "sourceType": "training_derived",
+        "sourceUrl": null,
+        "accessedAt": "2026-05-02",
+        "quoteShort": null,
+        "humanInterpretation": "AI-derived thisMonth-period family standard fragment authored by agent-5 (Phase 2 fan-out). Display-only narrative.",
+        "copyrightNote": "No source prose copied; original prose.",
+        "authorityTruthEligible": false
+      }
+    },
+    {
+      "schemaVersion": "spring-ts.narrative-fragment.v1",
+      "fragmentId": "family.thisMonth.standard.thirties.005",
+      "axis": { "category": "family", "period": "thisMonth", "depth": "standard", "tone": "plain" },
+      "gating": { "ageBand": ["30-39"] },
+      "templateTokens": [
+        { "kind": "text", "value": "이번 달은 자기 가정의 결과 양가 어른과의 결을 함께 챙기는 자리예요. 평일에는 가정 안의 작은 호흡, 주말에는 한쪽 어른 자리에 시간을 두는 흐름이 잘 맞아요. 자녀가 있다면 한 달에 한 번은 새로운 자리를 같이 만들어 두면 결이 단단해져요. 양가 안부는 비슷한 폭으로 챙기는 게 결의 균형을 잡아 주고, 큰 결정은 다음 달로 한 박자 미뤄 두는 흐름도 좋아요. 매달의 작은 결이 평생의 가풍을 만드는 뿌리예요." }
+      ],
+      "slots": {},
+      "tags": [],
+      "livingTips": [
+        "한 달 한 번 양가 자리",
+        "부부 시간 한 자리",
+        "자녀와 새 자리 한 번"
+      ],
+      "cautions": [
+        "한 자리에 결이 몰리지 않게"
+      ],
+      "aiGenerated": true,
+      "sourceTier": {
+        "tier": "T1_HYPOTHESIS",
+        "sourceType": "training_derived",
+        "sourceUrl": null,
+        "accessedAt": "2026-05-02",
+        "quoteShort": null,
+        "humanInterpretation": "AI-derived thisMonth-period family standard fragment authored by agent-5 (Phase 2 fan-out). Display-only narrative.",
+        "copyrightNote": "No source prose copied; original prose.",
+        "authorityTruthEligible": false
+      }
+    },
+    {
+      "schemaVersion": "spring-ts.narrative-fragment.v1",
+      "fragmentId": "family.thisMonth.standard.middle.006",
+      "axis": { "category": "family", "period": "thisMonth", "depth": "standard", "tone": "plain" },
+      "gating": { "ageBand": ["40-54"] },
+      "templateTokens": [
+        { "kind": "text", "value": "이번 달은 부모님 자리와 자녀의 자리 사이에서 결을 한 호흡씩 정리하는 자리예요. 부모님 자리는 한 달에 한 번 이상 직접 시간을 내면 결이 단단해지고, 자녀에게는 응원만 짧게 보내는 흐름이 잘 맞아요. 형제와의 안부도 한 달에 한 번 짧게 챙기면 평생의 따뜻한 결이 모여요. 폭이 넓은 자리이니, 한 사람에게 결이 몰리지 않도록 골고루 분배하는 흐름이 좋고, 자기 휴식도 한 자리는 챙겨 두면서 한 달의 결을 만들어 가요." }
+      ],
+      "slots": {},
+      "tags": [],
+      "livingTips": [
+        "한 달 한 번 부모님 자리",
+        "자녀 결정은 응원만 짧게",
+        "내 휴식 자리 한 번"
+      ],
+      "cautions": [
+        "혼자 다 짊어지지 않기"
+      ],
+      "aiGenerated": true,
+      "sourceTier": {
+        "tier": "T1_HYPOTHESIS",
+        "sourceType": "training_derived",
+        "sourceUrl": null,
+        "accessedAt": "2026-05-02",
+        "quoteShort": null,
+        "humanInterpretation": "AI-derived thisMonth-period family standard fragment authored by agent-5 (Phase 2 fan-out). Display-only narrative.",
+        "copyrightNote": "No source prose copied; original prose.",
+        "authorityTruthEligible": false
+      }
+    },
+    {
+      "schemaVersion": "spring-ts.narrative-fragment.v1",
+      "fragmentId": "family.thisMonth.standard.senior.007",
+      "axis": { "category": "family", "period": "thisMonth", "depth": "standard", "tone": "plain" },
+      "gating": { "ageBand": ["55-69"] },
+      "templateTokens": [
+        { "kind": "text", "value": "이번 달은 다음 세대와의 결을 차분히 데우는 자리예요. 자녀와의 자리는 어른 대 어른의 호흡으로, 한 달에 한 번 함께한 식사 자리가 큰 가르침보다 따뜻한 결을 만들어요. 손주 세대가 있다면 한 달의 짧은 만남이 따뜻한 자산으로 남아요. 오래된 친구·형제와의 모임도 한 달에 한 번 챙기면 결이 단단해져요. 큰 자산 정리는 한 달 안에 결정하지 말고, 결의 흐름을 한 번 더 살피는 시간을 두는 흐름이 잘 맞아요." }
+      ],
+      "slots": {},
+      "tags": [],
+      "livingTips": [
+        "다음 세대와 한 달 한 자리",
+        "친구 모임 한 번 챙기기",
+        "기억은 짧게 메모"
+      ],
+      "cautions": [
+        "큰 자산 정리는 천천히"
+      ],
+      "aiGenerated": true,
+      "sourceTier": {
+        "tier": "T1_HYPOTHESIS",
+        "sourceType": "training_derived",
+        "sourceUrl": null,
+        "accessedAt": "2026-05-02",
+        "quoteShort": null,
+        "humanInterpretation": "AI-derived thisMonth-period family standard fragment authored by agent-5 (Phase 2 fan-out). Display-only narrative.",
+        "copyrightNote": "No source prose copied; original prose.",
+        "authorityTruthEligible": false
+      }
+    },
+    {
+      "schemaVersion": "spring-ts.narrative-fragment.v1",
+      "fragmentId": "family.thisMonth.standard.elder.008",
+      "axis": { "category": "family", "period": "thisMonth", "depth": "standard", "tone": "plain" },
+      "gating": { "ageBand": ["70+"] },
+      "templateTokens": [
+        { "kind": "text", "value": "이번 달은 곁의 따뜻함이 평안하게 흐르는 자리예요. 큰 일정을 잡기보다는, 매일·매주의 작은 결을 따뜻하게 누리는 흐름이 잘 맞아요. 다음 세대와의 한 끼, 좋아하는 음식 한 가지, 익숙한 자리에서의 짧은 산책 같은 일상이 한 달의 든든한 자산이 돼요. 가까운 사람과의 안부도 무리하지 않는 폭으로 짧게 자주 챙겨 두세요. 평생 가꾸어 온 가풍의 결이 이미 모여 있는 자리이니, 새로 무엇을 더하지 않아도 충분해요." }
+      ],
+      "slots": {},
+      "tags": [],
+      "livingTips": [
+        "다음 세대와 한 달 한 자리",
+        "익숙한 산책 길 짧게",
+        "오래된 사진 한 번 보기"
+      ],
+      "cautions": [
+        "무리한 일정은 미루기"
+      ],
+      "aiGenerated": true,
+      "sourceTier": {
+        "tier": "T1_HYPOTHESIS",
+        "sourceType": "training_derived",
+        "sourceUrl": null,
+        "accessedAt": "2026-05-02",
+        "quoteShort": null,
+        "humanInterpretation": "AI-derived thisMonth-period family standard fragment authored by agent-5 (Phase 2 fan-out). Display-only narrative.",
+        "copyrightNote": "No source prose copied; original prose.",
+        "authorityTruthEligible": false
+      }
+    },
+    {
+      "schemaVersion": "spring-ts.narrative-fragment.v1",
+      "fragmentId": "family.thisMonth.standard.aligned.009",
+      "axis": { "category": "family", "period": "thisMonth", "depth": "standard", "tone": "plain" },
+      "gating": { "yongshinAlignment": ["aligned"] },
+      "templateTokens": [
+        { "kind": "text", "value": "이번 달 결은 가까운 사람의 따뜻함이 잘 흘러 들어오는 자리예요. 안부를 묻기 좋고, 함께한 자리가 결을 부드럽게 데우는 흐름이에요. 큰 일을 새로 시작하기보다는, 미뤄 둔 안부를 한 사람씩 챙기는 자리가 평생의 자산으로 모여요. 받은 도움이 있다면 한 달 안에 가벼운 답을 전하는 흐름이 잘 맞고, 가족 외에 가까운 이웃·친구도 가족의 결로 들어오는 자리이니 폭을 넓게 두세요. 한 달의 결이 다음 달의 따뜻한 결로 자연스럽게 이어져요." }
+      ],
+      "slots": {},
+      "tags": [],
+      "livingTips": [
+        "한 사람씩 시간 내기",
+        "함께 식사 자리 한 번",
+        "받은 도움 한 달 안 답"
+      ],
+      "cautions": [
+        "결이 좋다고 무리하지 않기"
+      ],
+      "aiGenerated": true,
+      "sourceTier": {
+        "tier": "T1_HYPOTHESIS",
+        "sourceType": "training_derived",
+        "sourceUrl": null,
+        "accessedAt": "2026-05-02",
+        "quoteShort": null,
+        "humanInterpretation": "AI-derived thisMonth-period family standard fragment authored by agent-5 (Phase 2 fan-out). Display-only narrative.",
+        "copyrightNote": "No source prose copied; original prose.",
+        "authorityTruthEligible": false
+      }
+    },
+    {
+      "schemaVersion": "spring-ts.narrative-fragment.v1",
+      "fragmentId": "family.thisMonth.standard.conflicting.010",
+      "axis": { "category": "family", "period": "thisMonth", "depth": "standard", "tone": "plain" },
+      "gating": { "yongshinAlignment": ["conflicting"] },
+      "templateTokens": [
+        { "kind": "text", "value": "이번 달은 가까운 사람과의 결에서 호흡 차이가 보일 수 있는 자리예요. 차이 자체는 결을 다듬는 자연스러운 호흡이라 큰 문제가 아니지만, 큰 결정 자리는 한 달 안에 무리하게 정리하지 말고 다음 달로 한 박자 미뤄 두는 흐름이 잘 맞아요. 마음이 차분해진 자리에서 짧은 안부 한 통이 결을 다시 부드럽게 만들어 줘요. 자기 자리도 한 호흡 챙겨 두는 자리를 마련해 두면 한 달의 결이 단단해져요. 무리한 화해보다는 작은 결의 흐름이 더 단단해요." }
+      ],
+      "slots": {},
+      "tags": [],
+      "livingTips": [
+        "민감 주제는 다음 달로",
+        "한 박자 천천히 답하기",
+        "내 휴식 자리 한 번"
+      ],
+      "cautions": [
+        "단정하는 말은 미루기"
+      ],
+      "aiGenerated": true,
+      "sourceTier": {
+        "tier": "T1_HYPOTHESIS",
+        "sourceType": "training_derived",
+        "sourceUrl": null,
+        "accessedAt": "2026-05-02",
+        "quoteShort": null,
+        "humanInterpretation": "AI-derived thisMonth-period family standard fragment authored by agent-5 (Phase 2 fan-out). Display-only narrative.",
+        "copyrightNote": "No source prose copied; original prose.",
+        "authorityTruthEligible": false
+      }
+    },
+    {
+      "schemaVersion": "spring-ts.narrative-fragment.v1",
+      "fragmentId": "family.thisMonth.standard.weak.011",
+      "axis": { "category": "family", "period": "thisMonth", "depth": "standard", "tone": "plain" },
+      "gating": { "dayMasterStrength": ["WEAK", "EXTREME_WEAK"] },
+      "templateTokens": [
+        { "kind": "text", "value": "이번 달은 곁 사람의 손길이 자기 결을 자주 받쳐 주는 자리예요. 작은 부탁 한 가지를 한 달 안에 자연스럽게 꺼내 두면 결이 더 든든해지고, 받은 도움은 한 달 안에 짧게 답하는 흐름이 잘 맞아요. 자기 결을 무리하게 끌고 가지 않아도, 가까운 결이 흐름을 함께 잡아 주는 한 달이에요. 친구·동료도 가족의 결로 들어오는 시기이니 폭을 넓게 두세요. 받는 결을 부끄러워하지 않는 자리가 곧 자기의 강점이에요." }
+      ],
+      "slots": {},
+      "tags": [],
+      "livingTips": [
+        "작은 부탁 한 가지 청하기",
+        "받은 도움 한 달 안 답",
+        "함께 식사 자리 한 번"
+      ],
+      "cautions": [
+        "혼자 무리하지 않기"
+      ],
+      "aiGenerated": true,
+      "sourceTier": {
+        "tier": "T1_HYPOTHESIS",
+        "sourceType": "training_derived",
+        "sourceUrl": null,
+        "accessedAt": "2026-05-02",
+        "quoteShort": null,
+        "humanInterpretation": "AI-derived thisMonth-period family standard fragment authored by agent-5 (Phase 2 fan-out). Display-only narrative.",
+        "copyrightNote": "No source prose copied; original prose.",
+        "authorityTruthEligible": false
+      }
+    }
+  ]
+}
