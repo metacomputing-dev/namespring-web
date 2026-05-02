@@ -1,0 +1,147 @@
+{
+  "schemaVersion": "spring-ts.narrative-fragment-bundle.v1",
+  "bundleId": "coverage.pair.day-master-water-yongshin.20260502",
+  "contractVersion": "1.0.0",
+  "fragments": [
+    {
+      "schemaVersion": "spring-ts.narrative-fragment.v1",
+      "fragmentId": "overall.life.standard.daymasterelement.water.yongshinelement.wood.206",
+      "axis": { "category": "overall", "period": "life", "depth": "standard" },
+      "gating": { "dayMasterElement": ["WATER"], "yongshinElement": ["WOOD"] },
+      "templateTokens": [
+        { "kind": "text", "value": "물 일간에 나무 기운이 도움이 되는 구조라면, 깊게 살피는 힘을 성장과 실행으로 이어갈 때 삶의 흐름이 좋아지기 쉬워요. 감정과 정보를 잘 읽는 장점은 크지만, 생각이 오래 머물면 움직임이 늦어질 수 있습니다. 배운 것을 작은 행동으로 키워가면 직관이 실제 변화로 이어집니다." }
+      ],
+      "livingTips": [
+        "고민한 내용을 오늘 바로 해볼 작은 행동 하나로 바꿔보세요.",
+        "새로운 배움은 메모에서 끝내지 말고 사람, 프로젝트, 습관과 연결해 보세요."
+      ],
+      "cautions": [
+        "느낌과 가능성만 따라가면 마무리 기준이 흐려질 수 있어요."
+      ],
+      "tags": ["dayMasterElement", "yongshinElement"],
+      "aiGenerated": true,
+      "sourceTier": {
+        "tier": "T1_HYPOTHESIS",
+        "sourceType": "training_derived",
+        "sourceUrl": null,
+        "accessedAt": "2026-05-02",
+        "quoteShort": null,
+        "humanInterpretation": "Cross-gated narrative for dayMasterElement WATER and yongshinElement WOOD. AI-derived display text; not authority truth.",
+        "copyrightNote": "No source prose copied; original phrasing.",
+        "authorityTruthEligible": false
+      }
+    },
+    {
+      "schemaVersion": "spring-ts.narrative-fragment.v1",
+      "fragmentId": "overall.life.standard.daymasterelement.water.yongshinelement.fire.206",
+      "axis": { "category": "overall", "period": "life", "depth": "standard" },
+      "gating": { "dayMasterElement": ["WATER"], "yongshinElement": ["FIRE"] },
+      "templateTokens": [
+        { "kind": "text", "value": "물 일간에 불 기운이 도움이 되는 구조라면, 안에서 읽고 느낀 것을 밖으로 밝게 표현할 때 균형이 좋아져요. 조용히 이해하는 힘은 좋지만, 말하지 않으면 주변은 깊은 생각을 알기 어렵습니다. 필요한 감정과 의견을 따뜻하게 드러내면 직관이 관계와 성과로 연결됩니다." }
+      ],
+      "livingTips": [
+        "중요한 생각은 혼자 정리한 뒤 짧은 말이나 글로 공유해 보세요.",
+        "좋은 감정과 고마움은 늦추지 말고 작게 표현해 보세요."
+      ],
+      "cautions": [
+        "마음을 숨긴 채 상대가 알아주길 기다리면 오해가 생길 수 있어요."
+      ],
+      "tags": ["dayMasterElement", "yongshinElement"],
+      "aiGenerated": true,
+      "sourceTier": {
+        "tier": "T1_HYPOTHESIS",
+        "sourceType": "training_derived",
+        "sourceUrl": null,
+        "accessedAt": "2026-05-02",
+        "quoteShort": null,
+        "humanInterpretation": "Cross-gated narrative for dayMasterElement WATER and yongshinElement FIRE. AI-derived display text; not authority truth.",
+        "copyrightNote": "No source prose copied; original phrasing.",
+        "authorityTruthEligible": false
+      }
+    },
+    {
+      "schemaVersion": "spring-ts.narrative-fragment.v1",
+      "fragmentId": "overall.life.standard.daymasterelement.water.yongshinelement.earth.206",
+      "axis": { "category": "overall", "period": "life", "depth": "standard" },
+      "gating": { "dayMasterElement": ["WATER"], "yongshinElement": ["EARTH"] },
+      "templateTokens": [
+        { "kind": "text", "value": "물 일간에 흙 기운이 도움이 되는 구조라면, 유연한 감각을 현실의 기준과 생활 리듬으로 붙잡을 때 안정감이 커져요. 흐름을 잘 읽는 장점은 있지만, 결정과 실행의 땅이 약하면 방향이 흔들릴 수 있습니다. 일정, 공간, 돈, 역할을 구체화하면 깊은 생각이 실제 기반으로 쌓입니다." }
+      ],
+      "livingTips": [
+        "생각이 많아질 때는 일정표와 예산표처럼 눈에 보이는 기준으로 옮겨보세요.",
+        "반복되는 생활 루틴을 정하면 감정 기복도 함께 안정되기 쉬워요."
+      ],
+      "cautions": [
+        "분위기에 따라 계속 방향을 바꾸면 주변 신뢰가 약해질 수 있어요."
+      ],
+      "tags": ["dayMasterElement", "yongshinElement"],
+      "aiGenerated": true,
+      "sourceTier": {
+        "tier": "T1_HYPOTHESIS",
+        "sourceType": "training_derived",
+        "sourceUrl": null,
+        "accessedAt": "2026-05-02",
+        "quoteShort": null,
+        "humanInterpretation": "Cross-gated narrative for dayMasterElement WATER and yongshinElement EARTH. AI-derived display text; not authority truth.",
+        "copyrightNote": "No source prose copied; original phrasing.",
+        "authorityTruthEligible": false
+      }
+    },
+    {
+      "schemaVersion": "spring-ts.narrative-fragment.v1",
+      "fragmentId": "overall.life.standard.daymasterelement.water.yongshinelement.metal.206",
+      "axis": { "category": "overall", "period": "life", "depth": "standard" },
+      "gating": { "dayMasterElement": ["WATER"], "yongshinElement": ["METAL"] },
+      "templateTokens": [
+        { "kind": "text", "value": "물 일간에 쇠 기운이 도움이 되는 구조라면, 넓게 흘러가는 생각에 기준과 결론을 더할 때 균형이 좋아져요. 많은 정보를 받아들이는 힘은 좋지만, 선택 기준이 없으면 결정이 늦어질 수 있습니다. 무엇을 남기고 무엇을 덜어낼지 정하면 직관이 선명한 판단으로 바뀝니다." }
+      ],
+      "livingTips": [
+        "정보를 모을 때는 판단 기준 세 가지를 먼저 적고 확인해 보세요.",
+        "대화 후에는 핵심 결론과 다음 행동을 짧게 정리하세요."
+      ],
+      "cautions": [
+        "모든 가능성을 열어두면 중요한 선택이 계속 뒤로 밀릴 수 있어요."
+      ],
+      "tags": ["dayMasterElement", "yongshinElement"],
+      "aiGenerated": true,
+      "sourceTier": {
+        "tier": "T1_HYPOTHESIS",
+        "sourceType": "training_derived",
+        "sourceUrl": null,
+        "accessedAt": "2026-05-02",
+        "quoteShort": null,
+        "humanInterpretation": "Cross-gated narrative for dayMasterElement WATER and yongshinElement METAL. AI-derived display text; not authority truth.",
+        "copyrightNote": "No source prose copied; original phrasing.",
+        "authorityTruthEligible": false
+      }
+    },
+    {
+      "schemaVersion": "spring-ts.narrative-fragment.v1",
+      "fragmentId": "overall.life.standard.daymasterelement.water.yongshinelement.water.206",
+      "axis": { "category": "overall", "period": "life", "depth": "standard" },
+      "gating": { "dayMasterElement": ["WATER"], "yongshinElement": ["WATER"] },
+      "templateTokens": [
+        { "kind": "text", "value": "물 일간에 물 기운이 도움이 되는 구조라면, 삶의 방향은 깊이 이해하고 회복하며 흐름을 읽는 쪽에서 힘을 얻기 쉬워요. 직관, 공감, 정보 감각이 중요한 자산이지만, 너무 오래 안으로만 흐르면 실행이 늦어질 수 있습니다. 조용한 준비와 작은 결론을 함께 두면 깊이와 움직임이 균형을 이룹니다." }
+      ],
+      "livingTips": [
+        "혼자 생각하는 시간을 확보하되 마지막에는 오늘 할 행동 하나를 정하세요.",
+        "물, 휴식, 기록처럼 마음을 정리하는 루틴을 꾸준히 유지해 보세요."
+      ],
+      "cautions": [
+        "감정과 생각이 깊어질수록 현실의 마감과 약속을 함께 챙겨야 해요."
+      ],
+      "tags": ["dayMasterElement", "yongshinElement"],
+      "aiGenerated": true,
+      "sourceTier": {
+        "tier": "T1_HYPOTHESIS",
+        "sourceType": "training_derived",
+        "sourceUrl": null,
+        "accessedAt": "2026-05-02",
+        "quoteShort": null,
+        "humanInterpretation": "Cross-gated narrative for dayMasterElement WATER and yongshinElement WATER. AI-derived display text; not authority truth.",
+        "copyrightNote": "No source prose copied; original phrasing.",
+        "authorityTruthEligible": false
+      }
+    }
+  ]
+}
