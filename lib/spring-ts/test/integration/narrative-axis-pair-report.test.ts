@@ -26,7 +26,7 @@ function check(label: string, cond: boolean, evidence?: string): void {
 
 console.log('Narrative axis pair report\n');
 
-const stdout = execFileSync('node', [SCRIPT_PATH, '--json', '--max-missing=3'], {
+const stdout = execFileSync('node', [SCRIPT_PATH, '--json', '--max-missing=3', '--max-thin=3', '--min-authored=2'], {
   cwd: SPRING_TS_ROOT,
   encoding: 'utf-8',
 });
@@ -61,8 +61,11 @@ check('pair records are machine readable',
       typeof pair.expectedCombinationCount === 'number' &&
       typeof pair.coveredCombinationCount === 'number' &&
       typeof pair.missingCombinationCount === 'number' &&
+      typeof pair.thinCombinationCount === 'number' &&
       typeof pair.coverageRatio === 'number' &&
-      Array.isArray(pair.missingCombinations)));
+      typeof pair.authoredDeficitToThreshold === 'number' &&
+      Array.isArray(pair.missingCombinations) &&
+      Array.isArray(pair.thinCombinations)));
 check('dayMasterElement:yongshinElement expected matrix is 25 cells',
   pairsByKey['dayMasterElement:yongshinElement']?.expectedCombinationCount === 25,
   String(pairsByKey['dayMasterElement:yongshinElement']?.expectedCombinationCount ?? 0));
@@ -75,9 +78,25 @@ check('gyeokguk observed values backfill pair matrix',
   String(pairsByKey['gyeokguk:dayMasterStrength']?.expectedCombinationCount ?? 0));
 check('missing combination list obeys --max-missing',
   report.pairs.every((pair: any) => pair.missingCombinations.length <= 3));
+check('thin combination list obeys --max-thin',
+  report.pairs.every((pair: any) => pair.thinCombinations.length <= 3));
 check('missing combination total is aggregated',
   report?.totals?.missingCombinationCount === report.pairs.reduce((sum: number, pair: any) => sum + pair.missingCombinationCount, 0),
   String(report?.totals?.missingCombinationCount ?? 0));
+check('thin combination total is aggregated',
+  report?.totals?.thinCombinationCount === report.pairs.reduce((sum: number, pair: any) => sum + pair.thinCombinationCount, 0) &&
+    report?.totals?.thinCombinationDeficit === report.pairs.reduce((sum: number, pair: any) => sum + pair.authoredDeficitToThreshold, 0),
+  `${report?.totals?.thinCombinationCount ?? 0}/${report?.totals?.thinCombinationDeficit ?? 0}`);
+check('pair density report exposes next expansion targets',
+  report?.minAuthoredThreshold === 2 &&
+    report?.totals?.thinCombinationCount > 0 &&
+    report.pairs.some((pair: any) =>
+      pair.thinCombinationCount > 0 &&
+      pair.thinCombinations.every((combo: any) =>
+        typeof combo.authoredFragments === 'number' &&
+        typeof combo.requiredAuthoredFragments === 'number' &&
+        typeof combo.deficit === 'number')),
+  String(report?.totals?.thinCombinationCount ?? 0));
 check('tracked pair matrices have no missing combinations',
   report?.totals?.missingCombinationCount === 0,
   report.pairs
