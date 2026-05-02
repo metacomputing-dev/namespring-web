@@ -139,6 +139,16 @@ check('expert numerical evidence coverage is complete',
   report?.totals?.expertCellsWithNumericalEvidenceCount === report?.totals?.expertCellCount &&
     report?.totals?.expertNumericalEvidenceGapCellCount === 0,
   `${report?.totals?.expertCellsWithNumericalEvidenceCount ?? 0}/${report?.totals?.expertCellCount ?? 0}`);
+check('source tier summary is machine readable',
+  typeof report?.sourceTierSummary?.fragmentTierCounts === 'object' &&
+    typeof report?.sourceTierSummary?.numericalEvidenceTierCounts === 'object' &&
+    typeof report?.sourceTierSummary?.numericalEvidenceRecordCount === 'number' &&
+    typeof report?.sourceTierSummary?.authorityTruthEligibleFragmentCount === 'number' &&
+    typeof report?.sourceTierSummary?.authorityTruthEligibleNumericalEvidenceCount === 'number');
+check('source tier summary exposes current evidence tiers',
+  report?.sourceTierSummary?.fragmentTierCounts?.T1_HYPOTHESIS > 0 &&
+    report?.sourceTierSummary?.numericalEvidenceTierCounts?.T3_INTERNAL_ENGINE >= 55,
+  JSON.stringify(report?.sourceTierSummary));
 
 console.log(`\nNarrative coverage report: ${pass} PASS / ${fail} FAIL`);
 process.exit(fail > 0 ? 1 : 0);
