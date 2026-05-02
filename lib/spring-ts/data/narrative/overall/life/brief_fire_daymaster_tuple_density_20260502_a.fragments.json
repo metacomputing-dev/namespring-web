@@ -1,0 +1,1680 @@
+{
+  "schemaVersion": "spring-ts.narrative-fragment-bundle.v1",
+  "bundleId": "overall.life.brief_fire_daymaster_tuple_density_20260502_a",
+  "contractVersion": "1.0.0",
+  "generatedBy": "codex.fire-daymaster-tuple-density-20260502-a",
+  "fragments": [
+    {
+      "schemaVersion": "spring-ts.narrative-fragment.v1",
+      "fragmentId": "overall.life.brief.tuple_fire_earth_balanced_flow.401",
+      "axis": {
+        "category": "overall",
+        "period": "life",
+        "depth": "brief"
+      },
+      "gating": {
+        "dayMasterElement": [
+          "FIRE"
+        ],
+        "yongshinElement": [
+          "EARTH"
+        ],
+        "dayMasterStrength": [
+          "BALANCED"
+        ]
+      },
+      "templateTokens": [
+        {
+          "kind": "text",
+          "value": "불 일간의 큰 흐름은 표현과 반응 속도가 중심에 있어요. 열정과 조절력이 비교적 함께 움직이는 상태예요. 흙 용신은 열기를 생활의 기반으로 내려앉히는 보강점이에요."
+        }
+      ],
+      "tags": [],
+      "aiGenerated": true,
+      "sourceTier": {
+        "tier": "T1_HYPOTHESIS",
+        "sourceType": "training_derived",
+        "sourceUrl": null,
+        "accessedAt": "2026-05-02",
+        "quoteShort": null,
+        "humanInterpretation": "Tuple-density expansion for fire day-master, yongshin element, and strength branching. AI-derived display text; not authority truth.",
+        "copyrightNote": "No source prose copied; original hypothesis text.",
+        "authorityTruthEligible": false
+      }
+    },
+    {
+      "schemaVersion": "spring-ts.narrative-fragment.v1",
+      "fragmentId": "overall.life.brief.tuple_fire_earth_balanced_practice.402",
+      "axis": {
+        "category": "overall",
+        "period": "life",
+        "depth": "brief"
+      },
+      "gating": {
+        "dayMasterElement": [
+          "FIRE"
+        ],
+        "yongshinElement": [
+          "EARTH"
+        ],
+        "dayMasterStrength": [
+          "BALANCED"
+        ]
+      },
+      "templateTokens": [
+        {
+          "kind": "text",
+          "value": "불 일간에 균형 흐름이 겹치면 밝게 드러내는 힘과 소모 관리가 함께 필요해요. 좋은 속도를 유지하되 마무리 시간을 미리 잡아두면 안정적이에요. 마음이 앞설 때 일정과 약속을 먼저 확인하면 안정감이 생겨요."
+        }
+      ],
+      "tags": [],
+      "aiGenerated": true,
+      "sourceTier": {
+        "tier": "T1_HYPOTHESIS",
+        "sourceType": "training_derived",
+        "sourceUrl": null,
+        "accessedAt": "2026-05-02",
+        "quoteShort": null,
+        "humanInterpretation": "Tuple-density expansion for fire day-master, yongshin element, and strength branching. AI-derived display text; not authority truth.",
+        "copyrightNote": "No source prose copied; original hypothesis text.",
+        "authorityTruthEligible": false
+      }
+    },
+    {
+      "schemaVersion": "spring-ts.narrative-fragment.v1",
+      "fragmentId": "overall.life.brief.tuple_fire_earth_extreme_strong_flow.403",
+      "axis": {
+        "category": "overall",
+        "period": "life",
+        "depth": "brief"
+      },
+      "gating": {
+        "dayMasterElement": [
+          "FIRE"
+        ],
+        "yongshinElement": [
+          "EARTH"
+        ],
+        "dayMasterStrength": [
+          "EXTREME_STRONG"
+        ]
+      },
+      "templateTokens": [
+        {
+          "kind": "text",
+          "value": "불 일간의 큰 흐름은 표현과 반응 속도가 중심에 있어요. 표현과 확신이 매우 강해 주변 속도보다 앞서갈 수 있어요. 흙 용신은 열기를 생활의 기반으로 내려앉히는 보강점이에요."
+        }
+      ],
+      "tags": [],
+      "aiGenerated": true,
+      "sourceTier": {
+        "tier": "T1_HYPOTHESIS",
+        "sourceType": "training_derived",
+        "sourceUrl": null,
+        "accessedAt": "2026-05-02",
+        "quoteShort": null,
+        "humanInterpretation": "Tuple-density expansion for fire day-master, yongshin element, and strength branching. AI-derived display text; not authority truth.",
+        "copyrightNote": "No source prose copied; original hypothesis text.",
+        "authorityTruthEligible": false
+      }
+    },
+    {
+      "schemaVersion": "spring-ts.narrative-fragment.v1",
+      "fragmentId": "overall.life.brief.tuple_fire_earth_extreme_strong_practice.404",
+      "axis": {
+        "category": "overall",
+        "period": "life",
+        "depth": "brief"
+      },
+      "gating": {
+        "dayMasterElement": [
+          "FIRE"
+        ],
+        "yongshinElement": [
+          "EARTH"
+        ],
+        "dayMasterStrength": [
+          "EXTREME_STRONG"
+        ]
+      },
+      "templateTokens": [
+        {
+          "kind": "text",
+          "value": "불 일간에 극신강 흐름이 겹치면 밝게 드러내는 힘과 소모 관리가 함께 필요해요. 결정을 밀어붙이기 전 상대가 이해했는지 확인하는 절차가 필요해요. 마음이 앞설 때 일정과 약속을 먼저 확인하면 안정감이 생겨요."
+        }
+      ],
+      "tags": [],
+      "aiGenerated": true,
+      "sourceTier": {
+        "tier": "T1_HYPOTHESIS",
+        "sourceType": "training_derived",
+        "sourceUrl": null,
+        "accessedAt": "2026-05-02",
+        "quoteShort": null,
+        "humanInterpretation": "Tuple-density expansion for fire day-master, yongshin element, and strength branching. AI-derived display text; not authority truth.",
+        "copyrightNote": "No source prose copied; original hypothesis text.",
+        "authorityTruthEligible": false
+      }
+    },
+    {
+      "schemaVersion": "spring-ts.narrative-fragment.v1",
+      "fragmentId": "overall.life.brief.tuple_fire_earth_extreme_weak_flow.405",
+      "axis": {
+        "category": "overall",
+        "period": "life",
+        "depth": "brief"
+      },
+      "gating": {
+        "dayMasterElement": [
+          "FIRE"
+        ],
+        "yongshinElement": [
+          "EARTH"
+        ],
+        "dayMasterStrength": [
+          "EXTREME_WEAK"
+        ]
+      },
+      "templateTokens": [
+        {
+          "kind": "text",
+          "value": "불 일간의 큰 흐름은 표현과 반응 속도가 중심에 있어요. 불씨가 약해져 자신감과 지속력이 흔들리기 쉬워요. 흙 용신은 열기를 생활의 기반으로 내려앉히는 보강점이에요."
+        }
+      ],
+      "tags": [],
+      "aiGenerated": true,
+      "sourceTier": {
+        "tier": "T1_HYPOTHESIS",
+        "sourceType": "training_derived",
+        "sourceUrl": null,
+        "accessedAt": "2026-05-02",
+        "quoteShort": null,
+        "humanInterpretation": "Tuple-density expansion for fire day-master, yongshin element, and strength branching. AI-derived display text; not authority truth.",
+        "copyrightNote": "No source prose copied; original hypothesis text.",
+        "authorityTruthEligible": false
+      }
+    },
+    {
+      "schemaVersion": "spring-ts.narrative-fragment.v1",
+      "fragmentId": "overall.life.brief.tuple_fire_earth_extreme_weak_practice.406",
+      "axis": {
+        "category": "overall",
+        "period": "life",
+        "depth": "brief"
+      },
+      "gating": {
+        "dayMasterElement": [
+          "FIRE"
+        ],
+        "yongshinElement": [
+          "EARTH"
+        ],
+        "dayMasterStrength": [
+          "EXTREME_WEAK"
+        ]
+      },
+      "templateTokens": [
+        {
+          "kind": "text",
+          "value": "불 일간에 극신약 흐름이 겹치면 밝게 드러내는 힘과 소모 관리가 함께 필요해요. 큰 무대에 바로 서기보다 작은 성공 경험을 먼저 쌓아보세요. 마음이 앞설 때 일정과 약속을 먼저 확인하면 안정감이 생겨요."
+        }
+      ],
+      "tags": [],
+      "aiGenerated": true,
+      "sourceTier": {
+        "tier": "T1_HYPOTHESIS",
+        "sourceType": "training_derived",
+        "sourceUrl": null,
+        "accessedAt": "2026-05-02",
+        "quoteShort": null,
+        "humanInterpretation": "Tuple-density expansion for fire day-master, yongshin element, and strength branching. AI-derived display text; not authority truth.",
+        "copyrightNote": "No source prose copied; original hypothesis text.",
+        "authorityTruthEligible": false
+      }
+    },
+    {
+      "schemaVersion": "spring-ts.narrative-fragment.v1",
+      "fragmentId": "overall.life.brief.tuple_fire_earth_strong_flow.407",
+      "axis": {
+        "category": "overall",
+        "period": "life",
+        "depth": "brief"
+      },
+      "gating": {
+        "dayMasterElement": [
+          "FIRE"
+        ],
+        "yongshinElement": [
+          "EARTH"
+        ],
+        "dayMasterStrength": [
+          "STRONG"
+        ]
+      },
+      "templateTokens": [
+        {
+          "kind": "text",
+          "value": "불 일간의 큰 흐름은 표현과 반응 속도가 중심에 있어요. 추진력과 표현 욕구가 강해 빠른 선택으로 이어지기 쉬워요. 흙 용신은 열기를 생활의 기반으로 내려앉히는 보강점이에요."
+        }
+      ],
+      "tags": [],
+      "aiGenerated": true,
+      "sourceTier": {
+        "tier": "T1_HYPOTHESIS",
+        "sourceType": "training_derived",
+        "sourceUrl": null,
+        "accessedAt": "2026-05-02",
+        "quoteShort": null,
+        "humanInterpretation": "Tuple-density expansion for fire day-master, yongshin element, and strength branching. AI-derived display text; not authority truth.",
+        "copyrightNote": "No source prose copied; original hypothesis text.",
+        "authorityTruthEligible": false
+      }
+    },
+    {
+      "schemaVersion": "spring-ts.narrative-fragment.v1",
+      "fragmentId": "overall.life.brief.tuple_fire_earth_strong_practice.408",
+      "axis": {
+        "category": "overall",
+        "period": "life",
+        "depth": "brief"
+      },
+      "gating": {
+        "dayMasterElement": [
+          "FIRE"
+        ],
+        "yongshinElement": [
+          "EARTH"
+        ],
+        "dayMasterStrength": [
+          "STRONG"
+        ]
+      },
+      "templateTokens": [
+        {
+          "kind": "text",
+          "value": "불 일간에 신강 흐름이 겹치면 밝게 드러내는 힘과 소모 관리가 함께 필요해요. 속도를 살리되 검토 시간을 짧게라도 끼워 넣으면 실수가 줄어요. 마음이 앞설 때 일정과 약속을 먼저 확인하면 안정감이 생겨요."
+        }
+      ],
+      "tags": [],
+      "aiGenerated": true,
+      "sourceTier": {
+        "tier": "T1_HYPOTHESIS",
+        "sourceType": "training_derived",
+        "sourceUrl": null,
+        "accessedAt": "2026-05-02",
+        "quoteShort": null,
+        "humanInterpretation": "Tuple-density expansion for fire day-master, yongshin element, and strength branching. AI-derived display text; not authority truth.",
+        "copyrightNote": "No source prose copied; original hypothesis text.",
+        "authorityTruthEligible": false
+      }
+    },
+    {
+      "schemaVersion": "spring-ts.narrative-fragment.v1",
+      "fragmentId": "overall.life.brief.tuple_fire_earth_weak_flow.409",
+      "axis": {
+        "category": "overall",
+        "period": "life",
+        "depth": "brief"
+      },
+      "gating": {
+        "dayMasterElement": [
+          "FIRE"
+        ],
+        "yongshinElement": [
+          "EARTH"
+        ],
+        "dayMasterStrength": [
+          "WEAK"
+        ]
+      },
+      "templateTokens": [
+        {
+          "kind": "text",
+          "value": "불 일간의 큰 흐름은 표현과 반응 속도가 중심에 있어요. 마음은 움직이지만 끝까지 밀어붙이는 힘이 부족할 수 있어요. 흙 용신은 열기를 생활의 기반으로 내려앉히는 보강점이에요."
+        }
+      ],
+      "tags": [],
+      "aiGenerated": true,
+      "sourceTier": {
+        "tier": "T1_HYPOTHESIS",
+        "sourceType": "training_derived",
+        "sourceUrl": null,
+        "accessedAt": "2026-05-02",
+        "quoteShort": null,
+        "humanInterpretation": "Tuple-density expansion for fire day-master, yongshin element, and strength branching. AI-derived display text; not authority truth.",
+        "copyrightNote": "No source prose copied; original hypothesis text.",
+        "authorityTruthEligible": false
+      }
+    },
+    {
+      "schemaVersion": "spring-ts.narrative-fragment.v1",
+      "fragmentId": "overall.life.brief.tuple_fire_earth_weak_practice.410",
+      "axis": {
+        "category": "overall",
+        "period": "life",
+        "depth": "brief"
+      },
+      "gating": {
+        "dayMasterElement": [
+          "FIRE"
+        ],
+        "yongshinElement": [
+          "EARTH"
+        ],
+        "dayMasterStrength": [
+          "WEAK"
+        ]
+      },
+      "templateTokens": [
+        {
+          "kind": "text",
+          "value": "불 일간에 신약 흐름이 겹치면 밝게 드러내는 힘과 소모 관리가 함께 필요해요. 혼자 버티기보다 역할을 나누고 응원을 받을 구조를 만드세요. 마음이 앞설 때 일정과 약속을 먼저 확인하면 안정감이 생겨요."
+        }
+      ],
+      "tags": [],
+      "aiGenerated": true,
+      "sourceTier": {
+        "tier": "T1_HYPOTHESIS",
+        "sourceType": "training_derived",
+        "sourceUrl": null,
+        "accessedAt": "2026-05-02",
+        "quoteShort": null,
+        "humanInterpretation": "Tuple-density expansion for fire day-master, yongshin element, and strength branching. AI-derived display text; not authority truth.",
+        "copyrightNote": "No source prose copied; original hypothesis text.",
+        "authorityTruthEligible": false
+      }
+    },
+    {
+      "schemaVersion": "spring-ts.narrative-fragment.v1",
+      "fragmentId": "overall.life.brief.tuple_fire_fire_balanced_flow.411",
+      "axis": {
+        "category": "overall",
+        "period": "life",
+        "depth": "brief"
+      },
+      "gating": {
+        "dayMasterElement": [
+          "FIRE"
+        ],
+        "yongshinElement": [
+          "FIRE"
+        ],
+        "dayMasterStrength": [
+          "BALANCED"
+        ]
+      },
+      "templateTokens": [
+        {
+          "kind": "text",
+          "value": "불 일간의 큰 흐름은 표현과 반응 속도가 중심에 있어요. 열정과 조절력이 비교적 함께 움직이는 상태예요. 불 용신은 표현력과 자신감을 다시 켜주는 보강점이에요."
+        }
+      ],
+      "tags": [],
+      "aiGenerated": true,
+      "sourceTier": {
+        "tier": "T1_HYPOTHESIS",
+        "sourceType": "training_derived",
+        "sourceUrl": null,
+        "accessedAt": "2026-05-02",
+        "quoteShort": null,
+        "humanInterpretation": "Tuple-density expansion for fire day-master, yongshin element, and strength branching. AI-derived display text; not authority truth.",
+        "copyrightNote": "No source prose copied; original hypothesis text.",
+        "authorityTruthEligible": false
+      }
+    },
+    {
+      "schemaVersion": "spring-ts.narrative-fragment.v1",
+      "fragmentId": "overall.life.brief.tuple_fire_fire_balanced_practice.412",
+      "axis": {
+        "category": "overall",
+        "period": "life",
+        "depth": "brief"
+      },
+      "gating": {
+        "dayMasterElement": [
+          "FIRE"
+        ],
+        "yongshinElement": [
+          "FIRE"
+        ],
+        "dayMasterStrength": [
+          "BALANCED"
+        ]
+      },
+      "templateTokens": [
+        {
+          "kind": "text",
+          "value": "불 일간에 균형 흐름이 겹치면 밝게 드러내는 힘과 소모 관리가 함께 필요해요. 좋은 속도를 유지하되 마무리 시간을 미리 잡아두면 안정적이에요. 하고 싶은 말을 짧게 정리해 먼저 공유하면 흐름이 살아나요."
+        }
+      ],
+      "tags": [],
+      "aiGenerated": true,
+      "sourceTier": {
+        "tier": "T1_HYPOTHESIS",
+        "sourceType": "training_derived",
+        "sourceUrl": null,
+        "accessedAt": "2026-05-02",
+        "quoteShort": null,
+        "humanInterpretation": "Tuple-density expansion for fire day-master, yongshin element, and strength branching. AI-derived display text; not authority truth.",
+        "copyrightNote": "No source prose copied; original hypothesis text.",
+        "authorityTruthEligible": false
+      }
+    },
+    {
+      "schemaVersion": "spring-ts.narrative-fragment.v1",
+      "fragmentId": "overall.life.brief.tuple_fire_fire_extreme_strong_flow.413",
+      "axis": {
+        "category": "overall",
+        "period": "life",
+        "depth": "brief"
+      },
+      "gating": {
+        "dayMasterElement": [
+          "FIRE"
+        ],
+        "yongshinElement": [
+          "FIRE"
+        ],
+        "dayMasterStrength": [
+          "EXTREME_STRONG"
+        ]
+      },
+      "templateTokens": [
+        {
+          "kind": "text",
+          "value": "불 일간의 큰 흐름은 표현과 반응 속도가 중심에 있어요. 표현과 확신이 매우 강해 주변 속도보다 앞서갈 수 있어요. 불 용신은 표현력과 자신감을 다시 켜주는 보강점이에요."
+        }
+      ],
+      "tags": [],
+      "aiGenerated": true,
+      "sourceTier": {
+        "tier": "T1_HYPOTHESIS",
+        "sourceType": "training_derived",
+        "sourceUrl": null,
+        "accessedAt": "2026-05-02",
+        "quoteShort": null,
+        "humanInterpretation": "Tuple-density expansion for fire day-master, yongshin element, and strength branching. AI-derived display text; not authority truth.",
+        "copyrightNote": "No source prose copied; original hypothesis text.",
+        "authorityTruthEligible": false
+      }
+    },
+    {
+      "schemaVersion": "spring-ts.narrative-fragment.v1",
+      "fragmentId": "overall.life.brief.tuple_fire_fire_extreme_strong_practice.414",
+      "axis": {
+        "category": "overall",
+        "period": "life",
+        "depth": "brief"
+      },
+      "gating": {
+        "dayMasterElement": [
+          "FIRE"
+        ],
+        "yongshinElement": [
+          "FIRE"
+        ],
+        "dayMasterStrength": [
+          "EXTREME_STRONG"
+        ]
+      },
+      "templateTokens": [
+        {
+          "kind": "text",
+          "value": "불 일간에 극신강 흐름이 겹치면 밝게 드러내는 힘과 소모 관리가 함께 필요해요. 결정을 밀어붙이기 전 상대가 이해했는지 확인하는 절차가 필요해요. 하고 싶은 말을 짧게 정리해 먼저 공유하면 흐름이 살아나요."
+        }
+      ],
+      "tags": [],
+      "aiGenerated": true,
+      "sourceTier": {
+        "tier": "T1_HYPOTHESIS",
+        "sourceType": "training_derived",
+        "sourceUrl": null,
+        "accessedAt": "2026-05-02",
+        "quoteShort": null,
+        "humanInterpretation": "Tuple-density expansion for fire day-master, yongshin element, and strength branching. AI-derived display text; not authority truth.",
+        "copyrightNote": "No source prose copied; original hypothesis text.",
+        "authorityTruthEligible": false
+      }
+    },
+    {
+      "schemaVersion": "spring-ts.narrative-fragment.v1",
+      "fragmentId": "overall.life.brief.tuple_fire_fire_extreme_weak_flow.415",
+      "axis": {
+        "category": "overall",
+        "period": "life",
+        "depth": "brief"
+      },
+      "gating": {
+        "dayMasterElement": [
+          "FIRE"
+        ],
+        "yongshinElement": [
+          "FIRE"
+        ],
+        "dayMasterStrength": [
+          "EXTREME_WEAK"
+        ]
+      },
+      "templateTokens": [
+        {
+          "kind": "text",
+          "value": "불 일간의 큰 흐름은 표현과 반응 속도가 중심에 있어요. 불씨가 약해져 자신감과 지속력이 흔들리기 쉬워요. 불 용신은 표현력과 자신감을 다시 켜주는 보강점이에요."
+        }
+      ],
+      "tags": [],
+      "aiGenerated": true,
+      "sourceTier": {
+        "tier": "T1_HYPOTHESIS",
+        "sourceType": "training_derived",
+        "sourceUrl": null,
+        "accessedAt": "2026-05-02",
+        "quoteShort": null,
+        "humanInterpretation": "Tuple-density expansion for fire day-master, yongshin element, and strength branching. AI-derived display text; not authority truth.",
+        "copyrightNote": "No source prose copied; original hypothesis text.",
+        "authorityTruthEligible": false
+      }
+    },
+    {
+      "schemaVersion": "spring-ts.narrative-fragment.v1",
+      "fragmentId": "overall.life.brief.tuple_fire_fire_extreme_weak_practice.416",
+      "axis": {
+        "category": "overall",
+        "period": "life",
+        "depth": "brief"
+      },
+      "gating": {
+        "dayMasterElement": [
+          "FIRE"
+        ],
+        "yongshinElement": [
+          "FIRE"
+        ],
+        "dayMasterStrength": [
+          "EXTREME_WEAK"
+        ]
+      },
+      "templateTokens": [
+        {
+          "kind": "text",
+          "value": "불 일간에 극신약 흐름이 겹치면 밝게 드러내는 힘과 소모 관리가 함께 필요해요. 큰 무대에 바로 서기보다 작은 성공 경험을 먼저 쌓아보세요. 하고 싶은 말을 짧게 정리해 먼저 공유하면 흐름이 살아나요."
+        }
+      ],
+      "tags": [],
+      "aiGenerated": true,
+      "sourceTier": {
+        "tier": "T1_HYPOTHESIS",
+        "sourceType": "training_derived",
+        "sourceUrl": null,
+        "accessedAt": "2026-05-02",
+        "quoteShort": null,
+        "humanInterpretation": "Tuple-density expansion for fire day-master, yongshin element, and strength branching. AI-derived display text; not authority truth.",
+        "copyrightNote": "No source prose copied; original hypothesis text.",
+        "authorityTruthEligible": false
+      }
+    },
+    {
+      "schemaVersion": "spring-ts.narrative-fragment.v1",
+      "fragmentId": "overall.life.brief.tuple_fire_fire_strong_flow.417",
+      "axis": {
+        "category": "overall",
+        "period": "life",
+        "depth": "brief"
+      },
+      "gating": {
+        "dayMasterElement": [
+          "FIRE"
+        ],
+        "yongshinElement": [
+          "FIRE"
+        ],
+        "dayMasterStrength": [
+          "STRONG"
+        ]
+      },
+      "templateTokens": [
+        {
+          "kind": "text",
+          "value": "불 일간의 큰 흐름은 표현과 반응 속도가 중심에 있어요. 추진력과 표현 욕구가 강해 빠른 선택으로 이어지기 쉬워요. 불 용신은 표현력과 자신감을 다시 켜주는 보강점이에요."
+        }
+      ],
+      "tags": [],
+      "aiGenerated": true,
+      "sourceTier": {
+        "tier": "T1_HYPOTHESIS",
+        "sourceType": "training_derived",
+        "sourceUrl": null,
+        "accessedAt": "2026-05-02",
+        "quoteShort": null,
+        "humanInterpretation": "Tuple-density expansion for fire day-master, yongshin element, and strength branching. AI-derived display text; not authority truth.",
+        "copyrightNote": "No source prose copied; original hypothesis text.",
+        "authorityTruthEligible": false
+      }
+    },
+    {
+      "schemaVersion": "spring-ts.narrative-fragment.v1",
+      "fragmentId": "overall.life.brief.tuple_fire_fire_strong_practice.418",
+      "axis": {
+        "category": "overall",
+        "period": "life",
+        "depth": "brief"
+      },
+      "gating": {
+        "dayMasterElement": [
+          "FIRE"
+        ],
+        "yongshinElement": [
+          "FIRE"
+        ],
+        "dayMasterStrength": [
+          "STRONG"
+        ]
+      },
+      "templateTokens": [
+        {
+          "kind": "text",
+          "value": "불 일간에 신강 흐름이 겹치면 밝게 드러내는 힘과 소모 관리가 함께 필요해요. 속도를 살리되 검토 시간을 짧게라도 끼워 넣으면 실수가 줄어요. 하고 싶은 말을 짧게 정리해 먼저 공유하면 흐름이 살아나요."
+        }
+      ],
+      "tags": [],
+      "aiGenerated": true,
+      "sourceTier": {
+        "tier": "T1_HYPOTHESIS",
+        "sourceType": "training_derived",
+        "sourceUrl": null,
+        "accessedAt": "2026-05-02",
+        "quoteShort": null,
+        "humanInterpretation": "Tuple-density expansion for fire day-master, yongshin element, and strength branching. AI-derived display text; not authority truth.",
+        "copyrightNote": "No source prose copied; original hypothesis text.",
+        "authorityTruthEligible": false
+      }
+    },
+    {
+      "schemaVersion": "spring-ts.narrative-fragment.v1",
+      "fragmentId": "overall.life.brief.tuple_fire_fire_weak_flow.419",
+      "axis": {
+        "category": "overall",
+        "period": "life",
+        "depth": "brief"
+      },
+      "gating": {
+        "dayMasterElement": [
+          "FIRE"
+        ],
+        "yongshinElement": [
+          "FIRE"
+        ],
+        "dayMasterStrength": [
+          "WEAK"
+        ]
+      },
+      "templateTokens": [
+        {
+          "kind": "text",
+          "value": "불 일간의 큰 흐름은 표현과 반응 속도가 중심에 있어요. 마음은 움직이지만 끝까지 밀어붙이는 힘이 부족할 수 있어요. 불 용신은 표현력과 자신감을 다시 켜주는 보강점이에요."
+        }
+      ],
+      "tags": [],
+      "aiGenerated": true,
+      "sourceTier": {
+        "tier": "T1_HYPOTHESIS",
+        "sourceType": "training_derived",
+        "sourceUrl": null,
+        "accessedAt": "2026-05-02",
+        "quoteShort": null,
+        "humanInterpretation": "Tuple-density expansion for fire day-master, yongshin element, and strength branching. AI-derived display text; not authority truth.",
+        "copyrightNote": "No source prose copied; original hypothesis text.",
+        "authorityTruthEligible": false
+      }
+    },
+    {
+      "schemaVersion": "spring-ts.narrative-fragment.v1",
+      "fragmentId": "overall.life.brief.tuple_fire_fire_weak_practice.420",
+      "axis": {
+        "category": "overall",
+        "period": "life",
+        "depth": "brief"
+      },
+      "gating": {
+        "dayMasterElement": [
+          "FIRE"
+        ],
+        "yongshinElement": [
+          "FIRE"
+        ],
+        "dayMasterStrength": [
+          "WEAK"
+        ]
+      },
+      "templateTokens": [
+        {
+          "kind": "text",
+          "value": "불 일간에 신약 흐름이 겹치면 밝게 드러내는 힘과 소모 관리가 함께 필요해요. 혼자 버티기보다 역할을 나누고 응원을 받을 구조를 만드세요. 하고 싶은 말을 짧게 정리해 먼저 공유하면 흐름이 살아나요."
+        }
+      ],
+      "tags": [],
+      "aiGenerated": true,
+      "sourceTier": {
+        "tier": "T1_HYPOTHESIS",
+        "sourceType": "training_derived",
+        "sourceUrl": null,
+        "accessedAt": "2026-05-02",
+        "quoteShort": null,
+        "humanInterpretation": "Tuple-density expansion for fire day-master, yongshin element, and strength branching. AI-derived display text; not authority truth.",
+        "copyrightNote": "No source prose copied; original hypothesis text.",
+        "authorityTruthEligible": false
+      }
+    },
+    {
+      "schemaVersion": "spring-ts.narrative-fragment.v1",
+      "fragmentId": "overall.life.brief.tuple_fire_metal_extreme_strong_flow.421",
+      "axis": {
+        "category": "overall",
+        "period": "life",
+        "depth": "brief"
+      },
+      "gating": {
+        "dayMasterElement": [
+          "FIRE"
+        ],
+        "yongshinElement": [
+          "METAL"
+        ],
+        "dayMasterStrength": [
+          "EXTREME_STRONG"
+        ]
+      },
+      "templateTokens": [
+        {
+          "kind": "text",
+          "value": "불 일간의 큰 흐름은 표현과 반응 속도가 중심에 있어요. 표현과 확신이 매우 강해 주변 속도보다 앞서갈 수 있어요. 쇠 용신은 뜨거운 기운에 기준과 절제를 더해주는 보강점이에요."
+        }
+      ],
+      "tags": [],
+      "aiGenerated": true,
+      "sourceTier": {
+        "tier": "T1_HYPOTHESIS",
+        "sourceType": "training_derived",
+        "sourceUrl": null,
+        "accessedAt": "2026-05-02",
+        "quoteShort": null,
+        "humanInterpretation": "Tuple-density expansion for fire day-master, yongshin element, and strength branching. AI-derived display text; not authority truth.",
+        "copyrightNote": "No source prose copied; original hypothesis text.",
+        "authorityTruthEligible": false
+      }
+    },
+    {
+      "schemaVersion": "spring-ts.narrative-fragment.v1",
+      "fragmentId": "overall.life.brief.tuple_fire_metal_extreme_strong_practice.422",
+      "axis": {
+        "category": "overall",
+        "period": "life",
+        "depth": "brief"
+      },
+      "gating": {
+        "dayMasterElement": [
+          "FIRE"
+        ],
+        "yongshinElement": [
+          "METAL"
+        ],
+        "dayMasterStrength": [
+          "EXTREME_STRONG"
+        ]
+      },
+      "templateTokens": [
+        {
+          "kind": "text",
+          "value": "불 일간에 극신강 흐름이 겹치면 밝게 드러내는 힘과 소모 관리가 함께 필요해요. 결정을 밀어붙이기 전 상대가 이해했는지 확인하는 절차가 필요해요. 우선순위 밖의 일은 줄이고 마감 기준을 분명히 세워보세요."
+        }
+      ],
+      "tags": [],
+      "aiGenerated": true,
+      "sourceTier": {
+        "tier": "T1_HYPOTHESIS",
+        "sourceType": "training_derived",
+        "sourceUrl": null,
+        "accessedAt": "2026-05-02",
+        "quoteShort": null,
+        "humanInterpretation": "Tuple-density expansion for fire day-master, yongshin element, and strength branching. AI-derived display text; not authority truth.",
+        "copyrightNote": "No source prose copied; original hypothesis text.",
+        "authorityTruthEligible": false
+      }
+    },
+    {
+      "schemaVersion": "spring-ts.narrative-fragment.v1",
+      "fragmentId": "overall.life.brief.tuple_fire_metal_extreme_weak_flow.423",
+      "axis": {
+        "category": "overall",
+        "period": "life",
+        "depth": "brief"
+      },
+      "gating": {
+        "dayMasterElement": [
+          "FIRE"
+        ],
+        "yongshinElement": [
+          "METAL"
+        ],
+        "dayMasterStrength": [
+          "EXTREME_WEAK"
+        ]
+      },
+      "templateTokens": [
+        {
+          "kind": "text",
+          "value": "불 일간의 큰 흐름은 표현과 반응 속도가 중심에 있어요. 불씨가 약해져 자신감과 지속력이 흔들리기 쉬워요. 쇠 용신은 뜨거운 기운에 기준과 절제를 더해주는 보강점이에요."
+        }
+      ],
+      "tags": [],
+      "aiGenerated": true,
+      "sourceTier": {
+        "tier": "T1_HYPOTHESIS",
+        "sourceType": "training_derived",
+        "sourceUrl": null,
+        "accessedAt": "2026-05-02",
+        "quoteShort": null,
+        "humanInterpretation": "Tuple-density expansion for fire day-master, yongshin element, and strength branching. AI-derived display text; not authority truth.",
+        "copyrightNote": "No source prose copied; original hypothesis text.",
+        "authorityTruthEligible": false
+      }
+    },
+    {
+      "schemaVersion": "spring-ts.narrative-fragment.v1",
+      "fragmentId": "overall.life.brief.tuple_fire_metal_extreme_weak_practice.424",
+      "axis": {
+        "category": "overall",
+        "period": "life",
+        "depth": "brief"
+      },
+      "gating": {
+        "dayMasterElement": [
+          "FIRE"
+        ],
+        "yongshinElement": [
+          "METAL"
+        ],
+        "dayMasterStrength": [
+          "EXTREME_WEAK"
+        ]
+      },
+      "templateTokens": [
+        {
+          "kind": "text",
+          "value": "불 일간에 극신약 흐름이 겹치면 밝게 드러내는 힘과 소모 관리가 함께 필요해요. 큰 무대에 바로 서기보다 작은 성공 경험을 먼저 쌓아보세요. 우선순위 밖의 일은 줄이고 마감 기준을 분명히 세워보세요."
+        }
+      ],
+      "tags": [],
+      "aiGenerated": true,
+      "sourceTier": {
+        "tier": "T1_HYPOTHESIS",
+        "sourceType": "training_derived",
+        "sourceUrl": null,
+        "accessedAt": "2026-05-02",
+        "quoteShort": null,
+        "humanInterpretation": "Tuple-density expansion for fire day-master, yongshin element, and strength branching. AI-derived display text; not authority truth.",
+        "copyrightNote": "No source prose copied; original hypothesis text.",
+        "authorityTruthEligible": false
+      }
+    },
+    {
+      "schemaVersion": "spring-ts.narrative-fragment.v1",
+      "fragmentId": "overall.life.brief.tuple_fire_metal_strong_flow.425",
+      "axis": {
+        "category": "overall",
+        "period": "life",
+        "depth": "brief"
+      },
+      "gating": {
+        "dayMasterElement": [
+          "FIRE"
+        ],
+        "yongshinElement": [
+          "METAL"
+        ],
+        "dayMasterStrength": [
+          "STRONG"
+        ]
+      },
+      "templateTokens": [
+        {
+          "kind": "text",
+          "value": "불 일간의 큰 흐름은 표현과 반응 속도가 중심에 있어요. 추진력과 표현 욕구가 강해 빠른 선택으로 이어지기 쉬워요. 쇠 용신은 뜨거운 기운에 기준과 절제를 더해주는 보강점이에요."
+        }
+      ],
+      "tags": [],
+      "aiGenerated": true,
+      "sourceTier": {
+        "tier": "T1_HYPOTHESIS",
+        "sourceType": "training_derived",
+        "sourceUrl": null,
+        "accessedAt": "2026-05-02",
+        "quoteShort": null,
+        "humanInterpretation": "Tuple-density expansion for fire day-master, yongshin element, and strength branching. AI-derived display text; not authority truth.",
+        "copyrightNote": "No source prose copied; original hypothesis text.",
+        "authorityTruthEligible": false
+      }
+    },
+    {
+      "schemaVersion": "spring-ts.narrative-fragment.v1",
+      "fragmentId": "overall.life.brief.tuple_fire_metal_strong_practice.426",
+      "axis": {
+        "category": "overall",
+        "period": "life",
+        "depth": "brief"
+      },
+      "gating": {
+        "dayMasterElement": [
+          "FIRE"
+        ],
+        "yongshinElement": [
+          "METAL"
+        ],
+        "dayMasterStrength": [
+          "STRONG"
+        ]
+      },
+      "templateTokens": [
+        {
+          "kind": "text",
+          "value": "불 일간에 신강 흐름이 겹치면 밝게 드러내는 힘과 소모 관리가 함께 필요해요. 속도를 살리되 검토 시간을 짧게라도 끼워 넣으면 실수가 줄어요. 우선순위 밖의 일은 줄이고 마감 기준을 분명히 세워보세요."
+        }
+      ],
+      "tags": [],
+      "aiGenerated": true,
+      "sourceTier": {
+        "tier": "T1_HYPOTHESIS",
+        "sourceType": "training_derived",
+        "sourceUrl": null,
+        "accessedAt": "2026-05-02",
+        "quoteShort": null,
+        "humanInterpretation": "Tuple-density expansion for fire day-master, yongshin element, and strength branching. AI-derived display text; not authority truth.",
+        "copyrightNote": "No source prose copied; original hypothesis text.",
+        "authorityTruthEligible": false
+      }
+    },
+    {
+      "schemaVersion": "spring-ts.narrative-fragment.v1",
+      "fragmentId": "overall.life.brief.tuple_fire_metal_weak_flow.427",
+      "axis": {
+        "category": "overall",
+        "period": "life",
+        "depth": "brief"
+      },
+      "gating": {
+        "dayMasterElement": [
+          "FIRE"
+        ],
+        "yongshinElement": [
+          "METAL"
+        ],
+        "dayMasterStrength": [
+          "WEAK"
+        ]
+      },
+      "templateTokens": [
+        {
+          "kind": "text",
+          "value": "불 일간의 큰 흐름은 표현과 반응 속도가 중심에 있어요. 마음은 움직이지만 끝까지 밀어붙이는 힘이 부족할 수 있어요. 쇠 용신은 뜨거운 기운에 기준과 절제를 더해주는 보강점이에요."
+        }
+      ],
+      "tags": [],
+      "aiGenerated": true,
+      "sourceTier": {
+        "tier": "T1_HYPOTHESIS",
+        "sourceType": "training_derived",
+        "sourceUrl": null,
+        "accessedAt": "2026-05-02",
+        "quoteShort": null,
+        "humanInterpretation": "Tuple-density expansion for fire day-master, yongshin element, and strength branching. AI-derived display text; not authority truth.",
+        "copyrightNote": "No source prose copied; original hypothesis text.",
+        "authorityTruthEligible": false
+      }
+    },
+    {
+      "schemaVersion": "spring-ts.narrative-fragment.v1",
+      "fragmentId": "overall.life.brief.tuple_fire_metal_weak_practice.428",
+      "axis": {
+        "category": "overall",
+        "period": "life",
+        "depth": "brief"
+      },
+      "gating": {
+        "dayMasterElement": [
+          "FIRE"
+        ],
+        "yongshinElement": [
+          "METAL"
+        ],
+        "dayMasterStrength": [
+          "WEAK"
+        ]
+      },
+      "templateTokens": [
+        {
+          "kind": "text",
+          "value": "불 일간에 신약 흐름이 겹치면 밝게 드러내는 힘과 소모 관리가 함께 필요해요. 혼자 버티기보다 역할을 나누고 응원을 받을 구조를 만드세요. 우선순위 밖의 일은 줄이고 마감 기준을 분명히 세워보세요."
+        }
+      ],
+      "tags": [],
+      "aiGenerated": true,
+      "sourceTier": {
+        "tier": "T1_HYPOTHESIS",
+        "sourceType": "training_derived",
+        "sourceUrl": null,
+        "accessedAt": "2026-05-02",
+        "quoteShort": null,
+        "humanInterpretation": "Tuple-density expansion for fire day-master, yongshin element, and strength branching. AI-derived display text; not authority truth.",
+        "copyrightNote": "No source prose copied; original hypothesis text.",
+        "authorityTruthEligible": false
+      }
+    },
+    {
+      "schemaVersion": "spring-ts.narrative-fragment.v1",
+      "fragmentId": "overall.life.brief.tuple_fire_water_balanced_flow.429",
+      "axis": {
+        "category": "overall",
+        "period": "life",
+        "depth": "brief"
+      },
+      "gating": {
+        "dayMasterElement": [
+          "FIRE"
+        ],
+        "yongshinElement": [
+          "WATER"
+        ],
+        "dayMasterStrength": [
+          "BALANCED"
+        ]
+      },
+      "templateTokens": [
+        {
+          "kind": "text",
+          "value": "불 일간의 큰 흐름은 표현과 반응 속도가 중심에 있어요. 열정과 조절력이 비교적 함께 움직이는 상태예요. 물 용신은 과열된 마음을 식히고 판단을 차분하게 만드는 보강점이에요."
+        }
+      ],
+      "tags": [],
+      "aiGenerated": true,
+      "sourceTier": {
+        "tier": "T1_HYPOTHESIS",
+        "sourceType": "training_derived",
+        "sourceUrl": null,
+        "accessedAt": "2026-05-02",
+        "quoteShort": null,
+        "humanInterpretation": "Tuple-density expansion for fire day-master, yongshin element, and strength branching. AI-derived display text; not authority truth.",
+        "copyrightNote": "No source prose copied; original hypothesis text.",
+        "authorityTruthEligible": false
+      }
+    },
+    {
+      "schemaVersion": "spring-ts.narrative-fragment.v1",
+      "fragmentId": "overall.life.brief.tuple_fire_water_balanced_practice.430",
+      "axis": {
+        "category": "overall",
+        "period": "life",
+        "depth": "brief"
+      },
+      "gating": {
+        "dayMasterElement": [
+          "FIRE"
+        ],
+        "yongshinElement": [
+          "WATER"
+        ],
+        "dayMasterStrength": [
+          "BALANCED"
+        ]
+      },
+      "templateTokens": [
+        {
+          "kind": "text",
+          "value": "불 일간에 균형 흐름이 겹치면 밝게 드러내는 힘과 소모 관리가 함께 필요해요. 좋은 속도를 유지하되 마무리 시간을 미리 잡아두면 안정적이에요. 반응하기 전에 한 번 쉬고, 필요한 정보부터 확인하세요."
+        }
+      ],
+      "tags": [],
+      "aiGenerated": true,
+      "sourceTier": {
+        "tier": "T1_HYPOTHESIS",
+        "sourceType": "training_derived",
+        "sourceUrl": null,
+        "accessedAt": "2026-05-02",
+        "quoteShort": null,
+        "humanInterpretation": "Tuple-density expansion for fire day-master, yongshin element, and strength branching. AI-derived display text; not authority truth.",
+        "copyrightNote": "No source prose copied; original hypothesis text.",
+        "authorityTruthEligible": false
+      }
+    },
+    {
+      "schemaVersion": "spring-ts.narrative-fragment.v1",
+      "fragmentId": "overall.life.brief.tuple_fire_water_extreme_strong_flow.431",
+      "axis": {
+        "category": "overall",
+        "period": "life",
+        "depth": "brief"
+      },
+      "gating": {
+        "dayMasterElement": [
+          "FIRE"
+        ],
+        "yongshinElement": [
+          "WATER"
+        ],
+        "dayMasterStrength": [
+          "EXTREME_STRONG"
+        ]
+      },
+      "templateTokens": [
+        {
+          "kind": "text",
+          "value": "불 일간의 큰 흐름은 표현과 반응 속도가 중심에 있어요. 표현과 확신이 매우 강해 주변 속도보다 앞서갈 수 있어요. 물 용신은 과열된 마음을 식히고 판단을 차분하게 만드는 보강점이에요."
+        }
+      ],
+      "tags": [],
+      "aiGenerated": true,
+      "sourceTier": {
+        "tier": "T1_HYPOTHESIS",
+        "sourceType": "training_derived",
+        "sourceUrl": null,
+        "accessedAt": "2026-05-02",
+        "quoteShort": null,
+        "humanInterpretation": "Tuple-density expansion for fire day-master, yongshin element, and strength branching. AI-derived display text; not authority truth.",
+        "copyrightNote": "No source prose copied; original hypothesis text.",
+        "authorityTruthEligible": false
+      }
+    },
+    {
+      "schemaVersion": "spring-ts.narrative-fragment.v1",
+      "fragmentId": "overall.life.brief.tuple_fire_water_extreme_strong_practice.432",
+      "axis": {
+        "category": "overall",
+        "period": "life",
+        "depth": "brief"
+      },
+      "gating": {
+        "dayMasterElement": [
+          "FIRE"
+        ],
+        "yongshinElement": [
+          "WATER"
+        ],
+        "dayMasterStrength": [
+          "EXTREME_STRONG"
+        ]
+      },
+      "templateTokens": [
+        {
+          "kind": "text",
+          "value": "불 일간에 극신강 흐름이 겹치면 밝게 드러내는 힘과 소모 관리가 함께 필요해요. 결정을 밀어붙이기 전 상대가 이해했는지 확인하는 절차가 필요해요. 반응하기 전에 한 번 쉬고, 필요한 정보부터 확인하세요."
+        }
+      ],
+      "tags": [],
+      "aiGenerated": true,
+      "sourceTier": {
+        "tier": "T1_HYPOTHESIS",
+        "sourceType": "training_derived",
+        "sourceUrl": null,
+        "accessedAt": "2026-05-02",
+        "quoteShort": null,
+        "humanInterpretation": "Tuple-density expansion for fire day-master, yongshin element, and strength branching. AI-derived display text; not authority truth.",
+        "copyrightNote": "No source prose copied; original hypothesis text.",
+        "authorityTruthEligible": false
+      }
+    },
+    {
+      "schemaVersion": "spring-ts.narrative-fragment.v1",
+      "fragmentId": "overall.life.brief.tuple_fire_water_strong_flow.433",
+      "axis": {
+        "category": "overall",
+        "period": "life",
+        "depth": "brief"
+      },
+      "gating": {
+        "dayMasterElement": [
+          "FIRE"
+        ],
+        "yongshinElement": [
+          "WATER"
+        ],
+        "dayMasterStrength": [
+          "STRONG"
+        ]
+      },
+      "templateTokens": [
+        {
+          "kind": "text",
+          "value": "불 일간의 큰 흐름은 표현과 반응 속도가 중심에 있어요. 추진력과 표현 욕구가 강해 빠른 선택으로 이어지기 쉬워요. 물 용신은 과열된 마음을 식히고 판단을 차분하게 만드는 보강점이에요."
+        }
+      ],
+      "tags": [],
+      "aiGenerated": true,
+      "sourceTier": {
+        "tier": "T1_HYPOTHESIS",
+        "sourceType": "training_derived",
+        "sourceUrl": null,
+        "accessedAt": "2026-05-02",
+        "quoteShort": null,
+        "humanInterpretation": "Tuple-density expansion for fire day-master, yongshin element, and strength branching. AI-derived display text; not authority truth.",
+        "copyrightNote": "No source prose copied; original hypothesis text.",
+        "authorityTruthEligible": false
+      }
+    },
+    {
+      "schemaVersion": "spring-ts.narrative-fragment.v1",
+      "fragmentId": "overall.life.brief.tuple_fire_water_strong_practice.434",
+      "axis": {
+        "category": "overall",
+        "period": "life",
+        "depth": "brief"
+      },
+      "gating": {
+        "dayMasterElement": [
+          "FIRE"
+        ],
+        "yongshinElement": [
+          "WATER"
+        ],
+        "dayMasterStrength": [
+          "STRONG"
+        ]
+      },
+      "templateTokens": [
+        {
+          "kind": "text",
+          "value": "불 일간에 신강 흐름이 겹치면 밝게 드러내는 힘과 소모 관리가 함께 필요해요. 속도를 살리되 검토 시간을 짧게라도 끼워 넣으면 실수가 줄어요. 반응하기 전에 한 번 쉬고, 필요한 정보부터 확인하세요."
+        }
+      ],
+      "tags": [],
+      "aiGenerated": true,
+      "sourceTier": {
+        "tier": "T1_HYPOTHESIS",
+        "sourceType": "training_derived",
+        "sourceUrl": null,
+        "accessedAt": "2026-05-02",
+        "quoteShort": null,
+        "humanInterpretation": "Tuple-density expansion for fire day-master, yongshin element, and strength branching. AI-derived display text; not authority truth.",
+        "copyrightNote": "No source prose copied; original hypothesis text.",
+        "authorityTruthEligible": false
+      }
+    },
+    {
+      "schemaVersion": "spring-ts.narrative-fragment.v1",
+      "fragmentId": "overall.life.brief.tuple_fire_water_weak_flow.435",
+      "axis": {
+        "category": "overall",
+        "period": "life",
+        "depth": "brief"
+      },
+      "gating": {
+        "dayMasterElement": [
+          "FIRE"
+        ],
+        "yongshinElement": [
+          "WATER"
+        ],
+        "dayMasterStrength": [
+          "WEAK"
+        ]
+      },
+      "templateTokens": [
+        {
+          "kind": "text",
+          "value": "불 일간의 큰 흐름은 표현과 반응 속도가 중심에 있어요. 마음은 움직이지만 끝까지 밀어붙이는 힘이 부족할 수 있어요. 물 용신은 과열된 마음을 식히고 판단을 차분하게 만드는 보강점이에요."
+        }
+      ],
+      "tags": [],
+      "aiGenerated": true,
+      "sourceTier": {
+        "tier": "T1_HYPOTHESIS",
+        "sourceType": "training_derived",
+        "sourceUrl": null,
+        "accessedAt": "2026-05-02",
+        "quoteShort": null,
+        "humanInterpretation": "Tuple-density expansion for fire day-master, yongshin element, and strength branching. AI-derived display text; not authority truth.",
+        "copyrightNote": "No source prose copied; original hypothesis text.",
+        "authorityTruthEligible": false
+      }
+    },
+    {
+      "schemaVersion": "spring-ts.narrative-fragment.v1",
+      "fragmentId": "overall.life.brief.tuple_fire_water_weak_practice.436",
+      "axis": {
+        "category": "overall",
+        "period": "life",
+        "depth": "brief"
+      },
+      "gating": {
+        "dayMasterElement": [
+          "FIRE"
+        ],
+        "yongshinElement": [
+          "WATER"
+        ],
+        "dayMasterStrength": [
+          "WEAK"
+        ]
+      },
+      "templateTokens": [
+        {
+          "kind": "text",
+          "value": "불 일간에 신약 흐름이 겹치면 밝게 드러내는 힘과 소모 관리가 함께 필요해요. 혼자 버티기보다 역할을 나누고 응원을 받을 구조를 만드세요. 반응하기 전에 한 번 쉬고, 필요한 정보부터 확인하세요."
+        }
+      ],
+      "tags": [],
+      "aiGenerated": true,
+      "sourceTier": {
+        "tier": "T1_HYPOTHESIS",
+        "sourceType": "training_derived",
+        "sourceUrl": null,
+        "accessedAt": "2026-05-02",
+        "quoteShort": null,
+        "humanInterpretation": "Tuple-density expansion for fire day-master, yongshin element, and strength branching. AI-derived display text; not authority truth.",
+        "copyrightNote": "No source prose copied; original hypothesis text.",
+        "authorityTruthEligible": false
+      }
+    },
+    {
+      "schemaVersion": "spring-ts.narrative-fragment.v1",
+      "fragmentId": "overall.life.brief.tuple_fire_wood_balanced_flow.437",
+      "axis": {
+        "category": "overall",
+        "period": "life",
+        "depth": "brief"
+      },
+      "gating": {
+        "dayMasterElement": [
+          "FIRE"
+        ],
+        "yongshinElement": [
+          "WOOD"
+        ],
+        "dayMasterStrength": [
+          "BALANCED"
+        ]
+      },
+      "templateTokens": [
+        {
+          "kind": "text",
+          "value": "불 일간의 큰 흐름은 표현과 반응 속도가 중심에 있어요. 열정과 조절력이 비교적 함께 움직이는 상태예요. 나무 용신은 표현할 재료와 성장 방향을 공급하는 보강점이에요."
+        }
+      ],
+      "tags": [],
+      "aiGenerated": true,
+      "sourceTier": {
+        "tier": "T1_HYPOTHESIS",
+        "sourceType": "training_derived",
+        "sourceUrl": null,
+        "accessedAt": "2026-05-02",
+        "quoteShort": null,
+        "humanInterpretation": "Tuple-density expansion for fire day-master, yongshin element, and strength branching. AI-derived display text; not authority truth.",
+        "copyrightNote": "No source prose copied; original hypothesis text.",
+        "authorityTruthEligible": false
+      }
+    },
+    {
+      "schemaVersion": "spring-ts.narrative-fragment.v1",
+      "fragmentId": "overall.life.brief.tuple_fire_wood_balanced_practice.438",
+      "axis": {
+        "category": "overall",
+        "period": "life",
+        "depth": "brief"
+      },
+      "gating": {
+        "dayMasterElement": [
+          "FIRE"
+        ],
+        "yongshinElement": [
+          "WOOD"
+        ],
+        "dayMasterStrength": [
+          "BALANCED"
+        ]
+      },
+      "templateTokens": [
+        {
+          "kind": "text",
+          "value": "불 일간에 균형 흐름이 겹치면 밝게 드러내는 힘과 소모 관리가 함께 필요해요. 좋은 속도를 유지하되 마무리 시간을 미리 잡아두면 안정적이에요. 새 아이디어를 바로 확정하지 말고 작은 초안으로 먼저 키워보세요."
+        }
+      ],
+      "tags": [],
+      "aiGenerated": true,
+      "sourceTier": {
+        "tier": "T1_HYPOTHESIS",
+        "sourceType": "training_derived",
+        "sourceUrl": null,
+        "accessedAt": "2026-05-02",
+        "quoteShort": null,
+        "humanInterpretation": "Tuple-density expansion for fire day-master, yongshin element, and strength branching. AI-derived display text; not authority truth.",
+        "copyrightNote": "No source prose copied; original hypothesis text.",
+        "authorityTruthEligible": false
+      }
+    },
+    {
+      "schemaVersion": "spring-ts.narrative-fragment.v1",
+      "fragmentId": "overall.life.brief.tuple_fire_wood_extreme_strong_flow.439",
+      "axis": {
+        "category": "overall",
+        "period": "life",
+        "depth": "brief"
+      },
+      "gating": {
+        "dayMasterElement": [
+          "FIRE"
+        ],
+        "yongshinElement": [
+          "WOOD"
+        ],
+        "dayMasterStrength": [
+          "EXTREME_STRONG"
+        ]
+      },
+      "templateTokens": [
+        {
+          "kind": "text",
+          "value": "불 일간의 큰 흐름은 표현과 반응 속도가 중심에 있어요. 표현과 확신이 매우 강해 주변 속도보다 앞서갈 수 있어요. 나무 용신은 표현할 재료와 성장 방향을 공급하는 보강점이에요."
+        }
+      ],
+      "tags": [],
+      "aiGenerated": true,
+      "sourceTier": {
+        "tier": "T1_HYPOTHESIS",
+        "sourceType": "training_derived",
+        "sourceUrl": null,
+        "accessedAt": "2026-05-02",
+        "quoteShort": null,
+        "humanInterpretation": "Tuple-density expansion for fire day-master, yongshin element, and strength branching. AI-derived display text; not authority truth.",
+        "copyrightNote": "No source prose copied; original hypothesis text.",
+        "authorityTruthEligible": false
+      }
+    },
+    {
+      "schemaVersion": "spring-ts.narrative-fragment.v1",
+      "fragmentId": "overall.life.brief.tuple_fire_wood_extreme_strong_practice.440",
+      "axis": {
+        "category": "overall",
+        "period": "life",
+        "depth": "brief"
+      },
+      "gating": {
+        "dayMasterElement": [
+          "FIRE"
+        ],
+        "yongshinElement": [
+          "WOOD"
+        ],
+        "dayMasterStrength": [
+          "EXTREME_STRONG"
+        ]
+      },
+      "templateTokens": [
+        {
+          "kind": "text",
+          "value": "불 일간에 극신강 흐름이 겹치면 밝게 드러내는 힘과 소모 관리가 함께 필요해요. 결정을 밀어붙이기 전 상대가 이해했는지 확인하는 절차가 필요해요. 새 아이디어를 바로 확정하지 말고 작은 초안으로 먼저 키워보세요."
+        }
+      ],
+      "tags": [],
+      "aiGenerated": true,
+      "sourceTier": {
+        "tier": "T1_HYPOTHESIS",
+        "sourceType": "training_derived",
+        "sourceUrl": null,
+        "accessedAt": "2026-05-02",
+        "quoteShort": null,
+        "humanInterpretation": "Tuple-density expansion for fire day-master, yongshin element, and strength branching. AI-derived display text; not authority truth.",
+        "copyrightNote": "No source prose copied; original hypothesis text.",
+        "authorityTruthEligible": false
+      }
+    },
+    {
+      "schemaVersion": "spring-ts.narrative-fragment.v1",
+      "fragmentId": "overall.life.brief.tuple_fire_wood_extreme_weak_flow.441",
+      "axis": {
+        "category": "overall",
+        "period": "life",
+        "depth": "brief"
+      },
+      "gating": {
+        "dayMasterElement": [
+          "FIRE"
+        ],
+        "yongshinElement": [
+          "WOOD"
+        ],
+        "dayMasterStrength": [
+          "EXTREME_WEAK"
+        ]
+      },
+      "templateTokens": [
+        {
+          "kind": "text",
+          "value": "불 일간의 큰 흐름은 표현과 반응 속도가 중심에 있어요. 불씨가 약해져 자신감과 지속력이 흔들리기 쉬워요. 나무 용신은 표현할 재료와 성장 방향을 공급하는 보강점이에요."
+        }
+      ],
+      "tags": [],
+      "aiGenerated": true,
+      "sourceTier": {
+        "tier": "T1_HYPOTHESIS",
+        "sourceType": "training_derived",
+        "sourceUrl": null,
+        "accessedAt": "2026-05-02",
+        "quoteShort": null,
+        "humanInterpretation": "Tuple-density expansion for fire day-master, yongshin element, and strength branching. AI-derived display text; not authority truth.",
+        "copyrightNote": "No source prose copied; original hypothesis text.",
+        "authorityTruthEligible": false
+      }
+    },
+    {
+      "schemaVersion": "spring-ts.narrative-fragment.v1",
+      "fragmentId": "overall.life.brief.tuple_fire_wood_extreme_weak_practice.442",
+      "axis": {
+        "category": "overall",
+        "period": "life",
+        "depth": "brief"
+      },
+      "gating": {
+        "dayMasterElement": [
+          "FIRE"
+        ],
+        "yongshinElement": [
+          "WOOD"
+        ],
+        "dayMasterStrength": [
+          "EXTREME_WEAK"
+        ]
+      },
+      "templateTokens": [
+        {
+          "kind": "text",
+          "value": "불 일간에 극신약 흐름이 겹치면 밝게 드러내는 힘과 소모 관리가 함께 필요해요. 큰 무대에 바로 서기보다 작은 성공 경험을 먼저 쌓아보세요. 새 아이디어를 바로 확정하지 말고 작은 초안으로 먼저 키워보세요."
+        }
+      ],
+      "tags": [],
+      "aiGenerated": true,
+      "sourceTier": {
+        "tier": "T1_HYPOTHESIS",
+        "sourceType": "training_derived",
+        "sourceUrl": null,
+        "accessedAt": "2026-05-02",
+        "quoteShort": null,
+        "humanInterpretation": "Tuple-density expansion for fire day-master, yongshin element, and strength branching. AI-derived display text; not authority truth.",
+        "copyrightNote": "No source prose copied; original hypothesis text.",
+        "authorityTruthEligible": false
+      }
+    },
+    {
+      "schemaVersion": "spring-ts.narrative-fragment.v1",
+      "fragmentId": "overall.life.brief.tuple_fire_wood_strong_flow.443",
+      "axis": {
+        "category": "overall",
+        "period": "life",
+        "depth": "brief"
+      },
+      "gating": {
+        "dayMasterElement": [
+          "FIRE"
+        ],
+        "yongshinElement": [
+          "WOOD"
+        ],
+        "dayMasterStrength": [
+          "STRONG"
+        ]
+      },
+      "templateTokens": [
+        {
+          "kind": "text",
+          "value": "불 일간의 큰 흐름은 표현과 반응 속도가 중심에 있어요. 추진력과 표현 욕구가 강해 빠른 선택으로 이어지기 쉬워요. 나무 용신은 표현할 재료와 성장 방향을 공급하는 보강점이에요."
+        }
+      ],
+      "tags": [],
+      "aiGenerated": true,
+      "sourceTier": {
+        "tier": "T1_HYPOTHESIS",
+        "sourceType": "training_derived",
+        "sourceUrl": null,
+        "accessedAt": "2026-05-02",
+        "quoteShort": null,
+        "humanInterpretation": "Tuple-density expansion for fire day-master, yongshin element, and strength branching. AI-derived display text; not authority truth.",
+        "copyrightNote": "No source prose copied; original hypothesis text.",
+        "authorityTruthEligible": false
+      }
+    },
+    {
+      "schemaVersion": "spring-ts.narrative-fragment.v1",
+      "fragmentId": "overall.life.brief.tuple_fire_wood_strong_practice.444",
+      "axis": {
+        "category": "overall",
+        "period": "life",
+        "depth": "brief"
+      },
+      "gating": {
+        "dayMasterElement": [
+          "FIRE"
+        ],
+        "yongshinElement": [
+          "WOOD"
+        ],
+        "dayMasterStrength": [
+          "STRONG"
+        ]
+      },
+      "templateTokens": [
+        {
+          "kind": "text",
+          "value": "불 일간에 신강 흐름이 겹치면 밝게 드러내는 힘과 소모 관리가 함께 필요해요. 속도를 살리되 검토 시간을 짧게라도 끼워 넣으면 실수가 줄어요. 새 아이디어를 바로 확정하지 말고 작은 초안으로 먼저 키워보세요."
+        }
+      ],
+      "tags": [],
+      "aiGenerated": true,
+      "sourceTier": {
+        "tier": "T1_HYPOTHESIS",
+        "sourceType": "training_derived",
+        "sourceUrl": null,
+        "accessedAt": "2026-05-02",
+        "quoteShort": null,
+        "humanInterpretation": "Tuple-density expansion for fire day-master, yongshin element, and strength branching. AI-derived display text; not authority truth.",
+        "copyrightNote": "No source prose copied; original hypothesis text.",
+        "authorityTruthEligible": false
+      }
+    }
+  ]
+}
