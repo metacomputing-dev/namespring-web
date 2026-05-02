@@ -1,0 +1,1528 @@
+{
+  "schemaVersion": "spring-ts.narrative-fragment-bundle.v1",
+  "bundleId": "overall.life.brief_water_daymaster_tuple_density_20260503_a",
+  "contractVersion": "1.0.0",
+  "generatedBy": "codex.water-daymaster-tuple-density-20260503-a",
+  "fragments": [
+    {
+      "schemaVersion": "spring-ts.narrative-fragment.v1",
+      "fragmentId": "overall.life.brief.tuple_water_earth_extreme_strong_flow.601",
+      "axis": {
+        "category": "overall",
+        "period": "life",
+        "depth": "brief"
+      },
+      "gating": {
+        "dayMasterElement": [
+          "WATER"
+        ],
+        "yongshinElement": [
+          "EARTH"
+        ],
+        "dayMasterStrength": [
+          "EXTREME_STRONG"
+        ]
+      },
+      "templateTokens": [
+        {
+          "kind": "text",
+          "value": "물 일간의 큰 흐름은 직관, 적응, 감정의 움직임을 중심으로 흘러요. 감정과 생각의 흐름이 매우 강해 방향이 흐려질 수 있어요. 흙 용신은 흩어지는 생각을 현실의 자리로 붙잡아 주는 보강점이에요."
+        }
+      ],
+      "tags": [],
+      "aiGenerated": true,
+      "sourceTier": {
+        "tier": "T1_HYPOTHESIS",
+        "sourceType": "training_derived",
+        "sourceUrl": null,
+        "accessedAt": "2026-05-03",
+        "quoteShort": null,
+        "humanInterpretation": "Tuple-density expansion for water day-master, yongshin element, and strength branching. AI-derived display text; not authority truth.",
+        "copyrightNote": "No source prose copied; original hypothesis text.",
+        "authorityTruthEligible": false
+      }
+    },
+    {
+      "schemaVersion": "spring-ts.narrative-fragment.v1",
+      "fragmentId": "overall.life.brief.tuple_water_earth_extreme_strong_practice.602",
+      "axis": {
+        "category": "overall",
+        "period": "life",
+        "depth": "brief"
+      },
+      "gating": {
+        "dayMasterElement": [
+          "WATER"
+        ],
+        "yongshinElement": [
+          "EARTH"
+        ],
+        "dayMasterStrength": [
+          "EXTREME_STRONG"
+        ]
+      },
+      "templateTokens": [
+        {
+          "kind": "text",
+          "value": "물 일간에 극신강 흐름이 겹치면 깊이 생각하는 힘과 실행 리듬을 함께 맞춰야 해요. 여러 가능성을 열어두되 마감 시간 하나는 꼭 고정하세요. 계획을 머릿속에 두지 말고 날짜와 장소가 있는 일정으로 옮겨보세요."
+        }
+      ],
+      "tags": [],
+      "aiGenerated": true,
+      "sourceTier": {
+        "tier": "T1_HYPOTHESIS",
+        "sourceType": "training_derived",
+        "sourceUrl": null,
+        "accessedAt": "2026-05-03",
+        "quoteShort": null,
+        "humanInterpretation": "Tuple-density expansion for water day-master, yongshin element, and strength branching. AI-derived display text; not authority truth.",
+        "copyrightNote": "No source prose copied; original hypothesis text.",
+        "authorityTruthEligible": false
+      }
+    },
+    {
+      "schemaVersion": "spring-ts.narrative-fragment.v1",
+      "fragmentId": "overall.life.brief.tuple_water_earth_extreme_weak_flow.603",
+      "axis": {
+        "category": "overall",
+        "period": "life",
+        "depth": "brief"
+      },
+      "gating": {
+        "dayMasterElement": [
+          "WATER"
+        ],
+        "yongshinElement": [
+          "EARTH"
+        ],
+        "dayMasterStrength": [
+          "EXTREME_WEAK"
+        ]
+      },
+      "templateTokens": [
+        {
+          "kind": "text",
+          "value": "물 일간의 큰 흐름은 직관, 적응, 감정의 움직임을 중심으로 흘러요. 기운이 쉽게 흩어져 결정과 지속이 흔들리기 쉬워요. 흙 용신은 흩어지는 생각을 현실의 자리로 붙잡아 주는 보강점이에요."
+        }
+      ],
+      "tags": [],
+      "aiGenerated": true,
+      "sourceTier": {
+        "tier": "T1_HYPOTHESIS",
+        "sourceType": "training_derived",
+        "sourceUrl": null,
+        "accessedAt": "2026-05-03",
+        "quoteShort": null,
+        "humanInterpretation": "Tuple-density expansion for water day-master, yongshin element, and strength branching. AI-derived display text; not authority truth.",
+        "copyrightNote": "No source prose copied; original hypothesis text.",
+        "authorityTruthEligible": false
+      }
+    },
+    {
+      "schemaVersion": "spring-ts.narrative-fragment.v1",
+      "fragmentId": "overall.life.brief.tuple_water_earth_extreme_weak_practice.604",
+      "axis": {
+        "category": "overall",
+        "period": "life",
+        "depth": "brief"
+      },
+      "gating": {
+        "dayMasterElement": [
+          "WATER"
+        ],
+        "yongshinElement": [
+          "EARTH"
+        ],
+        "dayMasterStrength": [
+          "EXTREME_WEAK"
+        ]
+      },
+      "templateTokens": [
+        {
+          "kind": "text",
+          "value": "물 일간에 극신약 흐름이 겹치면 깊이 생각하는 힘과 실행 리듬을 함께 맞춰야 해요. 하루 계획을 줄이고 가장 안정적인 루틴부터 회복하세요. 계획을 머릿속에 두지 말고 날짜와 장소가 있는 일정으로 옮겨보세요."
+        }
+      ],
+      "tags": [],
+      "aiGenerated": true,
+      "sourceTier": {
+        "tier": "T1_HYPOTHESIS",
+        "sourceType": "training_derived",
+        "sourceUrl": null,
+        "accessedAt": "2026-05-03",
+        "quoteShort": null,
+        "humanInterpretation": "Tuple-density expansion for water day-master, yongshin element, and strength branching. AI-derived display text; not authority truth.",
+        "copyrightNote": "No source prose copied; original hypothesis text.",
+        "authorityTruthEligible": false
+      }
+    },
+    {
+      "schemaVersion": "spring-ts.narrative-fragment.v1",
+      "fragmentId": "overall.life.brief.tuple_water_earth_strong_flow.605",
+      "axis": {
+        "category": "overall",
+        "period": "life",
+        "depth": "brief"
+      },
+      "gating": {
+        "dayMasterElement": [
+          "WATER"
+        ],
+        "yongshinElement": [
+          "EARTH"
+        ],
+        "dayMasterStrength": [
+          "STRONG"
+        ]
+      },
+      "templateTokens": [
+        {
+          "kind": "text",
+          "value": "물 일간의 큰 흐름은 직관, 적응, 감정의 움직임을 중심으로 흘러요. 생각의 깊이와 적응력이 강하지만 결론이 늦어질 수 있어요. 흙 용신은 흩어지는 생각을 현실의 자리로 붙잡아 주는 보강점이에요."
+        }
+      ],
+      "tags": [],
+      "aiGenerated": true,
+      "sourceTier": {
+        "tier": "T1_HYPOTHESIS",
+        "sourceType": "training_derived",
+        "sourceUrl": null,
+        "accessedAt": "2026-05-03",
+        "quoteShort": null,
+        "humanInterpretation": "Tuple-density expansion for water day-master, yongshin element, and strength branching. AI-derived display text; not authority truth.",
+        "copyrightNote": "No source prose copied; original hypothesis text.",
+        "authorityTruthEligible": false
+      }
+    },
+    {
+      "schemaVersion": "spring-ts.narrative-fragment.v1",
+      "fragmentId": "overall.life.brief.tuple_water_earth_strong_practice.606",
+      "axis": {
+        "category": "overall",
+        "period": "life",
+        "depth": "brief"
+      },
+      "gating": {
+        "dayMasterElement": [
+          "WATER"
+        ],
+        "yongshinElement": [
+          "EARTH"
+        ],
+        "dayMasterStrength": [
+          "STRONG"
+        ]
+      },
+      "templateTokens": [
+        {
+          "kind": "text",
+          "value": "물 일간에 신강 흐름이 겹치면 깊이 생각하는 힘과 실행 리듬을 함께 맞춰야 해요. 충분히 살핀 뒤에는 작게라도 실행으로 옮기는 기준을 정하세요. 계획을 머릿속에 두지 말고 날짜와 장소가 있는 일정으로 옮겨보세요."
+        }
+      ],
+      "tags": [],
+      "aiGenerated": true,
+      "sourceTier": {
+        "tier": "T1_HYPOTHESIS",
+        "sourceType": "training_derived",
+        "sourceUrl": null,
+        "accessedAt": "2026-05-03",
+        "quoteShort": null,
+        "humanInterpretation": "Tuple-density expansion for water day-master, yongshin element, and strength branching. AI-derived display text; not authority truth.",
+        "copyrightNote": "No source prose copied; original hypothesis text.",
+        "authorityTruthEligible": false
+      }
+    },
+    {
+      "schemaVersion": "spring-ts.narrative-fragment.v1",
+      "fragmentId": "overall.life.brief.tuple_water_earth_weak_flow.607",
+      "axis": {
+        "category": "overall",
+        "period": "life",
+        "depth": "brief"
+      },
+      "gating": {
+        "dayMasterElement": [
+          "WATER"
+        ],
+        "yongshinElement": [
+          "EARTH"
+        ],
+        "dayMasterStrength": [
+          "WEAK"
+        ]
+      },
+      "templateTokens": [
+        {
+          "kind": "text",
+          "value": "물 일간의 큰 흐름은 직관, 적응, 감정의 움직임을 중심으로 흘러요. 민감하게 받아들이는 힘이 커져 쉽게 지칠 수 있어요. 흙 용신은 흩어지는 생각을 현실의 자리로 붙잡아 주는 보강점이에요."
+        }
+      ],
+      "tags": [],
+      "aiGenerated": true,
+      "sourceTier": {
+        "tier": "T1_HYPOTHESIS",
+        "sourceType": "training_derived",
+        "sourceUrl": null,
+        "accessedAt": "2026-05-03",
+        "quoteShort": null,
+        "humanInterpretation": "Tuple-density expansion for water day-master, yongshin element, and strength branching. AI-derived display text; not authority truth.",
+        "copyrightNote": "No source prose copied; original hypothesis text.",
+        "authorityTruthEligible": false
+      }
+    },
+    {
+      "schemaVersion": "spring-ts.narrative-fragment.v1",
+      "fragmentId": "overall.life.brief.tuple_water_earth_weak_practice.608",
+      "axis": {
+        "category": "overall",
+        "period": "life",
+        "depth": "brief"
+      },
+      "gating": {
+        "dayMasterElement": [
+          "WATER"
+        ],
+        "yongshinElement": [
+          "EARTH"
+        ],
+        "dayMasterStrength": [
+          "WEAK"
+        ]
+      },
+      "templateTokens": [
+        {
+          "kind": "text",
+          "value": "물 일간에 신약 흐름이 겹치면 깊이 생각하는 힘과 실행 리듬을 함께 맞춰야 해요. 큰 자극을 줄이고 믿을 만한 사람이나 환경에 기대어 진행하세요. 계획을 머릿속에 두지 말고 날짜와 장소가 있는 일정으로 옮겨보세요."
+        }
+      ],
+      "tags": [],
+      "aiGenerated": true,
+      "sourceTier": {
+        "tier": "T1_HYPOTHESIS",
+        "sourceType": "training_derived",
+        "sourceUrl": null,
+        "accessedAt": "2026-05-03",
+        "quoteShort": null,
+        "humanInterpretation": "Tuple-density expansion for water day-master, yongshin element, and strength branching. AI-derived display text; not authority truth.",
+        "copyrightNote": "No source prose copied; original hypothesis text.",
+        "authorityTruthEligible": false
+      }
+    },
+    {
+      "schemaVersion": "spring-ts.narrative-fragment.v1",
+      "fragmentId": "overall.life.brief.tuple_water_fire_balanced_flow.609",
+      "axis": {
+        "category": "overall",
+        "period": "life",
+        "depth": "brief"
+      },
+      "gating": {
+        "dayMasterElement": [
+          "WATER"
+        ],
+        "yongshinElement": [
+          "FIRE"
+        ],
+        "dayMasterStrength": [
+          "BALANCED"
+        ]
+      },
+      "templateTokens": [
+        {
+          "kind": "text",
+          "value": "물 일간의 큰 흐름은 직관, 적응, 감정의 움직임을 중심으로 흘러요. 직관과 실행이 비교적 고르게 움직이는 상태예요. 불 용신은 차가운 흐름에 밝은 의욕과 표현력을 더하는 보강점이에요."
+        }
+      ],
+      "tags": [],
+      "aiGenerated": true,
+      "sourceTier": {
+        "tier": "T1_HYPOTHESIS",
+        "sourceType": "training_derived",
+        "sourceUrl": null,
+        "accessedAt": "2026-05-03",
+        "quoteShort": null,
+        "humanInterpretation": "Tuple-density expansion for water day-master, yongshin element, and strength branching. AI-derived display text; not authority truth.",
+        "copyrightNote": "No source prose copied; original hypothesis text.",
+        "authorityTruthEligible": false
+      }
+    },
+    {
+      "schemaVersion": "spring-ts.narrative-fragment.v1",
+      "fragmentId": "overall.life.brief.tuple_water_fire_balanced_practice.610",
+      "axis": {
+        "category": "overall",
+        "period": "life",
+        "depth": "brief"
+      },
+      "gating": {
+        "dayMasterElement": [
+          "WATER"
+        ],
+        "yongshinElement": [
+          "FIRE"
+        ],
+        "dayMasterStrength": [
+          "BALANCED"
+        ]
+      },
+      "templateTokens": [
+        {
+          "kind": "text",
+          "value": "물 일간에 균형 흐름이 겹치면 깊이 생각하는 힘과 실행 리듬을 함께 맞춰야 해요. 생각을 충분히 살피되 오늘 처리할 한 가지는 분명히 정하세요. 느낀 점을 숨기기보다 짧고 따뜻하게 표현하면 관계가 살아나요."
+        }
+      ],
+      "tags": [],
+      "aiGenerated": true,
+      "sourceTier": {
+        "tier": "T1_HYPOTHESIS",
+        "sourceType": "training_derived",
+        "sourceUrl": null,
+        "accessedAt": "2026-05-03",
+        "quoteShort": null,
+        "humanInterpretation": "Tuple-density expansion for water day-master, yongshin element, and strength branching. AI-derived display text; not authority truth.",
+        "copyrightNote": "No source prose copied; original hypothesis text.",
+        "authorityTruthEligible": false
+      }
+    },
+    {
+      "schemaVersion": "spring-ts.narrative-fragment.v1",
+      "fragmentId": "overall.life.brief.tuple_water_fire_extreme_weak_flow.611",
+      "axis": {
+        "category": "overall",
+        "period": "life",
+        "depth": "brief"
+      },
+      "gating": {
+        "dayMasterElement": [
+          "WATER"
+        ],
+        "yongshinElement": [
+          "FIRE"
+        ],
+        "dayMasterStrength": [
+          "EXTREME_WEAK"
+        ]
+      },
+      "templateTokens": [
+        {
+          "kind": "text",
+          "value": "물 일간의 큰 흐름은 직관, 적응, 감정의 움직임을 중심으로 흘러요. 기운이 쉽게 흩어져 결정과 지속이 흔들리기 쉬워요. 불 용신은 차가운 흐름에 밝은 의욕과 표현력을 더하는 보강점이에요."
+        }
+      ],
+      "tags": [],
+      "aiGenerated": true,
+      "sourceTier": {
+        "tier": "T1_HYPOTHESIS",
+        "sourceType": "training_derived",
+        "sourceUrl": null,
+        "accessedAt": "2026-05-03",
+        "quoteShort": null,
+        "humanInterpretation": "Tuple-density expansion for water day-master, yongshin element, and strength branching. AI-derived display text; not authority truth.",
+        "copyrightNote": "No source prose copied; original hypothesis text.",
+        "authorityTruthEligible": false
+      }
+    },
+    {
+      "schemaVersion": "spring-ts.narrative-fragment.v1",
+      "fragmentId": "overall.life.brief.tuple_water_fire_extreme_weak_practice.612",
+      "axis": {
+        "category": "overall",
+        "period": "life",
+        "depth": "brief"
+      },
+      "gating": {
+        "dayMasterElement": [
+          "WATER"
+        ],
+        "yongshinElement": [
+          "FIRE"
+        ],
+        "dayMasterStrength": [
+          "EXTREME_WEAK"
+        ]
+      },
+      "templateTokens": [
+        {
+          "kind": "text",
+          "value": "물 일간에 극신약 흐름이 겹치면 깊이 생각하는 힘과 실행 리듬을 함께 맞춰야 해요. 하루 계획을 줄이고 가장 안정적인 루틴부터 회복하세요. 느낀 점을 숨기기보다 짧고 따뜻하게 표현하면 관계가 살아나요."
+        }
+      ],
+      "tags": [],
+      "aiGenerated": true,
+      "sourceTier": {
+        "tier": "T1_HYPOTHESIS",
+        "sourceType": "training_derived",
+        "sourceUrl": null,
+        "accessedAt": "2026-05-03",
+        "quoteShort": null,
+        "humanInterpretation": "Tuple-density expansion for water day-master, yongshin element, and strength branching. AI-derived display text; not authority truth.",
+        "copyrightNote": "No source prose copied; original hypothesis text.",
+        "authorityTruthEligible": false
+      }
+    },
+    {
+      "schemaVersion": "spring-ts.narrative-fragment.v1",
+      "fragmentId": "overall.life.brief.tuple_water_fire_strong_flow.613",
+      "axis": {
+        "category": "overall",
+        "period": "life",
+        "depth": "brief"
+      },
+      "gating": {
+        "dayMasterElement": [
+          "WATER"
+        ],
+        "yongshinElement": [
+          "FIRE"
+        ],
+        "dayMasterStrength": [
+          "STRONG"
+        ]
+      },
+      "templateTokens": [
+        {
+          "kind": "text",
+          "value": "물 일간의 큰 흐름은 직관, 적응, 감정의 움직임을 중심으로 흘러요. 생각의 깊이와 적응력이 강하지만 결론이 늦어질 수 있어요. 불 용신은 차가운 흐름에 밝은 의욕과 표현력을 더하는 보강점이에요."
+        }
+      ],
+      "tags": [],
+      "aiGenerated": true,
+      "sourceTier": {
+        "tier": "T1_HYPOTHESIS",
+        "sourceType": "training_derived",
+        "sourceUrl": null,
+        "accessedAt": "2026-05-03",
+        "quoteShort": null,
+        "humanInterpretation": "Tuple-density expansion for water day-master, yongshin element, and strength branching. AI-derived display text; not authority truth.",
+        "copyrightNote": "No source prose copied; original hypothesis text.",
+        "authorityTruthEligible": false
+      }
+    },
+    {
+      "schemaVersion": "spring-ts.narrative-fragment.v1",
+      "fragmentId": "overall.life.brief.tuple_water_fire_strong_practice.614",
+      "axis": {
+        "category": "overall",
+        "period": "life",
+        "depth": "brief"
+      },
+      "gating": {
+        "dayMasterElement": [
+          "WATER"
+        ],
+        "yongshinElement": [
+          "FIRE"
+        ],
+        "dayMasterStrength": [
+          "STRONG"
+        ]
+      },
+      "templateTokens": [
+        {
+          "kind": "text",
+          "value": "물 일간에 신강 흐름이 겹치면 깊이 생각하는 힘과 실행 리듬을 함께 맞춰야 해요. 충분히 살핀 뒤에는 작게라도 실행으로 옮기는 기준을 정하세요. 느낀 점을 숨기기보다 짧고 따뜻하게 표현하면 관계가 살아나요."
+        }
+      ],
+      "tags": [],
+      "aiGenerated": true,
+      "sourceTier": {
+        "tier": "T1_HYPOTHESIS",
+        "sourceType": "training_derived",
+        "sourceUrl": null,
+        "accessedAt": "2026-05-03",
+        "quoteShort": null,
+        "humanInterpretation": "Tuple-density expansion for water day-master, yongshin element, and strength branching. AI-derived display text; not authority truth.",
+        "copyrightNote": "No source prose copied; original hypothesis text.",
+        "authorityTruthEligible": false
+      }
+    },
+    {
+      "schemaVersion": "spring-ts.narrative-fragment.v1",
+      "fragmentId": "overall.life.brief.tuple_water_fire_weak_flow.615",
+      "axis": {
+        "category": "overall",
+        "period": "life",
+        "depth": "brief"
+      },
+      "gating": {
+        "dayMasterElement": [
+          "WATER"
+        ],
+        "yongshinElement": [
+          "FIRE"
+        ],
+        "dayMasterStrength": [
+          "WEAK"
+        ]
+      },
+      "templateTokens": [
+        {
+          "kind": "text",
+          "value": "물 일간의 큰 흐름은 직관, 적응, 감정의 움직임을 중심으로 흘러요. 민감하게 받아들이는 힘이 커져 쉽게 지칠 수 있어요. 불 용신은 차가운 흐름에 밝은 의욕과 표현력을 더하는 보강점이에요."
+        }
+      ],
+      "tags": [],
+      "aiGenerated": true,
+      "sourceTier": {
+        "tier": "T1_HYPOTHESIS",
+        "sourceType": "training_derived",
+        "sourceUrl": null,
+        "accessedAt": "2026-05-03",
+        "quoteShort": null,
+        "humanInterpretation": "Tuple-density expansion for water day-master, yongshin element, and strength branching. AI-derived display text; not authority truth.",
+        "copyrightNote": "No source prose copied; original hypothesis text.",
+        "authorityTruthEligible": false
+      }
+    },
+    {
+      "schemaVersion": "spring-ts.narrative-fragment.v1",
+      "fragmentId": "overall.life.brief.tuple_water_fire_weak_practice.616",
+      "axis": {
+        "category": "overall",
+        "period": "life",
+        "depth": "brief"
+      },
+      "gating": {
+        "dayMasterElement": [
+          "WATER"
+        ],
+        "yongshinElement": [
+          "FIRE"
+        ],
+        "dayMasterStrength": [
+          "WEAK"
+        ]
+      },
+      "templateTokens": [
+        {
+          "kind": "text",
+          "value": "물 일간에 신약 흐름이 겹치면 깊이 생각하는 힘과 실행 리듬을 함께 맞춰야 해요. 큰 자극을 줄이고 믿을 만한 사람이나 환경에 기대어 진행하세요. 느낀 점을 숨기기보다 짧고 따뜻하게 표현하면 관계가 살아나요."
+        }
+      ],
+      "tags": [],
+      "aiGenerated": true,
+      "sourceTier": {
+        "tier": "T1_HYPOTHESIS",
+        "sourceType": "training_derived",
+        "sourceUrl": null,
+        "accessedAt": "2026-05-03",
+        "quoteShort": null,
+        "humanInterpretation": "Tuple-density expansion for water day-master, yongshin element, and strength branching. AI-derived display text; not authority truth.",
+        "copyrightNote": "No source prose copied; original hypothesis text.",
+        "authorityTruthEligible": false
+      }
+    },
+    {
+      "schemaVersion": "spring-ts.narrative-fragment.v1",
+      "fragmentId": "overall.life.brief.tuple_water_metal_balanced_flow.617",
+      "axis": {
+        "category": "overall",
+        "period": "life",
+        "depth": "brief"
+      },
+      "gating": {
+        "dayMasterElement": [
+          "WATER"
+        ],
+        "yongshinElement": [
+          "METAL"
+        ],
+        "dayMasterStrength": [
+          "BALANCED"
+        ]
+      },
+      "templateTokens": [
+        {
+          "kind": "text",
+          "value": "물 일간의 큰 흐름은 직관, 적응, 감정의 움직임을 중심으로 흘러요. 직관과 실행이 비교적 고르게 움직이는 상태예요. 쇠 용신은 많은 생각을 기준 있게 정리하도록 돕는 보강점이에요."
+        }
+      ],
+      "tags": [],
+      "aiGenerated": true,
+      "sourceTier": {
+        "tier": "T1_HYPOTHESIS",
+        "sourceType": "training_derived",
+        "sourceUrl": null,
+        "accessedAt": "2026-05-03",
+        "quoteShort": null,
+        "humanInterpretation": "Tuple-density expansion for water day-master, yongshin element, and strength branching. AI-derived display text; not authority truth.",
+        "copyrightNote": "No source prose copied; original hypothesis text.",
+        "authorityTruthEligible": false
+      }
+    },
+    {
+      "schemaVersion": "spring-ts.narrative-fragment.v1",
+      "fragmentId": "overall.life.brief.tuple_water_metal_balanced_practice.618",
+      "axis": {
+        "category": "overall",
+        "period": "life",
+        "depth": "brief"
+      },
+      "gating": {
+        "dayMasterElement": [
+          "WATER"
+        ],
+        "yongshinElement": [
+          "METAL"
+        ],
+        "dayMasterStrength": [
+          "BALANCED"
+        ]
+      },
+      "templateTokens": [
+        {
+          "kind": "text",
+          "value": "물 일간에 균형 흐름이 겹치면 깊이 생각하는 힘과 실행 리듬을 함께 맞춰야 해요. 생각을 충분히 살피되 오늘 처리할 한 가지는 분명히 정하세요. 정보를 더 모으기 전에 선택 기준을 먼저 적어보세요."
+        }
+      ],
+      "tags": [],
+      "aiGenerated": true,
+      "sourceTier": {
+        "tier": "T1_HYPOTHESIS",
+        "sourceType": "training_derived",
+        "sourceUrl": null,
+        "accessedAt": "2026-05-03",
+        "quoteShort": null,
+        "humanInterpretation": "Tuple-density expansion for water day-master, yongshin element, and strength branching. AI-derived display text; not authority truth.",
+        "copyrightNote": "No source prose copied; original hypothesis text.",
+        "authorityTruthEligible": false
+      }
+    },
+    {
+      "schemaVersion": "spring-ts.narrative-fragment.v1",
+      "fragmentId": "overall.life.brief.tuple_water_metal_extreme_strong_flow.619",
+      "axis": {
+        "category": "overall",
+        "period": "life",
+        "depth": "brief"
+      },
+      "gating": {
+        "dayMasterElement": [
+          "WATER"
+        ],
+        "yongshinElement": [
+          "METAL"
+        ],
+        "dayMasterStrength": [
+          "EXTREME_STRONG"
+        ]
+      },
+      "templateTokens": [
+        {
+          "kind": "text",
+          "value": "물 일간의 큰 흐름은 직관, 적응, 감정의 움직임을 중심으로 흘러요. 감정과 생각의 흐름이 매우 강해 방향이 흐려질 수 있어요. 쇠 용신은 많은 생각을 기준 있게 정리하도록 돕는 보강점이에요."
+        }
+      ],
+      "tags": [],
+      "aiGenerated": true,
+      "sourceTier": {
+        "tier": "T1_HYPOTHESIS",
+        "sourceType": "training_derived",
+        "sourceUrl": null,
+        "accessedAt": "2026-05-03",
+        "quoteShort": null,
+        "humanInterpretation": "Tuple-density expansion for water day-master, yongshin element, and strength branching. AI-derived display text; not authority truth.",
+        "copyrightNote": "No source prose copied; original hypothesis text.",
+        "authorityTruthEligible": false
+      }
+    },
+    {
+      "schemaVersion": "spring-ts.narrative-fragment.v1",
+      "fragmentId": "overall.life.brief.tuple_water_metal_extreme_strong_practice.620",
+      "axis": {
+        "category": "overall",
+        "period": "life",
+        "depth": "brief"
+      },
+      "gating": {
+        "dayMasterElement": [
+          "WATER"
+        ],
+        "yongshinElement": [
+          "METAL"
+        ],
+        "dayMasterStrength": [
+          "EXTREME_STRONG"
+        ]
+      },
+      "templateTokens": [
+        {
+          "kind": "text",
+          "value": "물 일간에 극신강 흐름이 겹치면 깊이 생각하는 힘과 실행 리듬을 함께 맞춰야 해요. 여러 가능성을 열어두되 마감 시간 하나는 꼭 고정하세요. 정보를 더 모으기 전에 선택 기준을 먼저 적어보세요."
+        }
+      ],
+      "tags": [],
+      "aiGenerated": true,
+      "sourceTier": {
+        "tier": "T1_HYPOTHESIS",
+        "sourceType": "training_derived",
+        "sourceUrl": null,
+        "accessedAt": "2026-05-03",
+        "quoteShort": null,
+        "humanInterpretation": "Tuple-density expansion for water day-master, yongshin element, and strength branching. AI-derived display text; not authority truth.",
+        "copyrightNote": "No source prose copied; original hypothesis text.",
+        "authorityTruthEligible": false
+      }
+    },
+    {
+      "schemaVersion": "spring-ts.narrative-fragment.v1",
+      "fragmentId": "overall.life.brief.tuple_water_metal_extreme_weak_flow.621",
+      "axis": {
+        "category": "overall",
+        "period": "life",
+        "depth": "brief"
+      },
+      "gating": {
+        "dayMasterElement": [
+          "WATER"
+        ],
+        "yongshinElement": [
+          "METAL"
+        ],
+        "dayMasterStrength": [
+          "EXTREME_WEAK"
+        ]
+      },
+      "templateTokens": [
+        {
+          "kind": "text",
+          "value": "물 일간의 큰 흐름은 직관, 적응, 감정의 움직임을 중심으로 흘러요. 기운이 쉽게 흩어져 결정과 지속이 흔들리기 쉬워요. 쇠 용신은 많은 생각을 기준 있게 정리하도록 돕는 보강점이에요."
+        }
+      ],
+      "tags": [],
+      "aiGenerated": true,
+      "sourceTier": {
+        "tier": "T1_HYPOTHESIS",
+        "sourceType": "training_derived",
+        "sourceUrl": null,
+        "accessedAt": "2026-05-03",
+        "quoteShort": null,
+        "humanInterpretation": "Tuple-density expansion for water day-master, yongshin element, and strength branching. AI-derived display text; not authority truth.",
+        "copyrightNote": "No source prose copied; original hypothesis text.",
+        "authorityTruthEligible": false
+      }
+    },
+    {
+      "schemaVersion": "spring-ts.narrative-fragment.v1",
+      "fragmentId": "overall.life.brief.tuple_water_metal_extreme_weak_practice.622",
+      "axis": {
+        "category": "overall",
+        "period": "life",
+        "depth": "brief"
+      },
+      "gating": {
+        "dayMasterElement": [
+          "WATER"
+        ],
+        "yongshinElement": [
+          "METAL"
+        ],
+        "dayMasterStrength": [
+          "EXTREME_WEAK"
+        ]
+      },
+      "templateTokens": [
+        {
+          "kind": "text",
+          "value": "물 일간에 극신약 흐름이 겹치면 깊이 생각하는 힘과 실행 리듬을 함께 맞춰야 해요. 하루 계획을 줄이고 가장 안정적인 루틴부터 회복하세요. 정보를 더 모으기 전에 선택 기준을 먼저 적어보세요."
+        }
+      ],
+      "tags": [],
+      "aiGenerated": true,
+      "sourceTier": {
+        "tier": "T1_HYPOTHESIS",
+        "sourceType": "training_derived",
+        "sourceUrl": null,
+        "accessedAt": "2026-05-03",
+        "quoteShort": null,
+        "humanInterpretation": "Tuple-density expansion for water day-master, yongshin element, and strength branching. AI-derived display text; not authority truth.",
+        "copyrightNote": "No source prose copied; original hypothesis text.",
+        "authorityTruthEligible": false
+      }
+    },
+    {
+      "schemaVersion": "spring-ts.narrative-fragment.v1",
+      "fragmentId": "overall.life.brief.tuple_water_metal_weak_flow.623",
+      "axis": {
+        "category": "overall",
+        "period": "life",
+        "depth": "brief"
+      },
+      "gating": {
+        "dayMasterElement": [
+          "WATER"
+        ],
+        "yongshinElement": [
+          "METAL"
+        ],
+        "dayMasterStrength": [
+          "WEAK"
+        ]
+      },
+      "templateTokens": [
+        {
+          "kind": "text",
+          "value": "물 일간의 큰 흐름은 직관, 적응, 감정의 움직임을 중심으로 흘러요. 민감하게 받아들이는 힘이 커져 쉽게 지칠 수 있어요. 쇠 용신은 많은 생각을 기준 있게 정리하도록 돕는 보강점이에요."
+        }
+      ],
+      "tags": [],
+      "aiGenerated": true,
+      "sourceTier": {
+        "tier": "T1_HYPOTHESIS",
+        "sourceType": "training_derived",
+        "sourceUrl": null,
+        "accessedAt": "2026-05-03",
+        "quoteShort": null,
+        "humanInterpretation": "Tuple-density expansion for water day-master, yongshin element, and strength branching. AI-derived display text; not authority truth.",
+        "copyrightNote": "No source prose copied; original hypothesis text.",
+        "authorityTruthEligible": false
+      }
+    },
+    {
+      "schemaVersion": "spring-ts.narrative-fragment.v1",
+      "fragmentId": "overall.life.brief.tuple_water_metal_weak_practice.624",
+      "axis": {
+        "category": "overall",
+        "period": "life",
+        "depth": "brief"
+      },
+      "gating": {
+        "dayMasterElement": [
+          "WATER"
+        ],
+        "yongshinElement": [
+          "METAL"
+        ],
+        "dayMasterStrength": [
+          "WEAK"
+        ]
+      },
+      "templateTokens": [
+        {
+          "kind": "text",
+          "value": "물 일간에 신약 흐름이 겹치면 깊이 생각하는 힘과 실행 리듬을 함께 맞춰야 해요. 큰 자극을 줄이고 믿을 만한 사람이나 환경에 기대어 진행하세요. 정보를 더 모으기 전에 선택 기준을 먼저 적어보세요."
+        }
+      ],
+      "tags": [],
+      "aiGenerated": true,
+      "sourceTier": {
+        "tier": "T1_HYPOTHESIS",
+        "sourceType": "training_derived",
+        "sourceUrl": null,
+        "accessedAt": "2026-05-03",
+        "quoteShort": null,
+        "humanInterpretation": "Tuple-density expansion for water day-master, yongshin element, and strength branching. AI-derived display text; not authority truth.",
+        "copyrightNote": "No source prose copied; original hypothesis text.",
+        "authorityTruthEligible": false
+      }
+    },
+    {
+      "schemaVersion": "spring-ts.narrative-fragment.v1",
+      "fragmentId": "overall.life.brief.tuple_water_water_extreme_strong_flow.625",
+      "axis": {
+        "category": "overall",
+        "period": "life",
+        "depth": "brief"
+      },
+      "gating": {
+        "dayMasterElement": [
+          "WATER"
+        ],
+        "yongshinElement": [
+          "WATER"
+        ],
+        "dayMasterStrength": [
+          "EXTREME_STRONG"
+        ]
+      },
+      "templateTokens": [
+        {
+          "kind": "text",
+          "value": "물 일간의 큰 흐름은 직관, 적응, 감정의 움직임을 중심으로 흘러요. 감정과 생각의 흐름이 매우 강해 방향이 흐려질 수 있어요. 물 용신은 직관과 적응력을 회복시키는 보강점이에요."
+        }
+      ],
+      "tags": [],
+      "aiGenerated": true,
+      "sourceTier": {
+        "tier": "T1_HYPOTHESIS",
+        "sourceType": "training_derived",
+        "sourceUrl": null,
+        "accessedAt": "2026-05-03",
+        "quoteShort": null,
+        "humanInterpretation": "Tuple-density expansion for water day-master, yongshin element, and strength branching. AI-derived display text; not authority truth.",
+        "copyrightNote": "No source prose copied; original hypothesis text.",
+        "authorityTruthEligible": false
+      }
+    },
+    {
+      "schemaVersion": "spring-ts.narrative-fragment.v1",
+      "fragmentId": "overall.life.brief.tuple_water_water_extreme_strong_practice.626",
+      "axis": {
+        "category": "overall",
+        "period": "life",
+        "depth": "brief"
+      },
+      "gating": {
+        "dayMasterElement": [
+          "WATER"
+        ],
+        "yongshinElement": [
+          "WATER"
+        ],
+        "dayMasterStrength": [
+          "EXTREME_STRONG"
+        ]
+      },
+      "templateTokens": [
+        {
+          "kind": "text",
+          "value": "물 일간에 극신강 흐름이 겹치면 깊이 생각하는 힘과 실행 리듬을 함께 맞춰야 해요. 여러 가능성을 열어두되 마감 시간 하나는 꼭 고정하세요. 정답을 급히 고르기보다 흐름을 살피며 선택지를 열어두세요."
+        }
+      ],
+      "tags": [],
+      "aiGenerated": true,
+      "sourceTier": {
+        "tier": "T1_HYPOTHESIS",
+        "sourceType": "training_derived",
+        "sourceUrl": null,
+        "accessedAt": "2026-05-03",
+        "quoteShort": null,
+        "humanInterpretation": "Tuple-density expansion for water day-master, yongshin element, and strength branching. AI-derived display text; not authority truth.",
+        "copyrightNote": "No source prose copied; original hypothesis text.",
+        "authorityTruthEligible": false
+      }
+    },
+    {
+      "schemaVersion": "spring-ts.narrative-fragment.v1",
+      "fragmentId": "overall.life.brief.tuple_water_water_extreme_weak_flow.627",
+      "axis": {
+        "category": "overall",
+        "period": "life",
+        "depth": "brief"
+      },
+      "gating": {
+        "dayMasterElement": [
+          "WATER"
+        ],
+        "yongshinElement": [
+          "WATER"
+        ],
+        "dayMasterStrength": [
+          "EXTREME_WEAK"
+        ]
+      },
+      "templateTokens": [
+        {
+          "kind": "text",
+          "value": "물 일간의 큰 흐름은 직관, 적응, 감정의 움직임을 중심으로 흘러요. 기운이 쉽게 흩어져 결정과 지속이 흔들리기 쉬워요. 물 용신은 직관과 적응력을 회복시키는 보강점이에요."
+        }
+      ],
+      "tags": [],
+      "aiGenerated": true,
+      "sourceTier": {
+        "tier": "T1_HYPOTHESIS",
+        "sourceType": "training_derived",
+        "sourceUrl": null,
+        "accessedAt": "2026-05-03",
+        "quoteShort": null,
+        "humanInterpretation": "Tuple-density expansion for water day-master, yongshin element, and strength branching. AI-derived display text; not authority truth.",
+        "copyrightNote": "No source prose copied; original hypothesis text.",
+        "authorityTruthEligible": false
+      }
+    },
+    {
+      "schemaVersion": "spring-ts.narrative-fragment.v1",
+      "fragmentId": "overall.life.brief.tuple_water_water_extreme_weak_practice.628",
+      "axis": {
+        "category": "overall",
+        "period": "life",
+        "depth": "brief"
+      },
+      "gating": {
+        "dayMasterElement": [
+          "WATER"
+        ],
+        "yongshinElement": [
+          "WATER"
+        ],
+        "dayMasterStrength": [
+          "EXTREME_WEAK"
+        ]
+      },
+      "templateTokens": [
+        {
+          "kind": "text",
+          "value": "물 일간에 극신약 흐름이 겹치면 깊이 생각하는 힘과 실행 리듬을 함께 맞춰야 해요. 하루 계획을 줄이고 가장 안정적인 루틴부터 회복하세요. 정답을 급히 고르기보다 흐름을 살피며 선택지를 열어두세요."
+        }
+      ],
+      "tags": [],
+      "aiGenerated": true,
+      "sourceTier": {
+        "tier": "T1_HYPOTHESIS",
+        "sourceType": "training_derived",
+        "sourceUrl": null,
+        "accessedAt": "2026-05-03",
+        "quoteShort": null,
+        "humanInterpretation": "Tuple-density expansion for water day-master, yongshin element, and strength branching. AI-derived display text; not authority truth.",
+        "copyrightNote": "No source prose copied; original hypothesis text.",
+        "authorityTruthEligible": false
+      }
+    },
+    {
+      "schemaVersion": "spring-ts.narrative-fragment.v1",
+      "fragmentId": "overall.life.brief.tuple_water_water_strong_flow.629",
+      "axis": {
+        "category": "overall",
+        "period": "life",
+        "depth": "brief"
+      },
+      "gating": {
+        "dayMasterElement": [
+          "WATER"
+        ],
+        "yongshinElement": [
+          "WATER"
+        ],
+        "dayMasterStrength": [
+          "STRONG"
+        ]
+      },
+      "templateTokens": [
+        {
+          "kind": "text",
+          "value": "물 일간의 큰 흐름은 직관, 적응, 감정의 움직임을 중심으로 흘러요. 생각의 깊이와 적응력이 강하지만 결론이 늦어질 수 있어요. 물 용신은 직관과 적응력을 회복시키는 보강점이에요."
+        }
+      ],
+      "tags": [],
+      "aiGenerated": true,
+      "sourceTier": {
+        "tier": "T1_HYPOTHESIS",
+        "sourceType": "training_derived",
+        "sourceUrl": null,
+        "accessedAt": "2026-05-03",
+        "quoteShort": null,
+        "humanInterpretation": "Tuple-density expansion for water day-master, yongshin element, and strength branching. AI-derived display text; not authority truth.",
+        "copyrightNote": "No source prose copied; original hypothesis text.",
+        "authorityTruthEligible": false
+      }
+    },
+    {
+      "schemaVersion": "spring-ts.narrative-fragment.v1",
+      "fragmentId": "overall.life.brief.tuple_water_water_strong_practice.630",
+      "axis": {
+        "category": "overall",
+        "period": "life",
+        "depth": "brief"
+      },
+      "gating": {
+        "dayMasterElement": [
+          "WATER"
+        ],
+        "yongshinElement": [
+          "WATER"
+        ],
+        "dayMasterStrength": [
+          "STRONG"
+        ]
+      },
+      "templateTokens": [
+        {
+          "kind": "text",
+          "value": "물 일간에 신강 흐름이 겹치면 깊이 생각하는 힘과 실행 리듬을 함께 맞춰야 해요. 충분히 살핀 뒤에는 작게라도 실행으로 옮기는 기준을 정하세요. 정답을 급히 고르기보다 흐름을 살피며 선택지를 열어두세요."
+        }
+      ],
+      "tags": [],
+      "aiGenerated": true,
+      "sourceTier": {
+        "tier": "T1_HYPOTHESIS",
+        "sourceType": "training_derived",
+        "sourceUrl": null,
+        "accessedAt": "2026-05-03",
+        "quoteShort": null,
+        "humanInterpretation": "Tuple-density expansion for water day-master, yongshin element, and strength branching. AI-derived display text; not authority truth.",
+        "copyrightNote": "No source prose copied; original hypothesis text.",
+        "authorityTruthEligible": false
+      }
+    },
+    {
+      "schemaVersion": "spring-ts.narrative-fragment.v1",
+      "fragmentId": "overall.life.brief.tuple_water_water_weak_flow.631",
+      "axis": {
+        "category": "overall",
+        "period": "life",
+        "depth": "brief"
+      },
+      "gating": {
+        "dayMasterElement": [
+          "WATER"
+        ],
+        "yongshinElement": [
+          "WATER"
+        ],
+        "dayMasterStrength": [
+          "WEAK"
+        ]
+      },
+      "templateTokens": [
+        {
+          "kind": "text",
+          "value": "물 일간의 큰 흐름은 직관, 적응, 감정의 움직임을 중심으로 흘러요. 민감하게 받아들이는 힘이 커져 쉽게 지칠 수 있어요. 물 용신은 직관과 적응력을 회복시키는 보강점이에요."
+        }
+      ],
+      "tags": [],
+      "aiGenerated": true,
+      "sourceTier": {
+        "tier": "T1_HYPOTHESIS",
+        "sourceType": "training_derived",
+        "sourceUrl": null,
+        "accessedAt": "2026-05-03",
+        "quoteShort": null,
+        "humanInterpretation": "Tuple-density expansion for water day-master, yongshin element, and strength branching. AI-derived display text; not authority truth.",
+        "copyrightNote": "No source prose copied; original hypothesis text.",
+        "authorityTruthEligible": false
+      }
+    },
+    {
+      "schemaVersion": "spring-ts.narrative-fragment.v1",
+      "fragmentId": "overall.life.brief.tuple_water_water_weak_practice.632",
+      "axis": {
+        "category": "overall",
+        "period": "life",
+        "depth": "brief"
+      },
+      "gating": {
+        "dayMasterElement": [
+          "WATER"
+        ],
+        "yongshinElement": [
+          "WATER"
+        ],
+        "dayMasterStrength": [
+          "WEAK"
+        ]
+      },
+      "templateTokens": [
+        {
+          "kind": "text",
+          "value": "물 일간에 신약 흐름이 겹치면 깊이 생각하는 힘과 실행 리듬을 함께 맞춰야 해요. 큰 자극을 줄이고 믿을 만한 사람이나 환경에 기대어 진행하세요. 정답을 급히 고르기보다 흐름을 살피며 선택지를 열어두세요."
+        }
+      ],
+      "tags": [],
+      "aiGenerated": true,
+      "sourceTier": {
+        "tier": "T1_HYPOTHESIS",
+        "sourceType": "training_derived",
+        "sourceUrl": null,
+        "accessedAt": "2026-05-03",
+        "quoteShort": null,
+        "humanInterpretation": "Tuple-density expansion for water day-master, yongshin element, and strength branching. AI-derived display text; not authority truth.",
+        "copyrightNote": "No source prose copied; original hypothesis text.",
+        "authorityTruthEligible": false
+      }
+    },
+    {
+      "schemaVersion": "spring-ts.narrative-fragment.v1",
+      "fragmentId": "overall.life.brief.tuple_water_wood_extreme_strong_flow.633",
+      "axis": {
+        "category": "overall",
+        "period": "life",
+        "depth": "brief"
+      },
+      "gating": {
+        "dayMasterElement": [
+          "WATER"
+        ],
+        "yongshinElement": [
+          "WOOD"
+        ],
+        "dayMasterStrength": [
+          "EXTREME_STRONG"
+        ]
+      },
+      "templateTokens": [
+        {
+          "kind": "text",
+          "value": "물 일간의 큰 흐름은 직관, 적응, 감정의 움직임을 중심으로 흘러요. 감정과 생각의 흐름이 매우 강해 방향이 흐려질 수 있어요. 나무 용신은 생각을 성장 방향과 실행 계획으로 연결하는 보강점이에요."
+        }
+      ],
+      "tags": [],
+      "aiGenerated": true,
+      "sourceTier": {
+        "tier": "T1_HYPOTHESIS",
+        "sourceType": "training_derived",
+        "sourceUrl": null,
+        "accessedAt": "2026-05-03",
+        "quoteShort": null,
+        "humanInterpretation": "Tuple-density expansion for water day-master, yongshin element, and strength branching. AI-derived display text; not authority truth.",
+        "copyrightNote": "No source prose copied; original hypothesis text.",
+        "authorityTruthEligible": false
+      }
+    },
+    {
+      "schemaVersion": "spring-ts.narrative-fragment.v1",
+      "fragmentId": "overall.life.brief.tuple_water_wood_extreme_strong_practice.634",
+      "axis": {
+        "category": "overall",
+        "period": "life",
+        "depth": "brief"
+      },
+      "gating": {
+        "dayMasterElement": [
+          "WATER"
+        ],
+        "yongshinElement": [
+          "WOOD"
+        ],
+        "dayMasterStrength": [
+          "EXTREME_STRONG"
+        ]
+      },
+      "templateTokens": [
+        {
+          "kind": "text",
+          "value": "물 일간에 극신강 흐름이 겹치면 깊이 생각하는 힘과 실행 리듬을 함께 맞춰야 해요. 여러 가능성을 열어두되 마감 시간 하나는 꼭 고정하세요. 아이디어 하나를 작게 실험해 보고 반응을 보며 키워가세요."
+        }
+      ],
+      "tags": [],
+      "aiGenerated": true,
+      "sourceTier": {
+        "tier": "T1_HYPOTHESIS",
+        "sourceType": "training_derived",
+        "sourceUrl": null,
+        "accessedAt": "2026-05-03",
+        "quoteShort": null,
+        "humanInterpretation": "Tuple-density expansion for water day-master, yongshin element, and strength branching. AI-derived display text; not authority truth.",
+        "copyrightNote": "No source prose copied; original hypothesis text.",
+        "authorityTruthEligible": false
+      }
+    },
+    {
+      "schemaVersion": "spring-ts.narrative-fragment.v1",
+      "fragmentId": "overall.life.brief.tuple_water_wood_extreme_weak_flow.635",
+      "axis": {
+        "category": "overall",
+        "period": "life",
+        "depth": "brief"
+      },
+      "gating": {
+        "dayMasterElement": [
+          "WATER"
+        ],
+        "yongshinElement": [
+          "WOOD"
+        ],
+        "dayMasterStrength": [
+          "EXTREME_WEAK"
+        ]
+      },
+      "templateTokens": [
+        {
+          "kind": "text",
+          "value": "물 일간의 큰 흐름은 직관, 적응, 감정의 움직임을 중심으로 흘러요. 기운이 쉽게 흩어져 결정과 지속이 흔들리기 쉬워요. 나무 용신은 생각을 성장 방향과 실행 계획으로 연결하는 보강점이에요."
+        }
+      ],
+      "tags": [],
+      "aiGenerated": true,
+      "sourceTier": {
+        "tier": "T1_HYPOTHESIS",
+        "sourceType": "training_derived",
+        "sourceUrl": null,
+        "accessedAt": "2026-05-03",
+        "quoteShort": null,
+        "humanInterpretation": "Tuple-density expansion for water day-master, yongshin element, and strength branching. AI-derived display text; not authority truth.",
+        "copyrightNote": "No source prose copied; original hypothesis text.",
+        "authorityTruthEligible": false
+      }
+    },
+    {
+      "schemaVersion": "spring-ts.narrative-fragment.v1",
+      "fragmentId": "overall.life.brief.tuple_water_wood_extreme_weak_practice.636",
+      "axis": {
+        "category": "overall",
+        "period": "life",
+        "depth": "brief"
+      },
+      "gating": {
+        "dayMasterElement": [
+          "WATER"
+        ],
+        "yongshinElement": [
+          "WOOD"
+        ],
+        "dayMasterStrength": [
+          "EXTREME_WEAK"
+        ]
+      },
+      "templateTokens": [
+        {
+          "kind": "text",
+          "value": "물 일간에 극신약 흐름이 겹치면 깊이 생각하는 힘과 실행 리듬을 함께 맞춰야 해요. 하루 계획을 줄이고 가장 안정적인 루틴부터 회복하세요. 아이디어 하나를 작게 실험해 보고 반응을 보며 키워가세요."
+        }
+      ],
+      "tags": [],
+      "aiGenerated": true,
+      "sourceTier": {
+        "tier": "T1_HYPOTHESIS",
+        "sourceType": "training_derived",
+        "sourceUrl": null,
+        "accessedAt": "2026-05-03",
+        "quoteShort": null,
+        "humanInterpretation": "Tuple-density expansion for water day-master, yongshin element, and strength branching. AI-derived display text; not authority truth.",
+        "copyrightNote": "No source prose copied; original hypothesis text.",
+        "authorityTruthEligible": false
+      }
+    },
+    {
+      "schemaVersion": "spring-ts.narrative-fragment.v1",
+      "fragmentId": "overall.life.brief.tuple_water_wood_strong_flow.637",
+      "axis": {
+        "category": "overall",
+        "period": "life",
+        "depth": "brief"
+      },
+      "gating": {
+        "dayMasterElement": [
+          "WATER"
+        ],
+        "yongshinElement": [
+          "WOOD"
+        ],
+        "dayMasterStrength": [
+          "STRONG"
+        ]
+      },
+      "templateTokens": [
+        {
+          "kind": "text",
+          "value": "물 일간의 큰 흐름은 직관, 적응, 감정의 움직임을 중심으로 흘러요. 생각의 깊이와 적응력이 강하지만 결론이 늦어질 수 있어요. 나무 용신은 생각을 성장 방향과 실행 계획으로 연결하는 보강점이에요."
+        }
+      ],
+      "tags": [],
+      "aiGenerated": true,
+      "sourceTier": {
+        "tier": "T1_HYPOTHESIS",
+        "sourceType": "training_derived",
+        "sourceUrl": null,
+        "accessedAt": "2026-05-03",
+        "quoteShort": null,
+        "humanInterpretation": "Tuple-density expansion for water day-master, yongshin element, and strength branching. AI-derived display text; not authority truth.",
+        "copyrightNote": "No source prose copied; original hypothesis text.",
+        "authorityTruthEligible": false
+      }
+    },
+    {
+      "schemaVersion": "spring-ts.narrative-fragment.v1",
+      "fragmentId": "overall.life.brief.tuple_water_wood_strong_practice.638",
+      "axis": {
+        "category": "overall",
+        "period": "life",
+        "depth": "brief"
+      },
+      "gating": {
+        "dayMasterElement": [
+          "WATER"
+        ],
+        "yongshinElement": [
+          "WOOD"
+        ],
+        "dayMasterStrength": [
+          "STRONG"
+        ]
+      },
+      "templateTokens": [
+        {
+          "kind": "text",
+          "value": "물 일간에 신강 흐름이 겹치면 깊이 생각하는 힘과 실행 리듬을 함께 맞춰야 해요. 충분히 살핀 뒤에는 작게라도 실행으로 옮기는 기준을 정하세요. 아이디어 하나를 작게 실험해 보고 반응을 보며 키워가세요."
+        }
+      ],
+      "tags": [],
+      "aiGenerated": true,
+      "sourceTier": {
+        "tier": "T1_HYPOTHESIS",
+        "sourceType": "training_derived",
+        "sourceUrl": null,
+        "accessedAt": "2026-05-03",
+        "quoteShort": null,
+        "humanInterpretation": "Tuple-density expansion for water day-master, yongshin element, and strength branching. AI-derived display text; not authority truth.",
+        "copyrightNote": "No source prose copied; original hypothesis text.",
+        "authorityTruthEligible": false
+      }
+    },
+    {
+      "schemaVersion": "spring-ts.narrative-fragment.v1",
+      "fragmentId": "overall.life.brief.tuple_water_wood_weak_flow.639",
+      "axis": {
+        "category": "overall",
+        "period": "life",
+        "depth": "brief"
+      },
+      "gating": {
+        "dayMasterElement": [
+          "WATER"
+        ],
+        "yongshinElement": [
+          "WOOD"
+        ],
+        "dayMasterStrength": [
+          "WEAK"
+        ]
+      },
+      "templateTokens": [
+        {
+          "kind": "text",
+          "value": "물 일간의 큰 흐름은 직관, 적응, 감정의 움직임을 중심으로 흘러요. 민감하게 받아들이는 힘이 커져 쉽게 지칠 수 있어요. 나무 용신은 생각을 성장 방향과 실행 계획으로 연결하는 보강점이에요."
+        }
+      ],
+      "tags": [],
+      "aiGenerated": true,
+      "sourceTier": {
+        "tier": "T1_HYPOTHESIS",
+        "sourceType": "training_derived",
+        "sourceUrl": null,
+        "accessedAt": "2026-05-03",
+        "quoteShort": null,
+        "humanInterpretation": "Tuple-density expansion for water day-master, yongshin element, and strength branching. AI-derived display text; not authority truth.",
+        "copyrightNote": "No source prose copied; original hypothesis text.",
+        "authorityTruthEligible": false
+      }
+    },
+    {
+      "schemaVersion": "spring-ts.narrative-fragment.v1",
+      "fragmentId": "overall.life.brief.tuple_water_wood_weak_practice.640",
+      "axis": {
+        "category": "overall",
+        "period": "life",
+        "depth": "brief"
+      },
+      "gating": {
+        "dayMasterElement": [
+          "WATER"
+        ],
+        "yongshinElement": [
+          "WOOD"
+        ],
+        "dayMasterStrength": [
+          "WEAK"
+        ]
+      },
+      "templateTokens": [
+        {
+          "kind": "text",
+          "value": "물 일간에 신약 흐름이 겹치면 깊이 생각하는 힘과 실행 리듬을 함께 맞춰야 해요. 큰 자극을 줄이고 믿을 만한 사람이나 환경에 기대어 진행하세요. 아이디어 하나를 작게 실험해 보고 반응을 보며 키워가세요."
+        }
+      ],
+      "tags": [],
+      "aiGenerated": true,
+      "sourceTier": {
+        "tier": "T1_HYPOTHESIS",
+        "sourceType": "training_derived",
+        "sourceUrl": null,
+        "accessedAt": "2026-05-03",
+        "quoteShort": null,
+        "humanInterpretation": "Tuple-density expansion for water day-master, yongshin element, and strength branching. AI-derived display text; not authority truth.",
+        "copyrightNote": "No source prose copied; original hypothesis text.",
+        "authorityTruthEligible": false
+      }
+    }
+  ]
+}
