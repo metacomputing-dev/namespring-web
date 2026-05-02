@@ -94,6 +94,15 @@ check('thin axis values are sorted planning records',
 check('thin axis values expose next density targets',
   report?.thinAxisValues?.some((row: any) => row.field === 'agePhase' && row.value === 'early_20s'),
   String(report?.totals?.thinAxisValueCount ?? 0));
+check('thin axis field summary is machine readable',
+  Array.isArray(report?.thinAxisFieldSummary) &&
+    report.thinAxisFieldSummary.every((row: any) =>
+      typeof row.field === 'string' &&
+      typeof row.thinValueCount === 'number' &&
+      typeof row.authoredDeficitToThreshold === 'number'));
+check('thin axis field summary prioritizes agePhase',
+  report?.thinAxisFieldSummary?.[0]?.field === 'agePhase',
+  JSON.stringify(report?.thinAxisFieldSummary?.[0]));
 
 console.log(`\nNarrative coverage report: ${pass} PASS / ${fail} FAIL`);
 process.exit(fail > 0 ? 1 : 0);
