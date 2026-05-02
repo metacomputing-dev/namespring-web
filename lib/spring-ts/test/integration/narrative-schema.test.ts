@@ -18,6 +18,7 @@ const __dirname = path.dirname(fileURLToPath(import.meta.url));
 const SPRING_TS_ROOT = path.resolve(__dirname, '../..');
 const NARRATIVE_ROOT = path.resolve(SPRING_TS_ROOT, 'data/narrative');
 const GLOSSARY_DIR = path.resolve(NARRATIVE_ROOT, '_glossary');
+const SUMMARY_ONLY = process.argv.includes('--summary') || process.argv.includes('--quiet');
 
 const VALID_CATEGORIES = new Set([
   'overall', 'wealth', 'health', 'academic', 'romance', 'family',
@@ -56,8 +57,15 @@ const VALID_GATING_VALUES: Record<string, ReadonlySet<string> | null> = {
 let pass = 0;
 let fail = 0;
 function check(label: string, cond: boolean, evidence?: string): void {
-  if (cond) { pass += 1; console.log(`  PASS ${label}${evidence ? ` (${evidence})` : ''}`); }
-  else { fail += 1; console.log(`  FAIL ${label}${evidence ? ` (${evidence})` : ''}`); }
+  if (cond) {
+    pass += 1;
+    if (!SUMMARY_ONLY) {
+      console.log(`  PASS ${label}${evidence ? ` (${evidence})` : ''}`);
+    }
+  } else {
+    fail += 1;
+    console.log(`  FAIL ${label}${evidence ? ` (${evidence})` : ''}`);
+  }
 }
 
 function listFragmentBundles(rootDir: string): string[] {
