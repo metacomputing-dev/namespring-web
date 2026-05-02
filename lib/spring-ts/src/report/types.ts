@@ -472,6 +472,18 @@ export interface ExpertFortuneText {
   readonly numericalEvidence?: readonly NumericalEvidenceRow[];
 }
 
+export interface TieredSelectedFragmentEvidence {
+  readonly fragmentId: string;
+  readonly gating: Readonly<Record<string, readonly string[]>>;
+  readonly tags: readonly string[];
+}
+
+export interface TieredSelectedFragments {
+  readonly brief?: TieredSelectedFragmentEvidence;
+  readonly standard?: TieredSelectedFragmentEvidence;
+  readonly expert?: TieredSelectedFragmentEvidence;
+}
+
 /** Numeric backing for an expert claim (e.g., 용신 부합도 점수).
  *  `sourceTier` is required because expert-tier numbers must clear the
  *  NO_AI_POLICY gate — even when the prose is AI-derived, the number must
@@ -494,6 +506,8 @@ export interface TieredFortune {
   readonly brief: BriefFortuneText;
   readonly standard: StandardFortuneText;
   readonly expert: ExpertFortuneText;
+  /** Deterministic narrative source trace for QA / expert-detail UIs. */
+  readonly selectedFragments?: TieredSelectedFragments;
   /** Per-axis judgment strength (reuse from existing card surfaces). */
   readonly axisStrength?: SajuAxisStrengthMap;
   /** Optional row-level evidence backing this cell's claims. */

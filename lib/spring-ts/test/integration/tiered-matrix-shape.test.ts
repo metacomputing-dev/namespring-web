@@ -115,6 +115,14 @@ if (tm) {
       Array.isArray(overall?.standard?.paragraphs));
     check(`period ${period}.overall.expert.paragraphs is array`,
       Array.isArray(overall?.expert?.paragraphs));
+    check(`period ${period}.overall.selectedFragments.brief has fragmentId`,
+      typeof overall?.selectedFragments?.brief?.fragmentId === 'string' &&
+        overall.selectedFragments.brief.fragmentId.length > 0,
+      overall?.selectedFragments?.brief?.fragmentId);
+    check(`period ${period}.overall.selectedFragments.expert gating is object`,
+      overall?.selectedFragments?.expert?.gating != null &&
+        typeof overall.selectedFragments.expert.gating === 'object' &&
+        !Array.isArray(overall.selectedFragments.expert.gating));
 
     // 10 categories
     for (const cat of CATEGORIES) {
@@ -123,6 +131,10 @@ if (tm) {
       check(`period ${period}.${cat}.meaningfulness valid`,
         isMeaningfulnessValid(cell?.meaningfulness));
       check(`period ${period}.${cat}.stars valid`, isStarsValid(cell?.stars));
+      check(`period ${period}.${cat}.selectedFragments.brief has fragmentId`,
+        typeof cell?.selectedFragments?.brief?.fragmentId === 'string' &&
+          cell.selectedFragments.brief.fragmentId.length > 0,
+        cell?.selectedFragments?.brief?.fragmentId);
     }
   }
 
