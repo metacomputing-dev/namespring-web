@@ -1,0 +1,63 @@
+{
+  "schemaVersion": "spring-ts.narrative-fragment-bundle.v1",
+  "bundleId": "coverage.pair.extreme-strong-yongshin-alignment.20260502",
+  "contractVersion": "1.0.0",
+  "fragments": [
+    {
+      "schemaVersion": "spring-ts.narrative-fragment.v1",
+      "fragmentId": "overall.life.standard.extreme_strong_yongshin_alignment.neutral.201",
+      "axis": { "category": "overall", "period": "life", "depth": "standard" },
+      "gating": { "dayMasterStrength": ["EXTREME_STRONG"], "yongshinAlignment": ["neutral"] },
+      "templateTokens": [
+        { "kind": "text", "value": "일간 에너지가 매우 강한데 현재 흐름이 그 힘을 확실히 덜어주거나 정리해 주지는 않는 중간 상태예요. 주도권과 추진력은 장점이지만, 기준 없이 밀어붙이면 주변과 속도가 어긋날 수 있어요. 목표를 작게 나누고 확인 절차를 두면 강한 힘이 더 안정적으로 쓰입니다." }
+      ],
+      "livingTips": [
+        "중요한 일은 혼자 바로 결정하기보다 기준, 일정, 협의 대상을 먼저 적어 보세요.",
+        "추진할 일과 기다릴 일을 구분해서 오늘 꼭 움직일 것만 남겨 보세요."
+      ],
+      "cautions": [
+        "내가 맞다는 확신이 강해질수록 상대의 속도와 피로도도 함께 확인해 주세요."
+      ],
+      "tags": ["dayMasterStrength", "yongshinAlignment"],
+      "aiGenerated": true,
+      "sourceTier": {
+        "tier": "T1_HYPOTHESIS",
+        "sourceType": "training_derived",
+        "sourceUrl": null,
+        "accessedAt": "2026-05-02",
+        "quoteShort": null,
+        "humanInterpretation": "EXTREME_STRONG day master and neutral yongshin alignment pair narrative. AI-derived display text; not authority truth.",
+        "copyrightNote": "No source prose copied; original phrasing.",
+        "authorityTruthEligible": false
+      }
+    },
+    {
+      "schemaVersion": "spring-ts.narrative-fragment.v1",
+      "fragmentId": "overall.life.standard.extreme_strong_yongshin_alignment.conflicting.201",
+      "axis": { "category": "overall", "period": "life", "depth": "standard" },
+      "gating": { "dayMasterStrength": ["EXTREME_STRONG"], "yongshinAlignment": ["conflicting"] },
+      "templateTokens": [
+        { "kind": "text", "value": "일간 에너지가 매우 강한데 현재 흐름이 필요한 균형과 부딪히면, 의욕이 커질수록 마찰도 함께 커질 수 있어요. 이때는 더 세게 밀기보다 힘을 나눠 쓰고, 멈출 기준을 먼저 정하는 편이 좋습니다. 강한 결단력은 살리되 표현과 속도를 낮추면 손실을 줄일 수 있어요." }
+      ],
+      "livingTips": [
+        "논쟁이 생기면 바로 결론을 내기보다 쟁점, 감정, 실제 결정사항을 따로 적어 보세요.",
+        "혼자 끌고 가는 일을 줄이고 맡길 수 있는 일은 작게 나눠 요청해 보세요."
+      ],
+      "cautions": [
+        "속도를 더 내면 해결될 것처럼 느껴져도, 지금은 한 박자 늦추는 것이 결과를 지키는 데 도움이 됩니다."
+      ],
+      "tags": ["dayMasterStrength", "yongshinAlignment"],
+      "aiGenerated": true,
+      "sourceTier": {
+        "tier": "T1_HYPOTHESIS",
+        "sourceType": "training_derived",
+        "sourceUrl": null,
+        "accessedAt": "2026-05-02",
+        "quoteShort": null,
+        "humanInterpretation": "EXTREME_STRONG day master and conflicting yongshin alignment pair narrative. AI-derived display text; not authority truth.",
+        "copyrightNote": "No source prose copied; original phrasing.",
+        "authorityTruthEligible": false
+      }
+    }
+  ]
+}
