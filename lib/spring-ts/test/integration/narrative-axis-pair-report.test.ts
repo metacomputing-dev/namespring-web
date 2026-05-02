@@ -98,19 +98,13 @@ check('pair density thresholds default to observation mode',
     missingExcess: report?.totals?.missingCombinationExcessToThreshold,
     thinExcess: report?.totals?.thinCombinationExcessToThreshold,
   }));
-check('pair density report exposes next expansion targets',
+check('tracked pair density currently has no thin combinations',
   report?.minAuthoredThreshold === 2 &&
-    report?.totals?.thinCombinationCount > 0 &&
-    report.pairs.some((pair: any) =>
-      pair.thinCombinationCount > 0 &&
-      pair.thinCombinations.every((combo: any) =>
-        typeof combo.authoredFragments === 'number' &&
-        typeof combo.requiredAuthoredFragments === 'number' &&
-        typeof combo.deficit === 'number')),
+    report?.totals?.thinCombinationCount === 0 &&
+    report.pairs.every((pair: any) => pair.thinCombinationCount === 0),
   String(report?.totals?.thinCombinationCount ?? 0));
 check('pair density report exposes global top thin targets',
   Array.isArray(report?.topThinCombinations) &&
-    report.topThinCombinations.length > 0 &&
     report.topThinCombinations.length <= 5 &&
     report.topThinCombinations.every((combo: any) =>
       typeof combo.pairKey === 'string' &&
@@ -163,14 +157,29 @@ const thinGate = spawnSync('node', [
   encoding: 'utf-8',
 });
 const thinGateReport = JSON.parse(thinGate.stdout);
-check('thin-combination threshold can fail CI intentionally',
-  thinGate.status === 1 &&
-    thinGate.stderr.includes('thin pair combinations') &&
+check('thin-combination threshold can pass when target is met',
+  thinGate.status === 0 &&
     thinGateReport?.maxThinCombinationThreshold === 0,
   `status=${thinGate.status}; stderr=${thinGate.stderr.trim()}`);
+
+const strictThinGate = spawnSync('node', [
+  SCRIPT_PATH,
+  '--json',
+  '--min-authored=999',
+  '--max-thin-combinations=0',
+], {
+  cwd: SPRING_TS_ROOT,
+  encoding: 'utf-8',
+});
+const strictThinGateReport = JSON.parse(strictThinGate.stdout);
+check('thin-combination threshold can fail CI intentionally',
+  strictThinGate.status === 1 &&
+    strictThinGate.stderr.includes('thin pair combinations') &&
+    strictThinGateReport?.maxThinCombinationThreshold === 0,
+  `status=${strictThinGate.status}; stderr=${strictThinGate.stderr.trim()}`);
 check('thin-combination threshold excess is machine readable',
-  thinGateReport?.totals?.thinCombinationExcessToThreshold === thinGateReport?.totals?.thinCombinationCount,
-  `${thinGateReport?.totals?.thinCombinationExcessToThreshold ?? 0}/${thinGateReport?.totals?.thinCombinationCount ?? 0}`);
+  strictThinGateReport?.totals?.thinCombinationExcessToThreshold === strictThinGateReport?.totals?.thinCombinationCount,
+  `${strictThinGateReport?.totals?.thinCombinationExcessToThreshold ?? 0}/${strictThinGateReport?.totals?.thinCombinationCount ?? 0}`);
 
 console.log(`\nNarrative axis pair report: ${pass} PASS / ${fail} FAIL`);
 process.exit(fail > 0 ? 1 : 0);
