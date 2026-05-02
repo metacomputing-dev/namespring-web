@@ -25,6 +25,8 @@ const VALID_CATEGORIES = new Set([
 ]);
 const VALID_PERIODS = new Set(['life', 'today', 'thisWeek', 'thisMonth', 'thisYear']);
 const VALID_DEPTHS = new Set(['brief', 'standard', 'expert']);
+const NUMERIC_VALUE_EXPRESSION = /^(feature|cell)(\.[A-Za-z_][A-Za-z0-9_]*)+$/;
+const BLOCKED_VALUE_EXPRESSION = /(^|\.)(__proto__|prototype|constructor)(\.|$)/;
 const VALID_TAG_CATEGORIES = new Set([
   'element', 'tenGod', 'gyeokguk', 'shinsal', 'pillar',
   'palace', 'naeum', 'yongshin', 'gungsil', 'compatibility',
@@ -185,6 +187,25 @@ for (const file of fragmentBundles) {
       if (tok?.kind === 'tag') {
         check(`${rel}#${id}: tag.tagId resolves in glossary`,
           allTagIds.has(tok?.tagId), tok?.tagId);
+      }
+    }
+
+    if (frag?.numericalEvidence !== undefined) {
+      check(`${rel}#${id}: numericalEvidence only appears on expert fragments`,
+        frag?.axis?.depth === 'expert', frag?.axis?.depth);
+      check(`${rel}#${id}: numericalEvidence is array`, Array.isArray(frag.numericalEvidence));
+      for (const row of frag.numericalEvidence ?? []) {
+        const expression = String(row?.valueExpression ?? '');
+        check(`${rel}#${id}: numericalEvidence.label non-empty`,
+          typeof row?.label === 'string' && row.label.length > 0);
+        check(`${rel}#${id}: numericalEvidence.valueExpression uses safe path syntax`,
+          NUMERIC_VALUE_EXPRESSION.test(expression), expression);
+        check(`${rel}#${id}: numericalEvidence.valueExpression blocks prototype paths`,
+          !BLOCKED_VALUE_EXPRESSION.test(expression), expression);
+        check(`${rel}#${id}: numericalEvidence.sourceTier is object`,
+          row?.sourceTier != null && typeof row.sourceTier === 'object' && !Array.isArray(row.sourceTier));
+        check(`${rel}#${id}: numericalEvidence source is non-authority`,
+          row?.sourceTier?.authorityTruthEligible === false);
       }
     }
 

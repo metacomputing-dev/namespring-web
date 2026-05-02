@@ -94,6 +94,12 @@
     "tagTokens": {
       "comment": "Each kind:'tag' token MUST reference a glossary id present in data/narrative/_glossary/<id>.json. The fragment-registry validates this at load time; missing ids fail the narrative-schema test.",
       "validation": "templateToken.tagId ∈ keys(glossary.entries)"
+    },
+    "numericalEvidence": {
+      "comment": "Expert fragments may attach deterministic numeric backing. valueExpression is a safe path, not JavaScript.",
+      "allowedValueExpression": "^(feature|cell)(\\.[A-Za-z_][A-Za-z0-9_]*)+$",
+      "blockedPathParts": ["__proto__", "prototype", "constructor"],
+      "runtimeBehavior": "Non-numeric values, unsafe expressions, and malformed sourceTier rows are omitted from ExpertFortuneText.numericalEvidence."
     }
   },
 
