@@ -150,13 +150,13 @@ npx tsx test/integration/tiered-isolation-guard.test.ts
 
 현재 브랜치는 Phase 2 fan-out 산출물을 포함한다.
 
-- fragment bundle: 240개
-- narrative fragments: 2,325개 (`_seed` placeholder 165개 + authored 2,160개)
+- fragment bundle: 242개
+- narrative fragments: 2,349개 (`_seed` placeholder 165개 + authored 2,184개)
 - glossary entries: 130개
 - `tieredMatrix.meta.contentSource`: authored fragment가 하나 이상 로드되면 `'authored'`
 - expert depth `numericalEvidence`: 55/55 cell populated, 0 gap
-- source-tier baseline: fragments `T1_HYPOTHESIS` 2,325개, numericalEvidence `T3_INTERNAL_ENGINE` 110개, authority-truth eligible 0개
-- axis-pair density baseline: tracked pair missing combination 0개, thin combination 149개 (`npm run narrative:axis-pairs -- --min-authored=2`)
+- source-tier baseline: fragments `T1_HYPOTHESIS` 2,349개, numericalEvidence `T3_INTERNAL_ENGINE` 110개, authority-truth eligible 0개
+- axis-pair density baseline: tracked pair missing combination 0개, thin combination 119개 (`npm run narrative:axis-pairs -- --min-authored=2`)
 
 `_seed/placeholder.fragments.json`은 authored pool이 비는 cell을 위한 안전 fallback으로 남겨 둔다. 자세한 분업 기록은 [PHASE2_AGENT_PARTITION.md](./PHASE2_AGENT_PARTITION.md).
 
