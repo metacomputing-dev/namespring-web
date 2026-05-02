@@ -1,0 +1,203 @@
+{
+  "schemaVersion": "spring-ts.narrative-fragment-bundle.v1",
+  "bundleId": "coverage.axis.birth-season-life-career.20260502",
+  "contractVersion": "1.0.0",
+  "fragments": [
+    {
+      "schemaVersion": "spring-ts.narrative-fragment.v1",
+      "fragmentId": "career.thisMonth.standard.birthseason.spring.205",
+      "axis": { "category": "career", "period": "thisMonth", "depth": "standard" },
+      "gating": { "birthSeason": ["spring"] },
+      "templateTokens": [
+        { "kind": "text", "value": "봄에 태어난 흐름은 이번 달 일에서 새롭게 시작하고 키워가는 감각으로 나타날 수 있어요. 아이디어와 관계의 싹을 잘 발견하지만, 너무 많은 일을 동시에 벌리면 마무리가 약해질 수 있습니다. 시작할 일과 끝까지 키울 일을 구분하면 성장의 힘이 더 분명해집니다." }
+      ],
+      "livingTips": [
+        "새 제안은 바로 늘리기보다 이번 달 안에 끝낼 한 가지 결과물로 좁혀보세요.",
+        "처음 만난 사람과의 약속은 다음 행동을 작게 정해 연결을 이어가세요."
+      ],
+      "cautions": [
+        "가능성이 많아 보일수록 우선순위를 늦게 정하면 에너지가 흩어질 수 있어요."
+      ],
+      "tags": ["birthSeason"],
+      "aiGenerated": true,
+      "sourceTier": {
+        "tier": "T1_HYPOTHESIS",
+        "sourceType": "training_derived",
+        "sourceUrl": null,
+        "accessedAt": "2026-05-02",
+        "quoteShort": null,
+        "humanInterpretation": "Monthly career narrative for birthSeason spring. AI-derived display text; not authority truth.",
+        "copyrightNote": "No source prose copied; original phrasing.",
+        "authorityTruthEligible": false
+      }
+    },
+    {
+      "schemaVersion": "spring-ts.narrative-fragment.v1",
+      "fragmentId": "career.thisMonth.standard.birthseason.summer.205",
+      "axis": { "category": "career", "period": "thisMonth", "depth": "standard" },
+      "gating": { "birthSeason": ["summer"] },
+      "templateTokens": [
+        { "kind": "text", "value": "여름에 태어난 흐름은 이번 달 일에서 표현력과 존재감으로 드러날 수 있어요. 사람을 설득하고 분위기를 끌어올리는 힘이 있지만, 열기가 강하면 세부 검토가 뒤로 밀릴 수 있습니다. 메시지는 분명하게 내되 숫자와 일정 확인을 함께 챙기면 성과가 안정됩니다." }
+      ],
+      "livingTips": [
+        "발표나 제안 전에는 핵심 문장 하나와 확인할 숫자 세 가지를 준비하세요.",
+        "분위기가 오른 자리일수록 결정 사항을 문서로 남겨두세요."
+      ],
+      "cautions": [
+        "반응이 좋다고 바로 확장하면 감당 범위가 커질 수 있으니 실행량을 확인하세요."
+      ],
+      "tags": ["birthSeason"],
+      "aiGenerated": true,
+      "sourceTier": {
+        "tier": "T1_HYPOTHESIS",
+        "sourceType": "training_derived",
+        "sourceUrl": null,
+        "accessedAt": "2026-05-02",
+        "quoteShort": null,
+        "humanInterpretation": "Monthly career narrative for birthSeason summer. AI-derived display text; not authority truth.",
+        "copyrightNote": "No source prose copied; original phrasing.",
+        "authorityTruthEligible": false
+      }
+    },
+    {
+      "schemaVersion": "spring-ts.narrative-fragment.v1",
+      "fragmentId": "career.thisMonth.standard.birthseason.autumn.205",
+      "axis": { "category": "career", "period": "thisMonth", "depth": "standard" },
+      "gating": { "birthSeason": ["autumn"] },
+      "templateTokens": [
+        { "kind": "text", "value": "가을에 태어난 흐름은 이번 달 일에서 기준을 세우고 결과를 다듬는 힘으로 나타날 수 있어요. 품질과 완성도를 보는 눈이 좋지만, 평가가 엄격해지면 동료에게 차갑게 느껴질 수 있습니다. 기준을 먼저 공유하고 개선점을 단계로 나누면 전문성이 더 잘 전달됩니다." }
+      ],
+      "livingTips": [
+        "검토 의견은 문제, 이유, 다음 행동 순서로 짧게 정리해 보세요.",
+        "마감 전에는 완성도 기준과 타협 가능한 범위를 따로 적어두세요."
+      ],
+      "cautions": [
+        "완벽하게 고치려다 전체 일정이 밀리지 않도록 마감선을 분명히 두세요."
+      ],
+      "tags": ["birthSeason"],
+      "aiGenerated": true,
+      "sourceTier": {
+        "tier": "T1_HYPOTHESIS",
+        "sourceType": "training_derived",
+        "sourceUrl": null,
+        "accessedAt": "2026-05-02",
+        "quoteShort": null,
+        "humanInterpretation": "Monthly career narrative for birthSeason autumn. AI-derived display text; not authority truth.",
+        "copyrightNote": "No source prose copied; original phrasing.",
+        "authorityTruthEligible": false
+      }
+    },
+    {
+      "schemaVersion": "spring-ts.narrative-fragment.v1",
+      "fragmentId": "career.thisMonth.standard.birthseason.winter.205",
+      "axis": { "category": "career", "period": "thisMonth", "depth": "standard" },
+      "gating": { "birthSeason": ["winter"] },
+      "templateTokens": [
+        { "kind": "text", "value": "겨울에 태어난 흐름은 이번 달 일에서 깊이 생각하고 숨은 흐름을 읽는 힘으로 나타날 수 있어요. 조사와 전략 수립에는 강점이 있지만, 조용히 쌓아두기만 하면 주변이 진행 상황을 알기 어렵습니다. 준비한 내용을 작은 단위로 공개하면 신뢰와 속도를 함께 얻을 수 있습니다." }
+      ],
+      "livingTips": [
+        "자료 조사 결과는 완성 전이라도 중간 요약을 한 번 공유하세요.",
+        "혼자 판단하기 어려운 일은 질문 목록을 만들어 먼저 확인해 보세요."
+      ],
+      "cautions": [
+        "생각이 깊어질수록 실행이 늦어질 수 있으니 작은 마감부터 잡아보세요."
+      ],
+      "tags": ["birthSeason"],
+      "aiGenerated": true,
+      "sourceTier": {
+        "tier": "T1_HYPOTHESIS",
+        "sourceType": "training_derived",
+        "sourceUrl": null,
+        "accessedAt": "2026-05-02",
+        "quoteShort": null,
+        "humanInterpretation": "Monthly career narrative for birthSeason winter. AI-derived display text; not authority truth.",
+        "copyrightNote": "No source prose copied; original phrasing.",
+        "authorityTruthEligible": false
+      }
+    },
+    {
+      "schemaVersion": "spring-ts.narrative-fragment.v1",
+      "fragmentId": "family.life.standard.birthseason.summer.205",
+      "axis": { "category": "family", "period": "life", "depth": "standard" },
+      "gating": { "birthSeason": ["summer"] },
+      "templateTokens": [
+        { "kind": "text", "value": "여름에 태어난 바탕은 가까운 관계에서 감정을 밝게 표현하고 분위기를 살리는 힘으로 이어질 수 있어요. 마음을 바로 드러내는 장점이 있지만, 감정의 온도가 높아지면 상대가 부담을 느낄 수 있습니다. 기쁜 일은 크게 나누되 불편한 말은 잠시 식힌 뒤 전하면 관계가 편안해집니다." }
+      ],
+      "livingTips": [
+        "중요한 가족 대화는 바로 결론을 내기보다 감정이 가라앉은 뒤 다시 정리하세요.",
+        "칭찬과 부탁을 함께 말하면 따뜻함과 방향이 같이 전달됩니다."
+      ],
+      "cautions": [
+        "순간의 감정으로 약속을 늘리면 나중에 피로가 커질 수 있어요."
+      ],
+      "tags": ["birthSeason"],
+      "aiGenerated": true,
+      "sourceTier": {
+        "tier": "T1_HYPOTHESIS",
+        "sourceType": "training_derived",
+        "sourceUrl": null,
+        "accessedAt": "2026-05-02",
+        "quoteShort": null,
+        "humanInterpretation": "Family life narrative for birthSeason summer. AI-derived display text; not authority truth.",
+        "copyrightNote": "No source prose copied; original phrasing.",
+        "authorityTruthEligible": false
+      }
+    },
+    {
+      "schemaVersion": "spring-ts.narrative-fragment.v1",
+      "fragmentId": "family.life.standard.birthseason.autumn.205",
+      "axis": { "category": "family", "period": "life", "depth": "standard" },
+      "gating": { "birthSeason": ["autumn"] },
+      "templateTokens": [
+        { "kind": "text", "value": "가을에 태어난 바탕은 가까운 관계에서 약속과 기준을 중요하게 여기는 모습으로 이어질 수 있어요. 책임감과 정리 능력은 든든하지만, 기준이 강하게 전달되면 가족에게는 지적처럼 들릴 수 있습니다. 원칙을 말할 때는 상대의 사정과 함께 조정 가능한 부분을 열어두면 안정감이 커집니다." }
+      ],
+      "livingTips": [
+        "가족 규칙을 정할 때 꼭 지킬 기준과 상황에 따라 조정할 기준을 나누세요.",
+        "불만을 말하기 전 상대가 지킨 점을 먼저 하나 인정해 보세요."
+      ],
+      "cautions": [
+        "맞고 틀림만 강조하면 대화가 닫힐 수 있으니 이유와 마음을 함께 말하세요."
+      ],
+      "tags": ["birthSeason"],
+      "aiGenerated": true,
+      "sourceTier": {
+        "tier": "T1_HYPOTHESIS",
+        "sourceType": "training_derived",
+        "sourceUrl": null,
+        "accessedAt": "2026-05-02",
+        "quoteShort": null,
+        "humanInterpretation": "Family life narrative for birthSeason autumn. AI-derived display text; not authority truth.",
+        "copyrightNote": "No source prose copied; original phrasing.",
+        "authorityTruthEligible": false
+      }
+    },
+    {
+      "schemaVersion": "spring-ts.narrative-fragment.v1",
+      "fragmentId": "family.life.standard.birthseason.winter.205",
+      "axis": { "category": "family", "period": "life", "depth": "standard" },
+      "gating": { "birthSeason": ["winter"] },
+      "templateTokens": [
+        { "kind": "text", "value": "겨울에 태어난 바탕은 가까운 관계에서 조용히 살피고 깊게 챙기는 모습으로 이어질 수 있어요. 말보다 행동으로 마음을 보이는 힘이 있지만, 표현이 적으면 가족이 거리감을 느낄 수 있습니다. 작은 안부와 생각을 자주 말로 꺼내면 깊은 배려가 더 잘 전달됩니다." }
+      ],
+      "livingTips": [
+        "도와주고 싶은 일이 있으면 먼저 필요한 방식이 맞는지 물어보세요.",
+        "마음을 표현하기 어렵다면 짧은 메시지나 일정 공유부터 시작하세요."
+      ],
+      "cautions": [
+        "혼자 참고 해결하려는 습관이 길어지면 서운함이 늦게 터질 수 있어요."
+      ],
+      "tags": ["birthSeason"],
+      "aiGenerated": true,
+      "sourceTier": {
+        "tier": "T1_HYPOTHESIS",
+        "sourceType": "training_derived",
+        "sourceUrl": null,
+        "accessedAt": "2026-05-02",
+        "quoteShort": null,
+        "humanInterpretation": "Family life narrative for birthSeason winter. AI-derived display text; not authority truth.",
+        "copyrightNote": "No source prose copied; original phrasing.",
+        "authorityTruthEligible": false
+      }
+    }
+  ]
+}
