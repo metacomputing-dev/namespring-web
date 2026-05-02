@@ -26,7 +26,7 @@ function check(label: string, cond: boolean, evidence?: string): void {
 
 console.log('Narrative axis pair report\n');
 
-const stdout = execFileSync('node', [SCRIPT_PATH, '--json', '--max-missing=3', '--max-thin=3', '--min-authored=2'], {
+const stdout = execFileSync('node', [SCRIPT_PATH, '--json', '--max-missing=3', '--max-thin=3', '--max-top-thin=5', '--min-authored=2'], {
   cwd: SPRING_TS_ROOT,
   encoding: 'utf-8',
 });
@@ -108,6 +108,28 @@ check('pair density report exposes next expansion targets',
         typeof combo.requiredAuthoredFragments === 'number' &&
         typeof combo.deficit === 'number')),
   String(report?.totals?.thinCombinationCount ?? 0));
+check('pair density report exposes global top thin targets',
+  Array.isArray(report?.topThinCombinations) &&
+    report.topThinCombinations.length > 0 &&
+    report.topThinCombinations.length <= 5 &&
+    report.topThinCombinations.every((combo: any) =>
+      typeof combo.pairKey === 'string' &&
+      Array.isArray(combo.fields) &&
+      combo.fields.length === 2 &&
+      combo.values &&
+      typeof combo.authoredFragments === 'number' &&
+      typeof combo.requiredAuthoredFragments === 'number' &&
+      typeof combo.deficit === 'number'),
+  String(report?.topThinCombinations?.length ?? 0));
+check('global top thin targets are sorted by urgency',
+  report.topThinCombinations.every((combo: any, index: number, combos: any[]) =>
+    index === 0 ||
+      combos[index - 1].deficit > combo.deficit ||
+      (combos[index - 1].deficit === combo.deficit &&
+        combos[index - 1].authoredFragments <= combo.authoredFragments)),
+  report.topThinCombinations
+    .map((combo: any) => `${combo.pairKey}:${combo.authoredFragments}/${combo.deficit}`)
+    .join(','));
 check('tracked pair matrices have no missing combinations',
   report?.totals?.missingCombinationCount === 0,
   report.pairs
