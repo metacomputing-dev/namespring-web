@@ -10,6 +10,18 @@ import type { SajuSummary, BirthInfo } from '../../types.js';
 import type { ElementCode } from '../types.js';
 import type { TieredAgeBand } from '../types.js';
 
+export type TieredAgePhase =
+  | 'child_0_9' | 'early_teen' | 'late_teen'
+  | 'early_20s' | 'late_20s'
+  | 'early_30s' | 'late_30s'
+  | 'early_40s' | 'late_40s'
+  | 'early_50s' | 'late_50s'
+  | 'early_60s' | 'late_60s'
+  | '70s' | '80s' | '90_plus';
+
+export type TieredSeason = 'spring' | 'summer' | 'autumn' | 'winter';
+export type TieredPolarity = 'YANG' | 'YIN' | 'neutral';
+
 const STEM_TO_ELEMENT: Record<string, ElementCode> = {
   GAP: 'WOOD', EUL: 'WOOD',
   BYEONG: 'FIRE', JEONG: 'FIRE',
@@ -112,8 +124,43 @@ function toAgeBand(age: number): TieredAgeBand {
   return '70+';
 }
 
+function toAgePhase(age: number): TieredAgePhase {
+  if (age < 10) return 'child_0_9';
+  if (age < 15) return 'early_teen';
+  if (age < 20) return 'late_teen';
+  if (age < 25) return 'early_20s';
+  if (age < 30) return 'late_20s';
+  if (age < 35) return 'early_30s';
+  if (age < 40) return 'late_30s';
+  if (age < 45) return 'early_40s';
+  if (age < 50) return 'late_40s';
+  if (age < 55) return 'early_50s';
+  if (age < 60) return 'late_50s';
+  if (age < 65) return 'early_60s';
+  if (age < 70) return 'late_60s';
+  if (age < 80) return '70s';
+  if (age < 90) return '80s';
+  return '90_plus';
+}
+
+function toSeason(month: number | null | undefined): TieredSeason {
+  if (month === 2 || month === 3 || month === 4) return 'spring';
+  if (month === 5 || month === 6 || month === 7) return 'summer';
+  if (month === 8 || month === 9 || month === 10) return 'autumn';
+  return 'winter';
+}
+
 function toGender(gender: BirthInfo['gender'] | undefined): 'male' | 'female' | 'neutral' {
   if (gender === 'male' || gender === 'female') return gender;
+  return 'neutral';
+}
+
+function toPolarity(value: unknown): TieredPolarity {
+  if (typeof value !== 'string') return 'neutral';
+  const text = value.trim();
+  const upper = text.toUpperCase();
+  if (upper === 'YANG' || upper === 'POSITIVE' || text.includes('\uC591')) return 'YANG';
+  if (upper === 'YIN' || upper === 'NEGATIVE' || text.includes('\uC74C')) return 'YIN';
   return 'neutral';
 }
 
@@ -145,7 +192,11 @@ export interface FeatureVector {
   readonly yongshinAlignment: 'aligned' | 'neutral' | 'conflicting';
   readonly gyeokguk: string | null;
   readonly ageBand: TieredAgeBand;
+  readonly agePhase: TieredAgePhase;
   readonly gender: 'male' | 'female' | 'neutral';
+  readonly birthSeason: TieredSeason;
+  readonly currentSeason: TieredSeason;
+  readonly dayMasterPolarity: TieredPolarity;
 }
 
 export function buildFeatureVector(
@@ -158,6 +209,7 @@ export function buildFeatureVector(
   const heeshinElement = toElement(saju.yongshin?.heeshin ?? null);
   const gishinElement = toElement(saju.yongshin?.gishin ?? null);
   const birthYear = saju.timeCorrection?.standardYear ?? birth.year ?? targetDate.getFullYear();
+  const birthMonth = saju.timeCorrection?.standardMonth ?? birth.month ?? null;
   const age = Math.max(0, targetDate.getFullYear() - (birthYear ?? targetDate.getFullYear()));
   return {
     dayMasterElement,
@@ -168,6 +220,10 @@ export function buildFeatureVector(
     yongshinAlignment: toYongshinAlignment(yongshinElement, dayMasterElement),
     gyeokguk: toGyeokgukCanonical(saju.gyeokguk?.type ?? null),
     ageBand: toAgeBand(age),
+    agePhase: toAgePhase(age),
     gender: toGender(birth.gender),
+    birthSeason: toSeason(birthMonth),
+    currentSeason: toSeason(targetDate.getMonth() + 1),
+    dayMasterPolarity: toPolarity(saju.dayMaster?.polarity ?? null),
   };
 }

@@ -69,6 +69,37 @@
           },
           "uniqueItems": true
         },
+        "agePhase": {
+          "type": "array",
+          "items": {
+            "type": "string",
+            "enum": [
+              "child_0_9", "early_teen", "late_teen",
+              "early_20s", "late_20s",
+              "early_30s", "late_30s",
+              "early_40s", "late_40s",
+              "early_50s", "late_50s",
+              "early_60s", "late_60s",
+              "70s", "80s", "90_plus"
+            ]
+          },
+          "uniqueItems": true
+        },
+        "birthSeason": {
+          "type": "array",
+          "items": { "type": "string", "enum": ["spring", "summer", "autumn", "winter"] },
+          "uniqueItems": true
+        },
+        "currentSeason": {
+          "type": "array",
+          "items": { "type": "string", "enum": ["spring", "summer", "autumn", "winter"] },
+          "uniqueItems": true
+        },
+        "dayMasterPolarity": {
+          "type": "array",
+          "items": { "type": "string", "enum": ["YANG", "YIN", "neutral"] },
+          "uniqueItems": true
+        },
         "dayMasterStrength": {
           "type": "array",
           "items": {
