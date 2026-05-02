@@ -82,6 +82,12 @@ function strengthDisplayName(level: string): string {
   return normalized ? STRENGTH_KOREAN[normalized] : level;
 }
 
+function shinsalPolarity(grade: string): 'auspicious' | 'inauspicious' | null {
+  if (grade === 'auspicious' || grade === '길신') return 'auspicious';
+  if (grade === 'inauspicious' || grade === '흉살') return 'inauspicious';
+  return null;
+}
+
 /** 한글 마지막 글자 받침 유무에 따라 이에요/예요 선택 */
 function ieyo(word: string): string {
   if (!word) return '이에요';
@@ -124,11 +130,17 @@ function computeLifeFortuneScore(saju: SajuSummary): number {
     // No shinsal data -- neutral, assume moderate score
     shinsalScore = 15;
   } else {
-    const auspiciousCount = shinsalHits.filter(
-      h => h.grade === 'auspicious' || h.grade === '길신',
-    ).length;
-    const ratio = auspiciousCount / totalShinsal;
-    shinsalScore = ratio * 25;
+    const polarityRows = shinsalHits
+      .map((hit) => shinsalPolarity(hit.grade))
+      .filter((polarity): polarity is 'auspicious' | 'inauspicious' => polarity != null);
+    if (polarityRows.length === 0) {
+      // A/B/C grades are importance grades from the weighted shinsal adapter,
+      // not good/bad polarity. Treat them as neutral instead of a 0 score.
+      shinsalScore = 15;
+    } else {
+      const auspiciousCount = polarityRows.filter((polarity) => polarity === 'auspicious').length;
+      shinsalScore = (auspiciousCount / polarityRows.length) * 25;
+    }
   }
 
   // 4. Strength balance (0-25)
