@@ -61,15 +61,16 @@ check('axis value coverage is machine readable',
   report?.axisValueCoverage?.agePhase &&
     Array.isArray(report.axisValueCoverage.agePhase.expectedValues) &&
     Array.isArray(report.axisValueCoverage.agePhase.missingValues));
-check('axis value gaps identify future agePhase expansion targets',
-  report?.axisValueCoverage?.agePhase?.missingValues?.includes('late_40s'),
-  String(report?.axisValueCoverage?.agePhase?.missingValues?.length ?? 0));
+check('axis value coverage confirms agePhase expansion is complete',
+  report?.axisValueCoverage?.agePhase?.missingValueCount === 0 &&
+    report.axisValueCoverage.agePhase.coveredValues?.length === 16,
+  JSON.stringify(report?.axisValueCoverage?.agePhase));
 check('axis value coverage confirms yongshinElement expansion is complete',
   report?.axisValueCoverage?.yongshinElement?.missingValueCount === 0 &&
     report.axisValueCoverage.yongshinElement.coveredValues?.length === 5,
   JSON.stringify(report?.axisValueCoverage?.yongshinElement));
-check('axis value gaps are limited to agePhase expansion targets',
-  fieldsWithMissingAxisValues.length === 1 && fieldsWithMissingAxisValues[0] === 'agePhase',
+check('axis value coverage has no missing expansion targets',
+  fieldsWithMissingAxisValues.length === 0,
   fieldsWithMissingAxisValues.join(','));
 check('underfilled cells are sorted planning records',
   Array.isArray(report?.underfilledCells) &&
