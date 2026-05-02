@@ -58,7 +58,7 @@
       "category": "shinsal",
       "brief": "이동·변화·새로운 자리로 향하는 기운이에요.",
       "detailed": "사주에 역마가 있으면 출장·이사·해외·잦은 이동의 결이 강해요. 한 자리에 오래 머물기보다 새 자리·새 환경에서 성과가 나는 사주예요. 운세에서 역마 시기엔 큰 변화·이동을 한 번 검토해 보면 좋아요.",
-      "related": ["movement"],
+      "related": ["cheonigung"],
       "aiGenerated": true,
       "sourceTier": { "tier": "T1_HYPOTHESIS", "sourceType": "training_derived", "sourceUrl": null, "accessedAt": "2026-05-02", "quoteShort": null, "humanInterpretation": "AI-derived plain-language definition of 역마. Display-only narrative.", "copyrightNote": "No source prose copied.", "authorityTruthEligible": false }
     },

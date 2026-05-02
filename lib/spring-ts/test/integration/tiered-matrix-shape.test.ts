@@ -83,12 +83,16 @@ const tm: any = fr?.tieredMatrix;
 
 check('tieredMatrix surfaced', tm != null);
 check('schemaVersion is v1', tm?.schemaVersion === 'spring-ts.tiered-matrix.v1');
-check('meta.contentSource is placeholder or authored',
-  tm?.meta?.contentSource === 'placeholder' || tm?.meta?.contentSource === 'authored');
+check('meta.contentSource is authored',
+  tm?.meta?.contentSource === 'authored', String(tm?.meta?.contentSource));
 check('meta.selectionSeed is non-empty string',
   typeof tm?.meta?.selectionSeed === 'string' && tm.meta.selectionSeed.length > 0);
-check('meta.fragmentCount is positive integer',
-  typeof tm?.meta?.fragmentCount === 'number' && tm.meta.fragmentCount >= 165);
+check('meta.fragmentCount includes Phase 2 authored corpus',
+  typeof tm?.meta?.fragmentCount === 'number' && tm.meta.fragmentCount >= 1800,
+  String(tm?.meta?.fragmentCount));
+check('meta.aiGeneratedFragmentCount matches fragmentCount',
+  tm?.meta?.aiGeneratedFragmentCount === tm?.meta?.fragmentCount,
+  `${tm?.meta?.aiGeneratedFragmentCount}/${tm?.meta?.fragmentCount}`);
 
 if (tm) {
   for (const period of PERIODS) {

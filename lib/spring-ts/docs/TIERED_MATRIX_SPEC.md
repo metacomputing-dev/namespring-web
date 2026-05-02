@@ -1,7 +1,7 @@
 # Tiered Fortune Matrix Spec
 
-> 작성: 2026-05-02 (Phase 1)
-> 상태: 구조 도입 (placeholder 콘텐츠). Phase 2 fan-out에서 fragment 풀 확장 예정.
+> 작성: 2026-05-02
+> 상태: Phase 2 fan-out 반영. authored fragment 풀 + placeholder fallback 동시 탑재.
 
 `FortuneReport`의 새 옵셔널 필드 `tieredMatrix`가 도입되었다. **5 기간 × (1 총운 + 10 분야) × 3 depth** 의 입체적 운세 큐브를 노출하며, 기존 카드(`overviewSummary, dailyFortune, ..., categoryFortunes`)는 무수정으로 유지된다.
 
@@ -127,8 +127,15 @@ npx tsx test/integration/narrative-schema.test.ts
 npx tsx test/integration/tiered-isolation-guard.test.ts
 ```
 
-> **Phase 1 placeholder layout note**: 본 단계에서는 11×5×3 = 165개 stub fragment를 단일 번들 `data/narrative/_seed/placeholder.fragments.json`에 모아둔다 (생성: `tools/seed_placeholder_fragments.mjs`). fragment-registry는 `data/narrative/**/*.fragments.json` glob을 인덱싱하므로, Phase 2 fan-out에서 `data/narrative/<category>/<period>/<depth>.fragments.json` 트리 구조로 자연스럽게 확장 가능 — 두 layout이 동시에 존재해도 무관.
+> **Placeholder fallback note**: 11×5×3 = 165개 stub fragment는 단일 번들 `data/narrative/_seed/placeholder.fragments.json`에 남아 있다 (생성: `tools/seed_placeholder_fragments.mjs`). fragment-registry는 `data/narrative/**/*.fragments.json` glob을 인덱싱하므로, authored tree와 `_seed` fallback layout이 동시에 존재해도 무관하다.
 
-## 9. Phase 2 미리보기
+## 9. Phase 2 반영 상태
 
-Phase 2 fan-out (사용자 명시 승인 후, 별도 세션)에서 20개 Opus agent가 `data/narrative/`의 placeholder를 본격 콘텐츠로 채운다. 빌더 인프라는 그대로, 데이터만 풍부해진다. 자세한 partition은 [PHASE2_AGENT_PARTITION.md](./PHASE2_AGENT_PARTITION.md).
+현재 브랜치는 Phase 2 fan-out 산출물을 포함한다.
+
+- fragment bundle: 166개
+- narrative fragments: 1,837개 (`_seed` placeholder 165개 + authored 1,672개)
+- glossary entries: 130개
+- `tieredMatrix.meta.contentSource`: authored fragment가 하나 이상 로드되면 `'authored'`
+
+`_seed/placeholder.fragments.json`은 authored pool이 비는 cell을 위한 안전 fallback으로 남겨 둔다. 자세한 분업 기록은 [PHASE2_AGENT_PARTITION.md](./PHASE2_AGENT_PARTITION.md).

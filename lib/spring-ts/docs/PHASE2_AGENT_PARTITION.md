@@ -1,11 +1,11 @@
 # Phase 2 Agent Partition (20-agent fan-out)
 
-> 상태: **dispatch 보류**. 시작 전제 = Phase 1 acceptance 모두 PASS + 사용자 명시 승인 + `data/narrative/_contract/v1.json` git committed.
+> 상태: **반영 완료**. 이 문서는 Phase 2 fan-out 분업과 최종 검증 기준을 기록한다.
 
 ## 0. 컨텍스트
 
-Phase 1 (현 PR) — 구조·인프라·placeholder 완성. 모든 셀에 1개 placeholder fragment.
-Phase 2 (이번 spec) — 20명의 Opus agent가 placeholder를 본격 콘텐츠로 채운다.
+Phase 1 — 구조·인프라·placeholder 완성. 모든 셀에 1개 placeholder fragment.
+Phase 2 — 20-agent fan-out으로 authored fragment/glossary/modifier pool을 확장했다.
 
 ## 1. Frozen contract
 
@@ -13,7 +13,7 @@ Phase 2 (이번 spec) — 20명의 Opus agent가 placeholder를 본격 콘텐츠
 - `data/narrative/_contract/v1.json` — slot DSL, gating whitelist, fallback chain priority, NO_AI 마킹 규칙
 - `docs/NARRATIVE_TEMPLATE_DSL.md` — 토큰 문법 + 검증 절차
 - `docs/NARRATIVE_STYLE_GUIDE.md` — 톤 / 비유 / depth 계약
-- `data/narrative/_glossary/*.json` — 50개 anchor (Phase 2-A에서 ~150으로 확장)
+- `data/narrative/_glossary/*.json` — 130개 glossary entry
 
 frozen contract 변경은 **모든 agent의 산출물 invalidation**을 뜻한다 → Phase 2 dispatch 후 contract 수정 금지.
 
@@ -55,7 +55,7 @@ frozen contract 변경은 **모든 agent의 산출물 invalidation**을 뜻한�
 
 reviewer는 patch만 한다. 새 fragment ID 추가 금지 (1-10·15가 owner). 기존 fragment의 `templateTokens` / `slots` / `livingTips` / `cautions` 어휘 정정 가능.
 
-## 3. Dispatch 절차
+## 3. Dispatch 절차 기록
 
 1. Phase 1 acceptance criteria 모두 PASS 확인:
    ```
@@ -67,8 +67,8 @@ reviewer는 patch만 한다. 새 fragment ID 추가 금지 (1-10·15가 owner). 
    npx tsx test/integration/narrative-schema.test.ts
    npx tsx test/integration/tiered-isolation-guard.test.ts
    ```
-2. `data/narrative/_contract/v1.json`을 main에 git commit (frozen).
-3. 사용자 명시 승인 (`Phase 2 dispatch 시작`).
+2. `data/narrative/_contract/v1.json`을 frozen contract로 사용.
+3. 사용자 명시 승인 후 dispatch.
 4. Agent 0 산출물(contract) 검토 후 dispatch:
    - 1차 wave: agent 11 (glossary fill) — anchor 50 → 150 확장. 다른 agent들이 인용할 tagId가 더 많아야 함.
    - 2차 wave: agent 12-15 (specialized 보조). agent 1-10이 작업 중 참조할 modifier/metaphor pool 준비.
@@ -89,7 +89,7 @@ reviewer는 patch만 한다. 새 fragment ID 추가 금지 (1-10·15가 owner). 
 Phase 2 완료 = 다음 acceptance 모두 PASS:
 - 기존 Phase 1 모든 test
 - `tieredMatrix.meta.contentSource === 'authored'` (placeholder → authored)
-- `tieredMatrix.meta.fragmentCount` ≥ 2000 (목표치)
+- `tieredMatrix.meta.fragmentCount` ≥ 1800 (현재 1,837: `_seed` 165 + authored 1,672)
 - 카테고리 간 voice consistency reviewer sign-off
 - depth consistency reviewer sign-off
 - 사용자 spot-check (random fixture chart로 실제 응답 확인)

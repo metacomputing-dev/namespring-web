@@ -55,7 +55,7 @@ function buildExpertText(
   rendered: TaggedParagraph,
 ): ExpertFortuneText {
   if (!fragment) return PLACEHOLDER_EXPERT;
-  // TODO(phase-2): wire fragment.numericalEvidence[].valueExpression to the
+  // TODO(follow-up): wire fragment.numericalEvidence[].valueExpression to the
   // saju feature vector and emit NumericalEvidenceRow[]. Schema permits it
   // (see narrativeFragment.schema.json), renderer currently drops it.
   return {
@@ -203,7 +203,7 @@ export function buildTieredMatrix(
     generatedAt: new Date().toISOString(),
     selectionSeed: seedKey,
     templateContractVersion: '1.0.0',
-    contentSource: options.contentSource ?? 'placeholder',
+    contentSource: options.contentSource ?? registry.contentSource,
     fragmentCount: registry.totalFragmentCount,
     aiGeneratedFragmentCount: registry.totalFragmentCount,
   };

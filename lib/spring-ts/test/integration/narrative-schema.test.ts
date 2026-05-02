@@ -65,6 +65,7 @@ check('glossary directory has entries', glossaryFiles.length > 0,
   `${glossaryFiles.length} bundles`);
 
 const allTagIds = new Set<string>();
+const glossaryEntries: Array<{ file: string; entry: any }> = [];
 
 for (const file of glossaryFiles) {
   const full = path.join(GLOSSARY_DIR, file);
@@ -74,6 +75,7 @@ for (const file of glossaryFiles) {
   check(`${file}: entries is array`, Array.isArray(bundle?.entries),
     `${bundle?.entries?.length ?? 0}`);
   for (const entry of bundle?.entries ?? []) {
+    glossaryEntries.push({ file, entry });
     check(`${file}#${entry?.id}: schemaVersion === 'spring-ts.glossary-entry.v1'`,
       entry?.schemaVersion === 'spring-ts.glossary-entry.v1');
     check(`${file}#${entry?.id}: id matches pattern`,
@@ -95,6 +97,15 @@ for (const file of glossaryFiles) {
     check(`${file}#${entry?.id}: authorityTruthEligible === false`,
       entry?.sourceTier?.authorityTruthEligible === false);
     if (entry?.id) allTagIds.add(entry.id);
+  }
+}
+
+for (const { file, entry } of glossaryEntries) {
+  check(`${file}#${entry?.id}: related is array`,
+    Array.isArray(entry?.related));
+  for (const related of entry?.related ?? []) {
+    check(`${file}#${entry?.id}: related tagId resolves: ${related}`,
+      allTagIds.has(related), related);
   }
 }
 
