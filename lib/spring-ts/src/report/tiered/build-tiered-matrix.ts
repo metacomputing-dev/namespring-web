@@ -20,6 +20,8 @@ import type {
   BriefFortuneText,
   StandardFortuneText,
   ExpertFortuneText,
+  TieredSelectedFragmentEvidence,
+  TieredSelectedFragments,
   TaggedParagraph,
   TieredMatrixMeta,
   TieredNameFrameEvidence,
@@ -85,6 +87,36 @@ function buildStandardText(
   };
 }
 
+function selectedFragmentEvidence(fragment: NarrativeFragment | null): TieredSelectedFragmentEvidence | undefined {
+  if (!fragment) return undefined;
+  const gating = Object.fromEntries(
+    Object.entries(fragment.gating ?? {})
+      .filter(([, values]) => Array.isArray(values) && values.length > 0)
+      .map(([key, values]) => [key, values]),
+  ) as Readonly<Record<string, readonly string[]>>;
+  return {
+    fragmentId: fragment.fragmentId,
+    gating,
+    tags: fragment.tags,
+  };
+}
+
+function buildSelectedFragments(
+  briefFrag: NarrativeFragment | null,
+  standardFrag: NarrativeFragment | null,
+  expertFrag: NarrativeFragment | null,
+): TieredSelectedFragments | undefined {
+  const brief = selectedFragmentEvidence(briefFrag);
+  const standard = selectedFragmentEvidence(standardFrag);
+  const expert = selectedFragmentEvidence(expertFrag);
+  if (!brief && !standard && !expert) return undefined;
+  return {
+    ...(brief ? { brief } : {}),
+    ...(standard ? { standard } : {}),
+    ...(expert ? { expert } : {}),
+  };
+}
+
 function buildCell(
   category: 'overall' | TieredCategoryId,
   period: TieredPeriodKind,
@@ -114,6 +146,7 @@ function buildCell(
     feature,
     cell: { stars: grade.stars },
   });
+  const selectedFragments = buildSelectedFragments(briefFrag, standardFrag, expertFrag);
 
   // Cell with no fragment matches at all becomes 'na'.
   if (!briefFrag && !standardFrag && !expertFrag) {
@@ -132,6 +165,7 @@ function buildCell(
     brief,
     standard,
     expert,
+    ...(selectedFragments ? { selectedFragments } : {}),
   };
 }
 

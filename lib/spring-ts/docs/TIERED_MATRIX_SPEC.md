@@ -156,3 +156,17 @@ npx tsx test/integration/tiered-isolation-guard.test.ts
 - `tieredMatrix.meta.contentSource`: authored fragment가 하나 이상 로드되면 `'authored'`
 
 `_seed/placeholder.fragments.json`은 authored pool이 비는 cell을 위한 안전 fallback으로 남겨 둔다. 자세한 분업 기록은 [PHASE2_AGENT_PARTITION.md](./PHASE2_AGENT_PARTITION.md).
+
+## 10. Selected Fragment Trace
+
+Each `TieredFortune` may include additive `selectedFragments` evidence:
+
+```ts
+selectedFragments?: {
+  brief?: { fragmentId: string; gating: Record<string, string[]>; tags: string[] };
+  standard?: { fragmentId: string; gating: Record<string, string[]>; tags: string[] };
+  expert?: { fragmentId: string; gating: Record<string, string[]>; tags: string[] };
+}
+```
+
+This field is for QA, expert-detail, and debug panels. Default user-facing UI can hide it. It lets frontend and content reviewers verify which authored fragment won after specificity filtering and deterministic selection.
