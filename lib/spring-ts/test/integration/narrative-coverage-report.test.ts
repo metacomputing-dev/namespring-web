@@ -95,12 +95,21 @@ check('thin axis values expose next density targets',
   report?.totals?.thinAxisValueCount === report?.thinAxisValues?.length &&
     report.thinAxisValues.every((row: any) => row.authoredFragments < 8),
   String(report?.totals?.thinAxisValueCount ?? 0));
+check('all tracked axis values meet the authored density floor',
+  report?.totals?.thinAxisValueCount === 0 &&
+    Array.isArray(report?.thinAxisValues) &&
+    report.thinAxisValues.length === 0,
+  String(report?.totals?.thinAxisValueCount ?? 0));
 check('thin axis field summary is machine readable',
   Array.isArray(report?.thinAxisFieldSummary) &&
     report.thinAxisFieldSummary.every((row: any) =>
       typeof row.field === 'string' &&
       typeof row.thinValueCount === 'number' &&
       typeof row.authoredDeficitToThreshold === 'number'));
+check('thin axis field summary is empty when the density floor is met',
+  Array.isArray(report?.thinAxisFieldSummary) &&
+    report.thinAxisFieldSummary.length === 0,
+  String(report?.thinAxisFieldSummary?.length ?? 0));
 check('thin axis field summary prioritizes largest remaining deficit',
   Array.isArray(report?.thinAxisFieldSummary) &&
     report.thinAxisFieldSummary.every((row: any, index: number, rows: any[]) =>
