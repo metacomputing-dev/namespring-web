@@ -1,0 +1,119 @@
+{
+  "schemaVersion": "spring-ts.narrative-fragment-bundle.v1",
+  "bundleId": "coverage.axis.yongshin-element-daily-support.20260502",
+  "contractVersion": "1.0.0",
+  "fragments": [
+    {
+      "schemaVersion": "spring-ts.narrative-fragment.v1",
+      "fragmentId": "overall.today.standard.yongshinelement.wood.205",
+      "axis": { "category": "overall", "period": "today", "depth": "standard" },
+      "gating": { "yongshinElement": ["WOOD"] },
+      "templateTokens": [
+        { "kind": "text", "value": "용신이 나무 기운일 때 오늘은 작은 성장과 연결을 의식하면 흐름을 잡기 쉬워요. 새로운 일을 크게 벌리기보다 배움, 정리, 관계의 싹을 하나씩 키우는 쪽이 도움이 됩니다. 계획을 한 줄로 세우고 바로 실행할 첫 행동을 정하면 기운이 흩어지지 않습니다." }
+      ],
+      "livingTips": [
+        "오늘 배울 것 하나와 연락할 사람 하나를 작게 정해보세요.",
+        "초록색 계열 소품이나 식물처럼 자라는 이미지를 가까이 두면 의식 전환에 도움이 됩니다."
+      ],
+      "cautions": [
+        "가능성을 너무 많이 열면 마무리가 약해질 수 있으니 한 가지부터 키우세요."
+      ],
+      "tags": ["yongshinElement"],
+      "aiGenerated": true,
+      "sourceTier": {
+        "tier": "T1_HYPOTHESIS",
+        "sourceType": "training_derived",
+        "sourceUrl": null,
+        "accessedAt": "2026-05-02",
+        "quoteShort": null,
+        "humanInterpretation": "Daily support narrative for yongshinElement WOOD. AI-derived display text; not authority truth.",
+        "copyrightNote": "No source prose copied; original phrasing.",
+        "authorityTruthEligible": false
+      }
+    },
+    {
+      "schemaVersion": "spring-ts.narrative-fragment.v1",
+      "fragmentId": "overall.today.standard.yongshinelement.fire.205",
+      "axis": { "category": "overall", "period": "today", "depth": "standard" },
+      "gating": { "yongshinElement": ["FIRE"] },
+      "templateTokens": [
+        { "kind": "text", "value": "용신이 불 기운일 때 오늘은 표현과 밝은 리듬을 조금 살리면 흐름을 잡기 쉬워요. 숨기고 미루기보다 필요한 말, 감사, 제안을 적절히 드러내는 쪽이 도움이 됩니다. 다만 열기가 과해지면 피로와 충동이 생길 수 있으니 밝게 움직이되 쉬는 시간을 함께 두세요." }
+      ],
+      "livingTips": [
+        "오늘 꼭 전할 말을 짧고 따뜻한 문장으로 먼저 준비해 보세요.",
+        "밝은 조명, 가벼운 산책, 따뜻한 음료처럼 몸을 깨우는 요소를 활용하세요."
+      ],
+      "cautions": [
+        "분위기에 휩쓸려 즉흥 결정을 늘리면 균형이 흔들릴 수 있어요."
+      ],
+      "tags": ["yongshinElement"],
+      "aiGenerated": true,
+      "sourceTier": {
+        "tier": "T1_HYPOTHESIS",
+        "sourceType": "training_derived",
+        "sourceUrl": null,
+        "accessedAt": "2026-05-02",
+        "quoteShort": null,
+        "humanInterpretation": "Daily support narrative for yongshinElement FIRE. AI-derived display text; not authority truth.",
+        "copyrightNote": "No source prose copied; original phrasing.",
+        "authorityTruthEligible": false
+      }
+    },
+    {
+      "schemaVersion": "spring-ts.narrative-fragment.v1",
+      "fragmentId": "overall.today.standard.yongshinelement.earth.205",
+      "axis": { "category": "overall", "period": "today", "depth": "standard" },
+      "gating": { "yongshinElement": ["EARTH"] },
+      "templateTokens": [
+        { "kind": "text", "value": "용신이 흙 기운일 때 오늘은 생활의 중심을 잡고 일을 안정적으로 정리하는 쪽이 도움이 돼요. 갑자기 크게 바꾸기보다 식사, 일정, 공간을 단순하게 정돈하면 마음이 차분해질 수 있습니다. 해야 할 일을 한곳에 모으고 순서를 정하면 기운이 현실적인 결과로 이어집니다." }
+      ],
+      "livingTips": [
+        "책상이나 가방처럼 자주 쓰는 공간 하나를 먼저 정리해 보세요.",
+        "오늘 일정은 중요한 일, 유지할 일, 미룰 일로 나누어 적어보세요."
+      ],
+      "cautions": [
+        "안정만 붙잡으면 움직임이 둔해질 수 있으니 작은 실행을 함께 넣으세요."
+      ],
+      "tags": ["yongshinElement"],
+      "aiGenerated": true,
+      "sourceTier": {
+        "tier": "T1_HYPOTHESIS",
+        "sourceType": "training_derived",
+        "sourceUrl": null,
+        "accessedAt": "2026-05-02",
+        "quoteShort": null,
+        "humanInterpretation": "Daily support narrative for yongshinElement EARTH. AI-derived display text; not authority truth.",
+        "copyrightNote": "No source prose copied; original phrasing.",
+        "authorityTruthEligible": false
+      }
+    },
+    {
+      "schemaVersion": "spring-ts.narrative-fragment.v1",
+      "fragmentId": "overall.today.standard.yongshinelement.water.205",
+      "axis": { "category": "overall", "period": "today", "depth": "standard" },
+      "gating": { "yongshinElement": ["WATER"] },
+      "templateTokens": [
+        { "kind": "text", "value": "용신이 물 기운일 때 오늘은 잠시 멈춰 살피고 정보를 모으는 쪽이 도움이 돼요. 바로 결론을 내기보다 대화의 속도를 낮추고, 필요한 자료를 확인하면 흐름이 부드러워질 수 있습니다. 조용한 정리 시간을 확보하면 감정과 판단이 함께 안정됩니다." }
+      ],
+      "livingTips": [
+        "중요한 답변은 바로 보내기보다 한 번 읽고 수정한 뒤 보내세요.",
+        "물을 충분히 마시고 짧은 산책이나 조용한 메모 시간을 넣어보세요."
+      ],
+      "cautions": [
+        "생각만 오래 이어지면 실행이 늦어질 수 있으니 마지막에는 작은 결론을 남기세요."
+      ],
+      "tags": ["yongshinElement"],
+      "aiGenerated": true,
+      "sourceTier": {
+        "tier": "T1_HYPOTHESIS",
+        "sourceType": "training_derived",
+        "sourceUrl": null,
+        "accessedAt": "2026-05-02",
+        "quoteShort": null,
+        "humanInterpretation": "Daily support narrative for yongshinElement WATER. AI-derived display text; not authority truth.",
+        "copyrightNote": "No source prose copied; original phrasing.",
+        "authorityTruthEligible": false
+      }
+    }
+  ]
+}
