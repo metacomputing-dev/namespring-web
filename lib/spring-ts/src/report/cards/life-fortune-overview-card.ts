@@ -60,6 +60,21 @@ function shouldHedgeYongshin(saju: SajuSummary): boolean {
   return tier === 'candidate' || tier === 'deferred' || conflict === 'high';
 }
 
+function normalizeStrengthLevel(level: string): StrengthLevel | null {
+  const normalized = level.toUpperCase();
+  if (['EXTREME_STRONG', 'STRONG', 'BALANCED', 'WEAK', 'EXTREME_WEAK'].includes(normalized)) {
+    return normalized as StrengthLevel;
+  }
+  const koreanMap: Record<string, StrengthLevel> = {
+    극신강: 'EXTREME_STRONG',
+    신강: 'STRONG',
+    중화: 'BALANCED',
+    신약: 'WEAK',
+    극신약: 'EXTREME_WEAK',
+  };
+  return koreanMap[level] ?? null;
+}
+
 /** 한글 마지막 글자 받침 유무에 따라 이에요/예요 선택 */
 function ieyo(word: string): string {
   if (!word) return '이에요';
@@ -110,15 +125,15 @@ function computeLifeFortuneScore(saju: SajuSummary): number {
   }
 
   // 4. Strength balance (0-25)
-  const level = (saju.strength.level ?? '').toUpperCase();
-  const strengthScoreMap: Record<string, number> = {
+  const level = normalizeStrengthLevel(saju.strength.level ?? '');
+  const strengthScoreMap: Record<StrengthLevel, number> = {
     BALANCED: 25,
     STRONG: 18,
     WEAK: 15,
     EXTREME_STRONG: 8,
     EXTREME_WEAK: 5,
   };
-  const strengthScore = strengthScoreMap[level] ?? 12;
+  const strengthScore = level ? strengthScoreMap[level] : 12;
 
   return yongshinScore + balanceScore + shinsalScore + strengthScore;
 }
@@ -139,7 +154,7 @@ function buildSummary(saju: SajuSummary, stars: StarRating): string {
   const { dayMaster, strength, yongshin, deficientElements } = saju;
 
   const dayMasterFriendly = friendlyElementName(dayMaster.element);
-  const levelKey = strength.level as StrengthLevel;
+  const levelKey = normalizeStrengthLevel(strength.level) ?? (strength.level as StrengthLevel);
   const strengthKorean = STRENGTH_KOREAN[levelKey] ?? strength.level;
   const yongshinFriendly = friendlyElementName(yongshin.element);
   const hedgeYongshin = shouldHedgeYongshin(saju);
@@ -179,7 +194,7 @@ function buildHighlights(saju: SajuSummary): string[] {
   const { dayMaster, strength, yongshin, deficientElements, excessiveElements, shinsalHits } = saju;
 
   const dayMasterFriendly = friendlyElementName(dayMaster.element);
-  const levelKey = strength.level as StrengthLevel;
+  const levelKey = normalizeStrengthLevel(strength.level) ?? (strength.level as StrengthLevel);
   const strengthKorean = STRENGTH_KOREAN[levelKey] ?? strength.level;
   const yongshinFriendly = friendlyElementName(yongshin.element);
   const hedgeYongshin = shouldHedgeYongshin(saju);
