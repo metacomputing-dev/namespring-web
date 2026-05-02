@@ -97,6 +97,33 @@ const balancedKoreanStrengthCard = buildLifeFortuneOverviewCard({
   excessiveElements: [],
   shinsalHits: [],
 } as any);
+const balancedTendencyStrengthCard = buildLifeFortuneOverviewCard({
+  ...lowConfidenceSaju,
+  strength: {
+    ...lowConfidenceSaju.strength,
+    level: '중화(신약 경향)',
+    isStrong: false,
+    totalSupport: 3.8,
+    totalOppose: 4.2,
+  },
+  yongshin: {
+    ...lowConfidenceSaju.yongshin,
+    confidence: 0.9,
+  },
+  yongshinConsensus: {
+    ...highConflictConsensus,
+    final: {
+      ...highConflictConsensus.final,
+      confidence: 0.9,
+      conflictLevel: 'none',
+      competingElements: [],
+    },
+  },
+  axisStrength: { yongshin: 'definite', strength: 'practical', gyeokguk: 'candidate' },
+  deficientElements: [],
+  excessiveElements: [],
+  shinsalHits: [],
+} as any);
 
 check('percentage yongshin confidence is normalized before scoring',
   card.stars === 2,
@@ -120,6 +147,12 @@ check('Korean balanced strength level receives balanced scoring',
 check('Korean balanced strength level receives balanced highlight wording',
   balancedKoreanStrengthCard.highlights.includes('에너지 균형이 잘 잡혀 있어요 (중화)'),
   JSON.stringify(balancedKoreanStrengthCard.highlights));
+check('parenthetical Korean balanced tendency receives balanced scoring',
+  balancedTendencyStrengthCard.stars === 5,
+  `stars=${balancedTendencyStrengthCard.stars}`);
+check('parenthetical Korean balanced tendency keeps display label',
+  balancedTendencyStrengthCard.highlights.includes('에너지 균형이 잘 잡혀 있어요 (중화(신약 경향))'),
+  JSON.stringify(balancedTendencyStrengthCard.highlights));
 
 console.log(`\nLife fortune yongshin confidence: ${pass} PASS / ${fail} FAIL`);
 process.exit(fail > 0 ? 1 : 0);
