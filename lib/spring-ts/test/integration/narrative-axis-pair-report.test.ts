@@ -78,6 +78,12 @@ check('missing combination list obeys --max-missing',
 check('missing combination total is aggregated',
   report?.totals?.missingCombinationCount === report.pairs.reduce((sum: number, pair: any) => sum + pair.missingCombinationCount, 0),
   String(report?.totals?.missingCombinationCount ?? 0));
+check('tracked pair matrices have no missing combinations',
+  report?.totals?.missingCombinationCount === 0,
+  report.pairs
+    .filter((pair: any) => pair.missingCombinationCount > 0)
+    .map((pair: any) => `${pair.key}=${pair.missingCombinationCount}`)
+    .join(',') || '0');
 
 console.log(`\nNarrative axis pair report: ${pass} PASS / ${fail} FAIL`);
 process.exit(fail > 0 ? 1 : 0);
