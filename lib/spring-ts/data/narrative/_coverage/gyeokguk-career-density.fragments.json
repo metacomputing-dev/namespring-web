@@ -1,0 +1,161 @@
+{
+  "schemaVersion": "spring-ts.narrative-fragment-bundle.v1",
+  "bundleId": "coverage.axis.gyeokguk-career-density.20260502",
+  "contractVersion": "1.0.0",
+  "fragments": [
+    {
+      "schemaVersion": "spring-ts.narrative-fragment.v1",
+      "fragmentId": "overall.life.brief.gyeokguk.jeonggwangyeok.201",
+      "axis": { "category": "overall", "period": "life", "depth": "brief" },
+      "gating": { "gyeokguk": ["jeonggwangyeok"] },
+      "templateTokens": [
+        { "kind": "text", "value": "정관격 흐름은 원칙, 신뢰, 책임을 지키며 안정적인 위치를 만들어가는 힘이 있어요." }
+      ],
+      "tags": [],
+      "aiGenerated": true,
+      "sourceTier": {
+        "tier": "T1_HYPOTHESIS",
+        "sourceType": "training_derived",
+        "sourceUrl": null,
+        "accessedAt": "2026-05-02",
+        "quoteShort": null,
+        "humanInterpretation": "Concise gyeokguk jeonggwangyeok narrative. AI-derived display text; not authority truth.",
+        "copyrightNote": "No source prose copied; original phrasing.",
+        "authorityTruthEligible": false
+      }
+    },
+    {
+      "schemaVersion": "spring-ts.narrative-fragment.v1",
+      "fragmentId": "overall.life.standard.gyeokguk.jeonggwangyeok.201",
+      "axis": { "category": "overall", "period": "life", "depth": "standard" },
+      "gating": { "gyeokguk": ["jeonggwangyeok"] },
+      "templateTokens": [
+        { "kind": "text", "value": "정관격이 중심에 있으면 삶의 방향은 신뢰를 쌓고 규칙 안에서 안정적인 역할을 만드는 쪽으로 드러나기 쉽습니다. 책임감과 기준이 장점이지만, 스스로에게 너무 엄격해지면 변화가 늦어질 수 있어요. 원칙을 지키되 상황에 맞게 조정할 수 있는 여지를 함께 두면 커리어와 관계 모두 안정됩니다." }
+      ],
+      "livingTips": [
+        "맡은 역할의 기준과 책임 범위를 문장으로 정리해 보세요.",
+        "규칙을 지킬 때도 상황상 조정 가능한 부분을 따로 표시해 보세요."
+      ],
+      "cautions": [
+        "완벽한 기준을 기다리다 필요한 대화나 선택이 늦어질 수 있어요."
+      ],
+      "tags": [],
+      "aiGenerated": true,
+      "sourceTier": {
+        "tier": "T1_HYPOTHESIS",
+        "sourceType": "training_derived",
+        "sourceUrl": null,
+        "accessedAt": "2026-05-02",
+        "quoteShort": null,
+        "humanInterpretation": "Standard gyeokguk jeonggwangyeok narrative. AI-derived display text; not authority truth.",
+        "copyrightNote": "No source prose copied; original phrasing.",
+        "authorityTruthEligible": false
+      }
+    },
+    {
+      "schemaVersion": "spring-ts.narrative-fragment.v1",
+      "fragmentId": "overall.life.expert.gyeokguk.jeonggwangyeok.201",
+      "axis": { "category": "overall", "period": "life", "depth": "expert" },
+      "gating": { "gyeokguk": ["jeonggwangyeok"] },
+      "templateTokens": [
+        { "kind": "text", "value": "정관격은 일반적으로 질서, 명분, 신뢰, 제도적 역할을 중심으로 삶의 패턴을 해석하는 데 쓰기 좋습니다. 다만 격국만으로 직업이나 성격을 단정하기보다 일간 강약, 용신 방향, 실제 운의 흐름을 함께 보아야 합니다. 구조가 잘 맞을 때는 책임 있는 위치에서 안정감을 얻지만, 구조가 과해지면 자기 기준이 부담으로 바뀔 수 있습니다." }
+      ],
+      "livingTips": [
+        "전문가용 해석에서는 책임감이 실제로 안정감을 주는지, 부담을 키우는지 구분해 보세요.",
+        "제도권, 조직, 자격, 규칙과 관련된 선택은 장기 유지 가능성을 함께 확인해 보세요."
+      ],
+      "cautions": [
+        "격국명만 보고 보수적 선택이 항상 좋다고 단정하지 마세요."
+      ],
+      "tags": [],
+      "aiGenerated": true,
+      "sourceTier": {
+        "tier": "T1_HYPOTHESIS",
+        "sourceType": "training_derived",
+        "sourceUrl": null,
+        "accessedAt": "2026-05-02",
+        "quoteShort": null,
+        "humanInterpretation": "Expert-depth gyeokguk jeonggwangyeok narrative. AI-derived display text; not authority truth.",
+        "copyrightNote": "No source prose copied; original phrasing.",
+        "authorityTruthEligible": false
+      }
+    },
+    {
+      "schemaVersion": "spring-ts.narrative-fragment.v1",
+      "fragmentId": "overall.life.brief.gyeokguk.pyeongwangyeok.201",
+      "axis": { "category": "overall", "period": "life", "depth": "brief" },
+      "gating": { "gyeokguk": ["pyeongwangyeok"] },
+      "templateTokens": [
+        { "kind": "text", "value": "편관격 흐름은 압박을 견디고 어려운 문제를 돌파하는 집중력과 대응력이 살아나요." }
+      ],
+      "tags": [],
+      "aiGenerated": true,
+      "sourceTier": {
+        "tier": "T1_HYPOTHESIS",
+        "sourceType": "training_derived",
+        "sourceUrl": null,
+        "accessedAt": "2026-05-02",
+        "quoteShort": null,
+        "humanInterpretation": "Concise gyeokguk pyeongwangyeok narrative. AI-derived display text; not authority truth.",
+        "copyrightNote": "No source prose copied; original phrasing.",
+        "authorityTruthEligible": false
+      }
+    },
+    {
+      "schemaVersion": "spring-ts.narrative-fragment.v1",
+      "fragmentId": "overall.life.standard.gyeokguk.pyeongwangyeok.201",
+      "axis": { "category": "overall", "period": "life", "depth": "standard" },
+      "gating": { "gyeokguk": ["pyeongwangyeok"] },
+      "templateTokens": [
+        { "kind": "text", "value": "편관격이 중심에 있으면 삶의 흐름은 부담이나 긴장 속에서도 문제를 해결하고 돌파하는 쪽으로 드러나기 쉽습니다. 위기 대응력과 집중력이 장점이지만, 항상 긴장 상태로 버티면 몸과 관계가 쉽게 지칠 수 있어요. 어려운 일을 맡을수록 회복 루틴과 도움을 요청하는 기준을 함께 만들어야 합니다." }
+      ],
+      "livingTips": [
+        "큰 과제는 위험 요소, 대응 방법, 도움 받을 사람으로 나눠 정리해 보세요.",
+        "긴장도가 높은 일정 뒤에는 회복 시간을 먼저 확보해 보세요."
+      ],
+      "cautions": [
+        "강하게 버티는 방식만 반복하면 쉬어야 할 신호를 놓칠 수 있어요."
+      ],
+      "tags": [],
+      "aiGenerated": true,
+      "sourceTier": {
+        "tier": "T1_HYPOTHESIS",
+        "sourceType": "training_derived",
+        "sourceUrl": null,
+        "accessedAt": "2026-05-02",
+        "quoteShort": null,
+        "humanInterpretation": "Standard gyeokguk pyeongwangyeok narrative. AI-derived display text; not authority truth.",
+        "copyrightNote": "No source prose copied; original phrasing.",
+        "authorityTruthEligible": false
+      }
+    },
+    {
+      "schemaVersion": "spring-ts.narrative-fragment.v1",
+      "fragmentId": "overall.life.expert.gyeokguk.pyeongwangyeok.201",
+      "axis": { "category": "overall", "period": "life", "depth": "expert" },
+      "gating": { "gyeokguk": ["pyeongwangyeok"] },
+      "templateTokens": [
+        { "kind": "text", "value": "편관격은 긴장, 통제, 압박, 경쟁, 돌파의 패턴을 해석할 때 유용한 축입니다. 하지만 편관의 강한 이미지만으로 위험하거나 공격적인 성향을 단정하면 안 되고, 제어하는 기운과 실제 생활 환경을 함께 봐야 합니다. 잘 조율되면 어려운 상황을 해결하는 힘이 되지만, 조율이 약하면 과로와 갈등으로 나타날 수 있습니다." }
+      ],
+      "livingTips": [
+        "전문가용 해석에서는 압박을 성과로 바꾸는 구조가 있는지 먼저 확인하세요.",
+        "경쟁이나 책임이 강한 분야에서는 휴식, 지원, 권한 범위를 함께 설계하세요."
+      ],
+      "cautions": [
+        "긴장과 돌파를 장점으로만 보면 회복력과 관계 비용을 놓칠 수 있어요."
+      ],
+      "tags": [],
+      "aiGenerated": true,
+      "sourceTier": {
+        "tier": "T1_HYPOTHESIS",
+        "sourceType": "training_derived",
+        "sourceUrl": null,
+        "accessedAt": "2026-05-02",
+        "quoteShort": null,
+        "humanInterpretation": "Expert-depth gyeokguk pyeongwangyeok narrative. AI-derived display text; not authority truth.",
+        "copyrightNote": "No source prose copied; original phrasing.",
+        "authorityTruthEligible": false
+      }
+    }
+  ]
+}
