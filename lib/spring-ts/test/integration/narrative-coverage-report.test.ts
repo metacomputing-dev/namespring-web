@@ -3,7 +3,7 @@
  *
  * Verifies that the narrative coverage planning report remains machine-readable.
  */
-import { execFileSync } from 'node:child_process';
+import { execFileSync, spawnSync } from 'node:child_process';
 import path from 'node:path';
 import { fileURLToPath } from 'node:url';
 
@@ -144,11 +144,57 @@ check('source tier summary is machine readable',
     typeof report?.sourceTierSummary?.numericalEvidenceTierCounts === 'object' &&
     typeof report?.sourceTierSummary?.numericalEvidenceRecordCount === 'number' &&
     typeof report?.sourceTierSummary?.authorityTruthEligibleFragmentCount === 'number' &&
-    typeof report?.sourceTierSummary?.authorityTruthEligibleNumericalEvidenceCount === 'number');
+    typeof report?.sourceTierSummary?.authorityTruthEligibleNumericalEvidenceCount === 'number' &&
+    typeof report?.sourceTierSummary?.authorityTruthEligibleFragmentDeficitToThreshold === 'number' &&
+    typeof report?.sourceTierSummary?.authorityTruthEligibleNumericalEvidenceDeficitToThreshold === 'number');
 check('source tier summary exposes current evidence tiers',
   report?.sourceTierSummary?.fragmentTierCounts?.T1_HYPOTHESIS > 0 &&
     report?.sourceTierSummary?.numericalEvidenceTierCounts?.T3_INTERNAL_ENGINE >= 55,
   JSON.stringify(report?.sourceTierSummary));
+check('authority source thresholds default to observation mode',
+  report?.minAuthorityTruthEligibleFragmentThreshold === 0 &&
+    report?.minAuthorityTruthEligibleNumericalEvidenceThreshold === 0 &&
+    report?.sourceTierSummary?.authorityTruthEligibleFragmentDeficitToThreshold === 0 &&
+    report?.sourceTierSummary?.authorityTruthEligibleNumericalEvidenceDeficitToThreshold === 0,
+  JSON.stringify(report?.sourceTierSummary));
+
+const authorityFragmentGate = spawnSync('node', [
+  SCRIPT_PATH,
+  '--json',
+  '--min-authored=8',
+  '--min-authority-fragments=1',
+], {
+  cwd: SPRING_TS_ROOT,
+  encoding: 'utf-8',
+});
+const authorityFragmentGateReport = JSON.parse(authorityFragmentGate.stdout);
+check('authority fragment threshold can fail CI intentionally',
+  authorityFragmentGate.status === 1 &&
+    authorityFragmentGate.stderr.includes('authorityTruthEligible fragments 0/1'),
+  `status=${authorityFragmentGate.status}; stderr=${authorityFragmentGate.stderr.trim()}`);
+check('authority fragment threshold deficit is machine readable',
+  authorityFragmentGateReport?.minAuthorityTruthEligibleFragmentThreshold === 1 &&
+    authorityFragmentGateReport?.sourceTierSummary?.authorityTruthEligibleFragmentDeficitToThreshold === 1,
+  JSON.stringify(authorityFragmentGateReport?.sourceTierSummary));
+
+const authorityEvidenceGate = spawnSync('node', [
+  SCRIPT_PATH,
+  '--json',
+  '--min-authored=8',
+  '--min-authority-numerical-evidence=1',
+], {
+  cwd: SPRING_TS_ROOT,
+  encoding: 'utf-8',
+});
+const authorityEvidenceGateReport = JSON.parse(authorityEvidenceGate.stdout);
+check('authority numerical evidence threshold can fail CI intentionally',
+  authorityEvidenceGate.status === 1 &&
+    authorityEvidenceGate.stderr.includes('authorityTruthEligible numericalEvidence 0/1'),
+  `status=${authorityEvidenceGate.status}; stderr=${authorityEvidenceGate.stderr.trim()}`);
+check('authority numerical evidence threshold deficit is machine readable',
+  authorityEvidenceGateReport?.minAuthorityTruthEligibleNumericalEvidenceThreshold === 1 &&
+    authorityEvidenceGateReport?.sourceTierSummary?.authorityTruthEligibleNumericalEvidenceDeficitToThreshold === 1,
+  JSON.stringify(authorityEvidenceGateReport?.sourceTierSummary));
 
 console.log(`\nNarrative coverage report: ${pass} PASS / ${fail} FAIL`);
 process.exit(fail > 0 ? 1 : 0);
