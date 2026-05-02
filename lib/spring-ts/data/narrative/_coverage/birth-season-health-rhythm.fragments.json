@@ -1,0 +1,119 @@
+{
+  "schemaVersion": "spring-ts.narrative-fragment-bundle.v1",
+  "bundleId": "coverage.axis.birth-season-health-rhythm.20260502",
+  "contractVersion": "1.0.0",
+  "fragments": [
+    {
+      "schemaVersion": "spring-ts.narrative-fragment.v1",
+      "fragmentId": "health.life.standard.birthseason.spring.204",
+      "axis": { "category": "health", "period": "life", "depth": "standard" },
+      "gating": { "birthSeason": ["spring"] },
+      "templateTokens": [
+        { "kind": "text", "value": "봄에 태어난 흐름은 몸과 마음이 새 자극에 민감하게 반응하기 쉬운 편으로 볼 수 있습니다. 건강 관리는 크게 몰아서 바꾸기보다 가벼운 운동, 규칙적인 수면, 소화에 부담 없는 식사를 꾸준히 이어가는 방식이 잘 맞습니다." }
+      ],
+      "livingTips": [
+        "새 운동이나 식단은 한 번에 바꾸지 말고 2주 단위로 하나씩 시도해 보세요.",
+        "일정이 늘어나는 시기에는 잠드는 시간부터 먼저 고정해 보세요."
+      ],
+      "cautions": [
+        "의욕이 올라온다고 휴식 없이 계속 확장하면 피로가 뒤늦게 몰릴 수 있어요."
+      ],
+      "tags": ["birthSeason"],
+      "aiGenerated": true,
+      "sourceTier": {
+        "tier": "T1_HYPOTHESIS",
+        "sourceType": "training_derived",
+        "sourceUrl": null,
+        "accessedAt": "2026-05-02",
+        "quoteShort": null,
+        "humanInterpretation": "Health-rhythm birthSeason spring narrative. AI-derived display text; not authority truth.",
+        "copyrightNote": "No source prose copied; original phrasing.",
+        "authorityTruthEligible": false
+      }
+    },
+    {
+      "schemaVersion": "spring-ts.narrative-fragment.v1",
+      "fragmentId": "health.life.standard.birthseason.summer.204",
+      "axis": { "category": "health", "period": "life", "depth": "standard" },
+      "gating": { "birthSeason": ["summer"] },
+      "templateTokens": [
+        { "kind": "text", "value": "여름에 태어난 흐름은 활동량과 표현 에너지가 쉽게 올라오는 쪽으로 읽을 수 있습니다. 건강 관리는 에너지를 잘 쓰는 것만큼 식히고 회복하는 시간이 중요하니, 강한 활동 뒤에는 수분, 수면, 조용한 휴식을 함께 배치하는 것이 좋습니다." }
+      ],
+      "livingTips": [
+        "운동이나 외부 일정이 많은 날에는 물과 휴식 시간을 일정에 먼저 넣어 보세요.",
+        "흥분이나 긴장이 올라오는 날에는 짧은 산책이나 호흡으로 속도를 낮춰 보세요."
+      ],
+      "cautions": [
+        "몸이 가볍게 느껴져도 과열된 상태가 이어지면 수면과 집중력이 흔들릴 수 있어요."
+      ],
+      "tags": ["birthSeason"],
+      "aiGenerated": true,
+      "sourceTier": {
+        "tier": "T1_HYPOTHESIS",
+        "sourceType": "training_derived",
+        "sourceUrl": null,
+        "accessedAt": "2026-05-02",
+        "quoteShort": null,
+        "humanInterpretation": "Health-rhythm birthSeason summer narrative. AI-derived display text; not authority truth.",
+        "copyrightNote": "No source prose copied; original phrasing.",
+        "authorityTruthEligible": false
+      }
+    },
+    {
+      "schemaVersion": "spring-ts.narrative-fragment.v1",
+      "fragmentId": "health.life.standard.birthseason.autumn.204",
+      "axis": { "category": "health", "period": "life", "depth": "standard" },
+      "gating": { "birthSeason": ["autumn"] },
+      "templateTokens": [
+        { "kind": "text", "value": "가을에 태어난 흐름은 몸의 기준과 리듬을 세밀하게 느끼는 쪽으로 볼 수 있습니다. 건강 관리는 정리와 반복이 잘 맞으므로, 컨디션 기록과 규칙적인 운동처럼 상태를 확인할 수 있는 루틴을 두면 안정감이 커집니다." }
+      ],
+      "livingTips": [
+        "수면, 식사, 운동 중 하나를 정해 한 달간 간단히 기록해 보세요.",
+        "몸이 뻣뻣해지는 시기에는 스트레칭과 호흡을 짧게라도 반복해 보세요."
+      ],
+      "cautions": [
+        "완벽한 건강 루틴을 만들려다 시작을 미루지 않도록 기준을 단순하게 잡으세요."
+      ],
+      "tags": ["birthSeason"],
+      "aiGenerated": true,
+      "sourceTier": {
+        "tier": "T1_HYPOTHESIS",
+        "sourceType": "training_derived",
+        "sourceUrl": null,
+        "accessedAt": "2026-05-02",
+        "quoteShort": null,
+        "humanInterpretation": "Health-rhythm birthSeason autumn narrative. AI-derived display text; not authority truth.",
+        "copyrightNote": "No source prose copied; original phrasing.",
+        "authorityTruthEligible": false
+      }
+    },
+    {
+      "schemaVersion": "spring-ts.narrative-fragment.v1",
+      "fragmentId": "health.life.standard.birthseason.winter.204",
+      "axis": { "category": "health", "period": "life", "depth": "standard" },
+      "gating": { "birthSeason": ["winter"] },
+      "templateTokens": [
+        { "kind": "text", "value": "겨울에 태어난 흐름은 에너지를 안쪽에 모으고 천천히 회복하는 방식과 잘 맞습니다. 건강 관리는 무리한 속도보다 몸을 따뜻하게 유지하고, 깊은 휴식과 가벼운 움직임을 균형 있게 이어가는 것이 좋습니다." }
+      ],
+      "livingTips": [
+        "몸이 무거운 시기에는 강한 운동보다 걷기와 스트레칭부터 시작해 보세요.",
+        "휴식 시간을 죄책감으로 보지 말고 다음 활동을 위한 준비로 다루어 보세요."
+      ],
+      "cautions": [
+        "조용히 쉬는 시간이 길어지더라도 완전히 고립되지 않도록 작은 활동을 남겨두세요."
+      ],
+      "tags": ["birthSeason"],
+      "aiGenerated": true,
+      "sourceTier": {
+        "tier": "T1_HYPOTHESIS",
+        "sourceType": "training_derived",
+        "sourceUrl": null,
+        "accessedAt": "2026-05-02",
+        "quoteShort": null,
+        "humanInterpretation": "Health-rhythm birthSeason winter narrative. AI-derived display text; not authority truth.",
+        "copyrightNote": "No source prose copied; original phrasing.",
+        "authorityTruthEligible": false
+      }
+    }
+  ]
+}
