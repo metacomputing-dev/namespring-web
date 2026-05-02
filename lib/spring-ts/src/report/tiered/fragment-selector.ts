@@ -73,6 +73,15 @@ function fragmentMatchesUntil(
   return true;
 }
 
+function specificityScore(frag: NarrativeFragment, relaxBefore: number): number {
+  let score = 0;
+  for (let i = relaxBefore; i < FALLBACK_DIMENSIONS.length; i += 1) {
+    const allow = (frag.gating as Record<string, readonly string[] | undefined>)[FALLBACK_DIMENSIONS[i]];
+    if (allow && allow.length > 0) score += 1;
+  }
+  return score;
+}
+
 /** FNV-1a 32-bit hash for deterministic selection. */
 function fnv1a(input: string): number {
   let h = 0x811c9dc5;
@@ -102,8 +111,10 @@ export function selectFragment(
   for (let relaxBefore = 0; relaxBefore <= FALLBACK_DIMENSIONS.length; relaxBefore += 1) {
     const matched = candidates.filter((frag) => fragmentMatchesUntil(frag, feature, relaxBefore));
     if (matched.length === 0) continue;
+    const maxSpecificity = Math.max(...matched.map((frag) => specificityScore(frag, relaxBefore)));
+    const scoped = matched.filter((frag) => specificityScore(frag, relaxBefore) === maxSpecificity);
     const seed = fnv1a(`${ctx.seedKey}|${category}|${period}|${depth}`);
-    return matched[seed % matched.length];
+    return scoped[seed % scoped.length];
   }
   return null;
 }
