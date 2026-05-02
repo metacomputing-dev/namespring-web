@@ -1,0 +1,30 @@
+{
+  "schemaVersion": "spring-ts.glossary-bundle.v1",
+  "category": "naeum",
+  "entries": [
+    {
+      "schemaVersion": "spring-ts.glossary-entry.v1",
+      "id": "naeum",
+      "label": "납음",
+      "hashLabel": "#납음",
+      "category": "naeum",
+      "brief": "60갑자에 별도로 배정된 '소리의 오행'이에요.",
+      "detailed": "60갑자 한 쌍마다 별도로 정해진 오행을 '납음'이라고 해요. 같은 갑자라도 보통의 오행과 납음 오행이 다를 수 있어요. 운명을 보는 결의 한 갈래로, 사주 본체와 함께 보면 입체적인 힌트를 줘요.",
+      "related": ["naeumElement"],
+      "aiGenerated": true,
+      "sourceTier": { "tier": "T1_HYPOTHESIS", "sourceType": "training_derived", "sourceUrl": null, "accessedAt": "2026-05-02", "quoteShort": null, "humanInterpretation": "AI-derived plain-language definition of 납음. Display-only.", "copyrightNote": "No source prose copied.", "authorityTruthEligible": false }
+    },
+    {
+      "schemaVersion": "spring-ts.glossary-entry.v1",
+      "id": "naeumElement",
+      "label": "납음오행",
+      "hashLabel": "#납음오행",
+      "category": "naeum",
+      "brief": "납음 방식으로 배정된 오행(나무·불·흙·쇠·물)이에요.",
+      "detailed": "예를 들어 '甲子'의 일반 오행은 나무·물이지만, 납음 오행은 '海中金(바다 속 쇠)'예요. 이렇게 같은 갑자도 납음에서는 또 다른 오행 비유를 가져요. 작명·궁합에서 부가적인 힌트로 활용돼요.",
+      "related": ["naeum"],
+      "aiGenerated": true,
+      "sourceTier": { "tier": "T1_HYPOTHESIS", "sourceType": "training_derived", "sourceUrl": null, "accessedAt": "2026-05-02", "quoteShort": null, "humanInterpretation": "AI-derived plain-language definition of 납음오행. Display-only.", "copyrightNote": "No source prose copied.", "authorityTruthEligible": false }
+    }
+  ]
+}

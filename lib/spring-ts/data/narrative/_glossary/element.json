@@ -1,0 +1,111 @@
+{
+  "schemaVersion": "spring-ts.glossary-bundle.v1",
+  "category": "element",
+  "entries": [
+    {
+      "schemaVersion": "spring-ts.glossary-entry.v1",
+      "id": "wood",
+      "label": "나무",
+      "hashLabel": "#나무",
+      "category": "element",
+      "brief": "사주에서 '나무(목·木)'는 새싹처럼 자라나는 기운을 뜻해요.",
+      "detailed": "다섯 가지 기운(오행) 중 하나로, 위로 자라고 뻗어 가는 힘을 상징해요. 봄에 새싹이 트는 모습, 가지가 하늘로 향하는 모양을 떠올리면 쉬워요. 사람의 사주에 나무 기운이 적당하면 호기심·성장 욕구가 또렷하고, 너무 강하면 욕심이 앞서기도 해요.",
+      "related": ["fire", "earth", "metal", "water", "yongshin"],
+      "aiGenerated": true,
+      "sourceTier": {
+        "tier": "T1_HYPOTHESIS",
+        "sourceType": "training_derived",
+        "sourceUrl": null,
+        "accessedAt": "2026-05-02",
+        "quoteShort": null,
+        "humanInterpretation": "AI-derived plain-language definition of the Wood element. Display-only.",
+        "copyrightNote": "No source prose copied; original interpretation.",
+        "authorityTruthEligible": false
+      }
+    },
+    {
+      "schemaVersion": "spring-ts.glossary-entry.v1",
+      "id": "fire",
+      "label": "불",
+      "hashLabel": "#불",
+      "category": "element",
+      "brief": "사주에서 '불(화·火)'은 환하게 빛나는 따뜻한 기운이에요.",
+      "detailed": "햇빛, 등불, 모닥불처럼 따뜻하고 빛을 내는 힘이에요. 사람의 사주에 불 기운이 적당하면 표현력·열정·밝음이 도드라지고, 너무 강하면 쉽게 뜨거워졌다 식는 성향이 나오기도 해요. 차가운 기운이 강할 때는 불 기운이 균형을 잡아 줘요.",
+      "related": ["wood", "earth", "yongshin", "johu"],
+      "aiGenerated": true,
+      "sourceTier": {
+        "tier": "T1_HYPOTHESIS",
+        "sourceType": "training_derived",
+        "sourceUrl": null,
+        "accessedAt": "2026-05-02",
+        "quoteShort": null,
+        "humanInterpretation": "AI-derived plain-language definition of the Fire element. Display-only.",
+        "copyrightNote": "No source prose copied; original interpretation.",
+        "authorityTruthEligible": false
+      }
+    },
+    {
+      "schemaVersion": "spring-ts.glossary-entry.v1",
+      "id": "earth",
+      "label": "흙",
+      "hashLabel": "#흙",
+      "category": "element",
+      "brief": "사주에서 '흙(토·土)'은 모든 것을 받아 주고 단단히 자리잡게 하는 기운이에요.",
+      "detailed": "넓은 들판이나 단단한 땅처럼, 다른 기운들이 자라고 머무를 수 있게 받쳐 주는 자리예요. 흙 기운이 충분하면 든든하고 신뢰가 가는 성품이 나오고, 너무 많으면 변화에 둔해지기도 해요. 사주의 균형을 잡는 중심으로 자주 등장해요.",
+      "related": ["fire", "metal", "yongshin"],
+      "aiGenerated": true,
+      "sourceTier": {
+        "tier": "T1_HYPOTHESIS",
+        "sourceType": "training_derived",
+        "sourceUrl": null,
+        "accessedAt": "2026-05-02",
+        "quoteShort": null,
+        "humanInterpretation": "AI-derived plain-language definition of the Earth element. Display-only.",
+        "copyrightNote": "No source prose copied; original interpretation.",
+        "authorityTruthEligible": false
+      }
+    },
+    {
+      "schemaVersion": "spring-ts.glossary-entry.v1",
+      "id": "metal",
+      "label": "쇠",
+      "hashLabel": "#쇠",
+      "category": "element",
+      "brief": "사주에서 '쇠(금·金)'는 다듬고 결단하는 또렷한 기운이에요.",
+      "detailed": "잘 다듬은 쇠붙이나 가을의 서늘한 바람처럼, 무엇을 모아 형태를 잡고 결정짓게 하는 힘이에요. 쇠 기운이 적당하면 책임감·기준·원칙이 뚜렷하고, 너무 강하면 융통성이 줄어들 수 있어요. 흩어진 기운을 모아 마무리하는 역할을 해요.",
+      "related": ["earth", "water", "yongshin"],
+      "aiGenerated": true,
+      "sourceTier": {
+        "tier": "T1_HYPOTHESIS",
+        "sourceType": "training_derived",
+        "sourceUrl": null,
+        "accessedAt": "2026-05-02",
+        "quoteShort": null,
+        "humanInterpretation": "AI-derived plain-language definition of the Metal element. Display-only.",
+        "copyrightNote": "No source prose copied; original interpretation.",
+        "authorityTruthEligible": false
+      }
+    },
+    {
+      "schemaVersion": "spring-ts.glossary-entry.v1",
+      "id": "water",
+      "label": "물",
+      "hashLabel": "#물",
+      "category": "element",
+      "brief": "사주에서 '물(수·水)'은 흐르고 스며들고 깊이 생각하게 하는 기운이에요.",
+      "detailed": "강물이나 우물처럼, 낮은 곳으로 흘러 들어가 곳곳을 적시는 힘이에요. 물 기운이 적당하면 사고·지혜·적응력이 좋아지고, 너무 강하면 깊이 가라앉거나 망설이기 쉬워요. 더운 기운이 강한 사주에는 물이 균형추 역할을 해요.",
+      "related": ["wood", "metal", "yongshin", "johu"],
+      "aiGenerated": true,
+      "sourceTier": {
+        "tier": "T1_HYPOTHESIS",
+        "sourceType": "training_derived",
+        "sourceUrl": null,
+        "accessedAt": "2026-05-02",
+        "quoteShort": null,
+        "humanInterpretation": "AI-derived plain-language definition of the Water element. Display-only.",
+        "copyrightNote": "No source prose copied; original interpretation.",
+        "authorityTruthEligible": false
+      }
+    }
+  ]
+}

@@ -1,0 +1,54 @@
+{
+  "schemaVersion": "spring-ts.glossary-bundle.v1",
+  "category": "palace",
+  "entries": [
+    {
+      "schemaVersion": "spring-ts.glossary-entry.v1",
+      "id": "jojangung",
+      "label": "조상궁",
+      "hashLabel": "#조상궁",
+      "category": "palace",
+      "brief": "조상·뿌리·집안의 흐름을 보는 자리예요.",
+      "detailed": "사주의 12궁 자리 중 가족·조상·뿌리의 흐름을 비추는 자리예요. 보통 연주(첫 번째 기둥)와 연결돼요. 조상궁이 길하면 집안의 도움·가풍의 자산이 어린 시절부터 든든하게 작용해요.",
+      "related": ["yearPillar", "bumyong"],
+      "aiGenerated": true,
+      "sourceTier": { "tier": "T1_HYPOTHESIS", "sourceType": "training_derived", "sourceUrl": null, "accessedAt": "2026-05-02", "quoteShort": null, "humanInterpretation": "AI-derived plain-language definition of 조상궁. Display-only.", "copyrightNote": "No source prose copied.", "authorityTruthEligible": false }
+    },
+    {
+      "schemaVersion": "spring-ts.glossary-entry.v1",
+      "id": "bumyong",
+      "label": "부모궁",
+      "hashLabel": "#부모궁",
+      "category": "palace",
+      "brief": "부모·청년기 출발의 흐름을 보는 자리예요.",
+      "detailed": "12궁 중 부모·교육·청년기 출발을 비추는 자리예요. 보통 월주(두 번째 기둥)와 연결돼요. 부모궁이 길하면 어린 시절의 교육·돌봄 자산이 든든하고, 흉하면 일찍 자립하는 흐름으로 풀어요.",
+      "related": ["monthPillar", "jeongin"],
+      "aiGenerated": true,
+      "sourceTier": { "tier": "T1_HYPOTHESIS", "sourceType": "training_derived", "sourceUrl": null, "accessedAt": "2026-05-02", "quoteShort": null, "humanInterpretation": "AI-derived plain-language definition of 부모궁. Display-only.", "copyrightNote": "No source prose copied.", "authorityTruthEligible": false }
+    },
+    {
+      "schemaVersion": "spring-ts.glossary-entry.v1",
+      "id": "baeujagung",
+      "label": "배우자궁",
+      "hashLabel": "#배우자궁",
+      "category": "palace",
+      "brief": "배우자·연인·반려와의 흐름을 보는 자리예요.",
+      "detailed": "12궁 중 배우자와 가까운 짝의 결을 비추는 자리예요. 보통 일지(일주 아래 글자)와 연결돼요. 이 자리가 안정적이면 결혼·연인 관계가 든든하고, 흔들림이 잦으면 거리·조율이 필요한 시기가 있다고 봐요.",
+      "related": ["dayPillar", "romance"],
+      "aiGenerated": true,
+      "sourceTier": { "tier": "T1_HYPOTHESIS", "sourceType": "training_derived", "sourceUrl": null, "accessedAt": "2026-05-02", "quoteShort": null, "humanInterpretation": "AI-derived plain-language definition of 배우자궁. Display-only.", "copyrightNote": "No source prose copied.", "authorityTruthEligible": false }
+    },
+    {
+      "schemaVersion": "spring-ts.glossary-entry.v1",
+      "id": "jasikgung",
+      "label": "자식궁",
+      "hashLabel": "#자식궁",
+      "category": "palace",
+      "brief": "자녀·노년·내가 가꾼 결과의 흐름을 보는 자리예요.",
+      "detailed": "12궁 중 자녀·인생 후반부의 결실을 비추는 자리예요. 보통 시주(네 번째 기둥)와 연결돼요. 자식궁이 길하면 후반부의 결실·자녀 자산이 든든해요. 시주가 불확실할 땐 이 자리도 보수적으로 해석해야 해요.",
+      "related": ["hourPillar", "sikshin"],
+      "aiGenerated": true,
+      "sourceTier": { "tier": "T1_HYPOTHESIS", "sourceType": "training_derived", "sourceUrl": null, "accessedAt": "2026-05-02", "quoteShort": null, "humanInterpretation": "AI-derived plain-language definition of 자식궁. Display-only.", "copyrightNote": "No source prose copied.", "authorityTruthEligible": false }
+    }
+  ]
+}

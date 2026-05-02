@@ -1,0 +1,102 @@
+{
+  "schemaVersion": "spring-ts.glossary-bundle.v1",
+  "category": "shinsal",
+  "entries": [
+    {
+      "schemaVersion": "spring-ts.glossary-entry.v1",
+      "id": "cheonleulgwiin",
+      "label": "천을귀인",
+      "hashLabel": "#천을귀인",
+      "category": "shinsal",
+      "brief": "어려울 때 도와주는 귀한 인연을 부르는 신호예요.",
+      "detailed": "사주에 천을귀인이 있으면, 결정적인 순간에 도움을 주는 사람이 등장하기 쉬운 흐름이라고 봐요. 작은 일에서 큰 일까지, 좋은 인연을 만나는 자리가 자주 생긴다는 의미라 가장 길한 신살로 손꼽혀요.",
+      "related": ["yongshin"],
+      "aiGenerated": true,
+      "sourceTier": { "tier": "T1_HYPOTHESIS", "sourceType": "training_derived", "sourceUrl": null, "accessedAt": "2026-05-02", "quoteShort": null, "humanInterpretation": "AI-derived plain-language definition of 천을귀인. Display-only narrative.", "copyrightNote": "No source prose copied.", "authorityTruthEligible": false }
+    },
+    {
+      "schemaVersion": "spring-ts.glossary-entry.v1",
+      "id": "hwagae",
+      "label": "화개",
+      "hashLabel": "#화개",
+      "category": "shinsal",
+      "brief": "예술·종교·깊은 사색의 향기를 가진 신호예요.",
+      "detailed": "사주에 화개가 있으면 예술·철학·종교 같은 '안으로 들어가는 결'이 도드라지는 경향이 있어요. 잘 살리면 자기만의 깊이 있는 작품·전문성이 나오고, 너무 강하면 외로움이 따라올 수 있어요.",
+      "related": ["pyeonin"],
+      "aiGenerated": true,
+      "sourceTier": { "tier": "T1_HYPOTHESIS", "sourceType": "training_derived", "sourceUrl": null, "accessedAt": "2026-05-02", "quoteShort": null, "humanInterpretation": "AI-derived plain-language definition of 화개. Display-only narrative.", "copyrightNote": "No source prose copied.", "authorityTruthEligible": false }
+    },
+    {
+      "schemaVersion": "spring-ts.glossary-entry.v1",
+      "id": "dohwa",
+      "label": "도화",
+      "hashLabel": "#도화",
+      "category": "shinsal",
+      "brief": "사람들의 시선·매력·인기를 부르는 신호예요.",
+      "detailed": "사주에 도화가 있으면 매력·시선·인기를 끄는 결이 강해요. 직업으로는 무대·서비스·창작 분야에서 빛을 잘 내요. 다만 인간관계의 흐름이 빨라 들뜨기 쉬우니 균형 감각이 중요해요.",
+      "related": ["hongyeom"],
+      "aiGenerated": true,
+      "sourceTier": { "tier": "T1_HYPOTHESIS", "sourceType": "training_derived", "sourceUrl": null, "accessedAt": "2026-05-02", "quoteShort": null, "humanInterpretation": "AI-derived plain-language definition of 도화. Display-only narrative.", "copyrightNote": "No source prose copied.", "authorityTruthEligible": false }
+    },
+    {
+      "schemaVersion": "spring-ts.glossary-entry.v1",
+      "id": "hongyeom",
+      "label": "홍염",
+      "hashLabel": "#홍염",
+      "category": "shinsal",
+      "brief": "은은한 매력·이성 인기·예술 감각을 보여 주는 신호예요.",
+      "detailed": "도화와 비슷한 결이지만 좀 더 은은하고 부드러운 매력이에요. 예술·미용·디자인·서비스에서 강점이 있고, 따뜻한 인상을 주기 쉬워요. 강한 흐름의 시기엔 자기 페이스를 지키는 것이 도움이 돼요.",
+      "related": ["dohwa"],
+      "aiGenerated": true,
+      "sourceTier": { "tier": "T1_HYPOTHESIS", "sourceType": "training_derived", "sourceUrl": null, "accessedAt": "2026-05-02", "quoteShort": null, "humanInterpretation": "AI-derived plain-language definition of 홍염. Display-only narrative.", "copyrightNote": "No source prose copied.", "authorityTruthEligible": false }
+    },
+    {
+      "schemaVersion": "spring-ts.glossary-entry.v1",
+      "id": "yeokma",
+      "label": "역마",
+      "hashLabel": "#역마",
+      "category": "shinsal",
+      "brief": "이동·변화·새로운 자리로 향하는 기운이에요.",
+      "detailed": "사주에 역마가 있으면 출장·이사·해외·잦은 이동의 결이 강해요. 한 자리에 오래 머물기보다 새 자리·새 환경에서 성과가 나는 사주예요. 운세에서 역마 시기엔 큰 변화·이동을 한 번 검토해 보면 좋아요.",
+      "related": ["movement"],
+      "aiGenerated": true,
+      "sourceTier": { "tier": "T1_HYPOTHESIS", "sourceType": "training_derived", "sourceUrl": null, "accessedAt": "2026-05-02", "quoteShort": null, "humanInterpretation": "AI-derived plain-language definition of 역마. Display-only narrative.", "copyrightNote": "No source prose copied.", "authorityTruthEligible": false }
+    },
+    {
+      "schemaVersion": "spring-ts.glossary-entry.v1",
+      "id": "mangsin",
+      "label": "망신",
+      "hashLabel": "#망신",
+      "category": "shinsal",
+      "brief": "체면·평판이 흔들릴 수 있는 주의 신호예요.",
+      "detailed": "이름 그대로 '체면이 깎일 수 있는 자리'예요. 무리한 자랑·겉치레·과도한 사람 자리에서 약점이 드러나기 쉬우니, 표현은 한 박자 늦추고 사실 위주로 챙기면 흠 없이 지나가요.",
+      "related": [],
+      "aiGenerated": true,
+      "sourceTier": { "tier": "T1_HYPOTHESIS", "sourceType": "training_derived", "sourceUrl": null, "accessedAt": "2026-05-02", "quoteShort": null, "humanInterpretation": "AI-derived plain-language definition of 망신. Display-only narrative.", "copyrightNote": "No source prose copied.", "authorityTruthEligible": false }
+    },
+    {
+      "schemaVersion": "spring-ts.glossary-entry.v1",
+      "id": "gongmang",
+      "label": "공망",
+      "hashLabel": "#공망",
+      "category": "shinsal",
+      "brief": "비어 있는 자리, 결과가 더디게 오는 결이에요.",
+      "detailed": "사주의 어떤 자리에 '공망'이 들면, 그 자리의 효과가 약해지거나 결과가 늦게 와요. 무조건 흉한 게 아니라, '천천히 익어 가는 자리'로 보면 더 정확해요. 인내·기록·꾸준함이 결국 큰 결과로 이어지는 결이에요.",
+      "related": [],
+      "aiGenerated": true,
+      "sourceTier": { "tier": "T1_HYPOTHESIS", "sourceType": "training_derived", "sourceUrl": null, "accessedAt": "2026-05-02", "quoteShort": null, "humanInterpretation": "AI-derived plain-language definition of 공망. Display-only narrative.", "copyrightNote": "No source prose copied.", "authorityTruthEligible": false }
+    },
+    {
+      "schemaVersion": "spring-ts.glossary-entry.v1",
+      "id": "samhyeong",
+      "label": "삼형",
+      "hashLabel": "#삼형",
+      "category": "shinsal",
+      "brief": "세 글자의 충돌이 만드는 마찰·법적 책임 신호예요.",
+      "detailed": "지지(밑둥) 세 글자가 충돌하는 모양으로, 갈등·소송·중재 같은 자리가 생기기 쉽다고 봐요. 무조건 흉한 것은 아니고, '잘 다듬으면 권력·기준이 되는 자리'이기도 해요. 시기엔 무리한 다툼은 피하고 서면·증빙을 챙기세요.",
+      "related": [],
+      "aiGenerated": true,
+      "sourceTier": { "tier": "T1_HYPOTHESIS", "sourceType": "training_derived", "sourceUrl": null, "accessedAt": "2026-05-02", "quoteShort": null, "humanInterpretation": "AI-derived plain-language definition of 삼형. Display-only narrative.", "copyrightNote": "No source prose copied.", "authorityTruthEligible": false }
+    }
+  ]
+}

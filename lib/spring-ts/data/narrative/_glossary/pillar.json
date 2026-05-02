@@ -1,0 +1,54 @@
+{
+  "schemaVersion": "spring-ts.glossary-bundle.v1",
+  "category": "pillar",
+  "entries": [
+    {
+      "schemaVersion": "spring-ts.glossary-entry.v1",
+      "id": "yearPillar",
+      "label": "연주",
+      "hashLabel": "#연주",
+      "category": "pillar",
+      "brief": "태어난 해를 나타내는 사주의 첫 번째 기둥이에요.",
+      "detailed": "사주를 이루는 4기둥(연·월·일·시) 중 가장 먼저 자리잡는 기둥이에요. 가문·뿌리·어린 시절·조상의 흐름을 비춰요. 연주가 길하면 어린 시절의 환경이 든든하다고 보고, 흉하면 부모·고향과 일찍 거리가 생기는 흐름이라고 풀어요.",
+      "related": ["monthPillar", "jojangung"],
+      "aiGenerated": true,
+      "sourceTier": { "tier": "T1_HYPOTHESIS", "sourceType": "training_derived", "sourceUrl": null, "accessedAt": "2026-05-02", "quoteShort": null, "humanInterpretation": "AI-derived plain-language definition of the year pillar. Display-only.", "copyrightNote": "No source prose copied.", "authorityTruthEligible": false }
+    },
+    {
+      "schemaVersion": "spring-ts.glossary-entry.v1",
+      "id": "monthPillar",
+      "label": "월주",
+      "hashLabel": "#월주",
+      "category": "pillar",
+      "brief": "태어난 달을 나타내는 사주의 두 번째 기둥이에요.",
+      "detailed": "사주의 4기둥 중 두 번째로, 부모·청년기·사회 출발의 자리예요. 격국(사주 모양)을 잡을 때 가장 큰 영향을 주는 기둥이라 '사주의 중심축'이라고도 불러요. 월주가 강하면 출발선의 발판이 단단한 사주예요.",
+      "related": ["yearPillar", "dayPillar", "bumyong"],
+      "aiGenerated": true,
+      "sourceTier": { "tier": "T1_HYPOTHESIS", "sourceType": "training_derived", "sourceUrl": null, "accessedAt": "2026-05-02", "quoteShort": null, "humanInterpretation": "AI-derived plain-language definition of the month pillar. Display-only.", "copyrightNote": "No source prose copied.", "authorityTruthEligible": false }
+    },
+    {
+      "schemaVersion": "spring-ts.glossary-entry.v1",
+      "id": "dayPillar",
+      "label": "일주",
+      "hashLabel": "#일주",
+      "category": "pillar",
+      "brief": "'나 자신'을 나타내는 사주의 세 번째 기둥이에요.",
+      "detailed": "사주의 4기둥 중 세 번째이자 가장 핵심인 기둥이에요. 일간(천간 윗 글자)이 곧 '나 자신'이고, 일지(아래 글자)는 배우자·내 자리예요. 일주의 짜임을 보면 그 사람의 성품·관계 결이 거의 드러나요.",
+      "related": ["monthPillar", "hourPillar", "baeujagung"],
+      "aiGenerated": true,
+      "sourceTier": { "tier": "T1_HYPOTHESIS", "sourceType": "training_derived", "sourceUrl": null, "accessedAt": "2026-05-02", "quoteShort": null, "humanInterpretation": "AI-derived plain-language definition of the day pillar. Display-only.", "copyrightNote": "No source prose copied.", "authorityTruthEligible": false }
+    },
+    {
+      "schemaVersion": "spring-ts.glossary-entry.v1",
+      "id": "hourPillar",
+      "label": "시주",
+      "hashLabel": "#시주",
+      "category": "pillar",
+      "brief": "태어난 시각을 나타내는 사주의 네 번째 기둥이에요.",
+      "detailed": "사주의 마지막 4번째 기둥으로, 인생의 후반부·자식·노년의 결과를 비추는 자리예요. 태어난 시각을 모를 때는 시주를 잠정 처리하므로, 시주 관련 해석은 신중히 봐야 해요.",
+      "related": ["dayPillar", "jasikgung"],
+      "aiGenerated": true,
+      "sourceTier": { "tier": "T1_HYPOTHESIS", "sourceType": "training_derived", "sourceUrl": null, "accessedAt": "2026-05-02", "quoteShort": null, "humanInterpretation": "AI-derived plain-language definition of the hour pillar. Display-only.", "copyrightNote": "No source prose copied.", "authorityTruthEligible": false }
+    }
+  ]
+}

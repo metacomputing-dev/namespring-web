@@ -1,0 +1,102 @@
+{
+  "schemaVersion": "spring-ts.glossary-bundle.v1",
+  "category": "gyeokguk",
+  "entries": [
+    {
+      "schemaVersion": "spring-ts.glossary-entry.v1",
+      "id": "jeonggwangyeok",
+      "label": "정관격",
+      "hashLabel": "#정관격",
+      "category": "gyeokguk",
+      "brief": "책임·자리·바른 길이 사주의 중심을 잡고 있는 형태예요.",
+      "detailed": "사주 전체의 모양(격국) 중 '정관'이 중심에 자리잡은 모양이에요. 반듯한 책임감, 사회적 자리, 신뢰 자산이 자라기 좋아 큰 회사·관청·자격이 필요한 분야에서 빛을 내는 사람이 많아요. 다만 정관이 너무 강한데 도와줄 인성이 부족하면 부담만 무거워질 수 있어요.",
+      "related": ["jeonggwan", "jeongin"],
+      "aiGenerated": true,
+      "sourceTier": { "tier": "T1_HYPOTHESIS", "sourceType": "training_derived", "sourceUrl": null, "accessedAt": "2026-05-02", "quoteShort": null, "humanInterpretation": "AI-derived plain-language definition of 정관격. Display-only narrative.", "copyrightNote": "No source prose copied.", "authorityTruthEligible": false }
+    },
+    {
+      "schemaVersion": "spring-ts.glossary-entry.v1",
+      "id": "pyeongwangyeok",
+      "label": "편관격",
+      "hashLabel": "#편관격",
+      "category": "gyeokguk",
+      "brief": "강한 도전·결단의 힘이 사주의 중심을 잡고 있는 형태예요.",
+      "detailed": "사주 모양(격국) 중 '편관(칠살)'이 중심에 자리한 형태예요. 도전적·결단형으로, 큰 무대·창업·외부 압력을 다루는 일에 잘 맞아요. 단, 도와주는 기운(인성)이 약하면 압박만 커지므로, 마음의 여유와 응원군을 함께 갖추는 게 중요해요.",
+      "related": ["pyeongwan", "jeongin"],
+      "aiGenerated": true,
+      "sourceTier": { "tier": "T1_HYPOTHESIS", "sourceType": "training_derived", "sourceUrl": null, "accessedAt": "2026-05-02", "quoteShort": null, "humanInterpretation": "AI-derived plain-language definition of 편관격. Display-only narrative.", "copyrightNote": "No source prose copied.", "authorityTruthEligible": false }
+    },
+    {
+      "schemaVersion": "spring-ts.glossary-entry.v1",
+      "id": "jeongjaegyeok",
+      "label": "정재격",
+      "hashLabel": "#정재격",
+      "category": "gyeokguk",
+      "brief": "꾸준한 자산·생활 안정이 사주의 중심을 잡고 있는 형태예요.",
+      "detailed": "사주 모양(격국) 중 '정재'가 중심에 자리한 모양이에요. 차곡차곡 모으는 재물 흐름, 가정·관리 능력이 강해 안정적 직업이나 가족 운에 강점이 있어요. 다만 변화·확장보다는 보존이 우선되니, 큰 기회 앞에서는 의도적으로 한 발 더 나가 보는 연습이 도움이 돼요.",
+      "related": ["jeongjae"],
+      "aiGenerated": true,
+      "sourceTier": { "tier": "T1_HYPOTHESIS", "sourceType": "training_derived", "sourceUrl": null, "accessedAt": "2026-05-02", "quoteShort": null, "humanInterpretation": "AI-derived plain-language definition of 정재격. Display-only narrative.", "copyrightNote": "No source prose copied.", "authorityTruthEligible": false }
+    },
+    {
+      "schemaVersion": "spring-ts.glossary-entry.v1",
+      "id": "pyeonjaegyeok",
+      "label": "편재격",
+      "hashLabel": "#편재격",
+      "category": "gyeokguk",
+      "brief": "큰 흐름·기회·확장의 결이 사주의 중심을 잡고 있는 형태예요.",
+      "detailed": "사주 모양(격국) 중 '편재'가 중심에 자리한 형태예요. 사업·영업·큰 거래에 강한 감각을 가진 사람이 많고, 사람을 끌어모으는 힘이 좋아요. 다만 작은 관리에 약해 새는 곳을 챙기는 시스템이 있어야 강점이 오래 가요.",
+      "related": ["pyeonjae"],
+      "aiGenerated": true,
+      "sourceTier": { "tier": "T1_HYPOTHESIS", "sourceType": "training_derived", "sourceUrl": null, "accessedAt": "2026-05-02", "quoteShort": null, "humanInterpretation": "AI-derived plain-language definition of 편재격. Display-only narrative.", "copyrightNote": "No source prose copied.", "authorityTruthEligible": false }
+    },
+    {
+      "schemaVersion": "spring-ts.glossary-entry.v1",
+      "id": "sikshingyeok",
+      "label": "식신격",
+      "hashLabel": "#식신격",
+      "category": "gyeokguk",
+      "brief": "내가 만들어 내는 결과물·표현이 중심을 잡고 있는 형태예요.",
+      "detailed": "사주 모양(격국) 중 '식신'이 중심에 자리한 형태예요. 표현·창작·서비스·요리 같은 '결과물 만드는 일'에 잘 맞고, 분위기가 부드러운 사람이 많아요. 균형이 좋으면 인생 후반까지 자기 일이 길게 이어지는 사주예요.",
+      "related": ["sikshin"],
+      "aiGenerated": true,
+      "sourceTier": { "tier": "T1_HYPOTHESIS", "sourceType": "training_derived", "sourceUrl": null, "accessedAt": "2026-05-02", "quoteShort": null, "humanInterpretation": "AI-derived plain-language definition of 식신격. Display-only narrative.", "copyrightNote": "No source prose copied.", "authorityTruthEligible": false }
+    },
+    {
+      "schemaVersion": "spring-ts.glossary-entry.v1",
+      "id": "sanggwangyeok",
+      "label": "상관격",
+      "hashLabel": "#상관격",
+      "category": "gyeokguk",
+      "brief": "톡톡 튀는 표현·창의가 사주의 중심을 잡고 있는 형태예요.",
+      "detailed": "사주 모양(격국) 중 '상관'이 중심에 자리한 형태예요. 개성·기획력·언변이 좋고, 자기 무대를 만나면 또래보다 빠르게 두각을 나타내요. 다만 윗사람·규칙과 부딪치기 쉬워서, 표현 방식과 시점만 다듬으면 강점이 오래 가요.",
+      "related": ["sanggwan"],
+      "aiGenerated": true,
+      "sourceTier": { "tier": "T1_HYPOTHESIS", "sourceType": "training_derived", "sourceUrl": null, "accessedAt": "2026-05-02", "quoteShort": null, "humanInterpretation": "AI-derived plain-language definition of 상관격. Display-only narrative.", "copyrightNote": "No source prose copied.", "authorityTruthEligible": false }
+    },
+    {
+      "schemaVersion": "spring-ts.glossary-entry.v1",
+      "id": "jeongingyeok",
+      "label": "정인격",
+      "hashLabel": "#정인격",
+      "category": "gyeokguk",
+      "brief": "정통 학문·돌봄·후원이 사주의 중심을 잡고 있는 형태예요.",
+      "detailed": "사주 모양(격국) 중 '정인'이 중심에 자리한 형태예요. 공부·자격·돌보는 일에 강하고, 부모·스승의 도움을 잘 받는 결이에요. 차분히 깊어지는 시기를 거쳐 큰 그릇이 되는 사주가 많아요.",
+      "related": ["jeongin"],
+      "aiGenerated": true,
+      "sourceTier": { "tier": "T1_HYPOTHESIS", "sourceType": "training_derived", "sourceUrl": null, "accessedAt": "2026-05-02", "quoteShort": null, "humanInterpretation": "AI-derived plain-language definition of 정인격. Display-only narrative.", "copyrightNote": "No source prose copied.", "authorityTruthEligible": false }
+    },
+    {
+      "schemaVersion": "spring-ts.glossary-entry.v1",
+      "id": "pyeoningyeok",
+      "label": "편인격",
+      "hashLabel": "#편인격",
+      "category": "gyeokguk",
+      "brief": "독특한 공부·통찰이 사주의 중심을 잡고 있는 형태예요.",
+      "detailed": "사주 모양(격국) 중 '편인'이 중심에 자리한 형태예요. 깊이 파고드는 학문·예술·전문 기술에 강하고, 자기만의 색깔이 분명해요. 사람과 한 발짝 거리를 두기 쉬우니, 가까운 한두 명과의 대화를 정기적으로 챙기면 좋아요.",
+      "related": ["pyeonin"],
+      "aiGenerated": true,
+      "sourceTier": { "tier": "T1_HYPOTHESIS", "sourceType": "training_derived", "sourceUrl": null, "accessedAt": "2026-05-02", "quoteShort": null, "humanInterpretation": "AI-derived plain-language definition of 편인격. Display-only narrative.", "copyrightNote": "No source prose copied.", "authorityTruthEligible": false }
+    }
+  ]
+}

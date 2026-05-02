@@ -1,0 +1,88 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://namespring.local/spring-ts/glossaryEntry.schema.json",
+  "title": "spring-ts Tiered-Matrix Glossary Entry",
+  "description": "Definition for a single inline tag (#용신, #천을귀인, ...). Authored entries live in data/narrative/_glossary/<id>.json. The brief field aims at elementary/middle-school readers; detailed expands with analogies and classical reasoning. AI-authored definitions must carry T1_HYPOTHESIS sourceTier.",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "schemaVersion",
+    "id",
+    "label",
+    "hashLabel",
+    "category",
+    "brief",
+    "detailed",
+    "related",
+    "aiGenerated",
+    "sourceTier"
+  ],
+  "properties": {
+    "schemaVersion": {
+      "type": "string",
+      "const": "spring-ts.glossary-entry.v1"
+    },
+    "id": {
+      "type": "string",
+      "pattern": "^[a-z][a-zA-Z0-9_]*$",
+      "description": "Stable identifier referenced by ParagraphToken.tagId."
+    },
+    "label": {
+      "type": "string",
+      "minLength": 1,
+      "description": "Display label (Korean), e.g., '용신'."
+    },
+    "hashLabel": {
+      "type": "string",
+      "pattern": "^#.+$",
+      "description": "Hash-prefixed display label, e.g., '#용신'."
+    },
+    "category": {
+      "type": "string",
+      "enum": [
+        "element", "tenGod", "gyeokguk", "shinsal", "pillar",
+        "palace", "naeum", "yongshin", "gungsil", "compatibility"
+      ]
+    },
+    "brief": {
+      "type": "string",
+      "minLength": 8,
+      "maxLength": 200,
+      "description": "One-line definition aimed at elementary / middle-school readers. No nested tags."
+    },
+    "detailed": {
+      "type": "string",
+      "minLength": 30,
+      "description": "Multi-paragraph definition. May include analogies and classical reasoning. Plain text only — no nested tag tokens."
+    },
+    "classicalSource": {
+      "$ref": "https://namespring.local/spring-ts/sourceTier.schema.json"
+    },
+    "related": {
+      "type": "array",
+      "items": { "type": "string", "pattern": "^[a-z][a-zA-Z0-9_]*$" },
+      "uniqueItems": true,
+      "description": "Other glossary IDs related to this term."
+    },
+    "aiGenerated": { "type": "boolean" },
+    "modelGenerated": { "type": "boolean" },
+    "sourceTier": { "$ref": "https://namespring.local/spring-ts/sourceTier.schema.json" }
+  },
+  "allOf": [
+    {
+      "if": { "properties": { "aiGenerated": { "const": true } } },
+      "then": {
+        "properties": {
+          "sourceTier": {
+            "properties": {
+              "tier": { "const": "T1_HYPOTHESIS" },
+              "sourceType": { "const": "training_derived" },
+              "authorityTruthEligible": { "const": false }
+            },
+            "required": ["tier", "sourceType", "authorityTruthEligible"]
+          }
+        }
+      }
+    }
+  ]
+}

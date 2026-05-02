@@ -1,0 +1,136 @@
+{
+  "schemaVersion": "spring-ts.glossary-bundle.v1",
+  "category": "tenGod",
+  "_sharedSourceTier": {
+    "tier": "T1_HYPOTHESIS",
+    "sourceType": "training_derived",
+    "sourceUrl": null,
+    "accessedAt": "2026-05-02",
+    "quoteShort": null,
+    "humanInterpretation": "AI-derived plain-language definition of a Ten God concept. Display-only narrative; never authority truth.",
+    "copyrightNote": "No source prose copied; original interpretation.",
+    "authorityTruthEligible": false
+  },
+  "entries": [
+    {
+      "schemaVersion": "spring-ts.glossary-entry.v1",
+      "id": "bigyeon",
+      "label": "비견",
+      "hashLabel": "#비견",
+      "category": "tenGod",
+      "brief": "나와 같은 편에 서는 친구·동료 같은 기운이에요.",
+      "detailed": "내 일간(나 자신)과 같은 오행, 같은 음양인 기운이에요. 나란히 어깨를 걸 친구처럼 도움도 되고, 때로는 한 자리를 두고 경쟁하는 라이벌이 되기도 해요. 비견이 강하면 자기 주관이 또렷하고 동료 운이 잘 풀리는 편이에요.",
+      "related": ["geobjae", "wood", "fire", "earth", "metal", "water"],
+      "aiGenerated": true,
+      "sourceTier": { "tier": "T1_HYPOTHESIS", "sourceType": "training_derived", "sourceUrl": null, "accessedAt": "2026-05-02", "quoteShort": null, "humanInterpretation": "AI-derived plain-language definition of bigyeon (비견). Display-only narrative.", "copyrightNote": "No source prose copied.", "authorityTruthEligible": false }
+    },
+    {
+      "schemaVersion": "spring-ts.glossary-entry.v1",
+      "id": "geobjae",
+      "label": "겁재",
+      "hashLabel": "#겁재",
+      "category": "tenGod",
+      "brief": "나와 같은 편이지만 좀 더 거친, 욕심 많은 친구 기운이에요.",
+      "detailed": "비견과 비슷하지만 음양이 반대라 더 강하고 적극적인 친구·경쟁자 기운이에요. 추진력이 강한 대신 욕심이 앞설 수 있어요. 겁재가 강한 시기엔 동업·돈거래는 한 번 더 돌다리를 두드리세요.",
+      "related": ["bigyeon"],
+      "aiGenerated": true,
+      "sourceTier": { "tier": "T1_HYPOTHESIS", "sourceType": "training_derived", "sourceUrl": null, "accessedAt": "2026-05-02", "quoteShort": null, "humanInterpretation": "AI-derived plain-language definition of geobjae (겁재). Display-only narrative.", "copyrightNote": "No source prose copied.", "authorityTruthEligible": false }
+    },
+    {
+      "schemaVersion": "spring-ts.glossary-entry.v1",
+      "id": "sikshin",
+      "label": "식신",
+      "hashLabel": "#식신",
+      "category": "tenGod",
+      "brief": "내가 만들어 내는 표현·재능·즐거움 기운이에요.",
+      "detailed": "내가 길러 내고 풀어 내는 힘, 즉 '내가 만든 것'을 뜻해요. 음식, 글, 노래, 발표처럼 표현·창작·여유를 즐기는 결이에요. 식신이 좋으면 분위기가 부드럽고, 자기 분야에서 꾸준히 결과물을 쌓는 사람이 많아요.",
+      "related": ["sanggwan"],
+      "aiGenerated": true,
+      "sourceTier": { "tier": "T1_HYPOTHESIS", "sourceType": "training_derived", "sourceUrl": null, "accessedAt": "2026-05-02", "quoteShort": null, "humanInterpretation": "AI-derived plain-language definition of sikshin (식신). Display-only narrative.", "copyrightNote": "No source prose copied.", "authorityTruthEligible": false }
+    },
+    {
+      "schemaVersion": "spring-ts.glossary-entry.v1",
+      "id": "sanggwan",
+      "label": "상관",
+      "hashLabel": "#상관",
+      "category": "tenGod",
+      "brief": "톡톡 튀고 자기 색깔이 분명한 표현·재능 기운이에요.",
+      "detailed": "식신과 같은 '내가 만들어 내는 힘'이지만, 더 날카롭고 개성이 강해요. 비판력·창의성이 도드라지지만 규칙·윗사람과 부딪치기 쉬워서, 큰 무대를 만나면 빛을 내고 작은 자리에선 답답함을 느껴요.",
+      "related": ["sikshin"],
+      "aiGenerated": true,
+      "sourceTier": { "tier": "T1_HYPOTHESIS", "sourceType": "training_derived", "sourceUrl": null, "accessedAt": "2026-05-02", "quoteShort": null, "humanInterpretation": "AI-derived plain-language definition of sanggwan (상관). Display-only narrative.", "copyrightNote": "No source prose copied.", "authorityTruthEligible": false }
+    },
+    {
+      "schemaVersion": "spring-ts.glossary-entry.v1",
+      "id": "pyeonjae",
+      "label": "편재",
+      "hashLabel": "#편재",
+      "category": "tenGod",
+      "brief": "넓고 큰 돈·관계·기회를 다루는 기운이에요.",
+      "detailed": "내가 다스릴 수 있는 재물·자원 중에서도 '큰 흐름'을 잡는 결이에요. 사업 감각, 사람 폭, 큰 거래에 강한 반면, 작은 돈 관리는 헐거울 수 있어요. 편재가 강한 시기엔 새로운 도전·확장이 잘 맞아요.",
+      "related": ["jeongjae"],
+      "aiGenerated": true,
+      "sourceTier": { "tier": "T1_HYPOTHESIS", "sourceType": "training_derived", "sourceUrl": null, "accessedAt": "2026-05-02", "quoteShort": null, "humanInterpretation": "AI-derived plain-language definition of pyeonjae (편재). Display-only narrative.", "copyrightNote": "No source prose copied.", "authorityTruthEligible": false }
+    },
+    {
+      "schemaVersion": "spring-ts.glossary-entry.v1",
+      "id": "jeongjae",
+      "label": "정재",
+      "hashLabel": "#정재",
+      "category": "tenGod",
+      "brief": "꼬박꼬박 모이는 안정된 돈·자원 기운이에요.",
+      "detailed": "월급, 적금, 차곡차곡 쌓는 식의 재물·자원이에요. 큰 한 방보다는 꾸준한 관리에 강해요. 정재가 좋으면 가족·가정·생활의 안정도 함께 따르는 경우가 많아요.",
+      "related": ["pyeonjae"],
+      "aiGenerated": true,
+      "sourceTier": { "tier": "T1_HYPOTHESIS", "sourceType": "training_derived", "sourceUrl": null, "accessedAt": "2026-05-02", "quoteShort": null, "humanInterpretation": "AI-derived plain-language definition of jeongjae (정재). Display-only narrative.", "copyrightNote": "No source prose copied.", "authorityTruthEligible": false }
+    },
+    {
+      "schemaVersion": "spring-ts.glossary-entry.v1",
+      "id": "pyeongwan",
+      "label": "편관",
+      "hashLabel": "#편관",
+      "category": "tenGod",
+      "brief": "강한 책임·도전·압박을 의미하는 기운이에요.",
+      "detailed": "나를 누르는 힘 중에서도 강하고 빠른 결단이 필요한 기운이에요. '칠살(七殺)'이라고도 불러요. 잘 다루면 큰 결단력·리더십이 되고, 휘둘리면 스트레스·과로로 흐를 수 있어요. 인성(나를 도와주는 기운)이 옆에 있으면 든든해요.",
+      "related": ["jeonggwan", "jeongin"],
+      "aiGenerated": true,
+      "sourceTier": { "tier": "T1_HYPOTHESIS", "sourceType": "training_derived", "sourceUrl": null, "accessedAt": "2026-05-02", "quoteShort": null, "humanInterpretation": "AI-derived plain-language definition of pyeongwan (편관/칠살). Display-only narrative.", "copyrightNote": "No source prose copied.", "authorityTruthEligible": false }
+    },
+    {
+      "schemaVersion": "spring-ts.glossary-entry.v1",
+      "id": "jeonggwan",
+      "label": "정관",
+      "hashLabel": "#정관",
+      "category": "tenGod",
+      "brief": "자리·직책·약속처럼 '바른 책임'을 뜻하는 기운이에요.",
+      "detailed": "사회적 자리, 신뢰, 약속을 지키는 결이에요. 정관이 강하고 균형이 좋은 사람은 책임감·반듯함·인정이 잘 따르고, 너무 강하면 부담이 커져요. 작명에서도 정관이 좋게 작용하는 사주가 많아요.",
+      "related": ["pyeongwan"],
+      "aiGenerated": true,
+      "sourceTier": { "tier": "T1_HYPOTHESIS", "sourceType": "training_derived", "sourceUrl": null, "accessedAt": "2026-05-02", "quoteShort": null, "humanInterpretation": "AI-derived plain-language definition of jeonggwan (정관). Display-only narrative.", "copyrightNote": "No source prose copied.", "authorityTruthEligible": false }
+    },
+    {
+      "schemaVersion": "spring-ts.glossary-entry.v1",
+      "id": "pyeonin",
+      "label": "편인",
+      "hashLabel": "#편인",
+      "category": "tenGod",
+      "brief": "나를 깊이 도와주는, 조금 독특한 공부·통찰 기운이에요.",
+      "detailed": "나를 길러 주는 힘 중에서도 보통과 다른 결의 도움이에요. 깊이 있는 공부·종교·예술 감각이 강하지만, 사람과 거리를 두는 면도 있어요. 편인이 좋게 작용하면 자기만의 무기를 갈고닦는 사람이 많아요.",
+      "related": ["jeongin"],
+      "aiGenerated": true,
+      "sourceTier": { "tier": "T1_HYPOTHESIS", "sourceType": "training_derived", "sourceUrl": null, "accessedAt": "2026-05-02", "quoteShort": null, "humanInterpretation": "AI-derived plain-language definition of pyeonin (편인). Display-only narrative.", "copyrightNote": "No source prose copied.", "authorityTruthEligible": false }
+    },
+    {
+      "schemaVersion": "spring-ts.glossary-entry.v1",
+      "id": "jeongin",
+      "label": "정인",
+      "hashLabel": "#정인",
+      "category": "tenGod",
+      "brief": "엄마처럼 따뜻하게 챙겨 주는 공부·후원 기운이에요.",
+      "detailed": "정통 학문·전통·돌봄·후원의 결이에요. 정인이 좋으면 부모·스승·책의 도움을 잘 받고, 차분히 깊어지는 성품이 자라요. 너무 강하면 결정을 미루는 면이 보이기도 해요.",
+      "related": ["pyeonin"],
+      "aiGenerated": true,
+      "sourceTier": { "tier": "T1_HYPOTHESIS", "sourceType": "training_derived", "sourceUrl": null, "accessedAt": "2026-05-02", "quoteShort": null, "humanInterpretation": "AI-derived plain-language definition of jeongin (정인). Display-only narrative.", "copyrightNote": "No source prose copied.", "authorityTruthEligible": false }
+    }
+  ]
+}
