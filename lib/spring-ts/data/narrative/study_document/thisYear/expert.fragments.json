@@ -21,6 +21,38 @@
         { "kind": "text", "value": "의 결이 살아 있으면 도움 받을 자리가 또렷이 보여요.\n\n연말의 한 시간 정리가 다음 해의 결을 가볍게 만들어요." }
       ],
       "tags": ["jeongin", "sikshin", "pyeonin", "bumyong"],
+      "numericalEvidence": [
+        {
+          "label": "현재 나이",
+          "valueExpression": "feature.ageYears",
+          "unit": "세",
+          "sourceTier": {
+            "tier": "T3_INTERNAL_ENGINE",
+            "sourceType": "internal_scoring_policy",
+            "sourceUrl": null,
+            "accessedAt": "2026-05-02",
+            "quoteShort": null,
+            "humanInterpretation": "Resolved from deterministic spring-ts runtime output.",
+            "copyrightNote": "No third-party prose copied.",
+            "authorityTruthEligible": false
+          }
+        },
+        {
+          "label": "셀 별점",
+          "valueExpression": "cell.stars",
+          "unit": "점",
+          "sourceTier": {
+            "tier": "T3_INTERNAL_ENGINE",
+            "sourceType": "internal_scoring_policy",
+            "sourceUrl": null,
+            "accessedAt": "2026-05-02",
+            "quoteShort": null,
+            "humanInterpretation": "Resolved from deterministic spring-ts runtime output.",
+            "copyrightNote": "No third-party prose copied.",
+            "authorityTruthEligible": false
+          }
+        }
+      ],
       "aiGenerated": true,
       "sourceTier": { "tier": "T1_HYPOTHESIS", "sourceType": "training_derived", "sourceUrl": null, "accessedAt": "2026-05-02", "quoteShort": null, "humanInterpretation": "AI-derived expert fragment for study_document.thisYear wildcard. Display-only.", "copyrightNote": "No source prose copied; original.", "authorityTruthEligible": false }
     },

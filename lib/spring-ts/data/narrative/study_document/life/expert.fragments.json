@@ -21,6 +21,38 @@
         { "kind": "text", "value": "이 곁에서 풀어 주면 기록·표현으로 자산이 외부에 전달되는 자리가 자주 등장해요.\n\n전 생애에 걸쳐 한 트랙을 길게 끌고 가는 결이 잘 맞는 사주예요." }
       ],
       "tags": ["jeongin", "bumyong", "pyeonin", "sikshin"],
+      "numericalEvidence": [
+        {
+          "label": "현재 나이",
+          "valueExpression": "feature.ageYears",
+          "unit": "세",
+          "sourceTier": {
+            "tier": "T3_INTERNAL_ENGINE",
+            "sourceType": "internal_scoring_policy",
+            "sourceUrl": null,
+            "accessedAt": "2026-05-02",
+            "quoteShort": null,
+            "humanInterpretation": "Resolved from deterministic spring-ts runtime output.",
+            "copyrightNote": "No third-party prose copied.",
+            "authorityTruthEligible": false
+          }
+        },
+        {
+          "label": "셀 별점",
+          "valueExpression": "cell.stars",
+          "unit": "점",
+          "sourceTier": {
+            "tier": "T3_INTERNAL_ENGINE",
+            "sourceType": "internal_scoring_policy",
+            "sourceUrl": null,
+            "accessedAt": "2026-05-02",
+            "quoteShort": null,
+            "humanInterpretation": "Resolved from deterministic spring-ts runtime output.",
+            "copyrightNote": "No third-party prose copied.",
+            "authorityTruthEligible": false
+          }
+        }
+      ],
       "aiGenerated": true,
       "sourceTier": { "tier": "T1_HYPOTHESIS", "sourceType": "training_derived", "sourceUrl": null, "accessedAt": "2026-05-02", "quoteShort": null, "humanInterpretation": "AI-derived expert fragment for study_document.life wildcard. Display-only.", "copyrightNote": "No source prose copied; original.", "authorityTruthEligible": false }
     },

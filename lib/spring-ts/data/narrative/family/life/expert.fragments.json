@@ -25,6 +25,38 @@
         { "kind": "text", "value": "가 균형을 이루면 어린 시절의 뿌리와 노년의 결실이 같은 호흡으로 이어지는 흐름이에요." }
       ],
       "tags": ["jojangung", "bumyong", "jasikgung", "yearPillar", "hourPillar"],
+      "numericalEvidence": [
+        {
+          "label": "현재 나이",
+          "valueExpression": "feature.ageYears",
+          "unit": "세",
+          "sourceTier": {
+            "tier": "T3_INTERNAL_ENGINE",
+            "sourceType": "internal_scoring_policy",
+            "sourceUrl": null,
+            "accessedAt": "2026-05-02",
+            "quoteShort": null,
+            "humanInterpretation": "Resolved from deterministic spring-ts runtime output.",
+            "copyrightNote": "No third-party prose copied.",
+            "authorityTruthEligible": false
+          }
+        },
+        {
+          "label": "셀 별점",
+          "valueExpression": "cell.stars",
+          "unit": "점",
+          "sourceTier": {
+            "tier": "T3_INTERNAL_ENGINE",
+            "sourceType": "internal_scoring_policy",
+            "sourceUrl": null,
+            "accessedAt": "2026-05-02",
+            "quoteShort": null,
+            "humanInterpretation": "Resolved from deterministic spring-ts runtime output.",
+            "copyrightNote": "No third-party prose copied.",
+            "authorityTruthEligible": false
+          }
+        }
+      ],
       "aiGenerated": true,
       "sourceTier": {
         "tier": "T1_HYPOTHESIS",
