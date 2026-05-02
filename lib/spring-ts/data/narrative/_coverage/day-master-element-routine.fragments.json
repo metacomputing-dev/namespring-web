@@ -1,0 +1,175 @@
+{
+  "schemaVersion": "spring-ts.narrative-fragment-bundle.v1",
+  "bundleId": "coverage.axis.day-master-element-routine.20260502",
+  "contractVersion": "1.0.0",
+  "fragments": [
+    {
+      "schemaVersion": "spring-ts.narrative-fragment.v1",
+      "fragmentId": "academic.life.standard.daymasterelement.wood.205",
+      "axis": { "category": "academic", "period": "life", "depth": "standard" },
+      "gating": { "dayMasterElement": ["WOOD"] },
+      "templateTokens": [
+        { "kind": "text", "value": "나무 일간의 학습 흐름은 새 개념을 연결하고 크게 키워가는 방식으로 나타날 수 있어요. 가능성을 빨리 보고 질문을 넓히는 힘이 있지만, 기초가 느슨하면 중간에 방향이 흔들릴 수 있습니다. 큰 그림을 먼저 잡은 뒤 작은 단원으로 쪼개면 성장 속도가 안정됩니다." }
+      ],
+      "livingTips": [
+        "새 과목은 목차와 전체 구조를 먼저 훑은 뒤 세부 문제로 들어가세요.",
+        "관심이 넓어질 때는 이번 주에 끝낼 범위를 한 줄로 정해보세요."
+      ],
+      "cautions": [
+        "흥미가 생긴다고 주제를 계속 늘리면 복습과 마무리가 약해질 수 있어요."
+      ],
+      "tags": ["dayMasterElement"],
+      "aiGenerated": true,
+      "sourceTier": {
+        "tier": "T1_HYPOTHESIS",
+        "sourceType": "training_derived",
+        "sourceUrl": null,
+        "accessedAt": "2026-05-02",
+        "quoteShort": null,
+        "humanInterpretation": "Academic life narrative for dayMasterElement WOOD. AI-derived display text; not authority truth.",
+        "copyrightNote": "No source prose copied; original phrasing.",
+        "authorityTruthEligible": false
+      }
+    },
+    {
+      "schemaVersion": "spring-ts.narrative-fragment.v1",
+      "fragmentId": "academic.life.standard.daymasterelement.earth.205",
+      "axis": { "category": "academic", "period": "life", "depth": "standard" },
+      "gating": { "dayMasterElement": ["EARTH"] },
+      "templateTokens": [
+        { "kind": "text", "value": "흙 일간의 학습 흐름은 내용을 차분히 받아들이고 안정적으로 쌓아가는 방식으로 나타날 수 있어요. 반복과 정리에 강점이 있지만, 익숙한 방식만 고집하면 새로운 문제 유형에 적응이 늦어질 수 있습니다. 기본 루틴을 지키면서도 주기적으로 낯선 문제를 섞으면 기반과 확장이 함께 자랍니다." }
+      ],
+      "livingTips": [
+        "같은 시간, 같은 장소의 공부 루틴을 만들되 주 1회는 새 유형 문제를 넣어보세요.",
+        "개념을 이해한 뒤에는 내 말로 짧게 설명하는 시간을 가져보세요."
+      ],
+      "cautions": [
+        "천천히 준비하는 장점이 지나치면 시작이 늦어질 수 있으니 작은 마감이 필요해요."
+      ],
+      "tags": ["dayMasterElement"],
+      "aiGenerated": true,
+      "sourceTier": {
+        "tier": "T1_HYPOTHESIS",
+        "sourceType": "training_derived",
+        "sourceUrl": null,
+        "accessedAt": "2026-05-02",
+        "quoteShort": null,
+        "humanInterpretation": "Academic life narrative for dayMasterElement EARTH. AI-derived display text; not authority truth.",
+        "copyrightNote": "No source prose copied; original phrasing.",
+        "authorityTruthEligible": false
+      }
+    },
+    {
+      "schemaVersion": "spring-ts.narrative-fragment.v1",
+      "fragmentId": "academic.life.standard.daymasterelement.metal.205",
+      "axis": { "category": "academic", "period": "life", "depth": "standard" },
+      "gating": { "dayMasterElement": ["METAL"] },
+      "templateTokens": [
+        { "kind": "text", "value": "쇠 일간의 학습 흐름은 기준을 세우고 핵심을 날카롭게 정리하는 방식으로 나타날 수 있어요. 틀린 부분을 빨리 찾고 규칙을 잡는 힘이 있지만, 스스로에게 너무 엄격하면 시도 자체가 부담스러워질 수 있습니다. 정답 기준과 연습 기준을 나누면 정확성과 지속력이 함께 좋아집니다." }
+      ],
+      "livingTips": [
+        "오답은 틀린 이유, 다시 풀 기준, 다음 확인 날짜로 나누어 정리하세요.",
+        "처음 배우는 단원은 완성도보다 반복 횟수를 목표로 잡아보세요."
+      ],
+      "cautions": [
+        "완벽하게 이해한 뒤 시작하려 하면 실전 감각이 늦게 붙을 수 있어요."
+      ],
+      "tags": ["dayMasterElement"],
+      "aiGenerated": true,
+      "sourceTier": {
+        "tier": "T1_HYPOTHESIS",
+        "sourceType": "training_derived",
+        "sourceUrl": null,
+        "accessedAt": "2026-05-02",
+        "quoteShort": null,
+        "humanInterpretation": "Academic life narrative for dayMasterElement METAL. AI-derived display text; not authority truth.",
+        "copyrightNote": "No source prose copied; original phrasing.",
+        "authorityTruthEligible": false
+      }
+    },
+    {
+      "schemaVersion": "spring-ts.narrative-fragment.v1",
+      "fragmentId": "health.thisMonth.standard.daymasterelement.wood.205",
+      "axis": { "category": "health", "period": "thisMonth", "depth": "standard" },
+      "gating": { "dayMasterElement": ["WOOD"] },
+      "templateTokens": [
+        { "kind": "text", "value": "나무 일간은 이번 달 건강 루틴에서 몸을 조금씩 펴고 성장시키는 방식이 잘 맞을 수 있어요. 새 운동을 시작하기 좋지만, 의욕이 앞서 강도를 빨리 올리면 피로가 쌓일 수 있습니다. 스트레칭과 가벼운 유산소를 꾸준히 늘리면 몸의 흐름이 안정됩니다." }
+      ],
+      "livingTips": [
+        "운동은 새 종목보다 짧은 반복 시간을 먼저 정해보세요.",
+        "오래 앉아 있는 날에는 목, 어깨, 옆구리를 천천히 풀어주세요."
+      ],
+      "cautions": [
+        "시작이 즐겁다고 회복일 없이 밀어붙이면 컨디션이 떨어질 수 있어요."
+      ],
+      "tags": ["dayMasterElement"],
+      "aiGenerated": true,
+      "sourceTier": {
+        "tier": "T1_HYPOTHESIS",
+        "sourceType": "training_derived",
+        "sourceUrl": null,
+        "accessedAt": "2026-05-02",
+        "quoteShort": null,
+        "humanInterpretation": "Monthly health routine narrative for dayMasterElement WOOD. AI-derived display text; not authority truth.",
+        "copyrightNote": "No source prose copied; original phrasing.",
+        "authorityTruthEligible": false
+      }
+    },
+    {
+      "schemaVersion": "spring-ts.narrative-fragment.v1",
+      "fragmentId": "health.thisMonth.standard.daymasterelement.earth.205",
+      "axis": { "category": "health", "period": "thisMonth", "depth": "standard" },
+      "gating": { "dayMasterElement": ["EARTH"] },
+      "templateTokens": [
+        { "kind": "text", "value": "흙 일간은 이번 달 건강 루틴에서 규칙적인 식사와 안정된 생활 리듬이 특히 중요하게 느껴질 수 있어요. 꾸준함은 강점이지만, 변화가 적으면 몸이 무겁고 정체된 느낌을 받을 수 있습니다. 같은 루틴 안에 가벼운 움직임과 소화에 편한 식단을 넣으면 안정감이 좋아집니다." }
+      ],
+      "livingTips": [
+        "식사 시간과 수면 시간을 먼저 고정하고, 짧은 산책을 붙여보세요.",
+        "무거운 음식이 이어진 날에는 다음 끼니를 단순하게 조절하세요."
+      ],
+      "cautions": [
+        "편한 루틴만 반복하면 활동량이 부족해질 수 있으니 작은 움직임을 넣어주세요."
+      ],
+      "tags": ["dayMasterElement"],
+      "aiGenerated": true,
+      "sourceTier": {
+        "tier": "T1_HYPOTHESIS",
+        "sourceType": "training_derived",
+        "sourceUrl": null,
+        "accessedAt": "2026-05-02",
+        "quoteShort": null,
+        "humanInterpretation": "Monthly health routine narrative for dayMasterElement EARTH. AI-derived display text; not authority truth.",
+        "copyrightNote": "No source prose copied; original phrasing.",
+        "authorityTruthEligible": false
+      }
+    },
+    {
+      "schemaVersion": "spring-ts.narrative-fragment.v1",
+      "fragmentId": "family.thisWeek.standard.daymasterelement.wood.205",
+      "axis": { "category": "family", "period": "thisWeek", "depth": "standard" },
+      "gating": { "dayMasterElement": ["WOOD"] },
+      "templateTokens": [
+        { "kind": "text", "value": "나무 일간은 이번 주 가족 대화에서 먼저 제안하고 분위기를 앞으로 움직이려는 모습이 나타날 수 있어요. 좋은 방향을 만들고 싶은 마음은 장점이지만, 상대가 준비되지 않았을 때는 밀어붙이는 느낌이 날 수 있습니다. 제안과 질문을 함께 쓰면 성장의 흐름이 관계 안에서 부드럽게 살아납니다." }
+      ],
+      "livingTips": [
+        "가족에게 제안할 때는 왜 필요한지와 상대가 고를 수 있는 선택지를 함께 말하세요.",
+        "새로운 계획은 한 번에 바꾸기보다 이번 주 작은 행동 하나로 시작하세요."
+      ],
+      "cautions": [
+        "내가 본 가능성을 상대도 바로 볼 것이라고 기대하면 대화가 급해질 수 있어요."
+      ],
+      "tags": ["dayMasterElement"],
+      "aiGenerated": true,
+      "sourceTier": {
+        "tier": "T1_HYPOTHESIS",
+        "sourceType": "training_derived",
+        "sourceUrl": null,
+        "accessedAt": "2026-05-02",
+        "quoteShort": null,
+        "humanInterpretation": "Weekly family communication narrative for dayMasterElement WOOD. AI-derived display text; not authority truth.",
+        "copyrightNote": "No source prose copied; original phrasing.",
+        "authorityTruthEligible": false
+      }
+    }
+  ]
+}
