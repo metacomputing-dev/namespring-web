@@ -50,6 +50,7 @@
     "test:tiered-determinism": "npx tsx test/integration/tiered-matrix-determinism.test.ts",
     "test:tiered-isolation": "npx tsx test/integration/tiered-isolation-guard.test.ts",
     "test:narrative-schema": "npx tsx test/integration/narrative-schema.test.ts",
+    "test:narrative-schema:summary": "npx tsx test/integration/narrative-schema.test.ts --summary",
     "test:narrative-coverage-report": "npx tsx test/integration/narrative-coverage-report.test.ts",
     "test:narrative-axis-pair-report": "npx tsx test/integration/narrative-axis-pair-report.test.ts",
     "test:namespring-compat": "npx tsx test/integration/namespring-compat.test.ts",
