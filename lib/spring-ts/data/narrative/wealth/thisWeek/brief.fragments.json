@@ -1,0 +1,367 @@
+{
+  "schemaVersion": "spring-ts.narrative-fragment-bundle.v1",
+  "bundleId": "wealth.thisWeek.brief",
+  "contractVersion": "1.0.0",
+  "generatedBy": "phase2.agent-1.wealth",
+  "fragments": [
+    {
+      "schemaVersion": "spring-ts.narrative-fragment.v1",
+      "fragmentId": "wealth.thisWeek.brief.wildcard.001",
+      "axis": { "category": "wealth", "period": "thisWeek", "depth": "brief" },
+      "gating": { "ageBand": ["20-29", "30-39", "40-54", "55-69", "70+"] },
+      "templateTokens": [
+        { "kind": "text", "value": "이번 주 재물은 " },
+        { "kind": "slot", "name": "phrase", "type": "phrase" },
+        { "kind": "text", "value": "." }
+      ],
+      "slots": {
+        "phrase": [
+          "차분한 결이 자리 잡는 시기예요",
+          "작은 기록이 빛을 내는 한 주예요",
+          "기준 한 줄을 다듬기 좋은 한 주예요"
+        ]
+      },
+      "tags": [],
+      "aiGenerated": true,
+      "sourceTier": {
+        "tier": "T1_HYPOTHESIS",
+        "sourceType": "training_derived",
+        "sourceUrl": null,
+        "accessedAt": "2026-05-02",
+        "quoteShort": null,
+        "humanInterpretation": "Phase 2 wealth fragment, agent-1.",
+        "copyrightNote": "No source prose copied; original.",
+        "authorityTruthEligible": false
+      }
+    },
+    {
+      "schemaVersion": "spring-ts.narrative-fragment.v1",
+      "fragmentId": "wealth.thisWeek.brief.strong.aligned.002",
+      "axis": { "category": "wealth", "period": "thisWeek", "depth": "brief" },
+      "gating": {
+        "dayMasterStrength": ["STRONG", "EXTREME_STRONG"],
+        "yongshinAlignment": ["aligned"]
+      },
+      "templateTokens": [
+        { "kind": "text", "value": "이번 주는 " },
+        { "kind": "slot", "name": "phrase", "type": "phrase" },
+        { "kind": "text", "value": "." }
+      ],
+      "slots": {
+        "phrase": [
+          "큰 거래의 결이 또렷해지는 한 주예요",
+          "추진력이 빛을 내는 한 주예요",
+          "결정의 무게가 단단해지는 결이에요"
+        ]
+      },
+      "tags": [],
+      "aiGenerated": true,
+      "sourceTier": {
+        "tier": "T1_HYPOTHESIS",
+        "sourceType": "training_derived",
+        "sourceUrl": null,
+        "accessedAt": "2026-05-02",
+        "quoteShort": null,
+        "humanInterpretation": "Phase 2 wealth fragment, agent-1.",
+        "copyrightNote": "No source prose copied; original.",
+        "authorityTruthEligible": false
+      }
+    },
+    {
+      "schemaVersion": "spring-ts.narrative-fragment.v1",
+      "fragmentId": "wealth.thisWeek.brief.balanced.aligned.003",
+      "axis": { "category": "wealth", "period": "thisWeek", "depth": "brief" },
+      "gating": {
+        "dayMasterStrength": ["BALANCED"],
+        "yongshinAlignment": ["aligned"]
+      },
+      "templateTokens": [
+        { "kind": "text", "value": "이번 주는 " },
+        { "kind": "slot", "name": "phrase", "type": "phrase" },
+        { "kind": "text", "value": "." }
+      ],
+      "slots": {
+        "phrase": [
+          "안정과 작은 기회가 함께 들어오는 결이에요",
+          "관리의 기준을 다듬기 좋은 한 주예요",
+          "차분한 결정이 빛을 내는 한 주예요"
+        ]
+      },
+      "tags": [],
+      "aiGenerated": true,
+      "sourceTier": {
+        "tier": "T1_HYPOTHESIS",
+        "sourceType": "training_derived",
+        "sourceUrl": null,
+        "accessedAt": "2026-05-02",
+        "quoteShort": null,
+        "humanInterpretation": "Phase 2 wealth fragment, agent-1.",
+        "copyrightNote": "No source prose copied; original.",
+        "authorityTruthEligible": false
+      }
+    },
+    {
+      "schemaVersion": "spring-ts.narrative-fragment.v1",
+      "fragmentId": "wealth.thisWeek.brief.weak.neutral.004",
+      "axis": { "category": "wealth", "period": "thisWeek", "depth": "brief" },
+      "gating": {
+        "dayMasterStrength": ["WEAK", "EXTREME_WEAK"],
+        "yongshinAlignment": ["neutral"]
+      },
+      "templateTokens": [
+        { "kind": "text", "value": "이번 주는 " },
+        { "kind": "slot", "name": "phrase", "type": "phrase" },
+        { "kind": "text", "value": "." }
+      ],
+      "slots": {
+        "phrase": [
+          "작은 기록이 큰 자산이 되는 한 주예요",
+          "한 박자 늦추는 결정이 잘 어울리는 결이에요",
+          "꾸준함이 빛을 내는 한 주예요"
+        ]
+      },
+      "tags": [],
+      "aiGenerated": true,
+      "sourceTier": {
+        "tier": "T1_HYPOTHESIS",
+        "sourceType": "training_derived",
+        "sourceUrl": null,
+        "accessedAt": "2026-05-02",
+        "quoteShort": null,
+        "humanInterpretation": "Phase 2 wealth fragment, agent-1.",
+        "copyrightNote": "No source prose copied; original.",
+        "authorityTruthEligible": false
+      }
+    },
+    {
+      "schemaVersion": "spring-ts.narrative-fragment.v1",
+      "fragmentId": "wealth.thisWeek.brief.conflicting.005",
+      "axis": { "category": "wealth", "period": "thisWeek", "depth": "brief" },
+      "gating": {
+        "yongshinAlignment": ["conflicting"]
+      },
+      "templateTokens": [
+        { "kind": "text", "value": "이번 주는 " },
+        { "kind": "slot", "name": "phrase", "type": "phrase" },
+        { "kind": "text", "value": "." }
+      ],
+      "slots": {
+        "phrase": [
+          "큰 결정은 다음 주로 미루면 좋은 결이에요",
+          "욕심을 한 박자 줄이면 흐름이 부드러워져요",
+          "기준 한 줄을 다시 적어 두면 좋은 한 주예요"
+        ]
+      },
+      "tags": [],
+      "aiGenerated": true,
+      "sourceTier": {
+        "tier": "T1_HYPOTHESIS",
+        "sourceType": "training_derived",
+        "sourceUrl": null,
+        "accessedAt": "2026-05-02",
+        "quoteShort": null,
+        "humanInterpretation": "Phase 2 wealth fragment, agent-1.",
+        "copyrightNote": "No source prose copied; original.",
+        "authorityTruthEligible": false
+      }
+    },
+    {
+      "schemaVersion": "spring-ts.narrative-fragment.v1",
+      "fragmentId": "wealth.thisWeek.brief.male.30_39.006",
+      "axis": { "category": "wealth", "period": "thisWeek", "depth": "brief" },
+      "gating": {
+        "gender": ["male"],
+        "ageBand": ["30-39"]
+      },
+      "templateTokens": [
+        { "kind": "text", "value": "이번 주는 " },
+        { "kind": "slot", "name": "phrase", "type": "phrase" },
+        { "kind": "text", "value": "." }
+      ],
+      "slots": {
+        "phrase": [
+          "장기 그림을 다시 살피기 좋은 한 주예요",
+          "결정의 무게를 가족과 나누면 좋은 결이에요",
+          "큰 거래는 한 주 살피며 결정하면 좋아요"
+        ]
+      },
+      "tags": [],
+      "aiGenerated": true,
+      "sourceTier": {
+        "tier": "T1_HYPOTHESIS",
+        "sourceType": "training_derived",
+        "sourceUrl": null,
+        "accessedAt": "2026-05-02",
+        "quoteShort": null,
+        "humanInterpretation": "Phase 2 wealth fragment, agent-1.",
+        "copyrightNote": "No source prose copied; original.",
+        "authorityTruthEligible": false
+      }
+    },
+    {
+      "schemaVersion": "spring-ts.narrative-fragment.v1",
+      "fragmentId": "wealth.thisWeek.brief.female.40_54.007",
+      "axis": { "category": "wealth", "period": "thisWeek", "depth": "brief" },
+      "gating": {
+        "gender": ["female"],
+        "ageBand": ["40-54"]
+      },
+      "templateTokens": [
+        { "kind": "text", "value": "이번 주는 " },
+        { "kind": "slot", "name": "phrase", "type": "phrase" },
+        { "kind": "text", "value": "." }
+      ],
+      "slots": {
+        "phrase": [
+          "관리의 결을 단단히 다듬기 좋은 한 주예요",
+          "차분한 결정이 자리를 단단하게 하는 결이에요",
+          "큰 결정은 가족과 나누면 좋은 한 주예요"
+        ]
+      },
+      "tags": [],
+      "aiGenerated": true,
+      "sourceTier": {
+        "tier": "T1_HYPOTHESIS",
+        "sourceType": "training_derived",
+        "sourceUrl": null,
+        "accessedAt": "2026-05-02",
+        "quoteShort": null,
+        "humanInterpretation": "Phase 2 wealth fragment, agent-1.",
+        "copyrightNote": "No source prose copied; original.",
+        "authorityTruthEligible": false
+      }
+    },
+    {
+      "schemaVersion": "spring-ts.narrative-fragment.v1",
+      "fragmentId": "wealth.thisWeek.brief.20_29.008",
+      "axis": { "category": "wealth", "period": "thisWeek", "depth": "brief" },
+      "gating": {
+        "ageBand": ["20-29"]
+      },
+      "templateTokens": [
+        { "kind": "text", "value": "이번 주는 " },
+        { "kind": "slot", "name": "phrase", "type": "phrase" },
+        { "kind": "text", "value": "." }
+      ],
+      "slots": {
+        "phrase": [
+          "작은 시도를 더하기 좋은 한 주예요",
+          "월말 정리를 떠올리며 결을 잡는 결이에요",
+          "큰 권유는 한 주 살피며 결정하면 좋아요"
+        ]
+      },
+      "tags": [],
+      "aiGenerated": true,
+      "sourceTier": {
+        "tier": "T1_HYPOTHESIS",
+        "sourceType": "training_derived",
+        "sourceUrl": null,
+        "accessedAt": "2026-05-02",
+        "quoteShort": null,
+        "humanInterpretation": "Phase 2 wealth fragment, agent-1.",
+        "copyrightNote": "No source prose copied; original.",
+        "authorityTruthEligible": false
+      }
+    },
+    {
+      "schemaVersion": "spring-ts.narrative-fragment.v1",
+      "fragmentId": "wealth.thisWeek.brief.55_69.009",
+      "axis": { "category": "wealth", "period": "thisWeek", "depth": "brief" },
+      "gating": {
+        "ageBand": ["55-69", "70+"]
+      },
+      "templateTokens": [
+        { "kind": "text", "value": "이번 주는 " },
+        { "kind": "slot", "name": "phrase", "type": "phrase" },
+        { "kind": "text", "value": "." }
+      ],
+      "slots": {
+        "phrase": [
+          "정리·나눔의 결이 자연스러운 한 주예요",
+          "익숙한 페이스를 지키기 좋은 한 주예요",
+          "갑작스런 권유는 한 박자 미루면 좋은 결이에요"
+        ]
+      },
+      "tags": [],
+      "aiGenerated": true,
+      "sourceTier": {
+        "tier": "T1_HYPOTHESIS",
+        "sourceType": "training_derived",
+        "sourceUrl": null,
+        "accessedAt": "2026-05-02",
+        "quoteShort": null,
+        "humanInterpretation": "Phase 2 wealth fragment, agent-1.",
+        "copyrightNote": "No source prose copied; original.",
+        "authorityTruthEligible": false
+      }
+    },
+    {
+      "schemaVersion": "spring-ts.narrative-fragment.v1",
+      "fragmentId": "wealth.thisWeek.brief.strong.male.40_54.010",
+      "axis": { "category": "wealth", "period": "thisWeek", "depth": "brief" },
+      "gating": {
+        "gender": ["male"],
+        "ageBand": ["40-54"],
+        "dayMasterStrength": ["STRONG", "EXTREME_STRONG"]
+      },
+      "templateTokens": [
+        { "kind": "text", "value": "이번 주는 " },
+        { "kind": "slot", "name": "phrase", "type": "phrase" },
+        { "kind": "text", "value": "." }
+      ],
+      "slots": {
+        "phrase": [
+          "큰 거래의 결이 단단해지는 한 주예요",
+          "관리와 확장을 함께 살피기 좋은 결이에요",
+          "결정의 기준을 단단히 두면 빛이 나는 한 주예요"
+        ]
+      },
+      "tags": [],
+      "aiGenerated": true,
+      "sourceTier": {
+        "tier": "T1_HYPOTHESIS",
+        "sourceType": "training_derived",
+        "sourceUrl": null,
+        "accessedAt": "2026-05-02",
+        "quoteShort": null,
+        "humanInterpretation": "Phase 2 wealth fragment, agent-1.",
+        "copyrightNote": "No source prose copied; original.",
+        "authorityTruthEligible": false
+      }
+    },
+    {
+      "schemaVersion": "spring-ts.narrative-fragment.v1",
+      "fragmentId": "wealth.thisWeek.brief.weak.female.30_39.011",
+      "axis": { "category": "wealth", "period": "thisWeek", "depth": "brief" },
+      "gating": {
+        "gender": ["female"],
+        "ageBand": ["30-39"],
+        "dayMasterStrength": ["WEAK", "EXTREME_WEAK"]
+      },
+      "templateTokens": [
+        { "kind": "text", "value": "이번 주는 " },
+        { "kind": "slot", "name": "phrase", "type": "phrase" },
+        { "kind": "text", "value": "." }
+      ],
+      "slots": {
+        "phrase": [
+          "꾸준한 메모가 큰 무기가 되는 한 주예요",
+          "작은 시도가 결을 만드는 결이에요",
+          "큰 권유는 한 박자 늦추면 좋은 한 주예요"
+        ]
+      },
+      "tags": [],
+      "aiGenerated": true,
+      "sourceTier": {
+        "tier": "T1_HYPOTHESIS",
+        "sourceType": "training_derived",
+        "sourceUrl": null,
+        "accessedAt": "2026-05-02",
+        "quoteShort": null,
+        "humanInterpretation": "Phase 2 wealth fragment, agent-1.",
+        "copyrightNote": "No source prose copied; original.",
+        "authorityTruthEligible": false
+      }
+    }
+  ]
+}

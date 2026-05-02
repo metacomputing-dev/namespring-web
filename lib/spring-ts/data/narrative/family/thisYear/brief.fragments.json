@@ -1,0 +1,261 @@
+{
+  "schemaVersion": "spring-ts.narrative-fragment-bundle.v1",
+  "bundleId": "family.thisYear.brief",
+  "contractVersion": "1.0.0",
+  "ownerAgent": "agent-5",
+  "fragmentCount": 12,
+  "fragments": [
+    {
+      "schemaVersion": "spring-ts.narrative-fragment.v1",
+      "fragmentId": "family.thisYear.brief.wildcard.001",
+      "axis": { "category": "family", "period": "thisYear", "depth": "brief", "tone": "plain" },
+      "gating": {},
+      "templateTokens": [
+        { "kind": "text", "value": "올해는 가까운 사람과의 결이 따뜻하게 자라요." }
+      ],
+      "tags": [],
+      "aiGenerated": true,
+      "sourceTier": {
+        "tier": "T1_HYPOTHESIS",
+        "sourceType": "training_derived",
+        "sourceUrl": null,
+        "accessedAt": "2026-05-02",
+        "quoteShort": null,
+        "humanInterpretation": "AI-derived thisYear-period family brief fragment authored by agent-5 (Phase 2 fan-out). Display-only narrative.",
+        "copyrightNote": "No source prose copied; original prose.",
+        "authorityTruthEligible": false
+      }
+    },
+    {
+      "schemaVersion": "spring-ts.narrative-fragment.v1",
+      "fragmentId": "family.thisYear.brief.wildcard.002",
+      "axis": { "category": "family", "period": "thisYear", "depth": "brief", "tone": "plain" },
+      "gating": {},
+      "templateTokens": [
+        { "kind": "text", "value": "집안의 흐름이 한 해 동안 단단하게 풀려요." }
+      ],
+      "tags": [],
+      "aiGenerated": true,
+      "sourceTier": {
+        "tier": "T1_HYPOTHESIS",
+        "sourceType": "training_derived",
+        "sourceUrl": null,
+        "accessedAt": "2026-05-02",
+        "quoteShort": null,
+        "humanInterpretation": "AI-derived thisYear-period family brief fragment authored by agent-5 (Phase 2 fan-out). Display-only narrative.",
+        "copyrightNote": "No source prose copied; original prose.",
+        "authorityTruthEligible": false
+      }
+    },
+    {
+      "schemaVersion": "spring-ts.narrative-fragment.v1",
+      "fragmentId": "family.thisYear.brief.young.003",
+      "axis": { "category": "family", "period": "thisYear", "depth": "brief", "tone": "plain" },
+      "gating": { "ageBand": ["0-9"] },
+      "templateTokens": [
+        { "kind": "text", "value": "보호자와 함께 자라는 따뜻한 한 해예요." }
+      ],
+      "tags": [],
+      "aiGenerated": true,
+      "sourceTier": {
+        "tier": "T1_HYPOTHESIS",
+        "sourceType": "training_derived",
+        "sourceUrl": null,
+        "accessedAt": "2026-05-02",
+        "quoteShort": null,
+        "humanInterpretation": "AI-derived thisYear-period family brief fragment authored by agent-5 (Phase 2 fan-out). Display-only narrative.",
+        "copyrightNote": "No source prose copied; original prose.",
+        "authorityTruthEligible": false
+      }
+    },
+    {
+      "schemaVersion": "spring-ts.narrative-fragment.v1",
+      "fragmentId": "family.thisYear.brief.teen.004",
+      "axis": { "category": "family", "period": "thisYear", "depth": "brief", "tone": "plain" },
+      "gating": { "ageBand": ["10-19"] },
+      "templateTokens": [
+        { "kind": "text", "value": "자기 결과 가족 결을 같이 키우는 한 해예요." }
+      ],
+      "tags": [],
+      "aiGenerated": true,
+      "sourceTier": {
+        "tier": "T1_HYPOTHESIS",
+        "sourceType": "training_derived",
+        "sourceUrl": null,
+        "accessedAt": "2026-05-02",
+        "quoteShort": null,
+        "humanInterpretation": "AI-derived thisYear-period family brief fragment authored by agent-5 (Phase 2 fan-out). Display-only narrative.",
+        "copyrightNote": "No source prose copied; original prose.",
+        "authorityTruthEligible": false
+      }
+    },
+    {
+      "schemaVersion": "spring-ts.narrative-fragment.v1",
+      "fragmentId": "family.thisYear.brief.young_adult.005",
+      "axis": { "category": "family", "period": "thisYear", "depth": "brief", "tone": "plain" },
+      "gating": { "ageBand": ["20-29"] },
+      "templateTokens": [
+        { "kind": "text", "value": "독립과 가족 결이 같이 자라는 한 해예요." }
+      ],
+      "tags": [],
+      "aiGenerated": true,
+      "sourceTier": {
+        "tier": "T1_HYPOTHESIS",
+        "sourceType": "training_derived",
+        "sourceUrl": null,
+        "accessedAt": "2026-05-02",
+        "quoteShort": null,
+        "humanInterpretation": "AI-derived thisYear-period family brief fragment authored by agent-5 (Phase 2 fan-out). Display-only narrative.",
+        "copyrightNote": "No source prose copied; original prose.",
+        "authorityTruthEligible": false
+      }
+    },
+    {
+      "schemaVersion": "spring-ts.narrative-fragment.v1",
+      "fragmentId": "family.thisYear.brief.thirties.006",
+      "axis": { "category": "family", "period": "thisYear", "depth": "brief", "tone": "plain" },
+      "gating": { "ageBand": ["30-39"] },
+      "templateTokens": [
+        { "kind": "text", "value": "새 가정의 결을 따뜻하게 가꾸는 한 해예요." }
+      ],
+      "tags": [],
+      "aiGenerated": true,
+      "sourceTier": {
+        "tier": "T1_HYPOTHESIS",
+        "sourceType": "training_derived",
+        "sourceUrl": null,
+        "accessedAt": "2026-05-02",
+        "quoteShort": null,
+        "humanInterpretation": "AI-derived thisYear-period family brief fragment authored by agent-5 (Phase 2 fan-out). Display-only narrative.",
+        "copyrightNote": "No source prose copied; original prose.",
+        "authorityTruthEligible": false
+      }
+    },
+    {
+      "schemaVersion": "spring-ts.narrative-fragment.v1",
+      "fragmentId": "family.thisYear.brief.middle.007",
+      "axis": { "category": "family", "period": "thisYear", "depth": "brief", "tone": "plain" },
+      "gating": { "ageBand": ["40-54"] },
+      "templateTokens": [
+        { "kind": "text", "value": "양쪽 세대 곁에 한 해 든든히 함께해요." }
+      ],
+      "tags": [],
+      "aiGenerated": true,
+      "sourceTier": {
+        "tier": "T1_HYPOTHESIS",
+        "sourceType": "training_derived",
+        "sourceUrl": null,
+        "accessedAt": "2026-05-02",
+        "quoteShort": null,
+        "humanInterpretation": "AI-derived thisYear-period family brief fragment authored by agent-5 (Phase 2 fan-out). Display-only narrative.",
+        "copyrightNote": "No source prose copied; original prose.",
+        "authorityTruthEligible": false
+      }
+    },
+    {
+      "schemaVersion": "spring-ts.narrative-fragment.v1",
+      "fragmentId": "family.thisYear.brief.senior.008",
+      "axis": { "category": "family", "period": "thisYear", "depth": "brief", "tone": "plain" },
+      "gating": { "ageBand": ["55-69"] },
+      "templateTokens": [
+        { "kind": "text", "value": "다음 세대로 결을 차분히 이어 가는 한 해예요." }
+      ],
+      "tags": [],
+      "aiGenerated": true,
+      "sourceTier": {
+        "tier": "T1_HYPOTHESIS",
+        "sourceType": "training_derived",
+        "sourceUrl": null,
+        "accessedAt": "2026-05-02",
+        "quoteShort": null,
+        "humanInterpretation": "AI-derived thisYear-period family brief fragment authored by agent-5 (Phase 2 fan-out). Display-only narrative.",
+        "copyrightNote": "No source prose copied; original prose.",
+        "authorityTruthEligible": false
+      }
+    },
+    {
+      "schemaVersion": "spring-ts.narrative-fragment.v1",
+      "fragmentId": "family.thisYear.brief.elder.009",
+      "axis": { "category": "family", "period": "thisYear", "depth": "brief", "tone": "plain" },
+      "gating": { "ageBand": ["70+"] },
+      "templateTokens": [
+        { "kind": "text", "value": "곁에 있는 따뜻함이 한 해 든든히 모여요." }
+      ],
+      "tags": [],
+      "aiGenerated": true,
+      "sourceTier": {
+        "tier": "T1_HYPOTHESIS",
+        "sourceType": "training_derived",
+        "sourceUrl": null,
+        "accessedAt": "2026-05-02",
+        "quoteShort": null,
+        "humanInterpretation": "AI-derived thisYear-period family brief fragment authored by agent-5 (Phase 2 fan-out). Display-only narrative.",
+        "copyrightNote": "No source prose copied; original prose.",
+        "authorityTruthEligible": false
+      }
+    },
+    {
+      "schemaVersion": "spring-ts.narrative-fragment.v1",
+      "fragmentId": "family.thisYear.brief.aligned.010",
+      "axis": { "category": "family", "period": "thisYear", "depth": "brief", "tone": "plain" },
+      "gating": { "yongshinAlignment": ["aligned"] },
+      "templateTokens": [
+        { "kind": "text", "value": "조상의 자산이 한 해 든든하게 받쳐 줘요." }
+      ],
+      "tags": [],
+      "aiGenerated": true,
+      "sourceTier": {
+        "tier": "T1_HYPOTHESIS",
+        "sourceType": "training_derived",
+        "sourceUrl": null,
+        "accessedAt": "2026-05-02",
+        "quoteShort": null,
+        "humanInterpretation": "AI-derived thisYear-period family brief fragment authored by agent-5 (Phase 2 fan-out). Display-only narrative.",
+        "copyrightNote": "No source prose copied; original prose.",
+        "authorityTruthEligible": false
+      }
+    },
+    {
+      "schemaVersion": "spring-ts.narrative-fragment.v1",
+      "fragmentId": "family.thisYear.brief.weak.011",
+      "axis": { "category": "family", "period": "thisYear", "depth": "brief", "tone": "plain" },
+      "gating": { "dayMasterStrength": ["WEAK", "EXTREME_WEAK"] },
+      "templateTokens": [
+        { "kind": "text", "value": "곁 사람의 손길이 한 해 든든히 받쳐 줘요." }
+      ],
+      "tags": [],
+      "aiGenerated": true,
+      "sourceTier": {
+        "tier": "T1_HYPOTHESIS",
+        "sourceType": "training_derived",
+        "sourceUrl": null,
+        "accessedAt": "2026-05-02",
+        "quoteShort": null,
+        "humanInterpretation": "AI-derived thisYear-period family brief fragment authored by agent-5 (Phase 2 fan-out). Display-only narrative.",
+        "copyrightNote": "No source prose copied; original prose.",
+        "authorityTruthEligible": false
+      }
+    },
+    {
+      "schemaVersion": "spring-ts.narrative-fragment.v1",
+      "fragmentId": "family.thisYear.brief.strong.012",
+      "axis": { "category": "family", "period": "thisYear", "depth": "brief", "tone": "plain" },
+      "gating": { "dayMasterStrength": ["STRONG", "EXTREME_STRONG"] },
+      "templateTokens": [
+        { "kind": "text", "value": "내가 가까운 자리를 받쳐 주는 한 해예요." }
+      ],
+      "tags": [],
+      "aiGenerated": true,
+      "sourceTier": {
+        "tier": "T1_HYPOTHESIS",
+        "sourceType": "training_derived",
+        "sourceUrl": null,
+        "accessedAt": "2026-05-02",
+        "quoteShort": null,
+        "humanInterpretation": "AI-derived thisYear-period family brief fragment authored by agent-5 (Phase 2 fan-out). Display-only narrative.",
+        "copyrightNote": "No source prose copied; original prose.",
+        "authorityTruthEligible": false
+      }
+    }
+  ]
+}

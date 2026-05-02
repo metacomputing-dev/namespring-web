@@ -1,0 +1,261 @@
+{
+  "schemaVersion": "spring-ts.narrative-fragment-bundle.v1",
+  "bundleId": "expression_children-thisYear-brief",
+  "contractVersion": "1.0.0",
+  "generatedBy": "phase2-agent-8-expression_children",
+  "fragmentCount": 12,
+  "fragments": [
+    {
+      "schemaVersion": "spring-ts.narrative-fragment.v1",
+      "fragmentId": "expression_children.thisYear.brief.wildcard.001",
+      "axis": { "category": "expression_children", "period": "thisYear", "depth": "brief" },
+      "gating": {},
+      "templateTokens": [
+        { "kind": "text", "value": "올해는 자기 색이 한 단계 또렷해지는 결이에요." }
+      ],
+      "tags": [],
+      "aiGenerated": true,
+      "sourceTier": {
+        "tier": "T1_HYPOTHESIS",
+        "sourceType": "training_derived",
+        "sourceUrl": null,
+        "accessedAt": "2026-05-02",
+        "quoteShort": null,
+        "humanInterpretation": "Phase 2 expression_children-category fragment authored by agent-8 under data/narrative/_contract/v1.json. Display-only narrative for the tiered-matrix expression_children axis.",
+        "copyrightNote": "No source prose copied; original authored prose.",
+        "authorityTruthEligible": false
+      }
+    },
+    {
+      "schemaVersion": "spring-ts.narrative-fragment.v1",
+      "fragmentId": "expression_children.thisYear.brief.0_9.002",
+      "axis": { "category": "expression_children", "period": "thisYear", "depth": "brief" },
+      "gating": { "ageBand": ["0-9"] },
+      "templateTokens": [
+        { "kind": "text", "value": "올해는 좋아하는 놀이로 자기 색이 자라는 결이에요." }
+      ],
+      "tags": [],
+      "aiGenerated": true,
+      "sourceTier": {
+        "tier": "T1_HYPOTHESIS",
+        "sourceType": "training_derived",
+        "sourceUrl": null,
+        "accessedAt": "2026-05-02",
+        "quoteShort": null,
+        "humanInterpretation": "Phase 2 expression_children-category fragment authored by agent-8 under data/narrative/_contract/v1.json. Display-only narrative for the tiered-matrix expression_children axis.",
+        "copyrightNote": "No source prose copied; original authored prose.",
+        "authorityTruthEligible": false
+      }
+    },
+    {
+      "schemaVersion": "spring-ts.narrative-fragment.v1",
+      "fragmentId": "expression_children.thisYear.brief.10_19.003",
+      "axis": { "category": "expression_children", "period": "thisYear", "depth": "brief" },
+      "gating": { "ageBand": ["10-19"] },
+      "templateTokens": [
+        { "kind": "text", "value": "올해는 자기 색이 또래보다 또렷해지는 결이에요." }
+      ],
+      "tags": [],
+      "aiGenerated": true,
+      "sourceTier": {
+        "tier": "T1_HYPOTHESIS",
+        "sourceType": "training_derived",
+        "sourceUrl": null,
+        "accessedAt": "2026-05-02",
+        "quoteShort": null,
+        "humanInterpretation": "Phase 2 expression_children-category fragment authored by agent-8 under data/narrative/_contract/v1.json. Display-only narrative for the tiered-matrix expression_children axis.",
+        "copyrightNote": "No source prose copied; original authored prose.",
+        "authorityTruthEligible": false
+      }
+    },
+    {
+      "schemaVersion": "spring-ts.narrative-fragment.v1",
+      "fragmentId": "expression_children.thisYear.brief.20_29.004",
+      "axis": { "category": "expression_children", "period": "thisYear", "depth": "brief" },
+      "gating": { "ageBand": ["20-29"] },
+      "templateTokens": [
+        { "kind": "text", "value": "올해는 자기 무대를 처음 다듬는 결이에요." }
+      ],
+      "tags": [],
+      "aiGenerated": true,
+      "sourceTier": {
+        "tier": "T1_HYPOTHESIS",
+        "sourceType": "training_derived",
+        "sourceUrl": null,
+        "accessedAt": "2026-05-02",
+        "quoteShort": null,
+        "humanInterpretation": "Phase 2 expression_children-category fragment authored by agent-8 under data/narrative/_contract/v1.json. Display-only narrative for the tiered-matrix expression_children axis.",
+        "copyrightNote": "No source prose copied; original authored prose.",
+        "authorityTruthEligible": false
+      }
+    },
+    {
+      "schemaVersion": "spring-ts.narrative-fragment.v1",
+      "fragmentId": "expression_children.thisYear.brief.30_39.005",
+      "axis": { "category": "expression_children", "period": "thisYear", "depth": "brief" },
+      "gating": { "ageBand": ["30-39"] },
+      "templateTokens": [
+        { "kind": "text", "value": "올해는 표현이 깊어지고 다음 결이 보이기 시작해요." }
+      ],
+      "tags": [],
+      "aiGenerated": true,
+      "sourceTier": {
+        "tier": "T1_HYPOTHESIS",
+        "sourceType": "training_derived",
+        "sourceUrl": null,
+        "accessedAt": "2026-05-02",
+        "quoteShort": null,
+        "humanInterpretation": "Phase 2 expression_children-category fragment authored by agent-8 under data/narrative/_contract/v1.json. Display-only narrative for the tiered-matrix expression_children axis.",
+        "copyrightNote": "No source prose copied; original authored prose.",
+        "authorityTruthEligible": false
+      }
+    },
+    {
+      "schemaVersion": "spring-ts.narrative-fragment.v1",
+      "fragmentId": "expression_children.thisYear.brief.40_54.006",
+      "axis": { "category": "expression_children", "period": "thisYear", "depth": "brief" },
+      "gating": { "ageBand": ["40-54"] },
+      "templateTokens": [
+        { "kind": "text", "value": "올해는 쌓아 둔 작업이 결실로 익어 가는 결이에요." }
+      ],
+      "tags": [],
+      "aiGenerated": true,
+      "sourceTier": {
+        "tier": "T1_HYPOTHESIS",
+        "sourceType": "training_derived",
+        "sourceUrl": null,
+        "accessedAt": "2026-05-02",
+        "quoteShort": null,
+        "humanInterpretation": "Phase 2 expression_children-category fragment authored by agent-8 under data/narrative/_contract/v1.json. Display-only narrative for the tiered-matrix expression_children axis.",
+        "copyrightNote": "No source prose copied; original authored prose.",
+        "authorityTruthEligible": false
+      }
+    },
+    {
+      "schemaVersion": "spring-ts.narrative-fragment.v1",
+      "fragmentId": "expression_children.thisYear.brief.55_69.007",
+      "axis": { "category": "expression_children", "period": "thisYear", "depth": "brief" },
+      "gating": { "ageBand": ["55-69"] },
+      "templateTokens": [
+        { "kind": "text", "value": "올해는 다음 세대로 결을 이어 주는 자리가 깊어져요." }
+      ],
+      "tags": [],
+      "aiGenerated": true,
+      "sourceTier": {
+        "tier": "T1_HYPOTHESIS",
+        "sourceType": "training_derived",
+        "sourceUrl": null,
+        "accessedAt": "2026-05-02",
+        "quoteShort": null,
+        "humanInterpretation": "Phase 2 expression_children-category fragment authored by agent-8 under data/narrative/_contract/v1.json. Display-only narrative for the tiered-matrix expression_children axis.",
+        "copyrightNote": "No source prose copied; original authored prose.",
+        "authorityTruthEligible": false
+      }
+    },
+    {
+      "schemaVersion": "spring-ts.narrative-fragment.v1",
+      "fragmentId": "expression_children.thisYear.brief.70plus.008",
+      "axis": { "category": "expression_children", "period": "thisYear", "depth": "brief" },
+      "gating": { "ageBand": ["70+"] },
+      "templateTokens": [
+        { "kind": "text", "value": "올해는 표현의 여유가 풍요로워지는 결이에요." }
+      ],
+      "tags": [],
+      "aiGenerated": true,
+      "sourceTier": {
+        "tier": "T1_HYPOTHESIS",
+        "sourceType": "training_derived",
+        "sourceUrl": null,
+        "accessedAt": "2026-05-02",
+        "quoteShort": null,
+        "humanInterpretation": "Phase 2 expression_children-category fragment authored by agent-8 under data/narrative/_contract/v1.json. Display-only narrative for the tiered-matrix expression_children axis.",
+        "copyrightNote": "No source prose copied; original authored prose.",
+        "authorityTruthEligible": false
+      }
+    },
+    {
+      "schemaVersion": "spring-ts.narrative-fragment.v1",
+      "fragmentId": "expression_children.thisYear.brief.strong_aligned.009",
+      "axis": { "category": "expression_children", "period": "thisYear", "depth": "brief" },
+      "gating": { "dayMasterStrength": ["STRONG"], "yongshinAlignment": ["aligned"] },
+      "templateTokens": [
+        { "kind": "text", "value": "올해는 표현이 시원하게 풀려 나오는 한 해예요." }
+      ],
+      "tags": [],
+      "aiGenerated": true,
+      "sourceTier": {
+        "tier": "T1_HYPOTHESIS",
+        "sourceType": "training_derived",
+        "sourceUrl": null,
+        "accessedAt": "2026-05-02",
+        "quoteShort": null,
+        "humanInterpretation": "Phase 2 expression_children-category fragment authored by agent-8 under data/narrative/_contract/v1.json. Display-only narrative for the tiered-matrix expression_children axis.",
+        "copyrightNote": "No source prose copied; original authored prose.",
+        "authorityTruthEligible": false
+      }
+    },
+    {
+      "schemaVersion": "spring-ts.narrative-fragment.v1",
+      "fragmentId": "expression_children.thisYear.brief.weak_neutral.010",
+      "axis": { "category": "expression_children", "period": "thisYear", "depth": "brief" },
+      "gating": { "dayMasterStrength": ["WEAK"], "yongshinAlignment": ["neutral"] },
+      "templateTokens": [
+        { "kind": "text", "value": "올해는 매듭들이 모여 자기 결이 단단해져요." }
+      ],
+      "tags": [],
+      "aiGenerated": true,
+      "sourceTier": {
+        "tier": "T1_HYPOTHESIS",
+        "sourceType": "training_derived",
+        "sourceUrl": null,
+        "accessedAt": "2026-05-02",
+        "quoteShort": null,
+        "humanInterpretation": "Phase 2 expression_children-category fragment authored by agent-8 under data/narrative/_contract/v1.json. Display-only narrative for the tiered-matrix expression_children axis.",
+        "copyrightNote": "No source prose copied; original authored prose.",
+        "authorityTruthEligible": false
+      }
+    },
+    {
+      "schemaVersion": "spring-ts.narrative-fragment.v1",
+      "fragmentId": "expression_children.thisYear.brief.balanced_aligned.011",
+      "axis": { "category": "expression_children", "period": "thisYear", "depth": "brief" },
+      "gating": { "dayMasterStrength": ["BALANCED"], "yongshinAlignment": ["aligned"] },
+      "templateTokens": [
+        { "kind": "text", "value": "올해는 호흡이 잡혀 자기 색이 또렷해져요." }
+      ],
+      "tags": [],
+      "aiGenerated": true,
+      "sourceTier": {
+        "tier": "T1_HYPOTHESIS",
+        "sourceType": "training_derived",
+        "sourceUrl": null,
+        "accessedAt": "2026-05-02",
+        "quoteShort": null,
+        "humanInterpretation": "Phase 2 expression_children-category fragment authored by agent-8 under data/narrative/_contract/v1.json. Display-only narrative for the tiered-matrix expression_children axis.",
+        "copyrightNote": "No source prose copied; original authored prose.",
+        "authorityTruthEligible": false
+      }
+    },
+    {
+      "schemaVersion": "spring-ts.narrative-fragment.v1",
+      "fragmentId": "expression_children.thisYear.brief.strong_conflicting.012",
+      "axis": { "category": "expression_children", "period": "thisYear", "depth": "brief" },
+      "gating": { "dayMasterStrength": ["STRONG"], "yongshinAlignment": ["conflicting"] },
+      "templateTokens": [
+        { "kind": "text", "value": "올해는 표현이 강해 무대 선택이 중요한 한 해예요." }
+      ],
+      "tags": [],
+      "aiGenerated": true,
+      "sourceTier": {
+        "tier": "T1_HYPOTHESIS",
+        "sourceType": "training_derived",
+        "sourceUrl": null,
+        "accessedAt": "2026-05-02",
+        "quoteShort": null,
+        "humanInterpretation": "Phase 2 expression_children-category fragment authored by agent-8 under data/narrative/_contract/v1.json. Display-only narrative for the tiered-matrix expression_children axis.",
+        "copyrightNote": "No source prose copied; original authored prose.",
+        "authorityTruthEligible": false
+      }
+    }
+  ]
+}

@@ -1,0 +1,287 @@
+{
+  "schemaVersion": "spring-ts.narrative-fragment-bundle.v1",
+  "bundleId": "movement-thisWeek-expert",
+  "contractVersion": "1.0.0",
+  "generatedBy": "phase2-agent-10-movement",
+  "fragmentCount": 10,
+  "fragments": [
+    {
+      "schemaVersion": "spring-ts.narrative-fragment.v1",
+      "fragmentId": "movement.thisWeek.expert.wildcard.001",
+      "axis": { "category": "movement", "period": "thisWeek", "depth": "expert" },
+      "gating": {},
+      "templateTokens": [
+        { "kind": "text", "value": "이번 주 이동 결은 " },
+        { "kind": "tag", "tagId": "yeokma", "label": "역마" },
+        { "kind": "text", "value": "의 자극이 " },
+        { "kind": "tag", "tagId": "daewoonGungsil", "label": "대운궁실" },
+        { "kind": "text", "value": "의 흐름과 어울려 풀려 나오는 그림이에요.\n\n외근·약속·출장의 자리가 자연스럽게 짜여요. " },
+        { "kind": "tag", "tagId": "yongshin", "label": "용신" },
+        { "kind": "text", "value": "의 결에 어울리는 방향으로 동선을 짜면 결과가 더 단단해져요.\n\n" },
+        { "kind": "tag", "tagId": "samhyeong", "label": "삼형" },
+        { "kind": "text", "value": "의 자리가 함께 들면 다툼·충돌의 호흡은 한 박자 늦추는 결이 좋아요." }
+      ],
+      "tags": ["yeokma", "daewoonGungsil", "yongshin", "samhyeong"],
+      "aiGenerated": true,
+      "sourceTier": {
+        "tier": "T1_HYPOTHESIS",
+        "sourceType": "training_derived",
+        "sourceUrl": null,
+        "accessedAt": "2026-05-02",
+        "quoteShort": null,
+        "humanInterpretation": "Phase 2 movement-category fragment authored by agent-10 under data/narrative/_contract/v1.json. Display-only narrative for the tiered-matrix movement axis.",
+        "copyrightNote": "No source prose copied; original authored prose.",
+        "authorityTruthEligible": false
+      }
+    },
+    {
+      "schemaVersion": "spring-ts.narrative-fragment.v1",
+      "fragmentId": "movement.thisWeek.expert.0_9.002",
+      "axis": { "category": "movement", "period": "thisWeek", "depth": "expert" },
+      "gating": { "ageBand": ["0-9"] },
+      "templateTokens": [
+        { "kind": "text", "value": "이번 주 어린 아이의 이동 결은 " },
+        { "kind": "tag", "tagId": "yeokma", "label": "역마" },
+        { "kind": "text", "value": "의 부드러운 자극과 " },
+        { "kind": "tag", "tagId": "jojangung", "label": "조상궁" },
+        { "kind": "text", "value": "의 안정된 뿌리가 어우러지는 결이에요.\n\n주말의 가까운 외출이 좋은 자극이 돼요. " },
+        { "kind": "tag", "tagId": "yongshin", "label": "용신" },
+        { "kind": "text", "value": "의 결에 어울리는 자리에서 즐거움을 나누면 한 주의 결이 단단해져요." }
+      ],
+      "tags": ["yeokma", "jojangung", "yongshin"],
+      "aiGenerated": true,
+      "sourceTier": {
+        "tier": "T1_HYPOTHESIS",
+        "sourceType": "training_derived",
+        "sourceUrl": null,
+        "accessedAt": "2026-05-02",
+        "quoteShort": null,
+        "humanInterpretation": "Phase 2 movement-category fragment authored by agent-10 under data/narrative/_contract/v1.json. Display-only narrative for the tiered-matrix movement axis.",
+        "copyrightNote": "No source prose copied; original authored prose.",
+        "authorityTruthEligible": false
+      }
+    },
+    {
+      "schemaVersion": "spring-ts.narrative-fragment.v1",
+      "fragmentId": "movement.thisWeek.expert.10_19.003",
+      "axis": { "category": "movement", "period": "thisWeek", "depth": "expert" },
+      "gating": { "ageBand": ["10-19"] },
+      "templateTokens": [
+        { "kind": "text", "value": "이번 주 청소년기 이동 결은 " },
+        { "kind": "tag", "tagId": "yeokma", "label": "역마" },
+        { "kind": "text", "value": "이 가벼운 발걸음을 만드는 결이에요.\n\n짧은 여행·체험의 자리가 시야를 한 뼘 넓혀 줘요. " },
+        { "kind": "tag", "tagId": "yongshin", "label": "용신" },
+        { "kind": "text", "value": "의 결에 어울리는 가까운 자리가 잘 맞아요. " },
+        { "kind": "tag", "tagId": "daewoonGungsil", "label": "대운궁실" },
+        { "kind": "text", "value": "의 흐름이 학업과 함께 흐르도록 무리하지 않는 결이 좋아요." }
+      ],
+      "tags": ["yeokma", "yongshin", "daewoonGungsil"],
+      "aiGenerated": true,
+      "sourceTier": {
+        "tier": "T1_HYPOTHESIS",
+        "sourceType": "training_derived",
+        "sourceUrl": null,
+        "accessedAt": "2026-05-02",
+        "quoteShort": null,
+        "humanInterpretation": "Phase 2 movement-category fragment authored by agent-10 under data/narrative/_contract/v1.json. Display-only narrative for the tiered-matrix movement axis.",
+        "copyrightNote": "No source prose copied; original authored prose.",
+        "authorityTruthEligible": false
+      }
+    },
+    {
+      "schemaVersion": "spring-ts.narrative-fragment.v1",
+      "fragmentId": "movement.thisWeek.expert.20_29.004",
+      "axis": { "category": "movement", "period": "thisWeek", "depth": "expert" },
+      "gating": { "ageBand": ["20-29"] },
+      "templateTokens": [
+        { "kind": "text", "value": "이번 주 20대 이동 결은 " },
+        { "kind": "tag", "tagId": "yeokma", "label": "역마" },
+        { "kind": "text", "value": "이 또렷하게 발동하는 결이에요.\n\n새 자리·새 사람의 자리가 자연스럽게 풀려요. " },
+        { "kind": "tag", "tagId": "yongshin", "label": "용신" },
+        { "kind": "text", "value": "의 결에 어울리는 방향으로 약속을 잡으면 만남의 질이 한 단계 올라가요.\n\n" },
+        { "kind": "tag", "tagId": "samhyeong", "label": "삼형" },
+        { "kind": "text", "value": "이 함께 들면 다툼·갈등의 자리는 한 박자 늦추는 결이 좋아요." }
+      ],
+      "tags": ["yeokma", "yongshin", "samhyeong"],
+      "aiGenerated": true,
+      "sourceTier": {
+        "tier": "T1_HYPOTHESIS",
+        "sourceType": "training_derived",
+        "sourceUrl": null,
+        "accessedAt": "2026-05-02",
+        "quoteShort": null,
+        "humanInterpretation": "Phase 2 movement-category fragment authored by agent-10 under data/narrative/_contract/v1.json. Display-only narrative for the tiered-matrix movement axis.",
+        "copyrightNote": "No source prose copied; original authored prose.",
+        "authorityTruthEligible": false
+      }
+    },
+    {
+      "schemaVersion": "spring-ts.narrative-fragment.v1",
+      "fragmentId": "movement.thisWeek.expert.30_39.005",
+      "axis": { "category": "movement", "period": "thisWeek", "depth": "expert" },
+      "gating": { "ageBand": ["30-39"] },
+      "templateTokens": [
+        { "kind": "text", "value": "이번 주 30대 이동 결은 " },
+        { "kind": "tag", "tagId": "yeokma", "label": "역마" },
+        { "kind": "text", "value": "이 출장·외근의 자리로 또렷하게 풀려 나오는 결이에요.\n\n" },
+        { "kind": "tag", "tagId": "daewoonGungsil", "label": "대운궁실" },
+        { "kind": "text", "value": "의 흐름이 일과 가족 사이의 자리에 영향을 줘요. " },
+        { "kind": "tag", "tagId": "yongshin", "label": "용신" },
+        { "kind": "text", "value": "의 결에 맞춰 동선을 짜면 결과가 더 단단해져요.\n\n" },
+        { "kind": "tag", "tagId": "samhyeong", "label": "삼형" },
+        { "kind": "text", "value": "이 함께 들면 큰 결정은 다음 자리로 미루는 결이 좋아요." }
+      ],
+      "tags": ["yeokma", "daewoonGungsil", "yongshin", "samhyeong"],
+      "aiGenerated": true,
+      "sourceTier": {
+        "tier": "T1_HYPOTHESIS",
+        "sourceType": "training_derived",
+        "sourceUrl": null,
+        "accessedAt": "2026-05-02",
+        "quoteShort": null,
+        "humanInterpretation": "Phase 2 movement-category fragment authored by agent-10 under data/narrative/_contract/v1.json. Display-only narrative for the tiered-matrix movement axis.",
+        "copyrightNote": "No source prose copied; original authored prose.",
+        "authorityTruthEligible": false
+      }
+    },
+    {
+      "schemaVersion": "spring-ts.narrative-fragment.v1",
+      "fragmentId": "movement.thisWeek.expert.40_54.006",
+      "axis": { "category": "movement", "period": "thisWeek", "depth": "expert" },
+      "gating": { "ageBand": ["40-54"] },
+      "templateTokens": [
+        { "kind": "text", "value": "이번 주 40·50대 이동 결은 " },
+        { "kind": "tag", "tagId": "yeokma", "label": "역마" },
+        { "kind": "text", "value": "이 책임 큰 자리의 외근·출장으로 풀리는 결이에요.\n\n" },
+        { "kind": "tag", "tagId": "daewoonGungsil", "label": "대운궁실" },
+        { "kind": "text", "value": "의 흐름이 한 주의 일정에 힘을 더해 줘요. " },
+        { "kind": "tag", "tagId": "yongshin", "label": "용신" },
+        { "kind": "text", "value": "의 결에 어울리는 동선이 가장 효율적이에요.\n\n" },
+        { "kind": "tag", "tagId": "jojangung", "label": "조상궁" },
+        { "kind": "text", "value": "의 뿌리도 한 번 살피면, 빡빡한 일정 속에서도 호흡이 흐트러지지 않아요." }
+      ],
+      "tags": ["yeokma", "daewoonGungsil", "yongshin", "jojangung"],
+      "aiGenerated": true,
+      "sourceTier": {
+        "tier": "T1_HYPOTHESIS",
+        "sourceType": "training_derived",
+        "sourceUrl": null,
+        "accessedAt": "2026-05-02",
+        "quoteShort": null,
+        "humanInterpretation": "Phase 2 movement-category fragment authored by agent-10 under data/narrative/_contract/v1.json. Display-only narrative for the tiered-matrix movement axis.",
+        "copyrightNote": "No source prose copied; original authored prose.",
+        "authorityTruthEligible": false
+      }
+    },
+    {
+      "schemaVersion": "spring-ts.narrative-fragment.v1",
+      "fragmentId": "movement.thisWeek.expert.55_69.007",
+      "axis": { "category": "movement", "period": "thisWeek", "depth": "expert" },
+      "gating": { "ageBand": ["55-69"] },
+      "templateTokens": [
+        { "kind": "text", "value": "이번 주 후반기 이동 결은 " },
+        { "kind": "tag", "tagId": "yeokma", "label": "역마" },
+        { "kind": "text", "value": "이 잔잔한 자극으로 풀리는 결이에요.\n\n가까운 자리의 짧은 외출과 모임이 잘 어울려요. " },
+        { "kind": "tag", "tagId": "yongshin", "label": "용신" },
+        { "kind": "text", "value": "의 결에 맞춘 가까운 자리가 가장 좋아요. " },
+        { "kind": "tag", "tagId": "jojangung", "label": "조상궁" },
+        { "kind": "text", "value": "의 뿌리도 살피면 한 주가 마음 편안해져요." }
+      ],
+      "tags": ["yeokma", "yongshin", "jojangung"],
+      "aiGenerated": true,
+      "sourceTier": {
+        "tier": "T1_HYPOTHESIS",
+        "sourceType": "training_derived",
+        "sourceUrl": null,
+        "accessedAt": "2026-05-02",
+        "quoteShort": null,
+        "humanInterpretation": "Phase 2 movement-category fragment authored by agent-10 under data/narrative/_contract/v1.json. Display-only narrative for the tiered-matrix movement axis.",
+        "copyrightNote": "No source prose copied; original authored prose.",
+        "authorityTruthEligible": false
+      }
+    },
+    {
+      "schemaVersion": "spring-ts.narrative-fragment.v1",
+      "fragmentId": "movement.thisWeek.expert.70plus.008",
+      "axis": { "category": "movement", "period": "thisWeek", "depth": "expert" },
+      "gating": { "ageBand": ["70+"] },
+      "templateTokens": [
+        { "kind": "text", "value": "이번 주 이 시기 이동 결은 " },
+        { "kind": "tag", "tagId": "yeokma", "label": "역마" },
+        { "kind": "text", "value": "의 잔잔한 자극이 가까운 산책의 결로 흘러요.\n\n" },
+        { "kind": "tag", "tagId": "jojangung", "label": "조상궁" },
+        { "kind": "text", "value": "의 뿌리가 깊어 가까운 자리에서 호흡이 편안해져요. " },
+        { "kind": "tag", "tagId": "yongshin", "label": "용신" },
+        { "kind": "text", "value": "의 결에 어울리는 짧은 산책이 가장 잘 맞아요." }
+      ],
+      "tags": ["yeokma", "jojangung", "yongshin"],
+      "aiGenerated": true,
+      "sourceTier": {
+        "tier": "T1_HYPOTHESIS",
+        "sourceType": "training_derived",
+        "sourceUrl": null,
+        "accessedAt": "2026-05-02",
+        "quoteShort": null,
+        "humanInterpretation": "Phase 2 movement-category fragment authored by agent-10 under data/narrative/_contract/v1.json. Display-only narrative for the tiered-matrix movement axis.",
+        "copyrightNote": "No source prose copied; original authored prose.",
+        "authorityTruthEligible": false
+      }
+    },
+    {
+      "schemaVersion": "spring-ts.narrative-fragment.v1",
+      "fragmentId": "movement.thisWeek.expert.strong_aligned.009",
+      "axis": { "category": "movement", "period": "thisWeek", "depth": "expert" },
+      "gating": { "dayMasterStrength": ["STRONG"], "yongshinAlignment": ["aligned"] },
+      "templateTokens": [
+        { "kind": "text", "value": "이번 주 강한 일간이 " },
+        { "kind": "tag", "tagId": "yeokma", "label": "역마" },
+        { "kind": "text", "value": "의 자극을 시원하게 받아들이는 결이에요.\n\n" },
+        { "kind": "tag", "tagId": "yongshin", "label": "용신" },
+        { "kind": "text", "value": "의 결과 어울리는 새 자리가 자연스럽게 풀리고 결과가 곧 따라와요. " },
+        { "kind": "tag", "tagId": "daewoonGungsil", "label": "대운궁실" },
+        { "kind": "text", "value": "의 흐름도 추진력에 힘을 더해 줘요.\n\n" },
+        { "kind": "tag", "tagId": "samhyeong", "label": "삼형" },
+        { "kind": "text", "value": "이 함께 드는 시기엔 한 박자 늦추는 호흡이 잘 맞아요." }
+      ],
+      "tags": ["yeokma", "yongshin", "daewoonGungsil", "samhyeong"],
+      "aiGenerated": true,
+      "sourceTier": {
+        "tier": "T1_HYPOTHESIS",
+        "sourceType": "training_derived",
+        "sourceUrl": null,
+        "accessedAt": "2026-05-02",
+        "quoteShort": null,
+        "humanInterpretation": "Phase 2 movement-category fragment authored by agent-10 under data/narrative/_contract/v1.json. Display-only narrative for the tiered-matrix movement axis.",
+        "copyrightNote": "No source prose copied; original authored prose.",
+        "authorityTruthEligible": false
+      }
+    },
+    {
+      "schemaVersion": "spring-ts.narrative-fragment.v1",
+      "fragmentId": "movement.thisWeek.expert.weak_neutral.010",
+      "axis": { "category": "movement", "period": "thisWeek", "depth": "expert" },
+      "gating": { "dayMasterStrength": ["WEAK"], "yongshinAlignment": ["neutral"] },
+      "templateTokens": [
+        { "kind": "text", "value": "이번 주 약한 일간이 " },
+        { "kind": "tag", "tagId": "yeokma", "label": "역마" },
+        { "kind": "text", "value": "의 자극을 천천히 받아들이는 결이에요.\n\n" },
+        { "kind": "tag", "tagId": "jojangung", "label": "조상궁" },
+        { "kind": "text", "value": "의 뿌리에 힘을 더해 주는 익숙한 자리가 우선이에요. " },
+        { "kind": "tag", "tagId": "yongshin", "label": "용신" },
+        { "kind": "text", "value": "의 결에 어울리는 짧은 산책이 회복의 자산이 돼요." }
+      ],
+      "tags": ["yeokma", "jojangung", "yongshin"],
+      "aiGenerated": true,
+      "sourceTier": {
+        "tier": "T1_HYPOTHESIS",
+        "sourceType": "training_derived",
+        "sourceUrl": null,
+        "accessedAt": "2026-05-02",
+        "quoteShort": null,
+        "humanInterpretation": "Phase 2 movement-category fragment authored by agent-10 under data/narrative/_contract/v1.json. Display-only narrative for the tiered-matrix movement axis.",
+        "copyrightNote": "No source prose copied; original authored prose.",
+        "authorityTruthEligible": false
+      }
+    }
+  ]
+}

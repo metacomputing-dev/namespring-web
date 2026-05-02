@@ -1,0 +1,339 @@
+{
+  "schemaVersion": "spring-ts.narrative-fragment-bundle.v1",
+  "bundleId": "family.today.standard",
+  "contractVersion": "1.0.0",
+  "ownerAgent": "agent-5",
+  "fragmentCount": 11,
+  "fragments": [
+    {
+      "schemaVersion": "spring-ts.narrative-fragment.v1",
+      "fragmentId": "family.today.standard.wildcard.001",
+      "axis": { "category": "family", "period": "today", "depth": "standard", "tone": "plain" },
+      "gating": {},
+      "templateTokens": [
+        { "kind": "text", "value": "오늘은 가까운 사람과의 결을 잠시 들여다보기 좋은 하루예요. 큰 이벤트보다는 일상의 작은 호흡이 결을 따뜻하게 만들어요. 한 사람의 안부를 묻고, 한 끼를 함께 챙기는 자리만으로도 집안 분위기가 부드럽게 데워져요. 결정해야 하는 자리가 있다면 가장 가까운 사람과 한 번 의논해 보면, 결의 폭이 자연스럽게 정리돼요. 무리해서 큰 결을 잡으려 하지 않아도, 오늘의 작은 결이 다음 주의 따뜻한 결로 이어져요." }
+      ],
+      "slots": {},
+      "tags": [],
+      "livingTips": [
+        "안부 메시지 한 줄 보내기",
+        "함께 식사 자리 만들어 보기",
+        "고마운 일 한 가지 짚기"
+      ],
+      "cautions": [
+        "민감한 주제는 한 발 미뤄 두기"
+      ],
+      "aiGenerated": true,
+      "sourceTier": {
+        "tier": "T1_HYPOTHESIS",
+        "sourceType": "training_derived",
+        "sourceUrl": null,
+        "accessedAt": "2026-05-02",
+        "quoteShort": null,
+        "humanInterpretation": "AI-derived today-period family standard fragment authored by agent-5 (Phase 2 fan-out). Display-only narrative.",
+        "copyrightNote": "No source prose copied; original prose.",
+        "authorityTruthEligible": false
+      }
+    },
+    {
+      "schemaVersion": "spring-ts.narrative-fragment.v1",
+      "fragmentId": "family.today.standard.young.002",
+      "axis": { "category": "family", "period": "today", "depth": "standard", "tone": "plain" },
+      "gating": { "ageBand": ["0-9"] },
+      "templateTokens": [
+        { "kind": "text", "value": "오늘 아이의 결은 보호자의 손길과 가장 가까이 맞물려요. 아침의 짧은 인사, 함께한 한 끼, 잠들기 전의 다정한 한마디가 아이의 하루 호흡을 부드럽게 데워 줘요. 큰 일이 아니어도, 작은 안부 자리가 자라나는 결의 든든한 뿌리예요. 새로운 자리가 생긴다면 보호자가 옆에 함께 있는 자리부터 시작하면 좋아요. 친구와의 결도 가족의 따뜻한 분위기에서 출발할 때 가장 잘 자라요." }
+      ],
+      "slots": {},
+      "tags": [],
+      "livingTips": [
+        "아침 인사 한 번 정성껏",
+        "잘한 일 한 가지 짚어 주기",
+        "잠들기 전 다정한 한마디"
+      ],
+      "cautions": [
+        "비교하는 말은 한 박자 미루기"
+      ],
+      "aiGenerated": true,
+      "sourceTier": {
+        "tier": "T1_HYPOTHESIS",
+        "sourceType": "training_derived",
+        "sourceUrl": null,
+        "accessedAt": "2026-05-02",
+        "quoteShort": null,
+        "humanInterpretation": "AI-derived today-period family standard fragment authored by agent-5 (Phase 2 fan-out). Display-only narrative.",
+        "copyrightNote": "No source prose copied; original prose.",
+        "authorityTruthEligible": false
+      }
+    },
+    {
+      "schemaVersion": "spring-ts.narrative-fragment.v1",
+      "fragmentId": "family.today.standard.teen.003",
+      "axis": { "category": "family", "period": "today", "depth": "standard", "tone": "plain" },
+      "gating": { "ageBand": ["10-19"] },
+      "templateTokens": [
+        { "kind": "text", "value": "오늘 가족과의 결은 한 발 거리에서 봐도 좋은 하루예요. 자기 일정을 챙기느라 바쁜 자리이지만, 한 끼를 같이하거나 짧은 안부를 나누는 자리만 있어도 결이 부드러워져요. 큰 결정 자리가 있다면 한 박자 미뤄 두고, 마음이 차분해진 다음에 의논하는 흐름이 잘 맞아요. 가까운 친구와의 자리도 가족의 결과 같은 호흡으로 흘러가는 날이니, 두 자리를 같이 챙기면 결이 단단해져요." }
+      ],
+      "slots": {},
+      "tags": [],
+      "livingTips": [
+        "함께 식사 한 끼 챙기기",
+        "오늘 일정 한 가지 공유",
+        "고마운 일 짧게 표현"
+      ],
+      "cautions": [
+        "큰 결정은 한 박자 미루기"
+      ],
+      "aiGenerated": true,
+      "sourceTier": {
+        "tier": "T1_HYPOTHESIS",
+        "sourceType": "training_derived",
+        "sourceUrl": null,
+        "accessedAt": "2026-05-02",
+        "quoteShort": null,
+        "humanInterpretation": "AI-derived today-period family standard fragment authored by agent-5 (Phase 2 fan-out). Display-only narrative.",
+        "copyrightNote": "No source prose copied; original prose.",
+        "authorityTruthEligible": false
+      }
+    },
+    {
+      "schemaVersion": "spring-ts.narrative-fragment.v1",
+      "fragmentId": "family.today.standard.young_adult.004",
+      "axis": { "category": "family", "period": "today", "depth": "standard", "tone": "plain" },
+      "gating": { "ageBand": ["20-29"] },
+      "templateTokens": [
+        { "kind": "text", "value": "오늘은 본가와 자기 자리 사이의 결을 가볍게 정리하기 좋은 하루예요. 짧은 안부 한 통, 잠깐의 영상 통화만으로도 결의 거리가 자연스럽게 좁혀져요. 자기 살림의 작은 결을 정리하면서, 부모님 안부도 같이 챙기는 흐름이 잘 맞아요. 친구·연인과의 자리가 큰 비중을 차지하는 시기이지만, 가까운 가족의 결도 한 자리는 비워 두면 평생의 자산이 돼요. 무리하지 않고 짧게 자주 챙기는 결이 가장 단단해요." }
+      ],
+      "slots": {},
+      "tags": [],
+      "livingTips": [
+        "본가 안부 짧게 한 통",
+        "한 사람씩 시간 내기",
+        "받은 도움은 짧게 답하기"
+      ],
+      "cautions": [
+        "재정 결합은 미뤄 두기"
+      ],
+      "aiGenerated": true,
+      "sourceTier": {
+        "tier": "T1_HYPOTHESIS",
+        "sourceType": "training_derived",
+        "sourceUrl": null,
+        "accessedAt": "2026-05-02",
+        "quoteShort": null,
+        "humanInterpretation": "AI-derived today-period family standard fragment authored by agent-5 (Phase 2 fan-out). Display-only narrative.",
+        "copyrightNote": "No source prose copied; original prose.",
+        "authorityTruthEligible": false
+      }
+    },
+    {
+      "schemaVersion": "spring-ts.narrative-fragment.v1",
+      "fragmentId": "family.today.standard.thirties.005",
+      "axis": { "category": "family", "period": "today", "depth": "standard", "tone": "plain" },
+      "gating": { "ageBand": ["30-39"] },
+      "templateTokens": [
+        { "kind": "text", "value": "오늘은 자기 가정의 작은 결과 양가의 안부를 같이 챙기는 자리예요. 새 가정의 결은 매일의 작은 호흡이 모여 만들어지는 자리라, 한 끼를 함께하고, 안부 한마디를 나누는 흐름이 자연스러워요. 자녀가 있다면 잠들기 전의 다정한 한마디가 그 결을 더 데워 줘요. 양가 어른과의 결은 한 박자 천천히, 한 사람씩 시간을 내는 게 잘 맞아요. 모든 결을 한 번에 챙기려 하지 않아도, 오늘의 작은 자리가 다음 주의 든든한 결로 이어져요." }
+      ],
+      "slots": {},
+      "tags": [],
+      "livingTips": [
+        "저녁 한 끼는 가족과 함께",
+        "양가 안부 비슷한 폭으로",
+        "잠들기 전 다정한 한마디"
+      ],
+      "cautions": [
+        "한 자리에 결이 몰리지 않게"
+      ],
+      "aiGenerated": true,
+      "sourceTier": {
+        "tier": "T1_HYPOTHESIS",
+        "sourceType": "training_derived",
+        "sourceUrl": null,
+        "accessedAt": "2026-05-02",
+        "quoteShort": null,
+        "humanInterpretation": "AI-derived today-period family standard fragment authored by agent-5 (Phase 2 fan-out). Display-only narrative.",
+        "copyrightNote": "No source prose copied; original prose.",
+        "authorityTruthEligible": false
+      }
+    },
+    {
+      "schemaVersion": "spring-ts.narrative-fragment.v1",
+      "fragmentId": "family.today.standard.middle.006",
+      "axis": { "category": "family", "period": "today", "depth": "standard", "tone": "plain" },
+      "gating": { "ageBand": ["40-54"] },
+      "templateTokens": [
+        { "kind": "text", "value": "오늘은 부모님 안부와 자녀의 결을 같이 챙기는 자리이지만, 한 호흡씩 나누면 결이 가벼워져요. 부모님의 작은 신호를 메모해 두면 다음 주의 결정이 부드러워지고, 자녀의 결은 응원만 짧게 보내는 흐름이 잘 맞아요. 형제·친구와의 안부도 한 줄로 짧게 챙겨 두면 따뜻한 거래가 자연스럽게 이어져요. 폭이 넓은 자리이니, 한 사람만 깊이 챙기기보다는 가까운 결을 골고루 한 호흡씩 살피는 흐름이 좋아요. 내 결도 한 자리는 비워 두세요." }
+      ],
+      "slots": {},
+      "tags": [],
+      "livingTips": [
+        "부모님 안부 짧게 한 통",
+        "자녀 결정은 응원만 짧게",
+        "내 휴식 시간도 챙기기"
+      ],
+      "cautions": [
+        "혼자 다 짊어지지 않기"
+      ],
+      "aiGenerated": true,
+      "sourceTier": {
+        "tier": "T1_HYPOTHESIS",
+        "sourceType": "training_derived",
+        "sourceUrl": null,
+        "accessedAt": "2026-05-02",
+        "quoteShort": null,
+        "humanInterpretation": "AI-derived today-period family standard fragment authored by agent-5 (Phase 2 fan-out). Display-only narrative.",
+        "copyrightNote": "No source prose copied; original prose.",
+        "authorityTruthEligible": false
+      }
+    },
+    {
+      "schemaVersion": "spring-ts.narrative-fragment.v1",
+      "fragmentId": "family.today.standard.senior.007",
+      "axis": { "category": "family", "period": "today", "depth": "standard", "tone": "plain" },
+      "gating": { "ageBand": ["55-69"] },
+      "templateTokens": [
+        { "kind": "text", "value": "오늘은 다음 세대와의 결을 가볍게 데우기 좋은 자리예요. 자녀와의 결은 어른 대 어른의 호흡으로, 큰 가르침보다는 같이 시간을 보내는 자리만 만들어도 결이 부드러워져요. 손주 세대가 있다면 짧은 안부나 함께한 한 끼가 따뜻한 자산으로 남아요. 오래된 친구·형제와의 결도 한 통의 짧은 안부로 충분해요. 큰 자리를 새로 만들기보다는, 매일의 작은 결을 따뜻하게 누리는 흐름이 잘 맞는 하루예요." }
+      ],
+      "slots": {},
+      "tags": [],
+      "livingTips": [
+        "다음 세대와 한 끼 자리",
+        "오래된 친구에 안부 한 통",
+        "함께 본 사진 한 장 떠올리기"
+      ],
+      "cautions": [
+        "큰 자산 결정은 미뤄 두기"
+      ],
+      "aiGenerated": true,
+      "sourceTier": {
+        "tier": "T1_HYPOTHESIS",
+        "sourceType": "training_derived",
+        "sourceUrl": null,
+        "accessedAt": "2026-05-02",
+        "quoteShort": null,
+        "humanInterpretation": "AI-derived today-period family standard fragment authored by agent-5 (Phase 2 fan-out). Display-only narrative.",
+        "copyrightNote": "No source prose copied; original prose.",
+        "authorityTruthEligible": false
+      }
+    },
+    {
+      "schemaVersion": "spring-ts.narrative-fragment.v1",
+      "fragmentId": "family.today.standard.elder.008",
+      "axis": { "category": "family", "period": "today", "depth": "standard", "tone": "plain" },
+      "gating": { "ageBand": ["70+"] },
+      "templateTokens": [
+        { "kind": "text", "value": "오늘은 곁의 따뜻함이 평안하게 흐르는 하루예요. 큰 일정을 잡기보다는, 매일의 작은 자리를 따뜻하게 누리는 흐름이 잘 맞아요. 다음 세대와 함께한 한 끼, 좋아하는 음식 한 가지, 익숙한 자리에서의 짧은 산책 같은 일상이 가장 든든한 결이에요. 가까운 사람과의 안부도 짧게 자주, 무리하지 않는 폭으로 챙겨 두세요. 평생 가꾸어 온 가풍의 결이 이미 자리에 모여 있으니, 새로 무엇을 더하지 않아도 충분해요." }
+      ],
+      "slots": {},
+      "tags": [],
+      "livingTips": [
+        "다음 세대에 짧은 안부",
+        "좋아하는 음식 한 가지",
+        "오래된 사진 한 장 보기"
+      ],
+      "cautions": [
+        "무리한 일정은 한 발 미루기"
+      ],
+      "aiGenerated": true,
+      "sourceTier": {
+        "tier": "T1_HYPOTHESIS",
+        "sourceType": "training_derived",
+        "sourceUrl": null,
+        "accessedAt": "2026-05-02",
+        "quoteShort": null,
+        "humanInterpretation": "AI-derived today-period family standard fragment authored by agent-5 (Phase 2 fan-out). Display-only narrative.",
+        "copyrightNote": "No source prose copied; original prose.",
+        "authorityTruthEligible": false
+      }
+    },
+    {
+      "schemaVersion": "spring-ts.narrative-fragment.v1",
+      "fragmentId": "family.today.standard.aligned.009",
+      "axis": { "category": "family", "period": "today", "depth": "standard", "tone": "plain" },
+      "gating": { "yongshinAlignment": ["aligned"] },
+      "templateTokens": [
+        { "kind": "text", "value": "오늘 결은 가까운 사람의 따뜻함이 잘 흘러 들어오는 하루예요. 안부를 묻기 좋고, 함께한 자리가 결을 부드럽게 데우는 흐름이에요. 큰 일을 새로 시작하기보다는, 일상의 작은 자리에 정성을 모으면 결이 곱게 풀려요. 받은 도움이 있다면 가벼운 답이라도 그날 안에 전하는 흐름이 잘 맞아요. 결이 잘 풀리는 자리이니, 한 사람씩 시간을 내는 작은 자리가 평생의 따뜻한 자산이 돼요." }
+      ],
+      "slots": {},
+      "tags": [],
+      "livingTips": [
+        "한 사람에게 안부 한 줄",
+        "함께 식사 자리 만들기",
+        "받은 도움은 그날 답하기"
+      ],
+      "cautions": [
+        "결이 좋다고 무리하지 않기"
+      ],
+      "aiGenerated": true,
+      "sourceTier": {
+        "tier": "T1_HYPOTHESIS",
+        "sourceType": "training_derived",
+        "sourceUrl": null,
+        "accessedAt": "2026-05-02",
+        "quoteShort": null,
+        "humanInterpretation": "AI-derived today-period family standard fragment authored by agent-5 (Phase 2 fan-out). Display-only narrative.",
+        "copyrightNote": "No source prose copied; original prose.",
+        "authorityTruthEligible": false
+      }
+    },
+    {
+      "schemaVersion": "spring-ts.narrative-fragment.v1",
+      "fragmentId": "family.today.standard.conflicting.010",
+      "axis": { "category": "family", "period": "today", "depth": "standard", "tone": "plain" },
+      "gating": { "yongshinAlignment": ["conflicting"] },
+      "templateTokens": [
+        { "kind": "text", "value": "오늘은 가까운 사람과의 결에서 작은 어긋남이 보일 수 있는 자리예요. 어긋남 자체는 결을 다듬는 자연스러운 호흡이라 가볍게 보아도 좋지만, 큰 결정 자리는 한 박자 미뤄 두는 흐름이 잘 맞아요. 마음이 차분해진 자리에서 짧은 안부 한 통이 결을 다시 부드럽게 만들어 줘요. 무리해서 화해를 서두르기보다는, 다음 자리에서 자연스럽게 풀어가는 흐름이 더 단단해요. 자기 결도 한 호흡 챙겨 두세요." }
+      ],
+      "slots": {},
+      "tags": [],
+      "livingTips": [
+        "민감 주제는 다음 자리로",
+        "한 박자 천천히 답하기",
+        "차분해진 뒤 짧은 안부"
+      ],
+      "cautions": [
+        "단정하는 말은 한 발 미루기"
+      ],
+      "aiGenerated": true,
+      "sourceTier": {
+        "tier": "T1_HYPOTHESIS",
+        "sourceType": "training_derived",
+        "sourceUrl": null,
+        "accessedAt": "2026-05-02",
+        "quoteShort": null,
+        "humanInterpretation": "AI-derived today-period family standard fragment authored by agent-5 (Phase 2 fan-out). Display-only narrative.",
+        "copyrightNote": "No source prose copied; original prose.",
+        "authorityTruthEligible": false
+      }
+    },
+    {
+      "schemaVersion": "spring-ts.narrative-fragment.v1",
+      "fragmentId": "family.today.standard.weak.011",
+      "axis": { "category": "family", "period": "today", "depth": "standard", "tone": "plain" },
+      "gating": { "dayMasterStrength": ["WEAK", "EXTREME_WEAK"] },
+      "templateTokens": [
+        { "kind": "text", "value": "오늘은 곁 사람의 작은 손길이 자기 결을 부드럽게 받쳐 주는 자리예요. 도움을 청해도 좋은 결이고, 받은 도움은 짧게라도 답해 두면 결이 자연스럽게 이어져요. 자기 결을 무리하게 끌고 가지 않아도, 가까운 결이 흐름을 함께 잡아 주는 하루예요. 작은 부탁 한 가지를 자연스럽게 꺼내 두면 결이 더 든든해져요. 받는 결을 부끄러워하지 않는 자리가 곧 자기의 강점이라고 알아 두면 좋아요." }
+      ],
+      "slots": {},
+      "tags": [],
+      "livingTips": [
+        "작은 도움 한 가지 청하기",
+        "받은 일은 그날 답하기",
+        "함께 식사 자리 만들기"
+      ],
+      "cautions": [
+        "혼자 무리하지 않기"
+      ],
+      "aiGenerated": true,
+      "sourceTier": {
+        "tier": "T1_HYPOTHESIS",
+        "sourceType": "training_derived",
+        "sourceUrl": null,
+        "accessedAt": "2026-05-02",
+        "quoteShort": null,
+        "humanInterpretation": "AI-derived today-period family standard fragment authored by agent-5 (Phase 2 fan-out). Display-only narrative.",
+        "copyrightNote": "No source prose copied; original prose.",
+        "authorityTruthEligible": false
+      }
+    }
+  ]
+}

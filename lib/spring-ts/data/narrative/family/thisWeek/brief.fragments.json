@@ -1,0 +1,240 @@
+{
+  "schemaVersion": "spring-ts.narrative-fragment-bundle.v1",
+  "bundleId": "family.thisWeek.brief",
+  "contractVersion": "1.0.0",
+  "ownerAgent": "agent-5",
+  "fragmentCount": 11,
+  "fragments": [
+    {
+      "schemaVersion": "spring-ts.narrative-fragment.v1",
+      "fragmentId": "family.thisWeek.brief.wildcard.001",
+      "axis": { "category": "family", "period": "thisWeek", "depth": "brief", "tone": "plain" },
+      "gating": {},
+      "templateTokens": [
+        { "kind": "text", "value": "이번 주는 가까운 사람과 결을 맞추는 한 주예요." }
+      ],
+      "tags": [],
+      "aiGenerated": true,
+      "sourceTier": {
+        "tier": "T1_HYPOTHESIS",
+        "sourceType": "training_derived",
+        "sourceUrl": null,
+        "accessedAt": "2026-05-02",
+        "quoteShort": null,
+        "humanInterpretation": "AI-derived thisWeek-period family brief fragment authored by agent-5 (Phase 2 fan-out). Display-only narrative.",
+        "copyrightNote": "No source prose copied; original prose.",
+        "authorityTruthEligible": false
+      }
+    },
+    {
+      "schemaVersion": "spring-ts.narrative-fragment.v1",
+      "fragmentId": "family.thisWeek.brief.wildcard.002",
+      "axis": { "category": "family", "period": "thisWeek", "depth": "brief", "tone": "plain" },
+      "gating": {},
+      "templateTokens": [
+        { "kind": "text", "value": "한 끼 자리가 결을 부드럽게 만들어요." }
+      ],
+      "tags": [],
+      "aiGenerated": true,
+      "sourceTier": {
+        "tier": "T1_HYPOTHESIS",
+        "sourceType": "training_derived",
+        "sourceUrl": null,
+        "accessedAt": "2026-05-02",
+        "quoteShort": null,
+        "humanInterpretation": "AI-derived thisWeek-period family brief fragment authored by agent-5 (Phase 2 fan-out). Display-only narrative.",
+        "copyrightNote": "No source prose copied; original prose.",
+        "authorityTruthEligible": false
+      }
+    },
+    {
+      "schemaVersion": "spring-ts.narrative-fragment.v1",
+      "fragmentId": "family.thisWeek.brief.young.003",
+      "axis": { "category": "family", "period": "thisWeek", "depth": "brief", "tone": "plain" },
+      "gating": { "ageBand": ["0-9"] },
+      "templateTokens": [
+        { "kind": "text", "value": "보호자와 함께한 자리가 한 주의 결이에요." }
+      ],
+      "tags": [],
+      "aiGenerated": true,
+      "sourceTier": {
+        "tier": "T1_HYPOTHESIS",
+        "sourceType": "training_derived",
+        "sourceUrl": null,
+        "accessedAt": "2026-05-02",
+        "quoteShort": null,
+        "humanInterpretation": "AI-derived thisWeek-period family brief fragment authored by agent-5 (Phase 2 fan-out). Display-only narrative.",
+        "copyrightNote": "No source prose copied; original prose.",
+        "authorityTruthEligible": false
+      }
+    },
+    {
+      "schemaVersion": "spring-ts.narrative-fragment.v1",
+      "fragmentId": "family.thisWeek.brief.teen.004",
+      "axis": { "category": "family", "period": "thisWeek", "depth": "brief", "tone": "plain" },
+      "gating": { "ageBand": ["10-19"] },
+      "templateTokens": [
+        { "kind": "text", "value": "주말 한 끼만 같이 챙겨도 결이 따뜻해요." }
+      ],
+      "tags": [],
+      "aiGenerated": true,
+      "sourceTier": {
+        "tier": "T1_HYPOTHESIS",
+        "sourceType": "training_derived",
+        "sourceUrl": null,
+        "accessedAt": "2026-05-02",
+        "quoteShort": null,
+        "humanInterpretation": "AI-derived thisWeek-period family brief fragment authored by agent-5 (Phase 2 fan-out). Display-only narrative.",
+        "copyrightNote": "No source prose copied; original prose.",
+        "authorityTruthEligible": false
+      }
+    },
+    {
+      "schemaVersion": "spring-ts.narrative-fragment.v1",
+      "fragmentId": "family.thisWeek.brief.young_adult.005",
+      "axis": { "category": "family", "period": "thisWeek", "depth": "brief", "tone": "plain" },
+      "gating": { "ageBand": ["20-29"] },
+      "templateTokens": [
+        { "kind": "text", "value": "본가 안부 한 통이 한 주를 데워 줘요." }
+      ],
+      "tags": [],
+      "aiGenerated": true,
+      "sourceTier": {
+        "tier": "T1_HYPOTHESIS",
+        "sourceType": "training_derived",
+        "sourceUrl": null,
+        "accessedAt": "2026-05-02",
+        "quoteShort": null,
+        "humanInterpretation": "AI-derived thisWeek-period family brief fragment authored by agent-5 (Phase 2 fan-out). Display-only narrative.",
+        "copyrightNote": "No source prose copied; original prose.",
+        "authorityTruthEligible": false
+      }
+    },
+    {
+      "schemaVersion": "spring-ts.narrative-fragment.v1",
+      "fragmentId": "family.thisWeek.brief.thirties.006",
+      "axis": { "category": "family", "period": "thisWeek", "depth": "brief", "tone": "plain" },
+      "gating": { "ageBand": ["30-39"] },
+      "templateTokens": [
+        { "kind": "text", "value": "양가 안부를 비슷한 폭으로 챙겨 보세요." }
+      ],
+      "tags": [],
+      "aiGenerated": true,
+      "sourceTier": {
+        "tier": "T1_HYPOTHESIS",
+        "sourceType": "training_derived",
+        "sourceUrl": null,
+        "accessedAt": "2026-05-02",
+        "quoteShort": null,
+        "humanInterpretation": "AI-derived thisWeek-period family brief fragment authored by agent-5 (Phase 2 fan-out). Display-only narrative.",
+        "copyrightNote": "No source prose copied; original prose.",
+        "authorityTruthEligible": false
+      }
+    },
+    {
+      "schemaVersion": "spring-ts.narrative-fragment.v1",
+      "fragmentId": "family.thisWeek.brief.middle.007",
+      "axis": { "category": "family", "period": "thisWeek", "depth": "brief", "tone": "plain" },
+      "gating": { "ageBand": ["40-54"] },
+      "templateTokens": [
+        { "kind": "text", "value": "부모님 자리에 한 호흡 더 내 보세요." }
+      ],
+      "tags": [],
+      "aiGenerated": true,
+      "sourceTier": {
+        "tier": "T1_HYPOTHESIS",
+        "sourceType": "training_derived",
+        "sourceUrl": null,
+        "accessedAt": "2026-05-02",
+        "quoteShort": null,
+        "humanInterpretation": "AI-derived thisWeek-period family brief fragment authored by agent-5 (Phase 2 fan-out). Display-only narrative.",
+        "copyrightNote": "No source prose copied; original prose.",
+        "authorityTruthEligible": false
+      }
+    },
+    {
+      "schemaVersion": "spring-ts.narrative-fragment.v1",
+      "fragmentId": "family.thisWeek.brief.senior.008",
+      "axis": { "category": "family", "period": "thisWeek", "depth": "brief", "tone": "plain" },
+      "gating": { "ageBand": ["55-69"] },
+      "templateTokens": [
+        { "kind": "text", "value": "다음 세대와 한 자리 약속을 만들어 봐요." }
+      ],
+      "tags": [],
+      "aiGenerated": true,
+      "sourceTier": {
+        "tier": "T1_HYPOTHESIS",
+        "sourceType": "training_derived",
+        "sourceUrl": null,
+        "accessedAt": "2026-05-02",
+        "quoteShort": null,
+        "humanInterpretation": "AI-derived thisWeek-period family brief fragment authored by agent-5 (Phase 2 fan-out). Display-only narrative.",
+        "copyrightNote": "No source prose copied; original prose.",
+        "authorityTruthEligible": false
+      }
+    },
+    {
+      "schemaVersion": "spring-ts.narrative-fragment.v1",
+      "fragmentId": "family.thisWeek.brief.elder.009",
+      "axis": { "category": "family", "period": "thisWeek", "depth": "brief", "tone": "plain" },
+      "gating": { "ageBand": ["70+"] },
+      "templateTokens": [
+        { "kind": "text", "value": "곁의 안부가 평안하게 흐르는 한 주예요." }
+      ],
+      "tags": [],
+      "aiGenerated": true,
+      "sourceTier": {
+        "tier": "T1_HYPOTHESIS",
+        "sourceType": "training_derived",
+        "sourceUrl": null,
+        "accessedAt": "2026-05-02",
+        "quoteShort": null,
+        "humanInterpretation": "AI-derived thisWeek-period family brief fragment authored by agent-5 (Phase 2 fan-out). Display-only narrative.",
+        "copyrightNote": "No source prose copied; original prose.",
+        "authorityTruthEligible": false
+      }
+    },
+    {
+      "schemaVersion": "spring-ts.narrative-fragment.v1",
+      "fragmentId": "family.thisWeek.brief.aligned.010",
+      "axis": { "category": "family", "period": "thisWeek", "depth": "brief", "tone": "plain" },
+      "gating": { "yongshinAlignment": ["aligned"] },
+      "templateTokens": [
+        { "kind": "text", "value": "조상의 자산이 든든하게 받쳐 주는 한 주예요." }
+      ],
+      "tags": [],
+      "aiGenerated": true,
+      "sourceTier": {
+        "tier": "T1_HYPOTHESIS",
+        "sourceType": "training_derived",
+        "sourceUrl": null,
+        "accessedAt": "2026-05-02",
+        "quoteShort": null,
+        "humanInterpretation": "AI-derived thisWeek-period family brief fragment authored by agent-5 (Phase 2 fan-out). Display-only narrative.",
+        "copyrightNote": "No source prose copied; original prose.",
+        "authorityTruthEligible": false
+      }
+    },
+    {
+      "schemaVersion": "spring-ts.narrative-fragment.v1",
+      "fragmentId": "family.thisWeek.brief.conflicting.011",
+      "axis": { "category": "family", "period": "thisWeek", "depth": "brief", "tone": "plain" },
+      "gating": { "yongshinAlignment": ["conflicting"] },
+      "templateTokens": [
+        { "kind": "text", "value": "민감한 자리는 한 박자 천천히 풀어요." }
+      ],
+      "tags": [],
+      "aiGenerated": true,
+      "sourceTier": {
+        "tier": "T1_HYPOTHESIS",
+        "sourceType": "training_derived",
+        "sourceUrl": null,
+        "accessedAt": "2026-05-02",
+        "quoteShort": null,
+        "humanInterpretation": "AI-derived thisWeek-period family brief fragment authored by agent-5 (Phase 2 fan-out). Display-only narrative.",
+        "copyrightNote": "No source prose copied; original prose.",
+        "authorityTruthEligible": false
+      }
+    }
+  ]
+}

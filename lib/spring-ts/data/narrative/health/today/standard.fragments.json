@@ -1,0 +1,400 @@
+{
+  "schemaVersion": "spring-ts.narrative-fragment-bundle.v1",
+  "bundleId": "health-today-standard",
+  "contractVersion": "1.0.0",
+  "generatedBy": "phase2-agent-2-health",
+  "fragments": [
+    {
+      "schemaVersion": "spring-ts.narrative-fragment.v1",
+      "fragmentId": "health.today.standard.wild.001",
+      "axis": { "category": "health", "period": "today", "depth": "standard" },
+      "gating": {},
+      "templateTokens": [
+        { "kind": "text", "value": "오늘 컨디션은 잔잔한 호수 같은 결이에요. 큰 출렁임이 없으니 평소 페이스를 그대로 이어 가도 충분히 부드럽게 흘러가요.\n\n다만 어제까지 이어진 자리들이 살짝 누적돼 있다면, 오늘은 조금 천천히 걷는 자리를 만들어 두면 좋아요. 한 박자 늦추는 게 시간 손해가 아니라 회복의 자리가 돼요.\n\n점심·저녁 사이엔 가벼운 산책이나 따뜻한 차 한 잔이 잘 맞아요. 자기 신호에 귀 기울이는 하루로 보내면 큰 흠 없이 마무리돼요." }
+      ],
+      "tags": [],
+      "livingTips": [
+        "물 한 잔을 자주 마셔요",
+        "10분 산책을 한 번",
+        "잠은 평소 시각에"
+      ],
+      "cautions": [
+        "강행군은 잠시 미뤄요",
+        "카페인은 오후에 줄여요"
+      ],
+      "aiGenerated": true,
+      "sourceTier": {
+        "tier": "T1_HYPOTHESIS",
+        "sourceType": "training_derived",
+        "sourceUrl": null,
+        "accessedAt": "2026-05-02",
+        "quoteShort": null,
+        "humanInterpretation": "Phase 2 health-category standard today — wildcard. Display-only narrative.",
+        "copyrightNote": "No source prose copied; original interpretation.",
+        "authorityTruthEligible": false
+      }
+    },
+    {
+      "schemaVersion": "spring-ts.narrative-fragment.v1",
+      "fragmentId": "health.today.standard.weak.aligned.001",
+      "axis": { "category": "health", "period": "today", "depth": "standard" },
+      "gating": {
+        "dayMasterStrength": ["WEAK", "EXTREME_WEAK"],
+        "yongshinAlignment": ["aligned"]
+      },
+      "templateTokens": [
+        { "kind": "text", "value": "오늘은 받쳐 주는 자리들이 잘 따라 주는 결이라, 가볍지만 따뜻한 흐름이에요. 살짝 가는 줄기에 햇볕이 잘 드는 화분 같은 모양이라, 무리하지 않으면 자연스럽게 회복이 따라와요.\n\n점심은 따뜻한 음식, 잠시는 햇볕 받는 자리에서 한 박자 쉬어 가요. 마음 편한 사람과의 짧은 대화나 통화도 그대로 보약이 돼요.\n\n오후에 살짝 처지는 자리가 와도 무리해서 끌어올리기보다, 잠시 눈을 감고 호흡 한 번 깊게 하는 자리가 잘 맞아요. 익숙한 페이스 안에서 부드럽게 흘러가요." }
+      ],
+      "tags": [],
+      "livingTips": [
+        "따뜻한 점심을 챙겨요",
+        "햇볕 받는 자리를 만들어요",
+        "심호흡 세 번을 잠시"
+      ],
+      "cautions": [
+        "찬 음식 과하면 피해요",
+        "긴 회의는 한 번씩 끊어요"
+      ],
+      "aiGenerated": true,
+      "sourceTier": {
+        "tier": "T1_HYPOTHESIS",
+        "sourceType": "training_derived",
+        "sourceUrl": null,
+        "accessedAt": "2026-05-02",
+        "quoteShort": null,
+        "humanInterpretation": "Phase 2 health standard today — weak + aligned. Display-only narrative.",
+        "copyrightNote": "No source prose copied; original interpretation.",
+        "authorityTruthEligible": false
+      }
+    },
+    {
+      "schemaVersion": "spring-ts.narrative-fragment.v1",
+      "fragmentId": "health.today.standard.weak.001",
+      "axis": { "category": "health", "period": "today", "depth": "standard" },
+      "gating": {
+        "dayMasterStrength": ["WEAK", "EXTREME_WEAK"]
+      },
+      "templateTokens": [
+        { "kind": "text", "value": "오늘은 가벼운 결의 흐름이라, 무리해서 한 번에 많은 일을 처리하기보다 짧게 끊어 가는 페이스가 잘 맞아요. 작은 화분이 쉬어 가며 자라는 모양처럼, 한 박자 늦추는 자리가 회복의 자리예요.\n\n점심은 따뜻한 식사, 오후엔 가벼운 산책이나 짧은 환기가 도움이 돼요. 카페인을 너무 많이 잡으면 저녁에 잠 자리가 흔들릴 수 있으니 한 잔쯤은 미뤄 두면 좋아요.\n\n중요한 결정은 오늘 한 박자 미뤄도 손해가 아니에요. 충분히 쉬고 내일 다시 보면 더 또렷이 보여요." }
+      ],
+      "tags": [],
+      "livingTips": [
+        "오후엔 카페인 줄여요",
+        "짧은 환기를 자주",
+        "따뜻한 식사를 천천히"
+      ],
+      "cautions": [
+        "큰 결정은 내일 다시 봐요",
+        "강행군은 잠시 미뤄요"
+      ],
+      "aiGenerated": true,
+      "sourceTier": {
+        "tier": "T1_HYPOTHESIS",
+        "sourceType": "training_derived",
+        "sourceUrl": null,
+        "accessedAt": "2026-05-02",
+        "quoteShort": null,
+        "humanInterpretation": "Phase 2 health standard today — weak day master. Display-only narrative.",
+        "copyrightNote": "No source prose copied; original interpretation.",
+        "authorityTruthEligible": false
+      }
+    },
+    {
+      "schemaVersion": "spring-ts.narrative-fragment.v1",
+      "fragmentId": "health.today.standard.strong.001",
+      "axis": { "category": "health", "period": "today", "depth": "standard" },
+      "gating": {
+        "dayMasterStrength": ["STRONG", "EXTREME_STRONG"]
+      },
+      "templateTokens": [
+        { "kind": "text", "value": "기운이 가득한 하루의 결이에요. 활동량을 잘 받아 내는 그릇이 큰 결이지만, 강한 결일수록 한 번에 누적된 신호가 또렷이 와요.\n\n오전엔 조금 빠르게 움직이고, 오후엔 페이스를 한 번 늦추는 자리를 만들어 두는 편이 좋아요. 식사를 빠르게 넘기지 말고, 따뜻한 한 끼를 천천히 즐기는 자리가 보약이 돼요.\n\n저녁엔 강한 운동보다 가볍게 풀어 주는 자리가 잘 맞아요. 깊고 길게 호흡하는 시간 한 번이 오늘의 균형을 잡아 줘요." }
+      ],
+      "tags": [],
+      "livingTips": [
+        "점심은 따뜻하게 천천히",
+        "오후엔 한 번 페이스 늦춰요",
+        "저녁 운동은 가볍게"
+      ],
+      "cautions": [
+        "과식·폭음 자리만 줄이면 충분",
+        "참다 끌어안고 가지 말아요"
+      ],
+      "aiGenerated": true,
+      "sourceTier": {
+        "tier": "T1_HYPOTHESIS",
+        "sourceType": "training_derived",
+        "sourceUrl": null,
+        "accessedAt": "2026-05-02",
+        "quoteShort": null,
+        "humanInterpretation": "Phase 2 health standard today — strong day master. Display-only narrative.",
+        "copyrightNote": "No source prose copied; original interpretation.",
+        "authorityTruthEligible": false
+      }
+    },
+    {
+      "schemaVersion": "spring-ts.narrative-fragment.v1",
+      "fragmentId": "health.today.standard.female.30_39.001",
+      "axis": { "category": "health", "period": "today", "depth": "standard" },
+      "gating": {
+        "gender": ["female"],
+        "ageBand": ["30-39"]
+      },
+      "templateTokens": [
+        { "kind": "text", "value": "오늘은 여러 자리에서 오는 신호가 한꺼번에 들어오기 쉬운 결이에요. 일·관계·집안일이 동시에 쌓이는 자리에서 자기 페이스를 잃지 않는 게 가장 큰 보약이에요.\n\n바쁘게 흘러가는 하루지만, 점심 사이엔 잠시 따뜻한 차 한 잔의 자리를 만들어 두면 좋아요. 마음이 부드러워지면 컨디션도 자연스럽게 따라와요.\n\n저녁엔 오늘 하루의 작은 일들을 가볍게 정리해 두면, 내일 흐름이 한결 단단해져요. 잠 자리는 평소보다 한 시간 일찍 들어가는 편이 잘 맞아요." }
+      ],
+      "tags": [],
+      "livingTips": [
+        "점심엔 따뜻한 차 한 잔",
+        "잠은 한 시간 일찍",
+        "저녁엔 오늘 일을 정리"
+      ],
+      "cautions": [
+        "여러 일 동시에 끌고 가지 말아요",
+        "마음 신호 가볍게 넘기지 말아요"
+      ],
+      "aiGenerated": true,
+      "sourceTier": {
+        "tier": "T1_HYPOTHESIS",
+        "sourceType": "training_derived",
+        "sourceUrl": null,
+        "accessedAt": "2026-05-02",
+        "quoteShort": null,
+        "humanInterpretation": "Phase 2 health standard today — female + 30-39. Display-only narrative.",
+        "copyrightNote": "No source prose copied; original interpretation.",
+        "authorityTruthEligible": false
+      }
+    },
+    {
+      "schemaVersion": "spring-ts.narrative-fragment.v1",
+      "fragmentId": "health.today.standard.male.001",
+      "axis": { "category": "health", "period": "today", "depth": "standard" },
+      "gating": {
+        "gender": ["male"]
+      },
+      "templateTokens": [
+        { "kind": "text", "value": "오늘 흐름은 활동량이 많아지기 쉬운 결이에요. 여러 일을 한꺼번에 잡고 가는 자리에서 자기 신호를 가볍게 넘기지 않는 게 중요해요.\n\n점심은 빠르게 넘기지 말고 한 끼 제대로 챙기는 편이 좋아요. 사람과 만나는 자리가 길어지면, 술·과식 자리는 한 번 더 살펴보는 편이 좋아요.\n\n저녁엔 짧은 산책이나 가벼운 스트레칭이 잘 맞아요. 강한 자극보다 부드러운 풀어 주는 자리가 오늘의 회복 신호예요." }
+      ],
+      "tags": [],
+      "livingTips": [
+        "점심은 한 끼 제대로",
+        "저녁 산책 10분",
+        "스트레칭 한 번"
+      ],
+      "cautions": [
+        "과음 자리 한 번 더 살펴요",
+        "급한 결정은 오늘은 미뤄요"
+      ],
+      "aiGenerated": true,
+      "sourceTier": {
+        "tier": "T1_HYPOTHESIS",
+        "sourceType": "training_derived",
+        "sourceUrl": null,
+        "accessedAt": "2026-05-02",
+        "quoteShort": null,
+        "humanInterpretation": "Phase 2 health standard today — male voice. Display-only narrative.",
+        "copyrightNote": "No source prose copied; original interpretation.",
+        "authorityTruthEligible": false
+      }
+    },
+    {
+      "schemaVersion": "spring-ts.narrative-fragment.v1",
+      "fragmentId": "health.today.standard.aligned.001",
+      "axis": { "category": "health", "period": "today", "depth": "standard" },
+      "gating": {
+        "yongshinAlignment": ["aligned"]
+      },
+      "templateTokens": [
+        { "kind": "text", "value": "오늘은 흐름이 잘 풀리는 결이라 평소보다 회복도 한결 가볍게 와요. 햇볕이 잘 드는 들판에 화분을 옮기는 자리처럼, 자연스럽게 컨디션이 따라오는 모양이에요.\n\n오전엔 평소처럼 움직이고, 점심엔 좋아하는 음식 한 끼를 천천히 즐기면 좋아요. 익숙한 즐거움이 그대로 보약 역할을 해요.\n\n저녁엔 가까운 사람과 짧은 통화나 산책이 잘 맞아요. 마음이 부드러워지는 자리에서 하루의 결이 부드럽게 마무리돼요." }
+      ],
+      "tags": [],
+      "livingTips": [
+        "좋아하는 한 끼를 천천히",
+        "가까운 산책 한 번",
+        "심호흡 세 번을 잠시"
+      ],
+      "cautions": [
+        "오늘은 무리수만 줄여요",
+        "잠은 평소처럼 챙겨요"
+      ],
+      "aiGenerated": true,
+      "sourceTier": {
+        "tier": "T1_HYPOTHESIS",
+        "sourceType": "training_derived",
+        "sourceUrl": null,
+        "accessedAt": "2026-05-02",
+        "quoteShort": null,
+        "humanInterpretation": "Phase 2 health standard today — aligned yongshin. Display-only narrative.",
+        "copyrightNote": "No source prose copied; original interpretation.",
+        "authorityTruthEligible": false
+      }
+    },
+    {
+      "schemaVersion": "spring-ts.narrative-fragment.v1",
+      "fragmentId": "health.today.standard.conflicting.001",
+      "axis": { "category": "health", "period": "today", "depth": "standard" },
+      "gating": {
+        "yongshinAlignment": ["conflicting"]
+      },
+      "templateTokens": [
+        { "kind": "text", "value": "오늘은 흐름이 살짝 어긋나는 결이라, 한 번에 많은 일을 잡고 가기보다 짧게 끊어 가는 페이스가 잘 맞아요. 작은 신호도 가볍게 넘기지 않는 게 보약이에요.\n\n점심은 따뜻하게, 오후엔 짧은 환기가 도움이 돼요. 갈등 자리·언쟁 자리는 잠시 한 박자 미뤄 두면, 컨디션과 관계 모두 부드럽게 흘러가요.\n\n저녁엔 큰 결정 대신 오늘 일을 가볍게 정리하는 자리가 잘 맞아요. 충분히 쉬고 내일 다시 보면 결정의 결이 한결 또렷해져요." }
+      ],
+      "tags": [],
+      "livingTips": [
+        "점심은 따뜻하게",
+        "10분 환기를 자주",
+        "잠 자리를 일찍"
+      ],
+      "cautions": [
+        "큰 결정은 내일 다시",
+        "언쟁 자리 잠시 미뤄요"
+      ],
+      "aiGenerated": true,
+      "sourceTier": {
+        "tier": "T1_HYPOTHESIS",
+        "sourceType": "training_derived",
+        "sourceUrl": null,
+        "accessedAt": "2026-05-02",
+        "quoteShort": null,
+        "humanInterpretation": "Phase 2 health standard today — conflicting. Display-only narrative.",
+        "copyrightNote": "No source prose copied; original interpretation.",
+        "authorityTruthEligible": false
+      }
+    },
+    {
+      "schemaVersion": "spring-ts.narrative-fragment.v1",
+      "fragmentId": "health.today.standard.40_54.001",
+      "axis": { "category": "health", "period": "today", "depth": "standard" },
+      "gating": {
+        "ageBand": ["40-54"]
+      },
+      "templateTokens": [
+        { "kind": "text", "value": "오늘은 누적된 자리들이 한 번씩 신호를 보내기 쉬운 결이에요. 큰 일이 아니라 자기 페이스 안에서 정돈하면, 회복도 빠르게 따라와요.\n\n점심엔 한 끼를 천천히, 오후엔 짧은 산책이 잘 맞아요. 어깨·허리 자리에 살짝 신호가 오면 무리해서 끌어올리기보다 가볍게 풀어 주는 자리를 만들어 두면 좋아요.\n\n저녁엔 일찍 잠 자리에 들어가는 편이 좋아요. 푹 자는 자리가 어떤 보약보다 든든한 회복의 자산이에요." }
+      ],
+      "tags": [],
+      "livingTips": [
+        "10분 산책을 점심 후",
+        "어깨 스트레칭 한 번",
+        "잠은 한 시간 일찍"
+      ],
+      "cautions": [
+        "어제 강행군 누적되지 않게",
+        "야식·과음만 줄이면 충분"
+      ],
+      "aiGenerated": true,
+      "sourceTier": {
+        "tier": "T1_HYPOTHESIS",
+        "sourceType": "training_derived",
+        "sourceUrl": null,
+        "accessedAt": "2026-05-02",
+        "quoteShort": null,
+        "humanInterpretation": "Phase 2 health standard today — 40-54 ageband. Display-only narrative.",
+        "copyrightNote": "No source prose copied; original interpretation.",
+        "authorityTruthEligible": false
+      }
+    },
+    {
+      "schemaVersion": "spring-ts.narrative-fragment.v1",
+      "fragmentId": "health.today.standard.neutral_gender.001",
+      "axis": { "category": "health", "period": "today", "depth": "standard" },
+      "gating": {
+        "gender": ["neutral"]
+      },
+      "templateTokens": [
+        { "kind": "text", "value": "오늘은 자기 페이스 안에서 가볍게 흘러가는 결이에요. 누구의 기대가 아니라 자기 결에 맞는 자리를 골라 가면 회복도 자연스럽게 따라와요.\n\n점심 후엔 짧은 산책이나 한 잔의 차로 자리를 정돈하는 편이 좋아요. 익숙한 자리에서 보내는 시간이 그대로 보약이 돼요.\n\n저녁엔 자기에게 작은 즐거움 한 가지를 챙기는 편이 좋아요. 마음이 부드러워지면 컨디션도 따라와요." }
+      ],
+      "tags": [],
+      "livingTips": [
+        "산책을 자기 페이스로",
+        "익숙한 자리에서 자리 정돈",
+        "작은 즐거움 한 가지"
+      ],
+      "cautions": [
+        "남의 기대에 흔들리지 말아요",
+        "오늘은 큰 결정 미뤄요"
+      ],
+      "aiGenerated": true,
+      "sourceTier": {
+        "tier": "T1_HYPOTHESIS",
+        "sourceType": "training_derived",
+        "sourceUrl": null,
+        "accessedAt": "2026-05-02",
+        "quoteShort": null,
+        "humanInterpretation": "Phase 2 health standard today — neutral gender. Display-only narrative.",
+        "copyrightNote": "No source prose copied; original interpretation.",
+        "authorityTruthEligible": false
+      }
+    },
+    {
+      "schemaVersion": "spring-ts.narrative-fragment.v1",
+      "fragmentId": "health.today.standard.balanced.001",
+      "axis": { "category": "health", "period": "today", "depth": "standard" },
+      "gating": {
+        "dayMasterStrength": ["BALANCED"]
+      },
+      "templateTokens": [
+        { "kind": "text", "value": "오늘은 흐름이 고른 결이라 큰 기복 없이 가벼운 하루로 흘러가요. 익숙한 자리들이 평소처럼 흘러가니 무리 없이 자기 페이스를 챙기는 편이 좋아요.\n\n점심·저녁 한 끼를 천천히 즐기는 자리가 그대로 회복의 자리가 돼요. 짧은 산책 한 번이 더 들어가면 균형이 한층 또렷해져요.\n\n저녁엔 잠 자리를 평소처럼 챙기면, 내일 흐름까지 자연스럽게 부드러워져요." }
+      ],
+      "tags": [],
+      "livingTips": [
+        "한 끼는 천천히",
+        "점심 후 산책 한 번",
+        "잠은 평소처럼"
+      ],
+      "cautions": [
+        "신호가 약해도 가볍게 넘기지",
+        "갑작스런 강행군 피해요"
+      ],
+      "aiGenerated": true,
+      "sourceTier": {
+        "tier": "T1_HYPOTHESIS",
+        "sourceType": "training_derived",
+        "sourceUrl": null,
+        "accessedAt": "2026-05-02",
+        "quoteShort": null,
+        "humanInterpretation": "Phase 2 health standard today — balanced day master. Display-only narrative.",
+        "copyrightNote": "No source prose copied; original interpretation.",
+        "authorityTruthEligible": false
+      }
+    },
+    {
+      "schemaVersion": "spring-ts.narrative-fragment.v1",
+      "fragmentId": "health.today.standard.child.001",
+      "axis": {
+        "category": "health",
+        "period": "today",
+        "depth": "standard"
+      },
+      "gating": {
+        "ageBand": [
+          "0-9"
+        ]
+      },
+      "templateTokens": [
+        {
+          "kind": "text",
+          "value": "아이는 오늘 활기가 풍부한 결이에요. 평소 페이스대로 잘 놀고 잘 먹으면 흐름이 자연스럽게 이어져요.\n\n갑작스럽게 무리하기보다 익숙한 놀이를 푹 즐기는 자리가 좋아요. 잠자리에 들기 전 따뜻한 인사 한마디만 챙기면 충분해요.\n\n작은 칭얼거림이 있어도 잠과 식사 리듬이 정돈되면 금방 회복되는 결이에요. 곁에서 함께 호흡을 맞춰 주는 자리가 큰 도움이 돼요."
+        }
+      ],
+      "tags": [],
+      "livingTips": [
+        "잠자기 전 다정한 인사 한마디",
+        "함께 식사하는 자리 챙기기",
+        "잘 노는 자리를 응원해 주기"
+      ],
+      "cautions": [
+        "비교하는 말은 한 발 물러 두기"
+      ],
+      "aiGenerated": true,
+      "sourceTier": {
+        "tier": "T1_HYPOTHESIS",
+        "sourceType": "training_derived",
+        "sourceUrl": null,
+        "accessedAt": "2026-05-02",
+        "quoteShort": null,
+        "humanInterpretation": "Phase 2 health standard today (ageBand 0-9). Caregiver-shared tone; sleep/eat/play frame; no career/romance. AI-derived; no source prose copied.",
+        "copyrightNote": "No source prose copied; original phrasing.",
+        "authorityTruthEligible": false
+      }
+    }
+  ]
+}

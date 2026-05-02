@@ -1,0 +1,299 @@
+{
+  "schemaVersion": "spring-ts.narrative-fragment-bundle.v1",
+  "bundleId": "movement-today-standard",
+  "contractVersion": "1.0.0",
+  "generatedBy": "phase2-agent-10-movement",
+  "fragmentCount": 10,
+  "fragments": [
+    {
+      "schemaVersion": "spring-ts.narrative-fragment.v1",
+      "fragmentId": "movement.today.standard.wildcard.001",
+      "axis": { "category": "movement", "period": "today", "depth": "standard" },
+      "gating": {},
+      "templateTokens": [
+        { "kind": "text", "value": "오늘의 이동 결을 살펴보면 한 발짝 움직여 볼 자리가 가볍게 등장해요. 흐르는 강물처럼 평소와 다른 길로 가 보면 작은 자극이 와요.\n\n짧은 외출·외근·약속이 있다면 잘 풀리는 흐름이에요. 동선을 미리 그려 두면 일이 한결 가벼워져요.\n\n다만 큰 결정이나 먼 길은 오늘 하루 안에 끝내려 하지 말고 다음 날 호흡으로 이어 가면 좋아요." }
+      ],
+      "tags": [],
+      "livingTips": [
+        "오늘 동선을 한 번 정리해요",
+        "평소와 다른 길을 걸어 봐요",
+        "짧은 외출의 자리를 만들어요"
+      ],
+      "cautions": [
+        "큰 결정은 오늘 안에 몰지 않아요"
+      ],
+      "aiGenerated": true,
+      "sourceTier": {
+        "tier": "T1_HYPOTHESIS",
+        "sourceType": "training_derived",
+        "sourceUrl": null,
+        "accessedAt": "2026-05-02",
+        "quoteShort": null,
+        "humanInterpretation": "Phase 2 movement-category fragment authored by agent-10 under data/narrative/_contract/v1.json. Display-only narrative for the tiered-matrix movement axis.",
+        "copyrightNote": "No source prose copied; original authored prose.",
+        "authorityTruthEligible": false
+      }
+    },
+    {
+      "schemaVersion": "spring-ts.narrative-fragment.v1",
+      "fragmentId": "movement.today.standard.0_9.002",
+      "axis": { "category": "movement", "period": "today", "depth": "standard" },
+      "gating": { "ageBand": ["0-9"] },
+      "templateTokens": [
+        { "kind": "text", "value": "아이의 오늘 이동 결은 새 자리·새 풍경에 닿으면 더 즐거운 흐름이에요. 짧은 산책이나 가까운 외출이 좋은 자극이 돼요.\n\n공원·도서관·놀이터 같은 가까운 자리에서 새로운 작은 발견이 생겨요. 손잡고 함께 걷는 시간이 그대로 자라는 자양분이 돼요.\n\n다만 너무 긴 외출은 어린 호흡에 무리예요. 짧고 즐거운 결로 마무리하면 좋아요." }
+      ],
+      "tags": [],
+      "livingTips": [
+        "가까운 공원에 함께 가요",
+        "아이 손을 꼭 잡고 걸어요",
+        "짧은 외출로 즐거움을 나눠요"
+      ],
+      "cautions": [
+        "너무 긴 외출은 무리예요"
+      ],
+      "aiGenerated": true,
+      "sourceTier": {
+        "tier": "T1_HYPOTHESIS",
+        "sourceType": "training_derived",
+        "sourceUrl": null,
+        "accessedAt": "2026-05-02",
+        "quoteShort": null,
+        "humanInterpretation": "Phase 2 movement-category fragment authored by agent-10 under data/narrative/_contract/v1.json. Display-only narrative for the tiered-matrix movement axis.",
+        "copyrightNote": "No source prose copied; original authored prose.",
+        "authorityTruthEligible": false
+      }
+    },
+    {
+      "schemaVersion": "spring-ts.narrative-fragment.v1",
+      "fragmentId": "movement.today.standard.10_19.003",
+      "axis": { "category": "movement", "period": "today", "depth": "standard" },
+      "gating": { "ageBand": ["10-19"] },
+      "templateTokens": [
+        { "kind": "text", "value": "오늘의 이동 결은 평소와 조금 다른 길로 가 봐도 좋은 흐름이에요. 작은 변화가 시야를 한 뼘 넓혀 줘요.\n\n친구와 함께하는 짧은 외출, 평소 가지 않던 자리의 산책이 잘 어울려요. 새 길에서 만나는 풍경이 생각의 결을 새롭게 해 줘요.\n\n다만 시험·과제 시기와 겹친다면 너무 멀리 가지 않고 가까운 자리로 가벼운 환기를 권해요." }
+      ],
+      "tags": [],
+      "livingTips": [
+        "평소 안 가던 길을 걸어 봐요",
+        "친구와 가까운 자리를 둘러봐요",
+        "외출 가방을 가볍게 챙겨요"
+      ],
+      "cautions": [
+        "공부 시기엔 가까운 자리로 충분해요"
+      ],
+      "aiGenerated": true,
+      "sourceTier": {
+        "tier": "T1_HYPOTHESIS",
+        "sourceType": "training_derived",
+        "sourceUrl": null,
+        "accessedAt": "2026-05-02",
+        "quoteShort": null,
+        "humanInterpretation": "Phase 2 movement-category fragment authored by agent-10 under data/narrative/_contract/v1.json. Display-only narrative for the tiered-matrix movement axis.",
+        "copyrightNote": "No source prose copied; original authored prose.",
+        "authorityTruthEligible": false
+      }
+    },
+    {
+      "schemaVersion": "spring-ts.narrative-fragment.v1",
+      "fragmentId": "movement.today.standard.20_29.004",
+      "axis": { "category": "movement", "period": "today", "depth": "standard" },
+      "gating": { "ageBand": ["20-29"] },
+      "templateTokens": [
+        { "kind": "text", "value": "오늘의 이동 결은 새 자리·새 사람과 닿기 좋은 흐름이에요. 흐르는 강물처럼 자연스럽게 약속과 외근의 자리가 풀려요.\n\n새로 가 보는 카페·전시·모임이 생각의 결을 환기해 줘요. 평소 미루던 외근 일정이 있다면 오늘 잡아 봐도 좋아요.\n\n다만 큰 자취·이사 결정은 오늘 하루 안에 마무리하려 하지 말고 며칠 호흡을 두고 정해도 늦지 않아요." }
+      ],
+      "tags": [],
+      "livingTips": [
+        "새 자리의 약속을 잡아 봐요",
+        "외근 동선을 미리 그려요",
+        "낯선 카페를 한 곳 가 봐요"
+      ],
+      "cautions": [
+        "큰 결정은 오늘 안에 몰지 않아요"
+      ],
+      "aiGenerated": true,
+      "sourceTier": {
+        "tier": "T1_HYPOTHESIS",
+        "sourceType": "training_derived",
+        "sourceUrl": null,
+        "accessedAt": "2026-05-02",
+        "quoteShort": null,
+        "humanInterpretation": "Phase 2 movement-category fragment authored by agent-10 under data/narrative/_contract/v1.json. Display-only narrative for the tiered-matrix movement axis.",
+        "copyrightNote": "No source prose copied; original authored prose.",
+        "authorityTruthEligible": false
+      }
+    },
+    {
+      "schemaVersion": "spring-ts.narrative-fragment.v1",
+      "fragmentId": "movement.today.standard.30_39.005",
+      "axis": { "category": "movement", "period": "today", "depth": "standard" },
+      "gating": { "ageBand": ["30-39"] },
+      "templateTokens": [
+        { "kind": "text", "value": "오늘의 이동 결은 짧은 출장·외근의 자리가 술술 풀리는 흐름이에요. 동선을 미리 정리해 두면 일이 한결 가벼워져요.\n\n약속·미팅·이동이 겹쳐도 호흡이 잘 맞아 결과가 따라와요. 가족과의 짧은 외출도 잘 어울리는 결이에요.\n\n다만 큰 이직·이사 결정은 오늘 하루의 흐름만 보고 정하지 말고, 가족과 한 번 더 호흡을 맞춘 뒤에 정해도 늦지 않아요." }
+      ],
+      "tags": [],
+      "livingTips": [
+        "출장 가방을 미리 꾸려요",
+        "동선은 한 번 그려 봐요",
+        "가족과 짧은 외출을 잡아요"
+      ],
+      "cautions": [
+        "큰 결정은 며칠 호흡을 두어요"
+      ],
+      "aiGenerated": true,
+      "sourceTier": {
+        "tier": "T1_HYPOTHESIS",
+        "sourceType": "training_derived",
+        "sourceUrl": null,
+        "accessedAt": "2026-05-02",
+        "quoteShort": null,
+        "humanInterpretation": "Phase 2 movement-category fragment authored by agent-10 under data/narrative/_contract/v1.json. Display-only narrative for the tiered-matrix movement axis.",
+        "copyrightNote": "No source prose copied; original authored prose.",
+        "authorityTruthEligible": false
+      }
+    },
+    {
+      "schemaVersion": "spring-ts.narrative-fragment.v1",
+      "fragmentId": "movement.today.standard.40_54.006",
+      "axis": { "category": "movement", "period": "today", "depth": "standard" },
+      "gating": { "ageBand": ["40-54"] },
+      "templateTokens": [
+        { "kind": "text", "value": "오늘의 이동 결은 동선이 한 번 정리되면 일이 한결 가벼워지는 흐름이에요. 책임 큰 자리에서 외근·출장 일정이 자주 들어와요.\n\n평소보다 동선이 길어도 호흡이 흐트러지지 않아요. 미팅·외근의 자리가 의외의 결과로 이어질 수 있어요.\n\n다만 빡빡한 일정에 한 박자 휴식을 끼우면, 다음 자리의 결이 더 단단해져요." }
+      ],
+      "tags": [],
+      "livingTips": [
+        "동선에 짧은 휴식을 끼워요",
+        "외근 자리 사이에 한 숨 쉬어요",
+        "물·간식을 챙겨 가요"
+      ],
+      "cautions": [
+        "너무 빡빡한 일정은 호흡을 깎아요"
+      ],
+      "aiGenerated": true,
+      "sourceTier": {
+        "tier": "T1_HYPOTHESIS",
+        "sourceType": "training_derived",
+        "sourceUrl": null,
+        "accessedAt": "2026-05-02",
+        "quoteShort": null,
+        "humanInterpretation": "Phase 2 movement-category fragment authored by agent-10 under data/narrative/_contract/v1.json. Display-only narrative for the tiered-matrix movement axis.",
+        "copyrightNote": "No source prose copied; original authored prose.",
+        "authorityTruthEligible": false
+      }
+    },
+    {
+      "schemaVersion": "spring-ts.narrative-fragment.v1",
+      "fragmentId": "movement.today.standard.55_69.007",
+      "axis": { "category": "movement", "period": "today", "depth": "standard" },
+      "gating": { "ageBand": ["55-69"] },
+      "templateTokens": [
+        { "kind": "text", "value": "오늘의 이동 결은 가까운 자리로의 짧은 외출이 잘 어울리는 흐름이에요. 멀지 않은 산책·약속이 마음을 가볍게 해 줘요.\n\n오래 못 본 친구나 가까운 자리의 모임이 잔잔한 즐거움이 돼요. 호수처럼 잔잔한 결로 하루의 동선을 짜면 충분해요.\n\n다만 무리한 장거리 일정은 다음 날 호흡까지 깎아요. 가까운 자리 위주로 권해 드려요." }
+      ],
+      "tags": [],
+      "livingTips": [
+        "가까운 산책 자리를 골라요",
+        "짧은 모임을 잡아 봐요",
+        "여유 있게 일정을 잡아요"
+      ],
+      "cautions": [
+        "장거리 일정은 다음 날을 깎아요"
+      ],
+      "aiGenerated": true,
+      "sourceTier": {
+        "tier": "T1_HYPOTHESIS",
+        "sourceType": "training_derived",
+        "sourceUrl": null,
+        "accessedAt": "2026-05-02",
+        "quoteShort": null,
+        "humanInterpretation": "Phase 2 movement-category fragment authored by agent-10 under data/narrative/_contract/v1.json. Display-only narrative for the tiered-matrix movement axis.",
+        "copyrightNote": "No source prose copied; original authored prose.",
+        "authorityTruthEligible": false
+      }
+    },
+    {
+      "schemaVersion": "spring-ts.narrative-fragment.v1",
+      "fragmentId": "movement.today.standard.70plus.008",
+      "axis": { "category": "movement", "period": "today", "depth": "standard" },
+      "gating": { "ageBand": ["70+"] },
+      "templateTokens": [
+        { "kind": "text", "value": "오늘의 이동 결은 가까운 산책 자리가 가장 좋은 흐름이에요. 잔잔한 강물처럼 익숙한 자리에서 작은 산책이 마음을 풀어 줘요.\n\n가까운 공원이나 동네 한 바퀴면 충분해요. 무리한 외출보다 가벼운 호흡의 짧은 산책이 그날의 큰 자산이 돼요.\n\n다만 날씨가 맞지 않는 날은 집 안에서 가벼운 움직임으로 충분해요. 무리하지 않는 결이 가장 잘 어울려요." }
+      ],
+      "tags": [],
+      "livingTips": [
+        "가까운 공원을 한 바퀴 돌아요",
+        "편한 신발을 신어요",
+        "동행과 천천히 걸어요"
+      ],
+      "cautions": [
+        "날씨가 안 좋으면 집에 머무세요"
+      ],
+      "aiGenerated": true,
+      "sourceTier": {
+        "tier": "T1_HYPOTHESIS",
+        "sourceType": "training_derived",
+        "sourceUrl": null,
+        "accessedAt": "2026-05-02",
+        "quoteShort": null,
+        "humanInterpretation": "Phase 2 movement-category fragment authored by agent-10 under data/narrative/_contract/v1.json. Display-only narrative for the tiered-matrix movement axis.",
+        "copyrightNote": "No source prose copied; original authored prose.",
+        "authorityTruthEligible": false
+      }
+    },
+    {
+      "schemaVersion": "spring-ts.narrative-fragment.v1",
+      "fragmentId": "movement.today.standard.strong_aligned.009",
+      "axis": { "category": "movement", "period": "today", "depth": "standard" },
+      "gating": { "dayMasterStrength": ["STRONG"], "yongshinAlignment": ["aligned"] },
+      "templateTokens": [
+        { "kind": "text", "value": "오늘의 이동 결은 추진력이 새 자리에서 시원하게 풀리는 흐름이에요. 강한 일간이 새 환경을 곧장 자기 자리로 만들어 가요.\n\n출장·외근·약속이 겹쳐도 호흡이 빨라서 결과가 곧 따라와요. 새로 가 보는 자리에서 의외의 좋은 만남도 생겨요.\n\n다만 너무 빠른 결정은 동행자의 호흡과 어긋나기 쉬워요. 한 박자 쉬어 가는 여백을 두면, 오늘의 결이 더 단단해져요." }
+      ],
+      "tags": [],
+      "livingTips": [
+        "결정 전에 한 박자 쉬어요",
+        "동행자에게 한 번 물어요",
+        "동선을 정리해 두어요"
+      ],
+      "cautions": [
+        "혼자 너무 앞서 가지 않아요"
+      ],
+      "aiGenerated": true,
+      "sourceTier": {
+        "tier": "T1_HYPOTHESIS",
+        "sourceType": "training_derived",
+        "sourceUrl": null,
+        "accessedAt": "2026-05-02",
+        "quoteShort": null,
+        "humanInterpretation": "Phase 2 movement-category fragment authored by agent-10 under data/narrative/_contract/v1.json. Display-only narrative for the tiered-matrix movement axis.",
+        "copyrightNote": "No source prose copied; original authored prose.",
+        "authorityTruthEligible": false
+      }
+    },
+    {
+      "schemaVersion": "spring-ts.narrative-fragment.v1",
+      "fragmentId": "movement.today.standard.weak_neutral.010",
+      "axis": { "category": "movement", "period": "today", "depth": "standard" },
+      "gating": { "dayMasterStrength": ["WEAK"], "yongshinAlignment": ["neutral"] },
+      "templateTokens": [
+        { "kind": "text", "value": "오늘의 이동 결은 익숙한 동선을 지키면 호흡이 편안한 흐름이에요. 큰 자리 변경보다 작은 산책이 더 잘 어울려요.\n\n낯선 동선보다 평소 다니던 자리에서 호흡을 회복하는 결이에요. 짧은 외출이 그날의 회복 자산이 돼요.\n\n다만 종일 한 자리에만 머무르면 결이 무거워져요. 짧은 산책 한 번이면 충분해요." }
+      ],
+      "tags": [],
+      "livingTips": [
+        "익숙한 길을 걸어 봐요",
+        "짧은 산책을 챙겨요",
+        "물 한 잔 챙겨 들어요"
+      ],
+      "cautions": [
+        "종일 앉아 있으면 결이 무거워요"
+      ],
+      "aiGenerated": true,
+      "sourceTier": {
+        "tier": "T1_HYPOTHESIS",
+        "sourceType": "training_derived",
+        "sourceUrl": null,
+        "accessedAt": "2026-05-02",
+        "quoteShort": null,
+        "humanInterpretation": "Phase 2 movement-category fragment authored by agent-10 under data/narrative/_contract/v1.json. Display-only narrative for the tiered-matrix movement axis.",
+        "copyrightNote": "No source prose copied; original authored prose.",
+        "authorityTruthEligible": false
+      }
+    }
+  ]
+}

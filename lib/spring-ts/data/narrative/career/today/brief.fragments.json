@@ -1,0 +1,128 @@
+{
+  "schemaVersion": "spring-ts.narrative-fragment-bundle.v1",
+  "bundleId": "career.today.brief",
+  "contractVersion": "1.0.0",
+  "generatedBy": "phase2.agent-6.career",
+  "fragments": [
+    {
+      "schemaVersion": "spring-ts.narrative-fragment.v1",
+      "fragmentId": "career.today.brief.wildcard.001",
+      "axis": { "category": "career", "period": "today", "depth": "brief" },
+      "gating": {},
+      "templateTokens": [
+        { "kind": "text", "value": "맡은 자리에서 한 가지를 끝까지 챙기면 좋은 하루예요." }
+      ],
+      "tags": [],
+      "aiGenerated": true,
+      "sourceTier": { "tier": "T1_HYPOTHESIS", "sourceType": "training_derived", "sourceUrl": null, "accessedAt": "2026-05-02", "quoteShort": null, "humanInterpretation": "Phase 2 agent-6 (career) brief today wildcard. Display-only narrative.", "copyrightNote": "No source prose copied; original.", "authorityTruthEligible": false }
+    },
+    {
+      "schemaVersion": "spring-ts.narrative-fragment.v1",
+      "fragmentId": "career.today.brief.strong.aligned.002",
+      "axis": { "category": "career", "period": "today", "depth": "brief" },
+      "gating": { "dayMasterStrength": ["STRONG", "EXTREME_STRONG"], "yongshinAlignment": ["aligned"] },
+      "templateTokens": [
+        { "kind": "text", "value": "굵직한 결정을 한 가지 매듭짓기 좋은 하루예요." }
+      ],
+      "tags": [],
+      "aiGenerated": true,
+      "sourceTier": { "tier": "T1_HYPOTHESIS", "sourceType": "training_derived", "sourceUrl": null, "accessedAt": "2026-05-02", "quoteShort": null, "humanInterpretation": "Phase 2 agent-6 (career) brief today: strong+aligned. Display-only narrative.", "copyrightNote": "No source prose copied; original.", "authorityTruthEligible": false }
+    },
+    {
+      "schemaVersion": "spring-ts.narrative-fragment.v1",
+      "fragmentId": "career.today.brief.weak.aligned.003",
+      "axis": { "category": "career", "period": "today", "depth": "brief" },
+      "gating": { "dayMasterStrength": ["WEAK", "EXTREME_WEAK"], "yongshinAlignment": ["aligned"] },
+      "templateTokens": [
+        { "kind": "text", "value": "윗사람의 한마디가 결정의 길잡이가 되는 하루예요." }
+      ],
+      "tags": [],
+      "aiGenerated": true,
+      "sourceTier": { "tier": "T1_HYPOTHESIS", "sourceType": "training_derived", "sourceUrl": null, "accessedAt": "2026-05-02", "quoteShort": null, "humanInterpretation": "Phase 2 agent-6 (career) brief today: weak+aligned. Display-only narrative.", "copyrightNote": "No source prose copied; original.", "authorityTruthEligible": false }
+    },
+    {
+      "schemaVersion": "spring-ts.narrative-fragment.v1",
+      "fragmentId": "career.today.brief.balanced.neutral.004",
+      "axis": { "category": "career", "period": "today", "depth": "brief" },
+      "gating": { "dayMasterStrength": ["BALANCED"], "yongshinAlignment": ["neutral"] },
+      "templateTokens": [
+        { "kind": "text", "value": "꾸준한 페이스로 작은 일을 끝맺기 좋은 하루예요." }
+      ],
+      "tags": [],
+      "aiGenerated": true,
+      "sourceTier": { "tier": "T1_HYPOTHESIS", "sourceType": "training_derived", "sourceUrl": null, "accessedAt": "2026-05-02", "quoteShort": null, "humanInterpretation": "Phase 2 agent-6 (career) brief today: balanced. Display-only narrative.", "copyrightNote": "No source prose copied; original.", "authorityTruthEligible": false }
+    },
+    {
+      "schemaVersion": "spring-ts.narrative-fragment.v1",
+      "fragmentId": "career.today.brief.conflicting.005",
+      "axis": { "category": "career", "period": "today", "depth": "brief" },
+      "gating": { "yongshinAlignment": ["conflicting"] },
+      "templateTokens": [
+        { "kind": "text", "value": "큰 결정은 하루 묵혀 두면 결이 또렷해져요." }
+      ],
+      "tags": [],
+      "aiGenerated": true,
+      "sourceTier": { "tier": "T1_HYPOTHESIS", "sourceType": "training_derived", "sourceUrl": null, "accessedAt": "2026-05-02", "quoteShort": null, "humanInterpretation": "Phase 2 agent-6 (career) brief today: conflicting. Display-only narrative.", "copyrightNote": "No source prose copied; original.", "authorityTruthEligible": false }
+    },
+    {
+      "schemaVersion": "spring-ts.narrative-fragment.v1",
+      "fragmentId": "career.today.brief.age0_19.006",
+      "axis": { "category": "career", "period": "today", "depth": "brief" },
+      "gating": { "ageBand": ["0-9", "10-19"] },
+      "templateTokens": [
+        { "kind": "text", "value": "오늘 마음에 닿는 관심사를 한 번 적어 봐요." }
+      ],
+      "tags": [],
+      "aiGenerated": true,
+      "sourceTier": { "tier": "T1_HYPOTHESIS", "sourceType": "training_derived", "sourceUrl": null, "accessedAt": "2026-05-02", "quoteShort": null, "humanInterpretation": "Phase 2 agent-6 (career) brief today: youth framed as 관심사. Display-only narrative.", "copyrightNote": "No source prose copied; original.", "authorityTruthEligible": false }
+    },
+    {
+      "schemaVersion": "spring-ts.narrative-fragment.v1",
+      "fragmentId": "career.today.brief.age20_29.007",
+      "axis": { "category": "career", "period": "today", "depth": "brief" },
+      "gating": { "ageBand": ["20-29"] },
+      "templateTokens": [
+        { "kind": "text", "value": "오늘의 작은 마무리가 첫 자리의 디딤돌이에요." }
+      ],
+      "tags": [],
+      "aiGenerated": true,
+      "sourceTier": { "tier": "T1_HYPOTHESIS", "sourceType": "training_derived", "sourceUrl": null, "accessedAt": "2026-05-02", "quoteShort": null, "humanInterpretation": "Phase 2 agent-6 (career) brief today: 20s. Display-only narrative.", "copyrightNote": "No source prose copied; original.", "authorityTruthEligible": false }
+    },
+    {
+      "schemaVersion": "spring-ts.narrative-fragment.v1",
+      "fragmentId": "career.today.brief.age30plus.008",
+      "axis": { "category": "career", "period": "today", "depth": "brief" },
+      "gating": { "ageBand": ["30-39", "40-54", "55-69", "70+"] },
+      "templateTokens": [
+        { "kind": "text", "value": "맡은 자리에서 한 가지 책임을 매듭짓는 하루예요." }
+      ],
+      "tags": [],
+      "aiGenerated": true,
+      "sourceTier": { "tier": "T1_HYPOTHESIS", "sourceType": "training_derived", "sourceUrl": null, "accessedAt": "2026-05-02", "quoteShort": null, "humanInterpretation": "Phase 2 agent-6 (career) brief today: 30+ adult. Display-only narrative.", "copyrightNote": "No source prose copied; original.", "authorityTruthEligible": false }
+    },
+    {
+      "schemaVersion": "spring-ts.narrative-fragment.v1",
+      "fragmentId": "career.today.brief.female.009",
+      "axis": { "category": "career", "period": "today", "depth": "brief" },
+      "gating": { "gender": ["female"] },
+      "templateTokens": [
+        { "kind": "text", "value": "한 자리에서의 작은 결정이 또렷해지는 하루예요." }
+      ],
+      "tags": [],
+      "aiGenerated": true,
+      "sourceTier": { "tier": "T1_HYPOTHESIS", "sourceType": "training_derived", "sourceUrl": null, "accessedAt": "2026-05-02", "quoteShort": null, "humanInterpretation": "Phase 2 agent-6 (career) brief today: female. Display-only narrative.", "copyrightNote": "No source prose copied; original.", "authorityTruthEligible": false }
+    },
+    {
+      "schemaVersion": "spring-ts.narrative-fragment.v1",
+      "fragmentId": "career.today.brief.male.010",
+      "axis": { "category": "career", "period": "today", "depth": "brief" },
+      "gating": { "gender": ["male"] },
+      "templateTokens": [
+        { "kind": "text", "value": "결정의 무게를 한 박자 늦춰 보면 좋은 하루예요." }
+      ],
+      "tags": [],
+      "aiGenerated": true,
+      "sourceTier": { "tier": "T1_HYPOTHESIS", "sourceType": "training_derived", "sourceUrl": null, "accessedAt": "2026-05-02", "quoteShort": null, "humanInterpretation": "Phase 2 agent-6 (career) brief today: male. Display-only narrative.", "copyrightNote": "No source prose copied; original.", "authorityTruthEligible": false }
+    }
+  ]
+}

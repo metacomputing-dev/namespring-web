@@ -1,0 +1,240 @@
+{
+  "schemaVersion": "spring-ts.narrative-fragment-bundle.v1",
+  "bundleId": "family.thisMonth.brief",
+  "contractVersion": "1.0.0",
+  "ownerAgent": "agent-5",
+  "fragmentCount": 11,
+  "fragments": [
+    {
+      "schemaVersion": "spring-ts.narrative-fragment.v1",
+      "fragmentId": "family.thisMonth.brief.wildcard.001",
+      "axis": { "category": "family", "period": "thisMonth", "depth": "brief", "tone": "plain" },
+      "gating": {},
+      "templateTokens": [
+        { "kind": "text", "value": "이번 달은 가족 자리를 차분히 챙기는 결이에요." }
+      ],
+      "tags": [],
+      "aiGenerated": true,
+      "sourceTier": {
+        "tier": "T1_HYPOTHESIS",
+        "sourceType": "training_derived",
+        "sourceUrl": null,
+        "accessedAt": "2026-05-02",
+        "quoteShort": null,
+        "humanInterpretation": "AI-derived thisMonth-period family brief fragment authored by agent-5 (Phase 2 fan-out). Display-only narrative.",
+        "copyrightNote": "No source prose copied; original prose.",
+        "authorityTruthEligible": false
+      }
+    },
+    {
+      "schemaVersion": "spring-ts.narrative-fragment.v1",
+      "fragmentId": "family.thisMonth.brief.wildcard.002",
+      "axis": { "category": "family", "period": "thisMonth", "depth": "brief", "tone": "plain" },
+      "gating": {},
+      "templateTokens": [
+        { "kind": "text", "value": "한 달의 결이 가까운 사람과 함께 데워져요." }
+      ],
+      "tags": [],
+      "aiGenerated": true,
+      "sourceTier": {
+        "tier": "T1_HYPOTHESIS",
+        "sourceType": "training_derived",
+        "sourceUrl": null,
+        "accessedAt": "2026-05-02",
+        "quoteShort": null,
+        "humanInterpretation": "AI-derived thisMonth-period family brief fragment authored by agent-5 (Phase 2 fan-out). Display-only narrative.",
+        "copyrightNote": "No source prose copied; original prose.",
+        "authorityTruthEligible": false
+      }
+    },
+    {
+      "schemaVersion": "spring-ts.narrative-fragment.v1",
+      "fragmentId": "family.thisMonth.brief.young.003",
+      "axis": { "category": "family", "period": "thisMonth", "depth": "brief", "tone": "plain" },
+      "gating": { "ageBand": ["0-9"] },
+      "templateTokens": [
+        { "kind": "text", "value": "보호자와 함께 자라는 따뜻한 한 달이에요." }
+      ],
+      "tags": [],
+      "aiGenerated": true,
+      "sourceTier": {
+        "tier": "T1_HYPOTHESIS",
+        "sourceType": "training_derived",
+        "sourceUrl": null,
+        "accessedAt": "2026-05-02",
+        "quoteShort": null,
+        "humanInterpretation": "AI-derived thisMonth-period family brief fragment authored by agent-5 (Phase 2 fan-out). Display-only narrative.",
+        "copyrightNote": "No source prose copied; original prose.",
+        "authorityTruthEligible": false
+      }
+    },
+    {
+      "schemaVersion": "spring-ts.narrative-fragment.v1",
+      "fragmentId": "family.thisMonth.brief.teen.004",
+      "axis": { "category": "family", "period": "thisMonth", "depth": "brief", "tone": "plain" },
+      "gating": { "ageBand": ["10-19"] },
+      "templateTokens": [
+        { "kind": "text", "value": "한 달에 한 번 가족 자리에 시간을 내 봐요." }
+      ],
+      "tags": [],
+      "aiGenerated": true,
+      "sourceTier": {
+        "tier": "T1_HYPOTHESIS",
+        "sourceType": "training_derived",
+        "sourceUrl": null,
+        "accessedAt": "2026-05-02",
+        "quoteShort": null,
+        "humanInterpretation": "AI-derived thisMonth-period family brief fragment authored by agent-5 (Phase 2 fan-out). Display-only narrative.",
+        "copyrightNote": "No source prose copied; original prose.",
+        "authorityTruthEligible": false
+      }
+    },
+    {
+      "schemaVersion": "spring-ts.narrative-fragment.v1",
+      "fragmentId": "family.thisMonth.brief.young_adult.005",
+      "axis": { "category": "family", "period": "thisMonth", "depth": "brief", "tone": "plain" },
+      "gating": { "ageBand": ["20-29"] },
+      "templateTokens": [
+        { "kind": "text", "value": "본가 방문 한 번이 한 달의 따뜻한 결이에요." }
+      ],
+      "tags": [],
+      "aiGenerated": true,
+      "sourceTier": {
+        "tier": "T1_HYPOTHESIS",
+        "sourceType": "training_derived",
+        "sourceUrl": null,
+        "accessedAt": "2026-05-02",
+        "quoteShort": null,
+        "humanInterpretation": "AI-derived thisMonth-period family brief fragment authored by agent-5 (Phase 2 fan-out). Display-only narrative.",
+        "copyrightNote": "No source prose copied; original prose.",
+        "authorityTruthEligible": false
+      }
+    },
+    {
+      "schemaVersion": "spring-ts.narrative-fragment.v1",
+      "fragmentId": "family.thisMonth.brief.thirties.006",
+      "axis": { "category": "family", "period": "thisMonth", "depth": "brief", "tone": "plain" },
+      "gating": { "ageBand": ["30-39"] },
+      "templateTokens": [
+        { "kind": "text", "value": "양가 자리에 한 번씩 시간을 내 보세요." }
+      ],
+      "tags": [],
+      "aiGenerated": true,
+      "sourceTier": {
+        "tier": "T1_HYPOTHESIS",
+        "sourceType": "training_derived",
+        "sourceUrl": null,
+        "accessedAt": "2026-05-02",
+        "quoteShort": null,
+        "humanInterpretation": "AI-derived thisMonth-period family brief fragment authored by agent-5 (Phase 2 fan-out). Display-only narrative.",
+        "copyrightNote": "No source prose copied; original prose.",
+        "authorityTruthEligible": false
+      }
+    },
+    {
+      "schemaVersion": "spring-ts.narrative-fragment.v1",
+      "fragmentId": "family.thisMonth.brief.middle.007",
+      "axis": { "category": "family", "period": "thisMonth", "depth": "brief", "tone": "plain" },
+      "gating": { "ageBand": ["40-54"] },
+      "templateTokens": [
+        { "kind": "text", "value": "부모님 자리에 분기보다 자주 들러 봐요." }
+      ],
+      "tags": [],
+      "aiGenerated": true,
+      "sourceTier": {
+        "tier": "T1_HYPOTHESIS",
+        "sourceType": "training_derived",
+        "sourceUrl": null,
+        "accessedAt": "2026-05-02",
+        "quoteShort": null,
+        "humanInterpretation": "AI-derived thisMonth-period family brief fragment authored by agent-5 (Phase 2 fan-out). Display-only narrative.",
+        "copyrightNote": "No source prose copied; original prose.",
+        "authorityTruthEligible": false
+      }
+    },
+    {
+      "schemaVersion": "spring-ts.narrative-fragment.v1",
+      "fragmentId": "family.thisMonth.brief.senior.008",
+      "axis": { "category": "family", "period": "thisMonth", "depth": "brief", "tone": "plain" },
+      "gating": { "ageBand": ["55-69"] },
+      "templateTokens": [
+        { "kind": "text", "value": "다음 세대와 한 달에 한 자리 만들어 봐요." }
+      ],
+      "tags": [],
+      "aiGenerated": true,
+      "sourceTier": {
+        "tier": "T1_HYPOTHESIS",
+        "sourceType": "training_derived",
+        "sourceUrl": null,
+        "accessedAt": "2026-05-02",
+        "quoteShort": null,
+        "humanInterpretation": "AI-derived thisMonth-period family brief fragment authored by agent-5 (Phase 2 fan-out). Display-only narrative.",
+        "copyrightNote": "No source prose copied; original prose.",
+        "authorityTruthEligible": false
+      }
+    },
+    {
+      "schemaVersion": "spring-ts.narrative-fragment.v1",
+      "fragmentId": "family.thisMonth.brief.elder.009",
+      "axis": { "category": "family", "period": "thisMonth", "depth": "brief", "tone": "plain" },
+      "gating": { "ageBand": ["70+"] },
+      "templateTokens": [
+        { "kind": "text", "value": "곁의 결이 평안하게 흐르는 한 달이에요." }
+      ],
+      "tags": [],
+      "aiGenerated": true,
+      "sourceTier": {
+        "tier": "T1_HYPOTHESIS",
+        "sourceType": "training_derived",
+        "sourceUrl": null,
+        "accessedAt": "2026-05-02",
+        "quoteShort": null,
+        "humanInterpretation": "AI-derived thisMonth-period family brief fragment authored by agent-5 (Phase 2 fan-out). Display-only narrative.",
+        "copyrightNote": "No source prose copied; original prose.",
+        "authorityTruthEligible": false
+      }
+    },
+    {
+      "schemaVersion": "spring-ts.narrative-fragment.v1",
+      "fragmentId": "family.thisMonth.brief.aligned.010",
+      "axis": { "category": "family", "period": "thisMonth", "depth": "brief", "tone": "plain" },
+      "gating": { "yongshinAlignment": ["aligned"] },
+      "templateTokens": [
+        { "kind": "text", "value": "집안의 흐름이 따뜻하게 풀리는 한 달이에요." }
+      ],
+      "tags": [],
+      "aiGenerated": true,
+      "sourceTier": {
+        "tier": "T1_HYPOTHESIS",
+        "sourceType": "training_derived",
+        "sourceUrl": null,
+        "accessedAt": "2026-05-02",
+        "quoteShort": null,
+        "humanInterpretation": "AI-derived thisMonth-period family brief fragment authored by agent-5 (Phase 2 fan-out). Display-only narrative.",
+        "copyrightNote": "No source prose copied; original prose.",
+        "authorityTruthEligible": false
+      }
+    },
+    {
+      "schemaVersion": "spring-ts.narrative-fragment.v1",
+      "fragmentId": "family.thisMonth.brief.weak.011",
+      "axis": { "category": "family", "period": "thisMonth", "depth": "brief", "tone": "plain" },
+      "gating": { "dayMasterStrength": ["WEAK", "EXTREME_WEAK"] },
+      "templateTokens": [
+        { "kind": "text", "value": "곁 사람의 도움이 결을 받쳐 주는 한 달이에요." }
+      ],
+      "tags": [],
+      "aiGenerated": true,
+      "sourceTier": {
+        "tier": "T1_HYPOTHESIS",
+        "sourceType": "training_derived",
+        "sourceUrl": null,
+        "accessedAt": "2026-05-02",
+        "quoteShort": null,
+        "humanInterpretation": "AI-derived thisMonth-period family brief fragment authored by agent-5 (Phase 2 fan-out). Display-only narrative.",
+        "copyrightNote": "No source prose copied; original prose.",
+        "authorityTruthEligible": false
+      }
+    }
+  ]
+}

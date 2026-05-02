@@ -1,0 +1,104 @@
+{
+  "schemaVersion": "spring-ts.narrative-fragment-bundle.v1",
+  "bundleId": "study_document.thisMonth.brief",
+  "contractVersion": "1.0.0",
+  "generatedBy": "phase2-agent-7",
+  "fragments": [
+    {
+      "schemaVersion": "spring-ts.narrative-fragment.v1",
+      "fragmentId": "study_document.thisMonth.brief.wildcard.001",
+      "axis": { "category": "study_document", "period": "thisMonth", "depth": "brief" },
+      "gating": {},
+      "templateTokens": [
+        { "kind": "text", "value": "이번 달은 한 트랙을 또렷이 다듬는 결이에요." }
+      ],
+      "tags": [],
+      "aiGenerated": true,
+      "sourceTier": { "tier": "T1_HYPOTHESIS", "sourceType": "training_derived", "sourceUrl": null, "accessedAt": "2026-05-02", "quoteShort": null, "humanInterpretation": "AI-derived brief fragment for study_document.thisMonth wildcard. Display-only.", "copyrightNote": "No source prose copied; original.", "authorityTruthEligible": false }
+    },
+    {
+      "schemaVersion": "spring-ts.narrative-fragment.v1",
+      "fragmentId": "study_document.thisMonth.brief.aligned.002",
+      "axis": { "category": "study_document", "period": "thisMonth", "depth": "brief" },
+      "gating": { "yongshinAlignment": ["aligned"] },
+      "templateTokens": [
+        { "kind": "text", "value": "필요한 자격·서류가 손에 들어오는 달이에요." }
+      ],
+      "tags": [],
+      "aiGenerated": true,
+      "sourceTier": { "tier": "T1_HYPOTHESIS", "sourceType": "training_derived", "sourceUrl": null, "accessedAt": "2026-05-02", "quoteShort": null, "humanInterpretation": "AI-derived brief fragment for study_document.thisMonth aligned. Display-only.", "copyrightNote": "No source prose copied; original.", "authorityTruthEligible": false }
+    },
+    {
+      "schemaVersion": "spring-ts.narrative-fragment.v1",
+      "fragmentId": "study_document.thisMonth.brief.conflicting.003",
+      "axis": { "category": "study_document", "period": "thisMonth", "depth": "brief" },
+      "gating": { "yongshinAlignment": ["conflicting"] },
+      "templateTokens": [
+        { "kind": "text", "value": "큰 서명은 다음 달 흐름을 살펴봐도 좋아요." }
+      ],
+      "tags": [],
+      "aiGenerated": true,
+      "sourceTier": { "tier": "T1_HYPOTHESIS", "sourceType": "training_derived", "sourceUrl": null, "accessedAt": "2026-05-02", "quoteShort": null, "humanInterpretation": "AI-derived brief fragment for study_document.thisMonth conflicting. Display-only.", "copyrightNote": "No source prose copied; original.", "authorityTruthEligible": false }
+    },
+    {
+      "schemaVersion": "spring-ts.narrative-fragment.v1",
+      "fragmentId": "study_document.thisMonth.brief.young.004",
+      "axis": { "category": "study_document", "period": "thisMonth", "depth": "brief" },
+      "gating": { "ageBand": ["0-9", "10-19"] },
+      "templateTokens": [
+        { "kind": "text", "value": "한 과목을 또렷이 다지는 한 달이에요." }
+      ],
+      "tags": [],
+      "aiGenerated": true,
+      "sourceTier": { "tier": "T1_HYPOTHESIS", "sourceType": "training_derived", "sourceUrl": null, "accessedAt": "2026-05-02", "quoteShort": null, "humanInterpretation": "AI-derived brief fragment for study_document.thisMonth young. Display-only.", "copyrightNote": "No source prose copied; original.", "authorityTruthEligible": false }
+    },
+    {
+      "schemaVersion": "spring-ts.narrative-fragment.v1",
+      "fragmentId": "study_document.thisMonth.brief.adult.005",
+      "axis": { "category": "study_document", "period": "thisMonth", "depth": "brief" },
+      "gating": { "ageBand": ["30-39", "40-54", "55-69"] },
+      "templateTokens": [
+        { "kind": "text", "value": "자격 갱신·계약 점검에 좋은 달이에요." }
+      ],
+      "tags": [],
+      "aiGenerated": true,
+      "sourceTier": { "tier": "T1_HYPOTHESIS", "sourceType": "training_derived", "sourceUrl": null, "accessedAt": "2026-05-02", "quoteShort": null, "humanInterpretation": "AI-derived brief fragment for study_document.thisMonth adult. Display-only.", "copyrightNote": "No source prose copied; original.", "authorityTruthEligible": false }
+    },
+    {
+      "schemaVersion": "spring-ts.narrative-fragment.v1",
+      "fragmentId": "study_document.thisMonth.brief.strong.006",
+      "axis": { "category": "study_document", "period": "thisMonth", "depth": "brief" },
+      "gating": { "dayMasterStrength": ["STRONG", "EXTREME_STRONG"] },
+      "templateTokens": [
+        { "kind": "text", "value": "추진력으로 한 트랙을 마무리할 만한 달이에요." }
+      ],
+      "tags": [],
+      "aiGenerated": true,
+      "sourceTier": { "tier": "T1_HYPOTHESIS", "sourceType": "training_derived", "sourceUrl": null, "accessedAt": "2026-05-02", "quoteShort": null, "humanInterpretation": "AI-derived brief fragment for study_document.thisMonth strong. Display-only.", "copyrightNote": "No source prose copied; original.", "authorityTruthEligible": false }
+    },
+    {
+      "schemaVersion": "spring-ts.narrative-fragment.v1",
+      "fragmentId": "study_document.thisMonth.brief.weak.007",
+      "axis": { "category": "study_document", "period": "thisMonth", "depth": "brief" },
+      "gating": { "dayMasterStrength": ["WEAK", "EXTREME_WEAK"] },
+      "templateTokens": [
+        { "kind": "text", "value": "스승·책의 도움이 든든한 달이에요." }
+      ],
+      "tags": [],
+      "aiGenerated": true,
+      "sourceTier": { "tier": "T1_HYPOTHESIS", "sourceType": "training_derived", "sourceUrl": null, "accessedAt": "2026-05-02", "quoteShort": null, "humanInterpretation": "AI-derived brief fragment for study_document.thisMonth weak. Display-only.", "copyrightNote": "No source prose copied; original.", "authorityTruthEligible": false }
+    },
+    {
+      "schemaVersion": "spring-ts.narrative-fragment.v1",
+      "fragmentId": "study_document.thisMonth.brief.balanced.008",
+      "axis": { "category": "study_document", "period": "thisMonth", "depth": "brief" },
+      "gating": { "dayMasterStrength": ["BALANCED"] },
+      "templateTokens": [
+        { "kind": "text", "value": "한 달 우선순위 한 가지를 정해 두면 좋아요." }
+      ],
+      "tags": [],
+      "aiGenerated": true,
+      "sourceTier": { "tier": "T1_HYPOTHESIS", "sourceType": "training_derived", "sourceUrl": null, "accessedAt": "2026-05-02", "quoteShort": null, "humanInterpretation": "AI-derived brief fragment for study_document.thisMonth balanced. Display-only.", "copyrightNote": "No source prose copied; original.", "authorityTruthEligible": false }
+    }
+  ]
+}

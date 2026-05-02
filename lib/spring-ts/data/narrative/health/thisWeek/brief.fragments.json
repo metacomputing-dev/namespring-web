@@ -1,0 +1,220 @@
+{
+  "schemaVersion": "spring-ts.narrative-fragment-bundle.v1",
+  "bundleId": "health-thisWeek-brief",
+  "contractVersion": "1.0.0",
+  "generatedBy": "phase2-agent-2-health",
+  "fragments": [
+    {
+      "schemaVersion": "spring-ts.narrative-fragment.v1",
+      "fragmentId": "health.thisWeek.brief.wild.001",
+      "axis": { "category": "health", "period": "thisWeek", "depth": "brief" },
+      "gating": {},
+      "templateTokens": [
+        { "kind": "text", "value": "이번 주는 페이스를 살짝 늦추는 게 잘 맞아요." }
+      ],
+      "tags": [],
+      "aiGenerated": true,
+      "sourceTier": {
+        "tier": "T1_HYPOTHESIS",
+        "sourceType": "training_derived",
+        "sourceUrl": null,
+        "accessedAt": "2026-05-02",
+        "quoteShort": null,
+        "humanInterpretation": "Phase 2 health brief thisWeek — wildcard. Display-only narrative.",
+        "copyrightNote": "No source prose copied; original interpretation.",
+        "authorityTruthEligible": false
+      }
+    },
+    {
+      "schemaVersion": "spring-ts.narrative-fragment.v1",
+      "fragmentId": "health.thisWeek.brief.wild.002",
+      "axis": { "category": "health", "period": "thisWeek", "depth": "brief" },
+      "gating": {},
+      "templateTokens": [
+        { "kind": "text", "value": "이번 주 컨디션은 잠 자리가 든든한 보약이에요." }
+      ],
+      "tags": [],
+      "aiGenerated": true,
+      "sourceTier": {
+        "tier": "T1_HYPOTHESIS",
+        "sourceType": "training_derived",
+        "sourceUrl": null,
+        "accessedAt": "2026-05-02",
+        "quoteShort": null,
+        "humanInterpretation": "Phase 2 health brief thisWeek — wildcard backup. Display-only narrative.",
+        "copyrightNote": "No source prose copied; original interpretation.",
+        "authorityTruthEligible": false
+      }
+    },
+    {
+      "schemaVersion": "spring-ts.narrative-fragment.v1",
+      "fragmentId": "health.thisWeek.brief.weak.001",
+      "axis": { "category": "health", "period": "thisWeek", "depth": "brief" },
+      "gating": {
+        "dayMasterStrength": ["WEAK", "EXTREME_WEAK"]
+      },
+      "templateTokens": [
+        { "kind": "text", "value": "이번 주는 짧은 회복 자리를 자주 만들어요." }
+      ],
+      "tags": [],
+      "aiGenerated": true,
+      "sourceTier": {
+        "tier": "T1_HYPOTHESIS",
+        "sourceType": "training_derived",
+        "sourceUrl": null,
+        "accessedAt": "2026-05-02",
+        "quoteShort": null,
+        "humanInterpretation": "Phase 2 health brief thisWeek — weak day master. Display-only narrative.",
+        "copyrightNote": "No source prose copied; original interpretation.",
+        "authorityTruthEligible": false
+      }
+    },
+    {
+      "schemaVersion": "spring-ts.narrative-fragment.v1",
+      "fragmentId": "health.thisWeek.brief.strong.001",
+      "axis": { "category": "health", "period": "thisWeek", "depth": "brief" },
+      "gating": {
+        "dayMasterStrength": ["STRONG", "EXTREME_STRONG"]
+      },
+      "templateTokens": [
+        { "kind": "text", "value": "이번 주는 활동량 누적만 한 번 점검해요." }
+      ],
+      "tags": [],
+      "aiGenerated": true,
+      "sourceTier": {
+        "tier": "T1_HYPOTHESIS",
+        "sourceType": "training_derived",
+        "sourceUrl": null,
+        "accessedAt": "2026-05-02",
+        "quoteShort": null,
+        "humanInterpretation": "Phase 2 health brief thisWeek — strong day master. Display-only narrative.",
+        "copyrightNote": "No source prose copied; original interpretation.",
+        "authorityTruthEligible": false
+      }
+    },
+    {
+      "schemaVersion": "spring-ts.narrative-fragment.v1",
+      "fragmentId": "health.thisWeek.brief.balanced.001",
+      "axis": { "category": "health", "period": "thisWeek", "depth": "brief" },
+      "gating": {
+        "dayMasterStrength": ["BALANCED"]
+      },
+      "templateTokens": [
+        { "kind": "text", "value": "이번 주는 평소 페이스가 가장 잘 맞아요." }
+      ],
+      "tags": [],
+      "aiGenerated": true,
+      "sourceTier": {
+        "tier": "T1_HYPOTHESIS",
+        "sourceType": "training_derived",
+        "sourceUrl": null,
+        "accessedAt": "2026-05-02",
+        "quoteShort": null,
+        "humanInterpretation": "Phase 2 health brief thisWeek — balanced. Display-only narrative.",
+        "copyrightNote": "No source prose copied; original interpretation.",
+        "authorityTruthEligible": false
+      }
+    },
+    {
+      "schemaVersion": "spring-ts.narrative-fragment.v1",
+      "fragmentId": "health.thisWeek.brief.aligned.001",
+      "axis": { "category": "health", "period": "thisWeek", "depth": "brief" },
+      "gating": {
+        "yongshinAlignment": ["aligned"]
+      },
+      "templateTokens": [
+        { "kind": "text", "value": "이번 주 흐름이 잘 풀려 회복도 가벼워요." }
+      ],
+      "tags": [],
+      "aiGenerated": true,
+      "sourceTier": {
+        "tier": "T1_HYPOTHESIS",
+        "sourceType": "training_derived",
+        "sourceUrl": null,
+        "accessedAt": "2026-05-02",
+        "quoteShort": null,
+        "humanInterpretation": "Phase 2 health brief thisWeek — aligned. Display-only narrative.",
+        "copyrightNote": "No source prose copied; original interpretation.",
+        "authorityTruthEligible": false
+      }
+    },
+    {
+      "schemaVersion": "spring-ts.narrative-fragment.v1",
+      "fragmentId": "health.thisWeek.brief.20_29.001",
+      "axis": { "category": "health", "period": "thisWeek", "depth": "brief" },
+      "gating": {
+        "ageBand": ["20-29"]
+      },
+      "templateTokens": [
+        { "kind": "text", "value": "이번 주는 잠 6시간을 꼭 챙기는 편이 좋아요." }
+      ],
+      "tags": [],
+      "aiGenerated": true,
+      "sourceTier": {
+        "tier": "T1_HYPOTHESIS",
+        "sourceType": "training_derived",
+        "sourceUrl": null,
+        "accessedAt": "2026-05-02",
+        "quoteShort": null,
+        "humanInterpretation": "Phase 2 health brief thisWeek — 20-29 ageband. Display-only narrative.",
+        "copyrightNote": "No source prose copied; original interpretation.",
+        "authorityTruthEligible": false
+      }
+    },
+    {
+      "schemaVersion": "spring-ts.narrative-fragment.v1",
+      "fragmentId": "health.thisWeek.brief.conflicting.001",
+      "axis": { "category": "health", "period": "thisWeek", "depth": "brief" },
+      "gating": {
+        "yongshinAlignment": ["conflicting"]
+      },
+      "templateTokens": [
+        { "kind": "text", "value": "이번 주는 강행군을 한 박자 미뤄요." }
+      ],
+      "tags": [],
+      "aiGenerated": true,
+      "sourceTier": {
+        "tier": "T1_HYPOTHESIS",
+        "sourceType": "training_derived",
+        "sourceUrl": null,
+        "accessedAt": "2026-05-02",
+        "quoteShort": null,
+        "humanInterpretation": "Phase 2 health brief thisWeek — conflicting. Display-only narrative.",
+        "copyrightNote": "No source prose copied; original interpretation.",
+        "authorityTruthEligible": false
+      }
+    },
+    {
+      "schemaVersion": "spring-ts.narrative-fragment.v1",
+      "fragmentId": "health.thisWeek.brief.child.001",
+      "axis": {
+        "category": "health",
+        "period": "thisWeek",
+        "depth": "brief"
+      },
+      "gating": {
+        "ageBand": [
+          "0-9"
+        ]
+      },
+      "templateTokens": [
+        {
+          "kind": "text",
+          "value": "아이는 이번 주 잘 자라는 결이에요. 놀이 시간을 푹 누리는 흐름이에요."
+        }
+      ],
+      "tags": [],
+      "aiGenerated": true,
+      "sourceTier": {
+        "tier": "T1_HYPOTHESIS",
+        "sourceType": "training_derived",
+        "sourceUrl": null,
+        "accessedAt": "2026-05-02",
+        "quoteShort": null,
+        "humanInterpretation": "Phase 2 health brief thisWeek (ageBand 0-9). Caregiver-shared tone; sleep/eat/play frame; no career/romance. AI-derived; no source prose copied.",
+        "copyrightNote": "No source prose copied; original phrasing.",
+        "authorityTruthEligible": false
+      }
+    }
+  ]
+}

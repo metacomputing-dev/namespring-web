@@ -1,0 +1,282 @@
+{
+  "schemaVersion": "spring-ts.narrative-fragment-bundle.v1",
+  "bundleId": "wealth.today.standard",
+  "contractVersion": "1.0.0",
+  "generatedBy": "phase2.agent-1.wealth",
+  "fragments": [
+    {
+      "schemaVersion": "spring-ts.narrative-fragment.v1",
+      "fragmentId": "wealth.today.standard.wildcard.001",
+      "axis": { "category": "wealth", "period": "today", "depth": "standard" },
+      "gating": { "ageBand": ["20-29", "30-39", "40-54", "55-69", "70+"] },
+      "templateTokens": [
+        { "kind": "text", "value": "오늘의 재물 흐름은 큰 무리수 없이 흘러가는 결이에요. 어제까지 이어 오던 페이스를 지키면 자연스럽게 자리 잡는 결이에요.\n\n비유하자면 잔잔한 호수에 작은 돌 하나를 던지는 결이에요. 큰 파동을 만들기보다, 작은 결의 무늬를 지켜보는 하루예요.\n\n잘 풀리는 결은 작은 기록이에요. 오늘 어디에 썼는지 한 줄 적어 두면 한 달 뒤 결이 또렷이 보여요.\n\n주의할 결은 즉흥적 결정이에요. 권유받은 큰 결정은 하루 자고 결정해도 늦지 않아요." }
+      ],
+      "tags": [],
+      "livingTips": [
+        "오늘 지출 한 줄 적기",
+        "큰 결정은 하루 자고 결정"
+      ],
+      "cautions": [
+        "즉흥적 결정은 한 박자 미루기"
+      ],
+      "aiGenerated": true,
+      "sourceTier": {
+        "tier": "T1_HYPOTHESIS",
+        "sourceType": "training_derived",
+        "sourceUrl": null,
+        "accessedAt": "2026-05-02",
+        "quoteShort": null,
+        "humanInterpretation": "Phase 2 wealth fragment, agent-1.",
+        "copyrightNote": "No source prose copied; original.",
+        "authorityTruthEligible": false
+      }
+    },
+    {
+      "schemaVersion": "spring-ts.narrative-fragment.v1",
+      "fragmentId": "wealth.today.standard.strong.aligned.002",
+      "axis": { "category": "wealth", "period": "today", "depth": "standard" },
+      "gating": {
+        "dayMasterStrength": ["STRONG", "EXTREME_STRONG"],
+        "yongshinAlignment": ["aligned"]
+      },
+      "templateTokens": [
+        { "kind": "text", "value": "오늘은 추진력이 또렷한 하루예요. 큰 거래의 결이 자리를 잡거나, 평소 미뤄 두던 결정에 결을 더하기 좋은 하루예요.\n\n비유하자면 흐르는 강이 큰 폭을 보일 때예요. 한 번에 멀리 갈 수 있지만, 깊이를 함께 살피는 결이 단단함을 만들어 줘요.\n\n잘 풀리는 결은 신뢰가 쌓인 사람과의 큰 결정이에요. 함께 다져 온 결을 한 단계 키우기 좋은 하루예요.\n\n주의할 결은 욕심이 한 박자 앞설 때예요. 흐름이 좋아 보일수록 한 발 늦춰 들여다보면 더 단단해져요." }
+      ],
+      "tags": [],
+      "livingTips": [
+        "큰 결정 전 한 번 더 검토",
+        "신뢰 쌓인 사람과 우선 상의"
+      ],
+      "cautions": [
+        "욕심이 앞설 땐 한 박자 늦추기"
+      ],
+      "aiGenerated": true,
+      "sourceTier": {
+        "tier": "T1_HYPOTHESIS",
+        "sourceType": "training_derived",
+        "sourceUrl": null,
+        "accessedAt": "2026-05-02",
+        "quoteShort": null,
+        "humanInterpretation": "Phase 2 wealth fragment, agent-1.",
+        "copyrightNote": "No source prose copied; original.",
+        "authorityTruthEligible": false
+      }
+    },
+    {
+      "schemaVersion": "spring-ts.narrative-fragment.v1",
+      "fragmentId": "wealth.today.standard.balanced.aligned.003",
+      "axis": { "category": "wealth", "period": "today", "depth": "standard" },
+      "gating": {
+        "dayMasterStrength": ["BALANCED"],
+        "yongshinAlignment": ["aligned"]
+      },
+      "templateTokens": [
+        { "kind": "text", "value": "오늘은 안정과 기회가 함께 들어오는 결이에요. 평소 페이스를 지키되, 한 번 작은 시도를 더해도 결이 잘 맞물리는 하루예요.\n\n비유하자면 봄날 들판에 새싹이 고르게 자라는 결이에요. 큰 비도 큰 햇볕도 아닌 부드러운 결이 결을 가지런히 만들어 줘요.\n\n잘 풀리는 결은 작은 시도예요. 오늘 한 가지 새로운 것을 더하면 결이 한 결 자라요.\n\n주의할 결은 결정의 시기를 미루는 결이에요. 평소처럼 차분히, 그러나 미루지 않고 결을 두면 좋아요." }
+      ],
+      "tags": [],
+      "livingTips": [
+        "오늘 작은 시도 한 가지",
+        "월별 흐름 한 줄 정리"
+      ],
+      "cautions": [
+        "결정의 시기를 너무 미루지 않기"
+      ],
+      "aiGenerated": true,
+      "sourceTier": {
+        "tier": "T1_HYPOTHESIS",
+        "sourceType": "training_derived",
+        "sourceUrl": null,
+        "accessedAt": "2026-05-02",
+        "quoteShort": null,
+        "humanInterpretation": "Phase 2 wealth fragment, agent-1.",
+        "copyrightNote": "No source prose copied; original.",
+        "authorityTruthEligible": false
+      }
+    },
+    {
+      "schemaVersion": "spring-ts.narrative-fragment.v1",
+      "fragmentId": "wealth.today.standard.weak.neutral.004",
+      "axis": { "category": "wealth", "period": "today", "depth": "standard" },
+      "gating": {
+        "dayMasterStrength": ["WEAK", "EXTREME_WEAK"],
+        "yongshinAlignment": ["neutral"]
+      },
+      "templateTokens": [
+        { "kind": "text", "value": "오늘은 작은 결을 차곡차곡 정리하기 좋은 하루예요. 큰 결정은 한 박자 늦추고, 익숙한 결을 다듬는 결이 잘 어울려요.\n\n비유하자면 봄비가 흙을 적시는 결이에요. 한 번에 큰 결을 만들기보다, 작은 결이 모여 흙을 깊이 적시는 하루예요.\n\n잘 풀리는 결은 꾸준함이에요. 매월 같은 날 자동이체, 작은 적금처럼 결이 일정한 자산이 빛을 내요.\n\n주의할 결은 큰 한 방을 좇는 권유예요. 자기 페이스를 지키는 것이 가장 단단한 결이에요." }
+      ],
+      "tags": [],
+      "livingTips": [
+        "오늘 자동이체 점검",
+        "큰 권유는 한 주 살피기"
+      ],
+      "cautions": [
+        "큰 한 방 권유는 한 박자 늦추기"
+      ],
+      "aiGenerated": true,
+      "sourceTier": {
+        "tier": "T1_HYPOTHESIS",
+        "sourceType": "training_derived",
+        "sourceUrl": null,
+        "accessedAt": "2026-05-02",
+        "quoteShort": null,
+        "humanInterpretation": "Phase 2 wealth fragment, agent-1.",
+        "copyrightNote": "No source prose copied; original.",
+        "authorityTruthEligible": false
+      }
+    },
+    {
+      "schemaVersion": "spring-ts.narrative-fragment.v1",
+      "fragmentId": "wealth.today.standard.conflicting.005",
+      "axis": { "category": "wealth", "period": "today", "depth": "standard" },
+      "gating": {
+        "yongshinAlignment": ["conflicting"]
+      },
+      "templateTokens": [
+        { "kind": "text", "value": "오늘은 흐름이 한 박자 어긋나 보일 수 있어요. 무리수만 줄이면 충분한 하루예요.\n\n비유하자면 굽이굽이 흐르는 강물이에요. 곧장 가로지르려 하면 흙이 일고, 굽이를 따라 흐르게 두면 결이 부드러워져요.\n\n잘 풀리는 결은 기준을 다시 적어 두는 결이에요. 어디까지 모으고 어디까지 흘려보낼지 한 줄 정리하면 흐름이 또렷해져요.\n\n주의할 결은 즉흥적 큰 결정이에요. 권유받은 흐름은 하루 자고, 그래도 좋다면 그때 결을 더해도 늦지 않아요." }
+      ],
+      "tags": [],
+      "livingTips": [
+        "기준 한 줄 다시 적어 두기",
+        "큰 결정은 하루 자고 결정"
+      ],
+      "cautions": [
+        "즉흥적 권유는 한 박자 미루기",
+        "남의 추천에 그대로 따르지 않기"
+      ],
+      "aiGenerated": true,
+      "sourceTier": {
+        "tier": "T1_HYPOTHESIS",
+        "sourceType": "training_derived",
+        "sourceUrl": null,
+        "accessedAt": "2026-05-02",
+        "quoteShort": null,
+        "humanInterpretation": "Phase 2 wealth fragment, agent-1.",
+        "copyrightNote": "No source prose copied; original.",
+        "authorityTruthEligible": false
+      }
+    },
+    {
+      "schemaVersion": "spring-ts.narrative-fragment.v1",
+      "fragmentId": "wealth.today.standard.male.30_39.006",
+      "axis": { "category": "wealth", "period": "today", "depth": "standard" },
+      "gating": {
+        "gender": ["male"],
+        "ageBand": ["30-39"]
+      },
+      "templateTokens": [
+        { "kind": "text", "value": "오늘은 가족·일·자기 사이의 무게를 살피기 좋은 하루예요. 한쪽이 무거우면 다른 쪽 결도 흔들리는 시기예요.\n\n비유하자면 양손에 작은 가방을 든 결이에요. 한쪽이 너무 무거우면 자세가 기울어지듯, 균형을 잠깐 점검하면 결이 다시 또렷해져요.\n\n잘 풀리는 결은 5년 단위 그림을 다시 살피는 결이에요. 짧은 결과보다 긴 결을 그리는 결정이 흐름을 키워요.\n\n주의할 결은 가족·일 한쪽에 무게가 몰리는 결이에요. 작은 메모로 무게를 분산해 두면 좋아요." }
+      ],
+      "tags": [],
+      "livingTips": [
+        "5년 그림 한 줄 점검",
+        "가족·일 무게 분산 살피기"
+      ],
+      "cautions": [
+        "한쪽에 무게가 몰리지 않게 하기"
+      ],
+      "aiGenerated": true,
+      "sourceTier": {
+        "tier": "T1_HYPOTHESIS",
+        "sourceType": "training_derived",
+        "sourceUrl": null,
+        "accessedAt": "2026-05-02",
+        "quoteShort": null,
+        "humanInterpretation": "Phase 2 wealth fragment, agent-1.",
+        "copyrightNote": "No source prose copied; original.",
+        "authorityTruthEligible": false
+      }
+    },
+    {
+      "schemaVersion": "spring-ts.narrative-fragment.v1",
+      "fragmentId": "wealth.today.standard.female.40_54.007",
+      "axis": { "category": "wealth", "period": "today", "depth": "standard" },
+      "gating": {
+        "gender": ["female"],
+        "ageBand": ["40-54"]
+      },
+      "templateTokens": [
+        { "kind": "text", "value": "오늘은 그동안 다져 온 결이 빛을 내는 하루예요. 차분한 결정이 자리를 단단하게 만들어 주는 결이에요.\n\n비유하자면 잘 다진 흙 위에 큰 그늘 나무가 자리 잡는 결이에요. 그늘 아래로 가족도 함께 쉴 수 있는 자리가 만들어져요.\n\n잘 풀리는 결은 관리의 기준을 다시 다듬는 결이에요. 어디에 쓰고 어디에 모을지 결이 또렷해지면 자산이 단단해져요.\n\n주의할 결은 책임이 한쪽에 몰릴 때예요. 가족과 한 번 나누는 대화가 결을 다시 균형 있게 만들어 줘요." }
+      ],
+      "tags": [],
+      "livingTips": [
+        "오늘 가계 한 줄 점검",
+        "큰 결정은 가족과 나누기"
+      ],
+      "cautions": [
+        "한쪽 책임에 무게가 몰리지 않게 하기"
+      ],
+      "aiGenerated": true,
+      "sourceTier": {
+        "tier": "T1_HYPOTHESIS",
+        "sourceType": "training_derived",
+        "sourceUrl": null,
+        "accessedAt": "2026-05-02",
+        "quoteShort": null,
+        "humanInterpretation": "Phase 2 wealth fragment, agent-1.",
+        "copyrightNote": "No source prose copied; original.",
+        "authorityTruthEligible": false
+      }
+    },
+    {
+      "schemaVersion": "spring-ts.narrative-fragment.v1",
+      "fragmentId": "wealth.today.standard.20_29.008",
+      "axis": { "category": "wealth", "period": "today", "depth": "standard" },
+      "gating": {
+        "ageBand": ["20-29"]
+      },
+      "templateTokens": [
+        { "kind": "text", "value": "오늘은 결을 잡아 가는 작은 시도가 잘 어울리는 하루예요. 큰 결을 한 번에 만드는 시기가 아니라, 평생 갈 결을 다듬는 결이에요.\n\n비유하자면 새로 심은 나무에 잔뿌리를 내리는 결이에요. 큰 가지를 키우기 전에 잔뿌리가 단단해야 큰 나무로 자라요.\n\n잘 풀리는 결은 작은 기록과 작은 시도예요. 월말 한 줄 정리, 작은 적금 한 가지가 평생 갈 자산이 돼요.\n\n주의할 결은 큰 한 방을 좇는 권유예요. 큰 권유는 일주일 살피면서 결이 맞는지 다시 확인하면 좋아요." }
+      ],
+      "tags": [],
+      "livingTips": [
+        "오늘 한 줄 지출 정리",
+        "작은 적금 점검"
+      ],
+      "cautions": [
+        "큰 한 방 권유는 일주일 살피기"
+      ],
+      "aiGenerated": true,
+      "sourceTier": {
+        "tier": "T1_HYPOTHESIS",
+        "sourceType": "training_derived",
+        "sourceUrl": null,
+        "accessedAt": "2026-05-02",
+        "quoteShort": null,
+        "humanInterpretation": "Phase 2 wealth fragment, agent-1.",
+        "copyrightNote": "No source prose copied; original.",
+        "authorityTruthEligible": false
+      }
+    },
+    {
+      "schemaVersion": "spring-ts.narrative-fragment.v1",
+      "fragmentId": "wealth.today.standard.55_69.009",
+      "axis": { "category": "wealth", "period": "today", "depth": "standard" },
+      "gating": {
+        "ageBand": ["55-69", "70+"]
+      },
+      "templateTokens": [
+        { "kind": "text", "value": "오늘은 다져 온 결을 정리·나누기 좋은 하루예요. 새 거래보다, 이미 잡혀 있는 결을 한 번 더 다듬는 결이에요.\n\n비유하자면 한 해 농사를 마무리하고 곳간을 정리하는 결이에요. 어디에 두고 무엇을 나눌지 결을 두는 시기예요.\n\n잘 풀리는 결은 자녀·후배·이웃과 함께 쓰는 자리예요. 함께 쓰는 결이 자리를 한층 따뜻하게 만들어 줘요.\n\n주의할 결은 갑작스런 큰 권유예요. 익숙하지 않은 흐름은 한 달 두고 살피면 좋아요." }
+      ],
+      "tags": [],
+      "livingTips": [
+        "오늘 자산 정리 한 줄 점검",
+        "낯선 권유는 한 달 살피기"
+      ],
+      "cautions": [
+        "갑작스런 큰 결정은 미루기"
+      ],
+      "aiGenerated": true,
+      "sourceTier": {
+        "tier": "T1_HYPOTHESIS",
+        "sourceType": "training_derived",
+        "sourceUrl": null,
+        "accessedAt": "2026-05-02",
+        "quoteShort": null,
+        "humanInterpretation": "Phase 2 wealth fragment, agent-1.",
+        "copyrightNote": "No source prose copied; original.",
+        "authorityTruthEligible": false
+      }
+    }
+  ]
+}

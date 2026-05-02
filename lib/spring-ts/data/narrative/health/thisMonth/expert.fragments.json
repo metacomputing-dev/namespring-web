@@ -1,0 +1,285 @@
+{
+  "schemaVersion": "spring-ts.narrative-fragment-bundle.v1",
+  "bundleId": "health-thisMonth-expert",
+  "contractVersion": "1.0.0",
+  "generatedBy": "phase2-agent-2-health",
+  "fragments": [
+    {
+      "schemaVersion": "spring-ts.narrative-fragment.v1",
+      "fragmentId": "health.thisMonth.expert.wild.001",
+      "axis": { "category": "health", "period": "thisMonth", "depth": "expert" },
+      "gating": {},
+      "templateTokens": [
+        { "kind": "text", "value": "이번 달 컨디션 흐름은 " },
+        { "kind": "tag", "tagId": "johu", "label": "조후" },
+        { "kind": "text", "value": "의 균형을 한 달 단위로 어떻게 다듬는지에 따라 결이 달라져요. 한 달이라는 단위는 작은 조정이 결과로 이어지는 자리예요.\n\n받쳐 주는 자리가 약하면 " },
+        { "kind": "tag", "tagId": "jeongin", "label": "정인" },
+        { "kind": "text", "value": "의 결을 일상의 돌봄·휴식 자리로 채우는 편이 좋아요. 표현·소화 흐름이 막히면 " },
+        { "kind": "tag", "tagId": "sikshin", "label": "식신" },
+        { "kind": "text", "value": "의 결을 가벼운 자리에서 풀어 주는 편이 잘 맞아요.\n\n월말 무렵엔 한 번 푹 쉬는 자리를 만들어 두면 다음 달의 결까지 부드럽게 이어져요. 한 달 단위는 결국 휴식의 누적이 결과의 자리가 되는 결이에요." }
+      ],
+      "tags": ["johu", "jeongin", "sikshin"],
+      "aiGenerated": true,
+      "sourceTier": {
+        "tier": "T1_HYPOTHESIS",
+        "sourceType": "training_derived",
+        "sourceUrl": null,
+        "accessedAt": "2026-05-02",
+        "quoteShort": null,
+        "humanInterpretation": "Phase 2 health expert thisMonth — wildcard. Display-only narrative.",
+        "copyrightNote": "No source prose copied; original interpretation.",
+        "authorityTruthEligible": false
+      }
+    },
+    {
+      "schemaVersion": "spring-ts.narrative-fragment.v1",
+      "fragmentId": "health.thisMonth.expert.extreme_weak.aligned.001",
+      "axis": { "category": "health", "period": "thisMonth", "depth": "expert" },
+      "gating": {
+        "dayMasterStrength": ["EXTREME_WEAK"],
+        "yongshinAlignment": ["aligned"]
+      },
+      "templateTokens": [
+        { "kind": "text", "value": "이번 달은 일간이 매우 가벼운 결이지만, 받쳐 주는 자리가 잘 따라 주는 결이에요. " },
+        { "kind": "tag", "tagId": "jeongin", "label": "정인" },
+        { "kind": "text", "value": "의 결을 일상에서 자주 챙기면 한 달 흐름이 한결 단단해져요.\n\n" },
+        { "kind": "tag", "tagId": "earth", "label": "흙" },
+        { "kind": "text", "value": "의 자리가 함께 단단해지면 흩어지기 쉬운 기운이 모이는 자리가 만들어져요. 같은 시각의 수면, 따뜻한 식사, 든든한 일상의 결이 한 달의 자산이에요.\n\n월말 무렵엔 한 번 푹 쉬는 자리를 미리 일정에 넣어 두면 좋아요. 다음 달 흐름이 한층 부드럽게 시작돼요." }
+      ],
+      "tags": ["jeongin", "earth"],
+      "aiGenerated": true,
+      "sourceTier": {
+        "tier": "T1_HYPOTHESIS",
+        "sourceType": "training_derived",
+        "sourceUrl": null,
+        "accessedAt": "2026-05-02",
+        "quoteShort": null,
+        "humanInterpretation": "Phase 2 health expert thisMonth — extreme weak + aligned. Display-only narrative.",
+        "copyrightNote": "No source prose copied; original interpretation.",
+        "authorityTruthEligible": false
+      }
+    },
+    {
+      "schemaVersion": "spring-ts.narrative-fragment.v1",
+      "fragmentId": "health.thisMonth.expert.extreme_weak.001",
+      "axis": { "category": "health", "period": "thisMonth", "depth": "expert" },
+      "gating": {
+        "dayMasterStrength": ["EXTREME_WEAK"]
+      },
+      "templateTokens": [
+        { "kind": "text", "value": "이번 달은 일간이 매우 가벼운 결이라 한 달 단위의 페이스 조절이 가장 큰 보약이에요. " },
+        { "kind": "tag", "tagId": "jeongin", "label": "정인" },
+        { "kind": "text", "value": "의 결로 받쳐 주는 자리를 매일 챙기는 편이 잘 맞아요.\n\n" },
+        { "kind": "tag", "tagId": "gongmang", "label": "공망" },
+        { "kind": "text", "value": "의 결로 결과가 더디게 와도 무리하지 말아요. '천천히 익는 자리'로 받아들이면 한 달 흐름이 부드럽게 익어 가요.\n\n월말 무렵엔 한 번 푹 쉬는 자리를 단단히 짚어 두는 편이 좋아요. 다음 달의 결까지 자연스럽게 단단해져요." }
+      ],
+      "tags": ["jeongin", "gongmang"],
+      "aiGenerated": true,
+      "sourceTier": {
+        "tier": "T1_HYPOTHESIS",
+        "sourceType": "training_derived",
+        "sourceUrl": null,
+        "accessedAt": "2026-05-02",
+        "quoteShort": null,
+        "humanInterpretation": "Phase 2 health expert thisMonth — extreme weak. Display-only narrative.",
+        "copyrightNote": "No source prose copied; original interpretation.",
+        "authorityTruthEligible": false
+      }
+    },
+    {
+      "schemaVersion": "spring-ts.narrative-fragment.v1",
+      "fragmentId": "health.thisMonth.expert.aligned.70p.001",
+      "axis": { "category": "health", "period": "thisMonth", "depth": "expert" },
+      "gating": {
+        "yongshinAlignment": ["aligned"],
+        "ageBand": ["70+"]
+      },
+      "templateTokens": [
+        { "kind": "text", "value": "이번 달은 후반기 흐름답게 차분히 결을 다듬는 자리예요. " },
+        { "kind": "tag", "tagId": "johu", "label": "조후" },
+        { "kind": "text", "value": "의 균형이 자연스럽게 자리잡혀 있어 회복 자리가 부드럽게 와요.\n\n" },
+        { "kind": "tag", "tagId": "jeongin", "label": "정인" },
+        { "kind": "text", "value": "의 결로 가까운 가족·친구와의 자리를 자주 챙기는 편이 가장 큰 보약이에요. 마음의 결이 따뜻해지면 컨디션도 자연스럽게 따라와요.\n\n월말 무렵엔 가벼운 외출 자리를 한 번 만들어 두는 편이 좋아요. 따뜻한 햇볕 받는 자리, 좋아하는 한 끼가 그대로 회복의 자리가 돼요." }
+      ],
+      "tags": ["johu", "jeongin"],
+      "aiGenerated": true,
+      "sourceTier": {
+        "tier": "T1_HYPOTHESIS",
+        "sourceType": "training_derived",
+        "sourceUrl": null,
+        "accessedAt": "2026-05-02",
+        "quoteShort": null,
+        "humanInterpretation": "Phase 2 health expert thisMonth — aligned + 70+. Display-only narrative.",
+        "copyrightNote": "No source prose copied; original interpretation.",
+        "authorityTruthEligible": false
+      }
+    },
+    {
+      "schemaVersion": "spring-ts.narrative-fragment.v1",
+      "fragmentId": "health.thisMonth.expert.balanced.001",
+      "axis": { "category": "health", "period": "thisMonth", "depth": "expert" },
+      "gating": {
+        "dayMasterStrength": ["BALANCED"]
+      },
+      "templateTokens": [
+        { "kind": "text", "value": "이번 달은 일간이 고른 결이라 " },
+        { "kind": "tag", "tagId": "johu", "label": "조후" },
+        { "kind": "text", "value": "의 큰 흔들림 없이 흘러가요. 한 달 단위에서 한 가지 좋은 습관을 더 단단히 짚는 자리예요.\n\n" },
+        { "kind": "tag", "tagId": "earth", "label": "흙" },
+        { "kind": "text", "value": "의 결로 일상의 루틴을 한 단계 더 단단히 만들어 두면 다음 달의 결까지 자연스럽게 이어져요. 한 가지 운동·한 가지 식사 챙김이 한 달 동안 꾸준히 자리잡으면 큰 자산이 돼요.\n\n" },
+        { "kind": "tag", "tagId": "sikshin", "label": "식신" },
+        { "kind": "text", "value": "의 결을 즐겁게 풀어 주는 자리도 한 달 흐름의 균형을 잡아 줘요." }
+      ],
+      "tags": ["johu", "earth", "sikshin"],
+      "aiGenerated": true,
+      "sourceTier": {
+        "tier": "T1_HYPOTHESIS",
+        "sourceType": "training_derived",
+        "sourceUrl": null,
+        "accessedAt": "2026-05-02",
+        "quoteShort": null,
+        "humanInterpretation": "Phase 2 health expert thisMonth — balanced. Display-only narrative.",
+        "copyrightNote": "No source prose copied; original interpretation.",
+        "authorityTruthEligible": false
+      }
+    },
+    {
+      "schemaVersion": "spring-ts.narrative-fragment.v1",
+      "fragmentId": "health.thisMonth.expert.strong.001",
+      "axis": { "category": "health", "period": "thisMonth", "depth": "expert" },
+      "gating": {
+        "dayMasterStrength": ["STRONG", "EXTREME_STRONG"]
+      },
+      "templateTokens": [
+        { "kind": "text", "value": "이번 달은 일간이 단단한 결이라 활동량을 받아 내는 그릇이 큰 자리예요. 다만 " },
+        { "kind": "tag", "tagId": "johu", "label": "조후" },
+        { "kind": "text", "value": "가 더운 쪽으로 한 달 단위로 누적되면 후반에 한꺼번에 와요. " },
+        { "kind": "tag", "tagId": "water", "label": "물" },
+        { "kind": "text", "value": "의 결을 일상에서 자주 보충해 두면 좋아요.\n\n" },
+        { "kind": "tag", "tagId": "sikshin", "label": "식신" },
+        { "kind": "text", "value": "의 결을 즐겁게 풀어 주면 빠르게 끓어오르는 자리가 한 번씩 식는 결이 만들어져요. 일주일에 한 번은 푹 쉬는 자리를 미리 잡아 두는 편이 잘 맞아요.\n\n월말 무렵엔 정기 점검 자리를 한 번 잡아 두면, 다음 달 흐름까지 단단해요." }
+      ],
+      "tags": ["johu", "water", "sikshin"],
+      "aiGenerated": true,
+      "sourceTier": {
+        "tier": "T1_HYPOTHESIS",
+        "sourceType": "training_derived",
+        "sourceUrl": null,
+        "accessedAt": "2026-05-02",
+        "quoteShort": null,
+        "humanInterpretation": "Phase 2 health expert thisMonth — strong day master. Display-only narrative.",
+        "copyrightNote": "No source prose copied; original interpretation.",
+        "authorityTruthEligible": false
+      }
+    },
+    {
+      "schemaVersion": "spring-ts.narrative-fragment.v1",
+      "fragmentId": "health.thisMonth.expert.conflicting.001",
+      "axis": { "category": "health", "period": "thisMonth", "depth": "expert" },
+      "gating": {
+        "yongshinAlignment": ["conflicting"]
+      },
+      "templateTokens": [
+        { "kind": "text", "value": "이번 달은 흐름이 어긋나는 결이라 " },
+        { "kind": "tag", "tagId": "samhyeong", "label": "삼형" },
+        { "kind": "text", "value": "의 자리가 한 달 단위로 가까이 들어오기 쉬워요. 갈등·강행군이 누적되지 않게 일정에 휴식 자리를 미리 넣어 두는 편이 잘 맞아요.\n\n" },
+        { "kind": "tag", "tagId": "johu", "label": "조후" },
+        { "kind": "text", "value": "의 균형이 한쪽으로 기울기 쉬워서, 일상에서 부족한 자리를 잠시 보충해 주는 자리가 보약이 돼요. 따뜻한 차·짧은 환기·심호흡 자리를 자주 만들어 두면 좋아요.\n\n월말 무렵엔 한 번 푹 쉬는 자리를 단단히 짚어 두면, 다음 달 흐름까지 부드럽게 이어져요." }
+      ],
+      "tags": ["samhyeong", "johu"],
+      "aiGenerated": true,
+      "sourceTier": {
+        "tier": "T1_HYPOTHESIS",
+        "sourceType": "training_derived",
+        "sourceUrl": null,
+        "accessedAt": "2026-05-02",
+        "quoteShort": null,
+        "humanInterpretation": "Phase 2 health expert thisMonth — conflicting. Display-only narrative.",
+        "copyrightNote": "No source prose copied; original interpretation.",
+        "authorityTruthEligible": false
+      }
+    },
+    {
+      "schemaVersion": "spring-ts.narrative-fragment.v1",
+      "fragmentId": "health.thisMonth.expert.water_excess.001",
+      "axis": { "category": "health", "period": "thisMonth", "depth": "expert" },
+      "gating": {
+        "dayMasterElement": ["WATER"]
+      },
+      "templateTokens": [
+        { "kind": "text", "value": "이번 달은 일간 " },
+        { "kind": "tag", "tagId": "water", "label": "물" },
+        { "kind": "text", "value": "의 결이 한 달 단위로 도드라지는 자리예요. " },
+        { "kind": "tag", "tagId": "fire", "label": "불" },
+        { "kind": "text", "value": "의 결을 일상에서 따뜻하게 채워 주는 편이 보약이 돼요. 햇볕 받는 자리·따뜻한 식사·따뜻한 자리에 자주 머무는 편이 좋아요.\n\n" },
+        { "kind": "tag", "tagId": "earth", "label": "흙" },
+        { "kind": "text", "value": "의 결로 일상의 루틴을 한 번 더 짚어 주면, 깊이 가라앉는 자리에서 다시 올라오는 길이 만들어져요.\n\n월말 무렵엔 가까운 가족·친구와의 자리를 한 번 만들어 두는 편이 좋아요. 마음 결이 가벼워지면 다음 달까지 부드럽게 이어져요." }
+      ],
+      "tags": ["water", "fire", "earth"],
+      "aiGenerated": true,
+      "sourceTier": {
+        "tier": "T1_HYPOTHESIS",
+        "sourceType": "training_derived",
+        "sourceUrl": null,
+        "accessedAt": "2026-05-02",
+        "quoteShort": null,
+        "humanInterpretation": "Phase 2 health expert thisMonth — water day master. Display-only narrative.",
+        "copyrightNote": "No source prose copied; original interpretation.",
+        "authorityTruthEligible": false
+      }
+    },
+    {
+      "schemaVersion": "spring-ts.narrative-fragment.v1",
+      "fragmentId": "health.thisMonth.expert.child.001",
+      "axis": {
+        "category": "health",
+        "period": "thisMonth",
+        "depth": "expert"
+      },
+      "gating": {
+        "ageBand": [
+          "0-9"
+        ]
+      },
+      "templateTokens": [
+        {
+          "kind": "text",
+          "value": "이번 달 결을 어린 시기 관점에서 보면, "
+        },
+        {
+          "kind": "tag",
+          "tagId": "sikshin",
+          "label": "식신"
+        },
+        {
+          "kind": "text",
+          "value": "의 흐름이 좋아 활기와 식욕이 함께 자라는 자리예요. "
+        },
+        {
+          "kind": "tag",
+          "tagId": "jeongin",
+          "label": "정인"
+        },
+        {
+          "kind": "text",
+          "value": "의 자리는 보호자가 챙겨 주는 일상으로 풍부해져요. 환절기엔 따뜻한 챙김 한 가지만 더해도 충분해요."
+        }
+      ],
+      "tags": [
+        "sikshin",
+        "jeongin"
+      ],
+      "aiGenerated": true,
+      "sourceTier": {
+        "tier": "T1_HYPOTHESIS",
+        "sourceType": "training_derived",
+        "sourceUrl": null,
+        "accessedAt": "2026-05-02",
+        "quoteShort": null,
+        "humanInterpretation": "Phase 2 health expert thisMonth (ageBand 0-9). Caregiver-shared tone; ≤2 inline tags; no career/romance. AI-derived; no source prose copied.",
+        "copyrightNote": "No source prose copied; original phrasing.",
+        "authorityTruthEligible": false
+      }
+    }
+  ]
+}

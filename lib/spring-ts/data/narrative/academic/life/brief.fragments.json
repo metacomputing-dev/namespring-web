@@ -1,0 +1,219 @@
+{
+  "schemaVersion": "spring-ts.narrative-fragment-bundle.v1",
+  "bundleId": "academic-life-brief",
+  "contractVersion": "1.0.0",
+  "generatedBy": "phase2-agent-3-academic",
+  "fragmentCount": 10,
+  "fragments": [
+    {
+      "schemaVersion": "spring-ts.narrative-fragment.v1",
+      "fragmentId": "academic.life.brief.wildcard.001",
+      "axis": { "category": "academic", "period": "life", "depth": "brief" },
+      "gating": {},
+      "templateTokens": [
+        { "kind": "text", "value": "평생의 학업 흐름은 차분히 깊어지는 결이에요." }
+      ],
+      "tags": [],
+      "aiGenerated": true,
+      "sourceTier": {
+        "tier": "T1_HYPOTHESIS",
+        "sourceType": "training_derived",
+        "sourceUrl": null,
+        "accessedAt": "2026-05-02",
+        "quoteShort": null,
+        "humanInterpretation": "Phase 2 academic-category fragment authored by agent-3 under data/narrative/_contract/v1.json. Display-only narrative for the tiered-matrix academic axis.",
+        "copyrightNote": "No source prose copied; original authored prose.",
+        "authorityTruthEligible": false
+      }
+    },
+    {
+      "schemaVersion": "spring-ts.narrative-fragment.v1",
+      "fragmentId": "academic.life.brief.0_9.002",
+      "axis": { "category": "academic", "period": "life", "depth": "brief" },
+      "gating": { "ageBand": ["0-9"] },
+      "templateTokens": [
+        { "kind": "text", "value": "호기심이 자라는 시기예요. 좋아하는 것에 푹 빠지는 결이 보여요." }
+      ],
+      "tags": [],
+      "aiGenerated": true,
+      "sourceTier": {
+        "tier": "T1_HYPOTHESIS",
+        "sourceType": "training_derived",
+        "sourceUrl": null,
+        "accessedAt": "2026-05-02",
+        "quoteShort": null,
+        "humanInterpretation": "Phase 2 academic-category fragment authored by agent-3 under data/narrative/_contract/v1.json. Display-only narrative for the tiered-matrix academic axis.",
+        "copyrightNote": "No source prose copied; original authored prose.",
+        "authorityTruthEligible": false
+      }
+    },
+    {
+      "schemaVersion": "spring-ts.narrative-fragment.v1",
+      "fragmentId": "academic.life.brief.10_19.003",
+      "axis": { "category": "academic", "period": "life", "depth": "brief" },
+      "gating": { "ageBand": ["10-19"] },
+      "templateTokens": [
+        { "kind": "text", "value": "꾸준한 습관이 점수보다 단단한 시기예요." }
+      ],
+      "tags": [],
+      "aiGenerated": true,
+      "sourceTier": {
+        "tier": "T1_HYPOTHESIS",
+        "sourceType": "training_derived",
+        "sourceUrl": null,
+        "accessedAt": "2026-05-02",
+        "quoteShort": null,
+        "humanInterpretation": "Phase 2 academic-category fragment authored by agent-3 under data/narrative/_contract/v1.json. Display-only narrative for the tiered-matrix academic axis.",
+        "copyrightNote": "No source prose copied; original authored prose.",
+        "authorityTruthEligible": false
+      }
+    },
+    {
+      "schemaVersion": "spring-ts.narrative-fragment.v1",
+      "fragmentId": "academic.life.brief.20_29.004",
+      "axis": { "category": "academic", "period": "life", "depth": "brief" },
+      "gating": { "ageBand": ["20-29"] },
+      "templateTokens": [
+        { "kind": "text", "value": "학업과 진로가 함께 짜이는 시기예요." }
+      ],
+      "tags": [],
+      "aiGenerated": true,
+      "sourceTier": {
+        "tier": "T1_HYPOTHESIS",
+        "sourceType": "training_derived",
+        "sourceUrl": null,
+        "accessedAt": "2026-05-02",
+        "quoteShort": null,
+        "humanInterpretation": "Phase 2 academic-category fragment authored by agent-3 under data/narrative/_contract/v1.json. Display-only narrative for the tiered-matrix academic axis.",
+        "copyrightNote": "No source prose copied; original authored prose.",
+        "authorityTruthEligible": false
+      }
+    },
+    {
+      "schemaVersion": "spring-ts.narrative-fragment.v1",
+      "fragmentId": "academic.life.brief.30_39.005",
+      "axis": { "category": "academic", "period": "life", "depth": "brief" },
+      "gating": { "ageBand": ["30-39"] },
+      "templateTokens": [
+        { "kind": "text", "value": "자기 분야를 더 깊게 다듬는 결이에요." }
+      ],
+      "tags": [],
+      "aiGenerated": true,
+      "sourceTier": {
+        "tier": "T1_HYPOTHESIS",
+        "sourceType": "training_derived",
+        "sourceUrl": null,
+        "accessedAt": "2026-05-02",
+        "quoteShort": null,
+        "humanInterpretation": "Phase 2 academic-category fragment authored by agent-3 under data/narrative/_contract/v1.json. Display-only narrative for the tiered-matrix academic axis.",
+        "copyrightNote": "No source prose copied; original authored prose.",
+        "authorityTruthEligible": false
+      }
+    },
+    {
+      "schemaVersion": "spring-ts.narrative-fragment.v1",
+      "fragmentId": "academic.life.brief.40_54.006",
+      "axis": { "category": "academic", "period": "life", "depth": "brief" },
+      "gating": { "ageBand": ["40-54"] },
+      "templateTokens": [
+        { "kind": "text", "value": "익힌 것을 정리하고 다시 배우는 결이에요." }
+      ],
+      "tags": [],
+      "aiGenerated": true,
+      "sourceTier": {
+        "tier": "T1_HYPOTHESIS",
+        "sourceType": "training_derived",
+        "sourceUrl": null,
+        "accessedAt": "2026-05-02",
+        "quoteShort": null,
+        "humanInterpretation": "Phase 2 academic-category fragment authored by agent-3 under data/narrative/_contract/v1.json. Display-only narrative for the tiered-matrix academic axis.",
+        "copyrightNote": "No source prose copied; original authored prose.",
+        "authorityTruthEligible": false
+      }
+    },
+    {
+      "schemaVersion": "spring-ts.narrative-fragment.v1",
+      "fragmentId": "academic.life.brief.55_69.007",
+      "axis": { "category": "academic", "period": "life", "depth": "brief" },
+      "gating": { "ageBand": ["55-69"] },
+      "templateTokens": [
+        { "kind": "text", "value": "오래 익힌 지혜가 자기 색으로 깊어져요." }
+      ],
+      "tags": [],
+      "aiGenerated": true,
+      "sourceTier": {
+        "tier": "T1_HYPOTHESIS",
+        "sourceType": "training_derived",
+        "sourceUrl": null,
+        "accessedAt": "2026-05-02",
+        "quoteShort": null,
+        "humanInterpretation": "Phase 2 academic-category fragment authored by agent-3 under data/narrative/_contract/v1.json. Display-only narrative for the tiered-matrix academic axis.",
+        "copyrightNote": "No source prose copied; original authored prose.",
+        "authorityTruthEligible": false
+      }
+    },
+    {
+      "schemaVersion": "spring-ts.narrative-fragment.v1",
+      "fragmentId": "academic.life.brief.70plus.008",
+      "axis": { "category": "academic", "period": "life", "depth": "brief" },
+      "gating": { "ageBand": ["70+"] },
+      "templateTokens": [
+        { "kind": "text", "value": "배움을 즐기는 결이 평생 함께해요." }
+      ],
+      "tags": [],
+      "aiGenerated": true,
+      "sourceTier": {
+        "tier": "T1_HYPOTHESIS",
+        "sourceType": "training_derived",
+        "sourceUrl": null,
+        "accessedAt": "2026-05-02",
+        "quoteShort": null,
+        "humanInterpretation": "Phase 2 academic-category fragment authored by agent-3 under data/narrative/_contract/v1.json. Display-only narrative for the tiered-matrix academic axis.",
+        "copyrightNote": "No source prose copied; original authored prose.",
+        "authorityTruthEligible": false
+      }
+    },
+    {
+      "schemaVersion": "spring-ts.narrative-fragment.v1",
+      "fragmentId": "academic.life.brief.strong_aligned.009",
+      "axis": { "category": "academic", "period": "life", "depth": "brief" },
+      "gating": { "dayMasterStrength": ["STRONG"], "yongshinAlignment": ["aligned"] },
+      "templateTokens": [
+        { "kind": "text", "value": "흐름을 타고 깊게 파고드는 학업 결이에요." }
+      ],
+      "tags": [],
+      "aiGenerated": true,
+      "sourceTier": {
+        "tier": "T1_HYPOTHESIS",
+        "sourceType": "training_derived",
+        "sourceUrl": null,
+        "accessedAt": "2026-05-02",
+        "quoteShort": null,
+        "humanInterpretation": "Phase 2 academic-category fragment authored by agent-3 under data/narrative/_contract/v1.json. Display-only narrative for the tiered-matrix academic axis.",
+        "copyrightNote": "No source prose copied; original authored prose.",
+        "authorityTruthEligible": false
+      }
+    },
+    {
+      "schemaVersion": "spring-ts.narrative-fragment.v1",
+      "fragmentId": "academic.life.brief.weak_neutral.010",
+      "axis": { "category": "academic", "period": "life", "depth": "brief" },
+      "gating": { "dayMasterStrength": ["WEAK"], "yongshinAlignment": ["neutral"] },
+      "templateTokens": [
+        { "kind": "text", "value": "천천히, 조금씩 쌓아 올리는 학업 결이에요." }
+      ],
+      "tags": [],
+      "aiGenerated": true,
+      "sourceTier": {
+        "tier": "T1_HYPOTHESIS",
+        "sourceType": "training_derived",
+        "sourceUrl": null,
+        "accessedAt": "2026-05-02",
+        "quoteShort": null,
+        "humanInterpretation": "Phase 2 academic-category fragment authored by agent-3 under data/narrative/_contract/v1.json. Display-only narrative for the tiered-matrix academic axis.",
+        "copyrightNote": "No source prose copied; original authored prose.",
+        "authorityTruthEligible": false
+      }
+    }
+  ]
+}
