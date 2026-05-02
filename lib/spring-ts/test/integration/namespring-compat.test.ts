@@ -194,6 +194,42 @@ const withTimePolicy = await engine.getSajuReport({
 check(`sajuTimePolicy.trueSolarTime='on' produces a saju report`,
   (withTimePolicy as any)?.pillars != null);
 
+// ── (6) tieredMatrix is OPT-IN (negative assert) ────────────────────────
+// NameSpring's request never sets `precisionConfig.surfaceTieredMatrix`.
+// Without it, FortuneReport.tieredMatrix MUST be undefined so the
+// existing card surface stays the only payload NameSpring sees.
+check(`FortuneReport.tieredMatrix is undefined when surface flag absent`,
+  fortuneReport?.tieredMatrix === undefined,
+  typeof fortuneReport?.tieredMatrix);
+
+// ── (7) tieredMatrix surfaces correctly when opt-in ────────────────────
+// Sanity check that the new structure is well-formed when explicitly
+// enabled — protects against future regressions where the flag fails to
+// activate the matrix.
+const tieredOn: any = await engine.getFortuneReport({
+  ...namespringRequest,
+  options: { precisionConfig: { surfaceTieredMatrix: true } },
+});
+check(`opt-in tieredMatrix is present`, tieredOn?.tieredMatrix != null);
+if (tieredOn?.tieredMatrix) {
+  const tm = tieredOn.tieredMatrix;
+  check(`tieredMatrix.schemaVersion === 'spring-ts.tiered-matrix.v1'`,
+    tm.schemaVersion === 'spring-ts.tiered-matrix.v1');
+  check(`tieredMatrix.periods has 5 keys`,
+    tm.periods && Object.keys(tm.periods).length === 5,
+    `${Object.keys(tm.periods ?? {}).length}`);
+  for (const period of ['life', 'today', 'thisWeek', 'thisMonth', 'thisYear']) {
+    const p = tm.periods?.[period];
+    check(`tieredMatrix.periods.${period} present`, p != null);
+    check(`tieredMatrix.periods.${period}.byCategory has 10 keys`,
+      p?.byCategory && Object.keys(p.byCategory).length === 10,
+      `${Object.keys(p?.byCategory ?? {}).length}`);
+  }
+  check(`tieredMatrix.glossary.entries has anchor entries`,
+    tm.glossary?.entries && Object.keys(tm.glossary.entries).length >= 50,
+    `${Object.keys(tm.glossary?.entries ?? {}).length}`);
+}
+
 engine.close();
 
 console.log(`\nNameSpring compat: ${pass} PASS / ${fail} FAIL`);
