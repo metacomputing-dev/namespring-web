@@ -29,6 +29,27 @@ const VALID_TAG_CATEGORIES = new Set([
   'element', 'tenGod', 'gyeokguk', 'shinsal', 'pillar',
   'palace', 'naeum', 'yongshin', 'gungsil', 'compatibility',
 ]);
+const VALID_GATING_VALUES: Record<string, ReadonlySet<string> | null> = {
+  gender: new Set(['male', 'female', 'neutral']),
+  ageBand: new Set(['0-9', '10-19', '20-29', '30-39', '40-54', '55-69', '70+']),
+  agePhase: new Set([
+    'child_0_9', 'early_teen', 'late_teen',
+    'early_20s', 'late_20s',
+    'early_30s', 'late_30s',
+    'early_40s', 'late_40s',
+    'early_50s', 'late_50s',
+    'early_60s', 'late_60s',
+    '70s', '80s', '90_plus',
+  ]),
+  birthSeason: new Set(['spring', 'summer', 'autumn', 'winter']),
+  currentSeason: new Set(['spring', 'summer', 'autumn', 'winter']),
+  dayMasterPolarity: new Set(['YANG', 'YIN', 'neutral']),
+  dayMasterStrength: new Set(['EXTREME_STRONG', 'STRONG', 'BALANCED', 'WEAK', 'EXTREME_WEAK']),
+  yongshinAlignment: new Set(['aligned', 'neutral', 'conflicting']),
+  dayMasterElement: new Set(['WOOD', 'FIRE', 'EARTH', 'METAL', 'WATER']),
+  yongshinElement: new Set(['WOOD', 'FIRE', 'EARTH', 'METAL', 'WATER']),
+  gyeokguk: null,
+};
 
 let pass = 0;
 let fail = 0;
@@ -134,6 +155,24 @@ for (const file of fragmentBundles) {
       VALID_PERIODS.has(frag?.axis?.period), frag?.axis?.period);
     check(`${rel}#${id}: axis.depth in whitelist`,
       VALID_DEPTHS.has(frag?.axis?.depth), frag?.axis?.depth);
+
+    check(`${rel}#${id}: gating is object`,
+      frag?.gating != null && typeof frag.gating === 'object' && !Array.isArray(frag.gating));
+    for (const [key, rawValues] of Object.entries(frag?.gating ?? {})) {
+      check(`${rel}#${id}: gating.${key} is whitelisted`,
+        Object.prototype.hasOwnProperty.call(VALID_GATING_VALUES, key));
+      check(`${rel}#${id}: gating.${key} is array`, Array.isArray(rawValues));
+      if (Array.isArray(rawValues)) {
+        const allowed = VALID_GATING_VALUES[key];
+        for (const value of rawValues) {
+          check(`${rel}#${id}: gating.${key} value is string`, typeof value === 'string');
+          if (allowed) {
+            check(`${rel}#${id}: gating.${key} value is allowed: ${value}`,
+              allowed.has(value), String(value));
+          }
+        }
+      }
+    }
 
     const cellKey = `${frag?.axis?.category}|${frag?.axis?.period}|${frag?.axis?.depth}`;
     cellSeen.add(cellKey);
