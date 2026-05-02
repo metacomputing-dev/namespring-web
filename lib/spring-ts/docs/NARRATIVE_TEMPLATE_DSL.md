@@ -151,6 +151,8 @@ selected = candidates[seedKey % candidates.length]
 
 ```bash
 npx tsx test/integration/narrative-schema.test.ts
+npm run narrative:coverage -- --min-authored=5
+npm run narrative:coverage -- --json --min-authored=5
 ```
 
 이 테스트가:
