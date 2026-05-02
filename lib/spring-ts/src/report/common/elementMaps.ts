@@ -169,9 +169,16 @@ export const BRANCHES: BranchInfo[] = [
   { code: 'HAE',        hangul: '해', hanja: '亥', element: 'WATER', yinYang: 'YIN',  animal: '돼지',  month: 10, timeRange: '21:00~23:00', index: 11 },
 ];
 
-export const BRANCH_BY_CODE: Record<string, BranchInfo> = Object.fromEntries(
+const _BRANCH_BY_CODE: Record<string, BranchInfo> = Object.fromEntries(
   BRANCHES.map(b => [b.code, b]),
 );
+
+export const BRANCH_BY_CODE: Record<string, BranchInfo> = {
+  ..._BRANCH_BY_CODE,
+  // saju-ts emits the earthly-branch 申 as SIN, while spring-ts keeps the
+  // canonical key SIN_BRANCH to avoid colliding with the heavenly-stem 辛.
+  SIN: _BRANCH_BY_CODE.SIN_BRANCH,
+};
 
 const BRANCH_BY_HANGUL: Record<string, BranchInfo> = Object.fromEntries(
   BRANCHES.map(b => [b.hangul, b]),
