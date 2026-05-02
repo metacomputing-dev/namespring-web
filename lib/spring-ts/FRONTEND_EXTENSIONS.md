@@ -127,6 +127,73 @@ UI 활용: 카드 하단 "이 별점의 근거는?" 펼침 영역.
 60갑자 納音 (sound-of-pillar) 분석. opt-in via
 `precisionConfig.surfaceNaeum=true` (default off).
 
+### 2.6 `FortuneReport.tieredMatrix` (Phase 1, this PR)
+
+운세 = `기간(5) × 분야(1 총운 + 10 분야) × depth(brief/standard/expert)`
+의 입체적 큐브. opt-in via `precisionConfig.surfaceTieredMatrix=true`
+(**default false** — 현재 NameSpring 영향 X).
+
+```typescript
+interface FortuneTieredMatrix {
+  readonly schemaVersion: 'spring-ts.tiered-matrix.v1';
+  readonly periods: Readonly<Record<
+    'life' | 'today' | 'thisWeek' | 'thisMonth' | 'thisYear',
+    PeriodScopedFortunes
+  >>;
+  readonly glossary: TagGlossary;   // entries + usedInThisReport
+  readonly meta: TieredMatrixMeta;
+}
+
+interface PeriodScopedFortunes {
+  readonly periodKind: 'life' | 'today' | 'thisWeek' | 'thisMonth' | 'thisYear';
+  readonly periodLabel: string;     // "올해 (2026년)" 등 사용자 친화 라벨
+  readonly periodMeta: TieredPeriodMeta;
+  readonly overall: TieredFortune;  // 총운
+  readonly byCategory: Readonly<Record<
+    'wealth' | 'health' | 'academic' | 'romance' | 'family'
+    | 'career' | 'study_document' | 'expression_children'
+    | 'health_stress' | 'movement',
+    TieredFortune
+  >>;
+}
+
+interface TieredFortune {
+  readonly meaningfulness: 'meaningful' | 'limited' | 'na';
+  readonly stars: 1 | 2 | 3 | 4 | 5 | null;     // null when 'na'
+  readonly brief:    BriefFortuneText;            // 초중학생 1-2문장
+  readonly standard: StandardFortuneText;         // 풀어쓴 일반 5문단 내외
+  readonly expert:   ExpertFortuneText;           // 학문적 + 인라인 #태그
+}
+
+interface TaggedParagraph {
+  readonly tokens: readonly ParagraphToken[];     // text/tag 토큰
+  readonly plainText: string;                     // derived
+}
+```
+
+**FE 활용 예시**:
+```jsx
+{tm?.periods.thisMonth.byCategory.wealth.expert.paragraphs.map((p, i) => (
+  <p key={i}>
+    {p.tokens.map((tok, j) =>
+      tok.kind === 'text'
+        ? <span key={j}>{tok.value}</span>
+        : <TagChip key={j} tagId={tok.tagId} label={tok.label}
+                   onClick={() => showGlossary(tm.glossary.entries[tok.tagId])} />
+    )}
+  </p>
+))}
+```
+
+특징:
+- **2 차원 매트릭스**: 5 기간 × 11 카테고리 = 55 cell, 각 3 depth = 165 텍스트 단위.
+- **인라인 태그 + glossary**: `#용신`/`#천을귀인` 클릭 → `glossary.entries[tagId]` (brief + detailed 정의).
+- **결정성**: 같은 (birth, targetDate) → 같은 fragment. `meta.selectionSeed` 노출.
+- **NameSpring 무수정 호환**: flag 미설정 시 `tieredMatrix === undefined`. 이미 `namespring-compat.test.ts`가 negative assert로 검증.
+- **Phase 1 = placeholder content** (`meta.contentSource = 'placeholder'`). Phase 2 fan-out 후 `'authored'`.
+
+자세한 구조: [docs/TIERED_MATRIX_SPEC.md](./docs/TIERED_MATRIX_SPEC.md).
+
 ---
 
 ## 3. Opt-in precisionConfig 옵션 (NameSpring 이 명시적으로 활성화 가능)
@@ -139,6 +206,7 @@ NameSpring 이 `request.options.precisionConfig` 를 통해 활성화 가능한
 | `surfaceSubDomains` | `boolean` | category subDomains 노출 (PR #139 default true) |
 | `surfacePalace` | `boolean` | 12궁 분석 노출 (default false) |
 | `surfaceNaeum` | `boolean` | 60갑자 納音 노출 (default false) |
+| `surfaceTieredMatrix` | `boolean` | 5×11×3 운세 매트릭스 + 인라인 태그 + glossary 노출 (default false; §2.6) |
 | `surfaceJohu` | `boolean` | 조후 분석 노출 (default false) |
 | `surfaceNamingScoreVector` | `boolean` | pre-final naming axes `scoreVector` surface (default false, display-only) |
 | `paretoFrontierCandidates` | `boolean` | Pareto/diversity-aware candidate ordering + strength profile surface (default false) |
