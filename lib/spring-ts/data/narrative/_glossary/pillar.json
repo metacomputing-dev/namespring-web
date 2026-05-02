@@ -49,6 +49,126 @@
       "related": ["dayPillar", "jasikgung"],
       "aiGenerated": true,
       "sourceTier": { "tier": "T1_HYPOTHESIS", "sourceType": "training_derived", "sourceUrl": null, "accessedAt": "2026-05-02", "quoteShort": null, "humanInterpretation": "AI-derived plain-language definition of the hour pillar. Display-only.", "copyrightNote": "No source prose copied.", "authorityTruthEligible": false }
+    },
+    {
+      "schemaVersion": "spring-ts.glossary-entry.v1",
+      "id": "gabgihab",
+      "label": "갑기합",
+      "hashLabel": "#갑기합",
+      "category": "pillar",
+      "brief": "갑(나무)과 기(흙)가 만나 흙으로 변하는 천간 합이에요.",
+      "detailed": "갑목(甲)과 기토(己)가 짝을 이루면 두 글자의 결이 모여 흙(土)의 결로 변하는 천간합이에요. 사주에 이 합이 들면 자라는 결과 단단한 결이 만나 새로운 자리가 자라는 흐름이라, 변화·확장이 부드럽게 풀리는 결로 풀어요.",
+      "related": ["wood", "earth"],
+      "aiGenerated": true,
+      "sourceTier": { "tier": "T1_HYPOTHESIS", "sourceType": "training_derived", "sourceUrl": null, "accessedAt": "2026-05-02", "quoteShort": null, "humanInterpretation": "AI-derived plain-language definition of 갑기합. Display-only.", "copyrightNote": "No source prose copied.", "authorityTruthEligible": false }
+    },
+    {
+      "schemaVersion": "spring-ts.glossary-entry.v1",
+      "id": "eulgyeonghab",
+      "label": "을경합",
+      "hashLabel": "#을경합",
+      "category": "pillar",
+      "brief": "을(나무)과 경(쇠)이 만나 쇠로 변하는 천간 합이에요.",
+      "detailed": "을목(乙)과 경금(庚)이 짝을 이루면 두 결이 모여 쇠(金)의 결로 변하는 천간합이에요. 자라는 가지가 다듬어져 도구의 모양을 갖추듯, 결단의 결이 또렷이 자리를 잡는 결로 풀어요. 마무리·결정의 시기에 잘 어울리는 합이에요.",
+      "related": ["wood", "metal"],
+      "aiGenerated": true,
+      "sourceTier": { "tier": "T1_HYPOTHESIS", "sourceType": "training_derived", "sourceUrl": null, "accessedAt": "2026-05-02", "quoteShort": null, "humanInterpretation": "AI-derived plain-language definition of 을경합. Display-only.", "copyrightNote": "No source prose copied.", "authorityTruthEligible": false }
+    },
+    {
+      "schemaVersion": "spring-ts.glossary-entry.v1",
+      "id": "byeongsinhab",
+      "label": "병신합",
+      "hashLabel": "#병신합",
+      "category": "pillar",
+      "brief": "병(불)과 신(쇠)이 만나 물로 변하는 천간 합이에요.",
+      "detailed": "병화(丙)와 신금(辛)이 짝을 이루면 두 결이 모여 물(水)의 결로 변하는 천간합이에요. 빛나는 결과 결단의 결이 만나 깊은 흐름으로 가라앉는 결이라, 표현·결정·통찰이 한 자리에서 어우러지는 시기에 어울리는 합이에요.",
+      "related": ["fire", "metal", "water"],
+      "aiGenerated": true,
+      "sourceTier": { "tier": "T1_HYPOTHESIS", "sourceType": "training_derived", "sourceUrl": null, "accessedAt": "2026-05-02", "quoteShort": null, "humanInterpretation": "AI-derived plain-language definition of 병신합. Display-only.", "copyrightNote": "No source prose copied.", "authorityTruthEligible": false }
+    },
+    {
+      "schemaVersion": "spring-ts.glossary-entry.v1",
+      "id": "jeongimhab",
+      "label": "정임합",
+      "hashLabel": "#정임합",
+      "category": "pillar",
+      "brief": "정(불)과 임(물)이 만나 나무로 변하는 천간 합이에요.",
+      "detailed": "정화(丁)와 임수(壬)가 짝을 이루면 두 결이 모여 나무(木)의 결로 변하는 천간합이에요. 따뜻한 결과 깊은 흐름이 만나 자라는 결을 만들어 내는 결이라, 새로운 시작·창업·관계의 자리에 잘 어울리는 합이에요.",
+      "related": ["fire", "water", "wood"],
+      "aiGenerated": true,
+      "sourceTier": { "tier": "T1_HYPOTHESIS", "sourceType": "training_derived", "sourceUrl": null, "accessedAt": "2026-05-02", "quoteShort": null, "humanInterpretation": "AI-derived plain-language definition of 정임합. Display-only.", "copyrightNote": "No source prose copied.", "authorityTruthEligible": false }
+    },
+    {
+      "schemaVersion": "spring-ts.glossary-entry.v1",
+      "id": "mugyehab",
+      "label": "무계합",
+      "hashLabel": "#무계합",
+      "category": "pillar",
+      "brief": "무(흙)와 계(물)가 만나 불로 변하는 천간 합이에요.",
+      "detailed": "무토(戊)와 계수(癸)가 짝을 이루면 두 결이 모여 불(火)의 결로 변하는 천간합이에요. 단단한 자리와 깊은 흐름이 만나 빛이 또렷이 살아나는 결이라, 표현·창작·열정이 자라는 시기에 어울리는 합이에요.",
+      "related": ["earth", "water", "fire"],
+      "aiGenerated": true,
+      "sourceTier": { "tier": "T1_HYPOTHESIS", "sourceType": "training_derived", "sourceUrl": null, "accessedAt": "2026-05-02", "quoteShort": null, "humanInterpretation": "AI-derived plain-language definition of 무계합. Display-only.", "copyrightNote": "No source prose copied.", "authorityTruthEligible": false }
+    },
+    {
+      "schemaVersion": "spring-ts.glossary-entry.v1",
+      "id": "jaochung",
+      "label": "자오충",
+      "hashLabel": "#자오충",
+      "category": "pillar",
+      "brief": "자(쥐·물)와 오(말·불)가 정면으로 부딪치는 지지 충이에요.",
+      "detailed": "자수(子)와 오화(午)는 사주의 밑둥에서 정반대 자리에 놓여 정면으로 부딪치는 지지충이에요. 깊은 결과 빛나는 결이 만나 한쪽이 흔들리는 자리라, 변동·이동·자리 바뀜의 신호로 풀어요. 무리한 결정만 한 박자 늦추면 흠 없이 지나가요.",
+      "related": ["water", "fire", "yeokma"],
+      "aiGenerated": true,
+      "sourceTier": { "tier": "T1_HYPOTHESIS", "sourceType": "training_derived", "sourceUrl": null, "accessedAt": "2026-05-02", "quoteShort": null, "humanInterpretation": "AI-derived plain-language definition of 자오충. Display-only.", "copyrightNote": "No source prose copied.", "authorityTruthEligible": false }
+    },
+    {
+      "schemaVersion": "spring-ts.glossary-entry.v1",
+      "id": "chukmichung",
+      "label": "축미충",
+      "hashLabel": "#축미충",
+      "category": "pillar",
+      "brief": "축(소·흙)과 미(양·흙)가 정면으로 부딪치는 지지 충이에요.",
+      "detailed": "축토(丑)와 미토(未)는 같은 흙 결이지만 음양과 계절이 달라 부딪치는 지지충이에요. 가까운 자리·집안·동업 같은 가까운 관계에서 마찰이 생기기 쉬운 결로 풀고, 서면·약속을 분명히 두면 결을 부드럽게 넘길 수 있어요.",
+      "related": ["earth"],
+      "aiGenerated": true,
+      "sourceTier": { "tier": "T1_HYPOTHESIS", "sourceType": "training_derived", "sourceUrl": null, "accessedAt": "2026-05-02", "quoteShort": null, "humanInterpretation": "AI-derived plain-language definition of 축미충. Display-only.", "copyrightNote": "No source prose copied.", "authorityTruthEligible": false }
+    },
+    {
+      "schemaVersion": "spring-ts.glossary-entry.v1",
+      "id": "insinchung",
+      "label": "인신충",
+      "hashLabel": "#인신충",
+      "category": "pillar",
+      "brief": "인(범·나무)과 신(원숭이·쇠)이 부딪치는 지지 충이에요.",
+      "detailed": "인목(寅)과 신금(申)은 자라는 결과 결단의 결이 정면으로 부딪치는 지지충이에요. 새로운 시작·이동·결정이 동시에 일어나는 시기에 자주 나타나는 결이라, 큰 변화의 신호로 풀어요. 한 박자 점검 후 움직이면 결을 결과로 바꿀 수 있어요.",
+      "related": ["wood", "metal", "yeokma"],
+      "aiGenerated": true,
+      "sourceTier": { "tier": "T1_HYPOTHESIS", "sourceType": "training_derived", "sourceUrl": null, "accessedAt": "2026-05-02", "quoteShort": null, "humanInterpretation": "AI-derived plain-language definition of 인신충. Display-only.", "copyrightNote": "No source prose copied.", "authorityTruthEligible": false }
+    },
+    {
+      "schemaVersion": "spring-ts.glossary-entry.v1",
+      "id": "myoyuchung",
+      "label": "묘유충",
+      "hashLabel": "#묘유충",
+      "category": "pillar",
+      "brief": "묘(토끼·나무)와 유(닭·쇠)가 부딪치는 지지 충이에요.",
+      "detailed": "묘목(卯)과 유금(酉)이 정반대 자리에서 부딪치는 지지충이에요. 가지를 다듬는 쇠 결과 자라는 나무 결이 부딪치는 자리라, 관계·기준 다툼이 생기기 쉬운 결로 풀어요. 표현 방식만 한 박자 늦추면 결을 가다듬는 자리로 바꿀 수 있어요.",
+      "related": ["wood", "metal"],
+      "aiGenerated": true,
+      "sourceTier": { "tier": "T1_HYPOTHESIS", "sourceType": "training_derived", "sourceUrl": null, "accessedAt": "2026-05-02", "quoteShort": null, "humanInterpretation": "AI-derived plain-language definition of 묘유충. Display-only.", "copyrightNote": "No source prose copied.", "authorityTruthEligible": false }
+    },
+    {
+      "schemaVersion": "spring-ts.glossary-entry.v1",
+      "id": "jinsulchung",
+      "label": "진술충",
+      "hashLabel": "#진술충",
+      "category": "pillar",
+      "brief": "진(용·흙)과 술(개·흙)이 부딪치는 지지 충이에요.",
+      "detailed": "진토(辰)와 술토(戌)는 같은 흙 결이지만 음양과 계절이 달라 부딪치는 지지충이에요. 안에 품은 다른 결들이 동시에 흔들리는 자리라, 큰 변화·이사·자리 바뀜이 함께 오는 결로 풀어요. 흐름을 거스르지 않고 따라가면 결이 새 자리를 열어 줘요.",
+      "related": ["earth"],
+      "aiGenerated": true,
+      "sourceTier": { "tier": "T1_HYPOTHESIS", "sourceType": "training_derived", "sourceUrl": null, "accessedAt": "2026-05-02", "quoteShort": null, "humanInterpretation": "AI-derived plain-language definition of 진술충. Display-only.", "copyrightNote": "No source prose copied.", "authorityTruthEligible": false }
     }
   ]
 }
