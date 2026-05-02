@@ -1,0 +1,92 @@
+import { buildLifeFortuneOverviewCard } from '../../src/report/cards/life-fortune-overview-card.js';
+
+let pass = 0;
+let fail = 0;
+
+function check(label: string, cond: boolean, evidence?: string): void {
+  if (cond) {
+    pass += 1;
+    console.log(`  PASS ${label}${evidence ? ` (${evidence})` : ''}`);
+  } else {
+    fail += 1;
+    console.log(`  FAIL ${label}${evidence ? ` (${evidence})` : ''}`);
+  }
+}
+
+const highConflictConsensus = {
+  eokbu: { element: 'METAL', score: 1, scores: {}, evidence: [] },
+  johu: { element: 'FIRE', score: 1, scores: {}, evidence: [] },
+  gyeokguk: { element: 'WOOD', score: 1, scores: {}, evidence: [] },
+  tonggwan: { element: 'WOOD', score: 1, scores: {}, evidence: [] },
+  byeongyak: { element: 'METAL', score: 1, scores: {}, evidence: [] },
+  siksangFlow: { element: 'WOOD', score: 1, scores: {}, evidence: [] },
+  final: {
+    element: 'METAL',
+    confidence: 0.41,
+    topMargin: 0.41,
+    conflictLevel: 'high',
+    competingElements: ['FIRE', 'WOOD'],
+    evidence: [],
+  },
+};
+
+const lowConfidenceSaju = {
+  pillars: {} as any,
+  timeCorrection: {} as any,
+  dayMaster: { stem: '계', element: 'WATER', polarity: '음' },
+  strength: {
+    level: 'WEAK',
+    isStrong: false,
+    totalSupport: 2.4,
+    totalOppose: 5.6,
+    deukryeong: 2.1,
+    deukji: 0.3,
+    deukse: 2.4,
+    details: [],
+  },
+  yongshin: {
+    element: 'METAL',
+    heeshin: 'WATER',
+    gishin: 'FIRE',
+    gushin: 'EARTH',
+    confidence: 41,
+    agreement: 'ranking',
+    recommendations: [],
+    consensus: highConflictConsensus,
+  },
+  yongshinConsensus: highConflictConsensus,
+  gyeokguk: { type: 'SIK_SIN', category: 'NORMAL', confidence: 0.52 },
+  elementDistribution: { WOOD: 3, FIRE: 2, EARTH: 1, METAL: 0, WATER: 2 },
+  deficientElements: ['EARTH', 'METAL'],
+  excessiveElements: ['WOOD'],
+  cheonganRelations: [],
+  jijiRelations: [],
+  tenGodAnalysis: null,
+  shinsalHits: [{ type: '형살', position: '기타', grade: 'B', weightedScore: 50 }],
+  gongmang: null,
+  axisStrength: { yongshin: 'deferred', strength: 'deferred', gyeokguk: 'candidate' },
+} as any;
+
+console.log('Life fortune yongshin confidence\n');
+
+const card = buildLifeFortuneOverviewCard(lowConfidenceSaju);
+
+check('percentage yongshin confidence is normalized before scoring',
+  card.stars === 2,
+  `stars=${card.stars}`);
+check('summary hedges high-conflict yongshin guidance',
+  card.summary.includes('보완 후보') && card.summary.includes('더 안전해요'),
+  card.summary);
+check('highlights avoid definite yongshin wording',
+  card.highlights.includes('용신 후보는 쇠 기운이에요') &&
+    !card.highlights.includes('용신은 쇠 기운이에요'),
+  JSON.stringify(card.highlights));
+check('evidence still carries the selected yongshin candidate',
+  card.evidence?.some((row) =>
+    row.axis === 'yongshin' &&
+    row.supportingFeatures.some((feature) => feature.includes('METAL')) &&
+    row.strength === 'deferred') === true,
+  JSON.stringify(card.evidence?.find((row) => row.axis === 'yongshin')));
+
+console.log(`\nLife fortune yongshin confidence: ${pass} PASS / ${fail} FAIL`);
+process.exit(fail > 0 ? 1 : 0);
