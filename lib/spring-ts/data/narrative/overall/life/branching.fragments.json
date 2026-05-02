@@ -92,6 +92,126 @@
     },
     {
       "schemaVersion": "spring-ts.narrative-fragment.v1",
+      "fragmentId": "overall.life.standard.yongshin.wood.101",
+      "axis": { "category": "overall", "period": "life", "depth": "standard" },
+      "gating": {
+        "yongshinElement": ["WOOD"]
+      },
+      "templateTokens": [
+        { "kind": "text", "value": "나무 기운이 보완 포인트라면, 삶의 흐름은 천천히 자라고 넓어지는 쪽에서 힘을 얻어요. 한 번에 큰 결론을 내리기보다, 배움과 관계의 뿌리를 꾸준히 키우는 방식이 잘 맞아요. 초록 계열, 동쪽 방향, 식물처럼 매일 조금씩 돌볼 수 있는 습관을 가까이 두면 마음의 회복력이 좋아질 수 있어요." }
+      ],
+      "livingTips": [
+        "새로 배우고 싶은 주제를 하나 정해 매주 같은 시간에 이어가 보세요.",
+        "관계를 넓히기보다 오래 갈 연결을 먼저 챙겨보세요."
+      ],
+      "cautions": [
+        "시작만 늘리고 마무리를 미루면 기운이 흩어질 수 있어요."
+      ],
+      "tags": [],
+      "aiGenerated": true,
+      "sourceTier": {
+        "tier": "T1_HYPOTHESIS",
+        "sourceType": "training_derived",
+        "sourceUrl": null,
+        "accessedAt": "2026-05-02",
+        "quoteShort": null,
+        "humanInterpretation": "Branching pass fragment for wood yongshin element. AI-derived display text; not authority truth.",
+        "copyrightNote": "No source prose copied; original phrasing.",
+        "authorityTruthEligible": false
+      }
+    },
+    {
+      "schemaVersion": "spring-ts.narrative-fragment.v1",
+      "fragmentId": "overall.life.standard.yongshin.fire.101",
+      "axis": { "category": "overall", "period": "life", "depth": "standard" },
+      "gating": {
+        "yongshinElement": ["FIRE"]
+      },
+      "templateTokens": [
+        { "kind": "text", "value": "불 기운이 보완 포인트라면, 삶의 흐름은 따뜻하게 드러내고 명확히 표현할수록 살아나요. 마음속 계획을 혼자만 붙잡기보다, 적절한 자리에서 말하고 보여주는 과정이 운의 체감도를 높여줘요. 붉은 계열, 남쪽 방향, 밝은 조명처럼 활기를 주는 장치를 가까이 두면 추진력이 살아날 수 있어요." }
+      ],
+      "livingTips": [
+        "이번 주 안에 생각만 하던 계획 하나를 말이나 글로 밖에 꺼내보세요.",
+        "몸이 처질 때는 햇빛을 보는 짧은 산책부터 시작해 보세요."
+      ],
+      "cautions": [
+        "감정이 뜨거워졌을 때 바로 결정하면 뒤에 조정할 일이 많아질 수 있어요."
+      ],
+      "tags": [],
+      "aiGenerated": true,
+      "sourceTier": {
+        "tier": "T1_HYPOTHESIS",
+        "sourceType": "training_derived",
+        "sourceUrl": null,
+        "accessedAt": "2026-05-02",
+        "quoteShort": null,
+        "humanInterpretation": "Branching pass fragment for fire yongshin element. AI-derived display text; not authority truth.",
+        "copyrightNote": "No source prose copied; original phrasing.",
+        "authorityTruthEligible": false
+      }
+    },
+    {
+      "schemaVersion": "spring-ts.narrative-fragment.v1",
+      "fragmentId": "overall.life.standard.yongshin.earth.101",
+      "axis": { "category": "overall", "period": "life", "depth": "standard" },
+      "gating": {
+        "yongshinElement": ["EARTH"]
+      },
+      "templateTokens": [
+        { "kind": "text", "value": "흙 기운이 보완 포인트라면, 삶의 흐름은 기반을 만들고 지키는 쪽에서 안정돼요. 새로운 시도를 하더라도 먼저 머물 자리, 함께할 사람, 반복할 루틴을 정해두면 흔들림이 줄어들어요. 노란색과 갈색 계열, 중앙 방향, 정해진 식사와 수면처럼 몸을 붙잡아 주는 습관이 도움이 될 수 있어요." }
+      ],
+      "livingTips": [
+        "이번 달에 꼭 유지할 생활 루틴을 세 가지 이하로 정해보세요.",
+        "중요한 결정은 장소와 비용, 함께할 사람을 먼저 확인해 보세요."
+      ],
+      "cautions": [
+        "안정만 고집하면 필요한 변화까지 미루게 될 수 있어요."
+      ],
+      "tags": [],
+      "aiGenerated": true,
+      "sourceTier": {
+        "tier": "T1_HYPOTHESIS",
+        "sourceType": "training_derived",
+        "sourceUrl": null,
+        "accessedAt": "2026-05-02",
+        "quoteShort": null,
+        "humanInterpretation": "Branching pass fragment for earth yongshin element. AI-derived display text; not authority truth.",
+        "copyrightNote": "No source prose copied; original phrasing.",
+        "authorityTruthEligible": false
+      }
+    },
+    {
+      "schemaVersion": "spring-ts.narrative-fragment.v1",
+      "fragmentId": "overall.life.standard.yongshin.water.101",
+      "axis": { "category": "overall", "period": "life", "depth": "standard" },
+      "gating": {
+        "yongshinElement": ["WATER"]
+      },
+      "templateTokens": [
+        { "kind": "text", "value": "물 기운이 보완 포인트라면, 삶의 흐름은 급히 밀어붙이기보다 유연하게 흐를 때 좋아져요. 정보를 모으고, 감정을 가라앉히고, 상황에 맞춰 길을 바꾸는 능력이 중요한 자원이 돼요. 검은색이나 짙은 파란색 계열, 북쪽 방향, 기록과 휴식처럼 마음을 식혀 주는 습관을 가까이 두면 균형을 잡기 쉬워요." }
+      ],
+      "livingTips": [
+        "결정 전에는 자료를 모으는 시간과 쉬는 시간을 따로 확보해 보세요.",
+        "생각이 복잡할 때는 물을 마시고 짧게 기록한 뒤 다시 판단해 보세요."
+      ],
+      "cautions": [
+        "너무 오래 관망하면 좋은 타이밍을 놓칠 수 있어요."
+      ],
+      "tags": [],
+      "aiGenerated": true,
+      "sourceTier": {
+        "tier": "T1_HYPOTHESIS",
+        "sourceType": "training_derived",
+        "sourceUrl": null,
+        "accessedAt": "2026-05-02",
+        "quoteShort": null,
+        "humanInterpretation": "Branching pass fragment for water yongshin element. AI-derived display text; not authority truth.",
+        "copyrightNote": "No source prose copied; original phrasing.",
+        "authorityTruthEligible": false
+      }
+    },
+    {
+      "schemaVersion": "spring-ts.narrative-fragment.v1",
       "fragmentId": "overall.life.expert.agephase.spring_yin.metal.101",
       "axis": { "category": "overall", "period": "life", "depth": "expert" },
       "gating": {

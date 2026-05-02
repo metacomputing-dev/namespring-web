@@ -60,9 +60,10 @@ check('axis value coverage is machine readable',
 check('axis value gaps identify future agePhase expansion targets',
   report?.axisValueCoverage?.agePhase?.missingValues?.includes('late_40s'),
   String(report?.axisValueCoverage?.agePhase?.missingValues?.length ?? 0));
-check('axis value gaps identify future yongshinElement expansion targets',
-  report?.axisValueCoverage?.yongshinElement?.missingValues?.includes('WOOD'),
-  (report?.axisValueCoverage?.yongshinElement?.missingValues ?? []).join(','));
+check('axis value coverage confirms yongshinElement expansion is complete',
+  report?.axisValueCoverage?.yongshinElement?.missingValueCount === 0 &&
+    report.axisValueCoverage.yongshinElement.coveredValues?.length === 5,
+  JSON.stringify(report?.axisValueCoverage?.yongshinElement));
 check('underfilled cells are sorted planning records',
   Array.isArray(report?.underfilledCells) &&
     report.underfilledCells.every((cell: any) =>
