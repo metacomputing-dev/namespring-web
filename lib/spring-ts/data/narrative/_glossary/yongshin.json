@@ -1,0 +1,111 @@
+{
+  "schemaVersion": "spring-ts.glossary-bundle.v1",
+  "category": "yongshin",
+  "entries": [
+    {
+      "schemaVersion": "spring-ts.glossary-entry.v1",
+      "id": "yongshin",
+      "label": "용신",
+      "hashLabel": "#용신",
+      "category": "yongshin",
+      "brief": "내 사주를 가장 잘 도와주는, 가장 필요한 한 가지 기운이에요.",
+      "detailed": "내 사주의 균형이 한쪽으로 기울었을 때, 그 균형을 맞춰 주는 가장 중요한 기운을 용신이라고 해요. 비유하자면 '내 인생의 키 자물쇠를 여는 열쇠' 같은 역할이에요. 작명·운세·궁합 모두에서 가장 먼저 살피는 핵심 단서랍니다.",
+      "related": ["heeshin", "gishin", "gushin", "johu", "wood", "fire", "earth", "metal", "water"],
+      "aiGenerated": true,
+      "sourceTier": {
+        "tier": "T1_HYPOTHESIS",
+        "sourceType": "training_derived",
+        "sourceUrl": null,
+        "accessedAt": "2026-05-02",
+        "quoteShort": null,
+        "humanInterpretation": "AI-derived plain-language definition of yongshin. Display-only.",
+        "copyrightNote": "No source prose copied; original interpretation.",
+        "authorityTruthEligible": false
+      }
+    },
+    {
+      "schemaVersion": "spring-ts.glossary-entry.v1",
+      "id": "heeshin",
+      "label": "희신",
+      "hashLabel": "#희신",
+      "category": "yongshin",
+      "brief": "용신을 옆에서 도와 함께 일하는 보조 기운이에요.",
+      "detailed": "용신만 있어서는 부족할 때, 용신을 강하게 만들어 주거나 용신이 잘 작동하도록 길을 열어 주는 보조 기운이에요. '용신이 본부장이라면 희신은 든든한 부본부장'이라고 보면 쉬워요. 운세에서 희신이 들어오는 시기엔 흐름이 한결 부드러워져요.",
+      "related": ["yongshin", "gishin"],
+      "aiGenerated": true,
+      "sourceTier": {
+        "tier": "T1_HYPOTHESIS",
+        "sourceType": "training_derived",
+        "sourceUrl": null,
+        "accessedAt": "2026-05-02",
+        "quoteShort": null,
+        "humanInterpretation": "AI-derived plain-language definition of heeshin. Display-only.",
+        "copyrightNote": "No source prose copied; original interpretation.",
+        "authorityTruthEligible": false
+      }
+    },
+    {
+      "schemaVersion": "spring-ts.glossary-entry.v1",
+      "id": "gishin",
+      "label": "기신",
+      "hashLabel": "#기신",
+      "category": "yongshin",
+      "brief": "용신과 사이가 나빠 균형을 깨뜨리는 기운이에요.",
+      "detailed": "용신을 약하게 만들거나 누르는 기운으로, 운세에서 기신 시기가 오면 흐름이 무거워지기 쉬워요. 단, 무조건 나쁜 건 아니고 '주의 신호'로 보는 게 맞아요. 무리수만 줄이고 평소 페이스를 지키면 충분히 넘길 수 있어요.",
+      "related": ["yongshin", "gushin"],
+      "aiGenerated": true,
+      "sourceTier": {
+        "tier": "T1_HYPOTHESIS",
+        "sourceType": "training_derived",
+        "sourceUrl": null,
+        "accessedAt": "2026-05-02",
+        "quoteShort": null,
+        "humanInterpretation": "AI-derived plain-language definition of gishin. Display-only.",
+        "copyrightNote": "No source prose copied; original interpretation.",
+        "authorityTruthEligible": false
+      }
+    },
+    {
+      "schemaVersion": "spring-ts.glossary-entry.v1",
+      "id": "gushin",
+      "label": "구신",
+      "hashLabel": "#구신",
+      "category": "yongshin",
+      "brief": "기신을 도와 용신을 더 어렵게 만드는 기운이에요.",
+      "detailed": "기신과 한 팀이 되어 용신을 흔드는 기운이에요. 기신과 구신이 함께 강해지면 그 시기엔 욕심·과로·즉흥적 결정만 줄여도 큰 흠 없이 지나가요. 사주 자체에 구신이 강해도 평생 흉한 게 아니라, '특정 분야의 약점' 정도로 받아들이면 돼요.",
+      "related": ["yongshin", "gishin"],
+      "aiGenerated": true,
+      "sourceTier": {
+        "tier": "T1_HYPOTHESIS",
+        "sourceType": "training_derived",
+        "sourceUrl": null,
+        "accessedAt": "2026-05-02",
+        "quoteShort": null,
+        "humanInterpretation": "AI-derived plain-language definition of gushin. Display-only.",
+        "copyrightNote": "No source prose copied; original interpretation.",
+        "authorityTruthEligible": false
+      }
+    },
+    {
+      "schemaVersion": "spring-ts.glossary-entry.v1",
+      "id": "johu",
+      "label": "조후",
+      "hashLabel": "#조후",
+      "category": "yongshin",
+      "brief": "사주의 추위·더위를 알맞게 맞춰 주는 기운이에요.",
+      "detailed": "사주에 더운 기운(불·火)이 너무 많으면 시원한 물이 필요하고, 추운 기운(물·水)이 많으면 따뜻한 불이 필요해요. 이렇게 온도를 맞춰 주는 균형 기운을 조후라고 해요. 평생을 통틀어 큰 결정이 필요한 순간에 조후가 잘 맞으면 결과가 부드러워져요.",
+      "related": ["yongshin", "fire", "water"],
+      "aiGenerated": true,
+      "sourceTier": {
+        "tier": "T1_HYPOTHESIS",
+        "sourceType": "training_derived",
+        "sourceUrl": null,
+        "accessedAt": "2026-05-02",
+        "quoteShort": null,
+        "humanInterpretation": "AI-derived plain-language definition of johu. Display-only.",
+        "copyrightNote": "No source prose copied; original interpretation.",
+        "authorityTruthEligible": false
+      }
+    }
+  ]
+}

@@ -1,0 +1,30 @@
+{
+  "schemaVersion": "spring-ts.glossary-bundle.v1",
+  "category": "gungsil",
+  "entries": [
+    {
+      "schemaVersion": "spring-ts.glossary-entry.v1",
+      "id": "siGungsil",
+      "label": "시궁실",
+      "hashLabel": "#시궁실",
+      "category": "gungsil",
+      "brief": "특정 시기의 '운세 자리'를 살피는 단위예요.",
+      "detailed": "시궁실은 특정 짧은 기간(일·주·월)이 어떤 자리에서 들어오는지를 보는 단위예요. 그 시기의 흐름이 길/흉 어느 쪽으로 기울어 있는지 빠르게 가늠할 수 있어요. 자세한 해석은 사주 전체 모양과 함께 봐야 정확해요.",
+      "related": ["daewoonGungsil"],
+      "aiGenerated": true,
+      "sourceTier": { "tier": "T1_HYPOTHESIS", "sourceType": "training_derived", "sourceUrl": null, "accessedAt": "2026-05-02", "quoteShort": null, "humanInterpretation": "AI-derived plain-language definition of 시궁실. Display-only.", "copyrightNote": "No source prose copied.", "authorityTruthEligible": false }
+    },
+    {
+      "schemaVersion": "spring-ts.glossary-entry.v1",
+      "id": "daewoonGungsil",
+      "label": "대운궁실",
+      "hashLabel": "#대운궁실",
+      "category": "gungsil",
+      "brief": "10년 단위의 큰 운세 자리를 살피는 단위예요.",
+      "detailed": "대운궁실은 10년 단위로 인생의 결을 비추는 자리예요. 어떤 대운이 들어오느냐에 따라 직업·관계·건강의 큰 줄기가 달라지기에, 인생 시기별 운세 카드는 이 자리를 가장 중요한 단서로 삼아요.",
+      "related": ["siGungsil"],
+      "aiGenerated": true,
+      "sourceTier": { "tier": "T1_HYPOTHESIS", "sourceType": "training_derived", "sourceUrl": null, "accessedAt": "2026-05-02", "quoteShort": null, "humanInterpretation": "AI-derived plain-language definition of 대운궁실. Display-only.", "copyrightNote": "No source prose copied.", "authorityTruthEligible": false }
+    }
+  ]
+}

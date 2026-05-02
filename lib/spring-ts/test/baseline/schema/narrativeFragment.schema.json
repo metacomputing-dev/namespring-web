@@ -1,0 +1,229 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://namespring.local/spring-ts/narrativeFragment.schema.json",
+  "title": "spring-ts Narrative Fragment",
+  "description": "A single tiered-matrix narrative fragment authored under the slot-template DSL declared in data/narrative/_contract/v1.json. Each fragment declares its axis (category/period/depth), gating attributes used by the fragment selector, and a templateTokens body that resolves to a TaggedParagraph at build time. AI-derived fragments must be marked aiGenerated:true and carry a T1_HYPOTHESIS sourceTier.",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "schemaVersion",
+    "fragmentId",
+    "axis",
+    "gating",
+    "templateTokens",
+    "tags",
+    "aiGenerated",
+    "sourceTier"
+  ],
+  "properties": {
+    "schemaVersion": {
+      "type": "string",
+      "const": "spring-ts.narrative-fragment.v1"
+    },
+    "fragmentId": {
+      "type": "string",
+      "pattern": "^(overall|wealth|health|academic|romance|family|career|study_document|expression_children|health_stress|movement)\\.(life|today|thisWeek|thisMonth|thisYear)\\.(brief|standard|expert)\\.[a-z0-9_]+(?:\\.[a-z0-9_]+)*\\.[0-9]{3}$",
+      "description": "Stable ID. Convention: <category>.<period>.<depth>.<gating-key1>.<gating-key2>.<NNN>. Categories include the special 'overall' (총운) cell."
+    },
+    "axis": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["category", "period", "depth"],
+      "properties": {
+        "category": {
+          "type": "string",
+          "enum": [
+            "overall", "wealth", "health", "academic", "romance", "family",
+            "career", "study_document", "expression_children", "health_stress", "movement"
+          ]
+        },
+        "period": {
+          "type": "string",
+          "enum": ["life", "today", "thisWeek", "thisMonth", "thisYear"]
+        },
+        "depth": {
+          "type": "string",
+          "enum": ["brief", "standard", "expert"]
+        },
+        "tone": {
+          "type": ["string", "null"],
+          "enum": [null, "expert", "plain", "counselor"]
+        }
+      }
+    },
+    "gating": {
+      "type": "object",
+      "additionalProperties": false,
+      "description": "Whitelisted gating attributes. Each is an array of allowed values; null/absent = wildcard for that dimension. Selector applies fallback chain gender → ageBand → tone → strength → yongshinAlignment → dayMasterStrength → gyeokguk.",
+      "properties": {
+        "gender": {
+          "type": "array",
+          "items": { "type": "string", "enum": ["male", "female", "neutral"] },
+          "uniqueItems": true
+        },
+        "ageBand": {
+          "type": "array",
+          "items": {
+            "type": "string",
+            "enum": ["0-9", "10-19", "20-29", "30-39", "40-54", "55-69", "70+"]
+          },
+          "uniqueItems": true
+        },
+        "dayMasterStrength": {
+          "type": "array",
+          "items": {
+            "type": "string",
+            "enum": ["EXTREME_STRONG", "STRONG", "BALANCED", "WEAK", "EXTREME_WEAK"]
+          },
+          "uniqueItems": true
+        },
+        "yongshinAlignment": {
+          "type": "array",
+          "items": { "type": "string", "enum": ["aligned", "neutral", "conflicting"] },
+          "uniqueItems": true
+        },
+        "dayMasterElement": {
+          "type": "array",
+          "items": {
+            "type": "string",
+            "enum": ["WOOD", "FIRE", "EARTH", "METAL", "WATER"]
+          },
+          "uniqueItems": true
+        },
+        "yongshinElement": {
+          "type": "array",
+          "items": {
+            "type": "string",
+            "enum": ["WOOD", "FIRE", "EARTH", "METAL", "WATER"]
+          },
+          "uniqueItems": true
+        },
+        "gyeokguk": {
+          "type": "array",
+          "items": { "type": "string" },
+          "uniqueItems": true
+        }
+      }
+    },
+    "templateTokens": {
+      "type": "array",
+      "minItems": 1,
+      "items": {
+        "oneOf": [
+          {
+            "type": "object",
+            "additionalProperties": false,
+            "required": ["kind", "value"],
+            "properties": {
+              "kind": { "const": "text" },
+              "value": { "type": "string", "minLength": 1 }
+            }
+          },
+          {
+            "type": "object",
+            "additionalProperties": false,
+            "required": ["kind", "name", "type"],
+            "properties": {
+              "kind": { "const": "slot" },
+              "name": { "type": "string", "pattern": "^[a-z][a-zA-Z0-9_]*$" },
+              "type": {
+                "type": "string",
+                "enum": [
+                  "verb", "noun", "adjective", "phrase",
+                  "elementName", "elementMetaphor", "tenGodName",
+                  "periodLabel", "ageLabel", "tipPhrase", "cautionPhrase"
+                ]
+              }
+            }
+          },
+          {
+            "type": "object",
+            "additionalProperties": false,
+            "required": ["kind", "tagId", "label"],
+            "properties": {
+              "kind": { "const": "tag" },
+              "tagId": { "type": "string", "minLength": 1 },
+              "label": { "type": "string", "minLength": 1 }
+            }
+          }
+        ]
+      }
+    },
+    "slots": {
+      "type": "object",
+      "description": "Variant pool for each slot referenced in templateTokens. Selector uses selectionSeed to pick deterministically.",
+      "additionalProperties": {
+        "type": "array",
+        "minItems": 1,
+        "items": { "type": "string", "minLength": 1 }
+      }
+    },
+    "tags": {
+      "type": "array",
+      "description": "All tagId values referenced in this fragment (must match templateTokens kind:tag entries). Mirrored for fast indexing.",
+      "items": { "type": "string", "minLength": 1 },
+      "uniqueItems": true
+    },
+    "livingTips": {
+      "type": "array",
+      "description": "Optional standard-tier living tips. Each entry is a plain string (no inline tags).",
+      "items": { "type": "string", "minLength": 1 }
+    },
+    "cautions": {
+      "type": "array",
+      "description": "Optional standard-tier cautions.",
+      "items": { "type": "string", "minLength": 1 }
+    },
+    "numericalEvidence": {
+      "type": "array",
+      "description": "Optional expert-tier numeric backing. Each row's sourceTier must clear NO_AI_POLICY: numbers must trace back to deterministic engine output even when prose is AI-derived.",
+      "items": {
+        "type": "object",
+        "additionalProperties": false,
+        "required": ["label", "valueExpression", "sourceTier"],
+        "properties": {
+          "label": { "type": "string", "minLength": 1 },
+          "valueExpression": {
+            "type": "string",
+            "description": "Reference to a numeric path inside the saju feature vector (e.g., 'sajuCompatibility.affinityScore'). Resolved at build time."
+          },
+          "unit": { "type": "string" },
+          "sourceTier": { "$ref": "https://namespring.local/spring-ts/sourceTier.schema.json" }
+        }
+      }
+    },
+    "headlineSlot": {
+      "type": "string",
+      "description": "Brief-tier only: the slot name that produces the headline. Optional; defaults to assembling templateTokens."
+    },
+    "hookSlot": {
+      "type": "string",
+      "description": "Brief-tier only: optional secondary slot for the hook line."
+    },
+    "aiGenerated": {
+      "type": "boolean",
+      "description": "Always true for fragments authored under the Phase 2 fan-out. Required by NO_AI_POLICY."
+    },
+    "modelGenerated": {
+      "type": "boolean"
+    },
+    "sourceTier": { "$ref": "https://namespring.local/spring-ts/sourceTier.schema.json" }
+  },
+  "allOf": [
+    {
+      "if": { "properties": { "aiGenerated": { "const": true } } },
+      "then": {
+        "properties": {
+          "sourceTier": {
+            "properties": {
+              "tier": { "const": "T1_HYPOTHESIS" },
+              "sourceType": { "const": "training_derived" },
+              "authorityTruthEligible": { "const": false }
+            },
+            "required": ["tier", "sourceType", "authorityTruthEligible"]
+          }
+        }
+      }
+    }
+  ]
+}
