@@ -106,6 +106,66 @@
         "copyrightNote": "No source prose copied; original interpretation.",
         "authorityTruthEligible": false
       }
+    },
+    {
+      "schemaVersion": "spring-ts.glossary-entry.v1",
+      "id": "tonggwanYongshin",
+      "label": "통관용신",
+      "hashLabel": "#통관용신",
+      "category": "yongshin",
+      "brief": "두 기운의 다툼을 풀어 주는 중간 다리 역할의 용신이에요.",
+      "detailed": "사주에 강한 두 기운이 정면으로 부딪칠 때, 그 둘 사이를 이어 주며 흐름을 풀어 주는 결을 통관용신이라고 해요. 마치 '서로 쏘아보는 두 사람 사이에 끼어 부드럽게 이야기를 잇는 친구' 같은 자리예요. 다툼 결을 풀어 주는 약이 되는 결이에요.",
+      "related": ["yongshin", "heeshin"],
+      "aiGenerated": true,
+      "sourceTier": { "tier": "T1_HYPOTHESIS", "sourceType": "training_derived", "sourceUrl": null, "accessedAt": "2026-05-02", "quoteShort": null, "humanInterpretation": "AI-derived plain-language definition of 통관용신. Display-only.", "copyrightNote": "No source prose copied.", "authorityTruthEligible": false }
+    },
+    {
+      "schemaVersion": "spring-ts.glossary-entry.v1",
+      "id": "byeongyakYongshin",
+      "label": "병약용신",
+      "hashLabel": "#병약용신",
+      "category": "yongshin",
+      "brief": "사주의 흠(병)을 직접 치료해 주는 약 같은 용신이에요.",
+      "detailed": "사주의 결에 또렷한 약점·흠이 있을 때, 그 흠을 직접 누르거나 풀어 주는 결을 병약용신이라고 해요. '병이 있으면 그 병을 다스리는 약을 써야 한다'는 결이라, 사주의 약점이 분명할수록 이 용신의 효과가 또렷이 나타나요.",
+      "related": ["yongshin", "gishin"],
+      "aiGenerated": true,
+      "sourceTier": { "tier": "T1_HYPOTHESIS", "sourceType": "training_derived", "sourceUrl": null, "accessedAt": "2026-05-02", "quoteShort": null, "humanInterpretation": "AI-derived plain-language definition of 병약용신. Display-only.", "copyrightNote": "No source prose copied.", "authorityTruthEligible": false }
+    },
+    {
+      "schemaVersion": "spring-ts.glossary-entry.v1",
+      "id": "buaekYongshin",
+      "label": "부억용신",
+      "hashLabel": "#부억용신",
+      "category": "yongshin",
+      "brief": "내 기운이 약하면 도와주고 강하면 눌러 주는 용신이에요.",
+      "detailed": "부억은 '도와줌과 누름'이라는 뜻으로, 내 기운(일간)이 약할 땐 같은 편을 보태 주고, 강할 땐 다듬어 주는 결의 용신이에요. 가장 흔히 쓰는 용신 잡는 결이라, 사주의 균형을 맞추는 첫 번째 잣대로 자주 쓰여요.",
+      "related": ["yongshin", "bigyeon"],
+      "aiGenerated": true,
+      "sourceTier": { "tier": "T1_HYPOTHESIS", "sourceType": "training_derived", "sourceUrl": null, "accessedAt": "2026-05-02", "quoteShort": null, "humanInterpretation": "AI-derived plain-language definition of 부억용신. Display-only.", "copyrightNote": "No source prose copied.", "authorityTruthEligible": false }
+    },
+    {
+      "schemaVersion": "spring-ts.glossary-entry.v1",
+      "id": "johuYongshin",
+      "label": "조후용신",
+      "hashLabel": "#조후용신",
+      "category": "yongshin",
+      "brief": "사주의 추위·더위를 다스리는 결이 용신 역할을 할 때예요.",
+      "detailed": "사주가 한쪽으로 너무 차거나 너무 더울 때, 온도를 맞춰 주는 조후의 결이 용신 자리에 들어와요. 더위에는 시원한 물, 추위에는 따뜻한 불을 처방하는 결이라, 큰 결정 앞에서 조후 결이 함께 맞으면 결과가 부드럽게 풀려요.",
+      "related": ["johu", "yongshin", "fire", "water"],
+      "aiGenerated": true,
+      "sourceTier": { "tier": "T1_HYPOTHESIS", "sourceType": "training_derived", "sourceUrl": null, "accessedAt": "2026-05-02", "quoteShort": null, "humanInterpretation": "AI-derived plain-language definition of 조후용신. Display-only.", "copyrightNote": "No source prose copied.", "authorityTruthEligible": false }
+    },
+    {
+      "schemaVersion": "spring-ts.glossary-entry.v1",
+      "id": "gyeokgukYongshin",
+      "label": "격국용신",
+      "hashLabel": "#격국용신",
+      "category": "yongshin",
+      "brief": "사주의 격국 모양에 맞춰 잡는 용신이에요.",
+      "detailed": "단순히 강약·온도만 보지 않고, 사주의 격국 모양 전체를 살펴 그 격에 가장 잘 어울리는 결을 용신으로 잡는 결이에요. 사주의 큰 그림을 함께 보며 잡는 용신이라, 직업·자리·인생 결의 흐름을 길게 보는 데 도움이 돼요.",
+      "related": ["yongshin", "jeonggwangyeok", "jeongjaegyeok"],
+      "aiGenerated": true,
+      "sourceTier": { "tier": "T1_HYPOTHESIS", "sourceType": "training_derived", "sourceUrl": null, "accessedAt": "2026-05-02", "quoteShort": null, "humanInterpretation": "AI-derived plain-language definition of 격국용신. Display-only.", "copyrightNote": "No source prose copied.", "authorityTruthEligible": false }
     }
   ]
 }

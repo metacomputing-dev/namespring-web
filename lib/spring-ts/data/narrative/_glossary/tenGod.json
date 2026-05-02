@@ -131,6 +131,126 @@
       "related": ["pyeonin"],
       "aiGenerated": true,
       "sourceTier": { "tier": "T1_HYPOTHESIS", "sourceType": "training_derived", "sourceUrl": null, "accessedAt": "2026-05-02", "quoteShort": null, "humanInterpretation": "AI-derived plain-language definition of jeongin (정인). Display-only narrative.", "copyrightNote": "No source prose copied.", "authorityTruthEligible": false }
+    },
+    {
+      "schemaVersion": "spring-ts.glossary-entry.v1",
+      "id": "bigyeon_yongshin",
+      "label": "비견용신",
+      "hashLabel": "#비견용신",
+      "category": "tenGod",
+      "brief": "비견이 내 사주를 도와주는 핵심 키 역할을 할 때예요.",
+      "detailed": "내 기운이 약해 같은 편의 친구 손을 빌려야 할 때, 비견이 용신 자리에 들어와요. 동료·형제·친구의 응원이 한 해의 흐름을 풀어 주는 결이라, 같이 일하는 자리·팀 프로젝트에서 결과가 잘 나는 경향이 있어요.",
+      "related": ["bigyeon", "yongshin"],
+      "aiGenerated": true,
+      "sourceTier": { "tier": "T1_HYPOTHESIS", "sourceType": "training_derived", "sourceUrl": null, "accessedAt": "2026-05-02", "quoteShort": null, "humanInterpretation": "AI-derived plain-language definition of bigyeon as yongshin. Display-only narrative.", "copyrightNote": "No source prose copied.", "authorityTruthEligible": false }
+    },
+    {
+      "schemaVersion": "spring-ts.glossary-entry.v1",
+      "id": "geobjae_yongshin",
+      "label": "겁재용신",
+      "hashLabel": "#겁재용신",
+      "category": "tenGod",
+      "brief": "겁재가 내 사주의 부족한 자리를 채워 주는 결일 때예요.",
+      "detailed": "내 기운이 많이 약할 때, 강한 추진력의 겁재가 용신 자리에 서요. 동업·경쟁 무대에서 오히려 힘이 살아나는 결이지만, 욕심이 앞설 수 있어 큰 돈거래는 한 박자 늦추는 게 좋아요. 겁재가 도와주는 시기엔 적극적인 도전이 결과로 이어져요.",
+      "related": ["geobjae", "yongshin"],
+      "aiGenerated": true,
+      "sourceTier": { "tier": "T1_HYPOTHESIS", "sourceType": "training_derived", "sourceUrl": null, "accessedAt": "2026-05-02", "quoteShort": null, "humanInterpretation": "AI-derived plain-language definition of geobjae as yongshin. Display-only narrative.", "copyrightNote": "No source prose copied.", "authorityTruthEligible": false }
+    },
+    {
+      "schemaVersion": "spring-ts.glossary-entry.v1",
+      "id": "sikshin_yongshin",
+      "label": "식신용신",
+      "hashLabel": "#식신용신",
+      "category": "tenGod",
+      "brief": "내가 만들어 내는 결과물이 인생의 키 역할을 할 때예요.",
+      "detailed": "기운이 너무 답답하게 모여 있을 때 식신이 용신 자리에 와서 흐름을 풀어 줘요. 표현·창작·요리·서비스처럼 '내가 만들어 내는 결과물'이 인생을 풀어 주는 키예요. 식신용신이면 자기 분야의 결과물을 꾸준히 쌓는 직업이 잘 맞아요.",
+      "related": ["sikshin", "yongshin"],
+      "aiGenerated": true,
+      "sourceTier": { "tier": "T1_HYPOTHESIS", "sourceType": "training_derived", "sourceUrl": null, "accessedAt": "2026-05-02", "quoteShort": null, "humanInterpretation": "AI-derived plain-language definition of sikshin as yongshin. Display-only narrative.", "copyrightNote": "No source prose copied.", "authorityTruthEligible": false }
+    },
+    {
+      "schemaVersion": "spring-ts.glossary-entry.v1",
+      "id": "sanggwan_yongshin",
+      "label": "상관용신",
+      "hashLabel": "#상관용신",
+      "category": "tenGod",
+      "brief": "톡톡 튀는 표현·기획이 내 사주의 키 역할을 할 때예요.",
+      "detailed": "강한 기운을 풀어 줄 길이 필요할 때, 개성이 분명한 상관이 용신 자리로 와요. 자기 무대·창업·기획 분야에서 빛이 나는 결이지만, 윗사람·규칙과 부딪칠 수 있어요. 표현 방식과 시점만 잘 다듬으면 자기만의 무대를 또렷하게 세우게 돼요.",
+      "related": ["sanggwan", "yongshin"],
+      "aiGenerated": true,
+      "sourceTier": { "tier": "T1_HYPOTHESIS", "sourceType": "training_derived", "sourceUrl": null, "accessedAt": "2026-05-02", "quoteShort": null, "humanInterpretation": "AI-derived plain-language definition of sanggwan as yongshin. Display-only narrative.", "copyrightNote": "No source prose copied.", "authorityTruthEligible": false }
+    },
+    {
+      "schemaVersion": "spring-ts.glossary-entry.v1",
+      "id": "pyeonjae_yongshin",
+      "label": "편재용신",
+      "hashLabel": "#편재용신",
+      "category": "tenGod",
+      "brief": "큰 흐름의 재물·기회가 인생의 키 역할을 할 때예요.",
+      "detailed": "내 기운이 강해서 다스릴 자원이 필요할 때, 편재가 용신 자리에 와요. 사업·영업·확장의 무대에서 강점이 두드러지고, 사람을 끌어모으는 힘이 좋아요. 작은 관리에는 헐거우니, 챙겨 주는 시스템을 함께 두면 강점이 오래 가요.",
+      "related": ["pyeonjae", "yongshin"],
+      "aiGenerated": true,
+      "sourceTier": { "tier": "T1_HYPOTHESIS", "sourceType": "training_derived", "sourceUrl": null, "accessedAt": "2026-05-02", "quoteShort": null, "humanInterpretation": "AI-derived plain-language definition of pyeonjae as yongshin. Display-only narrative.", "copyrightNote": "No source prose copied.", "authorityTruthEligible": false }
+    },
+    {
+      "schemaVersion": "spring-ts.glossary-entry.v1",
+      "id": "jeongjae_yongshin",
+      "label": "정재용신",
+      "hashLabel": "#정재용신",
+      "category": "tenGod",
+      "brief": "꾸준히 모이는 안정 자원이 인생의 키 역할을 할 때예요.",
+      "detailed": "내 기운이 강해 다스릴 자리가 필요할 때, 차곡차곡 결의 정재가 용신 자리에 와요. 월급·적금·자영업 같은 꾸준한 흐름에서 결과가 도드라지고, 가정·생활의 안정도 함께 자라요. 큰 한 방보다 매일 쌓는 자리가 잘 맞는 결이에요.",
+      "related": ["jeongjae", "yongshin"],
+      "aiGenerated": true,
+      "sourceTier": { "tier": "T1_HYPOTHESIS", "sourceType": "training_derived", "sourceUrl": null, "accessedAt": "2026-05-02", "quoteShort": null, "humanInterpretation": "AI-derived plain-language definition of jeongjae as yongshin. Display-only narrative.", "copyrightNote": "No source prose copied.", "authorityTruthEligible": false }
+    },
+    {
+      "schemaVersion": "spring-ts.glossary-entry.v1",
+      "id": "pyeongwan_yongshin",
+      "label": "편관용신",
+      "hashLabel": "#편관용신",
+      "category": "tenGod",
+      "brief": "강한 도전·결단의 기운이 인생의 키 역할을 할 때예요.",
+      "detailed": "내 기운이 너무 강해 누가 눌러 줘야 할 때, 빠른 결단의 편관이 용신 자리에 와요. 큰 무대·압박이 큰 자리에서 오히려 강점이 살아나고, 결단력·리더십이 또렷해져요. 다만 인성의 응원이 함께 있어야 압박이 결과로 이어져요.",
+      "related": ["pyeongwan", "yongshin"],
+      "aiGenerated": true,
+      "sourceTier": { "tier": "T1_HYPOTHESIS", "sourceType": "training_derived", "sourceUrl": null, "accessedAt": "2026-05-02", "quoteShort": null, "humanInterpretation": "AI-derived plain-language definition of pyeongwan as yongshin. Display-only narrative.", "copyrightNote": "No source prose copied.", "authorityTruthEligible": false }
+    },
+    {
+      "schemaVersion": "spring-ts.glossary-entry.v1",
+      "id": "jeonggwan_yongshin",
+      "label": "정관용신",
+      "hashLabel": "#정관용신",
+      "category": "tenGod",
+      "brief": "반듯한 자리·책임이 인생의 키 역할을 할 때예요.",
+      "detailed": "내 기운이 강할 때 바른 책임의 정관이 용신 자리에 들어오면, 사회적 자리·신뢰·자격이 인생을 풀어 주는 키가 돼요. 큰 회사·관청·전문직처럼 자리가 분명한 무대에서 빛이 나는 결이라, 흐름을 따라가면 책임이 자산이 돼요.",
+      "related": ["jeonggwan", "yongshin"],
+      "aiGenerated": true,
+      "sourceTier": { "tier": "T1_HYPOTHESIS", "sourceType": "training_derived", "sourceUrl": null, "accessedAt": "2026-05-02", "quoteShort": null, "humanInterpretation": "AI-derived plain-language definition of jeonggwan as yongshin. Display-only narrative.", "copyrightNote": "No source prose copied.", "authorityTruthEligible": false }
+    },
+    {
+      "schemaVersion": "spring-ts.glossary-entry.v1",
+      "id": "pyeonin_yongshin",
+      "label": "편인용신",
+      "hashLabel": "#편인용신",
+      "category": "tenGod",
+      "brief": "독특한 공부·통찰이 인생의 키 역할을 할 때예요.",
+      "detailed": "기운이 약하거나 결단의 압박이 큰 사주에 편인이 용신 자리로 들어오면, 깊이 파고드는 공부·전문 기술·예술이 인생의 키가 돼요. 자기만의 도구를 갈고닦는 길이 잘 맞고, 사람과 한 발 거리를 두며 자기 무대를 길게 가져가는 결이에요.",
+      "related": ["pyeonin", "yongshin"],
+      "aiGenerated": true,
+      "sourceTier": { "tier": "T1_HYPOTHESIS", "sourceType": "training_derived", "sourceUrl": null, "accessedAt": "2026-05-02", "quoteShort": null, "humanInterpretation": "AI-derived plain-language definition of pyeonin as yongshin. Display-only narrative.", "copyrightNote": "No source prose copied.", "authorityTruthEligible": false }
+    },
+    {
+      "schemaVersion": "spring-ts.glossary-entry.v1",
+      "id": "jeongin_yongshin",
+      "label": "정인용신",
+      "hashLabel": "#정인용신",
+      "category": "tenGod",
+      "brief": "엄마처럼 챙겨 주는 공부·후원이 인생의 키 역할을 할 때예요.",
+      "detailed": "내 기운이 약하거나 압박이 클 때, 따뜻한 정인이 용신 자리에 와요. 부모·스승·책·자격증의 도움이 인생을 풀어 주는 키가 되는 결이라, 차분히 공부하거나 자격을 갖추는 자리에서 결과가 또렷이 따르는 흐름이에요.",
+      "related": ["jeongin", "yongshin"],
+      "aiGenerated": true,
+      "sourceTier": { "tier": "T1_HYPOTHESIS", "sourceType": "training_derived", "sourceUrl": null, "accessedAt": "2026-05-02", "quoteShort": null, "humanInterpretation": "AI-derived plain-language definition of jeongin as yongshin. Display-only narrative.", "copyrightNote": "No source prose copied.", "authorityTruthEligible": false }
     }
   ]
 }

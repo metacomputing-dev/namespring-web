@@ -97,6 +97,126 @@
       "related": ["pyeonin"],
       "aiGenerated": true,
       "sourceTier": { "tier": "T1_HYPOTHESIS", "sourceType": "training_derived", "sourceUrl": null, "accessedAt": "2026-05-02", "quoteShort": null, "humanInterpretation": "AI-derived plain-language definition of 편인격. Display-only narrative.", "copyrightNote": "No source prose copied.", "authorityTruthEligible": false }
+    },
+    {
+      "schemaVersion": "spring-ts.glossary-entry.v1",
+      "id": "jongjaegyeok",
+      "label": "종재격",
+      "hashLabel": "#종재격",
+      "category": "gyeokguk",
+      "brief": "내 기운이 약해 재물 기운에 따라 흐르는 잡격이에요.",
+      "detailed": "내 기운이 너무 약해 더 이상 버티지 않고, 강한 재물(재성) 기운에 몸을 맡기는 형태예요. 보통의 사주가 균형을 추구한다면, 종재격은 '강한 한쪽으로 따라가는 결'로 풀어요. 사업·영업처럼 큰 흐름의 자리에서 결과가 또렷이 따르는 결이에요.",
+      "related": ["pyeonjae", "jeongjae"],
+      "aiGenerated": true,
+      "sourceTier": { "tier": "T1_HYPOTHESIS", "sourceType": "training_derived", "sourceUrl": null, "accessedAt": "2026-05-02", "quoteShort": null, "humanInterpretation": "AI-derived plain-language definition of 종재격. Display-only narrative.", "copyrightNote": "No source prose copied.", "authorityTruthEligible": false }
+    },
+    {
+      "schemaVersion": "spring-ts.glossary-entry.v1",
+      "id": "jonggwangyeok",
+      "label": "종관격",
+      "hashLabel": "#종관격",
+      "category": "gyeokguk",
+      "brief": "내 기운이 약해 정관의 결에 따라 흐르는 잡격이에요.",
+      "detailed": "내 기운이 약해 버티지 않고, 강한 정관(자리·책임)의 결을 따라가는 형태예요. 큰 조직·자격·공직의 자리에서 결과가 따르는 결이라, 정해진 길을 따라가며 차곡차곡 자리를 굳히는 사주예요. 인성이 함께 있으면 압박이 결과로 잘 다듬여져요.",
+      "related": ["jeonggwan"],
+      "aiGenerated": true,
+      "sourceTier": { "tier": "T1_HYPOTHESIS", "sourceType": "training_derived", "sourceUrl": null, "accessedAt": "2026-05-02", "quoteShort": null, "humanInterpretation": "AI-derived plain-language definition of 종관격. Display-only narrative.", "copyrightNote": "No source prose copied.", "authorityTruthEligible": false }
+    },
+    {
+      "schemaVersion": "spring-ts.glossary-entry.v1",
+      "id": "jongsalgyeok",
+      "label": "종살격",
+      "hashLabel": "#종살격",
+      "category": "gyeokguk",
+      "brief": "내 기운이 약해 편관(칠살)의 결을 따라가는 잡격이에요.",
+      "detailed": "내 기운이 약해 버티지 않고, 강한 편관(칠살)의 결단·압박에 몸을 맡기는 형태예요. 큰 무대·외부 압력이 큰 자리에서 오히려 강점이 살아나고, 결단력 있는 직업과 잘 맞아요. 인성 같은 응원이 함께 있으면 압박이 자산으로 다듬여져요.",
+      "related": ["pyeongwan", "jeongin"],
+      "aiGenerated": true,
+      "sourceTier": { "tier": "T1_HYPOTHESIS", "sourceType": "training_derived", "sourceUrl": null, "accessedAt": "2026-05-02", "quoteShort": null, "humanInterpretation": "AI-derived plain-language definition of 종살격. Display-only narrative.", "copyrightNote": "No source prose copied.", "authorityTruthEligible": false }
+    },
+    {
+      "schemaVersion": "spring-ts.glossary-entry.v1",
+      "id": "jongagyeok",
+      "label": "종아격",
+      "hashLabel": "#종아격",
+      "category": "gyeokguk",
+      "brief": "내 기운을 풀어 주는 식상의 결을 따라가는 잡격이에요.",
+      "detailed": "'아'는 '내가 만들어 내는 자식 같은 것'이라는 뜻으로, 식신·상관(식상)을 가리켜요. 내 기운을 풀어 주는 식상의 결을 따라 표현·창작·서비스 자리로 흐르는 형태예요. 결과물 만드는 자리에서 빛이 또렷이 나는 결이에요.",
+      "related": ["sikshin", "sanggwan"],
+      "aiGenerated": true,
+      "sourceTier": { "tier": "T1_HYPOTHESIS", "sourceType": "training_derived", "sourceUrl": null, "accessedAt": "2026-05-02", "quoteShort": null, "humanInterpretation": "AI-derived plain-language definition of 종아격. Display-only narrative.", "copyrightNote": "No source prose copied.", "authorityTruthEligible": false }
+    },
+    {
+      "schemaVersion": "spring-ts.glossary-entry.v1",
+      "id": "jongingyeok",
+      "label": "종인격",
+      "hashLabel": "#종인격",
+      "category": "gyeokguk",
+      "brief": "강한 인성의 결을 따라 공부·돌봄으로 흐르는 잡격이에요.",
+      "detailed": "내 기운이 약하지만 인성(나를 길러 주는 기운)이 매우 강할 때, 그 결을 따라 흐르는 형태예요. 학문·자격·돌봄·전통의 자리에서 결과를 만드는 흐름이라, 차분히 깊어지는 시기를 거쳐 자기 무대를 단단히 세우는 결이에요.",
+      "related": ["jeongin", "pyeonin"],
+      "aiGenerated": true,
+      "sourceTier": { "tier": "T1_HYPOTHESIS", "sourceType": "training_derived", "sourceUrl": null, "accessedAt": "2026-05-02", "quoteShort": null, "humanInterpretation": "AI-derived plain-language definition of 종인격. Display-only narrative.", "copyrightNote": "No source prose copied.", "authorityTruthEligible": false }
+    },
+    {
+      "schemaVersion": "spring-ts.glossary-entry.v1",
+      "id": "jongbigyeok",
+      "label": "종비격",
+      "hashLabel": "#종비격",
+      "category": "gyeokguk",
+      "brief": "같은 편(비겁)의 결을 따라 흐르는 잡격이에요.",
+      "detailed": "내 기운과 같은 편(비견·겁재)이 사주에 압도적으로 많아, 그 결을 따라 흐르는 형태예요. 동료·형제·팀의 결이 인생을 풀어 주는 키가 되는 결이라, 같이 일하는 자리·동업·집단 활동에서 결과가 또렷이 따르는 사주예요.",
+      "related": ["bigyeon", "geobjae"],
+      "aiGenerated": true,
+      "sourceTier": { "tier": "T1_HYPOTHESIS", "sourceType": "training_derived", "sourceUrl": null, "accessedAt": "2026-05-02", "quoteShort": null, "humanInterpretation": "AI-derived plain-language definition of 종비격. Display-only narrative.", "copyrightNote": "No source prose copied.", "authorityTruthEligible": false }
+    },
+    {
+      "schemaVersion": "spring-ts.glossary-entry.v1",
+      "id": "jeonwanggyeok",
+      "label": "전왕격",
+      "hashLabel": "#전왕격",
+      "category": "gyeokguk",
+      "brief": "한 오행이 사주를 가득 채워 그 결로 흐르는 잡격이에요.",
+      "detailed": "사주 전체가 한 가지 오행 기운으로 가득 차서, 그 결을 거스르지 않고 그대로 따라가는 형태예요. 균형보다 '온전한 한쪽'을 살리는 결이라, 그 오행과 어울리는 자리·시기에 강점이 또렷이 살아나는 사주예요.",
+      "related": ["wood", "fire", "earth", "metal", "water"],
+      "aiGenerated": true,
+      "sourceTier": { "tier": "T1_HYPOTHESIS", "sourceType": "training_derived", "sourceUrl": null, "accessedAt": "2026-05-02", "quoteShort": null, "humanInterpretation": "AI-derived plain-language definition of 전왕격. Display-only narrative.", "copyrightNote": "No source prose copied.", "authorityTruthEligible": false }
+    },
+    {
+      "schemaVersion": "spring-ts.glossary-entry.v1",
+      "id": "hwagyeok",
+      "label": "화격",
+      "hashLabel": "#화격",
+      "category": "gyeokguk",
+      "brief": "두 오행이 만나 다른 오행으로 변화하는 잡격이에요.",
+      "detailed": "천간의 두 글자가 합쳐서 다른 오행으로 변하는 결을 가진 형태예요. 예를 들어 갑기합이 되어 흙(土)으로 변하는 결이 강하면, 사주의 흐름이 변화한 그 오행을 따라가요. 변신·전환의 결이 또렷한 사주라, 큰 변화의 시기에 결과가 잘 따라요.",
+      "related": ["wood", "fire", "earth", "metal", "water"],
+      "aiGenerated": true,
+      "sourceTier": { "tier": "T1_HYPOTHESIS", "sourceType": "training_derived", "sourceUrl": null, "accessedAt": "2026-05-02", "quoteShort": null, "humanInterpretation": "AI-derived plain-language definition of 화격. Display-only narrative.", "copyrightNote": "No source prose copied.", "authorityTruthEligible": false }
+    },
+    {
+      "schemaVersion": "spring-ts.glossary-entry.v1",
+      "id": "yangingyeok",
+      "label": "양인격",
+      "hashLabel": "#양인격",
+      "category": "gyeokguk",
+      "brief": "강한 칼날 같은 양인이 사주의 중심을 잡고 있는 형태예요.",
+      "detailed": "사주 모양 중 양인(강한 칼날 결)이 중심에 자리한 형태예요. 결단력·돌파력이 또렷해 위기에서 반전을 만드는 힘이 강하고, 군경·전문직·승부 자리에서 빛을 잘 내요. 정관 같은 부드러운 기운이 옆에 있어 칼이 도구로 다듬여지면 강점이 오래 가요.",
+      "related": ["yangin", "geobjae"],
+      "aiGenerated": true,
+      "sourceTier": { "tier": "T1_HYPOTHESIS", "sourceType": "training_derived", "sourceUrl": null, "accessedAt": "2026-05-02", "quoteShort": null, "humanInterpretation": "AI-derived plain-language definition of 양인격. Display-only narrative.", "copyrightNote": "No source prose copied.", "authorityTruthEligible": false }
+    },
+    {
+      "schemaVersion": "spring-ts.glossary-entry.v1",
+      "id": "geonrokgyeok",
+      "label": "건록격",
+      "hashLabel": "#건록격",
+      "category": "gyeokguk",
+      "brief": "비견(같은 편)이 월지에 자리잡은 단단한 형태예요.",
+      "detailed": "내 일간과 같은 오행·같은 음양인 비견이 월지(태어난 달의 자리)에 든 모양이에요. 자기 자리가 단단해 자립심·실행력이 또렷한 결이라, 자영업·전문직 같은 '내가 직접 만드는 자리'에서 빛을 내는 사주예요. 동료의 결과 잘 어울려요.",
+      "related": ["bigyeon"],
+      "aiGenerated": true,
+      "sourceTier": { "tier": "T1_HYPOTHESIS", "sourceType": "training_derived", "sourceUrl": null, "accessedAt": "2026-05-02", "quoteShort": null, "humanInterpretation": "AI-derived plain-language definition of 건록격. Display-only narrative.", "copyrightNote": "No source prose copied.", "authorityTruthEligible": false }
     }
   ]
 }
