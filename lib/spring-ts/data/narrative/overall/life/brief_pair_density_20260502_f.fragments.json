@@ -1,0 +1,308 @@
+{
+  "schemaVersion": "spring-ts.narrative-fragment-bundle.v1",
+  "bundleId": "overall.life.brief_pair_density_20260502_f",
+  "contractVersion": "1.0.0",
+  "generatedBy": "codex.pair-density-batch-20260502-f",
+  "fragments": [
+    {
+      "schemaVersion": "spring-ts.narrative-fragment.v1",
+      "fragmentId": "overall.life.brief.late20s_female_ageband.059",
+      "axis": { "category": "overall", "period": "life", "depth": "brief" },
+      "gating": {
+        "agePhase": ["late_20s"],
+        "ageBand": ["20-29"],
+        "gender": ["female"]
+      },
+      "templateTokens": [
+        { "kind": "text", "value": "20대 후반 여성 흐름에서는 선택지를 넓히기보다 내가 오래 버틸 수 있는 방향을 고르는 힘이 중요해요." }
+      ],
+      "tags": [],
+      "aiGenerated": true,
+      "sourceTier": {
+        "tier": "T1_HYPOTHESIS",
+        "sourceType": "training_derived",
+        "sourceUrl": null,
+        "accessedAt": "2026-05-02",
+        "quoteShort": null,
+        "humanInterpretation": "Sixth pair-density expansion fragment for late age phase and gender branching.",
+        "copyrightNote": "No source prose copied; original hypothesis text.",
+        "authorityTruthEligible": false
+      }
+    },
+    {
+      "schemaVersion": "spring-ts.narrative-fragment.v1",
+      "fragmentId": "overall.life.brief.late20s_male_ageband.060",
+      "axis": { "category": "overall", "period": "life", "depth": "brief" },
+      "gating": {
+        "agePhase": ["late_20s"],
+        "ageBand": ["20-29"],
+        "gender": ["male"]
+      },
+      "templateTokens": [
+        { "kind": "text", "value": "20대 후반 남성 흐름에서는 조급함을 줄이고 실력을 보이는 방식이 좋아요. 큰 승부보다 꾸준한 결과가 신뢰를 만듭니다." }
+      ],
+      "tags": [],
+      "aiGenerated": true,
+      "sourceTier": {
+        "tier": "T1_HYPOTHESIS",
+        "sourceType": "training_derived",
+        "sourceUrl": null,
+        "accessedAt": "2026-05-02",
+        "quoteShort": null,
+        "humanInterpretation": "Sixth pair-density expansion fragment for late age phase and gender branching.",
+        "copyrightNote": "No source prose copied; original hypothesis text.",
+        "authorityTruthEligible": false
+      }
+    },
+    {
+      "schemaVersion": "spring-ts.narrative-fragment.v1",
+      "fragmentId": "overall.life.brief.late20s_neutral_ageband.061",
+      "axis": { "category": "overall", "period": "life", "depth": "brief" },
+      "gating": {
+        "agePhase": ["late_20s"],
+        "ageBand": ["20-29"],
+        "gender": ["neutral"]
+      },
+      "templateTokens": [
+        { "kind": "text", "value": "20대 후반 흐름에서는 가능성을 현실적인 계획으로 바꾸는 시기예요. 기준을 세우면 흔들림이 줄어듭니다." }
+      ],
+      "tags": [],
+      "aiGenerated": true,
+      "sourceTier": {
+        "tier": "T1_HYPOTHESIS",
+        "sourceType": "training_derived",
+        "sourceUrl": null,
+        "accessedAt": "2026-05-02",
+        "quoteShort": null,
+        "humanInterpretation": "Sixth pair-density expansion fragment for late age phase and gender branching.",
+        "copyrightNote": "No source prose copied; original hypothesis text.",
+        "authorityTruthEligible": false
+      }
+    },
+    {
+      "schemaVersion": "spring-ts.narrative-fragment.v1",
+      "fragmentId": "overall.life.brief.late30s_female_ageband.062",
+      "axis": { "category": "overall", "period": "life", "depth": "brief" },
+      "gating": {
+        "agePhase": ["late_30s"],
+        "ageBand": ["30-39"],
+        "gender": ["female"]
+      },
+      "templateTokens": [
+        { "kind": "text", "value": "30대 후반 여성 흐름에서는 능력을 더 증명하기보다 에너지를 어디에 쓸지 고르는 일이 핵심이에요." }
+      ],
+      "tags": [],
+      "aiGenerated": true,
+      "sourceTier": {
+        "tier": "T1_HYPOTHESIS",
+        "sourceType": "training_derived",
+        "sourceUrl": null,
+        "accessedAt": "2026-05-02",
+        "quoteShort": null,
+        "humanInterpretation": "Sixth pair-density expansion fragment for late age phase and gender branching.",
+        "copyrightNote": "No source prose copied; original hypothesis text.",
+        "authorityTruthEligible": false
+      }
+    },
+    {
+      "schemaVersion": "spring-ts.narrative-fragment.v1",
+      "fragmentId": "overall.life.brief.late30s_male_ageband.063",
+      "axis": { "category": "overall", "period": "life", "depth": "brief" },
+      "gating": {
+        "agePhase": ["late_30s"],
+        "ageBand": ["30-39"],
+        "gender": ["male"]
+      },
+      "templateTokens": [
+        { "kind": "text", "value": "30대 후반 남성 흐름에서는 책임이 커지는 만큼 속도 조절이 필요해요. 무리한 약속보다 지킬 수 있는 약속이 강점이 됩니다." }
+      ],
+      "tags": [],
+      "aiGenerated": true,
+      "sourceTier": {
+        "tier": "T1_HYPOTHESIS",
+        "sourceType": "training_derived",
+        "sourceUrl": null,
+        "accessedAt": "2026-05-02",
+        "quoteShort": null,
+        "humanInterpretation": "Sixth pair-density expansion fragment for late age phase and gender branching.",
+        "copyrightNote": "No source prose copied; original hypothesis text.",
+        "authorityTruthEligible": false
+      }
+    },
+    {
+      "schemaVersion": "spring-ts.narrative-fragment.v1",
+      "fragmentId": "overall.life.brief.late30s_neutral_ageband.064",
+      "axis": { "category": "overall", "period": "life", "depth": "brief" },
+      "gating": {
+        "agePhase": ["late_30s"],
+        "ageBand": ["30-39"],
+        "gender": ["neutral"]
+      },
+      "templateTokens": [
+        { "kind": "text", "value": "30대 후반 흐름에서는 바쁜 일상 속에서도 기준을 다시 세우기 좋아요. 덜어낼 일을 정하면 중심이 또렷해져요." }
+      ],
+      "tags": [],
+      "aiGenerated": true,
+      "sourceTier": {
+        "tier": "T1_HYPOTHESIS",
+        "sourceType": "training_derived",
+        "sourceUrl": null,
+        "accessedAt": "2026-05-02",
+        "quoteShort": null,
+        "humanInterpretation": "Sixth pair-density expansion fragment for late age phase and gender branching.",
+        "copyrightNote": "No source prose copied; original hypothesis text.",
+        "authorityTruthEligible": false
+      }
+    },
+    {
+      "schemaVersion": "spring-ts.narrative-fragment.v1",
+      "fragmentId": "overall.life.brief.late40s_female_ageband.065",
+      "axis": { "category": "overall", "period": "life", "depth": "brief" },
+      "gating": {
+        "agePhase": ["late_40s"],
+        "ageBand": ["40-54"],
+        "gender": ["female"]
+      },
+      "templateTokens": [
+        { "kind": "text", "value": "40대 후반 여성 흐름에서는 쌓인 경험이 판단을 도와줘요. 다만 감정 노동을 줄이고 회복 시간을 챙기는 것이 중요합니다." }
+      ],
+      "tags": [],
+      "aiGenerated": true,
+      "sourceTier": {
+        "tier": "T1_HYPOTHESIS",
+        "sourceType": "training_derived",
+        "sourceUrl": null,
+        "accessedAt": "2026-05-02",
+        "quoteShort": null,
+        "humanInterpretation": "Sixth pair-density expansion fragment for late age phase and gender branching.",
+        "copyrightNote": "No source prose copied; original hypothesis text.",
+        "authorityTruthEligible": false
+      }
+    },
+    {
+      "schemaVersion": "spring-ts.narrative-fragment.v1",
+      "fragmentId": "overall.life.brief.late40s_male_ageband.066",
+      "axis": { "category": "overall", "period": "life", "depth": "brief" },
+      "gating": {
+        "agePhase": ["late_40s"],
+        "ageBand": ["40-54"],
+        "gender": ["male"]
+      },
+      "templateTokens": [
+        { "kind": "text", "value": "40대 후반 남성 흐름에서는 결과를 내는 힘이 있지만 피로도 함께 쌓일 수 있어요. 장기전 기준으로 움직이면 안정적입니다." }
+      ],
+      "tags": [],
+      "aiGenerated": true,
+      "sourceTier": {
+        "tier": "T1_HYPOTHESIS",
+        "sourceType": "training_derived",
+        "sourceUrl": null,
+        "accessedAt": "2026-05-02",
+        "quoteShort": null,
+        "humanInterpretation": "Sixth pair-density expansion fragment for late age phase and gender branching.",
+        "copyrightNote": "No source prose copied; original hypothesis text.",
+        "authorityTruthEligible": false
+      }
+    },
+    {
+      "schemaVersion": "spring-ts.narrative-fragment.v1",
+      "fragmentId": "overall.life.brief.late40s_neutral_ageband.067",
+      "axis": { "category": "overall", "period": "life", "depth": "brief" },
+      "gating": {
+        "agePhase": ["late_40s"],
+        "ageBand": ["40-54"],
+        "gender": ["neutral"]
+      },
+      "templateTokens": [
+        { "kind": "text", "value": "40대 후반 흐름에서는 익숙한 방식과 새로운 방향을 조율할 때예요. 몸의 신호를 무시하지 않으면 판단도 맑아져요." }
+      ],
+      "tags": [],
+      "aiGenerated": true,
+      "sourceTier": {
+        "tier": "T1_HYPOTHESIS",
+        "sourceType": "training_derived",
+        "sourceUrl": null,
+        "accessedAt": "2026-05-02",
+        "quoteShort": null,
+        "humanInterpretation": "Sixth pair-density expansion fragment for late age phase and gender branching.",
+        "copyrightNote": "No source prose copied; original hypothesis text.",
+        "authorityTruthEligible": false
+      }
+    },
+    {
+      "schemaVersion": "spring-ts.narrative-fragment.v1",
+      "fragmentId": "overall.life.brief.late50s_female_ageband.068",
+      "axis": { "category": "overall", "period": "life", "depth": "brief" },
+      "gating": {
+        "agePhase": ["late_50s"],
+        "ageBand": ["55-69"],
+        "gender": ["female"]
+      },
+      "templateTokens": [
+        { "kind": "text", "value": "50대 후반 여성 흐름에서는 관계와 생활의 무게를 가볍게 정리하기 좋아요. 나를 지치게 하는 반복을 줄여보세요." }
+      ],
+      "tags": [],
+      "aiGenerated": true,
+      "sourceTier": {
+        "tier": "T1_HYPOTHESIS",
+        "sourceType": "training_derived",
+        "sourceUrl": null,
+        "accessedAt": "2026-05-02",
+        "quoteShort": null,
+        "humanInterpretation": "Sixth pair-density expansion fragment for late age phase and gender branching.",
+        "copyrightNote": "No source prose copied; original hypothesis text.",
+        "authorityTruthEligible": false
+      }
+    },
+    {
+      "schemaVersion": "spring-ts.narrative-fragment.v1",
+      "fragmentId": "overall.life.brief.late50s_male_ageband.069",
+      "axis": { "category": "overall", "period": "life", "depth": "brief" },
+      "gating": {
+        "agePhase": ["late_50s"],
+        "ageBand": ["55-69"],
+        "gender": ["male"]
+      },
+      "templateTokens": [
+        { "kind": "text", "value": "50대 후반 남성 흐름에서는 앞으로의 생활 방식을 다시 잡는 힘이 커져요. 익숙한 역할을 조금 나누면 여유가 생깁니다." }
+      ],
+      "tags": [],
+      "aiGenerated": true,
+      "sourceTier": {
+        "tier": "T1_HYPOTHESIS",
+        "sourceType": "training_derived",
+        "sourceUrl": null,
+        "accessedAt": "2026-05-02",
+        "quoteShort": null,
+        "humanInterpretation": "Sixth pair-density expansion fragment for late age phase and gender branching.",
+        "copyrightNote": "No source prose copied; original hypothesis text.",
+        "authorityTruthEligible": false
+      }
+    },
+    {
+      "schemaVersion": "spring-ts.narrative-fragment.v1",
+      "fragmentId": "overall.life.brief.late50s_neutral_ageband.070",
+      "axis": { "category": "overall", "period": "life", "depth": "brief" },
+      "gating": {
+        "agePhase": ["late_50s"],
+        "ageBand": ["55-69"],
+        "gender": ["neutral"]
+      },
+      "templateTokens": [
+        { "kind": "text", "value": "50대 후반 흐름에서는 더 많이 하기보다 오래 지속할 수 있는 형태를 찾는 것이 좋아요. 정리와 회복이 다음 힘을 만듭니다." }
+      ],
+      "tags": [],
+      "aiGenerated": true,
+      "sourceTier": {
+        "tier": "T1_HYPOTHESIS",
+        "sourceType": "training_derived",
+        "sourceUrl": null,
+        "accessedAt": "2026-05-02",
+        "quoteShort": null,
+        "humanInterpretation": "Sixth pair-density expansion fragment for late age phase and gender branching.",
+        "copyrightNote": "No source prose copied; original hypothesis text.",
+        "authorityTruthEligible": false
+      }
+    }
+  ]
+}
