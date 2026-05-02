@@ -9,7 +9,7 @@
  * scoring layer (see `tiered-isolation-guard.test.ts`).
  */
 
-import type { SajuSummary, BirthInfo } from '../../types.js';
+import type { SajuSummary, BirthInfo, NamingReport, NamingReportFrame } from '../../types.js';
 import type {
   FortuneTieredMatrix,
   PeriodScopedFortunes,
@@ -22,6 +22,8 @@ import type {
   ExpertFortuneText,
   TaggedParagraph,
   TieredMatrixMeta,
+  TieredNameFrameEvidence,
+  TieredNamingEvidence,
 } from '../types.js';
 
 import { buildFeatureVector, type FeatureVector } from './feature-selector.js';
@@ -44,6 +46,13 @@ const EMPTY_PARAGRAPHS: readonly TaggedParagraph[] = Object.freeze([]);
 const PLACEHOLDER_BRIEF: BriefFortuneText = Object.freeze({ headline: '준비 중인 흐름이에요.' });
 const PLACEHOLDER_STANDARD: StandardFortuneText = Object.freeze({ paragraphs: EMPTY_PARAGRAPHS });
 const PLACEHOLDER_EXPERT: ExpertFortuneText = Object.freeze({ paragraphs: EMPTY_PARAGRAPHS });
+
+const NAME_FRAME_STAGE: Record<NamingReportFrame['type'], { stage: TieredNameFrameEvidence['stage']; label: string }> = {
+  won: { stage: 'earlyLife', label: '초년운' },
+  hyung: { stage: 'youthLife', label: '청년운' },
+  lee: { stage: 'middleLife', label: '중년운' },
+  jung: { stage: 'lateAndTotal', label: '말년/총운' },
+};
 
 function deriveBrief(rendered: TaggedParagraph): BriefFortuneText {
   const text = rendered.plainText.trim();
@@ -176,6 +185,38 @@ function buildPeriodScoped(
 export interface BuildTieredMatrixOptions {
   readonly enabled?: boolean;
   readonly contentSource?: 'placeholder' | 'authored';
+  readonly namingReport?: NamingReport | null;
+}
+
+function buildNamingEvidence(namingReport: NamingReport | null | undefined): TieredNamingEvidence | undefined {
+  const fourFrame = namingReport?.analysis?.fourFrame;
+  if (!fourFrame || !Array.isArray(fourFrame.frames) || fourFrame.frames.length === 0) return undefined;
+  const frames = fourFrame.frames;
+
+  return {
+    source: 'spring-ts.namingReport.analysis.fourFrame',
+    fourFrameScore: namingReport?.scores?.fourFrame ?? 0,
+    luckScore: fourFrame.luckScore,
+    elementScore: fourFrame.elementScore,
+    frames: frames.map((frame): TieredNameFrameEvidence => {
+      const stage = NAME_FRAME_STAGE[frame.type];
+      return {
+        source: 'seed-ts.fourframe',
+        stage: stage.stage,
+        label: stage.label,
+        frameType: frame.type,
+        strokeSum: frame.strokeSum,
+        element: frame.element,
+        polarity: frame.polarity,
+        luckyLevel: frame.luckyLevel,
+        ...(frame.meaning?.title ? { title: frame.meaning.title } : {}),
+        ...(frame.meaning?.summary ? { summary: frame.meaning.summary } : {}),
+        ...(frame.meaning?.life_period_influence !== undefined
+          ? { lifePeriodInfluence: frame.meaning.life_period_influence }
+          : {}),
+      };
+    }),
+  };
 }
 
 export function buildTieredMatrix(
@@ -197,6 +238,7 @@ export function buildTieredMatrix(
 
   const allEntries = loadGlossary();
   const glossary = buildTagGlossary({ periods }, allEntries);
+  const namingEvidence = buildNamingEvidence(options.namingReport);
 
   const meta: TieredMatrixMeta = {
     schemaVersion: 'spring-ts.tiered-matrix.v1',
@@ -212,6 +254,7 @@ export function buildTieredMatrix(
     schemaVersion: 'spring-ts.tiered-matrix.v1',
     periods,
     glossary,
+    ...(namingEvidence ? { namingEvidence } : {}),
     meta,
   };
 }

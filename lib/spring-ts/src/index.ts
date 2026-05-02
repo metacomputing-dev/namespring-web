@@ -254,6 +254,10 @@ export type {
   // Tiered fortune matrix (opt-in via precisionConfig.surfaceTieredMatrix)
   FortuneTieredMatrix,
   TieredMatrixMeta,
+  TieredNamingEvidence,
+  TieredNameFrameEvidence,
+  TieredNameFrameStage,
+  TieredNameFrameType,
   PeriodScopedFortunes,
   TieredFortune,
   TieredPeriodMeta,

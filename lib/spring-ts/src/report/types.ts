@@ -561,12 +561,40 @@ export interface TieredMatrixMeta {
   readonly aiGeneratedFragmentCount: number;
 }
 
+export type TieredNameFrameStage = 'earlyLife' | 'youthLife' | 'middleLife' | 'lateAndTotal';
+export type TieredNameFrameType = 'won' | 'hyung' | 'lee' | 'jung';
+
+/** Seed-ts four-frame naming evidence that can support broad life-stage
+ *  readings (early/youth/middle/late-total) without changing saju scoring. */
+export interface TieredNameFrameEvidence {
+  readonly source: 'seed-ts.fourframe';
+  readonly stage: TieredNameFrameStage;
+  readonly label: string;
+  readonly frameType: TieredNameFrameType;
+  readonly strokeSum: number;
+  readonly element: string;
+  readonly polarity: string;
+  readonly luckyLevel: number;
+  readonly title?: string;
+  readonly summary?: string;
+  readonly lifePeriodInfluence?: string | null;
+}
+
+export interface TieredNamingEvidence {
+  readonly source: 'spring-ts.namingReport.analysis.fourFrame';
+  readonly fourFrameScore: number;
+  readonly luckScore: number;
+  readonly elementScore: number;
+  readonly frames: readonly TieredNameFrameEvidence[];
+}
+
 /** Top-level tiered matrix container. Attached to `FortuneReport.tieredMatrix`
  *  when `precisionConfig.surfaceTieredMatrix === true`. */
 export interface FortuneTieredMatrix {
   readonly schemaVersion: 'spring-ts.tiered-matrix.v1';
   readonly periods: Readonly<Record<TieredPeriodKind, PeriodScopedFortunes>>;
   readonly glossary: TagGlossary;
+  readonly namingEvidence?: TieredNamingEvidence;
   readonly meta: TieredMatrixMeta;
 }
 

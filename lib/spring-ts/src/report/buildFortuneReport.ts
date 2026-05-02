@@ -254,7 +254,10 @@ export function buildFortuneReport(
   const tieredMatrix: FortuneTieredMatrix | undefined =
     options?.surfaceTieredMatrix === true && birth
       ? safeCall(
-          () => buildTieredMatrix(saju, birth, targetDate, { enabled: true }),
+          () => buildTieredMatrix(saju, birth, targetDate, {
+            enabled: true,
+            namingReport: springReport?.namingReport ?? null,
+          }),
           undefined,
           'tieredMatrix',
         )

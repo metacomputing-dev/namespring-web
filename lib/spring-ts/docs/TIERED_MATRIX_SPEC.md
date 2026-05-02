@@ -44,6 +44,21 @@ FortuneTieredMatrix
    └─ fragmentCount, aiGeneratedFragmentCount
 ```
 
+### 2-1. namingEvidence
+
+`namingEvidence`는 `precisionConfig.surfaceTieredMatrix === true`이고 실제 이름 평가가 함께 실행된 경우에만 붙는다. NameSpring의 기존 기본 경로에서는 `tieredMatrix` 자체가 `undefined`이므로 backward-compat 영향이 없다.
+
+사격수리 프레임은 seed-ts의 `fourFrame` 분석을 그대로 근거로 삼는다.
+
+| frameType | stage | label | 권장 활용 |
+|---|---|---|---|
+| `won` | `earlyLife` | 초년운 | 초년/초기 성장 흐름 |
+| `hyung` | `youthLife` | 청년운 | 청소년-청년기 흐름 |
+| `lee` | `middleLife` | 중년운 | 사회 활동기/중년 흐름 |
+| `jung` | `lateAndTotal` | 말년/총운 | 말년 및 큰 총운 흐름 |
+
+각 frame은 `strokeSum`, `element`, `polarity`, `luckyLevel`, `title`, `summary`, `lifePeriodInfluence`를 포함할 수 있다. UI는 이 값을 바로 점수처럼 크게 보여주기보다, life-stage 카드의 전문가 근거 또는 펼침 상세 근거로 쓰는 것이 안전하다.
+
 ## 3. Cell — `TieredFortune`
 
 ```
