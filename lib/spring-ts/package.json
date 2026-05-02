@@ -92,7 +92,7 @@
     "ci:release-checklist": "node tools/check_release_checklist.mjs",
     "ci:no-ai-policy": "node tools/check_no_ai_policy.mjs",
     "ci:narrative-density": "node tools/narrative_axis_pair_report.mjs --min-authored=2 --max-thin-combinations=0 --max-missing-combinations=0",
-    "ci:narrative-tuple-density": "node tools/narrative_axis_tuple_report.mjs --min-authored=2 --max-thin-combinations=0",
+    "ci:narrative-tuple-density": "node tools/narrative_axis_tuple_report.mjs --min-authored=2 --max-thin-combinations=0 --max-missing-combinations=0",
     "ci:narrative-daymaster-tuple-density": "node tools/narrative_axis_tuple_report.mjs --tuples=dayMasterElement:yongshinElement:dayMasterStrength --min-authored=2 --max-thin-combinations=0 --max-missing-combinations=0",
     "ingest:unihan": "npx tsx scripts/ingest-unihan.ts",
     "capture:oracles": "node tools/capture_saju_master_runs.mjs",
