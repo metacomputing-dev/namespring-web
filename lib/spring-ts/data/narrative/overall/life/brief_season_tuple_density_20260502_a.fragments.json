@@ -1,0 +1,3656 @@
+{
+  "schemaVersion": "spring-ts.narrative-fragment-bundle.v1",
+  "bundleId": "overall.life.brief_season_tuple_density_20260502_a",
+  "contractVersion": "1.0.0",
+  "generatedBy": "codex.season-tuple-density-20260502-a",
+  "fragments": [
+    {
+      "schemaVersion": "spring-ts.narrative-fragment.v1",
+      "fragmentId": "overall.life.brief.season_tuple_spring_spring_aligned_flow.201",
+      "axis": {
+        "category": "overall",
+        "period": "life",
+        "depth": "brief"
+      },
+      "gating": {
+        "birthSeason": [
+          "spring"
+        ],
+        "currentSeason": [
+          "spring"
+        ],
+        "yongshinAlignment": [
+          "aligned"
+        ]
+      },
+      "templateTokens": [
+        {
+          "kind": "text",
+          "value": "봄에 태어난 흐름은 새로 시작하고 키워내는 힘에 민감해요. 지금 봄의 기운은 작은 시작을 크게 키우기 쉬운 리듬이에요. 용신 기운이 현재 흐름과 맞물려 작은 실행도 힘을 받기 쉬워요."
+        }
+      ],
+      "tags": [],
+      "aiGenerated": true,
+      "sourceTier": {
+        "tier": "T1_HYPOTHESIS",
+        "sourceType": "training_derived",
+        "sourceUrl": null,
+        "accessedAt": "2026-05-02",
+        "quoteShort": null,
+        "humanInterpretation": "Tuple-density expansion for birth season, current season, and yongshin alignment. AI-derived display text; not authority truth.",
+        "copyrightNote": "No source prose copied; original hypothesis text.",
+        "authorityTruthEligible": false
+      }
+    },
+    {
+      "schemaVersion": "spring-ts.narrative-fragment.v1",
+      "fragmentId": "overall.life.brief.season_tuple_spring_spring_aligned_practice.202",
+      "axis": {
+        "category": "overall",
+        "period": "life",
+        "depth": "brief"
+      },
+      "gating": {
+        "birthSeason": [
+          "spring"
+        ],
+        "currentSeason": [
+          "spring"
+        ],
+        "yongshinAlignment": [
+          "aligned"
+        ]
+      },
+      "templateTokens": [
+        {
+          "kind": "text",
+          "value": "봄 출생 리듬과 봄 현재 리듬을 함께 보면 생활 속 속도 조절이 핵심이에요. 좋은 흐름을 그냥 기다리기보다 오늘 바로 할 수 있는 행동 하나를 정해보세요. 새 계획은 한 번에 넓히기보다 첫 단계를 작게 정하면 좋아요."
+        }
+      ],
+      "tags": [],
+      "aiGenerated": true,
+      "sourceTier": {
+        "tier": "T1_HYPOTHESIS",
+        "sourceType": "training_derived",
+        "sourceUrl": null,
+        "accessedAt": "2026-05-02",
+        "quoteShort": null,
+        "humanInterpretation": "Tuple-density expansion for birth season, current season, and yongshin alignment. AI-derived display text; not authority truth.",
+        "copyrightNote": "No source prose copied; original hypothesis text.",
+        "authorityTruthEligible": false
+      }
+    },
+    {
+      "schemaVersion": "spring-ts.narrative-fragment.v1",
+      "fragmentId": "overall.life.brief.season_tuple_spring_spring_neutral_flow.203",
+      "axis": {
+        "category": "overall",
+        "period": "life",
+        "depth": "brief"
+      },
+      "gating": {
+        "birthSeason": [
+          "spring"
+        ],
+        "currentSeason": [
+          "spring"
+        ],
+        "yongshinAlignment": [
+          "neutral"
+        ]
+      },
+      "templateTokens": [
+        {
+          "kind": "text",
+          "value": "봄에 태어난 흐름은 새로 시작하고 키워내는 힘에 민감해요. 지금 봄의 기운은 작은 시작을 크게 키우기 쉬운 리듬이에요. 용신 기운이 크게 밀지도 막지도 않는 중립 흐름이라 기본기가 중요해요."
+        }
+      ],
+      "tags": [],
+      "aiGenerated": true,
+      "sourceTier": {
+        "tier": "T1_HYPOTHESIS",
+        "sourceType": "training_derived",
+        "sourceUrl": null,
+        "accessedAt": "2026-05-02",
+        "quoteShort": null,
+        "humanInterpretation": "Tuple-density expansion for birth season, current season, and yongshin alignment. AI-derived display text; not authority truth.",
+        "copyrightNote": "No source prose copied; original hypothesis text.",
+        "authorityTruthEligible": false
+      }
+    },
+    {
+      "schemaVersion": "spring-ts.narrative-fragment.v1",
+      "fragmentId": "overall.life.brief.season_tuple_spring_spring_neutral_practice.204",
+      "axis": {
+        "category": "overall",
+        "period": "life",
+        "depth": "brief"
+      },
+      "gating": {
+        "birthSeason": [
+          "spring"
+        ],
+        "currentSeason": [
+          "spring"
+        ],
+        "yongshinAlignment": [
+          "neutral"
+        ]
+      },
+      "templateTokens": [
+        {
+          "kind": "text",
+          "value": "봄 출생 리듬과 봄 현재 리듬을 함께 보면 생활 속 속도 조절이 핵심이에요. 새로운 선택은 가볍게 시험하고, 잘 맞는 루틴만 남기는 방식이 안전해요. 새 계획은 한 번에 넓히기보다 첫 단계를 작게 정하면 좋아요."
+        }
+      ],
+      "tags": [],
+      "aiGenerated": true,
+      "sourceTier": {
+        "tier": "T1_HYPOTHESIS",
+        "sourceType": "training_derived",
+        "sourceUrl": null,
+        "accessedAt": "2026-05-02",
+        "quoteShort": null,
+        "humanInterpretation": "Tuple-density expansion for birth season, current season, and yongshin alignment. AI-derived display text; not authority truth.",
+        "copyrightNote": "No source prose copied; original hypothesis text.",
+        "authorityTruthEligible": false
+      }
+    },
+    {
+      "schemaVersion": "spring-ts.narrative-fragment.v1",
+      "fragmentId": "overall.life.brief.season_tuple_spring_spring_conflicting_flow.205",
+      "axis": {
+        "category": "overall",
+        "period": "life",
+        "depth": "brief"
+      },
+      "gating": {
+        "birthSeason": [
+          "spring"
+        ],
+        "currentSeason": [
+          "spring"
+        ],
+        "yongshinAlignment": [
+          "conflicting"
+        ]
+      },
+      "templateTokens": [
+        {
+          "kind": "text",
+          "value": "봄에 태어난 흐름은 새로 시작하고 키워내는 힘에 민감해요. 지금 봄의 기운은 작은 시작을 크게 키우기 쉬운 리듬이에요. 용신 기운과 계절 흐름이 엇갈려 무리하면 피로가 먼저 올라올 수 있어요."
+        }
+      ],
+      "tags": [],
+      "aiGenerated": true,
+      "sourceTier": {
+        "tier": "T1_HYPOTHESIS",
+        "sourceType": "training_derived",
+        "sourceUrl": null,
+        "accessedAt": "2026-05-02",
+        "quoteShort": null,
+        "humanInterpretation": "Tuple-density expansion for birth season, current season, and yongshin alignment. AI-derived display text; not authority truth.",
+        "copyrightNote": "No source prose copied; original hypothesis text.",
+        "authorityTruthEligible": false
+      }
+    },
+    {
+      "schemaVersion": "spring-ts.narrative-fragment.v1",
+      "fragmentId": "overall.life.brief.season_tuple_spring_spring_conflicting_practice.206",
+      "axis": {
+        "category": "overall",
+        "period": "life",
+        "depth": "brief"
+      },
+      "gating": {
+        "birthSeason": [
+          "spring"
+        ],
+        "currentSeason": [
+          "spring"
+        ],
+        "yongshinAlignment": [
+          "conflicting"
+        ]
+      },
+      "templateTokens": [
+        {
+          "kind": "text",
+          "value": "봄 출생 리듬과 봄 현재 리듬을 함께 보면 생활 속 속도 조절이 핵심이에요. 계획을 줄이고 쉬운 순서로 배치하면 불필요한 소모를 줄일 수 있어요. 새 계획은 한 번에 넓히기보다 첫 단계를 작게 정하면 좋아요."
+        }
+      ],
+      "tags": [],
+      "aiGenerated": true,
+      "sourceTier": {
+        "tier": "T1_HYPOTHESIS",
+        "sourceType": "training_derived",
+        "sourceUrl": null,
+        "accessedAt": "2026-05-02",
+        "quoteShort": null,
+        "humanInterpretation": "Tuple-density expansion for birth season, current season, and yongshin alignment. AI-derived display text; not authority truth.",
+        "copyrightNote": "No source prose copied; original hypothesis text.",
+        "authorityTruthEligible": false
+      }
+    },
+    {
+      "schemaVersion": "spring-ts.narrative-fragment.v1",
+      "fragmentId": "overall.life.brief.season_tuple_spring_summer_aligned_flow.207",
+      "axis": {
+        "category": "overall",
+        "period": "life",
+        "depth": "brief"
+      },
+      "gating": {
+        "birthSeason": [
+          "spring"
+        ],
+        "currentSeason": [
+          "summer"
+        ],
+        "yongshinAlignment": [
+          "aligned"
+        ]
+      },
+      "templateTokens": [
+        {
+          "kind": "text",
+          "value": "봄에 태어난 흐름은 새로 시작하고 키워내는 힘에 민감해요. 지금 여름의 기운은 속도와 열기가 붙기 쉬운 리듬이에요. 용신 기운이 현재 흐름과 맞물려 작은 실행도 힘을 받기 쉬워요."
+        }
+      ],
+      "tags": [],
+      "aiGenerated": true,
+      "sourceTier": {
+        "tier": "T1_HYPOTHESIS",
+        "sourceType": "training_derived",
+        "sourceUrl": null,
+        "accessedAt": "2026-05-02",
+        "quoteShort": null,
+        "humanInterpretation": "Tuple-density expansion for birth season, current season, and yongshin alignment. AI-derived display text; not authority truth.",
+        "copyrightNote": "No source prose copied; original hypothesis text.",
+        "authorityTruthEligible": false
+      }
+    },
+    {
+      "schemaVersion": "spring-ts.narrative-fragment.v1",
+      "fragmentId": "overall.life.brief.season_tuple_spring_summer_aligned_practice.208",
+      "axis": {
+        "category": "overall",
+        "period": "life",
+        "depth": "brief"
+      },
+      "gating": {
+        "birthSeason": [
+          "spring"
+        ],
+        "currentSeason": [
+          "summer"
+        ],
+        "yongshinAlignment": [
+          "aligned"
+        ]
+      },
+      "templateTokens": [
+        {
+          "kind": "text",
+          "value": "봄 출생 리듬과 여름 현재 리듬을 함께 보면 생활 속 속도 조절이 핵심이에요. 좋은 흐름을 그냥 기다리기보다 오늘 바로 할 수 있는 행동 하나를 정해보세요. 일정을 너무 촘촘히 잡기보다 중간에 식히는 시간을 넣어보세요."
+        }
+      ],
+      "tags": [],
+      "aiGenerated": true,
+      "sourceTier": {
+        "tier": "T1_HYPOTHESIS",
+        "sourceType": "training_derived",
+        "sourceUrl": null,
+        "accessedAt": "2026-05-02",
+        "quoteShort": null,
+        "humanInterpretation": "Tuple-density expansion for birth season, current season, and yongshin alignment. AI-derived display text; not authority truth.",
+        "copyrightNote": "No source prose copied; original hypothesis text.",
+        "authorityTruthEligible": false
+      }
+    },
+    {
+      "schemaVersion": "spring-ts.narrative-fragment.v1",
+      "fragmentId": "overall.life.brief.season_tuple_spring_summer_neutral_flow.209",
+      "axis": {
+        "category": "overall",
+        "period": "life",
+        "depth": "brief"
+      },
+      "gating": {
+        "birthSeason": [
+          "spring"
+        ],
+        "currentSeason": [
+          "summer"
+        ],
+        "yongshinAlignment": [
+          "neutral"
+        ]
+      },
+      "templateTokens": [
+        {
+          "kind": "text",
+          "value": "봄에 태어난 흐름은 새로 시작하고 키워내는 힘에 민감해요. 지금 여름의 기운은 속도와 열기가 붙기 쉬운 리듬이에요. 용신 기운이 크게 밀지도 막지도 않는 중립 흐름이라 기본기가 중요해요."
+        }
+      ],
+      "tags": [],
+      "aiGenerated": true,
+      "sourceTier": {
+        "tier": "T1_HYPOTHESIS",
+        "sourceType": "training_derived",
+        "sourceUrl": null,
+        "accessedAt": "2026-05-02",
+        "quoteShort": null,
+        "humanInterpretation": "Tuple-density expansion for birth season, current season, and yongshin alignment. AI-derived display text; not authority truth.",
+        "copyrightNote": "No source prose copied; original hypothesis text.",
+        "authorityTruthEligible": false
+      }
+    },
+    {
+      "schemaVersion": "spring-ts.narrative-fragment.v1",
+      "fragmentId": "overall.life.brief.season_tuple_spring_summer_neutral_practice.210",
+      "axis": {
+        "category": "overall",
+        "period": "life",
+        "depth": "brief"
+      },
+      "gating": {
+        "birthSeason": [
+          "spring"
+        ],
+        "currentSeason": [
+          "summer"
+        ],
+        "yongshinAlignment": [
+          "neutral"
+        ]
+      },
+      "templateTokens": [
+        {
+          "kind": "text",
+          "value": "봄 출생 리듬과 여름 현재 리듬을 함께 보면 생활 속 속도 조절이 핵심이에요. 새로운 선택은 가볍게 시험하고, 잘 맞는 루틴만 남기는 방식이 안전해요. 일정을 너무 촘촘히 잡기보다 중간에 식히는 시간을 넣어보세요."
+        }
+      ],
+      "tags": [],
+      "aiGenerated": true,
+      "sourceTier": {
+        "tier": "T1_HYPOTHESIS",
+        "sourceType": "training_derived",
+        "sourceUrl": null,
+        "accessedAt": "2026-05-02",
+        "quoteShort": null,
+        "humanInterpretation": "Tuple-density expansion for birth season, current season, and yongshin alignment. AI-derived display text; not authority truth.",
+        "copyrightNote": "No source prose copied; original hypothesis text.",
+        "authorityTruthEligible": false
+      }
+    },
+    {
+      "schemaVersion": "spring-ts.narrative-fragment.v1",
+      "fragmentId": "overall.life.brief.season_tuple_spring_summer_conflicting_flow.211",
+      "axis": {
+        "category": "overall",
+        "period": "life",
+        "depth": "brief"
+      },
+      "gating": {
+        "birthSeason": [
+          "spring"
+        ],
+        "currentSeason": [
+          "summer"
+        ],
+        "yongshinAlignment": [
+          "conflicting"
+        ]
+      },
+      "templateTokens": [
+        {
+          "kind": "text",
+          "value": "봄에 태어난 흐름은 새로 시작하고 키워내는 힘에 민감해요. 지금 여름의 기운은 속도와 열기가 붙기 쉬운 리듬이에요. 용신 기운과 계절 흐름이 엇갈려 무리하면 피로가 먼저 올라올 수 있어요."
+        }
+      ],
+      "tags": [],
+      "aiGenerated": true,
+      "sourceTier": {
+        "tier": "T1_HYPOTHESIS",
+        "sourceType": "training_derived",
+        "sourceUrl": null,
+        "accessedAt": "2026-05-02",
+        "quoteShort": null,
+        "humanInterpretation": "Tuple-density expansion for birth season, current season, and yongshin alignment. AI-derived display text; not authority truth.",
+        "copyrightNote": "No source prose copied; original hypothesis text.",
+        "authorityTruthEligible": false
+      }
+    },
+    {
+      "schemaVersion": "spring-ts.narrative-fragment.v1",
+      "fragmentId": "overall.life.brief.season_tuple_spring_summer_conflicting_practice.212",
+      "axis": {
+        "category": "overall",
+        "period": "life",
+        "depth": "brief"
+      },
+      "gating": {
+        "birthSeason": [
+          "spring"
+        ],
+        "currentSeason": [
+          "summer"
+        ],
+        "yongshinAlignment": [
+          "conflicting"
+        ]
+      },
+      "templateTokens": [
+        {
+          "kind": "text",
+          "value": "봄 출생 리듬과 여름 현재 리듬을 함께 보면 생활 속 속도 조절이 핵심이에요. 계획을 줄이고 쉬운 순서로 배치하면 불필요한 소모를 줄일 수 있어요. 일정을 너무 촘촘히 잡기보다 중간에 식히는 시간을 넣어보세요."
+        }
+      ],
+      "tags": [],
+      "aiGenerated": true,
+      "sourceTier": {
+        "tier": "T1_HYPOTHESIS",
+        "sourceType": "training_derived",
+        "sourceUrl": null,
+        "accessedAt": "2026-05-02",
+        "quoteShort": null,
+        "humanInterpretation": "Tuple-density expansion for birth season, current season, and yongshin alignment. AI-derived display text; not authority truth.",
+        "copyrightNote": "No source prose copied; original hypothesis text.",
+        "authorityTruthEligible": false
+      }
+    },
+    {
+      "schemaVersion": "spring-ts.narrative-fragment.v1",
+      "fragmentId": "overall.life.brief.season_tuple_spring_autumn_aligned_flow.213",
+      "axis": {
+        "category": "overall",
+        "period": "life",
+        "depth": "brief"
+      },
+      "gating": {
+        "birthSeason": [
+          "spring"
+        ],
+        "currentSeason": [
+          "autumn"
+        ],
+        "yongshinAlignment": [
+          "aligned"
+        ]
+      },
+      "templateTokens": [
+        {
+          "kind": "text",
+          "value": "봄에 태어난 흐름은 새로 시작하고 키워내는 힘에 민감해요. 지금 가을의 기운은 우선순위를 줄이고 결과를 다듬기 좋은 리듬이에요. 용신 기운이 현재 흐름과 맞물려 작은 실행도 힘을 받기 쉬워요."
+        }
+      ],
+      "tags": [],
+      "aiGenerated": true,
+      "sourceTier": {
+        "tier": "T1_HYPOTHESIS",
+        "sourceType": "training_derived",
+        "sourceUrl": null,
+        "accessedAt": "2026-05-02",
+        "quoteShort": null,
+        "humanInterpretation": "Tuple-density expansion for birth season, current season, and yongshin alignment. AI-derived display text; not authority truth.",
+        "copyrightNote": "No source prose copied; original hypothesis text.",
+        "authorityTruthEligible": false
+      }
+    },
+    {
+      "schemaVersion": "spring-ts.narrative-fragment.v1",
+      "fragmentId": "overall.life.brief.season_tuple_spring_autumn_aligned_practice.214",
+      "axis": {
+        "category": "overall",
+        "period": "life",
+        "depth": "brief"
+      },
+      "gating": {
+        "birthSeason": [
+          "spring"
+        ],
+        "currentSeason": [
+          "autumn"
+        ],
+        "yongshinAlignment": [
+          "aligned"
+        ]
+      },
+      "templateTokens": [
+        {
+          "kind": "text",
+          "value": "봄 출생 리듬과 가을 현재 리듬을 함께 보면 생활 속 속도 조절이 핵심이에요. 좋은 흐름을 그냥 기다리기보다 오늘 바로 할 수 있는 행동 하나를 정해보세요. 새 일을 늘리기보다 이미 가진 일을 정리하면 흐름이 안정돼요."
+        }
+      ],
+      "tags": [],
+      "aiGenerated": true,
+      "sourceTier": {
+        "tier": "T1_HYPOTHESIS",
+        "sourceType": "training_derived",
+        "sourceUrl": null,
+        "accessedAt": "2026-05-02",
+        "quoteShort": null,
+        "humanInterpretation": "Tuple-density expansion for birth season, current season, and yongshin alignment. AI-derived display text; not authority truth.",
+        "copyrightNote": "No source prose copied; original hypothesis text.",
+        "authorityTruthEligible": false
+      }
+    },
+    {
+      "schemaVersion": "spring-ts.narrative-fragment.v1",
+      "fragmentId": "overall.life.brief.season_tuple_spring_autumn_neutral_flow.215",
+      "axis": {
+        "category": "overall",
+        "period": "life",
+        "depth": "brief"
+      },
+      "gating": {
+        "birthSeason": [
+          "spring"
+        ],
+        "currentSeason": [
+          "autumn"
+        ],
+        "yongshinAlignment": [
+          "neutral"
+        ]
+      },
+      "templateTokens": [
+        {
+          "kind": "text",
+          "value": "봄에 태어난 흐름은 새로 시작하고 키워내는 힘에 민감해요. 지금 가을의 기운은 우선순위를 줄이고 결과를 다듬기 좋은 리듬이에요. 용신 기운이 크게 밀지도 막지도 않는 중립 흐름이라 기본기가 중요해요."
+        }
+      ],
+      "tags": [],
+      "aiGenerated": true,
+      "sourceTier": {
+        "tier": "T1_HYPOTHESIS",
+        "sourceType": "training_derived",
+        "sourceUrl": null,
+        "accessedAt": "2026-05-02",
+        "quoteShort": null,
+        "humanInterpretation": "Tuple-density expansion for birth season, current season, and yongshin alignment. AI-derived display text; not authority truth.",
+        "copyrightNote": "No source prose copied; original hypothesis text.",
+        "authorityTruthEligible": false
+      }
+    },
+    {
+      "schemaVersion": "spring-ts.narrative-fragment.v1",
+      "fragmentId": "overall.life.brief.season_tuple_spring_autumn_neutral_practice.216",
+      "axis": {
+        "category": "overall",
+        "period": "life",
+        "depth": "brief"
+      },
+      "gating": {
+        "birthSeason": [
+          "spring"
+        ],
+        "currentSeason": [
+          "autumn"
+        ],
+        "yongshinAlignment": [
+          "neutral"
+        ]
+      },
+      "templateTokens": [
+        {
+          "kind": "text",
+          "value": "봄 출생 리듬과 가을 현재 리듬을 함께 보면 생활 속 속도 조절이 핵심이에요. 새로운 선택은 가볍게 시험하고, 잘 맞는 루틴만 남기는 방식이 안전해요. 새 일을 늘리기보다 이미 가진 일을 정리하면 흐름이 안정돼요."
+        }
+      ],
+      "tags": [],
+      "aiGenerated": true,
+      "sourceTier": {
+        "tier": "T1_HYPOTHESIS",
+        "sourceType": "training_derived",
+        "sourceUrl": null,
+        "accessedAt": "2026-05-02",
+        "quoteShort": null,
+        "humanInterpretation": "Tuple-density expansion for birth season, current season, and yongshin alignment. AI-derived display text; not authority truth.",
+        "copyrightNote": "No source prose copied; original hypothesis text.",
+        "authorityTruthEligible": false
+      }
+    },
+    {
+      "schemaVersion": "spring-ts.narrative-fragment.v1",
+      "fragmentId": "overall.life.brief.season_tuple_spring_autumn_conflicting_flow.217",
+      "axis": {
+        "category": "overall",
+        "period": "life",
+        "depth": "brief"
+      },
+      "gating": {
+        "birthSeason": [
+          "spring"
+        ],
+        "currentSeason": [
+          "autumn"
+        ],
+        "yongshinAlignment": [
+          "conflicting"
+        ]
+      },
+      "templateTokens": [
+        {
+          "kind": "text",
+          "value": "봄에 태어난 흐름은 새로 시작하고 키워내는 힘에 민감해요. 지금 가을의 기운은 우선순위를 줄이고 결과를 다듬기 좋은 리듬이에요. 용신 기운과 계절 흐름이 엇갈려 무리하면 피로가 먼저 올라올 수 있어요."
+        }
+      ],
+      "tags": [],
+      "aiGenerated": true,
+      "sourceTier": {
+        "tier": "T1_HYPOTHESIS",
+        "sourceType": "training_derived",
+        "sourceUrl": null,
+        "accessedAt": "2026-05-02",
+        "quoteShort": null,
+        "humanInterpretation": "Tuple-density expansion for birth season, current season, and yongshin alignment. AI-derived display text; not authority truth.",
+        "copyrightNote": "No source prose copied; original hypothesis text.",
+        "authorityTruthEligible": false
+      }
+    },
+    {
+      "schemaVersion": "spring-ts.narrative-fragment.v1",
+      "fragmentId": "overall.life.brief.season_tuple_spring_autumn_conflicting_practice.218",
+      "axis": {
+        "category": "overall",
+        "period": "life",
+        "depth": "brief"
+      },
+      "gating": {
+        "birthSeason": [
+          "spring"
+        ],
+        "currentSeason": [
+          "autumn"
+        ],
+        "yongshinAlignment": [
+          "conflicting"
+        ]
+      },
+      "templateTokens": [
+        {
+          "kind": "text",
+          "value": "봄 출생 리듬과 가을 현재 리듬을 함께 보면 생활 속 속도 조절이 핵심이에요. 계획을 줄이고 쉬운 순서로 배치하면 불필요한 소모를 줄일 수 있어요. 새 일을 늘리기보다 이미 가진 일을 정리하면 흐름이 안정돼요."
+        }
+      ],
+      "tags": [],
+      "aiGenerated": true,
+      "sourceTier": {
+        "tier": "T1_HYPOTHESIS",
+        "sourceType": "training_derived",
+        "sourceUrl": null,
+        "accessedAt": "2026-05-02",
+        "quoteShort": null,
+        "humanInterpretation": "Tuple-density expansion for birth season, current season, and yongshin alignment. AI-derived display text; not authority truth.",
+        "copyrightNote": "No source prose copied; original hypothesis text.",
+        "authorityTruthEligible": false
+      }
+    },
+    {
+      "schemaVersion": "spring-ts.narrative-fragment.v1",
+      "fragmentId": "overall.life.brief.season_tuple_spring_winter_aligned_flow.219",
+      "axis": {
+        "category": "overall",
+        "period": "life",
+        "depth": "brief"
+      },
+      "gating": {
+        "birthSeason": [
+          "spring"
+        ],
+        "currentSeason": [
+          "winter"
+        ],
+        "yongshinAlignment": [
+          "aligned"
+        ]
+      },
+      "templateTokens": [
+        {
+          "kind": "text",
+          "value": "봄에 태어난 흐름은 새로 시작하고 키워내는 힘에 민감해요. 지금 겨울의 기운은 준비와 회복을 먼저 챙길수록 힘이 쌓이는 리듬이에요. 용신 기운이 현재 흐름과 맞물려 작은 실행도 힘을 받기 쉬워요."
+        }
+      ],
+      "tags": [],
+      "aiGenerated": true,
+      "sourceTier": {
+        "tier": "T1_HYPOTHESIS",
+        "sourceType": "training_derived",
+        "sourceUrl": null,
+        "accessedAt": "2026-05-02",
+        "quoteShort": null,
+        "humanInterpretation": "Tuple-density expansion for birth season, current season, and yongshin alignment. AI-derived display text; not authority truth.",
+        "copyrightNote": "No source prose copied; original hypothesis text.",
+        "authorityTruthEligible": false
+      }
+    },
+    {
+      "schemaVersion": "spring-ts.narrative-fragment.v1",
+      "fragmentId": "overall.life.brief.season_tuple_spring_winter_aligned_practice.220",
+      "axis": {
+        "category": "overall",
+        "period": "life",
+        "depth": "brief"
+      },
+      "gating": {
+        "birthSeason": [
+          "spring"
+        ],
+        "currentSeason": [
+          "winter"
+        ],
+        "yongshinAlignment": [
+          "aligned"
+        ]
+      },
+      "templateTokens": [
+        {
+          "kind": "text",
+          "value": "봄 출생 리듬과 겨울 현재 리듬을 함께 보면 생활 속 속도 조절이 핵심이에요. 좋은 흐름을 그냥 기다리기보다 오늘 바로 할 수 있는 행동 하나를 정해보세요. 큰 결론을 서두르지 말고 자료와 체력을 먼저 모아보세요."
+        }
+      ],
+      "tags": [],
+      "aiGenerated": true,
+      "sourceTier": {
+        "tier": "T1_HYPOTHESIS",
+        "sourceType": "training_derived",
+        "sourceUrl": null,
+        "accessedAt": "2026-05-02",
+        "quoteShort": null,
+        "humanInterpretation": "Tuple-density expansion for birth season, current season, and yongshin alignment. AI-derived display text; not authority truth.",
+        "copyrightNote": "No source prose copied; original hypothesis text.",
+        "authorityTruthEligible": false
+      }
+    },
+    {
+      "schemaVersion": "spring-ts.narrative-fragment.v1",
+      "fragmentId": "overall.life.brief.season_tuple_spring_winter_neutral_flow.221",
+      "axis": {
+        "category": "overall",
+        "period": "life",
+        "depth": "brief"
+      },
+      "gating": {
+        "birthSeason": [
+          "spring"
+        ],
+        "currentSeason": [
+          "winter"
+        ],
+        "yongshinAlignment": [
+          "neutral"
+        ]
+      },
+      "templateTokens": [
+        {
+          "kind": "text",
+          "value": "봄에 태어난 흐름은 새로 시작하고 키워내는 힘에 민감해요. 지금 겨울의 기운은 준비와 회복을 먼저 챙길수록 힘이 쌓이는 리듬이에요. 용신 기운이 크게 밀지도 막지도 않는 중립 흐름이라 기본기가 중요해요."
+        }
+      ],
+      "tags": [],
+      "aiGenerated": true,
+      "sourceTier": {
+        "tier": "T1_HYPOTHESIS",
+        "sourceType": "training_derived",
+        "sourceUrl": null,
+        "accessedAt": "2026-05-02",
+        "quoteShort": null,
+        "humanInterpretation": "Tuple-density expansion for birth season, current season, and yongshin alignment. AI-derived display text; not authority truth.",
+        "copyrightNote": "No source prose copied; original hypothesis text.",
+        "authorityTruthEligible": false
+      }
+    },
+    {
+      "schemaVersion": "spring-ts.narrative-fragment.v1",
+      "fragmentId": "overall.life.brief.season_tuple_spring_winter_neutral_practice.222",
+      "axis": {
+        "category": "overall",
+        "period": "life",
+        "depth": "brief"
+      },
+      "gating": {
+        "birthSeason": [
+          "spring"
+        ],
+        "currentSeason": [
+          "winter"
+        ],
+        "yongshinAlignment": [
+          "neutral"
+        ]
+      },
+      "templateTokens": [
+        {
+          "kind": "text",
+          "value": "봄 출생 리듬과 겨울 현재 리듬을 함께 보면 생활 속 속도 조절이 핵심이에요. 새로운 선택은 가볍게 시험하고, 잘 맞는 루틴만 남기는 방식이 안전해요. 큰 결론을 서두르지 말고 자료와 체력을 먼저 모아보세요."
+        }
+      ],
+      "tags": [],
+      "aiGenerated": true,
+      "sourceTier": {
+        "tier": "T1_HYPOTHESIS",
+        "sourceType": "training_derived",
+        "sourceUrl": null,
+        "accessedAt": "2026-05-02",
+        "quoteShort": null,
+        "humanInterpretation": "Tuple-density expansion for birth season, current season, and yongshin alignment. AI-derived display text; not authority truth.",
+        "copyrightNote": "No source prose copied; original hypothesis text.",
+        "authorityTruthEligible": false
+      }
+    },
+    {
+      "schemaVersion": "spring-ts.narrative-fragment.v1",
+      "fragmentId": "overall.life.brief.season_tuple_spring_winter_conflicting_flow.223",
+      "axis": {
+        "category": "overall",
+        "period": "life",
+        "depth": "brief"
+      },
+      "gating": {
+        "birthSeason": [
+          "spring"
+        ],
+        "currentSeason": [
+          "winter"
+        ],
+        "yongshinAlignment": [
+          "conflicting"
+        ]
+      },
+      "templateTokens": [
+        {
+          "kind": "text",
+          "value": "봄에 태어난 흐름은 새로 시작하고 키워내는 힘에 민감해요. 지금 겨울의 기운은 준비와 회복을 먼저 챙길수록 힘이 쌓이는 리듬이에요. 용신 기운과 계절 흐름이 엇갈려 무리하면 피로가 먼저 올라올 수 있어요."
+        }
+      ],
+      "tags": [],
+      "aiGenerated": true,
+      "sourceTier": {
+        "tier": "T1_HYPOTHESIS",
+        "sourceType": "training_derived",
+        "sourceUrl": null,
+        "accessedAt": "2026-05-02",
+        "quoteShort": null,
+        "humanInterpretation": "Tuple-density expansion for birth season, current season, and yongshin alignment. AI-derived display text; not authority truth.",
+        "copyrightNote": "No source prose copied; original hypothesis text.",
+        "authorityTruthEligible": false
+      }
+    },
+    {
+      "schemaVersion": "spring-ts.narrative-fragment.v1",
+      "fragmentId": "overall.life.brief.season_tuple_spring_winter_conflicting_practice.224",
+      "axis": {
+        "category": "overall",
+        "period": "life",
+        "depth": "brief"
+      },
+      "gating": {
+        "birthSeason": [
+          "spring"
+        ],
+        "currentSeason": [
+          "winter"
+        ],
+        "yongshinAlignment": [
+          "conflicting"
+        ]
+      },
+      "templateTokens": [
+        {
+          "kind": "text",
+          "value": "봄 출생 리듬과 겨울 현재 리듬을 함께 보면 생활 속 속도 조절이 핵심이에요. 계획을 줄이고 쉬운 순서로 배치하면 불필요한 소모를 줄일 수 있어요. 큰 결론을 서두르지 말고 자료와 체력을 먼저 모아보세요."
+        }
+      ],
+      "tags": [],
+      "aiGenerated": true,
+      "sourceTier": {
+        "tier": "T1_HYPOTHESIS",
+        "sourceType": "training_derived",
+        "sourceUrl": null,
+        "accessedAt": "2026-05-02",
+        "quoteShort": null,
+        "humanInterpretation": "Tuple-density expansion for birth season, current season, and yongshin alignment. AI-derived display text; not authority truth.",
+        "copyrightNote": "No source prose copied; original hypothesis text.",
+        "authorityTruthEligible": false
+      }
+    },
+    {
+      "schemaVersion": "spring-ts.narrative-fragment.v1",
+      "fragmentId": "overall.life.brief.season_tuple_summer_spring_aligned_flow.225",
+      "axis": {
+        "category": "overall",
+        "period": "life",
+        "depth": "brief"
+      },
+      "gating": {
+        "birthSeason": [
+          "summer"
+        ],
+        "currentSeason": [
+          "spring"
+        ],
+        "yongshinAlignment": [
+          "aligned"
+        ]
+      },
+      "templateTokens": [
+        {
+          "kind": "text",
+          "value": "여름에 태어난 흐름은 표현과 추진력이 빠르게 올라오는 편이에요. 지금 봄의 기운은 작은 시작을 크게 키우기 쉬운 리듬이에요. 용신 기운이 현재 흐름과 맞물려 작은 실행도 힘을 받기 쉬워요."
+        }
+      ],
+      "tags": [],
+      "aiGenerated": true,
+      "sourceTier": {
+        "tier": "T1_HYPOTHESIS",
+        "sourceType": "training_derived",
+        "sourceUrl": null,
+        "accessedAt": "2026-05-02",
+        "quoteShort": null,
+        "humanInterpretation": "Tuple-density expansion for birth season, current season, and yongshin alignment. AI-derived display text; not authority truth.",
+        "copyrightNote": "No source prose copied; original hypothesis text.",
+        "authorityTruthEligible": false
+      }
+    },
+    {
+      "schemaVersion": "spring-ts.narrative-fragment.v1",
+      "fragmentId": "overall.life.brief.season_tuple_summer_spring_aligned_practice.226",
+      "axis": {
+        "category": "overall",
+        "period": "life",
+        "depth": "brief"
+      },
+      "gating": {
+        "birthSeason": [
+          "summer"
+        ],
+        "currentSeason": [
+          "spring"
+        ],
+        "yongshinAlignment": [
+          "aligned"
+        ]
+      },
+      "templateTokens": [
+        {
+          "kind": "text",
+          "value": "여름 출생 리듬과 봄 현재 리듬을 함께 보면 생활 속 속도 조절이 핵심이에요. 좋은 흐름을 그냥 기다리기보다 오늘 바로 할 수 있는 행동 하나를 정해보세요. 새 계획은 한 번에 넓히기보다 첫 단계를 작게 정하면 좋아요."
+        }
+      ],
+      "tags": [],
+      "aiGenerated": true,
+      "sourceTier": {
+        "tier": "T1_HYPOTHESIS",
+        "sourceType": "training_derived",
+        "sourceUrl": null,
+        "accessedAt": "2026-05-02",
+        "quoteShort": null,
+        "humanInterpretation": "Tuple-density expansion for birth season, current season, and yongshin alignment. AI-derived display text; not authority truth.",
+        "copyrightNote": "No source prose copied; original hypothesis text.",
+        "authorityTruthEligible": false
+      }
+    },
+    {
+      "schemaVersion": "spring-ts.narrative-fragment.v1",
+      "fragmentId": "overall.life.brief.season_tuple_summer_spring_neutral_flow.227",
+      "axis": {
+        "category": "overall",
+        "period": "life",
+        "depth": "brief"
+      },
+      "gating": {
+        "birthSeason": [
+          "summer"
+        ],
+        "currentSeason": [
+          "spring"
+        ],
+        "yongshinAlignment": [
+          "neutral"
+        ]
+      },
+      "templateTokens": [
+        {
+          "kind": "text",
+          "value": "여름에 태어난 흐름은 표현과 추진력이 빠르게 올라오는 편이에요. 지금 봄의 기운은 작은 시작을 크게 키우기 쉬운 리듬이에요. 용신 기운이 크게 밀지도 막지도 않는 중립 흐름이라 기본기가 중요해요."
+        }
+      ],
+      "tags": [],
+      "aiGenerated": true,
+      "sourceTier": {
+        "tier": "T1_HYPOTHESIS",
+        "sourceType": "training_derived",
+        "sourceUrl": null,
+        "accessedAt": "2026-05-02",
+        "quoteShort": null,
+        "humanInterpretation": "Tuple-density expansion for birth season, current season, and yongshin alignment. AI-derived display text; not authority truth.",
+        "copyrightNote": "No source prose copied; original hypothesis text.",
+        "authorityTruthEligible": false
+      }
+    },
+    {
+      "schemaVersion": "spring-ts.narrative-fragment.v1",
+      "fragmentId": "overall.life.brief.season_tuple_summer_spring_neutral_practice.228",
+      "axis": {
+        "category": "overall",
+        "period": "life",
+        "depth": "brief"
+      },
+      "gating": {
+        "birthSeason": [
+          "summer"
+        ],
+        "currentSeason": [
+          "spring"
+        ],
+        "yongshinAlignment": [
+          "neutral"
+        ]
+      },
+      "templateTokens": [
+        {
+          "kind": "text",
+          "value": "여름 출생 리듬과 봄 현재 리듬을 함께 보면 생활 속 속도 조절이 핵심이에요. 새로운 선택은 가볍게 시험하고, 잘 맞는 루틴만 남기는 방식이 안전해요. 새 계획은 한 번에 넓히기보다 첫 단계를 작게 정하면 좋아요."
+        }
+      ],
+      "tags": [],
+      "aiGenerated": true,
+      "sourceTier": {
+        "tier": "T1_HYPOTHESIS",
+        "sourceType": "training_derived",
+        "sourceUrl": null,
+        "accessedAt": "2026-05-02",
+        "quoteShort": null,
+        "humanInterpretation": "Tuple-density expansion for birth season, current season, and yongshin alignment. AI-derived display text; not authority truth.",
+        "copyrightNote": "No source prose copied; original hypothesis text.",
+        "authorityTruthEligible": false
+      }
+    },
+    {
+      "schemaVersion": "spring-ts.narrative-fragment.v1",
+      "fragmentId": "overall.life.brief.season_tuple_summer_spring_conflicting_flow.229",
+      "axis": {
+        "category": "overall",
+        "period": "life",
+        "depth": "brief"
+      },
+      "gating": {
+        "birthSeason": [
+          "summer"
+        ],
+        "currentSeason": [
+          "spring"
+        ],
+        "yongshinAlignment": [
+          "conflicting"
+        ]
+      },
+      "templateTokens": [
+        {
+          "kind": "text",
+          "value": "여름에 태어난 흐름은 표현과 추진력이 빠르게 올라오는 편이에요. 지금 봄의 기운은 작은 시작을 크게 키우기 쉬운 리듬이에요. 용신 기운과 계절 흐름이 엇갈려 무리하면 피로가 먼저 올라올 수 있어요."
+        }
+      ],
+      "tags": [],
+      "aiGenerated": true,
+      "sourceTier": {
+        "tier": "T1_HYPOTHESIS",
+        "sourceType": "training_derived",
+        "sourceUrl": null,
+        "accessedAt": "2026-05-02",
+        "quoteShort": null,
+        "humanInterpretation": "Tuple-density expansion for birth season, current season, and yongshin alignment. AI-derived display text; not authority truth.",
+        "copyrightNote": "No source prose copied; original hypothesis text.",
+        "authorityTruthEligible": false
+      }
+    },
+    {
+      "schemaVersion": "spring-ts.narrative-fragment.v1",
+      "fragmentId": "overall.life.brief.season_tuple_summer_spring_conflicting_practice.230",
+      "axis": {
+        "category": "overall",
+        "period": "life",
+        "depth": "brief"
+      },
+      "gating": {
+        "birthSeason": [
+          "summer"
+        ],
+        "currentSeason": [
+          "spring"
+        ],
+        "yongshinAlignment": [
+          "conflicting"
+        ]
+      },
+      "templateTokens": [
+        {
+          "kind": "text",
+          "value": "여름 출생 리듬과 봄 현재 리듬을 함께 보면 생활 속 속도 조절이 핵심이에요. 계획을 줄이고 쉬운 순서로 배치하면 불필요한 소모를 줄일 수 있어요. 새 계획은 한 번에 넓히기보다 첫 단계를 작게 정하면 좋아요."
+        }
+      ],
+      "tags": [],
+      "aiGenerated": true,
+      "sourceTier": {
+        "tier": "T1_HYPOTHESIS",
+        "sourceType": "training_derived",
+        "sourceUrl": null,
+        "accessedAt": "2026-05-02",
+        "quoteShort": null,
+        "humanInterpretation": "Tuple-density expansion for birth season, current season, and yongshin alignment. AI-derived display text; not authority truth.",
+        "copyrightNote": "No source prose copied; original hypothesis text.",
+        "authorityTruthEligible": false
+      }
+    },
+    {
+      "schemaVersion": "spring-ts.narrative-fragment.v1",
+      "fragmentId": "overall.life.brief.season_tuple_summer_summer_aligned_flow.231",
+      "axis": {
+        "category": "overall",
+        "period": "life",
+        "depth": "brief"
+      },
+      "gating": {
+        "birthSeason": [
+          "summer"
+        ],
+        "currentSeason": [
+          "summer"
+        ],
+        "yongshinAlignment": [
+          "aligned"
+        ]
+      },
+      "templateTokens": [
+        {
+          "kind": "text",
+          "value": "여름에 태어난 흐름은 표현과 추진력이 빠르게 올라오는 편이에요. 지금 여름의 기운은 속도와 열기가 붙기 쉬운 리듬이에요. 용신 기운이 현재 흐름과 맞물려 작은 실행도 힘을 받기 쉬워요."
+        }
+      ],
+      "tags": [],
+      "aiGenerated": true,
+      "sourceTier": {
+        "tier": "T1_HYPOTHESIS",
+        "sourceType": "training_derived",
+        "sourceUrl": null,
+        "accessedAt": "2026-05-02",
+        "quoteShort": null,
+        "humanInterpretation": "Tuple-density expansion for birth season, current season, and yongshin alignment. AI-derived display text; not authority truth.",
+        "copyrightNote": "No source prose copied; original hypothesis text.",
+        "authorityTruthEligible": false
+      }
+    },
+    {
+      "schemaVersion": "spring-ts.narrative-fragment.v1",
+      "fragmentId": "overall.life.brief.season_tuple_summer_summer_aligned_practice.232",
+      "axis": {
+        "category": "overall",
+        "period": "life",
+        "depth": "brief"
+      },
+      "gating": {
+        "birthSeason": [
+          "summer"
+        ],
+        "currentSeason": [
+          "summer"
+        ],
+        "yongshinAlignment": [
+          "aligned"
+        ]
+      },
+      "templateTokens": [
+        {
+          "kind": "text",
+          "value": "여름 출생 리듬과 여름 현재 리듬을 함께 보면 생활 속 속도 조절이 핵심이에요. 좋은 흐름을 그냥 기다리기보다 오늘 바로 할 수 있는 행동 하나를 정해보세요. 일정을 너무 촘촘히 잡기보다 중간에 식히는 시간을 넣어보세요."
+        }
+      ],
+      "tags": [],
+      "aiGenerated": true,
+      "sourceTier": {
+        "tier": "T1_HYPOTHESIS",
+        "sourceType": "training_derived",
+        "sourceUrl": null,
+        "accessedAt": "2026-05-02",
+        "quoteShort": null,
+        "humanInterpretation": "Tuple-density expansion for birth season, current season, and yongshin alignment. AI-derived display text; not authority truth.",
+        "copyrightNote": "No source prose copied; original hypothesis text.",
+        "authorityTruthEligible": false
+      }
+    },
+    {
+      "schemaVersion": "spring-ts.narrative-fragment.v1",
+      "fragmentId": "overall.life.brief.season_tuple_summer_summer_neutral_flow.233",
+      "axis": {
+        "category": "overall",
+        "period": "life",
+        "depth": "brief"
+      },
+      "gating": {
+        "birthSeason": [
+          "summer"
+        ],
+        "currentSeason": [
+          "summer"
+        ],
+        "yongshinAlignment": [
+          "neutral"
+        ]
+      },
+      "templateTokens": [
+        {
+          "kind": "text",
+          "value": "여름에 태어난 흐름은 표현과 추진력이 빠르게 올라오는 편이에요. 지금 여름의 기운은 속도와 열기가 붙기 쉬운 리듬이에요. 용신 기운이 크게 밀지도 막지도 않는 중립 흐름이라 기본기가 중요해요."
+        }
+      ],
+      "tags": [],
+      "aiGenerated": true,
+      "sourceTier": {
+        "tier": "T1_HYPOTHESIS",
+        "sourceType": "training_derived",
+        "sourceUrl": null,
+        "accessedAt": "2026-05-02",
+        "quoteShort": null,
+        "humanInterpretation": "Tuple-density expansion for birth season, current season, and yongshin alignment. AI-derived display text; not authority truth.",
+        "copyrightNote": "No source prose copied; original hypothesis text.",
+        "authorityTruthEligible": false
+      }
+    },
+    {
+      "schemaVersion": "spring-ts.narrative-fragment.v1",
+      "fragmentId": "overall.life.brief.season_tuple_summer_summer_neutral_practice.234",
+      "axis": {
+        "category": "overall",
+        "period": "life",
+        "depth": "brief"
+      },
+      "gating": {
+        "birthSeason": [
+          "summer"
+        ],
+        "currentSeason": [
+          "summer"
+        ],
+        "yongshinAlignment": [
+          "neutral"
+        ]
+      },
+      "templateTokens": [
+        {
+          "kind": "text",
+          "value": "여름 출생 리듬과 여름 현재 리듬을 함께 보면 생활 속 속도 조절이 핵심이에요. 새로운 선택은 가볍게 시험하고, 잘 맞는 루틴만 남기는 방식이 안전해요. 일정을 너무 촘촘히 잡기보다 중간에 식히는 시간을 넣어보세요."
+        }
+      ],
+      "tags": [],
+      "aiGenerated": true,
+      "sourceTier": {
+        "tier": "T1_HYPOTHESIS",
+        "sourceType": "training_derived",
+        "sourceUrl": null,
+        "accessedAt": "2026-05-02",
+        "quoteShort": null,
+        "humanInterpretation": "Tuple-density expansion for birth season, current season, and yongshin alignment. AI-derived display text; not authority truth.",
+        "copyrightNote": "No source prose copied; original hypothesis text.",
+        "authorityTruthEligible": false
+      }
+    },
+    {
+      "schemaVersion": "spring-ts.narrative-fragment.v1",
+      "fragmentId": "overall.life.brief.season_tuple_summer_summer_conflicting_flow.235",
+      "axis": {
+        "category": "overall",
+        "period": "life",
+        "depth": "brief"
+      },
+      "gating": {
+        "birthSeason": [
+          "summer"
+        ],
+        "currentSeason": [
+          "summer"
+        ],
+        "yongshinAlignment": [
+          "conflicting"
+        ]
+      },
+      "templateTokens": [
+        {
+          "kind": "text",
+          "value": "여름에 태어난 흐름은 표현과 추진력이 빠르게 올라오는 편이에요. 지금 여름의 기운은 속도와 열기가 붙기 쉬운 리듬이에요. 용신 기운과 계절 흐름이 엇갈려 무리하면 피로가 먼저 올라올 수 있어요."
+        }
+      ],
+      "tags": [],
+      "aiGenerated": true,
+      "sourceTier": {
+        "tier": "T1_HYPOTHESIS",
+        "sourceType": "training_derived",
+        "sourceUrl": null,
+        "accessedAt": "2026-05-02",
+        "quoteShort": null,
+        "humanInterpretation": "Tuple-density expansion for birth season, current season, and yongshin alignment. AI-derived display text; not authority truth.",
+        "copyrightNote": "No source prose copied; original hypothesis text.",
+        "authorityTruthEligible": false
+      }
+    },
+    {
+      "schemaVersion": "spring-ts.narrative-fragment.v1",
+      "fragmentId": "overall.life.brief.season_tuple_summer_summer_conflicting_practice.236",
+      "axis": {
+        "category": "overall",
+        "period": "life",
+        "depth": "brief"
+      },
+      "gating": {
+        "birthSeason": [
+          "summer"
+        ],
+        "currentSeason": [
+          "summer"
+        ],
+        "yongshinAlignment": [
+          "conflicting"
+        ]
+      },
+      "templateTokens": [
+        {
+          "kind": "text",
+          "value": "여름 출생 리듬과 여름 현재 리듬을 함께 보면 생활 속 속도 조절이 핵심이에요. 계획을 줄이고 쉬운 순서로 배치하면 불필요한 소모를 줄일 수 있어요. 일정을 너무 촘촘히 잡기보다 중간에 식히는 시간을 넣어보세요."
+        }
+      ],
+      "tags": [],
+      "aiGenerated": true,
+      "sourceTier": {
+        "tier": "T1_HYPOTHESIS",
+        "sourceType": "training_derived",
+        "sourceUrl": null,
+        "accessedAt": "2026-05-02",
+        "quoteShort": null,
+        "humanInterpretation": "Tuple-density expansion for birth season, current season, and yongshin alignment. AI-derived display text; not authority truth.",
+        "copyrightNote": "No source prose copied; original hypothesis text.",
+        "authorityTruthEligible": false
+      }
+    },
+    {
+      "schemaVersion": "spring-ts.narrative-fragment.v1",
+      "fragmentId": "overall.life.brief.season_tuple_summer_autumn_aligned_flow.237",
+      "axis": {
+        "category": "overall",
+        "period": "life",
+        "depth": "brief"
+      },
+      "gating": {
+        "birthSeason": [
+          "summer"
+        ],
+        "currentSeason": [
+          "autumn"
+        ],
+        "yongshinAlignment": [
+          "aligned"
+        ]
+      },
+      "templateTokens": [
+        {
+          "kind": "text",
+          "value": "여름에 태어난 흐름은 표현과 추진력이 빠르게 올라오는 편이에요. 지금 가을의 기운은 우선순위를 줄이고 결과를 다듬기 좋은 리듬이에요. 용신 기운이 현재 흐름과 맞물려 작은 실행도 힘을 받기 쉬워요."
+        }
+      ],
+      "tags": [],
+      "aiGenerated": true,
+      "sourceTier": {
+        "tier": "T1_HYPOTHESIS",
+        "sourceType": "training_derived",
+        "sourceUrl": null,
+        "accessedAt": "2026-05-02",
+        "quoteShort": null,
+        "humanInterpretation": "Tuple-density expansion for birth season, current season, and yongshin alignment. AI-derived display text; not authority truth.",
+        "copyrightNote": "No source prose copied; original hypothesis text.",
+        "authorityTruthEligible": false
+      }
+    },
+    {
+      "schemaVersion": "spring-ts.narrative-fragment.v1",
+      "fragmentId": "overall.life.brief.season_tuple_summer_autumn_aligned_practice.238",
+      "axis": {
+        "category": "overall",
+        "period": "life",
+        "depth": "brief"
+      },
+      "gating": {
+        "birthSeason": [
+          "summer"
+        ],
+        "currentSeason": [
+          "autumn"
+        ],
+        "yongshinAlignment": [
+          "aligned"
+        ]
+      },
+      "templateTokens": [
+        {
+          "kind": "text",
+          "value": "여름 출생 리듬과 가을 현재 리듬을 함께 보면 생활 속 속도 조절이 핵심이에요. 좋은 흐름을 그냥 기다리기보다 오늘 바로 할 수 있는 행동 하나를 정해보세요. 새 일을 늘리기보다 이미 가진 일을 정리하면 흐름이 안정돼요."
+        }
+      ],
+      "tags": [],
+      "aiGenerated": true,
+      "sourceTier": {
+        "tier": "T1_HYPOTHESIS",
+        "sourceType": "training_derived",
+        "sourceUrl": null,
+        "accessedAt": "2026-05-02",
+        "quoteShort": null,
+        "humanInterpretation": "Tuple-density expansion for birth season, current season, and yongshin alignment. AI-derived display text; not authority truth.",
+        "copyrightNote": "No source prose copied; original hypothesis text.",
+        "authorityTruthEligible": false
+      }
+    },
+    {
+      "schemaVersion": "spring-ts.narrative-fragment.v1",
+      "fragmentId": "overall.life.brief.season_tuple_summer_autumn_neutral_flow.239",
+      "axis": {
+        "category": "overall",
+        "period": "life",
+        "depth": "brief"
+      },
+      "gating": {
+        "birthSeason": [
+          "summer"
+        ],
+        "currentSeason": [
+          "autumn"
+        ],
+        "yongshinAlignment": [
+          "neutral"
+        ]
+      },
+      "templateTokens": [
+        {
+          "kind": "text",
+          "value": "여름에 태어난 흐름은 표현과 추진력이 빠르게 올라오는 편이에요. 지금 가을의 기운은 우선순위를 줄이고 결과를 다듬기 좋은 리듬이에요. 용신 기운이 크게 밀지도 막지도 않는 중립 흐름이라 기본기가 중요해요."
+        }
+      ],
+      "tags": [],
+      "aiGenerated": true,
+      "sourceTier": {
+        "tier": "T1_HYPOTHESIS",
+        "sourceType": "training_derived",
+        "sourceUrl": null,
+        "accessedAt": "2026-05-02",
+        "quoteShort": null,
+        "humanInterpretation": "Tuple-density expansion for birth season, current season, and yongshin alignment. AI-derived display text; not authority truth.",
+        "copyrightNote": "No source prose copied; original hypothesis text.",
+        "authorityTruthEligible": false
+      }
+    },
+    {
+      "schemaVersion": "spring-ts.narrative-fragment.v1",
+      "fragmentId": "overall.life.brief.season_tuple_summer_autumn_neutral_practice.240",
+      "axis": {
+        "category": "overall",
+        "period": "life",
+        "depth": "brief"
+      },
+      "gating": {
+        "birthSeason": [
+          "summer"
+        ],
+        "currentSeason": [
+          "autumn"
+        ],
+        "yongshinAlignment": [
+          "neutral"
+        ]
+      },
+      "templateTokens": [
+        {
+          "kind": "text",
+          "value": "여름 출생 리듬과 가을 현재 리듬을 함께 보면 생활 속 속도 조절이 핵심이에요. 새로운 선택은 가볍게 시험하고, 잘 맞는 루틴만 남기는 방식이 안전해요. 새 일을 늘리기보다 이미 가진 일을 정리하면 흐름이 안정돼요."
+        }
+      ],
+      "tags": [],
+      "aiGenerated": true,
+      "sourceTier": {
+        "tier": "T1_HYPOTHESIS",
+        "sourceType": "training_derived",
+        "sourceUrl": null,
+        "accessedAt": "2026-05-02",
+        "quoteShort": null,
+        "humanInterpretation": "Tuple-density expansion for birth season, current season, and yongshin alignment. AI-derived display text; not authority truth.",
+        "copyrightNote": "No source prose copied; original hypothesis text.",
+        "authorityTruthEligible": false
+      }
+    },
+    {
+      "schemaVersion": "spring-ts.narrative-fragment.v1",
+      "fragmentId": "overall.life.brief.season_tuple_summer_autumn_conflicting_flow.241",
+      "axis": {
+        "category": "overall",
+        "period": "life",
+        "depth": "brief"
+      },
+      "gating": {
+        "birthSeason": [
+          "summer"
+        ],
+        "currentSeason": [
+          "autumn"
+        ],
+        "yongshinAlignment": [
+          "conflicting"
+        ]
+      },
+      "templateTokens": [
+        {
+          "kind": "text",
+          "value": "여름에 태어난 흐름은 표현과 추진력이 빠르게 올라오는 편이에요. 지금 가을의 기운은 우선순위를 줄이고 결과를 다듬기 좋은 리듬이에요. 용신 기운과 계절 흐름이 엇갈려 무리하면 피로가 먼저 올라올 수 있어요."
+        }
+      ],
+      "tags": [],
+      "aiGenerated": true,
+      "sourceTier": {
+        "tier": "T1_HYPOTHESIS",
+        "sourceType": "training_derived",
+        "sourceUrl": null,
+        "accessedAt": "2026-05-02",
+        "quoteShort": null,
+        "humanInterpretation": "Tuple-density expansion for birth season, current season, and yongshin alignment. AI-derived display text; not authority truth.",
+        "copyrightNote": "No source prose copied; original hypothesis text.",
+        "authorityTruthEligible": false
+      }
+    },
+    {
+      "schemaVersion": "spring-ts.narrative-fragment.v1",
+      "fragmentId": "overall.life.brief.season_tuple_summer_autumn_conflicting_practice.242",
+      "axis": {
+        "category": "overall",
+        "period": "life",
+        "depth": "brief"
+      },
+      "gating": {
+        "birthSeason": [
+          "summer"
+        ],
+        "currentSeason": [
+          "autumn"
+        ],
+        "yongshinAlignment": [
+          "conflicting"
+        ]
+      },
+      "templateTokens": [
+        {
+          "kind": "text",
+          "value": "여름 출생 리듬과 가을 현재 리듬을 함께 보면 생활 속 속도 조절이 핵심이에요. 계획을 줄이고 쉬운 순서로 배치하면 불필요한 소모를 줄일 수 있어요. 새 일을 늘리기보다 이미 가진 일을 정리하면 흐름이 안정돼요."
+        }
+      ],
+      "tags": [],
+      "aiGenerated": true,
+      "sourceTier": {
+        "tier": "T1_HYPOTHESIS",
+        "sourceType": "training_derived",
+        "sourceUrl": null,
+        "accessedAt": "2026-05-02",
+        "quoteShort": null,
+        "humanInterpretation": "Tuple-density expansion for birth season, current season, and yongshin alignment. AI-derived display text; not authority truth.",
+        "copyrightNote": "No source prose copied; original hypothesis text.",
+        "authorityTruthEligible": false
+      }
+    },
+    {
+      "schemaVersion": "spring-ts.narrative-fragment.v1",
+      "fragmentId": "overall.life.brief.season_tuple_summer_winter_aligned_flow.243",
+      "axis": {
+        "category": "overall",
+        "period": "life",
+        "depth": "brief"
+      },
+      "gating": {
+        "birthSeason": [
+          "summer"
+        ],
+        "currentSeason": [
+          "winter"
+        ],
+        "yongshinAlignment": [
+          "aligned"
+        ]
+      },
+      "templateTokens": [
+        {
+          "kind": "text",
+          "value": "여름에 태어난 흐름은 표현과 추진력이 빠르게 올라오는 편이에요. 지금 겨울의 기운은 준비와 회복을 먼저 챙길수록 힘이 쌓이는 리듬이에요. 용신 기운이 현재 흐름과 맞물려 작은 실행도 힘을 받기 쉬워요."
+        }
+      ],
+      "tags": [],
+      "aiGenerated": true,
+      "sourceTier": {
+        "tier": "T1_HYPOTHESIS",
+        "sourceType": "training_derived",
+        "sourceUrl": null,
+        "accessedAt": "2026-05-02",
+        "quoteShort": null,
+        "humanInterpretation": "Tuple-density expansion for birth season, current season, and yongshin alignment. AI-derived display text; not authority truth.",
+        "copyrightNote": "No source prose copied; original hypothesis text.",
+        "authorityTruthEligible": false
+      }
+    },
+    {
+      "schemaVersion": "spring-ts.narrative-fragment.v1",
+      "fragmentId": "overall.life.brief.season_tuple_summer_winter_aligned_practice.244",
+      "axis": {
+        "category": "overall",
+        "period": "life",
+        "depth": "brief"
+      },
+      "gating": {
+        "birthSeason": [
+          "summer"
+        ],
+        "currentSeason": [
+          "winter"
+        ],
+        "yongshinAlignment": [
+          "aligned"
+        ]
+      },
+      "templateTokens": [
+        {
+          "kind": "text",
+          "value": "여름 출생 리듬과 겨울 현재 리듬을 함께 보면 생활 속 속도 조절이 핵심이에요. 좋은 흐름을 그냥 기다리기보다 오늘 바로 할 수 있는 행동 하나를 정해보세요. 큰 결론을 서두르지 말고 자료와 체력을 먼저 모아보세요."
+        }
+      ],
+      "tags": [],
+      "aiGenerated": true,
+      "sourceTier": {
+        "tier": "T1_HYPOTHESIS",
+        "sourceType": "training_derived",
+        "sourceUrl": null,
+        "accessedAt": "2026-05-02",
+        "quoteShort": null,
+        "humanInterpretation": "Tuple-density expansion for birth season, current season, and yongshin alignment. AI-derived display text; not authority truth.",
+        "copyrightNote": "No source prose copied; original hypothesis text.",
+        "authorityTruthEligible": false
+      }
+    },
+    {
+      "schemaVersion": "spring-ts.narrative-fragment.v1",
+      "fragmentId": "overall.life.brief.season_tuple_summer_winter_neutral_flow.245",
+      "axis": {
+        "category": "overall",
+        "period": "life",
+        "depth": "brief"
+      },
+      "gating": {
+        "birthSeason": [
+          "summer"
+        ],
+        "currentSeason": [
+          "winter"
+        ],
+        "yongshinAlignment": [
+          "neutral"
+        ]
+      },
+      "templateTokens": [
+        {
+          "kind": "text",
+          "value": "여름에 태어난 흐름은 표현과 추진력이 빠르게 올라오는 편이에요. 지금 겨울의 기운은 준비와 회복을 먼저 챙길수록 힘이 쌓이는 리듬이에요. 용신 기운이 크게 밀지도 막지도 않는 중립 흐름이라 기본기가 중요해요."
+        }
+      ],
+      "tags": [],
+      "aiGenerated": true,
+      "sourceTier": {
+        "tier": "T1_HYPOTHESIS",
+        "sourceType": "training_derived",
+        "sourceUrl": null,
+        "accessedAt": "2026-05-02",
+        "quoteShort": null,
+        "humanInterpretation": "Tuple-density expansion for birth season, current season, and yongshin alignment. AI-derived display text; not authority truth.",
+        "copyrightNote": "No source prose copied; original hypothesis text.",
+        "authorityTruthEligible": false
+      }
+    },
+    {
+      "schemaVersion": "spring-ts.narrative-fragment.v1",
+      "fragmentId": "overall.life.brief.season_tuple_summer_winter_neutral_practice.246",
+      "axis": {
+        "category": "overall",
+        "period": "life",
+        "depth": "brief"
+      },
+      "gating": {
+        "birthSeason": [
+          "summer"
+        ],
+        "currentSeason": [
+          "winter"
+        ],
+        "yongshinAlignment": [
+          "neutral"
+        ]
+      },
+      "templateTokens": [
+        {
+          "kind": "text",
+          "value": "여름 출생 리듬과 겨울 현재 리듬을 함께 보면 생활 속 속도 조절이 핵심이에요. 새로운 선택은 가볍게 시험하고, 잘 맞는 루틴만 남기는 방식이 안전해요. 큰 결론을 서두르지 말고 자료와 체력을 먼저 모아보세요."
+        }
+      ],
+      "tags": [],
+      "aiGenerated": true,
+      "sourceTier": {
+        "tier": "T1_HYPOTHESIS",
+        "sourceType": "training_derived",
+        "sourceUrl": null,
+        "accessedAt": "2026-05-02",
+        "quoteShort": null,
+        "humanInterpretation": "Tuple-density expansion for birth season, current season, and yongshin alignment. AI-derived display text; not authority truth.",
+        "copyrightNote": "No source prose copied; original hypothesis text.",
+        "authorityTruthEligible": false
+      }
+    },
+    {
+      "schemaVersion": "spring-ts.narrative-fragment.v1",
+      "fragmentId": "overall.life.brief.season_tuple_summer_winter_conflicting_flow.247",
+      "axis": {
+        "category": "overall",
+        "period": "life",
+        "depth": "brief"
+      },
+      "gating": {
+        "birthSeason": [
+          "summer"
+        ],
+        "currentSeason": [
+          "winter"
+        ],
+        "yongshinAlignment": [
+          "conflicting"
+        ]
+      },
+      "templateTokens": [
+        {
+          "kind": "text",
+          "value": "여름에 태어난 흐름은 표현과 추진력이 빠르게 올라오는 편이에요. 지금 겨울의 기운은 준비와 회복을 먼저 챙길수록 힘이 쌓이는 리듬이에요. 용신 기운과 계절 흐름이 엇갈려 무리하면 피로가 먼저 올라올 수 있어요."
+        }
+      ],
+      "tags": [],
+      "aiGenerated": true,
+      "sourceTier": {
+        "tier": "T1_HYPOTHESIS",
+        "sourceType": "training_derived",
+        "sourceUrl": null,
+        "accessedAt": "2026-05-02",
+        "quoteShort": null,
+        "humanInterpretation": "Tuple-density expansion for birth season, current season, and yongshin alignment. AI-derived display text; not authority truth.",
+        "copyrightNote": "No source prose copied; original hypothesis text.",
+        "authorityTruthEligible": false
+      }
+    },
+    {
+      "schemaVersion": "spring-ts.narrative-fragment.v1",
+      "fragmentId": "overall.life.brief.season_tuple_summer_winter_conflicting_practice.248",
+      "axis": {
+        "category": "overall",
+        "period": "life",
+        "depth": "brief"
+      },
+      "gating": {
+        "birthSeason": [
+          "summer"
+        ],
+        "currentSeason": [
+          "winter"
+        ],
+        "yongshinAlignment": [
+          "conflicting"
+        ]
+      },
+      "templateTokens": [
+        {
+          "kind": "text",
+          "value": "여름 출생 리듬과 겨울 현재 리듬을 함께 보면 생활 속 속도 조절이 핵심이에요. 계획을 줄이고 쉬운 순서로 배치하면 불필요한 소모를 줄일 수 있어요. 큰 결론을 서두르지 말고 자료와 체력을 먼저 모아보세요."
+        }
+      ],
+      "tags": [],
+      "aiGenerated": true,
+      "sourceTier": {
+        "tier": "T1_HYPOTHESIS",
+        "sourceType": "training_derived",
+        "sourceUrl": null,
+        "accessedAt": "2026-05-02",
+        "quoteShort": null,
+        "humanInterpretation": "Tuple-density expansion for birth season, current season, and yongshin alignment. AI-derived display text; not authority truth.",
+        "copyrightNote": "No source prose copied; original hypothesis text.",
+        "authorityTruthEligible": false
+      }
+    },
+    {
+      "schemaVersion": "spring-ts.narrative-fragment.v1",
+      "fragmentId": "overall.life.brief.season_tuple_autumn_spring_aligned_flow.249",
+      "axis": {
+        "category": "overall",
+        "period": "life",
+        "depth": "brief"
+      },
+      "gating": {
+        "birthSeason": [
+          "autumn"
+        ],
+        "currentSeason": [
+          "spring"
+        ],
+        "yongshinAlignment": [
+          "aligned"
+        ]
+      },
+      "templateTokens": [
+        {
+          "kind": "text",
+          "value": "가을에 태어난 흐름은 정리하고 고르는 감각이 또렷해요. 지금 봄의 기운은 작은 시작을 크게 키우기 쉬운 리듬이에요. 용신 기운이 현재 흐름과 맞물려 작은 실행도 힘을 받기 쉬워요."
+        }
+      ],
+      "tags": [],
+      "aiGenerated": true,
+      "sourceTier": {
+        "tier": "T1_HYPOTHESIS",
+        "sourceType": "training_derived",
+        "sourceUrl": null,
+        "accessedAt": "2026-05-02",
+        "quoteShort": null,
+        "humanInterpretation": "Tuple-density expansion for birth season, current season, and yongshin alignment. AI-derived display text; not authority truth.",
+        "copyrightNote": "No source prose copied; original hypothesis text.",
+        "authorityTruthEligible": false
+      }
+    },
+    {
+      "schemaVersion": "spring-ts.narrative-fragment.v1",
+      "fragmentId": "overall.life.brief.season_tuple_autumn_spring_aligned_practice.250",
+      "axis": {
+        "category": "overall",
+        "period": "life",
+        "depth": "brief"
+      },
+      "gating": {
+        "birthSeason": [
+          "autumn"
+        ],
+        "currentSeason": [
+          "spring"
+        ],
+        "yongshinAlignment": [
+          "aligned"
+        ]
+      },
+      "templateTokens": [
+        {
+          "kind": "text",
+          "value": "가을 출생 리듬과 봄 현재 리듬을 함께 보면 생활 속 속도 조절이 핵심이에요. 좋은 흐름을 그냥 기다리기보다 오늘 바로 할 수 있는 행동 하나를 정해보세요. 새 계획은 한 번에 넓히기보다 첫 단계를 작게 정하면 좋아요."
+        }
+      ],
+      "tags": [],
+      "aiGenerated": true,
+      "sourceTier": {
+        "tier": "T1_HYPOTHESIS",
+        "sourceType": "training_derived",
+        "sourceUrl": null,
+        "accessedAt": "2026-05-02",
+        "quoteShort": null,
+        "humanInterpretation": "Tuple-density expansion for birth season, current season, and yongshin alignment. AI-derived display text; not authority truth.",
+        "copyrightNote": "No source prose copied; original hypothesis text.",
+        "authorityTruthEligible": false
+      }
+    },
+    {
+      "schemaVersion": "spring-ts.narrative-fragment.v1",
+      "fragmentId": "overall.life.brief.season_tuple_autumn_spring_neutral_flow.251",
+      "axis": {
+        "category": "overall",
+        "period": "life",
+        "depth": "brief"
+      },
+      "gating": {
+        "birthSeason": [
+          "autumn"
+        ],
+        "currentSeason": [
+          "spring"
+        ],
+        "yongshinAlignment": [
+          "neutral"
+        ]
+      },
+      "templateTokens": [
+        {
+          "kind": "text",
+          "value": "가을에 태어난 흐름은 정리하고 고르는 감각이 또렷해요. 지금 봄의 기운은 작은 시작을 크게 키우기 쉬운 리듬이에요. 용신 기운이 크게 밀지도 막지도 않는 중립 흐름이라 기본기가 중요해요."
+        }
+      ],
+      "tags": [],
+      "aiGenerated": true,
+      "sourceTier": {
+        "tier": "T1_HYPOTHESIS",
+        "sourceType": "training_derived",
+        "sourceUrl": null,
+        "accessedAt": "2026-05-02",
+        "quoteShort": null,
+        "humanInterpretation": "Tuple-density expansion for birth season, current season, and yongshin alignment. AI-derived display text; not authority truth.",
+        "copyrightNote": "No source prose copied; original hypothesis text.",
+        "authorityTruthEligible": false
+      }
+    },
+    {
+      "schemaVersion": "spring-ts.narrative-fragment.v1",
+      "fragmentId": "overall.life.brief.season_tuple_autumn_spring_neutral_practice.252",
+      "axis": {
+        "category": "overall",
+        "period": "life",
+        "depth": "brief"
+      },
+      "gating": {
+        "birthSeason": [
+          "autumn"
+        ],
+        "currentSeason": [
+          "spring"
+        ],
+        "yongshinAlignment": [
+          "neutral"
+        ]
+      },
+      "templateTokens": [
+        {
+          "kind": "text",
+          "value": "가을 출생 리듬과 봄 현재 리듬을 함께 보면 생활 속 속도 조절이 핵심이에요. 새로운 선택은 가볍게 시험하고, 잘 맞는 루틴만 남기는 방식이 안전해요. 새 계획은 한 번에 넓히기보다 첫 단계를 작게 정하면 좋아요."
+        }
+      ],
+      "tags": [],
+      "aiGenerated": true,
+      "sourceTier": {
+        "tier": "T1_HYPOTHESIS",
+        "sourceType": "training_derived",
+        "sourceUrl": null,
+        "accessedAt": "2026-05-02",
+        "quoteShort": null,
+        "humanInterpretation": "Tuple-density expansion for birth season, current season, and yongshin alignment. AI-derived display text; not authority truth.",
+        "copyrightNote": "No source prose copied; original hypothesis text.",
+        "authorityTruthEligible": false
+      }
+    },
+    {
+      "schemaVersion": "spring-ts.narrative-fragment.v1",
+      "fragmentId": "overall.life.brief.season_tuple_autumn_spring_conflicting_flow.253",
+      "axis": {
+        "category": "overall",
+        "period": "life",
+        "depth": "brief"
+      },
+      "gating": {
+        "birthSeason": [
+          "autumn"
+        ],
+        "currentSeason": [
+          "spring"
+        ],
+        "yongshinAlignment": [
+          "conflicting"
+        ]
+      },
+      "templateTokens": [
+        {
+          "kind": "text",
+          "value": "가을에 태어난 흐름은 정리하고 고르는 감각이 또렷해요. 지금 봄의 기운은 작은 시작을 크게 키우기 쉬운 리듬이에요. 용신 기운과 계절 흐름이 엇갈려 무리하면 피로가 먼저 올라올 수 있어요."
+        }
+      ],
+      "tags": [],
+      "aiGenerated": true,
+      "sourceTier": {
+        "tier": "T1_HYPOTHESIS",
+        "sourceType": "training_derived",
+        "sourceUrl": null,
+        "accessedAt": "2026-05-02",
+        "quoteShort": null,
+        "humanInterpretation": "Tuple-density expansion for birth season, current season, and yongshin alignment. AI-derived display text; not authority truth.",
+        "copyrightNote": "No source prose copied; original hypothesis text.",
+        "authorityTruthEligible": false
+      }
+    },
+    {
+      "schemaVersion": "spring-ts.narrative-fragment.v1",
+      "fragmentId": "overall.life.brief.season_tuple_autumn_spring_conflicting_practice.254",
+      "axis": {
+        "category": "overall",
+        "period": "life",
+        "depth": "brief"
+      },
+      "gating": {
+        "birthSeason": [
+          "autumn"
+        ],
+        "currentSeason": [
+          "spring"
+        ],
+        "yongshinAlignment": [
+          "conflicting"
+        ]
+      },
+      "templateTokens": [
+        {
+          "kind": "text",
+          "value": "가을 출생 리듬과 봄 현재 리듬을 함께 보면 생활 속 속도 조절이 핵심이에요. 계획을 줄이고 쉬운 순서로 배치하면 불필요한 소모를 줄일 수 있어요. 새 계획은 한 번에 넓히기보다 첫 단계를 작게 정하면 좋아요."
+        }
+      ],
+      "tags": [],
+      "aiGenerated": true,
+      "sourceTier": {
+        "tier": "T1_HYPOTHESIS",
+        "sourceType": "training_derived",
+        "sourceUrl": null,
+        "accessedAt": "2026-05-02",
+        "quoteShort": null,
+        "humanInterpretation": "Tuple-density expansion for birth season, current season, and yongshin alignment. AI-derived display text; not authority truth.",
+        "copyrightNote": "No source prose copied; original hypothesis text.",
+        "authorityTruthEligible": false
+      }
+    },
+    {
+      "schemaVersion": "spring-ts.narrative-fragment.v1",
+      "fragmentId": "overall.life.brief.season_tuple_autumn_summer_aligned_flow.255",
+      "axis": {
+        "category": "overall",
+        "period": "life",
+        "depth": "brief"
+      },
+      "gating": {
+        "birthSeason": [
+          "autumn"
+        ],
+        "currentSeason": [
+          "summer"
+        ],
+        "yongshinAlignment": [
+          "aligned"
+        ]
+      },
+      "templateTokens": [
+        {
+          "kind": "text",
+          "value": "가을에 태어난 흐름은 정리하고 고르는 감각이 또렷해요. 지금 여름의 기운은 속도와 열기가 붙기 쉬운 리듬이에요. 용신 기운이 현재 흐름과 맞물려 작은 실행도 힘을 받기 쉬워요."
+        }
+      ],
+      "tags": [],
+      "aiGenerated": true,
+      "sourceTier": {
+        "tier": "T1_HYPOTHESIS",
+        "sourceType": "training_derived",
+        "sourceUrl": null,
+        "accessedAt": "2026-05-02",
+        "quoteShort": null,
+        "humanInterpretation": "Tuple-density expansion for birth season, current season, and yongshin alignment. AI-derived display text; not authority truth.",
+        "copyrightNote": "No source prose copied; original hypothesis text.",
+        "authorityTruthEligible": false
+      }
+    },
+    {
+      "schemaVersion": "spring-ts.narrative-fragment.v1",
+      "fragmentId": "overall.life.brief.season_tuple_autumn_summer_aligned_practice.256",
+      "axis": {
+        "category": "overall",
+        "period": "life",
+        "depth": "brief"
+      },
+      "gating": {
+        "birthSeason": [
+          "autumn"
+        ],
+        "currentSeason": [
+          "summer"
+        ],
+        "yongshinAlignment": [
+          "aligned"
+        ]
+      },
+      "templateTokens": [
+        {
+          "kind": "text",
+          "value": "가을 출생 리듬과 여름 현재 리듬을 함께 보면 생활 속 속도 조절이 핵심이에요. 좋은 흐름을 그냥 기다리기보다 오늘 바로 할 수 있는 행동 하나를 정해보세요. 일정을 너무 촘촘히 잡기보다 중간에 식히는 시간을 넣어보세요."
+        }
+      ],
+      "tags": [],
+      "aiGenerated": true,
+      "sourceTier": {
+        "tier": "T1_HYPOTHESIS",
+        "sourceType": "training_derived",
+        "sourceUrl": null,
+        "accessedAt": "2026-05-02",
+        "quoteShort": null,
+        "humanInterpretation": "Tuple-density expansion for birth season, current season, and yongshin alignment. AI-derived display text; not authority truth.",
+        "copyrightNote": "No source prose copied; original hypothesis text.",
+        "authorityTruthEligible": false
+      }
+    },
+    {
+      "schemaVersion": "spring-ts.narrative-fragment.v1",
+      "fragmentId": "overall.life.brief.season_tuple_autumn_summer_neutral_flow.257",
+      "axis": {
+        "category": "overall",
+        "period": "life",
+        "depth": "brief"
+      },
+      "gating": {
+        "birthSeason": [
+          "autumn"
+        ],
+        "currentSeason": [
+          "summer"
+        ],
+        "yongshinAlignment": [
+          "neutral"
+        ]
+      },
+      "templateTokens": [
+        {
+          "kind": "text",
+          "value": "가을에 태어난 흐름은 정리하고 고르는 감각이 또렷해요. 지금 여름의 기운은 속도와 열기가 붙기 쉬운 리듬이에요. 용신 기운이 크게 밀지도 막지도 않는 중립 흐름이라 기본기가 중요해요."
+        }
+      ],
+      "tags": [],
+      "aiGenerated": true,
+      "sourceTier": {
+        "tier": "T1_HYPOTHESIS",
+        "sourceType": "training_derived",
+        "sourceUrl": null,
+        "accessedAt": "2026-05-02",
+        "quoteShort": null,
+        "humanInterpretation": "Tuple-density expansion for birth season, current season, and yongshin alignment. AI-derived display text; not authority truth.",
+        "copyrightNote": "No source prose copied; original hypothesis text.",
+        "authorityTruthEligible": false
+      }
+    },
+    {
+      "schemaVersion": "spring-ts.narrative-fragment.v1",
+      "fragmentId": "overall.life.brief.season_tuple_autumn_summer_neutral_practice.258",
+      "axis": {
+        "category": "overall",
+        "period": "life",
+        "depth": "brief"
+      },
+      "gating": {
+        "birthSeason": [
+          "autumn"
+        ],
+        "currentSeason": [
+          "summer"
+        ],
+        "yongshinAlignment": [
+          "neutral"
+        ]
+      },
+      "templateTokens": [
+        {
+          "kind": "text",
+          "value": "가을 출생 리듬과 여름 현재 리듬을 함께 보면 생활 속 속도 조절이 핵심이에요. 새로운 선택은 가볍게 시험하고, 잘 맞는 루틴만 남기는 방식이 안전해요. 일정을 너무 촘촘히 잡기보다 중간에 식히는 시간을 넣어보세요."
+        }
+      ],
+      "tags": [],
+      "aiGenerated": true,
+      "sourceTier": {
+        "tier": "T1_HYPOTHESIS",
+        "sourceType": "training_derived",
+        "sourceUrl": null,
+        "accessedAt": "2026-05-02",
+        "quoteShort": null,
+        "humanInterpretation": "Tuple-density expansion for birth season, current season, and yongshin alignment. AI-derived display text; not authority truth.",
+        "copyrightNote": "No source prose copied; original hypothesis text.",
+        "authorityTruthEligible": false
+      }
+    },
+    {
+      "schemaVersion": "spring-ts.narrative-fragment.v1",
+      "fragmentId": "overall.life.brief.season_tuple_autumn_summer_conflicting_flow.259",
+      "axis": {
+        "category": "overall",
+        "period": "life",
+        "depth": "brief"
+      },
+      "gating": {
+        "birthSeason": [
+          "autumn"
+        ],
+        "currentSeason": [
+          "summer"
+        ],
+        "yongshinAlignment": [
+          "conflicting"
+        ]
+      },
+      "templateTokens": [
+        {
+          "kind": "text",
+          "value": "가을에 태어난 흐름은 정리하고 고르는 감각이 또렷해요. 지금 여름의 기운은 속도와 열기가 붙기 쉬운 리듬이에요. 용신 기운과 계절 흐름이 엇갈려 무리하면 피로가 먼저 올라올 수 있어요."
+        }
+      ],
+      "tags": [],
+      "aiGenerated": true,
+      "sourceTier": {
+        "tier": "T1_HYPOTHESIS",
+        "sourceType": "training_derived",
+        "sourceUrl": null,
+        "accessedAt": "2026-05-02",
+        "quoteShort": null,
+        "humanInterpretation": "Tuple-density expansion for birth season, current season, and yongshin alignment. AI-derived display text; not authority truth.",
+        "copyrightNote": "No source prose copied; original hypothesis text.",
+        "authorityTruthEligible": false
+      }
+    },
+    {
+      "schemaVersion": "spring-ts.narrative-fragment.v1",
+      "fragmentId": "overall.life.brief.season_tuple_autumn_summer_conflicting_practice.260",
+      "axis": {
+        "category": "overall",
+        "period": "life",
+        "depth": "brief"
+      },
+      "gating": {
+        "birthSeason": [
+          "autumn"
+        ],
+        "currentSeason": [
+          "summer"
+        ],
+        "yongshinAlignment": [
+          "conflicting"
+        ]
+      },
+      "templateTokens": [
+        {
+          "kind": "text",
+          "value": "가을 출생 리듬과 여름 현재 리듬을 함께 보면 생활 속 속도 조절이 핵심이에요. 계획을 줄이고 쉬운 순서로 배치하면 불필요한 소모를 줄일 수 있어요. 일정을 너무 촘촘히 잡기보다 중간에 식히는 시간을 넣어보세요."
+        }
+      ],
+      "tags": [],
+      "aiGenerated": true,
+      "sourceTier": {
+        "tier": "T1_HYPOTHESIS",
+        "sourceType": "training_derived",
+        "sourceUrl": null,
+        "accessedAt": "2026-05-02",
+        "quoteShort": null,
+        "humanInterpretation": "Tuple-density expansion for birth season, current season, and yongshin alignment. AI-derived display text; not authority truth.",
+        "copyrightNote": "No source prose copied; original hypothesis text.",
+        "authorityTruthEligible": false
+      }
+    },
+    {
+      "schemaVersion": "spring-ts.narrative-fragment.v1",
+      "fragmentId": "overall.life.brief.season_tuple_autumn_autumn_aligned_flow.261",
+      "axis": {
+        "category": "overall",
+        "period": "life",
+        "depth": "brief"
+      },
+      "gating": {
+        "birthSeason": [
+          "autumn"
+        ],
+        "currentSeason": [
+          "autumn"
+        ],
+        "yongshinAlignment": [
+          "aligned"
+        ]
+      },
+      "templateTokens": [
+        {
+          "kind": "text",
+          "value": "가을에 태어난 흐름은 정리하고 고르는 감각이 또렷해요. 지금 가을의 기운은 우선순위를 줄이고 결과를 다듬기 좋은 리듬이에요. 용신 기운이 현재 흐름과 맞물려 작은 실행도 힘을 받기 쉬워요."
+        }
+      ],
+      "tags": [],
+      "aiGenerated": true,
+      "sourceTier": {
+        "tier": "T1_HYPOTHESIS",
+        "sourceType": "training_derived",
+        "sourceUrl": null,
+        "accessedAt": "2026-05-02",
+        "quoteShort": null,
+        "humanInterpretation": "Tuple-density expansion for birth season, current season, and yongshin alignment. AI-derived display text; not authority truth.",
+        "copyrightNote": "No source prose copied; original hypothesis text.",
+        "authorityTruthEligible": false
+      }
+    },
+    {
+      "schemaVersion": "spring-ts.narrative-fragment.v1",
+      "fragmentId": "overall.life.brief.season_tuple_autumn_autumn_aligned_practice.262",
+      "axis": {
+        "category": "overall",
+        "period": "life",
+        "depth": "brief"
+      },
+      "gating": {
+        "birthSeason": [
+          "autumn"
+        ],
+        "currentSeason": [
+          "autumn"
+        ],
+        "yongshinAlignment": [
+          "aligned"
+        ]
+      },
+      "templateTokens": [
+        {
+          "kind": "text",
+          "value": "가을 출생 리듬과 가을 현재 리듬을 함께 보면 생활 속 속도 조절이 핵심이에요. 좋은 흐름을 그냥 기다리기보다 오늘 바로 할 수 있는 행동 하나를 정해보세요. 새 일을 늘리기보다 이미 가진 일을 정리하면 흐름이 안정돼요."
+        }
+      ],
+      "tags": [],
+      "aiGenerated": true,
+      "sourceTier": {
+        "tier": "T1_HYPOTHESIS",
+        "sourceType": "training_derived",
+        "sourceUrl": null,
+        "accessedAt": "2026-05-02",
+        "quoteShort": null,
+        "humanInterpretation": "Tuple-density expansion for birth season, current season, and yongshin alignment. AI-derived display text; not authority truth.",
+        "copyrightNote": "No source prose copied; original hypothesis text.",
+        "authorityTruthEligible": false
+      }
+    },
+    {
+      "schemaVersion": "spring-ts.narrative-fragment.v1",
+      "fragmentId": "overall.life.brief.season_tuple_autumn_autumn_neutral_flow.263",
+      "axis": {
+        "category": "overall",
+        "period": "life",
+        "depth": "brief"
+      },
+      "gating": {
+        "birthSeason": [
+          "autumn"
+        ],
+        "currentSeason": [
+          "autumn"
+        ],
+        "yongshinAlignment": [
+          "neutral"
+        ]
+      },
+      "templateTokens": [
+        {
+          "kind": "text",
+          "value": "가을에 태어난 흐름은 정리하고 고르는 감각이 또렷해요. 지금 가을의 기운은 우선순위를 줄이고 결과를 다듬기 좋은 리듬이에요. 용신 기운이 크게 밀지도 막지도 않는 중립 흐름이라 기본기가 중요해요."
+        }
+      ],
+      "tags": [],
+      "aiGenerated": true,
+      "sourceTier": {
+        "tier": "T1_HYPOTHESIS",
+        "sourceType": "training_derived",
+        "sourceUrl": null,
+        "accessedAt": "2026-05-02",
+        "quoteShort": null,
+        "humanInterpretation": "Tuple-density expansion for birth season, current season, and yongshin alignment. AI-derived display text; not authority truth.",
+        "copyrightNote": "No source prose copied; original hypothesis text.",
+        "authorityTruthEligible": false
+      }
+    },
+    {
+      "schemaVersion": "spring-ts.narrative-fragment.v1",
+      "fragmentId": "overall.life.brief.season_tuple_autumn_autumn_neutral_practice.264",
+      "axis": {
+        "category": "overall",
+        "period": "life",
+        "depth": "brief"
+      },
+      "gating": {
+        "birthSeason": [
+          "autumn"
+        ],
+        "currentSeason": [
+          "autumn"
+        ],
+        "yongshinAlignment": [
+          "neutral"
+        ]
+      },
+      "templateTokens": [
+        {
+          "kind": "text",
+          "value": "가을 출생 리듬과 가을 현재 리듬을 함께 보면 생활 속 속도 조절이 핵심이에요. 새로운 선택은 가볍게 시험하고, 잘 맞는 루틴만 남기는 방식이 안전해요. 새 일을 늘리기보다 이미 가진 일을 정리하면 흐름이 안정돼요."
+        }
+      ],
+      "tags": [],
+      "aiGenerated": true,
+      "sourceTier": {
+        "tier": "T1_HYPOTHESIS",
+        "sourceType": "training_derived",
+        "sourceUrl": null,
+        "accessedAt": "2026-05-02",
+        "quoteShort": null,
+        "humanInterpretation": "Tuple-density expansion for birth season, current season, and yongshin alignment. AI-derived display text; not authority truth.",
+        "copyrightNote": "No source prose copied; original hypothesis text.",
+        "authorityTruthEligible": false
+      }
+    },
+    {
+      "schemaVersion": "spring-ts.narrative-fragment.v1",
+      "fragmentId": "overall.life.brief.season_tuple_autumn_autumn_conflicting_flow.265",
+      "axis": {
+        "category": "overall",
+        "period": "life",
+        "depth": "brief"
+      },
+      "gating": {
+        "birthSeason": [
+          "autumn"
+        ],
+        "currentSeason": [
+          "autumn"
+        ],
+        "yongshinAlignment": [
+          "conflicting"
+        ]
+      },
+      "templateTokens": [
+        {
+          "kind": "text",
+          "value": "가을에 태어난 흐름은 정리하고 고르는 감각이 또렷해요. 지금 가을의 기운은 우선순위를 줄이고 결과를 다듬기 좋은 리듬이에요. 용신 기운과 계절 흐름이 엇갈려 무리하면 피로가 먼저 올라올 수 있어요."
+        }
+      ],
+      "tags": [],
+      "aiGenerated": true,
+      "sourceTier": {
+        "tier": "T1_HYPOTHESIS",
+        "sourceType": "training_derived",
+        "sourceUrl": null,
+        "accessedAt": "2026-05-02",
+        "quoteShort": null,
+        "humanInterpretation": "Tuple-density expansion for birth season, current season, and yongshin alignment. AI-derived display text; not authority truth.",
+        "copyrightNote": "No source prose copied; original hypothesis text.",
+        "authorityTruthEligible": false
+      }
+    },
+    {
+      "schemaVersion": "spring-ts.narrative-fragment.v1",
+      "fragmentId": "overall.life.brief.season_tuple_autumn_autumn_conflicting_practice.266",
+      "axis": {
+        "category": "overall",
+        "period": "life",
+        "depth": "brief"
+      },
+      "gating": {
+        "birthSeason": [
+          "autumn"
+        ],
+        "currentSeason": [
+          "autumn"
+        ],
+        "yongshinAlignment": [
+          "conflicting"
+        ]
+      },
+      "templateTokens": [
+        {
+          "kind": "text",
+          "value": "가을 출생 리듬과 가을 현재 리듬을 함께 보면 생활 속 속도 조절이 핵심이에요. 계획을 줄이고 쉬운 순서로 배치하면 불필요한 소모를 줄일 수 있어요. 새 일을 늘리기보다 이미 가진 일을 정리하면 흐름이 안정돼요."
+        }
+      ],
+      "tags": [],
+      "aiGenerated": true,
+      "sourceTier": {
+        "tier": "T1_HYPOTHESIS",
+        "sourceType": "training_derived",
+        "sourceUrl": null,
+        "accessedAt": "2026-05-02",
+        "quoteShort": null,
+        "humanInterpretation": "Tuple-density expansion for birth season, current season, and yongshin alignment. AI-derived display text; not authority truth.",
+        "copyrightNote": "No source prose copied; original hypothesis text.",
+        "authorityTruthEligible": false
+      }
+    },
+    {
+      "schemaVersion": "spring-ts.narrative-fragment.v1",
+      "fragmentId": "overall.life.brief.season_tuple_autumn_winter_aligned_flow.267",
+      "axis": {
+        "category": "overall",
+        "period": "life",
+        "depth": "brief"
+      },
+      "gating": {
+        "birthSeason": [
+          "autumn"
+        ],
+        "currentSeason": [
+          "winter"
+        ],
+        "yongshinAlignment": [
+          "aligned"
+        ]
+      },
+      "templateTokens": [
+        {
+          "kind": "text",
+          "value": "가을에 태어난 흐름은 정리하고 고르는 감각이 또렷해요. 지금 겨울의 기운은 준비와 회복을 먼저 챙길수록 힘이 쌓이는 리듬이에요. 용신 기운이 현재 흐름과 맞물려 작은 실행도 힘을 받기 쉬워요."
+        }
+      ],
+      "tags": [],
+      "aiGenerated": true,
+      "sourceTier": {
+        "tier": "T1_HYPOTHESIS",
+        "sourceType": "training_derived",
+        "sourceUrl": null,
+        "accessedAt": "2026-05-02",
+        "quoteShort": null,
+        "humanInterpretation": "Tuple-density expansion for birth season, current season, and yongshin alignment. AI-derived display text; not authority truth.",
+        "copyrightNote": "No source prose copied; original hypothesis text.",
+        "authorityTruthEligible": false
+      }
+    },
+    {
+      "schemaVersion": "spring-ts.narrative-fragment.v1",
+      "fragmentId": "overall.life.brief.season_tuple_autumn_winter_aligned_practice.268",
+      "axis": {
+        "category": "overall",
+        "period": "life",
+        "depth": "brief"
+      },
+      "gating": {
+        "birthSeason": [
+          "autumn"
+        ],
+        "currentSeason": [
+          "winter"
+        ],
+        "yongshinAlignment": [
+          "aligned"
+        ]
+      },
+      "templateTokens": [
+        {
+          "kind": "text",
+          "value": "가을 출생 리듬과 겨울 현재 리듬을 함께 보면 생활 속 속도 조절이 핵심이에요. 좋은 흐름을 그냥 기다리기보다 오늘 바로 할 수 있는 행동 하나를 정해보세요. 큰 결론을 서두르지 말고 자료와 체력을 먼저 모아보세요."
+        }
+      ],
+      "tags": [],
+      "aiGenerated": true,
+      "sourceTier": {
+        "tier": "T1_HYPOTHESIS",
+        "sourceType": "training_derived",
+        "sourceUrl": null,
+        "accessedAt": "2026-05-02",
+        "quoteShort": null,
+        "humanInterpretation": "Tuple-density expansion for birth season, current season, and yongshin alignment. AI-derived display text; not authority truth.",
+        "copyrightNote": "No source prose copied; original hypothesis text.",
+        "authorityTruthEligible": false
+      }
+    },
+    {
+      "schemaVersion": "spring-ts.narrative-fragment.v1",
+      "fragmentId": "overall.life.brief.season_tuple_autumn_winter_neutral_flow.269",
+      "axis": {
+        "category": "overall",
+        "period": "life",
+        "depth": "brief"
+      },
+      "gating": {
+        "birthSeason": [
+          "autumn"
+        ],
+        "currentSeason": [
+          "winter"
+        ],
+        "yongshinAlignment": [
+          "neutral"
+        ]
+      },
+      "templateTokens": [
+        {
+          "kind": "text",
+          "value": "가을에 태어난 흐름은 정리하고 고르는 감각이 또렷해요. 지금 겨울의 기운은 준비와 회복을 먼저 챙길수록 힘이 쌓이는 리듬이에요. 용신 기운이 크게 밀지도 막지도 않는 중립 흐름이라 기본기가 중요해요."
+        }
+      ],
+      "tags": [],
+      "aiGenerated": true,
+      "sourceTier": {
+        "tier": "T1_HYPOTHESIS",
+        "sourceType": "training_derived",
+        "sourceUrl": null,
+        "accessedAt": "2026-05-02",
+        "quoteShort": null,
+        "humanInterpretation": "Tuple-density expansion for birth season, current season, and yongshin alignment. AI-derived display text; not authority truth.",
+        "copyrightNote": "No source prose copied; original hypothesis text.",
+        "authorityTruthEligible": false
+      }
+    },
+    {
+      "schemaVersion": "spring-ts.narrative-fragment.v1",
+      "fragmentId": "overall.life.brief.season_tuple_autumn_winter_neutral_practice.270",
+      "axis": {
+        "category": "overall",
+        "period": "life",
+        "depth": "brief"
+      },
+      "gating": {
+        "birthSeason": [
+          "autumn"
+        ],
+        "currentSeason": [
+          "winter"
+        ],
+        "yongshinAlignment": [
+          "neutral"
+        ]
+      },
+      "templateTokens": [
+        {
+          "kind": "text",
+          "value": "가을 출생 리듬과 겨울 현재 리듬을 함께 보면 생활 속 속도 조절이 핵심이에요. 새로운 선택은 가볍게 시험하고, 잘 맞는 루틴만 남기는 방식이 안전해요. 큰 결론을 서두르지 말고 자료와 체력을 먼저 모아보세요."
+        }
+      ],
+      "tags": [],
+      "aiGenerated": true,
+      "sourceTier": {
+        "tier": "T1_HYPOTHESIS",
+        "sourceType": "training_derived",
+        "sourceUrl": null,
+        "accessedAt": "2026-05-02",
+        "quoteShort": null,
+        "humanInterpretation": "Tuple-density expansion for birth season, current season, and yongshin alignment. AI-derived display text; not authority truth.",
+        "copyrightNote": "No source prose copied; original hypothesis text.",
+        "authorityTruthEligible": false
+      }
+    },
+    {
+      "schemaVersion": "spring-ts.narrative-fragment.v1",
+      "fragmentId": "overall.life.brief.season_tuple_autumn_winter_conflicting_flow.271",
+      "axis": {
+        "category": "overall",
+        "period": "life",
+        "depth": "brief"
+      },
+      "gating": {
+        "birthSeason": [
+          "autumn"
+        ],
+        "currentSeason": [
+          "winter"
+        ],
+        "yongshinAlignment": [
+          "conflicting"
+        ]
+      },
+      "templateTokens": [
+        {
+          "kind": "text",
+          "value": "가을에 태어난 흐름은 정리하고 고르는 감각이 또렷해요. 지금 겨울의 기운은 준비와 회복을 먼저 챙길수록 힘이 쌓이는 리듬이에요. 용신 기운과 계절 흐름이 엇갈려 무리하면 피로가 먼저 올라올 수 있어요."
+        }
+      ],
+      "tags": [],
+      "aiGenerated": true,
+      "sourceTier": {
+        "tier": "T1_HYPOTHESIS",
+        "sourceType": "training_derived",
+        "sourceUrl": null,
+        "accessedAt": "2026-05-02",
+        "quoteShort": null,
+        "humanInterpretation": "Tuple-density expansion for birth season, current season, and yongshin alignment. AI-derived display text; not authority truth.",
+        "copyrightNote": "No source prose copied; original hypothesis text.",
+        "authorityTruthEligible": false
+      }
+    },
+    {
+      "schemaVersion": "spring-ts.narrative-fragment.v1",
+      "fragmentId": "overall.life.brief.season_tuple_autumn_winter_conflicting_practice.272",
+      "axis": {
+        "category": "overall",
+        "period": "life",
+        "depth": "brief"
+      },
+      "gating": {
+        "birthSeason": [
+          "autumn"
+        ],
+        "currentSeason": [
+          "winter"
+        ],
+        "yongshinAlignment": [
+          "conflicting"
+        ]
+      },
+      "templateTokens": [
+        {
+          "kind": "text",
+          "value": "가을 출생 리듬과 겨울 현재 리듬을 함께 보면 생활 속 속도 조절이 핵심이에요. 계획을 줄이고 쉬운 순서로 배치하면 불필요한 소모를 줄일 수 있어요. 큰 결론을 서두르지 말고 자료와 체력을 먼저 모아보세요."
+        }
+      ],
+      "tags": [],
+      "aiGenerated": true,
+      "sourceTier": {
+        "tier": "T1_HYPOTHESIS",
+        "sourceType": "training_derived",
+        "sourceUrl": null,
+        "accessedAt": "2026-05-02",
+        "quoteShort": null,
+        "humanInterpretation": "Tuple-density expansion for birth season, current season, and yongshin alignment. AI-derived display text; not authority truth.",
+        "copyrightNote": "No source prose copied; original hypothesis text.",
+        "authorityTruthEligible": false
+      }
+    },
+    {
+      "schemaVersion": "spring-ts.narrative-fragment.v1",
+      "fragmentId": "overall.life.brief.season_tuple_winter_spring_aligned_flow.273",
+      "axis": {
+        "category": "overall",
+        "period": "life",
+        "depth": "brief"
+      },
+      "gating": {
+        "birthSeason": [
+          "winter"
+        ],
+        "currentSeason": [
+          "spring"
+        ],
+        "yongshinAlignment": [
+          "aligned"
+        ]
+      },
+      "templateTokens": [
+        {
+          "kind": "text",
+          "value": "겨울에 태어난 흐름은 조용히 모으고 깊게 생각하는 힘이 있어요. 지금 봄의 기운은 작은 시작을 크게 키우기 쉬운 리듬이에요. 용신 기운이 현재 흐름과 맞물려 작은 실행도 힘을 받기 쉬워요."
+        }
+      ],
+      "tags": [],
+      "aiGenerated": true,
+      "sourceTier": {
+        "tier": "T1_HYPOTHESIS",
+        "sourceType": "training_derived",
+        "sourceUrl": null,
+        "accessedAt": "2026-05-02",
+        "quoteShort": null,
+        "humanInterpretation": "Tuple-density expansion for birth season, current season, and yongshin alignment. AI-derived display text; not authority truth.",
+        "copyrightNote": "No source prose copied; original hypothesis text.",
+        "authorityTruthEligible": false
+      }
+    },
+    {
+      "schemaVersion": "spring-ts.narrative-fragment.v1",
+      "fragmentId": "overall.life.brief.season_tuple_winter_spring_aligned_practice.274",
+      "axis": {
+        "category": "overall",
+        "period": "life",
+        "depth": "brief"
+      },
+      "gating": {
+        "birthSeason": [
+          "winter"
+        ],
+        "currentSeason": [
+          "spring"
+        ],
+        "yongshinAlignment": [
+          "aligned"
+        ]
+      },
+      "templateTokens": [
+        {
+          "kind": "text",
+          "value": "겨울 출생 리듬과 봄 현재 리듬을 함께 보면 생활 속 속도 조절이 핵심이에요. 좋은 흐름을 그냥 기다리기보다 오늘 바로 할 수 있는 행동 하나를 정해보세요. 새 계획은 한 번에 넓히기보다 첫 단계를 작게 정하면 좋아요."
+        }
+      ],
+      "tags": [],
+      "aiGenerated": true,
+      "sourceTier": {
+        "tier": "T1_HYPOTHESIS",
+        "sourceType": "training_derived",
+        "sourceUrl": null,
+        "accessedAt": "2026-05-02",
+        "quoteShort": null,
+        "humanInterpretation": "Tuple-density expansion for birth season, current season, and yongshin alignment. AI-derived display text; not authority truth.",
+        "copyrightNote": "No source prose copied; original hypothesis text.",
+        "authorityTruthEligible": false
+      }
+    },
+    {
+      "schemaVersion": "spring-ts.narrative-fragment.v1",
+      "fragmentId": "overall.life.brief.season_tuple_winter_spring_neutral_flow.275",
+      "axis": {
+        "category": "overall",
+        "period": "life",
+        "depth": "brief"
+      },
+      "gating": {
+        "birthSeason": [
+          "winter"
+        ],
+        "currentSeason": [
+          "spring"
+        ],
+        "yongshinAlignment": [
+          "neutral"
+        ]
+      },
+      "templateTokens": [
+        {
+          "kind": "text",
+          "value": "겨울에 태어난 흐름은 조용히 모으고 깊게 생각하는 힘이 있어요. 지금 봄의 기운은 작은 시작을 크게 키우기 쉬운 리듬이에요. 용신 기운이 크게 밀지도 막지도 않는 중립 흐름이라 기본기가 중요해요."
+        }
+      ],
+      "tags": [],
+      "aiGenerated": true,
+      "sourceTier": {
+        "tier": "T1_HYPOTHESIS",
+        "sourceType": "training_derived",
+        "sourceUrl": null,
+        "accessedAt": "2026-05-02",
+        "quoteShort": null,
+        "humanInterpretation": "Tuple-density expansion for birth season, current season, and yongshin alignment. AI-derived display text; not authority truth.",
+        "copyrightNote": "No source prose copied; original hypothesis text.",
+        "authorityTruthEligible": false
+      }
+    },
+    {
+      "schemaVersion": "spring-ts.narrative-fragment.v1",
+      "fragmentId": "overall.life.brief.season_tuple_winter_spring_neutral_practice.276",
+      "axis": {
+        "category": "overall",
+        "period": "life",
+        "depth": "brief"
+      },
+      "gating": {
+        "birthSeason": [
+          "winter"
+        ],
+        "currentSeason": [
+          "spring"
+        ],
+        "yongshinAlignment": [
+          "neutral"
+        ]
+      },
+      "templateTokens": [
+        {
+          "kind": "text",
+          "value": "겨울 출생 리듬과 봄 현재 리듬을 함께 보면 생활 속 속도 조절이 핵심이에요. 새로운 선택은 가볍게 시험하고, 잘 맞는 루틴만 남기는 방식이 안전해요. 새 계획은 한 번에 넓히기보다 첫 단계를 작게 정하면 좋아요."
+        }
+      ],
+      "tags": [],
+      "aiGenerated": true,
+      "sourceTier": {
+        "tier": "T1_HYPOTHESIS",
+        "sourceType": "training_derived",
+        "sourceUrl": null,
+        "accessedAt": "2026-05-02",
+        "quoteShort": null,
+        "humanInterpretation": "Tuple-density expansion for birth season, current season, and yongshin alignment. AI-derived display text; not authority truth.",
+        "copyrightNote": "No source prose copied; original hypothesis text.",
+        "authorityTruthEligible": false
+      }
+    },
+    {
+      "schemaVersion": "spring-ts.narrative-fragment.v1",
+      "fragmentId": "overall.life.brief.season_tuple_winter_spring_conflicting_flow.277",
+      "axis": {
+        "category": "overall",
+        "period": "life",
+        "depth": "brief"
+      },
+      "gating": {
+        "birthSeason": [
+          "winter"
+        ],
+        "currentSeason": [
+          "spring"
+        ],
+        "yongshinAlignment": [
+          "conflicting"
+        ]
+      },
+      "templateTokens": [
+        {
+          "kind": "text",
+          "value": "겨울에 태어난 흐름은 조용히 모으고 깊게 생각하는 힘이 있어요. 지금 봄의 기운은 작은 시작을 크게 키우기 쉬운 리듬이에요. 용신 기운과 계절 흐름이 엇갈려 무리하면 피로가 먼저 올라올 수 있어요."
+        }
+      ],
+      "tags": [],
+      "aiGenerated": true,
+      "sourceTier": {
+        "tier": "T1_HYPOTHESIS",
+        "sourceType": "training_derived",
+        "sourceUrl": null,
+        "accessedAt": "2026-05-02",
+        "quoteShort": null,
+        "humanInterpretation": "Tuple-density expansion for birth season, current season, and yongshin alignment. AI-derived display text; not authority truth.",
+        "copyrightNote": "No source prose copied; original hypothesis text.",
+        "authorityTruthEligible": false
+      }
+    },
+    {
+      "schemaVersion": "spring-ts.narrative-fragment.v1",
+      "fragmentId": "overall.life.brief.season_tuple_winter_spring_conflicting_practice.278",
+      "axis": {
+        "category": "overall",
+        "period": "life",
+        "depth": "brief"
+      },
+      "gating": {
+        "birthSeason": [
+          "winter"
+        ],
+        "currentSeason": [
+          "spring"
+        ],
+        "yongshinAlignment": [
+          "conflicting"
+        ]
+      },
+      "templateTokens": [
+        {
+          "kind": "text",
+          "value": "겨울 출생 리듬과 봄 현재 리듬을 함께 보면 생활 속 속도 조절이 핵심이에요. 계획을 줄이고 쉬운 순서로 배치하면 불필요한 소모를 줄일 수 있어요. 새 계획은 한 번에 넓히기보다 첫 단계를 작게 정하면 좋아요."
+        }
+      ],
+      "tags": [],
+      "aiGenerated": true,
+      "sourceTier": {
+        "tier": "T1_HYPOTHESIS",
+        "sourceType": "training_derived",
+        "sourceUrl": null,
+        "accessedAt": "2026-05-02",
+        "quoteShort": null,
+        "humanInterpretation": "Tuple-density expansion for birth season, current season, and yongshin alignment. AI-derived display text; not authority truth.",
+        "copyrightNote": "No source prose copied; original hypothesis text.",
+        "authorityTruthEligible": false
+      }
+    },
+    {
+      "schemaVersion": "spring-ts.narrative-fragment.v1",
+      "fragmentId": "overall.life.brief.season_tuple_winter_summer_aligned_flow.279",
+      "axis": {
+        "category": "overall",
+        "period": "life",
+        "depth": "brief"
+      },
+      "gating": {
+        "birthSeason": [
+          "winter"
+        ],
+        "currentSeason": [
+          "summer"
+        ],
+        "yongshinAlignment": [
+          "aligned"
+        ]
+      },
+      "templateTokens": [
+        {
+          "kind": "text",
+          "value": "겨울에 태어난 흐름은 조용히 모으고 깊게 생각하는 힘이 있어요. 지금 여름의 기운은 속도와 열기가 붙기 쉬운 리듬이에요. 용신 기운이 현재 흐름과 맞물려 작은 실행도 힘을 받기 쉬워요."
+        }
+      ],
+      "tags": [],
+      "aiGenerated": true,
+      "sourceTier": {
+        "tier": "T1_HYPOTHESIS",
+        "sourceType": "training_derived",
+        "sourceUrl": null,
+        "accessedAt": "2026-05-02",
+        "quoteShort": null,
+        "humanInterpretation": "Tuple-density expansion for birth season, current season, and yongshin alignment. AI-derived display text; not authority truth.",
+        "copyrightNote": "No source prose copied; original hypothesis text.",
+        "authorityTruthEligible": false
+      }
+    },
+    {
+      "schemaVersion": "spring-ts.narrative-fragment.v1",
+      "fragmentId": "overall.life.brief.season_tuple_winter_summer_aligned_practice.280",
+      "axis": {
+        "category": "overall",
+        "period": "life",
+        "depth": "brief"
+      },
+      "gating": {
+        "birthSeason": [
+          "winter"
+        ],
+        "currentSeason": [
+          "summer"
+        ],
+        "yongshinAlignment": [
+          "aligned"
+        ]
+      },
+      "templateTokens": [
+        {
+          "kind": "text",
+          "value": "겨울 출생 리듬과 여름 현재 리듬을 함께 보면 생활 속 속도 조절이 핵심이에요. 좋은 흐름을 그냥 기다리기보다 오늘 바로 할 수 있는 행동 하나를 정해보세요. 일정을 너무 촘촘히 잡기보다 중간에 식히는 시간을 넣어보세요."
+        }
+      ],
+      "tags": [],
+      "aiGenerated": true,
+      "sourceTier": {
+        "tier": "T1_HYPOTHESIS",
+        "sourceType": "training_derived",
+        "sourceUrl": null,
+        "accessedAt": "2026-05-02",
+        "quoteShort": null,
+        "humanInterpretation": "Tuple-density expansion for birth season, current season, and yongshin alignment. AI-derived display text; not authority truth.",
+        "copyrightNote": "No source prose copied; original hypothesis text.",
+        "authorityTruthEligible": false
+      }
+    },
+    {
+      "schemaVersion": "spring-ts.narrative-fragment.v1",
+      "fragmentId": "overall.life.brief.season_tuple_winter_summer_neutral_flow.281",
+      "axis": {
+        "category": "overall",
+        "period": "life",
+        "depth": "brief"
+      },
+      "gating": {
+        "birthSeason": [
+          "winter"
+        ],
+        "currentSeason": [
+          "summer"
+        ],
+        "yongshinAlignment": [
+          "neutral"
+        ]
+      },
+      "templateTokens": [
+        {
+          "kind": "text",
+          "value": "겨울에 태어난 흐름은 조용히 모으고 깊게 생각하는 힘이 있어요. 지금 여름의 기운은 속도와 열기가 붙기 쉬운 리듬이에요. 용신 기운이 크게 밀지도 막지도 않는 중립 흐름이라 기본기가 중요해요."
+        }
+      ],
+      "tags": [],
+      "aiGenerated": true,
+      "sourceTier": {
+        "tier": "T1_HYPOTHESIS",
+        "sourceType": "training_derived",
+        "sourceUrl": null,
+        "accessedAt": "2026-05-02",
+        "quoteShort": null,
+        "humanInterpretation": "Tuple-density expansion for birth season, current season, and yongshin alignment. AI-derived display text; not authority truth.",
+        "copyrightNote": "No source prose copied; original hypothesis text.",
+        "authorityTruthEligible": false
+      }
+    },
+    {
+      "schemaVersion": "spring-ts.narrative-fragment.v1",
+      "fragmentId": "overall.life.brief.season_tuple_winter_summer_neutral_practice.282",
+      "axis": {
+        "category": "overall",
+        "period": "life",
+        "depth": "brief"
+      },
+      "gating": {
+        "birthSeason": [
+          "winter"
+        ],
+        "currentSeason": [
+          "summer"
+        ],
+        "yongshinAlignment": [
+          "neutral"
+        ]
+      },
+      "templateTokens": [
+        {
+          "kind": "text",
+          "value": "겨울 출생 리듬과 여름 현재 리듬을 함께 보면 생활 속 속도 조절이 핵심이에요. 새로운 선택은 가볍게 시험하고, 잘 맞는 루틴만 남기는 방식이 안전해요. 일정을 너무 촘촘히 잡기보다 중간에 식히는 시간을 넣어보세요."
+        }
+      ],
+      "tags": [],
+      "aiGenerated": true,
+      "sourceTier": {
+        "tier": "T1_HYPOTHESIS",
+        "sourceType": "training_derived",
+        "sourceUrl": null,
+        "accessedAt": "2026-05-02",
+        "quoteShort": null,
+        "humanInterpretation": "Tuple-density expansion for birth season, current season, and yongshin alignment. AI-derived display text; not authority truth.",
+        "copyrightNote": "No source prose copied; original hypothesis text.",
+        "authorityTruthEligible": false
+      }
+    },
+    {
+      "schemaVersion": "spring-ts.narrative-fragment.v1",
+      "fragmentId": "overall.life.brief.season_tuple_winter_summer_conflicting_flow.283",
+      "axis": {
+        "category": "overall",
+        "period": "life",
+        "depth": "brief"
+      },
+      "gating": {
+        "birthSeason": [
+          "winter"
+        ],
+        "currentSeason": [
+          "summer"
+        ],
+        "yongshinAlignment": [
+          "conflicting"
+        ]
+      },
+      "templateTokens": [
+        {
+          "kind": "text",
+          "value": "겨울에 태어난 흐름은 조용히 모으고 깊게 생각하는 힘이 있어요. 지금 여름의 기운은 속도와 열기가 붙기 쉬운 리듬이에요. 용신 기운과 계절 흐름이 엇갈려 무리하면 피로가 먼저 올라올 수 있어요."
+        }
+      ],
+      "tags": [],
+      "aiGenerated": true,
+      "sourceTier": {
+        "tier": "T1_HYPOTHESIS",
+        "sourceType": "training_derived",
+        "sourceUrl": null,
+        "accessedAt": "2026-05-02",
+        "quoteShort": null,
+        "humanInterpretation": "Tuple-density expansion for birth season, current season, and yongshin alignment. AI-derived display text; not authority truth.",
+        "copyrightNote": "No source prose copied; original hypothesis text.",
+        "authorityTruthEligible": false
+      }
+    },
+    {
+      "schemaVersion": "spring-ts.narrative-fragment.v1",
+      "fragmentId": "overall.life.brief.season_tuple_winter_summer_conflicting_practice.284",
+      "axis": {
+        "category": "overall",
+        "period": "life",
+        "depth": "brief"
+      },
+      "gating": {
+        "birthSeason": [
+          "winter"
+        ],
+        "currentSeason": [
+          "summer"
+        ],
+        "yongshinAlignment": [
+          "conflicting"
+        ]
+      },
+      "templateTokens": [
+        {
+          "kind": "text",
+          "value": "겨울 출생 리듬과 여름 현재 리듬을 함께 보면 생활 속 속도 조절이 핵심이에요. 계획을 줄이고 쉬운 순서로 배치하면 불필요한 소모를 줄일 수 있어요. 일정을 너무 촘촘히 잡기보다 중간에 식히는 시간을 넣어보세요."
+        }
+      ],
+      "tags": [],
+      "aiGenerated": true,
+      "sourceTier": {
+        "tier": "T1_HYPOTHESIS",
+        "sourceType": "training_derived",
+        "sourceUrl": null,
+        "accessedAt": "2026-05-02",
+        "quoteShort": null,
+        "humanInterpretation": "Tuple-density expansion for birth season, current season, and yongshin alignment. AI-derived display text; not authority truth.",
+        "copyrightNote": "No source prose copied; original hypothesis text.",
+        "authorityTruthEligible": false
+      }
+    },
+    {
+      "schemaVersion": "spring-ts.narrative-fragment.v1",
+      "fragmentId": "overall.life.brief.season_tuple_winter_autumn_aligned_flow.285",
+      "axis": {
+        "category": "overall",
+        "period": "life",
+        "depth": "brief"
+      },
+      "gating": {
+        "birthSeason": [
+          "winter"
+        ],
+        "currentSeason": [
+          "autumn"
+        ],
+        "yongshinAlignment": [
+          "aligned"
+        ]
+      },
+      "templateTokens": [
+        {
+          "kind": "text",
+          "value": "겨울에 태어난 흐름은 조용히 모으고 깊게 생각하는 힘이 있어요. 지금 가을의 기운은 우선순위를 줄이고 결과를 다듬기 좋은 리듬이에요. 용신 기운이 현재 흐름과 맞물려 작은 실행도 힘을 받기 쉬워요."
+        }
+      ],
+      "tags": [],
+      "aiGenerated": true,
+      "sourceTier": {
+        "tier": "T1_HYPOTHESIS",
+        "sourceType": "training_derived",
+        "sourceUrl": null,
+        "accessedAt": "2026-05-02",
+        "quoteShort": null,
+        "humanInterpretation": "Tuple-density expansion for birth season, current season, and yongshin alignment. AI-derived display text; not authority truth.",
+        "copyrightNote": "No source prose copied; original hypothesis text.",
+        "authorityTruthEligible": false
+      }
+    },
+    {
+      "schemaVersion": "spring-ts.narrative-fragment.v1",
+      "fragmentId": "overall.life.brief.season_tuple_winter_autumn_aligned_practice.286",
+      "axis": {
+        "category": "overall",
+        "period": "life",
+        "depth": "brief"
+      },
+      "gating": {
+        "birthSeason": [
+          "winter"
+        ],
+        "currentSeason": [
+          "autumn"
+        ],
+        "yongshinAlignment": [
+          "aligned"
+        ]
+      },
+      "templateTokens": [
+        {
+          "kind": "text",
+          "value": "겨울 출생 리듬과 가을 현재 리듬을 함께 보면 생활 속 속도 조절이 핵심이에요. 좋은 흐름을 그냥 기다리기보다 오늘 바로 할 수 있는 행동 하나를 정해보세요. 새 일을 늘리기보다 이미 가진 일을 정리하면 흐름이 안정돼요."
+        }
+      ],
+      "tags": [],
+      "aiGenerated": true,
+      "sourceTier": {
+        "tier": "T1_HYPOTHESIS",
+        "sourceType": "training_derived",
+        "sourceUrl": null,
+        "accessedAt": "2026-05-02",
+        "quoteShort": null,
+        "humanInterpretation": "Tuple-density expansion for birth season, current season, and yongshin alignment. AI-derived display text; not authority truth.",
+        "copyrightNote": "No source prose copied; original hypothesis text.",
+        "authorityTruthEligible": false
+      }
+    },
+    {
+      "schemaVersion": "spring-ts.narrative-fragment.v1",
+      "fragmentId": "overall.life.brief.season_tuple_winter_autumn_neutral_flow.287",
+      "axis": {
+        "category": "overall",
+        "period": "life",
+        "depth": "brief"
+      },
+      "gating": {
+        "birthSeason": [
+          "winter"
+        ],
+        "currentSeason": [
+          "autumn"
+        ],
+        "yongshinAlignment": [
+          "neutral"
+        ]
+      },
+      "templateTokens": [
+        {
+          "kind": "text",
+          "value": "겨울에 태어난 흐름은 조용히 모으고 깊게 생각하는 힘이 있어요. 지금 가을의 기운은 우선순위를 줄이고 결과를 다듬기 좋은 리듬이에요. 용신 기운이 크게 밀지도 막지도 않는 중립 흐름이라 기본기가 중요해요."
+        }
+      ],
+      "tags": [],
+      "aiGenerated": true,
+      "sourceTier": {
+        "tier": "T1_HYPOTHESIS",
+        "sourceType": "training_derived",
+        "sourceUrl": null,
+        "accessedAt": "2026-05-02",
+        "quoteShort": null,
+        "humanInterpretation": "Tuple-density expansion for birth season, current season, and yongshin alignment. AI-derived display text; not authority truth.",
+        "copyrightNote": "No source prose copied; original hypothesis text.",
+        "authorityTruthEligible": false
+      }
+    },
+    {
+      "schemaVersion": "spring-ts.narrative-fragment.v1",
+      "fragmentId": "overall.life.brief.season_tuple_winter_autumn_neutral_practice.288",
+      "axis": {
+        "category": "overall",
+        "period": "life",
+        "depth": "brief"
+      },
+      "gating": {
+        "birthSeason": [
+          "winter"
+        ],
+        "currentSeason": [
+          "autumn"
+        ],
+        "yongshinAlignment": [
+          "neutral"
+        ]
+      },
+      "templateTokens": [
+        {
+          "kind": "text",
+          "value": "겨울 출생 리듬과 가을 현재 리듬을 함께 보면 생활 속 속도 조절이 핵심이에요. 새로운 선택은 가볍게 시험하고, 잘 맞는 루틴만 남기는 방식이 안전해요. 새 일을 늘리기보다 이미 가진 일을 정리하면 흐름이 안정돼요."
+        }
+      ],
+      "tags": [],
+      "aiGenerated": true,
+      "sourceTier": {
+        "tier": "T1_HYPOTHESIS",
+        "sourceType": "training_derived",
+        "sourceUrl": null,
+        "accessedAt": "2026-05-02",
+        "quoteShort": null,
+        "humanInterpretation": "Tuple-density expansion for birth season, current season, and yongshin alignment. AI-derived display text; not authority truth.",
+        "copyrightNote": "No source prose copied; original hypothesis text.",
+        "authorityTruthEligible": false
+      }
+    },
+    {
+      "schemaVersion": "spring-ts.narrative-fragment.v1",
+      "fragmentId": "overall.life.brief.season_tuple_winter_autumn_conflicting_flow.289",
+      "axis": {
+        "category": "overall",
+        "period": "life",
+        "depth": "brief"
+      },
+      "gating": {
+        "birthSeason": [
+          "winter"
+        ],
+        "currentSeason": [
+          "autumn"
+        ],
+        "yongshinAlignment": [
+          "conflicting"
+        ]
+      },
+      "templateTokens": [
+        {
+          "kind": "text",
+          "value": "겨울에 태어난 흐름은 조용히 모으고 깊게 생각하는 힘이 있어요. 지금 가을의 기운은 우선순위를 줄이고 결과를 다듬기 좋은 리듬이에요. 용신 기운과 계절 흐름이 엇갈려 무리하면 피로가 먼저 올라올 수 있어요."
+        }
+      ],
+      "tags": [],
+      "aiGenerated": true,
+      "sourceTier": {
+        "tier": "T1_HYPOTHESIS",
+        "sourceType": "training_derived",
+        "sourceUrl": null,
+        "accessedAt": "2026-05-02",
+        "quoteShort": null,
+        "humanInterpretation": "Tuple-density expansion for birth season, current season, and yongshin alignment. AI-derived display text; not authority truth.",
+        "copyrightNote": "No source prose copied; original hypothesis text.",
+        "authorityTruthEligible": false
+      }
+    },
+    {
+      "schemaVersion": "spring-ts.narrative-fragment.v1",
+      "fragmentId": "overall.life.brief.season_tuple_winter_autumn_conflicting_practice.290",
+      "axis": {
+        "category": "overall",
+        "period": "life",
+        "depth": "brief"
+      },
+      "gating": {
+        "birthSeason": [
+          "winter"
+        ],
+        "currentSeason": [
+          "autumn"
+        ],
+        "yongshinAlignment": [
+          "conflicting"
+        ]
+      },
+      "templateTokens": [
+        {
+          "kind": "text",
+          "value": "겨울 출생 리듬과 가을 현재 리듬을 함께 보면 생활 속 속도 조절이 핵심이에요. 계획을 줄이고 쉬운 순서로 배치하면 불필요한 소모를 줄일 수 있어요. 새 일을 늘리기보다 이미 가진 일을 정리하면 흐름이 안정돼요."
+        }
+      ],
+      "tags": [],
+      "aiGenerated": true,
+      "sourceTier": {
+        "tier": "T1_HYPOTHESIS",
+        "sourceType": "training_derived",
+        "sourceUrl": null,
+        "accessedAt": "2026-05-02",
+        "quoteShort": null,
+        "humanInterpretation": "Tuple-density expansion for birth season, current season, and yongshin alignment. AI-derived display text; not authority truth.",
+        "copyrightNote": "No source prose copied; original hypothesis text.",
+        "authorityTruthEligible": false
+      }
+    },
+    {
+      "schemaVersion": "spring-ts.narrative-fragment.v1",
+      "fragmentId": "overall.life.brief.season_tuple_winter_winter_aligned_flow.291",
+      "axis": {
+        "category": "overall",
+        "period": "life",
+        "depth": "brief"
+      },
+      "gating": {
+        "birthSeason": [
+          "winter"
+        ],
+        "currentSeason": [
+          "winter"
+        ],
+        "yongshinAlignment": [
+          "aligned"
+        ]
+      },
+      "templateTokens": [
+        {
+          "kind": "text",
+          "value": "겨울에 태어난 흐름은 조용히 모으고 깊게 생각하는 힘이 있어요. 지금 겨울의 기운은 준비와 회복을 먼저 챙길수록 힘이 쌓이는 리듬이에요. 용신 기운이 현재 흐름과 맞물려 작은 실행도 힘을 받기 쉬워요."
+        }
+      ],
+      "tags": [],
+      "aiGenerated": true,
+      "sourceTier": {
+        "tier": "T1_HYPOTHESIS",
+        "sourceType": "training_derived",
+        "sourceUrl": null,
+        "accessedAt": "2026-05-02",
+        "quoteShort": null,
+        "humanInterpretation": "Tuple-density expansion for birth season, current season, and yongshin alignment. AI-derived display text; not authority truth.",
+        "copyrightNote": "No source prose copied; original hypothesis text.",
+        "authorityTruthEligible": false
+      }
+    },
+    {
+      "schemaVersion": "spring-ts.narrative-fragment.v1",
+      "fragmentId": "overall.life.brief.season_tuple_winter_winter_aligned_practice.292",
+      "axis": {
+        "category": "overall",
+        "period": "life",
+        "depth": "brief"
+      },
+      "gating": {
+        "birthSeason": [
+          "winter"
+        ],
+        "currentSeason": [
+          "winter"
+        ],
+        "yongshinAlignment": [
+          "aligned"
+        ]
+      },
+      "templateTokens": [
+        {
+          "kind": "text",
+          "value": "겨울 출생 리듬과 겨울 현재 리듬을 함께 보면 생활 속 속도 조절이 핵심이에요. 좋은 흐름을 그냥 기다리기보다 오늘 바로 할 수 있는 행동 하나를 정해보세요. 큰 결론을 서두르지 말고 자료와 체력을 먼저 모아보세요."
+        }
+      ],
+      "tags": [],
+      "aiGenerated": true,
+      "sourceTier": {
+        "tier": "T1_HYPOTHESIS",
+        "sourceType": "training_derived",
+        "sourceUrl": null,
+        "accessedAt": "2026-05-02",
+        "quoteShort": null,
+        "humanInterpretation": "Tuple-density expansion for birth season, current season, and yongshin alignment. AI-derived display text; not authority truth.",
+        "copyrightNote": "No source prose copied; original hypothesis text.",
+        "authorityTruthEligible": false
+      }
+    },
+    {
+      "schemaVersion": "spring-ts.narrative-fragment.v1",
+      "fragmentId": "overall.life.brief.season_tuple_winter_winter_neutral_flow.293",
+      "axis": {
+        "category": "overall",
+        "period": "life",
+        "depth": "brief"
+      },
+      "gating": {
+        "birthSeason": [
+          "winter"
+        ],
+        "currentSeason": [
+          "winter"
+        ],
+        "yongshinAlignment": [
+          "neutral"
+        ]
+      },
+      "templateTokens": [
+        {
+          "kind": "text",
+          "value": "겨울에 태어난 흐름은 조용히 모으고 깊게 생각하는 힘이 있어요. 지금 겨울의 기운은 준비와 회복을 먼저 챙길수록 힘이 쌓이는 리듬이에요. 용신 기운이 크게 밀지도 막지도 않는 중립 흐름이라 기본기가 중요해요."
+        }
+      ],
+      "tags": [],
+      "aiGenerated": true,
+      "sourceTier": {
+        "tier": "T1_HYPOTHESIS",
+        "sourceType": "training_derived",
+        "sourceUrl": null,
+        "accessedAt": "2026-05-02",
+        "quoteShort": null,
+        "humanInterpretation": "Tuple-density expansion for birth season, current season, and yongshin alignment. AI-derived display text; not authority truth.",
+        "copyrightNote": "No source prose copied; original hypothesis text.",
+        "authorityTruthEligible": false
+      }
+    },
+    {
+      "schemaVersion": "spring-ts.narrative-fragment.v1",
+      "fragmentId": "overall.life.brief.season_tuple_winter_winter_neutral_practice.294",
+      "axis": {
+        "category": "overall",
+        "period": "life",
+        "depth": "brief"
+      },
+      "gating": {
+        "birthSeason": [
+          "winter"
+        ],
+        "currentSeason": [
+          "winter"
+        ],
+        "yongshinAlignment": [
+          "neutral"
+        ]
+      },
+      "templateTokens": [
+        {
+          "kind": "text",
+          "value": "겨울 출생 리듬과 겨울 현재 리듬을 함께 보면 생활 속 속도 조절이 핵심이에요. 새로운 선택은 가볍게 시험하고, 잘 맞는 루틴만 남기는 방식이 안전해요. 큰 결론을 서두르지 말고 자료와 체력을 먼저 모아보세요."
+        }
+      ],
+      "tags": [],
+      "aiGenerated": true,
+      "sourceTier": {
+        "tier": "T1_HYPOTHESIS",
+        "sourceType": "training_derived",
+        "sourceUrl": null,
+        "accessedAt": "2026-05-02",
+        "quoteShort": null,
+        "humanInterpretation": "Tuple-density expansion for birth season, current season, and yongshin alignment. AI-derived display text; not authority truth.",
+        "copyrightNote": "No source prose copied; original hypothesis text.",
+        "authorityTruthEligible": false
+      }
+    },
+    {
+      "schemaVersion": "spring-ts.narrative-fragment.v1",
+      "fragmentId": "overall.life.brief.season_tuple_winter_winter_conflicting_flow.295",
+      "axis": {
+        "category": "overall",
+        "period": "life",
+        "depth": "brief"
+      },
+      "gating": {
+        "birthSeason": [
+          "winter"
+        ],
+        "currentSeason": [
+          "winter"
+        ],
+        "yongshinAlignment": [
+          "conflicting"
+        ]
+      },
+      "templateTokens": [
+        {
+          "kind": "text",
+          "value": "겨울에 태어난 흐름은 조용히 모으고 깊게 생각하는 힘이 있어요. 지금 겨울의 기운은 준비와 회복을 먼저 챙길수록 힘이 쌓이는 리듬이에요. 용신 기운과 계절 흐름이 엇갈려 무리하면 피로가 먼저 올라올 수 있어요."
+        }
+      ],
+      "tags": [],
+      "aiGenerated": true,
+      "sourceTier": {
+        "tier": "T1_HYPOTHESIS",
+        "sourceType": "training_derived",
+        "sourceUrl": null,
+        "accessedAt": "2026-05-02",
+        "quoteShort": null,
+        "humanInterpretation": "Tuple-density expansion for birth season, current season, and yongshin alignment. AI-derived display text; not authority truth.",
+        "copyrightNote": "No source prose copied; original hypothesis text.",
+        "authorityTruthEligible": false
+      }
+    },
+    {
+      "schemaVersion": "spring-ts.narrative-fragment.v1",
+      "fragmentId": "overall.life.brief.season_tuple_winter_winter_conflicting_practice.296",
+      "axis": {
+        "category": "overall",
+        "period": "life",
+        "depth": "brief"
+      },
+      "gating": {
+        "birthSeason": [
+          "winter"
+        ],
+        "currentSeason": [
+          "winter"
+        ],
+        "yongshinAlignment": [
+          "conflicting"
+        ]
+      },
+      "templateTokens": [
+        {
+          "kind": "text",
+          "value": "겨울 출생 리듬과 겨울 현재 리듬을 함께 보면 생활 속 속도 조절이 핵심이에요. 계획을 줄이고 쉬운 순서로 배치하면 불필요한 소모를 줄일 수 있어요. 큰 결론을 서두르지 말고 자료와 체력을 먼저 모아보세요."
+        }
+      ],
+      "tags": [],
+      "aiGenerated": true,
+      "sourceTier": {
+        "tier": "T1_HYPOTHESIS",
+        "sourceType": "training_derived",
+        "sourceUrl": null,
+        "accessedAt": "2026-05-02",
+        "quoteShort": null,
+        "humanInterpretation": "Tuple-density expansion for birth season, current season, and yongshin alignment. AI-derived display text; not authority truth.",
+        "copyrightNote": "No source prose copied; original hypothesis text.",
+        "authorityTruthEligible": false
+      }
+    }
+  ]
+}
