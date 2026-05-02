@@ -112,6 +112,13 @@ const FORTUNE_SECTIONS = [
 for (const section of FORTUNE_SECTIONS) {
   check(`FortuneReport.${section} present`, fortuneReport?.[section] != null);
 }
+const overviewPillarElements = fortuneReport?.overviewSummary?.pillars?.map((pillar: any) =>
+  String(pillar?.element ?? '')) ?? [];
+check(`FortuneReport.overviewSummary pillar elements expose stem/branch pairs`,
+  overviewPillarElements.length === 4 &&
+    overviewPillarElements.every((element: string) =>
+      element.split('/').filter((part: string) => part.trim().length > 0).length === 2),
+  overviewPillarElements.join(', '));
 const mixedBranchPattern = /[가-힣](JA|CHUK|IN|MYO|JIN|SA|O|MI|SIN|YU|SUL|HAE)\b/;
 check(`FortuneReport.lifeStageFortune has no mixed Korean/romanized branch display`,
   !mixedBranchPattern.test(JSON.stringify(fortuneReport?.lifeStageFortune ?? {})));

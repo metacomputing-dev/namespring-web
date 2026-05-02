@@ -67,6 +67,11 @@ function friendlyElementName(code: string): string {
   return el ? ELEMENT_FRIENDLY[el] : elementCodeToKorean(code);
 }
 
+function formatPillarElementPair(stemElement: string, branchElement: string): string {
+  if (stemElement && branchElement) return `${stemElement}/${branchElement}`;
+  return stemElement || branchElement;
+}
+
 /** 한글 마지막 글자에 받침이 있는지 확인 */
 function hasBatchim(word: string): boolean {
   if (!word) return false;
@@ -110,9 +115,7 @@ export function buildOverviewSummaryCard(
     const branchElement = branchInfo?.element
       ? friendlyElementName(branchInfo.element)
       : '';
-    const elementDesc = stemElement === branchElement
-      ? stemElement
-      : [stemElement, branchElement].filter(Boolean).join('/');
+    const elementDesc = formatPillarElementPair(stemElement, branchElement);
     return {
       position: label,
       stem: p.stem.hangul,
