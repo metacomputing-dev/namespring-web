@@ -31,6 +31,10 @@ const stdout = execFileSync('node', [SCRIPT_PATH, '--json', '--min-authored=8'],
   encoding: 'utf-8',
 });
 const report = JSON.parse(stdout);
+const fieldsWithMissingAxisValues = Object.entries(report?.axisValueCoverage ?? {})
+  .filter(([, coverage]: [string, any]) => (coverage?.missingValueCount ?? 0) > 0)
+  .map(([field]) => field)
+  .sort();
 
 check('report schema version is stable',
   report?.schemaVersion === 'spring-ts.narrative-coverage-report.v1',
@@ -64,6 +68,9 @@ check('axis value coverage confirms yongshinElement expansion is complete',
   report?.axisValueCoverage?.yongshinElement?.missingValueCount === 0 &&
     report.axisValueCoverage.yongshinElement.coveredValues?.length === 5,
   JSON.stringify(report?.axisValueCoverage?.yongshinElement));
+check('axis value gaps are limited to agePhase expansion targets',
+  fieldsWithMissingAxisValues.length === 1 && fieldsWithMissingAxisValues[0] === 'agePhase',
+  fieldsWithMissingAxisValues.join(','));
 check('underfilled cells are sorted planning records',
   Array.isArray(report?.underfilledCells) &&
     report.underfilledCells.every((cell: any) =>
