@@ -116,6 +116,29 @@ check('thin axis field summary prioritizes largest remaining deficit',
       index === 0 ||
       rows[index - 1].authoredDeficitToThreshold >= row.authoredDeficitToThreshold),
   JSON.stringify(report?.thinAxisFieldSummary?.[0]));
+check('expert numerical evidence threshold is reported',
+  report?.minExpertNumericalEvidenceThreshold === 1,
+  String(report?.minExpertNumericalEvidenceThreshold ?? ''));
+check('expert numerical evidence cell totals are machine readable',
+  typeof report?.totals?.expertCellCount === 'number' &&
+    typeof report?.totals?.expertCellsWithNumericalEvidenceCount === 'number' &&
+    typeof report?.totals?.expertNumericalEvidenceGapCellCount === 'number');
+check('expert numerical evidence gap cells are planning records',
+  Array.isArray(report?.expertNumericalEvidenceGapCells) &&
+    report.expertNumericalEvidenceGapCells.every((cell: any) =>
+      typeof cell.category === 'string' &&
+      typeof cell.period === 'string' &&
+      cell.depth === 'expert' &&
+      typeof cell.authoredFragments === 'number' &&
+      typeof cell.expertNumericalEvidenceFragments === 'number' &&
+      typeof cell.deficit === 'number'));
+check('expert numerical evidence gap count matches records',
+  report?.totals?.expertNumericalEvidenceGapCellCount === report?.expertNumericalEvidenceGapCells?.length,
+  String(report?.totals?.expertNumericalEvidenceGapCellCount ?? ''));
+check('expert numerical evidence has at least one current anchor and exposes remaining gaps',
+  report?.totals?.expertCellsWithNumericalEvidenceCount >= 1 &&
+    report?.totals?.expertNumericalEvidenceGapCellCount > 0,
+  `${report?.totals?.expertCellsWithNumericalEvidenceCount ?? 0}/${report?.totals?.expertCellCount ?? 0}`);
 
 console.log(`\nNarrative coverage report: ${pass} PASS / ${fail} FAIL`);
 process.exit(fail > 0 ? 1 : 0);
