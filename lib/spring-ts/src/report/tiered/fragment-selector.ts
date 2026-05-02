@@ -37,11 +37,32 @@ function dimMatch(frag: NarrativeFragment, dim: Dim, feature: FeatureVector): bo
   return allow.includes(value);
 }
 
+/** Minor-age guard: when the reader is 0-9 or 10-19, ungated fragments
+ *  (gating.ageBand absent or empty array) are excluded from the candidate
+ *  pool. Only fragments that explicitly include the reader's ageBand in
+ *  gating.ageBand may surface. If no explicit-age fragment exists for a
+ *  cell, the cell becomes meaningfulness:'na' rather than serving adult
+ *  prose to a child.
+ *
+ *  Adult ageBands (20-29 …) keep the legacy "absent = wildcard" semantics
+ *  so existing fragments without ageBand gating remain reachable. */
+function isMinor(ageBand: string): boolean {
+  return ageBand === '0-9' || ageBand === '10-19';
+}
+
+function passesMinorGuard(frag: NarrativeFragment, feature: FeatureVector): boolean {
+  if (!isMinor(feature.ageBand)) return true;
+  const allow = (frag.gating as Record<string, readonly string[] | undefined>).ageBand;
+  if (!allow || allow.length === 0) return false; // ungated → exclude for minors
+  return allow.includes(feature.ageBand);
+}
+
 function fragmentMatchesUntil(
   frag: NarrativeFragment,
   feature: FeatureVector,
   relaxBefore: number,
 ): boolean {
+  if (!passesMinorGuard(frag, feature)) return false;
   for (let i = relaxBefore; i < FALLBACK_DIMENSIONS.length; i += 1) {
     if (!dimMatch(frag, FALLBACK_DIMENSIONS[i], feature)) return false;
   }
