@@ -48,6 +48,18 @@ function friendlyElementName(code: string): string {
   return el ? ELEMENT_FRIENDLY[el] : elementCodeToKorean(code);
 }
 
+function confidenceRatio(value: unknown): number {
+  const n = typeof value === 'number' ? value : Number(value);
+  if (!Number.isFinite(n)) return 0;
+  return Math.min(1, Math.max(0, n > 1 ? n / 100 : n));
+}
+
+function shouldHedgeYongshin(saju: SajuSummary): boolean {
+  const tier = saju.axisStrength?.yongshin;
+  const conflict = (saju.yongshinConsensus ?? saju.yongshin.consensus)?.final?.conflictLevel;
+  return tier === 'candidate' || tier === 'deferred' || conflict === 'high';
+}
+
 /** 한글 마지막 글자 받침 유무에 따라 이에요/예요 선택 */
 function ieyo(word: string): string {
   if (!word) return '이에요';
@@ -72,7 +84,7 @@ function ieyo(word: string): string {
  */
 function computeLifeFortuneScore(saju: SajuSummary): number {
   // 1. Yongshin confidence (0-1 mapped to 0-25)
-  const yongshinConfidence = Math.min(1, Math.max(0, saju.yongshin.confidence ?? 0));
+  const yongshinConfidence = confidenceRatio(saju.yongshin.confidence);
   const yongshinScore = yongshinConfidence * 25;
 
   // 2. Element balance (0-25, fewer deficiencies = higher)
@@ -130,6 +142,7 @@ function buildSummary(saju: SajuSummary, stars: StarRating): string {
   const levelKey = strength.level as StrengthLevel;
   const strengthKorean = STRENGTH_KOREAN[levelKey] ?? strength.level;
   const yongshinFriendly = friendlyElementName(yongshin.element);
+  const hedgeYongshin = shouldHedgeYongshin(saju);
 
   const parts: string[] = [];
 
@@ -146,7 +159,11 @@ function buildSummary(saju: SajuSummary, stars: StarRating): string {
   parts.push(`에너지 균형은 ${strengthKorean}${ieyo(strengthKorean)}.`);
 
   // Yongshin guidance
-  parts.push(`${yongshinFriendly} 기운을 가까이하면 삶의 흐름이 더 좋아질 수 있어요.`);
+  if (hedgeYongshin) {
+    parts.push(`${yongshinFriendly} 기운은 중요한 보완 후보지만, 다른 보조 기운과 함께 살펴보면 더 안전해요.`);
+  } else {
+    parts.push(`${yongshinFriendly} 기운을 가까이하면 삶의 흐름이 더 좋아질 수 있어요.`);
+  }
 
   // Deficiency note
   if (deficientElements.length > 0) {
@@ -165,6 +182,7 @@ function buildHighlights(saju: SajuSummary): string[] {
   const levelKey = strength.level as StrengthLevel;
   const strengthKorean = STRENGTH_KOREAN[levelKey] ?? strength.level;
   const yongshinFriendly = friendlyElementName(yongshin.element);
+  const hedgeYongshin = shouldHedgeYongshin(saju);
 
   // Day master highlight
   highlights.push(`일간은 ${dayMasterFriendly} 기운이에요`);
@@ -177,7 +195,9 @@ function buildHighlights(saju: SajuSummary): string[] {
   }
 
   // Yongshin highlight
-  highlights.push(`용신은 ${yongshinFriendly} 기운이에요`);
+  highlights.push(hedgeYongshin
+    ? `용신 후보는 ${yongshinFriendly} 기운이에요`
+    : `용신은 ${yongshinFriendly} 기운이에요`);
 
   // Deficiency/excess
   if (deficientElements.length > 0) {
