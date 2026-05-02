@@ -1,0 +1,147 @@
+{
+  "schemaVersion": "spring-ts.narrative-fragment-bundle.v1",
+  "bundleId": "coverage.axis.yongshin-action-density.20260502",
+  "contractVersion": "1.0.0",
+  "fragments": [
+    {
+      "schemaVersion": "spring-ts.narrative-fragment.v1",
+      "fragmentId": "overall.life.standard.yongshin.wood.202",
+      "axis": { "category": "overall", "period": "life", "depth": "standard" },
+      "gating": { "yongshinElement": ["WOOD"] },
+      "templateTokens": [
+        { "kind": "text", "value": "용신이 나무 기운이면 삶을 좋게 만드는 열쇠는 성장, 배움, 연결입니다. 한 번에 크게 바꾸기보다 새 습관을 천천히 키우고, 믿을 만한 사람과 꾸준히 이어지는 관계를 만드는 쪽이 잘 맞아요. 계획이 막힐 때는 더 세게 밀어붙이기보다 질문을 바꾸고 새 정보를 받아들이는 태도가 도움이 됩니다." }
+      ],
+      "livingTips": [
+        "새로 배우고 싶은 주제를 하나만 정해 매주 작게 반복해 보세요.",
+        "관계는 넓히기보다 오래 이어갈 수 있는 연락 루틴을 먼저 만들어 보세요."
+      ],
+      "cautions": [
+        "시작만 많아지고 마무리가 약해지면 기운이 흩어질 수 있어요."
+      ],
+      "tags": ["yongshin"],
+      "aiGenerated": true,
+      "sourceTier": {
+        "tier": "T1_HYPOTHESIS",
+        "sourceType": "training_derived",
+        "sourceUrl": null,
+        "accessedAt": "2026-05-02",
+        "quoteShort": null,
+        "humanInterpretation": "Action-oriented yongshinElement WOOD narrative. AI-derived display text; not authority truth.",
+        "copyrightNote": "No source prose copied; original phrasing.",
+        "authorityTruthEligible": false
+      }
+    },
+    {
+      "schemaVersion": "spring-ts.narrative-fragment.v1",
+      "fragmentId": "overall.life.standard.yongshin.fire.202",
+      "axis": { "category": "overall", "period": "life", "depth": "standard" },
+      "gating": { "yongshinElement": ["FIRE"] },
+      "templateTokens": [
+        { "kind": "text", "value": "용신이 불 기운이면 삶을 좋게 만드는 열쇠는 표현, 온기, 추진력입니다. 마음속에만 두던 생각을 말이나 글, 발표, 제안으로 꺼낼 때 흐름이 살아나요. 다만 감정이 올라온 순간에는 속도를 조금 늦추고, 밝게 드러내되 상대가 받아들일 여지를 남기는 것이 좋습니다." }
+      ],
+      "livingTips": [
+        "생각을 말로 정리하거나 짧은 글로 공개해 보는 시간을 만들어 보세요.",
+        "중요한 대화 전에는 핵심 메시지와 표현 강도를 먼저 점검해 보세요."
+      ],
+      "cautions": [
+        "열정이 과해지면 말이 앞서거나 판단이 빨라질 수 있어요."
+      ],
+      "tags": ["yongshin"],
+      "aiGenerated": true,
+      "sourceTier": {
+        "tier": "T1_HYPOTHESIS",
+        "sourceType": "training_derived",
+        "sourceUrl": null,
+        "accessedAt": "2026-05-02",
+        "quoteShort": null,
+        "humanInterpretation": "Action-oriented yongshinElement FIRE narrative. AI-derived display text; not authority truth.",
+        "copyrightNote": "No source prose copied; original phrasing.",
+        "authorityTruthEligible": false
+      }
+    },
+    {
+      "schemaVersion": "spring-ts.narrative-fragment.v1",
+      "fragmentId": "overall.life.standard.yongshin.earth.202",
+      "axis": { "category": "overall", "period": "life", "depth": "standard" },
+      "gating": { "yongshinElement": ["EARTH"] },
+      "templateTokens": [
+        { "kind": "text", "value": "용신이 흙 기운이면 삶을 좋게 만드는 열쇠는 중심, 현실감, 지속성입니다. 불안할 때 새 일을 더 늘리기보다 시간표, 예산, 식사, 수면처럼 기본 질서를 먼저 잡는 것이 좋아요. 기반이 안정되면 판단도 차분해지고, 주변 사람에게 줄 수 있는 신뢰도 커집니다." }
+      ],
+      "livingTips": [
+        "이번 주에 꼭 지킬 생활 기준을 세 가지 이하로 정해 보세요.",
+        "돈, 시간, 체력 중 지금 가장 새는 부분을 하나만 골라 정리해 보세요."
+      ],
+      "cautions": [
+        "안정만 고집하면 필요한 변화까지 미룰 수 있어요."
+      ],
+      "tags": ["yongshin"],
+      "aiGenerated": true,
+      "sourceTier": {
+        "tier": "T1_HYPOTHESIS",
+        "sourceType": "training_derived",
+        "sourceUrl": null,
+        "accessedAt": "2026-05-02",
+        "quoteShort": null,
+        "humanInterpretation": "Action-oriented yongshinElement EARTH narrative. AI-derived display text; not authority truth.",
+        "copyrightNote": "No source prose copied; original phrasing.",
+        "authorityTruthEligible": false
+      }
+    },
+    {
+      "schemaVersion": "spring-ts.narrative-fragment.v1",
+      "fragmentId": "overall.life.standard.yongshin.metal.202",
+      "axis": { "category": "overall", "period": "life", "depth": "standard" },
+      "gating": { "yongshinElement": ["METAL"] },
+      "templateTokens": [
+        { "kind": "text", "value": "용신이 쇠 기운이면 삶을 좋게 만드는 열쇠는 정리, 기준, 선택입니다. 복잡한 일을 줄이고 필요한 것과 불필요한 것을 가를수록 에너지가 회복돼요. 말과 행동에도 선을 분명히 세우면 결정이 쉬워지지만, 기준이 너무 차가워지지 않도록 표현은 부드럽게 조절하는 것이 좋습니다." }
+      ],
+      "livingTips": [
+        "오늘 할 일을 세 가지 이하로 줄이고 가장 중요한 것부터 처리해 보세요.",
+        "책상, 일정표, 메시지함처럼 자주 보는 공간을 먼저 정리해 보세요."
+      ],
+      "cautions": [
+        "완벽한 기준을 기다리다 실행이 늦어질 수 있어요."
+      ],
+      "tags": ["yongshin"],
+      "aiGenerated": true,
+      "sourceTier": {
+        "tier": "T1_HYPOTHESIS",
+        "sourceType": "training_derived",
+        "sourceUrl": null,
+        "accessedAt": "2026-05-02",
+        "quoteShort": null,
+        "humanInterpretation": "Action-oriented yongshinElement METAL narrative. AI-derived display text; not authority truth.",
+        "copyrightNote": "No source prose copied; original phrasing.",
+        "authorityTruthEligible": false
+      }
+    },
+    {
+      "schemaVersion": "spring-ts.narrative-fragment.v1",
+      "fragmentId": "overall.life.standard.yongshin.water.202",
+      "axis": { "category": "overall", "period": "life", "depth": "standard" },
+      "gating": { "yongshinElement": ["WATER"] },
+      "templateTokens": [
+        { "kind": "text", "value": "용신이 물 기운이면 삶을 좋게 만드는 열쇠는 휴식, 관찰, 유연한 판단입니다. 급하게 답을 내리기보다 정보를 모으고 흐름을 읽을 때 선택이 좋아져요. 다만 생각이 길어지면 실행력이 약해질 수 있으니, 충분히 살핀 뒤에는 작은 행동 하나로 방향을 확인해 보세요." }
+      ],
+      "livingTips": [
+        "중요한 결정을 앞두고는 자료를 모을 시간과 실행할 시간을 따로 나눠 보세요.",
+        "짧은 산책, 물 마시기, 기록처럼 머리를 식히는 루틴을 활용해 보세요."
+      ],
+      "cautions": [
+        "계속 지켜보기만 하면 좋은 기회를 놓칠 수 있어요."
+      ],
+      "tags": ["yongshin"],
+      "aiGenerated": true,
+      "sourceTier": {
+        "tier": "T1_HYPOTHESIS",
+        "sourceType": "training_derived",
+        "sourceUrl": null,
+        "accessedAt": "2026-05-02",
+        "quoteShort": null,
+        "humanInterpretation": "Action-oriented yongshinElement WATER narrative. AI-derived display text; not authority truth.",
+        "copyrightNote": "No source prose copied; original phrasing.",
+        "authorityTruthEligible": false
+      }
+    }
+  ]
+}
