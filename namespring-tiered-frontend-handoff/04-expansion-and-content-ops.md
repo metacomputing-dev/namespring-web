@@ -36,6 +36,20 @@ interface FeatureVector {
 
 추가로 `agePhase`, `birthSeason`, `currentSeason`, `dayMasterPolarity`는 더 세밀한 문장 선택을 위해 추가된 authoring 축이다. 기존 `ageBand`는 그대로 유지하므로 현재 텍스트 데이터와 호환된다.
 
+## 사격수리 근거 확장
+
+`spring-ts`는 `precisionConfig.surfaceTieredMatrix === true`이고 이름 평가가 같이 실행된 경우 `tieredMatrix.namingEvidence`를 함께 내려줄 수 있다. 이 값은 `springReport.namingReport.analysis.fourFrame`에서 온 seed-ts 사격수리 근거이며, 크게 보는 초년/청년/중년/말년·총운 카드의 상세 근거로 쓰기 좋다.
+
+```ts
+type TieredNameFrameStage =
+  | 'earlyLife'      // 원격: 초년운
+  | 'youthLife'      // 형격: 청년운
+  | 'middleLife'     // 이격: 중년운
+  | 'lateAndTotal';  // 정격: 말년/총운
+```
+
+프론트엔드에서는 기본 화면에 사격수리 용어를 바로 노출하지 않는 것을 권장한다. 먼저 "초년에는 관계와 적응의 리듬을 천천히 잡는 편이에요"처럼 쉬운 요약을 보여주고, 사용자가 상세 버튼을 누르면 `strokeSum`, `element`, `polarity`, `luckyLevel`, `title`, `summary`, `lifePeriodInfluence`를 근거 패널에 표시한다.
+
 ## 현재 계약의 fallback 구조
 
 `data/narrative/_contract/v1.json`에는 gating field whitelist와 fallback priority가 있다.
