@@ -70,6 +70,33 @@ const lowConfidenceSaju = {
 console.log('Life fortune yongshin confidence\n');
 
 const card = buildLifeFortuneOverviewCard(lowConfidenceSaju);
+const balancedKoreanStrengthCard = buildLifeFortuneOverviewCard({
+  ...lowConfidenceSaju,
+  strength: {
+    ...lowConfidenceSaju.strength,
+    level: '중화',
+    isStrong: false,
+    totalSupport: 4,
+    totalOppose: 4,
+  },
+  yongshin: {
+    ...lowConfidenceSaju.yongshin,
+    confidence: 0.9,
+  },
+  yongshinConsensus: {
+    ...highConflictConsensus,
+    final: {
+      ...highConflictConsensus.final,
+      confidence: 0.9,
+      conflictLevel: 'none',
+      competingElements: [],
+    },
+  },
+  axisStrength: { yongshin: 'definite', strength: 'definite', gyeokguk: 'candidate' },
+  deficientElements: [],
+  excessiveElements: [],
+  shinsalHits: [],
+} as any);
 
 check('percentage yongshin confidence is normalized before scoring',
   card.stars === 2,
@@ -87,6 +114,12 @@ check('evidence still carries the selected yongshin candidate',
     row.supportingFeatures.some((feature) => feature.includes('METAL')) &&
     row.strength === 'deferred') === true,
   JSON.stringify(card.evidence?.find((row) => row.axis === 'yongshin')));
+check('Korean balanced strength level receives balanced scoring',
+  balancedKoreanStrengthCard.stars === 5,
+  `stars=${balancedKoreanStrengthCard.stars}`);
+check('Korean balanced strength level receives balanced highlight wording',
+  balancedKoreanStrengthCard.highlights.includes('에너지 균형이 잘 잡혀 있어요 (중화)'),
+  JSON.stringify(balancedKoreanStrengthCard.highlights));
 
 console.log(`\nLife fortune yongshin confidence: ${pass} PASS / ${fail} FAIL`);
 process.exit(fail > 0 ? 1 : 0);
