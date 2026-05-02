@@ -1,0 +1,248 @@
+{
+  "schemaVersion": "spring-ts.narrative-fragment-bundle.v1",
+  "bundleId": "overall.life.brief_pair_density_20260502",
+  "contractVersion": "1.0.0",
+  "generatedBy": "codex.pair-density-batch-20260502",
+  "fragments": [
+    {
+      "schemaVersion": "spring-ts.narrative-fragment.v1",
+      "fragmentId": "overall.life.brief.agephase_70s_female.001",
+      "axis": { "category": "overall", "period": "life", "depth": "brief" },
+      "gating": {
+        "agePhase": ["70s"],
+        "gender": ["female"]
+      },
+      "templateTokens": [
+        { "kind": "text", "value": "70대 여성 흐름에서는 오래 쌓아온 관계 감각이 삶의 방향을 부드럽게 잡아줘요." }
+      ],
+      "tags": [],
+      "aiGenerated": true,
+      "sourceTier": {
+        "tier": "T1_HYPOTHESIS",
+        "sourceType": "training_derived",
+        "sourceUrl": null,
+        "accessedAt": "2026-05-02",
+        "quoteShort": null,
+        "humanInterpretation": "Pair-density expansion fragment for agePhase and gender branching.",
+        "copyrightNote": "No source prose copied; original hypothesis text.",
+        "authorityTruthEligible": false
+      }
+    },
+    {
+      "schemaVersion": "spring-ts.narrative-fragment.v1",
+      "fragmentId": "overall.life.brief.agephase_70s_male.002",
+      "axis": { "category": "overall", "period": "life", "depth": "brief" },
+      "gating": {
+        "agePhase": ["70s"],
+        "gender": ["male"]
+      },
+      "templateTokens": [
+        { "kind": "text", "value": "70대 남성 흐름에서는 책임을 내려놓을 부분과 지켜갈 기준을 구분할수록 편안해져요." }
+      ],
+      "tags": [],
+      "aiGenerated": true,
+      "sourceTier": {
+        "tier": "T1_HYPOTHESIS",
+        "sourceType": "training_derived",
+        "sourceUrl": null,
+        "accessedAt": "2026-05-02",
+        "quoteShort": null,
+        "humanInterpretation": "Pair-density expansion fragment for agePhase and gender branching.",
+        "copyrightNote": "No source prose copied; original hypothesis text.",
+        "authorityTruthEligible": false
+      }
+    },
+    {
+      "schemaVersion": "spring-ts.narrative-fragment.v1",
+      "fragmentId": "overall.life.brief.agephase_70s_neutral.003",
+      "axis": { "category": "overall", "period": "life", "depth": "brief" },
+      "gating": {
+        "agePhase": ["70s"],
+        "gender": ["neutral"]
+      },
+      "templateTokens": [
+        { "kind": "text", "value": "70대 흐름에서는 속도를 낮추고 중요한 사람과 일에 힘을 모을수록 안정감이 커져요." }
+      ],
+      "tags": [],
+      "aiGenerated": true,
+      "sourceTier": {
+        "tier": "T1_HYPOTHESIS",
+        "sourceType": "training_derived",
+        "sourceUrl": null,
+        "accessedAt": "2026-05-02",
+        "quoteShort": null,
+        "humanInterpretation": "Pair-density expansion fragment for agePhase and gender branching.",
+        "copyrightNote": "No source prose copied; original hypothesis text.",
+        "authorityTruthEligible": false
+      }
+    },
+    {
+      "schemaVersion": "spring-ts.narrative-fragment.v1",
+      "fragmentId": "overall.life.brief.agephase_80s_female.004",
+      "axis": { "category": "overall", "period": "life", "depth": "brief" },
+      "gating": {
+        "agePhase": ["80s"],
+        "gender": ["female"]
+      },
+      "templateTokens": [
+        { "kind": "text", "value": "80대 여성 흐름에서는 무리한 확장보다 몸과 마음이 편한 생활 리듬을 지키는 힘이 중요해요." }
+      ],
+      "tags": [],
+      "aiGenerated": true,
+      "sourceTier": {
+        "tier": "T1_HYPOTHESIS",
+        "sourceType": "training_derived",
+        "sourceUrl": null,
+        "accessedAt": "2026-05-02",
+        "quoteShort": null,
+        "humanInterpretation": "Pair-density expansion fragment for agePhase and gender branching.",
+        "copyrightNote": "No source prose copied; original hypothesis text.",
+        "authorityTruthEligible": false
+      }
+    },
+    {
+      "schemaVersion": "spring-ts.narrative-fragment.v1",
+      "fragmentId": "overall.life.brief.agephase_80s_male.005",
+      "axis": { "category": "overall", "period": "life", "depth": "brief" },
+      "gating": {
+        "agePhase": ["80s"],
+        "gender": ["male"]
+      },
+      "templateTokens": [
+        { "kind": "text", "value": "80대 남성 흐름에서는 익숙한 방식만 고집하기보다 도움을 받아들이는 태도가 운을 편하게 만들어요." }
+      ],
+      "tags": [],
+      "aiGenerated": true,
+      "sourceTier": {
+        "tier": "T1_HYPOTHESIS",
+        "sourceType": "training_derived",
+        "sourceUrl": null,
+        "accessedAt": "2026-05-02",
+        "quoteShort": null,
+        "humanInterpretation": "Pair-density expansion fragment for agePhase and gender branching.",
+        "copyrightNote": "No source prose copied; original hypothesis text.",
+        "authorityTruthEligible": false
+      }
+    },
+    {
+      "schemaVersion": "spring-ts.narrative-fragment.v1",
+      "fragmentId": "overall.life.brief.earth_yongshin_earth.006",
+      "axis": { "category": "overall", "period": "life", "depth": "brief" },
+      "gating": {
+        "dayMasterElement": ["EARTH"],
+        "yongshinElement": ["EARTH"]
+      },
+      "templateTokens": [
+        { "kind": "text", "value": "흙 기운이 중심이고 흙 보강도 필요할 때는 생활의 규칙성과 약속 관리가 가장 큰 기반이 돼요." }
+      ],
+      "tags": [],
+      "aiGenerated": true,
+      "sourceTier": {
+        "tier": "T1_HYPOTHESIS",
+        "sourceType": "training_derived",
+        "sourceUrl": null,
+        "accessedAt": "2026-05-02",
+        "quoteShort": null,
+        "humanInterpretation": "Pair-density expansion fragment for element and yongshin branching.",
+        "copyrightNote": "No source prose copied; original hypothesis text.",
+        "authorityTruthEligible": false
+      }
+    },
+    {
+      "schemaVersion": "spring-ts.narrative-fragment.v1",
+      "fragmentId": "overall.life.brief.earth_yongshin_fire.007",
+      "axis": { "category": "overall", "period": "life", "depth": "brief" },
+      "gating": {
+        "dayMasterElement": ["EARTH"],
+        "yongshinElement": ["FIRE"]
+      },
+      "templateTokens": [
+        { "kind": "text", "value": "흙 기운의 신중함에 불 기운의 추진력을 더하면 생각을 오래 붙잡기보다 실행으로 풀기 쉬워요." }
+      ],
+      "tags": [],
+      "aiGenerated": true,
+      "sourceTier": {
+        "tier": "T1_HYPOTHESIS",
+        "sourceType": "training_derived",
+        "sourceUrl": null,
+        "accessedAt": "2026-05-02",
+        "quoteShort": null,
+        "humanInterpretation": "Pair-density expansion fragment for element and yongshin branching.",
+        "copyrightNote": "No source prose copied; original hypothesis text.",
+        "authorityTruthEligible": false
+      }
+    },
+    {
+      "schemaVersion": "spring-ts.narrative-fragment.v1",
+      "fragmentId": "overall.life.brief.earth_yongshin_metal.008",
+      "axis": { "category": "overall", "period": "life", "depth": "brief" },
+      "gating": {
+        "dayMasterElement": ["EARTH"],
+        "yongshinElement": ["METAL"]
+      },
+      "templateTokens": [
+        { "kind": "text", "value": "흙 기운이 강하고 쇠 기운 보강이 필요할 때는 정리, 기준, 마감 시간을 세우면 흐름이 또렷해져요." }
+      ],
+      "tags": [],
+      "aiGenerated": true,
+      "sourceTier": {
+        "tier": "T1_HYPOTHESIS",
+        "sourceType": "training_derived",
+        "sourceUrl": null,
+        "accessedAt": "2026-05-02",
+        "quoteShort": null,
+        "humanInterpretation": "Pair-density expansion fragment for element and yongshin branching.",
+        "copyrightNote": "No source prose copied; original hypothesis text.",
+        "authorityTruthEligible": false
+      }
+    },
+    {
+      "schemaVersion": "spring-ts.narrative-fragment.v1",
+      "fragmentId": "overall.life.brief.jeonggwang_balanced.009",
+      "axis": { "category": "overall", "period": "life", "depth": "brief" },
+      "gating": {
+        "gyeokguk": ["jeonggwangyeok"],
+        "dayMasterStrength": ["BALANCED"]
+      },
+      "templateTokens": [
+        { "kind": "text", "value": "정관격의 질서감과 균형 잡힌 기운이 함께 있으면 규칙을 지키면서도 유연하게 선택할 수 있어요." }
+      ],
+      "tags": [],
+      "aiGenerated": true,
+      "sourceTier": {
+        "tier": "T1_HYPOTHESIS",
+        "sourceType": "training_derived",
+        "sourceUrl": null,
+        "accessedAt": "2026-05-02",
+        "quoteShort": null,
+        "humanInterpretation": "Pair-density expansion fragment for gyeokguk and strength branching.",
+        "copyrightNote": "No source prose copied; original hypothesis text.",
+        "authorityTruthEligible": false
+      }
+    },
+    {
+      "schemaVersion": "spring-ts.narrative-fragment.v1",
+      "fragmentId": "overall.life.brief.jeonggwang_extreme_strong.010",
+      "axis": { "category": "overall", "period": "life", "depth": "brief" },
+      "gating": {
+        "gyeokguk": ["jeonggwangyeok"],
+        "dayMasterStrength": ["EXTREME_STRONG"]
+      },
+      "templateTokens": [
+        { "kind": "text", "value": "정관격의 책임감에 기운이 매우 강하게 붙으면 원칙을 세우되 주변의 속도도 함께 살피는 게 좋아요." }
+      ],
+      "tags": [],
+      "aiGenerated": true,
+      "sourceTier": {
+        "tier": "T1_HYPOTHESIS",
+        "sourceType": "training_derived",
+        "sourceUrl": null,
+        "accessedAt": "2026-05-02",
+        "quoteShort": null,
+        "humanInterpretation": "Pair-density expansion fragment for gyeokguk and strength branching.",
+        "copyrightNote": "No source prose copied; original hypothesis text.",
+        "authorityTruthEligible": false
+      }
+    }
+  ]
+}
