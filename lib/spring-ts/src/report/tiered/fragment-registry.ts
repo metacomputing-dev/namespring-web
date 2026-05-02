@@ -40,7 +40,11 @@ export interface NarrativeFragment {
   };
   readonly gating: {
     readonly gender?: readonly string[];
+    readonly agePhase?: readonly string[];
     readonly ageBand?: readonly string[];
+    readonly currentSeason?: readonly string[];
+    readonly birthSeason?: readonly string[];
+    readonly dayMasterPolarity?: readonly string[];
     readonly dayMasterStrength?: readonly string[];
     readonly yongshinAlignment?: readonly string[];
     readonly dayMasterElement?: readonly string[];

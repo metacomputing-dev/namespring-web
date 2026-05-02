@@ -52,7 +52,8 @@
   },
 
   "gatingFieldWhitelist": [
-    "gender", "ageBand", "dayMasterStrength", "yongshinAlignment",
+    "gender", "agePhase", "ageBand", "birthSeason", "currentSeason",
+    "dayMasterPolarity", "dayMasterStrength", "yongshinAlignment",
     "dayMasterElement", "yongshinElement", "gyeokguk"
   ],
 
@@ -60,7 +61,11 @@
     "comment": "Fragment selection fallback priority. When no fragment matches all gating fields, the selector relaxes the LEFTMOST dimension first (gender wildcard, then ageBand wildcard, ...). If even after full relaxation no fragment matches, the cell becomes meaningfulness:'na', stars:null. This is also the priority list the agents must respect when authoring overlapping coverage.",
     "priority": [
       "gender",
+      "agePhase",
       "ageBand",
+      "currentSeason",
+      "birthSeason",
+      "dayMasterPolarity",
       "tone",
       "dayMasterStrength",
       "yongshinAlignment",

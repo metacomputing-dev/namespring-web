@@ -19,7 +19,11 @@ import type { NarrativeFragment, FragmentRegistry } from './fragment-registry.js
  *  fragment matches all gating fields. Mirrors data/narrative/_contract/v1.json. */
 const FALLBACK_DIMENSIONS = [
   'gender',
+  'agePhase',
   'ageBand',
+  'currentSeason',
+  'birthSeason',
+  'dayMasterPolarity',
   'dayMasterStrength',
   'yongshinAlignment',
   'dayMasterElement',
