@@ -1,0 +1,231 @@
+{
+  "schemaVersion": "spring-ts.narrative-fragment-bundle.v1",
+  "bundleId": "coverage.underfilled.min8.20260502",
+  "contractVersion": "1.0.0",
+  "fragments": [
+    {
+      "schemaVersion": "spring-ts.narrative-fragment.v1",
+      "fragmentId": "romance.life.brief.neutral.002",
+      "axis": { "category": "romance", "period": "life", "depth": "brief" },
+      "gating": { "yongshinAlignment": ["neutral"], "ageBand": ["20-29", "30-39", "40-54", "55-69", "70+"] },
+      "templateTokens": [
+        { "kind": "text", "value": "인연의 흐름은 큰 사건보다 매일의 태도에서 천천히 만들어져요. 편안한 거리감과 꾸준한 표현이 오래 가는 관계의 바탕이 될 수 있어요." }
+      ],
+      "tags": [],
+      "aiGenerated": true,
+      "sourceTier": {
+        "tier": "T1_HYPOTHESIS",
+        "sourceType": "training_derived",
+        "sourceUrl": null,
+        "accessedAt": "2026-05-02",
+        "quoteShort": null,
+        "humanInterpretation": "Coverage floor fragment for romance life brief. AI-derived display text; no deterministic marriage or breakup claim.",
+        "copyrightNote": "No source prose copied; original phrasing.",
+        "authorityTruthEligible": false
+      }
+    },
+    {
+      "schemaVersion": "spring-ts.narrative-fragment.v1",
+      "fragmentId": "romance.today.brief.neutral.002",
+      "axis": { "category": "romance", "period": "today", "depth": "brief" },
+      "gating": { "yongshinAlignment": ["neutral"], "ageBand": ["20-29", "30-39", "40-54", "55-69", "70+"] },
+      "templateTokens": [
+        { "kind": "text", "value": "오늘은 마음을 급히 확인하려 하기보다 편안한 대화가 더 좋아요. 짧은 안부와 부드러운 표현이 관계 흐름을 안정시켜요." }
+      ],
+      "tags": [],
+      "aiGenerated": true,
+      "sourceTier": {
+        "tier": "T1_HYPOTHESIS",
+        "sourceType": "training_derived",
+        "sourceUrl": null,
+        "accessedAt": "2026-05-02",
+        "quoteShort": null,
+        "humanInterpretation": "Coverage floor fragment for romance today brief. AI-derived display text; possibility framing only.",
+        "copyrightNote": "No source prose copied; original phrasing.",
+        "authorityTruthEligible": false
+      }
+    },
+    {
+      "schemaVersion": "spring-ts.narrative-fragment.v1",
+      "fragmentId": "romance.today.standard.neutral.002",
+      "axis": { "category": "romance", "period": "today", "depth": "standard" },
+      "gating": { "yongshinAlignment": ["neutral"], "ageBand": ["20-29", "30-39", "40-54", "55-69", "70+"] },
+      "templateTokens": [
+        { "kind": "text", "value": "오늘의 인연 흐름은 세게 밀어붙이는 쪽보다 서로의 리듬을 확인하는 쪽이 더 자연스러워요. 먼저 결론을 묻기보다 편안한 말투로 근황을 나누면 관계의 온도를 부드럽게 맞출 수 있어요. 약속이나 대화를 잡을 때도 상대의 여유 시간을 함께 살피는 태도가 도움이 돼요." }
+      ],
+      "livingTips": [
+        "긴 메시지보다 짧고 분명한 안부를 먼저 전해보세요.",
+        "만남을 제안할 때는 상대가 고를 수 있는 선택지를 두 개 정도 남겨보세요."
+      ],
+      "cautions": [
+        "답이 늦다고 바로 의미를 단정하면 불필요한 오해가 생길 수 있어요."
+      ],
+      "tags": [],
+      "aiGenerated": true,
+      "sourceTier": {
+        "tier": "T1_HYPOTHESIS",
+        "sourceType": "training_derived",
+        "sourceUrl": null,
+        "accessedAt": "2026-05-02",
+        "quoteShort": null,
+        "humanInterpretation": "Coverage floor fragment for romance today standard. AI-derived display text; no deterministic relationship outcome.",
+        "copyrightNote": "No source prose copied; original phrasing.",
+        "authorityTruthEligible": false
+      }
+    },
+    {
+      "schemaVersion": "spring-ts.narrative-fragment.v1",
+      "fragmentId": "romance.thisWeek.brief.neutral.002",
+      "axis": { "category": "romance", "period": "thisWeek", "depth": "brief" },
+      "gating": { "yongshinAlignment": ["neutral"], "ageBand": ["20-29", "30-39", "40-54", "55-69", "70+"] },
+      "templateTokens": [
+        { "kind": "text", "value": "이번 주는 인연을 서두르기보다 자연스럽게 이어가는 흐름이 좋아요. 작은 약속을 지키는 태도가 신뢰를 쌓아줘요." }
+      ],
+      "tags": [],
+      "aiGenerated": true,
+      "sourceTier": {
+        "tier": "T1_HYPOTHESIS",
+        "sourceType": "training_derived",
+        "sourceUrl": null,
+        "accessedAt": "2026-05-02",
+        "quoteShort": null,
+        "humanInterpretation": "Coverage floor fragment for romance thisWeek brief. AI-derived display text; no source prose copied.",
+        "copyrightNote": "No source prose copied; original phrasing.",
+        "authorityTruthEligible": false
+      }
+    },
+    {
+      "schemaVersion": "spring-ts.narrative-fragment.v1",
+      "fragmentId": "romance.thisWeek.standard.neutral.002",
+      "axis": { "category": "romance", "period": "thisWeek", "depth": "standard" },
+      "gating": { "yongshinAlignment": ["neutral"], "ageBand": ["20-29", "30-39", "40-54", "55-69", "70+"] },
+      "templateTokens": [
+        { "kind": "text", "value": "이번 주의 인연 흐름은 빠른 진전보다 반복되는 신뢰에서 힘을 얻어요. 연락, 약속, 표현의 간격을 일정하게 유지하면 상대도 관계의 안정감을 느끼기 쉬워요. 새로운 만남이든 익숙한 관계든, 무리하게 분위기를 만들기보다 편안하게 함께할 시간을 정하는 쪽이 더 잘 맞아요." }
+      ],
+      "livingTips": [
+        "이번 주 안에 부담 없는 식사나 산책 약속을 하나 잡아보세요.",
+        "상대가 중요하게 여기는 일정을 먼저 물어봐 주세요."
+      ],
+      "cautions": [
+        "관계를 시험하려는 말은 신뢰를 깎을 수 있으니 피하는 편이 좋아요."
+      ],
+      "tags": [],
+      "aiGenerated": true,
+      "sourceTier": {
+        "tier": "T1_HYPOTHESIS",
+        "sourceType": "training_derived",
+        "sourceUrl": null,
+        "accessedAt": "2026-05-02",
+        "quoteShort": null,
+        "humanInterpretation": "Coverage floor fragment for romance thisWeek standard. AI-derived display text; no deterministic relationship outcome.",
+        "copyrightNote": "No source prose copied; original phrasing.",
+        "authorityTruthEligible": false
+      }
+    },
+    {
+      "schemaVersion": "spring-ts.narrative-fragment.v1",
+      "fragmentId": "romance.thisMonth.brief.neutral.002",
+      "axis": { "category": "romance", "period": "thisMonth", "depth": "brief" },
+      "gating": { "yongshinAlignment": ["neutral"], "ageBand": ["20-29", "30-39", "40-54", "55-69", "70+"] },
+      "templateTokens": [
+        { "kind": "text", "value": "이번 달은 관계의 속도를 맞추는 감각이 중요해요. 편안한 대화와 일정한 표현이 인연의 결을 안정시켜요." }
+      ],
+      "tags": [],
+      "aiGenerated": true,
+      "sourceTier": {
+        "tier": "T1_HYPOTHESIS",
+        "sourceType": "training_derived",
+        "sourceUrl": null,
+        "accessedAt": "2026-05-02",
+        "quoteShort": null,
+        "humanInterpretation": "Coverage floor fragment for romance thisMonth brief. AI-derived display text; no source prose copied.",
+        "copyrightNote": "No source prose copied; original phrasing.",
+        "authorityTruthEligible": false
+      }
+    },
+    {
+      "schemaVersion": "spring-ts.narrative-fragment.v1",
+      "fragmentId": "romance.thisMonth.standard.neutral.002",
+      "axis": { "category": "romance", "period": "thisMonth", "depth": "standard" },
+      "gating": { "yongshinAlignment": ["neutral"], "ageBand": ["20-29", "30-39", "40-54", "55-69", "70+"] },
+      "templateTokens": [
+        { "kind": "text", "value": "이번 달의 인연 흐름은 한 번의 강한 이벤트보다 꾸준한 접점에서 살아나요. 가까운 사람에게는 고마움을 말로 남기고, 새로 만나는 사람에게는 너무 많은 기대를 얹기보다 서로를 알아갈 여유를 두는 편이 좋아요. 관계가 애매하게 느껴질수록 작은 약속을 지키는 태도가 방향을 분명하게 만들어줘요." }
+      ],
+      "livingTips": [
+        "이번 달에는 관계를 위해 먼저 챙길 작은 습관을 하나 정해보세요.",
+        "중요한 대화는 피곤한 시간대를 피해서 잡아보세요."
+      ],
+      "cautions": [
+        "상대의 반응을 빠르게 해석하려 들면 관계의 여유가 줄어들 수 있어요."
+      ],
+      "tags": [],
+      "aiGenerated": true,
+      "sourceTier": {
+        "tier": "T1_HYPOTHESIS",
+        "sourceType": "training_derived",
+        "sourceUrl": null,
+        "accessedAt": "2026-05-02",
+        "quoteShort": null,
+        "humanInterpretation": "Coverage floor fragment for romance thisMonth standard. AI-derived display text; no deterministic relationship outcome.",
+        "copyrightNote": "No source prose copied; original phrasing.",
+        "authorityTruthEligible": false
+      }
+    },
+    {
+      "schemaVersion": "spring-ts.narrative-fragment.v1",
+      "fragmentId": "wealth.thisWeek.expert.neutral.cashflow.008",
+      "axis": { "category": "wealth", "period": "thisWeek", "depth": "expert" },
+      "gating": { "yongshinAlignment": ["neutral"], "ageBand": ["20-29", "30-39", "40-54", "55-69", "70+"] },
+      "templateTokens": [
+        { "kind": "text", "value": "전문가 관점에서는 이번 주 재물 흐름을 큰 수익 판단보다 현금 흐름 관리로 보는 편이 안정적이에요. 수입과 지출의 균형이 크게 흔들리지 않는지 먼저 확인하고, 예상 밖 지출은 즉시 결정하기보다 하루 정도 검토 시간을 두는 전략이 좋아요." }
+      ],
+      "livingTips": [
+        "이번 주 고정 지출과 변동 지출을 따로 적어보세요.",
+        "큰 결제는 필요성, 대체안, 회수 가능성을 나누어 점검해 보세요."
+      ],
+      "cautions": [
+        "좋아 보이는 제안이라도 조건을 숫자로 확인하기 전에는 확정하지 마세요."
+      ],
+      "tags": [],
+      "aiGenerated": true,
+      "sourceTier": {
+        "tier": "T1_HYPOTHESIS",
+        "sourceType": "training_derived",
+        "sourceUrl": null,
+        "accessedAt": "2026-05-02",
+        "quoteShort": null,
+        "humanInterpretation": "Coverage floor fragment for wealth thisWeek expert. AI-derived expert-facing text; practical cash-flow framing.",
+        "copyrightNote": "No source prose copied; original phrasing.",
+        "authorityTruthEligible": false
+      }
+    },
+    {
+      "schemaVersion": "spring-ts.narrative-fragment.v1",
+      "fragmentId": "wealth.thisMonth.expert.neutral.plan.008",
+      "axis": { "category": "wealth", "period": "thisMonth", "depth": "expert" },
+      "gating": { "yongshinAlignment": ["neutral"], "ageBand": ["20-29", "30-39", "40-54", "55-69", "70+"] },
+      "templateTokens": [
+        { "kind": "text", "value": "전문가 관점에서는 이번 달 재물 흐름을 단기 성과보다 예산 구조의 안정성으로 보는 것이 좋아요. 들어오는 돈, 반드시 나가는 돈, 선택적으로 조정할 돈을 나누면 재물운의 체감이 훨씬 선명해져요. 무리한 확대보다 손실을 줄이는 결정이 다음 기회를 만드는 기반이 될 수 있어요." }
+      ],
+      "livingTips": [
+        "이번 달 예산을 필수 지출, 선택 지출, 예비비로 나누어 보세요.",
+        "계약이나 투자성 지출은 문서 조건과 해지 비용을 먼저 확인하세요."
+      ],
+      "cautions": [
+        "월초 분위기만 보고 한 달 전체 지출 계획을 크게 늘리지 마세요."
+      ],
+      "tags": [],
+      "aiGenerated": true,
+      "sourceTier": {
+        "tier": "T1_HYPOTHESIS",
+        "sourceType": "training_derived",
+        "sourceUrl": null,
+        "accessedAt": "2026-05-02",
+        "quoteShort": null,
+        "humanInterpretation": "Coverage floor fragment for wealth thisMonth expert. AI-derived expert-facing text; practical budget-structure framing.",
+        "copyrightNote": "No source prose copied; original phrasing.",
+        "authorityTruthEligible": false
+      }
+    }
+  ]
+}
