@@ -1,0 +1,91 @@
+{
+  "schemaVersion": "spring-ts.narrative-fragment-bundle.v1",
+  "bundleId": "coverage.pair.birth-spring-current-season.20260502",
+  "contractVersion": "1.0.0",
+  "fragments": [
+    {
+      "schemaVersion": "spring-ts.narrative-fragment.v1",
+      "fragmentId": "overall.thisMonth.standard.birth_spring_current_autumn.201",
+      "axis": { "category": "overall", "period": "thisMonth", "depth": "standard" },
+      "gating": { "birthSeason": ["spring"], "currentSeason": ["autumn"] },
+      "templateTokens": [
+        { "kind": "text", "value": "봄에 태어난 흐름이 현재 가을 기운을 만나면 새로 넓히려는 마음과 정리하려는 기준이 함께 작동해요. 아이디어를 모두 키우기보다 남길 것과 접을 것을 고르면 실행력이 좋아집니다. 시작한 일을 마무리하고 다음 단계로 넘기기 좋은 시기예요." }
+      ],
+      "livingTips": [
+        "진행 중인 계획을 계속할 것, 줄일 것, 끝낼 것으로 나눠 적어 보세요.",
+        "새로운 제안은 바로 받기보다 지금 우선순위와 맞는지 먼저 확인해 보세요."
+      ],
+      "cautions": [
+        "정리 과정에서 가능성 자체를 부정하지 말고, 지금 할 수 있는 범위만 정해 주세요."
+      ],
+      "tags": ["birthSeason", "currentSeason"],
+      "aiGenerated": true,
+      "sourceTier": {
+        "tier": "T1_HYPOTHESIS",
+        "sourceType": "training_derived",
+        "sourceUrl": null,
+        "accessedAt": "2026-05-02",
+        "quoteShort": null,
+        "humanInterpretation": "Spring birth season and autumn current season pair narrative. AI-derived display text; not authority truth.",
+        "copyrightNote": "No source prose copied; original phrasing.",
+        "authorityTruthEligible": false
+      }
+    },
+    {
+      "schemaVersion": "spring-ts.narrative-fragment.v1",
+      "fragmentId": "overall.thisMonth.standard.birth_spring_current_summer.201",
+      "axis": { "category": "overall", "period": "thisMonth", "depth": "standard" },
+      "gating": { "birthSeason": ["spring"], "currentSeason": ["summer"] },
+      "templateTokens": [
+        { "kind": "text", "value": "봄에 태어난 흐름이 현재 여름 기운을 만나면 시작한 일이 밖으로 드러나고 표현력이 커지기 쉬워요. 발표, 홍보, 관계 확장에는 도움이 되지만, 너무 많은 일을 동시에 키우면 에너지가 빨리 소모될 수 있습니다." }
+      ],
+      "livingTips": [
+        "보여주고 싶은 일을 하나만 골라 메시지와 마감일을 분명히 정해 보세요.",
+        "사람을 만나는 일정이 늘면 혼자 회복하는 시간도 같이 예약해 두세요."
+      ],
+      "cautions": [
+        "반응이 좋을수록 더 벌리고 싶어질 수 있으니 약속의 수를 관리해 주세요."
+      ],
+      "tags": ["birthSeason", "currentSeason"],
+      "aiGenerated": true,
+      "sourceTier": {
+        "tier": "T1_HYPOTHESIS",
+        "sourceType": "training_derived",
+        "sourceUrl": null,
+        "accessedAt": "2026-05-02",
+        "quoteShort": null,
+        "humanInterpretation": "Spring birth season and summer current season pair narrative. AI-derived display text; not authority truth.",
+        "copyrightNote": "No source prose copied; original phrasing.",
+        "authorityTruthEligible": false
+      }
+    },
+    {
+      "schemaVersion": "spring-ts.narrative-fragment.v1",
+      "fragmentId": "overall.thisMonth.standard.birth_spring_current_winter.201",
+      "axis": { "category": "overall", "period": "thisMonth", "depth": "standard" },
+      "gating": { "birthSeason": ["spring"], "currentSeason": ["winter"] },
+      "templateTokens": [
+        { "kind": "text", "value": "봄에 태어난 흐름이 현재 겨울 기운을 만나면 겉으로 빠르게 뻗기보다 안에서 뿌리를 다지는 시간이 중요해져요. 당장 성과가 크게 보이지 않아도 자료를 모으고 배우는 과정이 다음 시작을 준비해 줍니다." }
+      ],
+      "livingTips": [
+        "새 일을 억지로 키우기보다 배울 것, 조사할 것, 준비할 것을 정리해 보세요.",
+        "계획은 크게 말하기 전에 필요한 정보와 첫 실행 조건을 먼저 확인해 보세요."
+      ],
+      "cautions": [
+        "기다리는 시간이 길어지면 의욕이 꺼질 수 있으니 아주 작은 실행을 함께 두세요."
+      ],
+      "tags": ["birthSeason", "currentSeason"],
+      "aiGenerated": true,
+      "sourceTier": {
+        "tier": "T1_HYPOTHESIS",
+        "sourceType": "training_derived",
+        "sourceUrl": null,
+        "accessedAt": "2026-05-02",
+        "quoteShort": null,
+        "humanInterpretation": "Spring birth season and winter current season pair narrative. AI-derived display text; not authority truth.",
+        "copyrightNote": "No source prose copied; original phrasing.",
+        "authorityTruthEligible": false
+      }
+    }
+  ]
+}
