@@ -40,6 +40,8 @@ const feature40 = buildFeatureVector(
 
 check('ageBand remains broad for backward-compatible authored fragments',
   feature40.ageBand === '40-54', feature40.ageBand);
+check('ageYears is available for numerical evidence',
+  feature40.ageYears === 40, String(feature40.ageYears));
 check('agePhase offers a narrower authoring axis',
   feature40.agePhase === 'early_40s', feature40.agePhase);
 check('birthSeason uses saju month when available',
