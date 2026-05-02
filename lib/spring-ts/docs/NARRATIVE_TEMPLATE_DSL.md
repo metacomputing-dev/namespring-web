@@ -81,7 +81,10 @@
 | 키 | 허용값 |
 |---|---|
 | `gender` | `'male' | 'female' | 'neutral'` |
+| `agePhase` | `'child_0_9'`부터 `'90_plus'`까지의 세분 연령대 |
 | `ageBand` | `'0-9' | '10-19' | '20-29' | '30-39' | '40-54' | '55-69' | '70+'` |
+| `currentSeason` / `birthSeason` | `'spring' | 'summer' | 'autumn' | 'winter'` |
+| `dayMasterPolarity` | `'YANG' | 'YIN' | 'neutral'` |
 | `dayMasterStrength` | `'EXTREME_STRONG' | 'STRONG' | 'BALANCED' | 'WEAK' | 'EXTREME_WEAK'` |
 | `yongshinAlignment` | `'aligned' | 'neutral' | 'conflicting'` |
 | `dayMasterElement` / `yongshinElement` | `'WOOD' | 'FIRE' | 'EARTH' | 'METAL' | 'WATER'` |
@@ -95,12 +98,16 @@ selector는 모든 gating 차원이 매치되는 fragment를 우선 찾는다. �
 
 ```
 1. gender
-2. ageBand
-3. dayMasterStrength
-4. yongshinAlignment
-5. dayMasterElement
-6. yongshinElement
-7. gyeokguk
+2. agePhase
+3. ageBand
+4. currentSeason
+5. birthSeason
+6. dayMasterPolarity
+7. dayMasterStrength
+8. yongshinAlignment
+9. dayMasterElement
+10. yongshinElement
+11. gyeokguk
 ```
 
 전체 wildcard에서도 후보가 없으면 cell `meaningfulness: 'na'`, `stars: null`. 즉 *어떤 셀이라도* 한 개의 wildcard fragment만 두면 'na'가 되지 않는다.

@@ -54,7 +54,7 @@
     "gating": {
       "type": "object",
       "additionalProperties": false,
-      "description": "Whitelisted gating attributes. Each is an array of allowed values; null/absent = wildcard for that dimension. Selector applies fallback chain gender → ageBand → tone → strength → yongshinAlignment → dayMasterStrength → gyeokguk.",
+      "description": "Whitelisted gating attributes. Each is an array of allowed values; null/absent = wildcard for that dimension. Selector applies the fallback chain declared in data/narrative/_contract/v1.json.",
       "properties": {
         "gender": {
           "type": "array",
