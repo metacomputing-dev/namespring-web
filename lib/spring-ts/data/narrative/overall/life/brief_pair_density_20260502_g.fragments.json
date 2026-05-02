@@ -1,0 +1,308 @@
+{
+  "schemaVersion": "spring-ts.narrative-fragment-bundle.v1",
+  "bundleId": "overall.life.brief_pair_density_20260502_g",
+  "contractVersion": "1.0.0",
+  "generatedBy": "codex.pair-density-batch-20260502-g",
+  "fragments": [
+    {
+      "schemaVersion": "spring-ts.narrative-fragment.v1",
+      "fragmentId": "overall.life.brief.fire_metal_balanced.071",
+      "axis": { "category": "overall", "period": "life", "depth": "brief" },
+      "gating": {
+        "dayMasterElement": ["FIRE"],
+        "yongshinElement": ["METAL"],
+        "dayMasterStrength": ["BALANCED"]
+      },
+      "templateTokens": [
+        { "kind": "text", "value": "밝게 밀고 가는 힘과 정리하는 보완 기운이 함께 있어요. 균형이 잡힐수록 말과 결정이 더 선명해집니다." }
+      ],
+      "tags": [],
+      "aiGenerated": true,
+      "sourceTier": {
+        "tier": "T1_HYPOTHESIS",
+        "sourceType": "training_derived",
+        "sourceUrl": null,
+        "accessedAt": "2026-05-02",
+        "quoteShort": null,
+        "humanInterpretation": "Seventh pair-density expansion fragment for day-master element, yongshin element, and strength branching.",
+        "copyrightNote": "No source prose copied; original hypothesis text.",
+        "authorityTruthEligible": false
+      }
+    },
+    {
+      "schemaVersion": "spring-ts.narrative-fragment.v1",
+      "fragmentId": "overall.life.brief.fire_water_extreme_weak.072",
+      "axis": { "category": "overall", "period": "life", "depth": "brief" },
+      "gating": {
+        "dayMasterElement": ["FIRE"],
+        "yongshinElement": ["WATER"],
+        "dayMasterStrength": ["EXTREME_WEAK"]
+      },
+      "templateTokens": [
+        { "kind": "text", "value": "열정은 있지만 에너지가 쉽게 흔들릴 수 있어요. 차분한 보완 기운을 가까이하면 무리 없이 다시 불씨를 살릴 수 있습니다." }
+      ],
+      "tags": [],
+      "aiGenerated": true,
+      "sourceTier": {
+        "tier": "T1_HYPOTHESIS",
+        "sourceType": "training_derived",
+        "sourceUrl": null,
+        "accessedAt": "2026-05-02",
+        "quoteShort": null,
+        "humanInterpretation": "Seventh pair-density expansion fragment for day-master element, yongshin element, and strength branching.",
+        "copyrightNote": "No source prose copied; original hypothesis text.",
+        "authorityTruthEligible": false
+      }
+    },
+    {
+      "schemaVersion": "spring-ts.narrative-fragment.v1",
+      "fragmentId": "overall.life.brief.fire_wood_weak.073",
+      "axis": { "category": "overall", "period": "life", "depth": "brief" },
+      "gating": {
+        "dayMasterElement": ["FIRE"],
+        "yongshinElement": ["WOOD"],
+        "dayMasterStrength": ["WEAK"]
+      },
+      "templateTokens": [
+        { "kind": "text", "value": "표현하고 싶은 마음은 크지만 기반이 약해질 수 있어요. 성장과 준비의 보완 기운을 챙기면 자신감이 천천히 회복됩니다." }
+      ],
+      "tags": [],
+      "aiGenerated": true,
+      "sourceTier": {
+        "tier": "T1_HYPOTHESIS",
+        "sourceType": "training_derived",
+        "sourceUrl": null,
+        "accessedAt": "2026-05-02",
+        "quoteShort": null,
+        "humanInterpretation": "Seventh pair-density expansion fragment for day-master element, yongshin element, and strength branching.",
+        "copyrightNote": "No source prose copied; original hypothesis text.",
+        "authorityTruthEligible": false
+      }
+    },
+    {
+      "schemaVersion": "spring-ts.narrative-fragment.v1",
+      "fragmentId": "overall.life.brief.metal_earth_balanced.074",
+      "axis": { "category": "overall", "period": "life", "depth": "brief" },
+      "gating": {
+        "dayMasterElement": ["METAL"],
+        "yongshinElement": ["EARTH"],
+        "dayMasterStrength": ["BALANCED"]
+      },
+      "templateTokens": [
+        { "kind": "text", "value": "판단력과 안정감이 함께 움직이는 흐름이에요. 기준을 너무 세게 밀기보다 주변 기반을 살피면 결과가 더 부드럽게 이어져요." }
+      ],
+      "tags": [],
+      "aiGenerated": true,
+      "sourceTier": {
+        "tier": "T1_HYPOTHESIS",
+        "sourceType": "training_derived",
+        "sourceUrl": null,
+        "accessedAt": "2026-05-02",
+        "quoteShort": null,
+        "humanInterpretation": "Seventh pair-density expansion fragment for day-master element, yongshin element, and strength branching.",
+        "copyrightNote": "No source prose copied; original hypothesis text.",
+        "authorityTruthEligible": false
+      }
+    },
+    {
+      "schemaVersion": "spring-ts.narrative-fragment.v1",
+      "fragmentId": "overall.life.brief.metal_fire_extreme_strong.075",
+      "axis": { "category": "overall", "period": "life", "depth": "brief" },
+      "gating": {
+        "dayMasterElement": ["METAL"],
+        "yongshinElement": ["FIRE"],
+        "dayMasterStrength": ["EXTREME_STRONG"]
+      },
+      "templateTokens": [
+        { "kind": "text", "value": "결단이 매우 강하게 드러나는 흐름이에요. 따뜻하게 조율하는 보완 기운을 쓰면 날카로운 판단도 사람을 설득하는 힘이 됩니다." }
+      ],
+      "tags": [],
+      "aiGenerated": true,
+      "sourceTier": {
+        "tier": "T1_HYPOTHESIS",
+        "sourceType": "training_derived",
+        "sourceUrl": null,
+        "accessedAt": "2026-05-02",
+        "quoteShort": null,
+        "humanInterpretation": "Seventh pair-density expansion fragment for day-master element, yongshin element, and strength branching.",
+        "copyrightNote": "No source prose copied; original hypothesis text.",
+        "authorityTruthEligible": false
+      }
+    },
+    {
+      "schemaVersion": "spring-ts.narrative-fragment.v1",
+      "fragmentId": "overall.life.brief.metal_metal_extreme_weak.076",
+      "axis": { "category": "overall", "period": "life", "depth": "brief" },
+      "gating": {
+        "dayMasterElement": ["METAL"],
+        "yongshinElement": ["METAL"],
+        "dayMasterStrength": ["EXTREME_WEAK"]
+      },
+      "templateTokens": [
+        { "kind": "text", "value": "정리하고 결정하는 힘을 보강할수록 흔들림이 줄어드는 흐름이에요. 작은 기준부터 세우면 자신감이 다시 살아납니다." }
+      ],
+      "tags": [],
+      "aiGenerated": true,
+      "sourceTier": {
+        "tier": "T1_HYPOTHESIS",
+        "sourceType": "training_derived",
+        "sourceUrl": null,
+        "accessedAt": "2026-05-02",
+        "quoteShort": null,
+        "humanInterpretation": "Seventh pair-density expansion fragment for day-master element, yongshin element, and strength branching.",
+        "copyrightNote": "No source prose copied; original hypothesis text.",
+        "authorityTruthEligible": false
+      }
+    },
+    {
+      "schemaVersion": "spring-ts.narrative-fragment.v1",
+      "fragmentId": "overall.life.brief.metal_water_strong.077",
+      "axis": { "category": "overall", "period": "life", "depth": "brief" },
+      "gating": {
+        "dayMasterElement": ["METAL"],
+        "yongshinElement": ["WATER"],
+        "dayMasterStrength": ["STRONG"]
+      },
+      "templateTokens": [
+        { "kind": "text", "value": "단단한 판단에 유연한 보완 기운이 더해지는 흐름이에요. 결론을 서두르기보다 생각의 여백을 두면 강점이 더 잘 살아나요." }
+      ],
+      "tags": [],
+      "aiGenerated": true,
+      "sourceTier": {
+        "tier": "T1_HYPOTHESIS",
+        "sourceType": "training_derived",
+        "sourceUrl": null,
+        "accessedAt": "2026-05-02",
+        "quoteShort": null,
+        "humanInterpretation": "Seventh pair-density expansion fragment for day-master element, yongshin element, and strength branching.",
+        "copyrightNote": "No source prose copied; original hypothesis text.",
+        "authorityTruthEligible": false
+      }
+    },
+    {
+      "schemaVersion": "spring-ts.narrative-fragment.v1",
+      "fragmentId": "overall.life.brief.metal_wood_weak.078",
+      "axis": { "category": "overall", "period": "life", "depth": "brief" },
+      "gating": {
+        "dayMasterElement": ["METAL"],
+        "yongshinElement": ["WOOD"],
+        "dayMasterStrength": ["WEAK"]
+      },
+      "templateTokens": [
+        { "kind": "text", "value": "기준은 분명하지만 추진력이 약해질 수 있어요. 성장과 시도의 보완 기운을 더하면 계획을 실제 행동으로 옮기기 쉬워요." }
+      ],
+      "tags": [],
+      "aiGenerated": true,
+      "sourceTier": {
+        "tier": "T1_HYPOTHESIS",
+        "sourceType": "training_derived",
+        "sourceUrl": null,
+        "accessedAt": "2026-05-02",
+        "quoteShort": null,
+        "humanInterpretation": "Seventh pair-density expansion fragment for day-master element, yongshin element, and strength branching.",
+        "copyrightNote": "No source prose copied; original hypothesis text.",
+        "authorityTruthEligible": false
+      }
+    },
+    {
+      "schemaVersion": "spring-ts.narrative-fragment.v1",
+      "fragmentId": "overall.life.brief.water_earth_balanced.079",
+      "axis": { "category": "overall", "period": "life", "depth": "brief" },
+      "gating": {
+        "dayMasterElement": ["WATER"],
+        "yongshinElement": ["EARTH"],
+        "dayMasterStrength": ["BALANCED"]
+      },
+      "templateTokens": [
+        { "kind": "text", "value": "감각과 안정감이 함께 작동하는 흐름이에요. 생각이 너무 넓게 퍼질 때는 기준을 세워두면 선택이 편해져요." }
+      ],
+      "tags": [],
+      "aiGenerated": true,
+      "sourceTier": {
+        "tier": "T1_HYPOTHESIS",
+        "sourceType": "training_derived",
+        "sourceUrl": null,
+        "accessedAt": "2026-05-02",
+        "quoteShort": null,
+        "humanInterpretation": "Seventh pair-density expansion fragment for day-master element, yongshin element, and strength branching.",
+        "copyrightNote": "No source prose copied; original hypothesis text.",
+        "authorityTruthEligible": false
+      }
+    },
+    {
+      "schemaVersion": "spring-ts.narrative-fragment.v1",
+      "fragmentId": "overall.life.brief.water_fire_extreme_strong.080",
+      "axis": { "category": "overall", "period": "life", "depth": "brief" },
+      "gating": {
+        "dayMasterElement": ["WATER"],
+        "yongshinElement": ["FIRE"],
+        "dayMasterStrength": ["EXTREME_STRONG"]
+      },
+      "templateTokens": [
+        { "kind": "text", "value": "직관이 강하게 흐르면서 표현의 열기도 필요해지는 흐름이에요. 감정을 말로 잘 정리하면 추진력이 더 밝게 살아납니다." }
+      ],
+      "tags": [],
+      "aiGenerated": true,
+      "sourceTier": {
+        "tier": "T1_HYPOTHESIS",
+        "sourceType": "training_derived",
+        "sourceUrl": null,
+        "accessedAt": "2026-05-02",
+        "quoteShort": null,
+        "humanInterpretation": "Seventh pair-density expansion fragment for day-master element, yongshin element, and strength branching.",
+        "copyrightNote": "No source prose copied; original hypothesis text.",
+        "authorityTruthEligible": false
+      }
+    },
+    {
+      "schemaVersion": "spring-ts.narrative-fragment.v1",
+      "fragmentId": "overall.life.brief.water_metal_strong.081",
+      "axis": { "category": "overall", "period": "life", "depth": "brief" },
+      "gating": {
+        "dayMasterElement": ["WATER"],
+        "yongshinElement": ["METAL"],
+        "dayMasterStrength": ["STRONG"]
+      },
+      "templateTokens": [
+        { "kind": "text", "value": "직관이 강한 편이라 생각이 빠르게 흐를 수 있어요. 정리하는 보완 기운을 쓰면 아이디어가 실제 계획으로 묶입니다." }
+      ],
+      "tags": [],
+      "aiGenerated": true,
+      "sourceTier": {
+        "tier": "T1_HYPOTHESIS",
+        "sourceType": "training_derived",
+        "sourceUrl": null,
+        "accessedAt": "2026-05-02",
+        "quoteShort": null,
+        "humanInterpretation": "Seventh pair-density expansion fragment for day-master element, yongshin element, and strength branching.",
+        "copyrightNote": "No source prose copied; original hypothesis text.",
+        "authorityTruthEligible": false
+      }
+    },
+    {
+      "schemaVersion": "spring-ts.narrative-fragment.v1",
+      "fragmentId": "overall.life.brief.wood_earth_balanced.082",
+      "axis": { "category": "overall", "period": "life", "depth": "brief" },
+      "gating": {
+        "dayMasterElement": ["WOOD"],
+        "yongshinElement": ["EARTH"],
+        "dayMasterStrength": ["BALANCED"]
+      },
+      "templateTokens": [
+        { "kind": "text", "value": "성장하려는 힘과 안정된 기반이 함께 필요해요. 계획을 땅에 내리듯 현실적으로 나누면 발전 속도가 꾸준해집니다." }
+      ],
+      "tags": [],
+      "aiGenerated": true,
+      "sourceTier": {
+        "tier": "T1_HYPOTHESIS",
+        "sourceType": "training_derived",
+        "sourceUrl": null,
+        "accessedAt": "2026-05-02",
+        "quoteShort": null,
+        "humanInterpretation": "Seventh pair-density expansion fragment for day-master element, yongshin element, and strength branching.",
+        "copyrightNote": "No source prose copied; original hypothesis text.",
+        "authorityTruthEligible": false
+      }
+    }
+  ]
+}
