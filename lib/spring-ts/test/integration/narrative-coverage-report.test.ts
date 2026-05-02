@@ -61,6 +61,9 @@ check('axis value coverage is machine readable',
   report?.axisValueCoverage?.agePhase &&
     Array.isArray(report.axisValueCoverage.agePhase.expectedValues) &&
     Array.isArray(report.axisValueCoverage.agePhase.missingValues));
+check('axis value density is machine readable',
+  report?.axisValueDensity?.agePhase?.early_20s?.authoredFragments > 0,
+  String(report?.axisValueDensity?.agePhase?.early_20s?.authoredFragments ?? 0));
 check('axis value coverage confirms agePhase expansion is complete',
   report?.axisValueCoverage?.agePhase?.missingValueCount === 0 &&
     report.axisValueCoverage.agePhase.coveredValues?.length === 16,
@@ -82,6 +85,15 @@ check('underfilled cells are sorted planning records',
 check('all cells meet the Phase 2 authored floor',
   Array.isArray(report?.underfilledCells) && report.underfilledCells.length === 0,
   String(report?.underfilledCells?.length ?? 0));
+check('thin axis values are sorted planning records',
+  Array.isArray(report?.thinAxisValues) &&
+    report.thinAxisValues.every((row: any) =>
+      typeof row.field === 'string' &&
+      typeof row.value === 'string' &&
+      typeof row.authoredFragments === 'number'));
+check('thin axis values expose next density targets',
+  report?.thinAxisValues?.some((row: any) => row.field === 'agePhase' && row.value === 'early_20s'),
+  String(report?.totals?.thinAxisValueCount ?? 0));
 
 console.log(`\nNarrative coverage report: ${pass} PASS / ${fail} FAIL`);
 process.exit(fail > 0 ? 1 : 0);
