@@ -34,6 +34,7 @@ import { gradeCell } from './cell-grader.js';
 import { buildPeriodMeta, periodFortuneElement } from './period-meta-builder.js';
 import { loadGlossary } from './glossary-loader.js';
 import { buildTagGlossary } from './tag-inliner.js';
+import { resolveNumericalEvidence, type NumericalEvidenceContext } from './numerical-evidence.js';
 
 const PERIOD_ORDER: readonly TieredPeriodKind[] = ['life', 'today', 'thisWeek', 'thisMonth', 'thisYear'];
 const CATEGORY_ORDER: readonly TieredCategoryId[] = [
@@ -62,13 +63,13 @@ function deriveBrief(rendered: TaggedParagraph): BriefFortuneText {
 function buildExpertText(
   fragment: NarrativeFragment | null,
   rendered: TaggedParagraph,
+  evidenceContext: NumericalEvidenceContext,
 ): ExpertFortuneText {
   if (!fragment) return PLACEHOLDER_EXPERT;
-  // TODO(follow-up): wire fragment.numericalEvidence[].valueExpression to the
-  // saju feature vector and emit NumericalEvidenceRow[]. Schema permits it
-  // (see narrativeFragment.schema.json), renderer currently drops it.
+  const numericalEvidence = resolveNumericalEvidence(fragment, evidenceContext);
   return {
     paragraphs: rendered.tokens.length ? [rendered] : EMPTY_PARAGRAPHS,
+    ...(numericalEvidence ? { numericalEvidence } : {}),
   };
 }
 
@@ -105,12 +106,14 @@ function buildCell(
   const briefRender = briefFrag ? renderFragment(briefFrag, ctx) : null;
   const standardRender = standardFrag ? renderFragment(standardFrag, ctx) : null;
   const expertRender = expertFrag ? renderFragment(expertFrag, ctx) : null;
+  const grade = gradeCell(fortuneElement, yongshin, heeshin, gishin);
 
   const brief = briefRender ? deriveBrief(briefRender) : PLACEHOLDER_BRIEF;
   const standard = buildStandardText(standardFrag, standardRender ?? { tokens: [], plainText: '' });
-  const expert = buildExpertText(expertFrag, expertRender ?? { tokens: [], plainText: '' });
-
-  const grade = gradeCell(fortuneElement, yongshin, heeshin, gishin);
+  const expert = buildExpertText(expertFrag, expertRender ?? { tokens: [], plainText: '' }, {
+    feature,
+    cell: { stars: grade.stars },
+  });
 
   // Cell with no fragment matches at all becomes 'na'.
   if (!briefFrag && !standardFrag && !expertFrag) {

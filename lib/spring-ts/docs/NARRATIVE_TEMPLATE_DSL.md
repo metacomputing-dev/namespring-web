@@ -24,6 +24,32 @@
 | `numericalEvidence` | (expert) `{ label, valueExpression, unit?, sourceTier }` |
 | `aiGenerated`, `sourceTier` | NO_AI 마킹 (필수) |
 
+### 2-1. numericalEvidence valueExpression
+
+`numericalEvidence[].valueExpression`은 JavaScript가 아니라 안전한 경로 표현식이다. 현재 허용되는 형식은 `feature.<numericField>` 또는 `cell.<numericField>`이며, 숫자(`number`)로 해석되는 값만 `ExpertFortuneText.numericalEvidence`로 내려간다.
+
+예:
+
+```json
+{
+  "label": "현재 나이",
+  "valueExpression": "feature.ageYears",
+  "unit": "세",
+  "sourceTier": {
+    "tier": "T3_INTERNAL_ENGINE",
+    "sourceType": "internal_scoring_policy",
+    "sourceUrl": null,
+    "accessedAt": "2026-05-02",
+    "quoteShort": null,
+    "humanInterpretation": "Resolved from deterministic spring-ts runtime output.",
+    "copyrightNote": "No third-party prose copied.",
+    "authorityTruthEligible": false
+  }
+}
+```
+
+`feature.gender`처럼 문자열인 값, `Math.random()` 같은 실행식, `__proto__`/`constructor`/`prototype` 경로는 모두 버린다.
+
 ## 3. 토큰 종류
 
 ```jsonc

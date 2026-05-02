@@ -184,6 +184,7 @@ function toYongshinAlignment(
 }
 
 export interface FeatureVector {
+  readonly ageYears: number;
   readonly dayMasterElement: ElementCode | null;
   readonly dayMasterStrength: 'EXTREME_STRONG' | 'STRONG' | 'BALANCED' | 'WEAK' | 'EXTREME_WEAK';
   readonly yongshinElement: ElementCode | null;
@@ -212,6 +213,7 @@ export function buildFeatureVector(
   const birthMonth = saju.timeCorrection?.standardMonth ?? birth.month ?? null;
   const age = Math.max(0, targetDate.getFullYear() - (birthYear ?? targetDate.getFullYear()));
   return {
+    ageYears: age,
     dayMasterElement,
     dayMasterStrength: toStrengthBand(saju),
     yongshinElement,
