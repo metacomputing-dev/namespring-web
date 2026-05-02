@@ -46,6 +46,11 @@ check('authored corpus remains above Phase 2 floor',
   String(report?.totals?.authoredFragmentCount));
 check('agePhase is tracked as a gating axis',
   Array.isArray(report?.gatingFields) && report.gatingFields.includes('agePhase'));
+for (const field of ['agePhase', 'birthSeason', 'currentSeason', 'dayMasterPolarity', 'yongshinElement']) {
+  check(`${field} has authored branching coverage`,
+    report?.axisUsage?.[field]?.fragmentCount > 0,
+    String(report?.axisUsage?.[field]?.fragmentCount ?? 0));
+}
 check('axis usage is machine readable',
   report?.axisUsage?.gender && Array.isArray(report.axisUsage.gender.values));
 check('underfilled cells are sorted planning records',
