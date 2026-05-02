@@ -27,11 +27,11 @@
   },
 
   "fragmentIdConvention": {
-    "format": "<category>.<period>.<depth>.<gating-keys>.<NNN>",
+    "format": "<category>.<period>.<depth>.<gating-keys>.<NNN>  (each <segment> matches [a-z0-9_]+ per the narrative-fragment schema regex; strength labels lowercased, ageBand uses 30_39 not 30-39, trailing NNN is a 3-digit sequence — Phase 2 wave A authored under this convention)",
     "examples": [
-      "wealth.thisYear.brief.STRONG.aligned.30-39.male.001",
-      "overall.life.standard.WEAK.neutral.40-54.female.012",
-      "health.today.expert.BALANCED.aligned.20-29.male.003"
+      "wealth.thisYear.brief.strong.aligned.30_39.male.001",
+      "overall.life.standard.weak.neutral.40_54.female.012",
+      "health.today.expert.balanced.aligned.20_29.male.003"
     ],
     "ownership": {
       "comment": "Each category prefix is owned by exactly one Phase 2 agent. ID space is partitioned to avoid collision. Agent 0 (this contract) owns no prefix; agents 1-10 own one category each; specialized agents 11-15 own auxiliary prefixes (_glossary/, _metaphor/, _modifier_gender/, _modifier_age/, _overall_pool/).",

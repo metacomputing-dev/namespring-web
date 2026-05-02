@@ -92,7 +92,7 @@ selected = candidates[seedKey % candidates.length]
 
 ```jsonc
 {
-  "fragmentId": "wealth.thisYear.brief.STRONG.aligned.30-39.male.001",
+  "fragmentId": "wealth.thisYear.brief.strong.aligned.30_39.male.001",
   "axis": { "category": "wealth", "period": "thisYear", "depth": "brief" },
   "gating": {
     "gender": ["male"], "ageBand": ["30-39"],
