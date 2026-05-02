@@ -1,0 +1,259 @@
+{
+  "schemaVersion": "spring-ts.narrative-fragment-bundle.v1",
+  "bundleId": "coverage.axis.age-phase-expert-mature.20260502",
+  "contractVersion": "1.0.0",
+  "fragments": [
+    {
+      "schemaVersion": "spring-ts.narrative-fragment.v1",
+      "fragmentId": "overall.life.expert.agephase.early_40s.301",
+      "axis": { "category": "overall", "period": "life", "depth": "expert" },
+      "gating": { "agePhase": ["early_40s"] },
+      "templateTokens": [
+        { "kind": "text", "value": "40대 초반은 지금까지 쌓아온 역할과 앞으로의 방향을 다시 조정하는 구간으로 보기 쉽습니다. 사주 해석에서는 새 출발만 보지 않고, 이미 가진 경험과 책임을 어떤 구조로 다시 배치할지 함께 봐야 합니다. 이 시기에는 무리한 확장보다 기준을 재정리하고 생활의 중심을 회복하는 선택이 중요합니다." }
+      ],
+      "livingTips": [
+        "최근 3년간 반복된 부담과 성과를 나눠 적어보세요.",
+        "새 계획을 세우기 전에 줄일 역할과 유지할 역할을 먼저 정하세요."
+      ],
+      "cautions": [
+        "방향을 바꾸고 싶은 마음만으로 기반을 한꺼번에 흔들면 피로가 커질 수 있어요."
+      ],
+      "tags": [],
+      "aiGenerated": true,
+      "sourceTier": {
+        "tier": "T1_HYPOTHESIS",
+        "sourceType": "training_derived",
+        "sourceUrl": null,
+        "accessedAt": "2026-05-02",
+        "quoteShort": null,
+        "humanInterpretation": "Expert-depth agePhase early_40s narrative. AI-derived display text; not authority truth.",
+        "copyrightNote": "No source prose copied; original phrasing.",
+        "authorityTruthEligible": false
+      }
+    },
+    {
+      "schemaVersion": "spring-ts.narrative-fragment.v1",
+      "fragmentId": "overall.life.expert.agephase.late_40s.301",
+      "axis": { "category": "overall", "period": "life", "depth": "expert" },
+      "gating": { "agePhase": ["late_40s"] },
+      "templateTokens": [
+        { "kind": "text", "value": "40대 후반은 경험의 깊이와 현실적 책임이 함께 커지는 구간입니다. 이 시기의 해석은 성과를 더 키우는 문제뿐 아니라, 몸과 관계가 오래 버틸 수 있는 구조인지 점검하는 데 의미가 있습니다. 책임을 계속 늘리기보다 영향력을 유지하면서 소모를 줄이는 방식이 흐름을 안정시킵니다." }
+      ],
+      "livingTips": [
+        "가장 오래 유지해야 할 책임과 줄여야 할 책임을 분리해 보세요.",
+        "중요한 관계에서는 기대치와 실제 가능한 범위를 다시 합의해 보세요."
+      ],
+      "cautions": [
+        "익숙하다는 이유로 모든 부담을 계속 떠안으면 회복 시간이 부족해질 수 있어요."
+      ],
+      "tags": [],
+      "aiGenerated": true,
+      "sourceTier": {
+        "tier": "T1_HYPOTHESIS",
+        "sourceType": "training_derived",
+        "sourceUrl": null,
+        "accessedAt": "2026-05-02",
+        "quoteShort": null,
+        "humanInterpretation": "Expert-depth agePhase late_40s narrative. AI-derived display text; not authority truth.",
+        "copyrightNote": "No source prose copied; original phrasing.",
+        "authorityTruthEligible": false
+      }
+    },
+    {
+      "schemaVersion": "spring-ts.narrative-fragment.v1",
+      "fragmentId": "overall.life.expert.agephase.early_50s.301",
+      "axis": { "category": "overall", "period": "life", "depth": "expert" },
+      "gating": { "agePhase": ["early_50s"] },
+      "templateTokens": [
+        { "kind": "text", "value": "50대 초반은 사회적 역할과 개인적 삶의 균형을 다시 잡는 구간으로 볼 수 있습니다. 사주 흐름을 해석할 때는 이전처럼 버티는 힘만 보지 않고, 남은 에너지를 어디에 집중할지 선별하는 감각이 중요합니다. 관계, 일, 건강의 우선순위를 현실적으로 재배치하면 다음 단계의 안정감이 커집니다." }
+      ],
+      "livingTips": [
+        "일과 생활에서 계속 가져갈 것, 위임할 것, 내려놓을 것을 구분해 보세요.",
+        "건강 루틴은 큰 결심보다 매주 반복할 수 있는 작은 기준으로 잡아보세요."
+      ],
+      "cautions": [
+        "예전 체력과 같은 방식으로 밀어붙이면 좋은 기회도 부담으로 바뀔 수 있어요."
+      ],
+      "tags": [],
+      "aiGenerated": true,
+      "sourceTier": {
+        "tier": "T1_HYPOTHESIS",
+        "sourceType": "training_derived",
+        "sourceUrl": null,
+        "accessedAt": "2026-05-02",
+        "quoteShort": null,
+        "humanInterpretation": "Expert-depth agePhase early_50s narrative. AI-derived display text; not authority truth.",
+        "copyrightNote": "No source prose copied; original phrasing.",
+        "authorityTruthEligible": false
+      }
+    },
+    {
+      "schemaVersion": "spring-ts.narrative-fragment.v1",
+      "fragmentId": "overall.life.expert.agephase.late_50s.301",
+      "axis": { "category": "overall", "period": "life", "depth": "expert" },
+      "gating": { "agePhase": ["late_50s"] },
+      "templateTokens": [
+        { "kind": "text", "value": "50대 후반은 쌓아온 경험을 유지할 것과 다음 세대나 주변에 넘길 것을 구분하는 구간입니다. 이 시기의 해석은 성취의 크기보다 지속 가능한 역할과 생활 안정성을 함께 살피는 편이 좋습니다. 직접 모두 해내는 방식에서 벗어나 기준과 경험을 전달하는 방향으로 흐름을 바꾸면 소모가 줄어듭니다." }
+      ],
+      "livingTips": [
+        "반복해서 맡아온 역할 중 다른 사람과 나눌 수 있는 일을 찾아보세요.",
+        "경험을 말이나 기록으로 정리해 두면 다음 선택이 가벼워집니다."
+      ],
+      "cautions": [
+        "내가 아니면 안 된다는 생각이 강해지면 관계와 몸이 함께 무거워질 수 있어요."
+      ],
+      "tags": [],
+      "aiGenerated": true,
+      "sourceTier": {
+        "tier": "T1_HYPOTHESIS",
+        "sourceType": "training_derived",
+        "sourceUrl": null,
+        "accessedAt": "2026-05-02",
+        "quoteShort": null,
+        "humanInterpretation": "Expert-depth agePhase late_50s narrative. AI-derived display text; not authority truth.",
+        "copyrightNote": "No source prose copied; original phrasing.",
+        "authorityTruthEligible": false
+      }
+    },
+    {
+      "schemaVersion": "spring-ts.narrative-fragment.v1",
+      "fragmentId": "overall.life.expert.agephase.early_60s.301",
+      "axis": { "category": "overall", "period": "life", "depth": "expert" },
+      "gating": { "agePhase": ["early_60s"] },
+      "templateTokens": [
+        { "kind": "text", "value": "60대 초반은 삶의 속도와 역할을 재설계하는 구간으로 해석하기 좋습니다. 이전의 성취 방식이 그대로 맞지 않을 수 있으므로, 사주 흐름도 확장보다 안정적 리듬과 회복력을 중심으로 살피는 편이 유용합니다. 새 일을 시작하더라도 생활 기반과 건강 리듬을 먼저 정하면 흐름이 오래 갑니다." }
+      ],
+      "livingTips": [
+        "새 활동은 체력, 이동, 비용의 기준을 먼저 확인한 뒤 시작해 보세요.",
+        "하루 루틴에 회복 시간을 고정해 두면 변화가 부담으로 덜 느껴져요."
+      ],
+      "cautions": [
+        "갑작스러운 역할 변화가 공허감으로 이어지지 않도록 작은 계획을 유지하세요."
+      ],
+      "tags": [],
+      "aiGenerated": true,
+      "sourceTier": {
+        "tier": "T1_HYPOTHESIS",
+        "sourceType": "training_derived",
+        "sourceUrl": null,
+        "accessedAt": "2026-05-02",
+        "quoteShort": null,
+        "humanInterpretation": "Expert-depth agePhase early_60s narrative. AI-derived display text; not authority truth.",
+        "copyrightNote": "No source prose copied; original phrasing.",
+        "authorityTruthEligible": false
+      }
+    },
+    {
+      "schemaVersion": "spring-ts.narrative-fragment.v1",
+      "fragmentId": "overall.life.expert.agephase.late_60s.301",
+      "axis": { "category": "overall", "period": "life", "depth": "expert" },
+      "gating": { "agePhase": ["late_60s"] },
+      "templateTokens": [
+        { "kind": "text", "value": "60대 후반은 활동의 양보다 삶의 질과 관계의 안정성이 더 중요한 구간으로 볼 수 있습니다. 사주 해석에서도 강한 도전보다 생활 리듬, 가족과의 거리, 건강 관리, 마음의 안정성을 함께 보는 것이 현실적입니다. 내가 계속 지킬 수 있는 작은 기준을 만드는 것이 큰 변화보다 더 좋은 흐름을 만들 수 있어요." }
+      ],
+      "livingTips": [
+        "자주 만나는 사람, 자주 가는 공간, 자주 하는 활동을 편안한 쪽으로 정리해 보세요.",
+        "건강과 이동 계획은 무리 없는 예비 시간을 포함해 잡아보세요."
+      ],
+      "cautions": [
+        "관계를 줄이기만 하면 마음이 좁아질 수 있으니 편한 연결은 남겨두세요."
+      ],
+      "tags": [],
+      "aiGenerated": true,
+      "sourceTier": {
+        "tier": "T1_HYPOTHESIS",
+        "sourceType": "training_derived",
+        "sourceUrl": null,
+        "accessedAt": "2026-05-02",
+        "quoteShort": null,
+        "humanInterpretation": "Expert-depth agePhase late_60s narrative. AI-derived display text; not authority truth.",
+        "copyrightNote": "No source prose copied; original phrasing.",
+        "authorityTruthEligible": false
+      }
+    },
+    {
+      "schemaVersion": "spring-ts.narrative-fragment.v1",
+      "fragmentId": "overall.life.expert.agephase.70s.301",
+      "axis": { "category": "overall", "period": "life", "depth": "expert" },
+      "gating": { "agePhase": ["70s"] },
+      "templateTokens": [
+        { "kind": "text", "value": "70대는 삶의 속도를 줄이면서도 자기만의 기준과 경험을 품위 있게 유지하는 구간으로 볼 수 있습니다. 이 시기의 해석은 성취보다 회복, 관계의 편안함, 몸의 신호, 마음의 안정성을 중심으로 보는 편이 실제적입니다. 작은 즐거움과 규칙적인 생활이 운의 체감도를 크게 바꿀 수 있습니다." }
+      ],
+      "livingTips": [
+        "무리한 목표보다 매주 반복할 수 있는 즐거운 활동을 하나 유지해 보세요.",
+        "몸의 신호가 작을 때 바로 쉬고 확인하는 습관을 들여보세요."
+      ],
+      "cautions": [
+        "불편함을 오래 참고 넘기면 작은 문제가 생활 전체를 흔들 수 있어요."
+      ],
+      "tags": [],
+      "aiGenerated": true,
+      "sourceTier": {
+        "tier": "T1_HYPOTHESIS",
+        "sourceType": "training_derived",
+        "sourceUrl": null,
+        "accessedAt": "2026-05-02",
+        "quoteShort": null,
+        "humanInterpretation": "Expert-depth agePhase 70s narrative. AI-derived display text; not authority truth.",
+        "copyrightNote": "No source prose copied; original phrasing.",
+        "authorityTruthEligible": false
+      }
+    },
+    {
+      "schemaVersion": "spring-ts.narrative-fragment.v1",
+      "fragmentId": "overall.life.expert.agephase.80s.301",
+      "axis": { "category": "overall", "period": "life", "depth": "expert" },
+      "gating": { "agePhase": ["80s"] },
+      "templateTokens": [
+        { "kind": "text", "value": "80대는 외부 성과보다 안전, 회복, 관계의 따뜻함, 생활의 단순함이 중심이 되는 구간입니다. 사주적 흐름도 큰 변화의 좋고 나쁨보다 하루를 편안하게 유지하는 조건을 찾는 데 더 의미가 있습니다. 익숙한 루틴 안에 작은 활력을 넣으면 삶의 안정감이 높아질 수 있어요." }
+      ],
+      "livingTips": [
+        "자주 쓰는 물건과 이동 동선을 단순하고 안전하게 정리해 보세요.",
+        "짧은 대화, 가벼운 움직임, 규칙적인 식사를 생활의 중심에 두세요."
+      ],
+      "cautions": [
+        "불편함을 혼자 해결하려 하지 말고 주변 도움을 일찍 요청하는 편이 좋아요."
+      ],
+      "tags": [],
+      "aiGenerated": true,
+      "sourceTier": {
+        "tier": "T1_HYPOTHESIS",
+        "sourceType": "training_derived",
+        "sourceUrl": null,
+        "accessedAt": "2026-05-02",
+        "quoteShort": null,
+        "humanInterpretation": "Expert-depth agePhase 80s narrative. AI-derived display text; not authority truth.",
+        "copyrightNote": "No source prose copied; original phrasing.",
+        "authorityTruthEligible": false
+      }
+    },
+    {
+      "schemaVersion": "spring-ts.narrative-fragment.v1",
+      "fragmentId": "overall.life.expert.agephase.90_plus.301",
+      "axis": { "category": "overall", "period": "life", "depth": "expert" },
+      "gating": { "agePhase": ["90_plus"] },
+      "templateTokens": [
+        { "kind": "text", "value": "90세 이후의 흐름은 사주적 해석에서도 큰 성취나 변화보다 안정, 돌봄, 존중, 기억의 정리를 중심으로 보는 것이 적절합니다. 이 구간에서는 작은 불편을 줄이고 편안한 관계를 유지하는 것이 운의 체감에 더 크게 작용할 수 있어요. 삶의 리듬을 단순하게 만들고, 마음이 편안해지는 연결을 남기는 것이 중요합니다." }
+      ],
+      "livingTips": [
+        "하루 생활에서 불편한 동작이나 공간을 하나씩 줄여보세요.",
+        "가족이나 가까운 사람과 편안한 이야기를 나누는 시간을 작게라도 유지해 보세요."
+      ],
+      "cautions": [
+        "생활 변화는 작게 나누고, 몸과 마음이 놀라지 않도록 천천히 진행하세요."
+      ],
+      "tags": [],
+      "aiGenerated": true,
+      "sourceTier": {
+        "tier": "T1_HYPOTHESIS",
+        "sourceType": "training_derived",
+        "sourceUrl": null,
+        "accessedAt": "2026-05-02",
+        "quoteShort": null,
+        "humanInterpretation": "Expert-depth agePhase 90_plus narrative. AI-derived display text; not authority truth.",
+        "copyrightNote": "No source prose copied; original phrasing.",
+        "authorityTruthEligible": false
+      }
+    }
+  ]
+}
