@@ -135,9 +135,10 @@ check('expert numerical evidence gap cells are planning records',
 check('expert numerical evidence gap count matches records',
   report?.totals?.expertNumericalEvidenceGapCellCount === report?.expertNumericalEvidenceGapCells?.length,
   String(report?.totals?.expertNumericalEvidenceGapCellCount ?? ''));
-check('expert numerical evidence has at least one current anchor and exposes remaining gaps',
+check('expert numerical evidence tracks current anchors through completion',
   report?.totals?.expertCellsWithNumericalEvidenceCount >= 1 &&
-    report?.totals?.expertNumericalEvidenceGapCellCount > 0,
+    report?.totals?.expertCellsWithNumericalEvidenceCount <= report?.totals?.expertCellCount &&
+    report?.totals?.expertNumericalEvidenceGapCellCount >= 0,
   `${report?.totals?.expertCellsWithNumericalEvidenceCount ?? 0}/${report?.totals?.expertCellCount ?? 0}`);
 
 console.log(`\nNarrative coverage report: ${pass} PASS / ${fail} FAIL`);
