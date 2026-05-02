@@ -3,7 +3,7 @@
  *
  * Verifies that the narrative axis-pair planning report remains machine-readable.
  */
-import { execFileSync } from 'node:child_process';
+import { execFileSync, spawnSync } from 'node:child_process';
 import path from 'node:path';
 import { fileURLToPath } from 'node:url';
 
@@ -87,6 +87,17 @@ check('thin combination total is aggregated',
   report?.totals?.thinCombinationCount === report.pairs.reduce((sum: number, pair: any) => sum + pair.thinCombinationCount, 0) &&
     report?.totals?.thinCombinationDeficit === report.pairs.reduce((sum: number, pair: any) => sum + pair.authoredDeficitToThreshold, 0),
   `${report?.totals?.thinCombinationCount ?? 0}/${report?.totals?.thinCombinationDeficit ?? 0}`);
+check('pair density thresholds default to observation mode',
+  report?.maxMissingCombinationThreshold === null &&
+    report?.maxThinCombinationThreshold === null &&
+    report?.totals?.missingCombinationExcessToThreshold === 0 &&
+    report?.totals?.thinCombinationExcessToThreshold === 0,
+  JSON.stringify({
+    maxMissing: report?.maxMissingCombinationThreshold,
+    maxThin: report?.maxThinCombinationThreshold,
+    missingExcess: report?.totals?.missingCombinationExcessToThreshold,
+    thinExcess: report?.totals?.thinCombinationExcessToThreshold,
+  }));
 check('pair density report exposes next expansion targets',
   report?.minAuthoredThreshold === 2 &&
     report?.totals?.thinCombinationCount > 0 &&
@@ -103,6 +114,41 @@ check('tracked pair matrices have no missing combinations',
     .filter((pair: any) => pair.missingCombinationCount > 0)
     .map((pair: any) => `${pair.key}=${pair.missingCombinationCount}`)
     .join(',') || '0');
+
+const missingGate = spawnSync('node', [
+  SCRIPT_PATH,
+  '--json',
+  '--min-authored=2',
+  '--max-missing-combinations=0',
+], {
+  cwd: SPRING_TS_ROOT,
+  encoding: 'utf-8',
+});
+const missingGateReport = JSON.parse(missingGate.stdout);
+check('missing-combination threshold can pass when target is met',
+  missingGate.status === 0 &&
+    missingGateReport?.maxMissingCombinationThreshold === 0 &&
+    missingGateReport?.totals?.missingCombinationExcessToThreshold === 0,
+  `status=${missingGate.status}; stderr=${missingGate.stderr.trim()}`);
+
+const thinGate = spawnSync('node', [
+  SCRIPT_PATH,
+  '--json',
+  '--min-authored=2',
+  '--max-thin-combinations=0',
+], {
+  cwd: SPRING_TS_ROOT,
+  encoding: 'utf-8',
+});
+const thinGateReport = JSON.parse(thinGate.stdout);
+check('thin-combination threshold can fail CI intentionally',
+  thinGate.status === 1 &&
+    thinGate.stderr.includes('thin pair combinations') &&
+    thinGateReport?.maxThinCombinationThreshold === 0,
+  `status=${thinGate.status}; stderr=${thinGate.stderr.trim()}`);
+check('thin-combination threshold excess is machine readable',
+  thinGateReport?.totals?.thinCombinationExcessToThreshold === thinGateReport?.totals?.thinCombinationCount,
+  `${thinGateReport?.totals?.thinCombinationExcessToThreshold ?? 0}/${thinGateReport?.totals?.thinCombinationCount ?? 0}`);
 
 console.log(`\nNarrative axis pair report: ${pass} PASS / ${fail} FAIL`);
 process.exit(fail > 0 ? 1 : 0);
