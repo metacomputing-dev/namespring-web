@@ -17,7 +17,7 @@ import type { NarrativeFragment, FragmentRegistry } from './fragment-registry.js
 
 /** Fallback chain priority — relax the leftmost dimension first when no
  *  fragment matches all gating fields. Mirrors data/narrative/_contract/v1.json. */
-const FALLBACK_DIMENSIONS = [
+export const FALLBACK_DIMENSIONS = [
   'gender',
   'agePhase',
   'ageBand',
