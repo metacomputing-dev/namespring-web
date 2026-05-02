@@ -25,6 +25,38 @@
         { "kind": "text", "value": "의 결과 닿아요. 천천히 익는 자리는 흉한 자리가 아니니, 인내·기록·꾸준함이 마음의 짐을 덜어 줘요." }
       ],
       "tags": ["johu", "samhyeong", "jeongin", "gongmang"],
+      "numericalEvidence": [
+        {
+          "label": "현재 나이",
+          "valueExpression": "feature.ageYears",
+          "unit": "세",
+          "sourceTier": {
+            "tier": "T3_INTERNAL_ENGINE",
+            "sourceType": "internal_scoring_policy",
+            "sourceUrl": null,
+            "accessedAt": "2026-05-02",
+            "quoteShort": null,
+            "humanInterpretation": "Resolved from deterministic spring-ts runtime output.",
+            "copyrightNote": "No third-party prose copied.",
+            "authorityTruthEligible": false
+          }
+        },
+        {
+          "label": "셀 별점",
+          "valueExpression": "cell.stars",
+          "unit": "점",
+          "sourceTier": {
+            "tier": "T3_INTERNAL_ENGINE",
+            "sourceType": "internal_scoring_policy",
+            "sourceUrl": null,
+            "accessedAt": "2026-05-02",
+            "quoteShort": null,
+            "humanInterpretation": "Resolved from deterministic spring-ts runtime output.",
+            "copyrightNote": "No third-party prose copied.",
+            "authorityTruthEligible": false
+          }
+        }
+      ],
       "aiGenerated": true,
       "sourceTier": {
         "tier": "T1_HYPOTHESIS",

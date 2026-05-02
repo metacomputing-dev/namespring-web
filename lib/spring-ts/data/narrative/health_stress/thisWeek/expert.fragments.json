@@ -22,6 +22,38 @@
         { "kind": "text", "value": "의 따뜻한 자리에서 가장 또렷해요. 가까운 사람·익숙한 책의 결을 가까이 두면 마음의 짐이 가벼워져요." }
       ],
       "tags": ["johu", "samhyeong", "jeongin"],
+      "numericalEvidence": [
+        {
+          "label": "현재 나이",
+          "valueExpression": "feature.ageYears",
+          "unit": "세",
+          "sourceTier": {
+            "tier": "T3_INTERNAL_ENGINE",
+            "sourceType": "internal_scoring_policy",
+            "sourceUrl": null,
+            "accessedAt": "2026-05-02",
+            "quoteShort": null,
+            "humanInterpretation": "Resolved from deterministic spring-ts runtime output.",
+            "copyrightNote": "No third-party prose copied.",
+            "authorityTruthEligible": false
+          }
+        },
+        {
+          "label": "셀 별점",
+          "valueExpression": "cell.stars",
+          "unit": "점",
+          "sourceTier": {
+            "tier": "T3_INTERNAL_ENGINE",
+            "sourceType": "internal_scoring_policy",
+            "sourceUrl": null,
+            "accessedAt": "2026-05-02",
+            "quoteShort": null,
+            "humanInterpretation": "Resolved from deterministic spring-ts runtime output.",
+            "copyrightNote": "No third-party prose copied.",
+            "authorityTruthEligible": false
+          }
+        }
+      ],
       "aiGenerated": true,
       "sourceTier": {
         "tier": "T1_HYPOTHESIS",
