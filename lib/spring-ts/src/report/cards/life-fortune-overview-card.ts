@@ -61,7 +61,8 @@ function shouldHedgeYongshin(saju: SajuSummary): boolean {
 }
 
 function normalizeStrengthLevel(level: string): StrengthLevel | null {
-  const normalized = level.toUpperCase();
+  const baseLevel = level.replace(/\(.+\)$/, '').trim();
+  const normalized = baseLevel.toUpperCase();
   if (['EXTREME_STRONG', 'STRONG', 'BALANCED', 'WEAK', 'EXTREME_WEAK'].includes(normalized)) {
     return normalized as StrengthLevel;
   }
@@ -72,7 +73,13 @@ function normalizeStrengthLevel(level: string): StrengthLevel | null {
     신약: 'WEAK',
     극신약: 'EXTREME_WEAK',
   };
-  return koreanMap[level] ?? null;
+  return koreanMap[baseLevel] ?? null;
+}
+
+function strengthDisplayName(level: string): string {
+  if (/[가-힣]/.test(level)) return level;
+  const normalized = normalizeStrengthLevel(level);
+  return normalized ? STRENGTH_KOREAN[normalized] : level;
 }
 
 /** 한글 마지막 글자 받침 유무에 따라 이에요/예요 선택 */
@@ -155,7 +162,7 @@ function buildSummary(saju: SajuSummary, stars: StarRating): string {
 
   const dayMasterFriendly = friendlyElementName(dayMaster.element);
   const levelKey = normalizeStrengthLevel(strength.level) ?? (strength.level as StrengthLevel);
-  const strengthKorean = STRENGTH_KOREAN[levelKey] ?? strength.level;
+  const strengthKorean = strengthDisplayName(strength.level);
   const yongshinFriendly = friendlyElementName(yongshin.element);
   const hedgeYongshin = shouldHedgeYongshin(saju);
 
@@ -195,7 +202,7 @@ function buildHighlights(saju: SajuSummary): string[] {
 
   const dayMasterFriendly = friendlyElementName(dayMaster.element);
   const levelKey = normalizeStrengthLevel(strength.level) ?? (strength.level as StrengthLevel);
-  const strengthKorean = STRENGTH_KOREAN[levelKey] ?? strength.level;
+  const strengthKorean = strengthDisplayName(strength.level);
   const yongshinFriendly = friendlyElementName(yongshin.element);
   const hedgeYongshin = shouldHedgeYongshin(saju);
 
