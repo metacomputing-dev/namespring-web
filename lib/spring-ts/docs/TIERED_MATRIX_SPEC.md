@@ -67,12 +67,14 @@ TieredFortune
 ├─ stars:          1..5 OR null (when 'na')
 ├─ brief:    { headline, hook? }                              // 초중학생 1-2문장
 ├─ standard: { paragraphs[], livingTips?, cautions? }         // 풀어쓴 일반 5문단 내외
-├─ expert:   { paragraphs[], numericalEvidence? }             // 학문적 + 인라인 #태그
+├─ expert:   { paragraphs[], numericalEvidence? }             // 학문적 + 인라인 #태그 + 결정적 숫자 근거
 ├─ axisStrength?:  SajuAxisStrengthMap                        // 4-tier hedge
 └─ evidence?:      EvidenceRow[]                              // 카드와 동일 타입 재사용
 ```
 
 UI는 셀 클릭 시 `brief → standard → expert` 순으로 펼치는 것을 권장한다. `expert`의 `paragraphs[].tokens[]`에 `kind: 'tag'` 토큰이 박혀 있고, 클릭 시 `glossary.entries[tagId]`를 표시한다.
+
+`expert.numericalEvidence`는 fragment의 `numericalEvidence[].valueExpression`을 `feature.*` 또는 `cell.*` 숫자 경로로 해석한 결과다. 임의 실행식은 허용하지 않으며, 숫자로 해석되지 않는 값은 출력에서 제외된다.
 
 ### 3-1. depth contract
 
