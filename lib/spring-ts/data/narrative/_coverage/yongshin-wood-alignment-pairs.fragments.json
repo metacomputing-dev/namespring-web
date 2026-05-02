@@ -1,0 +1,91 @@
+{
+  "schemaVersion": "spring-ts.narrative-fragment-bundle.v1",
+  "bundleId": "coverage.pair.yongshin-wood-alignment.20260502",
+  "contractVersion": "1.0.0",
+  "fragments": [
+    {
+      "schemaVersion": "spring-ts.narrative-fragment.v1",
+      "fragmentId": "overall.life.standard.yongshin_wood_alignment.aligned.201",
+      "axis": { "category": "overall", "period": "life", "depth": "standard" },
+      "gating": { "yongshinElement": ["WOOD"], "yongshinAlignment": ["aligned"] },
+      "templateTokens": [
+        { "kind": "text", "value": "나무 기운이 필요한데 현재 흐름도 그 방향을 도와주는 편이에요. 배움, 성장, 관계 확장처럼 조금씩 뻗어 가는 일이 자연스럽게 힘을 얻기 쉬우니, 큰 변화보다 꾸준한 시도와 연결을 살려보면 좋아요." }
+      ],
+      "livingTips": [
+        "새로 배우고 싶은 주제를 하나 정해 매주 작게 반복해 보세요.",
+        "좋은 인연은 한 번에 깊게 만들기보다 꾸준히 연락하는 방식이 잘 맞아요."
+      ],
+      "cautions": [
+        "가능성이 많아 보여도 마무리 기준이 없으면 에너지가 흩어질 수 있어요."
+      ],
+      "tags": ["yongshinElement", "yongshinAlignment"],
+      "aiGenerated": true,
+      "sourceTier": {
+        "tier": "T1_HYPOTHESIS",
+        "sourceType": "training_derived",
+        "sourceUrl": null,
+        "accessedAt": "2026-05-02",
+        "quoteShort": null,
+        "humanInterpretation": "WOOD yongshin and aligned flow pair narrative. AI-derived display text; not authority truth.",
+        "copyrightNote": "No source prose copied; original phrasing.",
+        "authorityTruthEligible": false
+      }
+    },
+    {
+      "schemaVersion": "spring-ts.narrative-fragment.v1",
+      "fragmentId": "overall.life.standard.yongshin_wood_alignment.neutral.201",
+      "axis": { "category": "overall", "period": "life", "depth": "standard" },
+      "gating": { "yongshinElement": ["WOOD"], "yongshinAlignment": ["neutral"] },
+      "templateTokens": [
+        { "kind": "text", "value": "나무 기운이 필요하지만 현재 흐름은 아주 강하게 밀어주지도, 막지도 않는 중간 상태예요. 성장과 배움의 씨앗을 직접 심어야 흐름이 살아나므로, 작은 목표를 정하고 반복하는 방식이 도움이 됩니다." }
+      ],
+      "livingTips": [
+        "새로운 일을 시작할 때는 첫 단계와 반복할 요일을 먼저 정해 보세요.",
+        "관계 확장은 많은 사람을 만나기보다 꾸준히 이어갈 한두 명부터 챙겨 보세요."
+      ],
+      "cautions": [
+        "준비만 오래 하면 실제 변화가 늦어질 수 있으니 작게라도 실행해 보세요."
+      ],
+      "tags": ["yongshinElement", "yongshinAlignment"],
+      "aiGenerated": true,
+      "sourceTier": {
+        "tier": "T1_HYPOTHESIS",
+        "sourceType": "training_derived",
+        "sourceUrl": null,
+        "accessedAt": "2026-05-02",
+        "quoteShort": null,
+        "humanInterpretation": "WOOD yongshin and neutral flow pair narrative. AI-derived display text; not authority truth.",
+        "copyrightNote": "No source prose copied; original phrasing.",
+        "authorityTruthEligible": false
+      }
+    },
+    {
+      "schemaVersion": "spring-ts.narrative-fragment.v1",
+      "fragmentId": "overall.life.standard.yongshin_wood_alignment.conflicting.201",
+      "axis": { "category": "overall", "period": "life", "depth": "standard" },
+      "gating": { "yongshinElement": ["WOOD"], "yongshinAlignment": ["conflicting"] },
+      "templateTokens": [
+        { "kind": "text", "value": "나무 기운이 필요하지만 현재 흐름은 성장과 확장을 바로 밀어주기보다 조절을 요구하는 편이에요. 새 일을 크게 벌리기보다 배움의 방향을 좁히고, 관계와 계획의 뿌리를 먼저 정리하면 부담을 줄일 수 있어요." }
+      ],
+      "livingTips": [
+        "새 목표는 하나만 고르고, 이번 달 안에 끝낼 수 있는 범위로 낮춰 보세요.",
+        "관계에서 서두르지 말고 신뢰가 쌓이는 속도를 먼저 확인해 보세요."
+      ],
+      "cautions": [
+        "확장 욕심이 앞서면 시작은 빠르지만 유지가 어려워질 수 있어요."
+      ],
+      "tags": ["yongshinElement", "yongshinAlignment"],
+      "aiGenerated": true,
+      "sourceTier": {
+        "tier": "T1_HYPOTHESIS",
+        "sourceType": "training_derived",
+        "sourceUrl": null,
+        "accessedAt": "2026-05-02",
+        "quoteShort": null,
+        "humanInterpretation": "WOOD yongshin and conflicting flow pair narrative. AI-derived display text; not authority truth.",
+        "copyrightNote": "No source prose copied; original phrasing.",
+        "authorityTruthEligible": false
+      }
+    }
+  ]
+}
