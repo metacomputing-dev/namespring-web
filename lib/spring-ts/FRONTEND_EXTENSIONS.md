@@ -187,10 +187,10 @@ interface TaggedParagraph {
 
 특징:
 - **2 차원 매트릭스**: 5 기간 × 11 카테고리 = 55 cell, 각 3 depth = 165 텍스트 단위.
-- **콘텐츠 풀**: 255개 fragment bundle / 2,726 narrative fragments (authored 2,561 + `_seed` placeholder 165) / 130 glossary entries.
+- **콘텐츠 풀**: 256개 fragment bundle / 2,766 narrative fragments (authored 2,601 + `_seed` placeholder 165) / 130 glossary entries.
 - **Expert evidence coverage**: expert depth 55/55 cell에 `numericalEvidence` anchor가 있으며, 현재 source-tier 기준선은 fragment `T1_HYPOTHESIS`, numericalEvidence `T3_INTERNAL_ENGINE`.
 - **Pair-density status**: tracked axis-pair 조합은 missing 0개이며, `--min-authored=2` 기준 thin pair combination은 0개.
-- **Tuple-density status**: tracked 3축 조합은 missing 163개이며, `--min-authored=2` 기준 thin tuple combination은 0개.
+- **Tuple-density status**: tracked 3축 조합은 missing 143개이며, `--min-authored=2` 기준 thin tuple combination은 0개.
 - **인라인 태그 + glossary**: `#용신`/`#천을귀인` 클릭 → `glossary.entries[tagId]` (brief + detailed 정의).
 - **결정성**: 같은 (birth, targetDate) → 같은 fragment. `meta.selectionSeed` 노출.
 - **NameSpring 무수정 호환**: flag 미설정 시 `tieredMatrix === undefined`. 이미 `namespring-compat.test.ts`가 negative assert로 검증.
