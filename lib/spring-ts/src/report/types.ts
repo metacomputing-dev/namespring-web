@@ -13,6 +13,7 @@ import type {
   SajuAxisStrengthMap, EvidenceRow, SajuJudgmentStrength, CounterexampleRow,
   CandidateStrengthProfile, NamingScoreVector, TenGodPositionEvidence,
   NameElementStrategyEvidence, SajuNameSafetyProfile, SajuNameSafetyPosture,
+  SourceTierMetadata,
 } from '../types.js';
 import type { NameTrendAnalysis } from '../name-trend.js';
 import type { PhoneticAnalysis } from '../phonetic-rules.js';
@@ -386,6 +387,187 @@ export interface FortuneReport {
   readonly lifeStageFortune: LifeStageFortuneCard;
   readonly categoryFortunes: Record<FortuneCategory, CategoryFortuneCard>;
   readonly meta: ReportMeta;
+  /** Optional 2-D tiered fortune matrix (period × category × depth).
+   *  Surfaced only when `precisionConfig.surfaceTieredMatrix === true`,
+   *  otherwise undefined. NameSpring backward-compat preserved. */
+  readonly tieredMatrix?: FortuneTieredMatrix;
+}
+
+// ─────────────────────────────────────────────────────────────────────────────
+//  4. TIERED FORTUNE MATRIX (period × category × depth)
+//
+//  A fully orthogonal "fortune cube" surfaced when
+//  `precisionConfig.surfaceTieredMatrix === true`. Replaces nothing —
+//  existing cards (overviewSummary / dailyFortune / categoryFortunes / ...)
+//  remain the source of truth for default-mode callers. The tiered matrix
+//  is populated from `data/narrative/**` (AI-derived T1_HYPOTHESIS material
+//  per `docs/NO_AI_POLICY.md`); scoring code never imports it.
+// ─────────────────────────────────────────────────────────────────────────────
+
+/** Period axis. Distinct from existing `FortunePeriodKind`:
+ *    - `today / thisWeek / thisMonth / thisYear` are calendar-relative
+ *      (anchored on the report's `targetDate`).
+ *    - `daily / weekly / monthly / yearly` (legacy) are saju-relative
+ *      (anchored on birth pillars).
+ *  `life` is a single chart-wide reading (≈ existing `lifeFortuneOverview`). */
+export type TieredPeriodKind = 'life' | 'today' | 'thisWeek' | 'thisMonth' | 'thisYear';
+
+/** Category axis. 5 base + 5 extended = 10 categories.
+ *  Mirrors `FortuneCategoryExtended` so a UI can map cells to existing
+ *  `CategoryFortuneCard` rows when present. The matrix also carries an
+ *  `overall` (총운) cell per period, separate from these 10. */
+export type TieredCategoryId =
+  | 'wealth' | 'health' | 'academic' | 'romance' | 'family'
+  | 'career' | 'study_document' | 'expression_children'
+  | 'health_stress' | 'movement';
+
+/** Depth axis — three independent text tiers per cell. */
+export type TieredDepth = 'brief' | 'standard' | 'expert';
+
+/** Age band used for narrative gating. Korean conventional 7-band split. */
+export type TieredAgeBand = '0-9' | '10-19' | '20-29' | '30-39' | '40-54' | '55-69' | '70+';
+
+/** Tag taxonomy for inline `#용신` / `#천을귀인` references. */
+export type TagCategory =
+  | 'element' | 'tenGod' | 'gyeokguk' | 'shinsal' | 'pillar'
+  | 'palace' | 'naeum' | 'yongshin' | 'gungsil' | 'compatibility';
+
+/** Stable string identifier for a glossary entry (e.g., `"yongshin"`,
+ *  `"cheonleulgwiin"`). Matches `GlossaryEntry.id`. */
+export type TagId = string;
+
+/** Token in a tagged paragraph. Token-based (not char-offset) so FE
+ *  escaping / normalization / line-wrapping cannot desync the tag boundary. */
+export type ParagraphToken =
+  | { readonly kind: 'text'; readonly value: string }
+  | { readonly kind: 'tag'; readonly tagId: TagId; readonly label: string };
+
+/** A paragraph composed of inline-tagged tokens.
+ *  `plainText` is derived (search / accessibility); the canonical view is
+ *  `tokens`. */
+export interface TaggedParagraph {
+  readonly tokens: readonly ParagraphToken[];
+  readonly plainText: string;
+}
+
+/** Brief tier — 1-2 sentence summary suitable for elementary/middle-school
+ *  reading level. The accompanying `stars` lives on the parent `TieredFortune`. */
+export interface BriefFortuneText {
+  readonly headline: string;
+  readonly hook?: string;
+}
+
+/** Standard tier — multi-paragraph user-friendly narrative with
+ *  metaphors, living tips, and cautions. ~5 paragraphs typical, no hard cap. */
+export interface StandardFortuneText {
+  readonly paragraphs: readonly TaggedParagraph[];
+  readonly livingTips?: readonly string[];
+  readonly cautions?: readonly string[];
+}
+
+/** Expert tier — academic / classical reasoning with inline `#태그` and
+ *  optional numerical evidence. Tags resolve via the report's `glossary`. */
+export interface ExpertFortuneText {
+  readonly paragraphs: readonly TaggedParagraph[];
+  readonly numericalEvidence?: readonly NumericalEvidenceRow[];
+}
+
+/** Numeric backing for an expert claim (e.g., 용신 부합도 점수).
+ *  `sourceTier` is required because expert-tier numbers must clear the
+ *  NO_AI_POLICY gate — even when the prose is AI-derived, the number must
+ *  trace back to deterministic engine output. */
+export interface NumericalEvidenceRow {
+  readonly label: string;
+  readonly value: number;
+  readonly unit?: string;
+  readonly sourceTier: SourceTierMetadata;
+}
+
+/** A single matrix cell. Three depth tiers + meaningfulness indicator + stars. */
+export interface TieredFortune {
+  /** Whether this period × category cross-product is meaningful for this
+   *  chart. UI can dim / hide non-meaningful cells. */
+  readonly meaningfulness: 'meaningful' | 'limited' | 'na';
+  /** 1-5 star rating, or `null` when `meaningfulness === 'na'`
+   *  (distinguishes "not applicable" from a 3-star "average" reading). */
+  readonly stars: StarRating | null;
+  readonly brief: BriefFortuneText;
+  readonly standard: StandardFortuneText;
+  readonly expert: ExpertFortuneText;
+  /** Per-axis judgment strength (reuse from existing card surfaces). */
+  readonly axisStrength?: SajuAxisStrengthMap;
+  /** Optional row-level evidence backing this cell's claims. */
+  readonly evidence?: readonly EvidenceRow[];
+}
+
+/** Metadata about the period axis (which pillar / element drives it). */
+export interface TieredPeriodMeta {
+  readonly stems?: ReadonlyArray<{ readonly position: string; readonly stem: string; readonly element: string }>;
+  readonly branches?: ReadonlyArray<{ readonly position: string; readonly branch: string; readonly element: string }>;
+  /** Free-form note describing the period anchor — e.g., "이번 달 戊辰 — 무토와 진토가 만나". */
+  readonly relativeNote?: string;
+}
+
+/** All cells for one period of the matrix: total + 10 categories. */
+export interface PeriodScopedFortunes {
+  readonly periodKind: TieredPeriodKind;
+  /** User-facing label, e.g., "올해 (2026년)" / "이번 주" / "오늘 (5월 2일)". */
+  readonly periodLabel: string;
+  readonly periodMeta: TieredPeriodMeta;
+  /** 총운 — period-level summary across all categories. */
+  readonly overall: TieredFortune;
+  readonly byCategory: Readonly<Record<TieredCategoryId, TieredFortune>>;
+}
+
+/** A single glossary entry behind an inline `#태그`.
+ *  Authored entries live in `data/narrative/_glossary/<tagId>.json`. */
+export interface GlossaryEntry {
+  readonly id: TagId;
+  readonly label: string;
+  readonly hashLabel: string;
+  readonly category: TagCategory;
+  /** One-line definition aimed at elementary / middle-school readers. */
+  readonly brief: string;
+  /** Multi-paragraph definition, may include analogies and classical
+   *  reasoning. Plain text — no tokens (no nested glossary references). */
+  readonly detailed: string;
+  readonly classicalSource?: SourceTierMetadata;
+  readonly related: readonly TagId[];
+}
+
+/** Glossary attached to a single tiered matrix.
+ *  `entries` is the lookup table; `usedInThisReport` lists the IDs that
+ *  actually appear in any cell so a UI can pre-render only those. */
+export interface TagGlossary {
+  readonly entries: Readonly<Record<TagId, GlossaryEntry>>;
+  readonly usedInThisReport: readonly TagId[];
+}
+
+/** Top-level metadata for a tiered matrix instance. */
+export interface TieredMatrixMeta {
+  readonly schemaVersion: 'spring-ts.tiered-matrix.v1';
+  readonly generatedAt: string;
+  /** Deterministic seed used to pick fragments from variant pools.
+   *  Same input → same fragment selection. Hash of
+   *  (birth + targetDate + period + category + depth). */
+  readonly selectionSeed: string;
+  /** Frozen contract version this matrix was built against
+   *  (`data/narrative/_contract/v1.json`). */
+  readonly templateContractVersion: string;
+  /** Whether cell text is placeholder (Phase 1 stub) or fully authored
+   *  (Phase 2 fan-out output). NameSpring can render either. */
+  readonly contentSource: 'placeholder' | 'authored';
+  readonly fragmentCount: number;
+  readonly aiGeneratedFragmentCount: number;
+}
+
+/** Top-level tiered matrix container. Attached to `FortuneReport.tieredMatrix`
+ *  when `precisionConfig.surfaceTieredMatrix === true`. */
+export interface FortuneTieredMatrix {
+  readonly schemaVersion: 'spring-ts.tiered-matrix.v1';
+  readonly periods: Readonly<Record<TieredPeriodKind, PeriodScopedFortunes>>;
+  readonly glossary: TagGlossary;
+  readonly meta: TieredMatrixMeta;
 }
 
 /** Optional knobs forwarded to buildFortuneReport / buildPeriodFortuneCard.
@@ -409,6 +591,9 @@ export interface FortuneReportOptions {
    *  When true, builder populates 1-3 sub-domain rows per card drawing on
    *  saju_master/event_domain_map.py FINE_DOMAIN_KEYWORDS + TEN_GOD_TOPIC_HINTS. */
   readonly surfaceSubDomains?: boolean;
+  /** Surface the tiered fortune matrix (`FortuneReport.tieredMatrix`).
+   *  Default unset / false. Mirrors `PrecisionConfig.surfaceTieredMatrix`. */
+  readonly surfaceTieredMatrix?: boolean;
   /** Report-wide selected doctrine lens and whether it affected scoring. */
   readonly schoolPreset?: SchoolPresetMetadata;
 }

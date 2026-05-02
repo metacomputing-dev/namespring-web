@@ -361,6 +361,20 @@ export interface PrecisionConfig {
    *  wire lands in a follow-up PR; this PR declares the option only. */
   readonly surfaceSubDomains?: boolean;
 
+  /** Surface the tiered fortune matrix (`FortuneReport.tieredMatrix`).
+   *
+   *  Default unset / false = `tieredMatrix` stays undefined and existing card
+   *  shape is preserved (NameSpring backward-compat). When true,
+   *  `buildFortuneReport` assembles a `FortuneTieredMatrix` of
+   *  5 periods (life / today / thisWeek / thisMonth / thisYear) ×
+   *  (1 overall + 10 categories), each cell carrying brief / standard /
+   *  expert depth tiers + an inline-tag glossary.
+   *
+   *  Narrative content is loaded from `data/narrative/**`, which is
+   *  AI-derived T1_HYPOTHESIS material per `docs/NO_AI_POLICY.md`; it is
+   *  display-only and never imported by scoring code. */
+  readonly surfaceTieredMatrix?: boolean;
+
   /** Evaluator mode for sajuPriority extraction (PR-K-8 declaration —
    *  spring-info/09_finalization/06_multi_axis_evaluator.md).
    *
