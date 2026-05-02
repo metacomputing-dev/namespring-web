@@ -191,6 +191,7 @@ interface TaggedParagraph {
 - **Expert evidence coverage**: expert depth 55/55 cell에 `numericalEvidence` anchor가 있으며, 현재 source-tier 기준선은 fragment `T1_HYPOTHESIS`, numericalEvidence `T3_INTERNAL_ENGINE`.
 - **Pair-density status**: tracked axis-pair 조합은 missing 0개이며, `--min-authored=2` 기준 thin pair combination은 0개.
 - **Tuple-density status**: tracked 3축 조합은 missing 143개이며, `--min-authored=2` 기준 thin tuple combination은 0개.
+- **Daymaster tuple gate**: `dayMasterElement × yongshinElement × dayMasterStrength`는 missing 0개 / thin 0개이며, `npm run ci:narrative-daymaster-tuple-density`로 회귀를 차단한다.
 - **인라인 태그 + glossary**: `#용신`/`#천을귀인` 클릭 → `glossary.entries[tagId]` (brief + detailed 정의).
 - **결정성**: 같은 (birth, targetDate) → 같은 fragment. `meta.selectionSeed` 노출.
 - **NameSpring 무수정 호환**: flag 미설정 시 `tieredMatrix === undefined`. 이미 `namespring-compat.test.ts`가 negative assert로 검증.

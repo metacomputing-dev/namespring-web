@@ -158,6 +158,7 @@ npx tsx test/integration/tiered-isolation-guard.test.ts
 - source-tier baseline: fragments `T1_HYPOTHESIS` 2,766개, numericalEvidence `T3_INTERNAL_ENGINE` 110개, authority-truth eligible 0개
 - axis-pair density baseline: tracked pair missing combination 0개, thin combination 0개 (`npm run ci:narrative-density`)
 - axis-tuple density baseline: tracked tuple missing combination 143개, thin combination 0개 (`npm run ci:narrative-tuple-density`)
+- daymaster tuple density gate: `dayMasterElement × yongshinElement × dayMasterStrength` missing combination 0개, thin combination 0개 (`npm run ci:narrative-daymaster-tuple-density`)
 
 `_seed/placeholder.fragments.json`은 authored pool이 비는 cell을 위한 안전 fallback으로 남겨 둔다. 자세한 분업 기록은 [PHASE2_AGENT_PARTITION.md](./PHASE2_AGENT_PARTITION.md).
 
