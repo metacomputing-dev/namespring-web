@@ -7,8 +7,8 @@
  * crashing the entire report.
  */
 
-import type { SajuSummary, SpringReport } from '../types.js';
-import type { FortuneReport, FortuneReportOptions, ReportMeta, ReportUncertainty, FortuneCategory } from './types.js';
+import type { SajuSummary, SpringReport, BirthInfo } from '../types.js';
+import type { FortuneReport, FortuneReportOptions, FortuneTieredMatrix, ReportMeta, ReportUncertainty, FortuneCategory } from './types.js';
 
 // Card builders
 import { buildOverviewSummaryCard } from './cards/overview-summary-card.js';
@@ -20,6 +20,7 @@ import { buildCautionsCard } from './cards/cautions-card.js';
 import { buildPeriodFortuneCard } from './cards/period-fortune-card.js';
 import { buildLifeStageFortuneCard } from './cards/life-stage-fortune-card.js';
 import { buildCategoryFortuneCards } from './cards/category-fortune-card.js';
+import { buildTieredMatrix } from './tiered/build-tiered-matrix.js';
 
 // Card types (re-imported for fallback construction)
 import type {
@@ -169,6 +170,7 @@ export function buildFortuneReport(
   targetDate: Date,
   springReport: SpringReport | null,
   options?: FortuneReportOptions,
+  birth?: BirthInfo,
 ): FortuneReport {
   const currentAge = computeCurrentAge(saju, targetDate);
 
@@ -244,6 +246,20 @@ export function buildFortuneReport(
     FALLBACK_CATEGORY_FORTUNES,
   );
 
+  // ── 10. Tiered fortune matrix (opt-in) ──
+  // `surfaceTieredMatrix !== true` → undefined, preserving backward-compat.
+  // When enabled, build a 5×11 cell matrix from data/narrative/** seeds.
+  // safeCall returns undefined fallback so a builder failure never crashes
+  // the rest of the report.
+  const tieredMatrix: FortuneTieredMatrix | undefined =
+    options?.surfaceTieredMatrix === true && birth
+      ? safeCall(
+          () => buildTieredMatrix(saju, birth, targetDate, { enabled: true }),
+          undefined,
+          'tieredMatrix',
+        )
+      : undefined;
+
   // ── Meta ──
   const meta: ReportMeta = {
     version: '1.0.0',
@@ -266,5 +282,6 @@ export function buildFortuneReport(
     lifeStageFortune,
     categoryFortunes,
     meta,
+    ...(tieredMatrix ? { tieredMatrix } : {}),
   };
 }

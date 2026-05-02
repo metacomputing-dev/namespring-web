@@ -2428,7 +2428,11 @@ export class SpringEngine {
       // rows (saju_master/event_domain_map.py doctrine). Callers can opt
       // out via explicit `surfaceSubDomains: false`.
       surfaceSubDomains: pc?.surfaceSubDomains ?? true,
-    });
+      // Tiered matrix surface (precisionConfig.surfaceTieredMatrix).
+      // Default unset / false = no `tieredMatrix` field, NameSpring
+      // backward-compat preserved.
+      surfaceTieredMatrix: pc?.surfaceTieredMatrix === true,
+    }, request.birth);
   }
 
   // -------------------------------------------------------------------------
