@@ -42,6 +42,7 @@
     "test:performance-dashboard": "npx tsx test/integration/performance-dashboard.test.ts",
     "test:no-ai-policy": "npx tsx test/integration/no-ai-policy.test.ts",
     "test:tiered-shape": "npx tsx test/integration/tiered-matrix-shape.test.ts",
+    "test:tiered-feature-vector": "npx tsx test/integration/tiered-feature-vector.test.ts",
     "test:tiered-determinism": "npx tsx test/integration/tiered-matrix-determinism.test.ts",
     "test:tiered-isolation": "npx tsx test/integration/tiered-isolation-guard.test.ts",
     "test:narrative-schema": "npx tsx test/integration/narrative-schema.test.ts",

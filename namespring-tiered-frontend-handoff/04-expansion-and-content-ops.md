@@ -24,11 +24,17 @@ interface FeatureVector {
   yongshinAlignment;
   gyeokguk;
   ageBand;
+  agePhase;
   gender;
+  birthSeason;
+  currentSeason;
+  dayMasterPolarity;
 }
 ```
 
 즉, 기억하신 대로 연령대와 성별은 이미 고려 축에 들어가 있다. 그 외에도 일간 오행, 신강/신약, 용신/희신/기신, 격국이 들어간다.
+
+추가로 `agePhase`, `birthSeason`, `currentSeason`, `dayMasterPolarity`는 더 세밀한 문장 선택을 위해 추가된 authoring 축이다. 기존 `ageBand`는 그대로 유지하므로 현재 텍스트 데이터와 호환된다.
 
 ## 현재 계약의 fallback 구조
 
@@ -38,7 +44,11 @@ interface FeatureVector {
 
 ```txt
 gender
+agePhase
 ageBand
+birthSeason
+currentSeason
+dayMasterPolarity
 dayMasterStrength
 yongshinAlignment
 dayMasterElement
