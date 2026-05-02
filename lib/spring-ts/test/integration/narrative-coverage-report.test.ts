@@ -53,6 +53,16 @@ for (const field of ['agePhase', 'birthSeason', 'currentSeason', 'dayMasterPolar
 }
 check('axis usage is machine readable',
   report?.axisUsage?.gender && Array.isArray(report.axisUsage.gender.values));
+check('axis value coverage is machine readable',
+  report?.axisValueCoverage?.agePhase &&
+    Array.isArray(report.axisValueCoverage.agePhase.expectedValues) &&
+    Array.isArray(report.axisValueCoverage.agePhase.missingValues));
+check('axis value gaps identify future agePhase expansion targets',
+  report?.axisValueCoverage?.agePhase?.missingValues?.includes('late_40s'),
+  String(report?.axisValueCoverage?.agePhase?.missingValues?.length ?? 0));
+check('axis value gaps identify future yongshinElement expansion targets',
+  report?.axisValueCoverage?.yongshinElement?.missingValues?.includes('WOOD'),
+  (report?.axisValueCoverage?.yongshinElement?.missingValues ?? []).join(','));
 check('underfilled cells are sorted planning records',
   Array.isArray(report?.underfilledCells) &&
     report.underfilledCells.every((cell: any) =>
