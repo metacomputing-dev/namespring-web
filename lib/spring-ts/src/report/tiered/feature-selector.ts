@@ -26,6 +26,71 @@ const KOREAN_ELEMENT_TO_CODE: Record<string, ElementCode> = {
   '水': 'WATER', '물': 'WATER',
 };
 
+// saju-adapter's formatGyeokgukTypeDisplay returns Korean labels (e.g. '정인격')
+// or — when the saju engine emits an unmapped raw code — strings like 'JEONG_IN'.
+// Phase 2 fragment authors gate on lowercase-English transliterations such as
+// 'jeongingyeok'. Without this normalisation every gyeokguk-gated fragment is
+// dead in selection because dimMatch compares the runtime Korean string with
+// the lowercase-English allow-list and never succeeds. Map Korean label and
+// English code to one canonical lowercase-English token. New gyeokguk types
+// authored under data/narrative/<category>/**/expert.fragments.json MUST extend
+// this map (and document the canonical form in their fragment-bundle README).
+const GYEOKGUK_KO_TO_CANONICAL: Record<string, string> = {
+  '정인격': 'jeongingyeok',
+  '편인격': 'pyeoningyeok',
+  '식신격': 'sikshingyeok',
+  '상관격': 'sanggwangyeok',
+  '정관격': 'jeonggwangyeok',
+  '편관격': 'pyeongwangyeok',
+  '정재격': 'jeongjaegyeok',
+  '편재격': 'pyeonjaegyeok',
+  '비견격': 'bigyeongyeok',
+  '겁재격': 'geobjaegyeok',
+  '화기격': 'hwagigyeok',
+  '전왕격': 'jeonwanggyeok',
+  '종격': 'jonggyeok',
+  '종재격': 'jongjaegyeok',
+  '종관격': 'jonggwangyeok',
+  '종살격': 'jongsalgyeok',
+  '종아격': 'jongagyeok',
+  '종인격': 'jongingyeok',
+  '종비격': 'jongbigyeok',
+};
+const GYEOKGUK_CODE_TO_CANONICAL: Record<string, string> = {
+  JEONG_IN: 'jeongingyeok',
+  PYEON_IN: 'pyeoningyeok',
+  SIK_SIN: 'sikshingyeok',
+  SANG_GWAN: 'sanggwangyeok',
+  JEONG_GWAN: 'jeonggwangyeok',
+  PYEON_GWAN: 'pyeongwangyeok',
+  JEONG_JAE: 'jeongjaegyeok',
+  PYEON_JAE: 'pyeonjaegyeok',
+  BI_GYEON: 'bigyeongyeok',
+  GYEOB_JAE: 'geobjaegyeok',
+  HUA_QI: 'hwagigyeok',
+  ZHUAN_WANG: 'jeonwanggyeok',
+  CONG_GE: 'jonggyeok',
+  CONG_CAI: 'jongjaegyeok',
+  CONG_GUAN: 'jonggwangyeok',
+  CONG_SHA: 'jongsalgyeok',
+  CONG_ER: 'jongagyeok',
+  CONG_YIN: 'jongingyeok',
+  CONG_BI: 'jongbigyeok',
+};
+
+function toGyeokgukCanonical(value: unknown): string | null {
+  if (typeof value !== 'string') return null;
+  const trimmed = value.trim();
+  if (!trimmed) return null;
+  const koMatch = GYEOKGUK_KO_TO_CANONICAL[trimmed];
+  if (koMatch) return koMatch;
+  const codeMatch = GYEOKGUK_CODE_TO_CANONICAL[trimmed.toUpperCase()];
+  if (codeMatch) return codeMatch;
+  // Already-canonical lowercase tokens (Wave A authored form) pass through.
+  if (/^[a-z][a-z0-9_]*gyeok$/.test(trimmed)) return trimmed;
+  return null;
+}
+
 function toElement(value: unknown): ElementCode | null {
   if (typeof value !== 'string') return null;
   const upper = value.trim().toUpperCase();
@@ -101,7 +166,7 @@ export function buildFeatureVector(
     heeshinElement,
     gishinElement,
     yongshinAlignment: toYongshinAlignment(yongshinElement, dayMasterElement),
-    gyeokguk: saju.gyeokguk?.type ?? null,
+    gyeokguk: toGyeokgukCanonical(saju.gyeokguk?.type ?? null),
     ageBand: toAgeBand(age),
     gender: toGender(birth.gender),
   };
