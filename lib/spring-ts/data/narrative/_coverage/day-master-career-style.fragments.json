@@ -1,0 +1,147 @@
+{
+  "schemaVersion": "spring-ts.narrative-fragment-bundle.v1",
+  "bundleId": "coverage.axis.day-master-career-style.20260502",
+  "contractVersion": "1.0.0",
+  "fragments": [
+    {
+      "schemaVersion": "spring-ts.narrative-fragment.v1",
+      "fragmentId": "career.life.standard.daymasterelement.wood.204",
+      "axis": { "category": "career", "period": "life", "depth": "standard" },
+      "gating": { "dayMasterElement": ["WOOD"] },
+      "templateTokens": [
+        { "kind": "text", "value": "나무 일간의 일 처리 방식은 배우고 키우고 연결하는 데 강점이 있습니다. 새로운 기획, 교육, 관계 확장처럼 시간이 지날수록 자라는 일에서 힘을 얻기 쉽고, 꾸준히 돌볼 구조를 만들면 성과가 안정됩니다." }
+      ],
+      "livingTips": [
+        "일을 시작할 때 성장 목표와 마감 기준을 함께 정해 보세요.",
+        "협업에서는 관계를 넓히는 것만큼 후속 연락과 정리도 챙겨 보세요."
+      ],
+      "cautions": [
+        "가능성이 많아 보일수록 우선순위를 잃지 않도록 주의하세요."
+      ],
+      "tags": ["dayMasterElement"],
+      "aiGenerated": true,
+      "sourceTier": {
+        "tier": "T1_HYPOTHESIS",
+        "sourceType": "training_derived",
+        "sourceUrl": null,
+        "accessedAt": "2026-05-02",
+        "quoteShort": null,
+        "humanInterpretation": "Career-style dayMasterElement WOOD narrative. AI-derived display text; not authority truth.",
+        "copyrightNote": "No source prose copied; original phrasing.",
+        "authorityTruthEligible": false
+      }
+    },
+    {
+      "schemaVersion": "spring-ts.narrative-fragment.v1",
+      "fragmentId": "career.life.standard.daymasterelement.fire.204",
+      "axis": { "category": "career", "period": "life", "depth": "standard" },
+      "gating": { "dayMasterElement": ["FIRE"] },
+      "templateTokens": [
+        { "kind": "text", "value": "불 일간의 일 처리 방식은 드러내고 설득하고 분위기를 만드는 데 강점이 있습니다. 발표, 영업, 콘텐츠, 리더십처럼 사람의 주의를 모으는 장면에서 힘이 살아나며, 표현의 속도를 조절하면 신뢰가 더 커집니다." }
+      ],
+      "livingTips": [
+        "중요한 제안 전에는 핵심 메시지와 상대가 받을 속도를 같이 점검해 보세요.",
+        "성과를 보일 수 있는 발표 자료나 기록을 꾸준히 정리해 보세요."
+      ],
+      "cautions": [
+        "열정이 앞서면 약속이 많아질 수 있으니 실행 여력을 먼저 확인하세요."
+      ],
+      "tags": ["dayMasterElement"],
+      "aiGenerated": true,
+      "sourceTier": {
+        "tier": "T1_HYPOTHESIS",
+        "sourceType": "training_derived",
+        "sourceUrl": null,
+        "accessedAt": "2026-05-02",
+        "quoteShort": null,
+        "humanInterpretation": "Career-style dayMasterElement FIRE narrative. AI-derived display text; not authority truth.",
+        "copyrightNote": "No source prose copied; original phrasing.",
+        "authorityTruthEligible": false
+      }
+    },
+    {
+      "schemaVersion": "spring-ts.narrative-fragment.v1",
+      "fragmentId": "career.life.standard.daymasterelement.earth.204",
+      "axis": { "category": "career", "period": "life", "depth": "standard" },
+      "gating": { "dayMasterElement": ["EARTH"] },
+      "templateTokens": [
+        { "kind": "text", "value": "흙 일간의 일 처리 방식은 현실을 붙잡고 안정적인 기반을 만드는 데 강점이 있습니다. 운영, 관리, 돌봄, 조율처럼 책임과 지속성이 필요한 일에서 신뢰를 쌓기 쉽고, 역할의 경계를 분명히 하면 부담이 줄어듭니다." }
+      ],
+      "livingTips": [
+        "맡은 일의 범위, 마감, 도움 받을 지점을 처음부터 정리해 보세요.",
+        "반복 업무는 체크리스트로 만들어 몸과 마음의 부담을 줄여 보세요."
+      ],
+      "cautions": [
+        "책임감만으로 모든 일을 떠안으면 회복력이 떨어질 수 있어요."
+      ],
+      "tags": ["dayMasterElement"],
+      "aiGenerated": true,
+      "sourceTier": {
+        "tier": "T1_HYPOTHESIS",
+        "sourceType": "training_derived",
+        "sourceUrl": null,
+        "accessedAt": "2026-05-02",
+        "quoteShort": null,
+        "humanInterpretation": "Career-style dayMasterElement EARTH narrative. AI-derived display text; not authority truth.",
+        "copyrightNote": "No source prose copied; original phrasing.",
+        "authorityTruthEligible": false
+      }
+    },
+    {
+      "schemaVersion": "spring-ts.narrative-fragment.v1",
+      "fragmentId": "career.life.standard.daymasterelement.metal.204",
+      "axis": { "category": "career", "period": "life", "depth": "standard" },
+      "gating": { "dayMasterElement": ["METAL"] },
+      "templateTokens": [
+        { "kind": "text", "value": "쇠 일간의 일 처리 방식은 기준을 세우고 중요한 것을 선별하는 데 강점이 있습니다. 품질 관리, 분석, 전략, 계약처럼 정확한 판단이 필요한 일에서 힘을 얻기 쉽고, 기준을 설명하는 태도가 함께 있으면 협업이 부드러워집니다." }
+      ],
+      "livingTips": [
+        "결정이 필요한 일은 판단 기준을 먼저 적고 공유해 보세요.",
+        "불필요한 일을 줄여 전문성과 품질이 드러나는 시간을 확보해 보세요."
+      ],
+      "cautions": [
+        "맞고 틀림을 너무 빨리 나누면 주변과의 온도가 낮아질 수 있어요."
+      ],
+      "tags": ["dayMasterElement"],
+      "aiGenerated": true,
+      "sourceTier": {
+        "tier": "T1_HYPOTHESIS",
+        "sourceType": "training_derived",
+        "sourceUrl": null,
+        "accessedAt": "2026-05-02",
+        "quoteShort": null,
+        "humanInterpretation": "Career-style dayMasterElement METAL narrative. AI-derived display text; not authority truth.",
+        "copyrightNote": "No source prose copied; original phrasing.",
+        "authorityTruthEligible": false
+      }
+    },
+    {
+      "schemaVersion": "spring-ts.narrative-fragment.v1",
+      "fragmentId": "career.life.standard.daymasterelement.water.204",
+      "axis": { "category": "career", "period": "life", "depth": "standard" },
+      "gating": { "dayMasterElement": ["WATER"] },
+      "templateTokens": [
+        { "kind": "text", "value": "물 일간의 일 처리 방식은 흐름을 읽고 정보를 연결하며 유연하게 대응하는 데 강점이 있습니다. 조사, 상담, 기획, 조정처럼 보이지 않는 맥락을 읽는 일에서 힘이 살아나며, 실행 기준을 함께 세우면 결과가 더 분명해집니다." }
+      ],
+      "livingTips": [
+        "중요한 일을 시작할 때 조사 시간과 실행 마감일을 따로 정해 보세요.",
+        "사람과 상황의 흐름을 읽은 뒤에는 작은 행동으로 반응을 확인해 보세요."
+      ],
+      "cautions": [
+        "생각이 깊어질수록 실행이 늦어질 수 있으니 첫 행동을 작게 정하세요."
+      ],
+      "tags": ["dayMasterElement"],
+      "aiGenerated": true,
+      "sourceTier": {
+        "tier": "T1_HYPOTHESIS",
+        "sourceType": "training_derived",
+        "sourceUrl": null,
+        "accessedAt": "2026-05-02",
+        "quoteShort": null,
+        "humanInterpretation": "Career-style dayMasterElement WATER narrative. AI-derived display text; not authority truth.",
+        "copyrightNote": "No source prose copied; original phrasing.",
+        "authorityTruthEligible": false
+      }
+    }
+  ]
+}
