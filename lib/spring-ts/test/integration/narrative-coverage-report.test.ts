@@ -26,7 +26,7 @@ function check(label: string, cond: boolean, evidence?: string): void {
 
 console.log('Narrative coverage report\n');
 
-const stdout = execFileSync('node', [SCRIPT_PATH, '--json', '--min-authored=5'], {
+const stdout = execFileSync('node', [SCRIPT_PATH, '--json', '--min-authored=8'], {
   cwd: SPRING_TS_ROOT,
   encoding: 'utf-8',
 });
@@ -71,6 +71,9 @@ check('underfilled cells are sorted planning records',
       typeof cell.period === 'string' &&
       typeof cell.depth === 'string' &&
       typeof cell.authoredFragments === 'number'));
+check('all cells meet the Phase 2 authored floor',
+  Array.isArray(report?.underfilledCells) && report.underfilledCells.length === 0,
+  String(report?.underfilledCells?.length ?? 0));
 
 console.log(`\nNarrative coverage report: ${pass} PASS / ${fail} FAIL`);
 process.exit(fail > 0 ? 1 : 0);
