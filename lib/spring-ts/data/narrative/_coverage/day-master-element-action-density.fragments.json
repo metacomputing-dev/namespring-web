@@ -1,0 +1,147 @@
+{
+  "schemaVersion": "spring-ts.narrative-fragment-bundle.v1",
+  "bundleId": "coverage.axis.day-master-element-action-density.20260502",
+  "contractVersion": "1.0.0",
+  "fragments": [
+    {
+      "schemaVersion": "spring-ts.narrative-fragment.v1",
+      "fragmentId": "overall.life.standard.daymasterelement.wood.202",
+      "axis": { "category": "overall", "period": "life", "depth": "standard" },
+      "gating": { "dayMasterElement": ["WOOD"] },
+      "templateTokens": [
+        { "kind": "text", "value": "나무 일간은 새롭게 배우고 자라나는 방향을 찾을 때 힘이 잘 살아납니다. 사람과 일을 길게 이어가며 가능성을 키우는 감각이 장점이지만, 시작한 일이 너무 많아지면 집중이 흩어질 수 있어요. 지금은 관심사를 넓히되 끝까지 돌볼 작은 기준을 함께 세우는 방식이 좋습니다." }
+      ],
+      "livingTips": [
+        "새로운 목표는 한 번에 크게 넓히기보다 이번 주에 확인할 작은 단계로 나누어 보세요.",
+        "사람과의 연결은 갑자기 넓히기보다 오래 이어갈 연락 루틴을 먼저 만들어 보세요."
+      ],
+      "cautions": [
+        "가능성이 많아 보일수록 마감 기준과 우선순위를 잃지 않는 것이 중요해요."
+      ],
+      "tags": ["dayMasterElement"],
+      "aiGenerated": true,
+      "sourceTier": {
+        "tier": "T1_HYPOTHESIS",
+        "sourceType": "training_derived",
+        "sourceUrl": null,
+        "accessedAt": "2026-05-02",
+        "quoteShort": null,
+        "humanInterpretation": "Action-oriented dayMasterElement WOOD narrative. AI-derived display text; not authority truth.",
+        "copyrightNote": "No source prose copied; original phrasing.",
+        "authorityTruthEligible": false
+      }
+    },
+    {
+      "schemaVersion": "spring-ts.narrative-fragment.v1",
+      "fragmentId": "overall.life.standard.daymasterelement.fire.202",
+      "axis": { "category": "overall", "period": "life", "depth": "standard" },
+      "gating": { "dayMasterElement": ["FIRE"] },
+      "templateTokens": [
+        { "kind": "text", "value": "불 일간은 생각과 감정을 밖으로 밝게 드러낼 때 존재감이 살아납니다. 분위기를 만들고 사람의 마음을 움직이는 힘이 있지만, 감정이 빠르게 올라오면 말과 결정도 함께 빨라질 수 있어요. 표현은 살리되 중요한 일에는 확인 시간을 넣으면 장점이 더 안정적으로 드러납니다." }
+      ],
+      "livingTips": [
+        "발표나 대화 전에는 핵심 메시지 하나와 피해야 할 말 하나를 미리 적어 보세요.",
+        "기분이 올라오는 날일수록 바로 결정하기보다 짧은 확인 시간을 두면 좋아요."
+      ],
+      "cautions": [
+        "열정이 강할수록 상대가 받아들일 속도와 상황도 함께 살피는 것이 필요해요."
+      ],
+      "tags": ["dayMasterElement"],
+      "aiGenerated": true,
+      "sourceTier": {
+        "tier": "T1_HYPOTHESIS",
+        "sourceType": "training_derived",
+        "sourceUrl": null,
+        "accessedAt": "2026-05-02",
+        "quoteShort": null,
+        "humanInterpretation": "Action-oriented dayMasterElement FIRE narrative. AI-derived display text; not authority truth.",
+        "copyrightNote": "No source prose copied; original phrasing.",
+        "authorityTruthEligible": false
+      }
+    },
+    {
+      "schemaVersion": "spring-ts.narrative-fragment.v1",
+      "fragmentId": "overall.life.standard.daymasterelement.earth.202",
+      "axis": { "category": "overall", "period": "life", "depth": "standard" },
+      "gating": { "dayMasterElement": ["EARTH"] },
+      "templateTokens": [
+        { "kind": "text", "value": "흙 일간은 현실을 붙잡고 주변을 안정시키는 힘이 돋보입니다. 책임감과 지속력이 장점이지만, 혼자 너무 오래 떠안으면 몸과 마음이 무거워질 수 있어요. 맡을 일과 내려놓을 일을 구분하고, 작은 루틴으로 기반을 다지는 방식이 잘 맞습니다." }
+      ],
+      "livingTips": [
+        "이번 주에 반드시 지킬 생활 기준 하나를 정하고 반복해 보세요.",
+        "해야 할 일이 많을 때는 내가 맡을 범위와 도움을 요청할 범위를 나누어 보세요."
+      ],
+      "cautions": [
+        "안정만 지키려다 필요한 변화나 휴식까지 미루지 않도록 주의하세요."
+      ],
+      "tags": ["dayMasterElement"],
+      "aiGenerated": true,
+      "sourceTier": {
+        "tier": "T1_HYPOTHESIS",
+        "sourceType": "training_derived",
+        "sourceUrl": null,
+        "accessedAt": "2026-05-02",
+        "quoteShort": null,
+        "humanInterpretation": "Action-oriented dayMasterElement EARTH narrative. AI-derived display text; not authority truth.",
+        "copyrightNote": "No source prose copied; original phrasing.",
+        "authorityTruthEligible": false
+      }
+    },
+    {
+      "schemaVersion": "spring-ts.narrative-fragment.v1",
+      "fragmentId": "overall.life.standard.daymasterelement.metal.202",
+      "axis": { "category": "overall", "period": "life", "depth": "standard" },
+      "gating": { "dayMasterElement": ["METAL"] },
+      "templateTokens": [
+        { "kind": "text", "value": "쇠 일간은 기준을 세우고 중요한 것을 골라내는 힘이 강합니다. 복잡한 상황을 정리하고 결정을 내리는 장점이 있지만, 기준이 너무 단단해지면 주변과의 온도가 낮아질 수 있어요. 판단의 근거는 분명히 하되 설명과 배려를 함께 놓으면 신뢰가 더 커집니다." }
+      ],
+      "livingTips": [
+        "오늘 해야 할 일을 중요한 것과 덜 중요한 것으로 먼저 나누어 보세요.",
+        "결정할 때는 기준을 분명히 적고, 상대에게 그 이유를 차분히 설명해 보세요."
+      ],
+      "cautions": [
+        "맞고 틀림을 너무 빨리 나누면 협력의 여지가 줄어들 수 있어요."
+      ],
+      "tags": ["dayMasterElement"],
+      "aiGenerated": true,
+      "sourceTier": {
+        "tier": "T1_HYPOTHESIS",
+        "sourceType": "training_derived",
+        "sourceUrl": null,
+        "accessedAt": "2026-05-02",
+        "quoteShort": null,
+        "humanInterpretation": "Action-oriented dayMasterElement METAL narrative. AI-derived display text; not authority truth.",
+        "copyrightNote": "No source prose copied; original phrasing.",
+        "authorityTruthEligible": false
+      }
+    },
+    {
+      "schemaVersion": "spring-ts.narrative-fragment.v1",
+      "fragmentId": "overall.life.standard.daymasterelement.water.202",
+      "axis": { "category": "overall", "period": "life", "depth": "standard" },
+      "gating": { "dayMasterElement": ["WATER"] },
+      "templateTokens": [
+        { "kind": "text", "value": "물 일간은 흐름을 읽고 보이지 않는 분위기를 살피는 감각이 좋습니다. 차분히 관찰하고 유연하게 움직이는 장점이 있지만, 생각이 길어지면 실행이 늦어질 수 있어요. 충분히 살핀 뒤에는 작은 행동 하나로 현실의 반응을 확인하는 방식이 균형을 잡아줍니다." }
+      ],
+      "livingTips": [
+        "고민이 길어질 때는 지금 확인할 정보와 바로 해볼 행동 하나를 따로 적어 보세요.",
+        "중요한 대화 전에는 상대의 말뿐 아니라 상황의 흐름까지 함께 살펴보세요."
+      ],
+      "cautions": [
+        "계속 관찰만 하면 좋은 타이밍을 놓칠 수 있으니 작은 실행을 함께 두세요."
+      ],
+      "tags": ["dayMasterElement"],
+      "aiGenerated": true,
+      "sourceTier": {
+        "tier": "T1_HYPOTHESIS",
+        "sourceType": "training_derived",
+        "sourceUrl": null,
+        "accessedAt": "2026-05-02",
+        "quoteShort": null,
+        "humanInterpretation": "Action-oriented dayMasterElement WATER narrative. AI-derived display text; not authority truth.",
+        "copyrightNote": "No source prose copied; original phrasing.",
+        "authorityTruthEligible": false
+      }
+    }
+  ]
+}
