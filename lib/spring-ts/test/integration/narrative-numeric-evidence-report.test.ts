@@ -101,24 +101,30 @@ check('seed placeholder bundle is excluded from default expert evidence gap',
 check('thresholds default to observation mode',
   report?.minExpressionUsageThreshold === 1 &&
   report?.includeSeedPlaceholderBundles === false &&
-  report?.maxUnknownExpressionThreshold === null &&
+    report?.maxUnknownExpressionThreshold === null &&
     report?.maxUnusedAvailablePathThreshold === null &&
     report?.maxThinAvailablePathThreshold === null &&
+    report?.maxLowUsageAvailablePathThreshold === null &&
     report?.maxExpertBundlesWithoutNumericalEvidenceThreshold === null &&
     report?.totals?.unknownExpressionExcessToThreshold === 0 &&
     report?.totals?.unusedAvailablePathExcessToThreshold === 0 &&
     report?.totals?.thinAvailablePathExcessToThreshold === 0 &&
+    report?.totals?.lowUsageAvailablePathExcessToThreshold === 0 &&
     report?.totals?.expertBundleNumericalEvidenceGapExcessToThreshold === 0,
   JSON.stringify({
     minUsage: report?.minExpressionUsageThreshold,
     unknown: report?.maxUnknownExpressionThreshold,
     unused: report?.maxUnusedAvailablePathThreshold,
     thin: report?.maxThinAvailablePathThreshold,
+    lowUsage: report?.maxLowUsageAvailablePathThreshold,
     expertBundleGaps: report?.maxExpertBundlesWithoutNumericalEvidenceThreshold,
   }));
 check('thin available path records are machine readable',
   Array.isArray(report?.thinAvailablePaths) &&
     report.thinAvailablePaths.length === 0);
+check('low-usage available path records are machine readable',
+  Array.isArray(report?.lowUsageAvailablePaths) &&
+    report.lowUsageAvailablePaths.length === 0);
 
 const unknownGate = spawnSync('node', [
   SCRIPT_PATH,
@@ -196,8 +202,39 @@ check('thin available path threshold excess is machine readable',
   thinGateReport?.totals?.thinAvailablePathExcessToThreshold === 0 &&
     thinGateReport?.totals?.thinAvailablePathCount === 0 &&
     Array.isArray(thinGateReport?.thinAvailablePaths) &&
-    thinGateReport.thinAvailablePaths.length === 0,
-  `${thinGateReport?.totals?.thinAvailablePathExcessToThreshold ?? 0}/${thinGateReport?.totals?.thinAvailablePathCount ?? 0}`);
+    thinGateReport.thinAvailablePaths.length === 0 &&
+    thinGateReport?.totals?.lowUsageAvailablePathCount > 0 &&
+    thinGateReport?.lowUsageAvailablePaths?.every((row: any) =>
+      typeof row.expression === 'string' &&
+      typeof row.count === 'number' &&
+      typeof row.requiredCount === 'number' &&
+      typeof row.deficit === 'number' &&
+      typeof row.thinUsageGated === 'boolean'),
+  `${thinGateReport?.totals?.thinAvailablePathExcessToThreshold ?? 0}/${thinGateReport?.totals?.thinAvailablePathCount ?? 0}; low=${thinGateReport?.totals?.lowUsageAvailablePathCount ?? 0}`);
+
+const lowUsageGate = spawnSync('node', [
+  SCRIPT_PATH,
+  '--json',
+  '--min-expression-usage=28',
+  '--max-low-usage-available-paths=0',
+], {
+  cwd: SPRING_TS_ROOT,
+  encoding: 'utf-8',
+});
+const lowUsageGateReport = JSON.parse(lowUsageGate.stdout);
+check('low-usage available path threshold can fail CI intentionally',
+  lowUsageGate.status === 1 &&
+    lowUsageGate.stderr.includes('low-usage available numeric paths') &&
+    lowUsageGateReport?.minExpressionUsageThreshold === 28 &&
+    lowUsageGateReport?.maxLowUsageAvailablePathThreshold === 0,
+  `status=${lowUsageGate.status}; stderr=${lowUsageGate.stderr.trim()}`);
+check('low-usage available path threshold excess is machine readable',
+  lowUsageGateReport?.totals?.lowUsageAvailablePathExcessToThreshold ===
+    lowUsageGateReport?.totals?.lowUsageAvailablePathCount &&
+    lowUsageGateReport?.totals?.thinAvailablePathCount === 0 &&
+    Array.isArray(lowUsageGateReport?.lowUsageAvailablePaths) &&
+    lowUsageGateReport.lowUsageAvailablePaths.length > 0,
+  `${lowUsageGateReport?.totals?.lowUsageAvailablePathExcessToThreshold ?? 0}/${lowUsageGateReport?.totals?.lowUsageAvailablePathCount ?? 0}`);
 
 const strictThinGate = spawnSync('node', [
   SCRIPT_PATH,
