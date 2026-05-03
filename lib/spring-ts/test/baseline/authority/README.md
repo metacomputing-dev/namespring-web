@@ -70,6 +70,31 @@ Each file is a JSON object with the following structure (mirrors F-A16 §2):
 - **narrative.charsPerClaim** / **evidenceRowsPerClaim** / **counterexampleCountPerCard** — captured during F-A16 extraction; D2 dimension consumes these.
 - **hedge.shouldHedge** — `true` when the authority text recommends hedging. D4 dimension consumes this label.
 
+## Intake guard
+
+Run the flat-case intake guard before adding or promoting any top-level
+`<fixture-id>.json` file:
+
+```bash
+npm run validate:reference-authority
+```
+
+The guard scans only direct JSON children of this directory. Subdirectories
+such as `lecture/`, `jonheom/`, or `training_derived/` keep their own schemas
+and validators.
+
+Current flat-case absence is valid observation mode. A release gate can require
+at least one flat case with:
+
+```bash
+npm run validate:reference-authority -- --allow-empty=false
+```
+
+Authority-truth promotion is blocked unless the case has resolved source
+citation data, a T3+ source tier, `authorityTruthEligible: true`, a
+`summary50char` paraphrase at 50 characters or fewer, and no stored original
+prose fields.
+
 ## License
 
 Source texts are commercial copyright works. Files in this directory store **only the birth pillars (factual)** and **paraphrased summaries (≤50자)**. Original prose is not reproduced.
