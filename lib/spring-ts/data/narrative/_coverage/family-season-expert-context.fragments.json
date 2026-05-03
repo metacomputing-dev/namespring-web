@@ -1,0 +1,187 @@
+{
+  "schemaVersion": "spring-ts.narrative-fragment-bundle.v1",
+  "bundleId": "coverage.family-season-expert-context.20260503",
+  "contractVersion": "1.0.0",
+  "fragments": [
+    {
+      "schemaVersion": "spring-ts.narrative-fragment.v1",
+      "fragmentId": "family.today.expert.currentseason.spring_summer.301",
+      "axis": { "category": "family", "period": "today", "depth": "expert" },
+      "gating": {
+        "currentSeason": ["spring", "summer"],
+        "yongshinAlignment": ["aligned", "neutral", "conflicting"]
+      },
+      "templateTokens": [
+        { "kind": "text", "value": "오늘 가족 흐름에서 봄과 여름 기운은 말과 반응 속도를 빠르게 만듭니다. " },
+        { "kind": "tag", "tagId": "bigyeon", "label": "비견" },
+        { "kind": "text", "value": "이 강하면 내 기준을 지키려는 힘이 커지고, " },
+        { "kind": "tag", "tagId": "jeongin", "label": "정인" },
+        { "kind": "text", "value": "이 받쳐 주면 정서적 회복이 빠릅니다. " },
+        { "kind": "tag", "tagId": "jeonggwan", "label": "정관" },
+        { "kind": "text", "value": "식 책임 언어가 과하면 대화가 지시처럼 들릴 수 있습니다." }
+      ],
+      "tags": ["bigyeon", "jeongin", "jeonggwan"],
+      "aiGenerated": true,
+      "sourceTier": {
+        "tier": "T1_HYPOTHESIS",
+        "sourceType": "training_derived",
+        "sourceUrl": null,
+        "accessedAt": "2026-05-03",
+        "quoteShort": null,
+        "humanInterpretation": "Expert family today narrative for spring/summer current season. AI-derived display text; not authority truth.",
+        "copyrightNote": "No source prose copied; original phrasing.",
+        "authorityTruthEligible": false
+      }
+    },
+    {
+      "schemaVersion": "spring-ts.narrative-fragment.v1",
+      "fragmentId": "family.today.expert.currentseason.autumn_winter.301",
+      "axis": { "category": "family", "period": "today", "depth": "expert" },
+      "gating": {
+        "currentSeason": ["autumn", "winter"],
+        "yongshinAlignment": ["aligned", "neutral", "conflicting"]
+      },
+      "templateTokens": [
+        { "kind": "text", "value": "오늘 가족 흐름에서 가을과 겨울 기운은 책임과 약속을 확인하게 합니다. " },
+        { "kind": "tag", "tagId": "jeonggwan", "label": "정관" },
+        { "kind": "text", "value": "이 안정되면 역할이 분명해지고, " },
+        { "kind": "tag", "tagId": "jeongin", "label": "정인" },
+        { "kind": "text", "value": "은 서로를 보호하는 정서적 기반이 됩니다. " },
+        { "kind": "tag", "tagId": "bigyeon", "label": "비견" },
+        { "kind": "text", "value": "이 과하면 각자 옳다고 버티는 흐름이 생길 수 있습니다." }
+      ],
+      "tags": ["jeonggwan", "jeongin", "bigyeon"],
+      "aiGenerated": true,
+      "sourceTier": {
+        "tier": "T1_HYPOTHESIS",
+        "sourceType": "training_derived",
+        "sourceUrl": null,
+        "accessedAt": "2026-05-03",
+        "quoteShort": null,
+        "humanInterpretation": "Expert family today narrative for autumn/winter current season. AI-derived display text; not authority truth.",
+        "copyrightNote": "No source prose copied; original phrasing.",
+        "authorityTruthEligible": false
+      }
+    },
+    {
+      "schemaVersion": "spring-ts.narrative-fragment.v1",
+      "fragmentId": "family.thisWeek.expert.currentseason.spring_summer.301",
+      "axis": { "category": "family", "period": "thisWeek", "depth": "expert" },
+      "gating": {
+        "currentSeason": ["spring", "summer"],
+        "yongshinAlignment": ["aligned", "neutral", "conflicting"]
+      },
+      "templateTokens": [
+        { "kind": "text", "value": "이번 주 가족 흐름은 즉각적인 소통과 빠른 조정이 늘 수 있습니다. " },
+        { "kind": "tag", "tagId": "bigyeon", "label": "비견" },
+        { "kind": "text", "value": "은 자기 기준을 드러내고, " },
+        { "kind": "tag", "tagId": "jeongin", "label": "정인" },
+        { "kind": "text", "value": "은 들어 주고 회복시키는 역할을 합니다. " },
+        { "kind": "tag", "tagId": "jeonggwan", "label": "정관" },
+        { "kind": "text", "value": "이 강한 사람과는 역할과 마감선을 먼저 합의해야 합니다." }
+      ],
+      "tags": ["bigyeon", "jeongin", "jeonggwan"],
+      "aiGenerated": true,
+      "sourceTier": {
+        "tier": "T1_HYPOTHESIS",
+        "sourceType": "training_derived",
+        "sourceUrl": null,
+        "accessedAt": "2026-05-03",
+        "quoteShort": null,
+        "humanInterpretation": "Expert family weekly narrative for spring/summer current season. AI-derived display text; not authority truth.",
+        "copyrightNote": "No source prose copied; original phrasing.",
+        "authorityTruthEligible": false
+      }
+    },
+    {
+      "schemaVersion": "spring-ts.narrative-fragment.v1",
+      "fragmentId": "family.thisWeek.expert.currentseason.autumn_winter.301",
+      "axis": { "category": "family", "period": "thisWeek", "depth": "expert" },
+      "gating": {
+        "currentSeason": ["autumn", "winter"],
+        "yongshinAlignment": ["aligned", "neutral", "conflicting"]
+      },
+      "templateTokens": [
+        { "kind": "text", "value": "이번 주 가족 흐름은 약속, 비용, 책임처럼 현실적인 주제가 중심이 됩니다. " },
+        { "kind": "tag", "tagId": "jeonggwan", "label": "정관" },
+        { "kind": "text", "value": "은 규칙을 세우지만, " },
+        { "kind": "tag", "tagId": "bigyeon", "label": "비견" },
+        { "kind": "text", "value": "이 강하면 서로 양보하지 않는 대립이 생길 수 있습니다. " },
+        { "kind": "tag", "tagId": "jeongin", "label": "정인" },
+        { "kind": "text", "value": "의 완충 역할을 먼저 확보하세요." }
+      ],
+      "tags": ["jeonggwan", "bigyeon", "jeongin"],
+      "aiGenerated": true,
+      "sourceTier": {
+        "tier": "T1_HYPOTHESIS",
+        "sourceType": "training_derived",
+        "sourceUrl": null,
+        "accessedAt": "2026-05-03",
+        "quoteShort": null,
+        "humanInterpretation": "Expert family weekly narrative for autumn/winter current season. AI-derived display text; not authority truth.",
+        "copyrightNote": "No source prose copied; original phrasing.",
+        "authorityTruthEligible": false
+      }
+    },
+    {
+      "schemaVersion": "spring-ts.narrative-fragment.v1",
+      "fragmentId": "family.thisMonth.expert.currentseason.spring_summer.301",
+      "axis": { "category": "family", "period": "thisMonth", "depth": "expert" },
+      "gating": {
+        "currentSeason": ["spring", "summer"],
+        "yongshinAlignment": ["aligned", "neutral", "conflicting"]
+      },
+      "templateTokens": [
+        { "kind": "text", "value": "이번 달 가족 흐름은 소통량이 늘면서 묵혀 둔 감정도 같이 드러날 수 있습니다. " },
+        { "kind": "tag", "tagId": "bigyeon", "label": "비견" },
+        { "kind": "text", "value": "은 각자의 기준을 선명하게 만들고, " },
+        { "kind": "tag", "tagId": "jeongin", "label": "정인" },
+        { "kind": "text", "value": "은 그 기준을 부드럽게 받아 주는 역할을 합니다. " },
+        { "kind": "tag", "tagId": "jeonggwan", "label": "정관" },
+        { "kind": "text", "value": "의 책임 배분은 문장으로 남겨 오해를 줄이세요." }
+      ],
+      "tags": ["bigyeon", "jeongin", "jeonggwan"],
+      "aiGenerated": true,
+      "sourceTier": {
+        "tier": "T1_HYPOTHESIS",
+        "sourceType": "training_derived",
+        "sourceUrl": null,
+        "accessedAt": "2026-05-03",
+        "quoteShort": null,
+        "humanInterpretation": "Expert family monthly narrative for spring/summer current season. AI-derived display text; not authority truth.",
+        "copyrightNote": "No source prose copied; original phrasing.",
+        "authorityTruthEligible": false
+      }
+    },
+    {
+      "schemaVersion": "spring-ts.narrative-fragment.v1",
+      "fragmentId": "family.thisMonth.expert.currentseason.autumn_winter.301",
+      "axis": { "category": "family", "period": "thisMonth", "depth": "expert" },
+      "gating": {
+        "currentSeason": ["autumn", "winter"],
+        "yongshinAlignment": ["aligned", "neutral", "conflicting"]
+      },
+      "templateTokens": [
+        { "kind": "text", "value": "이번 달 가족 흐름은 장기적인 책임과 신뢰 회복을 점검하게 합니다. " },
+        { "kind": "tag", "tagId": "jeonggwan", "label": "정관" },
+        { "kind": "text", "value": "은 역할을 고정하고, " },
+        { "kind": "tag", "tagId": "jeongin", "label": "정인" },
+        { "kind": "text", "value": "은 감정적 안전감을 만듭니다. " },
+        { "kind": "tag", "tagId": "bigyeon", "label": "비견" },
+        { "kind": "text", "value": "이 과하면 가족 안에서도 경쟁처럼 느껴질 수 있으니 비교 표현은 줄이세요." }
+      ],
+      "tags": ["jeonggwan", "jeongin", "bigyeon"],
+      "aiGenerated": true,
+      "sourceTier": {
+        "tier": "T1_HYPOTHESIS",
+        "sourceType": "training_derived",
+        "sourceUrl": null,
+        "accessedAt": "2026-05-03",
+        "quoteShort": null,
+        "humanInterpretation": "Expert family monthly narrative for autumn/winter current season. AI-derived display text; not authority truth.",
+        "copyrightNote": "No source prose copied; original phrasing.",
+        "authorityTruthEligible": false
+      }
+    }
+  ]
+}
