@@ -1,0 +1,307 @@
+{
+  "schemaVersion": "spring-ts.narrative-fragment-bundle.v1",
+  "bundleId": "coverage.expert-spring-autumn-density.20260504",
+  "contractVersion": "1.0.0",
+  "fragments": [
+    {
+      "schemaVersion": "spring-ts.narrative-fragment.v1",
+      "fragmentId": "overall.life.expert.birthSeason.spring.age.child_0_9.401",
+      "axis": { "category": "overall", "period": "life", "depth": "expert" },
+      "gating": {
+        "agePhase": ["child_0_9"],
+        "birthSeason": ["spring"]
+      },
+      "templateTokens": [
+        { "kind": "text", "value": "아동기의 봄 출생 총운은 성장 방향이 빨리 열리는 만큼 기초 리듬을 반복해서 몸에 붙이는 해석이 중요합니다. " },
+        { "kind": "tag", "tagId": "jeongin", "label": "정인" },
+        { "kind": "text", "value": "은 보호와 학습의 바탕을 만들고 " },
+        { "kind": "tag", "tagId": "sikshin", "label": "식신" },
+        { "kind": "text", "value": "은 호기심을 안전한 표현으로 꺼내게 하는 흐름입니다." }
+      ],
+      "tags": ["jeongin", "sikshin"],
+      "numericalEvidence": [
+        {
+          "label": "연령 단계 서번",
+          "valueExpression": "feature.agePhaseOrdinal",
+          "unit": "ordinal",
+          "sourceTier": {
+            "tier": "T3_INTERNAL_ENGINE",
+            "sourceType": "internal_scoring_policy",
+            "sourceUrl": null,
+            "accessedAt": "2026-05-04",
+            "quoteShort": null,
+            "humanInterpretation": "Resolved from deterministic spring-ts runtime output.",
+            "copyrightNote": "No third-party prose copied.",
+            "authorityTruthEligible": false
+          }
+        },
+        {
+          "label": "출생 계절 서번",
+          "valueExpression": "feature.birthSeasonOrdinal",
+          "unit": "ordinal",
+          "sourceTier": {
+            "tier": "T3_INTERNAL_ENGINE",
+            "sourceType": "internal_scoring_policy",
+            "sourceUrl": null,
+            "accessedAt": "2026-05-04",
+            "quoteShort": null,
+            "humanInterpretation": "Resolved from deterministic spring-ts runtime output.",
+            "copyrightNote": "No third-party prose copied.",
+            "authorityTruthEligible": false
+          }
+        }
+      ],
+      "aiGenerated": true,
+      "sourceTier": {
+        "tier": "T1_HYPOTHESIS",
+        "sourceType": "training_derived",
+        "sourceUrl": null,
+        "accessedAt": "2026-05-04",
+        "quoteShort": null,
+        "humanInterpretation": "Expert spring birthSeason density fragment for child life overview. AI-derived display text; not authority truth.",
+        "copyrightNote": "No source prose copied; original phrasing.",
+        "authorityTruthEligible": false
+      }
+    },
+    {
+      "schemaVersion": "spring-ts.narrative-fragment.v1",
+      "fragmentId": "romance.thisMonth.expert.birthSeason.spring.age.early_30s.401",
+      "axis": { "category": "romance", "period": "thisMonth", "depth": "expert" },
+      "gating": {
+        "agePhase": ["early_30s"],
+        "birthSeason": ["spring"]
+      },
+      "templateTokens": [
+        { "kind": "text", "value": "초반 30대의 봄 출생 연애운은 새 인연과 관계 성장의 욕구가 빨리 올라오는 만큼 속도 조절이 핵심입니다. " },
+        { "kind": "tag", "tagId": "jeongjae", "label": "정재" },
+        { "kind": "text", "value": "는 안정적인 관계 운영을 보게 하고 " },
+        { "kind": "tag", "tagId": "pyeonjae", "label": "편재" },
+        { "kind": "text", "value": "는 새로운 만남의 변수를 작게 시험하게 합니다." }
+      ],
+      "tags": ["jeongjae", "pyeonjae"],
+      "numericalEvidence": [
+        {
+          "label": "연령 단계 서번",
+          "valueExpression": "feature.agePhaseOrdinal",
+          "unit": "ordinal",
+          "sourceTier": {
+            "tier": "T3_INTERNAL_ENGINE",
+            "sourceType": "internal_scoring_policy",
+            "sourceUrl": null,
+            "accessedAt": "2026-05-04",
+            "quoteShort": null,
+            "humanInterpretation": "Resolved from deterministic spring-ts runtime output.",
+            "copyrightNote": "No third-party prose copied.",
+            "authorityTruthEligible": false
+          }
+        },
+        {
+          "label": "출생 계절 서번",
+          "valueExpression": "feature.birthSeasonOrdinal",
+          "unit": "ordinal",
+          "sourceTier": {
+            "tier": "T3_INTERNAL_ENGINE",
+            "sourceType": "internal_scoring_policy",
+            "sourceUrl": null,
+            "accessedAt": "2026-05-04",
+            "quoteShort": null,
+            "humanInterpretation": "Resolved from deterministic spring-ts runtime output.",
+            "copyrightNote": "No third-party prose copied.",
+            "authorityTruthEligible": false
+          }
+        }
+      ],
+      "aiGenerated": true,
+      "sourceTier": {
+        "tier": "T1_HYPOTHESIS",
+        "sourceType": "training_derived",
+        "sourceUrl": null,
+        "accessedAt": "2026-05-04",
+        "quoteShort": null,
+        "humanInterpretation": "Expert spring birthSeason density fragment for early-30s monthly romance. AI-derived display text; not authority truth.",
+        "copyrightNote": "No source prose copied; original phrasing.",
+        "authorityTruthEligible": false
+      }
+    },
+    {
+      "schemaVersion": "spring-ts.narrative-fragment.v1",
+      "fragmentId": "study_document.thisWeek.expert.birthSeason.spring.age.late_20s.401",
+      "axis": { "category": "study_document", "period": "thisWeek", "depth": "expert" },
+      "gating": {
+        "agePhase": ["late_20s"],
+        "birthSeason": ["spring"]
+      },
+      "templateTokens": [
+        { "kind": "text", "value": "후반 20대의 봄 출생 문서운은 시작하려는 힘이 강하므로 자료를 넓히기보다 기준표를 먼저 세워야 안정됩니다. " },
+        { "kind": "tag", "tagId": "jeongin", "label": "정인" },
+        { "kind": "text", "value": "은 근거 문서를 확인하게 하고 " },
+        { "kind": "tag", "tagId": "sanggwan", "label": "상관" },
+        { "kind": "text", "value": "은 그 내용을 설득력 있는 문장으로 바꾸는 작용을 합니다." }
+      ],
+      "tags": ["jeongin", "sanggwan"],
+      "numericalEvidence": [
+        {
+          "label": "연령 단계 서번",
+          "valueExpression": "feature.agePhaseOrdinal",
+          "unit": "ordinal",
+          "sourceTier": {
+            "tier": "T3_INTERNAL_ENGINE",
+            "sourceType": "internal_scoring_policy",
+            "sourceUrl": null,
+            "accessedAt": "2026-05-04",
+            "quoteShort": null,
+            "humanInterpretation": "Resolved from deterministic spring-ts runtime output.",
+            "copyrightNote": "No third-party prose copied.",
+            "authorityTruthEligible": false
+          }
+        },
+        {
+          "label": "출생 계절 서번",
+          "valueExpression": "feature.birthSeasonOrdinal",
+          "unit": "ordinal",
+          "sourceTier": {
+            "tier": "T3_INTERNAL_ENGINE",
+            "sourceType": "internal_scoring_policy",
+            "sourceUrl": null,
+            "accessedAt": "2026-05-04",
+            "quoteShort": null,
+            "humanInterpretation": "Resolved from deterministic spring-ts runtime output.",
+            "copyrightNote": "No third-party prose copied.",
+            "authorityTruthEligible": false
+          }
+        }
+      ],
+      "aiGenerated": true,
+      "sourceTier": {
+        "tier": "T1_HYPOTHESIS",
+        "sourceType": "training_derived",
+        "sourceUrl": null,
+        "accessedAt": "2026-05-04",
+        "quoteShort": null,
+        "humanInterpretation": "Expert spring birthSeason density fragment for late-20s weekly study/document. AI-derived display text; not authority truth.",
+        "copyrightNote": "No source prose copied; original phrasing.",
+        "authorityTruthEligible": false
+      }
+    },
+    {
+      "schemaVersion": "spring-ts.narrative-fragment.v1",
+      "fragmentId": "health_stress.thisYear.expert.birthSeason.autumn.age.early_teen.401",
+      "axis": { "category": "health_stress", "period": "thisYear", "depth": "expert" },
+      "gating": {
+        "agePhase": ["early_teen"],
+        "birthSeason": ["autumn"]
+      },
+      "templateTokens": [
+        { "kind": "text", "value": "초기 청소년기의 가을 출생 스트레스운은 기준을 세우는 힘이 강해지는 만큼 완벽주의로 굳지 않는 관리가 필요합니다. " },
+        { "kind": "tag", "tagId": "jeonggwan", "label": "정관" },
+        { "kind": "text", "value": "은 규칙을 만들고 " },
+        { "kind": "tag", "tagId": "sikshin", "label": "식신" },
+        { "kind": "text", "value": "은 긴장을 말과 행동으로 풀어내는 완충 역할을 합니다." }
+      ],
+      "tags": ["jeonggwan", "sikshin"],
+      "numericalEvidence": [
+        {
+          "label": "연령 단계 서번",
+          "valueExpression": "feature.agePhaseOrdinal",
+          "unit": "ordinal",
+          "sourceTier": {
+            "tier": "T3_INTERNAL_ENGINE",
+            "sourceType": "internal_scoring_policy",
+            "sourceUrl": null,
+            "accessedAt": "2026-05-04",
+            "quoteShort": null,
+            "humanInterpretation": "Resolved from deterministic spring-ts runtime output.",
+            "copyrightNote": "No third-party prose copied.",
+            "authorityTruthEligible": false
+          }
+        },
+        {
+          "label": "출생 계절 서번",
+          "valueExpression": "feature.birthSeasonOrdinal",
+          "unit": "ordinal",
+          "sourceTier": {
+            "tier": "T3_INTERNAL_ENGINE",
+            "sourceType": "internal_scoring_policy",
+            "sourceUrl": null,
+            "accessedAt": "2026-05-04",
+            "quoteShort": null,
+            "humanInterpretation": "Resolved from deterministic spring-ts runtime output.",
+            "copyrightNote": "No third-party prose copied.",
+            "authorityTruthEligible": false
+          }
+        }
+      ],
+      "aiGenerated": true,
+      "sourceTier": {
+        "tier": "T1_HYPOTHESIS",
+        "sourceType": "training_derived",
+        "sourceUrl": null,
+        "accessedAt": "2026-05-04",
+        "quoteShort": null,
+        "humanInterpretation": "Expert autumn birthSeason density fragment for early-teen yearly health stress. AI-derived display text; not authority truth.",
+        "copyrightNote": "No source prose copied; original phrasing.",
+        "authorityTruthEligible": false
+      }
+    },
+    {
+      "schemaVersion": "spring-ts.narrative-fragment.v1",
+      "fragmentId": "expression_children.life.expert.birthSeason.autumn.age.late_40s.401",
+      "axis": { "category": "expression_children", "period": "life", "depth": "expert" },
+      "gating": {
+        "agePhase": ["late_40s"],
+        "birthSeason": ["autumn"]
+      },
+      "templateTokens": [
+        { "kind": "text", "value": "후반 40대의 가을 출생 표현운은 말의 밀도와 책임감이 함께 강해지므로 전달 방식의 온도를 조절하는 해석이 필요합니다. " },
+        { "kind": "tag", "tagId": "sanggwan", "label": "상관" },
+        { "kind": "text", "value": "은 날카로운 표현력을 만들고 " },
+        { "kind": "tag", "tagId": "jeonggwan", "label": "정관" },
+        { "kind": "text", "value": "은 그 표현이 관계 안에서 질서를 잃지 않게 붙잡습니다." }
+      ],
+      "tags": ["sanggwan", "jeonggwan"],
+      "numericalEvidence": [
+        {
+          "label": "연령 단계 서번",
+          "valueExpression": "feature.agePhaseOrdinal",
+          "unit": "ordinal",
+          "sourceTier": {
+            "tier": "T3_INTERNAL_ENGINE",
+            "sourceType": "internal_scoring_policy",
+            "sourceUrl": null,
+            "accessedAt": "2026-05-04",
+            "quoteShort": null,
+            "humanInterpretation": "Resolved from deterministic spring-ts runtime output.",
+            "copyrightNote": "No third-party prose copied.",
+            "authorityTruthEligible": false
+          }
+        },
+        {
+          "label": "출생 계절 서번",
+          "valueExpression": "feature.birthSeasonOrdinal",
+          "unit": "ordinal",
+          "sourceTier": {
+            "tier": "T3_INTERNAL_ENGINE",
+            "sourceType": "internal_scoring_policy",
+            "sourceUrl": null,
+            "accessedAt": "2026-05-04",
+            "quoteShort": null,
+            "humanInterpretation": "Resolved from deterministic spring-ts runtime output.",
+            "copyrightNote": "No third-party prose copied.",
+            "authorityTruthEligible": false
+          }
+        }
+      ],
+      "aiGenerated": true,
+      "sourceTier": {
+        "tier": "T1_HYPOTHESIS",
+        "sourceType": "training_derived",
+        "sourceUrl": null,
+        "accessedAt": "2026-05-04",
+        "quoteShort": null,
+        "humanInterpretation": "Expert autumn birthSeason density fragment for late-40s life expression/children. AI-derived display text; not authority truth.",
+        "copyrightNote": "No source prose copied; original phrasing.",
+        "authorityTruthEligible": false
+      }
+    }
+  ]
+}
