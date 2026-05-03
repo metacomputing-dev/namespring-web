@@ -17,7 +17,7 @@ npm run service:readiness:paid-gate
 
 The report is intentionally observation-mode by default.
 
-- `frontendHandoff.status = ready_for_frontend_integration` means the API surface, tiered matrix cells, expert evidence anchors, density floor, and docs are sufficient for a frontend implementation branch.
+- `frontendHandoff.status = ready_for_frontend_integration` means the API surface, tiered matrix cells, expert evidence anchors, density floor, docs, and progressive-disclosure runtime test are sufficient for a frontend implementation branch.
 - `commercialReadiness.status = blocked_for_authority_claims` means the product should not make expert-verified or authority-backed claims yet.
 
 The current blocker is not the frontend contract. The blocker is evidence policy:
