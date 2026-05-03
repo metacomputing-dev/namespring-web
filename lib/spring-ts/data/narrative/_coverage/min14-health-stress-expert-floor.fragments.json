@@ -1,0 +1,505 @@
+{
+  "schemaVersion": "spring-ts.narrative-fragment-bundle.v1",
+  "bundleId": "coverage.min14-health-stress-expert-floor.20260503",
+  "contractVersion": "1.0.0",
+  "fragments": [
+    {
+      "schemaVersion": "spring-ts.narrative-fragment.v1",
+      "fragmentId": "health_stress.life.expert.johu.501",
+      "axis": { "category": "health_stress", "period": "life", "depth": "expert" },
+      "gating": { "dayMasterStrength": ["WEAK", "EXTREME_WEAK", "BALANCED"] },
+      "templateTokens": [
+        { "kind": "text", "value": "장기 마음-몸 해석은 " },
+        { "kind": "tag", "tagId": "johu", "label": "조후" },
+        { "kind": "text", "value": " 균형과 회복 가능성을 먼저 봅니다. " },
+        { "kind": "tag", "tagId": "jeongin", "label": "정인" },
+        { "kind": "text", "value": "이 받쳐야 휴식과 보호를 받아들이고, " },
+        { "kind": "tag", "tagId": "yongshin", "label": "용신" },
+        { "kind": "text", "value": " 방향이 맞을수록 생활 리듬이 긴장 완화의 기반이 됩니다." }
+      ],
+      "tags": ["johu", "jeongin", "yongshin"],
+      "numericalEvidence": [
+        {
+          "label": "건강/스트레스 별점",
+          "valueExpression": "cell.stars",
+          "unit": "점",
+          "sourceTier": {
+            "tier": "T3_INTERNAL_ENGINE",
+            "sourceType": "internal_scoring_policy",
+            "sourceUrl": null,
+            "accessedAt": "2026-05-03",
+            "quoteShort": null,
+            "humanInterpretation": "Health stress score is computed by the engine and used as numerical context.",
+            "copyrightNote": "No source prose copied.",
+            "authorityTruthEligible": false
+          }
+        }
+      ],
+      "aiGenerated": true,
+      "sourceTier": {
+        "tier": "T1_HYPOTHESIS",
+        "sourceType": "training_derived",
+        "sourceUrl": null,
+        "accessedAt": "2026-05-03",
+        "quoteShort": null,
+        "humanInterpretation": "Expert health_stress life johu narrative. AI-derived display text; not authority truth.",
+        "copyrightNote": "No source prose copied; original phrasing.",
+        "authorityTruthEligible": false
+      }
+    },
+    {
+      "schemaVersion": "spring-ts.narrative-fragment.v1",
+      "fragmentId": "health_stress.life.expert.stability.501",
+      "axis": { "category": "health_stress", "period": "life", "depth": "expert" },
+      "gating": { "dayMasterStrength": ["STRONG", "EXTREME_STRONG"] },
+      "templateTokens": [
+        { "kind": "text", "value": "장기 마음-몸 흐름에서 일간이 강하면 버티는 힘은 있지만 긴장 누적을 봐야 합니다. " },
+        { "kind": "tag", "tagId": "samhyeong", "label": "삼형" },
+        { "kind": "text", "value": " 신호는 마찰성 스트레스의 증폭으로 보고, " },
+        { "kind": "tag", "tagId": "stabilityIndex", "label": "안정성지수" },
+        { "kind": "text", "value": "가 낮으면 회복 루틴을 먼저 배치합니다." }
+      ],
+      "tags": ["samhyeong", "stabilityIndex"],
+      "numericalEvidence": [
+        {
+          "label": "건강/스트레스 별점",
+          "valueExpression": "cell.stars",
+          "unit": "점",
+          "sourceTier": {
+            "tier": "T3_INTERNAL_ENGINE",
+            "sourceType": "internal_scoring_policy",
+            "sourceUrl": null,
+            "accessedAt": "2026-05-03",
+            "quoteShort": null,
+            "humanInterpretation": "Health stress score is computed by the engine and used as numerical context.",
+            "copyrightNote": "No source prose copied.",
+            "authorityTruthEligible": false
+          }
+        }
+      ],
+      "aiGenerated": true,
+      "sourceTier": {
+        "tier": "T1_HYPOTHESIS",
+        "sourceType": "training_derived",
+        "sourceUrl": null,
+        "accessedAt": "2026-05-03",
+        "quoteShort": null,
+        "humanInterpretation": "Expert health_stress life stability narrative. AI-derived display text; not authority truth.",
+        "copyrightNote": "No source prose copied; original phrasing.",
+        "authorityTruthEligible": false
+      }
+    },
+    {
+      "schemaVersion": "spring-ts.narrative-fragment.v1",
+      "fragmentId": "health_stress.today.expert.recovery.501",
+      "axis": { "category": "health_stress", "period": "today", "depth": "expert" },
+      "gating": { "yongshinAlignment": ["aligned", "neutral"] },
+      "templateTokens": [
+        { "kind": "text", "value": "오늘 마음-몸 흐름은 " },
+        { "kind": "tag", "tagId": "yongshin", "label": "용신" },
+        { "kind": "text", "value": "이 받쳐줄 때 짧은 회복 행동의 효과가 큽니다. " },
+        { "kind": "tag", "tagId": "jeongin", "label": "정인" },
+        { "kind": "text", "value": "은 도움을 받아들이는 힘이고, " },
+        { "kind": "tag", "tagId": "johu", "label": "조후" },
+        { "kind": "text", "value": "는 몸의 온도와 마음의 속도를 함께 판단하는 기준입니다." }
+      ],
+      "tags": ["yongshin", "jeongin", "johu"],
+      "numericalEvidence": [
+        {
+          "label": "건강/스트레스 별점",
+          "valueExpression": "cell.stars",
+          "unit": "점",
+          "sourceTier": {
+            "tier": "T3_INTERNAL_ENGINE",
+            "sourceType": "internal_scoring_policy",
+            "sourceUrl": null,
+            "accessedAt": "2026-05-03",
+            "quoteShort": null,
+            "humanInterpretation": "Health stress score is computed by the engine and used as numerical context.",
+            "copyrightNote": "No source prose copied.",
+            "authorityTruthEligible": false
+          }
+        }
+      ],
+      "aiGenerated": true,
+      "sourceTier": {
+        "tier": "T1_HYPOTHESIS",
+        "sourceType": "training_derived",
+        "sourceUrl": null,
+        "accessedAt": "2026-05-03",
+        "quoteShort": null,
+        "humanInterpretation": "Expert health_stress today recovery narrative. AI-derived display text; not authority truth.",
+        "copyrightNote": "No source prose copied; original phrasing.",
+        "authorityTruthEligible": false
+      }
+    },
+    {
+      "schemaVersion": "spring-ts.narrative-fragment.v1",
+      "fragmentId": "health_stress.today.expert.caution.501",
+      "axis": { "category": "health_stress", "period": "today", "depth": "expert" },
+      "gating": { "yongshinAlignment": ["conflicting"] },
+      "templateTokens": [
+        { "kind": "text", "value": "오늘 마음-몸 흐름에서 " },
+        { "kind": "tag", "tagId": "yongshin", "label": "용신" },
+        { "kind": "text", "value": " 충돌이 보이면 자극을 줄이는 판단이 우선입니다. " },
+        { "kind": "tag", "tagId": "samhyeong", "label": "삼형" },
+        { "kind": "text", "value": "은 말과 상황의 마찰을 키울 수 있고, " },
+        { "kind": "tag", "tagId": "stabilityIndex", "label": "안정성지수" },
+        { "kind": "text", "value": "가 낮으면 결정보다 진정 루틴을 먼저 둡니다." }
+      ],
+      "tags": ["yongshin", "samhyeong", "stabilityIndex"],
+      "numericalEvidence": [
+        {
+          "label": "건강/스트레스 별점",
+          "valueExpression": "cell.stars",
+          "unit": "점",
+          "sourceTier": {
+            "tier": "T3_INTERNAL_ENGINE",
+            "sourceType": "internal_scoring_policy",
+            "sourceUrl": null,
+            "accessedAt": "2026-05-03",
+            "quoteShort": null,
+            "humanInterpretation": "Health stress score is computed by the engine and used as numerical context.",
+            "copyrightNote": "No source prose copied.",
+            "authorityTruthEligible": false
+          }
+        }
+      ],
+      "aiGenerated": true,
+      "sourceTier": {
+        "tier": "T1_HYPOTHESIS",
+        "sourceType": "training_derived",
+        "sourceUrl": null,
+        "accessedAt": "2026-05-03",
+        "quoteShort": null,
+        "humanInterpretation": "Expert health_stress today caution narrative. AI-derived display text; not authority truth.",
+        "copyrightNote": "No source prose copied; original phrasing.",
+        "authorityTruthEligible": false
+      }
+    },
+    {
+      "schemaVersion": "spring-ts.narrative-fragment.v1",
+      "fragmentId": "health_stress.thisWeek.expert.johu.501",
+      "axis": { "category": "health_stress", "period": "thisWeek", "depth": "expert" },
+      "gating": { "currentSeason": ["spring", "summer"] },
+      "templateTokens": [
+        { "kind": "text", "value": "이번 주 마음-몸 해석은 활동량 증가와 " },
+        { "kind": "tag", "tagId": "johu", "label": "조후" },
+        { "kind": "text", "value": "의 치우침을 함께 봅니다. " },
+        { "kind": "tag", "tagId": "fire", "label": "화" },
+        { "kind": "text", "value": "가 강해지면 반응이 빨라지고, " },
+        { "kind": "tag", "tagId": "water", "label": "수" },
+        { "kind": "text", "value": "의 진정 리듬이 부족하면 감정 피로가 커질 수 있습니다." }
+      ],
+      "tags": ["johu", "fire", "water"],
+      "numericalEvidence": [
+        {
+          "label": "건강/스트레스 별점",
+          "valueExpression": "cell.stars",
+          "unit": "점",
+          "sourceTier": {
+            "tier": "T3_INTERNAL_ENGINE",
+            "sourceType": "internal_scoring_policy",
+            "sourceUrl": null,
+            "accessedAt": "2026-05-03",
+            "quoteShort": null,
+            "humanInterpretation": "Health stress score is computed by the engine and used as numerical context.",
+            "copyrightNote": "No source prose copied.",
+            "authorityTruthEligible": false
+          }
+        }
+      ],
+      "aiGenerated": true,
+      "sourceTier": {
+        "tier": "T1_HYPOTHESIS",
+        "sourceType": "training_derived",
+        "sourceUrl": null,
+        "accessedAt": "2026-05-03",
+        "quoteShort": null,
+        "humanInterpretation": "Expert health_stress thisWeek johu narrative. AI-derived display text; not authority truth.",
+        "copyrightNote": "No source prose copied; original phrasing.",
+        "authorityTruthEligible": false
+      }
+    },
+    {
+      "schemaVersion": "spring-ts.narrative-fragment.v1",
+      "fragmentId": "health_stress.thisWeek.expert.stability.501",
+      "axis": { "category": "health_stress", "period": "thisWeek", "depth": "expert" },
+      "gating": { "currentSeason": ["autumn", "winter"] },
+      "templateTokens": [
+        { "kind": "text", "value": "이번 주 마음-몸 흐름은 정리와 회복의 비중을 높게 봅니다. " },
+        { "kind": "tag", "tagId": "earth", "label": "토" },
+        { "kind": "text", "value": "가 안정되면 생활 루틴이 받쳐주고, " },
+        { "kind": "tag", "tagId": "jeongin", "label": "정인" },
+        { "kind": "text", "value": "은 보호와 도움을 받아들이는 힘입니다. " },
+        { "kind": "tag", "tagId": "stabilityIndex", "label": "안정성지수" },
+        { "kind": "text", "value": "가 낮으면 일정 압축을 피해야 합니다." }
+      ],
+      "tags": ["earth", "jeongin", "stabilityIndex"],
+      "numericalEvidence": [
+        {
+          "label": "건강/스트레스 별점",
+          "valueExpression": "cell.stars",
+          "unit": "점",
+          "sourceTier": {
+            "tier": "T3_INTERNAL_ENGINE",
+            "sourceType": "internal_scoring_policy",
+            "sourceUrl": null,
+            "accessedAt": "2026-05-03",
+            "quoteShort": null,
+            "humanInterpretation": "Health stress score is computed by the engine and used as numerical context.",
+            "copyrightNote": "No source prose copied.",
+            "authorityTruthEligible": false
+          }
+        }
+      ],
+      "aiGenerated": true,
+      "sourceTier": {
+        "tier": "T1_HYPOTHESIS",
+        "sourceType": "training_derived",
+        "sourceUrl": null,
+        "accessedAt": "2026-05-03",
+        "quoteShort": null,
+        "humanInterpretation": "Expert health_stress thisWeek stability narrative. AI-derived display text; not authority truth.",
+        "copyrightNote": "No source prose copied; original phrasing.",
+        "authorityTruthEligible": false
+      }
+    },
+    {
+      "schemaVersion": "spring-ts.narrative-fragment.v1",
+      "fragmentId": "health_stress.thisMonth.expert.rhythm.501",
+      "axis": { "category": "health_stress", "period": "thisMonth", "depth": "expert" },
+      "gating": { "yongshinAlignment": ["aligned", "neutral"] },
+      "templateTokens": [
+        { "kind": "text", "value": "이번 달 마음-몸 해석은 " },
+        { "kind": "tag", "tagId": "yongshin", "label": "용신" },
+        { "kind": "text", "value": " 보강이 실제 생활 리듬으로 이어지는지 봅니다. " },
+        { "kind": "tag", "tagId": "johu", "label": "조후" },
+        { "kind": "text", "value": "가 안정되면 회복 주기가 부드럽고, " },
+        { "kind": "tag", "tagId": "jeongin", "label": "정인" },
+        { "kind": "text", "value": "은 정기적인 돌봄과 도움의 근거가 됩니다." }
+      ],
+      "tags": ["yongshin", "johu", "jeongin"],
+      "numericalEvidence": [
+        {
+          "label": "건강/스트레스 별점",
+          "valueExpression": "cell.stars",
+          "unit": "점",
+          "sourceTier": {
+            "tier": "T3_INTERNAL_ENGINE",
+            "sourceType": "internal_scoring_policy",
+            "sourceUrl": null,
+            "accessedAt": "2026-05-03",
+            "quoteShort": null,
+            "humanInterpretation": "Health stress score is computed by the engine and used as numerical context.",
+            "copyrightNote": "No source prose copied.",
+            "authorityTruthEligible": false
+          }
+        },
+        {
+          "label": "현재 나이",
+          "valueExpression": "feature.ageYears",
+          "unit": "세",
+          "sourceTier": {
+            "tier": "T3_INTERNAL_ENGINE",
+            "sourceType": "internal_scoring_policy",
+            "sourceUrl": null,
+            "accessedAt": "2026-05-03",
+            "quoteShort": null,
+            "humanInterpretation": "Age context is computed by the engine and used only as display evidence.",
+            "copyrightNote": "No source prose copied.",
+            "authorityTruthEligible": false
+          }
+        }
+      ],
+      "aiGenerated": true,
+      "sourceTier": {
+        "tier": "T1_HYPOTHESIS",
+        "sourceType": "training_derived",
+        "sourceUrl": null,
+        "accessedAt": "2026-05-03",
+        "quoteShort": null,
+        "humanInterpretation": "Expert health_stress thisMonth rhythm narrative. AI-derived display text; not authority truth.",
+        "copyrightNote": "No source prose copied; original phrasing.",
+        "authorityTruthEligible": false
+      }
+    },
+    {
+      "schemaVersion": "spring-ts.narrative-fragment.v1",
+      "fragmentId": "health_stress.thisMonth.expert.caution.501",
+      "axis": { "category": "health_stress", "period": "thisMonth", "depth": "expert" },
+      "gating": { "yongshinAlignment": ["conflicting"] },
+      "templateTokens": [
+        { "kind": "text", "value": "이번 달 마음-몸 흐름에서 " },
+        { "kind": "tag", "tagId": "samhyeong", "label": "삼형" },
+        { "kind": "text", "value": " 또는 " },
+        { "kind": "tag", "tagId": "yongshin", "label": "용신" },
+        { "kind": "text", "value": " 충돌이 보이면 과부하를 먼저 줄여야 합니다. " },
+        { "kind": "tag", "tagId": "stabilityIndex", "label": "안정성지수" },
+        { "kind": "text", "value": "가 낮을수록 대화와 일정을 짧게 나누는 해석이 맞습니다." }
+      ],
+      "tags": ["samhyeong", "yongshin", "stabilityIndex"],
+      "numericalEvidence": [
+        {
+          "label": "건강/스트레스 별점",
+          "valueExpression": "cell.stars",
+          "unit": "점",
+          "sourceTier": {
+            "tier": "T3_INTERNAL_ENGINE",
+            "sourceType": "internal_scoring_policy",
+            "sourceUrl": null,
+            "accessedAt": "2026-05-03",
+            "quoteShort": null,
+            "humanInterpretation": "Health stress score is computed by the engine and used as numerical context.",
+            "copyrightNote": "No source prose copied.",
+            "authorityTruthEligible": false
+          }
+        },
+        {
+          "label": "현재 나이",
+          "valueExpression": "feature.ageYears",
+          "unit": "세",
+          "sourceTier": {
+            "tier": "T3_INTERNAL_ENGINE",
+            "sourceType": "internal_scoring_policy",
+            "sourceUrl": null,
+            "accessedAt": "2026-05-03",
+            "quoteShort": null,
+            "humanInterpretation": "Age context is computed by the engine and used only as display evidence.",
+            "copyrightNote": "No source prose copied.",
+            "authorityTruthEligible": false
+          }
+        }
+      ],
+      "aiGenerated": true,
+      "sourceTier": {
+        "tier": "T1_HYPOTHESIS",
+        "sourceType": "training_derived",
+        "sourceUrl": null,
+        "accessedAt": "2026-05-03",
+        "quoteShort": null,
+        "humanInterpretation": "Expert health_stress thisMonth caution narrative. AI-derived display text; not authority truth.",
+        "copyrightNote": "No source prose copied; original phrasing.",
+        "authorityTruthEligible": false
+      }
+    },
+    {
+      "schemaVersion": "spring-ts.narrative-fragment.v1",
+      "fragmentId": "health_stress.thisYear.expert.year.501",
+      "axis": { "category": "health_stress", "period": "thisYear", "depth": "expert" },
+      "gating": { "yongshinAlignment": ["aligned", "neutral"] },
+      "templateTokens": [
+        { "kind": "text", "value": "올해 마음-몸 해석은 " },
+        { "kind": "tag", "tagId": "yongshin", "label": "용신" },
+        { "kind": "text", "value": "과 맞는 회복 전략을 길게 유지하는지 봅니다. " },
+        { "kind": "tag", "tagId": "jeongin", "label": "정인" },
+        { "kind": "text", "value": "은 보호와 학습의 축이고, " },
+        { "kind": "tag", "tagId": "johu", "label": "조후" },
+        { "kind": "text", "value": "는 한 해의 컨디션 편차를 읽는 기준입니다." }
+      ],
+      "tags": ["yongshin", "jeongin", "johu"],
+      "numericalEvidence": [
+        {
+          "label": "건강/스트레스 별점",
+          "valueExpression": "cell.stars",
+          "unit": "점",
+          "sourceTier": {
+            "tier": "T3_INTERNAL_ENGINE",
+            "sourceType": "internal_scoring_policy",
+            "sourceUrl": null,
+            "accessedAt": "2026-05-03",
+            "quoteShort": null,
+            "humanInterpretation": "Health stress score is computed by the engine and used as numerical context.",
+            "copyrightNote": "No source prose copied.",
+            "authorityTruthEligible": false
+          }
+        },
+        {
+          "label": "현재 나이",
+          "valueExpression": "feature.ageYears",
+          "unit": "세",
+          "sourceTier": {
+            "tier": "T3_INTERNAL_ENGINE",
+            "sourceType": "internal_scoring_policy",
+            "sourceUrl": null,
+            "accessedAt": "2026-05-03",
+            "quoteShort": null,
+            "humanInterpretation": "Age context is computed by the engine and used only as display evidence.",
+            "copyrightNote": "No source prose copied.",
+            "authorityTruthEligible": false
+          }
+        }
+      ],
+      "aiGenerated": true,
+      "sourceTier": {
+        "tier": "T1_HYPOTHESIS",
+        "sourceType": "training_derived",
+        "sourceUrl": null,
+        "accessedAt": "2026-05-03",
+        "quoteShort": null,
+        "humanInterpretation": "Expert health_stress thisYear year narrative. AI-derived display text; not authority truth.",
+        "copyrightNote": "No source prose copied; original phrasing.",
+        "authorityTruthEligible": false
+      }
+    },
+    {
+      "schemaVersion": "spring-ts.narrative-fragment.v1",
+      "fragmentId": "health_stress.thisYear.expert.caution.501",
+      "axis": { "category": "health_stress", "period": "thisYear", "depth": "expert" },
+      "gating": { "yongshinAlignment": ["conflicting"] },
+      "templateTokens": [
+        { "kind": "text", "value": "올해 마음-몸 흐름에서 " },
+        { "kind": "tag", "tagId": "yongshin", "label": "용신" },
+        { "kind": "text", "value": " 충돌이 반복되면 회복보다 소모가 앞설 수 있습니다. " },
+        { "kind": "tag", "tagId": "samhyeong", "label": "삼형" },
+        { "kind": "text", "value": "은 갈등성 긴장을, " },
+        { "kind": "tag", "tagId": "stabilityIndex", "label": "안정성지수" },
+        { "kind": "text", "value": "는 장기 버팀의 한계를 함께 보여주는 지표로 둡니다." }
+      ],
+      "tags": ["yongshin", "samhyeong", "stabilityIndex"],
+      "numericalEvidence": [
+        {
+          "label": "건강/스트레스 별점",
+          "valueExpression": "cell.stars",
+          "unit": "점",
+          "sourceTier": {
+            "tier": "T3_INTERNAL_ENGINE",
+            "sourceType": "internal_scoring_policy",
+            "sourceUrl": null,
+            "accessedAt": "2026-05-03",
+            "quoteShort": null,
+            "humanInterpretation": "Health stress score is computed by the engine and used as numerical context.",
+            "copyrightNote": "No source prose copied.",
+            "authorityTruthEligible": false
+          }
+        },
+        {
+          "label": "현재 나이",
+          "valueExpression": "feature.ageYears",
+          "unit": "세",
+          "sourceTier": {
+            "tier": "T3_INTERNAL_ENGINE",
+            "sourceType": "internal_scoring_policy",
+            "sourceUrl": null,
+            "accessedAt": "2026-05-03",
+            "quoteShort": null,
+            "humanInterpretation": "Age context is computed by the engine and used only as display evidence.",
+            "copyrightNote": "No source prose copied.",
+            "authorityTruthEligible": false
+          }
+        }
+      ],
+      "aiGenerated": true,
+      "sourceTier": {
+        "tier": "T1_HYPOTHESIS",
+        "sourceType": "training_derived",
+        "sourceUrl": null,
+        "accessedAt": "2026-05-03",
+        "quoteShort": null,
+        "humanInterpretation": "Expert health_stress thisYear caution narrative. AI-derived display text; not authority truth.",
+        "copyrightNote": "No source prose copied; original phrasing.",
+        "authorityTruthEligible": false
+      }
+    }
+  ]
+}
