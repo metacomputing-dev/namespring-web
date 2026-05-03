@@ -1,0 +1,159 @@
+{
+  "schemaVersion": "spring-ts.narrative-fragment-bundle.v1",
+  "bundleId": "coverage.expert-90-plus-age-density.20260504",
+  "contractVersion": "1.0.0",
+  "fragments": [
+    {
+      "schemaVersion": "spring-ts.narrative-fragment.v1",
+      "fragmentId": "overall.life.expert.age.90_plus.501",
+      "axis": { "category": "overall", "period": "life", "depth": "expert" },
+      "gating": { "agePhase": ["90_plus"] },
+      "templateTokens": [
+        { "kind": "text", "value": "90세 이후 총운은 성취를 더 밀어붙이기보다 삶의 리듬, 기억, 관계의 안정성을 보존하는 해석이 중심입니다. " },
+        { "kind": "tag", "tagId": "jeongin", "label": "정인" },
+        { "kind": "text", "value": "은 오래 쌓인 보호 자원을 읽고 " },
+        { "kind": "tag", "tagId": "jeonggwan", "label": "정관" },
+        { "kind": "text", "value": "은 일상 규칙과 돌봄 체계를 무리 없이 유지하는 기준으로 봅니다." }
+      ],
+      "tags": ["jeongin", "jeonggwan"],
+      "numericalEvidence": [
+        { "label": "연령 단계 순번", "valueExpression": "feature.agePhaseOrdinal", "unit": "ordinal", "sourceTier": { "tier": "T3_INTERNAL_ENGINE", "sourceType": "internal_scoring_policy", "sourceUrl": null, "accessedAt": "2026-05-04", "quoteShort": null, "humanInterpretation": "Resolved from deterministic spring-ts runtime output.", "copyrightNote": "No third-party prose copied.", "authorityTruthEligible": false } }
+      ],
+      "aiGenerated": true,
+      "sourceTier": { "tier": "T1_HYPOTHESIS", "sourceType": "training_derived", "sourceUrl": null, "accessedAt": "2026-05-04", "quoteShort": null, "humanInterpretation": "Expert 90-plus agePhase density fragment for life overview. AI-derived display text; not authority truth.", "copyrightNote": "No source prose copied; original phrasing.", "authorityTruthEligible": false }
+    },
+    {
+      "schemaVersion": "spring-ts.narrative-fragment.v1",
+      "fragmentId": "health.today.expert.age.90_plus.501",
+      "axis": { "category": "health", "period": "today", "depth": "expert" },
+      "gating": { "agePhase": ["90_plus"] },
+      "templateTokens": [
+        { "kind": "text", "value": "90세 이후 오늘 건강운은 운의 강약보다 피로 신호를 빨리 알아차리고 활동량을 줄이는 쪽을 우선합니다. " },
+        { "kind": "tag", "tagId": "yongshin", "label": "용신" },
+        { "kind": "text", "value": "은 회복을 돕는 작은 습관으로 해석하고 " },
+        { "kind": "tag", "tagId": "gishin", "label": "기신" },
+        { "kind": "text", "value": "은 무리, 과열, 긴 이동처럼 부담이 커지는 조건을 낮추는 경고로 봅니다." }
+      ],
+      "tags": ["yongshin", "gishin"],
+      "numericalEvidence": [
+        { "label": "연령 단계 순번", "valueExpression": "feature.agePhaseOrdinal", "unit": "ordinal", "sourceTier": { "tier": "T3_INTERNAL_ENGINE", "sourceType": "internal_scoring_policy", "sourceUrl": null, "accessedAt": "2026-05-04", "quoteShort": null, "humanInterpretation": "Resolved from deterministic spring-ts runtime output.", "copyrightNote": "No third-party prose copied.", "authorityTruthEligible": false } }
+      ],
+      "aiGenerated": true,
+      "sourceTier": { "tier": "T1_HYPOTHESIS", "sourceType": "training_derived", "sourceUrl": null, "accessedAt": "2026-05-04", "quoteShort": null, "humanInterpretation": "Expert 90-plus agePhase density fragment for daily health. AI-derived display text; not authority truth.", "copyrightNote": "No source prose copied; original phrasing.", "authorityTruthEligible": false }
+    },
+    {
+      "schemaVersion": "spring-ts.narrative-fragment.v1",
+      "fragmentId": "family.thisWeek.expert.age.90_plus.501",
+      "axis": { "category": "family", "period": "thisWeek", "depth": "expert" },
+      "gating": { "agePhase": ["90_plus"] },
+      "templateTokens": [
+        { "kind": "text", "value": "90세 이후 이번 주 가족운은 누가 옳은지를 가르기보다 도움 요청, 방문 일정, 생활 경계를 분명히 맞추는 흐름이 중요합니다. " },
+        { "kind": "tag", "tagId": "bigyeon", "label": "비견" },
+        { "kind": "text", "value": "은 본인의 기준을 지키는 힘이고 " },
+        { "kind": "tag", "tagId": "jeongin", "label": "정인" },
+        { "kind": "text", "value": "은 가족과 돌봄 자원이 부담 없이 이어지도록 조정하는 근거입니다." }
+      ],
+      "tags": ["bigyeon", "jeongin"],
+      "numericalEvidence": [
+        { "label": "연령 단계 순번", "valueExpression": "feature.agePhaseOrdinal", "unit": "ordinal", "sourceTier": { "tier": "T3_INTERNAL_ENGINE", "sourceType": "internal_scoring_policy", "sourceUrl": null, "accessedAt": "2026-05-04", "quoteShort": null, "humanInterpretation": "Resolved from deterministic spring-ts runtime output.", "copyrightNote": "No third-party prose copied.", "authorityTruthEligible": false } }
+      ],
+      "aiGenerated": true,
+      "sourceTier": { "tier": "T1_HYPOTHESIS", "sourceType": "training_derived", "sourceUrl": null, "accessedAt": "2026-05-04", "quoteShort": null, "humanInterpretation": "Expert 90-plus agePhase density fragment for weekly family. AI-derived display text; not authority truth.", "copyrightNote": "No source prose copied; original phrasing.", "authorityTruthEligible": false }
+    },
+    {
+      "schemaVersion": "spring-ts.narrative-fragment.v1",
+      "fragmentId": "wealth.thisMonth.expert.age.90_plus.501",
+      "axis": { "category": "wealth", "period": "thisMonth", "depth": "expert" },
+      "gating": { "agePhase": ["90_plus"] },
+      "templateTokens": [
+        { "kind": "text", "value": "90세 이후 이번 달 재물운은 수익 확대보다 지출 확인, 위임 범위, 가족과의 공유 기준을 안정시키는 쪽이 핵심입니다. " },
+        { "kind": "tag", "tagId": "jeongjae", "label": "정재" },
+        { "kind": "text", "value": "는 고정 자산과 반복 지출의 질서를 보고 " },
+        { "kind": "tag", "tagId": "pyeonjae", "label": "편재" },
+        { "kind": "text", "value": "는 갑작스러운 제안이나 부탁을 한 번 더 확인해야 하는 변수로 봅니다." }
+      ],
+      "tags": ["jeongjae", "pyeonjae"],
+      "numericalEvidence": [
+        { "label": "연령 단계 순번", "valueExpression": "feature.agePhaseOrdinal", "unit": "ordinal", "sourceTier": { "tier": "T3_INTERNAL_ENGINE", "sourceType": "internal_scoring_policy", "sourceUrl": null, "accessedAt": "2026-05-04", "quoteShort": null, "humanInterpretation": "Resolved from deterministic spring-ts runtime output.", "copyrightNote": "No third-party prose copied.", "authorityTruthEligible": false } }
+      ],
+      "aiGenerated": true,
+      "sourceTier": { "tier": "T1_HYPOTHESIS", "sourceType": "training_derived", "sourceUrl": null, "accessedAt": "2026-05-04", "quoteShort": null, "humanInterpretation": "Expert 90-plus agePhase density fragment for monthly wealth. AI-derived display text; not authority truth.", "copyrightNote": "No source prose copied; original phrasing.", "authorityTruthEligible": false }
+    },
+    {
+      "schemaVersion": "spring-ts.narrative-fragment.v1",
+      "fragmentId": "romance.thisYear.expert.age.90_plus.501",
+      "axis": { "category": "romance", "period": "thisYear", "depth": "expert" },
+      "gating": { "agePhase": ["90_plus"] },
+      "templateTokens": [
+        { "kind": "text", "value": "90세 이후 올해 인연운은 새로운 관계의 속도보다 오래된 관계가 편안히 이어질 수 있는 약속과 거리감을 보는 해석이 알맞습니다. " },
+        { "kind": "tag", "tagId": "jeongjae", "label": "정재" },
+        { "kind": "text", "value": "는 꾸준한 신뢰를 읽고 " },
+        { "kind": "tag", "tagId": "jeonggwan", "label": "정관" },
+        { "kind": "text", "value": "은 상대와의 역할, 예의, 생활 약속을 무리 없이 맞추는 기준으로 봅니다." }
+      ],
+      "tags": ["jeongjae", "jeonggwan"],
+      "numericalEvidence": [
+        { "label": "연령 단계 순번", "valueExpression": "feature.agePhaseOrdinal", "unit": "ordinal", "sourceTier": { "tier": "T3_INTERNAL_ENGINE", "sourceType": "internal_scoring_policy", "sourceUrl": null, "accessedAt": "2026-05-04", "quoteShort": null, "humanInterpretation": "Resolved from deterministic spring-ts runtime output.", "copyrightNote": "No third-party prose copied.", "authorityTruthEligible": false } }
+      ],
+      "aiGenerated": true,
+      "sourceTier": { "tier": "T1_HYPOTHESIS", "sourceType": "training_derived", "sourceUrl": null, "accessedAt": "2026-05-04", "quoteShort": null, "humanInterpretation": "Expert 90-plus agePhase density fragment for yearly romance. AI-derived display text; not authority truth.", "copyrightNote": "No source prose copied; original phrasing.", "authorityTruthEligible": false }
+    },
+    {
+      "schemaVersion": "spring-ts.narrative-fragment.v1",
+      "fragmentId": "academic.today.expert.age.90_plus.501",
+      "axis": { "category": "academic", "period": "today", "depth": "expert" },
+      "gating": { "agePhase": ["90_plus"] },
+      "templateTokens": [
+        { "kind": "text", "value": "90세 이후 오늘 학업운은 새 정보를 많이 넣는 것보다 익숙한 기억을 천천히 되살리고 짧게 기록하는 방식이 안정적입니다. " },
+        { "kind": "tag", "tagId": "jeongin", "label": "정인" },
+        { "kind": "text", "value": "은 누적된 지식과 회상을 돕고 " },
+        { "kind": "tag", "tagId": "sikshin", "label": "식신" },
+        { "kind": "text", "value": "은 그 내용을 말, 글, 작은 활동으로 부담 없이 꺼내는 흐름입니다." }
+      ],
+      "tags": ["jeongin", "sikshin"],
+      "numericalEvidence": [
+        { "label": "연령 단계 순번", "valueExpression": "feature.agePhaseOrdinal", "unit": "ordinal", "sourceTier": { "tier": "T3_INTERNAL_ENGINE", "sourceType": "internal_scoring_policy", "sourceUrl": null, "accessedAt": "2026-05-04", "quoteShort": null, "humanInterpretation": "Resolved from deterministic spring-ts runtime output.", "copyrightNote": "No third-party prose copied.", "authorityTruthEligible": false } }
+      ],
+      "aiGenerated": true,
+      "sourceTier": { "tier": "T1_HYPOTHESIS", "sourceType": "training_derived", "sourceUrl": null, "accessedAt": "2026-05-04", "quoteShort": null, "humanInterpretation": "Expert 90-plus agePhase density fragment for daily academic. AI-derived display text; not authority truth.", "copyrightNote": "No source prose copied; original phrasing.", "authorityTruthEligible": false }
+    },
+    {
+      "schemaVersion": "spring-ts.narrative-fragment.v1",
+      "fragmentId": "movement.thisWeek.expert.age.90_plus.501",
+      "axis": { "category": "movement", "period": "thisWeek", "depth": "expert" },
+      "gating": { "agePhase": ["90_plus"] },
+      "templateTokens": [
+        { "kind": "text", "value": "90세 이후 이번 주 이동운은 목적지보다 동선의 단순함, 동행 여부, 충분한 휴식 간격을 먼저 보는 것이 맞습니다. " },
+        { "kind": "tag", "tagId": "yeokma", "label": "역마" },
+        { "kind": "text", "value": "는 이동 변수를 뜻하고 " },
+        { "kind": "tag", "tagId": "yongshin", "label": "용신" },
+        { "kind": "text", "value": "은 무리 없는 보조와 회복 시간을 붙일 때 안정적으로 작동합니다." }
+      ],
+      "tags": ["yeokma", "yongshin"],
+      "numericalEvidence": [
+        { "label": "연령 단계 순번", "valueExpression": "feature.agePhaseOrdinal", "unit": "ordinal", "sourceTier": { "tier": "T3_INTERNAL_ENGINE", "sourceType": "internal_scoring_policy", "sourceUrl": null, "accessedAt": "2026-05-04", "quoteShort": null, "humanInterpretation": "Resolved from deterministic spring-ts runtime output.", "copyrightNote": "No third-party prose copied.", "authorityTruthEligible": false } }
+      ],
+      "aiGenerated": true,
+      "sourceTier": { "tier": "T1_HYPOTHESIS", "sourceType": "training_derived", "sourceUrl": null, "accessedAt": "2026-05-04", "quoteShort": null, "humanInterpretation": "Expert 90-plus agePhase density fragment for weekly movement. AI-derived display text; not authority truth.", "copyrightNote": "No source prose copied; original phrasing.", "authorityTruthEligible": false }
+    },
+    {
+      "schemaVersion": "spring-ts.narrative-fragment.v1",
+      "fragmentId": "health_stress.life.expert.age.90_plus.501",
+      "axis": { "category": "health_stress", "period": "life", "depth": "expert" },
+      "gating": { "agePhase": ["90_plus"] },
+      "templateTokens": [
+        { "kind": "text", "value": "90세 이후 스트레스 총운은 큰 사건보다 작은 불편이 반복될 때 빨리 줄이는 대응이 중요합니다. " },
+        { "kind": "tag", "tagId": "gishin", "label": "기신" },
+        { "kind": "text", "value": "은 피로가 누적되는 조건을 가리키고 " },
+        { "kind": "tag", "tagId": "jeongin", "label": "정인" },
+        { "kind": "text", "value": "은 휴식, 보호자와의 확인, 익숙한 루틴을 통해 균형을 되찾는 축으로 봅니다." }
+      ],
+      "tags": ["gishin", "jeongin"],
+      "numericalEvidence": [
+        { "label": "연령 단계 순번", "valueExpression": "feature.agePhaseOrdinal", "unit": "ordinal", "sourceTier": { "tier": "T3_INTERNAL_ENGINE", "sourceType": "internal_scoring_policy", "sourceUrl": null, "accessedAt": "2026-05-04", "quoteShort": null, "humanInterpretation": "Resolved from deterministic spring-ts runtime output.", "copyrightNote": "No third-party prose copied.", "authorityTruthEligible": false } }
+      ],
+      "aiGenerated": true,
+      "sourceTier": { "tier": "T1_HYPOTHESIS", "sourceType": "training_derived", "sourceUrl": null, "accessedAt": "2026-05-04", "quoteShort": null, "humanInterpretation": "Expert 90-plus agePhase density fragment for life health stress. AI-derived display text; not authority truth.", "copyrightNote": "No source prose copied; original phrasing.", "authorityTruthEligible": false }
+    }
+  ]
+}
