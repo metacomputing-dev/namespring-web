@@ -1,0 +1,481 @@
+{
+  "schemaVersion": "spring-ts.narrative-fragment-bundle.v1",
+  "bundleId": "coverage.min15-study-document-floor.20260503",
+  "contractVersion": "1.0.0",
+  "fragments": [
+    {
+      "schemaVersion": "spring-ts.narrative-fragment.v1",
+      "fragmentId": "study_document.today.brief.one_page.504",
+      "axis": { "category": "study_document", "period": "today", "depth": "brief" },
+      "gating": { "ageBand": ["10-19", "20-29", "30-39", "40-54", "55-69", "70+"] },
+      "templateTokens": [
+        { "kind": "text", "value": "오늘은 많이 하려 하기보다 꼭 읽거나 정리할 것 한 가지만 먼저 끝내면 좋아요." }
+      ],
+      "tags": [],
+      "aiGenerated": true,
+      "sourceTier": {
+        "tier": "T1_HYPOTHESIS",
+        "sourceType": "training_derived",
+        "sourceUrl": null,
+        "accessedAt": "2026-05-03",
+        "quoteShort": null,
+        "humanInterpretation": "Plain study-document daily brief one-page narrative. AI-derived display text; not authority truth.",
+        "copyrightNote": "No source prose copied; original phrasing.",
+        "authorityTruthEligible": false
+      }
+    },
+    {
+      "schemaVersion": "spring-ts.narrative-fragment.v1",
+      "fragmentId": "study_document.today.standard.check_first.504",
+      "axis": { "category": "study_document", "period": "today", "depth": "standard" },
+      "gating": { "ageBand": ["10-19", "20-29", "30-39", "40-54", "55-69", "70+"] },
+      "templateTokens": [
+        { "kind": "text", "value": "오늘은 공부나 서류 작업을 시작하기 전에 필요한 자료를 먼저 확인하세요. 빠르게 쓰기보다 빠진 부분을 줄이는 것이 더 중요하니, 마감과 제출 조건을 한 번 더 보는 편이 안전합니다." }
+      ],
+      "livingTips": [
+        "시작 전에 필요한 파일, 책, 메모를 한곳에 모아두세요.",
+        "제출해야 할 일이 있으면 형식과 기한을 먼저 확인하세요."
+      ],
+      "cautions": [
+        "대충 알고 있다고 생각하고 넘어가면 작은 조건을 놓칠 수 있어요."
+      ],
+      "tags": [],
+      "aiGenerated": true,
+      "sourceTier": {
+        "tier": "T1_HYPOTHESIS",
+        "sourceType": "training_derived",
+        "sourceUrl": null,
+        "accessedAt": "2026-05-03",
+        "quoteShort": null,
+        "humanInterpretation": "Plain study-document daily standard check-first narrative. AI-derived display text; not authority truth.",
+        "copyrightNote": "No source prose copied; original phrasing.",
+        "authorityTruthEligible": false
+      }
+    },
+    {
+      "schemaVersion": "spring-ts.narrative-fragment.v1",
+      "fragmentId": "study_document.thisWeek.brief.review.504",
+      "axis": { "category": "study_document", "period": "thisWeek", "depth": "brief" },
+      "gating": { "currentSeason": ["spring", "summer", "autumn", "winter"] },
+      "templateTokens": [
+        { "kind": "text", "value": "이번 주는 새로 배우는 것보다 이미 배운 내용을 다시 정리하는 시간이 도움이 됩니다." }
+      ],
+      "tags": [],
+      "aiGenerated": true,
+      "sourceTier": {
+        "tier": "T1_HYPOTHESIS",
+        "sourceType": "training_derived",
+        "sourceUrl": null,
+        "accessedAt": "2026-05-03",
+        "quoteShort": null,
+        "humanInterpretation": "Plain study-document weekly brief review narrative. AI-derived display text; not authority truth.",
+        "copyrightNote": "No source prose copied; original phrasing.",
+        "authorityTruthEligible": false
+      }
+    },
+    {
+      "schemaVersion": "spring-ts.narrative-fragment.v1",
+      "fragmentId": "study_document.thisWeek.standard.divide_task.504",
+      "axis": { "category": "study_document", "period": "thisWeek", "depth": "standard" },
+      "gating": { "ageBand": ["10-19", "20-29", "30-39", "40-54", "55-69", "70+"] },
+      "templateTokens": [
+        { "kind": "text", "value": "이번 주 공부와 문서 일은 큰 덩어리를 작게 나누면 훨씬 수월해요. 읽기, 정리, 작성, 확인을 따로 두고 진행하면 막히는 부분을 찾기 쉽고 마감 전 부담도 줄어듭니다." }
+      ],
+      "livingTips": [
+        "큰 과제는 읽기, 초안, 검토처럼 단계 이름을 붙여 나누세요.",
+        "하루에 끝내려 하기보다 매일 같은 시간에 조금씩 처리하세요."
+      ],
+      "cautions": [
+        "마지막 날에 한 번에 몰아서 하면 실수 확인 시간이 부족해질 수 있어요."
+      ],
+      "tags": [],
+      "aiGenerated": true,
+      "sourceTier": {
+        "tier": "T1_HYPOTHESIS",
+        "sourceType": "training_derived",
+        "sourceUrl": null,
+        "accessedAt": "2026-05-03",
+        "quoteShort": null,
+        "humanInterpretation": "Plain study-document weekly standard divide-task narrative. AI-derived display text; not authority truth.",
+        "copyrightNote": "No source prose copied; original phrasing.",
+        "authorityTruthEligible": false
+      }
+    },
+    {
+      "schemaVersion": "spring-ts.narrative-fragment.v1",
+      "fragmentId": "study_document.thisMonth.brief.folder.504",
+      "axis": { "category": "study_document", "period": "thisMonth", "depth": "brief" },
+      "gating": { "ageBand": ["10-19", "20-29", "30-39", "40-54", "55-69", "70+"] },
+      "templateTokens": [
+        { "kind": "text", "value": "이번 달은 자료와 메모를 찾기 쉽게 정리하면 공부와 서류 일이 빨라집니다." }
+      ],
+      "tags": [],
+      "aiGenerated": true,
+      "sourceTier": {
+        "tier": "T1_HYPOTHESIS",
+        "sourceType": "training_derived",
+        "sourceUrl": null,
+        "accessedAt": "2026-05-03",
+        "quoteShort": null,
+        "humanInterpretation": "Plain study-document monthly brief folder narrative. AI-derived display text; not authority truth.",
+        "copyrightNote": "No source prose copied; original phrasing.",
+        "authorityTruthEligible": false
+      }
+    },
+    {
+      "schemaVersion": "spring-ts.narrative-fragment.v1",
+      "fragmentId": "study_document.thisMonth.standard.audit.504",
+      "axis": { "category": "study_document", "period": "thisMonth", "depth": "standard" },
+      "gating": { "ageBand": ["20-29", "30-39", "40-54", "55-69", "70+"] },
+      "templateTokens": [
+        { "kind": "text", "value": "이번 달은 공부 계획이나 서류 목록을 한 번 점검하면 좋아요. 무엇을 새로 시작할지보다 무엇이 빠졌는지, 어떤 자료를 다시 확인해야 하는지 찾는 데 힘을 쓰면 결과가 더 안정됩니다." }
+      ],
+      "livingTips": [
+        "이번 달 처리할 문서와 공부 목표를 한 목록에 적어보세요.",
+        "끝난 일에도 확인 표시와 보관 위치를 남겨두세요."
+      ],
+      "cautions": [
+        "정리 없이 자료를 계속 늘리면 필요한 순간에 찾기 어려워질 수 있어요."
+      ],
+      "tags": [],
+      "aiGenerated": true,
+      "sourceTier": {
+        "tier": "T1_HYPOTHESIS",
+        "sourceType": "training_derived",
+        "sourceUrl": null,
+        "accessedAt": "2026-05-03",
+        "quoteShort": null,
+        "humanInterpretation": "Plain study-document monthly standard audit narrative. AI-derived display text; not authority truth.",
+        "copyrightNote": "No source prose copied; original phrasing.",
+        "authorityTruthEligible": false
+      }
+    },
+    {
+      "schemaVersion": "spring-ts.narrative-fragment.v1",
+      "fragmentId": "study_document.thisYear.brief.basics.504",
+      "axis": { "category": "study_document", "period": "thisYear", "depth": "brief" },
+      "gating": { "ageBand": ["10-19", "20-29", "30-39", "40-54", "55-69", "70+"] },
+      "templateTokens": [
+        { "kind": "text", "value": "올해는 어려운 것부터 잡기보다 기본 자료와 반복 학습을 탄탄히 하는 편이 좋아요." }
+      ],
+      "tags": [],
+      "aiGenerated": true,
+      "sourceTier": {
+        "tier": "T1_HYPOTHESIS",
+        "sourceType": "training_derived",
+        "sourceUrl": null,
+        "accessedAt": "2026-05-03",
+        "quoteShort": null,
+        "humanInterpretation": "Plain study-document yearly brief basics narrative. AI-derived display text; not authority truth.",
+        "copyrightNote": "No source prose copied; original phrasing.",
+        "authorityTruthEligible": false
+      }
+    },
+    {
+      "schemaVersion": "spring-ts.narrative-fragment.v1",
+      "fragmentId": "study_document.thisYear.standard.system.504",
+      "axis": { "category": "study_document", "period": "thisYear", "depth": "standard" },
+      "gating": { "ageBand": ["20-29", "30-39", "40-54", "55-69", "70+"] },
+      "templateTokens": [
+        { "kind": "text", "value": "올해 공부와 문서 일은 오래 쓸 수 있는 정리 방식이 중요합니다. 시험, 자격, 계약, 행정처럼 반복 확인이 필요한 일은 폴더와 기록 규칙을 정해두면 실수가 크게 줄어듭니다." }
+      ],
+      "livingTips": [
+        "중요한 문서는 원본, 제출본, 확인 메모를 따로 보관하세요.",
+        "긴 공부 목표는 분기별로 복습할 범위를 정해두세요."
+      ],
+      "cautions": [
+        "올해 목표를 넓게만 잡으면 실제로 무엇을 끝냈는지 확인하기 어려워요."
+      ],
+      "tags": [],
+      "aiGenerated": true,
+      "sourceTier": {
+        "tier": "T1_HYPOTHESIS",
+        "sourceType": "training_derived",
+        "sourceUrl": null,
+        "accessedAt": "2026-05-03",
+        "quoteShort": null,
+        "humanInterpretation": "Plain study-document yearly standard system narrative. AI-derived display text; not authority truth.",
+        "copyrightNote": "No source prose copied; original phrasing.",
+        "authorityTruthEligible": false
+      }
+    },
+    {
+      "schemaVersion": "spring-ts.narrative-fragment.v1",
+      "fragmentId": "study_document.life.standard.learning_base.504",
+      "axis": { "category": "study_document", "period": "life", "depth": "standard" },
+      "gating": { "ageBand": ["20-29", "30-39", "40-54", "55-69", "70+"] },
+      "templateTokens": [
+        { "kind": "text", "value": "긴 흐름에서는 공부를 잘하는 힘보다 배운 것을 다시 꺼내 쓰는 힘이 중요해요. 기록을 남기고, 필요한 때 찾아보고, 잘못된 부분을 고치는 습관이 쌓이면 문서와 학습 모두 안정됩니다." }
+      ],
+      "livingTips": [
+        "중요한 배움은 한 줄 요약과 다시 볼 날짜를 함께 남기세요.",
+        "문서 실수는 부끄러워하기보다 다음 확인표에 추가하세요."
+      ],
+      "cautions": [
+        "머릿속으로만 기억하려 하면 시간이 지난 뒤 같은 실수를 반복할 수 있어요."
+      ],
+      "tags": [],
+      "aiGenerated": true,
+      "sourceTier": {
+        "tier": "T1_HYPOTHESIS",
+        "sourceType": "training_derived",
+        "sourceUrl": null,
+        "accessedAt": "2026-05-03",
+        "quoteShort": null,
+        "humanInterpretation": "Plain study-document life standard learning-base narrative. AI-derived display text; not authority truth.",
+        "copyrightNote": "No source prose copied; original phrasing.",
+        "authorityTruthEligible": false
+      }
+    },
+    {
+      "schemaVersion": "spring-ts.narrative-fragment.v1",
+      "fragmentId": "study_document.life.expert.learning_root.504",
+      "axis": { "category": "study_document", "period": "life", "depth": "expert" },
+      "gating": { "yongshinAlignment": ["aligned", "neutral"] },
+      "templateTokens": [
+        { "kind": "text", "value": "장기 학업/문서운은 " },
+        { "kind": "tag", "tagId": "jeongin", "label": "정인" },
+        { "kind": "text", "value": "의 흡수력과 " },
+        { "kind": "tag", "tagId": "pyeonin", "label": "편인" },
+        { "kind": "text", "value": "의 탐구성을 함께 봅니다. " },
+        { "kind": "tag", "tagId": "yongshin", "label": "용신" },
+        { "kind": "text", "value": " 방향이 맞으면 기록과 복습을 장기 자산으로 만드는 전략이 좋습니다." }
+      ],
+      "tags": ["jeongin", "pyeonin", "yongshin"],
+      "numericalEvidence": [
+        {
+          "label": "현재 나이",
+          "valueExpression": "feature.ageYears",
+          "unit": "세",
+          "sourceTier": {
+            "tier": "T3_INTERNAL_ENGINE",
+            "sourceType": "internal_scoring_policy",
+            "sourceUrl": null,
+            "accessedAt": "2026-05-03",
+            "quoteShort": null,
+            "humanInterpretation": "Age is computed by the deterministic engine and used as audience context.",
+            "copyrightNote": "No source prose copied.",
+            "authorityTruthEligible": false
+          }
+        },
+        {
+          "label": "학업/문서 별점",
+          "valueExpression": "cell.stars",
+          "unit": "점",
+          "sourceTier": {
+            "tier": "T3_INTERNAL_ENGINE",
+            "sourceType": "internal_scoring_policy",
+            "sourceUrl": null,
+            "accessedAt": "2026-05-03",
+            "quoteShort": null,
+            "humanInterpretation": "Study-document life score is computed by the deterministic engine and used as numerical context.",
+            "copyrightNote": "No source prose copied.",
+            "authorityTruthEligible": false
+          }
+        }
+      ],
+      "aiGenerated": true,
+      "sourceTier": {
+        "tier": "T1_HYPOTHESIS",
+        "sourceType": "training_derived",
+        "sourceUrl": null,
+        "accessedAt": "2026-05-03",
+        "quoteShort": null,
+        "humanInterpretation": "Expert study-document life min15 density narrative. AI-derived display text; not authority truth.",
+        "copyrightNote": "No source prose copied; original phrasing.",
+        "authorityTruthEligible": false
+      }
+    },
+    {
+      "schemaVersion": "spring-ts.narrative-fragment.v1",
+      "fragmentId": "study_document.today.expert.review_score.504",
+      "axis": { "category": "study_document", "period": "today", "depth": "expert" },
+      "gating": { "dayMasterStrength": ["WEAK", "BALANCED", "STRONG"] },
+      "templateTokens": [
+        { "kind": "text", "value": "오늘 학업/문서운은 " },
+        { "kind": "tag", "tagId": "jeongin", "label": "정인" },
+        { "kind": "text", "value": "의 정리력과 " },
+        { "kind": "tag", "tagId": "sikshin", "label": "식신" },
+        { "kind": "text", "value": "의 산출력을 함께 봅니다. " },
+        { "kind": "tag", "tagId": "stabilityIndex", "label": "안정성지수" },
+        { "kind": "text", "value": "가 낮으면 새 작업보다 검토와 누락 확인이 먼저입니다." }
+      ],
+      "tags": ["jeongin", "sikshin", "stabilityIndex"],
+      "numericalEvidence": [
+        {
+          "label": "학업/문서 별점",
+          "valueExpression": "cell.stars",
+          "unit": "점",
+          "sourceTier": {
+            "tier": "T3_INTERNAL_ENGINE",
+            "sourceType": "internal_scoring_policy",
+            "sourceUrl": null,
+            "accessedAt": "2026-05-03",
+            "quoteShort": null,
+            "humanInterpretation": "Study-document daily score is computed by the deterministic engine and used as numerical context.",
+            "copyrightNote": "No source prose copied.",
+            "authorityTruthEligible": false
+          }
+        }
+      ],
+      "aiGenerated": true,
+      "sourceTier": {
+        "tier": "T1_HYPOTHESIS",
+        "sourceType": "training_derived",
+        "sourceUrl": null,
+        "accessedAt": "2026-05-03",
+        "quoteShort": null,
+        "humanInterpretation": "Expert study-document daily min15 density narrative. AI-derived display text; not authority truth.",
+        "copyrightNote": "No source prose copied; original phrasing.",
+        "authorityTruthEligible": false
+      }
+    },
+    {
+      "schemaVersion": "spring-ts.narrative-fragment.v1",
+      "fragmentId": "study_document.thisWeek.expert.structure_score.504",
+      "axis": { "category": "study_document", "period": "thisWeek", "depth": "expert" },
+      "gating": { "yongshinAlignment": ["aligned", "neutral", "conflicting"] },
+      "templateTokens": [
+        { "kind": "text", "value": "이번 주 학업/문서운은 " },
+        { "kind": "tag", "tagId": "jeongin", "label": "정인" },
+        { "kind": "text", "value": "의 체계성과 " },
+        { "kind": "tag", "tagId": "sanggwan", "label": "상관" },
+        { "kind": "text", "value": "의 표현력이 균형을 이루는지를 봅니다. " },
+        { "kind": "tag", "tagId": "yongshin", "label": "용신" },
+        { "kind": "text", "value": " 정합성이 낮으면 아이디어보다 구조를 먼저 잡아야 합니다." }
+      ],
+      "tags": ["jeongin", "sanggwan", "yongshin"],
+      "numericalEvidence": [
+        {
+          "label": "학업/문서 별점",
+          "valueExpression": "cell.stars",
+          "unit": "점",
+          "sourceTier": {
+            "tier": "T3_INTERNAL_ENGINE",
+            "sourceType": "internal_scoring_policy",
+            "sourceUrl": null,
+            "accessedAt": "2026-05-03",
+            "quoteShort": null,
+            "humanInterpretation": "Study-document weekly score is computed by the deterministic engine and used as numerical context.",
+            "copyrightNote": "No source prose copied.",
+            "authorityTruthEligible": false
+          }
+        }
+      ],
+      "aiGenerated": true,
+      "sourceTier": {
+        "tier": "T1_HYPOTHESIS",
+        "sourceType": "training_derived",
+        "sourceUrl": null,
+        "accessedAt": "2026-05-03",
+        "quoteShort": null,
+        "humanInterpretation": "Expert study-document weekly min15 density narrative. AI-derived display text; not authority truth.",
+        "copyrightNote": "No source prose copied; original phrasing.",
+        "authorityTruthEligible": false
+      }
+    },
+    {
+      "schemaVersion": "spring-ts.narrative-fragment.v1",
+      "fragmentId": "study_document.thisMonth.expert.planning_score.504",
+      "axis": { "category": "study_document", "period": "thisMonth", "depth": "expert" },
+      "gating": { "yongshinAlignment": ["aligned", "neutral"] },
+      "templateTokens": [
+        { "kind": "text", "value": "이번 달 학업/문서운은 " },
+        { "kind": "tag", "tagId": "pyeonin", "label": "편인" },
+        { "kind": "text", "value": "의 탐색력과 " },
+        { "kind": "tag", "tagId": "jeongin", "label": "정인" },
+        { "kind": "text", "value": "의 보관·정리 흐름을 함께 봅니다. " },
+        { "kind": "tag", "tagId": "stabilityIndex", "label": "안정성지수" },
+        { "kind": "text", "value": "가 낮으면 자료 확장보다 분류와 검토가 먼저입니다." }
+      ],
+      "tags": ["pyeonin", "jeongin", "stabilityIndex"],
+      "numericalEvidence": [
+        {
+          "label": "학업/문서 별점",
+          "valueExpression": "cell.stars",
+          "unit": "점",
+          "sourceTier": {
+            "tier": "T3_INTERNAL_ENGINE",
+            "sourceType": "internal_scoring_policy",
+            "sourceUrl": null,
+            "accessedAt": "2026-05-03",
+            "quoteShort": null,
+            "humanInterpretation": "Study-document monthly score is computed by the deterministic engine and used as numerical context.",
+            "copyrightNote": "No source prose copied.",
+            "authorityTruthEligible": false
+          }
+        }
+      ],
+      "aiGenerated": true,
+      "sourceTier": {
+        "tier": "T1_HYPOTHESIS",
+        "sourceType": "training_derived",
+        "sourceUrl": null,
+        "accessedAt": "2026-05-03",
+        "quoteShort": null,
+        "humanInterpretation": "Expert study-document monthly min15 density narrative. AI-derived display text; not authority truth.",
+        "copyrightNote": "No source prose copied; original phrasing.",
+        "authorityTruthEligible": false
+      }
+    },
+    {
+      "schemaVersion": "spring-ts.narrative-fragment.v1",
+      "fragmentId": "study_document.thisYear.expert.system_score.504",
+      "axis": { "category": "study_document", "period": "thisYear", "depth": "expert" },
+      "gating": { "yongshinAlignment": ["aligned", "neutral"] },
+      "templateTokens": [
+        { "kind": "text", "value": "올해 학업/문서운은 " },
+        { "kind": "tag", "tagId": "jeongin", "label": "정인" },
+        { "kind": "text", "value": "의 누적력, " },
+        { "kind": "tag", "tagId": "sikshin", "label": "식신" },
+        { "kind": "text", "value": "의 결과화, " },
+        { "kind": "tag", "tagId": "gyeokgukFit", "label": "격국 적합도" },
+        { "kind": "text", "value": "를 함께 봅니다. 점수가 낮으면 학습량보다 보관·검토 체계를 먼저 세워야 합니다." }
+      ],
+      "tags": ["jeongin", "sikshin", "gyeokgukFit"],
+      "numericalEvidence": [
+        {
+          "label": "현재 나이",
+          "valueExpression": "feature.ageYears",
+          "unit": "세",
+          "sourceTier": {
+            "tier": "T3_INTERNAL_ENGINE",
+            "sourceType": "internal_scoring_policy",
+            "sourceUrl": null,
+            "accessedAt": "2026-05-03",
+            "quoteShort": null,
+            "humanInterpretation": "Age is computed by the deterministic engine and used as audience context.",
+            "copyrightNote": "No source prose copied.",
+            "authorityTruthEligible": false
+          }
+        },
+        {
+          "label": "학업/문서 별점",
+          "valueExpression": "cell.stars",
+          "unit": "점",
+          "sourceTier": {
+            "tier": "T3_INTERNAL_ENGINE",
+            "sourceType": "internal_scoring_policy",
+            "sourceUrl": null,
+            "accessedAt": "2026-05-03",
+            "quoteShort": null,
+            "humanInterpretation": "Study-document yearly score is computed by the deterministic engine and used as numerical context.",
+            "copyrightNote": "No source prose copied.",
+            "authorityTruthEligible": false
+          }
+        }
+      ],
+      "aiGenerated": true,
+      "sourceTier": {
+        "tier": "T1_HYPOTHESIS",
+        "sourceType": "training_derived",
+        "sourceUrl": null,
+        "accessedAt": "2026-05-03",
+        "quoteShort": null,
+        "humanInterpretation": "Expert study-document yearly min15 density narrative. AI-derived display text; not authority truth.",
+        "copyrightNote": "No source prose copied; original phrasing.",
+        "authorityTruthEligible": false
+      }
+    }
+  ]
+}
