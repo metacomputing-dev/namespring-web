@@ -1,0 +1,178 @@
+{
+  "schemaVersion": "spring-ts.narrative-fragment-bundle.v1",
+  "bundleId": "coverage.expert-late-teen-age-density.20260504",
+  "contractVersion": "1.0.0",
+  "fragments": [
+    {
+      "schemaVersion": "spring-ts.narrative-fragment.v1",
+      "fragmentId": "overall.today.expert.age.late_teen.501",
+      "axis": { "category": "overall", "period": "today", "depth": "expert" },
+      "gating": { "agePhase": ["late_teen"] },
+      "templateTokens": [
+        { "kind": "text", "value": "후기 청소년기의 오늘 총운은 선택지가 넓어지는 만큼 즉흥 판단보다 기준을 먼저 세우는 해석이 필요합니다. " },
+        { "kind": "tag", "tagId": "jeongin", "label": "정인" },
+        { "kind": "text", "value": "은 배움의 토대를 잡고 " },
+        { "kind": "tag", "tagId": "sikshin", "label": "식신" },
+        { "kind": "text", "value": "은 생각을 말과 행동으로 안전하게 꺼내게 합니다." }
+      ],
+      "tags": ["jeongin", "sikshin"],
+      "numericalEvidence": [
+        { "label": "연령 단계 서번", "valueExpression": "feature.agePhaseOrdinal", "unit": "ordinal", "sourceTier": { "tier": "T3_INTERNAL_ENGINE", "sourceType": "internal_scoring_policy", "sourceUrl": null, "accessedAt": "2026-05-04", "quoteShort": null, "humanInterpretation": "Resolved from deterministic spring-ts runtime output.", "copyrightNote": "No third-party prose copied.", "authorityTruthEligible": false } }
+      ],
+      "aiGenerated": true,
+      "sourceTier": { "tier": "T1_HYPOTHESIS", "sourceType": "training_derived", "sourceUrl": null, "accessedAt": "2026-05-04", "quoteShort": null, "humanInterpretation": "Expert late-teen agePhase density fragment for daily overview. AI-derived display text; not authority truth.", "copyrightNote": "No source prose copied; original phrasing.", "authorityTruthEligible": false }
+    },
+    {
+      "schemaVersion": "spring-ts.narrative-fragment.v1",
+      "fragmentId": "academic.thisWeek.expert.age.late_teen.501",
+      "axis": { "category": "academic", "period": "thisWeek", "depth": "expert" },
+      "gating": { "agePhase": ["late_teen"] },
+      "templateTokens": [
+        { "kind": "text", "value": "후기 청소년기의 이번 주 학업운은 이해와 성적 압박이 같이 올라오므로 공부량보다 반복 구조가 중요합니다. " },
+        { "kind": "tag", "tagId": "jeongin", "label": "정인" },
+        { "kind": "text", "value": "은 개념을 붙잡고 " },
+        { "kind": "tag", "tagId": "sanggwan", "label": "상관" },
+        { "kind": "text", "value": "은 풀이 과정과 설명력을 강화합니다." }
+      ],
+      "tags": ["jeongin", "sanggwan"],
+      "numericalEvidence": [
+        { "label": "연령 단계 서번", "valueExpression": "feature.agePhaseOrdinal", "unit": "ordinal", "sourceTier": { "tier": "T3_INTERNAL_ENGINE", "sourceType": "internal_scoring_policy", "sourceUrl": null, "accessedAt": "2026-05-04", "quoteShort": null, "humanInterpretation": "Resolved from deterministic spring-ts runtime output.", "copyrightNote": "No third-party prose copied.", "authorityTruthEligible": false } }
+      ],
+      "aiGenerated": true,
+      "sourceTier": { "tier": "T1_HYPOTHESIS", "sourceType": "training_derived", "sourceUrl": null, "accessedAt": "2026-05-04", "quoteShort": null, "humanInterpretation": "Expert late-teen agePhase density fragment for weekly academic. AI-derived display text; not authority truth.", "copyrightNote": "No source prose copied; original phrasing.", "authorityTruthEligible": false }
+    },
+    {
+      "schemaVersion": "spring-ts.narrative-fragment.v1",
+      "fragmentId": "study_document.thisMonth.expert.age.late_teen.501",
+      "axis": { "category": "study_document", "period": "thisMonth", "depth": "expert" },
+      "gating": { "agePhase": ["late_teen"] },
+      "templateTokens": [
+        { "kind": "text", "value": "후기 청소년기의 이번 달 문서운은 지원서, 기록, 시험 자료처럼 결과를 남기는 항목을 세밀하게 봐야 합니다. " },
+        { "kind": "tag", "tagId": "jeongin", "label": "정인" },
+        { "kind": "text", "value": "은 근거 자료를 확인하고 " },
+        { "kind": "tag", "tagId": "jeonggwan", "label": "정관" },
+        { "kind": "text", "value": "은 마감과 형식을 지키는 힘으로 작동합니다." }
+      ],
+      "tags": ["jeongin", "jeonggwan"],
+      "numericalEvidence": [
+        { "label": "연령 단계 서번", "valueExpression": "feature.agePhaseOrdinal", "unit": "ordinal", "sourceTier": { "tier": "T3_INTERNAL_ENGINE", "sourceType": "internal_scoring_policy", "sourceUrl": null, "accessedAt": "2026-05-04", "quoteShort": null, "humanInterpretation": "Resolved from deterministic spring-ts runtime output.", "copyrightNote": "No third-party prose copied.", "authorityTruthEligible": false } }
+      ],
+      "aiGenerated": true,
+      "sourceTier": { "tier": "T1_HYPOTHESIS", "sourceType": "training_derived", "sourceUrl": null, "accessedAt": "2026-05-04", "quoteShort": null, "humanInterpretation": "Expert late-teen agePhase density fragment for monthly study/document. AI-derived display text; not authority truth.", "copyrightNote": "No source prose copied; original phrasing.", "authorityTruthEligible": false }
+    },
+    {
+      "schemaVersion": "spring-ts.narrative-fragment.v1",
+      "fragmentId": "career.thisYear.expert.age.late_teen.501",
+      "axis": { "category": "career", "period": "thisYear", "depth": "expert" },
+      "gating": { "agePhase": ["late_teen"] },
+      "templateTokens": [
+        { "kind": "text", "value": "후기 청소년기의 올해 진로 흐름은 좋아 보이는 길보다 지속해서 훈련할 수 있는 길을 고르는 판단이 중요합니다. " },
+        { "kind": "tag", "tagId": "jeonggwan", "label": "정관" },
+        { "kind": "text", "value": "은 목표와 규칙을 세우고 " },
+        { "kind": "tag", "tagId": "sikshin", "label": "식신" },
+        { "kind": "text", "value": "은 실제 활동과 결과물로 적성을 확인하게 합니다." }
+      ],
+      "tags": ["jeonggwan", "sikshin"],
+      "numericalEvidence": [
+        { "label": "연령 단계 서번", "valueExpression": "feature.agePhaseOrdinal", "unit": "ordinal", "sourceTier": { "tier": "T3_INTERNAL_ENGINE", "sourceType": "internal_scoring_policy", "sourceUrl": null, "accessedAt": "2026-05-04", "quoteShort": null, "humanInterpretation": "Resolved from deterministic spring-ts runtime output.", "copyrightNote": "No third-party prose copied.", "authorityTruthEligible": false } }
+      ],
+      "aiGenerated": true,
+      "sourceTier": { "tier": "T1_HYPOTHESIS", "sourceType": "training_derived", "sourceUrl": null, "accessedAt": "2026-05-04", "quoteShort": null, "humanInterpretation": "Expert late-teen agePhase density fragment for yearly career. AI-derived display text; not authority truth.", "copyrightNote": "No source prose copied; original phrasing.", "authorityTruthEligible": false }
+    },
+    {
+      "schemaVersion": "spring-ts.narrative-fragment.v1",
+      "fragmentId": "health_stress.today.expert.age.late_teen.501",
+      "axis": { "category": "health_stress", "period": "today", "depth": "expert" },
+      "gating": { "agePhase": ["late_teen"] },
+      "templateTokens": [
+        { "kind": "text", "value": "후기 청소년기의 오늘 스트레스운은 비교와 평가에 흔들리기 쉬워 몸의 긴장 신호를 빨리 확인해야 합니다. " },
+        { "kind": "tag", "tagId": "gishin", "label": "기신" },
+        { "kind": "text", "value": "은 압박이 커지는 지점을 드러내고 " },
+        { "kind": "tag", "tagId": "yongshin", "label": "용신" },
+        { "kind": "text", "value": "은 회복 루틴을 붙이는 방향을 정합니다." }
+      ],
+      "tags": ["gishin", "yongshin"],
+      "numericalEvidence": [
+        { "label": "연령 단계 서번", "valueExpression": "feature.agePhaseOrdinal", "unit": "ordinal", "sourceTier": { "tier": "T3_INTERNAL_ENGINE", "sourceType": "internal_scoring_policy", "sourceUrl": null, "accessedAt": "2026-05-04", "quoteShort": null, "humanInterpretation": "Resolved from deterministic spring-ts runtime output.", "copyrightNote": "No third-party prose copied.", "authorityTruthEligible": false } }
+      ],
+      "aiGenerated": true,
+      "sourceTier": { "tier": "T1_HYPOTHESIS", "sourceType": "training_derived", "sourceUrl": null, "accessedAt": "2026-05-04", "quoteShort": null, "humanInterpretation": "Expert late-teen agePhase density fragment for daily health stress. AI-derived display text; not authority truth.", "copyrightNote": "No source prose copied; original phrasing.", "authorityTruthEligible": false }
+    },
+    {
+      "schemaVersion": "spring-ts.narrative-fragment.v1",
+      "fragmentId": "family.thisWeek.expert.age.late_teen.501",
+      "axis": { "category": "family", "period": "thisWeek", "depth": "expert" },
+      "gating": { "agePhase": ["late_teen"] },
+      "templateTokens": [
+        { "kind": "text", "value": "후기 청소년기의 이번 주 가족운은 독립 욕구와 보호 기대가 겹치므로 말의 경계를 부드럽게 잡아야 합니다. " },
+        { "kind": "tag", "tagId": "bigyeon", "label": "비견" },
+        { "kind": "text", "value": "은 자기 기준을 세우고 " },
+        { "kind": "tag", "tagId": "jeonggwan", "label": "정관" },
+        { "kind": "text", "value": "은 가족 안의 약속과 규칙을 분명하게 합니다." }
+      ],
+      "tags": ["bigyeon", "jeonggwan"],
+      "numericalEvidence": [
+        { "label": "연령 단계 서번", "valueExpression": "feature.agePhaseOrdinal", "unit": "ordinal", "sourceTier": { "tier": "T3_INTERNAL_ENGINE", "sourceType": "internal_scoring_policy", "sourceUrl": null, "accessedAt": "2026-05-04", "quoteShort": null, "humanInterpretation": "Resolved from deterministic spring-ts runtime output.", "copyrightNote": "No third-party prose copied.", "authorityTruthEligible": false } }
+      ],
+      "aiGenerated": true,
+      "sourceTier": { "tier": "T1_HYPOTHESIS", "sourceType": "training_derived", "sourceUrl": null, "accessedAt": "2026-05-04", "quoteShort": null, "humanInterpretation": "Expert late-teen agePhase density fragment for weekly family. AI-derived display text; not authority truth.", "copyrightNote": "No source prose copied; original phrasing.", "authorityTruthEligible": false }
+    },
+    {
+      "schemaVersion": "spring-ts.narrative-fragment.v1",
+      "fragmentId": "romance.thisMonth.expert.age.late_teen.501",
+      "axis": { "category": "romance", "period": "thisMonth", "depth": "expert" },
+      "gating": { "agePhase": ["late_teen"] },
+      "templateTokens": [
+        { "kind": "text", "value": "후기 청소년기의 이번 달 인연운은 감정의 속도가 빠를 수 있어 호감과 생활 리듬을 분리해 읽어야 합니다. " },
+        { "kind": "tag", "tagId": "pyeonjae", "label": "편재" },
+        { "kind": "text", "value": "는 새 자극을 만들고 " },
+        { "kind": "tag", "tagId": "jeongjae", "label": "정재" },
+        { "kind": "text", "value": "는 안정적으로 이어질 수 있는 관계인지 확인하게 합니다." }
+      ],
+      "tags": ["pyeonjae", "jeongjae"],
+      "numericalEvidence": [
+        { "label": "연령 단계 서번", "valueExpression": "feature.agePhaseOrdinal", "unit": "ordinal", "sourceTier": { "tier": "T3_INTERNAL_ENGINE", "sourceType": "internal_scoring_policy", "sourceUrl": null, "accessedAt": "2026-05-04", "quoteShort": null, "humanInterpretation": "Resolved from deterministic spring-ts runtime output.", "copyrightNote": "No third-party prose copied.", "authorityTruthEligible": false } }
+      ],
+      "aiGenerated": true,
+      "sourceTier": { "tier": "T1_HYPOTHESIS", "sourceType": "training_derived", "sourceUrl": null, "accessedAt": "2026-05-04", "quoteShort": null, "humanInterpretation": "Expert late-teen agePhase density fragment for monthly romance. AI-derived display text; not authority truth.", "copyrightNote": "No source prose copied; original phrasing.", "authorityTruthEligible": false }
+    },
+    {
+      "schemaVersion": "spring-ts.narrative-fragment.v1",
+      "fragmentId": "movement.life.expert.age.late_teen.501",
+      "axis": { "category": "movement", "period": "life", "depth": "expert" },
+      "gating": { "agePhase": ["late_teen"] },
+      "templateTokens": [
+        { "kind": "text", "value": "후기 청소년기의 이동 총운은 학교, 진로, 생활권 변화가 겹칠 수 있어 준비와 회복 계획을 같이 봅니다. " },
+        { "kind": "tag", "tagId": "yeokma", "label": "역마" },
+        { "kind": "text", "value": "는 이동 신호를 만들고 " },
+        { "kind": "tag", "tagId": "yongshin", "label": "용신" },
+        { "kind": "text", "value": "은 변화 뒤 안정감을 회복하는 기준이 됩니다." }
+      ],
+      "tags": ["yeokma", "yongshin"],
+      "numericalEvidence": [
+        { "label": "연령 단계 서번", "valueExpression": "feature.agePhaseOrdinal", "unit": "ordinal", "sourceTier": { "tier": "T3_INTERNAL_ENGINE", "sourceType": "internal_scoring_policy", "sourceUrl": null, "accessedAt": "2026-05-04", "quoteShort": null, "humanInterpretation": "Resolved from deterministic spring-ts runtime output.", "copyrightNote": "No third-party prose copied.", "authorityTruthEligible": false } }
+      ],
+      "aiGenerated": true,
+      "sourceTier": { "tier": "T1_HYPOTHESIS", "sourceType": "training_derived", "sourceUrl": null, "accessedAt": "2026-05-04", "quoteShort": null, "humanInterpretation": "Expert late-teen agePhase density fragment for life movement. AI-derived display text; not authority truth.", "copyrightNote": "No source prose copied; original phrasing.", "authorityTruthEligible": false }
+    },
+    {
+      "schemaVersion": "spring-ts.narrative-fragment.v1",
+      "fragmentId": "expression_children.thisYear.expert.age.late_teen.501",
+      "axis": { "category": "expression_children", "period": "thisYear", "depth": "expert" },
+      "gating": { "agePhase": ["late_teen"] },
+      "templateTokens": [
+        { "kind": "text", "value": "후기 청소년기의 올해 표현운은 자기 생각을 드러내고 싶어지는 만큼 말의 영향력도 함께 커집니다. " },
+        { "kind": "tag", "tagId": "sanggwan", "label": "상관" },
+        { "kind": "text", "value": "은 개성을 드러내고 " },
+        { "kind": "tag", "tagId": "jeonggwan", "label": "정관" },
+        { "kind": "text", "value": "은 표현이 규칙과 관계 안에서 무리 없이 통하게 합니다." }
+      ],
+      "tags": ["sanggwan", "jeonggwan"],
+      "numericalEvidence": [
+        { "label": "연령 단계 서번", "valueExpression": "feature.agePhaseOrdinal", "unit": "ordinal", "sourceTier": { "tier": "T3_INTERNAL_ENGINE", "sourceType": "internal_scoring_policy", "sourceUrl": null, "accessedAt": "2026-05-04", "quoteShort": null, "humanInterpretation": "Resolved from deterministic spring-ts runtime output.", "copyrightNote": "No third-party prose copied.", "authorityTruthEligible": false } }
+      ],
+      "aiGenerated": true,
+      "sourceTier": { "tier": "T1_HYPOTHESIS", "sourceType": "training_derived", "sourceUrl": null, "accessedAt": "2026-05-04", "quoteShort": null, "humanInterpretation": "Expert late-teen agePhase density fragment for yearly expression/children. AI-derived display text; not authority truth.", "copyrightNote": "No source prose copied; original phrasing.", "authorityTruthEligible": false }
+    }
+  ]
+}
