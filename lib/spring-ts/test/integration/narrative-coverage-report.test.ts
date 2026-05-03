@@ -26,7 +26,7 @@ function check(label: string, cond: boolean, evidence?: string): void {
 
 console.log('Narrative coverage report\n');
 
-const stdout = execFileSync('node', [SCRIPT_PATH, '--json', '--min-authored=10'], {
+const stdout = execFileSync('node', [SCRIPT_PATH, '--json', '--min-authored=12'], {
   cwd: SPRING_TS_ROOT,
   encoding: 'utf-8',
 });
@@ -93,7 +93,7 @@ check('thin axis values are sorted planning records',
       typeof row.authoredFragments === 'number'));
 check('thin axis values expose next density targets',
   report?.totals?.thinAxisValueCount === report?.thinAxisValues?.length &&
-    report.thinAxisValues.every((row: any) => row.authoredFragments < 10),
+    report.thinAxisValues.every((row: any) => row.authoredFragments < 12),
   String(report?.totals?.thinAxisValueCount ?? 0));
 check('all tracked axis values meet the authored density floor',
   report?.totals?.thinAxisValueCount === 0 &&
@@ -161,7 +161,7 @@ check('authority source thresholds default to observation mode',
 const authorityFragmentGate = spawnSync('node', [
   SCRIPT_PATH,
   '--json',
-  '--min-authored=10',
+  '--min-authored=12',
   '--min-authority-fragments=1',
 ], {
   cwd: SPRING_TS_ROOT,
@@ -180,7 +180,7 @@ check('authority fragment threshold deficit is machine readable',
 const authorityEvidenceGate = spawnSync('node', [
   SCRIPT_PATH,
   '--json',
-  '--min-authored=10',
+  '--min-authored=12',
   '--min-authority-numerical-evidence=1',
 ], {
   cwd: SPRING_TS_ROOT,
