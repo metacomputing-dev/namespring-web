@@ -74,6 +74,32 @@
         { "kind": "text", "value": "이 과하면 자료 탐색이 길어질 수 있으니 제출 기준을 먼저 정하세요." }
       ],
       "tags": ["jeongin", "sikshin", "pyeonin"],
+      "numericalEvidence": [
+        {
+          "label": "연령 단계 순번",
+          "valueExpression": "feature.agePhaseOrdinal",
+          "unit": "단계",
+          "sourceTier": { "tier": "T3_INTERNAL_ENGINE", "sourceType": "internal_scoring_policy", "sourceUrl": null, "accessedAt": "2026-05-03", "quoteShort": null, "humanInterpretation": "Resolved from deterministic spring-ts runtime output.", "copyrightNote": "No third-party prose copied.", "authorityTruthEligible": false }
+        },
+        {
+          "label": "신강도 순번",
+          "valueExpression": "feature.dayMasterStrengthOrdinal",
+          "unit": "단계",
+          "sourceTier": { "tier": "T3_INTERNAL_ENGINE", "sourceType": "internal_scoring_policy", "sourceUrl": null, "accessedAt": "2026-05-03", "quoteShort": null, "humanInterpretation": "Resolved from deterministic spring-ts runtime output.", "copyrightNote": "No third-party prose copied.", "authorityTruthEligible": false }
+        },
+        {
+          "label": "출생 계절 순번",
+          "valueExpression": "feature.birthSeasonOrdinal",
+          "unit": "단계",
+          "sourceTier": { "tier": "T3_INTERNAL_ENGINE", "sourceType": "internal_scoring_policy", "sourceUrl": null, "accessedAt": "2026-05-03", "quoteShort": null, "humanInterpretation": "Resolved from deterministic spring-ts runtime output.", "copyrightNote": "No third-party prose copied.", "authorityTruthEligible": false }
+        },
+        {
+          "label": "현재 계절 순번",
+          "valueExpression": "feature.currentSeasonOrdinal",
+          "unit": "단계",
+          "sourceTier": { "tier": "T3_INTERNAL_ENGINE", "sourceType": "internal_scoring_policy", "sourceUrl": null, "accessedAt": "2026-05-03", "quoteShort": null, "humanInterpretation": "Resolved from deterministic spring-ts runtime output.", "copyrightNote": "No third-party prose copied.", "authorityTruthEligible": false }
+        }
+      ],
       "aiGenerated": true,
       "sourceTier": { "tier": "T1_HYPOTHESIS", "sourceType": "training_derived", "sourceUrl": null, "accessedAt": "2026-05-03", "quoteShort": null, "humanInterpretation": "Expert study/document daily narrative for spring/summer current season. AI-derived display text; not authority truth.", "copyrightNote": "No source prose copied; original phrasing.", "authorityTruthEligible": false }
     },
