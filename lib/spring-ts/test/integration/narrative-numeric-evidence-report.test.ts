@@ -119,7 +119,7 @@ check('unused available path threshold excess is machine readable',
 const thinGate = spawnSync('node', [
   SCRIPT_PATH,
   '--json',
-  '--min-expression-usage=6',
+  '--min-expression-usage=7',
   '--max-thin-available-paths=0',
 ], {
   cwd: SPRING_TS_ROOT,
@@ -128,7 +128,7 @@ const thinGate = spawnSync('node', [
 const thinGateReport = JSON.parse(thinGate.stdout);
 check('thin available path threshold can pass at the current density floor',
   thinGate.status === 0 &&
-    thinGateReport?.minExpressionUsageThreshold === 6 &&
+    thinGateReport?.minExpressionUsageThreshold === 7 &&
     thinGateReport?.maxThinAvailablePathThreshold === 0,
   `status=${thinGate.status}; stderr=${thinGate.stderr.trim()}`);
 check('thin available path threshold excess is machine readable',
@@ -141,7 +141,7 @@ check('thin available path threshold excess is machine readable',
 const strictThinGate = spawnSync('node', [
   SCRIPT_PATH,
   '--json',
-  '--min-expression-usage=7',
+  '--min-expression-usage=8',
   '--max-thin-available-paths=0',
 ], {
   cwd: SPRING_TS_ROOT,
@@ -151,7 +151,7 @@ const strictThinGateReport = JSON.parse(strictThinGate.stdout);
 check('stricter thin available path threshold can fail CI intentionally',
   strictThinGate.status === 1 &&
     strictThinGate.stderr.includes('thin available numeric paths') &&
-    strictThinGateReport?.minExpressionUsageThreshold === 7 &&
+    strictThinGateReport?.minExpressionUsageThreshold === 8 &&
     strictThinGateReport?.maxThinAvailablePathThreshold === 0,
   `status=${strictThinGate.status}; stderr=${strictThinGate.stderr.trim()}`);
 check('stricter thin available path threshold excess is machine readable',
