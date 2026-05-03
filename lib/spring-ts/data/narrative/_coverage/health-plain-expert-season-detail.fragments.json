@@ -1,0 +1,271 @@
+{
+  "schemaVersion": "spring-ts.narrative-fragment-bundle.v1",
+  "bundleId": "coverage.health-plain-expert-season-detail.20260503",
+  "contractVersion": "1.0.0",
+  "fragments": [
+    {
+      "schemaVersion": "spring-ts.narrative-fragment.v1",
+      "fragmentId": "health.life.brief.currentseason.spring_summer.301",
+      "axis": { "category": "health", "period": "life", "depth": "brief" },
+      "gating": { "currentSeason": ["spring", "summer"] },
+      "templateTokens": [
+        { "kind": "text", "value": "긴 흐름에서는 몸을 조금씩 움직이며 활력을 살리기 좋아요. 다만 무리해서 몰아붙이기보다 땀, 수면, 식사를 함께 챙기세요." }
+      ],
+      "tags": [],
+      "aiGenerated": true,
+      "sourceTier": {
+        "tier": "T1_HYPOTHESIS",
+        "sourceType": "training_derived",
+        "sourceUrl": null,
+        "accessedAt": "2026-05-03",
+        "quoteShort": null,
+        "humanInterpretation": "Plain health life brief for spring/summer current season. AI-derived display text; not authority truth.",
+        "copyrightNote": "No source prose copied; original phrasing.",
+        "authorityTruthEligible": false
+      }
+    },
+    {
+      "schemaVersion": "spring-ts.narrative-fragment.v1",
+      "fragmentId": "health.life.brief.currentseason.autumn_winter.301",
+      "axis": { "category": "health", "period": "life", "depth": "brief" },
+      "gating": { "currentSeason": ["autumn", "winter"] },
+      "templateTokens": [
+        { "kind": "text", "value": "긴 흐름에서는 체력을 아껴 쓰고 회복 리듬을 지키는 일이 중요해요. 큰 변화보다 오래 지킬 수 있는 생활 습관이 몸을 안정시킵니다." }
+      ],
+      "tags": [],
+      "aiGenerated": true,
+      "sourceTier": {
+        "tier": "T1_HYPOTHESIS",
+        "sourceType": "training_derived",
+        "sourceUrl": null,
+        "accessedAt": "2026-05-03",
+        "quoteShort": null,
+        "humanInterpretation": "Plain health life brief for autumn/winter current season. AI-derived display text; not authority truth.",
+        "copyrightNote": "No source prose copied; original phrasing.",
+        "authorityTruthEligible": false
+      }
+    },
+    {
+      "schemaVersion": "spring-ts.narrative-fragment.v1",
+      "fragmentId": "health.today.standard.currentseason.spring_summer.301",
+      "axis": { "category": "health", "period": "today", "depth": "standard" },
+      "gating": { "currentSeason": ["spring", "summer"] },
+      "templateTokens": [
+        { "kind": "text", "value": "오늘은 몸을 깨우고 가볍게 움직이기 좋은 흐름이에요. 짧은 산책이나 스트레칭은 도움이 되지만, 컨디션을 확인하지 않고 강도를 올리면 쉽게 지칠 수 있습니다." }
+      ],
+      "livingTips": [
+        "물 한 컵을 먼저 마시고, 10분 정도 가볍게 움직여 보세요.",
+        "운동이나 외출 전에는 오늘의 피로도를 먼저 확인하세요."
+      ],
+      "cautions": [
+        "몸이 보내는 피로 신호를 무시하고 계속 밀어붙이지 마세요."
+      ],
+      "tags": [],
+      "aiGenerated": true,
+      "sourceTier": {
+        "tier": "T1_HYPOTHESIS",
+        "sourceType": "training_derived",
+        "sourceUrl": null,
+        "accessedAt": "2026-05-03",
+        "quoteShort": null,
+        "humanInterpretation": "Plain health daily standard for spring/summer current season. AI-derived display text; not authority truth.",
+        "copyrightNote": "No source prose copied; original phrasing.",
+        "authorityTruthEligible": false
+      }
+    },
+    {
+      "schemaVersion": "spring-ts.narrative-fragment.v1",
+      "fragmentId": "health.today.standard.currentseason.autumn_winter.301",
+      "axis": { "category": "health", "period": "today", "depth": "standard" },
+      "gating": { "currentSeason": ["autumn", "winter"] },
+      "templateTokens": [
+        { "kind": "text", "value": "오늘은 몸을 아끼고 회복 시간을 확보하는 편이 좋아요. 일정을 무리하게 늘리기보다 식사, 체온, 수면 시간을 먼저 챙기면 컨디션이 더 안정됩니다." }
+      ],
+      "livingTips": [
+        "따뜻한 물과 규칙적인 식사 시간을 먼저 챙기세요.",
+        "늦은 시간까지 이어지는 일은 가능한 한 줄여보세요."
+      ],
+      "cautions": [
+        "괜찮은 척하고 피로를 넘기면 다음 일정까지 영향을 줄 수 있어요."
+      ],
+      "tags": [],
+      "aiGenerated": true,
+      "sourceTier": {
+        "tier": "T1_HYPOTHESIS",
+        "sourceType": "training_derived",
+        "sourceUrl": null,
+        "accessedAt": "2026-05-03",
+        "quoteShort": null,
+        "humanInterpretation": "Plain health daily standard for autumn/winter current season. AI-derived display text; not authority truth.",
+        "copyrightNote": "No source prose copied; original phrasing.",
+        "authorityTruthEligible": false
+      }
+    },
+    {
+      "schemaVersion": "spring-ts.narrative-fragment.v1",
+      "fragmentId": "health.thisMonth.standard.currentseason.spring_summer.301",
+      "axis": { "category": "health", "period": "thisMonth", "depth": "standard" },
+      "gating": { "currentSeason": ["spring", "summer"] },
+      "templateTokens": [
+        { "kind": "text", "value": "이번 달은 활동량을 조금 늘리며 몸의 활력을 살리기 좋은 흐름이에요. 다만 새로운 운동이나 생활 변화를 한 번에 많이 넣기보다, 몸이 적응할 시간을 주는 편이 안전합니다." }
+      ],
+      "livingTips": [
+        "운동 목표는 횟수보다 꾸준함을 기준으로 잡아보세요.",
+        "더운 날이나 바쁜 날에는 휴식 시간을 일정에 먼저 넣으세요."
+      ],
+      "cautions": [
+        "컨디션이 좋다고 수면 시간을 줄이면 월말에 피로가 쌓일 수 있어요."
+      ],
+      "tags": [],
+      "aiGenerated": true,
+      "sourceTier": {
+        "tier": "T1_HYPOTHESIS",
+        "sourceType": "training_derived",
+        "sourceUrl": null,
+        "accessedAt": "2026-05-03",
+        "quoteShort": null,
+        "humanInterpretation": "Plain health monthly standard for spring/summer current season. AI-derived display text; not authority truth.",
+        "copyrightNote": "No source prose copied; original phrasing.",
+        "authorityTruthEligible": false
+      }
+    },
+    {
+      "schemaVersion": "spring-ts.narrative-fragment.v1",
+      "fragmentId": "health.thisMonth.standard.currentseason.autumn_winter.301",
+      "axis": { "category": "health", "period": "thisMonth", "depth": "standard" },
+      "gating": { "currentSeason": ["autumn", "winter"] },
+      "templateTokens": [
+        { "kind": "text", "value": "이번 달은 몸을 크게 바꾸기보다 회복 습관을 정돈하기 좋아요. 식사 시간, 잠드는 시간, 가벼운 움직임처럼 매일 반복할 수 있는 기준을 세우면 안정감이 커집니다." }
+      ],
+      "livingTips": [
+        "이번 달에는 잠드는 시간과 일어나는 시간을 먼저 고정해 보세요.",
+        "몸이 무거운 날에는 운동 강도를 낮추고 회복을 우선하세요."
+      ],
+      "cautions": [
+        "건강 계획을 너무 빡빡하게 잡으면 오래 이어가기 어렵습니다."
+      ],
+      "tags": [],
+      "aiGenerated": true,
+      "sourceTier": {
+        "tier": "T1_HYPOTHESIS",
+        "sourceType": "training_derived",
+        "sourceUrl": null,
+        "accessedAt": "2026-05-03",
+        "quoteShort": null,
+        "humanInterpretation": "Plain health monthly standard for autumn/winter current season. AI-derived display text; not authority truth.",
+        "copyrightNote": "No source prose copied; original phrasing.",
+        "authorityTruthEligible": false
+      }
+    },
+    {
+      "schemaVersion": "spring-ts.narrative-fragment.v1",
+      "fragmentId": "health.thisYear.standard.currentseason.spring_summer.301",
+      "axis": { "category": "health", "period": "thisYear", "depth": "standard" },
+      "gating": { "currentSeason": ["spring", "summer"] },
+      "templateTokens": [
+        { "kind": "text", "value": "올해는 활동성을 살리며 몸을 관리하기 좋은 흐름이에요. 새로운 운동이나 생활 목표를 시작해도 좋지만, 빠른 성과보다 꾸준히 회복할 수 있는 구조를 함께 만들어야 오래 갑니다." }
+      ],
+      "livingTips": [
+        "올해 건강 목표는 운동, 식사, 수면을 각각 하나씩만 정해보세요.",
+        "활동량이 늘어나는 달에는 쉬는 날도 일정에 넣어두세요."
+      ],
+      "cautions": [
+        "컨디션이 올라간 시기에 무리하면 오히려 반복하기 어려워질 수 있어요."
+      ],
+      "tags": [],
+      "aiGenerated": true,
+      "sourceTier": {
+        "tier": "T1_HYPOTHESIS",
+        "sourceType": "training_derived",
+        "sourceUrl": null,
+        "accessedAt": "2026-05-03",
+        "quoteShort": null,
+        "humanInterpretation": "Plain health yearly standard for spring/summer current season. AI-derived display text; not authority truth.",
+        "copyrightNote": "No source prose copied; original phrasing.",
+        "authorityTruthEligible": false
+      }
+    },
+    {
+      "schemaVersion": "spring-ts.narrative-fragment.v1",
+      "fragmentId": "health.thisYear.standard.currentseason.autumn_winter.301",
+      "axis": { "category": "health", "period": "thisYear", "depth": "standard" },
+      "gating": { "currentSeason": ["autumn", "winter"] },
+      "templateTokens": [
+        { "kind": "text", "value": "올해는 몸의 기반을 차분히 다지는 흐름이에요. 큰 변화를 여러 개 시작하기보다 검진, 수면, 식사, 가벼운 운동처럼 기본을 확인하고 오래 지킬 수 있게 정리하세요." }
+      ],
+      "livingTips": [
+        "필요한 건강 점검 일정을 미리 달력에 넣어두세요.",
+        "무리한 목표보다 일주일에 여러 번 반복할 수 있는 작은 습관을 고르세요."
+      ],
+      "cautions": [
+        "몸이 보내는 작은 불편을 오래 미루지 말고 필요한 도움을 받으세요."
+      ],
+      "tags": [],
+      "aiGenerated": true,
+      "sourceTier": {
+        "tier": "T1_HYPOTHESIS",
+        "sourceType": "training_derived",
+        "sourceUrl": null,
+        "accessedAt": "2026-05-03",
+        "quoteShort": null,
+        "humanInterpretation": "Plain health yearly standard for autumn/winter current season. AI-derived display text; not authority truth.",
+        "copyrightNote": "No source prose copied; original phrasing.",
+        "authorityTruthEligible": false
+      }
+    },
+    {
+      "schemaVersion": "spring-ts.narrative-fragment.v1",
+      "fragmentId": "health.thisYear.expert.currentseason.spring_summer.301",
+      "axis": { "category": "health", "period": "thisYear", "depth": "expert" },
+      "gating": { "currentSeason": ["spring", "summer"], "yongshinAlignment": ["aligned", "neutral", "conflicting"] },
+      "templateTokens": [
+        { "kind": "text", "value": "연간 건강운에서 봄과 여름의 현재 계절은 활동성, 열감, 회복 소모의 균형을 함께 봅니다. " },
+        { "kind": "tag", "tagId": "fire", "label": "화" },
+        { "kind": "text", "value": "가 과하면 과속과 피로 누적을, " },
+        { "kind": "tag", "tagId": "water", "label": "수" },
+        { "kind": "text", "value": "는 회복과 진정 리듬을 보완합니다. " },
+        { "kind": "tag", "tagId": "yongshin", "label": "용신" },
+        { "kind": "text", "value": "정렬이 낮으면 활동량보다 회복 간격을 먼저 설계하는 해석이 적절합니다." }
+      ],
+      "tags": ["fire", "water", "yongshin"],
+      "aiGenerated": true,
+      "sourceTier": {
+        "tier": "T1_HYPOTHESIS",
+        "sourceType": "training_derived",
+        "sourceUrl": null,
+        "accessedAt": "2026-05-03",
+        "quoteShort": null,
+        "humanInterpretation": "Expert health yearly narrative for spring/summer current season. AI-derived display text; not authority truth.",
+        "copyrightNote": "No source prose copied; original phrasing.",
+        "authorityTruthEligible": false
+      }
+    },
+    {
+      "schemaVersion": "spring-ts.narrative-fragment.v1",
+      "fragmentId": "health.thisYear.expert.currentseason.autumn_winter.301",
+      "axis": { "category": "health", "period": "thisYear", "depth": "expert" },
+      "gating": { "currentSeason": ["autumn", "winter"], "yongshinAlignment": ["aligned", "neutral", "conflicting"] },
+      "templateTokens": [
+        { "kind": "text", "value": "연간 건강운에서 가을과 겨울의 현재 계절은 보존, 축적, 회복력의 안정성을 중시합니다. " },
+        { "kind": "tag", "tagId": "jeongin", "label": "정인" },
+        { "kind": "text", "value": "은 보호와 회복 기반을, " },
+        { "kind": "tag", "tagId": "stabilityIndex", "label": "안정 지표" },
+        { "kind": "text", "value": "는 생활 리듬의 지속 가능성을 봅니다. " },
+        { "kind": "tag", "tagId": "yongshin", "label": "용신" },
+        { "kind": "text", "value": "이 약하면 운동 확장보다 수면, 식사, 점검 루틴을 먼저 고정하는 편이 안전합니다." }
+      ],
+      "tags": ["jeongin", "stabilityIndex", "yongshin"],
+      "aiGenerated": true,
+      "sourceTier": {
+        "tier": "T1_HYPOTHESIS",
+        "sourceType": "training_derived",
+        "sourceUrl": null,
+        "accessedAt": "2026-05-03",
+        "quoteShort": null,
+        "humanInterpretation": "Expert health yearly narrative for autumn/winter current season. AI-derived display text; not authority truth.",
+        "copyrightNote": "No source prose copied; original phrasing.",
+        "authorityTruthEligible": false
+      }
+    }
+  ]
+}
