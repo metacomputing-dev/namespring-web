@@ -1,0 +1,302 @@
+{
+  "schemaVersion": "spring-ts.narrative-fragment-bundle.v1",
+  "bundleId": "coverage.expert-season-polarity-gap-fill.20260503",
+  "contractVersion": "1.0.0",
+  "fragments": [
+    {
+      "schemaVersion": "spring-ts.narrative-fragment.v1",
+      "fragmentId": "overall.life.expert.birthseason.summer.401",
+      "axis": { "category": "overall", "period": "life", "depth": "expert" },
+      "gating": { "birthSeason": ["summer"] },
+      "templateTokens": [
+        { "kind": "text", "value": "출생 계절이 여름이면 원국 해석에서 열기와 발산성이 먼저 올라오기 쉽습니다. " },
+        { "kind": "tag", "tagId": "yongshin", "label": "용신" },
+        { "kind": "text", "value": "이 금수 계열일 때는 속도 조절과 냉각 루틴이 보정축이 되고, " },
+        { "kind": "tag", "tagId": "heeshin", "label": "희신" },
+        { "kind": "text", "value": "이 받쳐 주면 표현력은 유지하되 과열을 줄일 수 있습니다. " },
+        { "kind": "tag", "tagId": "gishin", "label": "기신" },
+        { "kind": "text", "value": "이 화로 겹치면 결론을 서두르는 패턴을 별도 주의 신호로 분리해 보는 편이 안전합니다." }
+      ],
+      "tags": ["yongshin", "heeshin", "gishin"],
+      "numericalEvidence": [
+        {
+          "label": "출생 계절 순번",
+          "valueExpression": "feature.birthSeasonOrdinal",
+          "unit": "ordinal",
+          "sourceTier": {
+            "tier": "T3_INTERNAL_ENGINE",
+            "sourceType": "internal_scoring_policy",
+            "sourceUrl": null,
+            "accessedAt": "2026-05-03",
+            "quoteShort": null,
+            "humanInterpretation": "Resolved from deterministic spring-ts runtime output.",
+            "copyrightNote": "No third-party prose copied.",
+            "authorityTruthEligible": false
+          }
+        },
+        {
+          "label": "해석 셀 별점",
+          "valueExpression": "cell.stars",
+          "unit": "stars",
+          "sourceTier": {
+            "tier": "T3_INTERNAL_ENGINE",
+            "sourceType": "internal_scoring_policy",
+            "sourceUrl": null,
+            "accessedAt": "2026-05-03",
+            "quoteShort": null,
+            "humanInterpretation": "Resolved from deterministic spring-ts runtime output.",
+            "copyrightNote": "No third-party prose copied.",
+            "authorityTruthEligible": false
+          }
+        }
+      ],
+      "aiGenerated": true,
+      "sourceTier": {
+        "tier": "T1_HYPOTHESIS",
+        "sourceType": "training_derived",
+        "sourceUrl": null,
+        "accessedAt": "2026-05-03",
+        "quoteShort": null,
+        "humanInterpretation": "Expert birthSeason summer gap-fill narrative. AI-derived display text; not authority truth.",
+        "copyrightNote": "No source prose copied; original phrasing.",
+        "authorityTruthEligible": false
+      }
+    },
+    {
+      "schemaVersion": "spring-ts.narrative-fragment.v1",
+      "fragmentId": "overall.life.expert.birthseason.autumn.401",
+      "axis": { "category": "overall", "period": "life", "depth": "expert" },
+      "gating": { "birthSeason": ["autumn"] },
+      "templateTokens": [
+        { "kind": "text", "value": "출생 계절이 가을이면 정리, 수렴, 판별의 리듬이 원국 첫인상에 강하게 섞입니다. " },
+        { "kind": "tag", "tagId": "yongshin", "label": "용신" },
+        { "kind": "text", "value": "이 금으로 잡히면 결단성과 기준 정립이 장점으로 살아나고, " },
+        { "kind": "tag", "tagId": "heeshin", "label": "희신" },
+        { "kind": "text", "value": "이 수나 토로 받치면 판단 뒤 실행까지 이어지는 안정성이 좋아집니다. " },
+        { "kind": "tag", "tagId": "gishin", "label": "기신" },
+        { "kind": "text", "value": "이 금으로 과다하면 비판성, 거리두기, 완벽주의가 과해지는지를 함께 점검합니다." }
+      ],
+      "tags": ["yongshin", "heeshin", "gishin"],
+      "numericalEvidence": [
+        {
+          "label": "출생 계절 순번",
+          "valueExpression": "feature.birthSeasonOrdinal",
+          "unit": "ordinal",
+          "sourceTier": {
+            "tier": "T3_INTERNAL_ENGINE",
+            "sourceType": "internal_scoring_policy",
+            "sourceUrl": null,
+            "accessedAt": "2026-05-03",
+            "quoteShort": null,
+            "humanInterpretation": "Resolved from deterministic spring-ts runtime output.",
+            "copyrightNote": "No third-party prose copied.",
+            "authorityTruthEligible": false
+          }
+        },
+        {
+          "label": "해석 셀 별점",
+          "valueExpression": "cell.stars",
+          "unit": "stars",
+          "sourceTier": {
+            "tier": "T3_INTERNAL_ENGINE",
+            "sourceType": "internal_scoring_policy",
+            "sourceUrl": null,
+            "accessedAt": "2026-05-03",
+            "quoteShort": null,
+            "humanInterpretation": "Resolved from deterministic spring-ts runtime output.",
+            "copyrightNote": "No third-party prose copied.",
+            "authorityTruthEligible": false
+          }
+        }
+      ],
+      "aiGenerated": true,
+      "sourceTier": {
+        "tier": "T1_HYPOTHESIS",
+        "sourceType": "training_derived",
+        "sourceUrl": null,
+        "accessedAt": "2026-05-03",
+        "quoteShort": null,
+        "humanInterpretation": "Expert birthSeason autumn gap-fill narrative. AI-derived display text; not authority truth.",
+        "copyrightNote": "No source prose copied; original phrasing.",
+        "authorityTruthEligible": false
+      }
+    },
+    {
+      "schemaVersion": "spring-ts.narrative-fragment.v1",
+      "fragmentId": "overall.life.expert.birthseason.winter.401",
+      "axis": { "category": "overall", "period": "life", "depth": "expert" },
+      "gating": { "birthSeason": ["winter"] },
+      "templateTokens": [
+        { "kind": "text", "value": "출생 계절이 겨울이면 저장, 관찰, 내면화의 리듬이 기본 해석에 먼저 반영됩니다. " },
+        { "kind": "tag", "tagId": "yongshin", "label": "용신" },
+        { "kind": "text", "value": "이 목화 계열이면 움직임과 온도를 올리는 보정이 중요하고, " },
+        { "kind": "tag", "tagId": "heeshin", "label": "희신" },
+        { "kind": "text", "value": "이 같은 방향으로 붙으면 준비한 생각을 밖으로 꺼내는 힘이 생깁니다. " },
+        { "kind": "tag", "tagId": "gishin", "label": "기신" },
+        { "kind": "text", "value": "이 수로 겹치면 고민이 길어져 실행이 늦어지는지를 별도 리스크로 봅니다." }
+      ],
+      "tags": ["yongshin", "heeshin", "gishin"],
+      "numericalEvidence": [
+        {
+          "label": "출생 계절 순번",
+          "valueExpression": "feature.birthSeasonOrdinal",
+          "unit": "ordinal",
+          "sourceTier": {
+            "tier": "T3_INTERNAL_ENGINE",
+            "sourceType": "internal_scoring_policy",
+            "sourceUrl": null,
+            "accessedAt": "2026-05-03",
+            "quoteShort": null,
+            "humanInterpretation": "Resolved from deterministic spring-ts runtime output.",
+            "copyrightNote": "No third-party prose copied.",
+            "authorityTruthEligible": false
+          }
+        },
+        {
+          "label": "해석 셀 별점",
+          "valueExpression": "cell.stars",
+          "unit": "stars",
+          "sourceTier": {
+            "tier": "T3_INTERNAL_ENGINE",
+            "sourceType": "internal_scoring_policy",
+            "sourceUrl": null,
+            "accessedAt": "2026-05-03",
+            "quoteShort": null,
+            "humanInterpretation": "Resolved from deterministic spring-ts runtime output.",
+            "copyrightNote": "No third-party prose copied.",
+            "authorityTruthEligible": false
+          }
+        }
+      ],
+      "aiGenerated": true,
+      "sourceTier": {
+        "tier": "T1_HYPOTHESIS",
+        "sourceType": "training_derived",
+        "sourceUrl": null,
+        "accessedAt": "2026-05-03",
+        "quoteShort": null,
+        "humanInterpretation": "Expert birthSeason winter gap-fill narrative. AI-derived display text; not authority truth.",
+        "copyrightNote": "No source prose copied; original phrasing.",
+        "authorityTruthEligible": false
+      }
+    },
+    {
+      "schemaVersion": "spring-ts.narrative-fragment.v1",
+      "fragmentId": "overall.life.expert.polarity.yang.401",
+      "axis": { "category": "overall", "period": "life", "depth": "expert" },
+      "gating": { "dayMasterPolarity": ["YANG"] },
+      "templateTokens": [
+        { "kind": "text", "value": "양 일간이면 같은 오행이라도 밖으로 드러내고 먼저 움직이는 쪽의 해석 가중치가 올라갑니다. " },
+        { "kind": "tag", "tagId": "yongshin", "label": "용신" },
+        { "kind": "text", "value": "이 행동 방향과 맞으면 추진력이 장점으로 보이고, " },
+        { "kind": "tag", "tagId": "sikshin", "label": "식신" },
+        { "kind": "text", "value": "이나 " },
+        { "kind": "tag", "tagId": "sanggwan", "label": "상관" },
+        { "kind": "text", "value": "이 강하면 말과 기획이 빨리 밖으로 나옵니다. 다만 과속 신호가 있으면 결론 전에 검증 단계를 하나 더 둡니다." }
+      ],
+      "tags": ["yongshin", "sikshin", "sanggwan"],
+      "numericalEvidence": [
+        {
+          "label": "일간 오행 순번",
+          "valueExpression": "feature.dayMasterElementOrdinal",
+          "unit": "ordinal",
+          "sourceTier": {
+            "tier": "T3_INTERNAL_ENGINE",
+            "sourceType": "internal_scoring_policy",
+            "sourceUrl": null,
+            "accessedAt": "2026-05-03",
+            "quoteShort": null,
+            "humanInterpretation": "Resolved from deterministic spring-ts runtime output.",
+            "copyrightNote": "No third-party prose copied.",
+            "authorityTruthEligible": false
+          }
+        },
+        {
+          "label": "해석 셀 별점",
+          "valueExpression": "cell.stars",
+          "unit": "stars",
+          "sourceTier": {
+            "tier": "T3_INTERNAL_ENGINE",
+            "sourceType": "internal_scoring_policy",
+            "sourceUrl": null,
+            "accessedAt": "2026-05-03",
+            "quoteShort": null,
+            "humanInterpretation": "Resolved from deterministic spring-ts runtime output.",
+            "copyrightNote": "No third-party prose copied.",
+            "authorityTruthEligible": false
+          }
+        }
+      ],
+      "aiGenerated": true,
+      "sourceTier": {
+        "tier": "T1_HYPOTHESIS",
+        "sourceType": "training_derived",
+        "sourceUrl": null,
+        "accessedAt": "2026-05-03",
+        "quoteShort": null,
+        "humanInterpretation": "Expert dayMasterPolarity YANG gap-fill narrative. AI-derived display text; not authority truth.",
+        "copyrightNote": "No source prose copied; original phrasing.",
+        "authorityTruthEligible": false
+      }
+    },
+    {
+      "schemaVersion": "spring-ts.narrative-fragment.v1",
+      "fragmentId": "overall.life.expert.polarity.neutral.401",
+      "axis": { "category": "overall", "period": "life", "depth": "expert" },
+      "gating": { "dayMasterPolarity": ["neutral"] },
+      "templateTokens": [
+        { "kind": "text", "value": "음양 판정이 중립에 가까우면 단일한 성향보다 다른 축과의 조합을 우선해서 해석합니다. " },
+        { "kind": "tag", "tagId": "yongshin", "label": "용신" },
+        { "kind": "text", "value": "과 " },
+        { "kind": "tag", "tagId": "heeshin", "label": "희신" },
+        { "kind": "text", "value": "의 방향이 같으면 안정적으로 균형이 잡히고, " },
+        { "kind": "tag", "tagId": "gishin", "label": "기신" },
+        { "kind": "text", "value": "이 강하면 어느 쪽으로 치우치는지를 기간 운세와 함께 다시 확인합니다." }
+      ],
+      "tags": ["yongshin", "heeshin", "gishin"],
+      "numericalEvidence": [
+        {
+          "label": "일간 오행 순번",
+          "valueExpression": "feature.dayMasterElementOrdinal",
+          "unit": "ordinal",
+          "sourceTier": {
+            "tier": "T3_INTERNAL_ENGINE",
+            "sourceType": "internal_scoring_policy",
+            "sourceUrl": null,
+            "accessedAt": "2026-05-03",
+            "quoteShort": null,
+            "humanInterpretation": "Resolved from deterministic spring-ts runtime output.",
+            "copyrightNote": "No third-party prose copied.",
+            "authorityTruthEligible": false
+          }
+        },
+        {
+          "label": "해석 셀 별점",
+          "valueExpression": "cell.stars",
+          "unit": "stars",
+          "sourceTier": {
+            "tier": "T3_INTERNAL_ENGINE",
+            "sourceType": "internal_scoring_policy",
+            "sourceUrl": null,
+            "accessedAt": "2026-05-03",
+            "quoteShort": null,
+            "humanInterpretation": "Resolved from deterministic spring-ts runtime output.",
+            "copyrightNote": "No third-party prose copied.",
+            "authorityTruthEligible": false
+          }
+        }
+      ],
+      "aiGenerated": true,
+      "sourceTier": {
+        "tier": "T1_HYPOTHESIS",
+        "sourceType": "training_derived",
+        "sourceUrl": null,
+        "accessedAt": "2026-05-03",
+        "quoteShort": null,
+        "humanInterpretation": "Expert dayMasterPolarity neutral gap-fill narrative. AI-derived display text; not authority truth.",
+        "copyrightNote": "No source prose copied; original phrasing.",
+        "authorityTruthEligible": false
+      }
+    }
+  ]
+}
