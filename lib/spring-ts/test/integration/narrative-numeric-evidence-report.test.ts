@@ -126,21 +126,43 @@ const thinGate = spawnSync('node', [
   encoding: 'utf-8',
 });
 const thinGateReport = JSON.parse(thinGate.stdout);
-check('thin available path threshold can fail CI intentionally',
-  thinGate.status === 1 &&
-    thinGate.stderr.includes('thin available numeric paths') &&
+check('thin available path threshold can pass at the current density floor',
+  thinGate.status === 0 &&
     thinGateReport?.minExpressionUsageThreshold === 2 &&
     thinGateReport?.maxThinAvailablePathThreshold === 0,
   `status=${thinGate.status}; stderr=${thinGate.stderr.trim()}`);
 check('thin available path threshold excess is machine readable',
-  thinGateReport?.totals?.thinAvailablePathExcessToThreshold ===
-    thinGateReport?.totals?.thinAvailablePathCount &&
-    thinGateReport?.thinAvailablePaths?.every((row: any) =>
+  thinGateReport?.totals?.thinAvailablePathExcessToThreshold === 0 &&
+    thinGateReport?.totals?.thinAvailablePathCount === 0 &&
+    Array.isArray(thinGateReport?.thinAvailablePaths) &&
+    thinGateReport.thinAvailablePaths.length === 0,
+  `${thinGateReport?.totals?.thinAvailablePathExcessToThreshold ?? 0}/${thinGateReport?.totals?.thinAvailablePathCount ?? 0}`);
+
+const strictThinGate = spawnSync('node', [
+  SCRIPT_PATH,
+  '--json',
+  '--min-expression-usage=3',
+  '--max-thin-available-paths=0',
+], {
+  cwd: SPRING_TS_ROOT,
+  encoding: 'utf-8',
+});
+const strictThinGateReport = JSON.parse(strictThinGate.stdout);
+check('stricter thin available path threshold can fail CI intentionally',
+  strictThinGate.status === 1 &&
+    strictThinGate.stderr.includes('thin available numeric paths') &&
+    strictThinGateReport?.minExpressionUsageThreshold === 3 &&
+    strictThinGateReport?.maxThinAvailablePathThreshold === 0,
+  `status=${strictThinGate.status}; stderr=${strictThinGate.stderr.trim()}`);
+check('stricter thin available path threshold excess is machine readable',
+  strictThinGateReport?.totals?.thinAvailablePathExcessToThreshold ===
+    strictThinGateReport?.totals?.thinAvailablePathCount &&
+    strictThinGateReport?.thinAvailablePaths?.every((row: any) =>
       typeof row.expression === 'string' &&
       typeof row.count === 'number' &&
       typeof row.requiredCount === 'number' &&
       typeof row.deficit === 'number'),
-  `${thinGateReport?.totals?.thinAvailablePathExcessToThreshold ?? 0}/${thinGateReport?.totals?.thinAvailablePathCount ?? 0}`);
+  `${strictThinGateReport?.totals?.thinAvailablePathExcessToThreshold ?? 0}/${strictThinGateReport?.totals?.thinAvailablePathCount ?? 0}`);
 
 console.log(`\nNarrative numeric evidence report: ${pass} PASS / ${fail} FAIL`);
 process.exit(fail > 0 ? 1 : 0);
