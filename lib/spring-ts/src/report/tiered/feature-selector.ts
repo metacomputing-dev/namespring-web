@@ -48,6 +48,20 @@ const SEASON_ORDINAL: Record<TieredSeason, number> = {
   winter: 4,
 };
 
+const ELEMENT_ORDINAL: Record<ElementCode, number> = {
+  WOOD: 1,
+  FIRE: 2,
+  EARTH: 3,
+  METAL: 4,
+  WATER: 5,
+};
+
+const GENDER_ORDINAL: Record<FeatureVector['gender'], number> = {
+  male: 1,
+  female: 2,
+  neutral: 3,
+};
+
 const STRENGTH_ORDINAL: Record<FeatureVector['dayMasterStrength'], number> = {
   EXTREME_WEAK: 1,
   WEAK: 2,
@@ -123,6 +137,32 @@ const GYEOKGUK_CODE_TO_CANONICAL: Record<string, string> = {
   CONG_YIN: 'jongingyeok',
   CONG_BI: 'jongbigyeok',
 };
+
+const GYEOKGUK_ORDINAL: Record<string, number> = {
+  jeongingyeok: 1,
+  pyeoningyeok: 2,
+  sikshingyeok: 3,
+  sanggwangyeok: 4,
+  jeonggwangyeok: 5,
+  pyeongwangyeok: 6,
+  jeongjaegyeok: 7,
+  pyeonjaegyeok: 8,
+  bigyeongyeok: 9,
+  geobjaegyeok: 10,
+  hwagigyeok: 11,
+  jeonwanggyeok: 12,
+  jonggyeok: 13,
+  jongjaegyeok: 14,
+  jonggwangyeok: 15,
+  jongsalgyeok: 16,
+  jongagyeok: 17,
+  jongingyeok: 18,
+  jongbigyeok: 19,
+};
+
+function ordinalOrZero(value: string | null, table: Record<string, number>): number {
+  return value ? (table[value] ?? 0) : 0;
+}
 
 function toGyeokgukCanonical(value: unknown): string | null {
   if (typeof value !== 'string') return null;
@@ -221,16 +261,20 @@ export interface FeatureVector {
   readonly ageYears: number;
   readonly agePhaseOrdinal: number;
   readonly dayMasterElement: ElementCode | null;
+  readonly dayMasterElementOrdinal: number;
   readonly dayMasterStrength: 'EXTREME_STRONG' | 'STRONG' | 'BALANCED' | 'WEAK' | 'EXTREME_WEAK';
   readonly dayMasterStrengthOrdinal: number;
   readonly yongshinElement: ElementCode | null;
+  readonly yongshinElementOrdinal: number;
   readonly heeshinElement: ElementCode | null;
   readonly gishinElement: ElementCode | null;
   readonly yongshinAlignment: 'aligned' | 'neutral' | 'conflicting';
   readonly gyeokguk: string | null;
+  readonly gyeokgukOrdinal: number;
   readonly ageBand: TieredAgeBand;
   readonly agePhase: TieredAgePhase;
   readonly gender: 'male' | 'female' | 'neutral';
+  readonly genderOrdinal: number;
   readonly birthSeason: TieredSeason;
   readonly birthSeasonOrdinal: number;
   readonly currentSeason: TieredSeason;
@@ -254,20 +298,26 @@ export function buildFeatureVector(
   const birthSeason = toSeason(birthMonth);
   const currentSeason = toSeason(targetDate.getMonth() + 1);
   const dayMasterStrength = toStrengthBand(saju);
+  const gyeokguk = toGyeokgukCanonical(saju.gyeokguk?.type ?? null);
+  const gender = toGender(birth.gender);
   return {
     ageYears: age,
     agePhaseOrdinal: AGE_PHASE_ORDINAL[agePhase],
     dayMasterElement,
+    dayMasterElementOrdinal: dayMasterElement ? ELEMENT_ORDINAL[dayMasterElement] : 0,
     dayMasterStrength,
     dayMasterStrengthOrdinal: STRENGTH_ORDINAL[dayMasterStrength],
     yongshinElement,
+    yongshinElementOrdinal: yongshinElement ? ELEMENT_ORDINAL[yongshinElement] : 0,
     heeshinElement,
     gishinElement,
     yongshinAlignment: toYongshinAlignment(yongshinElement, dayMasterElement),
-    gyeokguk: toGyeokgukCanonical(saju.gyeokguk?.type ?? null),
+    gyeokguk,
+    gyeokgukOrdinal: ordinalOrZero(gyeokguk, GYEOKGUK_ORDINAL),
     ageBand: toAgeBand(age),
     agePhase,
-    gender: toGender(birth.gender),
+    gender,
+    genderOrdinal: GENDER_ORDINAL[gender],
     birthSeason,
     birthSeasonOrdinal: SEASON_ORDINAL[birthSeason],
     currentSeason,

@@ -46,8 +46,12 @@ check('agePhase offers a narrower authoring axis',
   feature40.agePhase === 'early_40s', feature40.agePhase);
 check('agePhaseOrdinal is available for numerical evidence',
   feature40.agePhaseOrdinal === 8, String(feature40.agePhaseOrdinal));
+check('dayMasterElementOrdinal is available for numerical evidence',
+  feature40.dayMasterElementOrdinal === 5, String(feature40.dayMasterElementOrdinal));
 check('dayMasterStrengthOrdinal is available for numerical evidence',
   feature40.dayMasterStrengthOrdinal === 2, String(feature40.dayMasterStrengthOrdinal));
+check('yongshinElementOrdinal is available for numerical evidence',
+  feature40.yongshinElementOrdinal === 4, String(feature40.yongshinElementOrdinal));
 check('birthSeason uses saju month when available',
   feature40.birthSeason === 'spring', feature40.birthSeason);
 check('birthSeasonOrdinal is available for numerical evidence',
@@ -60,6 +64,8 @@ check('dayMasterPolarity normalizes Korean yin marker',
   feature40.dayMasterPolarity === 'YIN', feature40.dayMasterPolarity);
 check('gyeokguk code canonicalizes for fragment gating',
   feature40.gyeokguk === 'jeongingyeok', String(feature40.gyeokguk));
+check('gyeokgukOrdinal is available for numerical evidence',
+  feature40.gyeokgukOrdinal === 1, String(feature40.gyeokgukOrdinal));
 
 const featureLate20s = buildFeatureVector(
   makeSaju({ timeCorrection: { standardYear: 1997, standardMonth: 11 } }),
@@ -81,6 +87,8 @@ check('winter current season ordinal is stable',
   featureLate20s.currentSeasonOrdinal === 4, String(featureLate20s.currentSeasonOrdinal));
 check('gender axis remains available',
   featureLate20s.gender === 'female', featureLate20s.gender);
+check('genderOrdinal is available for numerical evidence',
+  featureLate20s.genderOrdinal === 2, String(featureLate20s.genderOrdinal));
 
 console.log(`\nTiered feature vector axes: ${pass} PASS / ${fail} FAIL`);
 process.exit(fail > 0 ? 1 : 0);

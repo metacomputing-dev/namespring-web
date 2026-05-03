@@ -128,6 +128,38 @@
         "격국명만 보고 보수적 선택이 항상 좋다고 단정하지 마세요."
       ],
       "tags": ["jeonggwangyeok", "gyeokgukFit", "yongshin"],
+      "numericalEvidence": [
+        {
+          "label": "격국 분기 순번",
+          "valueExpression": "feature.gyeokgukOrdinal",
+          "unit": "분류",
+          "sourceTier": {
+            "tier": "T3_INTERNAL_ENGINE",
+            "sourceType": "internal_scoring_policy",
+            "sourceUrl": null,
+            "accessedAt": "2026-05-03",
+            "quoteShort": null,
+            "humanInterpretation": "Resolved from deterministic spring-ts runtime output.",
+            "copyrightNote": "No third-party prose copied.",
+            "authorityTruthEligible": false
+          }
+        },
+        {
+          "label": "신강도 순번",
+          "valueExpression": "feature.dayMasterStrengthOrdinal",
+          "unit": "단계",
+          "sourceTier": {
+            "tier": "T3_INTERNAL_ENGINE",
+            "sourceType": "internal_scoring_policy",
+            "sourceUrl": null,
+            "accessedAt": "2026-05-03",
+            "quoteShort": null,
+            "humanInterpretation": "Resolved from deterministic spring-ts runtime output.",
+            "copyrightNote": "No third-party prose copied.",
+            "authorityTruthEligible": false
+          }
+        }
+      ],
       "aiGenerated": true,
       "sourceTier": {
         "tier": "T1_HYPOTHESIS",

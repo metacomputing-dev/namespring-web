@@ -37,7 +37,16 @@ check('report schema version is stable',
   report?.schemaVersion === 'spring-ts.narrative-numeric-evidence-report.v1',
   report?.schemaVersion);
 check('available numeric paths include new ordinal axes',
-  ['feature.agePhaseOrdinal', 'feature.dayMasterStrengthOrdinal', 'feature.birthSeasonOrdinal', 'feature.currentSeasonOrdinal']
+  [
+    'feature.agePhaseOrdinal',
+    'feature.genderOrdinal',
+    'feature.dayMasterElementOrdinal',
+    'feature.dayMasterStrengthOrdinal',
+    'feature.yongshinElementOrdinal',
+    'feature.gyeokgukOrdinal',
+    'feature.birthSeasonOrdinal',
+    'feature.currentSeasonOrdinal',
+  ]
     .every((pathKey) => report?.availableNumericPaths?.includes(pathKey)),
   JSON.stringify(report?.availableNumericPaths));
 check('current corpus uses existing age and star expressions',
@@ -51,6 +60,10 @@ check('current corpus has only safe known numerical expressions',
   String(report?.totals?.unknownExpressionCount ?? ''));
 check('new ordinal axes have entered the evidence corpus',
   ['feature.agePhaseOrdinal', 'feature.dayMasterStrengthOrdinal', 'feature.birthSeasonOrdinal', 'feature.currentSeasonOrdinal']
+    .every((pathKey) => expressionsByKey[pathKey]?.count >= 1),
+  JSON.stringify(report?.expressions));
+check('new categorical ordinal axes have entered the evidence corpus',
+  ['feature.genderOrdinal', 'feature.dayMasterElementOrdinal', 'feature.yongshinElementOrdinal', 'feature.gyeokgukOrdinal']
     .every((pathKey) => expressionsByKey[pathKey]?.count >= 1),
   JSON.stringify(report?.expressions));
 check('all available numeric paths are now used at least once',
