@@ -22,6 +22,40 @@ export type TieredAgePhase =
 export type TieredSeason = 'spring' | 'summer' | 'autumn' | 'winter';
 export type TieredPolarity = 'YANG' | 'YIN' | 'neutral';
 
+const AGE_PHASE_ORDINAL: Record<TieredAgePhase, number> = {
+  child_0_9: 1,
+  early_teen: 2,
+  late_teen: 3,
+  early_20s: 4,
+  late_20s: 5,
+  early_30s: 6,
+  late_30s: 7,
+  early_40s: 8,
+  late_40s: 9,
+  early_50s: 10,
+  late_50s: 11,
+  early_60s: 12,
+  late_60s: 13,
+  '70s': 14,
+  '80s': 15,
+  '90_plus': 16,
+};
+
+const SEASON_ORDINAL: Record<TieredSeason, number> = {
+  spring: 1,
+  summer: 2,
+  autumn: 3,
+  winter: 4,
+};
+
+const STRENGTH_ORDINAL: Record<FeatureVector['dayMasterStrength'], number> = {
+  EXTREME_WEAK: 1,
+  WEAK: 2,
+  BALANCED: 3,
+  STRONG: 4,
+  EXTREME_STRONG: 5,
+};
+
 const STEM_TO_ELEMENT: Record<string, ElementCode> = {
   GAP: 'WOOD', EUL: 'WOOD',
   BYEONG: 'FIRE', JEONG: 'FIRE',
@@ -185,8 +219,10 @@ function toYongshinAlignment(
 
 export interface FeatureVector {
   readonly ageYears: number;
+  readonly agePhaseOrdinal: number;
   readonly dayMasterElement: ElementCode | null;
   readonly dayMasterStrength: 'EXTREME_STRONG' | 'STRONG' | 'BALANCED' | 'WEAK' | 'EXTREME_WEAK';
+  readonly dayMasterStrengthOrdinal: number;
   readonly yongshinElement: ElementCode | null;
   readonly heeshinElement: ElementCode | null;
   readonly gishinElement: ElementCode | null;
@@ -196,7 +232,9 @@ export interface FeatureVector {
   readonly agePhase: TieredAgePhase;
   readonly gender: 'male' | 'female' | 'neutral';
   readonly birthSeason: TieredSeason;
+  readonly birthSeasonOrdinal: number;
   readonly currentSeason: TieredSeason;
+  readonly currentSeasonOrdinal: number;
   readonly dayMasterPolarity: TieredPolarity;
 }
 
@@ -212,20 +250,28 @@ export function buildFeatureVector(
   const birthYear = saju.timeCorrection?.standardYear ?? birth.year ?? targetDate.getFullYear();
   const birthMonth = saju.timeCorrection?.standardMonth ?? birth.month ?? null;
   const age = Math.max(0, targetDate.getFullYear() - (birthYear ?? targetDate.getFullYear()));
+  const agePhase = toAgePhase(age);
+  const birthSeason = toSeason(birthMonth);
+  const currentSeason = toSeason(targetDate.getMonth() + 1);
+  const dayMasterStrength = toStrengthBand(saju);
   return {
     ageYears: age,
+    agePhaseOrdinal: AGE_PHASE_ORDINAL[agePhase],
     dayMasterElement,
-    dayMasterStrength: toStrengthBand(saju),
+    dayMasterStrength,
+    dayMasterStrengthOrdinal: STRENGTH_ORDINAL[dayMasterStrength],
     yongshinElement,
     heeshinElement,
     gishinElement,
     yongshinAlignment: toYongshinAlignment(yongshinElement, dayMasterElement),
     gyeokguk: toGyeokgukCanonical(saju.gyeokguk?.type ?? null),
     ageBand: toAgeBand(age),
-    agePhase: toAgePhase(age),
+    agePhase,
     gender: toGender(birth.gender),
-    birthSeason: toSeason(birthMonth),
-    currentSeason: toSeason(targetDate.getMonth() + 1),
+    birthSeason,
+    birthSeasonOrdinal: SEASON_ORDINAL[birthSeason],
+    currentSeason,
+    currentSeasonOrdinal: SEASON_ORDINAL[currentSeason],
     dayMasterPolarity: toPolarity(saju.dayMaster?.polarity ?? null),
   };
 }
