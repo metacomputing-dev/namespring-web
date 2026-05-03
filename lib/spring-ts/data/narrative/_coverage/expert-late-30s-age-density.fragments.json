@@ -1,0 +1,178 @@
+{
+  "schemaVersion": "spring-ts.narrative-fragment-bundle.v1",
+  "bundleId": "coverage.expert-late-30s-age-density.20260504",
+  "contractVersion": "1.0.0",
+  "fragments": [
+    {
+      "schemaVersion": "spring-ts.narrative-fragment.v1",
+      "fragmentId": "overall.today.expert.age.late_30s.501",
+      "axis": { "category": "overall", "period": "today", "depth": "expert" },
+      "gating": { "agePhase": ["late_30s"] },
+      "templateTokens": [
+        { "kind": "text", "value": "후반 30대의 오늘 총운은 확장 욕구와 현실 책임이 동시에 올라오므로 우선순위 배치가 핵심입니다. " },
+        { "kind": "tag", "tagId": "jeonggwan", "label": "정관" },
+        { "kind": "text", "value": "은 맡은 역할을 정리하고 " },
+        { "kind": "tag", "tagId": "sikshin", "label": "식신" },
+        { "kind": "text", "value": "은 실행 가능한 결과물을 밖으로 꺼내게 합니다." }
+      ],
+      "tags": ["jeonggwan", "sikshin"],
+      "numericalEvidence": [
+        { "label": "연령 단계 서번", "valueExpression": "feature.agePhaseOrdinal", "unit": "ordinal", "sourceTier": { "tier": "T3_INTERNAL_ENGINE", "sourceType": "internal_scoring_policy", "sourceUrl": null, "accessedAt": "2026-05-04", "quoteShort": null, "humanInterpretation": "Resolved from deterministic spring-ts runtime output.", "copyrightNote": "No third-party prose copied.", "authorityTruthEligible": false } }
+      ],
+      "aiGenerated": true,
+      "sourceTier": { "tier": "T1_HYPOTHESIS", "sourceType": "training_derived", "sourceUrl": null, "accessedAt": "2026-05-04", "quoteShort": null, "humanInterpretation": "Expert late-30s agePhase density fragment for daily overview. AI-derived display text; not authority truth.", "copyrightNote": "No source prose copied; original phrasing.", "authorityTruthEligible": false }
+    },
+    {
+      "schemaVersion": "spring-ts.narrative-fragment.v1",
+      "fragmentId": "career.thisWeek.expert.age.late_30s.501",
+      "axis": { "category": "career", "period": "thisWeek", "depth": "expert" },
+      "gating": { "agePhase": ["late_30s"] },
+      "templateTokens": [
+        { "kind": "text", "value": "후반 30대의 이번 주 커리어운은 실무 성과와 리더십 기대가 겹치는 구간으로 해석합니다. " },
+        { "kind": "tag", "tagId": "jeonggwan", "label": "정관" },
+        { "kind": "text", "value": "은 책임의 모양을 잡고 " },
+        { "kind": "tag", "tagId": "sanggwan", "label": "상관" },
+        { "kind": "text", "value": "은 개선안과 설득 포인트를 분명하게 만드는 힘입니다." }
+      ],
+      "tags": ["jeonggwan", "sanggwan"],
+      "numericalEvidence": [
+        { "label": "연령 단계 서번", "valueExpression": "feature.agePhaseOrdinal", "unit": "ordinal", "sourceTier": { "tier": "T3_INTERNAL_ENGINE", "sourceType": "internal_scoring_policy", "sourceUrl": null, "accessedAt": "2026-05-04", "quoteShort": null, "humanInterpretation": "Resolved from deterministic spring-ts runtime output.", "copyrightNote": "No third-party prose copied.", "authorityTruthEligible": false } }
+      ],
+      "aiGenerated": true,
+      "sourceTier": { "tier": "T1_HYPOTHESIS", "sourceType": "training_derived", "sourceUrl": null, "accessedAt": "2026-05-04", "quoteShort": null, "humanInterpretation": "Expert late-30s agePhase density fragment for weekly career. AI-derived display text; not authority truth.", "copyrightNote": "No source prose copied; original phrasing.", "authorityTruthEligible": false }
+    },
+    {
+      "schemaVersion": "spring-ts.narrative-fragment.v1",
+      "fragmentId": "wealth.thisMonth.expert.age.late_30s.501",
+      "axis": { "category": "wealth", "period": "thisMonth", "depth": "expert" },
+      "gating": { "agePhase": ["late_30s"] },
+      "templateTokens": [
+        { "kind": "text", "value": "후반 30대의 이번 달 재물운은 수입 확장과 고정 비용 관리가 동시에 시험되는 흐름입니다. " },
+        { "kind": "tag", "tagId": "jeongjae", "label": "정재" },
+        { "kind": "text", "value": "는 안정 자금을 지키고 " },
+        { "kind": "tag", "tagId": "pyeonjae", "label": "편재" },
+        { "kind": "text", "value": "는 기회성 선택을 작게 검증하는 기준으로 둡니다." }
+      ],
+      "tags": ["jeongjae", "pyeonjae"],
+      "numericalEvidence": [
+        { "label": "연령 단계 서번", "valueExpression": "feature.agePhaseOrdinal", "unit": "ordinal", "sourceTier": { "tier": "T3_INTERNAL_ENGINE", "sourceType": "internal_scoring_policy", "sourceUrl": null, "accessedAt": "2026-05-04", "quoteShort": null, "humanInterpretation": "Resolved from deterministic spring-ts runtime output.", "copyrightNote": "No third-party prose copied.", "authorityTruthEligible": false } }
+      ],
+      "aiGenerated": true,
+      "sourceTier": { "tier": "T1_HYPOTHESIS", "sourceType": "training_derived", "sourceUrl": null, "accessedAt": "2026-05-04", "quoteShort": null, "humanInterpretation": "Expert late-30s agePhase density fragment for monthly wealth. AI-derived display text; not authority truth.", "copyrightNote": "No source prose copied; original phrasing.", "authorityTruthEligible": false }
+    },
+    {
+      "schemaVersion": "spring-ts.narrative-fragment.v1",
+      "fragmentId": "health.thisYear.expert.age.late_30s.501",
+      "axis": { "category": "health", "period": "thisYear", "depth": "expert" },
+      "gating": { "agePhase": ["late_30s"] },
+      "templateTokens": [
+        { "kind": "text", "value": "후반 30대의 올해 건강운은 바쁜 역할 속에서 회복 시간을 밀어내지 않는지가 관건입니다. " },
+        { "kind": "tag", "tagId": "yongshin", "label": "용신" },
+        { "kind": "text", "value": "은 보강해야 할 생활 축을 제시하고 " },
+        { "kind": "tag", "tagId": "gishin", "label": "기신" },
+        { "kind": "text", "value": "은 성과 압박이 몸에 쌓이는 지점을 드러냅니다." }
+      ],
+      "tags": ["yongshin", "gishin"],
+      "numericalEvidence": [
+        { "label": "연령 단계 서번", "valueExpression": "feature.agePhaseOrdinal", "unit": "ordinal", "sourceTier": { "tier": "T3_INTERNAL_ENGINE", "sourceType": "internal_scoring_policy", "sourceUrl": null, "accessedAt": "2026-05-04", "quoteShort": null, "humanInterpretation": "Resolved from deterministic spring-ts runtime output.", "copyrightNote": "No third-party prose copied.", "authorityTruthEligible": false } }
+      ],
+      "aiGenerated": true,
+      "sourceTier": { "tier": "T1_HYPOTHESIS", "sourceType": "training_derived", "sourceUrl": null, "accessedAt": "2026-05-04", "quoteShort": null, "humanInterpretation": "Expert late-30s agePhase density fragment for yearly health. AI-derived display text; not authority truth.", "copyrightNote": "No source prose copied; original phrasing.", "authorityTruthEligible": false }
+    },
+    {
+      "schemaVersion": "spring-ts.narrative-fragment.v1",
+      "fragmentId": "romance.life.expert.age.late_30s.501",
+      "axis": { "category": "romance", "period": "life", "depth": "expert" },
+      "gating": { "agePhase": ["late_30s"] },
+      "templateTokens": [
+        { "kind": "text", "value": "후반 30대의 인연 총운은 관계의 감정선과 생활 설계를 같이 보아야 안정적으로 읽힙니다. " },
+        { "kind": "tag", "tagId": "jeongjae", "label": "정재" },
+        { "kind": "text", "value": "는 지속 가능한 관계 운영을 보고 " },
+        { "kind": "tag", "tagId": "jeonggwan", "label": "정관" },
+        { "kind": "text", "value": "은 약속과 책임의 선을 분명하게 합니다." }
+      ],
+      "tags": ["jeongjae", "jeonggwan"],
+      "numericalEvidence": [
+        { "label": "연령 단계 서번", "valueExpression": "feature.agePhaseOrdinal", "unit": "ordinal", "sourceTier": { "tier": "T3_INTERNAL_ENGINE", "sourceType": "internal_scoring_policy", "sourceUrl": null, "accessedAt": "2026-05-04", "quoteShort": null, "humanInterpretation": "Resolved from deterministic spring-ts runtime output.", "copyrightNote": "No third-party prose copied.", "authorityTruthEligible": false } }
+      ],
+      "aiGenerated": true,
+      "sourceTier": { "tier": "T1_HYPOTHESIS", "sourceType": "training_derived", "sourceUrl": null, "accessedAt": "2026-05-04", "quoteShort": null, "humanInterpretation": "Expert late-30s agePhase density fragment for life romance. AI-derived display text; not authority truth.", "copyrightNote": "No source prose copied; original phrasing.", "authorityTruthEligible": false }
+    },
+    {
+      "schemaVersion": "spring-ts.narrative-fragment.v1",
+      "fragmentId": "family.today.expert.age.late_30s.501",
+      "axis": { "category": "family", "period": "today", "depth": "expert" },
+      "gating": { "agePhase": ["late_30s"] },
+      "templateTokens": [
+        { "kind": "text", "value": "후반 30대의 오늘 가족운은 가족 기대와 개인 기준이 부딪히기 쉬워 말의 순서를 잡아야 합니다. " },
+        { "kind": "tag", "tagId": "bigyeon", "label": "비견" },
+        { "kind": "text", "value": "은 내 기준을 세우고 " },
+        { "kind": "tag", "tagId": "jeonggwan", "label": "정관" },
+        { "kind": "text", "value": "은 가족 안의 책임을 합리적으로 나누게 합니다." }
+      ],
+      "tags": ["bigyeon", "jeonggwan"],
+      "numericalEvidence": [
+        { "label": "연령 단계 서번", "valueExpression": "feature.agePhaseOrdinal", "unit": "ordinal", "sourceTier": { "tier": "T3_INTERNAL_ENGINE", "sourceType": "internal_scoring_policy", "sourceUrl": null, "accessedAt": "2026-05-04", "quoteShort": null, "humanInterpretation": "Resolved from deterministic spring-ts runtime output.", "copyrightNote": "No third-party prose copied.", "authorityTruthEligible": false } }
+      ],
+      "aiGenerated": true,
+      "sourceTier": { "tier": "T1_HYPOTHESIS", "sourceType": "training_derived", "sourceUrl": null, "accessedAt": "2026-05-04", "quoteShort": null, "humanInterpretation": "Expert late-30s agePhase density fragment for daily family. AI-derived display text; not authority truth.", "copyrightNote": "No source prose copied; original phrasing.", "authorityTruthEligible": false }
+    },
+    {
+      "schemaVersion": "spring-ts.narrative-fragment.v1",
+      "fragmentId": "study_document.thisWeek.expert.age.late_30s.501",
+      "axis": { "category": "study_document", "period": "thisWeek", "depth": "expert" },
+      "gating": { "agePhase": ["late_30s"] },
+      "templateTokens": [
+        { "kind": "text", "value": "후반 30대의 이번 주 문서운은 빠른 처리보다 근거와 책임 소재를 남기는 방식이 중요합니다. " },
+        { "kind": "tag", "tagId": "jeongin", "label": "정인" },
+        { "kind": "text", "value": "은 자료의 출처를 확인하고 " },
+        { "kind": "tag", "tagId": "sanggwan", "label": "상관" },
+        { "kind": "text", "value": "은 복잡한 내용을 설득 가능한 구조로 바꿉니다." }
+      ],
+      "tags": ["jeongin", "sanggwan"],
+      "numericalEvidence": [
+        { "label": "연령 단계 서번", "valueExpression": "feature.agePhaseOrdinal", "unit": "ordinal", "sourceTier": { "tier": "T3_INTERNAL_ENGINE", "sourceType": "internal_scoring_policy", "sourceUrl": null, "accessedAt": "2026-05-04", "quoteShort": null, "humanInterpretation": "Resolved from deterministic spring-ts runtime output.", "copyrightNote": "No third-party prose copied.", "authorityTruthEligible": false } }
+      ],
+      "aiGenerated": true,
+      "sourceTier": { "tier": "T1_HYPOTHESIS", "sourceType": "training_derived", "sourceUrl": null, "accessedAt": "2026-05-04", "quoteShort": null, "humanInterpretation": "Expert late-30s agePhase density fragment for weekly study/document. AI-derived display text; not authority truth.", "copyrightNote": "No source prose copied; original phrasing.", "authorityTruthEligible": false }
+    },
+    {
+      "schemaVersion": "spring-ts.narrative-fragment.v1",
+      "fragmentId": "movement.thisMonth.expert.age.late_30s.501",
+      "axis": { "category": "movement", "period": "thisMonth", "depth": "expert" },
+      "gating": { "agePhase": ["late_30s"] },
+      "templateTokens": [
+        { "kind": "text", "value": "후반 30대의 이번 달 이동운은 기회 이동과 소모 이동을 구분해야 실제 이득이 남습니다. " },
+        { "kind": "tag", "tagId": "yeokma", "label": "역마" },
+        { "kind": "text", "value": "는 변화를 열고 " },
+        { "kind": "tag", "tagId": "yongshin", "label": "용신" },
+        { "kind": "text", "value": "은 이동 뒤 회복과 성과를 남기는 보정 축입니다." }
+      ],
+      "tags": ["yeokma", "yongshin"],
+      "numericalEvidence": [
+        { "label": "연령 단계 서번", "valueExpression": "feature.agePhaseOrdinal", "unit": "ordinal", "sourceTier": { "tier": "T3_INTERNAL_ENGINE", "sourceType": "internal_scoring_policy", "sourceUrl": null, "accessedAt": "2026-05-04", "quoteShort": null, "humanInterpretation": "Resolved from deterministic spring-ts runtime output.", "copyrightNote": "No third-party prose copied.", "authorityTruthEligible": false } }
+      ],
+      "aiGenerated": true,
+      "sourceTier": { "tier": "T1_HYPOTHESIS", "sourceType": "training_derived", "sourceUrl": null, "accessedAt": "2026-05-04", "quoteShort": null, "humanInterpretation": "Expert late-30s agePhase density fragment for monthly movement. AI-derived display text; not authority truth.", "copyrightNote": "No source prose copied; original phrasing.", "authorityTruthEligible": false }
+    },
+    {
+      "schemaVersion": "spring-ts.narrative-fragment.v1",
+      "fragmentId": "expression_children.life.expert.age.late_30s.501",
+      "axis": { "category": "expression_children", "period": "life", "depth": "expert" },
+      "gating": { "agePhase": ["late_30s"] },
+      "templateTokens": [
+        { "kind": "text", "value": "후반 30대의 표현 총운은 경험을 쌓은 만큼 말의 영향력도 커져 표현의 책임을 함께 봐야 합니다. " },
+        { "kind": "tag", "tagId": "sanggwan", "label": "상관" },
+        { "kind": "text", "value": "은 날카로운 전달력을 만들고 " },
+        { "kind": "tag", "tagId": "jeonggwan", "label": "정관" },
+        { "kind": "text", "value": "은 그 말이 관계와 역할 안에서 질서를 잃지 않게 합니다." }
+      ],
+      "tags": ["sanggwan", "jeonggwan"],
+      "numericalEvidence": [
+        { "label": "연령 단계 서번", "valueExpression": "feature.agePhaseOrdinal", "unit": "ordinal", "sourceTier": { "tier": "T3_INTERNAL_ENGINE", "sourceType": "internal_scoring_policy", "sourceUrl": null, "accessedAt": "2026-05-04", "quoteShort": null, "humanInterpretation": "Resolved from deterministic spring-ts runtime output.", "copyrightNote": "No third-party prose copied.", "authorityTruthEligible": false } }
+      ],
+      "aiGenerated": true,
+      "sourceTier": { "tier": "T1_HYPOTHESIS", "sourceType": "training_derived", "sourceUrl": null, "accessedAt": "2026-05-04", "quoteShort": null, "humanInterpretation": "Expert late-30s agePhase density fragment for life expression/children. AI-derived display text; not authority truth.", "copyrightNote": "No source prose copied; original phrasing.", "authorityTruthEligible": false }
+    }
+  ]
+}
