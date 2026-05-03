@@ -1,0 +1,292 @@
+{
+  "schemaVersion": "spring-ts.narrative-fragment-bundle.v1",
+  "bundleId": "coverage.expert-earth-water-density-wave.20260503",
+  "contractVersion": "1.0.0",
+  "fragments": [
+    {
+      "schemaVersion": "spring-ts.narrative-fragment.v1",
+      "fragmentId": "family.thisYear.expert.daymaster.earth.yongshin.water.401",
+      "axis": { "category": "family", "period": "thisYear", "depth": "expert" },
+      "gating": { "dayMasterElement": ["EARTH"], "yongshinElement": ["WATER"] },
+      "templateTokens": [
+        { "kind": "text", "value": "일간 토에 용신 수가 놓이면 올해 가족운은 버티는 힘과 흐르게 두는 힘의 균형을 봅니다. " },
+        { "kind": "tag", "tagId": "yongshin", "label": "용신" },
+        { "kind": "text", "value": "이 수라면 가족 안의 막힌 감정이나 일정 부담을 부드럽게 흘려보내는 보정이 중요하고, " },
+        { "kind": "tag", "tagId": "jeongin", "label": "정인" },
+        { "kind": "text", "value": "이 약하면 혼자 책임지려는 패턴을 나눠 맡는 구조로 바꾸는 해석이 필요합니다." }
+      ],
+      "tags": ["yongshin", "jeongin"],
+      "numericalEvidence": [
+        {
+          "label": "일간 오행 순번",
+          "valueExpression": "feature.dayMasterElementOrdinal",
+          "unit": "ordinal",
+          "sourceTier": {
+            "tier": "T3_INTERNAL_ENGINE",
+            "sourceType": "internal_scoring_policy",
+            "sourceUrl": null,
+            "accessedAt": "2026-05-03",
+            "quoteShort": null,
+            "humanInterpretation": "Resolved from deterministic spring-ts runtime output.",
+            "copyrightNote": "No third-party prose copied.",
+            "authorityTruthEligible": false
+          }
+        },
+        {
+          "label": "용신 오행 순번",
+          "valueExpression": "feature.yongshinElementOrdinal",
+          "unit": "ordinal",
+          "sourceTier": {
+            "tier": "T3_INTERNAL_ENGINE",
+            "sourceType": "internal_scoring_policy",
+            "sourceUrl": null,
+            "accessedAt": "2026-05-03",
+            "quoteShort": null,
+            "humanInterpretation": "Resolved from deterministic spring-ts runtime output.",
+            "copyrightNote": "No third-party prose copied.",
+            "authorityTruthEligible": false
+          }
+        }
+      ],
+      "aiGenerated": true,
+      "sourceTier": {
+        "tier": "T1_HYPOTHESIS",
+        "sourceType": "training_derived",
+        "sourceUrl": null,
+        "accessedAt": "2026-05-03",
+        "quoteShort": null,
+        "humanInterpretation": "Expert earth dayMaster and water yongshin density fragment for family year. AI-derived display text; not authority truth.",
+        "copyrightNote": "No source prose copied; original phrasing.",
+        "authorityTruthEligible": false
+      }
+    },
+    {
+      "schemaVersion": "spring-ts.narrative-fragment.v1",
+      "fragmentId": "career.life.expert.daymaster.earth.yongshin.water.401",
+      "axis": { "category": "career", "period": "life", "depth": "expert" },
+      "gating": { "dayMasterElement": ["EARTH"], "yongshinElement": ["WATER"] },
+      "templateTokens": [
+        { "kind": "text", "value": "일간 토와 용신 수의 조합은 커리어에서 기반을 지키되 흐름을 막지 않는 전략으로 읽습니다. " },
+        { "kind": "tag", "tagId": "jeonggwan", "label": "정관" },
+        { "kind": "text", "value": "의 규칙성이 지나치게 굳어질 때 " },
+        { "kind": "tag", "tagId": "yongshin", "label": "용신" },
+        { "kind": "text", "value": "수는 정보, 이동, 협상성을 보정하므로 직무 전환이나 역할 조정의 타이밍을 함께 봅니다." }
+      ],
+      "tags": ["jeonggwan", "yongshin"],
+      "numericalEvidence": [
+        {
+          "label": "일간 오행 순번",
+          "valueExpression": "feature.dayMasterElementOrdinal",
+          "unit": "ordinal",
+          "sourceTier": {
+            "tier": "T3_INTERNAL_ENGINE",
+            "sourceType": "internal_scoring_policy",
+            "sourceUrl": null,
+            "accessedAt": "2026-05-03",
+            "quoteShort": null,
+            "humanInterpretation": "Resolved from deterministic spring-ts runtime output.",
+            "copyrightNote": "No third-party prose copied.",
+            "authorityTruthEligible": false
+          }
+        },
+        {
+          "label": "용신 오행 순번",
+          "valueExpression": "feature.yongshinElementOrdinal",
+          "unit": "ordinal",
+          "sourceTier": {
+            "tier": "T3_INTERNAL_ENGINE",
+            "sourceType": "internal_scoring_policy",
+            "sourceUrl": null,
+            "accessedAt": "2026-05-03",
+            "quoteShort": null,
+            "humanInterpretation": "Resolved from deterministic spring-ts runtime output.",
+            "copyrightNote": "No third-party prose copied.",
+            "authorityTruthEligible": false
+          }
+        }
+      ],
+      "aiGenerated": true,
+      "sourceTier": {
+        "tier": "T1_HYPOTHESIS",
+        "sourceType": "training_derived",
+        "sourceUrl": null,
+        "accessedAt": "2026-05-03",
+        "quoteShort": null,
+        "humanInterpretation": "Expert earth dayMaster and water yongshin density fragment for career life. AI-derived display text; not authority truth.",
+        "copyrightNote": "No source prose copied; original phrasing.",
+        "authorityTruthEligible": false
+      }
+    },
+    {
+      "schemaVersion": "spring-ts.narrative-fragment.v1",
+      "fragmentId": "romance.thisMonth.expert.daymaster.earth.yongshin.water.401",
+      "axis": { "category": "romance", "period": "thisMonth", "depth": "expert" },
+      "gating": { "dayMasterElement": ["EARTH"], "yongshinElement": ["WATER"] },
+      "templateTokens": [
+        { "kind": "text", "value": "일간 토에 용신 수가 붙은 이번 달 연애운은 안정 욕구와 감정 순환을 같이 보는 편이 정확합니다. " },
+        { "kind": "tag", "tagId": "baeujagung", "label": "배우자궁" },
+        { "kind": "text", "value": "의 반응이 굳어지면 관계가 정체될 수 있고, " },
+        { "kind": "tag", "tagId": "yongshin", "label": "용신" },
+        { "kind": "text", "value": "수는 대화, 이동, 감정 해소를 통해 긴장을 낮추는 보정으로 해석합니다." }
+      ],
+      "tags": ["baeujagung", "yongshin"],
+      "numericalEvidence": [
+        {
+          "label": "일간 오행 순번",
+          "valueExpression": "feature.dayMasterElementOrdinal",
+          "unit": "ordinal",
+          "sourceTier": {
+            "tier": "T3_INTERNAL_ENGINE",
+            "sourceType": "internal_scoring_policy",
+            "sourceUrl": null,
+            "accessedAt": "2026-05-03",
+            "quoteShort": null,
+            "humanInterpretation": "Resolved from deterministic spring-ts runtime output.",
+            "copyrightNote": "No third-party prose copied.",
+            "authorityTruthEligible": false
+          }
+        },
+        {
+          "label": "용신 오행 순번",
+          "valueExpression": "feature.yongshinElementOrdinal",
+          "unit": "ordinal",
+          "sourceTier": {
+            "tier": "T3_INTERNAL_ENGINE",
+            "sourceType": "internal_scoring_policy",
+            "sourceUrl": null,
+            "accessedAt": "2026-05-03",
+            "quoteShort": null,
+            "humanInterpretation": "Resolved from deterministic spring-ts runtime output.",
+            "copyrightNote": "No third-party prose copied.",
+            "authorityTruthEligible": false
+          }
+        }
+      ],
+      "aiGenerated": true,
+      "sourceTier": {
+        "tier": "T1_HYPOTHESIS",
+        "sourceType": "training_derived",
+        "sourceUrl": null,
+        "accessedAt": "2026-05-03",
+        "quoteShort": null,
+        "humanInterpretation": "Expert earth dayMaster and water yongshin density fragment for romance month. AI-derived display text; not authority truth.",
+        "copyrightNote": "No source prose copied; original phrasing.",
+        "authorityTruthEligible": false
+      }
+    },
+    {
+      "schemaVersion": "spring-ts.narrative-fragment.v1",
+      "fragmentId": "study_document.thisWeek.expert.daymaster.earth.yongshin.water.401",
+      "axis": { "category": "study_document", "period": "thisWeek", "depth": "expert" },
+      "gating": { "dayMasterElement": ["EARTH"], "yongshinElement": ["WATER"] },
+      "templateTokens": [
+        { "kind": "text", "value": "일간 토와 용신 수가 만나는 이번 주 문서운은 자료를 쌓는 힘과 흐름을 만드는 힘을 나눠 봅니다. " },
+        { "kind": "tag", "tagId": "jeongin", "label": "정인" },
+        { "kind": "text", "value": "이 자료 축적을 맡고, " },
+        { "kind": "tag", "tagId": "yongshin", "label": "용신" },
+        { "kind": "text", "value": "수는 정체된 문서를 연결, 요약, 공유 가능한 형태로 바꾸는 보정으로 작동합니다." }
+      ],
+      "tags": ["jeongin", "yongshin"],
+      "numericalEvidence": [
+        {
+          "label": "일간 오행 순번",
+          "valueExpression": "feature.dayMasterElementOrdinal",
+          "unit": "ordinal",
+          "sourceTier": {
+            "tier": "T3_INTERNAL_ENGINE",
+            "sourceType": "internal_scoring_policy",
+            "sourceUrl": null,
+            "accessedAt": "2026-05-03",
+            "quoteShort": null,
+            "humanInterpretation": "Resolved from deterministic spring-ts runtime output.",
+            "copyrightNote": "No third-party prose copied.",
+            "authorityTruthEligible": false
+          }
+        },
+        {
+          "label": "용신 오행 순번",
+          "valueExpression": "feature.yongshinElementOrdinal",
+          "unit": "ordinal",
+          "sourceTier": {
+            "tier": "T3_INTERNAL_ENGINE",
+            "sourceType": "internal_scoring_policy",
+            "sourceUrl": null,
+            "accessedAt": "2026-05-03",
+            "quoteShort": null,
+            "humanInterpretation": "Resolved from deterministic spring-ts runtime output.",
+            "copyrightNote": "No third-party prose copied.",
+            "authorityTruthEligible": false
+          }
+        }
+      ],
+      "aiGenerated": true,
+      "sourceTier": {
+        "tier": "T1_HYPOTHESIS",
+        "sourceType": "training_derived",
+        "sourceUrl": null,
+        "accessedAt": "2026-05-03",
+        "quoteShort": null,
+        "humanInterpretation": "Expert earth dayMaster and water yongshin density fragment for study document week. AI-derived display text; not authority truth.",
+        "copyrightNote": "No source prose copied; original phrasing.",
+        "authorityTruthEligible": false
+      }
+    },
+    {
+      "schemaVersion": "spring-ts.narrative-fragment.v1",
+      "fragmentId": "health_stress.today.expert.daymaster.earth.yongshin.water.401",
+      "axis": { "category": "health_stress", "period": "today", "depth": "expert" },
+      "gating": { "dayMasterElement": ["EARTH"], "yongshinElement": ["WATER"] },
+      "templateTokens": [
+        { "kind": "text", "value": "일간 토에 용신 수가 붙은 오늘의 스트레스 해석은 몸에 쌓인 부담을 어떻게 순환시키는지에 초점을 둡니다. " },
+        { "kind": "tag", "tagId": "gishin", "label": "기신" },
+        { "kind": "text", "value": "이 토나 화로 과해지면 버티는 방식이 굳어지고, " },
+        { "kind": "tag", "tagId": "yongshin", "label": "용신" },
+        { "kind": "text", "value": "수는 수분, 휴식 간격, 감정 배출을 통해 긴장을 낮추는 보정값으로 봅니다." }
+      ],
+      "tags": ["gishin", "yongshin"],
+      "numericalEvidence": [
+        {
+          "label": "일간 오행 순번",
+          "valueExpression": "feature.dayMasterElementOrdinal",
+          "unit": "ordinal",
+          "sourceTier": {
+            "tier": "T3_INTERNAL_ENGINE",
+            "sourceType": "internal_scoring_policy",
+            "sourceUrl": null,
+            "accessedAt": "2026-05-03",
+            "quoteShort": null,
+            "humanInterpretation": "Resolved from deterministic spring-ts runtime output.",
+            "copyrightNote": "No third-party prose copied.",
+            "authorityTruthEligible": false
+          }
+        },
+        {
+          "label": "용신 오행 순번",
+          "valueExpression": "feature.yongshinElementOrdinal",
+          "unit": "ordinal",
+          "sourceTier": {
+            "tier": "T3_INTERNAL_ENGINE",
+            "sourceType": "internal_scoring_policy",
+            "sourceUrl": null,
+            "accessedAt": "2026-05-03",
+            "quoteShort": null,
+            "humanInterpretation": "Resolved from deterministic spring-ts runtime output.",
+            "copyrightNote": "No third-party prose copied.",
+            "authorityTruthEligible": false
+          }
+        }
+      ],
+      "aiGenerated": true,
+      "sourceTier": {
+        "tier": "T1_HYPOTHESIS",
+        "sourceType": "training_derived",
+        "sourceUrl": null,
+        "accessedAt": "2026-05-03",
+        "quoteShort": null,
+        "humanInterpretation": "Expert earth dayMaster and water yongshin density fragment for health stress today. AI-derived display text; not authority truth.",
+        "copyrightNote": "No source prose copied; original phrasing.",
+        "authorityTruthEligible": false
+      }
+    }
+  ]
+}
