@@ -151,7 +151,16 @@ check('authority work backlog prioritizes expert cells with internal evidence',
       typeof row.expertInternalNumericalEvidenceFragments === 'number' &&
       Array.isArray(row.neededEvidence) &&
       row.neededEvidence.includes('authority_fragment_source') &&
-      typeof row.firstAction === 'string'),
+      typeof row.firstAction === 'string' &&
+      Array.isArray(row.reviewExamples) &&
+      row.reviewExamples.length > 0 &&
+      row.reviewExamples.every((example: any) =>
+        typeof example.fragmentId === 'string' &&
+        typeof example.file === 'string' &&
+        typeof example.sourceTier === 'string' &&
+        typeof example.numericalEvidenceCount === 'number' &&
+        typeof example.internalNumericalEvidenceRecords === 'number' &&
+        Array.isArray(example.numericalEvidenceLabels))),
   JSON.stringify(report?.authorityWorkBacklog));
 
 const zeroCellGate = spawnSync('node', [

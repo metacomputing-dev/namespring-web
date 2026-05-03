@@ -93,7 +93,13 @@ check('next authority work is exposed for paid-claim planning',
       typeof row.period === 'string' &&
       typeof row.depth === 'string' &&
       Array.isArray(row.neededEvidence) &&
-      row.neededEvidence.includes('authority_fragment_source')),
+      row.neededEvidence.includes('authority_fragment_source') &&
+      Array.isArray(row.reviewExamples) &&
+      row.reviewExamples.length > 0 &&
+      row.reviewExamples.every((example: any) =>
+        typeof example.fragmentId === 'string' &&
+        typeof example.file === 'string' &&
+        typeof example.numericalEvidenceCount === 'number')),
   JSON.stringify(report?.nextAuthorityWork));
 check('paid service gate script is registered',
   typeof packageJson?.scripts?.['service:readiness:paid-gate'] === 'string' &&
