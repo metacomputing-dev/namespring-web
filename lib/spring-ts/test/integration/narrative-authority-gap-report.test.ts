@@ -136,6 +136,23 @@ check('depth summary keeps internal evidence on expert cells',
       row.internalEvidenceBackedCellCount === report?.totals?.expertInternalEvidenceBackedCellCount &&
       row.zeroInternalEvidenceCellCount === report?.totals?.expertInternalEvidenceGapCellCount),
   JSON.stringify(report?.byDepth));
+check('authority work backlog prioritizes expert cells with internal evidence',
+  Array.isArray(report?.authorityWorkBacklog) &&
+    report.authorityWorkBacklog.length <= 5 &&
+    report.authorityWorkBacklog.length > 0 &&
+    report.authorityWorkBacklog[0].priorityClass === 'P0_EXPERT_INTERNAL_EVIDENCE_REVIEW' &&
+    report.authorityWorkBacklog.every((row: any) =>
+      typeof row.priorityClass === 'string' &&
+      typeof row.category === 'string' &&
+      typeof row.period === 'string' &&
+      typeof row.depth === 'string' &&
+      typeof row.authoredFragments === 'number' &&
+      typeof row.internalNumericalEvidenceRecords === 'number' &&
+      typeof row.expertInternalNumericalEvidenceFragments === 'number' &&
+      Array.isArray(row.neededEvidence) &&
+      row.neededEvidence.includes('authority_fragment_source') &&
+      typeof row.firstAction === 'string'),
+  JSON.stringify(report?.authorityWorkBacklog));
 
 const zeroCellGate = spawnSync('node', [
   SCRIPT_PATH,
