@@ -66,19 +66,34 @@ check('cell count rows obey --max-top-rows',
     report.cellCounts.length <= 5 &&
     report.cellCounts.every((row: any) => typeof row.key === 'string' && typeof row.count === 'number'),
   String(report?.cellCounts?.length ?? 0));
+check('expert bundle evidence gap records obey --max-top-rows',
+  report?.totals?.expertBundleCount > 0 &&
+    report?.totals?.expertBundlesWithNumericalEvidenceCount > 0 &&
+    report?.totals?.expertBundlesWithoutNumericalEvidenceCount >= 0 &&
+    Array.isArray(report?.expertBundlesWithoutNumericalEvidence) &&
+    report.expertBundlesWithoutNumericalEvidence.length <= 5 &&
+    report.expertBundlesWithoutNumericalEvidence.every((row: any) =>
+      typeof row.file === 'string' &&
+      typeof row.bundleId === 'string' &&
+      typeof row.expertFragmentCount === 'number' &&
+      typeof row.numericalEvidenceRecordCount === 'number'),
+  `${report?.expertBundlesWithoutNumericalEvidence?.length ?? 0}/${report?.totals?.expertBundlesWithoutNumericalEvidenceCount ?? 0}`);
 check('thresholds default to observation mode',
   report?.minExpressionUsageThreshold === 1 &&
   report?.maxUnknownExpressionThreshold === null &&
     report?.maxUnusedAvailablePathThreshold === null &&
     report?.maxThinAvailablePathThreshold === null &&
+    report?.maxExpertBundlesWithoutNumericalEvidenceThreshold === null &&
     report?.totals?.unknownExpressionExcessToThreshold === 0 &&
     report?.totals?.unusedAvailablePathExcessToThreshold === 0 &&
-    report?.totals?.thinAvailablePathExcessToThreshold === 0,
+    report?.totals?.thinAvailablePathExcessToThreshold === 0 &&
+    report?.totals?.expertBundleNumericalEvidenceGapExcessToThreshold === 0,
   JSON.stringify({
     minUsage: report?.minExpressionUsageThreshold,
     unknown: report?.maxUnknownExpressionThreshold,
     unused: report?.maxUnusedAvailablePathThreshold,
     thin: report?.maxThinAvailablePathThreshold,
+    expertBundleGaps: report?.maxExpertBundlesWithoutNumericalEvidenceThreshold,
   }));
 check('thin available path records are machine readable',
   Array.isArray(report?.thinAvailablePaths) &&
@@ -115,6 +130,29 @@ check('unused available path threshold excess is machine readable',
   unusedGateReport?.totals?.unusedAvailablePathExcessToThreshold === 0 &&
     unusedGateReport?.totals?.unusedAvailablePathCount === 0,
   `${unusedGateReport?.totals?.unusedAvailablePathExcessToThreshold ?? 0}/${unusedGateReport?.totals?.unusedAvailablePathCount ?? 0}`);
+
+const expertBundleGapGate = spawnSync('node', [
+  SCRIPT_PATH,
+  '--json',
+  '--max-top-rows=3',
+  '--max-expert-bundles-without-numerical-evidence=0',
+], {
+  cwd: SPRING_TS_ROOT,
+  encoding: 'utf-8',
+});
+const expertBundleGapGateReport = JSON.parse(expertBundleGapGate.stdout);
+check('expert bundle numerical evidence gap threshold can fail CI intentionally',
+  expertBundleGapGate.status === 1 &&
+    expertBundleGapGate.stderr.includes('expert bundles without numericalEvidence') &&
+    expertBundleGapGateReport?.maxExpertBundlesWithoutNumericalEvidenceThreshold === 0 &&
+    expertBundleGapGateReport?.totals?.expertBundlesWithoutNumericalEvidenceCount > 0,
+  `status=${expertBundleGapGate.status}; stderr=${expertBundleGapGate.stderr.trim()}`);
+check('expert bundle numerical evidence gap threshold excess is machine readable',
+  expertBundleGapGateReport?.totals?.expertBundleNumericalEvidenceGapExcessToThreshold ===
+    expertBundleGapGateReport?.totals?.expertBundlesWithoutNumericalEvidenceCount &&
+    Array.isArray(expertBundleGapGateReport?.expertBundlesWithoutNumericalEvidence) &&
+    expertBundleGapGateReport.expertBundlesWithoutNumericalEvidence.length <= 3,
+  `${expertBundleGapGateReport?.totals?.expertBundleNumericalEvidenceGapExcessToThreshold ?? 0}/${expertBundleGapGateReport?.totals?.expertBundlesWithoutNumericalEvidenceCount ?? 0}`);
 
 const thinGate = spawnSync('node', [
   SCRIPT_PATH,
