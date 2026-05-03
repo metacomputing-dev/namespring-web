@@ -6,10 +6,24 @@
     {
       "schemaVersion": "spring-ts.narrative-fragment.v1",
       "fragmentId": "overall.thisMonth.standard.birth_autumn_current_autumn.201",
-      "axis": { "category": "overall", "period": "thisMonth", "depth": "standard" },
-      "gating": { "birthSeason": ["autumn"], "currentSeason": ["autumn"] },
+      "axis": {
+        "category": "overall",
+        "period": "thisMonth",
+        "depth": "standard"
+      },
+      "gating": {
+        "birthSeason": [
+          "autumn"
+        ],
+        "currentSeason": [
+          "autumn"
+        ]
+      },
       "templateTokens": [
-        { "kind": "text", "value": "가을에 태어난 흐름이 현재 가을 기운과 만나면 기준을 세우고 불필요한 것을 덜어내는 힘이 강해져요. 정리, 계약 확인, 계획의 우선순위 조정에는 유리하지만, 너무 빠르게 잘라내면 필요한 가능성까지 줄일 수 있습니다." }
+        {
+          "kind": "text",
+          "value": "가을에 태어난 흐름이 현재 가을 기운과 만나면 기준을 세우고 불필요한 것을 덜어내는 힘이 강해져요. 정리, 계약 확인, 계획의 우선순위 조정에는 유리하지만, 너무 빠르게 잘라내면 필요한 가능성까지 줄일 수 있습니다."
+        }
       ],
       "livingTips": [
         "이번 시기에는 할 일을 늘리기보다 남길 일과 줄일 일을 먼저 구분해 보세요.",
@@ -18,7 +32,7 @@
       "cautions": [
         "판단이 예리해지는 만큼 말이 차갑게 들리지 않도록 이유와 배려를 함께 전해 주세요."
       ],
-      "tags": ["birthSeason", "currentSeason"],
+      "tags": [],
       "aiGenerated": true,
       "sourceTier": {
         "tier": "T1_HYPOTHESIS",
@@ -34,10 +48,24 @@
     {
       "schemaVersion": "spring-ts.narrative-fragment.v1",
       "fragmentId": "overall.thisMonth.standard.birth_autumn_current_spring.201",
-      "axis": { "category": "overall", "period": "thisMonth", "depth": "standard" },
-      "gating": { "birthSeason": ["autumn"], "currentSeason": ["spring"] },
+      "axis": {
+        "category": "overall",
+        "period": "thisMonth",
+        "depth": "standard"
+      },
+      "gating": {
+        "birthSeason": [
+          "autumn"
+        ],
+        "currentSeason": [
+          "spring"
+        ]
+      },
       "templateTokens": [
-        { "kind": "text", "value": "가을에 태어난 사람에게 현재 봄 기운이 들어오면 새로 시작하려는 흐름과 선별하려는 기준이 함께 움직여요. 시작 자체를 막기보다 작은 실험으로 열어두고, 중간 점검으로 방향을 다듬으면 안정적으로 확장할 수 있습니다." }
+        {
+          "kind": "text",
+          "value": "가을에 태어난 사람에게 현재 봄 기운이 들어오면 새로 시작하려는 흐름과 선별하려는 기준이 함께 움직여요. 시작 자체를 막기보다 작은 실험으로 열어두고, 중간 점검으로 방향을 다듬으면 안정적으로 확장할 수 있습니다."
+        }
       ],
       "livingTips": [
         "새 계획은 바로 크게 키우기보다 1주일 단위의 작은 실험으로 시작해 보세요.",
@@ -46,7 +74,7 @@
       "cautions": [
         "초반부터 완성도를 너무 높게 잡으면 시작이 늦어질 수 있어요."
       ],
-      "tags": ["birthSeason", "currentSeason"],
+      "tags": [],
       "aiGenerated": true,
       "sourceTier": {
         "tier": "T1_HYPOTHESIS",
@@ -62,10 +90,24 @@
     {
       "schemaVersion": "spring-ts.narrative-fragment.v1",
       "fragmentId": "overall.thisMonth.standard.birth_autumn_current_summer.201",
-      "axis": { "category": "overall", "period": "thisMonth", "depth": "standard" },
-      "gating": { "birthSeason": ["autumn"], "currentSeason": ["summer"] },
+      "axis": {
+        "category": "overall",
+        "period": "thisMonth",
+        "depth": "standard"
+      },
+      "gating": {
+        "birthSeason": [
+          "autumn"
+        ],
+        "currentSeason": [
+          "summer"
+        ]
+      },
       "templateTokens": [
-        { "kind": "text", "value": "가을에 태어난 흐름이 현재 여름 기운을 만나면 명확한 기준과 적극적인 표현이 함께 올라올 수 있어요. 설득과 발표에는 도움이 되지만, 판단이 강한 말투로 나가면 관계가 쉽게 뜨거워질 수 있으니 표현의 온도를 조절하는 것이 좋습니다." }
+        {
+          "kind": "text",
+          "value": "가을에 태어난 흐름이 현재 여름 기운을 만나면 명확한 기준과 적극적인 표현이 함께 올라올 수 있어요. 설득과 발표에는 도움이 되지만, 판단이 강한 말투로 나가면 관계가 쉽게 뜨거워질 수 있으니 표현의 온도를 조절하는 것이 좋습니다."
+        }
       ],
       "livingTips": [
         "중요한 말을 하기 전 핵심 메시지와 상대가 받아들일 표현을 따로 정리해 보세요.",
@@ -74,7 +116,7 @@
       "cautions": [
         "정확한 지적이라도 공개적인 자리에서는 상대의 체면을 함께 살펴 주세요."
       ],
-      "tags": ["birthSeason", "currentSeason"],
+      "tags": [],
       "aiGenerated": true,
       "sourceTier": {
         "tier": "T1_HYPOTHESIS",
@@ -90,10 +132,24 @@
     {
       "schemaVersion": "spring-ts.narrative-fragment.v1",
       "fragmentId": "overall.thisMonth.standard.birth_autumn_current_winter.201",
-      "axis": { "category": "overall", "period": "thisMonth", "depth": "standard" },
-      "gating": { "birthSeason": ["autumn"], "currentSeason": ["winter"] },
+      "axis": {
+        "category": "overall",
+        "period": "thisMonth",
+        "depth": "standard"
+      },
+      "gating": {
+        "birthSeason": [
+          "autumn"
+        ],
+        "currentSeason": [
+          "winter"
+        ]
+      },
       "templateTokens": [
-        { "kind": "text", "value": "가을에 태어난 흐름이 현재 겨울 기운과 만나면 정리한 것을 다시 깊게 검토하고 다음 계획을 준비하기 좋아요. 겉으로 빠르게 확장하기보다 자료를 모으고 기준을 보완하는 시간이 도움이 됩니다. 다만 생각이 길어지면 실행이 늦어질 수 있어요." }
+        {
+          "kind": "text",
+          "value": "가을에 태어난 흐름이 현재 겨울 기운과 만나면 정리한 것을 다시 깊게 검토하고 다음 계획을 준비하기 좋아요. 겉으로 빠르게 확장하기보다 자료를 모으고 기준을 보완하는 시간이 도움이 됩니다. 다만 생각이 길어지면 실행이 늦어질 수 있어요."
+        }
       ],
       "livingTips": [
         "이미 끝난 일은 기록으로 정리하고, 다음에 반복할 기준만 남겨 보세요.",
@@ -102,7 +158,7 @@
       "cautions": [
         "혼자 오래 검토할수록 기준이 지나치게 엄격해질 수 있으니 중간 의견을 받아 보세요."
       ],
-      "tags": ["birthSeason", "currentSeason"],
+      "tags": [],
       "aiGenerated": true,
       "sourceTier": {
         "tier": "T1_HYPOTHESIS",

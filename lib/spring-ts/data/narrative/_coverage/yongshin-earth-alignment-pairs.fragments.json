@@ -6,10 +6,24 @@
     {
       "schemaVersion": "spring-ts.narrative-fragment.v1",
       "fragmentId": "overall.life.standard.yongshin_earth_alignment.aligned.201",
-      "axis": { "category": "overall", "period": "life", "depth": "standard" },
-      "gating": { "yongshinElement": ["EARTH"], "yongshinAlignment": ["aligned"] },
+      "axis": {
+        "category": "overall",
+        "period": "life",
+        "depth": "standard"
+      },
+      "gating": {
+        "yongshinElement": [
+          "EARTH"
+        ],
+        "yongshinAlignment": [
+          "aligned"
+        ]
+      },
       "templateTokens": [
-        { "kind": "text", "value": "흙 기운이 필요한데 현재 흐름도 안정과 현실화를 도와주는 편이에요. 생활 리듬, 돈의 흐름, 일의 순서를 정리하면 결과가 차분히 쌓이기 쉬우니, 큰 변화보다 기반을 단단히 만드는 쪽이 잘 맞아요." }
+        {
+          "kind": "text",
+          "value": "흙 기운이 필요한데 현재 흐름도 안정과 현실화를 도와주는 편이에요. 생활 리듬, 돈의 흐름, 일의 순서를 정리하면 결과가 차분히 쌓이기 쉬우니, 큰 변화보다 기반을 단단히 만드는 쪽이 잘 맞아요."
+        }
       ],
       "livingTips": [
         "일정, 지출, 공간 중 하나를 골라 먼저 정리해 보세요.",
@@ -18,7 +32,7 @@
       "cautions": [
         "안정감이 좋아도 너무 느리게만 움직이면 좋은 기회를 놓칠 수 있어요."
       ],
-      "tags": ["yongshinElement", "yongshinAlignment"],
+      "tags": [],
       "aiGenerated": true,
       "sourceTier": {
         "tier": "T1_HYPOTHESIS",
@@ -34,10 +48,24 @@
     {
       "schemaVersion": "spring-ts.narrative-fragment.v1",
       "fragmentId": "overall.life.standard.yongshin_earth_alignment.neutral.201",
-      "axis": { "category": "overall", "period": "life", "depth": "standard" },
-      "gating": { "yongshinElement": ["EARTH"], "yongshinAlignment": ["neutral"] },
+      "axis": {
+        "category": "overall",
+        "period": "life",
+        "depth": "standard"
+      },
+      "gating": {
+        "yongshinElement": [
+          "EARTH"
+        ],
+        "yongshinAlignment": [
+          "neutral"
+        ]
+      },
       "templateTokens": [
-        { "kind": "text", "value": "흙 기운이 필요하지만 현재 흐름은 안정감을 저절로 만들어 주지는 않는 중간 상태예요. 불안할수록 더 많은 일을 벌리기보다, 생활의 기본 질서와 반복 가능한 루틴을 직접 세우는 것이 도움이 됩니다." }
+        {
+          "kind": "text",
+          "value": "흙 기운이 필요하지만 현재 흐름은 안정감을 저절로 만들어 주지는 않는 중간 상태예요. 불안할수록 더 많은 일을 벌리기보다, 생활의 기본 질서와 반복 가능한 루틴을 직접 세우는 것이 도움이 됩니다."
+        }
       ],
       "livingTips": [
         "이번 주에 꼭 지킬 생활 기준 세 가지를 정해 보세요.",
@@ -46,7 +74,7 @@
       "cautions": [
         "생각만으로 안정감을 찾으려 하면 실행이 늦어질 수 있어요."
       ],
-      "tags": ["yongshinElement", "yongshinAlignment"],
+      "tags": [],
       "aiGenerated": true,
       "sourceTier": {
         "tier": "T1_HYPOTHESIS",
@@ -62,10 +90,24 @@
     {
       "schemaVersion": "spring-ts.narrative-fragment.v1",
       "fragmentId": "overall.life.standard.yongshin_earth_alignment.conflicting.201",
-      "axis": { "category": "overall", "period": "life", "depth": "standard" },
-      "gating": { "yongshinElement": ["EARTH"], "yongshinAlignment": ["conflicting"] },
+      "axis": {
+        "category": "overall",
+        "period": "life",
+        "depth": "standard"
+      },
+      "gating": {
+        "yongshinElement": [
+          "EARTH"
+        ],
+        "yongshinAlignment": [
+          "conflicting"
+        ]
+      },
       "templateTokens": [
-        { "kind": "text", "value": "흙 기운이 필요하지만 현재 흐름은 무겁게 쌓이거나 정체되는 느낌을 만들 수 있어요. 안정만 붙잡기보다 작은 정리와 작은 실행을 번갈아 넣어야 답답함을 줄이고 필요한 기반을 만들 수 있습니다." }
+        {
+          "kind": "text",
+          "value": "흙 기운이 필요하지만 현재 흐름은 무겁게 쌓이거나 정체되는 느낌을 만들 수 있어요. 안정만 붙잡기보다 작은 정리와 작은 실행을 번갈아 넣어야 답답함을 줄이고 필요한 기반을 만들 수 있습니다."
+        }
       ],
       "livingTips": [
         "오래 미룬 일을 한 번에 끝내려 하지 말고 20분 단위로 나눠 보세요.",
@@ -74,7 +116,7 @@
       "cautions": [
         "걱정이 많아질수록 결정을 미루기 쉬우니 작은 실행 기준을 먼저 정해 주세요."
       ],
-      "tags": ["yongshinElement", "yongshinAlignment"],
+      "tags": [],
       "aiGenerated": true,
       "sourceTier": {
         "tier": "T1_HYPOTHESIS",

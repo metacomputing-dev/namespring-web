@@ -7,14 +7,27 @@
     {
       "schemaVersion": "spring-ts.narrative-fragment.v1",
       "fragmentId": "overall.life.brief.child_female_ageband.023",
-      "axis": { "category": "overall", "period": "life", "depth": "brief" },
+      "axis": {
+        "category": "overall",
+        "period": "life",
+        "depth": "brief"
+      },
       "gating": {
-        "agePhase": ["child_0_9"],
-        "ageBand": ["0-9"],
-        "gender": ["female"]
+        "agePhase": [
+          "child_0_9"
+        ],
+        "ageBand": [
+          "0-9"
+        ],
+        "gender": [
+          "female"
+        ]
       },
       "templateTokens": [
-        { "kind": "text", "value": "어린 여자아이 흐름에서는 재능을 빨리 정답으로 묶기보다 편하게 시도해보는 시간이 중요해요." }
+        {
+          "kind": "text",
+          "value": "어린 여자아이 흐름에서는 재능을 빨리 정답으로 묶기보다 편하게 시도해보는 시간이 중요해요."
+        }
       ],
       "tags": [],
       "aiGenerated": true,
@@ -32,14 +45,27 @@
     {
       "schemaVersion": "spring-ts.narrative-fragment.v1",
       "fragmentId": "overall.life.brief.child_male_ageband.024",
-      "axis": { "category": "overall", "period": "life", "depth": "brief" },
+      "axis": {
+        "category": "overall",
+        "period": "life",
+        "depth": "brief"
+      },
       "gating": {
-        "agePhase": ["child_0_9"],
-        "ageBand": ["0-9"],
-        "gender": ["male"]
+        "agePhase": [
+          "child_0_9"
+        ],
+        "ageBand": [
+          "0-9"
+        ],
+        "gender": [
+          "male"
+        ]
       },
       "templateTokens": [
-        { "kind": "text", "value": "어린 남자아이 흐름에서는 넘치는 호기심을 혼내기보다 안전한 규칙 안에서 펼치게 해주면 좋아요." }
+        {
+          "kind": "text",
+          "value": "어린 남자아이 흐름에서는 넘치는 호기심을 혼내기보다 안전한 규칙 안에서 펼치게 해주면 좋아요."
+        }
       ],
       "tags": [],
       "aiGenerated": true,
@@ -57,14 +83,27 @@
     {
       "schemaVersion": "spring-ts.narrative-fragment.v1",
       "fragmentId": "overall.life.brief.child_neutral_ageband.025",
-      "axis": { "category": "overall", "period": "life", "depth": "brief" },
+      "axis": {
+        "category": "overall",
+        "period": "life",
+        "depth": "brief"
+      },
       "gating": {
-        "agePhase": ["child_0_9"],
-        "ageBand": ["0-9"],
-        "gender": ["neutral"]
+        "agePhase": [
+          "child_0_9"
+        ],
+        "ageBand": [
+          "0-9"
+        ],
+        "gender": [
+          "neutral"
+        ]
       },
       "templateTokens": [
-        { "kind": "text", "value": "어린 시기 흐름에서는 비교보다 안정된 반복이 중요하고, 작은 성취를 자주 확인해주면 힘이 붙어요." }
+        {
+          "kind": "text",
+          "value": "어린 시기 흐름에서는 비교보다 안정된 반복이 중요하고, 작은 성취를 자주 확인해주면 힘이 붙어요."
+        }
       ],
       "tags": [],
       "aiGenerated": true,
@@ -82,14 +121,27 @@
     {
       "schemaVersion": "spring-ts.narrative-fragment.v1",
       "fragmentId": "overall.life.brief.early20s_female_ageband.026",
-      "axis": { "category": "overall", "period": "life", "depth": "brief" },
+      "axis": {
+        "category": "overall",
+        "period": "life",
+        "depth": "brief"
+      },
       "gating": {
-        "agePhase": ["early_20s"],
-        "ageBand": ["20-29"],
-        "gender": ["female"]
+        "agePhase": [
+          "early_20s"
+        ],
+        "ageBand": [
+          "20-29"
+        ],
+        "gender": [
+          "female"
+        ]
       },
       "templateTokens": [
-        { "kind": "text", "value": "20대 초반 여성 흐름에서는 빠른 결론보다 경험을 넓히며 내 기준을 세우는 과정이 중요해요." }
+        {
+          "kind": "text",
+          "value": "20대 초반 여성 흐름에서는 빠른 결론보다 경험을 넓히며 내 기준을 세우는 과정이 중요해요."
+        }
       ],
       "tags": [],
       "aiGenerated": true,
@@ -107,14 +159,27 @@
     {
       "schemaVersion": "spring-ts.narrative-fragment.v1",
       "fragmentId": "overall.life.brief.early20s_male_ageband.027",
-      "axis": { "category": "overall", "period": "life", "depth": "brief" },
+      "axis": {
+        "category": "overall",
+        "period": "life",
+        "depth": "brief"
+      },
       "gating": {
-        "agePhase": ["early_20s"],
-        "ageBand": ["20-29"],
-        "gender": ["male"]
+        "agePhase": [
+          "early_20s"
+        ],
+        "ageBand": [
+          "20-29"
+        ],
+        "gender": [
+          "male"
+        ]
       },
       "templateTokens": [
-        { "kind": "text", "value": "20대 초반 남성 흐름에서는 성급한 증명보다 기본기를 쌓는 시간이 뒤의 선택지를 넓혀줘요." }
+        {
+          "kind": "text",
+          "value": "20대 초반 남성 흐름에서는 성급한 증명보다 기본기를 쌓는 시간이 뒤의 선택지를 넓혀줘요."
+        }
       ],
       "tags": [],
       "aiGenerated": true,
@@ -132,14 +197,27 @@
     {
       "schemaVersion": "spring-ts.narrative-fragment.v1",
       "fragmentId": "overall.life.brief.early20s_neutral_ageband.028",
-      "axis": { "category": "overall", "period": "life", "depth": "brief" },
+      "axis": {
+        "category": "overall",
+        "period": "life",
+        "depth": "brief"
+      },
       "gating": {
-        "agePhase": ["early_20s"],
-        "ageBand": ["20-29"],
-        "gender": ["neutral"]
+        "agePhase": [
+          "early_20s"
+        ],
+        "ageBand": [
+          "20-29"
+        ],
+        "gender": [
+          "neutral"
+        ]
       },
       "templateTokens": [
-        { "kind": "text", "value": "20대 초반 흐름에서는 선택지를 너무 빨리 닫지 말고 배움, 관계, 일의 균형을 시험해보면 좋아요." }
+        {
+          "kind": "text",
+          "value": "20대 초반 흐름에서는 선택지를 너무 빨리 닫지 말고 배움, 관계, 일의 균형을 시험해보면 좋아요."
+        }
       ],
       "tags": [],
       "aiGenerated": true,
@@ -157,13 +235,24 @@
     {
       "schemaVersion": "spring-ts.narrative-fragment.v1",
       "fragmentId": "overall.life.brief.jeongin_extreme_strong.029",
-      "axis": { "category": "overall", "period": "life", "depth": "brief" },
+      "axis": {
+        "category": "overall",
+        "period": "life",
+        "depth": "brief"
+      },
       "gating": {
-        "gyeokguk": ["jeongingyeok"],
-        "dayMasterStrength": ["EXTREME_STRONG"]
+        "gyeokguk": [
+          "jeongingyeok"
+        ],
+        "dayMasterStrength": [
+          "EXTREME_STRONG"
+        ]
       },
       "templateTokens": [
-        { "kind": "text", "value": "정인격에 기운이 매우 강하면 생각이 깊어지는 장점이 있지만, 검토만 길어지지 않게 실행 기준이 필요해요." }
+        {
+          "kind": "text",
+          "value": "배움과 보호 흐름격에 기운이 매우 강하면 생각이 깊어지는 장점이 있지만, 검토만 길어지지 않게 실행 기준이 필요해요."
+        }
       ],
       "tags": [],
       "aiGenerated": true,
@@ -181,13 +270,24 @@
     {
       "schemaVersion": "spring-ts.narrative-fragment.v1",
       "fragmentId": "overall.life.brief.jeongin_extreme_weak.030",
-      "axis": { "category": "overall", "period": "life", "depth": "brief" },
+      "axis": {
+        "category": "overall",
+        "period": "life",
+        "depth": "brief"
+      },
       "gating": {
-        "gyeokguk": ["jeongingyeok"],
-        "dayMasterStrength": ["EXTREME_WEAK"]
+        "gyeokguk": [
+          "jeongingyeok"
+        ],
+        "dayMasterStrength": [
+          "EXTREME_WEAK"
+        ]
       },
       "templateTokens": [
-        { "kind": "text", "value": "정인격에 기운이 매우 약하면 혼자 버티기보다 도움을 받아 배우고 쉬는 구조를 먼저 만드는 게 좋아요." }
+        {
+          "kind": "text",
+          "value": "배움과 보호 흐름격에 기운이 매우 약하면 혼자 버티기보다 도움을 받아 배우고 쉬는 구조를 먼저 만드는 게 좋아요."
+        }
       ],
       "tags": [],
       "aiGenerated": true,
@@ -205,13 +305,24 @@
     {
       "schemaVersion": "spring-ts.narrative-fragment.v1",
       "fragmentId": "overall.life.brief.jeongin_strong.031",
-      "axis": { "category": "overall", "period": "life", "depth": "brief" },
+      "axis": {
+        "category": "overall",
+        "period": "life",
+        "depth": "brief"
+      },
       "gating": {
-        "gyeokguk": ["jeongingyeok"],
-        "dayMasterStrength": ["STRONG"]
+        "gyeokguk": [
+          "jeongingyeok"
+        ],
+        "dayMasterStrength": [
+          "STRONG"
+        ]
       },
       "templateTokens": [
-        { "kind": "text", "value": "정인격에 기운이 강하면 배움과 분석이 힘이 되지만, 확신이 생긴 일은 미루지 않는 편이 좋아요." }
+        {
+          "kind": "text",
+          "value": "배움과 보호 흐름격에 기운이 강하면 배움과 분석이 힘이 되지만, 확신이 생긴 일은 미루지 않는 편이 좋아요."
+        }
       ],
       "tags": [],
       "aiGenerated": true,
@@ -229,13 +340,24 @@
     {
       "schemaVersion": "spring-ts.narrative-fragment.v1",
       "fragmentId": "overall.life.brief.jeongin_weak.032",
-      "axis": { "category": "overall", "period": "life", "depth": "brief" },
+      "axis": {
+        "category": "overall",
+        "period": "life",
+        "depth": "brief"
+      },
       "gating": {
-        "gyeokguk": ["jeongingyeok"],
-        "dayMasterStrength": ["WEAK"]
+        "gyeokguk": [
+          "jeongingyeok"
+        ],
+        "dayMasterStrength": [
+          "WEAK"
+        ]
       },
       "templateTokens": [
-        { "kind": "text", "value": "정인격에 기운이 약하면 공부와 휴식의 리듬을 짧게 쪼개야 지치지 않고 꾸준히 갈 수 있어요." }
+        {
+          "kind": "text",
+          "value": "배움과 보호 흐름격에 기운이 약하면 공부와 휴식의 리듬을 짧게 쪼개야 지치지 않고 꾸준히 갈 수 있어요."
+        }
       ],
       "tags": [],
       "aiGenerated": true,
@@ -253,13 +375,24 @@
     {
       "schemaVersion": "spring-ts.narrative-fragment.v1",
       "fragmentId": "overall.life.brief.earth_strength_balanced.033",
-      "axis": { "category": "overall", "period": "life", "depth": "brief" },
+      "axis": {
+        "category": "overall",
+        "period": "life",
+        "depth": "brief"
+      },
       "gating": {
-        "dayMasterElement": ["EARTH"],
-        "dayMasterStrength": ["BALANCED"]
+        "dayMasterElement": [
+          "EARTH"
+        ],
+        "dayMasterStrength": [
+          "BALANCED"
+        ]
       },
       "templateTokens": [
-        { "kind": "text", "value": "흙 일간에 균형이 잡힌 흐름이면 생활 기반을 지키면서도 필요한 변화는 차분히 받아들일 수 있어요." }
+        {
+          "kind": "text",
+          "value": "흙 타고난 중심 기운에 균형이 잡힌 흐름이면 생활 기반을 지키면서도 필요한 변화는 차분히 받아들일 수 있어요."
+        }
       ],
       "tags": [],
       "aiGenerated": true,
@@ -277,13 +410,24 @@
     {
       "schemaVersion": "spring-ts.narrative-fragment.v1",
       "fragmentId": "overall.life.brief.earth_strength_extreme_strong.034",
-      "axis": { "category": "overall", "period": "life", "depth": "brief" },
+      "axis": {
+        "category": "overall",
+        "period": "life",
+        "depth": "brief"
+      },
       "gating": {
-        "dayMasterElement": ["EARTH"],
-        "dayMasterStrength": ["EXTREME_STRONG"]
+        "dayMasterElement": [
+          "EARTH"
+        ],
+        "dayMasterStrength": [
+          "EXTREME_STRONG"
+        ]
       },
       "templateTokens": [
-        { "kind": "text", "value": "흙 일간의 기운이 매우 강하면 책임감이 큰 장점이지만, 혼자 붙잡은 일을 나누는 연습이 필요해요." }
+        {
+          "kind": "text",
+          "value": "흙 타고난 중심 기운의 기운이 매우 강하면 책임감이 큰 장점이지만, 혼자 붙잡은 일을 나누는 연습이 필요해요."
+        }
       ],
       "tags": [],
       "aiGenerated": true,

@@ -7,13 +7,24 @@
     {
       "schemaVersion": "spring-ts.narrative-fragment.v1",
       "fragmentId": "overall.life.brief.agephase.early_40s.101",
-      "axis": { "category": "overall", "period": "life", "depth": "brief" },
+      "axis": {
+        "category": "overall",
+        "period": "life",
+        "depth": "brief"
+      },
       "gating": {
-        "agePhase": ["early_40s"],
-        "ageBand": ["40-54"]
+        "agePhase": [
+          "early_40s"
+        ],
+        "ageBand": [
+          "40-54"
+        ]
       },
       "templateTokens": [
-        { "kind": "text", "value": "마흔 초입에는 방향을 다시 고르는 힘이 중요해요. 크게 흔들기보다 기준을 정리하면 다음 흐름이 또렷해져요." }
+        {
+          "kind": "text",
+          "value": "마흔 초입에는 방향을 다시 고르는 힘이 중요해요. 크게 흔들기보다 기준을 정리하면 다음 흐름이 또렷해져요."
+        }
       ],
       "tags": [],
       "aiGenerated": true,
@@ -31,14 +42,27 @@
     {
       "schemaVersion": "spring-ts.narrative-fragment.v1",
       "fragmentId": "overall.life.standard.season.spring_yin.101",
-      "axis": { "category": "overall", "period": "life", "depth": "standard" },
+      "axis": {
+        "category": "overall",
+        "period": "life",
+        "depth": "standard"
+      },
       "gating": {
-        "birthSeason": ["spring"],
-        "currentSeason": ["spring"],
-        "dayMasterPolarity": ["YIN"]
+        "birthSeason": [
+          "spring"
+        ],
+        "currentSeason": [
+          "spring"
+        ],
+        "dayMasterPolarity": [
+          "YIN"
+        ]
       },
       "templateTokens": [
-        { "kind": "text", "value": "봄에 태어난 음의 일간은 처음부터 크게 밀어붙이기보다, 작은 감각을 모아 흐름을 만드는 쪽이 잘 맞아요. 지금도 봄의 기운이 겹치면 새 계획을 세우고 관계를 정리하기 좋은 때예요. 다만 마음이 앞서면 기준이 흐려질 수 있으니, 결정은 글로 적어 확인하는 습관이 도움이 돼요." }
+        {
+          "kind": "text",
+          "value": "봄에 태어난 음의 타고난 중심 기운은 처음부터 크게 밀어붙이기보다, 작은 감각을 모아 흐름을 만드는 쪽이 잘 맞아요. 지금도 봄의 기운이 겹치면 새 계획을 세우고 관계를 정리하기 좋은 때예요. 다만 마음이 앞서면 기준이 흐려질 수 있으니, 결정은 글로 적어 확인하는 습관이 도움이 돼요."
+        }
       ],
       "livingTips": [
         "이번 달에 새로 시작할 일과 내려놓을 일을 한 줄씩 적어보세요.",
@@ -63,12 +87,21 @@
     {
       "schemaVersion": "spring-ts.narrative-fragment.v1",
       "fragmentId": "overall.life.standard.yongshin.metal.101",
-      "axis": { "category": "overall", "period": "life", "depth": "standard" },
+      "axis": {
+        "category": "overall",
+        "period": "life",
+        "depth": "standard"
+      },
       "gating": {
-        "yongshinElement": ["METAL"]
+        "yongshinElement": [
+          "METAL"
+        ]
       },
       "templateTokens": [
-        { "kind": "text", "value": "쇠 기운이 보완 포인트라면, 삶의 흐름은 정리와 기준을 세울수록 안정돼요. 복잡한 일을 한 번에 밀어붙이기보다, 필요한 것과 불필요한 것을 나누는 습관이 운의 체감도를 높여줘요. 흰색 계열, 서쪽 방향, 명확한 일정표처럼 단정한 장치를 가까이 두면 마음도 같이 정돈될 수 있어요." }
+        {
+          "kind": "text",
+          "value": "쇠 기운이 보완 포인트라면, 삶의 흐름은 정리와 기준을 세울수록 안정돼요. 복잡한 일을 한 번에 밀어붙이기보다, 필요한 것과 불필요한 것을 나누는 습관이 운의 체감도를 높여줘요. 흰색 계열, 서쪽 방향, 명확한 일정표처럼 단정한 장치를 가까이 두면 마음도 같이 정돈될 수 있어요."
+        }
       ],
       "livingTips": [
         "해야 할 일을 세 가지 기준으로 나누고, 오늘 할 일은 하나만 고르세요.",
@@ -93,12 +126,21 @@
     {
       "schemaVersion": "spring-ts.narrative-fragment.v1",
       "fragmentId": "overall.life.standard.yongshin.wood.101",
-      "axis": { "category": "overall", "period": "life", "depth": "standard" },
+      "axis": {
+        "category": "overall",
+        "period": "life",
+        "depth": "standard"
+      },
       "gating": {
-        "yongshinElement": ["WOOD"]
+        "yongshinElement": [
+          "WOOD"
+        ]
       },
       "templateTokens": [
-        { "kind": "text", "value": "나무 기운이 보완 포인트라면, 삶의 흐름은 천천히 자라고 넓어지는 쪽에서 힘을 얻어요. 한 번에 큰 결론을 내리기보다, 배움과 관계의 뿌리를 꾸준히 키우는 방식이 잘 맞아요. 초록 계열, 동쪽 방향, 식물처럼 매일 조금씩 돌볼 수 있는 습관을 가까이 두면 마음의 회복력이 좋아질 수 있어요." }
+        {
+          "kind": "text",
+          "value": "나무 기운이 보완 포인트라면, 삶의 흐름은 천천히 자라고 넓어지는 쪽에서 힘을 얻어요. 한 번에 큰 결론을 내리기보다, 배움과 관계의 뿌리를 꾸준히 키우는 방식이 잘 맞아요. 초록 계열, 동쪽 방향, 식물처럼 매일 조금씩 돌볼 수 있는 습관을 가까이 두면 마음의 회복력이 좋아질 수 있어요."
+        }
       ],
       "livingTips": [
         "새로 배우고 싶은 주제를 하나 정해 매주 같은 시간에 이어가 보세요.",
@@ -123,12 +165,21 @@
     {
       "schemaVersion": "spring-ts.narrative-fragment.v1",
       "fragmentId": "overall.life.standard.yongshin.fire.101",
-      "axis": { "category": "overall", "period": "life", "depth": "standard" },
+      "axis": {
+        "category": "overall",
+        "period": "life",
+        "depth": "standard"
+      },
       "gating": {
-        "yongshinElement": ["FIRE"]
+        "yongshinElement": [
+          "FIRE"
+        ]
       },
       "templateTokens": [
-        { "kind": "text", "value": "불 기운이 보완 포인트라면, 삶의 흐름은 따뜻하게 드러내고 명확히 표현할수록 살아나요. 마음속 계획을 혼자만 붙잡기보다, 적절한 자리에서 말하고 보여주는 과정이 운의 체감도를 높여줘요. 붉은 계열, 남쪽 방향, 밝은 조명처럼 활기를 주는 장치를 가까이 두면 추진력이 살아날 수 있어요." }
+        {
+          "kind": "text",
+          "value": "불 기운이 보완 포인트라면, 삶의 흐름은 따뜻하게 드러내고 명확히 표현할수록 살아나요. 마음속 계획을 혼자만 붙잡기보다, 적절한 자리에서 말하고 보여주는 과정이 운의 체감도를 높여줘요. 붉은 계열, 남쪽 방향, 밝은 조명처럼 활기를 주는 장치를 가까이 두면 추진력이 살아날 수 있어요."
+        }
       ],
       "livingTips": [
         "이번 주 안에 생각만 하던 계획 하나를 말이나 글로 밖에 꺼내보세요.",
@@ -153,12 +204,21 @@
     {
       "schemaVersion": "spring-ts.narrative-fragment.v1",
       "fragmentId": "overall.life.standard.yongshin.earth.101",
-      "axis": { "category": "overall", "period": "life", "depth": "standard" },
+      "axis": {
+        "category": "overall",
+        "period": "life",
+        "depth": "standard"
+      },
       "gating": {
-        "yongshinElement": ["EARTH"]
+        "yongshinElement": [
+          "EARTH"
+        ]
       },
       "templateTokens": [
-        { "kind": "text", "value": "흙 기운이 보완 포인트라면, 삶의 흐름은 기반을 만들고 지키는 쪽에서 안정돼요. 새로운 시도를 하더라도 먼저 머물 자리, 함께할 사람, 반복할 루틴을 정해두면 흔들림이 줄어들어요. 노란색과 갈색 계열, 중앙 방향, 정해진 식사와 수면처럼 몸을 붙잡아 주는 습관이 도움이 될 수 있어요." }
+        {
+          "kind": "text",
+          "value": "흙 기운이 보완 포인트라면, 삶의 흐름은 기반을 만들고 지키는 쪽에서 안정돼요. 새로운 시도를 하더라도 먼저 머물 자리, 함께할 사람, 반복할 루틴을 정해두면 흔들림이 줄어들어요. 노란색과 갈색 계열, 중앙 방향, 정해진 식사와 수면처럼 몸을 붙잡아 주는 습관이 도움이 될 수 있어요."
+        }
       ],
       "livingTips": [
         "이번 달에 꼭 유지할 생활 루틴을 세 가지 이하로 정해보세요.",
@@ -183,12 +243,21 @@
     {
       "schemaVersion": "spring-ts.narrative-fragment.v1",
       "fragmentId": "overall.life.standard.yongshin.water.101",
-      "axis": { "category": "overall", "period": "life", "depth": "standard" },
+      "axis": {
+        "category": "overall",
+        "period": "life",
+        "depth": "standard"
+      },
       "gating": {
-        "yongshinElement": ["WATER"]
+        "yongshinElement": [
+          "WATER"
+        ]
       },
       "templateTokens": [
-        { "kind": "text", "value": "물 기운이 보완 포인트라면, 삶의 흐름은 급히 밀어붙이기보다 유연하게 흐를 때 좋아져요. 정보를 모으고, 감정을 가라앉히고, 상황에 맞춰 길을 바꾸는 능력이 중요한 자원이 돼요. 검은색이나 짙은 파란색 계열, 북쪽 방향, 기록과 휴식처럼 마음을 식혀 주는 습관을 가까이 두면 균형을 잡기 쉬워요." }
+        {
+          "kind": "text",
+          "value": "물 기운이 보완 포인트라면, 삶의 흐름은 급히 밀어붙이기보다 유연하게 흐를 때 좋아져요. 정보를 모으고, 감정을 가라앉히고, 상황에 맞춰 길을 바꾸는 능력이 중요한 자원이 돼요. 검은색이나 짙은 파란색 계열, 북쪽 방향, 기록과 휴식처럼 마음을 식혀 주는 습관을 가까이 두면 균형을 잡기 쉬워요."
+        }
       ],
       "livingTips": [
         "결정 전에는 자료를 모으는 시간과 쉬는 시간을 따로 확보해 보세요.",
@@ -213,20 +282,46 @@
     {
       "schemaVersion": "spring-ts.narrative-fragment.v1",
       "fragmentId": "overall.life.expert.agephase.spring_yin.metal.101",
-      "axis": { "category": "overall", "period": "life", "depth": "expert" },
+      "axis": {
+        "category": "overall",
+        "period": "life",
+        "depth": "expert"
+      },
       "gating": {
-        "agePhase": ["early_40s"],
-        "birthSeason": ["spring"],
-        "currentSeason": ["spring"],
-        "dayMasterPolarity": ["YIN"],
-        "yongshinElement": ["METAL"]
+        "agePhase": [
+          "early_40s"
+        ],
+        "birthSeason": [
+          "spring"
+        ],
+        "currentSeason": [
+          "spring"
+        ],
+        "dayMasterPolarity": [
+          "YIN"
+        ],
+        "yongshinElement": [
+          "METAL"
+        ]
       },
       "templateTokens": [
-        { "kind": "text", "value": "초기 40대의 봄-봄 흐름에서는 새로 뻗는 기운이 강해지기 쉬워요. 이때 " },
-        { "kind": "tag", "tagId": "yongshin", "label": "용신" },
-        { "kind": "text", "value": "이 쇠라면 핵심은 확장보다 정리예요. 여러 가능성을 한꺼번에 키우기보다, 기준을 세우고 선택지를 덜어내는 방식이 사주의 균형을 더 잘 받쳐줘요. 음의 일간은 큰 결정보다 작은 감각의 누적에 강하므로, 기록과 검토를 반복할수록 판단이 안정돼요." }
+        {
+          "kind": "text",
+          "value": "초기 40대의 봄-봄 흐름에서는 새로 뻗는 기운이 강해지기 쉬워요. 이때 "
+        },
+        {
+          "kind": "tag",
+          "tagId": "yongshin",
+          "label": "용신"
+        },
+        {
+          "kind": "text",
+          "value": "이 쇠라면 핵심은 확장보다 정리예요. 여러 가능성을 한꺼번에 키우기보다, 기준을 세우고 선택지를 덜어내는 방식이 사주의 균형을 더 잘 받쳐줘요. 음의 일간은 큰 결정보다 작은 감각의 누적에 강하므로, 기록과 검토를 반복할수록 판단이 안정돼요."
+        }
       ],
-      "tags": ["yongshin"],
+      "tags": [
+        "yongshin"
+      ],
       "aiGenerated": true,
       "sourceTier": {
         "tier": "T1_HYPOTHESIS",

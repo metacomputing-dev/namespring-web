@@ -6,10 +6,21 @@
     {
       "schemaVersion": "spring-ts.narrative-fragment.v1",
       "fragmentId": "health_stress.thisWeek.standard.currentseason.spring.204",
-      "axis": { "category": "health_stress", "period": "thisWeek", "depth": "standard" },
-      "gating": { "currentSeason": ["spring"] },
+      "axis": {
+        "category": "health_stress",
+        "period": "thisWeek",
+        "depth": "standard"
+      },
+      "gating": {
+        "currentSeason": [
+          "spring"
+        ]
+      },
       "templateTokens": [
-        { "kind": "text", "value": "이번 주의 봄 흐름은 새 일을 시작하며 긴장이 가볍게 올라오기 쉬운 시기입니다. 컨디션 관리는 의욕을 살리되 일정을 너무 빨리 늘리지 않는 데 초점을 두면 좋습니다." }
+        {
+          "kind": "text",
+          "value": "이번 주의 봄 흐름은 새 일을 시작하며 긴장이 가볍게 올라오기 쉬운 시기입니다. 컨디션 관리는 의욕을 살리되 일정을 너무 빨리 늘리지 않는 데 초점을 두면 좋습니다."
+        }
       ],
       "livingTips": [
         "새 일정은 오전이나 컨디션이 좋은 시간대에 배치하고, 저녁에는 정리 시간을 남겨 보세요.",
@@ -18,7 +29,7 @@
       "cautions": [
         "시작이 많아질수록 수면과 식사 시간이 쉽게 밀릴 수 있어요."
       ],
-      "tags": ["currentSeason"],
+      "tags": [],
       "aiGenerated": true,
       "sourceTier": {
         "tier": "T1_HYPOTHESIS",
@@ -34,10 +45,21 @@
     {
       "schemaVersion": "spring-ts.narrative-fragment.v1",
       "fragmentId": "health_stress.thisWeek.standard.currentseason.summer.204",
-      "axis": { "category": "health_stress", "period": "thisWeek", "depth": "standard" },
-      "gating": { "currentSeason": ["summer"] },
+      "axis": {
+        "category": "health_stress",
+        "period": "thisWeek",
+        "depth": "standard"
+      },
+      "gating": {
+        "currentSeason": [
+          "summer"
+        ]
+      },
       "templateTokens": [
-        { "kind": "text", "value": "이번 주의 여름 흐름은 활동량과 감정 반응이 함께 커지기 쉬운 시기입니다. 컨디션 관리는 에너지를 쓰는 일과 식히는 일을 같은 비중으로 두어야 안정적입니다." }
+        {
+          "kind": "text",
+          "value": "이번 주의 여름 흐름은 활동량과 감정 반응이 함께 커지기 쉬운 시기입니다. 컨디션 관리는 에너지를 쓰는 일과 식히는 일을 같은 비중으로 두어야 안정적입니다."
+        }
       ],
       "livingTips": [
         "외부 일정이 많은 날에는 수분 보충과 짧은 휴식 시간을 먼저 확보해 보세요.",
@@ -46,7 +68,7 @@
       "cautions": [
         "과열된 상태가 이어지면 잠이 얕아지고 다음 날 집중력이 흔들릴 수 있어요."
       ],
-      "tags": ["currentSeason"],
+      "tags": [],
       "aiGenerated": true,
       "sourceTier": {
         "tier": "T1_HYPOTHESIS",
@@ -62,10 +84,21 @@
     {
       "schemaVersion": "spring-ts.narrative-fragment.v1",
       "fragmentId": "health_stress.thisWeek.standard.currentseason.autumn.204",
-      "axis": { "category": "health_stress", "period": "thisWeek", "depth": "standard" },
-      "gating": { "currentSeason": ["autumn"] },
+      "axis": {
+        "category": "health_stress",
+        "period": "thisWeek",
+        "depth": "standard"
+      },
+      "gating": {
+        "currentSeason": [
+          "autumn"
+        ]
+      },
       "templateTokens": [
-        { "kind": "text", "value": "이번 주의 가을 흐름은 정리와 판단이 또렷해지는 대신 몸과 마음이 건조하게 굳기 쉬운 시기입니다. 컨디션 관리는 기준을 세우되 여유와 순환을 함께 챙기는 쪽이 좋습니다." }
+        {
+          "kind": "text",
+          "value": "이번 주의 가을 흐름은 정리와 판단이 또렷해지는 대신 몸과 마음이 건조하게 굳기 쉬운 시기입니다. 컨디션 관리는 기준을 세우되 여유와 순환을 함께 챙기는 쪽이 좋습니다."
+        }
       ],
       "livingTips": [
         "일정을 줄이고 정리할 때 몸도 함께 풀 수 있도록 스트레칭 시간을 넣어 보세요.",
@@ -74,7 +107,7 @@
       "cautions": [
         "스스로에게 너무 엄격해지면 피로와 짜증이 함께 쌓일 수 있어요."
       ],
-      "tags": ["currentSeason"],
+      "tags": [],
       "aiGenerated": true,
       "sourceTier": {
         "tier": "T1_HYPOTHESIS",
@@ -90,10 +123,21 @@
     {
       "schemaVersion": "spring-ts.narrative-fragment.v1",
       "fragmentId": "health_stress.thisWeek.standard.currentseason.winter.204",
-      "axis": { "category": "health_stress", "period": "thisWeek", "depth": "standard" },
-      "gating": { "currentSeason": ["winter"] },
+      "axis": {
+        "category": "health_stress",
+        "period": "thisWeek",
+        "depth": "standard"
+      },
+      "gating": {
+        "currentSeason": [
+          "winter"
+        ]
+      },
       "templateTokens": [
-        { "kind": "text", "value": "이번 주의 겨울 흐름은 속도를 낮추고 회복을 챙기기 좋은 시기입니다. 컨디션 관리는 무리한 확장보다 몸을 따뜻하게 유지하고, 중요한 일만 차분히 처리하는 방향이 잘 맞습니다." }
+        {
+          "kind": "text",
+          "value": "이번 주의 겨울 흐름은 속도를 낮추고 회복을 챙기기 좋은 시기입니다. 컨디션 관리는 무리한 확장보다 몸을 따뜻하게 유지하고, 중요한 일만 차분히 처리하는 방향이 잘 맞습니다."
+        }
       ],
       "livingTips": [
         "일정이 무거운 날에는 강한 운동보다 걷기와 가벼운 스트레칭을 선택해 보세요.",
@@ -102,7 +146,7 @@
       "cautions": [
         "쉬어야 할 때를 놓치면 무기력과 미루기가 함께 커질 수 있어요."
       ],
-      "tags": ["currentSeason"],
+      "tags": [],
       "aiGenerated": true,
       "sourceTier": {
         "tier": "T1_HYPOTHESIS",

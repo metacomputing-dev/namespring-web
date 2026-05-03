@@ -6,10 +6,24 @@
     {
       "schemaVersion": "spring-ts.narrative-fragment.v1",
       "fragmentId": "overall.life.standard.agephase_gender.early_60s.male.206",
-      "axis": { "category": "overall", "period": "life", "depth": "standard" },
-      "gating": { "agePhase": ["early_60s"], "gender": ["male"] },
+      "axis": {
+        "category": "overall",
+        "period": "life",
+        "depth": "standard"
+      },
+      "gating": {
+        "agePhase": [
+          "early_60s"
+        ],
+        "gender": [
+          "male"
+        ]
+      },
       "templateTokens": [
-        { "kind": "text", "value": "60대 초반 남성으로 입력된 경우에는 기존 역할에서 한 걸음 물러나 경험을 새롭게 쓰는 흐름이 중요해요. 일의 무게를 줄이더라도 영향력은 다른 형태로 이어질 수 있으니, 건강과 관계의 안정성을 먼저 살피는 것이 좋아요." }
+        {
+          "kind": "text",
+          "value": "60대 초반 남성으로 입력된 경우에는 기존 역할에서 한 걸음 물러나 경험을 새롭게 쓰는 흐름이 중요해요. 일의 무게를 줄이더라도 영향력은 다른 형태로 이어질 수 있으니, 건강과 관계의 안정성을 먼저 살피는 것이 좋아요."
+        }
       ],
       "livingTips": [
         "오래 해온 일을 조언, 기록, 교육, 취미 중 어떤 형태로 이어갈지 정해 보세요.",
@@ -18,7 +32,7 @@
       "cautions": [
         "역할이 줄어드는 변화를 손실로만 보면 새로운 생활 리듬을 만들기 어려워질 수 있어요."
       ],
-      "tags": ["agePhase", "gender"],
+      "tags": [],
       "aiGenerated": true,
       "sourceTier": {
         "tier": "T1_HYPOTHESIS",
@@ -34,10 +48,24 @@
     {
       "schemaVersion": "spring-ts.narrative-fragment.v1",
       "fragmentId": "overall.life.standard.agephase_gender.early_60s.female.206",
-      "axis": { "category": "overall", "period": "life", "depth": "standard" },
-      "gating": { "agePhase": ["early_60s"], "gender": ["female"] },
+      "axis": {
+        "category": "overall",
+        "period": "life",
+        "depth": "standard"
+      },
+      "gating": {
+        "agePhase": [
+          "early_60s"
+        ],
+        "gender": [
+          "female"
+        ]
+      },
       "templateTokens": [
-        { "kind": "text", "value": "60대 초반 여성으로 입력된 경우에는 오랫동안 이어온 책임을 조정하고 나의 시간을 다시 찾는 흐름이 중요해요. 관계를 끊는 변화보다, 도움을 주고받는 방식을 새로 정하면 생활의 안정감이 더 커질 수 있어요." }
+        {
+          "kind": "text",
+          "value": "60대 초반 여성으로 입력된 경우에는 오랫동안 이어온 책임을 조정하고 나의 시간을 다시 찾는 흐름이 중요해요. 관계를 끊는 변화보다, 도움을 주고받는 방식을 새로 정하면 생활의 안정감이 더 커질 수 있어요."
+        }
       ],
       "livingTips": [
         "가족이나 주변 사람에게 해온 일 중 계속할 일과 나눌 일을 구분해 보세요.",
@@ -46,7 +74,7 @@
       "cautions": [
         "늘 하던 방식으로 챙기다 보면 스스로의 회복 시간이 계속 뒤로 밀릴 수 있어요."
       ],
-      "tags": ["agePhase", "gender"],
+      "tags": [],
       "aiGenerated": true,
       "sourceTier": {
         "tier": "T1_HYPOTHESIS",
@@ -62,10 +90,24 @@
     {
       "schemaVersion": "spring-ts.narrative-fragment.v1",
       "fragmentId": "overall.life.standard.agephase_gender.early_60s.neutral.206",
-      "axis": { "category": "overall", "period": "life", "depth": "standard" },
-      "gating": { "agePhase": ["early_60s"], "gender": ["neutral"] },
+      "axis": {
+        "category": "overall",
+        "period": "life",
+        "depth": "standard"
+      },
+      "gating": {
+        "agePhase": [
+          "early_60s"
+        ],
+        "gender": [
+          "neutral"
+        ]
+      },
       "templateTokens": [
-        { "kind": "text", "value": "60대 초반이고 성별을 넓게 본 경우에는 삶의 속도를 낮추면서도 의미 있는 연결을 남기는 흐름이 중요해요. 지금은 새로운 성과보다 건강, 관계, 경험의 활용 방식을 차분히 재정리하는 시기예요." }
+        {
+          "kind": "text",
+          "value": "60대 초반이고 성별을 넓게 본 경우에는 삶의 속도를 낮추면서도 의미 있는 연결을 남기는 흐름이 중요해요. 지금은 새로운 성과보다 건강, 관계, 경험의 활용 방식을 차분히 재정리하는 시기예요."
+        }
       ],
       "livingTips": [
         "경험을 나눌 수 있는 모임, 기록, 배움 활동을 하나만 정해 꾸준히 이어가 보세요.",
@@ -74,7 +116,7 @@
       "cautions": [
         "속도를 늦추는 일을 실패로 해석하면 필요한 회복을 미루게 될 수 있어요."
       ],
-      "tags": ["agePhase", "gender"],
+      "tags": [],
       "aiGenerated": true,
       "sourceTier": {
         "tier": "T1_HYPOTHESIS",
@@ -90,10 +132,24 @@
     {
       "schemaVersion": "spring-ts.narrative-fragment.v1",
       "fragmentId": "overall.life.standard.agephase_gender.late_60s.male.206",
-      "axis": { "category": "overall", "period": "life", "depth": "standard" },
-      "gating": { "agePhase": ["late_60s"], "gender": ["male"] },
+      "axis": {
+        "category": "overall",
+        "period": "life",
+        "depth": "standard"
+      },
+      "gating": {
+        "agePhase": [
+          "late_60s"
+        ],
+        "gender": [
+          "male"
+        ]
+      },
       "templateTokens": [
-        { "kind": "text", "value": "60대 후반 남성으로 입력된 경우에는 경험을 삶의 지혜로 정리하고 안정적인 관계 안에서 나누는 흐름이 좋아요. 직접 앞장서는 방식보다 필요한 곳에 힘을 보태고, 몸의 신호를 존중하는 선택이 전체 운을 편안하게 만듭니다." }
+        {
+          "kind": "text",
+          "value": "60대 후반 남성으로 입력된 경우에는 경험을 삶의 지혜로 정리하고 안정적인 관계 안에서 나누는 흐름이 좋아요. 직접 앞장서는 방식보다 필요한 곳에 힘을 보태고, 몸의 신호를 존중하는 선택이 전체 운을 편안하게 만듭니다."
+        }
       ],
       "livingTips": [
         "가벼운 활동과 사람을 만나는 일정을 무리 없이 반복할 수 있게 배치해 보세요.",
@@ -102,7 +158,7 @@
       "cautions": [
         "예전 기준으로 체력과 속도를 판단하면 피로가 누적될 수 있어요."
       ],
-      "tags": ["agePhase", "gender"],
+      "tags": [],
       "aiGenerated": true,
       "sourceTier": {
         "tier": "T1_HYPOTHESIS",
@@ -118,10 +174,24 @@
     {
       "schemaVersion": "spring-ts.narrative-fragment.v1",
       "fragmentId": "overall.life.standard.agephase_gender.late_60s.female.206",
-      "axis": { "category": "overall", "period": "life", "depth": "standard" },
-      "gating": { "agePhase": ["late_60s"], "gender": ["female"] },
+      "axis": {
+        "category": "overall",
+        "period": "life",
+        "depth": "standard"
+      },
+      "gating": {
+        "agePhase": [
+          "late_60s"
+        ],
+        "gender": [
+          "female"
+        ]
+      },
       "templateTokens": [
-        { "kind": "text", "value": "60대 후반 여성으로 입력된 경우에는 돌봄과 관계의 경험을 나의 평온으로 되돌리는 흐름이 중요해요. 주변을 챙기는 힘은 여전히 장점이지만, 이제는 나의 몸과 마음이 편안한 범위를 먼저 정하는 것이 좋아요." }
+        {
+          "kind": "text",
+          "value": "60대 후반 여성으로 입력된 경우에는 돌봄과 관계의 경험을 나의 평온으로 되돌리는 흐름이 중요해요. 주변을 챙기는 힘은 여전히 장점이지만, 이제는 나의 몸과 마음이 편안한 범위를 먼저 정하는 것이 좋아요."
+        }
       ],
       "livingTips": [
         "주변을 돕는 일도 가능한 시간과 어려운 시간을 구분해 말해 보세요.",
@@ -130,7 +200,7 @@
       "cautions": [
         "도움을 거절하지 못하면 필요한 휴식이 계속 줄어들 수 있어요."
       ],
-      "tags": ["agePhase", "gender"],
+      "tags": [],
       "aiGenerated": true,
       "sourceTier": {
         "tier": "T1_HYPOTHESIS",
@@ -146,10 +216,24 @@
     {
       "schemaVersion": "spring-ts.narrative-fragment.v1",
       "fragmentId": "overall.life.standard.agephase_gender.late_60s.neutral.206",
-      "axis": { "category": "overall", "period": "life", "depth": "standard" },
-      "gating": { "agePhase": ["late_60s"], "gender": ["neutral"] },
+      "axis": {
+        "category": "overall",
+        "period": "life",
+        "depth": "standard"
+      },
+      "gating": {
+        "agePhase": [
+          "late_60s"
+        ],
+        "gender": [
+          "neutral"
+        ]
+      },
       "templateTokens": [
-        { "kind": "text", "value": "60대 후반이고 성별을 넓게 본 경우에는 남길 경험과 줄일 부담을 차분히 정리하는 흐름이 중요해요. 무리한 변화보다 건강한 반복, 편안한 관계, 의미 있는 나눔을 유지할 때 운의 안정감이 커져요." }
+        {
+          "kind": "text",
+          "value": "60대 후반이고 성별을 넓게 본 경우에는 남길 경험과 줄일 부담을 차분히 정리하는 흐름이 중요해요. 무리한 변화보다 건강한 반복, 편안한 관계, 의미 있는 나눔을 유지할 때 운의 안정감이 커져요."
+        }
       ],
       "livingTips": [
         "매주 꼭 지킬 건강 루틴 하나와 사람을 만나는 루틴 하나를 정해 보세요.",
@@ -158,7 +242,7 @@
       "cautions": [
         "익숙한 책임을 모두 안고 가면 생활의 여유가 줄어들 수 있어요."
       ],
-      "tags": ["agePhase", "gender"],
+      "tags": [],
       "aiGenerated": true,
       "sourceTier": {
         "tier": "T1_HYPOTHESIS",

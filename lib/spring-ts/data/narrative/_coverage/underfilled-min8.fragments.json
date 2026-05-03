@@ -177,7 +177,13 @@
       "axis": { "category": "wealth", "period": "thisWeek", "depth": "expert" },
       "gating": { "yongshinAlignment": ["neutral"], "ageBand": ["20-29", "30-39", "40-54", "55-69", "70+"] },
       "templateTokens": [
-        { "kind": "text", "value": "전문가 관점에서는 이번 주 재물 흐름을 큰 수익 판단보다 현금 흐름 관리로 보는 편이 안정적이에요. 수입과 지출의 균형이 크게 흔들리지 않는지 먼저 확인하고, 예상 밖 지출은 즉시 결정하기보다 하루 정도 검토 시간을 두는 전략이 좋아요." }
+        { "kind": "text", "value": "전문가 관점에서는 이번 주 재물 흐름을 큰 수익 판단보다 " },
+        { "kind": "tag", "tagId": "jeongjae", "label": "정재" },
+        { "kind": "text", "value": "와 " },
+        { "kind": "tag", "tagId": "pyeonjae", "label": "편재" },
+        { "kind": "text", "value": "의 현금 흐름 관리로 보는 편이 안정적이에요. 수입과 지출의 균형이 크게 흔들리지 않는지 먼저 확인하고, " },
+        { "kind": "tag", "tagId": "stabilityIndex", "label": "안정성지수" },
+        { "kind": "text", "value": "가 낮아질 수 있는 예상 밖 지출은 즉시 결정하기보다 하루 정도 검토 시간을 두는 전략이 좋아요." }
       ],
       "livingTips": [
         "이번 주 고정 지출과 변동 지출을 따로 적어보세요.",
@@ -186,7 +192,7 @@
       "cautions": [
         "좋아 보이는 제안이라도 조건을 숫자로 확인하기 전에는 확정하지 마세요."
       ],
-      "tags": [],
+      "tags": ["jeongjae", "pyeonjae", "stabilityIndex"],
       "aiGenerated": true,
       "sourceTier": {
         "tier": "T1_HYPOTHESIS",
@@ -205,7 +211,13 @@
       "axis": { "category": "wealth", "period": "thisMonth", "depth": "expert" },
       "gating": { "yongshinAlignment": ["neutral"], "ageBand": ["20-29", "30-39", "40-54", "55-69", "70+"] },
       "templateTokens": [
-        { "kind": "text", "value": "전문가 관점에서는 이번 달 재물 흐름을 단기 성과보다 예산 구조의 안정성으로 보는 것이 좋아요. 들어오는 돈, 반드시 나가는 돈, 선택적으로 조정할 돈을 나누면 재물운의 체감이 훨씬 선명해져요. 무리한 확대보다 손실을 줄이는 결정이 다음 기회를 만드는 기반이 될 수 있어요." }
+        { "kind": "text", "value": "전문가 관점에서는 이번 달 재물 흐름을 단기 성과보다 " },
+        { "kind": "tag", "tagId": "jeongjae", "label": "정재" },
+        { "kind": "text", "value": "의 고정성, " },
+        { "kind": "tag", "tagId": "pyeonjae", "label": "편재" },
+        { "kind": "text", "value": "의 변동성, " },
+        { "kind": "tag", "tagId": "stabilityIndex", "label": "안정성지수" },
+        { "kind": "text", "value": "를 함께 보는 예산 구조의 안정성으로 판단하는 것이 좋아요. 들어오는 돈, 반드시 나가는 돈, 선택적으로 조정할 돈을 나누면 재물운의 체감이 훨씬 선명해져요. 무리한 확대보다 손실을 줄이는 결정이 다음 기회를 만드는 기반이 될 수 있어요." }
       ],
       "livingTips": [
         "이번 달 예산을 필수 지출, 선택 지출, 예비비로 나누어 보세요.",
@@ -214,7 +226,7 @@
       "cautions": [
         "월초 분위기만 보고 한 달 전체 지출 계획을 크게 늘리지 마세요."
       ],
-      "tags": [],
+      "tags": ["jeongjae", "pyeonjae", "stabilityIndex"],
       "aiGenerated": true,
       "sourceTier": {
         "tier": "T1_HYPOTHESIS",

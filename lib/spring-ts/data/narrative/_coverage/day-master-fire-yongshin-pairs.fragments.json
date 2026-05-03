@@ -6,10 +6,24 @@
     {
       "schemaVersion": "spring-ts.narrative-fragment.v1",
       "fragmentId": "overall.life.standard.daymasterelement.fire.yongshinelement.wood.206",
-      "axis": { "category": "overall", "period": "life", "depth": "standard" },
-      "gating": { "dayMasterElement": ["FIRE"], "yongshinElement": ["WOOD"] },
+      "axis": {
+        "category": "overall",
+        "period": "life",
+        "depth": "standard"
+      },
+      "gating": {
+        "dayMasterElement": [
+          "FIRE"
+        ],
+        "yongshinElement": [
+          "WOOD"
+        ]
+      },
       "templateTokens": [
-        { "kind": "text", "value": "불 일간에 나무 기운이 도움이 되는 구조라면, 밝게 드러나는 힘을 꾸준히 키워줄 배움과 관계가 중요해요. 순간의 열정은 강하지만, 연료가 부족하면 금방 지칠 수 있습니다. 좋은 사람, 좋은 자료, 규칙적인 성장 루틴을 가까이하면 표현의 힘이 오래 이어집니다." }
+        {
+          "kind": "text",
+          "value": "불 타고난 중심 기운에 나무 기운이 도움이 되는 구조라면, 밝게 드러나는 힘을 꾸준히 키워줄 배움과 관계가 중요해요. 순간의 열정은 강하지만, 연료가 부족하면 금방 지칠 수 있습니다. 좋은 사람, 좋은 자료, 규칙적인 성장 루틴을 가까이하면 표현의 힘이 오래 이어집니다."
+        }
       ],
       "livingTips": [
         "발표나 표현이 필요한 일은 먼저 자료와 질문을 충분히 모아보세요.",
@@ -18,7 +32,7 @@
       "cautions": [
         "기분이 오른 순간만 믿으면 꾸준한 준비가 부족해질 수 있어요."
       ],
-      "tags": ["dayMasterElement", "yongshinElement"],
+      "tags": [],
       "aiGenerated": true,
       "sourceTier": {
         "tier": "T1_HYPOTHESIS",
@@ -34,10 +48,24 @@
     {
       "schemaVersion": "spring-ts.narrative-fragment.v1",
       "fragmentId": "overall.life.standard.daymasterelement.fire.yongshinelement.fire.206",
-      "axis": { "category": "overall", "period": "life", "depth": "standard" },
-      "gating": { "dayMasterElement": ["FIRE"], "yongshinElement": ["FIRE"] },
+      "axis": {
+        "category": "overall",
+        "period": "life",
+        "depth": "standard"
+      },
+      "gating": {
+        "dayMasterElement": [
+          "FIRE"
+        ],
+        "yongshinElement": [
+          "FIRE"
+        ]
+      },
       "templateTokens": [
-        { "kind": "text", "value": "불 일간에 불 기운이 도움이 되는 구조라면, 삶의 방향은 존재감과 표현을 건강하게 살리는 쪽에서 힘을 얻기 쉬워요. 마음속 생각을 숨기기보다 말, 글, 창작, 리더십으로 드러낼 때 흐름이 열립니다. 다만 빛이 강할수록 휴식과 온도 조절이 필요하므로 밝게 움직이되 소진 신호를 함께 살펴야 합니다." }
+        {
+          "kind": "text",
+          "value": "불 타고난 중심 기운에 불 기운이 도움이 되는 구조라면, 삶의 방향은 존재감과 표현을 건강하게 살리는 쪽에서 힘을 얻기 쉬워요. 마음속 생각을 숨기기보다 말, 글, 창작, 리더십으로 드러낼 때 흐름이 열립니다. 다만 빛이 강할수록 휴식과 온도 조절이 필요하므로 밝게 움직이되 소진 신호를 함께 살펴야 합니다."
+        }
       ],
       "livingTips": [
         "사람들 앞에서 전할 핵심 메시지를 한 문장으로 정리해 보세요.",
@@ -46,7 +74,7 @@
       "cautions": [
         "주목받는 흐름이 좋아도 감정이 과열되면 말과 결정이 빨라질 수 있어요."
       ],
-      "tags": ["dayMasterElement", "yongshinElement"],
+      "tags": [],
       "aiGenerated": true,
       "sourceTier": {
         "tier": "T1_HYPOTHESIS",
@@ -62,10 +90,24 @@
     {
       "schemaVersion": "spring-ts.narrative-fragment.v1",
       "fragmentId": "overall.life.standard.daymasterelement.fire.yongshinelement.earth.206",
-      "axis": { "category": "overall", "period": "life", "depth": "standard" },
-      "gating": { "dayMasterElement": ["FIRE"], "yongshinElement": ["EARTH"] },
+      "axis": {
+        "category": "overall",
+        "period": "life",
+        "depth": "standard"
+      },
+      "gating": {
+        "dayMasterElement": [
+          "FIRE"
+        ],
+        "yongshinElement": [
+          "EARTH"
+        ]
+      },
       "templateTokens": [
-        { "kind": "text", "value": "불 일간에 흙 기운이 도움이 되는 구조라면, 뜨거운 표현력을 현실의 결과와 책임으로 연결할 때 안정감이 커져요. 아이디어와 말의 힘은 빠르지만, 실행 기반이 약하면 주변에는 일시적인 열정으로 보일 수 있습니다. 일정, 역할, 비용을 차분히 정리하면 밝은 힘이 신뢰로 이어집니다." }
+        {
+          "kind": "text",
+          "value": "불 타고난 중심 기운에 흙 기운이 도움이 되는 구조라면, 뜨거운 표현력을 현실의 결과와 책임으로 연결할 때 안정감이 커져요. 아이디어와 말의 힘은 빠르지만, 실행 기반이 약하면 주변에는 일시적인 열정으로 보일 수 있습니다. 일정, 역할, 비용을 차분히 정리하면 밝은 힘이 신뢰로 이어집니다."
+        }
       ],
       "livingTips": [
         "새 제안을 할 때는 실행 일정과 필요한 자원을 함께 제시하세요.",
@@ -74,7 +116,7 @@
       "cautions": [
         "말이 앞서고 기반이 늦어지면 기대와 현실 사이의 부담이 커질 수 있어요."
       ],
-      "tags": ["dayMasterElement", "yongshinElement"],
+      "tags": [],
       "aiGenerated": true,
       "sourceTier": {
         "tier": "T1_HYPOTHESIS",
@@ -90,10 +132,24 @@
     {
       "schemaVersion": "spring-ts.narrative-fragment.v1",
       "fragmentId": "overall.life.standard.daymasterelement.fire.yongshinelement.metal.206",
-      "axis": { "category": "overall", "period": "life", "depth": "standard" },
-      "gating": { "dayMasterElement": ["FIRE"], "yongshinElement": ["METAL"] },
+      "axis": {
+        "category": "overall",
+        "period": "life",
+        "depth": "standard"
+      },
+      "gating": {
+        "dayMasterElement": [
+          "FIRE"
+        ],
+        "yongshinElement": [
+          "METAL"
+        ]
+      },
       "templateTokens": [
-        { "kind": "text", "value": "불 일간에 쇠 기운이 도움이 되는 구조라면, 강한 표현과 추진력을 기준과 절제로 다듬을 때 균형이 좋아져요. 빛을 크게 내는 힘은 장점이지만, 방향이 정리되지 않으면 말과 행동이 산만해질 수 있습니다. 핵심 메시지, 품질 기준, 지켜야 할 선을 정하면 영향력이 더 단단해집니다." }
+        {
+          "kind": "text",
+          "value": "불 타고난 중심 기운에 쇠 기운이 도움이 되는 구조라면, 강한 표현과 추진력을 기준과 절제로 다듬을 때 균형이 좋아져요. 빛을 크게 내는 힘은 장점이지만, 방향이 정리되지 않으면 말과 행동이 산만해질 수 있습니다. 핵심 메시지, 품질 기준, 지켜야 할 선을 정하면 영향력이 더 단단해집니다."
+        }
       ],
       "livingTips": [
         "중요한 말은 바로 내기보다 핵심, 근거, 요청 순서로 정리하세요.",
@@ -102,7 +158,7 @@
       "cautions": [
         "기준 없이 주목만 커지면 실수도 함께 크게 보일 수 있어요."
       ],
-      "tags": ["dayMasterElement", "yongshinElement"],
+      "tags": [],
       "aiGenerated": true,
       "sourceTier": {
         "tier": "T1_HYPOTHESIS",
@@ -118,10 +174,24 @@
     {
       "schemaVersion": "spring-ts.narrative-fragment.v1",
       "fragmentId": "overall.life.standard.daymasterelement.fire.yongshinelement.water.206",
-      "axis": { "category": "overall", "period": "life", "depth": "standard" },
-      "gating": { "dayMasterElement": ["FIRE"], "yongshinElement": ["WATER"] },
+      "axis": {
+        "category": "overall",
+        "period": "life",
+        "depth": "standard"
+      },
+      "gating": {
+        "dayMasterElement": [
+          "FIRE"
+        ],
+        "yongshinElement": [
+          "WATER"
+        ]
+      },
       "templateTokens": [
-        { "kind": "text", "value": "불 일간에 물 기운이 도움이 되는 구조라면, 밝고 빠른 에너지에 차분한 관찰과 회복을 더할 때 흐름이 좋아져요. 먼저 드러나고 움직이는 힘은 강하지만, 잠시 멈춰 듣는 시간이 부족하면 관계와 판단이 과열될 수 있습니다. 표현 전후에 생각을 식히는 루틴을 두면 따뜻함과 깊이가 함께 살아납니다." }
+        {
+          "kind": "text",
+          "value": "불 타고난 중심 기운에 물 기운이 도움이 되는 구조라면, 밝고 빠른 에너지에 차분한 관찰과 회복을 더할 때 흐름이 좋아져요. 먼저 드러나고 움직이는 힘은 강하지만, 잠시 멈춰 듣는 시간이 부족하면 관계와 판단이 과열될 수 있습니다. 표현 전후에 생각을 식히는 루틴을 두면 따뜻함과 깊이가 함께 살아납니다."
+        }
       ],
       "livingTips": [
         "감정이 큰 이야기는 바로 결론 내기보다 메모하고 한 번 쉬었다가 말해보세요.",
@@ -130,7 +200,7 @@
       "cautions": [
         "뜨거운 반응만 따라가면 피로와 오해가 누적될 수 있어요."
       ],
-      "tags": ["dayMasterElement", "yongshinElement"],
+      "tags": [],
       "aiGenerated": true,
       "sourceTier": {
         "tier": "T1_HYPOTHESIS",

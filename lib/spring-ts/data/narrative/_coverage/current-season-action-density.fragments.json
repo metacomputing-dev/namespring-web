@@ -6,10 +6,21 @@
     {
       "schemaVersion": "spring-ts.narrative-fragment.v1",
       "fragmentId": "overall.thisMonth.standard.currentseason.spring.202",
-      "axis": { "category": "overall", "period": "thisMonth", "depth": "standard" },
-      "gating": { "currentSeason": ["spring"] },
+      "axis": {
+        "category": "overall",
+        "period": "thisMonth",
+        "depth": "standard"
+      },
+      "gating": {
+        "currentSeason": [
+          "spring"
+        ]
+      },
       "templateTokens": [
-        { "kind": "text", "value": "현재 계절이 봄이면 이번 시기는 새 일을 틔우고 관계의 물꼬를 여는 데 어울립니다. 처음부터 큰 성과를 기대하기보다 작은 시도와 가벼운 연결을 늘려보세요. 다만 일이 너무 많이 벌어지면 집중력이 흐려질 수 있으니, 시작한 일 중 한두 가지는 끝까지 돌보는 기준이 필요합니다." }
+        {
+          "kind": "text",
+          "value": "현재 계절이 봄이면 이번 시기는 새 일을 틔우고 관계의 물꼬를 여는 데 어울립니다. 처음부터 큰 성과를 기대하기보다 작은 시도와 가벼운 연결을 늘려보세요. 다만 일이 너무 많이 벌어지면 집중력이 흐려질 수 있으니, 시작한 일 중 한두 가지는 끝까지 돌보는 기준이 필요합니다."
+        }
       ],
       "livingTips": [
         "새 프로젝트나 만남은 작게 시작하고 다음 약속까지 정해 두세요.",
@@ -18,7 +29,7 @@
       "cautions": [
         "초반 기대감이 커질수록 마무리 기준을 먼저 정하는 것이 좋아요."
       ],
-      "tags": ["currentSeason"],
+      "tags": [],
       "aiGenerated": true,
       "sourceTier": {
         "tier": "T1_HYPOTHESIS",
@@ -34,10 +45,21 @@
     {
       "schemaVersion": "spring-ts.narrative-fragment.v1",
       "fragmentId": "overall.thisMonth.standard.currentseason.summer.202",
-      "axis": { "category": "overall", "period": "thisMonth", "depth": "standard" },
-      "gating": { "currentSeason": ["summer"] },
+      "axis": {
+        "category": "overall",
+        "period": "thisMonth",
+        "depth": "standard"
+      },
+      "gating": {
+        "currentSeason": [
+          "summer"
+        ]
+      },
       "templateTokens": [
-        { "kind": "text", "value": "현재 계절이 여름이면 이번 시기는 추진력과 표현력이 강해지기 쉽습니다. 미뤄둔 발표, 제안, 대외 활동을 꺼내기 좋지만, 일정이 과열되면 컨디션과 관계가 빠르게 지칠 수 있어요. 밝게 움직이되 쉬는 시간과 감정 조절 장치를 같이 두면 흐름이 안정됩니다." }
+        {
+          "kind": "text",
+          "value": "현재 계절이 여름이면 이번 시기는 추진력과 표현력이 강해지기 쉽습니다. 미뤄둔 발표, 제안, 대외 활동을 꺼내기 좋지만, 일정이 과열되면 컨디션과 관계가 빠르게 지칠 수 있어요. 밝게 움직이되 쉬는 시간과 감정 조절 장치를 같이 두면 흐름이 안정됩니다."
+        }
       ],
       "livingTips": [
         "중요한 제안이나 대화는 명확한 메시지로 정리해 먼저 꺼내 보세요.",
@@ -46,7 +68,7 @@
       "cautions": [
         "속도가 빨라질수록 말실수와 과로를 함께 조심해야 해요."
       ],
-      "tags": ["currentSeason"],
+      "tags": [],
       "aiGenerated": true,
       "sourceTier": {
         "tier": "T1_HYPOTHESIS",
@@ -62,10 +84,21 @@
     {
       "schemaVersion": "spring-ts.narrative-fragment.v1",
       "fragmentId": "overall.thisMonth.standard.currentseason.autumn.202",
-      "axis": { "category": "overall", "period": "thisMonth", "depth": "standard" },
-      "gating": { "currentSeason": ["autumn"] },
+      "axis": {
+        "category": "overall",
+        "period": "thisMonth",
+        "depth": "standard"
+      },
+      "gating": {
+        "currentSeason": [
+          "autumn"
+        ]
+      },
       "templateTokens": [
-        { "kind": "text", "value": "현재 계절이 가을이면 이번 시기는 벌려둔 일을 정리하고 결과물의 완성도를 높이기 좋습니다. 새로 늘리기보다 중요한 것을 고르고, 기준을 세워 마무리하는 쪽에 힘이 붙어요. 다만 평가가 날카로워지기 쉬우니 사람을 재단하기보다 일의 구조를 다듬는 데 초점을 두면 좋습니다." }
+        {
+          "kind": "text",
+          "value": "현재 계절이 가을이면 이번 시기는 벌려둔 일을 정리하고 결과물의 완성도를 높이기 좋습니다. 새로 늘리기보다 중요한 것을 고르고, 기준을 세워 마무리하는 쪽에 힘이 붙어요. 다만 평가가 날카로워지기 쉬우니 사람을 재단하기보다 일의 구조를 다듬는 데 초점을 두면 좋습니다."
+        }
       ],
       "livingTips": [
         "이번 달에는 버릴 일, 줄일 일, 완성할 일을 나눠 적어 보세요.",
@@ -74,7 +107,7 @@
       "cautions": [
         "기준이 높아질수록 자기비판이나 관계 긴장이 커질 수 있어요."
       ],
-      "tags": ["currentSeason"],
+      "tags": [],
       "aiGenerated": true,
       "sourceTier": {
         "tier": "T1_HYPOTHESIS",
@@ -90,10 +123,21 @@
     {
       "schemaVersion": "spring-ts.narrative-fragment.v1",
       "fragmentId": "overall.thisMonth.standard.currentseason.winter.202",
-      "axis": { "category": "overall", "period": "thisMonth", "depth": "standard" },
-      "gating": { "currentSeason": ["winter"] },
+      "axis": {
+        "category": "overall",
+        "period": "thisMonth",
+        "depth": "standard"
+      },
+      "gating": {
+        "currentSeason": [
+          "winter"
+        ]
+      },
       "templateTokens": [
-        { "kind": "text", "value": "현재 계절이 겨울이면 이번 시기는 무리한 확장보다 회복, 준비, 깊은 점검에 어울립니다. 급하게 결론을 내리기보다 자료를 모으고 다음 단계를 설계하면 좋아요. 다만 준비만 길어지면 실행이 늦어질 수 있으니, 작은 행동 하나를 정해 흐름을 멈추지 않는 것이 중요합니다." }
+        {
+          "kind": "text",
+          "value": "현재 계절이 겨울이면 이번 시기는 무리한 확장보다 회복, 준비, 깊은 점검에 어울립니다. 급하게 결론을 내리기보다 자료를 모으고 다음 단계를 설계하면 좋아요. 다만 준비만 길어지면 실행이 늦어질 수 있으니, 작은 행동 하나를 정해 흐름을 멈추지 않는 것이 중요합니다."
+        }
       ],
       "livingTips": [
         "큰 결정보다는 자료 정리, 휴식, 계획 보완에 시간을 배분해 보세요.",
@@ -102,7 +146,7 @@
       "cautions": [
         "신중함이 길어지면 기회가 지나가거나 자신감이 떨어질 수 있어요."
       ],
-      "tags": ["currentSeason"],
+      "tags": [],
       "aiGenerated": true,
       "sourceTier": {
         "tier": "T1_HYPOTHESIS",
