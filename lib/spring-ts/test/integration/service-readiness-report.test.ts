@@ -44,8 +44,15 @@ check('frontend handoff is ready for integration when density gaps are closed',
   report?.frontendHandoff?.status);
 check('frontend checklist keeps all hard checks passing',
   Array.isArray(report?.frontendHandoff?.checks) &&
-    report.frontendHandoff.checks.every((row: any) => row.status !== 'fail'),
+    report.frontendHandoff.checks.every((row: any) => row.status !== 'fail') &&
+    report.frontendHandoff.checks.some((row: any) =>
+      row.id === 'progressive_disclosure_runtime_contract' &&
+      row.status === 'pass' &&
+      String(row.evidence).includes('present')),
   JSON.stringify(report?.frontendHandoff?.checks));
+check('frontend checklist exposes progressive disclosure test',
+  report?.frontendHandoff?.tests?.progressiveDisclosure === true,
+  JSON.stringify(report?.frontendHandoff?.tests));
 check('frontend next steps are explicit',
   Array.isArray(report?.frontendHandoff?.nextFrontendSteps) &&
     report.frontendHandoff.nextFrontendSteps.some((step: string) => step.includes('surfaceTieredMatrix')) &&
