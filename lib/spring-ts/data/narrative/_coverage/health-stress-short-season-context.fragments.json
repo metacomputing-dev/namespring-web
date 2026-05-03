@@ -1,0 +1,379 @@
+{
+  "schemaVersion": "spring-ts.narrative-fragment-bundle.v1",
+  "bundleId": "coverage.health-stress-short-season-context.20260503",
+  "contractVersion": "1.0.0",
+  "fragments": [
+    {
+      "schemaVersion": "spring-ts.narrative-fragment.v1",
+      "fragmentId": "health_stress.today.brief.currentseason.spring_summer.301",
+      "axis": { "category": "health_stress", "period": "today", "depth": "brief" },
+      "gating": { "currentSeason": ["spring", "summer"] },
+      "templateTokens": [
+        { "kind": "text", "value": "오늘은 몸과 마음이 빨리 달아오를 수 있어요. 답을 서두르기보다 물을 마시고 잠깐 걷는 시간을 넣으면 긴장이 줄어듭니다." }
+      ],
+      "tags": [],
+      "aiGenerated": true,
+      "sourceTier": {
+        "tier": "T1_HYPOTHESIS",
+        "sourceType": "training_derived",
+        "sourceUrl": null,
+        "accessedAt": "2026-05-03",
+        "quoteShort": null,
+        "humanInterpretation": "Plain health stress today brief for spring/summer current season. AI-derived display text; not authority truth.",
+        "copyrightNote": "No source prose copied; original phrasing.",
+        "authorityTruthEligible": false
+      }
+    },
+    {
+      "schemaVersion": "spring-ts.narrative-fragment.v1",
+      "fragmentId": "health_stress.today.brief.currentseason.autumn_winter.301",
+      "axis": { "category": "health_stress", "period": "today", "depth": "brief" },
+      "gating": { "currentSeason": ["autumn", "winter"] },
+      "templateTokens": [
+        { "kind": "text", "value": "오늘은 생각이 많아지면 몸도 굳기 쉬워요. 따뜻하게 쉬는 시간과 일찍 정리하는 시간을 먼저 챙기면 안정됩니다." }
+      ],
+      "tags": [],
+      "aiGenerated": true,
+      "sourceTier": {
+        "tier": "T1_HYPOTHESIS",
+        "sourceType": "training_derived",
+        "sourceUrl": null,
+        "accessedAt": "2026-05-03",
+        "quoteShort": null,
+        "humanInterpretation": "Plain health stress today brief for autumn/winter current season. AI-derived display text; not authority truth.",
+        "copyrightNote": "No source prose copied; original phrasing.",
+        "authorityTruthEligible": false
+      }
+    },
+    {
+      "schemaVersion": "spring-ts.narrative-fragment.v1",
+      "fragmentId": "health_stress.today.standard.currentseason.spring_summer.301",
+      "axis": { "category": "health_stress", "period": "today", "depth": "standard" },
+      "gating": { "currentSeason": ["spring", "summer"] },
+      "templateTokens": [
+        { "kind": "text", "value": "오늘은 자극과 반응이 빨라지면서 스트레스도 쉽게 올라올 수 있어요. 바로 대답해야 한다는 압박을 줄이고, 중요한 대화 전에는 짧게 숨을 고르세요. 몸을 움직이는 가벼운 활동은 긴장을 풀어 주는 데 도움이 됩니다." }
+      ],
+      "tags": [],
+      "aiGenerated": true,
+      "sourceTier": {
+        "tier": "T1_HYPOTHESIS",
+        "sourceType": "training_derived",
+        "sourceUrl": null,
+        "accessedAt": "2026-05-03",
+        "quoteShort": null,
+        "humanInterpretation": "Plain health stress today standard for spring/summer current season. AI-derived display text; not authority truth.",
+        "copyrightNote": "No source prose copied; original phrasing.",
+        "authorityTruthEligible": false
+      }
+    },
+    {
+      "schemaVersion": "spring-ts.narrative-fragment.v1",
+      "fragmentId": "health_stress.today.standard.currentseason.autumn_winter.301",
+      "axis": { "category": "health_stress", "period": "today", "depth": "standard" },
+      "gating": { "currentSeason": ["autumn", "winter"] },
+      "templateTokens": [
+        { "kind": "text", "value": "오늘은 스트레스를 크게 풀기보다 조용히 낮추는 방식이 잘 맞아요. 해야 할 일을 줄이고, 따뜻한 음식이나 짧은 휴식처럼 몸이 편해지는 선택을 먼저 해 보세요. 늦은 시간의 무거운 대화는 피하는 편이 좋습니다." }
+      ],
+      "tags": [],
+      "aiGenerated": true,
+      "sourceTier": {
+        "tier": "T1_HYPOTHESIS",
+        "sourceType": "training_derived",
+        "sourceUrl": null,
+        "accessedAt": "2026-05-03",
+        "quoteShort": null,
+        "humanInterpretation": "Plain health stress today standard for autumn/winter current season. AI-derived display text; not authority truth.",
+        "copyrightNote": "No source prose copied; original phrasing.",
+        "authorityTruthEligible": false
+      }
+    },
+    {
+      "schemaVersion": "spring-ts.narrative-fragment.v1",
+      "fragmentId": "health_stress.today.expert.currentseason.spring_summer.301",
+      "axis": { "category": "health_stress", "period": "today", "depth": "expert" },
+      "gating": { "currentSeason": ["spring", "summer"], "yongshinAlignment": ["aligned", "neutral", "conflicting"] },
+      "templateTokens": [
+        { "kind": "text", "value": "오늘 스트레스 흐름에서 봄과 여름 기운은 반응성과 열감을 끌어올립니다. " },
+        { "kind": "tag", "tagId": "pyeonin", "label": "편인" },
+        { "kind": "text", "value": "이 과하면 생각이 예민하게 번지고, " },
+        { "kind": "tag", "tagId": "jeongin", "label": "정인" },
+        { "kind": "text", "value": "은 회복 루틴으로 긴장을 낮춥니다. " },
+        { "kind": "tag", "tagId": "stabilityIndex", "label": "안정 지수" },
+        { "kind": "text", "value": "를 떨어뜨리는 즉흥 반응은 피하세요." }
+      ],
+      "tags": ["pyeonin", "jeongin", "stabilityIndex"],
+      "aiGenerated": true,
+      "sourceTier": {
+        "tier": "T1_HYPOTHESIS",
+        "sourceType": "training_derived",
+        "sourceUrl": null,
+        "accessedAt": "2026-05-03",
+        "quoteShort": null,
+        "humanInterpretation": "Expert health stress today narrative for spring/summer current season. AI-derived display text; not authority truth.",
+        "copyrightNote": "No source prose copied; original phrasing.",
+        "authorityTruthEligible": false
+      }
+    },
+    {
+      "schemaVersion": "spring-ts.narrative-fragment.v1",
+      "fragmentId": "health_stress.today.expert.currentseason.autumn_winter.301",
+      "axis": { "category": "health_stress", "period": "today", "depth": "expert" },
+      "gating": { "currentSeason": ["autumn", "winter"], "yongshinAlignment": ["aligned", "neutral", "conflicting"] },
+      "templateTokens": [
+        { "kind": "text", "value": "오늘 스트레스 흐름에서 가을과 겨울 기운은 긴장과 회복 저장량을 보수적으로 봐야 합니다. " },
+        { "kind": "tag", "tagId": "jeongin", "label": "정인" },
+        { "kind": "text", "value": "이 안정되면 휴식이 실제 회복으로 이어지고, " },
+        { "kind": "tag", "tagId": "pyeonin", "label": "편인" },
+        { "kind": "text", "value": "이 치우치면 걱정이 몸의 긴장으로 굳을 수 있습니다. " },
+        { "kind": "tag", "tagId": "stabilityIndex", "label": "안정 지수" },
+        { "kind": "text", "value": "를 지키는 수면 선택이 우선입니다." }
+      ],
+      "tags": ["jeongin", "pyeonin", "stabilityIndex"],
+      "aiGenerated": true,
+      "sourceTier": {
+        "tier": "T1_HYPOTHESIS",
+        "sourceType": "training_derived",
+        "sourceUrl": null,
+        "accessedAt": "2026-05-03",
+        "quoteShort": null,
+        "humanInterpretation": "Expert health stress today narrative for autumn/winter current season. AI-derived display text; not authority truth.",
+        "copyrightNote": "No source prose copied; original phrasing.",
+        "authorityTruthEligible": false
+      }
+    },
+    {
+      "schemaVersion": "spring-ts.narrative-fragment.v1",
+      "fragmentId": "health_stress.thisWeek.brief.currentseason.spring_summer.301",
+      "axis": { "category": "health_stress", "period": "thisWeek", "depth": "brief" },
+      "gating": { "currentSeason": ["spring", "summer"] },
+      "templateTokens": [
+        { "kind": "text", "value": "이번 주는 바쁘게 움직일수록 긴장도 같이 올라갈 수 있어요. 일정 사이에 쉬는 시간을 미리 넣어 두면 스트레스가 덜 쌓입니다." }
+      ],
+      "tags": [],
+      "aiGenerated": true,
+      "sourceTier": {
+        "tier": "T1_HYPOTHESIS",
+        "sourceType": "training_derived",
+        "sourceUrl": null,
+        "accessedAt": "2026-05-03",
+        "quoteShort": null,
+        "humanInterpretation": "Plain health stress weekly brief for spring/summer current season. AI-derived display text; not authority truth.",
+        "copyrightNote": "No source prose copied; original phrasing.",
+        "authorityTruthEligible": false
+      }
+    },
+    {
+      "schemaVersion": "spring-ts.narrative-fragment.v1",
+      "fragmentId": "health_stress.thisWeek.brief.currentseason.autumn_winter.301",
+      "axis": { "category": "health_stress", "period": "thisWeek", "depth": "brief" },
+      "gating": { "currentSeason": ["autumn", "winter"] },
+      "templateTokens": [
+        { "kind": "text", "value": "이번 주는 스트레스를 줄이려면 무리한 약속을 덜어내는 것이 좋아요. 조용히 회복하는 시간을 먼저 확보해 보세요." }
+      ],
+      "tags": [],
+      "aiGenerated": true,
+      "sourceTier": {
+        "tier": "T1_HYPOTHESIS",
+        "sourceType": "training_derived",
+        "sourceUrl": null,
+        "accessedAt": "2026-05-03",
+        "quoteShort": null,
+        "humanInterpretation": "Plain health stress weekly brief for autumn/winter current season. AI-derived display text; not authority truth.",
+        "copyrightNote": "No source prose copied; original phrasing.",
+        "authorityTruthEligible": false
+      }
+    },
+    {
+      "schemaVersion": "spring-ts.narrative-fragment.v1",
+      "fragmentId": "health_stress.thisWeek.expert.currentseason.spring_summer.301",
+      "axis": { "category": "health_stress", "period": "thisWeek", "depth": "expert" },
+      "gating": { "currentSeason": ["spring", "summer"], "yongshinAlignment": ["aligned", "neutral", "conflicting"] },
+      "templateTokens": [
+        { "kind": "text", "value": "이번 주 스트레스 흐름은 활동량과 감각 과부하를 같이 봐야 합니다. " },
+        { "kind": "tag", "tagId": "pyeonin", "label": "편인" },
+        { "kind": "text", "value": "이 강하면 작은 자극도 크게 느껴지고, " },
+        { "kind": "tag", "tagId": "jeongin", "label": "정인" },
+        { "kind": "text", "value": "은 반복 회복 루틴을 만듭니다. " },
+        { "kind": "tag", "tagId": "stabilityIndex", "label": "안정 지수" },
+        { "kind": "text", "value": "를 지키려면 일정 사이의 빈칸이 필요합니다." }
+      ],
+      "tags": ["pyeonin", "jeongin", "stabilityIndex"],
+      "aiGenerated": true,
+      "sourceTier": {
+        "tier": "T1_HYPOTHESIS",
+        "sourceType": "training_derived",
+        "sourceUrl": null,
+        "accessedAt": "2026-05-03",
+        "quoteShort": null,
+        "humanInterpretation": "Expert health stress weekly narrative for spring/summer current season. AI-derived display text; not authority truth.",
+        "copyrightNote": "No source prose copied; original phrasing.",
+        "authorityTruthEligible": false
+      }
+    },
+    {
+      "schemaVersion": "spring-ts.narrative-fragment.v1",
+      "fragmentId": "health_stress.thisWeek.expert.currentseason.autumn_winter.301",
+      "axis": { "category": "health_stress", "period": "thisWeek", "depth": "expert" },
+      "gating": { "currentSeason": ["autumn", "winter"], "yongshinAlignment": ["aligned", "neutral", "conflicting"] },
+      "templateTokens": [
+        { "kind": "text", "value": "이번 주 스트레스 흐름은 회복 저장량을 아끼는 해석이 중요합니다. " },
+        { "kind": "tag", "tagId": "jeongin", "label": "정인" },
+        { "kind": "text", "value": "이 안정되면 휴식이 컨디션으로 이어지고, " },
+        { "kind": "tag", "tagId": "pyeonin", "label": "편인" },
+        { "kind": "text", "value": "이 과하면 머릿속 긴장이 쉽게 꺼지지 않습니다. " },
+        { "kind": "tag", "tagId": "stabilityIndex", "label": "안정 지수" },
+        { "kind": "text", "value": "를 낮추는 야간 과부하는 피하세요." }
+      ],
+      "tags": ["jeongin", "pyeonin", "stabilityIndex"],
+      "aiGenerated": true,
+      "sourceTier": {
+        "tier": "T1_HYPOTHESIS",
+        "sourceType": "training_derived",
+        "sourceUrl": null,
+        "accessedAt": "2026-05-03",
+        "quoteShort": null,
+        "humanInterpretation": "Expert health stress weekly narrative for autumn/winter current season. AI-derived display text; not authority truth.",
+        "copyrightNote": "No source prose copied; original phrasing.",
+        "authorityTruthEligible": false
+      }
+    },
+    {
+      "schemaVersion": "spring-ts.narrative-fragment.v1",
+      "fragmentId": "health_stress.thisMonth.brief.currentseason.spring_summer.301",
+      "axis": { "category": "health_stress", "period": "thisMonth", "depth": "brief" },
+      "gating": { "currentSeason": ["spring", "summer"] },
+      "templateTokens": [
+        { "kind": "text", "value": "이번 달은 활동이 늘수록 피로도 같이 쌓일 수 있어요. 쉬는 날과 가벼운 운동을 함께 계획하면 스트레스를 더 오래 관리할 수 있습니다." }
+      ],
+      "tags": [],
+      "aiGenerated": true,
+      "sourceTier": {
+        "tier": "T1_HYPOTHESIS",
+        "sourceType": "training_derived",
+        "sourceUrl": null,
+        "accessedAt": "2026-05-03",
+        "quoteShort": null,
+        "humanInterpretation": "Plain health stress monthly brief for spring/summer current season. AI-derived display text; not authority truth.",
+        "copyrightNote": "No source prose copied; original phrasing.",
+        "authorityTruthEligible": false
+      }
+    },
+    {
+      "schemaVersion": "spring-ts.narrative-fragment.v1",
+      "fragmentId": "health_stress.thisMonth.brief.currentseason.autumn_winter.301",
+      "axis": { "category": "health_stress", "period": "thisMonth", "depth": "brief" },
+      "gating": { "currentSeason": ["autumn", "winter"] },
+      "templateTokens": [
+        { "kind": "text", "value": "이번 달은 스트레스를 낮추는 기본 루틴이 중요해요. 잠, 식사, 조용한 휴식 시간을 꾸준히 지키면 마음이 덜 흔들립니다." }
+      ],
+      "tags": [],
+      "aiGenerated": true,
+      "sourceTier": {
+        "tier": "T1_HYPOTHESIS",
+        "sourceType": "training_derived",
+        "sourceUrl": null,
+        "accessedAt": "2026-05-03",
+        "quoteShort": null,
+        "humanInterpretation": "Plain health stress monthly brief for autumn/winter current season. AI-derived display text; not authority truth.",
+        "copyrightNote": "No source prose copied; original phrasing.",
+        "authorityTruthEligible": false
+      }
+    },
+    {
+      "schemaVersion": "spring-ts.narrative-fragment.v1",
+      "fragmentId": "health_stress.thisMonth.standard.currentseason.spring_summer.301",
+      "axis": { "category": "health_stress", "period": "thisMonth", "depth": "standard" },
+      "gating": { "currentSeason": ["spring", "summer"] },
+      "templateTokens": [
+        { "kind": "text", "value": "이번 달은 바깥 활동과 해야 할 일이 늘면서 스트레스가 빨리 쌓일 수 있어요. 처음부터 크게 바꾸려 하기보다 매주 쉬는 시간을 먼저 확보하세요. 몸을 움직이는 활동과 충분한 수면을 같이 챙기면 긴장이 오래 남지 않습니다." }
+      ],
+      "tags": [],
+      "aiGenerated": true,
+      "sourceTier": {
+        "tier": "T1_HYPOTHESIS",
+        "sourceType": "training_derived",
+        "sourceUrl": null,
+        "accessedAt": "2026-05-03",
+        "quoteShort": null,
+        "humanInterpretation": "Plain health stress monthly standard for spring/summer current season. AI-derived display text; not authority truth.",
+        "copyrightNote": "No source prose copied; original phrasing.",
+        "authorityTruthEligible": false
+      }
+    },
+    {
+      "schemaVersion": "spring-ts.narrative-fragment.v1",
+      "fragmentId": "health_stress.thisMonth.standard.currentseason.autumn_winter.301",
+      "axis": { "category": "health_stress", "period": "thisMonth", "depth": "standard" },
+      "gating": { "currentSeason": ["autumn", "winter"] },
+      "templateTokens": [
+        { "kind": "text", "value": "이번 달은 조용히 회복하는 힘이 중요해요. 일정이 많을수록 혼자 쉬는 시간, 따뜻한 식사, 일찍 잠드는 날을 먼저 정해 두세요. 감정이 무거워질 때는 큰 결정보다 작은 루틴을 지키는 편이 안정적입니다." }
+      ],
+      "tags": [],
+      "aiGenerated": true,
+      "sourceTier": {
+        "tier": "T1_HYPOTHESIS",
+        "sourceType": "training_derived",
+        "sourceUrl": null,
+        "accessedAt": "2026-05-03",
+        "quoteShort": null,
+        "humanInterpretation": "Plain health stress monthly standard for autumn/winter current season. AI-derived display text; not authority truth.",
+        "copyrightNote": "No source prose copied; original phrasing.",
+        "authorityTruthEligible": false
+      }
+    },
+    {
+      "schemaVersion": "spring-ts.narrative-fragment.v1",
+      "fragmentId": "health_stress.thisMonth.expert.currentseason.spring_summer.301",
+      "axis": { "category": "health_stress", "period": "thisMonth", "depth": "expert" },
+      "gating": { "currentSeason": ["spring", "summer"], "yongshinAlignment": ["aligned", "neutral", "conflicting"] },
+      "templateTokens": [
+        { "kind": "text", "value": "이번 달 스트레스 흐름은 활동성 증가와 회복 루틴의 균형을 봅니다. " },
+        { "kind": "tag", "tagId": "pyeonin", "label": "편인" },
+        { "kind": "text", "value": "이 과하면 예민한 해석이 늘고, " },
+        { "kind": "tag", "tagId": "jeongin", "label": "정인" },
+        { "kind": "text", "value": "은 반복 가능한 회복 장치를 만듭니다. " },
+        { "kind": "tag", "tagId": "stabilityIndex", "label": "안정 지수" },
+        { "kind": "text", "value": "를 유지하려면 월간 일정에 휴식 블록이 먼저 들어가야 합니다." }
+      ],
+      "tags": ["pyeonin", "jeongin", "stabilityIndex"],
+      "aiGenerated": true,
+      "sourceTier": {
+        "tier": "T1_HYPOTHESIS",
+        "sourceType": "training_derived",
+        "sourceUrl": null,
+        "accessedAt": "2026-05-03",
+        "quoteShort": null,
+        "humanInterpretation": "Expert health stress monthly narrative for spring/summer current season. AI-derived display text; not authority truth.",
+        "copyrightNote": "No source prose copied; original phrasing.",
+        "authorityTruthEligible": false
+      }
+    },
+    {
+      "schemaVersion": "spring-ts.narrative-fragment.v1",
+      "fragmentId": "health_stress.thisMonth.expert.currentseason.autumn_winter.301",
+      "axis": { "category": "health_stress", "period": "thisMonth", "depth": "expert" },
+      "gating": { "currentSeason": ["autumn", "winter"], "yongshinAlignment": ["aligned", "neutral", "conflicting"] },
+      "templateTokens": [
+        { "kind": "text", "value": "이번 달 스트레스 흐름은 회복 저장량과 정서적 방어선을 보수적으로 봐야 합니다. " },
+        { "kind": "tag", "tagId": "jeongin", "label": "정인" },
+        { "kind": "text", "value": "은 회복 기반을 만들고, " },
+        { "kind": "tag", "tagId": "pyeonin", "label": "편인" },
+        { "kind": "text", "value": "은 지나친 내면화로 흐를 수 있습니다. " },
+        { "kind": "tag", "tagId": "stabilityIndex", "label": "안정 지수" },
+        { "kind": "text", "value": "를 높이는 반복 루틴을 월초부터 고정하세요." }
+      ],
+      "tags": ["jeongin", "pyeonin", "stabilityIndex"],
+      "aiGenerated": true,
+      "sourceTier": {
+        "tier": "T1_HYPOTHESIS",
+        "sourceType": "training_derived",
+        "sourceUrl": null,
+        "accessedAt": "2026-05-03",
+        "quoteShort": null,
+        "humanInterpretation": "Expert health stress monthly narrative for autumn/winter current season. AI-derived display text; not authority truth.",
+        "copyrightNote": "No source prose copied; original phrasing.",
+        "authorityTruthEligible": false
+      }
+    }
+  ]
+}
