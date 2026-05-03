@@ -34,6 +34,10 @@ const stdout = execFileSync('node', [SCRIPT_PATH, '--json'], {
   encoding: 'utf-8',
 });
 const report = JSON.parse(stdout);
+const humanStdout = execFileSync('node', [SCRIPT_PATH], {
+  cwd: SPRING_TS_ROOT,
+  encoding: 'utf-8',
+});
 const packageJson = JSON.parse(fs.readFileSync(PACKAGE_PATH, 'utf-8'));
 
 check('report schema version is stable',
@@ -108,6 +112,11 @@ check('next authority work is exposed for paid-claim planning',
         typeof example.file === 'string' &&
         typeof example.numericalEvidenceCount === 'number')),
   JSON.stringify(report?.nextAuthorityWork));
+check('human readiness output includes review example fragment handles',
+  humanStdout.includes('Next authority work:') &&
+    humanStdout.includes('example:') &&
+    humanStdout.includes('.fragments.json'),
+  humanStdout.split('\n').filter((line) => line.includes('example:')).slice(0, 2).join(' | '));
 check('paid service gate script is registered',
   typeof packageJson?.scripts?.['service:readiness:paid-gate'] === 'string' &&
     packageJson.scripts['service:readiness:paid-gate'].includes('--max-thin-expert-axis-values=0') &&
