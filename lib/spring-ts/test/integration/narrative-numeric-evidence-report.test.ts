@@ -49,9 +49,14 @@ check('current corpus has only safe known numerical expressions',
     Array.isArray(report?.unknownExpressionRecords) &&
     report.unknownExpressionRecords.length === 0,
   String(report?.totals?.unknownExpressionCount ?? ''));
-check('new ordinal axes are exposed as unused expansion targets',
+check('new ordinal axes have entered the evidence corpus',
   ['feature.agePhaseOrdinal', 'feature.dayMasterStrengthOrdinal', 'feature.birthSeasonOrdinal', 'feature.currentSeasonOrdinal']
-    .every((pathKey) => report?.unusedAvailablePaths?.includes(pathKey)),
+    .every((pathKey) => expressionsByKey[pathKey]?.count >= 1),
+  JSON.stringify(report?.expressions));
+check('all available numeric paths are now used at least once',
+  Array.isArray(report?.unusedAvailablePaths) &&
+    report.unusedAvailablePaths.length === 0 &&
+    report?.totals?.unusedAvailablePathCount === 0,
   JSON.stringify(report?.unusedAvailablePaths));
 check('source tier counts are machine readable',
   report?.sourceTierCounts?.T3_INTERNAL_ENGINE >= 55,
@@ -94,14 +99,13 @@ const unusedGate = spawnSync('node', [
   encoding: 'utf-8',
 });
 const unusedGateReport = JSON.parse(unusedGate.stdout);
-check('unused available path threshold can fail CI intentionally',
-  unusedGate.status === 1 &&
-    unusedGate.stderr.includes('unused available numeric paths') &&
+check('unused available path threshold can pass when target is met',
+  unusedGate.status === 0 &&
     unusedGateReport?.maxUnusedAvailablePathThreshold === 0,
   `status=${unusedGate.status}; stderr=${unusedGate.stderr.trim()}`);
 check('unused available path threshold excess is machine readable',
-  unusedGateReport?.totals?.unusedAvailablePathExcessToThreshold ===
-    unusedGateReport?.totals?.unusedAvailablePathCount,
+  unusedGateReport?.totals?.unusedAvailablePathExcessToThreshold === 0 &&
+    unusedGateReport?.totals?.unusedAvailablePathCount === 0,
   `${unusedGateReport?.totals?.unusedAvailablePathExcessToThreshold ?? 0}/${unusedGateReport?.totals?.unusedAvailablePathCount ?? 0}`);
 
 console.log(`\nNarrative numeric evidence report: ${pass} PASS / ${fail} FAIL`);
