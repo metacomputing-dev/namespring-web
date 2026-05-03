@@ -68,3 +68,4 @@ npm run narrative:authority-gaps -- --json
 ```
 
 Use `authorityWorkBacklog` first. `P0_EXPERT_INTERNAL_EVIDENCE_REVIEW` rows are expert cells that already have deterministic internal numerical evidence, so they are the first places to attach reviewed Reference A or equivalent authority sources.
+`service:readiness` also exposes the first five rows as `nextAuthorityWork`, so product and frontend planning can see the next paid-claim blocker without running a second command.

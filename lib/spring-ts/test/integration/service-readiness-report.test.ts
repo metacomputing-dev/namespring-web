@@ -75,6 +75,18 @@ check('remaining density targets are machine readable',
       typeof row.value === 'string' &&
       typeof row.authoredFragments === 'number'),
   String(report?.nextDensityTargets?.length ?? 0));
+check('next authority work is exposed for paid-claim planning',
+  Array.isArray(report?.nextAuthorityWork) &&
+    report.nextAuthorityWork.length > 0 &&
+    report.nextAuthorityWork.length <= 5 &&
+    report.nextAuthorityWork[0].priorityClass === 'P0_EXPERT_INTERNAL_EVIDENCE_REVIEW' &&
+    report.nextAuthorityWork.every((row: any) =>
+      typeof row.category === 'string' &&
+      typeof row.period === 'string' &&
+      typeof row.depth === 'string' &&
+      Array.isArray(row.neededEvidence) &&
+      row.neededEvidence.includes('authority_fragment_source')),
+  JSON.stringify(report?.nextAuthorityWork));
 check('paid service gate script is registered',
   typeof packageJson?.scripts?.['service:readiness:paid-gate'] === 'string' &&
     packageJson.scripts['service:readiness:paid-gate'].includes('--max-thin-expert-axis-values=0') &&
