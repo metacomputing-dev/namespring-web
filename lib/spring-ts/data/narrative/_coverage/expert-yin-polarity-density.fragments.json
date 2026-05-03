@@ -1,0 +1,373 @@
+{
+  "schemaVersion": "spring-ts.narrative-fragment-bundle.v1",
+  "bundleId": "coverage.expert-yin-polarity-density.20260504",
+  "contractVersion": "1.0.0",
+  "fragments": [
+    {
+      "schemaVersion": "spring-ts.narrative-fragment.v1",
+      "fragmentId": "career.thisMonth.expert.polarity.yin.age.early_30s.401",
+      "axis": { "category": "career", "period": "thisMonth", "depth": "expert" },
+      "gating": {
+        "agePhase": ["early_30s"],
+        "birthSeason": ["autumn"],
+        "dayMasterPolarity": ["YIN"]
+      },
+      "templateTokens": [
+        { "kind": "text", "value": "초반 30대, 가을 출생, 음 일간이면 이번 달 일 흐름은 먼저 관찰하고 빈틈을 정리하는 방식에서 힘이 납니다. " },
+        { "kind": "tag", "tagId": "jeonggwan", "label": "정관" },
+        { "kind": "text", "value": "의 질서를 세우되 " },
+        { "kind": "tag", "tagId": "sikshin", "label": "식신" },
+        { "kind": "text", "value": "으로 작은 결과물을 밖으로 꺼내면 판단 근거가 분명해집니다." }
+      ],
+      "tags": ["jeonggwan", "sikshin"],
+      "numericalEvidence": [
+        {
+          "label": "연령 단계 서번",
+          "valueExpression": "feature.agePhaseOrdinal",
+          "unit": "ordinal",
+          "sourceTier": {
+            "tier": "T3_INTERNAL_ENGINE",
+            "sourceType": "internal_scoring_policy",
+            "sourceUrl": null,
+            "accessedAt": "2026-05-04",
+            "quoteShort": null,
+            "humanInterpretation": "Resolved from deterministic spring-ts runtime output.",
+            "copyrightNote": "No third-party prose copied.",
+            "authorityTruthEligible": false
+          }
+        },
+        {
+          "label": "출생 계절 서번",
+          "valueExpression": "feature.birthSeasonOrdinal",
+          "unit": "ordinal",
+          "sourceTier": {
+            "tier": "T3_INTERNAL_ENGINE",
+            "sourceType": "internal_scoring_policy",
+            "sourceUrl": null,
+            "accessedAt": "2026-05-04",
+            "quoteShort": null,
+            "humanInterpretation": "Resolved from deterministic spring-ts runtime output.",
+            "copyrightNote": "No third-party prose copied.",
+            "authorityTruthEligible": false
+          }
+        }
+      ],
+      "aiGenerated": true,
+      "sourceTier": {
+        "tier": "T1_HYPOTHESIS",
+        "sourceType": "training_derived",
+        "sourceUrl": null,
+        "accessedAt": "2026-05-04",
+        "quoteShort": null,
+        "humanInterpretation": "Expert YIN polarity density fragment for early-30s monthly career. AI-derived display text; not authority truth.",
+        "copyrightNote": "No source prose copied; original phrasing.",
+        "authorityTruthEligible": false
+      }
+    },
+    {
+      "schemaVersion": "spring-ts.narrative-fragment.v1",
+      "fragmentId": "health.today.expert.polarity.yin.age.late_40s.401",
+      "axis": { "category": "health", "period": "today", "depth": "expert" },
+      "gating": {
+        "agePhase": ["late_40s"],
+        "birthSeason": ["winter"],
+        "dayMasterPolarity": ["YIN"]
+      },
+      "templateTokens": [
+        { "kind": "text", "value": "후반 40대, 겨울 출생, 음 일간이면 오늘 건강 해석은 반응을 크게 만들기보다 회복 신호를 세밀하게 읽는 쪽이 맞습니다. " },
+        { "kind": "tag", "tagId": "yongshin", "label": "용신" },
+        { "kind": "text", "value": " 보강은 천천히 누적하고 " },
+        { "kind": "tag", "tagId": "gishin", "label": "기신" },
+        { "kind": "text", "value": " 자극은 강도를 낮춰 컨디션 변동폭을 줄이는 방식이 유리합니다." }
+      ],
+      "tags": ["yongshin", "gishin"],
+      "numericalEvidence": [
+        {
+          "label": "연령 단계 서번",
+          "valueExpression": "feature.agePhaseOrdinal",
+          "unit": "ordinal",
+          "sourceTier": {
+            "tier": "T3_INTERNAL_ENGINE",
+            "sourceType": "internal_scoring_policy",
+            "sourceUrl": null,
+            "accessedAt": "2026-05-04",
+            "quoteShort": null,
+            "humanInterpretation": "Resolved from deterministic spring-ts runtime output.",
+            "copyrightNote": "No third-party prose copied.",
+            "authorityTruthEligible": false
+          }
+        },
+        {
+          "label": "출생 계절 서번",
+          "valueExpression": "feature.birthSeasonOrdinal",
+          "unit": "ordinal",
+          "sourceTier": {
+            "tier": "T3_INTERNAL_ENGINE",
+            "sourceType": "internal_scoring_policy",
+            "sourceUrl": null,
+            "accessedAt": "2026-05-04",
+            "quoteShort": null,
+            "humanInterpretation": "Resolved from deterministic spring-ts runtime output.",
+            "copyrightNote": "No third-party prose copied.",
+            "authorityTruthEligible": false
+          }
+        }
+      ],
+      "aiGenerated": true,
+      "sourceTier": {
+        "tier": "T1_HYPOTHESIS",
+        "sourceType": "training_derived",
+        "sourceUrl": null,
+        "accessedAt": "2026-05-04",
+        "quoteShort": null,
+        "humanInterpretation": "Expert YIN polarity density fragment for late-40s daily health. AI-derived display text; not authority truth.",
+        "copyrightNote": "No source prose copied; original phrasing.",
+        "authorityTruthEligible": false
+      }
+    },
+    {
+      "schemaVersion": "spring-ts.narrative-fragment.v1",
+      "fragmentId": "wealth.thisYear.expert.polarity.yin.age.80s.401",
+      "axis": { "category": "wealth", "period": "thisYear", "depth": "expert" },
+      "gating": {
+        "agePhase": ["80s"],
+        "birthSeason": ["spring"],
+        "dayMasterPolarity": ["YIN"]
+      },
+      "templateTokens": [
+        { "kind": "text", "value": "80대, 봄 출생, 음 일간의 올해 재물 해석은 큰 확장보다 보존과 정리의 정확도가 중요합니다. " },
+        { "kind": "tag", "tagId": "jeongjae", "label": "정재" },
+        { "kind": "text", "value": "는 고정 지출과 현금 흐름을 차분히 맞추고, " },
+        { "kind": "tag", "tagId": "pyeonjae", "label": "편재" },
+        { "kind": "text", "value": "는 변동성 큰 선택을 작게 시험하는 정도로 제한하는 편이 안정적입니다." }
+      ],
+      "tags": ["jeongjae", "pyeonjae"],
+      "numericalEvidence": [
+        {
+          "label": "연령 단계 서번",
+          "valueExpression": "feature.agePhaseOrdinal",
+          "unit": "ordinal",
+          "sourceTier": {
+            "tier": "T3_INTERNAL_ENGINE",
+            "sourceType": "internal_scoring_policy",
+            "sourceUrl": null,
+            "accessedAt": "2026-05-04",
+            "quoteShort": null,
+            "humanInterpretation": "Resolved from deterministic spring-ts runtime output.",
+            "copyrightNote": "No third-party prose copied.",
+            "authorityTruthEligible": false
+          }
+        },
+        {
+          "label": "출생 계절 서번",
+          "valueExpression": "feature.birthSeasonOrdinal",
+          "unit": "ordinal",
+          "sourceTier": {
+            "tier": "T3_INTERNAL_ENGINE",
+            "sourceType": "internal_scoring_policy",
+            "sourceUrl": null,
+            "accessedAt": "2026-05-04",
+            "quoteShort": null,
+            "humanInterpretation": "Resolved from deterministic spring-ts runtime output.",
+            "copyrightNote": "No third-party prose copied.",
+            "authorityTruthEligible": false
+          }
+        }
+      ],
+      "aiGenerated": true,
+      "sourceTier": {
+        "tier": "T1_HYPOTHESIS",
+        "sourceType": "training_derived",
+        "sourceUrl": null,
+        "accessedAt": "2026-05-04",
+        "quoteShort": null,
+        "humanInterpretation": "Expert YIN polarity density fragment for 80s yearly wealth. AI-derived display text; not authority truth.",
+        "copyrightNote": "No source prose copied; original phrasing.",
+        "authorityTruthEligible": false
+      }
+    },
+    {
+      "schemaVersion": "spring-ts.narrative-fragment.v1",
+      "fragmentId": "family.thisWeek.expert.polarity.yin.age.late_20s.401",
+      "axis": { "category": "family", "period": "thisWeek", "depth": "expert" },
+      "gating": {
+        "agePhase": ["late_20s"],
+        "birthSeason": ["summer"],
+        "dayMasterPolarity": ["YIN"]
+      },
+      "templateTokens": [
+        { "kind": "text", "value": "후반 20대, 여름 출생, 음 일간이면 이번 주 가족운은 말을 많이 하기보다 감정의 순서를 정돈하는 데서 풀립니다. " },
+        { "kind": "tag", "tagId": "bigyeon", "label": "비견" },
+        { "kind": "text", "value": "의 자기 기준을 세우되 " },
+        { "kind": "tag", "tagId": "jeonggwan", "label": "정관" },
+        { "kind": "text", "value": "처럼 약속과 역할을 명확히 두면 가까운 사이의 오해가 줄어듭니다." }
+      ],
+      "tags": ["bigyeon", "jeonggwan"],
+      "numericalEvidence": [
+        {
+          "label": "연령 단계 서번",
+          "valueExpression": "feature.agePhaseOrdinal",
+          "unit": "ordinal",
+          "sourceTier": {
+            "tier": "T3_INTERNAL_ENGINE",
+            "sourceType": "internal_scoring_policy",
+            "sourceUrl": null,
+            "accessedAt": "2026-05-04",
+            "quoteShort": null,
+            "humanInterpretation": "Resolved from deterministic spring-ts runtime output.",
+            "copyrightNote": "No third-party prose copied.",
+            "authorityTruthEligible": false
+          }
+        },
+        {
+          "label": "출생 계절 서번",
+          "valueExpression": "feature.birthSeasonOrdinal",
+          "unit": "ordinal",
+          "sourceTier": {
+            "tier": "T3_INTERNAL_ENGINE",
+            "sourceType": "internal_scoring_policy",
+            "sourceUrl": null,
+            "accessedAt": "2026-05-04",
+            "quoteShort": null,
+            "humanInterpretation": "Resolved from deterministic spring-ts runtime output.",
+            "copyrightNote": "No third-party prose copied.",
+            "authorityTruthEligible": false
+          }
+        }
+      ],
+      "aiGenerated": true,
+      "sourceTier": {
+        "tier": "T1_HYPOTHESIS",
+        "sourceType": "training_derived",
+        "sourceUrl": null,
+        "accessedAt": "2026-05-04",
+        "quoteShort": null,
+        "humanInterpretation": "Expert YIN polarity density fragment for late-20s weekly family. AI-derived display text; not authority truth.",
+        "copyrightNote": "No source prose copied; original phrasing.",
+        "authorityTruthEligible": false
+      }
+    },
+    {
+      "schemaVersion": "spring-ts.narrative-fragment.v1",
+      "fragmentId": "academic.life.expert.polarity.yin.age.early_50s.401",
+      "axis": { "category": "academic", "period": "life", "depth": "expert" },
+      "gating": {
+        "agePhase": ["early_50s"],
+        "birthSeason": ["autumn"],
+        "dayMasterPolarity": ["YIN"]
+      },
+      "templateTokens": [
+        { "kind": "text", "value": "초반 50대, 가을 출생, 음 일간의 학습 흐름은 빠른 결론보다 자료를 겹겹이 확인하는 힘이 강합니다. " },
+        { "kind": "tag", "tagId": "jeongin", "label": "정인" },
+        { "kind": "text", "value": "은 기본 문헌과 원리를 붙잡고, " },
+        { "kind": "tag", "tagId": "sanggwan", "label": "상관" },
+        { "kind": "text", "value": "은 그 이해를 자기 언어로 다시 설명하게 만드는 역할을 합니다." }
+      ],
+      "tags": ["jeongin", "sanggwan"],
+      "numericalEvidence": [
+        {
+          "label": "연령 단계 서번",
+          "valueExpression": "feature.agePhaseOrdinal",
+          "unit": "ordinal",
+          "sourceTier": {
+            "tier": "T3_INTERNAL_ENGINE",
+            "sourceType": "internal_scoring_policy",
+            "sourceUrl": null,
+            "accessedAt": "2026-05-04",
+            "quoteShort": null,
+            "humanInterpretation": "Resolved from deterministic spring-ts runtime output.",
+            "copyrightNote": "No third-party prose copied.",
+            "authorityTruthEligible": false
+          }
+        },
+        {
+          "label": "출생 계절 서번",
+          "valueExpression": "feature.birthSeasonOrdinal",
+          "unit": "ordinal",
+          "sourceTier": {
+            "tier": "T3_INTERNAL_ENGINE",
+            "sourceType": "internal_scoring_policy",
+            "sourceUrl": null,
+            "accessedAt": "2026-05-04",
+            "quoteShort": null,
+            "humanInterpretation": "Resolved from deterministic spring-ts runtime output.",
+            "copyrightNote": "No third-party prose copied.",
+            "authorityTruthEligible": false
+          }
+        }
+      ],
+      "aiGenerated": true,
+      "sourceTier": {
+        "tier": "T1_HYPOTHESIS",
+        "sourceType": "training_derived",
+        "sourceUrl": null,
+        "accessedAt": "2026-05-04",
+        "quoteShort": null,
+        "humanInterpretation": "Expert YIN polarity density fragment for early-50s life academic. AI-derived display text; not authority truth.",
+        "copyrightNote": "No source prose copied; original phrasing.",
+        "authorityTruthEligible": false
+      }
+    },
+    {
+      "schemaVersion": "spring-ts.narrative-fragment.v1",
+      "fragmentId": "movement.thisMonth.expert.polarity.yin.age.90_plus.401",
+      "axis": { "category": "movement", "period": "thisMonth", "depth": "expert" },
+      "gating": {
+        "agePhase": ["90_plus"],
+        "birthSeason": ["spring"],
+        "dayMasterPolarity": ["YIN"]
+      },
+      "templateTokens": [
+        { "kind": "text", "value": "90대 이상, 봄 출생, 음 일간이면 이번 달 이동운은 넓게 움직이는 힘보다 이동 전후의 회복 간격을 설계하는 힘이 핵심입니다. " },
+        { "kind": "tag", "tagId": "yeokma", "label": "역마" },
+        { "kind": "text", "value": "가 움직임을 만들더라도 " },
+        { "kind": "tag", "tagId": "yongshin", "label": "용신" },
+        { "kind": "text", "value": "에 맞춘 보조 리듬을 붙이면 무리 없이 변화를 받아들이기 쉽습니다." }
+      ],
+      "tags": ["yeokma", "yongshin"],
+      "numericalEvidence": [
+        {
+          "label": "연령 단계 서번",
+          "valueExpression": "feature.agePhaseOrdinal",
+          "unit": "ordinal",
+          "sourceTier": {
+            "tier": "T3_INTERNAL_ENGINE",
+            "sourceType": "internal_scoring_policy",
+            "sourceUrl": null,
+            "accessedAt": "2026-05-04",
+            "quoteShort": null,
+            "humanInterpretation": "Resolved from deterministic spring-ts runtime output.",
+            "copyrightNote": "No third-party prose copied.",
+            "authorityTruthEligible": false
+          }
+        },
+        {
+          "label": "출생 계절 서번",
+          "valueExpression": "feature.birthSeasonOrdinal",
+          "unit": "ordinal",
+          "sourceTier": {
+            "tier": "T3_INTERNAL_ENGINE",
+            "sourceType": "internal_scoring_policy",
+            "sourceUrl": null,
+            "accessedAt": "2026-05-04",
+            "quoteShort": null,
+            "humanInterpretation": "Resolved from deterministic spring-ts runtime output.",
+            "copyrightNote": "No third-party prose copied.",
+            "authorityTruthEligible": false
+          }
+        }
+      ],
+      "aiGenerated": true,
+      "sourceTier": {
+        "tier": "T1_HYPOTHESIS",
+        "sourceType": "training_derived",
+        "sourceUrl": null,
+        "accessedAt": "2026-05-04",
+        "quoteShort": null,
+        "humanInterpretation": "Expert YIN polarity density fragment for 90-plus monthly movement. AI-derived display text; not authority truth.",
+        "copyrightNote": "No source prose copied; original phrasing.",
+        "authorityTruthEligible": false
+      }
+    }
+  ]
+}
