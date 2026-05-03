@@ -6,10 +6,24 @@
     {
       "schemaVersion": "spring-ts.narrative-fragment.v1",
       "fragmentId": "overall.life.standard.day_master_fire_strength_balanced.201",
-      "axis": { "category": "overall", "period": "life", "depth": "standard" },
-      "gating": { "dayMasterElement": ["FIRE"], "dayMasterStrength": ["BALANCED"] },
+      "axis": {
+        "category": "overall",
+        "period": "life",
+        "depth": "standard"
+      },
+      "gating": {
+        "dayMasterElement": [
+          "FIRE"
+        ],
+        "dayMasterStrength": [
+          "BALANCED"
+        ]
+      },
       "templateTokens": [
-        { "kind": "text", "value": "불 일간의 표현력과 따뜻함이 균형 있게 잡힌 구조라면, 생각을 밝게 드러내고 사람을 움직이는 힘이 자연스럽게 나타나요. 너무 앞서가지만 않으면 설득, 발표, 관계 형성에서 장점이 살아납니다. 열정과 휴식의 간격을 함께 지키면 흐름이 오래갑니다." }
+        {
+          "kind": "text",
+          "value": "불 타고난 중심 기운의 표현력과 따뜻함이 균형 있게 잡힌 구조라면, 생각을 밝게 드러내고 사람을 움직이는 힘이 자연스럽게 나타나요. 너무 앞서가지만 않으면 설득, 발표, 관계 형성에서 장점이 살아납니다. 열정과 휴식의 간격을 함께 지키면 흐름이 오래갑니다."
+        }
       ],
       "livingTips": [
         "중요한 메시지는 밝게 표현하되 핵심을 한두 문장으로 먼저 정리해 보세요.",
@@ -18,7 +32,7 @@
       "cautions": [
         "분위기가 좋을 때 약속을 쉽게 늘리면 나중에 부담이 커질 수 있어요."
       ],
-      "tags": ["dayMasterElement", "dayMasterStrength"],
+      "tags": [],
       "aiGenerated": true,
       "sourceTier": {
         "tier": "T1_HYPOTHESIS",
@@ -34,10 +48,24 @@
     {
       "schemaVersion": "spring-ts.narrative-fragment.v1",
       "fragmentId": "overall.life.standard.day_master_fire_strength_weak.201",
-      "axis": { "category": "overall", "period": "life", "depth": "standard" },
-      "gating": { "dayMasterElement": ["FIRE"], "dayMasterStrength": ["WEAK"] },
+      "axis": {
+        "category": "overall",
+        "period": "life",
+        "depth": "standard"
+      },
+      "gating": {
+        "dayMasterElement": [
+          "FIRE"
+        ],
+        "dayMasterStrength": [
+          "WEAK"
+        ]
+      },
       "templateTokens": [
-        { "kind": "text", "value": "불 일간인데 기운이 약하면 마음속 열정은 있어도 밖으로 표현하는 데 시간이 걸릴 수 있어요. 관심과 인정이 필요하지만, 한 번에 크게 드러내려 하면 쉽게 지칠 수 있습니다. 작은 표현과 꾸준한 응원 환경을 만들면 빛이 안정적으로 살아나요." }
+        {
+          "kind": "text",
+          "value": "불 타고난 중심 기운인데 기운이 약하면 마음속 열정은 있어도 밖으로 표현하는 데 시간이 걸릴 수 있어요. 관심과 인정이 필요하지만, 한 번에 크게 드러내려 하면 쉽게 지칠 수 있습니다. 작은 표현과 꾸준한 응원 환경을 만들면 빛이 안정적으로 살아나요."
+        }
       ],
       "livingTips": [
         "말하기 어려운 생각은 짧은 메모나 메시지부터 시작해 보세요.",
@@ -46,7 +74,7 @@
       "cautions": [
         "반응이 늦다고 스스로를 숨기기보다 작게라도 표현하는 연습을 이어가 주세요."
       ],
-      "tags": ["dayMasterElement", "dayMasterStrength"],
+      "tags": [],
       "aiGenerated": true,
       "sourceTier": {
         "tier": "T1_HYPOTHESIS",
@@ -62,10 +90,24 @@
     {
       "schemaVersion": "spring-ts.narrative-fragment.v1",
       "fragmentId": "overall.life.standard.day_master_fire_strength_extreme_weak.201",
-      "axis": { "category": "overall", "period": "life", "depth": "standard" },
-      "gating": { "dayMasterElement": ["FIRE"], "dayMasterStrength": ["EXTREME_WEAK"] },
+      "axis": {
+        "category": "overall",
+        "period": "life",
+        "depth": "standard"
+      },
+      "gating": {
+        "dayMasterElement": [
+          "FIRE"
+        ],
+        "dayMasterStrength": [
+          "EXTREME_WEAK"
+        ]
+      },
       "templateTokens": [
-        { "kind": "text", "value": "불 일간의 기운이 매우 약하면 자신을 드러내는 일이나 빠른 결정을 부담스럽게 느낄 수 있어요. 이럴수록 큰 무대보다 안전한 관계, 작은 성공 경험, 규칙적인 회복 루틴이 중요합니다. 빛을 키우듯 천천히 표현의 범위를 넓혀가면 좋아요." }
+        {
+          "kind": "text",
+          "value": "불 타고난 중심 기운의 기운이 매우 약하면 자신을 드러내는 일이나 빠른 결정을 부담스럽게 느낄 수 있어요. 이럴수록 큰 무대보다 안전한 관계, 작은 성공 경험, 규칙적인 회복 루틴이 중요합니다. 빛을 키우듯 천천히 표현의 범위를 넓혀가면 좋아요."
+        }
       ],
       "livingTips": [
         "오늘 보여줄 것은 하나만 고르고, 완벽함보다 끝까지 해보는 경험을 남겨 보세요.",
@@ -74,7 +116,7 @@
       "cautions": [
         "무리해서 밝은 모습을 유지하려 하면 더 지칠 수 있으니 컨디션을 먼저 살펴 주세요."
       ],
-      "tags": ["dayMasterElement", "dayMasterStrength"],
+      "tags": [],
       "aiGenerated": true,
       "sourceTier": {
         "tier": "T1_HYPOTHESIS",

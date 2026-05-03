@@ -7,13 +7,24 @@
     {
       "schemaVersion": "spring-ts.narrative-fragment.v1",
       "fragmentId": "overall.life.brief.agephase_80s_neutral.011",
-      "axis": { "category": "overall", "period": "life", "depth": "brief" },
+      "axis": {
+        "category": "overall",
+        "period": "life",
+        "depth": "brief"
+      },
       "gating": {
-        "agePhase": ["80s"],
-        "gender": ["neutral"]
+        "agePhase": [
+          "80s"
+        ],
+        "gender": [
+          "neutral"
+        ]
       },
       "templateTokens": [
-        { "kind": "text", "value": "80대 흐름에서는 결과를 더 키우기보다 편안한 반복과 익숙한 사람들과의 안정이 힘이 돼요." }
+        {
+          "kind": "text",
+          "value": "80대 흐름에서는 결과를 더 키우기보다 편안한 반복과 익숙한 사람들과의 안정이 힘이 돼요."
+        }
       ],
       "tags": [],
       "aiGenerated": true,
@@ -31,13 +42,24 @@
     {
       "schemaVersion": "spring-ts.narrative-fragment.v1",
       "fragmentId": "overall.life.brief.agephase_90plus_female.012",
-      "axis": { "category": "overall", "period": "life", "depth": "brief" },
+      "axis": {
+        "category": "overall",
+        "period": "life",
+        "depth": "brief"
+      },
       "gating": {
-        "agePhase": ["90_plus"],
-        "gender": ["female"]
+        "agePhase": [
+          "90_plus"
+        ],
+        "gender": [
+          "female"
+        ]
       },
       "templateTokens": [
-        { "kind": "text", "value": "90대 이상 여성 흐름에서는 세밀한 감각보다 평온한 하루의 리듬을 지키는 선택이 가장 좋아요." }
+        {
+          "kind": "text",
+          "value": "90대 이상 여성 흐름에서는 세밀한 감각보다 평온한 하루의 리듬을 지키는 선택이 가장 좋아요."
+        }
       ],
       "tags": [],
       "aiGenerated": true,
@@ -55,13 +77,24 @@
     {
       "schemaVersion": "spring-ts.narrative-fragment.v1",
       "fragmentId": "overall.life.brief.agephase_90plus_male.013",
-      "axis": { "category": "overall", "period": "life", "depth": "brief" },
+      "axis": {
+        "category": "overall",
+        "period": "life",
+        "depth": "brief"
+      },
       "gating": {
-        "agePhase": ["90_plus"],
-        "gender": ["male"]
+        "agePhase": [
+          "90_plus"
+        ],
+        "gender": [
+          "male"
+        ]
       },
       "templateTokens": [
-        { "kind": "text", "value": "90대 이상 남성 흐름에서는 스스로 해내려는 마음보다 도움을 편하게 나누는 태도가 안정적이에요." }
+        {
+          "kind": "text",
+          "value": "90대 이상 남성 흐름에서는 스스로 해내려는 마음보다 도움을 편하게 나누는 태도가 안정적이에요."
+        }
       ],
       "tags": [],
       "aiGenerated": true,
@@ -79,13 +112,24 @@
     {
       "schemaVersion": "spring-ts.narrative-fragment.v1",
       "fragmentId": "overall.life.brief.agephase_90plus_neutral.014",
-      "axis": { "category": "overall", "period": "life", "depth": "brief" },
+      "axis": {
+        "category": "overall",
+        "period": "life",
+        "depth": "brief"
+      },
       "gating": {
-        "agePhase": ["90_plus"],
-        "gender": ["neutral"]
+        "agePhase": [
+          "90_plus"
+        ],
+        "gender": [
+          "neutral"
+        ]
       },
       "templateTokens": [
-        { "kind": "text", "value": "90대 이상 흐름에서는 큰 변화보다 몸이 편한 환경, 익숙한 대화, 안전한 동선이 운을 안정시켜요." }
+        {
+          "kind": "text",
+          "value": "90대 이상 흐름에서는 큰 변화보다 몸이 편한 환경, 익숙한 대화, 안전한 동선이 운을 안정시켜요."
+        }
       ],
       "tags": [],
       "aiGenerated": true,
@@ -103,13 +147,24 @@
     {
       "schemaVersion": "spring-ts.narrative-fragment.v1",
       "fragmentId": "overall.life.brief.jeonggwang_extreme_weak.015",
-      "axis": { "category": "overall", "period": "life", "depth": "brief" },
+      "axis": {
+        "category": "overall",
+        "period": "life",
+        "depth": "brief"
+      },
       "gating": {
-        "gyeokguk": ["jeonggwangyeok"],
-        "dayMasterStrength": ["EXTREME_WEAK"]
+        "gyeokguk": [
+          "jeonggwangyeok"
+        ],
+        "dayMasterStrength": [
+          "EXTREME_WEAK"
+        ]
       },
       "templateTokens": [
-        { "kind": "text", "value": "정관격인데 기운이 매우 약하면 규칙을 완벽히 지키려 하기보다 작게 지킬 약속부터 세우는 게 좋아요." }
+        {
+          "kind": "text",
+          "value": "책임과 질서 흐름격인데 기운이 매우 약하면 규칙을 완벽히 지키려 하기보다 작게 지킬 약속부터 세우는 게 좋아요."
+        }
       ],
       "tags": [],
       "aiGenerated": true,
@@ -127,13 +182,24 @@
     {
       "schemaVersion": "spring-ts.narrative-fragment.v1",
       "fragmentId": "overall.life.brief.jeonggwang_strong.016",
-      "axis": { "category": "overall", "period": "life", "depth": "brief" },
+      "axis": {
+        "category": "overall",
+        "period": "life",
+        "depth": "brief"
+      },
       "gating": {
-        "gyeokguk": ["jeonggwangyeok"],
-        "dayMasterStrength": ["STRONG"]
+        "gyeokguk": [
+          "jeonggwangyeok"
+        ],
+        "dayMasterStrength": [
+          "STRONG"
+        ]
       },
       "templateTokens": [
-        { "kind": "text", "value": "정관격에 기운이 강하면 기준을 세우는 힘이 좋지만, 지나친 엄격함은 조금 내려놓는 편이 좋아요." }
+        {
+          "kind": "text",
+          "value": "책임과 질서 흐름격에 기운이 강하면 기준을 세우는 힘이 좋지만, 지나친 엄격함은 조금 내려놓는 편이 좋아요."
+        }
       ],
       "tags": [],
       "aiGenerated": true,
@@ -151,13 +217,24 @@
     {
       "schemaVersion": "spring-ts.narrative-fragment.v1",
       "fragmentId": "overall.life.brief.jeonggwang_weak.017",
-      "axis": { "category": "overall", "period": "life", "depth": "brief" },
+      "axis": {
+        "category": "overall",
+        "period": "life",
+        "depth": "brief"
+      },
       "gating": {
-        "gyeokguk": ["jeonggwangyeok"],
-        "dayMasterStrength": ["WEAK"]
+        "gyeokguk": [
+          "jeonggwangyeok"
+        ],
+        "dayMasterStrength": [
+          "WEAK"
+        ]
       },
       "templateTokens": [
-        { "kind": "text", "value": "정관격에 기운이 약하면 부담스러운 역할을 혼자 떠안기보다 일정과 책임을 나누는 게 안정적이에요." }
+        {
+          "kind": "text",
+          "value": "책임과 질서 흐름격에 기운이 약하면 부담스러운 역할을 혼자 떠안기보다 일정과 책임을 나누는 게 안정적이에요."
+        }
       ],
       "tags": [],
       "aiGenerated": true,
@@ -175,13 +252,24 @@
     {
       "schemaVersion": "spring-ts.narrative-fragment.v1",
       "fragmentId": "overall.life.brief.jeongin_balanced.018",
-      "axis": { "category": "overall", "period": "life", "depth": "brief" },
+      "axis": {
+        "category": "overall",
+        "period": "life",
+        "depth": "brief"
+      },
       "gating": {
-        "gyeokguk": ["jeongingyeok"],
-        "dayMasterStrength": ["BALANCED"]
+        "gyeokguk": [
+          "jeongingyeok"
+        ],
+        "dayMasterStrength": [
+          "BALANCED"
+        ]
       },
       "templateTokens": [
-        { "kind": "text", "value": "정인격에 균형이 잡혀 있으면 배움과 휴식의 리듬이 좋아서 생각을 차분히 정리하기 쉬워요." }
+        {
+          "kind": "text",
+          "value": "배움과 보호 흐름격에 균형이 잡혀 있으면 배움과 휴식의 리듬이 좋아서 생각을 차분히 정리하기 쉬워요."
+        }
       ],
       "tags": [],
       "aiGenerated": true,
@@ -199,13 +287,24 @@
     {
       "schemaVersion": "spring-ts.narrative-fragment.v1",
       "fragmentId": "overall.life.brief.earth_yongshin_water.019",
-      "axis": { "category": "overall", "period": "life", "depth": "brief" },
+      "axis": {
+        "category": "overall",
+        "period": "life",
+        "depth": "brief"
+      },
       "gating": {
-        "dayMasterElement": ["EARTH"],
-        "yongshinElement": ["WATER"]
+        "dayMasterElement": [
+          "EARTH"
+        ],
+        "yongshinElement": [
+          "WATER"
+        ]
       },
       "templateTokens": [
-        { "kind": "text", "value": "흙 기운의 안정감에 물 기운 보강이 필요하면 생각을 유연하게 돌리고 휴식 시간을 충분히 두는 게 좋아요." }
+        {
+          "kind": "text",
+          "value": "흙 기운의 안정감에 물 기운 보강이 필요하면 생각을 유연하게 돌리고 휴식 시간을 충분히 두는 게 좋아요."
+        }
       ],
       "tags": [],
       "aiGenerated": true,
@@ -223,13 +322,24 @@
     {
       "schemaVersion": "spring-ts.narrative-fragment.v1",
       "fragmentId": "overall.life.brief.earth_yongshin_wood.020",
-      "axis": { "category": "overall", "period": "life", "depth": "brief" },
+      "axis": {
+        "category": "overall",
+        "period": "life",
+        "depth": "brief"
+      },
       "gating": {
-        "dayMasterElement": ["EARTH"],
-        "yongshinElement": ["WOOD"]
+        "dayMasterElement": [
+          "EARTH"
+        ],
+        "yongshinElement": [
+          "WOOD"
+        ]
       },
       "templateTokens": [
-        { "kind": "text", "value": "흙 기운이 중심이고 나무 기운 보강이 필요하면 계획을 세우는 데서 멈추지 말고 작은 성장 과제를 두면 좋아요." }
+        {
+          "kind": "text",
+          "value": "흙 기운이 중심이고 나무 기운 보강이 필요하면 계획을 세우는 데서 멈추지 말고 작은 성장 과제를 두면 좋아요."
+        }
       ],
       "tags": [],
       "aiGenerated": true,
@@ -247,13 +357,24 @@
     {
       "schemaVersion": "spring-ts.narrative-fragment.v1",
       "fragmentId": "overall.life.brief.fire_yongshin_earth.021",
-      "axis": { "category": "overall", "period": "life", "depth": "brief" },
+      "axis": {
+        "category": "overall",
+        "period": "life",
+        "depth": "brief"
+      },
       "gating": {
-        "dayMasterElement": ["FIRE"],
-        "yongshinElement": ["EARTH"]
+        "dayMasterElement": [
+          "FIRE"
+        ],
+        "yongshinElement": [
+          "EARTH"
+        ]
       },
       "templateTokens": [
-        { "kind": "text", "value": "불 기운의 표현력에 흙 기운 보강이 필요하면 아이디어를 생활 계획으로 옮길 때 흐름이 안정돼요." }
+        {
+          "kind": "text",
+          "value": "불 기운의 표현력에 흙 기운 보강이 필요하면 아이디어를 생활 계획으로 옮길 때 흐름이 안정돼요."
+        }
       ],
       "tags": [],
       "aiGenerated": true,
@@ -271,13 +392,24 @@
     {
       "schemaVersion": "spring-ts.narrative-fragment.v1",
       "fragmentId": "overall.life.brief.fire_yongshin_fire.022",
-      "axis": { "category": "overall", "period": "life", "depth": "brief" },
+      "axis": {
+        "category": "overall",
+        "period": "life",
+        "depth": "brief"
+      },
       "gating": {
-        "dayMasterElement": ["FIRE"],
-        "yongshinElement": ["FIRE"]
+        "dayMasterElement": [
+          "FIRE"
+        ],
+        "yongshinElement": [
+          "FIRE"
+        ]
       },
       "templateTokens": [
-        { "kind": "text", "value": "불 기운이 중심이고 불 보강도 필요할 때는 자신감을 살리되 과열되지 않게 휴식 경계를 정해두세요." }
+        {
+          "kind": "text",
+          "value": "불 기운이 중심이고 불 보강도 필요할 때는 자신감을 살리되 과열되지 않게 휴식 경계를 정해두세요."
+        }
       ],
       "tags": [],
       "aiGenerated": true,

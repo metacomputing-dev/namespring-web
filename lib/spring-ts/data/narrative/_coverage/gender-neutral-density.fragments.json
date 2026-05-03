@@ -6,10 +6,21 @@
     {
       "schemaVersion": "spring-ts.narrative-fragment.v1",
       "fragmentId": "overall.life.brief.gender.neutral.201",
-      "axis": { "category": "overall", "period": "life", "depth": "brief" },
-      "gating": { "gender": ["neutral"] },
+      "axis": {
+        "category": "overall",
+        "period": "life",
+        "depth": "brief"
+      },
+      "gating": {
+        "gender": [
+          "neutral"
+        ]
+      },
       "templateTokens": [
-        { "kind": "text", "value": "성별 분기를 강하게 적용하지 않고, 사주의 핵심 구조와 생활 흐름을 중심으로 해석해요." }
+        {
+          "kind": "text",
+          "value": "성별 분기를 강하게 적용하지 않고, 사주의 핵심 구조와 생활 흐름을 중심으로 해석해요."
+        }
       ],
       "tags": [],
       "aiGenerated": true,
@@ -27,10 +38,21 @@
     {
       "schemaVersion": "spring-ts.narrative-fragment.v1",
       "fragmentId": "overall.life.standard.gender.neutral.201",
-      "axis": { "category": "overall", "period": "life", "depth": "standard" },
-      "gating": { "gender": ["neutral"] },
+      "axis": {
+        "category": "overall",
+        "period": "life",
+        "depth": "standard"
+      },
+      "gating": {
+        "gender": [
+          "neutral"
+        ]
+      },
       "templateTokens": [
-        { "kind": "text", "value": "성별 정보가 없거나 중립적으로 다루는 경우에는 남녀 역할을 전제로 한 문장보다 사주의 핵심 구조, 오행 균형, 현재 시기 흐름을 우선해 보는 편이 안전합니다. 관계나 진로 조언도 특정 성 역할에 묶기보다 실제 생활에서 반복되는 선택 패턴을 중심으로 읽는 것이 좋아요." }
+        {
+          "kind": "text",
+          "value": "성별 정보가 없거나 중립적으로 다루는 경우에는 남녀 역할을 전제로 한 문장보다 사주의 핵심 구조, 다섯 기운 균형, 현재 시기 흐름을 우선해 보는 편이 안전합니다. 관계나 진로 조언도 특정 성 역할에 묶기보다 실제 생활에서 반복되는 선택 패턴을 중심으로 읽는 것이 좋아요."
+        }
       ],
       "livingTips": [
         "해석을 볼 때 성별 역할보다 실제 생활에서 반복되는 어려움과 장점을 먼저 확인해 보세요.",
@@ -55,10 +77,48 @@
     {
       "schemaVersion": "spring-ts.narrative-fragment.v1",
       "fragmentId": "overall.life.expert.gender.neutral.201",
-      "axis": { "category": "overall", "period": "life", "depth": "expert" },
-      "gating": { "gender": ["neutral"] },
+      "axis": {
+        "category": "overall",
+        "period": "life",
+        "depth": "expert"
+      },
+      "gating": {
+        "gender": [
+          "neutral"
+        ]
+      },
       "templateTokens": [
-        { "kind": "text", "value": "성별 중립 분기에서는 전통적으로 성별에 따라 달리 읽어온 관계·배우자·사회 역할 해석을 바로 적용하지 않고, 먼저 명식의 구조와 운의 상호작용을 분리해 보는 접근이 필요합니다. 이후 사용자가 제공한 실제 맥락이 있을 때만 관계 역할, 진로 역할, 가족 책임을 좁혀 해석하는 편이 오판을 줄입니다." }
+        {
+          "kind": "text",
+          "value": "성별 중립 분기에서는 전통적으로 성별에 따라 달리 읽어온 관계·배우자·사회 역할 해석을 바로 적용하지 않고, 먼저 "
+        },
+        {
+          "kind": "tag",
+          "tagId": "sajuCompatibility",
+          "label": "사주적합도"
+        },
+        {
+          "kind": "text",
+          "value": "와 "
+        },
+        {
+          "kind": "tag",
+          "tagId": "eumyangHarmony",
+          "label": "음양조화도"
+        },
+        {
+          "kind": "text",
+          "value": "의 구조를 분리해 보는 접근이 필요합니다. 이후 사용자가 제공한 실제 맥락이 있을 때만 관계 역할, 진로 역할, 가족 책임을 좁혀 해석하는 편이 "
+        },
+        {
+          "kind": "tag",
+          "tagId": "stabilityIndex",
+          "label": "안정성지수"
+        },
+        {
+          "kind": "text",
+          "value": " 관점에서도 오판을 줄입니다."
+        }
       ],
       "livingTips": [
         "전문가용 해석에서는 성별 역할 가정보다 십성, 오행, 운 흐름의 근거를 먼저 확인하세요.",
@@ -67,7 +127,7 @@
       "cautions": [
         "중립 분기에서 전통적 성 역할 문장을 그대로 끌어오면 사용자 맥락과 맞지 않을 수 있어요."
       ],
-      "tags": [],
+      "tags": ["sajuCompatibility", "eumyangHarmony", "stabilityIndex"],
       "aiGenerated": true,
       "sourceTier": {
         "tier": "T1_HYPOTHESIS",
@@ -83,10 +143,21 @@
     {
       "schemaVersion": "spring-ts.narrative-fragment.v1",
       "fragmentId": "overall.today.brief.gender.neutral.201",
-      "axis": { "category": "overall", "period": "today", "depth": "brief" },
-      "gating": { "gender": ["neutral"] },
+      "axis": {
+        "category": "overall",
+        "period": "today",
+        "depth": "brief"
+      },
+      "gating": {
+        "gender": [
+          "neutral"
+        ]
+      },
       "templateTokens": [
-        { "kind": "text", "value": "오늘의 조언은 성별 역할보다 컨디션, 선택 패턴, 대화 방식에 맞춰 적용하는 편이 좋아요." }
+        {
+          "kind": "text",
+          "value": "오늘의 조언은 성별 역할보다 컨디션, 선택 패턴, 대화 방식에 맞춰 적용하는 편이 좋아요."
+        }
       ],
       "tags": [],
       "aiGenerated": true,

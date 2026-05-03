@@ -8,10 +8,17 @@
     {
       "schemaVersion": "spring-ts.narrative-fragment.v1",
       "fragmentId": "movement.thisYear.standard.wildcard.001",
-      "axis": { "category": "movement", "period": "thisYear", "depth": "standard" },
+      "axis": {
+        "category": "movement",
+        "period": "thisYear",
+        "depth": "standard"
+      },
       "gating": {},
       "templateTokens": [
-        { "kind": "text", "value": "올해의 이동 결을 살펴보면, 새 환경의 결이 한 번 크게 열리는 한 해예요. 흐르는 강물처럼 자연스럽게 새 자리·새 사람과 닿는 자리가 만들어져요.\n\n이사·이직·해외 자리 같은 큰 변화의 자리가 한 번 또렷해질 수 있어요. 두려운 마음보다 호기심을 앞세워 한 발짝 움직여 보면 길이 넓어지는 편이에요.\n\n다만 큰 결정은 한 해 안에 다 마무리하려 하지 말고 단계적으로 짚으면 좋아요. 새 자리에서 충분히 익히는 시간을 두면, 올해 이동의 결이 결실로 이어져요." }
+        {
+          "kind": "text",
+          "value": "올해의 이동 결을 살펴보면, 새 환경의 결이 한 번 크게 열리는 한 해예요. 흐르는 강물처럼 자연스럽게 새 자리·새 사람과 닿는 자리가 만들어져요.\n\n이사·이직·해외 자리 같은 큰 변화의 자리가 한 번 또렷해질 수 있어요. 두려운 마음보다 호기심을 앞세워 한 발짝 움직여 보면 길이 넓어지는 편이에요.\n\n다만 큰 결정은 한 해 안에 다 마무리하려 하지 말고 단계적으로 짚으면 좋아요. 새 자리에서 충분히 익히는 시간을 두면, 올해 이동의 결이 결실로 이어져요."
+        }
       ],
       "tags": [],
       "livingTips": [
@@ -37,10 +44,21 @@
     {
       "schemaVersion": "spring-ts.narrative-fragment.v1",
       "fragmentId": "movement.thisYear.standard.0_9.002",
-      "axis": { "category": "movement", "period": "thisYear", "depth": "standard" },
-      "gating": { "ageBand": ["0-9"] },
+      "axis": {
+        "category": "movement",
+        "period": "thisYear",
+        "depth": "standard"
+      },
+      "gating": {
+        "ageBand": [
+          "0-9"
+        ]
+      },
       "templateTokens": [
-        { "kind": "text", "value": "올해 아이의 이동 결은 새 자리에서 자라는 결이 또렷해지는 흐름이에요. 새 환경의 자극이 한 뼘씩 자라는 자양분이 돼요.\n\n전학·체험학습·여행의 자리가 평생의 시야를 넓히는 결이 돼요. 손잡고 함께 걷는 시간이 큰 추억으로 남아요.\n\n다만 잦은 자리 옮김은 어린 마음에 부담이에요. 안정된 자리와 새 자극을 번갈아 주는 리듬이 가장 잘 어울려요." }
+        {
+          "kind": "text",
+          "value": "올해 아이의 이동 결은 새 자리에서 자라는 결이 또렷해지는 흐름이에요. 새 환경의 자극이 한 뼘씩 자라는 자양분이 돼요.\n\n전학·체험학습·여행의 자리가 평생의 시야를 넓히는 결이 돼요. 손잡고 함께 걷는 시간이 큰 추억으로 남아요.\n\n다만 잦은 자리 옮김은 어린 마음에 부담이에요. 안정된 자리와 새 자극을 번갈아 주는 리듬이 가장 잘 어울려요."
+        }
       ],
       "tags": [],
       "livingTips": [
@@ -66,10 +84,21 @@
     {
       "schemaVersion": "spring-ts.narrative-fragment.v1",
       "fragmentId": "movement.thisYear.standard.10_19.003",
-      "axis": { "category": "movement", "period": "thisYear", "depth": "standard" },
-      "gating": { "ageBand": ["10-19"] },
+      "axis": {
+        "category": "movement",
+        "period": "thisYear",
+        "depth": "standard"
+      },
+      "gating": {
+        "ageBand": [
+          "10-19"
+        ]
+      },
       "templateTokens": [
-        { "kind": "text", "value": "올해 이동 결은 여행·체험으로 시야가 넓어지는 한 해의 흐름이에요. 친구와 함께하는 짧은 여행이 잘 어울려요.\n\n평소 가지 않던 자리에서 만나는 풍경이 학업과 진로의 호흡에 좋은 환기가 돼요. 작은 체험학습이 큰 자산으로 남아요.\n\n다만 큰 시험 시기와 겹친다면 가까운 자리에서 가벼운 환기를 권해요. 무리하지 않는 결이 좋아요." }
+        {
+          "kind": "text",
+          "value": "올해 이동 결은 여행·체험으로 시야가 넓어지는 한 해의 흐름이에요. 친구와 함께하는 짧은 여행이 잘 어울려요.\n\n평소 가지 않던 자리에서 만나는 풍경이 학업과 진로의 호흡에 좋은 환기가 돼요. 작은 체험학습이 큰 자산으로 남아요.\n\n다만 큰 시험 시기와 겹친다면 가까운 자리에서 가벼운 환기를 권해요. 무리하지 않는 결이 좋아요."
+        }
       ],
       "tags": [],
       "livingTips": [
@@ -95,10 +124,21 @@
     {
       "schemaVersion": "spring-ts.narrative-fragment.v1",
       "fragmentId": "movement.thisYear.standard.20_29.004",
-      "axis": { "category": "movement", "period": "thisYear", "depth": "standard" },
-      "gating": { "ageBand": ["20-29"] },
+      "axis": {
+        "category": "movement",
+        "period": "thisYear",
+        "depth": "standard"
+      },
+      "gating": {
+        "ageBand": [
+          "20-29"
+        ]
+      },
       "templateTokens": [
-        { "kind": "text", "value": "올해 이동 결은 새 자리에서 자기 길이 트이는 한 해의 흐름이에요. 첫 자취·첫 출장·첫 해외 자리가 또렷한 결로 등장할 수 있어요.\n\n흐르는 강물처럼 새 환경에 한 발짝 내디뎌 보면 다음 결정의 결이 더 자기 모양에 맞아요. 출장·여행·교환학생 같은 자리가 자연스럽게 풀려요.\n\n다만 너무 가벼운 마음으로 자리를 바꾸면 다시 익숙한 자리에 닿는 시간이 늦어져요. 한 번 옮긴 자리에서 충분히 배우는 호흡이 잘 어울려요." }
+        {
+          "kind": "text",
+          "value": "올해 이동 결은 새 자리에서 자기 길이 트이는 한 해의 흐름이에요. 첫 자취·첫 출장·첫 해외 자리가 또렷한 결로 등장할 수 있어요.\n\n흐르는 강물처럼 새 환경에 한 발짝 내디뎌 보면 다음 결정의 결이 더 자기 모양에 맞아요. 출장·여행·교환학생 같은 자리가 자연스럽게 풀려요.\n\n다만 너무 가벼운 마음으로 자리를 바꾸면 다시 익숙한 자리에 닿는 시간이 늦어져요. 한 번 옮긴 자리에서 충분히 배우는 호흡이 잘 어울려요."
+        }
       ],
       "tags": [],
       "livingTips": [
@@ -124,10 +164,21 @@
     {
       "schemaVersion": "spring-ts.narrative-fragment.v1",
       "fragmentId": "movement.thisYear.standard.30_39.005",
-      "axis": { "category": "movement", "period": "thisYear", "depth": "standard" },
-      "gating": { "ageBand": ["30-39"] },
+      "axis": {
+        "category": "movement",
+        "period": "thisYear",
+        "depth": "standard"
+      },
+      "gating": {
+        "ageBand": [
+          "30-39"
+        ]
+      },
       "templateTokens": [
-        { "kind": "text", "value": "올해 이동 결은 이사·이직 자리가 한 번 크게 열리는 한 해의 흐름이에요. 가족과 자기 자리 사이에서 큰 결정의 자리가 한 번 등장해요.\n\n흐르는 강물처럼 새 자리로 향할 때 한 박자 쉬어 가는 호흡을 두면, 결정의 질이 한 단계 올라가요. 출장·해외 자리는 무리해서 떠나지 않아도 자연스럽게 한 번씩 열려요.\n\n다만 일과 가족 사이의 자리 옮김은 가족과 충분히 호흡을 맞춘 뒤 결정해도 늦지 않아요. 큰 변화일수록 천천히, 단계적으로 접근하는 결이 잘 어울려요." }
+        {
+          "kind": "text",
+          "value": "올해 이동 결은 이사·이직 자리가 한 번 크게 열리는 한 해의 흐름이에요. 가족과 자기 자리 사이에서 큰 결정의 자리가 한 번 등장해요.\n\n흐르는 강물처럼 새 자리로 향할 때 한 박자 쉬어 가는 호흡을 두면, 결정의 질이 한 단계 올라가요. 출장·해외 자리는 무리해서 떠나지 않아도 자연스럽게 한 번씩 열려요.\n\n다만 일과 가족 사이의 자리 옮김은 가족과 충분히 호흡을 맞춘 뒤 결정해도 늦지 않아요. 큰 변화일수록 천천히, 단계적으로 접근하는 결이 잘 어울려요."
+        }
       ],
       "tags": [],
       "livingTips": [
@@ -153,10 +204,21 @@
     {
       "schemaVersion": "spring-ts.narrative-fragment.v1",
       "fragmentId": "movement.thisYear.standard.40_54.006",
-      "axis": { "category": "movement", "period": "thisYear", "depth": "standard" },
-      "gating": { "ageBand": ["40-54"] },
+      "axis": {
+        "category": "movement",
+        "period": "thisYear",
+        "depth": "standard"
+      },
+      "gating": {
+        "ageBand": [
+          "40-54"
+        ]
+      },
       "templateTokens": [
-        { "kind": "text", "value": "올해 이동 결은 출장·해외 자리가 자주 만들어지는 흐름이에요. 책임 큰 자리에서 자리를 옮기는 결정 하나가 멀리까지 영향을 줘요.\n\n흐르는 강물처럼 자리에 닿을 때마다 충분히 익히고 다음 자리로 옮기는 호흡이 잘 맞아요. 무리한 자리 변경보다 익숙한 자리에서 시야를 넓히는 결이 결실에 가까워요.\n\n다만 가족과 자기 자리 사이의 균형은 한 번 더 점검해도 좋아요. 자기 자리만 바라보지 않고 가까운 사람의 호흡도 함께 살피면, 한 해의 이동 결이 단단해져요." }
+        {
+          "kind": "text",
+          "value": "올해 이동 결은 출장·해외 자리가 자주 만들어지는 흐름이에요. 책임 큰 자리에서 자리를 옮기는 결정 하나가 멀리까지 영향을 줘요.\n\n흐르는 강물처럼 자리에 닿을 때마다 충분히 익히고 다음 자리로 옮기는 호흡이 잘 맞아요. 무리한 자리 변경보다 익숙한 자리에서 시야를 넓히는 결이 결실에 가까워요.\n\n다만 가족과 자기 자리 사이의 균형은 한 번 더 점검해도 좋아요. 자기 자리만 바라보지 않고 가까운 사람의 호흡도 함께 살피면, 한 해의 이동 결이 단단해져요."
+        }
       ],
       "tags": [],
       "livingTips": [
@@ -182,10 +244,21 @@
     {
       "schemaVersion": "spring-ts.narrative-fragment.v1",
       "fragmentId": "movement.thisYear.standard.55_69.007",
-      "axis": { "category": "movement", "period": "thisYear", "depth": "standard" },
-      "gating": { "ageBand": ["55-69"] },
+      "axis": {
+        "category": "movement",
+        "period": "thisYear",
+        "depth": "standard"
+      },
+      "gating": {
+        "ageBand": [
+          "55-69"
+        ]
+      },
       "templateTokens": [
-        { "kind": "text", "value": "올해 이동 결은 정리와 새 자리 사이에서 한 번 움직여 볼 흐름이에요. 오래 머문 자리에서 새 자리로 향하는 결정이 큰 그림을 새로 그려 줄 수 있어요.\n\n흐르는 강물처럼 자기 페이스를 지키며 옮기는 호흡이 잘 맞아요. 새 자리는 멀지 않은 곳, 익숙함과 새로움이 같이 있는 자리가 좋아요.\n\n다만 모든 것을 한 번에 바꾸려 하면 호흡이 가빠져요. 한 가지씩 천천히 정리하고 옮기면, 한 해의 자리가 더 편안해져요." }
+        {
+          "kind": "text",
+          "value": "올해 이동 결은 정리와 새 자리 사이에서 한 번 움직여 볼 흐름이에요. 오래 머문 자리에서 새 자리로 향하는 결정이 큰 그림을 새로 그려 줄 수 있어요.\n\n흐르는 강물처럼 자기 페이스를 지키며 옮기는 호흡이 잘 맞아요. 새 자리는 멀지 않은 곳, 익숙함과 새로움이 같이 있는 자리가 좋아요.\n\n다만 모든 것을 한 번에 바꾸려 하면 호흡이 가빠져요. 한 가지씩 천천히 정리하고 옮기면, 한 해의 자리가 더 편안해져요."
+        }
       ],
       "tags": [],
       "livingTips": [
@@ -211,10 +284,21 @@
     {
       "schemaVersion": "spring-ts.narrative-fragment.v1",
       "fragmentId": "movement.thisYear.standard.70plus.008",
-      "axis": { "category": "movement", "period": "thisYear", "depth": "standard" },
-      "gating": { "ageBand": ["70+"] },
+      "axis": {
+        "category": "movement",
+        "period": "thisYear",
+        "depth": "standard"
+      },
+      "gating": {
+        "ageBand": [
+          "70+"
+        ]
+      },
       "templateTokens": [
-        { "kind": "text", "value": "올해 이동 결은 가까운 여행과 머무름의 결이 함께하는 흐름이에요. 멀리 가지 않아도 가까운 자리에서 풍요로운 풍경을 만나요.\n\n호수처럼 잔잔한 자리에서 가까운 친구·가족과 함께하는 짧은 여행이 가장 잘 어울려요. 익숙한 자리의 작은 변화도 좋은 자극이 돼요.\n\n다만 무리한 일정의 먼 여행은 호흡이 가빠지기 쉬워요. 짧고 잔잔한 결의 이동을 권해 드려요." }
+        {
+          "kind": "text",
+          "value": "올해 이동 결은 가까운 여행과 머무름의 결이 함께하는 흐름이에요. 멀리 가지 않아도 가까운 자리에서 풍요로운 풍경을 만나요.\n\n호수처럼 잔잔한 자리에서 가까운 친구·가족과 함께하는 짧은 여행이 가장 잘 어울려요. 익숙한 자리의 작은 변화도 좋은 자극이 돼요.\n\n다만 무리한 일정의 먼 여행은 호흡이 가빠지기 쉬워요. 짧고 잔잔한 결의 이동을 권해 드려요."
+        }
       ],
       "tags": [],
       "livingTips": [
@@ -240,10 +324,24 @@
     {
       "schemaVersion": "spring-ts.narrative-fragment.v1",
       "fragmentId": "movement.thisYear.standard.strong_aligned.009",
-      "axis": { "category": "movement", "period": "thisYear", "depth": "standard" },
-      "gating": { "dayMasterStrength": ["STRONG"], "yongshinAlignment": ["aligned"] },
+      "axis": {
+        "category": "movement",
+        "period": "thisYear",
+        "depth": "standard"
+      },
+      "gating": {
+        "dayMasterStrength": [
+          "STRONG"
+        ],
+        "yongshinAlignment": [
+          "aligned"
+        ]
+      },
       "templateTokens": [
-        { "kind": "text", "value": "올해 이동 결은 흐름을 타고 새 자리가 시원하게 열리는 한 해의 흐름이에요. 강한 일간이 새 환경을 두려워하지 않고 곧장 자기 자리로 만들어 가요.\n\n출장·이직·해외 자리에서 추진력이 잘 발휘돼요. 한번 결정하면 빠르게 자리를 잡는 결이 강해서, 새 환경에서 결과가 곧 따라와요.\n\n다만 너무 빠른 결정은 가까운 사람의 호흡과 어긋나기 쉬워요. 한 박자 쉬어 가는 여백을 두면, 한 해의 이동 결이 더 단단해져요." }
+        {
+          "kind": "text",
+          "value": "올해 이동 결은 흐름을 타고 새 자리가 시원하게 열리는 한 해의 흐름이에요. 강한 타고난 중심 기운이 새 환경을 두려워하지 않고 곧장 자기 자리로 만들어 가요.\n\n출장·이직·해외 자리에서 추진력이 잘 발휘돼요. 한번 결정하면 빠르게 자리를 잡는 결이 강해서, 새 환경에서 결과가 곧 따라와요.\n\n다만 너무 빠른 결정은 가까운 사람의 호흡과 어긋나기 쉬워요. 한 박자 쉬어 가는 여백을 두면, 한 해의 이동 결이 더 단단해져요."
+        }
       ],
       "tags": [],
       "livingTips": [
@@ -269,10 +367,24 @@
     {
       "schemaVersion": "spring-ts.narrative-fragment.v1",
       "fragmentId": "movement.thisYear.standard.weak_neutral.010",
-      "axis": { "category": "movement", "period": "thisYear", "depth": "standard" },
-      "gating": { "dayMasterStrength": ["WEAK"], "yongshinAlignment": ["neutral"] },
+      "axis": {
+        "category": "movement",
+        "period": "thisYear",
+        "depth": "standard"
+      },
+      "gating": {
+        "dayMasterStrength": [
+          "WEAK"
+        ],
+        "yongshinAlignment": [
+          "neutral"
+        ]
+      },
       "templateTokens": [
-        { "kind": "text", "value": "올해 이동 결은 익숙한 자리에서 한 발짝씩 넓혀 가는 한 해의 흐름이에요. 갑작스러운 큰 변화보다 천천히 자기 자리를 늘려 가는 호흡이 잘 맞아요.\n\n작은 여행·짧은 출장이 자기 결을 회복시켜 줘요. 큰 자리 옮김은 한 번에 하지 않고 단계를 나눠 가면, 호흡이 흐트러지지 않아요.\n\n다만 변화 자체를 너무 미루면 결이 무거워지기 쉬워요. 한 발짝 정도의 작은 움직임은 한 해의 회복 자산이 돼요." }
+        {
+          "kind": "text",
+          "value": "올해 이동 결은 익숙한 자리에서 한 발짝씩 넓혀 가는 한 해의 흐름이에요. 갑작스러운 큰 변화보다 천천히 자기 자리를 늘려 가는 호흡이 잘 맞아요.\n\n작은 여행·짧은 출장이 자기 결을 회복시켜 줘요. 큰 자리 옮김은 한 번에 하지 않고 단계를 나눠 가면, 호흡이 흐트러지지 않아요.\n\n다만 변화 자체를 너무 미루면 결이 무거워지기 쉬워요. 한 발짝 정도의 작은 움직임은 한 해의 회복 자산이 돼요."
+        }
       ],
       "tags": [],
       "livingTips": [

@@ -6,10 +6,24 @@
     {
       "schemaVersion": "spring-ts.narrative-fragment.v1",
       "fragmentId": "overall.life.standard.daymasterelement.earth.yongshinelement.wood.206",
-      "axis": { "category": "overall", "period": "life", "depth": "standard" },
-      "gating": { "dayMasterElement": ["EARTH"], "yongshinElement": ["WOOD"] },
+      "axis": {
+        "category": "overall",
+        "period": "life",
+        "depth": "standard"
+      },
+      "gating": {
+        "dayMasterElement": [
+          "EARTH"
+        ],
+        "yongshinElement": [
+          "WOOD"
+        ]
+      },
       "templateTokens": [
-        { "kind": "text", "value": "흙 일간에 나무 기운이 도움이 되는 구조라면, 안정된 기반 위에 새 성장 방향을 세울 때 삶의 흐름이 좋아지기 쉬워요. 익숙한 자리에서 버티는 힘은 장점이지만, 변화가 너무 늦으면 기회가 지나갈 수 있습니다. 작은 목표를 심고 꾸준히 키우는 방식으로 움직이면 안정과 성장이 함께 살아납니다." }
+        {
+          "kind": "text",
+          "value": "흙 타고난 중심 기운에 나무 기운이 도움이 되는 구조라면, 안정된 기반 위에 새 성장 방향을 세울 때 삶의 흐름이 좋아지기 쉬워요. 익숙한 자리에서 버티는 힘은 장점이지만, 변화가 너무 늦으면 기회가 지나갈 수 있습니다. 작은 목표를 심고 꾸준히 키우는 방식으로 움직이면 안정과 성장이 함께 살아납니다."
+        }
       ],
       "livingTips": [
         "생활 루틴은 유지하되 이번 달 새롭게 키울 습관 하나를 정해보세요.",
@@ -18,7 +32,7 @@
       "cautions": [
         "편안한 선택만 반복하면 성장 신호를 놓칠 수 있으니 변화의 폭을 작게 열어두세요."
       ],
-      "tags": ["dayMasterElement", "yongshinElement"],
+      "tags": [],
       "aiGenerated": true,
       "sourceTier": {
         "tier": "T1_HYPOTHESIS",
@@ -34,10 +48,24 @@
     {
       "schemaVersion": "spring-ts.narrative-fragment.v1",
       "fragmentId": "overall.life.standard.daymasterelement.earth.yongshinelement.fire.206",
-      "axis": { "category": "overall", "period": "life", "depth": "standard" },
-      "gating": { "dayMasterElement": ["EARTH"], "yongshinElement": ["FIRE"] },
+      "axis": {
+        "category": "overall",
+        "period": "life",
+        "depth": "standard"
+      },
+      "gating": {
+        "dayMasterElement": [
+          "EARTH"
+        ],
+        "yongshinElement": [
+          "FIRE"
+        ]
+      },
       "templateTokens": [
-        { "kind": "text", "value": "흙 일간에 불 기운이 도움이 되는 구조라면, 차분한 기반에 따뜻한 표현과 활력을 더할 때 균형이 좋아져요. 혼자 정리하고 책임지는 힘은 크지만, 마음과 의도를 드러내지 않으면 주변이 알아차리기 어렵습니다. 필요한 말과 감사를 적절히 표현하면 안정감이 신뢰로 이어집니다." }
+        {
+          "kind": "text",
+          "value": "흙 타고난 중심 기운에 불 기운이 도움이 되는 구조라면, 차분한 기반에 따뜻한 표현과 활력을 더할 때 균형이 좋아져요. 혼자 정리하고 책임지는 힘은 크지만, 마음과 의도를 드러내지 않으면 주변이 알아차리기 어렵습니다. 필요한 말과 감사를 적절히 표현하면 안정감이 신뢰로 이어집니다."
+        }
       ],
       "livingTips": [
         "맡은 일을 조용히 끝내기보다 진행 상황과 고마운 점을 함께 말해보세요.",
@@ -46,7 +74,7 @@
       "cautions": [
         "안정을 지키려다 감정 표현을 줄이면 관계가 건조하게 느껴질 수 있어요."
       ],
-      "tags": ["dayMasterElement", "yongshinElement"],
+      "tags": [],
       "aiGenerated": true,
       "sourceTier": {
         "tier": "T1_HYPOTHESIS",
@@ -62,10 +90,24 @@
     {
       "schemaVersion": "spring-ts.narrative-fragment.v1",
       "fragmentId": "overall.life.standard.daymasterelement.earth.yongshinelement.earth.206",
-      "axis": { "category": "overall", "period": "life", "depth": "standard" },
-      "gating": { "dayMasterElement": ["EARTH"], "yongshinElement": ["EARTH"] },
+      "axis": {
+        "category": "overall",
+        "period": "life",
+        "depth": "standard"
+      },
+      "gating": {
+        "dayMasterElement": [
+          "EARTH"
+        ],
+        "yongshinElement": [
+          "EARTH"
+        ]
+      },
       "templateTokens": [
-        { "kind": "text", "value": "흙 일간에 흙 기운이 도움이 되는 구조라면, 삶의 방향은 중심을 잡고 신뢰를 쌓는 쪽에서 힘을 얻기 쉬워요. 꾸준함, 책임감, 현실 감각이 중요한 자산이지만, 너무 무겁게 떠안으면 움직임이 둔해질 수 있습니다. 역할과 경계를 분명히 정하면 안정의 힘이 부담이 아니라 기반이 됩니다." }
+        {
+          "kind": "text",
+          "value": "흙 타고난 중심 기운에 흙 기운이 도움이 되는 구조라면, 삶의 방향은 중심을 잡고 신뢰를 쌓는 쪽에서 힘을 얻기 쉬워요. 꾸준함, 책임감, 현실 감각이 중요한 자산이지만, 너무 무겁게 떠안으면 움직임이 둔해질 수 있습니다. 역할과 경계를 분명히 정하면 안정의 힘이 부담이 아니라 기반이 됩니다."
+        }
       ],
       "livingTips": [
         "해야 할 일은 내 책임, 함께할 일, 맡기면 좋은 일로 나누어보세요.",
@@ -74,7 +116,7 @@
       "cautions": [
         "믿음직해야 한다는 마음이 커지면 혼자 감당하는 일이 많아질 수 있어요."
       ],
-      "tags": ["dayMasterElement", "yongshinElement"],
+      "tags": [],
       "aiGenerated": true,
       "sourceTier": {
         "tier": "T1_HYPOTHESIS",
@@ -90,10 +132,24 @@
     {
       "schemaVersion": "spring-ts.narrative-fragment.v1",
       "fragmentId": "overall.life.standard.daymasterelement.earth.yongshinelement.metal.206",
-      "axis": { "category": "overall", "period": "life", "depth": "standard" },
-      "gating": { "dayMasterElement": ["EARTH"], "yongshinElement": ["METAL"] },
+      "axis": {
+        "category": "overall",
+        "period": "life",
+        "depth": "standard"
+      },
+      "gating": {
+        "dayMasterElement": [
+          "EARTH"
+        ],
+        "yongshinElement": [
+          "METAL"
+        ]
+      },
       "templateTokens": [
-        { "kind": "text", "value": "흙 일간에 쇠 기운이 도움이 되는 구조라면, 넓게 품는 힘을 기준과 결론으로 정리할 때 균형이 좋아져요. 여러 사람과 상황을 받아주는 장점은 크지만, 결정이 늦어지면 책임만 쌓일 수 있습니다. 우선순위와 원칙을 세워 필요한 부분을 덜어내면 삶의 밀도가 좋아집니다." }
+        {
+          "kind": "text",
+          "value": "흙 타고난 중심 기운에 쇠 기운이 도움이 되는 구조라면, 넓게 품는 힘을 기준과 결론으로 정리할 때 균형이 좋아져요. 여러 사람과 상황을 받아주는 장점은 크지만, 결정이 늦어지면 책임만 쌓일 수 있습니다. 우선순위와 원칙을 세워 필요한 부분을 덜어내면 삶의 밀도가 좋아집니다."
+        }
       ],
       "livingTips": [
         "복잡한 일은 중요도, 긴급도, 내 역할 기준으로 먼저 분류하세요.",
@@ -102,7 +158,7 @@
       "cautions": [
         "모두를 품으려는 마음이 기준 없이 이어지면 피로가 누적될 수 있어요."
       ],
-      "tags": ["dayMasterElement", "yongshinElement"],
+      "tags": [],
       "aiGenerated": true,
       "sourceTier": {
         "tier": "T1_HYPOTHESIS",
@@ -118,10 +174,24 @@
     {
       "schemaVersion": "spring-ts.narrative-fragment.v1",
       "fragmentId": "overall.life.standard.daymasterelement.earth.yongshinelement.water.206",
-      "axis": { "category": "overall", "period": "life", "depth": "standard" },
-      "gating": { "dayMasterElement": ["EARTH"], "yongshinElement": ["WATER"] },
+      "axis": {
+        "category": "overall",
+        "period": "life",
+        "depth": "standard"
+      },
+      "gating": {
+        "dayMasterElement": [
+          "EARTH"
+        ],
+        "yongshinElement": [
+          "WATER"
+        ]
+      },
       "templateTokens": [
-        { "kind": "text", "value": "흙 일간에 물 기운이 도움이 되는 구조라면, 단단한 현실 감각에 유연한 관찰과 회복을 더할 때 흐름이 부드러워져요. 계획을 지키는 힘은 좋지만, 상황이 바뀌어도 같은 방식만 고집하면 답답함이 생길 수 있습니다. 잠시 멈춰 듣고 조정하는 시간을 두면 안정감이 더 오래 갑니다." }
+        {
+          "kind": "text",
+          "value": "흙 타고난 중심 기운에 물 기운이 도움이 되는 구조라면, 단단한 현실 감각에 유연한 관찰과 회복을 더할 때 흐름이 부드러워져요. 계획을 지키는 힘은 좋지만, 상황이 바뀌어도 같은 방식만 고집하면 답답함이 생길 수 있습니다. 잠시 멈춰 듣고 조정하는 시간을 두면 안정감이 더 오래 갑니다."
+        }
       ],
       "livingTips": [
         "중요한 결정을 내리기 전에는 정보 확인과 감정 정리 시간을 따로 두세요.",
@@ -130,7 +200,7 @@
       "cautions": [
         "계획을 지키는 것만 중요하게 보면 변화 신호에 늦게 반응할 수 있어요."
       ],
-      "tags": ["dayMasterElement", "yongshinElement"],
+      "tags": [],
       "aiGenerated": true,
       "sourceTier": {
         "tier": "T1_HYPOTHESIS",

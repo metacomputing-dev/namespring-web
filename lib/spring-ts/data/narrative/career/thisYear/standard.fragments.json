@@ -7,170 +7,486 @@
     {
       "schemaVersion": "spring-ts.narrative-fragment.v1",
       "fragmentId": "career.thisYear.standard.wildcard.001",
-      "axis": { "category": "career", "period": "thisYear", "depth": "standard" },
+      "axis": {
+        "category": "career",
+        "period": "thisYear",
+        "depth": "standard"
+      },
       "gating": {},
       "templateTokens": [
-        { "kind": "text", "value": "올해의 직업 결을 한 줄로 그리면, 자리·책임이 한 단계 자라나는 흐름이에요. 한 해는 한두 가지 큰 결을 매듭짓기 좋은 단위라, 우선되는 책임 하나에 깊이 무게를 두면 자리 폭이 또렷해져요. 작은 일을 빠르게 처리하기보다 큰 결의 매듭을 챙기면 다음 해의 결이 단단해져요. 한 해의 결정 결을 분기마다 짧게 글로 정리해 두면, 흔들림이 줄고 결의 길이 또렷해져요. 한 자리에서 단단해진 만큼 다음 자리도 단단해지는 한 해예요." }
+        {
+          "kind": "text",
+          "value": "올해의 직업 결을 한 줄로 그리면, 자리·책임이 한 단계 자라나는 흐름이에요. 한 해는 한두 가지 큰 결을 매듭짓기 좋은 단위라, 우선되는 책임 하나에 깊이 무게를 두면 자리 폭이 또렷해져요. 작은 일을 빠르게 처리하기보다 큰 결의 매듭을 챙기면 다음 해의 결이 단단해져요. 한 해의 결정 결을 분기마다 짧게 글로 정리해 두면, 흔들림이 줄고 결의 길이 또렷해져요. 한 자리에서 단단해진 만큼 다음 자리도 단단해지는 한 해예요."
+        }
       ],
       "tags": [],
-      "livingTips": ["한 해의 큰 결 한두 가지 정하기", "분기마다 결정 결 정리"],
-      "cautions": ["작은 일에만 시간 쓰지 않기"],
+      "livingTips": [
+        "한 해의 큰 결 한두 가지 정하기",
+        "분기마다 결정 결 정리"
+      ],
+      "cautions": [
+        "작은 일에만 시간 쓰지 않기"
+      ],
       "aiGenerated": true,
-      "sourceTier": { "tier": "T1_HYPOTHESIS", "sourceType": "training_derived", "sourceUrl": null, "accessedAt": "2026-05-02", "quoteShort": null, "humanInterpretation": "Phase 2 agent-6 (career) standard thisYear wildcard. Display-only narrative.", "copyrightNote": "No source prose copied; original.", "authorityTruthEligible": false }
+      "sourceTier": {
+        "tier": "T1_HYPOTHESIS",
+        "sourceType": "training_derived",
+        "sourceUrl": null,
+        "accessedAt": "2026-05-02",
+        "quoteShort": null,
+        "humanInterpretation": "Phase 2 agent-6 (career) standard thisYear wildcard. Display-only narrative.",
+        "copyrightNote": "No source prose copied; original.",
+        "authorityTruthEligible": false
+      }
     },
     {
       "schemaVersion": "spring-ts.narrative-fragment.v1",
       "fragmentId": "career.thisYear.standard.strong.aligned.002",
-      "axis": { "category": "career", "period": "thisYear", "depth": "standard" },
-      "gating": { "dayMasterStrength": ["STRONG", "EXTREME_STRONG"], "yongshinAlignment": ["aligned"] },
+      "axis": {
+        "category": "career",
+        "period": "thisYear",
+        "depth": "standard"
+      },
+      "gating": {
+        "dayMasterStrength": [
+          "STRONG",
+          "EXTREME_STRONG"
+        ],
+        "yongshinAlignment": [
+          "aligned"
+        ]
+      },
       "templateTokens": [
-        { "kind": "text", "value": "올해의 직업 결은 굵직한 자리의 문이 한 번 더 크게 열리는 흐름이에요. 어깨가 단단한 결이라 큰 결정의 무게도 자기 페이스로 끌고 갈 수 있고, 한 해 동안의 매듭이 다음 분기 자리의 폭을 또렷이 넓혀 줘요. 책임이 늘어나는 만큼 사람을 함께 키워 두는 결을 잊지 않으면 좋아요. 큰 결정은 분기 시작에 매듭짓는 결이 자기다워요. 한 해의 매듭이 다음 해의 큰 자리의 디딤돌이 되는 결이에요." }
+        {
+          "kind": "text",
+          "value": "올해의 직업 결은 굵직한 자리의 문이 한 번 더 크게 열리는 흐름이에요. 어깨가 단단한 결이라 큰 결정의 무게도 자기 페이스로 끌고 갈 수 있고, 한 해 동안의 매듭이 다음 분기 자리의 폭을 또렷이 넓혀 줘요. 책임이 늘어나는 만큼 사람을 함께 키워 두는 결을 잊지 않으면 좋아요. 큰 결정은 분기 시작에 매듭짓는 결이 자기다워요. 한 해의 매듭이 다음 해의 큰 자리의 디딤돌이 되는 결이에요."
+        }
       ],
       "tags": [],
-      "livingTips": ["분기 시작에 큰 결정 매듭짓기", "사람 한 명씩 키워 두기"],
-      "cautions": ["혼자 모든 책임 떠안지 않기"],
+      "livingTips": [
+        "분기 시작에 큰 결정 매듭짓기",
+        "사람 한 명씩 키워 두기"
+      ],
+      "cautions": [
+        "혼자 모든 책임 떠안지 않기"
+      ],
       "aiGenerated": true,
-      "sourceTier": { "tier": "T1_HYPOTHESIS", "sourceType": "training_derived", "sourceUrl": null, "accessedAt": "2026-05-02", "quoteShort": null, "humanInterpretation": "Phase 2 agent-6 (career) standard thisYear: strong+aligned. Display-only narrative.", "copyrightNote": "No source prose copied; original.", "authorityTruthEligible": false }
+      "sourceTier": {
+        "tier": "T1_HYPOTHESIS",
+        "sourceType": "training_derived",
+        "sourceUrl": null,
+        "accessedAt": "2026-05-02",
+        "quoteShort": null,
+        "humanInterpretation": "Phase 2 agent-6 (career) standard thisYear: strong+aligned. Display-only narrative.",
+        "copyrightNote": "No source prose copied; original.",
+        "authorityTruthEligible": false
+      }
     },
     {
       "schemaVersion": "spring-ts.narrative-fragment.v1",
       "fragmentId": "career.thisYear.standard.weak.aligned.003",
-      "axis": { "category": "career", "period": "thisYear", "depth": "standard" },
-      "gating": { "dayMasterStrength": ["WEAK", "EXTREME_WEAK"], "yongshinAlignment": ["aligned"] },
+      "axis": {
+        "category": "career",
+        "period": "thisYear",
+        "depth": "standard"
+      },
+      "gating": {
+        "dayMasterStrength": [
+          "WEAK",
+          "EXTREME_WEAK"
+        ],
+        "yongshinAlignment": [
+          "aligned"
+        ]
+      },
       "templateTokens": [
-        { "kind": "text", "value": "올해의 직업 결은 도와주는 손이 자리를 길게 받쳐 주는 흐름이에요. 어깨가 가벼운 결일수록 멘토·선배·동료의 짧은 의견이 결정의 결을 또렷하게 만들어 줘요. 한 분기에 한 번은 신뢰할 만한 사람과의 만남을 잡아 두면 결의 결정이 한결 단단해져요. 큰 결정이 들어왔다면 한 주 정도 묵혀 두는 결이 자기다워요. 도움받은 만큼 갚는 결을 메모해 두면 인연이 길게 이어지는 한 해예요." }
+        {
+          "kind": "text",
+          "value": "올해의 직업 결은 도와주는 손이 자리를 길게 받쳐 주는 흐름이에요. 어깨가 가벼운 결일수록 멘토·선배·동료의 짧은 의견이 결정의 결을 또렷하게 만들어 줘요. 한 분기에 한 번은 신뢰할 만한 사람과의 만남을 잡아 두면 결의 결정이 한결 단단해져요. 큰 결정이 들어왔다면 한 주 정도 묵혀 두는 결이 자기다워요. 도움받은 만큼 갚는 결을 메모해 두면 인연이 길게 이어지는 한 해예요."
+        }
       ],
       "tags": [],
-      "livingTips": ["분기 1회 멘토 만남 잡기", "도움 받은 결 메모해 두기"],
-      "cautions": ["혼자 안고 결정하지 않기"],
+      "livingTips": [
+        "분기 1회 멘토 만남 잡기",
+        "도움 받은 결 메모해 두기"
+      ],
+      "cautions": [
+        "혼자 안고 결정하지 않기"
+      ],
       "aiGenerated": true,
-      "sourceTier": { "tier": "T1_HYPOTHESIS", "sourceType": "training_derived", "sourceUrl": null, "accessedAt": "2026-05-02", "quoteShort": null, "humanInterpretation": "Phase 2 agent-6 (career) standard thisYear: weak+aligned. Display-only narrative.", "copyrightNote": "No source prose copied; original.", "authorityTruthEligible": false }
+      "sourceTier": {
+        "tier": "T1_HYPOTHESIS",
+        "sourceType": "training_derived",
+        "sourceUrl": null,
+        "accessedAt": "2026-05-02",
+        "quoteShort": null,
+        "humanInterpretation": "Phase 2 agent-6 (career) standard thisYear: weak+aligned. Display-only narrative.",
+        "copyrightNote": "No source prose copied; original.",
+        "authorityTruthEligible": false
+      }
     },
     {
       "schemaVersion": "spring-ts.narrative-fragment.v1",
       "fragmentId": "career.thisYear.standard.balanced.neutral.004",
-      "axis": { "category": "career", "period": "thisYear", "depth": "standard" },
-      "gating": { "dayMasterStrength": ["BALANCED"], "yongshinAlignment": ["neutral"] },
+      "axis": {
+        "category": "career",
+        "period": "thisYear",
+        "depth": "standard"
+      },
+      "gating": {
+        "dayMasterStrength": [
+          "BALANCED"
+        ],
+        "yongshinAlignment": [
+          "neutral"
+        ]
+      },
       "templateTokens": [
-        { "kind": "text", "value": "올해의 직업 결은 익숙한 페이스로 자리를 깊이 자라게 하는 흐름이에요. 큰 무리수보다 한 분야에서 결과를 한 줄 더 쌓아 두는 결이 잘 맞고, 한 해 동안의 결정 결을 분기마다 짧게 정리해 두면 다음 해의 결이 흔들림 없이 이어져요. 새 자극이 들어와도 일단 메모해 두고 다음 분기로 넘기는 결이 잘 맞아요. 작은 일관성이 한 해 단위로 큰 자산이 되는 결이에요." }
+        {
+          "kind": "text",
+          "value": "올해의 직업 결은 익숙한 페이스로 자리를 깊이 자라게 하는 흐름이에요. 큰 무리수보다 한 분야에서 결과를 한 줄 더 쌓아 두는 결이 잘 맞고, 한 해 동안의 결정 결을 분기마다 짧게 정리해 두면 다음 해의 결이 흔들림 없이 이어져요. 새 자극이 들어와도 일단 메모해 두고 다음 분기로 넘기는 결이 잘 맞아요. 작은 일책임과 규칙 흐름이 한 해 단위로 큰 자산이 되는 결이에요."
+        }
       ],
       "tags": [],
-      "livingTips": ["한 해 결정 결을 분기마다 정리", "한 분야 결과 한 줄 쌓기"],
-      "cautions": ["새 자극은 분기 메모로 옮겨 두기"],
+      "livingTips": [
+        "한 해 결정 결을 분기마다 정리",
+        "한 분야 결과 한 줄 쌓기"
+      ],
+      "cautions": [
+        "새 자극은 분기 메모로 옮겨 두기"
+      ],
       "aiGenerated": true,
-      "sourceTier": { "tier": "T1_HYPOTHESIS", "sourceType": "training_derived", "sourceUrl": null, "accessedAt": "2026-05-02", "quoteShort": null, "humanInterpretation": "Phase 2 agent-6 (career) standard thisYear: balanced. Display-only narrative.", "copyrightNote": "No source prose copied; original.", "authorityTruthEligible": false }
+      "sourceTier": {
+        "tier": "T1_HYPOTHESIS",
+        "sourceType": "training_derived",
+        "sourceUrl": null,
+        "accessedAt": "2026-05-02",
+        "quoteShort": null,
+        "humanInterpretation": "Phase 2 agent-6 (career) standard thisYear: balanced. Display-only narrative.",
+        "copyrightNote": "No source prose copied; original.",
+        "authorityTruthEligible": false
+      }
     },
     {
       "schemaVersion": "spring-ts.narrative-fragment.v1",
       "fragmentId": "career.thisYear.standard.conflicting.005",
-      "axis": { "category": "career", "period": "thisYear", "depth": "standard" },
-      "gating": { "yongshinAlignment": ["conflicting"] },
+      "axis": {
+        "category": "career",
+        "period": "thisYear",
+        "depth": "standard"
+      },
+      "gating": {
+        "yongshinAlignment": [
+          "conflicting"
+        ]
+      },
       "templateTokens": [
-        { "kind": "text", "value": "올해의 직업 결은 부담을 자기 색으로 다듬어 가는 흐름이에요. 큰 결정의 무게가 여러 번 들어올 수 있는데, 한 분기에 한 번 이상의 큰 결단은 의도적으로 미뤄 두는 결이 자기다워요. 응원해 줄 사람 한 명을 미리 정해 두면 결정의 결이 한결 단단해지고, 부담의 시기엔 자기 페이스를 흔들지 말고 가장 작은 한 가지부터 매듭짓는 결로 가면 좋아요. 부담을 다룬 한 해가 신뢰의 자산이 되는 결이에요." }
+        {
+          "kind": "text",
+          "value": "올해의 직업 결은 부담을 자기 색으로 다듬어 가는 흐름이에요. 큰 결정의 무게가 여러 번 들어올 수 있는데, 한 분기에 한 번 이상의 큰 결단은 의도적으로 미뤄 두는 결이 자기다워요. 응원해 줄 사람 한 명을 미리 정해 두면 결정의 결이 한결 단단해지고, 부담의 시기엔 자기 페이스를 흔들지 말고 가장 작은 한 가지부터 매듭짓는 결로 가면 좋아요. 부담을 다룬 한 해가 신뢰의 자산이 되는 결이에요."
+        }
       ],
       "tags": [],
-      "livingTips": ["응원군 한 명 미리 정해 두기", "큰 결정은 분기당 한 번으로 줄이기"],
-      "cautions": ["여러 결단을 한 분기에 묶지 않기"],
+      "livingTips": [
+        "응원군 한 명 미리 정해 두기",
+        "큰 결정은 분기당 한 번으로 줄이기"
+      ],
+      "cautions": [
+        "여러 결단을 한 분기에 묶지 않기"
+      ],
       "aiGenerated": true,
-      "sourceTier": { "tier": "T1_HYPOTHESIS", "sourceType": "training_derived", "sourceUrl": null, "accessedAt": "2026-05-02", "quoteShort": null, "humanInterpretation": "Phase 2 agent-6 (career) standard thisYear: conflicting. Display-only narrative.", "copyrightNote": "No source prose copied; original.", "authorityTruthEligible": false }
+      "sourceTier": {
+        "tier": "T1_HYPOTHESIS",
+        "sourceType": "training_derived",
+        "sourceUrl": null,
+        "accessedAt": "2026-05-02",
+        "quoteShort": null,
+        "humanInterpretation": "Phase 2 agent-6 (career) standard thisYear: conflicting. Display-only narrative.",
+        "copyrightNote": "No source prose copied; original.",
+        "authorityTruthEligible": false
+      }
     },
     {
       "schemaVersion": "spring-ts.narrative-fragment.v1",
       "fragmentId": "career.thisYear.standard.age10_19.006",
-      "axis": { "category": "career", "period": "thisYear", "depth": "standard" },
-      "gating": { "ageBand": ["10-19"] },
+      "axis": {
+        "category": "career",
+        "period": "thisYear",
+        "depth": "standard"
+      },
+      "gating": {
+        "ageBand": [
+          "10-19"
+        ]
+      },
       "templateTokens": [
-        { "kind": "text", "value": "올해는 마음을 흔드는 관심사 한 가지를 길게 살펴보기 좋은 흐름이에요. 한 해 동안 한 분야에 대해 자료·책·짧은 시도들을 모아 두면, 미래의 자리가 자기에게 맞춰져 와요. 어른의 직업 단어에 너무 빨리 자기를 끼워 맞추지 않아도 괜찮아요. 한 해의 끝에 '시간이 빨리 지나간 일'을 적어 두면 다음 단계의 결이 또렷해져요. 작은 호기심의 결이 한 해 단위로 자라는 흐름이에요." }
+        {
+          "kind": "text",
+          "value": "올해는 마음을 흔드는 관심사 한 가지를 길게 살펴보기 좋은 흐름이에요. 한 해 동안 한 분야에 대해 자료·책·짧은 시도들을 모아 두면, 미래의 자리가 자기에게 맞춰져 와요. 어른의 직업 단어에 너무 빨리 자기를 끼워 맞추지 않아도 괜찮아요. 한 해의 끝에 '시간이 빨리 지나간 일'을 적어 두면 다음 단계의 결이 또렷해져요. 작은 호기심의 결이 한 해 단위로 자라는 흐름이에요."
+        }
       ],
       "tags": [],
-      "livingTips": ["한 분야 자료를 한 해 동안 모으기", "연말에 빠르게 지난 일 적어 두기"],
-      "cautions": ["어른의 직업명에 갇히지 않기"],
+      "livingTips": [
+        "한 분야 자료를 한 해 동안 모으기",
+        "연말에 빠르게 지난 일 적어 두기"
+      ],
+      "cautions": [
+        "어른의 직업명에 갇히지 않기"
+      ],
       "aiGenerated": true,
-      "sourceTier": { "tier": "T1_HYPOTHESIS", "sourceType": "training_derived", "sourceUrl": null, "accessedAt": "2026-05-02", "quoteShort": null, "humanInterpretation": "Phase 2 agent-6 (career) standard thisYear: 10-19 youth. Display-only narrative.", "copyrightNote": "No source prose copied; original.", "authorityTruthEligible": false }
+      "sourceTier": {
+        "tier": "T1_HYPOTHESIS",
+        "sourceType": "training_derived",
+        "sourceUrl": null,
+        "accessedAt": "2026-05-02",
+        "quoteShort": null,
+        "humanInterpretation": "Phase 2 agent-6 (career) standard thisYear: 10-19 youth. Display-only narrative.",
+        "copyrightNote": "No source prose copied; original.",
+        "authorityTruthEligible": false
+      }
     },
     {
       "schemaVersion": "spring-ts.narrative-fragment.v1",
       "fragmentId": "career.thisYear.standard.age20_29.007",
-      "axis": { "category": "career", "period": "thisYear", "depth": "standard" },
-      "gating": { "ageBand": ["20-29"] },
+      "axis": {
+        "category": "career",
+        "period": "thisYear",
+        "depth": "standard"
+      },
+      "gating": {
+        "ageBand": [
+          "20-29"
+        ]
+      },
       "templateTokens": [
-        { "kind": "text", "value": "올해의 직업 결은 첫 자리의 결이 또렷해지는 한 해예요. 한 자리에서 1년이라는 단위는 작은 인정 한두 줄을 만들기 좋은 길이라, 빠른 이동보다 한 자리에서의 마무리에 무게를 두면 결이 단단해져요. 같이 일하는 선배 한 명을 멘토로 삼아 분기에 한 번은 짧게 의견을 들어 두면 좋아요. 처음 1년의 결이 평생 직업관의 뼈대를 이루기에, 결정을 메모해 두는 습관이 큰 자산이에요. 시작의 결이 한 해 단위로 단단해지는 흐름이에요." }
+        {
+          "kind": "text",
+          "value": "올해의 직업 결은 첫 자리의 결이 또렷해지는 한 해예요. 한 자리에서 1년이라는 단위는 작은 인정 한두 줄을 만들기 좋은 길이라, 빠른 이동보다 한 자리에서의 마무리에 무게를 두면 결이 단단해져요. 같이 일하는 선배 한 명을 멘토로 삼아 분기에 한 번은 짧게 의견을 들어 두면 좋아요. 처음 1년의 결이 평생 직업관의 뼈대를 이루기에, 결정을 메모해 두는 습관이 큰 자산이에요. 시작의 결이 한 해 단위로 단단해지는 흐름이에요."
+        }
       ],
       "tags": [],
-      "livingTips": ["한 자리에서 1년 단위 결과 만들기", "분기 1회 선배 의견 듣기"],
-      "cautions": ["빠른 이동만으로 길을 만들려 하지 않기"],
+      "livingTips": [
+        "한 자리에서 1년 단위 결과 만들기",
+        "분기 1회 선배 의견 듣기"
+      ],
+      "cautions": [
+        "빠른 이동만으로 길을 만들려 하지 않기"
+      ],
       "aiGenerated": true,
-      "sourceTier": { "tier": "T1_HYPOTHESIS", "sourceType": "training_derived", "sourceUrl": null, "accessedAt": "2026-05-02", "quoteShort": null, "humanInterpretation": "Phase 2 agent-6 (career) standard thisYear: 20s. Display-only narrative.", "copyrightNote": "No source prose copied; original.", "authorityTruthEligible": false }
+      "sourceTier": {
+        "tier": "T1_HYPOTHESIS",
+        "sourceType": "training_derived",
+        "sourceUrl": null,
+        "accessedAt": "2026-05-02",
+        "quoteShort": null,
+        "humanInterpretation": "Phase 2 agent-6 (career) standard thisYear: 20s. Display-only narrative.",
+        "copyrightNote": "No source prose copied; original.",
+        "authorityTruthEligible": false
+      }
     },
     {
       "schemaVersion": "spring-ts.narrative-fragment.v1",
       "fragmentId": "career.thisYear.standard.age30_39.008",
-      "axis": { "category": "career", "period": "thisYear", "depth": "standard" },
-      "gating": { "ageBand": ["30-39"] },
+      "axis": {
+        "category": "career",
+        "period": "thisYear",
+        "depth": "standard"
+      },
+      "gating": {
+        "ageBand": [
+          "30-39"
+        ]
+      },
       "templateTokens": [
-        { "kind": "text", "value": "올해의 직업 결은 받은 자리에 책임이 한 단계 더 쌓이는 흐름이에요. 후배·동료의 작은 질문에 짧게라도 답을 주면 자기 자리의 결이 한결 단단해져요. 큰 결정의 무게가 들어올 때 함께 의논할 사람 한 명을 미리 정해 두면 흔들림이 적고, 한 해 단위로 신뢰의 한 줄이 다음 자리의 디딤돌이 돼요. 일과 가족 사이의 균형은 어느 한쪽으로 기울지 않게 자기 페이스를 적어 두는 것에서 시작돼요. 한 자리에서 뿌리내린 만큼 다음 자리도 단단해지는 한 해예요." }
+        {
+          "kind": "text",
+          "value": "올해의 직업 결은 받은 자리에 책임이 한 단계 더 쌓이는 흐름이에요. 후배·동료의 작은 질문에 짧게라도 답을 주면 자기 자리의 결이 한결 단단해져요. 큰 결정의 무게가 들어올 때 함께 의논할 사람 한 명을 미리 정해 두면 흔들림이 적고, 한 해 단위로 신뢰의 한 줄이 다음 자리의 디딤돌이 돼요. 일과 가족 사이의 균형은 어느 한쪽으로 기울지 않게 자기 페이스를 적어 두는 것에서 시작돼요. 한 자리에서 뿌리내린 만큼 다음 자리도 단단해지는 한 해예요."
+        }
       ],
       "tags": [],
-      "livingTips": ["함께 의논할 사람 한 명 정하기", "신뢰의 한 줄 적어 두기"],
-      "cautions": ["일·가족 균형 한쪽으로 기울지 않기"],
+      "livingTips": [
+        "함께 의논할 사람 한 명 정하기",
+        "신뢰의 한 줄 적어 두기"
+      ],
+      "cautions": [
+        "일·가족 균형 한쪽으로 기울지 않기"
+      ],
       "aiGenerated": true,
-      "sourceTier": { "tier": "T1_HYPOTHESIS", "sourceType": "training_derived", "sourceUrl": null, "accessedAt": "2026-05-02", "quoteShort": null, "humanInterpretation": "Phase 2 agent-6 (career) standard thisYear: 30s. Display-only narrative.", "copyrightNote": "No source prose copied; original.", "authorityTruthEligible": false }
+      "sourceTier": {
+        "tier": "T1_HYPOTHESIS",
+        "sourceType": "training_derived",
+        "sourceUrl": null,
+        "accessedAt": "2026-05-02",
+        "quoteShort": null,
+        "humanInterpretation": "Phase 2 agent-6 (career) standard thisYear: 30s. Display-only narrative.",
+        "copyrightNote": "No source prose copied; original.",
+        "authorityTruthEligible": false
+      }
     },
     {
       "schemaVersion": "spring-ts.narrative-fragment.v1",
       "fragmentId": "career.thisYear.standard.age40_54.009",
-      "axis": { "category": "career", "period": "thisYear", "depth": "standard" },
-      "gating": { "ageBand": ["40-54"] },
+      "axis": {
+        "category": "career",
+        "period": "thisYear",
+        "depth": "standard"
+      },
+      "gating": {
+        "ageBand": [
+          "40-54"
+        ]
+      },
       "templateTokens": [
-        { "kind": "text", "value": "올해의 직업 결은 그동안 쌓아 온 결이 단단한 자산으로 자리잡는 흐름이에요. 한 분야에서 인정받은 신뢰가 새 기회의 문을 한 번 더 크게 열어 주고, 사람을 받쳐 주는 자리가 늘어나는 한 해예요. 큰 결정이 다른 사람의 길에 영향 주는 시기라, 결정의 무게를 너무 빠르게 결재하지 말고 하루 한 박자만 늦춰 두면 후회가 줄어요. 자기 분야 밖의 새 결을 한 줄씩 더해 두면 후반에 길이 좁아지지 않아요. 단단해진 만큼 후배의 길잡이가 되는 자리도 함께 자라요." }
+        {
+          "kind": "text",
+          "value": "올해의 직업 결은 그동안 쌓아 온 결이 단단한 자산으로 자리잡는 흐름이에요. 한 분야에서 인정받은 신뢰가 새 기회의 문을 한 번 더 크게 열어 주고, 사람을 받쳐 주는 자리가 늘어나는 한 해예요. 큰 결정이 다른 사람의 길에 영향 주는 시기라, 결정의 무게를 너무 빠르게 결재하지 말고 하루 한 박자만 늦춰 두면 후회가 줄어요. 자기 분야 밖의 새 결을 한 줄씩 더해 두면 후반에 길이 좁아지지 않아요. 단단해진 만큼 후배의 길잡이가 되는 자리도 함께 자라요."
+        }
       ],
       "tags": [],
-      "livingTips": ["큰 결정은 하루 묵혀 두기", "후배 한 명에게 길 알려 주기"],
-      "cautions": ["자기 분야에만 갇히지 않기"],
+      "livingTips": [
+        "큰 결정은 하루 묵혀 두기",
+        "후배 한 명에게 길 알려 주기"
+      ],
+      "cautions": [
+        "자기 분야에만 갇히지 않기"
+      ],
       "aiGenerated": true,
-      "sourceTier": { "tier": "T1_HYPOTHESIS", "sourceType": "training_derived", "sourceUrl": null, "accessedAt": "2026-05-02", "quoteShort": null, "humanInterpretation": "Phase 2 agent-6 (career) standard thisYear: 40-54. Display-only narrative.", "copyrightNote": "No source prose copied; original.", "authorityTruthEligible": false }
+      "sourceTier": {
+        "tier": "T1_HYPOTHESIS",
+        "sourceType": "training_derived",
+        "sourceUrl": null,
+        "accessedAt": "2026-05-02",
+        "quoteShort": null,
+        "humanInterpretation": "Phase 2 agent-6 (career) standard thisYear: 40-54. Display-only narrative.",
+        "copyrightNote": "No source prose copied; original.",
+        "authorityTruthEligible": false
+      }
     },
     {
       "schemaVersion": "spring-ts.narrative-fragment.v1",
       "fragmentId": "career.thisYear.standard.age55plus.010",
-      "axis": { "category": "career", "period": "thisYear", "depth": "standard" },
-      "gating": { "ageBand": ["55-69", "70+"] },
+      "axis": {
+        "category": "career",
+        "period": "thisYear",
+        "depth": "standard"
+      },
+      "gating": {
+        "ageBand": [
+          "55-69",
+          "70+"
+        ]
+      },
       "templateTokens": [
-        { "kind": "text", "value": "올해의 직업 결은 오래 쌓아 온 결이 후배의 길잡이가 되는 자리로 자라는 흐름이에요. 결과를 내는 자리에서 길을 알려 주는 자리로 무게중심이 옮겨 가는 결이라, 작은 자문 한 번이 후배의 결정 한 번을 살리는 식이에요. 오래 쥐고 있던 노하우를 너무 깊이 넣어 두지 않으면 좋고, 큰 자리에서 한 발 물러나는 결정도 또 다른 자리의 시작이라 받아들이면 마음이 가벼워져요. 자기 결이 후배의 길에 흔적으로 남는 한 해예요." }
+        {
+          "kind": "text",
+          "value": "올해의 직업 결은 오래 쌓아 온 결이 후배의 길잡이가 되는 자리로 자라는 흐름이에요. 결과를 내는 자리에서 길을 알려 주는 자리로 무게중심이 옮겨 가는 결이라, 작은 자문 한 번이 후배의 결정 한 번을 살리는 식이에요. 오래 쥐고 있던 노하우를 너무 깊이 넣어 두지 않으면 좋고, 큰 자리에서 한 발 물러나는 결정도 또 다른 자리의 시작이라 받아들이면 마음이 가벼워져요. 자기 결이 후배의 길에 흔적으로 남는 한 해예요."
+        }
       ],
       "tags": [],
-      "livingTips": ["주1회 후배 질문에 답하기", "노하우 짧은 글로 정리"],
-      "cautions": ["전 자리의 무게에 너무 오래 머물지 않기"],
+      "livingTips": [
+        "주1회 후배 질문에 답하기",
+        "노하우 짧은 글로 정리"
+      ],
+      "cautions": [
+        "전 자리의 무게에 너무 오래 머물지 않기"
+      ],
       "aiGenerated": true,
-      "sourceTier": { "tier": "T1_HYPOTHESIS", "sourceType": "training_derived", "sourceUrl": null, "accessedAt": "2026-05-02", "quoteShort": null, "humanInterpretation": "Phase 2 agent-6 (career) standard thisYear: 55+ legacy. Display-only narrative.", "copyrightNote": "No source prose copied; original.", "authorityTruthEligible": false }
+      "sourceTier": {
+        "tier": "T1_HYPOTHESIS",
+        "sourceType": "training_derived",
+        "sourceUrl": null,
+        "accessedAt": "2026-05-02",
+        "quoteShort": null,
+        "humanInterpretation": "Phase 2 agent-6 (career) standard thisYear: 55+ legacy. Display-only narrative.",
+        "copyrightNote": "No source prose copied; original.",
+        "authorityTruthEligible": false
+      }
     },
     {
       "schemaVersion": "spring-ts.narrative-fragment.v1",
       "fragmentId": "career.thisYear.standard.female.age30_54.011",
-      "axis": { "category": "career", "period": "thisYear", "depth": "standard" },
-      "gating": { "gender": ["female"], "ageBand": ["30-39", "40-54"] },
+      "axis": {
+        "category": "career",
+        "period": "thisYear",
+        "depth": "standard"
+      },
+      "gating": {
+        "gender": [
+          "female"
+        ],
+        "ageBand": [
+          "30-39",
+          "40-54"
+        ]
+      },
       "templateTokens": [
-        { "kind": "text", "value": "올해의 직업 결은 한 자리에서 자기 색이 깊어지는 한 해예요. 책임을 받쳐 주는 사람·받쳐 받는 사람의 결이 함께 자라기에, 인연 한 줄을 길게 쥔 사람이 후반의 자리도 길게 쥐는 결이에요. 일과 사람 사이의 균형이 큰 자산이 되는 사주라, 너무 한쪽으로만 기울지 않으면 좋아요. 자기 자리에서의 작은 결정이 다음 자리의 폭을 만든다는 점을 기억하면, 한 번씩 들어오는 변화 앞에서 흔들림이 적어요. 길게 쥔 만큼 멀리 가는 한 해예요." }
+        {
+          "kind": "text",
+          "value": "올해의 직업 결은 한 자리에서 자기 색이 깊어지는 한 해예요. 책임을 받쳐 주는 사람·받쳐 받는 사람의 결이 함께 자라기에, 인연 한 줄을 길게 쥔 사람이 후반의 자리도 길게 쥐는 결이에요. 일과 사람 사이의 균형이 큰 자산이 되는 사주라, 너무 한쪽으로만 기울지 않으면 좋아요. 자기 자리에서의 작은 결정이 다음 자리의 폭을 만든다는 점을 기억하면, 한 번씩 들어오는 변화 앞에서 흔들림이 적어요. 길게 쥔 만큼 멀리 가는 한 해예요."
+        }
       ],
       "tags": [],
-      "livingTips": ["인연 한 줄을 길게 쥐기", "1년에 한 가지 결정 기록"],
-      "cautions": ["타인의 자리와 비교만으로 흔들리지 않기"],
+      "livingTips": [
+        "인연 한 줄을 길게 쥐기",
+        "1년에 한 가지 결정 기록"
+      ],
+      "cautions": [
+        "타인의 자리와 비교만으로 흔들리지 않기"
+      ],
       "aiGenerated": true,
-      "sourceTier": { "tier": "T1_HYPOTHESIS", "sourceType": "training_derived", "sourceUrl": null, "accessedAt": "2026-05-02", "quoteShort": null, "humanInterpretation": "Phase 2 agent-6 (career) standard thisYear: female adult. Display-only narrative.", "copyrightNote": "No source prose copied; original.", "authorityTruthEligible": false }
+      "sourceTier": {
+        "tier": "T1_HYPOTHESIS",
+        "sourceType": "training_derived",
+        "sourceUrl": null,
+        "accessedAt": "2026-05-02",
+        "quoteShort": null,
+        "humanInterpretation": "Phase 2 agent-6 (career) standard thisYear: female adult. Display-only narrative.",
+        "copyrightNote": "No source prose copied; original.",
+        "authorityTruthEligible": false
+      }
     },
     {
       "schemaVersion": "spring-ts.narrative-fragment.v1",
       "fragmentId": "career.thisYear.standard.male.age30_54.012",
-      "axis": { "category": "career", "period": "thisYear", "depth": "standard" },
-      "gating": { "gender": ["male"], "ageBand": ["30-39", "40-54"] },
+      "axis": {
+        "category": "career",
+        "period": "thisYear",
+        "depth": "standard"
+      },
+      "gating": {
+        "gender": [
+          "male"
+        ],
+        "ageBand": [
+          "30-39",
+          "40-54"
+        ]
+      },
       "templateTokens": [
-        { "kind": "text", "value": "올해의 직업 결은 받은 자리를 단단히 받쳐 가는 한 해예요. 결정의 무게가 늘어나는 시기라, 결정을 함께 의논할 사람을 일찍 정해 두면 흔들림이 줄어요. 큰 자리만 좇기보다는 한 자리에서의 마무리가 다음 자리의 신뢰가 된다는 결을 잊지 않으면 좋아요. 일과 가족 사이의 균형은 어느 한쪽이 무너지지 않게 자기 페이스를 적어 두는 것에서 시작돼요. 한 자리에서 길게 머문 만큼 후반의 자리도 단단해지는 한 해예요." }
+        {
+          "kind": "text",
+          "value": "올해의 직업 결은 받은 자리를 단단히 받쳐 가는 한 해예요. 결정의 무게가 늘어나는 시기라, 결정을 함께 의논할 사람을 일찍 정해 두면 흔들림이 줄어요. 큰 자리만 좇기보다는 한 자리에서의 마무리가 다음 자리의 신뢰가 된다는 결을 잊지 않으면 좋아요. 일과 가족 사이의 균형은 어느 한쪽이 무너지지 않게 자기 페이스를 적어 두는 것에서 시작돼요. 한 자리에서 길게 머문 만큼 후반의 자리도 단단해지는 한 해예요."
+        }
       ],
       "tags": [],
-      "livingTips": ["함께 결정할 사람 한 명 정하기", "한 자리에서의 마무리 챙기기"],
-      "cautions": ["가족과 일 한쪽만 무너뜨리지 않기"],
+      "livingTips": [
+        "함께 결정할 사람 한 명 정하기",
+        "한 자리에서의 마무리 챙기기"
+      ],
+      "cautions": [
+        "가족과 일 한쪽만 무너뜨리지 않기"
+      ],
       "aiGenerated": true,
-      "sourceTier": { "tier": "T1_HYPOTHESIS", "sourceType": "training_derived", "sourceUrl": null, "accessedAt": "2026-05-02", "quoteShort": null, "humanInterpretation": "Phase 2 agent-6 (career) standard thisYear: male adult. Display-only narrative.", "copyrightNote": "No source prose copied; original.", "authorityTruthEligible": false }
+      "sourceTier": {
+        "tier": "T1_HYPOTHESIS",
+        "sourceType": "training_derived",
+        "sourceUrl": null,
+        "accessedAt": "2026-05-02",
+        "quoteShort": null,
+        "humanInterpretation": "Phase 2 agent-6 (career) standard thisYear: male adult. Display-only narrative.",
+        "copyrightNote": "No source prose copied; original.",
+        "authorityTruthEligible": false
+      }
     }
   ]
 }

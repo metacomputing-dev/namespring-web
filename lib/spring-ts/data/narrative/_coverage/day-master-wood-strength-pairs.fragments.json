@@ -6,10 +6,24 @@
     {
       "schemaVersion": "spring-ts.narrative-fragment.v1",
       "fragmentId": "overall.life.standard.day_master_wood_strength_balanced.201",
-      "axis": { "category": "overall", "period": "life", "depth": "standard" },
-      "gating": { "dayMasterElement": ["WOOD"], "dayMasterStrength": ["BALANCED"] },
+      "axis": {
+        "category": "overall",
+        "period": "life",
+        "depth": "standard"
+      },
+      "gating": {
+        "dayMasterElement": [
+          "WOOD"
+        ],
+        "dayMasterStrength": [
+          "BALANCED"
+        ]
+      },
       "templateTokens": [
-        { "kind": "text", "value": "나무 일간의 성장성과 유연함이 균형 있게 잡힌 구조라면, 배우고 확장하며 관계를 이어가는 힘이 자연스럽게 드러나요. 새 계획을 세우고 키워가는 데 장점이 있지만, 시작한 일을 끝까지 돌보는 기준도 함께 필요합니다." }
+        {
+          "kind": "text",
+          "value": "나무 타고난 중심 기운의 성장성과 유연함이 균형 있게 잡힌 구조라면, 배우고 확장하며 관계를 이어가는 힘이 자연스럽게 드러나요. 새 계획을 세우고 키워가는 데 장점이 있지만, 시작한 일을 끝까지 돌보는 기준도 함께 필요합니다."
+        }
       ],
       "livingTips": [
         "새로 시작할 일은 목표, 첫 행동, 점검 날짜를 함께 정해 보세요.",
@@ -18,7 +32,7 @@
       "cautions": [
         "가능성이 많아 보일수록 마무리할 일과 새로 시작할 일을 구분해 주세요."
       ],
-      "tags": ["dayMasterElement", "dayMasterStrength"],
+      "tags": [],
       "aiGenerated": true,
       "sourceTier": {
         "tier": "T1_HYPOTHESIS",
@@ -34,10 +48,24 @@
     {
       "schemaVersion": "spring-ts.narrative-fragment.v1",
       "fragmentId": "overall.life.standard.day_master_wood_strength_strong.201",
-      "axis": { "category": "overall", "period": "life", "depth": "standard" },
-      "gating": { "dayMasterElement": ["WOOD"], "dayMasterStrength": ["STRONG"] },
+      "axis": {
+        "category": "overall",
+        "period": "life",
+        "depth": "standard"
+      },
+      "gating": {
+        "dayMasterElement": [
+          "WOOD"
+        ],
+        "dayMasterStrength": [
+          "STRONG"
+        ]
+      },
       "templateTokens": [
-        { "kind": "text", "value": "나무 일간의 기운이 강하면 성장 욕구, 추진력, 관계를 넓히는 힘이 뚜렷해져요. 위로 뻗는 힘은 장점이지만, 방향이 많아지면 산만해질 수 있습니다. 키울 가지를 고르고 불필요한 일을 솎아내면 성장이 더 안정됩니다." }
+        {
+          "kind": "text",
+          "value": "나무 타고난 중심 기운의 기운이 강하면 성장 욕구, 추진력, 관계를 넓히는 힘이 뚜렷해져요. 위로 뻗는 힘은 장점이지만, 방향이 많아지면 산만해질 수 있습니다. 키울 가지를 고르고 불필요한 일을 솎아내면 성장이 더 안정됩니다."
+        }
       ],
       "livingTips": [
         "이번 시기에 키울 목표를 하나로 좁히고 나머지는 보류 목록에 적어 보세요.",
@@ -46,7 +74,7 @@
       "cautions": [
         "확장하려는 마음이 강할수록 몸과 일정의 한계를 같이 점검해야 합니다."
       ],
-      "tags": ["dayMasterElement", "dayMasterStrength"],
+      "tags": [],
       "aiGenerated": true,
       "sourceTier": {
         "tier": "T1_HYPOTHESIS",
@@ -62,10 +90,24 @@
     {
       "schemaVersion": "spring-ts.narrative-fragment.v1",
       "fragmentId": "overall.life.standard.day_master_wood_strength_extreme_strong.201",
-      "axis": { "category": "overall", "period": "life", "depth": "standard" },
-      "gating": { "dayMasterElement": ["WOOD"], "dayMasterStrength": ["EXTREME_STRONG"] },
+      "axis": {
+        "category": "overall",
+        "period": "life",
+        "depth": "standard"
+      },
+      "gating": {
+        "dayMasterElement": [
+          "WOOD"
+        ],
+        "dayMasterStrength": [
+          "EXTREME_STRONG"
+        ]
+      },
       "templateTokens": [
-        { "kind": "text", "value": "나무 일간의 기운이 매우 강하면 성장하고 밀고 나가려는 힘이 크게 올라옵니다. 새 길을 여는 힘은 좋지만, 주변의 속도나 현실 조건을 넘어서면 갈등과 소모가 생길 수 있어요. 방향을 정하고 가지치기를 하는 과정이 꼭 필요합니다." }
+        {
+          "kind": "text",
+          "value": "나무 타고난 중심 기운의 기운이 매우 강하면 성장하고 밀고 나가려는 힘이 크게 올라옵니다. 새 길을 여는 힘은 좋지만, 주변의 속도나 현실 조건을 넘어서면 갈등과 소모가 생길 수 있어요. 방향을 정하고 가지치기를 하는 과정이 꼭 필요합니다."
+        }
       ],
       "livingTips": [
         "지금 넓히고 싶은 일을 모두 적은 뒤 실제로 남길 세 가지만 고르세요.",
@@ -74,7 +116,7 @@
       "cautions": [
         "성장 욕구가 강할수록 멈춤을 실패로 보지 말고 조정 시간으로 받아들이는 것이 좋아요."
       ],
-      "tags": ["dayMasterElement", "dayMasterStrength"],
+      "tags": [],
       "aiGenerated": true,
       "sourceTier": {
         "tier": "T1_HYPOTHESIS",
@@ -90,10 +132,24 @@
     {
       "schemaVersion": "spring-ts.narrative-fragment.v1",
       "fragmentId": "overall.life.standard.day_master_wood_strength_weak.201",
-      "axis": { "category": "overall", "period": "life", "depth": "standard" },
-      "gating": { "dayMasterElement": ["WOOD"], "dayMasterStrength": ["WEAK"] },
+      "axis": {
+        "category": "overall",
+        "period": "life",
+        "depth": "standard"
+      },
+      "gating": {
+        "dayMasterElement": [
+          "WOOD"
+        ],
+        "dayMasterStrength": [
+          "WEAK"
+        ]
+      },
       "templateTokens": [
-        { "kind": "text", "value": "나무 일간인데 기운이 약하면 성장하고 싶어도 시작의 힘이나 꾸준함이 부족하게 느껴질 수 있어요. 큰 목표보다 배움, 도움, 작은 반복을 통해 뿌리를 만드는 과정이 중요합니다. 주변의 지지와 명확한 첫 행동이 힘을 모아줘요." }
+        {
+          "kind": "text",
+          "value": "나무 타고난 중심 기운인데 기운이 약하면 성장하고 싶어도 시작의 힘이나 꾸준함이 부족하게 느껴질 수 있어요. 큰 목표보다 배움, 도움, 작은 반복을 통해 뿌리를 만드는 과정이 중요합니다. 주변의 지지와 명확한 첫 행동이 힘을 모아줘요."
+        }
       ],
       "livingTips": [
         "새 목표는 하루에 할 수 있는 작은 행동으로 나누고 바로 시작해 보세요.",
@@ -102,7 +158,7 @@
       "cautions": [
         "비교가 많아지면 의욕이 꺾일 수 있으니 어제보다 나아진 작은 변화에 집중해 주세요."
       ],
-      "tags": ["dayMasterElement", "dayMasterStrength"],
+      "tags": [],
       "aiGenerated": true,
       "sourceTier": {
         "tier": "T1_HYPOTHESIS",
@@ -118,10 +174,24 @@
     {
       "schemaVersion": "spring-ts.narrative-fragment.v1",
       "fragmentId": "overall.life.standard.day_master_wood_strength_extreme_weak.201",
-      "axis": { "category": "overall", "period": "life", "depth": "standard" },
-      "gating": { "dayMasterElement": ["WOOD"], "dayMasterStrength": ["EXTREME_WEAK"] },
+      "axis": {
+        "category": "overall",
+        "period": "life",
+        "depth": "standard"
+      },
+      "gating": {
+        "dayMasterElement": [
+          "WOOD"
+        ],
+        "dayMasterStrength": [
+          "EXTREME_WEAK"
+        ]
+      },
       "templateTokens": [
-        { "kind": "text", "value": "나무 일간의 기운이 매우 약하면 성장하려는 마음은 있어도 시작과 지속이 쉽게 흔들릴 수 있어요. 이때는 큰 확장보다 뿌리를 살리는 환경, 반복 가능한 배움, 믿을 수 있는 지지가 중요합니다. 작게 자라는 경험을 자주 만들면 자신감도 회복됩니다." }
+        {
+          "kind": "text",
+          "value": "나무 타고난 중심 기운의 기운이 매우 약하면 성장하려는 마음은 있어도 시작과 지속이 쉽게 흔들릴 수 있어요. 이때는 큰 확장보다 뿌리를 살리는 환경, 반복 가능한 배움, 믿을 수 있는 지지가 중요합니다. 작게 자라는 경험을 자주 만들면 자신감도 회복됩니다."
+        }
       ],
       "livingTips": [
         "오늘은 큰 목표 대신 10분 안에 끝낼 수 있는 성장 행동 하나를 정해 보세요.",
@@ -130,7 +200,7 @@
       "cautions": [
         "속도가 느리다고 포기하기보다 반복 가능한 작은 리듬을 먼저 지켜 주세요."
       ],
-      "tags": ["dayMasterElement", "dayMasterStrength"],
+      "tags": [],
       "aiGenerated": true,
       "sourceTier": {
         "tier": "T1_HYPOTHESIS",
