@@ -1,0 +1,355 @@
+{
+  "schemaVersion": "spring-ts.narrative-fragment-bundle.v1",
+  "bundleId": "coverage.expert-wood-earth-density-wave.20260503",
+  "contractVersion": "1.0.0",
+  "fragments": [
+    {
+      "schemaVersion": "spring-ts.narrative-fragment.v1",
+      "fragmentId": "wealth.thisYear.expert.daymaster.wood.yongshin.earth.401",
+      "axis": { "category": "wealth", "period": "thisYear", "depth": "expert" },
+      "gating": { "dayMasterElement": ["WOOD"], "yongshinElement": ["EARTH"] },
+      "templateTokens": [
+        { "kind": "text", "value": "일간 목에 용신 토가 붙으면 올해 재물운은 확장 욕구를 현실적인 저장 구조로 묶는지가 핵심입니다. " },
+        { "kind": "tag", "tagId": "yongshin", "label": "용신" },
+        { "kind": "text", "value": "토가 재무 기준을 보정하므로 새 계획은 좋지만, " },
+        { "kind": "tag", "tagId": "jeongjae", "label": "정재" },
+        { "kind": "text", "value": "식 예산표와 " },
+        { "kind": "tag", "tagId": "pyeonjae", "label": "편재" },
+        { "kind": "text", "value": "식 기회 판단을 분리해서 보는 편이 안정적입니다." }
+      ],
+      "tags": ["yongshin", "jeongjae", "pyeonjae"],
+      "numericalEvidence": [
+        {
+          "label": "일간 오행 순번",
+          "valueExpression": "feature.dayMasterElementOrdinal",
+          "unit": "ordinal",
+          "sourceTier": {
+            "tier": "T3_INTERNAL_ENGINE",
+            "sourceType": "internal_scoring_policy",
+            "sourceUrl": null,
+            "accessedAt": "2026-05-03",
+            "quoteShort": null,
+            "humanInterpretation": "Resolved from deterministic spring-ts runtime output.",
+            "copyrightNote": "No third-party prose copied.",
+            "authorityTruthEligible": false
+          }
+        },
+        {
+          "label": "용신 오행 순번",
+          "valueExpression": "feature.yongshinElementOrdinal",
+          "unit": "ordinal",
+          "sourceTier": {
+            "tier": "T3_INTERNAL_ENGINE",
+            "sourceType": "internal_scoring_policy",
+            "sourceUrl": null,
+            "accessedAt": "2026-05-03",
+            "quoteShort": null,
+            "humanInterpretation": "Resolved from deterministic spring-ts runtime output.",
+            "copyrightNote": "No third-party prose copied.",
+            "authorityTruthEligible": false
+          }
+        }
+      ],
+      "aiGenerated": true,
+      "sourceTier": {
+        "tier": "T1_HYPOTHESIS",
+        "sourceType": "training_derived",
+        "sourceUrl": null,
+        "accessedAt": "2026-05-03",
+        "quoteShort": null,
+        "humanInterpretation": "Expert wood dayMaster and earth yongshin density fragment for wealth year. AI-derived display text; not authority truth.",
+        "copyrightNote": "No source prose copied; original phrasing.",
+        "authorityTruthEligible": false
+      }
+    },
+    {
+      "schemaVersion": "spring-ts.narrative-fragment.v1",
+      "fragmentId": "family.thisMonth.expert.daymaster.wood.yongshin.earth.401",
+      "axis": { "category": "family", "period": "thisMonth", "depth": "expert" },
+      "gating": { "dayMasterElement": ["WOOD"], "yongshinElement": ["EARTH"] },
+      "templateTokens": [
+        { "kind": "text", "value": "일간 목과 용신 토의 조합은 이번 달 가족운에서 성장 욕구와 생활 기반을 함께 조율하게 합니다. " },
+        { "kind": "tag", "tagId": "bigyeon", "label": "비견" },
+        { "kind": "text", "value": "이 강하면 자기 기준이 빨리 올라오고, " },
+        { "kind": "tag", "tagId": "yongshin", "label": "용신" },
+        { "kind": "text", "value": "토는 역할, 집안일, 돈의 경계를 현실적으로 정리하는 보정값으로 작동합니다." }
+      ],
+      "tags": ["bigyeon", "yongshin"],
+      "numericalEvidence": [
+        {
+          "label": "일간 오행 순번",
+          "valueExpression": "feature.dayMasterElementOrdinal",
+          "unit": "ordinal",
+          "sourceTier": {
+            "tier": "T3_INTERNAL_ENGINE",
+            "sourceType": "internal_scoring_policy",
+            "sourceUrl": null,
+            "accessedAt": "2026-05-03",
+            "quoteShort": null,
+            "humanInterpretation": "Resolved from deterministic spring-ts runtime output.",
+            "copyrightNote": "No third-party prose copied.",
+            "authorityTruthEligible": false
+          }
+        },
+        {
+          "label": "용신 오행 순번",
+          "valueExpression": "feature.yongshinElementOrdinal",
+          "unit": "ordinal",
+          "sourceTier": {
+            "tier": "T3_INTERNAL_ENGINE",
+            "sourceType": "internal_scoring_policy",
+            "sourceUrl": null,
+            "accessedAt": "2026-05-03",
+            "quoteShort": null,
+            "humanInterpretation": "Resolved from deterministic spring-ts runtime output.",
+            "copyrightNote": "No third-party prose copied.",
+            "authorityTruthEligible": false
+          }
+        }
+      ],
+      "aiGenerated": true,
+      "sourceTier": {
+        "tier": "T1_HYPOTHESIS",
+        "sourceType": "training_derived",
+        "sourceUrl": null,
+        "accessedAt": "2026-05-03",
+        "quoteShort": null,
+        "humanInterpretation": "Expert wood dayMaster and earth yongshin density fragment for family month. AI-derived display text; not authority truth.",
+        "copyrightNote": "No source prose copied; original phrasing.",
+        "authorityTruthEligible": false
+      }
+    },
+    {
+      "schemaVersion": "spring-ts.narrative-fragment.v1",
+      "fragmentId": "career.today.expert.daymaster.wood.yongshin.earth.401",
+      "axis": { "category": "career", "period": "today", "depth": "expert" },
+      "gating": { "dayMasterElement": ["WOOD"], "yongshinElement": ["EARTH"] },
+      "templateTokens": [
+        { "kind": "text", "value": "일간 목에 용신 토가 붙은 오늘의 커리어운은 아이디어를 실제 일정과 책임 구조로 고정하는 해석이 중요합니다. " },
+        { "kind": "tag", "tagId": "sanggwan", "label": "상관" },
+        { "kind": "text", "value": "이 먼저 튀어나오면 말이 앞설 수 있고, " },
+        { "kind": "tag", "tagId": "jeonggwan", "label": "정관" },
+        { "kind": "text", "value": "과 " },
+        { "kind": "tag", "tagId": "yongshin", "label": "용신" },
+        { "kind": "text", "value": "토를 함께 보아 실행 책임을 정리하면 안정적입니다." }
+      ],
+      "tags": ["sanggwan", "jeonggwan", "yongshin"],
+      "numericalEvidence": [
+        {
+          "label": "일간 오행 순번",
+          "valueExpression": "feature.dayMasterElementOrdinal",
+          "unit": "ordinal",
+          "sourceTier": {
+            "tier": "T3_INTERNAL_ENGINE",
+            "sourceType": "internal_scoring_policy",
+            "sourceUrl": null,
+            "accessedAt": "2026-05-03",
+            "quoteShort": null,
+            "humanInterpretation": "Resolved from deterministic spring-ts runtime output.",
+            "copyrightNote": "No third-party prose copied.",
+            "authorityTruthEligible": false
+          }
+        },
+        {
+          "label": "용신 오행 순번",
+          "valueExpression": "feature.yongshinElementOrdinal",
+          "unit": "ordinal",
+          "sourceTier": {
+            "tier": "T3_INTERNAL_ENGINE",
+            "sourceType": "internal_scoring_policy",
+            "sourceUrl": null,
+            "accessedAt": "2026-05-03",
+            "quoteShort": null,
+            "humanInterpretation": "Resolved from deterministic spring-ts runtime output.",
+            "copyrightNote": "No third-party prose copied.",
+            "authorityTruthEligible": false
+          }
+        }
+      ],
+      "aiGenerated": true,
+      "sourceTier": {
+        "tier": "T1_HYPOTHESIS",
+        "sourceType": "training_derived",
+        "sourceUrl": null,
+        "accessedAt": "2026-05-03",
+        "quoteShort": null,
+        "humanInterpretation": "Expert wood dayMaster and earth yongshin density fragment for career today. AI-derived display text; not authority truth.",
+        "copyrightNote": "No source prose copied; original phrasing.",
+        "authorityTruthEligible": false
+      }
+    },
+    {
+      "schemaVersion": "spring-ts.narrative-fragment.v1",
+      "fragmentId": "academic.life.expert.daymaster.wood.yongshin.earth.401",
+      "axis": { "category": "academic", "period": "life", "depth": "expert" },
+      "gating": { "dayMasterElement": ["WOOD"], "yongshinElement": ["EARTH"] },
+      "templateTokens": [
+        { "kind": "text", "value": "일간 목과 용신 토의 학업 해석은 성장 속도와 기본기 축적을 함께 보는 구조입니다. " },
+        { "kind": "tag", "tagId": "sikshin", "label": "식신" },
+        { "kind": "text", "value": "이 이해를 넓히고, " },
+        { "kind": "tag", "tagId": "jeongin", "label": "정인" },
+        { "kind": "text", "value": "이 자료를 붙잡아 주며, " },
+        { "kind": "tag", "tagId": "yongshin", "label": "용신" },
+        { "kind": "text", "value": "토는 공부량을 루틴과 성취 기준으로 바꾸는 보정축입니다." }
+      ],
+      "tags": ["sikshin", "jeongin", "yongshin"],
+      "numericalEvidence": [
+        {
+          "label": "일간 오행 순번",
+          "valueExpression": "feature.dayMasterElementOrdinal",
+          "unit": "ordinal",
+          "sourceTier": {
+            "tier": "T3_INTERNAL_ENGINE",
+            "sourceType": "internal_scoring_policy",
+            "sourceUrl": null,
+            "accessedAt": "2026-05-03",
+            "quoteShort": null,
+            "humanInterpretation": "Resolved from deterministic spring-ts runtime output.",
+            "copyrightNote": "No third-party prose copied.",
+            "authorityTruthEligible": false
+          }
+        },
+        {
+          "label": "용신 오행 순번",
+          "valueExpression": "feature.yongshinElementOrdinal",
+          "unit": "ordinal",
+          "sourceTier": {
+            "tier": "T3_INTERNAL_ENGINE",
+            "sourceType": "internal_scoring_policy",
+            "sourceUrl": null,
+            "accessedAt": "2026-05-03",
+            "quoteShort": null,
+            "humanInterpretation": "Resolved from deterministic spring-ts runtime output.",
+            "copyrightNote": "No third-party prose copied.",
+            "authorityTruthEligible": false
+          }
+        }
+      ],
+      "aiGenerated": true,
+      "sourceTier": {
+        "tier": "T1_HYPOTHESIS",
+        "sourceType": "training_derived",
+        "sourceUrl": null,
+        "accessedAt": "2026-05-03",
+        "quoteShort": null,
+        "humanInterpretation": "Expert wood dayMaster and earth yongshin density fragment for academic life. AI-derived display text; not authority truth.",
+        "copyrightNote": "No source prose copied; original phrasing.",
+        "authorityTruthEligible": false
+      }
+    },
+    {
+      "schemaVersion": "spring-ts.narrative-fragment.v1",
+      "fragmentId": "movement.thisWeek.expert.daymaster.wood.yongshin.earth.401",
+      "axis": { "category": "movement", "period": "thisWeek", "depth": "expert" },
+      "gating": { "dayMasterElement": ["WOOD"], "yongshinElement": ["EARTH"] },
+      "templateTokens": [
+        { "kind": "text", "value": "일간 목에 용신 토가 붙은 이번 주 이동운은 움직임을 넓히되 기반을 잃지 않는 배치가 중요합니다. " },
+        { "kind": "tag", "tagId": "yeokma", "label": "역마" },
+        { "kind": "text", "value": "가 강하면 동선이 늘고, " },
+        { "kind": "tag", "tagId": "yongshin", "label": "용신" },
+        { "kind": "text", "value": "토는 숙소, 교통, 약속 시간을 먼저 고정하는 보정값으로 작동합니다." }
+      ],
+      "tags": ["yeokma", "yongshin"],
+      "numericalEvidence": [
+        {
+          "label": "일간 오행 순번",
+          "valueExpression": "feature.dayMasterElementOrdinal",
+          "unit": "ordinal",
+          "sourceTier": {
+            "tier": "T3_INTERNAL_ENGINE",
+            "sourceType": "internal_scoring_policy",
+            "sourceUrl": null,
+            "accessedAt": "2026-05-03",
+            "quoteShort": null,
+            "humanInterpretation": "Resolved from deterministic spring-ts runtime output.",
+            "copyrightNote": "No third-party prose copied.",
+            "authorityTruthEligible": false
+          }
+        },
+        {
+          "label": "용신 오행 순번",
+          "valueExpression": "feature.yongshinElementOrdinal",
+          "unit": "ordinal",
+          "sourceTier": {
+            "tier": "T3_INTERNAL_ENGINE",
+            "sourceType": "internal_scoring_policy",
+            "sourceUrl": null,
+            "accessedAt": "2026-05-03",
+            "quoteShort": null,
+            "humanInterpretation": "Resolved from deterministic spring-ts runtime output.",
+            "copyrightNote": "No third-party prose copied.",
+            "authorityTruthEligible": false
+          }
+        }
+      ],
+      "aiGenerated": true,
+      "sourceTier": {
+        "tier": "T1_HYPOTHESIS",
+        "sourceType": "training_derived",
+        "sourceUrl": null,
+        "accessedAt": "2026-05-03",
+        "quoteShort": null,
+        "humanInterpretation": "Expert wood dayMaster and earth yongshin density fragment for movement week. AI-derived display text; not authority truth.",
+        "copyrightNote": "No source prose copied; original phrasing.",
+        "authorityTruthEligible": false
+      }
+    },
+    {
+      "schemaVersion": "spring-ts.narrative-fragment.v1",
+      "fragmentId": "health.thisMonth.expert.daymaster.wood.yongshin.earth.401",
+      "axis": { "category": "health", "period": "thisMonth", "depth": "expert" },
+      "gating": { "dayMasterElement": ["WOOD"], "yongshinElement": ["EARTH"] },
+      "templateTokens": [
+        { "kind": "text", "value": "일간 목과 용신 토가 함께 보이면 이번 달 건강운은 성장 에너지와 소화, 근육, 생활 리듬의 기반을 함께 점검합니다. " },
+        { "kind": "tag", "tagId": "yongshin", "label": "용신" },
+        { "kind": "text", "value": "토가 균형을 잡아 주면 루틴 유지가 좋아지고, " },
+        { "kind": "tag", "tagId": "gishin", "label": "기신" },
+        { "kind": "text", "value": "이 목을 과하게 자극하면 무리한 확장보다 회복 주기를 먼저 봅니다." }
+      ],
+      "tags": ["yongshin", "gishin"],
+      "numericalEvidence": [
+        {
+          "label": "일간 오행 순번",
+          "valueExpression": "feature.dayMasterElementOrdinal",
+          "unit": "ordinal",
+          "sourceTier": {
+            "tier": "T3_INTERNAL_ENGINE",
+            "sourceType": "internal_scoring_policy",
+            "sourceUrl": null,
+            "accessedAt": "2026-05-03",
+            "quoteShort": null,
+            "humanInterpretation": "Resolved from deterministic spring-ts runtime output.",
+            "copyrightNote": "No third-party prose copied.",
+            "authorityTruthEligible": false
+          }
+        },
+        {
+          "label": "용신 오행 순번",
+          "valueExpression": "feature.yongshinElementOrdinal",
+          "unit": "ordinal",
+          "sourceTier": {
+            "tier": "T3_INTERNAL_ENGINE",
+            "sourceType": "internal_scoring_policy",
+            "sourceUrl": null,
+            "accessedAt": "2026-05-03",
+            "quoteShort": null,
+            "humanInterpretation": "Resolved from deterministic spring-ts runtime output.",
+            "copyrightNote": "No third-party prose copied.",
+            "authorityTruthEligible": false
+          }
+        }
+      ],
+      "aiGenerated": true,
+      "sourceTier": {
+        "tier": "T1_HYPOTHESIS",
+        "sourceType": "training_derived",
+        "sourceUrl": null,
+        "accessedAt": "2026-05-03",
+        "quoteShort": null,
+        "humanInterpretation": "Expert wood dayMaster and earth yongshin density fragment for health month. AI-derived display text; not authority truth.",
+        "copyrightNote": "No source prose copied; original phrasing.",
+        "authorityTruthEligible": false
+      }
+    }
+  ]
+}
