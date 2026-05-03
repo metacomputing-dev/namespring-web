@@ -1,0 +1,447 @@
+{
+  "schemaVersion": "spring-ts.narrative-fragment-bundle.v1",
+  "bundleId": "coverage.career-expert-density-floor.20260503",
+  "contractVersion": "1.0.0",
+  "fragments": [
+    {
+      "schemaVersion": "spring-ts.narrative-fragment.v1",
+      "fragmentId": "career.life.expert.alignment.supportive.401",
+      "axis": { "category": "career", "period": "life", "depth": "expert" },
+      "gating": { "yongshinAlignment": ["aligned", "neutral"] },
+      "templateTokens": [
+        { "kind": "text", "value": "장기 커리어 해석에서는 " },
+        { "kind": "tag", "tagId": "gyeokgukFit", "label": "격국 적합도" },
+        { "kind": "text", "value": "가 실제 역할과 맞을 때 성장 속도보다 축적력이 중요합니다. " },
+        { "kind": "tag", "tagId": "yongshin", "label": "용신" },
+        { "kind": "text", "value": "이 크게 어긋나지 않으면 전환기에도 전문성이 쌓이고, " },
+        { "kind": "tag", "tagId": "jeonggwan", "label": "정관" },
+        { "kind": "text", "value": "의 질서가 직책과 신뢰를 안정적으로 받쳐 주는 구조로 봅니다." }
+      ],
+      "tags": ["gyeokgukFit", "yongshin", "jeonggwan"],
+      "numericalEvidence": [
+        {
+          "label": "직업 별점",
+          "valueExpression": "cell.stars",
+          "unit": "점",
+          "sourceTier": {
+            "tier": "T3_INTERNAL_ENGINE",
+            "sourceType": "internal_scoring_policy",
+            "sourceUrl": null,
+            "accessedAt": "2026-05-03",
+            "quoteShort": null,
+            "humanInterpretation": "Career score is computed by the engine and used as numerical context.",
+            "copyrightNote": "No source prose copied.",
+            "authorityTruthEligible": false
+          }
+        }
+      ],
+      "aiGenerated": true,
+      "sourceTier": {
+        "tier": "T1_HYPOTHESIS",
+        "sourceType": "training_derived",
+        "sourceUrl": null,
+        "accessedAt": "2026-05-03",
+        "quoteShort": null,
+        "humanInterpretation": "Expert career life supportive alignment narrative. AI-derived display text; not authority truth.",
+        "copyrightNote": "No source prose copied; original phrasing.",
+        "authorityTruthEligible": false
+      }
+    },
+    {
+      "schemaVersion": "spring-ts.narrative-fragment.v1",
+      "fragmentId": "career.life.expert.alignment.conflicting.401",
+      "axis": { "category": "career", "period": "life", "depth": "expert" },
+      "gating": { "yongshinAlignment": ["conflicting"] },
+      "templateTokens": [
+        { "kind": "text", "value": "장기 커리어에서 " },
+        { "kind": "tag", "tagId": "yongshin", "label": "용신" },
+        { "kind": "text", "value": " 충돌이 보이면 직책 확대보다 에너지 누수 관리가 먼저입니다. " },
+        { "kind": "tag", "tagId": "pyeongwan", "label": "편관" },
+        { "kind": "text", "value": "의 압박이 강해질수록 책임은 늘지만 회복력이 떨어질 수 있고, " },
+        { "kind": "tag", "tagId": "stabilityIndex", "label": "안정성지수" },
+        { "kind": "text", "value": "가 낮으면 큰 이동보다 역할 범위를 줄이는 해석이 맞습니다." }
+      ],
+      "tags": ["yongshin", "pyeongwan", "stabilityIndex"],
+      "numericalEvidence": [
+        {
+          "label": "직업 별점",
+          "valueExpression": "cell.stars",
+          "unit": "점",
+          "sourceTier": {
+            "tier": "T3_INTERNAL_ENGINE",
+            "sourceType": "internal_scoring_policy",
+            "sourceUrl": null,
+            "accessedAt": "2026-05-03",
+            "quoteShort": null,
+            "humanInterpretation": "Career score is computed by the engine and used as numerical context.",
+            "copyrightNote": "No source prose copied.",
+            "authorityTruthEligible": false
+          }
+        }
+      ],
+      "aiGenerated": true,
+      "sourceTier": {
+        "tier": "T1_HYPOTHESIS",
+        "sourceType": "training_derived",
+        "sourceUrl": null,
+        "accessedAt": "2026-05-03",
+        "quoteShort": null,
+        "humanInterpretation": "Expert career life conflicting alignment narrative. AI-derived display text; not authority truth.",
+        "copyrightNote": "No source prose copied; original phrasing.",
+        "authorityTruthEligible": false
+      }
+    },
+    {
+      "schemaVersion": "spring-ts.narrative-fragment.v1",
+      "fragmentId": "career.today.expert.alignment.supportive.401",
+      "axis": { "category": "career", "period": "today", "depth": "expert" },
+      "gating": { "yongshinAlignment": ["aligned", "neutral"] },
+      "templateTokens": [
+        { "kind": "text", "value": "오늘 커리어 판단은 " },
+        { "kind": "tag", "tagId": "yongshin", "label": "용신" },
+        { "kind": "text", "value": " 흐름이 막히지 않을 때 실행보다 정리 품질을 함께 봅니다. " },
+        { "kind": "tag", "tagId": "sikshin", "label": "식신" },
+        { "kind": "text", "value": "은 산출물의 완성도를, " },
+        { "kind": "tag", "tagId": "jeonggwan", "label": "정관" },
+        { "kind": "text", "value": "은 약속과 보고 체계를 뜻하므로 오늘은 결과물과 절차를 같이 맞추는 해석이 좋습니다." }
+      ],
+      "tags": ["yongshin", "sikshin", "jeonggwan"],
+      "numericalEvidence": [
+        {
+          "label": "직업 별점",
+          "valueExpression": "cell.stars",
+          "unit": "점",
+          "sourceTier": {
+            "tier": "T3_INTERNAL_ENGINE",
+            "sourceType": "internal_scoring_policy",
+            "sourceUrl": null,
+            "accessedAt": "2026-05-03",
+            "quoteShort": null,
+            "humanInterpretation": "Career score is computed by the engine and used as numerical context.",
+            "copyrightNote": "No source prose copied.",
+            "authorityTruthEligible": false
+          }
+        }
+      ],
+      "aiGenerated": true,
+      "sourceTier": {
+        "tier": "T1_HYPOTHESIS",
+        "sourceType": "training_derived",
+        "sourceUrl": null,
+        "accessedAt": "2026-05-03",
+        "quoteShort": null,
+        "humanInterpretation": "Expert career today supportive alignment narrative. AI-derived display text; not authority truth.",
+        "copyrightNote": "No source prose copied; original phrasing.",
+        "authorityTruthEligible": false
+      }
+    },
+    {
+      "schemaVersion": "spring-ts.narrative-fragment.v1",
+      "fragmentId": "career.today.expert.alignment.conflicting.401",
+      "axis": { "category": "career", "period": "today", "depth": "expert" },
+      "gating": { "yongshinAlignment": ["conflicting"] },
+      "templateTokens": [
+        { "kind": "text", "value": "오늘 " },
+        { "kind": "tag", "tagId": "yongshin", "label": "용신" },
+        { "kind": "text", "value": " 충돌이 있으면 커리어 판단은 확장보다 손실 회피 쪽으로 둡니다. " },
+        { "kind": "tag", "tagId": "sanggwan", "label": "상관" },
+        { "kind": "text", "value": "이 강하게 작동하면 말과 수정 요청이 늘 수 있고, " },
+        { "kind": "tag", "tagId": "stabilityIndex", "label": "안정성지수" },
+        { "kind": "text", "value": "가 흔들리면 중요한 보고는 한 번 더 검토하는 편이 안전합니다." }
+      ],
+      "tags": ["yongshin", "sanggwan", "stabilityIndex"],
+      "numericalEvidence": [
+        {
+          "label": "직업 별점",
+          "valueExpression": "cell.stars",
+          "unit": "점",
+          "sourceTier": {
+            "tier": "T3_INTERNAL_ENGINE",
+            "sourceType": "internal_scoring_policy",
+            "sourceUrl": null,
+            "accessedAt": "2026-05-03",
+            "quoteShort": null,
+            "humanInterpretation": "Career score is computed by the engine and used as numerical context.",
+            "copyrightNote": "No source prose copied.",
+            "authorityTruthEligible": false
+          }
+        }
+      ],
+      "aiGenerated": true,
+      "sourceTier": {
+        "tier": "T1_HYPOTHESIS",
+        "sourceType": "training_derived",
+        "sourceUrl": null,
+        "accessedAt": "2026-05-03",
+        "quoteShort": null,
+        "humanInterpretation": "Expert career today conflicting alignment narrative. AI-derived display text; not authority truth.",
+        "copyrightNote": "No source prose copied; original phrasing.",
+        "authorityTruthEligible": false
+      }
+    },
+    {
+      "schemaVersion": "spring-ts.narrative-fragment.v1",
+      "fragmentId": "career.thisWeek.expert.alignment.supportive.401",
+      "axis": { "category": "career", "period": "thisWeek", "depth": "expert" },
+      "gating": { "yongshinAlignment": ["aligned", "neutral"] },
+      "templateTokens": [
+        { "kind": "text", "value": "이번 주 커리어는 " },
+        { "kind": "tag", "tagId": "gyeokgukFit", "label": "격국 적합도" },
+        { "kind": "text", "value": "가 맡은 역할과 맞을수록 루틴의 반복성이 성과로 이어집니다. " },
+        { "kind": "tag", "tagId": "yongshin", "label": "용신" },
+        { "kind": "text", "value": "이 보조하면 협업 부담이 줄고, " },
+        { "kind": "tag", "tagId": "jeonggwan", "label": "정관" },
+        { "kind": "text", "value": "의 질서를 살려 일정, 승인, 마감선을 명확히 잡는 해석이 유리합니다." }
+      ],
+      "tags": ["gyeokgukFit", "yongshin", "jeonggwan"],
+      "numericalEvidence": [
+        {
+          "label": "직업 별점",
+          "valueExpression": "cell.stars",
+          "unit": "점",
+          "sourceTier": {
+            "tier": "T3_INTERNAL_ENGINE",
+            "sourceType": "internal_scoring_policy",
+            "sourceUrl": null,
+            "accessedAt": "2026-05-03",
+            "quoteShort": null,
+            "humanInterpretation": "Career score is computed by the engine and used as numerical context.",
+            "copyrightNote": "No source prose copied.",
+            "authorityTruthEligible": false
+          }
+        }
+      ],
+      "aiGenerated": true,
+      "sourceTier": {
+        "tier": "T1_HYPOTHESIS",
+        "sourceType": "training_derived",
+        "sourceUrl": null,
+        "accessedAt": "2026-05-03",
+        "quoteShort": null,
+        "humanInterpretation": "Expert career thisWeek supportive alignment narrative. AI-derived display text; not authority truth.",
+        "copyrightNote": "No source prose copied; original phrasing.",
+        "authorityTruthEligible": false
+      }
+    },
+    {
+      "schemaVersion": "spring-ts.narrative-fragment.v1",
+      "fragmentId": "career.thisWeek.expert.alignment.conflicting.401",
+      "axis": { "category": "career", "period": "thisWeek", "depth": "expert" },
+      "gating": { "yongshinAlignment": ["conflicting"] },
+      "templateTokens": [
+        { "kind": "text", "value": "이번 주는 " },
+        { "kind": "tag", "tagId": "pyeongwan", "label": "편관" },
+        { "kind": "text", "value": " 압박이 과해지면 일정이 많아도 실속이 약해질 수 있습니다. " },
+        { "kind": "tag", "tagId": "yongshin", "label": "용신" },
+        { "kind": "text", "value": "과의 충돌을 줄이려면 역할을 좁히고, " },
+        { "kind": "tag", "tagId": "sikshin", "label": "식신" },
+        { "kind": "text", "value": "의 산출물을 작은 단위로 쪼개 검수하는 방식이 적절합니다." }
+      ],
+      "tags": ["pyeongwan", "yongshin", "sikshin"],
+      "numericalEvidence": [
+        {
+          "label": "직업 별점",
+          "valueExpression": "cell.stars",
+          "unit": "점",
+          "sourceTier": {
+            "tier": "T3_INTERNAL_ENGINE",
+            "sourceType": "internal_scoring_policy",
+            "sourceUrl": null,
+            "accessedAt": "2026-05-03",
+            "quoteShort": null,
+            "humanInterpretation": "Career score is computed by the engine and used as numerical context.",
+            "copyrightNote": "No source prose copied.",
+            "authorityTruthEligible": false
+          }
+        }
+      ],
+      "aiGenerated": true,
+      "sourceTier": {
+        "tier": "T1_HYPOTHESIS",
+        "sourceType": "training_derived",
+        "sourceUrl": null,
+        "accessedAt": "2026-05-03",
+        "quoteShort": null,
+        "humanInterpretation": "Expert career thisWeek conflicting alignment narrative. AI-derived display text; not authority truth.",
+        "copyrightNote": "No source prose copied; original phrasing.",
+        "authorityTruthEligible": false
+      }
+    },
+    {
+      "schemaVersion": "spring-ts.narrative-fragment.v1",
+      "fragmentId": "career.thisMonth.expert.alignment.supportive.401",
+      "axis": { "category": "career", "period": "thisMonth", "depth": "expert" },
+      "gating": { "yongshinAlignment": ["aligned", "neutral"] },
+      "templateTokens": [
+        { "kind": "text", "value": "이번 달 커리어는 " },
+        { "kind": "tag", "tagId": "yongshin", "label": "용신" },
+        { "kind": "text", "value": " 보조가 있으면 평판과 산출물이 함께 쌓이는 흐름입니다. " },
+        { "kind": "tag", "tagId": "sikshin", "label": "식신" },
+        { "kind": "text", "value": "은 결과물의 꾸준함을, " },
+        { "kind": "tag", "tagId": "gyeokgukFit", "label": "격국 적합도" },
+        { "kind": "text", "value": "는 그 결과물이 현재 직무의 평가 기준과 맞는지를 보여 주므로 월간 목표를 명확히 잡아야 합니다." }
+      ],
+      "tags": ["yongshin", "sikshin", "gyeokgukFit"],
+      "numericalEvidence": [
+        {
+          "label": "직업 별점",
+          "valueExpression": "cell.stars",
+          "unit": "점",
+          "sourceTier": {
+            "tier": "T3_INTERNAL_ENGINE",
+            "sourceType": "internal_scoring_policy",
+            "sourceUrl": null,
+            "accessedAt": "2026-05-03",
+            "quoteShort": null,
+            "humanInterpretation": "Career score is computed by the engine and used as numerical context.",
+            "copyrightNote": "No source prose copied.",
+            "authorityTruthEligible": false
+          }
+        }
+      ],
+      "aiGenerated": true,
+      "sourceTier": {
+        "tier": "T1_HYPOTHESIS",
+        "sourceType": "training_derived",
+        "sourceUrl": null,
+        "accessedAt": "2026-05-03",
+        "quoteShort": null,
+        "humanInterpretation": "Expert career thisMonth supportive alignment narrative. AI-derived display text; not authority truth.",
+        "copyrightNote": "No source prose copied; original phrasing.",
+        "authorityTruthEligible": false
+      }
+    },
+    {
+      "schemaVersion": "spring-ts.narrative-fragment.v1",
+      "fragmentId": "career.thisMonth.expert.alignment.conflicting.401",
+      "axis": { "category": "career", "period": "thisMonth", "depth": "expert" },
+      "gating": { "yongshinAlignment": ["conflicting"] },
+      "templateTokens": [
+        { "kind": "text", "value": "이번 달 " },
+        { "kind": "tag", "tagId": "yongshin", "label": "용신" },
+        { "kind": "text", "value": " 충돌은 커리어에서 과로와 책임 과잉으로 나타날 수 있습니다. " },
+        { "kind": "tag", "tagId": "pyeongwan", "label": "편관" },
+        { "kind": "text", "value": " 압박이 커지면 갈등 대응 비용이 늘고, " },
+        { "kind": "tag", "tagId": "stabilityIndex", "label": "안정성지수" },
+        { "kind": "text", "value": "가 낮게 잡히면 새 일을 늘리기보다 마감과 권한 범위를 재정리하는 해석이 맞습니다." }
+      ],
+      "tags": ["yongshin", "pyeongwan", "stabilityIndex"],
+      "numericalEvidence": [
+        {
+          "label": "직업 별점",
+          "valueExpression": "cell.stars",
+          "unit": "점",
+          "sourceTier": {
+            "tier": "T3_INTERNAL_ENGINE",
+            "sourceType": "internal_scoring_policy",
+            "sourceUrl": null,
+            "accessedAt": "2026-05-03",
+            "quoteShort": null,
+            "humanInterpretation": "Career score is computed by the engine and used as numerical context.",
+            "copyrightNote": "No source prose copied.",
+            "authorityTruthEligible": false
+          }
+        }
+      ],
+      "aiGenerated": true,
+      "sourceTier": {
+        "tier": "T1_HYPOTHESIS",
+        "sourceType": "training_derived",
+        "sourceUrl": null,
+        "accessedAt": "2026-05-03",
+        "quoteShort": null,
+        "humanInterpretation": "Expert career thisMonth conflicting alignment narrative. AI-derived display text; not authority truth.",
+        "copyrightNote": "No source prose copied; original phrasing.",
+        "authorityTruthEligible": false
+      }
+    },
+    {
+      "schemaVersion": "spring-ts.narrative-fragment.v1",
+      "fragmentId": "career.thisYear.expert.alignment.supportive.401",
+      "axis": { "category": "career", "period": "thisYear", "depth": "expert" },
+      "gating": { "yongshinAlignment": ["aligned", "neutral"] },
+      "templateTokens": [
+        { "kind": "text", "value": "올해 커리어는 " },
+        { "kind": "tag", "tagId": "gyeokgukFit", "label": "격국 적합도" },
+        { "kind": "text", "value": "와 실제 직무 방향이 맞을수록 평가 기준이 분명해집니다. " },
+        { "kind": "tag", "tagId": "yongshin", "label": "용신" },
+        { "kind": "text", "value": "이 보조하면 " },
+        { "kind": "tag", "tagId": "jeonggwan", "label": "정관" },
+        { "kind": "text", "value": "의 신뢰와 제도권 평가가 살아나므로, 큰 전환보다 누적 성과를 증명하는 해석이 강합니다." }
+      ],
+      "tags": ["gyeokgukFit", "yongshin", "jeonggwan"],
+      "numericalEvidence": [
+        {
+          "label": "직업 별점",
+          "valueExpression": "cell.stars",
+          "unit": "점",
+          "sourceTier": {
+            "tier": "T3_INTERNAL_ENGINE",
+            "sourceType": "internal_scoring_policy",
+            "sourceUrl": null,
+            "accessedAt": "2026-05-03",
+            "quoteShort": null,
+            "humanInterpretation": "Career score is computed by the engine and used as numerical context.",
+            "copyrightNote": "No source prose copied.",
+            "authorityTruthEligible": false
+          }
+        }
+      ],
+      "aiGenerated": true,
+      "sourceTier": {
+        "tier": "T1_HYPOTHESIS",
+        "sourceType": "training_derived",
+        "sourceUrl": null,
+        "accessedAt": "2026-05-03",
+        "quoteShort": null,
+        "humanInterpretation": "Expert career thisYear supportive alignment narrative. AI-derived display text; not authority truth.",
+        "copyrightNote": "No source prose copied; original phrasing.",
+        "authorityTruthEligible": false
+      }
+    },
+    {
+      "schemaVersion": "spring-ts.narrative-fragment.v1",
+      "fragmentId": "career.thisYear.expert.alignment.conflicting.401",
+      "axis": { "category": "career", "period": "thisYear", "depth": "expert" },
+      "gating": { "yongshinAlignment": ["conflicting"] },
+      "templateTokens": [
+        { "kind": "text", "value": "올해 " },
+        { "kind": "tag", "tagId": "yongshin", "label": "용신" },
+        { "kind": "text", "value": " 충돌이 강하면 직업운은 확장보다 리스크 관리가 우선입니다. " },
+        { "kind": "tag", "tagId": "pyeongwan", "label": "편관" },
+        { "kind": "text", "value": "의 압박과 " },
+        { "kind": "tag", "tagId": "sanggwan", "label": "상관" },
+        { "kind": "text", "value": "의 표현성이 동시에 커지면 권한 충돌이 생길 수 있으니, 연간 계획은 역할 경계와 검수 체계를 먼저 세우는 해석이 필요합니다." }
+      ],
+      "tags": ["yongshin", "pyeongwan", "sanggwan"],
+      "numericalEvidence": [
+        {
+          "label": "직업 별점",
+          "valueExpression": "cell.stars",
+          "unit": "점",
+          "sourceTier": {
+            "tier": "T3_INTERNAL_ENGINE",
+            "sourceType": "internal_scoring_policy",
+            "sourceUrl": null,
+            "accessedAt": "2026-05-03",
+            "quoteShort": null,
+            "humanInterpretation": "Career score is computed by the engine and used as numerical context.",
+            "copyrightNote": "No source prose copied.",
+            "authorityTruthEligible": false
+          }
+        }
+      ],
+      "aiGenerated": true,
+      "sourceTier": {
+        "tier": "T1_HYPOTHESIS",
+        "sourceType": "training_derived",
+        "sourceUrl": null,
+        "accessedAt": "2026-05-03",
+        "quoteShort": null,
+        "humanInterpretation": "Expert career thisYear conflicting alignment narrative. AI-derived display text; not authority truth.",
+        "copyrightNote": "No source prose copied; original phrasing.",
+        "authorityTruthEligible": false
+      }
+    }
+  ]
+}
