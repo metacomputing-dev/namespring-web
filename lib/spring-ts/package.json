@@ -93,7 +93,7 @@
     "narrative:authority-gaps": "node tools/narrative_authority_gap_report.mjs",
     "narrative:numeric-evidence": "node tools/narrative_numeric_evidence_report.mjs",
     "service:readiness": "node tools/service_readiness_report.mjs",
-    "service:readiness:paid-gate": "node tools/service_readiness_report.mjs --max-thin-expert-axis-values=0 --min-authority-fragments=1 --min-authority-numerical-evidence=1 --max-zero-authority-cells=0",
+    "service:readiness:paid-gate": "node tools/service_readiness_report.mjs --max-thin-expert-axis-values=0 --min-authority-fragments=1 --min-authority-numerical-evidence=1 --max-zero-authority-cells=0 --max-reference-authority-intake-violations=0",
     "validate:reference-authority": "node tools/validate_reference_authority_cases.mjs",
     "narrative:axis-pairs": "node tools/narrative_axis_pair_report.mjs",
     "narrative:axis-tuples": "node tools/narrative_axis_tuple_report.mjs",
