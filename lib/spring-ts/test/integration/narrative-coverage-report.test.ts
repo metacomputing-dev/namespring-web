@@ -206,9 +206,41 @@ check('source tier summary exposes current evidence tiers',
 check('authority source thresholds default to observation mode',
   report?.minAuthorityTruthEligibleFragmentThreshold === 0 &&
     report?.minAuthorityTruthEligibleNumericalEvidenceThreshold === 0 &&
+    report?.maxThinExpertAxisValueThreshold === null &&
+    report?.totals?.thinExpertAxisValueExcessToThreshold === 0 &&
     report?.sourceTierSummary?.authorityTruthEligibleFragmentDeficitToThreshold === 0 &&
     report?.sourceTierSummary?.authorityTruthEligibleNumericalEvidenceDeficitToThreshold === 0,
   JSON.stringify(report?.sourceTierSummary));
+
+const expertThinAxisLimit = Math.max(0, (report?.totals?.thinExpertAxisValueCount ?? 0) - 1);
+const expertThinAxisGate = spawnSync('node', [
+  SCRIPT_PATH,
+  '--json',
+  '--min-authored=12',
+  `--max-thin-expert-axis-values=${expertThinAxisLimit}`,
+], {
+  cwd: SPRING_TS_ROOT,
+  encoding: 'utf-8',
+});
+const expertThinAxisGateReport = JSON.parse(expertThinAxisGate.stdout);
+const expertThinAxisShouldFail = (report?.totals?.thinExpertAxisValueCount ?? 0) > expertThinAxisLimit;
+check('thin expert axis threshold applies when requested',
+  expertThinAxisGate.status === (expertThinAxisShouldFail ? 1 : 0) &&
+    (!expertThinAxisShouldFail ||
+      expertThinAxisGate.stderr.includes(
+        `thin expert axis values ${report?.totals?.thinExpertAxisValueCount ?? 0}/${expertThinAxisLimit}`,
+      )),
+  `status=${expertThinAxisGate.status}; stderr=${expertThinAxisGate.stderr.trim()}`);
+check('thin expert axis threshold excess is machine readable',
+  expertThinAxisGateReport?.maxThinExpertAxisValueThreshold === expertThinAxisLimit &&
+    expertThinAxisGateReport?.totals?.thinExpertAxisValueCount === report?.totals?.thinExpertAxisValueCount &&
+    expertThinAxisGateReport?.totals?.thinExpertAxisValueExcessToThreshold ===
+      Math.max(0, (report?.totals?.thinExpertAxisValueCount ?? 0) - expertThinAxisLimit),
+  JSON.stringify({
+    threshold: expertThinAxisGateReport?.maxThinExpertAxisValueThreshold,
+    count: expertThinAxisGateReport?.totals?.thinExpertAxisValueCount,
+    excess: expertThinAxisGateReport?.totals?.thinExpertAxisValueExcessToThreshold,
+  }));
 
 const authorityFragmentGate = spawnSync('node', [
   SCRIPT_PATH,
