@@ -1,0 +1,115 @@
+{
+  "schemaVersion": "spring-ts.narrative-fragment-bundle.v1",
+  "bundleId": "coverage.family-expert-season-context.20260503",
+  "contractVersion": "1.0.0",
+  "fragments": [
+    {
+      "schemaVersion": "spring-ts.narrative-fragment.v1",
+      "fragmentId": "family.life.expert.currentseason.spring_summer.301",
+      "axis": { "category": "family", "period": "life", "depth": "expert" },
+      "gating": { "currentSeason": ["spring", "summer"], "yongshinAlignment": ["aligned", "neutral", "conflicting"] },
+      "templateTokens": [
+        { "kind": "text", "value": "가족 장기 흐름에서 봄과 여름의 현재 계절은 관계 안의 활동성과 역할 노출을 키웁니다. " },
+        { "kind": "tag", "tagId": "bigyeon", "label": "비견" },
+        { "kind": "text", "value": "은 가족 안에서 자기 기준을 세우게 하고, " },
+        { "kind": "tag", "tagId": "jeongin", "label": "정인" },
+        { "kind": "text", "value": "은 돌봄과 보호의 반복성을 봅니다. " },
+        { "kind": "tag", "tagId": "yongshin", "label": "용신" },
+        { "kind": "text", "value": "과 맞는 관계 방식이면 주도권을 나누고, 맞지 않으면 약속 범위를 줄여 충돌을 낮추는 해석이 적절합니다." }
+      ],
+      "tags": ["bigyeon", "jeongin", "yongshin"],
+      "aiGenerated": true,
+      "sourceTier": {
+        "tier": "T1_HYPOTHESIS",
+        "sourceType": "training_derived",
+        "sourceUrl": null,
+        "accessedAt": "2026-05-03",
+        "quoteShort": null,
+        "humanInterpretation": "Expert family life narrative for spring/summer current season. AI-derived display text; not authority truth.",
+        "copyrightNote": "No source prose copied; original phrasing.",
+        "authorityTruthEligible": false
+      }
+    },
+    {
+      "schemaVersion": "spring-ts.narrative-fragment.v1",
+      "fragmentId": "family.life.expert.currentseason.autumn_winter.301",
+      "axis": { "category": "family", "period": "life", "depth": "expert" },
+      "gating": { "currentSeason": ["autumn", "winter"], "yongshinAlignment": ["aligned", "neutral", "conflicting"] },
+      "templateTokens": [
+        { "kind": "text", "value": "가족 장기 흐름에서 가을과 겨울의 현재 계절은 관계 유지, 책임 분담, 생활 기반의 검증을 중시합니다. " },
+        { "kind": "tag", "tagId": "jeongin", "label": "정인" },
+        { "kind": "text", "value": "은 보호와 회복의 기반을 만들고, " },
+        { "kind": "tag", "tagId": "stabilityIndex", "label": "안정 지표" },
+        { "kind": "text", "value": "는 가족 약속이 지속 가능한지를 봅니다. " },
+        { "kind": "tag", "tagId": "yongshin", "label": "용신" },
+        { "kind": "text", "value": "이 약하면 새 계획보다 고정 리듬과 책임 범위를 먼저 정리하는 편이 안전합니다." }
+      ],
+      "tags": ["jeongin", "stabilityIndex", "yongshin"],
+      "aiGenerated": true,
+      "sourceTier": {
+        "tier": "T1_HYPOTHESIS",
+        "sourceType": "training_derived",
+        "sourceUrl": null,
+        "accessedAt": "2026-05-03",
+        "quoteShort": null,
+        "humanInterpretation": "Expert family life narrative for autumn/winter current season. AI-derived display text; not authority truth.",
+        "copyrightNote": "No source prose copied; original phrasing.",
+        "authorityTruthEligible": false
+      }
+    },
+    {
+      "schemaVersion": "spring-ts.narrative-fragment.v1",
+      "fragmentId": "family.thisYear.expert.currentseason.spring_summer.301",
+      "axis": { "category": "family", "period": "thisYear", "depth": "expert" },
+      "gating": { "currentSeason": ["spring", "summer"], "yongshinAlignment": ["aligned", "neutral", "conflicting"] },
+      "templateTokens": [
+        { "kind": "text", "value": "연간 가족운에서 봄과 여름의 현재 계절은 가족 내 의사 표현과 역할 재편이 빨라지는 신호입니다. " },
+        { "kind": "tag", "tagId": "bigyeon", "label": "비견" },
+        { "kind": "text", "value": "은 각자의 기준이 강해지는 지점을, " },
+        { "kind": "tag", "tagId": "sikshin", "label": "식신" },
+        { "kind": "text", "value": "은 돌봄을 실제 행동으로 풀어내는 지점을 봅니다. " },
+        { "kind": "tag", "tagId": "yongshin", "label": "용신" },
+        { "kind": "text", "value": "과 정렬되면 가족 계획을 확장해도 되지만, 충돌하면 비용과 역할을 먼저 작게 시험해야 합니다." }
+      ],
+      "tags": ["bigyeon", "sikshin", "yongshin"],
+      "aiGenerated": true,
+      "sourceTier": {
+        "tier": "T1_HYPOTHESIS",
+        "sourceType": "training_derived",
+        "sourceUrl": null,
+        "accessedAt": "2026-05-03",
+        "quoteShort": null,
+        "humanInterpretation": "Expert family yearly narrative for spring/summer current season. AI-derived display text; not authority truth.",
+        "copyrightNote": "No source prose copied; original phrasing.",
+        "authorityTruthEligible": false
+      }
+    },
+    {
+      "schemaVersion": "spring-ts.narrative-fragment.v1",
+      "fragmentId": "family.thisYear.expert.currentseason.autumn_winter.301",
+      "axis": { "category": "family", "period": "thisYear", "depth": "expert" },
+      "gating": { "currentSeason": ["autumn", "winter"], "yongshinAlignment": ["aligned", "neutral", "conflicting"] },
+      "templateTokens": [
+        { "kind": "text", "value": "연간 가족운에서 가을과 겨울의 현재 계절은 확장보다 보존, 확인, 책임 지속성을 강하게 봅니다. " },
+        { "kind": "tag", "tagId": "jeongin", "label": "정인" },
+        { "kind": "text", "value": "은 가족 기반의 회복력을, " },
+        { "kind": "tag", "tagId": "stabilityIndex", "label": "안정 지표" },
+        { "kind": "text", "value": "는 약속과 돌봄의 지속 가능성을 점검합니다. " },
+        { "kind": "tag", "tagId": "yongshin", "label": "용신" },
+        { "kind": "text", "value": "정렬이 낮으면 가족 이슈를 크게 벌리기보다 건강, 비용, 일정의 핵심 변수부터 고정하는 것이 좋습니다." }
+      ],
+      "tags": ["jeongin", "stabilityIndex", "yongshin"],
+      "aiGenerated": true,
+      "sourceTier": {
+        "tier": "T1_HYPOTHESIS",
+        "sourceType": "training_derived",
+        "sourceUrl": null,
+        "accessedAt": "2026-05-03",
+        "quoteShort": null,
+        "humanInterpretation": "Expert family yearly narrative for autumn/winter current season. AI-derived display text; not authority truth.",
+        "copyrightNote": "No source prose copied; original phrasing.",
+        "authorityTruthEligible": false
+      }
+    }
+  ]
+}
