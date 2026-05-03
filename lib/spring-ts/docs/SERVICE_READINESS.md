@@ -58,7 +58,8 @@ This strict command is expected to fail until Reference A or equivalent reviewed
 1. Add authority-truth eligible Reference A fragments and numerical evidence only after source review.
 2. Add frontend acceptance fixtures that verify brief/standard/expert progressive disclosure against a real NameSpring page.
 3. Keep all narrative data display-only; scoring and judgment code must not import `data/narrative/**`.
-4. Re-run `npm run service:readiness` and `npm run service:readiness:paid-gate` before changing product copy around expert verification.
+4. Re-run `npm run test:tiered-progressive-disclosure` when frontend copy or expansion behavior changes.
+5. Re-run `npm run service:readiness` and `npm run service:readiness:paid-gate` before changing product copy around expert verification.
 
 For authority-source planning, run:
 
