@@ -1,0 +1,497 @@
+{
+  "schemaVersion": "spring-ts.narrative-fragment-bundle.v1",
+  "bundleId": "coverage.min14-health-stress-plain-floor.20260503",
+  "contractVersion": "1.0.0",
+  "fragments": [
+    {
+      "schemaVersion": "spring-ts.narrative-fragment.v1",
+      "fragmentId": "health_stress.life.brief.foundation.501",
+      "axis": { "category": "health_stress", "period": "life", "depth": "brief" },
+      "gating": { "ageBand": ["0-9", "10-19", "20-29", "30-39"] },
+      "templateTokens": [
+        { "kind": "text", "value": "마음과 몸은 오래 쓰는 기반이에요. 일찍부터 쉬는 법을 익히면 큰 흔들림을 줄일 수 있어요." }
+      ],
+      "tags": [],
+      "aiGenerated": true,
+      "sourceTier": {
+        "tier": "T1_HYPOTHESIS",
+        "sourceType": "training_derived",
+        "sourceUrl": null,
+        "accessedAt": "2026-05-03",
+        "quoteShort": null,
+        "humanInterpretation": "Plain health_stress life brief foundation narrative. AI-derived display text; not authority truth.",
+        "copyrightNote": "No source prose copied; original phrasing.",
+        "authorityTruthEligible": false
+      }
+    },
+    {
+      "schemaVersion": "spring-ts.narrative-fragment.v1",
+      "fragmentId": "health_stress.life.brief.recovery.501",
+      "axis": { "category": "health_stress", "period": "life", "depth": "brief" },
+      "gating": { "ageBand": ["40-54", "55-69", "70+"] },
+      "templateTokens": [
+        { "kind": "text", "value": "삶 전체로 보면 무리하지 않는 회복 습관이 가장 큰 힘이 됩니다." }
+      ],
+      "tags": [],
+      "aiGenerated": true,
+      "sourceTier": {
+        "tier": "T1_HYPOTHESIS",
+        "sourceType": "training_derived",
+        "sourceUrl": null,
+        "accessedAt": "2026-05-03",
+        "quoteShort": null,
+        "humanInterpretation": "Plain health_stress life brief recovery narrative. AI-derived display text; not authority truth.",
+        "copyrightNote": "No source prose copied; original phrasing.",
+        "authorityTruthEligible": false
+      }
+    },
+    {
+      "schemaVersion": "spring-ts.narrative-fragment.v1",
+      "fragmentId": "health_stress.life.standard.foundation.501",
+      "axis": { "category": "health_stress", "period": "life", "depth": "standard" },
+      "gating": { "ageBand": ["0-9", "10-19", "20-29", "30-39"] },
+      "templateTokens": [
+        { "kind": "text", "value": "삶 전체의 마음 건강은 큰 결심보다 매일 반복되는 작은 습관에서 안정됩니다. 피곤할 때 바로 알아차리고, 말할 사람과 쉴 공간을 미리 정해두면 어려운 시기에도 버티는 힘이 생깁니다." }
+      ],
+      "livingTips": [
+        "기분이 가라앉는 신호를 세 가지 정도 적어두세요.",
+        "힘든 날 연락할 사람과 쉬는 장소를 미리 정해두세요."
+      ],
+      "cautions": [
+        "괜찮은 척을 오래 하면 몸과 마음이 동시에 지칠 수 있어요."
+      ],
+      "tags": [],
+      "aiGenerated": true,
+      "sourceTier": {
+        "tier": "T1_HYPOTHESIS",
+        "sourceType": "training_derived",
+        "sourceUrl": null,
+        "accessedAt": "2026-05-03",
+        "quoteShort": null,
+        "humanInterpretation": "Plain health_stress life standard foundation narrative. AI-derived display text; not authority truth.",
+        "copyrightNote": "No source prose copied; original phrasing.",
+        "authorityTruthEligible": false
+      }
+    },
+    {
+      "schemaVersion": "spring-ts.narrative-fragment.v1",
+      "fragmentId": "health_stress.life.standard.recovery.501",
+      "axis": { "category": "health_stress", "period": "life", "depth": "standard" },
+      "gating": { "ageBand": ["40-54", "55-69", "70+"] },
+      "templateTokens": [
+        { "kind": "text", "value": "오래 갈수록 마음과 몸은 속도보다 회복의 질이 중요해집니다. 책임을 모두 붙잡기보다 내가 맡을 일과 도움을 받을 일을 나누면 긴장이 줄고, 생활의 안정감도 커집니다." }
+      ],
+      "livingTips": [
+        "매주 한 번은 일정 없는 시간을 먼저 비워두세요.",
+        "가족이나 동료에게 맡길 수 있는 일을 한 가지 정하세요."
+      ],
+      "cautions": [
+        "쉬어야 할 때까지 버티는 습관은 회복 시간을 더 길게 만들 수 있어요."
+      ],
+      "tags": [],
+      "aiGenerated": true,
+      "sourceTier": {
+        "tier": "T1_HYPOTHESIS",
+        "sourceType": "training_derived",
+        "sourceUrl": null,
+        "accessedAt": "2026-05-03",
+        "quoteShort": null,
+        "humanInterpretation": "Plain health_stress life standard recovery narrative. AI-derived display text; not authority truth.",
+        "copyrightNote": "No source prose copied; original phrasing.",
+        "authorityTruthEligible": false
+      }
+    },
+    {
+      "schemaVersion": "spring-ts.narrative-fragment.v1",
+      "fragmentId": "health_stress.today.brief.rest.501",
+      "axis": { "category": "health_stress", "period": "today", "depth": "brief" },
+      "gating": { "dayMasterStrength": ["WEAK", "EXTREME_WEAK", "BALANCED"] },
+      "templateTokens": [
+        { "kind": "text", "value": "오늘은 마음이 예민해지기 전에 잠깐 멈추는 시간이 필요해요." }
+      ],
+      "tags": [],
+      "aiGenerated": true,
+      "sourceTier": {
+        "tier": "T1_HYPOTHESIS",
+        "sourceType": "training_derived",
+        "sourceUrl": null,
+        "accessedAt": "2026-05-03",
+        "quoteShort": null,
+        "humanInterpretation": "Plain health_stress today brief rest narrative. AI-derived display text; not authority truth.",
+        "copyrightNote": "No source prose copied; original phrasing.",
+        "authorityTruthEligible": false
+      }
+    },
+    {
+      "schemaVersion": "spring-ts.narrative-fragment.v1",
+      "fragmentId": "health_stress.today.brief.pacing.501",
+      "axis": { "category": "health_stress", "period": "today", "depth": "brief" },
+      "gating": { "dayMasterStrength": ["STRONG", "EXTREME_STRONG"] },
+      "templateTokens": [
+        { "kind": "text", "value": "오늘은 해낼 힘이 있어도 말과 행동의 속도를 조금 낮추면 마음이 편해져요." }
+      ],
+      "tags": [],
+      "aiGenerated": true,
+      "sourceTier": {
+        "tier": "T1_HYPOTHESIS",
+        "sourceType": "training_derived",
+        "sourceUrl": null,
+        "accessedAt": "2026-05-03",
+        "quoteShort": null,
+        "humanInterpretation": "Plain health_stress today brief pacing narrative. AI-derived display text; not authority truth.",
+        "copyrightNote": "No source prose copied; original phrasing.",
+        "authorityTruthEligible": false
+      }
+    },
+    {
+      "schemaVersion": "spring-ts.narrative-fragment.v1",
+      "fragmentId": "health_stress.today.standard.rest.501",
+      "axis": { "category": "health_stress", "period": "today", "depth": "standard" },
+      "gating": { "dayMasterStrength": ["WEAK", "EXTREME_WEAK", "BALANCED"] },
+      "templateTokens": [
+        { "kind": "text", "value": "오늘은 감정이 쌓이기 전에 작은 휴식을 넣는 것이 좋아요. 해야 할 일을 모두 끝낸 뒤 쉬려고 하기보다, 중간에 숨을 돌려야 마음과 몸이 같이 따라옵니다." }
+      ],
+      "livingTips": [
+        "오전과 오후에 각각 5분씩 조용히 숨을 고르는 시간을 넣으세요.",
+        "답장을 바로 하기 어렵다면 잠시 후 다시 보겠다고 먼저 알려두세요."
+      ],
+      "cautions": [
+        "피곤한 상태에서 중요한 말을 길게 하면 오해가 생기기 쉬워요."
+      ],
+      "tags": [],
+      "aiGenerated": true,
+      "sourceTier": {
+        "tier": "T1_HYPOTHESIS",
+        "sourceType": "training_derived",
+        "sourceUrl": null,
+        "accessedAt": "2026-05-03",
+        "quoteShort": null,
+        "humanInterpretation": "Plain health_stress today standard rest narrative. AI-derived display text; not authority truth.",
+        "copyrightNote": "No source prose copied; original phrasing.",
+        "authorityTruthEligible": false
+      }
+    },
+    {
+      "schemaVersion": "spring-ts.narrative-fragment.v1",
+      "fragmentId": "health_stress.today.standard.pacing.501",
+      "axis": { "category": "health_stress", "period": "today", "depth": "standard" },
+      "gating": { "dayMasterStrength": ["STRONG", "EXTREME_STRONG"] },
+      "templateTokens": [
+        { "kind": "text", "value": "오늘은 추진력이 높아도 감정의 속도를 조절해야 합니다. 빠르게 결정하기 전 물을 마시거나 짧게 걷는 시간을 두면, 같은 말도 훨씬 부드럽게 전할 수 있어요." }
+      ],
+      "livingTips": [
+        "중요한 대화 전에는 먼저 핵심 한 문장만 적어보세요.",
+        "몸에 힘이 들어가면 어깨와 턱을 풀고 다시 시작하세요."
+      ],
+      "cautions": [
+        "바로 반응하면 작은 일도 크게 느껴질 수 있어요."
+      ],
+      "tags": [],
+      "aiGenerated": true,
+      "sourceTier": {
+        "tier": "T1_HYPOTHESIS",
+        "sourceType": "training_derived",
+        "sourceUrl": null,
+        "accessedAt": "2026-05-03",
+        "quoteShort": null,
+        "humanInterpretation": "Plain health_stress today standard pacing narrative. AI-derived display text; not authority truth.",
+        "copyrightNote": "No source prose copied; original phrasing.",
+        "authorityTruthEligible": false
+      }
+    },
+    {
+      "schemaVersion": "spring-ts.narrative-fragment.v1",
+      "fragmentId": "health_stress.thisWeek.brief.recovery.501",
+      "axis": { "category": "health_stress", "period": "thisWeek", "depth": "brief" },
+      "gating": { "ageBand": ["30-39", "40-54", "55-69", "70+"] },
+      "templateTokens": [
+        { "kind": "text", "value": "이번 주는 쉬는 시간을 일정표에 먼저 넣어야 마음의 부담이 줄어듭니다." }
+      ],
+      "tags": [],
+      "aiGenerated": true,
+      "sourceTier": {
+        "tier": "T1_HYPOTHESIS",
+        "sourceType": "training_derived",
+        "sourceUrl": null,
+        "accessedAt": "2026-05-03",
+        "quoteShort": null,
+        "humanInterpretation": "Plain health_stress thisWeek brief recovery narrative. AI-derived display text; not authority truth.",
+        "copyrightNote": "No source prose copied; original phrasing.",
+        "authorityTruthEligible": false
+      }
+    },
+    {
+      "schemaVersion": "spring-ts.narrative-fragment.v1",
+      "fragmentId": "health_stress.thisWeek.brief.support.501",
+      "axis": { "category": "health_stress", "period": "thisWeek", "depth": "brief" },
+      "gating": { "ageBand": ["0-9", "10-19", "20-29"] },
+      "templateTokens": [
+        { "kind": "text", "value": "이번 주는 혼자 버티기보다 필요한 도움을 빨리 말하면 훨씬 가벼워져요." }
+      ],
+      "tags": [],
+      "aiGenerated": true,
+      "sourceTier": {
+        "tier": "T1_HYPOTHESIS",
+        "sourceType": "training_derived",
+        "sourceUrl": null,
+        "accessedAt": "2026-05-03",
+        "quoteShort": null,
+        "humanInterpretation": "Plain health_stress thisWeek brief support narrative. AI-derived display text; not authority truth.",
+        "copyrightNote": "No source prose copied; original phrasing.",
+        "authorityTruthEligible": false
+      }
+    },
+    {
+      "schemaVersion": "spring-ts.narrative-fragment.v1",
+      "fragmentId": "health_stress.thisWeek.standard.boundary.501",
+      "axis": { "category": "health_stress", "period": "thisWeek", "depth": "standard" },
+      "gating": { "ageBand": ["30-39", "40-54", "55-69", "70+"] },
+      "templateTokens": [
+        { "kind": "text", "value": "이번 주는 부탁을 모두 받아들이기보다 가능한 범위를 먼저 정해야 합니다. 할 수 있는 일과 미뤄야 할 일을 구분하면 마음의 압박이 줄고, 가까운 사람과의 대화도 덜 날카로워집니다." }
+      ],
+      "livingTips": [
+        "이번 주 꼭 해야 할 일과 미뤄도 되는 일을 따로 적으세요.",
+        "거절해야 할 일은 이유보다 가능한 대안을 짧게 전하세요."
+      ],
+      "cautions": [
+        "계속 괜찮다고 말하면 나중에 더 큰 부담으로 돌아올 수 있어요."
+      ],
+      "tags": [],
+      "aiGenerated": true,
+      "sourceTier": {
+        "tier": "T1_HYPOTHESIS",
+        "sourceType": "training_derived",
+        "sourceUrl": null,
+        "accessedAt": "2026-05-03",
+        "quoteShort": null,
+        "humanInterpretation": "Plain health_stress thisWeek standard boundary narrative. AI-derived display text; not authority truth.",
+        "copyrightNote": "No source prose copied; original phrasing.",
+        "authorityTruthEligible": false
+      }
+    },
+    {
+      "schemaVersion": "spring-ts.narrative-fragment.v1",
+      "fragmentId": "health_stress.thisWeek.standard.support.501",
+      "axis": { "category": "health_stress", "period": "thisWeek", "depth": "standard" },
+      "gating": { "ageBand": ["0-9", "10-19", "20-29"] },
+      "templateTokens": [
+        { "kind": "text", "value": "이번 주는 마음이 복잡할 때 빨리 말로 풀어내는 연습이 도움이 됩니다. 혼자 정답을 찾으려 하기보다 믿을 수 있는 사람에게 상황을 짧게 설명하면 생각이 정리됩니다." }
+      ],
+      "livingTips": [
+        "힘든 일을 세 문장으로 줄여 말해보세요.",
+        "걱정이 길어지면 지금 할 수 있는 행동 하나만 정하세요."
+      ],
+      "cautions": [
+        "비교하는 말은 마음을 더 무겁게 만들 수 있어요."
+      ],
+      "tags": [],
+      "aiGenerated": true,
+      "sourceTier": {
+        "tier": "T1_HYPOTHESIS",
+        "sourceType": "training_derived",
+        "sourceUrl": null,
+        "accessedAt": "2026-05-03",
+        "quoteShort": null,
+        "humanInterpretation": "Plain health_stress thisWeek standard support narrative. AI-derived display text; not authority truth.",
+        "copyrightNote": "No source prose copied; original phrasing.",
+        "authorityTruthEligible": false
+      }
+    },
+    {
+      "schemaVersion": "spring-ts.narrative-fragment.v1",
+      "fragmentId": "health_stress.thisMonth.brief.rhythm.501",
+      "axis": { "category": "health_stress", "period": "thisMonth", "depth": "brief" },
+      "gating": { "currentSeason": ["spring", "summer"] },
+      "templateTokens": [
+        { "kind": "text", "value": "이번 달은 활동이 늘어날수록 마음을 쉬게 하는 루틴을 함께 세워야 합니다." }
+      ],
+      "tags": [],
+      "aiGenerated": true,
+      "sourceTier": {
+        "tier": "T1_HYPOTHESIS",
+        "sourceType": "training_derived",
+        "sourceUrl": null,
+        "accessedAt": "2026-05-03",
+        "quoteShort": null,
+        "humanInterpretation": "Plain health_stress thisMonth brief rhythm narrative. AI-derived display text; not authority truth.",
+        "copyrightNote": "No source prose copied; original phrasing.",
+        "authorityTruthEligible": false
+      }
+    },
+    {
+      "schemaVersion": "spring-ts.narrative-fragment.v1",
+      "fragmentId": "health_stress.thisMonth.brief.reset.501",
+      "axis": { "category": "health_stress", "period": "thisMonth", "depth": "brief" },
+      "gating": { "currentSeason": ["autumn", "winter"] },
+      "templateTokens": [
+        { "kind": "text", "value": "이번 달은 마음을 정리하고 생활 속도를 낮추는 시간이 도움이 됩니다." }
+      ],
+      "tags": [],
+      "aiGenerated": true,
+      "sourceTier": {
+        "tier": "T1_HYPOTHESIS",
+        "sourceType": "training_derived",
+        "sourceUrl": null,
+        "accessedAt": "2026-05-03",
+        "quoteShort": null,
+        "humanInterpretation": "Plain health_stress thisMonth brief reset narrative. AI-derived display text; not authority truth.",
+        "copyrightNote": "No source prose copied; original phrasing.",
+        "authorityTruthEligible": false
+      }
+    },
+    {
+      "schemaVersion": "spring-ts.narrative-fragment.v1",
+      "fragmentId": "health_stress.thisMonth.standard.rhythm.501",
+      "axis": { "category": "health_stress", "period": "thisMonth", "depth": "standard" },
+      "gating": { "currentSeason": ["spring", "summer"] },
+      "templateTokens": [
+        { "kind": "text", "value": "이번 달은 바깥 활동과 사람 만남이 늘수록 혼자 회복하는 시간이 필요합니다. 즐거운 일정도 계속 이어지면 피로가 쌓일 수 있으니, 한 주에 한 번은 조용히 정리하는 시간을 두세요." }
+      ],
+      "livingTips": [
+        "약속이 많은 주에는 쉬는 날을 먼저 표시하세요.",
+        "사람을 만난 뒤에는 짧게라도 혼자 정리하는 시간을 가지세요."
+      ],
+      "cautions": [
+        "좋은 일정도 너무 몰리면 마음의 여유를 줄일 수 있어요."
+      ],
+      "tags": [],
+      "aiGenerated": true,
+      "sourceTier": {
+        "tier": "T1_HYPOTHESIS",
+        "sourceType": "training_derived",
+        "sourceUrl": null,
+        "accessedAt": "2026-05-03",
+        "quoteShort": null,
+        "humanInterpretation": "Plain health_stress thisMonth standard rhythm narrative. AI-derived display text; not authority truth.",
+        "copyrightNote": "No source prose copied; original phrasing.",
+        "authorityTruthEligible": false
+      }
+    },
+    {
+      "schemaVersion": "spring-ts.narrative-fragment.v1",
+      "fragmentId": "health_stress.thisMonth.standard.reset.501",
+      "axis": { "category": "health_stress", "period": "thisMonth", "depth": "standard" },
+      "gating": { "currentSeason": ["autumn", "winter"] },
+      "templateTokens": [
+        { "kind": "text", "value": "이번 달은 마음을 차분히 정리하고 쌓인 피로를 덜어내기 좋은 흐름입니다. 생활 공간, 수면 시간, 사람과의 거리 중 하나만 정리해도 마음의 부담이 크게 줄 수 있습니다." }
+      ],
+      "livingTips": [
+        "잠드는 시간과 일어나는 시간을 먼저 고정해 보세요.",
+        "마음이 무거운 관계는 대화 시간을 짧게 나누어 잡으세요."
+      ],
+      "cautions": [
+        "생각을 너무 오래 붙잡으면 몸의 피로까지 커질 수 있어요."
+      ],
+      "tags": [],
+      "aiGenerated": true,
+      "sourceTier": {
+        "tier": "T1_HYPOTHESIS",
+        "sourceType": "training_derived",
+        "sourceUrl": null,
+        "accessedAt": "2026-05-03",
+        "quoteShort": null,
+        "humanInterpretation": "Plain health_stress thisMonth standard reset narrative. AI-derived display text; not authority truth.",
+        "copyrightNote": "No source prose copied; original phrasing.",
+        "authorityTruthEligible": false
+      }
+    },
+    {
+      "schemaVersion": "spring-ts.narrative-fragment.v1",
+      "fragmentId": "health_stress.thisYear.brief.foundation.501",
+      "axis": { "category": "health_stress", "period": "thisYear", "depth": "brief" },
+      "gating": { "ageBand": ["0-9", "10-19", "20-29", "30-39"] },
+      "templateTokens": [
+        { "kind": "text", "value": "올해는 마음을 지키는 기본 습관을 만드는 것이 중요해요." }
+      ],
+      "tags": [],
+      "aiGenerated": true,
+      "sourceTier": {
+        "tier": "T1_HYPOTHESIS",
+        "sourceType": "training_derived",
+        "sourceUrl": null,
+        "accessedAt": "2026-05-03",
+        "quoteShort": null,
+        "humanInterpretation": "Plain health_stress thisYear brief foundation narrative. AI-derived display text; not authority truth.",
+        "copyrightNote": "No source prose copied; original phrasing.",
+        "authorityTruthEligible": false
+      }
+    },
+    {
+      "schemaVersion": "spring-ts.narrative-fragment.v1",
+      "fragmentId": "health_stress.thisYear.brief.recovery.501",
+      "axis": { "category": "health_stress", "period": "thisYear", "depth": "brief" },
+      "gating": { "ageBand": ["40-54", "55-69", "70+"] },
+      "templateTokens": [
+        { "kind": "text", "value": "올해는 책임을 줄일 곳과 회복을 늘릴 곳을 함께 보는 것이 좋습니다." }
+      ],
+      "tags": [],
+      "aiGenerated": true,
+      "sourceTier": {
+        "tier": "T1_HYPOTHESIS",
+        "sourceType": "training_derived",
+        "sourceUrl": null,
+        "accessedAt": "2026-05-03",
+        "quoteShort": null,
+        "humanInterpretation": "Plain health_stress thisYear brief recovery narrative. AI-derived display text; not authority truth.",
+        "copyrightNote": "No source prose copied; original phrasing.",
+        "authorityTruthEligible": false
+      }
+    },
+    {
+      "schemaVersion": "spring-ts.narrative-fragment.v1",
+      "fragmentId": "health_stress.thisYear.standard.foundation.501",
+      "axis": { "category": "health_stress", "period": "thisYear", "depth": "standard" },
+      "gating": { "ageBand": ["0-9", "10-19", "20-29", "30-39"] },
+      "templateTokens": [
+        { "kind": "text", "value": "올해는 마음이 흔들릴 때 바로 돌아갈 수 있는 기본 루틴을 만드는 것이 중요합니다. 운동, 수면, 대화, 기록 중 자신에게 맞는 방법을 하나 정해 꾸준히 반복하면 안정감이 쌓입니다." }
+      ],
+      "livingTips": [
+        "하루를 마치며 기분과 피로를 한 줄로 적어보세요.",
+        "답답할 때 할 수 있는 짧은 행동을 미리 정해두세요."
+      ],
+      "cautions": [
+        "마음이 힘들 때 혼자만 버티는 습관은 오래가기 어렵습니다."
+      ],
+      "tags": [],
+      "aiGenerated": true,
+      "sourceTier": {
+        "tier": "T1_HYPOTHESIS",
+        "sourceType": "training_derived",
+        "sourceUrl": null,
+        "accessedAt": "2026-05-03",
+        "quoteShort": null,
+        "humanInterpretation": "Plain health_stress thisYear standard foundation narrative. AI-derived display text; not authority truth.",
+        "copyrightNote": "No source prose copied; original phrasing.",
+        "authorityTruthEligible": false
+      }
+    },
+    {
+      "schemaVersion": "spring-ts.narrative-fragment.v1",
+      "fragmentId": "health_stress.thisYear.standard.recovery.501",
+      "axis": { "category": "health_stress", "period": "thisYear", "depth": "standard" },
+      "gating": { "ageBand": ["40-54", "55-69", "70+"] },
+      "templateTokens": [
+        { "kind": "text", "value": "올해는 마음과 몸을 오래 쓰기 위해 책임의 양을 조절해야 합니다. 모든 일을 잘 해내는 것보다 꾸준히 회복할 수 있는 생활 구조를 만드는 쪽이 더 안정적입니다." }
+      ],
+      "livingTips": [
+        "한 달에 한 번은 일정과 책임을 줄일 수 있는 부분을 점검하세요.",
+        "몸이 먼저 보내는 피로 신호를 무시하지 말고 쉬는 날을 잡으세요."
+      ],
+      "cautions": [
+        "회복을 미루면 작은 피로도 큰 부담처럼 느껴질 수 있어요."
+      ],
+      "tags": [],
+      "aiGenerated": true,
+      "sourceTier": {
+        "tier": "T1_HYPOTHESIS",
+        "sourceType": "training_derived",
+        "sourceUrl": null,
+        "accessedAt": "2026-05-03",
+        "quoteShort": null,
+        "humanInterpretation": "Plain health_stress thisYear standard recovery narrative. AI-derived display text; not authority truth.",
+        "copyrightNote": "No source prose copied; original phrasing.",
+        "authorityTruthEligible": false
+      }
+    }
+  ]
+}
