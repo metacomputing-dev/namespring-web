@@ -139,6 +139,7 @@ npm run typecheck
 npm run ci:no-ai-policy
 npx tsx test/integration/namespring-compat.test.ts          # negative + positive
 npx tsx test/integration/tiered-matrix-shape.test.ts
+npx tsx test/integration/tiered-progressive-disclosure.test.ts
 npx tsx test/integration/tiered-matrix-determinism.test.ts
 npx tsx test/integration/narrative-schema.test.ts
 npx tsx test/integration/tiered-isolation-guard.test.ts
