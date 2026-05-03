@@ -1,0 +1,159 @@
+{
+  "schemaVersion": "spring-ts.narrative-fragment-bundle.v1",
+  "bundleId": "coverage.expert-child-0-9-age-density.20260504",
+  "contractVersion": "1.0.0",
+  "fragments": [
+    {
+      "schemaVersion": "spring-ts.narrative-fragment.v1",
+      "fragmentId": "overall.life.expert.age.child_0_9.501",
+      "axis": { "category": "overall", "period": "life", "depth": "expert" },
+      "gating": { "agePhase": ["child_0_9"] },
+      "templateTokens": [
+        { "kind": "text", "value": "0~9세 총운은 성취 판단보다 기질, 안전감, 반복 루틴이 어떻게 자라는지를 보는 해석이 중심입니다. " },
+        { "kind": "tag", "tagId": "jeongin", "label": "정인" },
+        { "kind": "text", "value": "은 보호와 학습 환경의 바탕이고 " },
+        { "kind": "tag", "tagId": "sikshin", "label": "식신" },
+        { "kind": "text", "value": "은 놀이, 말, 표현으로 기운이 밖으로 나오는 통로로 봅니다." }
+      ],
+      "tags": ["jeongin", "sikshin"],
+      "numericalEvidence": [
+        { "label": "연령 단계 순번", "valueExpression": "feature.agePhaseOrdinal", "unit": "ordinal", "sourceTier": { "tier": "T3_INTERNAL_ENGINE", "sourceType": "internal_scoring_policy", "sourceUrl": null, "accessedAt": "2026-05-04", "quoteShort": null, "humanInterpretation": "Resolved from deterministic spring-ts runtime output.", "copyrightNote": "No third-party prose copied.", "authorityTruthEligible": false } }
+      ],
+      "aiGenerated": true,
+      "sourceTier": { "tier": "T1_HYPOTHESIS", "sourceType": "training_derived", "sourceUrl": null, "accessedAt": "2026-05-04", "quoteShort": null, "humanInterpretation": "Expert child_0_9 agePhase density fragment for life overview. AI-derived display text; not authority truth.", "copyrightNote": "No source prose copied; original phrasing.", "authorityTruthEligible": false }
+    },
+    {
+      "schemaVersion": "spring-ts.narrative-fragment.v1",
+      "fragmentId": "health.today.expert.age.child_0_9.501",
+      "axis": { "category": "health", "period": "today", "depth": "expert" },
+      "gating": { "agePhase": ["child_0_9"] },
+      "templateTokens": [
+        { "kind": "text", "value": "0~9세 오늘 건강운은 운세 점수보다 수면, 식사, 놀이 뒤 피로 신호를 보호자가 빨리 알아차리는지가 중요합니다. " },
+        { "kind": "tag", "tagId": "yongshin", "label": "용신" },
+        { "kind": "text", "value": "은 아이에게 맞는 회복 리듬이고 " },
+        { "kind": "tag", "tagId": "gishin", "label": "기신" },
+        { "kind": "text", "value": "은 과한 자극, 늦은 취침, 일정 과밀처럼 컨디션을 흔드는 조건으로 봅니다." }
+      ],
+      "tags": ["yongshin", "gishin"],
+      "numericalEvidence": [
+        { "label": "연령 단계 순번", "valueExpression": "feature.agePhaseOrdinal", "unit": "ordinal", "sourceTier": { "tier": "T3_INTERNAL_ENGINE", "sourceType": "internal_scoring_policy", "sourceUrl": null, "accessedAt": "2026-05-04", "quoteShort": null, "humanInterpretation": "Resolved from deterministic spring-ts runtime output.", "copyrightNote": "No third-party prose copied.", "authorityTruthEligible": false } }
+      ],
+      "aiGenerated": true,
+      "sourceTier": { "tier": "T1_HYPOTHESIS", "sourceType": "training_derived", "sourceUrl": null, "accessedAt": "2026-05-04", "quoteShort": null, "humanInterpretation": "Expert child_0_9 agePhase density fragment for daily health. AI-derived display text; not authority truth.", "copyrightNote": "No source prose copied; original phrasing.", "authorityTruthEligible": false }
+    },
+    {
+      "schemaVersion": "spring-ts.narrative-fragment.v1",
+      "fragmentId": "family.thisWeek.expert.age.child_0_9.501",
+      "axis": { "category": "family", "period": "thisWeek", "depth": "expert" },
+      "gating": { "agePhase": ["child_0_9"] },
+      "templateTokens": [
+        { "kind": "text", "value": "0~9세 이번 주 가족운은 아이의 떼쓰기만 보지 말고 피로, 낯선 변화, 관심 요청이 겹쳤는지 함께 보는 흐름입니다. " },
+        { "kind": "tag", "tagId": "bigyeon", "label": "비견" },
+        { "kind": "text", "value": "은 자기주장이 올라오는 신호이고 " },
+        { "kind": "tag", "tagId": "jeongin", "label": "정인" },
+        { "kind": "text", "value": "은 보호자가 같은 규칙과 따뜻한 반응을 반복해 주는 기반입니다." }
+      ],
+      "tags": ["bigyeon", "jeongin"],
+      "numericalEvidence": [
+        { "label": "연령 단계 순번", "valueExpression": "feature.agePhaseOrdinal", "unit": "ordinal", "sourceTier": { "tier": "T3_INTERNAL_ENGINE", "sourceType": "internal_scoring_policy", "sourceUrl": null, "accessedAt": "2026-05-04", "quoteShort": null, "humanInterpretation": "Resolved from deterministic spring-ts runtime output.", "copyrightNote": "No third-party prose copied.", "authorityTruthEligible": false } }
+      ],
+      "aiGenerated": true,
+      "sourceTier": { "tier": "T1_HYPOTHESIS", "sourceType": "training_derived", "sourceUrl": null, "accessedAt": "2026-05-04", "quoteShort": null, "humanInterpretation": "Expert child_0_9 agePhase density fragment for weekly family. AI-derived display text; not authority truth.", "copyrightNote": "No source prose copied; original phrasing.", "authorityTruthEligible": false }
+    },
+    {
+      "schemaVersion": "spring-ts.narrative-fragment.v1",
+      "fragmentId": "wealth.thisMonth.expert.age.child_0_9.501",
+      "axis": { "category": "wealth", "period": "thisMonth", "depth": "expert" },
+      "gating": { "agePhase": ["child_0_9"] },
+      "templateTokens": [
+        { "kind": "text", "value": "0~9세 이번 달 재물운은 돈벌이보다 물건, 간식, 선물에 대한 욕구를 어떻게 배우고 조절하는지로 읽어야 합니다. " },
+        { "kind": "tag", "tagId": "jeongjae", "label": "정재" },
+        { "kind": "text", "value": "는 정해진 규칙과 소유 감각을 보고 " },
+        { "kind": "tag", "tagId": "pyeonjae", "label": "편재" },
+        { "kind": "text", "value": "는 갑작스러운 요구나 충동 선택을 보호자가 짧게 설명해 줄 변수로 봅니다." }
+      ],
+      "tags": ["jeongjae", "pyeonjae"],
+      "numericalEvidence": [
+        { "label": "연령 단계 순번", "valueExpression": "feature.agePhaseOrdinal", "unit": "ordinal", "sourceTier": { "tier": "T3_INTERNAL_ENGINE", "sourceType": "internal_scoring_policy", "sourceUrl": null, "accessedAt": "2026-05-04", "quoteShort": null, "humanInterpretation": "Resolved from deterministic spring-ts runtime output.", "copyrightNote": "No third-party prose copied.", "authorityTruthEligible": false } }
+      ],
+      "aiGenerated": true,
+      "sourceTier": { "tier": "T1_HYPOTHESIS", "sourceType": "training_derived", "sourceUrl": null, "accessedAt": "2026-05-04", "quoteShort": null, "humanInterpretation": "Expert child_0_9 agePhase density fragment for monthly wealth. AI-derived display text; not authority truth.", "copyrightNote": "No source prose copied; original phrasing.", "authorityTruthEligible": false }
+    },
+    {
+      "schemaVersion": "spring-ts.narrative-fragment.v1",
+      "fragmentId": "romance.thisYear.expert.age.child_0_9.501",
+      "axis": { "category": "romance", "period": "thisYear", "depth": "expert" },
+      "gating": { "agePhase": ["child_0_9"] },
+      "templateTokens": [
+        { "kind": "text", "value": "0~9세 올해 인연운은 연애가 아니라 친구, 형제자매, 선생님과의 애착과 사회성 흐름으로 해석해야 합니다. " },
+        { "kind": "tag", "tagId": "bigyeon", "label": "비견" },
+        { "kind": "text", "value": "은 또래와 나란히 서려는 마음이고 " },
+        { "kind": "tag", "tagId": "jeongin", "label": "정인" },
+        { "kind": "text", "value": "은 아이가 관계 안에서 안심하고 다시 시도하게 만드는 보호 기반입니다." }
+      ],
+      "tags": ["bigyeon", "jeongin"],
+      "numericalEvidence": [
+        { "label": "연령 단계 순번", "valueExpression": "feature.agePhaseOrdinal", "unit": "ordinal", "sourceTier": { "tier": "T3_INTERNAL_ENGINE", "sourceType": "internal_scoring_policy", "sourceUrl": null, "accessedAt": "2026-05-04", "quoteShort": null, "humanInterpretation": "Resolved from deterministic spring-ts runtime output.", "copyrightNote": "No third-party prose copied.", "authorityTruthEligible": false } }
+      ],
+      "aiGenerated": true,
+      "sourceTier": { "tier": "T1_HYPOTHESIS", "sourceType": "training_derived", "sourceUrl": null, "accessedAt": "2026-05-04", "quoteShort": null, "humanInterpretation": "Expert child_0_9 agePhase density fragment for yearly relationship framing. AI-derived display text; not authority truth.", "copyrightNote": "No source prose copied; original phrasing.", "authorityTruthEligible": false }
+    },
+    {
+      "schemaVersion": "spring-ts.narrative-fragment.v1",
+      "fragmentId": "academic.today.expert.age.child_0_9.501",
+      "axis": { "category": "academic", "period": "today", "depth": "expert" },
+      "gating": { "agePhase": ["child_0_9"] },
+      "templateTokens": [
+        { "kind": "text", "value": "0~9세 오늘 학업운은 오래 앉히는 것보다 짧은 놀이, 소리 내어 말하기, 손으로 만지는 활동을 섞을 때 안정적입니다. " },
+        { "kind": "tag", "tagId": "jeongin", "label": "정인" },
+        { "kind": "text", "value": "은 배움의 안전한 틀이고 " },
+        { "kind": "tag", "tagId": "sikshin", "label": "식신" },
+        { "kind": "text", "value": "은 배운 것을 말과 행동으로 표현하게 하는 힘입니다." }
+      ],
+      "tags": ["jeongin", "sikshin"],
+      "numericalEvidence": [
+        { "label": "연령 단계 순번", "valueExpression": "feature.agePhaseOrdinal", "unit": "ordinal", "sourceTier": { "tier": "T3_INTERNAL_ENGINE", "sourceType": "internal_scoring_policy", "sourceUrl": null, "accessedAt": "2026-05-04", "quoteShort": null, "humanInterpretation": "Resolved from deterministic spring-ts runtime output.", "copyrightNote": "No third-party prose copied.", "authorityTruthEligible": false } }
+      ],
+      "aiGenerated": true,
+      "sourceTier": { "tier": "T1_HYPOTHESIS", "sourceType": "training_derived", "sourceUrl": null, "accessedAt": "2026-05-04", "quoteShort": null, "humanInterpretation": "Expert child_0_9 agePhase density fragment for daily academic. AI-derived display text; not authority truth.", "copyrightNote": "No source prose copied; original phrasing.", "authorityTruthEligible": false }
+    },
+    {
+      "schemaVersion": "spring-ts.narrative-fragment.v1",
+      "fragmentId": "movement.thisWeek.expert.age.child_0_9.501",
+      "axis": { "category": "movement", "period": "thisWeek", "depth": "expert" },
+      "gating": { "agePhase": ["child_0_9"] },
+      "templateTokens": [
+        { "kind": "text", "value": "0~9세 이번 주 이동운은 새로운 장소 자체보다 보호자 동행, 쉬는 시간, 낯선 자극을 줄이는 준비가 더 중요합니다. " },
+        { "kind": "tag", "tagId": "yeokma", "label": "역마" },
+        { "kind": "text", "value": "는 움직임과 환경 변화를 뜻하고 " },
+        { "kind": "tag", "tagId": "yongshin", "label": "용신" },
+        { "kind": "text", "value": "은 아이가 안심할 수 있는 익숙한 물건, 짧은 설명, 충분한 회복 간격으로 작동합니다." }
+      ],
+      "tags": ["yeokma", "yongshin"],
+      "numericalEvidence": [
+        { "label": "연령 단계 순번", "valueExpression": "feature.agePhaseOrdinal", "unit": "ordinal", "sourceTier": { "tier": "T3_INTERNAL_ENGINE", "sourceType": "internal_scoring_policy", "sourceUrl": null, "accessedAt": "2026-05-04", "quoteShort": null, "humanInterpretation": "Resolved from deterministic spring-ts runtime output.", "copyrightNote": "No third-party prose copied.", "authorityTruthEligible": false } }
+      ],
+      "aiGenerated": true,
+      "sourceTier": { "tier": "T1_HYPOTHESIS", "sourceType": "training_derived", "sourceUrl": null, "accessedAt": "2026-05-04", "quoteShort": null, "humanInterpretation": "Expert child_0_9 agePhase density fragment for weekly movement. AI-derived display text; not authority truth.", "copyrightNote": "No source prose copied; original phrasing.", "authorityTruthEligible": false }
+    },
+    {
+      "schemaVersion": "spring-ts.narrative-fragment.v1",
+      "fragmentId": "health_stress.life.expert.age.child_0_9.501",
+      "axis": { "category": "health_stress", "period": "life", "depth": "expert" },
+      "gating": { "agePhase": ["child_0_9"] },
+      "templateTokens": [
+        { "kind": "text", "value": "0~9세 스트레스 총운은 아이가 말로 설명하지 못하는 불편을 행동, 잠, 식욕, 놀이 변화로 읽어 주는 쪽이 핵심입니다. " },
+        { "kind": "tag", "tagId": "gishin", "label": "기신" },
+        { "kind": "text", "value": "은 과자극과 피로 누적의 신호이고 " },
+        { "kind": "tag", "tagId": "jeongin", "label": "정인" },
+        { "kind": "text", "value": "은 보호자가 예측 가능한 루틴과 안심되는 반응을 반복해 주는 회복 축입니다." }
+      ],
+      "tags": ["gishin", "jeongin"],
+      "numericalEvidence": [
+        { "label": "연령 단계 순번", "valueExpression": "feature.agePhaseOrdinal", "unit": "ordinal", "sourceTier": { "tier": "T3_INTERNAL_ENGINE", "sourceType": "internal_scoring_policy", "sourceUrl": null, "accessedAt": "2026-05-04", "quoteShort": null, "humanInterpretation": "Resolved from deterministic spring-ts runtime output.", "copyrightNote": "No third-party prose copied.", "authorityTruthEligible": false } }
+      ],
+      "aiGenerated": true,
+      "sourceTier": { "tier": "T1_HYPOTHESIS", "sourceType": "training_derived", "sourceUrl": null, "accessedAt": "2026-05-04", "quoteShort": null, "humanInterpretation": "Expert child_0_9 agePhase density fragment for life health stress. AI-derived display text; not authority truth.", "copyrightNote": "No source prose copied; original phrasing.", "authorityTruthEligible": false }
+    }
+  ]
+}
