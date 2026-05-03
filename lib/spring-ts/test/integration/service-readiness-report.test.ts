@@ -5,12 +5,14 @@
  * machine-readable and keeps launch-claim blockers explicit.
  */
 import { execFileSync, spawnSync } from 'node:child_process';
+import fs from 'node:fs';
 import path from 'node:path';
 import { fileURLToPath } from 'node:url';
 
 const __dirname = path.dirname(fileURLToPath(import.meta.url));
 const SPRING_TS_ROOT = path.resolve(__dirname, '../..');
 const SCRIPT_PATH = path.resolve(SPRING_TS_ROOT, 'tools/service_readiness_report.mjs');
+const PACKAGE_PATH = path.resolve(SPRING_TS_ROOT, 'package.json');
 
 let pass = 0;
 let fail = 0;
@@ -32,6 +34,7 @@ const stdout = execFileSync('node', [SCRIPT_PATH, '--json'], {
   encoding: 'utf-8',
 });
 const report = JSON.parse(stdout);
+const packageJson = JSON.parse(fs.readFileSync(PACKAGE_PATH, 'utf-8'));
 
 check('report schema version is stable',
   report?.schemaVersion === 'spring-ts.service-readiness-report.v1',
@@ -72,6 +75,12 @@ check('remaining density targets are machine readable',
       typeof row.value === 'string' &&
       typeof row.authoredFragments === 'number'),
   String(report?.nextDensityTargets?.length ?? 0));
+check('paid service gate script is registered',
+  typeof packageJson?.scripts?.['service:readiness:paid-gate'] === 'string' &&
+    packageJson.scripts['service:readiness:paid-gate'].includes('--max-thin-expert-axis-values=0') &&
+    packageJson.scripts['service:readiness:paid-gate'].includes('--min-authority-fragments=1') &&
+    packageJson.scripts['service:readiness:paid-gate'].includes('--max-zero-authority-cells=0'),
+  packageJson?.scripts?.['service:readiness:paid-gate']);
 
 const strictGate = spawnSync('node', [
   SCRIPT_PATH,

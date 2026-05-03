@@ -10,13 +10,14 @@ Run:
 ```bash
 npm run service:readiness
 npm run service:readiness -- --json
+npm run service:readiness:paid-gate
 ```
 
 ## Current Reading
 
 The report is intentionally observation-mode by default.
 
-- `frontendHandoff.status = ready_with_known_content_gaps` means the API surface, tiered matrix cells, expert evidence anchors, and docs are sufficient for a frontend implementation branch.
+- `frontendHandoff.status = ready_for_frontend_integration` means the API surface, tiered matrix cells, expert evidence anchors, density floor, and docs are sufficient for a frontend implementation branch.
 - `commercialReadiness.status = blocked_for_authority_claims` means the product should not make expert-verified or authority-backed claims yet.
 
 The current blocker is not the frontend contract. The blocker is evidence policy:
@@ -24,7 +25,7 @@ The current blocker is not the frontend contract. The blocker is evidence policy
 - narrative fragments are still `T1_HYPOTHESIS`;
 - expert numerical evidence is deterministic internal evidence, not authority-truth evidence;
 - zero tiered cells currently have authority-truth eligible backing;
-- remaining expert density gaps are concentrated in `agePhase`.
+- paid expert claims remain blocked until reviewed authority evidence is attached.
 
 ## Frontend Implementation Contract
 
@@ -47,18 +48,14 @@ This matches:
 Before making paid expert-verification claims, use stricter thresholds:
 
 ```bash
-node tools/service_readiness_report.mjs \
-  --max-thin-expert-axis-values=0 \
-  --min-authority-fragments=1 \
-  --min-authority-numerical-evidence=1 \
-  --max-zero-authority-cells=0
+npm run service:readiness:paid-gate
 ```
 
-This strict command is expected to fail until Reference A or equivalent reviewed authority evidence is added and the remaining expert density gaps are closed or explicitly hedged.
+This strict command is expected to fail until Reference A or equivalent reviewed authority evidence is added. It no longer fails for expert `agePhase` density, because that density floor is complete.
 
 ## What To Improve Next
 
-1. Continue reducing `agePhase` thin expert axis values.
-2. Add authority-truth eligible Reference A fragments and numerical evidence only after source review.
-3. Add frontend acceptance fixtures that verify brief/standard/expert progressive disclosure against a real NameSpring page.
-4. Keep all narrative data display-only; scoring and judgment code must not import `data/narrative/**`.
+1. Add authority-truth eligible Reference A fragments and numerical evidence only after source review.
+2. Add frontend acceptance fixtures that verify brief/standard/expert progressive disclosure against a real NameSpring page.
+3. Keep all narrative data display-only; scoring and judgment code must not import `data/narrative/**`.
+4. Re-run `npm run service:readiness` and `npm run service:readiness:paid-gate` before changing product copy around expert verification.
