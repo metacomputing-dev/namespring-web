@@ -1,0 +1,295 @@
+{
+  "schemaVersion": "spring-ts.narrative-fragment-bundle.v1",
+  "bundleId": "coverage.health-season-context.20260503",
+  "contractVersion": "1.0.0",
+  "fragments": [
+    {
+      "schemaVersion": "spring-ts.narrative-fragment.v1",
+      "fragmentId": "health.today.expert.currentseason.spring_summer.301",
+      "axis": { "category": "health", "period": "today", "depth": "expert" },
+      "gating": { "currentSeason": ["spring", "summer"], "yongshinAlignment": ["aligned", "neutral", "conflicting"] },
+      "templateTokens": [
+        { "kind": "text", "value": "오늘 건강 흐름에서 봄과 여름 기운은 활동량과 열감을 빠르게 올릴 수 있습니다. " },
+        { "kind": "tag", "tagId": "jeongin", "label": "정인" },
+        { "kind": "text", "value": "의 회복 루틴이 받쳐 주면 움직임이 득이 되지만, " },
+        { "kind": "tag", "tagId": "pyeonin", "label": "편인" },
+        { "kind": "text", "value": "이 과하면 예민함과 수면 흔들림이 커질 수 있습니다. " },
+        { "kind": "tag", "tagId": "stabilityIndex", "label": "안정 지수" },
+        { "kind": "text", "value": "를 낮추는 선택은 피하세요." }
+      ],
+      "tags": ["jeongin", "pyeonin", "stabilityIndex"],
+      "aiGenerated": true,
+      "sourceTier": {
+        "tier": "T1_HYPOTHESIS",
+        "sourceType": "training_derived",
+        "sourceUrl": null,
+        "accessedAt": "2026-05-03",
+        "quoteShort": null,
+        "humanInterpretation": "Expert health today narrative for spring/summer current season. AI-derived display text; not authority truth.",
+        "copyrightNote": "No source prose copied; original phrasing.",
+        "authorityTruthEligible": false
+      }
+    },
+    {
+      "schemaVersion": "spring-ts.narrative-fragment.v1",
+      "fragmentId": "health.today.expert.currentseason.autumn_winter.301",
+      "axis": { "category": "health", "period": "today", "depth": "expert" },
+      "gating": { "currentSeason": ["autumn", "winter"], "yongshinAlignment": ["aligned", "neutral", "conflicting"] },
+      "templateTokens": [
+        { "kind": "text", "value": "오늘 건강 흐름에서 가을과 겨울 기운은 회복과 보온, 건조 관리가 중요합니다. " },
+        { "kind": "tag", "tagId": "jeongin", "label": "정인" },
+        { "kind": "text", "value": "이 안정되면 컨디션을 붙잡지만, " },
+        { "kind": "tag", "tagId": "pyeonin", "label": "편인" },
+        { "kind": "text", "value": "이 치우치면 생각이 많아져 몸의 긴장이 풀리지 않을 수 있습니다. " },
+        { "kind": "tag", "tagId": "yongshin", "label": "용신" },
+        { "kind": "text", "value": "방향의 보충 루틴을 짧게라도 실행하세요." }
+      ],
+      "tags": ["jeongin", "pyeonin", "yongshin"],
+      "aiGenerated": true,
+      "sourceTier": {
+        "tier": "T1_HYPOTHESIS",
+        "sourceType": "training_derived",
+        "sourceUrl": null,
+        "accessedAt": "2026-05-03",
+        "quoteShort": null,
+        "humanInterpretation": "Expert health today narrative for autumn/winter current season. AI-derived display text; not authority truth.",
+        "copyrightNote": "No source prose copied; original phrasing.",
+        "authorityTruthEligible": false
+      }
+    },
+    {
+      "schemaVersion": "spring-ts.narrative-fragment.v1",
+      "fragmentId": "health.thisWeek.brief.currentseason.spring_summer.301",
+      "axis": { "category": "health", "period": "thisWeek", "depth": "brief" },
+      "gating": { "currentSeason": ["spring", "summer"] },
+      "templateTokens": [
+        { "kind": "text", "value": "이번 주는 움직임이 늘기 쉬워요. 운동은 좋지만 무리하기보다 물, 수면, 쉬는 시간을 같이 챙기면 컨디션이 더 안정됩니다." }
+      ],
+      "tags": [],
+      "aiGenerated": true,
+      "sourceTier": {
+        "tier": "T1_HYPOTHESIS",
+        "sourceType": "training_derived",
+        "sourceUrl": null,
+        "accessedAt": "2026-05-03",
+        "quoteShort": null,
+        "humanInterpretation": "Plain health weekly brief for spring/summer current season. AI-derived display text; not authority truth.",
+        "copyrightNote": "No source prose copied; original phrasing.",
+        "authorityTruthEligible": false
+      }
+    },
+    {
+      "schemaVersion": "spring-ts.narrative-fragment.v1",
+      "fragmentId": "health.thisWeek.brief.currentseason.autumn_winter.301",
+      "axis": { "category": "health", "period": "thisWeek", "depth": "brief" },
+      "gating": { "currentSeason": ["autumn", "winter"] },
+      "templateTokens": [
+        { "kind": "text", "value": "이번 주는 몸을 따뜻하게 하고 회복 시간을 확보하는 것이 좋아요. 피곤함을 참고 넘기기보다 일찍 자는 날을 먼저 정해 보세요." }
+      ],
+      "tags": [],
+      "aiGenerated": true,
+      "sourceTier": {
+        "tier": "T1_HYPOTHESIS",
+        "sourceType": "training_derived",
+        "sourceUrl": null,
+        "accessedAt": "2026-05-03",
+        "quoteShort": null,
+        "humanInterpretation": "Plain health weekly brief for autumn/winter current season. AI-derived display text; not authority truth.",
+        "copyrightNote": "No source prose copied; original phrasing.",
+        "authorityTruthEligible": false
+      }
+    },
+    {
+      "schemaVersion": "spring-ts.narrative-fragment.v1",
+      "fragmentId": "health.thisWeek.expert.currentseason.spring_summer.301",
+      "axis": { "category": "health", "period": "thisWeek", "depth": "expert" },
+      "gating": { "currentSeason": ["spring", "summer"], "yongshinAlignment": ["aligned", "neutral", "conflicting"] },
+      "templateTokens": [
+        { "kind": "text", "value": "이번 주 건강 흐름은 활동 증가와 회복력의 균형을 함께 봐야 합니다. " },
+        { "kind": "tag", "tagId": "jeongin", "label": "정인" },
+        { "kind": "text", "value": "이 충분하면 루틴이 몸을 받치지만, " },
+        { "kind": "tag", "tagId": "pyeonin", "label": "편인" },
+        { "kind": "text", "value": "이 과하면 생각과 감각이 예민해질 수 있습니다. " },
+        { "kind": "tag", "tagId": "stabilityIndex", "label": "안정 지수" },
+        { "kind": "text", "value": "를 유지하는 수면 계획이 필요합니다." }
+      ],
+      "tags": ["jeongin", "pyeonin", "stabilityIndex"],
+      "aiGenerated": true,
+      "sourceTier": {
+        "tier": "T1_HYPOTHESIS",
+        "sourceType": "training_derived",
+        "sourceUrl": null,
+        "accessedAt": "2026-05-03",
+        "quoteShort": null,
+        "humanInterpretation": "Expert health weekly narrative for spring/summer current season. AI-derived display text; not authority truth.",
+        "copyrightNote": "No source prose copied; original phrasing.",
+        "authorityTruthEligible": false
+      }
+    },
+    {
+      "schemaVersion": "spring-ts.narrative-fragment.v1",
+      "fragmentId": "health.thisWeek.expert.currentseason.autumn_winter.301",
+      "axis": { "category": "health", "period": "thisWeek", "depth": "expert" },
+      "gating": { "currentSeason": ["autumn", "winter"], "yongshinAlignment": ["aligned", "neutral", "conflicting"] },
+      "templateTokens": [
+        { "kind": "text", "value": "이번 주 건강 흐름은 회복 저장량을 얼마나 지키는지가 핵심입니다. " },
+        { "kind": "tag", "tagId": "jeongin", "label": "정인" },
+        { "kind": "text", "value": "이 받치면 휴식이 실제 회복으로 이어지고, " },
+        { "kind": "tag", "tagId": "pyeonin", "label": "편인" },
+        { "kind": "text", "value": "이 치우치면 몸보다 걱정이 먼저 커질 수 있습니다. " },
+        { "kind": "tag", "tagId": "yongshin", "label": "용신" },
+        { "kind": "text", "value": "보충 루틴을 주간 일정 앞쪽에 배치하세요." }
+      ],
+      "tags": ["jeongin", "pyeonin", "yongshin"],
+      "aiGenerated": true,
+      "sourceTier": {
+        "tier": "T1_HYPOTHESIS",
+        "sourceType": "training_derived",
+        "sourceUrl": null,
+        "accessedAt": "2026-05-03",
+        "quoteShort": null,
+        "humanInterpretation": "Expert health weekly narrative for autumn/winter current season. AI-derived display text; not authority truth.",
+        "copyrightNote": "No source prose copied; original phrasing.",
+        "authorityTruthEligible": false
+      }
+    },
+    {
+      "schemaVersion": "spring-ts.narrative-fragment.v1",
+      "fragmentId": "health.thisMonth.brief.currentseason.spring_summer.301",
+      "axis": { "category": "health", "period": "thisMonth", "depth": "brief" },
+      "gating": { "currentSeason": ["spring", "summer"] },
+      "templateTokens": [
+        { "kind": "text", "value": "이번 달은 활동량이 늘 수 있으니 체력 배분이 중요해요. 운동 목표를 세우되 쉬는 날까지 계획에 넣으면 오래 이어갈 수 있습니다." }
+      ],
+      "tags": [],
+      "aiGenerated": true,
+      "sourceTier": {
+        "tier": "T1_HYPOTHESIS",
+        "sourceType": "training_derived",
+        "sourceUrl": null,
+        "accessedAt": "2026-05-03",
+        "quoteShort": null,
+        "humanInterpretation": "Plain health monthly brief for spring/summer current season. AI-derived display text; not authority truth.",
+        "copyrightNote": "No source prose copied; original phrasing.",
+        "authorityTruthEligible": false
+      }
+    },
+    {
+      "schemaVersion": "spring-ts.narrative-fragment.v1",
+      "fragmentId": "health.thisMonth.brief.currentseason.autumn_winter.301",
+      "axis": { "category": "health", "period": "thisMonth", "depth": "brief" },
+      "gating": { "currentSeason": ["autumn", "winter"] },
+      "templateTokens": [
+        { "kind": "text", "value": "이번 달은 회복력을 쌓는 쪽이 잘 맞아요. 수면, 식사, 몸을 따뜻하게 하는 습관을 꾸준히 챙기면 컨디션이 안정됩니다." }
+      ],
+      "tags": [],
+      "aiGenerated": true,
+      "sourceTier": {
+        "tier": "T1_HYPOTHESIS",
+        "sourceType": "training_derived",
+        "sourceUrl": null,
+        "accessedAt": "2026-05-03",
+        "quoteShort": null,
+        "humanInterpretation": "Plain health monthly brief for autumn/winter current season. AI-derived display text; not authority truth.",
+        "copyrightNote": "No source prose copied; original phrasing.",
+        "authorityTruthEligible": false
+      }
+    },
+    {
+      "schemaVersion": "spring-ts.narrative-fragment.v1",
+      "fragmentId": "health.thisMonth.expert.currentseason.spring_summer.301",
+      "axis": { "category": "health", "period": "thisMonth", "depth": "expert" },
+      "gating": { "currentSeason": ["spring", "summer"], "yongshinAlignment": ["aligned", "neutral", "conflicting"] },
+      "templateTokens": [
+        { "kind": "text", "value": "이번 달 건강 흐름은 활동성과 회복 루틴의 비율을 조정해야 합니다. " },
+        { "kind": "tag", "tagId": "jeongin", "label": "정인" },
+        { "kind": "text", "value": "이 충분하면 체력 회복이 빠르지만, " },
+        { "kind": "tag", "tagId": "pyeonin", "label": "편인" },
+        { "kind": "text", "value": "이 강하면 신경성 피로가 누적될 수 있습니다. " },
+        { "kind": "tag", "tagId": "stabilityIndex", "label": "안정 지수" },
+        { "kind": "text", "value": "를 낮추는 과로는 줄이세요." }
+      ],
+      "tags": ["jeongin", "pyeonin", "stabilityIndex"],
+      "aiGenerated": true,
+      "sourceTier": {
+        "tier": "T1_HYPOTHESIS",
+        "sourceType": "training_derived",
+        "sourceUrl": null,
+        "accessedAt": "2026-05-03",
+        "quoteShort": null,
+        "humanInterpretation": "Expert health monthly narrative for spring/summer current season. AI-derived display text; not authority truth.",
+        "copyrightNote": "No source prose copied; original phrasing.",
+        "authorityTruthEligible": false
+      }
+    },
+    {
+      "schemaVersion": "spring-ts.narrative-fragment.v1",
+      "fragmentId": "health.thisMonth.expert.currentseason.autumn_winter.301",
+      "axis": { "category": "health", "period": "thisMonth", "depth": "expert" },
+      "gating": { "currentSeason": ["autumn", "winter"], "yongshinAlignment": ["aligned", "neutral", "conflicting"] },
+      "templateTokens": [
+        { "kind": "text", "value": "이번 달 건강 흐름은 몸의 저장량과 회복 주기를 보수적으로 봐야 합니다. " },
+        { "kind": "tag", "tagId": "jeongin", "label": "정인" },
+        { "kind": "text", "value": "이 안정되면 수면과 식사가 바로 컨디션으로 이어지고, " },
+        { "kind": "tag", "tagId": "pyeonin", "label": "편인" },
+        { "kind": "text", "value": "이 과하면 작은 증상에도 예민해질 수 있습니다. " },
+        { "kind": "tag", "tagId": "yongshin", "label": "용신" },
+        { "kind": "text", "value": "방향의 보충을 월간 루틴으로 고정하세요." }
+      ],
+      "tags": ["jeongin", "pyeonin", "yongshin"],
+      "aiGenerated": true,
+      "sourceTier": {
+        "tier": "T1_HYPOTHESIS",
+        "sourceType": "training_derived",
+        "sourceUrl": null,
+        "accessedAt": "2026-05-03",
+        "quoteShort": null,
+        "humanInterpretation": "Expert health monthly narrative for autumn/winter current season. AI-derived display text; not authority truth.",
+        "copyrightNote": "No source prose copied; original phrasing.",
+        "authorityTruthEligible": false
+      }
+    },
+    {
+      "schemaVersion": "spring-ts.narrative-fragment.v1",
+      "fragmentId": "health.thisYear.brief.currentseason.spring_summer.301",
+      "axis": { "category": "health", "period": "thisYear", "depth": "brief" },
+      "gating": { "currentSeason": ["spring", "summer"] },
+      "templateTokens": [
+        { "kind": "text", "value": "올해는 활동을 늘리기 좋지만 체력 관리를 함께 해야 해요. 운동 목표를 키우더라도 수면과 회복 시간을 먼저 지키면 안정적입니다." }
+      ],
+      "tags": [],
+      "aiGenerated": true,
+      "sourceTier": {
+        "tier": "T1_HYPOTHESIS",
+        "sourceType": "training_derived",
+        "sourceUrl": null,
+        "accessedAt": "2026-05-03",
+        "quoteShort": null,
+        "humanInterpretation": "Plain health yearly brief for spring/summer current season. AI-derived display text; not authority truth.",
+        "copyrightNote": "No source prose copied; original phrasing.",
+        "authorityTruthEligible": false
+      }
+    },
+    {
+      "schemaVersion": "spring-ts.narrative-fragment.v1",
+      "fragmentId": "health.thisYear.brief.currentseason.autumn_winter.301",
+      "axis": { "category": "health", "period": "thisYear", "depth": "brief" },
+      "gating": { "currentSeason": ["autumn", "winter"] },
+      "templateTokens": [
+        { "kind": "text", "value": "올해는 몸을 지키고 회복력을 쌓는 습관이 중요해요. 정기적인 휴식, 검진, 무리하지 않는 운동이 컨디션의 바탕이 됩니다." }
+      ],
+      "tags": [],
+      "aiGenerated": true,
+      "sourceTier": {
+        "tier": "T1_HYPOTHESIS",
+        "sourceType": "training_derived",
+        "sourceUrl": null,
+        "accessedAt": "2026-05-03",
+        "quoteShort": null,
+        "humanInterpretation": "Plain health yearly brief for autumn/winter current season. AI-derived display text; not authority truth.",
+        "copyrightNote": "No source prose copied; original phrasing.",
+        "authorityTruthEligible": false
+      }
+    }
+  ]
+}
