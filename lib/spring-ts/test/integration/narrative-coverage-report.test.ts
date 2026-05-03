@@ -122,7 +122,10 @@ check('expert numerical evidence threshold is reported',
 check('expert numerical evidence cell totals are machine readable',
   typeof report?.totals?.expertCellCount === 'number' &&
     typeof report?.totals?.expertCellsWithNumericalEvidenceCount === 'number' &&
-    typeof report?.totals?.expertNumericalEvidenceGapCellCount === 'number');
+    typeof report?.totals?.expertCellsWithInternalNumericalEvidenceCount === 'number' &&
+    typeof report?.totals?.expertNumericalEvidenceGapCellCount === 'number' &&
+    typeof report?.totals?.expertInternalNumericalEvidenceFragmentCount === 'number' &&
+    typeof report?.totals?.internalNumericalEvidenceRecordCount === 'number');
 check('expert numerical evidence gap cells are planning records',
   Array.isArray(report?.expertNumericalEvidenceGapCells) &&
     report.expertNumericalEvidenceGapCells.every((cell: any) =>
@@ -139,17 +142,24 @@ check('expert numerical evidence coverage is complete',
   report?.totals?.expertCellsWithNumericalEvidenceCount === report?.totals?.expertCellCount &&
     report?.totals?.expertNumericalEvidenceGapCellCount === 0,
   `${report?.totals?.expertCellsWithNumericalEvidenceCount ?? 0}/${report?.totals?.expertCellCount ?? 0}`);
+check('expert internal numerical evidence coverage is complete',
+  report?.totals?.expertCellsWithInternalNumericalEvidenceCount === report?.totals?.expertCellCount &&
+    report?.totals?.expertInternalNumericalEvidenceFragmentCount === report?.totals?.expertNumericalEvidenceFragmentCount,
+  `${report?.totals?.expertCellsWithInternalNumericalEvidenceCount ?? 0}/${report?.totals?.expertCellCount ?? 0}`);
 check('source tier summary is machine readable',
   typeof report?.sourceTierSummary?.fragmentTierCounts === 'object' &&
     typeof report?.sourceTierSummary?.numericalEvidenceTierCounts === 'object' &&
     typeof report?.sourceTierSummary?.numericalEvidenceRecordCount === 'number' &&
+    typeof report?.sourceTierSummary?.internalNumericalEvidenceRecordCount === 'number' &&
     typeof report?.sourceTierSummary?.authorityTruthEligibleFragmentCount === 'number' &&
     typeof report?.sourceTierSummary?.authorityTruthEligibleNumericalEvidenceCount === 'number' &&
     typeof report?.sourceTierSummary?.authorityTruthEligibleFragmentDeficitToThreshold === 'number' &&
     typeof report?.sourceTierSummary?.authorityTruthEligibleNumericalEvidenceDeficitToThreshold === 'number');
 check('source tier summary exposes current evidence tiers',
   report?.sourceTierSummary?.fragmentTierCounts?.T1_HYPOTHESIS > 0 &&
-    report?.sourceTierSummary?.numericalEvidenceTierCounts?.T3_INTERNAL_ENGINE >= 55,
+    report?.sourceTierSummary?.numericalEvidenceTierCounts?.T3_INTERNAL_ENGINE >= 55 &&
+    report?.sourceTierSummary?.internalNumericalEvidenceRecordCount ===
+      report?.sourceTierSummary?.numericalEvidenceTierCounts?.T3_INTERNAL_ENGINE,
   JSON.stringify(report?.sourceTierSummary));
 check('authority source thresholds default to observation mode',
   report?.minAuthorityTruthEligibleFragmentThreshold === 0 &&
