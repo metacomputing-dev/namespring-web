@@ -1,0 +1,441 @@
+{
+  "schemaVersion": "spring-ts.narrative-fragment-bundle.v1",
+  "bundleId": "coverage.romance-plain-season-context.20260503",
+  "contractVersion": "1.0.0",
+  "fragments": [
+    {
+      "schemaVersion": "spring-ts.narrative-fragment.v1",
+      "fragmentId": "romance.life.brief.currentseason.spring_summer.301",
+      "axis": { "category": "romance", "period": "life", "depth": "brief" },
+      "gating": { "currentSeason": ["spring", "summer"] },
+      "templateTokens": [
+        { "kind": "text", "value": "관계에서는 마음을 빨리 보여 주고 함께 움직일 때 잘 풀리는 흐름이 있어요. 다만 속도보다 서로 편한 리듬을 먼저 맞추는 것이 중요해요." }
+      ],
+      "tags": [],
+      "aiGenerated": true,
+      "sourceTier": {
+        "tier": "T1_HYPOTHESIS",
+        "sourceType": "training_derived",
+        "sourceUrl": null,
+        "accessedAt": "2026-05-03",
+        "quoteShort": null,
+        "humanInterpretation": "Plain romance life brief for spring/summer current season. AI-derived display text; not authority truth.",
+        "copyrightNote": "No source prose copied; original phrasing.",
+        "authorityTruthEligible": false
+      }
+    },
+    {
+      "schemaVersion": "spring-ts.narrative-fragment.v1",
+      "fragmentId": "romance.life.brief.currentseason.autumn_winter.301",
+      "axis": { "category": "romance", "period": "life", "depth": "brief" },
+      "gating": { "currentSeason": ["autumn", "winter"] },
+      "templateTokens": [
+        { "kind": "text", "value": "관계에서는 오래 보고 천천히 믿음을 쌓을 때 안정감이 커져요. 급하게 결론을 내리기보다 약속을 꾸준히 지키는 태도가 도움이 돼요." }
+      ],
+      "tags": [],
+      "aiGenerated": true,
+      "sourceTier": {
+        "tier": "T1_HYPOTHESIS",
+        "sourceType": "training_derived",
+        "sourceUrl": null,
+        "accessedAt": "2026-05-03",
+        "quoteShort": null,
+        "humanInterpretation": "Plain romance life brief for autumn/winter current season. AI-derived display text; not authority truth.",
+        "copyrightNote": "No source prose copied; original phrasing.",
+        "authorityTruthEligible": false
+      }
+    },
+    {
+      "schemaVersion": "spring-ts.narrative-fragment.v1",
+      "fragmentId": "romance.life.standard.currentseason.spring_summer.301",
+      "axis": { "category": "romance", "period": "life", "depth": "standard" },
+      "gating": { "currentSeason": ["spring", "summer"] },
+      "templateTokens": [
+        { "kind": "text", "value": "인연을 만들고 이어 가는 방식이 비교적 적극적인 편이에요. 관심이 생기면 먼저 표현하거나 만남을 제안하는 힘이 살아납니다. 대신 마음이 빨리 움직이는 만큼, 상대도 같은 속도인지 확인하면 관계가 더 편안해져요." }
+      ],
+      "livingTips": [
+        "좋아하는 마음을 표현할 때는 상대가 답할 시간을 함께 주세요.",
+        "새로운 만남은 즐겁게 열어 두되, 중요한 약속은 한 번 더 확인하세요."
+      ],
+      "cautions": [
+        "분위기가 좋다는 이유만으로 관계의 단계를 너무 빨리 정하지 마세요."
+      ],
+      "tags": [],
+      "aiGenerated": true,
+      "sourceTier": {
+        "tier": "T1_HYPOTHESIS",
+        "sourceType": "training_derived",
+        "sourceUrl": null,
+        "accessedAt": "2026-05-03",
+        "quoteShort": null,
+        "humanInterpretation": "Plain romance life standard for spring/summer current season. AI-derived display text; not authority truth.",
+        "copyrightNote": "No source prose copied; original phrasing.",
+        "authorityTruthEligible": false
+      }
+    },
+    {
+      "schemaVersion": "spring-ts.narrative-fragment.v1",
+      "fragmentId": "romance.life.standard.currentseason.autumn_winter.301",
+      "axis": { "category": "romance", "period": "life", "depth": "standard" },
+      "gating": { "currentSeason": ["autumn", "winter"] },
+      "templateTokens": [
+        { "kind": "text", "value": "인연을 오래 지켜보며 믿음을 쌓는 방식이 잘 맞아요. 화려한 표현보다 약속을 지키고 일상을 함께 정리하는 태도가 관계를 단단하게 만듭니다. 마음이 늦게 열릴 수 있지만, 한 번 안정되면 쉽게 흔들리지 않는 장점이 있어요." }
+      ],
+      "livingTips": [
+        "상대의 말보다 반복되는 행동을 천천히 살펴보세요.",
+        "관계를 이어 가고 싶다면 작은 약속을 꾸준히 지키는 것이 좋습니다."
+      ],
+      "cautions": [
+        "조심스러운 태도가 지나치면 상대가 마음을 알기 어려울 수 있어요."
+      ],
+      "tags": [],
+      "aiGenerated": true,
+      "sourceTier": {
+        "tier": "T1_HYPOTHESIS",
+        "sourceType": "training_derived",
+        "sourceUrl": null,
+        "accessedAt": "2026-05-03",
+        "quoteShort": null,
+        "humanInterpretation": "Plain romance life standard for autumn/winter current season. AI-derived display text; not authority truth.",
+        "copyrightNote": "No source prose copied; original phrasing.",
+        "authorityTruthEligible": false
+      }
+    },
+    {
+      "schemaVersion": "spring-ts.narrative-fragment.v1",
+      "fragmentId": "romance.today.brief.currentseason.spring_summer.301",
+      "axis": { "category": "romance", "period": "today", "depth": "brief" },
+      "gating": { "currentSeason": ["spring", "summer"] },
+      "templateTokens": [
+        { "kind": "text", "value": "오늘은 먼저 다가가거나 가볍게 대화를 열기 좋은 날이에요. 다만 기대를 너무 빨리 키우지 않으면 더 편안하게 이어질 수 있어요." }
+      ],
+      "tags": [],
+      "aiGenerated": true,
+      "sourceTier": {
+        "tier": "T1_HYPOTHESIS",
+        "sourceType": "training_derived",
+        "sourceUrl": null,
+        "accessedAt": "2026-05-03",
+        "quoteShort": null,
+        "humanInterpretation": "Plain romance today brief for spring/summer current season. AI-derived display text; not authority truth.",
+        "copyrightNote": "No source prose copied; original phrasing.",
+        "authorityTruthEligible": false
+      }
+    },
+    {
+      "schemaVersion": "spring-ts.narrative-fragment.v1",
+      "fragmentId": "romance.today.brief.currentseason.autumn_winter.301",
+      "axis": { "category": "romance", "period": "today", "depth": "brief" },
+      "gating": { "currentSeason": ["autumn", "winter"] },
+      "templateTokens": [
+        { "kind": "text", "value": "오늘은 말보다 태도가 더 크게 보일 수 있어요. 급하게 확인하려 하기보다 작은 배려와 약속을 지키는 모습이 도움이 됩니다." }
+      ],
+      "tags": [],
+      "aiGenerated": true,
+      "sourceTier": {
+        "tier": "T1_HYPOTHESIS",
+        "sourceType": "training_derived",
+        "sourceUrl": null,
+        "accessedAt": "2026-05-03",
+        "quoteShort": null,
+        "humanInterpretation": "Plain romance today brief for autumn/winter current season. AI-derived display text; not authority truth.",
+        "copyrightNote": "No source prose copied; original phrasing.",
+        "authorityTruthEligible": false
+      }
+    },
+    {
+      "schemaVersion": "spring-ts.narrative-fragment.v1",
+      "fragmentId": "romance.today.standard.currentseason.spring_summer.301",
+      "axis": { "category": "romance", "period": "today", "depth": "standard" },
+      "gating": { "currentSeason": ["spring", "summer"] },
+      "templateTokens": [
+        { "kind": "text", "value": "오늘은 대화가 빠르게 열리고 마음도 쉽게 움직일 수 있어요. 새로운 만남이나 연락을 시작하기에는 가벼운 분위기가 좋습니다. 대신 한 번의 반응으로 관계를 다 판단하지 말고, 오늘은 편하게 시작하는 데 의미를 두세요." }
+      ],
+      "livingTips": [
+        "먼저 연락한다면 짧고 부담 없는 질문으로 시작하세요.",
+        "만남이 있다면 계획을 너무 빡빡하게 잡지 않는 것이 좋습니다."
+      ],
+      "cautions": [
+        "상대의 즉각적인 반응이 느리다고 마음이 없다고 단정하지 마세요."
+      ],
+      "tags": [],
+      "aiGenerated": true,
+      "sourceTier": {
+        "tier": "T1_HYPOTHESIS",
+        "sourceType": "training_derived",
+        "sourceUrl": null,
+        "accessedAt": "2026-05-03",
+        "quoteShort": null,
+        "humanInterpretation": "Plain romance today standard for spring/summer current season. AI-derived display text; not authority truth.",
+        "copyrightNote": "No source prose copied; original phrasing.",
+        "authorityTruthEligible": false
+      }
+    },
+    {
+      "schemaVersion": "spring-ts.narrative-fragment.v1",
+      "fragmentId": "romance.today.standard.currentseason.autumn_winter.301",
+      "axis": { "category": "romance", "period": "today", "depth": "standard" },
+      "gating": { "currentSeason": ["autumn", "winter"] },
+      "templateTokens": [
+        { "kind": "text", "value": "오늘은 조용한 신뢰가 더 중요해지는 날이에요. 마음을 크게 표현하기보다 늦지 않게 답하고 약속을 지키는 모습이 좋은 인상을 남깁니다. 대화가 무거워질 때는 결론을 서두르지 말고 서로의 입장을 정리해 보세요." }
+      ],
+      "livingTips": [
+        "답장을 늦게 해야 한다면 이유를 짧게 알려 주세요.",
+        "중요한 이야기는 감정이 가라앉은 뒤 차분히 꺼내는 것이 좋습니다."
+      ],
+      "cautions": [
+        "확인하고 싶은 마음이 커져도 질문을 몰아서 하지 마세요."
+      ],
+      "tags": [],
+      "aiGenerated": true,
+      "sourceTier": {
+        "tier": "T1_HYPOTHESIS",
+        "sourceType": "training_derived",
+        "sourceUrl": null,
+        "accessedAt": "2026-05-03",
+        "quoteShort": null,
+        "humanInterpretation": "Plain romance today standard for autumn/winter current season. AI-derived display text; not authority truth.",
+        "copyrightNote": "No source prose copied; original phrasing.",
+        "authorityTruthEligible": false
+      }
+    },
+    {
+      "schemaVersion": "spring-ts.narrative-fragment.v1",
+      "fragmentId": "romance.thisWeek.brief.currentseason.spring_summer.301",
+      "axis": { "category": "romance", "period": "thisWeek", "depth": "brief" },
+      "gating": { "currentSeason": ["spring", "summer"] },
+      "templateTokens": [
+        { "kind": "text", "value": "이번 주는 만남이나 연락의 흐름이 비교적 가볍게 열릴 수 있어요. 먼저 분위기를 만들되, 상대의 속도도 함께 살피면 좋아요." }
+      ],
+      "tags": [],
+      "aiGenerated": true,
+      "sourceTier": {
+        "tier": "T1_HYPOTHESIS",
+        "sourceType": "training_derived",
+        "sourceUrl": null,
+        "accessedAt": "2026-05-03",
+        "quoteShort": null,
+        "humanInterpretation": "Plain romance weekly brief for spring/summer current season. AI-derived display text; not authority truth.",
+        "copyrightNote": "No source prose copied; original phrasing.",
+        "authorityTruthEligible": false
+      }
+    },
+    {
+      "schemaVersion": "spring-ts.narrative-fragment.v1",
+      "fragmentId": "romance.thisWeek.brief.currentseason.autumn_winter.301",
+      "axis": { "category": "romance", "period": "thisWeek", "depth": "brief" },
+      "gating": { "currentSeason": ["autumn", "winter"] },
+      "templateTokens": [
+        { "kind": "text", "value": "이번 주는 천천히 믿음을 쌓는 쪽이 더 잘 맞아요. 큰 말보다 작은 약속을 지키는 모습이 관계를 안정시켜 줍니다." }
+      ],
+      "tags": [],
+      "aiGenerated": true,
+      "sourceTier": {
+        "tier": "T1_HYPOTHESIS",
+        "sourceType": "training_derived",
+        "sourceUrl": null,
+        "accessedAt": "2026-05-03",
+        "quoteShort": null,
+        "humanInterpretation": "Plain romance weekly brief for autumn/winter current season. AI-derived display text; not authority truth.",
+        "copyrightNote": "No source prose copied; original phrasing.",
+        "authorityTruthEligible": false
+      }
+    },
+    {
+      "schemaVersion": "spring-ts.narrative-fragment.v1",
+      "fragmentId": "romance.thisMonth.brief.currentseason.spring_summer.301",
+      "axis": { "category": "romance", "period": "thisMonth", "depth": "brief" },
+      "gating": { "currentSeason": ["spring", "summer"] },
+      "templateTokens": [
+        { "kind": "text", "value": "이번 달은 새로운 만남이나 대화가 생기기 쉬운 흐름이에요. 즐겁게 열어 두되, 중요한 결정은 조금 천천히 해도 괜찮아요." }
+      ],
+      "tags": [],
+      "aiGenerated": true,
+      "sourceTier": {
+        "tier": "T1_HYPOTHESIS",
+        "sourceType": "training_derived",
+        "sourceUrl": null,
+        "accessedAt": "2026-05-03",
+        "quoteShort": null,
+        "humanInterpretation": "Plain romance monthly brief for spring/summer current season. AI-derived display text; not authority truth.",
+        "copyrightNote": "No source prose copied; original phrasing.",
+        "authorityTruthEligible": false
+      }
+    },
+    {
+      "schemaVersion": "spring-ts.narrative-fragment.v1",
+      "fragmentId": "romance.thisMonth.brief.currentseason.autumn_winter.301",
+      "axis": { "category": "romance", "period": "thisMonth", "depth": "brief" },
+      "gating": { "currentSeason": ["autumn", "winter"] },
+      "templateTokens": [
+        { "kind": "text", "value": "이번 달은 관계를 차분히 정리하고 믿음을 확인하기 좋아요. 자주 만나는 것보다 꾸준히 마음을 보여 주는 방식이 잘 맞습니다." }
+      ],
+      "tags": [],
+      "aiGenerated": true,
+      "sourceTier": {
+        "tier": "T1_HYPOTHESIS",
+        "sourceType": "training_derived",
+        "sourceUrl": null,
+        "accessedAt": "2026-05-03",
+        "quoteShort": null,
+        "humanInterpretation": "Plain romance monthly brief for autumn/winter current season. AI-derived display text; not authority truth.",
+        "copyrightNote": "No source prose copied; original phrasing.",
+        "authorityTruthEligible": false
+      }
+    },
+    {
+      "schemaVersion": "spring-ts.narrative-fragment.v1",
+      "fragmentId": "romance.thisMonth.standard.currentseason.spring_summer.301",
+      "axis": { "category": "romance", "period": "thisMonth", "depth": "standard" },
+      "gating": { "currentSeason": ["spring", "summer"] },
+      "templateTokens": [
+        { "kind": "text", "value": "이번 달은 사람을 만나고 마음을 표현하는 일이 조금 더 쉬워질 수 있어요. 새로운 인연을 만들거나 관계에 활기를 넣기 좋은 흐름입니다. 다만 빠르게 가까워지는 만큼 서로의 기대가 다른지 확인해야 오래 편안합니다." }
+      ],
+      "livingTips": [
+        "만남을 제안할 때는 상대가 고르기 쉬운 선택지를 두세 개만 주세요.",
+        "관계가 좋아 보여도 큰 약속은 서로의 생활 리듬을 확인한 뒤 정하세요."
+      ],
+      "cautions": [
+        "설레는 분위기만 보고 관계의 안정성까지 확정하지 마세요."
+      ],
+      "tags": [],
+      "aiGenerated": true,
+      "sourceTier": {
+        "tier": "T1_HYPOTHESIS",
+        "sourceType": "training_derived",
+        "sourceUrl": null,
+        "accessedAt": "2026-05-03",
+        "quoteShort": null,
+        "humanInterpretation": "Plain romance monthly standard for spring/summer current season. AI-derived display text; not authority truth.",
+        "copyrightNote": "No source prose copied; original phrasing.",
+        "authorityTruthEligible": false
+      }
+    },
+    {
+      "schemaVersion": "spring-ts.narrative-fragment.v1",
+      "fragmentId": "romance.thisMonth.standard.currentseason.autumn_winter.301",
+      "axis": { "category": "romance", "period": "thisMonth", "depth": "standard" },
+      "gating": { "currentSeason": ["autumn", "winter"] },
+      "templateTokens": [
+        { "kind": "text", "value": "이번 달은 관계를 깊게 살피고 오래 갈 수 있는지 확인하기 좋은 흐름이에요. 말보다 반복되는 행동과 약속이 더 중요하게 느껴질 수 있습니다. 새롭게 시작하기보다 이미 있는 관계를 정돈하거나 신뢰를 쌓는 데 힘을 쓰면 좋아요." }
+      ],
+      "livingTips": [
+        "중요한 약속은 날짜와 시간을 분명히 남겨 두세요.",
+        "서운한 점이 있다면 바로 몰아붙이기보다 차분히 정리해 말하세요."
+      ],
+      "cautions": [
+        "확신이 늦게 온다고 해서 관계가 나쁜 것은 아니니 시간을 두고 보세요."
+      ],
+      "tags": [],
+      "aiGenerated": true,
+      "sourceTier": {
+        "tier": "T1_HYPOTHESIS",
+        "sourceType": "training_derived",
+        "sourceUrl": null,
+        "accessedAt": "2026-05-03",
+        "quoteShort": null,
+        "humanInterpretation": "Plain romance monthly standard for autumn/winter current season. AI-derived display text; not authority truth.",
+        "copyrightNote": "No source prose copied; original phrasing.",
+        "authorityTruthEligible": false
+      }
+    },
+    {
+      "schemaVersion": "spring-ts.narrative-fragment.v1",
+      "fragmentId": "romance.thisYear.brief.currentseason.spring_summer.301",
+      "axis": { "category": "romance", "period": "thisYear", "depth": "brief" },
+      "gating": { "currentSeason": ["spring", "summer"] },
+      "templateTokens": [
+        { "kind": "text", "value": "올해는 인연을 넓히고 마음을 표현할 기회가 늘 수 있어요. 좋은 흐름을 살리되, 관계의 속도는 서로 맞춰 가는 것이 좋아요." }
+      ],
+      "tags": [],
+      "aiGenerated": true,
+      "sourceTier": {
+        "tier": "T1_HYPOTHESIS",
+        "sourceType": "training_derived",
+        "sourceUrl": null,
+        "accessedAt": "2026-05-03",
+        "quoteShort": null,
+        "humanInterpretation": "Plain romance yearly brief for spring/summer current season. AI-derived display text; not authority truth.",
+        "copyrightNote": "No source prose copied; original phrasing.",
+        "authorityTruthEligible": false
+      }
+    },
+    {
+      "schemaVersion": "spring-ts.narrative-fragment.v1",
+      "fragmentId": "romance.thisYear.brief.currentseason.autumn_winter.301",
+      "axis": { "category": "romance", "period": "thisYear", "depth": "brief" },
+      "gating": { "currentSeason": ["autumn", "winter"] },
+      "templateTokens": [
+        { "kind": "text", "value": "올해는 관계를 오래 보고 믿음을 쌓는 흐름이 중요해요. 겉으로 빠르게 뜨거워지는 것보다 꾸준히 안정되는 관계가 더 잘 맞습니다." }
+      ],
+      "tags": [],
+      "aiGenerated": true,
+      "sourceTier": {
+        "tier": "T1_HYPOTHESIS",
+        "sourceType": "training_derived",
+        "sourceUrl": null,
+        "accessedAt": "2026-05-03",
+        "quoteShort": null,
+        "humanInterpretation": "Plain romance yearly brief for autumn/winter current season. AI-derived display text; not authority truth.",
+        "copyrightNote": "No source prose copied; original phrasing.",
+        "authorityTruthEligible": false
+      }
+    },
+    {
+      "schemaVersion": "spring-ts.narrative-fragment.v1",
+      "fragmentId": "romance.thisYear.standard.currentseason.spring_summer.301",
+      "axis": { "category": "romance", "period": "thisYear", "depth": "standard" },
+      "gating": { "currentSeason": ["spring", "summer"] },
+      "templateTokens": [
+        { "kind": "text", "value": "올해는 만남의 폭을 넓히고 관계에 활기를 넣기 좋은 흐름이 있습니다. 새로운 사람을 만나거나 기존 관계에 변화를 주고 싶다면, 너무 무겁게 시작하기보다 자연스럽게 대화를 늘려 보세요. 다만 설렘이 커질수록 서로 원하는 관계의 모습이 같은지 확인하는 과정이 필요합니다." }
+      ],
+      "livingTips": [
+        "새로운 인연은 부담 없는 모임이나 취미 활동에서 시작해 보세요.",
+        "관계가 빨리 가까워질 때일수록 기대와 경계를 부드럽게 말해 두세요."
+      ],
+      "cautions": [
+        "올해의 설렘을 한 사람이나 한 사건에만 전부 걸지 마세요."
+      ],
+      "tags": [],
+      "aiGenerated": true,
+      "sourceTier": {
+        "tier": "T1_HYPOTHESIS",
+        "sourceType": "training_derived",
+        "sourceUrl": null,
+        "accessedAt": "2026-05-03",
+        "quoteShort": null,
+        "humanInterpretation": "Plain romance yearly standard for spring/summer current season. AI-derived display text; not authority truth.",
+        "copyrightNote": "No source prose copied; original phrasing.",
+        "authorityTruthEligible": false
+      }
+    },
+    {
+      "schemaVersion": "spring-ts.narrative-fragment.v1",
+      "fragmentId": "romance.thisYear.standard.currentseason.autumn_winter.301",
+      "axis": { "category": "romance", "period": "thisYear", "depth": "standard" },
+      "gating": { "currentSeason": ["autumn", "winter"] },
+      "templateTokens": [
+        { "kind": "text", "value": "올해는 관계의 깊이와 신뢰를 천천히 확인하는 흐름이 강합니다. 화려한 변화보다 오래 지킬 수 있는 약속, 편안한 대화, 생활 리듬의 맞음이 더 중요해질 수 있어요. 관계를 시작하거나 정리할 때도 급하게 결론을 내리기보다 시간을 두고 마음을 확인하세요." }
+      ],
+      "livingTips": [
+        "중요한 관계일수록 자주 확인하기보다 꾸준히 행동으로 보여 주세요.",
+        "미래 이야기는 부담스럽게 밀어붙이지 말고 현실적인 계획부터 나누세요."
+      ],
+      "cautions": [
+        "확신을 얻고 싶어서 상대를 시험하는 방식은 피하는 것이 좋습니다."
+      ],
+      "tags": [],
+      "aiGenerated": true,
+      "sourceTier": {
+        "tier": "T1_HYPOTHESIS",
+        "sourceType": "training_derived",
+        "sourceUrl": null,
+        "accessedAt": "2026-05-03",
+        "quoteShort": null,
+        "humanInterpretation": "Plain romance yearly standard for autumn/winter current season. AI-derived display text; not authority truth.",
+        "copyrightNote": "No source prose copied; original phrasing.",
+        "authorityTruthEligible": false
+      }
+    }
+  ]
+}
