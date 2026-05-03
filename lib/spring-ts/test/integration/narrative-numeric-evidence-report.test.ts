@@ -89,10 +89,18 @@ check('expert bundle evidence gap records obey --max-top-rows',
       typeof row.file === 'string' &&
       typeof row.bundleId === 'string' &&
       typeof row.expertFragmentCount === 'number' &&
-      typeof row.numericalEvidenceRecordCount === 'number'),
+    typeof row.numericalEvidenceRecordCount === 'number'),
   `${report?.expertBundlesWithoutNumericalEvidence?.length ?? 0}/${report?.totals?.expertBundlesWithoutNumericalEvidenceCount ?? 0}`);
+check('seed placeholder bundle is excluded from default expert evidence gap',
+  report?.totals?.expertBundlesWithoutNumericalEvidenceCount === 0 &&
+    report?.totals?.expertBundlesExcludedFromNumericalEvidenceGapCount === 1 &&
+    Array.isArray(report?.expertBundlesExcludedFromNumericalEvidenceGap) &&
+    report.expertBundlesExcludedFromNumericalEvidenceGap.length === 1 &&
+    report.expertBundlesExcludedFromNumericalEvidenceGap[0]?.file === 'data/narrative/_seed/placeholder.fragments.json',
+  `${report?.totals?.expertBundlesWithoutNumericalEvidenceCount ?? ''}/${report?.totals?.expertBundlesExcludedFromNumericalEvidenceGapCount ?? ''}`);
 check('thresholds default to observation mode',
   report?.minExpressionUsageThreshold === 1 &&
+  report?.includeSeedPlaceholderBundles === false &&
   report?.maxUnknownExpressionThreshold === null &&
     report?.maxUnusedAvailablePathThreshold === null &&
     report?.maxThinAvailablePathThreshold === null &&
@@ -147,6 +155,7 @@ check('unused available path threshold excess is machine readable',
 const expertBundleGapGate = spawnSync('node', [
   SCRIPT_PATH,
   '--json',
+  '--include-seed-placeholder-bundles',
   '--max-top-rows=3',
   '--max-expert-bundles-without-numerical-evidence=0',
 ], {
@@ -155,8 +164,9 @@ const expertBundleGapGate = spawnSync('node', [
 });
 const expertBundleGapGateReport = JSON.parse(expertBundleGapGate.stdout);
 check('expert bundle numerical evidence gap threshold can fail CI intentionally',
-  expertBundleGapGate.status === 1 &&
+    expertBundleGapGate.status === 1 &&
     expertBundleGapGate.stderr.includes('expert bundles without numericalEvidence') &&
+    expertBundleGapGateReport?.includeSeedPlaceholderBundles === true &&
     expertBundleGapGateReport?.maxExpertBundlesWithoutNumericalEvidenceThreshold === 0 &&
     expertBundleGapGateReport?.totals?.expertBundlesWithoutNumericalEvidenceCount > 0,
   `status=${expertBundleGapGate.status}; stderr=${expertBundleGapGate.stderr.trim()}`);
