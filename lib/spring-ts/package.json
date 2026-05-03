@@ -96,7 +96,7 @@
     "ci:narrative-density": "node tools/narrative_axis_pair_report.mjs --min-authored=2 --max-thin-combinations=0 --max-missing-combinations=0",
     "ci:narrative-tuple-density": "node tools/narrative_axis_tuple_report.mjs --min-authored=2 --max-thin-combinations=0 --max-missing-combinations=0",
     "ci:narrative-daymaster-tuple-density": "node tools/narrative_axis_tuple_report.mjs --tuples=dayMasterElement:yongshinElement:dayMasterStrength --min-authored=2 --max-thin-combinations=0 --max-missing-combinations=0",
-    "ci:narrative-cell-axis": "node tools/narrative_cell_axis_report.mjs --max-missing-audience-cells=0 --max-missing-saju-core-cells=0 --max-missing-season-context-cells=127",
+    "ci:narrative-cell-axis": "node tools/narrative_cell_axis_report.mjs --max-missing-audience-cells=0 --max-missing-saju-core-cells=0 --max-missing-season-context-cells=119",
     "ci:narrative-voice": "node tools/narrative_voice_audit.mjs --max-plain-term-violations=0 --max-plain-tag-violations=0 --max-expert-untagged=0",
     "ingest:unihan": "npx tsx scripts/ingest-unihan.ts",
     "capture:oracles": "node tools/capture_saju_master_runs.mjs",
