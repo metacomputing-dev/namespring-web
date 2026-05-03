@@ -1,0 +1,61 @@
+{
+  "schemaVersion": "spring-ts.narrative-fragment-bundle.v1",
+  "bundleId": "coverage.romance-year-expert-season-context.20260503",
+  "contractVersion": "1.0.0",
+  "fragments": [
+    {
+      "schemaVersion": "spring-ts.narrative-fragment.v1",
+      "fragmentId": "romance.thisYear.expert.currentseason.spring_summer.301",
+      "axis": { "category": "romance", "period": "thisYear", "depth": "expert" },
+      "gating": { "currentSeason": ["spring", "summer"], "yongshinAlignment": ["aligned", "neutral", "conflicting"] },
+      "templateTokens": [
+        { "kind": "text", "value": "연간 연애운에서 봄과 여름의 현재 계절은 관계 진입과 표현의 속도를 높입니다. " },
+        { "kind": "tag", "tagId": "baeujagung", "label": "배우자궁" },
+        { "kind": "text", "value": "의 안정도가 받쳐 주면 만남이 실제 관계로 이어지기 쉽고, " },
+        { "kind": "tag", "tagId": "sajuCompatibility", "label": "사주적합도" },
+        { "kind": "text", "value": "가 낮으면 빠른 호감 이후 조율 비용이 커질 수 있습니다. " },
+        { "kind": "tag", "tagId": "eumyangHarmony", "label": "음양조화도" },
+        { "kind": "text", "value": "를 함께 보아 올해의 관계 확장과 장기 안정성을 분리해 판단하세요." }
+      ],
+      "tags": ["baeujagung", "sajuCompatibility", "eumyangHarmony"],
+      "aiGenerated": true,
+      "sourceTier": {
+        "tier": "T1_HYPOTHESIS",
+        "sourceType": "training_derived",
+        "sourceUrl": null,
+        "accessedAt": "2026-05-03",
+        "quoteShort": null,
+        "humanInterpretation": "Expert romance yearly narrative for spring/summer current season. AI-derived display text; not authority truth.",
+        "copyrightNote": "No source prose copied; original phrasing.",
+        "authorityTruthEligible": false
+      }
+    },
+    {
+      "schemaVersion": "spring-ts.narrative-fragment.v1",
+      "fragmentId": "romance.thisYear.expert.currentseason.autumn_winter.301",
+      "axis": { "category": "romance", "period": "thisYear", "depth": "expert" },
+      "gating": { "currentSeason": ["autumn", "winter"], "yongshinAlignment": ["aligned", "neutral", "conflicting"] },
+      "templateTokens": [
+        { "kind": "text", "value": "연간 연애운에서 가을과 겨울의 현재 계절은 새 인연의 속도보다 관계 검증과 유지력을 중시합니다. " },
+        { "kind": "tag", "tagId": "baeujagung", "label": "배우자궁" },
+        { "kind": "text", "value": "의 흔들림은 장기 약속의 부담으로 나타날 수 있으므로, " },
+        { "kind": "tag", "tagId": "sajuCompatibility", "label": "사주적합도" },
+        { "kind": "text", "value": "와 생활 리듬의 충돌 여부를 먼저 보아야 합니다. " },
+        { "kind": "tag", "tagId": "eumyangHarmony", "label": "음양조화도" },
+        { "kind": "text", "value": "가 안정적이면 느린 관계도 올해 안에 신뢰로 굳어질 수 있습니다." }
+      ],
+      "tags": ["baeujagung", "sajuCompatibility", "eumyangHarmony"],
+      "aiGenerated": true,
+      "sourceTier": {
+        "tier": "T1_HYPOTHESIS",
+        "sourceType": "training_derived",
+        "sourceUrl": null,
+        "accessedAt": "2026-05-03",
+        "quoteShort": null,
+        "humanInterpretation": "Expert romance yearly narrative for autumn/winter current season. AI-derived display text; not authority truth.",
+        "copyrightNote": "No source prose copied; original phrasing.",
+        "authorityTruthEligible": false
+      }
+    }
+  ]
+}
