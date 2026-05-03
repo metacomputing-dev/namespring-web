@@ -67,14 +67,22 @@ check('cell count rows obey --max-top-rows',
     report.cellCounts.every((row: any) => typeof row.key === 'string' && typeof row.count === 'number'),
   String(report?.cellCounts?.length ?? 0));
 check('thresholds default to observation mode',
+  report?.minExpressionUsageThreshold === 1 &&
   report?.maxUnknownExpressionThreshold === null &&
     report?.maxUnusedAvailablePathThreshold === null &&
+    report?.maxThinAvailablePathThreshold === null &&
     report?.totals?.unknownExpressionExcessToThreshold === 0 &&
-    report?.totals?.unusedAvailablePathExcessToThreshold === 0,
+    report?.totals?.unusedAvailablePathExcessToThreshold === 0 &&
+    report?.totals?.thinAvailablePathExcessToThreshold === 0,
   JSON.stringify({
+    minUsage: report?.minExpressionUsageThreshold,
     unknown: report?.maxUnknownExpressionThreshold,
     unused: report?.maxUnusedAvailablePathThreshold,
+    thin: report?.maxThinAvailablePathThreshold,
   }));
+check('thin available path records are machine readable',
+  Array.isArray(report?.thinAvailablePaths) &&
+    report.thinAvailablePaths.length === 0);
 
 const unknownGate = spawnSync('node', [
   SCRIPT_PATH,
@@ -107,6 +115,32 @@ check('unused available path threshold excess is machine readable',
   unusedGateReport?.totals?.unusedAvailablePathExcessToThreshold === 0 &&
     unusedGateReport?.totals?.unusedAvailablePathCount === 0,
   `${unusedGateReport?.totals?.unusedAvailablePathExcessToThreshold ?? 0}/${unusedGateReport?.totals?.unusedAvailablePathCount ?? 0}`);
+
+const thinGate = spawnSync('node', [
+  SCRIPT_PATH,
+  '--json',
+  '--min-expression-usage=2',
+  '--max-thin-available-paths=0',
+], {
+  cwd: SPRING_TS_ROOT,
+  encoding: 'utf-8',
+});
+const thinGateReport = JSON.parse(thinGate.stdout);
+check('thin available path threshold can fail CI intentionally',
+  thinGate.status === 1 &&
+    thinGate.stderr.includes('thin available numeric paths') &&
+    thinGateReport?.minExpressionUsageThreshold === 2 &&
+    thinGateReport?.maxThinAvailablePathThreshold === 0,
+  `status=${thinGate.status}; stderr=${thinGate.stderr.trim()}`);
+check('thin available path threshold excess is machine readable',
+  thinGateReport?.totals?.thinAvailablePathExcessToThreshold ===
+    thinGateReport?.totals?.thinAvailablePathCount &&
+    thinGateReport?.thinAvailablePaths?.every((row: any) =>
+      typeof row.expression === 'string' &&
+      typeof row.count === 'number' &&
+      typeof row.requiredCount === 'number' &&
+      typeof row.deficit === 'number'),
+  `${thinGateReport?.totals?.thinAvailablePathExcessToThreshold ?? 0}/${thinGateReport?.totals?.thinAvailablePathCount ?? 0}`);
 
 console.log(`\nNarrative numeric evidence report: ${pass} PASS / ${fail} FAIL`);
 process.exit(fail > 0 ? 1 : 0);
