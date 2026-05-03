@@ -58,8 +58,16 @@ check('commercial blockers include authority truth blockers without density warn
   Array.isArray(report?.commercialReadiness?.blockers) &&
     report.commercialReadiness.blockers.some((row: any) => row.id === 'no_authority_truth_fragments' && row.severity === 'blocker') &&
     report.commercialReadiness.blockers.some((row: any) => row.id === 'zero_authority_cells' && row.severity === 'blocker') &&
+    !report.commercialReadiness.blockers.some((row: any) => row.id === 'invalid_reference_authority_intake') &&
     !report.commercialReadiness.blockers.some((row: any) => row.id === 'thin_expert_axis_values'),
   JSON.stringify(report?.commercialReadiness?.blockers));
+check('reference authority intake is surfaced in readiness report',
+  report?.authorityIntake?.status === 'PASS' &&
+    report?.authorityIntake?.flatCaseCount === 0 &&
+    report?.authorityIntake?.violationCount === 0 &&
+    report?.metrics?.referenceAuthorityFlatCaseCount === report?.authorityIntake?.flatCaseCount &&
+    report?.metrics?.referenceAuthorityIntakeViolationCount === report?.authorityIntake?.violationCount,
+  JSON.stringify(report?.authorityIntake));
 check('metrics expose current launch blockers',
   report?.metrics?.populatedCells === report?.metrics?.expectedCells &&
     report?.metrics?.expertInternalEvidenceBackedCells === report?.metrics?.expertCellCount &&
@@ -91,7 +99,8 @@ check('paid service gate script is registered',
   typeof packageJson?.scripts?.['service:readiness:paid-gate'] === 'string' &&
     packageJson.scripts['service:readiness:paid-gate'].includes('--max-thin-expert-axis-values=0') &&
     packageJson.scripts['service:readiness:paid-gate'].includes('--min-authority-fragments=1') &&
-    packageJson.scripts['service:readiness:paid-gate'].includes('--max-zero-authority-cells=0'),
+    packageJson.scripts['service:readiness:paid-gate'].includes('--max-zero-authority-cells=0') &&
+    packageJson.scripts['service:readiness:paid-gate'].includes('--max-reference-authority-intake-violations=0'),
   packageJson?.scripts?.['service:readiness:paid-gate']);
 
 const strictGate = spawnSync('node', [
@@ -101,6 +110,7 @@ const strictGate = spawnSync('node', [
   '--min-authority-fragments=1',
   '--min-authority-numerical-evidence=1',
   '--max-zero-authority-cells=0',
+  '--max-reference-authority-intake-violations=0',
 ], {
   cwd: SPRING_TS_ROOT,
   encoding: 'utf-8',
@@ -119,7 +129,9 @@ check('strict threshold deficits remain machine readable',
     strictReport?.thresholds?.minAuthorityTruthEligibleFragments === 1 &&
     strictReport?.thresholds?.minAuthorityTruthEligibleNumericalEvidence === 1 &&
     strictReport?.thresholds?.maxZeroAuthorityCells === 0 &&
+    strictReport?.thresholds?.maxReferenceAuthorityIntakeViolations === 0 &&
     strictReport?.metrics?.thinExpertAxisValueCount === 0 &&
+    strictReport?.metrics?.referenceAuthorityIntakeViolationCount === 0 &&
     strictReport?.metrics?.zeroAuthorityCellCount > 0,
   JSON.stringify({ thresholds: strictReport?.thresholds, metrics: strictReport?.metrics }));
 
