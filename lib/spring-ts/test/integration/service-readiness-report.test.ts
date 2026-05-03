@@ -36,8 +36,8 @@ const report = JSON.parse(stdout);
 check('report schema version is stable',
   report?.schemaVersion === 'spring-ts.service-readiness-report.v1',
   report?.schemaVersion);
-check('frontend handoff is ready with known content gaps',
-  report?.frontendHandoff?.status === 'ready_with_known_content_gaps',
+check('frontend handoff is ready for integration when density gaps are closed',
+  report?.frontendHandoff?.status === 'ready_for_frontend_integration',
   report?.frontendHandoff?.status);
 check('frontend checklist keeps all hard checks passing',
   Array.isArray(report?.frontendHandoff?.checks) &&
@@ -51,11 +51,11 @@ check('frontend next steps are explicit',
 check('commercial status blocks authority claims',
   report?.commercialReadiness?.status === 'blocked_for_authority_claims',
   report?.commercialReadiness?.status);
-check('commercial blockers include authority truth and density warnings',
+check('commercial blockers include authority truth blockers without density warning',
   Array.isArray(report?.commercialReadiness?.blockers) &&
     report.commercialReadiness.blockers.some((row: any) => row.id === 'no_authority_truth_fragments' && row.severity === 'blocker') &&
     report.commercialReadiness.blockers.some((row: any) => row.id === 'zero_authority_cells' && row.severity === 'blocker') &&
-    report.commercialReadiness.blockers.some((row: any) => row.id === 'thin_expert_axis_values' && row.severity === 'warning'),
+    !report.commercialReadiness.blockers.some((row: any) => row.id === 'thin_expert_axis_values'),
   JSON.stringify(report?.commercialReadiness?.blockers));
 check('metrics expose current launch blockers',
   report?.metrics?.populatedCells === report?.metrics?.expectedCells &&
@@ -88,7 +88,7 @@ const strictReport = JSON.parse(strictGate.stdout);
 
 check('strict paid-claim thresholds fail intentionally',
   strictGate.status === 1 &&
-    strictGate.stderr.includes('thin expert axis values') &&
+    !strictGate.stderr.includes('thin expert axis values') &&
     strictGate.stderr.includes('authorityTruthEligible fragments') &&
     strictGate.stderr.includes('authorityTruthEligible numericalEvidence') &&
     strictGate.stderr.includes('zero-authority cells'),
@@ -98,7 +98,7 @@ check('strict threshold deficits remain machine readable',
     strictReport?.thresholds?.minAuthorityTruthEligibleFragments === 1 &&
     strictReport?.thresholds?.minAuthorityTruthEligibleNumericalEvidence === 1 &&
     strictReport?.thresholds?.maxZeroAuthorityCells === 0 &&
-    strictReport?.metrics?.thinExpertAxisValueCount > 0 &&
+    strictReport?.metrics?.thinExpertAxisValueCount === 0 &&
     strictReport?.metrics?.zeroAuthorityCellCount > 0,
   JSON.stringify({ thresholds: strictReport?.thresholds, metrics: strictReport?.metrics }));
 
