@@ -1,0 +1,315 @@
+{
+  "schemaVersion": "spring-ts.narrative-fragment-bundle.v1",
+  "bundleId": "coverage.expert-metal-density-wave.20260503",
+  "contractVersion": "1.0.0",
+  "fragments": [
+    {
+      "schemaVersion": "spring-ts.narrative-fragment.v1",
+      "fragmentId": "wealth.life.expert.daymaster.metal.yongshin.metal.401",
+      "axis": { "category": "wealth", "period": "life", "depth": "expert" },
+      "gating": {
+        "dayMasterElement": ["METAL"],
+        "yongshinElement": ["METAL"]
+      },
+      "templateTokens": [
+        { "kind": "text", "value": "일간과 용신이 모두 금이면 재물 해석에서 기준, 판별, 절제가 같은 방향으로 묶입니다. " },
+        { "kind": "tag", "tagId": "yongshin", "label": "용신" },
+        { "kind": "text", "value": "이 일간의 결단성을 바로 보강하므로 자산 배분은 선명해지지만, " },
+        { "kind": "tag", "tagId": "jeongjae", "label": "정재" },
+        { "kind": "text", "value": "와 " },
+        { "kind": "tag", "tagId": "pyeonjae", "label": "편재" },
+        { "kind": "text", "value": "의 균형을 보지 않으면 지나치게 보수적이거나 단기 수익에만 반응할 수 있습니다." }
+      ],
+      "tags": ["yongshin", "jeongjae", "pyeonjae"],
+      "numericalEvidence": [
+        {
+          "label": "일간 오행 순번",
+          "valueExpression": "feature.dayMasterElementOrdinal",
+          "unit": "ordinal",
+          "sourceTier": {
+            "tier": "T3_INTERNAL_ENGINE",
+            "sourceType": "internal_scoring_policy",
+            "sourceUrl": null,
+            "accessedAt": "2026-05-03",
+            "quoteShort": null,
+            "humanInterpretation": "Resolved from deterministic spring-ts runtime output.",
+            "copyrightNote": "No third-party prose copied.",
+            "authorityTruthEligible": false
+          }
+        },
+        {
+          "label": "용신 오행 순번",
+          "valueExpression": "feature.yongshinElementOrdinal",
+          "unit": "ordinal",
+          "sourceTier": {
+            "tier": "T3_INTERNAL_ENGINE",
+            "sourceType": "internal_scoring_policy",
+            "sourceUrl": null,
+            "accessedAt": "2026-05-03",
+            "quoteShort": null,
+            "humanInterpretation": "Resolved from deterministic spring-ts runtime output.",
+            "copyrightNote": "No third-party prose copied.",
+            "authorityTruthEligible": false
+          }
+        },
+        {
+          "label": "해석 셀 별점",
+          "valueExpression": "cell.stars",
+          "unit": "stars",
+          "sourceTier": {
+            "tier": "T3_INTERNAL_ENGINE",
+            "sourceType": "internal_scoring_policy",
+            "sourceUrl": null,
+            "accessedAt": "2026-05-03",
+            "quoteShort": null,
+            "humanInterpretation": "Resolved from deterministic spring-ts runtime output.",
+            "copyrightNote": "No third-party prose copied.",
+            "authorityTruthEligible": false
+          }
+        }
+      ],
+      "aiGenerated": true,
+      "sourceTier": {
+        "tier": "T1_HYPOTHESIS",
+        "sourceType": "training_derived",
+        "sourceUrl": null,
+        "accessedAt": "2026-05-03",
+        "quoteShort": null,
+        "humanInterpretation": "Expert metal dayMaster/yongshin density fragment for wealth life. AI-derived display text; not authority truth.",
+        "copyrightNote": "No source prose copied; original phrasing.",
+        "authorityTruthEligible": false
+      }
+    },
+    {
+      "schemaVersion": "spring-ts.narrative-fragment.v1",
+      "fragmentId": "health.thisYear.expert.daymaster.metal.yongshin.metal.401",
+      "axis": { "category": "health", "period": "thisYear", "depth": "expert" },
+      "gating": {
+        "dayMasterElement": ["METAL"],
+        "yongshinElement": ["METAL"]
+      },
+      "templateTokens": [
+        { "kind": "text", "value": "일간 금에 용신 금이 겹치면 올해 건강운에서는 호흡, 피부, 회복 루틴을 구조화하는 해석이 중요합니다. " },
+        { "kind": "tag", "tagId": "yongshin", "label": "용신" },
+        { "kind": "text", "value": "이 같은 오행을 보강하므로 생활 규칙을 세우는 힘은 좋지만, " },
+        { "kind": "tag", "tagId": "gishin", "label": "기신" },
+        { "kind": "text", "value": "과 충돌하는 시기에는 몸을 밀어붙이기보다 " },
+        { "kind": "tag", "tagId": "jeongin", "label": "정인" },
+        { "kind": "text", "value": "식 회복 시간을 먼저 확보하는 편이 안정적입니다." }
+      ],
+      "tags": ["yongshin", "gishin", "jeongin"],
+      "numericalEvidence": [
+        {
+          "label": "일간 오행 순번",
+          "valueExpression": "feature.dayMasterElementOrdinal",
+          "unit": "ordinal",
+          "sourceTier": {
+            "tier": "T3_INTERNAL_ENGINE",
+            "sourceType": "internal_scoring_policy",
+            "sourceUrl": null,
+            "accessedAt": "2026-05-03",
+            "quoteShort": null,
+            "humanInterpretation": "Resolved from deterministic spring-ts runtime output.",
+            "copyrightNote": "No third-party prose copied.",
+            "authorityTruthEligible": false
+          }
+        },
+        {
+          "label": "용신 오행 순번",
+          "valueExpression": "feature.yongshinElementOrdinal",
+          "unit": "ordinal",
+          "sourceTier": {
+            "tier": "T3_INTERNAL_ENGINE",
+            "sourceType": "internal_scoring_policy",
+            "sourceUrl": null,
+            "accessedAt": "2026-05-03",
+            "quoteShort": null,
+            "humanInterpretation": "Resolved from deterministic spring-ts runtime output.",
+            "copyrightNote": "No third-party prose copied.",
+            "authorityTruthEligible": false
+          }
+        },
+        {
+          "label": "해석 셀 별점",
+          "valueExpression": "cell.stars",
+          "unit": "stars",
+          "sourceTier": {
+            "tier": "T3_INTERNAL_ENGINE",
+            "sourceType": "internal_scoring_policy",
+            "sourceUrl": null,
+            "accessedAt": "2026-05-03",
+            "quoteShort": null,
+            "humanInterpretation": "Resolved from deterministic spring-ts runtime output.",
+            "copyrightNote": "No third-party prose copied.",
+            "authorityTruthEligible": false
+          }
+        }
+      ],
+      "aiGenerated": true,
+      "sourceTier": {
+        "tier": "T1_HYPOTHESIS",
+        "sourceType": "training_derived",
+        "sourceUrl": null,
+        "accessedAt": "2026-05-03",
+        "quoteShort": null,
+        "humanInterpretation": "Expert metal dayMaster/yongshin density fragment for health year. AI-derived display text; not authority truth.",
+        "copyrightNote": "No source prose copied; original phrasing.",
+        "authorityTruthEligible": false
+      }
+    },
+    {
+      "schemaVersion": "spring-ts.narrative-fragment.v1",
+      "fragmentId": "academic.thisMonth.expert.daymaster.metal.yongshin.metal.401",
+      "axis": { "category": "academic", "period": "thisMonth", "depth": "expert" },
+      "gating": {
+        "dayMasterElement": ["METAL"],
+        "yongshinElement": ["METAL"]
+      },
+      "templateTokens": [
+        { "kind": "text", "value": "일간 금과 용신 금이 함께 잡히면 이번 달 학업운은 핵심을 잘라내고 기준을 세우는 방식이 유리합니다. " },
+        { "kind": "tag", "tagId": "yongshin", "label": "용신" },
+        { "kind": "text", "value": "이 사고의 선명도를 보강하므로 요약, 오답 분류, 문서 정리에 강점이 있고, " },
+        { "kind": "tag", "tagId": "jeongin", "label": "정인" },
+        { "kind": "text", "value": "이 받쳐 주면 자료 흡수력이 좋아집니다. 다만 " },
+        { "kind": "tag", "tagId": "sanggwan", "label": "상관" },
+        { "kind": "text", "value": "이 강하면 비판이 앞서 복습 루틴이 끊기는지 점검합니다." }
+      ],
+      "tags": ["yongshin", "jeongin", "sanggwan"],
+      "numericalEvidence": [
+        {
+          "label": "일간 오행 순번",
+          "valueExpression": "feature.dayMasterElementOrdinal",
+          "unit": "ordinal",
+          "sourceTier": {
+            "tier": "T3_INTERNAL_ENGINE",
+            "sourceType": "internal_scoring_policy",
+            "sourceUrl": null,
+            "accessedAt": "2026-05-03",
+            "quoteShort": null,
+            "humanInterpretation": "Resolved from deterministic spring-ts runtime output.",
+            "copyrightNote": "No third-party prose copied.",
+            "authorityTruthEligible": false
+          }
+        },
+        {
+          "label": "용신 오행 순번",
+          "valueExpression": "feature.yongshinElementOrdinal",
+          "unit": "ordinal",
+          "sourceTier": {
+            "tier": "T3_INTERNAL_ENGINE",
+            "sourceType": "internal_scoring_policy",
+            "sourceUrl": null,
+            "accessedAt": "2026-05-03",
+            "quoteShort": null,
+            "humanInterpretation": "Resolved from deterministic spring-ts runtime output.",
+            "copyrightNote": "No third-party prose copied.",
+            "authorityTruthEligible": false
+          }
+        },
+        {
+          "label": "해석 셀 별점",
+          "valueExpression": "cell.stars",
+          "unit": "stars",
+          "sourceTier": {
+            "tier": "T3_INTERNAL_ENGINE",
+            "sourceType": "internal_scoring_policy",
+            "sourceUrl": null,
+            "accessedAt": "2026-05-03",
+            "quoteShort": null,
+            "humanInterpretation": "Resolved from deterministic spring-ts runtime output.",
+            "copyrightNote": "No third-party prose copied.",
+            "authorityTruthEligible": false
+          }
+        }
+      ],
+      "aiGenerated": true,
+      "sourceTier": {
+        "tier": "T1_HYPOTHESIS",
+        "sourceType": "training_derived",
+        "sourceUrl": null,
+        "accessedAt": "2026-05-03",
+        "quoteShort": null,
+        "humanInterpretation": "Expert metal dayMaster/yongshin density fragment for academic month. AI-derived display text; not authority truth.",
+        "copyrightNote": "No source prose copied; original phrasing.",
+        "authorityTruthEligible": false
+      }
+    },
+    {
+      "schemaVersion": "spring-ts.narrative-fragment.v1",
+      "fragmentId": "movement.today.expert.daymaster.metal.yongshin.metal.401",
+      "axis": { "category": "movement", "period": "today", "depth": "expert" },
+      "gating": {
+        "dayMasterElement": ["METAL"],
+        "yongshinElement": ["METAL"]
+      },
+      "templateTokens": [
+        { "kind": "text", "value": "일간 금과 용신 금이 같은 날의 이동운에서는 동선을 단순화하고 우선순위를 명확히 잡는 쪽이 좋습니다. " },
+        { "kind": "tag", "tagId": "yongshin", "label": "용신" },
+        { "kind": "text", "value": "이 같은 오행으로 들어오면 판단 속도는 빨라지지만, " },
+        { "kind": "tag", "tagId": "yeokma", "label": "역마" },
+        { "kind": "text", "value": "가 강한 날에는 이동 자체가 늘 수 있습니다. " },
+        { "kind": "tag", "tagId": "gishin", "label": "기신" },
+        { "kind": "text", "value": "과 충돌하면 일정 사이 완충 시간을 먼저 배치하는 해석이 안전합니다." }
+      ],
+      "tags": ["yongshin", "yeokma", "gishin"],
+      "numericalEvidence": [
+        {
+          "label": "일간 오행 순번",
+          "valueExpression": "feature.dayMasterElementOrdinal",
+          "unit": "ordinal",
+          "sourceTier": {
+            "tier": "T3_INTERNAL_ENGINE",
+            "sourceType": "internal_scoring_policy",
+            "sourceUrl": null,
+            "accessedAt": "2026-05-03",
+            "quoteShort": null,
+            "humanInterpretation": "Resolved from deterministic spring-ts runtime output.",
+            "copyrightNote": "No third-party prose copied.",
+            "authorityTruthEligible": false
+          }
+        },
+        {
+          "label": "용신 오행 순번",
+          "valueExpression": "feature.yongshinElementOrdinal",
+          "unit": "ordinal",
+          "sourceTier": {
+            "tier": "T3_INTERNAL_ENGINE",
+            "sourceType": "internal_scoring_policy",
+            "sourceUrl": null,
+            "accessedAt": "2026-05-03",
+            "quoteShort": null,
+            "humanInterpretation": "Resolved from deterministic spring-ts runtime output.",
+            "copyrightNote": "No third-party prose copied.",
+            "authorityTruthEligible": false
+          }
+        },
+        {
+          "label": "해석 셀 별점",
+          "valueExpression": "cell.stars",
+          "unit": "stars",
+          "sourceTier": {
+            "tier": "T3_INTERNAL_ENGINE",
+            "sourceType": "internal_scoring_policy",
+            "sourceUrl": null,
+            "accessedAt": "2026-05-03",
+            "quoteShort": null,
+            "humanInterpretation": "Resolved from deterministic spring-ts runtime output.",
+            "copyrightNote": "No third-party prose copied.",
+            "authorityTruthEligible": false
+          }
+        }
+      ],
+      "aiGenerated": true,
+      "sourceTier": {
+        "tier": "T1_HYPOTHESIS",
+        "sourceType": "training_derived",
+        "sourceUrl": null,
+        "accessedAt": "2026-05-03",
+        "quoteShort": null,
+        "humanInterpretation": "Expert metal dayMaster/yongshin density fragment for movement today. AI-derived display text; not authority truth.",
+        "copyrightNote": "No source prose copied; original phrasing.",
+        "authorityTruthEligible": false
+      }
+    }
+  ]
+}
