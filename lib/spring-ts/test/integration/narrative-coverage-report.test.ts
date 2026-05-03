@@ -64,6 +64,18 @@ check('axis value coverage is machine readable',
 check('axis value density is machine readable',
   report?.axisValueDensity?.agePhase?.early_20s?.authoredFragments > 0,
   String(report?.axisValueDensity?.agePhase?.early_20s?.authoredFragments ?? 0));
+check('expert axis usage is machine readable',
+  report?.expertAxisUsage?.gender &&
+    Array.isArray(report.expertAxisUsage.gender.values) &&
+    typeof report.expertAxisUsage.gender.fragmentCount === 'number');
+check('expert axis value coverage is machine readable',
+  report?.expertAxisValueCoverage?.agePhase &&
+    Array.isArray(report.expertAxisValueCoverage.agePhase.expectedValues) &&
+    Array.isArray(report.expertAxisValueCoverage.agePhase.missingValues));
+check('expert axis value density is machine readable',
+  report?.expertAxisValueDensity?.agePhase?.early_20s &&
+    typeof report.expertAxisValueDensity.agePhase.early_20s.authoredFragments === 'number',
+  String(report?.expertAxisValueDensity?.agePhase?.early_20s?.authoredFragments ?? 0));
 check('axis value coverage confirms agePhase expansion is complete',
   report?.axisValueCoverage?.agePhase?.missingValueCount === 0 &&
     report.axisValueCoverage.agePhase.coveredValues?.length === 16,
@@ -72,9 +84,17 @@ check('axis value coverage confirms yongshinElement expansion is complete',
   report?.axisValueCoverage?.yongshinElement?.missingValueCount === 0 &&
     report.axisValueCoverage.yongshinElement.coveredValues?.length === 5,
   JSON.stringify(report?.axisValueCoverage?.yongshinElement));
+check('expert axis value coverage confirms yongshinElement expansion is complete',
+  report?.expertAxisValueCoverage?.yongshinElement?.missingValueCount === 0 &&
+    report.expertAxisValueCoverage.yongshinElement.coveredValues?.length === 5,
+  JSON.stringify(report?.expertAxisValueCoverage?.yongshinElement));
 check('axis value coverage has no missing expansion targets',
   fieldsWithMissingAxisValues.length === 0,
   fieldsWithMissingAxisValues.join(','));
+check('expert axis value gap total matches coverage records',
+  report?.totals?.expertAxisValueGapCount === Object.values(report?.expertAxisValueCoverage ?? {})
+    .reduce((sum: number, coverage: any) => sum + (coverage?.missingValueCount ?? 0), 0),
+  String(report?.totals?.expertAxisValueGapCount ?? ''));
 check('underfilled cells are sorted planning records',
   Array.isArray(report?.underfilledCells) &&
     report.underfilledCells.every((cell: any) =>
@@ -106,6 +126,28 @@ check('thin axis field summary is machine readable',
       typeof row.field === 'string' &&
       typeof row.thinValueCount === 'number' &&
       typeof row.authoredDeficitToThreshold === 'number'));
+check('thin expert axis values are sorted planning records',
+  Array.isArray(report?.thinExpertAxisValues) &&
+    report.thinExpertAxisValues.every((row: any) =>
+      typeof row.field === 'string' &&
+      typeof row.value === 'string' &&
+      typeof row.authoredFragments === 'number'));
+check('thin expert axis values expose depth-specific density targets',
+  report?.totals?.thinExpertAxisValueCount === report?.thinExpertAxisValues?.length &&
+    report.thinExpertAxisValues.every((row: any) => row.authoredFragments < 12),
+  String(report?.totals?.thinExpertAxisValueCount ?? 0));
+check('thin expert axis field summary is machine readable',
+  Array.isArray(report?.thinExpertAxisFieldSummary) &&
+    report.thinExpertAxisFieldSummary.every((row: any) =>
+      typeof row.field === 'string' &&
+      typeof row.thinValueCount === 'number' &&
+      typeof row.authoredDeficitToThreshold === 'number'));
+check('thin expert axis field summary prioritizes largest remaining deficit',
+  Array.isArray(report?.thinExpertAxisFieldSummary) &&
+    report.thinExpertAxisFieldSummary.every((row: any, index: number, rows: any[]) =>
+      index === 0 ||
+      rows[index - 1].authoredDeficitToThreshold >= row.authoredDeficitToThreshold),
+  JSON.stringify(report?.thinExpertAxisFieldSummary?.[0]));
 check('thin axis field summary is empty when the density floor is met',
   Array.isArray(report?.thinAxisFieldSummary) &&
     report.thinAxisFieldSummary.length === 0,
