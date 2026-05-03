@@ -44,10 +44,18 @@ check('ageYears is available for numerical evidence',
   feature40.ageYears === 40, String(feature40.ageYears));
 check('agePhase offers a narrower authoring axis',
   feature40.agePhase === 'early_40s', feature40.agePhase);
+check('agePhaseOrdinal is available for numerical evidence',
+  feature40.agePhaseOrdinal === 8, String(feature40.agePhaseOrdinal));
+check('dayMasterStrengthOrdinal is available for numerical evidence',
+  feature40.dayMasterStrengthOrdinal === 2, String(feature40.dayMasterStrengthOrdinal));
 check('birthSeason uses saju month when available',
   feature40.birthSeason === 'spring', feature40.birthSeason);
+check('birthSeasonOrdinal is available for numerical evidence',
+  feature40.birthSeasonOrdinal === 1, String(feature40.birthSeasonOrdinal));
 check('currentSeason follows targetDate',
   feature40.currentSeason === 'summer', feature40.currentSeason);
+check('currentSeasonOrdinal is available for numerical evidence',
+  feature40.currentSeasonOrdinal === 2, String(feature40.currentSeasonOrdinal));
 check('dayMasterPolarity normalizes Korean yin marker',
   feature40.dayMasterPolarity === 'YIN', feature40.dayMasterPolarity);
 check('gyeokguk code canonicalizes for fragment gating',
@@ -61,10 +69,16 @@ const featureLate20s = buildFeatureVector(
 
 check('late-20s phase is distinct from early-20s',
   featureLate20s.agePhase === 'late_20s', featureLate20s.agePhase);
+check('late-20s phase ordinal is stable',
+  featureLate20s.agePhaseOrdinal === 5, String(featureLate20s.agePhaseOrdinal));
 check('winter birth season resolves from month 11',
   featureLate20s.birthSeason === 'winter', featureLate20s.birthSeason);
+check('winter birth season ordinal is stable',
+  featureLate20s.birthSeasonOrdinal === 4, String(featureLate20s.birthSeasonOrdinal));
 check('winter current season resolves from January targetDate',
   featureLate20s.currentSeason === 'winter', featureLate20s.currentSeason);
+check('winter current season ordinal is stable',
+  featureLate20s.currentSeasonOrdinal === 4, String(featureLate20s.currentSeasonOrdinal));
 check('gender axis remains available',
   featureLate20s.gender === 'female', featureLate20s.gender);
 

@@ -49,6 +49,7 @@ const context = { feature, cell: { stars: 4 } };
 const fragment: any = {
   numericalEvidence: [
     { label: '현재 나이', valueExpression: 'feature.ageYears', unit: '세', sourceTier },
+    { label: '신강도 순번', valueExpression: 'feature.dayMasterStrengthOrdinal', unit: '단계', sourceTier },
     { label: '셀 별점', valueExpression: 'cell.stars', unit: '점', sourceTier },
     { label: '문자열 경로는 제외', valueExpression: 'feature.gender', sourceTier },
     { label: '임의 실행식은 제외', valueExpression: 'process.env.SECRET', sourceTier },
@@ -59,10 +60,13 @@ const fragment: any = {
 
 const rows = resolveNumericalEvidence(fragment, context) ?? [];
 
-check('two deterministic numeric evidence rows resolve', rows.length === 2, String(rows.length));
+check('three deterministic numeric evidence rows resolve', rows.length === 3, String(rows.length));
 check('feature numeric path resolves', rows[0]?.label === '현재 나이' && rows[0]?.value === 40, String(rows[0]?.value));
-check('cell numeric path resolves', rows[1]?.label === '셀 별점' && rows[1]?.value === 4, String(rows[1]?.value));
-check('unit is preserved', rows[0]?.unit === '세' && rows[1]?.unit === '점');
+check('new ordinal feature numeric path resolves',
+  rows[1]?.label === '신강도 순번' && rows[1]?.value === 2,
+  String(rows[1]?.value));
+check('cell numeric path resolves', rows[2]?.label === '셀 별점' && rows[2]?.value === 4, String(rows[2]?.value));
+check('unit is preserved', rows[0]?.unit === '세' && rows[1]?.unit === '단계' && rows[2]?.unit === '점');
 check('sourceTier is preserved', rows.every((row) => row.sourceTier.tier === 'T3_INTERNAL_ENGINE'));
 check('string-valued feature path is rejected',
   resolveNumericExpression('feature.gender', context) === null);
