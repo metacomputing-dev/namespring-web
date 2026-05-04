@@ -456,12 +456,12 @@ function makeCaution(
   const cautionMap: Record<FortuneCategory, FortuneWarning> = {
     wealth: {
       signal: `올해 재물 기운이 ${fortuneKo} 기운과 긴장 관계에 있어요.`,
-      response: '큰 투자나 보증은 피하고, 지출 상한선을 미리 정해두세요.',
+      response: '큰 투자나 보증은 신중하게 검토하고, 지출 상한선을 미리 정해두세요.',
       reason: `${fortuneKo} 기운이 ${catKo} 기운(재성)을 방해하여 재물 손실 위험이 있어요.`,
     },
     health: {
       signal: '건강 기운이 약해서 컨디션 관리에 주의가 필요해요.',
-      response: '과로를 피하고, 정기 검진을 받아보세요. 수면 리듬을 반드시 지켜주세요.',
+      response: '과로를 피하고, 정기 검진을 받아보세요. 수면 리듬도 함께 챙겨주세요.',
       reason: '인성 기운이 약하면 회복력이 떨어져서 작은 피로도 쌓이기 쉬워요.',
     },
     academic: {
@@ -596,7 +596,7 @@ export function buildCategoryFortuneCards(
       claim,
       supportingFeatures: supporting,
       weakness: stars <= 2
-        ? `${CATEGORY_TITLE[category]} 영역에서 큰 결정은 운이 회복되는 시기로 미루는 것이 안전해요.`
+        ? `${CATEGORY_TITLE[category]} 영역에서는 중요한 결정을 서두르지 말고 회복되는 흐름을 확인해 보세요.`
         : undefined,
       strength: sajuAxis?.yongshin,
     }];

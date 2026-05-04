@@ -74,7 +74,7 @@
       "axis": { "category": "family", "period": "thisYear", "depth": "brief", "tone": "plain" },
       "gating": { "ageBand": ["10-19"] },
       "templateTokens": [
-        { "kind": "text", "value": "자기 결과 가족 결을 같이 키우는 한 해예요." }
+        { "kind": "text", "value": "자기 자리와 가족 흐름을 같이 키우는 한 해예요." }
       ],
       "tags": [],
       "aiGenerated": true,

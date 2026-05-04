@@ -298,9 +298,9 @@ function makeSummary(
     return `${periodSubject} ${elDesc} 기운이 보통 수준이에요. 무리하지 않고 꾸준히 해나가면 좋아요.`;
   }
   if (stars >= 2) {
-    return `${periodSubject} ${elDesc} 기운에 다소 주의가 필요해요. 큰 결정은 미루고 안정에 집중하세요.`;
+    return `${periodSubject} ${elDesc} 기운에 다소 주의가 필요해요. 중요한 결정은 한 번 더 검토하고 안정적인 선택을 우선하세요.`;
   }
-  return `${periodSubject} ${elDesc} 기운이 기신 방향이라 조심이 필요해요. 무리한 도전보다 체력 관리를 우선하세요.`;
+  return `${periodSubject} ${elDesc} 기운이 부담으로 작용하기 쉬워요. 무리한 도전보다 체력 관리와 기본 루틴을 우선하세요.`;
 }
 
 // ---------------------------------------------------------------------------
@@ -467,8 +467,8 @@ function makeBadActions(
       periodKind === 'monthly' ? '이번 달은' :
       periodKind === 'yearly' ? '올해는' : '지금은';
     actions.push({
-      text: `${periodDesc} 큰 계약이나 중요한 결정을 미루는 것이 안전해요.`,
-      reason: '기운이 약한 시기에 무리하면 후회할 결과가 나오기 쉬워요.',
+      text: `${periodDesc} 큰 계약이나 중요한 결정을 한 번 더 검토하고 진행하는 것이 좋아요.`,
+      reason: '기운이 약한 시기에는 속도를 늦추면 후회할 가능성을 줄일 수 있어요.',
     });
   }
 
@@ -548,7 +548,7 @@ function makeWarning(
   if (grade !== undefined && grade <= 2) {
     return {
       signal: '전체적으로 기운이 약한 시기라 컨디션 관리에 신경 써야 해요.',
-      response: '과로를 피하고 충분한 휴식을 취하세요. 큰 결정은 기운이 좋아질 때로 미루는 것이 안전해요.',
+      response: '과로를 피하고 충분한 휴식을 취하세요. 중요한 결정은 여유를 두고 다시 확인하면 좋아요.',
       reason: '운세 흐름이 약한 시기에는 기본기를 지키는 것이 가장 중요해요.',
     };
   }

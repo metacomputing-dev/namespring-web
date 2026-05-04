@@ -138,13 +138,13 @@
       "templateTokens": [
         { "kind": "text", "value": "일간은 단단해도 " },
         { "kind": "tag", "tagId": "yongshin", "label": "용신" },
-        { "kind": "text", "value": "의 자리가 흐름과 거리가 있는 결이에요. " },
+        { "kind": "text", "value": " 자리가 현재 흐름과는 조금 거리가 있어요. " },
         { "kind": "tag", "tagId": "johu", "label": "조후" },
-        { "kind": "text", "value": "의 균형이 잘 맞을 때 결이 가장 부드럽게 풀리고, " },
+        { "kind": "text", "value": " 균형이 잘 맞을 때 결이 가장 부드럽게 풀리고, " },
         { "kind": "tag", "tagId": "heeshin", "label": "희신" },
         { "kind": "text", "value": "이 자리에 들어오는 시기가 평생의 큰 분기점이 되는 편이에요. " },
         { "kind": "tag", "tagId": "monthPillar", "label": "월주" },
-        { "kind": "text", "value": "의 결을 천천히 살피며 방향을 고르면, 큰 그림이 또렷해져요." }
+        { "kind": "text", "value": " 흐름을 천천히 살피며 방향을 고르면, 큰 그림이 또렷해져요." }
       ],
       "tags": ["yongshin", "johu", "heeshin", "monthPillar"],
       "aiGenerated": true,

@@ -89,7 +89,7 @@ export const SUB_DOMAIN_NARRATIVES: Record<
   expression_children: {
     high: '식상이 활성화되어 표현·창작·자녀 관련 흐름이 좋은 시기예요.',
     mid: '표현 영역은 무리 없이 안정적이에요. 결과보다 과정에 집중하세요.',
-    low: '표현·전달 영역은 단어 선택을 신중히 하고 큰 결정은 미루세요.',
+    low: '표현·전달 영역은 단어 선택을 신중히 하고 중요한 결정은 한 번 더 검토하세요.',
   },
   health_stress: {
     high: '인성 + 조후가 균형 잡혀 정신적 회복이 빠른 시기예요.',

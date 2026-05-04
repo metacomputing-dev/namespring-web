@@ -162,7 +162,7 @@
       "hashLabel": "#격국용신",
       "category": "yongshin",
       "brief": "사주의 격국 모양에 맞춰 잡는 용신이에요.",
-      "detailed": "단순히 강약·온도만 보지 않고, 사주의 격국 모양 전체를 살펴 그 격에 가장 잘 어울리는 결을 용신으로 잡는 결이에요. 사주의 큰 그림을 함께 보며 잡는 용신이라, 직업·자리·인생 결의 흐름을 길게 보는 데 도움이 돼요.",
+      "detailed": "단순히 강약·온도만 보지 않고, 사주의 격국 모양 전체를 살펴 그 격에 가장 잘 어울리는 기운을 용신으로 잡는 방식이에요. 사주의 큰 그림을 함께 보며 잡는 용신이라, 직업·자리·인생 흐름을 길게 보는 데 도움이 돼요.",
       "related": ["yongshin", "jeonggwangyeok", "jeongjaegyeok"],
       "aiGenerated": true,
       "sourceTier": { "tier": "T1_HYPOTHESIS", "sourceType": "training_derived", "sourceUrl": null, "accessedAt": "2026-05-02", "quoteShort": null, "humanInterpretation": "AI-derived plain-language definition of 격국용신. Display-only.", "copyrightNote": "No source prose copied.", "authorityTruthEligible": false }
