@@ -300,15 +300,15 @@
       "axis": { "category": "romance", "period": "thisYear", "depth": "expert" },
       "gating": { "ageBand": ["20-29", "30-39", "40-54"], "dayMasterStrength": ["STRONG", "EXTREME_STRONG"] },
       "templateTokens": [
-        { "kind": "text", "value": "올해의 인연 결은 일간이 강한 사주답게 먼저 다가가는 자리가 한 해의 길이로 자주 열리는 시기예요. " },
+        { "kind": "text", "value": "올해의 인연은 일간이 강한 사주답게 먼저 다가갈 자리가 자주 열리는 시기예요. " },
         { "kind": "tag", "tagId": "baeujagung", "label": "배우자궁" },
-        { "kind": "text", "value": "의 자리에서 자기 결을 또렷이 표현해도 한 해 동안 곁의 사람들이 자연스럽게 받아들이는 흐름이에요." },
+        { "kind": "text", "value": "의 자리에서 자기 생각을 또렷이 표현해도 한 해 동안 곁의 사람들이 자연스럽게 받아들이기 쉬워요." },
         { "kind": "text", "value": " 매력의 결인 " },
         { "kind": "tag", "tagId": "dohwa", "label": "도화" },
         { "kind": "text", "value": "가 함께 비치면 한 해 안에서 사람을 끌어모으는 자리가 자주 만들어지고, " },
         { "kind": "tag", "tagId": "jeonggwan", "label": "정관" },
-        { "kind": "text", "value": "의 결이 함께 자리를 잡으면 약속·신뢰의 토대가 한 해의 길이로 단단해져요." },
-        { "kind": "text", "value": " 다만 강한 결을 너무 밀어붙이면 곁의 사람이 거리를 둘 수 있어요. 한 해 동안 듣는 결을 한 박자 더 두면, 다음 해의 결이 한결 부드러워지는 흐름이에요." }
+        { "kind": "text", "value": "의 결이 함께 자리를 잡으면 약속·신뢰의 토대가 한 해 동안 단단해져요." },
+        { "kind": "text", "value": " 다만 강한 기운을 너무 밀어붙이면 곁의 사람이 거리를 둘 수 있어요. 한 해 동안 듣는 시간을 한 박자 더 두면, 다음 해의 관계가 한결 부드러워져요." }
       ],
       "tags": ["baeujagung", "dohwa", "jeonggwan"],
       "aiGenerated": true,

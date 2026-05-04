@@ -178,8 +178,14 @@ const allTieredText = [
   ]),
 ];
 const awkwardRenderedPhrases = allTieredText.filter((text) =>
-  text.includes('타고난 중심 기운') ||
+    text.includes('타고난 중심 기운') ||
     text.includes('도움이 되는 기운은') ||
+    text.includes('도움이 되는 기운 기운') ||
+    text.includes('봄에 태어난 흐름') ||
+    text.includes('여름에 태어난 흐름') ||
+    text.includes('가을에 태어난 흐름') ||
+    text.includes('겨울에 태어난 흐름') ||
+    text.includes('태어난 사람은은') ||
     text.includes('상태 흐름') ||
     text.includes('흐름의 흐름') ||
     text.includes('돈 흐름의 흐름') ||
@@ -200,6 +206,7 @@ const awkwardRenderedPhrases = allTieredText.filter((text) =>
     text.includes('큰 결정은 미루') ||
     text.includes('큰 결정은 한 박자 미루') ||
     text.includes('하루 유예') ||
+    text.includes('큰 돈') ||
     text.includes('#편재 성 선택') ||
     text.includes('#정재 식 확인') ||
     text.includes('비흐름') ||
@@ -209,6 +216,24 @@ const awkwardRenderedPhrases = allTieredText.filter((text) =>
     text.includes('작은 신호를 가볍게 적어 두는 흐름') ||
     text.includes('한 사람에게 흐름이 몰리지') ||
     text.includes('흐름을 따뜻하게 데우는 큰 흐름') ||
+    text.includes('자녀의 흐름') ||
+    text.includes('아이의 흐름') ||
+    text.includes('가까운 흐름') ||
+    text.includes('듣는 흐름') ||
+    text.includes('한 해의 길이') ||
+    text.includes("큰 흐름'을 잡는 흐름") ||
+    text.includes('흙을 빛내 줄 흐름') ||
+    text.includes('오늘은 기운은') ||
+    text.includes('작은 결정을 쌓아 가는 흐름') ||
+    text.includes('부드럽게 이어지는 흐름이에요') ||
+    text.includes('책임 사이에서 흐름을 잡는') ||
+    text.includes('결정 흐름을') ||
+    text.includes('활동성 쉼') ||
+    text.includes('결의 흐름') ||
+    text.includes('시간 같은 흐름') ||
+    text.includes('한 흐름의 결과물') ||
+    text.includes('마무리한 한 흐름') ||
+    text.includes('다음 흐름의 단서') ||
     text.includes('#용신이 멀리 흐르는 흐름') ||
     text.includes('#용신이 천천히 자기 흐름을 찾아가는 흐름') ||
     text.includes('매력의 결인 #') ||
@@ -227,6 +252,27 @@ const awkwardRenderedPhrases = allTieredText.filter((text) =>
     text.includes('잘 풀리는 흐름은 꾸준한 관리') ||
     text.includes('주의할 흐름은 큰 한 방') ||
     text.includes('잘 풀리는 흐름은 작은 기록') ||
+    text.includes('잘 풀리는 흐름은 작은 모음') ||
+    text.includes('주의할 흐름은 즉흥적') ||
+    text.includes('작은 흐름이 평생 갈 자산') ||
+    text.includes('결정하는 흐름을 익혀') ||
+    text.includes('한 해 한 해 흐름을 잡아') ||
+    text.includes('깊이를 만드는 흐름도') ||
+    text.includes('직업 흐름을 미리') ||
+    text.includes('받쳐 받는 사람') ||
+    text.includes('좋아하는 흐름을 먼저') ||
+    text.includes('이 시기 이동의 흐름은') ||
+    text.includes('큰 시야로 이어지는 흐름') ||
+    text.includes('본격적으로 트이는 흐름') ||
+    text.includes('흐름을 따라가 볼 시기') ||
+    text.includes('가까운 사람의 자리를 받쳐 주는 흐름') ||
+    text.includes('곁의 흐름을 살피는 손') ||
+    text.includes('흐름을 잡아 주는 역할') ||
+    text.includes('자기 흐름이 가장자리로') ||
+    text.includes('따뜻한 거래') ||
+    text.includes('어디에 세우느냐가 더 중요한 흐름') ||
+    text.includes('결과를 만들어 내는 흐름이 강해요') ||
+    text.includes('몇 년의 차이를 만드는 흐름') ||
     text.includes('큰 흐름을 한 번에 만드는 시기') ||
     text.includes('평생 갈 흐름을 다듬는 방식'));
 check('tiered rendered text normalizes awkward template joins',

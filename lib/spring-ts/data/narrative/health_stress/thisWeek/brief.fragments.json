@@ -136,8 +136,8 @@
         "ageBand": ["30-39", "40-54"]
       },
       "templateTokens": [
-        { "kind": "text", "value": "이번 주는 어깨를 풀어 주는 결이에요." },
-        { "kind": "text", "value": " 활동성 쉼이 잘 맞아요." }
+        { "kind": "text", "value": "이번 주는 어깨를 풀어 주는 시기예요." },
+        { "kind": "text", "value": " 몸을 움직이는 휴식이 잘 맞아요." }
       ],
       "tags": [],
       "aiGenerated": true,
