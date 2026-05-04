@@ -58,6 +58,14 @@ function elementKo(code: ElementCode): string {
   return ELEMENT_KO[code] ?? code;
 }
 
+function normalizeCautionReason(value: string): string {
+  return value
+    .replace(/신살입니다\./g, '신호예요.')
+    .replace(/길신입니다\./g, '도움이 되는 신호예요.')
+    .replace(/커질 수 있습니다\./g, '커질 수 있어요.')
+    .replace(/올 수 있습니다\./g, '올 수 있어요.');
+}
+
 // ---------------------------------------------------------------------------
 //  Relation type classification
 // ---------------------------------------------------------------------------
@@ -130,7 +138,7 @@ export function buildCautionsCard(saju: SajuSummary): CautionsCard {
       cautions.push({
         signal: `${entry.korean} 신호가 감지되었어요.`,
         response: entry.tips[0] ?? '무리하지 말고 하루 일정을 여유 있게 계획하세요.',
-        reason: entry.meaning,
+        reason: normalizeCautionReason(entry.meaning),
       });
     }
   }
@@ -213,7 +221,7 @@ export function buildCautionsCard(saju: SajuSummary): CautionsCard {
     cautions.push({
       signal: '원국에서 특별히 강한 주의 신호는 보이지 않아요.',
       response: '기본 건강 관리와 대인관계 소통 습관을 꾸준히 유지하면 좋아요.',
-      reason: '큰 흉살이나 충돌 관계가 없어 전반적으로 안정적인 구성이에요.',
+      reason: '큰 주의 신호나 충돌 관계가 없어 전반적으로 안정적인 구성이에요.',
     });
   }
 

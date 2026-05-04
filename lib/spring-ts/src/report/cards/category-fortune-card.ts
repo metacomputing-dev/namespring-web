@@ -456,7 +456,7 @@ function makeCaution(
   const cautionMap: Record<FortuneCategory, FortuneWarning> = {
     wealth: {
       signal: `올해 재물 기운이 ${fortuneKo} 기운과 긴장 관계에 있어요.`,
-      response: '큰 투자나 보증은 신중하게 검토하고, 지출 상한선을 미리 정해두세요.',
+      response: '큰 투자나 보증은 신중하게 검토하고, 지출 상한선을 미리 정해 두세요.',
       reason: `${fortuneKo} 기운이 ${catKo} 기운(재성)을 방해하여 재물 손실 위험이 있어요.`,
     },
     health: {

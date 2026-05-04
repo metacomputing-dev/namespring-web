@@ -438,7 +438,7 @@ export function buildOverviewSummaryCard(
       .slice(0, 4);
     evidence.push({
       axis: 'gyeokgukCandidates',
-      claim: '격국 후보 간 이견이 있어 선택 격국은 보조 후보와 함께 해석해야 합니다.',
+      claim: '격국 후보 간 이견이 있어 선택 격국은 보조 후보와 함께 보는 것이 안전해요.',
       supportingFeatures: [
         `선택 격국: ${gyeokgukType ?? '-'}`,
         ...candidateNotes,
