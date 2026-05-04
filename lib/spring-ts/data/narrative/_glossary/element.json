@@ -113,8 +113,8 @@
       "label": "목생화",
       "hashLabel": "#목생화",
       "category": "element",
-      "brief": "나무가 불을 일으키는 도와주는 결이에요.",
-      "detailed": "마른 나뭇가지에 불씨가 닿으면 불꽃이 피어나듯, 나무 기운(木)이 불 기운(火)을 살려 주는 결이에요. 사주에서 나무가 풍성하고 불이 약할 땐 이 결이 자연스럽게 흘러 결과를 만들어 줘요. 자라는 결이 빛나는 결을 키우는 자리예요.",
+      "brief": "나무가 불을 일으켜 도와주는 관계예요.",
+      "detailed": "마른 나뭇가지에 불씨가 닿으면 불꽃이 피어나듯, 나무 기운(木)이 불 기운(火)을 살려 주는 관계예요. 사주에서 나무가 풍성하고 불이 약할 땐 이 관계가 자연스럽게 결과를 만들어 줘요. 자라는 힘이 밝은 표현력을 키우는 모습이에요.",
       "related": ["wood", "fire"],
       "aiGenerated": true,
       "sourceTier": { "tier": "T1_HYPOTHESIS", "sourceType": "training_derived", "sourceUrl": null, "accessedAt": "2026-05-02", "quoteShort": null, "humanInterpretation": "AI-derived plain-language definition of 목생화. Display-only.", "copyrightNote": "No source prose copied.", "authorityTruthEligible": false }
@@ -125,8 +125,8 @@
       "label": "화생토",
       "hashLabel": "#화생토",
       "category": "element",
-      "brief": "불이 흙을 단단하게 만들어 주는 결이에요.",
-      "detailed": "타고 남은 재가 흙이 되듯, 불 기운(火)이 흙 기운(土)을 두툼하게 만들어 주는 결이에요. 사주에 불이 잘 살아 있고 흙을 키워 줄 결이 필요할 때 이 흐름이 빛을 내요. 빛나는 결이 자리를 단단히 다지는 자리예요.",
+      "brief": "불이 흙을 단단하게 만들어 주는 관계예요.",
+      "detailed": "타고 남은 재가 흙이 되듯, 불 기운(火)이 흙 기운(土)을 두툼하게 만들어 주는 관계예요. 사주에 불이 잘 살아 있고 흙을 키워 줄 힘이 필요할 때 결과가 또렷해져요. 불의 활력이 자리를 단단히 다지는 모습이에요.",
       "related": ["fire", "earth"],
       "aiGenerated": true,
       "sourceTier": { "tier": "T1_HYPOTHESIS", "sourceType": "training_derived", "sourceUrl": null, "accessedAt": "2026-05-02", "quoteShort": null, "humanInterpretation": "AI-derived plain-language definition of 화생토. Display-only.", "copyrightNote": "No source prose copied.", "authorityTruthEligible": false }
@@ -149,8 +149,8 @@
       "label": "금생수",
       "hashLabel": "#금생수",
       "category": "element",
-      "brief": "쇠가 물을 길러 내 주는 도와주는 결이에요.",
-      "detailed": "잘 다듬은 쇠가 차가워지면 그 위에 이슬이 맺히듯, 쇠 기운(金)이 물 기운(水)을 만들어 주는 결이에요. 사주에 쇠가 또렷하고 물 기운이 필요할 때 이 흐름이 부드럽게 작동해요. 결단의 결이 깊은 흐름을 길러 내는 자리예요.",
+      "brief": "쇠가 물을 길러 내며 도와주는 관계예요.",
+      "detailed": "잘 다듬은 쇠가 차가워지면 그 위에 이슬이 맺히듯, 쇠 기운(金)이 물 기운(水)을 만들어 주는 관계예요. 사주에 쇠가 또렷하고 물 기운이 필요할 때 이 관계가 부드럽게 작동해요. 분명한 결단이 깊은 생각을 길러 내는 모습이에요.",
       "related": ["metal", "water"],
       "aiGenerated": true,
       "sourceTier": { "tier": "T1_HYPOTHESIS", "sourceType": "training_derived", "sourceUrl": null, "accessedAt": "2026-05-02", "quoteShort": null, "humanInterpretation": "AI-derived plain-language definition of 금생수. Display-only.", "copyrightNote": "No source prose copied.", "authorityTruthEligible": false }
@@ -161,8 +161,8 @@
       "label": "수생목",
       "hashLabel": "#수생목",
       "category": "element",
-      "brief": "물이 나무를 길러 주는 도와주는 결이에요.",
-      "detailed": "봄비가 내리면 새싹이 트고 나무가 자라듯, 물 기운(水)이 나무 기운(木)을 키워 주는 결이에요. 사주에 물이 충분하고 나무를 살릴 결이 필요할 때 이 흐름이 자연스럽게 빛을 내요. 깊은 흐름이 자라는 결을 길러 주는 자리예요.",
+      "brief": "물이 나무를 길러 주며 도와주는 관계예요.",
+      "detailed": "봄비가 내리면 새싹이 트고 나무가 자라듯, 물 기운(水)이 나무 기운(木)을 키워 주는 관계예요. 사주에 물이 충분하고 나무를 살릴 힘이 필요할 때 자연스럽게 빛을 내요. 깊은 물 기운이 성장의 힘을 길러 주는 모습이에요.",
       "related": ["water", "wood"],
       "aiGenerated": true,
       "sourceTier": { "tier": "T1_HYPOTHESIS", "sourceType": "training_derived", "sourceUrl": null, "accessedAt": "2026-05-02", "quoteShort": null, "humanInterpretation": "AI-derived plain-language definition of 수생목. Display-only.", "copyrightNote": "No source prose copied.", "authorityTruthEligible": false }

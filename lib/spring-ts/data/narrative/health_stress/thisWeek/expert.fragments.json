@@ -104,7 +104,7 @@
         "yongshinAlignment": ["aligned"]
       },
       "templateTokens": [
-        { "kind": "text", "value": "이번 주는 일간의 결이 비교적 고른 흐름이에요. " },
+        { "kind": "text", "value": "이번 주는 일간 기운이 비교적 고른 시기예요. " },
         { "kind": "tag", "tagId": "johu", "label": "조후" },
         { "kind": "text", "value": "의 균형이 평이하니 큰 처방보다 일상의 작은 회복이 또렷한 효과를 내요. 균형 위에 한 결을 더 얹는 식이 잘 맞아요." },
         { "kind": "text", "value": " " },
@@ -133,7 +133,7 @@
         "yongshinAlignment": ["neutral"]
       },
       "templateTokens": [
-        { "kind": "text", "value": "이번 주는 일간의 결이 잔잔한 흐름이에요. " },
+        { "kind": "text", "value": "이번 주는 일간 기운이 잔잔한 시기예요. " },
         { "kind": "tag", "tagId": "jeongin", "label": "정인" },
         { "kind": "text", "value": "의 따뜻한 돌봄을 가까이 두는 자리, 즉 가까운 어른·익숙한 책의 결이 회복의 큰 자리가 돼요." },
         { "kind": "text", "value": " 압박이 닿는 시기에는 " },

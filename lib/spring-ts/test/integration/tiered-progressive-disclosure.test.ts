@@ -229,6 +229,8 @@ const awkwardRenderedPhrases = allTieredText.filter((text) =>
     text.includes('책임 사이에서 흐름을 잡는') ||
     text.includes('결정 흐름을') ||
     text.includes('활동성 쉼') ||
+    text.includes('몸을 움직이는 휴식이 잘 어울리는 흐름') ||
+    text.includes('산행·자전거·등산 같은 흐름') ||
     text.includes('결의 흐름') ||
     text.includes('시간 같은 흐름') ||
     text.includes('한 흐름의 결과물') ||
@@ -236,9 +238,23 @@ const awkwardRenderedPhrases = allTieredText.filter((text) =>
     text.includes('다음 흐름의 단서') ||
     text.includes('#용신이 멀리 흐르는 흐름') ||
     text.includes('#용신이 천천히 자기 흐름을 찾아가는 흐름') ||
+    text.includes('용신 흐름') ||
+    text.includes('용신 결') ||
+    text.includes('그 결에 맞는') ||
+    text.includes('#정인의 결과') ||
+    text.includes('의 결과 잘 맞물려') ||
+    text.includes('큰 거래·확장의 흐름') ||
+    text.includes('주의할 흐름은 #') ||
+    text.includes('자격·서류 흐름') ||
+    text.includes('시간이 친구가 되어 주는 흐름') ||
     text.includes('매력의 결인 #') ||
     text.includes('표현의 결인 #') ||
     text.includes('책임의 결인 #') ||
+    text.includes('오늘의 인연 흐름은 부드러운 일간 흐름') ||
+    text.includes('이번 주의 인연 흐름은 부드러운 일간 흐름') ||
+    text.includes('이번 달의 인연 흐름은 부드러운 일간 흐름') ||
+    text.includes('올해의 인연 흐름은 부드러운 일간 흐름') ||
+    text.includes('곁의 흐름을 받아들이') ||
     text.includes('책·스승의 흐름') ||
     text.includes('흐름을 풀어 주는 흐름') ||
     text.includes('그달의 결과') ||
@@ -261,6 +277,28 @@ const awkwardRenderedPhrases = allTieredText.filter((text) =>
     text.includes('직업 흐름을 미리') ||
     text.includes('받쳐 받는 사람') ||
     text.includes('좋아하는 흐름을 먼저') ||
+    text.includes('재물 흐름은 큰 굴곡 없이 자리 잡는 흐름') ||
+    text.includes('재물 흐름은 큰 굴곡 없이 차곡차곡 모이는 흐름') ||
+    text.includes('잘 풀리는 흐름은') ||
+    text.includes('주의할 흐름은') ||
+    text.includes('다양한 친구의 흐름을 경험') ||
+    text.includes('친구의 흐름을 충분히 누리는') ||
+    text.includes('친구·동료의 흐름을 다듬는') ||
+    text.includes('친구·또래의 흐름을 다듬는') ||
+    text.includes('흐름을 따라가는 흐름') ||
+    text.includes('가족의 결과 같은 호흡') ||
+    text.includes('한 흐름을 닫기 좋은 흐름') ||
+    text.includes('일간의 흐름이 잔잔한 흐름') ||
+    text.includes('흐름이 흐름을 가볍게') ||
+    text.includes('#공망의 결과 닿아요') ||
+    text.includes('#용신의 결에 맞는') ||
+    text.includes('에너지의 흐름이 잔잔한 흐름') ||
+    text.includes('이동 흐름은 익숙한 동선을 지키면 호흡이 편안') ||
+    text.includes('이동 흐름은 익숙한 자리에서 한 발짝씩 넓혀 가는 흐름') ||
+    text.includes('기운은 충분한데 방향이 살짝 흩어진 흐름') ||
+    text.includes('자라는 흐름이 빛나는 흐름') ||
+    text.includes('결단의 흐름이 깊은 흐름') ||
+    text.includes('깊은 흐름이 자라는 흐름') ||
     text.includes('이 시기 이동의 흐름은') ||
     text.includes('큰 시야로 이어지는 흐름') ||
     text.includes('본격적으로 트이는 흐름') ||
