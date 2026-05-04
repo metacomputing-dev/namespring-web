@@ -252,6 +252,12 @@ function buildCell(
   fortuneElement: FeatureVector['dayMasterElement'],
 ): TieredFortune {
   const ctx: RenderContext = { seedKey, periodLabel, feature };
+  const grade = gradeCell(fortuneElement, yongshin, heeshin, gishin);
+
+  if (category === 'romance' && isMinorAgeBand(feature.ageBand)) {
+    const minorFallback = buildMinorFallbackCell(feature, category, periodLabel, grade);
+    if (minorFallback) return minorFallback;
+  }
 
   const briefFrag = selectFragment(registry, category, period, 'brief', feature, { seedKey });
   const standardFrag = selectFragment(registry, category, period, 'standard', feature, { seedKey });
@@ -260,7 +266,6 @@ function buildCell(
   const briefRender = briefFrag ? renderFragment(briefFrag, ctx) : null;
   const standardRender = standardFrag ? renderFragment(standardFrag, ctx) : null;
   const expertRender = expertFrag ? renderFragment(expertFrag, ctx) : null;
-  const grade = gradeCell(fortuneElement, yongshin, heeshin, gishin);
   const hasAnyFragment = Boolean(briefFrag || standardFrag || expertFrag);
 
   const brief = briefRender ? deriveBrief(briefRender) : PLACEHOLDER_BRIEF;
@@ -358,6 +363,7 @@ function buildNamingEvidence(namingReport: NamingReport | null | undefined): Tie
   const fourFrame = namingReport?.analysis?.fourFrame;
   if (!fourFrame || !Array.isArray(fourFrame.frames) || fourFrame.frames.length === 0) return undefined;
   const frames = fourFrame.frames;
+  const seenLifePeriodInfluence = new Set<string>();
 
   return {
     source: 'spring-ts.namingReport.analysis.fourFrame',
@@ -366,6 +372,12 @@ function buildNamingEvidence(namingReport: NamingReport | null | undefined): Tie
     elementScore: fourFrame.elementScore,
     frames: frames.map((frame): TieredNameFrameEvidence => {
       const stage = NAME_FRAME_STAGE[frame.type];
+      const lifePeriodInfluence = frame.meaning?.life_period_influence;
+      const shouldSurfaceLifePeriodInfluence =
+        typeof lifePeriodInfluence === 'string' &&
+        lifePeriodInfluence.trim().length > 0 &&
+        !seenLifePeriodInfluence.has(lifePeriodInfluence);
+      if (shouldSurfaceLifePeriodInfluence) seenLifePeriodInfluence.add(lifePeriodInfluence);
       return {
         source: 'seed-ts.fourframe',
         stage: stage.stage,
@@ -378,8 +390,8 @@ function buildNamingEvidence(namingReport: NamingReport | null | undefined): Tie
         luckyLevel: frame.luckyLevel,
         ...(frame.meaning?.title ? { title: frame.meaning.title } : {}),
         ...(frame.meaning?.summary ? { summary: frame.meaning.summary } : {}),
-        ...(frame.meaning?.life_period_influence !== undefined
-          ? { lifePeriodInfluence: frame.meaning.life_period_influence }
+        ...(shouldSurfaceLifePeriodInfluence
+          ? { lifePeriodInfluence }
           : {}),
       };
     }),

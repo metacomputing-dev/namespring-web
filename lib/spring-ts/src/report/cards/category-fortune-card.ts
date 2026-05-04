@@ -53,7 +53,6 @@ import {
   ELEMENT_HOBBY,
   ELEMENT_COLOR,
   ELEMENT_DIRECTION,
-  ELEMENT_ORGAN,
   ELEMENT_EMOTION,
   ELEMENT_SEASON,
   STEM_BY_CODE,
@@ -114,6 +113,19 @@ const CATEGORY_TITLE: Record<FortuneCategory, string> = {
   romance: '연애/결혼운',
   family: '가족운',
 };
+
+interface CategoryFortuneContext {
+  readonly currentAge?: number;
+}
+
+function isMinorContext(context?: CategoryFortuneContext): boolean {
+  return typeof context?.currentAge === 'number' && context.currentAge < 19;
+}
+
+function categoryTitle(category: FortuneCategory, context?: CategoryFortuneContext): string {
+  if (category === 'romance' && isMinorContext(context)) return '친구/관계운';
+  return CATEGORY_TITLE[category];
+}
 
 // ---------------------------------------------------------------------------
 //  Category element computation
@@ -231,20 +243,29 @@ function makeCategorySummary(
   stars: StarRating,
   fortuneEl: ElementCode,
   catEls: CategoryElements,
+  context?: CategoryFortuneContext,
+  alignment?: { readonly isGishinAligned?: boolean },
 ): string {
   const fortuneKo = elementKo(fortuneEl);
   const catKo = elementKo(catEls.primary);
-  const title = CATEGORY_TITLE[category];
+  const title = categoryTitle(category, context);
   const sameElement = fortuneEl === catEls.primary;
+  const isMinorRomance = category === 'romance' && isMinorContext(context);
 
   const GOOD_SUFFIX: Record<FortuneCategory, string> = {
     wealth: '재물 흐름이 원활해져요.',
-    health: '체력과 회복력이 안정적이에요.',
+    health: '생활 리듬을 안정적으로 지키기 좋아요.',
     academic: '학습 효율이 올라가는 시기예요.',
-    romance: '인연의 흐름이 좋아져요.',
+    romance: isMinorRomance ? '친구 관계와 협동 흐름이 좋아져요.' : '인연의 흐름이 좋아져요.',
     family: '가정의 분위기가 따뜻해져요.',
   };
 
+  if (stars >= 4 && alignment?.isGishinAligned) {
+    const support = sameElement
+      ? `${fortuneKo} 기운이 직접 드러나지만`
+      : `${fortuneKo} 기운이 ${catKo} 기운을 움직이지만`;
+    return `올해 ${title}은 좋은 흐름도 있으나 속도 조절이 필요해요. ${support} 과하게 서두르지 않으면 안정적으로 관리할 수 있어요.`;
+  }
   if (stars >= 5) {
     const support = sameElement
       ? `${fortuneKo} 기운이 직접 활성화되어`
@@ -309,17 +330,16 @@ function makeHealthAdvice(
 ): FortuneAdvice[] {
   const advice: FortuneAdvice[] = [];
   const resourceEl = ELEMENT_GENERATED_BY[dayMasterEl];
-  const organ = ELEMENT_ORGAN[resourceEl];
 
   if (stars >= 4) {
     advice.push({
-      text: '건강 기운이 안정적이에요. 꾸준한 운동 루틴을 유지하면 더욱 좋아요.',
-      reason: '인성 기운이 잘 흐르면 회복력과 면역력이 좋아지는 시기예요.',
+      text: '컨디션 흐름이 안정적인 편이에요. 꾸준한 운동과 휴식 루틴을 유지하면 더욱 좋아요.',
+      reason: '인성 기운이 잘 흐르면 생활 리듬을 지키는 힘이 좋아지는 시기예요.',
     });
   } else {
     advice.push({
-      text: `${organ?.detail ?? '관련 장기'}에 특히 신경 쓰고, 정기 검진을 받아보세요.`,
-      reason: '인성 기운이 약하면 나를 보호하는 힘이 줄어들어 건강 관리가 더 중요해요.',
+      text: '무리한 일정을 줄이고 수면, 식사, 운동 리듬을 먼저 챙기세요.',
+      reason: '인성 기운이 약할 때는 몸을 몰아붙이기보다 기본 루틴을 지키는 쪽이 안정적이에요.',
     });
   }
 
@@ -329,8 +349,8 @@ function makeHealthAdvice(
     advice.push({
       text: foods.length > 0
         ? `${elementKo(weakEl)} 기운 보충을 위해 ${foods.slice(0, 3).join(', ')} 같은 음식을 챙기세요.`
-        : `${elementKo(weakEl)} 기운이 약하니 관련 건강 관리를 신경 써주세요.`,
-      reason: `부족한 ${elementKo(weakEl)} 기운을 채우면 전체 건강 균형이 좋아져요.`,
+        : `${elementKo(weakEl)} 기운이 약하니 생활 리듬을 더 차분히 챙겨주세요.`,
+      reason: `부족한 ${elementKo(weakEl)} 기운을 일상에서 보완하면 컨디션 관리가 더 쉬워져요.`,
     });
   }
 
@@ -378,26 +398,46 @@ function makeAcademicAdvice(stars: StarRating, dayMasterEl: ElementCode): Fortun
   return advice;
 }
 
-function makeRomanceAdvice(stars: StarRating, dayMasterEl: ElementCode): FortuneAdvice[] {
+function makeRomanceAdvice(
+  stars: StarRating,
+  dayMasterEl: ElementCode,
+  context?: CategoryFortuneContext,
+): FortuneAdvice[] {
   const advice: FortuneAdvice[] = [];
   const wealthEl = ELEMENT_CONTROLS[dayMasterEl]; // 재성
-  const authorityEl = ELEMENT_CONTROLLED_BY[dayMasterEl]; // 관성
   const color = ELEMENT_COLOR[wealthEl] ?? '';
+  const isMinor = isMinorContext(context);
 
   if (stars >= 4) {
-    advice.push({
-      text: '새로운 만남이나 인연이 자연스럽게 들어오기 좋은 시기예요. 모임에 적극 참여해 보세요.',
-      reason: '재성/관성 기운이 잘 흘러 대인 매력과 인연운이 높아져 있어요.',
-    });
-    advice.push({
-      text: `${color} 계열의 옷이나 액세서리가 만남 운을 도와줄 수 있어요.`,
-      reason: `인연과 관련된 오행(${elementKo(wealthEl)})의 색을 활용하면 매력이 자연스럽게 올라가요.`,
-    });
+    if (isMinor) {
+      advice.push({
+        text: '친구나 또래와 함께하는 활동에서 좋은 호흡을 만들기 쉬운 시기예요.',
+        reason: '관계 흐름이 부드러워 협동, 대화, 모임 참여가 자연스럽게 이어질 수 있어요.',
+      });
+      advice.push({
+        text: `${color} 계열의 소품을 가볍게 활용하면 밝고 편안한 인상을 만드는 데 도움이 돼요.`,
+        reason: `관계 흐름과 관련된 오행(${elementKo(wealthEl)})의 색을 일상에서 부드럽게 활용하는 방법이에요.`,
+      });
+    } else {
+      advice.push({
+        text: '새로운 만남이나 인연이 자연스럽게 들어오기 좋은 시기예요. 모임에 적극 참여해 보세요.',
+        reason: '재성/관성 기운이 잘 흘러 대인 매력과 인연운이 높아져 있어요.',
+      });
+      advice.push({
+        text: `${color} 계열의 옷이나 액세서리가 만남 운을 도와줄 수 있어요.`,
+        reason: `인연과 관련된 오행(${elementKo(wealthEl)})의 색을 활용하면 매력이 자연스럽게 올라가요.`,
+      });
+    }
   } else {
-    advice.push({
-      text: '지금은 새 관계를 서두르기보다 기존 관계를 깊게 가꾸는 데 집중하세요.',
-      reason: '연애 기운이 약한 시기에 무리하면 오히려 관계가 꼬이기 쉬워요.',
-    });
+    advice.push(isMinor
+      ? {
+          text: '친구 관계에서 급하게 인정받으려 하기보다 편안한 대화부터 쌓아 보세요.',
+          reason: '관계 흐름이 약할 때는 무리해서 가까워지려 하기보다 안정적인 거리감이 더 좋아요.',
+        }
+      : {
+          text: '지금은 새 관계를 서두르기보다 기존 관계를 깊게 가꾸는 데 집중하세요.',
+          reason: '연애 기운이 약한 시기에 무리하면 오히려 관계가 꼬이기 쉬워요.',
+        });
     advice.push({
       text: '상대방의 말을 먼저 경청하고, 감정적 반응을 한 박자 늦추는 연습을 해보세요.',
       reason: '관성 기운이 약할 때 소통 방식을 보완하면 관계 안정성이 높아져요.',
@@ -446,12 +486,14 @@ function makeCaution(
   stars: StarRating,
   fortuneEl: ElementCode,
   catEls: CategoryElements,
+  context?: CategoryFortuneContext,
 ): FortuneWarning | null {
   // Only generate caution for low scores
   if (stars >= 4) return null;
 
   const catKo = elementKo(catEls.primary);
   const fortuneKo = elementKo(fortuneEl);
+  const isMinorRomance = category === 'romance' && isMinorContext(context);
 
   const cautionMap: Record<FortuneCategory, FortuneWarning> = {
     wealth: {
@@ -461,8 +503,8 @@ function makeCaution(
     },
     health: {
       signal: '건강 기운이 약해서 컨디션 관리에 주의가 필요해요.',
-      response: '과로를 피하고, 정기 검진을 받아보세요. 수면 리듬도 함께 챙겨주세요.',
-      reason: '인성 기운이 약하면 회복력이 떨어져서 작은 피로도 쌓이기 쉬워요.',
+      response: '과로를 피하고 수면, 식사, 휴식 리듬을 함께 챙겨주세요.',
+      reason: '인성 기운이 약하면 생활 리듬이 쉽게 흔들릴 수 있어요.',
     },
     academic: {
       signal: '학업 집중력이 흔들리기 쉬운 시기예요.',
@@ -470,9 +512,15 @@ function makeCaution(
       reason: '식상과 인성 기운이 약하면 이해와 표현 모두 효율이 떨어질 수 있어요.',
     },
     romance: {
-      signal: '관계에서 오해나 감정 소모가 생기기 쉬운 시기예요.',
-      response: '새 관계를 서두르지 말고, 기존 관계에서 소통 방식을 점검해 보세요.',
-      reason: '재성/관성 기운이 약하면 인연의 타이밍이 맞지 않을 수 있어요.',
+      signal: isMinorRomance
+        ? '친구 관계에서 오해나 감정 소모가 생기기 쉬운 시기예요.'
+        : '관계에서 오해나 감정 소모가 생기기 쉬운 시기예요.',
+      response: isMinorRomance
+        ? '새 친구와 급히 가까워지려 하기보다, 이미 알고 지내는 친구와의 대화 방식을 점검해 보세요.'
+        : '새 관계를 서두르지 말고, 기존 관계에서 소통 방식을 점검해 보세요.',
+      reason: isMinorRomance
+        ? '관계 기운이 약할 때는 속도보다 편안한 거리감과 꾸준한 대화가 더 중요해요.'
+        : '재성/관성 기운이 약하면 인연의 타이밍이 맞지 않을 수 있어요.',
     },
     family: {
       signal: '가족 사이에 작은 마찰이 생기기 쉬운 시기예요.',
@@ -492,6 +540,7 @@ export function buildCategoryFortuneCards(
   saju: SajuSummary,
   targetDate: Date,
   options?: Pick<FortuneReportOptions, 'surfaceSubDomains'>,
+  context?: CategoryFortuneContext,
 ): Record<FortuneCategory, CategoryFortuneCard> {
   // Extract natal data
   const dayMasterElement = toElementCode(saju.dayMaster?.element) ?? 'EARTH';
@@ -541,8 +590,10 @@ export function buildCategoryFortuneCards(
     const catEls = getCategoryElements(category, dayMasterElement);
     const grade = computeCategoryGrade(fortuneEl, catEls, yongshinGrade);
     const stars = gradeToStars(Math.round(grade));
+    const isGishinAligned = !!gishinElement && catEls.primary === gishinElement;
+    const title = categoryTitle(category, context);
 
-    const summary = makeCategorySummary(category, stars, fortuneEl, catEls);
+    const summary = makeCategorySummary(category, stars, fortuneEl, catEls, context, { isGishinAligned });
 
     // Generate category-specific advice
     let advice: FortuneAdvice[];
@@ -557,7 +608,7 @@ export function buildCategoryFortuneCards(
         advice = makeAcademicAdvice(stars, dayMasterElement);
         break;
       case 'romance':
-        advice = makeRomanceAdvice(stars, dayMasterElement);
+        advice = makeRomanceAdvice(stars, dayMasterElement, context);
         break;
       case 'family':
         advice = makeFamilyAdvice(stars, dayMasterElement);
@@ -566,21 +617,22 @@ export function buildCategoryFortuneCards(
         advice = [];
     }
 
-    const caution = makeCaution(category, stars, fortuneEl, catEls);
+    const caution = makeCaution(category, stars, fortuneEl, catEls, context);
 
     // ── PR-J-8a — narrative foundations (axisStrength + evidence) ──
     const sajuAxis = (saju as unknown as { axisStrength?: SajuAxisStrengthMap }).axisStrength;
     const isYongshinAligned = catEls.primary === yongshinElement;
-    const isGishinAligned   = !!gishinElement && catEls.primary === gishinElement;
 
     let claim: string;
     const primaryElementName = elementKo(catEls.primary);
     if (isYongshinAligned) {
-      claim = `${CATEGORY_TITLE[category]} 영역의 핵심 오행 ${iGa(primaryElementName)} 용신과 일치하여 흐름이 좋은 영역이에요.`;
+      claim = `${title} 영역의 핵심 오행 ${iGa(primaryElementName)} 용신과 일치하여 흐름이 좋은 영역이에요.`;
     } else if (isGishinAligned) {
-      claim = `${CATEGORY_TITLE[category]} 영역의 핵심 오행 ${iGa(primaryElementName)} 기신과 겹쳐 보수적 운영이 좋아요.`;
+      claim = stars >= 4
+        ? `${title} 영역의 핵심 오행 ${iGa(primaryElementName)} 기신과 겹치지만, 다른 보조 흐름이 받쳐 주어 속도 조절이 중요해요.`
+        : `${title} 영역의 핵심 오행 ${iGa(primaryElementName)} 기신과 겹쳐 보수적 운영이 좋아요.`;
     } else {
-      claim = `${CATEGORY_TITLE[category]} 영역은 ${primaryElementName} 기운을 중심으로 평가했어요.`;
+      claim = `${title} 영역은 ${primaryElementName} 기운을 중심으로 평가했어요.`;
     }
 
     const supporting: string[] = [
@@ -596,7 +648,7 @@ export function buildCategoryFortuneCards(
       claim,
       supportingFeatures: supporting,
       weakness: stars <= 2
-        ? `${CATEGORY_TITLE[category]} 영역에서는 중요한 결정을 서두르지 말고 회복되는 흐름을 확인해 보세요.`
+        ? `${title} 영역에서는 중요한 결정을 서두르지 말고 회복되는 흐름을 확인해 보세요.`
         : undefined,
       strength: sajuAxis?.yongshin,
     }];
@@ -606,7 +658,7 @@ export function buildCategoryFortuneCards(
       : undefined;
 
     result[category] = {
-      title: CATEGORY_TITLE[category],
+      title,
       category,
       stars,
       summary,
