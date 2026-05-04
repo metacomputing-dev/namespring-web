@@ -33,7 +33,7 @@
       "hashLabel": "#소운",
       "category": "gungsil",
       "brief": "10년 대운 사이에 흐르는 짧은 단위의 운세예요.",
-      "detailed": "소운은 큰 줄기인 대운 사이사이에 흐르는 짧은 단위의 운세 자리예요. 대운의 큰 결을 받아 한 해 한 해의 결을 풀어 주는 결이라, 작은 결정·일정 변화의 시기에 함께 살피면 흐름이 또렷해져요.",
+      "detailed": "소운은 큰 줄기인 대운 사이사이에 흐르는 짧은 단위의 운세 자리예요. 대운의 큰 흐름을 받아 한 해 한 해를 풀어 보는 단서라, 작은 결정·일정 변화의 시기에 함께 살피면 흐름이 또렷해져요.",
       "related": ["daewoonGungsil", "yunyeon"],
       "aiGenerated": true,
       "sourceTier": { "tier": "T1_HYPOTHESIS", "sourceType": "training_derived", "sourceUrl": null, "accessedAt": "2026-05-02", "quoteShort": null, "humanInterpretation": "AI-derived plain-language definition of 소운. Display-only.", "copyrightNote": "No source prose copied.", "authorityTruthEligible": false }
@@ -45,7 +45,7 @@
       "hashLabel": "#유년",
       "category": "gungsil",
       "brief": "한 해 단위로 들어오는 그해의 운세 자리예요.",
-      "detailed": "유년은 한 해 한 해의 갑자가 사주에 들어와 만드는 자리예요. 큰 흐름인 대운과 그해의 갑자가 함께 작용해 그해의 결을 풀어 주는 결이라, '올해 운세' 카드의 핵심 단서가 되는 자리예요.",
+      "detailed": "유년은 한 해 한 해의 갑자가 사주에 들어와 만드는 자리예요. 큰 흐름인 대운과 그해의 갑자가 함께 작용해 그해의 흐름을 읽는 단서라, '올해 운세' 카드의 핵심 단서가 되는 자리예요.",
       "related": ["soun", "wolun"],
       "aiGenerated": true,
       "sourceTier": { "tier": "T1_HYPOTHESIS", "sourceType": "training_derived", "sourceUrl": null, "accessedAt": "2026-05-02", "quoteShort": null, "humanInterpretation": "AI-derived plain-language definition of 유년. Display-only.", "copyrightNote": "No source prose copied.", "authorityTruthEligible": false }
@@ -57,7 +57,7 @@
       "hashLabel": "#월운",
       "category": "gungsil",
       "brief": "한 달 단위로 들어오는 그달의 운세 자리예요.",
-      "detailed": "월운은 한 달 단위 갑자가 사주에 들어와 만드는 자리예요. 그달의 결과 평소 결의 짜임을 함께 살펴 짧은 일정·약속·결정에 도움을 주는 결이라, '이달의 흐름' 카드에서 핵심으로 보는 자리예요.",
+      "detailed": "월운은 한 달 단위 갑자가 사주에 들어와 만드는 자리예요. 그달의 흐름과 평소 흐름의 짜임을 함께 살펴 짧은 일정·약속·결정에 도움을 주는 단서라, '이달의 흐름' 카드에서 핵심으로 보는 자리예요.",
       "related": ["yunyeon", "iljin"],
       "aiGenerated": true,
       "sourceTier": { "tier": "T1_HYPOTHESIS", "sourceType": "training_derived", "sourceUrl": null, "accessedAt": "2026-05-02", "quoteShort": null, "humanInterpretation": "AI-derived plain-language definition of 월운. Display-only.", "copyrightNote": "No source prose copied.", "authorityTruthEligible": false }

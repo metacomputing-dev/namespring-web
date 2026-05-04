@@ -315,7 +315,7 @@
       "templateTokens": [
         { "kind": "text", "value": "장년기에 일간이 약한 자리에서 " },
         { "kind": "tag", "tagId": "yongshin", "label": "용신" },
-        { "kind": "text", "value": "이 천천히 자기 결을 찾아가는 흐름이에요. " },
+        { "kind": "text", "value": " 보강을 천천히 찾아가는 자리예요. " },
         { "kind": "tag", "tagId": "daewoonGungsil", "label": "대운궁실" },
         { "kind": "text", "value": "의 결이 한 번 큰 분기를 만들고, " },
         { "kind": "tag", "tagId": "jojangung", "label": "조장궁" },
