@@ -345,7 +345,7 @@ function makeGoodActions(
     if (foods.length > 0) {
       actions.push({
         text: `${foods.slice(0, 3).join(', ')} 같은 음식을 챙기면 기운 보충에 좋아요.`,
-        reason: `${elementKo(yongshinEl)} 기운과 어울리는 음식은 몸의 균형을 맞추는 데 도움이 돼요.`,
+        reason: `${elementKo(yongshinEl)} 기운과 어울리는 음식은 생활 리듬을 차분히 챙기는 데 도움이 돼요.`,
       });
     }
   } else if (periodKind === 'weekly') {
@@ -426,7 +426,7 @@ function makeGoodActions(
     if (foods.length > 0) {
       actions.push({
         text: `올 한 해 ${foods.slice(0, 3).join(', ')} 같은 음식을 자주 챙기면 기운 보충에 좋아요.`,
-        reason: `${elementKo(yongshinEl)} 기운에 맞는 식습관이 연간 건강과 운세의 기반이 돼요.`,
+        reason: `${elementKo(yongshinEl)} 기운에 맞는 식습관이 연간 생활 리듬과 컨디션 관리의 기반이 돼요.`,
       });
     }
   } else {
@@ -446,9 +446,11 @@ function makeBadActions(
   natal: NatalData,
   grade: number,
   periodKind?: FortunePeriodKind,
+  context?: { readonly currentAge?: number | null },
 ): FortuneAdvice[] {
   const actions: FortuneAdvice[] = [];
   const gishinEl = natal.gishinElement;
+  const isMinor = typeof context?.currentAge === 'number' && context.currentAge < 19;
 
   // Action 1: Avoid gishin element activities
   if (gishinEl) {
@@ -466,8 +468,12 @@ function makeBadActions(
       periodKind === 'monthly' ? '이번 달은' :
       periodKind === 'yearly' ? '올해는' : '지금은';
     actions.push({
-      text: `${periodDesc} 큰 계약이나 중요한 결정을 한 번 더 검토하고 진행하는 것이 좋아요.`,
-      reason: '기운이 약한 시기에는 속도를 늦추면 후회할 가능성을 줄일 수 있어요.',
+      text: isMinor
+        ? `${periodDesc} 중요한 선택이나 큰 약속은 혼자 서두르지 말고 가까운 어른과 함께 확인하는 것이 좋아요.`
+        : `${periodDesc} 큰 계약이나 중요한 결정을 한 번 더 검토하고 진행하는 것이 좋아요.`,
+      reason: isMinor
+        ? '기운이 약한 시기에는 도움을 받아 차분히 확인하면 부담을 줄일 수 있어요.'
+        : '기운이 약한 시기에는 속도를 늦추면 후회할 가능성을 줄일 수 있어요.',
     });
   }
 
@@ -835,6 +841,7 @@ export function buildPeriodFortuneCard(
   periodKind: FortunePeriodKind,
   targetDate: Date,
   options?: { readonly fortuneCascadeMode?: 'simple' | 'jie_based' | 'full_5layer' },
+  context?: { readonly currentAge?: number | null },
 ): PeriodFortuneCard {
   const natal = extractNatalData(saju);
 
@@ -868,7 +875,7 @@ export function buildPeriodFortuneCard(
 
   const summary = makeSummary(periodKind, stars, effectiveStemEl, effectiveBranchEl, natal);
   const goodActions = makeGoodActions(effectiveStemEl, effectiveBranchEl, natal, Math.round(grade), periodKind);
-  const badActions = makeBadActions(effectiveStemEl, effectiveBranchEl, natal, Math.round(grade), periodKind);
+  const badActions = makeBadActions(effectiveStemEl, effectiveBranchEl, natal, Math.round(grade), periodKind, context);
   const warning = makeWarning(ganzhi, natal, Math.round(grade));
   const categoryScores = periodKind === 'weekly'
     ? computeWeeklyCategoryScores(targetDate, natal)

@@ -212,25 +212,25 @@ export function buildFortuneReport(
 
   // ── 7. Period fortune cards ──
   const dailyFortune = safeCall(
-    () => buildPeriodFortuneCard(saju, 'daily', targetDate, options),
+    () => buildPeriodFortuneCard(saju, 'daily', targetDate, options, { currentAge }),
     makeFallbackPeriodFortune('daily', '오늘'),
     'dailyFortune',
   );
 
   const weeklyFortune = safeCall(
-    () => buildPeriodFortuneCard(saju, 'weekly', targetDate, options),
+    () => buildPeriodFortuneCard(saju, 'weekly', targetDate, options, { currentAge }),
     makeFallbackPeriodFortune('weekly', '이번 주'),
     'weeklyFortune',
   );
 
   const monthlyFortune = safeCall(
-    () => buildPeriodFortuneCard(saju, 'monthly', targetDate, options),
+    () => buildPeriodFortuneCard(saju, 'monthly', targetDate, options, { currentAge }),
     makeFallbackPeriodFortune('monthly', '이번 달'),
     'monthlyFortune',
   );
 
   const yearlyFortune = safeCall(
-    () => buildPeriodFortuneCard(saju, 'yearly', targetDate, options),
+    () => buildPeriodFortuneCard(saju, 'yearly', targetDate, options, { currentAge }),
     makeFallbackPeriodFortune('yearly', '올해'),
     'yearlyFortune',
   );

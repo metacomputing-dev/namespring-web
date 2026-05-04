@@ -706,7 +706,7 @@ export const SHINSAL_ENCYCLOPEDIA: Record<string, ShinsalEncyclopediaEntry> = {
       '인덕이 있어 주변의 신뢰를 얻기 쉽습니다.',
     ],
     tips: [
-      '건강 검진을 정기적으로 받으세요.',
+      '생활 리듬 점검을 정기적으로 받으세요.',
       '꾸준한 운동 루틴을 유지하세요.',
       '선한 행동이 덕의 기운을 더욱 키워줍니다.',
     ],
