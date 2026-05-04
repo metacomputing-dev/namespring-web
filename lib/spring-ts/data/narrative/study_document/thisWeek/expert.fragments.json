@@ -10,7 +10,7 @@
       "axis": { "category": "study_document", "period": "thisWeek", "depth": "expert" },
       "gating": {},
       "templateTokens": [
-        { "kind": "text", "value": "이번 주의 자격·서류 흐름은 주운의 " },
+        { "kind": "text", "value": "이번 주의 자격·서류운은 주운의 " },
         { "kind": "tag", "tagId": "jeongin", "label": "정인" },
         { "kind": "text", "value": "결을 중심에 두고 살펴봐요. 한 트랙을 길게 끌고 가는 자리에서 결이 또렷해지는 흐름이에요.\n\n" },
         { "kind": "tag", "tagId": "sikshin", "label": "식신" },

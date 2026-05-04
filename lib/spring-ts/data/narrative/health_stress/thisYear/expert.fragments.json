@@ -22,7 +22,7 @@
         { "kind": "text", "value": "의 따뜻한 자리에서 가장 또렷해요." },
         { "kind": "text", "value": " 결과가 더디게 오는 자리는 " },
         { "kind": "tag", "tagId": "gongmang", "label": "공망" },
-        { "kind": "text", "value": "의 결과 닿아요. 천천히 익는 자리는 흉한 자리가 아니니, 인내·기록·꾸준함이 마음의 짐을 덜어 줘요." }
+        { "kind": "text", "value": "의 신호와 닿아요. 천천히 익는 자리는 흉한 자리가 아니니, 인내·기록·꾸준함이 마음의 짐을 덜어 줘요." }
       ],
       "tags": ["johu", "samhyeong", "jeongin", "gongmang"],
       "numericalEvidence": [
@@ -110,7 +110,7 @@
         "yongshinAlignment": ["aligned"]
       },
       "templateTokens": [
-        { "kind": "text", "value": "올해는 일간의 결이 비교적 고른 흐름이에요. " },
+        { "kind": "text", "value": "올해는 일간 기운이 비교적 고른 시기예요. " },
         { "kind": "tag", "tagId": "johu", "label": "조후" },
         { "kind": "text", "value": "의 균형이 평이하니 큰 처방보다 일상의 작은 회복이 또렷한 효과를 내요." },
         { "kind": "text", "value": " " },
@@ -139,15 +139,15 @@
         "yongshinAlignment": ["neutral"]
       },
       "templateTokens": [
-        { "kind": "text", "value": "올해는 일간의 결이 잔잔한 흐름이에요. " },
+        { "kind": "text", "value": "올해는 일간 기운이 잔잔한 시기예요. " },
         { "kind": "tag", "tagId": "jeongin", "label": "정인" },
         { "kind": "text", "value": "의 따뜻한 돌봄을 가까이 두는 자리가 한 해 회복의 큰 자리가 돼요." },
         { "kind": "text", "value": " 압박이 닿는 시기에는 " },
         { "kind": "tag", "tagId": "pyeongwan", "label": "편관" },
-        { "kind": "text", "value": "의 결이 한꺼번에 누르지 않도록 일을 분산하는 결이 흐름을 가볍게 해 줘요." },
+        { "kind": "text", "value": "의 압박이 한꺼번에 누르지 않도록 일을 분산하면 한 해의 부담이 가벼워져요." },
         { "kind": "text", "value": " 결과가 더디게 오는 자리는 " },
         { "kind": "tag", "tagId": "gongmang", "label": "공망" },
-        { "kind": "text", "value": "의 결과 닿아요. 천천히 익는 자리는 흉한 자리가 아니니, 인내가 큰 자산이 돼요." }
+        { "kind": "text", "value": "의 신호와 닿아요. 천천히 익는 자리는 흉한 자리가 아니니, 인내가 큰 자산이 돼요." }
       ],
       "tags": ["jeongin", "pyeongwan", "gongmang"],
       "aiGenerated": true,

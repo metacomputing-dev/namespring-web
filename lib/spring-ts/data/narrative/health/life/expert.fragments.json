@@ -195,13 +195,13 @@
         "yongshinAlignment": ["aligned"]
       },
       "templateTokens": [
-        { "kind": "text", "value": "용신 흐름이 잘 맞는 사주라, 평생 컨디션의 큰 그림이 부드럽게 풀리는 결이에요. " },
+        { "kind": "text", "value": "용신 보완 방향이 잘 맞는 사주라, 평생 컨디션의 큰 그림이 부드럽게 풀리는 구조예요. " },
         { "kind": "tag", "tagId": "johu", "label": "조후" },
         { "kind": "text", "value": "가 균형 잡힌 자리에서 시작하니, 회복 속도와 안정감이 든든한 자산이에요.\n\n" },
         { "kind": "tag", "tagId": "jeongin", "label": "정인" },
-        { "kind": "text", "value": "의 결로 받쳐 주는 자리가 길게 작용해, 가족·스승·환경 같은 자산이 컨디션의 든든한 받침대 역할을 해요. 잘 받아들이는 연습이 평생 약이 돼요.\n\n" },
+        { "kind": "text", "value": "의 기운으로 받쳐 주는 자리가 길게 작용해, 가족·스승·환경 같은 자산이 컨디션의 든든한 받침대 역할을 해요. 잘 받아들이는 연습이 평생 약이 돼요.\n\n" },
         { "kind": "tag", "tagId": "sikshin", "label": "식신" },
-        { "kind": "text", "value": "의 결이 좋게 작용하면, 표현·소화·일상의 즐거움이 자연스럽게 회복의 자리가 돼요. 무리한 변화보다 익숙한 결을 길게 이어 가는 편이 잘 맞아요." }
+        { "kind": "text", "value": "의 기운이 좋게 작용하면, 표현·소화·일상의 즐거움이 자연스럽게 회복의 자리가 돼요. 무리한 변화보다 익숙한 루틴을 길게 이어 가는 편이 잘 맞아요." }
       ],
       "tags": ["johu", "jeongin", "sikshin"],
       "aiGenerated": true,
@@ -224,13 +224,13 @@
         "yongshinAlignment": ["conflicting"]
       },
       "templateTokens": [
-        { "kind": "text", "value": "용신 흐름이 어긋나는 결이라, 평생 흐름에서 페이스 조절이 가장 큰 과제예요. " },
+        { "kind": "text", "value": "용신 보완 방향이 어긋나는 구조라, 평생 컨디션 관리에서 페이스 조절이 가장 큰 과제예요. " },
         { "kind": "tag", "tagId": "samhyeong", "label": "삼형" },
-        { "kind": "text", "value": "의 결이 함께 자리잡으면, 큰 변화·갈등 자리에서 컨디션이 출렁이기 쉬워요.\n\n" },
+        { "kind": "text", "value": "의 신호가 함께 자리잡으면, 큰 변화·갈등 자리에서 컨디션이 출렁이기 쉬워요.\n\n" },
         { "kind": "tag", "tagId": "johu", "label": "조후" },
         { "kind": "text", "value": "의 균형이 한쪽으로 기울어 있으니, 일상에서 부족한 자리를 보완하는 보편 챙김이 가장 든든한 약이 돼요. 따뜻한 자리·시원한 자리·고요한 자리·움직이는 자리를 시기마다 다르게 채워 가요.\n\n" },
         { "kind": "tag", "tagId": "gongmang", "label": "공망" },
-        { "kind": "text", "value": "의 결로 결과가 더디게 오는 자리가 있어도, 무리하기보다 천천히 가는 편이 후반까지 단단하게 이어져요." }
+        { "kind": "text", "value": "의 신호로 결과가 더디게 오는 자리가 있어도, 무리하기보다 천천히 가는 편이 후반까지 단단하게 이어져요." }
       ],
       "tags": ["samhyeong", "johu", "gongmang"],
       "aiGenerated": true,

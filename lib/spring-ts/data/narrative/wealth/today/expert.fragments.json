@@ -80,13 +80,13 @@
         { "kind": "tag", "tagId": "pyeonjae", "label": "편재" },
         { "kind": "text", "value": "를 다스리기 좋은 하루예요. " },
         { "kind": "tag", "tagId": "yongshin", "label": "용신" },
-        { "kind": "text", "value": "의 결과 잘 맞물려 큰 거래·확장의 결이 또렷해지는 결이에요.\n\n" },
+        { "kind": "text", "value": "의 기운과 잘 맞물려 큰 거래·확장성이 또렷해지는 하루예요.\n\n" },
         { "kind": "tag", "tagId": "jeonggwan", "label": "정관" },
         { "kind": "text", "value": "이 함께 들어오면 결정의 무게가 단단해지고, " },
         { "kind": "tag", "tagId": "pyeongwan", "label": "편관" },
-        { "kind": "text", "value": "이 들어올 땐 추진력에 통제력이 더해져요.\n\n주의할 결은 " },
+        { "kind": "text", "value": "이 들어올 땐 추진력에 통제력이 더해져요.\n\n주의할 신호는 " },
         { "kind": "tag", "tagId": "geobjae", "label": "겁재" },
-        { "kind": "text", "value": "의 결이 함께 들어올 때예요. 동업·돈거래는 평소보다 한 번 더 살피면 좋아요." }
+        { "kind": "text", "value": "의 기운이 함께 들어올 때예요. 동업·돈거래는 평소보다 한 번 더 살피면 좋아요." }
       ],
       "tags": ["pyeonjae", "yongshin", "jeonggwan", "pyeongwan", "geobjae"],
       "aiGenerated": true,

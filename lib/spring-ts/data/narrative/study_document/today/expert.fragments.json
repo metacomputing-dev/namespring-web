@@ -10,7 +10,7 @@
       "axis": { "category": "study_document", "period": "today", "depth": "expert" },
       "gating": {},
       "templateTokens": [
-        { "kind": "text", "value": "오늘의 자격·서류 흐름은 일진의 " },
+        { "kind": "text", "value": "오늘의 자격·서류운은 일진의 " },
         { "kind": "tag", "tagId": "jeongin", "label": "정인" },
         { "kind": "text", "value": "결과 가까이 있어, 검토·정리·기록 자리에서 가장 또렷한 결이에요.\n\n" },
         { "kind": "tag", "tagId": "sikshin", "label": "식신" },
