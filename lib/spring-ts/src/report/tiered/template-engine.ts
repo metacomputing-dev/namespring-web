@@ -366,6 +366,23 @@ export function normalizeRenderedText(value: string): string {
   out = out.replace(/페이스를 늦추는 자리를/g, '페이스를 늦추는 시간을');
   out = out.replace(/그릇을 더 키워/g, '체력 기반을 더 키워');
   out = out.replace(/한 해의 결이 한층 든든해져요/g, '한 해의 컨디션이 한층 든든해져요');
+  out = out.replace(/학업·관계 자리에서 신경 쓸 자리가 많아지기 쉬운 흐름이에요/g, '학업과 관계에서 신경 쓸 일이 많아지기 쉬운 시기예요');
+  out = out.replace(/강한 다이어트·과한 야식 자리는/g, '강한 다이어트나 과한 야식은');
+  out = out.replace(/친구와의 자리도 회복의 자리가 돼요/g, '친구와 보내는 시간도 회복에 도움이 돼요');
+  out = out.replace(/너무 늦은 자리는/g, '너무 늦은 약속은');
+  out = out.replace(/받은 자리를 단단히 받쳐/g, '맡은 역할을 단단히 받쳐');
+  out = out.replace(/큰 자리만 좇기보다는 한 자리에서의 마무리가 다음 자리의 신뢰가/g, '큰 역할만 좇기보다는 지금 맡은 일을 제대로 마무리하는 태도가 다음 신뢰가');
+  out = out.replace(/한 자리에서 길게 머문 만큼 후반의 자리도/g, '한 역할에 오래 머문 만큼 후반의 기반도');
+  out = out.replace(/한 자리에서 자기 색을/g, '한 분야에서 자기 색을');
+  out = out.replace(/후반의 자리도 길게/g, '후반의 역할도 길게');
+  out = out.replace(/자기 자리에서의 작은 결정이 다음 자리의 폭을/g, '지금 역할에서의 작은 결정이 다음 단계의 폭을');
+  out = out.replace(/인생의 자리를 잡아 주는 흐름/g, '인생의 기준을 잡아 주는 흐름');
+  out = out.replace(/몇 년의 흐름을 받쳐 주는 자리예요/g, '몇 년의 흐름을 받쳐 주는 기준이 돼요');
+  out = out.replace(/한 분야의 기준을 또렷이 잡는 자리예요/g, '한 분야의 기준을 또렷이 잡는 일이에요');
+  out = out.replace(/관계를 지켜 주는 흐름이에요/g, '관계를 지켜 주는 힘이에요');
+  out = out.replace(/자격증·이력서·증명 서류 자리에서/g, '자격증·이력서·증명 서류에서');
+  out = out.replace(/시험 응시 한 자리가/g, '시험 응시 한 번이');
+  out = out.replace(/한 분야를 처음부터 끝까지 끌고 가는 자리예요/g, '한 분야를 처음부터 끝까지 끌고 가는 일이에요');
   out = out.replace(/시기이에요/g, '시기예요');
   return out.replace(/([.!?])(?=[가-힣])/g, '$1 ');
 }
