@@ -104,6 +104,32 @@ check('each frame carries seed-ts evidence fields',
 check('at least one frame includes authored meaning text',
   namedEvidence?.frames?.some((frame: any) =>
     typeof frame.title === 'string' || typeof frame.summary === 'string'));
+const namedFourFrameJson = JSON.stringify(namedReport?.namingReport?.analysis?.fourFrame ?? {});
+const namedEvidenceJson = JSON.stringify(namedEvidence ?? {});
+const harshFourFrameTerms = [
+  '파괴운',
+  '흉운수',
+  '외로워지기 쉬운 수',
+  '이별이 따르기 쉬운 수',
+  '재물이 빠져나가는 기운',
+  '무리한 사업 확장은 반드시',
+  '반드시 뒤에 복',
+  '많은 사람들이 우러러',
+  '아랫사람의 충성',
+  '기회가 물밀듯',
+  '황금기',
+  '축복',
+  '진심으로 응원',
+  '이성 문제',
+  '깊은 존경',
+  '놓치지 않도록',
+];
+check('four-frame meaning text is service-softened',
+  harshFourFrameTerms.every((term) => !namedFourFrameJson.includes(term)),
+  harshFourFrameTerms.filter((term) => namedFourFrameJson.includes(term)).join(','));
+check('tiered naming evidence uses service-softened text',
+  harshFourFrameTerms.every((term) => !namedEvidenceJson.includes(term)),
+  harshFourFrameTerms.filter((term) => namedEvidenceJson.includes(term)).join(','));
 
 const unnamedReport: any = await engine.getFortuneReport(baseRequest);
 check('namingEvidence stays absent without a concrete name',
