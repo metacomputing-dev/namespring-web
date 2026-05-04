@@ -340,8 +340,9 @@ export function buildLifeStageFortuneCard(
       `대운 기둥: ${focusStage.pillarDisplay}`,
       `별점: ${focusStage.stars}/5`,
     ];
-    if (saju.yongshin?.element) {
-      supporting.push(`용신: ${saju.yongshin.element}`);
+    const yongshinEl = toElementCode(saju.yongshin?.element);
+    if (yongshinEl) {
+      supporting.push(`용신: ${elementKo(yongshinEl)}`);
     }
     evidence.push({
       axis: 'daewoon',

@@ -463,7 +463,7 @@ export function buildNameCompatibilityCard(
     evidence.push({
       axis: 'candidateStrengthProfile',
       claim: `후보 성향: ${strengthProfile.label}${strengthProfile.paretoFrontier ? ' (파레토 후보)' : ''}.`,
-      supportingFeatures: [...strengthProfile.reasons],
+      supportingFeatures: [...(strengthProfile.displayReasons ?? strengthProfile.reasons)],
     });
   }
 

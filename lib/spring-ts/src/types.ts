@@ -38,6 +38,7 @@ export interface NameCharInput {
   readonly meaning?: string;
   readonly strokes?: number;
   readonly element?: string;
+  readonly elementLabel?: string;
   readonly legalStatus?: HanjaLegalStatus;
   readonly legalRegistrable?: boolean;
   readonly isVariantOf?: string;
@@ -497,6 +498,7 @@ export interface CharDetail {
   readonly meaning: string;
   readonly strokes: number;
   readonly element: string;
+  readonly elementLabel?: string;
   readonly polarity: string;
   readonly legalStatus: HanjaLegalStatus;
   readonly legalRegistrable?: boolean;
@@ -858,6 +860,7 @@ export interface NamingReportFrame {
   readonly type: 'won' | 'hyung' | 'lee' | 'jung';
   readonly strokeSum: number;
   readonly element: string;
+  readonly elementLabel?: string;
   readonly polarity: string;
   readonly luckyLevel: number;
   readonly meaning: FourframeMeaningEntry | null;
@@ -905,6 +908,7 @@ export interface CandidateStrengthProfile {
   readonly label: string;
   readonly primaryAxis: keyof NamingScoreVector | 'balanced';
   readonly reasons: readonly string[];
+  readonly displayReasons?: readonly string[];
   readonly paretoFrontier: boolean;
 }
 
@@ -1255,6 +1259,7 @@ export interface SajuInputUncertainty {
     readonly fallbackHour: number;
     readonly fallbackMinute: number;
     readonly affectedAxes: readonly SajuInputUncertaintyAxis[];
+    readonly affectedAxisLabels?: readonly string[];
     readonly confidenceTierShift: 'downgrade-one-step';
     readonly message: string;
   };

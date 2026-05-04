@@ -20,6 +20,7 @@ import fs from 'node:fs';
 import path from 'node:path';
 import { fileURLToPath } from 'node:url';
 import type { GlossaryEntry, TagId } from '../types.js';
+import { normalizeRenderedText } from './template-engine.js';
 
 interface GlossaryBundle {
   schemaVersion: 'spring-ts.glossary-bundle.v1';
@@ -40,8 +41,8 @@ function normalizeGlossaryEntry(entry: GlossaryEntry): GlossaryEntry | null {
     label: entry.label,
     hashLabel: entry.hashLabel,
     category: entry.category,
-    brief: entry.brief ?? '',
-    detailed: entry.detailed ?? '',
+    brief: normalizeRenderedText(entry.brief ?? ''),
+    detailed: normalizeRenderedText(entry.detailed ?? ''),
     ...(entry.classicalSource ? { classicalSource: entry.classicalSource } : {}),
     related: Array.isArray(entry.related) ? entry.related : [],
   };

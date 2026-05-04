@@ -49,6 +49,19 @@ const PILLAR_POSITIONS: readonly { key: 'year' | 'month' | 'day' | 'hour'; label
   { key: 'hour', label: '시주' },
 ];
 
+const INPUT_AXIS_LABELS: Readonly<Record<string, string>> = {
+  hourPillar: '시주',
+  yongshin: '용신 후보',
+  gyeokguk: '격국',
+  strength: '신강약',
+  tenGod: '십성 위치',
+  fortuneTiming: '운세 시점',
+};
+
+const GYEOKGUK_RULE_LABELS: Readonly<Record<string, string>> = {
+  MONTH_BRANCH_DAMAGED: '월지가 충·형·해 등으로 흔들리는 신호',
+};
+
 // ---------------------------------------------------------------------------
 //  Element normalisation
 // ---------------------------------------------------------------------------
@@ -89,7 +102,11 @@ function formatConfidence(value: unknown): string {
 }
 
 function formatGyeokgukRule(rule: string): string {
+  if (GYEOKGUK_RULE_LABELS[rule]) return GYEOKGUK_RULE_LABELS[rule];
   const [key, rawValue] = rule.split(':');
+  if (key === 'blocking' && rawValue && GYEOKGUK_RULE_LABELS[rawValue]) {
+    return GYEOKGUK_RULE_LABELS[rawValue];
+  }
   if (key === 'monthHiddenStem' && rawValue) {
     const stem = lookupStemInfo(rawValue);
     return `월지 지장간: ${stem?.hangul ?? rawValue}`;
@@ -106,6 +123,11 @@ function formatGyeokgukRule(rule: string): string {
   if (rule === 'MAIN') return '월지 정기 기준';
   if (rule === 'VISIBLE' || rule === 'visibleInChart') return '원국에 드러난 기운';
   return rule;
+}
+
+function formatInputAxisLabels(axes: readonly string[] | undefined): string {
+  const labels = (axes ?? []).map((axis) => INPUT_AXIS_LABELS[axis] ?? axis);
+  return labels.length > 0 ? labels.join(', ') : '시간 관련 해석';
 }
 
 function formatPillarElementPair(stemElement: string, branchElement: string): string {
@@ -292,7 +314,7 @@ export function buildOverviewSummaryCard(
       claim: unknownHour.message,
       supportingFeatures: [
         `임시 계산 시각: ${String(unknownHour.fallbackHour).padStart(2, '0')}:${String(unknownHour.fallbackMinute).padStart(2, '0')}`,
-        `영향을 받을 수 있는 항목: ${unknownHour.affectedAxes.join(', ')}`,
+        `영향을 받을 수 있는 항목: ${formatInputAxisLabels(unknownHour.affectedAxisLabels ?? unknownHour.affectedAxes)}`,
       ],
       weakness: '출생 시각이 확인되면 시주, 용신, 격국, 신강약, 십성 위치, 운세 시점 해석이 달라질 수 있어요.',
       strength: 'candidate',
@@ -359,7 +381,7 @@ export function buildOverviewSummaryCard(
       ...(yongshin.heeshin ? [`희신: ${friendlyElementName(String(yongshin.heeshin))}`] : []),
     ],
     weakness: isHedged
-      ? '용신 신뢰도가 0.65 미만이라 차트에 따라 다른 학파(조후 / 통관)의 추천이 더 적합할 수 있음.'
+      ? '용신 신뢰도가 낮은 편이라 차트에 따라 조후·통관 같은 보조 해석도 함께 보는 것이 안전해요.'
       : consensusWeakness,
     strength: yongshinTier,
   });
@@ -412,6 +434,7 @@ export function buildOverviewSummaryCard(
     });
     const blockingNotes = alternativeGyeokgukCandidates
       .flatMap((candidate) => candidate.blockingRules)
+      .map(formatGyeokgukRule)
       .slice(0, 4);
     evidence.push({
       axis: 'gyeokgukCandidates',
@@ -502,7 +525,7 @@ function buildExpertOverviewText(args: {
   if (args.gyeokgukType) {
     segments.push(`격국: ${args.gyeokgukType}.`);
   }
-  segments.push(`용신: ${args.yongshinElementCode}(${args.yongshinKorean}).`);
+  segments.push(`용신: ${friendlyElementName(args.yongshinElementCode)} 기운.`);
   return segments.join(' ');
 }
 

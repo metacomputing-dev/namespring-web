@@ -205,6 +205,7 @@ function toCharDetail(entry: HanjaEntry, pool: HanjaPool = 'curated'): CharDetai
     meaning:  entry.meaning,
     strokes:  enrichedStrokes,
     element:  entry.resource_element,
+    elementLabel: elementDisplayLabel(entry.resource_element),
     polarity: Polarity.get(enrichedStrokes).english,
     legalStatus: legal.legalStatus,
     legalRegistrable: legal.legalRegistrable,
@@ -320,6 +321,67 @@ function averageScores(values: Array<number | null | undefined>): number | null 
   return clampScore(finite.reduce((sum, value) => sum + value, 0) / finite.length);
 }
 
+const ELEMENT_DISPLAY_LABELS: Readonly<Record<string, string>> = {
+  WOOD: '나무',
+  FIRE: '불',
+  EARTH: '흙',
+  METAL: '쇠',
+  WATER: '물',
+  Wood: '나무',
+  Fire: '불',
+  Earth: '흙',
+  Metal: '쇠',
+  Water: '물',
+};
+
+const NAMING_AXIS_DISPLAY_LABELS: Readonly<Record<keyof NamingScoreVector | 'riskQuality', string>> = {
+  legal: '법적 사용 가능성',
+  sajuFit: '사주 보완',
+  yongshinFit: '용신 보강',
+  elementBalance: '오행 균형',
+  hanjaMeaning: '한자 의미',
+  phonetic: '발음 흐름',
+  eraFit: '시대감',
+  familyFit: '성과 이름 연결',
+  risk: '주의 신호',
+  riskQuality: '주의 신호 안정도',
+};
+
+function elementDisplayLabel(value: unknown): string | undefined {
+  if (typeof value !== 'string') return undefined;
+  const trimmed = value.trim();
+  if (!trimmed) return undefined;
+  return ELEMENT_DISPLAY_LABELS[trimmed] ?? ELEMENT_DISPLAY_LABELS[trimmed.toUpperCase()] ?? trimmed;
+}
+
+function formatCandidateScore(value: number | null | undefined): string {
+  return typeof value === 'number' && Number.isFinite(value)
+    ? `${roundScore(value)}점`
+    : '자료 없음';
+}
+
+function sanitizeServiceText(value: string, fullHangul: string): string {
+  const displayName = fullHangul.trim() || '이름 주인공';
+  return value.replace(/\[성함\]/g, displayName);
+}
+
+function sanitizeServiceValue<T>(value: T, fullHangul: string): T {
+  if (typeof value === 'string') {
+    return sanitizeServiceText(value, fullHangul) as T;
+  }
+  if (Array.isArray(value)) {
+    return value.map((item) => sanitizeServiceValue(item, fullHangul)) as T;
+  }
+  if (value && typeof value === 'object') {
+    const out: Record<string, unknown> = {};
+    for (const [key, nested] of Object.entries(value as Record<string, unknown>)) {
+      out[key] = sanitizeServiceValue(nested, fullHangul);
+    }
+    return out as T;
+  }
+  return value;
+}
+
 function hasHanIdeograph(value: string | undefined): boolean {
   return typeof value === 'string' && /\p{Script=Han}/u.test(value);
 }
@@ -375,6 +437,7 @@ function toNameCharInput(entry: HanjaEntry, pool: HanjaPool = 'curated'): NameCh
     meaning: entry.meaning,
     strokes: entry.strokes,
     element: entry.resource_element,
+    elementLabel: elementDisplayLabel(entry.resource_element),
     legalStatus: legal.legalStatus,
     legalRegistrable: legal.legalRegistrable,
     isVariantOf: legal.isVariantOf,
@@ -867,20 +930,23 @@ export class SpringEngine {
         label: '균형형',
         primaryAxis: 'balanced',
         reasons: ['비교할 수 있는 점수 벡터 축이 아직 없어요.'],
+        displayReasons: ['비교할 수 있는 점수 정보가 아직 없어요.'],
         paretoFrontier,
       };
     }
 
-    const reasons = selected.axes
-      .map((axis) => axis === 'riskQuality'
-        ? `riskQuality ${riskQuality}`
-        : `${axis} ${vector[axis] ?? 'n/a'}`);
+    const displayReasons = selected.axes
+      .map((axis) => {
+        const value = axis === 'riskQuality' ? riskQuality : vector[axis];
+        return `${NAMING_AXIS_DISPLAY_LABELS[axis]} ${formatCandidateScore(value)}`;
+      });
 
     return {
       id: selected.id,
       label: selected.label,
       primaryAxis: selected.primaryAxis,
-      reasons,
+      reasons: displayReasons,
+      displayReasons,
       paretoFrontier,
     };
   }
@@ -1640,12 +1706,14 @@ export class SpringEngine {
       type: f.type,
       strokeSum: f.strokeSum,
       element: f.energy?.element.english ?? '',
+      elementLabel: elementDisplayLabel(f.energy?.element.english),
       polarity: f.energy?.polarity.english ?? '',
       luckyLevel: bucketFromFortune(this.luckyMap.get(f.strokeSum) ?? ''),
-      meaning: f.entry ?? null,
+      meaning: f.entry ? sanitizeServiceValue(f.entry, fullHangul) : null,
     }));
 
     const frameAnalysis = frame.getAnalysis();
+    const sanitizedFrameAnalysis = sanitizeServiceValue(frameAnalysis.data, fullHangul);
     const luckScore = roundScore(categoryMap.FOURFRAME_LUCK?.score ?? 0);
     const explanation = scoreVector
       ? buildNamingExplanation({ evaluationResult: evalResult, scoreVector, strengthProfile })
@@ -1671,7 +1739,7 @@ export class SpringEngine {
         hanja: hanja.getAnalysis().data,
         fourFrame: {
           frames: enrichedFrames,
-          elementScore: frameAnalysis.data.elementScore,
+          elementScore: sanitizedFrameAnalysis.elementScore,
           luckScore,
         },
       },
@@ -2128,6 +2196,7 @@ export class SpringEngine {
     const hanjaScore = roundScore(
       ((categoryMap.STROKE_POLARITY?.score ?? 0) + (categoryMap.STROKE_ELEMENT?.score ?? 0)) / 2,
     );
+    const sanitizedFourFrameAnalysis = sanitizeServiceValue(frame.getAnalysis().data, fullHangul);
 
     return {
       name: {
@@ -2149,7 +2218,7 @@ export class SpringEngine {
       analysis: {
         hangul:    hangul.getAnalysis().data,
         hanja:     hanja.getAnalysis().data,
-        fourFrame: frame.getAnalysis().data,
+        fourFrame: sanitizedFourFrameAnalysis,
         saju:      saju.getAnalysis().data,
         ...(nameTrend ? { nameTrend } : {}),
         ...(phonetic ? { phonetic } : {}),

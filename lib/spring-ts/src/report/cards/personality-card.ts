@@ -229,7 +229,7 @@ export function buildPersonalityCard(saju: SajuSummary): PersonalityCard {
 
   if (stemEntry && stemInfo) {
     const supporting: string[] = [
-      `일간 ${stemInfo.hangul}(${stemEntry.element}) — ${stemEntry.coreKeywords.slice(0, 2).join(', ')}`,
+      `일간 ${stemInfo.hangul} - ${friendlyElement(stemEntry.element)} 기운 - ${stemEntry.coreKeywords.slice(0, 2).join(', ')}`,
     ];
     if (stemEntry.classicalImagery) supporting.push(`고전 비유: ${stemEntry.classicalImagery}`);
     evidence.push({

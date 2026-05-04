@@ -369,6 +369,7 @@ function buildNamingEvidence(namingReport: NamingReport | null | undefined): Tie
         frameType: frame.type,
         strokeSum: frame.strokeSum,
         element: frame.element,
+        ...(frame.elementLabel ? { elementLabel: frame.elementLabel } : {}),
         polarity: frame.polarity,
         luckyLevel: frame.luckyLevel,
         ...(frame.meaning?.title ? { title: frame.meaning.title } : {}),

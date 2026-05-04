@@ -69,6 +69,17 @@ const UNKNOWN_HOUR_AFFECTED_AXES: readonly SajuInputUncertaintyAxis[] = [
   'tenGod',
   'fortuneTiming',
 ];
+const INPUT_UNCERTAINTY_AXIS_LABELS: Record<SajuInputUncertaintyAxis, string> = {
+  hourPillar: '시주',
+  yongshin: '용신 후보',
+  gyeokguk: '격국',
+  strength: '신강약',
+  tenGod: '십성 위치',
+  fortuneTiming: '운세 시점',
+};
+const UNKNOWN_HOUR_AFFECTED_AXIS_LABELS = UNKNOWN_HOUR_AFFECTED_AXES.map(
+  (axis) => INPUT_UNCERTAINTY_AXIS_LABELS[axis],
+);
 const DISTRIBUTION_ROUND_DIGITS = 1;
 const DEFICIENT_AVERAGE_RATIO = 0.5;
 const EXCESSIVE_AVERAGE_RATIO = 1.7;
@@ -2322,6 +2333,7 @@ function applyUnknownHourUncertainty(summary: SajuSummary & Record<string, unkno
       fallbackHour: DEFAULT_UNKNOWN_HOUR,
       fallbackMinute: DEFAULT_UNKNOWN_MINUTE,
       affectedAxes: UNKNOWN_HOUR_AFFECTED_AXES,
+      affectedAxisLabels: UNKNOWN_HOUR_AFFECTED_AXIS_LABELS,
       confidenceTierShift: 'downgrade-one-step',
       message: '출생 시각 정보가 없어 계산에는 낮 12시를 임시 기준으로 사용했어요. 시간에 따라 달라질 수 있는 해석은 참고용으로 보세요.',
     },

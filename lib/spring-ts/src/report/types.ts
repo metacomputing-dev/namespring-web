@@ -366,6 +366,7 @@ export interface ReportUncertainty {
   readonly severity: 'info' | 'medium' | 'high';
   readonly message: string;
   readonly affectedAxes: readonly string[];
+  readonly affectedAxisLabels?: readonly string[];
   readonly fallback?: {
     readonly hour: number;
     readonly minute: number;
@@ -587,6 +588,7 @@ export interface TieredNameFrameEvidence {
   readonly frameType: TieredNameFrameType;
   readonly strokeSum: number;
   readonly element: string;
+  readonly elementLabel?: string;
   readonly polarity: string;
   readonly luckyLevel: number;
   readonly title?: string;
