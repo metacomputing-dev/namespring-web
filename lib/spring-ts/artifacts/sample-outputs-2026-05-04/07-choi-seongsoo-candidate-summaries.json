@@ -1,0 +1,519 @@
+{
+  "generatedAt": "2026-05-04T02:15:43.026Z",
+  "targetDate": "2026-05-04T00:00:00+09:00",
+  "sampleId": "choi-seongsoo-candidate-summaries",
+  "description": "Recommendation-list sample for UI rendering, including score vectors and presentation-safe candidate filtering.",
+  "call": "getNameCandidateSummaries",
+  "request": {
+    "birth": {
+      "year": 1986,
+      "month": 4,
+      "day": 19,
+      "hour": 5,
+      "minute": 45,
+      "gender": "male",
+      "calendarType": "solar",
+      "region": "서울",
+      "birthPlace": "서울"
+    },
+    "surname": [
+      {
+        "hangul": "최",
+        "hanja": "崔"
+      }
+    ],
+    "givenNameLength": 2,
+    "mode": "recommend",
+    "options": {
+      "limit": 5,
+      "sajuTimePolicy": {
+        "yaza": "on",
+        "yazaMode": "23:00",
+        "trueSolarTime": "on",
+        "longitudeCorrection": "on"
+      },
+      "precisionConfig": {
+        "surfaceNamingScoreVector": true,
+        "surfaceNameTrend": true,
+        "surfacePhoneticEvidence": true
+      }
+    }
+  },
+  "payload": [
+    {
+      "finalScore": 80,
+      "scoreVector": {
+        "legal": 75,
+        "sajuFit": 84.6,
+        "yongshinFit": 55.3,
+        "elementBalance": 83.8,
+        "hanjaMeaning": 100,
+        "phonetic": 100,
+        "eraFit": null,
+        "familyFit": 100,
+        "risk": 25
+      },
+      "strengthProfile": {
+        "id": "phonetic_stability",
+        "label": "발음 안정형",
+        "primaryAxis": "phonetic",
+        "reasons": [
+          "phonetic 100",
+          "familyFit 100",
+          "riskQuality 75"
+        ],
+        "paretoFrontier": false
+      },
+      "fullHangul": "최영철",
+      "fullHanja": "崔齡鐵",
+      "givenHangul": "영철",
+      "givenName": [
+        {
+          "hangul": "영",
+          "hanja": "齡",
+          "legalStatus": "unknown"
+        },
+        {
+          "hangul": "철",
+          "hanja": "鐵",
+          "legalStatus": "unknown"
+        }
+      ],
+      "popularityRank": 3527,
+      "maleRatio": 1,
+      "nameGender": "male",
+      "nameTrend": {
+        "givenHangul": "영철",
+        "gender": "male",
+        "birthYear": 1986,
+        "matchedYear": null,
+        "latestYear": 2024,
+        "trendFit": null,
+        "trendRisk": null,
+        "eraFitScore": null,
+        "status": "unknown",
+        "evidence": [
+          "공식 표본이 2008년부터 시작되어 그 이전 출생연도는 분석 범위 밖이에요."
+        ],
+        "sourceTier": "T5_OFFICIAL",
+        "authorityTruthEligible": true
+      },
+      "phonetic": {
+        "fullHangul": "최영철",
+        "surnameHangul": "최",
+        "givenHangul": "영철",
+        "phoneticScore": 100,
+        "transitionScore": 100,
+        "familyNameFitScore": 100,
+        "status": "smooth",
+        "transitions": [
+          {
+            "from": "최",
+            "to": "영",
+            "boundary": "surname_given",
+            "score": 100,
+            "risk": "low",
+            "signals": []
+          },
+          {
+            "from": "영",
+            "to": "철",
+            "boundary": "given_internal",
+            "score": 100,
+            "risk": "low",
+            "signals": []
+          }
+        ],
+        "warnings": [],
+        "evidence": [
+          "음운 흐름 점수 100/100 (부드러움); 표시용 근거이며 총점이나 순위에는 반영되지 않아요.",
+          "성-이름 연결 점수 100/100 (최영).",
+          "받침 충돌이나 반복 발음 경고는 감지되지 않았어요."
+        ],
+        "sourceTier": "T3_AUTHORED_INTERPRETATION",
+        "authorityTruthEligible": false
+      },
+      "rank": 1
+    },
+    {
+      "finalScore": 79.1,
+      "scoreVector": {
+        "legal": 75,
+        "sajuFit": 84.6,
+        "yongshinFit": 55.3,
+        "elementBalance": 81.9,
+        "hanjaMeaning": 100,
+        "phonetic": 100,
+        "eraFit": null,
+        "familyFit": 100,
+        "risk": 25
+      },
+      "strengthProfile": {
+        "id": "phonetic_stability",
+        "label": "발음 안정형",
+        "primaryAxis": "phonetic",
+        "reasons": [
+          "phonetic 100",
+          "familyFit 100",
+          "riskQuality 75"
+        ],
+        "paretoFrontier": false
+      },
+      "fullHangul": "최영탁",
+      "fullHanja": "崔齡鐸",
+      "givenHangul": "영탁",
+      "givenName": [
+        {
+          "hangul": "영",
+          "hanja": "齡",
+          "legalStatus": "unknown"
+        },
+        {
+          "hangul": "탁",
+          "hanja": "鐸",
+          "legalStatus": "unknown"
+        }
+      ],
+      "popularityRank": 3621,
+      "maleRatio": 1,
+      "nameGender": "male",
+      "nameTrend": {
+        "givenHangul": "영탁",
+        "gender": "male",
+        "birthYear": 1986,
+        "matchedYear": null,
+        "latestYear": 2024,
+        "trendFit": null,
+        "trendRisk": null,
+        "eraFitScore": null,
+        "status": "unknown",
+        "evidence": [
+          "공식 표본이 2008년부터 시작되어 그 이전 출생연도는 분석 범위 밖이에요."
+        ],
+        "sourceTier": "T5_OFFICIAL",
+        "authorityTruthEligible": true
+      },
+      "phonetic": {
+        "fullHangul": "최영탁",
+        "surnameHangul": "최",
+        "givenHangul": "영탁",
+        "phoneticScore": 100,
+        "transitionScore": 100,
+        "familyNameFitScore": 100,
+        "status": "smooth",
+        "transitions": [
+          {
+            "from": "최",
+            "to": "영",
+            "boundary": "surname_given",
+            "score": 100,
+            "risk": "low",
+            "signals": []
+          },
+          {
+            "from": "영",
+            "to": "탁",
+            "boundary": "given_internal",
+            "score": 100,
+            "risk": "low",
+            "signals": []
+          }
+        ],
+        "warnings": [],
+        "evidence": [
+          "음운 흐름 점수 100/100 (부드러움); 표시용 근거이며 총점이나 순위에는 반영되지 않아요.",
+          "성-이름 연결 점수 100/100 (최영).",
+          "받침 충돌이나 반복 발음 경고는 감지되지 않았어요."
+        ],
+        "sourceTier": "T3_AUTHORED_INTERPRETATION",
+        "authorityTruthEligible": false
+      },
+      "rank": 2
+    },
+    {
+      "finalScore": 79,
+      "scoreVector": {
+        "legal": 75,
+        "sajuFit": 84.6,
+        "yongshinFit": 55.3,
+        "elementBalance": 78.8,
+        "hanjaMeaning": 100,
+        "phonetic": 100,
+        "eraFit": null,
+        "familyFit": 100,
+        "risk": 25
+      },
+      "strengthProfile": {
+        "id": "phonetic_stability",
+        "label": "발음 안정형",
+        "primaryAxis": "phonetic",
+        "reasons": [
+          "phonetic 100",
+          "familyFit 100",
+          "riskQuality 75"
+        ],
+        "paretoFrontier": false
+      },
+      "fullHangul": "최요주",
+      "fullHanja": "崔了鑄",
+      "givenHangul": "요주",
+      "givenName": [
+        {
+          "hangul": "요",
+          "hanja": "了",
+          "legalStatus": "unknown"
+        },
+        {
+          "hangul": "주",
+          "hanja": "鑄",
+          "legalStatus": "unknown"
+        }
+      ],
+      "popularityRank": 7891,
+      "maleRatio": 1,
+      "nameGender": "male",
+      "nameTrend": {
+        "givenHangul": "요주",
+        "gender": "male",
+        "birthYear": 1986,
+        "matchedYear": null,
+        "latestYear": 2024,
+        "trendFit": null,
+        "trendRisk": null,
+        "eraFitScore": null,
+        "status": "unknown",
+        "evidence": [
+          "공식 표본이 2008년부터 시작되어 그 이전 출생연도는 분석 범위 밖이에요."
+        ],
+        "sourceTier": "T5_OFFICIAL",
+        "authorityTruthEligible": true
+      },
+      "phonetic": {
+        "fullHangul": "최요주",
+        "surnameHangul": "최",
+        "givenHangul": "요주",
+        "phoneticScore": 100,
+        "transitionScore": 100,
+        "familyNameFitScore": 100,
+        "status": "smooth",
+        "transitions": [
+          {
+            "from": "최",
+            "to": "요",
+            "boundary": "surname_given",
+            "score": 100,
+            "risk": "low",
+            "signals": []
+          },
+          {
+            "from": "요",
+            "to": "주",
+            "boundary": "given_internal",
+            "score": 100,
+            "risk": "low",
+            "signals": []
+          }
+        ],
+        "warnings": [],
+        "evidence": [
+          "음운 흐름 점수 100/100 (부드러움); 표시용 근거이며 총점이나 순위에는 반영되지 않아요.",
+          "성-이름 연결 점수 100/100 (최요).",
+          "받침 충돌이나 반복 발음 경고는 감지되지 않았어요."
+        ],
+        "sourceTier": "T3_AUTHORED_INTERPRETATION",
+        "authorityTruthEligible": false
+      },
+      "rank": 3
+    },
+    {
+      "finalScore": 79,
+      "scoreVector": {
+        "legal": 75,
+        "sajuFit": 69.3,
+        "yongshinFit": 52.8,
+        "elementBalance": 80.3,
+        "hanjaMeaning": 100,
+        "phonetic": 100,
+        "eraFit": null,
+        "familyFit": 100,
+        "risk": 25
+      },
+      "strengthProfile": {
+        "id": "phonetic_stability",
+        "label": "발음 안정형",
+        "primaryAxis": "phonetic",
+        "reasons": [
+          "phonetic 100",
+          "familyFit 100",
+          "riskQuality 75"
+        ],
+        "paretoFrontier": false
+      },
+      "fullHangul": "최영작",
+      "fullHanja": "崔永勺",
+      "givenHangul": "영작",
+      "givenName": [
+        {
+          "hangul": "영",
+          "hanja": "永",
+          "legalStatus": "unknown"
+        },
+        {
+          "hangul": "작",
+          "hanja": "勺",
+          "legalStatus": "unknown"
+        }
+      ],
+      "popularityRank": 6643,
+      "maleRatio": 1,
+      "nameGender": "male",
+      "nameTrend": {
+        "givenHangul": "영작",
+        "gender": "male",
+        "birthYear": 1986,
+        "matchedYear": null,
+        "latestYear": 2024,
+        "trendFit": null,
+        "trendRisk": null,
+        "eraFitScore": null,
+        "status": "unknown",
+        "evidence": [
+          "공식 표본이 2008년부터 시작되어 그 이전 출생연도는 분석 범위 밖이에요."
+        ],
+        "sourceTier": "T5_OFFICIAL",
+        "authorityTruthEligible": true
+      },
+      "phonetic": {
+        "fullHangul": "최영작",
+        "surnameHangul": "최",
+        "givenHangul": "영작",
+        "phoneticScore": 100,
+        "transitionScore": 100,
+        "familyNameFitScore": 100,
+        "status": "smooth",
+        "transitions": [
+          {
+            "from": "최",
+            "to": "영",
+            "boundary": "surname_given",
+            "score": 100,
+            "risk": "low",
+            "signals": []
+          },
+          {
+            "from": "영",
+            "to": "작",
+            "boundary": "given_internal",
+            "score": 100,
+            "risk": "low",
+            "signals": []
+          }
+        ],
+        "warnings": [],
+        "evidence": [
+          "음운 흐름 점수 100/100 (부드러움); 표시용 근거이며 총점이나 순위에는 반영되지 않아요.",
+          "성-이름 연결 점수 100/100 (최영).",
+          "받침 충돌이나 반복 발음 경고는 감지되지 않았어요."
+        ],
+        "sourceTier": "T3_AUTHORED_INTERPRETATION",
+        "authorityTruthEligible": false
+      },
+      "rank": 4
+    },
+    {
+      "finalScore": 79,
+      "scoreVector": {
+        "legal": 75,
+        "sajuFit": 69.3,
+        "yongshinFit": 52.8,
+        "elementBalance": 80.3,
+        "hanjaMeaning": 100,
+        "phonetic": 100,
+        "eraFit": null,
+        "familyFit": 100,
+        "risk": 25
+      },
+      "strengthProfile": {
+        "id": "phonetic_stability",
+        "label": "발음 안정형",
+        "primaryAxis": "phonetic",
+        "reasons": [
+          "phonetic 100",
+          "familyFit 100",
+          "riskQuality 75"
+        ],
+        "paretoFrontier": false
+      },
+      "fullHangul": "최우작",
+      "fullHanja": "崔右勺",
+      "givenHangul": "우작",
+      "givenName": [
+        {
+          "hangul": "우",
+          "hanja": "右",
+          "legalStatus": "unknown"
+        },
+        {
+          "hangul": "작",
+          "hanja": "勺",
+          "legalStatus": "unknown"
+        }
+      ],
+      "popularityRank": 5987,
+      "maleRatio": 1,
+      "nameGender": "male",
+      "nameTrend": {
+        "givenHangul": "우작",
+        "gender": "male",
+        "birthYear": 1986,
+        "matchedYear": null,
+        "latestYear": 2024,
+        "trendFit": null,
+        "trendRisk": null,
+        "eraFitScore": null,
+        "status": "unknown",
+        "evidence": [
+          "공식 표본이 2008년부터 시작되어 그 이전 출생연도는 분석 범위 밖이에요."
+        ],
+        "sourceTier": "T5_OFFICIAL",
+        "authorityTruthEligible": true
+      },
+      "phonetic": {
+        "fullHangul": "최우작",
+        "surnameHangul": "최",
+        "givenHangul": "우작",
+        "phoneticScore": 100,
+        "transitionScore": 100,
+        "familyNameFitScore": 100,
+        "status": "smooth",
+        "transitions": [
+          {
+            "from": "최",
+            "to": "우",
+            "boundary": "surname_given",
+            "score": 100,
+            "risk": "low",
+            "signals": []
+          },
+          {
+            "from": "우",
+            "to": "작",
+            "boundary": "given_internal",
+            "score": 100,
+            "risk": "low",
+            "signals": []
+          }
+        ],
+        "warnings": [],
+        "evidence": [
+          "음운 흐름 점수 100/100 (부드러움); 표시용 근거이며 총점이나 순위에는 반영되지 않아요.",
+          "성-이름 연결 점수 100/100 (최우).",
+          "받침 충돌이나 반복 발음 경고는 감지되지 않았어요."
+        ],
+        "sourceTier": "T3_AUTHORED_INTERPRETATION",
+        "authorityTruthEligible": false
+      },
+      "rank": 5
+    }
+  ]
+}

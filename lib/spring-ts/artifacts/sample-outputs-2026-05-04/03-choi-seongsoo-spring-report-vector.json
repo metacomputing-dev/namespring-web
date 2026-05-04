@@ -1,0 +1,3572 @@
+{
+  "generatedAt": "2026-05-04T02:15:43.026Z",
+  "targetDate": "2026-05-04T00:00:00+09:00",
+  "sampleId": "choi-seongsoo-spring-report-vector",
+  "description": "Integrated SpringReport with opt-in naming score vector/trend/phonetic evidence.",
+  "call": "getSpringReport",
+  "request": {
+    "birth": {
+      "year": 1986,
+      "month": 4,
+      "day": 19,
+      "hour": 5,
+      "minute": 45,
+      "gender": "male",
+      "calendarType": "solar",
+      "region": "서울",
+      "birthPlace": "서울"
+    },
+    "surname": [
+      {
+        "hangul": "최",
+        "hanja": "崔"
+      }
+    ],
+    "givenName": [
+      {
+        "hangul": "성",
+        "hanja": "成"
+      },
+      {
+        "hangul": "수",
+        "hanja": "秀"
+      }
+    ],
+    "mode": "evaluate",
+    "options": {
+      "sajuTimePolicy": {
+        "yaza": "on",
+        "yazaMode": "23:00",
+        "trueSolarTime": "on",
+        "longitudeCorrection": "on"
+      },
+      "precisionConfig": {
+        "surfaceNamingScoreVector": true,
+        "surfaceNameTrend": true,
+        "surfacePhoneticEvidence": true
+      }
+    }
+  },
+  "payload": {
+    "finalScore": 56.4,
+    "scoreVector": {
+      "legal": 75,
+      "sajuFit": 36.7,
+      "yongshinFit": 25.6,
+      "elementBalance": 61,
+      "hanjaMeaning": 100,
+      "phonetic": 98.2,
+      "eraFit": null,
+      "familyFit": 100,
+      "risk": 25
+    },
+    "strengthProfile": {
+      "id": "phonetic_stability",
+      "label": "발음 안정형",
+      "primaryAxis": "phonetic",
+      "reasons": [
+        "phonetic 98.2",
+        "familyFit 100",
+        "riskQuality 75"
+      ],
+      "paretoFrontier": false
+    },
+    "schoolPreset": {
+      "selected": "korean",
+      "source": "default",
+      "useSchoolPreset": false,
+      "label": "Korean Mainstream (이석영 사주첩경 / 한국 현대 작명 표준)",
+      "doctrine": "mainstream_korean_default",
+      "tradeoffs": [
+        "Default-compatible baseline; best for regression comparison.",
+        "Does not emphasize one doctrine axis beyond current production scoring."
+      ],
+      "scoringEffect": "inactive"
+    },
+    "popularityRank": 2526,
+    "maleRatio": 0.9878892733564014,
+    "nameGender": "male",
+    "nameTrend": {
+      "givenHangul": "성수",
+      "gender": "male",
+      "birthYear": 1986,
+      "matchedYear": null,
+      "latestYear": 2024,
+      "trendFit": null,
+      "trendRisk": null,
+      "eraFitScore": null,
+      "status": "unknown",
+      "evidence": [
+        "공식 표본이 2008년부터 시작되어 그 이전 출생연도는 분석 범위 밖이에요."
+      ],
+      "sourceTier": "T5_OFFICIAL",
+      "authorityTruthEligible": true
+    },
+    "phonetic": {
+      "fullHangul": "최성수",
+      "surnameHangul": "최",
+      "givenHangul": "성수",
+      "phoneticScore": 98.2,
+      "transitionScore": 97,
+      "familyNameFitScore": 100,
+      "status": "smooth",
+      "transitions": [
+        {
+          "from": "최",
+          "to": "성",
+          "boundary": "surname_given",
+          "score": 100,
+          "risk": "low",
+          "signals": []
+        },
+        {
+          "from": "성",
+          "to": "수",
+          "boundary": "given_internal",
+          "score": 94,
+          "risk": "low",
+          "signals": [
+            {
+              "code": "same_initial_repeat",
+              "severity": "low",
+              "penalty": 6,
+              "message": "성수 연결은 첫소리가 반복돼요."
+            }
+          ]
+        }
+      ],
+      "warnings": [
+        {
+          "code": "same_initial_repeat",
+          "severity": "low",
+          "penalty": 6,
+          "message": "성수 연결은 첫소리가 반복돼요."
+        }
+      ],
+      "evidence": [
+        "음운 흐름 점수 98.2/100 (부드러움); 표시용 근거이며 총점이나 순위에는 반영되지 않아요.",
+        "성-이름 연결 점수 100/100 (최성).",
+        "성수 연결은 첫소리가 반복돼요."
+      ],
+      "sourceTier": "T3_AUTHORED_INTERPRETATION",
+      "authorityTruthEligible": false
+    },
+    "namingReport": {
+      "name": {
+        "surname": [
+          {
+            "hangul": "최",
+            "hanja": "崔",
+            "meaning": "성씨 최, 높을 최",
+            "strokes": 11,
+            "element": "Earth",
+            "polarity": "Positive",
+            "legalStatus": "unknown",
+            "unihan": {
+              "hanja": "崔",
+              "codepoint": "U+5D14",
+              "kRSUnicode": [
+                "46.8"
+              ],
+              "radicalNumber": 46,
+              "residualStrokes": 8,
+              "totalStrokes": 11,
+              "variants": {
+                "semantic": [
+                  "U+78EA"
+                ]
+              }
+            }
+          }
+        ],
+        "givenName": [
+          {
+            "hangul": "성",
+            "hanja": "成",
+            "meaning": "이룰 성, 될 성",
+            "strokes": 7,
+            "element": "Fire",
+            "polarity": "Positive",
+            "legalStatus": "unknown",
+            "unihan": {
+              "hanja": "成",
+              "codepoint": "U+6210",
+              "kRSUnicode": [
+                "62.2"
+              ],
+              "radicalNumber": 62,
+              "residualStrokes": 2,
+              "totalStrokes": 6
+            }
+          },
+          {
+            "hangul": "수",
+            "hanja": "秀",
+            "meaning": "빼어날 수, 성할 수",
+            "strokes": 7,
+            "element": "Wood",
+            "polarity": "Positive",
+            "legalStatus": "unknown",
+            "unihan": {
+              "hanja": "秀",
+              "codepoint": "U+79C0",
+              "kRSUnicode": [
+                "115.2"
+              ],
+              "radicalNumber": 115,
+              "residualStrokes": 2,
+              "totalStrokes": 7
+            }
+          }
+        ],
+        "fullHangul": "최성수",
+        "fullHanja": "崔成秀"
+      },
+      "totalScore": 62.6,
+      "scores": {
+        "hangul": 70,
+        "hanja": 25,
+        "fourFrame": 60
+      },
+      "scoreVector": {
+        "legal": 75,
+        "sajuFit": null,
+        "yongshinFit": null,
+        "elementBalance": 65,
+        "hanjaMeaning": 100,
+        "phonetic": 98.2,
+        "eraFit": null,
+        "familyFit": 100,
+        "risk": 25
+      },
+      "strengthProfile": {
+        "id": "phonetic_stability",
+        "label": "발음 안정형",
+        "primaryAxis": "phonetic",
+        "reasons": [
+          "phonetic 98.2",
+          "familyFit 100",
+          "riskQuality 75"
+        ],
+        "paretoFrontier": false
+      },
+      "analysis": {
+        "hangul": {
+          "blocks": [
+            {
+              "hangul": "최",
+              "onset": "ㅊ",
+              "nucleus": "ㅚ",
+              "element": "Metal",
+              "polarity": "Positive"
+            },
+            {
+              "hangul": "성",
+              "onset": "ㅅ",
+              "nucleus": "ㅓ",
+              "element": "Metal",
+              "polarity": "Negative"
+            },
+            {
+              "hangul": "수",
+              "onset": "ㅅ",
+              "nucleus": "ㅜ",
+              "element": "Metal",
+              "polarity": "Negative"
+            }
+          ],
+          "polarityScore": 75,
+          "elementScore": 65
+        },
+        "hanja": {
+          "blocks": [
+            {
+              "hanja": "崔",
+              "hangul": "최",
+              "strokes": 11,
+              "resourceElement": "Earth",
+              "strokeElement": "Wood",
+              "polarity": "Positive"
+            },
+            {
+              "hanja": "成",
+              "hangul": "성",
+              "strokes": 7,
+              "resourceElement": "Fire",
+              "strokeElement": "Metal",
+              "polarity": "Positive"
+            },
+            {
+              "hanja": "秀",
+              "hangul": "수",
+              "strokes": 7,
+              "resourceElement": "Wood",
+              "strokeElement": "Metal",
+              "polarity": "Positive"
+            }
+          ],
+          "polarityScore": 50,
+          "elementScore": 65
+        },
+        "fourFrame": {
+          "frames": [
+            {
+              "type": "won",
+              "strokeSum": 14,
+              "element": "Fire",
+              "polarity": "Negative",
+              "luckyLevel": 5,
+              "meaning": {
+                "id": 14,
+                "number": 14,
+                "title": "파괴운",
+                "summary": "정의로운 마음과 지혜를 품었지만, 흩어지고 줄어드는 흐름이 따라오는 수예요.",
+                "detailed_explanation": "[성함]님의 이름 수리 14수는 '파괴운'으로, '흩어지는 수', '외로워지기 쉬운 수', '이별이 따르기 쉬운 수'라고도 불려요. 81가지 수리 풀이에서 14수는 모든 것이 한곳에 모이기 어렵고 흩어지는 형상을 가진다고 해석하는데, 이것은 [성함]님의 능력이 부족해서가 아니라 기운이 한곳에 모이기 어려운 흐름을 타고났다는 뜻이에요. 실제로 14수를 가진 분들은 지혜가 뛰어나고 정의로운 마음이 남다르게 강하며, 남의 어려운 일을 자기 일처럼 도맡아 해주는 따뜻한 마음을 가지고 있답니다. 다만 노력에 비해 그 보상이 적고, 오르내리며 재물이 새어나가는 기운이 따라 경제적으로나 마음으로나 쉽게 안정되기 어려운 파동이 있어요. 하지만 옛 풀이에서는 이 14수를 '어려움을 참고 견디면 반드시 뒤에 복이 온다'고도 설명했어요. [성함]님께서 이 수리의 흩어지는 기운을 이해하시고, 의식적으로 에너지를 한 곳에 집중하는 훈련을 하신다면 타고난 지혜와 정의로운 마음이 빛을 발하면서 파괴운의 무게를 지혜롭게 덜어내실 수 있어요.",
+                "positive_aspects": "[성함]님이 가진 14수의 숨겨진 강점은 결코 적지 않아요. 무엇보다 다른 사람의 어려움에 진심으로 공감하고 기꺼이 나서서 돕는 따뜻한 정의로운 마음은 이 수리만의 특별한 장점이에요. 이름 수리 풀이에서 14수를 가진 분들은 '마음이 너그럽고 온순하며, 남의 일을 자기 일처럼 해결해 주는 타고난 성품'을 지닌다고 하는데, 이런 공감 능력과 봉사정신은 상담, 사회복지, 의료 등 사람을 돕는 분야에서 남다른 재능으로 발휘돼요. 또한 머리가 현명하고 지혜가 뛰어나서 상황 파악이 빠르고, 핵심을 꿰뚫어 보는 직감이 아주 좋아요. 어려운 일을 여러 차례 겪은 분일수록 보통 사람은 갖기 어려운 깊은 인간적 깊이와 다시 일어서는 힘을 갖추게 되는데, 이것이야말로 [성함]님을 진정한 도우미이자 멘토로 성장시키는 귀한 자산이에요. 특히 14수는 4수, 24수와 함께 외모가 빼어난 수리로도 알려져 있어서, 첫인상에서 호감을 주는 매력까지 겸비하고 계실 가능성이 높답니다.",
+                "caution_points": "[성함]님께서 특히 조심하면 좋을 점은 14수 파괴운 특유의 흩어지는 기운이에요. 이 흐름은 가족이나 가까운 사람들과의 관계에서 잦은 마찰이나 멀어짐으로 나타날 수 있으므로, 배우자와 가족에 대한 대화와 관심을 의식적으로 꾸준히 기울여 주시는 것이 매우 중요해요. 경제적으로는 오르내리며 재물이 빠져나가는 기운이 작용하여 수입이 생겨도 예상치 못한 곳에서 빠져나가기 쉬우니, 충동적인 투자나 다른 사람의 보증, 무리한 사업 확장은 반드시 피하시고 꾸준한 저축과 조심스러운 돈 관리로 안전망을 단단히 다져 주세요. 건강 면에서도 특별히 신경을 써야 한다고 수리 풀이에서 강조하는데, 과로와 스트레스를 방치하지 마시고 규칙적인 운동과 정기 건강 검진으로 몸과 마음의 균형을 유지하시길 권해 드려요. 무엇보다 [성함]님의 강한 정의로운 마음이 자신을 돌보지 않는 지나친 희생으로 이어지지 않도록, 남을 돕되 자신의 여력을 먼저 확인하는 지혜로운 경계를 세우시는 것이 이 수리를 다스리는 핵심 비결이에요.",
+                "personality_traits": [
+                  "남다른 정의로운 마음과 희생정신",
+                  "뛰어난 지혜와 직감",
+                  "다른 사람의 감정에 깊이 공감하는 따뜻함",
+                  "온순하고 너그러운 마음씨",
+                  "어려움 속에서 단련된 강한 회복력"
+                ],
+                "suitable_career": [
+                  "사회복지사, 봉사활동가",
+                  "심리상담사, 코칭 전문가",
+                  "의료, 간호 분야",
+                  "종교, 철학, 명상 지도자",
+                  "예술가, 작가"
+                ],
+                "life_period_influence": "[성함]님의 생애 흐름을 시기별로 살펴보면, 어린 시절(1~14세)에는 가정환경이 불안정하거나 부모 형제와의 인연이 약한 흐름이 나타날 수 있어 일찍부터 마음의 자립심이 필요한 시기예요. 청년기(15~30대 초반)에는 흩어지는 기운이 가장 강하게 작용하여 직업이나 사는 곳이 자주 바뀌고, 사람 관계가 끊어졌다 이어지기를 반복할 수 있는데, 이 시기야말로 하나의 전문 분야를 정하고 꾸준히 실력을 쌓아가는 것이 훗날의 안정을 여는 열쇠예요. 한창때(30대 후반~50대)에는 경제적 오르내림과 가정 안에서의 갈등에 주의해야 하지만, 앞서 겪은 시련 속에서 쌓인 경험과 지혜가 서서히 빛을 발하면서 주변의 믿음을 얻어가게 돼요. 노년기(50대 후반 이후)에는 '어려움을 참고 견디면 반드시 뒤에 복이 온다'는 원리대로, 오랜 인내와 좋은 행동이 마침내 열매를 맺어 마음의 풍요와 내면의 평화를 누릴 수 있으니, [성함]님께서는 어떤 시련 앞에서도 포기하지 않는 자세를 꼭 지켜 주세요.",
+                "special_characteristics": "14수는 81가지 수리에서 '흩어지는 수', '외로워지기 쉬운 수', '이별이 따르기 쉬운 수'라는 세 가지 별칭을 동시에 가진 독특한 수리예요. 옛 풀이에서는 모든 것이 흩어지는 형상을 경고하면서도, '어려움을 참고 견디면 반드시 뒤에 복이 온다'라는 희망의 메시지를 함께 담아 두었어요. 이것은 14수를 가진 분이 힘든 일을 참고 견디면 반드시 뒤에 복이 찾아온다는 뜻으로, 파괴운이 단순한 불행이 아니라 시련을 통해 깊어지는 성장의 수리라는 것을 알려 줘요. 또한 14수는 4수, 24수와 함께 외모가 빼어난 수리로 알려져 있으며, 정의로운 마음이 강하여 주변에서 의지하고 싶어 하는 존재감을 가져요. 수리 풀이에서는 이 어려운 기운의 세기가 타고난 운세의 다른 요소와의 조합에 따라 꽤 달라질 수 있다고 보므로, 14수가 나왔다고 해서 반드시 걱정할 필요 없이 전체적인 균형 속에서 종합적으로 이해하는 것이 좋아요.",
+                "challenge_period": "14세, 24세, 34세 특히 주의",
+                "opportunity_area": "14수의 깊은 공감 능력과 정의로운 마음은 사람의 마음을 다루는 분야에서 큰 빛을 발해요. 특히 상담, 심리치료, 사회복지, 의료봉사 등 다른 사람의 아픔에 함께하는 직업에서 남다른 성취를 이루실 수 있으며, 인생의 굴곡을 통해 쌓인 풍부한 경험은 멘토링이나 코칭 분야에서 귀한 자산이 돼요. 또한 어려운 기운을 완화하기 위해 수리 풀이에서는 좋은 수와의 조합을 권하는데, 생활 속에서 1, 3, 5, 8 등 밝고 활기찬 기운이 강한 수를 활용하시면 균형 잡는 데 도움이 돼요. 규칙적인 운동, 명상, 일기 쓰기 등 마음의 중심을 잡는 습관을 통해 흩어지는 에너지를 한곳에 모으는 훈련을 꾸준히 하시면, 파괴운 속에서도 [성함]님만의 기회의 문이 열릴 수 있어요.",
+                "lucky_level": "흉운수"
+              }
+            },
+            {
+              "type": "hyung",
+              "strokeSum": 18,
+              "element": "Metal",
+              "polarity": "Negative",
+              "luckyLevel": 20,
+              "meaning": {
+                "id": 18,
+                "number": 18,
+                "title": "발달운",
+                "summary": "발전과 번영, 권력의 수",
+                "detailed_explanation": "[성함]님의 이름 수리 18수를 풀어 보면, 새로운 일을 개척하고 앞으로 나아가며 발전하는 형상을 띠고 있어요. 쇠처럼 단단한 의지와 뛰어난 지혜를 함께 갖추고 있어서, 큰 꿈을 세우고 그 꿈을 향해 흔들림 없이 나아가는 멋진 기운이 수리 속에 깊이 새겨져 있어요. 마치 좋은 바람을 만난 돛단배처럼 점점 속도가 붙어서, 자기 분야에서 최고의 자리에 올라 큰 성공을 이루게 되는 아주 좋은 수예요. [성함]님께서는 이 발전의 강한 에너지를 잘 알아두시고, 타고난 추진력과 전략적인 생각을 균형 있게 발휘하신다면 어떤 분야에서든 남다른 성취를 거두실 수 있을 거예요.",
+                "positive_aspects": "[성함]님의 강점은 18수 발달운이 주는 뛰어난 지혜와 꺾이지 않는 의지력, 그리고 앞으로 나아가는 개척 정신에 있어요. 몸도 마음도 남들보다 일찍 성숙해서 자기만의 길을 빨리 찾고, 뛰어난 머리와 강한 추진력으로 웬만한 어려움은 거뜬히 뚫고 나가는 힘을 갖추고 계세요. 특히 경영이나 장사 분야에서 아주 훌륭한 실력을 발휘해서, 스스로 힘으로 부와 명예를 동시에 손에 넣는 늦되 크게 되는 리더십을 타고나셨어요. 또한 새로운 분야를 개척하고 참신한 아이디어를 현실로 만들어내는 능력이 남다르기 때문에, 주변 사람들의 믿음과 존경을 자연스럽게 얻으며 여기저기 이름을 널리 알릴 수 있는 큰 그릇의 소유자예요.",
+                "caution_points": "[성함]님은 18수의 강한 발전 에너지가 자칫 잘난 척이나 혼자만 옳다는 생각으로 이어지지 않도록 겸손함을 늘 마음에 새겨 두시는 것이 중요해요. 성격이 너무 강하고 추진력이 워낙 세다 보니 다른 사람을 감싸 안는 마음이 부족해질 수 있고, 자기 뜻대로만 밀어붙이다가 주변 사람들과의 관계에 금이 갈 수 있으니 다른 사람의 의견에 귀 기울이는 여유를 갖추세요. 특히 일이 잘 되고 힘을 갖게 되는 시기에 가정과 가까운 사람들을 소홀히 하는 모습이 나타날 수 있어요. 그래서 성공의 기쁨을 함께 나누고 집안일에도 세심한 관심을 기울이시면 사회 활동과 가정 모두에서 균형 잡힌 행복을 누리실 수 있어요. 성공한 뒤에도 처음 마음을 잃지 않고 사람과의 관계를 소중히 여기는 것이 [성함]님의 행복을 오래도록 지켜주는 비결이에요.",
+                "personality_traits": [
+                  "흔들리지 않는 의지력",
+                  "뛰어난 전략적 사고",
+                  "앞으로 나아가는 개척 정신",
+                  "뛰어난 경영 실력",
+                  "일찍 피어나는 지혜",
+                  "강한 추진력"
+                ],
+                "suitable_career": [
+                  "기업 경영자",
+                  "스타트업 창업가",
+                  "금융투자 전문가",
+                  "전략 컨설턴트",
+                  "기술 혁신 리더",
+                  "정치인",
+                  "무역업자",
+                  "프로젝트 매니저"
+                ],
+                "life_period_influence": "[성함]님의 삶의 흐름에는 꾸준히 올라가는 발전의 기운이 뚜렷하게 나타나요. 어린 시절에는 몸과 마음의 성장이 또래보다 빨라서 일찍이 큰 꿈을 품고 자기만의 길을 찾기 시작하며, 이때 쌓은 지식과 경험이 나중에 크게 도약하는 든든한 밑바탕이 돼요. 중년에는 타고난 지혜와 추진력이 본격적으로 빛을 발하면서 사업이나 직장에서 눈부신 성과를 거두고 사회적으로 이름을 알리게 되는 전성기를 맞이해요. 특히 30대 후반에서 50대에 이르는 시기에 스스로 이룬 성과가 무르익어서, 주변의 인정과 부를 동시에 얻는 황금기가 펼쳐지니 이 시기를 놓치지 않도록 잘 준비하시길 권해 드려요. 나이가 든 뒤에는 이루어 놓은 업적을 바탕으로 후배들을 키우고 사회에 되돌려 주는 역할을 하면서 깊은 존경과 편안한 노년을 누리실 수 있어요.",
+                "special_characteristics": "쇠처럼 단단한 의지와 뛰어난 지혜를 함께 갖춘, 스스로의 힘으로 성공하는 대표적인 좋은 수예요. 좋은 바람을 만난 돛단배처럼 점점 속도가 붙어서 자기 분야에서 최고의 자리에 오르는 발전의 에너지를 지니고 있어요.",
+                "challenge_period": "성공 이후 잘난 척과 가정 소홀의 위험 시기",
+                "opportunity_area": "새로운 사업과 혁신 분야",
+                "lucky_level": "상운수"
+              }
+            },
+            {
+              "type": "lee",
+              "strokeSum": 18,
+              "element": "Metal",
+              "polarity": "Negative",
+              "luckyLevel": 20,
+              "meaning": {
+                "id": 18,
+                "number": 18,
+                "title": "발달운",
+                "summary": "발전과 번영, 권력의 수",
+                "detailed_explanation": "[성함]님의 이름 수리 18수를 풀어 보면, 새로운 일을 개척하고 앞으로 나아가며 발전하는 형상을 띠고 있어요. 쇠처럼 단단한 의지와 뛰어난 지혜를 함께 갖추고 있어서, 큰 꿈을 세우고 그 꿈을 향해 흔들림 없이 나아가는 멋진 기운이 수리 속에 깊이 새겨져 있어요. 마치 좋은 바람을 만난 돛단배처럼 점점 속도가 붙어서, 자기 분야에서 최고의 자리에 올라 큰 성공을 이루게 되는 아주 좋은 수예요. [성함]님께서는 이 발전의 강한 에너지를 잘 알아두시고, 타고난 추진력과 전략적인 생각을 균형 있게 발휘하신다면 어떤 분야에서든 남다른 성취를 거두실 수 있을 거예요.",
+                "positive_aspects": "[성함]님의 강점은 18수 발달운이 주는 뛰어난 지혜와 꺾이지 않는 의지력, 그리고 앞으로 나아가는 개척 정신에 있어요. 몸도 마음도 남들보다 일찍 성숙해서 자기만의 길을 빨리 찾고, 뛰어난 머리와 강한 추진력으로 웬만한 어려움은 거뜬히 뚫고 나가는 힘을 갖추고 계세요. 특히 경영이나 장사 분야에서 아주 훌륭한 실력을 발휘해서, 스스로 힘으로 부와 명예를 동시에 손에 넣는 늦되 크게 되는 리더십을 타고나셨어요. 또한 새로운 분야를 개척하고 참신한 아이디어를 현실로 만들어내는 능력이 남다르기 때문에, 주변 사람들의 믿음과 존경을 자연스럽게 얻으며 여기저기 이름을 널리 알릴 수 있는 큰 그릇의 소유자예요.",
+                "caution_points": "[성함]님은 18수의 강한 발전 에너지가 자칫 잘난 척이나 혼자만 옳다는 생각으로 이어지지 않도록 겸손함을 늘 마음에 새겨 두시는 것이 중요해요. 성격이 너무 강하고 추진력이 워낙 세다 보니 다른 사람을 감싸 안는 마음이 부족해질 수 있고, 자기 뜻대로만 밀어붙이다가 주변 사람들과의 관계에 금이 갈 수 있으니 다른 사람의 의견에 귀 기울이는 여유를 갖추세요. 특히 일이 잘 되고 힘을 갖게 되는 시기에 가정과 가까운 사람들을 소홀히 하는 모습이 나타날 수 있어요. 그래서 성공의 기쁨을 함께 나누고 집안일에도 세심한 관심을 기울이시면 사회 활동과 가정 모두에서 균형 잡힌 행복을 누리실 수 있어요. 성공한 뒤에도 처음 마음을 잃지 않고 사람과의 관계를 소중히 여기는 것이 [성함]님의 행복을 오래도록 지켜주는 비결이에요.",
+                "personality_traits": [
+                  "흔들리지 않는 의지력",
+                  "뛰어난 전략적 사고",
+                  "앞으로 나아가는 개척 정신",
+                  "뛰어난 경영 실력",
+                  "일찍 피어나는 지혜",
+                  "강한 추진력"
+                ],
+                "suitable_career": [
+                  "기업 경영자",
+                  "스타트업 창업가",
+                  "금융투자 전문가",
+                  "전략 컨설턴트",
+                  "기술 혁신 리더",
+                  "정치인",
+                  "무역업자",
+                  "프로젝트 매니저"
+                ],
+                "life_period_influence": "[성함]님의 삶의 흐름에는 꾸준히 올라가는 발전의 기운이 뚜렷하게 나타나요. 어린 시절에는 몸과 마음의 성장이 또래보다 빨라서 일찍이 큰 꿈을 품고 자기만의 길을 찾기 시작하며, 이때 쌓은 지식과 경험이 나중에 크게 도약하는 든든한 밑바탕이 돼요. 중년에는 타고난 지혜와 추진력이 본격적으로 빛을 발하면서 사업이나 직장에서 눈부신 성과를 거두고 사회적으로 이름을 알리게 되는 전성기를 맞이해요. 특히 30대 후반에서 50대에 이르는 시기에 스스로 이룬 성과가 무르익어서, 주변의 인정과 부를 동시에 얻는 황금기가 펼쳐지니 이 시기를 놓치지 않도록 잘 준비하시길 권해 드려요. 나이가 든 뒤에는 이루어 놓은 업적을 바탕으로 후배들을 키우고 사회에 되돌려 주는 역할을 하면서 깊은 존경과 편안한 노년을 누리실 수 있어요.",
+                "special_characteristics": "쇠처럼 단단한 의지와 뛰어난 지혜를 함께 갖춘, 스스로의 힘으로 성공하는 대표적인 좋은 수예요. 좋은 바람을 만난 돛단배처럼 점점 속도가 붙어서 자기 분야에서 최고의 자리에 오르는 발전의 에너지를 지니고 있어요.",
+                "challenge_period": "성공 이후 잘난 척과 가정 소홀의 위험 시기",
+                "opportunity_area": "새로운 사업과 혁신 분야",
+                "lucky_level": "상운수"
+              }
+            },
+            {
+              "type": "jung",
+              "strokeSum": 25,
+              "element": "Earth",
+              "polarity": "Positive",
+              "luckyLevel": 15,
+              "meaning": {
+                "id": 25,
+                "number": 25,
+                "title": "건창격",
+                "summary": "똑똑한 지혜와 복과 오래 사는 기운이 어우러진, 스스로 일어서는 수예요",
+                "detailed_explanation": "[성함]님의 이름 수리를 풀어 보면, 25수는 건창격이라고 해서 튼튼한 몸과 막힘 없이 잘 풀리는 기운을 동시에 품고 있는 좋은 수예요. 이름풀이에서 이 수를 \"순풍에 돛을 올린 배\"에 비유하는데, 바람을 타고 거침없이 앞으로 나아가는 모습이에요. 똑똑하게 판단하는 힘과 복이 많고 오래오래 건강하게 사는 기운을 함께 갖추고 있어서, 지혜와 행복이 조화롭게 따라오는 수예요. [성함]님은 겉으로는 부드럽고 온화하지만 속마음에는 단단한 의지가 자리 잡고 있는 스타일이에요. 무슨 일이든 성실하고 끈기 있게 밀고 나가서 반드시 좋은 결과를 맺는 힘을 가지고 있어요. 마음이 넓고 배려심이 있어서 사람들한테 자연스럽게 존경과 믿음을 얻게 되고, 그 덕분에 높은 자리에 오르게 되는 흐름이에요. 또한 예술적 감각과 신기한 재능을 타고나서 남다른 분야에서도 빛을 발할 수 있어요. 이 흐름을 잘 이해하면 [성함]님이 타고난 강점은 더욱 키우고, 부담이 될 수 있는 부분은 미리 줄이는 데 큰 도움이 돼요.",
+                "positive_aspects": "[성함]님의 강점은 똑똑한 머리와 성실한 실행력, 그리고 넉넉한 인품이 세 박자를 이루는 점에 있어요. 이름풀이에서 25수를 \"적은 노력으로도 많은 재물을 얻게 되는 부자 운\"이라고 표현할 만큼, [성함]님은 효율적으로 성과를 만들어내는 뛰어난 감각을 가지고 있어요. 어려움 앞에서 두려워하지 않고 정면으로 맞서서 이겨내는 용기가 있고, 한번 정한 목표는 처음부터 끝까지 흔들림 없이 밀고 나가서 주변에서 \"믿고 맡길 수 있는 사람\"이라는 평가를 자연스럽게 받게 돼요. 사람 복이 풍부해서 친구나 동료 사이에서도 두터운 믿음을 쌓고, 결혼 운과 가정 운 역시 안정적이어서 마음 든든한 기반 위에서 사회적으로 멋진 성과를 이뤄 나갈 수 있어요. 특히 스스로 기반을 다져서 성공하는 기운이 강하기 때문에, 혼자 힘으로 하나씩 만들어 가는 과정에서 [성함]님의 진짜 저력이 가장 빛나게 돼요.",
+                "caution_points": "[성함]님은 겉은 부드럽지만 속은 강한 성격이 뚜렷한 만큼, 마음속 확고한 생각이 때로는 지나친 자기 주장이나 잘난 척으로 보일 수 있다는 점을 조심하면 좋아요. 이름풀이에서도 25수에 대해 \"잘난 척하는 마음 때문에 실패할 수 있으니 사람 사귀는 데 특별히 신경을 쓰라\"고 당부하고 있어요. 뭐든지 스스로 해결하려는 마음이 강하다 보니, 주변에서 도와주려는 마음을 거절하거나 다른 사람 의견을 충분히 듣지 않고 결정을 내리는 경우가 생길 수 있어요. 하지만 [성함]님이 가진 사람 복과 배려심을 살려서 겸손한 자세로 다른 사람의 조언을 잘 듣고, 역할을 나누어 함께 나아가는 연습을 한다면 이 부분은 충분히 보완할 수 있어요. 서두르기보다 원칙과 우선순위를 먼저 세우고, 자기 생각을 내세우기 전에 한 번 더 상대방 입장을 생각해 보는 습관을 들이면 위험을 크게 줄이고 더 넓은 성공으로 이어갈 수 있어요.",
+                "personality_traits": [
+                  "겉은 부드럽고 속은 강한 성격",
+                  "성실함",
+                  "끈기",
+                  "배려심",
+                  "지혜"
+                ],
+                "suitable_career": [
+                  "예술가",
+                  "컨설턴트",
+                  "기업 경영인",
+                  "연구원",
+                  "교육자"
+                ],
+                "life_period_influence": "[성함]님의 인생 흐름을 보면, 25수는 어릴 때 약간의 고생을 겪지만 이 시기에 길러진 참을성과 성실함이 단단한 밑거름이 되는 구조예요. 어린 시절에는 또래보다 일찍 독립심과 책임감이 자리 잡고, 크고 작은 어려움을 겪으면서 겉은 부드럽고 속은 강한 성격이 한층 다듬어지는 시기예요. 중년에 접어들면 그동안 쌓아온 실력과 사람 복이 빛을 발해서 사회적 인정과 경제적 안정을 동시에 얻게 되고, 스스로 일군 성공의 열매가 본격적으로 익어가는 시기예요. 나이가 들면 복과 오래 사는 기운이 무르익어서 건강과 재물, 이름값이 고루 갖추어진 풍요로운 생활을 누리게 되며, 주변 사람들한테 존경받는 어른이자 좋은 선생님 같은 자리에 서게 될 가능성이 높아요. 이 흐름을 미리 이해하고, 특히 어린 시절의 어려움을 성장의 발판으로 삼으면 [성함]님은 기회를 훨씬 잘 살릴 수 있어요.",
+                "special_characteristics": "이름풀이에서 25수는 똑똑한 판단력과 복이 많고 오래 사는 기운이라는 두 가지 행운의 물줄기가 하나로 합쳐지는 특별한 구조를 가지고 있어요. 순풍에 돛을 올린 배처럼 어디를 향하든 순조로운 항해가 기대되는 모습이고, 예술적 감각과 신기한 재능을 타고나서 남다른 분야에서 두각을 나타내기 쉬워요. 자기 분수를 알고 부지런하고 성실하게 나아가는 올곧은 성품의 수리로, 지나친 욕심을 버리고 진짜 노력에 집중할 때 부자가 되고 행복해지는 기운이 자연스럽게 따라오는 하늘이 내린 복을 품고 있어요.",
+                "challenge_period": "어린 시절에 겪는 크고 작은 어려움이 25수의 대표적인 시련기예요. 이 시기에는 아직 사람 복과 기반이 충분히 쌓이지 않아서 뜻대로 되지 않는 일이 생길 수 있고, 겉은 부드럽고 속은 강한 성격이 다듬어지기 전이라 마음속 강한 의지가 고집이나 독단으로 나타나기 쉬워요. 하지만 이 시기를 성실하게 버텨내면 중년 이후의 흐름이 한결 안정되고 풍요로워지니, 조급해하지 않고 기반을 단단히 다지는 것이 핵심이에요.",
+                "opportunity_area": "예술, 창작, 기술 분야처럼 남다른 재능을 살릴 수 있는 곳에서 가장 큰 기회를 만날 수 있어요. 또한 성실함과 사람 복을 바탕으로 조직을 이끌거나 조언해 주는 역할, 교육과 멘토링 분야에서도 25수의 에너지가 최대로 발휘돼요. 특히 스스로 일어서는 사업이나 전문 기술을 기반으로 한 독립적인 진로에서 [성함]님의 저력이 가장 잘 나타날 수 있어요.",
+                "lucky_level": "양운수"
+              }
+            }
+          ],
+          "elementScore": 65,
+          "luckScore": 60
+        }
+      },
+      "nameTrend": {
+        "givenHangul": "성수",
+        "gender": "male",
+        "birthYear": 1986,
+        "matchedYear": null,
+        "latestYear": 2024,
+        "trendFit": null,
+        "trendRisk": null,
+        "eraFitScore": null,
+        "status": "unknown",
+        "evidence": [
+          "공식 표본이 2008년부터 시작되어 그 이전 출생연도는 분석 범위 밖이에요."
+        ],
+        "sourceTier": "T5_OFFICIAL",
+        "authorityTruthEligible": true
+      },
+      "phonetic": {
+        "fullHangul": "최성수",
+        "surnameHangul": "최",
+        "givenHangul": "성수",
+        "phoneticScore": 98.2,
+        "transitionScore": 97,
+        "familyNameFitScore": 100,
+        "status": "smooth",
+        "transitions": [
+          {
+            "from": "최",
+            "to": "성",
+            "boundary": "surname_given",
+            "score": 100,
+            "risk": "low",
+            "signals": []
+          },
+          {
+            "from": "성",
+            "to": "수",
+            "boundary": "given_internal",
+            "score": 94,
+            "risk": "low",
+            "signals": [
+              {
+                "code": "same_initial_repeat",
+                "severity": "low",
+                "penalty": 6,
+                "message": "성수 연결은 첫소리가 반복돼요."
+              }
+            ]
+          }
+        ],
+        "warnings": [
+          {
+            "code": "same_initial_repeat",
+            "severity": "low",
+            "penalty": 6,
+            "message": "성수 연결은 첫소리가 반복돼요."
+          }
+        ],
+        "evidence": [
+          "음운 흐름 점수 98.2/100 (부드러움); 표시용 근거이며 총점이나 순위에는 반영되지 않아요.",
+          "성-이름 연결 점수 100/100 (최성).",
+          "성수 연결은 첫소리가 반복돼요."
+        ],
+        "sourceTier": "T3_AUTHORED_INTERPRETATION",
+        "authorityTruthEligible": false
+      },
+      "explanation": {
+        "summary": "보통 수준의 이름입니다. 주요 후보 성향은 발음 안정형이에요. 표시용 점수 기준으로는 한자 의미 적합도 항목이 강점으로 보여요(100/100). 사주와 이름의 조화 항목은 사용할 수 있는 근거가 부족해서 단정하지 않았어요.",
+        "strengths": [
+          "표시용 점수 기준으로는 한자 의미 적합도 항목이 강점으로 보여요(100/100).",
+          "표시용 점수 기준으로는 발음 흐름 항목이 강점으로 보여요(98/100).",
+          "표시용 점수 기준으로는 성과 이름의 발음 연결 항목이 강점으로 보여요(100/100).",
+          "표시용 점수 기준으로는 위험 신호가 낮은 편이에요(25/100)."
+        ],
+        "cautions": [
+          "사주와 이름의 조화 항목은 사용할 수 있는 근거가 부족해서 단정하지 않았어요.",
+          "보완 기운 일치도 항목은 사용할 수 있는 근거가 부족해서 단정하지 않았어요.",
+          "출생 시대 이름 흐름 항목은 사용할 수 있는 근거가 부족해서 단정하지 않았어요."
+        ],
+        "signals": [
+          {
+            "axis": "sajuFit",
+            "kind": "unavailable",
+            "phraseMode": "deferred",
+            "label": "사주와 이름의 조화",
+            "value": null,
+            "sourceTier": {
+              "tier": "T2_REFERENCE_IMPLEMENTATION",
+              "sourceType": "derived_score",
+              "sourceUrl": null,
+              "accessedAt": "2026-05-01",
+              "quoteShort": null,
+              "humanInterpretation": "점수 벡터에서 계산한 표시용 축입니다. 후보 정렬에는 쓸 수 있지만 단독 권위 근거로 보지 않습니다.",
+              "copyrightNote": "외부 원문을 복사하지 않았습니다.",
+              "authorityTruthEligible": false
+            },
+            "phrase": "사주와 이름의 조화 항목은 사용할 수 있는 근거가 부족해서 단정하지 않았어요."
+          },
+          {
+            "axis": "yongshinFit",
+            "kind": "unavailable",
+            "phraseMode": "deferred",
+            "label": "보완 기운 일치도",
+            "value": null,
+            "sourceTier": {
+              "tier": "T2_REFERENCE_IMPLEMENTATION",
+              "sourceType": "derived_score",
+              "sourceUrl": null,
+              "accessedAt": "2026-05-01",
+              "quoteShort": null,
+              "humanInterpretation": "점수 벡터에서 계산한 표시용 축입니다. 후보 정렬에는 쓸 수 있지만 단독 권위 근거로 보지 않습니다.",
+              "copyrightNote": "외부 원문을 복사하지 않았습니다.",
+              "authorityTruthEligible": false
+            },
+            "phrase": "보완 기운 일치도 항목은 사용할 수 있는 근거가 부족해서 단정하지 않았어요."
+          },
+          {
+            "axis": "hanjaMeaning",
+            "kind": "strength",
+            "phraseMode": "displayOnly",
+            "label": "한자 의미 적합도",
+            "value": 100,
+            "sourceTier": {
+              "tier": "T3_AUTHORED_INTERPRETATION",
+              "sourceType": "authored_rule",
+              "sourceUrl": null,
+              "accessedAt": "2026-05-01",
+              "quoteShort": null,
+              "humanInterpretation": "spring-ts 안에서 작성한 규칙 기반 이름 해석입니다. 사실 단정이 아니라 제안으로 표현해야 합니다.",
+              "copyrightNote": "외부 원문을 복사하지 않았습니다.",
+              "authorityTruthEligible": false
+            },
+            "phrase": "표시용 점수 기준으로는 한자 의미 적합도 항목이 강점으로 보여요(100/100)."
+          },
+          {
+            "axis": "phonetic",
+            "kind": "strength",
+            "phraseMode": "displayOnly",
+            "label": "발음 흐름",
+            "value": 98,
+            "sourceTier": {
+              "tier": "T3_AUTHORED_INTERPRETATION",
+              "sourceType": "authored_rule",
+              "sourceUrl": null,
+              "accessedAt": "2026-05-01",
+              "quoteShort": null,
+              "humanInterpretation": "spring-ts 안에서 작성한 규칙 기반 이름 해석입니다. 사실 단정이 아니라 제안으로 표현해야 합니다.",
+              "copyrightNote": "외부 원문을 복사하지 않았습니다.",
+              "authorityTruthEligible": false
+            },
+            "phrase": "표시용 점수 기준으로는 발음 흐름 항목이 강점으로 보여요(98/100)."
+          },
+          {
+            "axis": "eraFit",
+            "kind": "unavailable",
+            "phraseMode": "deferred",
+            "label": "출생 시대 이름 흐름",
+            "value": null,
+            "sourceTier": {
+              "tier": "T5_OFFICIAL",
+              "sourceType": "official_data",
+              "sourceUrl": null,
+              "accessedAt": "2026-05-01",
+              "quoteShort": null,
+              "humanInterpretation": "법령 또는 공식 데이터에 근거한 제한 범위의 사실 확인입니다.",
+              "copyrightNote": "외부 원문을 복사하지 않았습니다.",
+              "authorityTruthEligible": true
+            },
+            "phrase": "출생 시대 이름 흐름 항목은 사용할 수 있는 근거가 부족해서 단정하지 않았어요."
+          },
+          {
+            "axis": "familyFit",
+            "kind": "strength",
+            "phraseMode": "displayOnly",
+            "label": "성과 이름의 발음 연결",
+            "value": 100,
+            "sourceTier": {
+              "tier": "T3_AUTHORED_INTERPRETATION",
+              "sourceType": "authored_rule",
+              "sourceUrl": null,
+              "accessedAt": "2026-05-01",
+              "quoteShort": null,
+              "humanInterpretation": "spring-ts 안에서 작성한 규칙 기반 이름 해석입니다. 사실 단정이 아니라 제안으로 표현해야 합니다.",
+              "copyrightNote": "외부 원문을 복사하지 않았습니다.",
+              "authorityTruthEligible": false
+            },
+            "phrase": "표시용 점수 기준으로는 성과 이름의 발음 연결 항목이 강점으로 보여요(100/100)."
+          },
+          {
+            "axis": "risk",
+            "kind": "strength",
+            "phraseMode": "displayOnly",
+            "label": "위험 신호 점검",
+            "value": 25,
+            "sourceTier": {
+              "tier": "T2_REFERENCE_IMPLEMENTATION",
+              "sourceType": "derived_score",
+              "sourceUrl": null,
+              "accessedAt": "2026-05-01",
+              "quoteShort": null,
+              "humanInterpretation": "점수 벡터에서 계산한 표시용 축입니다. 후보 정렬에는 쓸 수 있지만 단독 권위 근거로 보지 않습니다.",
+              "copyrightNote": "외부 원문을 복사하지 않았습니다.",
+              "authorityTruthEligible": false
+            },
+            "phrase": "표시용 점수 기준으로는 위험 신호가 낮은 편이에요(25/100)."
+          }
+        ]
+      },
+      "interpretation": "보통 수준의 이름입니다. 주요 후보 성향은 발음 안정형이에요. 표시용 점수 기준으로는 한자 의미 적합도 항목이 강점으로 보여요(100/100). 사주와 이름의 조화 항목은 사용할 수 있는 근거가 부족해서 단정하지 않았어요."
+    },
+    "sajuReport": {
+      "pillars": {
+        "year": {
+          "stem": {
+            "code": "BYEONG",
+            "hangul": "병",
+            "hanja": "丙"
+          },
+          "branch": {
+            "code": "IN",
+            "hangul": "인",
+            "hanja": "寅"
+          }
+        },
+        "month": {
+          "stem": {
+            "code": "IM",
+            "hangul": "임",
+            "hanja": "壬"
+          },
+          "branch": {
+            "code": "JIN",
+            "hangul": "진",
+            "hanja": "辰"
+          }
+        },
+        "day": {
+          "stem": {
+            "code": "GYE",
+            "hangul": "계",
+            "hanja": "癸"
+          },
+          "branch": {
+            "code": "SA",
+            "hangul": "사",
+            "hanja": "巳"
+          }
+        },
+        "hour": {
+          "stem": {
+            "code": "GAP",
+            "hangul": "갑",
+            "hanja": "甲"
+          },
+          "branch": {
+            "code": "IN",
+            "hangul": "인",
+            "hanja": "寅"
+          }
+        }
+      },
+      "coreResult": {
+        "standardYear": 1986,
+        "standardMonth": 4,
+        "standardDay": 19,
+        "standardHour": 5,
+        "standardMinute": 45,
+        "adjustedYear": 1986,
+        "adjustedMonth": 4,
+        "adjustedDay": 19,
+        "adjustedHour": 4,
+        "adjustedMinute": 43,
+        "dstCorrectionMinutes": 0,
+        "longitudeCorrectionMinutes": -32.08800000000002,
+        "equationOfTimeMinutes": 0.6820860156831259
+      },
+      "strengthResult": {
+        "dayMasterElement": "WATER",
+        "level": "WEAK",
+        "isStrong": false,
+        "score": {
+          "totalSupport": 2.4000000000000004,
+          "totalOppose": 5.6000000000000005,
+          "deukryeong": 2.1,
+          "deukji": 0.30000000000000004,
+          "deukse": 2.4000000000000004
+        },
+        "details": [
+          "강약 판정: 신약",
+          "강약 지수: -0.400",
+          "생조 합: 2.400",
+          "극설 합: 5.600"
+        ]
+      },
+      "yongshinResult": {
+        "finalYongshin": "METAL",
+        "finalHeesin": "WATER",
+        "gisin": "FIRE",
+        "gusin": "EARTH",
+        "finalConfidence": 41,
+        "agreement": "RANKING",
+        "consensus": {
+          "eokbu": {
+            "element": "METAL",
+            "score": 1,
+            "scores": {
+              "WOOD": 0.175867,
+              "FIRE": 0,
+              "EARTH": 0.18808,
+              "METAL": 1,
+              "WATER": 0.430874
+            },
+            "evidence": [
+              "strengthIndex=-0.4",
+              "support=2.4",
+              "pressure=5.6"
+            ]
+          },
+          "johu": {
+            "element": "FIRE",
+            "score": 1,
+            "scores": {
+              "WOOD": 0.428571,
+              "FIRE": 1,
+              "EARTH": 0.857143,
+              "METAL": 1,
+              "WATER": 0
+            },
+            "evidence": [
+              "climateNeedTemp=0",
+              "climateNeedMoist=-0.2"
+            ]
+          },
+          "gyeokguk": {
+            "element": "WATER",
+            "score": 1,
+            "scores": {
+              "WOOD": 0.207692,
+              "FIRE": 0,
+              "EARTH": 0.692308,
+              "METAL": 0,
+              "WATER": 1
+            },
+            "evidence": [
+              "monthGyeokTenGod=BI_GYEON",
+              "quality=0.764167"
+            ]
+          },
+          "tonggwan": {
+            "element": "WOOD",
+            "score": 1,
+            "scores": {
+              "WOOD": 1,
+              "FIRE": 0.207454,
+              "EARTH": 0.003883,
+              "METAL": 0.239428,
+              "WATER": 0
+            },
+            "evidence": [
+              "maxIntensity=0.512791",
+              "dominance=0.640204"
+            ]
+          },
+          "byeongyak": {
+            "element": "METAL",
+            "score": 1,
+            "scores": {
+              "WOOD": 0,
+              "FIRE": 0,
+              "EARTH": 0.555556,
+              "METAL": 1,
+              "WATER": 0.666667
+            },
+            "evidence": [
+              "medicine=controls_excess_elements"
+            ]
+          },
+          "siksangFlow": {
+            "element": "WOOD",
+            "score": 1,
+            "scores": {
+              "WOOD": 1,
+              "FIRE": 0,
+              "EARTH": 0,
+              "METAL": 0,
+              "WATER": 0
+            },
+            "evidence": [
+              "outputPressure=0.3125"
+            ]
+          },
+          "final": {
+            "element": "METAL",
+            "confidence": 0.4125,
+            "topMargin": 0.4125,
+            "conflictLevel": "high",
+            "competingElements": [
+              "FIRE",
+              "WATER",
+              "WOOD"
+            ],
+            "evidence": [
+              "selected=METAL",
+              "topMargin=0.4125",
+              "conflictRatio=0.666667"
+            ]
+          }
+        },
+        "recommendations": [
+          {
+            "type": "JOHU",
+            "primaryElement": "METAL",
+            "secondaryElement": "WATER",
+            "confidence": 80,
+            "reasoning": "금 기운이 가장 강해 용신 1순위입니다 (신뢰도 80점)."
+          },
+          {
+            "type": "RANKING",
+            "primaryElement": "WATER",
+            "secondaryElement": "WOOD",
+            "confidence": 39,
+            "reasoning": "수 기운은 금 기운을 보조하는 희신 후보입니다 (신뢰도 39점)."
+          },
+          {
+            "type": "RANKING",
+            "primaryElement": "WOOD",
+            "secondaryElement": "EARTH",
+            "confidence": 10,
+            "reasoning": "목 기운은 후순위 균형 보완 후보입니다 (신뢰도 10점)."
+          }
+        ]
+      },
+      "gyeokgukResult": {
+        "type": "BI_GYEON",
+        "category": "NORMAL",
+        "baseSipseong": "BI_GYEON",
+        "confidence": 0.7641666666666667,
+        "reasoning": "격국 후보 중 비견격이(가) 가장 유력합니다.",
+        "candidates": [
+          {
+            "type": "BI_GYEON",
+            "category": "NORMAL",
+            "baseSipseong": "BI_GYEON",
+            "score": 0.7641666666666667,
+            "confidence": 0.7641666666666667,
+            "supportingRules": [
+              "monthHiddenStem:GYE",
+              "role:RESIDUAL",
+              "visibleInChart",
+              "weight:0.10",
+              "VISIBLE"
+            ],
+            "blockingRules": [],
+            "compositeClassical": {
+              "model": "composite_classical",
+              "score": 0.417108,
+              "confidence": 0.417108,
+              "status": "low_confidence_evidence",
+              "selectionPolicy": "evidence_only_never_promote",
+              "selectedByComposite": false,
+              "breakerPenalty": 0.043333,
+              "features": [
+                {
+                  "name": "monthMainMatch",
+                  "score": 0,
+                  "weight": 0.3,
+                  "contribution": 0,
+                  "reason": "not the month main hidden ten-god"
+                },
+                {
+                  "name": "stemTransparency",
+                  "score": 1,
+                  "weight": 0.18,
+                  "contribution": 0.18,
+                  "reason": "hidden stem is transparent in chart stems"
+                },
+                {
+                  "name": "rootSupport",
+                  "score": 0.65,
+                  "weight": 0.14,
+                  "contribution": 0.091,
+                  "reason": "hidden-stem weight 0.1 and element share 0.263"
+                },
+                {
+                  "name": "seasonalCommand",
+                  "score": 0.350833,
+                  "weight": 0.12,
+                  "contribution": 0.0421,
+                  "reason": "month hidden role RESIDUAL"
+                },
+                {
+                  "name": "transformationSupport",
+                  "score": 0,
+                  "weight": 0.1,
+                  "contribution": 0,
+                  "reason": "no matching transformation signal"
+                },
+                {
+                  "name": "purityScore",
+                  "score": 0.764167,
+                  "weight": 0.08,
+                  "contribution": 0.061133,
+                  "reason": "quality clarity 0.528, integrity 1"
+                },
+                {
+                  "name": "usefulGodAlignment",
+                  "score": 0.6,
+                  "weight": 0.08,
+                  "contribution": 0.048,
+                  "reason": "candidate element aligns with yongshin ranking"
+                },
+                {
+                  "name": "sourceTierBoost",
+                  "score": 0,
+                  "weight": 0.05,
+                  "contribution": 0,
+                  "reason": "engine-derived T2 evidence gets no authority boost"
+                },
+                {
+                  "name": "stabilityAcrossModes",
+                  "score": 0.764167,
+                  "weight": 0.05,
+                  "contribution": 0.038208,
+                  "reason": "default ranking score 0.764"
+                }
+              ],
+              "basisRules": [
+                "month_hidden_stem_candidates",
+                "stem_transparency",
+                "month_gyeok_quality",
+                "transformation_and_one_element_signals",
+                "yongshin_element_alignment"
+              ]
+            },
+            "sourceTier": {
+              "tier": "T2_REFERENCE_IMPLEMENTATION",
+              "sourceType": "reference_implementation",
+              "sourceUrl": null,
+              "accessedAt": "2026-05-01",
+              "quoteShort": null,
+              "humanInterpretation": "saju-ts의 월령 격국 및 격국 후보 산식에서 계산한 표시용 근거입니다. 권위 근거로 단정하지 않습니다.",
+              "copyrightNote": "인용 원문 없이 구현 산식에서 만든 메타데이터입니다.",
+              "authorityTruthEligible": false
+            }
+          },
+          {
+            "type": "JEONG_GWAN",
+            "category": "NORMAL",
+            "baseSipseong": "JEONG_GWAN",
+            "score": 0.7500000000000001,
+            "confidence": 0.7500000000000001,
+            "supportingRules": [
+              "monthHiddenStem:MU",
+              "role:MAIN",
+              "weight:0.60",
+              "MAIN"
+            ],
+            "blockingRules": [],
+            "compositeClassical": {
+              "model": "composite_classical",
+              "score": 0.6278,
+              "confidence": 0.6278,
+              "status": "candidate_evidence",
+              "selectionPolicy": "evidence_only_never_promote",
+              "selectedByComposite": false,
+              "breakerPenalty": 0.043333,
+              "features": [
+                {
+                  "name": "monthMainMatch",
+                  "score": 1,
+                  "weight": 0.3,
+                  "contribution": 0.3,
+                  "reason": "matches month main hidden ten-god"
+                },
+                {
+                  "name": "stemTransparency",
+                  "score": 0,
+                  "weight": 0.18,
+                  "contribution": 0,
+                  "reason": "hidden stem is not transparent"
+                },
+                {
+                  "name": "rootSupport",
+                  "score": 1,
+                  "weight": 0.14,
+                  "contribution": 0.14,
+                  "reason": "hidden-stem weight 0.6 and element share 0.113"
+                },
+                {
+                  "name": "seasonalCommand",
+                  "score": 1,
+                  "weight": 0.12,
+                  "contribution": 0.12,
+                  "reason": "month hidden role MAIN"
+                },
+                {
+                  "name": "transformationSupport",
+                  "score": 0,
+                  "weight": 0.1,
+                  "contribution": 0,
+                  "reason": "no matching transformation signal"
+                },
+                {
+                  "name": "purityScore",
+                  "score": 0.764167,
+                  "weight": 0.08,
+                  "contribution": 0.061133,
+                  "reason": "quality clarity 0.528, integrity 1"
+                },
+                {
+                  "name": "usefulGodAlignment",
+                  "score": 0,
+                  "weight": 0.08,
+                  "contribution": 0,
+                  "reason": "candidate element does not align with yongshin ranking"
+                },
+                {
+                  "name": "sourceTierBoost",
+                  "score": 0,
+                  "weight": 0.05,
+                  "contribution": 0,
+                  "reason": "engine-derived T2 evidence gets no authority boost"
+                },
+                {
+                  "name": "stabilityAcrossModes",
+                  "score": 1,
+                  "weight": 0.05,
+                  "contribution": 0.05,
+                  "reason": "default ranking score 0"
+                }
+              ],
+              "basisRules": [
+                "month_hidden_stem_candidates",
+                "stem_transparency",
+                "month_gyeok_quality",
+                "transformation_and_one_element_signals",
+                "yongshin_element_alignment"
+              ]
+            },
+            "sourceTier": {
+              "tier": "T2_REFERENCE_IMPLEMENTATION",
+              "sourceType": "reference_implementation",
+              "sourceUrl": null,
+              "accessedAt": "2026-05-01",
+              "quoteShort": null,
+              "humanInterpretation": "saju-ts의 월령 격국 및 격국 후보 산식에서 계산한 표시용 근거입니다. 권위 근거로 단정하지 않습니다.",
+              "copyrightNote": "인용 원문 없이 구현 산식에서 만든 메타데이터입니다.",
+              "authorityTruthEligible": false
+            }
+          },
+          {
+            "type": "SIK_SIN",
+            "category": "NORMAL",
+            "baseSipseong": "SIK_SIN",
+            "score": 0.30000000000000004,
+            "confidence": 0.30000000000000004,
+            "supportingRules": [
+              "monthHiddenStem:EUL",
+              "role:MIDDLE",
+              "weight:0.30"
+            ],
+            "blockingRules": [],
+            "compositeClassical": {
+              "model": "composite_classical",
+              "score": 0.18896,
+              "confidence": 0.18896,
+              "status": "trace_only",
+              "selectionPolicy": "evidence_only_never_promote",
+              "selectedByComposite": false,
+              "breakerPenalty": 0.043333,
+              "features": [
+                {
+                  "name": "monthMainMatch",
+                  "score": 0,
+                  "weight": 0.3,
+                  "contribution": 0,
+                  "reason": "not the month main hidden ten-god"
+                },
+                {
+                  "name": "stemTransparency",
+                  "score": 0,
+                  "weight": 0.18,
+                  "contribution": 0,
+                  "reason": "hidden stem is not transparent"
+                },
+                {
+                  "name": "rootSupport",
+                  "score": 0.5,
+                  "weight": 0.14,
+                  "contribution": 0.07,
+                  "reason": "hidden-stem weight 0.3 and element share 0.313"
+                },
+                {
+                  "name": "seasonalCommand",
+                  "score": 0.643,
+                  "weight": 0.12,
+                  "contribution": 0.07716,
+                  "reason": "month hidden role MIDDLE"
+                },
+                {
+                  "name": "transformationSupport",
+                  "score": 0,
+                  "weight": 0.1,
+                  "contribution": 0,
+                  "reason": "no matching transformation signal"
+                },
+                {
+                  "name": "purityScore",
+                  "score": 0.764167,
+                  "weight": 0.08,
+                  "contribution": 0.061133,
+                  "reason": "quality clarity 0.528, integrity 1"
+                },
+                {
+                  "name": "usefulGodAlignment",
+                  "score": 0.3,
+                  "weight": 0.08,
+                  "contribution": 0.024,
+                  "reason": "candidate element aligns with yongshin ranking"
+                },
+                {
+                  "name": "sourceTierBoost",
+                  "score": 0,
+                  "weight": 0.05,
+                  "contribution": 0,
+                  "reason": "engine-derived T2 evidence gets no authority boost"
+                },
+                {
+                  "name": "stabilityAcrossModes",
+                  "score": 0,
+                  "weight": 0.05,
+                  "contribution": 0,
+                  "reason": "default ranking score 0"
+                }
+              ],
+              "basisRules": [
+                "month_hidden_stem_candidates",
+                "stem_transparency",
+                "month_gyeok_quality",
+                "transformation_and_one_element_signals",
+                "yongshin_element_alignment"
+              ]
+            },
+            "sourceTier": {
+              "tier": "T2_REFERENCE_IMPLEMENTATION",
+              "sourceType": "reference_implementation",
+              "sourceUrl": null,
+              "accessedAt": "2026-05-01",
+              "quoteShort": null,
+              "humanInterpretation": "saju-ts의 월령 격국 및 격국 후보 산식에서 계산한 표시용 근거입니다. 권위 근거로 단정하지 않습니다.",
+              "copyrightNote": "인용 원문 없이 구현 산식에서 만든 메타데이터입니다.",
+              "authorityTruthEligible": false
+            }
+          }
+        ],
+        "jonggyeokCandidates": [
+          {
+            "subtype": "cong_cai",
+            "status": "possible",
+            "score": 0.312906,
+            "confidence": 0.312906,
+            "followPressure": 0.275,
+            "dayMasterIsolation": 0.666667,
+            "rootWeakness": 0.347826,
+            "dominantElementShare": 0.275,
+            "breakerPenalty": 0.05,
+            "evidence": [
+              "role=WEALTH",
+              "roleShare=0.275",
+              "tenGodShare=0.275",
+              "supportShare=0.3",
+              "pressureShare=0.7",
+              "dominantElement=FIRE"
+            ],
+            "sourceTier": {
+              "tier": "T2_REFERENCE_IMPLEMENTATION",
+              "sourceType": "reference_implementation",
+              "sourceUrl": null,
+              "accessedAt": "2026-05-01",
+              "quoteShort": null,
+              "humanInterpretation": "saju-ts의 월령 격국 및 격국 후보 산식에서 계산한 표시용 근거입니다. 권위 근거로 단정하지 않습니다.",
+              "copyrightNote": "인용 원문 없이 구현 산식에서 만든 메타데이터입니다.",
+              "authorityTruthEligible": false
+            }
+          },
+          {
+            "subtype": "cong_guan",
+            "status": "none",
+            "score": 0.106156,
+            "confidence": 0.106156,
+            "followPressure": 0.1125,
+            "dayMasterIsolation": 0.666667,
+            "rootWeakness": 0.347826,
+            "dominantElementShare": 0.1125,
+            "breakerPenalty": 0.13,
+            "blockedReason": "dominant_target_weak",
+            "evidence": [
+              "role=OFFICER",
+              "roleShare=0.1125",
+              "tenGodShare=0.1125",
+              "supportShare=0.3",
+              "pressureShare=0.7",
+              "dominantElement=EARTH"
+            ],
+            "sourceTier": {
+              "tier": "T2_REFERENCE_IMPLEMENTATION",
+              "sourceType": "reference_implementation",
+              "sourceUrl": null,
+              "accessedAt": "2026-05-01",
+              "quoteShort": null,
+              "humanInterpretation": "saju-ts의 월령 격국 및 격국 후보 산식에서 계산한 표시용 근거입니다. 권위 근거로 단정하지 않습니다.",
+              "copyrightNote": "인용 원문 없이 구현 산식에서 만든 메타데이터입니다.",
+              "authorityTruthEligible": false
+            }
+          },
+          {
+            "subtype": "cong_sha",
+            "status": "none",
+            "score": 0.085906,
+            "confidence": 0.085906,
+            "followPressure": 0.1125,
+            "dayMasterIsolation": 0.666667,
+            "rootWeakness": 0.347826,
+            "dominantElementShare": 0.1125,
+            "breakerPenalty": 0.13,
+            "blockedReason": "dominant_target_weak",
+            "evidence": [
+              "role=OFFICER",
+              "roleShare=0.1125",
+              "tenGodShare=0",
+              "supportShare=0.3",
+              "pressureShare=0.7",
+              "dominantElement=EARTH"
+            ],
+            "sourceTier": {
+              "tier": "T2_REFERENCE_IMPLEMENTATION",
+              "sourceType": "reference_implementation",
+              "sourceUrl": null,
+              "accessedAt": "2026-05-01",
+              "quoteShort": null,
+              "humanInterpretation": "saju-ts의 월령 격국 및 격국 후보 산식에서 계산한 표시용 근거입니다. 권위 근거로 단정하지 않습니다.",
+              "copyrightNote": "인용 원문 없이 구현 산식에서 만든 메타데이터입니다.",
+              "authorityTruthEligible": false
+            }
+          },
+          {
+            "subtype": "cong_er",
+            "status": "possible",
+            "score": 0.342156,
+            "confidence": 0.342156,
+            "followPressure": 0.3125,
+            "dayMasterIsolation": 0.666667,
+            "rootWeakness": 0.347826,
+            "dominantElementShare": 0.3125,
+            "breakerPenalty": 0.05,
+            "evidence": [
+              "role=OUTPUT",
+              "roleShare=0.3125",
+              "tenGodShare=0.3125",
+              "supportShare=0.3",
+              "pressureShare=0.7",
+              "dominantElement=WOOD"
+            ],
+            "sourceTier": {
+              "tier": "T2_REFERENCE_IMPLEMENTATION",
+              "sourceType": "reference_implementation",
+              "sourceUrl": null,
+              "accessedAt": "2026-05-01",
+              "quoteShort": null,
+              "humanInterpretation": "saju-ts의 월령 격국 및 격국 후보 산식에서 계산한 표시용 근거입니다. 권위 근거로 단정하지 않습니다.",
+              "copyrightNote": "인용 원문 없이 구현 산식에서 만든 메타데이터입니다.",
+              "authorityTruthEligible": false
+            }
+          },
+          {
+            "subtype": "cong_yin",
+            "status": "none",
+            "score": 0,
+            "confidence": 0,
+            "followPressure": 0.0375,
+            "dayMasterIsolation": 0.666667,
+            "rootWeakness": 0.347826,
+            "dominantElementShare": 0.0375,
+            "breakerPenalty": 0.27,
+            "blockedReason": "opposing_pressure_too_visible;dominant_target_weak",
+            "evidence": [
+              "role=RESOURCE",
+              "roleShare=0.0375",
+              "tenGodShare=0.0375",
+              "supportShare=0.3",
+              "pressureShare=0.7",
+              "dominantElement=METAL"
+            ],
+            "sourceTier": {
+              "tier": "T2_REFERENCE_IMPLEMENTATION",
+              "sourceType": "reference_implementation",
+              "sourceUrl": null,
+              "accessedAt": "2026-05-01",
+              "quoteShort": null,
+              "humanInterpretation": "saju-ts의 월령 격국 및 격국 후보 산식에서 계산한 표시용 근거입니다. 권위 근거로 단정하지 않습니다.",
+              "copyrightNote": "인용 원문 없이 구현 산식에서 만든 메타데이터입니다.",
+              "authorityTruthEligible": false
+            }
+          },
+          {
+            "subtype": "cong_bi",
+            "status": "none",
+            "score": 0.163156,
+            "confidence": 0.163156,
+            "followPressure": 0.2625,
+            "dayMasterIsolation": 0.666667,
+            "rootWeakness": 0.347826,
+            "dominantElementShare": 0.2625,
+            "breakerPenalty": 0.19,
+            "blockedReason": "opposing_pressure_too_visible",
+            "evidence": [
+              "role=COMPANION",
+              "roleShare=0.2625",
+              "tenGodShare=0.2625",
+              "supportShare=0.3",
+              "pressureShare=0.7",
+              "dominantElement=WATER"
+            ],
+            "sourceTier": {
+              "tier": "T2_REFERENCE_IMPLEMENTATION",
+              "sourceType": "reference_implementation",
+              "sourceUrl": null,
+              "accessedAt": "2026-05-01",
+              "quoteShort": null,
+              "humanInterpretation": "saju-ts의 월령 격국 및 격국 후보 산식에서 계산한 표시용 근거입니다. 권위 근거로 단정하지 않습니다.",
+              "copyrightNote": "인용 원문 없이 구현 산식에서 만든 메타데이터입니다.",
+              "authorityTruthEligible": false
+            }
+          },
+          {
+            "subtype": "zhuan_wang",
+            "status": "none",
+            "score": 0.025,
+            "confidence": 0.025,
+            "followPressure": 0,
+            "dayMasterIsolation": 0.666667,
+            "rootWeakness": 0.347826,
+            "dominantElementShare": 0.3125,
+            "breakerPenalty": 0.05,
+            "evidence": [
+              "oneElement=WOOD",
+              "oneElementFactor=0",
+              "dayMasterMatch=0"
+            ],
+            "sourceTier": {
+              "tier": "T2_REFERENCE_IMPLEMENTATION",
+              "sourceType": "reference_implementation",
+              "sourceUrl": null,
+              "accessedAt": "2026-05-01",
+              "quoteShort": null,
+              "humanInterpretation": "saju-ts의 월령 격국 및 격국 후보 산식에서 계산한 표시용 근거입니다. 권위 근거로 단정하지 않습니다.",
+              "copyrightNote": "인용 원문 없이 구현 산식에서 만든 메타데이터입니다.",
+              "authorityTruthEligible": false
+            }
+          },
+          {
+            "subtype": "hua_qi",
+            "status": "none",
+            "score": 0,
+            "confidence": 0,
+            "followPressure": 0,
+            "dayMasterIsolation": 0.466667,
+            "rootWeakness": 0.347826,
+            "dominantElementShare": 0,
+            "breakerPenalty": 0.05,
+            "evidence": [
+              "pair=NONE",
+              "resultElement=NONE",
+              "huaqiFactor=0",
+              "dayInvolved=0"
+            ],
+            "sourceTier": {
+              "tier": "T2_REFERENCE_IMPLEMENTATION",
+              "sourceType": "reference_implementation",
+              "sourceUrl": null,
+              "accessedAt": "2026-05-01",
+              "quoteShort": null,
+              "humanInterpretation": "saju-ts의 월령 격국 및 격국 후보 산식에서 계산한 표시용 근거입니다. 권위 근거로 단정하지 않습니다.",
+              "copyrightNote": "인용 원문 없이 구현 산식에서 만든 메타데이터입니다.",
+              "authorityTruthEligible": false
+            }
+          }
+        ]
+      },
+      "ohaengDistribution": {
+        "WOOD": 2.5,
+        "FIRE": 2.2,
+        "EARTH": 0.9,
+        "METAL": 0.3,
+        "WATER": 2.1
+      },
+      "deficientElements": [
+        "METAL"
+      ],
+      "excessiveElements": [],
+      "cheonganRelations": [
+        {
+          "type": "충",
+          "stems": [
+            "병",
+            "임"
+          ],
+          "resultElement": null,
+          "note": "천간 충(沖) 관계",
+          "score": null
+        }
+      ],
+      "scoredCheonganRelations": [],
+      "jijiRelations": [
+        {
+          "type": "형",
+          "branches": [
+            "인",
+            "사"
+          ],
+          "note": "지지 형(刑) 관계",
+          "outcome": "형(刑)",
+          "reasoning": null
+        },
+        {
+          "type": "해",
+          "branches": [
+            "인",
+            "사"
+          ],
+          "note": "지지 해(害) 관계",
+          "outcome": "해(害)",
+          "reasoning": null
+        }
+      ],
+      "resolvedJijiRelations": [],
+      "tenGodAnalysis": {
+        "dayMaster": "계",
+        "byPosition": {
+          "YEAR": {
+            "cheonganTenGod": "정재",
+            "jijiPrincipalTenGod": "상관",
+            "hiddenStems": [
+              {
+                "stem": "갑",
+                "element": "목",
+                "ratio": 0.6000000000000001
+              },
+              {
+                "stem": "병",
+                "element": "화",
+                "ratio": 0.30000000000000004
+              },
+              {
+                "stem": "무",
+                "element": "토",
+                "ratio": 0.10000000000000002
+              }
+            ],
+            "hiddenStemTenGod": [
+              {
+                "stem": "갑",
+                "tenGod": "상관"
+              },
+              {
+                "stem": "병",
+                "tenGod": "정재"
+              },
+              {
+                "stem": "무",
+                "tenGod": "정관"
+              }
+            ]
+          },
+          "MONTH": {
+            "cheonganTenGod": "겁재",
+            "jijiPrincipalTenGod": "정관",
+            "hiddenStems": [
+              {
+                "stem": "무",
+                "element": "토",
+                "ratio": 0.6000000000000001
+              },
+              {
+                "stem": "을",
+                "element": "목",
+                "ratio": 0.30000000000000004
+              },
+              {
+                "stem": "계",
+                "element": "수",
+                "ratio": 0.10000000000000002
+              }
+            ],
+            "hiddenStemTenGod": [
+              {
+                "stem": "무",
+                "tenGod": "정관"
+              },
+              {
+                "stem": "을",
+                "tenGod": "식신"
+              },
+              {
+                "stem": "계",
+                "tenGod": "비견"
+              }
+            ]
+          },
+          "DAY": {
+            "cheonganTenGod": "비견",
+            "jijiPrincipalTenGod": "정재",
+            "hiddenStems": [
+              {
+                "stem": "병",
+                "element": "화",
+                "ratio": 0.6000000000000001
+              },
+              {
+                "stem": "경",
+                "element": "금",
+                "ratio": 0.30000000000000004
+              },
+              {
+                "stem": "무",
+                "element": "토",
+                "ratio": 0.10000000000000002
+              }
+            ],
+            "hiddenStemTenGod": [
+              {
+                "stem": "병",
+                "tenGod": "정재"
+              },
+              {
+                "stem": "경",
+                "tenGod": "정인"
+              },
+              {
+                "stem": "무",
+                "tenGod": "정관"
+              }
+            ]
+          },
+          "HOUR": {
+            "cheonganTenGod": "상관",
+            "jijiPrincipalTenGod": "상관",
+            "hiddenStems": [
+              {
+                "stem": "갑",
+                "element": "목",
+                "ratio": 0.6000000000000001
+              },
+              {
+                "stem": "병",
+                "element": "화",
+                "ratio": 0.30000000000000004
+              },
+              {
+                "stem": "무",
+                "element": "토",
+                "ratio": 0.10000000000000002
+              }
+            ],
+            "hiddenStemTenGod": [
+              {
+                "stem": "갑",
+                "tenGod": "상관"
+              },
+              {
+                "stem": "병",
+                "tenGod": "정재"
+              },
+              {
+                "stem": "무",
+                "tenGod": "정관"
+              }
+            ]
+          }
+        }
+      },
+      "shinsalHits": [
+        {
+          "type": "형살",
+          "position": "기타",
+          "grade": "A",
+          "baseWeight": 100,
+          "positionMultiplier": 1,
+          "weightedScore": 100
+        },
+        {
+          "type": "해살",
+          "position": "기타",
+          "grade": "A",
+          "baseWeight": 100,
+          "positionMultiplier": 1,
+          "weightedScore": 100
+        },
+        {
+          "type": "지살",
+          "position": "년주",
+          "grade": "B",
+          "baseWeight": 50,
+          "positionMultiplier": 1,
+          "weightedScore": 50
+        },
+        {
+          "type": "지살",
+          "position": "일주",
+          "grade": "B",
+          "baseWeight": 50,
+          "positionMultiplier": 1,
+          "weightedScore": 50
+        },
+        {
+          "type": "월살",
+          "position": "년주",
+          "grade": "A",
+          "baseWeight": 100,
+          "positionMultiplier": 1,
+          "weightedScore": 100
+        },
+        {
+          "type": "망신살",
+          "position": "년주",
+          "grade": "B",
+          "baseWeight": 50,
+          "positionMultiplier": 1,
+          "weightedScore": 50
+        },
+        {
+          "type": "겁살",
+          "position": "일주",
+          "grade": "B",
+          "baseWeight": 50,
+          "positionMultiplier": 1,
+          "weightedScore": 50
+        },
+        {
+          "type": "천살",
+          "position": "일주",
+          "grade": "A",
+          "baseWeight": 100,
+          "positionMultiplier": 1,
+          "weightedScore": 100
+        },
+        {
+          "type": "천을귀인",
+          "position": "기타",
+          "grade": "B",
+          "baseWeight": 50,
+          "positionMultiplier": 1,
+          "weightedScore": 50
+        },
+        {
+          "type": "태극귀인",
+          "position": "기타",
+          "grade": "B",
+          "baseWeight": 50,
+          "positionMultiplier": 1,
+          "weightedScore": 50
+        },
+        {
+          "type": "천복귀인",
+          "position": "기타",
+          "grade": "B",
+          "baseWeight": 50,
+          "positionMultiplier": 1,
+          "weightedScore": 50
+        },
+        {
+          "type": "금여귀인",
+          "position": "기타",
+          "grade": "B",
+          "baseWeight": 50,
+          "positionMultiplier": 1,
+          "weightedScore": 50
+        },
+        {
+          "type": "월덕귀인",
+          "position": "월주",
+          "grade": "A",
+          "baseWeight": 100,
+          "positionMultiplier": 1,
+          "weightedScore": 100
+        },
+        {
+          "type": "덕수귀인",
+          "position": "월주",
+          "grade": "A",
+          "baseWeight": 100,
+          "positionMultiplier": 1,
+          "weightedScore": 100
+        },
+        {
+          "type": "천덕귀인",
+          "position": "월주",
+          "grade": "A",
+          "baseWeight": 100,
+          "positionMultiplier": 1,
+          "weightedScore": 100
+        },
+        {
+          "type": "천월덕",
+          "position": "월주",
+          "grade": "A",
+          "baseWeight": 100,
+          "positionMultiplier": 1,
+          "weightedScore": 100
+        }
+      ],
+      "weightedShinsalHits": [
+        {
+          "hit": {
+            "type": "HYEONG_SAL",
+            "position": "OTHER",
+            "grade": "A"
+          },
+          "baseWeight": 100,
+          "positionMultiplier": 1,
+          "weightedScore": 100
+        },
+        {
+          "hit": {
+            "type": "HAE_SAL",
+            "position": "OTHER",
+            "grade": "A"
+          },
+          "baseWeight": 100,
+          "positionMultiplier": 1,
+          "weightedScore": 100
+        },
+        {
+          "hit": {
+            "type": "JI_SAL",
+            "position": "YEAR",
+            "grade": "B"
+          },
+          "baseWeight": 50,
+          "positionMultiplier": 1,
+          "weightedScore": 50
+        },
+        {
+          "hit": {
+            "type": "JI_SAL",
+            "position": "DAY",
+            "grade": "B"
+          },
+          "baseWeight": 50,
+          "positionMultiplier": 1,
+          "weightedScore": 50
+        },
+        {
+          "hit": {
+            "type": "WOL_SAL",
+            "position": "YEAR",
+            "grade": "A"
+          },
+          "baseWeight": 100,
+          "positionMultiplier": 1,
+          "weightedScore": 100
+        },
+        {
+          "hit": {
+            "type": "MANG_SHIN_SAL",
+            "position": "YEAR",
+            "grade": "B"
+          },
+          "baseWeight": 50,
+          "positionMultiplier": 1,
+          "weightedScore": 50
+        },
+        {
+          "hit": {
+            "type": "GEOB_SAL",
+            "position": "DAY",
+            "grade": "B"
+          },
+          "baseWeight": 50,
+          "positionMultiplier": 1,
+          "weightedScore": 50
+        },
+        {
+          "hit": {
+            "type": "CHEON_SAL",
+            "position": "DAY",
+            "grade": "A"
+          },
+          "baseWeight": 100,
+          "positionMultiplier": 1,
+          "weightedScore": 100
+        },
+        {
+          "hit": {
+            "type": "CHEON_EUL_GUI_IN",
+            "position": "OTHER",
+            "grade": "B"
+          },
+          "baseWeight": 50,
+          "positionMultiplier": 1,
+          "weightedScore": 50
+        },
+        {
+          "hit": {
+            "type": "TAE_GEUK_GUI_IN",
+            "position": "OTHER",
+            "grade": "B"
+          },
+          "baseWeight": 50,
+          "positionMultiplier": 1,
+          "weightedScore": 50
+        },
+        {
+          "hit": {
+            "type": "CHEON_BOK_GUI_IN",
+            "position": "OTHER",
+            "grade": "B"
+          },
+          "baseWeight": 50,
+          "positionMultiplier": 1,
+          "weightedScore": 50
+        },
+        {
+          "hit": {
+            "type": "GEUM_YEO_GUI_IN",
+            "position": "OTHER",
+            "grade": "B"
+          },
+          "baseWeight": 50,
+          "positionMultiplier": 1,
+          "weightedScore": 50
+        },
+        {
+          "hit": {
+            "type": "WOL_DEOK_GUI_IN",
+            "position": "MONTH",
+            "grade": "A"
+          },
+          "baseWeight": 100,
+          "positionMultiplier": 1,
+          "weightedScore": 100
+        },
+        {
+          "hit": {
+            "type": "DEOK_SU_GUI_IN",
+            "position": "MONTH",
+            "grade": "A"
+          },
+          "baseWeight": 100,
+          "positionMultiplier": 1,
+          "weightedScore": 100
+        },
+        {
+          "hit": {
+            "type": "CHEON_DEOK_GUI_IN",
+            "position": "MONTH",
+            "grade": "A"
+          },
+          "baseWeight": 100,
+          "positionMultiplier": 1,
+          "weightedScore": 100
+        },
+        {
+          "hit": {
+            "type": "CHEON_WOL_DEOK",
+            "position": "MONTH",
+            "grade": "A"
+          },
+          "baseWeight": 100,
+          "positionMultiplier": 1,
+          "weightedScore": 100
+        }
+      ],
+      "shinsalComposites": [],
+      "gongmangVoidBranches": [
+        "O",
+        "MI"
+      ],
+      "daeunInfo": {
+        "isForward": true,
+        "firstDaeunStartAge": 5.65639768132716,
+        "firstDaeunStartMonths": 7,
+        "boundaryMode": "ziSplit23",
+        "warnings": [],
+        "pillars": [
+          {
+            "stem": "GYE",
+            "branch": "SA",
+            "startAge": 5.65639768132716,
+            "endAge": 15.65639768132716,
+            "order": 0
+          },
+          {
+            "stem": "GAP",
+            "branch": "O",
+            "startAge": 15.65639768132716,
+            "endAge": 25.65639768132716,
+            "order": 1
+          },
+          {
+            "stem": "EUL",
+            "branch": "MI",
+            "startAge": 25.65639768132716,
+            "endAge": 35.656397681327164,
+            "order": 2
+          },
+          {
+            "stem": "BYEONG",
+            "branch": "SIN",
+            "startAge": 35.656397681327164,
+            "endAge": 45.656397681327164,
+            "order": 3
+          },
+          {
+            "stem": "JEONG",
+            "branch": "YU",
+            "startAge": 45.656397681327164,
+            "endAge": 55.656397681327164,
+            "order": 4
+          },
+          {
+            "stem": "MU",
+            "branch": "SUL",
+            "startAge": 55.656397681327164,
+            "endAge": 65.65639768132716,
+            "order": 5
+          },
+          {
+            "stem": "GI",
+            "branch": "HAE",
+            "startAge": 65.65639768132716,
+            "endAge": 75.65639768132716,
+            "order": 6
+          },
+          {
+            "stem": "GYEONG",
+            "branch": "JA",
+            "startAge": 75.65639768132716,
+            "endAge": 85.65639768132716,
+            "order": 7
+          },
+          {
+            "stem": "SIN",
+            "branch": "CHUK",
+            "startAge": 85.65639768132716,
+            "endAge": 95.65639768132716,
+            "order": 8
+          },
+          {
+            "stem": "IM",
+            "branch": "IN",
+            "startAge": 95.65639768132716,
+            "endAge": 105.65639768132716,
+            "order": 9
+          }
+        ]
+      },
+      "saeunPillars": [
+        {
+          "year": 1986,
+          "stem": "BYEONG",
+          "branch": "IN"
+        },
+        {
+          "year": 1987,
+          "stem": "JEONG",
+          "branch": "MYO"
+        },
+        {
+          "year": 1988,
+          "stem": "MU",
+          "branch": "JIN"
+        },
+        {
+          "year": 1989,
+          "stem": "GI",
+          "branch": "SA"
+        },
+        {
+          "year": 1990,
+          "stem": "GYEONG",
+          "branch": "O"
+        },
+        {
+          "year": 1991,
+          "stem": "SIN",
+          "branch": "MI"
+        },
+        {
+          "year": 1992,
+          "stem": "IM",
+          "branch": "SIN"
+        },
+        {
+          "year": 1993,
+          "stem": "GYE",
+          "branch": "YU"
+        },
+        {
+          "year": 1994,
+          "stem": "GAP",
+          "branch": "SUL"
+        },
+        {
+          "year": 1995,
+          "stem": "EUL",
+          "branch": "HAE"
+        },
+        {
+          "year": 1996,
+          "stem": "BYEONG",
+          "branch": "JA"
+        },
+        {
+          "year": 1997,
+          "stem": "JEONG",
+          "branch": "CHUK"
+        },
+        {
+          "year": 1998,
+          "stem": "MU",
+          "branch": "IN"
+        },
+        {
+          "year": 1999,
+          "stem": "GI",
+          "branch": "MYO"
+        },
+        {
+          "year": 2000,
+          "stem": "GYEONG",
+          "branch": "JIN"
+        },
+        {
+          "year": 2001,
+          "stem": "SIN",
+          "branch": "SA"
+        },
+        {
+          "year": 2002,
+          "stem": "IM",
+          "branch": "O"
+        },
+        {
+          "year": 2003,
+          "stem": "GYE",
+          "branch": "MI"
+        },
+        {
+          "year": 2004,
+          "stem": "GAP",
+          "branch": "SIN"
+        },
+        {
+          "year": 2005,
+          "stem": "EUL",
+          "branch": "YU"
+        },
+        {
+          "year": 2006,
+          "stem": "BYEONG",
+          "branch": "SUL"
+        },
+        {
+          "year": 2007,
+          "stem": "JEONG",
+          "branch": "HAE"
+        },
+        {
+          "year": 2008,
+          "stem": "MU",
+          "branch": "JA"
+        },
+        {
+          "year": 2009,
+          "stem": "GI",
+          "branch": "CHUK"
+        },
+        {
+          "year": 2010,
+          "stem": "GYEONG",
+          "branch": "IN"
+        },
+        {
+          "year": 2011,
+          "stem": "SIN",
+          "branch": "MYO"
+        },
+        {
+          "year": 2012,
+          "stem": "IM",
+          "branch": "JIN"
+        },
+        {
+          "year": 2013,
+          "stem": "GYE",
+          "branch": "SA"
+        },
+        {
+          "year": 2014,
+          "stem": "GAP",
+          "branch": "O"
+        },
+        {
+          "year": 2015,
+          "stem": "EUL",
+          "branch": "MI"
+        }
+      ],
+      "trace": [
+        {
+          "key": "time.localDateTime",
+          "summary": "ISO instant에서 추출한 로컬 날짜/시각(오프셋 포함).",
+          "evidence": [],
+          "citations": [],
+          "reasoning": [
+            "ISO instant에서 추출한 로컬 날짜/시각(오프셋 포함)."
+          ],
+          "confidence": null
+        },
+        {
+          "key": "time.utcMs",
+          "summary": "ISO instant를 UTC 기준 epoch milliseconds로 변환한 값.",
+          "evidence": [],
+          "citations": [],
+          "reasoning": [
+            "ISO instant를 UTC 기준 epoch milliseconds로 변환한 값."
+          ],
+          "confidence": null
+        },
+        {
+          "key": "policy.calendar",
+          "summary": "config.calendar 정책",
+          "evidence": [],
+          "citations": [],
+          "reasoning": [
+            "config.calendar 정책"
+          ],
+          "confidence": null
+        },
+        {
+          "key": "calendar.solarTermsAround",
+          "summary": "24절기(정기) 시각(UTC) — baseYear±1을 포함한 정렬된 목록. (절입/진단/확장 기능에서 재사용)",
+          "evidence": [
+            "time.localDateTime",
+            "policy.calendar"
+          ],
+          "citations": [],
+          "reasoning": [
+            "24절기(정기) 시각(UTC) — baseYear±1을 포함한 정렬된 목록. (절입/진단/확장 기능에서 재사용)"
+          ],
+          "confidence": null
+        },
+        {
+          "key": "calendar.jieBoundariesAround",
+          "summary": "월/연 경계 계산용 12절(節) 시각(UTC). 24절기 결과에서 “절(節)”만 필터링한 목록(baseYear±1 포함).",
+          "evidence": [
+            "calendar.solarTermsAround"
+          ],
+          "citations": [],
+          "reasoning": [
+            "월/연 경계 계산용 12절(節) 시각(UTC). 24절기 결과에서 “절(節)”만 필터링한 목록(baseYear±1 포함)."
+          ],
+          "confidence": null
+        },
+        {
+          "key": "pillars.year",
+          "summary": "stem = (year-4) mod 10, branch = (year-4) mod 12",
+          "evidence": [
+            "time.localDateTime",
+            "time.utcMs",
+            "policy.calendar",
+            "calendar.jieBoundariesAround"
+          ],
+          "citations": [],
+          "reasoning": [
+            "연 경계(yearBoundary)를 적용해 연주를 결정한다(입춘 경계는 실제 절기 시각을 사용)."
+          ],
+          "confidence": null
+        },
+        {
+          "key": "pillars.month",
+          "summary": "base = ((yearStem mod 5)*2 + 2) mod 10, monthStem = (base + m) mod 10",
+          "evidence": [
+            "time.localDateTime",
+            "time.utcMs",
+            "policy.calendar",
+            "calendar.jieBoundariesAround",
+            "pillars.year"
+          ],
+          "citations": [],
+          "reasoning": [
+            "월 경계(monthBoundary)를 적용해 월주를 결정한다(절기 경계는 실제 절기 시각을 사용)."
+          ],
+          "confidence": null
+        },
+        {
+          "key": "time.trueSolarCorrection",
+          "summary": "Δ(min) = 4*(lon-stdMeridian) + EoT",
+          "evidence": [
+            "time.utcMs",
+            "time.localDateTime",
+            "policy.calendar"
+          ],
+          "citations": [],
+          "reasoning": [
+            "진태양시 보정(경도 보정 + 균시차). location.lon이 없으면 적용하지 않는다."
+          ],
+          "confidence": null
+        },
+        {
+          "key": "time.solarLocalDateTime",
+          "summary": "진태양시 보정이 적용된 “태양시” 로컬 dateTime(표시/경계 판정용).",
+          "evidence": [
+            "time.localDateTime",
+            "time.trueSolarCorrection"
+          ],
+          "citations": [],
+          "reasoning": [
+            "진태양시 보정이 적용된 “태양시” 로컬 dateTime(표시/경계 판정용)."
+          ],
+          "confidence": null
+        },
+        {
+          "key": "time.localDateTimeForDay",
+          "summary": "일주/일경계 계산에 사용할 로컬 dateTime(trueSolarTime.applyTo 정책 반영).",
+          "evidence": [
+            "time.localDateTime",
+            "time.solarLocalDateTime",
+            "policy.calendar"
+          ],
+          "citations": [],
+          "reasoning": [
+            "일주/일경계 계산에 사용할 로컬 dateTime(trueSolarTime.applyTo 정책 반영)."
+          ],
+          "confidence": null
+        },
+        {
+          "key": "pillars.day",
+          "summary": "ganzhiIdx = (JDN + 49) mod 60",
+          "evidence": [
+            "time.localDateTimeForDay",
+            "policy.calendar"
+          ],
+          "citations": [],
+          "reasoning": [
+            "정책(dayBoundary)을 적용한 기준 일자로 JDN을 계산하고 60갑자를 얻는다."
+          ],
+          "confidence": null
+        },
+        {
+          "key": "time.localDateTimeForHour",
+          "summary": "시주/시지 경계 판정에 사용할 로컬 dateTime(trueSolarTime.enabled 반영).",
+          "evidence": [
+            "time.localDateTime",
+            "time.solarLocalDateTime",
+            "policy.calendar"
+          ],
+          "citations": [],
+          "reasoning": [
+            "시주/시지 경계 판정에 사용할 로컬 dateTime(trueSolarTime.enabled 반영)."
+          ],
+          "confidence": null
+        },
+        {
+          "key": "pillars.hour",
+          "summary": "hourStemIdx = ((dayStemIdx mod 5)*2 + hourBranchIdx) mod 10",
+          "evidence": [
+            "time.localDateTimeForHour",
+            "policy.calendar",
+            "pillars.day"
+          ],
+          "citations": [],
+          "reasoning": [
+            "시지(2시간 단위)와 일간으로 시간(時干)을 결정한다."
+          ],
+          "confidence": null
+        },
+        {
+          "key": "tenGods.stems",
+          "summary": "일간 기준 연/월/시의 천간 십성을 계산한다.",
+          "evidence": [
+            "pillars.year",
+            "pillars.month",
+            "pillars.day",
+            "pillars.hour"
+          ],
+          "citations": [],
+          "reasoning": [
+            "일간 기준 연/월/시의 천간 십성을 계산한다."
+          ],
+          "confidence": null
+        },
+        {
+          "key": "policy.weights",
+          "summary": "config.weights(가중치/스코어링 정책).",
+          "evidence": [],
+          "citations": [],
+          "reasoning": [
+            "config.weights(가중치/스코어링 정책)."
+          ],
+          "confidence": null
+        },
+        {
+          "key": "month.jieData",
+          "summary": "현재 월(節氣 boundary)의 시작 시각과 길이 — saryeong scheme 입력으로 사용.",
+          "evidence": [
+            "time.utcMs",
+            "calendar.solarTermsAround"
+          ],
+          "citations": [],
+          "reasoning": [
+            "현재 월(節氣 boundary)의 시작 시각과 길이 — saryeong scheme 입력으로 사용."
+          ],
+          "confidence": null
+        },
+        {
+          "key": "hiddenStems.branches",
+          "summary": "네 지지의 지장간 목록(천간 인덱스 + 역할 + 가중치)을 생성한다.",
+          "evidence": [
+            "pillars.year",
+            "pillars.month",
+            "pillars.day",
+            "pillars.hour",
+            "policy.weights",
+            "month.jieData"
+          ],
+          "citations": [],
+          "reasoning": [
+            "네 지지의 지장간 목록(천간 인덱스 + 역할 + 가중치)을 생성한다."
+          ],
+          "confidence": null
+        },
+        {
+          "key": "tenGods.hiddenStems",
+          "summary": "일간 기준 각 지장간의 십성을 계산한다.",
+          "evidence": [
+            "hiddenStems.branches",
+            "pillars.day"
+          ],
+          "citations": [],
+          "reasoning": [
+            "일간 기준 각 지장간의 십성을 계산한다."
+          ],
+          "confidence": null
+        },
+        {
+          "key": "elements.distribution",
+          "summary": "천간(표면) + 지장간(지지 내부) 기반 오행 가중치 분포를 계산한다.",
+          "evidence": [
+            "pillars.year",
+            "pillars.month",
+            "pillars.day",
+            "pillars.hour",
+            "policy.weights"
+          ],
+          "citations": [],
+          "reasoning": [
+            "천간(표면) + 지장간(지지 내부) 기반 오행 가중치 분포를 계산한다."
+          ],
+          "confidence": null
+        },
+        {
+          "key": "policy.lifeStages",
+          "summary": "config.strategies.lifeStages(십이운성 규칙) — earthRule + yinReversalEnabled.",
+          "evidence": [],
+          "citations": [],
+          "reasoning": [
+            "config.strategies.lifeStages(십이운성 규칙) — earthRule + yinReversalEnabled."
+          ],
+          "confidence": null
+        },
+        {
+          "key": "lifeStages.detail",
+          "summary": "일간 기준 각 지지의 십이운성(장생~양)을 계산한다(상세: index/startBranch 포함).",
+          "evidence": [
+            "pillars.year",
+            "pillars.month",
+            "pillars.day",
+            "pillars.hour",
+            "policy.lifeStages"
+          ],
+          "citations": [],
+          "reasoning": [
+            "일간 기준 각 지지의 십이운성(장생~양)을 계산한다(상세: index/startBranch 포함)."
+          ],
+          "confidence": null
+        },
+        {
+          "key": "lifeStages.pillars",
+          "summary": "십이운성 상세 결과에서 stage만 추출한다.",
+          "evidence": [
+            "lifeStages.detail"
+          ],
+          "citations": [],
+          "reasoning": [
+            "십이운성 상세 결과에서 stage만 추출한다."
+          ],
+          "confidence": null
+        },
+        {
+          "key": "relations.stems",
+          "summary": "네 천간 간의 합(合)과 충(冲)을 탐지한다.",
+          "evidence": [
+            "pillars.year",
+            "pillars.month",
+            "pillars.day",
+            "pillars.hour"
+          ],
+          "citations": [],
+          "reasoning": [
+            "네 천간 간의 합(合)과 충(冲)을 탐지한다."
+          ],
+          "confidence": null
+        },
+        {
+          "key": "relations.branches",
+          "summary": "네 지지 간의 합/충/해/파/원진/삼합/방합을 탐지한다.",
+          "evidence": [
+            "pillars.year",
+            "pillars.month",
+            "pillars.day",
+            "pillars.hour"
+          ],
+          "citations": [],
+          "reasoning": [
+            "네 지지 간의 합/충/해/파/원진/삼합/방합을 탐지한다."
+          ],
+          "confidence": null
+        },
+        {
+          "key": "policy.fortune",
+          "summary": "config.strategies.fortune(대운/세운 정책).",
+          "evidence": [],
+          "citations": [],
+          "reasoning": [
+            "config.strategies.fortune(대운/세운 정책)."
+          ],
+          "confidence": null
+        },
+        {
+          "key": "fortune.timeline",
+          "summary": "대운/세운 타임라인(순/역, 기산, 대운 10년주, 세운 연주)을 생성한다.",
+          "evidence": [
+            "time.utcMs",
+            "time.localDateTime",
+            "policy.calendar",
+            "calendar.jieBoundariesAround",
+            "pillars.year",
+            "pillars.month",
+            "policy.fortune"
+          ],
+          "citations": [],
+          "reasoning": [
+            "대운/세운 타임라인(순/역, 기산, 대운 10년주, 세운 연주)을 생성한다."
+          ],
+          "confidence": null
+        },
+        {
+          "key": "scores.pillars",
+          "summary": "일간 기준 십성/오행/음양 스코어(수학적 베이스)를 계산한다.",
+          "evidence": [
+            "pillars.year",
+            "pillars.month",
+            "pillars.day",
+            "pillars.hour",
+            "policy.weights"
+          ],
+          "citations": [],
+          "reasoning": [
+            "일간 기준 십성/오행/음양 스코어(수학적 베이스)를 계산한다."
+          ],
+          "confidence": null
+        },
+        {
+          "key": "policy.rules",
+          "summary": "config.strategies/extensions (DSL rule engine inputs).",
+          "evidence": [],
+          "citations": [],
+          "reasoning": [
+            "config.strategies/extensions (DSL rule engine inputs)."
+          ],
+          "confidence": null
+        },
+        {
+          "key": "month.saryeong",
+          "summary": "월령 사령자(司令字) — `weights.hiddenStems.saryeongScheme` 설정 시에만 계산.",
+          "evidence": [
+            "pillars.month",
+            "month.jieData",
+            "policy.weights"
+          ],
+          "citations": [],
+          "reasoning": [
+            "월령 사령자(司令字) — `weights.hiddenStems.saryeongScheme` 설정 시에만 계산."
+          ],
+          "confidence": null
+        },
+        {
+          "key": "rules.facts",
+          "summary": "DSL 룰 엔진에 투입할 fact-base(정규화된 수치/특징)를 구성한다.",
+          "evidence": [
+            "pillars.year",
+            "pillars.month",
+            "pillars.day",
+            "pillars.hour",
+            "elements.distribution",
+            "scores.pillars",
+            "policy.rules",
+            "month.saryeong",
+            "month.jieData"
+          ],
+          "citations": [],
+          "reasoning": [
+            "DSL 룰 엔진에 투입할 fact-base(정규화된 수치/특징)를 구성한다."
+          ],
+          "confidence": null
+        },
+        {
+          "key": "strength.index",
+          "summary": "신강/신약(연속 스코어) — support vs pressure 기반 [-1, +1].",
+          "evidence": [
+            "rules.facts"
+          ],
+          "citations": [],
+          "reasoning": [
+            "신강/신약(연속 스코어) — support vs pressure 기반 [-1, +1]."
+          ],
+          "confidence": null
+        },
+        {
+          "key": "rules.yongshin",
+          "summary": "용신/희신 후보를 수학적 스코어 + DSL 보정으로 랭킹한다.",
+          "evidence": [
+            "rules.facts"
+          ],
+          "citations": [],
+          "reasoning": [
+            "용신/희신 후보를 수학적 스코어 + DSL 보정으로 랭킹한다."
+          ],
+          "confidence": null
+        },
+        {
+          "key": "rules.gyeokguk",
+          "summary": "격국을 DSL 스코어링으로 판정한다(기초: 월지 본기 십성 기반).",
+          "evidence": [
+            "rules.facts"
+          ],
+          "citations": [],
+          "reasoning": [
+            "격국을 DSL 스코어링으로 판정한다(기초: 월지 본기 십성 기반)."
+          ],
+          "confidence": null
+        },
+        {
+          "key": "rules.shinsal",
+          "summary": "신살을 DSL/패턴 매칭으로 판정한다(데모: 도화/역마).",
+          "evidence": [
+            "rules.facts"
+          ],
+          "citations": [],
+          "reasoning": [
+            "신살을 DSL/패턴 매칭으로 판정한다(데모: 도화/역마)."
+          ],
+          "confidence": null
+        }
+      ],
+      "timeCorrection": {
+        "standardYear": 1986,
+        "standardMonth": 4,
+        "standardDay": 19,
+        "standardHour": 5,
+        "standardMinute": 45,
+        "adjustedYear": 1986,
+        "adjustedMonth": 4,
+        "adjustedDay": 19,
+        "adjustedHour": 4,
+        "adjustedMinute": 43,
+        "dstCorrectionMinutes": 0,
+        "longitudeCorrectionMinutes": -32.08800000000002,
+        "equationOfTimeMinutes": 0.6820860156831259
+      },
+      "dayMaster": {
+        "stem": "계",
+        "element": "WATER",
+        "polarity": "음"
+      },
+      "strength": {
+        "level": "신약",
+        "isStrong": false,
+        "totalSupport": 2.4000000000000004,
+        "totalOppose": 5.6000000000000005,
+        "deukryeong": 2.1,
+        "deukji": 0.30000000000000004,
+        "deukse": 2.4000000000000004,
+        "details": [
+          "강약 판정: 신약",
+          "강약 지수: -0.400",
+          "생조 합: 2.400",
+          "극설 합: 5.600"
+        ]
+      },
+      "yongshin": {
+        "element": "METAL",
+        "heeshin": "WATER",
+        "gishin": "FIRE",
+        "gushin": "EARTH",
+        "confidence": 41,
+        "agreement": "순위 기반",
+        "consensus": {
+          "eokbu": {
+            "element": "METAL",
+            "score": 1,
+            "scores": {
+              "WOOD": 0.175867,
+              "FIRE": 0,
+              "EARTH": 0.18808,
+              "METAL": 1,
+              "WATER": 0.430874
+            },
+            "evidence": [
+              "strengthIndex=-0.4",
+              "support=2.4",
+              "pressure=5.6"
+            ]
+          },
+          "johu": {
+            "element": "FIRE",
+            "score": 1,
+            "scores": {
+              "WOOD": 0.428571,
+              "FIRE": 1,
+              "EARTH": 0.857143,
+              "METAL": 1,
+              "WATER": 0
+            },
+            "evidence": [
+              "climateNeedTemp=0",
+              "climateNeedMoist=-0.2"
+            ]
+          },
+          "gyeokguk": {
+            "element": "WATER",
+            "score": 1,
+            "scores": {
+              "WOOD": 0.207692,
+              "FIRE": 0,
+              "EARTH": 0.692308,
+              "METAL": 0,
+              "WATER": 1
+            },
+            "evidence": [
+              "monthGyeokTenGod=BI_GYEON",
+              "quality=0.764167"
+            ]
+          },
+          "tonggwan": {
+            "element": "WOOD",
+            "score": 1,
+            "scores": {
+              "WOOD": 1,
+              "FIRE": 0.207454,
+              "EARTH": 0.003883,
+              "METAL": 0.239428,
+              "WATER": 0
+            },
+            "evidence": [
+              "maxIntensity=0.512791",
+              "dominance=0.640204"
+            ]
+          },
+          "byeongyak": {
+            "element": "METAL",
+            "score": 1,
+            "scores": {
+              "WOOD": 0,
+              "FIRE": 0,
+              "EARTH": 0.555556,
+              "METAL": 1,
+              "WATER": 0.666667
+            },
+            "evidence": [
+              "medicine=controls_excess_elements"
+            ]
+          },
+          "siksangFlow": {
+            "element": "WOOD",
+            "score": 1,
+            "scores": {
+              "WOOD": 1,
+              "FIRE": 0,
+              "EARTH": 0,
+              "METAL": 0,
+              "WATER": 0
+            },
+            "evidence": [
+              "outputPressure=0.3125"
+            ]
+          },
+          "final": {
+            "element": "METAL",
+            "confidence": 0.4125,
+            "topMargin": 0.4125,
+            "conflictLevel": "high",
+            "competingElements": [
+              "FIRE",
+              "WATER",
+              "WOOD"
+            ],
+            "evidence": [
+              "selected=METAL",
+              "topMargin=0.4125",
+              "conflictRatio=0.666667"
+            ]
+          }
+        },
+        "recommendations": [
+          {
+            "type": "조후",
+            "primaryElement": "금",
+            "secondaryElement": "수",
+            "confidence": 80,
+            "reasoning": "금 기운이 가장 강해 용신 1순위입니다 (신뢰도 80점)."
+          },
+          {
+            "type": "순위 추천",
+            "primaryElement": "수",
+            "secondaryElement": "목",
+            "confidence": 39,
+            "reasoning": "수 기운은 금 기운을 보조하는 희신 후보입니다 (신뢰도 39점)."
+          },
+          {
+            "type": "순위 추천",
+            "primaryElement": "목",
+            "secondaryElement": "토",
+            "confidence": 10,
+            "reasoning": "목 기운은 후순위 균형 보완 후보입니다 (신뢰도 10점)."
+          }
+        ]
+      },
+      "yongshinConsensus": {
+        "eokbu": {
+          "element": "METAL",
+          "score": 1,
+          "scores": {
+            "WOOD": 0.175867,
+            "FIRE": 0,
+            "EARTH": 0.18808,
+            "METAL": 1,
+            "WATER": 0.430874
+          },
+          "evidence": [
+            "strengthIndex=-0.4",
+            "support=2.4",
+            "pressure=5.6"
+          ]
+        },
+        "johu": {
+          "element": "FIRE",
+          "score": 1,
+          "scores": {
+            "WOOD": 0.428571,
+            "FIRE": 1,
+            "EARTH": 0.857143,
+            "METAL": 1,
+            "WATER": 0
+          },
+          "evidence": [
+            "climateNeedTemp=0",
+            "climateNeedMoist=-0.2"
+          ]
+        },
+        "gyeokguk": {
+          "element": "WATER",
+          "score": 1,
+          "scores": {
+            "WOOD": 0.207692,
+            "FIRE": 0,
+            "EARTH": 0.692308,
+            "METAL": 0,
+            "WATER": 1
+          },
+          "evidence": [
+            "monthGyeokTenGod=BI_GYEON",
+            "quality=0.764167"
+          ]
+        },
+        "tonggwan": {
+          "element": "WOOD",
+          "score": 1,
+          "scores": {
+            "WOOD": 1,
+            "FIRE": 0.207454,
+            "EARTH": 0.003883,
+            "METAL": 0.239428,
+            "WATER": 0
+          },
+          "evidence": [
+            "maxIntensity=0.512791",
+            "dominance=0.640204"
+          ]
+        },
+        "byeongyak": {
+          "element": "METAL",
+          "score": 1,
+          "scores": {
+            "WOOD": 0,
+            "FIRE": 0,
+            "EARTH": 0.555556,
+            "METAL": 1,
+            "WATER": 0.666667
+          },
+          "evidence": [
+            "medicine=controls_excess_elements"
+          ]
+        },
+        "siksangFlow": {
+          "element": "WOOD",
+          "score": 1,
+          "scores": {
+            "WOOD": 1,
+            "FIRE": 0,
+            "EARTH": 0,
+            "METAL": 0,
+            "WATER": 0
+          },
+          "evidence": [
+            "outputPressure=0.3125"
+          ]
+        },
+        "final": {
+          "element": "METAL",
+          "confidence": 0.4125,
+          "topMargin": 0.4125,
+          "conflictLevel": "high",
+          "competingElements": [
+            "FIRE",
+            "WATER",
+            "WOOD"
+          ],
+          "evidence": [
+            "selected=METAL",
+            "topMargin=0.4125",
+            "conflictRatio=0.666667"
+          ]
+        }
+      },
+      "gyeokguk": {
+        "type": "비견격",
+        "category": "일반",
+        "baseTenGod": "비견",
+        "confidence": 0.7641666666666667,
+        "reasoning": "격국 후보 중 비견격이(가) 가장 유력합니다.",
+        "candidates": [
+          {
+            "type": "비견격",
+            "category": "일반",
+            "baseTenGod": "비견",
+            "score": 0.7641666666666667,
+            "confidence": 0.7641666666666667,
+            "supportingRules": [
+              "monthHiddenStem:GYE",
+              "role:RESIDUAL",
+              "visibleInChart",
+              "weight:0.10",
+              "VISIBLE"
+            ],
+            "blockingRules": [],
+            "compositeClassical": {
+              "model": "composite_classical",
+              "score": 0.417108,
+              "confidence": 0.417108,
+              "status": "low_confidence_evidence",
+              "selectionPolicy": "evidence_only_never_promote",
+              "selectedByComposite": false,
+              "breakerPenalty": 0.043333,
+              "features": [
+                {
+                  "name": "monthMainMatch",
+                  "score": 0,
+                  "weight": 0.3,
+                  "contribution": 0,
+                  "reason": "not the month main hidden ten-god"
+                },
+                {
+                  "name": "stemTransparency",
+                  "score": 1,
+                  "weight": 0.18,
+                  "contribution": 0.18,
+                  "reason": "hidden stem is transparent in chart stems"
+                },
+                {
+                  "name": "rootSupport",
+                  "score": 0.65,
+                  "weight": 0.14,
+                  "contribution": 0.091,
+                  "reason": "hidden-stem weight 0.1 and element share 0.263"
+                },
+                {
+                  "name": "seasonalCommand",
+                  "score": 0.350833,
+                  "weight": 0.12,
+                  "contribution": 0.0421,
+                  "reason": "month hidden role RESIDUAL"
+                },
+                {
+                  "name": "transformationSupport",
+                  "score": 0,
+                  "weight": 0.1,
+                  "contribution": 0,
+                  "reason": "no matching transformation signal"
+                },
+                {
+                  "name": "purityScore",
+                  "score": 0.764167,
+                  "weight": 0.08,
+                  "contribution": 0.061133,
+                  "reason": "quality clarity 0.528, integrity 1"
+                },
+                {
+                  "name": "usefulGodAlignment",
+                  "score": 0.6,
+                  "weight": 0.08,
+                  "contribution": 0.048,
+                  "reason": "candidate element aligns with yongshin ranking"
+                },
+                {
+                  "name": "sourceTierBoost",
+                  "score": 0,
+                  "weight": 0.05,
+                  "contribution": 0,
+                  "reason": "engine-derived T2 evidence gets no authority boost"
+                },
+                {
+                  "name": "stabilityAcrossModes",
+                  "score": 0.764167,
+                  "weight": 0.05,
+                  "contribution": 0.038208,
+                  "reason": "default ranking score 0.764"
+                }
+              ],
+              "basisRules": [
+                "month_hidden_stem_candidates",
+                "stem_transparency",
+                "month_gyeok_quality",
+                "transformation_and_one_element_signals",
+                "yongshin_element_alignment"
+              ]
+            },
+            "sourceTier": {
+              "tier": "T2_REFERENCE_IMPLEMENTATION",
+              "sourceType": "reference_implementation",
+              "sourceUrl": null,
+              "accessedAt": "2026-05-01",
+              "quoteShort": null,
+              "humanInterpretation": "saju-ts의 월령 격국 및 격국 후보 산식에서 계산한 표시용 근거입니다. 권위 근거로 단정하지 않습니다.",
+              "copyrightNote": "인용 원문 없이 구현 산식에서 만든 메타데이터입니다.",
+              "authorityTruthEligible": false
+            }
+          },
+          {
+            "type": "정관격",
+            "category": "일반",
+            "baseTenGod": "정관",
+            "score": 0.7500000000000001,
+            "confidence": 0.7500000000000001,
+            "supportingRules": [
+              "monthHiddenStem:MU",
+              "role:MAIN",
+              "weight:0.60",
+              "MAIN"
+            ],
+            "blockingRules": [],
+            "compositeClassical": {
+              "model": "composite_classical",
+              "score": 0.6278,
+              "confidence": 0.6278,
+              "status": "candidate_evidence",
+              "selectionPolicy": "evidence_only_never_promote",
+              "selectedByComposite": false,
+              "breakerPenalty": 0.043333,
+              "features": [
+                {
+                  "name": "monthMainMatch",
+                  "score": 1,
+                  "weight": 0.3,
+                  "contribution": 0.3,
+                  "reason": "matches month main hidden ten-god"
+                },
+                {
+                  "name": "stemTransparency",
+                  "score": 0,
+                  "weight": 0.18,
+                  "contribution": 0,
+                  "reason": "hidden stem is not transparent"
+                },
+                {
+                  "name": "rootSupport",
+                  "score": 1,
+                  "weight": 0.14,
+                  "contribution": 0.14,
+                  "reason": "hidden-stem weight 0.6 and element share 0.113"
+                },
+                {
+                  "name": "seasonalCommand",
+                  "score": 1,
+                  "weight": 0.12,
+                  "contribution": 0.12,
+                  "reason": "month hidden role MAIN"
+                },
+                {
+                  "name": "transformationSupport",
+                  "score": 0,
+                  "weight": 0.1,
+                  "contribution": 0,
+                  "reason": "no matching transformation signal"
+                },
+                {
+                  "name": "purityScore",
+                  "score": 0.764167,
+                  "weight": 0.08,
+                  "contribution": 0.061133,
+                  "reason": "quality clarity 0.528, integrity 1"
+                },
+                {
+                  "name": "usefulGodAlignment",
+                  "score": 0,
+                  "weight": 0.08,
+                  "contribution": 0,
+                  "reason": "candidate element does not align with yongshin ranking"
+                },
+                {
+                  "name": "sourceTierBoost",
+                  "score": 0,
+                  "weight": 0.05,
+                  "contribution": 0,
+                  "reason": "engine-derived T2 evidence gets no authority boost"
+                },
+                {
+                  "name": "stabilityAcrossModes",
+                  "score": 1,
+                  "weight": 0.05,
+                  "contribution": 0.05,
+                  "reason": "default ranking score 0"
+                }
+              ],
+              "basisRules": [
+                "month_hidden_stem_candidates",
+                "stem_transparency",
+                "month_gyeok_quality",
+                "transformation_and_one_element_signals",
+                "yongshin_element_alignment"
+              ]
+            },
+            "sourceTier": {
+              "tier": "T2_REFERENCE_IMPLEMENTATION",
+              "sourceType": "reference_implementation",
+              "sourceUrl": null,
+              "accessedAt": "2026-05-01",
+              "quoteShort": null,
+              "humanInterpretation": "saju-ts의 월령 격국 및 격국 후보 산식에서 계산한 표시용 근거입니다. 권위 근거로 단정하지 않습니다.",
+              "copyrightNote": "인용 원문 없이 구현 산식에서 만든 메타데이터입니다.",
+              "authorityTruthEligible": false
+            }
+          },
+          {
+            "type": "식신격",
+            "category": "일반",
+            "baseTenGod": "식신",
+            "score": 0.30000000000000004,
+            "confidence": 0.30000000000000004,
+            "supportingRules": [
+              "monthHiddenStem:EUL",
+              "role:MIDDLE",
+              "weight:0.30"
+            ],
+            "blockingRules": [],
+            "compositeClassical": {
+              "model": "composite_classical",
+              "score": 0.18896,
+              "confidence": 0.18896,
+              "status": "trace_only",
+              "selectionPolicy": "evidence_only_never_promote",
+              "selectedByComposite": false,
+              "breakerPenalty": 0.043333,
+              "features": [
+                {
+                  "name": "monthMainMatch",
+                  "score": 0,
+                  "weight": 0.3,
+                  "contribution": 0,
+                  "reason": "not the month main hidden ten-god"
+                },
+                {
+                  "name": "stemTransparency",
+                  "score": 0,
+                  "weight": 0.18,
+                  "contribution": 0,
+                  "reason": "hidden stem is not transparent"
+                },
+                {
+                  "name": "rootSupport",
+                  "score": 0.5,
+                  "weight": 0.14,
+                  "contribution": 0.07,
+                  "reason": "hidden-stem weight 0.3 and element share 0.313"
+                },
+                {
+                  "name": "seasonalCommand",
+                  "score": 0.643,
+                  "weight": 0.12,
+                  "contribution": 0.07716,
+                  "reason": "month hidden role MIDDLE"
+                },
+                {
+                  "name": "transformationSupport",
+                  "score": 0,
+                  "weight": 0.1,
+                  "contribution": 0,
+                  "reason": "no matching transformation signal"
+                },
+                {
+                  "name": "purityScore",
+                  "score": 0.764167,
+                  "weight": 0.08,
+                  "contribution": 0.061133,
+                  "reason": "quality clarity 0.528, integrity 1"
+                },
+                {
+                  "name": "usefulGodAlignment",
+                  "score": 0.3,
+                  "weight": 0.08,
+                  "contribution": 0.024,
+                  "reason": "candidate element aligns with yongshin ranking"
+                },
+                {
+                  "name": "sourceTierBoost",
+                  "score": 0,
+                  "weight": 0.05,
+                  "contribution": 0,
+                  "reason": "engine-derived T2 evidence gets no authority boost"
+                },
+                {
+                  "name": "stabilityAcrossModes",
+                  "score": 0,
+                  "weight": 0.05,
+                  "contribution": 0,
+                  "reason": "default ranking score 0"
+                }
+              ],
+              "basisRules": [
+                "month_hidden_stem_candidates",
+                "stem_transparency",
+                "month_gyeok_quality",
+                "transformation_and_one_element_signals",
+                "yongshin_element_alignment"
+              ]
+            },
+            "sourceTier": {
+              "tier": "T2_REFERENCE_IMPLEMENTATION",
+              "sourceType": "reference_implementation",
+              "sourceUrl": null,
+              "accessedAt": "2026-05-01",
+              "quoteShort": null,
+              "humanInterpretation": "saju-ts의 월령 격국 및 격국 후보 산식에서 계산한 표시용 근거입니다. 권위 근거로 단정하지 않습니다.",
+              "copyrightNote": "인용 원문 없이 구현 산식에서 만든 메타데이터입니다.",
+              "authorityTruthEligible": false
+            }
+          }
+        ],
+        "jonggyeokCandidates": [
+          {
+            "subtype": "cong_cai",
+            "status": "possible",
+            "score": 0.312906,
+            "confidence": 0.312906,
+            "followPressure": 0.275,
+            "dayMasterIsolation": 0.666667,
+            "rootWeakness": 0.347826,
+            "dominantElementShare": 0.275,
+            "breakerPenalty": 0.05,
+            "evidence": [
+              "role=WEALTH",
+              "roleShare=0.275",
+              "tenGodShare=0.275",
+              "supportShare=0.3",
+              "pressureShare=0.7",
+              "dominantElement=FIRE"
+            ],
+            "sourceTier": {
+              "tier": "T2_REFERENCE_IMPLEMENTATION",
+              "sourceType": "reference_implementation",
+              "sourceUrl": null,
+              "accessedAt": "2026-05-01",
+              "quoteShort": null,
+              "humanInterpretation": "saju-ts의 월령 격국 및 격국 후보 산식에서 계산한 표시용 근거입니다. 권위 근거로 단정하지 않습니다.",
+              "copyrightNote": "인용 원문 없이 구현 산식에서 만든 메타데이터입니다.",
+              "authorityTruthEligible": false
+            }
+          },
+          {
+            "subtype": "cong_guan",
+            "status": "none",
+            "score": 0.106156,
+            "confidence": 0.106156,
+            "followPressure": 0.1125,
+            "dayMasterIsolation": 0.666667,
+            "rootWeakness": 0.347826,
+            "dominantElementShare": 0.1125,
+            "breakerPenalty": 0.13,
+            "blockedReason": "dominant_target_weak",
+            "evidence": [
+              "role=OFFICER",
+              "roleShare=0.1125",
+              "tenGodShare=0.1125",
+              "supportShare=0.3",
+              "pressureShare=0.7",
+              "dominantElement=EARTH"
+            ],
+            "sourceTier": {
+              "tier": "T2_REFERENCE_IMPLEMENTATION",
+              "sourceType": "reference_implementation",
+              "sourceUrl": null,
+              "accessedAt": "2026-05-01",
+              "quoteShort": null,
+              "humanInterpretation": "saju-ts의 월령 격국 및 격국 후보 산식에서 계산한 표시용 근거입니다. 권위 근거로 단정하지 않습니다.",
+              "copyrightNote": "인용 원문 없이 구현 산식에서 만든 메타데이터입니다.",
+              "authorityTruthEligible": false
+            }
+          },
+          {
+            "subtype": "cong_sha",
+            "status": "none",
+            "score": 0.085906,
+            "confidence": 0.085906,
+            "followPressure": 0.1125,
+            "dayMasterIsolation": 0.666667,
+            "rootWeakness": 0.347826,
+            "dominantElementShare": 0.1125,
+            "breakerPenalty": 0.13,
+            "blockedReason": "dominant_target_weak",
+            "evidence": [
+              "role=OFFICER",
+              "roleShare=0.1125",
+              "tenGodShare=0",
+              "supportShare=0.3",
+              "pressureShare=0.7",
+              "dominantElement=EARTH"
+            ],
+            "sourceTier": {
+              "tier": "T2_REFERENCE_IMPLEMENTATION",
+              "sourceType": "reference_implementation",
+              "sourceUrl": null,
+              "accessedAt": "2026-05-01",
+              "quoteShort": null,
+              "humanInterpretation": "saju-ts의 월령 격국 및 격국 후보 산식에서 계산한 표시용 근거입니다. 권위 근거로 단정하지 않습니다.",
+              "copyrightNote": "인용 원문 없이 구현 산식에서 만든 메타데이터입니다.",
+              "authorityTruthEligible": false
+            }
+          },
+          {
+            "subtype": "cong_er",
+            "status": "possible",
+            "score": 0.342156,
+            "confidence": 0.342156,
+            "followPressure": 0.3125,
+            "dayMasterIsolation": 0.666667,
+            "rootWeakness": 0.347826,
+            "dominantElementShare": 0.3125,
+            "breakerPenalty": 0.05,
+            "evidence": [
+              "role=OUTPUT",
+              "roleShare=0.3125",
+              "tenGodShare=0.3125",
+              "supportShare=0.3",
+              "pressureShare=0.7",
+              "dominantElement=WOOD"
+            ],
+            "sourceTier": {
+              "tier": "T2_REFERENCE_IMPLEMENTATION",
+              "sourceType": "reference_implementation",
+              "sourceUrl": null,
+              "accessedAt": "2026-05-01",
+              "quoteShort": null,
+              "humanInterpretation": "saju-ts의 월령 격국 및 격국 후보 산식에서 계산한 표시용 근거입니다. 권위 근거로 단정하지 않습니다.",
+              "copyrightNote": "인용 원문 없이 구현 산식에서 만든 메타데이터입니다.",
+              "authorityTruthEligible": false
+            }
+          },
+          {
+            "subtype": "cong_yin",
+            "status": "none",
+            "score": 0,
+            "confidence": 0,
+            "followPressure": 0.0375,
+            "dayMasterIsolation": 0.666667,
+            "rootWeakness": 0.347826,
+            "dominantElementShare": 0.0375,
+            "breakerPenalty": 0.27,
+            "blockedReason": "opposing_pressure_too_visible;dominant_target_weak",
+            "evidence": [
+              "role=RESOURCE",
+              "roleShare=0.0375",
+              "tenGodShare=0.0375",
+              "supportShare=0.3",
+              "pressureShare=0.7",
+              "dominantElement=METAL"
+            ],
+            "sourceTier": {
+              "tier": "T2_REFERENCE_IMPLEMENTATION",
+              "sourceType": "reference_implementation",
+              "sourceUrl": null,
+              "accessedAt": "2026-05-01",
+              "quoteShort": null,
+              "humanInterpretation": "saju-ts의 월령 격국 및 격국 후보 산식에서 계산한 표시용 근거입니다. 권위 근거로 단정하지 않습니다.",
+              "copyrightNote": "인용 원문 없이 구현 산식에서 만든 메타데이터입니다.",
+              "authorityTruthEligible": false
+            }
+          },
+          {
+            "subtype": "cong_bi",
+            "status": "none",
+            "score": 0.163156,
+            "confidence": 0.163156,
+            "followPressure": 0.2625,
+            "dayMasterIsolation": 0.666667,
+            "rootWeakness": 0.347826,
+            "dominantElementShare": 0.2625,
+            "breakerPenalty": 0.19,
+            "blockedReason": "opposing_pressure_too_visible",
+            "evidence": [
+              "role=COMPANION",
+              "roleShare=0.2625",
+              "tenGodShare=0.2625",
+              "supportShare=0.3",
+              "pressureShare=0.7",
+              "dominantElement=WATER"
+            ],
+            "sourceTier": {
+              "tier": "T2_REFERENCE_IMPLEMENTATION",
+              "sourceType": "reference_implementation",
+              "sourceUrl": null,
+              "accessedAt": "2026-05-01",
+              "quoteShort": null,
+              "humanInterpretation": "saju-ts의 월령 격국 및 격국 후보 산식에서 계산한 표시용 근거입니다. 권위 근거로 단정하지 않습니다.",
+              "copyrightNote": "인용 원문 없이 구현 산식에서 만든 메타데이터입니다.",
+              "authorityTruthEligible": false
+            }
+          },
+          {
+            "subtype": "zhuan_wang",
+            "status": "none",
+            "score": 0.025,
+            "confidence": 0.025,
+            "followPressure": 0,
+            "dayMasterIsolation": 0.666667,
+            "rootWeakness": 0.347826,
+            "dominantElementShare": 0.3125,
+            "breakerPenalty": 0.05,
+            "evidence": [
+              "oneElement=WOOD",
+              "oneElementFactor=0",
+              "dayMasterMatch=0"
+            ],
+            "sourceTier": {
+              "tier": "T2_REFERENCE_IMPLEMENTATION",
+              "sourceType": "reference_implementation",
+              "sourceUrl": null,
+              "accessedAt": "2026-05-01",
+              "quoteShort": null,
+              "humanInterpretation": "saju-ts의 월령 격국 및 격국 후보 산식에서 계산한 표시용 근거입니다. 권위 근거로 단정하지 않습니다.",
+              "copyrightNote": "인용 원문 없이 구현 산식에서 만든 메타데이터입니다.",
+              "authorityTruthEligible": false
+            }
+          },
+          {
+            "subtype": "hua_qi",
+            "status": "none",
+            "score": 0,
+            "confidence": 0,
+            "followPressure": 0,
+            "dayMasterIsolation": 0.466667,
+            "rootWeakness": 0.347826,
+            "dominantElementShare": 0,
+            "breakerPenalty": 0.05,
+            "evidence": [
+              "pair=NONE",
+              "resultElement=NONE",
+              "huaqiFactor=0",
+              "dayInvolved=0"
+            ],
+            "sourceTier": {
+              "tier": "T2_REFERENCE_IMPLEMENTATION",
+              "sourceType": "reference_implementation",
+              "sourceUrl": null,
+              "accessedAt": "2026-05-01",
+              "quoteShort": null,
+              "humanInterpretation": "saju-ts의 월령 격국 및 격국 후보 산식에서 계산한 표시용 근거입니다. 권위 근거로 단정하지 않습니다.",
+              "copyrightNote": "인용 원문 없이 구현 산식에서 만든 메타데이터입니다.",
+              "authorityTruthEligible": false
+            }
+          }
+        ]
+      },
+      "elementDistribution": {
+        "WOOD": 2.5,
+        "FIRE": 2.2,
+        "EARTH": 0.9,
+        "METAL": 0.3,
+        "WATER": 2.1
+      },
+      "hapHwaEvaluations": [],
+      "sibiUnseong": null,
+      "gongmang": [
+        "오",
+        "미"
+      ],
+      "palaceAnalysis": null,
+      "axisStrength": {
+        "yongshin": "deferred",
+        "gyeokguk": "practical",
+        "strength": "deferred"
+      },
+      "sajuEnabled": true
+    },
+    "sajuCompatibility": {
+      "yongshinElement": "Metal",
+      "heeshinElement": "Water",
+      "gishinElement": "Fire",
+      "nameElements": [
+        "Fire",
+        "Wood"
+      ],
+      "yongshinMatchCount": 0,
+      "gishinMatchCount": 1,
+      "dayMasterSupportScore": 36.599999999999994,
+      "affinityScore": 36.65268632583379,
+      "yongshinConsensusConflictLevel": "high",
+      "yongshinConsensusCompetingElements": [
+        "FIRE",
+        "WATER",
+        "WOOD"
+      ],
+      "safetyProfile": {
+        "posture": "balanced",
+        "strategy": "legacy_direct_reinforcement",
+        "riskScore": 19,
+        "conflictLevel": "high",
+        "competingElements": [
+          "FIRE",
+          "WATER",
+          "WOOD"
+        ],
+        "yongshinRatio": 0,
+        "heesinRatio": 0,
+        "gishinRatio": 0.3333333333333333,
+        "gusinRatio": 0.3333333333333333,
+        "reasons": [
+          "risk 19",
+          "strategy legacy_direct_reinforcement",
+          "yongshinRatio 0.00",
+          "heesinRatio 0.00",
+          "gishinRatio 0.33",
+          "gusinRatio 0.33",
+          "consensus conflict: high",
+          "competing elements: FIRE,WATER,WOOD"
+        ]
+      },
+      "tenGodPositionEvidence": {
+        "requestedMode": "positional_weighted",
+        "effectiveMode": "simple_count",
+        "score": 49.71875,
+        "normalization": "deviation_from_average_count",
+        "topContributions": [],
+        "groupCounts": {
+          "friend": 2,
+          "output": 3,
+          "wealth": 2,
+          "authority": 1,
+          "resource": 0
+        },
+        "deviations": {
+          "friend": -0.25,
+          "output": -0.875,
+          "wealth": -0.25,
+          "authority": 0.375,
+          "resource": 1
+        },
+        "elementWeights": {
+          "Wood": -0.30625,
+          "Fire": -0.0875,
+          "Earth": 0.375,
+          "Metal": 1,
+          "Water": -0.0875
+        },
+        "fallbackReason": "byPosition_unavailable"
+      }
+    },
+    "combinedDistribution": {
+      "Wood": 3.5,
+      "Fire": 3.2,
+      "Earth": 1.9,
+      "Metal": 0.3,
+      "Water": 2.1
+    },
+    "rank": 0
+  }
+}
