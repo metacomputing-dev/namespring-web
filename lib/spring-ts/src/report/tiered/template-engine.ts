@@ -101,15 +101,36 @@ export function normalizeRenderedText(value: string): string {
   out = out.replace(/#편재 성 선택/g, '#편재가 만드는 기회성 선택');
   out = out.replace(/#정재 식 확인/g, '#정재의 확인 절차');
   out = out.replace(/#도화이/g, '#도화가');
+  out = out.replace(/#역마이/g, '#역마가');
   out = reduceOverusedGyeol(out);
+  out = out.replace(/비흐름/g, '방법');
   out = out.replace(/돈 흐름의 흐름/g, '돈의 흐름');
   out = out.replace(/인생 흐름의 흐름/g, '인생 흐름');
   out = out.replace(/흐름의 흐름/g, '흐름');
+  out = out.replace(/큰 흐름은 단단하니/g, '전체 흐름은 단단하니');
+  out = out.replace(/큰 흐름은 단단한 사주이니/g, '전체 흐름은 안정적인 사주이니');
+  out = out.replace(/작은 신호를 가볍게 적어 두는 흐름이 잘 맞아요/g, '작은 신호를 가볍게 적어 두는 습관이 잘 맞아요');
   out = out.replace(/흐름을 점검하는 흐름/g, '흐름을 점검하는 자리');
   out = out.replace(/흐름을 보여 주는 흐름/g, '흐름을 보여 주는 신호');
+  out = out.replace(/흐름을 풀어 주는 흐름이라/g, '흐름을 풀어 보는 단서라');
+  out = out.replace(/흐름을 풀어 주는 흐름을/g, '흐름을 풀어 주는 기운을');
   out = out.replace(/흐름의 모양을 만드는 흐름/g, '흐름의 모양을 만들어 가는 과정');
   out = out.replace(/흐름을 잡아 가는 흐름/g, '흐름을 잡아 가는 과정');
   out = out.replace(/흐름을 봐 가는 흐름/g, '흐름을 봐 가는 방식');
+  out = out.replace(/한 사람에게 흐름이 몰리지 않도록 골고루 분배하는 흐름이 좋고/g, '한 사람에게 부담이 몰리지 않도록 골고루 나누는 편이 좋고');
+  out = out.replace(/한 사람에게 흐름이 몰리지 않게 골고루 두고/g, '한 사람에게 부담이 몰리지 않게 골고루 나누고');
+  out = out.replace(/흐름을 따뜻하게 데우는 큰 흐름이에요/g, '가족 분위기를 따뜻하게 데우는 계기가 돼요');
+  out = out.replace(/#용신이 천천히 자기 흐름을 찾아가는 흐름이에요/g, '#용신 보강을 천천히 찾아가는 자리예요');
+  out = out.replace(/#용신이 멀리 흐르는 흐름이라/g, '#용신 보강을 의식적으로 챙겨야 하는 자리라');
+  out = out.replace(/인성의 흐름이 부족한 자리에서는 책·스승의 흐름을/g, '인성 기운이 부족한 자리에서는 책·스승의 도움을');
+  out = out.replace(/인성의 흐름이 부족한 자리에서는 책·스승의 결을/g, '인성 기운이 부족한 자리에서는 책·스승의 도움을');
+  out = out.replace(/책·스승의 흐름을 의도적으로/g, '책·스승의 도움을 의도적으로');
+  out = out.replace(/책·스승의 결을 의도적으로/g, '책·스승의 도움을 의도적으로');
+  out = out.replace(/매력의 결인/g, '매력 신호인');
+  out = out.replace(/표현의 결인/g, '표현 기운인');
+  out = out.replace(/책임의 결인/g, '책임 기운인');
+  out = out.replace(/그달의 결과 평소 흐름의 짜임/g, '그달의 흐름과 평소 흐름의 짜임');
+  out = out.replace(/다툼 흐름을 풀어 주는 약이 되는 흐름이에요/g, '다툼을 풀어 주는 약이 되는 기운이에요');
   out = out.replace(/흐름이 더 또렷해지는 흐름도/g, '흐름이 더 또렷해지는 경우도');
   out = out.replace(/도움이 되는 흐름도/g, '도움이 될 때도');
   out = out.replace(
@@ -215,6 +236,35 @@ function mergeAdjacentText(tokens: ParagraphToken[]): ParagraphToken[] {
   return out;
 }
 
+function hasFinalConsonant(label: string): boolean {
+  const chars = [...label].reverse();
+  const hangul = chars.find((ch) => ch >= '가' && ch <= '힣');
+  if (!hangul) return true;
+  const code = hangul.charCodeAt(0) - 0xac00;
+  return code >= 0 && code <= 11171 && code % 28 !== 0;
+}
+
+function normalizeParticleForLabel(label: string, value: string): string {
+  const hasBatchim = hasFinalConsonant(label);
+  return value.replace(/^(\s*)(이|가|은|는|을|를|과|와)(?=\s|,|\.|!|\?)/u, (_match, leading: string, particle: string) => {
+    const next = hasBatchim
+      ? ({ 가: '이', 는: '은', 를: '을', 와: '과' } as Record<string, string>)[particle] ?? particle
+      : ({ 이: '가', 은: '는', 을: '를', 과: '와' } as Record<string, string>)[particle] ?? particle;
+    return `${leading}${next}`;
+  });
+}
+
+function normalizeParticlesAfterTags(tokens: ParagraphToken[]): ParagraphToken[] {
+  const out = tokens.map((token) => ({ ...token }));
+  for (let i = 0; i < out.length - 1; i += 1) {
+    const current = out[i];
+    const next = out[i + 1];
+    if (current.kind !== 'tag' || next.kind !== 'text') continue;
+    next.value = normalizeParticleForLabel(current.label, next.value);
+  }
+  return out;
+}
+
 export interface RenderContext {
   readonly seedKey: string;
   readonly periodLabel: string;
@@ -239,6 +289,6 @@ export function renderFragment(
       }
     }
   }
-  const merged = mergeAdjacentText(out);
+  const merged = normalizeParticlesAfterTags(mergeAdjacentText(out));
   return { tokens: merged, plainText: plainTextFromTokens(merged) };
 }

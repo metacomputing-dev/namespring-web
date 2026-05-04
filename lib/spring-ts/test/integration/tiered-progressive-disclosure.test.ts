@@ -164,6 +164,11 @@ const allTieredText = [
   ...rows.map(({ cell }) => String(cell?.brief?.headline ?? '')),
   ...paragraphTexts,
   ...rows.flatMap(({ cell }) => [
+    ...(cell?.standard?.paragraphs ?? []),
+    ...(cell?.expert?.paragraphs ?? []),
+  ].flatMap((paragraph: any) =>
+    paragraphTokens([paragraph]).map((token: any) => String(token?.value ?? token?.label ?? '')))),
+  ...rows.flatMap(({ cell }) => [
     ...(cell?.standard?.livingTips ?? []),
     ...(cell?.standard?.cautions ?? []),
   ].map((text: any) => String(text ?? ''))),
@@ -196,7 +201,34 @@ const awkwardRenderedPhrases = allTieredText.filter((text) =>
     text.includes('큰 결정은 한 박자 미루') ||
     text.includes('하루 유예') ||
     text.includes('#편재 성 선택') ||
-    text.includes('#정재 식 확인'));
+    text.includes('#정재 식 확인') ||
+    text.includes('비흐름') ||
+    text.includes('#역마이') ||
+    text.includes('큰 흐름은 단단한') ||
+    text.includes('큰 흐름은 단단하니') ||
+    text.includes('작은 신호를 가볍게 적어 두는 흐름') ||
+    text.includes('한 사람에게 흐름이 몰리지') ||
+    text.includes('흐름을 따뜻하게 데우는 큰 흐름') ||
+    text.includes('#용신이 멀리 흐르는 흐름') ||
+    text.includes('#용신이 천천히 자기 흐름을 찾아가는 흐름') ||
+    text.includes('매력의 결인 #') ||
+    text.includes('표현의 결인 #') ||
+    text.includes('책임의 결인 #') ||
+    text.includes('책·스승의 흐름') ||
+    text.includes('흐름을 풀어 주는 흐름') ||
+    text.includes('그달의 결과') ||
+    text.includes('다툼 흐름을 풀어 주는 약이 되는 흐름') ||
+    text.includes('그 결과 가까운 분야') ||
+    text.includes('너무 무리해서 끌고 가는 결') ||
+    text.includes('곁 사람의 흐름이 평생') ||
+    text.includes('직업 흐름은 받은 자리를 단단히 받쳐 가며 흐름') ||
+    text.includes('천천히 자기 흐름을 찾아 가는 표현') ||
+    text.includes('큰 흐름을 잡기보다는 작은 흐름을 차곡차곡 다듬는 흐름') ||
+    text.includes('잘 풀리는 흐름은 꾸준한 관리') ||
+    text.includes('주의할 흐름은 큰 한 방') ||
+    text.includes('잘 풀리는 흐름은 작은 기록') ||
+    text.includes('큰 흐름을 한 번에 만드는 시기') ||
+    text.includes('평생 갈 흐름을 다듬는 방식'));
 check('tiered rendered text normalizes awkward template joins',
   awkwardRenderedPhrases.length === 0, awkwardRenderedPhrases.slice(0, 3).join(' | '));
 
