@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-05-04T12:49:43.337Z",
+  "generatedAt": "2026-05-04T16:05:49.517Z",
   "targetDate": "2026-05-04T00:00:00+09:00",
   "outputDirectory": "C:\\Projects\\metaintelligence\\namespring-web\\lib\\spring-ts\\artifacts\\sample-outputs-2026-05-04",
   "sampleCount": 7,
@@ -47,7 +47,7 @@
           }
         }
       },
-      "outputBytes": 53989,
+      "outputBytes": 54166,
       "payloadSummary": {
         "topLevelKeys": [
           "nameCompatibility",
@@ -67,7 +67,7 @@
         "tieredMatrix": null,
         "meta": {
           "version": "1.0.0",
-          "generatedAt": "2026-05-04T12:49:44.757Z",
+          "generatedAt": "2026-05-04T16:05:50.959Z",
           "schoolPreset": {
             "selected": "korean",
             "source": "default",
@@ -129,7 +129,7 @@
           }
         }
       },
-      "outputBytes": 421284,
+      "outputBytes": 421461,
       "payloadSummary": {
         "topLevelKeys": [
           "nameCompatibility",
@@ -161,7 +161,7 @@
         },
         "meta": {
           "version": "1.0.0",
-          "generatedAt": "2026-05-04T12:49:45.062Z",
+          "generatedAt": "2026-05-04T16:05:51.257Z",
           "schoolPreset": {
             "selected": "korean",
             "source": "default",
@@ -225,7 +225,7 @@
           }
         }
       },
-      "outputBytes": 137613,
+      "outputBytes": 137743,
       "payloadSummary": {
         "topLevelKeys": [
           "finalScore",
@@ -286,7 +286,7 @@
           }
         }
       },
-      "outputBytes": 305640,
+      "outputBytes": 287693,
       "payloadSummary": {
         "topLevelKeys": [
           "nameCompatibility",
@@ -318,7 +318,7 @@
         },
         "meta": {
           "version": "1.0.0",
-          "generatedAt": "2026-05-04T12:49:45.456Z",
+          "generatedAt": "2026-05-04T16:05:51.592Z",
           "schoolPreset": {
             "selected": "korean",
             "source": "default",
@@ -380,7 +380,7 @@
           }
         }
       },
-      "outputBytes": 417579,
+      "outputBytes": 417756,
       "payloadSummary": {
         "topLevelKeys": [
           "nameCompatibility",
@@ -412,7 +412,7 @@
         },
         "meta": {
           "version": "1.0.0",
-          "generatedAt": "2026-05-04T12:49:45.653Z",
+          "generatedAt": "2026-05-04T16:05:51.752Z",
           "schoolPreset": {
             "selected": "korean",
             "source": "default",
@@ -468,7 +468,7 @@
           }
         }
       },
-      "outputBytes": 408160,
+      "outputBytes": 408332,
       "payloadSummary": {
         "topLevelKeys": [
           "nameCompatibility",
@@ -500,7 +500,7 @@
         },
         "meta": {
           "version": "1.0.0",
-          "generatedAt": "2026-05-04T12:49:45.855Z",
+          "generatedAt": "2026-05-04T16:05:51.937Z",
           "schoolPreset": {
             "selected": "korean",
             "source": "default",
