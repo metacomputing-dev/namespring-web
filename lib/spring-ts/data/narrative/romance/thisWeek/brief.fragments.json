@@ -72,7 +72,7 @@
       "axis": { "category": "romance", "period": "thisWeek", "depth": "brief" },
       "gating": { "ageBand": ["20-29"] },
       "templateTokens": [
-        { "kind": "text", "value": "이번 주는 새 인연이 들어올 자리가 살짝 열려 있어요." }
+        { "kind": "text", "value": "이번 주는 새 인연을 만날 가능성이 살짝 열려 있어요." }
       ],
       "tags": [],
       "aiGenerated": true,

@@ -19,7 +19,7 @@
         { "kind": "text", "value": "의 결과 가까워서, 미리 분산해 두는 결이 한 달을 가볍게 해 줘요." },
         { "kind": "text", "value": " 회복은 " },
         { "kind": "tag", "tagId": "jeongin", "label": "정인" },
-        { "kind": "text", "value": "의 따뜻한 자리에서 가장 또렷해요. 가까운 사람·익숙한 책·따뜻한 차 같은 결이 회복의 큰 자리가 돼요." }
+        { "kind": "text", "value": "의 따뜻한 돌봄에서 가장 또렷해요. 가까운 사람·익숙한 책·따뜻한 차 같은 안정감이 회복의 큰 축이 돼요." }
       ],
       "tags": ["johu", "samhyeong", "jeongin"],
       "numericalEvidence": [
@@ -135,13 +135,13 @@
       "templateTokens": [
         { "kind": "text", "value": "이번 달은 일간 기운이 잔잔한 시기예요. " },
         { "kind": "tag", "tagId": "jeongin", "label": "정인" },
-        { "kind": "text", "value": "의 따뜻한 돌봄을 가까이 두는 자리가 한 달 회복의 큰 자리가 돼요." },
+        { "kind": "text", "value": "의 따뜻한 돌봄을 가까이 두는 습관이 한 달 회복의 큰 축이 돼요." },
         { "kind": "text", "value": " 압박이 닿는 시기에는 " },
         { "kind": "tag", "tagId": "pyeongwan", "label": "편관" },
         { "kind": "text", "value": "의 결이 한꺼번에 누르지 않도록 일을 분산해 두면 흐름이 한결 가벼워져요." },
         { "kind": "text", "value": " 결과가 더디게 오는 자리는 " },
         { "kind": "tag", "tagId": "gongmang", "label": "공망" },
-        { "kind": "text", "value": "의 자리와 닿아요. 천천히 익는 자리는 흉한 자리가 아니에요." }
+        { "kind": "text", "value": "의 신호와 닿아요. 천천히 익는 시간은 흉한 신호가 아니에요." }
       ],
       "tags": ["jeongin", "pyeongwan", "gongmang"],
       "aiGenerated": true,
@@ -172,7 +172,7 @@
         { "kind": "text", "value": "의 결이 자주 닿기 쉬워요. 큰 결정은 다음 달로 미루고, 한 박자 늦추는 자리를 의식적으로 만들어 두면 한 달이 부드러워져요." },
         { "kind": "text", "value": " 회복은 " },
         { "kind": "tag", "tagId": "jeongin", "label": "정인" },
-        { "kind": "text", "value": "의 따뜻한 결과 함께 와요." }
+        { "kind": "text", "value": "의 따뜻한 기운과 함께 와요." }
       ],
       "tags": ["pyeongwan", "samhyeong", "jeongin"],
       "aiGenerated": true,
@@ -316,7 +316,7 @@
         { "kind": "tag", "tagId": "water", "label": "물" },
         { "kind": "text", "value": "의 결이 잔잔해서 마음이 가라앉기 쉬운 자리예요. " },
         { "kind": "tag", "tagId": "fire", "label": "불" },
-        { "kind": "text", "value": "의 따뜻한 결을 가까이 두면 마음이 한결 가벼워져요." },
+        { "kind": "text", "value": "의 따뜻한 기운을 가까이 두면 마음이 한결 가벼워져요." },
         { "kind": "text", "value": " 회복은 " },
         { "kind": "tag", "tagId": "jeongin", "label": "정인" },
         { "kind": "text", "value": "의 따뜻한 돌봄과 함께 일어나요." }

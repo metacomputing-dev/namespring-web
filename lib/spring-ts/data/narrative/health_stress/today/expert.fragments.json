@@ -19,7 +19,7 @@
         { "kind": "text", "value": "의 결과 가까워서, 미리 분산해 두는 결이 오늘은 잘 맞아요." },
         { "kind": "text", "value": " 회복은 " },
         { "kind": "tag", "tagId": "jeongin", "label": "정인" },
-        { "kind": "text", "value": "의 따뜻한 결을 빌리는 자리에서 가장 또렷해요. 가까운 사람·익숙한 책·따뜻한 차 같은 결이 마음의 짐을 가볍게 해 줘요." }
+        { "kind": "text", "value": "의 따뜻한 돌봄을 빌릴 때 가장 또렷해요. 가까운 사람·익숙한 책·따뜻한 차 같은 안정감이 마음의 짐을 가볍게 해 줘요." }
       ],
       "tags": ["johu", "samhyeong", "jeongin"],
       "numericalEvidence": [
@@ -167,7 +167,7 @@
         { "kind": "text", "value": "의 압박이 닿기 쉬운 자리예요. 큰 결정은 다음 자리로 미루고, 한 박자 늦추는 자리를 의식적으로 만들어 두면 흐름이 부드러워져요." },
         { "kind": "text", "value": " 회복은 " },
         { "kind": "tag", "tagId": "jeongin", "label": "정인" },
-        { "kind": "text", "value": "의 따뜻한 결과 함께 와요. 가까운 사람의 자리, 익숙한 일상의 결이 마음의 짐을 절반으로 줄여 줘요." },
+        { "kind": "text", "value": "의 따뜻한 기운과 함께 와요. 가까운 사람, 익숙한 일상의 안정감이 마음의 짐을 절반으로 줄여 줘요." },
         { "kind": "text", "value": " " },
         { "kind": "tag", "tagId": "samhyeong", "label": "삼형" },
         { "kind": "text", "value": "의 결이 함께 닿는 시기에는 일을 분산해 두는 결이 오늘은 잘 맞아요." }
@@ -315,7 +315,7 @@
         { "kind": "tag", "tagId": "water", "label": "물" },
         { "kind": "text", "value": "의 결이 잔잔해서 마음이 가라앉기 쉬운 자리예요. " },
         { "kind": "tag", "tagId": "fire", "label": "불" },
-        { "kind": "text", "value": "의 따뜻한 결을 가까이 두는 자리, 즉 햇빛 아래 산책·따뜻한 차의 자리에서 마음이 한결 가벼워져요." },
+        { "kind": "text", "value": "의 따뜻한 기운을 가까이 두면 도움이 되며, 햇빛 아래 산책이나 따뜻한 차가 마음을 한결 가볍게 해 줘요." },
         { "kind": "text", "value": " 회복은 " },
         { "kind": "tag", "tagId": "jeongin", "label": "정인" },
         { "kind": "text", "value": "의 따뜻한 돌봄과 함께 와요." }

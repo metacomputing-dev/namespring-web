@@ -72,7 +72,7 @@
       "axis": { "category": "romance", "period": "thisYear", "depth": "brief" },
       "gating": { "ageBand": ["20-29"] },
       "templateTokens": [
-        { "kind": "text", "value": "올해는 새 인연이 들어올 자리가 자주 보이는 해예요." }
+        { "kind": "text", "value": "올해는 새 인연을 만날 가능성이 자주 보이는 해예요." }
       ],
       "tags": [],
       "aiGenerated": true,

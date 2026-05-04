@@ -72,7 +72,7 @@
       "axis": { "category": "romance", "period": "thisMonth", "depth": "brief" },
       "gating": { "ageBand": ["20-29"] },
       "templateTokens": [
-        { "kind": "text", "value": "이번 달은 새 인연이 들어올 자리가 한 번씩 보여요." }
+        { "kind": "text", "value": "이번 달은 새 인연을 만날 가능성이 한 번씩 보여요." }
       ],
       "tags": [],
       "aiGenerated": true,
