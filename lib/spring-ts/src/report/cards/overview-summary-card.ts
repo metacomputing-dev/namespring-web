@@ -67,6 +67,47 @@ function friendlyElementName(code: string): string {
   return el ? ELEMENT_FRIENDLY[el] : elementCodeToKorean(code);
 }
 
+function friendlyConflictLevel(level: string): string {
+  return {
+    none: '낮음',
+    low: '낮음',
+    medium: '중간',
+    high: '높음',
+  }[level] ?? level;
+}
+
+function formatOneDecimal(value: unknown): string {
+  const n = Number(value);
+  if (!Number.isFinite(n)) return '자료 없음';
+  return Number.isInteger(n) ? String(n) : n.toFixed(1);
+}
+
+function formatConfidence(value: unknown): string {
+  const n = Number(value);
+  if (!Number.isFinite(n)) return '자료 없음';
+  return `${Math.round(n)} / 100`;
+}
+
+function formatGyeokgukRule(rule: string): string {
+  const [key, rawValue] = rule.split(':');
+  if (key === 'monthHiddenStem' && rawValue) {
+    const stem = lookupStemInfo(rawValue);
+    return `월지 지장간: ${stem?.hangul ?? rawValue}`;
+  }
+  if (key === 'role' && rawValue) {
+    const role = {
+      MAIN: '정기',
+      MIDDLE: '중기',
+      RESIDUAL: '여기',
+    }[rawValue] ?? rawValue;
+    return `지장간 역할: ${role}`;
+  }
+  if (key === 'weight' && rawValue) return `반영 비중: ${rawValue}`;
+  if (rule === 'MAIN') return '월지 정기 기준';
+  if (rule === 'VISIBLE' || rule === 'visibleInChart') return '원국에 드러난 기운';
+  return rule;
+}
+
 function formatPillarElementPair(stemElement: string, branchElement: string): string {
   if (stemElement && branchElement) return `${stemElement}/${branchElement}`;
   return stemElement || branchElement;
@@ -148,7 +189,7 @@ export function buildOverviewSummaryCard(
   const strengthEntry = STRENGTH_ENCYCLOPEDIA[strength.level] ?? null;
   const strengthMeaning = strengthEntry?.meaning ?? '';
 
-  const strengthDescription = `에너지 균형은 ${strengthKorean}${ieyo(strengthKorean)}. ${strengthMeaning}`;
+  const strengthDescription = `에너지 균형은 ${strengthKorean}${ieyo(strengthKorean)}. ${strengthMeaning}`.trim();
 
   // ── 4. Yongshin description ──
   const yongshinEl = normalizeElement(yongshin.element);
@@ -250,10 +291,10 @@ export function buildOverviewSummaryCard(
       axis: 'inputTime',
       claim: unknownHour.message,
       supportingFeatures: [
-        `fallback time ${String(unknownHour.fallbackHour).padStart(2, '0')}:${String(unknownHour.fallbackMinute).padStart(2, '0')}`,
-        `affected axes: ${unknownHour.affectedAxes.join(', ')}`,
+        `임시 계산 시각: ${String(unknownHour.fallbackHour).padStart(2, '0')}:${String(unknownHour.fallbackMinute).padStart(2, '0')}`,
+        `영향을 받을 수 있는 항목: ${unknownHour.affectedAxes.join(', ')}`,
       ],
-      weakness: 'Hour pillar, yongshin, gyeokguk, strength, ten-god position, and fortune-timing conclusions may change when the birth time is known.',
+      weakness: '출생 시각이 확인되면 시주, 용신, 격국, 신강약, 십성 위치, 운세 시점 해석이 달라질 수 있어요.',
       strength: 'candidate',
     });
   }
@@ -261,7 +302,7 @@ export function buildOverviewSummaryCard(
   // Day master row — anchored on yongshin + strength axes.
   if (stemInfo) {
     const supportingFeatures: string[] = [
-      `${stemInfo.hangul}(${stemInfo.element ?? ''}) 일간 — ${dayMasterFriendly} 기운`,
+      `${stemInfo.hangul} 일간 - ${dayMasterFriendly} 기운`,
     ];
     if (stemEntry) supportingFeatures.push(`기본 성향: ${stemEntry.coreKeywords.slice(0, 2).join(', ')}`);
     evidence.push({
@@ -277,8 +318,9 @@ export function buildOverviewSummaryCard(
     axis: 'strength',
     claim: strengthDescription,
     supportingFeatures: [
-      `totalSupport ${strength.totalSupport}, totalOppose ${strength.totalOppose}`,
-      `level: ${strength.level}`,
+      `도움 기운: ${formatOneDecimal(strength.totalSupport)}`,
+      `부담 기운: ${formatOneDecimal(strength.totalOppose)}`,
+      `강약 판단: ${strengthKorean}`,
     ],
     strength: axisStrength?.strength,
   });
@@ -289,32 +331,32 @@ export function buildOverviewSummaryCard(
   const isHedged = yongshinTier === 'candidate' || yongshinTier === 'deferred';
   const consensusAxes = yongshinConsensus
     ? ([
-        ['eokbu', yongshinConsensus.eokbu.element],
-        ['johu', yongshinConsensus.johu.element],
-        ['gyeokguk', yongshinConsensus.gyeokguk.element],
-        ['tonggwan', yongshinConsensus.tonggwan.element],
-        ['byeongyak', yongshinConsensus.byeongyak.element],
-        ['siksangFlow', yongshinConsensus.siksangFlow.element],
+        ['억부', yongshinConsensus.eokbu.element],
+        ['조후', yongshinConsensus.johu.element],
+        ['격국', yongshinConsensus.gyeokguk.element],
+        ['통관', yongshinConsensus.tonggwan.element],
+        ['병약', yongshinConsensus.byeongyak.element],
+        ['식상 흐름', yongshinConsensus.siksangFlow.element],
       ] as const)
         .filter(([, element]) => Boolean(element))
-        .map(([axis, element]) => `${axis}:${element}`)
+        .map(([axis, element]) => `${axis}:${friendlyElementName(String(element))}`)
     : [];
   const consensusWeakness = yongshinConsensus && yongshinConsensus.final.conflictLevel !== 'none'
-    ? `yongshin consensus conflict ${yongshinConsensus.final.conflictLevel}: ${yongshinConsensus.final.competingElements.join(', ')}`
+    ? `용신 판단이 서로 갈리는 지점이 있어요: ${yongshinConsensus.final.competingElements.map((el) => friendlyElementName(String(el))).join(', ')}`
     : undefined;
   evidence.push({
     axis: 'yongshin',
     claim: isHedged
       ? `${yongshinDescription} (다만 용신 신뢰도가 낮은 편이라 다른 보조 기운도 함께 살펴보세요.)`
       : yongshinDescription,
-    supportingFeatures: [
-      `용신 후보: ${yongshin.element}`,
-      `confidence: ${yongshin.confidence ?? 'n/a'}`,
-      ...(yongshinConsensus ? [
-        `consensus conflict: ${yongshinConsensus.final.conflictLevel}`,
-        `consensus axes: ${consensusAxes.join(', ') || '-'}`,
+      supportingFeatures: [
+        `용신 후보: ${friendlyElementName(String(yongshin.element))}`,
+        `신뢰도: ${formatConfidence(yongshin.confidence)}`,
+        ...(yongshinConsensus ? [
+        `용신 판단 충돌: ${friendlyConflictLevel(yongshinConsensus.final.conflictLevel)}`,
+        `판단 축별 후보: ${consensusAxes.join(', ') || '없음'}`,
       ] : []),
-      ...(yongshin.heeshin ? [`희신: ${yongshin.heeshin}`] : []),
+      ...(yongshin.heeshin ? [`희신: ${friendlyElementName(String(yongshin.heeshin))}`] : []),
     ],
     weakness: isHedged
       ? '용신 신뢰도가 0.65 미만이라 차트에 따라 다른 학파(조후 / 통관)의 추천이 더 적합할 수 있음.'
@@ -362,11 +404,11 @@ export function buildOverviewSummaryCard(
     .slice(0, 3);
   if (alternativeGyeokgukCandidates.length > 0) {
     const candidateNotes = alternativeGyeokgukCandidates.map((candidate) => {
-      const support = candidate.supportingRules.slice(0, 3).join(', ');
+      const support = candidate.supportingRules.slice(0, 3).map(formatGyeokgukRule).join(', ');
       const confidencePct = Math.round(candidate.confidence * 100);
       return support
-        ? `${candidate.type} 후보(score ${candidate.score.toFixed(3)}, confidence ${confidencePct}%): ${support}`
-        : `${candidate.type} 후보(score ${candidate.score.toFixed(3)}, confidence ${confidencePct}%)`;
+        ? `${candidate.type} 후보(점수 ${candidate.score.toFixed(3)}, 신뢰도 ${confidencePct}%): ${support}`
+        : `${candidate.type} 후보(점수 ${candidate.score.toFixed(3)}, 신뢰도 ${confidencePct}%)`;
     });
     const blockingNotes = alternativeGyeokgukCandidates
       .flatMap((candidate) => candidate.blockingRules)

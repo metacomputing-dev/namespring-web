@@ -207,7 +207,7 @@ check('report card forwards element strategy evidence',
 check('report card safety evidence includes competing elements',
   card?.evidence?.some((row) =>
     row.axis === 'candidateSafetyProfile' &&
-    row.supportingFeatures.some((feature) => feature.includes('competing elements'))) === true);
+    row.supportingFeatures.some((feature) => feature.includes('충돌 후보 오행'))) === true);
 
 console.log(`\nConflict-aware scoring check: ${pass} PASS / ${fail} FAIL`);
 process.exit(fail > 0 ? 1 : 0);

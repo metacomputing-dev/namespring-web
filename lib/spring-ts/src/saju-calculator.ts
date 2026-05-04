@@ -221,24 +221,43 @@ function buildSajuNameSafetyProfile(params: {
       ? 'safe'
       : 'balanced';
 
+  const elementKo = (element: string): string => ({
+    WOOD: '나무',
+    FIRE: '불',
+    EARTH: '흙',
+    METAL: '쇠',
+    WATER: '물',
+  }[element] ?? element);
+  const conflictKo = (level: string | undefined): string => ({
+    none: '낮음',
+    low: '낮음',
+    medium: '중간',
+    high: '높음',
+  }[level ?? 'none'] ?? String(level ?? 'none'));
+  const strategyKo = (value: string): string => ({
+    legacy_direct_reinforcement: '기존 직접 보강 방식',
+    safe_balance: '안정 균형 방식',
+    aggressive_reinforcement: '강한 직접 보강 방식',
+  }[value] ?? value);
+
   const reasons: string[] = [
-    `risk ${riskScore}`,
-    `strategy ${strategy}`,
-    `yongshinRatio ${yongshinRatio.toFixed(2)}`,
-    `heesinRatio ${heesinRatio.toFixed(2)}`,
-    `gishinRatio ${gishinRatio.toFixed(2)}`,
-    `gusinRatio ${gusinRatio.toFixed(2)}`,
+    `주의 신호 ${riskScore}/100`,
+    `적용 방식: ${strategyKo(strategy)}`,
+    `용신 보강 비율: ${Math.round(yongshinRatio * 100)}%`,
+    `희신 보조 비율: ${Math.round(heesinRatio * 100)}%`,
+    `기신 겹침 비율: ${Math.round(gishinRatio * 100)}%`,
+    `구신 겹침 비율: ${Math.round(gusinRatio * 100)}%`,
   ];
   if (conflictLevel) {
-    reasons.push(`consensus conflict: ${conflictLevel}`);
+    reasons.push(`용신 판단 충돌: ${conflictKo(conflictLevel)}`);
   }
   if (params.consensus?.competingElements.length) {
-    reasons.push(`competing elements: ${params.consensus.competingElements.join(',')}`);
+    reasons.push(`충돌 후보 오행: ${params.consensus.competingElements.map(elementKo).join(', ')}`);
   }
   if (strategy === 'safe_balance') {
-    reasons.push('safe balance keeps uncertain yongshin signals from dominating the name.');
+    reasons.push('용신 판단이 갈릴 때는 한쪽 기운만 과하게 키우지 않도록 균형을 우선했어요.');
   } else if (strategy === 'aggressive_reinforcement') {
-    reasons.push('aggressive reinforcement concentrates on one yongshin element while consensus is uncertain.');
+    reasons.push('용신 판단이 갈리는 상태에서 한 오행 보강이 강하게 몰려 있어요.');
   }
 
   return {

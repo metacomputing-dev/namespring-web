@@ -88,6 +88,13 @@ function elementKo(code: ElementCode): string {
   return ELEMENT_KO[code];
 }
 
+function iGa(word: string): string {
+  if (!word) return `${word}가`;
+  const last = word.charCodeAt(word.length - 1);
+  if (last < 0xAC00 || last > 0xD7A3) return `${word}가`;
+  return (last - 0xAC00) % 28 !== 0 ? `${word}이` : `${word}가`;
+}
+
 function gradeToStars(grade: number): StarRating {
   if (grade >= 5) return 5;
   if (grade >= 4) return 4;
@@ -567,12 +574,13 @@ export function buildCategoryFortuneCards(
     const isGishinAligned   = !!gishinElement && catEls.primary === gishinElement;
 
     let claim: string;
+    const primaryElementName = elementKo(catEls.primary);
     if (isYongshinAligned) {
-      claim = `${CATEGORY_TITLE[category]} 영역의 핵심 오행 ${elementKo(catEls.primary)}이(가) 용신과 일치하여 흐름이 좋은 영역이에요.`;
+      claim = `${CATEGORY_TITLE[category]} 영역의 핵심 오행 ${iGa(primaryElementName)} 용신과 일치하여 흐름이 좋은 영역이에요.`;
     } else if (isGishinAligned) {
-      claim = `${CATEGORY_TITLE[category]} 영역의 핵심 오행 ${elementKo(catEls.primary)}이(가) 기신과 겹쳐 보수적 운영이 좋아요.`;
+      claim = `${CATEGORY_TITLE[category]} 영역의 핵심 오행 ${iGa(primaryElementName)} 기신과 겹쳐 보수적 운영이 좋아요.`;
     } else {
-      claim = `${CATEGORY_TITLE[category]} 영역은 ${elementKo(catEls.primary)} 기운을 중심으로 평가했어요.`;
+      claim = `${CATEGORY_TITLE[category]} 영역은 ${primaryElementName} 기운을 중심으로 평가했어요.`;
     }
 
     const supporting: string[] = [

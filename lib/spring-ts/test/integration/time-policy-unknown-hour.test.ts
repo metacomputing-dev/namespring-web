@@ -150,7 +150,7 @@ check('fortune report meta carries unknown-hour uncertainty',
     reportUncertainty?.affectedAxes.includes('hourPillar'));
 check('overview evidence names affected input-time axes',
   overviewEvidence?.strength === 'candidate' &&
-    overviewEvidence.supportingFeatures.some((line) => line.includes('affected axes')));
+    overviewEvidence.supportingFeatures.some((line) => line.includes('영향을 받을 수 있는 항목')));
 
 console.log(`\nUnknown-hour policy check: ${pass} PASS / ${fail} FAIL`);
 process.exit(fail > 0 ? 1 : 0);

@@ -40,6 +40,24 @@ function pickFromPool(pool: readonly string[], seed: number): string {
   return pool[seed % pool.length];
 }
 
+function normalizeRenderedText(value: string): string {
+  let out = value;
+  out = out.replace(/(나무|불|흙|쇠|물) 타고난 중심 기운에/g, '$1 기운을 타고난 사람에게');
+  out = out.replace(/(나무|불|흙|쇠|물) 타고난 중심 기운의/g, '$1 기운을 타고난 사람의');
+  out = out.replace(/(나무|불|흙|쇠|물) 타고난 중심 기운/g, '$1 기운을 타고난 사람의 흐름');
+  out = out.replace(/(나무|불|흙|쇠|물) 도움이 되는 기운은/g, '$1 기운은');
+  out = out.replace(/(나무|불|흙|쇠|물) 도움이 되는 기운이/g, '$1 기운이');
+  out = out.replace(/양의 타고난 중심 기운 흐름/g, '바깥으로 향하는 타고난 흐름');
+  out = out.replace(/음의 타고난 중심 기운 흐름/g, '안쪽에서 다듬는 타고난 흐름');
+  out = out.replace(/중립적인 타고난 중심 기운 흐름/g, '상황에 맞춰 움직이는 타고난 흐름');
+  out = out.replace(/기운이 매우 강한 상태 흐름/g, '기운이 매우 강한 흐름');
+  out = out.replace(/기운이 강한 상태 흐름/g, '기운이 강한 흐름');
+  out = out.replace(/기운이 매우 약한 상태 흐름/g, '기운이 매우 약한 흐름');
+  out = out.replace(/기운이 약한 상태 흐름/g, '기운이 약한 흐름');
+  out = out.replace(/균형 흐름/g, '균형 잡힌 흐름');
+  return out.replace(/([.!?])(?=[가-힣])/g, '$1 ');
+}
+
 function resolveSlot(
   token: FragmentToken,
   slots: Readonly<Record<string, readonly string[]>> | undefined,
@@ -72,7 +90,7 @@ function mergeAdjacentText(tokens: ParagraphToken[]): ParagraphToken[] {
   for (const tok of tokens) {
     const last = out[out.length - 1];
     if (tok.kind === 'text' && last && last.kind === 'text') {
-      out[out.length - 1] = { kind: 'text', value: last.value + tok.value };
+      out[out.length - 1] = { kind: 'text', value: normalizeRenderedText(last.value + tok.value) };
     } else {
       out.push(tok);
     }
@@ -94,10 +112,10 @@ export function renderFragment(
   const out: ParagraphToken[] = [];
   for (const tok of fragment.templateTokens) {
     if (tok.kind === 'text') {
-      out.push({ kind: 'text', value: tok.value ?? '' });
+      out.push({ kind: 'text', value: normalizeRenderedText(tok.value ?? '') });
     } else if (tok.kind === 'slot') {
       const resolved = resolveSlot(tok, fragment.slots, ctx.feature, ctx.periodLabel, ctx.seedKey);
-      if (resolved) out.push({ kind: 'text', value: resolved });
+      if (resolved) out.push({ kind: 'text', value: normalizeRenderedText(resolved) });
     } else if (tok.kind === 'tag') {
       if (tok.tagId && tok.label) {
         out.push({ kind: 'tag', tagId: tok.tagId, label: tok.label });
@@ -108,5 +126,5 @@ export function renderFragment(
   const plain = merged
     .map((t) => (t.kind === 'text' ? t.value : `#${t.label}`))
     .join('');
-  return { tokens: merged, plainText: plain };
+  return { tokens: merged, plainText: normalizeRenderedText(plain) };
 }

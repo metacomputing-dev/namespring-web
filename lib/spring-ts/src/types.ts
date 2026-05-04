@@ -35,6 +35,9 @@ export interface BirthInfo {
 export interface NameCharInput {
   readonly hangul: string;
   readonly hanja?: string;
+  readonly meaning?: string;
+  readonly strokes?: number;
+  readonly element?: string;
   readonly legalStatus?: HanjaLegalStatus;
   readonly legalRegistrable?: boolean;
   readonly isVariantOf?: string;

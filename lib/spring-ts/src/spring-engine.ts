@@ -96,6 +96,99 @@ const UNSAFE_HANJA_MEANING_PATTERNS = [
   /숨길/,
   /가난/,
 ] as const;
+const OPAQUE_HANJA_MEANING_PATTERN = /^[가-힣]{1,2}(?:\s*,\s*[가-힣]{1,2})*$/;
+const WEAK_RECOMMENDATION_HANJA_MEANING_PATTERNS = [
+  /나이/,
+  /마칠/,
+  /구기/,
+  /비수/,
+  /숟가락/,
+  /어조사/,
+  /어금니/,
+  /무기/,
+  /굽을/,
+  /갈고리/,
+  /풀벨/,
+  /흩어질/,
+  /칼/,
+  /작은배/,
+  /없을/,
+  /말 물/,
+  /나눌/,
+  /쪼갤/,
+  /창/,
+  /전쟁/,
+  /빌릴/,
+  /갚을/,
+  /돈/,
+  /닻/,
+  /배멈출/,
+  /대모/,
+  /노리개/,
+  /패옥/,
+] as const;
+const POSITIVE_RECOMMENDATION_HANJA_MEANING_PATTERNS = [
+  /어질/,
+  /착할/,
+  /바를/,
+  /높일/,
+  /빛/,
+  /밝/,
+  /클/,
+  /큰/,
+  /넓/,
+  /지혜/,
+  /슬기/,
+  /총명/,
+  /준걸/,
+  /빼어/,
+  /뛰어/,
+  /아름/,
+  /맑/,
+  /깨끗/,
+  /평안/,
+  /편안/,
+  /복/,
+  /덕/,
+  /길/,
+  /귀/,
+  /보배/,
+  /옥/,
+  /금/,
+  /별/,
+  /해/,
+  /달/,
+  /하늘/,
+  /강/,
+  /산/,
+  /샘/,
+  /꽃/,
+  /향/,
+  /숲/,
+  /영원/,
+  /오랠/,
+  /단단/,
+  /굳/,
+  /이룰/,
+  /성할/,
+  /펼/,
+  /도울/,
+  /믿/,
+  /사랑/,
+  /기쁠/,
+  /즐거/,
+  /윤택/,
+  /풍성/,
+  /예절/,
+  /공경/,
+  /참/,
+  /진실/,
+  /정성/,
+  /건강/,
+  /솜씨/,
+  /힘/,
+  /다스릴/,
+] as const;
 
 // ---------------------------------------------------------------------------
 // Helpers
@@ -256,12 +349,32 @@ function hasUnsafeHanjaMeaning(entry: HanjaEntry): boolean {
   return UNSAFE_HANJA_MEANING_PATTERNS.some((pattern) => pattern.test(meaning));
 }
 
+function hasOpaqueHanjaMeaning(entry: HanjaEntry): boolean {
+  const meaning = String(entry.meaning ?? '').replace(/\s+/g, ' ').trim();
+  if (!meaning) return true;
+  const descriptivePart = meaning.includes(':')
+    ? meaning.split(':').slice(1).join(':').trim()
+    : meaning;
+  if (!descriptivePart) return true;
+  return OPAQUE_HANJA_MEANING_PATTERN.test(descriptivePart);
+}
+
+function hasWeakRecommendationHanjaMeaning(entry: HanjaEntry): boolean {
+  const meaning = String(entry.meaning ?? '').replace(/\s+/g, ' ').trim();
+  if (!meaning) return false;
+  if (WEAK_RECOMMENDATION_HANJA_MEANING_PATTERNS.some((pattern) => pattern.test(meaning))) return true;
+  return !POSITIVE_RECOMMENDATION_HANJA_MEANING_PATTERNS.some((pattern) => pattern.test(meaning));
+}
+
 /** Convert a HanjaEntry into the minimal NameCharInput shape. */
 function toNameCharInput(entry: HanjaEntry, pool: HanjaPool = 'curated'): NameCharInput {
   const legal = getLegalAnnotation(entry, { pool });
   return {
     hangul: entry.hangul,
     hanja: entry.hanja,
+    meaning: entry.meaning,
+    strokes: entry.strokes,
+    element: entry.resource_element,
     legalStatus: legal.legalStatus,
     legalRegistrable: legal.legalRegistrable,
     isVariantOf: legal.isVariantOf,
@@ -826,16 +939,23 @@ export class SpringEngine {
   private filterPresentationSafeEntries(entries: readonly HanjaEntry[], hanjaPool: HanjaPool): HanjaEntry[] {
     const filtered: HanjaEntry[] = [];
     for (const entry of entries) {
-      if (hasUnsafeHanjaMeaning(entry)) {
+      const unsafeMeaning = hasUnsafeHanjaMeaning(entry);
+      const opaqueMeaning = hasOpaqueHanjaMeaning(entry);
+      const weakMeaning = hasWeakRecommendationHanjaMeaning(entry);
+      if (unsafeMeaning || opaqueMeaning || weakMeaning) {
         const legal = getLegalAnnotation(entry, { pool: hanjaPool });
         this.recordCandidateRejection(
-          'unsafe_hanja_meaning',
+          unsafeMeaning ? 'unsafe_hanja_meaning' : opaqueMeaning ? 'opaque_hanja_meaning' : 'weak_hanja_meaning',
           {
             hangul: entry.hangul,
             hanja: entry.hanja,
             legalStatus: legal.legalStatus,
           },
-          'Candidate removed before scoring because the Hanja meaning is unsuitable for public name recommendations.',
+          unsafeMeaning
+            ? 'Candidate removed before scoring because the Hanja meaning is unsuitable for public name recommendations.'
+            : opaqueMeaning
+              ? 'Candidate removed before scoring because the Hanja meaning is too opaque for public name recommendations.'
+              : 'Candidate removed before scoring because the Hanja meaning is weak for public name recommendations.',
         );
         continue;
       }
@@ -1033,6 +1153,20 @@ export class SpringEngine {
           : {}),
       }),
     ).map((summary, index) => ({ ...summary, rank: index + 1 }));
+  }
+
+  private dedupeCandidateSummariesByHangul(
+    results: readonly SpringCandidateSummary[],
+  ): SpringCandidateSummary[] {
+    const seen = new Set<string>();
+    const deduped: SpringCandidateSummary[] = [];
+    for (const summary of results) {
+      const key = summary.fullHangul || summary.givenHangul;
+      if (seen.has(key)) continue;
+      seen.add(key);
+      deduped.push(summary);
+    }
+    return deduped.map((summary, index) => ({ ...summary, rank: index + 1 }));
   }
 
   private pageOrderedCandidates<T extends { readonly rank: number }>(
@@ -1466,7 +1600,8 @@ export class SpringEngine {
       });
     }
 
-    return this.pageOrderedCandidates(this.orderCandidateSummaries(results, request.options), request.options);
+    const ordered = this.orderCandidateSummaries(results, request.options);
+    return this.pageOrderedCandidates(this.dedupeCandidateSummariesByHangul(ordered), request.options);
   }
 
   // -------------------------------------------------------------------------

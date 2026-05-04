@@ -107,6 +107,14 @@ const rowsMissingExpert = supportedRows
 const rowsMissingExpertTags = supportedRows
   .filter(({ cell }) => tagTokens(cell?.expert?.paragraphs ?? []).length === 0)
   .map((row) => row.key);
+const placeholderBriefRows = rows
+  .filter(({ cell }) => cell?.brief?.headline === '준비 중인 흐름이에요.')
+  .map((row) => row.key);
+const nonDailyRowsWithDailyCopy = rows
+  .filter(({ key, cell }) => !key.startsWith('today.'))
+  .filter(({ cell }) => (cell?.standard?.paragraphs ?? [])
+    .some((paragraph: any) => String(paragraph?.plainText ?? '').includes('하루의 흐름')))
+  .map((row) => row.key);
 
 check('tiered matrix is surfaced for minor sample', tm?.schemaVersion === 'spring-ts.tiered-matrix.v1');
 check('meaningful or limited minor cells exist', supportedRows.length > 0, String(supportedRows.length));
@@ -116,6 +124,10 @@ check('meaningful or limited minor cells keep expert detail',
   rowsMissingExpert.length === 0, rowsMissingExpert.join(','));
 check('minor expert detail is tagged for expert UI',
   rowsMissingExpertTags.length === 0, rowsMissingExpertTags.join(','));
+check('minor cells avoid placeholder brief copy',
+  placeholderBriefRows.length === 0, placeholderBriefRows.join(','));
+check('minor non-daily cells avoid daily fallback copy',
+  nonDailyRowsWithDailyCopy.length === 0, nonDailyRowsWithDailyCopy.join(','));
 
 engine.close();
 console.log(`\nTiered minor depth fallback: ${pass} PASS / ${fail} FAIL`);

@@ -50,14 +50,28 @@ const PLACEHOLDER_BRIEF: BriefFortuneText = Object.freeze({ headline: '준비 �
 const PLACEHOLDER_STANDARD: StandardFortuneText = Object.freeze({ paragraphs: EMPTY_PARAGRAPHS });
 const PLACEHOLDER_EXPERT: ExpertFortuneText = Object.freeze({ paragraphs: EMPTY_PARAGRAPHS });
 
+const CATEGORY_LABEL: Record<'overall' | TieredCategoryId, string> = {
+  overall: '전체 흐름',
+  wealth: '돈과 물건 관리',
+  health: '몸과 마음',
+  academic: '공부 흐름',
+  romance: '관계와 마음',
+  family: '가족 관계',
+  career: '진로 감각',
+  study_document: '기록과 준비',
+  expression_children: '표현과 창의력',
+  health_stress: '긴장과 회복',
+  movement: '이동과 변화',
+};
+
 const MINOR_STANDARD_LIMITED_PARAGRAPH: TaggedParagraph = Object.freeze({
   tokens: [
     {
       kind: 'text',
-      value: '이 항목은 아직 나이에 맞춘 세부 문장이 충분하지 않아요. 지금은 생활 리듬을 지키고, 큰 결정은 가까운 어른과 함께 확인해 주세요.',
+      value: '지금은 결과를 단정하기보다 학교, 친구, 가족, 컨디션처럼 가까운 생활을 안정시키는 해석이 먼저예요. 작은 약속을 지키고, 큰 결정은 가까운 어른과 함께 확인해 주세요.',
     },
   ] as const,
-  plainText: '이 항목은 아직 나이에 맞춘 세부 문장이 충분하지 않아요. 지금은 생활 리듬을 지키고, 큰 결정은 가까운 어른과 함께 확인해 주세요.',
+  plainText: '지금은 결과를 단정하기보다 학교, 친구, 가족, 컨디션처럼 가까운 생활을 안정시키는 해석이 먼저예요. 작은 약속을 지키고, 큰 결정은 가까운 어른과 함께 확인해 주세요.',
 });
 
 const MINOR_EXPERT_LIMITED_PARAGRAPH: TaggedParagraph = Object.freeze({
@@ -90,14 +104,80 @@ function isMinorAgeBand(ageBand: FeatureVector['ageBand']): boolean {
   return ageBand === '0-9' || ageBand === '10-19';
 }
 
-function buildMinorStandardFallback(feature: FeatureVector): StandardFortuneText | null {
+function hasBatchimInText(value: string): boolean {
+  for (let i = value.length - 1; i >= 0; i -= 1) {
+    const code = value.charCodeAt(i);
+    if (code >= 0xAC00 && code <= 0xD7A3) return (code - 0xAC00) % 28 !== 0;
+  }
+  return false;
+}
+
+function withTopicParticle(value: string): string {
+  const particleBasis = value.replace(/\s*\([^)]*\)\s*$/, '');
+  return `${value}${hasBatchimInText(particleBasis) ? '은' : '는'}`;
+}
+
+function withPeriodScopedTopic(periodLabel: string, label: string): string {
+  return `${periodLabel}의 ${withTopicParticle(label)}`;
+}
+
+function buildMinorBriefFallback(
+  feature: FeatureVector,
+  category: 'overall' | TieredCategoryId,
+  periodLabel: string,
+): BriefFortuneText | null {
   if (!isMinorAgeBand(feature.ageBand)) return null;
-  return { paragraphs: [MINOR_STANDARD_LIMITED_PARAGRAPH] };
+  const label = CATEGORY_LABEL[category];
+  if (category === 'overall') {
+    return {
+      headline: `${withTopicParticle(periodLabel)} 큰 결론보다 생활 리듬과 마음의 속도를 안정시키는 흐름으로 보는 게 좋아요.`,
+    };
+  }
+  return {
+    headline: `${withPeriodScopedTopic(periodLabel, label)} 잘하고 못하고를 단정하기보다, 지금 할 수 있는 작은 습관을 지키는 쪽이 좋아요.`,
+  };
+}
+
+function buildMinorStandardFallback(
+  feature: FeatureVector,
+  category: 'overall' | TieredCategoryId = 'overall',
+  periodLabel = '이 시기',
+): StandardFortuneText | null {
+  if (!isMinorAgeBand(feature.ageBand)) return null;
+  const label = CATEGORY_LABEL[category];
+  const plainText = category === 'overall'
+    ? `${withTopicParticle(periodLabel)} 아직 방향을 단정하기보다 생활 리듬을 잘 잡는 해석이 먼저예요. 학교, 친구, 가족, 컨디션처럼 가까운 일들을 차분히 챙기면 ${periodLabel}의 흐름이 안정돼요. 큰 결정은 혼자 서두르지 말고 가까운 어른과 함께 확인해 주세요.`
+    : `${withPeriodScopedTopic(periodLabel, label)} 아직 결과를 단정하기보다 작은 습관을 살피는 게 좋아요. 해야 할 일을 짧게 나누고, 힘들 때는 바로 도움을 요청하면 흐름이 안정돼요.`;
+  return {
+    paragraphs: [{
+      tokens: [{ kind: 'text', value: plainText }],
+      plainText,
+    }],
+  };
 }
 
 function buildMinorExpertFallback(feature: FeatureVector): ExpertFortuneText | null {
   if (!isMinorAgeBand(feature.ageBand)) return null;
   return { paragraphs: [MINOR_EXPERT_LIMITED_PARAGRAPH] };
+}
+
+function buildMinorFallbackCell(
+  feature: FeatureVector,
+  category: 'overall' | TieredCategoryId,
+  periodLabel: string,
+  grade: ReturnType<typeof gradeCell>,
+): TieredFortune | null {
+  const brief = buildMinorBriefFallback(feature, category, periodLabel);
+  const standard = buildMinorStandardFallback(feature, category, periodLabel);
+  const expert = buildMinorExpertFallback(feature);
+  if (!brief || !standard || !expert) return null;
+  return {
+    meaningfulness: 'limited',
+    stars: grade.stars,
+    brief,
+    standard,
+    expert,
+  };
 }
 
 function buildExpertText(
@@ -182,7 +262,7 @@ function buildCell(
   const brief = briefRender ? deriveBrief(briefRender) : PLACEHOLDER_BRIEF;
   const standard = standardFrag
     ? buildStandardText(standardFrag, standardRender ?? { tokens: [], plainText: '' })
-    : (hasAnyFragment ? (buildMinorStandardFallback(feature) ?? PLACEHOLDER_STANDARD) : PLACEHOLDER_STANDARD);
+    : (hasAnyFragment ? (buildMinorStandardFallback(feature, category, periodLabel) ?? PLACEHOLDER_STANDARD) : PLACEHOLDER_STANDARD);
   const expert = expertFrag
     ? buildExpertText(expertFrag, expertRender ?? { tokens: [], plainText: '' }, {
       feature,
@@ -193,6 +273,8 @@ function buildCell(
 
   // Cell with no fragment matches at all becomes 'na'.
   if (!hasAnyFragment) {
+    const minorFallback = buildMinorFallbackCell(feature, category, periodLabel, grade);
+    if (minorFallback) return minorFallback;
     return {
       meaningfulness: 'na',
       stars: null,

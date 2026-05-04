@@ -72,28 +72,28 @@ const PRESET_DOCTRINE: Readonly<Record<SchoolPresetName, string>> = {
 
 const PRESET_TRADEOFFS: Readonly<Record<SchoolPresetName, readonly string[]>> = {
   korean: [
-    'Default-compatible baseline; best for regression comparison.',
-    'Does not emphasize one doctrine axis beyond current production scoring.',
+    '현재 기본 점수 체계와 동일해서 회귀 비교 기준으로 쓰기 좋아요.',
+    '특정 학파 기준을 더 강하게 밀지 않고 현재 서비스 기본값을 유지해요.',
   ],
   chinese: [
-    'Raises structure and command-rule influence relative to the default.',
-    'Can reduce climate-driven naming recommendations.',
+    '기본값보다 격국과 월령 중심의 구조 판단 비중을 높여요.',
+    '계절과 조후 중심 추천은 상대적으로 약해질 수 있어요.',
   ],
   modern: [
-    'Raises climate and seasonal balance in contemporary integrated readings.',
-    'Can down-weight classical structure compared with text-first presets.',
+    '현대 통합 해석에서 계절과 조후 균형을 더 크게 봐요.',
+    '문헌 중심 격국 판단은 상대적으로 낮아질 수 있어요.',
   ],
   korean_modern: [
-    'Fits contemporary Korean naming-service practice and Hangul-era expectations.',
-    'Can diverge from strict classical text readings.',
+    '현대 한국 작명 서비스와 한글 이름 사용 환경에 맞춘 관점이에요.',
+    '엄격한 고전 문헌식 해석과는 일부 결과가 달라질 수 있어요.',
   ],
   classical_text: [
-    'Highlights source-text rule features such as gyeokguk, disease-remedy, and bridge logic.',
-    'Runtime deltas are comparison signals only, not authority accuracy.',
+    '격국, 병약, 통관 같은 문헌식 규칙 특징을 더 강조해요.',
+    '런타임 점수 차이는 비교 신호일 뿐 권위 있는 정답으로 보지 않아요.',
   ],
   naming_safe: [
-    'Prefers balance and conflict avoidance over aggressive reinforcement.',
-    'May rank bold doctrine-specific choices lower than specialist presets.',
+    '강한 보강보다 균형과 충돌 회피를 우선해요.',
+    '특정 학파에서 과감하게 좋게 보는 후보는 낮게 평가될 수 있어요.',
   ],
 };
 

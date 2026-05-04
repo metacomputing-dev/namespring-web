@@ -144,6 +144,32 @@ check('expert numeric evidence is source-tiered when present',
       typeof row.sourceTier.tier === 'string' &&
       typeof row.sourceTier.authorityTruthEligible === 'boolean'),
   String(numericalEvidenceRows.length));
+check('expert numeric evidence omits English internal audit prose',
+  numericalEvidenceRows.every((row: any) => {
+    const sourceTier = row.sourceTier ?? {};
+    return !String(sourceTier.humanInterpretation ?? '').includes('deterministic spring-ts runtime') &&
+      !String(sourceTier.copyrightNote ?? '').includes('No third-party prose copied') &&
+      !String(sourceTier.copyrightNote ?? '').includes('No source prose copied');
+  }),
+  String(numericalEvidenceRows.length));
+
+const paragraphTexts = rows.flatMap(({ cell }) => [
+  ...(cell?.standard?.paragraphs ?? []),
+  ...(cell?.expert?.paragraphs ?? []),
+].map((paragraph: any) => String(paragraph?.plainText ?? '')));
+const crampedSentenceRows = paragraphTexts.filter((text) => /[.!?][가-힣]/.test(text));
+check('tiered paragraph text keeps sentence spacing',
+  crampedSentenceRows.length === 0, crampedSentenceRows.slice(0, 3).join(' | '));
+const allTieredText = [
+  ...rows.map(({ cell }) => String(cell?.brief?.headline ?? '')),
+  ...paragraphTexts,
+];
+const awkwardRenderedPhrases = allTieredText.filter((text) =>
+  text.includes('타고난 중심 기운') ||
+    text.includes('도움이 되는 기운은') ||
+    text.includes('상태 흐름'));
+check('tiered rendered text normalizes awkward template joins',
+  awkwardRenderedPhrases.length === 0, awkwardRenderedPhrases.slice(0, 3).join(' | '));
 
 check('selected fragment trace stays hidden-capable but complete',
   rows.every(({ cell }) =>

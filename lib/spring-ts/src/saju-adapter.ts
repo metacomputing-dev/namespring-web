@@ -446,6 +446,36 @@ function formatCodeDisplay(koreanLabel: string | null, code: string): string {
   return code;
 }
 
+function hasKoreanBatchimInText(value: string): boolean | null {
+  for (let i = value.length - 1; i >= 0; i -= 1) {
+    const code = value.charCodeAt(i);
+    if (code >= 0xAC00 && code <= 0xD7A3) return (code - 0xAC00) % 28 !== 0;
+  }
+  return null;
+}
+
+function applyKoreanParticlePlaceholder(
+  value: string,
+  pattern: RegExp,
+  withBatchim: string,
+  withoutBatchim: string,
+): string {
+  return value.replace(pattern, (_match, prefix: string) => {
+    const hasBatchim = hasKoreanBatchimInText(prefix);
+    return `${prefix}${hasBatchim === false ? withoutBatchim : withBatchim}`;
+  });
+}
+
+function cleanAdapterText(value: string): string {
+  let out = value;
+  out = applyKoreanParticlePlaceholder(out, /(\S+?)\uC774\(\uAC00\)/g, '\uC774', '\uAC00');
+  out = applyKoreanParticlePlaceholder(out, /(\S+?)\uC744\(\uB97C\)/g, '\uC744', '\uB97C');
+  out = applyKoreanParticlePlaceholder(out, /(\S+?)\uC740\(\uB294\)/g, '\uC740', '\uB294');
+  out = applyKoreanParticlePlaceholder(out, /(\S+?)\uACFC\(\uC640\)/g, '\uACFC', '\uC640');
+  out = applyKoreanParticlePlaceholder(out, /(\S+?)\uC640\(\uACFC\)/g, '\uACFC', '\uC640');
+  return out;
+}
+
 function normalizeElementCode(value: unknown): string | null {
   const raw = String(value ?? '').trim();
   if (!raw) return null;
@@ -820,7 +850,7 @@ function ensureArray(value: any): any[] {
 
 /** Converts any value to a string, or `null` if the value is nullish. */
 function toNullableString(value: any): string | null {
-  return value != null ? String(value) : null;
+  return value != null ? cleanAdapterText(String(value)) : null;
 }
 
 /** Picks numeric fields from an object by key, defaulting to 0. */
@@ -835,6 +865,7 @@ function extractNumericFields(source: any, keys: readonly string[]): Record<stri
  * This is needed because the saju-ts engine may return Map/Set instances.
  */
 function deepSerialize(value: unknown): unknown {
+  if (typeof value === 'string') return cleanAdapterText(value);
   if (value == null || typeof value !== 'object') return value;
   if (value instanceof Map) {
     const plain: Record<string, unknown> = {};
@@ -868,8 +899,8 @@ function normalizeSerializedGyeokgukResult(value: unknown): unknown {
 /** Converts a value (Set, Array, or falsy) into a plain string[]. */
 function toStringArray(value: any): string[] {
   if (!value) return [];
-  if (value instanceof Set) return [...value].map(String);
-  if (Array.isArray(value)) return value.map(String);
+  if (value instanceof Set) return [...value].map((entry) => cleanAdapterText(String(entry)));
+  if (Array.isArray(value)) return value.map((entry) => cleanAdapterText(String(entry)));
   return [];
 }
 
@@ -1613,7 +1644,7 @@ function extractYongshin(yongshinResult: any) {
         primaryElement:   formatElementDisplay(primaryElement),
         secondaryElement: secondaryElement == null ? null : formatElementDisplay(secondaryElement),
         confidence:       confidenceToPoints(confidence),
-        reasoning:        String(reasoning ?? ''),
+        reasoning:        cleanAdapterText(String(reasoning ?? '')),
       }),
     ),
   };
@@ -1675,7 +1706,7 @@ function extractGyeokguk(gyeokgukResult: any) {
     category:      formatGyeokgukCategoryDisplay(gyeokgukResult?.category),
     baseTenGod:    gyeokgukResult?.baseSipseong ? formatTenGodDisplay(gyeokgukResult.baseSipseong) : null,
     confidence:    Number(gyeokgukResult?.confidence) || 0,
-    reasoning:     String(gyeokgukResult?.reasoning ?? ''),
+    reasoning:     cleanAdapterText(String(gyeokgukResult?.reasoning ?? '')),
     candidates:    extractGyeokgukCandidates(gyeokgukResult?.candidates),
     jonggyeokCandidates: extractJonggyeokCandidates(gyeokgukResult?.jonggyeokCandidates),
   };
@@ -1929,7 +1960,7 @@ function extractCheonganRelations(rawSajuOutput: any) {
         adjacencyBonus:     Number(scoreData.adjacencyBonus)     || 0,
         outcomeMultiplier:  Number(scoreData.outcomeMultiplier)  || 0,
         finalScore:         Number(scoreData.finalScore)         || 0,
-        rationale:          String(scoreData.rationale ?? ''),
+        rationale:          cleanAdapterText(String(scoreData.rationale ?? '')),
       } : null,
     };
   });
@@ -1948,7 +1979,7 @@ function extractHapHwaEvaluations(rawSajuOutput: any) {
     resultElement:     String(evaluation.resultOhaeng ?? ''),
     state:             String(evaluation.state     ?? ''),
     confidence:        Number(evaluation.confidence) || 0,
-    reasoning:         String(evaluation.reasoning ?? ''),
+    reasoning:         cleanAdapterText(String(evaluation.reasoning ?? '')),
     dayMasterInvolved: !!evaluation.dayMasterInvolved,
   }));
 }
@@ -2014,7 +2045,7 @@ function extractDaeunInfo(rawSajuOutput: any) {
     firstDaeunStartAge:     Number(daeunInfoRaw.firstDaeunStartAge)    || 0,
     firstDaeunStartMonths:  Number(daeunInfoRaw.firstDaeunStartMonths) || 0,
     boundaryMode:           String(daeunInfoRaw.boundaryMode ?? ''),
-    warnings:               ensureArray(daeunInfoRaw.warnings).map(String),
+    warnings:               ensureArray(daeunInfoRaw.warnings).map((warning) => cleanAdapterText(String(warning))),
     pillars: ensureArray(daeunInfoRaw.daeunPillars).map((pillarData: any) => ({
       stem:     String(pillarData.pillar?.cheongan ?? ''),
       branch:   String(pillarData.pillar?.jiji     ?? ''),
@@ -2044,10 +2075,10 @@ function extractSaeunPillars(rawSajuOutput: any) {
 function extractTrace(rawSajuOutput: any) {
   return ensureArray(rawSajuOutput.trace).map((traceEntry: any) => ({
     key:        String(traceEntry.key     ?? ''),
-    summary:    String(traceEntry.summary ?? ''),
-    evidence:   ensureArray(traceEntry.evidence).map(String),
-    citations:  ensureArray(traceEntry.citations).map(String),
-    reasoning:  ensureArray(traceEntry.reasoning).map(String),
+    summary:    cleanAdapterText(String(traceEntry.summary ?? '')),
+    evidence:   ensureArray(traceEntry.evidence).map((entry) => cleanAdapterText(String(entry))),
+    citations:  ensureArray(traceEntry.citations).map((entry) => cleanAdapterText(String(entry))),
+    reasoning:  ensureArray(traceEntry.reasoning).map((entry) => cleanAdapterText(String(entry))),
     confidence: typeof traceEntry.confidence === 'number' ? traceEntry.confidence : null,
   }));
 }
@@ -2292,7 +2323,7 @@ function applyUnknownHourUncertainty(summary: SajuSummary & Record<string, unkno
       fallbackMinute: DEFAULT_UNKNOWN_MINUTE,
       affectedAxes: UNKNOWN_HOUR_AFFECTED_AXES,
       confidenceTierShift: 'downgrade-one-step',
-      message: 'Birth hour or minute is missing. The engine used 12:00 as a calculation fallback, so hour-sensitive conclusions should be treated as provisional.',
+      message: '출생 시각 정보가 없어 계산에는 낮 12시를 임시 기준으로 사용했어요. 시간에 따라 달라질 수 있는 해석은 참고용으로 보세요.',
     },
   };
 }
