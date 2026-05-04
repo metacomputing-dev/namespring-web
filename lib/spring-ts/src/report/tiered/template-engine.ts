@@ -80,6 +80,7 @@ export function normalizeRenderedText(value: string): string {
   out = out.replace(/겁재이/g, '겁재가');
   out = out.replace(/한 평생/g, '한평생');
   out = out.replace(/#용신방향/g, '#용신 방향');
+  out = out.replace(/(오늘|이번 주|이번 달|올해) 일간 (#(?:나무|불|흙|쇠|물) 일간의 기운)/g, '$1는 $2');
   out = out.replace(/자기 흐름정의/g, '자기 점검의');
   out = out.replace(/자기 흐름과 옆에/g, '자기 결과 옆에');
   out = out.replace(/친구의 결과를 자기 결과 옆에 둘수록/g, '친구의 성과를 자기 기준으로 삼을수록');
@@ -138,8 +139,9 @@ export function normalizeRenderedText(value: string): string {
   out = out.replace(/한 해의 길이만큼/g, '한 해 동안');
   out = out.replace(/큰 흐름'을 잡는 흐름/g, "큰 판을 읽는 힘");
   out = out.replace(/작은 결정을 쌓아 가는 흐름/g, '작은 결정을 하나씩 쌓아 가는 방식');
+  out = out.replace(/받쳐 줘야 할 사람과 맡아야 할 책임/g, '챙겨야 할 사람과 맡은 책임');
   out = out.replace(/장년기의 차분한 흐름이 (오늘 하루|이번 주|이번 달|올해)에 부드럽게 이어지는 흐름이에요/g, '장년기의 차분한 기운이 $1에 부드럽게 이어져요');
-  out = out.replace(/받쳐 줘야 할 사람·맡아야 할 책임 사이에서 흐름을 잡는/g, '받쳐 줘야 할 사람과 맡아야 할 책임 사이에서 우선순위를 잡는');
+  out = out.replace(/받쳐 줘야 할 사람·맡아야 할 책임 사이에서 흐름을 잡는/g, '챙겨야 할 사람과 맡은 책임 사이에서 우선순위를 잡는');
   out = out.replace(/결정 흐름을 짧게/g, '결정 기준을 짧게');
   out = out.replace(/흐름을 한 줄씩 더해/g, '관점을 한 줄씩 더해');
   out = out.replace(/활동성 쉼/g, '몸을 움직이는 휴식');
@@ -446,6 +448,7 @@ export function normalizeRenderedText(value: string): string {
   out = out.replace(/#정관의 흐름이 함께 자리를 잡으면/g, '#정관의 기운이 함께 잡히면');
   out = out.replace(/#물의 흐름이 잔잔해서 마음이 가라앉기 쉬운 자리예요/g, '#물 일간의 기운이 잔잔해 마음이 가라앉기 쉬워요');
   out = out.replace(/의 흐름이 잔잔해서 마음이 가라앉기 쉬운 자리예요/g, ' 일간의 기운이 잔잔해 마음이 가라앉기 쉬워요');
+  out = out.replace(/#불의 따뜻한 흐름을/g, '#불의 따뜻한 기운을');
   out = out.replace(/#불의 따뜻한 흐름을 가까이 두는 자리, 즉 햇빛 아래 산책·따뜻한 차의 자리에서/g, '#불의 따뜻한 기운을 가까이 두면 도움이 되며, 햇빛 아래 산책이나 따뜻한 차가');
   out = out.replace(/#정인의 따뜻한 돌봄을 가까이 두는 자리가 한 해 회복의 큰 자리가 돼요/g, '#정인의 따뜻한 돌봄을 가까이 두는 습관이 한 해 회복의 큰 축이 돼요');
   out = out.replace(/천천히 익는 자리는 흉한 자리가 아니니/g, '천천히 익는 시간은 흉한 신호가 아니니');
@@ -527,6 +530,59 @@ export function normalizeRenderedText(value: string): string {
   out = out.replace(/정돈하는 자리가 자주 와요/g, '정돈할 기회가 자주 와요');
   out = out.replace(/넓혀 두기 좋은 자리예요/g, '넓혀 두기 좋은 시기예요');
   out = out.replace(/따뜻한 자리로 두면/g, '따뜻한 시간으로 두면');
+  out = out.replace(/한 박자 늦추는 자리가 회복의 자리예요/g, '한 박자 늦추는 시간이 회복에 도움이 돼요');
+  out = out.replace(/자기 자리의 방향/g, '자기 역할의 방향');
+  out = out.replace(/다음 주의 자리 폭/g, '다음 주 선택의 폭');
+  out = out.replace(/좋아하는 분야와 잘하는 일이 만나는 자리를/g, '좋아하는 분야와 잘하는 일이 만나는 접점을');
+  out = out.replace(/막막해지는 결보다/g, '막막함보다');
+  out = out.replace(/너무 멀리 보고 막막함보다/g, '너무 멀리 보고 막막해하기보다');
+  out = out.replace(/잘 어울리는 흐름이에요/g, '잘 어울려요');
+  out = out.replace(/다음 자리의 명함/g, '다음 단계의 명함');
+  out = out.replace(/바쁜 자리이지만/g, '바쁜 하루이지만');
+  out = out.replace(/짧은 안부를 나누는 자리만 있어도/g, '짧은 안부만 있어도');
+  out = out.replace(/새 식구가 자리를 잡고/g, '새 식구와 생활 리듬이 잡히고');
+  out = out.replace(/풀어 내는 자리이고/g, '풀어 내는 시기이고');
+  out = out.replace(/어려운 자리에서/g, '어려운 상황에서');
+  out = out.replace(/자기 시간이 가장자리로 밀릴 수 있어/g, '자기 시간이 뒤로 밀릴 수 있어');
+  out = out.replace(/한 자리는 자기 휴식을 위해/g, '한 칸은 자기 휴식을 위해');
+  out = out.replace(/내 자리도 한 자리 비워 두기/g, '내 시간도 한 칸 비워 두기');
+  out = out.replace(/가까운 자리에서 한 마디·한 줄/g, '가까운 사람 앞에서 한 마디·한 줄');
+  out = out.replace(/가까운 자리에서 한 매듭·한 줄/g, '가까운 사람 앞에서 한 매듭·한 줄');
+  out = out.replace(/가까운 자리부터 차근히/g, '가까운 사람 앞에서 차근히');
+  out = out.replace(/다음 세대와 만나는 자리/g, '다음 세대와 만나는 기회');
+  out = out.replace(/#용신이 부드럽게 자리 잡고/g, '#용신 보강이 부드럽게 들어오고');
+  out = out.replace(/#용신이 부드럽게 자리 잡아/g, '#용신 보강이 부드럽게 들어와');
+  out = out.replace(/#정재의 기운이 자리 잡혀/g, '#정재의 기운이 안정돼');
+  out = out.replace(/일과 가족 사이의 짧은 자리들이/g, '일과 가족 사이의 짧은 시간들이');
+  out = out.replace(/한 달을 닫는 자리에서/g, '한 달을 마무리할 때');
+  out = out.replace(/이사·이직의 자리가 한 번 크게 열리는 흐름이에요/g, '이사·이직 기회가 한 번 크게 열리는 시기예요');
+  out = out.replace(/한 가지 시도가 다음 자리로 이어지는 흐름이에요/g, '한 가지 시도가 다음 단계로 이어져요');
+  out = out.replace(/작은 결정을 하나씩 쌓아 가는 방식이 잘 맞습니다/g, '작은 결정을 하나씩 쌓아 가는 방식이 잘 맞아요');
+  out = out.replace(/잘 맞습니다/g, '잘 맞아요');
+  out = out.replace(/큰 결정을 한 번에 짓기보다/g, '큰 결정을 한 번에 내리기보다');
+  out = out.replace(/사계절을 한 화분에 담아 보는 그림이에요/g, '한 화분이 사계절을 지나며 자라는 그림이에요');
+  out = out.replace(/학교 트랙보다/g, '학교 과정보다');
+  out = out.replace(/한 트랙을 풀어 가기 좋은 시기예요/g, '한 가지 방향을 정리하기 좋은 시기예요');
+  out = out.replace(/다음 10년의 트랙을/g, '다음 10년의 방향을');
+  out = out.replace(/한두 트랙에/g, '한두 방향에');
+  out = out.replace(/가까운 사람에게 보여 보는 자리가 도움이 돼요/g, '가까운 사람에게 먼저 보여 보는 것도 도움이 돼요');
+  out = out.replace(/한 매듭으로 묶어 두는 흐름이 잘 맞아요/g, '한 매듭으로 묶어 두는 방식이 잘 맞아요');
+  out = out.replace(/한 주에 한 가지 매듭을 짓는 흐름이 잘 맞아요/g, '한 주에 한 가지씩 매듭짓는 방식이 잘 맞아요');
+  out = out.replace(/표현을 한결 풀어 주는 흐름이에요/g, '표현을 한결 풀어 줘요');
+  out = out.replace(/표현을 한 단계 넓혀 주는 흐름이에요/g, '표현을 한 단계 넓혀 줘요');
+  out = out.replace(/작은 작업이 흐름을 단단히 해 줘요/g, '작은 작업이 표현을 단단히 해 줘요');
+  out = out.replace(/색이 진해지는 흐름이에요/g, '색이 진해지는 시간이에요');
+  out = out.replace(/나눠 보는 자리도 잘 맞아요/g, '나눠 보는 시간도 잘 맞아요');
+  out = out.replace(/후배·아이·다음 사람과의 자리가 자연스러워요/g, '후배·아이·다음 사람과 나누는 시간이 자연스러워요');
+  out = out.replace(/자녀와의 흐름도 함께 비치지만/g, '자녀와의 관계 가능성도 함께 비치지만');
+  out = out.replace(/거절할 자리는/g, '거절할 일은');
+  out = out.replace(/풀어 가기 좋은 흐름이에요/g, '풀어 가기 좋은 시기예요');
+  out = out.replace(/막혔던 부분이 풀리는 흐름이에요/g, '막혔던 부분이 풀려요');
+  out = out.replace(/천천히 깊어지는 흐름은/g, '천천히 깊어지는 힘은');
+  out = out.replace(/익숙한 동선에서 한 발짝씩 넓혀 가는 흐름이에요/g, '익숙한 동선에서 한 발짝씩 넓혀 가기 좋아요');
+  out = out.replace(/의 자극을 천천히 받아들이는 흐름이에요/g, '의 자극을 천천히 받아들이는 시기예요');
+  out = out.replace(/의 자극을 천천히 풀어 내는 흐름이에요/g, '의 자극을 천천히 풀어 내는 시기예요');
+  out = out.replace(/큰 변화는 단계로 나누는 흐름이/g, '큰 변화는 단계로 나누는 방식이');
   out = out.replace(/시기이에요/g, '시기예요');
   return out.replace(/([.!?])(?=[가-힣])/g, '$1 ');
 }
@@ -673,6 +729,9 @@ export function renderFragment(
       }
     }
   }
-  const merged = normalizeParticlesAfterTags(mergeAdjacentText(out));
+  const merged = normalizeParticlesAfterTags(mergeAdjacentText(out)).map((token) =>
+    token.kind === 'text'
+      ? { ...token, value: normalizeRenderedText(token.value) }
+      : token);
   return { tokens: merged, plainText: plainTextFromTokens(merged) };
 }
