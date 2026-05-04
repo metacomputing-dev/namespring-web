@@ -1,0 +1,608 @@
+{
+  "generatedAt": "2026-05-04T02:15:43.026Z",
+  "targetDate": "2026-05-04T00:00:00+09:00",
+  "outputDirectory": "C:\\Projects\\metaintelligence\\namespring-web\\lib\\spring-ts\\artifacts\\sample-outputs-2026-05-04",
+  "sampleCount": 7,
+  "samples": [
+    {
+      "sampleId": "choi-seongsoo-current-fortune",
+      "fileName": "01-choi-seongsoo-current-fortune.json",
+      "description": "NameSpring-compatible getFortuneReport request: no precisionConfig, full yaza/true-solar/longitude policy.",
+      "call": "getFortuneReport",
+      "request": {
+        "targetDate": "2026-05-04T00:00:00+09:00",
+        "birth": {
+          "year": 1986,
+          "month": 4,
+          "day": 19,
+          "hour": 5,
+          "minute": 45,
+          "gender": "male",
+          "calendarType": "solar",
+          "region": "서울",
+          "birthPlace": "서울"
+        },
+        "surname": [
+          {
+            "hangul": "최",
+            "hanja": "崔"
+          }
+        ],
+        "givenName": [
+          {
+            "hangul": "성",
+            "hanja": "成"
+          },
+          {
+            "hangul": "수",
+            "hanja": "秀"
+          }
+        ],
+        "options": {
+          "sajuTimePolicy": {
+            "yaza": "on",
+            "yazaMode": "23:00",
+            "trueSolarTime": "on",
+            "longitudeCorrection": "on"
+          }
+        }
+      },
+      "outputBytes": 53327,
+      "payloadSummary": {
+        "topLevelKeys": [
+          "nameCompatibility",
+          "overviewSummary",
+          "lifeFortuneOverview",
+          "personality",
+          "strengthsWeaknesses",
+          "cautions",
+          "dailyFortune",
+          "weeklyFortune",
+          "monthlyFortune",
+          "yearlyFortune",
+          "lifeStageFortune",
+          "categoryFortunes",
+          "meta"
+        ],
+        "tieredMatrix": null,
+        "meta": {
+          "version": "1.0.0",
+          "generatedAt": "2026-05-04T02:15:43.903Z",
+          "schoolPreset": {
+            "selected": "korean",
+            "source": "default",
+            "useSchoolPreset": false,
+            "label": "Korean Mainstream (이석영 사주첩경 / 한국 현대 작명 표준)",
+            "doctrine": "mainstream_korean_default",
+            "tradeoffs": [
+              "Default-compatible baseline; best for regression comparison.",
+              "Does not emphasize one doctrine axis beyond current production scoring."
+            ],
+            "scoringEffect": "inactive"
+          }
+        }
+      }
+    },
+    {
+      "sampleId": "choi-seongsoo-tiered-fortune",
+      "fileName": "02-choi-seongsoo-tiered-fortune.json",
+      "description": "Same input with precisionConfig.surfaceTieredMatrix=true for progressive-disclosure output.",
+      "call": "getFortuneReport",
+      "request": {
+        "targetDate": "2026-05-04T00:00:00+09:00",
+        "birth": {
+          "year": 1986,
+          "month": 4,
+          "day": 19,
+          "hour": 5,
+          "minute": 45,
+          "gender": "male",
+          "calendarType": "solar",
+          "region": "서울",
+          "birthPlace": "서울"
+        },
+        "surname": [
+          {
+            "hangul": "최",
+            "hanja": "崔"
+          }
+        ],
+        "givenName": [
+          {
+            "hangul": "성",
+            "hanja": "成"
+          },
+          {
+            "hangul": "수",
+            "hanja": "秀"
+          }
+        ],
+        "options": {
+          "sajuTimePolicy": {
+            "yaza": "on",
+            "yazaMode": "23:00",
+            "trueSolarTime": "on",
+            "longitudeCorrection": "on"
+          },
+          "precisionConfig": {
+            "surfaceTieredMatrix": true
+          }
+        }
+      },
+      "outputBytes": 491213,
+      "payloadSummary": {
+        "topLevelKeys": [
+          "nameCompatibility",
+          "overviewSummary",
+          "lifeFortuneOverview",
+          "personality",
+          "strengthsWeaknesses",
+          "cautions",
+          "dailyFortune",
+          "weeklyFortune",
+          "monthlyFortune",
+          "yearlyFortune",
+          "lifeStageFortune",
+          "categoryFortunes",
+          "meta",
+          "tieredMatrix"
+        ],
+        "tieredMatrix": {
+          "schemaVersion": "spring-ts.tiered-matrix.v1",
+          "periods": [
+            "life",
+            "today",
+            "thisWeek",
+            "thisMonth",
+            "thisYear"
+          ],
+          "glossaryEntryCount": 130,
+          "usedGlossaryCount": 22
+        },
+        "meta": {
+          "version": "1.0.0",
+          "generatedAt": "2026-05-04T02:15:44.006Z",
+          "schoolPreset": {
+            "selected": "korean",
+            "source": "default",
+            "useSchoolPreset": false,
+            "label": "Korean Mainstream (이석영 사주첩경 / 한국 현대 작명 표준)",
+            "doctrine": "mainstream_korean_default",
+            "tradeoffs": [
+              "Default-compatible baseline; best for regression comparison.",
+              "Does not emphasize one doctrine axis beyond current production scoring."
+            ],
+            "scoringEffect": "inactive"
+          }
+        }
+      }
+    },
+    {
+      "sampleId": "choi-seongsoo-spring-report-vector",
+      "fileName": "03-choi-seongsoo-spring-report-vector.json",
+      "description": "Integrated SpringReport with opt-in naming score vector/trend/phonetic evidence.",
+      "call": "getSpringReport",
+      "request": {
+        "birth": {
+          "year": 1986,
+          "month": 4,
+          "day": 19,
+          "hour": 5,
+          "minute": 45,
+          "gender": "male",
+          "calendarType": "solar",
+          "region": "서울",
+          "birthPlace": "서울"
+        },
+        "surname": [
+          {
+            "hangul": "최",
+            "hanja": "崔"
+          }
+        ],
+        "givenName": [
+          {
+            "hangul": "성",
+            "hanja": "成"
+          },
+          {
+            "hangul": "수",
+            "hanja": "秀"
+          }
+        ],
+        "mode": "evaluate",
+        "options": {
+          "sajuTimePolicy": {
+            "yaza": "on",
+            "yazaMode": "23:00",
+            "trueSolarTime": "on",
+            "longitudeCorrection": "on"
+          },
+          "precisionConfig": {
+            "surfaceNamingScoreVector": true,
+            "surfaceNameTrend": true,
+            "surfacePhoneticEvidence": true
+          }
+        }
+      },
+      "outputBytes": 136763,
+      "payloadSummary": {
+        "topLevelKeys": [
+          "finalScore",
+          "scoreVector",
+          "strengthProfile",
+          "schoolPreset",
+          "popularityRank",
+          "maleRatio",
+          "nameGender",
+          "nameTrend",
+          "phonetic",
+          "namingReport",
+          "sajuReport",
+          "sajuCompatibility",
+          "combinedDistribution",
+          "rank"
+        ],
+        "tieredMatrix": null
+      }
+    },
+    {
+      "sampleId": "kim-seoyun-young-female-tiered",
+      "fileName": "04-kim-seoyun-young-female-tiered.json",
+      "description": "Younger female sample with tiered fortune matrix enabled.",
+      "call": "getFortuneReport",
+      "request": {
+        "targetDate": "2026-05-04T00:00:00+09:00",
+        "birth": {
+          "year": 2013,
+          "month": 7,
+          "day": 21,
+          "hour": 14,
+          "minute": 20,
+          "gender": "female",
+          "calendarType": "solar",
+          "region": "부산",
+          "birthPlace": "부산"
+        },
+        "surname": [
+          {
+            "hangul": "김",
+            "hanja": "金"
+          }
+        ],
+        "givenName": [
+          {
+            "hangul": "서",
+            "hanja": "瑞"
+          },
+          {
+            "hangul": "윤",
+            "hanja": "潤"
+          }
+        ],
+        "options": {
+          "precisionConfig": {
+            "surfaceTieredMatrix": true
+          }
+        }
+      },
+      "outputBytes": 389945,
+      "payloadSummary": {
+        "topLevelKeys": [
+          "nameCompatibility",
+          "overviewSummary",
+          "lifeFortuneOverview",
+          "personality",
+          "strengthsWeaknesses",
+          "cautions",
+          "dailyFortune",
+          "weeklyFortune",
+          "monthlyFortune",
+          "yearlyFortune",
+          "lifeStageFortune",
+          "categoryFortunes",
+          "meta",
+          "tieredMatrix"
+        ],
+        "tieredMatrix": {
+          "schemaVersion": "spring-ts.tiered-matrix.v1",
+          "periods": [
+            "life",
+            "today",
+            "thisWeek",
+            "thisMonth",
+            "thisYear"
+          ],
+          "glossaryEntryCount": 130,
+          "usedGlossaryCount": 16
+        },
+        "meta": {
+          "version": "1.0.0",
+          "generatedAt": "2026-05-04T02:15:44.181Z",
+          "schoolPreset": {
+            "selected": "korean",
+            "source": "default",
+            "useSchoolPreset": false,
+            "label": "Korean Mainstream (이석영 사주첩경 / 한국 현대 작명 표준)",
+            "doctrine": "mainstream_korean_default",
+            "tradeoffs": [
+              "Default-compatible baseline; best for regression comparison.",
+              "Does not emphasize one doctrine axis beyond current production scoring."
+            ],
+            "scoringEffect": "inactive"
+          }
+        }
+      }
+    },
+    {
+      "sampleId": "park-minji-late-night-female-tiered",
+      "fileName": "05-park-minji-late-night-female-tiered.json",
+      "description": "Adult female late-night sample with yaza/true-solar/longitude policy and tiered matrix enabled.",
+      "call": "getFortuneReport",
+      "request": {
+        "targetDate": "2026-05-04T00:00:00+09:00",
+        "birth": {
+          "year": 1992,
+          "month": 11,
+          "day": 3,
+          "hour": 23,
+          "minute": 20,
+          "gender": "female",
+          "calendarType": "solar",
+          "region": "대구",
+          "birthPlace": "대구"
+        },
+        "surname": [
+          {
+            "hangul": "박",
+            "hanja": "朴"
+          }
+        ],
+        "givenName": [
+          {
+            "hangul": "민",
+            "hanja": "敏"
+          },
+          {
+            "hangul": "지",
+            "hanja": "智"
+          }
+        ],
+        "options": {
+          "sajuTimePolicy": {
+            "yaza": "on",
+            "yazaMode": "23:00",
+            "trueSolarTime": "on",
+            "longitudeCorrection": "on"
+          },
+          "precisionConfig": {
+            "surfaceTieredMatrix": true
+          }
+        }
+      },
+      "outputBytes": 485674,
+      "payloadSummary": {
+        "topLevelKeys": [
+          "nameCompatibility",
+          "overviewSummary",
+          "lifeFortuneOverview",
+          "personality",
+          "strengthsWeaknesses",
+          "cautions",
+          "dailyFortune",
+          "weeklyFortune",
+          "monthlyFortune",
+          "yearlyFortune",
+          "lifeStageFortune",
+          "categoryFortunes",
+          "meta",
+          "tieredMatrix"
+        ],
+        "tieredMatrix": {
+          "schemaVersion": "spring-ts.tiered-matrix.v1",
+          "periods": [
+            "life",
+            "today",
+            "thisWeek",
+            "thisMonth",
+            "thisYear"
+          ],
+          "glossaryEntryCount": 130,
+          "usedGlossaryCount": 24
+        },
+        "meta": {
+          "version": "1.0.0",
+          "generatedAt": "2026-05-04T02:15:44.215Z",
+          "schoolPreset": {
+            "selected": "korean",
+            "source": "default",
+            "useSchoolPreset": false,
+            "label": "Korean Mainstream (이석영 사주첩경 / 한국 현대 작명 표준)",
+            "doctrine": "mainstream_korean_default",
+            "tradeoffs": [
+              "Default-compatible baseline; best for regression comparison.",
+              "Does not emphasize one doctrine axis beyond current production scoring."
+            ],
+            "scoringEffect": "inactive"
+          }
+        }
+      }
+    },
+    {
+      "sampleId": "lee-hajun-unknown-hour-neutral-tiered",
+      "fileName": "06-lee-hajun-unknown-hour-neutral-tiered.json",
+      "description": "Unknown-hour neutral-gender sample to inspect uncertainty/fallback surfacing with tiered matrix.",
+      "call": "getFortuneReport",
+      "request": {
+        "targetDate": "2026-05-04T00:00:00+09:00",
+        "birth": {
+          "year": 2001,
+          "month": 1,
+          "day": 15,
+          "hour": null,
+          "minute": null,
+          "gender": "neutral",
+          "calendarType": "solar",
+          "region": "서울",
+          "birthPlace": "서울"
+        },
+        "surname": [
+          {
+            "hangul": "이",
+            "hanja": "李"
+          }
+        ],
+        "givenName": [
+          {
+            "hangul": "하",
+            "hanja": "河"
+          },
+          {
+            "hangul": "준",
+            "hanja": "俊"
+          }
+        ],
+        "options": {
+          "precisionConfig": {
+            "surfaceTieredMatrix": true
+          }
+        }
+      },
+      "outputBytes": 477264,
+      "payloadSummary": {
+        "topLevelKeys": [
+          "nameCompatibility",
+          "overviewSummary",
+          "lifeFortuneOverview",
+          "personality",
+          "strengthsWeaknesses",
+          "cautions",
+          "dailyFortune",
+          "weeklyFortune",
+          "monthlyFortune",
+          "yearlyFortune",
+          "lifeStageFortune",
+          "categoryFortunes",
+          "meta",
+          "tieredMatrix"
+        ],
+        "tieredMatrix": {
+          "schemaVersion": "spring-ts.tiered-matrix.v1",
+          "periods": [
+            "life",
+            "today",
+            "thisWeek",
+            "thisMonth",
+            "thisYear"
+          ],
+          "glossaryEntryCount": 130,
+          "usedGlossaryCount": 23
+        },
+        "meta": {
+          "version": "1.0.0",
+          "generatedAt": "2026-05-04T02:15:44.263Z",
+          "schoolPreset": {
+            "selected": "korean",
+            "source": "default",
+            "useSchoolPreset": false,
+            "label": "Korean Mainstream (이석영 사주첩경 / 한국 현대 작명 표준)",
+            "doctrine": "mainstream_korean_default",
+            "tradeoffs": [
+              "Default-compatible baseline; best for regression comparison.",
+              "Does not emphasize one doctrine axis beyond current production scoring."
+            ],
+            "scoringEffect": "inactive"
+          },
+          "uncertainties": [
+            {
+              "id": "unknown-hour",
+              "severity": "medium",
+              "message": "Birth hour or minute is missing. The engine used 12:00 as a calculation fallback, so hour-sensitive conclusions should be treated as provisional.",
+              "affectedAxes": [
+                "hourPillar",
+                "yongshin",
+                "gyeokguk",
+                "strength",
+                "tenGod",
+                "fortuneTiming"
+              ],
+              "fallback": {
+                "hour": 12,
+                "minute": 0,
+                "timezone": "Asia/Seoul"
+              }
+            }
+          ]
+        }
+      }
+    },
+    {
+      "sampleId": "choi-seongsoo-candidate-summaries",
+      "fileName": "07-choi-seongsoo-candidate-summaries.json",
+      "description": "Recommendation-list sample for UI rendering, including score vectors and presentation-safe candidate filtering.",
+      "call": "getNameCandidateSummaries",
+      "request": {
+        "birth": {
+          "year": 1986,
+          "month": 4,
+          "day": 19,
+          "hour": 5,
+          "minute": 45,
+          "gender": "male",
+          "calendarType": "solar",
+          "region": "서울",
+          "birthPlace": "서울"
+        },
+        "surname": [
+          {
+            "hangul": "최",
+            "hanja": "崔"
+          }
+        ],
+        "givenNameLength": 2,
+        "mode": "recommend",
+        "options": {
+          "limit": 5,
+          "sajuTimePolicy": {
+            "yaza": "on",
+            "yazaMode": "23:00",
+            "trueSolarTime": "on",
+            "longitudeCorrection": "on"
+          },
+          "precisionConfig": {
+            "surfaceNamingScoreVector": true,
+            "surfaceNameTrend": true,
+            "surfacePhoneticEvidence": true
+          }
+        }
+      },
+      "outputBytes": 14229,
+      "payloadSummary": {
+        "topLevelKeys": [
+          "0",
+          "1",
+          "2",
+          "3",
+          "4"
+        ],
+        "tieredMatrix": null,
+        "itemCount": 5,
+        "firstItemKeys": [
+          "finalScore",
+          "scoreVector",
+          "strengthProfile",
+          "fullHangul",
+          "fullHanja",
+          "givenHangul",
+          "givenName",
+          "popularityRank",
+          "maleRatio",
+          "nameGender",
+          "nameTrend",
+          "phonetic",
+          "rank"
+        ]
+      }
+    }
+  ]
+}
