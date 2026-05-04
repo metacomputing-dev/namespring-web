@@ -46,7 +46,7 @@
       "axis": { "category": "career", "period": "life", "depth": "brief" },
       "gating": { "dayMasterStrength": ["BALANCED"], "yongshinAlignment": ["neutral"] },
       "templateTokens": [
-        { "kind": "text", "value": "꾸준한 결이 길게 이어지는 직업 흐름이에요." }
+        { "kind": "text", "value": "꾸준한 방향이 길게 이어지는 직업운이에요." }
       ],
       "tags": [],
       "aiGenerated": true,

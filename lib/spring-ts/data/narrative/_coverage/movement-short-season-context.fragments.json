@@ -51,7 +51,7 @@
       "axis": { "category": "movement", "period": "today", "depth": "standard" },
       "gating": { "currentSeason": ["spring", "summer"] },
       "templateTokens": [
-        { "kind": "text", "value": "오늘은 바깥 일정이나 자리 이동이 생기면 생각보다 빨리 흐름을 탈 수 있어요. 다만 즉흥적으로 움직이면 빠뜨리는 것이 생길 수 있으니, 출발 전 준비물과 약속 시간을 짧게 점검하세요." }
+        { "kind": "text", "value": "오늘은 바깥 일정이나 이동이 생기면 생각보다 빨리 진행될 수 있어요. 다만 즉흥적으로 움직이면 빠뜨리는 것이 생길 수 있으니, 출발 전 준비물과 약속 시간을 짧게 점검하세요." }
       ],
       "livingTips": [
         "이동 전 3분만 써서 가방, 길, 도착 시간을 확인하세요.",
