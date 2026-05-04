@@ -489,15 +489,15 @@
               "id": "fix-11",
               "label": "1995-08-15 female — 시간미상 (unknown-hour)",
               "simple": {
-                "total": 51.9,
+                "total": 54.3,
                 "saju": 46.8
               },
               "v1": {
-                "total": 51.9,
+                "total": 54.3,
                 "saju": 46.8
               },
               "v2": {
-                "total": 51.9,
+                "total": 54.3,
                 "saju": 46.9
               },
               "simpleVsV1Delta": {
@@ -585,15 +585,15 @@
               "id": "fix-15",
               "label": "1985-03-21 male — borderline-strength deferred tier (편관격, 춘분 yongshin=METAL)",
               "simple": {
-                "total": 59.9,
+                "total": 62.3,
                 "saju": 50.2
               },
               "v1": {
-                "total": 59.9,
+                "total": 62.3,
                 "saju": 50.2
               },
               "v2": {
-                "total": 59.9,
+                "total": 62.3,
                 "saju": 50.2
               },
               "simpleVsV1Delta": {
@@ -646,15 +646,15 @@
               "label": "1942-06-23 15:00 male — ZHUAN_WANG 一氣格 (炎上格 火)",
               "expectedJonggyeokType": "ZHUAN_WANG",
               "simple": {
-                "total": 59.1,
+                "total": 57.8,
                 "saju": 41.8
               },
               "v1": {
-                "total": 59.1,
+                "total": 57.8,
                 "saju": 41.8
               },
               "v2": {
-                "total": 59.1,
+                "total": 57.8,
                 "saju": 41.7
               },
               "simpleVsV1Delta": {
@@ -821,15 +821,15 @@
               "label": "1938-08-05 03:00 male — CONG_BI 종비격 / 從强格",
               "expectedJonggyeokType": "CONG_BI",
               "simple": {
-                "total": 61.9,
+                "total": 60.6,
                 "saju": 61.7
               },
               "v1": {
-                "total": 61.9,
+                "total": 60.6,
                 "saju": 61.7
               },
               "v2": {
-                "total": 61.9,
+                "total": 60.6,
                 "saju": 61.8
               },
               "simpleVsV1Delta": {
@@ -1384,15 +1384,15 @@
             "id": "fix-11",
             "label": "1995-08-15 female — 시간미상 (unknown-hour)",
             "simple": {
-              "total": 51.9,
+              "total": 54.3,
               "saju": 46.8
             },
             "v1": {
-              "total": 51.9,
+              "total": 54.3,
               "saju": 46.8
             },
             "v2": {
-              "total": 51.9,
+              "total": 54.3,
               "saju": 46.9
             },
             "simpleVsV1Delta": {
@@ -1480,15 +1480,15 @@
             "id": "fix-15",
             "label": "1985-03-21 male — borderline-strength deferred tier (편관격, 춘분 yongshin=METAL)",
             "simple": {
-              "total": 59.9,
+              "total": 62.3,
               "saju": 50.2
             },
             "v1": {
-              "total": 59.9,
+              "total": 62.3,
               "saju": 50.2
             },
             "v2": {
-              "total": 59.9,
+              "total": 62.3,
               "saju": 50.2
             },
             "simpleVsV1Delta": {
@@ -1541,15 +1541,15 @@
             "label": "1942-06-23 15:00 male — ZHUAN_WANG 一氣格 (炎上格 火)",
             "expectedJonggyeokType": "ZHUAN_WANG",
             "simple": {
-              "total": 59.1,
+              "total": 57.8,
               "saju": 41.8
             },
             "v1": {
-              "total": 59.1,
+              "total": 57.8,
               "saju": 41.8
             },
             "v2": {
-              "total": 59.1,
+              "total": 57.8,
               "saju": 41.7
             },
             "simpleVsV1Delta": {
@@ -1716,15 +1716,15 @@
             "label": "1938-08-05 03:00 male — CONG_BI 종비격 / 從强格",
             "expectedJonggyeokType": "CONG_BI",
             "simple": {
-              "total": 61.9,
+              "total": 60.6,
               "saju": 61.7
             },
             "v1": {
-              "total": 61.9,
+              "total": 60.6,
               "saju": 61.7
             },
             "v2": {
-              "total": 61.9,
+              "total": 60.6,
               "saju": 61.8
             },
             "simpleVsV1Delta": {
