@@ -126,6 +126,14 @@ check('every expert tag resolves through used glossary entries',
       glossaryEntries[token.tagId] != null),
   String(allExpertTags.length));
 
+const leakedGlossaryEntries = Object.values(glossaryEntries as Record<string, any>)
+  .filter((entry: any) =>
+    Object.prototype.hasOwnProperty.call(entry, 'sourceTier') ||
+      JSON.stringify(entry).includes('AI-derived plain-language definition') ||
+      JSON.stringify(entry).includes('Display-only'));
+check('glossary output omits internal source-tier audit prose',
+  leakedGlossaryEntries.length === 0, String(leakedGlossaryEntries.length));
+
 const numericalEvidenceRows = rows.flatMap(({ cell }) => cell?.expert?.numericalEvidence ?? []);
 check('expert numeric evidence is source-tiered when present',
   numericalEvidenceRows.length > 0 &&

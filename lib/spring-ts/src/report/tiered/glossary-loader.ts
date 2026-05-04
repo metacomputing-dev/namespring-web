@@ -33,6 +33,20 @@ function isNodeRuntime(): boolean {
 
 let cached: Readonly<Record<TagId, GlossaryEntry>> | null = null;
 
+function normalizeGlossaryEntry(entry: GlossaryEntry): GlossaryEntry | null {
+  if (!entry?.id || !entry.label || !entry.hashLabel || !entry.category) return null;
+  return {
+    id: entry.id,
+    label: entry.label,
+    hashLabel: entry.hashLabel,
+    category: entry.category,
+    brief: entry.brief ?? '',
+    detailed: entry.detailed ?? '',
+    ...(entry.classicalSource ? { classicalSource: entry.classicalSource } : {}),
+    related: Array.isArray(entry.related) ? entry.related : [],
+  };
+}
+
 export function loadGlossary(): Readonly<Record<TagId, GlossaryEntry>> {
   if (cached) return cached;
   const out: Record<TagId, GlossaryEntry> = {};
@@ -59,8 +73,9 @@ export function loadGlossary(): Readonly<Record<TagId, GlossaryEntry>> {
     }
     if (!Array.isArray(bundle?.entries)) continue;
     for (const entry of bundle.entries) {
-      if (!entry?.id) continue;
-      out[entry.id] = entry;
+      const normalized = normalizeGlossaryEntry(entry);
+      if (!normalized) continue;
+      out[normalized.id] = normalized;
     }
   }
   cached = Object.freeze(out);

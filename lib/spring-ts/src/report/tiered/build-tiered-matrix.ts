@@ -50,6 +50,30 @@ const PLACEHOLDER_BRIEF: BriefFortuneText = Object.freeze({ headline: '준비 �
 const PLACEHOLDER_STANDARD: StandardFortuneText = Object.freeze({ paragraphs: EMPTY_PARAGRAPHS });
 const PLACEHOLDER_EXPERT: ExpertFortuneText = Object.freeze({ paragraphs: EMPTY_PARAGRAPHS });
 
+const MINOR_STANDARD_LIMITED_PARAGRAPH: TaggedParagraph = Object.freeze({
+  tokens: [
+    {
+      kind: 'text',
+      value: '이 항목은 아직 나이에 맞춘 세부 문장이 충분하지 않아요. 지금은 생활 리듬을 지키고, 큰 결정은 가까운 어른과 함께 확인해 주세요.',
+    },
+  ] as const,
+  plainText: '이 항목은 아직 나이에 맞춘 세부 문장이 충분하지 않아요. 지금은 생활 리듬을 지키고, 큰 결정은 가까운 어른과 함께 확인해 주세요.',
+});
+
+const MINOR_EXPERT_LIMITED_PARAGRAPH: TaggedParagraph = Object.freeze({
+  tokens: [
+    { kind: 'text', value: '이 항목은 나이가 어린 독자에게 단정적으로 풀이하지 않아요. ' },
+    { kind: 'tag', tagId: 'dayPillar', label: '일주' },
+    { kind: 'text', value: '와 ' },
+    { kind: 'tag', tagId: 'yongshin', label: '용신' },
+    {
+      kind: 'text',
+      value: ' 같은 전문 지표는 성장 과정, 보호자 관찰, 실제 생활 환경을 함께 보며 참고해야 해요.',
+    },
+  ] as const,
+  plainText: '이 항목은 나이가 어린 독자에게 단정적으로 풀이하지 않아요. #일주와 #용신 같은 전문 지표는 성장 과정, 보호자 관찰, 실제 생활 환경을 함께 보며 참고해야 해요.',
+});
+
 const NAME_FRAME_STAGE: Record<NamingReportFrame['type'], { stage: TieredNameFrameEvidence['stage']; label: string }> = {
   won: { stage: 'earlyLife', label: '초년운' },
   hyung: { stage: 'youthLife', label: '청년운' },
@@ -60,6 +84,20 @@ const NAME_FRAME_STAGE: Record<NamingReportFrame['type'], { stage: TieredNameFra
 function deriveBrief(rendered: TaggedParagraph): BriefFortuneText {
   const text = rendered.plainText.trim();
   return text ? { headline: text } : PLACEHOLDER_BRIEF;
+}
+
+function isMinorAgeBand(ageBand: FeatureVector['ageBand']): boolean {
+  return ageBand === '0-9' || ageBand === '10-19';
+}
+
+function buildMinorStandardFallback(feature: FeatureVector): StandardFortuneText | null {
+  if (!isMinorAgeBand(feature.ageBand)) return null;
+  return { paragraphs: [MINOR_STANDARD_LIMITED_PARAGRAPH] };
+}
+
+function buildMinorExpertFallback(feature: FeatureVector): ExpertFortuneText | null {
+  if (!isMinorAgeBand(feature.ageBand)) return null;
+  return { paragraphs: [MINOR_EXPERT_LIMITED_PARAGRAPH] };
 }
 
 function buildExpertText(
@@ -139,17 +177,22 @@ function buildCell(
   const standardRender = standardFrag ? renderFragment(standardFrag, ctx) : null;
   const expertRender = expertFrag ? renderFragment(expertFrag, ctx) : null;
   const grade = gradeCell(fortuneElement, yongshin, heeshin, gishin);
+  const hasAnyFragment = Boolean(briefFrag || standardFrag || expertFrag);
 
   const brief = briefRender ? deriveBrief(briefRender) : PLACEHOLDER_BRIEF;
-  const standard = buildStandardText(standardFrag, standardRender ?? { tokens: [], plainText: '' });
-  const expert = buildExpertText(expertFrag, expertRender ?? { tokens: [], plainText: '' }, {
-    feature,
-    cell: { stars: grade.stars },
-  });
+  const standard = standardFrag
+    ? buildStandardText(standardFrag, standardRender ?? { tokens: [], plainText: '' })
+    : (hasAnyFragment ? (buildMinorStandardFallback(feature) ?? PLACEHOLDER_STANDARD) : PLACEHOLDER_STANDARD);
+  const expert = expertFrag
+    ? buildExpertText(expertFrag, expertRender ?? { tokens: [], plainText: '' }, {
+      feature,
+      cell: { stars: grade.stars },
+    })
+    : (hasAnyFragment ? (buildMinorExpertFallback(feature) ?? PLACEHOLDER_EXPERT) : PLACEHOLDER_EXPERT);
   const selectedFragments = buildSelectedFragments(briefFrag, standardFrag, expertFrag);
 
   // Cell with no fragment matches at all becomes 'na'.
-  if (!briefFrag && !standardFrag && !expertFrag) {
+  if (!hasAnyFragment) {
     return {
       meaningfulness: 'na',
       stars: null,
