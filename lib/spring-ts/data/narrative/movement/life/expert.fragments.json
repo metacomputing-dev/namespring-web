@@ -25,7 +25,7 @@
         { "kind": "tag", "tagId": "samhyeong", "label": "삼형" },
         { "kind": "text", "value": "이나 충의 자리가 만나는 시기엔 큰 변화의 자리가 한 번 강하게 열려요. 이때의 이동은 " },
         { "kind": "tag", "tagId": "yongshin", "label": "용신" },
-        { "kind": "text", "value": "의 결과 어울리는 방향으로 잡으면, 평생의 이동이 결실로 이어져요." }
+        { "kind": "text", "value": " 보완 방향에 어울리는 쪽으로 잡으면, 평생의 이동이 결실로 이어져요." }
       ],
       "tags": ["yeokma", "daewoonGungsil", "jojangung", "samhyeong", "yongshin"],
       "numericalEvidence": [
@@ -310,7 +310,7 @@
         { "kind": "tag", "tagId": "jojangung", "label": "조상궁" },
         { "kind": "text", "value": "의 뿌리에 힘을 더해 주는 자리가 우선이라, 큰 변화는 단계로 나누는 결이 잘 맞아요. " },
         { "kind": "tag", "tagId": "yongshin", "label": "용신" },
-        { "kind": "text", "value": "의 결과 어울리는 작은 이동이 회복의 자산이 돼요.\n\n" },
+        { "kind": "text", "value": " 보완 방향에 어울리는 작은 이동이 회복의 자산이 돼요.\n\n" },
         { "kind": "tag", "tagId": "daewoonGungsil", "label": "대운궁실" },
         { "kind": "text", "value": "의 흐름이 강해지는 시기엔 한 발짝 더 내디뎌 봐도 좋아요." }
       ],

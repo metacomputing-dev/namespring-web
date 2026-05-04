@@ -257,8 +257,8 @@
         { "kind": "tag", "tagId": "bumyong", "label": "부모궁" },
         { "kind": "text", "value": "·" },
         { "kind": "tag", "tagId": "jeongin", "label": "정인" },
-        { "kind": "text", "value": "의 결과 가장 가까이 닿아, 보호자의 결이 곧 오늘의 호흡이 돼요." },
-        { "kind": "text", "value": " 짧은 다정한 한마디, 함께한 한 끼가 자라나는 결의 작은 뿌리로 모이는 자리예요." }
+        { "kind": "text", "value": "이 가장 가까이 닿아, 보호자의 호흡이 곧 오늘의 안정감이 돼요." },
+        { "kind": "text", "value": " 짧은 다정한 한마디, 함께한 한 끼가 자라나는 시기의 작은 뿌리로 남아요." }
       ],
       "tags": ["bumyong", "jeongin"],
       "aiGenerated": true,

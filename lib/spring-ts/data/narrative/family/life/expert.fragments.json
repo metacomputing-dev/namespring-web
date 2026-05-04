@@ -299,14 +299,14 @@
       "axis": { "category": "family", "period": "life", "depth": "expert", "tone": "expert" },
       "gating": { "ageBand": ["0-9", "10-19"] },
       "templateTokens": [
-        { "kind": "text", "value": "어린 결의 사주에서는 " },
+        { "kind": "text", "value": "어린 시기의 사주에서는 " },
         { "kind": "tag", "tagId": "bumyong", "label": "부모궁" },
         { "kind": "text", "value": "과 " },
         { "kind": "tag", "tagId": "jeongin", "label": "정인" },
-        { "kind": "text", "value": "이 가장 가까이서 작용해, 보호자의 결이 그대로 아이의 일상 호흡이 돼요." },
+        { "kind": "text", "value": "이 가장 가까이서 작용해, 보호자의 호흡이 그대로 아이의 일상에 스며들어요." },
         { "kind": "text", "value": " " },
         { "kind": "tag", "tagId": "jojangung", "label": "조상궁" },
-        { "kind": "text", "value": "이 도와주는 결이라면, 집안의 분위기가 아이의 발을 받쳐 주는 안전한 자리가 자연스럽게 마련돼요." },
+        { "kind": "text", "value": "이 도와주는 구조라면, 집안의 분위기가 아이의 발을 받쳐 주는 안전한 바탕으로 작용해요." },
         { "kind": "text", "value": " 인생 전체로 보아도 이 시기의 따뜻한 자산이 평생의 뿌리예요." }
       ],
       "tags": ["bumyong", "jeongin", "jojangung"],

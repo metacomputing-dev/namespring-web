@@ -180,11 +180,11 @@
       "axis": { "category": "expression_children", "period": "life", "depth": "expert", "tone": "expert" },
       "gating": { "ageBand": ["10-19"] },
       "templateTokens": [
-        { "kind": "text", "value": "이 시기의 표현 결은 " },
+        { "kind": "text", "value": "이 시기의 표현력은 " },
         { "kind": "tag", "tagId": "sikshin", "label": "식신" },
         { "kind": "text", "value": "·" },
         { "kind": "tag", "tagId": "sanggwan", "label": "상관" },
-        { "kind": "text", "value": "이 자라는 단계로 봐요. 자기 색이 또래보다 일찍 잡히는 결이라, 규칙·평가에 부딪쳐도 길게 보면 자기 페이스가 단단해지는 흐름이에요. 이 연령대에서는 결과를 단정하기보다 지금의 표현 결을 길러 주는 환경 설계에 무게를 두는 풀이가 정확해요." }
+        { "kind": "text", "value": "이 자라는 단계로 봐요. 자기 색이 또래보다 일찍 잡히는 편이라, 규칙·평가에 부딪쳐도 길게 보면 자기 페이스가 단단해져요. 이 연령대에서는 결과를 단정하기보다 지금의 표현력을 길러 주는 환경 설계에 무게를 두는 풀이가 정확해요." }
       ],
       "tags": ["sikshin", "sanggwan"],
       "aiGenerated": true,
