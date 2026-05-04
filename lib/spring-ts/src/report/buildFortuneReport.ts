@@ -153,6 +153,7 @@ function buildReportUncertainties(saju: SajuSummary): readonly ReportUncertainty
     severity: 'medium',
     message: uncertainty.message,
     affectedAxes: uncertainty.affectedAxes,
+    affectedAxisLabels: uncertainty.affectedAxisLabels,
     fallback: {
       hour: uncertainty.fallbackHour,
       minute: uncertainty.fallbackMinute,

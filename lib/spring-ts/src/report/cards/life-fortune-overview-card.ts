@@ -279,19 +279,20 @@ export function buildLifeFortuneOverviewCard(saju: SajuSummary): LifeFortuneOver
   const yongshinTier = sajuAxis?.yongshin;
   const yongshinElement = saju.yongshin?.element;
   if (yongshinElement) {
-    const yongshinKorean = elementCodeToKorean(yongshinElement) ?? yongshinElement;
+    const yongshinKorean = friendlyElementName(yongshinElement);
+    const heeshinKorean = saju.yongshin?.heeshin ? friendlyElementName(saju.yongshin.heeshin) : null;
     const isHedged = yongshinTier === 'candidate' || yongshinTier === 'deferred';
     evidence.push({
       axis: 'yongshin',
       claim: isHedged
-        ? `용신 ${yongshinKorean} — 신뢰도가 낮아 보조 기운 함께 활용 권장.`
-        : `용신 ${yongshinKorean} — 균형의 핵심 기운으로 활용 시 운세가 견고해져요.`,
+        ? `용신 후보는 ${yongshinKorean} 기운이에요. 신뢰도가 낮아 보조 기운도 함께 살펴보세요.`
+        : `용신은 ${yongshinKorean} 기운이에요. 균형의 핵심 기운으로 활용하면 운세가 견고해져요.`,
       supportingFeatures: [
-        `용신 후보: ${yongshinElement}`,
-        ...(saju.yongshin?.heeshin ? [`희신: ${saju.yongshin.heeshin}`] : []),
+        `용신 후보: ${yongshinKorean}`,
+        ...(heeshinKorean ? [`희신: ${heeshinKorean}`] : []),
       ],
       weakness: isHedged
-        ? '용신 신뢰도가 0.65 미만이라 차트에 따라 다른 학파의 추천이 더 적합할 수 있음.'
+        ? '용신 신뢰도가 낮은 편이라 차트에 따라 다른 보조 해석이 더 적합할 수 있어요.'
         : undefined,
       strength: yongshinTier,
     });

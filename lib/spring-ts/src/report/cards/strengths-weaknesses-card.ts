@@ -231,7 +231,7 @@ export function buildStrengthsWeaknessesCard(saju: SajuSummary): StrengthsWeakne
   const stemEntryForEvidence = stemCode ? STEM_ENCYCLOPEDIA[stemCode] : null;
   if (stemEntryForEvidence && stemInfo && stemEntryForEvidence.strengths.length > 0) {
     const supporting: string[] = [
-      `일간 ${stemInfo.hangul}(${stemEntryForEvidence.element})`,
+      `일간 ${stemInfo.hangul} - ${friendlyElement(stemEntryForEvidence.element)} 기운`,
     ];
     if (stemEntryForEvidence.classicalImagery) {
       supporting.push(`고전 비유: ${stemEntryForEvidence.classicalImagery}`);
