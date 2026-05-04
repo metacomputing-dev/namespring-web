@@ -163,11 +163,40 @@ check('tiered paragraph text keeps sentence spacing',
 const allTieredText = [
   ...rows.map(({ cell }) => String(cell?.brief?.headline ?? '')),
   ...paragraphTexts,
+  ...rows.flatMap(({ cell }) => [
+    ...(cell?.standard?.livingTips ?? []),
+    ...(cell?.standard?.cautions ?? []),
+  ].map((text: any) => String(text ?? ''))),
+  ...Object.values(glossaryEntries as Record<string, any>).flatMap((entry: any) => [
+    String(entry?.brief ?? ''),
+    String(entry?.detailed ?? ''),
+  ]),
 ];
 const awkwardRenderedPhrases = allTieredText.filter((text) =>
   text.includes('타고난 중심 기운') ||
     text.includes('도움이 되는 기운은') ||
-    text.includes('상태 흐름'));
+    text.includes('상태 흐름') ||
+    text.includes('흐름의 흐름') ||
+    text.includes('돈 흐름의 흐름') ||
+    text.includes('깊은 결과') ||
+    text.includes('자라는 결과') ||
+    text.includes('쇠 결과') ||
+    text.includes('친구의 결과를 자기 결과') ||
+    text.includes('자기 결과 가족') ||
+    text.includes('흐름을 봐 가는 흐름') ||
+    text.includes('흐름이 한층 부드러워지는 흐름') ||
+    text.includes('흐름이 한층 단단해지는 흐름') ||
+    text.includes('흐름이 천천히 또렷해지는 흐름') ||
+    text.includes('좋아하는 결과 잘하는') ||
+    text.includes('자기 가정의 결과') ||
+    text.includes('자기 가정의 작은 결과') ||
+    text.includes('궁실의 결과') ||
+    text.includes('#도화이') ||
+    text.includes('큰 결정은 미루') ||
+    text.includes('큰 결정은 한 박자 미루') ||
+    text.includes('하루 유예') ||
+    text.includes('#편재 성 선택') ||
+    text.includes('#정재 식 확인'));
 check('tiered rendered text normalizes awkward template joins',
   awkwardRenderedPhrases.length === 0, awkwardRenderedPhrases.slice(0, 3).join(' | '));
 

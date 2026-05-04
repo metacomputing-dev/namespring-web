@@ -31,7 +31,7 @@ import type {
 import { buildFeatureVector, type FeatureVector } from './feature-selector.js';
 import { loadFragmentRegistry, type FragmentRegistry, type NarrativeFragment } from './fragment-registry.js';
 import { selectFragment, buildSelectionSeed } from './fragment-selector.js';
-import { renderFragment, type RenderContext } from './template-engine.js';
+import { normalizeRenderedText, renderFragment, type RenderContext } from './template-engine.js';
 import { gradeCell } from './cell-grader.js';
 import { buildPeriodMeta, periodFortuneElement } from './period-meta-builder.js';
 import { loadGlossary } from './glossary-loader.js';
@@ -200,8 +200,12 @@ function buildStandardText(
   if (!fragment) return PLACEHOLDER_STANDARD;
   return {
     paragraphs: rendered.tokens.length ? [rendered] : EMPTY_PARAGRAPHS,
-    ...(fragment.livingTips && fragment.livingTips.length ? { livingTips: fragment.livingTips } : {}),
-    ...(fragment.cautions && fragment.cautions.length ? { cautions: fragment.cautions } : {}),
+    ...(fragment.livingTips && fragment.livingTips.length
+      ? { livingTips: fragment.livingTips.map((text) => normalizeRenderedText(text)) }
+      : {}),
+    ...(fragment.cautions && fragment.cautions.length
+      ? { cautions: fragment.cautions.map((text) => normalizeRenderedText(text)) }
+      : {}),
   };
 }
 

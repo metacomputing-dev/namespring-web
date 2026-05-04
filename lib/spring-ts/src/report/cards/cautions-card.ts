@@ -84,7 +84,7 @@ const RELATION_RESPONSE: Record<NegativeRelationType, string> = {
   CHUNG: '큰 변화가 올 때 저항보다 유연한 대응을 우선하고, 중요한 결정은 충분히 검토한 뒤 진행하세요.',
   HYEONG: '의견 충돌이 생기면 한 박자 쉬고 말하고, 역할과 경계를 미리 합의해 두면 마찰이 줄어요.',
   HAE: '계약서와 문서를 꼼꼼히 확인하고, 작은 불편도 방치하지 말고 초기에 해결하세요.',
-  PA: '완성 직전에 틀어지지 않도록 마무리 점검을 반드시 하고, 백업과 대안을 미리 준비하세요.',
+  PA: '완성 직전에 흔들리지 않도록 마무리 점검을 충분히 하고, 백업과 대안을 미리 준비하세요.',
 };
 
 const RELATION_REASON: Record<NegativeRelationType, string> = {

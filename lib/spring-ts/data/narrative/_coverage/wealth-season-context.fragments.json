@@ -91,11 +91,11 @@
       "templateTokens": [
         { "kind": "text", "value": "오늘 재물 흐름은 빠른 제안과 즉흥 소비가 함께 올라올 수 있습니다. " },
         { "kind": "tag", "tagId": "pyeonjae", "label": "편재" },
-        { "kind": "text", "value": "성 선택은 열리지만, " },
+        { "kind": "text", "value": "가 만드는 기회성 선택은 열리지만, " },
         { "kind": "tag", "tagId": "jeongjae", "label": "정재" },
-        { "kind": "text", "value": "식 확인 없이 결정하면 지출 통제가 약해집니다. " },
+        { "kind": "text", "value": "의 확인 절차 없이 결정하면 지출 통제가 약해집니다. " },
         { "kind": "tag", "tagId": "yongshin", "label": "용신" },
-        { "kind": "text", "value": "과 맞는 거래인지 하루 유예해 보세요." }
+        { "kind": "text", "value": "과 맞는 거래인지 하루 여유를 두고 확인해 보세요." }
       ],
       "tags": ["pyeonjae", "jeongjae", "yongshin"],
       "aiGenerated": true,

@@ -44,7 +44,7 @@
       "label": "자식궁",
       "hashLabel": "#자식궁",
       "category": "palace",
-      "brief": "자녀·노년·내가 가꾼 결과의 흐름을 보는 자리예요.",
+      "brief": "자녀·노년·내가 쌓아 온 결실을 보는 자리예요.",
       "detailed": "12궁 중 자녀·인생 후반부의 결실을 비추는 자리예요. 보통 시주(네 번째 기둥)와 연결돼요. 자식궁이 길하면 후반부의 결실·자녀 자산이 든든해요. 시주가 불확실할 땐 이 자리도 보수적으로 해석해야 해요.",
       "related": ["hourPillar", "sikshin"],
       "aiGenerated": true,
@@ -57,7 +57,7 @@
       "hashLabel": "#명궁",
       "category": "palace",
       "brief": "12궁의 출발점이자 '나의 자리'를 비추는 궁이에요.",
-      "detailed": "명궁은 12궁의 시작 자리로, 인생 전체의 큰 그림과 자기 정체를 비춰요. 사주 본체가 보여 주는 '나'와 함께 보면 인생 흐름의 큰 줄기가 또렷해지는 결이라, 12궁 해석에서 가장 먼저 살피는 자리예요.",
+      "detailed": "명궁은 12궁의 시작 자리로, 인생 전체의 큰 그림과 자기 정체를 비춰요. 사주 본체가 보여 주는 '나'와 함께 보면 인생 흐름의 큰 줄기가 또렷해지기 때문에, 12궁 해석에서 가장 먼저 살피는 자리예요.",
       "related": ["dayPillar"],
       "aiGenerated": true,
       "sourceTier": { "tier": "T1_HYPOTHESIS", "sourceType": "training_derived", "sourceUrl": null, "accessedAt": "2026-05-02", "quoteShort": null, "humanInterpretation": "AI-derived plain-language definition of 명궁. Display-only.", "copyrightNote": "No source prose copied.", "authorityTruthEligible": false }
@@ -105,7 +105,7 @@
       "hashLabel": "#자녀궁",
       "category": "palace",
       "brief": "12궁 전통에서 자녀·후세의 흐름을 비추는 궁이에요.",
-      "detailed": "자녀궁은 12궁 전통에서 자녀·후세·내가 키운 결과의 결을 비추는 자리예요. 4기둥의 '자식궁'과 결이 비슷하지만, 12궁에서는 별도의 자리로 두고 양육·관계·후세의 결을 더 세세히 풀어요. 자녀 자리·노년의 결실에서 함께 살펴요.",
+      "detailed": "자녀궁은 12궁 전통에서 자녀·후세·내가 키운 결실을 비추는 자리예요. 4기둥의 '자식궁'과 성격이 비슷하지만, 12궁에서는 별도의 자리로 두고 양육·관계·후세의 흐름을 더 세세히 풀어요. 자녀 자리·노년의 결실에서 함께 살펴요.",
       "related": ["jasikgung", "sikshin"],
       "aiGenerated": true,
       "sourceTier": { "tier": "T1_HYPOTHESIS", "sourceType": "training_derived", "sourceUrl": null, "accessedAt": "2026-05-02", "quoteShort": null, "humanInterpretation": "AI-derived plain-language definition of 자녀궁. Display-only.", "copyrightNote": "No source prose copied.", "authorityTruthEligible": false }
@@ -117,7 +117,7 @@
       "hashLabel": "#재백궁",
       "category": "palace",
       "brief": "재물·자산의 흐름을 비추는 궁이에요.",
-      "detailed": "재백궁은 12궁 중 재물·자산·돈 흐름의 결을 비추는 자리예요. 이 궁이 길하면 재물의 결이 안정적으로 자라기 좋고, 흔들림이 잦으면 큰돈 결정에 한 박자 더 두는 결로 풀어요. 가계·투자·사업 자리에서 함께 살피는 궁이에요.",
+      "detailed": "재백궁은 12궁 중 재물·자산·돈의 흐름을 비추는 자리예요. 이 궁이 길하면 재물 흐름이 안정적으로 자라기 좋고, 흔들림이 잦으면 큰돈 결정에 한 박자 더 두는 신호로 풀어요. 가계·투자·사업 자리에서 함께 살피는 궁이에요.",
       "related": ["jeongjae", "pyeonjae"],
       "aiGenerated": true,
       "sourceTier": { "tier": "T1_HYPOTHESIS", "sourceType": "training_derived", "sourceUrl": null, "accessedAt": "2026-05-02", "quoteShort": null, "humanInterpretation": "AI-derived plain-language definition of 재백궁. Display-only.", "copyrightNote": "No source prose copied.", "authorityTruthEligible": false }
@@ -141,7 +141,7 @@
       "hashLabel": "#천이궁",
       "category": "palace",
       "brief": "이동·여행·바깥 활동의 흐름을 비추는 궁이에요.",
-      "detailed": "천이궁은 12궁 중 이동·이사·해외·바깥 활동의 결을 비추는 자리예요. 이 궁이 활발하면 한 자리에 묶이지 않고 새 환경에서 결과를 만드는 결이라, 이동의 자리에서 강점이 살아나는 결로 풀어요.",
+      "detailed": "천이궁은 12궁 중 이동·이사·해외·바깥 활동의 흐름을 비추는 자리예요. 이 궁이 활발하면 한 자리에 묶이지 않고 새 환경에서 성과를 만들기 쉬워, 이동의 자리에서 강점이 살아나는 신호로 풀어요.",
       "related": ["yeokma"],
       "aiGenerated": true,
       "sourceTier": { "tier": "T1_HYPOTHESIS", "sourceType": "training_derived", "sourceUrl": null, "accessedAt": "2026-05-02", "quoteShort": null, "humanInterpretation": "AI-derived plain-language definition of 천이궁. Display-only.", "copyrightNote": "No source prose copied.", "authorityTruthEligible": false }

@@ -159,7 +159,7 @@ export const SHINSAL_ENCYCLOPEDIA: Record<string, ShinsalEncyclopediaEntry> = {
     ],
     tips: [
       '체면 소비를 줄이고 실속 소비를 늘리세요.',
-      '큰 지출은 하루 유예 후 결정하세요.',
+      '큰 지출은 하루 여유를 두고 다시 확인하세요.',
       '불필요 구독을 하나씩 정리해 보세요.',
     ],
   },
@@ -454,7 +454,7 @@ export const SHINSAL_ENCYCLOPEDIA: Record<string, ShinsalEncyclopediaEntry> = {
       '무리한 투자나 무리수 선택이 늘 수 있습니다.',
     ],
     tips: [
-      '큰 돈이나 큰 결정은 하루 유예하세요.',
+      '큰 지출이나 중요한 결정은 하루 여유를 두고 확인하세요.',
       '비교 심리가 강한 날엔 앱 사용 시간을 줄이세요.',
       '지출 상한선을 미리 정해두세요.',
     ],
@@ -570,7 +570,7 @@ export const SHINSAL_ENCYCLOPEDIA: Record<string, ShinsalEncyclopediaEntry> = {
       '파살은 낡은 틀을 깨고 새롭게 시작할 기회이기도 합니다.',
     ],
     tips: [
-      '중요한 일은 마무리 점검을 반드시 하세요.',
+      '중요한 일은 마무리 점검을 충분히 하세요.',
       '완벽을 고집하기보다 유연한 수정 능력을 키우세요.',
       '백업과 대안을 미리 준비해 두세요.',
     ],
