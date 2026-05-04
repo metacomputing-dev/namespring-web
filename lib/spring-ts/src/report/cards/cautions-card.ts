@@ -17,7 +17,6 @@ import type { CautionsCard, FortuneWarning } from '../types.js';
 import type { ElementCode } from '../types.js';
 import { findShinsalEntry } from '../knowledge/shinsalEncyclopedia.js';
 import {
-  ELEMENT_ORGAN,
   ELEMENT_EMOTION,
   ELEMENT_FOOD,
   lookupBranchInfo,
@@ -60,10 +59,29 @@ function elementKo(code: ElementCode): string {
 
 function normalizeCautionReason(value: string): string {
   return value
-    .replace(/신살입니다\./g, '신호예요.')
+    .replace(/신살입니다\./g, '흐름이에요.')
     .replace(/길신입니다\./g, '도움이 되는 신호예요.')
     .replace(/커질 수 있습니다\./g, '커질 수 있어요.')
     .replace(/올 수 있습니다\./g, '올 수 있어요.');
+}
+
+function plainShinsalSignal(label: string): string {
+  const signalMap: Record<string, string> = {
+    지살: '이동이나 변화가 많아져 생활 리듬이 흔들릴 수 있어요.',
+    월살: '월간 흐름에서 컨디션과 일정 변동이 커질 수 있어요.',
+    망신살: '말이나 행동이 예상보다 크게 드러날 수 있어요.',
+    육해살: '관계 피로가 쌓이거나 작은 오해가 커질 수 있어요.',
+    겁살: '경쟁심이나 급한 선택으로 손해를 보기 쉬워요.',
+    재살: '급한 이동이나 급한 결정에서 실수가 나기 쉬워요.',
+    천살: '예상 밖 변수와 피로 누적에 주의가 필요해요.',
+    백호: '기세가 강해지는 만큼 속도 조절이 필요해요.',
+    형살: '의견 충돌이나 마찰이 커질 수 있어요.',
+    충살: '갑작스러운 변화나 충돌에 유연하게 대응해야 해요.',
+    해살: '겉으로 잘 보이지 않는 문제를 초기에 점검하면 좋아요.',
+    파살: '계획이 흔들릴 수 있어 마무리 점검이 중요해요.',
+    원진살: '가까운 관계에서 미묘한 거리감이 생길 수 있어요.',
+  };
+  return signalMap[label] ?? '생활 리듬과 대인관계를 한 번 더 살피면 좋아요.';
 }
 
 // ---------------------------------------------------------------------------
@@ -136,7 +154,7 @@ export function buildCautionsCard(saju: SajuSummary): CautionsCard {
       if (entry.type !== 'inauspicious') continue;
 
       cautions.push({
-        signal: `${entry.korean} 신호가 감지되었어요.`,
+        signal: plainShinsalSignal(entry.korean),
         response: entry.tips[0] ?? '무리하지 말고 하루 일정을 여유 있게 계획하세요.',
         reason: normalizeCautionReason(entry.meaning),
       });
@@ -184,7 +202,6 @@ export function buildCautionsCard(saju: SajuSummary): CautionsCard {
     for (const raw of deficientElements) {
       const el = toElementCode(raw);
       if (!el) continue;
-      const organ = ELEMENT_ORGAN[el];
       const emotion = ELEMENT_EMOTION[el];
       const foods = ELEMENT_FOOD[el];
       const foodList = foods ? foods.slice(0, 3).join(', ') : '';
@@ -192,8 +209,8 @@ export function buildCautionsCard(saju: SajuSummary): CautionsCard {
       cautions.push({
         signal: `${elementKo(el)} 기운이 부족해요.`,
         response: foodList
-          ? `${foodList} 같은 음식을 챙기고, 관련 장기(${organ?.detail ?? ''})에 신경 써 주세요.`
-          : `관련 장기(${organ?.detail ?? ''})에 신경 쓰고 건강 검진을 받아보세요.`,
+          ? `${foodList} 같은 음식을 챙기고, 수면과 휴식 리듬도 함께 지켜 주세요.`
+          : '수면, 식사, 휴식 리듬을 차분히 챙겨 주세요.',
         reason: `오행 중 ${elementKo(el)} 기운이 약하면 ${emotion?.negative ?? '에너지 저하'}에 주의가 필요해요.`,
       });
     }
@@ -208,9 +225,9 @@ export function buildCautionsCard(saju: SajuSummary): CautionsCard {
     const name1 = branchHangul(b1 as string);
     const name2 = branchHangul(b2 as string);
     cautions.push({
-      signal: `공망(${name1}, ${name2})이 있어 힘이 비거나 공허감이 올 수 있어요.`,
+      signal: `${name1}, ${name2}와 관련된 흐름에서 목표가 흐릿하게 느껴질 수 있어요.`,
       response: '큰 목표를 잘게 쪼개서 즉시 행동하고, 기대치보다 루틴 유지에 집중하세요.',
-      reason: '공망은 특정 지지의 에너지가 비어 있는 구간이라 실행력이 떨어지기 쉬워요.',
+      reason: '일부 흐름은 결과가 늦게 나타날 수 있어 작은 실행 단위를 유지하는 것이 좋아요.',
     });
   }
 

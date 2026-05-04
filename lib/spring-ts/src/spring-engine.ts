@@ -418,7 +418,8 @@ const SERVICE_TEXT_REPLACEMENTS: ReadonlyArray<readonly [string, string]> = [
   ['주변의 인정과 부를 동시에 얻는 황금기', '주변의 인정과 경제적 안정감을 함께 얻는 좋은 시기'],
   ['주변의 인정과 경제적 안정감을 함께 얻는 좋은 시기가 펼쳐지니', '주변의 인정과 경제적 안정감을 함께 키우기 좋은 흐름이 생기니'],
   ['이 시기를 놓치지 않도록 잘 준비하시길 권해 드려요', '이 흐름을 차분히 준비해 보세요'],
-  ['깊은 존경과 편안한 노년을 누리실 수 있어요', '좋은 신뢰와 안정적인 노년을 만들어 갈 수 있어요'],
+  ['깊은 존경과 편안한 노년을 누리실 수 있어요', '좋은 신뢰와 나중의 안정감을 준비해 갈 수 있어요'],
+  ['좋은 신뢰와 안정적인 노년을 만들어 갈 수 있어요', '좋은 신뢰와 나중의 안정감을 준비해 갈 수 있어요'],
   ['기회가 물밀듯 찾아오는', '기회가 자주 들어오는'],
   ['사회에 나가자마자 빠른 속도로 두각을 나타내고', '사회생활 초반부터 두각을 나타내고'],
   ['중년기에 크게 이루기 위한', '중년기에 성과를 키우기 위한'],
@@ -457,7 +458,8 @@ const SERVICE_TEXT_REPLACEMENTS: ReadonlyArray<readonly [string, string]> = [
   ['결정을 내리실 수 있게 되며', '결정을 내릴 수 있게 되고'],
   ['기반을 다지시는 데 집중하면', '기반을 다지는 데 집중하면'],
   ['기회를 만드실 수 있어요', '기회를 만들 수 있어요'],
-  ['노후를 누리실 수 있어요', '노후를 누릴 수 있어요'],
+  ['노후를 누리실 수 있어요', '후반기를 준비할 수 있어요'],
+  ['노후를 누릴 수 있어요', '후반기를 준비할 수 있어요'],
   ['좋은 경험을 많이 쌓으시는 것이 좋아요', '좋은 경험을 많이 쌓으면 좋아요'],
   ['목표를 향해 달려가시게 되는데', '목표를 향해 달려가게 되는데'],
   ['사람 사이 갈등을 조심하시고', '사람 사이 갈등을 조심하고'],
@@ -493,8 +495,10 @@ const SERVICE_TEXT_REPLACEMENTS: ReadonlyArray<readonly [string, string]> = [
   ['빠른 이해력와', '빠른 이해력과'],
   ['특유의 추진력과 머리로', '특유의 추진력과 판단력으로'],
   ['쌓아온 명성과 풍요', '쌓아 온 성과와 여유'],
-  ['건강하고 활기찬 흐름처럼 건강하고 활기찬 노후를 보내실 수 있으니', '건강하고 활기찬 노후를 보낼 수 있으니'],
-  ['노후를 보내실 수 있으니', '노후를 보낼 수 있으니'],
+  ['건강하고 활기찬 흐름처럼 건강하고 활기찬 노후를 보내실 수 있으니', '활기찬 후반기를 준비할 수 있으니'],
+  ['건강하고 활기찬 노후를 보낼 수 있으니', '활기찬 후반기를 준비할 수 있으니'],
+  ['노후를 보내실 수 있으니', '후반기를 준비할 수 있으니'],
+  ['노후를 보낼 수 있으니', '후반기를 준비할 수 있으니'],
   ['넉넉하고 건강한 흐름 속에서, 건강하고 여유로운 노후를 보내며', '건강과 여유를 챙기며'],
   ['사회적 명성과 존경', '사회적 신뢰와 인정'],
   ['명성이 가장 높은 곳에 이르러', '성과가 크게 드러나'],
@@ -505,6 +509,7 @@ const SERVICE_TEXT_REPLACEMENTS: ReadonlyArray<readonly [string, string]> = [
   ['빠른 성공과 사회적 인정을', '빠른 성장과 사회적 인정을'],
   ['큰일을 이루고 많은 사람의 존경을 받는', '큰 성과를 만들고 주변의 인정을 받는'],
   ['복된 삶이 기다리고 있으니', '안정된 삶을 기대할 수 있으니'],
+  ['마침내 열매를 맺어 마음의 풍요와 내면의 평화를 누릴 수 있으니', '시간이 지나며 안정감과 마음의 여유를 만들 수 있으니'],
   ['건강과 안정의 흐름이 무르익어서 건강과 재물, 평판이 고루 갖추어진', '몸과 마음이 안정되고 재물과 평판도 고르게 챙기는'],
   ['사람 복', '사람의 도움'],
   ['성공의 열매', '성과'],
@@ -538,6 +543,7 @@ function sanitizeServiceText(value: string, fullHangul: string): string {
     .replace(/([가-힣]+)님은도/g, '$1님도')
     .replace(/([가-힣]+)님은 각/g, '$1님이 각')
     .replace(/([가-힣]+님) 한평생/g, '$1은 한평생')
+    .replace(/성과와 인정를/g, '성과와 인정을')
     .replace(/성과을/g, '성과를')
     .replace(/뒷받침해주지/g, '뒷받침해 주지');
   return sanitized;
@@ -2747,13 +2753,13 @@ export class SpringEngine {
   private async resolveFixedCharPool(givenNameChar: NameCharInput, hanjaPool: HanjaPool): Promise<HanjaEntry[]> {
     if (givenNameChar.hanja) {
       const entry = await this.hanjaRepo.findByHanja(givenNameChar.hanja);
-      if (entry) return [entry];
+      if (entry) return [{ ...entry, hangul: givenNameChar.hangul, is_surname: false }];
       if (hanjaPool === 'inmyeongyong_full') {
         const fullMatches = getFullLegalPoolEntries()
           .filter((candidate) => candidate.hanja === givenNameChar.hanja)
           .sort((a, b) =>
             Number(b.hangul === givenNameChar.hangul) - Number(a.hangul === givenNameChar.hangul));
-        if (fullMatches.length) return [fullMatches[0]];
+        if (fullMatches.length) return [{ ...fullMatches[0], hangul: givenNameChar.hangul, is_surname: false }];
       }
       return [makeFallbackEntry(givenNameChar.hangul, { hanja: givenNameChar.hanja })];
     }
@@ -2791,7 +2797,7 @@ export class SpringEngine {
 
       if (normalizedHanja.length > 0) {
         const entry = await this.hanjaRepo.findByHanja(normalizedHanja);
-        if (entry) return entry;
+        if (entry) return { ...entry, hangul: char.hangul, is_surname: isSurname };
         if (hanjaPool === 'inmyeongyong_full') {
           const fullMatches = getFullLegalPoolEntries()
             .filter((candidate) => candidate.hanja === normalizedHanja)

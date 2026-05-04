@@ -30,8 +30,8 @@ function collectFromCell(cell: TieredFortune, out: Set<TagId>): void {
 }
 
 /** Build the report-scoped glossary view. Only entries actually referenced
- *  in the matrix end up in `usedInThisReport`. The full `entries` table is
- *  always present so a UI can hyperlink any tagId. */
+ *  in the matrix are returned, so minors and narrow reports do not carry
+ *  unrelated adult or expert definitions in their payload. */
 export function buildTagGlossary(
   matrix: Pick<FortuneTieredMatrix, 'periods'>,
   allEntries: Readonly<Record<TagId, GlossaryEntry>>,
@@ -48,8 +48,13 @@ export function buildTagGlossary(
   }
   // Sort for deterministic output.
   const usedInThisReport = [...used].sort();
+  const entries: Record<TagId, GlossaryEntry> = {};
+  for (const tagId of usedInThisReport) {
+    const entry = allEntries[tagId];
+    if (entry) entries[tagId] = entry;
+  }
   return {
-    entries: allEntries,
+    entries,
     usedInThisReport,
   };
 }

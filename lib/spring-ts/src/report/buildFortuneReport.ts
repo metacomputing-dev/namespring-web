@@ -243,7 +243,7 @@ export function buildFortuneReport(
 
   // ── 9. Category fortunes ──
   const categoryFortunes = safeCall(
-    () => buildCategoryFortuneCards(saju, targetDate, options),
+    () => buildCategoryFortuneCards(saju, targetDate, options, { currentAge }),
     FALLBACK_CATEGORY_FORTUNES,
   );
 

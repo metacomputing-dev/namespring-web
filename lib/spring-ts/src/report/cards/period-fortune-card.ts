@@ -45,7 +45,6 @@ import {
   ELEMENT_HOBBY,
   ELEMENT_COLOR,
   ELEMENT_DIRECTION,
-  ELEMENT_ORGAN,
   STEM_BY_CODE,
   BRANCH_BY_CODE,
   BRANCHES,
@@ -475,10 +474,9 @@ function makeBadActions(
   // Action 3: Health caution for deficient elements
   if (natal.deficientElements.length > 0) {
     const weakEl = natal.deficientElements[0];
-    const organ = ELEMENT_ORGAN[weakEl];
     actions.push({
-      text: `${elementKo(weakEl)} 기운이 부족하니 ${organ?.detail ?? '관련 부위'}에 무리가 가지 않도록 주의하세요.`,
-      reason: `평소 약한 오행의 장기는 기운이 떨어질 때 더 취약해질 수 있어요.`,
+      text: `${elementKo(weakEl)} 기운이 부족하니 수면, 식사, 휴식 리듬이 무너지지 않도록 주의하세요.`,
+      reason: '평소 약한 오행은 생활 리듬이 흔들릴 때 더 민감하게 드러날 수 있어요.',
     });
   }
 

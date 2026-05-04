@@ -304,9 +304,12 @@ if (tieredOn?.tieredMatrix) {
       p?.byCategory && Object.keys(p.byCategory).length === 10,
       `${Object.keys(p?.byCategory ?? {}).length}`);
   }
-  check(`tieredMatrix.glossary.entries has anchor entries`,
-    tm.glossary?.entries && Object.keys(tm.glossary.entries).length >= 50,
-    `${Object.keys(tm.glossary?.entries ?? {}).length}`);
+  const usedGlossaryCount = tm.glossary?.usedInThisReport?.length ?? 0;
+  check(`tieredMatrix.glossary.entries covers used report tags`,
+    tm.glossary?.entries &&
+      Object.keys(tm.glossary.entries).length === usedGlossaryCount &&
+      usedGlossaryCount > 0,
+    `${Object.keys(tm.glossary?.entries ?? {}).length}/${usedGlossaryCount}`);
 }
 
 engine.close();
