@@ -75,7 +75,7 @@ function vector(overrides: Partial<NamingScoreVector>): NamingScoreVector {
 
 const profile: CandidateStrengthProfile = {
   id: 'phonetic_stability',
-  label: 'Phonetic stability',
+  label: '발음 안정형',
   primaryAxis: 'phonetic',
   reasons: ['phonetic 92', 'familyFit 86', 'riskQuality 82'],
   paretoFrontier: false,
@@ -138,21 +138,21 @@ const lowRiskExplanation = buildNamingExplanation({
 const highRiskExplanation = buildNamingExplanation({
   evaluationResult: evaluationResult(),
   scoreVector: vector({ risk: 72, sajuFit: 42, yongshinFit: null, eraFit: null }),
-  strengthProfile: { ...profile, id: 'risk_managed', label: 'Risk managed', primaryAxis: 'risk' },
+  strengthProfile: { ...profile, id: 'risk_managed', label: '위험 관리형', primaryAxis: 'risk' },
 });
 const fallbackExplanation = buildNamingExplanation({ evaluationResult: evaluationResult() });
 
 check('low-risk explanation uses template summary',
-  lowRiskExplanation.summary.includes('Primary candidate profile: Phonetic stability.'));
+  lowRiskExplanation.summary.includes('주요 후보 성향은 발음 안정형이에요.'));
 check('null axis is unavailable, not failed',
   highRiskExplanation.signals.some((signal) =>
     signal.axis === 'yongshinFit' &&
     signal.kind === 'unavailable' &&
-    signal.phrase.includes('no usable evidence')));
+    signal.phrase.includes('근거가 부족')));
 check('high risk produces explicit caution',
-  highRiskExplanation.cautions.some((phrase) => phrase.includes('compare safer alternatives')));
+  highRiskExplanation.cautions.some((phrase) => phrase.includes('더 안전한 후보와 비교')));
 check('fallback explanation avoids detailed diagnosis',
-  fallbackExplanation.cautions.some((phrase) => phrase.includes('Score-vector evidence is unavailable')));
+  fallbackExplanation.cautions.some((phrase) => phrase.includes('점수 벡터 근거가 없어')));
 
 const snapshot = {
   lowRisk: stableExplanation(lowRiskExplanation),

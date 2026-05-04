@@ -893,7 +893,7 @@ export function buildPeriodFortuneCard(
 
   const periodSupporting: string[] = [
     `기간 라벨: ${periodLabel}`,
-    `천간/지지: ${ganzhi.stem}/${ganzhi.branch} (${stemKo}/${branchKo})`,
+    `간지: ${ganzhi.ganzhiHangul}(${ganzhi.ganzhiHanja}), 천간/지지 오행: ${stemKo}/${branchKo}`,
     `별점: ${stars}/5`,
   ];
   if (yongshinKo) periodSupporting.push(`용신: ${yongshinKo}`);
