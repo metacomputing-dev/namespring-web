@@ -287,11 +287,97 @@ const awkwardRenderedPhrases = allTieredText.filter((text) =>
     text.includes('친구·또래의 흐름을 다듬는') ||
     text.includes('흐름을 따라가는 흐름') ||
     text.includes('가족의 결과 같은 호흡') ||
+    text.includes('가족 관계은') ||
+    text.includes('가족 관계으로') ||
     text.includes('한 흐름을 닫기 좋은 흐름') ||
     text.includes('일간의 흐름이 잔잔한 흐름') ||
     text.includes('흐름이 흐름을 가볍게') ||
     text.includes('#공망의 결과 닿아요') ||
     text.includes('#용신의 결에 맞는') ||
+    text.includes('인연 흐름은 친구·동료의 자리') ||
+    text.includes('매력의 흐름이 강하게') ||
+    text.includes('그 흐름은 무대 위') ||
+    text.includes('계약·법률문서·자격 갱신 자리에서 큰 단계가 풀리는 흐름') ||
+    text.includes('새 결정과 점검을 함께 두는 흐름') ||
+    text.includes('한 번 점검한 자리는 몇 년의 흐름') ||
+    text.includes('작은 조항·기한·날짜 같은 디테일을 발견하는 자리') ||
+    text.includes('결이 또렷한 날엔') ||
+    text.includes('결이 또렷한 시기엔') ||
+    text.includes('#정인의 흐름이 들어오는') ||
+    text.includes('익숙한 흐름을 다듬는 방식') ||
+    text.includes('#정재의 흐름이 자리 잡혀') ||
+    text.includes('한 박자 늦추는 흐름이 좋아요') ||
+    text.includes('가족 자리 사이에서') ||
+    text.includes('함께한 자리가 한 해의') ||
+    text.includes('친구·학업·가족 사이에서 마음이 자주 들썩이는 흐름의 시기') ||
+    text.includes('마음의 흐름을 봄날의 새싹') ||
+    text.includes('#정인의 흐름') ||
+    text.includes('#편관의 흐름') ||
+    text.includes('#공망의 흐름') ||
+    text.includes('#삼형의 흐름') ||
+    text.includes('#편관의 결') ||
+    text.includes('#공망의 결') ||
+    text.includes('#삼형의 결') ||
+    text.includes('학업 흐름') ||
+    text.includes('차분히 깊어지는 흐름') ||
+    text.includes('함께 보이는 흐름') ||
+    text.includes('표현 흐름') ||
+    text.includes('표현 결') ||
+    text.includes('한 단원을 자기 말로 풀어 보기 좋은 흐름') ||
+    text.includes('자기에게 맞는 흐름') ||
+    text.includes('작은 호기심의 흐름') ||
+    text.includes('미래의 자리가 자기에게') ||
+    text.includes('다음 단계의 흐름') ||
+    text.includes('어린 흐름의 사주') ||
+    text.includes('보호자의 흐름이 그대로 아이의 일상 호흡') ||
+    text.includes('#정인의 결과') ||
+    text.includes('자라나는 흐름의 작은 뿌리') ||
+    text.includes('시기이에요') ||
+    text.includes('오늘의 이동 흐름') ||
+    text.includes('이번 주의 이동 흐름') ||
+    text.includes('이번 달의 이동 흐름') ||
+    text.includes('올해 이동 흐름') ||
+    text.includes('큰 결정 자리가 있다면') ||
+    text.includes('마음이 차분해진 자리에서') ||
+    text.includes('가까운 친구와의 자리') ||
+    text.includes('두 자리를 같이 챙기면') ||
+    text.includes('미래 자리의 씨앗') ||
+    text.includes('어른이 되었을 때 자리가') ||
+    text.includes('작가·아티스트의 흐름') ||
+    text.includes('친구·관계의 자산') ||
+    text.includes('이번 주 이동 흐름') ||
+    text.includes('이번 달 이동 흐름') ||
+    text.includes('#용신의 결에 어울리는') ||
+    text.includes('가족과 친구의 흐름') ||
+    text.includes('의논하는 흐름') ||
+    text.includes('함께하는 활동으로 흐름을 잡으면') ||
+    text.includes('흐름을 봐 가는 흐름') ||
+    text.includes('흐름을 봐 가는 방식') ||
+    text.includes('다 잘하고 싶은 마음이 큰 자리이니') ||
+    text.includes('고요한 호수 자리') ||
+    text.includes('강을 더 또렷하게') ||
+    text.includes('무게가 절반으로 줄어드는 흐름') ||
+    text.includes('다른 사람의 몫까지 떠안는 자리') ||
+    text.includes('적당히 나누는 흐름') ||
+    text.includes('따뜻한 자리에서 일찍 쉬는 흐름') ||
+    text.includes('#정관 식 책임 언어') ||
+    text.includes('#용신의 결과 어울리는') ||
+    text.includes('오늘의 인연 흐름') ||
+    text.includes('이번 주의 인연 흐름') ||
+    text.includes('이번 달의 인연 흐름') ||
+    text.includes('올해의 인연 흐름') ||
+    text.includes('오늘의 진로 흐름') ||
+    text.includes('오늘 재물 흐름') ||
+    text.includes('이번 주 재물 흐름') ||
+    text.includes('이번 달 재물 흐름') ||
+    text.includes('올해 재물 흐름') ||
+    text.includes('마음의 흐름을 흐르는 강에 비유한다면') ||
+    text.includes('고요한 호수 같은 시간가') ||
+    text.includes('무게가 절반으로 줄어드는 흐름이라') ||
+    text.includes('모든 책임을 자기에게 두는 자리') ||
+    text.includes('진토(辰)와 술토(戌)는 같은 흙 흐름') ||
+    text.includes('천간의 두 글자가 합쳐서 다른 오행으로 변하는 흐름') ||
+    text.includes('음양의 흐름이 한 박자씩 어긋나') ||
     text.includes('에너지의 흐름이 잔잔한 흐름') ||
     text.includes('이동 흐름은 익숙한 동선을 지키면 호흡이 편안') ||
     text.includes('이동 흐름은 익숙한 자리에서 한 발짝씩 넓혀 가는 흐름') ||

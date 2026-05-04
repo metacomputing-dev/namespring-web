@@ -189,7 +189,7 @@
       "hashLabel": "#화격",
       "category": "gyeokguk",
       "brief": "두 오행이 만나 다른 오행으로 변화하는 잡격이에요.",
-      "detailed": "천간의 두 글자가 합쳐서 다른 오행으로 변하는 결을 가진 형태예요. 예를 들어 갑기합이 되어 흙(土)으로 변하는 결이 강하면, 사주의 흐름이 변화한 그 오행을 따라가요. 변신·전환의 결이 또렷한 사주라, 큰 변화의 시기에 결과가 잘 따라요.",
+      "detailed": "천간의 두 글자가 합쳐져 다른 오행으로 바뀌는 형태예요. 예를 들어 갑기합이 되어 흙(土)으로 변하는 힘이 강하면, 사주의 방향도 그 오행 쪽으로 기울 수 있어요. 변신·전환의 신호가 또렷한 사주라, 큰 변화의 시기에 결과가 잘 따라요.",
       "related": ["wood", "fire", "earth", "metal", "water"],
       "aiGenerated": true,
       "sourceTier": { "tier": "T1_HYPOTHESIS", "sourceType": "training_derived", "sourceUrl": null, "accessedAt": "2026-05-02", "quoteShort": null, "humanInterpretation": "AI-derived plain-language definition of 화격. Display-only narrative.", "copyrightNote": "No source prose copied.", "authorityTruthEligible": false }

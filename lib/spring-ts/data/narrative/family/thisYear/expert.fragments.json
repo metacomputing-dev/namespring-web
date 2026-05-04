@@ -261,10 +261,10 @@
         { "kind": "tag", "tagId": "bumyong", "label": "부모궁" },
         { "kind": "text", "value": "·" },
         { "kind": "tag", "tagId": "jeongin", "label": "정인" },
-        { "kind": "text", "value": "의 결과 가장 가까이 닿아, 한 해의 결이 보호자의 호흡과 함께 흘러가요." },
+        { "kind": "text", "value": "이 가장 가까이 닿아, 한 해의 안정감이 보호자의 호흡과 함께 만들어져요." },
         { "kind": "text", "value": " " },
         { "kind": "tag", "tagId": "jojangung", "label": "조상궁" },
-        { "kind": "text", "value": "에서 받은 따뜻함이 한 해의 결로 자라는 자리이니, 익숙한 자리를 정성껏 지키는 흐름이 잘 맞아요." }
+        { "kind": "text", "value": "에서 받은 따뜻함이 한 해의 바탕으로 자라는 시기이니, 익숙한 일상을 정성껏 지키는 방식이 잘 맞아요." }
       ],
       "tags": ["bumyong", "jeongin", "jojangung"],
       "aiGenerated": true,

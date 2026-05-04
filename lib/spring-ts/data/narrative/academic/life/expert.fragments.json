@@ -318,16 +318,16 @@
       "axis": { "category": "academic", "period": "life", "depth": "expert", "tone": "expert" },
       "gating": { "ageBand": ["10-19"] },
       "templateTokens": [
-        { "kind": "text", "value": "10대의 학업 결을 격국·십성으로 바라보면, " },
+        { "kind": "text", "value": "10대의 학업운을 격국·십성으로 바라보면, " },
         { "kind": "tag", "tagId": "jeongin", "label": "정인" },
-        { "kind": "text", "value": "이 받쳐 주는 자리에서 차분히 깊어지는 결이 자라기 좋아요." },
+        { "kind": "text", "value": "이 받쳐 주는 자리에서 차분히 깊어지기 좋아요." },
         { "kind": "text", "value": " 인성 기운이 부족한 자리에서는 책·스승의 도움을 의도적으로 곁에 두는 것이 곧 자기 자산이 되어 줘요." },
         { "kind": "text", "value": " " },
         { "kind": "tag", "tagId": "sikshin", "label": "식신" },
         { "kind": "text", "value": "·" },
         { "kind": "tag", "tagId": "sanggwan", "label": "상관" },
-        { "kind": "text", "value": "이 함께 보이는 결이라면 익힌 것을 자기 말로 풀어 보는 자리가 깊이를 만들고, 학교 안의 발표·토론이 좋은 무대가 되어요." },
-        { "kind": "text", "value": " 격국이 또렷하지 않은 시기엔 자기 호흡을 지키며 한 단원씩 마무리해 가는 결이 가장 잘 어울려요." }
+        { "kind": "text", "value": "이 함께 보인다면 익힌 것을 자기 말로 풀어 보는 시간이 깊이를 만들고, 학교 안의 발표·토론이 좋은 무대가 되어요." },
+        { "kind": "text", "value": " 격국이 또렷하지 않은 시기엔 자기 호흡을 지키며 한 단원씩 마무리해 가는 방식이 가장 잘 어울려요." }
       ],
       "tags": ["jeongin", "sikshin", "sanggwan"],
       "aiGenerated": true,

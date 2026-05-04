@@ -165,7 +165,7 @@
       "hashLabel": "#진술충",
       "category": "pillar",
       "brief": "진(용·흙)과 술(개·흙)이 부딪치는 지지 충이에요.",
-      "detailed": "진토(辰)와 술토(戌)는 같은 흙 결이지만 음양과 계절이 달라 부딪치는 지지충이에요. 안에 품은 다른 결들이 동시에 흔들리는 자리라, 큰 변화·이사·자리 바뀜이 함께 오는 결로 풀어요. 흐름을 거스르지 않고 따라가면 결이 새 자리를 열어 줘요.",
+      "detailed": "진토(辰)와 술토(戌)는 모두 흙 기운이지만 음양과 계절이 달라 부딪치는 지지충이에요. 안에 품은 기운들이 동시에 흔들리는 자리라, 큰 변화·이사·자리 바뀜이 함께 올 수 있다고 풀어요. 변화를 억지로 막기보다 순서를 정해 움직이면 새 자리가 열려요.",
       "related": ["earth"],
       "aiGenerated": true,
       "sourceTier": { "tier": "T1_HYPOTHESIS", "sourceType": "training_derived", "sourceUrl": null, "accessedAt": "2026-05-02", "quoteShort": null, "humanInterpretation": "AI-derived plain-language definition of 진술충. Display-only.", "copyrightNote": "No source prose copied.", "authorityTruthEligible": false }

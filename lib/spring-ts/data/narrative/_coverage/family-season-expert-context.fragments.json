@@ -18,7 +18,7 @@
         { "kind": "tag", "tagId": "jeongin", "label": "정인" },
         { "kind": "text", "value": "이 받쳐 주면 정서적 회복이 빠릅니다. " },
         { "kind": "tag", "tagId": "jeonggwan", "label": "정관" },
-        { "kind": "text", "value": "식 책임 언어가 과하면 대화가 지시처럼 들릴 수 있습니다." }
+        { "kind": "text", "value": "처럼 책임을 앞세운 말이 과하면 대화가 지시처럼 들릴 수 있습니다." }
       ],
       "tags": ["bigyeon", "jeongin", "jeonggwan"],
       "numericalEvidence": [
