@@ -78,17 +78,80 @@ function tenGodContributionLabel(row: NonNullable<SpringReport['sajuCompatibilit
   return details.join(' ');
 }
 
+const ELEMENT_LABELS: Record<string, string> = {
+  WOOD: '나무',
+  Wood: '나무',
+  wood: '나무',
+  FIRE: '불',
+  Fire: '불',
+  fire: '불',
+  EARTH: '흙',
+  Earth: '흙',
+  earth: '흙',
+  METAL: '쇠',
+  Metal: '쇠',
+  metal: '쇠',
+  WATER: '물',
+  Water: '물',
+  water: '물',
+};
+
+const SAFETY_POSTURE_LABELS: Record<string, string> = {
+  safe: '안정형',
+  balanced: '균형형',
+  aggressive: '강한 보강형',
+};
+
+const ELEMENT_STRATEGY_LABELS: Record<string, string> = {
+  legacy_direct_reinforcement: '기존 직접 보강 방식',
+  safe_balance: '안정 균형 방식',
+  aggressive_reinforcement: '강한 직접 보강 방식',
+};
+
+const CONFLICT_LEVEL_LABELS: Record<string, string> = {
+  none: '낮음',
+  low: '낮음',
+  medium: '중간',
+  high: '높음',
+};
+
+function elementLabel(value: unknown): string {
+  const raw = String(value ?? '').trim();
+  return ELEMENT_LABELS[raw] ?? raw;
+}
+
+function elementListLabel(values: readonly string[] | undefined): string {
+  const labels = (values ?? []).map(elementLabel).filter(Boolean);
+  return labels.length ? labels.join(', ') : '없음';
+}
+
+function safetyPostureLabel(value: string): string {
+  return SAFETY_POSTURE_LABELS[value] ?? value;
+}
+
+function strategyLabel(value: string): string {
+  return ELEMENT_STRATEGY_LABELS[value] ?? value;
+}
+
+function conflictLabel(value: string | undefined): string {
+  return CONFLICT_LEVEL_LABELS[value ?? 'none'] ?? String(value ?? 'none');
+}
+
+function percentLabel(value: number): string {
+  return `${Math.round(value * 100)}%`;
+}
+
 function scoreVectorFeatureLabels(vector: NonNullable<SpringReport['scoreVector']>): string[] {
   const labels: string[] = [];
-  labels.push(`legal ${vector.legal ?? 'n/a'}`);
-  labels.push(`sajuFit ${vector.sajuFit ?? 'n/a'}`);
-  labels.push(`yongshinFit ${vector.yongshinFit ?? 'n/a'}`);
-  labels.push(`elementBalance ${vector.elementBalance ?? 'n/a'}`);
-  labels.push(`hanjaMeaning ${vector.hanjaMeaning ?? 'n/a'}`);
-  labels.push(`phonetic ${vector.phonetic ?? 'n/a'}`);
-  labels.push(`eraFit ${vector.eraFit ?? 'n/a'}`);
-  labels.push(`familyFit ${vector.familyFit ?? 'n/a'}`);
-  labels.push(`risk ${vector.risk}`);
+  labels.push(`법적 사용 가능성: ${vector.legal ?? '자료 없음'} / 100`);
+  labels.push(`사주 조화: ${vector.sajuFit ?? '자료 없음'} / 100`);
+  labels.push(`용신 보강: ${vector.yongshinFit ?? '자료 없음'} / 100`);
+  labels.push(`오행 균형: ${vector.elementBalance ?? '자료 없음'} / 100`);
+  labels.push(`한자 의미: ${vector.hanjaMeaning ?? '자료 없음'} / 100`);
+  labels.push(`발음 흐름: ${vector.phonetic ?? '자료 없음'} / 100`);
+  labels.push(`시대감: ${vector.eraFit ?? '자료 없음'} / 100`);
+  labels.push(`성과 이름 연결: ${vector.familyFit ?? '자료 없음'} / 100`);
+  labels.push(`주의 신호: ${vector.risk} / 100`);
   return labels;
 }
 
@@ -148,13 +211,13 @@ function classifySafetyProfile(
   const posture = aggressive ? 'aggressive' : safe ? 'safe' : 'balanced';
   const strategy = aggressive ? 'aggressive_reinforcement' : 'safe_balance';
   const reasons = [
-    `risk ${riskScore}`,
-    `vector risk ${scoreVector?.risk ?? 'n/a'}`,
-    `strategy ${strategy}`,
-    `consensus conflict: ${conflictLevel ?? 'none'}`,
-    `yongshin matches ${yongshinMatchCount}`,
-    `gishin matches ${gishinMatchCount}`,
-    ...(competingElements.length ? [`competing elements: ${competingElements.join(',')}`] : []),
+    `주의 신호 ${riskScore}/100`,
+    `점수 벡터 주의 신호 ${scoreVector?.risk ?? '자료 없음'}/100`,
+    `적용 방식: ${strategyLabel(strategy)}`,
+    `용신 판단 충돌: ${conflictLabel(conflictLevel)}`,
+    `용신 일치 글자 수: ${yongshinMatchCount}`,
+    `기신 겹침 글자 수: ${gishinMatchCount}`,
+    ...(competingElements.length ? [`충돌 후보 오행: ${elementListLabel(competingElements)}`] : []),
   ];
 
   return {
@@ -171,19 +234,49 @@ function classifySafetyProfile(
   };
 }
 
+function localizeSafetyReason(reason: string): string {
+  const trimmed = reason.trim();
+  let match = /^risk\s+([0-9.]+)/.exec(trimmed);
+  if (match) return `주의 신호 ${match[1]}/100`;
+  match = /^vector risk\s+([0-9.]+|n\/a)/.exec(trimmed);
+  if (match) return `점수 벡터 주의 신호 ${match[1] === 'n/a' ? '자료 없음' : `${match[1]}/100`}`;
+  match = /^strategy\s+(.+)/.exec(trimmed);
+  if (match) return `적용 방식: ${strategyLabel(match[1])}`;
+  match = /^consensus conflict:\s+(.+)/.exec(trimmed);
+  if (match) return `용신 판단 충돌: ${conflictLabel(match[1])}`;
+  match = /^competing elements:\s+(.+)/.exec(trimmed);
+  if (match) return `충돌 후보 오행: ${elementListLabel(match[1].split(',').map((v) => v.trim()))}`;
+  match = /^yongshinRatio\s+([0-9.]+)/.exec(trimmed);
+  if (match) return `용신 보강 비율: ${percentLabel(Number(match[1]))}`;
+  match = /^heesinRatio\s+([0-9.]+)/.exec(trimmed);
+  if (match) return `희신 보조 비율: ${percentLabel(Number(match[1]))}`;
+  match = /^gishinRatio\s+([0-9.]+)/.exec(trimmed);
+  if (match) return `기신 겹침 비율: ${percentLabel(Number(match[1]))}`;
+  match = /^gusinRatio\s+([0-9.]+)/.exec(trimmed);
+  if (match) return `구신 겹침 비율: ${percentLabel(Number(match[1]))}`;
+  if (trimmed === 'safe balance keeps uncertain yongshin signals from dominating the name.') {
+    return '용신 판단이 갈릴 때는 한쪽 기운만 과하게 키우지 않도록 균형을 우선했어요.';
+  }
+  if (trimmed === 'aggressive reinforcement concentrates on one yongshin element while consensus is uncertain.') {
+    return '용신 판단이 갈리는 상태에서 한 오행 보강이 강하게 몰려 있어요.';
+  }
+  return trimmed;
+}
+
 function safetyProfileFeatureLabels(profile: SajuNameSafetyProfile): string[] {
-  return [
-    `posture ${profile.posture}`,
-    `strategy ${profile.strategy}`,
-    `risk ${profile.riskScore}`,
-    `consensus conflict: ${profile.conflictLevel ?? 'none'}`,
-    `competing elements: ${profile.competingElements.join(',') || '-'}`,
-    `yongshinRatio ${profile.yongshinRatio.toFixed(2)}`,
-    `heesinRatio ${profile.heesinRatio.toFixed(2)}`,
-    `gishinRatio ${profile.gishinRatio.toFixed(2)}`,
-    `gusinRatio ${profile.gusinRatio.toFixed(2)}`,
-    ...profile.reasons,
+  const labels = [
+    `보강 성향: ${safetyPostureLabel(profile.posture)}`,
+    `적용 방식: ${strategyLabel(profile.strategy)}`,
+    `주의 신호: ${profile.riskScore}/100`,
+    `용신 판단 충돌: ${conflictLabel(profile.conflictLevel)}`,
+    `충돌 후보 오행: ${elementListLabel(profile.competingElements)}`,
+    `용신 보강 비율: ${percentLabel(profile.yongshinRatio)}`,
+    `희신 보조 비율: ${percentLabel(profile.heesinRatio)}`,
+    `기신 겹침 비율: ${percentLabel(profile.gishinRatio)}`,
+    `구신 겹침 비율: ${percentLabel(profile.gusinRatio)}`,
+    ...profile.reasons.map(localizeSafetyReason),
   ];
+  return [...new Set(labels)];
 }
 
 // ---------------------------------------------------------------------------
@@ -248,7 +341,7 @@ export function buildNameCompatibilityCard(
   }
   if (safetyProfile) {
     details.push(
-      `Saju-name safety: ${safetyProfile.posture} (${safetyProfile.strategy}, risk ${safetyProfile.riskScore}/100).`,
+      `사주와 이름의 보강 성향은 ${safetyPostureLabel(safetyProfile.posture)}이에요. 적용 방식은 ${strategyLabel(safetyProfile.strategy)}이고, 주의 신호는 ${safetyProfile.riskScore}/100이에요.`,
     );
   }
 
@@ -285,10 +378,10 @@ export function buildNameCompatibilityCard(
     evidence.push({
       axis: 'yongshinAlignment',
       claim: matchCount > 0
-        ? `이름이 용신(${yongshinElement}) 오행을 ${matchCount}개 보강하고 있어요.`
+        ? `이름이 용신(${elementLabel(yongshinElement)}) 오행을 ${matchCount}개 보강하고 있어요.`
         : '이름의 용신 직접 보강은 없지만, 전체 균형이 일정 부분 보완해요.',
       supportingFeatures: [
-        `용신: ${yongshinElement}`,
+        `용신: ${elementLabel(yongshinElement)}`,
         `용신 일치 글자 수: ${matchCount}`,
         `기신 겹침 글자 수: ${gishinCount}`,
       ],
@@ -300,28 +393,28 @@ export function buildNameCompatibilityCard(
   if (safetyProfile) {
     evidence.push({
       axis: 'candidateSafetyProfile',
-      claim: `Saju-name safety posture is ${safetyProfile.posture} using ${safetyProfile.strategy}.`,
+      claim: `사주와 이름의 보강 성향은 ${safetyPostureLabel(safetyProfile.posture)}이며, ${strategyLabel(safetyProfile.strategy)}을 적용했어요.`,
       supportingFeatures: safetyProfileFeatureLabels(safetyProfile),
       weakness: safetyProfile.posture === 'aggressive'
-        ? 'Consensus conflict or concentrated yongshin reinforcement is high enough to compare safer balanced candidates.'
+        ? '용신 판단이 갈리거나 특정 기운 보강이 강해 더 안정적인 후보와 함께 비교하는 것이 좋아요.'
         : undefined,
     });
   }
   if (elementStrategyEvidence) {
     evidence.push({
       axis: 'nameElementStrategy',
-      claim: `Name element strategy ${elementStrategyEvidence.effectiveStrategy} used ${elementStrategyEvidence.fallbackCount} conservative fallbacks.`,
+      claim: `이름 오행 판단은 ${strategyLabel(elementStrategyEvidence.effectiveStrategy)}을 적용했고, 보수적 대체 판단 ${elementStrategyEvidence.fallbackCount}건을 사용했어요.`,
       supportingFeatures: [
-        `requested ${elementStrategyEvidence.requestedStrategy}`,
-        `effective ${elementStrategyEvidence.effectiveStrategy}`,
-        `safe ${elementStrategyEvidence.safe}`,
-        `fallbackCount ${elementStrategyEvidence.fallbackCount}`,
-        `aggressiveCount ${elementStrategyEvidence.aggressiveCount}`,
+        `요청 방식: ${strategyLabel(elementStrategyEvidence.requestedStrategy)}`,
+        `적용 방식: ${strategyLabel(elementStrategyEvidence.effectiveStrategy)}`,
+        `안전 판단 통과: ${elementStrategyEvidence.safe ? '예' : '아니오'}`,
+        `보수적 대체 판단: ${elementStrategyEvidence.fallbackCount}건`,
+        `강한 보강 판단: ${elementStrategyEvidence.aggressiveCount}건`,
         ...elementStrategyEvidence.decisions.map((decision) =>
-          `${decision.scope}[${decision.index}] ${decision.hangul}/${decision.hanja || '-'} -> ${decision.selectedElement} via ${decision.source} (${decision.safety})`),
+          `${decision.scope}[${decision.index}] ${decision.hangul}/${decision.hanja || '-'} → ${elementLabel(decision.selectedElement)} (${decision.source}, ${decision.safety})`),
       ],
       weakness: elementStrategyEvidence.aggressiveCount > 0
-        ? 'At least one name element used aggressive provenance and should be reviewed before ranking.'
+        ? '일부 글자에서 강한 보강 판단이 사용되어 최종 순위 전에 한 번 더 검토하는 것이 좋아요.'
         : undefined,
     });
   }
@@ -348,7 +441,7 @@ export function buildNameCompatibilityCard(
   if (tenGodPositionEvidence && tenGodPositionEvidence.topContributions.length > 0) {
     evidence.push({
       axis: 'tenGodPosition',
-      claim: `Ten-god score ${Math.round(tenGodPositionEvidence.score)} uses ${tenGodPositionEvidence.effectiveMode} position evidence.`,
+      claim: `십성 위치 점수는 ${Math.round(tenGodPositionEvidence.score)}점이며, ${tenGodPositionEvidence.effectiveMode} 방식의 위치 근거를 사용했어요.`,
       supportingFeatures: [
         `normalization: ${tenGodPositionEvidence.normalization}`,
         ...tenGodPositionEvidence.topContributions.map(tenGodContributionLabel),
@@ -359,10 +452,10 @@ export function buildNameCompatibilityCard(
   if (scoreVector) {
     evidence.push({
       axis: 'namingScoreVector',
-      claim: 'Pre-final naming score vector separates legal, saju, element, meaning, phonetic, era, family, and risk axes.',
+      claim: '최종 점수 전 단계에서 법적 사용 가능성, 사주 조화, 오행, 한자 의미, 발음, 시대감, 성과 이름 연결, 주의 신호를 나누어 보았어요.',
       supportingFeatures: scoreVectorFeatureLabels(scoreVector),
       weakness: scoreVector.risk >= 60
-        ? 'Risk axis is high enough to compare this candidate against alternatives instead of relying on the final score alone.'
+        ? '주의 신호가 높은 편이라 최종 점수만 보지 말고 다른 후보와 함께 비교하세요.'
         : undefined,
     });
   }

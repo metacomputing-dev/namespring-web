@@ -90,6 +90,9 @@ check('axisStrength.gyeokguk is one of 4 tiers',
   isTier(summaryAxis?.gyeokguk), `${summaryAxis?.gyeokguk}`);
 check('axisStrength.strength is one of 4 tiers',
   isTier(summaryAxis?.strength), `${summaryAxis?.strength}`);
+check('adapter output does not expose Korean particle placeholders',
+  !JSON.stringify(sajuReport).includes('\uC774(\uAC00)'),
+  `${sajuReport.gyeokguk?.reasoning ?? ''}`);
 
 // ── (2) OverviewSummaryCard forwards axisStrength ─────────────────────────
 const cardAxis = fortune.overviewSummary.axisStrength;
@@ -119,10 +122,10 @@ if (Array.isArray(evidence)) {
     `${yongshinRow?.strength}`);
   check('yongshin row carries consensus conflict feature',
     yongshinRow != null &&
-      yongshinRow.supportingFeatures.some(f => f.startsWith('consensus conflict:')));
+      yongshinRow.supportingFeatures.some(f => f.startsWith('용신 판단 충돌:')));
   check('yongshin row carries consensus axes feature',
     yongshinRow != null &&
-      yongshinRow.supportingFeatures.some(f => f.startsWith('consensus axes:')));
+      yongshinRow.supportingFeatures.some(f => f.startsWith('판단 축별 후보:')));
 
   const strengthRow = evidence.find(r => r.axis === 'strength');
   check('strength row exists',

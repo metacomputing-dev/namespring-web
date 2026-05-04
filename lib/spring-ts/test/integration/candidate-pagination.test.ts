@@ -85,6 +85,13 @@ check('getNameCandidateSummaries honors explicit limit',
 check('getNameCandidateSummaries honors explicit offset',
   summaries[0]?.rank === 3 && summaries.map((row) => row.rank).join(',') === '3,4,5,6',
   summaries.map((row) => row.rank).join(','));
+check('getNameCandidateSummaries avoids duplicate Hangul rows on a page',
+  new Set(summaries.map((row) => row.fullHangul)).size === summaries.length,
+  summaries.map((row) => row.fullHangul).join(','));
+check('getNameCandidateSummaries includes display Hanja meanings',
+  summaries.every((row) => row.givenName.every((char) =>
+    typeof char.meaning === 'string' && char.meaning.length > 0)),
+  summaries.map((row) => row.givenName.map((char) => char.meaning ?? '').join('/')).join(','));
 
 (engine as any).resetCandidateRejections();
 const generated = await (engine as any).generateCandidates({
@@ -102,6 +109,15 @@ check('generated recommendations exclude unsafe Hanja meanings',
   generatedHanja.slice(0, 20).join(','));
 check('unsafe Hanja meaning rejection is recorded',
   rejectionSummary.some((row: any) => row.reason === 'unsafe_hanja_meaning'),
+  JSON.stringify(rejectionSummary));
+check('generated recommendations exclude opaque one-syllable Hanja meanings',
+  !generatedHanja.some((hanja) => ['勺'].includes(hanja)),
+  generatedHanja.slice(0, 20).join(','));
+check('generated recommendations exclude weak public-name meanings',
+  !generatedHanja.some((hanja) => ['了', '勺', '匕', '牙', '勾', '刈', '勻', '齡', '刀', '勿', '分', '戈'].includes(hanja)),
+  generatedHanja.slice(0, 20).join(','));
+check('weak public-name meaning rejection is recorded',
+  rejectionSummary.some((row: any) => row.reason === 'weak_hanja_meaning'),
   JSON.stringify(rejectionSummary));
 
 engine.close();

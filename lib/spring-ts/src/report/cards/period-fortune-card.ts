@@ -94,6 +94,14 @@ function eunNeun(word: string): string {
   return (last - 0xAC00) % 28 !== 0 ? word + '은' : word + '는';
 }
 
+/** 한글 받침 유무에 따라 이/가 선택 */
+function iGa(word: string): string {
+  if (!word) return word + '가';
+  const last = word.charCodeAt(word.length - 1);
+  if (last < 0xAC00 || last > 0xD7A3) return word + '가';
+  return (last - 0xAC00) % 28 !== 0 ? word + '이' : word + '가';
+}
+
 /** 천간/지지 오행이 같으면 하나로, 다르면 "A와/과 B" */
 function elementPairDesc(stemEl: ElementCode, branchEl: ElementCode): string {
   const stemKo = elementKo(stemEl);
@@ -884,9 +892,9 @@ export function buildPeriodFortuneCard(
 
   let periodClaim: string;
   if (isYongshinAligned) {
-    periodClaim = `이 시기의 천간 ${stemKo}이(가) 용신과 일치하여 흐름이 좋은 시기예요.`;
+    periodClaim = `이 시기의 천간 ${iGa(stemKo)} 용신과 일치하여 흐름이 좋은 시기예요.`;
   } else if (isGishinAligned) {
-    periodClaim = `이 시기의 천간 ${stemKo}이(가) 기신과 겹쳐 주의가 필요한 시기예요.`;
+    periodClaim = `이 시기의 천간 ${iGa(stemKo)} 기신과 겹쳐 주의가 필요한 시기예요.`;
   } else {
     periodClaim = `이 시기 천간 ${stemKo}, 지지 ${branchKo}의 흐름을 반영한 평가예요.`;
   }

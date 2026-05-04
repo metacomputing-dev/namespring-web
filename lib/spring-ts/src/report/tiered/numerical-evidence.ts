@@ -37,6 +37,40 @@ function isSourceTierMetadata(value: unknown): value is SourceTierMetadata {
     typeof value.authorityTruthEligible === 'boolean';
 }
 
+function publicSourceTierMetadata(value: SourceTierMetadata): SourceTierMetadata {
+  return {
+    ...value,
+    humanInterpretation: publicHumanInterpretation(value.humanInterpretation),
+    copyrightNote: publicCopyrightNote(value.copyrightNote),
+  };
+}
+
+function publicHumanInterpretation(value: string): string {
+  if (
+    value === 'Resolved from deterministic spring-ts runtime output.' ||
+    value === 'Age is resolved from deterministic spring-ts runtime output.'
+  ) {
+    return 'spring-ts 계산 결과에서 확정적으로 산출한 내부 수치예요.';
+  }
+  if (value === 'Age context is computed by the engine and used only as display evidence.') {
+    return '나이 정보는 엔진이 계산한 표시용 참고 수치예요.';
+  }
+  if (value === 'Romance score is computed by the engine and used as numerical context.') {
+    return '연애/결혼 점수는 엔진이 계산한 참고 수치예요.';
+  }
+  if (value === 'Career score is computed by the engine and used as numerical context.') {
+    return '진로/커리어 점수는 엔진이 계산한 참고 수치예요.';
+  }
+  return value;
+}
+
+function publicCopyrightNote(value: string): string {
+  if (value === 'No third-party prose copied.' || value === 'No source prose copied.') {
+    return '외부 문장을 복사하지 않고 내부 수치만 사용했어요.';
+  }
+  return value;
+}
+
 export function resolveNumericExpression(
   expression: string,
   context: NumericalEvidenceContext,
@@ -69,7 +103,7 @@ export function resolveNumericalEvidence(
       label: row.label,
       value,
       ...(row.unit ? { unit: row.unit } : {}),
-      sourceTier: row.sourceTier,
+      sourceTier: publicSourceTierMetadata(row.sourceTier),
     });
   }
 
