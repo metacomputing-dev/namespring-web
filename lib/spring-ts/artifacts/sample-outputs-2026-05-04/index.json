@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-05-04T02:15:43.026Z",
+  "generatedAt": "2026-05-04T03:26:50.553Z",
   "targetDate": "2026-05-04T00:00:00+09:00",
   "outputDirectory": "C:\\Projects\\metaintelligence\\namespring-web\\lib\\spring-ts\\artifacts\\sample-outputs-2026-05-04",
   "sampleCount": 7,
@@ -7,7 +7,7 @@
     {
       "sampleId": "choi-seongsoo-current-fortune",
       "fileName": "01-choi-seongsoo-current-fortune.json",
-      "description": "NameSpring-compatible getFortuneReport request: no precisionConfig, full yaza/true-solar/longitude policy.",
+      "description": "NameSpring 호환 getFortuneReport 요청: precisionConfig 없이 야자시, 진태양시, 경도 보정을 모두 적용한 케이스.",
       "call": "getFortuneReport",
       "request": {
         "targetDate": "2026-05-04T00:00:00+09:00",
@@ -47,7 +47,7 @@
           }
         }
       },
-      "outputBytes": 53327,
+      "outputBytes": 53392,
       "payloadSummary": {
         "topLevelKeys": [
           "nameCompatibility",
@@ -67,7 +67,7 @@
         "tieredMatrix": null,
         "meta": {
           "version": "1.0.0",
-          "generatedAt": "2026-05-04T02:15:43.903Z",
+          "generatedAt": "2026-05-04T03:26:51.436Z",
           "schoolPreset": {
             "selected": "korean",
             "source": "default",
@@ -75,8 +75,8 @@
             "label": "Korean Mainstream (이석영 사주첩경 / 한국 현대 작명 표준)",
             "doctrine": "mainstream_korean_default",
             "tradeoffs": [
-              "Default-compatible baseline; best for regression comparison.",
-              "Does not emphasize one doctrine axis beyond current production scoring."
+              "현재 기본 점수 체계와 동일해서 회귀 비교 기준으로 쓰기 좋아요.",
+              "특정 학파 기준을 더 강하게 밀지 않고 현재 서비스 기본값을 유지해요."
             ],
             "scoringEffect": "inactive"
           }
@@ -86,7 +86,7 @@
     {
       "sampleId": "choi-seongsoo-tiered-fortune",
       "fileName": "02-choi-seongsoo-tiered-fortune.json",
-      "description": "Same input with precisionConfig.surfaceTieredMatrix=true for progressive-disclosure output.",
+      "description": "같은 입력에 precisionConfig.surfaceTieredMatrix=true를 켠 점진 공개 출력 케이스.",
       "call": "getFortuneReport",
       "request": {
         "targetDate": "2026-05-04T00:00:00+09:00",
@@ -129,7 +129,7 @@
           }
         }
       },
-      "outputBytes": 491213,
+      "outputBytes": 495372,
       "payloadSummary": {
         "topLevelKeys": [
           "nameCompatibility",
@@ -161,7 +161,7 @@
         },
         "meta": {
           "version": "1.0.0",
-          "generatedAt": "2026-05-04T02:15:44.006Z",
+          "generatedAt": "2026-05-04T03:26:51.553Z",
           "schoolPreset": {
             "selected": "korean",
             "source": "default",
@@ -169,8 +169,8 @@
             "label": "Korean Mainstream (이석영 사주첩경 / 한국 현대 작명 표준)",
             "doctrine": "mainstream_korean_default",
             "tradeoffs": [
-              "Default-compatible baseline; best for regression comparison.",
-              "Does not emphasize one doctrine axis beyond current production scoring."
+              "현재 기본 점수 체계와 동일해서 회귀 비교 기준으로 쓰기 좋아요.",
+              "특정 학파 기준을 더 강하게 밀지 않고 현재 서비스 기본값을 유지해요."
             ],
             "scoringEffect": "inactive"
           }
@@ -180,7 +180,7 @@
     {
       "sampleId": "choi-seongsoo-spring-report-vector",
       "fileName": "03-choi-seongsoo-spring-report-vector.json",
-      "description": "Integrated SpringReport with opt-in naming score vector/trend/phonetic evidence.",
+      "description": "이름 점수 벡터, 유행, 발음 근거를 opt-in으로 포함한 통합 SpringReport 케이스.",
       "call": "getSpringReport",
       "request": {
         "birth": {
@@ -225,7 +225,7 @@
           }
         }
       },
-      "outputBytes": 136763,
+      "outputBytes": 136884,
       "payloadSummary": {
         "topLevelKeys": [
           "finalScore",
@@ -249,7 +249,7 @@
     {
       "sampleId": "kim-seoyun-young-female-tiered",
       "fileName": "04-kim-seoyun-young-female-tiered.json",
-      "description": "Younger female sample with tiered fortune matrix enabled.",
+      "description": "어린 여성 입력에서 tiered 운세 매트릭스를 켠 케이스.",
       "call": "getFortuneReport",
       "request": {
         "targetDate": "2026-05-04T00:00:00+09:00",
@@ -286,7 +286,7 @@
           }
         }
       },
-      "outputBytes": 389945,
+      "outputBytes": 402045,
       "payloadSummary": {
         "topLevelKeys": [
           "nameCompatibility",
@@ -318,7 +318,7 @@
         },
         "meta": {
           "version": "1.0.0",
-          "generatedAt": "2026-05-04T02:15:44.181Z",
+          "generatedAt": "2026-05-04T03:26:51.732Z",
           "schoolPreset": {
             "selected": "korean",
             "source": "default",
@@ -326,8 +326,8 @@
             "label": "Korean Mainstream (이석영 사주첩경 / 한국 현대 작명 표준)",
             "doctrine": "mainstream_korean_default",
             "tradeoffs": [
-              "Default-compatible baseline; best for regression comparison.",
-              "Does not emphasize one doctrine axis beyond current production scoring."
+              "현재 기본 점수 체계와 동일해서 회귀 비교 기준으로 쓰기 좋아요.",
+              "특정 학파 기준을 더 강하게 밀지 않고 현재 서비스 기본값을 유지해요."
             ],
             "scoringEffect": "inactive"
           }
@@ -337,7 +337,7 @@
     {
       "sampleId": "park-minji-late-night-female-tiered",
       "fileName": "05-park-minji-late-night-female-tiered.json",
-      "description": "Adult female late-night sample with yaza/true-solar/longitude policy and tiered matrix enabled.",
+      "description": "성인 여성 늦은 밤 출생 입력에 야자시, 진태양시, 경도 보정과 tiered 매트릭스를 적용한 케이스.",
       "call": "getFortuneReport",
       "request": {
         "targetDate": "2026-05-04T00:00:00+09:00",
@@ -380,7 +380,7 @@
           }
         }
       },
-      "outputBytes": 485674,
+      "outputBytes": 489995,
       "payloadSummary": {
         "topLevelKeys": [
           "nameCompatibility",
@@ -412,7 +412,7 @@
         },
         "meta": {
           "version": "1.0.0",
-          "generatedAt": "2026-05-04T02:15:44.215Z",
+          "generatedAt": "2026-05-04T03:26:51.770Z",
           "schoolPreset": {
             "selected": "korean",
             "source": "default",
@@ -420,8 +420,8 @@
             "label": "Korean Mainstream (이석영 사주첩경 / 한국 현대 작명 표준)",
             "doctrine": "mainstream_korean_default",
             "tradeoffs": [
-              "Default-compatible baseline; best for regression comparison.",
-              "Does not emphasize one doctrine axis beyond current production scoring."
+              "현재 기본 점수 체계와 동일해서 회귀 비교 기준으로 쓰기 좋아요.",
+              "특정 학파 기준을 더 강하게 밀지 않고 현재 서비스 기본값을 유지해요."
             ],
             "scoringEffect": "inactive"
           }
@@ -431,7 +431,7 @@
     {
       "sampleId": "lee-hajun-unknown-hour-neutral-tiered",
       "fileName": "06-lee-hajun-unknown-hour-neutral-tiered.json",
-      "description": "Unknown-hour neutral-gender sample to inspect uncertainty/fallback surfacing with tiered matrix.",
+      "description": "출생 시각 미상, 중립 성별 입력에서 불확실성 안내와 tiered 매트릭스를 확인하는 케이스.",
       "call": "getFortuneReport",
       "request": {
         "targetDate": "2026-05-04T00:00:00+09:00",
@@ -468,7 +468,7 @@
           }
         }
       },
-      "outputBytes": 477264,
+      "outputBytes": 481832,
       "payloadSummary": {
         "topLevelKeys": [
           "nameCompatibility",
@@ -500,7 +500,7 @@
         },
         "meta": {
           "version": "1.0.0",
-          "generatedAt": "2026-05-04T02:15:44.263Z",
+          "generatedAt": "2026-05-04T03:26:51.814Z",
           "schoolPreset": {
             "selected": "korean",
             "source": "default",
@@ -508,8 +508,8 @@
             "label": "Korean Mainstream (이석영 사주첩경 / 한국 현대 작명 표준)",
             "doctrine": "mainstream_korean_default",
             "tradeoffs": [
-              "Default-compatible baseline; best for regression comparison.",
-              "Does not emphasize one doctrine axis beyond current production scoring."
+              "현재 기본 점수 체계와 동일해서 회귀 비교 기준으로 쓰기 좋아요.",
+              "특정 학파 기준을 더 강하게 밀지 않고 현재 서비스 기본값을 유지해요."
             ],
             "scoringEffect": "inactive"
           },
@@ -517,7 +517,7 @@
             {
               "id": "unknown-hour",
               "severity": "medium",
-              "message": "Birth hour or minute is missing. The engine used 12:00 as a calculation fallback, so hour-sensitive conclusions should be treated as provisional.",
+              "message": "출생 시각 정보가 없어 계산에는 낮 12시를 임시 기준으로 사용했어요. 시간에 따라 달라질 수 있는 해석은 참고용으로 보세요.",
               "affectedAxes": [
                 "hourPillar",
                 "yongshin",
@@ -539,7 +539,7 @@
     {
       "sampleId": "choi-seongsoo-candidate-summaries",
       "fileName": "07-choi-seongsoo-candidate-summaries.json",
-      "description": "Recommendation-list sample for UI rendering, including score vectors and presentation-safe candidate filtering.",
+      "description": "UI 추천 목록 렌더링용 샘플: 점수 벡터와 공개 표시 안전 후보 필터를 함께 확인하는 케이스.",
       "call": "getNameCandidateSummaries",
       "request": {
         "birth": {
@@ -576,7 +576,7 @@
           }
         }
       },
-      "outputBytes": 14229,
+      "outputBytes": 16366,
       "payloadSummary": {
         "topLevelKeys": [
           "0",

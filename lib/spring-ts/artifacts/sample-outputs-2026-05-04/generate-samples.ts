@@ -88,7 +88,7 @@ const samples: Sample[] = [
   {
     id: 'choi-seongsoo-current-fortune',
     fileName: '01-choi-seongsoo-current-fortune.json',
-    description: 'NameSpring-compatible getFortuneReport request: no precisionConfig, full yaza/true-solar/longitude policy.',
+    description: 'NameSpring 호환 getFortuneReport 요청: precisionConfig 없이 야자시, 진태양시, 경도 보정을 모두 적용한 케이스.',
     call: 'getFortuneReport',
     request: {
       targetDate: TARGET_DATE,
@@ -100,7 +100,7 @@ const samples: Sample[] = [
   {
     id: 'choi-seongsoo-tiered-fortune',
     fileName: '02-choi-seongsoo-tiered-fortune.json',
-    description: 'Same input with precisionConfig.surfaceTieredMatrix=true for progressive-disclosure output.',
+    description: '같은 입력에 precisionConfig.surfaceTieredMatrix=true를 켠 점진 공개 출력 케이스.',
     call: 'getFortuneReport',
     request: {
       targetDate: TARGET_DATE,
@@ -117,7 +117,7 @@ const samples: Sample[] = [
   {
     id: 'choi-seongsoo-spring-report-vector',
     fileName: '03-choi-seongsoo-spring-report-vector.json',
-    description: 'Integrated SpringReport with opt-in naming score vector/trend/phonetic evidence.',
+    description: '이름 점수 벡터, 유행, 발음 근거를 opt-in으로 포함한 통합 SpringReport 케이스.',
     call: 'getSpringReport',
     request: {
       birth: choiSeongsooBirth,
@@ -134,7 +134,7 @@ const samples: Sample[] = [
   {
     id: 'kim-seoyun-young-female-tiered',
     fileName: '04-kim-seoyun-young-female-tiered.json',
-    description: 'Younger female sample with tiered fortune matrix enabled.',
+    description: '어린 여성 입력에서 tiered 운세 매트릭스를 켠 케이스.',
     call: 'getFortuneReport',
     request: {
       targetDate: TARGET_DATE,
@@ -160,7 +160,7 @@ const samples: Sample[] = [
   {
     id: 'park-minji-late-night-female-tiered',
     fileName: '05-park-minji-late-night-female-tiered.json',
-    description: 'Adult female late-night sample with yaza/true-solar/longitude policy and tiered matrix enabled.',
+    description: '성인 여성 늦은 밤 출생 입력에 야자시, 진태양시, 경도 보정과 tiered 매트릭스를 적용한 케이스.',
     call: 'getFortuneReport',
     request: {
       targetDate: TARGET_DATE,
@@ -191,7 +191,7 @@ const samples: Sample[] = [
   {
     id: 'lee-hajun-unknown-hour-neutral-tiered',
     fileName: '06-lee-hajun-unknown-hour-neutral-tiered.json',
-    description: 'Unknown-hour neutral-gender sample to inspect uncertainty/fallback surfacing with tiered matrix.',
+    description: '출생 시각 미상, 중립 성별 입력에서 불확실성 안내와 tiered 매트릭스를 확인하는 케이스.',
     call: 'getFortuneReport',
     request: {
       targetDate: TARGET_DATE,
@@ -221,7 +221,7 @@ const samples: Sample[] = [
   {
     id: 'choi-seongsoo-candidate-summaries',
     fileName: '07-choi-seongsoo-candidate-summaries.json',
-    description: 'Recommendation-list sample for UI rendering, including score vectors and presentation-safe candidate filtering.',
+    description: 'UI 추천 목록 렌더링용 샘플: 점수 벡터와 공개 표시 안전 후보 필터를 함께 확인하는 케이스.',
     call: 'getNameCandidateSummaries',
     request: {
       birth: choiSeongsooBirth,
