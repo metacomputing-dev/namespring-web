@@ -11,7 +11,7 @@
       "axis": { "category": "movement", "period": "life", "depth": "brief" },
       "gating": {},
       "templateTokens": [
-        { "kind": "text", "value": "평생의 이동 흐름은 새 환경의 문이 자주 열리는 결이에요." }
+        { "kind": "text", "value": "평생의 이동운은 새 환경의 문이 자주 열리는 모습이에요." }
       ],
       "tags": [],
       "aiGenerated": true,

@@ -379,6 +379,42 @@ const awkwardRenderedPhrases = allTieredText.filter((text) =>
     text.includes('천간의 두 글자가 합쳐서 다른 오행으로 변하는 흐름') ||
     text.includes('음양의 흐름이 한 박자씩 어긋나') ||
     text.includes('에너지의 흐름이 잔잔한 흐름') ||
+    text.includes('재물 흐름') ||
+    text.includes('건강 흐름') ||
+    text.includes('가족 흐름') ||
+    text.includes('직업 흐름') ||
+    text.includes('인연 흐름') ||
+    text.includes('이동 흐름') ||
+    text.includes('스트레스 흐름') ||
+    text.includes('연애와 인연 흐름') ||
+    text.includes('건강·스트레스 흐름') ||
+    text.includes('균형이 돌아오는 자리') ||
+    text.includes('잘 흐르는 사주') ||
+    text.includes('부모님 자리와 자녀의 자리') ||
+    text.includes('흐름을 한 호흡씩 정리하는 자리') ||
+    text.includes('어깨·허리 자리에') ||
+    text.includes('누적된 자리들이') ||
+    text.includes('여러 자리에서 오는 신호') ||
+    text.includes('자리 이동이 생기면 생각보다 빨리 흐름을 탈 수 있어요') ||
+    text.includes('흐름을 탈 수 있어요') ||
+    text.includes('큰 변화은') ||
+    text.includes('산책 시간를') ||
+    text.includes('한 달이라는 자리는') ||
+    text.includes('회복 자리를 사이사이에') ||
+    text.includes('한 번 푹 쉬는 자리를') ||
+    text.includes('짧은 회복 자리를') ||
+    text.includes('다음 해의 결까지') ||
+    text.includes('쌓이는 자리가 자주 와요') ||
+    text.includes('보편적인 자리도') ||
+    text.includes('잠자리를 평소보다 한 시간 일찍 잡는 자리를') ||
+    text.includes('첫 자취·첫 직장·첫 해외 자리가') ||
+    text.includes('새 자리를 경험해 볼') ||
+    text.includes('돌아오는 자리가') ||
+    text.includes('활동량을 받아 내는 그릇이 큰 흐름') ||
+    text.includes('누적되는 자리가') ||
+    text.includes('페이스를 늦추는 자리를') ||
+    text.includes('그릇을 더 키워') ||
+    text.includes('한 해의 결이 한층 든든해져요') ||
     text.includes('이동 흐름은 익숙한 동선을 지키면 호흡이 편안') ||
     text.includes('이동 흐름은 익숙한 자리에서 한 발짝씩 넓혀 가는 흐름') ||
     text.includes('기운은 충분한데 방향이 살짝 흩어진 흐름') ||
