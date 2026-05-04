@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-05-04T07:37:48.916Z",
+  "generatedAt": "2026-05-04T09:17:29.954Z",
   "targetDate": "2026-05-04T00:00:00+09:00",
   "outputDirectory": "C:\\Projects\\metaintelligence\\namespring-web\\lib\\spring-ts\\artifacts\\sample-outputs-2026-05-04",
   "sampleCount": 7,
@@ -67,7 +67,7 @@
         "tieredMatrix": null,
         "meta": {
           "version": "1.0.0",
-          "generatedAt": "2026-05-04T07:37:50.311Z",
+          "generatedAt": "2026-05-04T09:17:31.473Z",
           "schoolPreset": {
             "selected": "korean",
             "source": "default",
@@ -129,7 +129,7 @@
           }
         }
       },
-      "outputBytes": 497367,
+      "outputBytes": 497218,
       "payloadSummary": {
         "topLevelKeys": [
           "nameCompatibility",
@@ -161,7 +161,7 @@
         },
         "meta": {
           "version": "1.0.0",
-          "generatedAt": "2026-05-04T07:37:50.528Z",
+          "generatedAt": "2026-05-04T09:17:31.700Z",
           "schoolPreset": {
             "selected": "korean",
             "source": "default",
@@ -286,7 +286,7 @@
           }
         }
       },
-      "outputBytes": 403841,
+      "outputBytes": 403592,
       "payloadSummary": {
         "topLevelKeys": [
           "nameCompatibility",
@@ -318,7 +318,7 @@
         },
         "meta": {
           "version": "1.0.0",
-          "generatedAt": "2026-05-04T07:37:50.851Z",
+          "generatedAt": "2026-05-04T09:17:32.022Z",
           "schoolPreset": {
             "selected": "korean",
             "source": "default",
@@ -380,7 +380,7 @@
           }
         }
       },
-      "outputBytes": 491482,
+      "outputBytes": 491175,
       "payloadSummary": {
         "topLevelKeys": [
           "nameCompatibility",
@@ -412,7 +412,7 @@
         },
         "meta": {
           "version": "1.0.0",
-          "generatedAt": "2026-05-04T07:37:50.936Z",
+          "generatedAt": "2026-05-04T09:17:32.105Z",
           "schoolPreset": {
             "selected": "korean",
             "source": "default",
@@ -468,7 +468,7 @@
           }
         }
       },
-      "outputBytes": 483306,
+      "outputBytes": 483277,
       "payloadSummary": {
         "topLevelKeys": [
           "nameCompatibility",
@@ -500,7 +500,7 @@
         },
         "meta": {
           "version": "1.0.0",
-          "generatedAt": "2026-05-04T07:37:51.027Z",
+          "generatedAt": "2026-05-04T09:17:32.199Z",
           "schoolPreset": {
             "selected": "korean",
             "source": "default",
