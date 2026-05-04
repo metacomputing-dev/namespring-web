@@ -1,8 +1,8 @@
 {
-  "generatedAt": "2026-05-04T02:15:43.026Z",
+  "generatedAt": "2026-05-04T03:26:50.553Z",
   "targetDate": "2026-05-04T00:00:00+09:00",
   "sampleId": "choi-seongsoo-spring-report-vector",
-  "description": "Integrated SpringReport with opt-in naming score vector/trend/phonetic evidence.",
+  "description": "이름 점수 벡터, 유행, 발음 근거를 opt-in으로 포함한 통합 SpringReport 케이스.",
   "call": "getSpringReport",
   "request": {
     "birth": {
@@ -78,8 +78,8 @@
       "label": "Korean Mainstream (이석영 사주첩경 / 한국 현대 작명 표준)",
       "doctrine": "mainstream_korean_default",
       "tradeoffs": [
-        "Default-compatible baseline; best for regression comparison.",
-        "Does not emphasize one doctrine axis beyond current production scoring."
+        "현재 기본 점수 체계와 동일해서 회귀 비교 기준으로 쓰기 좋아요.",
+        "특정 학파 기준을 더 강하게 밀지 않고 현재 서비스 기본값을 유지해요."
       ],
       "scoringEffect": "inactive"
     },
@@ -899,7 +899,7 @@
         "category": "NORMAL",
         "baseSipseong": "BI_GYEON",
         "confidence": 0.7641666666666667,
-        "reasoning": "격국 후보 중 비견격이(가) 가장 유력합니다.",
+        "reasoning": "격국 후보 중 비견격이 가장 유력합니다.",
         "candidates": [
           {
             "type": "BI_GYEON",
@@ -2914,7 +2914,7 @@
         "category": "일반",
         "baseTenGod": "비견",
         "confidence": 0.7641666666666667,
-        "reasoning": "격국 후보 중 비견격이(가) 가장 유력합니다.",
+        "reasoning": "격국 후보 중 비견격이 가장 유력합니다.",
         "candidates": [
           {
             "type": "비견격",
@@ -3520,14 +3520,14 @@
         "gishinRatio": 0.3333333333333333,
         "gusinRatio": 0.3333333333333333,
         "reasons": [
-          "risk 19",
-          "strategy legacy_direct_reinforcement",
-          "yongshinRatio 0.00",
-          "heesinRatio 0.00",
-          "gishinRatio 0.33",
-          "gusinRatio 0.33",
-          "consensus conflict: high",
-          "competing elements: FIRE,WATER,WOOD"
+          "주의 신호 19/100",
+          "적용 방식: 기존 직접 보강 방식",
+          "용신 보강 비율: 0%",
+          "희신 보조 비율: 0%",
+          "기신 겹침 비율: 33%",
+          "구신 겹침 비율: 33%",
+          "용신 판단 충돌: 높음",
+          "충돌 후보 오행: 불, 물, 나무"
         ]
       },
       "tenGodPositionEvidence": {

@@ -1,8 +1,8 @@
 {
-  "generatedAt": "2026-05-04T02:15:43.026Z",
+  "generatedAt": "2026-05-04T03:26:50.553Z",
   "targetDate": "2026-05-04T00:00:00+09:00",
   "sampleId": "choi-seongsoo-tiered-fortune",
-  "description": "Same input with precisionConfig.surfaceTieredMatrix=true for progressive-disclosure output.",
+  "description": "같은 입력에 precisionConfig.surfaceTieredMatrix=true를 켠 점진 공개 출력 케이스.",
   "call": "getFortuneReport",
   "request": {
     "targetDate": "2026-05-04T00:00:00+09:00",
@@ -67,14 +67,14 @@
         "gishinRatio": 0.3333333333333333,
         "gusinRatio": 0.3333333333333333,
         "reasons": [
-          "risk 19",
-          "strategy legacy_direct_reinforcement",
-          "yongshinRatio 0.00",
-          "heesinRatio 0.00",
-          "gishinRatio 0.33",
-          "gusinRatio 0.33",
-          "consensus conflict: high",
-          "competing elements: FIRE,WATER,WOOD"
+          "주의 신호 19/100",
+          "적용 방식: 기존 직접 보강 방식",
+          "용신 보강 비율: 0%",
+          "희신 보조 비율: 0%",
+          "기신 겹침 비율: 33%",
+          "구신 겹침 비율: 33%",
+          "용신 판단 충돌: 높음",
+          "충돌 후보 오행: 불, 물, 나무"
         ]
       },
       "tenGodPositionEvidence": {
@@ -112,7 +112,7 @@
         "사주 궁합 점수는 37점이에요. 이름의 오행이 사주와 약간 맞지 않는 부분이 있어요.",
         "이름 분석 점수는 63점이에요. 이름 자체의 균형이 좋은 편이에요.",
         "이름에 용신 오행과 직접 일치하는 글자는 없지만, 전체 균형으로 보완하고 있어요.",
-        "Saju-name safety: balanced (legacy_direct_reinforcement, risk 19/100).",
+        "사주와 이름의 보강 성향은 균형형이에요. 적용 방식은 기존 직접 보강 방식이고, 주의 신호는 19/100이에요.",
         "이름에 기신 오행과 겹치는 글자가 1개 있어요. 크게 걱정할 수준은 아니지만 참고해 주세요."
       ],
       "evidence": [
@@ -130,7 +130,7 @@
           "axis": "yongshinAlignment",
           "claim": "이름의 용신 직접 보강은 없지만, 전체 균형이 일정 부분 보완해요.",
           "supportingFeatures": [
-            "용신: Metal",
+            "용신: 쇠",
             "용신 일치 글자 수: 0",
             "기신 겹침 글자 수: 1"
           ],
@@ -138,25 +138,18 @@
         },
         {
           "axis": "candidateSafetyProfile",
-          "claim": "Saju-name safety posture is balanced using legacy_direct_reinforcement.",
+          "claim": "사주와 이름의 보강 성향은 균형형이며, 기존 직접 보강 방식을 적용했어요.",
           "supportingFeatures": [
-            "posture balanced",
-            "strategy legacy_direct_reinforcement",
-            "risk 19",
-            "consensus conflict: high",
-            "competing elements: FIRE,WATER,WOOD",
-            "yongshinRatio 0.00",
-            "heesinRatio 0.00",
-            "gishinRatio 0.33",
-            "gusinRatio 0.33",
-            "risk 19",
-            "strategy legacy_direct_reinforcement",
-            "yongshinRatio 0.00",
-            "heesinRatio 0.00",
-            "gishinRatio 0.33",
-            "gusinRatio 0.33",
-            "consensus conflict: high",
-            "competing elements: FIRE,WATER,WOOD"
+            "보강 성향: 균형형",
+            "적용 방식: 기존 직접 보강 방식",
+            "주의 신호: 19/100",
+            "용신 판단 충돌: 높음",
+            "충돌 후보 오행: 불, 물, 나무",
+            "용신 보강 비율: 0%",
+            "희신 보조 비율: 0%",
+            "기신 겹침 비율: 33%",
+            "구신 겹침 비율: 33%",
+            "주의 신호 19/100"
           ]
         }
       ]
@@ -190,7 +183,7 @@
         }
       ],
       "dayMasterDescription": "일간은 계예요. 물 기운을 가지고 있고, 물처럼 아래로 흘러 모이는 지혜의 기운이 느껴져요. 이슬비처럼 조용히 스며드는 공감 능력이 있어요.",
-      "strengthDescription": "에너지 균형은 신약이에요. ",
+      "strengthDescription": "에너지 균형은 신약이에요.",
       "yongshinDescription": "사주의 균형을 맞춰주는 용신은 쇠(금) 기운이에요. 이 기운을 일상에서 가까이하면 좋은 흐름을 만들 수 있어요. 희신인 물 기운도 함께 챙기면 더 좋아요.",
       "elementBalance": "오행 중 나무 기운이 가장 강해요. 쇠 기운은 부족한 편이에요.",
       "overallSummary": "계 일간을 중심으로, 물 기운의 이슬비와 직관이 돋보이는 사주예요. 전체 에너지는 신약 수준이고, 쇠 기운을 보충하면 더 좋은 균형을 만들 수 있어요. 부족한 쇠 기운을 일상에서 조금씩 채워가면 삶이 더 안정될 수 있어요.",
@@ -204,17 +197,18 @@
           "axis": "dayMaster",
           "claim": "일간은 계예요. 물 기운을 가지고 있고, 물처럼 아래로 흘러 모이는 지혜의 기운이 느껴져요. 이슬비처럼 조용히 스며드는 공감 능력이 있어요.",
           "supportingFeatures": [
-            "계(WATER) 일간 — 물 기운",
+            "계 일간 - 물 기운",
             "기본 성향: 이슬비, 직관"
           ],
           "strength": "deferred"
         },
         {
           "axis": "strength",
-          "claim": "에너지 균형은 신약이에요. ",
+          "claim": "에너지 균형은 신약이에요.",
           "supportingFeatures": [
-            "totalSupport 2.4000000000000004, totalOppose 5.6000000000000005",
-            "level: 신약"
+            "도움 기운: 2.4",
+            "부담 기운: 5.6",
+            "강약 판단: 신약"
           ],
           "strength": "deferred"
         },
@@ -222,11 +216,11 @@
           "axis": "yongshin",
           "claim": "사주의 균형을 맞춰주는 용신은 쇠(금) 기운이에요. 이 기운을 일상에서 가까이하면 좋은 흐름을 만들 수 있어요. 희신인 물 기운도 함께 챙기면 더 좋아요. (다만 용신 신뢰도가 낮은 편이라 다른 보조 기운도 함께 살펴보세요.)",
           "supportingFeatures": [
-            "용신 후보: METAL",
-            "confidence: 41",
-            "consensus conflict: high",
-            "consensus axes: eokbu:METAL, johu:FIRE, gyeokguk:WATER, tonggwan:WOOD, byeongyak:METAL, siksangFlow:WOOD",
-            "희신: WATER"
+            "용신 후보: 쇠",
+            "신뢰도: 41 / 100",
+            "용신 판단 충돌: 높음",
+            "판단 축별 후보: 억부:쇠, 조후:불, 격국:물, 통관:나무, 병약:쇠, 식상 흐름:나무",
+            "희신: 물"
           ],
           "weakness": "용신 신뢰도가 0.65 미만이라 차트에 따라 다른 학파(조후 / 통관)의 추천이 더 적합할 수 있음.",
           "strength": "deferred"
@@ -246,8 +240,8 @@
           "claim": "격국 후보 간 이견이 있어 선택 격국은 보조 후보와 함께 해석해야 합니다.",
           "supportingFeatures": [
             "선택 격국: 비견격",
-            "정관격 후보(score 0.750, confidence 75%): monthHiddenStem:MU, role:MAIN, weight:0.60",
-            "식신격 후보(score 0.300, confidence 30%): monthHiddenStem:EUL, role:MIDDLE, weight:0.30"
+            "정관격 후보(점수 0.750, 신뢰도 75%): 월지 지장간: 무, 지장간 역할: 정기, 반영 비중: 0.60",
+            "식신격 후보(점수 0.300, 신뢰도 30%): 월지 지장간: 을, 지장간 역할: 중기, 반영 비중: 0.30"
           ],
           "strength": "practical"
         }
@@ -896,7 +890,7 @@
       "evidence": [
         {
           "axis": "period",
-          "claim": "이 시기의 천간 불이(가) 기신과 겹쳐 주의가 필요한 시기예요.",
+          "claim": "이 시기의 천간 불이 기신과 겹쳐 주의가 필요한 시기예요.",
           "supportingFeatures": [
             "기간 라벨: 2026년",
             "간지: 병오(丙午), 천간/지지 오행: 불/불",
@@ -1090,7 +1084,7 @@
         "evidence": [
           {
             "axis": "category",
-            "claim": "재물/커리어운 영역의 핵심 오행 불이(가) 기신과 겹쳐 보수적 운영이 좋아요.",
+            "claim": "재물/커리어운 영역의 핵심 오행 불이 기신과 겹쳐 보수적 운영이 좋아요.",
             "supportingFeatures": [
               "카테고리 핵심: 불",
               "올해 천간 오행: 흙",
@@ -1144,7 +1138,7 @@
         "evidence": [
           {
             "axis": "category",
-            "claim": "건강운 영역의 핵심 오행 쇠이(가) 용신과 일치하여 흐름이 좋은 영역이에요.",
+            "claim": "건강운 영역의 핵심 오행 쇠가 용신과 일치하여 흐름이 좋은 영역이에요.",
             "supportingFeatures": [
               "카테고리 핵심: 쇠",
               "올해 천간 오행: 흙",
@@ -1248,7 +1242,7 @@
         "evidence": [
           {
             "axis": "category",
-            "claim": "연애/결혼운 영역의 핵심 오행 불이(가) 기신과 겹쳐 보수적 운영이 좋아요.",
+            "claim": "연애/결혼운 영역의 핵심 오행 불이 기신과 겹쳐 보수적 운영이 좋아요.",
             "supportingFeatures": [
               "카테고리 핵심: 불",
               "올해 천간 오행: 흙",
@@ -1296,7 +1290,7 @@
         "evidence": [
           {
             "axis": "category",
-            "claim": "가족운 영역의 핵심 오행 쇠이(가) 용신과 일치하여 흐름이 좋은 영역이에요.",
+            "claim": "가족운 영역의 핵심 오행 쇠가 용신과 일치하여 흐름이 좋은 영역이에요.",
             "supportingFeatures": [
               "카테고리 핵심: 쇠",
               "올해 천간 오행: 흙",
@@ -1319,7 +1313,7 @@
     },
     "meta": {
       "version": "1.0.0",
-      "generatedAt": "2026-05-04T02:15:44.006Z",
+      "generatedAt": "2026-05-04T03:26:51.553Z",
       "schoolPreset": {
         "selected": "korean",
         "source": "default",
@@ -1327,8 +1321,8 @@
         "label": "Korean Mainstream (이석영 사주첩경 / 한국 현대 작명 표준)",
         "doctrine": "mainstream_korean_default",
         "tradeoffs": [
-          "Default-compatible baseline; best for regression comparison.",
-          "Does not emphasize one doctrine axis beyond current production scoring."
+          "현재 기본 점수 체계와 동일해서 회귀 비교 기준으로 쓰기 좋아요.",
+          "특정 학파 기준을 더 강하게 밀지 않고 현재 서비스 기본값을 유지해요."
         ],
         "scoringEffect": "inactive"
       }
@@ -1346,7 +1340,7 @@
             "meaningfulness": "meaningful",
             "stars": 4,
             "brief": {
-              "headline": "물 타고난 중심 기운에 기운이 약한 상태 흐름이 겹치면 깊이 생각하는 힘과 실행 리듬을 함께 맞춰야 해요. 큰 자극을 줄이고 믿을 만한 사람이나 환경에 기대어 진행하세요. 정보를 더 모으기 전에 선택 기준을 먼저 적어보세요."
+              "headline": "물 기운을 타고난 사람에게 기운이 약한 흐름이 겹치면 깊이 생각하는 힘과 실행 리듬을 함께 맞춰야 해요. 큰 자극을 줄이고 믿을 만한 사람이나 환경에 기대어 진행하세요. 정보를 더 모으기 전에 선택 기준을 먼저 적어보세요."
             },
             "standard": {
               "paragraphs": [
@@ -1418,8 +1412,8 @@
                     "sourceUrl": null,
                     "accessedAt": "2026-05-02",
                     "quoteShort": null,
-                    "humanInterpretation": "Resolved from deterministic spring-ts runtime output.",
-                    "copyrightNote": "No third-party prose copied.",
+                    "humanInterpretation": "spring-ts 계산 결과에서 확정적으로 산출한 내부 수치예요.",
+                    "copyrightNote": "외부 문장을 복사하지 않고 내부 수치만 사용했어요.",
                     "authorityTruthEligible": false
                   }
                 },
@@ -1433,8 +1427,8 @@
                     "sourceUrl": null,
                     "accessedAt": "2026-05-02",
                     "quoteShort": null,
-                    "humanInterpretation": "Resolved from deterministic spring-ts runtime output.",
-                    "copyrightNote": "No third-party prose copied.",
+                    "humanInterpretation": "spring-ts 계산 결과에서 확정적으로 산출한 내부 수치예요.",
+                    "copyrightNote": "외부 문장을 복사하지 않고 내부 수치만 사용했어요.",
                     "authorityTruthEligible": false
                   }
                 },
@@ -1448,8 +1442,8 @@
                     "sourceUrl": null,
                     "accessedAt": "2026-05-03",
                     "quoteShort": null,
-                    "humanInterpretation": "Resolved from deterministic spring-ts runtime output.",
-                    "copyrightNote": "No third-party prose copied.",
+                    "humanInterpretation": "spring-ts 계산 결과에서 확정적으로 산출한 내부 수치예요.",
+                    "copyrightNote": "외부 문장을 복사하지 않고 내부 수치만 사용했어요.",
                     "authorityTruthEligible": false
                   }
                 },
@@ -1463,8 +1457,8 @@
                     "sourceUrl": null,
                     "accessedAt": "2026-05-03",
                     "quoteShort": null,
-                    "humanInterpretation": "Resolved from deterministic spring-ts runtime output.",
-                    "copyrightNote": "No third-party prose copied.",
+                    "humanInterpretation": "spring-ts 계산 결과에서 확정적으로 산출한 내부 수치예요.",
+                    "copyrightNote": "외부 문장을 복사하지 않고 내부 수치만 사용했어요.",
                     "authorityTruthEligible": false
                   }
                 },
@@ -1478,8 +1472,8 @@
                     "sourceUrl": null,
                     "accessedAt": "2026-05-03",
                     "quoteShort": null,
-                    "humanInterpretation": "Resolved from deterministic spring-ts runtime output.",
-                    "copyrightNote": "No third-party prose copied.",
+                    "humanInterpretation": "spring-ts 계산 결과에서 확정적으로 산출한 내부 수치예요.",
+                    "copyrightNote": "외부 문장을 복사하지 않고 내부 수치만 사용했어요.",
                     "authorityTruthEligible": false
                   }
                 },
@@ -1493,8 +1487,8 @@
                     "sourceUrl": null,
                     "accessedAt": "2026-05-03",
                     "quoteShort": null,
-                    "humanInterpretation": "Resolved from deterministic spring-ts runtime output.",
-                    "copyrightNote": "No third-party prose copied.",
+                    "humanInterpretation": "spring-ts 계산 결과에서 확정적으로 산출한 내부 수치예요.",
+                    "copyrightNote": "외부 문장을 복사하지 않고 내부 수치만 사용했어요.",
                     "authorityTruthEligible": false
                   }
                 }
@@ -1630,8 +1624,8 @@
                       "sourceUrl": null,
                       "accessedAt": "2026-05-03",
                       "quoteShort": null,
-                      "humanInterpretation": "Resolved from deterministic spring-ts runtime output.",
-                      "copyrightNote": "No third-party prose copied.",
+                      "humanInterpretation": "spring-ts 계산 결과에서 확정적으로 산출한 내부 수치예요.",
+                      "copyrightNote": "외부 문장을 복사하지 않고 내부 수치만 사용했어요.",
                       "authorityTruthEligible": false
                     }
                   },
@@ -1645,8 +1639,8 @@
                       "sourceUrl": null,
                       "accessedAt": "2026-05-03",
                       "quoteShort": null,
-                      "humanInterpretation": "Resolved from deterministic spring-ts runtime output.",
-                      "copyrightNote": "No third-party prose copied.",
+                      "humanInterpretation": "spring-ts 계산 결과에서 확정적으로 산출한 내부 수치예요.",
+                      "copyrightNote": "외부 문장을 복사하지 않고 내부 수치만 사용했어요.",
                       "authorityTruthEligible": false
                     }
                   },
@@ -1660,8 +1654,8 @@
                       "sourceUrl": null,
                       "accessedAt": "2026-05-03",
                       "quoteShort": null,
-                      "humanInterpretation": "Resolved from deterministic spring-ts runtime output.",
-                      "copyrightNote": "No third-party prose copied.",
+                      "humanInterpretation": "spring-ts 계산 결과에서 확정적으로 산출한 내부 수치예요.",
+                      "copyrightNote": "외부 문장을 복사하지 않고 내부 수치만 사용했어요.",
                       "authorityTruthEligible": false
                     }
                   },
@@ -1675,8 +1669,8 @@
                       "sourceUrl": null,
                       "accessedAt": "2026-05-03",
                       "quoteShort": null,
-                      "humanInterpretation": "Resolved from deterministic spring-ts runtime output.",
-                      "copyrightNote": "No third-party prose copied.",
+                      "humanInterpretation": "spring-ts 계산 결과에서 확정적으로 산출한 내부 수치예요.",
+                      "copyrightNote": "외부 문장을 복사하지 않고 내부 수치만 사용했어요.",
                       "authorityTruthEligible": false
                     }
                   }
@@ -1914,8 +1908,8 @@
                       "sourceUrl": null,
                       "accessedAt": "2026-05-03",
                       "quoteShort": null,
-                      "humanInterpretation": "Resolved from deterministic spring-ts runtime output.",
-                      "copyrightNote": "No third-party prose copied.",
+                      "humanInterpretation": "spring-ts 계산 결과에서 확정적으로 산출한 내부 수치예요.",
+                      "copyrightNote": "외부 문장을 복사하지 않고 내부 수치만 사용했어요.",
                       "authorityTruthEligible": false
                     }
                   },
@@ -1929,8 +1923,8 @@
                       "sourceUrl": null,
                       "accessedAt": "2026-05-03",
                       "quoteShort": null,
-                      "humanInterpretation": "Resolved from deterministic spring-ts runtime output.",
-                      "copyrightNote": "No third-party prose copied.",
+                      "humanInterpretation": "spring-ts 계산 결과에서 확정적으로 산출한 내부 수치예요.",
+                      "copyrightNote": "외부 문장을 복사하지 않고 내부 수치만 사용했어요.",
                       "authorityTruthEligible": false
                     }
                   },
@@ -1944,8 +1938,8 @@
                       "sourceUrl": null,
                       "accessedAt": "2026-05-03",
                       "quoteShort": null,
-                      "humanInterpretation": "Resolved from deterministic spring-ts runtime output.",
-                      "copyrightNote": "No third-party prose copied.",
+                      "humanInterpretation": "spring-ts 계산 결과에서 확정적으로 산출한 내부 수치예요.",
+                      "copyrightNote": "외부 문장을 복사하지 않고 내부 수치만 사용했어요.",
                       "authorityTruthEligible": false
                     }
                   },
@@ -1959,8 +1953,8 @@
                       "sourceUrl": null,
                       "accessedAt": "2026-05-03",
                       "quoteShort": null,
-                      "humanInterpretation": "Resolved from deterministic spring-ts runtime output.",
-                      "copyrightNote": "No third-party prose copied.",
+                      "humanInterpretation": "spring-ts 계산 결과에서 확정적으로 산출한 내부 수치예요.",
+                      "copyrightNote": "외부 문장을 복사하지 않고 내부 수치만 사용했어요.",
                       "authorityTruthEligible": false
                     }
                   }
@@ -2090,8 +2084,8 @@
                       "sourceUrl": null,
                       "accessedAt": "2026-05-03",
                       "quoteShort": null,
-                      "humanInterpretation": "Resolved from deterministic spring-ts runtime output.",
-                      "copyrightNote": "No third-party prose copied.",
+                      "humanInterpretation": "spring-ts 계산 결과에서 확정적으로 산출한 내부 수치예요.",
+                      "copyrightNote": "외부 문장을 복사하지 않고 내부 수치만 사용했어요.",
                       "authorityTruthEligible": false
                     }
                   },
@@ -2105,8 +2099,8 @@
                       "sourceUrl": null,
                       "accessedAt": "2026-05-03",
                       "quoteShort": null,
-                      "humanInterpretation": "Resolved from deterministic spring-ts runtime output.",
-                      "copyrightNote": "No third-party prose copied.",
+                      "humanInterpretation": "spring-ts 계산 결과에서 확정적으로 산출한 내부 수치예요.",
+                      "copyrightNote": "외부 문장을 복사하지 않고 내부 수치만 사용했어요.",
                       "authorityTruthEligible": false
                     }
                   },
@@ -2120,8 +2114,8 @@
                       "sourceUrl": null,
                       "accessedAt": "2026-05-03",
                       "quoteShort": null,
-                      "humanInterpretation": "Resolved from deterministic spring-ts runtime output.",
-                      "copyrightNote": "No third-party prose copied.",
+                      "humanInterpretation": "spring-ts 계산 결과에서 확정적으로 산출한 내부 수치예요.",
+                      "copyrightNote": "외부 문장을 복사하지 않고 내부 수치만 사용했어요.",
                       "authorityTruthEligible": false
                     }
                   },
@@ -2135,8 +2129,8 @@
                       "sourceUrl": null,
                       "accessedAt": "2026-05-03",
                       "quoteShort": null,
-                      "humanInterpretation": "Resolved from deterministic spring-ts runtime output.",
-                      "copyrightNote": "No third-party prose copied.",
+                      "humanInterpretation": "spring-ts 계산 결과에서 확정적으로 산출한 내부 수치예요.",
+                      "copyrightNote": "외부 문장을 복사하지 않고 내부 수치만 사용했어요.",
                       "authorityTruthEligible": false
                     }
                   }
@@ -2269,8 +2263,8 @@
                       "sourceUrl": null,
                       "accessedAt": "2026-05-03",
                       "quoteShort": null,
-                      "humanInterpretation": "Resolved from deterministic spring-ts runtime output.",
-                      "copyrightNote": "No third-party prose copied.",
+                      "humanInterpretation": "spring-ts 계산 결과에서 확정적으로 산출한 내부 수치예요.",
+                      "copyrightNote": "외부 문장을 복사하지 않고 내부 수치만 사용했어요.",
                       "authorityTruthEligible": false
                     }
                   },
@@ -2284,8 +2278,8 @@
                       "sourceUrl": null,
                       "accessedAt": "2026-05-03",
                       "quoteShort": null,
-                      "humanInterpretation": "Resolved from deterministic spring-ts runtime output.",
-                      "copyrightNote": "No third-party prose copied.",
+                      "humanInterpretation": "spring-ts 계산 결과에서 확정적으로 산출한 내부 수치예요.",
+                      "copyrightNote": "외부 문장을 복사하지 않고 내부 수치만 사용했어요.",
                       "authorityTruthEligible": false
                     }
                   },
@@ -2299,8 +2293,8 @@
                       "sourceUrl": null,
                       "accessedAt": "2026-05-03",
                       "quoteShort": null,
-                      "humanInterpretation": "Resolved from deterministic spring-ts runtime output.",
-                      "copyrightNote": "No third-party prose copied.",
+                      "humanInterpretation": "spring-ts 계산 결과에서 확정적으로 산출한 내부 수치예요.",
+                      "copyrightNote": "외부 문장을 복사하지 않고 내부 수치만 사용했어요.",
                       "authorityTruthEligible": false
                     }
                   },
@@ -2314,8 +2308,8 @@
                       "sourceUrl": null,
                       "accessedAt": "2026-05-03",
                       "quoteShort": null,
-                      "humanInterpretation": "Resolved from deterministic spring-ts runtime output.",
-                      "copyrightNote": "No third-party prose copied.",
+                      "humanInterpretation": "spring-ts 계산 결과에서 확정적으로 산출한 내부 수치예요.",
+                      "copyrightNote": "외부 문장을 복사하지 않고 내부 수치만 사용했어요.",
                       "authorityTruthEligible": false
                     }
                   }
@@ -2439,8 +2433,8 @@
                       "sourceUrl": null,
                       "accessedAt": "2026-05-03",
                       "quoteShort": null,
-                      "humanInterpretation": "Age context is computed by the engine and used only as display evidence.",
-                      "copyrightNote": "No source prose copied.",
+                      "humanInterpretation": "나이 정보는 엔진이 계산한 표시용 참고 수치예요.",
+                      "copyrightNote": "외부 문장을 복사하지 않고 내부 수치만 사용했어요.",
                       "authorityTruthEligible": false
                     }
                   },
@@ -2454,8 +2448,8 @@
                       "sourceUrl": null,
                       "accessedAt": "2026-05-03",
                       "quoteShort": null,
-                      "humanInterpretation": "Career score is computed by the engine and used as numerical context.",
-                      "copyrightNote": "No source prose copied.",
+                      "humanInterpretation": "진로/커리어 점수는 엔진이 계산한 참고 수치예요.",
+                      "copyrightNote": "외부 문장을 복사하지 않고 내부 수치만 사용했어요.",
                       "authorityTruthEligible": false
                     }
                   }
@@ -2689,8 +2683,8 @@
                       "sourceUrl": null,
                       "accessedAt": "2026-05-03",
                       "quoteShort": null,
-                      "humanInterpretation": "Resolved from deterministic spring-ts runtime output.",
-                      "copyrightNote": "No third-party prose copied.",
+                      "humanInterpretation": "spring-ts 계산 결과에서 확정적으로 산출한 내부 수치예요.",
+                      "copyrightNote": "외부 문장을 복사하지 않고 내부 수치만 사용했어요.",
                       "authorityTruthEligible": false
                     }
                   },
@@ -2704,8 +2698,8 @@
                       "sourceUrl": null,
                       "accessedAt": "2026-05-03",
                       "quoteShort": null,
-                      "humanInterpretation": "Resolved from deterministic spring-ts runtime output.",
-                      "copyrightNote": "No third-party prose copied.",
+                      "humanInterpretation": "spring-ts 계산 결과에서 확정적으로 산출한 내부 수치예요.",
+                      "copyrightNote": "외부 문장을 복사하지 않고 내부 수치만 사용했어요.",
                       "authorityTruthEligible": false
                     }
                   },
@@ -2719,8 +2713,8 @@
                       "sourceUrl": null,
                       "accessedAt": "2026-05-03",
                       "quoteShort": null,
-                      "humanInterpretation": "Resolved from deterministic spring-ts runtime output.",
-                      "copyrightNote": "No third-party prose copied.",
+                      "humanInterpretation": "spring-ts 계산 결과에서 확정적으로 산출한 내부 수치예요.",
+                      "copyrightNote": "외부 문장을 복사하지 않고 내부 수치만 사용했어요.",
                       "authorityTruthEligible": false
                     }
                   },
@@ -2734,8 +2728,8 @@
                       "sourceUrl": null,
                       "accessedAt": "2026-05-03",
                       "quoteShort": null,
-                      "humanInterpretation": "Resolved from deterministic spring-ts runtime output.",
-                      "copyrightNote": "No third-party prose copied.",
+                      "humanInterpretation": "spring-ts 계산 결과에서 확정적으로 산출한 내부 수치예요.",
+                      "copyrightNote": "외부 문장을 복사하지 않고 내부 수치만 사용했어요.",
                       "authorityTruthEligible": false
                     }
                   }
@@ -2799,10 +2793,10 @@
                     "tokens": [
                       {
                         "kind": "text",
-                        "value": "기본 에너지가 또렷하기보다 잔잔한 결이라, 회복을 일정 안에 넣어 두는 사람일수록 평생 단단해지는 사주예요. '쉴 수 있을 때 쉰다'가 아니라 '쉴 시간을 먼저 정해 둔다'가 잘 맞아요.마음의 결을 작은 우물에 비유하면, 자주 길어 쓰면서도 자주 채우는 결이에요. 한 번에 무거운 일을 짊어지기보다 자주 가벼운 일을 끝내는 식이 더 잘 어울려요.잘 풀리는 것은 가까운 사람과의 회복이에요. 혼자 풀려고 하면 시간이 오래 걸리지만, 가까운 사람과 가볍게 이야기를 나누면 마음의 짐이 자연스럽게 줄어드는 결이에요.주의할 점은 무리한 약속이에요. '한 번만 더'가 쌓이면 자신도 모르게 지치는 결이라, 거절할 자리는 가볍게 거절하는 연습이 평생 큰 자산이 돼요.전체적으로 큰 굴곡 없이, 자기 페이스를 지키는 사람에게 가장 잘 맞는 사주예요. 충분한 수면과 따뜻한 식사 같은 기본을 챙기면 마음·몸이 천천히 깊어져요."
+                        "value": "기본 에너지가 또렷하기보다 잔잔한 결이라, 회복을 일정 안에 넣어 두는 사람일수록 평생 단단해지는 사주예요. '쉴 수 있을 때 쉰다'가 아니라 '쉴 시간을 먼저 정해 둔다'가 잘 맞아요. 마음의 결을 작은 우물에 비유하면, 자주 길어 쓰면서도 자주 채우는 결이에요. 한 번에 무거운 일을 짊어지기보다 자주 가벼운 일을 끝내는 식이 더 잘 어울려요. 잘 풀리는 것은 가까운 사람과의 회복이에요. 혼자 풀려고 하면 시간이 오래 걸리지만, 가까운 사람과 가볍게 이야기를 나누면 마음의 짐이 자연스럽게 줄어드는 결이에요. 주의할 점은 무리한 약속이에요. '한 번만 더'가 쌓이면 자신도 모르게 지치는 결이라, 거절할 자리는 가볍게 거절하는 연습이 평생 큰 자산이 돼요. 전체적으로 큰 굴곡 없이, 자기 페이스를 지키는 사람에게 가장 잘 맞는 사주예요. 충분한 수면과 따뜻한 식사 같은 기본을 챙기면 마음·몸이 천천히 깊어져요."
                       }
                     ],
-                    "plainText": "기본 에너지가 또렷하기보다 잔잔한 결이라, 회복을 일정 안에 넣어 두는 사람일수록 평생 단단해지는 사주예요. '쉴 수 있을 때 쉰다'가 아니라 '쉴 시간을 먼저 정해 둔다'가 잘 맞아요.마음의 결을 작은 우물에 비유하면, 자주 길어 쓰면서도 자주 채우는 결이에요. 한 번에 무거운 일을 짊어지기보다 자주 가벼운 일을 끝내는 식이 더 잘 어울려요.잘 풀리는 것은 가까운 사람과의 회복이에요. 혼자 풀려고 하면 시간이 오래 걸리지만, 가까운 사람과 가볍게 이야기를 나누면 마음의 짐이 자연스럽게 줄어드는 결이에요.주의할 점은 무리한 약속이에요. '한 번만 더'가 쌓이면 자신도 모르게 지치는 결이라, 거절할 자리는 가볍게 거절하는 연습이 평생 큰 자산이 돼요.전체적으로 큰 굴곡 없이, 자기 페이스를 지키는 사람에게 가장 잘 맞는 사주예요. 충분한 수면과 따뜻한 식사 같은 기본을 챙기면 마음·몸이 천천히 깊어져요."
+                    "plainText": "기본 에너지가 또렷하기보다 잔잔한 결이라, 회복을 일정 안에 넣어 두는 사람일수록 평생 단단해지는 사주예요. '쉴 수 있을 때 쉰다'가 아니라 '쉴 시간을 먼저 정해 둔다'가 잘 맞아요. 마음의 결을 작은 우물에 비유하면, 자주 길어 쓰면서도 자주 채우는 결이에요. 한 번에 무거운 일을 짊어지기보다 자주 가벼운 일을 끝내는 식이 더 잘 어울려요. 잘 풀리는 것은 가까운 사람과의 회복이에요. 혼자 풀려고 하면 시간이 오래 걸리지만, 가까운 사람과 가볍게 이야기를 나누면 마음의 짐이 자연스럽게 줄어드는 결이에요. 주의할 점은 무리한 약속이에요. '한 번만 더'가 쌓이면 자신도 모르게 지치는 결이라, 거절할 자리는 가볍게 거절하는 연습이 평생 큰 자산이 돼요. 전체적으로 큰 굴곡 없이, 자기 페이스를 지키는 사람에게 가장 잘 맞는 사주예요. 충분한 수면과 따뜻한 식사 같은 기본을 챙기면 마음·몸이 천천히 깊어져요."
                   }
                 ],
                 "livingTips": [
@@ -2967,8 +2961,8 @@
                       "sourceUrl": null,
                       "accessedAt": "2026-05-03",
                       "quoteShort": null,
-                      "humanInterpretation": "Resolved from deterministic spring-ts runtime output.",
-                      "copyrightNote": "No third-party prose copied.",
+                      "humanInterpretation": "spring-ts 계산 결과에서 확정적으로 산출한 내부 수치예요.",
+                      "copyrightNote": "외부 문장을 복사하지 않고 내부 수치만 사용했어요.",
                       "authorityTruthEligible": false
                     }
                   },
@@ -2982,8 +2976,8 @@
                       "sourceUrl": null,
                       "accessedAt": "2026-05-03",
                       "quoteShort": null,
-                      "humanInterpretation": "Resolved from deterministic spring-ts runtime output.",
-                      "copyrightNote": "No third-party prose copied.",
+                      "humanInterpretation": "spring-ts 계산 결과에서 확정적으로 산출한 내부 수치예요.",
+                      "copyrightNote": "외부 문장을 복사하지 않고 내부 수치만 사용했어요.",
                       "authorityTruthEligible": false
                     }
                   },
@@ -2997,8 +2991,8 @@
                       "sourceUrl": null,
                       "accessedAt": "2026-05-03",
                       "quoteShort": null,
-                      "humanInterpretation": "Resolved from deterministic spring-ts runtime output.",
-                      "copyrightNote": "No third-party prose copied.",
+                      "humanInterpretation": "spring-ts 계산 결과에서 확정적으로 산출한 내부 수치예요.",
+                      "copyrightNote": "외부 문장을 복사하지 않고 내부 수치만 사용했어요.",
                       "authorityTruthEligible": false
                     }
                   },
@@ -3012,8 +3006,8 @@
                       "sourceUrl": null,
                       "accessedAt": "2026-05-03",
                       "quoteShort": null,
-                      "humanInterpretation": "Resolved from deterministic spring-ts runtime output.",
-                      "copyrightNote": "No third-party prose copied.",
+                      "humanInterpretation": "spring-ts 계산 결과에서 확정적으로 산출한 내부 수치예요.",
+                      "copyrightNote": "외부 문장을 복사하지 않고 내부 수치만 사용했어요.",
                       "authorityTruthEligible": false
                     }
                   }
@@ -3396,8 +3390,8 @@
                       "sourceUrl": null,
                       "accessedAt": "2026-05-03",
                       "quoteShort": null,
-                      "humanInterpretation": "Resolved from deterministic spring-ts runtime output.",
-                      "copyrightNote": "No third-party prose copied.",
+                      "humanInterpretation": "spring-ts 계산 결과에서 확정적으로 산출한 내부 수치예요.",
+                      "copyrightNote": "외부 문장을 복사하지 않고 내부 수치만 사용했어요.",
                       "authorityTruthEligible": false
                     }
                   },
@@ -3411,8 +3405,8 @@
                       "sourceUrl": null,
                       "accessedAt": "2026-05-03",
                       "quoteShort": null,
-                      "humanInterpretation": "Resolved from deterministic spring-ts runtime output.",
-                      "copyrightNote": "No third-party prose copied.",
+                      "humanInterpretation": "spring-ts 계산 결과에서 확정적으로 산출한 내부 수치예요.",
+                      "copyrightNote": "외부 문장을 복사하지 않고 내부 수치만 사용했어요.",
                       "authorityTruthEligible": false
                     }
                   },
@@ -3426,8 +3420,8 @@
                       "sourceUrl": null,
                       "accessedAt": "2026-05-03",
                       "quoteShort": null,
-                      "humanInterpretation": "Resolved from deterministic spring-ts runtime output.",
-                      "copyrightNote": "No third-party prose copied.",
+                      "humanInterpretation": "spring-ts 계산 결과에서 확정적으로 산출한 내부 수치예요.",
+                      "copyrightNote": "외부 문장을 복사하지 않고 내부 수치만 사용했어요.",
                       "authorityTruthEligible": false
                     }
                   },
@@ -3441,8 +3435,8 @@
                       "sourceUrl": null,
                       "accessedAt": "2026-05-03",
                       "quoteShort": null,
-                      "humanInterpretation": "Resolved from deterministic spring-ts runtime output.",
-                      "copyrightNote": "No third-party prose copied.",
+                      "humanInterpretation": "spring-ts 계산 결과에서 확정적으로 산출한 내부 수치예요.",
+                      "copyrightNote": "외부 문장을 복사하지 않고 내부 수치만 사용했어요.",
                       "authorityTruthEligible": false
                     }
                   }
@@ -3574,8 +3568,8 @@
                       "sourceUrl": null,
                       "accessedAt": "2026-05-03",
                       "quoteShort": null,
-                      "humanInterpretation": "Resolved from deterministic spring-ts runtime output.",
-                      "copyrightNote": "No third-party prose copied.",
+                      "humanInterpretation": "spring-ts 계산 결과에서 확정적으로 산출한 내부 수치예요.",
+                      "copyrightNote": "외부 문장을 복사하지 않고 내부 수치만 사용했어요.",
                       "authorityTruthEligible": false
                     }
                   },
@@ -3589,8 +3583,8 @@
                       "sourceUrl": null,
                       "accessedAt": "2026-05-03",
                       "quoteShort": null,
-                      "humanInterpretation": "Resolved from deterministic spring-ts runtime output.",
-                      "copyrightNote": "No third-party prose copied.",
+                      "humanInterpretation": "spring-ts 계산 결과에서 확정적으로 산출한 내부 수치예요.",
+                      "copyrightNote": "외부 문장을 복사하지 않고 내부 수치만 사용했어요.",
                       "authorityTruthEligible": false
                     }
                   }
@@ -3837,8 +3831,8 @@
                       "sourceUrl": null,
                       "accessedAt": "2026-05-03",
                       "quoteShort": null,
-                      "humanInterpretation": "Resolved from deterministic spring-ts runtime output.",
-                      "copyrightNote": "No third-party prose copied.",
+                      "humanInterpretation": "spring-ts 계산 결과에서 확정적으로 산출한 내부 수치예요.",
+                      "copyrightNote": "외부 문장을 복사하지 않고 내부 수치만 사용했어요.",
                       "authorityTruthEligible": false
                     }
                   },
@@ -3852,8 +3846,8 @@
                       "sourceUrl": null,
                       "accessedAt": "2026-05-03",
                       "quoteShort": null,
-                      "humanInterpretation": "Resolved from deterministic spring-ts runtime output.",
-                      "copyrightNote": "No third-party prose copied.",
+                      "humanInterpretation": "spring-ts 계산 결과에서 확정적으로 산출한 내부 수치예요.",
+                      "copyrightNote": "외부 문장을 복사하지 않고 내부 수치만 사용했어요.",
                       "authorityTruthEligible": false
                     }
                   },
@@ -3867,8 +3861,8 @@
                       "sourceUrl": null,
                       "accessedAt": "2026-05-03",
                       "quoteShort": null,
-                      "humanInterpretation": "Resolved from deterministic spring-ts runtime output.",
-                      "copyrightNote": "No third-party prose copied.",
+                      "humanInterpretation": "spring-ts 계산 결과에서 확정적으로 산출한 내부 수치예요.",
+                      "copyrightNote": "외부 문장을 복사하지 않고 내부 수치만 사용했어요.",
                       "authorityTruthEligible": false
                     }
                   },
@@ -3882,8 +3876,8 @@
                       "sourceUrl": null,
                       "accessedAt": "2026-05-03",
                       "quoteShort": null,
-                      "humanInterpretation": "Resolved from deterministic spring-ts runtime output.",
-                      "copyrightNote": "No third-party prose copied.",
+                      "humanInterpretation": "spring-ts 계산 결과에서 확정적으로 산출한 내부 수치예요.",
+                      "copyrightNote": "외부 문장을 복사하지 않고 내부 수치만 사용했어요.",
                       "authorityTruthEligible": false
                     }
                   }
@@ -4007,8 +4001,8 @@
                       "sourceUrl": null,
                       "accessedAt": "2026-05-03",
                       "quoteShort": null,
-                      "humanInterpretation": "Age context is computed by the engine and used only as display evidence.",
-                      "copyrightNote": "No source prose copied.",
+                      "humanInterpretation": "나이 정보는 엔진이 계산한 표시용 참고 수치예요.",
+                      "copyrightNote": "외부 문장을 복사하지 않고 내부 수치만 사용했어요.",
                       "authorityTruthEligible": false
                     }
                   },
@@ -4022,8 +4016,8 @@
                       "sourceUrl": null,
                       "accessedAt": "2026-05-03",
                       "quoteShort": null,
-                      "humanInterpretation": "Career score is computed by the engine and used as numerical context.",
-                      "copyrightNote": "No source prose copied.",
+                      "humanInterpretation": "진로/커리어 점수는 엔진이 계산한 참고 수치예요.",
+                      "copyrightNote": "외부 문장을 복사하지 않고 내부 수치만 사용했어요.",
                       "authorityTruthEligible": false
                     }
                   }
@@ -4147,8 +4141,8 @@
                       "sourceUrl": null,
                       "accessedAt": "2026-05-03",
                       "quoteShort": null,
-                      "humanInterpretation": "Resolved from deterministic spring-ts runtime output.",
-                      "copyrightNote": "No third-party prose copied.",
+                      "humanInterpretation": "spring-ts 계산 결과에서 확정적으로 산출한 내부 수치예요.",
+                      "copyrightNote": "외부 문장을 복사하지 않고 내부 수치만 사용했어요.",
                       "authorityTruthEligible": false
                     }
                   },
@@ -4162,8 +4156,8 @@
                       "sourceUrl": null,
                       "accessedAt": "2026-05-03",
                       "quoteShort": null,
-                      "humanInterpretation": "Resolved from deterministic spring-ts runtime output.",
-                      "copyrightNote": "No third-party prose copied.",
+                      "humanInterpretation": "spring-ts 계산 결과에서 확정적으로 산출한 내부 수치예요.",
+                      "copyrightNote": "외부 문장을 복사하지 않고 내부 수치만 사용했어요.",
                       "authorityTruthEligible": false
                     }
                   },
@@ -4177,8 +4171,8 @@
                       "sourceUrl": null,
                       "accessedAt": "2026-05-03",
                       "quoteShort": null,
-                      "humanInterpretation": "Resolved from deterministic spring-ts runtime output.",
-                      "copyrightNote": "No third-party prose copied.",
+                      "humanInterpretation": "spring-ts 계산 결과에서 확정적으로 산출한 내부 수치예요.",
+                      "copyrightNote": "외부 문장을 복사하지 않고 내부 수치만 사용했어요.",
                       "authorityTruthEligible": false
                     }
                   },
@@ -4192,8 +4186,8 @@
                       "sourceUrl": null,
                       "accessedAt": "2026-05-03",
                       "quoteShort": null,
-                      "humanInterpretation": "Resolved from deterministic spring-ts runtime output.",
-                      "copyrightNote": "No third-party prose copied.",
+                      "humanInterpretation": "spring-ts 계산 결과에서 확정적으로 산출한 내부 수치예요.",
+                      "copyrightNote": "외부 문장을 복사하지 않고 내부 수치만 사용했어요.",
                       "authorityTruthEligible": false
                     }
                   }
@@ -4367,10 +4361,10 @@
                     "tokens": [
                       {
                         "kind": "text",
-                        "value": "오늘은 어깨에 얹힌 짐을 가끔 풀어 주는 결이 잘 맞아요. 일과 가족 사이의 균형이 자주 흔들리기 쉬운 시기를 지나는 자리이니, 짧은 활동성 쉼을 일정 안에 적어 두면 좋아요.단단한 흙처럼 받쳐 주는 결이지만, 자기 자리를 위한 시간을 비워 두지 않으면 작은 피로가 모이기 쉬워요. '나를 위한 30분'이 일과 가족 모두를 받쳐 줘요.잘 풀리는 것은 몸을 움직이는 휴식이에요. 가벼운 운동이나 짧은 산책이 마음의 짐을 가장 잘 풀어 주는 결이에요.주의할 점은 감정을 미루는 거예요. 작은 마음 신호를 모아 두기보다, 가까운 사람과 가볍게 풀어 주면 무리 없이 흘러가요.마무리는 일찍 잠드는 자리가 좋아요."
+                        "value": "오늘은 어깨에 얹힌 짐을 가끔 풀어 주는 결이 잘 맞아요. 일과 가족 사이의 균형이 자주 흔들리기 쉬운 시기를 지나는 자리이니, 짧은 활동성 쉼을 일정 안에 적어 두면 좋아요. 단단한 흙처럼 받쳐 주는 결이지만, 자기 자리를 위한 시간을 비워 두지 않으면 작은 피로가 모이기 쉬워요. '나를 위한 30분'이 일과 가족 모두를 받쳐 줘요. 잘 풀리는 것은 몸을 움직이는 휴식이에요. 가벼운 운동이나 짧은 산책이 마음의 짐을 가장 잘 풀어 주는 결이에요. 주의할 점은 감정을 미루는 거예요. 작은 마음 신호를 모아 두기보다, 가까운 사람과 가볍게 풀어 주면 무리 없이 흘러가요. 마무리는 일찍 잠드는 자리가 좋아요."
                       }
                     ],
-                    "plainText": "오늘은 어깨에 얹힌 짐을 가끔 풀어 주는 결이 잘 맞아요. 일과 가족 사이의 균형이 자주 흔들리기 쉬운 시기를 지나는 자리이니, 짧은 활동성 쉼을 일정 안에 적어 두면 좋아요.단단한 흙처럼 받쳐 주는 결이지만, 자기 자리를 위한 시간을 비워 두지 않으면 작은 피로가 모이기 쉬워요. '나를 위한 30분'이 일과 가족 모두를 받쳐 줘요.잘 풀리는 것은 몸을 움직이는 휴식이에요. 가벼운 운동이나 짧은 산책이 마음의 짐을 가장 잘 풀어 주는 결이에요.주의할 점은 감정을 미루는 거예요. 작은 마음 신호를 모아 두기보다, 가까운 사람과 가볍게 풀어 주면 무리 없이 흘러가요.마무리는 일찍 잠드는 자리가 좋아요."
+                    "plainText": "오늘은 어깨에 얹힌 짐을 가끔 풀어 주는 결이 잘 맞아요. 일과 가족 사이의 균형이 자주 흔들리기 쉬운 시기를 지나는 자리이니, 짧은 활동성 쉼을 일정 안에 적어 두면 좋아요. 단단한 흙처럼 받쳐 주는 결이지만, 자기 자리를 위한 시간을 비워 두지 않으면 작은 피로가 모이기 쉬워요. '나를 위한 30분'이 일과 가족 모두를 받쳐 줘요. 잘 풀리는 것은 몸을 움직이는 휴식이에요. 가벼운 운동이나 짧은 산책이 마음의 짐을 가장 잘 풀어 주는 결이에요. 주의할 점은 감정을 미루는 거예요. 작은 마음 신호를 모아 두기보다, 가까운 사람과 가볍게 풀어 주면 무리 없이 흘러가요. 마무리는 일찍 잠드는 자리가 좋아요."
                   }
                 ],
                 "livingTips": [
@@ -5030,8 +5024,8 @@
                       "sourceUrl": null,
                       "accessedAt": "2026-05-03",
                       "quoteShort": null,
-                      "humanInterpretation": "Resolved from deterministic spring-ts runtime output.",
-                      "copyrightNote": "No third-party prose copied.",
+                      "humanInterpretation": "spring-ts 계산 결과에서 확정적으로 산출한 내부 수치예요.",
+                      "copyrightNote": "외부 문장을 복사하지 않고 내부 수치만 사용했어요.",
                       "authorityTruthEligible": false
                     }
                   },
@@ -5045,8 +5039,8 @@
                       "sourceUrl": null,
                       "accessedAt": "2026-05-03",
                       "quoteShort": null,
-                      "humanInterpretation": "Resolved from deterministic spring-ts runtime output.",
-                      "copyrightNote": "No third-party prose copied.",
+                      "humanInterpretation": "spring-ts 계산 결과에서 확정적으로 산출한 내부 수치예요.",
+                      "copyrightNote": "외부 문장을 복사하지 않고 내부 수치만 사용했어요.",
                       "authorityTruthEligible": false
                     }
                   }
@@ -5173,8 +5167,8 @@
                       "sourceUrl": null,
                       "accessedAt": "2026-05-03",
                       "quoteShort": null,
-                      "humanInterpretation": "Resolved from deterministic spring-ts runtime output.",
-                      "copyrightNote": "No third-party prose copied.",
+                      "humanInterpretation": "spring-ts 계산 결과에서 확정적으로 산출한 내부 수치예요.",
+                      "copyrightNote": "외부 문장을 복사하지 않고 내부 수치만 사용했어요.",
                       "authorityTruthEligible": false
                     }
                   },
@@ -5188,8 +5182,8 @@
                       "sourceUrl": null,
                       "accessedAt": "2026-05-03",
                       "quoteShort": null,
-                      "humanInterpretation": "Resolved from deterministic spring-ts runtime output.",
-                      "copyrightNote": "No third-party prose copied.",
+                      "humanInterpretation": "spring-ts 계산 결과에서 확정적으로 산출한 내부 수치예요.",
+                      "copyrightNote": "외부 문장을 복사하지 않고 내부 수치만 사용했어요.",
                       "authorityTruthEligible": false
                     }
                   }
@@ -5432,8 +5426,8 @@
                       "sourceUrl": null,
                       "accessedAt": "2026-05-03",
                       "quoteShort": null,
-                      "humanInterpretation": "Age context is computed by the engine and used only as display evidence.",
-                      "copyrightNote": "No source prose copied.",
+                      "humanInterpretation": "나이 정보는 엔진이 계산한 표시용 참고 수치예요.",
+                      "copyrightNote": "외부 문장을 복사하지 않고 내부 수치만 사용했어요.",
                       "authorityTruthEligible": false
                     }
                   },
@@ -5447,8 +5441,8 @@
                       "sourceUrl": null,
                       "accessedAt": "2026-05-03",
                       "quoteShort": null,
-                      "humanInterpretation": "Career score is computed by the engine and used as numerical context.",
-                      "copyrightNote": "No source prose copied.",
+                      "humanInterpretation": "진로/커리어 점수는 엔진이 계산한 참고 수치예요.",
+                      "copyrightNote": "외부 문장을 복사하지 않고 내부 수치만 사용했어요.",
                       "authorityTruthEligible": false
                     }
                   }
@@ -5729,10 +5723,10 @@
                     "tokens": [
                       {
                         "kind": "text",
-                        "value": "이번 주는 에너지의 결이 잔잔한 흐름이에요. 무리하지 않고 자기 페이스를 지키는 결이 가장 잘 맞아요. '쉴 시간을 먼저 정해 둔다'는 감각이 한 주를 가볍게 해 줘요.작은 우물에 비유하면, 자주 길어 쓰면서도 자주 채우는 결이에요. 무거운 일 한 가지보다 가벼운 일 여러 가지를 끝내는 식이 더 잘 어울려요.잘 풀리는 것은 가까운 사람과의 짧은 대화예요. 마음의 짐을 한 번 입 밖으로 꺼내면 무게가 가벼워져요.주의할 점은 무리한 약속이에요. 거절할 자리는 가볍게 거절해도 충분해요.주말은 충분한 수면과 따뜻한 식사로 채워요."
+                        "value": "이번 주는 에너지의 결이 잔잔한 흐름이에요. 무리하지 않고 자기 페이스를 지키는 결이 가장 잘 맞아요. '쉴 시간을 먼저 정해 둔다'는 감각이 한 주를 가볍게 해 줘요. 작은 우물에 비유하면, 자주 길어 쓰면서도 자주 채우는 결이에요. 무거운 일 한 가지보다 가벼운 일 여러 가지를 끝내는 식이 더 잘 어울려요. 잘 풀리는 것은 가까운 사람과의 짧은 대화예요. 마음의 짐을 한 번 입 밖으로 꺼내면 무게가 가벼워져요. 주의할 점은 무리한 약속이에요. 거절할 자리는 가볍게 거절해도 충분해요. 주말은 충분한 수면과 따뜻한 식사로 채워요."
                       }
                     ],
-                    "plainText": "이번 주는 에너지의 결이 잔잔한 흐름이에요. 무리하지 않고 자기 페이스를 지키는 결이 가장 잘 맞아요. '쉴 시간을 먼저 정해 둔다'는 감각이 한 주를 가볍게 해 줘요.작은 우물에 비유하면, 자주 길어 쓰면서도 자주 채우는 결이에요. 무거운 일 한 가지보다 가벼운 일 여러 가지를 끝내는 식이 더 잘 어울려요.잘 풀리는 것은 가까운 사람과의 짧은 대화예요. 마음의 짐을 한 번 입 밖으로 꺼내면 무게가 가벼워져요.주의할 점은 무리한 약속이에요. 거절할 자리는 가볍게 거절해도 충분해요.주말은 충분한 수면과 따뜻한 식사로 채워요."
+                    "plainText": "이번 주는 에너지의 결이 잔잔한 흐름이에요. 무리하지 않고 자기 페이스를 지키는 결이 가장 잘 맞아요. '쉴 시간을 먼저 정해 둔다'는 감각이 한 주를 가볍게 해 줘요. 작은 우물에 비유하면, 자주 길어 쓰면서도 자주 채우는 결이에요. 무거운 일 한 가지보다 가벼운 일 여러 가지를 끝내는 식이 더 잘 어울려요. 잘 풀리는 것은 가까운 사람과의 짧은 대화예요. 마음의 짐을 한 번 입 밖으로 꺼내면 무게가 가벼워져요. 주의할 점은 무리한 약속이에요. 거절할 자리는 가볍게 거절해도 충분해요. 주말은 충분한 수면과 따뜻한 식사로 채워요."
                   }
                 ],
                 "livingTips": [
@@ -6388,8 +6382,8 @@
                       "sourceUrl": null,
                       "accessedAt": "2026-05-03",
                       "quoteShort": null,
-                      "humanInterpretation": "Resolved from deterministic spring-ts runtime output.",
-                      "copyrightNote": "No third-party prose copied.",
+                      "humanInterpretation": "spring-ts 계산 결과에서 확정적으로 산출한 내부 수치예요.",
+                      "copyrightNote": "외부 문장을 복사하지 않고 내부 수치만 사용했어요.",
                       "authorityTruthEligible": false
                     }
                   },
@@ -6403,8 +6397,8 @@
                       "sourceUrl": null,
                       "accessedAt": "2026-05-03",
                       "quoteShort": null,
-                      "humanInterpretation": "Resolved from deterministic spring-ts runtime output.",
-                      "copyrightNote": "No third-party prose copied.",
+                      "humanInterpretation": "spring-ts 계산 결과에서 확정적으로 산출한 내부 수치예요.",
+                      "copyrightNote": "외부 문장을 복사하지 않고 내부 수치만 사용했어요.",
                       "authorityTruthEligible": false
                     }
                   }
@@ -6531,8 +6525,8 @@
                       "sourceUrl": null,
                       "accessedAt": "2026-05-03",
                       "quoteShort": null,
-                      "humanInterpretation": "Resolved from deterministic spring-ts runtime output.",
-                      "copyrightNote": "No third-party prose copied.",
+                      "humanInterpretation": "spring-ts 계산 결과에서 확정적으로 산출한 내부 수치예요.",
+                      "copyrightNote": "외부 문장을 복사하지 않고 내부 수치만 사용했어요.",
                       "authorityTruthEligible": false
                     }
                   },
@@ -6546,8 +6540,8 @@
                       "sourceUrl": null,
                       "accessedAt": "2026-05-03",
                       "quoteShort": null,
-                      "humanInterpretation": "Resolved from deterministic spring-ts runtime output.",
-                      "copyrightNote": "No third-party prose copied.",
+                      "humanInterpretation": "spring-ts 계산 결과에서 확정적으로 산출한 내부 수치예요.",
+                      "copyrightNote": "외부 문장을 복사하지 않고 내부 수치만 사용했어요.",
                       "authorityTruthEligible": false
                     }
                   }
@@ -6619,10 +6613,10 @@
                     "tokens": [
                       {
                         "kind": "text",
-                        "value": "음의 타고난 중심 기운 흐름은 가족 안에서 말보다 분위기를 먼저 읽는 모습으로 드러날 수 있어요. 섬세하게 맞추는 힘은 좋지만, 마음을 너무 오래 숨기면 상대가 알아차리기 어렵습니다. 이번 달에는 작은 부탁이나 불편함을 짧게 말로 꺼내는 연습이 관계의 부담을 줄여줍니다."
+                        "value": "안쪽에서 다듬는 타고난 흐름은 가족 안에서 말보다 분위기를 먼저 읽는 모습으로 드러날 수 있어요. 섬세하게 맞추는 힘은 좋지만, 마음을 너무 오래 숨기면 상대가 알아차리기 어렵습니다. 이번 달에는 작은 부탁이나 불편함을 짧게 말로 꺼내는 연습이 관계의 부담을 줄여줍니다."
                       }
                     ],
-                    "plainText": "음의 타고난 중심 기운 흐름은 가족 안에서 말보다 분위기를 먼저 읽는 모습으로 드러날 수 있어요. 섬세하게 맞추는 힘은 좋지만, 마음을 너무 오래 숨기면 상대가 알아차리기 어렵습니다. 이번 달에는 작은 부탁이나 불편함을 짧게 말로 꺼내는 연습이 관계의 부담을 줄여줍니다."
+                    "plainText": "안쪽에서 다듬는 타고난 흐름은 가족 안에서 말보다 분위기를 먼저 읽는 모습으로 드러날 수 있어요. 섬세하게 맞추는 힘은 좋지만, 마음을 너무 오래 숨기면 상대가 알아차리기 어렵습니다. 이번 달에는 작은 부탁이나 불편함을 짧게 말로 꺼내는 연습이 관계의 부담을 줄여줍니다."
                   }
                 ],
                 "livingTips": [
@@ -6790,8 +6784,8 @@
                       "sourceUrl": null,
                       "accessedAt": "2026-05-03",
                       "quoteShort": null,
-                      "humanInterpretation": "Age context is computed by the engine and used only as display evidence.",
-                      "copyrightNote": "No source prose copied.",
+                      "humanInterpretation": "나이 정보는 엔진이 계산한 표시용 참고 수치예요.",
+                      "copyrightNote": "외부 문장을 복사하지 않고 내부 수치만 사용했어요.",
                       "authorityTruthEligible": false
                     }
                   },
@@ -6805,8 +6799,8 @@
                       "sourceUrl": null,
                       "accessedAt": "2026-05-03",
                       "quoteShort": null,
-                      "humanInterpretation": "Career score is computed by the engine and used as numerical context.",
-                      "copyrightNote": "No source prose copied.",
+                      "humanInterpretation": "진로/커리어 점수는 엔진이 계산한 참고 수치예요.",
+                      "copyrightNote": "외부 문장을 복사하지 않고 내부 수치만 사용했어요.",
                       "authorityTruthEligible": false
                     }
                   }
@@ -7089,10 +7083,10 @@
                     "tokens": [
                       {
                         "kind": "text",
-                        "value": "이번 달은 에너지의 결이 잔잔한 흐름이에요. 무리하지 않고 자기 페이스를 지키는 결이 가장 잘 맞아요. '쉴 시간을 먼저 정해 둔다'는 감각이 한 달을 가볍게 해 줘요.작은 우물에 비유하면, 자주 길어 쓰면서도 자주 채우는 결이에요. 무거운 일 한 가지보다 가벼운 일 여러 가지를 끝내는 식이 잘 어울려요.잘 풀리는 것은 가까운 사람과의 짧은 대화예요.주의할 점은 무리한 약속이에요. 거절할 자리는 가볍게 거절해도 충분해요.월말은 충분한 수면과 따뜻한 식사로 채워요."
+                        "value": "이번 달은 에너지의 결이 잔잔한 흐름이에요. 무리하지 않고 자기 페이스를 지키는 결이 가장 잘 맞아요. '쉴 시간을 먼저 정해 둔다'는 감각이 한 달을 가볍게 해 줘요. 작은 우물에 비유하면, 자주 길어 쓰면서도 자주 채우는 결이에요. 무거운 일 한 가지보다 가벼운 일 여러 가지를 끝내는 식이 잘 어울려요. 잘 풀리는 것은 가까운 사람과의 짧은 대화예요. 주의할 점은 무리한 약속이에요. 거절할 자리는 가볍게 거절해도 충분해요. 월말은 충분한 수면과 따뜻한 식사로 채워요."
                       }
                     ],
-                    "plainText": "이번 달은 에너지의 결이 잔잔한 흐름이에요. 무리하지 않고 자기 페이스를 지키는 결이 가장 잘 맞아요. '쉴 시간을 먼저 정해 둔다'는 감각이 한 달을 가볍게 해 줘요.작은 우물에 비유하면, 자주 길어 쓰면서도 자주 채우는 결이에요. 무거운 일 한 가지보다 가벼운 일 여러 가지를 끝내는 식이 잘 어울려요.잘 풀리는 것은 가까운 사람과의 짧은 대화예요.주의할 점은 무리한 약속이에요. 거절할 자리는 가볍게 거절해도 충분해요.월말은 충분한 수면과 따뜻한 식사로 채워요."
+                    "plainText": "이번 달은 에너지의 결이 잔잔한 흐름이에요. 무리하지 않고 자기 페이스를 지키는 결이 가장 잘 맞아요. '쉴 시간을 먼저 정해 둔다'는 감각이 한 달을 가볍게 해 줘요. 작은 우물에 비유하면, 자주 길어 쓰면서도 자주 채우는 결이에요. 무거운 일 한 가지보다 가벼운 일 여러 가지를 끝내는 식이 잘 어울려요. 잘 풀리는 것은 가까운 사람과의 짧은 대화예요. 주의할 점은 무리한 약속이에요. 거절할 자리는 가볍게 거절해도 충분해요. 월말은 충분한 수면과 따뜻한 식사로 채워요."
                   }
                 ],
                 "livingTips": [
@@ -7646,8 +7640,8 @@
                       "sourceUrl": null,
                       "accessedAt": "2026-05-03",
                       "quoteShort": null,
-                      "humanInterpretation": "Resolved from deterministic spring-ts runtime output.",
-                      "copyrightNote": "No third-party prose copied.",
+                      "humanInterpretation": "spring-ts 계산 결과에서 확정적으로 산출한 내부 수치예요.",
+                      "copyrightNote": "외부 문장을 복사하지 않고 내부 수치만 사용했어요.",
                       "authorityTruthEligible": false
                     }
                   },
@@ -7661,8 +7655,8 @@
                       "sourceUrl": null,
                       "accessedAt": "2026-05-03",
                       "quoteShort": null,
-                      "humanInterpretation": "Resolved from deterministic spring-ts runtime output.",
-                      "copyrightNote": "No third-party prose copied.",
+                      "humanInterpretation": "spring-ts 계산 결과에서 확정적으로 산출한 내부 수치예요.",
+                      "copyrightNote": "외부 문장을 복사하지 않고 내부 수치만 사용했어요.",
                       "authorityTruthEligible": false
                     }
                   },
@@ -7676,8 +7670,8 @@
                       "sourceUrl": null,
                       "accessedAt": "2026-05-03",
                       "quoteShort": null,
-                      "humanInterpretation": "Resolved from deterministic spring-ts runtime output.",
-                      "copyrightNote": "No third-party prose copied.",
+                      "humanInterpretation": "spring-ts 계산 결과에서 확정적으로 산출한 내부 수치예요.",
+                      "copyrightNote": "외부 문장을 복사하지 않고 내부 수치만 사용했어요.",
                       "authorityTruthEligible": false
                     }
                   },
@@ -7691,8 +7685,8 @@
                       "sourceUrl": null,
                       "accessedAt": "2026-05-03",
                       "quoteShort": null,
-                      "humanInterpretation": "Resolved from deterministic spring-ts runtime output.",
-                      "copyrightNote": "No third-party prose copied.",
+                      "humanInterpretation": "spring-ts 계산 결과에서 확정적으로 산출한 내부 수치예요.",
+                      "copyrightNote": "외부 문장을 복사하지 않고 내부 수치만 사용했어요.",
                       "authorityTruthEligible": false
                     }
                   }
@@ -8144,8 +8138,8 @@
                       "sourceUrl": null,
                       "accessedAt": "2026-05-03",
                       "quoteShort": null,
-                      "humanInterpretation": "Age context is computed by the engine and used only as display evidence.",
-                      "copyrightNote": "No source prose copied.",
+                      "humanInterpretation": "나이 정보는 엔진이 계산한 표시용 참고 수치예요.",
+                      "copyrightNote": "외부 문장을 복사하지 않고 내부 수치만 사용했어요.",
                       "authorityTruthEligible": false
                     }
                   },
@@ -8159,8 +8153,8 @@
                       "sourceUrl": null,
                       "accessedAt": "2026-05-03",
                       "quoteShort": null,
-                      "humanInterpretation": "Career score is computed by the engine and used as numerical context.",
-                      "copyrightNote": "No source prose copied.",
+                      "humanInterpretation": "진로/커리어 점수는 엔진이 계산한 참고 수치예요.",
+                      "copyrightNote": "외부 문장을 복사하지 않고 내부 수치만 사용했어요.",
                       "authorityTruthEligible": false
                     }
                   }
@@ -8450,10 +8444,10 @@
                     "tokens": [
                       {
                         "kind": "text",
-                        "value": "올해는 일과 가족 사이의 균형을 살피기 좋은 결의 흐름이에요. 어깨에 얹힌 짐을 풀어 주는 자리를 일정 안에 적어 두면 좋아요.단단한 흙처럼 받쳐 주는 결이지만, 자기 자리를 위한 시간을 비워 두지 않으면 작은 피로가 모이기 쉬워요.잘 풀리는 것은 몸을 움직이는 휴식이에요. 가벼운 운동이나 짧은 산행이 마음의 짐을 가장 잘 풀어 줘요.주의할 점은 감정을 미루는 거예요. 가까운 사람과 가볍게 대화를 나누면 무리 없이 흘러가요.연말은 활동성 쉼으로 마무리하면 좋아요."
+                        "value": "올해는 일과 가족 사이의 균형을 살피기 좋은 결의 흐름이에요. 어깨에 얹힌 짐을 풀어 주는 자리를 일정 안에 적어 두면 좋아요. 단단한 흙처럼 받쳐 주는 결이지만, 자기 자리를 위한 시간을 비워 두지 않으면 작은 피로가 모이기 쉬워요. 잘 풀리는 것은 몸을 움직이는 휴식이에요. 가벼운 운동이나 짧은 산행이 마음의 짐을 가장 잘 풀어 줘요. 주의할 점은 감정을 미루는 거예요. 가까운 사람과 가볍게 대화를 나누면 무리 없이 흘러가요. 연말은 활동성 쉼으로 마무리하면 좋아요."
                       }
                     ],
-                    "plainText": "올해는 일과 가족 사이의 균형을 살피기 좋은 결의 흐름이에요. 어깨에 얹힌 짐을 풀어 주는 자리를 일정 안에 적어 두면 좋아요.단단한 흙처럼 받쳐 주는 결이지만, 자기 자리를 위한 시간을 비워 두지 않으면 작은 피로가 모이기 쉬워요.잘 풀리는 것은 몸을 움직이는 휴식이에요. 가벼운 운동이나 짧은 산행이 마음의 짐을 가장 잘 풀어 줘요.주의할 점은 감정을 미루는 거예요. 가까운 사람과 가볍게 대화를 나누면 무리 없이 흘러가요.연말은 활동성 쉼으로 마무리하면 좋아요."
+                    "plainText": "올해는 일과 가족 사이의 균형을 살피기 좋은 결의 흐름이에요. 어깨에 얹힌 짐을 풀어 주는 자리를 일정 안에 적어 두면 좋아요. 단단한 흙처럼 받쳐 주는 결이지만, 자기 자리를 위한 시간을 비워 두지 않으면 작은 피로가 모이기 쉬워요. 잘 풀리는 것은 몸을 움직이는 휴식이에요. 가벼운 운동이나 짧은 산행이 마음의 짐을 가장 잘 풀어 줘요. 주의할 점은 감정을 미루는 거예요. 가까운 사람과 가볍게 대화를 나누면 무리 없이 흘러가요. 연말은 활동성 쉼으로 마무리하면 좋아요."
                   }
                 ],
                 "livingTips": [
@@ -10310,7 +10304,7 @@
       },
       "meta": {
         "schemaVersion": "spring-ts.tiered-matrix.v1",
-        "generatedAt": "2026-05-04T02:15:44.006Z",
+        "generatedAt": "2026-05-04T03:26:51.553Z",
         "selectionSeed": "1986|4|19|5|45|male|2026-05-03T15:00:00.000Z",
         "templateContractVersion": "1.0.0",
         "contentSource": "authored",
