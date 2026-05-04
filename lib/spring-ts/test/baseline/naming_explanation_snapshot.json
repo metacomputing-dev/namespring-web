@@ -1,17 +1,17 @@
 {
   "lowRisk": {
-    "summary": "종합적으로 좋은 이름입니다. 발음 오행 부분을 점검해 보세요. Primary candidate profile: Phonetic stability. Official data supports strong legal registrability (90/100). yongshin alignment has no usable evidence, so this explanation avoids a firm claim.",
+    "summary": "종합적으로 좋은 이름입니다. 발음 오행 부분을 점검해 보세요. 주요 후보 성향은 발음 안정형이에요. 공식 자료 기준으로는 인명용 한자 적합도 항목이 강점으로 보여요(90/100). 보완 기운 일치도 항목은 사용할 수 있는 근거가 부족해서 단정하지 않았어요.",
     "strengths": [
-      "Official data supports strong legal registrability (90/100).",
-      "Display-only scoring shows strong element balance (84/100).",
-      "Display-only scoring shows strong hanja meaning coverage (88/100).",
-      "Display-only scoring shows strong phonetic flow (92/100).",
-      "Display-only scoring shows strong surname-given phonetic fit (86/100).",
-      "Display-only scoring shows a low risk screen (18/100)."
+      "공식 자료 기준으로는 인명용 한자 적합도 항목이 강점으로 보여요(90/100).",
+      "표시용 점수 기준으로는 오행 균형 항목이 강점으로 보여요(84/100).",
+      "표시용 점수 기준으로는 한자 의미 적합도 항목이 강점으로 보여요(88/100).",
+      "표시용 점수 기준으로는 발음 흐름 항목이 강점으로 보여요(92/100).",
+      "표시용 점수 기준으로는 성과 이름의 발음 연결 항목이 강점으로 보여요(86/100).",
+      "표시용 점수 기준으로는 위험 신호가 낮은 편이에요(18/100)."
     ],
     "cautions": [
-      "yongshin alignment has no usable evidence, so this explanation avoids a firm claim.",
-      "birth-era name trend has no usable evidence, so this explanation avoids a firm claim."
+      "보완 기운 일치도 항목은 사용할 수 있는 근거가 부족해서 단정하지 않았어요.",
+      "출생 시대 이름 흐름 항목은 사용할 수 있는 근거가 부족해서 단정하지 않았어요."
     ],
     "signals": [
       {
@@ -23,7 +23,7 @@
           "tier": "T5_OFFICIAL",
           "authorityTruthEligible": true
         },
-        "phrase": "Official data supports strong legal registrability (90/100)."
+        "phrase": "공식 자료 기준으로는 인명용 한자 적합도 항목이 강점으로 보여요(90/100)."
       },
       {
         "axis": "yongshinFit",
@@ -34,7 +34,7 @@
           "tier": "T2_REFERENCE_IMPLEMENTATION",
           "authorityTruthEligible": false
         },
-        "phrase": "yongshin alignment has no usable evidence, so this explanation avoids a firm claim."
+        "phrase": "보완 기운 일치도 항목은 사용할 수 있는 근거가 부족해서 단정하지 않았어요."
       },
       {
         "axis": "elementBalance",
@@ -45,7 +45,7 @@
           "tier": "T2_REFERENCE_IMPLEMENTATION",
           "authorityTruthEligible": false
         },
-        "phrase": "Display-only scoring shows strong element balance (84/100)."
+        "phrase": "표시용 점수 기준으로는 오행 균형 항목이 강점으로 보여요(84/100)."
       },
       {
         "axis": "hanjaMeaning",
@@ -56,7 +56,7 @@
           "tier": "T3_AUTHORED_INTERPRETATION",
           "authorityTruthEligible": false
         },
-        "phrase": "Display-only scoring shows strong hanja meaning coverage (88/100)."
+        "phrase": "표시용 점수 기준으로는 한자 의미 적합도 항목이 강점으로 보여요(88/100)."
       },
       {
         "axis": "phonetic",
@@ -67,7 +67,7 @@
           "tier": "T3_AUTHORED_INTERPRETATION",
           "authorityTruthEligible": false
         },
-        "phrase": "Display-only scoring shows strong phonetic flow (92/100)."
+        "phrase": "표시용 점수 기준으로는 발음 흐름 항목이 강점으로 보여요(92/100)."
       },
       {
         "axis": "eraFit",
@@ -78,7 +78,7 @@
           "tier": "T5_OFFICIAL",
           "authorityTruthEligible": true
         },
-        "phrase": "birth-era name trend has no usable evidence, so this explanation avoids a firm claim."
+        "phrase": "출생 시대 이름 흐름 항목은 사용할 수 있는 근거가 부족해서 단정하지 않았어요."
       },
       {
         "axis": "familyFit",
@@ -89,7 +89,7 @@
           "tier": "T3_AUTHORED_INTERPRETATION",
           "authorityTruthEligible": false
         },
-        "phrase": "Display-only scoring shows strong surname-given phonetic fit (86/100)."
+        "phrase": "표시용 점수 기준으로는 성과 이름의 발음 연결 항목이 강점으로 보여요(86/100)."
       },
       {
         "axis": "risk",
@@ -100,24 +100,24 @@
           "tier": "T2_REFERENCE_IMPLEMENTATION",
           "authorityTruthEligible": false
         },
-        "phrase": "Display-only scoring shows a low risk screen (18/100)."
+        "phrase": "표시용 점수 기준으로는 위험 신호가 낮은 편이에요(18/100)."
       }
     ]
   },
   "highRisk": {
-    "summary": "종합적으로 좋은 이름입니다. 발음 오행 부분을 점검해 보세요. Primary candidate profile: Risk managed. Evidence suggests strong legal registrability (90/100). Display-only scoring shows weak saju-name fit (42/100); treat it as a review point, not a conclusion.",
+    "summary": "종합적으로 좋은 이름입니다. 발음 오행 부분을 점검해 보세요. 주요 후보 성향은 위험 관리형이에요. 근거상 인명용 한자 적합도 항목이 강점으로 보여요(90/100). 표시용 점수 기준으로는 사주와 이름의 조화 항목이 약한 편이에요(42/100). 결론이 아니라 검토 포인트로 보세요.",
     "strengths": [
-      "Evidence suggests strong legal registrability (90/100).",
-      "Display-only scoring shows strong element balance (84/100).",
-      "Display-only scoring shows strong hanja meaning coverage (88/100).",
-      "Display-only scoring shows strong phonetic flow (92/100).",
-      "Display-only scoring shows strong surname-given phonetic fit (86/100)."
+      "근거상 인명용 한자 적합도 항목이 강점으로 보여요(90/100).",
+      "표시용 점수 기준으로는 오행 균형 항목이 강점으로 보여요(84/100).",
+      "표시용 점수 기준으로는 한자 의미 적합도 항목이 강점으로 보여요(88/100).",
+      "표시용 점수 기준으로는 발음 흐름 항목이 강점으로 보여요(92/100).",
+      "표시용 점수 기준으로는 성과 이름의 발음 연결 항목이 강점으로 보여요(86/100)."
     ],
     "cautions": [
-      "Display-only scoring shows weak saju-name fit (42/100); treat it as a review point, not a conclusion.",
-      "yongshin alignment has no usable evidence, so this explanation avoids a firm claim.",
-      "birth-era name trend has no usable evidence, so this explanation avoids a firm claim.",
-      "Display-only scoring shows elevated risk (72/100); compare safer alternatives before relying on the final score."
+      "표시용 점수 기준으로는 사주와 이름의 조화 항목이 약한 편이에요(42/100). 결론이 아니라 검토 포인트로 보세요.",
+      "보완 기운 일치도 항목은 사용할 수 있는 근거가 부족해서 단정하지 않았어요.",
+      "출생 시대 이름 흐름 항목은 사용할 수 있는 근거가 부족해서 단정하지 않았어요.",
+      "표시용 점수 기준으로는 위험 신호가 높은 편이에요(72/100). 최종 점수만 보지 말고 더 안전한 후보와 비교하세요."
     ],
     "signals": [
       {
@@ -129,7 +129,7 @@
           "tier": "T5_OFFICIAL",
           "authorityTruthEligible": true
         },
-        "phrase": "Evidence suggests strong legal registrability (90/100)."
+        "phrase": "근거상 인명용 한자 적합도 항목이 강점으로 보여요(90/100)."
       },
       {
         "axis": "sajuFit",
@@ -140,7 +140,7 @@
           "tier": "T2_REFERENCE_IMPLEMENTATION",
           "authorityTruthEligible": false
         },
-        "phrase": "Display-only scoring shows weak saju-name fit (42/100); treat it as a review point, not a conclusion."
+        "phrase": "표시용 점수 기준으로는 사주와 이름의 조화 항목이 약한 편이에요(42/100). 결론이 아니라 검토 포인트로 보세요."
       },
       {
         "axis": "yongshinFit",
@@ -151,7 +151,7 @@
           "tier": "T2_REFERENCE_IMPLEMENTATION",
           "authorityTruthEligible": false
         },
-        "phrase": "yongshin alignment has no usable evidence, so this explanation avoids a firm claim."
+        "phrase": "보완 기운 일치도 항목은 사용할 수 있는 근거가 부족해서 단정하지 않았어요."
       },
       {
         "axis": "elementBalance",
@@ -162,7 +162,7 @@
           "tier": "T2_REFERENCE_IMPLEMENTATION",
           "authorityTruthEligible": false
         },
-        "phrase": "Display-only scoring shows strong element balance (84/100)."
+        "phrase": "표시용 점수 기준으로는 오행 균형 항목이 강점으로 보여요(84/100)."
       },
       {
         "axis": "hanjaMeaning",
@@ -173,7 +173,7 @@
           "tier": "T3_AUTHORED_INTERPRETATION",
           "authorityTruthEligible": false
         },
-        "phrase": "Display-only scoring shows strong hanja meaning coverage (88/100)."
+        "phrase": "표시용 점수 기준으로는 한자 의미 적합도 항목이 강점으로 보여요(88/100)."
       },
       {
         "axis": "phonetic",
@@ -184,7 +184,7 @@
           "tier": "T3_AUTHORED_INTERPRETATION",
           "authorityTruthEligible": false
         },
-        "phrase": "Display-only scoring shows strong phonetic flow (92/100)."
+        "phrase": "표시용 점수 기준으로는 발음 흐름 항목이 강점으로 보여요(92/100)."
       },
       {
         "axis": "eraFit",
@@ -195,7 +195,7 @@
           "tier": "T5_OFFICIAL",
           "authorityTruthEligible": true
         },
-        "phrase": "birth-era name trend has no usable evidence, so this explanation avoids a firm claim."
+        "phrase": "출생 시대 이름 흐름 항목은 사용할 수 있는 근거가 부족해서 단정하지 않았어요."
       },
       {
         "axis": "familyFit",
@@ -206,7 +206,7 @@
           "tier": "T3_AUTHORED_INTERPRETATION",
           "authorityTruthEligible": false
         },
-        "phrase": "Display-only scoring shows strong surname-given phonetic fit (86/100)."
+        "phrase": "표시용 점수 기준으로는 성과 이름의 발음 연결 항목이 강점으로 보여요(86/100)."
       },
       {
         "axis": "risk",
@@ -217,15 +217,15 @@
           "tier": "T2_REFERENCE_IMPLEMENTATION",
           "authorityTruthEligible": false
         },
-        "phrase": "Display-only scoring shows elevated risk (72/100); compare safer alternatives before relying on the final score."
+        "phrase": "표시용 점수 기준으로는 위험 신호가 높은 편이에요(72/100). 최종 점수만 보지 말고 더 안전한 후보와 비교하세요."
       }
     ]
   },
   "fallback": {
-    "summary": "종합적으로 좋은 이름입니다. 발음 오행 부분을 점검해 보세요. Score-vector evidence is not surfaced, so the explanation is limited to category pass/fail rules.",
+    "summary": "종합적으로 좋은 이름입니다. 발음 오행 부분을 점검해 보세요. 점수 벡터 근거가 노출되지 않아 설명은 항목별 통과/주의 규칙 중심으로만 구성했어요.",
     "strengths": [],
     "cautions": [
-      "Score-vector evidence is unavailable; avoid treating this as a detailed naming diagnosis."
+      "점수 벡터 근거가 없어 자세한 이름 진단처럼 단정하지 않는 것이 좋아요."
     ],
     "signals": []
   }

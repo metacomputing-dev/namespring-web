@@ -126,6 +126,8 @@ check(`FortuneReport.meta.schoolPreset is additive default metadata`,
   fortuneReport?.meta?.schoolPreset?.selected === 'korean' &&
     fortuneReport.meta.schoolPreset.source === 'default' &&
     fortuneReport.meta.schoolPreset.scoringEffect === 'inactive');
+check(`FortuneReport does not leak object stringification into user text`,
+  !JSON.stringify(fortuneReport).includes('[object Object]'));
 
 // categoryFortunes 5 default categories (NameSpring's CATEGORY_ORDER)
 const CATEGORIES = ['wealth', 'health', 'academic', 'romance', 'family'] as const;

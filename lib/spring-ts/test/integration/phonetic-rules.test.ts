@@ -99,7 +99,7 @@ check('repeated coda-to-onset boundary is flagged',
   JSON.stringify(repeated));
 check('complex batchim boundary is flagged without official severity claim',
   hasWarning(complex, 'complex_batchim_boundary') &&
-    complex.evidence.some((row) => row.includes('display-only')),
+    complex.evidence.some((row) => row.includes('표시용')),
   JSON.stringify(complex));
 check('missing surname returns unknown display analysis',
   missing.status === 'unknown' &&
@@ -154,7 +154,7 @@ const namingReport = await engine.getNamingReport({
 });
 check('getNamingReport surfaces opt-in phonetic evidence',
   namingReport.phonetic?.fullHangul === '\uBC15\uBBFC\uC900' &&
-    namingReport.phonetic?.evidence.some((row) => row.includes('display-only')));
+    namingReport.phonetic?.evidence.some((row) => row.includes('표시용')));
 
 const baselineCard = buildNameCompatibilityCard(baselineReport);
 const phoneticCard = buildNameCompatibilityCard(phoneticReport);
@@ -192,7 +192,7 @@ const summaries = await engine.getNameCandidateSummaries({
 });
 check('getNameCandidateSummaries surfaces opt-in phonetic evidence',
   summaries[0]?.phonetic?.givenHangul === '\uBBFC\uC900' &&
-    summaries[0]?.phonetic?.evidence.some((row) => row.includes('display-only')));
+    summaries[0]?.phonetic?.evidence.some((row) => row.includes('표시용')));
 
 engine.close();
 

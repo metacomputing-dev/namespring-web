@@ -92,6 +92,25 @@ function scoreVectorFeatureLabels(vector: NonNullable<SpringReport['scoreVector'
   return labels;
 }
 
+function trendStatusLabel(status: string): string {
+  return {
+    current: '현재에도 자연스러운 이름',
+    era_fit: '출생 시기와 어울리는 이름',
+    dated: '유행이 지난 이름',
+    overused: '최근 사용이 많은 이름',
+    unknown: '확인 어려움',
+  }[status] ?? status;
+}
+
+function phoneticStatusLabel(status: string): string {
+  return {
+    smooth: '부드러움',
+    watch: '주의',
+    awkward: '어색함',
+    unknown: '확인 어려움',
+  }[status] ?? status;
+}
+
 function classifySafetyProfile(
   springReport: SpringReport,
 ): SajuNameSafetyProfile | undefined {
@@ -201,15 +220,15 @@ export function buildNameCompatibilityCard(
   if (nameTrend) {
     details.push(
       nameTrend.trendFit == null
-        ? `Name trend: ${nameTrend.status}. ${nameTrend.evidence[0] ?? 'No trend evidence available.'}`
-        : `Name trend: fit ${Math.round(nameTrend.trendFit)}/100, risk ${Math.round(nameTrend.trendRisk ?? 0)}/100 (${nameTrend.status}).`,
+        ? `이름 유행: ${trendStatusLabel(nameTrend.status)}. ${nameTrend.evidence[0] ?? '활용할 수 있는 유행 근거가 아직 없어요.'}`
+        : `이름 유행 적합도 ${Math.round(nameTrend.trendFit)}/100, 유행 리스크 ${Math.round(nameTrend.trendRisk ?? 0)}/100 (${trendStatusLabel(nameTrend.status)}).`,
     );
   }
   if (phonetic) {
     details.push(
       phonetic.phoneticScore == null
-        ? `Phonetic flow: ${phonetic.status}. ${phonetic.evidence[0] ?? 'No phonetic evidence available.'}`
-        : `Phonetic flow: ${Math.round(phonetic.phoneticScore)}/100 (${phonetic.status}), family boundary ${Math.round(phonetic.familyNameFitScore ?? 0)}/100.`,
+        ? `발음 흐름: ${phoneticStatusLabel(phonetic.status)}. ${phonetic.evidence[0] ?? '활용할 수 있는 발음 근거가 아직 없어요.'}`
+        : `발음 흐름 ${Math.round(phonetic.phoneticScore)}/100 (${phoneticStatusLabel(phonetic.status)}), 성-이름 연결 ${Math.round(phonetic.familyNameFitScore ?? 0)}/100.`,
     );
   }
 
@@ -310,20 +329,20 @@ export function buildNameCompatibilityCard(
     evidence.push({
       axis: 'nameTrend',
       claim: nameTrend.trendFit == null
-        ? 'Hangul name trend evidence is unavailable for this name and birth year.'
-        : `Hangul name trend fit is ${Math.round(nameTrend.trendFit)} / 100 with risk ${Math.round(nameTrend.trendRisk ?? 0)} / 100.`,
+        ? '이 이름과 출생연도에 맞는 한글 이름 유행 근거가 아직 부족해요.'
+        : `한글 이름 유행 적합도는 ${Math.round(nameTrend.trendFit)} / 100, 유행 리스크는 ${Math.round(nameTrend.trendRisk ?? 0)} / 100이에요.`,
       supportingFeatures: [...nameTrend.evidence],
-      weakness: 'Trend evidence is display-only and is not part of the headline star calculation.',
+      weakness: '이름 유행 근거는 표시용이며 대표 별점 계산에는 반영되지 않아요.',
     });
   }
   if (phonetic) {
     evidence.push({
       axis: 'phonetic',
       claim: phonetic.phoneticScore == null
-        ? 'Phonetic flow evidence is unavailable for this name.'
-        : `Phonetic flow score is ${Math.round(phonetic.phoneticScore)} / 100 with status ${phonetic.status}.`,
+        ? '이 이름의 발음 흐름 근거가 아직 부족해요.'
+        : `발음 흐름 점수는 ${Math.round(phonetic.phoneticScore)} / 100이며 상태는 ${phoneticStatusLabel(phonetic.status)}이에요.`,
       supportingFeatures: [...phonetic.evidence],
-      weakness: 'Phonetic evidence is display-only and is not part of the headline star calculation.',
+      weakness: '발음 근거는 표시용이며 대표 별점 계산에는 반영되지 않아요.',
     });
   }
   if (tenGodPositionEvidence && tenGodPositionEvidence.topContributions.length > 0) {
@@ -350,7 +369,7 @@ export function buildNameCompatibilityCard(
   if (strengthProfile) {
     evidence.push({
       axis: 'candidateStrengthProfile',
-      claim: `Candidate profile: ${strengthProfile.label}${strengthProfile.paretoFrontier ? ' (Pareto frontier)' : ''}.`,
+      claim: `후보 성향: ${strengthProfile.label}${strengthProfile.paretoFrontier ? ' (파레토 후보)' : ''}.`,
       supportingFeatures: [...strengthProfile.reasons],
     });
   }

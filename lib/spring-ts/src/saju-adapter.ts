@@ -79,8 +79,8 @@ const GYEOKGUK_CANDIDATE_SOURCE_TIER: SourceTierMetadata = {
   sourceUrl: null,
   accessedAt: '2026-05-01',
   quoteShort: null,
-  humanInterpretation: 'Derived from saju-ts month-gyeok and gyeokguk ranking internals; display-only evidence, not authority truth.',
-  copyrightNote: 'No quoted source text; implementation-derived metadata only.',
+  humanInterpretation: 'saju-ts의 월령 격국 및 격국 후보 산식에서 계산한 표시용 근거입니다. 권위 근거로 단정하지 않습니다.',
+  copyrightNote: '인용 원문 없이 구현 산식에서 만든 메타데이터입니다.',
   authorityTruthEligible: false,
 };
 
@@ -849,6 +849,22 @@ function deepSerialize(value: unknown): unknown {
   return plain;
 }
 
+function normalizeSerializedGyeokgukResult(value: unknown): unknown {
+  if (!value || typeof value !== 'object' || Array.isArray(value)) return value;
+  const out = { ...(value as Record<string, unknown>) };
+  for (const key of ['candidates', 'jonggyeokCandidates'] as const) {
+    const rows = out[key];
+    if (!Array.isArray(rows)) continue;
+    out[key] = rows.map((row) => {
+      if (!row || typeof row !== 'object' || Array.isArray(row)) return row;
+      const item = { ...(row as Record<string, unknown>) };
+      item.sourceTier = extractSourceTier(item.sourceTier);
+      return item;
+    });
+  }
+  return out;
+}
+
 /** Converts a value (Set, Array, or falsy) into a plain string[]. */
 function toStringArray(value: any): string[] {
   if (!value) return [];
@@ -1340,6 +1356,7 @@ export async function analyzeSaju(birth: BirthInfo, options?: SpringRequest['opt
  */
 export function extractSaju(rawSajuOutput: any): SajuSummary {
   const serializedOutput = deepSerialize(rawSajuOutput) as Record<string, unknown>;
+  const serializedGyeokgukResult = normalizeSerializedGyeokgukResult(serializedOutput.gyeokgukResult);
   const rawPillars       = rawSajuOutput.pillars ?? rawSajuOutput.coreResult?.pillars;
   const coreResult       = rawSajuOutput.coreResult;
   const pillars = extractPillars(rawPillars);
@@ -1348,6 +1365,7 @@ export function extractSaju(rawSajuOutput: any): SajuSummary {
 
   const summary = {
     ...serializedOutput,
+    ...(serializedGyeokgukResult ? { gyeokgukResult: serializedGyeokgukResult } : {}),
 
     pillars,
     timeCorrection:       extractNumericFields(coreResult, TC_KEYS) as any,
@@ -1772,8 +1790,8 @@ function extractSourceTier(value: any): SourceTierMetadata {
     sourceUrl: typeof value.sourceUrl === 'string' || value.sourceUrl === null ? value.sourceUrl : null,
     accessedAt: typeof value.accessedAt === 'string' ? value.accessedAt : GYEOKGUK_CANDIDATE_SOURCE_TIER.accessedAt,
     quoteShort: typeof value.quoteShort === 'string' || value.quoteShort === null ? value.quoteShort : null,
-    humanInterpretation: typeof value.humanInterpretation === 'string' ? value.humanInterpretation : GYEOKGUK_CANDIDATE_SOURCE_TIER.humanInterpretation,
-    copyrightNote: typeof value.copyrightNote === 'string' ? value.copyrightNote : GYEOKGUK_CANDIDATE_SOURCE_TIER.copyrightNote,
+    humanInterpretation: GYEOKGUK_CANDIDATE_SOURCE_TIER.humanInterpretation,
+    copyrightNote: GYEOKGUK_CANDIDATE_SOURCE_TIER.copyrightNote,
     authorityTruthEligible: typeof value.authorityTruthEligible === 'boolean' ? value.authorityTruthEligible : false,
   };
 }

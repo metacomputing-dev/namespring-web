@@ -18,8 +18,8 @@ const DERIVED_SCORE_TIER: SourceTierMetadata = {
   sourceUrl: null,
   accessedAt: '2026-05-01',
   quoteShort: null,
-  humanInterpretation: 'Derived score vector axis; useful for product ranking but not standalone authority truth.',
-  copyrightNote: 'No copied source text.',
+  humanInterpretation: '점수 벡터에서 계산한 표시용 축입니다. 후보 정렬에는 쓸 수 있지만 단독 권위 근거로 보지 않습니다.',
+  copyrightNote: '외부 원문을 복사하지 않았습니다.',
   authorityTruthEligible: false,
 };
 
@@ -29,8 +29,8 @@ const AUTHORED_RULE_TIER: SourceTierMetadata = {
   sourceUrl: null,
   accessedAt: '2026-05-01',
   quoteShort: null,
-  humanInterpretation: 'Rule-based naming heuristic authored in spring-ts; must be worded as a suggestion, not a fact.',
-  copyrightNote: 'No copied source text.',
+  humanInterpretation: 'spring-ts 안에서 작성한 규칙 기반 이름 해석입니다. 사실 단정이 아니라 제안으로 표현해야 합니다.',
+  copyrightNote: '외부 원문을 복사하지 않았습니다.',
   authorityTruthEligible: false,
 };
 
@@ -40,21 +40,21 @@ const OFFICIAL_DATA_TIER: SourceTierMetadata = {
   sourceUrl: null,
   accessedAt: '2026-05-01',
   quoteShort: null,
-  humanInterpretation: 'Official or legal data source used for a bounded factual check.',
-  copyrightNote: 'No copied source text.',
+  humanInterpretation: '법령 또는 공식 데이터에 근거한 제한 범위의 사실 확인입니다.',
+  copyrightNote: '외부 원문을 복사하지 않았습니다.',
   authorityTruthEligible: true,
 };
 
 const AXIS_LABELS: Record<NamingAxis, string> = {
-  legal: 'legal registrability',
-  sajuFit: 'saju-name fit',
-  yongshinFit: 'yongshin alignment',
-  elementBalance: 'element balance',
-  hanjaMeaning: 'hanja meaning coverage',
-  phonetic: 'phonetic flow',
-  eraFit: 'birth-era name trend',
-  familyFit: 'surname-given phonetic fit',
-  risk: 'risk screen',
+  legal: '인명용 한자 적합도',
+  sajuFit: '사주와 이름의 조화',
+  yongshinFit: '보완 기운 일치도',
+  elementBalance: '오행 균형',
+  hanjaMeaning: '한자 의미 적합도',
+  phonetic: '발음 흐름',
+  eraFit: '출생 시대 이름 흐름',
+  familyFit: '성과 이름의 발음 연결',
+  risk: '위험 신호 점검',
 };
 
 const AXIS_SOURCE_TIER: Record<NamingAxis, SourceTierMetadata> = {
@@ -127,13 +127,13 @@ export function selectNamingPhraseMode(input: {
 }
 
 function tierLead(sourceTier: SourceTierMetadata, phraseMode: NamingExplanationPhraseMode): string {
-  if (phraseMode === 'deferred') return 'Evidence is not stable enough to treat';
-  if (phraseMode === 'displayOnly') return 'Display-only scoring shows';
-  if (phraseMode === 'candidate') return 'Evidence suggests';
+  if (phraseMode === 'deferred') return '근거가 충분히 안정적이지 않아';
+  if (phraseMode === 'displayOnly') return '표시용 점수 기준으로는';
+  if (phraseMode === 'candidate') return '근거상';
   if (sourceTier.authorityTruthEligible && sourceTier.tier === 'T5_OFFICIAL') {
-    return 'Official data supports';
+    return '공식 자료 기준으로는';
   }
-  return 'Rule evidence supports';
+  return '규칙 근거 기준으로는';
 }
 
 function signalFor(axis: NamingAxis, vector: NamingScoreVector): NamingExplanationSignal | null {
@@ -153,7 +153,7 @@ function signalFor(axis: NamingAxis, vector: NamingScoreVector): NamingExplanati
       label,
       value,
       sourceTier,
-      phrase: `${label} has no usable evidence, so this explanation avoids a firm claim.`,
+      phrase: `${label} 항목은 사용할 수 있는 근거가 부족해서 단정하지 않았어요.`,
     };
   }
 
@@ -166,7 +166,7 @@ function signalFor(axis: NamingAxis, vector: NamingScoreVector): NamingExplanati
         label,
         value,
         sourceTier,
-        phrase: `${tierLead(sourceTier, phraseMode)} elevated risk (${value}/100); compare safer alternatives before relying on the final score.`,
+        phrase: `${tierLead(sourceTier, phraseMode)} 위험 신호가 높은 편이에요(${value}/100). 최종 점수만 보지 말고 더 안전한 후보와 비교하세요.`,
       };
     }
     if (value <= 30) {
@@ -177,7 +177,7 @@ function signalFor(axis: NamingAxis, vector: NamingScoreVector): NamingExplanati
         label,
         value,
         sourceTier,
-        phrase: `${tierLead(sourceTier, phraseMode)} a low risk screen (${value}/100).`,
+        phrase: `${tierLead(sourceTier, phraseMode)} 위험 신호가 낮은 편이에요(${value}/100).`,
       };
     }
     return null;
@@ -191,7 +191,7 @@ function signalFor(axis: NamingAxis, vector: NamingScoreVector): NamingExplanati
       label,
       value,
       sourceTier,
-      phrase: `${tierLead(sourceTier, phraseMode)} strong ${label} (${value}/100).`,
+        phrase: `${tierLead(sourceTier, phraseMode)} ${label} 항목이 강점으로 보여요(${value}/100).`,
     };
   }
 
@@ -203,7 +203,7 @@ function signalFor(axis: NamingAxis, vector: NamingScoreVector): NamingExplanati
       label,
       value,
       sourceTier,
-      phrase: `${tierLead(sourceTier, phraseMode)} weak ${label} (${value}/100); treat it as a review point, not a conclusion.`,
+      phrase: `${tierLead(sourceTier, phraseMode)} ${label} 항목이 약한 편이에요(${value}/100). 결론이 아니라 검토 포인트로 보세요.`,
     };
   }
 
@@ -224,9 +224,9 @@ export function buildNamingExplanation(input: {
   const base = buildInterpretation(input.evaluationResult);
   if (!input.scoreVector) {
     return {
-      summary: `${base} Score-vector evidence is not surfaced, so the explanation is limited to category pass/fail rules.`,
+      summary: `${base} 점수 벡터 근거가 노출되지 않아 설명은 항목별 통과/주의 규칙 중심으로만 구성했어요.`,
       strengths: [],
-      cautions: ['Score-vector evidence is unavailable; avoid treating this as a detailed naming diagnosis.'],
+      cautions: ['점수 벡터 근거가 없어 자세한 이름 진단처럼 단정하지 않는 것이 좋아요.'],
       signals: [],
     };
   }
@@ -235,10 +235,10 @@ export function buildNamingExplanation(input: {
   const strengths = signals.filter(signal => signal.kind === 'strength').map(signal => signal.phrase);
   const cautions = signals.filter(signal => signal.kind !== 'strength').map(signal => signal.phrase);
   const profilePhrase = input.strengthProfile
-    ? `Primary candidate profile: ${input.strengthProfile.label}.`
-    : 'Primary candidate profile is not available.';
-  const topStrength = strengths[0] ?? 'No single axis is strong enough to state as the main reason.';
-  const topCaution = cautions[0] ?? 'No high-risk axis crossed the caution threshold.';
+    ? `주요 후보 성향은 ${input.strengthProfile.label}이에요.`
+    : '주요 후보 성향은 아직 확인되지 않았어요.';
+  const topStrength = strengths[0] ?? '주된 강점으로 단정할 만큼 강한 단일 축은 없어요.';
+  const topCaution = cautions[0] ?? '주의 기준을 넘은 높은 위험 축은 없어요.';
 
   return {
     summary: [base, profilePhrase, topStrength, topCaution].join(' '),

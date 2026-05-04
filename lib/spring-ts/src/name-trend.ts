@@ -54,6 +54,10 @@ function normalizeGender(gender: BirthInfo['gender'] | undefined): NameTrendGend
   return gender === 'male' || gender === 'female' ? gender : 'unknown';
 }
 
+function genderKo(gender: NameTrendGender | 'unknown'): string {
+  return gender === 'male' ? '남성' : gender === 'female' ? '여성' : '성별 미상';
+}
+
 function rowsForName(givenHangul: string, gender: NameTrendGender): TrendRow[] {
   return rows
     .filter((row) => row.name === givenHangul && row.gender === gender)
@@ -114,21 +118,21 @@ export function getNameTrendAnalysis(
   const birthYear = Number.isInteger(birth.year) ? Number(birth.year) : null;
 
   if (!givenHangul) {
-    return unknownTrend(givenHangul, gender, birthYear, 'No Hangul given name was supplied.');
+    return unknownTrend(givenHangul, gender, birthYear, '한글 이름이 없어 이름 유행 흐름을 분석하지 않았어요.');
   }
   if (gender === 'unknown') {
-    return unknownTrend(givenHangul, gender, birthYear, 'Name trend fixture is gender-specific; neutral gender is not inferred.');
+    return unknownTrend(givenHangul, gender, birthYear, '이름 유행 표본은 성별별 자료라 neutral 성별은 임의로 추정하지 않았어요.');
   }
   if (birthYear === null) {
-    return unknownTrend(givenHangul, gender, birthYear, 'Birth year is required for era-fit name trend analysis.');
+    return unknownTrend(givenHangul, gender, birthYear, '출생연도가 있어야 시대 적합도를 분석할 수 있어요.');
   }
   if (birthYear < minYear) {
-    return unknownTrend(givenHangul, gender, birthYear, 'Official fixture starts at 2008, so earlier birth years are outside scope.');
+    return unknownTrend(givenHangul, gender, birthYear, `공식 표본이 ${minYear}년부터 시작되어 그 이전 출생연도는 분석 범위 밖이에요.`);
   }
 
   const nameRows = rowsForName(givenHangul, gender);
   if (nameRows.length === 0) {
-    return unknownTrend(givenHangul, gender, birthYear, 'Name is not present in the small official top-20 fixture.');
+    return unknownTrend(givenHangul, gender, birthYear, '이 이름은 현재 작은 공식 상위 20위 표본에 없어 유행 점수를 단정하지 않았어요.');
   }
 
   const matchedYear = nearestFixtureYear(Math.min(birthYear, latestYear));
@@ -158,12 +162,12 @@ export function getNameTrendAnalysis(
 
   const evidence = [
     matchedRow
-      ? `${matchedYear} ${gender} rank ${matchedRow.rank}, count ${matchedRow.count}.`
-      : `${givenHangul} is not in the top-20 fixture for ${matchedYear} ${gender}.`,
+      ? `${matchedYear}년 ${genderKo(gender)} 순위 ${matchedRow.rank}위, 건수 ${matchedRow.count}건.`
+      : `${givenHangul}은 ${matchedYear}년 ${genderKo(gender)} 상위 20위 표본에 없어요.`,
     latestRow
-      ? `${latestYear} ${gender} rank ${latestRow.rank}, count ${latestRow.count}.`
-      : `${givenHangul} is not in the ${latestYear} ${gender} top-20 fixture.`,
-    'Trend score is display-only and does not affect ranking or total score.',
+      ? `${latestYear}년 ${genderKo(gender)} 순위 ${latestRow.rank}위, 건수 ${latestRow.count}건.`
+      : `${givenHangul}은 ${latestYear}년 ${genderKo(gender)} 상위 20위 표본에 없어요.`,
+    '이름 유행 점수는 표시용 근거이며 순위나 총점에는 반영되지 않아요.',
   ];
 
   return {

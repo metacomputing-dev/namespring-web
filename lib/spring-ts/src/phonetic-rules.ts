@@ -165,6 +165,15 @@ function signal(
   return { code, severity, penalty, message };
 }
 
+function statusKo(status: PhoneticStatus): string {
+  return {
+    smooth: '부드러움',
+    watch: '주의',
+    awkward: '어색함',
+    unknown: '확인 어려움',
+  }[status];
+}
+
 function transitionSignals(from: PhoneticSyllable, to: PhoneticSyllable, boundary: PhoneticBoundaryKind): PhoneticSignal[] {
   const signals: PhoneticSignal[] = [];
   const rep = from.codaRepresentative;
@@ -174,7 +183,7 @@ function transitionSignals(from: PhoneticSyllable, to: PhoneticSyllable, boundar
       'complex_batchim_boundary',
       to.onset === '\u3147' ? 'medium' : 'high',
       to.onset === '\u3147' ? 10 : 14,
-      `${from.char}${to.char} contains a complex batchim boundary; the naming heuristic flags it for pronunciation review without deciding the realized sound.`,
+      `${from.char}${to.char} 연결은 겹받침이 있어 실제 발음을 한 번 더 확인하는 편이 좋아요.`,
     ));
   }
 
@@ -183,7 +192,7 @@ function transitionSignals(from: PhoneticSyllable, to: PhoneticSyllable, boundar
       'nasal_assimilation_boundary',
       'high',
       boundary === 'surname_given' ? 18 : 15,
-      `${from.char}${to.char} crosses an obstruent batchim into a nasal onset; pronunciation may shift by nasal assimilation.`,
+      `${from.char}${to.char} 연결은 받침 뒤에 콧소리가 이어져 발음이 바뀌어 들릴 수 있어요.`,
     ));
   }
 
@@ -192,7 +201,7 @@ function transitionSignals(from: PhoneticSyllable, to: PhoneticSyllable, boundar
       'batchim_consonant_cluster',
       boundary === 'surname_given' ? 'high' : 'medium',
       boundary === 'surname_given' ? 16 : 11,
-      `${from.char}${to.char} closes one syllable with an obstruent batchim and starts the next with a consonant, which can make the name feel clipped.`,
+      `${from.char}${to.char} 연결은 받침 뒤에 자음이 이어져 이름이 다소 끊겨 들릴 수 있어요.`,
     ));
   }
 
@@ -201,7 +210,7 @@ function transitionSignals(from: PhoneticSyllable, to: PhoneticSyllable, boundar
       'tensing_boundary',
       'medium',
       boundary === 'surname_given' ? 13 : 10,
-      `${from.char}${to.char} can sound harder because an obstruent batchim is followed by a plain consonant onset.`,
+      `${from.char}${to.char} 연결은 받침 뒤에 예사소리가 이어져 소리가 다소 세게 들릴 수 있어요.`,
     ));
   }
 
@@ -210,7 +219,7 @@ function transitionSignals(from: PhoneticSyllable, to: PhoneticSyllable, boundar
       'rieul_nasalization_boundary',
       'medium',
       boundary === 'surname_given' ? 13 : 11,
-      `${from.char}${to.char} places batchim ${rep} before initial rieul; this can create a changed connected sound.`,
+      `${from.char}${to.char} 연결은 받침 ${rep} 뒤에 ㄹ 소리가 이어져 실제 발음이 바뀌어 들릴 수 있어요.`,
     ));
   }
 
@@ -219,7 +228,7 @@ function transitionSignals(from: PhoneticSyllable, to: PhoneticSyllable, boundar
       'nieun_rieul_liquid_boundary',
       'medium',
       boundary === 'surname_given' ? 12 : 10,
-      `${from.char}${to.char} has an adjacent nieun/rieul boundary that often fuses in pronunciation.`,
+      `${from.char}${to.char} 연결은 ㄴ과 ㄹ이 맞닿아 발음이 합쳐져 들릴 수 있어요.`,
     ));
   }
 
@@ -228,7 +237,7 @@ function transitionSignals(from: PhoneticSyllable, to: PhoneticSyllable, boundar
       'same_coda_onset_repeat',
       'medium',
       boundary === 'surname_given' ? 9 : 7,
-      `${from.char}${to.char} repeats the same consonant across the syllable boundary.`,
+      `${from.char}${to.char} 연결은 앞 글자 받침과 뒤 글자 첫소리가 반복돼요.`,
     ));
   }
 
@@ -237,7 +246,7 @@ function transitionSignals(from: PhoneticSyllable, to: PhoneticSyllable, boundar
       'same_initial_repeat',
       'low',
       boundary === 'surname_given' ? 8 : 6,
-      `${from.char}${to.char} repeats the same initial consonant.`,
+      `${from.char}${to.char} 연결은 첫소리가 반복돼요.`,
     ));
   }
 
@@ -246,14 +255,14 @@ function transitionSignals(from: PhoneticSyllable, to: PhoneticSyllable, boundar
       'same_onset_vowel_repeat',
       'low',
       5,
-      `${from.char}${to.char} repeats both initial consonant and vowel shape.`,
+      `${from.char}${to.char} 연결은 첫소리와 모음 모양이 함께 반복돼요.`,
     ));
   } else if (from.nucleus === to.nucleus && boundary === 'given_internal') {
     signals.push(signal(
       'same_vowel_repeat',
       'low',
       3,
-      `${from.char}${to.char} repeats the same medial vowel, which can sound monotonous in short given names.`,
+      `${from.char}${to.char} 연결은 모음이 반복되어 짧은 이름에서는 단조롭게 들릴 수 있어요.`,
     ));
   }
 
@@ -262,7 +271,7 @@ function transitionSignals(from: PhoneticSyllable, to: PhoneticSyllable, boundar
       'sonorant_cluster',
       'low',
       boundary === 'surname_given' ? 5 : 4,
-      `${from.char}${to.char} clusters sonorant sounds across the boundary.`,
+      `${from.char}${to.char} 연결은 울림소리가 맞닿아 소리가 뭉쳐 들릴 수 있어요.`,
     ));
   }
 
@@ -335,7 +344,7 @@ export function getPhoneticAnalysis(
       status: 'unknown',
       transitions: [],
       warnings: [],
-      evidence: ['Hangul surname and given-name syllables are required for phonetic transition analysis.'],
+      evidence: ['한글 성과 이름 글자가 있어야 음운 흐름을 분석할 수 있어요.'],
       sourceTier: 'T3_AUTHORED_INTERPRETATION',
       authorityTruthEligible: false,
     };
@@ -353,14 +362,14 @@ export function getPhoneticAnalysis(
   const status = statusForScore(phoneticScore, warnings);
   const evidence = [
     phoneticScore === null
-      ? 'No score was computed because no analyzable Hangul transitions were found.'
-      : `Phonetic score ${phoneticScore}/100 (${status}); display-only and not included in total score or ranking.`,
+      ? '분석할 수 있는 한글 연결이 없어 점수를 계산하지 않았어요.'
+      : `음운 흐름 점수 ${phoneticScore}/100 (${statusKo(status)}); 표시용 근거이며 총점이나 순위에는 반영되지 않아요.`,
     familyNameFitScore === null
-      ? 'No surname-to-given boundary was available.'
-      : `Surname-to-given fit ${familyNameFitScore}/100 from ${surnameSyllables[surnameSyllables.length - 1]?.char}${givenSyllables[0]?.char}.`,
+      ? '성과 이름이 이어지는 경계가 없어 성-이름 연결 점수를 계산하지 않았어요.'
+      : `성-이름 연결 점수 ${familyNameFitScore}/100 (${surnameSyllables[surnameSyllables.length - 1]?.char}${givenSyllables[0]?.char}).`,
     warnings.length
       ? warnings[0].message
-      : 'No deterministic batchim collision or repeated-phoneme warning was detected.',
+      : '받침 충돌이나 반복 발음 경고는 감지되지 않았어요.',
   ];
 
   return {

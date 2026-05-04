@@ -74,6 +74,28 @@ const DEFAULT_USE_SURNAME_HANJA_IN_PURE = false;
 const ENABLE_HANJA_NAME_EVALUATION = true;
 const ENABLE_FOURFRAME_NAME_EVALUATION = true;
 const FULL_POOL_ID_BASE = 900_000;
+const UNSAFE_HANJA_MEANING_PATTERNS = [
+  /장물/,
+  /뇌물/,
+  /도둑/,
+  /훔/,
+  /죄/,
+  /형벌/,
+  /죽을/,
+  /죽음/,
+  /사망/,
+  /망할/,
+  /흉/,
+  /악할/,
+  /해칠/,
+  /다칠/,
+  /재앙/,
+  /고통/,
+  /슬플/,
+  /감출/,
+  /숨길/,
+  /가난/,
+] as const;
 
 // ---------------------------------------------------------------------------
 // Helpers
@@ -226,6 +248,12 @@ function computeHanjaMeaningScore(entries: readonly HanjaEntry[]): number | null
   if (!hanjaEntries.length) return null;
   return averageScores(hanjaEntries.map((entry) =>
     typeof entry.meaning === 'string' && entry.meaning.trim().length > 0 ? 100 : 40));
+}
+
+function hasUnsafeHanjaMeaning(entry: HanjaEntry): boolean {
+  const meaning = String(entry.meaning ?? '').trim();
+  if (!meaning) return false;
+  return UNSAFE_HANJA_MEANING_PATTERNS.some((pattern) => pattern.test(meaning));
 }
 
 /** Convert a HanjaEntry into the minimal NameCharInput shape. */
@@ -665,42 +693,42 @@ export class SpringEngine {
     }> = [
       {
         id: 'saju_reinforcement',
-        label: 'Saju reinforcement',
+        label: '사주 보완형',
         primaryAxis: 'sajuFit',
         score: averageScores([vector.sajuFit, vector.yongshinFit, vector.elementBalance]),
         axes: ['sajuFit', 'yongshinFit', 'elementBalance'],
       },
       {
         id: 'phonetic_stability',
-        label: 'Phonetic stability',
+        label: '발음 안정형',
         primaryAxis: 'phonetic',
         score: averageScores([vector.phonetic, vector.familyFit, riskQuality]),
         axes: ['phonetic', 'familyFit', 'riskQuality'],
       },
       {
         id: 'era_balance',
-        label: 'Era balance',
+        label: '시대 조화형',
         primaryAxis: 'eraFit',
         score: averageScores([vector.eraFit, riskQuality]),
         axes: ['eraFit', 'riskQuality'],
       },
       {
         id: 'legal_meaning',
-        label: 'Legal and meaning fit',
+        label: '한자 의미 안정형',
         primaryAxis: 'legal',
         score: averageScores([vector.legal, vector.hanjaMeaning, riskQuality]),
         axes: ['legal', 'hanjaMeaning', 'riskQuality'],
       },
       {
         id: 'risk_managed',
-        label: 'Risk managed',
+        label: '위험 관리형',
         primaryAxis: 'risk',
         score: riskQuality,
         axes: ['riskQuality'],
       },
       {
         id: 'balanced',
-        label: 'Balanced',
+        label: '균형형',
         primaryAxis: 'balanced',
         score: averageScores([
           vector.legal,
@@ -723,9 +751,9 @@ export class SpringEngine {
     if (!selected) {
       return {
         id: 'balanced',
-        label: 'Balanced',
+        label: '균형형',
         primaryAxis: 'balanced',
-        reasons: ['No comparable vector axes were available.'],
+        reasons: ['비교할 수 있는 점수 벡터 축이 아직 없어요.'],
         paretoFrontier,
       };
     }
@@ -791,6 +819,27 @@ export class SpringEngine {
         continue;
       }
       filtered.push(candidate);
+    }
+    return filtered;
+  }
+
+  private filterPresentationSafeEntries(entries: readonly HanjaEntry[], hanjaPool: HanjaPool): HanjaEntry[] {
+    const filtered: HanjaEntry[] = [];
+    for (const entry of entries) {
+      if (hasUnsafeHanjaMeaning(entry)) {
+        const legal = getLegalAnnotation(entry, { pool: hanjaPool });
+        this.recordCandidateRejection(
+          'unsafe_hanja_meaning',
+          {
+            hangul: entry.hangul,
+            hanja: entry.hanja,
+            legalStatus: legal.legalStatus,
+          },
+          'Candidate removed before scoring because the Hanja meaning is unsuitable for public name recommendations.',
+        );
+        continue;
+      }
+      filtered.push(entry);
     }
     return filtered;
   }
@@ -984,6 +1033,18 @@ export class SpringEngine {
           : {}),
       }),
     ).map((summary, index) => ({ ...summary, rank: index + 1 }));
+  }
+
+  private pageOrderedCandidates<T extends { readonly rank: number }>(
+    results: readonly T[],
+    options?: SpringRequest['options'],
+  ): T[] {
+    if (options?.limit == null && options?.offset == null) {
+      return [...results];
+    }
+    const offset = options.offset ?? DEFAULT_OFFSET;
+    const limit = options.limit ?? results.length;
+    return results.slice(offset, offset + limit);
   }
 
   private orderSpringCandidates(
@@ -1282,7 +1343,7 @@ export class SpringEngine {
       ));
     }
 
-    return this.orderSpringReports(results, request.options);
+    return this.pageOrderedCandidates(this.orderSpringReports(results, request.options), request.options);
   }
 
   // -------------------------------------------------------------------------
@@ -1405,7 +1466,7 @@ export class SpringEngine {
       });
     }
 
-    return this.orderCandidateSummaries(results, request.options);
+    return this.pageOrderedCandidates(this.orderCandidateSummaries(results, request.options), request.options);
   }
 
   // -------------------------------------------------------------------------
@@ -2220,7 +2281,7 @@ export class SpringEngine {
     const pools = new Map<number, HanjaEntry[]>();
     const canFilterAvoidedResourceElement = hanjaPool === 'curated';
 
-    for (const hanjaEntry of allHanja) {
+    for (const hanjaEntry of this.filterPresentationSafeEntries(allHanja, hanjaPool)) {
       if (hanjaEntry.is_surname) continue;
       if (!neededStrokes.has(hanjaEntry.strokes)) continue;
       if (canFilterAvoidedResourceElement && avoidElements.has(hanjaEntry.resource_element)) continue;
@@ -2265,10 +2326,12 @@ export class SpringEngine {
     // stroke-derived until PR-2.3, so only curated entries use resource 오행
     // for pre-score exclusion.
     const canFilterAvoidedResourceElement = hanjaPool === 'curated';
-    const fullPool = (await this.findGenerationPoolByStrokeRange(STROKE_MIN, STROKE_MAX, hanjaPool))
-      .filter(entry =>
-        !entry.is_surname
-        && (!canFilterAvoidedResourceElement || !avoidElements.has(entry.resource_element)));
+    const fullPool = this.filterPresentationSafeEntries(
+      await this.findGenerationPoolByStrokeRange(STROKE_MIN, STROKE_MAX, hanjaPool),
+      hanjaPool,
+    ).filter(entry =>
+      !entry.is_surname
+      && (!canFilterAvoidedResourceElement || !avoidElements.has(entry.resource_element)));
 
     const pools = new Map<number, HanjaEntry[]>();
 
