@@ -387,7 +387,7 @@ function makeRomanceAdvice(stars: StarRating, dayMasterEl: ElementCode): Fortune
   if (stars >= 4) {
     advice.push({
       text: '새로운 만남이나 인연이 자연스럽게 들어오기 좋은 시기예요. 모임에 적극 참여해 보세요.',
-      reason: '재성/관성 기운이 잘 흘러 대인 매력과 인연 운이 높아져 있어요.',
+      reason: '재성/관성 기운이 잘 흘러 대인 매력과 인연운이 높아져 있어요.',
     });
     advice.push({
       text: `${color} 계열의 옷이나 액세서리가 만남 운을 도와줄 수 있어요.`,

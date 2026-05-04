@@ -448,6 +448,116 @@ const awkwardRenderedPhrases = allTieredText.filter((text) =>
     text.includes('결과를 만들어 내는 흐름이 강해요') ||
     text.includes('몇 년의 차이를 만드는 흐름') ||
     text.includes('큰 흐름을 한 번에 만드는 시기') ||
+    text.includes('인생 전체에서 인연의 결을 살펴보면') ||
+    text.includes('새 인연이 들어올 자리가') ||
+    text.includes('마음을 표현할 자리에서') ||
+    text.includes('인연 운') ||
+    text.includes('어울리는 사람이 어울리는 자리에') ||
+    text.includes('한 평생의 흐름은 늦게 자리 잡고') ||
+    text.includes('한 번 잡은 자리는 오래') ||
+    text.includes('빠른 결정을 강요받는 자리는') ||
+    text.includes('#식신과 #상관의 자리에서') ||
+    text.includes('발표·창작·동아리·시험 자리') ||
+    text.includes('발표·창작 자리에서') ||
+    text.includes('무대·발표·창작 자리에서') ||
+    text.includes('사람들이 모이는 자리에') ||
+    text.includes('사람들이 모이는 자리에서') ||
+    text.includes('진로·약속의 자리에서') ||
+    text.includes('책임의 결인') ||
+    text.includes('자기다움을 다듬는 결을 충분히 누리는 자리예요') ||
+    text.includes('먼저 다가갈 자리가') ||
+    text.includes('#배우자궁의 자리에서') ||
+    text.includes('사람을 끌어모으는 자리가') ||
+    text.includes('#정관의 결이 함께 자리를 잡으면') ||
+    text.includes('#물의 흐름이 잔잔해서') ||
+    text.includes('#불의 따뜻한 흐름') ||
+    text.includes('따뜻한 차의 자리') ||
+    text.includes('#정인의 따뜻한 돌봄을 가까이 두는 자리가') ||
+    text.includes('한 해 회복의 큰 자리가') ||
+    text.includes('천천히 익는 자리는 흉한 자리가') ||
+    text.includes('큰 자리 변경') ||
+    text.includes('익숙한 자리가 우선이에요') ||
+    text.includes('평소 다니던 자리에서') ||
+    text.includes('한 자리에만 머무르면') ||
+    text.includes('신뢰가 자리를 정돈해') ||
+    text.includes('자기 자리도 함께 자라') ||
+    text.includes('다음 분기의 자리가') ||
+    text.includes('가족 자리에 한 호흡') ||
+    text.includes('학업·친구 자리가') ||
+    text.includes('가족과 친구의 자리를') ||
+    text.includes('일상의 관계를 즐기는 자리로') ||
+    text.includes('곁의 신호를 받아들이는 자리도') ||
+    text.includes('오늘 일간 #') ||
+    text.includes('장년기에 일간이 약한 자리에서') ||
+    text.includes('장년기 자리에서 일간이 약하고') ||
+    text.includes('보강을 천천히 찾아가는 자리예요') ||
+    text.includes('보강을 의식적으로 챙겨야 하는 자리라') ||
+    text.includes('일찍 잠드는 자리를') ||
+    text.includes('일찍 잠드는 자리가') ||
+    text.includes('잠을 충분히 챙기는 자리예요') ||
+    text.includes('한 박자 늦추는 자리가') ||
+    text.includes('시기를 지나는 자리이니') ||
+    text.includes('자기 자리를 위한 시간') ||
+    text.includes('회복의 흐름은 #용신을 살리는 자리에서') ||
+    text.includes('마음의 짐을 가장 잘 풀어 주는 자리가') ||
+    text.includes('곁의 신호를 받아들이는 자리가') ||
+    text.includes('자연스럽게 받아들이는 자리가') ||
+    text.includes('의 자리에서 들어오는 관심') ||
+    text.includes('이 자리를 잡으면 약속') ||
+    text.includes('단체 활동·동아리·발표 자리에서') ||
+    text.includes('사람들이 모이는 자리가') ||
+    text.includes('사람들과의 자리가') ||
+    text.includes('다양한 자리에서 상대를') ||
+    text.includes('평소 가지 않던 자리') ||
+    text.includes('가까운 자리로') ||
+    text.includes('보완 방향에 맞는 자리가') ||
+    text.includes('자리가 우선이라') ||
+    text.includes('익숙한 자리에서 한 발짝씩') ||
+    text.includes('자기 자리를 늘려') ||
+    text.includes('새 자리에서 자기 길이') ||
+    text.includes('이사·이직 자리가') ||
+    text.includes('의 첫 자리가 환경 변화') ||
+    text.includes('여행·전학·체험 자리의') ||
+    text.includes('학교 시험·읽기쓰기 자리에서') ||
+    text.includes('한 단계 더 깊이 들어가는 자리예요') ||
+    text.includes('자기 자료에 더 깊이 들어가는 자리예요') ||
+    text.includes('학습으로 또렷이 풀리는 자리예요') ||
+    text.includes('인성 기운이 부족한 자리에서는') ||
+    text.includes('가족·스승의 자리를') ||
+    text.includes('함께하는 자리가 한 해 동안') ||
+    text.includes('일상의 다정함을 챙기는 자리로 한 해를') ||
+    text.includes('자리가 현재 흐름과는 조금 거리가') ||
+    text.includes('이 자리에 들어오는 시기') ||
+    text.includes('의 흐름이 잔잔해서 마음이 가라앉기 쉬운 자리예요') ||
+    text.includes('새 자리에 닿을 때마다') ||
+    text.includes('다음 새 자리가') ||
+    text.includes('큰 자리를 만들어') ||
+    text.includes('자기 자리를 함께 키워') ||
+    text.includes('나누는 자리가 자연스럽게') ||
+    text.includes('가까이 있던 자리를') ||
+    text.includes('자기 자리를 만들기 위한') ||
+    text.includes('비슷해지는 자리이기도') ||
+    text.includes('부딪히는 자리가') ||
+    text.includes('챙기는 자리예요') ||
+    text.includes('가꿔 가는 자리예요') ||
+    text.includes('어른 자리에 시간을') ||
+    text.includes('양가 자리에 시간을') ||
+    text.includes('새로운 자리를 같이') ||
+    text.includes('같이 만들어 가는 작은 자리가') ||
+    text.includes('계약·법률문서·자격 갱신 자리에서') ||
+    text.includes('새로운 자리를 더하는') ||
+    text.includes('환경의 도움을 잘 골라 받는 자리예요') ||
+    text.includes('막혔던 자리가 풀리는') ||
+    text.includes('끝까지 가는 자리가') ||
+    text.includes('다 해내는 자리예요') ||
+    text.includes('학업·시험 자리는') ||
+    text.includes('두 자리가 길하면') ||
+    text.includes('자기 학습이 또렷해지는 자리가') ||
+    text.includes('좋아하는 한 가지를 깊게 파고드는 자리예요') ||
+    text.includes('먼저 다가가기 좋은 자리예요') ||
+    text.includes('정돈하는 자리가 자주') ||
+    text.includes('넓혀 두기 좋은 자리예요') ||
+    text.includes('따뜻한 자리로 두면') ||
     text.includes('평생 갈 흐름을 다듬는 방식'));
 check('tiered rendered text normalizes awkward template joins',
   awkwardRenderedPhrases.length === 0, awkwardRenderedPhrases.slice(0, 3).join(' | '));

@@ -208,7 +208,7 @@
         "ageBand": ["30-39", "40-54"]
       },
       "templateTokens": [
-        { "kind": "text", "value": "가장의 자리·일의 자리가 동시에 또렷해지는 시기를 지나는 사주예요. " },
+        { "kind": "text", "value": "가정과 일의 책임이 동시에 또렷해지는 시기를 지나는 사주예요. " },
         { "kind": "tag", "tagId": "pyeongwan", "label": "편관" },
         { "kind": "text", "value": "의 결이 강한 시기에는 책임이 한꺼번에 모이기 쉬워요. 의식적으로 짐을 분산해 두는 것이 평생의 무기예요." },
         { "kind": "text", "value": " 회복의 결은 " },
@@ -335,8 +335,8 @@
         { "kind": "tag", "tagId": "water", "label": "물" },
         { "kind": "text", "value": "의 결이 잔잔한 사주예요. 깊이 생각하는 결이 또렷해서 마음이 가라앉기 쉬운 자리이니, " },
         { "kind": "tag", "tagId": "fire", "label": "불" },
-        { "kind": "text", "value": "의 따뜻한 결을 평생 가까이 두는 자리가 잘 맞아요." },
-        { "kind": "text", "value": " 회복의 결은 " },
+        { "kind": "text", "value": "의 따뜻한 기운을 평생 가까이 두는 습관이 잘 맞아요." },
+        { "kind": "text", "value": " 회복의 방향은 " },
         { "kind": "tag", "tagId": "jeongin", "label": "정인" },
         { "kind": "text", "value": "의 따뜻한 돌봄과 함께 자주 와요. 햇빛 아래 산책, 따뜻한 차, 가까운 사람과의 식사 같은 결이 마음의 짐을 가장 잘 풀어 줘요." },
         { "kind": "text", "value": " 큰 결정 앞에서는 한 박자 늦추는 자리를 만들면 흐름이 부드러워지는 결이에요." }
