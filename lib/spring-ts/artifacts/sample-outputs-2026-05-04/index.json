@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-05-04T03:26:50.553Z",
+  "generatedAt": "2026-05-04T04:18:47.112Z",
   "targetDate": "2026-05-04T00:00:00+09:00",
   "outputDirectory": "C:\\Projects\\metaintelligence\\namespring-web\\lib\\spring-ts\\artifacts\\sample-outputs-2026-05-04",
   "sampleCount": 7,
@@ -47,7 +47,7 @@
           }
         }
       },
-      "outputBytes": 53392,
+      "outputBytes": 53426,
       "payloadSummary": {
         "topLevelKeys": [
           "nameCompatibility",
@@ -67,7 +67,7 @@
         "tieredMatrix": null,
         "meta": {
           "version": "1.0.0",
-          "generatedAt": "2026-05-04T03:26:51.436Z",
+          "generatedAt": "2026-05-04T04:18:48.317Z",
           "schoolPreset": {
             "selected": "korean",
             "source": "default",
@@ -129,7 +129,7 @@
           }
         }
       },
-      "outputBytes": 495372,
+      "outputBytes": 497366,
       "payloadSummary": {
         "topLevelKeys": [
           "nameCompatibility",
@@ -161,7 +161,7 @@
         },
         "meta": {
           "version": "1.0.0",
-          "generatedAt": "2026-05-04T03:26:51.553Z",
+          "generatedAt": "2026-05-04T04:18:48.461Z",
           "schoolPreset": {
             "selected": "korean",
             "source": "default",
@@ -225,7 +225,7 @@
           }
         }
       },
-      "outputBytes": 136884,
+      "outputBytes": 137551,
       "payloadSummary": {
         "topLevelKeys": [
           "finalScore",
@@ -286,7 +286,7 @@
           }
         }
       },
-      "outputBytes": 402045,
+      "outputBytes": 403908,
       "payloadSummary": {
         "topLevelKeys": [
           "nameCompatibility",
@@ -318,7 +318,7 @@
         },
         "meta": {
           "version": "1.0.0",
-          "generatedAt": "2026-05-04T03:26:51.732Z",
+          "generatedAt": "2026-05-04T04:18:48.699Z",
           "schoolPreset": {
             "selected": "korean",
             "source": "default",
@@ -380,7 +380,7 @@
           }
         }
       },
-      "outputBytes": 489995,
+      "outputBytes": 491535,
       "payloadSummary": {
         "topLevelKeys": [
           "nameCompatibility",
@@ -412,7 +412,7 @@
         },
         "meta": {
           "version": "1.0.0",
-          "generatedAt": "2026-05-04T03:26:51.770Z",
+          "generatedAt": "2026-05-04T04:18:48.746Z",
           "schoolPreset": {
             "selected": "korean",
             "source": "default",
@@ -468,7 +468,7 @@
           }
         }
       },
-      "outputBytes": 481832,
+      "outputBytes": 483327,
       "payloadSummary": {
         "topLevelKeys": [
           "nameCompatibility",
@@ -500,7 +500,7 @@
         },
         "meta": {
           "version": "1.0.0",
-          "generatedAt": "2026-05-04T03:26:51.814Z",
+          "generatedAt": "2026-05-04T04:18:48.814Z",
           "schoolPreset": {
             "selected": "korean",
             "source": "default",
@@ -525,6 +525,14 @@
                 "strength",
                 "tenGod",
                 "fortuneTiming"
+              ],
+              "affectedAxisLabels": [
+                "시주",
+                "용신 후보",
+                "격국",
+                "신강약",
+                "십성 위치",
+                "운세 시점"
               ],
               "fallback": {
                 "hour": 12,
@@ -576,7 +584,7 @@
           }
         }
       },
-      "outputBytes": 16366,
+      "outputBytes": 17663,
       "payloadSummary": {
         "topLevelKeys": [
           "0",
