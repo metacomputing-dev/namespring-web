@@ -137,8 +137,8 @@
       "label": "토생금",
       "hashLabel": "#토생금",
       "category": "element",
-      "brief": "흙이 쇠를 길러 내는 도와주는 결이에요.",
-      "detailed": "흙 속에서 쇠붙이가 캐어 나오듯, 흙 기운(土)이 쇠 기운(金)을 만들어 주는 결이에요. 사주에 흙이 두텁고 쇠를 빛내 줄 결이 필요할 때 이 흐름이 결과를 키워 줘요. 단단한 자리가 또렷한 결단을 길러 내는 자리예요.",
+      "brief": "흙이 쇠를 길러 내며 도와주는 기운이에요.",
+      "detailed": "흙 속에서 쇠붙이가 캐어 나오듯, 흙 기운(土)이 쇠 기운(金)을 만들어 주는 관계예요. 사주에 흙이 두텁고 쇠를 빛내 줄 힘이 필요할 때 결과를 키워 줘요. 단단한 자리가 또렷한 결단을 길러 내는 모습이에요.",
       "related": ["earth", "metal"],
       "aiGenerated": true,
       "sourceTier": { "tier": "T1_HYPOTHESIS", "sourceType": "training_derived", "sourceUrl": null, "accessedAt": "2026-05-02", "quoteShort": null, "humanInterpretation": "AI-derived plain-language definition of 토생금. Display-only.", "copyrightNote": "No source prose copied.", "authorityTruthEligible": false }

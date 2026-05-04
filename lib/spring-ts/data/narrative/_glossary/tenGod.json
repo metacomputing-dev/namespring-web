@@ -66,8 +66,8 @@
       "label": "편재",
       "hashLabel": "#편재",
       "category": "tenGod",
-      "brief": "넓고 큰 돈·관계·기회를 다루는 기운이에요.",
-      "detailed": "내가 다스릴 수 있는 재물·자원 중에서도 '큰 흐름'을 잡는 결이에요. 사업 감각, 사람 폭, 큰 거래에 강한 반면, 작은 돈 관리는 헐거울 수 있어요. 편재가 강한 시기엔 새로운 도전·확장이 잘 맞아요.",
+      "brief": "넓고 큰돈·관계·기회를 다루는 기운이에요.",
+      "detailed": "내가 다스릴 수 있는 재물·자원 중에서도 큰 판을 읽는 힘이에요. 사업 감각, 사람 폭, 큰 거래에 강한 반면, 작은 돈 관리는 헐거울 수 있어요. 편재가 강한 시기엔 새로운 도전·확장이 잘 맞아요.",
       "related": ["jeongjae"],
       "aiGenerated": true,
       "sourceTier": { "tier": "T1_HYPOTHESIS", "sourceType": "training_derived", "sourceUrl": null, "accessedAt": "2026-05-02", "quoteShort": null, "humanInterpretation": "AI-derived plain-language definition of pyeonjae (편재). Display-only narrative.", "copyrightNote": "No source prose copied.", "authorityTruthEligible": false }
@@ -151,7 +151,7 @@
       "hashLabel": "#겁재용신",
       "category": "tenGod",
       "brief": "겁재가 내 사주의 부족한 자리를 채워 주는 결일 때예요.",
-      "detailed": "내 기운이 많이 약할 때, 강한 추진력의 겁재가 용신 자리에 서요. 동업·경쟁 무대에서 오히려 힘이 살아나는 결이지만, 욕심이 앞설 수 있어 큰 돈거래는 한 박자 늦추는 게 좋아요. 겁재가 도와주는 시기엔 적극적인 도전이 결과로 이어져요.",
+      "detailed": "내 기운이 많이 약할 때, 강한 추진력의 겁재가 용신 자리에 서요. 동업·경쟁 무대에서 오히려 힘이 살아나는 결이지만, 욕심이 앞설 수 있어 큰돈 거래는 한 박자 늦추는 게 좋아요. 겁재가 도와주는 시기엔 적극적인 도전이 결과로 이어져요.",
       "related": ["geobjae", "yongshin"],
       "aiGenerated": true,
       "sourceTier": { "tier": "T1_HYPOTHESIS", "sourceType": "training_derived", "sourceUrl": null, "accessedAt": "2026-05-02", "quoteShort": null, "humanInterpretation": "AI-derived plain-language definition of geobjae as yongshin. Display-only narrative.", "copyrightNote": "No source prose copied.", "authorityTruthEligible": false }
