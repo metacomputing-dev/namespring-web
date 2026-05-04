@@ -123,6 +123,7 @@ function isMinorContext(context?: CategoryFortuneContext): boolean {
 }
 
 function categoryTitle(category: FortuneCategory, context?: CategoryFortuneContext): string {
+  if (category === 'wealth' && isMinorContext(context)) return '돈 관리/습관운';
   if (category === 'romance' && isMinorContext(context)) return '친구/관계운';
   return CATEGORY_TITLE[category];
 }
@@ -291,26 +292,42 @@ function makeCategorySummary(
 //  Advice generators per category
 // ---------------------------------------------------------------------------
 
-function makeWealthAdvice(stars: StarRating, fortuneEl: ElementCode, catEl: ElementCode): FortuneAdvice[] {
+function makeWealthAdvice(
+  stars: StarRating,
+  fortuneEl: ElementCode,
+  catEl: ElementCode,
+  context?: CategoryFortuneContext,
+): FortuneAdvice[] {
   const advice: FortuneAdvice[] = [];
   const foods = ELEMENT_FOOD[catEl] ?? [];
   const color = ELEMENT_COLOR[catEl] ?? '';
   const direction = ELEMENT_DIRECTION[catEl] ?? '';
+  const isMinor = isMinorContext(context);
 
   if (stars >= 4) {
-    advice.push({
-      text: '새로운 투자나 사업 기회를 검토해 보기 좋은 시기예요.',
-      reason: '재성 기운이 잘 흐르고 있어서 재물 관련 행동이 좋은 결과로 이어지기 쉬워요.',
-    });
+    advice.push(isMinor
+      ? {
+          text: '용돈, 저축, 필요한 물건을 구분해 보는 습관을 만들기 좋은 시기예요.',
+          reason: '돈 관리 흐름이 부드러울 때 작은 기록 습관을 만들면 생활 감각이 좋아져요.',
+        }
+      : {
+          text: '새로운 투자나 사업 기회를 검토해 보기 좋은 시기예요.',
+          reason: '재성 기운이 잘 흐르고 있어서 재물 관련 행동이 좋은 결과로 이어지기 쉬워요.',
+        });
     advice.push({
       text: `${color} 계열의 지갑이나 소품이 재물운을 도와줄 수 있어요.`,
       reason: `재성 오행(${elementKo(catEl)})의 색을 활용하면 기운이 자연스럽게 강화돼요.`,
     });
   } else {
-    advice.push({
-      text: '큰 지출이나 투자는 신중하게, 가능하면 전문가 상담 후 결정하세요.',
-      reason: '재성 기운이 약한 시기에는 보수적인 재무 전략이 안전해요.',
-    });
+    advice.push(isMinor
+      ? {
+          text: '큰 물건을 사거나 돈을 쓰는 일은 혼자 정하지 말고 보호자와 함께 확인하세요.',
+          reason: '돈 관리 흐름이 약한 시기에는 속도를 늦추고 도움을 받는 편이 안전해요.',
+        }
+      : {
+          text: '큰 지출이나 투자는 신중하게, 가능하면 전문가 상담 후 결정하세요.',
+          reason: '재성 기운이 약한 시기에는 보수적인 재무 전략이 안전해요.',
+        });
     advice.push({
       text: '불필요한 지출을 줄이고 저축 비율을 조금씩 높여보세요.',
       reason: '재물 기운이 약할 때 아끼는 습관이 나중에 큰 도움이 돼요.',
@@ -363,7 +380,7 @@ function makeHealthAdvice(
       : `인성(${elementKo(resourceEl)})`;
     advice.push({
       text: `${hobbies.slice(0, 2).join(', ')} 같은 활동이 건강 기운을 보강해 줘요.`,
-      reason: `${elLabel} 기운과 어울리는 활동이 몸과 마음을 함께 케어해요.`,
+      reason: `${elLabel} 기운과 어울리는 활동이 생활 리듬과 마음의 여유를 함께 챙기는 데 도움이 돼요.`,
     });
   }
 
@@ -494,12 +511,17 @@ function makeCaution(
   const catKo = elementKo(catEls.primary);
   const fortuneKo = elementKo(fortuneEl);
   const isMinorRomance = category === 'romance' && isMinorContext(context);
+  const isMinorWealth = category === 'wealth' && isMinorContext(context);
 
   const cautionMap: Record<FortuneCategory, FortuneWarning> = {
     wealth: {
       signal: `올해 재물 기운이 ${fortuneKo} 기운과 긴장 관계에 있어요.`,
-      response: '큰 투자나 보증은 신중하게 검토하고, 지출 상한선을 미리 정해 두세요.',
-      reason: `${fortuneKo} 기운이 ${catKo} 기운(재성)을 방해하여 재물 손실 위험이 있어요.`,
+      response: isMinorWealth
+        ? '돈을 쓰거나 물건을 고를 때는 기준을 적어 보고, 보호자와 함께 확인해 보세요.'
+        : '큰 투자나 보증은 신중하게 검토하고, 지출 상한선을 미리 정해 두세요.',
+      reason: isMinorWealth
+        ? `${fortuneKo} 기운이 ${catKo} 기운과 맞물려 돈 관리 습관이 흔들리기 쉬운 시기예요.`
+        : `${fortuneKo} 기운이 ${catKo} 기운(재성)을 방해하여 재물 손실 위험이 있어요.`,
     },
     health: {
       signal: '건강 기운이 약해서 컨디션 관리에 주의가 필요해요.',
@@ -599,7 +621,7 @@ export function buildCategoryFortuneCards(
     let advice: FortuneAdvice[];
     switch (category) {
       case 'wealth':
-        advice = makeWealthAdvice(stars, fortuneEl, catEls.primary);
+        advice = makeWealthAdvice(stars, fortuneEl, catEls.primary, context);
         break;
       case 'health':
         advice = makeHealthAdvice(stars, fortuneEl, dayMasterElement, deficientElements, gishinElement, yongshinElement);

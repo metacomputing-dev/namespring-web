@@ -338,7 +338,7 @@
       "axis": { "category": "health", "period": "thisYear", "depth": "brief" },
       "gating": { "currentSeason": ["autumn", "winter"] },
       "templateTokens": [
-        { "kind": "text", "value": "올해는 몸을 지키고 회복력을 쌓는 습관이 중요해요. 정기적인 휴식, 검진, 무리하지 않는 운동이 컨디션의 바탕이 됩니다." }
+        { "kind": "text", "value": "올해는 몸을 지키고 회복력을 쌓는 습관이 중요해요. 정기적인 휴식, 컨디션 점검, 무리하지 않는 운동이 컨디션의 바탕이 됩니다." }
       ],
       "tags": [],
       "aiGenerated": true,

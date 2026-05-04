@@ -417,7 +417,7 @@
         { "kind": "tag", "tagId": "yongshin", "label": "용신" },
         { "kind": "text", "value": " 보완이 충분한지를 함께 봅니다. " },
         { "kind": "tag", "tagId": "stabilityIndex", "label": "안정 지표" },
-        { "kind": "text", "value": "가 낮으면 새 운동보다 검진, 수면, 식사 루틴을 먼저 고정하는 편이 안전합니다." }
+        { "kind": "text", "value": "가 낮으면 새 운동보다 생활 점검, 수면, 식사 루틴을 먼저 고정하는 편이 안전합니다." }
       ],
       "tags": ["jeongin", "yongshin", "stabilityIndex"],
       "numericalEvidence": [

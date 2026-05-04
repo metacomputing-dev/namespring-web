@@ -181,6 +181,9 @@ function makeStageSummary(
   const elDesc = elementPairDesc(stemEl, branchEl);
 
   if (grade >= 5) {
+    if (startAge < 19) {
+      return `${ageDesc} 시기는 ${elDesc} 기운이 크게 도와줘요. 배움과 생활 습관이 잘 자리잡기 좋은 시기예요.`;
+    }
     return `${ageDesc} 시기는 ${elDesc} 기운이 최고로 좋아요. 적극적으로 도전하고 확장하기 좋은 전성기예요.`;
   }
   if (grade >= 4) {

@@ -30,7 +30,7 @@
       "templateTokens": [
         { "kind": "text", "value": "40대 초반 오늘 건강운은 체력으로 버티는 습관을 줄이고 회복 시간을 먼저 확보하는 해석이 필요합니다. " },
         { "kind": "tag", "tagId": "yongshin", "label": "용신" },
-        { "kind": "text", "value": "은 몸의 균형을 되돌리는 생활 리듬이고 " },
+        { "kind": "text", "value": "은 생활 리듬을 다시 안정시키는 방향이고 " },
         { "kind": "tag", "tagId": "gishin", "label": "기신" },
         { "kind": "text", "value": "은 과로, 회식, 수면 부족처럼 누적 부담을 키우는 조건입니다." }
       ],
@@ -640,7 +640,7 @@
         { "kind": "tag", "tagId": "yongshin", "label": "용신" },
         { "kind": "text", "value": "은 회복과 보강의 방향이고 " },
         { "kind": "tag", "tagId": "gishin", "label": "기신" },
-        { "kind": "text", "value": "은 과로와 무리한 약속이 몸의 균형을 흔드는 조건입니다." }
+        { "kind": "text", "value": "은 과로와 무리한 약속이 컨디션 리듬을 흔드는 조건입니다." }
       ],
       "tags": ["yongshin", "gishin"],
       "numericalEvidence": [

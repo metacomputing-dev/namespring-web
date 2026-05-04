@@ -191,7 +191,7 @@
       "axis": { "category": "health", "period": "thisYear", "depth": "standard" },
       "gating": { "currentSeason": ["autumn", "winter"] },
       "templateTokens": [
-        { "kind": "text", "value": "올해는 몸의 기반을 차분히 다지는 흐름이에요. 큰 변화를 여러 개 시작하기보다 검진, 수면, 식사, 가벼운 운동처럼 기본을 확인하고 오래 지킬 수 있게 정리하세요." }
+        { "kind": "text", "value": "올해는 몸의 기반을 차분히 다지는 흐름이에요. 큰 변화를 여러 개 시작하기보다 생활 점검, 수면, 식사, 가벼운 운동처럼 기본을 확인하고 오래 지킬 수 있게 정리하세요." }
       ],
       "livingTips": [
         "필요한 건강 점검 일정을 미리 달력에 넣어두세요.",

@@ -123,7 +123,7 @@
         "gender": ["male"]
       },
       "templateTokens": [
-        { "kind": "text", "value": "올해는 정기 검진을 미리 일정에 잡아 두는 편이 좋아요." }
+        { "kind": "text", "value": "올해는 컨디션 점검을 미리 일정에 잡아 두는 편이 좋아요." }
       ],
       "tags": [],
       "aiGenerated": true,

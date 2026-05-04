@@ -167,6 +167,8 @@ export function buildOverviewSummaryCard(
   saju: SajuSummary,
   options?: OverviewSummaryCardOptions,
 ): OverviewSummaryCard {
+  const unknownHour = saju.inputUncertainty?.unknownHour;
+
   // ── 1. Four pillars ──
   const pillars: PillarDisplay[] = PILLAR_POSITIONS.map(({ key, label }) => {
     const p = saju.pillars[key];
@@ -180,7 +182,7 @@ export function buildOverviewSummaryCard(
       : '';
     const elementDesc = formatPillarElementPair(stemElement, branchElement);
     return {
-      position: label,
+      position: key === 'hour' && unknownHour ? `${label}(임시)` : label,
       stem: p.stem.hangul,
       branch: p.branch.hangul,
       element: elementDesc,
@@ -217,8 +219,19 @@ export function buildOverviewSummaryCard(
   const yongshinEl = normalizeElement(yongshin.element);
   const yongshinFriendly = yongshinEl ? ELEMENT_FRIENDLY[yongshinEl] : friendlyElementName(yongshin.element);
   const yongshinKorean = yongshinEl ? ELEMENT_KOREAN_SHORT[yongshinEl] : elementCodeToKorean(yongshin.element);
+  const sajuOutput = saju as unknown as { axisStrength?: SajuAxisStrengthMap };
+  const axisStrength = sajuOutput.axisStrength;
+  const yongshinTier = axisStrength?.yongshin;
+  const yongshinConflict = yongshinConsensus?.final?.conflictLevel;
+  const hedgeYongshin =
+    yongshinTier === 'candidate' ||
+    yongshinTier === 'deferred' ||
+    yongshinConflict === 'high' ||
+    Boolean(unknownHour);
 
-  let yongshinDescription = `사주의 균형을 맞춰주는 용신은 ${yongshinFriendly}(${yongshinKorean}) 기운이에요. 이 기운을 일상에서 가까이하면 좋은 흐름을 만들 수 있어요.`;
+  let yongshinDescription = hedgeYongshin
+    ? `사주의 균형을 맞춰주는 용신 후보는 ${yongshinFriendly}(${yongshinKorean}) 기운이에요. 출생 시각이나 판단 축에 따라 보조 기운이 달라질 수 있어 참고 기준으로 보는 것이 좋아요.`
+    : `사주의 균형을 맞춰주는 용신은 ${yongshinFriendly}(${yongshinKorean}) 기운이에요. 이 기운을 일상에서 가까이하면 좋은 흐름을 만들 수 있어요.`;
   if (yongshin.heeshin) {
     const heeshinFriendly = friendlyElementName(yongshin.heeshin);
     yongshinDescription += ` 희신인 ${heeshinFriendly} 기운도 함께 챙기면 더 좋아요.`;
@@ -286,9 +299,9 @@ export function buildOverviewSummaryCard(
       `${stemInfo.hangul} 일간을 중심으로, ${dayMasterFriendly} 기운의 ${keywordsJoined}${iGa(keywordsJoined)} 돋보이는 사주예요.`,
     );
   }
-  summaryParts.push(
-    `전체 에너지는 ${strengthKorean} 수준이고, ${yongshinFriendly} 기운을 보충하면 더 좋은 균형을 만들 수 있어요.`,
-  );
+  summaryParts.push(hedgeYongshin
+    ? `전체 에너지는 ${strengthKorean} 수준이고, ${yongshinFriendly} 기운은 중요한 보완 후보로 참고하면 좋아요.`
+    : `전체 에너지는 ${strengthKorean} 수준이고, ${yongshinFriendly} 기운을 보충하면 더 좋은 균형을 만들 수 있어요.`);
   if (deficient.length > 0) {
     const defNames = deficient.map(friendlyElementName).join(', ');
     summaryParts.push(
@@ -302,11 +315,7 @@ export function buildOverviewSummaryCard(
   // Surface the upstream judgment-strength + per-claim evidence so a UI
   // (or a future audience-translation layer) can adapt the wording: a
   // 'definite' yongshin is stated as fact, a 'candidate' one is hedged.
-  const sajuOutput = saju as unknown as { axisStrength?: SajuAxisStrengthMap };
-  const axisStrength = sajuOutput.axisStrength;
-
   const evidence: EvidenceRow[] = [];
-  const unknownHour = saju.inputUncertainty?.unknownHour;
 
   if (unknownHour) {
     evidence.push({
@@ -349,8 +358,7 @@ export function buildOverviewSummaryCard(
 
   // Yongshin row — 4-tier strength from axisStrength.yongshin. Hedge wording
   // when 'candidate' / 'deferred' so we don't overclaim a low-confidence yongshin.
-  const yongshinTier = axisStrength?.yongshin;
-  const isHedged = yongshinTier === 'candidate' || yongshinTier === 'deferred';
+  const isHedged = hedgeYongshin;
   const consensusAxes = yongshinConsensus
     ? ([
         ['억부', yongshinConsensus.eokbu.element],

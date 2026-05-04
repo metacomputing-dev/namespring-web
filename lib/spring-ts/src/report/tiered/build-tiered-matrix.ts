@@ -44,6 +44,12 @@ const CATEGORY_ORDER: readonly TieredCategoryId[] = [
   'career', 'study_document', 'expression_children', 'health_stress', 'movement',
 ];
 
+const MINOR_LIMITED_CATEGORIES = new Set<TieredCategoryId>([
+  'wealth',
+  'romance',
+  'study_document',
+]);
+
 const EMPTY_PARAGRAPHS: readonly TaggedParagraph[] = Object.freeze([]);
 
 const PLACEHOLDER_BRIEF: BriefFortuneText = Object.freeze({ headline: '준비 중인 흐름이에요.' });
@@ -254,7 +260,7 @@ function buildCell(
   const ctx: RenderContext = { seedKey, periodLabel, feature };
   const grade = gradeCell(fortuneElement, yongshin, heeshin, gishin);
 
-  if (category === 'romance' && isMinorAgeBand(feature.ageBand)) {
+  if (category !== 'overall' && MINOR_LIMITED_CATEGORIES.has(category) && isMinorAgeBand(feature.ageBand)) {
     const minorFallback = buildMinorFallbackCell(feature, category, periodLabel, grade);
     if (minorFallback) return minorFallback;
   }

@@ -129,6 +129,11 @@ const minorRomance = minorReport?.categoryFortunes?.romance;
 const minorRomanceText = textOf(minorRomance);
 const minorServiceText = textOf({
   categoryFortunes: minorReport?.categoryFortunes,
+  dailyFortune: minorReport?.dailyFortune,
+  weeklyFortune: minorReport?.weeklyFortune,
+  monthlyFortune: minorReport?.monthlyFortune,
+  yearlyFortune: minorReport?.yearlyFortune,
+  lifeStageFortune: minorReport?.lifeStageFortune,
   tieredMatrix: minorReport?.tieredMatrix,
 });
 check('minor relationship card is relabeled away from dating and marriage',
@@ -140,6 +145,9 @@ check('minor relationship card avoids adult relationship wording',
 check('minor tiered relationship output avoids adult dating and marriage terms',
   !/연애|결혼|배우자궁|처궁|만남 운|액세서리가 만남/.test(minorServiceText),
   minorServiceText.match(/연애|결혼|배우자궁|처궁|만남 운|액세서리가 만남/)?.[0]);
+check('minor visible output avoids adult financial and peak-life wording',
+  !/큰 계약|투자|보증|전성기/.test(minorServiceText),
+  minorServiceText.match(/큰 계약|투자|보증|전성기/)?.[0]);
 
 const leeText = textOf(leeReport);
 check('input Hangul display name is preserved for Lee surname',
@@ -152,6 +160,12 @@ check('Lee sample does not leak DB reading 리하준',
   !leeText.includes('리하준'), leeText.match(/리하준.{0,12}/)?.[0]);
 check('service josa polish covers 성과와 인정',
   !leeText.includes('성과와 인정를'), leeText.match(/성과와 인정를/)?.[0]);
+check('unknown-hour report marks the hour pillar as provisional',
+  leeReport?.overviewSummary?.pillars?.some((pillar: any) => String(pillar?.position ?? '').includes('시주(임시)')),
+  textOf(leeReport?.overviewSummary?.pillars));
+check('unknown-hour report hedges yongshin as a candidate',
+  String(leeReport?.overviewSummary?.yongshinDescription ?? '').includes('용신 후보'),
+  String(leeReport?.overviewSummary?.yongshinDescription ?? ''));
 
 const choiVisibleText = textOf({
   cautions: choiReport?.cautions,
@@ -162,8 +176,13 @@ const choiVisibleText = textOf({
   categoryFortunes: choiReport?.categoryFortunes,
 });
 check('general visible report avoids organ-specific and medical-adjacent claims',
-  !/(폐와 대장|관련 장기|면역력|장기는|건강 검진|정기 검진)/.test(choiVisibleText),
-  choiVisibleText.match(/폐와 대장|관련 장기|면역력|장기는|건강 검진|정기 검진/)?.[0]);
+  !/(폐와 대장|관련 장기|면역력|장기는|검진)/.test(choiVisibleText),
+  choiVisibleText.match(/폐와 대장|관련 장기|면역력|장기는|검진/)?.[0]);
+
+const allGeneratedServiceText = [choiVisibleText, minorServiceText, leeText].join('\n');
+check('generated service samples avoid checkup wording',
+  !/검진/.test(allGeneratedServiceText),
+  allGeneratedServiceText.match(/검진.{0,16}/)?.[0]);
 check('general cautions avoid raw shinsal detected phrasing',
   !/(신호가 감지|형살 신호|망신살 신호|재살 신호|천살 신호|공망\()/.test(choiVisibleText),
   choiVisibleText.match(/신호가 감지|형살 신호|망신살 신호|재살 신호|천살 신호|공망\(/)?.[0]);
