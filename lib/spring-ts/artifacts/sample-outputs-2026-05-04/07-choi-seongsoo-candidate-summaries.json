@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-05-04T03:26:50.553Z",
+  "generatedAt": "2026-05-04T04:18:47.112Z",
   "targetDate": "2026-05-04T00:00:00+09:00",
   "sampleId": "choi-seongsoo-candidate-summaries",
   "description": "UI 추천 목록 렌더링용 샘플: 점수 벡터와 공개 표시 안전 후보 필터를 함께 확인하는 케이스.",
@@ -58,9 +58,14 @@
         "label": "발음 안정형",
         "primaryAxis": "phonetic",
         "reasons": [
-          "phonetic 100",
-          "familyFit 100",
-          "riskQuality 75"
+          "발음 흐름 100점",
+          "성과 이름 연결 100점",
+          "주의 신호 안정도 75점"
+        ],
+        "displayReasons": [
+          "발음 흐름 100점",
+          "성과 이름 연결 100점",
+          "주의 신호 안정도 75점"
         ],
         "paretoFrontier": false
       },
@@ -74,6 +79,7 @@
           "meaning": "바 유, 다스릴 유",
           "strokes": 7,
           "element": "Metal",
+          "elementLabel": "쇠",
           "legalStatus": "unknown"
         },
         {
@@ -82,6 +88,7 @@
           "meaning": "바를 단, 곧을 단",
           "strokes": 14,
           "element": "Metal",
+          "elementLabel": "쇠",
           "legalStatus": "unknown"
         }
       ],
@@ -159,9 +166,14 @@
         "label": "발음 안정형",
         "primaryAxis": "phonetic",
         "reasons": [
-          "phonetic 100",
-          "familyFit 100",
-          "riskQuality 75"
+          "발음 흐름 100점",
+          "성과 이름 연결 100점",
+          "주의 신호 안정도 75점"
+        ],
+        "displayReasons": [
+          "발음 흐름 100점",
+          "성과 이름 연결 100점",
+          "주의 신호 안정도 75점"
         ],
         "paretoFrontier": false
       },
@@ -175,6 +187,7 @@
           "meaning": "옥빛 영, 수정 영",
           "strokes": 14,
           "element": "Metal",
+          "elementLabel": "쇠",
           "legalStatus": "unknown"
         },
         {
@@ -183,6 +196,7 @@
           "meaning": "옥소리 정",
           "strokes": 7,
           "element": "Metal",
+          "elementLabel": "쇠",
           "legalStatus": "unknown"
         }
       ],
@@ -260,9 +274,14 @@
         "label": "발음 안정형",
         "primaryAxis": "phonetic",
         "reasons": [
-          "phonetic 100",
-          "familyFit 100",
-          "riskQuality 75"
+          "발음 흐름 100점",
+          "성과 이름 연결 100점",
+          "주의 신호 안정도 75점"
+        ],
+        "displayReasons": [
+          "발음 흐름 100점",
+          "성과 이름 연결 100점",
+          "주의 신호 안정도 75점"
         ],
         "paretoFrontier": false
       },
@@ -276,6 +295,7 @@
           "meaning": "옥빛 영, 수정 영",
           "strokes": 14,
           "element": "Metal",
+          "elementLabel": "쇠",
           "legalStatus": "unknown"
         },
         {
@@ -284,6 +304,7 @@
           "meaning": "보배 진, 진귀할 진",
           "strokes": 10,
           "element": "Metal",
+          "elementLabel": "쇠",
           "legalStatus": "unknown"
         }
       ],
@@ -361,9 +382,14 @@
         "label": "발음 안정형",
         "primaryAxis": "phonetic",
         "reasons": [
-          "phonetic 97.9",
-          "familyFit 100",
-          "riskQuality 75"
+          "발음 흐름 97.9점",
+          "성과 이름 연결 100점",
+          "주의 신호 안정도 75점"
+        ],
+        "displayReasons": [
+          "발음 흐름 97.9점",
+          "성과 이름 연결 100점",
+          "주의 신호 안정도 75점"
         ],
         "paretoFrontier": false
       },
@@ -377,6 +403,7 @@
           "meaning": "옥소리 정",
           "strokes": 7,
           "element": "Metal",
+          "elementLabel": "쇠",
           "legalStatus": "unknown"
         },
         {
@@ -385,6 +412,7 @@
           "meaning": "옥빛 영, 수정 영",
           "strokes": 14,
           "element": "Metal",
+          "elementLabel": "쇠",
           "legalStatus": "unknown"
         }
       ],
@@ -476,9 +504,14 @@
         "label": "발음 안정형",
         "primaryAxis": "phonetic",
         "reasons": [
-          "phonetic 98.8",
-          "familyFit 100",
-          "riskQuality 75"
+          "발음 흐름 98.8점",
+          "성과 이름 연결 100점",
+          "주의 신호 안정도 75점"
+        ],
+        "displayReasons": [
+          "발음 흐름 98.8점",
+          "성과 이름 연결 100점",
+          "주의 신호 안정도 75점"
         ],
         "paretoFrontier": false
       },
@@ -492,6 +525,7 @@
           "meaning": "보배 진, 진귀할 진",
           "strokes": 10,
           "element": "Metal",
+          "elementLabel": "쇠",
           "legalStatus": "unknown"
         },
         {
@@ -500,6 +534,7 @@
           "meaning": "옥빛 영, 수정 영",
           "strokes": 14,
           "element": "Metal",
+          "elementLabel": "쇠",
           "legalStatus": "unknown"
         }
       ],
