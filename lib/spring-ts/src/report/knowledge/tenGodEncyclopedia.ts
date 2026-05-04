@@ -128,7 +128,7 @@ export const TEN_GOD_ENCYCLOPEDIA: Record<TenGodCode, TenGodEncyclopediaEntry> =
       '피드백을 바로 반영하는 실습 루프가 효과적이에요.',
     ],
     relationStyle: [
-      '따뜻하게 챙기며 신뢰를 천천히 쌓아가는 편이에요.',
+      '따뜻하게 챙기며 신뢰를 천천히 쌓아 가는 편이에요.',
       '말보다 행동으로 정성을 보여줄 때 관계가 깊어져요.',
       '안정적인 리듬이 깨지면 예민해질 수 있어요.',
     ],

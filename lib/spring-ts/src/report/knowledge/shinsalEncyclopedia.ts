@@ -143,7 +143,7 @@ export const SHINSAL_ENCYCLOPEDIA: Record<string, ShinsalEncyclopediaEntry> = {
     ],
     tips: [
       '안심하고 방심하지는 마세요.',
-      '복이 들어올 때 저축/투자 비율을 정해두세요.',
+      '복이 들어올 때 저축/투자 비율을 정해 두세요.',
       '주 1회 인간관계 정리와 감사 연락을 해보세요.',
     ],
   },
@@ -456,7 +456,7 @@ export const SHINSAL_ENCYCLOPEDIA: Record<string, ShinsalEncyclopediaEntry> = {
     tips: [
       '큰 지출이나 중요한 결정은 하루 여유를 두고 확인하세요.',
       '비교 심리가 강한 날엔 앱 사용 시간을 줄이세요.',
-      '지출 상한선을 미리 정해두세요.',
+      '지출 상한선을 미리 정해 두세요.',
     ],
   },
 
@@ -692,7 +692,7 @@ export const SHINSAL_ENCYCLOPEDIA: Record<string, ShinsalEncyclopediaEntry> = {
     tips: [
       '팀 작업 시 적극적으로 참여하세요.',
       '도움받은 것을 기억하고 돌려주세요.',
-      '월간 목표를 세우고 성취감을 쌓아가세요.',
+      '월간 목표를 세우고 성취감을 쌓아 가세요.',
     ],
   },
 

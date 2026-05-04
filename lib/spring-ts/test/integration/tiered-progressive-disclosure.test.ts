@@ -561,6 +561,16 @@ const awkwardRenderedPhrases = allTieredText.filter((text) =>
     text.includes('정돈하는 자리가 자주') ||
     text.includes('넓혀 두기 좋은 자리예요') ||
     text.includes('따뜻한 자리로 두면') ||
+    text.includes('흐름으로.') ||
+    text.includes('쉬는 자리를') ||
+    text.includes('자리잡') ||
+    text.includes('곁 사람') ||
+    text.includes('정해두') ||
+    text.includes('남겨두') ||
+    text.includes('쌓아가는') ||
+    text.includes('만들어줘요') ||
+    text.includes('회복기지') ||
+    text.includes('회복 기반가') ||
     text.includes('자기 자리의 방향') ||
     text.includes('다음 주의 자리 폭') ||
     text.includes('좋아하는 분야와 잘하는 일이 만나는 자리를') ||
@@ -597,6 +607,23 @@ const awkwardRenderedPhrases = allTieredText.filter((text) =>
     text.includes('보여 보는 자리가') ||
     text.includes('매듭으로 묶어 두는 흐름') ||
     text.includes('매듭을 짓는 흐름') ||
+    text.includes('민감하게 반응하기 쉬운 편으로 볼 수 있습니다') ||
+    text.includes('이어가는 것이 좋습니다') ||
+    text.includes('공부와 서류 일이') ||
+    text.includes('빨라집니다') ||
+    text.includes('도움이 됩니다') ||
+    text.includes('안정됩니다') ||
+    text.includes('합니다') ||
+    text.includes('됩니다') ||
+    text.includes('선명해집니다') ||
+    text.includes('쌓입니다') ||
+    text.includes('좋습니다') ||
+    text.includes('않습니다') ||
+    text.includes('생깁니다') ||
+    text.includes('힘입니다') ||
+    text.includes('시기입니다') ||
+    text.includes('효율적입니다') ||
+    text.includes('안정적입니다') ||
     text.includes('표현을 한결 풀어 주는 흐름') ||
     text.includes('표현을 한 단계 넓혀 주는 흐름') ||
     text.includes('작은 작업이 흐름을 단단히') ||
