@@ -415,6 +415,20 @@ const awkwardRenderedPhrases = allTieredText.filter((text) =>
     text.includes('페이스를 늦추는 자리를') ||
     text.includes('그릇을 더 키워') ||
     text.includes('한 해의 결이 한층 든든해져요') ||
+    text.includes('학업·관계 자리에서 신경 쓸 자리가') ||
+    text.includes('강한 다이어트·과한 야식 자리는') ||
+    text.includes('친구와의 자리도 회복의 자리가') ||
+    text.includes('너무 늦은 자리는') ||
+    text.includes('받은 자리를 단단히 받쳐') ||
+    text.includes('큰 자리만 좇기보다는 한 자리에서의 마무리가 다음 자리의 신뢰가') ||
+    text.includes('한 자리에서 길게 머문 만큼 후반의 자리도') ||
+    text.includes('자기 자리에서의 작은 결정이 다음 자리의 폭을') ||
+    text.includes('인생의 자리를 잡아 주는 흐름') ||
+    text.includes('몇 년의 흐름을 받쳐 주는 자리예요') ||
+    text.includes('한 분야의 기준을 또렷이 잡는 자리예요') ||
+    text.includes('자격증·이력서·증명 서류 자리에서') ||
+    text.includes('시험 응시 한 자리가') ||
+    text.includes('한 분야를 처음부터 끝까지 끌고 가는 자리예요') ||
     text.includes('이동 흐름은 익숙한 동선을 지키면 호흡이 편안') ||
     text.includes('이동 흐름은 익숙한 자리에서 한 발짝씩 넓혀 가는 흐름') ||
     text.includes('기운은 충분한데 방향이 살짝 흩어진 흐름') ||
