@@ -25,7 +25,7 @@
         },
         {
           "kind": "text",
-          "value": "의 결과 가장 가까이 맞물려요. 보조적으로 "
+          "value": "의 결과 가장 가까이 맞물려요.\n\n보조적으로 "
         },
         {
           "kind": "tag",
@@ -43,13 +43,55 @@
         },
         {
           "kind": "text",
-          "value": "의 결을 함께 살피면 한 주의 방향이 또렷해져요."
+          "value": "의 결을 함께 살피면 한 주의 방향이 또렷해져요.\n\n"
+        },
+        {
+          "kind": "tag",
+          "tagId": "naeum",
+          "label": "납음"
+        },
+        {
+          "kind": "text",
+          "value": "의 결을 함께 살펴 두면 사주 모양의 깊은 색이 더 또렷해지고, "
+        },
+        {
+          "kind": "tag",
+          "tagId": "naeumElement",
+          "label": "납음오행"
+        },
+        {
+          "kind": "text",
+          "value": "의 흐름이 자기 결을 보완하는 자리가 자주 등장해요.\n\n"
+        },
+        {
+          "kind": "text",
+          "value": "전체의 흐름은 "
+        },
+        {
+          "kind": "tag",
+          "tagId": "yongshin",
+          "label": "용신"
+        },
+        {
+          "kind": "text",
+          "value": " 방향과 "
+        },
+        {
+          "kind": "tag",
+          "tagId": "heeshin",
+          "label": "희신"
+        },
+        {
+          "kind": "text",
+          "value": "의 받침이 함께 들어오는 시기에 한 단계 부드러워지고, 거스르는 시기에는 한 박자 늦추는 호흡이 자기를 지키는 자리예요."
         }
       ],
       "tags": [
         "yongshin",
         "heeshin",
-        "siGungsil"
+        "siGungsil",
+        "naeum",
+        "naeumElement"
       ],
       "numericalEvidence": [
         {
@@ -123,7 +165,7 @@
         },
         {
           "kind": "text",
-          "value": "이 흐름과 잘 맞아 떨어져, 이번 주의 결정이 또렷해지는 시기예요. "
+          "value": "이 흐름과 잘 맞아 떨어져, 이번 주의 결정이 또렷해지는 시기예요.\n\n"
         },
         {
           "kind": "tag",
@@ -141,13 +183,56 @@
         },
         {
           "kind": "text",
-          "value": "의 자리가 함께 작동할 때 결과가 더 부드럽게 풀려요."
+          "value": "의 자리가 함께 작동할 때 결과가 더 부드럽게 풀려요.\n\n"
+        },
+        {
+          "kind": "text",
+          "value": "전체의 흐름은 "
+        },
+        {
+          "kind": "tag",
+          "tagId": "yongshin",
+          "label": "용신"
+        },
+        {
+          "kind": "text",
+          "value": " 방향과 "
+        },
+        {
+          "kind": "tag",
+          "tagId": "heeshin",
+          "label": "희신"
+        },
+        {
+          "kind": "text",
+          "value": "의 받침이 함께 들어오는 시기에 한 단계 부드러워지고, 거스르는 시기에는 한 박자 늦추는 호흡이 자기를 지키는 자리예요.\n\n"
+        },
+        {
+          "kind": "tag",
+          "tagId": "gyeokgukYongshin",
+          "label": "격국용신"
+        },
+        {
+          "kind": "text",
+          "value": "의 결과 "
+        },
+        {
+          "kind": "tag",
+          "tagId": "gyeokgukFit",
+          "label": "격국적합도"
+        },
+        {
+          "kind": "text",
+          "value": "의 평균이 또렷한 사주는 자기 격에 맞는 길로 큰 흐름이 모이는 자리가 자주 등장해요."
         }
       ],
       "tags": [
         "yongshin",
         "bigyeon",
-        "sikshin"
+        "sikshin",
+        "heeshin",
+        "gyeokgukYongshin",
+        "gyeokgukFit"
       ],
       "aiGenerated": true,
       "sourceTier": {
@@ -189,7 +274,7 @@
         },
         {
           "kind": "text",
-          "value": "이 흐름을 잘 받쳐 주는 한 주예요. "
+          "value": "이 흐름을 잘 받쳐 주는 한 주예요.\n\n"
         },
         {
           "kind": "tag",
@@ -207,13 +292,53 @@
         },
         {
           "kind": "text",
-          "value": "가 함께 자리하면 결과가 단단해져요."
+          "value": "가 함께 자리하면 결과가 단단해져요.\n\n"
+        },
+        {
+          "kind": "tag",
+          "tagId": "tonggwanYongshin",
+          "label": "통관용신"
+        },
+        {
+          "kind": "text",
+          "value": "의 결이 보이면 흐름의 막힌 자리를 풀어 주는 자리가 보이고, "
+        },
+        {
+          "kind": "tag",
+          "tagId": "byeongyakYongshin",
+          "label": "병약용신"
+        },
+        {
+          "kind": "text",
+          "value": "의 자리가 함께 들어오면 약한 자리를 메우는 결이 함께 작동해요.\n\n"
+        },
+        {
+          "kind": "tag",
+          "tagId": "naeum",
+          "label": "납음"
+        },
+        {
+          "kind": "text",
+          "value": "의 결을 함께 살펴 두면 사주 모양의 깊은 색이 더 또렷해지고, "
+        },
+        {
+          "kind": "tag",
+          "tagId": "naeumElement",
+          "label": "납음오행"
+        },
+        {
+          "kind": "text",
+          "value": "의 흐름이 자기 결을 보완하는 자리가 자주 등장해요."
         }
       ],
       "tags": [
         "yongshin",
         "jeonggwan",
-        "jeongjae"
+        "jeongjae",
+        "tonggwanYongshin",
+        "byeongyakYongshin",
+        "naeum",
+        "naeumElement"
       ],
       "aiGenerated": true,
       "sourceTier": {
@@ -261,7 +386,7 @@
         },
         {
           "kind": "text",
-          "value": "이 결을 잘 받쳐, 이번 주의 자리가 또렷한 그림이에요. "
+          "value": "이 결을 잘 받쳐, 이번 주의 자리가 또렷한 그림이에요.\n\n"
         },
         {
           "kind": "tag",
@@ -279,13 +404,53 @@
         },
         {
           "kind": "text",
-          "value": "의 자리가 함께 살아 있으면 책임의 흐름이 자연스럽게 풀려요."
+          "value": "의 자리가 함께 살아 있으면 책임의 흐름이 자연스럽게 풀려요.\n\n"
+        },
+        {
+          "kind": "tag",
+          "tagId": "gyeokgukYongshin",
+          "label": "격국용신"
+        },
+        {
+          "kind": "text",
+          "value": "의 결과 "
+        },
+        {
+          "kind": "tag",
+          "tagId": "gyeokgukFit",
+          "label": "격국적합도"
+        },
+        {
+          "kind": "text",
+          "value": "의 평균이 또렷한 사주는 자기 격에 맞는 길로 큰 흐름이 모이는 자리가 자주 등장해요.\n\n"
+        },
+        {
+          "kind": "tag",
+          "tagId": "tonggwanYongshin",
+          "label": "통관용신"
+        },
+        {
+          "kind": "text",
+          "value": "의 결이 보이면 흐름의 막힌 자리를 풀어 주는 자리가 보이고, "
+        },
+        {
+          "kind": "tag",
+          "tagId": "byeongyakYongshin",
+          "label": "병약용신"
+        },
+        {
+          "kind": "text",
+          "value": "의 자리가 함께 들어오면 약한 자리를 메우는 결이 함께 작동해요."
         }
       ],
       "tags": [
         "yongshin",
         "siGungsil",
-        "jeonggwan"
+        "jeonggwan",
+        "gyeokgukYongshin",
+        "gyeokgukFit",
+        "tonggwanYongshin",
+        "byeongyakYongshin"
       ],
       "aiGenerated": true,
       "sourceTier": {
@@ -327,7 +492,7 @@
         },
         {
           "kind": "text",
-          "value": "이 약간 떨어져 흐르는 자리에요. "
+          "value": "이 약간 떨어져 흐르는 자리에요.\n\n"
         },
         {
           "kind": "tag",
@@ -345,13 +510,55 @@
         },
         {
           "kind": "text",
-          "value": "의 자리가 들어오는 시간대를 한 번 살펴 두면 좋아요."
+          "value": "의 자리가 들어오는 시간대를 한 번 살펴 두면 좋아요.\n\n"
+        },
+        {
+          "kind": "tag",
+          "tagId": "naeum",
+          "label": "납음"
+        },
+        {
+          "kind": "text",
+          "value": "의 결을 함께 살펴 두면 사주 모양의 깊은 색이 더 또렷해지고, "
+        },
+        {
+          "kind": "tag",
+          "tagId": "naeumElement",
+          "label": "납음오행"
+        },
+        {
+          "kind": "text",
+          "value": "의 흐름이 자기 결을 보완하는 자리가 자주 등장해요.\n\n"
+        },
+        {
+          "kind": "text",
+          "value": "전체의 흐름은 "
+        },
+        {
+          "kind": "tag",
+          "tagId": "yongshin",
+          "label": "용신"
+        },
+        {
+          "kind": "text",
+          "value": " 방향과 "
+        },
+        {
+          "kind": "tag",
+          "tagId": "heeshin",
+          "label": "희신"
+        },
+        {
+          "kind": "text",
+          "value": "의 받침이 함께 들어오는 시기에 한 단계 부드러워지고, 거스르는 시기에는 한 박자 늦추는 호흡이 자기를 지키는 자리예요."
         }
       ],
       "tags": [
         "yongshin",
         "johu",
-        "heeshin"
+        "heeshin",
+        "naeum",
+        "naeumElement"
       ],
       "aiGenerated": true,
       "sourceTier": {
@@ -393,7 +600,7 @@
         },
         {
           "kind": "text",
-          "value": "이 자연스럽게 결을 받쳐 주는 한 주예요. "
+          "value": "이 자연스럽게 결을 받쳐 주는 한 주예요.\n\n"
         },
         {
           "kind": "tag",
@@ -402,12 +609,52 @@
         },
         {
           "kind": "text",
-          "value": "의 점수가 또렷한 편이라, 어느 자리에서도 자기 결을 만들기 좋아요."
+          "value": "의 점수가 또렷한 편이라, 어느 자리에서도 자기 결을 만들기 좋아요.\n\n"
+        },
+        {
+          "kind": "tag",
+          "tagId": "tonggwanYongshin",
+          "label": "통관용신"
+        },
+        {
+          "kind": "text",
+          "value": "의 결이 보이면 흐름의 막힌 자리를 풀어 주는 자리가 보이고, "
+        },
+        {
+          "kind": "tag",
+          "tagId": "byeongyakYongshin",
+          "label": "병약용신"
+        },
+        {
+          "kind": "text",
+          "value": "의 자리가 함께 들어오면 약한 자리를 메우는 결이 함께 작동해요.\n\n"
+        },
+        {
+          "kind": "tag",
+          "tagId": "naeum",
+          "label": "납음"
+        },
+        {
+          "kind": "text",
+          "value": "의 결을 함께 살펴 두면 사주 모양의 깊은 색이 더 또렷해지고, "
+        },
+        {
+          "kind": "tag",
+          "tagId": "naeumElement",
+          "label": "납음오행"
+        },
+        {
+          "kind": "text",
+          "value": "의 흐름이 자기 결을 보완하는 자리가 자주 등장해요."
         }
       ],
       "tags": [
         "yongshin",
-        "sajuCompatibility"
+        "sajuCompatibility",
+        "tonggwanYongshin",
+        "byeongyakYongshin",
+        "naeum",
+        "naeumElement"
       ],
       "aiGenerated": true,
       "sourceTier": {
@@ -446,7 +693,7 @@
       "templateTokens": [
         {
           "kind": "text",
-          "value": "청년기의 균형 잡힌 흐름이 한 주에 잘 모이는 흐름이에요. "
+          "value": "청년기의 균형 잡힌 흐름이 한 주에 잘 모이는 흐름이에요.\n\n"
         },
         {
           "kind": "tag",
@@ -473,13 +720,53 @@
         },
         {
           "kind": "text",
-          "value": "의 자리가 살아 있을 때 작은 시도가 결과로 잘 풀려요."
+          "value": "의 자리가 살아 있을 때 작은 시도가 결과로 잘 풀려요.\n\n"
+        },
+        {
+          "kind": "tag",
+          "tagId": "tonggwanYongshin",
+          "label": "통관용신"
+        },
+        {
+          "kind": "text",
+          "value": "의 결이 보이면 흐름의 막힌 자리를 풀어 주는 자리가 보이고, "
+        },
+        {
+          "kind": "tag",
+          "tagId": "byeongyakYongshin",
+          "label": "병약용신"
+        },
+        {
+          "kind": "text",
+          "value": "의 자리가 함께 들어오면 약한 자리를 메우는 결이 함께 작동해요.\n\n"
+        },
+        {
+          "kind": "tag",
+          "tagId": "naeum",
+          "label": "납음"
+        },
+        {
+          "kind": "text",
+          "value": "의 결을 함께 살펴 두면 사주 모양의 깊은 색이 더 또렷해지고, "
+        },
+        {
+          "kind": "tag",
+          "tagId": "naeumElement",
+          "label": "납음오행"
+        },
+        {
+          "kind": "text",
+          "value": "의 흐름이 자기 결을 보완하는 자리가 자주 등장해요."
         }
       ],
       "tags": [
         "yongshin",
         "sikshin",
-        "sanggwan"
+        "sanggwan",
+        "tonggwanYongshin",
+        "byeongyakYongshin",
+        "naeum",
+        "naeumElement"
       ],
       "aiGenerated": true,
       "sourceTier": {
@@ -521,7 +808,7 @@
         },
         {
           "kind": "text",
-          "value": "이 멀리서 흐르는 흐름이에요. 큰 자극은 적은 편이지만, "
+          "value": "이 멀리서 흐르는 흐름이에요.\n\n큰 자극은 적은 편이지만, "
         },
         {
           "kind": "tag",
@@ -530,12 +817,55 @@
         },
         {
           "kind": "text",
-          "value": "의 결을 한 번 살펴 두면 결정이 더 또렷해져요."
+          "value": "의 결을 한 번 살펴 두면 결정이 더 또렷해져요.\n\n"
+        },
+        {
+          "kind": "tag",
+          "tagId": "naeum",
+          "label": "납음"
+        },
+        {
+          "kind": "text",
+          "value": "의 결을 함께 살펴 두면 사주 모양의 깊은 색이 더 또렷해지고, "
+        },
+        {
+          "kind": "tag",
+          "tagId": "naeumElement",
+          "label": "납음오행"
+        },
+        {
+          "kind": "text",
+          "value": "의 흐름이 자기 결을 보완하는 자리가 자주 등장해요.\n\n"
+        },
+        {
+          "kind": "text",
+          "value": "전체의 흐름은 "
+        },
+        {
+          "kind": "tag",
+          "tagId": "yongshin",
+          "label": "용신"
+        },
+        {
+          "kind": "text",
+          "value": " 방향과 "
+        },
+        {
+          "kind": "tag",
+          "tagId": "heeshin",
+          "label": "희신"
+        },
+        {
+          "kind": "text",
+          "value": "의 받침이 함께 들어오는 시기에 한 단계 부드러워지고, 거스르는 시기에는 한 박자 늦추는 호흡이 자기를 지키는 자리예요."
         }
       ],
       "tags": [
         "yongshin",
-        "yongshinFit"
+        "yongshinFit",
+        "naeum",
+        "naeumElement",
+        "heeshin"
       ],
       "aiGenerated": true,
       "sourceTier": {
@@ -577,7 +907,7 @@
         },
         {
           "kind": "text",
-          "value": "이 한 번 결을 흔드는 자리에요. "
+          "value": "이 한 번 결을 흔드는 자리에요.\n\n"
         },
         {
           "kind": "tag",
@@ -586,12 +916,52 @@
         },
         {
           "kind": "text",
-          "value": "이 자리잡는 시점만 잘 만나면 흐름이 단단해지고, 큰 충이 보일 때만 페이스를 살짝 늦추면 충분해요."
+          "value": "이 자리잡는 시점만 잘 만나면 흐름이 단단해지고, 큰 충이 보일 때만 페이스를 살짝 늦추면 충분해요.\n\n"
+        },
+        {
+          "kind": "tag",
+          "tagId": "gyeokgukYongshin",
+          "label": "격국용신"
+        },
+        {
+          "kind": "text",
+          "value": "의 결과 "
+        },
+        {
+          "kind": "tag",
+          "tagId": "gyeokgukFit",
+          "label": "격국적합도"
+        },
+        {
+          "kind": "text",
+          "value": "의 평균이 또렷한 사주는 자기 격에 맞는 길로 큰 흐름이 모이는 자리가 자주 등장해요.\n\n"
+        },
+        {
+          "kind": "tag",
+          "tagId": "tonggwanYongshin",
+          "label": "통관용신"
+        },
+        {
+          "kind": "text",
+          "value": "의 결이 보이면 흐름의 막힌 자리를 풀어 주는 자리가 보이고, "
+        },
+        {
+          "kind": "tag",
+          "tagId": "byeongyakYongshin",
+          "label": "병약용신"
+        },
+        {
+          "kind": "text",
+          "value": "의 자리가 함께 들어오면 약한 자리를 메우는 결이 함께 작동해요."
         }
       ],
       "tags": [
         "gishin",
-        "heeshin"
+        "heeshin",
+        "gyeokgukYongshin",
+        "gyeokgukFit",
+        "tonggwanYongshin",
+        "byeongyakYongshin"
       ],
       "aiGenerated": true,
       "sourceTier": {
@@ -633,7 +1003,7 @@
         },
         {
           "kind": "text",
-          "value": "이 도움의 결로 자리하는 그림이에요. "
+          "value": "이 도움의 결로 자리하는 그림이에요.\n\n"
         },
         {
           "kind": "tag",
@@ -651,13 +1021,53 @@
         },
         {
           "kind": "text",
-          "value": "의 자리가 살아 있으면 곁의 인연이 든든한 받침이 돼요."
+          "value": "의 자리가 살아 있으면 곁의 인연이 든든한 받침이 돼요.\n\n"
+        },
+        {
+          "kind": "tag",
+          "tagId": "gyeokgukYongshin",
+          "label": "격국용신"
+        },
+        {
+          "kind": "text",
+          "value": "의 결과 "
+        },
+        {
+          "kind": "tag",
+          "tagId": "gyeokgukFit",
+          "label": "격국적합도"
+        },
+        {
+          "kind": "text",
+          "value": "의 평균이 또렷한 사주는 자기 격에 맞는 길로 큰 흐름이 모이는 자리가 자주 등장해요.\n\n"
+        },
+        {
+          "kind": "tag",
+          "tagId": "tonggwanYongshin",
+          "label": "통관용신"
+        },
+        {
+          "kind": "text",
+          "value": "의 결이 보이면 흐름의 막힌 자리를 풀어 주는 자리가 보이고, "
+        },
+        {
+          "kind": "tag",
+          "tagId": "byeongyakYongshin",
+          "label": "병약용신"
+        },
+        {
+          "kind": "text",
+          "value": "의 자리가 함께 들어오면 약한 자리를 메우는 결이 함께 작동해요."
         }
       ],
       "tags": [
         "yongshin",
         "jeongin",
-        "pyeonin"
+        "pyeonin",
+        "gyeokgukYongshin",
+        "gyeokgukFit",
+        "tonggwanYongshin",
+        "byeongyakYongshin"
       ],
       "aiGenerated": true,
       "sourceTier": {
@@ -702,7 +1112,7 @@
         },
         {
           "kind": "text",
-          "value": " 보강을 의식적으로 챙겨야 하는 자리라, 이번 주의 짧은 휴식이 큰 자산이 돼요. "
+          "value": " 보강을 의식적으로 챙겨야 하는 자리라, 이번 주의 짧은 휴식이 큰 자산이 돼요.\n\n"
         },
         {
           "kind": "tag",
@@ -711,12 +1121,55 @@
         },
         {
           "kind": "text",
-          "value": "의 흐름이 단단할 때 한 주의 흐름이 한결 안정돼요."
+          "value": "의 흐름이 단단할 때 한 주의 흐름이 한결 안정돼요.\n\n"
+        },
+        {
+          "kind": "text",
+          "value": "전체의 흐름은 "
+        },
+        {
+          "kind": "tag",
+          "tagId": "yongshin",
+          "label": "용신"
+        },
+        {
+          "kind": "text",
+          "value": " 방향과 "
+        },
+        {
+          "kind": "tag",
+          "tagId": "heeshin",
+          "label": "희신"
+        },
+        {
+          "kind": "text",
+          "value": "의 받침이 함께 들어오는 시기에 한 단계 부드러워지고, 거스르는 시기에는 한 박자 늦추는 호흡이 자기를 지키는 자리예요.\n\n"
+        },
+        {
+          "kind": "tag",
+          "tagId": "gyeokgukYongshin",
+          "label": "격국용신"
+        },
+        {
+          "kind": "text",
+          "value": "의 결과 "
+        },
+        {
+          "kind": "tag",
+          "tagId": "gyeokgukFit",
+          "label": "격국적합도"
+        },
+        {
+          "kind": "text",
+          "value": "의 평균이 또렷한 사주는 자기 격에 맞는 길로 큰 흐름이 모이는 자리가 자주 등장해요."
         }
       ],
       "tags": [
         "yongshin",
-        "jojangung"
+        "jojangung",
+        "heeshin",
+        "gyeokgukYongshin",
+        "gyeokgukFit"
       ],
       "aiGenerated": true,
       "sourceTier": {
@@ -758,7 +1211,7 @@
         },
         {
           "kind": "text",
-          "value": "의 리듬이 흐름과 부딪히는 한 주예요. "
+          "value": "의 리듬이 흐름과 부딪히는 한 주예요.\n\n"
         },
         {
           "kind": "tag",
@@ -767,12 +1220,56 @@
         },
         {
           "kind": "text",
-          "value": "의 자리가 함께 보일 때는 결정 자체를 잠시 미뤄도 흐름이 흐트러지지 않아요."
+          "value": "의 자리가 함께 보일 때는 결정 자체를 잠시 미뤄도 흐름이 흐트러지지 않아요.\n\n"
+        },
+        {
+          "kind": "text",
+          "value": "전체의 흐름은 "
+        },
+        {
+          "kind": "tag",
+          "tagId": "yongshin",
+          "label": "용신"
+        },
+        {
+          "kind": "text",
+          "value": " 방향과 "
+        },
+        {
+          "kind": "tag",
+          "tagId": "heeshin",
+          "label": "희신"
+        },
+        {
+          "kind": "text",
+          "value": "의 받침이 함께 들어오는 시기에 한 단계 부드러워지고, 거스르는 시기에는 한 박자 늦추는 호흡이 자기를 지키는 자리예요.\n\n"
+        },
+        {
+          "kind": "tag",
+          "tagId": "gyeokgukYongshin",
+          "label": "격국용신"
+        },
+        {
+          "kind": "text",
+          "value": "의 결과 "
+        },
+        {
+          "kind": "tag",
+          "tagId": "gyeokgukFit",
+          "label": "격국적합도"
+        },
+        {
+          "kind": "text",
+          "value": "의 평균이 또렷한 사주는 자기 격에 맞는 길로 큰 흐름이 모이는 자리가 자주 등장해요."
         }
       ],
       "tags": [
         "gishin",
-        "gongmang"
+        "gongmang",
+        "yongshin",
+        "heeshin",
+        "gyeokgukYongshin",
+        "gyeokgukFit"
       ],
       "aiGenerated": true,
       "sourceTier": {
@@ -811,7 +1308,7 @@
         },
         {
           "kind": "text",
-          "value": "의 자리가 부드럽게 받쳐지는 흐름이라 한 주가 안정적으로 흘러가요. "
+          "value": "의 자리가 부드럽게 받쳐지는 흐름이라 한 주가 안정적으로 흘러가요.\n\n"
         },
         {
           "kind": "tag",
@@ -820,12 +1317,56 @@
         },
         {
           "kind": "text",
-          "value": "의 결도 풍부해 새 놀이를 가볍게 만나는 자리가 자연스러워요."
+          "value": "의 결도 풍부해 새 놀이를 가볍게 만나는 자리가 자연스러워요.\n\n"
+        },
+        {
+          "kind": "tag",
+          "tagId": "naeum",
+          "label": "납음"
+        },
+        {
+          "kind": "text",
+          "value": "의 결을 함께 살펴 두면 사주 모양의 깊은 색이 더 또렷해지고, "
+        },
+        {
+          "kind": "tag",
+          "tagId": "naeumElement",
+          "label": "납음오행"
+        },
+        {
+          "kind": "text",
+          "value": "의 흐름이 자기 결을 보완하는 자리가 자주 등장해요.\n\n"
+        },
+        {
+          "kind": "text",
+          "value": "전체의 흐름은 "
+        },
+        {
+          "kind": "tag",
+          "tagId": "yongshin",
+          "label": "용신"
+        },
+        {
+          "kind": "text",
+          "value": " 방향과 "
+        },
+        {
+          "kind": "tag",
+          "tagId": "heeshin",
+          "label": "희신"
+        },
+        {
+          "kind": "text",
+          "value": "의 받침이 함께 들어오는 시기에 한 단계 부드러워지고, 거스르는 시기에는 한 박자 늦추는 호흡이 자기를 지키는 자리예요."
         }
       ],
       "tags": [
         "jeongin",
-        "sikshin"
+        "sikshin",
+        "naeum",
+        "naeumElement",
+        "yongshin",
+        "heeshin"
       ],
       "aiGenerated": true,
       "sourceTier": {
