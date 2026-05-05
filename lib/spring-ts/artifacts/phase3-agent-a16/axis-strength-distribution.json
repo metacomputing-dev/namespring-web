@@ -1,0 +1,261 @@
+{
+  "schemaVersion": "spring-ts.phase3-agent-a16.axis-strength-distribution.v1",
+  "purpose": "Measurement-only audit of SajuSummary.axisStrength 4-tier distribution across the 15 baseline fixtures. No engine threshold change is proposed in this PR — this artifact is documentation for a possible follow-up.",
+  "generatedAt": "2026-05-05T04:34:01.022Z",
+  "fixtureCount": 15,
+  "axes": [
+    "yongshin",
+    "gyeokguk",
+    "strength",
+    "chengbai",
+    "johu",
+    "fortuneHierarchy",
+    "rectification"
+  ],
+  "tiers": [
+    "definite",
+    "practical",
+    "candidate",
+    "deferred"
+  ],
+  "perAxis": {
+    "yongshin": {
+      "counts": {
+        "definite": 0,
+        "practical": 0,
+        "candidate": 0,
+        "deferred": 15,
+        "absent": 0
+      },
+      "presentCount": 15,
+      "deferredRatioPresent": 1,
+      "deferredRatioAll": 1
+    },
+    "gyeokguk": {
+      "counts": {
+        "definite": 5,
+        "practical": 1,
+        "candidate": 5,
+        "deferred": 4,
+        "absent": 0
+      },
+      "presentCount": 15,
+      "deferredRatioPresent": 0.26666666666666666,
+      "deferredRatioAll": 0.26666666666666666
+    },
+    "strength": {
+      "counts": {
+        "definite": 0,
+        "practical": 2,
+        "candidate": 1,
+        "deferred": 12,
+        "absent": 0
+      },
+      "presentCount": 15,
+      "deferredRatioPresent": 0.8,
+      "deferredRatioAll": 0.8
+    },
+    "chengbai": {
+      "counts": {
+        "definite": 0,
+        "practical": 0,
+        "candidate": 0,
+        "deferred": 0,
+        "absent": 15
+      },
+      "presentCount": 0,
+      "deferredRatioPresent": 0,
+      "deferredRatioAll": 0
+    },
+    "johu": {
+      "counts": {
+        "definite": 0,
+        "practical": 0,
+        "candidate": 0,
+        "deferred": 0,
+        "absent": 15
+      },
+      "presentCount": 0,
+      "deferredRatioPresent": 0,
+      "deferredRatioAll": 0
+    },
+    "fortuneHierarchy": {
+      "counts": {
+        "definite": 0,
+        "practical": 0,
+        "candidate": 0,
+        "deferred": 0,
+        "absent": 15
+      },
+      "presentCount": 0,
+      "deferredRatioPresent": 0,
+      "deferredRatioAll": 0
+    },
+    "rectification": {
+      "counts": {
+        "definite": 0,
+        "practical": 0,
+        "candidate": 0,
+        "deferred": 0,
+        "absent": 15
+      },
+      "presentCount": 0,
+      "deferredRatioPresent": 0,
+      "deferredRatioAll": 0
+    }
+  },
+  "flatAcrossAxes": {
+    "counts": {
+      "definite": 5,
+      "practical": 3,
+      "candidate": 6,
+      "deferred": 31,
+      "absent": 60
+    },
+    "total": 105,
+    "deferredRatio": 0.29523809523809524
+  },
+  "fixtures": [
+    {
+      "id": "fix-01",
+      "label": "1986-04-19 male — 戊土 일간 (README example)",
+      "axisStrength": {
+        "yongshin": "deferred",
+        "gyeokguk": "candidate",
+        "strength": "deferred"
+      }
+    },
+    {
+      "id": "fix-02",
+      "label": "1992-09-15 female — 壬水 일간, 가을",
+      "axisStrength": {
+        "yongshin": "deferred",
+        "gyeokguk": "definite",
+        "strength": "deferred"
+      }
+    },
+    {
+      "id": "fix-03",
+      "label": "2000-01-01 00:30 male — 子時 boundary edge",
+      "axisStrength": {
+        "yongshin": "deferred",
+        "gyeokguk": "candidate",
+        "strength": "deferred"
+      }
+    },
+    {
+      "id": "fix-04",
+      "label": "1965-08-08 19:00 female — 丙火 일간, 종왕 후보 (강한 火)",
+      "axisStrength": {
+        "yongshin": "deferred",
+        "gyeokguk": "deferred",
+        "strength": "deferred"
+      }
+    },
+    {
+      "id": "fix-05",
+      "label": "2005-12-25 06:00 male — 겨울 조후 case (한랭)",
+      "axisStrength": {
+        "yongshin": "deferred",
+        "gyeokguk": "deferred",
+        "strength": "deferred"
+      }
+    },
+    {
+      "id": "fix-06",
+      "label": "1978-06-15 14:00 female — 庚金 일간, 여름",
+      "axisStrength": {
+        "yongshin": "deferred",
+        "gyeokguk": "candidate",
+        "strength": "practical"
+      }
+    },
+    {
+      "id": "fix-07",
+      "label": "1957-02-04 male — 입춘 boundary",
+      "axisStrength": {
+        "yongshin": "deferred",
+        "gyeokguk": "candidate",
+        "strength": "deferred"
+      }
+    },
+    {
+      "id": "fix-08",
+      "label": "2020-08-23 female — 처서 boundary",
+      "axisStrength": {
+        "yongshin": "deferred",
+        "gyeokguk": "definite",
+        "strength": "deferred"
+      }
+    },
+    {
+      "id": "fix-09",
+      "label": "1988-05-05 male — 입하 boundary",
+      "axisStrength": {
+        "yongshin": "deferred",
+        "gyeokguk": "candidate",
+        "strength": "deferred"
+      }
+    },
+    {
+      "id": "fix-10",
+      "label": "2018-11-22 female — 소설 boundary",
+      "axisStrength": {
+        "yongshin": "deferred",
+        "gyeokguk": "practical",
+        "strength": "deferred"
+      }
+    },
+    {
+      "id": "fix-11",
+      "label": "1995-08-15 female — 시간미상 (unknown-hour)",
+      "axisStrength": {
+        "yongshin": "deferred",
+        "gyeokguk": "deferred",
+        "strength": "deferred"
+      }
+    },
+    {
+      "id": "fix-12",
+      "label": "1991-03-20 male — borderline-strength (춘분 즈음, 중화 후보)",
+      "axisStrength": {
+        "yongshin": "deferred",
+        "gyeokguk": "definite",
+        "strength": "deferred"
+      }
+    },
+    {
+      "id": "fix-13",
+      "label": "1989-07-23 male — borderline-strength practical tier (정재격, 여름 yongshin=WATER)",
+      "axisStrength": {
+        "yongshin": "deferred",
+        "gyeokguk": "definite",
+        "strength": "practical"
+      }
+    },
+    {
+      "id": "fix-14",
+      "label": "1980-08-07 male — borderline-strength candidate tier (정관격, 가을 yongshin=WOOD)",
+      "axisStrength": {
+        "yongshin": "deferred",
+        "gyeokguk": "deferred",
+        "strength": "candidate"
+      }
+    },
+    {
+      "id": "fix-15",
+      "label": "1985-03-21 male — borderline-strength deferred tier (편관격, 춘분 yongshin=METAL)",
+      "axisStrength": {
+        "yongshin": "deferred",
+        "gyeokguk": "definite",
+        "strength": "deferred"
+      }
+    }
+  ],
+  "notes": [
+    "absent = the saju adapter did not surface this axis at all for the fixture. Excluded from the deferred-ratio-present figure.",
+    "deferred-ratio-present = deferred / (definite + practical + candidate + deferred).",
+    "A high deferred ratio on yongshin/gyeokguk is expected for hour-uncertain or boundary fixtures; the input-uncertainty downgrade is intentional.",
+    "No threshold change is proposed in this PR. If a future PR retunes deriveAxisStrength bands, re-run this script to verify the regression direction."
+  ]
+}
