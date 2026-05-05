@@ -1,0 +1,77 @@
+{
+  "agent": "P5-A3",
+  "scope": ["data/narrative/family/**", "data/narrative/wealth/**", "data/narrative/overall/**"],
+  "metric": "결이 occurrences (templateTokens text only)",
+  "baseline_taskGiven": {
+    "family": 89,
+    "wealth": 70,
+    "overall": 65
+  },
+  "baseline_atWorktreeStart_postRebaseToMain": {
+    "family": 86,
+    "wealth": 58,
+    "overall": 65,
+    "note": "Worktree was rebased onto main e0f3a54 which includes P5-A4 expert tag-diversity additions. anchor.013 (family) introduced 6 new 결이; anchor.009 (wealth) introduced 2."
+  },
+  "afterReduction": {
+    "family": 71,
+    "wealth": 44,
+    "overall": 43
+  },
+  "targets": {
+    "family": "<=71",
+    "wealth": "<=44",
+    "overall": "<=44"
+  },
+  "targetMet": {
+    "family": true,
+    "wealth": true,
+    "overall": true
+  },
+  "commits": [
+    "data(wealth): reduce 결이 (P5-A3)",
+    "data(overall): reduce 결이 (P5-A3)",
+    "data(family): reduce 결이 (P5-A3)"
+  ],
+  "diversificationVocabulary": {
+    "primaryReplacements": ["흐름이", "리듬이", "자리가", "호흡이", "방향이", "자산이", "매듭이"],
+    "ruleApplied": "Same fragment 내 same replacement word repeats 1번까지 only"
+  },
+  "sampleChanges": [
+    {
+      "category": "family",
+      "fragment": "family.life.expert.diversity.anchor.013",
+      "before": "에 들어오는 결이 부모·성장 환경의 결을 보여 주고, 의 결은 자기 자리와 배우자의 결이 한 결로 만나는 자리예요. 의 자리에 들어오는 결이 또렷한 모양이라면, 형제·동료 사이의 자리가 평생을 통해 든든한 받침이 되는 흐름이에요. 처럼 가까운 자리의 합이 또렷이 모이는 시기엔 가족의 결이 부드럽게 자리 잡는 흐름이에요. 의 결이 함께 작용하면 가족 안에서 한 박자 차분한 자리가 만들어지는 흐름이고, 깊은 대화의 결이 자라는 시기예요.",
+      "after": "에 들어오는 흐름이 부모·성장 환경의 결을 보여 주고, 의 결은 자기 자리와 배우자의 호흡이 한 결로 만나는 자리예요. 의 자리에 들어오는 리듬이 또렷한 모양이라면, 형제·동료 사이의 자리가 평생을 통해 든든한 받침이 되는 흐름이에요. 처럼 가까운 자리의 합이 또렷이 모이는 시기엔 가족의 호흡이 부드럽게 자리 잡는 흐름이에요. 의 자리가 함께 작용하면 가족 안에서 한 박자 차분한 자리가 만들어지는 흐름이고, 깊은 대화의 매듭이 자라는 시기예요.",
+      "gyeoriBefore": 6,
+      "gyeoriAfter": 0
+    },
+    {
+      "category": "wealth",
+      "fragment": "wealth.thisYear.expert.20_29.007",
+      "before": "의 결이 들어오는 분기를 골라 작은 시도를 더하면 결이 잡혀요. 의 결이 강해 보이는 시기는 큰 권유를 일주일 이상 살피면 좋아요.",
+      "after": "의 흐름이 들어오는 분기를 골라 작은 시도를 더하면 자리가 잡혀요. 의 호흡이 강해 보이는 시기는 큰 권유를 일주일 이상 살피면 좋아요.",
+      "gyeoriBefore": 3,
+      "gyeoriAfter": 0
+    },
+    {
+      "category": "overall",
+      "fragment": "overall.life.standard.child.001",
+      "before": "보호자가 만들어 주는 일상의 분위기가 그대로 아이의 결이 되고, 그 결이 평생의 뿌리로 남아요... 그 반짝임을 따뜻하게 응원해 주는 자리가 평생의 결이 돼요.",
+      "after": "보호자가 만들어 주는 일상의 분위기가 그대로 아이의 호흡이 되고, 그 자리가 평생의 뿌리로 남아요... 그 반짝임을 따뜻하게 응원해 주는 자리가 평생의 자산이 돼요.",
+      "gyeoriBefore": 3,
+      "gyeoriAfter": 0
+    }
+  ],
+  "validation": {
+    "typecheck": "PASS",
+    "ci:no-ai-policy": "PASS",
+    "test:tiered-isolation": "37 PASS / 0 FAIL",
+    "test:tiered-shape": "621 PASS / 0 FAIL",
+    "test:narrative-schema": "93310 PASS / 0 FAIL",
+    "ci:narrative-voice": "0 violations (Plain term/tag, Expert untagged)",
+    "ci:narrative-density": "all axis pairs covered, thin=0, deficit=0",
+    "ci:narrative-tuple-density": "all tuples covered, missing=0, thin=0",
+    "test:namespring-compat": "202 PASS / 0 FAIL (invariant maintained)"
+  }
+}
