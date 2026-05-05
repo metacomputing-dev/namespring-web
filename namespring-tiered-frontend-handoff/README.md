@@ -17,6 +17,13 @@
 4. [확장성과 텍스트 운영](./04-expansion-and-content-ops.md)
 5. [1986-04-19 최성수 샘플 출력](./05-sample-output-choi-seongsoo.md)
 
+### 운영 doc (Phase 3 Wave 4 추가)
+
+- [Changelog](./changelog.md) — narrative / glossary / contract / engine 변경 이력.
+- [Coverage matrix](./coverage-matrix.md) — period × category × depth × gating axis 분포.
+- [Copy style guide](./copy-style-guide.md) — `lib/spring-ts/docs/NARRATIVE_STYLE_GUIDE.md` 의 FE 친화 요약.
+- [Glossary review](./glossary-review.md) — 78 신규 entry 검수 기록 (130 → 208).
+
 ## 핵심 개발 방향
 
 NameSpring 통합 보고서 첫 화면에서는 전문가 용어를 노출하지 않는다.
