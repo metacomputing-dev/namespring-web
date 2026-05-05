@@ -74,7 +74,7 @@
       "axis": { "category": "family", "period": "today", "depth": "brief", "tone": "plain" },
       "gating": { "ageBand": ["10-19"] },
       "templateTokens": [
-        { "kind": "text", "value": "한 끼 함께하면 결이 부드럽게 풀려요." }
+        { "kind": "text", "value": "한 끼 함께하면 분위기가 부드럽게 풀려요." }
       ],
       "tags": [],
       "aiGenerated": true,

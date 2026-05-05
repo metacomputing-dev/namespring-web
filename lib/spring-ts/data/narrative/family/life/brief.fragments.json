@@ -53,7 +53,7 @@
       "axis": { "category": "family", "period": "life", "depth": "brief", "tone": "plain" },
       "gating": { "ageBand": ["0-9"] },
       "templateTokens": [
-        { "kind": "text", "value": "보호자와 아이가 함께 따뜻하게 자라는 결이에요." }
+        { "kind": "text", "value": "보호자와 아이가 함께 따뜻하게 자라는 시기예요." }
       ],
       "tags": [],
       "aiGenerated": true,
@@ -74,7 +74,7 @@
       "axis": { "category": "family", "period": "life", "depth": "brief", "tone": "plain" },
       "gating": { "ageBand": ["10-19"] },
       "templateTokens": [
-        { "kind": "text", "value": "가족과 자기만의 결을 같이 키워 가는 시기예요." }
+        { "kind": "text", "value": "가족과 자기만의 자리를 같이 키워 가는 시기예요." }
       ],
       "tags": [],
       "aiGenerated": true,
@@ -116,7 +116,7 @@
       "axis": { "category": "family", "period": "life", "depth": "brief", "tone": "plain" },
       "gating": { "ageBand": ["30-39"] },
       "templateTokens": [
-        { "kind": "text", "value": "새 가정을 만들고 부모님 곁도 챙기는 결이에요." }
+        { "kind": "text", "value": "새 가정을 만들고 부모님 곁도 챙기는 시기예요." }
       ],
       "tags": [],
       "aiGenerated": true,
@@ -158,7 +158,7 @@
       "axis": { "category": "family", "period": "life", "depth": "brief", "tone": "plain" },
       "gating": { "ageBand": ["55-69"] },
       "templateTokens": [
-        { "kind": "text", "value": "쌓아 온 결을 다음 세대로 천천히 이어 가요." }
+        { "kind": "text", "value": "쌓아 온 가풍을 다음 세대로 천천히 이어 가요." }
       ],
       "tags": [],
       "aiGenerated": true,
@@ -221,7 +221,7 @@
       "axis": { "category": "family", "period": "life", "depth": "brief", "tone": "plain" },
       "gating": { "dayMasterStrength": ["WEAK", "EXTREME_WEAK"] },
       "templateTokens": [
-        { "kind": "text", "value": "곁 사람의 도움이 평생 곱게 받쳐 주는 결이에요." }
+        { "kind": "text", "value": "곁 사람의 도움이 평생 곱게 받쳐 주는 흐름이에요." }
       ],
       "tags": [],
       "aiGenerated": true,
@@ -242,7 +242,7 @@
       "axis": { "category": "family", "period": "life", "depth": "brief", "tone": "plain" },
       "gating": { "dayMasterStrength": ["STRONG", "EXTREME_STRONG"] },
       "templateTokens": [
-        { "kind": "text", "value": "내가 곁 사람의 자리를 받쳐 주는 결이에요." }
+        { "kind": "text", "value": "내가 가까운 사람의 자리를 받쳐 주는 모습이에요." }
       ],
       "tags": [],
       "aiGenerated": true,
