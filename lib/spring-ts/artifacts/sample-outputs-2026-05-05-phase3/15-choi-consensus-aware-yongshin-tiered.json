@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-05-05T08:28:15.714Z",
+  "generatedAt": "2026-05-05T09:50:40.217Z",
   "targetDate": "2026-05-05T00:00:00+09:00",
   "sampleId": "choi-consensus-aware-yongshin-tiered",
   "description": "yongshinMode=consensus_aware 활성 시나리오. 독립 명리 방법이 엇갈리는 사주에서 consensus scoreboard 를 블렌딩한 posture 및 per-axis 근거를 tieredMatrix 와 함께 노출하는 케이스.",
@@ -1319,7 +1319,7 @@
     },
     "meta": {
       "version": "1.0.0",
-      "generatedAt": "2026-05-05T08:28:21.092Z",
+      "generatedAt": "2026-05-05T09:50:46.190Z",
       "schoolPreset": {
         "selected": "korean",
         "source": "default",
@@ -8958,7 +8958,7 @@
       },
       "meta": {
         "schemaVersion": "spring-ts.tiered-matrix.v1",
-        "generatedAt": "2026-05-05T08:28:21.092Z",
+        "generatedAt": "2026-05-05T09:50:46.190Z",
         "selectionSeed": "1986|4|19|5|45|male|2026-05-04T15:00:00.000Z",
         "templateContractVersion": "1.0.0",
         "contentSource": "authored",
