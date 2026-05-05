@@ -1,0 +1,686 @@
+{
+  "generatedAt": "2026-05-05T03:54:55.266Z",
+  "fixture": "1986-04-19 male choi-seongsoo (Seoul)",
+  "scope": "tieredMatrix.periods.*.byCategory.health",
+  "health": {
+    "life": {
+      "meaningfulness": "meaningful",
+      "stars": 4,
+      "brief": {
+        "headline": "쉴 시간을 미리 정해 두면 평생 한결 가벼워요."
+      },
+      "standard": {
+        "paragraphs": [
+          {
+            "tokens": [
+              {
+                "kind": "text",
+                "value": "봄에 태어난 사람은 몸과 마음이 새 자극에 민감하게 반응하기 쉬워요. 건강 관리는 크게 몰아서 바꾸기보다 가벼운 운동, 규칙적인 수면, 소화에 부담 없는 식사를 꾸준히 이어가는 방식이 잘 맞아요."
+              }
+            ],
+            "plainText": "봄에 태어난 사람은 몸과 마음이 새 자극에 민감하게 반응하기 쉬워요. 건강 관리는 크게 몰아서 바꾸기보다 가벼운 운동, 규칙적인 수면, 소화에 부담 없는 식사를 꾸준히 이어가는 방식이 잘 맞아요."
+          }
+        ],
+        "livingTips": [
+          "새 운동이나 식단은 한 번에 바꾸지 말고 2주 단위로 하나씩 시도해 보세요.",
+          "일정이 늘어나는 시기에는 잠드는 시간부터 먼저 고정해 보세요."
+        ],
+        "cautions": [
+          "의욕이 올라온다고 휴식 없이 계속 확장하면 피로가 뒤늦게 몰릴 수 있어요."
+        ]
+      },
+      "expert": {
+        "paragraphs": [
+          {
+            "tokens": [
+              {
+                "kind": "text",
+                "value": "장기 건강운에서 봄과 여름의 현재 계절은 활동성과 대사 리듬을 빠르게 만듭니다. "
+              },
+              {
+                "kind": "tag",
+                "tagId": "jeongin",
+                "label": "정인"
+              },
+              {
+                "kind": "text",
+                "value": "이 받쳐 주면 회복이 안정되지만, "
+              },
+              {
+                "kind": "tag",
+                "tagId": "pyeonin",
+                "label": "편인"
+              },
+              {
+                "kind": "text",
+                "value": "이 과하면 컨디션 해석이 예민해질 수 있습니다. "
+              },
+              {
+                "kind": "tag",
+                "tagId": "yongshin",
+                "label": "용신"
+              },
+              {
+                "kind": "text",
+                "value": "방향의 보충 루틴을 오래 유지하세요."
+              }
+            ],
+            "plainText": "장기 건강운에서 봄과 여름의 현재 계절은 활동성과 대사 리듬을 빠르게 만듭니다. #정인이 받쳐 주면 회복이 안정되지만, #편인이 과하면 컨디션 해석이 예민해질 수 있습니다. #용신 방향의 보충 루틴을 오래 유지하세요."
+          }
+        ]
+      },
+      "selectedFragments": {
+        "brief": {
+          "fragmentId": "health.life.brief.weak.001",
+          "gating": {
+            "dayMasterStrength": [
+              "WEAK",
+              "EXTREME_WEAK"
+            ]
+          },
+          "tags": []
+        },
+        "standard": {
+          "fragmentId": "health.life.standard.birthseason.spring.204",
+          "gating": {
+            "birthSeason": [
+              "spring"
+            ]
+          },
+          "tags": []
+        },
+        "expert": {
+          "fragmentId": "health.life.expert.currentseason.spring_summer.301",
+          "gating": {
+            "currentSeason": [
+              "spring",
+              "summer"
+            ],
+            "yongshinAlignment": [
+              "aligned",
+              "neutral",
+              "conflicting"
+            ]
+          },
+          "tags": [
+            "jeongin",
+            "pyeonin",
+            "yongshin"
+          ]
+        }
+      }
+    },
+    "today": {
+      "meaningfulness": "limited",
+      "stars": 3,
+      "brief": {
+        "headline": "오늘은 잘 쉬고 따뜻하게 챙기는 하루예요."
+      },
+      "standard": {
+        "paragraphs": [
+          {
+            "tokens": [
+              {
+                "kind": "text",
+                "value": "오늘은 누적된 피로가 한 번씩 신호를 보내기 쉬운 날이에요. 큰 일이 아니라 자기 페이스 안에서 정돈하면, 회복도 빠르게 따라와요.\n\n점심엔 한 끼를 천천히, 오후엔 짧은 산책이 잘 맞아요. 어깨와 허리에 살짝 신호가 오면 무리해서 끌어올리기보다 가볍게 풀어 주는 시간을 만들어 두면 좋아요.\n\n저녁엔 일찍 잠자리에 들어가는 편이 좋아요. 푹 자는 시간이 어떤 보약보다 든든한 회복의 자산이에요."
+              }
+            ],
+            "plainText": "오늘은 누적된 피로가 한 번씩 신호를 보내기 쉬운 날이에요. 큰 일이 아니라 자기 페이스 안에서 정돈하면, 회복도 빠르게 따라와요. 점심엔 한 끼를 천천히, 오후엔 짧은 산책이 잘 맞아요. 어깨와 허리에 살짝 신호가 오면 무리해서 끌어올리기보다 가볍게 풀어 주는 시간을 만들어 두면 좋아요. 저녁엔 일찍 잠자리에 들어가는 편이 좋아요. 푹 자는 시간이 어떤 보약보다 든든한 회복의 자산이에요."
+          }
+        ],
+        "livingTips": [
+          "10분 산책을 점심 후",
+          "어깨 스트레칭 한 번",
+          "잠은 한 시간 일찍"
+        ],
+        "cautions": [
+          "어제 강행군 누적되지 않게",
+          "야식·과음만 줄이면 충분"
+        ]
+      },
+      "expert": {
+        "paragraphs": [
+          {
+            "tokens": [
+              {
+                "kind": "text",
+                "value": "오늘 건강운에서 봄과 여름 기운은 활동량과 열감을 빠르게 올릴 수 있습니다. "
+              },
+              {
+                "kind": "tag",
+                "tagId": "jeongin",
+                "label": "정인"
+              },
+              {
+                "kind": "text",
+                "value": "의 회복 루틴이 받쳐 주면 움직임이 득이 되지만, "
+              },
+              {
+                "kind": "tag",
+                "tagId": "pyeonin",
+                "label": "편인"
+              },
+              {
+                "kind": "text",
+                "value": "이 과하면 예민함과 수면 흔들림이 커질 수 있습니다. "
+              },
+              {
+                "kind": "tag",
+                "tagId": "stabilityIndex",
+                "label": "안정 지수"
+              },
+              {
+                "kind": "text",
+                "value": "를 낮추는 선택은 피하세요."
+              }
+            ],
+            "plainText": "오늘 건강운에서 봄과 여름 기운은 활동량과 열감을 빠르게 올릴 수 있습니다. #정인의 회복 루틴이 받쳐 주면 움직임이 득이 되지만, #편인이 과하면 예민함과 수면 흔들림이 커질 수 있습니다. #안정 지수를 낮추는 선택은 피하세요."
+          }
+        ],
+        "numericalEvidence": [
+          {
+            "label": "연령 단계 순번",
+            "value": 8,
+            "unit": "단계",
+            "sourceTier": {
+              "tier": "T3_INTERNAL_ENGINE",
+              "sourceType": "internal_scoring_policy",
+              "sourceUrl": null,
+              "accessedAt": "2026-05-03",
+              "quoteShort": null,
+              "humanInterpretation": "spring-ts 계산 결과에서 확정적으로 산출한 내부 수치예요.",
+              "copyrightNote": "외부 문장을 복사하지 않고 내부 수치만 사용했어요.",
+              "authorityTruthEligible": false
+            }
+          },
+          {
+            "label": "신강도 순번",
+            "value": 2,
+            "unit": "단계",
+            "sourceTier": {
+              "tier": "T3_INTERNAL_ENGINE",
+              "sourceType": "internal_scoring_policy",
+              "sourceUrl": null,
+              "accessedAt": "2026-05-03",
+              "quoteShort": null,
+              "humanInterpretation": "spring-ts 계산 결과에서 확정적으로 산출한 내부 수치예요.",
+              "copyrightNote": "외부 문장을 복사하지 않고 내부 수치만 사용했어요.",
+              "authorityTruthEligible": false
+            }
+          },
+          {
+            "label": "출생 계절 순번",
+            "value": 1,
+            "unit": "단계",
+            "sourceTier": {
+              "tier": "T3_INTERNAL_ENGINE",
+              "sourceType": "internal_scoring_policy",
+              "sourceUrl": null,
+              "accessedAt": "2026-05-03",
+              "quoteShort": null,
+              "humanInterpretation": "spring-ts 계산 결과에서 확정적으로 산출한 내부 수치예요.",
+              "copyrightNote": "외부 문장을 복사하지 않고 내부 수치만 사용했어요.",
+              "authorityTruthEligible": false
+            }
+          },
+          {
+            "label": "현재 계절 순번",
+            "value": 2,
+            "unit": "단계",
+            "sourceTier": {
+              "tier": "T3_INTERNAL_ENGINE",
+              "sourceType": "internal_scoring_policy",
+              "sourceUrl": null,
+              "accessedAt": "2026-05-03",
+              "quoteShort": null,
+              "humanInterpretation": "spring-ts 계산 결과에서 확정적으로 산출한 내부 수치예요.",
+              "copyrightNote": "외부 문장을 복사하지 않고 내부 수치만 사용했어요.",
+              "authorityTruthEligible": false
+            }
+          }
+        ]
+      },
+      "selectedFragments": {
+        "brief": {
+          "fragmentId": "health.today.brief.weak.001",
+          "gating": {
+            "dayMasterStrength": [
+              "WEAK",
+              "EXTREME_WEAK"
+            ]
+          },
+          "tags": []
+        },
+        "standard": {
+          "fragmentId": "health.today.standard.40_54.001",
+          "gating": {
+            "ageBand": [
+              "40-54"
+            ]
+          },
+          "tags": []
+        },
+        "expert": {
+          "fragmentId": "health.today.expert.currentseason.spring_summer.301",
+          "gating": {
+            "currentSeason": [
+              "spring",
+              "summer"
+            ],
+            "yongshinAlignment": [
+              "aligned",
+              "neutral",
+              "conflicting"
+            ]
+          },
+          "tags": [
+            "jeongin",
+            "pyeonin",
+            "stabilityIndex"
+          ]
+        }
+      }
+    },
+    "thisWeek": {
+      "meaningfulness": "meaningful",
+      "stars": 1,
+      "brief": {
+        "headline": "이번 주는 컨디션을 끌어올리기보다 같은 시간에 자고 일어나는 리듬이 중요해요."
+      },
+      "standard": {
+        "paragraphs": [
+          {
+            "tokens": [
+              {
+                "kind": "text",
+                "value": "이번 주는 어깨와 허리에 살짝 신호가 오기 쉬운 때예요. 누적된 피로가 이번 주에 한 번 풀어 달라는 신호로 올라온다고 보면 잘 맞아요.\n\n주중엔 짧은 스트레칭, 점심 후 산책 시간을 매일 만들어 두면 좋아요. 회식·과음 약속은 한 번 더 살펴보는 편이 잘 맞아요.\n\n주말엔 큰 운동 대신 가족과 함께하는 가벼운 시간이 회복에 좋아요. 잠자리를 평소보다 한 시간 일찍 챙기면 다음 주 컨디션이 단단해져요."
+              }
+            ],
+            "plainText": "이번 주는 어깨와 허리에 살짝 신호가 오기 쉬운 때예요. 누적된 피로가 이번 주에 한 번 풀어 달라는 신호로 올라온다고 보면 잘 맞아요. 주중엔 짧은 스트레칭, 점심 후 산책 시간을 매일 만들어 두면 좋아요. 회식·과음 약속은 한 번 더 살펴보는 편이 잘 맞아요. 주말엔 큰 운동 대신 가족과 함께하는 가벼운 시간이 회복에 좋아요. 잠자리를 평소보다 한 시간 일찍 챙기면 다음 주 컨디션이 단단해져요."
+          }
+        ],
+        "livingTips": [
+          "스트레칭 하루 한 번",
+          "점심 후 산책 10분",
+          "회식 자리 한 번 살펴요"
+        ],
+        "cautions": [
+          "야근 누적되지 않게",
+          "주말 폭식·폭음 줄여요"
+        ]
+      },
+      "expert": {
+        "paragraphs": [
+          {
+            "tokens": [
+              {
+                "kind": "text",
+                "value": "이번 주 건강운은 활동 증가와 회복력의 균형을 함께 봐야 해요. "
+              },
+              {
+                "kind": "tag",
+                "tagId": "jeongin",
+                "label": "정인"
+              },
+              {
+                "kind": "text",
+                "value": "이 충분하면 루틴이 몸을 받치지만, "
+              },
+              {
+                "kind": "tag",
+                "tagId": "pyeonin",
+                "label": "편인"
+              },
+              {
+                "kind": "text",
+                "value": "이 과하면 생각과 감각이 예민해질 수 있습니다. "
+              },
+              {
+                "kind": "tag",
+                "tagId": "stabilityIndex",
+                "label": "안정 지수"
+              },
+              {
+                "kind": "text",
+                "value": "를 유지하는 수면 계획이 필요해요."
+              }
+            ],
+            "plainText": "이번 주 건강운은 활동 증가와 회복력의 균형을 함께 봐야 해요. #정인이 충분하면 루틴이 몸을 받치지만, #편인이 과하면 생각과 감각이 예민해질 수 있습니다. #안정 지수를 유지하는 수면 계획이 필요해요."
+          }
+        ]
+      },
+      "selectedFragments": {
+        "brief": {
+          "fragmentId": "health.thisWeek.brief.ageband.mature.401",
+          "gating": {
+            "ageBand": [
+              "30-39",
+              "40-54",
+              "55-69",
+              "70+"
+            ]
+          },
+          "tags": []
+        },
+        "standard": {
+          "fragmentId": "health.thisWeek.standard.male.40_54.001",
+          "gating": {
+            "gender": [
+              "male"
+            ],
+            "ageBand": [
+              "40-54"
+            ]
+          },
+          "tags": []
+        },
+        "expert": {
+          "fragmentId": "health.thisWeek.expert.currentseason.spring_summer.301",
+          "gating": {
+            "currentSeason": [
+              "spring",
+              "summer"
+            ],
+            "yongshinAlignment": [
+              "aligned",
+              "neutral",
+              "conflicting"
+            ]
+          },
+          "tags": [
+            "jeongin",
+            "pyeonin",
+            "stabilityIndex"
+          ]
+        }
+      }
+    },
+    "thisMonth": {
+      "meaningfulness": "meaningful",
+      "stars": 4,
+      "brief": {
+        "headline": "이번 달은 활동이 늘어날 수 있으니 물, 수면, 가벼운 운동의 리듬을 먼저 챙기세요."
+      },
+      "standard": {
+        "paragraphs": [
+          {
+            "tokens": [
+              {
+                "kind": "text",
+                "value": "이번 달은 가벼운 흐름이라 짧게 끊어 가는 페이스가 가장 잘 맞아요. 한 달은 큰 무리수를 모으기보다 작은 챙김을 누적하는 시기로 두면 좋아요.\n\n주중엔 따뜻한 한 끼와 짧은 산책 시간을 만들어 두면 좋아요. 약속·외출은 한 번에 너무 많이 잡지 말고, 회복 시간을 사이사이에 두는 편이 잘 맞아요.\n\n월말 무렵엔 한 번 푹 쉬는 시간을 일정에 미리 넣어 두면 좋아요. 다음 달 컨디션이 한층 단단하게 시작돼요."
+              }
+            ],
+            "plainText": "이번 달은 가벼운 흐름이라 짧게 끊어 가는 페이스가 가장 잘 맞아요. 한 달은 큰 무리수를 모으기보다 작은 챙김을 누적하는 시기로 두면 좋아요. 주중엔 따뜻한 한 끼와 짧은 산책 시간을 만들어 두면 좋아요. 약속·외출은 한 번에 너무 많이 잡지 말고, 회복 시간을 사이사이에 두는 편이 잘 맞아요. 월말 무렵엔 한 번 푹 쉬는 시간을 일정에 미리 넣어 두면 좋아요. 다음 달 컨디션이 한층 단단하게 시작돼요."
+          }
+        ],
+        "livingTips": [
+          "약속은 하루 한 개",
+          "한 끼는 따뜻하게",
+          "월말엔 푹 쉬는 자리"
+        ],
+        "cautions": [
+          "야근·강행군 누적 줄여요",
+          "찬 음식 과하면 피해요"
+        ]
+      },
+      "expert": {
+        "paragraphs": [
+          {
+            "tokens": [
+              {
+                "kind": "text",
+                "value": "이번 달 건강운은 활동성과 회복 루틴의 비율을 조정해야 해요. "
+              },
+              {
+                "kind": "tag",
+                "tagId": "jeongin",
+                "label": "정인"
+              },
+              {
+                "kind": "text",
+                "value": "이 충분하면 체력 회복이 빠르지만, "
+              },
+              {
+                "kind": "tag",
+                "tagId": "pyeonin",
+                "label": "편인"
+              },
+              {
+                "kind": "text",
+                "value": "이 강하면 신경성 피로가 누적될 수 있어요. "
+              },
+              {
+                "kind": "tag",
+                "tagId": "stabilityIndex",
+                "label": "안정 지수"
+              },
+              {
+                "kind": "text",
+                "value": "를 낮추는 과로는 줄이세요."
+              }
+            ],
+            "plainText": "이번 달 건강운은 활동성과 회복 루틴의 비율을 조정해야 해요. #정인이 충분하면 체력 회복이 빠르지만, #편인이 강하면 신경성 피로가 누적될 수 있어요. #안정 지수를 낮추는 과로는 줄이세요."
+          }
+        ]
+      },
+      "selectedFragments": {
+        "brief": {
+          "fragmentId": "health.thisMonth.brief.rhythm.501",
+          "gating": {
+            "currentSeason": [
+              "spring",
+              "summer"
+            ]
+          },
+          "tags": []
+        },
+        "standard": {
+          "fragmentId": "health.thisMonth.standard.weak.neutral.001",
+          "gating": {
+            "dayMasterStrength": [
+              "WEAK",
+              "EXTREME_WEAK"
+            ],
+            "yongshinAlignment": [
+              "neutral"
+            ]
+          },
+          "tags": []
+        },
+        "expert": {
+          "fragmentId": "health.thisMonth.expert.currentseason.spring_summer.301",
+          "gating": {
+            "currentSeason": [
+              "spring",
+              "summer"
+            ],
+            "yongshinAlignment": [
+              "aligned",
+              "neutral",
+              "conflicting"
+            ]
+          },
+          "tags": [
+            "jeongin",
+            "pyeonin",
+            "stabilityIndex"
+          ]
+        }
+      }
+    },
+    "thisYear": {
+      "meaningfulness": "meaningful",
+      "stars": 1,
+      "brief": {
+        "headline": "올해는 꾸준한 점검과 회복 루틴을 만들수록 건강운이 안정돼요."
+      },
+      "standard": {
+        "paragraphs": [
+          {
+            "tokens": [
+              {
+                "kind": "text",
+                "value": "올해는 가벼운 흐름이라 한 해 동안 짧은 회복 시간을 자주 만들어 두는 페이스가 가장 잘 맞아요. 작은 화분에 물을 자주 주듯, 한 해 동안 꾸준한 챙김이 큰 자산이 돼요.\n\n분기마다 한 번 푹 쉬는 시간을 미리 일정에 넣어 두면 좋아요. 환절기엔 페이스를 한 박자 늦추고, 큰 약속·외출은 한 번에 몰리지 않게 분산하는 편이 잘 맞아요.\n\n한 가지 좋은 습관을 한 해 동안 꾸준히 이어 가면, 다음 해의 컨디션까지 자연스럽게 단단해져요. 무리한 시작보다 작은 챙김이 가장 큰 보약이에요."
+              }
+            ],
+            "plainText": "올해는 가벼운 흐름이라 한 해 동안 짧은 회복 시간을 자주 만들어 두는 페이스가 가장 잘 맞아요. 작은 화분에 물을 자주 주듯, 한 해 동안 꾸준한 챙김이 큰 자산이 돼요. 분기마다 한 번 푹 쉬는 시간을 미리 일정에 넣어 두면 좋아요. 환절기엔 페이스를 한 박자 늦추고, 큰 약속·외출은 한 번에 몰리지 않게 분산하는 편이 잘 맞아요. 한 가지 좋은 습관을 한 해 동안 꾸준히 이어 가면, 다음 해의 컨디션까지 자연스럽게 단단해져요. 무리한 시작보다 작은 챙김이 가장 큰 보약이에요."
+          }
+        ],
+        "livingTips": [
+          "분기마다 푹 쉬는 자리",
+          "약속은 분산해서",
+          "한 가지 좋은 습관 꾸준히"
+        ],
+        "cautions": [
+          "강행군이 한 해 누적되지 않게",
+          "찬 음식 과하면 피해요"
+        ]
+      },
+      "expert": {
+        "paragraphs": [
+          {
+            "tokens": [
+              {
+                "kind": "text",
+                "value": "연간 건강운에서 봄과 여름의 현재 계절은 활동성, 열감, 회복 소모의 균형을 함께 봐요. "
+              },
+              {
+                "kind": "tag",
+                "tagId": "fire",
+                "label": "화"
+              },
+              {
+                "kind": "text",
+                "value": "가 과하면 과속과 피로 누적을, "
+              },
+              {
+                "kind": "tag",
+                "tagId": "water",
+                "label": "수"
+              },
+              {
+                "kind": "text",
+                "value": "는 회복과 진정 리듬을 보완해요. "
+              },
+              {
+                "kind": "tag",
+                "tagId": "yongshin",
+                "label": "용신"
+              },
+              {
+                "kind": "text",
+                "value": "정렬이 낮으면 활동량보다 회복 간격을 먼저 설계하는 해석이 적절해요."
+              }
+            ],
+            "plainText": "연간 건강운에서 봄과 여름의 현재 계절은 활동성, 열감, 회복 소모의 균형을 함께 봐요. #화가 과하면 과속과 피로 누적을, #수는 회복과 진정 리듬을 보완해요. #용신 정렬이 낮으면 활동량보다 회복 간격을 먼저 설계하는 해석이 적절해요."
+          }
+        ],
+        "numericalEvidence": [
+          {
+            "label": "연령 단계 순번",
+            "value": 8,
+            "unit": "단계",
+            "sourceTier": {
+              "tier": "T3_INTERNAL_ENGINE",
+              "sourceType": "internal_scoring_policy",
+              "sourceUrl": null,
+              "accessedAt": "2026-05-03",
+              "quoteShort": null,
+              "humanInterpretation": "spring-ts 계산 결과에서 확정적으로 산출한 내부 수치예요.",
+              "copyrightNote": "외부 문장을 복사하지 않고 내부 수치만 사용했어요.",
+              "authorityTruthEligible": false
+            }
+          },
+          {
+            "label": "신강도 순번",
+            "value": 2,
+            "unit": "단계",
+            "sourceTier": {
+              "tier": "T3_INTERNAL_ENGINE",
+              "sourceType": "internal_scoring_policy",
+              "sourceUrl": null,
+              "accessedAt": "2026-05-03",
+              "quoteShort": null,
+              "humanInterpretation": "spring-ts 계산 결과에서 확정적으로 산출한 내부 수치예요.",
+              "copyrightNote": "외부 문장을 복사하지 않고 내부 수치만 사용했어요.",
+              "authorityTruthEligible": false
+            }
+          },
+          {
+            "label": "출생 계절 순번",
+            "value": 1,
+            "unit": "단계",
+            "sourceTier": {
+              "tier": "T3_INTERNAL_ENGINE",
+              "sourceType": "internal_scoring_policy",
+              "sourceUrl": null,
+              "accessedAt": "2026-05-03",
+              "quoteShort": null,
+              "humanInterpretation": "spring-ts 계산 결과에서 확정적으로 산출한 내부 수치예요.",
+              "copyrightNote": "외부 문장을 복사하지 않고 내부 수치만 사용했어요.",
+              "authorityTruthEligible": false
+            }
+          },
+          {
+            "label": "현재 계절 순번",
+            "value": 2,
+            "unit": "단계",
+            "sourceTier": {
+              "tier": "T3_INTERNAL_ENGINE",
+              "sourceType": "internal_scoring_policy",
+              "sourceUrl": null,
+              "accessedAt": "2026-05-03",
+              "quoteShort": null,
+              "humanInterpretation": "spring-ts 계산 결과에서 확정적으로 산출한 내부 수치예요.",
+              "copyrightNote": "외부 문장을 복사하지 않고 내부 수치만 사용했어요.",
+              "authorityTruthEligible": false
+            }
+          }
+        ]
+      },
+      "selectedFragments": {
+        "brief": {
+          "fragmentId": "health.thisYear.brief.ageband.mature.401",
+          "gating": {
+            "ageBand": [
+              "30-39",
+              "40-54",
+              "55-69",
+              "70+"
+            ]
+          },
+          "tags": []
+        },
+        "standard": {
+          "fragmentId": "health.thisYear.standard.weak.001",
+          "gating": {
+            "dayMasterStrength": [
+              "WEAK",
+              "EXTREME_WEAK"
+            ]
+          },
+          "tags": []
+        },
+        "expert": {
+          "fragmentId": "health.thisYear.expert.currentseason.spring_summer.301",
+          "gating": {
+            "currentSeason": [
+              "spring",
+              "summer"
+            ],
+            "yongshinAlignment": [
+              "aligned",
+              "neutral",
+              "conflicting"
+            ]
+          },
+          "tags": [
+            "fire",
+            "water",
+            "yongshin"
+          ]
+        }
+      }
+    }
+  }
+}

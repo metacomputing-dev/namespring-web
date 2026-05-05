@@ -1,0 +1,151 @@
+{
+  "measuredAt": "2026-05-05",
+  "scope": "data/narrative/health_stress/**/*.fragments.json",
+  "total": {
+    "fragments": 150,
+    "결이": 156,
+    "흐름": 37,
+    "한 박자": 19,
+    "페이스": 20,
+    "결[은이가을를에로의]": 205,
+    "brief.headline_violations": 0
+  },
+  "perFile": {
+    "life/brief.fragments.json": {
+      "fragments": 10,
+      "결이": 4,
+      "흐름": 0,
+      "한 박자": 2,
+      "페이스": 0,
+      "결[은이가을를에로의]": 4,
+      "brief.headline_violations": 0
+    },
+    "life/expert.fragments.json": {
+      "fragments": 10,
+      "결이": 19,
+      "흐름": 1,
+      "한 박자": 1,
+      "페이스": 1,
+      "결[은이가을를에로의]": 30,
+      "brief.headline_violations": 0
+    },
+    "life/standard.fragments.json": {
+      "fragments": 10,
+      "결이": 16,
+      "흐름": 5,
+      "한 박자": 4,
+      "페이스": 3,
+      "결[은이가을를에로의]": 22,
+      "brief.headline_violations": 0
+    },
+    "thisMonth/brief.fragments.json": {
+      "fragments": 10,
+      "결이": 3,
+      "흐름": 1,
+      "한 박자": 2,
+      "페이스": 1,
+      "결[은이가을를에로의]": 3,
+      "brief.headline_violations": 0
+    },
+    "thisMonth/expert.fragments.json": {
+      "fragments": 10,
+      "결이": 8,
+      "흐름": 2,
+      "한 박자": 1,
+      "페이스": 0,
+      "결[은이가을를에로의]": 12,
+      "brief.headline_violations": 0
+    },
+    "thisMonth/standard.fragments.json": {
+      "fragments": 10,
+      "결이": 14,
+      "흐름": 5,
+      "한 박자": 0,
+      "페이스": 3,
+      "결[은이가을를에로의]": 15,
+      "brief.headline_violations": 0
+    },
+    "thisWeek/brief.fragments.json": {
+      "fragments": 10,
+      "결이": 2,
+      "흐름": 1,
+      "한 박자": 1,
+      "페이스": 0,
+      "결[은이가을를에로의]": 2,
+      "brief.headline_violations": 0
+    },
+    "thisWeek/expert.fragments.json": {
+      "fragments": 10,
+      "결이": 10,
+      "흐름": 1,
+      "한 박자": 1,
+      "페이스": 0,
+      "결[은이가을를에로의]": 17,
+      "brief.headline_violations": 0
+    },
+    "thisWeek/standard.fragments.json": {
+      "fragments": 10,
+      "결이": 15,
+      "흐름": 4,
+      "한 박자": 0,
+      "페이스": 3,
+      "결[은이가을를에로의]": 16,
+      "brief.headline_violations": 0
+    },
+    "thisYear/brief.fragments.json": {
+      "fragments": 10,
+      "결이": 3,
+      "흐름": 1,
+      "한 박자": 2,
+      "페이스": 1,
+      "결[은이가을를에로의]": 3,
+      "brief.headline_violations": 0
+    },
+    "thisYear/expert.fragments.json": {
+      "fragments": 10,
+      "결이": 11,
+      "흐름": 2,
+      "한 박자": 1,
+      "페이스": 0,
+      "결[은이가을를에로의]": 17,
+      "brief.headline_violations": 0
+    },
+    "thisYear/standard.fragments.json": {
+      "fragments": 10,
+      "결이": 17,
+      "흐름": 6,
+      "한 박자": 0,
+      "페이스": 3,
+      "결[은이가을를에로의]": 18,
+      "brief.headline_violations": 0
+    },
+    "today/brief.fragments.json": {
+      "fragments": 10,
+      "결이": 3,
+      "흐름": 0,
+      "한 박자": 1,
+      "페이스": 0,
+      "결[은이가을를에로의]": 3,
+      "brief.headline_violations": 0
+    },
+    "today/expert.fragments.json": {
+      "fragments": 10,
+      "결이": 9,
+      "흐름": 3,
+      "한 박자": 1,
+      "페이스": 2,
+      "결[은이가을를에로의]": 16,
+      "brief.headline_violations": 0
+    },
+    "today/standard.fragments.json": {
+      "fragments": 10,
+      "결이": 22,
+      "흐름": 5,
+      "한 박자": 2,
+      "페이스": 3,
+      "결[은이가을를에로의]": 27,
+      "brief.headline_violations": 0
+    }
+  },
+  "violations": []
+}

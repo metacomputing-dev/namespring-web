@@ -1,0 +1,621 @@
+{
+  "generatedAt": "2026-05-05T03:54:20.824Z",
+  "fixture": "1986-04-19 male choi-seongsoo (Seoul)",
+  "scope": "tieredMatrix.periods.<period>.{study_document or categoryFortunes[study_document]}",
+  "cells": {
+    "life": {
+      "meaningfulness": "meaningful",
+      "stars": 4,
+      "brief": {
+        "headline": "배우고 정리하는 일은 먼저 시도해 보며 감을 잡을 때 잘 풀려요. 오래 고민하기보다 작은 자료부터 만들고 고쳐 가는 방식이 잘 맞아요."
+      },
+      "standard": {
+        "paragraphs": [
+          {
+            "tokens": [
+              {
+                "kind": "text",
+                "value": "계약·법률문서·자격 갱신이 인생의 기준을 잡아 주는 흐름이에요. 서명 한 장의 무게를 잘 느끼는 시기가 자주 찾아와요.\n\n잘 다진 흙 위에 단단한 기둥을 세우는 그림을 떠올려 보면 좋아요. 한 번 잘 새긴 계약이 몇 년의 흐름을 받쳐 주는 기준이 돼요.\n\n잘 풀리는 면은, 한 분야의 기준을 또렷이 잡는 일이에요. 작은 조항도 꼼꼼히 보는 습관이 큰 결정 앞에서 자기 무기가 돼요.\n\n살짝 주의할 점은, 친한 사이에서 서류를 생략하는 면이에요. 가까울수록 종이 한 장이 관계를 지켜 주는 힘이에요.\n\n한 번 손에 잡은 자격은 갱신·확장으로 오래 가는 자산이 돼요."
+              }
+            ],
+            "plainText": "계약·법률문서·자격 갱신이 인생의 기준을 잡아 주는 흐름이에요. 서명 한 장의 무게를 잘 느끼는 시기가 자주 찾아와요. 잘 다진 흙 위에 단단한 기둥을 세우는 그림을 떠올려 보면 좋아요. 한 번 잘 새긴 계약이 몇 년의 흐름을 받쳐 주는 기준이 돼요. 잘 풀리는 면은, 한 분야의 기준을 또렷이 잡는 일이에요. 작은 조항도 꼼꼼히 보는 습관이 큰 결정 앞에서 자기 무기가 돼요. 살짝 주의할 점은, 친한 사이에서 서류를 생략하는 면이에요. 가까울수록 종이 한 장이 관계를 지켜 주는 힘이에요. 한 번 손에 잡은 자격은 갱신·확장으로 오래 가는 자산이 돼요."
+          }
+        ],
+        "livingTips": [
+          "큰 계약은 하루 묵힌 뒤 서명해요",
+          "조항은 한 번 더 읽고 표시해요"
+        ],
+        "cautions": [
+          "가까운 사이일수록 서류를 생략하지 않아요"
+        ]
+      },
+      "expert": {
+        "paragraphs": [
+          {
+            "tokens": [
+              {
+                "kind": "text",
+                "value": "문서 장기운에서 봄과 여름의 현재 계절은 문서 작성, 제출, 결과물 전환이 빨라지는 흐름이에요. "
+              },
+              {
+                "kind": "tag",
+                "tagId": "jeongin",
+                "label": "정인"
+              },
+              {
+                "kind": "text",
+                "value": "은 근거와 자료의 축적을, "
+              },
+              {
+                "kind": "tag",
+                "tagId": "sikshin",
+                "label": "식신"
+              },
+              {
+                "kind": "text",
+                "value": "은 문서 결과물의 생산성을 봐요. "
+              },
+              {
+                "kind": "tag",
+                "tagId": "yongshin",
+                "label": "용신"
+              },
+              {
+                "kind": "text",
+                "value": "과 충돌하면 제출 범위를 줄이고 검토 단계를 앞당기는 편이 적절해요."
+              }
+            ],
+            "plainText": "문서 장기운에서 봄과 여름의 현재 계절은 문서 작성, 제출, 결과물 전환이 빨라지는 흐름이에요. #정인은 근거와 자료의 축적을, #식신은 문서 결과물의 생산성을 봐요. #용신과 충돌하면 제출 범위를 줄이고 검토 단계를 앞당기는 편이 적절해요."
+          }
+        ]
+      },
+      "selectedFragments": {
+        "brief": {
+          "fragmentId": "study_document.life.brief.currentseason.spring_summer.301",
+          "gating": {
+            "currentSeason": [
+              "spring",
+              "summer"
+            ]
+          },
+          "tags": []
+        },
+        "standard": {
+          "fragmentId": "study_document.life.standard.midage.006",
+          "gating": {
+            "ageBand": [
+              "30-39",
+              "40-54"
+            ]
+          },
+          "tags": []
+        },
+        "expert": {
+          "fragmentId": "study_document.life.expert.currentseason.spring_summer.301",
+          "gating": {
+            "currentSeason": [
+              "spring",
+              "summer"
+            ],
+            "yongshinAlignment": [
+              "aligned",
+              "neutral",
+              "conflicting"
+            ]
+          },
+          "tags": [
+            "jeongin",
+            "sikshin",
+            "yongshin"
+          ]
+        }
+      }
+    },
+    "today": {
+      "meaningfulness": "limited",
+      "stars": 3,
+      "brief": {
+        "headline": "오늘은 계약, 신청서, 증빙 자료의 날짜와 금액을 다시 보는 편이 좋아요."
+      },
+      "standard": {
+        "paragraphs": [
+          {
+            "tokens": [
+              {
+                "kind": "text",
+                "value": "오늘은 계약·법률문서·자격 갱신에서 검토 한 단계가 잘 풀리는 날이에요. 새 결정보다는 정돈·확인이 더 또렷해요.\n\n잘 다진 흙 위에 기둥을 다시 점검하는 그림을 떠올려 보면 좋아요. 한 번 점검한 문서는 몇 년의 기준을 또렷하게 해 줘요.\n\n잘 풀리는 면은, 작은 조항·기한·날짜 같은 디테일을 발견하는 일이에요. 평소 지나쳤을 한 줄이 오늘 또렷이 보여요.\n\n살짝 주의할 점은, 가까운 사이의 서류 생략이에요. 오늘처럼 기준이 또렷한 날엔 종이 한 장으로 정리해 두면 든든해요.\n\n오늘의 점검이 몇 년 뒤의 후회를 막아 줘요."
+              }
+            ],
+            "plainText": "오늘은 계약·법률문서·자격 갱신에서 검토 한 단계가 잘 풀리는 날이에요. 새 결정보다는 정돈·확인이 더 또렷해요. 잘 다진 흙 위에 기둥을 다시 점검하는 그림을 떠올려 보면 좋아요. 한 번 점검한 문서는 몇 년의 기준을 또렷하게 해 줘요. 잘 풀리는 면은, 작은 조항·기한·날짜 같은 디테일을 발견하는 일이에요. 평소 지나쳤을 한 줄이 오늘 또렷이 보여요. 살짝 주의할 점은, 가까운 사이의 서류 생략이에요. 오늘처럼 기준이 또렷한 날엔 종이 한 장으로 정리해 두면 든든해요. 오늘의 점검이 몇 년 뒤의 후회를 막아 줘요."
+          }
+        ],
+        "livingTips": [
+          "기존 계약을 한 건 점검해요",
+          "기한·날짜는 따로 메모해요"
+        ],
+        "cautions": [
+          "가까운 사이일수록 서류로 정돈해요"
+        ]
+      },
+      "expert": {
+        "paragraphs": [
+          {
+            "tokens": [
+              {
+                "kind": "text",
+                "value": "일간 학습/문서운에서 봄과 여름의 현재 계절은 입력보다 출력 전환을 빠르게 만듭니다. "
+              },
+              {
+                "kind": "tag",
+                "tagId": "jeongin",
+                "label": "정인"
+              },
+              {
+                "kind": "text",
+                "value": "은 기본 이해를 잡고, "
+              },
+              {
+                "kind": "tag",
+                "tagId": "sikshin",
+                "label": "식신"
+              },
+              {
+                "kind": "text",
+                "value": "은 정리한 내용을 실행 가능한 문장으로 바꿉니다. "
+              },
+              {
+                "kind": "tag",
+                "tagId": "pyeonin",
+                "label": "편인"
+              },
+              {
+                "kind": "text",
+                "value": "이 과하면 자료 탐색이 길어질 수 있으니 제출 기준을 먼저 정하세요."
+              }
+            ],
+            "plainText": "일간 학습/문서운에서 봄과 여름의 현재 계절은 입력보다 출력 전환을 빠르게 만듭니다. #정인은 기본 이해를 잡고, #식신은 정리한 내용을 실행 가능한 문장으로 바꿉니다. #편인이 과하면 자료 탐색이 길어질 수 있으니 제출 기준을 먼저 정하세요."
+          }
+        ],
+        "numericalEvidence": [
+          {
+            "label": "연령 단계 순번",
+            "value": 8,
+            "unit": "단계",
+            "sourceTier": {
+              "tier": "T3_INTERNAL_ENGINE",
+              "sourceType": "internal_scoring_policy",
+              "sourceUrl": null,
+              "accessedAt": "2026-05-03",
+              "quoteShort": null,
+              "humanInterpretation": "spring-ts 계산 결과에서 확정적으로 산출한 내부 수치예요.",
+              "copyrightNote": "외부 문장을 복사하지 않고 내부 수치만 사용했어요.",
+              "authorityTruthEligible": false
+            }
+          },
+          {
+            "label": "신강도 순번",
+            "value": 2,
+            "unit": "단계",
+            "sourceTier": {
+              "tier": "T3_INTERNAL_ENGINE",
+              "sourceType": "internal_scoring_policy",
+              "sourceUrl": null,
+              "accessedAt": "2026-05-03",
+              "quoteShort": null,
+              "humanInterpretation": "spring-ts 계산 결과에서 확정적으로 산출한 내부 수치예요.",
+              "copyrightNote": "외부 문장을 복사하지 않고 내부 수치만 사용했어요.",
+              "authorityTruthEligible": false
+            }
+          },
+          {
+            "label": "출생 계절 순번",
+            "value": 1,
+            "unit": "단계",
+            "sourceTier": {
+              "tier": "T3_INTERNAL_ENGINE",
+              "sourceType": "internal_scoring_policy",
+              "sourceUrl": null,
+              "accessedAt": "2026-05-03",
+              "quoteShort": null,
+              "humanInterpretation": "spring-ts 계산 결과에서 확정적으로 산출한 내부 수치예요.",
+              "copyrightNote": "외부 문장을 복사하지 않고 내부 수치만 사용했어요.",
+              "authorityTruthEligible": false
+            }
+          },
+          {
+            "label": "현재 계절 순번",
+            "value": 2,
+            "unit": "단계",
+            "sourceTier": {
+              "tier": "T3_INTERNAL_ENGINE",
+              "sourceType": "internal_scoring_policy",
+              "sourceUrl": null,
+              "accessedAt": "2026-05-03",
+              "quoteShort": null,
+              "humanInterpretation": "spring-ts 계산 결과에서 확정적으로 산출한 내부 수치예요.",
+              "copyrightNote": "외부 문장을 복사하지 않고 내부 수치만 사용했어요.",
+              "authorityTruthEligible": false
+            }
+          }
+        ]
+      },
+      "selectedFragments": {
+        "brief": {
+          "fragmentId": "study_document.today.brief.ageband.mature.401",
+          "gating": {
+            "ageBand": [
+              "30-39",
+              "40-54",
+              "55-69",
+              "70+"
+            ]
+          },
+          "tags": []
+        },
+        "standard": {
+          "fragmentId": "study_document.today.standard.midage.006",
+          "gating": {
+            "ageBand": [
+              "30-39",
+              "40-54"
+            ]
+          },
+          "tags": []
+        },
+        "expert": {
+          "fragmentId": "study_document.today.expert.currentseason.spring_summer.301",
+          "gating": {
+            "currentSeason": [
+              "spring",
+              "summer"
+            ],
+            "yongshinAlignment": [
+              "aligned",
+              "neutral",
+              "conflicting"
+            ]
+          },
+          "tags": [
+            "jeongin",
+            "sikshin",
+            "pyeonin"
+          ]
+        }
+      }
+    },
+    "thisWeek": {
+      "meaningfulness": "meaningful",
+      "stars": 1,
+      "brief": {
+        "headline": "이번 주는 새로 배우는 것보다 이미 배운 내용을 다시 정리하는 시간이 도움이 돼요."
+      },
+      "standard": {
+        "paragraphs": [
+          {
+            "tokens": [
+              {
+                "kind": "text",
+                "value": "이번 주는 도와줄 사람·기관·자료를 떠올려 한 가지를 풀어 가기 좋은 시기예요. 혼자 다 짊어지기보다 한 번 도움을 청하는 페이스가 잘 맞아요.\n\n좋은 비를 받는 흙의 그림을 떠올려 보면 좋아요. 환경의 도움을 잘 골라 받는 시기예요.\n\n잘 풀리는 면은, 누군가의 한마디 조언으로 막혔던 부분이 풀려요. 부끄럼 없이 한 번 물어보면 가벼워져요.\n\n살짝 주의할 점은, 조언이 너무 많아 결정을 미루는 면이에요. 두 명까지만 듣고 결정은 본인이 내리는 페이스가 잘 맞아요.\n\n천천히 깊어지는 힘은 한 주의 한 걸음으로도 충분해요."
+              }
+            ],
+            "plainText": "이번 주는 도와줄 사람·기관·자료를 떠올려 한 가지를 풀어 가기 좋은 시기예요. 혼자 다 짊어지기보다 한 번 도움을 청하는 페이스가 잘 맞아요. 좋은 비를 받는 흙의 그림을 떠올려 보면 좋아요. 환경의 도움을 잘 골라 받는 시기예요. 잘 풀리는 면은, 누군가의 한마디 조언으로 막혔던 부분이 풀려요. 부끄럼 없이 한 번 물어보면 가벼워져요. 살짝 주의할 점은, 조언이 너무 많아 결정을 미루는 면이에요. 두 명까지만 듣고 결정은 본인이 내리는 페이스가 잘 맞아요. 천천히 깊어지는 힘은 한 주의 한 걸음으로도 충분해요."
+          }
+        ],
+        "livingTips": [
+          "도움 청할 한 명을 떠올려요",
+          "조언은 두 명까지만 모아요"
+        ],
+        "cautions": [
+          "여러 의견에 결정을 미루지 않아요"
+        ]
+      },
+      "expert": {
+        "paragraphs": [
+          {
+            "tokens": [
+              {
+                "kind": "text",
+                "value": "주간 학습/문서운에서 봄과 여름의 현재 계절은 습득한 지식을 빠르게 산출물로 전환해요. "
+              },
+              {
+                "kind": "tag",
+                "tagId": "jeongin",
+                "label": "정인"
+              },
+              {
+                "kind": "text",
+                "value": "이 구조를 잡고, "
+              },
+              {
+                "kind": "tag",
+                "tagId": "sikshin",
+                "label": "식신"
+              },
+              {
+                "kind": "text",
+                "value": "은 초안과 설명력을 만들며, "
+              },
+              {
+                "kind": "tag",
+                "tagId": "sanggwan",
+                "label": "상관"
+              },
+              {
+                "kind": "text",
+                "value": "은 기존 자료를 새 관점으로 재구성해요."
+              }
+            ],
+            "plainText": "주간 학습/문서운에서 봄과 여름의 현재 계절은 습득한 지식을 빠르게 산출물로 전환해요. #정인이 구조를 잡고, #식신은 초안과 설명력을 만들며, #상관은 기존 자료를 새 관점으로 재구성해요."
+          }
+        ]
+      },
+      "selectedFragments": {
+        "brief": {
+          "fragmentId": "study_document.thisWeek.brief.review.504",
+          "gating": {
+            "currentSeason": [
+              "spring",
+              "summer",
+              "autumn",
+              "winter"
+            ]
+          },
+          "tags": []
+        },
+        "standard": {
+          "fragmentId": "study_document.thisWeek.standard.weak.009",
+          "gating": {
+            "dayMasterStrength": [
+              "WEAK",
+              "EXTREME_WEAK"
+            ]
+          },
+          "tags": []
+        },
+        "expert": {
+          "fragmentId": "study_document.thisWeek.expert.currentseason.spring_summer.301",
+          "gating": {
+            "currentSeason": [
+              "spring",
+              "summer"
+            ],
+            "yongshinAlignment": [
+              "aligned",
+              "neutral",
+              "conflicting"
+            ]
+          },
+          "tags": [
+            "jeongin",
+            "sikshin",
+            "sanggwan"
+          ]
+        }
+      }
+    },
+    "thisMonth": {
+      "meaningfulness": "meaningful",
+      "stars": 4,
+      "brief": {
+        "headline": "이번 달은 자료와 메모를 찾기 쉽게 정리하면 공부와 서류 처리가 빨라져요."
+      },
+      "standard": {
+        "paragraphs": [
+          {
+            "tokens": [
+              {
+                "kind": "text",
+                "value": "이번 달은 도와줄 사람·기관·자료를 떠올려 한 가지 방향을 정리하기 좋은 시기예요. 혼자 다 짊어지기보다 한 번 도움을 청하는 페이스가 잘 맞아요.\n\n좋은 비를 받는 흙의 그림을 떠올려 보면 좋아요. 환경의 도움을 잘 골라 받는 시기예요.\n\n잘 풀리는 면은, 누군가의 한마디 조언으로 막혔던 부분이 풀려요. 부끄럼 없이 한 번 물어보면 가벼워져요.\n\n살짝 주의할 점은, 조언이 너무 많아 결정을 미루는 면이에요. 두 명까지만 듣고 결정은 본인이 내리는 페이스가 잘 맞아요.\n\n천천히 깊어지는 힘은 한 달의 한 걸음으로도 충분해요."
+              }
+            ],
+            "plainText": "이번 달은 도와줄 사람·기관·자료를 떠올려 한 가지 방향을 정리하기 좋은 시기예요. 혼자 다 짊어지기보다 한 번 도움을 청하는 페이스가 잘 맞아요. 좋은 비를 받는 흙의 그림을 떠올려 보면 좋아요. 환경의 도움을 잘 골라 받는 시기예요. 잘 풀리는 면은, 누군가의 한마디 조언으로 막혔던 부분이 풀려요. 부끄럼 없이 한 번 물어보면 가벼워져요. 살짝 주의할 점은, 조언이 너무 많아 결정을 미루는 면이에요. 두 명까지만 듣고 결정은 본인이 내리는 페이스가 잘 맞아요. 천천히 깊어지는 힘은 한 달의 한 걸음으로도 충분해요."
+          }
+        ],
+        "livingTips": [
+          "도움 청할 한 명을 떠올려요",
+          "조언은 두 명까지만 모아요"
+        ],
+        "cautions": [
+          "여러 의견에 결정을 미루지 않아요"
+        ]
+      },
+      "expert": {
+        "paragraphs": [
+          {
+            "tokens": [
+              {
+                "kind": "text",
+                "value": "월간 학습/문서운에서 봄과 여름의 현재 계절은 지식 입력과 결과물 산출의 간격을 줄여요. "
+              },
+              {
+                "kind": "tag",
+                "tagId": "jeongin",
+                "label": "정인"
+              },
+              {
+                "kind": "text",
+                "value": "이 커리큘럼을 잡고, "
+              },
+              {
+                "kind": "tag",
+                "tagId": "sikshin",
+                "label": "식신"
+              },
+              {
+                "kind": "text",
+                "value": "이 월간 산출물을 안정화하며, "
+              },
+              {
+                "kind": "tag",
+                "tagId": "sanggwan",
+                "label": "상관"
+              },
+              {
+                "kind": "text",
+                "value": "은 기획과 재해석에 쓰면 효율적이에요."
+              }
+            ],
+            "plainText": "월간 학습/문서운에서 봄과 여름의 현재 계절은 지식 입력과 결과물 산출의 간격을 줄여요. #정인이 커리큘럼을 잡고, #식신이 월간 산출물을 안정화하며, #상관은 기획과 재해석에 쓰면 효율적이에요."
+          }
+        ]
+      },
+      "selectedFragments": {
+        "brief": {
+          "fragmentId": "study_document.thisMonth.brief.folder.504",
+          "gating": {
+            "ageBand": [
+              "10-19",
+              "20-29",
+              "30-39",
+              "40-54",
+              "55-69",
+              "70+"
+            ]
+          },
+          "tags": []
+        },
+        "standard": {
+          "fragmentId": "study_document.thisMonth.standard.weak.009",
+          "gating": {
+            "dayMasterStrength": [
+              "WEAK",
+              "EXTREME_WEAK"
+            ]
+          },
+          "tags": []
+        },
+        "expert": {
+          "fragmentId": "study_document.thisMonth.expert.currentseason.spring_summer.301",
+          "gating": {
+            "currentSeason": [
+              "spring",
+              "summer"
+            ],
+            "yongshinAlignment": [
+              "aligned",
+              "neutral",
+              "conflicting"
+            ]
+          },
+          "tags": [
+            "jeongin",
+            "sikshin",
+            "sanggwan"
+          ]
+        }
+      }
+    },
+    "thisYear": {
+      "meaningfulness": "meaningful",
+      "stars": 1,
+      "brief": {
+        "headline": "자격 갱신·계약 점검에 든든한 해예요."
+      },
+      "standard": {
+        "paragraphs": [
+          {
+            "tokens": [
+              {
+                "kind": "text",
+                "value": "올해 공부와 문서 일은 오래 쓸 수 있는 정리 방식이 중요해요. 시험, 자격, 계약, 행정처럼 반복 확인이 필요한 일은 폴더와 기록 규칙을 정해 두면 실수가 크게 줄어요."
+              }
+            ],
+            "plainText": "올해 공부와 문서 일은 오래 쓸 수 있는 정리 방식이 중요해요. 시험, 자격, 계약, 행정처럼 반복 확인이 필요한 일은 폴더와 기록 규칙을 정해 두면 실수가 크게 줄어요."
+          }
+        ],
+        "livingTips": [
+          "중요한 문서는 원본, 제출본, 확인 메모를 따로 보관하세요.",
+          "긴 공부 목표는 분기별로 복습할 범위를 정해 두세요."
+        ],
+        "cautions": [
+          "올해 목표를 넓게만 잡으면 실제로 무엇을 끝냈는지 확인하기 어려워요."
+        ]
+      },
+      "expert": {
+        "paragraphs": [
+          {
+            "tokens": [
+              {
+                "kind": "text",
+                "value": "연간 문서운에서 봄과 여름의 현재 계절은 접수, 발표, 계약 초안처럼 밖으로 드러나는 문서 활동을 키워요. "
+              },
+              {
+                "kind": "tag",
+                "tagId": "jeongin",
+                "label": "정인"
+              },
+              {
+                "kind": "text",
+                "value": "은 근거 자료를, "
+              },
+              {
+                "kind": "tag",
+                "tagId": "sikshin",
+                "label": "식신"
+              },
+              {
+                "kind": "text",
+                "value": "은 산출 속도를 뜻해요. "
+              },
+              {
+                "kind": "tag",
+                "tagId": "yongshin",
+                "label": "용신"
+              },
+              {
+                "kind": "text",
+                "value": "정렬이 낮으면 올해 문서 목표를 넓히기보다 초안, 검토, 제출 순서를 고정해야 해요."
+              }
+            ],
+            "plainText": "연간 문서운에서 봄과 여름의 현재 계절은 접수, 발표, 계약 초안처럼 밖으로 드러나는 문서 활동을 키워요. #정인은 근거 자료를, #식신은 산출 속도를 뜻해요. #용신 정렬이 낮으면 올해 문서 목표를 넓히기보다 초안, 검토, 제출 순서를 고정해야 해요."
+          }
+        ]
+      },
+      "selectedFragments": {
+        "brief": {
+          "fragmentId": "study_document.thisYear.brief.adult.006",
+          "gating": {
+            "ageBand": [
+              "30-39",
+              "40-54",
+              "55-69"
+            ]
+          },
+          "tags": []
+        },
+        "standard": {
+          "fragmentId": "study_document.thisYear.standard.system.504",
+          "gating": {
+            "ageBand": [
+              "20-29",
+              "30-39",
+              "40-54",
+              "55-69",
+              "70+"
+            ]
+          },
+          "tags": []
+        },
+        "expert": {
+          "fragmentId": "study_document.thisYear.expert.currentseason.spring_summer.301",
+          "gating": {
+            "currentSeason": [
+              "spring",
+              "summer"
+            ],
+            "yongshinAlignment": [
+              "aligned",
+              "neutral",
+              "conflicting"
+            ]
+          },
+          "tags": [
+            "jeongin",
+            "sikshin",
+            "yongshin"
+          ]
+        }
+      }
+    }
+  }
+}

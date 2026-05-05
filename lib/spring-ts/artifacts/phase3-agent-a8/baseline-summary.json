@@ -1,0 +1,46 @@
+{
+  "fragmentFiles": 15,
+  "totalFragments": 156,
+  "totalBriefFragments": 57,
+  "briefHeadlineViolations": 0,
+  "violationDetails": [],
+  "repetitionCounts": {
+    "결이": 125,
+    "결을": 35,
+    "결이에요": 69,
+    "흐름": 43,
+    "한 박자": 4,
+    "페이스": 11,
+    "자기 색": 46,
+    "다음 세대": 33,
+    "단정": 28,
+    "단정 없이": 21,
+    "기록": 14,
+    "천천히": 11,
+    "풀려": 20,
+    "결실": 19,
+    "결로": 18,
+    "결과": 24,
+    "매듭": 57,
+    "편이": 2,
+    "또렷": 52,
+    "단단": 23
+  },
+  "gatingCoverage": {
+    "wildcard": 15,
+    "ageBand": 92,
+    "dayMasterStrength+yongshinAlignment": 34,
+    "gyeokguk": 10,
+    "dayMasterStrength": 5
+  },
+  "expertTagDiversity": 7,
+  "expertTagSet": [
+    "dohwa",
+    "hourPillar",
+    "jasikgung",
+    "sanggwan",
+    "sanggwangyeok",
+    "sikshin",
+    "sikshingyeok"
+  ]
+}

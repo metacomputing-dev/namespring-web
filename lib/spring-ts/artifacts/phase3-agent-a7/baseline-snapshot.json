@@ -1,0 +1,51 @@
+{
+  "agent": "phase3.agent-A7",
+  "scope": "study_document category narrative polish",
+  "fixture": "1986-04-19 male choi-seongsoo (Seoul)",
+  "baselineDate": "2026-05-05",
+  "metricsBefore": {
+    "gyeori211Occurrences": {
+      "totalInStudyDocument": 211,
+      "perFile": {
+        "life/brief.fragments.json": 5,
+        "life/expert.fragments.json": 17,
+        "life/standard.fragments.json": 16,
+        "thisMonth/brief.fragments.json": 1,
+        "thisMonth/expert.fragments.json": 23,
+        "thisMonth/standard.fragments.json": 20,
+        "thisWeek/brief.fragments.json": 0,
+        "thisWeek/expert.fragments.json": 23,
+        "thisWeek/standard.fragments.json": 20,
+        "thisYear/brief.fragments.json": 1,
+        "thisYear/expert.fragments.json": 28,
+        "thisYear/standard.fragments.json": 19,
+        "today/brief.fragments.json": 1,
+        "today/expert.fragments.json": 24,
+        "today/standard.fragments.json": 13
+      }
+    },
+    "briefHeadlineKoreanSyllableViolations": {
+      "limit": 28,
+      "violations": 0,
+      "comment": "Already compliant; no fragment > 28 Korean syllables in brief headlines."
+    },
+    "expertTagDiversityBefore": {
+      "uniqueTagIds": ["bumyong", "jeongin", "jeongingyeok", "pyeonin", "pyeoningyeok", "sikshin"],
+      "count": 6
+    },
+    "expertGatingFieldsUsedBefore": [
+      "yongshinAlignment",
+      "ageBand",
+      "dayMasterStrength",
+      "dayMasterElement",
+      "gyeokguk"
+    ],
+    "expertGatingFieldsMissing": [
+      "currentSeason",
+      "yongshinElement",
+      "agePhase",
+      "birthSeason",
+      "dayMasterPolarity"
+    ]
+  }
+}

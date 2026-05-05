@@ -1,0 +1,47 @@
+{
+  "fragments": 149,
+  "brief_violations": [],
+  "word_counts": {
+    "결이": 270,
+    "결을": 82,
+    "결에": 15,
+    "결로": 25,
+    "결은": 53,
+    "결의": 12,
+    "흐름": 56,
+    "한 박자": 8,
+    "페이스": 37,
+    "자리": 233
+  },
+  "gating_axes": {
+    "wildcard": 15,
+    "dayMasterStrength|yongshinAlignment": 45,
+    "yongshinAlignment": 15,
+    "ageBand": 50,
+    "gender": 6,
+    "gyeokguk": 10,
+    "ageBand|gender": 8
+  },
+  "tags_used": {
+    "jeonggwan": 30,
+    "pyeongwan": 25,
+    "jeongin": 31,
+    "daewoonGungsil": 16,
+    "jeonggwangyeok": 5,
+    "pyeongwangyeok": 5,
+    "yongshin": 20,
+    "siGungsil": 26
+  },
+  "by_period": {
+    "life": 31,
+    "thisMonth": 29,
+    "thisWeek": 29,
+    "thisYear": 32,
+    "today": 28
+  },
+  "by_depth": {
+    "brief": 55,
+    "expert": 40,
+    "standard": 54
+  }
+}

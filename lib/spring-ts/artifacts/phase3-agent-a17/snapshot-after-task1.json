@@ -1,0 +1,1219 @@
+{
+  "version": "1.0.0",
+  "capturedAt": "2026-05-05T04:51:02.741Z",
+  "targetDate": "2026-04-30T00:00:00.000Z",
+  "fixtureCount": 15,
+  "results": [
+    {
+      "id": "fix-01",
+      "label": "1986-04-19 male — 戊土 일간 (README example)",
+      "axis": [
+        "normal",
+        "yang-earth",
+        "spring"
+      ],
+      "output": {
+        "namingReport": {
+          "totalScore": 62.6,
+          "scores": {
+            "hangul": 70,
+            "hanja": 25,
+            "fourFrame": 60
+          },
+          "fullHangul": "최성수",
+          "fullHanja": "崔成秀"
+        },
+        "sajuReport": {
+          "sajuEnabled": true,
+          "dayMaster": {
+            "stem": "계",
+            "element": "WATER",
+            "polarity": "음"
+          },
+          "strengthLevel": "신약",
+          "isStrong": false,
+          "yongshinElement": "METAL",
+          "yongshinHeeshin": "WATER",
+          "gyeokgukType": "식신격",
+          "gyeokgukCategory": "일반",
+          "gyeokgukConfidence": 0.5212566844919787,
+          "deficientElements": [
+            "EARTH",
+            "METAL"
+          ],
+          "excessiveElements": [
+            "WOOD"
+          ]
+        },
+        "candidatesTop5": [
+          {
+            "finalScore": 80.9,
+            "fullHangul": "최이수",
+            "fullHanja": "崔理琇",
+            "rank": 1
+          },
+          {
+            "finalScore": 79.2,
+            "fullHangul": "최유단",
+            "fullHanja": "崔攸端",
+            "rank": 2
+          },
+          {
+            "finalScore": 79.2,
+            "fullHangul": "최영정",
+            "fullHanja": "崔瑛玎",
+            "rank": 3
+          },
+          {
+            "finalScore": 79.2,
+            "fullHangul": "최영진",
+            "fullHanja": "崔瑛珍",
+            "rank": 4
+          },
+          {
+            "finalScore": 78.9,
+            "fullHangul": "최정영",
+            "fullHanja": "崔玎瑛",
+            "rank": 5
+          }
+        ],
+        "fortuneReport": {
+          "overviewTitle": "총평 요약",
+          "dailyStars": 2,
+          "yearlyStars": 1,
+          "lifeStars": 3,
+          "personalityTraitCount": 6
+        }
+      }
+    },
+    {
+      "id": "fix-02",
+      "label": "1992-09-15 female — 壬水 일간, 가을",
+      "axis": [
+        "normal",
+        "yang-water",
+        "autumn"
+      ],
+      "output": {
+        "namingReport": {
+          "totalScore": 57.6,
+          "scores": {
+            "hangul": 71.3,
+            "hanja": 25,
+            "fourFrame": 25
+          },
+          "fullHangul": "김지은",
+          "fullHanja": "金智恩"
+        },
+        "sajuReport": {
+          "sajuEnabled": true,
+          "dayMaster": {
+            "stem": "갑",
+            "element": "WOOD",
+            "polarity": "양"
+          },
+          "strengthLevel": "신약",
+          "isStrong": false,
+          "yongshinElement": "WATER",
+          "yongshinHeeshin": "WOOD",
+          "gyeokgukType": "정관격",
+          "gyeokgukCategory": "일반",
+          "gyeokgukConfidence": 0.8700000000000001,
+          "deficientElements": [],
+          "excessiveElements": []
+        },
+        "candidatesTop5": [
+          {
+            "finalScore": 74.6,
+            "fullHangul": "김배주",
+            "fullHanja": "金北宙",
+            "rank": 1
+          },
+          {
+            "finalScore": 74.6,
+            "fullHangul": "김사영",
+            "fullHanja": "金事永",
+            "rank": 2
+          },
+          {
+            "finalScore": 74.6,
+            "fullHangul": "김사영",
+            "fullHanja": "金祀永",
+            "rank": 3
+          },
+          {
+            "finalScore": 74.6,
+            "fullHangul": "김서영",
+            "fullHanja": "金抒永",
+            "rank": 4
+          },
+          {
+            "finalScore": 74.6,
+            "fullHangul": "김서우",
+            "fullHanja": "金抒右",
+            "rank": 5
+          }
+        ],
+        "fortuneReport": {
+          "overviewTitle": "총평 요약",
+          "dailyStars": 4,
+          "yearlyStars": 3,
+          "lifeStars": 3,
+          "personalityTraitCount": 6
+        }
+      }
+    },
+    {
+      "id": "fix-03",
+      "label": "2000-01-01 00:30 male — 子時 boundary edge",
+      "axis": [
+        "jaza-edge",
+        "yang-water",
+        "winter"
+      ],
+      "output": {
+        "namingReport": {
+          "totalScore": 65,
+          "scores": {
+            "hangul": 71.3,
+            "hanja": 25,
+            "fourFrame": 50
+          },
+          "fullHangul": "이민준",
+          "fullHanja": "李敏俊"
+        },
+        "sajuReport": {
+          "sajuEnabled": true,
+          "dayMaster": {
+            "stem": "정",
+            "element": "FIRE",
+            "polarity": "음"
+          },
+          "strengthLevel": "중화(신약 경향)",
+          "isStrong": false,
+          "yongshinElement": "WOOD",
+          "yongshinHeeshin": "EARTH",
+          "gyeokgukType": "편관격",
+          "gyeokgukCategory": "일반",
+          "gyeokgukConfidence": 0.5388888888888889,
+          "deficientElements": [],
+          "excessiveElements": []
+        },
+        "candidatesTop5": [
+          {
+            "finalScore": 78.7,
+            "fullHangul": "이대영",
+            "fullHanja": "李岱穎",
+            "rank": 1
+          },
+          {
+            "finalScore": 78.5,
+            "fullHangul": "이대유",
+            "fullHanja": "李岱遊",
+            "rank": 2
+          },
+          {
+            "finalScore": 78.4,
+            "fullHangul": "이승만",
+            "fullHanja": "李丞娩",
+            "rank": 3
+          },
+          {
+            "finalScore": 78.2,
+            "fullHangul": "이주민",
+            "fullHanja": "李遒岷",
+            "rank": 4
+          },
+          {
+            "finalScore": 77.7,
+            "fullHangul": "이선호",
+            "fullHanja": "李繕好",
+            "rank": 5
+          }
+        ],
+        "fortuneReport": {
+          "overviewTitle": "총평 요약",
+          "dailyStars": 5,
+          "yearlyStars": 3,
+          "lifeStars": 4,
+          "personalityTraitCount": 6
+        }
+      }
+    },
+    {
+      "id": "fix-04",
+      "label": "1965-08-08 19:00 female — 丙火 일간, 종왕 후보 (강한 火)",
+      "axis": [
+        "jonggwang-candidate",
+        "yang-fire",
+        "summer"
+      ],
+      "output": {
+        "namingReport": {
+          "totalScore": 64.6,
+          "scores": {
+            "hangul": 70,
+            "hanja": 37.5,
+            "fourFrame": 35
+          },
+          "fullHangul": "박영희",
+          "fullHanja": "朴英姬"
+        },
+        "sajuReport": {
+          "sajuEnabled": true,
+          "dayMaster": {
+            "stem": "갑",
+            "element": "WOOD",
+            "polarity": "양"
+          },
+          "strengthLevel": "중화(신강 경향)",
+          "isStrong": true,
+          "yongshinElement": "WATER",
+          "yongshinHeeshin": "FIRE",
+          "gyeokgukType": "편관격",
+          "gyeokgukCategory": "일반",
+          "gyeokgukConfidence": 0.33261538461538465,
+          "deficientElements": [
+            "EARTH"
+          ],
+          "excessiveElements": [
+            "WOOD"
+          ]
+        },
+        "candidatesTop5": [
+          {
+            "finalScore": 75.9,
+            "fullHangul": "박수진",
+            "fullHanja": "朴修辰",
+            "rank": 1
+          },
+          {
+            "finalScore": 74.5,
+            "fullHangul": "박구혜",
+            "fullHanja": "朴舊蹊",
+            "rank": 2
+          },
+          {
+            "finalScore": 73.9,
+            "fullHangul": "박로희",
+            "fullHanja": "朴潞嬉",
+            "rank": 3
+          },
+          {
+            "finalScore": 73.7,
+            "fullHangul": "박정미",
+            "fullHanja": "朴炡美",
+            "rank": 4
+          },
+          {
+            "finalScore": 73.5,
+            "fullHangul": "박구자",
+            "fullHanja": "朴舊孜",
+            "rank": 5
+          }
+        ],
+        "fortuneReport": {
+          "overviewTitle": "총평 요약",
+          "dailyStars": 3,
+          "yearlyStars": 4,
+          "lifeStars": 3,
+          "personalityTraitCount": 6
+        }
+      }
+    },
+    {
+      "id": "fix-05",
+      "label": "2005-12-25 06:00 male — 겨울 조후 case (한랭)",
+      "axis": [
+        "johu-winter",
+        "yin-wood",
+        "winter"
+      ],
+      "output": {
+        "namingReport": {
+          "totalScore": 58.2,
+          "scores": {
+            "hangul": 57.5,
+            "hanja": 37.5,
+            "fourFrame": 45
+          },
+          "fullHangul": "정서준",
+          "fullHanja": "鄭瑞俊"
+        },
+        "sajuReport": {
+          "sajuEnabled": true,
+          "dayMaster": {
+            "stem": "계",
+            "element": "WATER",
+            "polarity": "음"
+          },
+          "strengthLevel": "신약",
+          "isStrong": false,
+          "yongshinElement": "METAL",
+          "yongshinHeeshin": "WATER",
+          "gyeokgukType": "비견격",
+          "gyeokgukCategory": "일반",
+          "gyeokgukConfidence": 0.2635135135135135,
+          "deficientElements": [
+            "FIRE"
+          ],
+          "excessiveElements": [
+            "WOOD"
+          ]
+        },
+        "candidatesTop5": [
+          {
+            "finalScore": 76.6,
+            "fullHangul": "정임수",
+            "fullHanja": "鄭壬琇",
+            "rank": 1
+          },
+          {
+            "finalScore": 75.3,
+            "fullHangul": "정부이",
+            "fullHanja": "鄭不理",
+            "rank": 2
+          },
+          {
+            "finalScore": 74,
+            "fullHangul": "정정리",
+            "fullHanja": "鄭井理",
+            "rank": 3
+          },
+          {
+            "finalScore": 74,
+            "fullHangul": "정소수",
+            "fullHanja": "鄭少琇",
+            "rank": 4
+          },
+          {
+            "finalScore": 73.3,
+            "fullHangul": "정월수",
+            "fullHanja": "鄭月琇",
+            "rank": 5
+          }
+        ],
+        "fortuneReport": {
+          "overviewTitle": "총평 요약",
+          "dailyStars": 3,
+          "yearlyStars": 2,
+          "lifeStars": 3,
+          "personalityTraitCount": 6
+        }
+      }
+    },
+    {
+      "id": "fix-06",
+      "label": "1978-06-15 14:00 female — 庚金 일간, 여름",
+      "axis": [
+        "normal",
+        "yang-metal",
+        "summer"
+      ],
+      "output": {
+        "namingReport": {
+          "totalScore": 63.2,
+          "scores": {
+            "hangul": 75,
+            "hanja": 25,
+            "fourFrame": 50
+          },
+          "fullHangul": "강수빈",
+          "fullHanja": "姜秀彬"
+        },
+        "sajuReport": {
+          "sajuEnabled": true,
+          "dayMaster": {
+            "stem": "무",
+            "element": "EARTH",
+            "polarity": "양"
+          },
+          "strengthLevel": "신강",
+          "isStrong": true,
+          "yongshinElement": "METAL",
+          "yongshinHeeshin": "WOOD",
+          "gyeokgukType": "겁재격",
+          "gyeokgukCategory": "일반",
+          "gyeokgukConfidence": 0.46666666666666673,
+          "deficientElements": [
+            "WOOD",
+            "METAL",
+            "WATER"
+          ],
+          "excessiveElements": [
+            "EARTH"
+          ]
+        },
+        "candidatesTop5": [
+          {
+            "finalScore": 78,
+            "fullHangul": "강리희",
+            "fullHanja": "姜理稀",
+            "rank": 1
+          },
+          {
+            "finalScore": 77,
+            "fullHangul": "강리영",
+            "fullHanja": "姜利穎",
+            "rank": 2
+          },
+          {
+            "finalScore": 77,
+            "fullHangul": "강로희",
+            "fullHanja": "姜瀘稀",
+            "rank": 3
+          },
+          {
+            "finalScore": 76.9,
+            "fullHangul": "강임정",
+            "fullHanja": "姜壬珽",
+            "rank": 4
+          },
+          {
+            "finalScore": 76.8,
+            "fullHangul": "강수정",
+            "fullHanja": "姜手珽",
+            "rank": 5
+          }
+        ],
+        "fortuneReport": {
+          "overviewTitle": "총평 요약",
+          "dailyStars": 4,
+          "yearlyStars": 1,
+          "lifeStars": 3,
+          "personalityTraitCount": 6
+        }
+      }
+    },
+    {
+      "id": "fix-07",
+      "label": "1957-02-04 male — 입춘 boundary",
+      "axis": [
+        "jie-ipchun",
+        "edge",
+        "spring-onset"
+      ],
+      "output": {
+        "namingReport": {
+          "totalScore": 70.9,
+          "scores": {
+            "hangul": 80,
+            "hanja": 37.5,
+            "fourFrame": 55
+          },
+          "fullHangul": "윤태호",
+          "fullHanja": "尹泰鎬"
+        },
+        "sajuReport": {
+          "sajuEnabled": true,
+          "dayMaster": {
+            "stem": "정",
+            "element": "FIRE",
+            "polarity": "음"
+          },
+          "strengthLevel": "신강",
+          "isStrong": true,
+          "yongshinElement": "EARTH",
+          "yongshinHeeshin": "WOOD",
+          "gyeokgukType": "겁재격",
+          "gyeokgukCategory": "일반",
+          "gyeokgukConfidence": 0.5711111111111111,
+          "deficientElements": [
+            "WOOD"
+          ],
+          "excessiveElements": [
+            "FIRE"
+          ]
+        },
+        "candidatesTop5": [
+          {
+            "finalScore": 78.4,
+            "fullHangul": "윤장희",
+            "fullHanja": "尹薔稀",
+            "rank": 1
+          },
+          {
+            "finalScore": 78.2,
+            "fullHangul": "윤수봉",
+            "fullHanja": "尹隧蓬",
+            "rank": 2
+          },
+          {
+            "finalScore": 77.8,
+            "fullHangul": "윤희장",
+            "fullHanja": "尹稀薔",
+            "rank": 3
+          },
+          {
+            "finalScore": 77.5,
+            "fullHangul": "윤수만",
+            "fullHanja": "尹隧挽",
+            "rank": 4
+          },
+          {
+            "finalScore": 77.4,
+            "fullHangul": "윤탁희",
+            "fullHanja": "尹拓稀",
+            "rank": 5
+          }
+        ],
+        "fortuneReport": {
+          "overviewTitle": "총평 요약",
+          "dailyStars": 4,
+          "yearlyStars": 1,
+          "lifeStars": 3,
+          "personalityTraitCount": 6
+        }
+      }
+    },
+    {
+      "id": "fix-08",
+      "label": "2020-08-23 female — 처서 boundary",
+      "axis": [
+        "jie-cheoseo",
+        "yin-earth",
+        "late-summer"
+      ],
+      "output": {
+        "namingReport": {
+          "totalScore": 58.5,
+          "scores": {
+            "hangul": 75,
+            "hanja": 25,
+            "fourFrame": 40
+          },
+          "fullHangul": "조하은",
+          "fullHanja": "趙夏恩"
+        },
+        "sajuReport": {
+          "sajuEnabled": true,
+          "dayMaster": {
+            "stem": "무",
+            "element": "EARTH",
+            "polarity": "양"
+          },
+          "strengthLevel": "신약",
+          "isStrong": false,
+          "yongshinElement": "FIRE",
+          "yongshinHeeshin": "EARTH",
+          "gyeokgukType": "식신격",
+          "gyeokgukCategory": "일반",
+          "gyeokgukConfidence": 0.875,
+          "deficientElements": [],
+          "excessiveElements": []
+        },
+        "candidatesTop5": [
+          {
+            "finalScore": 74.3,
+            "fullHangul": "조혜신",
+            "fullHanja": "趙蹊伸",
+            "rank": 1
+          },
+          {
+            "finalScore": 73.8,
+            "fullHangul": "조예수",
+            "fullHanja": "趙乂隨",
+            "rank": 2
+          },
+          {
+            "finalScore": 73.8,
+            "fullHangul": "조예사",
+            "fullHanja": "趙乂麝",
+            "rank": 3
+          },
+          {
+            "finalScore": 73.4,
+            "fullHangul": "조혜진",
+            "fullHanja": "趙蹊辰",
+            "rank": 4
+          },
+          {
+            "finalScore": 73.4,
+            "fullHangul": "조혜신",
+            "fullHanja": "趙蹊辰",
+            "rank": 5
+          }
+        ],
+        "fortuneReport": {
+          "overviewTitle": "총평 요약",
+          "dailyStars": 3,
+          "yearlyStars": 5,
+          "lifeStars": 3,
+          "personalityTraitCount": 6
+        }
+      }
+    },
+    {
+      "id": "fix-09",
+      "label": "1988-05-05 male — 입하 boundary",
+      "axis": [
+        "jie-ipha",
+        "edge",
+        "summer-onset"
+      ],
+      "output": {
+        "namingReport": {
+          "totalScore": 66.5,
+          "scores": {
+            "hangul": 80,
+            "hanja": 37.5,
+            "fourFrame": 40
+          },
+          "fullHangul": "최명수",
+          "fullHanja": "崔明秀"
+        },
+        "sajuReport": {
+          "sajuEnabled": true,
+          "dayMaster": {
+            "stem": "경",
+            "element": "METAL",
+            "polarity": "양"
+          },
+          "strengthLevel": "신강",
+          "isStrong": true,
+          "yongshinElement": "WATER",
+          "yongshinHeeshin": "WOOD",
+          "gyeokgukType": "편인격",
+          "gyeokgukCategory": "일반",
+          "gyeokgukConfidence": 0.5439814814814815,
+          "deficientElements": [
+            "WOOD",
+            "WATER"
+          ],
+          "excessiveElements": [
+            "METAL"
+          ]
+        },
+        "candidatesTop5": [
+          {
+            "finalScore": 77.3,
+            "fullHangul": "최오정",
+            "fullHanja": "崔鼇靖",
+            "rank": 1
+          },
+          {
+            "finalScore": 77.3,
+            "fullHangul": "최염정",
+            "fullHanja": "崔鹽靖",
+            "rank": 2
+          },
+          {
+            "finalScore": 77.2,
+            "fullHangul": "최한수",
+            "fullHanja": "崔瀚手",
+            "rank": 3
+          },
+          {
+            "finalScore": 77,
+            "fullHangul": "최희장",
+            "fullHanja": "崔喜掌",
+            "rank": 4
+          },
+          {
+            "finalScore": 76.9,
+            "fullHangul": "최서부",
+            "fullHanja": "崔薯不",
+            "rank": 5
+          }
+        ],
+        "fortuneReport": {
+          "overviewTitle": "총평 요약",
+          "dailyStars": 4,
+          "yearlyStars": 3,
+          "lifeStars": 3,
+          "personalityTraitCount": 6
+        }
+      }
+    },
+    {
+      "id": "fix-10",
+      "label": "2018-11-22 female — 소설 boundary",
+      "axis": [
+        "jie-soseol",
+        "winter-onset",
+        "yin-water"
+      ],
+      "output": {
+        "namingReport": {
+          "totalScore": 73.8,
+          "scores": {
+            "hangul": 80,
+            "hanja": 37.5,
+            "fourFrame": 65
+          },
+          "fullHangul": "한서연",
+          "fullHanja": "韓瑞蓮"
+        },
+        "sajuReport": {
+          "sajuEnabled": true,
+          "dayMaster": {
+            "stem": "무",
+            "element": "EARTH",
+            "polarity": "양"
+          },
+          "strengthLevel": "신강",
+          "isStrong": true,
+          "yongshinElement": "METAL",
+          "yongshinHeeshin": "WOOD",
+          "gyeokgukType": "편재격",
+          "gyeokgukCategory": "일반",
+          "gyeokgukConfidence": 0.8033823529411764,
+          "deficientElements": [
+            "WOOD",
+            "METAL"
+          ],
+          "excessiveElements": [
+            "EARTH"
+          ]
+        },
+        "candidatesTop5": [
+          {
+            "finalScore": 83.4,
+            "fullHangul": "한소범",
+            "fullHanja": "韓蕭帆",
+            "rank": 1
+          },
+          {
+            "finalScore": 81.7,
+            "fullHangul": "한선해",
+            "fullHanja": "韓繕亥",
+            "rank": 2
+          },
+          {
+            "finalScore": 81.7,
+            "fullHangul": "한소후",
+            "fullHanja": "韓蕭后",
+            "rank": 3
+          },
+          {
+            "finalScore": 81.5,
+            "fullHangul": "한수영",
+            "fullHanja": "韓秀瑛",
+            "rank": 4
+          },
+          {
+            "finalScore": 81.5,
+            "fullHangul": "한사영",
+            "fullHanja": "韓些瑛",
+            "rank": 5
+          }
+        ],
+        "fortuneReport": {
+          "overviewTitle": "총평 요약",
+          "dailyStars": 4,
+          "yearlyStars": 2,
+          "lifeStars": 3,
+          "personalityTraitCount": 6
+        }
+      }
+    },
+    {
+      "id": "fix-11",
+      "label": "1995-08-15 female — 시간미상 (unknown-hour)",
+      "axis": [
+        "unknown-hour",
+        "edge",
+        "yin-fire"
+      ],
+      "output": {
+        "namingReport": {
+          "totalScore": 56.6,
+          "scores": {
+            "hangul": 80,
+            "hanja": 37.5,
+            "fourFrame": 5
+          },
+          "fullHangul": "이지혜",
+          "fullHanja": "李智慧"
+        },
+        "sajuReport": {
+          "sajuEnabled": true,
+          "dayMaster": {
+            "stem": "무",
+            "element": "EARTH",
+            "polarity": "양"
+          },
+          "strengthLevel": "중화(신약 경향)",
+          "isStrong": false,
+          "yongshinElement": "FIRE",
+          "yongshinHeeshin": "METAL",
+          "gyeokgukType": "비견격",
+          "gyeokgukCategory": "일반",
+          "gyeokgukConfidence": 0.24192307692307694,
+          "deficientElements": [
+            "METAL"
+          ],
+          "excessiveElements": [
+            "WOOD"
+          ]
+        },
+        "candidatesTop5": [
+          {
+            "finalScore": 76.7,
+            "fullHangul": "이진희",
+            "fullHanja": "李璡僖",
+            "rank": 1
+          },
+          {
+            "finalScore": 76.7,
+            "fullHangul": "이린희",
+            "fullHanja": "李璘僖",
+            "rank": 2
+          },
+          {
+            "finalScore": 76.5,
+            "fullHangul": "이지영",
+            "fullHanja": "李旨玲",
+            "rank": 3
+          },
+          {
+            "finalScore": 76.5,
+            "fullHangul": "이린영",
+            "fullHanja": "李璘瑛",
+            "rank": 4
+          },
+          {
+            "finalScore": 76.3,
+            "fullHangul": "이정해",
+            "fullHanja": "李炡諧",
+            "rank": 5
+          }
+        ],
+        "fortuneReport": {
+          "overviewTitle": "총평 요약",
+          "dailyStars": 1,
+          "yearlyStars": 5,
+          "lifeStars": 3,
+          "personalityTraitCount": 6
+        }
+      }
+    },
+    {
+      "id": "fix-12",
+      "label": "1991-03-20 male — borderline-strength (춘분 즈음, 중화 후보)",
+      "axis": [
+        "borderline-strength",
+        "edge",
+        "yang-wood"
+      ],
+      "output": {
+        "namingReport": {
+          "totalScore": 63.7,
+          "scores": {
+            "hangul": 80,
+            "hanja": 37.5,
+            "fourFrame": 35
+          },
+          "fullHangul": "정민재",
+          "fullHanja": "鄭敏在"
+        },
+        "sajuReport": {
+          "sajuEnabled": true,
+          "dayMaster": {
+            "stem": "기",
+            "element": "EARTH",
+            "polarity": "음"
+          },
+          "strengthLevel": "중화(신강 경향)",
+          "isStrong": true,
+          "yongshinElement": "FIRE",
+          "yongshinHeeshin": "METAL",
+          "gyeokgukType": "편관격",
+          "gyeokgukCategory": "일반",
+          "gyeokgukConfidence": 0.9199999999999999,
+          "deficientElements": [
+            "WATER"
+          ],
+          "excessiveElements": [
+            "EARTH"
+          ]
+        },
+        "candidatesTop5": [
+          {
+            "finalScore": 78.7,
+            "fullHangul": "정일정",
+            "fullHanja": "鄭日淨",
+            "rank": 1
+          },
+          {
+            "finalScore": 77.4,
+            "fullHangul": "정일희",
+            "fullHanja": "鄭日喜",
+            "rank": 2
+          },
+          {
+            "finalScore": 75.8,
+            "fullHangul": "정일정",
+            "fullHanja": "鄭日晶",
+            "rank": 3
+          },
+          {
+            "finalScore": 75.8,
+            "fullHangul": "정일정",
+            "fullHanja": "鄭日晸",
+            "rank": 4
+          },
+          {
+            "finalScore": 75.7,
+            "fullHangul": "정일정",
+            "fullHanja": "鄭日珽",
+            "rank": 5
+          }
+        ],
+        "fortuneReport": {
+          "overviewTitle": "총평 요약",
+          "dailyStars": 1,
+          "yearlyStars": 5,
+          "lifeStars": 3,
+          "personalityTraitCount": 6
+        }
+      }
+    },
+    {
+      "id": "fix-13",
+      "label": "1989-07-23 male — borderline-strength practical tier (정재격, 여름 yongshin=WATER)",
+      "axis": [
+        "borderline-strength",
+        "practical-tier",
+        "summer"
+      ],
+      "output": {
+        "namingReport": {
+          "totalScore": 63.8,
+          "scores": {
+            "hangul": 76.3,
+            "hanja": 37.5,
+            "fourFrame": 40
+          },
+          "fullHangul": "김민수",
+          "fullHanja": "金敏秀"
+        },
+        "sajuReport": {
+          "sajuEnabled": true,
+          "dayMaster": {
+            "stem": "갑",
+            "element": "WOOD",
+            "polarity": "양"
+          },
+          "strengthLevel": "신약",
+          "isStrong": false,
+          "yongshinElement": "WATER",
+          "yongshinHeeshin": "WOOD",
+          "gyeokgukType": "정재격",
+          "gyeokgukCategory": "일반",
+          "gyeokgukConfidence": 0.9636538461538462,
+          "deficientElements": [
+            "WATER"
+          ],
+          "excessiveElements": [
+            "EARTH"
+          ]
+        },
+        "candidatesTop5": [
+          {
+            "finalScore": 79.7,
+            "fullHangul": "김배서",
+            "fullHanja": "金北抒",
+            "rank": 1
+          },
+          {
+            "finalScore": 79.7,
+            "fullHangul": "김사우",
+            "fullHanja": "金事右",
+            "rank": 2
+          },
+          {
+            "finalScore": 79.7,
+            "fullHangul": "김사우",
+            "fullHanja": "金祀右",
+            "rank": 3
+          },
+          {
+            "finalScore": 79.7,
+            "fullHangul": "김주영",
+            "fullHanja": "金宙永",
+            "rank": 4
+          },
+          {
+            "finalScore": 79.7,
+            "fullHangul": "김주우",
+            "fullHanja": "金宙右",
+            "rank": 5
+          }
+        ],
+        "fortuneReport": {
+          "overviewTitle": "총평 요약",
+          "dailyStars": 4,
+          "yearlyStars": 3,
+          "lifeStars": 3,
+          "personalityTraitCount": 6
+        }
+      }
+    },
+    {
+      "id": "fix-14",
+      "label": "1980-08-07 male — borderline-strength candidate tier (정관격, 가을 yongshin=WOOD)",
+      "axis": [
+        "borderline-strength",
+        "candidate-tier",
+        "autumn"
+      ],
+      "output": {
+        "namingReport": {
+          "totalScore": 70.7,
+          "scores": {
+            "hangul": 76.3,
+            "hanja": 37.5,
+            "fourFrame": 65
+          },
+          "fullHangul": "박지현",
+          "fullHanja": "朴智賢"
+        },
+        "sajuReport": {
+          "sajuEnabled": true,
+          "dayMaster": {
+            "stem": "임",
+            "element": "WATER",
+            "polarity": "양"
+          },
+          "strengthLevel": "신강",
+          "isStrong": true,
+          "yongshinElement": "WOOD",
+          "yongshinHeeshin": "FIRE",
+          "gyeokgukType": "정관격",
+          "gyeokgukCategory": "일반",
+          "gyeokgukConfidence": 0.3711538461538461,
+          "deficientElements": [
+            "WOOD",
+            "FIRE",
+            "EARTH"
+          ],
+          "excessiveElements": [
+            "WATER"
+          ]
+        },
+        "candidatesTop5": [
+          {
+            "finalScore": 85,
+            "fullHangul": "박수신",
+            "fullHanja": "朴修辰",
+            "rank": 1
+          },
+          {
+            "finalScore": 84.9,
+            "fullHangul": "박구대",
+            "fullHanja": "朴舊旲",
+            "rank": 2
+          },
+          {
+            "finalScore": 83.8,
+            "fullHangul": "박구영",
+            "fullHanja": "朴舊營",
+            "rank": 3
+          },
+          {
+            "finalScore": 83.1,
+            "fullHangul": "박진혁",
+            "fullHanja": "朴辰爀",
+            "rank": 4
+          },
+          {
+            "finalScore": 83.1,
+            "fullHangul": "박신혁",
+            "fullHanja": "朴辰爀",
+            "rank": 5
+          }
+        ],
+        "fortuneReport": {
+          "overviewTitle": "총평 요약",
+          "dailyStars": 5,
+          "yearlyStars": 4,
+          "lifeStars": 3,
+          "personalityTraitCount": 6
+        }
+      }
+    },
+    {
+      "id": "fix-15",
+      "label": "1985-03-21 male — borderline-strength deferred tier (편관격, 춘분 yongshin=METAL)",
+      "axis": [
+        "borderline-strength",
+        "deferred-tier",
+        "spring"
+      ],
+      "output": {
+        "namingReport": {
+          "totalScore": 66.2,
+          "scores": {
+            "hangul": 83.8,
+            "hanja": 25,
+            "fourFrame": 60
+          },
+          "fullHangul": "이성민",
+          "fullHanja": "李成敏"
+        },
+        "sajuReport": {
+          "sajuEnabled": true,
+          "dayMaster": {
+            "stem": "기",
+            "element": "EARTH",
+            "polarity": "음"
+          },
+          "strengthLevel": "신강",
+          "isStrong": true,
+          "yongshinElement": "METAL",
+          "yongshinHeeshin": "WATER",
+          "gyeokgukType": "편관격",
+          "gyeokgukCategory": "일반",
+          "gyeokgukConfidence": 0.9750000000000001,
+          "deficientElements": [
+            "METAL",
+            "WATER"
+          ],
+          "excessiveElements": [
+            "EARTH"
+          ]
+        },
+        "candidatesTop5": [
+          {
+            "finalScore": 79.4,
+            "fullHangul": "이선민",
+            "fullHanja": "李璇泯",
+            "rank": 1
+          },
+          {
+            "finalScore": 79.2,
+            "fullHangul": "이왕서",
+            "fullHanja": "李汪諝",
+            "rank": 2
+          },
+          {
+            "finalScore": 79.2,
+            "fullHangul": "이왕선",
+            "fullHanja": "李汪璇",
+            "rank": 3
+          },
+          {
+            "finalScore": 79.2,
+            "fullHangul": "이운서",
+            "fullHanja": "李沄諝",
+            "rank": 4
+          },
+          {
+            "finalScore": 79.2,
+            "fullHangul": "이운선",
+            "fullHanja": "李沄璇",
+            "rank": 5
+          }
+        ],
+        "fortuneReport": {
+          "overviewTitle": "총평 요약",
+          "dailyStars": 3,
+          "yearlyStars": 2,
+          "lifeStars": 3,
+          "personalityTraitCount": 6
+        }
+      }
+    }
+  ]
+}
