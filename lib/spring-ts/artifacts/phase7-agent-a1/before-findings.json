@@ -1,12 +1,12 @@
 {
-  "generatedAt": "2026-05-05T09:50:49.157Z",
+  "generatedAt": "2026-05-05T09:35:25.056Z",
   "totalRows": 6686,
   "fixtures": 22,
   "counts": {
     "brokenEndings": 0,
     "voiceViolations": 0,
     "crossElementMetaphor": 66,
-    "depthCoherence": 1,
+    "depthCoherence": 9,
     "tagGlossaryMismatch": 0,
     "lengthViolations": 250
   },
@@ -1077,6 +1077,78 @@
       }
     ],
     "depthCoherence": [
+      {
+        "cellKey": "choi-yaza-boundary-male-tiered|thisYear|expression_children",
+        "fixture": "choi-yaza-boundary-male-tiered",
+        "period": "thisYear",
+        "category": "expression_children",
+        "brief": "올해는표현이깊어지고다음결이보이기시작해요",
+        "standardFirst": "올해는표현이깊어지고다음흐름이보이기시작하는한해예요",
+        "similarityRatio": 0.7692307692307692
+      },
+      {
+        "cellKey": "oh-extreme-weak-continuous-tiered|thisYear|expression_children",
+        "fixture": "oh-extreme-weak-continuous-tiered",
+        "period": "thisYear",
+        "category": "expression_children",
+        "brief": "올해는쌓아둔작업이결실로익어가는결이에요",
+        "standardFirst": "올해는쌓아둔작업이결실로익어가는한해예요",
+        "similarityRatio": 0.85
+      },
+      {
+        "cellKey": "lee-child-male-tiered|today|__overall",
+        "fixture": "lee-child-male-tiered",
+        "period": "today",
+        "category": "__overall",
+        "brief": "오늘도호기심이반짝이는하루예요",
+        "standardFirst": "아이는오늘호기심이반짝이는하루예요",
+        "similarityRatio": 0.7647058823529411
+      },
+      {
+        "cellKey": "lee-child-male-tiered|thisWeek|__overall",
+        "fixture": "lee-child-male-tiered",
+        "period": "thisWeek",
+        "category": "__overall",
+        "brief": "아이는이번주새로보는것에눈이반짝이는결이에요",
+        "standardFirst": "아이는이번주새로보는것에눈이반짝이는흐름이에요",
+        "similarityRatio": 0.9130434782608696
+      },
+      {
+        "cellKey": "lee-child-male-tiered|thisMonth|__overall",
+        "fixture": "lee-child-male-tiered",
+        "period": "thisMonth",
+        "category": "__overall",
+        "brief": "아이는이번달한가지에푹빠져보기좋은결이에요",
+        "standardFirst": "아이는이번달한가지놀이에푹빠져보기좋은흐름이에요",
+        "similarityRatio": 0.8333333333333334
+      },
+      {
+        "cellKey": "lee-child-male-tiered|thisMonth|expression_children",
+        "fixture": "lee-child-male-tiered",
+        "period": "thisMonth",
+        "category": "expression_children",
+        "brief": "이번달은좋아하는놀이가한단계자라는결이에요",
+        "standardFirst": "이번달은좋아하는놀이가한단계자라는흐름이에요",
+        "similarityRatio": 0.9090909090909091
+      },
+      {
+        "cellKey": "lee-child-male-tiered|thisYear|health",
+        "fixture": "lee-child-male-tiered",
+        "period": "thisYear",
+        "category": "health",
+        "brief": "아이는한해동안키도마음도자라는흐름이에요",
+        "standardFirst": "아이는한해동안키도마음도자라는흐름이에요",
+        "similarityRatio": 1
+      },
+      {
+        "cellKey": "gyeokguk-conflict-jeonggwan-vs-bigyeop-tiered|life|expression_children",
+        "fixture": "gyeokguk-conflict-jeonggwan-vs-bigyeop-tiered",
+        "period": "life",
+        "category": "expression_children",
+        "brief": "쌓아온표현이결실로익어가는흐름이에요",
+        "standardFirst": "쌓아온표현이결실로익어가는흐름이에요",
+        "similarityRatio": 1
+      },
       {
         "cellKey": "low-confidence-yongshin-tiered|today|__overall",
         "fixture": "low-confidence-yongshin-tiered",

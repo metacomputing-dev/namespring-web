@@ -1,0 +1,112 @@
+{
+  "task": "P7-A1 — depthCoherence + standard 시작 문장 다양화",
+  "owner": "Agent P7-A1 (claude-opus-4-7[1m])",
+  "generatedAt": "2026-05-05",
+  "auditScript": "artifacts/phase5-prose-audit/audit-prose.mjs",
+  "threshold": "similarity >= 0.75 (distance ratio < 0.25)",
+  "summary": {
+    "before": {
+      "depthCoherence": 9,
+      "ratio_1_0": 2,
+      "ratio_above_0_75": 7
+    },
+    "after": {
+      "depthCoherence": 1,
+      "ratio_1_0": 0,
+      "ratio_above_0_75": 1,
+      "remaining": [
+        {
+          "cellKey": "low-confidence-yongshin-tiered|today|__overall",
+          "fragmentId": "overall.today.standard.polarity.yin.404",
+          "sourceFile": "data/narrative/_coverage/min14-foundation-floor.fragments.json",
+          "similarityRatio": 0.8076923076923077,
+          "outOfScope": "_coverage/ is in P7-A1 forbidden scope",
+          "note": "Both brief and standard fragments live in _coverage/ which is forbidden per task spec. Documented for next phase / cross-cutting fix."
+        }
+      ]
+    }
+  },
+  "fixedFragments": [
+    {
+      "fragmentId": "expression_children.thisYear.standard.30_39.005",
+      "file": "data/narrative/expression_children/thisYear/standard.fragments.json",
+      "before": "올해는 표현이 깊어지고 다음 결이 보이기 시작하는 한 해예요.",
+      "after": "표현이 한 단계 깊어지고, 그 위에서 다음 결이 자연스럽게 보이기 시작하는 한 해예요.",
+      "fixesCells": [
+        "choi-yaza-boundary-male-tiered|thisYear|expression_children"
+      ]
+    },
+    {
+      "fragmentId": "expression_children.thisYear.standard.40_54.006",
+      "file": "data/narrative/expression_children/thisYear/standard.fragments.json",
+      "before": "올해는 쌓아 둔 작업이 결실로 익어 가는 한 해예요.",
+      "after": "그동안 쌓아 둔 작업이 한 해 동안 결실로 익어 가는 시기예요.",
+      "fixesCells": [
+        "oh-extreme-weak-continuous-tiered|thisYear|expression_children"
+      ]
+    },
+    {
+      "fragmentId": "overall.today.standard.child.001",
+      "file": "data/narrative/overall/today/standard.fragments.json",
+      "before": "아이는 오늘 호기심이 반짝이는 하루예요.",
+      "after": "오늘 하루 아이의 눈빛이 또렷이 반짝이는 시간이에요.",
+      "fixesCells": [
+        "lee-child-male-tiered|today|__overall"
+      ]
+    },
+    {
+      "fragmentId": "overall.thisWeek.standard.child.001",
+      "file": "data/narrative/overall/thisWeek/standard.fragments.json",
+      "before": "아이는 이번 주 새로 보는 것에 눈이 반짝이는 흐름이에요.",
+      "after": "이번 주 아이는 새로 보는 것마다 눈을 빛내며 즐거워하는 시기예요.",
+      "fixesCells": [
+        "lee-child-male-tiered|thisWeek|__overall"
+      ]
+    },
+    {
+      "fragmentId": "overall.thisMonth.standard.child.001",
+      "file": "data/narrative/overall/thisMonth/standard.fragments.json",
+      "before": "아이는 이번 달 한 가지 놀이에 푹 빠져 보기 좋은 흐름이에요.",
+      "after": "이번 달 아이는 한 가지 놀이에 깊이 빠져들어 즐거워하는 시기예요.",
+      "fixesCells": [
+        "lee-child-male-tiered|thisMonth|__overall"
+      ]
+    },
+    {
+      "fragmentId": "expression_children.thisMonth.standard.0_9.002",
+      "file": "data/narrative/expression_children/thisMonth/standard.fragments.json",
+      "before": "이번 달은 좋아하는 놀이가 한 단계 자라는 흐름이에요.",
+      "after": "좋아하는 놀이가 한 달 동안 한 단계 더 무르익어 가는 시기예요.",
+      "fixesCells": [
+        "lee-child-male-tiered|thisMonth|expression_children"
+      ]
+    },
+    {
+      "fragmentId": "health.thisYear.standard.child.001",
+      "file": "data/narrative/health/thisYear/standard.fragments.json",
+      "before": "아이는 한 해 동안 키도 마음도 자라는 흐름이에요.",
+      "after": "한 해 동안 아이는 몸도 마음도 한 뼘씩 자라는 시기를 보내요.",
+      "fixesCells": [
+        "lee-child-male-tiered|thisYear|health"
+      ]
+    },
+    {
+      "fragmentId": "expression_children.life.standard.40_54.006",
+      "file": "data/narrative/expression_children/life/standard.fragments.json",
+      "before": "쌓아 온 표현이 결실로 익어 가는 흐름이에요.",
+      "after": "오래 다듬어 온 표현이 한 결로 익어 들어가는 시기예요.",
+      "fixesCells": [
+        "gyeokguk-conflict-jeonggwan-vs-bigyeop-tiered|life|expression_children"
+      ]
+    }
+  ],
+  "acceptanceTests": {
+    "typecheck": "PASS",
+    "ci:no-ai-policy": "PASS (429 fixture files, 7046 sourceTier records)",
+    "test:tiered-isolation": "PASS (37/37)",
+    "test:tiered-shape": "PASS (617/617)",
+    "test:narrative-schema": "PASS (93540/93540, 165/165 cells covered)",
+    "ci:narrative-voice": "PASS (0 plain term, 0 plain tag, 0 untagged expert)",
+    "test:namespring-compat": "PASS (202/202)"
+  }
+}
