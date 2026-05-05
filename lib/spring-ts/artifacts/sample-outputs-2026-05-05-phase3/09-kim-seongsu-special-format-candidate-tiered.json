@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-05-05T07:14:22.344Z",
+  "generatedAt": "2026-05-05T07:44:07.798Z",
   "targetDate": "2026-05-05T00:00:00+09:00",
   "sampleId": "kim-seongsu-special-format-candidate-tiered",
   "description": "입력 의도: 외격 후보(화기격 계열) 고전 사례. precisionConfig 로 tieredMatrix 만 결합. 외격 판정은 엔진이 결정한다.",
@@ -1338,7 +1338,7 @@
     },
     "meta": {
       "version": "1.0.0",
-      "generatedAt": "2026-05-05T07:14:27.992Z",
+      "generatedAt": "2026-05-05T07:44:12.032Z",
       "schoolPreset": {
         "selected": "korean",
         "source": "default",
@@ -5203,7 +5203,7 @@
                 ],
                 "livingTips": [
                   "새 내용은 25분 단위로 끊어 읽고 바로 한 문제를 풀어 보세요.",
-                  "모르는 부분은 표시만 해 두지 말고 질문 문장으로 바꿔 적어 보세요."
+                  "모르는 부분은 표시만 해 두지 말고 질문 문장으로 바꿔 적어요."
                 ],
                 "cautions": [
                   "흥미가 생긴다고 공부 범위를 한꺼번에 너무 넓히지 마세요."
@@ -6173,11 +6173,11 @@
                 }
               ],
               "livingTips": [
-                "중요한 발표나 만남은 핵심 메시지를 하나로 좁혀서 준비해 보세요.",
+                "중요한 발표나 만남은 핵심 메시지를 하나로 좁혀서 준비해요.",
                 "활동이 많은 날에는 수분, 수면, 조용한 휴식을 일정에 먼저 넣어 주세요."
               ],
               "cautions": [
-                "감정이 올라온 상태에서 바로 결정하면 나중에 조정할 일이 늘어날 수 있어요."
+                "감정이 올라온 상태에서 바로 결정하면 나중에 조정할 일이 늘어나아요."
               ]
             },
             "expert": {
@@ -8542,11 +8542,11 @@
                   }
                 ],
                 "livingTips": [
-                  "올해 표현하고 싶은 주제를 세 가지로 줄이고, 한 달에 하나씩 작게 시도해 보세요.",
+                  "올해 표현하고 싶은 주제를 세 가지로 줄이고, 한 달에 하나씩 작게 시도해요.",
                   "가족이나 아이와 함께 하는 일정은 미리 정해 두고, 끝난 뒤 좋았던 점을 짧게 나누세요."
                 ],
                 "cautions": [
-                  "하고 싶은 일이 많아져도 모두 동시에 시작하면 지칠 수 있어요. 가장 중요한 것부터 하나씩 넓히세요."
+                  "할 일이 많아도 동시에 시작하면 지치니 중요한 것부터 하나씩 넓혀요."
                 ]
               },
               "expert": {
@@ -9266,12 +9266,12 @@
       },
       "meta": {
         "schemaVersion": "spring-ts.tiered-matrix.v1",
-        "generatedAt": "2026-05-05T07:14:27.992Z",
+        "generatedAt": "2026-05-05T07:44:12.032Z",
         "selectionSeed": "1958|7|11|13|0|male|2026-05-04T15:00:00.000Z",
         "templateContractVersion": "1.0.0",
         "contentSource": "authored",
-        "fragmentCount": 4066,
-        "aiGeneratedFragmentCount": 4066
+        "fragmentCount": 4077,
+        "aiGeneratedFragmentCount": 4077
       }
     }
   }

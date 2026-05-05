@@ -129,6 +129,12 @@ export function normalizeRenderedText(value: string): string {
   out = out.replace(/한 사람에게 흐름이 몰리지 않게 골고루 두고/g, '한 사람에게 부담이 몰리지 않게 골고루 나누고');
   out = out.replace(/따뜻한 거래/g, '따뜻한 주고받음');
   out = out.replace(/자녀의 흐름/g, '자녀와의 관계');
+  out = out.replace(/아이의 흐름은/g, '아이의 하루는');
+  out = out.replace(/아이의 흐름이에요/g, '아이의 하루예요');
+  out = out.replace(/아이의 흐름이/g, '아이의 하루가');
+  out = out.replace(/아이의 흐름을/g, '아이의 하루를');
+  out = out.replace(/아이의 흐름과/g, '아이의 하루와');
+  out = out.replace(/아이의 흐름에/g, '아이의 하루에');
   out = out.replace(/아이의 흐름/g, '아이의 하루');
   out = out.replace(/가까운 흐름/g, '가까운 관계');
   out = out.replace(/가족의 흐름/g, '가족 관계');
