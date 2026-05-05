@@ -903,6 +903,93 @@
         "copyrightNote": "No source prose copied; original prose.",
         "authorityTruthEligible": false
       }
+    },
+    {
+      "schemaVersion": "spring-ts.narrative-fragment.v1",
+      "fragmentId": "family.life.expert.diversity.anchor.013",
+      "axis": {
+        "category": "family",
+        "period": "life",
+        "depth": "expert"
+      },
+      "gating": {
+        "ageBand": [
+          "20-29",
+          "30-39",
+          "40-54",
+          "55-69",
+          "70+"
+        ]
+      },
+      "templateTokens": [
+        {
+          "kind": "text",
+          "value": "평생의 가족 결을 더 또렷이 짚으려면 사주 안의 주(柱)와 궁의 큰 그림이 함께 들어와요. "
+        },
+        {
+          "kind": "tag",
+          "tagId": "monthPillar",
+          "label": "월주"
+        },
+        {
+          "kind": "text",
+          "value": "에 들어오는 결이 부모·성장 환경의 결을 보여 주고, "
+        },
+        {
+          "kind": "tag",
+          "tagId": "dayPillar",
+          "label": "일주"
+        },
+        {
+          "kind": "text",
+          "value": "의 결은 자기 자리와 배우자의 결이 한 결로 만나는 자리예요.\n\n"
+        },
+        {
+          "kind": "tag",
+          "tagId": "hyeongjegung",
+          "label": "형제궁"
+        },
+        {
+          "kind": "text",
+          "value": "의 자리에 들어오는 결이 또렷한 모양이라면, 형제·동료 사이의 자리가 평생을 통해 든든한 받침이 되는 흐름이에요.\n\n"
+        },
+        {
+          "kind": "tag",
+          "tagId": "gabgihab",
+          "label": "갑기합"
+        },
+        {
+          "kind": "text",
+          "value": "처럼 가까운 자리의 합이 또렷이 모이는 시기엔 가족의 결이 부드럽게 자리 잡는 흐름이에요. "
+        },
+        {
+          "kind": "tag",
+          "tagId": "hwagae",
+          "label": "화개"
+        },
+        {
+          "kind": "text",
+          "value": "의 결이 함께 작용하면 가족 안에서 한 박자 차분한 자리가 만들어지는 흐름이고, 깊은 대화의 결이 자라는 시기예요."
+        }
+      ],
+      "tags": [
+        "monthPillar",
+        "dayPillar",
+        "hyeongjegung",
+        "gabgihab",
+        "hwagae"
+      ],
+      "aiGenerated": true,
+      "sourceTier": {
+        "tier": "T1_HYPOTHESIS",
+        "sourceType": "training_derived",
+        "sourceUrl": null,
+        "accessedAt": "2026-05-05",
+        "quoteShort": null,
+        "humanInterpretation": "Phase 5 P5-A4 family tag-diversity expansion.",
+        "copyrightNote": "No source prose copied; original.",
+        "authorityTruthEligible": false
+      }
     }
   ]
 }
