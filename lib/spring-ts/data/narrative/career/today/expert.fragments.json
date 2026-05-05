@@ -25,7 +25,7 @@
         },
         {
           "kind": "text",
-          "value": "이 어떤 모양으로 들어왔는지에 따라 방향이 잡혀요. "
+          "value": "이 어떤 모양으로 들어왔는지에 따라 방향이 잡혀요.\n\n"
         },
         {
           "kind": "tag",
@@ -43,7 +43,7 @@
         },
         {
           "kind": "text",
-          "value": "이 들어오는 자리라면 큰 결단·압박을 다루기 좋은 하루예요. 받쳐 주는 "
+          "value": "이 들어오는 자리라면 큰 결단·압박을 다루기 좋은 하루예요.\n\n받쳐 주는 "
         },
         {
           "kind": "tag",
@@ -52,14 +52,34 @@
         },
         {
           "kind": "text",
-          "value": "의 받침이 약하다면 큰 결정만 한 박자 늦춰 두는 방식이 자기다워요."
+          "value": "의 받침이 약하다면 큰 결정만 한 박자 늦춰 두는 방식이 자기다워요.\n\n"
+        },
+        {
+          "kind": "tag",
+          "tagId": "jangseongsal",
+          "label": "장성살"
+        },
+        {
+          "kind": "text",
+          "value": "의 신호와 "
+        },
+        {
+          "kind": "tag",
+          "tagId": "cheonui",
+          "label": "천의"
+        },
+        {
+          "kind": "text",
+          "value": "의 결이 함께 보이는 사주는 자기 자리에 머무는 호흡과 곁의 도움을 거절하지 않는 호흡이 둘 다 잘 어울려요."
         }
       ],
       "tags": [
         "siGungsil",
         "jeonggwan",
         "pyeongwan",
-        "jeongin"
+        "jeongin",
+        "jangseongsal",
+        "cheonui"
       ],
       "numericalEvidence": [
         {
@@ -134,7 +154,7 @@
         },
         {
           "kind": "text",
-          "value": "이 같은 결로 들어오는 오늘은 굵직한 결단을 정면으로 받아 내기 좋은 하루예요. "
+          "value": "이 같은 결로 들어오는 오늘은 굵직한 결단을 정면으로 받아 내기 좋은 하루예요.\n\n"
         },
         {
           "kind": "tag",
@@ -152,7 +172,7 @@
         },
         {
           "kind": "text",
-          "value": "이 또렷하게 자리하면 자격·자리의 폭이 한 단계 더 단단해져요. "
+          "value": "이 또렷하게 자리하면 자격·자리의 폭이 한 단계 더 단단해져요.\n\n"
         },
         {
           "kind": "tag",
@@ -161,14 +181,33 @@
         },
         {
           "kind": "text",
-          "value": "의 흐름이 인성·관성으로 이어지면 결정의 폭이 가장 깔끔해지는 모양이에요."
+          "value": "의 흐름이 인성·관성으로 이어지면 결정의 폭이 가장 깔끔해지는 모양이에요.\n\n"
+        },
+        {
+          "kind": "tag",
+          "tagId": "gwanrokgung",
+          "label": "관록궁"
+        },
+        {
+          "kind": "text",
+          "value": "의 결과 "
+        },
+        {
+          "kind": "tag",
+          "tagId": "pyeongwan",
+          "label": "편관"
+        },
+        {
+          "kind": "text",
+          "value": "의 압박이 함께 들어오는 시기에는 일을 미리 분산해 두는 호흡이 자기 페이스를 지켜 줘요."
         }
       ],
       "tags": [
         "yongshin",
         "pyeongwan",
         "jeonggwan",
-        "siGungsil"
+        "siGungsil",
+        "gwanrokgung"
       ],
       "aiGenerated": true,
       "sourceTier": {
@@ -211,7 +250,7 @@
         },
         {
           "kind": "text",
-          "value": "이 받쳐 주는 오늘은 도움받는 손과 함께 결정의 무게가 단단해지는 하루예요. "
+          "value": "이 받쳐 주는 오늘은 도움받는 손과 함께 결정의 무게가 단단해지는 하루예요.\n\n"
         },
         {
           "kind": "tag",
@@ -229,7 +268,7 @@
         },
         {
           "kind": "text",
-          "value": "의 흐름을 살펴 두면 누구의 손을 빌릴지 또렷해져요. 받쳐 주는 손이 약한 시기에는 "
+          "value": "의 흐름을 살펴 두면 누구의 손을 빌릴지 또렷해져요.\n\n받쳐 주는 손이 약한 시기에는 "
         },
         {
           "kind": "tag",
@@ -238,14 +277,34 @@
         },
         {
           "kind": "text",
-          "value": "의 큰 결정은 잠 한 번 자고 결재해도 늦지 않아요."
+          "value": "의 큰 결정은 잠 한 번 자고 결재해도 늦지 않아요.\n\n"
+        },
+        {
+          "kind": "tag",
+          "tagId": "gwanrokgung",
+          "label": "관록궁"
+        },
+        {
+          "kind": "text",
+          "value": "의 결과 "
+        },
+        {
+          "kind": "tag",
+          "tagId": "pyeongwan",
+          "label": "편관"
+        },
+        {
+          "kind": "text",
+          "value": "의 압박이 함께 들어오는 시기에는 일을 미리 분산해 두는 호흡이 자기 페이스를 지켜 줘요."
         }
       ],
       "tags": [
         "jeongin",
         "yongshin",
         "siGungsil",
-        "jeonggwan"
+        "jeonggwan",
+        "gwanrokgung",
+        "pyeongwan"
       ],
       "aiGenerated": true,
       "sourceTier": {
@@ -287,7 +346,7 @@
         },
         {
           "kind": "text",
-          "value": "이 같은 결로 들어오는 오늘은 자기 호흡을 그대로 따라가기 좋은 하루예요. "
+          "value": "이 같은 결로 들어오는 오늘은 자기 호흡을 그대로 따라가기 좋은 하루예요.\n\n"
         },
         {
           "kind": "tag",
@@ -305,13 +364,56 @@
         },
         {
           "kind": "text",
-          "value": "이 또렷한 모양이라면 결재·약속의 무게가 단단해져요. 큰 무리수보다 일관된 호흡이 강점인 하루예요."
+          "value": "이 또렷한 모양이라면 결재·약속의 무게가 단단해져요. 큰 무리수보다 일관된 호흡이 강점인 하루예요.\n\n"
+        },
+        {
+          "kind": "text",
+          "value": "직업 흐름은 "
+        },
+        {
+          "kind": "tag",
+          "tagId": "jeonggwan",
+          "label": "정관"
+        },
+        {
+          "kind": "text",
+          "value": "의 책임 자리와 "
+        },
+        {
+          "kind": "tag",
+          "tagId": "sikshin",
+          "label": "식신"
+        },
+        {
+          "kind": "text",
+          "value": "의 결과 자리가 함께 단단해질 때 한 단계 더 또렷해지는 흐름이라, 무리한 한 번보다 자기 호흡대로의 결과물 쌓기가 잘 어울려요.\n\n"
+        },
+        {
+          "kind": "tag",
+          "tagId": "gwanrokgung",
+          "label": "관록궁"
+        },
+        {
+          "kind": "text",
+          "value": "의 결과 "
+        },
+        {
+          "kind": "tag",
+          "tagId": "pyeongwan",
+          "label": "편관"
+        },
+        {
+          "kind": "text",
+          "value": "의 압박이 함께 들어오는 시기에는 일을 미리 분산해 두는 호흡이 자기 페이스를 지켜 줘요."
         }
       ],
       "tags": [
         "yongshin",
         "siGungsil",
-        "jeonggwan"
+        "jeonggwan",
+        "sikshin",
+        "gwanrokgung",
+        "pyeongwan"
       ],
       "aiGenerated": true,
       "sourceTier": {
@@ -350,7 +452,7 @@
         },
         {
           "kind": "text",
-          "value": "의 결이 어긋난 오늘은 결정의 무게가 약간 무거워질 수 있어요. "
+          "value": "의 결이 어긋난 오늘은 결정의 무게가 약간 무거워질 수 있어요.\n\n"
         },
         {
           "kind": "tag",
@@ -368,7 +470,7 @@
         },
         {
           "kind": "text",
-          "value": "의 받쳐 주는 손길을 끌어다 두면 무게가 자리·결단으로 정돈돼요. "
+          "value": "의 받쳐 주는 손길을 끌어다 두면 무게가 자리·결단으로 정돈돼요.\n\n"
         },
         {
           "kind": "tag",
@@ -377,14 +479,34 @@
         },
         {
           "kind": "text",
-          "value": "의 흐름이 어긋나는 무렵엔 큰 결정을 한 박자 늦춰 두는 방식이 자기다운 호흡이에요."
+          "value": "의 흐름이 어긋나는 무렵엔 큰 결정을 한 박자 늦춰 두는 방식이 자기다운 호흡이에요.\n\n"
+        },
+        {
+          "kind": "tag",
+          "tagId": "jangseongsal",
+          "label": "장성살"
+        },
+        {
+          "kind": "text",
+          "value": "의 신호와 "
+        },
+        {
+          "kind": "tag",
+          "tagId": "cheonui",
+          "label": "천의"
+        },
+        {
+          "kind": "text",
+          "value": "의 결이 함께 보이는 사주는 자기 자리에 머무는 호흡과 곁의 도움을 거절하지 않는 호흡이 둘 다 잘 어울려요."
         }
       ],
       "tags": [
         "yongshin",
         "pyeongwan",
         "jeongin",
-        "siGungsil"
+        "siGungsil",
+        "jangseongsal",
+        "cheonui"
       ],
       "aiGenerated": true,
       "sourceTier": {
@@ -423,7 +545,7 @@
         },
         {
           "kind": "text",
-          "value": "의 모양을 따라 자리·자격의 결정이 자연스럽게 정돈되는 하루예요. "
+          "value": "의 모양을 따라 자리·자격의 결정이 자연스럽게 정돈되는 하루예요.\n\n"
         },
         {
           "kind": "tag",
@@ -441,7 +563,7 @@
         },
         {
           "kind": "text",
-          "value": "의 받쳐 주는 손길을 함께 살펴 두면 결정의 깊이가 한 단계 더 자라요. "
+          "value": "의 받쳐 주는 손길을 함께 살펴 두면 결정의 깊이가 한 단계 더 자라요.\n\n"
         },
         {
           "kind": "tag",
@@ -450,14 +572,34 @@
         },
         {
           "kind": "text",
-          "value": "의 흐름이 정관과 같은 자리라면 자리에서의 작은 인정이 한 번 더 또렷해지는 모양이에요."
+          "value": "의 흐름이 정관과 같은 자리라면 자리에서의 작은 인정이 한 번 더 또렷해지는 모양이에요.\n\n"
+        },
+        {
+          "kind": "tag",
+          "tagId": "gwanrokgung",
+          "label": "관록궁"
+        },
+        {
+          "kind": "text",
+          "value": "의 결과 "
+        },
+        {
+          "kind": "tag",
+          "tagId": "pyeongwan",
+          "label": "편관"
+        },
+        {
+          "kind": "text",
+          "value": "의 압박이 함께 들어오는 시기에는 일을 미리 분산해 두는 호흡이 자기 페이스를 지켜 줘요."
         }
       ],
       "tags": [
         "jeonggwangyeok",
         "jeonggwan",
         "jeongin",
-        "siGungsil"
+        "siGungsil",
+        "gwanrokgung",
+        "pyeongwan"
       ],
       "aiGenerated": true,
       "sourceTier": {
@@ -496,7 +638,7 @@
         },
         {
           "kind": "text",
-          "value": "의 모양을 따라 큰 결단·외부 무대의 자리에 강해지는 하루예요. "
+          "value": "의 모양을 따라 큰 결단·외부 무대의 자리에 강해지는 하루예요.\n\n"
         },
         {
           "kind": "tag",
@@ -514,7 +656,7 @@
         },
         {
           "kind": "text",
-          "value": "의 받쳐 주는 손길을 미리 끌어다 두면 압박이 자리·결단으로 다듬어져요. "
+          "value": "의 받쳐 주는 손길을 미리 끌어다 두면 압박이 자리·결단으로 다듬어져요.\n\n"
         },
         {
           "kind": "tag",
@@ -523,14 +665,38 @@
         },
         {
           "kind": "text",
-          "value": "의 흐름이 인성과 함께 들어오는 시기엔 큰 자리의 분기점이 한 번 더 또렷해지는 모양이에요."
+          "value": "의 흐름이 인성과 함께 들어오는 시기엔 큰 자리의 분기점이 한 번 더 또렷해지는 모양이에요.\n\n"
+        },
+        {
+          "kind": "text",
+          "value": "직업 흐름은 "
+        },
+        {
+          "kind": "tag",
+          "tagId": "jeonggwan",
+          "label": "정관"
+        },
+        {
+          "kind": "text",
+          "value": "의 책임 자리와 "
+        },
+        {
+          "kind": "tag",
+          "tagId": "sikshin",
+          "label": "식신"
+        },
+        {
+          "kind": "text",
+          "value": "의 결과 자리가 함께 단단해질 때 한 단계 더 또렷해지는 흐름이라, 무리한 한 번보다 자기 호흡대로의 결과물 쌓기가 잘 어울려요."
         }
       ],
       "tags": [
         "pyeongwangyeok",
         "pyeongwan",
         "jeongin",
-        "siGungsil"
+        "siGungsil",
+        "jeonggwan",
+        "sikshin"
       ],
       "aiGenerated": true,
       "sourceTier": {
@@ -571,7 +737,7 @@
         },
         {
           "kind": "text",
-          "value": "의 자리가 일과 책임을 통해 자기 호흡으로 들어오는 하루예요. "
+          "value": "의 자리가 일과 책임을 통해 자기 호흡으로 들어오는 하루예요.\n\n"
         },
         {
           "kind": "tag",
@@ -589,7 +755,7 @@
         },
         {
           "kind": "text",
-          "value": "이 강해지는 무렵이라면 큰 결단을 매듭짓기 좋아요. "
+          "value": "이 강해지는 무렵이라면 큰 결단을 매듭짓기 좋아요.\n\n"
         },
         {
           "kind": "tag",
@@ -598,14 +764,34 @@
         },
         {
           "kind": "text",
-          "value": "의 받쳐 주는 손길을 함께 챙겨 두면 자기 자리의 폭이 한 단계 더 단단해지는 모양이에요."
+          "value": "의 받쳐 주는 손길을 함께 챙겨 두면 자기 자리의 폭이 한 단계 더 단단해지는 모양이에요.\n\n"
+        },
+        {
+          "kind": "tag",
+          "tagId": "gyeokgukYongshin",
+          "label": "격국용신"
+        },
+        {
+          "kind": "text",
+          "value": "의 결과 "
+        },
+        {
+          "kind": "tag",
+          "tagId": "gyeokgukFit",
+          "label": "격국적합도"
+        },
+        {
+          "kind": "text",
+          "value": "의 평균이 또렷한 사주는 자기 격에 맞는 직업 길이 한 결로 모이는 자리가 자주 등장해요."
         }
       ],
       "tags": [
         "jeonggwan",
         "siGungsil",
         "pyeongwan",
-        "jeongin"
+        "jeongin",
+        "gyeokgukYongshin",
+        "gyeokgukFit"
       ],
       "aiGenerated": true,
       "sourceTier": {

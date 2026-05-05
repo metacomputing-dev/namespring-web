@@ -7,20 +7,60 @@
     {
       "schemaVersion": "spring-ts.narrative-fragment.v1",
       "fragmentId": "career.life.expert.wildcard.001",
-      "axis": { "category": "career", "period": "life", "depth": "expert" },
+      "axis": {
+        "category": "career",
+        "period": "life",
+        "depth": "expert"
+      },
       "gating": {},
       "templateTokens": [
-        { "kind": "text", "value": "인생 전체의 직업 흐름은 " },
-        { "kind": "tag", "tagId": "jeonggwan", "label": "정관" },
-        { "kind": "text", "value": "과 " },
-        { "kind": "tag", "tagId": "pyeongwan", "label": "편관" },
-        { "kind": "text", "value": "이 어떤 모양으로 자리를 잡았는지에 따라 큰 줄기가 정해져요. " },
-        { "kind": "tag", "tagId": "jeongin", "label": "정인" },
-        { "kind": "text", "value": "이 옆에서 받쳐 주면 책임이 자리·자격으로 자라고, 받쳐 주는 손길이 약하면 부담만 무거워질 수 있어요. " },
-        { "kind": "tag", "tagId": "daewoonGungsil", "label": "대운궁실" },
-        { "kind": "text", "value": "에서 어떤 호흡이 들어오는 시기인지를 함께 살피면 자리의 폭과 시기가 더 또렷해져요. 격국이 정해진 한 줄로 보이는 사주는 길게 그 줄기를 따라가는 게 가장 자기다워지는 길이에요." }
+        {
+          "kind": "text",
+          "value": "인생 전체의 직업 흐름은 "
+        },
+        {
+          "kind": "tag",
+          "tagId": "jeonggwan",
+          "label": "정관"
+        },
+        {
+          "kind": "text",
+          "value": "과 "
+        },
+        {
+          "kind": "tag",
+          "tagId": "pyeongwan",
+          "label": "편관"
+        },
+        {
+          "kind": "text",
+          "value": "이 어떤 모양으로 자리를 잡았는지에 따라 큰 줄기가 정해져요.\n\n"
+        },
+        {
+          "kind": "tag",
+          "tagId": "jeongin",
+          "label": "정인"
+        },
+        {
+          "kind": "text",
+          "value": "이 옆에서 받쳐 주면 책임이 자리·자격으로 자라고, 받쳐 주는 손길이 약하면 부담만 무거워질 수 있어요.\n\n"
+        },
+        {
+          "kind": "tag",
+          "tagId": "daewoonGungsil",
+          "label": "대운궁실"
+        },
+        {
+          "kind": "text",
+          "value": "에서 어떤 호흡이 들어오는 시기인지를 함께 살피면 자리의 폭과 시기가 더 또렷해져요.\n\n격국이 정해진 한 줄로 보이는 사주는 길게 그 줄기를 따라가는 게 가장 자기다워지는 길이에요."
+        }
       ],
-      "tags": ["jeonggwan", "pyeongwan", "jeongin", "daewoonGungsil"],
+      "tags": [
+        "jeonggwan",
+        "pyeongwan",
+        "jeongin",
+        "daewoonGungsil"
+      ],
       "numericalEvidence": [
         {
           "label": "현재 나이",
@@ -114,169 +154,650 @@
         }
       ],
       "aiGenerated": true,
-      "sourceTier": { "tier": "T1_HYPOTHESIS", "sourceType": "training_derived", "sourceUrl": null, "accessedAt": "2026-05-02", "quoteShort": null, "humanInterpretation": "Phase 2 agent-6 (career) expert life wildcard. Display-only narrative.", "copyrightNote": "No source prose copied; original.", "authorityTruthEligible": false }
+      "sourceTier": {
+        "tier": "T1_HYPOTHESIS",
+        "sourceType": "training_derived",
+        "sourceUrl": null,
+        "accessedAt": "2026-05-02",
+        "quoteShort": null,
+        "humanInterpretation": "Phase 2 agent-6 (career) expert life wildcard. Display-only narrative.",
+        "copyrightNote": "No source prose copied; original.",
+        "authorityTruthEligible": false
+      }
     },
     {
       "schemaVersion": "spring-ts.narrative-fragment.v1",
       "fragmentId": "career.life.expert.jeonggwangyeok.002",
-      "axis": { "category": "career", "period": "life", "depth": "expert" },
-      "gating": { "gyeokguk": ["jeonggwangyeok"] },
+      "axis": {
+        "category": "career",
+        "period": "life",
+        "depth": "expert"
+      },
+      "gating": {
+        "gyeokguk": [
+          "jeonggwangyeok"
+        ]
+      },
       "templateTokens": [
-        { "kind": "text", "value": "인생 전체의 직업운은 " },
-        { "kind": "tag", "tagId": "jeonggwangyeok", "label": "정관격" },
-        { "kind": "text", "value": "의 줄기를 따라 '바른 책임'을 받아 가는 모양이에요. " },
-        { "kind": "tag", "tagId": "jeonggwan", "label": "정관" },
-        { "kind": "text", "value": "이 중심에 자리한 만큼 자격·자리·신뢰가 자라는 길에 가깝고, " },
-        { "kind": "tag", "tagId": "jeongin", "label": "정인" },
-        { "kind": "text", "value": "이 옆에서 받쳐 주면 자리에 자격이 더해져 호흡이 한층 단단해져요. 외부 압박이 강해지는 시기에는 받쳐 주는 손길을 한 번 더 점검해 두는 방식이 좋고, " },
-        { "kind": "tag", "tagId": "daewoonGungsil", "label": "대운궁실" },
-        { "kind": "text", "value": "에서 정관·정인이 함께 움직이는 시기에 큰 자리가 한 번 더 열리는 한 해예요. 자리에 머물수록 호흡이 정돈되는 사주예요." }
+        {
+          "kind": "text",
+          "value": "인생 전체의 직업운은 "
+        },
+        {
+          "kind": "tag",
+          "tagId": "jeonggwangyeok",
+          "label": "정관격"
+        },
+        {
+          "kind": "text",
+          "value": "의 줄기를 따라 '바른 책임'을 받아 가는 모양이에요.\n\n"
+        },
+        {
+          "kind": "tag",
+          "tagId": "jeonggwan",
+          "label": "정관"
+        },
+        {
+          "kind": "text",
+          "value": "이 중심에 자리한 만큼 자격·자리·신뢰가 자라는 길에 가깝고, "
+        },
+        {
+          "kind": "tag",
+          "tagId": "jeongin",
+          "label": "정인"
+        },
+        {
+          "kind": "text",
+          "value": "이 옆에서 받쳐 주면 자리에 자격이 더해져 호흡이 한층 단단해져요.\n\n외부 압박이 강해지는 시기에는 받쳐 주는 손길을 한 번 더 점검해 두는 방식이 좋고, "
+        },
+        {
+          "kind": "tag",
+          "tagId": "daewoonGungsil",
+          "label": "대운궁실"
+        },
+        {
+          "kind": "text",
+          "value": "에서 정관·정인이 함께 움직이는 시기에 큰 자리가 한 번 더 열리는 한 해예요. 자리에 머물수록 호흡이 정돈되는 사주예요.\n\n"
+        },
+        {
+          "kind": "text",
+          "value": "직업 흐름은 "
+        },
+        {
+          "kind": "tag",
+          "tagId": "jeonggwan",
+          "label": "정관"
+        },
+        {
+          "kind": "text",
+          "value": "의 책임 자리와 "
+        },
+        {
+          "kind": "tag",
+          "tagId": "sikshin",
+          "label": "식신"
+        },
+        {
+          "kind": "text",
+          "value": "의 결과 자리가 함께 단단해질 때 한 단계 더 또렷해지는 흐름이라, 무리한 한 번보다 자기 호흡대로의 결과물 쌓기가 잘 어울려요."
+        }
       ],
-      "tags": ["jeonggwangyeok", "jeonggwan", "jeongin", "daewoonGungsil"],
+      "tags": [
+        "jeonggwangyeok",
+        "jeonggwan",
+        "jeongin",
+        "daewoonGungsil",
+        "sikshin"
+      ],
       "aiGenerated": true,
-      "sourceTier": { "tier": "T1_HYPOTHESIS", "sourceType": "training_derived", "sourceUrl": null, "accessedAt": "2026-05-02", "quoteShort": null, "humanInterpretation": "Phase 2 agent-6 (career) expert life: 정관격. Display-only narrative.", "copyrightNote": "No source prose copied; original.", "authorityTruthEligible": false }
+      "sourceTier": {
+        "tier": "T1_HYPOTHESIS",
+        "sourceType": "training_derived",
+        "sourceUrl": null,
+        "accessedAt": "2026-05-02",
+        "quoteShort": null,
+        "humanInterpretation": "Phase 2 agent-6 (career) expert life: 정관격. Display-only narrative.",
+        "copyrightNote": "No source prose copied; original.",
+        "authorityTruthEligible": false
+      }
     },
     {
       "schemaVersion": "spring-ts.narrative-fragment.v1",
       "fragmentId": "career.life.expert.pyeongwangyeok.003",
-      "axis": { "category": "career", "period": "life", "depth": "expert" },
-      "gating": { "gyeokguk": ["pyeongwangyeok"] },
+      "axis": {
+        "category": "career",
+        "period": "life",
+        "depth": "expert"
+      },
+      "gating": {
+        "gyeokguk": [
+          "pyeongwangyeok"
+        ]
+      },
       "templateTokens": [
-        { "kind": "text", "value": "인생 전체의 직업운은 " },
-        { "kind": "tag", "tagId": "pyeongwangyeok", "label": "편관격" },
-        { "kind": "text", "value": "의 줄기를 따라 큰 압박을 자기 무대로 바꿔 내는 모양이에요. " },
-        { "kind": "tag", "tagId": "pyeongwan", "label": "편관" },
-        { "kind": "text", "value": "이 중심에 자리한 만큼 결단·도전·외부 무대를 다루는 자리에 강한 사주이고, " },
-        { "kind": "tag", "tagId": "jeongin", "label": "정인" },
-        { "kind": "text", "value": "이 받쳐 주면 압박이 자리·결단으로 정돈돼요. 받쳐 주는 손길이 약한 시기에는 응원군과 휴식의 자리를 의도적으로 잡아 두면 호흡이 흔들림 없이 이어져요. " },
-        { "kind": "tag", "tagId": "daewoonGungsil", "label": "대운궁실" },
-        { "kind": "text", "value": "에서 편관과 인성이 함께 들어오는 시기가 큰 자리의 분기점이 되는 한 해예요. 무게를 다룬 사람으로 길게 신뢰가 쌓여요." }
+        {
+          "kind": "text",
+          "value": "인생 전체의 직업운은 "
+        },
+        {
+          "kind": "tag",
+          "tagId": "pyeongwangyeok",
+          "label": "편관격"
+        },
+        {
+          "kind": "text",
+          "value": "의 줄기를 따라 큰 압박을 자기 무대로 바꿔 내는 모양이에요.\n\n"
+        },
+        {
+          "kind": "tag",
+          "tagId": "pyeongwan",
+          "label": "편관"
+        },
+        {
+          "kind": "text",
+          "value": "이 중심에 자리한 만큼 결단·도전·외부 무대를 다루는 자리에 강한 사주이고, "
+        },
+        {
+          "kind": "tag",
+          "tagId": "jeongin",
+          "label": "정인"
+        },
+        {
+          "kind": "text",
+          "value": "이 받쳐 주면 압박이 자리·결단으로 정돈돼요.\n\n받쳐 주는 손길이 약한 시기에는 응원군과 휴식의 자리를 의도적으로 잡아 두면 호흡이 흔들림 없이 이어져요.\n\n"
+        },
+        {
+          "kind": "tag",
+          "tagId": "daewoonGungsil",
+          "label": "대운궁실"
+        },
+        {
+          "kind": "text",
+          "value": "에서 편관과 인성이 함께 들어오는 시기가 큰 자리의 분기점이 되는 한 해예요. 무게를 다룬 사람으로 길게 신뢰가 쌓여요."
+        }
       ],
-      "tags": ["pyeongwangyeok", "pyeongwan", "jeongin", "daewoonGungsil"],
+      "tags": [
+        "pyeongwangyeok",
+        "pyeongwan",
+        "jeongin",
+        "daewoonGungsil"
+      ],
       "aiGenerated": true,
-      "sourceTier": { "tier": "T1_HYPOTHESIS", "sourceType": "training_derived", "sourceUrl": null, "accessedAt": "2026-05-02", "quoteShort": null, "humanInterpretation": "Phase 2 agent-6 (career) expert life: 편관격. Display-only narrative.", "copyrightNote": "No source prose copied; original.", "authorityTruthEligible": false }
+      "sourceTier": {
+        "tier": "T1_HYPOTHESIS",
+        "sourceType": "training_derived",
+        "sourceUrl": null,
+        "accessedAt": "2026-05-02",
+        "quoteShort": null,
+        "humanInterpretation": "Phase 2 agent-6 (career) expert life: 편관격. Display-only narrative.",
+        "copyrightNote": "No source prose copied; original.",
+        "authorityTruthEligible": false
+      }
     },
     {
       "schemaVersion": "spring-ts.narrative-fragment.v1",
       "fragmentId": "career.life.expert.strong.aligned.004",
-      "axis": { "category": "career", "period": "life", "depth": "expert" },
-      "gating": { "dayMasterStrength": ["STRONG", "EXTREME_STRONG"], "yongshinAlignment": ["aligned"] },
+      "axis": {
+        "category": "career",
+        "period": "life",
+        "depth": "expert"
+      },
+      "gating": {
+        "dayMasterStrength": [
+          "STRONG",
+          "EXTREME_STRONG"
+        ],
+        "yongshinAlignment": [
+          "aligned"
+        ]
+      },
       "templateTokens": [
-        { "kind": "text", "value": "어깨가 단단한 사주에 " },
-        { "kind": "tag", "tagId": "yongshin", "label": "용신" },
-        { "kind": "text", "value": "이 같은 결로 들어오는 사주는 큰 자리를 정면으로 받아 내는 직업운을 가져요. " },
-        { "kind": "tag", "tagId": "jeonggwan", "label": "정관" },
-        { "kind": "text", "value": "이 또렷할수록 자격·자리가 일직선으로 자라고, " },
-        { "kind": "tag", "tagId": "pyeongwan", "label": "편관" },
-        { "kind": "text", "value": "이 강한 시기에는 큰 결단·확장의 자리가 한 번씩 열리는 모양이에요. 단단한 어깨일수록 책임의 양을 스스로 조절하는 시스템이 가장 큰 자산이라, 일정·사람·결정의 흐름을 글로 정리해 두는 게 좋아요. " },
-        { "kind": "tag", "tagId": "daewoonGungsil", "label": "대운궁실" },
-        { "kind": "text", "value": "에서 인성이 들어오는 시기에 큰 자리의 폭이 한 번 더 깊어지는 한 해예요." }
+        {
+          "kind": "text",
+          "value": "어깨가 단단한 사주에 "
+        },
+        {
+          "kind": "tag",
+          "tagId": "yongshin",
+          "label": "용신"
+        },
+        {
+          "kind": "text",
+          "value": "이 같은 결로 들어오는 사주는 큰 자리를 정면으로 받아 내는 직업운을 가져요.\n\n"
+        },
+        {
+          "kind": "tag",
+          "tagId": "jeonggwan",
+          "label": "정관"
+        },
+        {
+          "kind": "text",
+          "value": "이 또렷할수록 자격·자리가 일직선으로 자라고, "
+        },
+        {
+          "kind": "tag",
+          "tagId": "pyeongwan",
+          "label": "편관"
+        },
+        {
+          "kind": "text",
+          "value": "이 강한 시기에는 큰 결단·확장의 자리가 한 번씩 열리는 모양이에요.\n\n단단한 어깨일수록 책임의 양을 스스로 조절하는 시스템이 가장 큰 자산이라, 일정·사람·결정의 흐름을 글로 정리해 두는 게 좋아요.\n\n"
+        },
+        {
+          "kind": "tag",
+          "tagId": "daewoonGungsil",
+          "label": "대운궁실"
+        },
+        {
+          "kind": "text",
+          "value": "에서 인성이 들어오는 시기에 큰 자리의 폭이 한 번 더 깊어지는 한 해예요."
+        }
       ],
-      "tags": ["yongshin", "jeonggwan", "pyeongwan", "daewoonGungsil"],
+      "tags": [
+        "yongshin",
+        "jeonggwan",
+        "pyeongwan",
+        "daewoonGungsil"
+      ],
       "aiGenerated": true,
-      "sourceTier": { "tier": "T1_HYPOTHESIS", "sourceType": "training_derived", "sourceUrl": null, "accessedAt": "2026-05-02", "quoteShort": null, "humanInterpretation": "Phase 2 agent-6 (career) expert life: strong+aligned. Display-only narrative.", "copyrightNote": "No source prose copied; original.", "authorityTruthEligible": false }
+      "sourceTier": {
+        "tier": "T1_HYPOTHESIS",
+        "sourceType": "training_derived",
+        "sourceUrl": null,
+        "accessedAt": "2026-05-02",
+        "quoteShort": null,
+        "humanInterpretation": "Phase 2 agent-6 (career) expert life: strong+aligned. Display-only narrative.",
+        "copyrightNote": "No source prose copied; original.",
+        "authorityTruthEligible": false
+      }
     },
     {
       "schemaVersion": "spring-ts.narrative-fragment.v1",
       "fragmentId": "career.life.expert.weak.aligned.005",
-      "axis": { "category": "career", "period": "life", "depth": "expert" },
-      "gating": { "dayMasterStrength": ["WEAK", "EXTREME_WEAK"], "yongshinAlignment": ["aligned"] },
+      "axis": {
+        "category": "career",
+        "period": "life",
+        "depth": "expert"
+      },
+      "gating": {
+        "dayMasterStrength": [
+          "WEAK",
+          "EXTREME_WEAK"
+        ],
+        "yongshinAlignment": [
+          "aligned"
+        ]
+      },
       "templateTokens": [
-        { "kind": "text", "value": "어깨가 가벼운 사주에 " },
-        { "kind": "tag", "tagId": "jeongin", "label": "정인" },
-        { "kind": "text", "value": "이 받쳐 주는 사주는 도움받는 손과 함께 자기 자리를 만들어 가는 직업운을 가져요. " },
-        { "kind": "tag", "tagId": "yongshin", "label": "용신" },
-        { "kind": "text", "value": "이 인성·비겁의 결로 자리잡으면 길잡이의 도움이 결정적인 자리가 많아져요. " },
-        { "kind": "tag", "tagId": "jeonggwan", "label": "정관" },
-        { "kind": "text", "value": "이 들어오는 시기에는 자리·자격이 함께 자라지만, 받쳐 주는 손길이 부족한 채 책임만 커지면 부담이 무거워지기에 응원군의 자리를 미리 잡아 두면 좋아요. " },
-        { "kind": "tag", "tagId": "daewoonGungsil", "label": "대운궁실" },
-        { "kind": "text", "value": "에서 인성이 함께 들어오는 시기가 자리의 분기점이 되는 한 해예요." }
+        {
+          "kind": "text",
+          "value": "어깨가 가벼운 사주에 "
+        },
+        {
+          "kind": "tag",
+          "tagId": "jeongin",
+          "label": "정인"
+        },
+        {
+          "kind": "text",
+          "value": "이 받쳐 주는 사주는 도움받는 손과 함께 자기 자리를 만들어 가는 직업운을 가져요.\n\n"
+        },
+        {
+          "kind": "tag",
+          "tagId": "yongshin",
+          "label": "용신"
+        },
+        {
+          "kind": "text",
+          "value": "이 인성·비겁의 결로 자리잡으면 길잡이의 도움이 결정적인 자리가 많아져요.\n\n"
+        },
+        {
+          "kind": "tag",
+          "tagId": "jeonggwan",
+          "label": "정관"
+        },
+        {
+          "kind": "text",
+          "value": "이 들어오는 시기에는 자리·자격이 함께 자라지만, 받쳐 주는 손길이 부족한 채 책임만 커지면 부담이 무거워지기에 응원군의 자리를 미리 잡아 두면 좋아요.\n\n"
+        },
+        {
+          "kind": "tag",
+          "tagId": "daewoonGungsil",
+          "label": "대운궁실"
+        },
+        {
+          "kind": "text",
+          "value": "에서 인성이 함께 들어오는 시기가 자리의 분기점이 되는 한 해예요."
+        }
       ],
-      "tags": ["jeongin", "yongshin", "jeonggwan", "daewoonGungsil"],
+      "tags": [
+        "jeongin",
+        "yongshin",
+        "jeonggwan",
+        "daewoonGungsil"
+      ],
       "aiGenerated": true,
-      "sourceTier": { "tier": "T1_HYPOTHESIS", "sourceType": "training_derived", "sourceUrl": null, "accessedAt": "2026-05-02", "quoteShort": null, "humanInterpretation": "Phase 2 agent-6 (career) expert life: weak+aligned. Display-only narrative.", "copyrightNote": "No source prose copied; original.", "authorityTruthEligible": false }
+      "sourceTier": {
+        "tier": "T1_HYPOTHESIS",
+        "sourceType": "training_derived",
+        "sourceUrl": null,
+        "accessedAt": "2026-05-02",
+        "quoteShort": null,
+        "humanInterpretation": "Phase 2 agent-6 (career) expert life: weak+aligned. Display-only narrative.",
+        "copyrightNote": "No source prose copied; original.",
+        "authorityTruthEligible": false
+      }
     },
     {
       "schemaVersion": "spring-ts.narrative-fragment.v1",
       "fragmentId": "career.life.expert.balanced.aligned.006",
-      "axis": { "category": "career", "period": "life", "depth": "expert" },
-      "gating": { "dayMasterStrength": ["BALANCED"], "yongshinAlignment": ["aligned"] },
+      "axis": {
+        "category": "career",
+        "period": "life",
+        "depth": "expert"
+      },
+      "gating": {
+        "dayMasterStrength": [
+          "BALANCED"
+        ],
+        "yongshinAlignment": [
+          "aligned"
+        ]
+      },
       "templateTokens": [
-        { "kind": "text", "value": "균형이 잘 잡힌 사주에 " },
-        { "kind": "tag", "tagId": "yongshin", "label": "용신" },
-        { "kind": "text", "value": "이 같은 결로 들어오는 사주는 한 자리에서 길게 자기 색을 키워 가는 직업운이에요. " },
-        { "kind": "tag", "tagId": "jeonggwan", "label": "정관" },
-        { "kind": "text", "value": "이 또렷한 시기에 자리·자격이 한 단계씩 자라고, " },
-        { "kind": "tag", "tagId": "jeongin", "label": "정인" },
-        { "kind": "text", "value": "이 옆에서 받쳐 주는 시기에 자기 호흡의 깊이가 더해져요. 큰 무리수보다 일관된 페이스가 강점이라 같은 분야에서 5~10년 단위로 깊이를 더하면 후반의 결실이 가장 풍요로워요. " },
-        { "kind": "tag", "tagId": "daewoonGungsil", "label": "대운궁실" },
-        { "kind": "text", "value": "의 흐름을 함께 살피면 자리의 시점이 또렷해져요." }
+        {
+          "kind": "text",
+          "value": "균형이 잘 잡힌 사주에 "
+        },
+        {
+          "kind": "tag",
+          "tagId": "yongshin",
+          "label": "용신"
+        },
+        {
+          "kind": "text",
+          "value": "이 같은 결로 들어오는 사주는 한 자리에서 길게 자기 색을 키워 가는 직업운이에요.\n\n"
+        },
+        {
+          "kind": "tag",
+          "tagId": "jeonggwan",
+          "label": "정관"
+        },
+        {
+          "kind": "text",
+          "value": "이 또렷한 시기에 자리·자격이 한 단계씩 자라고, "
+        },
+        {
+          "kind": "tag",
+          "tagId": "jeongin",
+          "label": "정인"
+        },
+        {
+          "kind": "text",
+          "value": "이 옆에서 받쳐 주는 시기에 자기 호흡의 깊이가 더해져요.\n\n큰 무리수보다 일관된 페이스가 강점이라 같은 분야에서 5~10년 단위로 깊이를 더하면 후반의 결실이 가장 풍요로워요.\n\n"
+        },
+        {
+          "kind": "tag",
+          "tagId": "daewoonGungsil",
+          "label": "대운궁실"
+        },
+        {
+          "kind": "text",
+          "value": "의 흐름을 함께 살피면 자리의 시점이 또렷해져요."
+        }
       ],
-      "tags": ["yongshin", "jeonggwan", "jeongin", "daewoonGungsil"],
+      "tags": [
+        "yongshin",
+        "jeonggwan",
+        "jeongin",
+        "daewoonGungsil"
+      ],
       "aiGenerated": true,
-      "sourceTier": { "tier": "T1_HYPOTHESIS", "sourceType": "training_derived", "sourceUrl": null, "accessedAt": "2026-05-02", "quoteShort": null, "humanInterpretation": "Phase 2 agent-6 (career) expert life: balanced+aligned. Display-only narrative.", "copyrightNote": "No source prose copied; original.", "authorityTruthEligible": false }
+      "sourceTier": {
+        "tier": "T1_HYPOTHESIS",
+        "sourceType": "training_derived",
+        "sourceUrl": null,
+        "accessedAt": "2026-05-02",
+        "quoteShort": null,
+        "humanInterpretation": "Phase 2 agent-6 (career) expert life: balanced+aligned. Display-only narrative.",
+        "copyrightNote": "No source prose copied; original.",
+        "authorityTruthEligible": false
+      }
     },
     {
       "schemaVersion": "spring-ts.narrative-fragment.v1",
       "fragmentId": "career.life.expert.conflicting.007",
-      "axis": { "category": "career", "period": "life", "depth": "expert" },
-      "gating": { "yongshinAlignment": ["conflicting"] },
+      "axis": {
+        "category": "career",
+        "period": "life",
+        "depth": "expert"
+      },
+      "gating": {
+        "yongshinAlignment": [
+          "conflicting"
+        ]
+      },
       "templateTokens": [
-        { "kind": "text", "value": "사주의 균형과 " },
-        { "kind": "tag", "tagId": "yongshin", "label": "용신" },
-        { "kind": "text", "value": "의 줄기가 어긋난 시기가 한 번씩 들어오는 사주는, 자리에 앉을 때마다 풀어야 할 과제가 함께 들어와요. " },
-        { "kind": "tag", "tagId": "pyeongwan", "label": "편관" },
-        { "kind": "text", "value": "이 강해지는 시기에 부담이 한 번씩 무거워지지만, " },
-        { "kind": "tag", "tagId": "jeongin", "label": "정인" },
-        { "kind": "text", "value": "의 받쳐 주는 손길이 들어오는 시기에 부담이 자리·결단으로 다듬어져요. 어긋남을 다룬 사람이 결국 큰 신뢰의 자산이 되는 모양이라, 부담의 시기엔 시스템·응원군의 자리를 미리 잡아 두면 좋아요. " },
-        { "kind": "tag", "tagId": "daewoonGungsil", "label": "대운궁실" },
-        { "kind": "text", "value": "에서 인성이 함께 들어올 때가 자리의 분기점이에요." }
+        {
+          "kind": "text",
+          "value": "사주의 균형과 "
+        },
+        {
+          "kind": "tag",
+          "tagId": "yongshin",
+          "label": "용신"
+        },
+        {
+          "kind": "text",
+          "value": "의 줄기가 어긋난 시기가 한 번씩 들어오는 사주는, 자리에 앉을 때마다 풀어야 할 과제가 함께 들어와요.\n\n"
+        },
+        {
+          "kind": "tag",
+          "tagId": "pyeongwan",
+          "label": "편관"
+        },
+        {
+          "kind": "text",
+          "value": "이 강해지는 시기에 부담이 한 번씩 무거워지지만, "
+        },
+        {
+          "kind": "tag",
+          "tagId": "jeongin",
+          "label": "정인"
+        },
+        {
+          "kind": "text",
+          "value": "의 받쳐 주는 손길이 들어오는 시기에 부담이 자리·결단으로 다듬어져요.\n\n어긋남을 다룬 사람이 결국 큰 신뢰의 자산이 되는 모양이라, 부담의 시기엔 시스템·응원군의 자리를 미리 잡아 두면 좋아요.\n\n"
+        },
+        {
+          "kind": "tag",
+          "tagId": "daewoonGungsil",
+          "label": "대운궁실"
+        },
+        {
+          "kind": "text",
+          "value": "에서 인성이 함께 들어올 때가 자리의 분기점이에요."
+        }
       ],
-      "tags": ["yongshin", "pyeongwan", "jeongin", "daewoonGungsil"],
+      "tags": [
+        "yongshin",
+        "pyeongwan",
+        "jeongin",
+        "daewoonGungsil"
+      ],
       "aiGenerated": true,
-      "sourceTier": { "tier": "T1_HYPOTHESIS", "sourceType": "training_derived", "sourceUrl": null, "accessedAt": "2026-05-02", "quoteShort": null, "humanInterpretation": "Phase 2 agent-6 (career) expert life: conflicting alignment. Display-only narrative.", "copyrightNote": "No source prose copied; original.", "authorityTruthEligible": false }
+      "sourceTier": {
+        "tier": "T1_HYPOTHESIS",
+        "sourceType": "training_derived",
+        "sourceUrl": null,
+        "accessedAt": "2026-05-02",
+        "quoteShort": null,
+        "humanInterpretation": "Phase 2 agent-6 (career) expert life: conflicting alignment. Display-only narrative.",
+        "copyrightNote": "No source prose copied; original.",
+        "authorityTruthEligible": false
+      }
     },
     {
       "schemaVersion": "spring-ts.narrative-fragment.v1",
       "fragmentId": "career.life.expert.age30plus.008",
-      "axis": { "category": "career", "period": "life", "depth": "expert" },
-      "gating": { "ageBand": ["30-39", "40-54", "55-69"] },
+      "axis": {
+        "category": "career",
+        "period": "life",
+        "depth": "expert"
+      },
+      "gating": {
+        "ageBand": [
+          "30-39",
+          "40-54",
+          "55-69"
+        ]
+      },
       "templateTokens": [
-        { "kind": "text", "value": "장년기의 직업운은 그동안 쌓인 " },
-        { "kind": "tag", "tagId": "jeonggwan", "label": "정관" },
-        { "kind": "text", "value": "의 자리가 어떻게 누적됐는지에 따라 자리의 폭이 정해져요. 한 자리에서 받은 신뢰가 다음 자리의 디딤돌이 되는 사주라 작은 자리·작은 책임을 가볍게 넘기지 않으면 좋아요. " },
-        { "kind": "tag", "tagId": "pyeongwan", "label": "편관" },
-        { "kind": "text", "value": "이 강해지는 시기엔 큰 결단의 무대가 열리지만, " },
-        { "kind": "tag", "tagId": "jeongin", "label": "정인" },
-        { "kind": "text", "value": "이 받쳐 주는 손길을 함께 챙겨 두면 부담이 자산으로 바뀌어요. " },
-        { "kind": "tag", "tagId": "daewoonGungsil", "label": "대운궁실" },
-        { "kind": "text", "value": "에서 인성·관성이 함께 들어오는 시기에 큰 자리의 폭이 가장 깊어지는 한 해예요." }
+        {
+          "kind": "text",
+          "value": "장년기의 직업운은 그동안 쌓인 "
+        },
+        {
+          "kind": "tag",
+          "tagId": "jeonggwan",
+          "label": "정관"
+        },
+        {
+          "kind": "text",
+          "value": "의 자리가 어떻게 누적됐는지에 따라 자리의 폭이 정해져요.\n\n한 자리에서 받은 신뢰가 다음 자리의 디딤돌이 되는 사주라 작은 자리·작은 책임을 가볍게 넘기지 않으면 좋아요.\n\n"
+        },
+        {
+          "kind": "tag",
+          "tagId": "pyeongwan",
+          "label": "편관"
+        },
+        {
+          "kind": "text",
+          "value": "이 강해지는 시기엔 큰 결단의 무대가 열리지만, "
+        },
+        {
+          "kind": "tag",
+          "tagId": "jeongin",
+          "label": "정인"
+        },
+        {
+          "kind": "text",
+          "value": "이 받쳐 주는 손길을 함께 챙겨 두면 부담이 자산으로 바뀌어요.\n\n"
+        },
+        {
+          "kind": "tag",
+          "tagId": "daewoonGungsil",
+          "label": "대운궁실"
+        },
+        {
+          "kind": "text",
+          "value": "에서 인성·관성이 함께 들어오는 시기에 큰 자리의 폭이 가장 깊어지는 한 해예요."
+        }
       ],
-      "tags": ["jeonggwan", "pyeongwan", "jeongin", "daewoonGungsil"],
+      "tags": [
+        "jeonggwan",
+        "pyeongwan",
+        "jeongin",
+        "daewoonGungsil"
+      ],
       "aiGenerated": true,
-      "sourceTier": { "tier": "T1_HYPOTHESIS", "sourceType": "training_derived", "sourceUrl": null, "accessedAt": "2026-05-02", "quoteShort": null, "humanInterpretation": "Phase 2 agent-6 (career) expert life: 30+ adult career flow. Display-only narrative.", "copyrightNote": "No source prose copied; original.", "authorityTruthEligible": false }
+      "sourceTier": {
+        "tier": "T1_HYPOTHESIS",
+        "sourceType": "training_derived",
+        "sourceUrl": null,
+        "accessedAt": "2026-05-02",
+        "quoteShort": null,
+        "humanInterpretation": "Phase 2 agent-6 (career) expert life: 30+ adult career flow. Display-only narrative.",
+        "copyrightNote": "No source prose copied; original.",
+        "authorityTruthEligible": false
+      }
     },
     {
       "schemaVersion": "spring-ts.narrative-fragment.v1",
       "fragmentId": "career.life.expert.diversity.anchor.009",
-      "axis": { "category": "career", "period": "life", "depth": "expert" },
-      "gating": { "ageBand": ["20-29", "30-39", "40-54", "55-69", "70+"] },
+      "axis": {
+        "category": "career",
+        "period": "life",
+        "depth": "expert"
+      },
+      "gating": {
+        "ageBand": [
+          "20-29",
+          "30-39",
+          "40-54",
+          "55-69",
+          "70+"
+        ]
+      },
       "templateTokens": [
-        { "kind": "text", "value": "평생의 직업 결을 더 또렷이 짚으려면 십이운성과 궁실의 큰 그림이 함께 들어와요. " },
-        { "kind": "tag", "tagId": "unseong_geonrok", "label": "건록" },
-        { "kind": "text", "value": "의 단계에 들어오는 시기엔 자기 자리를 단단히 다지기 좋은 흐름이고, " },
-        { "kind": "tag", "tagId": "unseong_jewang", "label": "제왕" },
-        { "kind": "text", "value": "의 결까지 이어지면 자리의 정점에 가까워지는 흐름이에요. " },
-        { "kind": "tag", "tagId": "gwanrokgung", "label": "관록궁" },
-        { "kind": "text", "value": "에 따뜻한 결이 모이는 사주는 평생을 통해 자리·책임의 무게가 자산이 되는 흐름이고, " },
-        { "kind": "tag", "tagId": "gwanseong", "label": "관성" },
-        { "kind": "text", "value": "의 전체 분포가 또렷이 자리 잡힌 흐름이라면, 직업 결의 큰 그림이 한 결로 이어지는 흐름이에요. " },
-        { "kind": "tag", "tagId": "yangin", "label": "양인" },
-        { "kind": "text", "value": "이 옆에서 작용하는 시기엔 자리의 결이 강하게 자라지만, 큰 결정엔 한 박자 차분한 흐름이 좋아요. 자기 결을 알고 가는 일이 가장 큰 무기예요." }
+        {
+          "kind": "text",
+          "value": "평생의 직업 결을 더 또렷이 짚으려면 십이운성과 궁실의 큰 그림이 함께 들어와요.\n\n"
+        },
+        {
+          "kind": "tag",
+          "tagId": "unseong_geonrok",
+          "label": "건록"
+        },
+        {
+          "kind": "text",
+          "value": "의 단계에 들어오는 시기엔 자기 자리를 단단히 다지기 좋은 흐름이고, "
+        },
+        {
+          "kind": "tag",
+          "tagId": "unseong_jewang",
+          "label": "제왕"
+        },
+        {
+          "kind": "text",
+          "value": "의 결까지 이어지면 자리의 정점에 가까워지는 흐름이에요.\n\n"
+        },
+        {
+          "kind": "tag",
+          "tagId": "gwanrokgung",
+          "label": "관록궁"
+        },
+        {
+          "kind": "text",
+          "value": "에 따뜻한 결이 모이는 사주는 평생을 통해 자리·책임의 무게가 자산이 되는 흐름이고, "
+        },
+        {
+          "kind": "tag",
+          "tagId": "gwanseong",
+          "label": "관성"
+        },
+        {
+          "kind": "text",
+          "value": "의 전체 분포가 또렷이 자리 잡힌 흐름이라면, 직업 결의 큰 그림이 한 결로 이어지는 흐름이에요.\n\n"
+        },
+        {
+          "kind": "tag",
+          "tagId": "yangin",
+          "label": "양인"
+        },
+        {
+          "kind": "text",
+          "value": "이 옆에서 작용하는 시기엔 자리의 결이 강하게 자라지만, 큰 결정엔 한 박자 차분한 흐름이 좋아요. 자기 결을 알고 가는 일이 가장 큰 무기예요."
+        }
       ],
-      "tags": ["unseong_geonrok", "unseong_jewang", "gwanrokgung", "gwanseong", "yangin"],
+      "tags": [
+        "unseong_geonrok",
+        "unseong_jewang",
+        "gwanrokgung",
+        "gwanseong",
+        "yangin"
+      ],
       "aiGenerated": true,
-      "sourceTier": { "tier": "T1_HYPOTHESIS", "sourceType": "training_derived", "sourceUrl": null, "accessedAt": "2026-05-05", "quoteShort": null, "humanInterpretation": "Phase 5 P5-A4 career tag-diversity expansion.", "copyrightNote": "No source prose copied; original.", "authorityTruthEligible": false }
+      "sourceTier": {
+        "tier": "T1_HYPOTHESIS",
+        "sourceType": "training_derived",
+        "sourceUrl": null,
+        "accessedAt": "2026-05-05",
+        "quoteShort": null,
+        "humanInterpretation": "Phase 5 P5-A4 career tag-diversity expansion.",
+        "copyrightNote": "No source prose copied; original.",
+        "authorityTruthEligible": false
+      }
     }
   ]
 }
