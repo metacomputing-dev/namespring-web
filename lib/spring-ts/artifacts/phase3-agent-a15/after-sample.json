@@ -1,0 +1,215 @@
+{
+  "generatedAt": "2026-05-05T03:44:56.320Z",
+  "fixture": "1986-04-19 male choi-seongsoo (Seoul)",
+  "scope": "tieredMatrix.periods.life.overall",
+  "after": {
+    "meaningfulness": "meaningful",
+    "stars": 4,
+    "brief": {
+      "headline": "큰 자극을 줄이고 믿을 만한 사람이나 환경에 기대어 진행하세요."
+    },
+    "standard": {
+      "paragraphs": [
+        {
+          "tokens": [
+            {
+              "kind": "text",
+              "value": "장년기로 들어서며 삶의 중심이 한층 단단해져요. 처음엔 잔잔한 강줄기였다가 흐를수록 깊어지는 모양처럼, 시간이 지날수록 자기 기준이 또렷해져요. 무리해서 큰 변화를 만들기보다, 익숙한 페이스를 지키며 작은 차분함을 쌓는 방식이 잘 맞아요. 건강과 일의 균형을 천천히 다시 짜는 시기가 한 번 와요. 그 시기를 놓치지 않으면 후반기가 한결 풍성해져요."
+            }
+          ],
+          "plainText": "장년기로 들어서며 삶의 중심이 한층 단단해져요. 처음엔 잔잔한 강줄기였다가 흐를수록 깊어지는 모양처럼, 시간이 지날수록 자기 기준이 또렷해져요. 무리해서 큰 변화를 만들기보다, 익숙한 페이스를 지키며 작은 차분함을 쌓는 방식이 잘 맞아요. 건강과 일의 균형을 천천히 다시 짜는 시기가 한 번 와요. 그 시기를 놓치지 않으면 후반기가 한결 풍성해져요."
+        }
+      ],
+      "livingTips": [
+        "분기마다 몸 상태를 짧게 점검해요",
+        "오래 가져갈 한 가지에만 힘을 모아요"
+      ],
+      "cautions": [
+        "한 번에 다 바꾸려는 흐름만 줄이면 좋아요"
+      ]
+    },
+    "expert": {
+      "paragraphs": [
+        {
+          "tokens": [
+            {
+              "kind": "text",
+              "value": "장년기에는 일간이 약해 "
+            },
+            {
+              "kind": "tag",
+              "tagId": "yongshin",
+              "label": "용신"
+            },
+            {
+              "kind": "text",
+              "value": " 보강을 천천히 찾아가는 시기예요. "
+            },
+            {
+              "kind": "tag",
+              "tagId": "daewoonGungsil",
+              "label": "대운궁실"
+            },
+            {
+              "kind": "text",
+              "value": "의 흐름이 한 번 큰 분기를 만들고, "
+            },
+            {
+              "kind": "tag",
+              "tagId": "jojangung",
+              "label": "조장궁"
+            },
+            {
+              "kind": "text",
+              "value": "의 흐름이 함께 단단해지는 편이에요. 이 시기에 무리한 전환만 줄이면 후반기 흐름이 한층 안정돼요."
+            }
+          ],
+          "plainText": "장년기에는 일간이 약해 #용신 보강을 천천히 찾아가는 시기예요. #대운궁실의 흐름이 한 번 큰 분기를 만들고, #조장궁의 흐름이 함께 단단해지는 편이에요. 이 시기에 무리한 전환만 줄이면 후반기 흐름이 한층 안정돼요."
+        }
+      ],
+      "numericalEvidence": [
+        {
+          "label": "현재 나이",
+          "value": 40,
+          "unit": "세",
+          "sourceTier": {
+            "tier": "T3_INTERNAL_ENGINE",
+            "sourceType": "internal_scoring_policy",
+            "sourceUrl": null,
+            "accessedAt": "2026-05-02",
+            "quoteShort": null,
+            "humanInterpretation": "spring-ts 계산 결과에서 확정적으로 산출한 내부 수치예요.",
+            "copyrightNote": "외부 문장을 복사하지 않고 내부 수치만 사용했어요.",
+            "authorityTruthEligible": false
+          }
+        },
+        {
+          "label": "셀 별점",
+          "value": 4,
+          "unit": "점",
+          "sourceTier": {
+            "tier": "T3_INTERNAL_ENGINE",
+            "sourceType": "internal_scoring_policy",
+            "sourceUrl": null,
+            "accessedAt": "2026-05-02",
+            "quoteShort": null,
+            "humanInterpretation": "spring-ts 계산 결과에서 확정적으로 산출한 내부 수치예요.",
+            "copyrightNote": "외부 문장을 복사하지 않고 내부 수치만 사용했어요.",
+            "authorityTruthEligible": false
+          }
+        },
+        {
+          "label": "연령 단계 순번",
+          "value": 8,
+          "unit": "단계",
+          "sourceTier": {
+            "tier": "T3_INTERNAL_ENGINE",
+            "sourceType": "internal_scoring_policy",
+            "sourceUrl": null,
+            "accessedAt": "2026-05-03",
+            "quoteShort": null,
+            "humanInterpretation": "spring-ts 계산 결과에서 확정적으로 산출한 내부 수치예요.",
+            "copyrightNote": "외부 문장을 복사하지 않고 내부 수치만 사용했어요.",
+            "authorityTruthEligible": false
+          }
+        },
+        {
+          "label": "신강도 순번",
+          "value": 2,
+          "unit": "단계",
+          "sourceTier": {
+            "tier": "T3_INTERNAL_ENGINE",
+            "sourceType": "internal_scoring_policy",
+            "sourceUrl": null,
+            "accessedAt": "2026-05-03",
+            "quoteShort": null,
+            "humanInterpretation": "spring-ts 계산 결과에서 확정적으로 산출한 내부 수치예요.",
+            "copyrightNote": "외부 문장을 복사하지 않고 내부 수치만 사용했어요.",
+            "authorityTruthEligible": false
+          }
+        },
+        {
+          "label": "출생 계절 순번",
+          "value": 1,
+          "unit": "단계",
+          "sourceTier": {
+            "tier": "T3_INTERNAL_ENGINE",
+            "sourceType": "internal_scoring_policy",
+            "sourceUrl": null,
+            "accessedAt": "2026-05-03",
+            "quoteShort": null,
+            "humanInterpretation": "spring-ts 계산 결과에서 확정적으로 산출한 내부 수치예요.",
+            "copyrightNote": "외부 문장을 복사하지 않고 내부 수치만 사용했어요.",
+            "authorityTruthEligible": false
+          }
+        },
+        {
+          "label": "현재 계절 순번",
+          "value": 2,
+          "unit": "단계",
+          "sourceTier": {
+            "tier": "T3_INTERNAL_ENGINE",
+            "sourceType": "internal_scoring_policy",
+            "sourceUrl": null,
+            "accessedAt": "2026-05-03",
+            "quoteShort": null,
+            "humanInterpretation": "spring-ts 계산 결과에서 확정적으로 산출한 내부 수치예요.",
+            "copyrightNote": "외부 문장을 복사하지 않고 내부 수치만 사용했어요.",
+            "authorityTruthEligible": false
+          }
+        }
+      ]
+    },
+    "selectedFragments": {
+      "brief": {
+        "fragmentId": "overall.life.brief.tuple_water_metal_weak_practice.624",
+        "gating": {
+          "dayMasterElement": [
+            "WATER"
+          ],
+          "yongshinElement": [
+            "METAL"
+          ],
+          "dayMasterStrength": [
+            "WEAK"
+          ]
+        },
+        "tags": []
+      },
+      "standard": {
+        "fragmentId": "overall.life.standard.weak.neutral.age40_54.011",
+        "gating": {
+          "ageBand": [
+            "40-54"
+          ],
+          "dayMasterStrength": [
+            "WEAK"
+          ],
+          "yongshinAlignment": [
+            "neutral"
+          ]
+        },
+        "tags": []
+      },
+      "expert": {
+        "fragmentId": "overall.life.expert.weak.neutral.age40_54.011",
+        "gating": {
+          "ageBand": [
+            "40-54"
+          ],
+          "dayMasterStrength": [
+            "WEAK"
+          ],
+          "yongshinAlignment": [
+            "neutral"
+          ]
+        },
+        "tags": [
+          "yongshin",
+          "daewoonGungsil",
+          "jojangung"
+        ]
+      }
+    }
+  }
+}
