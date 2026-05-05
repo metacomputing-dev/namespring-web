@@ -1,0 +1,70 @@
+{
+  "args": {
+    "apply": true,
+    "bundle": "academic/today/expert.fragments.json",
+    "category": null,
+    "all": false,
+    "minParagraphLen": 30,
+    "targetMin": 2
+  },
+  "totalProcessed": 10,
+  "totalUpdated": 10,
+  "perBundle": [
+    {
+      "bundle": "academic\\today\\expert.fragments.json",
+      "updated": 10,
+      "changes": [
+        {
+          "fragmentId": "academic.today.expert.wildcard.001",
+          "before": 1,
+          "after": 3
+        },
+        {
+          "fragmentId": "academic.today.expert.aligned.002",
+          "before": 1,
+          "after": 3
+        },
+        {
+          "fragmentId": "academic.today.expert.conflicting.003",
+          "before": 1,
+          "after": 3
+        },
+        {
+          "fragmentId": "academic.today.expert.weak_aligned.004",
+          "before": 1,
+          "after": 3
+        },
+        {
+          "fragmentId": "academic.today.expert.strong_aligned.005",
+          "before": 1,
+          "after": 3
+        },
+        {
+          "fragmentId": "academic.today.expert.jeongingyeok.006",
+          "before": 1,
+          "after": 3
+        },
+        {
+          "fragmentId": "academic.today.expert.pyeoningyeok.007",
+          "before": 1,
+          "after": 3
+        },
+        {
+          "fragmentId": "academic.today.expert.sikshingyeok.008",
+          "before": 1,
+          "after": 3
+        },
+        {
+          "fragmentId": "academic.today.expert.balanced.009",
+          "before": 1,
+          "after": 3
+        },
+        {
+          "fragmentId": "academic.today.expert.hwagae.010",
+          "before": 1,
+          "after": 3
+        }
+      ]
+    }
+  ]
+}

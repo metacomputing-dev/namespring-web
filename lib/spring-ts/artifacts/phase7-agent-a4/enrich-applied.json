@@ -1,0 +1,4446 @@
+{
+  "args": {
+    "apply": true,
+    "bundle": null,
+    "category": null,
+    "all": true
+  },
+  "totalProcessed": 1107,
+  "totalUpdated": 549,
+  "perBundle": [
+    {
+      "bundle": "academic\\life\\expert.fragments.json",
+      "updated": 0,
+      "changes": []
+    },
+    {
+      "bundle": "academic\\today\\expert.fragments.json",
+      "updated": 0,
+      "changes": []
+    },
+    {
+      "bundle": "academic\\thisWeek\\expert.fragments.json",
+      "updated": 0,
+      "changes": []
+    },
+    {
+      "bundle": "academic\\thisMonth\\expert.fragments.json",
+      "updated": 0,
+      "changes": []
+    },
+    {
+      "bundle": "academic\\thisYear\\expert.fragments.json",
+      "updated": 0,
+      "changes": []
+    },
+    {
+      "bundle": "career\\life\\expert.fragments.json",
+      "updated": 0,
+      "changes": []
+    },
+    {
+      "bundle": "career\\today\\expert.fragments.json",
+      "updated": 0,
+      "changes": []
+    },
+    {
+      "bundle": "career\\thisWeek\\expert.fragments.json",
+      "updated": 0,
+      "changes": []
+    },
+    {
+      "bundle": "career\\thisMonth\\expert.fragments.json",
+      "updated": 0,
+      "changes": []
+    },
+    {
+      "bundle": "career\\thisYear\\expert.fragments.json",
+      "updated": 0,
+      "changes": []
+    },
+    {
+      "bundle": "expression_children\\life\\expert.fragments.json",
+      "updated": 0,
+      "changes": []
+    },
+    {
+      "bundle": "expression_children\\today\\expert.fragments.json",
+      "updated": 0,
+      "changes": []
+    },
+    {
+      "bundle": "expression_children\\thisWeek\\expert.fragments.json",
+      "updated": 0,
+      "changes": []
+    },
+    {
+      "bundle": "expression_children\\thisMonth\\expert.fragments.json",
+      "updated": 0,
+      "changes": []
+    },
+    {
+      "bundle": "expression_children\\thisYear\\expert.fragments.json",
+      "updated": 0,
+      "changes": []
+    },
+    {
+      "bundle": "family\\life\\expert.fragments.json",
+      "updated": 0,
+      "changes": []
+    },
+    {
+      "bundle": "family\\today\\expert.fragments.json",
+      "updated": 0,
+      "changes": []
+    },
+    {
+      "bundle": "family\\thisWeek\\expert.fragments.json",
+      "updated": 0,
+      "changes": []
+    },
+    {
+      "bundle": "family\\thisMonth\\expert.fragments.json",
+      "updated": 0,
+      "changes": []
+    },
+    {
+      "bundle": "family\\thisYear\\expert.fragments.json",
+      "updated": 0,
+      "changes": []
+    },
+    {
+      "bundle": "health\\life\\expert.fragments.json",
+      "updated": 0,
+      "changes": []
+    },
+    {
+      "bundle": "health\\today\\expert.fragments.json",
+      "updated": 0,
+      "changes": []
+    },
+    {
+      "bundle": "health\\thisWeek\\expert.fragments.json",
+      "updated": 0,
+      "changes": []
+    },
+    {
+      "bundle": "health\\thisMonth\\expert.fragments.json",
+      "updated": 0,
+      "changes": []
+    },
+    {
+      "bundle": "health\\thisYear\\expert.fragments.json",
+      "updated": 0,
+      "changes": []
+    },
+    {
+      "bundle": "health_stress\\life\\expert.fragments.json",
+      "updated": 0,
+      "changes": []
+    },
+    {
+      "bundle": "health_stress\\today\\expert.fragments.json",
+      "updated": 0,
+      "changes": []
+    },
+    {
+      "bundle": "health_stress\\thisWeek\\expert.fragments.json",
+      "updated": 0,
+      "changes": []
+    },
+    {
+      "bundle": "health_stress\\thisMonth\\expert.fragments.json",
+      "updated": 0,
+      "changes": []
+    },
+    {
+      "bundle": "health_stress\\thisYear\\expert.fragments.json",
+      "updated": 0,
+      "changes": []
+    },
+    {
+      "bundle": "movement\\life\\expert.fragments.json",
+      "updated": 0,
+      "changes": []
+    },
+    {
+      "bundle": "movement\\today\\expert.fragments.json",
+      "updated": 0,
+      "changes": []
+    },
+    {
+      "bundle": "movement\\thisWeek\\expert.fragments.json",
+      "updated": 0,
+      "changes": []
+    },
+    {
+      "bundle": "movement\\thisMonth\\expert.fragments.json",
+      "updated": 0,
+      "changes": []
+    },
+    {
+      "bundle": "movement\\thisYear\\expert.fragments.json",
+      "updated": 0,
+      "changes": []
+    },
+    {
+      "bundle": "overall\\life\\expert.fragments.json",
+      "updated": 0,
+      "changes": []
+    },
+    {
+      "bundle": "overall\\today\\expert.fragments.json",
+      "updated": 0,
+      "changes": []
+    },
+    {
+      "bundle": "overall\\thisWeek\\expert.fragments.json",
+      "updated": 0,
+      "changes": []
+    },
+    {
+      "bundle": "overall\\thisMonth\\expert.fragments.json",
+      "updated": 0,
+      "changes": []
+    },
+    {
+      "bundle": "overall\\thisYear\\expert.fragments.json",
+      "updated": 0,
+      "changes": []
+    },
+    {
+      "bundle": "romance\\life\\expert.fragments.json",
+      "updated": 0,
+      "changes": []
+    },
+    {
+      "bundle": "romance\\today\\expert.fragments.json",
+      "updated": 0,
+      "changes": []
+    },
+    {
+      "bundle": "romance\\thisWeek\\expert.fragments.json",
+      "updated": 0,
+      "changes": []
+    },
+    {
+      "bundle": "romance\\thisMonth\\expert.fragments.json",
+      "updated": 0,
+      "changes": []
+    },
+    {
+      "bundle": "romance\\thisYear\\expert.fragments.json",
+      "updated": 0,
+      "changes": []
+    },
+    {
+      "bundle": "study_document\\life\\expert.fragments.json",
+      "updated": 0,
+      "changes": []
+    },
+    {
+      "bundle": "study_document\\today\\expert.fragments.json",
+      "updated": 0,
+      "changes": []
+    },
+    {
+      "bundle": "study_document\\thisWeek\\expert.fragments.json",
+      "updated": 0,
+      "changes": []
+    },
+    {
+      "bundle": "study_document\\thisMonth\\expert.fragments.json",
+      "updated": 0,
+      "changes": []
+    },
+    {
+      "bundle": "study_document\\thisYear\\expert.fragments.json",
+      "updated": 0,
+      "changes": []
+    },
+    {
+      "bundle": "wealth\\life\\expert.fragments.json",
+      "updated": 0,
+      "changes": []
+    },
+    {
+      "bundle": "wealth\\today\\expert.fragments.json",
+      "updated": 0,
+      "changes": []
+    },
+    {
+      "bundle": "wealth\\thisWeek\\expert.fragments.json",
+      "updated": 0,
+      "changes": []
+    },
+    {
+      "bundle": "wealth\\thisMonth\\expert.fragments.json",
+      "updated": 0,
+      "changes": []
+    },
+    {
+      "bundle": "wealth\\thisYear\\expert.fragments.json",
+      "updated": 0,
+      "changes": []
+    },
+    {
+      "bundle": "_coverage\\academic-plain-season-context.fragments.json",
+      "updated": 0,
+      "changes": []
+    },
+    {
+      "bundle": "_coverage\\academic-season-detail-context.fragments.json",
+      "updated": 8,
+      "changes": [
+        {
+          "fragmentId": "academic.life.expert.currentseason.spring_summer.301",
+          "before": 1,
+          "after": 4,
+          "closersUsed": 1
+        },
+        {
+          "fragmentId": "academic.life.expert.currentseason.autumn_winter.301",
+          "before": 1,
+          "after": 4,
+          "closersUsed": 1
+        },
+        {
+          "fragmentId": "academic.thisWeek.expert.currentseason.spring_summer.301",
+          "before": 1,
+          "after": 4,
+          "closersUsed": 1
+        },
+        {
+          "fragmentId": "academic.thisWeek.expert.currentseason.autumn_winter.301",
+          "before": 1,
+          "after": 4,
+          "closersUsed": 1
+        },
+        {
+          "fragmentId": "academic.thisMonth.expert.currentseason.spring_summer.301",
+          "before": 1,
+          "after": 4,
+          "closersUsed": 1
+        },
+        {
+          "fragmentId": "academic.thisMonth.expert.currentseason.autumn_winter.301",
+          "before": 1,
+          "after": 4,
+          "closersUsed": 1
+        },
+        {
+          "fragmentId": "academic.thisYear.expert.currentseason.spring_summer.301",
+          "before": 1,
+          "after": 4,
+          "closersUsed": 1
+        },
+        {
+          "fragmentId": "academic.thisYear.expert.currentseason.autumn_winter.301",
+          "before": 1,
+          "after": 4,
+          "closersUsed": 1
+        }
+      ]
+    },
+    {
+      "bundle": "_coverage\\academic-short-term-expert-audience.fragments.json",
+      "updated": 9,
+      "changes": [
+        {
+          "fragmentId": "academic.today.expert.ageband.child_teen.301",
+          "before": 1,
+          "after": 4,
+          "closersUsed": 1
+        },
+        {
+          "fragmentId": "academic.today.expert.ageband.adult.301",
+          "before": 1,
+          "after": 4,
+          "closersUsed": 1
+        },
+        {
+          "fragmentId": "academic.today.expert.ageband.senior.301",
+          "before": 1,
+          "after": 4,
+          "closersUsed": 1
+        },
+        {
+          "fragmentId": "academic.thisWeek.expert.ageband.child_teen.301",
+          "before": 1,
+          "after": 4,
+          "closersUsed": 1
+        },
+        {
+          "fragmentId": "academic.thisWeek.expert.ageband.adult.301",
+          "before": 1,
+          "after": 4,
+          "closersUsed": 1
+        },
+        {
+          "fragmentId": "academic.thisWeek.expert.ageband.senior.301",
+          "before": 1,
+          "after": 4,
+          "closersUsed": 1
+        },
+        {
+          "fragmentId": "academic.thisMonth.expert.ageband.child_teen.301",
+          "before": 1,
+          "after": 4,
+          "closersUsed": 1
+        },
+        {
+          "fragmentId": "academic.thisMonth.expert.ageband.adult.301",
+          "before": 1,
+          "after": 4,
+          "closersUsed": 1
+        },
+        {
+          "fragmentId": "academic.thisMonth.expert.ageband.senior.301",
+          "before": 1,
+          "after": 4,
+          "closersUsed": 1
+        }
+      ]
+    },
+    {
+      "bundle": "_coverage\\age-band-adult-neutral-gender-pairs.fragments.json",
+      "updated": 0,
+      "changes": []
+    },
+    {
+      "bundle": "_coverage\\age-band-child-teen-gender-pairs.fragments.json",
+      "updated": 0,
+      "changes": []
+    },
+    {
+      "bundle": "_coverage\\age-band-mature-senior-gender-pairs.fragments.json",
+      "updated": 0,
+      "changes": []
+    },
+    {
+      "bundle": "_coverage\\age-phase-axis.fragments.json",
+      "updated": 0,
+      "changes": []
+    },
+    {
+      "bundle": "_coverage\\age-phase-expert-mature.fragments.json",
+      "updated": 9,
+      "changes": [
+        {
+          "fragmentId": "overall.life.expert.agephase.early_40s.301",
+          "before": 1,
+          "after": 4,
+          "closersUsed": 1
+        },
+        {
+          "fragmentId": "overall.life.expert.agephase.late_40s.301",
+          "before": 1,
+          "after": 4,
+          "closersUsed": 1
+        },
+        {
+          "fragmentId": "overall.life.expert.agephase.early_50s.301",
+          "before": 1,
+          "after": 4,
+          "closersUsed": 1
+        },
+        {
+          "fragmentId": "overall.life.expert.agephase.late_50s.301",
+          "before": 1,
+          "after": 4,
+          "closersUsed": 0
+        },
+        {
+          "fragmentId": "overall.life.expert.agephase.early_60s.301",
+          "before": 1,
+          "after": 4,
+          "closersUsed": 1
+        },
+        {
+          "fragmentId": "overall.life.expert.agephase.late_60s.301",
+          "before": 1,
+          "after": 4,
+          "closersUsed": 1
+        },
+        {
+          "fragmentId": "overall.life.expert.agephase.70s.301",
+          "before": 1,
+          "after": 4,
+          "closersUsed": 1
+        },
+        {
+          "fragmentId": "overall.life.expert.agephase.80s.301",
+          "before": 1,
+          "after": 4,
+          "closersUsed": 1
+        },
+        {
+          "fragmentId": "overall.life.expert.agephase.90_plus.301",
+          "before": 1,
+          "after": 4,
+          "closersUsed": 1
+        }
+      ]
+    },
+    {
+      "bundle": "_coverage\\age-phase-expert-young.fragments.json",
+      "updated": 7,
+      "changes": [
+        {
+          "fragmentId": "overall.life.expert.agephase.child_0_9.301",
+          "before": 1,
+          "after": 4,
+          "closersUsed": 1
+        },
+        {
+          "fragmentId": "overall.life.expert.agephase.early_teen.301",
+          "before": 1,
+          "after": 4,
+          "closersUsed": 1
+        },
+        {
+          "fragmentId": "overall.life.expert.agephase.late_teen.301",
+          "before": 1,
+          "after": 4,
+          "closersUsed": 1
+        },
+        {
+          "fragmentId": "overall.life.expert.agephase.early_20s.301",
+          "before": 1,
+          "after": 4,
+          "closersUsed": 1
+        },
+        {
+          "fragmentId": "overall.life.expert.agephase.late_20s.301",
+          "before": 1,
+          "after": 4,
+          "closersUsed": 1
+        },
+        {
+          "fragmentId": "overall.life.expert.agephase.early_30s.301",
+          "before": 1,
+          "after": 4,
+          "closersUsed": 1
+        },
+        {
+          "fragmentId": "overall.life.expert.agephase.late_30s.301",
+          "before": 1,
+          "after": 4,
+          "closersUsed": 1
+        }
+      ]
+    },
+    {
+      "bundle": "_coverage\\age-phase-family-support-density.fragments.json",
+      "updated": 0,
+      "changes": []
+    },
+    {
+      "bundle": "_coverage\\age-phase-focus-density.fragments.json",
+      "updated": 0,
+      "changes": []
+    },
+    {
+      "bundle": "_coverage\\age-phase-gender-20s-pairs.fragments.json",
+      "updated": 0,
+      "changes": []
+    },
+    {
+      "bundle": "_coverage\\age-phase-gender-30s-pairs.fragments.json",
+      "updated": 0,
+      "changes": []
+    },
+    {
+      "bundle": "_coverage\\age-phase-gender-40s-pairs.fragments.json",
+      "updated": 0,
+      "changes": []
+    },
+    {
+      "bundle": "_coverage\\age-phase-gender-50s-pairs.fragments.json",
+      "updated": 0,
+      "changes": []
+    },
+    {
+      "bundle": "_coverage\\age-phase-gender-60s-pairs.fragments.json",
+      "updated": 0,
+      "changes": []
+    },
+    {
+      "bundle": "_coverage\\age-phase-gender-senior-pairs.fragments.json",
+      "updated": 0,
+      "changes": []
+    },
+    {
+      "bundle": "_coverage\\age-phase-gender-young-pairs.fragments.json",
+      "updated": 0,
+      "changes": []
+    },
+    {
+      "bundle": "_coverage\\age-phase-month-practice-density.fragments.json",
+      "updated": 0,
+      "changes": []
+    },
+    {
+      "bundle": "_coverage\\age-phase-standard-mature.fragments.json",
+      "updated": 0,
+      "changes": []
+    },
+    {
+      "bundle": "_coverage\\age-phase-standard-young.fragments.json",
+      "updated": 0,
+      "changes": []
+    },
+    {
+      "bundle": "_coverage\\age-phase-transition-density.fragments.json",
+      "updated": 0,
+      "changes": []
+    },
+    {
+      "bundle": "_coverage\\age-phase-year-focus-density.fragments.json",
+      "updated": 0,
+      "changes": []
+    },
+    {
+      "bundle": "_coverage\\birth-autumn-current-season-pairs.fragments.json",
+      "updated": 0,
+      "changes": []
+    },
+    {
+      "bundle": "_coverage\\birth-season-action-density.fragments.json",
+      "updated": 0,
+      "changes": []
+    },
+    {
+      "bundle": "_coverage\\birth-season-context-density.fragments.json",
+      "updated": 0,
+      "changes": []
+    },
+    {
+      "bundle": "_coverage\\birth-season-density.fragments.json",
+      "updated": 0,
+      "changes": []
+    },
+    {
+      "bundle": "_coverage\\birth-season-health-rhythm.fragments.json",
+      "updated": 0,
+      "changes": []
+    },
+    {
+      "bundle": "_coverage\\birth-season-life-career.fragments.json",
+      "updated": 0,
+      "changes": []
+    },
+    {
+      "bundle": "_coverage\\birth-spring-current-season-pairs.fragments.json",
+      "updated": 0,
+      "changes": []
+    },
+    {
+      "bundle": "_coverage\\birth-summer-current-season-pairs.fragments.json",
+      "updated": 0,
+      "changes": []
+    },
+    {
+      "bundle": "_coverage\\birth-winter-current-season-pairs.fragments.json",
+      "updated": 0,
+      "changes": []
+    },
+    {
+      "bundle": "_coverage\\career-brief-season-context.fragments.json",
+      "updated": 0,
+      "changes": []
+    },
+    {
+      "bundle": "_coverage\\career-expert-density-floor.fragments.json",
+      "updated": 10,
+      "changes": [
+        {
+          "fragmentId": "career.life.expert.alignment.supportive.401",
+          "before": 1,
+          "after": 4,
+          "closersUsed": 2
+        },
+        {
+          "fragmentId": "career.life.expert.alignment.conflicting.401",
+          "before": 1,
+          "after": 4,
+          "closersUsed": 2
+        },
+        {
+          "fragmentId": "career.today.expert.alignment.supportive.401",
+          "before": 1,
+          "after": 4,
+          "closersUsed": 2
+        },
+        {
+          "fragmentId": "career.today.expert.alignment.conflicting.401",
+          "before": 1,
+          "after": 4,
+          "closersUsed": 2
+        },
+        {
+          "fragmentId": "career.thisWeek.expert.alignment.supportive.401",
+          "before": 1,
+          "after": 4,
+          "closersUsed": 2
+        },
+        {
+          "fragmentId": "career.thisWeek.expert.alignment.conflicting.401",
+          "before": 1,
+          "after": 4,
+          "closersUsed": 2
+        },
+        {
+          "fragmentId": "career.thisMonth.expert.alignment.supportive.401",
+          "before": 1,
+          "after": 4,
+          "closersUsed": 2
+        },
+        {
+          "fragmentId": "career.thisMonth.expert.alignment.conflicting.401",
+          "before": 1,
+          "after": 4,
+          "closersUsed": 2
+        },
+        {
+          "fragmentId": "career.thisYear.expert.alignment.supportive.401",
+          "before": 1,
+          "after": 4,
+          "closersUsed": 2
+        },
+        {
+          "fragmentId": "career.thisYear.expert.alignment.conflicting.401",
+          "before": 1,
+          "after": 4,
+          "closersUsed": 2
+        }
+      ]
+    },
+    {
+      "bundle": "_coverage\\career-season-expert-context.fragments.json",
+      "updated": 10,
+      "changes": [
+        {
+          "fragmentId": "career.life.expert.currentseason.spring_summer.301",
+          "before": 1,
+          "after": 4,
+          "closersUsed": 1
+        },
+        {
+          "fragmentId": "career.life.expert.currentseason.autumn_winter.301",
+          "before": 1,
+          "after": 4,
+          "closersUsed": 1
+        },
+        {
+          "fragmentId": "career.today.expert.currentseason.spring_summer.301",
+          "before": 1,
+          "after": 4,
+          "closersUsed": 1
+        },
+        {
+          "fragmentId": "career.today.expert.currentseason.autumn_winter.301",
+          "before": 1,
+          "after": 4,
+          "closersUsed": 1
+        },
+        {
+          "fragmentId": "career.thisWeek.expert.currentseason.spring_summer.301",
+          "before": 1,
+          "after": 4,
+          "closersUsed": 1
+        },
+        {
+          "fragmentId": "career.thisWeek.expert.currentseason.autumn_winter.301",
+          "before": 1,
+          "after": 4,
+          "closersUsed": 1
+        },
+        {
+          "fragmentId": "career.thisMonth.expert.currentseason.spring_summer.301",
+          "before": 1,
+          "after": 4,
+          "closersUsed": 1
+        },
+        {
+          "fragmentId": "career.thisMonth.expert.currentseason.autumn_winter.301",
+          "before": 1,
+          "after": 4,
+          "closersUsed": 1
+        },
+        {
+          "fragmentId": "career.thisYear.expert.currentseason.spring_summer.301",
+          "before": 1,
+          "after": 4,
+          "closersUsed": 1
+        },
+        {
+          "fragmentId": "career.thisYear.expert.currentseason.autumn_winter.301",
+          "before": 1,
+          "after": 4,
+          "closersUsed": 1
+        }
+      ]
+    },
+    {
+      "bundle": "_coverage\\categorical-evidence-density-wave2.fragments.json",
+      "updated": 13,
+      "changes": [
+        {
+          "fragmentId": "overall.thisWeek.expert.categorical_wave2.male_wood_yongshin_metal_jeongingyeok.402",
+          "before": 1,
+          "after": 4,
+          "closersUsed": 2
+        },
+        {
+          "fragmentId": "career.today.expert.categorical_wave2.female_fire_yongshin_water_pyeoningyeok.402",
+          "before": 1,
+          "after": 4,
+          "closersUsed": 1
+        },
+        {
+          "fragmentId": "wealth.thisMonth.expert.categorical_wave2.neutral_earth_yongshin_wood_sikshingyeok.402",
+          "before": 1,
+          "after": 4,
+          "closersUsed": 1
+        },
+        {
+          "fragmentId": "health.thisYear.expert.categorical_wave2.male_metal_yongshin_fire_sanggwangyeok.402",
+          "before": 1,
+          "after": 4,
+          "closersUsed": 1
+        },
+        {
+          "fragmentId": "romance.thisWeek.expert.categorical_wave2.female_water_yongshin_earth_jeonggwangyeok.402",
+          "before": 1,
+          "after": 4,
+          "closersUsed": 1
+        },
+        {
+          "fragmentId": "family.thisMonth.expert.categorical_wave2.neutral_wood_yongshin_water_pyeongwangyeok.402",
+          "before": 1,
+          "after": 4,
+          "closersUsed": 1
+        },
+        {
+          "fragmentId": "academic.today.expert.categorical_wave2.male_fire_yongshin_metal_jeongingyeok.402",
+          "before": 1,
+          "after": 4,
+          "closersUsed": 1
+        },
+        {
+          "fragmentId": "study_document.thisYear.expert.categorical_wave2.female_earth_yongshin_fire_pyeoningyeok.402",
+          "before": 1,
+          "after": 4,
+          "closersUsed": 1
+        },
+        {
+          "fragmentId": "expression_children.thisWeek.expert.categorical_wave2.neutral_metal_yongshin_earth_sikshingyeok.402",
+          "before": 1,
+          "after": 4,
+          "closersUsed": 1
+        },
+        {
+          "fragmentId": "health_stress.thisMonth.expert.categorical_wave2.male_water_yongshin_wood_sanggwangyeok.402",
+          "before": 1,
+          "after": 4,
+          "closersUsed": 1
+        },
+        {
+          "fragmentId": "movement.today.expert.categorical_wave2.female_wood_yongshin_metal_pyeongwangyeok.402",
+          "before": 1,
+          "after": 4,
+          "closersUsed": 1
+        },
+        {
+          "fragmentId": "overall.thisYear.expert.categorical_wave2.neutral_fire_yongshin_water_jeonggwangyeok.402",
+          "before": 1,
+          "after": 4,
+          "closersUsed": 1
+        },
+        {
+          "fragmentId": "career.thisYear.expert.categorical_wave2.male_earth_yongshin_wood_sikshingyeok.402",
+          "before": 1,
+          "after": 4,
+          "closersUsed": 1
+        }
+      ]
+    },
+    {
+      "bundle": "_coverage\\categorical-evidence-density-wave3.fragments.json",
+      "updated": 11,
+      "changes": [
+        {
+          "fragmentId": "overall.today.expert.categorical_wave3.female_metal_yongshin_water_jeongingyeok.403",
+          "before": 1,
+          "after": 4,
+          "closersUsed": 2
+        },
+        {
+          "fragmentId": "wealth.thisWeek.expert.categorical_wave3.male_water_yongshin_earth_pyeoningyeok.403",
+          "before": 1,
+          "after": 4,
+          "closersUsed": 2
+        },
+        {
+          "fragmentId": "health.today.expert.categorical_wave3.neutral_fire_yongshin_metal_sikshingyeok.403",
+          "before": 1,
+          "after": 4,
+          "closersUsed": 1
+        },
+        {
+          "fragmentId": "romance.today.expert.categorical_wave3.female_earth_yongshin_water_jeonggwangyeok.403",
+          "before": 1,
+          "after": 4,
+          "closersUsed": 2
+        },
+        {
+          "fragmentId": "family.today.expert.categorical_wave3.male_wood_yongshin_fire_sanggwangyeok.403",
+          "before": 1,
+          "after": 4,
+          "closersUsed": 2
+        },
+        {
+          "fragmentId": "movement.thisWeek.expert.categorical_wave3.neutral_metal_yongshin_earth_pyeongwangyeok.403",
+          "before": 1,
+          "after": 4,
+          "closersUsed": 2
+        },
+        {
+          "fragmentId": "career.thisWeek.expert.categorical_wave3.female_water_yongshin_metal_jeonggwangyeok.403",
+          "before": 1,
+          "after": 4,
+          "closersUsed": 2
+        },
+        {
+          "fragmentId": "overall.life.expert.categorical_wave3.gender_context_male.403",
+          "before": 1,
+          "after": 4,
+          "closersUsed": 2
+        },
+        {
+          "fragmentId": "overall.life.expert.categorical_wave3.gender_context_female.403",
+          "before": 1,
+          "after": 4,
+          "closersUsed": 2
+        },
+        {
+          "fragmentId": "overall.life.expert.categorical_wave3.gender_context_neutral_a.403",
+          "before": 1,
+          "after": 4,
+          "closersUsed": 2
+        },
+        {
+          "fragmentId": "overall.life.expert.categorical_wave3.gender_context_neutral_b.403",
+          "before": 1,
+          "after": 4,
+          "closersUsed": 2
+        }
+      ]
+    },
+    {
+      "bundle": "_coverage\\current-season-action-density.fragments.json",
+      "updated": 0,
+      "changes": []
+    },
+    {
+      "bundle": "_coverage\\current-season-density.fragments.json",
+      "updated": 0,
+      "changes": []
+    },
+    {
+      "bundle": "_coverage\\current-season-health-stress.fragments.json",
+      "updated": 0,
+      "changes": []
+    },
+    {
+      "bundle": "_coverage\\current-season-money-relationship.fragments.json",
+      "updated": 0,
+      "changes": []
+    },
+    {
+      "bundle": "_coverage\\current-season-pacing-density.fragments.json",
+      "updated": 0,
+      "changes": []
+    },
+    {
+      "bundle": "_coverage\\day-master-career-style.fragments.json",
+      "updated": 0,
+      "changes": []
+    },
+    {
+      "bundle": "_coverage\\day-master-earth-strength-pairs.fragments.json",
+      "updated": 0,
+      "changes": []
+    },
+    {
+      "bundle": "_coverage\\day-master-earth-yongshin-pairs.fragments.json",
+      "updated": 0,
+      "changes": []
+    },
+    {
+      "bundle": "_coverage\\day-master-element-action-density.fragments.json",
+      "updated": 0,
+      "changes": []
+    },
+    {
+      "bundle": "_coverage\\day-master-element-density.fragments.json",
+      "updated": 0,
+      "changes": []
+    },
+    {
+      "bundle": "_coverage\\day-master-element-routine.fragments.json",
+      "updated": 0,
+      "changes": []
+    },
+    {
+      "bundle": "_coverage\\day-master-fire-strength-pairs.fragments.json",
+      "updated": 0,
+      "changes": []
+    },
+    {
+      "bundle": "_coverage\\day-master-fire-yongshin-pairs.fragments.json",
+      "updated": 0,
+      "changes": []
+    },
+    {
+      "bundle": "_coverage\\day-master-metal-strength-pairs.fragments.json",
+      "updated": 0,
+      "changes": []
+    },
+    {
+      "bundle": "_coverage\\day-master-metal-yongshin-pairs.fragments.json",
+      "updated": 0,
+      "changes": []
+    },
+    {
+      "bundle": "_coverage\\day-master-polarity-action-density.fragments.json",
+      "updated": 0,
+      "changes": []
+    },
+    {
+      "bundle": "_coverage\\day-master-polarity-decision-rhythm.fragments.json",
+      "updated": 0,
+      "changes": []
+    },
+    {
+      "bundle": "_coverage\\day-master-polarity-density-floor.fragments.json",
+      "updated": 0,
+      "changes": []
+    },
+    {
+      "bundle": "_coverage\\day-master-polarity-density.fragments.json",
+      "updated": 0,
+      "changes": []
+    },
+    {
+      "bundle": "_coverage\\day-master-polarity-pacing-density.fragments.json",
+      "updated": 0,
+      "changes": []
+    },
+    {
+      "bundle": "_coverage\\day-master-water-strength-pairs.fragments.json",
+      "updated": 0,
+      "changes": []
+    },
+    {
+      "bundle": "_coverage\\day-master-water-yongshin-pairs.fragments.json",
+      "updated": 0,
+      "changes": []
+    },
+    {
+      "bundle": "_coverage\\day-master-wood-strength-pairs.fragments.json",
+      "updated": 0,
+      "changes": []
+    },
+    {
+      "bundle": "_coverage\\day-master-wood-yongshin-pairs.fragments.json",
+      "updated": 0,
+      "changes": []
+    },
+    {
+      "bundle": "_coverage\\expert-70s-age-density.fragments.json",
+      "updated": 8,
+      "changes": [
+        {
+          "fragmentId": "overall.life.expert.age.70s.501",
+          "before": 1,
+          "after": 4,
+          "closersUsed": 2
+        },
+        {
+          "fragmentId": "health.today.expert.age.70s.501",
+          "before": 1,
+          "after": 4,
+          "closersUsed": 2
+        },
+        {
+          "fragmentId": "family.thisWeek.expert.age.70s.501",
+          "before": 1,
+          "after": 4,
+          "closersUsed": 2
+        },
+        {
+          "fragmentId": "wealth.thisMonth.expert.age.70s.501",
+          "before": 1,
+          "after": 4,
+          "closersUsed": 2
+        },
+        {
+          "fragmentId": "romance.thisYear.expert.age.70s.501",
+          "before": 1,
+          "after": 4,
+          "closersUsed": 2
+        },
+        {
+          "fragmentId": "academic.today.expert.age.70s.501",
+          "before": 1,
+          "after": 4,
+          "closersUsed": 2
+        },
+        {
+          "fragmentId": "movement.thisWeek.expert.age.70s.501",
+          "before": 1,
+          "after": 4,
+          "closersUsed": 2
+        },
+        {
+          "fragmentId": "health_stress.life.expert.age.70s.501",
+          "before": 1,
+          "after": 4,
+          "closersUsed": 2
+        }
+      ]
+    },
+    {
+      "bundle": "_coverage\\expert-80s-age-density.fragments.json",
+      "updated": 8,
+      "changes": [
+        {
+          "fragmentId": "overall.life.expert.age.80s.501",
+          "before": 1,
+          "after": 4,
+          "closersUsed": 2
+        },
+        {
+          "fragmentId": "health.today.expert.age.80s.501",
+          "before": 1,
+          "after": 4,
+          "closersUsed": 2
+        },
+        {
+          "fragmentId": "family.thisWeek.expert.age.80s.501",
+          "before": 1,
+          "after": 4,
+          "closersUsed": 2
+        },
+        {
+          "fragmentId": "wealth.thisMonth.expert.age.80s.501",
+          "before": 1,
+          "after": 4,
+          "closersUsed": 2
+        },
+        {
+          "fragmentId": "romance.thisYear.expert.age.80s.501",
+          "before": 1,
+          "after": 4,
+          "closersUsed": 2
+        },
+        {
+          "fragmentId": "academic.today.expert.age.80s.501",
+          "before": 1,
+          "after": 4,
+          "closersUsed": 2
+        },
+        {
+          "fragmentId": "movement.thisWeek.expert.age.80s.501",
+          "before": 1,
+          "after": 4,
+          "closersUsed": 2
+        },
+        {
+          "fragmentId": "health_stress.life.expert.age.80s.501",
+          "before": 1,
+          "after": 4,
+          "closersUsed": 2
+        }
+      ]
+    },
+    {
+      "bundle": "_coverage\\expert-90-plus-age-density.fragments.json",
+      "updated": 8,
+      "changes": [
+        {
+          "fragmentId": "overall.life.expert.age.90_plus.501",
+          "before": 1,
+          "after": 4,
+          "closersUsed": 2
+        },
+        {
+          "fragmentId": "health.today.expert.age.90_plus.501",
+          "before": 1,
+          "after": 4,
+          "closersUsed": 2
+        },
+        {
+          "fragmentId": "family.thisWeek.expert.age.90_plus.501",
+          "before": 1,
+          "after": 4,
+          "closersUsed": 2
+        },
+        {
+          "fragmentId": "wealth.thisMonth.expert.age.90_plus.501",
+          "before": 1,
+          "after": 4,
+          "closersUsed": 2
+        },
+        {
+          "fragmentId": "romance.thisYear.expert.age.90_plus.501",
+          "before": 1,
+          "after": 4,
+          "closersUsed": 2
+        },
+        {
+          "fragmentId": "academic.today.expert.age.90_plus.501",
+          "before": 1,
+          "after": 4,
+          "closersUsed": 2
+        },
+        {
+          "fragmentId": "movement.thisWeek.expert.age.90_plus.501",
+          "before": 1,
+          "after": 4,
+          "closersUsed": 2
+        },
+        {
+          "fragmentId": "health_stress.life.expert.age.90_plus.501",
+          "before": 1,
+          "after": 4,
+          "closersUsed": 2
+        }
+      ]
+    },
+    {
+      "bundle": "_coverage\\expert-child-0-9-age-density.fragments.json",
+      "updated": 8,
+      "changes": [
+        {
+          "fragmentId": "overall.life.expert.age.child_0_9.501",
+          "before": 1,
+          "after": 4,
+          "closersUsed": 2
+        },
+        {
+          "fragmentId": "health.today.expert.age.child_0_9.501",
+          "before": 1,
+          "after": 4,
+          "closersUsed": 2
+        },
+        {
+          "fragmentId": "family.thisWeek.expert.age.child_0_9.501",
+          "before": 1,
+          "after": 4,
+          "closersUsed": 2
+        },
+        {
+          "fragmentId": "wealth.thisMonth.expert.age.child_0_9.501",
+          "before": 1,
+          "after": 4,
+          "closersUsed": 2
+        },
+        {
+          "fragmentId": "romance.thisYear.expert.age.child_0_9.501",
+          "before": 1,
+          "after": 4,
+          "closersUsed": 2
+        },
+        {
+          "fragmentId": "academic.today.expert.age.child_0_9.501",
+          "before": 1,
+          "after": 4,
+          "closersUsed": 2
+        },
+        {
+          "fragmentId": "movement.thisWeek.expert.age.child_0_9.501",
+          "before": 1,
+          "after": 4,
+          "closersUsed": 2
+        },
+        {
+          "fragmentId": "health_stress.life.expert.age.child_0_9.501",
+          "before": 1,
+          "after": 4,
+          "closersUsed": 2
+        }
+      ]
+    },
+    {
+      "bundle": "_coverage\\expert-early-20s-age-density.fragments.json",
+      "updated": 8,
+      "changes": [
+        {
+          "fragmentId": "overall.life.expert.age.early_20s.501",
+          "before": 1,
+          "after": 4,
+          "closersUsed": 2
+        },
+        {
+          "fragmentId": "health.today.expert.age.early_20s.501",
+          "before": 1,
+          "after": 4,
+          "closersUsed": 2
+        },
+        {
+          "fragmentId": "family.thisWeek.expert.age.early_20s.501",
+          "before": 1,
+          "after": 4,
+          "closersUsed": 2
+        },
+        {
+          "fragmentId": "wealth.thisMonth.expert.age.early_20s.501",
+          "before": 1,
+          "after": 4,
+          "closersUsed": 2
+        },
+        {
+          "fragmentId": "romance.thisYear.expert.age.early_20s.501",
+          "before": 1,
+          "after": 4,
+          "closersUsed": 2
+        },
+        {
+          "fragmentId": "academic.today.expert.age.early_20s.501",
+          "before": 1,
+          "after": 4,
+          "closersUsed": 2
+        },
+        {
+          "fragmentId": "movement.thisWeek.expert.age.early_20s.501",
+          "before": 1,
+          "after": 4,
+          "closersUsed": 2
+        },
+        {
+          "fragmentId": "health_stress.life.expert.age.early_20s.501",
+          "before": 1,
+          "after": 4,
+          "closersUsed": 2
+        }
+      ]
+    },
+    {
+      "bundle": "_coverage\\expert-early-30s-age-density.fragments.json",
+      "updated": 8,
+      "changes": [
+        {
+          "fragmentId": "overall.life.expert.age.early_30s.501",
+          "before": 1,
+          "after": 4,
+          "closersUsed": 2
+        },
+        {
+          "fragmentId": "health.today.expert.age.early_30s.501",
+          "before": 1,
+          "after": 4,
+          "closersUsed": 2
+        },
+        {
+          "fragmentId": "family.thisWeek.expert.age.early_30s.501",
+          "before": 1,
+          "after": 4,
+          "closersUsed": 2
+        },
+        {
+          "fragmentId": "wealth.thisMonth.expert.age.early_30s.501",
+          "before": 1,
+          "after": 4,
+          "closersUsed": 2
+        },
+        {
+          "fragmentId": "romance.thisYear.expert.age.early_30s.501",
+          "before": 1,
+          "after": 4,
+          "closersUsed": 2
+        },
+        {
+          "fragmentId": "academic.today.expert.age.early_30s.501",
+          "before": 1,
+          "after": 4,
+          "closersUsed": 2
+        },
+        {
+          "fragmentId": "movement.thisWeek.expert.age.early_30s.501",
+          "before": 1,
+          "after": 4,
+          "closersUsed": 2
+        },
+        {
+          "fragmentId": "health_stress.life.expert.age.early_30s.501",
+          "before": 1,
+          "after": 4,
+          "closersUsed": 2
+        }
+      ]
+    },
+    {
+      "bundle": "_coverage\\expert-early-50s-age-density.fragments.json",
+      "updated": 9,
+      "changes": [
+        {
+          "fragmentId": "overall.today.expert.age.early_50s.501",
+          "before": 1,
+          "after": 4,
+          "closersUsed": 2
+        },
+        {
+          "fragmentId": "career.thisWeek.expert.age.early_50s.501",
+          "before": 1,
+          "after": 4,
+          "closersUsed": 2
+        },
+        {
+          "fragmentId": "wealth.thisMonth.expert.age.early_50s.501",
+          "before": 1,
+          "after": 4,
+          "closersUsed": 2
+        },
+        {
+          "fragmentId": "health.thisYear.expert.age.early_50s.501",
+          "before": 1,
+          "after": 4,
+          "closersUsed": 2
+        },
+        {
+          "fragmentId": "romance.life.expert.age.early_50s.501",
+          "before": 1,
+          "after": 4,
+          "closersUsed": 2
+        },
+        {
+          "fragmentId": "family.today.expert.age.early_50s.501",
+          "before": 1,
+          "after": 4,
+          "closersUsed": 2
+        },
+        {
+          "fragmentId": "academic.thisWeek.expert.age.early_50s.501",
+          "before": 1,
+          "after": 4,
+          "closersUsed": 2
+        },
+        {
+          "fragmentId": "movement.thisMonth.expert.age.early_50s.501",
+          "before": 1,
+          "after": 4,
+          "closersUsed": 2
+        },
+        {
+          "fragmentId": "health_stress.life.expert.age.early_50s.501",
+          "before": 1,
+          "after": 4,
+          "closersUsed": 2
+        }
+      ]
+    },
+    {
+      "bundle": "_coverage\\expert-earth-water-density-wave.fragments.json",
+      "updated": 5,
+      "changes": [
+        {
+          "fragmentId": "family.thisYear.expert.daymaster.earth.yongshin.water.401",
+          "before": 1,
+          "after": 4,
+          "closersUsed": 2
+        },
+        {
+          "fragmentId": "career.life.expert.daymaster.earth.yongshin.water.401",
+          "before": 1,
+          "after": 4,
+          "closersUsed": 2
+        },
+        {
+          "fragmentId": "romance.thisMonth.expert.daymaster.earth.yongshin.water.401",
+          "before": 1,
+          "after": 4,
+          "closersUsed": 2
+        },
+        {
+          "fragmentId": "study_document.thisWeek.expert.daymaster.earth.yongshin.water.401",
+          "before": 1,
+          "after": 4,
+          "closersUsed": 2
+        },
+        {
+          "fragmentId": "health_stress.today.expert.daymaster.earth.yongshin.water.401",
+          "before": 1,
+          "after": 4,
+          "closersUsed": 2
+        }
+      ]
+    },
+    {
+      "bundle": "_coverage\\expert-fire-context-density.fragments.json",
+      "updated": 7,
+      "changes": [
+        {
+          "fragmentId": "wealth.today.expert.yongshin.fire.age.early_20s.401",
+          "before": 1,
+          "after": 4,
+          "closersUsed": 2
+        },
+        {
+          "fragmentId": "romance.thisMonth.expert.yongshin.fire.age.late_20s.401",
+          "before": 1,
+          "after": 4,
+          "closersUsed": 2
+        },
+        {
+          "fragmentId": "career.thisYear.expert.yongshin.fire.age.early_30s.401",
+          "before": 1,
+          "after": 4,
+          "closersUsed": 2
+        },
+        {
+          "fragmentId": "health.thisWeek.expert.yongshin.fire.age.late_30s.401",
+          "before": 1,
+          "after": 4,
+          "closersUsed": 2
+        },
+        {
+          "fragmentId": "academic.life.expert.yongshin.fire.age.early_40s.401",
+          "before": 1,
+          "after": 4,
+          "closersUsed": 2
+        },
+        {
+          "fragmentId": "family.today.expert.yongshin.fire.age.late_40s.401",
+          "before": 1,
+          "after": 4,
+          "closersUsed": 2
+        },
+        {
+          "fragmentId": "movement.thisMonth.expert.yongshin.fire.age.early_50s.401",
+          "before": 1,
+          "after": 4,
+          "closersUsed": 2
+        }
+      ]
+    },
+    {
+      "bundle": "_coverage\\expert-late-30s-age-density.fragments.json",
+      "updated": 9,
+      "changes": [
+        {
+          "fragmentId": "overall.today.expert.age.late_30s.501",
+          "before": 1,
+          "after": 4,
+          "closersUsed": 2
+        },
+        {
+          "fragmentId": "career.thisWeek.expert.age.late_30s.501",
+          "before": 1,
+          "after": 4,
+          "closersUsed": 2
+        },
+        {
+          "fragmentId": "wealth.thisMonth.expert.age.late_30s.501",
+          "before": 1,
+          "after": 4,
+          "closersUsed": 2
+        },
+        {
+          "fragmentId": "health.thisYear.expert.age.late_30s.501",
+          "before": 1,
+          "after": 4,
+          "closersUsed": 2
+        },
+        {
+          "fragmentId": "romance.life.expert.age.late_30s.501",
+          "before": 1,
+          "after": 4,
+          "closersUsed": 2
+        },
+        {
+          "fragmentId": "family.today.expert.age.late_30s.501",
+          "before": 1,
+          "after": 4,
+          "closersUsed": 2
+        },
+        {
+          "fragmentId": "study_document.thisWeek.expert.age.late_30s.501",
+          "before": 1,
+          "after": 4,
+          "closersUsed": 2
+        },
+        {
+          "fragmentId": "movement.thisMonth.expert.age.late_30s.501",
+          "before": 1,
+          "after": 4,
+          "closersUsed": 2
+        },
+        {
+          "fragmentId": "expression_children.life.expert.age.late_30s.501",
+          "before": 1,
+          "after": 4,
+          "closersUsed": 2
+        }
+      ]
+    },
+    {
+      "bundle": "_coverage\\expert-late-teen-age-density.fragments.json",
+      "updated": 9,
+      "changes": [
+        {
+          "fragmentId": "overall.today.expert.age.late_teen.501",
+          "before": 1,
+          "after": 4,
+          "closersUsed": 2
+        },
+        {
+          "fragmentId": "academic.thisWeek.expert.age.late_teen.501",
+          "before": 1,
+          "after": 4,
+          "closersUsed": 2
+        },
+        {
+          "fragmentId": "study_document.thisMonth.expert.age.late_teen.501",
+          "before": 1,
+          "after": 4,
+          "closersUsed": 2
+        },
+        {
+          "fragmentId": "career.thisYear.expert.age.late_teen.501",
+          "before": 1,
+          "after": 4,
+          "closersUsed": 2
+        },
+        {
+          "fragmentId": "health_stress.today.expert.age.late_teen.501",
+          "before": 1,
+          "after": 4,
+          "closersUsed": 2
+        },
+        {
+          "fragmentId": "family.thisWeek.expert.age.late_teen.501",
+          "before": 1,
+          "after": 4,
+          "closersUsed": 2
+        },
+        {
+          "fragmentId": "romance.thisMonth.expert.age.late_teen.501",
+          "before": 1,
+          "after": 4,
+          "closersUsed": 2
+        },
+        {
+          "fragmentId": "movement.life.expert.age.late_teen.501",
+          "before": 1,
+          "after": 4,
+          "closersUsed": 2
+        },
+        {
+          "fragmentId": "expression_children.thisYear.expert.age.late_teen.501",
+          "before": 1,
+          "after": 4,
+          "closersUsed": 2
+        }
+      ]
+    },
+    {
+      "bundle": "_coverage\\expert-metal-density-wave.fragments.json",
+      "updated": 4,
+      "changes": [
+        {
+          "fragmentId": "wealth.life.expert.daymaster.metal.yongshin.metal.401",
+          "before": 1,
+          "after": 4,
+          "closersUsed": 2
+        },
+        {
+          "fragmentId": "health.thisYear.expert.daymaster.metal.yongshin.metal.401",
+          "before": 1,
+          "after": 4,
+          "closersUsed": 2
+        },
+        {
+          "fragmentId": "academic.thisMonth.expert.daymaster.metal.yongshin.metal.401",
+          "before": 1,
+          "after": 4,
+          "closersUsed": 1
+        },
+        {
+          "fragmentId": "movement.today.expert.daymaster.metal.yongshin.metal.401",
+          "before": 1,
+          "after": 4,
+          "closersUsed": 1
+        }
+      ]
+    },
+    {
+      "bundle": "_coverage\\expert-neutral-polarity-density.fragments.json",
+      "updated": 7,
+      "changes": [
+        {
+          "fragmentId": "romance.today.expert.polarity.neutral.age.child_0_9.401",
+          "before": 1,
+          "after": 4,
+          "closersUsed": 2
+        },
+        {
+          "fragmentId": "health.thisWeek.expert.polarity.neutral.age.early_60s.401",
+          "before": 1,
+          "after": 4,
+          "closersUsed": 2
+        },
+        {
+          "fragmentId": "family.thisMonth.expert.polarity.neutral.age.early_teen.401",
+          "before": 1,
+          "after": 4,
+          "closersUsed": 2
+        },
+        {
+          "fragmentId": "wealth.thisYear.expert.polarity.neutral.age.late_50s.401",
+          "before": 1,
+          "after": 4,
+          "closersUsed": 2
+        },
+        {
+          "fragmentId": "career.life.expert.polarity.neutral.age.late_60s.401",
+          "before": 1,
+          "after": 4,
+          "closersUsed": 2
+        },
+        {
+          "fragmentId": "academic.thisWeek.expert.polarity.neutral.age.late_teen.401",
+          "before": 1,
+          "after": 4,
+          "closersUsed": 2
+        },
+        {
+          "fragmentId": "movement.thisMonth.expert.polarity.neutral.age.70s.401",
+          "before": 1,
+          "after": 4,
+          "closersUsed": 2
+        }
+      ]
+    },
+    {
+      "bundle": "_coverage\\expert-remaining-age-density.fragments.json",
+      "updated": 56,
+      "changes": [
+        {
+          "fragmentId": "overall.life.expert.age.early_40s.601",
+          "before": 1,
+          "after": 4,
+          "closersUsed": 2
+        },
+        {
+          "fragmentId": "health.today.expert.age.early_40s.601",
+          "before": 1,
+          "after": 4,
+          "closersUsed": 2
+        },
+        {
+          "fragmentId": "family.thisWeek.expert.age.early_40s.601",
+          "before": 1,
+          "after": 4,
+          "closersUsed": 2
+        },
+        {
+          "fragmentId": "wealth.thisMonth.expert.age.early_40s.601",
+          "before": 1,
+          "after": 4,
+          "closersUsed": 2
+        },
+        {
+          "fragmentId": "romance.thisYear.expert.age.early_40s.601",
+          "before": 1,
+          "after": 4,
+          "closersUsed": 2
+        },
+        {
+          "fragmentId": "academic.today.expert.age.early_40s.601",
+          "before": 1,
+          "after": 4,
+          "closersUsed": 2
+        },
+        {
+          "fragmentId": "movement.thisWeek.expert.age.early_40s.601",
+          "before": 1,
+          "after": 4,
+          "closersUsed": 2
+        },
+        {
+          "fragmentId": "health_stress.life.expert.age.early_40s.601",
+          "before": 1,
+          "after": 4,
+          "closersUsed": 2
+        },
+        {
+          "fragmentId": "overall.life.expert.age.early_60s.601",
+          "before": 1,
+          "after": 4,
+          "closersUsed": 2
+        },
+        {
+          "fragmentId": "health.today.expert.age.early_60s.601",
+          "before": 1,
+          "after": 4,
+          "closersUsed": 2
+        },
+        {
+          "fragmentId": "family.thisWeek.expert.age.early_60s.601",
+          "before": 1,
+          "after": 4,
+          "closersUsed": 2
+        },
+        {
+          "fragmentId": "wealth.thisMonth.expert.age.early_60s.601",
+          "before": 1,
+          "after": 4,
+          "closersUsed": 2
+        },
+        {
+          "fragmentId": "romance.thisYear.expert.age.early_60s.601",
+          "before": 1,
+          "after": 4,
+          "closersUsed": 2
+        },
+        {
+          "fragmentId": "academic.today.expert.age.early_60s.601",
+          "before": 1,
+          "after": 4,
+          "closersUsed": 2
+        },
+        {
+          "fragmentId": "movement.thisWeek.expert.age.early_60s.601",
+          "before": 1,
+          "after": 4,
+          "closersUsed": 2
+        },
+        {
+          "fragmentId": "health_stress.life.expert.age.early_60s.601",
+          "before": 1,
+          "after": 4,
+          "closersUsed": 2
+        },
+        {
+          "fragmentId": "overall.life.expert.age.early_teen.601",
+          "before": 1,
+          "after": 4,
+          "closersUsed": 2
+        },
+        {
+          "fragmentId": "health.today.expert.age.early_teen.601",
+          "before": 1,
+          "after": 4,
+          "closersUsed": 2
+        },
+        {
+          "fragmentId": "family.thisWeek.expert.age.early_teen.601",
+          "before": 1,
+          "after": 4,
+          "closersUsed": 2
+        },
+        {
+          "fragmentId": "wealth.thisMonth.expert.age.early_teen.601",
+          "before": 1,
+          "after": 4,
+          "closersUsed": 2
+        },
+        {
+          "fragmentId": "romance.thisYear.expert.age.early_teen.601",
+          "before": 1,
+          "after": 4,
+          "closersUsed": 2
+        },
+        {
+          "fragmentId": "academic.today.expert.age.early_teen.601",
+          "before": 1,
+          "after": 4,
+          "closersUsed": 2
+        },
+        {
+          "fragmentId": "movement.thisWeek.expert.age.early_teen.601",
+          "before": 1,
+          "after": 4,
+          "closersUsed": 2
+        },
+        {
+          "fragmentId": "health_stress.life.expert.age.early_teen.601",
+          "before": 1,
+          "after": 4,
+          "closersUsed": 2
+        },
+        {
+          "fragmentId": "overall.life.expert.age.late_20s.601",
+          "before": 1,
+          "after": 4,
+          "closersUsed": 2
+        },
+        {
+          "fragmentId": "health.today.expert.age.late_20s.601",
+          "before": 1,
+          "after": 4,
+          "closersUsed": 2
+        },
+        {
+          "fragmentId": "family.thisWeek.expert.age.late_20s.601",
+          "before": 1,
+          "after": 4,
+          "closersUsed": 2
+        },
+        {
+          "fragmentId": "wealth.thisMonth.expert.age.late_20s.601",
+          "before": 1,
+          "after": 4,
+          "closersUsed": 2
+        },
+        {
+          "fragmentId": "romance.thisYear.expert.age.late_20s.601",
+          "before": 1,
+          "after": 4,
+          "closersUsed": 2
+        },
+        {
+          "fragmentId": "academic.today.expert.age.late_20s.601",
+          "before": 1,
+          "after": 4,
+          "closersUsed": 2
+        },
+        {
+          "fragmentId": "movement.thisWeek.expert.age.late_20s.601",
+          "before": 1,
+          "after": 4,
+          "closersUsed": 2
+        },
+        {
+          "fragmentId": "health_stress.life.expert.age.late_20s.601",
+          "before": 1,
+          "after": 4,
+          "closersUsed": 2
+        },
+        {
+          "fragmentId": "overall.life.expert.age.late_40s.601",
+          "before": 1,
+          "after": 4,
+          "closersUsed": 2
+        },
+        {
+          "fragmentId": "health.today.expert.age.late_40s.601",
+          "before": 1,
+          "after": 4,
+          "closersUsed": 2
+        },
+        {
+          "fragmentId": "family.thisWeek.expert.age.late_40s.601",
+          "before": 1,
+          "after": 4,
+          "closersUsed": 2
+        },
+        {
+          "fragmentId": "wealth.thisMonth.expert.age.late_40s.601",
+          "before": 1,
+          "after": 4,
+          "closersUsed": 2
+        },
+        {
+          "fragmentId": "romance.thisYear.expert.age.late_40s.601",
+          "before": 1,
+          "after": 4,
+          "closersUsed": 2
+        },
+        {
+          "fragmentId": "academic.today.expert.age.late_40s.601",
+          "before": 1,
+          "after": 4,
+          "closersUsed": 2
+        },
+        {
+          "fragmentId": "movement.thisWeek.expert.age.late_40s.601",
+          "before": 1,
+          "after": 4,
+          "closersUsed": 2
+        },
+        {
+          "fragmentId": "health_stress.life.expert.age.late_40s.601",
+          "before": 1,
+          "after": 4,
+          "closersUsed": 2
+        },
+        {
+          "fragmentId": "overall.life.expert.age.late_50s.601",
+          "before": 1,
+          "after": 4,
+          "closersUsed": 2
+        },
+        {
+          "fragmentId": "health.today.expert.age.late_50s.601",
+          "before": 1,
+          "after": 4,
+          "closersUsed": 2
+        },
+        {
+          "fragmentId": "family.thisWeek.expert.age.late_50s.601",
+          "before": 1,
+          "after": 4,
+          "closersUsed": 2
+        },
+        {
+          "fragmentId": "wealth.thisMonth.expert.age.late_50s.601",
+          "before": 1,
+          "after": 4,
+          "closersUsed": 2
+        },
+        {
+          "fragmentId": "romance.thisYear.expert.age.late_50s.601",
+          "before": 1,
+          "after": 4,
+          "closersUsed": 2
+        },
+        {
+          "fragmentId": "academic.today.expert.age.late_50s.601",
+          "before": 1,
+          "after": 4,
+          "closersUsed": 2
+        },
+        {
+          "fragmentId": "movement.thisWeek.expert.age.late_50s.601",
+          "before": 1,
+          "after": 4,
+          "closersUsed": 2
+        },
+        {
+          "fragmentId": "health_stress.life.expert.age.late_50s.601",
+          "before": 1,
+          "after": 4,
+          "closersUsed": 2
+        },
+        {
+          "fragmentId": "overall.life.expert.age.late_60s.601",
+          "before": 1,
+          "after": 4,
+          "closersUsed": 2
+        },
+        {
+          "fragmentId": "health.today.expert.age.late_60s.601",
+          "before": 1,
+          "after": 4,
+          "closersUsed": 2
+        },
+        {
+          "fragmentId": "family.thisWeek.expert.age.late_60s.601",
+          "before": 1,
+          "after": 4,
+          "closersUsed": 2
+        },
+        {
+          "fragmentId": "wealth.thisMonth.expert.age.late_60s.601",
+          "before": 1,
+          "after": 4,
+          "closersUsed": 2
+        },
+        {
+          "fragmentId": "romance.thisYear.expert.age.late_60s.601",
+          "before": 1,
+          "after": 4,
+          "closersUsed": 2
+        },
+        {
+          "fragmentId": "academic.today.expert.age.late_60s.601",
+          "before": 1,
+          "after": 4,
+          "closersUsed": 2
+        },
+        {
+          "fragmentId": "movement.thisWeek.expert.age.late_60s.601",
+          "before": 1,
+          "after": 4,
+          "closersUsed": 2
+        },
+        {
+          "fragmentId": "health_stress.life.expert.age.late_60s.601",
+          "before": 1,
+          "after": 4,
+          "closersUsed": 2
+        }
+      ]
+    },
+    {
+      "bundle": "_coverage\\expert-season-polarity-gap-fill.fragments.json",
+      "updated": 5,
+      "changes": [
+        {
+          "fragmentId": "overall.life.expert.birthseason.summer.401",
+          "before": 1,
+          "after": 4,
+          "closersUsed": 1
+        },
+        {
+          "fragmentId": "overall.life.expert.birthseason.autumn.401",
+          "before": 1,
+          "after": 4,
+          "closersUsed": 1
+        },
+        {
+          "fragmentId": "overall.life.expert.birthseason.winter.401",
+          "before": 1,
+          "after": 4,
+          "closersUsed": 1
+        },
+        {
+          "fragmentId": "overall.life.expert.polarity.yang.401",
+          "before": 1,
+          "after": 4,
+          "closersUsed": 1
+        },
+        {
+          "fragmentId": "overall.life.expert.polarity.neutral.401",
+          "before": 1,
+          "after": 4,
+          "closersUsed": 2
+        }
+      ]
+    },
+    {
+      "bundle": "_coverage\\expert-small-density-wave.fragments.json",
+      "updated": 2,
+      "changes": [
+        {
+          "fragmentId": "family.life.expert.gender.neutral.gyeokguk.pyeongwangyeok.401",
+          "before": 1,
+          "after": 4,
+          "closersUsed": 2
+        },
+        {
+          "fragmentId": "career.thisYear.expert.gender.neutral.gyeokguk.pyeongwangyeok.401",
+          "before": 1,
+          "after": 4,
+          "closersUsed": 2
+        }
+      ]
+    },
+    {
+      "bundle": "_coverage\\expert-spring-autumn-density.fragments.json",
+      "updated": 5,
+      "changes": [
+        {
+          "fragmentId": "overall.life.expert.birthSeason.spring.age.child_0_9.401",
+          "before": 1,
+          "after": 4,
+          "closersUsed": 2
+        },
+        {
+          "fragmentId": "romance.thisMonth.expert.birthSeason.spring.age.early_30s.401",
+          "before": 1,
+          "after": 4,
+          "closersUsed": 2
+        },
+        {
+          "fragmentId": "study_document.thisWeek.expert.birthSeason.spring.age.late_20s.401",
+          "before": 1,
+          "after": 4,
+          "closersUsed": 2
+        },
+        {
+          "fragmentId": "health_stress.thisYear.expert.birthSeason.autumn.age.early_teen.401",
+          "before": 1,
+          "after": 4,
+          "closersUsed": 2
+        },
+        {
+          "fragmentId": "expression_children.life.expert.birthSeason.autumn.age.late_40s.401",
+          "before": 1,
+          "after": 4,
+          "closersUsed": 2
+        }
+      ]
+    },
+    {
+      "bundle": "_coverage\\expert-summer-winter-density.fragments.json",
+      "updated": 6,
+      "changes": [
+        {
+          "fragmentId": "health.today.expert.birthSeason.summer.age.early_60s.401",
+          "before": 1,
+          "after": 4,
+          "closersUsed": 2
+        },
+        {
+          "fragmentId": "career.thisWeek.expert.birthSeason.summer.age.80s.401",
+          "before": 1,
+          "after": 4,
+          "closersUsed": 2
+        },
+        {
+          "fragmentId": "family.thisMonth.expert.birthSeason.summer.age.late_50s.401",
+          "before": 1,
+          "after": 4,
+          "closersUsed": 2
+        },
+        {
+          "fragmentId": "academic.today.expert.birthSeason.winter.age.90_plus.401",
+          "before": 1,
+          "after": 4,
+          "closersUsed": 2
+        },
+        {
+          "fragmentId": "wealth.thisYear.expert.birthSeason.winter.age.early_20s.401",
+          "before": 1,
+          "after": 4,
+          "closersUsed": 2
+        },
+        {
+          "fragmentId": "movement.life.expert.birthSeason.winter.age.late_60s.401",
+          "before": 1,
+          "after": 4,
+          "closersUsed": 2
+        }
+      ]
+    },
+    {
+      "bundle": "_coverage\\expert-wood-earth-density-wave.fragments.json",
+      "updated": 6,
+      "changes": [
+        {
+          "fragmentId": "wealth.thisYear.expert.daymaster.wood.yongshin.earth.401",
+          "before": 1,
+          "after": 4,
+          "closersUsed": 2
+        },
+        {
+          "fragmentId": "family.thisMonth.expert.daymaster.wood.yongshin.earth.401",
+          "before": 1,
+          "after": 4,
+          "closersUsed": 2
+        },
+        {
+          "fragmentId": "career.today.expert.daymaster.wood.yongshin.earth.401",
+          "before": 1,
+          "after": 4,
+          "closersUsed": 2
+        },
+        {
+          "fragmentId": "academic.life.expert.daymaster.wood.yongshin.earth.401",
+          "before": 1,
+          "after": 4,
+          "closersUsed": 2
+        },
+        {
+          "fragmentId": "movement.thisWeek.expert.daymaster.wood.yongshin.earth.401",
+          "before": 1,
+          "after": 4,
+          "closersUsed": 2
+        },
+        {
+          "fragmentId": "health.thisMonth.expert.daymaster.wood.yongshin.earth.401",
+          "before": 1,
+          "after": 4,
+          "closersUsed": 2
+        }
+      ]
+    },
+    {
+      "bundle": "_coverage\\expert-wood-yongshin-context-density.fragments.json",
+      "updated": 7,
+      "changes": [
+        {
+          "fragmentId": "career.today.expert.yongshin.wood.age.early_teen.401",
+          "before": 1,
+          "after": 4,
+          "closersUsed": 2
+        },
+        {
+          "fragmentId": "academic.thisWeek.expert.yongshin.wood.age.late_teen.401",
+          "before": 1,
+          "after": 4,
+          "closersUsed": 2
+        },
+        {
+          "fragmentId": "wealth.thisMonth.expert.yongshin.wood.age.late_50s.401",
+          "before": 1,
+          "after": 4,
+          "closersUsed": 2
+        },
+        {
+          "fragmentId": "family.thisYear.expert.yongshin.wood.age.late_60s.401",
+          "before": 1,
+          "after": 4,
+          "closersUsed": 2
+        },
+        {
+          "fragmentId": "health.today.expert.yongshin.wood.age.70s.401",
+          "before": 1,
+          "after": 4,
+          "closersUsed": 2
+        },
+        {
+          "fragmentId": "movement.thisMonth.expert.yongshin.wood.age.80s.401",
+          "before": 1,
+          "after": 4,
+          "closersUsed": 2
+        },
+        {
+          "fragmentId": "romance.life.expert.yongshin.wood.age.90_plus.401",
+          "before": 1,
+          "after": 4,
+          "closersUsed": 2
+        }
+      ]
+    },
+    {
+      "bundle": "_coverage\\expert-yang-polarity-density.fragments.json",
+      "updated": 6,
+      "changes": [
+        {
+          "fragmentId": "career.today.expert.polarity.yang.age.child_0_9.401",
+          "before": 1,
+          "after": 4,
+          "closersUsed": 2
+        },
+        {
+          "fragmentId": "health.thisWeek.expert.polarity.yang.age.early_60s.401",
+          "before": 1,
+          "after": 4,
+          "closersUsed": 2
+        },
+        {
+          "fragmentId": "wealth.life.expert.polarity.yang.age.70s.401",
+          "before": 1,
+          "after": 4,
+          "closersUsed": 2
+        },
+        {
+          "fragmentId": "movement.thisMonth.expert.polarity.yang.age.early_20s.402",
+          "before": 1,
+          "after": 4,
+          "closersUsed": 2
+        },
+        {
+          "fragmentId": "family.thisYear.expert.polarity.yang.age.late_30s.401",
+          "before": 1,
+          "after": 4,
+          "closersUsed": 2
+        },
+        {
+          "fragmentId": "academic.thisWeek.expert.polarity.yang.age.early_40s.401",
+          "before": 1,
+          "after": 4,
+          "closersUsed": 2
+        }
+      ]
+    },
+    {
+      "bundle": "_coverage\\expert-yin-polarity-density.fragments.json",
+      "updated": 6,
+      "changes": [
+        {
+          "fragmentId": "career.thisMonth.expert.polarity.yin.age.early_30s.401",
+          "before": 1,
+          "after": 4,
+          "closersUsed": 2
+        },
+        {
+          "fragmentId": "health.today.expert.polarity.yin.age.late_40s.401",
+          "before": 1,
+          "after": 4,
+          "closersUsed": 2
+        },
+        {
+          "fragmentId": "wealth.thisYear.expert.polarity.yin.age.80s.401",
+          "before": 1,
+          "after": 4,
+          "closersUsed": 2
+        },
+        {
+          "fragmentId": "family.thisWeek.expert.polarity.yin.age.late_20s.401",
+          "before": 1,
+          "after": 4,
+          "closersUsed": 2
+        },
+        {
+          "fragmentId": "academic.life.expert.polarity.yin.age.early_50s.401",
+          "before": 1,
+          "after": 4,
+          "closersUsed": 2
+        },
+        {
+          "fragmentId": "movement.thisMonth.expert.polarity.yin.age.90_plus.401",
+          "before": 1,
+          "after": 4,
+          "closersUsed": 2
+        }
+      ]
+    },
+    {
+      "bundle": "_coverage\\expression-children-plain-season-context.fragments.json",
+      "updated": 0,
+      "changes": []
+    },
+    {
+      "bundle": "_coverage\\expression-children-season-context.fragments.json",
+      "updated": 10,
+      "changes": [
+        {
+          "fragmentId": "expression_children.life.expert.currentseason.spring_summer.301",
+          "before": 1,
+          "after": 4,
+          "closersUsed": 1
+        },
+        {
+          "fragmentId": "expression_children.life.expert.currentseason.autumn_winter.301",
+          "before": 1,
+          "after": 4,
+          "closersUsed": 1
+        },
+        {
+          "fragmentId": "expression_children.today.expert.currentseason.spring_summer.301",
+          "before": 1,
+          "after": 4,
+          "closersUsed": 3
+        },
+        {
+          "fragmentId": "expression_children.today.expert.currentseason.autumn_winter.301",
+          "before": 1,
+          "after": 4,
+          "closersUsed": 3
+        },
+        {
+          "fragmentId": "expression_children.thisWeek.expert.currentseason.spring_summer.301",
+          "before": 1,
+          "after": 4,
+          "closersUsed": 3
+        },
+        {
+          "fragmentId": "expression_children.thisWeek.expert.currentseason.autumn_winter.301",
+          "before": 1,
+          "after": 4,
+          "closersUsed": 2
+        },
+        {
+          "fragmentId": "expression_children.thisMonth.expert.currentseason.spring_summer.301",
+          "before": 1,
+          "after": 4,
+          "closersUsed": 2
+        },
+        {
+          "fragmentId": "expression_children.thisMonth.expert.currentseason.autumn_winter.301",
+          "before": 1,
+          "after": 4,
+          "closersUsed": 2
+        },
+        {
+          "fragmentId": "expression_children.thisYear.expert.currentseason.spring_summer.301",
+          "before": 1,
+          "after": 4,
+          "closersUsed": 2
+        },
+        {
+          "fragmentId": "expression_children.thisYear.expert.currentseason.autumn_winter.301",
+          "before": 1,
+          "after": 4,
+          "closersUsed": 1
+        }
+      ]
+    },
+    {
+      "bundle": "_coverage\\extreme-strong-yongshin-alignment-pairs.fragments.json",
+      "updated": 0,
+      "changes": []
+    },
+    {
+      "bundle": "_coverage\\family-expert-season-context.fragments.json",
+      "updated": 4,
+      "changes": [
+        {
+          "fragmentId": "family.life.expert.currentseason.spring_summer.301",
+          "before": 1,
+          "after": 4,
+          "closersUsed": 1
+        },
+        {
+          "fragmentId": "family.life.expert.currentseason.autumn_winter.301",
+          "before": 1,
+          "after": 4,
+          "closersUsed": 1
+        },
+        {
+          "fragmentId": "family.thisYear.expert.currentseason.spring_summer.301",
+          "before": 1,
+          "after": 4,
+          "closersUsed": 1
+        },
+        {
+          "fragmentId": "family.thisYear.expert.currentseason.autumn_winter.301",
+          "before": 1,
+          "after": 4,
+          "closersUsed": 1
+        }
+      ]
+    },
+    {
+      "bundle": "_coverage\\family-plain-season-context.fragments.json",
+      "updated": 0,
+      "changes": []
+    },
+    {
+      "bundle": "_coverage\\family-season-expert-context.fragments.json",
+      "updated": 6,
+      "changes": [
+        {
+          "fragmentId": "family.today.expert.currentseason.spring_summer.301",
+          "before": 1,
+          "after": 4,
+          "closersUsed": 1
+        },
+        {
+          "fragmentId": "family.today.expert.currentseason.autumn_winter.301",
+          "before": 1,
+          "after": 4,
+          "closersUsed": 1
+        },
+        {
+          "fragmentId": "family.thisWeek.expert.currentseason.spring_summer.301",
+          "before": 1,
+          "after": 4,
+          "closersUsed": 1
+        },
+        {
+          "fragmentId": "family.thisWeek.expert.currentseason.autumn_winter.301",
+          "before": 1,
+          "after": 4,
+          "closersUsed": 2
+        },
+        {
+          "fragmentId": "family.thisMonth.expert.currentseason.spring_summer.301",
+          "before": 1,
+          "after": 4,
+          "closersUsed": 1
+        },
+        {
+          "fragmentId": "family.thisMonth.expert.currentseason.autumn_winter.301",
+          "before": 1,
+          "after": 4,
+          "closersUsed": 1
+        }
+      ]
+    },
+    {
+      "bundle": "_coverage\\focused-season-gap-fill.fragments.json",
+      "updated": 6,
+      "changes": [
+        {
+          "fragmentId": "academic.today.expert.currentseason.spring_summer.301",
+          "before": 1,
+          "after": 4,
+          "closersUsed": 1
+        },
+        {
+          "fragmentId": "academic.today.expert.currentseason.autumn_winter.301",
+          "before": 1,
+          "after": 4,
+          "closersUsed": 1
+        },
+        {
+          "fragmentId": "study_document.life.expert.currentseason.spring_summer.301",
+          "before": 1,
+          "after": 4,
+          "closersUsed": 1
+        },
+        {
+          "fragmentId": "study_document.life.expert.currentseason.autumn_winter.301",
+          "before": 1,
+          "after": 4,
+          "closersUsed": 1
+        },
+        {
+          "fragmentId": "study_document.thisYear.expert.currentseason.spring_summer.301",
+          "before": 1,
+          "after": 4,
+          "closersUsed": 1
+        },
+        {
+          "fragmentId": "study_document.thisYear.expert.currentseason.autumn_winter.301",
+          "before": 1,
+          "after": 4,
+          "closersUsed": 1
+        }
+      ]
+    },
+    {
+      "bundle": "_coverage\\gender-neutral-density.fragments.json",
+      "updated": 1,
+      "changes": [
+        {
+          "fragmentId": "overall.life.expert.gender.neutral.201",
+          "before": 1,
+          "after": 4,
+          "closersUsed": 2
+        }
+      ]
+    },
+    {
+      "bundle": "_coverage\\gyeokguk-career-density.fragments.json",
+      "updated": 2,
+      "changes": [
+        {
+          "fragmentId": "overall.life.expert.gyeokguk.jeonggwangyeok.201",
+          "before": 1,
+          "after": 4,
+          "closersUsed": 1
+        },
+        {
+          "fragmentId": "overall.life.expert.gyeokguk.pyeongwangyeok.201",
+          "before": 1,
+          "after": 4,
+          "closersUsed": 1
+        }
+      ]
+    },
+    {
+      "bundle": "_coverage\\gyeokguk-expression-strength-pairs.fragments.json",
+      "updated": 0,
+      "changes": []
+    },
+    {
+      "bundle": "_coverage\\gyeokguk-gwan-strength-pairs.fragments.json",
+      "updated": 0,
+      "changes": []
+    },
+    {
+      "bundle": "_coverage\\gyeokguk-in-strength-pairs.fragments.json",
+      "updated": 0,
+      "changes": []
+    },
+    {
+      "bundle": "_coverage\\health-long-season-context.fragments.json",
+      "updated": 6,
+      "changes": [
+        {
+          "fragmentId": "health_stress.life.expert.currentseason.spring_summer.301",
+          "before": 1,
+          "after": 4,
+          "closersUsed": 1
+        },
+        {
+          "fragmentId": "health_stress.life.expert.currentseason.autumn_winter.301",
+          "before": 1,
+          "after": 4,
+          "closersUsed": 1
+        },
+        {
+          "fragmentId": "health_stress.thisYear.expert.currentseason.spring_summer.301",
+          "before": 1,
+          "after": 4,
+          "closersUsed": 2
+        },
+        {
+          "fragmentId": "health_stress.thisYear.expert.currentseason.autumn_winter.301",
+          "before": 1,
+          "after": 4,
+          "closersUsed": 1
+        },
+        {
+          "fragmentId": "health.life.expert.currentseason.spring_summer.301",
+          "before": 1,
+          "after": 4,
+          "closersUsed": 2
+        },
+        {
+          "fragmentId": "health.life.expert.currentseason.autumn_winter.301",
+          "before": 1,
+          "after": 4,
+          "closersUsed": 1
+        }
+      ]
+    },
+    {
+      "bundle": "_coverage\\health-plain-expert-season-detail.fragments.json",
+      "updated": 2,
+      "changes": [
+        {
+          "fragmentId": "health.thisYear.expert.currentseason.spring_summer.301",
+          "before": 1,
+          "after": 4,
+          "closersUsed": 1
+        },
+        {
+          "fragmentId": "health.thisYear.expert.currentseason.autumn_winter.301",
+          "before": 1,
+          "after": 4,
+          "closersUsed": 1
+        }
+      ]
+    },
+    {
+      "bundle": "_coverage\\health-season-context.fragments.json",
+      "updated": 6,
+      "changes": [
+        {
+          "fragmentId": "health.today.expert.currentseason.spring_summer.301",
+          "before": 1,
+          "after": 4,
+          "closersUsed": 2
+        },
+        {
+          "fragmentId": "health.today.expert.currentseason.autumn_winter.301",
+          "before": 1,
+          "after": 4,
+          "closersUsed": 2
+        },
+        {
+          "fragmentId": "health.thisWeek.expert.currentseason.spring_summer.301",
+          "before": 1,
+          "after": 4,
+          "closersUsed": 2
+        },
+        {
+          "fragmentId": "health.thisWeek.expert.currentseason.autumn_winter.301",
+          "before": 1,
+          "after": 4,
+          "closersUsed": 2
+        },
+        {
+          "fragmentId": "health.thisMonth.expert.currentseason.spring_summer.301",
+          "before": 1,
+          "after": 4,
+          "closersUsed": 2
+        },
+        {
+          "fragmentId": "health.thisMonth.expert.currentseason.autumn_winter.301",
+          "before": 1,
+          "after": 4,
+          "closersUsed": 2
+        }
+      ]
+    },
+    {
+      "bundle": "_coverage\\health-stress-short-season-context.fragments.json",
+      "updated": 6,
+      "changes": [
+        {
+          "fragmentId": "health_stress.today.expert.currentseason.spring_summer.301",
+          "before": 1,
+          "after": 4,
+          "closersUsed": 2
+        },
+        {
+          "fragmentId": "health_stress.today.expert.currentseason.autumn_winter.301",
+          "before": 1,
+          "after": 4,
+          "closersUsed": 2
+        },
+        {
+          "fragmentId": "health_stress.thisWeek.expert.currentseason.spring_summer.301",
+          "before": 1,
+          "after": 4,
+          "closersUsed": 1
+        },
+        {
+          "fragmentId": "health_stress.thisWeek.expert.currentseason.autumn_winter.301",
+          "before": 1,
+          "after": 4,
+          "closersUsed": 2
+        },
+        {
+          "fragmentId": "health_stress.thisMonth.expert.currentseason.spring_summer.301",
+          "before": 1,
+          "after": 4,
+          "closersUsed": 1
+        },
+        {
+          "fragmentId": "health_stress.thisMonth.expert.currentseason.autumn_winter.301",
+          "before": 1,
+          "after": 4,
+          "closersUsed": 1
+        }
+      ]
+    },
+    {
+      "bundle": "_coverage\\min12-density-floor-complete.fragments.json",
+      "updated": 6,
+      "changes": [
+        {
+          "fragmentId": "expression_children.today.expert.support.401",
+          "before": 1,
+          "after": 4,
+          "closersUsed": 2
+        },
+        {
+          "fragmentId": "expression_children.thisWeek.expert.support.401",
+          "before": 1,
+          "after": 4,
+          "closersUsed": 2
+        },
+        {
+          "fragmentId": "expression_children.thisMonth.expert.support.401",
+          "before": 1,
+          "after": 4,
+          "closersUsed": 2
+        },
+        {
+          "fragmentId": "health.today.expert.recovery.401",
+          "before": 1,
+          "after": 4,
+          "closersUsed": 2
+        },
+        {
+          "fragmentId": "health.thisWeek.expert.recovery.401",
+          "before": 1,
+          "after": 4,
+          "closersUsed": 2
+        },
+        {
+          "fragmentId": "health.thisMonth.expert.recovery.401",
+          "before": 1,
+          "after": 4,
+          "closersUsed": 2
+        }
+      ]
+    },
+    {
+      "bundle": "_coverage\\min14-academic-floor.fragments.json",
+      "updated": 4,
+      "changes": [
+        {
+          "fragmentId": "academic.life.expert.integrated_learning.501",
+          "before": 1,
+          "after": 4,
+          "closersUsed": 2
+        },
+        {
+          "fragmentId": "academic.thisWeek.expert.focus.501",
+          "before": 1,
+          "after": 4,
+          "closersUsed": 2
+        },
+        {
+          "fragmentId": "academic.thisMonth.expert.output.501",
+          "before": 1,
+          "after": 4,
+          "closersUsed": 2
+        },
+        {
+          "fragmentId": "academic.thisYear.expert.year_strategy.501",
+          "before": 1,
+          "after": 4,
+          "closersUsed": 2
+        }
+      ]
+    },
+    {
+      "bundle": "_coverage\\min14-career-floor.fragments.json",
+      "updated": 10,
+      "changes": [
+        {
+          "fragmentId": "career.life.expert.responsibility.strong.501",
+          "before": 1,
+          "after": 4,
+          "closersUsed": 2
+        },
+        {
+          "fragmentId": "career.life.expert.energy.weak.501",
+          "before": 1,
+          "after": 4,
+          "closersUsed": 2
+        },
+        {
+          "fragmentId": "career.today.expert.alignment.supportive.501",
+          "before": 1,
+          "after": 4,
+          "closersUsed": 2
+        },
+        {
+          "fragmentId": "career.today.expert.alignment.conflicting.501",
+          "before": 1,
+          "after": 4,
+          "closersUsed": 2
+        },
+        {
+          "fragmentId": "career.thisWeek.expert.strength.strong.501",
+          "before": 1,
+          "after": 4,
+          "closersUsed": 2
+        },
+        {
+          "fragmentId": "career.thisWeek.expert.strength.weak.501",
+          "before": 1,
+          "after": 4,
+          "closersUsed": 2
+        },
+        {
+          "fragmentId": "career.thisMonth.expert.season.spring_summer.501",
+          "before": 1,
+          "after": 4,
+          "closersUsed": 2
+        },
+        {
+          "fragmentId": "career.thisMonth.expert.season.autumn_winter.501",
+          "before": 1,
+          "after": 4,
+          "closersUsed": 2
+        },
+        {
+          "fragmentId": "career.thisYear.expert.gyeokguk.official.501",
+          "before": 1,
+          "after": 4,
+          "closersUsed": 2
+        },
+        {
+          "fragmentId": "career.thisYear.expert.gyeokguk.output.501",
+          "before": 1,
+          "after": 4,
+          "closersUsed": 2
+        }
+      ]
+    },
+    {
+      "bundle": "_coverage\\min14-career-plain-floor.fragments.json",
+      "updated": 0,
+      "changes": []
+    },
+    {
+      "bundle": "_coverage\\min14-expression-children-floor.fragments.json",
+      "updated": 10,
+      "changes": [
+        {
+          "fragmentId": "expression_children.life.expert.output.supportive.501",
+          "before": 1,
+          "after": 4,
+          "closersUsed": 2
+        },
+        {
+          "fragmentId": "expression_children.life.expert.output.pressure.501",
+          "before": 1,
+          "after": 4,
+          "closersUsed": 2
+        },
+        {
+          "fragmentId": "expression_children.today.expert.output.sikshin.501",
+          "before": 1,
+          "after": 4,
+          "closersUsed": 2
+        },
+        {
+          "fragmentId": "expression_children.today.expert.output.sanggwan.501",
+          "before": 1,
+          "after": 4,
+          "closersUsed": 2
+        },
+        {
+          "fragmentId": "expression_children.thisWeek.expert.output.creation.501",
+          "before": 1,
+          "after": 4,
+          "closersUsed": 2
+        },
+        {
+          "fragmentId": "expression_children.thisWeek.expert.output.challenge.501",
+          "before": 1,
+          "after": 4,
+          "closersUsed": 2
+        },
+        {
+          "fragmentId": "expression_children.thisMonth.expert.output.season.spring_summer.501",
+          "before": 1,
+          "after": 4,
+          "closersUsed": 2
+        },
+        {
+          "fragmentId": "expression_children.thisMonth.expert.output.season.autumn_winter.501",
+          "before": 1,
+          "after": 4,
+          "closersUsed": 1
+        },
+        {
+          "fragmentId": "expression_children.thisYear.expert.gyeokguk.output.501",
+          "before": 1,
+          "after": 4,
+          "closersUsed": 2
+        },
+        {
+          "fragmentId": "expression_children.thisYear.expert.gyeokguk.support.501",
+          "before": 1,
+          "after": 4,
+          "closersUsed": 2
+        }
+      ]
+    },
+    {
+      "bundle": "_coverage\\min14-expression-children-plain-floor.fragments.json",
+      "updated": 0,
+      "changes": []
+    },
+    {
+      "bundle": "_coverage\\min14-family-floor.fragments.json",
+      "updated": 6,
+      "changes": [
+        {
+          "fragmentId": "family.today.expert.boundary.501",
+          "before": 1,
+          "after": 4,
+          "closersUsed": 1
+        },
+        {
+          "fragmentId": "family.today.expert.role.501",
+          "before": 1,
+          "after": 4,
+          "closersUsed": 2
+        },
+        {
+          "fragmentId": "family.thisWeek.expert.support.501",
+          "before": 1,
+          "after": 4,
+          "closersUsed": 2
+        },
+        {
+          "fragmentId": "family.thisWeek.expert.boundary.501",
+          "before": 1,
+          "after": 4,
+          "closersUsed": 2
+        },
+        {
+          "fragmentId": "family.thisMonth.expert.rhythm.501",
+          "before": 1,
+          "after": 4,
+          "closersUsed": 1
+        },
+        {
+          "fragmentId": "family.thisMonth.expert.reset.501",
+          "before": 1,
+          "after": 4,
+          "closersUsed": 1
+        }
+      ]
+    },
+    {
+      "bundle": "_coverage\\min14-final-floor.fragments.json",
+      "updated": 1,
+      "changes": [
+        {
+          "fragmentId": "family.thisYear.expert.support_boundary.502",
+          "before": 1,
+          "after": 4,
+          "closersUsed": 2
+        }
+      ]
+    },
+    {
+      "bundle": "_coverage\\min14-foundation-floor.fragments.json",
+      "updated": 0,
+      "changes": []
+    },
+    {
+      "bundle": "_coverage\\min14-health-floor.fragments.json",
+      "updated": 8,
+      "changes": [
+        {
+          "fragmentId": "health.life.expert.johu.501",
+          "before": 1,
+          "after": 4,
+          "closersUsed": 2
+        },
+        {
+          "fragmentId": "health.life.expert.balance.501",
+          "before": 1,
+          "after": 4,
+          "closersUsed": 2
+        },
+        {
+          "fragmentId": "health.today.expert.recovery.501",
+          "before": 1,
+          "after": 4,
+          "closersUsed": 2
+        },
+        {
+          "fragmentId": "health.today.expert.caution.501",
+          "before": 1,
+          "after": 4,
+          "closersUsed": 2
+        },
+        {
+          "fragmentId": "health.thisWeek.expert.johu.501",
+          "before": 1,
+          "after": 4,
+          "closersUsed": 2
+        },
+        {
+          "fragmentId": "health.thisWeek.expert.recovery.501",
+          "before": 1,
+          "after": 4,
+          "closersUsed": 2
+        },
+        {
+          "fragmentId": "health.thisMonth.expert.balance.501",
+          "before": 1,
+          "after": 4,
+          "closersUsed": 2
+        },
+        {
+          "fragmentId": "health.thisMonth.expert.caution.501",
+          "before": 1,
+          "after": 4,
+          "closersUsed": 2
+        }
+      ]
+    },
+    {
+      "bundle": "_coverage\\min14-health-stress-expert-floor.fragments.json",
+      "updated": 10,
+      "changes": [
+        {
+          "fragmentId": "health_stress.life.expert.johu.501",
+          "before": 1,
+          "after": 4,
+          "closersUsed": 2
+        },
+        {
+          "fragmentId": "health_stress.life.expert.stability.501",
+          "before": 1,
+          "after": 4,
+          "closersUsed": 2
+        },
+        {
+          "fragmentId": "health_stress.today.expert.recovery.501",
+          "before": 1,
+          "after": 4,
+          "closersUsed": 2
+        },
+        {
+          "fragmentId": "health_stress.today.expert.caution.501",
+          "before": 1,
+          "after": 4,
+          "closersUsed": 2
+        },
+        {
+          "fragmentId": "health_stress.thisWeek.expert.johu.501",
+          "before": 1,
+          "after": 4,
+          "closersUsed": 2
+        },
+        {
+          "fragmentId": "health_stress.thisWeek.expert.stability.501",
+          "before": 1,
+          "after": 4,
+          "closersUsed": 2
+        },
+        {
+          "fragmentId": "health_stress.thisMonth.expert.rhythm.501",
+          "before": 1,
+          "after": 4,
+          "closersUsed": 2
+        },
+        {
+          "fragmentId": "health_stress.thisMonth.expert.caution.501",
+          "before": 1,
+          "after": 4,
+          "closersUsed": 2
+        },
+        {
+          "fragmentId": "health_stress.thisYear.expert.year.501",
+          "before": 1,
+          "after": 4,
+          "closersUsed": 2
+        },
+        {
+          "fragmentId": "health_stress.thisYear.expert.caution.501",
+          "before": 1,
+          "after": 4,
+          "closersUsed": 2
+        }
+      ]
+    },
+    {
+      "bundle": "_coverage\\min14-health-stress-plain-floor.fragments.json",
+      "updated": 0,
+      "changes": []
+    },
+    {
+      "bundle": "_coverage\\min14-movement-expert-floor.fragments.json",
+      "updated": 10,
+      "changes": [
+        {
+          "fragmentId": "movement.life.expert.yeokma.501",
+          "before": 1,
+          "after": 4,
+          "closersUsed": 2
+        },
+        {
+          "fragmentId": "movement.life.expert.caution.501",
+          "before": 1,
+          "after": 4,
+          "closersUsed": 2
+        },
+        {
+          "fragmentId": "movement.today.expert.route.501",
+          "before": 1,
+          "after": 4,
+          "closersUsed": 2
+        },
+        {
+          "fragmentId": "movement.today.expert.caution.501",
+          "before": 1,
+          "after": 4,
+          "closersUsed": 2
+        },
+        {
+          "fragmentId": "movement.thisWeek.expert.expansion.501",
+          "before": 1,
+          "after": 4,
+          "closersUsed": 2
+        },
+        {
+          "fragmentId": "movement.thisWeek.expert.reset.501",
+          "before": 1,
+          "after": 4,
+          "closersUsed": 3
+        },
+        {
+          "fragmentId": "movement.thisMonth.expert.rhythm.501",
+          "before": 1,
+          "after": 4,
+          "closersUsed": 2
+        },
+        {
+          "fragmentId": "movement.thisMonth.expert.caution.501",
+          "before": 1,
+          "after": 4,
+          "closersUsed": 2
+        },
+        {
+          "fragmentId": "movement.thisYear.expert.year.501",
+          "before": 1,
+          "after": 4,
+          "closersUsed": 2
+        },
+        {
+          "fragmentId": "movement.thisYear.expert.caution.501",
+          "before": 1,
+          "after": 4,
+          "closersUsed": 2
+        }
+      ]
+    },
+    {
+      "bundle": "_coverage\\min14-movement-plain-floor.fragments.json",
+      "updated": 0,
+      "changes": []
+    },
+    {
+      "bundle": "_coverage\\min14-romance-expert-floor.fragments.json",
+      "updated": 10,
+      "changes": [
+        {
+          "fragmentId": "romance.life.expert.compatibility.501",
+          "before": 1,
+          "after": 4,
+          "closersUsed": 2
+        },
+        {
+          "fragmentId": "romance.life.expert.expression.501",
+          "before": 1,
+          "after": 4,
+          "closersUsed": 2
+        },
+        {
+          "fragmentId": "romance.today.expert.aligned.501",
+          "before": 1,
+          "after": 4,
+          "closersUsed": 2
+        },
+        {
+          "fragmentId": "romance.today.expert.caution.501",
+          "before": 1,
+          "after": 4,
+          "closersUsed": 2
+        },
+        {
+          "fragmentId": "romance.thisWeek.expert.affinity.501",
+          "before": 1,
+          "after": 4,
+          "closersUsed": 2
+        },
+        {
+          "fragmentId": "romance.thisWeek.expert.boundary.501",
+          "before": 1,
+          "after": 4,
+          "closersUsed": 2
+        },
+        {
+          "fragmentId": "romance.thisMonth.expert.commitment.501",
+          "before": 1,
+          "after": 4,
+          "closersUsed": 2
+        },
+        {
+          "fragmentId": "romance.thisMonth.expert.recalibration.501",
+          "before": 1,
+          "after": 4,
+          "closersUsed": 2
+        },
+        {
+          "fragmentId": "romance.thisYear.expert.yearly_harmony.501",
+          "before": 1,
+          "after": 4,
+          "closersUsed": 2
+        },
+        {
+          "fragmentId": "romance.thisYear.expert.yearly_caution.501",
+          "before": 1,
+          "after": 4,
+          "closersUsed": 2
+        }
+      ]
+    },
+    {
+      "bundle": "_coverage\\min14-romance-plain-floor.fragments.json",
+      "updated": 0,
+      "changes": []
+    },
+    {
+      "bundle": "_coverage\\min14-study-document-expert-floor.fragments.json",
+      "updated": 6,
+      "changes": [
+        {
+          "fragmentId": "study_document.today.expert.review.501",
+          "before": 1,
+          "after": 4,
+          "closersUsed": 2
+        },
+        {
+          "fragmentId": "study_document.today.expert.caution.501",
+          "before": 1,
+          "after": 4,
+          "closersUsed": 2
+        },
+        {
+          "fragmentId": "study_document.thisWeek.expert.structure.501",
+          "before": 1,
+          "after": 4,
+          "closersUsed": 2
+        },
+        {
+          "fragmentId": "study_document.thisWeek.expert.output.501",
+          "before": 1,
+          "after": 4,
+          "closersUsed": 2
+        },
+        {
+          "fragmentId": "study_document.thisMonth.expert.planning.501",
+          "before": 1,
+          "after": 4,
+          "closersUsed": 2
+        },
+        {
+          "fragmentId": "study_document.thisMonth.expert.recheck.501",
+          "before": 1,
+          "after": 4,
+          "closersUsed": 2
+        }
+      ]
+    },
+    {
+      "bundle": "_coverage\\min14-study-document-plain-floor.fragments.json",
+      "updated": 0,
+      "changes": []
+    },
+    {
+      "bundle": "_coverage\\min14-wealth-expert-floor.fragments.json",
+      "updated": 10,
+      "changes": [
+        {
+          "fragmentId": "wealth.life.expert.structure.501",
+          "before": 1,
+          "after": 4,
+          "closersUsed": 2
+        },
+        {
+          "fragmentId": "wealth.life.expert.risk.501",
+          "before": 1,
+          "after": 4,
+          "closersUsed": 2
+        },
+        {
+          "fragmentId": "wealth.today.expert.cashflow.501",
+          "before": 1,
+          "after": 4,
+          "closersUsed": 3
+        },
+        {
+          "fragmentId": "wealth.today.expert.defense.501",
+          "before": 1,
+          "after": 4,
+          "closersUsed": 3
+        },
+        {
+          "fragmentId": "wealth.thisWeek.expert.opportunity.501",
+          "before": 1,
+          "after": 4,
+          "closersUsed": 2
+        },
+        {
+          "fragmentId": "wealth.thisWeek.expert.loss_control.501",
+          "before": 1,
+          "after": 4,
+          "closersUsed": 2
+        },
+        {
+          "fragmentId": "wealth.thisMonth.expert.budget.501",
+          "before": 1,
+          "after": 4,
+          "closersUsed": 2
+        },
+        {
+          "fragmentId": "wealth.thisMonth.expert.leakage.501",
+          "before": 1,
+          "after": 4,
+          "closersUsed": 2
+        },
+        {
+          "fragmentId": "wealth.thisYear.expert.strategy.501",
+          "before": 1,
+          "after": 4,
+          "closersUsed": 2
+        },
+        {
+          "fragmentId": "wealth.thisYear.expert.protection.501",
+          "before": 1,
+          "after": 4,
+          "closersUsed": 2
+        }
+      ]
+    },
+    {
+      "bundle": "_coverage\\min14-wealth-plain-floor.fragments.json",
+      "updated": 0,
+      "changes": []
+    },
+    {
+      "bundle": "_coverage\\min15-academic-floor.fragments.json",
+      "updated": 4,
+      "changes": [
+        {
+          "fragmentId": "academic.life.expert.input_output.504",
+          "before": 1,
+          "after": 4,
+          "closersUsed": 2
+        },
+        {
+          "fragmentId": "academic.thisWeek.expert.review_output.504",
+          "before": 1,
+          "after": 4,
+          "closersUsed": 2
+        },
+        {
+          "fragmentId": "academic.thisMonth.expert.structure.504",
+          "before": 1,
+          "after": 4,
+          "closersUsed": 2
+        },
+        {
+          "fragmentId": "academic.thisYear.expert.certification.504",
+          "before": 1,
+          "after": 4,
+          "closersUsed": 2
+        }
+      ]
+    },
+    {
+      "bundle": "_coverage\\min15-axis-value-floor.fragments.json",
+      "updated": 0,
+      "changes": []
+    },
+    {
+      "bundle": "_coverage\\min15-career-floor.fragments.json",
+      "updated": 5,
+      "changes": [
+        {
+          "fragmentId": "career.life.expert.responsibility_balance.504",
+          "before": 1,
+          "after": 4,
+          "closersUsed": 2
+        },
+        {
+          "fragmentId": "career.today.expert.execution.504",
+          "before": 1,
+          "after": 4,
+          "closersUsed": 2
+        },
+        {
+          "fragmentId": "career.thisWeek.expert.role_output.504",
+          "before": 1,
+          "after": 4,
+          "closersUsed": 2
+        },
+        {
+          "fragmentId": "career.thisMonth.expert.authority_result.504",
+          "before": 1,
+          "after": 4,
+          "closersUsed": 2
+        },
+        {
+          "fragmentId": "career.thisYear.expert.role_strategy.504",
+          "before": 1,
+          "after": 4,
+          "closersUsed": 2
+        }
+      ]
+    },
+    {
+      "bundle": "_coverage\\min15-expression-children-floor.fragments.json",
+      "updated": 5,
+      "changes": [
+        {
+          "fragmentId": "expression_children.today.expert.output_timing.504",
+          "before": 1,
+          "after": 4,
+          "closersUsed": 2
+        },
+        {
+          "fragmentId": "expression_children.life.expert.creation_relation.504",
+          "before": 1,
+          "after": 4,
+          "closersUsed": 2
+        },
+        {
+          "fragmentId": "expression_children.thisWeek.expert.feedback.504",
+          "before": 1,
+          "after": 4,
+          "closersUsed": 2
+        },
+        {
+          "fragmentId": "expression_children.thisMonth.expert.project.504",
+          "before": 1,
+          "after": 4,
+          "closersUsed": 2
+        },
+        {
+          "fragmentId": "expression_children.thisYear.expert_archive.504",
+          "before": 1,
+          "after": 4,
+          "closersUsed": 2
+        }
+      ]
+    },
+    {
+      "bundle": "_coverage\\min15-family-floor.fragments.json",
+      "updated": 5,
+      "changes": [
+        {
+          "fragmentId": "family.today.expert.care_tone.504",
+          "before": 1,
+          "after": 4,
+          "closersUsed": 3
+        },
+        {
+          "fragmentId": "family.life.expert.root_support.504",
+          "before": 1,
+          "after": 4,
+          "closersUsed": 2
+        },
+        {
+          "fragmentId": "family.thisWeek.expert.role_boundary.504",
+          "before": 1,
+          "after": 4,
+          "closersUsed": 2
+        },
+        {
+          "fragmentId": "family.thisMonth.expert.care_cycle.504",
+          "before": 1,
+          "after": 4,
+          "closersUsed": 2
+        },
+        {
+          "fragmentId": "family.thisYear.expert.support_strategy.504",
+          "before": 1,
+          "after": 4,
+          "closersUsed": 2
+        }
+      ]
+    },
+    {
+      "bundle": "_coverage\\min15-health-floor.fragments.json",
+      "updated": 4,
+      "changes": [
+        {
+          "fragmentId": "health.life.expert.recovery_root.504",
+          "before": 1,
+          "after": 4,
+          "closersUsed": 2
+        },
+        {
+          "fragmentId": "health.today.expert.signal_score.504",
+          "before": 1,
+          "after": 4,
+          "closersUsed": 2
+        },
+        {
+          "fragmentId": "health.thisWeek.expert.pacing_index.504",
+          "before": 1,
+          "after": 4,
+          "closersUsed": 2
+        },
+        {
+          "fragmentId": "health.thisMonth.expert.rhythm_score.504",
+          "before": 1,
+          "after": 4,
+          "closersUsed": 2
+        }
+      ]
+    },
+    {
+      "bundle": "_coverage\\min15-health-stress-floor.fragments.json",
+      "updated": 5,
+      "changes": [
+        {
+          "fragmentId": "health_stress.life.expert.stress_root.504",
+          "before": 1,
+          "after": 4,
+          "closersUsed": 2
+        },
+        {
+          "fragmentId": "health_stress.today.expert.tension_score.504",
+          "before": 1,
+          "after": 4,
+          "closersUsed": 2
+        },
+        {
+          "fragmentId": "health_stress.thisWeek.expert.recovery_gap.504",
+          "before": 1,
+          "after": 4,
+          "closersUsed": 2
+        },
+        {
+          "fragmentId": "health_stress.thisMonth.expert.load_budget.504",
+          "before": 1,
+          "after": 4,
+          "closersUsed": 2
+        },
+        {
+          "fragmentId": "health_stress.thisYear.expert.boundary_score.504",
+          "before": 1,
+          "after": 4,
+          "closersUsed": 2
+        }
+      ]
+    },
+    {
+      "bundle": "_coverage\\min15-movement-floor.fragments.json",
+      "updated": 5,
+      "changes": [
+        {
+          "fragmentId": "movement.life.expert.yeokma_root.504",
+          "before": 1,
+          "after": 4,
+          "closersUsed": 2
+        },
+        {
+          "fragmentId": "movement.today.expert.route_score.504",
+          "before": 1,
+          "after": 4,
+          "closersUsed": 2
+        },
+        {
+          "fragmentId": "movement.thisWeek.expert.step_score.504",
+          "before": 1,
+          "after": 4,
+          "closersUsed": 2
+        },
+        {
+          "fragmentId": "movement.thisMonth.expert.route_budget.504",
+          "before": 1,
+          "after": 4,
+          "closersUsed": 2
+        },
+        {
+          "fragmentId": "movement.thisYear.expert.direction_score.504",
+          "before": 1,
+          "after": 4,
+          "closersUsed": 3
+        }
+      ]
+    },
+    {
+      "bundle": "_coverage\\min15-romance-floor.fragments.json",
+      "updated": 5,
+      "changes": [
+        {
+          "fragmentId": "romance.life.expert.partner_root.504",
+          "before": 1,
+          "after": 4,
+          "closersUsed": 2
+        },
+        {
+          "fragmentId": "romance.today.expert.harmony_score.504",
+          "before": 1,
+          "after": 4,
+          "closersUsed": 2
+        },
+        {
+          "fragmentId": "romance.thisWeek.expert.affinity_score.504",
+          "before": 1,
+          "after": 4,
+          "closersUsed": 2
+        },
+        {
+          "fragmentId": "romance.thisMonth.expert.promise_score.504",
+          "before": 1,
+          "after": 4,
+          "closersUsed": 2
+        },
+        {
+          "fragmentId": "romance.thisYear.expert.commitment_score.504",
+          "before": 1,
+          "after": 4,
+          "closersUsed": 3
+        }
+      ]
+    },
+    {
+      "bundle": "_coverage\\min15-study-document-floor.fragments.json",
+      "updated": 5,
+      "changes": [
+        {
+          "fragmentId": "study_document.life.expert.learning_root.504",
+          "before": 1,
+          "after": 4,
+          "closersUsed": 2
+        },
+        {
+          "fragmentId": "study_document.today.expert.review_score.504",
+          "before": 1,
+          "after": 4,
+          "closersUsed": 2
+        },
+        {
+          "fragmentId": "study_document.thisWeek.expert.structure_score.504",
+          "before": 1,
+          "after": 4,
+          "closersUsed": 2
+        },
+        {
+          "fragmentId": "study_document.thisMonth.expert.planning_score.504",
+          "before": 1,
+          "after": 4,
+          "closersUsed": 2
+        },
+        {
+          "fragmentId": "study_document.thisYear.expert.system_score.504",
+          "before": 1,
+          "after": 4,
+          "closersUsed": 2
+        }
+      ]
+    },
+    {
+      "bundle": "_coverage\\min15-wealth-floor.fragments.json",
+      "updated": 5,
+      "changes": [
+        {
+          "fragmentId": "wealth.life.expert.asset_root.504",
+          "before": 1,
+          "after": 4,
+          "closersUsed": 2
+        },
+        {
+          "fragmentId": "wealth.today.expert.spend_score.504",
+          "before": 1,
+          "after": 4,
+          "closersUsed": 2
+        },
+        {
+          "fragmentId": "wealth.thisWeek.expert.cashflow_score.504",
+          "before": 1,
+          "after": 4,
+          "closersUsed": 2
+        },
+        {
+          "fragmentId": "wealth.thisMonth.expert.budget_score.504",
+          "before": 1,
+          "after": 4,
+          "closersUsed": 3
+        },
+        {
+          "fragmentId": "wealth.thisYear.expert.reserve_score.504",
+          "before": 1,
+          "after": 4,
+          "closersUsed": 3
+        }
+      ]
+    },
+    {
+      "bundle": "_coverage\\movement-long-season-context.fragments.json",
+      "updated": 4,
+      "changes": [
+        {
+          "fragmentId": "movement.life.expert.currentseason.spring_summer.301",
+          "before": 1,
+          "after": 4,
+          "closersUsed": 1
+        },
+        {
+          "fragmentId": "movement.life.expert.currentseason.autumn_winter.301",
+          "before": 1,
+          "after": 4,
+          "closersUsed": 1
+        },
+        {
+          "fragmentId": "movement.thisYear.expert.currentseason.spring_summer.301",
+          "before": 1,
+          "after": 4,
+          "closersUsed": 2
+        },
+        {
+          "fragmentId": "movement.thisYear.expert.currentseason.autumn_winter.301",
+          "before": 1,
+          "after": 4,
+          "closersUsed": 1
+        }
+      ]
+    },
+    {
+      "bundle": "_coverage\\movement-short-season-context.fragments.json",
+      "updated": 6,
+      "changes": [
+        {
+          "fragmentId": "movement.today.expert.currentseason.spring_summer.301",
+          "before": 1,
+          "after": 4,
+          "closersUsed": 1
+        },
+        {
+          "fragmentId": "movement.today.expert.currentseason.autumn_winter.301",
+          "before": 1,
+          "after": 4,
+          "closersUsed": 1
+        },
+        {
+          "fragmentId": "movement.thisWeek.expert.currentseason.spring_summer.301",
+          "before": 1,
+          "after": 4,
+          "closersUsed": 2
+        },
+        {
+          "fragmentId": "movement.thisWeek.expert.currentseason.autumn_winter.301",
+          "before": 1,
+          "after": 4,
+          "closersUsed": 2
+        },
+        {
+          "fragmentId": "movement.thisMonth.expert.currentseason.spring_summer.301",
+          "before": 1,
+          "after": 4,
+          "closersUsed": 1
+        },
+        {
+          "fragmentId": "movement.thisMonth.expert.currentseason.autumn_winter.301",
+          "before": 1,
+          "after": 4,
+          "closersUsed": 1
+        }
+      ]
+    },
+    {
+      "bundle": "_coverage\\ordinal-evidence-density.fragments.json",
+      "updated": 19,
+      "changes": [
+        {
+          "fragmentId": "overall.today.expert.ordinal.gender_male.401",
+          "before": 1,
+          "after": 4,
+          "closersUsed": 2
+        },
+        {
+          "fragmentId": "overall.today.expert.ordinal.gender_female.401",
+          "before": 1,
+          "after": 4,
+          "closersUsed": 1
+        },
+        {
+          "fragmentId": "overall.today.expert.ordinal.gender_neutral.401",
+          "before": 1,
+          "after": 4,
+          "closersUsed": 2
+        },
+        {
+          "fragmentId": "health_stress.thisWeek.expert.ordinal.daymaster_wood.401",
+          "before": 1,
+          "after": 4,
+          "closersUsed": 2
+        },
+        {
+          "fragmentId": "health_stress.thisWeek.expert.ordinal.daymaster_fire.401",
+          "before": 1,
+          "after": 4,
+          "closersUsed": 2
+        },
+        {
+          "fragmentId": "health_stress.thisWeek.expert.ordinal.daymaster_earth.401",
+          "before": 1,
+          "after": 4,
+          "closersUsed": 2
+        },
+        {
+          "fragmentId": "health_stress.thisWeek.expert.ordinal.daymaster_metal.401",
+          "before": 1,
+          "after": 4,
+          "closersUsed": 2
+        },
+        {
+          "fragmentId": "health_stress.thisWeek.expert.ordinal.daymaster_water.401",
+          "before": 1,
+          "after": 4,
+          "closersUsed": 2
+        },
+        {
+          "fragmentId": "movement.thisMonth.expert.ordinal.yongshin_wood.401",
+          "before": 1,
+          "after": 4,
+          "closersUsed": 2
+        },
+        {
+          "fragmentId": "movement.thisMonth.expert.ordinal.yongshin_fire.401",
+          "before": 1,
+          "after": 4,
+          "closersUsed": 2
+        },
+        {
+          "fragmentId": "movement.thisMonth.expert.ordinal.yongshin_earth.401",
+          "before": 1,
+          "after": 4,
+          "closersUsed": 2
+        },
+        {
+          "fragmentId": "movement.thisMonth.expert.ordinal.yongshin_metal.401",
+          "before": 1,
+          "after": 4,
+          "closersUsed": 2
+        },
+        {
+          "fragmentId": "movement.thisMonth.expert.ordinal.yongshin_water.401",
+          "before": 1,
+          "after": 4,
+          "closersUsed": 2
+        },
+        {
+          "fragmentId": "career.thisMonth.expert.ordinal.gyeokguk_jeongingyeok.401",
+          "before": 1,
+          "after": 4,
+          "closersUsed": 2
+        },
+        {
+          "fragmentId": "career.thisMonth.expert.ordinal.gyeokguk_pyeoningyeok.401",
+          "before": 1,
+          "after": 4,
+          "closersUsed": 2
+        },
+        {
+          "fragmentId": "career.thisMonth.expert.ordinal.gyeokguk_sikshingyeok.401",
+          "before": 1,
+          "after": 4,
+          "closersUsed": 2
+        },
+        {
+          "fragmentId": "career.thisMonth.expert.ordinal.gyeokguk_sanggwangyeok.401",
+          "before": 1,
+          "after": 4,
+          "closersUsed": 2
+        },
+        {
+          "fragmentId": "career.thisMonth.expert.ordinal.gyeokguk_jeonggwangyeok.401",
+          "before": 1,
+          "after": 4,
+          "closersUsed": 2
+        },
+        {
+          "fragmentId": "career.thisMonth.expert.ordinal.gyeokguk_pyeongwangyeok.401",
+          "before": 1,
+          "after": 4,
+          "closersUsed": 2
+        }
+      ]
+    },
+    {
+      "bundle": "_coverage\\overall-season-complete.fragments.json",
+      "updated": 8,
+      "changes": [
+        {
+          "fragmentId": "overall.today.expert.currentseason.spring_summer.301",
+          "before": 1,
+          "after": 4,
+          "closersUsed": 2
+        },
+        {
+          "fragmentId": "overall.today.expert.currentseason.autumn_winter.301",
+          "before": 1,
+          "after": 4,
+          "closersUsed": 2
+        },
+        {
+          "fragmentId": "overall.thisWeek.expert.currentseason.spring_summer.301",
+          "before": 1,
+          "after": 4,
+          "closersUsed": 2
+        },
+        {
+          "fragmentId": "overall.thisWeek.expert.currentseason.autumn_winter.301",
+          "before": 1,
+          "after": 4,
+          "closersUsed": 2
+        },
+        {
+          "fragmentId": "overall.thisMonth.expert.currentseason.spring_summer.301",
+          "before": 1,
+          "after": 4,
+          "closersUsed": 2
+        },
+        {
+          "fragmentId": "overall.thisMonth.expert.currentseason.autumn_winter.301",
+          "before": 1,
+          "after": 4,
+          "closersUsed": 2
+        },
+        {
+          "fragmentId": "overall.thisYear.expert.currentseason.spring_summer.301",
+          "before": 1,
+          "after": 4,
+          "closersUsed": 2
+        },
+        {
+          "fragmentId": "overall.thisYear.expert.currentseason.autumn_winter.301",
+          "before": 1,
+          "after": 4,
+          "closersUsed": 2
+        }
+      ]
+    },
+    {
+      "bundle": "_coverage\\romance-depth-density-floor.fragments.json",
+      "updated": 7,
+      "changes": [
+        {
+          "fragmentId": "romance.life.expert.ageband.maturity.401",
+          "before": 1,
+          "after": 4,
+          "closersUsed": 2
+        },
+        {
+          "fragmentId": "romance.today.expert.alignment.supportive.401",
+          "before": 1,
+          "after": 4,
+          "closersUsed": 2
+        },
+        {
+          "fragmentId": "romance.today.expert.alignment.conflicting.401",
+          "before": 1,
+          "after": 4,
+          "closersUsed": 2
+        },
+        {
+          "fragmentId": "romance.thisWeek.expert.alignment.supportive.401",
+          "before": 1,
+          "after": 4,
+          "closersUsed": 2
+        },
+        {
+          "fragmentId": "romance.thisWeek.expert.alignment.conflicting.401",
+          "before": 1,
+          "after": 4,
+          "closersUsed": 2
+        },
+        {
+          "fragmentId": "romance.thisMonth.expert.alignment.supportive.401",
+          "before": 1,
+          "after": 4,
+          "closersUsed": 2
+        },
+        {
+          "fragmentId": "romance.thisMonth.expert.alignment.conflicting.401",
+          "before": 1,
+          "after": 4,
+          "closersUsed": 2
+        }
+      ]
+    },
+    {
+      "bundle": "_coverage\\romance-plain-season-context.fragments.json",
+      "updated": 0,
+      "changes": []
+    },
+    {
+      "bundle": "_coverage\\romance-short-term-expert-season.fragments.json",
+      "updated": 6,
+      "changes": [
+        {
+          "fragmentId": "romance.today.expert.currentseason.spring_summer.301",
+          "before": 1,
+          "after": 4,
+          "closersUsed": 1
+        },
+        {
+          "fragmentId": "romance.today.expert.currentseason.autumn_winter.301",
+          "before": 1,
+          "after": 4,
+          "closersUsed": 1
+        },
+        {
+          "fragmentId": "romance.thisWeek.expert.currentseason.spring_summer.301",
+          "before": 1,
+          "after": 4,
+          "closersUsed": 1
+        },
+        {
+          "fragmentId": "romance.thisWeek.expert.currentseason.autumn_winter.301",
+          "before": 1,
+          "after": 4,
+          "closersUsed": 1
+        },
+        {
+          "fragmentId": "romance.thisMonth.expert.currentseason.spring_summer.301",
+          "before": 1,
+          "after": 4,
+          "closersUsed": 1
+        },
+        {
+          "fragmentId": "romance.thisMonth.expert.currentseason.autumn_winter.301",
+          "before": 1,
+          "after": 4,
+          "closersUsed": 1
+        }
+      ]
+    },
+    {
+      "bundle": "_coverage\\romance-year-expert-season-context.fragments.json",
+      "updated": 2,
+      "changes": [
+        {
+          "fragmentId": "romance.thisYear.expert.currentseason.spring_summer.301",
+          "before": 1,
+          "after": 4,
+          "closersUsed": 1
+        },
+        {
+          "fragmentId": "romance.thisYear.expert.currentseason.autumn_winter.301",
+          "before": 1,
+          "after": 4,
+          "closersUsed": 1
+        }
+      ]
+    },
+    {
+      "bundle": "_coverage\\season-polarity-axis.fragments.json",
+      "updated": 0,
+      "changes": []
+    },
+    {
+      "bundle": "_coverage\\study-document-brief-density-floor.fragments.json",
+      "updated": 0,
+      "changes": []
+    },
+    {
+      "bundle": "_coverage\\study-document-brief-season-context.fragments.json",
+      "updated": 0,
+      "changes": []
+    },
+    {
+      "bundle": "_coverage\\study-document-detail-season-context.fragments.json",
+      "updated": 6,
+      "changes": [
+        {
+          "fragmentId": "study_document.today.expert.currentseason.spring_summer.301",
+          "before": 1,
+          "after": 4,
+          "closersUsed": 1
+        },
+        {
+          "fragmentId": "study_document.today.expert.currentseason.autumn_winter.301",
+          "before": 1,
+          "after": 4,
+          "closersUsed": 1
+        },
+        {
+          "fragmentId": "study_document.thisWeek.expert.currentseason.spring_summer.301",
+          "before": 1,
+          "after": 4,
+          "closersUsed": 2
+        },
+        {
+          "fragmentId": "study_document.thisWeek.expert.currentseason.autumn_winter.301",
+          "before": 1,
+          "after": 4,
+          "closersUsed": 1
+        },
+        {
+          "fragmentId": "study_document.thisMonth.expert.currentseason.spring_summer.301",
+          "before": 1,
+          "after": 4,
+          "closersUsed": 2
+        },
+        {
+          "fragmentId": "study_document.thisMonth.expert.currentseason.autumn_winter.301",
+          "before": 1,
+          "after": 4,
+          "closersUsed": 2
+        }
+      ]
+    },
+    {
+      "bundle": "_coverage\\top-season-context.fragments.json",
+      "updated": 2,
+      "changes": [
+        {
+          "fragmentId": "romance.life.expert.currentseason.spring_summer.302",
+          "before": 1,
+          "after": 4,
+          "closersUsed": 1
+        },
+        {
+          "fragmentId": "romance.life.expert.currentseason.autumn_winter.302",
+          "before": 1,
+          "after": 4,
+          "closersUsed": 1
+        }
+      ]
+    },
+    {
+      "bundle": "_coverage\\underfilled-min8.fragments.json",
+      "updated": 2,
+      "changes": [
+        {
+          "fragmentId": "wealth.thisWeek.expert.neutral.cashflow.008",
+          "before": 1,
+          "after": 4,
+          "closersUsed": 2
+        },
+        {
+          "fragmentId": "wealth.thisMonth.expert.neutral.plan.008",
+          "before": 1,
+          "after": 4,
+          "closersUsed": 1
+        }
+      ]
+    },
+    {
+      "bundle": "_coverage\\wealth-depth-density-floor.fragments.json",
+      "updated": 10,
+      "changes": [
+        {
+          "fragmentId": "wealth.life.expert.alignment.supportive.401",
+          "before": 1,
+          "after": 4,
+          "closersUsed": 2
+        },
+        {
+          "fragmentId": "wealth.life.expert.alignment.conflicting.401",
+          "before": 1,
+          "after": 4,
+          "closersUsed": 2
+        },
+        {
+          "fragmentId": "wealth.today.expert.alignment.supportive.401",
+          "before": 1,
+          "after": 4,
+          "closersUsed": 2
+        },
+        {
+          "fragmentId": "wealth.today.expert.alignment.conflicting.401",
+          "before": 1,
+          "after": 4,
+          "closersUsed": 2
+        },
+        {
+          "fragmentId": "wealth.thisWeek.expert.alignment.supportive.401",
+          "before": 1,
+          "after": 4,
+          "closersUsed": 2
+        },
+        {
+          "fragmentId": "wealth.thisWeek.expert.alignment.conflicting.401",
+          "before": 1,
+          "after": 4,
+          "closersUsed": 2
+        },
+        {
+          "fragmentId": "wealth.thisMonth.expert.alignment.supportive.401",
+          "before": 1,
+          "after": 4,
+          "closersUsed": 2
+        },
+        {
+          "fragmentId": "wealth.thisMonth.expert.alignment.conflicting.401",
+          "before": 1,
+          "after": 4,
+          "closersUsed": 2
+        },
+        {
+          "fragmentId": "wealth.thisYear.expert.alignment.supportive.401",
+          "before": 1,
+          "after": 4,
+          "closersUsed": 2
+        },
+        {
+          "fragmentId": "wealth.thisYear.expert.alignment.conflicting.401",
+          "before": 1,
+          "after": 4,
+          "closersUsed": 2
+        }
+      ]
+    },
+    {
+      "bundle": "_coverage\\wealth-plain-season-context.fragments.json",
+      "updated": 0,
+      "changes": []
+    },
+    {
+      "bundle": "_coverage\\wealth-season-context.fragments.json",
+      "updated": 10,
+      "changes": [
+        {
+          "fragmentId": "wealth.life.expert.currentseason.spring_summer.301",
+          "before": 1,
+          "after": 4,
+          "closersUsed": 2
+        },
+        {
+          "fragmentId": "wealth.life.expert.currentseason.autumn_winter.301",
+          "before": 1,
+          "after": 4,
+          "closersUsed": 2
+        },
+        {
+          "fragmentId": "wealth.today.expert.currentseason.spring_summer.301",
+          "before": 1,
+          "after": 4,
+          "closersUsed": 1
+        },
+        {
+          "fragmentId": "wealth.today.expert.currentseason.autumn_winter.301",
+          "before": 1,
+          "after": 4,
+          "closersUsed": 2
+        },
+        {
+          "fragmentId": "wealth.thisWeek.expert.currentseason.spring_summer.301",
+          "before": 1,
+          "after": 4,
+          "closersUsed": 2
+        },
+        {
+          "fragmentId": "wealth.thisWeek.expert.currentseason.autumn_winter.301",
+          "before": 1,
+          "after": 4,
+          "closersUsed": 2
+        },
+        {
+          "fragmentId": "wealth.thisMonth.expert.currentseason.spring_summer.301",
+          "before": 1,
+          "after": 4,
+          "closersUsed": 2
+        },
+        {
+          "fragmentId": "wealth.thisMonth.expert.currentseason.autumn_winter.301",
+          "before": 1,
+          "after": 4,
+          "closersUsed": 2
+        },
+        {
+          "fragmentId": "wealth.thisYear.expert.currentseason.spring_summer.301",
+          "before": 1,
+          "after": 4,
+          "closersUsed": 2
+        },
+        {
+          "fragmentId": "wealth.thisYear.expert.currentseason.autumn_winter.301",
+          "before": 1,
+          "after": 4,
+          "closersUsed": 2
+        }
+      ]
+    },
+    {
+      "bundle": "_coverage\\yongshin-action-density.fragments.json",
+      "updated": 0,
+      "changes": []
+    },
+    {
+      "bundle": "_coverage\\yongshin-career-direction.fragments.json",
+      "updated": 0,
+      "changes": []
+    },
+    {
+      "bundle": "_coverage\\yongshin-earth-alignment-pairs.fragments.json",
+      "updated": 0,
+      "changes": []
+    },
+    {
+      "bundle": "_coverage\\yongshin-element-daily-support.fragments.json",
+      "updated": 0,
+      "changes": []
+    },
+    {
+      "bundle": "_coverage\\yongshin-element-density.fragments.json",
+      "updated": 0,
+      "changes": []
+    },
+    {
+      "bundle": "_coverage\\yongshin-element-expert-density.fragments.json",
+      "updated": 5,
+      "changes": [
+        {
+          "fragmentId": "overall.life.expert.yongshin.wood.201",
+          "before": 1,
+          "after": 4,
+          "closersUsed": 1
+        },
+        {
+          "fragmentId": "overall.life.expert.yongshin.fire.201",
+          "before": 1,
+          "after": 4,
+          "closersUsed": 1
+        },
+        {
+          "fragmentId": "overall.life.expert.yongshin.earth.201",
+          "before": 1,
+          "after": 4,
+          "closersUsed": 1
+        },
+        {
+          "fragmentId": "overall.life.expert.yongshin.metal.201",
+          "before": 1,
+          "after": 4,
+          "closersUsed": 1
+        },
+        {
+          "fragmentId": "overall.life.expert.yongshin.water.201",
+          "before": 1,
+          "after": 4,
+          "closersUsed": 1
+        }
+      ]
+    },
+    {
+      "bundle": "_coverage\\yongshin-fire-alignment-pairs.fragments.json",
+      "updated": 0,
+      "changes": []
+    },
+    {
+      "bundle": "_coverage\\yongshin-metal-alignment-pairs.fragments.json",
+      "updated": 0,
+      "changes": []
+    },
+    {
+      "bundle": "_coverage\\yongshin-routine-density.fragments.json",
+      "updated": 0,
+      "changes": []
+    },
+    {
+      "bundle": "_coverage\\yongshin-water-alignment-pairs.fragments.json",
+      "updated": 0,
+      "changes": []
+    },
+    {
+      "bundle": "_coverage\\yongshin-wood-alignment-pairs.fragments.json",
+      "updated": 0,
+      "changes": []
+    }
+  ]
+}
