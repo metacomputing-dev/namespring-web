@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-05-05T06:24:28.964Z",
+  "generatedAt": "2026-05-05T06:29:31.992Z",
   "targetDate": "2026-05-05T00:00:00+09:00",
   "sampleId": "jeong-extreme-strong-continuous-tiered",
   "description": "입력 의도: 지지에서 일간이 강하게 받쳐지는 신강 지향 입력. strengthMode=continuous 로 4-tier 강도 곡선과 결합한 tiered 샘플. 최종 강도 분류는 엔진이 결정한다.",
@@ -1294,7 +1294,7 @@
     },
     "meta": {
       "version": "1.0.0",
-      "generatedAt": "2026-05-05T06:24:34.050Z",
+      "generatedAt": "2026-05-05T06:29:36.993Z",
       "schoolPreset": {
         "selected": "korean",
         "source": "default",
@@ -2343,7 +2343,7 @@
               "meaningfulness": "limited",
               "stars": 3,
               "brief": {
-                "headline": "커리어는 한 번에 크게 바꾸기보다 잘하는 일을 꾸준히 쌓을수록요."
+                "headline": "커리어는 잘하는 일을 꾸준히 쌓는 게 좋아요."
               },
               "standard": {
                 "paragraphs": [
@@ -2618,7 +2618,7 @@
                   "기록·아카이브를 한 번씩 정리해 둬요"
                 ],
                 "cautions": [
-                  "결과 시점을 정해 두지 않으면 가벼워요"
+                  "결과 시점을 정해 두면 부담이 가벼워요"
                 ]
               },
               "expert": {
@@ -4326,7 +4326,7 @@
                   "비교 대신 어제의 나와 살짝 다르게 해 봐요"
                 ],
                 "cautions": [
-                  "결과 시점을 정해 두지 않으면 가벼워요"
+                  "결과 시점을 정해 두면 부담이 가벼워요"
                 ]
               },
               "expert": {
@@ -5671,7 +5671,7 @@
                   "주말에 한 가지를 살짝 바꿔 봐요"
                 ],
                 "cautions": [
-                  "결과 시점을 정해 두지 않으면 가벼워요"
+                  "결과 시점을 정해 두면 부담이 가벼워요"
                 ]
               },
               "expert": {
@@ -7037,7 +7037,7 @@
                   "월말에 한 가지 변화를 봐 둬요"
                 ],
                 "cautions": [
-                  "결과 시점을 정해 두지 않으면 가벼워요"
+                  "결과 시점을 정해 두면 부담이 가벼워요"
                 ]
               },
               "expert": {
@@ -8401,7 +8401,7 @@
                   "연말에 한 가지 변화를 짚어 봐요"
                 ],
                 "cautions": [
-                  "결과 시점을 정해 두지 않으면 가벼워요"
+                  "결과 시점을 정해 두면 부담이 가벼워요"
                 ]
               },
               "expert": {
@@ -9089,7 +9089,7 @@
       },
       "meta": {
         "schemaVersion": "spring-ts.tiered-matrix.v1",
-        "generatedAt": "2026-05-05T06:24:34.050Z",
+        "generatedAt": "2026-05-05T06:29:36.993Z",
         "selectionSeed": "1980|3|12|9|0|male|2026-05-04T15:00:00.000Z",
         "templateContractVersion": "1.0.0",
         "contentSource": "authored",

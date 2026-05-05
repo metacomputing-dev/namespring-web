@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-05-05T06:24:28.964Z",
+  "generatedAt": "2026-05-05T06:29:31.992Z",
   "targetDate": "2026-05-05T00:00:00+09:00",
   "sampleId": "choi-consensus-aware-yongshin-tiered",
   "description": "yongshinMode=consensus_aware 활성 시나리오. 독립 명리 방법이 엇갈리는 사주에서 consensus scoreboard 를 블렌딩한 posture 및 per-axis 근거를 tieredMatrix 와 함께 노출하는 케이스.",
@@ -1319,7 +1319,7 @@
     },
     "meta": {
       "version": "1.0.0",
-      "generatedAt": "2026-05-05T06:24:34.576Z",
+      "generatedAt": "2026-05-05T06:29:37.466Z",
       "schoolPreset": {
         "selected": "korean",
         "source": "default",
@@ -2542,7 +2542,7 @@
                   "기록·아카이브를 한 번씩 정리해 둬요"
                 ],
                 "cautions": [
-                  "결과 시점을 정해 두지 않으면 가벼워요"
+                  "결과 시점을 정해 두면 부담이 가벼워요"
                 ]
               },
               "expert": {
@@ -4173,7 +4173,7 @@
                   "비교 대신 어제의 나와 살짝 다르게 해 봐요"
                 ],
                 "cautions": [
-                  "결과 시점을 정해 두지 않으면 가벼워요"
+                  "결과 시점을 정해 두면 부담이 가벼워요"
                 ]
               },
               "expert": {
@@ -5514,7 +5514,7 @@
                   "주말에 한 가지를 살짝 바꿔 봐요"
                 ],
                 "cautions": [
-                  "결과 시점을 정해 두지 않으면 가벼워요"
+                  "결과 시점을 정해 두면 부담이 가벼워요"
                 ]
               },
               "expert": {
@@ -6817,7 +6817,7 @@
                   "월말에 한 가지 변화를 봐 둬요"
                 ],
                 "cautions": [
-                  "결과 시점을 정해 두지 않으면 가벼워요"
+                  "결과 시점을 정해 두면 부담이 가벼워요"
                 ]
               },
               "expert": {
@@ -7876,7 +7876,7 @@
                 ],
                 "livingTips": [
                   "작은 부탁 한 가지 청하기",
-                  "받은 도움은 그 해 안 답",
+                  "받은 도움은 그 해 안에 답하기",
                   "함께 식사 자리 정기적"
                 ],
                 "cautions": [
@@ -8243,7 +8243,7 @@
                   "연말에 한 가지 변화를 짚어 봐요"
                 ],
                 "cautions": [
-                  "결과 시점을 정해 두지 않으면 가벼워요"
+                  "결과 시점을 정해 두면 부담이 가벼워요"
                 ]
               },
               "expert": {
@@ -8958,7 +8958,7 @@
       },
       "meta": {
         "schemaVersion": "spring-ts.tiered-matrix.v1",
-        "generatedAt": "2026-05-05T06:24:34.576Z",
+        "generatedAt": "2026-05-05T06:29:37.466Z",
         "selectionSeed": "1986|4|19|5|45|male|2026-05-04T15:00:00.000Z",
         "templateContractVersion": "1.0.0",
         "contentSource": "authored",
