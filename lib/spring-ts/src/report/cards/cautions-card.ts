@@ -250,7 +250,7 @@ export function buildCautionsCard(saju: SajuSummary): CautionsCard {
   if (sajuAxis?.yongshin === 'definite') {
     counterexamples.push({
       condition: '용신 신뢰도가 매우 높고 운에서 용신·희신이 강하게 들어오는 시기',
-      revisedClaim: '경고 수위는 한 단계 낮추되 기본 관리 루틴은 그대로 유지하세요. 용신이 굳건한 시기엔 흉살의 영향이 약해져요.',
+      revisedClaim: '경고 수위는 한 단계 낮추되 기본 관리 루틴은 그대로 유지하면 좋아요. 용신이 굳건한 시기엔 흉살의 영향이 약해져요.',
       appliesWhen: 'definite',
     });
   }
@@ -259,7 +259,7 @@ export function buildCautionsCard(saju: SajuSummary): CautionsCard {
   if (sajuAxis?.yongshin === 'candidate' || sajuAxis?.yongshin === 'deferred') {
     counterexamples.push({
       condition: '용신 신뢰도가 낮은 차트 (학파 간 추천이 갈리는 경우)',
-      revisedClaim: '경고를 한 가지 학파의 시각으로만 받아들이기보다, 조후·통관 등 다른 보조 기준으로 한 번 더 살펴보세요.',
+      revisedClaim: '경고를 한 가지 학파의 시각으로만 받아들이기보다, 조후·통관 등 다른 보조 기준으로 한 번 더 살펴보면 좋아요.',
       appliesWhen: sajuAxis.yongshin,
     });
   }
