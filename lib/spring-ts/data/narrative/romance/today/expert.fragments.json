@@ -132,17 +132,20 @@
       "axis": { "category": "romance", "period": "today", "depth": "expert" },
       "gating": { "ageBand": ["30-39", "40-54"], "yongshinAlignment": ["aligned"] },
       "templateTokens": [
-        { "kind": "text", "value": "오늘 곁의 사람과의 결은 " },
+        { "kind": "text", "value": "오늘 곁의 사람과의 사이는 " },
         { "kind": "tag", "tagId": "baeujagung", "label": "배우자궁" },
         { "kind": "text", "value": "의 자리가 안정적으로 자리를 잡고 있는 흐름이에요. " },
         { "kind": "tag", "tagId": "jeonggwan", "label": "정관" },
-        { "kind": "text", "value": "의 결이 약속·신뢰의 토대를 받쳐 주고, " },
+        { "kind": "text", "value": "의 기운이 약속·신뢰의 토대를 받쳐 주고, " },
         { "kind": "tag", "tagId": "sikshin", "label": "식신" },
-        { "kind": "text", "value": "의 결이 따뜻한 표현을 더해 줘요." },
-        { "kind": "text", "value": " 일과 관계 사이에서 균형이 흐트러지지 않는 결이라, 오늘만은 관계 쪽에 작은 정성을 한 번 더 두면 큰 자산이 돼요." },
-        { "kind": "text", "value": " 갈등의 신호가 살짝 보여도 길게 끌지 않으면 자연스럽게 회복되는 결이라, 무리한 단정은 멀리 두는 자리예요." }
+        { "kind": "text", "value": "의 기운이 따뜻한 표현을 더해 줘요." },
+        { "kind": "text", "value": " 귀한 자리·짝의 신호인 " },
+        { "kind": "tag", "tagId": "geumyeo", "label": "금여" },
+        { "kind": "text", "value": "가 살짝 비치면 곁의 사람과 함께한 시간이 다시 한 번 따뜻하게 느껴지는 자리가 만들어져요." },
+        { "kind": "text", "value": " 일과 관계 사이에서 균형이 흐트러지지 않는 모양이라, 오늘만은 관계 쪽에 작은 정성을 한 번 더 두면 큰 자산이 돼요." },
+        { "kind": "text", "value": " 갈등의 신호가 살짝 보여도 길게 끌지 않으면 자연스럽게 회복되는 흐름이라, 무리한 단정은 멀리 두는 자리예요." }
       ],
-      "tags": ["baeujagung", "jeonggwan", "sikshin"],
+      "tags": ["baeujagung", "jeonggwan", "sikshin", "geumyeo"],
       "aiGenerated": true,
       "sourceTier": {
         "tier": "T1_HYPOTHESIS",

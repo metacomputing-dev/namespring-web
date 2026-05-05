@@ -105,7 +105,10 @@
       "templateTokens": [
         { "kind": "text", "value": "이번 달 새 인연이 들어올 자리는 " },
         { "kind": "tag", "tagId": "baeujagung", "label": "배우자궁" },
-        { "kind": "text", "value": "의 결을 한두 번 두드리는 모양이에요. 모임·소개·우연한 자리에서 처음 만나는 사람과의 대화가 한 달 안에서 자연스럽게 이어지는 흐름이에요." },
+        { "kind": "text", "value": "을 한두 번 두드리는 모양이에요. 모임·소개·우연한 자리에서 처음 만나는 사람과의 대화가 한 달 안에서 자연스럽게 이어지는 흐름이에요." },
+        { "kind": "text", "value": " 이동·새 자리의 기운인 " },
+        { "kind": "tag", "tagId": "yeokma", "label": "역마" },
+        { "kind": "text", "value": "이 함께 살아 있으면 평소와 다른 동선·여행·짧은 출장 같은 자리에서 새 인연의 가능성이 한 번 더 열려요." },
         { "kind": "text", "value": " " },
         { "kind": "tag", "tagId": "sikshin", "label": "식신" },
         { "kind": "text", "value": "의 기운을 살리면 자기다움이 또렷이 보여 매력이 자연스럽게 흘러가요. 매력 신호인 " },
@@ -113,9 +116,9 @@
         { "kind": "text", "value": "와 " },
         { "kind": "tag", "tagId": "hongyeom", "label": "홍염" },
         { "kind": "text", "value": "이 함께 비치면 사람들이 모이는 자리가 한 달에 한두 번 자연스럽게 만들어져요." },
-        { "kind": "text", "value": " 결정의 시기를 못 박지 않아도 한 달 동안 모은 신호만으로 충분해요. 자기 자리를 단단히 가꾸는 결이 새 인연 자산을 가장 길게 받쳐 주는 토대예요." }
+        { "kind": "text", "value": " 결정의 시기를 못 박지 않아도 한 달 동안 모은 신호만으로 충분해요. 자기 자리를 단단히 가꾸는 마음가짐이 새 인연 자산을 가장 길게 받쳐 주는 토대예요." }
       ],
-      "tags": ["baeujagung", "sikshin", "dohwa", "hongyeom"],
+      "tags": ["baeujagung", "yeokma", "sikshin", "dohwa", "hongyeom"],
       "aiGenerated": true,
       "sourceTier": {
         "tier": "T1_HYPOTHESIS",
