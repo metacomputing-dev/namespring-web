@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-05-05T06:19:24.032Z",
+  "generatedAt": "2026-05-05T06:24:28.964Z",
   "targetDate": "2026-05-05T00:00:00+09:00",
   "outputDirectory": "C:\\Projects\\metaintelligence\\namespring-web\\lib\\spring-ts\\artifacts\\sample-outputs-2026-05-05-phase3",
   "sampleCount": 15,
@@ -67,7 +67,7 @@
         "tieredMatrix": null,
         "meta": {
           "version": "1.0.0",
-          "generatedAt": "2026-05-05T06:19:25.411Z",
+          "generatedAt": "2026-05-05T06:24:30.427Z",
           "schoolPreset": {
             "selected": "korean",
             "source": "default",
@@ -161,7 +161,7 @@
         },
         "meta": {
           "version": "1.0.0",
-          "generatedAt": "2026-05-05T06:19:25.838Z",
+          "generatedAt": "2026-05-05T06:24:30.810Z",
           "schoolPreset": {
             "selected": "korean",
             "source": "default",
@@ -318,7 +318,7 @@
         },
         "meta": {
           "version": "1.0.0",
-          "generatedAt": "2026-05-05T06:19:26.187Z",
+          "generatedAt": "2026-05-05T06:24:31.202Z",
           "schoolPreset": {
             "selected": "korean",
             "source": "default",
@@ -412,7 +412,7 @@
         },
         "meta": {
           "version": "1.0.0",
-          "generatedAt": "2026-05-05T06:19:26.370Z",
+          "generatedAt": "2026-05-05T06:24:31.414Z",
           "schoolPreset": {
             "selected": "korean",
             "source": "default",
@@ -468,7 +468,7 @@
           }
         }
       },
-      "outputBytes": 412352,
+      "outputBytes": 412323,
       "payloadSummary": {
         "topLevelKeys": [
           "nameCompatibility",
@@ -500,7 +500,7 @@
         },
         "meta": {
           "version": "1.0.0",
-          "generatedAt": "2026-05-05T06:19:26.565Z",
+          "generatedAt": "2026-05-05T06:24:31.649Z",
           "schoolPreset": {
             "selected": "korean",
             "source": "default",
@@ -690,7 +690,7 @@
         },
         "meta": {
           "version": "1.0.0",
-          "generatedAt": "2026-05-05T06:19:27.799Z",
+          "generatedAt": "2026-05-05T06:24:32.893Z",
           "schoolPreset": {
             "selected": "korean",
             "source": "default",
@@ -784,7 +784,7 @@
         },
         "meta": {
           "version": "1.0.0",
-          "generatedAt": "2026-05-05T06:19:28.338Z",
+          "generatedAt": "2026-05-05T06:24:33.418Z",
           "schoolPreset": {
             "selected": "korean",
             "source": "default",
@@ -878,7 +878,7 @@
         },
         "meta": {
           "version": "1.0.0",
-          "generatedAt": "2026-05-05T06:19:28.525Z",
+          "generatedAt": "2026-05-05T06:24:33.619Z",
           "schoolPreset": {
             "selected": "korean",
             "source": "default",
@@ -973,7 +973,7 @@
         },
         "meta": {
           "version": "1.0.0",
-          "generatedAt": "2026-05-05T06:19:28.699Z",
+          "generatedAt": "2026-05-05T06:24:33.815Z",
           "schoolPreset": {
             "selected": "korean",
             "source": "default",
@@ -1068,7 +1068,7 @@
         },
         "meta": {
           "version": "1.0.0",
-          "generatedAt": "2026-05-05T06:19:28.894Z",
+          "generatedAt": "2026-05-05T06:24:34.050Z",
           "schoolPreset": {
             "selected": "korean",
             "source": "default",
@@ -1163,7 +1163,7 @@
         },
         "meta": {
           "version": "1.0.0",
-          "generatedAt": "2026-05-05T06:19:29.082Z",
+          "generatedAt": "2026-05-05T06:24:34.242Z",
           "schoolPreset": {
             "selected": "korean",
             "source": "default",
@@ -1259,7 +1259,7 @@
         },
         "meta": {
           "version": "1.0.0",
-          "generatedAt": "2026-05-05T06:19:29.248Z",
+          "generatedAt": "2026-05-05T06:24:34.401Z",
           "schoolPreset": {
             "selected": "korean",
             "source": "default",
@@ -1354,7 +1354,7 @@
         },
         "meta": {
           "version": "1.0.0",
-          "generatedAt": "2026-05-05T06:19:29.409Z",
+          "generatedAt": "2026-05-05T06:24:34.576Z",
           "schoolPreset": {
             "selected": "korean",
             "source": "default",
