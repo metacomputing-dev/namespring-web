@@ -217,6 +217,42 @@
       "related": ["bigyeon"],
       "aiGenerated": true,
       "sourceTier": { "tier": "T1_HYPOTHESIS", "sourceType": "training_derived", "sourceUrl": null, "accessedAt": "2026-05-02", "quoteShort": null, "humanInterpretation": "AI-derived plain-language definition of 건록격. Display-only narrative.", "copyrightNote": "No source prose copied.", "authorityTruthEligible": false }
+    },
+    {
+      "schemaVersion": "spring-ts.glossary-entry.v1",
+      "id": "gahwagyeok",
+      "label": "가화격",
+      "hashLabel": "#가화격",
+      "category": "gyeokguk",
+      "brief": "조건이 맞을 때만 화격(化格) 모양으로 풀이되는 잡격이에요.",
+      "detailed": "원래 화격(化格)이 되려면 천간합이 다른 오행으로 변하는 결이 또렷해야 하는데, 조건이 일부 부족해 '거의 화격에 가까운 결'로 풀어주는 모양이에요. 운세에서 변화의 기운이 들어오면 결과가 또렷해질 수 있어, '조건부 변화'의 사주로 풀어요.",
+      "related": ["hwagyeok"],
+      "aiGenerated": true,
+      "sourceTier": { "tier": "T1_HYPOTHESIS", "sourceType": "training_derived", "sourceUrl": null, "accessedAt": "2026-05-02", "quoteShort": null, "humanInterpretation": "AI-derived plain-language definition of 가화격. Display-only narrative.", "copyrightNote": "No source prose copied.", "authorityTruthEligible": false }
+    },
+    {
+      "schemaVersion": "spring-ts.glossary-entry.v1",
+      "id": "gajongyeok",
+      "label": "가종격",
+      "hashLabel": "#가종격",
+      "category": "gyeokguk",
+      "brief": "조건이 부족해 '거의 종격'으로만 풀이되는 잡격이에요.",
+      "detailed": "원래 종격이 되려면 내 기운이 거의 없을 만큼 약해야 하는데, 한두 글자가 도움 결로 남아 완전한 종격은 아닌 모양이에요. 운세에서 도움 글자가 약해지면 종격처럼 흐르고, 도움 결이 강해지면 일반 사주로 풀이되는 결이라 흐름에 따라 결을 살피는 사주예요.",
+      "related": ["jongjaegyeok", "jonggwangyeok", "jongsalgyeok"],
+      "aiGenerated": true,
+      "sourceTier": { "tier": "T1_HYPOTHESIS", "sourceType": "training_derived", "sourceUrl": null, "accessedAt": "2026-05-02", "quoteShort": null, "humanInterpretation": "AI-derived plain-language definition of 가종격. Display-only narrative.", "copyrightNote": "No source prose copied.", "authorityTruthEligible": false }
+    },
+    {
+      "schemaVersion": "spring-ts.glossary-entry.v1",
+      "id": "ilhaengdueukgyeok",
+      "label": "일행득기격",
+      "hashLabel": "#일행득기격",
+      "category": "gyeokguk",
+      "brief": "한 가지 오행이 자기 결을 가득 얻은 잡격이에요.",
+      "detailed": "사주의 모든 글자가 한 가지 오행에 모여 그 결을 온전히 얻은 모양이에요. 전왕격과 가까운 결이지만, 일행득기격은 일간과 같은 오행이 자리·결을 가득 얻은 자리에 초점을 두는 결이에요. 그 오행의 자리에서 결과가 또렷이 따르는 사주예요.",
+      "related": ["jeonwanggyeok", "wood", "fire", "earth", "metal", "water"],
+      "aiGenerated": true,
+      "sourceTier": { "tier": "T1_HYPOTHESIS", "sourceType": "training_derived", "sourceUrl": null, "accessedAt": "2026-05-02", "quoteShort": null, "humanInterpretation": "AI-derived plain-language definition of 일행득기격. Display-only narrative.", "copyrightNote": "No source prose copied.", "authorityTruthEligible": false }
     }
   ]
 }

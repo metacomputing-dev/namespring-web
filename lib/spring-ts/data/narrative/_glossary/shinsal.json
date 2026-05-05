@@ -241,6 +241,102 @@
       "related": [],
       "aiGenerated": true,
       "sourceTier": { "tier": "T1_HYPOTHESIS", "sourceType": "training_derived", "sourceUrl": null, "accessedAt": "2026-05-02", "quoteShort": null, "humanInterpretation": "AI-derived plain-language definition of 천의. Display-only narrative.", "copyrightNote": "No source prose copied.", "authorityTruthEligible": false }
+    },
+    {
+      "schemaVersion": "spring-ts.glossary-entry.v1",
+      "id": "cheonsal",
+      "label": "천살",
+      "hashLabel": "#천살",
+      "category": "shinsal",
+      "brief": "위에서 내려오는 압박·돌발의 결을 보는 신호예요.",
+      "detailed": "천살(天煞)은 '하늘에서 내려오는 결'이라는 뜻처럼, 윗사람·외부·예상하지 못한 일에서 오는 압박의 결을 보는 신살이에요. 큰 일은 아니지만 결정 직전 한 번 더 점검하라는 신호로 풀어요. 무리한 자랑·과시만 줄이면 결을 흠 없이 넘기기 쉬워요.",
+      "related": [],
+      "aiGenerated": true,
+      "sourceTier": { "tier": "T1_HYPOTHESIS", "sourceType": "training_derived", "sourceUrl": null, "accessedAt": "2026-05-02", "quoteShort": null, "humanInterpretation": "AI-derived plain-language definition of 천살. Display-only narrative.", "copyrightNote": "No source prose copied.", "authorityTruthEligible": false }
+    },
+    {
+      "schemaVersion": "spring-ts.glossary-entry.v1",
+      "id": "jisal",
+      "label": "지살",
+      "hashLabel": "#지살",
+      "category": "shinsal",
+      "brief": "이동·여행·자리바꿈을 부르는 결의 신호예요.",
+      "detailed": "지살(地煞)은 땅에서 일어나는 결의 신살로, 이사·이동·짧은 여행의 자리를 부르는 결이에요. 역마와 결이 비슷하지만 좀 더 가까운 거리·일상 속 자리바꿈으로 풀어요. 새 환경·새 동선이 결을 풀어 주는 자리에 잘 어울려요.",
+      "related": ["yeokma"],
+      "aiGenerated": true,
+      "sourceTier": { "tier": "T1_HYPOTHESIS", "sourceType": "training_derived", "sourceUrl": null, "accessedAt": "2026-05-02", "quoteShort": null, "humanInterpretation": "AI-derived plain-language definition of 지살. Display-only narrative.", "copyrightNote": "No source prose copied.", "authorityTruthEligible": false }
+    },
+    {
+      "schemaVersion": "spring-ts.glossary-entry.v1",
+      "id": "banansal",
+      "label": "반안살",
+      "hashLabel": "#반안살",
+      "category": "shinsal",
+      "brief": "안장 위에 앉는 자리, 자리·승진의 결이에요.",
+      "detailed": "반안살(攀鞍煞)은 '말 안장에 오르는 결'이라는 뜻처럼, 자리·직책·승진의 결을 보는 길성 결이에요. 사주에 반안살이 있으면 윗자리로 오르는 결이 자라기 좋고, 운세에서 반안살 시기엔 새 직함·자리 변화의 자리에서 결과가 따르는 결로 풀어요.",
+      "related": ["jangseongsal"],
+      "aiGenerated": true,
+      "sourceTier": { "tier": "T1_HYPOTHESIS", "sourceType": "training_derived", "sourceUrl": null, "accessedAt": "2026-05-02", "quoteShort": null, "humanInterpretation": "AI-derived plain-language definition of 반안살. Display-only narrative.", "copyrightNote": "No source prose copied.", "authorityTruthEligible": false }
+    },
+    {
+      "schemaVersion": "spring-ts.glossary-entry.v1",
+      "id": "jangseongsal",
+      "label": "장성살",
+      "hashLabel": "#장성살",
+      "category": "shinsal",
+      "brief": "장수·리더의 자리, 강한 결단의 결이에요.",
+      "detailed": "장성살(將星煞)은 '장수의 별'이라는 뜻처럼, 강한 결단력·리더십·중책의 자리를 부르는 결이에요. 사주에 장성살이 또렷하면 군경·전문직·자기 무대를 이끄는 자리에서 빛이 나는 결로 풀어요. 책임이 자산이 되는 신살이에요.",
+      "related": ["yangin", "banansal"],
+      "aiGenerated": true,
+      "sourceTier": { "tier": "T1_HYPOTHESIS", "sourceType": "training_derived", "sourceUrl": null, "accessedAt": "2026-05-02", "quoteShort": null, "humanInterpretation": "AI-derived plain-language definition of 장성살. Display-only narrative.", "copyrightNote": "No source prose copied.", "authorityTruthEligible": false }
+    },
+    {
+      "schemaVersion": "spring-ts.glossary-entry.v1",
+      "id": "geobsal",
+      "label": "겁살",
+      "hashLabel": "#겁살",
+      "category": "shinsal",
+      "brief": "예상치 못한 손실·도난을 살피는 주의 신호예요.",
+      "detailed": "겁살(劫煞)은 '빼앗기는 결'이라는 뜻처럼, 예상치 못한 손실·도난·사기의 자리를 살피는 결의 신살이에요. 큰 흠으로 단정 짓기보다는 '큰돈·큰 약속 직전 한 번 더 점검하라'는 신호로 풀어요. 서면·증빙을 챙기면 결을 흠 없이 넘기기 쉬워요.",
+      "related": ["geobjae"],
+      "aiGenerated": true,
+      "sourceTier": { "tier": "T1_HYPOTHESIS", "sourceType": "training_derived", "sourceUrl": null, "accessedAt": "2026-05-02", "quoteShort": null, "humanInterpretation": "AI-derived plain-language definition of 겁살. Display-only narrative.", "copyrightNote": "No source prose copied.", "authorityTruthEligible": false }
+    },
+    {
+      "schemaVersion": "spring-ts.glossary-entry.v1",
+      "id": "wolsal",
+      "label": "월살",
+      "hashLabel": "#월살",
+      "category": "shinsal",
+      "brief": "달의 결을 거스르는 한 박자 어긋남의 결이에요.",
+      "detailed": "월살(月煞)은 달의 결과 어긋나는 자리의 결을 보는 신살이에요. 평소엔 잘 드러나지 않다가 가까운 사람과의 사소한 어긋남·기분의 결로 나타나기 쉬워요. 작은 마찰이지만 가까운 자리에서 잦아질 수 있으니 한 박자 늦춰 주는 연습이 자산이 돼요.",
+      "related": [],
+      "aiGenerated": true,
+      "sourceTier": { "tier": "T1_HYPOTHESIS", "sourceType": "training_derived", "sourceUrl": null, "accessedAt": "2026-05-02", "quoteShort": null, "humanInterpretation": "AI-derived plain-language definition of 월살. Display-only narrative.", "copyrightNote": "No source prose copied.", "authorityTruthEligible": false }
+    },
+    {
+      "schemaVersion": "spring-ts.glossary-entry.v1",
+      "id": "yeonsal",
+      "label": "년살",
+      "hashLabel": "#년살",
+      "category": "shinsal",
+      "brief": "도화의 다른 이름, 매력·인기의 결이에요.",
+      "detailed": "년살(年煞)은 12신살 안에서 도화살의 다른 이름으로, 매력·인기·표현의 자리를 부르는 결이에요. 사주에 년살이 또렷하면 무대·서비스·창작의 자리에서 빛이 나기 쉽고, 가까운 관계의 흐름이 빠르게 흘러 결을 자기 페이스로 모으는 연습이 자산이 돼요.",
+      "related": ["dohwa"],
+      "aiGenerated": true,
+      "sourceTier": { "tier": "T1_HYPOTHESIS", "sourceType": "training_derived", "sourceUrl": null, "accessedAt": "2026-05-02", "quoteShort": null, "humanInterpretation": "AI-derived plain-language definition of 년살. Display-only narrative.", "copyrightNote": "No source prose copied.", "authorityTruthEligible": false }
+    },
+    {
+      "schemaVersion": "spring-ts.glossary-entry.v1",
+      "id": "jaesal",
+      "label": "재살",
+      "hashLabel": "#재살",
+      "category": "shinsal",
+      "brief": "갇힘·구속·송사의 자리를 살피는 주의 신호예요.",
+      "detailed": "재살(災煞)은 '재앙의 결'이라는 뜻처럼, 갇힘·구속·송사·소송의 자리를 살피는 신살이에요. 큰 흉으로 단정 짓기보다는 '큰 결정 직전 절차·서면을 한 번 더 챙기라'는 신호로 풀어요. 무리한 빠른 판단만 줄이면 결을 흠 없이 넘기기 쉬워요.",
+      "related": ["hyeongsal", "samhyeong"],
+      "aiGenerated": true,
+      "sourceTier": { "tier": "T1_HYPOTHESIS", "sourceType": "training_derived", "sourceUrl": null, "accessedAt": "2026-05-02", "quoteShort": null, "humanInterpretation": "AI-derived plain-language definition of 재살. Display-only narrative.", "copyrightNote": "No source prose copied.", "authorityTruthEligible": false }
     }
   ]
 }
