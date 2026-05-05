@@ -1,0 +1,344 @@
+{
+  "generatedAt": "2026-05-05T14:04:52.341Z",
+  "fixtureCount": 22,
+  "paragraphCount": 950,
+  "violationCount": 0,
+  "byTagCount": {
+    "2": 65,
+    "3": 43,
+    "4": 47,
+    "5": 454,
+    "6": 341
+  },
+  "byCharCount": {
+    "250-299": 272,
+    "150-199": 159,
+    "300+": 51,
+    "200-249": 404,
+    "<100": 61,
+    "100-149": 3
+  },
+  "closerDiversityByCategory": {
+    "wealth": {
+      "uniqueClosers": 9,
+      "total": 95,
+      "distribution": [
+        {
+          "closer": "gyeokgukFit+stabilityIndex",
+          "count": 31
+        },
+        {
+          "closer": "jaebakgung+cheonleulgwiin",
+          "count": 23
+        },
+        {
+          "closer": "jeongjae+pyeonjae",
+          "count": 11
+        },
+        {
+          "closer": "dayPillar+yongshin",
+          "count": 10
+        },
+        {
+          "closer": "pyeonjae+geobjae",
+          "count": 6
+        },
+        {
+          "closer": "jeongjaegyeok+pyeonjae",
+          "count": 6
+        },
+        {
+          "closer": "pyeonjae+pyeonjae",
+          "count": 4
+        },
+        {
+          "closer": "yongshin+geobjae",
+          "count": 2
+        },
+        {
+          "closer": "pyeongwan+sajuCompatibility",
+          "count": 2
+        }
+      ]
+    },
+    "health": {
+      "uniqueClosers": 6,
+      "total": 95,
+      "distribution": [
+        {
+          "closer": "johuYongshin+johu",
+          "count": 35
+        },
+        {
+          "closer": "eumyangHarmony+stabilityIndex",
+          "count": 34
+        },
+        {
+          "closer": "jisal+cheonui",
+          "count": 18
+        },
+        {
+          "closer": "dayPillar+yongshin",
+          "count": 5
+        },
+        {
+          "closer": "earth+samhyeong",
+          "count": 2
+        },
+        {
+          "closer": "johu+jeongin",
+          "count": 1
+        }
+      ]
+    },
+    "academic": {
+      "uniqueClosers": 7,
+      "total": 95,
+      "distribution": [
+        {
+          "closer": "daewoonGungsil+iljin",
+          "count": 33
+        },
+        {
+          "closer": "munchanggwiin+hakdang",
+          "count": 33
+        },
+        {
+          "closer": "tonggwanYongshin+byeongyakYongshin",
+          "count": 17
+        },
+        {
+          "closer": "jeongin+sikshin",
+          "count": 8
+        },
+        {
+          "closer": "dayPillar+yongshin",
+          "count": 2
+        },
+        {
+          "closer": "sikshin+sanggwan",
+          "count": 1
+        },
+        {
+          "closer": "sanggwan+yongshin",
+          "count": 1
+        }
+      ]
+    },
+    "romance": {
+      "uniqueClosers": 9,
+      "total": 95,
+      "distribution": [
+        {
+          "closer": "cheogung+jasikgung",
+          "count": 35
+        },
+        {
+          "closer": "sikshin+jeonggwan",
+          "count": 16
+        },
+        {
+          "closer": "dayPillar+yongshin",
+          "count": 10
+        },
+        {
+          "closer": "dohwa+hongyeom",
+          "count": 9
+        },
+        {
+          "closer": "sajuCompatibility+cheonleulgwiin",
+          "count": 9
+        },
+        {
+          "closer": "jeonggwan+nobokgung",
+          "count": 6
+        },
+        {
+          "closer": "dohwa+jeonggwan",
+          "count": 6
+        },
+        {
+          "closer": "jeonggwan+dohwa",
+          "count": 2
+        },
+        {
+          "closer": "dohwa+sikshin",
+          "count": 2
+        }
+      ]
+    },
+    "family": {
+      "uniqueClosers": 4,
+      "total": 95,
+      "distribution": [
+        {
+          "closer": "samhyeong+hyeongsal",
+          "count": 29
+        },
+        {
+          "closer": "cheondeokgwiin+woldeokgwiin",
+          "count": 26
+        },
+        {
+          "closer": "bumyong+jojangung",
+          "count": 21
+        },
+        {
+          "closer": "hyeongjegung+janyeogung",
+          "count": 19
+        }
+      ]
+    },
+    "career": {
+      "uniqueClosers": 5,
+      "total": 95,
+      "distribution": [
+        {
+          "closer": "jeonggwan+sikshin",
+          "count": 30
+        },
+        {
+          "closer": "jangseongsal+cheonui",
+          "count": 20
+        },
+        {
+          "closer": "gyeokgukYongshin+gyeokgukFit",
+          "count": 18
+        },
+        {
+          "closer": "gwanrokgung+pyeongwan",
+          "count": 17
+        },
+        {
+          "closer": "dayPillar+yongshin",
+          "count": 10
+        }
+      ]
+    },
+    "study_document": {
+      "uniqueClosers": 4,
+      "total": 95,
+      "distribution": [
+        {
+          "closer": "gwanrokgung+bokdeokgung",
+          "count": 51
+        },
+        {
+          "closer": "cheondeokgwiin+woldeokgwiin",
+          "count": 17
+        },
+        {
+          "closer": "woldeokgwiin+sikshin",
+          "count": 17
+        },
+        {
+          "closer": "dayPillar+yongshin",
+          "count": 10
+        }
+      ]
+    },
+    "expression_children": {
+      "uniqueClosers": 5,
+      "total": 95,
+      "distribution": [
+        {
+          "closer": "hwagae+munchanggwiin",
+          "count": 34
+        },
+        {
+          "closer": "daewoonGungsil+wolun",
+          "count": 29
+        },
+        {
+          "closer": "wolun+sanggwan",
+          "count": 17
+        },
+        {
+          "closer": "dayPillar+yongshin",
+          "count": 9
+        },
+        {
+          "closer": "sanggwan+janyeogung",
+          "count": 6
+        }
+      ]
+    },
+    "health_stress": {
+      "uniqueClosers": 10,
+      "total": 95,
+      "distribution": [
+        {
+          "closer": "cheonui+cheondeokgwiin",
+          "count": 47
+        },
+        {
+          "closer": "baekho+goegang",
+          "count": 11
+        },
+        {
+          "closer": "pyeongwan+jeongin",
+          "count": 10
+        },
+        {
+          "closer": "gongmang+stabilityIndex",
+          "count": 8
+        },
+        {
+          "closer": "pyeongwan+gongmang",
+          "count": 6
+        },
+        {
+          "closer": "dayPillar+yongshin",
+          "count": 5
+        },
+        {
+          "closer": "stabilityIndex+pyeongwan",
+          "count": 3
+        },
+        {
+          "closer": "jeongin+samhyeong",
+          "count": 3
+        },
+        {
+          "closer": "fire+jeongin",
+          "count": 1
+        },
+        {
+          "closer": "pyeongwan+yongshin",
+          "count": 1
+        }
+      ]
+    },
+    "movement": {
+      "uniqueClosers": 6,
+      "total": 95,
+      "distribution": [
+        {
+          "closer": "jisal+cheonigung",
+          "count": 42
+        },
+        {
+          "closer": "yeokma+jojangung",
+          "count": 28
+        },
+        {
+          "closer": "yongshin+daewoonGungsil",
+          "count": 20
+        },
+        {
+          "closer": "daewoonGungsil+yongshin",
+          "count": 2
+        },
+        {
+          "closer": "jojangung+yongshin",
+          "count": 2
+        },
+        {
+          "closer": "banansal+wolsal",
+          "count": 1
+        }
+      ]
+    }
+  },
+  "violations": []
+}
