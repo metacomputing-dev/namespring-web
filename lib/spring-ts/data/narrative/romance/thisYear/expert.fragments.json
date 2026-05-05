@@ -9,9 +9,11 @@
       "axis": { "category": "romance", "period": "thisYear", "depth": "expert" },
       "gating": { "ageBand": ["20-29", "30-39", "40-54", "55-69", "70+"] },
       "templateTokens": [
-        { "kind": "text", "value": "올해의 인연 결은 " },
+        { "kind": "text", "value": "올해의 인연 흐름은 " },
         { "kind": "tag", "tagId": "baeujagung", "label": "배우자궁" },
-        { "kind": "text", "value": "의 자리가 한 해의 길이만큼 자기 몫을 받아내는 시기예요. 한 해 동안 큰 사건의 단정보다 시기마다 다른 결이 들어왔다 흘러간다는 그림이 더 가깝게 맞아요." },
+        { "kind": "text", "value": "이 한 해의 길이만큼 자기 몫을 받아내는 시기예요. 12궁 전통에서 짝의 자리를 비추는 " },
+        { "kind": "tag", "tagId": "cheogung", "label": "처궁" },
+        { "kind": "text", "value": "의 자리도 함께 살피면, 한 해 동안 큰 사건의 단정보다 시기마다 다른 색이 들어왔다 흘러간다는 그림이 더 가깝게 맞아요." },
         { "kind": "text", "value": " 표현 기운인 " },
         { "kind": "tag", "tagId": "sikshin", "label": "식신" },
         { "kind": "text", "value": "이 살아 있으면 한 해 동안 따뜻한 한마디가 자주 흘러가고, 매력 신호인 " },
@@ -21,12 +23,12 @@
         { "kind": "text", "value": "이 비치면 사람들이 모이는 자리가 한 해 안에서 자연스럽게 만들어져요." },
         { "kind": "text", "value": " 책임 기운인 " },
         { "kind": "tag", "tagId": "jeonggwan", "label": "정관" },
-        { "kind": "text", "value": "을 함께 챙기면 약속·신뢰의 결이 단단해지고, 강한 결단의 결인 " },
+        { "kind": "text", "value": "을 함께 챙기면 약속·신뢰의 토대가 단단해지고, 강한 결단의 기운인 " },
         { "kind": "tag", "tagId": "pyeongwan", "label": "편관" },
         { "kind": "text", "value": "은 한 해 동안 큰 시기의 결정 자리에서 자주 등장해요." },
-        { "kind": "text", "value": " 큰 단정을 미리 못 박지 않아도 한 해의 결을 정성껏 살아 가는 일이 결국 가장 단단한 인연 자산이 돼요." }
+        { "kind": "text", "value": " 큰 단정을 미리 못 박지 않아도 한 해를 정성껏 살아 가는 일이 결국 가장 단단한 인연 자산이 돼요." }
       ],
-      "tags": ["baeujagung", "sikshin", "dohwa", "hongyeom", "jeonggwan", "pyeongwan"],
+      "tags": ["baeujagung", "cheogung", "sikshin", "dohwa", "hongyeom", "jeonggwan", "pyeongwan"],
       "numericalEvidence": [
         {
           "label": "현재 나이",

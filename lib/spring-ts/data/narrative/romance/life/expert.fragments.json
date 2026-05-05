@@ -267,15 +267,17 @@
       "templateTokens": [
         { "kind": "text", "value": "후반기 인연 결은 " },
         { "kind": "tag", "tagId": "baeujagung", "label": "배우자궁" },
-        { "kind": "text", "value": "의 자리가 한층 깊어지는 시기예요. 새로운 자극보다는 오래 함께한 사람과의 결이 한 번 더 또렷해져요." },
+        { "kind": "text", "value": "의 자리가 한층 깊어지는 시기예요. 새로운 자극보다는 오래 함께한 사람과의 정이 한 번 더 또렷해져요." },
         { "kind": "text", "value": " " },
         { "kind": "tag", "tagId": "jeonggwan", "label": "정관" },
-        { "kind": "text", "value": "의 결이 든든하면 가족·반려와의 신뢰가 단단해지고, " },
+        { "kind": "text", "value": "의 결이 든든하면 가족·반려와의 신뢰가 단단해지고, 자녀와 후세를 살피는 " },
+        { "kind": "tag", "tagId": "janyeogung", "label": "자녀궁" },
+        { "kind": "text", "value": "의 자리에서는 오래 키운 마음이 결실로 돌아오는 시기로 풀려요. " },
         { "kind": "tag", "tagId": "sikshin", "label": "식신" },
         { "kind": "text", "value": "의 결이 살아 있으면 일상 속 다정한 표현이 잔잔히 흘러가요." },
-        { "kind": "text", "value": " 자리가 비어 있던 결도 시간이 흐르며 작은 다정함으로 채워지는 모양이라, 큰 결정보다는 곁의 사람에게 시선을 자주 두는 일이 가장 큰 자산이 돼요." }
+        { "kind": "text", "value": " 자리가 비어 있던 부분도 시간이 흐르며 작은 다정함으로 채워지는 모양이라, 큰 결정보다는 곁의 사람에게 시선을 자주 두는 일이 가장 큰 자산이 돼요." }
       ],
-      "tags": ["baeujagung", "jeonggwan", "sikshin"],
+      "tags": ["baeujagung", "jeonggwan", "janyeogung", "sikshin"],
       "aiGenerated": true,
       "sourceTier": {
         "tier": "T1_HYPOTHESIS",
@@ -352,17 +354,19 @@
       "axis": { "category": "romance", "period": "life", "depth": "expert" },
       "gating": { "ageBand": ["20-29", "30-39", "40-54"], "dayMasterStrength": ["WEAK", "EXTREME_WEAK"] },
       "templateTokens": [
-        { "kind": "text", "value": "사주의 일간이 부드러운 결이라, 인연 자리에서 먼저 손을 내밀기보다 다가오는 결을 받아들이는 흐름이 자연스러워요. " },
+        { "kind": "text", "value": "사주의 일간이 부드러운 결이라, 인연 자리에서 먼저 손을 내밀기보다 다가오는 마음을 받아들이는 흐름이 자연스러워요. " },
         { "kind": "tag", "tagId": "baeujagung", "label": "배우자궁" },
-        { "kind": "text", "value": "의 자리에서 들어오는 결을 따뜻하게 맞이하는 결이 또렷해요." },
+        { "kind": "text", "value": "의 자리에서 들어오는 신호를 따뜻하게 맞이하는 모양이 또렷해요." },
         { "kind": "text", "value": " 따뜻한 표현 기운인 " },
         { "kind": "tag", "tagId": "sikshin", "label": "식신" },
         { "kind": "text", "value": "이 살아 있으면 곁의 사람에게 한결같은 다정함이 자연스럽게 흘러가고, 책임 기운인 " },
         { "kind": "tag", "tagId": "jeonggwan", "label": "정관" },
-        { "kind": "text", "value": "이 자리를 잡으면 신뢰의 토대가 단단해져요." },
-        { "kind": "text", "value": " 다만 자기 마음을 표현하지 못하고 묵혀 두면 거리가 멀어질 수 있어요. 짧은 한마디라도 자기 결을 자주 드러내는 결이 평생의 관계 자산을 단단히 받쳐 주는 토대가 돼요." }
+        { "kind": "text", "value": "이 자리를 잡으면 신뢰의 토대가 단단해져요. 일을 함께 받쳐 주는 사람과의 자리인 " },
+        { "kind": "tag", "tagId": "nobokgung", "label": "노복궁" },
+        { "kind": "text", "value": "이 든든하면 가까운 곁의 사람들이 자연스럽게 손을 잡아 주는 자리가 자주 열려요." },
+        { "kind": "text", "value": " 다만 자기 마음을 표현하지 못하고 묵혀 두면 거리가 멀어질 수 있어요. 짧은 한마디라도 자기 색을 자주 드러내는 일이 평생의 관계 자산을 단단히 받쳐 주는 토대가 돼요." }
       ],
-      "tags": ["baeujagung", "sikshin", "jeonggwan"],
+      "tags": ["baeujagung", "sikshin", "jeonggwan", "nobokgung"],
       "aiGenerated": true,
       "sourceTier": {
         "tier": "T1_HYPOTHESIS",
