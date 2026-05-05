@@ -11,7 +11,7 @@
       "axis": { "category": "movement", "period": "thisMonth", "depth": "brief" },
       "gating": {},
       "templateTokens": [
-        { "kind": "text", "value": "이번 달은 새 환경의 문이 한두 번 열리는 결이에요." }
+        { "kind": "text", "value": "이번 달은 새 환경의 문이 한두 번 열리는 한 달이에요." }
       ],
       "tags": [],
       "aiGenerated": true,
@@ -32,7 +32,7 @@
       "axis": { "category": "movement", "period": "thisMonth", "depth": "brief" },
       "gating": { "ageBand": ["0-9"] },
       "templateTokens": [
-        { "kind": "text", "value": "이번 달은 아이가 새 자리·새 친구와 즐겁게 닿는 결이에요." }
+        { "kind": "text", "value": "이번 달은 아이가 새 자리·새 친구와 즐겁게 닿는 한 달이에요." }
       ],
       "tags": [],
       "aiGenerated": true,
@@ -95,7 +95,7 @@
       "axis": { "category": "movement", "period": "thisMonth", "depth": "brief" },
       "gating": { "ageBand": ["30-39"] },
       "templateTokens": [
-        { "kind": "text", "value": "이번 달은 출장·이직·이사 자리가 한 번 또렷해지는 결이에요." }
+        { "kind": "text", "value": "이번 달은 출장·이직·이사 자리가 한 번 또렷해지는 흐름이에요." }
       ],
       "tags": [],
       "aiGenerated": true,
@@ -116,7 +116,7 @@
       "axis": { "category": "movement", "period": "thisMonth", "depth": "brief" },
       "gating": { "ageBand": ["40-54"] },
       "templateTokens": [
-        { "kind": "text", "value": "이번 달은 출장·외근의 자리가 자주 만들어지는 결이에요." }
+        { "kind": "text", "value": "이번 달은 출장·외근의 자리가 자주 만들어지는 한 달이에요." }
       ],
       "tags": [],
       "aiGenerated": true,

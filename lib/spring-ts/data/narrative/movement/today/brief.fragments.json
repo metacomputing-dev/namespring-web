@@ -11,7 +11,7 @@
       "axis": { "category": "movement", "period": "today", "depth": "brief" },
       "gating": {},
       "templateTokens": [
-        { "kind": "text", "value": "오늘은 한 발짝 움직여 볼 결이 가벼워요." }
+        { "kind": "text", "value": "오늘은 한 발짝 움직여 볼 자리가 가벼워요." }
       ],
       "tags": [],
       "aiGenerated": true,
@@ -32,7 +32,7 @@
       "axis": { "category": "movement", "period": "today", "depth": "brief" },
       "gating": { "ageBand": ["0-9"] },
       "templateTokens": [
-        { "kind": "text", "value": "아이는 오늘 새 자리에서 더 즐거운 결이에요. 짧은 외출이 좋아요." }
+        { "kind": "text", "value": "아이는 오늘 새 자리에서 더 즐거워요. 짧은 외출이 좋아요." }
       ],
       "tags": [],
       "aiGenerated": true,
@@ -74,7 +74,7 @@
       "axis": { "category": "movement", "period": "today", "depth": "brief" },
       "gating": { "ageBand": ["20-29"] },
       "templateTokens": [
-        { "kind": "text", "value": "오늘은 새 자리·새 사람과 닿기 좋은 결이에요." }
+        { "kind": "text", "value": "오늘은 새 자리·새 사람과 닿기 좋은 하루예요." }
       ],
       "tags": [],
       "aiGenerated": true,

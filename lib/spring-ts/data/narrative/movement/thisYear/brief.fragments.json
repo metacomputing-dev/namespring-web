@@ -11,7 +11,7 @@
       "axis": { "category": "movement", "period": "thisYear", "depth": "brief" },
       "gating": {},
       "templateTokens": [
-        { "kind": "text", "value": "올해는 새 환경의 결이 한 번 크게 열리는 해예요." }
+        { "kind": "text", "value": "올해는 새 환경의 문이 한 번 크게 열리는 해예요." }
       ],
       "tags": [],
       "aiGenerated": true,
@@ -32,7 +32,7 @@
       "axis": { "category": "movement", "period": "thisYear", "depth": "brief" },
       "gating": { "ageBand": ["0-9"] },
       "templateTokens": [
-        { "kind": "text", "value": "올해 아이는 새 자리에서 자라는 결이 또렷해져요." }
+        { "kind": "text", "value": "올해 아이는 새 자리에서 자라는 모습이 또렷해져요." }
       ],
       "tags": [],
       "aiGenerated": true,
@@ -116,7 +116,7 @@
       "axis": { "category": "movement", "period": "thisYear", "depth": "brief" },
       "gating": { "ageBand": ["40-54"] },
       "templateTokens": [
-        { "kind": "text", "value": "올해는 출장·해외 자리가 자주 만들어지는 결이에요." }
+        { "kind": "text", "value": "올해는 출장·해외 자리가 자주 만들어지는 한 해예요." }
       ],
       "tags": [],
       "aiGenerated": true,
@@ -137,7 +137,7 @@
       "axis": { "category": "movement", "period": "thisYear", "depth": "brief" },
       "gating": { "ageBand": ["55-69"] },
       "templateTokens": [
-        { "kind": "text", "value": "올해는 정리와 새 자리 사이에서 한 번 움직여 볼 결이에요." }
+        { "kind": "text", "value": "올해는 정리와 새 자리 사이에서 한 번 움직여 볼 시기예요." }
       ],
       "tags": [],
       "aiGenerated": true,
@@ -158,7 +158,7 @@
       "axis": { "category": "movement", "period": "thisYear", "depth": "brief" },
       "gating": { "ageBand": ["70+"] },
       "templateTokens": [
-        { "kind": "text", "value": "올해는 가까운 여행과 머무름의 결이 함께해요." }
+        { "kind": "text", "value": "올해는 가까운 여행과 머무름의 자리가 함께해요." }
       ],
       "tags": [],
       "aiGenerated": true,
