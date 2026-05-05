@@ -1,0 +1,588 @@
+{
+  "generatedAt": "2026-05-05T04:57:30.904Z",
+  "fixtureSources": [
+    "spring_ts_baseline_cases",
+    "jonggyeok_cases"
+  ],
+  "fixtureCount": 24,
+  "consensusAvailableCount": 24,
+  "targetMode": "consensus_aware",
+  "methodology": [
+    "For each fixture: run getSajuReport(), capture YongshinConsensusScoreboard.",
+    "Per axis (eokbu/johu/gyeokguk/tonggwan/byeongyak/siksangFlow): count whether the axis emitted the same element as final.element. Ratio = match-count / fixtureCount.",
+    "Synthetic single-element root used to thread computeSajuNameScore in consensus_aware mode so score-side guards become observable.",
+    "Each guard predicate re-evaluated independently of the score function so we report what fired regardless of the order in which the score visited it."
+  ],
+  "averageCompetingCount": 2.7916666666666665,
+  "axisAgreesWithFinal": {
+    "eokbu": 22,
+    "johu": 7,
+    "gyeokguk": 0,
+    "tonggwan": 6,
+    "byeongyak": 3,
+    "siksangFlow": 11
+  },
+  "axisProducedRecommendation": {
+    "eokbu": 24,
+    "johu": 24,
+    "gyeokguk": 24,
+    "tonggwan": 24,
+    "byeongyak": 24,
+    "siksangFlow": 24
+  },
+  "axisActivationRatio": {
+    "eokbu": 0.9166666666666666,
+    "johu": 0.2916666666666667,
+    "gyeokguk": 0,
+    "tonggwan": 0.25,
+    "byeongyak": 0.125,
+    "siksangFlow": 0.4583333333333333
+  },
+  "conflictDistribution": {
+    "none": 0,
+    "low": 0,
+    "medium": 0,
+    "high": 24
+  },
+  "postureDistribution": {
+    "safe": 0,
+    "balanced": 0,
+    "aggressive": 24
+  },
+  "guardActivation": {
+    "multiCompetingHaircut": 18,
+    "thinReinforcementInfo": 0,
+    "aggressiveConflict": 0,
+    "scoreGuardAppliedCount": 24
+  },
+  "cases": [
+    {
+      "id": "fix-01",
+      "source": "spring_ts_baseline_cases",
+      "conflictLevel": "high",
+      "competingCount": 2,
+      "finalElement": "METAL",
+      "axisAlignment": {
+        "eokbu": true,
+        "johu": false,
+        "gyeokguk": false,
+        "tonggwan": false,
+        "byeongyak": true,
+        "siksangFlow": false
+      },
+      "safetyPosture": "aggressive",
+      "safetyStrategy": "aggressive_reinforcement",
+      "thinReinforcementInfoFired": false,
+      "multiCompetingHaircutFired": false,
+      "aggressiveConflictFired": false,
+      "yongshinRatio": 1,
+      "score": 100
+    },
+    {
+      "id": "fix-02",
+      "source": "spring_ts_baseline_cases",
+      "conflictLevel": "high",
+      "competingCount": 3,
+      "finalElement": "WATER",
+      "axisAlignment": {
+        "eokbu": true,
+        "johu": true,
+        "gyeokguk": false,
+        "tonggwan": false,
+        "byeongyak": false,
+        "siksangFlow": false
+      },
+      "safetyPosture": "aggressive",
+      "safetyStrategy": "aggressive_reinforcement",
+      "thinReinforcementInfoFired": false,
+      "multiCompetingHaircutFired": true,
+      "aggressiveConflictFired": false,
+      "yongshinRatio": 1,
+      "score": 100
+    },
+    {
+      "id": "fix-03",
+      "source": "spring_ts_baseline_cases",
+      "conflictLevel": "high",
+      "competingCount": 3,
+      "finalElement": "WOOD",
+      "axisAlignment": {
+        "eokbu": true,
+        "johu": false,
+        "gyeokguk": false,
+        "tonggwan": true,
+        "byeongyak": false,
+        "siksangFlow": false
+      },
+      "safetyPosture": "aggressive",
+      "safetyStrategy": "aggressive_reinforcement",
+      "thinReinforcementInfoFired": false,
+      "multiCompetingHaircutFired": true,
+      "aggressiveConflictFired": false,
+      "yongshinRatio": 1,
+      "score": 100
+    },
+    {
+      "id": "fix-04",
+      "source": "spring_ts_baseline_cases",
+      "conflictLevel": "high",
+      "competingCount": 3,
+      "finalElement": "WATER",
+      "axisAlignment": {
+        "eokbu": false,
+        "johu": true,
+        "gyeokguk": false,
+        "tonggwan": true,
+        "byeongyak": false,
+        "siksangFlow": false
+      },
+      "safetyPosture": "aggressive",
+      "safetyStrategy": "aggressive_reinforcement",
+      "thinReinforcementInfoFired": false,
+      "multiCompetingHaircutFired": true,
+      "aggressiveConflictFired": false,
+      "yongshinRatio": 1,
+      "score": 85.4
+    },
+    {
+      "id": "fix-05",
+      "source": "spring_ts_baseline_cases",
+      "conflictLevel": "high",
+      "competingCount": 3,
+      "finalElement": "METAL",
+      "axisAlignment": {
+        "eokbu": true,
+        "johu": false,
+        "gyeokguk": false,
+        "tonggwan": true,
+        "byeongyak": true,
+        "siksangFlow": false
+      },
+      "safetyPosture": "aggressive",
+      "safetyStrategy": "aggressive_reinforcement",
+      "thinReinforcementInfoFired": false,
+      "multiCompetingHaircutFired": true,
+      "aggressiveConflictFired": false,
+      "yongshinRatio": 1,
+      "score": 100
+    },
+    {
+      "id": "fix-06",
+      "source": "spring_ts_baseline_cases",
+      "conflictLevel": "high",
+      "competingCount": 3,
+      "finalElement": "METAL",
+      "axisAlignment": {
+        "eokbu": true,
+        "johu": false,
+        "gyeokguk": false,
+        "tonggwan": false,
+        "byeongyak": false,
+        "siksangFlow": true
+      },
+      "safetyPosture": "aggressive",
+      "safetyStrategy": "aggressive_reinforcement",
+      "thinReinforcementInfoFired": false,
+      "multiCompetingHaircutFired": true,
+      "aggressiveConflictFired": false,
+      "yongshinRatio": 1,
+      "score": 95
+    },
+    {
+      "id": "fix-07",
+      "source": "spring_ts_baseline_cases",
+      "conflictLevel": "high",
+      "competingCount": 3,
+      "finalElement": "EARTH",
+      "axisAlignment": {
+        "eokbu": true,
+        "johu": false,
+        "gyeokguk": false,
+        "tonggwan": false,
+        "byeongyak": false,
+        "siksangFlow": true
+      },
+      "safetyPosture": "aggressive",
+      "safetyStrategy": "aggressive_reinforcement",
+      "thinReinforcementInfoFired": false,
+      "multiCompetingHaircutFired": true,
+      "aggressiveConflictFired": false,
+      "yongshinRatio": 1,
+      "score": 95
+    },
+    {
+      "id": "fix-08",
+      "source": "spring_ts_baseline_cases",
+      "conflictLevel": "high",
+      "competingCount": 3,
+      "finalElement": "FIRE",
+      "axisAlignment": {
+        "eokbu": true,
+        "johu": false,
+        "gyeokguk": false,
+        "tonggwan": false,
+        "byeongyak": false,
+        "siksangFlow": false
+      },
+      "safetyPosture": "aggressive",
+      "safetyStrategy": "aggressive_reinforcement",
+      "thinReinforcementInfoFired": false,
+      "multiCompetingHaircutFired": true,
+      "aggressiveConflictFired": false,
+      "yongshinRatio": 1,
+      "score": 100
+    },
+    {
+      "id": "fix-09",
+      "source": "spring_ts_baseline_cases",
+      "conflictLevel": "high",
+      "competingCount": 2,
+      "finalElement": "WATER",
+      "axisAlignment": {
+        "eokbu": true,
+        "johu": false,
+        "gyeokguk": false,
+        "tonggwan": false,
+        "byeongyak": false,
+        "siksangFlow": true
+      },
+      "safetyPosture": "aggressive",
+      "safetyStrategy": "aggressive_reinforcement",
+      "thinReinforcementInfoFired": false,
+      "multiCompetingHaircutFired": false,
+      "aggressiveConflictFired": false,
+      "yongshinRatio": 1,
+      "score": 100
+    },
+    {
+      "id": "fix-10",
+      "source": "spring_ts_baseline_cases",
+      "conflictLevel": "high",
+      "competingCount": 3,
+      "finalElement": "METAL",
+      "axisAlignment": {
+        "eokbu": true,
+        "johu": false,
+        "gyeokguk": false,
+        "tonggwan": true,
+        "byeongyak": false,
+        "siksangFlow": true
+      },
+      "safetyPosture": "aggressive",
+      "safetyStrategy": "aggressive_reinforcement",
+      "thinReinforcementInfoFired": false,
+      "multiCompetingHaircutFired": true,
+      "aggressiveConflictFired": false,
+      "yongshinRatio": 1,
+      "score": 100
+    },
+    {
+      "id": "fix-11",
+      "source": "spring_ts_baseline_cases",
+      "conflictLevel": "high",
+      "competingCount": 3,
+      "finalElement": "FIRE",
+      "axisAlignment": {
+        "eokbu": true,
+        "johu": false,
+        "gyeokguk": false,
+        "tonggwan": true,
+        "byeongyak": false,
+        "siksangFlow": false
+      },
+      "safetyPosture": "aggressive",
+      "safetyStrategy": "aggressive_reinforcement",
+      "thinReinforcementInfoFired": false,
+      "multiCompetingHaircutFired": true,
+      "aggressiveConflictFired": false,
+      "yongshinRatio": 1,
+      "score": 99
+    },
+    {
+      "id": "fix-12",
+      "source": "spring_ts_baseline_cases",
+      "conflictLevel": "high",
+      "competingCount": 3,
+      "finalElement": "FIRE",
+      "axisAlignment": {
+        "eokbu": true,
+        "johu": true,
+        "gyeokguk": false,
+        "tonggwan": false,
+        "byeongyak": false,
+        "siksangFlow": false
+      },
+      "safetyPosture": "aggressive",
+      "safetyStrategy": "aggressive_reinforcement",
+      "thinReinforcementInfoFired": false,
+      "multiCompetingHaircutFired": true,
+      "aggressiveConflictFired": false,
+      "yongshinRatio": 1,
+      "score": 94.6
+    },
+    {
+      "id": "fix-13",
+      "source": "spring_ts_baseline_cases",
+      "conflictLevel": "high",
+      "competingCount": 3,
+      "finalElement": "WATER",
+      "axisAlignment": {
+        "eokbu": true,
+        "johu": true,
+        "gyeokguk": false,
+        "tonggwan": false,
+        "byeongyak": false,
+        "siksangFlow": false
+      },
+      "safetyPosture": "aggressive",
+      "safetyStrategy": "aggressive_reinforcement",
+      "thinReinforcementInfoFired": false,
+      "multiCompetingHaircutFired": true,
+      "aggressiveConflictFired": false,
+      "yongshinRatio": 1,
+      "score": 100
+    },
+    {
+      "id": "fix-14",
+      "source": "spring_ts_baseline_cases",
+      "conflictLevel": "high",
+      "competingCount": 3,
+      "finalElement": "WOOD",
+      "axisAlignment": {
+        "eokbu": true,
+        "johu": false,
+        "gyeokguk": false,
+        "tonggwan": false,
+        "byeongyak": false,
+        "siksangFlow": true
+      },
+      "safetyPosture": "aggressive",
+      "safetyStrategy": "aggressive_reinforcement",
+      "thinReinforcementInfoFired": false,
+      "multiCompetingHaircutFired": true,
+      "aggressiveConflictFired": false,
+      "yongshinRatio": 1,
+      "score": 99
+    },
+    {
+      "id": "fix-15",
+      "source": "spring_ts_baseline_cases",
+      "conflictLevel": "high",
+      "competingCount": 2,
+      "finalElement": "METAL",
+      "axisAlignment": {
+        "eokbu": true,
+        "johu": false,
+        "gyeokguk": false,
+        "tonggwan": false,
+        "byeongyak": false,
+        "siksangFlow": true
+      },
+      "safetyPosture": "aggressive",
+      "safetyStrategy": "aggressive_reinforcement",
+      "thinReinforcementInfoFired": false,
+      "multiCompetingHaircutFired": false,
+      "aggressiveConflictFired": false,
+      "yongshinRatio": 1,
+      "score": 100
+    },
+    {
+      "id": "fix-jong-01",
+      "source": "jonggyeok_cases",
+      "conflictLevel": "high",
+      "competingCount": 3,
+      "finalElement": "METAL",
+      "axisAlignment": {
+        "eokbu": true,
+        "johu": false,
+        "gyeokguk": false,
+        "tonggwan": false,
+        "byeongyak": false,
+        "siksangFlow": true
+      },
+      "safetyPosture": "aggressive",
+      "safetyStrategy": "aggressive_reinforcement",
+      "thinReinforcementInfoFired": false,
+      "multiCompetingHaircutFired": true,
+      "aggressiveConflictFired": false,
+      "yongshinRatio": 1,
+      "score": 96
+    },
+    {
+      "id": "fix-jong-02",
+      "source": "jonggyeok_cases",
+      "conflictLevel": "high",
+      "competingCount": 3,
+      "finalElement": "EARTH",
+      "axisAlignment": {
+        "eokbu": false,
+        "johu": false,
+        "gyeokguk": false,
+        "tonggwan": false,
+        "byeongyak": false,
+        "siksangFlow": true
+      },
+      "safetyPosture": "aggressive",
+      "safetyStrategy": "aggressive_reinforcement",
+      "thinReinforcementInfoFired": false,
+      "multiCompetingHaircutFired": true,
+      "aggressiveConflictFired": false,
+      "yongshinRatio": 1,
+      "score": 84
+    },
+    {
+      "id": "fix-jong-03",
+      "source": "jonggyeok_cases",
+      "conflictLevel": "high",
+      "competingCount": 3,
+      "finalElement": "METAL",
+      "axisAlignment": {
+        "eokbu": true,
+        "johu": false,
+        "gyeokguk": false,
+        "tonggwan": false,
+        "byeongyak": false,
+        "siksangFlow": true
+      },
+      "safetyPosture": "aggressive",
+      "safetyStrategy": "aggressive_reinforcement",
+      "thinReinforcementInfoFired": false,
+      "multiCompetingHaircutFired": true,
+      "aggressiveConflictFired": false,
+      "yongshinRatio": 1,
+      "score": 100
+    },
+    {
+      "id": "fix-jong-04",
+      "source": "jonggyeok_cases",
+      "conflictLevel": "high",
+      "competingCount": 3,
+      "finalElement": "WATER",
+      "axisAlignment": {
+        "eokbu": true,
+        "johu": true,
+        "gyeokguk": false,
+        "tonggwan": false,
+        "byeongyak": false,
+        "siksangFlow": false
+      },
+      "safetyPosture": "aggressive",
+      "safetyStrategy": "aggressive_reinforcement",
+      "thinReinforcementInfoFired": false,
+      "multiCompetingHaircutFired": true,
+      "aggressiveConflictFired": false,
+      "yongshinRatio": 1,
+      "score": 100
+    },
+    {
+      "id": "fix-jong-05",
+      "source": "jonggyeok_cases",
+      "conflictLevel": "high",
+      "competingCount": 2,
+      "finalElement": "WATER",
+      "axisAlignment": {
+        "eokbu": true,
+        "johu": true,
+        "gyeokguk": false,
+        "tonggwan": false,
+        "byeongyak": false,
+        "siksangFlow": false
+      },
+      "safetyPosture": "aggressive",
+      "safetyStrategy": "aggressive_reinforcement",
+      "thinReinforcementInfoFired": false,
+      "multiCompetingHaircutFired": false,
+      "aggressiveConflictFired": false,
+      "yongshinRatio": 1,
+      "score": 100
+    },
+    {
+      "id": "fix-jong-06",
+      "source": "jonggyeok_cases",
+      "conflictLevel": "high",
+      "competingCount": 3,
+      "finalElement": "WOOD",
+      "axisAlignment": {
+        "eokbu": true,
+        "johu": false,
+        "gyeokguk": false,
+        "tonggwan": true,
+        "byeongyak": false,
+        "siksangFlow": false
+      },
+      "safetyPosture": "aggressive",
+      "safetyStrategy": "aggressive_reinforcement",
+      "thinReinforcementInfoFired": false,
+      "multiCompetingHaircutFired": true,
+      "aggressiveConflictFired": false,
+      "yongshinRatio": 1,
+      "score": 100
+    },
+    {
+      "id": "fix-jong-07",
+      "source": "jonggyeok_cases",
+      "conflictLevel": "high",
+      "competingCount": 2,
+      "finalElement": "WOOD",
+      "axisAlignment": {
+        "eokbu": true,
+        "johu": false,
+        "gyeokguk": false,
+        "tonggwan": false,
+        "byeongyak": true,
+        "siksangFlow": false
+      },
+      "safetyPosture": "aggressive",
+      "safetyStrategy": "aggressive_reinforcement",
+      "thinReinforcementInfoFired": false,
+      "multiCompetingHaircutFired": false,
+      "aggressiveConflictFired": false,
+      "yongshinRatio": 1,
+      "score": 100
+    },
+    {
+      "id": "fix-jong-08",
+      "source": "jonggyeok_cases",
+      "conflictLevel": "high",
+      "competingCount": 2,
+      "finalElement": "WATER",
+      "axisAlignment": {
+        "eokbu": true,
+        "johu": true,
+        "gyeokguk": false,
+        "tonggwan": false,
+        "byeongyak": false,
+        "siksangFlow": true
+      },
+      "safetyPosture": "aggressive",
+      "safetyStrategy": "aggressive_reinforcement",
+      "thinReinforcementInfoFired": false,
+      "multiCompetingHaircutFired": false,
+      "aggressiveConflictFired": false,
+      "yongshinRatio": 1,
+      "score": 96.25
+    },
+    {
+      "id": "fix-jong-09",
+      "source": "jonggyeok_cases",
+      "conflictLevel": "high",
+      "competingCount": 4,
+      "finalElement": "METAL",
+      "axisAlignment": {
+        "eokbu": true,
+        "johu": false,
+        "gyeokguk": false,
+        "tonggwan": false,
+        "byeongyak": false,
+        "siksangFlow": true
+      },
+      "safetyPosture": "aggressive",
+      "safetyStrategy": "aggressive_reinforcement",
+      "thinReinforcementInfoFired": false,
+      "multiCompetingHaircutFired": true,
+      "aggressiveConflictFired": false,
+      "yongshinRatio": 1,
+      "score": 99
+    }
+  ]
+}
