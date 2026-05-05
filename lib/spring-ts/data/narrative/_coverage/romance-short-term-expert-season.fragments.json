@@ -6,19 +6,54 @@
     {
       "schemaVersion": "spring-ts.narrative-fragment.v1",
       "fragmentId": "romance.today.expert.currentseason.spring_summer.301",
-      "axis": { "category": "romance", "period": "today", "depth": "expert" },
+      "axis": {
+        "category": "romance",
+        "period": "today",
+        "depth": "expert"
+      },
       "gating": {
-        "currentSeason": ["spring", "summer"],
-        "yongshinAlignment": ["aligned", "neutral", "conflicting"]
+        "currentSeason": [
+          "spring",
+          "summer"
+        ],
+        "yongshinAlignment": [
+          "aligned",
+          "neutral",
+          "conflicting"
+        ]
       },
       "templateTokens": [
-        { "kind": "text", "value": "봄·여름의 오늘 연애운은 감정 표현과 만남의 속도가 빨라지는 쪽으로 읽습니다. " },
-        { "kind": "tag", "tagId": "baeujagung", "label": "배우자궁" },
-        { "kind": "text", "value": "의 체감은 가까운 대화에서 먼저 드러나고, " },
-        { "kind": "tag", "tagId": "sajuCompatibility", "label": "사주적합도" },
-        { "kind": "text", "value": "는 당장의 설렘보다 관계가 실제 리듬을 버틸 수 있는지로 보아야 해요. " },
-        { "kind": "tag", "tagId": "eumyangHarmony", "label": "음양조화도" },
-        { "kind": "text", "value": "가 과하게 치우치면 말이 앞설 수 있으니, 오늘은 빠른 호감과 안정된 확인을 함께 두는 해석이 맞습니다." }
+        {
+          "kind": "text",
+          "value": "봄·여름의 오늘 연애운은 감정 표현과 만남의 속도가 빨라지는 쪽으로 읽습니다. "
+        },
+        {
+          "kind": "tag",
+          "tagId": "baeujagung",
+          "label": "배우자궁"
+        },
+        {
+          "kind": "text",
+          "value": "의 체감은 가까운 대화에서 먼저 드러나고, "
+        },
+        {
+          "kind": "tag",
+          "tagId": "sajuCompatibility",
+          "label": "사주적합도"
+        },
+        {
+          "kind": "text",
+          "value": "는 당장의 설렘보다 관계가 실제 리듬을 버틸 수 있는지로 보아야 해요. "
+        },
+        {
+          "kind": "tag",
+          "tagId": "eumyangHarmony",
+          "label": "음양조화도"
+        },
+        {
+          "kind": "text",
+          "value": "가 과하게 치우치면 말이 앞설 수 있으니, 오늘은 빠른 호감과 안정된 확인을 함께 두는 해석이 맞습니다."
+        }
       ],
       "livingTips": [
         "오늘은 먼저 연락하더라도 상대가 답할 시간을 충분히 남겨두세요.",
@@ -27,7 +62,11 @@
       "cautions": [
         "분위기가 좋아도 관계의 속도를 하루 만에 확정하지 마세요."
       ],
-      "tags": ["baeujagung", "sajuCompatibility", "eumyangHarmony"],
+      "tags": [
+        "baeujagung",
+        "sajuCompatibility",
+        "eumyangHarmony"
+      ],
       "numericalEvidence": [
         {
           "label": "현재 나이",
@@ -75,19 +114,54 @@
     {
       "schemaVersion": "spring-ts.narrative-fragment.v1",
       "fragmentId": "romance.today.expert.currentseason.autumn_winter.301",
-      "axis": { "category": "romance", "period": "today", "depth": "expert" },
+      "axis": {
+        "category": "romance",
+        "period": "today",
+        "depth": "expert"
+      },
       "gating": {
-        "currentSeason": ["autumn", "winter"],
-        "yongshinAlignment": ["aligned", "neutral", "conflicting"]
+        "currentSeason": [
+          "autumn",
+          "winter"
+        ],
+        "yongshinAlignment": [
+          "aligned",
+          "neutral",
+          "conflicting"
+        ]
       },
       "templateTokens": [
-        { "kind": "text", "value": "가을·겨울의 오늘 연애운은 속도보다 신뢰, 거리, 확인을 중심으로 해석합니다. " },
-        { "kind": "tag", "tagId": "baeujagung", "label": "배우자궁" },
-        { "kind": "text", "value": "이 예민하게 느껴지는 날에는 큰 감정 표현보다 안정된 말투가 중요하고, " },
-        { "kind": "tag", "tagId": "sajuCompatibility", "label": "사주적합도" },
-        { "kind": "text", "value": "는 상대와의 생활 온도가 맞는지 보는 쪽이 더 정확해요. " },
-        { "kind": "tag", "tagId": "stabilityIndex", "label": "안정성지수" },
-        { "kind": "text", "value": "가 낮으면 오늘은 결정 대신 관계의 피로를 줄이는 선택이 좋습니다." }
+        {
+          "kind": "text",
+          "value": "가을·겨울의 오늘 연애운은 속도보다 신뢰, 거리, 확인을 중심으로 해석합니다. "
+        },
+        {
+          "kind": "tag",
+          "tagId": "baeujagung",
+          "label": "배우자궁"
+        },
+        {
+          "kind": "text",
+          "value": "이 예민하게 느껴지는 날에는 큰 감정 표현보다 안정된 말투가 중요하고, "
+        },
+        {
+          "kind": "tag",
+          "tagId": "sajuCompatibility",
+          "label": "사주적합도"
+        },
+        {
+          "kind": "text",
+          "value": "는 상대와의 생활 온도가 맞는지 보는 쪽이 더 정확해요. "
+        },
+        {
+          "kind": "tag",
+          "tagId": "stabilityIndex",
+          "label": "안정성지수"
+        },
+        {
+          "kind": "text",
+          "value": "가 낮으면 오늘은 결정 대신 관계의 피로를 줄이는 선택이 좋습니다."
+        }
       ],
       "livingTips": [
         "오늘은 긴 설명보다 확인 가능한 약속 하나를 지키는 데 집중하세요.",
@@ -96,7 +170,11 @@
       "cautions": [
         "상대 반응이 느리다고 바로 마음을 단정하지 마세요."
       ],
-      "tags": ["baeujagung", "sajuCompatibility", "stabilityIndex"],
+      "tags": [
+        "baeujagung",
+        "sajuCompatibility",
+        "stabilityIndex"
+      ],
       "numericalEvidence": [
         {
           "label": "현재 나이",
@@ -144,28 +222,67 @@
     {
       "schemaVersion": "spring-ts.narrative-fragment.v1",
       "fragmentId": "romance.thisWeek.expert.currentseason.spring_summer.301",
-      "axis": { "category": "romance", "period": "thisWeek", "depth": "expert" },
+      "axis": {
+        "category": "romance",
+        "period": "thisWeek",
+        "depth": "expert"
+      },
       "gating": {
-        "currentSeason": ["spring", "summer"],
-        "yongshinAlignment": ["aligned", "neutral", "conflicting"]
+        "currentSeason": [
+          "spring",
+          "summer"
+        ],
+        "yongshinAlignment": [
+          "aligned",
+          "neutral",
+          "conflicting"
+        ]
       },
       "templateTokens": [
-        { "kind": "text", "value": "봄·여름의 이번 주 연애운은 만남과 표현의 기회가 늘어나는 방향으로 읽습니다. " },
-        { "kind": "tag", "tagId": "baeujagung", "label": "배우자궁" },
-        { "kind": "text", "value": "은 짧은 접촉에서도 반응이 드러나기 쉽고, " },
-        { "kind": "tag", "tagId": "eumyangHarmony", "label": "음양조화도" },
-        { "kind": "text", "value": "가 맞으면 가벼운 대화가 자연스럽게 다음 약속으로 이어질 수 있어요. " },
-        { "kind": "tag", "tagId": "sajuCompatibility", "label": "사주적합도" },
-        { "kind": "text", "value": "는 설렘의 크기보다 반복 가능한 연락과 만남의 리듬으로 확인해야 합니다." }
+        {
+          "kind": "text",
+          "value": "봄·여름의 이번 주 연애운은 만남과 표현의 기회가 늘어나는 방향으로 읽습니다. "
+        },
+        {
+          "kind": "tag",
+          "tagId": "baeujagung",
+          "label": "배우자궁"
+        },
+        {
+          "kind": "text",
+          "value": "은 짧은 접촉에서도 반응이 드러나기 쉽고, "
+        },
+        {
+          "kind": "tag",
+          "tagId": "eumyangHarmony",
+          "label": "음양조화도"
+        },
+        {
+          "kind": "text",
+          "value": "가 맞으면 가벼운 대화가 자연스럽게 다음 약속으로 이어질 수 있어요. "
+        },
+        {
+          "kind": "tag",
+          "tagId": "sajuCompatibility",
+          "label": "사주적합도"
+        },
+        {
+          "kind": "text",
+          "value": "는 설렘의 크기보다 반복 가능한 연락과 만남의 리듬으로 확인해야 합니다."
+        }
       ],
       "livingTips": [
-        "이번 주에는 부담 없는 만남이나 짧은 대화를 한 번 더 만들어 보세요.",
+        "이번 주에는 부담 없는 만남이나 짧은 대화를 한 번 더 만들어요.",
         "호감 표현은 빠르게 하되, 다음 일정은 상대의 속도를 물어보고 정하세요."
       ],
       "cautions": [
         "활동량이 늘수록 감정 판단도 빨라지니 하루 정도 여유를 두세요."
       ],
-      "tags": ["baeujagung", "eumyangHarmony", "sajuCompatibility"],
+      "tags": [
+        "baeujagung",
+        "eumyangHarmony",
+        "sajuCompatibility"
+      ],
       "numericalEvidence": [
         {
           "label": "현재 나이",
@@ -213,28 +330,67 @@
     {
       "schemaVersion": "spring-ts.narrative-fragment.v1",
       "fragmentId": "romance.thisWeek.expert.currentseason.autumn_winter.301",
-      "axis": { "category": "romance", "period": "thisWeek", "depth": "expert" },
+      "axis": {
+        "category": "romance",
+        "period": "thisWeek",
+        "depth": "expert"
+      },
       "gating": {
-        "currentSeason": ["autumn", "winter"],
-        "yongshinAlignment": ["aligned", "neutral", "conflicting"]
+        "currentSeason": [
+          "autumn",
+          "winter"
+        ],
+        "yongshinAlignment": [
+          "aligned",
+          "neutral",
+          "conflicting"
+        ]
       },
       "templateTokens": [
-        { "kind": "text", "value": "가을·겨울의 이번 주 연애운은 관계를 넓히기보다 신뢰와 온도를 정리하는 방향이 맞습니다. " },
-        { "kind": "tag", "tagId": "baeujagung", "label": "배우자궁" },
-        { "kind": "text", "value": "의 흐름은 가까운 사람과의 약속 이행에서 드러나고, " },
-        { "kind": "tag", "tagId": "stabilityIndex", "label": "안정성지수" },
-        { "kind": "text", "value": "가 약하면 만남의 횟수보다 피로를 줄이는 선택이 중요합니다. " },
-        { "kind": "tag", "tagId": "sajuCompatibility", "label": "사주적합도" },
-        { "kind": "text", "value": "는 차분한 대화와 현실 조건을 함께 볼 때 더 정확해집니다." }
+        {
+          "kind": "text",
+          "value": "가을·겨울의 이번 주 연애운은 관계를 넓히기보다 신뢰와 온도를 정리하는 방향이 맞습니다. "
+        },
+        {
+          "kind": "tag",
+          "tagId": "baeujagung",
+          "label": "배우자궁"
+        },
+        {
+          "kind": "text",
+          "value": "의 흐름은 가까운 사람과의 약속 이행에서 드러나고, "
+        },
+        {
+          "kind": "tag",
+          "tagId": "stabilityIndex",
+          "label": "안정성지수"
+        },
+        {
+          "kind": "text",
+          "value": "가 약하면 만남의 횟수보다 피로를 줄이는 선택이 중요합니다. "
+        },
+        {
+          "kind": "tag",
+          "tagId": "sajuCompatibility",
+          "label": "사주적합도"
+        },
+        {
+          "kind": "text",
+          "value": "는 차분한 대화와 현실 조건을 함께 볼 때 더 정확해집니다."
+        }
       ],
       "livingTips": [
-        "이번 주에는 관계를 시험하기보다 작은 약속을 확실히 지키는 편이 좋아요.",
+        "이번 주에는 관계를 시험하기보다 작은 약속을 확실히 지키면 좋아요.",
         "대화가 무거워질 때는 바로 결론 내리지 말고 다음 대화 시간을 정하세요."
       ],
       "cautions": [
         "거리감이 생긴다고 관계가 끝났다고 단정하지 마세요."
       ],
-      "tags": ["baeujagung", "stabilityIndex", "sajuCompatibility"],
+      "tags": [
+        "baeujagung",
+        "stabilityIndex",
+        "sajuCompatibility"
+      ],
       "numericalEvidence": [
         {
           "label": "현재 나이",
@@ -282,19 +438,54 @@
     {
       "schemaVersion": "spring-ts.narrative-fragment.v1",
       "fragmentId": "romance.thisMonth.expert.currentseason.spring_summer.301",
-      "axis": { "category": "romance", "period": "thisMonth", "depth": "expert" },
+      "axis": {
+        "category": "romance",
+        "period": "thisMonth",
+        "depth": "expert"
+      },
       "gating": {
-        "currentSeason": ["spring", "summer"],
-        "yongshinAlignment": ["aligned", "neutral", "conflicting"]
+        "currentSeason": [
+          "spring",
+          "summer"
+        ],
+        "yongshinAlignment": [
+          "aligned",
+          "neutral",
+          "conflicting"
+        ]
       },
       "templateTokens": [
-        { "kind": "text", "value": "봄·여름의 이번 달 연애운은 관계를 새로 열거나 표현을 늘리는 흐름이 강해집니다. " },
-        { "kind": "tag", "tagId": "baeujagung", "label": "배우자궁" },
-        { "kind": "text", "value": "의 활성은 만남의 양으로만 보지 말고, " },
-        { "kind": "tag", "tagId": "eumyangHarmony", "label": "음양조화도" },
-        { "kind": "text", "value": "가 감정의 속도와 생활 리듬을 함께 맞추는지로 보아야 합니다. " },
-        { "kind": "tag", "tagId": "sajuCompatibility", "label": "사주적합도" },
-        { "kind": "text", "value": "는 한 달 동안 반복 가능한 소통 방식이 생기는지 확인할 때 선명해져요." }
+        {
+          "kind": "text",
+          "value": "봄·여름의 이번 달 연애운은 관계를 새로 열거나 표현을 늘리는 흐름이 강해집니다. "
+        },
+        {
+          "kind": "tag",
+          "tagId": "baeujagung",
+          "label": "배우자궁"
+        },
+        {
+          "kind": "text",
+          "value": "의 활성은 만남의 양으로만 보지 말고, "
+        },
+        {
+          "kind": "tag",
+          "tagId": "eumyangHarmony",
+          "label": "음양조화도"
+        },
+        {
+          "kind": "text",
+          "value": "가 감정의 속도와 생활 리듬을 함께 맞추는지로 보아야 합니다. "
+        },
+        {
+          "kind": "tag",
+          "tagId": "sajuCompatibility",
+          "label": "사주적합도"
+        },
+        {
+          "kind": "text",
+          "value": "는 한 달 동안 반복 가능한 소통 방식이 생기는지 확인할 때 선명해져요."
+        }
       ],
       "livingTips": [
         "이번 달에는 만남을 늘리되, 같은 방식의 소통이 반복 가능한지 살펴보세요.",
@@ -303,7 +494,11 @@
       "cautions": [
         "분위기에 힘이 붙는 달일수록 약속을 너무 많이 벌리지 마세요."
       ],
-      "tags": ["baeujagung", "eumyangHarmony", "sajuCompatibility"],
+      "tags": [
+        "baeujagung",
+        "eumyangHarmony",
+        "sajuCompatibility"
+      ],
       "numericalEvidence": [
         {
           "label": "현재 나이",
@@ -351,19 +546,54 @@
     {
       "schemaVersion": "spring-ts.narrative-fragment.v1",
       "fragmentId": "romance.thisMonth.expert.currentseason.autumn_winter.301",
-      "axis": { "category": "romance", "period": "thisMonth", "depth": "expert" },
+      "axis": {
+        "category": "romance",
+        "period": "thisMonth",
+        "depth": "expert"
+      },
       "gating": {
-        "currentSeason": ["autumn", "winter"],
-        "yongshinAlignment": ["aligned", "neutral", "conflicting"]
+        "currentSeason": [
+          "autumn",
+          "winter"
+        ],
+        "yongshinAlignment": [
+          "aligned",
+          "neutral",
+          "conflicting"
+        ]
       },
       "templateTokens": [
-        { "kind": "text", "value": "가을·겨울의 이번 달 연애운은 관계의 깊이, 신뢰, 생활 온도를 정리하는 흐름으로 봅니다. " },
-        { "kind": "tag", "tagId": "baeujagung", "label": "배우자궁" },
-        { "kind": "text", "value": "은 만남의 양보다 오래 남는 약속에서 확인되고, " },
-        { "kind": "tag", "tagId": "stabilityIndex", "label": "안정성지수" },
-        { "kind": "text", "value": "가 낮으면 관계를 넓히기보다 피로한 연결을 정리하는 편이 좋습니다. " },
-        { "kind": "tag", "tagId": "sajuCompatibility", "label": "사주적합도" },
-        { "kind": "text", "value": "는 감정의 크기보다 생활 기준과 책임의 온도가 맞는지에서 더 분명해져요." }
+        {
+          "kind": "text",
+          "value": "가을·겨울의 이번 달 연애운은 관계의 깊이, 신뢰, 생활 온도를 정리하는 흐름으로 봅니다. "
+        },
+        {
+          "kind": "tag",
+          "tagId": "baeujagung",
+          "label": "배우자궁"
+        },
+        {
+          "kind": "text",
+          "value": "은 만남의 양보다 오래 남는 약속에서 확인되고, "
+        },
+        {
+          "kind": "tag",
+          "tagId": "stabilityIndex",
+          "label": "안정성지수"
+        },
+        {
+          "kind": "text",
+          "value": "가 낮으면 관계를 넓히기보다 피로한 연결을 정리하는 편이 좋습니다. "
+        },
+        {
+          "kind": "tag",
+          "tagId": "sajuCompatibility",
+          "label": "사주적합도"
+        },
+        {
+          "kind": "text",
+          "value": "는 감정의 크기보다 생활 기준과 책임의 온도가 맞는지에서 더 분명해져요."
+        }
       ],
       "livingTips": [
         "이번 달에는 관계에서 반복되는 부담과 편안함을 따로 적어보세요.",
@@ -372,7 +602,11 @@
       "cautions": [
         "차분해지는 흐름을 애정이 줄어드는 신호로만 해석하지 마세요."
       ],
-      "tags": ["baeujagung", "stabilityIndex", "sajuCompatibility"],
+      "tags": [
+        "baeujagung",
+        "stabilityIndex",
+        "sajuCompatibility"
+      ],
       "numericalEvidence": [
         {
           "label": "현재 나이",

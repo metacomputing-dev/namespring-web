@@ -6,10 +6,21 @@
     {
       "schemaVersion": "spring-ts.narrative-fragment.v1",
       "fragmentId": "overall.life.standard.agephase.child_0_9.201",
-      "axis": { "category": "overall", "period": "life", "depth": "standard" },
-      "gating": { "agePhase": ["child_0_9"] },
+      "axis": {
+        "category": "overall",
+        "period": "life",
+        "depth": "standard"
+      },
+      "gating": {
+        "agePhase": [
+          "child_0_9"
+        ]
+      },
       "templateTokens": [
-        { "kind": "text", "value": "어린 시기의 운 흐름은 큰 성취보다 안전한 환경, 반복되는 습관, 주변의 따뜻한 반응에서 힘을 얻어요. 아이가 스스로 해냈다고 느끼는 작은 경험이 쌓이면 자신감의 기본 뿌리가 단단해져요. 사주적 기운을 해석할 때도 이 시기에는 결과를 단정하기보다 성향이 편안하게 자랄 수 있는 조건을 보는 것이 더 중요해요." }
+        {
+          "kind": "text",
+          "value": "어린 시기의 운 흐름은 큰 성취보다 안전한 환경, 반복되는 습관, 주변의 따뜻한 반응에서 힘을 얻어요. 아이가 스스로 해냈다고 느끼는 작은 경험이 쌓이면 자신감의 기본 뿌리가 단단해져요. 사주적 기운을 해석할 때도 이 시기에는 결과를 단정하기보다 성향이 편안하게 자랄 수 있는 조건을 보는 것이 더 중요해요."
+        }
       ],
       "livingTips": [
         "매일 같은 시간에 잠들고 일어나는 리듬을 먼저 만들어 주세요.",
@@ -34,14 +45,25 @@
     {
       "schemaVersion": "spring-ts.narrative-fragment.v1",
       "fragmentId": "overall.life.standard.agephase.early_teen.201",
-      "axis": { "category": "overall", "period": "life", "depth": "standard" },
-      "gating": { "agePhase": ["early_teen"] },
+      "axis": {
+        "category": "overall",
+        "period": "life",
+        "depth": "standard"
+      },
+      "gating": {
+        "agePhase": [
+          "early_teen"
+        ]
+      },
       "templateTokens": [
-        { "kind": "text", "value": "초반 십대의 흐름은 나를 둘러싼 규칙과 친구 관계를 배우며 자기 기준을 조금씩 세우는 시기예요. 감정이 빠르게 흔들릴 수 있지만, 그만큼 좋아하는 것과 불편한 것을 알아차리는 힘도 커져요. 이 시기에는 성과를 크게 재단하기보다 몸과 마음이 안정되는 공부법, 관계법, 생활 리듬을 찾는 것이 좋아요." }
+        {
+          "kind": "text",
+          "value": "초반 십대의 흐름은 나를 둘러싼 규칙과 친구 관계를 배우며 자기 기준을 조금씩 세우는 시기예요. 감정이 빠르게 흔들릴 수 있지만, 그만큼 좋아하는 것과 불편한 것을 알아차리는 힘도 커져요. 이 시기에는 성과를 크게 재단하기보다 몸과 마음이 안정되는 공부법, 관계법, 생활 리듬을 찾는 것이 좋아요."
+        }
       ],
       "livingTips": [
-        "하루 공부나 활동 목표를 너무 크게 잡지 말고 작게 나누어 보세요.",
-        "마음이 상한 일은 바로 결론 내리지 말고 짧게 적어본 뒤 이야기해 보세요."
+        "하루 공부나 활동 목표를 너무 크게 잡지 말고 작게 나누어요.",
+        "마음이 상한 일은 바로 결론 내리지 말고 짧게 적어본 뒤 이야기해요."
       ],
       "cautions": [
         "친구와의 비교가 길어지면 자기 장점을 놓치기 쉬워요."
@@ -62,13 +84,24 @@
     {
       "schemaVersion": "spring-ts.narrative-fragment.v1",
       "fragmentId": "overall.life.standard.agephase.late_teen.201",
-      "axis": { "category": "overall", "period": "life", "depth": "standard" },
-      "gating": { "agePhase": ["late_teen"] },
+      "axis": {
+        "category": "overall",
+        "period": "life",
+        "depth": "standard"
+      },
+      "gating": {
+        "agePhase": [
+          "late_teen"
+        ]
+      },
       "templateTokens": [
-        { "kind": "text", "value": "후반 십대의 흐름은 진로, 친구, 가족 기대 사이에서 자기 방향을 고르는 연습이 많아지는 시기예요. 아직 확정되지 않은 가능성이 많기 때문에, 한 번의 선택을 인생 전체의 결론처럼 느끼지 않는 것이 중요해요. 여러 경험을 해보되, 몸이 지치지 않는 범위에서 기록하고 정리하면 다음 선택이 더 선명해져요." }
+        {
+          "kind": "text",
+          "value": "후반 십대의 흐름은 진로, 친구, 가족 기대 사이에서 자기 방향을 고르는 연습이 많아지는 시기예요. 아직 확정되지 않은 가능성이 많기 때문에, 한 번의 선택을 인생 전체의 결론처럼 느끼지 않는 것이 중요해요. 여러 경험을 해보되, 몸이 지치지 않는 범위에서 기록하고 정리하면 다음 선택이 더 선명해져요."
+        }
       ],
       "livingTips": [
-        "관심 있는 분야를 결과보다 체험 중심으로 한두 가지 시도해 보세요.",
+        "관심 있는 분야를 결과보다 체험 중심으로 한두 가지 시도해요.",
         "중요한 선택은 장점, 부담, 다음 기회를 나누어 적어보세요."
       ],
       "cautions": [
@@ -90,10 +123,21 @@
     {
       "schemaVersion": "spring-ts.narrative-fragment.v1",
       "fragmentId": "overall.life.standard.agephase.early_20s.201",
-      "axis": { "category": "overall", "period": "life", "depth": "standard" },
-      "gating": { "agePhase": ["early_20s"] },
+      "axis": {
+        "category": "overall",
+        "period": "life",
+        "depth": "standard"
+      },
+      "gating": {
+        "agePhase": [
+          "early_20s"
+        ]
+      },
       "templateTokens": [
-        { "kind": "text", "value": "20대 초반의 흐름은 새로운 환경에 들어가며 자신이 어떤 사람인지 실험하는 시기예요. 공부, 일, 관계의 폭이 넓어지면서 기회도 많아지지만, 생활 리듬이 무너지면 좋은 기회도 오래 붙잡기 어려워요. 이 시기에는 많이 경험하되 잠, 돈, 시간의 기본 질서를 지키는 것이 운의 체감도를 높여줘요." }
+        {
+          "kind": "text",
+          "value": "20대 초반의 흐름은 새로운 환경에 들어가며 자신이 어떤 사람인지 실험하는 시기예요. 공부, 일, 관계의 폭이 넓어지면서 기회도 많아지지만, 생활 리듬이 무너지면 좋은 기회도 오래 붙잡기 어려워요. 이 시기에는 많이 경험하되 잠, 돈, 시간의 기본 질서를 지키는 것이 운의 체감도를 높여줘요."
+        }
       ],
       "livingTips": [
         "새로운 시도를 하더라도 수면과 지출 기준은 먼저 정해두세요.",
@@ -118,10 +162,21 @@
     {
       "schemaVersion": "spring-ts.narrative-fragment.v1",
       "fragmentId": "overall.life.standard.agephase.late_20s.201",
-      "axis": { "category": "overall", "period": "life", "depth": "standard" },
-      "gating": { "agePhase": ["late_20s"] },
+      "axis": {
+        "category": "overall",
+        "period": "life",
+        "depth": "standard"
+      },
+      "gating": {
+        "agePhase": [
+          "late_20s"
+        ]
+      },
       "templateTokens": [
-        { "kind": "text", "value": "20대 후반의 흐름은 넓게 해본 경험을 바탕으로 오래 갈 방향을 고르는 시기예요. 모든 가능성을 계속 열어두기보다, 나에게 맞는 일과 관계의 기준을 조금씩 좁히면 힘이 모여요. 아직 늦었다고 볼 시기는 아니지만, 반복해서 에너지를 빼앗는 선택은 정리할 필요가 있어요." }
+        {
+          "kind": "text",
+          "value": "20대 후반의 흐름은 넓게 해본 경험을 바탕으로 오래 갈 방향을 고르는 시기예요. 모든 가능성을 계속 열어두기보다, 나에게 맞는 일과 관계의 기준을 조금씩 좁히면 힘이 모여요. 아직 늦었다고 볼 시기는 아니지만, 반복해서 에너지를 빼앗는 선택은 정리할 필요가 있어요."
+        }
       ],
       "livingTips": [
         "최근 1년 동안 힘이 붙은 선택과 빠진 선택을 나누어 적어보세요.",
@@ -146,13 +201,24 @@
     {
       "schemaVersion": "spring-ts.narrative-fragment.v1",
       "fragmentId": "overall.life.standard.agephase.early_30s.201",
-      "axis": { "category": "overall", "period": "life", "depth": "standard" },
-      "gating": { "agePhase": ["early_30s"] },
+      "axis": {
+        "category": "overall",
+        "period": "life",
+        "depth": "standard"
+      },
+      "gating": {
+        "agePhase": [
+          "early_30s"
+        ]
+      },
       "templateTokens": [
-        { "kind": "text", "value": "30대 초반의 흐름은 책임이 늘면서도 자기 확장을 함께 고민하는 시기예요. 일, 돈, 관계에서 실질적인 선택이 많아지기 때문에 즉흥성보다 기준 있는 결정이 중요해져요. 지금의 선택은 단기 성과뿐 아니라 앞으로 반복할 생활 구조를 만든다는 점에서 의미가 커요." }
+        {
+          "kind": "text",
+          "value": "30대 초반의 흐름은 책임이 늘면서도 자기 확장을 함께 고민하는 시기예요. 일, 돈, 관계에서 실질적인 선택이 많아지기 때문에 즉흥성보다 기준 있는 결정이 중요해져요. 지금의 선택은 단기 성과뿐 아니라 앞으로 반복할 생활 구조를 만든다는 점에서 의미가 커요."
+        }
       ],
       "livingTips": [
-        "큰 결정을 할 때 시간, 돈, 체력에 미치는 영향을 함께 계산해 보세요.",
+        "큰 결정을 할 때 시간, 돈, 체력에 미치는 영향을 함께 계산해요.",
         "혼자 버티는 일과 도움을 받아야 할 일을 구분해 보세요."
       ],
       "cautions": [
@@ -174,13 +240,24 @@
     {
       "schemaVersion": "spring-ts.narrative-fragment.v1",
       "fragmentId": "overall.life.standard.agephase.late_30s.201",
-      "axis": { "category": "overall", "period": "life", "depth": "standard" },
-      "gating": { "agePhase": ["late_30s"] },
+      "axis": {
+        "category": "overall",
+        "period": "life",
+        "depth": "standard"
+      },
+      "gating": {
+        "agePhase": [
+          "late_30s"
+        ]
+      },
       "templateTokens": [
-        { "kind": "text", "value": "30대 후반의 흐름은 쌓아온 선택을 점검하고 다음 기반을 다시 다지는 시기예요. 이제는 단순히 많이 하는 것보다 오래 지속할 수 있는 방식인지가 중요해져요. 관계와 일의 무게를 조정하고, 몸이 보내는 신호를 무시하지 않을 때 다음 단계의 안정감이 커져요." }
+        {
+          "kind": "text",
+          "value": "30대 후반의 흐름은 쌓아온 선택을 점검하고 다음 기반을 다시 다지는 시기예요. 이제는 단순히 많이 하는 것보다 오래 지속할 수 있는 방식인지가 중요해져요. 관계와 일의 무게를 조정하고, 몸이 보내는 신호를 무시하지 않을 때 다음 단계의 안정감이 커져요."
+        }
       ],
       "livingTips": [
-        "지금 유지할 일, 줄일 일, 새로 키울 일을 세 칸으로 나누어 보세요.",
+        "지금 유지할 일, 줄일 일, 새로 키울 일을 세 칸으로 나누어요.",
         "건강과 관계의 기본 약속을 일정표에 먼저 넣어두세요."
       ],
       "cautions": [

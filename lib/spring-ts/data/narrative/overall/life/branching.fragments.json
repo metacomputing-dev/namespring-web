@@ -222,7 +222,7 @@
       ],
       "livingTips": [
         "이번 달에 꼭 유지할 생활 루틴을 세 가지 이하로 정해보세요.",
-        "중요한 결정은 장소와 비용, 함께할 사람을 먼저 확인해 보세요."
+        "중요한 결정은 장소와 비용, 함께할 사람을 먼저 확인해요."
       ],
       "cautions": [
         "안정만 고집하면 필요한 변화까지 미루게 될 수 있어요."
@@ -260,8 +260,8 @@
         }
       ],
       "livingTips": [
-        "결정 전에는 자료를 모으는 시간과 쉬는 시간을 따로 확보해 보세요.",
-        "생각이 복잡할 때는 물을 마시고 짧게 기록한 뒤 다시 판단해 보세요."
+        "결정 전에는 자료를 모으는 시간과 쉬는 시간을 따로 확보해요.",
+        "생각이 복잡할 때는 물을 마시고 짧게 기록한 뒤 다시 판단해요."
       ],
       "cautions": [
         "너무 오래 관망하면 좋은 타이밍을 놓칠 수 있어요."
@@ -327,31 +327,76 @@
           "label": "연령 단계 순번",
           "valueExpression": "feature.agePhaseOrdinal",
           "unit": "단계",
-          "sourceTier": { "tier": "T3_INTERNAL_ENGINE", "sourceType": "internal_scoring_policy", "sourceUrl": null, "accessedAt": "2026-05-03", "quoteShort": null, "humanInterpretation": "Resolved from deterministic spring-ts runtime output.", "copyrightNote": "No third-party prose copied.", "authorityTruthEligible": false }
+          "sourceTier": {
+            "tier": "T3_INTERNAL_ENGINE",
+            "sourceType": "internal_scoring_policy",
+            "sourceUrl": null,
+            "accessedAt": "2026-05-03",
+            "quoteShort": null,
+            "humanInterpretation": "Resolved from deterministic spring-ts runtime output.",
+            "copyrightNote": "No third-party prose copied.",
+            "authorityTruthEligible": false
+          }
         },
         {
           "label": "신강도 순번",
           "valueExpression": "feature.dayMasterStrengthOrdinal",
           "unit": "단계",
-          "sourceTier": { "tier": "T3_INTERNAL_ENGINE", "sourceType": "internal_scoring_policy", "sourceUrl": null, "accessedAt": "2026-05-03", "quoteShort": null, "humanInterpretation": "Resolved from deterministic spring-ts runtime output.", "copyrightNote": "No third-party prose copied.", "authorityTruthEligible": false }
+          "sourceTier": {
+            "tier": "T3_INTERNAL_ENGINE",
+            "sourceType": "internal_scoring_policy",
+            "sourceUrl": null,
+            "accessedAt": "2026-05-03",
+            "quoteShort": null,
+            "humanInterpretation": "Resolved from deterministic spring-ts runtime output.",
+            "copyrightNote": "No third-party prose copied.",
+            "authorityTruthEligible": false
+          }
         },
         {
           "label": "출생 계절 순번",
           "valueExpression": "feature.birthSeasonOrdinal",
           "unit": "단계",
-          "sourceTier": { "tier": "T3_INTERNAL_ENGINE", "sourceType": "internal_scoring_policy", "sourceUrl": null, "accessedAt": "2026-05-03", "quoteShort": null, "humanInterpretation": "Resolved from deterministic spring-ts runtime output.", "copyrightNote": "No third-party prose copied.", "authorityTruthEligible": false }
+          "sourceTier": {
+            "tier": "T3_INTERNAL_ENGINE",
+            "sourceType": "internal_scoring_policy",
+            "sourceUrl": null,
+            "accessedAt": "2026-05-03",
+            "quoteShort": null,
+            "humanInterpretation": "Resolved from deterministic spring-ts runtime output.",
+            "copyrightNote": "No third-party prose copied.",
+            "authorityTruthEligible": false
+          }
         },
         {
           "label": "현재 계절 순번",
           "valueExpression": "feature.currentSeasonOrdinal",
           "unit": "단계",
-          "sourceTier": { "tier": "T3_INTERNAL_ENGINE", "sourceType": "internal_scoring_policy", "sourceUrl": null, "accessedAt": "2026-05-03", "quoteShort": null, "humanInterpretation": "Resolved from deterministic spring-ts runtime output.", "copyrightNote": "No third-party prose copied.", "authorityTruthEligible": false }
+          "sourceTier": {
+            "tier": "T3_INTERNAL_ENGINE",
+            "sourceType": "internal_scoring_policy",
+            "sourceUrl": null,
+            "accessedAt": "2026-05-03",
+            "quoteShort": null,
+            "humanInterpretation": "Resolved from deterministic spring-ts runtime output.",
+            "copyrightNote": "No third-party prose copied.",
+            "authorityTruthEligible": false
+          }
         },
         {
           "label": "용신 오행 분기 순번",
           "valueExpression": "feature.yongshinElementOrdinal",
           "unit": "분류",
-          "sourceTier": { "tier": "T3_INTERNAL_ENGINE", "sourceType": "internal_scoring_policy", "sourceUrl": null, "accessedAt": "2026-05-03", "quoteShort": null, "humanInterpretation": "Resolved from deterministic spring-ts runtime output.", "copyrightNote": "No third-party prose copied.", "authorityTruthEligible": false }
+          "sourceTier": {
+            "tier": "T3_INTERNAL_ENGINE",
+            "sourceType": "internal_scoring_policy",
+            "sourceUrl": null,
+            "accessedAt": "2026-05-03",
+            "quoteShort": null,
+            "humanInterpretation": "Resolved from deterministic spring-ts runtime output.",
+            "copyrightNote": "No third-party prose copied.",
+            "authorityTruthEligible": false
+          }
         }
       ],
       "aiGenerated": true,

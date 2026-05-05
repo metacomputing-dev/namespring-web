@@ -6,25 +6,61 @@
     {
       "schemaVersion": "spring-ts.narrative-fragment.v1",
       "fragmentId": "overall.life.expert.agephase.child_0_9.301",
-      "axis": { "category": "overall", "period": "life", "depth": "expert" },
-      "gating": { "agePhase": ["child_0_9"] },
+      "axis": {
+        "category": "overall",
+        "period": "life",
+        "depth": "expert"
+      },
+      "gating": {
+        "agePhase": [
+          "child_0_9"
+        ]
+      },
       "templateTokens": [
-        { "kind": "text", "value": "0~9세 구간은 원국의 강약을 성취로 바로 판단하기보다 보호 환경과 생활 리듬을 먼저 봐야 해요. " },
-        { "kind": "tag", "tagId": "daewoonGungsil", "label": "대운궁실" },
-        { "kind": "text", "value": " 관점에서는 아직 운의 쓰임이 가족과 양육 환경을 통해 드러나는 시기이고, " },
-        { "kind": "tag", "tagId": "stabilityIndex", "label": "안정성지수" },
-        { "kind": "text", "value": "는 반복되는 수면, 식사, 놀이의 안정감으로 읽는 편이 맞아요. " },
-        { "kind": "tag", "tagId": "yongshinFit", "label": "용신부합도" },
-        { "kind": "text", "value": "가 낮아 보이는 날도 아이의 기질을 단정하지 말고, 편안해지는 환경을 찾는 보조 정보로 다루는 것이 안전합니다." }
+        {
+          "kind": "text",
+          "value": "0~9세 구간은 원국의 강약을 성취로 바로 판단하기보다 보호 환경과 생활 리듬을 먼저 봐야 해요. "
+        },
+        {
+          "kind": "tag",
+          "tagId": "daewoonGungsil",
+          "label": "대운궁실"
+        },
+        {
+          "kind": "text",
+          "value": " 관점에서는 아직 운의 쓰임이 가족과 양육 환경을 통해 드러나는 시기이고, "
+        },
+        {
+          "kind": "tag",
+          "tagId": "stabilityIndex",
+          "label": "안정성지수"
+        },
+        {
+          "kind": "text",
+          "value": "는 반복되는 수면, 식사, 놀이의 안정감으로 읽는 편이 맞아요. "
+        },
+        {
+          "kind": "tag",
+          "tagId": "yongshinFit",
+          "label": "용신부합도"
+        },
+        {
+          "kind": "text",
+          "value": "가 낮아 보이는 날도 아이의 기질을 단정하지 말고, 편안해지는 환경을 찾는 보조 정보로 다루는 것이 안전합니다."
+        }
       ],
       "livingTips": [
-        "일정한 수면과 식사 리듬을 먼저 세우고, 아이가 편해지는 반응을 짧게 기록해 보세요.",
+        "일정한 수면과 식사 리듬을 먼저 세우고, 아이가 편해지는 반응을 짧게 기록해요.",
         "결과보다 과정 칭찬을 늘리면 타고난 반응을 더 안정적으로 관찰할 수 있어요."
       ],
       "cautions": [
         "어릴 때의 빠른 반응을 평생 성격으로 고정하면 가능성을 좁힐 수 있어요."
       ],
-      "tags": ["daewoonGungsil", "stabilityIndex", "yongshinFit"],
+      "tags": [
+        "daewoonGungsil",
+        "stabilityIndex",
+        "yongshinFit"
+      ],
       "numericalEvidence": [
         {
           "label": "현재 나이",
@@ -72,16 +108,48 @@
     {
       "schemaVersion": "spring-ts.narrative-fragment.v1",
       "fragmentId": "overall.life.expert.agephase.early_teen.301",
-      "axis": { "category": "overall", "period": "life", "depth": "expert" },
-      "gating": { "agePhase": ["early_teen"] },
+      "axis": {
+        "category": "overall",
+        "period": "life",
+        "depth": "expert"
+      },
+      "gating": {
+        "agePhase": [
+          "early_teen"
+        ]
+      },
       "templateTokens": [
-        { "kind": "text", "value": "초등 고학년에서 중학교 초입은 자기 기준이 생기지만 아직 주변 반응에 크게 흔들리는 시기예요. " },
-        { "kind": "tag", "tagId": "soun", "label": "소운" },
-        { "kind": "text", "value": "처럼 짧은 환경 변화가 체감에 크게 작용하므로, 한 번의 성적이나 관계 사건으로 전체 흐름을 판단하면 안 됩니다. " },
-        { "kind": "tag", "tagId": "stabilityIndex", "label": "안정성지수" },
-        { "kind": "text", "value": "는 감정 언어, 생활 규칙, 보호자의 피드백이 얼마나 일정한지와 함께 봐야 하고, " },
-        { "kind": "tag", "tagId": "yongshinFit", "label": "용신부합도" },
-        { "kind": "text", "value": "는 부족한 기운을 공부나 활동 습관으로 보완할 수 있는지 살피는 보조 기준이 됩니다." }
+        {
+          "kind": "text",
+          "value": "초등 고학년에서 중학교 초입은 자기 기준이 생기지만 아직 주변 반응에 크게 흔들리는 시기예요. "
+        },
+        {
+          "kind": "tag",
+          "tagId": "soun",
+          "label": "소운"
+        },
+        {
+          "kind": "text",
+          "value": "처럼 짧은 환경 변화가 체감에 크게 작용하므로, 한 번의 성적이나 관계 사건으로 전체 흐름을 판단하면 안 됩니다. "
+        },
+        {
+          "kind": "tag",
+          "tagId": "stabilityIndex",
+          "label": "안정성지수"
+        },
+        {
+          "kind": "text",
+          "value": "는 감정 언어, 생활 규칙, 보호자의 피드백이 얼마나 일정한지와 함께 봐야 하고, "
+        },
+        {
+          "kind": "tag",
+          "tagId": "yongshinFit",
+          "label": "용신부합도"
+        },
+        {
+          "kind": "text",
+          "value": "는 부족한 기운을 공부나 활동 습관으로 보완할 수 있는지 살피는 보조 기준이 됩니다."
+        }
       ],
       "livingTips": [
         "공부, 친구, 취미를 한 번에 평가하지 말고 각각의 리듬을 따로 관찰해 주세요.",
@@ -90,7 +158,11 @@
       "cautions": [
         "비교가 길어지면 장점보다 부족한 점에만 집중할 수 있어요."
       ],
-      "tags": ["soun", "stabilityIndex", "yongshinFit"],
+      "tags": [
+        "soun",
+        "stabilityIndex",
+        "yongshinFit"
+      ],
       "numericalEvidence": [
         {
           "label": "현재 나이",
@@ -138,25 +210,61 @@
     {
       "schemaVersion": "spring-ts.narrative-fragment.v1",
       "fragmentId": "overall.life.expert.agephase.late_teen.301",
-      "axis": { "category": "overall", "period": "life", "depth": "expert" },
-      "gating": { "agePhase": ["late_teen"] },
+      "axis": {
+        "category": "overall",
+        "period": "life",
+        "depth": "expert"
+      },
+      "gating": {
+        "agePhase": [
+          "late_teen"
+        ]
+      },
       "templateTokens": [
-        { "kind": "text", "value": "10대 후반은 진로, 관계, 가족 기대가 겹치며 자기 방향을 시험하는 구간이에요. " },
-        { "kind": "tag", "tagId": "soun", "label": "소운" },
-        { "kind": "text", "value": "과 " },
-        { "kind": "tag", "tagId": "yunyeon", "label": "유년" },
-        { "kind": "text", "value": "의 단기 변동을 보되, 그 결과를 평생 결론으로 고정하지 않는 해석이 필요해요. " },
-        { "kind": "tag", "tagId": "stabilityIndex", "label": "안정성지수" },
-        { "kind": "text", "value": "가 낮게 느껴질수록 선택지를 줄이기보다 체력, 감정, 공부 리듬을 버틸 수 있는 범위로 조정하는 것이 핵심입니다." }
+        {
+          "kind": "text",
+          "value": "10대 후반은 진로, 관계, 가족 기대가 겹치며 자기 방향을 시험하는 구간이에요. "
+        },
+        {
+          "kind": "tag",
+          "tagId": "soun",
+          "label": "소운"
+        },
+        {
+          "kind": "text",
+          "value": "과 "
+        },
+        {
+          "kind": "tag",
+          "tagId": "yunyeon",
+          "label": "유년"
+        },
+        {
+          "kind": "text",
+          "value": "의 단기 변동을 보되, 그 결과를 평생 결론으로 고정하지 않는 해석이 필요해요. "
+        },
+        {
+          "kind": "tag",
+          "tagId": "stabilityIndex",
+          "label": "안정성지수"
+        },
+        {
+          "kind": "text",
+          "value": "가 낮게 느껴질수록 선택지를 줄이기보다 체력, 감정, 공부 리듬을 버틸 수 있는 범위로 조정하는 것이 핵심입니다."
+        }
       ],
       "livingTips": [
-        "관심 분야는 성과보다 체험과 기록 중심으로 세 가지 정도만 시도해 보세요.",
+        "관심 분야는 성과보다 체험과 기록 중심으로 세 가지 정도만 시도해요.",
         "진로 선택을 장점, 부담, 다음 기회로 나누어 적으면 압박이 줄어듭니다."
       ],
       "cautions": [
         "한 번의 시험이나 선택을 인생 전체의 판정처럼 받아들이지 마세요."
       ],
-      "tags": ["soun", "yunyeon", "stabilityIndex"],
+      "tags": [
+        "soun",
+        "yunyeon",
+        "stabilityIndex"
+      ],
       "numericalEvidence": [
         {
           "label": "현재 나이",
@@ -204,25 +312,61 @@
     {
       "schemaVersion": "spring-ts.narrative-fragment.v1",
       "fragmentId": "overall.life.expert.agephase.early_20s.301",
-      "axis": { "category": "overall", "period": "life", "depth": "expert" },
-      "gating": { "agePhase": ["early_20s"] },
+      "axis": {
+        "category": "overall",
+        "period": "life",
+        "depth": "expert"
+      },
+      "gating": {
+        "agePhase": [
+          "early_20s"
+        ]
+      },
       "templateTokens": [
-        { "kind": "text", "value": "20대 초반은 학업, 일, 관계의 환경이 빠르게 바뀌면서 사주의 쓰임을 실제로 시험하는 시기예요. " },
-        { "kind": "tag", "tagId": "daewoonGungsil", "label": "대운궁실" },
-        { "kind": "text", "value": "은 큰 방향을 보고, " },
-        { "kind": "tag", "tagId": "soun", "label": "소운" },
-        { "kind": "text", "value": "은 당장의 흔들림을 보는 보조축으로 나누어야 해석이 과장되지 않아요. " },
-        { "kind": "tag", "tagId": "yongshinFit", "label": "용신부합도" },
-        { "kind": "text", "value": "가 낮은 구간에서는 확장보다 기본 생활 질서와 회복 루틴을 먼저 고정해야 좋은 기회를 오래 유지할 수 있습니다." }
+        {
+          "kind": "text",
+          "value": "20대 초반은 학업, 일, 관계의 환경이 빠르게 바뀌면서 사주의 쓰임을 실제로 시험하는 시기예요. "
+        },
+        {
+          "kind": "tag",
+          "tagId": "daewoonGungsil",
+          "label": "대운궁실"
+        },
+        {
+          "kind": "text",
+          "value": "은 큰 방향을 보고, "
+        },
+        {
+          "kind": "tag",
+          "tagId": "soun",
+          "label": "소운"
+        },
+        {
+          "kind": "text",
+          "value": "은 당장의 흔들림을 보는 보조축으로 나누어야 해석이 과장되지 않아요. "
+        },
+        {
+          "kind": "tag",
+          "tagId": "yongshinFit",
+          "label": "용신부합도"
+        },
+        {
+          "kind": "text",
+          "value": "가 낮은 구간에서는 확장보다 기본 생활 질서와 회복 루틴을 먼저 고정해야 좋은 기회를 오래 유지할 수 있습니다."
+        }
       ],
       "livingTips": [
-        "새로운 시도를 하더라도 수면과 지출 기준을 먼저 정해 두세요.",
+        "새로운 시도를 하더라도 수면과 지출 기준을 먼저 정해요.",
         "좋았던 경험과 힘들었던 경험을 짧게 기록해 다음 선택에 반영하세요."
       ],
       "cautions": [
         "주변 속도만 보고 무리하게 따라가면 좋은 기회도 오래 유지하기 어려워요."
       ],
-      "tags": ["daewoonGungsil", "soun", "yongshinFit"],
+      "tags": [
+        "daewoonGungsil",
+        "soun",
+        "yongshinFit"
+      ],
       "numericalEvidence": [
         {
           "label": "현재 나이",
@@ -270,25 +414,61 @@
     {
       "schemaVersion": "spring-ts.narrative-fragment.v1",
       "fragmentId": "overall.life.expert.agephase.late_20s.301",
-      "axis": { "category": "overall", "period": "life", "depth": "expert" },
-      "gating": { "agePhase": ["late_20s"] },
+      "axis": {
+        "category": "overall",
+        "period": "life",
+        "depth": "expert"
+      },
+      "gating": {
+        "agePhase": [
+          "late_20s"
+        ]
+      },
       "templateTokens": [
-        { "kind": "text", "value": "20대 후반은 가능성 탐색에서 실제 선택과 책임으로 넘어가는 시기예요. " },
-        { "kind": "tag", "tagId": "daewoonGungsil", "label": "대운궁실" },
-        { "kind": "text", "value": "의 큰 방향이 직업, 거주, 관계의 반복 패턴으로 드러나기 시작하므로, " },
-        { "kind": "tag", "tagId": "stabilityIndex", "label": "안정성지수" },
-        { "kind": "text", "value": "가 받쳐 주는 선택인지 확인해야 해요. " },
-        { "kind": "tag", "tagId": "yongshinFit", "label": "용신부합도" },
-        { "kind": "text", "value": "는 지금 붙잡을 기회와 정리할 기회를 가르는 기준으로 쓰면 과한 확장을 막아줍니다." }
+        {
+          "kind": "text",
+          "value": "20대 후반은 가능성 탐색에서 실제 선택과 책임으로 넘어가는 시기예요. "
+        },
+        {
+          "kind": "tag",
+          "tagId": "daewoonGungsil",
+          "label": "대운궁실"
+        },
+        {
+          "kind": "text",
+          "value": "의 큰 방향이 직업, 거주, 관계의 반복 패턴으로 드러나기 시작하므로, "
+        },
+        {
+          "kind": "tag",
+          "tagId": "stabilityIndex",
+          "label": "안정성지수"
+        },
+        {
+          "kind": "text",
+          "value": "가 받쳐 주는 선택인지 확인해야 해요. "
+        },
+        {
+          "kind": "tag",
+          "tagId": "yongshinFit",
+          "label": "용신부합도"
+        },
+        {
+          "kind": "text",
+          "value": "는 지금 붙잡을 기회와 정리할 기회를 가르는 기준으로 쓰면 과한 확장을 막아줍니다."
+        }
       ],
       "livingTips": [
         "일, 관계, 돈 중 지금 가장 먼저 안정시킬 축 하나를 고르세요.",
-        "선택지가 많을수록 3개월 이상 지속 가능한지 기준으로 비교해 보세요."
+        "선택지가 많을수록 3개월 이상 지속 가능한지 기준으로 비교해요."
       ],
       "cautions": [
         "불안해서 모든 가능성을 붙잡으면 실제로 깊어지는 일이 줄어들 수 있어요."
       ],
-      "tags": ["daewoonGungsil", "stabilityIndex", "yongshinFit"],
+      "tags": [
+        "daewoonGungsil",
+        "stabilityIndex",
+        "yongshinFit"
+      ],
       "numericalEvidence": [
         {
           "label": "현재 나이",
@@ -336,16 +516,48 @@
     {
       "schemaVersion": "spring-ts.narrative-fragment.v1",
       "fragmentId": "overall.life.expert.agephase.early_30s.301",
-      "axis": { "category": "overall", "period": "life", "depth": "expert" },
-      "gating": { "agePhase": ["early_30s"] },
+      "axis": {
+        "category": "overall",
+        "period": "life",
+        "depth": "expert"
+      },
+      "gating": {
+        "agePhase": [
+          "early_30s"
+        ]
+      },
       "templateTokens": [
-        { "kind": "text", "value": "30대 초반은 사회적 역할과 개인 욕구가 충돌하거나 재정렬되는 구간이에요. " },
-        { "kind": "tag", "tagId": "daewoonGungsil", "label": "대운궁실" },
-        { "kind": "text", "value": "을 볼 때는 단순한 성공보다 어떤 역할에서 기운이 살아나는지 확인해야 하고, " },
-        { "kind": "tag", "tagId": "stabilityIndex", "label": "안정성지수" },
-        { "kind": "text", "value": "는 책임의 양과 회복 시간의 균형으로 해석해야 해요. " },
-        { "kind": "tag", "tagId": "yongshinFit", "label": "용신부합도" },
-        { "kind": "text", "value": "가 맞는 방향은 부담이 있어도 오래 갈 수 있지만, 맞지 않는 방향은 성과가 있어도 피로가 빠르게 쌓입니다." }
+        {
+          "kind": "text",
+          "value": "30대 초반은 사회적 역할과 개인 욕구가 충돌하거나 재정렬되는 구간이에요. "
+        },
+        {
+          "kind": "tag",
+          "tagId": "daewoonGungsil",
+          "label": "대운궁실"
+        },
+        {
+          "kind": "text",
+          "value": "을 볼 때는 단순한 성공보다 어떤 역할에서 기운이 살아나는지 확인해야 하고, "
+        },
+        {
+          "kind": "tag",
+          "tagId": "stabilityIndex",
+          "label": "안정성지수"
+        },
+        {
+          "kind": "text",
+          "value": "는 책임의 양과 회복 시간의 균형으로 해석해야 해요. "
+        },
+        {
+          "kind": "tag",
+          "tagId": "yongshinFit",
+          "label": "용신부합도"
+        },
+        {
+          "kind": "text",
+          "value": "가 맞는 방향은 부담이 있어도 오래 갈 수 있지만, 맞지 않는 방향은 성과가 있어도 피로가 빠르게 쌓입니다."
+        }
       ],
       "livingTips": [
         "맡은 역할을 계속할 이유와 조정해야 할 조건을 따로 적어보세요.",
@@ -354,7 +566,11 @@
       "cautions": [
         "책임감만으로 버티면 좋은 역할도 피로로 느껴질 수 있어요."
       ],
-      "tags": ["daewoonGungsil", "stabilityIndex", "yongshinFit"],
+      "tags": [
+        "daewoonGungsil",
+        "stabilityIndex",
+        "yongshinFit"
+      ],
       "numericalEvidence": [
         {
           "label": "현재 나이",
@@ -402,16 +618,48 @@
     {
       "schemaVersion": "spring-ts.narrative-fragment.v1",
       "fragmentId": "overall.life.expert.agephase.late_30s.301",
-      "axis": { "category": "overall", "period": "life", "depth": "expert" },
-      "gating": { "agePhase": ["late_30s"] },
+      "axis": {
+        "category": "overall",
+        "period": "life",
+        "depth": "expert"
+      },
+      "gating": {
+        "agePhase": [
+          "late_30s"
+        ]
+      },
       "templateTokens": [
-        { "kind": "text", "value": "30대 후반은 쌓아온 선택의 결과가 생활 구조와 관계 안에서 뚜렷해지는 구간이에요. " },
-        { "kind": "tag", "tagId": "daewoonGungsil", "label": "대운궁실" },
-        { "kind": "text", "value": " 해석에서는 새 확장보다 기존 기반을 어떻게 재배치할지가 중요하고, " },
-        { "kind": "tag", "tagId": "stabilityIndex", "label": "안정성지수" },
-        { "kind": "text", "value": "가 낮으면 체력, 가족, 일의 균형을 먼저 조정해야 해요. " },
-        { "kind": "tag", "tagId": "yongshinFit", "label": "용신부합도" },
-        { "kind": "text", "value": "는 앞으로 10년을 버틸 구조인지 판단하는 핵심 보조 지표로 쓰기 좋습니다." }
+        {
+          "kind": "text",
+          "value": "30대 후반은 쌓아온 선택의 결과가 생활 구조와 관계 안에서 뚜렷해지는 구간이에요. "
+        },
+        {
+          "kind": "tag",
+          "tagId": "daewoonGungsil",
+          "label": "대운궁실"
+        },
+        {
+          "kind": "text",
+          "value": " 해석에서는 새 확장보다 기존 기반을 어떻게 재배치할지가 중요하고, "
+        },
+        {
+          "kind": "tag",
+          "tagId": "stabilityIndex",
+          "label": "안정성지수"
+        },
+        {
+          "kind": "text",
+          "value": "가 낮으면 체력, 가족, 일의 균형을 먼저 조정해야 해요. "
+        },
+        {
+          "kind": "tag",
+          "tagId": "yongshinFit",
+          "label": "용신부합도"
+        },
+        {
+          "kind": "text",
+          "value": "는 앞으로 10년을 버틸 구조인지 판단하는 핵심 보조 지표로 쓰기 좋습니다."
+        }
       ],
       "livingTips": [
         "반복되는 피로 원인을 일, 관계, 생활 리듬으로 나눠 적어보세요.",
@@ -420,7 +668,11 @@
       "cautions": [
         "익숙한 방식이라는 이유만으로 계속 버티면 회복 시간이 줄어들 수 있어요."
       ],
-      "tags": ["daewoonGungsil", "stabilityIndex", "yongshinFit"],
+      "tags": [
+        "daewoonGungsil",
+        "stabilityIndex",
+        "yongshinFit"
+      ],
       "numericalEvidence": [
         {
           "label": "현재 나이",
