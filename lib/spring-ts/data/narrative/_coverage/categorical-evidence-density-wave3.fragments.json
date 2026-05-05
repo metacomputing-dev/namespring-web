@@ -66,7 +66,7 @@
         { "kind": "tag", "tagId": "sikshingyeok", "label": "식신격" },
         { "kind": "text", "value": "은 꾸준한 몸 관리 루틴과 잘 맞으므로 반복 가능한 행동을 우선하세요." }
       ],
-      "livingTips": ["오늘 운동은 강도보다 반복 가능한 시간과 마무리 스트레칭을 챙기세요."],
+      "livingTips": ["오늘 운동은 반복 시간과 마무리 스트레칭을 챙겨요."],
       "cautions": ["기분이 올라온다고 체력 한계를 넘기지 마세요."],
       "tags": ["fire", "yongshin", "sikshingyeok"],
       "numericalEvidence": [
@@ -91,7 +91,7 @@
         { "kind": "tag", "tagId": "jeonggwangyeok", "label": "정관격" },
         { "kind": "text", "value": "은 책임 있는 태도를 강조하므로 오늘은 말보다 일관성을 먼저 보세요." }
       ],
-      "livingTips": ["오늘 관계 대화는 약속 가능한 범위와 감정의 속도를 함께 확인하세요."],
+      "livingTips": ["오늘 관계 대화는 약속 범위와 감정 속도를 확인해요."],
       "cautions": ["안정감을 원해도 상대에게 즉시 확답을 요구하지 마세요."],
       "tags": ["earth", "yongshin", "jeonggwangyeok"],
       "numericalEvidence": [
@@ -208,7 +208,7 @@
         { "kind": "tag", "tagId": "eumyangHarmony", "label": "음양 조화" },
         { "kind": "text", "value": "와 함께 보면 관계, 일, 가족 조언의 말투를 더 조심스럽게 조절할 수 있습니다." }
       ],
-      "livingTips": ["성별보다 실제 질문의 주제와 현재 시기 흐름을 먼저 놓고 보세요."],
+      "livingTips": ["성별보다 실제 질문의 주제와 현재 시기 흐름을 놓고 보세요."],
       "cautions": ["성별값으로 강점과 약점을 단정하지 않도록 주의하세요."],
       "tags": ["sajuCompatibility", "eumyangHarmony"],
       "numericalEvidence": [
@@ -228,7 +228,7 @@
         { "kind": "tag", "tagId": "eumyangHarmony", "label": "음양 조화" },
         { "kind": "text", "value": "를 우선하면 불필요한 역할 추정을 줄이고 사주 구조 중심의 문장을 유지할 수 있어요." }
       ],
-      "livingTips": ["중립값에서는 사주 구조, 연령대, 현재 시기 흐름을 우선하세요."],
+      "livingTips": ["중립값에서는 사주 구조, 연령대, 현재 시기 흐름을 우선해요."],
       "cautions": ["중립 성별값을 오류로 처리하지 말고 안전한 기본 분기로 보세요."],
       "tags": ["sajuCompatibility", "eumyangHarmony"],
       "numericalEvidence": [
@@ -248,7 +248,7 @@
         { "kind": "tag", "tagId": "eumyangHarmony", "label": "음양 조화" },
         { "kind": "text", "value": "와 오행 균형을 중심으로 설명하면 전문가용 화면에서도 판단 근거가 더 투명해져요." }
       ],
-      "livingTips": ["성별 정보가 없는 리포트는 오행, 격국, 용신 근거를 먼저 보여주세요."],
+      "livingTips": ["성별 미상이면 오행·격국·용신을 먼저 보여줘요."],
       "cautions": ["성별 결측을 보완하려고 추정값을 넣지 마세요."],
       "tags": ["sajuCompatibility", "eumyangHarmony"],
       "numericalEvidence": [
