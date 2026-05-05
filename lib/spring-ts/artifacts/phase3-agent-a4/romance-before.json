@@ -1,0 +1,531 @@
+{
+  "label": "before",
+  "fixture": "choi-seongsoo (1986-04-19 male) — measured at fragment-pool level",
+  "generatedAt": "2026-05-05T03:55:04.273Z",
+  "metrics": {
+    "gyeolTotal": 153,
+    "gyeolCounts": {
+      "life/brief": 4,
+      "life/standard": 12,
+      "life/expert": 23,
+      "today/brief": 1,
+      "today/standard": 13,
+      "today/expert": 13,
+      "thisWeek/brief": 2,
+      "thisWeek/standard": 7,
+      "thisWeek/expert": 13,
+      "thisMonth/brief": 2,
+      "thisMonth/standard": 13,
+      "thisMonth/expert": 11,
+      "thisYear/brief": 3,
+      "thisYear/standard": 14,
+      "thisYear/expert": 22
+    },
+    "fragmentTotal": 116,
+    "fragmentCounts": {
+      "life/brief": 7,
+      "life/standard": 8,
+      "life/expert": 9,
+      "today/brief": 7,
+      "today/standard": 7,
+      "today/expert": 8,
+      "thisWeek/brief": 7,
+      "thisWeek/standard": 7,
+      "thisWeek/expert": 8,
+      "thisMonth/brief": 7,
+      "thisMonth/standard": 7,
+      "thisMonth/expert": 8,
+      "thisYear/brief": 8,
+      "thisYear/standard": 8,
+      "thisYear/expert": 10
+    },
+    "fragmentsWithGyeol": 73,
+    "fragmentsWithGyeolDetails": [
+      {
+        "fragmentId": "romance.life.brief.adult.001",
+        "count": 1
+      },
+      {
+        "fragmentId": "romance.life.brief.child.001",
+        "count": 1
+      },
+      {
+        "fragmentId": "romance.life.brief.late_life.001",
+        "count": 1
+      },
+      {
+        "fragmentId": "romance.life.brief.aligned.001",
+        "count": 1
+      },
+      {
+        "fragmentId": "romance.life.standard.child.001",
+        "count": 2
+      },
+      {
+        "fragmentId": "romance.life.standard.young_adult.001",
+        "count": 1
+      },
+      {
+        "fragmentId": "romance.life.standard.midlife.001",
+        "count": 3
+      },
+      {
+        "fragmentId": "romance.life.standard.late_life.001",
+        "count": 2
+      },
+      {
+        "fragmentId": "romance.life.standard.aligned.001",
+        "count": 2
+      },
+      {
+        "fragmentId": "romance.life.standard.conflicting.001",
+        "count": 2
+      },
+      {
+        "fragmentId": "romance.life.expert.adult.001",
+        "count": 3
+      },
+      {
+        "fragmentId": "romance.life.expert.teen.001",
+        "count": 1
+      },
+      {
+        "fragmentId": "romance.life.expert.young_adult.aligned.001",
+        "count": 3
+      },
+      {
+        "fragmentId": "romance.life.expert.midlife.aligned.001",
+        "count": 4
+      },
+      {
+        "fragmentId": "romance.life.expert.midlife.conflicting.001",
+        "count": 2
+      },
+      {
+        "fragmentId": "romance.life.expert.late_life.001",
+        "count": 3
+      },
+      {
+        "fragmentId": "romance.life.expert.dohwa_strong.001",
+        "count": 2
+      },
+      {
+        "fragmentId": "romance.life.expert.adult.strong.001",
+        "count": 2
+      },
+      {
+        "fragmentId": "romance.life.expert.adult.weak.001",
+        "count": 3
+      },
+      {
+        "fragmentId": "romance.today.brief.aligned.001",
+        "count": 1
+      },
+      {
+        "fragmentId": "romance.today.standard.adult.001",
+        "count": 1
+      },
+      {
+        "fragmentId": "romance.today.standard.child.001",
+        "count": 2
+      },
+      {
+        "fragmentId": "romance.today.standard.teen.001",
+        "count": 2
+      },
+      {
+        "fragmentId": "romance.today.standard.young_adult.001",
+        "count": 2
+      },
+      {
+        "fragmentId": "romance.today.standard.midlife.001",
+        "count": 2
+      },
+      {
+        "fragmentId": "romance.today.standard.late_life.001",
+        "count": 2
+      },
+      {
+        "fragmentId": "romance.today.standard.aligned.001",
+        "count": 2
+      },
+      {
+        "fragmentId": "romance.today.expert.adult.001",
+        "count": 1
+      },
+      {
+        "fragmentId": "romance.today.expert.young_adult.001",
+        "count": 2
+      },
+      {
+        "fragmentId": "romance.today.expert.midlife.aligned.001",
+        "count": 4
+      },
+      {
+        "fragmentId": "romance.today.expert.midlife.conflicting.001",
+        "count": 2
+      },
+      {
+        "fragmentId": "romance.today.expert.late_life.001",
+        "count": 4
+      },
+      {
+        "fragmentId": "romance.thisWeek.brief.adult.001",
+        "count": 1
+      },
+      {
+        "fragmentId": "romance.thisWeek.brief.aligned.001",
+        "count": 1
+      },
+      {
+        "fragmentId": "romance.thisWeek.standard.child.001",
+        "count": 2
+      },
+      {
+        "fragmentId": "romance.thisWeek.standard.young_adult.001",
+        "count": 2
+      },
+      {
+        "fragmentId": "romance.thisWeek.standard.late_life.001",
+        "count": 1
+      },
+      {
+        "fragmentId": "romance.thisWeek.standard.aligned.001",
+        "count": 2
+      },
+      {
+        "fragmentId": "romance.thisWeek.expert.adult.001",
+        "count": 2
+      },
+      {
+        "fragmentId": "romance.thisWeek.expert.young_adult.001",
+        "count": 2
+      },
+      {
+        "fragmentId": "romance.thisWeek.expert.midlife.aligned.001",
+        "count": 3
+      },
+      {
+        "fragmentId": "romance.thisWeek.expert.midlife.conflicting.001",
+        "count": 4
+      },
+      {
+        "fragmentId": "romance.thisWeek.expert.late_life.001",
+        "count": 2
+      },
+      {
+        "fragmentId": "romance.thisMonth.brief.adult.001",
+        "count": 1
+      },
+      {
+        "fragmentId": "romance.thisMonth.brief.aligned.001",
+        "count": 1
+      },
+      {
+        "fragmentId": "romance.thisMonth.standard.adult.001",
+        "count": 3
+      },
+      {
+        "fragmentId": "romance.thisMonth.standard.child.001",
+        "count": 2
+      },
+      {
+        "fragmentId": "romance.thisMonth.standard.young_adult.001",
+        "count": 2
+      },
+      {
+        "fragmentId": "romance.thisMonth.standard.midlife.001",
+        "count": 2
+      },
+      {
+        "fragmentId": "romance.thisMonth.standard.late_life.001",
+        "count": 2
+      },
+      {
+        "fragmentId": "romance.thisMonth.standard.aligned.001",
+        "count": 2
+      },
+      {
+        "fragmentId": "romance.thisMonth.expert.adult.001",
+        "count": 2
+      },
+      {
+        "fragmentId": "romance.thisMonth.expert.young_adult.001",
+        "count": 1
+      },
+      {
+        "fragmentId": "romance.thisMonth.expert.midlife.aligned.001",
+        "count": 3
+      },
+      {
+        "fragmentId": "romance.thisMonth.expert.midlife.conflicting.001",
+        "count": 3
+      },
+      {
+        "fragmentId": "romance.thisMonth.expert.late_life.001",
+        "count": 2
+      },
+      {
+        "fragmentId": "romance.thisYear.brief.adult.001",
+        "count": 1
+      },
+      {
+        "fragmentId": "romance.thisYear.brief.late_life.001",
+        "count": 1
+      },
+      {
+        "fragmentId": "romance.thisYear.brief.aligned.001",
+        "count": 1
+      },
+      {
+        "fragmentId": "romance.thisYear.standard.adult.001",
+        "count": 3
+      },
+      {
+        "fragmentId": "romance.thisYear.standard.child.001",
+        "count": 2
+      },
+      {
+        "fragmentId": "romance.thisYear.standard.teen.001",
+        "count": 1
+      },
+      {
+        "fragmentId": "romance.thisYear.standard.young_adult.001",
+        "count": 2
+      },
+      {
+        "fragmentId": "romance.thisYear.standard.late_life.001",
+        "count": 2
+      },
+      {
+        "fragmentId": "romance.thisYear.standard.aligned.001",
+        "count": 2
+      },
+      {
+        "fragmentId": "romance.thisYear.standard.conflicting.001",
+        "count": 2
+      },
+      {
+        "fragmentId": "romance.thisYear.expert.adult.001",
+        "count": 2
+      },
+      {
+        "fragmentId": "romance.thisYear.expert.young_adult.aligned.001",
+        "count": 4
+      },
+      {
+        "fragmentId": "romance.thisYear.expert.young_adult.conflicting.001",
+        "count": 4
+      },
+      {
+        "fragmentId": "romance.thisYear.expert.midlife.aligned.001",
+        "count": 3
+      },
+      {
+        "fragmentId": "romance.thisYear.expert.midlife.conflicting.001",
+        "count": 4
+      },
+      {
+        "fragmentId": "romance.thisYear.expert.late_life.001",
+        "count": 3
+      },
+      {
+        "fragmentId": "romance.thisYear.expert.dohwa_strong.001",
+        "count": 2
+      }
+    ],
+    "briefHeadlineViolations": 0,
+    "briefHeadlines": [
+      {
+        "fragmentId": "romance.life.brief.adult.001",
+        "hangul": 23,
+        "text": "인생 전체에서 인연의 결이 천천히 깊어지는 흐름이에요."
+      },
+      {
+        "fragmentId": "romance.life.brief.child.001",
+        "hangul": 23,
+        "text": "어린 시절엔 친구·가족과 마음을 나누는 결이 도드라져요."
+      },
+      {
+        "fragmentId": "romance.life.brief.teen.001",
+        "hangul": 20,
+        "text": "또래·친구와 마음의 거리를 다듬어 가는 시기예요."
+      },
+      {
+        "fragmentId": "romance.life.brief.young_adult.001",
+        "hangul": 21,
+        "text": "새로운 인연이 들어올 자리가 자주 보이는 시기예요."
+      },
+      {
+        "fragmentId": "romance.life.brief.midlife.001",
+        "hangul": 18,
+        "text": "곁의 인연을 단단히 가꾸어 가는 흐름이에요."
+      },
+      {
+        "fragmentId": "romance.life.brief.late_life.001",
+        "hangul": 18,
+        "text": "오래 함께한 사람들과의 결이 더욱 깊어져요."
+      },
+      {
+        "fragmentId": "romance.life.brief.aligned.001",
+        "hangul": 19,
+        "text": "관계를 부드럽게 풀어가는 결이 잘 살아 있어요."
+      },
+      {
+        "fragmentId": "romance.today.brief.adult.001",
+        "hangul": 23,
+        "text": "오늘은 가까운 사람과의 결을 차분히 가다듬는 하루예요."
+      },
+      {
+        "fragmentId": "romance.today.brief.child.001",
+        "hangul": 21,
+        "text": "오늘은 친구·가족과 즐겁게 어울리기 좋은 하루예요."
+      },
+      {
+        "fragmentId": "romance.today.brief.teen.001",
+        "hangul": 23,
+        "text": "오늘은 친구와 솔직한 한마디를 나누기 좋은 흐름이에요."
+      },
+      {
+        "fragmentId": "romance.today.brief.young_adult.001",
+        "hangul": 22,
+        "text": "오늘은 새 인연이 살짝 들어올 자리가 보이는 하루예요."
+      },
+      {
+        "fragmentId": "romance.today.brief.midlife.001",
+        "hangul": 21,
+        "text": "오늘은 곁의 사람에게 작은 다정함을 건네기 좋아요."
+      },
+      {
+        "fragmentId": "romance.today.brief.late_life.001",
+        "hangul": 20,
+        "text": "오늘은 오랜 인연과 안부를 나누기 좋은 하루예요."
+      },
+      {
+        "fragmentId": "romance.today.brief.aligned.001",
+        "hangul": 19,
+        "text": "오늘은 관계의 결이 부드럽게 흐르는 하루예요."
+      },
+      {
+        "fragmentId": "romance.thisWeek.brief.adult.001",
+        "hangul": 25,
+        "text": "이번 주는 가까운 사람과의 결이 부드럽게 흐르는 흐름이에요."
+      },
+      {
+        "fragmentId": "romance.thisWeek.brief.child.001",
+        "hangul": 21,
+        "text": "이번 주는 친구와 신나게 어울릴 자리가 자주 보여요."
+      },
+      {
+        "fragmentId": "romance.thisWeek.brief.teen.001",
+        "hangul": 24,
+        "text": "이번 주는 친구와 새로운 자리를 함께하기 좋은 흐름이에요."
+      },
+      {
+        "fragmentId": "romance.thisWeek.brief.young_adult.001",
+        "hangul": 21,
+        "text": "이번 주는 새 인연을 만날 가능성이 살짝 열려 있어요."
+      },
+      {
+        "fragmentId": "romance.thisWeek.brief.midlife.001",
+        "hangul": 22,
+        "text": "이번 주는 곁의 사람에게 마음을 자주 표현하기 좋아요."
+      },
+      {
+        "fragmentId": "romance.thisWeek.brief.late_life.001",
+        "hangul": 20,
+        "text": "이번 주는 오랜 인연과 함께하는 자리가 따뜻해요."
+      },
+      {
+        "fragmentId": "romance.thisWeek.brief.aligned.001",
+        "hangul": 22,
+        "text": "이번 주는 관계의 결이 자연스럽게 풀리는 흐름이에요."
+      },
+      {
+        "fragmentId": "romance.thisMonth.brief.adult.001",
+        "hangul": 22,
+        "text": "이번 달은 사람과의 결이 차분히 정돈되는 흐름이에요."
+      },
+      {
+        "fragmentId": "romance.thisMonth.brief.child.001",
+        "hangul": 19,
+        "text": "이번 달은 친구·가족과 함께 웃는 자리가 많아요."
+      },
+      {
+        "fragmentId": "romance.thisMonth.brief.teen.001",
+        "hangul": 22,
+        "text": "이번 달은 친구와 자기 색을 함께 다듬어 가는 시기예요."
+      },
+      {
+        "fragmentId": "romance.thisMonth.brief.young_adult.001",
+        "hangul": 20,
+        "text": "이번 달은 새 인연을 만날 가능성이 한 번씩 보여요."
+      },
+      {
+        "fragmentId": "romance.thisMonth.brief.midlife.001",
+        "hangul": 20,
+        "text": "이번 달은 곁의 인연을 단단히 가꾸는 흐름이에요."
+      },
+      {
+        "fragmentId": "romance.thisMonth.brief.late_life.001",
+        "hangul": 20,
+        "text": "이번 달은 오랜 인연과 함께하는 자리가 따뜻해요."
+      },
+      {
+        "fragmentId": "romance.thisMonth.brief.aligned.001",
+        "hangul": 19,
+        "text": "이번 달은 관계의 결이 부드럽게 자리를 잡아요."
+      },
+      {
+        "fragmentId": "romance.thisYear.brief.adult.001",
+        "hangul": 21,
+        "text": "올해는 사람과의 결이 한 단계 깊어지는 흐름이에요."
+      },
+      {
+        "fragmentId": "romance.thisYear.brief.child.001",
+        "hangul": 19,
+        "text": "올해는 친구·가족과 즐거운 자리가 자주 생겨요."
+      },
+      {
+        "fragmentId": "romance.thisYear.brief.teen.001",
+        "hangul": 20,
+        "text": "올해는 친구와 자기 색을 함께 다듬어 가는 해예요."
+      },
+      {
+        "fragmentId": "romance.thisYear.brief.young_adult.001",
+        "hangul": 21,
+        "text": "올해는 새 인연을 만날 가능성이 자주 보이는 해예요."
+      },
+      {
+        "fragmentId": "romance.thisYear.brief.midlife.001",
+        "hangul": 19,
+        "text": "올해는 곁의 인연을 단단히 가꾸어 가는 해예요."
+      },
+      {
+        "fragmentId": "romance.thisYear.brief.late_life.001",
+        "hangul": 20,
+        "text": "올해는 오랜 인연과의 결이 한층 깊어지는 해예요."
+      },
+      {
+        "fragmentId": "romance.thisYear.brief.aligned.001",
+        "hangul": 19,
+        "text": "올해는 관계의 결이 부드럽게 자리 잡는 해예요."
+      },
+      {
+        "fragmentId": "romance.thisYear.brief.conflicting.001",
+        "hangul": 19,
+        "text": "올해는 관계의 결을 천천히 다듬어 가는 해예요."
+      }
+    ],
+    "tagIdsInRomanceExpert": {
+      "baeujagung": 36,
+      "jeonggwan": 36,
+      "pyeongwan": 8,
+      "sikshin": 33,
+      "sanggwan": 12,
+      "dohwa": 22,
+      "hongyeom": 13
+    },
+    "tagIdsCount": 7
+  }
+}

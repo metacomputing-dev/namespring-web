@@ -1,0 +1,209 @@
+{
+  "agent": "A4",
+  "category": "romance",
+  "fixture": "choi-seongsoo (1986-04-19 male)",
+  "generatedAt": "2026-05-05T04:18:05.195Z",
+  "tasks": {
+    "task1_briefHeadlineAudit": {
+      "target": "<= 28 Hangul jamo",
+      "beforeViolations": 0,
+      "afterViolations": 0,
+      "result": "PASS — 0 violations both before and after",
+      "maxBefore": 25,
+      "maxAfter": 25
+    },
+    "task2_gyeolReduction": {
+      "target": "<= 76 occurrences",
+      "before": 153,
+      "after": 63,
+      "delta": -90,
+      "reductionPct": "58.8%",
+      "result": "PASS",
+      "perFileDelta": {
+        "life/standard": {
+          "before": 12,
+          "after": 13,
+          "delta": 1
+        },
+        "life/expert": {
+          "before": 23,
+          "after": 0,
+          "delta": -23
+        },
+        "today/standard": {
+          "before": 13,
+          "after": 0,
+          "delta": -13
+        },
+        "today/expert": {
+          "before": 13,
+          "after": 9,
+          "delta": -4
+        },
+        "thisWeek/expert": {
+          "before": 13,
+          "after": 12,
+          "delta": -1
+        },
+        "thisMonth/standard": {
+          "before": 13,
+          "after": 0,
+          "delta": -13
+        },
+        "thisMonth/expert": {
+          "before": 11,
+          "after": 10,
+          "delta": -1
+        },
+        "thisYear/standard": {
+          "before": 14,
+          "after": 0,
+          "delta": -14
+        },
+        "thisYear/expert": {
+          "before": 22,
+          "after": 0,
+          "delta": -22
+        }
+      }
+    },
+    "task3_gatingDiversification": {
+      "target": "+5 fragments covering gender × yongshinElement, agePhase × yongshinAlignment, 합화",
+      "beforeFragmentCount": 116,
+      "afterFragmentCount": 121,
+      "delta": 5,
+      "perFileDelta": {
+        "life/standard": {
+          "before": 8,
+          "after": 10,
+          "delta": 2
+        },
+        "life/expert": {
+          "before": 9,
+          "after": 10,
+          "delta": 1
+        },
+        "thisYear/expert": {
+          "before": 10,
+          "after": 12,
+          "delta": 2
+        }
+      },
+      "newFragments": [
+        "romance.life.standard.male.metal.001 (gender × yongshinElement)",
+        "romance.life.standard.female.water.001 (gender × yongshinElement)",
+        "romance.thisYear.expert.early_30s.aligned.001 (agePhase × yongshinAlignment)",
+        "romance.thisYear.expert.early_60s.conflicting.001 (agePhase × yongshinAlignment)",
+        "romance.life.expert.adult.hab.001 (합화 axis via templateTokens)"
+      ],
+      "result": "PASS"
+    },
+    "task4_expertTagDiversification": {
+      "target": "5+ new anchors in romance expert fragments",
+      "beforeTagCount": 7,
+      "afterTagCount": 18,
+      "delta": 11,
+      "newAnchors": [
+        "janyeogung",
+        "nobokgung",
+        "gabgihab",
+        "jeongimhab",
+        "eulgyeonghab",
+        "byeongsinhab",
+        "mugyehab",
+        "geumyeo",
+        "hwagae",
+        "yeokma",
+        "cheogung"
+      ],
+      "tagDelta": {
+        "baeujagung": {
+          "before": 36,
+          "after": 38,
+          "delta": 2
+        },
+        "jeonggwan": {
+          "before": 36,
+          "after": 38,
+          "delta": 2
+        },
+        "sikshin": {
+          "before": 33,
+          "after": 34,
+          "delta": 1
+        },
+        "janyeogung": {
+          "before": 0,
+          "after": 2,
+          "delta": 2
+        },
+        "nobokgung": {
+          "before": 0,
+          "after": 1,
+          "delta": 1
+        },
+        "gabgihab": {
+          "before": 0,
+          "after": 1,
+          "delta": 1
+        },
+        "jeongimhab": {
+          "before": 0,
+          "after": 1,
+          "delta": 1
+        },
+        "eulgyeonghab": {
+          "before": 0,
+          "after": 1,
+          "delta": 1
+        },
+        "byeongsinhab": {
+          "before": 0,
+          "after": 1,
+          "delta": 1
+        },
+        "mugyehab": {
+          "before": 0,
+          "after": 1,
+          "delta": 1
+        },
+        "geumyeo": {
+          "before": 0,
+          "after": 1,
+          "delta": 1
+        },
+        "hwagae": {
+          "before": 0,
+          "after": 1,
+          "delta": 1
+        },
+        "yeokma": {
+          "before": 0,
+          "after": 1,
+          "delta": 1
+        },
+        "cheogung": {
+          "before": 0,
+          "after": 2,
+          "delta": 2
+        }
+      },
+      "result": "PASS"
+    }
+  },
+  "acceptance": {
+    "typecheck": "PASS",
+    "ci:no-ai-policy": "PASS",
+    "test:tiered-isolation": "37/37 PASS",
+    "test:tiered-shape": "616/616 PASS",
+    "test:tiered-determinism": "4/4 PASS",
+    "test:narrative-schema": "91879/0 PASS",
+    "ci:narrative-voice": "0 violations",
+    "ci:narrative-density": "thin=0 deficit=0",
+    "ci:narrative-tuple-density": "thin=0 deficit=0",
+    "ci:narrative-cell-axis": "0 missing",
+    "test:namespring-compat": "202/202 PASS"
+  },
+  "beforeSnapshot": "artifacts/phase3-agent-a4/romance-before.json",
+  "afterSnapshot": "artifacts/phase3-agent-a4/romance-after.json"
+}
