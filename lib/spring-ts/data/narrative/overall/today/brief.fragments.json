@@ -75,7 +75,7 @@
         "yongshinAlignment": ["aligned"]
       },
       "templateTokens": [
-        { "kind": "text", "value": "오늘은 결정 자리에서 흐름이 잘 풀리는 결이에요." }
+        { "kind": "text", "value": "오늘은 결정 자리에서 흐름이 잘 풀리는 리듬이에요." }
       ],
       "tags": [],
       "aiGenerated": true,
@@ -140,7 +140,7 @@
         "yongshinAlignment": ["aligned"]
       },
       "templateTokens": [
-        { "kind": "text", "value": "오늘 한 가지 작은 시도가 좋게 풀리는 결이에요." }
+        { "kind": "text", "value": "오늘 한 가지 작은 시도가 좋게 풀리는 시기예요." }
       ],
       "tags": [],
       "aiGenerated": true,

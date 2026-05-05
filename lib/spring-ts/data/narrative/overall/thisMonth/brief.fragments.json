@@ -75,7 +75,7 @@
         "yongshinAlignment": ["aligned"]
       },
       "templateTokens": [
-        { "kind": "text", "value": "이번 달은 책임 자리에서 흐름이 잘 풀리는 결이에요." }
+        { "kind": "text", "value": "이번 달은 책임 자리에서 흐름이 잘 풀리는 흐름이에요." }
       ],
       "tags": [],
       "aiGenerated": true,
@@ -96,7 +96,7 @@
         "yongshinAlignment": ["neutral"]
       },
       "templateTokens": [
-        { "kind": "text", "value": "기운은 충분해도, 한 박자 늦추면 결이 더 또렷해져요." }
+        { "kind": "text", "value": "기운은 충분해도, 한 박자 늦추면 흐름이 더 또렷해져요." }
       ],
       "tags": [],
       "aiGenerated": true,
@@ -274,7 +274,7 @@
       "templateTokens": [
         {
           "kind": "text",
-          "value": "아이는 이번 달 한 가지에 푹 빠져 보기 좋은 결이에요."
+          "value": "아이는 이번 달 한 가지에 푹 빠져 보기 좋은 흐름이에요."
         }
       ],
       "tags": [],

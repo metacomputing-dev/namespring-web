@@ -10,7 +10,7 @@
       "axis": { "category": "overall", "period": "life", "depth": "brief" },
       "gating": {},
       "templateTokens": [
-        { "kind": "text", "value": "한 평생 흐름이 큰 흠 없이 이어지는 결이에요." }
+        { "kind": "text", "value": "한 평생 흐름이 큰 흠 없이 이어지는 자리예요." }
       ],
       "tags": [],
       "aiGenerated": true,
@@ -96,7 +96,7 @@
         "yongshinAlignment": ["neutral"]
       },
       "templateTokens": [
-        { "kind": "text", "value": "기운은 넉넉해도, 자리 잡는 결을 천천히 골라 가는 결이에요." }
+        { "kind": "text", "value": "기운은 넉넉해도, 자리 잡는 결을 천천히 골라 가는 리듬이에요." }
       ],
       "tags": [],
       "aiGenerated": true,
@@ -274,7 +274,7 @@
       "templateTokens": [
         {
           "kind": "text",
-          "value": "아이는 호기심으로 자라는 결이에요."
+          "value": "아이는 호기심으로 자라는 흐름이에요."
         }
       ],
       "tags": [],

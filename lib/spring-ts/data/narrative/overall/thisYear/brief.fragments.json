@@ -52,7 +52,7 @@
         "yongshinAlignment": ["aligned"]
       },
       "templateTokens": [
-        { "kind": "text", "value": "올해는 한 가지 큰 흐름이 단단하게 자리잡는 결이에요." }
+        { "kind": "text", "value": "올해는 한 가지 큰 흐름이 단단하게 자리잡는 흐름이에요." }
       ],
       "tags": [],
       "aiGenerated": true,
@@ -75,7 +75,7 @@
         "yongshinAlignment": ["aligned"]
       },
       "templateTokens": [
-        { "kind": "text", "value": "올해는 책임 자리에서 흐름이 잘 풀리는 결이에요." }
+        { "kind": "text", "value": "올해는 책임 자리에서 흐름이 잘 풀리는 리듬이에요." }
       ],
       "tags": [],
       "aiGenerated": true,
@@ -96,7 +96,7 @@
         "yongshinAlignment": ["neutral"]
       },
       "templateTokens": [
-        { "kind": "text", "value": "기운은 충분해도, 한 박자 늦추면 결이 더 또렷해져요." }
+        { "kind": "text", "value": "기운은 충분해도, 한 박자 늦추면 호흡이 더 또렷해져요." }
       ],
       "tags": [],
       "aiGenerated": true,
