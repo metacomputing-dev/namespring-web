@@ -665,6 +665,93 @@
         "copyrightNote": "No source prose copied; original authored prose.",
         "authorityTruthEligible": false
       }
+    },
+    {
+      "schemaVersion": "spring-ts.narrative-fragment.v1",
+      "fragmentId": "expression_children.life.expert.diversity.anchor.011",
+      "axis": {
+        "category": "expression_children",
+        "period": "life",
+        "depth": "expert"
+      },
+      "gating": {
+        "ageBand": [
+          "20-29",
+          "30-39",
+          "40-54",
+          "55-69",
+          "70+"
+        ]
+      },
+      "templateTokens": [
+        {
+          "kind": "text",
+          "value": "평생의 표현·자녀 결을 더 또렷이 짚으려면 십성·주(柱)·신살의 큰 그림이 함께 들어와요. "
+        },
+        {
+          "kind": "tag",
+          "tagId": "siksang",
+          "label": "식상"
+        },
+        {
+          "kind": "text",
+          "value": "의 전체 분포가 또렷이 자리 잡힌 사주는 표현·창작의 결이 평생을 통해 자라는 흐름이에요.\n\n"
+        },
+        {
+          "kind": "tag",
+          "tagId": "monthPillar",
+          "label": "월주"
+        },
+        {
+          "kind": "text",
+          "value": "에 들어오는 결이 따뜻한 모양이라면 자기 표현의 뿌리가 든든한 흐름이고, "
+        },
+        {
+          "kind": "tag",
+          "tagId": "dayPillar",
+          "label": "일주"
+        },
+        {
+          "kind": "text",
+          "value": "의 결까지 함께 작용하면 일상의 표현 결이 한 결로 자리 잡는 흐름이에요.\n\n"
+        },
+        {
+          "kind": "tag",
+          "tagId": "hwagae",
+          "label": "화개"
+        },
+        {
+          "kind": "text",
+          "value": "의 결이 함께 작용하면 깊은 정리·예술의 자리가 만들어지는 흐름이고, "
+        },
+        {
+          "kind": "tag",
+          "tagId": "sajuCompatibility",
+          "label": "사주적합도"
+        },
+        {
+          "kind": "text",
+          "value": "의 결이 좋게 들어오는 시기를 골라 큰 표현·결정을 두면, 결이 한층 또렷해져요."
+        }
+      ],
+      "tags": [
+        "siksang",
+        "monthPillar",
+        "dayPillar",
+        "hwagae",
+        "sajuCompatibility"
+      ],
+      "aiGenerated": true,
+      "sourceTier": {
+        "tier": "T1_HYPOTHESIS",
+        "sourceType": "training_derived",
+        "sourceUrl": null,
+        "accessedAt": "2026-05-05",
+        "quoteShort": null,
+        "humanInterpretation": "Phase 5 P5-A4 expression_children tag-diversity expansion.",
+        "copyrightNote": "No source prose copied; original.",
+        "authorityTruthEligible": false
+      }
     }
   ]
 }
