@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-05-05T07:14:22.344Z",
+  "generatedAt": "2026-05-05T07:44:07.798Z",
   "targetDate": "2026-05-05T00:00:00+09:00",
   "sampleId": "kim-seoyun-young-female-tiered",
   "description": "어린 여성 입력에서 tiered 운세 매트릭스를 켠 케이스.",
@@ -1306,7 +1306,7 @@
     },
     "meta": {
       "version": "1.0.0",
-      "generatedAt": "2026-05-05T07:14:25.663Z",
+      "generatedAt": "2026-05-05T07:44:09.937Z",
       "schoolPreset": {
         "selected": "korean",
         "source": "default",
@@ -1348,11 +1348,11 @@
                 }
               ],
               "livingTips": [
-                "친구 관계나 학업 고민은 혼자 오래 품기보다 믿을 수 있는 어른과 함께 정리해 보세요.",
-                "잘해야 한다는 부담이 커질 때는 오늘 할 수 있는 한 가지 행동만 정해 보세요."
+                "친구 관계나 학업 고민은 혼자 오래 품기보다 믿을 수 있는 어른과 함께 정리해요.",
+                "잘해야 한다는 부담이 커질 때는 오늘 할 수 있는 한 가지 행동만 정해요."
               ],
               "cautions": [
-                "비교가 많아지면 자신감이 흔들릴 수 있으니 내 속도와 기준을 따로 적어 보세요."
+                "비교가 많아지면 자신감이 흔들리니 내 속도와 기준을 따로 적어 보세요."
               ]
             },
             "expert": {
@@ -3927,7 +3927,7 @@
                   "새 일정을 잡을 때는 바로 확정하기보다 조정 가능한 시간을 남겨 두세요."
                 ],
                 "cautions": [
-                  "좋아 보이는 제안이라도 준비 없이 바로 움직이면 체력과 시간이 새기 쉬워요."
+                  "좋아 보이는 제안도 준비 없이 움직이면 체력과 시간이 새기 쉬워요."
                 ]
               },
               "expert": {
@@ -6027,12 +6027,12 @@
       },
       "meta": {
         "schemaVersion": "spring-ts.tiered-matrix.v1",
-        "generatedAt": "2026-05-05T07:14:25.663Z",
+        "generatedAt": "2026-05-05T07:44:09.937Z",
         "selectionSeed": "2013|7|21|14|20|female|2026-05-04T15:00:00.000Z",
         "templateContractVersion": "1.0.0",
         "contentSource": "authored",
-        "fragmentCount": 4066,
-        "aiGeneratedFragmentCount": 4066
+        "fragmentCount": 4077,
+        "aiGeneratedFragmentCount": 4077
       }
     }
   }
