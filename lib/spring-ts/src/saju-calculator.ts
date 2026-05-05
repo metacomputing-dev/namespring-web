@@ -240,8 +240,13 @@ function buildSajuNameSafetyProfile(params: {
     aggressive_reinforcement: '강한 직접 보강 방식',
   }[value] ?? value);
 
+  // Use colon-prefixed labels uniformly so downstream renderers can dedup
+  // between this `reasons` list and the card's `supportingFeatures` list
+  // via plain string equality. The risk-score line previously used a
+  // space-only separator, which let the same value survive twice in the
+  // rendered Set (`주의 신호: 19/100` vs `주의 신호 19/100`).
   const reasons: string[] = [
-    `주의 신호 ${riskScore}/100`,
+    `주의 신호: ${riskScore}/100`,
     `적용 방식: ${strategyKo(strategy)}`,
     `용신 보강 비율: ${Math.round(yongshinRatio * 100)}%`,
     `희신 보조 비율: ${Math.round(heesinRatio * 100)}%`,
