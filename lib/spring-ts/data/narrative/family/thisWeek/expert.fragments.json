@@ -36,16 +36,56 @@
         },
         {
           "kind": "text",
-          "value": "의 호흡이 어떻게 만나는지로 그려 봐요."
+          "value": "의 호흡이 어떻게 만나는지로 그려 봐요.\n\n"
         },
         {
           "kind": "text",
-          "value": " 주중에는 짧은 안부, 주말에는 한쪽 자리에 한 호흡을 두는 식으로 결을 흘려 두면 다음 주의 결이 자연스럽게 이어져요."
+          "value": " 주중에는 짧은 안부, 주말에는 한쪽 자리에 한 호흡을 두는 식으로 결을 흘려 두면 다음 주의 결이 자연스럽게 이어져요.\n\n"
+        },
+        {
+          "kind": "tag",
+          "tagId": "cheondeokgwiin",
+          "label": "천덕귀인"
+        },
+        {
+          "kind": "text",
+          "value": "의 결과 "
+        },
+        {
+          "kind": "tag",
+          "tagId": "woldeokgwiin",
+          "label": "월덕귀인"
+        },
+        {
+          "kind": "text",
+          "value": "의 자리가 함께 보이는 사주는 가족 안에서 부드럽게 도움 주고받는 흐름이 자기 자산이 되는 모양이에요.\n\n"
+        },
+        {
+          "kind": "tag",
+          "tagId": "samhyeong",
+          "label": "삼형"
+        },
+        {
+          "kind": "text",
+          "value": "이나 "
+        },
+        {
+          "kind": "tag",
+          "tagId": "hyeongsal",
+          "label": "형살"
+        },
+        {
+          "kind": "text",
+          "value": "의 신호가 보이는 시기엔 가족 안의 작은 부딪힘을 짧게 끊고 가는 호흡이 잘 어울려요."
         }
       ],
       "tags": [
         "bumyong",
-        "jasikgung"
+        "jasikgung",
+        "cheondeokgwiin",
+        "woldeokgwiin",
+        "samhyeong",
+        "hyeongsal"
       ],
       "numericalEvidence": [
         {
@@ -119,7 +159,7 @@
         },
         {
           "kind": "text",
-          "value": "에 자주 닿는 한 주이니, 부모님 자리에 안부 한 통을 걸어 두는 흐름이 잘 맞아요."
+          "value": "에 자주 닿는 한 주이니, 부모님 자리에 안부 한 통을 걸어 두는 흐름이 잘 맞아요.\n\n"
         },
         {
           "kind": "text",
@@ -132,12 +172,32 @@
         },
         {
           "kind": "text",
-          "value": "의 결이 도와주는 자리라면 짧은 통화 하나만으로도 결이 충분히 데워져요. 큰 결정은 한 박자 미루어 두고, 다음 주의 호흡과 함께 정리하면 더 부드러워요."
+          "value": "의 결이 도와주는 자리라면 짧은 통화 하나만으로도 결이 충분히 데워져요.\n\n큰 결정은 한 박자 미루어 두고, 다음 주의 호흡과 함께 정리하면 더 부드러워요.\n\n"
+        },
+        {
+          "kind": "tag",
+          "tagId": "samhyeong",
+          "label": "삼형"
+        },
+        {
+          "kind": "text",
+          "value": "이나 "
+        },
+        {
+          "kind": "tag",
+          "tagId": "hyeongsal",
+          "label": "형살"
+        },
+        {
+          "kind": "text",
+          "value": "의 신호가 보이는 시기엔 가족 안의 작은 부딪힘을 짧게 끊고 가는 호흡이 잘 어울려요."
         }
       ],
       "tags": [
         "bumyong",
-        "jeongin"
+        "jeongin",
+        "samhyeong",
+        "hyeongsal"
       ],
       "aiGenerated": true,
       "sourceTier": {
@@ -188,16 +248,56 @@
         },
         {
           "kind": "text",
-          "value": "에 닿는 한 주라, 자녀·다음 세대와의 자리가 부드럽게 데워지는 흐름이에요."
+          "value": "에 닿는 한 주라, 자녀·다음 세대와의 자리가 부드럽게 데워지는 흐름이에요.\n\n"
         },
         {
           "kind": "text",
-          "value": " 큰 가르침을 더하려 하기보다는, 같이 시간을 보내는 자리만 만들어도 한 주의 리듬이 단단해져요."
+          "value": " 큰 가르침을 더하려 하기보다는, 같이 시간을 보내는 자리만 만들어도 한 주의 리듬이 단단해져요.\n\n"
+        },
+        {
+          "kind": "tag",
+          "tagId": "hyeongjegung",
+          "label": "형제궁"
+        },
+        {
+          "kind": "text",
+          "value": "의 결과 "
+        },
+        {
+          "kind": "tag",
+          "tagId": "janyeogung",
+          "label": "자녀궁"
+        },
+        {
+          "kind": "text",
+          "value": "의 결을 함께 살펴 두면 가족 안의 분위기 흐름이 더 또렷해져요.\n\n"
+        },
+        {
+          "kind": "tag",
+          "tagId": "cheondeokgwiin",
+          "label": "천덕귀인"
+        },
+        {
+          "kind": "text",
+          "value": "의 결과 "
+        },
+        {
+          "kind": "tag",
+          "tagId": "woldeokgwiin",
+          "label": "월덕귀인"
+        },
+        {
+          "kind": "text",
+          "value": "의 자리가 함께 보이는 사주는 가족 안에서 부드럽게 도움 주고받는 흐름이 자기 자산이 되는 모양이에요."
         }
       ],
       "tags": [
         "jasikgung",
-        "hourPillar"
+        "hourPillar",
+        "hyeongjegung",
+        "janyeogung",
+        "cheondeokgwiin",
+        "woldeokgwiin"
       ],
       "aiGenerated": true,
       "sourceTier": {
@@ -242,16 +342,60 @@
         },
         {
           "kind": "text",
-          "value": "의 색이 도드라지면 형제·동료·가까운 이웃과의 자리가 또렷해지는 한 주예요."
+          "value": "의 색이 도드라지면 형제·동료·가까운 이웃과의 자리가 또렷해지는 한 주예요.\n\n"
         },
         {
           "kind": "text",
-          "value": " 같은 자리에서 결을 두고 호흡을 맞춰야 한다면 한 박자 천천히, 받은 도움은 한 주 안에 짧게 답하면 결이 자연스럽게 정리돼요."
+          "value": " 같은 자리에서 결을 두고 호흡을 맞춰야 한다면 한 박자 천천히, 받은 도움은 한 주 안에 짧게 답하면 결이 자연스럽게 정리돼요.\n\n"
+        },
+        {
+          "kind": "text",
+          "value": "가족 자리는 "
+        },
+        {
+          "kind": "tag",
+          "tagId": "bumyong",
+          "label": "부모궁"
+        },
+        {
+          "kind": "text",
+          "value": "과 "
+        },
+        {
+          "kind": "tag",
+          "tagId": "baeujagung",
+          "label": "배우자궁"
+        },
+        {
+          "kind": "text",
+          "value": "의 결이 어떻게 받쳐 주느냐를 함께 살펴 두면 흐름의 결정이 더 단단해지고, 작은 인사 한 마디가 평생의 자산이 되는 자리예요.\n\n"
+        },
+        {
+          "kind": "tag",
+          "tagId": "hyeongjegung",
+          "label": "형제궁"
+        },
+        {
+          "kind": "text",
+          "value": "의 결과 "
+        },
+        {
+          "kind": "tag",
+          "tagId": "janyeogung",
+          "label": "자녀궁"
+        },
+        {
+          "kind": "text",
+          "value": "의 결을 함께 살펴 두면 가족 안의 분위기 흐름이 더 또렷해져요."
         }
       ],
       "tags": [
         "bigyeon",
-        "geobjae"
+        "geobjae",
+        "bumyong",
+        "baeujagung",
+        "hyeongjegung",
+        "janyeogung"
       ],
       "aiGenerated": true,
       "sourceTier": {
@@ -301,16 +445,56 @@
         },
         {
           "kind": "text",
-          "value": "의 결이 가까운 사람의 모습으로 들어오는 자리예요."
+          "value": "의 결이 가까운 사람의 모습으로 들어오는 자리예요.\n\n"
         },
         {
           "kind": "text",
-          "value": " 작은 부탁 한 가지를 한 주 동안 자연스럽게 꺼내 두면 결이 더 든든해지고, 받은 도움은 다음 자리에서 가벼운 답으로 흘려 보내면 흐름이 부드럽게 이어져요."
+          "value": " 작은 부탁 한 가지를 한 주 동안 자연스럽게 꺼내 두면 결이 더 든든해지고, 받은 도움은 다음 자리에서 가벼운 답으로 흘려 보내면 흐름이 부드럽게 이어져요.\n\n"
+        },
+        {
+          "kind": "tag",
+          "tagId": "hyeongjegung",
+          "label": "형제궁"
+        },
+        {
+          "kind": "text",
+          "value": "의 결과 "
+        },
+        {
+          "kind": "tag",
+          "tagId": "janyeogung",
+          "label": "자녀궁"
+        },
+        {
+          "kind": "text",
+          "value": "의 결을 함께 살펴 두면 가족 안의 분위기 흐름이 더 또렷해져요.\n\n"
+        },
+        {
+          "kind": "tag",
+          "tagId": "cheondeokgwiin",
+          "label": "천덕귀인"
+        },
+        {
+          "kind": "text",
+          "value": "의 결과 "
+        },
+        {
+          "kind": "tag",
+          "tagId": "woldeokgwiin",
+          "label": "월덕귀인"
+        },
+        {
+          "kind": "text",
+          "value": "의 자리가 함께 보이는 사주는 가족 안에서 부드럽게 도움 주고받는 흐름이 자기 자산이 되는 모양이에요."
         }
       ],
       "tags": [
         "jeongin",
-        "bigyeon"
+        "bigyeon",
+        "hyeongjegung",
+        "janyeogung",
+        "cheondeokgwiin",
+        "woldeokgwiin"
       ],
       "aiGenerated": true,
       "sourceTier": {
@@ -360,16 +544,56 @@
         },
         {
           "kind": "text",
-          "value": "의 결을 받쳐 주는 손이 자주 움직이는 자리예요."
+          "value": "의 결을 받쳐 주는 손이 자주 움직이는 자리예요.\n\n"
         },
         {
           "kind": "text",
-          "value": " 받쳐 주는 결만 이어지면 자기 결이 가장자리로 밀릴 수 있어, 한 주 중 한 자리는 자기 휴식을 위해 비워 두는 흐름이 좋아요."
+          "value": " 받쳐 주는 결만 이어지면 자기 결이 가장자리로 밀릴 수 있어, 한 주 중 한 자리는 자기 휴식을 위해 비워 두는 흐름이 좋아요.\n\n"
+        },
+        {
+          "kind": "tag",
+          "tagId": "hyeongjegung",
+          "label": "형제궁"
+        },
+        {
+          "kind": "text",
+          "value": "의 결과 "
+        },
+        {
+          "kind": "tag",
+          "tagId": "janyeogung",
+          "label": "자녀궁"
+        },
+        {
+          "kind": "text",
+          "value": "의 결을 함께 살펴 두면 가족 안의 분위기 흐름이 더 또렷해져요.\n\n"
+        },
+        {
+          "kind": "tag",
+          "tagId": "cheondeokgwiin",
+          "label": "천덕귀인"
+        },
+        {
+          "kind": "text",
+          "value": "의 결과 "
+        },
+        {
+          "kind": "tag",
+          "tagId": "woldeokgwiin",
+          "label": "월덕귀인"
+        },
+        {
+          "kind": "text",
+          "value": "의 자리가 함께 보이는 사주는 가족 안에서 부드럽게 도움 주고받는 흐름이 자기 자산이 되는 모양이에요."
         }
       ],
       "tags": [
         "bumyong",
-        "jasikgung"
+        "jasikgung",
+        "hyeongjegung",
+        "janyeogung",
+        "cheondeokgwiin",
+        "woldeokgwiin"
       ],
       "aiGenerated": true,
       "sourceTier": {
@@ -400,7 +624,7 @@
       "templateTokens": [
         {
           "kind": "text",
-          "value": "주운이 용신과 잘 맞물리는 자리이니, 이번 주는 가까운 결이 부드럽게 풀리는 한 주예요."
+          "value": "주운이 용신과 잘 맞물리는 자리이니, 이번 주는 가까운 결이 부드럽게 풀리는 한 주예요.\n\n"
         },
         {
           "kind": "text",
@@ -431,13 +655,55 @@
         },
         {
           "kind": "text",
-          "value": "이 차례로 부드러워지는 흐름이라, 매일 한 사람씩 시간을 내 두면 평생의 자산이 자연스럽게 모여요."
+          "value": "이 차례로 부드러워지는 흐름이라, 매일 한 사람씩 시간을 내 두면 평생의 자산이 자연스럽게 모여요.\n\n"
+        },
+        {
+          "kind": "tag",
+          "tagId": "samhyeong",
+          "label": "삼형"
+        },
+        {
+          "kind": "text",
+          "value": "이나 "
+        },
+        {
+          "kind": "tag",
+          "tagId": "hyeongsal",
+          "label": "형살"
+        },
+        {
+          "kind": "text",
+          "value": "의 신호가 보이는 시기엔 가족 안의 작은 부딪힘을 짧게 끊고 가는 호흡이 잘 어울려요.\n\n"
+        },
+        {
+          "kind": "text",
+          "value": "가족 자리는 "
+        },
+        {
+          "kind": "tag",
+          "tagId": "bumyong",
+          "label": "부모궁"
+        },
+        {
+          "kind": "text",
+          "value": "과 "
+        },
+        {
+          "kind": "tag",
+          "tagId": "baeujagung",
+          "label": "배우자궁"
+        },
+        {
+          "kind": "text",
+          "value": "의 결이 어떻게 받쳐 주느냐를 함께 살펴 두면 흐름의 결정이 더 단단해지고, 작은 인사 한 마디가 평생의 자산이 되는 자리예요."
         }
       ],
       "tags": [
         "bumyong",
         "jasikgung",
-        "baeujagung"
+        "baeujagung",
+        "samhyeong",
+        "hyeongsal"
       ],
       "aiGenerated": true,
       "sourceTier": {
@@ -468,7 +734,7 @@
       "templateTokens": [
         {
           "kind": "text",
-          "value": "주운이 용신과 부딪히는 흐름이라, 이번 주 가까운 자리에서 작은 어긋남이 보일 수 있어요."
+          "value": "주운이 용신과 부딪히는 흐름이라, 이번 주 가까운 자리에서 작은 어긋남이 보일 수 있어요.\n\n"
         },
         {
           "kind": "text",
@@ -490,12 +756,52 @@
         },
         {
           "kind": "text",
-          "value": "에 큰 결정을 더하려 하기보다는, 한 박자 미뤄 두고 차분해진 자리에서 짧은 안부 한 통으로 결을 다시 데우는 흐름이 잘 맞아요."
+          "value": "에 큰 결정을 더하려 하기보다는, 한 박자 미뤄 두고 차분해진 자리에서 짧은 안부 한 통으로 결을 다시 데우는 흐름이 잘 맞아요.\n\n"
+        },
+        {
+          "kind": "tag",
+          "tagId": "cheondeokgwiin",
+          "label": "천덕귀인"
+        },
+        {
+          "kind": "text",
+          "value": "의 결과 "
+        },
+        {
+          "kind": "tag",
+          "tagId": "woldeokgwiin",
+          "label": "월덕귀인"
+        },
+        {
+          "kind": "text",
+          "value": "의 자리가 함께 보이는 사주는 가족 안에서 부드럽게 도움 주고받는 흐름이 자기 자산이 되는 모양이에요.\n\n"
+        },
+        {
+          "kind": "tag",
+          "tagId": "samhyeong",
+          "label": "삼형"
+        },
+        {
+          "kind": "text",
+          "value": "이나 "
+        },
+        {
+          "kind": "tag",
+          "tagId": "hyeongsal",
+          "label": "형살"
+        },
+        {
+          "kind": "text",
+          "value": "의 신호가 보이는 시기엔 가족 안의 작은 부딪힘을 짧게 끊고 가는 호흡이 잘 어울려요."
         }
       ],
       "tags": [
         "bumyong",
-        "jasikgung"
+        "jasikgung",
+        "cheondeokgwiin",
+        "woldeokgwiin",
+        "samhyeong",
+        "hyeongsal"
       ],
       "aiGenerated": true,
       "sourceTier": {
@@ -545,16 +851,59 @@
         },
         {
           "kind": "text",
-          "value": "이 가장 가까이 닿아, 한 주의 안정감이 보호자의 호흡과 함께 만들어져요."
+          "value": "이 가장 가까이 닿아, 한 주의 안정감이 보호자의 호흡과 함께 만들어져요.\n\n"
         },
         {
           "kind": "text",
-          "value": " 주말 한 끼, 함께한 짧은 외출 한 번이 자라나는 시기의 작은 뿌리로 남아요."
+          "value": " 주말 한 끼, 함께한 짧은 외출 한 번이 자라나는 시기의 작은 뿌리로 남아요.\n\n"
+        },
+        {
+          "kind": "tag",
+          "tagId": "samhyeong",
+          "label": "삼형"
+        },
+        {
+          "kind": "text",
+          "value": "이나 "
+        },
+        {
+          "kind": "tag",
+          "tagId": "hyeongsal",
+          "label": "형살"
+        },
+        {
+          "kind": "text",
+          "value": "의 신호가 보이는 시기엔 가족 안의 작은 부딪힘을 짧게 끊고 가는 호흡이 잘 어울려요.\n\n"
+        },
+        {
+          "kind": "text",
+          "value": "가족 자리는 "
+        },
+        {
+          "kind": "tag",
+          "tagId": "bumyong",
+          "label": "부모궁"
+        },
+        {
+          "kind": "text",
+          "value": "과 "
+        },
+        {
+          "kind": "tag",
+          "tagId": "baeujagung",
+          "label": "배우자궁"
+        },
+        {
+          "kind": "text",
+          "value": "의 결이 어떻게 받쳐 주느냐를 함께 살펴 두면 흐름의 결정이 더 단단해지고, 작은 인사 한 마디가 평생의 자산이 되는 자리예요."
         }
       ],
       "tags": [
         "bumyong",
-        "jeongin"
+        "jeongin",
+        "samhyeong",
+        "hyeongsal",
+        "baeujagung"
       ],
       "aiGenerated": true,
       "sourceTier": {
@@ -604,7 +953,7 @@
         },
         {
           "kind": "text",
-          "value": "의 호흡으로 비춰지는 자리예요."
+          "value": "의 호흡으로 비춰지는 자리예요.\n\n"
         },
         {
           "kind": "text",
@@ -617,13 +966,57 @@
         },
         {
           "kind": "text",
-          "value": "에서 출발한 가풍의 작은 결을 한 줄 메모해 두는 자리만으로도 따뜻한 자산이 모이는 흐름이에요."
+          "value": "에서 출발한 가풍의 작은 결을 한 줄 메모해 두는 자리만으로도 따뜻한 자산이 모이는 흐름이에요.\n\n"
+        },
+        {
+          "kind": "text",
+          "value": "가족 자리는 "
+        },
+        {
+          "kind": "tag",
+          "tagId": "bumyong",
+          "label": "부모궁"
+        },
+        {
+          "kind": "text",
+          "value": "과 "
+        },
+        {
+          "kind": "tag",
+          "tagId": "baeujagung",
+          "label": "배우자궁"
+        },
+        {
+          "kind": "text",
+          "value": "의 결이 어떻게 받쳐 주느냐를 함께 살펴 두면 흐름의 결정이 더 단단해지고, 작은 인사 한 마디가 평생의 자산이 되는 자리예요.\n\n"
+        },
+        {
+          "kind": "tag",
+          "tagId": "hyeongjegung",
+          "label": "형제궁"
+        },
+        {
+          "kind": "text",
+          "value": "의 결과 "
+        },
+        {
+          "kind": "tag",
+          "tagId": "janyeogung",
+          "label": "자녀궁"
+        },
+        {
+          "kind": "text",
+          "value": "의 결을 함께 살펴 두면 가족 안의 분위기 흐름이 더 또렷해져요."
         }
       ],
       "tags": [
         "jasikgung",
         "hourPillar",
-        "jojangung"
+        "jojangung",
+        "bumyong",
+        "baeujagung",
+        "hyeongjegung",
+        "janyeogung"
       ],
       "aiGenerated": true,
       "sourceTier": {
