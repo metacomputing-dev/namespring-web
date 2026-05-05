@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-05-05T06:13:59.967Z",
+  "generatedAt": "2026-05-05T06:19:24.032Z",
   "targetDate": "2026-05-05T00:00:00+09:00",
   "sampleId": "park-jeolgi-boundary-female-tiered",
   "description": "입추(立秋) 절기 경계 직후 출생. fortuneCascadeMode=jie_based 로 경계 정밀 계산을 활성화하고 tieredMatrix 와 결합한 케이스.",
@@ -1321,7 +1321,7 @@
     },
     "meta": {
       "version": "1.0.0",
-      "generatedAt": "2026-05-05T06:14:04.792Z",
+      "generatedAt": "2026-05-05T06:19:28.699Z",
       "schoolPreset": {
         "selected": "korean",
         "source": "default",
@@ -7513,7 +7513,7 @@
               "meaningfulness": "limited",
               "stars": 3,
               "brief": {
-                "headline": "올해는 크게 몰아서 바꾸기보다 정기 점검과 꾸준한 생활 습관이요."
+                "headline": "올해는 크게 바꾸기보다 정기 점검이 좋아요."
               },
               "standard": {
                 "paragraphs": [
@@ -9002,7 +9002,7 @@
       },
       "meta": {
         "schemaVersion": "spring-ts.tiered-matrix.v1",
-        "generatedAt": "2026-05-05T06:14:04.792Z",
+        "generatedAt": "2026-05-05T06:19:28.699Z",
         "selectionSeed": "1988|8|8|6|0|female|2026-05-04T15:00:00.000Z",
         "templateContractVersion": "1.0.0",
         "contentSource": "authored",
