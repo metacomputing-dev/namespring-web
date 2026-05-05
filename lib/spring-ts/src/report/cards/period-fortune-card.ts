@@ -288,16 +288,16 @@ function makeSummary(
   const periodSubject = eunNeun(periodName);
 
   if (stars >= 5) {
-    return `${periodSubject} ${elDesc} 기운이 용신과 딱 맞아서 최고로 좋은 흐름이에요. 적극적으로 움직여도 좋아요.`;
+    return `${periodSubject} ${elDesc} 기운이 용신과 딱 맞아 흐름이 가장 단단해요. 적극적으로 움직여도 잘 풀려요.`;
   }
   if (stars >= 4) {
-    return `${periodSubject} ${elDesc} 기운이 도움을 주는 흐름이에요. 계획한 일을 실행에 옮기기 좋은 시기예요.`;
+    return `${periodSubject} ${elDesc} 기운이 든든하게 받쳐 줘요. 계획한 일을 실행에 옮기기에도 잘 어울려요.`;
   }
   if (stars >= 3) {
-    return `${periodSubject} ${elDesc} 기운이 보통 수준이에요. 무리하지 않고 꾸준히 해나가면 좋아요.`;
+    return `${periodSubject} ${elDesc} 기운이 보통 수준으로 흘러요. 무리하지 않고 꾸준히 해나가면 좋아요.`;
   }
   if (stars >= 2) {
-    return `${periodSubject} ${elDesc} 기운에 다소 주의가 필요해요. 중요한 결정은 한 번 더 검토하고 안정적인 선택을 우선하세요.`;
+    return `${periodSubject} ${elDesc} 기운에 다소 조심이 필요해요. 중요한 결정은 한 번 더 검토하고 안정적인 선택을 우선하세요.`;
   }
   return `${periodSubject} ${elDesc} 기운이 부담으로 작용하기 쉬워요. 무리한 도전보다 체력 관리와 기본 루틴을 우선하세요.`;
 }
@@ -333,7 +333,7 @@ function makeGoodActions(
         text: hobbies.length > 0
           ? `${elementKo(yongshinEl)} 기운을 보강하는 ${hobbies.slice(0, 2).join(', ')} 같은 활동을 추천해요.`
           : `${elementKo(yongshinEl)} 기운을 보강하는 활동이 오늘 운세 흐름에 도움이 돼요.`,
-        reason: `용신인 ${elementKo(yongshinEl)} 기운을 채우면 오늘 하루의 결이 잡혀요.`,
+        reason: `용신인 ${elementKo(yongshinEl)} 기운을 채우면 오늘 하루의 호흡이 잡혀요.`,
       });
     }
     if (color && direction) {
@@ -379,8 +379,8 @@ function makeGoodActions(
     // Monthly: habit and routine focus
     if (grade >= 4) {
       actions.push({
-        text: '이번 달은 새로운 습관이나 루틴을 시작하기 좋은 시기예요.',
-        reason: '월간 기운이 안정적이라 꾸준히 이어갈 수 있는 동력이 있어요.',
+        text: '이번 달은 새로운 습관이나 루틴을 시작하기에 잘 어울려요.',
+        reason: '월간 기운이 안정적이라 꾸준히 이어갈 동력이 받쳐 줘요.',
       });
     } else {
       actions.push({
@@ -467,13 +467,27 @@ function makeBadActions(
       periodKind === 'weekly' ? '이번 주는' :
       periodKind === 'monthly' ? '이번 달은' :
       periodKind === 'yearly' ? '올해는' : '지금은';
+    // Vary the adult-track wording per period kind so the bad-action line
+    // doesn't read identically across daily/weekly/monthly/yearly cards.
+    let adultText: string;
+    if (periodKind === 'daily') {
+      adultText = `${periodDesc} 중요한 결정이나 큰 약속을 한 박자 늦춰서 차분히 확인해 보세요.`;
+    } else if (periodKind === 'weekly') {
+      adultText = `${periodDesc} 큰 결정을 서두르기보다 한 주 더 살피며 진행하면 안전해요.`;
+    } else if (periodKind === 'monthly') {
+      adultText = `${periodDesc} 큰 결정이나 새로운 약속을 한 번 더 점검하고 진행하면 좋아요.`;
+    } else if (periodKind === 'yearly') {
+      adultText = `${periodDesc} 큰 결정이나 중요한 약속을 한 번 더 검토하고 진행하면 좋아요.`;
+    } else {
+      adultText = `${periodDesc} 큰 결정이나 중요한 약속을 한 번 더 살펴 보고 진행하세요.`;
+    }
     actions.push({
       text: isMinor
-        ? `${periodDesc} 중요한 선택이나 큰 약속은 혼자 서두르지 말고 가까운 어른과 함께 확인하는 것이 좋아요.`
-        : `${periodDesc} 큰 계약이나 중요한 결정을 한 번 더 검토하고 진행하는 것이 좋아요.`,
+        ? `${periodDesc} 중요한 선택이나 큰 약속은 혼자 서두르지 말고 가까운 어른과 함께 확인하는 쪽이 안전해요.`
+        : adultText,
       reason: isMinor
         ? '기운이 약한 시기에는 도움을 받아 차분히 확인하면 부담을 줄일 수 있어요.'
-        : '기운이 약한 시기에는 속도를 늦추면 후회할 가능성을 줄일 수 있어요.',
+        : '기운이 약한 시기에는 속도를 늦추면 후회를 줄일 수 있어요.',
     });
   }
 
@@ -897,11 +911,11 @@ export function buildPeriodFortuneCard(
 
   let periodClaim: string;
   if (isYongshinAligned) {
-    periodClaim = `이 시기의 천간 ${iGa(stemKo)} 용신과 일치하여 받침이 좋은 시기예요.`;
+    periodClaim = `이 시기의 천간 ${iGa(stemKo)} 용신과 일치하여 흐름이 든든하게 받쳐 줘요.`;
   } else if (isGishinAligned) {
-    periodClaim = `이 시기의 천간 ${iGa(stemKo)} 기신과 겹쳐 주의가 필요한 시기예요.`;
+    periodClaim = `이 시기의 천간 ${iGa(stemKo)} 기신과 겹쳐 한 박자 조심이 필요해요.`;
   } else {
-    periodClaim = `이 시기 천간 ${stemKo}, 지지 ${branchKo}의 흐름을 반영한 평가예요.`;
+    periodClaim = `이 시기 천간 ${stemKo}, 지지 ${branchKo}의 흐름을 함께 살핀 결과예요.`;
   }
 
   const periodSupporting: string[] = [
