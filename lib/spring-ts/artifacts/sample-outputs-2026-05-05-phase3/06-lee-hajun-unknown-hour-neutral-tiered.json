@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-05-05T06:13:59.967Z",
+  "generatedAt": "2026-05-05T06:19:24.032Z",
   "targetDate": "2026-05-05T00:00:00+09:00",
   "sampleId": "lee-hajun-unknown-hour-neutral-tiered",
   "description": "출생 시각 미상, 중립 성별 입력에서 불확실성 안내와 tiered 매트릭스를 확인하는 케이스.",
@@ -1302,7 +1302,7 @@
     },
     "meta": {
       "version": "1.0.0",
-      "generatedAt": "2026-05-05T06:14:02.627Z",
+      "generatedAt": "2026-05-05T06:19:26.565Z",
       "schoolPreset": {
         "selected": "korean",
         "source": "default",
@@ -2224,7 +2224,7 @@
               "meaningfulness": "meaningful",
               "stars": 1,
               "brief": {
-                "headline": "커리어를 넓히는 시기에는 경험을 흩어두지 말고 보여줄 수 있는요."
+                "headline": "커리어 시기엔 경험을 흩어두지 않는 게 좋아요."
               },
               "standard": {
                 "paragraphs": [
@@ -9087,7 +9087,7 @@
       },
       "meta": {
         "schemaVersion": "spring-ts.tiered-matrix.v1",
-        "generatedAt": "2026-05-05T06:14:02.627Z",
+        "generatedAt": "2026-05-05T06:19:26.565Z",
         "selectionSeed": "2001|1|15|0|0|neutral|2026-05-04T15:00:00.000Z",
         "templateContractVersion": "1.0.0",
         "contentSource": "authored",

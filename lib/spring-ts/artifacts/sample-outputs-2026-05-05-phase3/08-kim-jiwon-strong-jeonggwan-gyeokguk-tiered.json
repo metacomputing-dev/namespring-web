@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-05-05T06:13:59.967Z",
+  "generatedAt": "2026-05-05T06:19:24.032Z",
   "targetDate": "2026-05-05T00:00:00+09:00",
   "sampleId": "kim-jiwon-strong-jeonggwan-gyeokguk-tiered",
   "description": "입력 의도: 정관격 계열의 강한 격국이 또렷이 잡히기 쉬운 입력. 최종 gyeokguk 판정은 엔진이 결정한다.",
@@ -1249,7 +1249,7 @@
     },
     "meta": {
       "version": "1.0.0",
-      "generatedAt": "2026-05-05T06:14:03.882Z",
+      "generatedAt": "2026-05-05T06:19:27.799Z",
       "schoolPreset": {
         "selected": "korean",
         "source": "default",
@@ -2816,7 +2816,7 @@
             "meaningfulness": "limited",
             "stars": 3,
             "brief": {
-              "headline": "지금 시기가 여름 흐름이라면 추진력은 올라오지만 쉽게 과열될요."
+              "headline": "여름 흐름이라 추진력은 좋지만 과열은 조심해요."
             },
             "standard": {
               "paragraphs": [
@@ -7356,7 +7356,7 @@
               "meaningfulness": "meaningful",
               "stars": 1,
               "brief": {
-                "headline": "올해는 크게 몰아서 바꾸기보다 정기 점검과 꾸준한 생활 습관이요."
+                "headline": "올해는 크게 바꾸기보다 정기 점검이 좋아요."
               },
               "standard": {
                 "paragraphs": [
@@ -8887,7 +8887,7 @@
       },
       "meta": {
         "schemaVersion": "spring-ts.tiered-matrix.v1",
-        "generatedAt": "2026-05-05T06:14:03.882Z",
+        "generatedAt": "2026-05-05T06:19:27.799Z",
         "selectionSeed": "1990|9|15|11|30|female|2026-05-04T15:00:00.000Z",
         "templateContractVersion": "1.0.0",
         "contentSource": "authored",

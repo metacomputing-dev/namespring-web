@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-05-05T06:13:59.967Z",
+  "generatedAt": "2026-05-05T06:19:24.032Z",
   "targetDate": "2026-05-05T00:00:00+09:00",
   "sampleId": "oh-extreme-weak-continuous-tiered",
   "description": "입력 의도: 지지가 일간을 극도로 소모하는 신약 지향 입력. strengthMode=continuous 로 4-tier 강도 곡선과 결합한 tiered 샘플. 최종 강도 분류는 엔진이 결정한다.",
@@ -1293,7 +1293,7 @@
     },
     "meta": {
       "version": "1.0.0",
-      "generatedAt": "2026-05-05T06:14:05.129Z",
+      "generatedAt": "2026-05-05T06:19:29.082Z",
       "schoolPreset": {
         "selected": "korean",
         "source": "default",
@@ -1618,7 +1618,7 @@
               "meaningfulness": "meaningful",
               "stars": 1,
               "brief": {
-                "headline": "이 시기의 건강은 무리한 변화보다 꾸준한 수면, 식사, 걷기 습관이요."
+                "headline": "무리한 변화보다 꾸준한 습관이 좋아요."
               },
               "standard": {
                 "paragraphs": [
@@ -7634,7 +7634,7 @@
               "meaningfulness": "limited",
               "stars": 3,
               "brief": {
-                "headline": "올해는 크게 몰아서 바꾸기보다 정기 점검과 꾸준한 생활 습관이요."
+                "headline": "올해는 크게 바꾸기보다 정기 점검이 좋아요."
               },
               "standard": {
                 "paragraphs": [
@@ -9116,7 +9116,7 @@
       },
       "meta": {
         "schemaVersion": "spring-ts.tiered-matrix.v1",
-        "generatedAt": "2026-05-05T06:14:05.129Z",
+        "generatedAt": "2026-05-05T06:19:29.082Z",
         "selectionSeed": "1972|11|28|4|30|female|2026-05-04T15:00:00.000Z",
         "templateContractVersion": "1.0.0",
         "contentSource": "authored",
