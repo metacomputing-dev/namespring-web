@@ -1,0 +1,342 @@
+{
+  "generatedAt": "2026-05-05T04:40:35.577Z",
+  "fixtureCount": 6,
+  "trackedFields": [
+    "overviewSummary.overallSummary",
+    "dailyFortune.summary",
+    "categoryFortunes.wealth.summary",
+    "categoryFortunes.health.summary",
+    "categoryFortunes.academic.summary",
+    "categoryFortunes.romance.summary",
+    "categoryFortunes.family.summary",
+    "lifeFortuneOverview.summary"
+  ],
+  "totalFieldChecks": 48,
+  "changedCount": 4,
+  "fixtures": [
+    {
+      "fixtureId": "01-choi-seongsoo-1986-04-19",
+      "label": "1986-04-19 최성수 (남, 신약, 용신 METAL)",
+      "fields": [
+        {
+          "field": "overviewSummary.overallSummary",
+          "before": "계 일간을 중심으로, 물 기운의 이슬비와 직관이 돋보이는 사주예요. 전체 에너지는 신약 수준이고, 쇠 기운은 중요한 보완 후보로 참고하면 좋아요. 부족한 쇠 기운을 일상에서 조금씩 채워가면 삶이 더 안정될 수 있어요.",
+          "after": "계 일간을 중심으로, 물 기운의 이슬비와 직관이 돋보이는 사주예요. 전체 에너지는 신약 수준이고, 쇠 기운은 중요한 보완 후보로 참고하면 좋아요. 부족한 쇠 기운을 일상에서 조금씩 채워가면 삶이 더 안정될 수 있어요.",
+          "changed": false
+        },
+        {
+          "field": "dailyFortune.summary",
+          "before": "오늘은 흙과 나무 기운이 보통 수준이에요. 무리하지 않고 꾸준히 해나가면 좋아요.",
+          "after": "오늘은 흙과 나무 기운이 보통 수준이에요. 무리하지 않고 꾸준히 해나가면 좋아요.",
+          "changed": false
+        },
+        {
+          "field": "categoryFortunes.wealth.summary",
+          "before": "올해 재물/커리어운은 보통이에요. 큰 변화보다는 기본을 지키며 꾸준히 관리하면 좋아요.",
+          "after": "올해 재물/커리어운은 보통이에요. 큰 변화보다는 기본을 지키며 꾸준히 관리하면 좋아요.",
+          "changed": false
+        },
+        {
+          "field": "categoryFortunes.health.summary",
+          "before": "올해 건강운은 좋은 편이에요. 흙 기운이 쇠 기운을 받쳐줘서 생활 리듬을 안정적으로 지키기 좋아요.",
+          "after": "올해 건강운은 좋은 편이에요. 흙 기운이 쇠 기운을 받쳐줘서 생활 리듬을 안정적으로 지키기 좋아요.",
+          "changed": false
+        },
+        {
+          "field": "categoryFortunes.academic.summary",
+          "before": "올해 학업운은 보통이에요. 큰 변화보다는 기본을 지키며 꾸준히 관리하면 좋아요.",
+          "after": "올해 학업운은 보통이에요. 큰 변화보다는 기본을 지키며 꾸준히 관리하면 좋아요.",
+          "changed": false
+        },
+        {
+          "field": "categoryFortunes.romance.summary",
+          "before": "올해 연애/결혼운은 좋은 흐름도 있으나 속도 조절이 필요해요. 흙 기운이 불 기운을 움직이지만 과하게 서두르지 않으면 안정적으로 관리할 수 있어요.",
+          "after": "올해 연애/결혼운은 좋은 흐름도 있으나 속도 조절이 필요해요. 흙 기운이 불 기운을 움직이지만 과하게 서두르지 않으면 안정적으로 관리할 수 있어요.",
+          "changed": false
+        },
+        {
+          "field": "categoryFortunes.family.summary",
+          "before": "올해 가족운은 보통이에요. 큰 변화보다는 기본을 지키며 꾸준히 관리하면 좋아요.",
+          "after": "올해 가족운은 보통이에요. 큰 변화보다는 기본을 지키며 꾸준히 관리하면 좋아요.",
+          "changed": false
+        },
+        {
+          "field": "lifeFortuneOverview.summary",
+          "before": "물 기운을 가진 사주로, 안정적인 기본기를 갖추고 있어요. 에너지 균형은 신약이에요. 쇠 기운은 중요한 보완 후보지만, 다른 보조 기운과 함께 살펴보면 더 안전해요. 부족한 쇠 기운을 생활 속에서 조금씩 보충해 보세요.",
+          "after": "물 기운을 가진 사주로, 안정적인 기본기를 갖추고 있어요. 에너지 균형은 신약이에요. 쇠 기운은 중요한 보완 후보지만, 다른 보조 기운과 함께 살펴보면 더 안전해요. 부족한 쇠 기운을 생활 속에서 조금씩 보충해 보세요.",
+          "changed": false
+        }
+      ]
+    },
+    {
+      "fixtureId": "02-kim-seoyun-2013-07-21",
+      "label": "2013-07-21 김서윤 (어린 여성)",
+      "fields": [
+        {
+          "field": "overviewSummary.overallSummary",
+          "before": "무 일간을 중심으로, 흙 기운의 큰산과 안정감이 돋보이는 사주예요. 전체 에너지는 신강 수준이고, 쇠 기운은 중요한 보완 후보로 참고하면 좋아요. 부족한 나무, 쇠 기운을 일상에서 조금씩 채워가면 삶이 더 안정될 수 있어요.",
+          "after": "무 일간을 중심으로, 흙 기운의 큰산과 안정감이 돋보이는 사주예요. 전체 에너지는 신강 수준이고, 쇠 기운은 중요한 보완 후보로 참고하면 좋아요. 부족한 나무, 쇠 기운을 일상에서 조금씩 채워가면 삶이 더 안정될 수 있어요.",
+          "changed": false
+        },
+        {
+          "field": "dailyFortune.summary",
+          "before": "오늘은 흙과 나무 기운이 부담으로 작용하기 쉬워요. 무리한 도전보다 체력 관리와 기본 루틴을 우선하세요.",
+          "after": "오늘은 흙과 나무 기운이 부담으로 작용하기 쉬워요. 무리한 도전보다 체력 관리와 기본 루틴을 우선하세요.",
+          "changed": false
+        },
+        {
+          "field": "categoryFortunes.wealth.summary",
+          "before": "올해 돈 관리/습관운은 쉽지 않은 흐름이에요. 무리하지 말고 기본을 잘 지키며 꾸준히 관리하는 것이 중요해요.",
+          "after": "올해 돈 관리/습관운은 쉽지 않은 시기예요. 무리하지 말고 기본을 잘 지키며 꾸준히 관리하는 것이 중요해요.",
+          "changed": true
+        },
+        {
+          "field": "categoryFortunes.health.summary",
+          "before": "올해 건강운은 좋은 편이에요. 불 기운이 직접 흘러들어 생활 리듬을 안정적으로 지키기 좋아요.",
+          "after": "올해 건강운은 좋은 편이에요. 불 기운이 직접 흘러들어 생활 리듬을 안정적으로 지키기 좋아요.",
+          "changed": false
+        },
+        {
+          "field": "categoryFortunes.academic.summary",
+          "before": "올해 학업운은 보통이에요. 큰 변화보다는 기본을 지키며 꾸준히 관리하면 좋아요.",
+          "after": "올해 학업운은 보통이에요. 큰 변화보다는 기본을 지키며 꾸준히 관리하면 좋아요.",
+          "changed": false
+        },
+        {
+          "field": "categoryFortunes.romance.summary",
+          "before": "올해 친구/관계운은 다소 주의가 필요해요. 무리한 확장보다 안정적인 관리에 집중하세요.",
+          "after": "올해 친구/관계운은 다소 주의가 필요해요. 무리한 확장보다 안정적인 관리에 집중하세요.",
+          "changed": false
+        },
+        {
+          "field": "categoryFortunes.family.summary",
+          "before": "올해 가족운은 좋은 편이에요. 불 기운이 직접 흘러들어 가정의 분위기가 따뜻해져요.",
+          "after": "올해 가족운은 좋은 편이에요. 불 기운이 직접 흘러들어 가정의 분위기가 따뜻해져요.",
+          "changed": false
+        },
+        {
+          "field": "lifeFortuneOverview.summary",
+          "before": "흙 기운을 가진 사주로, 안정적인 기본기를 갖추고 있어요. 에너지 균형은 신강이에요. 쇠 기운은 중요한 보완 후보지만, 다른 보조 기운과 함께 살펴보면 더 안전해요. 부족한 나무, 쇠 기운을 생활 속에서 조금씩 보충해 보세요.",
+          "after": "흙 기운을 가진 사주로, 안정적인 기본기를 갖추고 있어요. 에너지 균형은 신강이에요. 쇠 기운은 중요한 보완 후보지만, 다른 보조 기운과 함께 살펴보면 더 안전해요. 부족한 나무, 쇠 기운을 생활 속에서 조금씩 보충해 보세요.",
+          "changed": false
+        }
+      ]
+    },
+    {
+      "fixtureId": "03-park-minji-1992-11-03",
+      "label": "1992-11-03 박민지 (성인 여성, 야자시)",
+      "fields": [
+        {
+          "field": "overviewSummary.overallSummary",
+          "before": "계 일간을 중심으로, 물 기운의 이슬비와 직관이 돋보이는 사주예요. 전체 에너지는 신강 수준이고, 나무 기운은 중요한 보완 후보로 참고하면 좋아요. 부족한 나무, 불 기운을 일상에서 조금씩 채워가면 삶이 더 안정될 수 있어요.",
+          "after": "계 일간을 중심으로, 물 기운의 이슬비와 직관이 돋보이는 사주예요. 전체 에너지는 신강 수준이고, 나무 기운은 중요한 보완 후보로 참고하면 좋아요. 부족한 나무, 불 기운을 일상에서 조금씩 채워가면 삶이 더 안정될 수 있어요.",
+          "changed": false
+        },
+        {
+          "field": "dailyFortune.summary",
+          "before": "오늘은 흙과 나무 기운이 보통 수준이에요. 무리하지 않고 꾸준히 해나가면 좋아요.",
+          "after": "오늘은 흙과 나무 기운이 보통 수준이에요. 무리하지 않고 꾸준히 해나가면 좋아요.",
+          "changed": false
+        },
+        {
+          "field": "categoryFortunes.wealth.summary",
+          "before": "올해 재물/커리어운은 보통이에요. 큰 변화보다는 기본을 지키며 꾸준히 관리하면 좋아요.",
+          "after": "올해 재물/커리어운은 보통이에요. 큰 변화보다는 기본을 지키며 꾸준히 관리하면 좋아요.",
+          "changed": false
+        },
+        {
+          "field": "categoryFortunes.health.summary",
+          "before": "올해 건강운은 좋은 편이에요. 흙 기운이 쇠 기운을 받쳐줘서 생활 리듬을 안정적으로 지키기 좋아요.",
+          "after": "올해 건강운은 좋은 편이에요. 흙 기운이 쇠 기운을 받쳐줘서 생활 리듬을 안정적으로 지키기 좋아요.",
+          "changed": false
+        },
+        {
+          "field": "categoryFortunes.academic.summary",
+          "before": "올해 학업운은 보통이에요. 큰 변화보다는 기본을 지키며 꾸준히 관리하면 좋아요.",
+          "after": "올해 학업운은 보통이에요. 큰 변화보다는 기본을 지키며 꾸준히 관리하면 좋아요.",
+          "changed": false
+        },
+        {
+          "field": "categoryFortunes.romance.summary",
+          "before": "올해 연애/결혼운은 좋은 편이에요. 흙 기운이 불 기운을 받쳐줘서 인연의 흐름이 좋아져요.",
+          "after": "올해 연애/결혼운은 좋은 편이에요. 흙 기운이 불 기운을 받쳐줘서 인연의 결이 부드러워져요.",
+          "changed": true
+        },
+        {
+          "field": "categoryFortunes.family.summary",
+          "before": "올해 가족운은 보통이에요. 큰 변화보다는 기본을 지키며 꾸준히 관리하면 좋아요.",
+          "after": "올해 가족운은 보통이에요. 큰 변화보다는 기본을 지키며 꾸준히 관리하면 좋아요.",
+          "changed": false
+        },
+        {
+          "field": "lifeFortuneOverview.summary",
+          "before": "물 기운을 가진 사주로, 안정적인 기본기를 갖추고 있어요. 에너지 균형은 신강이에요. 나무 기운은 중요한 보완 후보지만, 다른 보조 기운과 함께 살펴보면 더 안전해요. 부족한 나무, 불 기운을 생활 속에서 조금씩 보충해 보세요.",
+          "after": "물 기운을 가진 사주로, 안정적인 기본기를 갖추고 있어요. 에너지 균형은 신강이에요. 나무 기운은 중요한 보완 후보지만, 다른 보조 기운과 함께 살펴보면 더 안전해요. 부족한 나무, 불 기운을 생활 속에서 조금씩 보충해 보세요.",
+          "changed": false
+        }
+      ]
+    },
+    {
+      "fixtureId": "04-lee-hajun-2001-01-15",
+      "label": "2001-01-15 이하준 (시간 미상, 중립)",
+      "fields": [
+        {
+          "field": "overviewSummary.overallSummary",
+          "before": "무 일간을 중심으로, 흙 기운의 큰산과 안정감이 돋보이는 사주예요. 전체 에너지는 신강 수준이고, 쇠 기운은 중요한 보완 후보로 참고하면 좋아요. 부족한 물 기운을 일상에서 조금씩 채워가면 삶이 더 안정될 수 있어요.",
+          "after": "무 일간을 중심으로, 흙 기운의 큰산과 안정감이 돋보이는 사주예요. 전체 에너지는 신강 수준이고, 쇠 기운은 중요한 보완 후보로 참고하면 좋아요. 부족한 물 기운을 일상에서 조금씩 채워가면 삶이 더 안정될 수 있어요.",
+          "changed": false
+        },
+        {
+          "field": "dailyFortune.summary",
+          "before": "오늘은 흙과 나무 기운이 부담으로 작용하기 쉬워요. 무리한 도전보다 체력 관리와 기본 루틴을 우선하세요.",
+          "after": "오늘은 흙과 나무 기운이 부담으로 작용하기 쉬워요. 무리한 도전보다 체력 관리와 기본 루틴을 우선하세요.",
+          "changed": false
+        },
+        {
+          "field": "categoryFortunes.wealth.summary",
+          "before": "올해 재물/커리어운은 쉽지 않은 흐름이에요. 무리하지 말고 기본을 잘 지키며 꾸준히 관리하는 것이 중요해요.",
+          "after": "올해 재물/커리어운은 쉽지 않은 시기예요. 무리하지 말고 기본을 잘 지키며 꾸준히 관리하는 것이 중요해요.",
+          "changed": true
+        },
+        {
+          "field": "categoryFortunes.health.summary",
+          "before": "올해 건강운은 좋은 편이에요. 불 기운이 직접 흘러들어 생활 리듬을 안정적으로 지키기 좋아요.",
+          "after": "올해 건강운은 좋은 편이에요. 불 기운이 직접 흘러들어 생활 리듬을 안정적으로 지키기 좋아요.",
+          "changed": false
+        },
+        {
+          "field": "categoryFortunes.academic.summary",
+          "before": "올해 학업운은 보통이에요. 큰 변화보다는 기본을 지키며 꾸준히 관리하면 좋아요.",
+          "after": "올해 학업운은 보통이에요. 큰 변화보다는 기본을 지키며 꾸준히 관리하면 좋아요.",
+          "changed": false
+        },
+        {
+          "field": "categoryFortunes.romance.summary",
+          "before": "올해 연애/결혼운은 다소 주의가 필요해요. 무리한 확장보다 안정적인 관리에 집중하세요.",
+          "after": "올해 연애/결혼운은 다소 주의가 필요해요. 무리한 확장보다 안정적인 관리에 집중하세요.",
+          "changed": false
+        },
+        {
+          "field": "categoryFortunes.family.summary",
+          "before": "올해 가족운은 좋은 편이에요. 불 기운이 직접 흘러들어 가정의 분위기가 따뜻해져요.",
+          "after": "올해 가족운은 좋은 편이에요. 불 기운이 직접 흘러들어 가정의 분위기가 따뜻해져요.",
+          "changed": false
+        },
+        {
+          "field": "lifeFortuneOverview.summary",
+          "before": "흙 기운을 가진 사주로, 안정적인 기본기를 갖추고 있어요. 에너지 균형은 신강이에요. 쇠 기운은 중요한 보완 후보지만, 다른 보조 기운과 함께 살펴보면 더 안전해요. 부족한 물 기운을 생활 속에서 조금씩 보충해 보세요.",
+          "after": "흙 기운을 가진 사주로, 안정적인 기본기를 갖추고 있어요. 에너지 균형은 신강이에요. 쇠 기운은 중요한 보완 후보지만, 다른 보조 기운과 함께 살펴보면 더 안전해요. 부족한 물 기운을 생활 속에서 조금씩 보충해 보세요.",
+          "changed": false
+        }
+      ]
+    },
+    {
+      "fixtureId": "05-kim-jiwon-1990-09-15-strong-gyeokguk",
+      "label": "1990-09-15 김지원 (강한 격국 case)",
+      "fields": [
+        {
+          "field": "overviewSummary.overallSummary",
+          "before": "계 일간을 중심으로, 물 기운의 이슬비와 직관이 돋보이는 사주예요. 전체 에너지는 신약 수준이고, 쇠 기운은 중요한 보완 후보로 참고하면 좋아요.",
+          "after": "계 일간을 중심으로, 물 기운의 이슬비와 직관이 돋보이는 사주예요. 전체 에너지는 신약 수준이고, 쇠 기운은 중요한 보완 후보로 참고하면 좋아요.",
+          "changed": false
+        },
+        {
+          "field": "dailyFortune.summary",
+          "before": "오늘은 흙과 나무 기운이 부담으로 작용하기 쉬워요. 무리한 도전보다 체력 관리와 기본 루틴을 우선하세요.",
+          "after": "오늘은 흙과 나무 기운이 부담으로 작용하기 쉬워요. 무리한 도전보다 체력 관리와 기본 루틴을 우선하세요.",
+          "changed": false
+        },
+        {
+          "field": "categoryFortunes.wealth.summary",
+          "before": "올해 재물/커리어운은 다소 주의가 필요해요. 무리한 확장보다 안정적인 관리에 집중하세요.",
+          "after": "올해 재물/커리어운은 다소 주의가 필요해요. 무리한 확장보다 안정적인 관리에 집중하세요.",
+          "changed": false
+        },
+        {
+          "field": "categoryFortunes.health.summary",
+          "before": "올해 건강운은 보통이에요. 큰 변화보다는 기본을 지키며 꾸준히 관리하면 좋아요.",
+          "after": "올해 건강운은 보통이에요. 큰 변화보다는 기본을 지키며 꾸준히 관리하면 좋아요.",
+          "changed": false
+        },
+        {
+          "field": "categoryFortunes.academic.summary",
+          "before": "올해 학업운은 다소 주의가 필요해요. 무리한 확장보다 안정적인 관리에 집중하세요.",
+          "after": "올해 학업운은 다소 주의가 필요해요. 무리한 확장보다 안정적인 관리에 집중하세요.",
+          "changed": false
+        },
+        {
+          "field": "categoryFortunes.romance.summary",
+          "before": "올해 연애/결혼운은 보통이에요. 큰 변화보다는 기본을 지키며 꾸준히 관리하면 좋아요.",
+          "after": "올해 연애/결혼운은 보통이에요. 큰 변화보다는 기본을 지키며 꾸준히 관리하면 좋아요.",
+          "changed": false
+        },
+        {
+          "field": "categoryFortunes.family.summary",
+          "before": "올해 가족운은 다소 주의가 필요해요. 무리한 확장보다 안정적인 관리에 집중하세요.",
+          "after": "올해 가족운은 다소 주의가 필요해요. 무리한 확장보다 안정적인 관리에 집중하세요.",
+          "changed": false
+        },
+        {
+          "field": "lifeFortuneOverview.summary",
+          "before": "물 기운을 가진 사주로, 안정적인 기본기를 갖추고 있어요. 에너지 균형은 신약이에요. 쇠 기운은 중요한 보완 후보지만, 다른 보조 기운과 함께 살펴보면 더 안전해요.",
+          "after": "물 기운을 가진 사주로, 안정적인 기본기를 갖추고 있어요. 에너지 균형은 신약이에요. 쇠 기운은 중요한 보완 후보지만, 다른 보조 기운과 함께 살펴보면 더 안전해요.",
+          "changed": false
+        }
+      ]
+    },
+    {
+      "fixtureId": "06-jonggyeok-hua-qi-1958-07-11",
+      "label": "1958-07-11 21:00 male - HUA_QI 化氣格 (외격 case)",
+      "fields": [
+        {
+          "field": "overviewSummary.overallSummary",
+          "before": "기 일간을 중심으로, 흙 기운의 논밭과 양육이 돋보이는 사주예요. 전체 에너지는 신강 수준이고, 쇠 기운은 중요한 보완 후보로 참고하면 좋아요. 부족한 불, 쇠, 물 기운을 일상에서 조금씩 채워가면 삶이 더 안정될 수 있어요.",
+          "after": "기 일간을 중심으로, 흙 기운의 논밭과 양육이 돋보이는 사주예요. 전체 에너지는 신강 수준이고, 쇠 기운은 중요한 보완 후보로 참고하면 좋아요. 부족한 불, 쇠, 물 기운을 일상에서 조금씩 채워가면 삶이 더 안정될 수 있어요.",
+          "changed": false
+        },
+        {
+          "field": "dailyFortune.summary",
+          "before": "오늘은 흙과 나무 기운이 부담으로 작용하기 쉬워요. 무리한 도전보다 체력 관리와 기본 루틴을 우선하세요.",
+          "after": "오늘은 흙과 나무 기운이 부담으로 작용하기 쉬워요. 무리한 도전보다 체력 관리와 기본 루틴을 우선하세요.",
+          "changed": false
+        },
+        {
+          "field": "categoryFortunes.wealth.summary",
+          "before": "올해 재물/커리어운은 다소 주의가 필요해요. 무리한 확장보다 안정적인 관리에 집중하세요.",
+          "after": "올해 재물/커리어운은 다소 주의가 필요해요. 무리한 확장보다 안정적인 관리에 집중하세요.",
+          "changed": false
+        },
+        {
+          "field": "categoryFortunes.health.summary",
+          "before": "올해 건강운은 다소 주의가 필요해요. 무리한 확장보다 안정적인 관리에 집중하세요.",
+          "after": "올해 건강운은 다소 주의가 필요해요. 무리한 확장보다 안정적인 관리에 집중하세요.",
+          "changed": false
+        },
+        {
+          "field": "categoryFortunes.academic.summary",
+          "before": "올해 학업운은 보통이에요. 큰 변화보다는 기본을 지키며 꾸준히 관리하면 좋아요.",
+          "after": "올해 학업운은 보통이에요. 큰 변화보다는 기본을 지키며 꾸준히 관리하면 좋아요.",
+          "changed": false
+        },
+        {
+          "field": "categoryFortunes.romance.summary",
+          "before": "올해 연애/결혼운은 쉽지 않은 흐름이에요. 무리하지 말고 기본을 잘 지키며 꾸준히 관리하는 것이 중요해요.",
+          "after": "올해 연애/결혼운은 쉽지 않은 시기예요. 무리하지 말고 기본을 잘 지키며 꾸준히 관리하는 것이 중요해요.",
+          "changed": true
+        },
+        {
+          "field": "categoryFortunes.family.summary",
+          "before": "올해 가족운은 보통이에요. 큰 변화보다는 기본을 지키며 꾸준히 관리하면 좋아요.",
+          "after": "올해 가족운은 보통이에요. 큰 변화보다는 기본을 지키며 꾸준히 관리하면 좋아요.",
+          "changed": false
+        },
+        {
+          "field": "lifeFortuneOverview.summary",
+          "before": "흙 기운을 가진 사주로, 안정적인 기본기를 갖추고 있어요. 에너지 균형은 신강이에요. 쇠 기운은 중요한 보완 후보지만, 다른 보조 기운과 함께 살펴보면 더 안전해요. 부족한 불, 쇠, 물 기운을 생활 속에서 조금씩 보충해 보세요.",
+          "after": "흙 기운을 가진 사주로, 안정적인 기본기를 갖추고 있어요. 에너지 균형은 신강이에요. 쇠 기운은 중요한 보완 후보지만, 다른 보조 기운과 함께 살펴보면 더 안전해요. 부족한 불, 쇠, 물 기운을 생활 속에서 조금씩 보충해 보세요.",
+          "changed": false
+        }
+      ]
+    }
+  ]
+}
