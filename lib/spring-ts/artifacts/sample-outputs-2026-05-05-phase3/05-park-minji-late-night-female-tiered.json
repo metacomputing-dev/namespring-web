@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-05-05T09:50:40.217Z",
+  "generatedAt": "2026-05-05T09:50:27.784Z",
   "targetDate": "2026-05-05T00:00:00+09:00",
   "sampleId": "park-minji-late-night-female-tiered",
   "description": "성인 여성 늦은 밤 출생 입력에 야자시, 진태양시, 경도 보정과 tiered 매트릭스를 적용한 케이스.",
@@ -244,13 +244,13 @@
       ],
       "counterexamples": [
         {
-          "condition": "월령(月令)이 지장간 중 정기와 어긋나거나, 격국 안정성 낮음",
-          "revisedClaim": "용신을 나무로 단정하기보다, 조후·통관 후보를 함께 검토하세요.",
+          "condition": "월령(月令)이 지장간 중 정기와 어긋나거나, 격국 안정성이 낮은 경우",
+          "revisedClaim": "용신을 나무로 단정하기보다, 조후·통관 후보를 함께 살펴보면 좋아요.",
           "appliesWhen": "deferred"
         },
         {
-          "condition": "시간 미상 또는 입절 경계(±1 일) 이내 출생",
-          "revisedClaim": "시진 변경 시 격국·용신 후보가 달라질 수 있으니 두 가지 가능성을 함께 살펴보세요.",
+          "condition": "시간 미상 또는 입절 경계(±1 일) 이내 출생인 경우",
+          "revisedClaim": "시진 변경 시 격국·용신 후보가 달라질 수 있어, 두 가지 가능성을 함께 살펴보면 좋아요.",
           "appliesWhen": "deferred"
         }
       ]
@@ -1313,7 +1313,7 @@
     },
     "meta": {
       "version": "1.0.0",
-      "generatedAt": "2026-05-05T09:50:42.795Z",
+      "generatedAt": "2026-05-05T09:50:30.771Z",
       "schoolPreset": {
         "selected": "korean",
         "source": "default",
@@ -9070,7 +9070,7 @@
       },
       "meta": {
         "schemaVersion": "spring-ts.tiered-matrix.v1",
-        "generatedAt": "2026-05-05T09:50:42.795Z",
+        "generatedAt": "2026-05-05T09:50:30.771Z",
         "selectionSeed": "1992|11|3|23|20|female|2026-05-04T15:00:00.000Z",
         "templateContractVersion": "1.0.0",
         "contentSource": "authored",
