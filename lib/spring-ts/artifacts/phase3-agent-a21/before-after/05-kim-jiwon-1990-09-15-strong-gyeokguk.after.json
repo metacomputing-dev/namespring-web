@@ -1,0 +1,1272 @@
+{
+  "fixtureId": "05-kim-jiwon-1990-09-15-strong-gyeokguk",
+  "label": "1990-09-15 김지원 (강한 격국 case)",
+  "capturedAt": "2026-05-05T04:40:08.757Z",
+  "capturePhase": "after",
+  "targetDate": "2026-05-04T00:00:00+09:00",
+  "request": {
+    "targetDate": "2026-05-04T00:00:00+09:00",
+    "birth": {
+      "year": 1990,
+      "month": 9,
+      "day": 15,
+      "hour": 12,
+      "minute": 0,
+      "gender": "female",
+      "calendarType": "solar",
+      "region": "서울",
+      "birthPlace": "서울"
+    },
+    "surname": [
+      {
+        "hangul": "김",
+        "hanja": "金"
+      }
+    ],
+    "givenName": [
+      {
+        "hangul": "지",
+        "hanja": "智"
+      },
+      {
+        "hangul": "원",
+        "hanja": "圓"
+      }
+    ],
+    "options": {
+      "sajuTimePolicy": {
+        "yaza": "on",
+        "yazaMode": "23:00",
+        "trueSolarTime": "on",
+        "longitudeCorrection": "on"
+      }
+    }
+  },
+  "legacyFields": {
+    "overviewSummary": {
+      "title": "총평 요약",
+      "pillars": [
+        {
+          "position": "년주",
+          "stem": "경",
+          "branch": "오",
+          "element": "쇠/불"
+        },
+        {
+          "position": "월주",
+          "stem": "을",
+          "branch": "유",
+          "element": "나무/쇠"
+        },
+        {
+          "position": "일주",
+          "stem": "계",
+          "branch": "미",
+          "element": "물/흙"
+        },
+        {
+          "position": "시주",
+          "stem": "무",
+          "branch": "오",
+          "element": "흙/불"
+        }
+      ],
+      "dayMasterDescription": "일간은 계예요. 물 기운을 가지고 있고, 물처럼 아래로 흘러 모이는 지혜의 기운이 느껴져요. 이슬비처럼 조용히 스며드는 공감 능력이 있어요.",
+      "strengthDescription": "에너지 균형은 신약이에요.",
+      "yongshinDescription": "사주의 균형을 맞춰주는 용신 후보는 쇠(금) 기운이에요. 출생 시각이나 판단 축에 따라 보조 기운이 달라질 수 있어 참고 기준으로 보는 것이 좋아요. 희신인 물 기운도 함께 챙기면 더 좋아요.",
+      "elementBalance": "오행 중 흙 기운이 가장 강해요.",
+      "overallSummary": "계 일간을 중심으로, 물 기운의 이슬비와 직관이 돋보이는 사주예요. 전체 에너지는 신약 수준이고, 쇠 기운은 중요한 보완 후보로 참고하면 좋아요.",
+      "axisStrength": {
+        "yongshin": "deferred",
+        "gyeokguk": "definite",
+        "strength": "deferred"
+      },
+      "evidence": [
+        {
+          "axis": "dayMaster",
+          "claim": "일간은 계예요. 물 기운을 가지고 있고, 물처럼 아래로 흘러 모이는 지혜의 기운이 느껴져요. 이슬비처럼 조용히 스며드는 공감 능력이 있어요.",
+          "supportingFeatures": [
+            "계 일간 - 물 기운",
+            "기본 성향: 이슬비, 직관"
+          ],
+          "strength": "deferred"
+        },
+        {
+          "axis": "strength",
+          "claim": "에너지 균형은 신약이에요.",
+          "supportingFeatures": [
+            "도움 기운: 3",
+            "부담 기운: 5",
+            "강약 판단: 신약"
+          ],
+          "strength": "deferred"
+        },
+        {
+          "axis": "yongshin",
+          "claim": "사주의 균형을 맞춰주는 용신 후보는 쇠(금) 기운이에요. 출생 시각이나 판단 축에 따라 보조 기운이 달라질 수 있어 참고 기준으로 보는 것이 좋아요. 희신인 물 기운도 함께 챙기면 더 좋아요. (다만 용신 신뢰도가 낮은 편이라 다른 보조 기운도 함께 살펴보세요.)",
+          "supportingFeatures": [
+            "용신 후보: 쇠",
+            "신뢰도: 35 / 100",
+            "용신 판단 충돌: 높음",
+            "판단 축별 후보: 억부:쇠, 조후:물, 격국:쇠, 통관:흙, 병약:나무, 식상 흐름:나무",
+            "희신: 물"
+          ],
+          "weakness": "용신 신뢰도가 낮은 편이라 차트에 따라 조후·통관 같은 보조 해석도 함께 보는 것이 안전해요.",
+          "strength": "deferred"
+        },
+        {
+          "axis": "gyeokguk",
+          "claim": "월령에 편인이 자리하여 일간이 비주류 자원과 직관을 통해 성장한다.",
+          "supportingFeatures": [
+            "격국: 편인격",
+            "성(成) 조건: 칠살을 화하여 살인상생을 이룸"
+          ],
+          "weakness": "편인이 식신을 깨뜨리는 효신탈식",
+          "strength": "definite"
+        }
+      ],
+      "counterexamples": [
+        {
+          "condition": "월령(月令)이 지장간 중 정기와 어긋나거나, 격국 안정성 낮음",
+          "revisedClaim": "용신을 쇠로 단정하기보다, 조후·통관 후보를 함께 검토하세요.",
+          "appliesWhen": "deferred"
+        },
+        {
+          "condition": "시간 미상 또는 입절 경계(±1 일) 이내 출생",
+          "revisedClaim": "시진 변경 시 격국·용신 후보가 달라질 수 있으니 두 가지 가능성을 함께 살펴보세요.",
+          "appliesWhen": "deferred"
+        }
+      ]
+    },
+    "lifeFortuneOverview": {
+      "title": "인생 운세 총평",
+      "stars": 3,
+      "summary": "물 기운을 가진 사주로, 안정적인 기본기를 갖추고 있어요. 에너지 균형은 신약이에요. 쇠 기운은 중요한 보완 후보지만, 다른 보조 기운과 함께 살펴보면 더 안전해요.",
+      "highlights": [
+        "일간은 물 기운이에요",
+        "에너지 균형은 신약 상태예요",
+        "용신 후보는 쇠 기운이에요",
+        "오행이 고르게 분포되어 있어요"
+      ],
+      "axisStrength": {
+        "yongshin": "deferred",
+        "gyeokguk": "definite",
+        "strength": "deferred"
+      },
+      "evidence": [
+        {
+          "axis": "yongshin",
+          "claim": "용신 후보는 쇠 기운이에요. 신뢰도가 낮아 보조 기운도 함께 살펴보세요.",
+          "supportingFeatures": [
+            "용신 후보: 쇠",
+            "희신: 물"
+          ],
+          "weakness": "용신 신뢰도가 낮은 편이라 차트에 따라 다른 보조 해석이 더 적합할 수 있어요.",
+          "strength": "deferred"
+        },
+        {
+          "axis": "gyeokguk",
+          "claim": "월령에 편인이 자리하여 일간이 비주류 자원과 직관을 통해 성장한다.",
+          "supportingFeatures": [
+            "격국: 편인격",
+            "성(成) 조건: 칠살을 화하여 살인상생을 이룸"
+          ],
+          "weakness": "편인이 식신을 깨뜨리는 효신탈식",
+          "strength": "definite"
+        }
+      ]
+    },
+    "personality": {
+      "title": "나의 성향",
+      "traits": [
+        {
+          "trait": "이슬비",
+          "description": "이슬비처럼 조용히 스며드는 공감 능력이 있어요.",
+          "source": "일간 계의 기본 성향"
+        },
+        {
+          "trait": "직관",
+          "description": "감정과 분위기를 빠르게 읽는 직관이 좋아요.",
+          "source": "일간 계의 기본 성향"
+        },
+        {
+          "trait": "재성",
+          "description": "외부 자원을 연결해 기회를 확장하는 힘이에요.",
+          "source": "십성 분포 (재성 계열 우세)"
+        },
+        {
+          "trait": "재성의 강점",
+          "description": "사람과 정보를 넓게 연결해 흐름을 빨리 읽어요.",
+          "source": "십성 편재의 특성"
+        },
+        {
+          "trait": "편인격",
+          "description": "직관과 전문성이 강하게 응축된 탐구형 구조예요.",
+          "source": "격국 (인성 계열)"
+        },
+        {
+          "trait": "편인격의 강점",
+          "description": "깊이 있는 분석과 독창적 관점이 강점이에요.",
+          "source": "격국 분석"
+        }
+      ],
+      "summary": "계 일간의 물 기운을 바탕으로 이슬비, 직관의 성향이 두드러져요. 십성 분포에서는 재성 계열이 강해서, 이 영역의 재능을 잘 살려보면 좋아요. 격국은 편인격으로, 인성 계열의 삶의 패턴이 자연스럽게 드러나요.",
+      "axisStrength": {
+        "yongshin": "deferred",
+        "gyeokguk": "definite",
+        "strength": "deferred"
+      },
+      "evidence": [
+        {
+          "axis": "dayMaster",
+          "claim": "이슬비처럼 조용히 스며드는 공감 능력이 있어요.",
+          "supportingFeatures": [
+            "일간 계 - 물 기운 - 이슬비, 직관",
+            "고전 비유: 우로지수(雨露之水) — 비와 이슬처럼 부드러운 음수"
+          ],
+          "strength": "deferred"
+        },
+        {
+          "axis": "tenGod",
+          "claim": "신왕재왕에서 편재가 활용되면 큰 부를 이룬다.",
+          "supportingFeatures": [
+            "우세 십성 계열: 재성 (대표 편재)",
+            "고전 키워드: 유동재, 횡재, 풍류"
+          ],
+          "weakness": "신약하면 편재에 끌려가 사기·낭비로 손실이 잦다."
+        },
+        {
+          "axis": "gyeokguk",
+          "claim": "월령에 편인이 자리하여 일간이 비주류 자원과 직관을 통해 성장한다.",
+          "supportingFeatures": [
+            "격국: 편인격",
+            "성(成) 조건: 칠살을 화하여 살인상생을 이룸"
+          ],
+          "weakness": "편인이 식신을 깨뜨리는 효신탈식",
+          "strength": "definite"
+        }
+      ]
+    },
+    "strengthsWeaknesses": {
+      "title": "나의 장/단점",
+      "strengths": [
+        {
+          "text": "관계 회복과 감정 케어에서 큰 힘을 발휘해요.",
+          "reason": "일간 계의 특성"
+        },
+        {
+          "text": "섬세한 관찰로 문제의 숨은 원인을 잘 찾아요.",
+          "reason": "일간 계의 특성"
+        },
+        {
+          "text": "사람과 정보를 넓게 연결해 흐름을 빨리 읽어요.",
+          "reason": "재성 계열(편재)이 강한 사주"
+        },
+        {
+          "text": "기회 포착과 협상 감각이 좋아 실전 대응이 빨라요.",
+          "reason": "재성 계열(편재)이 강한 사주"
+        },
+        {
+          "text": "쇠 기운을 가까이하면 에너지가 충전되고 안정감이 높아져요.",
+          "reason": "용신이 금인 사주"
+        }
+      ],
+      "weaknesses": [
+        {
+          "text": "상대 감정을 과하게 받아들여 지칠 수 있어요.",
+          "reason": "일간 계의 특성"
+        },
+        {
+          "text": "결정을 오래 고민하면 기회를 놓칠 수 있어요.",
+          "reason": "일간 계의 특성"
+        },
+        {
+          "text": "의견이 맞부딪히면 고집으로 보일 수 있어요.",
+          "reason": "비겁 계열(비견)이 부족한 사주"
+        },
+        {
+          "text": "흙 기운이 과하면 에너지 균형이 무너져 컨디션이 떨어질 수 있어요.",
+          "reason": "기신이 토인 사주"
+        },
+        {
+          "text": "불 기운이 강해지면 주의가 필요해요. 이 기운을 피하기보다 균형을 찾는 것이 중요해요.",
+          "reason": "구신이 화인 사주"
+        }
+      ],
+      "axisStrength": {
+        "yongshin": "deferred",
+        "gyeokguk": "definite",
+        "strength": "deferred"
+      },
+      "evidence": [
+        {
+          "axis": "dayMaster",
+          "claim": "관계 회복과 감정 케어에서 큰 힘을 발휘해요.",
+          "supportingFeatures": [
+            "일간 계 - 물 기운",
+            "고전 비유: 우로지수(雨露之水) — 비와 이슬처럼 부드러운 음수"
+          ],
+          "weakness": "상대 감정을 과하게 받아들여 지칠 수 있어요.",
+          "strength": "deferred"
+        },
+        {
+          "axis": "gyeokguk",
+          "claim": "월령에 편인이 자리하여 일간이 비주류 자원과 직관을 통해 성장한다.",
+          "supportingFeatures": [
+            "격국: 편인격",
+            "성(成) 조건: 칠살을 화하여 살인상생을 이룸"
+          ],
+          "weakness": "편인이 식신을 깨뜨리는 효신탈식",
+          "strength": "definite"
+        }
+      ]
+    },
+    "cautions": {
+      "title": "유의점",
+      "cautions": [
+        {
+          "signal": "의견 충돌이나 마찰이 커질 수 있어요.",
+          "response": "의견 충돌 시 한 박자 쉬고 말하세요.",
+          "reason": "갈등과 마찰이 생기기 쉬운 강한 기운의 흐름이에요."
+        },
+        {
+          "signal": "관계 피로가 쌓이거나 작은 오해가 커질 수 있어요.",
+          "response": "불편한 신호를 초기에 말로 정리하세요.",
+          "reason": "관계 손상과 피로 누적에 주의가 필요한 흐름이에요."
+        },
+        {
+          "signal": "급한 이동이나 급한 결정에서 실수가 나기 쉬워요.",
+          "response": "서두를수록 속도를 20% 낮추세요.",
+          "reason": "사고성 변수와 날카로운 충돌에 주의가 필요한 흐름이에요."
+        },
+        {
+          "signal": "오-오 사이에 갈등과 마찰의 신호가 있어요.",
+          "response": "의견 충돌이 생기면 한 박자 쉬고 말하고, 역할과 경계를 미리 합의해 두면 마찰이 줄어요.",
+          "reason": "원국 지지 사이에 형 관계가 있어서, 대인관계에서 직설적인 표현을 조심하면 좋아요."
+        },
+        {
+          "signal": "신, 유와 관련된 흐름에서 목표가 흐릿하게 느껴질 수 있어요.",
+          "response": "큰 목표를 잘게 쪼개서 즉시 행동하고, 기대치보다 루틴 유지에 집중하세요.",
+          "reason": "일부 흐름은 결과가 늦게 나타날 수 있어 작은 실행 단위를 유지하는 것이 좋아요."
+        }
+      ],
+      "axisStrength": {
+        "yongshin": "deferred",
+        "gyeokguk": "definite",
+        "strength": "deferred"
+      },
+      "counterexamples": [
+        {
+          "condition": "용신 신뢰도가 낮은 차트 (학파 간 추천이 갈리는 경우)",
+          "revisedClaim": "경고를 한 가지 학파의 시각으로만 받아들이기보다, 조후·통관 등 다른 보조 기준으로 한 번 더 살펴보세요.",
+          "appliesWhen": "deferred"
+        },
+        {
+          "condition": "공망이 있는 위치(年/月/日/時 중 하나)와 관련된 경고",
+          "revisedClaim": "공망 위치의 경고는 발현 시점이 늦어지거나 약해지는 경향이 있어요. 운에서 그 위치가 충돌(冲) 받는 해에 비로소 강해질 수 있어요."
+        }
+      ]
+    },
+    "dailyFortune": {
+      "title": "오늘의 운세",
+      "periodKind": "daily",
+      "periodLabel": "2026년 5월 4일",
+      "stars": 1,
+      "summary": "오늘은 흙과 나무 기운이 부담으로 작용하기 쉬워요. 무리한 도전보다 체력 관리와 기본 루틴을 우선하세요.",
+      "goodActions": [
+        {
+          "text": "쇠 기운을 보강하는 수영, 자전거 같은 활동을 추천해요.",
+          "reason": "용신인 쇠 기운을 채우면 오늘 하루의 결이 잡혀요."
+        },
+        {
+          "text": "흰색 계열 옷이나 소품을 활용하고, 서쪽 방향을 의식하면 도움이 돼요.",
+          "reason": "쇠 기운의 색과 방위를 활용하면 자연스럽게 좋은 기운을 끌어올 수 있어요."
+        },
+        {
+          "text": "무, 배, 양파 같은 음식을 챙기면 기운 보충에 좋아요.",
+          "reason": "쇠 기운과 어울리는 음식은 생활 리듬을 차분히 챙기는 데 도움이 돼요."
+        }
+      ],
+      "badActions": [
+        {
+          "text": "흙 기운이 강한 활동이나 환경은 피하는 것이 좋아요.",
+          "reason": "기신인 흙 기운이 강해지면 전체 운세 흐름에 방해가 될 수 있어요."
+        },
+        {
+          "text": "오늘은 큰 계약이나 중요한 결정을 한 번 더 검토하고 진행하는 것이 좋아요.",
+          "reason": "기운이 약한 시기에는 속도를 늦추면 후회할 가능성을 줄일 수 있어요."
+        }
+      ],
+      "warning": {
+        "signal": "원국 지지와 원진 관계가 생겨 갈등이나 변동에 주의해야 해요.",
+        "response": "중요한 대화나 결정은 한 박자 쉬고 진행하고, 감정적인 반응을 줄여보세요.",
+        "reason": "이 시기의 지지가 원국과 원진 관계를 만들어 긴장이 높아질 수 있어요."
+      },
+      "categoryScores": {
+        "wealth": 2,
+        "health": 3,
+        "academic": 3,
+        "romance": 3,
+        "family": 2
+      },
+      "timeSeries": {
+        "points": [
+          {
+            "label": "심야",
+            "value": 71
+          },
+          {
+            "label": "새벽",
+            "value": 60
+          },
+          {
+            "label": "오전",
+            "value": 37
+          },
+          {
+            "label": "오후",
+            "value": 23
+          },
+          {
+            "label": "저녁",
+            "value": 100
+          },
+          {
+            "label": "밤",
+            "value": 71
+          }
+        ]
+      },
+      "axisStrength": {
+        "yongshin": "deferred",
+        "gyeokguk": "definite",
+        "strength": "deferred"
+      },
+      "evidence": [
+        {
+          "axis": "period",
+          "claim": "이 시기의 천간 흙이 기신과 겹쳐 주의가 필요한 시기예요.",
+          "supportingFeatures": [
+            "기간 라벨: 2026년 5월 4일",
+            "간지: 무인(戊寅), 천간/지지 오행: 흙/나무",
+            "별점: 1/5",
+            "용신: 쇠",
+            "기신: 흙"
+          ],
+          "weakness": "별점이 낮은 시기엔 큰 결정을 늦추고 기본 컨디션 관리에 집중하세요.",
+          "strength": "deferred"
+        }
+      ]
+    },
+    "weeklyFortune": {
+      "title": "이번 주 운세",
+      "periodKind": "weekly",
+      "periodLabel": "5/4 ~ 5/10",
+      "stars": 3,
+      "summary": "이번 주는 흙과 나무 기운이 보통 수준이에요. 무리하지 않고 꾸준히 해나가면 좋아요.",
+      "goodActions": [
+        {
+          "text": "이번 주는 수영, 자전거 같은 활동으로 쇠 기운을 충전하세요.",
+          "reason": "용신인 쇠 기운을 채우면 한 주의 흐름이 좋아져요."
+        },
+        {
+          "text": "흰색 계열 소품이나 인테리어를 활용하면 주간 기운을 높일 수 있어요.",
+          "reason": "생활 공간에 용신의 색을 두면 지속적으로 좋은 기운을 받을 수 있어요."
+        },
+        {
+          "text": "이번 주 식단에 무, 배, 양파 같은 음식을 포함시켜 보세요.",
+          "reason": "쇠 기운에 맞는 음식은 한 주의 에너지를 안정시켜 줘요."
+        }
+      ],
+      "badActions": [
+        {
+          "text": "흙 기운이 강한 활동이나 환경은 피하는 것이 좋아요.",
+          "reason": "기신인 흙 기운이 강해지면 전체 운세 흐름에 방해가 될 수 있어요."
+        },
+        {
+          "text": "과로나 야식은 피하고 충분한 수면을 취하세요.",
+          "reason": "기본 컨디션을 지키는 것이 어떤 시기에나 가장 중요해요."
+        }
+      ],
+      "warning": {
+        "signal": "원국 지지와 원진 관계가 생겨 갈등이나 변동에 주의해야 해요.",
+        "response": "중요한 대화나 결정은 한 박자 쉬고 진행하고, 감정적인 반응을 줄여보세요.",
+        "reason": "이 시기의 지지가 원국과 원진 관계를 만들어 긴장이 높아질 수 있어요."
+      },
+      "categoryScores": {
+        "wealth": 3,
+        "health": 4,
+        "academic": 4,
+        "romance": 3,
+        "family": 4
+      },
+      "timeSeries": {
+        "points": [
+          {
+            "label": "월",
+            "value": 32
+          },
+          {
+            "label": "화",
+            "value": 32
+          },
+          {
+            "label": "수",
+            "value": 76
+          },
+          {
+            "label": "목",
+            "value": 82
+          },
+          {
+            "label": "금",
+            "value": 68
+          },
+          {
+            "label": "토",
+            "value": 62
+          },
+          {
+            "label": "일",
+            "value": 72
+          }
+        ]
+      },
+      "axisStrength": {
+        "yongshin": "deferred",
+        "gyeokguk": "definite",
+        "strength": "deferred"
+      },
+      "evidence": [
+        {
+          "axis": "period",
+          "claim": "이 시기의 천간 흙이 기신과 겹쳐 주의가 필요한 시기예요.",
+          "supportingFeatures": [
+            "기간 라벨: 5/4 ~ 5/10",
+            "간지: 무인(戊寅), 천간/지지 오행: 흙/나무",
+            "별점: 3/5",
+            "용신: 쇠",
+            "기신: 흙"
+          ],
+          "strength": "deferred"
+        }
+      ]
+    },
+    "monthlyFortune": {
+      "title": "이번 달 운세",
+      "periodKind": "monthly",
+      "periodLabel": "2026년 5월",
+      "stars": 4,
+      "summary": "이번 달은 물과 흙 기운이 도움을 주는 흐름이에요. 계획한 일을 실행에 옮기기 좋은 시기예요.",
+      "goodActions": [
+        {
+          "text": "이번 달은 새로운 습관이나 루틴을 시작하기 좋은 시기예요.",
+          "reason": "월간 기운이 안정적이라 꾸준히 이어갈 수 있는 동력이 있어요."
+        },
+        {
+          "text": "생활 공간에 흰색 계열 소품을 배치하고, 서쪽 방향의 활동을 의식해 보세요.",
+          "reason": "한 달간 꾸준히 용신 기운에 노출되면 자연스럽게 좋은 흐름이 만들어져요."
+        },
+        {
+          "text": "무, 배, 양파 같은 음식을 식단에 자주 포함시키세요.",
+          "reason": "한 달 동안 꾸준히 챙기면 쇠 기운 보충 효과가 커져요."
+        }
+      ],
+      "badActions": [
+        {
+          "text": "흙 기운이 강한 활동이나 환경은 피하는 것이 좋아요.",
+          "reason": "기신인 흙 기운이 강해지면 전체 운세 흐름에 방해가 될 수 있어요."
+        },
+        {
+          "text": "과로나 야식은 피하고 충분한 수면을 취하세요.",
+          "reason": "기본 컨디션을 지키는 것이 어떤 시기에나 가장 중요해요."
+        }
+      ],
+      "warning": {
+        "signal": "특별히 큰 주의 신호는 없지만 기본 컨디션 관리를 소홀히 하지 마세요.",
+        "response": "규칙적인 식사와 수면 리듬을 유지하고, 과로를 피하세요.",
+        "reason": "좋은 운세 흐름에서도 기본 건강을 지키는 것이 핵심이에요."
+      },
+      "categoryScores": {
+        "wealth": 3,
+        "health": 3,
+        "academic": 4,
+        "romance": 3,
+        "family": 4
+      },
+      "timeSeries": {
+        "points": [
+          {
+            "label": "1주",
+            "value": 53
+          },
+          {
+            "label": "2주",
+            "value": 57
+          },
+          {
+            "label": "3주",
+            "value": 61
+          },
+          {
+            "label": "4주",
+            "value": 59
+          }
+        ]
+      },
+      "axisStrength": {
+        "yongshin": "deferred",
+        "gyeokguk": "definite",
+        "strength": "deferred"
+      },
+      "evidence": [
+        {
+          "axis": "period",
+          "claim": "이 시기 천간 물, 지지 흙의 흐름을 반영한 평가예요.",
+          "supportingFeatures": [
+            "기간 라벨: 2026년 5월",
+            "간지: 임진(壬辰), 천간/지지 오행: 물/흙",
+            "별점: 4/5",
+            "용신: 쇠",
+            "기신: 흙"
+          ],
+          "strength": "deferred"
+        }
+      ]
+    },
+    "yearlyFortune": {
+      "title": "올해의 운세",
+      "periodKind": "yearly",
+      "periodLabel": "2026년",
+      "stars": 2,
+      "summary": "올해는 불 기운에 다소 주의가 필요해요. 중요한 결정은 한 번 더 검토하고 안정적인 선택을 우선하세요.",
+      "goodActions": [
+        {
+          "text": "올해의 핵심은 쇠 기운 보강이에요. 수영, 자전거 같은 활동을 꾸준히 해보세요.",
+          "reason": "연간 기운의 균형을 잡으려면 용신 기운을 꾸준히 채우는 것이 중요해요."
+        },
+        {
+          "text": "흰색 계열을 올해의 테마 컬러로 삼고, 중요한 일은 서쪽 방향을 의식하세요.",
+          "reason": "연간 전략으로 용신의 색과 방위를 활용하면 장기적인 좋은 기운을 끌어올 수 있어요."
+        },
+        {
+          "text": "올 한 해 무, 배, 양파 같은 음식을 자주 챙기면 기운 보충에 좋아요.",
+          "reason": "쇠 기운에 맞는 식습관이 연간 생활 리듬과 컨디션 관리의 기반이 돼요."
+        }
+      ],
+      "badActions": [
+        {
+          "text": "흙 기운이 강한 활동이나 환경은 피하는 것이 좋아요.",
+          "reason": "기신인 흙 기운이 강해지면 전체 운세 흐름에 방해가 될 수 있어요."
+        },
+        {
+          "text": "올해는 큰 계약이나 중요한 결정을 한 번 더 검토하고 진행하는 것이 좋아요.",
+          "reason": "기운이 약한 시기에는 속도를 늦추면 후회할 가능성을 줄일 수 있어요."
+        }
+      ],
+      "warning": {
+        "signal": "원국 지지와 형 관계가 생겨 갈등이나 변동에 주의해야 해요.",
+        "response": "중요한 대화나 결정은 한 박자 쉬고 진행하고, 감정적인 반응을 줄여보세요.",
+        "reason": "이 시기의 지지가 원국과 형 관계를 만들어 긴장이 높아질 수 있어요."
+      },
+      "categoryScores": {
+        "wealth": 4,
+        "health": 2,
+        "academic": 2,
+        "romance": 4,
+        "family": 2
+      },
+      "timeSeries": {
+        "points": [
+          {
+            "label": "1월",
+            "value": 20
+          },
+          {
+            "label": "2월",
+            "value": 88
+          },
+          {
+            "label": "3월",
+            "value": 88
+          },
+          {
+            "label": "4월",
+            "value": 62
+          },
+          {
+            "label": "5월",
+            "value": 68
+          },
+          {
+            "label": "6월",
+            "value": 54
+          },
+          {
+            "label": "7월",
+            "value": 48
+          },
+          {
+            "label": "8월",
+            "value": 58
+          },
+          {
+            "label": "9월",
+            "value": 58
+          },
+          {
+            "label": "10월",
+            "value": 20
+          },
+          {
+            "label": "11월",
+            "value": 38
+          },
+          {
+            "label": "12월",
+            "value": 94
+          }
+        ]
+      },
+      "axisStrength": {
+        "yongshin": "deferred",
+        "gyeokguk": "definite",
+        "strength": "deferred"
+      },
+      "evidence": [
+        {
+          "axis": "period",
+          "claim": "이 시기 천간 불, 지지 불의 흐름을 반영한 평가예요.",
+          "supportingFeatures": [
+            "기간 라벨: 2026년",
+            "간지: 병오(丙午), 천간/지지 오행: 불/불",
+            "별점: 2/5",
+            "용신: 쇠",
+            "기신: 흙"
+          ],
+          "weakness": "별점이 낮은 시기엔 큰 결정을 늦추고 기본 컨디션 관리에 집중하세요.",
+          "strength": "deferred"
+        }
+      ]
+    },
+    "categoryFortunes": {
+      "wealth": {
+        "title": "재물/커리어운",
+        "category": "wealth",
+        "stars": 2,
+        "summary": "올해 재물/커리어운은 다소 주의가 필요해요. 무리한 확장보다 안정적인 관리에 집중하세요.",
+        "advice": [
+          {
+            "text": "큰 지출이나 투자는 신중하게, 가능하면 전문가 상담 후 결정하세요.",
+            "reason": "재성 기운이 약한 시기에는 보수적인 재무 전략이 안전해요."
+          },
+          {
+            "text": "불필요한 지출을 줄이고 저축 비율을 조금씩 높여보세요.",
+            "reason": "재물 기운이 약할 때 아끼는 습관이 나중에 큰 도움이 돼요."
+          }
+        ],
+        "caution": {
+          "signal": "올해 재물 기운이 흙 기운과 긴장 관계에 있어요.",
+          "response": "큰 투자나 보증은 신중하게 검토하고, 지출 상한선을 미리 정해 두세요.",
+          "reason": "흙 기운이 불 기운(재성)을 방해하여 재물 손실 위험이 있어요."
+        },
+        "axisStrength": {
+          "yongshin": "deferred",
+          "gyeokguk": "definite",
+          "strength": "deferred"
+        },
+        "evidence": [
+          {
+            "axis": "category",
+            "claim": "재물/커리어운 영역은 불 기운을 중심으로 평가했어요.",
+            "supportingFeatures": [
+              "카테고리 핵심: 불",
+              "올해 천간 오행: 흙",
+              "별점: 2/5",
+              "용신: 쇠",
+              "기신: 흙"
+            ],
+            "weakness": "재물/커리어운 영역에서는 중요한 결정을 서두르지 말고 회복되는 흐름을 확인해 보세요.",
+            "strength": "deferred"
+          }
+        ],
+        "subDomains": [
+          {
+            "name": "career",
+            "title": "직장/관성",
+            "stars": 3,
+            "narrative": "직장운은 평이해요. 새로운 시도보다 안정적인 운영이 유리해요."
+          },
+          {
+            "name": "movement",
+            "title": "이동/변동",
+            "stars": 3,
+            "narrative": "이동 운은 평이해요. 큰 변화보다 점진적 조정이 안전해요."
+          }
+        ]
+      },
+      "health": {
+        "title": "건강운",
+        "category": "health",
+        "stars": 3,
+        "summary": "올해 건강운은 보통이에요. 큰 변화보다는 기본을 지키며 꾸준히 관리하면 좋아요.",
+        "advice": [
+          {
+            "text": "무리한 일정을 줄이고 수면, 식사, 운동 리듬을 먼저 챙기세요.",
+            "reason": "인성 기운이 약할 때는 몸을 몰아붙이기보다 기본 루틴을 지키는 쪽이 안정적이에요."
+          },
+          {
+            "text": "수영, 자전거 같은 활동이 건강 기운을 보강해 줘요.",
+            "reason": "인성(쇠) 기운과 어울리는 활동이 생활 리듬과 마음의 여유를 함께 챙기는 데 도움이 돼요."
+          }
+        ],
+        "caution": {
+          "signal": "건강 기운이 약해서 컨디션 관리에 주의가 필요해요.",
+          "response": "과로를 피하고 수면, 식사, 휴식 리듬을 함께 챙겨주세요.",
+          "reason": "인성 기운이 약하면 생활 리듬이 쉽게 흔들릴 수 있어요."
+        },
+        "axisStrength": {
+          "yongshin": "deferred",
+          "gyeokguk": "definite",
+          "strength": "deferred"
+        },
+        "evidence": [
+          {
+            "axis": "category",
+            "claim": "건강운 영역의 핵심 오행 쇠가 용신과 일치하여 받침이 좋은 영역이에요.",
+            "supportingFeatures": [
+              "카테고리 핵심: 쇠",
+              "올해 천간 오행: 흙",
+              "별점: 3/5",
+              "용신: 쇠",
+              "기신: 흙"
+            ],
+            "strength": "deferred"
+          }
+        ],
+        "subDomains": [
+          {
+            "name": "health_stress",
+            "title": "건강/스트레스",
+            "stars": 3,
+            "narrative": "스트레스 영역은 무리 없는 수준이에요. 충분한 수면을 확보하세요."
+          },
+          {
+            "name": "movement",
+            "title": "이동/변동",
+            "stars": 3,
+            "narrative": "이동 운은 평이해요. 큰 변화보다 점진적 조정이 안전해요."
+          }
+        ]
+      },
+      "academic": {
+        "title": "학업운",
+        "category": "academic",
+        "stars": 2,
+        "summary": "올해 학업운은 다소 주의가 필요해요. 무리한 확장보다 안정적인 관리에 집중하세요.",
+        "advice": [
+          {
+            "text": "기본기 복습에 집중하고, 난이도 높은 과제는 단계적으로 접근하세요.",
+            "reason": "학업 기운이 약할 때는 욕심보다 기초 다지기가 더 효율적이에요."
+          },
+          {
+            "text": "혼자 끙끙대기보다 스터디 그룹이나 멘토의 도움을 받으면 효과가 커요.",
+            "reason": "쇠 기운(인성)이 약할 때 외부 도움이 학습 속도를 높여줘요."
+          }
+        ],
+        "caution": {
+          "signal": "학업 집중력이 흔들리기 쉬운 시기예요.",
+          "response": "공부 시간을 짧게 나누고, 어려운 부분은 질문하거나 멘토의 도움을 받으세요.",
+          "reason": "식상과 인성 기운이 약하면 이해와 표현 모두 효율이 떨어질 수 있어요."
+        },
+        "axisStrength": {
+          "yongshin": "deferred",
+          "gyeokguk": "definite",
+          "strength": "deferred"
+        },
+        "evidence": [
+          {
+            "axis": "category",
+            "claim": "학업운 영역은 나무 기운을 중심으로 평가했어요.",
+            "supportingFeatures": [
+              "카테고리 핵심: 나무",
+              "올해 천간 오행: 흙",
+              "별점: 2/5",
+              "용신: 쇠",
+              "기신: 흙"
+            ],
+            "weakness": "학업운 영역에서는 중요한 결정을 서두르지 말고 회복되는 흐름을 확인해 보세요.",
+            "strength": "deferred"
+          }
+        ],
+        "subDomains": [
+          {
+            "name": "study_document",
+            "title": "학업/문서",
+            "stars": 3,
+            "narrative": "문서 운은 평이해요. 기한 관리와 검토 절차를 한 번 더 확인하세요."
+          },
+          {
+            "name": "career",
+            "title": "직장/관성",
+            "stars": 3,
+            "narrative": "직장운은 평이해요. 새로운 시도보다 안정적인 운영이 유리해요."
+          }
+        ]
+      },
+      "romance": {
+        "title": "연애/결혼운",
+        "category": "romance",
+        "stars": 3,
+        "summary": "올해 연애/결혼운은 보통이에요. 큰 변화보다는 기본을 지키며 꾸준히 관리하면 좋아요.",
+        "advice": [
+          {
+            "text": "지금은 새 관계를 서두르기보다 기존 관계를 깊게 가꾸는 데 집중하세요.",
+            "reason": "연애 기운이 약한 시기에 무리하면 오히려 관계가 꼬이기 쉬워요."
+          },
+          {
+            "text": "상대방의 말을 먼저 경청하고, 감정적 반응을 한 박자 늦추는 연습을 해보세요.",
+            "reason": "관성 기운이 약할 때 소통 방식을 보완하면 관계 안정성이 높아져요."
+          }
+        ],
+        "caution": {
+          "signal": "관계에서 오해나 감정 소모가 생기기 쉬운 시기예요.",
+          "response": "새 관계를 서두르지 말고, 기존 관계에서 소통 방식을 점검해 보세요.",
+          "reason": "재성/관성 기운이 약하면 인연의 타이밍이 맞지 않을 수 있어요."
+        },
+        "axisStrength": {
+          "yongshin": "deferred",
+          "gyeokguk": "definite",
+          "strength": "deferred"
+        },
+        "evidence": [
+          {
+            "axis": "category",
+            "claim": "연애/결혼운 영역은 불 기운을 중심으로 평가했어요.",
+            "supportingFeatures": [
+              "카테고리 핵심: 불",
+              "올해 천간 오행: 흙",
+              "별점: 3/5",
+              "용신: 쇠",
+              "기신: 흙"
+            ],
+            "strength": "deferred"
+          }
+        ],
+        "subDomains": [
+          {
+            "name": "expression_children",
+            "title": "표현/자녀",
+            "stars": 1,
+            "narrative": "표현·전달 영역은 단어 선택을 신중히 하고 중요한 결정은 한 번 더 검토하세요."
+          }
+        ]
+      },
+      "family": {
+        "title": "가족운",
+        "category": "family",
+        "stars": 2,
+        "summary": "올해 가족운은 다소 주의가 필요해요. 무리한 확장보다 안정적인 관리에 집중하세요.",
+        "advice": [
+          {
+            "text": "가족과 의견 차이가 생길 수 있어요. 충고보다 공감을 먼저 전하세요.",
+            "reason": "비겁 기운이 약하면 가까운 사이에서 마찰이 생기기 쉬워요."
+          },
+          {
+            "text": "두려움, 우유부단이 올라올 때 바로 말하기보다 잠시 호흡을 고르세요.",
+            "reason": "감정이 격해질 때 한 박자 쉬면 불필요한 충돌을 막을 수 있어요."
+          }
+        ],
+        "caution": {
+          "signal": "가족 사이에 작은 마찰이 생기기 쉬운 시기예요.",
+          "response": "충고보다 경청을 우선하고, 감정이 올라오면 잠시 자리를 비우세요.",
+          "reason": "비겁과 인성 기운이 약하면 가까운 사이에서 오히려 갈등이 커질 수 있어요."
+        },
+        "axisStrength": {
+          "yongshin": "deferred",
+          "gyeokguk": "definite",
+          "strength": "deferred"
+        },
+        "evidence": [
+          {
+            "axis": "category",
+            "claim": "가족운 영역의 핵심 오행 쇠가 용신과 일치하여 받침이 좋은 영역이에요.",
+            "supportingFeatures": [
+              "카테고리 핵심: 쇠",
+              "올해 천간 오행: 흙",
+              "별점: 2/5",
+              "용신: 쇠",
+              "기신: 흙"
+            ],
+            "weakness": "가족운 영역에서는 중요한 결정을 서두르지 말고 회복되는 흐름을 확인해 보세요.",
+            "strength": "deferred"
+          }
+        ],
+        "subDomains": [
+          {
+            "name": "expression_children",
+            "title": "표현/자녀",
+            "stars": 1,
+            "narrative": "표현·전달 영역은 단어 선택을 신중히 하고 중요한 결정은 한 번 더 검토하세요."
+          }
+        ]
+      }
+    },
+    "nameCompatibility": {
+      "title": "이름 적합도 평가",
+      "overallStars": 3,
+      "overallScore": 64.8,
+      "sajuCompatibilityScore": 60.28325180009926,
+      "nameAnalysisScore": 66.5,
+      "safetyProfile": {
+        "posture": "balanced",
+        "strategy": "legacy_direct_reinforcement",
+        "riskScore": 26,
+        "conflictLevel": "high",
+        "competingElements": [
+          "WATER",
+          "EARTH",
+          "WOOD"
+        ],
+        "yongshinRatio": 0.3333333333333333,
+        "heesinRatio": 0.3333333333333333,
+        "gishinRatio": 0,
+        "gusinRatio": 0.3333333333333333,
+        "reasons": [
+          "주의 신호: 26/100",
+          "적용 방식: 기존 직접 보강 방식",
+          "용신 보강 비율: 33%",
+          "희신 보조 비율: 33%",
+          "기신 겹침 비율: 0%",
+          "구신 겹침 비율: 33%",
+          "용신 판단 충돌: 높음",
+          "충돌 후보 오행: 물, 흙, 나무"
+        ]
+      },
+      "tenGodPositionEvidence": {
+        "requestedMode": "positional_weighted",
+        "effectiveMode": "simple_count",
+        "score": 53,
+        "normalization": "deviation_from_average_count",
+        "topContributions": [],
+        "groupCounts": {
+          "friend": 1,
+          "output": 1,
+          "wealth": 2,
+          "authority": 2,
+          "resource": 2
+        },
+        "deviations": {
+          "friend": 0.375,
+          "output": 0.375,
+          "wealth": -0.25,
+          "authority": -0.25,
+          "resource": -0.25
+        },
+        "elementWeights": {
+          "Wood": 0.375,
+          "Fire": -0.0875,
+          "Earth": -0.0875,
+          "Metal": -0.0875,
+          "Water": 0.375
+        },
+        "fallbackReason": "byPosition_unavailable"
+      },
+      "summary": "이름 적합도는 별 3개 수준이에요. 무난한 수준의 궁합이에요. 종합 65점, 사주 궁합 60점, 이름 분석 67점을 기록했어요.",
+      "details": [
+        "종합 점수는 65점으로, 이름과 사주가 무난하게 맞아요.",
+        "사주 궁합 점수는 60점이에요. 이름이 사주의 흐름을 안정적으로 받쳐주고 있어요.",
+        "이름 분석 점수는 67점이에요. 이름 자체의 균형이 좋은 편이에요.",
+        "이름에 용신 오행과 일치하는 글자가 1개 있어서 사주 보완에 도움이 돼요.",
+        "사주와 이름의 보강 성향은 균형형이에요. 적용 방식은 기존 직접 보강 방식이고, 주의 신호는 26/100이에요."
+      ],
+      "evidence": [
+        {
+          "axis": "overallScore",
+          "claim": "종합 65점 — 별 3개 평가의 직접적 근거예요.",
+          "supportingFeatures": [
+            "종합 점수: 65 / 100",
+            "사주 궁합 점수: 60 / 100",
+            "이름 분석 점수: 67 / 100"
+          ]
+        },
+        {
+          "axis": "yongshinAlignment",
+          "claim": "이름이 용신(쇠) 오행을 1개 보강하고 있어요.",
+          "supportingFeatures": [
+            "용신: 쇠",
+            "용신 일치 글자 수: 1",
+            "기신 겹침 글자 수: 0"
+          ]
+        },
+        {
+          "axis": "candidateSafetyProfile",
+          "claim": "사주와 이름의 보강 성향은 균형형이며, 기존 직접 보강 방식을 적용했어요.",
+          "supportingFeatures": [
+            "보강 성향: 균형형",
+            "적용 방식: 기존 직접 보강 방식",
+            "주의 신호: 26/100",
+            "용신 판단 충돌: 높음",
+            "충돌 후보 오행: 물, 흙, 나무",
+            "용신 보강 비율: 33%",
+            "희신 보조 비율: 33%",
+            "기신 겹침 비율: 0%",
+            "구신 겹침 비율: 33%"
+          ]
+        }
+      ]
+    },
+    "lifeStageFortune": {
+      "title": "생애 시기별 운세",
+      "stages": [
+        {
+          "ageRange": "2세 ~ 12세",
+          "startAge": 2,
+          "endAge": 12,
+          "pillarDisplay": "갑신",
+          "stars": 4,
+          "summary": "2세~12세 시기는 나무와 쇠 기운이 도움을 줘서 성장과 발전이 기대되는 좋은 시기예요.",
+          "highlights": [
+            "나무처럼 위로 뻗어 자라는 성장의 기운이 이 시기의 핵심 흐름이에요.",
+            "이 시기에는 새로운 시작이나 도전이 잘 풀릴 가능성이 높아요.",
+            "등산, 숲 산책 같은 활동이 이 시기의 기운과 잘 맞아요."
+          ]
+        },
+        {
+          "ageRange": "12세 ~ 22세",
+          "startAge": 12,
+          "endAge": 22,
+          "pillarDisplay": "계미",
+          "stars": 3,
+          "summary": "12세~22세 시기는 물과 흙 기운이 보통 수준이에요. 꾸준히 기반을 다지면 좋아요.",
+          "highlights": [
+            "물처럼 아래로 흘러 모이는 지혜의 기운이 이 시기의 핵심 흐름이에요.",
+            "낚시, 수영 같은 활동이 이 시기의 기운과 잘 맞아요."
+          ]
+        },
+        {
+          "ageRange": "22세 ~ 32세",
+          "startAge": 22,
+          "endAge": 32,
+          "pillarDisplay": "임오",
+          "stars": 4,
+          "summary": "22세~32세 시기는 물과 불 기운이 도움을 줘서 성장과 발전이 기대되는 좋은 시기예요.",
+          "highlights": [
+            "물처럼 아래로 흘러 모이는 지혜의 기운이 이 시기의 핵심 흐름이에요.",
+            "이 시기에는 새로운 시작이나 도전이 잘 풀릴 가능성이 높아요.",
+            "낚시, 수영 같은 활동이 이 시기의 기운과 잘 맞아요."
+          ]
+        },
+        {
+          "ageRange": "32세 ~ 42세",
+          "startAge": 32,
+          "endAge": 42,
+          "pillarDisplay": "신사",
+          "stars": 5,
+          "summary": "32세~42세 시기는 쇠와 불 기운이 최고로 좋아요. 적극적으로 도전하고 확장하기 좋은 전성기예요.",
+          "highlights": [
+            "쇠처럼 단단하고 날카로운 결단의 기운이 이 시기의 핵심 흐름이에요.",
+            "이 시기에는 새로운 시작이나 도전이 잘 풀릴 가능성이 높아요.",
+            "수영, 자전거 같은 활동이 이 시기의 기운과 잘 맞아요."
+          ]
+        },
+        {
+          "ageRange": "42세 ~ 52세",
+          "startAge": 42,
+          "endAge": 52,
+          "pillarDisplay": "경진",
+          "stars": 4,
+          "summary": "42세~52세 시기는 쇠와 흙 기운이 도움을 줘서 성장과 발전이 기대되는 좋은 시기예요.",
+          "highlights": [
+            "쇠처럼 단단하고 날카로운 결단의 기운이 이 시기의 핵심 흐름이에요.",
+            "이 시기에는 새로운 시작이나 도전이 잘 풀릴 가능성이 높아요.",
+            "수영, 자전거 같은 활동이 이 시기의 기운과 잘 맞아요."
+          ]
+        },
+        {
+          "ageRange": "52세 ~ 62세",
+          "startAge": 52,
+          "endAge": 62,
+          "pillarDisplay": "기묘",
+          "stars": 1,
+          "summary": "52세~62세 시기는 흙과 나무 기운이 도전적이에요. 무리한 확장보다 내실을 다지는 데 집중하세요.",
+          "highlights": [
+            "땅처럼 모든 것을 품어주는 안정의 기운이 이 시기의 핵심 흐름이에요.",
+            "이 시기에는 안정과 내실 다지기에 집중하는 것이 좋아요.",
+            "수영, 자전거 같은 쇠 기운 활동을 가까이하면 이 시기를 잘 보낼 수 있어요."
+          ]
+        },
+        {
+          "ageRange": "62세 ~ 72세",
+          "startAge": 62,
+          "endAge": 72,
+          "pillarDisplay": "무인",
+          "stars": 1,
+          "summary": "62세~72세 시기는 흙과 나무 기운이 도전적이에요. 무리한 확장보다 내실을 다지는 데 집중하세요.",
+          "highlights": [
+            "땅처럼 모든 것을 품어주는 안정의 기운이 이 시기의 핵심 흐름이에요.",
+            "이 시기에는 안정과 내실 다지기에 집중하는 것이 좋아요.",
+            "수영, 자전거 같은 쇠 기운 활동을 가까이하면 이 시기를 잘 보낼 수 있어요."
+          ]
+        },
+        {
+          "ageRange": "72세 ~ 82세",
+          "startAge": 72,
+          "endAge": 82,
+          "pillarDisplay": "정축",
+          "stars": 1,
+          "summary": "72세~82세 시기는 불과 흙 기운이 도전적이에요. 무리한 확장보다 내실을 다지는 데 집중하세요.",
+          "highlights": [
+            "불꽃처럼 밝고 뜨거운 열정의 기운이 이 시기의 핵심 흐름이에요.",
+            "이 시기에는 안정과 내실 다지기에 집중하는 것이 좋아요.",
+            "수영, 자전거 같은 쇠 기운 활동을 가까이하면 이 시기를 잘 보낼 수 있어요."
+          ]
+        },
+        {
+          "ageRange": "82세 ~ 92세",
+          "startAge": 82,
+          "endAge": 92,
+          "pillarDisplay": "병자",
+          "stars": 2,
+          "summary": "82세~92세 시기는 불과 물 기운에 주의가 필요해요. 건강과 인간관계를 잘 챙기세요.",
+          "highlights": [
+            "불꽃처럼 밝고 뜨거운 열정의 기운이 이 시기의 핵심 흐름이에요.",
+            "이 시기에는 안정과 내실 다지기에 집중하는 것이 좋아요.",
+            "수영, 자전거 같은 쇠 기운 활동을 가까이하면 이 시기를 잘 보낼 수 있어요."
+          ]
+        },
+        {
+          "ageRange": "92세 ~ 102세",
+          "startAge": 92,
+          "endAge": 102,
+          "pillarDisplay": "을해",
+          "stars": 3,
+          "summary": "92세~102세 시기는 나무와 물 기운이 보통 수준이에요. 꾸준히 기반을 다지면 좋아요.",
+          "highlights": [
+            "나무처럼 위로 뻗어 자라는 성장의 기운이 이 시기의 핵심 흐름이에요.",
+            "등산, 숲 산책 같은 활동이 이 시기의 기운과 잘 맞아요."
+          ]
+        }
+      ],
+      "currentStageIndex": 3,
+      "axisStrength": {
+        "yongshin": "deferred",
+        "gyeokguk": "definite",
+        "strength": "deferred"
+      },
+      "evidence": [
+        {
+          "axis": "daewoon",
+          "claim": "32세~42세 시기는 쇠와 불 기운이 최고로 좋아요. 적극적으로 도전하고 확장하기 좋은 전성기예요.",
+          "supportingFeatures": [
+            "현재 시기: 32세 ~ 42세",
+            "대운 기둥: 신사",
+            "별점: 5/5",
+            "용신: 쇠"
+          ],
+          "strength": "deferred"
+        }
+      ]
+    }
+  }
+}
