@@ -182,20 +182,20 @@ function makeStageSummary(
 
   if (grade >= 5) {
     if (startAge < 19) {
-      return `${ageDesc} 시기는 ${elDesc} 기운이 크게 도와줘요. 배움과 생활 습관이 잘 자리잡기 좋은 시기예요.`;
+      return `${ageDesc}에는 ${elDesc} 기운이 크게 도와줘요. 배움과 생활 습관이 자연스럽게 자리잡는 한 해예요.`;
     }
-    return `${ageDesc} 시기는 ${elDesc} 기운이 최고로 좋아요. 적극적으로 도전하고 확장하기 좋은 전성기예요.`;
+    return `${ageDesc}에는 ${elDesc} 기운이 가장 단단하게 받쳐 줘요. 적극적으로 도전하고 확장하기에도 잘 어울려요.`;
   }
   if (grade >= 4) {
-    return `${ageDesc} 시기는 ${elDesc} 기운이 도움을 줘서 성장과 발전이 기대되는 좋은 시기예요.`;
+    return `${ageDesc}에는 ${elDesc} 기운이 든든하게 받쳐 줘서 성장과 발전이 기대돼요.`;
   }
   if (grade >= 3) {
-    return `${ageDesc} 시기는 ${elDesc} 기운이 보통 수준이에요. 꾸준히 기반을 다지면 좋아요.`;
+    return `${ageDesc}에는 ${elDesc} 기운이 보통 수준으로 흘러요. 꾸준히 기반을 다지면 좋아요.`;
   }
   if (grade >= 2) {
-    return `${ageDesc} 시기는 ${elDesc} 기운에 주의가 필요해요. 건강과 인간관계를 잘 챙기세요.`;
+    return `${ageDesc}에는 ${elDesc} 기운에 살짝 조심이 필요해요. 건강과 인간관계를 잘 챙겨 보세요.`;
   }
-  return `${ageDesc} 시기는 ${elDesc} 기운이 도전적이에요. 무리한 확장보다 내실을 다지는 데 집중하세요.`;
+  return `${ageDesc}에는 ${elDesc} 기운이 도전적으로 흘러요. 무리한 확장보다 내실을 다지는 쪽에 집중하세요.`;
 }
 
 function makeHighlights(
@@ -209,13 +209,13 @@ function makeHighlights(
   const hobbies = ELEMENT_HOBBY[stemEl] ?? [];
 
   if (nature) {
-    highlights.push(`${nature}이 이 시기의 핵심 흐름이에요.`);
+    highlights.push(`${nature}이 이 시기를 받쳐 주는 중심축이에요.`);
   }
 
   if (grade >= 4) {
-    highlights.push(`이 시기에는 새로운 시작이나 도전이 잘 풀릴 가능성이 높아요.`);
+    highlights.push(`새로운 시작이나 도전이 자연스럽게 풀려 나갈 가능성이 높아요.`);
   } else if (grade <= 2) {
-    highlights.push(`이 시기에는 안정과 내실 다지기에 집중하는 것이 좋아요.`);
+    highlights.push(`안정과 내실 다지기에 집중하는 쪽이 잘 맞아요.`);
   }
 
   // For low-grade periods, recommend yongshin activities instead of the
@@ -224,16 +224,16 @@ function makeHighlights(
     const yongshinHobbies = ELEMENT_HOBBY[yongshinEl] ?? [];
     if (yongshinHobbies.length > 0) {
       highlights.push(
-        `${yongshinHobbies.slice(0, 2).join(', ')} 같은 ${elementKo(yongshinEl)} 기운 활동을 가까이하면 이 시기를 잘 보낼 수 있어요.`,
+        `${yongshinHobbies.slice(0, 2).join(', ')} 같은 ${elementKo(yongshinEl)} 기운 활동을 가까이하면 한 해를 한결 부드럽게 지나가요.`,
       );
     }
   } else if (hobbies.length > 0) {
-    highlights.push(`${hobbies.slice(0, 2).join(', ')} 같은 활동이 이 시기의 기운과 잘 맞아요.`);
+    highlights.push(`${hobbies.slice(0, 2).join(', ')} 같은 활동이 이 흐름과 잘 어울려요.`);
   }
 
   // Ensure at least 1 highlight
   if (highlights.length === 0) {
-    highlights.push('균형 잡힌 생활 리듬을 유지하는 것이 이 시기의 핵심이에요.');
+    highlights.push('균형 잡힌 생활 리듬을 지키는 호흡이 가장 든든한 자산이 돼요.');
   }
 
   return highlights;
@@ -267,8 +267,8 @@ export function buildLifeStageFortuneCard(
         endAge: 0,
         pillarDisplay: '-',
         stars: 3,
-        summary: '대운 정보가 부족해서 세부 시기별 분석이 어려워요. 기본 사주 원국의 흐름을 참고해 주세요.',
-        highlights: ['대운 데이터가 제공되면 더 정확한 시기별 운세를 볼 수 있어요.'],
+        summary: '대운 정보가 부족해서 시기별 세부 분석을 보여 드리기 어려워요. 기본 사주 원국의 흐름을 참고해 주세요.',
+        highlights: ['대운 데이터가 추가되면 시기별 운세를 더 또렷하게 보여 드릴 수 있어요.'],
       }],
       currentStageIndex: null,
     };
@@ -349,7 +349,7 @@ export function buildLifeStageFortuneCard(
     }
     evidence.push({
       axis: 'daewoon',
-      claim: focusStage.summary || `${focusStage.ageRange} 시기는 ${focusStage.pillarDisplay} 대운에 따라 결이 잡혀요.`,
+      claim: focusStage.summary || `${focusStage.ageRange}에는 ${focusStage.pillarDisplay} 대운에 따라 흐름이 잡혀요.`,
       supportingFeatures: supporting,
       weakness: focusStage.stars <= 2
         ? '별점이 낮은 대운에서는 보수적인 결정과 회복 루틴을 우선하세요.'
