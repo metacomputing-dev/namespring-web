@@ -349,7 +349,7 @@ export function buildLifeStageFortuneCard(
     }
     evidence.push({
       axis: 'daewoon',
-      claim: focusStage.summary || `${focusStage.ageRange} 시기는 ${focusStage.pillarDisplay} 대운으로 흐름이 정해져요.`,
+      claim: focusStage.summary || `${focusStage.ageRange} 시기는 ${focusStage.pillarDisplay} 대운에 따라 결이 잡혀요.`,
       supportingFeatures: supporting,
       weakness: focusStage.stars <= 2
         ? '별점이 낮은 대운에서는 보수적인 결정과 회복 루틴을 우선하세요.'
