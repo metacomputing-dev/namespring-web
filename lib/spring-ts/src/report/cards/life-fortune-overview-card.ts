@@ -196,7 +196,7 @@ function buildSummary(saju: SajuSummary, stars: StarRating): string {
   if (hedgeYongshin) {
     parts.push(`${yongshinFriendly} 기운은 중요한 보완 후보지만, 다른 보조 기운과 함께 살펴보면 더 안전해요.`);
   } else {
-    parts.push(`${yongshinFriendly} 기운을 가까이하면 삶의 흐름이 더 좋아질 수 있어요.`);
+    parts.push(`${yongshinFriendly} 기운을 가까이하면 삶의 결이 한층 부드러워질 수 있어요.`);
   }
 
   // Deficiency note
