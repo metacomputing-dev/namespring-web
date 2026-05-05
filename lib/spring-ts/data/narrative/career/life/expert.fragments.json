@@ -255,6 +255,28 @@
       "tags": ["jeonggwan", "pyeongwan", "jeongin", "daewoonGungsil"],
       "aiGenerated": true,
       "sourceTier": { "tier": "T1_HYPOTHESIS", "sourceType": "training_derived", "sourceUrl": null, "accessedAt": "2026-05-02", "quoteShort": null, "humanInterpretation": "Phase 2 agent-6 (career) expert life: 30+ adult career flow. Display-only narrative.", "copyrightNote": "No source prose copied; original.", "authorityTruthEligible": false }
+    },
+    {
+      "schemaVersion": "spring-ts.narrative-fragment.v1",
+      "fragmentId": "career.life.expert.diversity.anchor.009",
+      "axis": { "category": "career", "period": "life", "depth": "expert" },
+      "gating": { "ageBand": ["20-29", "30-39", "40-54", "55-69", "70+"] },
+      "templateTokens": [
+        { "kind": "text", "value": "평생의 직업 결을 더 또렷이 짚으려면 십이운성과 궁실의 큰 그림이 함께 들어와요. " },
+        { "kind": "tag", "tagId": "unseong_geonrok", "label": "건록" },
+        { "kind": "text", "value": "의 단계에 들어오는 시기엔 자기 자리를 단단히 다지기 좋은 흐름이고, " },
+        { "kind": "tag", "tagId": "unseong_jewang", "label": "제왕" },
+        { "kind": "text", "value": "의 결까지 이어지면 자리의 정점에 가까워지는 흐름이에요. " },
+        { "kind": "tag", "tagId": "gwanrokgung", "label": "관록궁" },
+        { "kind": "text", "value": "에 따뜻한 결이 모이는 사주는 평생을 통해 자리·책임의 무게가 자산이 되는 흐름이고, " },
+        { "kind": "tag", "tagId": "gwanseong", "label": "관성" },
+        { "kind": "text", "value": "의 전체 분포가 또렷이 자리 잡힌 흐름이라면, 직업 결의 큰 그림이 한 결로 이어지는 흐름이에요. " },
+        { "kind": "tag", "tagId": "yangin", "label": "양인" },
+        { "kind": "text", "value": "이 옆에서 작용하는 시기엔 자리의 결이 강하게 자라지만, 큰 결정엔 한 박자 차분한 흐름이 좋아요. 자기 결을 알고 가는 일이 가장 큰 무기예요." }
+      ],
+      "tags": ["unseong_geonrok", "unseong_jewang", "gwanrokgung", "gwanseong", "yangin"],
+      "aiGenerated": true,
+      "sourceTier": { "tier": "T1_HYPOTHESIS", "sourceType": "training_derived", "sourceUrl": null, "accessedAt": "2026-05-05", "quoteShort": null, "humanInterpretation": "Phase 5 P5-A4 career tag-diversity expansion.", "copyrightNote": "No source prose copied; original.", "authorityTruthEligible": false }
     }
   ]
 }
