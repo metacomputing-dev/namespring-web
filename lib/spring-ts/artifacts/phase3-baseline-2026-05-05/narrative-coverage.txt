@@ -1,0 +1,46 @@
+
+> spring-ts@1.0.0 narrative:coverage
+> node tools/narrative_coverage_report.mjs
+
+Narrative Coverage Report
+Bundles: 345
+Fragments: 4055 total, 3890 authored, 165 placeholder
+Cells: 165/165 populated, 165/165 authored
+Missing cells: 0
+Placeholder-only cells: 0
+Underfilled cells (<5 authored): 0
+Axis value gaps: 0
+Thin axis values (<5 authored): 0
+Expert axis value gaps: 0
+Thin expert axis values (<5 authored): 0
+Expert numerical evidence fragments: 523
+Expert numerical evidence cells: 55/55
+Expert numerical evidence gaps (<1): 0
+Source tiers: fragments=T1_HYPOTHESIS:4055; numericalEvidence=T3_INTERNAL_ENGINE:897
+Authority-truth eligible: fragments=0; numericalEvidence=0
+
+Gating usage:
+- gender: 271 fragments; values=female,male,neutral
+- agePhase: 417 fragments; values=70s,80s,90_plus,child_0_9,early_20s,early_30s,early_40s,early_50s,early_60s,early_teen,late_20s,late_30s,late_40s,late_50s,late_60s,late_teen
+- ageBand: 1082 fragments; values=0-9,10-19,20-29,30-39,40-54,55-69,70+
+- birthSeason: 205 fragments; values=autumn,spring,summer,winter
+- currentSeason: 497 fragments; values=autumn,spring,summer,winter
+- dayMasterPolarity: 80 fragments; values=YANG,YIN,neutral
+- dayMasterStrength: 1270 fragments; values=BALANCED,EXTREME_STRONG,EXTREME_WEAK,STRONG,WEAK
+- yongshinAlignment: 956 fragments; values=aligned,conflicting,neutral
+- dayMasterElement: 699 fragments; values=EARTH,FIRE,METAL,WATER,WOOD
+- yongshinElement: 406 fragments; values=EARTH,FIRE,METAL,WATER,WOOD
+- gyeokguk: 436 fragments; values=jeonggwangyeok,jeongingyeok,pyeongwangyeok,pyeoningyeok,sanggwangyeok,sikshingyeok
+
+Expert gating usage:
+- gender: 60 fragments; values=female,male,neutral
+- agePhase: 192 fragments; values=70s,80s,90_plus,child_0_9,early_20s,early_30s,early_40s,early_50s,early_60s,early_teen,late_20s,late_30s,late_40s,late_50s,late_60s,late_teen
+- ageBand: 221 fragments; values=0-9,10-19,20-29,30-39,40-54,55-69,70+
+- birthSeason: 48 fragments; values=autumn,spring,summer,winter
+- currentSeason: 125 fragments; values=autumn,spring,summer,winter
+- dayMasterPolarity: 36 fragments; values=YANG,YIN,neutral
+- dayMasterStrength: 245 fragments; values=BALANCED,EXTREME_STRONG,EXTREME_WEAK,STRONG,WEAK
+- yongshinAlignment: 424 fragments; values=aligned,conflicting,neutral
+- dayMasterElement: 64 fragments; values=EARTH,FIRE,METAL,WATER,WOOD
+- yongshinElement: 60 fragments; values=EARTH,FIRE,METAL,WATER,WOOD
+- gyeokguk: 79 fragments; values=jeonggwangyeok,jeongingyeok,pyeongwangyeok,pyeoningyeok,sanggwangyeok,sikshingyeok

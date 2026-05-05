@@ -1,0 +1,125 @@
+
+> spring-ts@1.0.0 narrative:authority-gaps
+> node tools/narrative_authority_gap_report.mjs
+
+Narrative Authority Gap Report
+Fragments: 4055 total, 3890 authored
+Authority-truth eligible fragments: 0
+Authority-truth eligible numericalEvidence: 0
+Zero-authority cells: 165/165
+Expert authority evidence gap cells: 55
+Internal numericalEvidence records: 897
+Internal-evidence backed cells: 55/165
+Expert internal-evidence gaps: 0
+Source tiers: fragments=T1_HYPOTHESIS:4055; numericalEvidence=T3_INTERNAL_ENGINE:897
+
+By depth:
+- brief: zeroAuthority=55/55, internalEvidenceCells=0, authored=1647, authorityEvidence=0
+- standard: zeroAuthority=55/55, internalEvidenceCells=0, authored=1155, authorityEvidence=0
+- expert: zeroAuthority=55/55, internalEvidenceCells=55, authored=1088, authorityEvidence=0
+
+Top zero-authority cells:
+- overall/life/expert: authored=61, expertEvidence=44
+- health/today/expert: authored=32, expertEvidence=23
+- wealth/thisMonth/expert: authored=32, expertEvidence=23
+- academic/today/expert: authored=30, expertEvidence=20
+- family/thisWeek/expert: authored=30, expertEvidence=19
+- movement/thisWeek/expert: authored=30, expertEvidence=19
+- health_stress/life/expert: authored=29, expertEvidence=19
+- romance/thisYear/expert: authored=28, expertEvidence=18
+- movement/thisMonth/expert: authored=27, expertEvidence=16
+- career/thisMonth/expert: authored=22, expertEvidence=15
+- overall/today/expert: authored=22, expertEvidence=9
+- academic/thisWeek/expert: authored=20, expertEvidence=11
+- health_stress/thisWeek/expert: authored=20, expertEvidence=9
+- career/thisWeek/expert: authored=19, expertEvidence=12
+- career/thisYear/expert: authored=19, expertEvidence=12
+- career/today/expert: authored=19, expertEvidence=12
+- family/thisMonth/expert: authored=19, expertEvidence=8
+- family/today/expert: authored=19, expertEvidence=9
+- health/thisYear/expert: authored=19, expertEvidence=6
+- romance/thisMonth/expert: authored=19, expertEvidence=12
+
+Top expert authority evidence gaps:
+- overall/life: expertEvidence=44, authored=61
+- health/today: expertEvidence=23, authored=32
+- wealth/thisMonth: expertEvidence=23, authored=32
+- academic/today: expertEvidence=20, authored=30
+- family/thisWeek: expertEvidence=19, authored=30
+- movement/thisWeek: expertEvidence=19, authored=30
+- health_stress/life: expertEvidence=19, authored=29
+- romance/thisYear: expertEvidence=18, authored=28
+- movement/thisMonth: expertEvidence=16, authored=27
+- career/thisMonth: expertEvidence=15, authored=22
+- career/thisWeek: expertEvidence=12, authored=19
+- career/thisYear: expertEvidence=12, authored=19
+- career/today: expertEvidence=12, authored=19
+- romance/thisMonth: expertEvidence=12, authored=19
+- academic/thisWeek: expertEvidence=11, authored=20
+- wealth/thisYear: expertEvidence=10, authored=19
+- career/life: expertEvidence=10, authored=17
+- romance/today: expertEvidence=10, authored=17
+- overall/today: expertEvidence=9, authored=22
+- health_stress/thisWeek: expertEvidence=9, authored=20
+
+Authority work backlog:
+- P0_EXPERT_INTERNAL_EVIDENCE_REVIEW overall/life/expert: needed=authority_fragment_source,authority_numerical_evidence_review
+  example: overall.life.expert.agephase.early_40s.301 (data/narrative/_coverage/age-phase-expert-mature.fragments.json)
+  example: overall.life.expert.agephase.late_40s.301 (data/narrative/_coverage/age-phase-expert-mature.fragments.json)
+- P0_EXPERT_INTERNAL_EVIDENCE_REVIEW health/today/expert: needed=authority_fragment_source,authority_numerical_evidence_review
+  example: health.today.expert.categorical_wave3.neutral_fire_yongshin_metal_sikshingyeok.403 (data/narrative/_coverage/categorical-evidence-density-wave3.fragments.json)
+  example: health.today.expert.age.70s.501 (data/narrative/_coverage/expert-70s-age-density.fragments.json)
+- P0_EXPERT_INTERNAL_EVIDENCE_REVIEW wealth/thisMonth/expert: needed=authority_fragment_source,authority_numerical_evidence_review
+  example: wealth.thisMonth.expert.categorical_wave2.neutral_earth_yongshin_wood_sikshingyeok.402 (data/narrative/_coverage/categorical-evidence-density-wave2.fragments.json)
+  example: wealth.thisMonth.expert.age.70s.501 (data/narrative/_coverage/expert-70s-age-density.fragments.json)
+- P0_EXPERT_INTERNAL_EVIDENCE_REVIEW academic/today/expert: needed=authority_fragment_source,authority_numerical_evidence_review
+  example: academic.today.expert.ageband.child_teen.301 (data/narrative/_coverage/academic-short-term-expert-audience.fragments.json)
+  example: academic.today.expert.ageband.adult.301 (data/narrative/_coverage/academic-short-term-expert-audience.fragments.json)
+- P0_EXPERT_INTERNAL_EVIDENCE_REVIEW family/thisWeek/expert: needed=authority_fragment_source,authority_numerical_evidence_review
+  example: family.thisWeek.expert.age.70s.501 (data/narrative/_coverage/expert-70s-age-density.fragments.json)
+  example: family.thisWeek.expert.age.80s.501 (data/narrative/_coverage/expert-80s-age-density.fragments.json)
+- P0_EXPERT_INTERNAL_EVIDENCE_REVIEW movement/thisWeek/expert: needed=authority_fragment_source,authority_numerical_evidence_review
+  example: movement.thisWeek.expert.categorical_wave3.neutral_metal_yongshin_earth_pyeongwangyeok.403 (data/narrative/_coverage/categorical-evidence-density-wave3.fragments.json)
+  example: movement.thisWeek.expert.age.70s.501 (data/narrative/_coverage/expert-70s-age-density.fragments.json)
+- P0_EXPERT_INTERNAL_EVIDENCE_REVIEW health_stress/life/expert: needed=authority_fragment_source,authority_numerical_evidence_review
+  example: health_stress.life.expert.age.70s.501 (data/narrative/_coverage/expert-70s-age-density.fragments.json)
+  example: health_stress.life.expert.age.80s.501 (data/narrative/_coverage/expert-80s-age-density.fragments.json)
+- P0_EXPERT_INTERNAL_EVIDENCE_REVIEW romance/thisYear/expert: needed=authority_fragment_source,authority_numerical_evidence_review
+  example: romance.thisYear.expert.age.70s.501 (data/narrative/_coverage/expert-70s-age-density.fragments.json)
+  example: romance.thisYear.expert.age.80s.501 (data/narrative/_coverage/expert-80s-age-density.fragments.json)
+- P0_EXPERT_INTERNAL_EVIDENCE_REVIEW movement/thisMonth/expert: needed=authority_fragment_source,authority_numerical_evidence_review
+  example: movement.thisMonth.expert.age.early_50s.501 (data/narrative/_coverage/expert-early-50s-age-density.fragments.json)
+  example: movement.thisMonth.expert.yongshin.fire.age.early_50s.401 (data/narrative/_coverage/expert-fire-context-density.fragments.json)
+- P0_EXPERT_INTERNAL_EVIDENCE_REVIEW career/thisMonth/expert: needed=authority_fragment_source,authority_numerical_evidence_review
+  example: career.thisMonth.expert.alignment.supportive.401 (data/narrative/_coverage/career-expert-density-floor.fragments.json)
+  example: career.thisMonth.expert.alignment.conflicting.401 (data/narrative/_coverage/career-expert-density-floor.fragments.json)
+- P0_EXPERT_INTERNAL_EVIDENCE_REVIEW overall/today/expert: needed=authority_fragment_source,authority_numerical_evidence_review
+  example: overall.today.expert.categorical_wave3.female_metal_yongshin_water_jeongingyeok.403 (data/narrative/_coverage/categorical-evidence-density-wave3.fragments.json)
+  example: overall.today.expert.age.early_50s.501 (data/narrative/_coverage/expert-early-50s-age-density.fragments.json)
+- P0_EXPERT_INTERNAL_EVIDENCE_REVIEW academic/thisWeek/expert: needed=authority_fragment_source,authority_numerical_evidence_review
+  example: academic.thisWeek.expert.currentseason.spring_summer.301 (data/narrative/_coverage/academic-season-detail-context.fragments.json)
+  example: academic.thisWeek.expert.currentseason.autumn_winter.301 (data/narrative/_coverage/academic-season-detail-context.fragments.json)
+- P0_EXPERT_INTERNAL_EVIDENCE_REVIEW health_stress/thisWeek/expert: needed=authority_fragment_source,authority_numerical_evidence_review
+  example: health_stress.thisWeek.expert.currentseason.spring_summer.301 (data/narrative/_coverage/health-stress-short-season-context.fragments.json)
+  example: health_stress.thisWeek.expert.currentseason.autumn_winter.301 (data/narrative/_coverage/health-stress-short-season-context.fragments.json)
+- P0_EXPERT_INTERNAL_EVIDENCE_REVIEW career/thisWeek/expert: needed=authority_fragment_source,authority_numerical_evidence_review
+  example: career.thisWeek.expert.alignment.supportive.401 (data/narrative/_coverage/career-expert-density-floor.fragments.json)
+  example: career.thisWeek.expert.alignment.conflicting.401 (data/narrative/_coverage/career-expert-density-floor.fragments.json)
+- P0_EXPERT_INTERNAL_EVIDENCE_REVIEW career/thisYear/expert: needed=authority_fragment_source,authority_numerical_evidence_review
+  example: career.thisYear.expert.alignment.supportive.401 (data/narrative/_coverage/career-expert-density-floor.fragments.json)
+  example: career.thisYear.expert.alignment.conflicting.401 (data/narrative/_coverage/career-expert-density-floor.fragments.json)
+- P0_EXPERT_INTERNAL_EVIDENCE_REVIEW career/today/expert: needed=authority_fragment_source,authority_numerical_evidence_review
+  example: career.today.expert.alignment.supportive.401 (data/narrative/_coverage/career-expert-density-floor.fragments.json)
+  example: career.today.expert.alignment.conflicting.401 (data/narrative/_coverage/career-expert-density-floor.fragments.json)
+- P0_EXPERT_INTERNAL_EVIDENCE_REVIEW family/thisMonth/expert: needed=authority_fragment_source,authority_numerical_evidence_review
+  example: family.thisMonth.expert.categorical_wave2.neutral_wood_yongshin_water_pyeongwangyeok.402 (data/narrative/_coverage/categorical-evidence-density-wave2.fragments.json)
+  example: family.thisMonth.expert.polarity.neutral.age.early_teen.401 (data/narrative/_coverage/expert-neutral-polarity-density.fragments.json)
+- P0_EXPERT_INTERNAL_EVIDENCE_REVIEW family/today/expert: needed=authority_fragment_source,authority_numerical_evidence_review
+  example: family.today.expert.categorical_wave3.male_wood_yongshin_fire_sanggwangyeok.403 (data/narrative/_coverage/categorical-evidence-density-wave3.fragments.json)
+  example: family.today.expert.age.early_50s.501 (data/narrative/_coverage/expert-early-50s-age-density.fragments.json)
+- P0_EXPERT_INTERNAL_EVIDENCE_REVIEW health/thisYear/expert: needed=authority_fragment_source,authority_numerical_evidence_review
+  example: health.thisYear.expert.categorical_wave2.male_metal_yongshin_fire_sanggwangyeok.402 (data/narrative/_coverage/categorical-evidence-density-wave2.fragments.json)
+  example: health.thisYear.expert.age.early_50s.501 (data/narrative/_coverage/expert-early-50s-age-density.fragments.json)
+- P0_EXPERT_INTERNAL_EVIDENCE_REVIEW romance/thisMonth/expert: needed=authority_fragment_source,authority_numerical_evidence_review
+  example: romance.thisMonth.expert.daymaster.earth.yongshin.water.401 (data/narrative/_coverage/expert-earth-water-density-wave.fragments.json)
+  example: romance.thisMonth.expert.yongshin.fire.age.late_20s.401 (data/narrative/_coverage/expert-fire-context-density.fragments.json)

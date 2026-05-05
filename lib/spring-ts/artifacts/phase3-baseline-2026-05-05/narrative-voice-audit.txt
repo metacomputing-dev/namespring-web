@@ -1,0 +1,10 @@
+
+> spring-ts@1.0.0 narrative:voice-audit
+> node tools/narrative_voice_audit.mjs
+
+Narrative Voice Audit
+Bundles: 345
+Fragments: 4055 total, 2912 plain, 1143 expert
+Plain term violations: 0
+Plain tag violations: 0
+Untagged expert fragments: 0

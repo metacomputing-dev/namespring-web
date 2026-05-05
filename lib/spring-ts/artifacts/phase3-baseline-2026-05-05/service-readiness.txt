@@ -1,0 +1,37 @@
+
+> spring-ts@1.0.0 service:readiness
+> node tools/service_readiness_report.mjs
+
+Spring TS Service Readiness Report
+Frontend handoff: ready_for_frontend_integration
+Commercial readiness: blocked_for_authority_claims
+Fragments: 4055 total, 3890 authored
+Cells populated: 165/165
+Expert internal evidence cells: 55/55
+Thin expert axis values: 0
+Authority-truth eligible fragments: 0
+Authority-truth eligible numericalEvidence: 0
+Zero-authority cells: 165/165
+Reference authority intake: PASS (0 flat cases, 0 violations)
+
+Commercial blockers and warnings:
+- blocker: no_authority_truth_fragments — No narrative fragment is authority-truth eligible; do not market expert-verified interpretations yet.
+- blocker: no_authority_truth_numerical_evidence — Expert numerical evidence is internally deterministic but not authority-truth eligible.
+- blocker: zero_authority_cells — 165/165 tiered cells have no authority-truth eligible backing.
+
+Next authority work:
+- P0_EXPERT_INTERNAL_EVIDENCE_REVIEW overall/life/expert: authority_fragment_source,authority_numerical_evidence_review
+  example: overall.life.expert.agephase.early_40s.301 (data/narrative/_coverage/age-phase-expert-mature.fragments.json)
+  example: overall.life.expert.agephase.late_40s.301 (data/narrative/_coverage/age-phase-expert-mature.fragments.json)
+- P0_EXPERT_INTERNAL_EVIDENCE_REVIEW health/today/expert: authority_fragment_source,authority_numerical_evidence_review
+  example: health.today.expert.categorical_wave3.neutral_fire_yongshin_metal_sikshingyeok.403 (data/narrative/_coverage/categorical-evidence-density-wave3.fragments.json)
+  example: health.today.expert.age.70s.501 (data/narrative/_coverage/expert-70s-age-density.fragments.json)
+- P0_EXPERT_INTERNAL_EVIDENCE_REVIEW wealth/thisMonth/expert: authority_fragment_source,authority_numerical_evidence_review
+  example: wealth.thisMonth.expert.categorical_wave2.neutral_earth_yongshin_wood_sikshingyeok.402 (data/narrative/_coverage/categorical-evidence-density-wave2.fragments.json)
+  example: wealth.thisMonth.expert.age.70s.501 (data/narrative/_coverage/expert-70s-age-density.fragments.json)
+- P0_EXPERT_INTERNAL_EVIDENCE_REVIEW academic/today/expert: authority_fragment_source,authority_numerical_evidence_review
+  example: academic.today.expert.ageband.child_teen.301 (data/narrative/_coverage/academic-short-term-expert-audience.fragments.json)
+  example: academic.today.expert.ageband.adult.301 (data/narrative/_coverage/academic-short-term-expert-audience.fragments.json)
+- P0_EXPERT_INTERNAL_EVIDENCE_REVIEW family/thisWeek/expert: authority_fragment_source,authority_numerical_evidence_review
+  example: family.thisWeek.expert.age.70s.501 (data/narrative/_coverage/expert-70s-age-density.fragments.json)
+  example: family.thisWeek.expert.age.80s.501 (data/narrative/_coverage/expert-80s-age-density.fragments.json)

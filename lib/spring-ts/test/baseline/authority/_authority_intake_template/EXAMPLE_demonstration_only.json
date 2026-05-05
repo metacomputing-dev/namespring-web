@@ -1,0 +1,38 @@
+{
+  "_demonstration_note": "이 파일은 schema 시연용 가상 사례입니다. 실제 책 자료가 아니며 검증에 사용되지 않습니다. _ prefix 디렉토리이므로 validate:reference-authority가 무시함. 실제 ingestion 시 이 파일을 참고하지 말고 template.flat-case.json을 복사하세요.",
+  "case_id": "demonstration_synthetic_chart_001",
+  "source": {
+    "text": "Synthetic Demonstration Chart (NOT a real book)",
+    "author": "Synthetic / for schema demonstration only",
+    "page": "demonstration_only",
+    "category": "synthetic_demonstration"
+  },
+  "expected": {
+    "summary50char": "신약한 계수 일간이 금 용신을 만나 균형 회복.",
+    "yongshinElement": "METAL",
+    "strengthLevel": "신약"
+  },
+  "narrative": {
+    "charsPerClaim": 60,
+    "evidenceRowsPerClaim": 2,
+    "counterexampleCountPerCard": 1
+  },
+  "hedge": {
+    "shouldHedge": false,
+    "reason": ""
+  },
+  "sourceTier": {
+    "tier": "T1_HYPOTHESIS",
+    "sourceType": "training_derived",
+    "sourceUrl": null,
+    "accessedAt": "2026-05-05",
+    "quoteShort": null,
+    "humanInterpretation": "Synthetic demonstration - not a real book reference. Tier kept as T1 to avoid false authority-truth marking.",
+    "copyrightNote": "No real source; synthetic demonstration of schema structure.",
+    "authorityTruthEligible": false
+  },
+  "copyrightNote": [
+    "Synthetic demonstration only - not derived from any real source.",
+    "Used to illustrate the JSON shape expected by validate_reference_authority_cases.mjs."
+  ]
+}
