@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-05-05T06:19:24.032Z",
+  "generatedAt": "2026-05-05T06:24:28.964Z",
   "targetDate": "2026-05-05T00:00:00+09:00",
   "sampleId": "lee-hajun-unknown-hour-neutral-tiered",
   "description": "출생 시각 미상, 중립 성별 입력에서 불확실성 안내와 tiered 매트릭스를 확인하는 케이스.",
@@ -1302,7 +1302,7 @@
     },
     "meta": {
       "version": "1.0.0",
-      "generatedAt": "2026-05-05T06:19:26.565Z",
+      "generatedAt": "2026-05-05T06:24:31.649Z",
       "schoolPreset": {
         "selected": "korean",
         "source": "default",
@@ -4077,7 +4077,7 @@
               "meaningfulness": "meaningful",
               "stars": 1,
               "brief": {
-                "headline": "오늘은 제출물이나 공부 계획을 한 번 더 확인하면 실수를 줄일 수요."
+                "headline": "오늘은 제출물·공부 계획을 한 번 더 확인해요."
               },
               "standard": {
                 "paragraphs": [
@@ -8104,7 +8104,7 @@
               "meaningfulness": "meaningful",
               "stars": 2,
               "brief": {
-                "headline": "올해 일의 방향은 넓게 벌리기보다 오래 가져갈 기준 하나를 정하요."
+                "headline": "올해 일의 방향은 넓게 벌리기보다 오래 가져갈 기준 하나를 정해요."
               },
               "standard": {
                 "paragraphs": [
@@ -9087,7 +9087,7 @@
       },
       "meta": {
         "schemaVersion": "spring-ts.tiered-matrix.v1",
-        "generatedAt": "2026-05-05T06:19:26.565Z",
+        "generatedAt": "2026-05-05T06:24:31.649Z",
         "selectionSeed": "2001|1|15|0|0|neutral|2026-05-04T15:00:00.000Z",
         "templateContractVersion": "1.0.0",
         "contentSource": "authored",
