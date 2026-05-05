@@ -586,20 +586,7 @@
         },
         {
           "kind": "text",
-          "value": "과 맞는 이동만 연간 우선순위로 올리세요.\n\n"
-        },
-        {
-          "kind": "text",
-          "value": "이동의 흐름은 "
-        },
-        {
-          "kind": "tag",
-          "tagId": "yeokma",
-          "label": "역마"
-        },
-        {
-          "kind": "text",
-          "value": "의 자극과 "
+          "value": "과 맞는 이동만 연간 우선순위로 올리세요.\n\n이동의 흐름은 역마의 자극과 "
         },
         {
           "kind": "tag",
