@@ -1,7 +1,7 @@
 {
-  "generatedAt": "2026-05-05T09:50:27.784Z",
+  "generatedAt": "2026-05-05T10:00:07.013Z",
   "targetDate": "2026-05-05T00:00:00+09:00",
-  "outputDirectory": "C:\\Projects\\metaintelligence\\namespring-web\\lib\\spring-ts\\artifacts\\sample-outputs-2026-05-05-phase3",
+  "outputDirectory": "C:\\Projects\\metaintelligence\\namespring-web\\.claude\\worktrees\\agent-a290e0673e8703090\\lib\\spring-ts\\artifacts\\sample-outputs-2026-05-05-phase3",
   "sampleCount": 22,
   "samples": [
     {
@@ -47,7 +47,7 @@
           }
         }
       },
-      "outputBytes": 54148,
+      "outputBytes": 28483,
       "payloadSummary": {
         "topLevelKeys": [
           "nameCompatibility",
@@ -67,7 +67,7 @@
         "tieredMatrix": null,
         "meta": {
           "version": "1.0.0",
-          "generatedAt": "2026-05-05T09:50:29.566Z",
+          "generatedAt": "2026-05-05T10:00:07.263Z",
           "schoolPreset": {
             "selected": "korean",
             "source": "default",
@@ -129,7 +129,7 @@
           }
         }
       },
-      "outputBytes": 417327,
+      "outputBytes": 394144,
       "payloadSummary": {
         "topLevelKeys": [
           "nameCompatibility",
@@ -156,12 +156,12 @@
             "thisMonth",
             "thisYear"
           ],
-          "glossaryEntryCount": 26,
-          "usedGlossaryCount": 26
+          "glossaryEntryCount": 27,
+          "usedGlossaryCount": 27
         },
         "meta": {
           "version": "1.0.0",
-          "generatedAt": "2026-05-05T09:50:29.985Z",
+          "generatedAt": "2026-05-05T10:00:07.635Z",
           "schoolPreset": {
             "selected": "korean",
             "source": "default",
@@ -225,7 +225,7 @@
           }
         }
       },
-      "outputBytes": 137744,
+      "outputBytes": 48846,
       "payloadSummary": {
         "topLevelKeys": [
           "finalScore",
@@ -286,7 +286,7 @@
           }
         }
       },
-      "outputBytes": 283922,
+      "outputBytes": 397314,
       "payloadSummary": {
         "topLevelKeys": [
           "nameCompatibility",
@@ -313,12 +313,12 @@
             "thisMonth",
             "thisYear"
           ],
-          "glossaryEntryCount": 13,
-          "usedGlossaryCount": 13
+          "glossaryEntryCount": 27,
+          "usedGlossaryCount": 27
         },
         "meta": {
           "version": "1.0.0",
-          "generatedAt": "2026-05-05T09:50:30.516Z",
+          "generatedAt": "2026-05-05T10:00:07.828Z",
           "schoolPreset": {
             "selected": "korean",
             "source": "default",
@@ -380,7 +380,7 @@
           }
         }
       },
-      "outputBytes": 416950,
+      "outputBytes": 393353,
       "payloadSummary": {
         "topLevelKeys": [
           "nameCompatibility",
@@ -407,12 +407,12 @@
             "thisMonth",
             "thisYear"
           ],
-          "glossaryEntryCount": 27,
-          "usedGlossaryCount": 27
+          "glossaryEntryCount": 25,
+          "usedGlossaryCount": 25
         },
         "meta": {
           "version": "1.0.0",
-          "generatedAt": "2026-05-05T09:50:30.771Z",
+          "generatedAt": "2026-05-05T10:00:07.994Z",
           "schoolPreset": {
             "selected": "korean",
             "source": "default",
@@ -468,7 +468,7 @@
           }
         }
       },
-      "outputBytes": 411657,
+      "outputBytes": 394455,
       "payloadSummary": {
         "topLevelKeys": [
           "nameCompatibility",
@@ -495,12 +495,12 @@
             "thisMonth",
             "thisYear"
           ],
-          "glossaryEntryCount": 25,
-          "usedGlossaryCount": 25
+          "glossaryEntryCount": 27,
+          "usedGlossaryCount": 27
         },
         "meta": {
           "version": "1.0.0",
-          "generatedAt": "2026-05-05T09:50:31.023Z",
+          "generatedAt": "2026-05-05T10:00:08.153Z",
           "schoolPreset": {
             "selected": "korean",
             "source": "default",
@@ -512,35 +512,7 @@
               "특정 학파 기준을 더 강하게 밀지 않고 현재 서비스 기본값을 유지해요."
             ],
             "scoringEffect": "inactive"
-          },
-          "uncertainties": [
-            {
-              "id": "unknown-hour",
-              "severity": "medium",
-              "message": "출생 시각 정보가 없어 계산에는 낮 12시를 임시 기준으로 사용했어요. 시간에 따라 달라질 수 있는 해석은 참고용으로 보세요.",
-              "affectedAxes": [
-                "hourPillar",
-                "yongshin",
-                "gyeokguk",
-                "strength",
-                "tenGod",
-                "fortuneTiming"
-              ],
-              "affectedAxisLabels": [
-                "시주",
-                "용신 후보",
-                "격국",
-                "신강약",
-                "십성 위치",
-                "운세 시점"
-              ],
-              "fallback": {
-                "hour": 12,
-                "minute": 0,
-                "timezone": "Asia/Seoul"
-              }
-            }
-          ]
+          }
         }
       }
     },
@@ -584,7 +556,7 @@
           }
         }
       },
-      "outputBytes": 17150,
+      "outputBytes": 17001,
       "payloadSummary": {
         "topLevelKeys": [
           "0",
@@ -658,7 +630,7 @@
           }
         }
       },
-      "outputBytes": 416557,
+      "outputBytes": 396060,
       "payloadSummary": {
         "topLevelKeys": [
           "nameCompatibility",
@@ -685,12 +657,12 @@
             "thisMonth",
             "thisYear"
           ],
-          "glossaryEntryCount": 28,
-          "usedGlossaryCount": 28
+          "glossaryEntryCount": 27,
+          "usedGlossaryCount": 27
         },
         "meta": {
           "version": "1.0.0",
-          "generatedAt": "2026-05-05T09:50:32.430Z",
+          "generatedAt": "2026-05-05T10:00:09.194Z",
           "schoolPreset": {
             "selected": "korean",
             "source": "default",
@@ -752,7 +724,7 @@
           }
         }
       },
-      "outputBytes": 425318,
+      "outputBytes": 400492,
       "payloadSummary": {
         "topLevelKeys": [
           "nameCompatibility",
@@ -779,12 +751,12 @@
             "thisMonth",
             "thisYear"
           ],
-          "glossaryEntryCount": 26,
-          "usedGlossaryCount": 26
+          "glossaryEntryCount": 30,
+          "usedGlossaryCount": 30
         },
         "meta": {
           "version": "1.0.0",
-          "generatedAt": "2026-05-05T09:50:32.973Z",
+          "generatedAt": "2026-05-05T10:00:09.341Z",
           "schoolPreset": {
             "selected": "korean",
             "source": "default",
@@ -846,7 +818,7 @@
           }
         }
       },
-      "outputBytes": 415088,
+      "outputBytes": 397691,
       "payloadSummary": {
         "topLevelKeys": [
           "nameCompatibility",
@@ -873,12 +845,12 @@
             "thisMonth",
             "thisYear"
           ],
-          "glossaryEntryCount": 25,
-          "usedGlossaryCount": 25
+          "glossaryEntryCount": 24,
+          "usedGlossaryCount": 24
         },
         "meta": {
           "version": "1.0.0",
-          "generatedAt": "2026-05-05T09:50:33.162Z",
+          "generatedAt": "2026-05-05T10:00:09.510Z",
           "schoolPreset": {
             "selected": "korean",
             "source": "default",
@@ -941,7 +913,7 @@
           }
         }
       },
-      "outputBytes": 426373,
+      "outputBytes": 401805,
       "payloadSummary": {
         "topLevelKeys": [
           "nameCompatibility",
@@ -968,12 +940,12 @@
             "thisMonth",
             "thisYear"
           ],
-          "glossaryEntryCount": 25,
-          "usedGlossaryCount": 25
+          "glossaryEntryCount": 22,
+          "usedGlossaryCount": 22
         },
         "meta": {
           "version": "1.0.0",
-          "generatedAt": "2026-05-05T09:50:33.336Z",
+          "generatedAt": "2026-05-05T10:00:09.682Z",
           "schoolPreset": {
             "selected": "korean",
             "source": "default",
@@ -1036,7 +1008,7 @@
           }
         }
       },
-      "outputBytes": 422026,
+      "outputBytes": 403509,
       "payloadSummary": {
         "topLevelKeys": [
           "nameCompatibility",
@@ -1063,12 +1035,12 @@
             "thisMonth",
             "thisYear"
           ],
-          "glossaryEntryCount": 22,
-          "usedGlossaryCount": 22
+          "glossaryEntryCount": 27,
+          "usedGlossaryCount": 27
         },
         "meta": {
           "version": "1.0.0",
-          "generatedAt": "2026-05-05T09:50:33.526Z",
+          "generatedAt": "2026-05-05T10:00:09.852Z",
           "schoolPreset": {
             "selected": "korean",
             "source": "default",
@@ -1131,7 +1103,7 @@
           }
         }
       },
-      "outputBytes": 422892,
+      "outputBytes": 407114,
       "payloadSummary": {
         "topLevelKeys": [
           "nameCompatibility",
@@ -1158,12 +1130,12 @@
             "thisMonth",
             "thisYear"
           ],
-          "glossaryEntryCount": 24,
-          "usedGlossaryCount": 24
+          "glossaryEntryCount": 22,
+          "usedGlossaryCount": 22
         },
         "meta": {
           "version": "1.0.0",
-          "generatedAt": "2026-05-05T09:50:33.710Z",
+          "generatedAt": "2026-05-05T10:00:10.026Z",
           "schoolPreset": {
             "selected": "korean",
             "source": "default",
@@ -1227,7 +1199,7 @@
           }
         }
       },
-      "outputBytes": 394241,
+      "outputBytes": 394327,
       "payloadSummary": {
         "topLevelKeys": [
           "nameCompatibility",
@@ -1259,7 +1231,7 @@
         },
         "meta": {
           "version": "1.0.0",
-          "generatedAt": "2026-05-05T09:50:33.871Z",
+          "generatedAt": "2026-05-05T10:00:10.192Z",
           "schoolPreset": {
             "selected": "korean",
             "source": "default",
@@ -1322,7 +1294,7 @@
           }
         }
       },
-      "outputBytes": 418135,
+      "outputBytes": 394478,
       "payloadSummary": {
         "topLevelKeys": [
           "nameCompatibility",
@@ -1349,12 +1321,12 @@
             "thisMonth",
             "thisYear"
           ],
-          "glossaryEntryCount": 26,
-          "usedGlossaryCount": 26
+          "glossaryEntryCount": 27,
+          "usedGlossaryCount": 27
         },
         "meta": {
           "version": "1.0.0",
-          "generatedAt": "2026-05-05T09:50:34.040Z",
+          "generatedAt": "2026-05-05T10:00:10.355Z",
           "schoolPreset": {
             "selected": "korean",
             "source": "default",
@@ -1416,7 +1388,7 @@
           }
         }
       },
-      "outputBytes": 421185,
+      "outputBytes": 398247,
       "payloadSummary": {
         "topLevelKeys": [
           "nameCompatibility",
@@ -1448,7 +1420,7 @@
         },
         "meta": {
           "version": "1.0.0",
-          "generatedAt": "2026-05-05T09:50:34.366Z",
+          "generatedAt": "2026-05-05T10:00:10.522Z",
           "schoolPreset": {
             "selected": "korean",
             "source": "default",
@@ -1510,7 +1482,7 @@
           }
         }
       },
-      "outputBytes": 413251,
+      "outputBytes": 404985,
       "payloadSummary": {
         "topLevelKeys": [
           "nameCompatibility",
@@ -1542,7 +1514,7 @@
         },
         "meta": {
           "version": "1.0.0",
-          "generatedAt": "2026-05-05T09:50:34.550Z",
+          "generatedAt": "2026-05-05T10:00:10.692Z",
           "schoolPreset": {
             "selected": "korean",
             "source": "default",
@@ -1604,7 +1576,7 @@
           }
         }
       },
-      "outputBytes": 278382,
+      "outputBytes": 392330,
       "payloadSummary": {
         "topLevelKeys": [
           "nameCompatibility",
@@ -1631,12 +1603,12 @@
             "thisMonth",
             "thisYear"
           ],
-          "glossaryEntryCount": 9,
-          "usedGlossaryCount": 9
+          "glossaryEntryCount": 25,
+          "usedGlossaryCount": 25
         },
         "meta": {
           "version": "1.0.0",
-          "generatedAt": "2026-05-05T09:50:34.755Z",
+          "generatedAt": "2026-05-05T10:00:10.852Z",
           "schoolPreset": {
             "selected": "korean",
             "source": "default",
@@ -1699,7 +1671,7 @@
           }
         }
       },
-      "outputBytes": 423014,
+      "outputBytes": 397228,
       "payloadSummary": {
         "topLevelKeys": [
           "nameCompatibility",
@@ -1726,12 +1698,12 @@
             "thisMonth",
             "thisYear"
           ],
-          "glossaryEntryCount": 24,
-          "usedGlossaryCount": 24
+          "glossaryEntryCount": 27,
+          "usedGlossaryCount": 27
         },
         "meta": {
           "version": "1.0.0",
-          "generatedAt": "2026-05-05T09:50:34.919Z",
+          "generatedAt": "2026-05-05T10:00:11.025Z",
           "schoolPreset": {
             "selected": "korean",
             "source": "default",
@@ -1795,7 +1767,7 @@
           }
         }
       },
-      "outputBytes": 425420,
+      "outputBytes": 399005,
       "payloadSummary": {
         "topLevelKeys": [
           "nameCompatibility",
@@ -1822,12 +1794,12 @@
             "thisMonth",
             "thisYear"
           ],
-          "glossaryEntryCount": 25,
-          "usedGlossaryCount": 25
+          "glossaryEntryCount": 26,
+          "usedGlossaryCount": 26
         },
         "meta": {
           "version": "1.0.0",
-          "generatedAt": "2026-05-05T09:50:35.103Z",
+          "generatedAt": "2026-05-05T10:00:11.194Z",
           "schoolPreset": {
             "selected": "korean",
             "source": "default",
@@ -1890,7 +1862,7 @@
           }
         }
       },
-      "outputBytes": 417544,
+      "outputBytes": 394361,
       "payloadSummary": {
         "topLevelKeys": [
           "nameCompatibility",
@@ -1917,12 +1889,12 @@
             "thisMonth",
             "thisYear"
           ],
-          "glossaryEntryCount": 26,
-          "usedGlossaryCount": 26
+          "glossaryEntryCount": 27,
+          "usedGlossaryCount": 27
         },
         "meta": {
           "version": "1.0.0",
-          "generatedAt": "2026-05-05T09:50:35.266Z",
+          "generatedAt": "2026-05-05T10:00:11.364Z",
           "schoolPreset": {
             "selected": "korean",
             "source": "default",
@@ -1986,7 +1958,7 @@
           }
         }
       },
-      "outputBytes": 426049,
+      "outputBytes": 401435,
       "payloadSummary": {
         "topLevelKeys": [
           "nameCompatibility",
@@ -2013,12 +1985,12 @@
             "thisMonth",
             "thisYear"
           ],
-          "glossaryEntryCount": 30,
-          "usedGlossaryCount": 30
+          "glossaryEntryCount": 27,
+          "usedGlossaryCount": 27
         },
         "meta": {
           "version": "1.0.0",
-          "generatedAt": "2026-05-05T09:50:35.437Z",
+          "generatedAt": "2026-05-05T10:00:11.526Z",
           "schoolPreset": {
             "selected": "korean",
             "source": "default",
