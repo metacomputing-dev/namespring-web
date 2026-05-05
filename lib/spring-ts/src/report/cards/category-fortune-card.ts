@@ -256,9 +256,42 @@ function makeCategorySummary(
   const GOOD_SUFFIX: Record<FortuneCategory, string> = {
     wealth: '재물 흐름이 원활해져요.',
     health: '생활 리듬을 안정적으로 지키기 좋아요.',
-    academic: '학습 효율이 올라가는 시기예요.',
-    romance: isMinorRomance ? '친구 관계와 협동이 자연스러워져요.' : '인연의 결이 부드러워져요.',
+    academic: '학습 효율이 올라가는 한 해예요.',
+    romance: isMinorRomance ? '친구 관계와 협동이 자연스러워져요.' : '인연의 호흡이 부드러워져요.',
     family: '가정의 분위기가 따뜻해져요.',
+  };
+
+  // Category voice (NARRATIVE_STYLE_GUIDE §6): 카테고리별 어휘를 다르게 풀어
+  // wealth = 운영, health = 컨디션 관리, academic = 페이스, romance = 거리감,
+  // family = 일상 — 한 표현이 5 카테고리에 단조롭게 반복되지 않도록 함.
+  const MID_BODY: Record<FortuneCategory, string> = {
+    wealth: '큰 변화를 시도하기보다 기본 운영을 지키며 꾸준히 챙기면 좋아요.',
+    health: '큰 변화를 만들기보다 일상 컨디션 관리를 꾸준히 챙기면 좋아요.',
+    academic: '욕심을 내기보다 자기 페이스로 꾸준히 다지면 좋아요.',
+    romance: isMinorRomance
+      ? '거리감을 갑자기 좁히기보다 평소 대화를 꾸준히 이어 가면 좋아요.'
+      : '큰 변화를 서두르기보다 지금의 호흡을 꾸준히 다듬으면 좋아요.',
+    family: '큰 이벤트를 만들기보다 일상의 안부를 꾸준히 챙기면 좋아요.',
+  };
+
+  const LOW_BODY: Record<FortuneCategory, string> = {
+    wealth: '무리한 결정을 미루고 보수적인 운영에 무게를 두면 좋아요.',
+    health: '무리한 일정을 줄이고 회복 리듬을 우선 챙기면 좋아요.',
+    academic: '욕심을 내려놓고 기초를 다시 점검하면 좋아요.',
+    romance: isMinorRomance
+      ? '편안한 거리감을 지키고 익숙한 친구와 차분히 대화하면 좋아요.'
+      : '새 관계를 서두르기보다 기존 인연에서 호흡을 다듬으면 좋아요.',
+    family: '큰 결정은 한 박자 미루고 가까운 이의 말을 먼저 들어 보면 좋아요.',
+  };
+
+  const HARD_BODY: Record<FortuneCategory, string> = {
+    wealth: '서두르지 말고 보수적인 운영을 우선 챙겨 보세요.',
+    health: '몸을 몰아붙이지 말고 회복 시간을 넉넉히 잡아 보세요.',
+    academic: '결과보다 기초 점검에 무게를 두고 차분히 이어 가 보세요.',
+    romance: isMinorRomance
+      ? '관계를 빨리 풀려 하기보다 한 박자 쉬어 가 보세요.'
+      : '새로운 관계를 서두르기보다 한 박자 쉬어 가 보세요.',
+    family: '갈등을 빨리 풀려 하기보다 한 박자 쉬며 거리를 두어 보세요.',
   };
 
   if (stars >= 4 && alignment?.isGishinAligned) {
@@ -271,7 +304,7 @@ function makeCategorySummary(
     const support = sameElement
       ? `${fortuneKo} 기운이 직접 활성화되어`
       : `${fortuneKo} 기운이 ${catKo} 기운을 크게 도와줘서`;
-    return `올해 ${title}은 최고예요! ${support} ${GOOD_SUFFIX[category]}`;
+    return `올해 ${title}은 흐름이 아주 좋아요. ${support} ${GOOD_SUFFIX[category]}`;
   }
   if (stars >= 4) {
     const support = sameElement
@@ -280,12 +313,12 @@ function makeCategorySummary(
     return `올해 ${title}은 좋은 편이에요. ${support} ${GOOD_SUFFIX[category]}`;
   }
   if (stars >= 3) {
-    return `올해 ${title}은 보통이에요. 큰 변화보다는 기본을 지키며 꾸준히 관리하면 좋아요.`;
+    return `올해 ${title}은 평이한 흐름이에요. ${MID_BODY[category]}`;
   }
   if (stars >= 2) {
-    return `올해 ${title}은 다소 주의가 필요해요. 무리한 확장보다 안정적인 관리에 집중하세요.`;
+    return `올해 ${title}은 다소 조심이 필요한 흐름이에요. ${LOW_BODY[category]}`;
   }
-  return `올해 ${title}은 쉽지 않은 시기예요. 무리하지 말고 기본을 잘 지키며 꾸준히 관리하는 것이 중요해요.`;
+  return `올해 ${title}은 부담이 큰 흐름이에요. ${HARD_BODY[category]}`;
 }
 
 // ---------------------------------------------------------------------------
@@ -515,39 +548,39 @@ function makeCaution(
 
   const cautionMap: Record<FortuneCategory, FortuneWarning> = {
     wealth: {
-      signal: `올해 재물 기운이 ${fortuneKo} 기운과 긴장 관계에 있어요.`,
+      signal: `올해 재물 기운이 ${fortuneKo} 기운과 살짝 어긋나 있어요.`,
       response: isMinorWealth
         ? '돈을 쓰거나 물건을 고를 때는 기준을 적어 보고, 보호자와 함께 확인해 보세요.'
         : '큰 투자나 보증은 신중하게 검토하고, 지출 상한선을 미리 정해 두세요.',
       reason: isMinorWealth
-        ? `${fortuneKo} 기운이 ${catKo} 기운과 맞물려 돈 관리 습관이 흔들리기 쉬운 시기예요.`
-        : `${fortuneKo} 기운이 ${catKo} 기운(재성)을 방해하여 재물 손실 위험이 있어요.`,
+        ? `${fortuneKo} 기운이 ${catKo} 기운과 부딪쳐 돈 관리 습관이 평소보다 느슨해지기 쉬워요.`
+        : `${fortuneKo} 기운이 ${catKo} 기운(재성)을 압박해 큰 지출이 부담으로 돌아오기 쉬워요.`,
     },
     health: {
-      signal: '건강 기운이 약해서 컨디션 관리에 주의가 필요해요.',
-      response: '과로를 피하고 수면, 식사, 휴식 리듬을 함께 챙겨주세요.',
-      reason: '인성 기운이 약하면 생활 리듬이 쉽게 흔들릴 수 있어요.',
+      signal: '컨디션 관리에 평소보다 신경을 더 써야 하는 흐름이에요.',
+      response: '과로를 피하고 수면, 식사, 휴식 리듬을 함께 챙겨 주세요.',
+      reason: '인성 기운이 약하면 생활 리듬을 회복하는 데 평소보다 시간이 걸려요.',
     },
     academic: {
-      signal: '학업 집중력이 흔들리기 쉬운 시기예요.',
+      signal: '학업 집중력이 평소보다 흩어지기 쉬워요.',
       response: '공부 시간을 짧게 나누고, 어려운 부분은 질문하거나 멘토의 도움을 받으세요.',
       reason: '식상과 인성 기운이 약하면 이해와 표현 모두 효율이 떨어질 수 있어요.',
     },
     romance: {
       signal: isMinorRomance
-        ? '친구 관계에서 오해나 감정 소모가 생기기 쉬운 시기예요.'
-        : '관계에서 오해나 감정 소모가 생기기 쉬운 시기예요.',
+        ? '친구 관계에서 작은 오해와 감정 소모가 생기기 쉬워요.'
+        : '관계에서 작은 오해와 감정 소모가 생기기 쉬워요.',
       response: isMinorRomance
         ? '새 친구와 급히 가까워지려 하기보다, 이미 알고 지내는 친구와의 대화 방식을 점검해 보세요.'
-        : '새 관계를 서두르지 말고, 기존 관계에서 소통 방식을 점검해 보세요.',
+        : '새로운 인연을 서두르기보다, 기존 관계에서 소통 방식을 먼저 점검해 보세요.',
       reason: isMinorRomance
         ? '관계 기운이 약할 때는 속도보다 편안한 거리감과 꾸준한 대화가 더 중요해요.'
-        : '재성/관성 기운이 약하면 인연의 타이밍이 맞지 않을 수 있어요.',
+        : '재성/관성 기운이 약하면 인연의 타이밍이 어긋나기 쉬워요.',
     },
     family: {
-      signal: '가족 사이에 작은 마찰이 생기기 쉬운 시기예요.',
+      signal: '가족 사이에 작은 마찰이 살짝 늘어나는 흐름이에요.',
       response: '충고보다 경청을 우선하고, 감정이 올라오면 잠시 자리를 비우세요.',
-      reason: '비겁과 인성 기운이 약하면 가까운 사이에서 오히려 갈등이 커질 수 있어요.',
+      reason: '비겁과 인성 기운이 약하면 가까운 사이일수록 사소한 일에 부딪히기 쉬워요.',
     },
   };
 
@@ -648,13 +681,13 @@ export function buildCategoryFortuneCards(
     let claim: string;
     const primaryElementName = elementKo(catEls.primary);
     if (isYongshinAligned) {
-      claim = `${title} 영역의 핵심 오행 ${iGa(primaryElementName)} 용신과 일치하여 받침이 좋은 영역이에요.`;
+      claim = `${title}의 핵심 오행 ${iGa(primaryElementName)} 용신과 일치해 든든히 받쳐 주는 흐름이에요.`;
     } else if (isGishinAligned) {
       claim = stars >= 4
-        ? `${title} 영역의 핵심 오행 ${iGa(primaryElementName)} 기신과 겹치지만, 다른 보조 기운이 받쳐 주어 속도 조절이 중요해요.`
-        : `${title} 영역의 핵심 오행 ${iGa(primaryElementName)} 기신과 겹쳐 보수적 운영이 좋아요.`;
+        ? `${title}의 핵심 오행 ${iGa(primaryElementName)} 기신과 겹치지만, 다른 보조 기운이 받쳐 주어 속도 조절이 중요해요.`
+        : `${title}의 핵심 오행 ${iGa(primaryElementName)} 기신과 겹쳐 보수적 운영이 좋아요.`;
     } else {
-      claim = `${title} 영역은 ${primaryElementName} 기운을 중심으로 평가했어요.`;
+      claim = `${title}은 ${primaryElementName} 기운을 중심에 두고 살펴봤어요.`;
     }
 
     const supporting: string[] = [
