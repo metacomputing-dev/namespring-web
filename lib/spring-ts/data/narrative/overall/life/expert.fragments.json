@@ -504,6 +504,191 @@
         "copyrightNote": "No source prose copied; original phrasing.",
         "authorityTruthEligible": false
       }
+    },
+    {
+      "schemaVersion": "spring-ts.narrative-fragment.v1",
+      "fragmentId": "overall.life.expert.yang_balanced_tonggwan.501",
+      "axis": { "category": "overall", "period": "life", "depth": "expert" },
+      "gating": {
+        "dayMasterPolarity": ["YANG"],
+        "dayMasterStrength": ["BALANCED"],
+        "yongshinAlignment": ["aligned"]
+      },
+      "templateTokens": [
+        { "kind": "text", "value": "양의 일간이 균형 자리에 있어 두 기운의 길이 한 번에 부딪힐 때 " },
+        { "kind": "tag", "tagId": "tonggwanYongshin", "label": "통관용신" },
+        { "kind": "text", "value": "이 다리 역할로 부드럽게 풀어 주는 결이에요. " },
+        { "kind": "tag", "tagId": "ohaengBalance", "label": "오행균형도" },
+        { "kind": "text", "value": "가 또렷하게 살아 있어 격정과 침착이 함께 흐르고, " },
+        { "kind": "tag", "tagId": "monthPillar", "label": "월주" },
+        { "kind": "text", "value": "의 자리가 한 평생의 큰 가닥을 만들어 줘요." }
+      ],
+      "tags": ["tonggwanYongshin", "ohaengBalance", "monthPillar"],
+      "aiGenerated": true,
+      "sourceTier": {
+        "tier": "T1_HYPOTHESIS",
+        "sourceType": "training_derived",
+        "sourceUrl": null,
+        "accessedAt": "2026-05-05",
+        "quoteShort": null,
+        "humanInterpretation": "Phase 3 Agent A15 expansion. New 7-axis combo (YANG dayMasterPolarity × BALANCED × aligned) anchored on tonggwanYongshin + ohaengBalance.",
+        "copyrightNote": "No source prose copied; original phrasing.",
+        "authorityTruthEligible": false
+      }
+    },
+    {
+      "schemaVersion": "spring-ts.narrative-fragment.v1",
+      "fragmentId": "overall.life.expert.weak_summer_byeongyak.502",
+      "axis": { "category": "overall", "period": "life", "depth": "expert" },
+      "gating": {
+        "dayMasterStrength": ["WEAK"],
+        "birthSeason": ["summer"],
+        "yongshinAlignment": ["conflicting"]
+      },
+      "templateTokens": [
+        { "kind": "text", "value": "여름 자리에 일간이 약하면 한낮의 열기가 결을 흔드는 자리예요. " },
+        { "kind": "tag", "tagId": "byeongyakYongshin", "label": "병약용신" },
+        { "kind": "text", "value": "이 흠을 직접 다스리는 약 자리로 들어와, " },
+        { "kind": "tag", "tagId": "johuYongshin", "label": "조후용신" },
+        { "kind": "text", "value": "의 시원한 결과 함께 작동할 때 평생의 큰 그림이 가장 부드러워져요. " },
+        { "kind": "tag", "tagId": "stabilityIndex", "label": "안정성지수" },
+        { "kind": "text", "value": "를 함께 살피면 어느 시기에 회복이 빠른지 가늠하기 좋아요." }
+      ],
+      "tags": ["byeongyakYongshin", "johuYongshin", "stabilityIndex"],
+      "aiGenerated": true,
+      "sourceTier": {
+        "tier": "T1_HYPOTHESIS",
+        "sourceType": "training_derived",
+        "sourceUrl": null,
+        "accessedAt": "2026-05-05",
+        "quoteShort": null,
+        "humanInterpretation": "Phase 3 Agent A15 expansion. New 7-axis combo (WEAK × summer birthSeason × conflicting) anchored on byeongyakYongshin + johuYongshin + stabilityIndex.",
+        "copyrightNote": "No source prose copied; original phrasing.",
+        "authorityTruthEligible": false
+      }
+    },
+    {
+      "schemaVersion": "spring-ts.narrative-fragment.v1",
+      "fragmentId": "overall.life.expert.late50s_aligned_gyeokguk.503",
+      "axis": { "category": "overall", "period": "life", "depth": "expert" },
+      "gating": {
+        "agePhase": ["late_50s"],
+        "yongshinAlignment": ["aligned"]
+      },
+      "templateTokens": [
+        { "kind": "text", "value": "50대 후반의 자리에서 흐름이 잘 맞아 들면 " },
+        { "kind": "tag", "tagId": "gyeokgukYongshin", "label": "격국용신" },
+        { "kind": "text", "value": "이 격의 모양과 가장 가까이 맞물려 평생의 누적이 한 번 결산되는 시기예요. " },
+        { "kind": "tag", "tagId": "gyeokgukFit", "label": "격국적합도" },
+        { "kind": "text", "value": "가 또렷할수록 다음 단계의 자리가 자연스럽게 잡히고, " },
+        { "kind": "tag", "tagId": "jaebakgung", "label": "재백궁" },
+        { "kind": "text", "value": "의 결이 함께 살아 있을 때 책임의 자리가 한층 두툼해져요." }
+      ],
+      "tags": ["gyeokgukYongshin", "gyeokgukFit", "jaebakgung"],
+      "aiGenerated": true,
+      "sourceTier": {
+        "tier": "T1_HYPOTHESIS",
+        "sourceType": "training_derived",
+        "sourceUrl": null,
+        "accessedAt": "2026-05-05",
+        "quoteShort": null,
+        "humanInterpretation": "Phase 3 Agent A15 expansion. New 7-axis combo (late_50s × aligned) anchored on gyeokgukYongshin + gyeokgukFit + jaebakgung.",
+        "copyrightNote": "No source prose copied; original phrasing.",
+        "authorityTruthEligible": false
+      }
+    },
+    {
+      "schemaVersion": "spring-ts.narrative-fragment.v1",
+      "fragmentId": "overall.life.expert.yin_late60s_johu.504",
+      "axis": { "category": "overall", "period": "life", "depth": "expert" },
+      "gating": {
+        "dayMasterPolarity": ["YIN"],
+        "agePhase": ["late_60s"],
+        "yongshinAlignment": ["neutral"]
+      },
+      "templateTokens": [
+        { "kind": "text", "value": "음의 일간이 60대 후반의 자리에 닿으면 " },
+        { "kind": "tag", "tagId": "johuYongshin", "label": "조후용신" },
+        { "kind": "text", "value": "이 사주의 온도를 차분히 맞춰 주는 시기로 들어가요. " },
+        { "kind": "tag", "tagId": "eumyangHarmony", "label": "음양조화도" },
+        { "kind": "text", "value": "가 평생의 흐름을 가지런히 정리하고, " },
+        { "kind": "tag", "tagId": "myeonggung", "label": "명궁" },
+        { "kind": "text", "value": "의 자리가 자기 본연의 색을 다시 비춰 주는 자리가 돼요." }
+      ],
+      "tags": ["johuYongshin", "eumyangHarmony", "myeonggung"],
+      "aiGenerated": true,
+      "sourceTier": {
+        "tier": "T1_HYPOTHESIS",
+        "sourceType": "training_derived",
+        "sourceUrl": null,
+        "accessedAt": "2026-05-05",
+        "quoteShort": null,
+        "humanInterpretation": "Phase 3 Agent A15 expansion. New 7-axis combo (YIN × late_60s × neutral) anchored on johuYongshin + eumyangHarmony + myeonggung.",
+        "copyrightNote": "No source prose copied; original phrasing.",
+        "authorityTruthEligible": false
+      }
+    },
+    {
+      "schemaVersion": "spring-ts.narrative-fragment.v1",
+      "fragmentId": "overall.life.expert.early30s_male_buaek.505",
+      "axis": { "category": "overall", "period": "life", "depth": "expert" },
+      "gating": {
+        "agePhase": ["early_30s"],
+        "gender": ["male"],
+        "dayMasterStrength": ["WEAK"]
+      },
+      "templateTokens": [
+        { "kind": "text", "value": "30대 초반의 남성 자리에서 일간이 약하면 " },
+        { "kind": "tag", "tagId": "buaekYongshin", "label": "부억용신" },
+        { "kind": "text", "value": "의 결이 도와주는 손길로 자리잡고, " },
+        { "kind": "tag", "tagId": "sipsinDistribution", "label": "십신분포도" },
+        { "kind": "text", "value": "가 한쪽으로 기울지 않게 균형을 맞춰 주는 시기예요. " },
+        { "kind": "tag", "tagId": "hyeongjegung", "label": "형제궁" },
+        { "kind": "text", "value": "의 결이 함께 살아 있으면 동기·동료의 자리가 큰 받침이 돼요." }
+      ],
+      "tags": ["buaekYongshin", "sipsinDistribution", "hyeongjegung"],
+      "aiGenerated": true,
+      "sourceTier": {
+        "tier": "T1_HYPOTHESIS",
+        "sourceType": "training_derived",
+        "sourceUrl": null,
+        "accessedAt": "2026-05-05",
+        "quoteShort": null,
+        "humanInterpretation": "Phase 3 Agent A15 expansion. New 7-axis combo (early_30s × male × WEAK) anchored on buaekYongshin + sipsinDistribution + hyeongjegung.",
+        "copyrightNote": "No source prose copied; original phrasing.",
+        "authorityTruthEligible": false
+      }
+    },
+    {
+      "schemaVersion": "spring-ts.narrative-fragment.v1",
+      "fragmentId": "overall.life.expert.late40s_female_cheoni.506",
+      "axis": { "category": "overall", "period": "life", "depth": "expert" },
+      "gating": {
+        "agePhase": ["late_40s"],
+        "gender": ["female"],
+        "yongshinAlignment": ["conflicting"]
+      },
+      "templateTokens": [
+        { "kind": "text", "value": "40대 후반의 여성 자리에서 흐름이 어긋나는 결이 보이면 " },
+        { "kind": "tag", "tagId": "cheonigung", "label": "천이궁" },
+        { "kind": "text", "value": "의 자리가 활동 반경을 넓혀 주는 분기점으로 작용하기 쉬워요. " },
+        { "kind": "tag", "tagId": "munchanggwiin", "label": "문창귀인" },
+        { "kind": "text", "value": "의 길성 신호가 함께 자리하면 새 배움이 운의 매듭을 부드럽게 풀어 주고, " },
+        { "kind": "tag", "tagId": "geumyeo", "label": "금여" },
+        { "kind": "text", "value": "의 따뜻한 결이 가까운 인연의 도움으로 이어져요." }
+      ],
+      "tags": ["cheonigung", "munchanggwiin", "geumyeo"],
+      "aiGenerated": true,
+      "sourceTier": {
+        "tier": "T1_HYPOTHESIS",
+        "sourceType": "training_derived",
+        "sourceUrl": null,
+        "accessedAt": "2026-05-05",
+        "quoteShort": null,
+        "humanInterpretation": "Phase 3 Agent A15 expansion. New 7-axis combo (late_40s × female × conflicting) anchored on cheonigung + munchanggwiin + geumyeo.",
+        "copyrightNote": "No source prose copied; original phrasing.",
+        "authorityTruthEligible": false
+      }
     }
   ]
 }

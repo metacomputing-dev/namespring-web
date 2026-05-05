@@ -1,0 +1,77 @@
+{
+  "agent": "phase3.agent-A15",
+  "fixture": "1986-04-19 male choi-seongsoo (Seoul)",
+  "scope": "tieredMatrix.periods.life.overall.{brief,standard,expert}",
+  "fragmentSelection": {
+    "before": {
+      "brief": "overall.life.brief.tuple_water_metal_weak_practice.624",
+      "standard": "(wildcard / 40-54 male standard)",
+      "expert": "(40-54 male / weak align expert)"
+    },
+    "after": {
+      "brief": "overall.life.brief.tuple_water_metal_weak_practice.624",
+      "standard": "same",
+      "expert": "same"
+    }
+  },
+  "metrics": {
+    "briefHeadlineKoreanSyllables": {
+      "before": 89,
+      "after": 26,
+      "contractLimit": 28,
+      "violationBefore": true,
+      "violationAfter": false
+    },
+    "standardCount결이Occurrences": {
+      "before": "(unmeasured)",
+      "after": 0
+    },
+    "expertCount결이Occurrences": {
+      "before": "(unmeasured)",
+      "after": 0
+    }
+  },
+  "corpusWideMetrics": {
+    "wordRepetitionInOverall": {
+      "결이": { "baseline": 168, "afterCommit1to3": 167, "afterCommit4": 81, "delta": "-87 (-52%)" },
+      "결이에요": { "baseline": 36, "afterCommit4": 1, "delta": "-35 (-97%)" },
+      "흐름이": { "baseline": 331, "afterCommit3": 138, "afterCommit4": 171, "delta": "-160 (-48%)" },
+      "또렷": { "baseline": 87, "afterCommit4": 75, "delta": "-12" },
+      "단단": { "baseline": 77, "afterCommit4": 67, "delta": "-10" }
+    },
+    "briefHeadlineViolations": {
+      "baseline": 752,
+      "after": 0
+    },
+    "expertTagDiversity": {
+      "uniqueTagIdsBefore": 25,
+      "uniqueTagIdsAfter": 41,
+      "newTagIdsAdded": [
+        "tonggwanYongshin",
+        "byeongyakYongshin",
+        "buaekYongshin",
+        "johuYongshin",
+        "gyeokgukYongshin",
+        "gyeokgukFit",
+        "ohaengBalance",
+        "sipsinDistribution",
+        "stabilityIndex",
+        "eumyangHarmony",
+        "myeonggung",
+        "cheonigung",
+        "jaebakgung",
+        "hyeongjegung",
+        "munchanggwiin",
+        "geumyeo"
+      ]
+    },
+    "newGatingFragments": [
+      "overall.life.expert.yang_balanced_tonggwan.501 (YANG × BALANCED × aligned)",
+      "overall.life.expert.weak_summer_byeongyak.502 (WEAK × summer × conflicting)",
+      "overall.life.expert.late50s_aligned_gyeokguk.503 (late_50s × aligned)",
+      "overall.life.expert.yin_late60s_johu.504 (YIN × late_60s × neutral)",
+      "overall.life.expert.early30s_male_buaek.505 (early_30s × male × WEAK)",
+      "overall.life.expert.late40s_female_cheoni.506 (late_40s × female × conflicting)"
+    ]
+  }
+}
