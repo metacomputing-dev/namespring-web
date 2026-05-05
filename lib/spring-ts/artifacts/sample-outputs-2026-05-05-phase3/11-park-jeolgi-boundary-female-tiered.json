@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-05-05T09:50:40.217Z",
+  "generatedAt": "2026-05-05T09:50:27.784Z",
   "targetDate": "2026-05-05T00:00:00+09:00",
   "sampleId": "park-jeolgi-boundary-female-tiered",
   "description": "입추(立秋) 절기 경계 직후 출생. fortuneCascadeMode=jie_based 로 경계 정밀 계산을 활성화하고 tieredMatrix 와 결합한 케이스.",
@@ -247,13 +247,13 @@
       ],
       "counterexamples": [
         {
-          "condition": "월령(月令)이 지장간 중 정기와 어긋나거나, 격국 안정성 낮음",
-          "revisedClaim": "용신을 물로 단정하기보다, 조후·통관 후보를 함께 검토하세요.",
+          "condition": "월령(月令)이 지장간 중 정기와 어긋나거나, 격국 안정성이 낮은 경우",
+          "revisedClaim": "용신을 물로 단정하기보다, 조후·통관 후보를 함께 살펴보면 좋아요.",
           "appliesWhen": "deferred"
         },
         {
-          "condition": "시간 미상 또는 입절 경계(±1 일) 이내 출생",
-          "revisedClaim": "시진 변경 시 격국·용신 후보가 달라질 수 있으니 두 가지 가능성을 함께 살펴보세요.",
+          "condition": "시간 미상 또는 입절 경계(±1 일) 이내 출생인 경우",
+          "revisedClaim": "시진 변경 시 격국·용신 후보가 달라질 수 있어, 두 가지 가능성을 함께 살펴보면 좋아요.",
           "appliesWhen": "deferred"
         }
       ]
@@ -1321,7 +1321,7 @@
     },
     "meta": {
       "version": "1.0.0",
-      "generatedAt": "2026-05-05T09:50:45.405Z",
+      "generatedAt": "2026-05-05T09:50:33.336Z",
       "schoolPreset": {
         "selected": "korean",
         "source": "default",
@@ -9015,7 +9015,7 @@
       },
       "meta": {
         "schemaVersion": "spring-ts.tiered-matrix.v1",
-        "generatedAt": "2026-05-05T09:50:45.405Z",
+        "generatedAt": "2026-05-05T09:50:33.336Z",
         "selectionSeed": "1988|8|8|6|0|female|2026-05-04T15:00:00.000Z",
         "templateContractVersion": "1.0.0",
         "contentSource": "authored",

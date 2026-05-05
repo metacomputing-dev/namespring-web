@@ -159,6 +159,16 @@ function ieyo(word: string): string {
   return hasBatchim(word) ? '이에요' : '예요';
 }
 
+/** 받침 유무에 따라 로/으로 선택 (받침 ㄹ은 로). */
+function roEuro(word: string): string {
+  if (!word) return '로';
+  const last = word.charCodeAt(word.length - 1);
+  if (last < 0xAC00 || last > 0xD7A3) return '로';
+  const batchimIdx = (last - 0xAC00) % 28;
+  // 0 = no batchim, 8 = ㄹ → 로; otherwise 으로
+  return batchimIdx === 0 || batchimIdx === 8 ? '로' : '으로';
+}
+
 // ---------------------------------------------------------------------------
 //  Builder
 // ---------------------------------------------------------------------------
@@ -481,17 +491,18 @@ export function buildOverviewSummaryCard(
 
   // Counterexamples — currently surfaced when yongshin is low-confidence so a
   // user / counselor can see which condition would flip the recommendation.
+  // Voice (NARRATIVE_STYLE_GUIDE §1): 단정 회피 + 권유·제안 어조 (~보면 좋아요).
   const counterexamples: CounterexampleRow[] | undefined =
     yongshinTier === 'candidate' || yongshinTier === 'deferred'
       ? [
           {
-            condition: '월령(月令)이 지장간 중 정기와 어긋나거나, 격국 안정성 낮음',
-            revisedClaim: `용신을 ${yongshinFriendly}로 단정하기보다, 조후·통관 후보를 함께 검토하세요.`,
+            condition: '월령(月令)이 지장간 중 정기와 어긋나거나, 격국 안정성이 낮은 경우',
+            revisedClaim: `용신을 ${yongshinFriendly}${roEuro(yongshinFriendly)} 단정하기보다, 조후·통관 후보를 함께 살펴보면 좋아요.`,
             appliesWhen: yongshinTier,
           },
           {
-            condition: '시간 미상 또는 입절 경계(±1 일) 이내 출생',
-            revisedClaim: '시진 변경 시 격국·용신 후보가 달라질 수 있으니 두 가지 가능성을 함께 살펴보세요.',
+            condition: '시간 미상 또는 입절 경계(±1 일) 이내 출생인 경우',
+            revisedClaim: '시진 변경 시 격국·용신 후보가 달라질 수 있어, 두 가지 가능성을 함께 살펴보면 좋아요.',
             appliesWhen: yongshinTier,
           },
         ]
