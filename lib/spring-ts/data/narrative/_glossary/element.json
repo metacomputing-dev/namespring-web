@@ -9,7 +9,7 @@
       "hashLabel": "#나무",
       "category": "element",
       "brief": "사주에서 '나무(목·木)'는 새싹처럼 자라나는 기운을 뜻해요.",
-      "detailed": "다섯 가지 기운(오행) 중 하나로, 위로 자라고 뻗어 가는 힘을 상징해요. 봄에 새싹이 트는 모습, 가지가 하늘로 향하는 모양을 떠올리면 쉬워요. 사람의 사주에 나무 기운이 적당하면 호기심·성장 욕구가 또렷하고, 너무 강하면 욕심이 앞서기도 해요.",
+      "detailed": "다섯 가지 기운(오행) 중 하나로, 위로 자라고 뻗어 가는 힘을 상징해요. 봄에 새싹이 트는 모습, 가지가 하늘로 향하는 모양을 떠올리면 쉬워요. 한국 현대 작명에서는 나무 기운을 '성장·호기심·인덕'의 자산으로 풀어, 적당하면 자라는 폭이 또렷해지고 너무 강하면 욕심이 앞선다고 봐요.",
       "related": ["fire", "earth", "metal", "water", "yongshin"],
       "aiGenerated": true,
       "sourceTier": {
@@ -30,7 +30,7 @@
       "hashLabel": "#불",
       "category": "element",
       "brief": "사주에서 '불(화·火)'은 환하게 빛나는 따뜻한 기운이에요.",
-      "detailed": "햇빛, 등불, 모닥불처럼 따뜻하고 빛을 내는 힘이에요. 사람의 사주에 불 기운이 적당하면 표현력·열정·밝음이 도드라지고, 너무 강하면 쉽게 뜨거워졌다 식는 성향이 나오기도 해요. 차가운 기운이 강할 때는 불 기운이 균형을 잡아 줘요.",
+      "detailed": "햇빛, 등불, 모닥불처럼 따뜻하고 빛을 내는 힘이에요. 한국 현대 작명에서는 불 기운을 '표현·예의·인정'의 자산으로 풀어, 적당하면 표현력·열정·밝음이 도드라지고 너무 강하면 쉽게 뜨거워졌다 식는다고 봐요. 차가운 사주에는 균형을 잡아 주는 약이 돼요.",
       "related": ["wood", "earth", "yongshin", "johu"],
       "aiGenerated": true,
       "sourceTier": {
@@ -51,7 +51,7 @@
       "hashLabel": "#흙",
       "category": "element",
       "brief": "사주에서 '흙(토·土)'은 모든 것을 받아 주고 단단히 자리잡게 하는 기운이에요.",
-      "detailed": "넓은 들판이나 단단한 땅처럼, 다른 기운들이 자라고 머무를 수 있게 받쳐 주는 자리예요. 흙 기운이 충분하면 든든하고 신뢰가 가는 성품이 나오고, 너무 많으면 변화에 둔해지기도 해요. 사주의 균형을 잡는 중심으로 자주 등장해요.",
+      "detailed": "넓은 들판이나 단단한 땅처럼, 다른 기운들이 자라고 머무를 수 있게 받쳐 주는 자리예요. 한국 현대 작명에서는 흙 기운을 '신뢰·중심·안정'의 자산으로 풀어, 충분하면 든든하고 신뢰가 가는 성품이 나오고 너무 많으면 변화에 둔해진다고 봐요. 사주의 균형을 잡는 중심이에요.",
       "related": ["fire", "metal", "yongshin"],
       "aiGenerated": true,
       "sourceTier": {
@@ -72,7 +72,7 @@
       "hashLabel": "#쇠",
       "category": "element",
       "brief": "사주에서 '쇠(금·金)'는 다듬고 결단하는 또렷한 기운이에요.",
-      "detailed": "잘 다듬은 쇠붙이나 가을의 서늘한 바람처럼, 무엇을 모아 형태를 잡고 결정짓게 하는 힘이에요. 쇠 기운이 적당하면 책임감·기준·원칙이 뚜렷하고, 너무 강하면 융통성이 줄어들 수 있어요. 흩어진 기운을 모아 마무리하는 역할을 해요.",
+      "detailed": "잘 다듬은 쇠붙이나 가을의 서늘한 바람처럼, 무엇을 모아 형태를 잡고 결정짓게 하는 힘이에요. 한국 현대 작명에서는 쇠 기운을 '결단·의리·정의'의 자산으로 풀어, 적당하면 책임감·기준·원칙이 뚜렷하고 너무 강하면 융통성이 줄어든다고 봐요. 흩어진 기운을 모아 마무리하는 역할이에요.",
       "related": ["earth", "water", "yongshin"],
       "aiGenerated": true,
       "sourceTier": {
@@ -93,7 +93,7 @@
       "hashLabel": "#물",
       "category": "element",
       "brief": "사주에서 '물(수·水)'은 흐르고 스며들고 깊이 생각하게 하는 기운이에요.",
-      "detailed": "강물이나 우물처럼, 낮은 곳으로 흘러 들어가 곳곳을 적시는 힘이에요. 물 기운이 적당하면 사고·지혜·적응력이 좋아지고, 너무 강하면 깊이 가라앉거나 망설이기 쉬워요. 더운 기운이 강한 사주에는 물이 균형추 역할을 해요.",
+      "detailed": "강물이나 우물처럼, 낮은 곳으로 흘러 들어가 곳곳을 적시는 힘이에요. 한국 현대 작명에서는 물 기운을 '지혜·통찰·적응'의 자산으로 풀어, 적당하면 사고·지혜·적응력이 좋아지고 너무 강하면 깊이 가라앉거나 망설이기 쉽다고 봐요. 더운 사주에는 균형추 역할이에요.",
       "related": ["wood", "metal", "yongshin", "johu"],
       "aiGenerated": true,
       "sourceTier": {
@@ -174,7 +174,7 @@
       "hashLabel": "#목극토",
       "category": "element",
       "brief": "나무가 흙을 뚫고 자라며 흙 기운을 누르는 결이에요.",
-      "detailed": "나무뿌리가 흙을 가르며 자라듯, 나무 기운(木)이 흙 기운(土)을 누르는 결이에요. 사주에 나무가 너무 강하고 흙이 약할 땐 흙의 자리가 흔들리기 쉬워요. 무조건 흉한 건 아니고, '강한 결이 단단한 자리를 깨우는 자리'로도 봐요.",
+      "detailed": "나무뿌리가 흙을 가르며 자라듯, 나무 기운(木)이 흙 기운(土)을 누르는 관계예요. 사주에 나무가 너무 강하고 흙이 약할 땐 흙의 자리가 흔들리기 쉬워요. 무조건 흉한 건 아니고, '강한 흐름이 단단한 자리를 깨우는 신호'로도 풀어요.",
       "related": ["wood", "earth"],
       "aiGenerated": true,
       "sourceTier": { "tier": "T1_HYPOTHESIS", "sourceType": "training_derived", "sourceUrl": null, "accessedAt": "2026-05-02", "quoteShort": null, "humanInterpretation": "AI-derived plain-language definition of 목극토. Display-only.", "copyrightNote": "No source prose copied.", "authorityTruthEligible": false }
@@ -186,7 +186,7 @@
       "hashLabel": "#토극수",
       "category": "element",
       "brief": "흙이 물의 흐름을 막아 누르는 결이에요.",
-      "detailed": "둑이 물길을 가두듯, 흙 기운(土)이 물 기운(水)을 누르는 결이에요. 사주에 흙이 너무 많고 물이 약할 땐 깊은 흐름이 답답해질 수 있어요. 균형이 좋으면 흙이 물을 모아 주는 결이 되어 결과로 이어져요.",
+      "detailed": "둑이 물길을 가두듯, 흙 기운(土)이 물 기운(水)을 누르는 관계예요. 사주에 흙이 너무 많고 물이 약할 땐 깊은 흐름이 답답해질 수 있어요. 균형이 좋으면 흙이 물을 모아 두는 자산이 되어 결과로 이어져요.",
       "related": ["earth", "water"],
       "aiGenerated": true,
       "sourceTier": { "tier": "T1_HYPOTHESIS", "sourceType": "training_derived", "sourceUrl": null, "accessedAt": "2026-05-02", "quoteShort": null, "humanInterpretation": "AI-derived plain-language definition of 토극수. Display-only.", "copyrightNote": "No source prose copied.", "authorityTruthEligible": false }
@@ -198,7 +198,7 @@
       "hashLabel": "#수극화",
       "category": "element",
       "brief": "물이 불을 식혀 누르는 결이에요.",
-      "detailed": "찬 물이 불꽃을 끄듯, 물 기운(水)이 불 기운(火)을 누르는 결이에요. 사주에 불이 너무 많고 물이 균형추가 되어야 할 때는 이 결이 약이 되고, 반대로 불이 약한데 물이 강하면 빛이 사그라들기 쉬워요. 균형의 자리가 중요한 결이에요.",
+      "detailed": "찬 물이 불꽃을 끄듯, 물 기운(水)이 불 기운(火)을 누르는 관계예요. 사주에 불이 너무 많고 물이 균형추가 되어야 할 때는 이 흐름이 약이 되고, 반대로 불이 약한데 물이 강하면 빛이 사그라들기 쉬워요. 균형의 자리가 중요한 관계예요.",
       "related": ["water", "fire", "johu"],
       "aiGenerated": true,
       "sourceTier": { "tier": "T1_HYPOTHESIS", "sourceType": "training_derived", "sourceUrl": null, "accessedAt": "2026-05-02", "quoteShort": null, "humanInterpretation": "AI-derived plain-language definition of 수극화. Display-only.", "copyrightNote": "No source prose copied.", "authorityTruthEligible": false }
@@ -210,7 +210,7 @@
       "hashLabel": "#화극금",
       "category": "element",
       "brief": "불이 쇠를 녹여 형태를 바꾸는 결이에요.",
-      "detailed": "용광로의 불이 쇠를 녹여 다른 모양으로 만들 듯, 불 기운(火)이 쇠 기운(金)을 누르는 결이에요. 사주에 쇠가 너무 굳어 있을 땐 불이 도구로 다듬어 주는 약이 되지만, 쇠가 약한데 불이 강하면 결단의 자리가 무너질 수 있어요.",
+      "detailed": "용광로의 불이 쇠를 녹여 다른 모양으로 만들 듯, 불 기운(火)이 쇠 기운(金)을 누르는 관계예요. 사주에 쇠가 너무 굳어 있을 땐 불이 도구로 다듬어 주는 약이 되지만, 쇠가 약한데 불이 강하면 결단의 자리가 무너질 수 있어요.",
       "related": ["fire", "metal"],
       "aiGenerated": true,
       "sourceTier": { "tier": "T1_HYPOTHESIS", "sourceType": "training_derived", "sourceUrl": null, "accessedAt": "2026-05-02", "quoteShort": null, "humanInterpretation": "AI-derived plain-language definition of 화극금. Display-only.", "copyrightNote": "No source prose copied.", "authorityTruthEligible": false }
@@ -222,7 +222,7 @@
       "hashLabel": "#금극목",
       "category": "element",
       "brief": "쇠가 나무를 베어 누르는 결이에요.",
-      "detailed": "도끼로 나무를 베어 다듬듯, 쇠 기운(金)이 나무 기운(木)을 누르는 결이에요. 나무가 너무 무성할 땐 쇠가 가지를 정리해 주는 약이 되지만, 나무가 약한데 쇠가 강하면 자라는 결이 다치기 쉬워요. 균형의 자리가 결과를 가르는 결이에요.",
+      "detailed": "도끼로 나무를 베어 다듬듯, 쇠 기운(金)이 나무 기운(木)을 누르는 관계예요. 나무가 너무 무성할 땐 쇠가 가지를 정리해 주는 약이 되지만, 나무가 약한데 쇠가 강하면 자라는 흐름이 다치기 쉬워요. 균형의 자리가 결과를 가르는 관계예요.",
       "related": ["metal", "wood"],
       "aiGenerated": true,
       "sourceTier": { "tier": "T1_HYPOTHESIS", "sourceType": "training_derived", "sourceUrl": null, "accessedAt": "2026-05-02", "quoteShort": null, "humanInterpretation": "AI-derived plain-language definition of 금극목. Display-only.", "copyrightNote": "No source prose copied.", "authorityTruthEligible": false }
@@ -246,7 +246,7 @@
       "hashLabel": "#양극",
       "category": "element",
       "brief": "사주에서 환하고 활동적인 결, 양(陽)이에요.",
-      "detailed": "양(陽)은 햇빛·낮·여름·드러냄처럼 환하고 활동적인 결이에요. 사주에서 양 결이 강하면 표현·활동·도전이 또렷한 자리가 자라기 좋고, 너무 강하면 쉬는 결이 부족해질 수 있어요. 음양의 균형이 결의 부드러움을 정해요.",
+      "detailed": "양(陽)은 햇빛·낮·여름·드러냄처럼 환하고 활동적인 기운이에요. 사주에서 양이 강하면 표현·활동·도전이 또렷한 자리가 자라기 좋고, 너무 강하면 쉬는 시간이 부족해질 수 있어요. 음양의 균형이 흐름의 부드러움을 정해요.",
       "related": ["eumyang", "yin_polarity"],
       "aiGenerated": true,
       "sourceTier": { "tier": "T1_HYPOTHESIS", "sourceType": "training_derived", "sourceUrl": null, "accessedAt": "2026-05-02", "quoteShort": null, "humanInterpretation": "AI-derived plain-language definition of 양. Display-only.", "copyrightNote": "No source prose copied.", "authorityTruthEligible": false }
@@ -258,7 +258,7 @@
       "hashLabel": "#음극",
       "category": "element",
       "brief": "사주에서 차분히 안으로 모이는 결, 음(陰)이에요.",
-      "detailed": "음(陰)은 달빛·밤·겨울·갈무리처럼 차분히 안으로 모이는 결이에요. 사주에서 음 결이 강하면 사고·통찰·내실 다지는 자리가 자라기 좋고, 너무 강하면 활동·표현이 더뎌질 수 있어요. 양 결과 함께 어우러질 때 결이 부드럽게 풀려요.",
+      "detailed": "음(陰)은 달빛·밤·겨울·갈무리처럼 차분히 안으로 모이는 기운이에요. 사주에서 음이 강하면 사고·통찰·내실 다지는 자리가 자라기 좋고, 너무 강하면 활동·표현이 더뎌질 수 있어요. 양과 함께 어우러질 때 흐름이 부드럽게 풀려요.",
       "related": ["eumyang", "yang_polarity"],
       "aiGenerated": true,
       "sourceTier": { "tier": "T1_HYPOTHESIS", "sourceType": "training_derived", "sourceUrl": null, "accessedAt": "2026-05-02", "quoteShort": null, "humanInterpretation": "AI-derived plain-language definition of 음. Display-only.", "copyrightNote": "No source prose copied.", "authorityTruthEligible": false }
@@ -270,7 +270,7 @@
       "hashLabel": "#천간",
       "category": "element",
       "brief": "사주 위쪽에 자리한 열 글자, 갑·을·병·정·무·기·경·신·임·계예요.",
-      "detailed": "천간(天干)은 사주의 윗줄에 놓이는 10 글자(甲·乙·丙·丁·戊·己·庚·辛·壬·癸)예요. 각각 오행과 음양이 정해져 있고, 일간(자기 자리의 천간)은 사주의 '나 자신'을 가리키는 핵심 자리예요. 사주 해석의 가장 처음 단서가 되는 결이에요.",
+      "detailed": "천간(天干)은 사주의 윗줄에 놓이는 10 글자(甲·乙·丙·丁·戊·己·庚·辛·壬·癸)예요. 각각 오행과 음양이 정해져 있고, 일간(자기 자리의 천간)은 사주의 '나 자신'을 가리키는 핵심 자리예요. 사주 해석의 가장 처음 단서가 되는 줄이에요.",
       "related": ["jiji", "wood", "fire", "earth", "metal", "water"],
       "aiGenerated": true,
       "sourceTier": { "tier": "T1_HYPOTHESIS", "sourceType": "training_derived", "sourceUrl": null, "accessedAt": "2026-05-02", "quoteShort": null, "humanInterpretation": "AI-derived plain-language definition of 천간. Display-only.", "copyrightNote": "No source prose copied.", "authorityTruthEligible": false }
@@ -282,7 +282,7 @@
       "hashLabel": "#지지",
       "category": "element",
       "brief": "사주 아래쪽에 자리한 열두 글자, 자·축·인·묘…해예요.",
-      "detailed": "지지(地支)는 사주의 아랫줄에 놓이는 12 글자(子·丑·寅·卯·辰·巳·午·未·申·酉·戌·亥)예요. 12 동물 띠와도 짝을 이루며 시간·계절·방향을 가리키고, 천간이 자리잡는 '땅'의 결이에요. 합·충·형·해 같은 결의 변화는 대부분 지지에서 일어나요.",
+      "detailed": "지지(地支)는 사주의 아랫줄에 놓이는 12 글자(子·丑·寅·卯·辰·巳·午·未·申·酉·戌·亥)예요. 12 동물 띠와도 짝을 이루며 시간·계절·방향을 가리키고, 천간이 자리잡는 '땅'에 해당해요. 합·충·형·해 같은 변화는 대부분 지지에서 일어나요.",
       "related": ["cheongan", "jaochung", "samhab_haemyomi"],
       "aiGenerated": true,
       "sourceTier": { "tier": "T1_HYPOTHESIS", "sourceType": "training_derived", "sourceUrl": null, "accessedAt": "2026-05-02", "quoteShort": null, "humanInterpretation": "AI-derived plain-language definition of 지지. Display-only.", "copyrightNote": "No source prose copied.", "authorityTruthEligible": false }
