@@ -43,7 +43,7 @@
       "hashLabel": "#식신",
       "category": "tenGod",
       "brief": "내가 만들어 내는 표현·재능·즐거움 기운이에요.",
-      "detailed": "내가 길러 내고 풀어 내는 힘, 즉 '내가 만든 것'을 뜻해요. 음식, 글, 노래, 발표처럼 표현·창작·여유를 즐기는 흐름이에요. 한국 현대 명리에서는 '꾸준한 표현'과 식록(食祿) 자산으로 풀어, 식신이 좋으면 분위기가 부드럽고 자기 분야에서 결과물을 차곡차곡 쌓는 사람이 많다고 봐요.",
+      "detailed": "내가 길러 내고 풀어 내는 힘, 즉 '내가 만든 것'을 뜻해요. 음식, 글, 노래, 발표처럼 표현·창작·여유를 즐기는 흐름이에요. 한국 현대 명리에서는 '꾸준한 표현'과 식록(食祿)의 자산으로 풀어, 자기 분야에서 결과물을 차곡차곡 쌓는 사주가 많아요.",
       "related": ["sanggwan"],
       "aiGenerated": true,
       "sourceTier": { "tier": "T1_HYPOTHESIS", "sourceType": "training_derived", "sourceUrl": null, "accessedAt": "2026-05-02", "quoteShort": null, "humanInterpretation": "AI-derived plain-language definition of sikshin (식신). Display-only narrative.", "copyrightNote": "No source prose copied.", "authorityTruthEligible": false }
@@ -55,7 +55,7 @@
       "hashLabel": "#상관",
       "category": "tenGod",
       "brief": "톡톡 튀고 자기 색깔이 분명한 표현·재능 기운이에요.",
-      "detailed": "식신과 같은 '내가 만들어 내는 힘'이지만, 더 날카롭고 개성이 강해요. 비판력·창의성이 도드라지지만 규칙·윗사람과 부딪치기 쉬워서, 큰 무대를 만나면 빛을 내고 작은 자리에선 답답함을 느껴요. 한국 현대 명리에서는 '재능을 쓰임으로 다듬는 결'로 풀어, 적절한 무대를 찾으면 강점이 돼요.",
+      "detailed": "식신과 같은 '내가 만들어 내는 힘'이지만, 더 날카롭고 개성이 강해요. 비판력·창의성이 도드라지지만 규칙·윗사람과 부딪치기 쉬워서, 큰 무대를 만나면 빛을 내고 작은 자리에선 답답함을 느껴요. 한국 현대 명리에서는 적절한 무대를 만나면 강점으로 다듬어진다고 봐요.",
       "related": ["sikshin"],
       "aiGenerated": true,
       "sourceTier": { "tier": "T1_HYPOTHESIS", "sourceType": "training_derived", "sourceUrl": null, "accessedAt": "2026-05-02", "quoteShort": null, "humanInterpretation": "AI-derived plain-language definition of sanggwan (상관). Display-only narrative.", "copyrightNote": "No source prose copied.", "authorityTruthEligible": false }
@@ -103,7 +103,7 @@
       "hashLabel": "#정관",
       "category": "tenGod",
       "brief": "자리·직책·약속처럼 '바른 책임'을 뜻하는 기운이에요.",
-      "detailed": "사회적 자리, 신뢰, 약속을 지키는 흐름이에요. 정관이 강하고 균형이 좋은 사람은 책임감·반듯함·인정이 잘 따르고, 너무 강하면 부담이 커져요. 한국 현대 작명에서도 정관을 '귀(貴)' 자산으로 보아, 정관이 잘 자리잡은 사주는 사회적 인정 결이 길게 자란다고 풀어요.",
+      "detailed": "사회적 자리, 신뢰, 약속을 지키는 흐름이에요. 정관이 강하고 균형이 좋은 사람은 책임감·반듯함·인정이 잘 따르고, 너무 강하면 부담이 커져요. 한국 현대 작명에서도 정관을 '귀(貴)'의 자산으로 봐, 잘 자리잡으면 사회적 인정이 길게 자라는 사주로 풀어요.",
       "related": ["pyeongwan"],
       "aiGenerated": true,
       "sourceTier": { "tier": "T1_HYPOTHESIS", "sourceType": "training_derived", "sourceUrl": null, "accessedAt": "2026-05-02", "quoteShort": null, "humanInterpretation": "AI-derived plain-language definition of jeonggwan (정관). Display-only narrative.", "copyrightNote": "No source prose copied.", "authorityTruthEligible": false }

@@ -9,7 +9,7 @@
       "hashLabel": "#용신",
       "category": "yongshin",
       "brief": "내 사주를 가장 잘 도와주는, 가장 필요한 한 가지 기운이에요.",
-      "detailed": "내 사주의 균형이 한쪽으로 기울었을 때, 그 균형을 맞춰 주는 가장 중요한 기운을 용신이라고 해요. 비유하자면 '내 인생의 자물쇠를 여는 열쇠' 같은 역할이에요. 한국 현대 명리(이석영·박재완 흐름)에서도 작명·운세·궁합 모두에서 가장 먼저 살피는 핵심 단서로 봐요.",
+      "detailed": "내 사주의 균형이 한쪽으로 기울었을 때, 그 균형을 맞춰 주는 가장 중요한 기운을 용신이라고 해요. 비유하자면 '내 인생의 자물쇠를 여는 열쇠' 같은 역할이에요. 한국 현대 명리에서도 작명·운세·궁합 모두에서 가장 먼저 살피는 핵심 단서로 봐요.",
       "related": ["heeshin", "gishin", "gushin", "johu", "wood", "fire", "earth", "metal", "water"],
       "aiGenerated": true,
       "sourceTier": {
@@ -150,7 +150,7 @@
       "hashLabel": "#조후용신",
       "category": "yongshin",
       "brief": "사주의 추위·더위를 다스리는 결이 용신 역할을 할 때예요.",
-      "detailed": "사주가 한쪽으로 너무 차거나 너무 더울 때, 온도를 맞춰 주는 조후의 기운이 용신 자리에 들어와요. 더위에는 시원한 물, 추위에는 따뜻한 불을 처방하는 방식이라, 큰 결정 앞에서 조후가 함께 맞으면 결과가 부드럽게 풀려요. 한국 현대 명리에서 가장 자주 쓰는 용신 잡는 법 중 하나예요.",
+      "detailed": "사주가 한쪽으로 너무 차거나 너무 더울 때, 온도를 맞춰 주는 조후의 기운이 용신 자리에 들어와요. 더위에는 시원한 물, 추위에는 따뜻한 불을 처방하는 방식이에요. 한국 현대 명리에서 자주 쓰는 용신 잡는 법으로, 큰 결정 앞에서 조후가 맞으면 결과가 부드럽게 풀려요.",
       "related": ["johu", "yongshin", "fire", "water"],
       "aiGenerated": true,
       "sourceTier": { "tier": "T1_HYPOTHESIS", "sourceType": "training_derived", "sourceUrl": null, "accessedAt": "2026-05-02", "quoteShort": null, "humanInterpretation": "AI-derived plain-language definition of 조후용신. Display-only.", "copyrightNote": "No source prose copied.", "authorityTruthEligible": false }
