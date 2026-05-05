@@ -22,7 +22,7 @@
       "axis": { "category": "study_document", "period": "today", "depth": "brief" },
       "gating": { "yongshinAlignment": ["aligned"] },
       "templateTokens": [
-        { "kind": "text", "value": "필요한 서류가 손에 들어오기 좋은 결이에요." }
+        { "kind": "text", "value": "필요한 서류가 손에 들어오기 좋은 흐름이에요." }
       ],
       "tags": [],
       "aiGenerated": true,

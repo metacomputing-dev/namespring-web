@@ -10,7 +10,7 @@
       "axis": { "category": "study_document", "period": "life", "depth": "brief" },
       "gating": {},
       "templateTokens": [
-        { "kind": "text", "value": "기록이 단단해지는 결의 인생이에요." }
+        { "kind": "text", "value": "기록이 단단해지는 인생이에요." }
       ],
       "tags": [],
       "aiGenerated": true,
@@ -46,7 +46,7 @@
       "axis": { "category": "study_document", "period": "life", "depth": "brief" },
       "gating": { "ageBand": ["0-9", "10-19"] },
       "templateTokens": [
-        { "kind": "text", "value": "글과 시험을 차곡차곡 쌓아가는 결이에요." }
+        { "kind": "text", "value": "글과 시험을 차곡차곡 쌓아가는 시기예요." }
       ],
       "tags": [],
       "aiGenerated": true,
@@ -58,7 +58,7 @@
       "axis": { "category": "study_document", "period": "life", "depth": "brief" },
       "gating": { "ageBand": ["30-39", "40-54", "55-69"] },
       "templateTokens": [
-        { "kind": "text", "value": "자격과 계약이 든든히 자리 잡는 결이에요." }
+        { "kind": "text", "value": "자격과 계약이 든든히 자리 잡는 인생이에요." }
       ],
       "tags": [],
       "aiGenerated": true,
@@ -70,7 +70,7 @@
       "axis": { "category": "study_document", "period": "life", "depth": "brief" },
       "gating": { "dayMasterStrength": ["STRONG", "EXTREME_STRONG"] },
       "templateTokens": [
-        { "kind": "text", "value": "추진력으로 자격을 손에 쥐어 가는 결이에요." }
+        { "kind": "text", "value": "추진력으로 자격을 손에 쥐어 가는 흐름이에요." }
       ],
       "tags": [],
       "aiGenerated": true,
@@ -82,7 +82,7 @@
       "axis": { "category": "study_document", "period": "life", "depth": "brief" },
       "gating": { "dayMasterStrength": ["WEAK", "EXTREME_WEAK"] },
       "templateTokens": [
-        { "kind": "text", "value": "스승·책의 도움으로 깊어지는 공부 결이에요." }
+        { "kind": "text", "value": "스승·책의 도움으로 깊어지는 공부 사주예요." }
       ],
       "tags": [],
       "aiGenerated": true,
@@ -94,7 +94,7 @@
       "axis": { "category": "study_document", "period": "life", "depth": "brief" },
       "gating": { "dayMasterStrength": ["BALANCED"] },
       "templateTokens": [
-        { "kind": "text", "value": "중심을 지키며 한 장씩 단단해지는 결이에요." }
+        { "kind": "text", "value": "중심을 지키며 한 장씩 단단해지는 시기예요." }
       ],
       "tags": [],
       "aiGenerated": true,
