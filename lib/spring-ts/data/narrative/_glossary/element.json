@@ -234,7 +234,7 @@
       "hashLabel": "#음양",
       "category": "element",
       "brief": "사주를 이루는 두 가지 결, 음(陰)과 양(陽)이에요.",
-      "detailed": "사주의 모든 글자는 양(陽)과 음(陰) 두 결로 나뉘어요. 양은 환하고 활동적인 결(낮·여름·표현), 음은 차분하고 안으로 모이는 결(밤·겨울·휴식)이에요. 두 결이 한쪽으로 치우치지 않고 어우러질 때 사주의 결이 부드럽게 풀려요.",
+      "detailed": "사주의 모든 글자는 양(陽)과 음(陰) 두 기운으로 나뉘어요. 양은 환하고 활동적인 기운(낮·여름·표현), 음은 차분하고 안으로 모이는 기운(밤·겨울·휴식)이에요. 두 기운이 한쪽으로 치우치지 않고 어우러질 때 사주의 흐름이 부드럽게 풀려요.",
       "related": ["wood", "fire", "earth", "metal", "water", "eumyangHarmony"],
       "aiGenerated": true,
       "sourceTier": { "tier": "T1_HYPOTHESIS", "sourceType": "training_derived", "sourceUrl": null, "accessedAt": "2026-05-02", "quoteShort": null, "humanInterpretation": "AI-derived plain-language definition of 음양. Display-only.", "copyrightNote": "No source prose copied.", "authorityTruthEligible": false }

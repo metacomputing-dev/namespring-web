@@ -249,7 +249,7 @@
       "hashLabel": "#일행득기격",
       "category": "gyeokguk",
       "brief": "한 가지 오행이 자기 결을 가득 얻은 잡격이에요.",
-      "detailed": "사주의 모든 글자가 한 가지 오행에 모여 그 결을 온전히 얻은 모양이에요. 전왕격과 가까운 결이지만, 일행득기격은 일간과 같은 오행이 자리·결을 가득 얻은 자리에 초점을 두는 결이에요. 그 오행의 자리에서 결과가 또렷이 따르는 사주예요.",
+      "detailed": "사주의 모든 글자가 한 가지 오행에 모여 그 기운을 온전히 얻은 모양이에요. 전왕격과 가깝지만, 일행득기격은 일간과 같은 오행이 자리를 가득 얻은 점에 초점을 두어요. 그 오행과 어울리는 자리에서 결과가 또렷이 따르는 사주예요.",
       "related": ["jeonwanggyeok", "wood", "fire", "earth", "metal", "water"],
       "aiGenerated": true,
       "sourceTier": { "tier": "T1_HYPOTHESIS", "sourceType": "training_derived", "sourceUrl": null, "accessedAt": "2026-05-02", "quoteShort": null, "humanInterpretation": "AI-derived plain-language definition of 일행득기격. Display-only narrative.", "copyrightNote": "No source prose copied.", "authorityTruthEligible": false }

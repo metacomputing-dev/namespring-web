@@ -150,7 +150,7 @@
       "hashLabel": "#조후용신",
       "category": "yongshin",
       "brief": "사주의 추위·더위를 다스리는 결이 용신 역할을 할 때예요.",
-      "detailed": "사주가 한쪽으로 너무 차거나 너무 더울 때, 온도를 맞춰 주는 조후의 결이 용신 자리에 들어와요. 더위에는 시원한 물, 추위에는 따뜻한 불을 처방하는 결이라, 큰 결정 앞에서 조후 결이 함께 맞으면 결과가 부드럽게 풀려요.",
+      "detailed": "사주가 한쪽으로 너무 차거나 너무 더울 때, 온도를 맞춰 주는 조후의 기운이 용신 자리에 들어와요. 더위에는 시원한 물, 추위에는 따뜻한 불을 처방하는 방식이라, 큰 결정 앞에서 조후가 함께 맞으면 결과가 부드럽게 풀려요. 한국 현대 명리에서 가장 자주 쓰는 용신 잡는 법 중 하나예요.",
       "related": ["johu", "yongshin", "fire", "water"],
       "aiGenerated": true,
       "sourceTier": { "tier": "T1_HYPOTHESIS", "sourceType": "training_derived", "sourceUrl": null, "accessedAt": "2026-05-02", "quoteShort": null, "humanInterpretation": "AI-derived plain-language definition of 조후용신. Display-only.", "copyrightNote": "No source prose copied.", "authorityTruthEligible": false }
@@ -186,7 +186,7 @@
       "hashLabel": "#반용신",
       "category": "yongshin",
       "brief": "용신과 정반대 방향에서 결을 흔드는 기운이에요.",
-      "detailed": "용신이 결을 풀어 주는 방향이라면, 반용신은 그 결을 거스르며 흔드는 기운이에요. 기신·구신과 결이 비슷하지만, 반용신은 '용신의 정반대 자리'라는 점에서 더 또렷이 해석돼요. 운세에서 반용신 시기엔 무리한 큰 결정만 줄이면 결을 흠 없이 넘기기 쉬워요.",
+      "detailed": "용신이 흐름을 풀어 주는 방향이라면, 반용신은 그 흐름을 거스르며 흔드는 기운이에요. 기신·구신과 비슷하지만, 반용신은 '용신의 정반대 자리'라는 점에서 더 또렷이 해석돼요. 운세에서 반용신 시기엔 무리한 큰 결정만 줄이면 흠 없이 넘기기 쉬워요.",
       "related": ["yongshin", "gishin", "gushin"],
       "aiGenerated": true,
       "sourceTier": { "tier": "T1_HYPOTHESIS", "sourceType": "training_derived", "sourceUrl": null, "accessedAt": "2026-05-02", "quoteShort": null, "humanInterpretation": "AI-derived plain-language definition of 반용신. Display-only.", "copyrightNote": "No source prose copied.", "authorityTruthEligible": false }

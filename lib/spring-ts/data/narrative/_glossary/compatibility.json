@@ -33,7 +33,7 @@
       "hashLabel": "#오행균형도",
       "category": "compatibility",
       "brief": "사주에 오행 다섯 결이 얼마나 골고루 들어 있는지 보여 주는 점수예요.",
-      "detailed": "나무·불·흙·쇠·물 다섯 결이 사주에 얼마나 골고루 자리잡고 있는지를 0~100 점으로 보여 주는 결이에요. 점수가 높을수록 한쪽으로 기울지 않는 결이라 흐름이 부드럽게 풀리고, 낮을수록 부족한 결을 채울 결이 더 큰 키가 돼요.",
+      "detailed": "나무·불·흙·쇠·물 다섯 기운이 사주에 얼마나 골고루 자리잡고 있는지를 0~100 점으로 보여 줘요. 점수가 높을수록 한쪽으로 기울지 않아 흐름이 부드럽게 풀리고, 낮을수록 부족한 기운을 채울 자리가 더 큰 단서가 돼요. 한국 작명에서도 가장 먼저 살피는 균형 지표예요.",
       "related": ["wood", "fire", "earth", "metal", "water"],
       "aiGenerated": true,
       "sourceTier": { "tier": "T1_HYPOTHESIS", "sourceType": "training_derived", "sourceUrl": null, "accessedAt": "2026-05-02", "quoteShort": null, "humanInterpretation": "AI-derived plain-language definition of 오행균형도. Display-only.", "copyrightNote": "No source prose copied.", "authorityTruthEligible": false }
@@ -45,7 +45,7 @@
       "hashLabel": "#십신분포도",
       "category": "compatibility",
       "brief": "열 가지 십신이 사주에 얼마나 고르게 분포돼 있는지 보여 주는 점수예요.",
-      "detailed": "비견·식신·재성·관성·인성 같은 열 가지 십신의 결이 사주에 얼마나 고르게 자리잡고 있는지를 0~100 점으로 보여 주는 결이에요. 점수가 높을수록 다양한 자리에서 결과를 낼 수 있는 결이라, 직업·관계 결의 폭을 가늠하는 단서로 함께 봐요.",
+      "detailed": "비견·식신·재성·관성·인성 같은 열 가지 십신이 사주에 얼마나 고르게 자리잡고 있는지를 0~100 점으로 보여 주는 지표예요. 점수가 높을수록 다양한 자리에서 결과를 낼 수 있어, 직업·관계의 폭을 가늠하는 단서로 함께 봐요.",
       "related": ["bigyeon", "sikshin", "jeonggwan", "jeongin"],
       "aiGenerated": true,
       "sourceTier": { "tier": "T1_HYPOTHESIS", "sourceType": "training_derived", "sourceUrl": null, "accessedAt": "2026-05-02", "quoteShort": null, "humanInterpretation": "AI-derived plain-language definition of 십신분포도. Display-only.", "copyrightNote": "No source prose copied.", "authorityTruthEligible": false }
@@ -57,7 +57,7 @@
       "hashLabel": "#격국적합도",
       "category": "compatibility",
       "brief": "이름·시기가 내 사주의 격국 모양과 얼마나 잘 맞는지 보여 주는 점수예요.",
-      "detailed": "내 사주의 격국(전체 모양)과 이름·시기가 얼마나 잘 맞물려 들어오는지를 0~100 점으로 보여 주는 결이에요. 점수가 높을수록 격국의 결을 더 또렷이 살려 주는 결이라, 직업·자리·인생 결을 길게 보는 카드에서 함께 살피는 자리예요.",
+      "detailed": "내 사주의 격국(전체 모양)과 이름·시기가 얼마나 잘 맞물려 들어오는지를 0~100 점으로 보여 주는 지표예요. 점수가 높을수록 격국의 모양을 더 또렷이 살려 주어, 직업·자리·인생 흐름을 길게 보는 카드에서 함께 살펴요.",
       "related": ["jeonggwangyeok", "jeongjaegyeok", "yongshinFit"],
       "aiGenerated": true,
       "sourceTier": { "tier": "T1_HYPOTHESIS", "sourceType": "training_derived", "sourceUrl": null, "accessedAt": "2026-05-02", "quoteShort": null, "humanInterpretation": "AI-derived plain-language definition of 격국적합도. Display-only.", "copyrightNote": "No source prose copied.", "authorityTruthEligible": false }
@@ -69,7 +69,7 @@
       "hashLabel": "#음양조화도",
       "category": "compatibility",
       "brief": "사주의 음양 결이 얼마나 잘 어우러져 있는지 보여 주는 점수예요.",
-      "detailed": "사주의 음(陰)과 양(陽) 결이 한쪽으로 치우치지 않고 얼마나 잘 어우러져 있는지를 0~100 점으로 보여 주는 결이에요. 음양이 잘 어우러지면 결정과 표현, 휴식과 활동의 결이 부드럽게 오가는 자리라, 인생 결의 안정에 큰 영향을 줘요.",
+      "detailed": "사주의 음(陰)과 양(陽) 기운이 한쪽으로 치우치지 않고 얼마나 잘 어우러져 있는지를 0~100 점으로 보여 줘요. 음양이 잘 어우러지면 결정과 표현, 휴식과 활동이 부드럽게 오가요. 한국 현대 명리에서도 인생 안정성을 가늠하는 핵심 지표로 보아요.",
       "related": ["ohaengBalance"],
       "aiGenerated": true,
       "sourceTier": { "tier": "T1_HYPOTHESIS", "sourceType": "training_derived", "sourceUrl": null, "accessedAt": "2026-05-02", "quoteShort": null, "humanInterpretation": "AI-derived plain-language definition of 음양조화도. Display-only.", "copyrightNote": "No source prose copied.", "authorityTruthEligible": false }
@@ -81,7 +81,7 @@
       "hashLabel": "#안정성지수",
       "category": "compatibility",
       "brief": "이름·시기가 사주의 흔들림을 얼마나 잘 잡아 주는지 보여 주는 점수예요.",
-      "detailed": "사주의 큰 결이 흔들리기 쉬운 자리·시기에, 이름이나 운세가 얼마나 결을 잡아 주는지를 0~100 점으로 보여 주는 결이에요. 점수가 높을수록 일·관계·건강 결의 흔들림을 줄이는 결이라, 큰 결정 앞에서 함께 살피는 단서가 돼요.",
+      "detailed": "사주가 흔들리기 쉬운 자리·시기에, 이름이나 운세가 얼마나 중심을 잡아 주는지를 0~100 점으로 보여 주는 지표예요. 점수가 높을수록 일·관계·건강의 흔들림을 줄여 주어, 큰 결정 앞에서 함께 살피는 단서가 돼요.",
       "related": ["yongshinFit", "ohaengBalance"],
       "aiGenerated": true,
       "sourceTier": { "tier": "T1_HYPOTHESIS", "sourceType": "training_derived", "sourceUrl": null, "accessedAt": "2026-05-02", "quoteShort": null, "humanInterpretation": "AI-derived plain-language definition of 안정성지수. Display-only.", "copyrightNote": "No source prose copied.", "authorityTruthEligible": false }
@@ -93,7 +93,7 @@
       "hashLabel": "#성장잠재력",
       "category": "compatibility",
       "brief": "이름·시기가 사주의 결을 얼마나 자라게 하는지 보여 주는 점수예요.",
-      "detailed": "사주가 가진 결을 이름이나 운세가 얼마나 키워 줄 수 있는지를 0~100 점으로 보여 주는 결이에요. 점수가 높을수록 직업·학업·관계의 자리에서 자라는 폭이 큰 결이라, 새 출발·이름 짓기·진로 결정 카드에서 함께 살피는 단서가 돼요.",
+      "detailed": "사주가 가진 가능성을 이름이나 운세가 얼마나 키워 줄 수 있는지를 0~100 점으로 보여 주는 지표예요. 점수가 높을수록 직업·학업·관계에서 자라는 폭이 커요. 새 출발·이름 짓기·진로 결정 카드에서 함께 살피는 단서가 돼요.",
       "related": ["yongshinFit", "sajuCompatibility"],
       "aiGenerated": true,
       "sourceTier": { "tier": "T1_HYPOTHESIS", "sourceType": "training_derived", "sourceUrl": null, "accessedAt": "2026-05-02", "quoteShort": null, "humanInterpretation": "AI-derived plain-language definition of 성장잠재력. Display-only.", "copyrightNote": "No source prose copied.", "authorityTruthEligible": false }
@@ -105,7 +105,7 @@
       "hashLabel": "#어울림점수",
       "category": "compatibility",
       "brief": "이름·짝이 사주와 얼마나 결이 맞는지 보여 주는 점수예요.",
-      "detailed": "두 사람의 사주, 또는 사람과 이름의 결이 서로 얼마나 자연스럽게 어울리는지를 0~100 점으로 보여 주는 결이에요. 점수가 높을수록 가까운 자리·동업·반려의 결이 부드럽게 풀리는 자리라, 궁합·작명 카드에서 함께 살피는 단서가 돼요.",
+      "detailed": "두 사람의 사주, 또는 사람과 이름이 서로 얼마나 자연스럽게 어울리는지를 0~100 점으로 보여 주는 지표예요. 점수가 높을수록 가까운 사이·동업·반려가 부드럽게 풀려, 궁합·작명 카드에서 함께 살피는 단서가 돼요.",
       "related": ["yongshinFit", "sajuCompatibility", "eumyangHarmony"],
       "aiGenerated": true,
       "sourceTier": { "tier": "T1_HYPOTHESIS", "sourceType": "training_derived", "sourceUrl": null, "accessedAt": "2026-05-02", "quoteShort": null, "humanInterpretation": "AI-derived plain-language definition of 어울림점수. Display-only.", "copyrightNote": "No source prose copied.", "authorityTruthEligible": false }
