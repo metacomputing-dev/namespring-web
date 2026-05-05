@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-05-05T05:20:17.940Z",
+  "generatedAt": "2026-05-05T06:13:59.967Z",
   "targetDate": "2026-05-05T00:00:00+09:00",
   "sampleId": "choi-yaza-boundary-male-tiered",
   "description": "야자시 경계 23:30 출생. yaza=on, yazaMode=23:00 으로 다음 날로 이월하는 경계 케이스.",
@@ -1299,7 +1299,7 @@
     },
     "meta": {
       "version": "1.0.0",
-      "generatedAt": "2026-05-05T05:20:22.101Z",
+      "generatedAt": "2026-05-05T06:14:04.619Z",
       "schoolPreset": {
         "selected": "korean",
         "source": "default",
@@ -1449,7 +1449,7 @@
               "meaningfulness": "meaningful",
               "stars": 1,
               "brief": {
-                "headline": "긴 흐름에서는 돈이 움직일 기회가 늘 수 있어요. 새 수입을 찾되, 먼저 모을 돈과 쓸 돈의 기준을 나누세요."
+                "headline": "긴 흐름에서는 돈이 움직일 기회가 늘 수 있어요."
               },
               "standard": {
                 "paragraphs": [
@@ -1622,7 +1622,7 @@
               "meaningfulness": "meaningful",
               "stars": 1,
               "brief": {
-                "headline": "긴 흐름에서는 몸을 조금씩 움직이며 활력을 살리기 좋아요. 다만 무리해서 몰아붙이기보다 땀, 수면, 식사를 함께 챙기세요."
+                "headline": "긴 흐름에서는 몸을 조금씩 움직이며 활력을 살리기 좋아요."
               },
               "standard": {
                 "paragraphs": [
@@ -1729,7 +1729,7 @@
               "meaningfulness": "meaningful",
               "stars": 1,
               "brief": {
-                "headline": "배움에서는 먼저 해 보고 질문하면서 실력이 자라는 흐름이 있어요. 긴 계획보다 작은 시도와 빠른 피드백이 잘 맞아요."
+                "headline": "배움에서는 먼저 해 보고 질문하면서 실력이 자라는 흐름이 있어요."
               },
               "standard": {
                 "paragraphs": [
@@ -1899,7 +1899,7 @@
               "meaningfulness": "meaningful",
               "stars": 1,
               "brief": {
-                "headline": "인연의 흐름은 큰 사건보다 매일의 태도에서 천천히 만들어져요. 편안한 거리감과 꾸준한 표현이 오래 가는 관계의 바탕이 될 수 있어요."
+                "headline": "인연의 흐름은 큰 사건보다 매일의 태도에서 천천히 만들어져요."
               },
               "standard": {
                 "paragraphs": [
@@ -2245,7 +2245,7 @@
               "meaningfulness": "meaningful",
               "stars": 1,
               "brief": {
-                "headline": "책임이 커지면서 자리도 한 단계 자라나는요."
+                "headline": "책임이 커지면서 자리도 한 단계 자라나요."
               },
               "standard": {
                 "paragraphs": [
@@ -2497,7 +2497,7 @@
               "meaningfulness": "meaningful",
               "stars": 1,
               "brief": {
-                "headline": "긴 흐름에서는 생각을 말이나 결과물로 보여줄 기회가 많아져요. 아이나 가족을 돌보는 일도 작은 시도부터 풀어가면 좋아요."
+                "headline": "긴 흐름에서는 생각을 말이나 결과물로 보여줄 기회가 많아져요."
               },
               "standard": {
                 "paragraphs": [
@@ -2667,7 +2667,7 @@
               "meaningfulness": "meaningful",
               "stars": 1,
               "brief": {
-                "headline": "어깨에 얹힌 무게를 가끔 풀어 줘요. 몸을 움직이는 휴식이 가장 잘 맞아요."
+                "headline": "어깨에 얹힌 무게를 가끔 풀어 줘요."
               },
               "standard": {
                 "paragraphs": [
@@ -2844,7 +2844,7 @@
               "meaningfulness": "meaningful",
               "stars": 1,
               "brief": {
-                "headline": "삶 전체로 보면 새로운 장소와 사람을 경험할수록 시야가 넓어지는 편이에요."
+                "headline": "삶 전체로 보면 새로운 장소와 사람을 경험할수록 시야가 넓어지요."
               },
               "standard": {
                 "paragraphs": [
@@ -3267,7 +3267,7 @@
               "meaningfulness": "meaningful",
               "stars": 4,
               "brief": {
-                "headline": "오늘은 무리한 운동보다 식사, 물, 휴식 시간을 먼저 챙기면 몸이 편해져요."
+                "headline": "오늘은 무리한 운동보다 식사, 물, 휴식 시간을 먼저 챙기면 몸이 편요."
               },
               "standard": {
                 "paragraphs": [
@@ -3441,7 +3441,7 @@
               "meaningfulness": "meaningful",
               "stars": 4,
               "brief": {
-                "headline": "오늘은 공부를 바로 시작하기 좋은 날이에요. 짧게라도 문제를 풀거나 과제를 손에 잡으면 흐름이 살아납니다."
+                "headline": "오늘은 공부를 바로 시작하기 좋은 날이에요."
               },
               "standard": {
                 "paragraphs": [
@@ -3592,7 +3592,7 @@
               "meaningfulness": "meaningful",
               "stars": 4,
               "brief": {
-                "headline": "오늘은 마음을 급히 확인하려 하기보다 편안한 대화가 더 좋아요. 짧은 안부와 부드러운 표현이 관계 흐름을 안정시켜요."
+                "headline": "오늘은 마음을 급히 확인하려 하기보다 편안한 대화가 더 좋아요."
               },
               "standard": {
                 "paragraphs": [
@@ -3712,7 +3712,7 @@
               "meaningfulness": "meaningful",
               "stars": 4,
               "brief": {
-                "headline": "오늘은 가족에게 먼저 안부를 묻기 좋아요. 작은 도움 하나를 먼저 제안하면 분위기가 부드러워집니다."
+                "headline": "오늘은 가족에게 먼저 안부를 묻기 좋아요."
               },
               "standard": {
                 "paragraphs": [
@@ -4201,7 +4201,7 @@
               "meaningfulness": "meaningful",
               "stars": 4,
               "brief": {
-                "headline": "오늘 떠오른 아이디어는 완성보다 기록이 먼저예요. 짧게라도 남기면 다시 살릴 수 있습니다."
+                "headline": "오늘 떠오른 아이디어는 완성보다 기록이 먼저예요."
               },
               "standard": {
                 "paragraphs": [
@@ -4307,7 +4307,7 @@
               "meaningfulness": "meaningful",
               "stars": 4,
               "brief": {
-                "headline": "오늘은 어깨를 한 번 풀어 주는 흐름이에요. 짧게 몸을 움직이는 휴식이 잘 맞아요."
+                "headline": "오늘은 어깨를 한 번 풀어 주는 흐름이에요."
               },
               "standard": {
                 "paragraphs": [
@@ -4410,7 +4410,7 @@
               "meaningfulness": "meaningful",
               "stars": 4,
               "brief": {
-                "headline": "오늘은 이동 전 동선을 한 번 더 확인하면 시간을 아끼고 실수를 줄일 수 있어요."
+                "headline": "오늘은 이동 전 동선을 한 번 더 확인하면 시간을 아끼고 실수를 줄요."
               },
               "standard": {
                 "paragraphs": [
@@ -4936,7 +4936,7 @@
               "meaningfulness": "limited",
               "stars": 3,
               "brief": {
-                "headline": "이번 주는 새 단원이나 어려운 문제를 시작하기 좋아요. 막히면 오래 붙잡기보다 질문하고 다시 풀어 보는 방식이 효율적이에요."
+                "headline": "이번 주는 새 단원이나 어려운 문제를 시작하기 좋아요."
               },
               "standard": {
                 "paragraphs": [
@@ -5087,7 +5087,7 @@
               "meaningfulness": "limited",
               "stars": 3,
               "brief": {
-                "headline": "이번 주는 인연을 서두르기보다 자연스럽게 이어가는 흐름이 좋아요. 작은 약속을 지키는 태도가 신뢰를 쌓아줘요."
+                "headline": "이번 주는 인연을 서두르기보다 자연스럽게 이어가는 흐름이 좋아요."
               },
               "standard": {
                 "paragraphs": [
@@ -5239,7 +5239,7 @@
               "meaningfulness": "limited",
               "stars": 3,
               "brief": {
-                "headline": "이번 주는 가족에게 먼저 안부를 묻는 작은 행동이 관계를 편하게 만듭니다."
+                "headline": "이번 주는 가족에게 먼저 안부를 묻는 작은 행동이 관계를 편하게요."
               },
               "standard": {
                 "paragraphs": [
@@ -5490,7 +5490,7 @@
               "meaningfulness": "limited",
               "stars": 3,
               "brief": {
-                "headline": "이번 주는 새로 배우는 것보다 이미 배운 내용을 다시 정리하는 시간이 도움이 돼요."
+                "headline": "이번 주는 새로 배우는 것보다 이미 배운 내용을 다시 정리하는 시요."
               },
               "standard": {
                 "paragraphs": [
@@ -6178,7 +6178,7 @@
               "meaningfulness": "meaningful",
               "stars": 1,
               "brief": {
-                "headline": "이번 달은 활동량이 늘 수 있으니 체력 배분이 중요해요. 운동 목표를 세우되 쉬는 날까지 계획에 넣으면 오래 이어갈 수 있습니다."
+                "headline": "이번 달은 활동량이 늘 수 있으니 체력 배분이 중요해요."
               },
               "standard": {
                 "paragraphs": [
@@ -6286,7 +6286,7 @@
               "meaningfulness": "meaningful",
               "stars": 1,
               "brief": {
-                "headline": "이번 달은 새 공부 계획을 시작하고 흐름을 만들기 좋아요. 큰 목표보다 매주 보이는 결과물을 하나씩 남겨 보세요."
+                "headline": "이번 달은 새 공부 계획을 시작하고 결을 만들기 좋아요."
               },
               "standard": {
                 "paragraphs": [
@@ -6438,7 +6438,7 @@
               "meaningfulness": "meaningful",
               "stars": 1,
               "brief": {
-                "headline": "이번 달은 관계의 속도를 맞추는 감각이 중요해요. 편안한 대화와 일정한 표현이 인연의 흐름을 안정시켜요."
+                "headline": "이번 달은 관계의 속도를 맞추는 감각이 중요해요."
               },
               "standard": {
                 "paragraphs": [
@@ -6696,7 +6696,7 @@
               "meaningfulness": "meaningful",
               "stars": 1,
               "brief": {
-                "headline": "이번 달은 작은 성과를 남기는 쪽이 좋아요. 결과가 보이면 다음 선택도 쉬워집니다."
+                "headline": "이번 달은 작은 성과를 남기는 쪽이 좋아요."
               },
               "standard": {
                 "paragraphs": [
@@ -6948,7 +6948,7 @@
               "meaningfulness": "meaningful",
               "stars": 1,
               "brief": {
-                "headline": "이번 달은 표현할 기회가 넓어지는 흐름이에요. 말하고 싶은 주제를 하나 고르고, 아이나 가족과 함께 하는 시간을 미리 잡아보세요."
+                "headline": "이번 달은 표현할 기회가 넓어지는 흐름이에요."
               },
               "standard": {
                 "paragraphs": [
@@ -7049,7 +7049,7 @@
               "meaningfulness": "meaningful",
               "stars": 1,
               "brief": {
-                "headline": "이번 달은 어깨를 자주 풀어 주는 시기예요. 몸을 움직이는 휴식이 잘 어울려요."
+                "headline": "이번 달은 어깨를 자주 풀어 주는 시기예요."
               },
               "standard": {
                 "paragraphs": [
@@ -7164,7 +7164,7 @@
               "meaningfulness": "meaningful",
               "stars": 1,
               "brief": {
-                "headline": "이번 달은 활동 범위가 넓어지기 쉬우니 일정 사이의 여유가 중요해요."
+                "headline": "이번 달은 활동 범위가 넓어지기 쉬우니 일정 사이의 여유가 중요."
               },
               "standard": {
                 "paragraphs": [
@@ -7407,7 +7407,7 @@
               "meaningfulness": "limited",
               "stars": 3,
               "brief": {
-                "headline": "올해는 새 수입이나 일의 기회를 찾아보기 좋은 흐름이에요. 다만 들어오는 돈만 보지 말고 나가는 돈도 함께 관리하세요."
+                "headline": "올해는 새 수입이나 일의 기회를 찾아보기 좋은 결이에요."
               },
               "standard": {
                 "paragraphs": [
@@ -7800,7 +7800,7 @@
               "meaningfulness": "limited",
               "stars": 3,
               "brief": {
-                "headline": "올해는 관계에서 안정감과 생활 리듬이 중요해요. 서로의 시간을 존중하고 반복되는 약속을 지킬수록 마음이 더 단단해집니다."
+                "headline": "올해는 관계에서 안정감과 생활 리듬이 중요해요."
               },
               "standard": {
                 "paragraphs": [
@@ -8167,7 +8167,7 @@
               "meaningfulness": "limited",
               "stars": 3,
               "brief": {
-                "headline": "올해는 자격, 계약, 기록을 체계적으로 관리할수록 중요한 기회를 놓치지 않아요."
+                "headline": "올해는 자격, 계약, 기록을 체계적으로 관리할수록 중요한 기회를요."
               },
               "standard": {
                 "paragraphs": [
@@ -8383,7 +8383,7 @@
               "meaningfulness": "limited",
               "stars": 3,
               "brief": {
-                "headline": "올해는 어깨를 자주 풀어 주는 시기예요. 몸을 움직이는 휴식이 잘 어울려요."
+                "headline": "올해는 어깨를 자주 풀어 주는 시기예요."
               },
               "standard": {
                 "paragraphs": [
@@ -8997,7 +8997,7 @@
       },
       "meta": {
         "schemaVersion": "spring-ts.tiered-matrix.v1",
-        "generatedAt": "2026-05-05T05:20:22.101Z",
+        "generatedAt": "2026-05-05T06:14:04.619Z",
         "selectionSeed": "1995|6|10|23|30|male|2026-05-04T15:00:00.000Z",
         "templateContractVersion": "1.0.0",
         "contentSource": "authored",

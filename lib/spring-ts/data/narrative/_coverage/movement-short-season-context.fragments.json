@@ -6,10 +6,22 @@
     {
       "schemaVersion": "spring-ts.narrative-fragment.v1",
       "fragmentId": "movement.today.brief.currentseason.spring_summer.301",
-      "axis": { "category": "movement", "period": "today", "depth": "brief" },
-      "gating": { "currentSeason": ["spring", "summer"] },
+      "axis": {
+        "category": "movement",
+        "period": "today",
+        "depth": "brief"
+      },
+      "gating": {
+        "currentSeason": [
+          "spring",
+          "summer"
+        ]
+      },
       "templateTokens": [
-        { "kind": "text", "value": "오늘은 움직임이 늘기 쉬운 날이에요. 출발 전 필요한 것과 시간을 한 번만 더 확인하면 흐름이 훨씬 가벼워집니다." }
+        {
+          "kind": "text",
+          "value": "오늘은 움직임이 늘기 쉬운 날이에요."
+        }
       ],
       "tags": [],
       "aiGenerated": true,
@@ -27,10 +39,22 @@
     {
       "schemaVersion": "spring-ts.narrative-fragment.v1",
       "fragmentId": "movement.today.brief.currentseason.autumn_winter.301",
-      "axis": { "category": "movement", "period": "today", "depth": "brief" },
-      "gating": { "currentSeason": ["autumn", "winter"] },
+      "axis": {
+        "category": "movement",
+        "period": "today",
+        "depth": "brief"
+      },
+      "gating": {
+        "currentSeason": [
+          "autumn",
+          "winter"
+        ]
+      },
       "templateTokens": [
-        { "kind": "text", "value": "오늘은 이동을 줄이고 동선을 단순하게 잡는 편이 좋아요. 급하게 움직이기보다 여유 시간을 먼저 확보하세요." }
+        {
+          "kind": "text",
+          "value": "오늘은 이동을 줄이고 동선을 단순하게 잡는 편이 좋아요."
+        }
       ],
       "tags": [],
       "aiGenerated": true,
@@ -48,10 +72,22 @@
     {
       "schemaVersion": "spring-ts.narrative-fragment.v1",
       "fragmentId": "movement.today.standard.currentseason.spring_summer.301",
-      "axis": { "category": "movement", "period": "today", "depth": "standard" },
-      "gating": { "currentSeason": ["spring", "summer"] },
+      "axis": {
+        "category": "movement",
+        "period": "today",
+        "depth": "standard"
+      },
+      "gating": {
+        "currentSeason": [
+          "spring",
+          "summer"
+        ]
+      },
       "templateTokens": [
-        { "kind": "text", "value": "오늘은 바깥 일정이나 이동이 생기면 생각보다 빨리 진행될 수 있어요. 다만 즉흥적으로 움직이면 빠뜨리는 것이 생길 수 있으니, 출발 전 준비물과 약속 시간을 짧게 점검하세요." }
+        {
+          "kind": "text",
+          "value": "오늘은 바깥 일정이나 이동이 생기면 생각보다 빨리 진행될 수 있어요. 다만 즉흥적으로 움직이면 빠뜨리는 것이 생길 수 있으니, 출발 전 준비물과 약속 시간을 짧게 점검하세요."
+        }
       ],
       "livingTips": [
         "이동 전 3분만 써서 가방, 길, 도착 시간을 확인하세요.",
@@ -76,10 +112,22 @@
     {
       "schemaVersion": "spring-ts.narrative-fragment.v1",
       "fragmentId": "movement.today.standard.currentseason.autumn_winter.301",
-      "axis": { "category": "movement", "period": "today", "depth": "standard" },
-      "gating": { "currentSeason": ["autumn", "winter"] },
+      "axis": {
+        "category": "movement",
+        "period": "today",
+        "depth": "standard"
+      },
+      "gating": {
+        "currentSeason": [
+          "autumn",
+          "winter"
+        ]
+      },
       "templateTokens": [
-        { "kind": "text", "value": "오늘은 많이 움직이는 것보다 덜 움직여도 정확하게 처리하는 쪽이 더 좋아요. 약속을 이어 붙이기보다 꼭 필요한 이동만 남기고, 중간에 쉬는 시간을 넣으면 실수가 줄어듭니다." }
+        {
+          "kind": "text",
+          "value": "오늘은 많이 움직이는 것보다 덜 움직여도 정확하게 처리하는 쪽이 더 좋아요. 약속을 이어 붙이기보다 꼭 필요한 이동만 남기고, 중간에 쉬는 시간을 넣으면 실수가 줄어듭니다."
+        }
       ],
       "livingTips": [
         "갈 곳이 여러 곳이면 가까운 순서대로 묶어 동선을 줄이세요.",
@@ -104,18 +152,60 @@
     {
       "schemaVersion": "spring-ts.narrative-fragment.v1",
       "fragmentId": "movement.today.expert.currentseason.spring_summer.301",
-      "axis": { "category": "movement", "period": "today", "depth": "expert" },
-      "gating": { "currentSeason": ["spring", "summer"], "yongshinAlignment": ["aligned", "neutral", "conflicting"] },
+      "axis": {
+        "category": "movement",
+        "period": "today",
+        "depth": "expert"
+      },
+      "gating": {
+        "currentSeason": [
+          "spring",
+          "summer"
+        ],
+        "yongshinAlignment": [
+          "aligned",
+          "neutral",
+          "conflicting"
+        ]
+      },
       "templateTokens": [
-        { "kind": "text", "value": "일간 단위 이동 해석에서 봄과 여름의 현재 계절은 외부 활동성을 빠르게 올립니다. " },
-        { "kind": "tag", "tagId": "yeokma", "label": "역마" },
-        { "kind": "text", "value": " 신호가 강하면 이동 자체가 기회가 되지만, " },
-        { "kind": "tag", "tagId": "yongshin", "label": "용신" },
-        { "kind": "text", "value": " 방향과 어긋나면 체력 소모가 먼저 커질 수 있습니다. " },
-        { "kind": "tag", "tagId": "daewoonGungsil", "label": "대운궁실" },
-        { "kind": "text", "value": " 흐름과 겹치는 일정은 실행 순서를 좁혀 관리하세요." }
+        {
+          "kind": "text",
+          "value": "일간 단위 이동 해석에서 봄과 여름의 현재 계절은 외부 활동성을 빠르게 올립니다. "
+        },
+        {
+          "kind": "tag",
+          "tagId": "yeokma",
+          "label": "역마"
+        },
+        {
+          "kind": "text",
+          "value": " 신호가 강하면 이동 자체가 기회가 되지만, "
+        },
+        {
+          "kind": "tag",
+          "tagId": "yongshin",
+          "label": "용신"
+        },
+        {
+          "kind": "text",
+          "value": " 방향과 어긋나면 체력 소모가 먼저 커질 수 있습니다. "
+        },
+        {
+          "kind": "tag",
+          "tagId": "daewoonGungsil",
+          "label": "대운궁실"
+        },
+        {
+          "kind": "text",
+          "value": " 흐름과 겹치는 일정은 실행 순서를 좁혀 관리하세요."
+        }
       ],
-      "tags": ["yeokma", "yongshin", "daewoonGungsil"],
+      "tags": [
+        "yeokma",
+        "yongshin",
+        "daewoonGungsil"
+      ],
       "numericalEvidence": [
         {
           "label": "연령 단계 순번",
@@ -193,18 +283,60 @@
     {
       "schemaVersion": "spring-ts.narrative-fragment.v1",
       "fragmentId": "movement.today.expert.currentseason.autumn_winter.301",
-      "axis": { "category": "movement", "period": "today", "depth": "expert" },
-      "gating": { "currentSeason": ["autumn", "winter"], "yongshinAlignment": ["aligned", "neutral", "conflicting"] },
+      "axis": {
+        "category": "movement",
+        "period": "today",
+        "depth": "expert"
+      },
+      "gating": {
+        "currentSeason": [
+          "autumn",
+          "winter"
+        ],
+        "yongshinAlignment": [
+          "aligned",
+          "neutral",
+          "conflicting"
+        ]
+      },
       "templateTokens": [
-        { "kind": "text", "value": "일간 단위 이동 해석에서 가을과 겨울의 현재 계절은 확장보다 보존과 회수를 우선하게 합니다. " },
-        { "kind": "tag", "tagId": "yeokma", "label": "역마" },
-        { "kind": "text", "value": "가 작동해도 동선은 짧게 잡고, " },
-        { "kind": "tag", "tagId": "jojangung", "label": "조상궁" },
-        { "kind": "text", "value": " 관련 기반 일정은 지연 가능성을 보수적으로 보아야 합니다. " },
-        { "kind": "tag", "tagId": "yongshin", "label": "용신" },
-        { "kind": "text", "value": " 보강 활동을 이동 전후에 배치하면 소모를 줄일 수 있습니다." }
+        {
+          "kind": "text",
+          "value": "일간 단위 이동 해석에서 가을과 겨울의 현재 계절은 확장보다 보존과 회수를 우선하게 합니다. "
+        },
+        {
+          "kind": "tag",
+          "tagId": "yeokma",
+          "label": "역마"
+        },
+        {
+          "kind": "text",
+          "value": "가 작동해도 동선은 짧게 잡고, "
+        },
+        {
+          "kind": "tag",
+          "tagId": "jojangung",
+          "label": "조상궁"
+        },
+        {
+          "kind": "text",
+          "value": " 관련 기반 일정은 지연 가능성을 보수적으로 보아야 합니다. "
+        },
+        {
+          "kind": "tag",
+          "tagId": "yongshin",
+          "label": "용신"
+        },
+        {
+          "kind": "text",
+          "value": " 보강 활동을 이동 전후에 배치하면 소모를 줄일 수 있습니다."
+        }
       ],
-      "tags": ["yeokma", "jojangung", "yongshin"],
+      "tags": [
+        "yeokma",
+        "jojangung",
+        "yongshin"
+      ],
       "aiGenerated": true,
       "sourceTier": {
         "tier": "T1_HYPOTHESIS",
@@ -220,10 +352,22 @@
     {
       "schemaVersion": "spring-ts.narrative-fragment.v1",
       "fragmentId": "movement.thisWeek.brief.currentseason.spring_summer.301",
-      "axis": { "category": "movement", "period": "thisWeek", "depth": "brief" },
-      "gating": { "currentSeason": ["spring", "summer"] },
+      "axis": {
+        "category": "movement",
+        "period": "thisWeek",
+        "depth": "brief"
+      },
+      "gating": {
+        "currentSeason": [
+          "spring",
+          "summer"
+        ]
+      },
       "templateTokens": [
-        { "kind": "text", "value": "이번 주는 움직일수록 새 기회가 보일 수 있어요. 대신 일정 사이 여유를 남겨 두면 더 안정적으로 이어집니다." }
+        {
+          "kind": "text",
+          "value": "이번 주는 움직일수록 새 기회가 보일 수 있어요."
+        }
       ],
       "tags": [],
       "aiGenerated": true,
@@ -241,10 +385,22 @@
     {
       "schemaVersion": "spring-ts.narrative-fragment.v1",
       "fragmentId": "movement.thisWeek.brief.currentseason.autumn_winter.301",
-      "axis": { "category": "movement", "period": "thisWeek", "depth": "brief" },
-      "gating": { "currentSeason": ["autumn", "winter"] },
+      "axis": {
+        "category": "movement",
+        "period": "thisWeek",
+        "depth": "brief"
+      },
+      "gating": {
+        "currentSeason": [
+          "autumn",
+          "winter"
+        ]
+      },
       "templateTokens": [
-        { "kind": "text", "value": "이번 주는 이동을 넓히기보다 꼭 필요한 곳에 집중하는 편이 좋아요. 약속 수를 줄이면 컨디션이 더 오래 갑니다." }
+        {
+          "kind": "text",
+          "value": "이번 주는 이동을 넓히기보다 꼭 필요한 곳에 집중하는 편이 좋아요."
+        }
       ],
       "tags": [],
       "aiGenerated": true,
@@ -262,10 +418,22 @@
     {
       "schemaVersion": "spring-ts.narrative-fragment.v1",
       "fragmentId": "movement.thisWeek.standard.currentseason.spring_summer.301",
-      "axis": { "category": "movement", "period": "thisWeek", "depth": "standard" },
-      "gating": { "currentSeason": ["spring", "summer"] },
+      "axis": {
+        "category": "movement",
+        "period": "thisWeek",
+        "depth": "standard"
+      },
+      "gating": {
+        "currentSeason": [
+          "spring",
+          "summer"
+        ]
+      },
       "templateTokens": [
-        { "kind": "text", "value": "이번 주는 사람을 만나거나 장소를 바꾸면서 실마리를 얻기 쉬워요. 새 제안이 들어오면 바로 크게 벌리기보다, 짧은 방문이나 가벼운 확인부터 시작하면 부담 없이 흐름을 볼 수 있습니다." }
+        {
+          "kind": "text",
+          "value": "이번 주는 사람을 만나거나 장소를 바꾸면서 실마리를 얻기 쉬워요. 새 제안이 들어오면 바로 크게 벌리기보다, 짧은 방문이나 가벼운 확인부터 시작하면 부담 없이 흐름을 볼 수 있습니다."
+        }
       ],
       "livingTips": [
         "주 초반에 이동이 필요한 일을 먼저 묶어 두세요.",
@@ -290,10 +458,22 @@
     {
       "schemaVersion": "spring-ts.narrative-fragment.v1",
       "fragmentId": "movement.thisWeek.standard.currentseason.autumn_winter.301",
-      "axis": { "category": "movement", "period": "thisWeek", "depth": "standard" },
-      "gating": { "currentSeason": ["autumn", "winter"] },
+      "axis": {
+        "category": "movement",
+        "period": "thisWeek",
+        "depth": "standard"
+      },
+      "gating": {
+        "currentSeason": [
+          "autumn",
+          "winter"
+        ]
+      },
       "templateTokens": [
-        { "kind": "text", "value": "이번 주는 멀리 움직이는 일보다 가까운 범위를 잘 정리하는 데 힘이 실려요. 이동이 꼭 필요하다면 한 번에 끝낼 수 있게 준비하고, 약속 사이에는 쉬는 시간을 분명히 남기는 것이 좋습니다." }
+        {
+          "kind": "text",
+          "value": "이번 주는 멀리 움직이는 일보다 가까운 범위를 잘 정리하는 데 힘이 실려요. 이동이 꼭 필요하다면 한 번에 끝낼 수 있게 준비하고, 약속 사이에는 쉬는 시간을 분명히 남기는 것이 좋습니다."
+        }
       ],
       "livingTips": [
         "이동 목적을 먼저 적고, 목적이 약한 약속은 다음으로 미루세요.",
@@ -318,18 +498,60 @@
     {
       "schemaVersion": "spring-ts.narrative-fragment.v1",
       "fragmentId": "movement.thisWeek.expert.currentseason.spring_summer.301",
-      "axis": { "category": "movement", "period": "thisWeek", "depth": "expert" },
-      "gating": { "currentSeason": ["spring", "summer"], "yongshinAlignment": ["aligned", "neutral", "conflicting"] },
+      "axis": {
+        "category": "movement",
+        "period": "thisWeek",
+        "depth": "expert"
+      },
+      "gating": {
+        "currentSeason": [
+          "spring",
+          "summer"
+        ],
+        "yongshinAlignment": [
+          "aligned",
+          "neutral",
+          "conflicting"
+        ]
+      },
       "templateTokens": [
-        { "kind": "text", "value": "주간 이동운에서 봄과 여름의 현재 계절은 활동 반경을 넓히는 쪽으로 작동합니다. " },
-        { "kind": "tag", "tagId": "yeokma", "label": "역마" },
-        { "kind": "text", "value": "가 강하면 만남과 이동이 연결되지만, " },
-        { "kind": "tag", "tagId": "daewoonGungsil", "label": "대운궁실" },
-        { "kind": "text", "value": "의 큰 흐름과 맞지 않는 일정은 분산을 만들 수 있습니다. " },
-        { "kind": "tag", "tagId": "yongshin", "label": "용신" },
-        { "kind": "text", "value": " 보강 루틴을 주간 이동 전후에 배치하세요." }
+        {
+          "kind": "text",
+          "value": "주간 이동운에서 봄과 여름의 현재 계절은 활동 반경을 넓히는 쪽으로 작동합니다. "
+        },
+        {
+          "kind": "tag",
+          "tagId": "yeokma",
+          "label": "역마"
+        },
+        {
+          "kind": "text",
+          "value": "가 강하면 만남과 이동이 연결되지만, "
+        },
+        {
+          "kind": "tag",
+          "tagId": "daewoonGungsil",
+          "label": "대운궁실"
+        },
+        {
+          "kind": "text",
+          "value": "의 큰 흐름과 맞지 않는 일정은 분산을 만들 수 있습니다. "
+        },
+        {
+          "kind": "tag",
+          "tagId": "yongshin",
+          "label": "용신"
+        },
+        {
+          "kind": "text",
+          "value": " 보강 루틴을 주간 이동 전후에 배치하세요."
+        }
       ],
-      "tags": ["yeokma", "daewoonGungsil", "yongshin"],
+      "tags": [
+        "yeokma",
+        "daewoonGungsil",
+        "yongshin"
+      ],
       "aiGenerated": true,
       "sourceTier": {
         "tier": "T1_HYPOTHESIS",
@@ -345,18 +567,60 @@
     {
       "schemaVersion": "spring-ts.narrative-fragment.v1",
       "fragmentId": "movement.thisWeek.expert.currentseason.autumn_winter.301",
-      "axis": { "category": "movement", "period": "thisWeek", "depth": "expert" },
-      "gating": { "currentSeason": ["autumn", "winter"], "yongshinAlignment": ["aligned", "neutral", "conflicting"] },
+      "axis": {
+        "category": "movement",
+        "period": "thisWeek",
+        "depth": "expert"
+      },
+      "gating": {
+        "currentSeason": [
+          "autumn",
+          "winter"
+        ],
+        "yongshinAlignment": [
+          "aligned",
+          "neutral",
+          "conflicting"
+        ]
+      },
       "templateTokens": [
-        { "kind": "text", "value": "주간 이동운에서 가을과 겨울의 현재 계절은 이동량보다 회수와 정리를 중시합니다. " },
-        { "kind": "tag", "tagId": "yeokma", "label": "역마" },
-        { "kind": "text", "value": " 신호가 있어도 단기 확장보다 동선 압축이 유리하고, " },
-        { "kind": "tag", "tagId": "jojangung", "label": "조상궁" },
-        { "kind": "text", "value": " 관련 기반 일정은 지연과 재확인을 같이 보아야 합니다. " },
-        { "kind": "tag", "tagId": "yongshin", "label": "용신" },
-        { "kind": "text", "value": "과 맞는 보완 행동을 주 후반에 남겨 두세요." }
+        {
+          "kind": "text",
+          "value": "주간 이동운에서 가을과 겨울의 현재 계절은 이동량보다 회수와 정리를 중시합니다. "
+        },
+        {
+          "kind": "tag",
+          "tagId": "yeokma",
+          "label": "역마"
+        },
+        {
+          "kind": "text",
+          "value": " 신호가 있어도 단기 확장보다 동선 압축이 유리하고, "
+        },
+        {
+          "kind": "tag",
+          "tagId": "jojangung",
+          "label": "조상궁"
+        },
+        {
+          "kind": "text",
+          "value": " 관련 기반 일정은 지연과 재확인을 같이 보아야 합니다. "
+        },
+        {
+          "kind": "tag",
+          "tagId": "yongshin",
+          "label": "용신"
+        },
+        {
+          "kind": "text",
+          "value": "과 맞는 보완 행동을 주 후반에 남겨 두세요."
+        }
       ],
-      "tags": ["yeokma", "jojangung", "yongshin"],
+      "tags": [
+        "yeokma",
+        "jojangung",
+        "yongshin"
+      ],
       "aiGenerated": true,
       "sourceTier": {
         "tier": "T1_HYPOTHESIS",
@@ -372,10 +636,22 @@
     {
       "schemaVersion": "spring-ts.narrative-fragment.v1",
       "fragmentId": "movement.thisMonth.brief.currentseason.spring_summer.301",
-      "axis": { "category": "movement", "period": "thisMonth", "depth": "brief" },
-      "gating": { "currentSeason": ["spring", "summer"] },
+      "axis": {
+        "category": "movement",
+        "period": "thisMonth",
+        "depth": "brief"
+      },
+      "gating": {
+        "currentSeason": [
+          "spring",
+          "summer"
+        ]
+      },
       "templateTokens": [
-        { "kind": "text", "value": "이번 달은 새 장소나 새 사람을 통해 흐름이 열릴 수 있어요. 이동 계획은 넓게 보되, 무리한 일정은 줄이세요." }
+        {
+          "kind": "text",
+          "value": "이번 달은 새 장소나 새 사람을 통해 흐름이 열릴 수 있어요."
+        }
       ],
       "tags": [],
       "aiGenerated": true,
@@ -393,10 +669,22 @@
     {
       "schemaVersion": "spring-ts.narrative-fragment.v1",
       "fragmentId": "movement.thisMonth.brief.currentseason.autumn_winter.301",
-      "axis": { "category": "movement", "period": "thisMonth", "depth": "brief" },
-      "gating": { "currentSeason": ["autumn", "winter"] },
+      "axis": {
+        "category": "movement",
+        "period": "thisMonth",
+        "depth": "brief"
+      },
+      "gating": {
+        "currentSeason": [
+          "autumn",
+          "winter"
+        ]
+      },
       "templateTokens": [
-        { "kind": "text", "value": "이번 달은 이동을 늘리기보다 필요한 곳을 정확히 고르는 흐름이에요. 가까운 일부터 정리하면 안정감이 커집니다." }
+        {
+          "kind": "text",
+          "value": "이번 달은 이동을 늘리기보다 필요한 곳을 정확히 고르는 흐름이에요."
+        }
       ],
       "tags": [],
       "aiGenerated": true,
@@ -414,10 +702,22 @@
     {
       "schemaVersion": "spring-ts.narrative-fragment.v1",
       "fragmentId": "movement.thisMonth.standard.currentseason.spring_summer.301",
-      "axis": { "category": "movement", "period": "thisMonth", "depth": "standard" },
-      "gating": { "currentSeason": ["spring", "summer"] },
+      "axis": {
+        "category": "movement",
+        "period": "thisMonth",
+        "depth": "standard"
+      },
+      "gating": {
+        "currentSeason": [
+          "spring",
+          "summer"
+        ]
+      },
       "templateTokens": [
-        { "kind": "text", "value": "이번 달은 환경을 바꾸거나 활동 반경을 넓히면서 새로운 단서를 얻기 쉬운 흐름이에요. 다만 모든 제안을 다 따라가기보다, 지금 목표와 연결되는 이동부터 선택하면 한 달의 방향이 흐트러지지 않습니다." }
+        {
+          "kind": "text",
+          "value": "이번 달은 환경을 바꾸거나 활동 반경을 넓히면서 새로운 단서를 얻기 쉬운 흐름이에요. 다만 모든 제안을 다 따라가기보다, 지금 목표와 연결되는 이동부터 선택하면 한 달의 방향이 흐트러지지 않습니다."
+        }
       ],
       "livingTips": [
         "월간 일정에서 꼭 가야 할 곳과 선택 가능한 곳을 나누세요.",
@@ -442,10 +742,22 @@
     {
       "schemaVersion": "spring-ts.narrative-fragment.v1",
       "fragmentId": "movement.thisMonth.standard.currentseason.autumn_winter.301",
-      "axis": { "category": "movement", "period": "thisMonth", "depth": "standard" },
-      "gating": { "currentSeason": ["autumn", "winter"] },
+      "axis": {
+        "category": "movement",
+        "period": "thisMonth",
+        "depth": "standard"
+      },
+      "gating": {
+        "currentSeason": [
+          "autumn",
+          "winter"
+        ]
+      },
       "templateTokens": [
-        { "kind": "text", "value": "이번 달은 멀리 넓히는 이동보다 이미 잡힌 일정을 차분히 정리하는 데 힘이 있어요. 장소를 바꾸는 큰 결정보다는 작은 동선을 줄이고, 필요한 약속만 남기는 방식이 더 안정적입니다." }
+        {
+          "kind": "text",
+          "value": "이번 달은 멀리 넓히는 이동보다 이미 잡힌 일정을 차분히 정리하는 데 힘이 있어요. 장소를 바꾸는 큰 결정보다는 작은 동선을 줄이고, 필요한 약속만 남기는 방식이 더 안정적입니다."
+        }
       ],
       "livingTips": [
         "한 달에 반복되는 이동을 살펴보고 줄일 수 있는 길을 찾으세요.",
@@ -470,18 +782,60 @@
     {
       "schemaVersion": "spring-ts.narrative-fragment.v1",
       "fragmentId": "movement.thisMonth.expert.currentseason.spring_summer.301",
-      "axis": { "category": "movement", "period": "thisMonth", "depth": "expert" },
-      "gating": { "currentSeason": ["spring", "summer"], "yongshinAlignment": ["aligned", "neutral", "conflicting"] },
+      "axis": {
+        "category": "movement",
+        "period": "thisMonth",
+        "depth": "expert"
+      },
+      "gating": {
+        "currentSeason": [
+          "spring",
+          "summer"
+        ],
+        "yongshinAlignment": [
+          "aligned",
+          "neutral",
+          "conflicting"
+        ]
+      },
       "templateTokens": [
-        { "kind": "text", "value": "월간 이동운에서 봄과 여름의 현재 계절은 외부 접촉과 활동 반경을 확장하는 방향으로 작동합니다. " },
-        { "kind": "tag", "tagId": "yeokma", "label": "역마" },
-        { "kind": "text", "value": "가 활성화되면 이동이 곧 정보 수집이 되지만, " },
-        { "kind": "tag", "tagId": "daewoonGungsil", "label": "대운궁실" },
-        { "kind": "text", "value": "의 장기 흐름과 충돌하는 이동은 우선순위를 낮춰야 합니다. " },
-        { "kind": "tag", "tagId": "yongshin", "label": "용신" },
-        { "kind": "text", "value": "과 맞는 방향의 이동을 월간 중심축으로 두세요." }
+        {
+          "kind": "text",
+          "value": "월간 이동운에서 봄과 여름의 현재 계절은 외부 접촉과 활동 반경을 확장하는 방향으로 작동합니다. "
+        },
+        {
+          "kind": "tag",
+          "tagId": "yeokma",
+          "label": "역마"
+        },
+        {
+          "kind": "text",
+          "value": "가 활성화되면 이동이 곧 정보 수집이 되지만, "
+        },
+        {
+          "kind": "tag",
+          "tagId": "daewoonGungsil",
+          "label": "대운궁실"
+        },
+        {
+          "kind": "text",
+          "value": "의 장기 흐름과 충돌하는 이동은 우선순위를 낮춰야 합니다. "
+        },
+        {
+          "kind": "tag",
+          "tagId": "yongshin",
+          "label": "용신"
+        },
+        {
+          "kind": "text",
+          "value": "과 맞는 방향의 이동을 월간 중심축으로 두세요."
+        }
       ],
-      "tags": ["yeokma", "daewoonGungsil", "yongshin"],
+      "tags": [
+        "yeokma",
+        "daewoonGungsil",
+        "yongshin"
+      ],
       "aiGenerated": true,
       "sourceTier": {
         "tier": "T1_HYPOTHESIS",
@@ -497,18 +851,60 @@
     {
       "schemaVersion": "spring-ts.narrative-fragment.v1",
       "fragmentId": "movement.thisMonth.expert.currentseason.autumn_winter.301",
-      "axis": { "category": "movement", "period": "thisMonth", "depth": "expert" },
-      "gating": { "currentSeason": ["autumn", "winter"], "yongshinAlignment": ["aligned", "neutral", "conflicting"] },
+      "axis": {
+        "category": "movement",
+        "period": "thisMonth",
+        "depth": "expert"
+      },
+      "gating": {
+        "currentSeason": [
+          "autumn",
+          "winter"
+        ],
+        "yongshinAlignment": [
+          "aligned",
+          "neutral",
+          "conflicting"
+        ]
+      },
       "templateTokens": [
-        { "kind": "text", "value": "월간 이동운에서 가을과 겨울의 현재 계절은 확장보다 회수, 정리, 기반 점검에 무게를 둡니다. " },
-        { "kind": "tag", "tagId": "yeokma", "label": "역마" },
-        { "kind": "text", "value": "가 떠도 장거리 이동은 실익을 따져야 하고, " },
-        { "kind": "tag", "tagId": "jojangung", "label": "조상궁" },
-        { "kind": "text", "value": "과 연결된 기반 문제는 문서와 약속 확인이 중요합니다. " },
-        { "kind": "tag", "tagId": "yongshin", "label": "용신" },
-        { "kind": "text", "value": " 보강 방향을 기준으로 월간 동선을 압축하세요." }
+        {
+          "kind": "text",
+          "value": "월간 이동운에서 가을과 겨울의 현재 계절은 확장보다 회수, 정리, 기반 점검에 무게를 둡니다. "
+        },
+        {
+          "kind": "tag",
+          "tagId": "yeokma",
+          "label": "역마"
+        },
+        {
+          "kind": "text",
+          "value": "가 떠도 장거리 이동은 실익을 따져야 하고, "
+        },
+        {
+          "kind": "tag",
+          "tagId": "jojangung",
+          "label": "조상궁"
+        },
+        {
+          "kind": "text",
+          "value": "과 연결된 기반 문제는 문서와 약속 확인이 중요합니다. "
+        },
+        {
+          "kind": "tag",
+          "tagId": "yongshin",
+          "label": "용신"
+        },
+        {
+          "kind": "text",
+          "value": " 보강 방향을 기준으로 월간 동선을 압축하세요."
+        }
       ],
-      "tags": ["yeokma", "jojangung", "yongshin"],
+      "tags": [
+        "yeokma",
+        "jojangung",
+        "yongshin"
+      ],
       "aiGenerated": true,
       "sourceTier": {
         "tier": "T1_HYPOTHESIS",

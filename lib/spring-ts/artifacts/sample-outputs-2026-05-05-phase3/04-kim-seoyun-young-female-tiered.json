@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-05-05T05:20:17.940Z",
+  "generatedAt": "2026-05-05T06:13:59.967Z",
   "targetDate": "2026-05-05T00:00:00+09:00",
   "sampleId": "kim-seoyun-young-female-tiered",
   "description": "어린 여성 입력에서 tiered 운세 매트릭스를 켠 케이스.",
@@ -1306,7 +1306,7 @@
     },
     "meta": {
       "version": "1.0.0",
-      "generatedAt": "2026-05-05T05:20:19.957Z",
+      "generatedAt": "2026-05-05T06:14:02.199Z",
       "schoolPreset": {
         "selected": "korean",
         "source": "default",
@@ -1421,7 +1421,7 @@
               "meaningfulness": "limited",
               "stars": 1,
               "brief": {
-                "headline": "인생 전체의 돈과 물건 관리는 잘하고 못하고를 단정하기보다, 지금 할 수 있는 작은 습관을 지키는 쪽이 좋아요."
+                "headline": "인생 전체의 돈과 물건 관리는 작은 습관을 지키는 쪽이 좋아요."
               },
               "standard": {
                 "paragraphs": [
@@ -1472,7 +1472,7 @@
               "meaningfulness": "meaningful",
               "stars": 1,
               "brief": {
-                "headline": "건강은 특별한 비법보다 잠, 식사, 움직임을 꾸준히 지키는 힘이 가장 큽니다."
+                "headline": "건강은 특별한 비법보다 잠, 식사, 움직임을 꾸준히 지키는 힘이 가요."
               },
               "standard": {
                 "paragraphs": [
@@ -1641,7 +1641,7 @@
               "meaningfulness": "limited",
               "stars": 1,
               "brief": {
-                "headline": "인생 전체의 관계와 마음은 잘하고 못하고를 단정하기보다, 지금 할 수 있는 작은 습관을 지키는 쪽이 좋아요."
+                "headline": "인생 전체의 관계와 마음은 작은 습관을 지키는 쪽이 좋아요."
               },
               "standard": {
                 "paragraphs": [
@@ -1873,7 +1873,7 @@
               "meaningfulness": "limited",
               "stars": 1,
               "brief": {
-                "headline": "인생 전체의 기록과 준비는 잘하고 못하고를 단정하기보다, 지금 할 수 있는 작은 습관을 지키는 쪽이 좋아요."
+                "headline": "인생 전체의 기록과 준비는 작은 습관을 지키는 쪽이 좋아요."
               },
               "standard": {
                 "paragraphs": [
@@ -2017,7 +2017,7 @@
               "meaningfulness": "meaningful",
               "stars": 1,
               "brief": {
-                "headline": "또래 사이에서 마음이 들썩이는요. 잠과 산책으로 마음이 가벼워져요."
+                "headline": "또래 사이에서 마음이 들썩여요. 잠과 산책으로 마음이 가벼워져요."
               },
               "standard": {
                 "paragraphs": [
@@ -2120,7 +2120,7 @@
               "meaningfulness": "meaningful",
               "stars": 1,
               "brief": {
-                "headline": "여행·체험으로 시야가 한 뼘 넓어지는 흐름이에요. 한 발짝 움직여 볼 자리가 보여요."
+                "headline": "여행·체험으로 시야가 한 뼘 넓어지는 흐름이에요."
               },
               "standard": {
                 "paragraphs": [
@@ -2245,7 +2245,7 @@
             "meaningfulness": "limited",
             "stars": 1,
             "brief": {
-              "headline": "오늘 (5월 5일)은 큰 결론보다 생활 리듬과 마음의 속도를 안정시키는 흐름으로 보는 게 좋아요."
+              "headline": "오늘 (5월 5일)은 생활 리듬을 잘 잡는 쪽이 좋아요."
             },
             "standard": {
               "paragraphs": [
@@ -2297,7 +2297,7 @@
               "meaningfulness": "limited",
               "stars": 1,
               "brief": {
-                "headline": "오늘 (5월 5일)의 돈과 물건 관리는 잘하고 못하고를 단정하기보다, 지금 할 수 있는 작은 습관을 지키는 쪽이 좋아요."
+                "headline": "오늘 (5월 5일)의 돈과 물건 관리는 작은 습관을 지키는 쪽이 좋아요."
               },
               "standard": {
                 "paragraphs": [
@@ -2348,7 +2348,7 @@
               "meaningfulness": "meaningful",
               "stars": 1,
               "brief": {
-                "headline": "오늘은 몸 상태를 가볍게 확인하고, 피곤하면 일정을 조금 줄이는 편이 좋아요."
+                "headline": "오늘은 몸 상태를 가볍게 확인하고, 피곤하면 일정을 조금 줄이는요."
               },
               "standard": {
                 "paragraphs": [
@@ -2564,7 +2564,7 @@
               "meaningfulness": "limited",
               "stars": 1,
               "brief": {
-                "headline": "오늘 (5월 5일)의 관계와 마음은 잘하고 못하고를 단정하기보다, 지금 할 수 있는 작은 습관을 지키는 쪽이 좋아요."
+                "headline": "오늘 (5월 5일)의 관계와 마음은 작은 습관을 지키는 쪽이 좋아요."
               },
               "standard": {
                 "paragraphs": [
@@ -2787,7 +2787,7 @@
               "meaningfulness": "limited",
               "stars": 1,
               "brief": {
-                "headline": "오늘 (5월 5일)의 기록과 준비는 잘하고 못하고를 단정하기보다, 지금 할 수 있는 작은 습관을 지키는 쪽이 좋아요."
+                "headline": "오늘 (5월 5일)의 기록과 준비는 작은 습관을 지키는 쪽이 좋아요."
               },
               "standard": {
                 "paragraphs": [
@@ -2917,7 +2917,7 @@
               "meaningfulness": "meaningful",
               "stars": 1,
               "brief": {
-                "headline": "오늘은 마음이 급해질 때 바로 반응하지 말고, 짧게 쉬었다가 움직이면 좋아요."
+                "headline": "오늘은 마음이 급해질 때 바로 반응하지 말고, 짧게 쉬었다가 움직요."
               },
               "standard": {
                 "paragraphs": [
@@ -3013,7 +3013,7 @@
               "meaningfulness": "meaningful",
               "stars": 1,
               "brief": {
-                "headline": "오늘은 이동 전 동선을 한 번 더 확인하면 시간을 아끼고 실수를 줄일 수 있어요."
+                "headline": "오늘은 이동 전 동선을 한 번 더 확인하면 시간을 아끼고 실수를 줄요."
               },
               "standard": {
                 "paragraphs": [
@@ -3141,7 +3141,7 @@
             "meaningfulness": "limited",
             "stars": 2,
             "brief": {
-              "headline": "이번 주는 큰 결론보다 생활 리듬과 마음의 속도를 안정시키는 흐름으로 보는 게 좋아요."
+              "headline": "이번 주는 생활 리듬을 잘 잡는 쪽이 좋아요."
             },
             "standard": {
               "paragraphs": [
@@ -3193,7 +3193,7 @@
               "meaningfulness": "limited",
               "stars": 2,
               "brief": {
-                "headline": "이번 주의 돈과 물건 관리는 잘하고 못하고를 단정하기보다, 지금 할 수 있는 작은 습관을 지키는 쪽이 좋아요."
+                "headline": "이번 주의 돈과 물건 관리는 작은 습관을 지키는 쪽이 좋아요."
               },
               "standard": {
                 "paragraphs": [
@@ -3244,7 +3244,7 @@
               "meaningfulness": "meaningful",
               "stars": 2,
               "brief": {
-                "headline": "이번 주는 오래 앉아 있기보다 짧게라도 자주 움직이면 몸이 한결 가벼워져요."
+                "headline": "이번 주는 오래 앉아 있기보다 짧게라도 자주 움직이면 몸이 한결요."
               },
               "standard": {
                 "paragraphs": [
@@ -3457,7 +3457,7 @@
               "meaningfulness": "limited",
               "stars": 2,
               "brief": {
-                "headline": "이번 주의 관계와 마음은 잘하고 못하고를 단정하기보다, 지금 할 수 있는 작은 습관을 지키는 쪽이 좋아요."
+                "headline": "이번 주의 관계와 마음은 작은 습관을 지키는 쪽이 좋아요."
               },
               "standard": {
                 "paragraphs": [
@@ -3508,7 +3508,7 @@
               "meaningfulness": "meaningful",
               "stars": 2,
               "brief": {
-                "headline": "이번 주는 가족에게 먼저 안부를 묻는 작은 행동이 관계를 편하게 만듭니다."
+                "headline": "이번 주는 가족에게 먼저 안부를 묻는 작은 행동이 관계를 편하게요."
               },
               "standard": {
                 "paragraphs": [
@@ -3684,7 +3684,7 @@
               "meaningfulness": "limited",
               "stars": 2,
               "brief": {
-                "headline": "이번 주의 기록과 준비는 잘하고 못하고를 단정하기보다, 지금 할 수 있는 작은 습관을 지키는 쪽이 좋아요."
+                "headline": "이번 주의 기록과 준비는 작은 습관을 지키는 쪽이 좋아요."
               },
               "standard": {
                 "paragraphs": [
@@ -3743,10 +3743,10 @@
                     "tokens": [
                       {
                         "kind": "text",
-                        "value": "이번 주는 자기 색이 또렷해지는요. 좋아하는 작가·아티스트의 방식을 따라 해 보거나, 자기 식대로 재해석한 작은 작품 한 점을 마무리해 두면 자산이 돼요. 봄바람 맞은 가지가 한 뼘 자라는 시간이에요. 또래 비교가 마음에 들어와도, 어제의 나와 살짝 다르게 풀어 보면 흐름이 가벼워져요. 작은 발표·동아리 자리에서 시도해 보면 좋아요. 이번 주의 한 시도가 한 학기 자기 색의 뼈대로 쌓여요."
+                        "value": "이번 주는 자기 색이 또렷해져요. 좋아하는 작가·아티스트의 방식을 따라 해 보거나, 자기 식대로 재해석한 작은 작품 한 점을 마무리해 두면 자산이 돼요. 봄바람 맞은 가지가 한 뼘 자라는 시간이에요. 또래 비교가 마음에 들어와도, 어제의 나와 살짝 다르게 풀어 보면 흐름이 가벼워져요. 작은 발표·동아리 자리에서 시도해 보면 좋아요. 이번 주의 한 시도가 한 학기 자기 색의 뼈대로 쌓여요."
                       }
                     ],
-                    "plainText": "이번 주는 자기 색이 또렷해지는요. 좋아하는 작가·아티스트의 방식을 따라 해 보거나, 자기 식대로 재해석한 작은 작품 한 점을 마무리해 두면 자산이 돼요. 봄바람 맞은 가지가 한 뼘 자라는 시간이에요. 또래 비교가 마음에 들어와도, 어제의 나와 살짝 다르게 풀어 보면 흐름이 가벼워져요. 작은 발표·동아리 자리에서 시도해 보면 좋아요. 이번 주의 한 시도가 한 학기 자기 색의 뼈대로 쌓여요."
+                    "plainText": "이번 주는 자기 색이 또렷해져요. 좋아하는 작가·아티스트의 방식을 따라 해 보거나, 자기 식대로 재해석한 작은 작품 한 점을 마무리해 두면 자산이 돼요. 봄바람 맞은 가지가 한 뼘 자라는 시간이에요. 또래 비교가 마음에 들어와도, 어제의 나와 살짝 다르게 풀어 보면 흐름이 가벼워져요. 작은 발표·동아리 자리에서 시도해 보면 좋아요. 이번 주의 한 시도가 한 학기 자기 색의 뼈대로 쌓여요."
                   }
                 ],
                 "livingTips": [
@@ -4035,7 +4035,7 @@
             "meaningfulness": "limited",
             "stars": 3,
             "brief": {
-              "headline": "이번 달 (5월)은 큰 결론보다 생활 리듬과 마음의 속도를 안정시키는 흐름으로 보는 게 좋아요."
+              "headline": "이번 달 (5월)은 생활 리듬을 잘 잡는 쪽이 좋아요."
             },
             "standard": {
               "paragraphs": [
@@ -4087,7 +4087,7 @@
               "meaningfulness": "limited",
               "stars": 3,
               "brief": {
-                "headline": "이번 달 (5월)의 돈과 물건 관리는 잘하고 못하고를 단정하기보다, 지금 할 수 있는 작은 습관을 지키는 쪽이 좋아요."
+                "headline": "이번 달 (5월)의 돈과 물건 관리는 작은 습관을 지키는 쪽이 좋아요."
               },
               "standard": {
                 "paragraphs": [
@@ -4138,7 +4138,7 @@
               "meaningfulness": "limited",
               "stars": 3,
               "brief": {
-                "headline": "이번 달은 잠과 식사를 일정하게 맞추는 것만으로도 몸의 리듬이 좋아집니다."
+                "headline": "이번 달은 잠과 식사를 일정하게 맞추는 것만으로도 몸의 리듬이요."
               },
               "standard": {
                 "paragraphs": [
@@ -4355,7 +4355,7 @@
               "meaningfulness": "limited",
               "stars": 3,
               "brief": {
-                "headline": "이번 달 (5월)의 관계와 마음은 잘하고 못하고를 단정하기보다, 지금 할 수 있는 작은 습관을 지키는 쪽이 좋아요."
+                "headline": "이번 달 (5월)의 관계와 마음은 작은 습관을 지키는 쪽이 좋아요."
               },
               "standard": {
                 "paragraphs": [
@@ -4502,7 +4502,7 @@
               "meaningfulness": "limited",
               "stars": 3,
               "brief": {
-                "headline": "이번 달은 작은 성과를 남기는 쪽이 좋아요. 결과가 보이면 다음 선택도 쉬워집니다."
+                "headline": "이번 달은 작은 성과를 남기는 쪽이 좋아요."
               },
               "standard": {
                 "paragraphs": [
@@ -4583,7 +4583,7 @@
               "meaningfulness": "limited",
               "stars": 3,
               "brief": {
-                "headline": "이번 달 (5월)의 기록과 준비는 잘하고 못하고를 단정하기보다, 지금 할 수 있는 작은 습관을 지키는 쪽이 좋아요."
+                "headline": "이번 달 (5월)의 기록과 준비는 작은 습관을 지키는 쪽이 좋아요."
               },
               "standard": {
                 "paragraphs": [
@@ -4634,7 +4634,7 @@
               "meaningfulness": "limited",
               "stars": 3,
               "brief": {
-                "headline": "이번 달은 자기 색이 한 뼘 단단해지는요."
+                "headline": "이번 달은 자기 색이 한 뼘 단단해져요."
               },
               "standard": {
                 "paragraphs": [
@@ -4642,10 +4642,10 @@
                     "tokens": [
                       {
                         "kind": "text",
-                        "value": "이번 달은 자기 색이 한 뼘 단단해지는요. 좋아하는 작가·아티스트의 방식을 따라 해 보거나 자기 식대로 재해석한 작은 작품 한 묶음을 모아 두면 큰 자산이 돼요. 봄바람 맞은 가지가 한 뼘 자라는 시간이에요. 또래 비교가 마음에 들어와도 자기 페이스를 지키면 호흡이 길게 가요. 작은 발표·동아리 자리에서 시도해 보면 좋아요. 이번 달의 한 매듭이 한 학기 색의 뼈대로 쌓여요."
+                        "value": "이번 달은 자기 색이 한 뼘 단단해져요. 좋아하는 작가·아티스트의 방식을 따라 해 보거나 자기 식대로 재해석한 작은 작품 한 묶음을 모아 두면 큰 자산이 돼요. 봄바람 맞은 가지가 한 뼘 자라는 시간이에요. 또래 비교가 마음에 들어와도 자기 페이스를 지키면 호흡이 길게 가요. 작은 발표·동아리 자리에서 시도해 보면 좋아요. 이번 달의 한 매듭이 한 학기 색의 뼈대로 쌓여요."
                       }
                     ],
-                    "plainText": "이번 달은 자기 색이 한 뼘 단단해지는요. 좋아하는 작가·아티스트의 방식을 따라 해 보거나 자기 식대로 재해석한 작은 작품 한 묶음을 모아 두면 큰 자산이 돼요. 봄바람 맞은 가지가 한 뼘 자라는 시간이에요. 또래 비교가 마음에 들어와도 자기 페이스를 지키면 호흡이 길게 가요. 작은 발표·동아리 자리에서 시도해 보면 좋아요. 이번 달의 한 매듭이 한 학기 색의 뼈대로 쌓여요."
+                    "plainText": "이번 달은 자기 색이 한 뼘 단단해져요. 좋아하는 작가·아티스트의 방식을 따라 해 보거나 자기 식대로 재해석한 작은 작품 한 묶음을 모아 두면 큰 자산이 돼요. 봄바람 맞은 가지가 한 뼘 자라는 시간이에요. 또래 비교가 마음에 들어와도 자기 페이스를 지키면 호흡이 길게 가요. 작은 발표·동아리 자리에서 시도해 보면 좋아요. 이번 달의 한 매듭이 한 학기 색의 뼈대로 쌓여요."
                   }
                 ],
                 "livingTips": [
@@ -4712,7 +4712,7 @@
               "meaningfulness": "limited",
               "stars": 3,
               "brief": {
-                "headline": "이번 달은 잠과 산책이 가장 좋은 약이에요. 비교 대신 자기 페이스를 챙겨요."
+                "headline": "이번 달은 잠과 산책이 가장 좋은 약이에요."
               },
               "standard": {
                 "paragraphs": [
@@ -4926,7 +4926,7 @@
             "meaningfulness": "limited",
             "stars": 2,
             "brief": {
-              "headline": "올해 (2026년)는 큰 결론보다 생활 리듬과 마음의 속도를 안정시키는 흐름으로 보는 게 좋아요."
+              "headline": "올해 (2026년)는 생활 리듬을 잘 잡는 쪽이 좋아요."
             },
             "standard": {
               "paragraphs": [
@@ -4978,7 +4978,7 @@
               "meaningfulness": "limited",
               "stars": 2,
               "brief": {
-                "headline": "올해 (2026년)의 돈과 물건 관리는 잘하고 못하고를 단정하기보다, 지금 할 수 있는 작은 습관을 지키는 쪽이 좋아요."
+                "headline": "올해 (2026년)의 돈과 물건 관리는 작은 습관을 지키는 쪽이 좋아요."
               },
               "standard": {
                 "paragraphs": [
@@ -5029,7 +5029,7 @@
               "meaningfulness": "meaningful",
               "stars": 2,
               "brief": {
-                "headline": "올해는 큰 변화보다 기본 체력을 쌓는 습관이 중요해요. 작은 운동을 꾸준히 이어가세요."
+                "headline": "올해는 큰 변화보다 기본 체력을 쌓는 습관이 중요해요."
               },
               "standard": {
                 "paragraphs": [
@@ -5225,7 +5225,7 @@
               "meaningfulness": "limited",
               "stars": 2,
               "brief": {
-                "headline": "올해 (2026년)의 관계와 마음은 잘하고 못하고를 단정하기보다, 지금 할 수 있는 작은 습관을 지키는 쪽이 좋아요."
+                "headline": "올해 (2026년)의 관계와 마음은 작은 습관을 지키는 쪽이 좋아요."
               },
               "standard": {
                 "paragraphs": [
@@ -5457,7 +5457,7 @@
               "meaningfulness": "limited",
               "stars": 2,
               "brief": {
-                "headline": "올해 (2026년)의 기록과 준비는 잘하고 못하고를 단정하기보다, 지금 할 수 있는 작은 습관을 지키는 쪽이 좋아요."
+                "headline": "올해 (2026년)의 기록과 준비는 작은 습관을 지키는 쪽이 좋아요."
               },
               "standard": {
                 "paragraphs": [
@@ -5508,7 +5508,7 @@
               "meaningfulness": "meaningful",
               "stars": 2,
               "brief": {
-                "headline": "올해는 자기 색이 또래보다 또렷해지는요."
+                "headline": "올해는 자기 색이 또래보다 또렷해져요."
               },
               "standard": {
                 "paragraphs": [
@@ -5684,7 +5684,7 @@
               "meaningfulness": "meaningful",
               "stars": 2,
               "brief": {
-                "headline": "올해는 새로운 경험을 조금씩 넓히면 생각과 관계의 폭이 커질 수 있어요."
+                "headline": "올해는 새로운 경험을 조금씩 넓히면 생각과 관계의 폭이 커질 수요."
               },
               "standard": {
                 "paragraphs": [
@@ -6027,7 +6027,7 @@
       },
       "meta": {
         "schemaVersion": "spring-ts.tiered-matrix.v1",
-        "generatedAt": "2026-05-05T05:20:19.957Z",
+        "generatedAt": "2026-05-05T06:14:02.199Z",
         "selectionSeed": "2013|7|21|14|20|female|2026-05-04T15:00:00.000Z",
         "templateContractVersion": "1.0.0",
         "contentSource": "authored",

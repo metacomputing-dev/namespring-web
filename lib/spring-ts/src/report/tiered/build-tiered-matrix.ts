@@ -136,11 +136,11 @@ function buildMinorBriefFallback(
   const label = CATEGORY_LABEL[category];
   if (category === 'overall') {
     return {
-      headline: `${withTopicParticle(periodLabel)} 큰 결론보다 생활 리듬과 마음의 속도를 안정시키는 흐름으로 보는 게 좋아요.`,
+      headline: `${withTopicParticle(periodLabel)} 생활 리듬을 잘 잡는 쪽이 좋아요.`,
     };
   }
   return {
-    headline: `${withPeriodScopedTopic(periodLabel, label)} 잘하고 못하고를 단정하기보다, 지금 할 수 있는 작은 습관을 지키는 쪽이 좋아요.`,
+    headline: `${withPeriodScopedTopic(periodLabel, label)} 작은 습관을 지키는 쪽이 좋아요.`,
   };
 }
 

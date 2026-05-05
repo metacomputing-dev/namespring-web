@@ -6,10 +6,23 @@
     {
       "schemaVersion": "spring-ts.narrative-fragment.v1",
       "fragmentId": "expression_children.today.brief.idea.502",
-      "axis": { "category": "expression_children", "period": "today", "depth": "brief" },
-      "gating": { "ageBand": ["10-19", "20-29", "30-39"] },
+      "axis": {
+        "category": "expression_children",
+        "period": "today",
+        "depth": "brief"
+      },
+      "gating": {
+        "ageBand": [
+          "10-19",
+          "20-29",
+          "30-39"
+        ]
+      },
       "templateTokens": [
-        { "kind": "text", "value": "오늘은 떠오른 생각을 바로 적어두면 좋아요. 작은 메모가 나중에 쓸모가 됩니다." }
+        {
+          "kind": "text",
+          "value": "오늘은 떠오른 생각을 바로 적어두면 좋아요."
+        }
       ],
       "tags": [],
       "aiGenerated": true,
@@ -27,10 +40,24 @@
     {
       "schemaVersion": "spring-ts.narrative-fragment.v1",
       "fragmentId": "expression_children.thisWeek.brief.share.502",
-      "axis": { "category": "expression_children", "period": "thisWeek", "depth": "brief" },
-      "gating": { "ageBand": ["0-9", "10-19", "20-29", "30-39"] },
+      "axis": {
+        "category": "expression_children",
+        "period": "thisWeek",
+        "depth": "brief"
+      },
+      "gating": {
+        "ageBand": [
+          "0-9",
+          "10-19",
+          "20-29",
+          "30-39"
+        ]
+      },
       "templateTokens": [
-        { "kind": "text", "value": "이번 주는 혼자만 생각하기보다 말이나 글로 꺼내면 정리가 빨라져요." }
+        {
+          "kind": "text",
+          "value": "이번 주는 혼자만 생각하기보다 말이나 글로 꺼내면 정리가 빨라져요."
+        }
       ],
       "tags": [],
       "aiGenerated": true,
@@ -48,10 +75,23 @@
     {
       "schemaVersion": "spring-ts.narrative-fragment.v1",
       "fragmentId": "expression_children.thisMonth.brief.output.502",
-      "axis": { "category": "expression_children", "period": "thisMonth", "depth": "brief" },
-      "gating": { "ageBand": ["20-29", "30-39", "40-54"] },
+      "axis": {
+        "category": "expression_children",
+        "period": "thisMonth",
+        "depth": "brief"
+      },
+      "gating": {
+        "ageBand": [
+          "20-29",
+          "30-39",
+          "40-54"
+        ]
+      },
       "templateTokens": [
-        { "kind": "text", "value": "이번 달은 생각만 키우기보다 보여줄 수 있는 결과 하나를 남겨보세요." }
+        {
+          "kind": "text",
+          "value": "이번 달은 생각만 키우기보다 보여줄 수 있는 결과 하나를 남겨보세요."
+        }
       ],
       "tags": [],
       "aiGenerated": true,
@@ -69,10 +109,24 @@
     {
       "schemaVersion": "spring-ts.narrative-fragment.v1",
       "fragmentId": "expression_children.life.standard.creation_relation.502",
-      "axis": { "category": "expression_children", "period": "life", "depth": "standard" },
-      "gating": { "ageBand": ["30-39", "40-54", "55-69", "70+"] },
+      "axis": {
+        "category": "expression_children",
+        "period": "life",
+        "depth": "standard"
+      },
+      "gating": {
+        "ageBand": [
+          "30-39",
+          "40-54",
+          "55-69",
+          "70+"
+        ]
+      },
       "templateTokens": [
-        { "kind": "text", "value": "표현과 돌봄의 흐름은 오래 쌓을수록 힘이 납니다. 아이디어, 말, 글, 자녀나 후배와의 관계를 너무 급하게 판단하지 말고 꾸준히 다듬으면 좋은 결과로 이어지기 쉽습니다." }
+        {
+          "kind": "text",
+          "value": "표현과 돌봄의 흐름은 오래 쌓을수록 힘이 납니다. 아이디어, 말, 글, 자녀나 후배와의 관계를 너무 급하게 판단하지 말고 꾸준히 다듬으면 좋은 결과로 이어지기 쉽습니다."
+        }
       ],
       "livingTips": [
         "생각이 떠오르면 완성하려 하기보다 먼저 짧게 기록하세요.",
@@ -97,10 +151,25 @@
     {
       "schemaVersion": "spring-ts.narrative-fragment.v1",
       "fragmentId": "expression_children.thisYear.standard.record.502",
-      "axis": { "category": "expression_children", "period": "thisYear", "depth": "standard" },
-      "gating": { "ageBand": ["0-9", "10-19", "20-29", "30-39", "40-54"] },
+      "axis": {
+        "category": "expression_children",
+        "period": "thisYear",
+        "depth": "standard"
+      },
+      "gating": {
+        "ageBand": [
+          "0-9",
+          "10-19",
+          "20-29",
+          "30-39",
+          "40-54"
+        ]
+      },
       "templateTokens": [
-        { "kind": "text", "value": "올해는 표현하고 남기는 일이 중요해요. 말로만 지나가는 생각을 글, 그림, 발표, 기록처럼 확인할 수 있는 형태로 바꾸면 성장 흐름을 보기 쉬워집니다." }
+        {
+          "kind": "text",
+          "value": "올해는 표현하고 남기는 일이 중요해요. 말로만 지나가는 생각을 글, 그림, 발표, 기록처럼 확인할 수 있는 형태로 바꾸면 성장 흐름을 보기 쉬워집니다."
+        }
       ],
       "livingTips": [
         "한 달에 하나씩 결과물을 저장할 폴더나 노트를 정하세요.",

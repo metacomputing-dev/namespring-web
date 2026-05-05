@@ -6,10 +6,26 @@
     {
       "schemaVersion": "spring-ts.narrative-fragment.v1",
       "fragmentId": "romance.today.brief.kind_word.504",
-      "axis": { "category": "romance", "period": "today", "depth": "brief" },
-      "gating": { "ageBand": ["10-19", "20-29", "30-39", "40-54", "55-69", "70+"] },
+      "axis": {
+        "category": "romance",
+        "period": "today",
+        "depth": "brief"
+      },
+      "gating": {
+        "ageBand": [
+          "10-19",
+          "20-29",
+          "30-39",
+          "40-54",
+          "55-69",
+          "70+"
+        ]
+      },
       "templateTokens": [
-        { "kind": "text", "value": "오늘은 다정한 말 한마디가 관계 분위기를 부드럽게 만들 수 있어요." }
+        {
+          "kind": "text",
+          "value": "오늘은 다정한 말 한마디가 관계 분위기를 부드럽게 만들 수 있어요."
+        }
       ],
       "tags": [],
       "aiGenerated": true,
@@ -27,10 +43,26 @@
     {
       "schemaVersion": "spring-ts.narrative-fragment.v1",
       "fragmentId": "romance.today.standard.soft_timing.504",
-      "axis": { "category": "romance", "period": "today", "depth": "standard" },
-      "gating": { "ageBand": ["10-19", "20-29", "30-39", "40-54", "55-69", "70+"] },
+      "axis": {
+        "category": "romance",
+        "period": "today",
+        "depth": "standard"
+      },
+      "gating": {
+        "ageBand": [
+          "10-19",
+          "20-29",
+          "30-39",
+          "40-54",
+          "55-69",
+          "70+"
+        ]
+      },
       "templateTokens": [
-        { "kind": "text", "value": "오늘은 마음을 표현하되 상대가 받아들일 시간을 함께 보는 것이 좋아요. 급하게 확인받으려 하기보다 편안한 말투로 안부를 묻고, 대화가 이어지면 천천히 깊이를 더해보세요." }
+        {
+          "kind": "text",
+          "value": "오늘은 마음을 표현하되 상대가 받아들일 시간을 함께 보는 것이 좋아요. 급하게 확인받으려 하기보다 편안한 말투로 안부를 묻고, 대화가 이어지면 천천히 깊이를 더해보세요."
+        }
       ],
       "livingTips": [
         "먼저 짧게 안부를 묻고 상대의 반응을 기다려보세요.",
@@ -55,10 +87,24 @@
     {
       "schemaVersion": "spring-ts.narrative-fragment.v1",
       "fragmentId": "romance.thisWeek.brief.small_plan.504",
-      "axis": { "category": "romance", "period": "thisWeek", "depth": "brief" },
-      "gating": { "currentSeason": ["spring", "summer", "autumn", "winter"] },
+      "axis": {
+        "category": "romance",
+        "period": "thisWeek",
+        "depth": "brief"
+      },
+      "gating": {
+        "currentSeason": [
+          "spring",
+          "summer",
+          "autumn",
+          "winter"
+        ]
+      },
       "templateTokens": [
-        { "kind": "text", "value": "이번 주는 큰 고백보다 함께할 수 있는 작은 약속을 잡아보면 좋아요." }
+        {
+          "kind": "text",
+          "value": "이번 주는 큰 고백보다 함께할 수 있는 작은 약속을 잡아보면 좋아요."
+        }
       ],
       "tags": [],
       "aiGenerated": true,
@@ -76,10 +122,26 @@
     {
       "schemaVersion": "spring-ts.narrative-fragment.v1",
       "fragmentId": "romance.thisWeek.standard.listen_first.504",
-      "axis": { "category": "romance", "period": "thisWeek", "depth": "standard" },
-      "gating": { "ageBand": ["10-19", "20-29", "30-39", "40-54", "55-69", "70+"] },
+      "axis": {
+        "category": "romance",
+        "period": "thisWeek",
+        "depth": "standard"
+      },
+      "gating": {
+        "ageBand": [
+          "10-19",
+          "20-29",
+          "30-39",
+          "40-54",
+          "55-69",
+          "70+"
+        ]
+      },
       "templateTokens": [
-        { "kind": "text", "value": "이번 주 관계는 내 마음을 설명하는 것만큼 상대 이야기를 듣는 태도가 중요해요. 서운한 점이 있어도 먼저 확인하고 말하면 오해가 줄고, 서로 기대하는 관계의 속도도 맞추기 쉬워집니다." }
+        {
+          "kind": "text",
+          "value": "이번 주 관계는 내 마음을 설명하는 것만큼 상대 이야기를 듣는 태도가 중요해요. 서운한 점이 있어도 먼저 확인하고 말하면 오해가 줄고, 서로 기대하는 관계의 속도도 맞추기 쉬워집니다."
+        }
       ],
       "livingTips": [
         "대화 중에는 결론보다 상대가 무엇을 원했는지 먼저 확인하세요.",
@@ -104,10 +166,26 @@
     {
       "schemaVersion": "spring-ts.narrative-fragment.v1",
       "fragmentId": "romance.thisMonth.brief.rhythm.504",
-      "axis": { "category": "romance", "period": "thisMonth", "depth": "brief" },
-      "gating": { "ageBand": ["10-19", "20-29", "30-39", "40-54", "55-69", "70+"] },
+      "axis": {
+        "category": "romance",
+        "period": "thisMonth",
+        "depth": "brief"
+      },
+      "gating": {
+        "ageBand": [
+          "10-19",
+          "20-29",
+          "30-39",
+          "40-54",
+          "55-69",
+          "70+"
+        ]
+      },
       "templateTokens": [
-        { "kind": "text", "value": "이번 달은 만남과 혼자 쉬는 시간을 균형 있게 두면 관계가 더 편안해집니다." }
+        {
+          "kind": "text",
+          "value": "이번 달은 만남과 혼자 쉬는 시간을 균형 있게 두면 관계가 더 편안요."
+        }
       ],
       "tags": [],
       "aiGenerated": true,
@@ -125,10 +203,25 @@
     {
       "schemaVersion": "spring-ts.narrative-fragment.v1",
       "fragmentId": "romance.thisMonth.standard.promise_balance.504",
-      "axis": { "category": "romance", "period": "thisMonth", "depth": "standard" },
-      "gating": { "ageBand": ["20-29", "30-39", "40-54", "55-69", "70+"] },
+      "axis": {
+        "category": "romance",
+        "period": "thisMonth",
+        "depth": "standard"
+      },
+      "gating": {
+        "ageBand": [
+          "20-29",
+          "30-39",
+          "40-54",
+          "55-69",
+          "70+"
+        ]
+      },
       "templateTokens": [
-        { "kind": "text", "value": "이번 달은 가까워지고 싶은 마음과 각자의 생활 리듬을 함께 존중해야 해요. 자주 보는 것도 좋지만 약속을 지키는 안정감, 혼자 있는 시간을 인정하는 태도가 관계를 더 오래 편안하게 만듭니다." }
+        {
+          "kind": "text",
+          "value": "이번 달은 가까워지고 싶은 마음과 각자의 생활 리듬을 함께 존중해야 해요. 자주 보는 것도 좋지만 약속을 지키는 안정감, 혼자 있는 시간을 인정하는 태도가 관계를 더 오래 편안하게 만듭니다."
+        }
       ],
       "livingTips": [
         "반복되는 약속은 무리하지 않는 시간대에 잡아보세요.",
@@ -153,10 +246,26 @@
     {
       "schemaVersion": "spring-ts.narrative-fragment.v1",
       "fragmentId": "romance.thisYear.brief.steady_care.504",
-      "axis": { "category": "romance", "period": "thisYear", "depth": "brief" },
-      "gating": { "ageBand": ["10-19", "20-29", "30-39", "40-54", "55-69", "70+"] },
+      "axis": {
+        "category": "romance",
+        "period": "thisYear",
+        "depth": "brief"
+      },
+      "gating": {
+        "ageBand": [
+          "10-19",
+          "20-29",
+          "30-39",
+          "40-54",
+          "55-69",
+          "70+"
+        ]
+      },
       "templateTokens": [
-        { "kind": "text", "value": "올해는 순간적인 설렘보다 꾸준히 챙기는 태도가 관계를 더 단단하게 만듭니다." }
+        {
+          "kind": "text",
+          "value": "올해는 순간적인 설렘보다 꾸준히 챙기는 태도가 관계를 더 단단요."
+        }
       ],
       "tags": [],
       "aiGenerated": true,
@@ -174,10 +283,25 @@
     {
       "schemaVersion": "spring-ts.narrative-fragment.v1",
       "fragmentId": "romance.thisYear.standard.relationship_pace.504",
-      "axis": { "category": "romance", "period": "thisYear", "depth": "standard" },
-      "gating": { "ageBand": ["20-29", "30-39", "40-54", "55-69", "70+"] },
+      "axis": {
+        "category": "romance",
+        "period": "thisYear",
+        "depth": "standard"
+      },
+      "gating": {
+        "ageBand": [
+          "20-29",
+          "30-39",
+          "40-54",
+          "55-69",
+          "70+"
+        ]
+      },
       "templateTokens": [
-        { "kind": "text", "value": "올해 관계는 속도를 맞추는 일이 중요해요. 가까워지고 싶은 마음이 커도 서로의 생활, 일, 가족, 감정 회복 시간을 함께 고려하면 관계가 더 안정적으로 이어집니다." }
+        {
+          "kind": "text",
+          "value": "올해 관계는 속도를 맞추는 일이 중요해요. 가까워지고 싶은 마음이 커도 서로의 생활, 일, 가족, 감정 회복 시간을 함께 고려하면 관계가 더 안정적으로 이어집니다."
+        }
       ],
       "livingTips": [
         "관계의 중요한 선택은 감정이 가장 뜨거운 순간보다 하루 뒤에 다시 생각하세요.",
@@ -202,10 +326,25 @@
     {
       "schemaVersion": "spring-ts.narrative-fragment.v1",
       "fragmentId": "romance.life.standard.trust_base.504",
-      "axis": { "category": "romance", "period": "life", "depth": "standard" },
-      "gating": { "ageBand": ["20-29", "30-39", "40-54", "55-69", "70+"] },
+      "axis": {
+        "category": "romance",
+        "period": "life",
+        "depth": "standard"
+      },
+      "gating": {
+        "ageBand": [
+          "20-29",
+          "30-39",
+          "40-54",
+          "55-69",
+          "70+"
+        ]
+      },
       "templateTokens": [
-        { "kind": "text", "value": "긴 흐름에서는 좋은 인연을 만나는 것만큼 관계를 유지하는 기본기가 중요해요. 신뢰는 큰 이벤트보다 약속을 지키는 태도, 불편한 마음을 안전하게 말할 수 있는 분위기에서 자랍니다." }
+        {
+          "kind": "text",
+          "value": "긴 흐름에서는 좋은 인연을 만나는 것만큼 관계를 유지하는 기본기가 중요해요. 신뢰는 큰 이벤트보다 약속을 지키는 태도, 불편한 마음을 안전하게 말할 수 있는 분위기에서 자랍니다."
+        }
       ],
       "livingTips": [
         "관계에서 반복해서 편안했던 순간과 힘들었던 순간을 구분해보세요.",
@@ -230,18 +369,55 @@
     {
       "schemaVersion": "spring-ts.narrative-fragment.v1",
       "fragmentId": "romance.life.expert.partner_root.504",
-      "axis": { "category": "romance", "period": "life", "depth": "expert" },
-      "gating": { "yongshinAlignment": ["aligned", "neutral"] },
+      "axis": {
+        "category": "romance",
+        "period": "life",
+        "depth": "expert"
+      },
+      "gating": {
+        "yongshinAlignment": [
+          "aligned",
+          "neutral"
+        ]
+      },
       "templateTokens": [
-        { "kind": "text", "value": "장기 연애운은 " },
-        { "kind": "tag", "tagId": "baeujagung", "label": "배우자궁" },
-        { "kind": "text", "value": "의 안정성과 " },
-        { "kind": "tag", "tagId": "sajuCompatibility", "label": "사주궁합" },
-        { "kind": "text", "value": "의 상호 보완성을 함께 봅니다. " },
-        { "kind": "tag", "tagId": "yongshin", "label": "용신" },
-        { "kind": "text", "value": " 방향이 맞으면 설렘보다 신뢰를 쌓는 선택이 오래 갑니다." }
+        {
+          "kind": "text",
+          "value": "장기 연애운은 "
+        },
+        {
+          "kind": "tag",
+          "tagId": "baeujagung",
+          "label": "배우자궁"
+        },
+        {
+          "kind": "text",
+          "value": "의 안정성과 "
+        },
+        {
+          "kind": "tag",
+          "tagId": "sajuCompatibility",
+          "label": "사주궁합"
+        },
+        {
+          "kind": "text",
+          "value": "의 상호 보완성을 함께 봅니다. "
+        },
+        {
+          "kind": "tag",
+          "tagId": "yongshin",
+          "label": "용신"
+        },
+        {
+          "kind": "text",
+          "value": " 방향이 맞으면 설렘보다 신뢰를 쌓는 선택이 오래 갑니다."
+        }
       ],
-      "tags": ["baeujagung", "sajuCompatibility", "yongshin"],
+      "tags": [
+        "baeujagung",
+        "sajuCompatibility",
+        "yongshin"
+      ],
       "numericalEvidence": [
         {
           "label": "현재 나이",
@@ -289,18 +465,56 @@
     {
       "schemaVersion": "spring-ts.narrative-fragment.v1",
       "fragmentId": "romance.today.expert.harmony_score.504",
-      "axis": { "category": "romance", "period": "today", "depth": "expert" },
-      "gating": { "dayMasterStrength": ["WEAK", "BALANCED", "STRONG"] },
+      "axis": {
+        "category": "romance",
+        "period": "today",
+        "depth": "expert"
+      },
+      "gating": {
+        "dayMasterStrength": [
+          "WEAK",
+          "BALANCED",
+          "STRONG"
+        ]
+      },
       "templateTokens": [
-        { "kind": "text", "value": "오늘 연애운은 " },
-        { "kind": "tag", "tagId": "eumyangHarmony", "label": "음양조화" },
-        { "kind": "text", "value": "와 " },
-        { "kind": "tag", "tagId": "baeujagung", "label": "배우자궁" },
-        { "kind": "text", "value": "의 반응성을 함께 봅니다. " },
-        { "kind": "tag", "tagId": "stabilityIndex", "label": "안정성지수" },
-        { "kind": "text", "value": "가 낮으면 확인보다 부드러운 대화가 먼저입니다." }
+        {
+          "kind": "text",
+          "value": "오늘 연애운은 "
+        },
+        {
+          "kind": "tag",
+          "tagId": "eumyangHarmony",
+          "label": "음양조화"
+        },
+        {
+          "kind": "text",
+          "value": "와 "
+        },
+        {
+          "kind": "tag",
+          "tagId": "baeujagung",
+          "label": "배우자궁"
+        },
+        {
+          "kind": "text",
+          "value": "의 반응성을 함께 봅니다. "
+        },
+        {
+          "kind": "tag",
+          "tagId": "stabilityIndex",
+          "label": "안정성지수"
+        },
+        {
+          "kind": "text",
+          "value": "가 낮으면 확인보다 부드러운 대화가 먼저입니다."
+        }
       ],
-      "tags": ["eumyangHarmony", "baeujagung", "stabilityIndex"],
+      "tags": [
+        "eumyangHarmony",
+        "baeujagung",
+        "stabilityIndex"
+      ],
       "numericalEvidence": [
         {
           "label": "연애 별점",
@@ -333,18 +547,56 @@
     {
       "schemaVersion": "spring-ts.narrative-fragment.v1",
       "fragmentId": "romance.thisWeek.expert.affinity_score.504",
-      "axis": { "category": "romance", "period": "thisWeek", "depth": "expert" },
-      "gating": { "yongshinAlignment": ["aligned", "neutral", "conflicting"] },
+      "axis": {
+        "category": "romance",
+        "period": "thisWeek",
+        "depth": "expert"
+      },
+      "gating": {
+        "yongshinAlignment": [
+          "aligned",
+          "neutral",
+          "conflicting"
+        ]
+      },
       "templateTokens": [
-        { "kind": "text", "value": "이번 주 연애운은 " },
-        { "kind": "tag", "tagId": "sajuCompatibility", "label": "사주궁합" },
-        { "kind": "text", "value": "의 맞물림과 " },
-        { "kind": "tag", "tagId": "eumyangHarmony", "label": "음양조화" },
-        { "kind": "text", "value": "를 함께 봅니다. " },
-        { "kind": "tag", "tagId": "yongshin", "label": "용신" },
-        { "kind": "text", "value": " 정합성이 낮으면 관계 속도를 줄이고 상대 반응을 더 확인해야 합니다." }
+        {
+          "kind": "text",
+          "value": "이번 주 연애운은 "
+        },
+        {
+          "kind": "tag",
+          "tagId": "sajuCompatibility",
+          "label": "사주궁합"
+        },
+        {
+          "kind": "text",
+          "value": "의 맞물림과 "
+        },
+        {
+          "kind": "tag",
+          "tagId": "eumyangHarmony",
+          "label": "음양조화"
+        },
+        {
+          "kind": "text",
+          "value": "를 함께 봅니다. "
+        },
+        {
+          "kind": "tag",
+          "tagId": "yongshin",
+          "label": "용신"
+        },
+        {
+          "kind": "text",
+          "value": " 정합성이 낮으면 관계 속도를 줄이고 상대 반응을 더 확인해야 합니다."
+        }
       ],
-      "tags": ["sajuCompatibility", "eumyangHarmony", "yongshin"],
+      "tags": [
+        "sajuCompatibility",
+        "eumyangHarmony",
+        "yongshin"
+      ],
       "numericalEvidence": [
         {
           "label": "연애 별점",
@@ -377,18 +629,55 @@
     {
       "schemaVersion": "spring-ts.narrative-fragment.v1",
       "fragmentId": "romance.thisMonth.expert.promise_score.504",
-      "axis": { "category": "romance", "period": "thisMonth", "depth": "expert" },
-      "gating": { "yongshinAlignment": ["aligned", "neutral"] },
+      "axis": {
+        "category": "romance",
+        "period": "thisMonth",
+        "depth": "expert"
+      },
+      "gating": {
+        "yongshinAlignment": [
+          "aligned",
+          "neutral"
+        ]
+      },
       "templateTokens": [
-        { "kind": "text", "value": "이번 달 연애운은 " },
-        { "kind": "tag", "tagId": "jeongjae", "label": "정재" },
-        { "kind": "text", "value": "의 안정성, " },
-        { "kind": "tag", "tagId": "pyeonjae", "label": "편재" },
-        { "kind": "text", "value": "의 매력 확장, " },
-        { "kind": "tag", "tagId": "baeujagung", "label": "배우자궁" },
-        { "kind": "text", "value": "의 수용성을 함께 봅니다. 점수가 낮으면 약속 빈도보다 신뢰 유지가 먼저입니다." }
+        {
+          "kind": "text",
+          "value": "이번 달 연애운은 "
+        },
+        {
+          "kind": "tag",
+          "tagId": "jeongjae",
+          "label": "정재"
+        },
+        {
+          "kind": "text",
+          "value": "의 안정성, "
+        },
+        {
+          "kind": "tag",
+          "tagId": "pyeonjae",
+          "label": "편재"
+        },
+        {
+          "kind": "text",
+          "value": "의 매력 확장, "
+        },
+        {
+          "kind": "tag",
+          "tagId": "baeujagung",
+          "label": "배우자궁"
+        },
+        {
+          "kind": "text",
+          "value": "의 수용성을 함께 봅니다. 점수가 낮으면 약속 빈도보다 신뢰 유지가 먼저입니다."
+        }
       ],
-      "tags": ["jeongjae", "pyeonjae", "baeujagung"],
+      "tags": [
+        "jeongjae",
+        "pyeonjae",
+        "baeujagung"
+      ],
       "numericalEvidence": [
         {
           "label": "연애 별점",
@@ -421,18 +710,55 @@
     {
       "schemaVersion": "spring-ts.narrative-fragment.v1",
       "fragmentId": "romance.thisYear.expert.commitment_score.504",
-      "axis": { "category": "romance", "period": "thisYear", "depth": "expert" },
-      "gating": { "yongshinAlignment": ["aligned", "neutral"] },
+      "axis": {
+        "category": "romance",
+        "period": "thisYear",
+        "depth": "expert"
+      },
+      "gating": {
+        "yongshinAlignment": [
+          "aligned",
+          "neutral"
+        ]
+      },
       "templateTokens": [
-        { "kind": "text", "value": "올해 연애운은 " },
-        { "kind": "tag", "tagId": "baeujagung", "label": "배우자궁" },
-        { "kind": "text", "value": ", " },
-        { "kind": "tag", "tagId": "jeonggwan", "label": "정관" },
-        { "kind": "text", "value": ", " },
-        { "kind": "tag", "tagId": "sajuCompatibility", "label": "사주궁합" },
-        { "kind": "text", "value": "을 함께 보며 관계의 지속 가능성을 판단합니다. 점수가 낮으면 확정보다 조율을 우선하세요." }
+        {
+          "kind": "text",
+          "value": "올해 연애운은 "
+        },
+        {
+          "kind": "tag",
+          "tagId": "baeujagung",
+          "label": "배우자궁"
+        },
+        {
+          "kind": "text",
+          "value": ", "
+        },
+        {
+          "kind": "tag",
+          "tagId": "jeonggwan",
+          "label": "정관"
+        },
+        {
+          "kind": "text",
+          "value": ", "
+        },
+        {
+          "kind": "tag",
+          "tagId": "sajuCompatibility",
+          "label": "사주궁합"
+        },
+        {
+          "kind": "text",
+          "value": "을 함께 보며 관계의 지속 가능성을 판단합니다. 점수가 낮으면 확정보다 조율을 우선하세요."
+        }
       ],
-      "tags": ["baeujagung", "jeonggwan", "sajuCompatibility"],
+      "tags": [
+        "baeujagung",
+        "jeonggwan",
+        "sajuCompatibility"
+      ],
       "numericalEvidence": [
         {
           "label": "현재 나이",

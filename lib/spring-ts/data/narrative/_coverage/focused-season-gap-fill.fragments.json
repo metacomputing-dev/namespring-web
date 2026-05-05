@@ -6,58 +6,154 @@
     {
       "schemaVersion": "spring-ts.narrative-fragment.v1",
       "fragmentId": "wealth.life.brief.currentseason.spring_summer.301",
-      "axis": { "category": "wealth", "period": "life", "depth": "brief" },
-      "gating": { "currentSeason": ["spring", "summer"] },
+      "axis": {
+        "category": "wealth",
+        "period": "life",
+        "depth": "brief"
+      },
+      "gating": {
+        "currentSeason": [
+          "spring",
+          "summer"
+        ]
+      },
       "templateTokens": [
-        { "kind": "text", "value": "긴 흐름에서는 돈이 움직일 기회가 늘 수 있어요. 새 수입을 찾되, 먼저 모을 돈과 쓸 돈의 기준을 나누세요." }
+        {
+          "kind": "text",
+          "value": "긴 흐름에서는 돈이 움직일 기회가 늘 수 있어요."
+        }
       ],
       "tags": [],
       "aiGenerated": true,
-      "sourceTier": { "tier": "T1_HYPOTHESIS", "sourceType": "training_derived", "sourceUrl": null, "accessedAt": "2026-05-03", "quoteShort": null, "humanInterpretation": "Plain wealth life brief for spring/summer current season. AI-derived display text; not authority truth.", "copyrightNote": "No source prose copied; original phrasing.", "authorityTruthEligible": false }
+      "sourceTier": {
+        "tier": "T1_HYPOTHESIS",
+        "sourceType": "training_derived",
+        "sourceUrl": null,
+        "accessedAt": "2026-05-03",
+        "quoteShort": null,
+        "humanInterpretation": "Plain wealth life brief for spring/summer current season. AI-derived display text; not authority truth.",
+        "copyrightNote": "No source prose copied; original phrasing.",
+        "authorityTruthEligible": false
+      }
     },
     {
       "schemaVersion": "spring-ts.narrative-fragment.v1",
       "fragmentId": "wealth.life.brief.currentseason.autumn_winter.301",
-      "axis": { "category": "wealth", "period": "life", "depth": "brief" },
-      "gating": { "currentSeason": ["autumn", "winter"] },
+      "axis": {
+        "category": "wealth",
+        "period": "life",
+        "depth": "brief"
+      },
+      "gating": {
+        "currentSeason": [
+          "autumn",
+          "winter"
+        ]
+      },
       "templateTokens": [
-        { "kind": "text", "value": "긴 흐름에서는 돈을 크게 벌리기보다 지키는 힘이 중요해요. 지출을 차분히 정리하면 다음 기회를 준비할 여유가 생깁니다." }
+        {
+          "kind": "text",
+          "value": "긴 흐름에서는 돈을 크게 벌리기보다 지키는 힘이 중요해요."
+        }
       ],
       "tags": [],
       "aiGenerated": true,
-      "sourceTier": { "tier": "T1_HYPOTHESIS", "sourceType": "training_derived", "sourceUrl": null, "accessedAt": "2026-05-03", "quoteShort": null, "humanInterpretation": "Plain wealth life brief for autumn/winter current season. AI-derived display text; not authority truth.", "copyrightNote": "No source prose copied; original phrasing.", "authorityTruthEligible": false }
+      "sourceTier": {
+        "tier": "T1_HYPOTHESIS",
+        "sourceType": "training_derived",
+        "sourceUrl": null,
+        "accessedAt": "2026-05-03",
+        "quoteShort": null,
+        "humanInterpretation": "Plain wealth life brief for autumn/winter current season. AI-derived display text; not authority truth.",
+        "copyrightNote": "No source prose copied; original phrasing.",
+        "authorityTruthEligible": false
+      }
     },
     {
       "schemaVersion": "spring-ts.narrative-fragment.v1",
       "fragmentId": "wealth.thisYear.brief.currentseason.spring_summer.301",
-      "axis": { "category": "wealth", "period": "thisYear", "depth": "brief" },
-      "gating": { "currentSeason": ["spring", "summer"] },
+      "axis": {
+        "category": "wealth",
+        "period": "thisYear",
+        "depth": "brief"
+      },
+      "gating": {
+        "currentSeason": [
+          "spring",
+          "summer"
+        ]
+      },
       "templateTokens": [
-        { "kind": "text", "value": "올해는 새 수입이나 일의 기회를 찾아보기 좋은 흐름이에요. 다만 들어오는 돈만 보지 말고 나가는 돈도 함께 관리하세요." }
+        {
+          "kind": "text",
+          "value": "올해는 새 수입이나 일의 기회를 찾아보기 좋은 흐름이에요."
+        }
       ],
       "tags": [],
       "aiGenerated": true,
-      "sourceTier": { "tier": "T1_HYPOTHESIS", "sourceType": "training_derived", "sourceUrl": null, "accessedAt": "2026-05-03", "quoteShort": null, "humanInterpretation": "Plain wealth yearly brief for spring/summer current season. AI-derived display text; not authority truth.", "copyrightNote": "No source prose copied; original phrasing.", "authorityTruthEligible": false }
+      "sourceTier": {
+        "tier": "T1_HYPOTHESIS",
+        "sourceType": "training_derived",
+        "sourceUrl": null,
+        "accessedAt": "2026-05-03",
+        "quoteShort": null,
+        "humanInterpretation": "Plain wealth yearly brief for spring/summer current season. AI-derived display text; not authority truth.",
+        "copyrightNote": "No source prose copied; original phrasing.",
+        "authorityTruthEligible": false
+      }
     },
     {
       "schemaVersion": "spring-ts.narrative-fragment.v1",
       "fragmentId": "wealth.thisYear.brief.currentseason.autumn_winter.301",
-      "axis": { "category": "wealth", "period": "thisYear", "depth": "brief" },
-      "gating": { "currentSeason": ["autumn", "winter"] },
+      "axis": {
+        "category": "wealth",
+        "period": "thisYear",
+        "depth": "brief"
+      },
+      "gating": {
+        "currentSeason": [
+          "autumn",
+          "winter"
+        ]
+      },
       "templateTokens": [
-        { "kind": "text", "value": "올해는 돈의 안정감을 지키는 일이 중요해요. 큰 지출과 계약은 충분히 확인하고, 오래 갈 저축 습관을 먼저 세우세요." }
+        {
+          "kind": "text",
+          "value": "올해는 돈의 안정감을 지키는 일이 중요해요."
+        }
       ],
       "tags": [],
       "aiGenerated": true,
-      "sourceTier": { "tier": "T1_HYPOTHESIS", "sourceType": "training_derived", "sourceUrl": null, "accessedAt": "2026-05-03", "quoteShort": null, "humanInterpretation": "Plain wealth yearly brief for autumn/winter current season. AI-derived display text; not authority truth.", "copyrightNote": "No source prose copied; original phrasing.", "authorityTruthEligible": false }
+      "sourceTier": {
+        "tier": "T1_HYPOTHESIS",
+        "sourceType": "training_derived",
+        "sourceUrl": null,
+        "accessedAt": "2026-05-03",
+        "quoteShort": null,
+        "humanInterpretation": "Plain wealth yearly brief for autumn/winter current season. AI-derived display text; not authority truth.",
+        "copyrightNote": "No source prose copied; original phrasing.",
+        "authorityTruthEligible": false
+      }
     },
     {
       "schemaVersion": "spring-ts.narrative-fragment.v1",
       "fragmentId": "career.life.standard.currentseason.spring_summer.301",
-      "axis": { "category": "career", "period": "life", "depth": "standard" },
-      "gating": { "currentSeason": ["spring", "summer"] },
+      "axis": {
+        "category": "career",
+        "period": "life",
+        "depth": "standard"
+      },
+      "gating": {
+        "currentSeason": [
+          "spring",
+          "summer"
+        ]
+      },
       "templateTokens": [
-        { "kind": "text", "value": "긴 흐름에서는 새 역할과 사람을 만나며 일의 폭이 넓어지기 쉬워요. 기회가 많아질수록 모든 일을 다 잡으려 하기보다, 배울 수 있고 기록으로 남길 수 있는 일부터 선택하는 편이 좋습니다." }
+        {
+          "kind": "text",
+          "value": "긴 흐름에서는 새 역할과 사람을 만나며 일의 폭이 넓어지기 쉬워요. 기회가 많아질수록 모든 일을 다 잡으려 하기보다, 배울 수 있고 기록으로 남길 수 있는 일부터 선택하는 편이 좋습니다."
+        }
       ],
       "livingTips": [
         "새 제안은 목표, 시간, 보상을 따로 적어보고 결정하세요.",
@@ -68,15 +164,36 @@
       ],
       "tags": [],
       "aiGenerated": true,
-      "sourceTier": { "tier": "T1_HYPOTHESIS", "sourceType": "training_derived", "sourceUrl": null, "accessedAt": "2026-05-03", "quoteShort": null, "humanInterpretation": "Plain career life standard for spring/summer current season. AI-derived display text; not authority truth.", "copyrightNote": "No source prose copied; original phrasing.", "authorityTruthEligible": false }
+      "sourceTier": {
+        "tier": "T1_HYPOTHESIS",
+        "sourceType": "training_derived",
+        "sourceUrl": null,
+        "accessedAt": "2026-05-03",
+        "quoteShort": null,
+        "humanInterpretation": "Plain career life standard for spring/summer current season. AI-derived display text; not authority truth.",
+        "copyrightNote": "No source prose copied; original phrasing.",
+        "authorityTruthEligible": false
+      }
     },
     {
       "schemaVersion": "spring-ts.narrative-fragment.v1",
       "fragmentId": "career.life.standard.currentseason.autumn_winter.301",
-      "axis": { "category": "career", "period": "life", "depth": "standard" },
-      "gating": { "currentSeason": ["autumn", "winter"] },
+      "axis": {
+        "category": "career",
+        "period": "life",
+        "depth": "standard"
+      },
+      "gating": {
+        "currentSeason": [
+          "autumn",
+          "winter"
+        ]
+      },
       "templateTokens": [
-        { "kind": "text", "value": "긴 흐름에서는 일을 크게 넓히기보다 실력과 신뢰를 탄탄히 쌓는 편이 좋아요. 지금 맡은 일의 품질, 마감, 약속을 안정적으로 지키면 다음 기회가 더 안전하게 열립니다." }
+        {
+          "kind": "text",
+          "value": "긴 흐름에서는 일을 크게 넓히기보다 실력과 신뢰를 탄탄히 쌓는 편이 좋아요. 지금 맡은 일의 품질, 마감, 약속을 안정적으로 지키면 다음 기회가 더 안전하게 열립니다."
+        }
       ],
       "livingTips": [
         "반복되는 업무는 체크리스트로 만들어 실수를 줄이세요.",
@@ -87,15 +204,36 @@
       ],
       "tags": [],
       "aiGenerated": true,
-      "sourceTier": { "tier": "T1_HYPOTHESIS", "sourceType": "training_derived", "sourceUrl": null, "accessedAt": "2026-05-03", "quoteShort": null, "humanInterpretation": "Plain career life standard for autumn/winter current season. AI-derived display text; not authority truth.", "copyrightNote": "No source prose copied; original phrasing.", "authorityTruthEligible": false }
+      "sourceTier": {
+        "tier": "T1_HYPOTHESIS",
+        "sourceType": "training_derived",
+        "sourceUrl": null,
+        "accessedAt": "2026-05-03",
+        "quoteShort": null,
+        "humanInterpretation": "Plain career life standard for autumn/winter current season. AI-derived display text; not authority truth.",
+        "copyrightNote": "No source prose copied; original phrasing.",
+        "authorityTruthEligible": false
+      }
     },
     {
       "schemaVersion": "spring-ts.narrative-fragment.v1",
       "fragmentId": "career.thisYear.standard.currentseason.spring_summer.301",
-      "axis": { "category": "career", "period": "thisYear", "depth": "standard" },
-      "gating": { "currentSeason": ["spring", "summer"] },
+      "axis": {
+        "category": "career",
+        "period": "thisYear",
+        "depth": "standard"
+      },
+      "gating": {
+        "currentSeason": [
+          "spring",
+          "summer"
+        ]
+      },
       "templateTokens": [
-        { "kind": "text", "value": "올해는 새 역할, 새 프로젝트, 새 만남으로 일의 무대가 넓어질 수 있어요. 도전은 좋지만 목표가 흩어지지 않도록 올해 꼭 남길 성과를 먼저 정하고 움직이세요." }
+        {
+          "kind": "text",
+          "value": "올해는 새 역할, 새 프로젝트, 새 만남으로 일의 무대가 넓어질 수 있어요. 도전은 좋지만 목표가 흩어지지 않도록 올해 꼭 남길 성과를 먼저 정하고 움직이세요."
+        }
       ],
       "livingTips": [
         "올해 만들고 싶은 성과를 세 가지 이하로 줄여보세요.",
@@ -106,15 +244,36 @@
       ],
       "tags": [],
       "aiGenerated": true,
-      "sourceTier": { "tier": "T1_HYPOTHESIS", "sourceType": "training_derived", "sourceUrl": null, "accessedAt": "2026-05-03", "quoteShort": null, "humanInterpretation": "Plain career yearly standard for spring/summer current season. AI-derived display text; not authority truth.", "copyrightNote": "No source prose copied; original phrasing.", "authorityTruthEligible": false }
+      "sourceTier": {
+        "tier": "T1_HYPOTHESIS",
+        "sourceType": "training_derived",
+        "sourceUrl": null,
+        "accessedAt": "2026-05-03",
+        "quoteShort": null,
+        "humanInterpretation": "Plain career yearly standard for spring/summer current season. AI-derived display text; not authority truth.",
+        "copyrightNote": "No source prose copied; original phrasing.",
+        "authorityTruthEligible": false
+      }
     },
     {
       "schemaVersion": "spring-ts.narrative-fragment.v1",
       "fragmentId": "career.thisYear.standard.currentseason.autumn_winter.301",
-      "axis": { "category": "career", "period": "thisYear", "depth": "standard" },
-      "gating": { "currentSeason": ["autumn", "winter"] },
+      "axis": {
+        "category": "career",
+        "period": "thisYear",
+        "depth": "standard"
+      },
+      "gating": {
+        "currentSeason": [
+          "autumn",
+          "winter"
+        ]
+      },
       "templateTokens": [
-        { "kind": "text", "value": "올해는 일의 기반을 차분히 다지고 신뢰를 지키는 흐름이에요. 큰 전환을 하더라도 준비 없이 움직이기보다, 현재 일의 완성도와 필요한 실력을 먼저 점검하는 편이 안정적입니다." }
+        {
+          "kind": "text",
+          "value": "올해는 일의 기반을 차분히 다지고 신뢰를 지키는 흐름이에요. 큰 전환을 하더라도 준비 없이 움직이기보다, 현재 일의 완성도와 필요한 실력을 먼저 점검하는 편이 안정적입니다."
+        }
       ],
       "livingTips": [
         "현재 맡은 일에서 반복되는 실수와 강점을 함께 적어보세요.",
@@ -125,15 +284,36 @@
       ],
       "tags": [],
       "aiGenerated": true,
-      "sourceTier": { "tier": "T1_HYPOTHESIS", "sourceType": "training_derived", "sourceUrl": null, "accessedAt": "2026-05-03", "quoteShort": null, "humanInterpretation": "Plain career yearly standard for autumn/winter current season. AI-derived display text; not authority truth.", "copyrightNote": "No source prose copied; original phrasing.", "authorityTruthEligible": false }
+      "sourceTier": {
+        "tier": "T1_HYPOTHESIS",
+        "sourceType": "training_derived",
+        "sourceUrl": null,
+        "accessedAt": "2026-05-03",
+        "quoteShort": null,
+        "humanInterpretation": "Plain career yearly standard for autumn/winter current season. AI-derived display text; not authority truth.",
+        "copyrightNote": "No source prose copied; original phrasing.",
+        "authorityTruthEligible": false
+      }
     },
     {
       "schemaVersion": "spring-ts.narrative-fragment.v1",
       "fragmentId": "academic.life.standard.currentseason.spring_summer.301",
-      "axis": { "category": "academic", "period": "life", "depth": "standard" },
-      "gating": { "currentSeason": ["spring", "summer"] },
+      "axis": {
+        "category": "academic",
+        "period": "life",
+        "depth": "standard"
+      },
+      "gating": {
+        "currentSeason": [
+          "spring",
+          "summer"
+        ]
+      },
       "templateTokens": [
-        { "kind": "text", "value": "긴 흐름에서는 배우고 익힌 것을 밖으로 꺼내 쓰기 좋아요. 공부한 내용을 말로 설명하거나 과제, 시험, 자격 준비처럼 결과가 보이는 방식으로 연결하면 흐름이 살아납니다." }
+        {
+          "kind": "text",
+          "value": "긴 흐름에서는 배우고 익힌 것을 밖으로 꺼내 쓰기 좋아요. 공부한 내용을 말로 설명하거나 과제, 시험, 자격 준비처럼 결과가 보이는 방식으로 연결하면 흐름이 살아납니다."
+        }
       ],
       "livingTips": [
         "배운 내용을 짧게 설명하는 연습을 반복해 보세요.",
@@ -144,15 +324,36 @@
       ],
       "tags": [],
       "aiGenerated": true,
-      "sourceTier": { "tier": "T1_HYPOTHESIS", "sourceType": "training_derived", "sourceUrl": null, "accessedAt": "2026-05-03", "quoteShort": null, "humanInterpretation": "Plain academic life standard for spring/summer current season. AI-derived display text; not authority truth.", "copyrightNote": "No source prose copied; original phrasing.", "authorityTruthEligible": false }
+      "sourceTier": {
+        "tier": "T1_HYPOTHESIS",
+        "sourceType": "training_derived",
+        "sourceUrl": null,
+        "accessedAt": "2026-05-03",
+        "quoteShort": null,
+        "humanInterpretation": "Plain academic life standard for spring/summer current season. AI-derived display text; not authority truth.",
+        "copyrightNote": "No source prose copied; original phrasing.",
+        "authorityTruthEligible": false
+      }
     },
     {
       "schemaVersion": "spring-ts.narrative-fragment.v1",
       "fragmentId": "academic.life.standard.currentseason.autumn_winter.301",
-      "axis": { "category": "academic", "period": "life", "depth": "standard" },
-      "gating": { "currentSeason": ["autumn", "winter"] },
+      "axis": {
+        "category": "academic",
+        "period": "life",
+        "depth": "standard"
+      },
+      "gating": {
+        "currentSeason": [
+          "autumn",
+          "winter"
+        ]
+      },
       "templateTokens": [
-        { "kind": "text", "value": "긴 흐름에서는 새 내용을 많이 넣기보다 배운 것을 다시 확인하고 오래 기억하는 힘이 중요해요. 기본 개념, 오답, 반복 학습을 차분히 정리하면 공부의 기반이 단단해집니다." }
+        {
+          "kind": "text",
+          "value": "긴 흐름에서는 새 내용을 많이 넣기보다 배운 것을 다시 확인하고 오래 기억하는 힘이 중요해요. 기본 개념, 오답, 반복 학습을 차분히 정리하면 공부의 기반이 단단해집니다."
+        }
       ],
       "livingTips": [
         "어려웠던 문제를 모아 다시 푸는 시간을 정해두세요.",
@@ -163,23 +364,74 @@
       ],
       "tags": [],
       "aiGenerated": true,
-      "sourceTier": { "tier": "T1_HYPOTHESIS", "sourceType": "training_derived", "sourceUrl": null, "accessedAt": "2026-05-03", "quoteShort": null, "humanInterpretation": "Plain academic life standard for autumn/winter current season. AI-derived display text; not authority truth.", "copyrightNote": "No source prose copied; original phrasing.", "authorityTruthEligible": false }
+      "sourceTier": {
+        "tier": "T1_HYPOTHESIS",
+        "sourceType": "training_derived",
+        "sourceUrl": null,
+        "accessedAt": "2026-05-03",
+        "quoteShort": null,
+        "humanInterpretation": "Plain academic life standard for autumn/winter current season. AI-derived display text; not authority truth.",
+        "copyrightNote": "No source prose copied; original phrasing.",
+        "authorityTruthEligible": false
+      }
     },
     {
       "schemaVersion": "spring-ts.narrative-fragment.v1",
       "fragmentId": "academic.today.expert.currentseason.spring_summer.301",
-      "axis": { "category": "academic", "period": "today", "depth": "expert" },
-      "gating": { "currentSeason": ["spring", "summer"], "yongshinAlignment": ["aligned", "neutral", "conflicting"] },
+      "axis": {
+        "category": "academic",
+        "period": "today",
+        "depth": "expert"
+      },
+      "gating": {
+        "currentSeason": [
+          "spring",
+          "summer"
+        ],
+        "yongshinAlignment": [
+          "aligned",
+          "neutral",
+          "conflicting"
+        ]
+      },
       "templateTokens": [
-        { "kind": "text", "value": "일간 학업운에서 봄과 여름의 현재 계절은 학습 산출과 즉시 실행을 강하게 봅니다. " },
-        { "kind": "tag", "tagId": "jeongin", "label": "정인" },
-        { "kind": "text", "value": "은 개념 기반을, " },
-        { "kind": "tag", "tagId": "sikshin", "label": "식신" },
-        { "kind": "text", "value": "은 배운 내용을 문제 풀이와 설명으로 바꾸는 힘을 뜻합니다. " },
-        { "kind": "tag", "tagId": "yongshin", "label": "용신" },
-        { "kind": "text", "value": "정렬이 낮으면 범위를 줄이고 짧은 산출부터 만드는 편이 안정적입니다." }
+        {
+          "kind": "text",
+          "value": "일간 학업운에서 봄과 여름의 현재 계절은 학습 산출과 즉시 실행을 강하게 봅니다. "
+        },
+        {
+          "kind": "tag",
+          "tagId": "jeongin",
+          "label": "정인"
+        },
+        {
+          "kind": "text",
+          "value": "은 개념 기반을, "
+        },
+        {
+          "kind": "tag",
+          "tagId": "sikshin",
+          "label": "식신"
+        },
+        {
+          "kind": "text",
+          "value": "은 배운 내용을 문제 풀이와 설명으로 바꾸는 힘을 뜻합니다. "
+        },
+        {
+          "kind": "tag",
+          "tagId": "yongshin",
+          "label": "용신"
+        },
+        {
+          "kind": "text",
+          "value": "정렬이 낮으면 범위를 줄이고 짧은 산출부터 만드는 편이 안정적입니다."
+        }
       ],
-      "tags": ["jeongin", "sikshin", "yongshin"],
+      "tags": [
+        "jeongin",
+        "sikshin",
+        "yongshin"
+      ],
       "numericalEvidence": [
         {
           "label": "연령 단계 순번",
@@ -243,97 +495,361 @@
         }
       ],
       "aiGenerated": true,
-      "sourceTier": { "tier": "T1_HYPOTHESIS", "sourceType": "training_derived", "sourceUrl": null, "accessedAt": "2026-05-03", "quoteShort": null, "humanInterpretation": "Expert academic daily narrative for spring/summer current season. AI-derived display text; not authority truth.", "copyrightNote": "No source prose copied; original phrasing.", "authorityTruthEligible": false }
+      "sourceTier": {
+        "tier": "T1_HYPOTHESIS",
+        "sourceType": "training_derived",
+        "sourceUrl": null,
+        "accessedAt": "2026-05-03",
+        "quoteShort": null,
+        "humanInterpretation": "Expert academic daily narrative for spring/summer current season. AI-derived display text; not authority truth.",
+        "copyrightNote": "No source prose copied; original phrasing.",
+        "authorityTruthEligible": false
+      }
     },
     {
       "schemaVersion": "spring-ts.narrative-fragment.v1",
       "fragmentId": "academic.today.expert.currentseason.autumn_winter.301",
-      "axis": { "category": "academic", "period": "today", "depth": "expert" },
-      "gating": { "currentSeason": ["autumn", "winter"], "yongshinAlignment": ["aligned", "neutral", "conflicting"] },
+      "axis": {
+        "category": "academic",
+        "period": "today",
+        "depth": "expert"
+      },
+      "gating": {
+        "currentSeason": [
+          "autumn",
+          "winter"
+        ],
+        "yongshinAlignment": [
+          "aligned",
+          "neutral",
+          "conflicting"
+        ]
+      },
       "templateTokens": [
-        { "kind": "text", "value": "일간 학업운에서 가을과 겨울의 현재 계절은 복습, 검증, 기억 고정을 중시합니다. " },
-        { "kind": "tag", "tagId": "jeongin", "label": "정인" },
-        { "kind": "text", "value": "은 반복 학습의 뼈대를 만들고, " },
-        { "kind": "tag", "tagId": "pyeonin", "label": "편인" },
-        { "kind": "text", "value": "은 어려운 개념의 숨은 연결을 찾습니다. " },
-        { "kind": "tag", "tagId": "stabilityIndex", "label": "안정 지표" },
-        { "kind": "text", "value": "가 낮으면 오늘은 새 범위보다 오답 회전과 개념 확인이 우선입니다." }
+        {
+          "kind": "text",
+          "value": "일간 학업운에서 가을과 겨울의 현재 계절은 복습, 검증, 기억 고정을 중시합니다. "
+        },
+        {
+          "kind": "tag",
+          "tagId": "jeongin",
+          "label": "정인"
+        },
+        {
+          "kind": "text",
+          "value": "은 반복 학습의 뼈대를 만들고, "
+        },
+        {
+          "kind": "tag",
+          "tagId": "pyeonin",
+          "label": "편인"
+        },
+        {
+          "kind": "text",
+          "value": "은 어려운 개념의 숨은 연결을 찾습니다. "
+        },
+        {
+          "kind": "tag",
+          "tagId": "stabilityIndex",
+          "label": "안정 지표"
+        },
+        {
+          "kind": "text",
+          "value": "가 낮으면 오늘은 새 범위보다 오답 회전과 개념 확인이 우선입니다."
+        }
       ],
-      "tags": ["jeongin", "pyeonin", "stabilityIndex"],
+      "tags": [
+        "jeongin",
+        "pyeonin",
+        "stabilityIndex"
+      ],
       "aiGenerated": true,
-      "sourceTier": { "tier": "T1_HYPOTHESIS", "sourceType": "training_derived", "sourceUrl": null, "accessedAt": "2026-05-03", "quoteShort": null, "humanInterpretation": "Expert academic daily narrative for autumn/winter current season. AI-derived display text; not authority truth.", "copyrightNote": "No source prose copied; original phrasing.", "authorityTruthEligible": false }
+      "sourceTier": {
+        "tier": "T1_HYPOTHESIS",
+        "sourceType": "training_derived",
+        "sourceUrl": null,
+        "accessedAt": "2026-05-03",
+        "quoteShort": null,
+        "humanInterpretation": "Expert academic daily narrative for autumn/winter current season. AI-derived display text; not authority truth.",
+        "copyrightNote": "No source prose copied; original phrasing.",
+        "authorityTruthEligible": false
+      }
     },
     {
       "schemaVersion": "spring-ts.narrative-fragment.v1",
       "fragmentId": "study_document.life.expert.currentseason.spring_summer.301",
-      "axis": { "category": "study_document", "period": "life", "depth": "expert" },
-      "gating": { "currentSeason": ["spring", "summer"], "yongshinAlignment": ["aligned", "neutral", "conflicting"] },
+      "axis": {
+        "category": "study_document",
+        "period": "life",
+        "depth": "expert"
+      },
+      "gating": {
+        "currentSeason": [
+          "spring",
+          "summer"
+        ],
+        "yongshinAlignment": [
+          "aligned",
+          "neutral",
+          "conflicting"
+        ]
+      },
       "templateTokens": [
-        { "kind": "text", "value": "문서 장기운에서 봄과 여름의 현재 계절은 문서 작성, 제출, 결과물 전환이 빨라지는 흐름입니다. " },
-        { "kind": "tag", "tagId": "jeongin", "label": "정인" },
-        { "kind": "text", "value": "은 근거와 자료의 축적을, " },
-        { "kind": "tag", "tagId": "sikshin", "label": "식신" },
-        { "kind": "text", "value": "은 문서 결과물의 생산성을 봅니다. " },
-        { "kind": "tag", "tagId": "yongshin", "label": "용신" },
-        { "kind": "text", "value": "과 충돌하면 제출 범위를 줄이고 검토 단계를 앞당기는 편이 적절합니다." }
+        {
+          "kind": "text",
+          "value": "문서 장기운에서 봄과 여름의 현재 계절은 문서 작성, 제출, 결과물 전환이 빨라지는 흐름입니다. "
+        },
+        {
+          "kind": "tag",
+          "tagId": "jeongin",
+          "label": "정인"
+        },
+        {
+          "kind": "text",
+          "value": "은 근거와 자료의 축적을, "
+        },
+        {
+          "kind": "tag",
+          "tagId": "sikshin",
+          "label": "식신"
+        },
+        {
+          "kind": "text",
+          "value": "은 문서 결과물의 생산성을 봅니다. "
+        },
+        {
+          "kind": "tag",
+          "tagId": "yongshin",
+          "label": "용신"
+        },
+        {
+          "kind": "text",
+          "value": "과 충돌하면 제출 범위를 줄이고 검토 단계를 앞당기는 편이 적절합니다."
+        }
       ],
-      "tags": ["jeongin", "sikshin", "yongshin"],
+      "tags": [
+        "jeongin",
+        "sikshin",
+        "yongshin"
+      ],
       "aiGenerated": true,
-      "sourceTier": { "tier": "T1_HYPOTHESIS", "sourceType": "training_derived", "sourceUrl": null, "accessedAt": "2026-05-03", "quoteShort": null, "humanInterpretation": "Expert study/document life narrative for spring/summer current season. AI-derived display text; not authority truth.", "copyrightNote": "No source prose copied; original phrasing.", "authorityTruthEligible": false }
+      "sourceTier": {
+        "tier": "T1_HYPOTHESIS",
+        "sourceType": "training_derived",
+        "sourceUrl": null,
+        "accessedAt": "2026-05-03",
+        "quoteShort": null,
+        "humanInterpretation": "Expert study/document life narrative for spring/summer current season. AI-derived display text; not authority truth.",
+        "copyrightNote": "No source prose copied; original phrasing.",
+        "authorityTruthEligible": false
+      }
     },
     {
       "schemaVersion": "spring-ts.narrative-fragment.v1",
       "fragmentId": "study_document.life.expert.currentseason.autumn_winter.301",
-      "axis": { "category": "study_document", "period": "life", "depth": "expert" },
-      "gating": { "currentSeason": ["autumn", "winter"], "yongshinAlignment": ["aligned", "neutral", "conflicting"] },
+      "axis": {
+        "category": "study_document",
+        "period": "life",
+        "depth": "expert"
+      },
+      "gating": {
+        "currentSeason": [
+          "autumn",
+          "winter"
+        ],
+        "yongshinAlignment": [
+          "aligned",
+          "neutral",
+          "conflicting"
+        ]
+      },
       "templateTokens": [
-        { "kind": "text", "value": "문서 장기운에서 가을과 겨울의 현재 계절은 검토, 보관, 증빙의 안정성을 중시합니다. " },
-        { "kind": "tag", "tagId": "jeongin", "label": "정인" },
-        { "kind": "text", "value": "은 기록 기반을, " },
-        { "kind": "tag", "tagId": "stabilityIndex", "label": "안정 지표" },
-        { "kind": "text", "value": "는 문서 흐름의 지속 가능성을 봅니다. " },
-        { "kind": "tag", "tagId": "pyeonin", "label": "편인" },
-        { "kind": "text", "value": "이 강하면 예외 조항과 숨은 조건을 따로 점검해야 합니다." }
+        {
+          "kind": "text",
+          "value": "문서 장기운에서 가을과 겨울의 현재 계절은 검토, 보관, 증빙의 안정성을 중시합니다. "
+        },
+        {
+          "kind": "tag",
+          "tagId": "jeongin",
+          "label": "정인"
+        },
+        {
+          "kind": "text",
+          "value": "은 기록 기반을, "
+        },
+        {
+          "kind": "tag",
+          "tagId": "stabilityIndex",
+          "label": "안정 지표"
+        },
+        {
+          "kind": "text",
+          "value": "는 문서 흐름의 지속 가능성을 봅니다. "
+        },
+        {
+          "kind": "tag",
+          "tagId": "pyeonin",
+          "label": "편인"
+        },
+        {
+          "kind": "text",
+          "value": "이 강하면 예외 조항과 숨은 조건을 따로 점검해야 합니다."
+        }
       ],
-      "tags": ["jeongin", "stabilityIndex", "pyeonin"],
+      "tags": [
+        "jeongin",
+        "stabilityIndex",
+        "pyeonin"
+      ],
       "aiGenerated": true,
-      "sourceTier": { "tier": "T1_HYPOTHESIS", "sourceType": "training_derived", "sourceUrl": null, "accessedAt": "2026-05-03", "quoteShort": null, "humanInterpretation": "Expert study/document life narrative for autumn/winter current season. AI-derived display text; not authority truth.", "copyrightNote": "No source prose copied; original phrasing.", "authorityTruthEligible": false }
+      "sourceTier": {
+        "tier": "T1_HYPOTHESIS",
+        "sourceType": "training_derived",
+        "sourceUrl": null,
+        "accessedAt": "2026-05-03",
+        "quoteShort": null,
+        "humanInterpretation": "Expert study/document life narrative for autumn/winter current season. AI-derived display text; not authority truth.",
+        "copyrightNote": "No source prose copied; original phrasing.",
+        "authorityTruthEligible": false
+      }
     },
     {
       "schemaVersion": "spring-ts.narrative-fragment.v1",
       "fragmentId": "study_document.thisYear.expert.currentseason.spring_summer.301",
-      "axis": { "category": "study_document", "period": "thisYear", "depth": "expert" },
-      "gating": { "currentSeason": ["spring", "summer"], "yongshinAlignment": ["aligned", "neutral", "conflicting"] },
+      "axis": {
+        "category": "study_document",
+        "period": "thisYear",
+        "depth": "expert"
+      },
+      "gating": {
+        "currentSeason": [
+          "spring",
+          "summer"
+        ],
+        "yongshinAlignment": [
+          "aligned",
+          "neutral",
+          "conflicting"
+        ]
+      },
       "templateTokens": [
-        { "kind": "text", "value": "연간 문서운에서 봄과 여름의 현재 계절은 접수, 발표, 계약 초안처럼 밖으로 드러나는 문서 활동을 키웁니다. " },
-        { "kind": "tag", "tagId": "jeongin", "label": "정인" },
-        { "kind": "text", "value": "은 근거 자료를, " },
-        { "kind": "tag", "tagId": "sikshin", "label": "식신" },
-        { "kind": "text", "value": "은 산출 속도를 뜻합니다. " },
-        { "kind": "tag", "tagId": "yongshin", "label": "용신" },
-        { "kind": "text", "value": "정렬이 낮으면 올해 문서 목표를 넓히기보다 초안, 검토, 제출 순서를 고정해야 합니다." }
+        {
+          "kind": "text",
+          "value": "연간 문서운에서 봄과 여름의 현재 계절은 접수, 발표, 계약 초안처럼 밖으로 드러나는 문서 활동을 키웁니다. "
+        },
+        {
+          "kind": "tag",
+          "tagId": "jeongin",
+          "label": "정인"
+        },
+        {
+          "kind": "text",
+          "value": "은 근거 자료를, "
+        },
+        {
+          "kind": "tag",
+          "tagId": "sikshin",
+          "label": "식신"
+        },
+        {
+          "kind": "text",
+          "value": "은 산출 속도를 뜻합니다. "
+        },
+        {
+          "kind": "tag",
+          "tagId": "yongshin",
+          "label": "용신"
+        },
+        {
+          "kind": "text",
+          "value": "정렬이 낮으면 올해 문서 목표를 넓히기보다 초안, 검토, 제출 순서를 고정해야 합니다."
+        }
       ],
-      "tags": ["jeongin", "sikshin", "yongshin"],
+      "tags": [
+        "jeongin",
+        "sikshin",
+        "yongshin"
+      ],
       "aiGenerated": true,
-      "sourceTier": { "tier": "T1_HYPOTHESIS", "sourceType": "training_derived", "sourceUrl": null, "accessedAt": "2026-05-03", "quoteShort": null, "humanInterpretation": "Expert study/document yearly narrative for spring/summer current season. AI-derived display text; not authority truth.", "copyrightNote": "No source prose copied; original phrasing.", "authorityTruthEligible": false }
+      "sourceTier": {
+        "tier": "T1_HYPOTHESIS",
+        "sourceType": "training_derived",
+        "sourceUrl": null,
+        "accessedAt": "2026-05-03",
+        "quoteShort": null,
+        "humanInterpretation": "Expert study/document yearly narrative for spring/summer current season. AI-derived display text; not authority truth.",
+        "copyrightNote": "No source prose copied; original phrasing.",
+        "authorityTruthEligible": false
+      }
     },
     {
       "schemaVersion": "spring-ts.narrative-fragment.v1",
       "fragmentId": "study_document.thisYear.expert.currentseason.autumn_winter.301",
-      "axis": { "category": "study_document", "period": "thisYear", "depth": "expert" },
-      "gating": { "currentSeason": ["autumn", "winter"], "yongshinAlignment": ["aligned", "neutral", "conflicting"] },
+      "axis": {
+        "category": "study_document",
+        "period": "thisYear",
+        "depth": "expert"
+      },
+      "gating": {
+        "currentSeason": [
+          "autumn",
+          "winter"
+        ],
+        "yongshinAlignment": [
+          "aligned",
+          "neutral",
+          "conflicting"
+        ]
+      },
       "templateTokens": [
-        { "kind": "text", "value": "연간 문서운에서 가을과 겨울의 현재 계절은 보관, 재검토, 증빙 관리가 핵심입니다. " },
-        { "kind": "tag", "tagId": "jeongin", "label": "정인" },
-        { "kind": "text", "value": "은 문서 기반을 안정시키고, " },
-        { "kind": "tag", "tagId": "stabilityIndex", "label": "안정 지표" },
-        { "kind": "text", "value": "는 장기 보존과 반복 검토의 질을 봅니다. " },
-        { "kind": "tag", "tagId": "yongshin", "label": "용신" },
-        { "kind": "text", "value": "과 어긋나면 서명, 제출, 보관 위치를 한 번 더 확인하는 것이 안전합니다." }
+        {
+          "kind": "text",
+          "value": "연간 문서운에서 가을과 겨울의 현재 계절은 보관, 재검토, 증빙 관리가 핵심입니다. "
+        },
+        {
+          "kind": "tag",
+          "tagId": "jeongin",
+          "label": "정인"
+        },
+        {
+          "kind": "text",
+          "value": "은 문서 기반을 안정시키고, "
+        },
+        {
+          "kind": "tag",
+          "tagId": "stabilityIndex",
+          "label": "안정 지표"
+        },
+        {
+          "kind": "text",
+          "value": "는 장기 보존과 반복 검토의 질을 봅니다. "
+        },
+        {
+          "kind": "tag",
+          "tagId": "yongshin",
+          "label": "용신"
+        },
+        {
+          "kind": "text",
+          "value": "과 어긋나면 서명, 제출, 보관 위치를 한 번 더 확인하는 것이 안전합니다."
+        }
       ],
-      "tags": ["jeongin", "stabilityIndex", "yongshin"],
+      "tags": [
+        "jeongin",
+        "stabilityIndex",
+        "yongshin"
+      ],
       "aiGenerated": true,
-      "sourceTier": { "tier": "T1_HYPOTHESIS", "sourceType": "training_derived", "sourceUrl": null, "accessedAt": "2026-05-03", "quoteShort": null, "humanInterpretation": "Expert study/document yearly narrative for autumn/winter current season. AI-derived display text; not authority truth.", "copyrightNote": "No source prose copied; original phrasing.", "authorityTruthEligible": false }
+      "sourceTier": {
+        "tier": "T1_HYPOTHESIS",
+        "sourceType": "training_derived",
+        "sourceUrl": null,
+        "accessedAt": "2026-05-03",
+        "quoteShort": null,
+        "humanInterpretation": "Expert study/document yearly narrative for autumn/winter current season. AI-derived display text; not authority truth.",
+        "copyrightNote": "No source prose copied; original phrasing.",
+        "authorityTruthEligible": false
+      }
     }
   ]
 }

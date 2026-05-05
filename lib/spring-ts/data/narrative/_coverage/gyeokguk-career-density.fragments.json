@@ -19,7 +19,7 @@
       "templateTokens": [
         {
           "kind": "text",
-          "value": "책임과 질서 흐름격 흐름은 원칙, 신뢰, 책임을 지키며 안정적인 위치를 만들어가는 힘이 있어요."
+          "value": "책임과 질서 흐름격 흐름은 원칙, 신뢰, 책임을 지키며 안정적인 위요."
         }
       ],
       "tags": [],
@@ -127,7 +127,11 @@
       "cautions": [
         "격국명만 보고 보수적 선택이 항상 좋다고 단정하지 마세요."
       ],
-      "tags": ["jeonggwangyeok", "gyeokgukFit", "yongshin"],
+      "tags": [
+        "jeonggwangyeok",
+        "gyeokgukFit",
+        "yongshin"
+      ],
       "numericalEvidence": [
         {
           "label": "격국 분기 순번",
@@ -188,7 +192,7 @@
       "templateTokens": [
         {
           "kind": "text",
-          "value": "도전과 압박 흐름격 흐름은 압박을 견디고 어려운 문제를 돌파하는 집중력과 대응력이 살아나요."
+          "value": "도전과 압박 흐름격 흐름은 압박을 견디고 어려운 문제를 돌파하요."
         }
       ],
       "tags": [],
@@ -296,7 +300,11 @@
       "cautions": [
         "긴장과 돌파를 장점으로만 보면 회복력과 관계 비용을 놓칠 수 있어요."
       ],
-      "tags": ["pyeongwangyeok", "pyeongwan", "gyeokgukFit"],
+      "tags": [
+        "pyeongwangyeok",
+        "pyeongwan",
+        "gyeokgukFit"
+      ],
       "aiGenerated": true,
       "sourceTier": {
         "tier": "T1_HYPOTHESIS",

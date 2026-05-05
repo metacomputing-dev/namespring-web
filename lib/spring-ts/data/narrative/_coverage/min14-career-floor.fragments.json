@@ -6,10 +6,22 @@
     {
       "schemaVersion": "spring-ts.narrative-fragment.v1",
       "fragmentId": "career.today.brief.ageband.young.501",
-      "axis": { "category": "career", "period": "today", "depth": "brief" },
-      "gating": { "ageBand": ["10-19", "20-29"] },
+      "axis": {
+        "category": "career",
+        "period": "today",
+        "depth": "brief"
+      },
+      "gating": {
+        "ageBand": [
+          "10-19",
+          "20-29"
+        ]
+      },
       "templateTokens": [
-        { "kind": "text", "value": "오늘은 진로와 일에서 큰 결정보다 작은 시도를 해보면 방향을 잡기 쉬워요." }
+        {
+          "kind": "text",
+          "value": "오늘은 진로와 일에서 큰 결정보다 작은 시도를 해보면 방향을 잡요."
+        }
       ],
       "tags": [],
       "aiGenerated": true,
@@ -27,10 +39,23 @@
     {
       "schemaVersion": "spring-ts.narrative-fragment.v1",
       "fragmentId": "career.today.brief.ageband.mature.501",
-      "axis": { "category": "career", "period": "today", "depth": "brief" },
-      "gating": { "ageBand": ["40-54", "55-69", "70+"] },
+      "axis": {
+        "category": "career",
+        "period": "today",
+        "depth": "brief"
+      },
+      "gating": {
+        "ageBand": [
+          "40-54",
+          "55-69",
+          "70+"
+        ]
+      },
       "templateTokens": [
-        { "kind": "text", "value": "오늘은 일을 넓히기보다 맡은 범위와 우선순위를 분명히 하면 부담이 줄어듭니다." }
+        {
+          "kind": "text",
+          "value": "오늘은 일을 넓히기보다 맡은 범위와 우선순위를 분명히 하면 부요."
+        }
       ],
       "tags": [],
       "aiGenerated": true,
@@ -48,10 +73,22 @@
     {
       "schemaVersion": "spring-ts.narrative-fragment.v1",
       "fragmentId": "career.today.standard.ageband.young.501",
-      "axis": { "category": "career", "period": "today", "depth": "standard" },
-      "gating": { "ageBand": ["10-19", "20-29"] },
+      "axis": {
+        "category": "career",
+        "period": "today",
+        "depth": "standard"
+      },
+      "gating": {
+        "ageBand": [
+          "10-19",
+          "20-29"
+        ]
+      },
       "templateTokens": [
-        { "kind": "text", "value": "오늘의 진로 흐름은 한 번에 정답을 찾기보다 직접 확인해 보는 쪽에 가까워요. 관심 있는 일은 짧게 조사하고, 해볼 수 있는 작은 행동 하나를 정하면 다음 선택이 선명해집니다." }
+        {
+          "kind": "text",
+          "value": "오늘의 진로 흐름은 한 번에 정답을 찾기보다 직접 확인해 보는 쪽에 가까워요. 관심 있는 일은 짧게 조사하고, 해볼 수 있는 작은 행동 하나를 정하면 다음 선택이 선명해집니다."
+        }
       ],
       "livingTips": [
         "관심 있는 일 한 가지를 정해 실제로 하는 사람의 하루를 찾아보세요.",
@@ -76,10 +113,23 @@
     {
       "schemaVersion": "spring-ts.narrative-fragment.v1",
       "fragmentId": "career.today.standard.ageband.mature.501",
-      "axis": { "category": "career", "period": "today", "depth": "standard" },
-      "gating": { "ageBand": ["40-54", "55-69", "70+"] },
+      "axis": {
+        "category": "career",
+        "period": "today",
+        "depth": "standard"
+      },
+      "gating": {
+        "ageBand": [
+          "40-54",
+          "55-69",
+          "70+"
+        ]
+      },
       "templateTokens": [
-        { "kind": "text", "value": "오늘의 일 흐름은 새 일을 더하기보다 이미 맡은 일을 정리할 때 안정적이에요. 해야 할 일과 넘겨도 되는 일을 나누면 에너지 낭비가 줄고, 중요한 판단도 차분해집니다." }
+        {
+          "kind": "text",
+          "value": "오늘의 일 흐름은 새 일을 더하기보다 이미 맡은 일을 정리할 때 안정적이에요. 해야 할 일과 넘겨도 되는 일을 나누면 에너지 낭비가 줄고, 중요한 판단도 차분해집니다."
+        }
       ],
       "livingTips": [
         "오늘 꼭 해야 할 일 세 가지만 먼저 적어보세요.",
@@ -104,18 +154,59 @@
     {
       "schemaVersion": "spring-ts.narrative-fragment.v1",
       "fragmentId": "career.life.expert.responsibility.strong.501",
-      "axis": { "category": "career", "period": "life", "depth": "expert" },
-      "gating": { "dayMasterStrength": ["STRONG", "EXTREME_STRONG"], "yongshinAlignment": ["aligned", "neutral"] },
+      "axis": {
+        "category": "career",
+        "period": "life",
+        "depth": "expert"
+      },
+      "gating": {
+        "dayMasterStrength": [
+          "STRONG",
+          "EXTREME_STRONG"
+        ],
+        "yongshinAlignment": [
+          "aligned",
+          "neutral"
+        ]
+      },
       "templateTokens": [
-        { "kind": "text", "value": "장기 직업 흐름은 추진력이 충분한 편이라 " },
-        { "kind": "tag", "tagId": "jeonggwan", "label": "정관" },
-        { "kind": "text", "value": "의 절차성과 " },
-        { "kind": "tag", "tagId": "pyeongwan", "label": "편관" },
-        { "kind": "text", "value": "의 돌파력을 어떻게 나누는지가 핵심입니다. " },
-        { "kind": "tag", "tagId": "yongshin", "label": "용신" },
-        { "kind": "text", "value": " 방향이 받쳐질 때는 성과 확장보다 책임 범위의 지속 가능성을 먼저 보아야 합니다." }
+        {
+          "kind": "text",
+          "value": "장기 직업 흐름은 추진력이 충분한 편이라 "
+        },
+        {
+          "kind": "tag",
+          "tagId": "jeonggwan",
+          "label": "정관"
+        },
+        {
+          "kind": "text",
+          "value": "의 절차성과 "
+        },
+        {
+          "kind": "tag",
+          "tagId": "pyeongwan",
+          "label": "편관"
+        },
+        {
+          "kind": "text",
+          "value": "의 돌파력을 어떻게 나누는지가 핵심입니다. "
+        },
+        {
+          "kind": "tag",
+          "tagId": "yongshin",
+          "label": "용신"
+        },
+        {
+          "kind": "text",
+          "value": " 방향이 받쳐질 때는 성과 확장보다 책임 범위의 지속 가능성을 먼저 보아야 합니다."
+        }
       ],
-      "tags": ["jeonggwan", "pyeongwan", "yongshin"],
+      "tags": [
+        "jeonggwan",
+        "pyeongwan",
+        "yongshin"
+      ],
       "numericalEvidence": [
         {
           "label": "직업 별점",
@@ -148,18 +239,59 @@
     {
       "schemaVersion": "spring-ts.narrative-fragment.v1",
       "fragmentId": "career.life.expert.energy.weak.501",
-      "axis": { "category": "career", "period": "life", "depth": "expert" },
-      "gating": { "dayMasterStrength": ["WEAK", "EXTREME_WEAK"], "yongshinAlignment": ["neutral", "conflicting"] },
+      "axis": {
+        "category": "career",
+        "period": "life",
+        "depth": "expert"
+      },
+      "gating": {
+        "dayMasterStrength": [
+          "WEAK",
+          "EXTREME_WEAK"
+        ],
+        "yongshinAlignment": [
+          "neutral",
+          "conflicting"
+        ]
+      },
       "templateTokens": [
-        { "kind": "text", "value": "장기 직업 흐름은 성과 압박을 무리하게 키우기보다 " },
-        { "kind": "tag", "tagId": "jeongin", "label": "정인" },
-        { "kind": "text", "value": "의 보호와 학습 기반을 먼저 세우는 해석이 맞습니다. " },
-        { "kind": "tag", "tagId": "pyeongwan", "label": "편관" },
-        { "kind": "text", "value": "이 강하게 작동하면 결단은 빨라지지만 회복력이 떨어질 수 있으므로 " },
-        { "kind": "tag", "tagId": "stabilityIndex", "label": "안정성지수" },
-        { "kind": "text", "value": "를 함께 보아야 합니다." }
+        {
+          "kind": "text",
+          "value": "장기 직업 흐름은 성과 압박을 무리하게 키우기보다 "
+        },
+        {
+          "kind": "tag",
+          "tagId": "jeongin",
+          "label": "정인"
+        },
+        {
+          "kind": "text",
+          "value": "의 보호와 학습 기반을 먼저 세우는 해석이 맞습니다. "
+        },
+        {
+          "kind": "tag",
+          "tagId": "pyeongwan",
+          "label": "편관"
+        },
+        {
+          "kind": "text",
+          "value": "이 강하게 작동하면 결단은 빨라지지만 회복력이 떨어질 수 있으므로 "
+        },
+        {
+          "kind": "tag",
+          "tagId": "stabilityIndex",
+          "label": "안정성지수"
+        },
+        {
+          "kind": "text",
+          "value": "를 함께 보아야 합니다."
+        }
       ],
-      "tags": ["jeongin", "pyeongwan", "stabilityIndex"],
+      "tags": [
+        "jeongin",
+        "pyeongwan",
+        "stabilityIndex"
+      ],
       "numericalEvidence": [
         {
           "label": "직업 별점",
@@ -192,18 +324,55 @@
     {
       "schemaVersion": "spring-ts.narrative-fragment.v1",
       "fragmentId": "career.today.expert.alignment.supportive.501",
-      "axis": { "category": "career", "period": "today", "depth": "expert" },
-      "gating": { "yongshinAlignment": ["aligned", "neutral"] },
+      "axis": {
+        "category": "career",
+        "period": "today",
+        "depth": "expert"
+      },
+      "gating": {
+        "yongshinAlignment": [
+          "aligned",
+          "neutral"
+        ]
+      },
       "templateTokens": [
-        { "kind": "text", "value": "오늘의 직업 판단은 " },
-        { "kind": "tag", "tagId": "yongshin", "label": "용신" },
-        { "kind": "text", "value": " 흐름이 막히지 않을 때 실행과 정리를 함께 보는 구간입니다. " },
-        { "kind": "tag", "tagId": "jeonggwan", "label": "정관" },
-        { "kind": "text", "value": "은 보고 체계와 약속을 안정시키고, " },
-        { "kind": "tag", "tagId": "sikshin", "label": "식신" },
-        { "kind": "text", "value": "은 결과물을 실제 형태로 꺼내는 힘으로 읽습니다." }
+        {
+          "kind": "text",
+          "value": "오늘의 직업 판단은 "
+        },
+        {
+          "kind": "tag",
+          "tagId": "yongshin",
+          "label": "용신"
+        },
+        {
+          "kind": "text",
+          "value": " 흐름이 막히지 않을 때 실행과 정리를 함께 보는 구간입니다. "
+        },
+        {
+          "kind": "tag",
+          "tagId": "jeonggwan",
+          "label": "정관"
+        },
+        {
+          "kind": "text",
+          "value": "은 보고 체계와 약속을 안정시키고, "
+        },
+        {
+          "kind": "tag",
+          "tagId": "sikshin",
+          "label": "식신"
+        },
+        {
+          "kind": "text",
+          "value": "은 결과물을 실제 형태로 꺼내는 힘으로 읽습니다."
+        }
       ],
-      "tags": ["yongshin", "jeonggwan", "sikshin"],
+      "tags": [
+        "yongshin",
+        "jeonggwan",
+        "sikshin"
+      ],
       "numericalEvidence": [
         {
           "label": "직업 별점",
@@ -236,18 +405,54 @@
     {
       "schemaVersion": "spring-ts.narrative-fragment.v1",
       "fragmentId": "career.today.expert.alignment.conflicting.501",
-      "axis": { "category": "career", "period": "today", "depth": "expert" },
-      "gating": { "yongshinAlignment": ["conflicting"] },
+      "axis": {
+        "category": "career",
+        "period": "today",
+        "depth": "expert"
+      },
+      "gating": {
+        "yongshinAlignment": [
+          "conflicting"
+        ]
+      },
       "templateTokens": [
-        { "kind": "text", "value": "오늘의 직업 판단에서 " },
-        { "kind": "tag", "tagId": "yongshin", "label": "용신" },
-        { "kind": "text", "value": " 충돌이 보이면 성과보다 손실 통제가 먼저입니다. " },
-        { "kind": "tag", "tagId": "pyeongwan", "label": "편관" },
-        { "kind": "text", "value": "의 압박은 빠른 결정을 만들지만, " },
-        { "kind": "tag", "tagId": "jeongin", "label": "정인" },
-        { "kind": "text", "value": "이 약하면 검토와 보호 장치가 부족해질 수 있습니다." }
+        {
+          "kind": "text",
+          "value": "오늘의 직업 판단에서 "
+        },
+        {
+          "kind": "tag",
+          "tagId": "yongshin",
+          "label": "용신"
+        },
+        {
+          "kind": "text",
+          "value": " 충돌이 보이면 성과보다 손실 통제가 먼저입니다. "
+        },
+        {
+          "kind": "tag",
+          "tagId": "pyeongwan",
+          "label": "편관"
+        },
+        {
+          "kind": "text",
+          "value": "의 압박은 빠른 결정을 만들지만, "
+        },
+        {
+          "kind": "tag",
+          "tagId": "jeongin",
+          "label": "정인"
+        },
+        {
+          "kind": "text",
+          "value": "이 약하면 검토와 보호 장치가 부족해질 수 있습니다."
+        }
       ],
-      "tags": ["yongshin", "pyeongwan", "jeongin"],
+      "tags": [
+        "yongshin",
+        "pyeongwan",
+        "jeongin"
+      ],
       "numericalEvidence": [
         {
           "label": "직업 별점",
@@ -280,18 +485,56 @@
     {
       "schemaVersion": "spring-ts.narrative-fragment.v1",
       "fragmentId": "career.thisWeek.expert.strength.strong.501",
-      "axis": { "category": "career", "period": "thisWeek", "depth": "expert" },
-      "gating": { "dayMasterStrength": ["STRONG", "EXTREME_STRONG", "BALANCED"] },
+      "axis": {
+        "category": "career",
+        "period": "thisWeek",
+        "depth": "expert"
+      },
+      "gating": {
+        "dayMasterStrength": [
+          "STRONG",
+          "EXTREME_STRONG",
+          "BALANCED"
+        ]
+      },
       "templateTokens": [
-        { "kind": "text", "value": "이번 주 직업 흐름은 책임을 넓히는 힘이 있어 " },
-        { "kind": "tag", "tagId": "jeonggwan", "label": "정관" },
-        { "kind": "text", "value": "의 규칙성과 " },
-        { "kind": "tag", "tagId": "gyeokgukFit", "label": "격국 적합도" },
-        { "kind": "text", "value": "를 함께 보아야 합니다. 확장 판단은 가능하지만 " },
-        { "kind": "tag", "tagId": "stabilityIndex", "label": "안정성지수" },
-        { "kind": "text", "value": "가 낮으면 역할 과부하로 해석합니다." }
+        {
+          "kind": "text",
+          "value": "이번 주 직업 흐름은 책임을 넓히는 힘이 있어 "
+        },
+        {
+          "kind": "tag",
+          "tagId": "jeonggwan",
+          "label": "정관"
+        },
+        {
+          "kind": "text",
+          "value": "의 규칙성과 "
+        },
+        {
+          "kind": "tag",
+          "tagId": "gyeokgukFit",
+          "label": "격국 적합도"
+        },
+        {
+          "kind": "text",
+          "value": "를 함께 보아야 합니다. 확장 판단은 가능하지만 "
+        },
+        {
+          "kind": "tag",
+          "tagId": "stabilityIndex",
+          "label": "안정성지수"
+        },
+        {
+          "kind": "text",
+          "value": "가 낮으면 역할 과부하로 해석합니다."
+        }
       ],
-      "tags": ["jeonggwan", "gyeokgukFit", "stabilityIndex"],
+      "tags": [
+        "jeonggwan",
+        "gyeokgukFit",
+        "stabilityIndex"
+      ],
       "numericalEvidence": [
         {
           "label": "직업 별점",
@@ -324,18 +567,55 @@
     {
       "schemaVersion": "spring-ts.narrative-fragment.v1",
       "fragmentId": "career.thisWeek.expert.strength.weak.501",
-      "axis": { "category": "career", "period": "thisWeek", "depth": "expert" },
-      "gating": { "dayMasterStrength": ["WEAK", "EXTREME_WEAK"] },
+      "axis": {
+        "category": "career",
+        "period": "thisWeek",
+        "depth": "expert"
+      },
+      "gating": {
+        "dayMasterStrength": [
+          "WEAK",
+          "EXTREME_WEAK"
+        ]
+      },
       "templateTokens": [
-        { "kind": "text", "value": "이번 주 직업 흐름은 체력과 판단 여유를 같이 보아야 합니다. " },
-        { "kind": "tag", "tagId": "jeongin", "label": "정인" },
-        { "kind": "text", "value": "이 받쳐야 문서와 검토가 안정되고, " },
-        { "kind": "tag", "tagId": "pyeongwan", "label": "편관" },
-        { "kind": "text", "value": "의 긴장은 큰 결정을 앞당길 수 있으므로 " },
-        { "kind": "tag", "tagId": "yongshin", "label": "용신" },
-        { "kind": "text", "value": " 보강 여부를 우선 확인합니다." }
+        {
+          "kind": "text",
+          "value": "이번 주 직업 흐름은 체력과 판단 여유를 같이 보아야 합니다. "
+        },
+        {
+          "kind": "tag",
+          "tagId": "jeongin",
+          "label": "정인"
+        },
+        {
+          "kind": "text",
+          "value": "이 받쳐야 문서와 검토가 안정되고, "
+        },
+        {
+          "kind": "tag",
+          "tagId": "pyeongwan",
+          "label": "편관"
+        },
+        {
+          "kind": "text",
+          "value": "의 긴장은 큰 결정을 앞당길 수 있으므로 "
+        },
+        {
+          "kind": "tag",
+          "tagId": "yongshin",
+          "label": "용신"
+        },
+        {
+          "kind": "text",
+          "value": " 보강 여부를 우선 확인합니다."
+        }
       ],
-      "tags": ["jeongin", "pyeongwan", "yongshin"],
+      "tags": [
+        "jeongin",
+        "pyeongwan",
+        "yongshin"
+      ],
       "numericalEvidence": [
         {
           "label": "직업 별점",
@@ -368,18 +648,60 @@
     {
       "schemaVersion": "spring-ts.narrative-fragment.v1",
       "fragmentId": "career.thisMonth.expert.season.spring_summer.501",
-      "axis": { "category": "career", "period": "thisMonth", "depth": "expert" },
-      "gating": { "currentSeason": ["spring", "summer"], "yongshinAlignment": ["aligned", "neutral", "conflicting"] },
+      "axis": {
+        "category": "career",
+        "period": "thisMonth",
+        "depth": "expert"
+      },
+      "gating": {
+        "currentSeason": [
+          "spring",
+          "summer"
+        ],
+        "yongshinAlignment": [
+          "aligned",
+          "neutral",
+          "conflicting"
+        ]
+      },
       "templateTokens": [
-        { "kind": "text", "value": "이번 달 직업 흐름은 외부 반응이 빨라질 수 있어 " },
-        { "kind": "tag", "tagId": "sikshin", "label": "식신" },
-        { "kind": "text", "value": "의 산출과 " },
-        { "kind": "tag", "tagId": "jeonggwan", "label": "정관" },
-        { "kind": "text", "value": "의 절차를 함께 보아야 합니다. " },
-        { "kind": "tag", "tagId": "siGungsil", "label": "시궁실" },
-        { "kind": "text", "value": "이 과로 신호를 만들면 확장보다 일정 조정이 먼저입니다." }
+        {
+          "kind": "text",
+          "value": "이번 달 직업 흐름은 외부 반응이 빨라질 수 있어 "
+        },
+        {
+          "kind": "tag",
+          "tagId": "sikshin",
+          "label": "식신"
+        },
+        {
+          "kind": "text",
+          "value": "의 산출과 "
+        },
+        {
+          "kind": "tag",
+          "tagId": "jeonggwan",
+          "label": "정관"
+        },
+        {
+          "kind": "text",
+          "value": "의 절차를 함께 보아야 합니다. "
+        },
+        {
+          "kind": "tag",
+          "tagId": "siGungsil",
+          "label": "시궁실"
+        },
+        {
+          "kind": "text",
+          "value": "이 과로 신호를 만들면 확장보다 일정 조정이 먼저입니다."
+        }
       ],
-      "tags": ["sikshin", "jeonggwan", "siGungsil"],
+      "tags": [
+        "sikshin",
+        "jeonggwan",
+        "siGungsil"
+      ],
       "numericalEvidence": [
         {
           "label": "직업 별점",
@@ -412,18 +734,60 @@
     {
       "schemaVersion": "spring-ts.narrative-fragment.v1",
       "fragmentId": "career.thisMonth.expert.season.autumn_winter.501",
-      "axis": { "category": "career", "period": "thisMonth", "depth": "expert" },
-      "gating": { "currentSeason": ["autumn", "winter"], "yongshinAlignment": ["aligned", "neutral", "conflicting"] },
+      "axis": {
+        "category": "career",
+        "period": "thisMonth",
+        "depth": "expert"
+      },
+      "gating": {
+        "currentSeason": [
+          "autumn",
+          "winter"
+        ],
+        "yongshinAlignment": [
+          "aligned",
+          "neutral",
+          "conflicting"
+        ]
+      },
       "templateTokens": [
-        { "kind": "text", "value": "이번 달 직업 흐름은 결과 정리와 책임 재배치가 중요합니다. " },
-        { "kind": "tag", "tagId": "jeonggwan", "label": "정관" },
-        { "kind": "text", "value": "의 질서가 살아나면 보고와 계약이 안정되고, " },
-        { "kind": "tag", "tagId": "pyeongwan", "label": "편관" },
-        { "kind": "text", "value": "이 과하면 압박이 커지므로 " },
-        { "kind": "tag", "tagId": "stabilityIndex", "label": "안정성지수" },
-        { "kind": "text", "value": "를 같이 점검합니다." }
+        {
+          "kind": "text",
+          "value": "이번 달 직업 흐름은 결과 정리와 책임 재배치가 중요합니다. "
+        },
+        {
+          "kind": "tag",
+          "tagId": "jeonggwan",
+          "label": "정관"
+        },
+        {
+          "kind": "text",
+          "value": "의 질서가 살아나면 보고와 계약이 안정되고, "
+        },
+        {
+          "kind": "tag",
+          "tagId": "pyeongwan",
+          "label": "편관"
+        },
+        {
+          "kind": "text",
+          "value": "이 과하면 압박이 커지므로 "
+        },
+        {
+          "kind": "tag",
+          "tagId": "stabilityIndex",
+          "label": "안정성지수"
+        },
+        {
+          "kind": "text",
+          "value": "를 같이 점검합니다."
+        }
       ],
-      "tags": ["jeonggwan", "pyeongwan", "stabilityIndex"],
+      "tags": [
+        "jeonggwan",
+        "pyeongwan",
+        "stabilityIndex"
+      ],
       "numericalEvidence": [
         {
           "label": "직업 별점",
@@ -456,18 +820,55 @@
     {
       "schemaVersion": "spring-ts.narrative-fragment.v1",
       "fragmentId": "career.thisYear.expert.gyeokguk.official.501",
-      "axis": { "category": "career", "period": "thisYear", "depth": "expert" },
-      "gating": { "gyeokguk": ["jeonggwangyeok", "pyeongwangyeok"] },
+      "axis": {
+        "category": "career",
+        "period": "thisYear",
+        "depth": "expert"
+      },
+      "gating": {
+        "gyeokguk": [
+          "jeonggwangyeok",
+          "pyeongwangyeok"
+        ]
+      },
       "templateTokens": [
-        { "kind": "text", "value": "올해 직업 흐름은 " },
-        { "kind": "tag", "tagId": "jeonggwangyeok", "label": "정관격" },
-        { "kind": "text", "value": " 또는 " },
-        { "kind": "tag", "tagId": "pyeongwangyeok", "label": "편관격" },
-        { "kind": "text", "value": " 성향에서는 책임과 압박의 배분이 핵심입니다. " },
-        { "kind": "tag", "tagId": "yongshin", "label": "용신" },
-        { "kind": "text", "value": " 방향이 맞으면 승진과 역할 확대를, 맞지 않으면 부담 관리로 읽습니다." }
+        {
+          "kind": "text",
+          "value": "올해 직업 흐름은 "
+        },
+        {
+          "kind": "tag",
+          "tagId": "jeonggwangyeok",
+          "label": "정관격"
+        },
+        {
+          "kind": "text",
+          "value": " 또는 "
+        },
+        {
+          "kind": "tag",
+          "tagId": "pyeongwangyeok",
+          "label": "편관격"
+        },
+        {
+          "kind": "text",
+          "value": " 성향에서는 책임과 압박의 배분이 핵심입니다. "
+        },
+        {
+          "kind": "tag",
+          "tagId": "yongshin",
+          "label": "용신"
+        },
+        {
+          "kind": "text",
+          "value": " 방향이 맞으면 승진과 역할 확대를, 맞지 않으면 부담 관리로 읽습니다."
+        }
       ],
-      "tags": ["jeonggwangyeok", "pyeongwangyeok", "yongshin"],
+      "tags": [
+        "jeonggwangyeok",
+        "pyeongwangyeok",
+        "yongshin"
+      ],
       "numericalEvidence": [
         {
           "label": "직업 별점",
@@ -515,18 +916,55 @@
     {
       "schemaVersion": "spring-ts.narrative-fragment.v1",
       "fragmentId": "career.thisYear.expert.gyeokguk.output.501",
-      "axis": { "category": "career", "period": "thisYear", "depth": "expert" },
-      "gating": { "gyeokguk": ["sikshingyeok", "sanggwangyeok"] },
+      "axis": {
+        "category": "career",
+        "period": "thisYear",
+        "depth": "expert"
+      },
+      "gating": {
+        "gyeokguk": [
+          "sikshingyeok",
+          "sanggwangyeok"
+        ]
+      },
       "templateTokens": [
-        { "kind": "text", "value": "올해 직업 흐름은 " },
-        { "kind": "tag", "tagId": "sikshingyeok", "label": "식신격" },
-        { "kind": "text", "value": " 또는 " },
-        { "kind": "tag", "tagId": "sanggwangyeok", "label": "상관격" },
-        { "kind": "text", "value": " 성향에서는 결과물과 표현 방식이 관건입니다. " },
-        { "kind": "tag", "tagId": "jeonggwan", "label": "정관" },
-        { "kind": "text", "value": "의 규칙을 함께 세우면 성과가 흩어지지 않고 직업 신뢰로 연결됩니다." }
+        {
+          "kind": "text",
+          "value": "올해 직업 흐름은 "
+        },
+        {
+          "kind": "tag",
+          "tagId": "sikshingyeok",
+          "label": "식신격"
+        },
+        {
+          "kind": "text",
+          "value": " 또는 "
+        },
+        {
+          "kind": "tag",
+          "tagId": "sanggwangyeok",
+          "label": "상관격"
+        },
+        {
+          "kind": "text",
+          "value": " 성향에서는 결과물과 표현 방식이 관건입니다. "
+        },
+        {
+          "kind": "tag",
+          "tagId": "jeonggwan",
+          "label": "정관"
+        },
+        {
+          "kind": "text",
+          "value": "의 규칙을 함께 세우면 성과가 흩어지지 않고 직업 신뢰로 연결됩니다."
+        }
       ],
-      "tags": ["sikshingyeok", "sanggwangyeok", "jeonggwan"],
+      "tags": [
+        "sikshingyeok",
+        "sanggwangyeok",
+        "jeonggwan"
+      ],
       "numericalEvidence": [
         {
           "label": "직업 별점",
