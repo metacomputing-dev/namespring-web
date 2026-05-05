@@ -27,10 +27,13 @@ attributes them to specific commits.
 - `EPS_TOTAL_SCORE = 0.5`
 - `EPS_INDIVIDUAL_SCORE = 0.5`
 
-Note: the `validate:default-change` gate compares `main:snapshot` vs
-`HEAD:snapshot` on disk. After this refresh, the gate will report many
-above-ε deltas. Those deltas are accumulated drift from ~90 src/ commits
-since `238d9ae`, not introduced by this PR.
+Note: the `validate:default-change` gate scopes D1 (numerical regression
+detection) to `namingReport.totalScore` and `namingReport.scores.*` —
+candidate-level diffs are intentionally not gated. Of the 224 field-level
+diffs above, only 4 fall within D1's scope (2 totalScore deltas in
+fix-11/fix-15 plus the 2 hangul-score deltas in those same fixtures), and
+all 4 are positive deltas caused by a known bug-fix → gate reports
+**IMPROVEMENT 2/0/13**, not regression. See §Acceptance gates below.
 
 ## Attribution
 
@@ -119,9 +122,18 @@ This is a structural/data-driven refresh. Saju engine outputs are unchanged.
 
 - `npm run test:snapshot` → 15/15 PASS.
 - `npm run test:namespring-compat` → 202/202 PASS.
-- `npm run validate:default-change --baseline main --branch HEAD` →
-  expected to report deltas (compares stale `main` snapshot to refreshed
-  `HEAD` snapshot). Deltas are pre-existing drift, not introduced by this
-  PR.
+- `npm run validate:default-change` (baseline `main` → branch `HEAD`):
+  - Overall: **IMPROVEMENT** — 2 improvement / 0 regression / 13 unchanged.
+  - D1: 2 ↑ / 0 ↓ / 13 — (improvements are fix-11 and fix-15 `scores.hangul`
+    jumps caused by the surname rendering bug-fix in `7b3b43a`).
+  - D3: 0 ↑ / 0 ↓ / 15 — (no card surface changes).
+  - D5: 0 ↑ / 0 ↓ / 15 — (sajuEnabled stable).
+
+The gate's D1 dimension scopes to `namingReport.totalScore` and
+`namingReport.scores.{hangul,hanja,fourFrame}` only. Candidate-level diffs
+(`candidatesTop5[*].finalScore`, fullHangul, fullHanja) are intentionally
+out of scope for this gate. The 153 candidate-name churn entries and 66
+finalScore diffs documented in `snapshot-diff.json` are not regressions
+by F-A18 §8 quality_gate definition; the gate cleanly reports IMPROVEMENT.
 
 See `snapshot-diff.json` in this directory for the full per-fixture diff.
