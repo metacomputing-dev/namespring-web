@@ -44,7 +44,9 @@ import type {
   SajuYongshinSummary,
   TenGodPositionEvidence,
   TenGodPositionEvidenceContribution,
+  YongshinConsensusAxisName,
   YongshinConsensusConflictLevel,
+  YongshinConsensusScoreboard,
 } from './types.js';
 import { elementFromSajuCode } from './saju-adapter.js';
 import { SAJU_FRAME } from './spring-evaluator.js';
@@ -178,6 +180,43 @@ function safetyStrategyFor(
   return aggressiveReinforcement >= 0.5 ? 'aggressive_reinforcement' : 'safe_balance';
 }
 
+/** Threshold (0..1) below which yongshin reinforcement is considered too thin
+ *  to warrant a 'safe' posture under consensus_aware mode — even when the
+ *  riskScore happens to land in the safe band. The picked threshold (0.10)
+ *  matches the ~12% lower decile observed in 30-fixture sampling and is
+ *  consistent with `aggressiveReinforcement` requiring ≥ 0.5 to flip the
+ *  opposite direction. */
+const CONSENSUS_AWARE_THIN_REINFORCEMENT_RATIO = 0.10;
+/** Number of competing elements (in `final.competingElements`) at which we
+ *  consider the consensus to be split across more than two majors and apply
+ *  an additional score haircut on top of the existing aggressive-reinforcement
+ *  penalty. Using ≥3 means we never penalise the more common high-conflict
+ *  case where only two methods disagree. */
+const CONSENSUS_AWARE_MULTI_COMPETING_THRESHOLD = 3;
+/** Maximum extra haircut (in score points) layered on top of the aggressive
+ *  reinforcement penalty when the consensus has 3+ competing elements at high
+ *  conflict. Smaller than `CONSENSUS_AGGRESSIVE_REINFORCEMENT_MAX_PENALTY`
+ *  (12) so the change is a refinement, not a doubling. */
+const CONSENSUS_AWARE_MULTI_COMPETING_MAX_PENALTY = 4;
+
+const CONSENSUS_AXIS_NAMES: readonly YongshinConsensusAxisName[] = [
+  'eokbu',
+  'johu',
+  'gyeokguk',
+  'tonggwan',
+  'byeongyak',
+  'siksangFlow',
+];
+
+const AXIS_NAME_KO: Record<YongshinConsensusAxisName, string> = {
+  eokbu: '억부',
+  johu: '조후',
+  gyeokguk: '격국',
+  tonggwan: '통관',
+  byeongyak: '병약',
+  siksangFlow: '식상흐름',
+};
+
 function buildSajuNameSafetyProfile(params: {
   readonly rootDist: Record<ElementKey, number>;
   readonly yongshinElement: ElementKey | null;
@@ -185,6 +224,7 @@ function buildSajuNameSafetyProfile(params: {
   readonly gisinElement: ElementKey | null;
   readonly gusinElement: ElementKey | null;
   readonly consensus?: YongshinConsensusScoreDetail;
+  readonly consensusBoard?: YongshinConsensusScoreboard | null;
   readonly mode: ScoringPrecisionOverrides['yongshinMode'];
 }): SajuNameSafetyProfile {
   const total = totalCount(params.rootDist);
@@ -215,9 +255,22 @@ function buildSajuNameSafetyProfile(params: {
     && conflictLevel !== undefined
     && (conflictLevel === 'medium' || conflictLevel === 'high')
     && aggressiveReinforcement >= 0.5;
+  // consensus_aware refinement: when reinforcement is thin (yongshinRatio
+  // below the threshold) and the conflict is high with 3+ competing
+  // elements, force a 'balanced' posture — the safe band would otherwise
+  // mislead by suggesting the name already covers the yongshin when in
+  // fact the chart is split and the name barely contributes.
+  const competingCount = params.consensus?.competingElements.length ?? 0;
+  const thinReinforcementGuard = params.mode === 'consensus_aware'
+    && conflictLevel === 'high'
+    && competingCount >= CONSENSUS_AWARE_MULTI_COMPETING_THRESHOLD
+    && yongshinRatio < CONSENSUS_AWARE_THIN_REINFORCEMENT_RATIO;
+  const baseSafe = riskScore <= 30
+    && harmfulRatio <= 0.25
+    && (!conflictLevel || conflictLevel === 'none' || conflictLevel === 'low');
   const posture: SajuNameSafetyProfile['posture'] = riskScore >= 60 || aggressiveConflict
     ? 'aggressive'
-    : riskScore <= 30 && harmfulRatio <= 0.25 && (!conflictLevel || conflictLevel === 'none' || conflictLevel === 'low')
+    : baseSafe && !thinReinforcementGuard
       ? 'safe'
       : 'balanced';
 
@@ -259,6 +312,19 @@ function buildSajuNameSafetyProfile(params: {
   if (params.consensus?.competingElements.length) {
     reasons.push(`충돌 후보 오행: ${params.consensus.competingElements.map(elementKo).join(', ')}`);
   }
+  // consensus_aware: surface per-axis recommendations so the user can see
+  // exactly which methods disagreed (eokbu/johu/gyeokguk/tonggwan/byeongyak/
+  // siksangFlow). We emit at most one compact line that fits within the
+  // existing reasons listing — keeping output rendering bounded.
+  if (params.mode === 'consensus_aware' && params.consensusBoard) {
+    const axisLine = formatConsensusAxisLine(params.consensusBoard, elementKo);
+    if (axisLine) {
+      reasons.push(`축별 판단: ${axisLine}`);
+    }
+  }
+  if (thinReinforcementGuard) {
+    reasons.push('용신 판단이 갈리는 가운데 이름의 직접 보강 비율이 낮아 균형형으로 안내했어요.');
+  }
   if (strategy === 'safe_balance') {
     reasons.push('용신 판단이 갈릴 때는 한쪽 기운만 과하게 키우지 않도록 균형을 우선했어요.');
   } else if (strategy === 'aggressive_reinforcement') {
@@ -277,6 +343,23 @@ function buildSajuNameSafetyProfile(params: {
     gusinRatio,
     reasons,
   };
+}
+
+/** Render the 6-axis recommendations as a single compact reasons line.
+ *  Skips axes whose `element` is null (no recommendation produced).
+ *  Returns an empty string when no axis surfaces an element so callers
+ *  can no-op without emitting a stub line. */
+function formatConsensusAxisLine(
+  board: YongshinConsensusScoreboard,
+  elementKo: (element: string) => string,
+): string {
+  const parts: string[] = [];
+  for (const axis of CONSENSUS_AXIS_NAMES) {
+    const detail = board[axis];
+    if (!detail || !detail.element) continue;
+    parts.push(`${AXIS_NAME_KO[axis]}=${elementKo(detail.element)}`);
+  }
+  return parts.join(', ');
 }
 
 export interface TenGodPositionContribution {
@@ -592,6 +675,25 @@ function computeYongshinScore(
         0,
         100,
       );
+
+      // Additional haircut when the consensus splits across 3+ competing
+      // elements at high conflict — a stronger signal that even the
+      // surviving recommendation is sensitive to method choice. Smaller
+      // than the aggressive-reinforcement penalty above so it operates
+      // as a refinement (not a doubling) and decays smoothly with
+      // unclearFactor / confidence.
+      if (
+        consensus.conflictLevel === 'high'
+        && consensus.competingElements.length >= CONSENSUS_AWARE_MULTI_COMPETING_THRESHOLD
+      ) {
+        score = clamp(
+          score - CONSENSUS_AWARE_MULTI_COMPETING_MAX_PENALTY
+            * unclearFactor
+            * confidenceScaled,
+          0,
+          100,
+        );
+      }
     }
   }
 
@@ -612,6 +714,7 @@ function computeYongshinScore(
     gisinElement,
     gusinElement,
     consensus,
+    consensusBoard: yongshinData.consensus ?? null,
     mode,
   });
 
