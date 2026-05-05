@@ -1,7 +1,7 @@
 {
   "schemaVersion": "spring-ts.gender-modifier.v1",
   "contractVersion": "1.0.0",
-  "purpose": "Gender-specific phrase variants that fragment authors splice into templates when a gender-coded vocabulary cue is needed. Each phrase is a noun-phrase modifier (not a full sentence). 'neutral' phrases are interchangeable across genders so authors can pick from any of the three buckets without narrowing the reader's possibilities. Tone tags (warm/calm/firm/bright/gentle/steady/playful/focused) are intentionally distributed across male and female buckets to avoid the 'male = always strong / female = always soft' stereotype banned in NARRATIVE_STYLE_GUIDE.md §4.",
+  "purpose": "Gender-specific phrase variants that fragment authors splice into templates when a gender-coded vocabulary cue is needed. Two pools live side by side: (1) byContext — Phase 2 attributive noun-phrase modifiers (-는 / -해 주는 form) for inline splicing; (2) byGender — Phase 3 A13 expansion that adds category-scoped opening clauses and ~해요/~에요/~이에요 endings the standard-tier author can drop into a paragraph as a whole sentence. 'neutral' phrases are interchangeable across genders so authors can pick from any of the three buckets without narrowing the reader's possibilities. Tone tags (warm/calm/firm/bright/gentle/steady/playful/focused) are intentionally distributed across male and female buckets to avoid the 'male = always strong / female = always soft' stereotype banned in NARRATIVE_STYLE_GUIDE.md §4. No occupation labels, no parental-role assertions outside literal family kinship, no marriage/dating certainties, '이성' is replaced by '짝/인연' per §4.",
   "toneVocabulary": ["warm", "calm", "firm", "bright", "gentle", "steady", "playful", "focused"],
   "byContext": {
     "family_role": {
@@ -197,14 +197,301 @@
       ]
     }
   },
+  "byGender": {
+    "male": {
+      "tone": "남성 가중. 단정적 직업명 금지. 가족 안에서는 '아빠로서·중심을 잡는' 정도, 연애에서는 '짝·인연', 커리어에서는 '자기 자리·책임' 어휘를 쓰되 폄하·우월 어휘 회피. 종결어 ~해요 / ~에요 / ~이에요. firm·gentle·warm·calm·playful 톤이 모두 등장한다.",
+      "byCategory": {
+        "family": {
+          "openings": [
+            "아빠로서 보면",
+            "한 집의 큰 사람으로 자리하는 무렵엔",
+            "중심을 잡는 한 사람으로",
+            "가족 안의 굵직한 자리를 맡은 흐름에선",
+            "곁의 가족을 살피는 무렵이라",
+            "한 식구의 호흡을 함께 끌어가는 자리에선",
+            "묵묵히 가족의 결을 받쳐 주는 흐름에선",
+            "한 집의 등불 같은 자리에서 보면",
+            "가족과 한 식탁에 둘러앉는 무렵엔",
+            "오래 함께한 식구의 결을 살피는 자리에선",
+            "가까운 사람의 안부를 챙기는 흐름에선",
+            "집안의 큰 흐름을 함께 그리는 무렵이라"
+          ],
+          "endings": [
+            "가족의 중심을 차분히 잡아 가요.",
+            "한 집의 결이 단단해지는 흐름이에요.",
+            "곁의 사람을 묵묵히 챙기는 편이에요.",
+            "굵직한 결정에 무게를 실어 주는 자리예요.",
+            "오래 함께할 호흡을 천천히 다듬는 시기예요.",
+            "필요한 자리에 손을 보태는 편이에요.",
+            "가까운 사람과의 거리가 한결 따뜻해져요.",
+            "농담 한마디로 분위기를 풀어 주는 편이에요.",
+            "한 식구의 결정을 함께 의논하는 흐름이에요.",
+            "가족의 안부를 먼저 챙기는 무렵이에요.",
+            "약한 자리를 부드럽게 메워 주는 편이에요.",
+            "집안의 큰 그림을 차분히 다듬어 가요."
+          ]
+        },
+        "romance": {
+          "openings": [
+            "좋은 인연이 가까이 다가올 무렵이라",
+            "마음이 가는 짝을 떠올리는 흐름에선",
+            "한 사람의 결을 진지하게 살피는 무렵엔",
+            "곁에 둘 짝을 그려 보는 자리에선",
+            "약속을 또박또박 지키는 인연이 어울리는 시기엔",
+            "함께 걸을 길을 나란히 그리는 흐름에선",
+            "마음을 곧게 전하는 무렵이라",
+            "한 호흡 먼저 다가서는 시기엔",
+            "은근한 신호를 주고받는 흐름이라",
+            "마주 앉아 이야기를 나누는 자리에선",
+            "오래 함께할 호흡을 살피는 무렵이라",
+            "마음의 결을 솔직하게 펼쳐 두는 시기엔"
+          ],
+          "endings": [
+            "마음이 가는 짝이 가까이 와요.",
+            "좋은 인연이 천천히 다듬어지는 흐름이에요.",
+            "마음을 곧게 전하기 좋은 시기예요.",
+            "곁의 사람을 묵묵히 챙기는 편이에요.",
+            "약속을 또박또박 지키는 결이에요.",
+            "함께할 호흡을 진지하게 그려 가요.",
+            "장난스러운 한마디로 거리를 좁히는 편이에요.",
+            "한 사람의 결을 오래 지켜보는 흐름이에요.",
+            "마음이 통하는 자리가 자연스레 만들어져요.",
+            "결을 살피며 한 걸음 비켜 주는 편이에요.",
+            "솔직한 신호를 주고받기 좋은 무렵이에요.",
+            "함께 걸을 길을 차분히 다듬어 가요."
+          ]
+        },
+        "career": {
+          "openings": [
+            "자기 자리를 잡는 흐름에선",
+            "단단히 책임을 지는 무렵이라",
+            "맡은 자리를 차곡히 다지는 시기엔",
+            "한 분야에서 자기 결을 굳히는 무렵엔",
+            "동료의 보폭을 챙기는 자리에선",
+            "결정에 무게를 실어 주는 흐름에선",
+            "흐름을 또렷하게 정리하는 무렵이라",
+            "주변에 신뢰를 모아 두는 시기엔",
+            "새로운 시도에 환하게 뛰어드는 흐름에선",
+            "꾸준히 실력을 키워 가는 자리에선",
+            "분위기를 가볍게 풀어 두는 무렵이라",
+            "맡은 결을 책임 있게 다듬는 시기엔"
+          ],
+          "endings": [
+            "자기 자리를 단단히 잡아 가요.",
+            "맡은 책임에 무게를 더하는 편이에요.",
+            "한 분야의 깊이가 더해지는 흐름이에요.",
+            "동료들과의 호흡이 차분히 자리 잡아요.",
+            "결정에 또박또박 책임을 보태는 시기예요.",
+            "꾸준한 노력이 신뢰로 이어지는 편이에요.",
+            "새로운 시도에 환하게 뛰어들기 좋은 무렵이에요.",
+            "주변의 결을 부드럽게 정리해 가는 흐름이에요.",
+            "분위기를 가볍게 풀어 주는 자리예요.",
+            "맡은 일을 묵묵히 마무리하는 편이에요.",
+            "디테일을 또박또박 챙기는 시기예요.",
+            "다음 단계를 차분히 그려 가는 흐름이에요."
+          ]
+        }
+      }
+    },
+    "female": {
+      "tone": "여성 가중. 단정적 직업명 금지. 가족 안에서는 '엄마로서·곁을 챙기는' 정도, 연애에서는 '짝·인연', 커리어에서는 '자기 색·자기 자리' 어휘를 쓰되 stereotype (세심·다정 일변도) 회피. 종결어 ~해요 / ~에요 / ~이에요. firm·focused·playful 톤도 함께 등장한다.",
+      "byCategory": {
+        "family": {
+          "openings": [
+            "엄마로서 보면",
+            "한 집의 따뜻한 자리에서",
+            "곁을 챙기는 사람으로",
+            "가족의 결을 한데 모으는 무렵엔",
+            "한 식구의 안부를 살피는 흐름에선",
+            "오래 함께한 사람들의 결을 다독이는 자리에선",
+            "한 집의 분위기를 만들어 가는 무렵이라",
+            "가족과 한 식탁에 둘러앉는 시기엔",
+            "곁의 사람들에게 환한 자리를 만드는 흐름에선",
+            "필요한 결을 또박또박 짚는 자리에선",
+            "한 식구의 큰 그림을 함께 그리는 무렵이라",
+            "가까운 사람의 마음을 살뜰히 매만지는 흐름에선"
+          ],
+          "endings": [
+            "한 집의 결을 다정히 모아 가요.",
+            "곁의 사람을 살뜰히 챙기는 편이에요.",
+            "한 식구의 분위기가 한결 따뜻해져요.",
+            "필요한 자리에 또박또박 손을 보태는 편이에요.",
+            "오래 함께할 호흡을 차분히 다듬는 흐름이에요.",
+            "이야기를 맛있게 풀어 주는 자리예요.",
+            "단단한 결정을 함께 이끌어 가는 시기예요.",
+            "가족의 안부를 먼저 챙기는 무렵이에요.",
+            "약한 자리를 살뜰히 메우는 편이에요.",
+            "한 집의 큰 그림을 다듬어 가는 흐름이에요.",
+            "농담 한마디로 분위기를 풀어 주는 편이에요.",
+            "곁의 사람과의 거리가 더 따뜻해지는 시기예요."
+          ]
+        },
+        "romance": {
+          "openings": [
+            "따뜻한 인연이 다가오는 무렵이라",
+            "곁에 둘 짝을 그려 보는 흐름에선",
+            "마음을 천천히 여는 시기엔",
+            "한 사람의 결을 오래 지켜보는 자리에선",
+            "환한 자리에서 만나는 무렵이라",
+            "결을 맞추어 가는 흐름에선",
+            "솔직한 신호를 주고받는 시기엔",
+            "한 호흡 먼저 다가서는 자리에선",
+            "오래 함께할 호흡을 살피는 무렵이라",
+            "장난기 어린 시선으로 다가서는 흐름에선",
+            "마음의 색을 또렷이 보여 주는 시기엔",
+            "함께 걸을 길을 나란히 그리는 자리에선"
+          ],
+          "endings": [
+            "따뜻한 인연이 가까이 다가와요.",
+            "곁에 둘 짝이 천천히 다듬어지는 흐름이에요.",
+            "마음을 따뜻하게 여는 시기예요.",
+            "작은 신호를 섬세하게 읽는 편이에요.",
+            "환한 기분을 함께 나누기 좋은 무렵이에요.",
+            "한 사람의 결을 오래 지켜보는 흐름이에요.",
+            "또렷한 자기 결을 보여 주는 편이에요.",
+            "장난기 어린 시선으로 거리를 좁혀 가요.",
+            "솔직한 마음을 곧게 전하기 좋은 시기예요.",
+            "함께 걸을 길을 차분히 그려 가요.",
+            "곁의 사람을 다정히 챙기는 편이에요.",
+            "마음의 결을 나란히 두는 흐름이에요."
+          ]
+        },
+        "career": {
+          "openings": [
+            "자기 색을 펼치는 흐름에선",
+            "차분히 책임을 지키는 무렵이라",
+            "한 분야에 자기 결을 더하는 시기엔",
+            "디테일을 또렷이 챙기는 자리에선",
+            "환한 시선으로 가능성을 여는 흐름에선",
+            "주변을 부드럽게 잇는 무렵이라",
+            "단단한 결과를 만들어 가는 자리에선",
+            "마음 가는 일에 가볍게 손을 얹는 시기엔",
+            "길게 보고 다져 가는 무렵이라",
+            "어려운 자리에서도 결을 지키는 흐름에선",
+            "결정에 또박또박 책임을 보태는 시기엔",
+            "꾸준한 호흡으로 자리를 키우는 자리에선"
+          ],
+          "endings": [
+            "자기 색을 또렷이 펼쳐 가요.",
+            "맡은 자리를 차분히 다져 가는 편이에요.",
+            "한 분야의 깊이가 더해지는 흐름이에요.",
+            "디테일을 또박또박 챙기는 시기예요.",
+            "주변을 부드럽게 잇는 자리예요.",
+            "환한 시선으로 가능성을 열어 가는 편이에요.",
+            "단단한 결과를 만들어 가는 흐름이에요.",
+            "어려운 자리에서도 결을 지키는 편이에요.",
+            "결정에 또박또박 책임을 보태는 시기예요.",
+            "꾸준한 호흡으로 자리를 키워 가요.",
+            "마음 가는 일에 가볍게 손을 얹어 보기 좋은 무렵이에요.",
+            "함께 일하는 사람들과의 호흡이 차분히 자리 잡아요."
+          ]
+        }
+      }
+    },
+    "neutral": {
+      "tone": "성별 단정 없는 표현. 가족 안에서는 '가족의 한 사람·곁의 가까운 자리', 연애에서는 '인연·마음이 가는 사람', 커리어에서는 '책임·자기 자리' 어휘. 어떤 성별에도 부담 없이 끼워 쓸 수 있는 톤. 종결어 ~해요 / ~에요 / ~이에요.",
+      "byCategory": {
+        "family": {
+          "openings": [
+            "가족의 한 사람으로",
+            "곁의 가까운 자리에서",
+            "한 식구의 결을 함께 가꾸는 무렵엔",
+            "가까운 사람의 안부를 챙기는 흐름에선",
+            "한 집의 분위기를 함께 만드는 자리에선",
+            "오래 함께한 식구의 결을 살피는 무렵이라",
+            "한 식탁에 둘러앉는 시기엔",
+            "곁의 사람을 다독이는 흐름에선",
+            "필요한 자리에 손을 보태는 무렵이라",
+            "한 식구의 큰 그림을 함께 그리는 자리에선",
+            "가까운 사람들과 호흡을 맞추는 시기엔",
+            "조용히 곁을 지키는 흐름에선"
+          ],
+          "endings": [
+            "가족의 결을 함께 가꾸어 가요.",
+            "곁의 사람과의 거리가 한결 따뜻해져요.",
+            "한 식구의 호흡이 차분히 자리 잡아요.",
+            "필요한 자리에 손을 보태는 편이에요.",
+            "오래 함께할 결을 부드럽게 다듬어 가는 흐름이에요.",
+            "한 식탁의 분위기가 환해지는 시기예요.",
+            "가까운 사람의 안부를 먼저 챙기는 편이에요.",
+            "약한 자리를 부드럽게 메우는 흐름이에요.",
+            "한 집의 큰 그림을 함께 그려 가는 시기예요.",
+            "농담 한마디로 분위기를 풀어 주는 편이에요.",
+            "이야기를 맛있게 나누는 자리예요.",
+            "조용히 곁을 지켜 주는 무렵이에요."
+          ]
+        },
+        "romance": {
+          "openings": [
+            "인연이 가까이 다가오는 무렵이라",
+            "마음이 가는 사람을 떠올리는 흐름에선",
+            "결이 맞는 짝을 찾는 시기엔",
+            "오래 함께할 호흡을 살피는 자리에선",
+            "마음의 속도를 맞추어 가는 무렵이라",
+            "솔직한 신호를 주고받는 흐름에선",
+            "환한 자리에서 만나는 시기엔",
+            "마주 앉아 웃음을 나누는 자리에선",
+            "마음의 결을 나란히 두는 무렵이라",
+            "한 사람의 결을 천천히 살피는 흐름에선",
+            "함께 걸을 길을 그려 보는 시기엔",
+            "곁에 둘 사람을 진지하게 떠올리는 자리에선"
+          ],
+          "endings": [
+            "인연이 가까이 다가와요.",
+            "마음이 가는 사람이 천천히 자리 잡아요.",
+            "결이 맞는 짝을 찾는 흐름이에요.",
+            "오래 함께할 호흡이 차분히 다듬어지는 시기예요.",
+            "마음의 속도를 맞추어 가는 무렵이에요.",
+            "솔직한 신호를 주고받기 좋은 자리예요.",
+            "환한 자리에서 만나는 흐름이에요.",
+            "마주 앉아 웃음을 나누는 편이에요.",
+            "마음의 결을 나란히 두는 시기예요.",
+            "한 사람의 결을 천천히 살피는 편이에요.",
+            "함께 걸을 길을 그려 보기 좋은 무렵이에요.",
+            "곁에 둘 사람을 진지하게 떠올리는 흐름이에요."
+          ]
+        },
+        "career": {
+          "openings": [
+            "책임을 지키는 흐름에선",
+            "자기 자리에서",
+            "한 걸음씩 자리를 만드는 무렵엔",
+            "맡은 결을 정성껏 다듬는 시기엔",
+            "필요할 때 결단을 내리는 흐름에선",
+            "동료의 호흡과 잘 맞물리는 자리에선",
+            "다음 단계를 함께 그리는 무렵이라",
+            "작은 성공을 차근히 쌓는 흐름에선",
+            "새로운 결을 가볍게 시도해 보는 시기엔",
+            "일의 결과를 환하게 나누는 자리에선",
+            "꾸준한 호흡으로 키워 가는 무렵이라",
+            "주변의 결을 부드럽게 잇는 흐름에선"
+          ],
+          "endings": [
+            "맡은 자리를 한 걸음씩 다져 가요.",
+            "책임을 또박또박 보태는 편이에요.",
+            "한 분야의 깊이가 더해지는 흐름이에요.",
+            "동료의 호흡과 잘 맞물리는 시기예요.",
+            "필요할 때 결단을 내리기 좋은 자리예요.",
+            "작은 성공이 차근히 쌓이는 편이에요.",
+            "새로운 결을 가볍게 시도해 보기 좋은 무렵이에요.",
+            "일의 결과를 환하게 나누는 흐름이에요.",
+            "꾸준한 노력이 신뢰로 이어지는 편이에요.",
+            "디테일을 또박또박 챙기는 시기예요.",
+            "주변의 결을 부드럽게 잇는 자리예요.",
+            "다음 단계를 차분히 그려 가는 흐름이에요."
+          ]
+        }
+      }
+    }
+  },
   "aiGenerated": true,
   "sourceTier": {
     "tier": "T1_HYPOTHESIS",
     "sourceType": "training_derived",
     "sourceUrl": null,
-    "accessedAt": "2026-05-02",
+    "accessedAt": "2026-05-05",
     "quoteShort": null,
-    "humanInterpretation": "Gender-coded modifier phrase pool authored by Phase 2 fan-out agent-13. Each phrase is an attributive Korean noun-phrase modifier (-는 / -해 주는 form) that fragment authors can splice into existing templates when a gender vocabulary cue is needed; the design intent is that 'male', 'female', and 'neutral' buckets are vocabulary variants only, never narrowing of possibilities. Tone tags are deliberately distributed across both genders (e.g., 'firm' and 'gentle' both appear in male and female buckets) to avoid the stereotype banned in NARRATIVE_STYLE_GUIDE.md §4. No occupation labels, no parental-role assertions outside literal family kinship, no marriage/dating certainties.",
+    "humanInterpretation": "Gender-coded modifier phrase pool. Phase 2 agent-13 authored the byContext attributive-modifier pool (-는 / -해 주는 form, vocabulary cue for inline splicing). Phase 3 A13 added the byGender pool — category-scoped opening clauses and ~해요/~에요/~이에요 endings sized for the standard-tier paragraph (12 openings + 12 endings per gender for high-volume categories family / romance / career; 8 + 8 for the rest). Both pools share the design intent: 'male', 'female', 'neutral' are vocabulary variants only, never narrowing of possibilities. Tone tags are deliberately distributed across both genders (e.g., 'firm' and 'gentle' both appear in male and female buckets) to avoid the stereotype banned in NARRATIVE_STYLE_GUIDE.md §4. No occupation labels, no parental-role assertions outside literal family kinship, no marriage/dating certainties; '이성' replaced by '짝/인연'.",
     "copyrightNote": "No source prose copied; original phrases authored for spring-ts narrative layer.",
     "authorityTruthEligible": false
   }
