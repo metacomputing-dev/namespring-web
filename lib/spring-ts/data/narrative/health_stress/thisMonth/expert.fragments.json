@@ -8,20 +8,66 @@
     {
       "schemaVersion": "spring-ts.narrative-fragment.v1",
       "fragmentId": "health_stress.thisMonth.expert.wildcard.001",
-      "axis": { "category": "health_stress", "period": "thisMonth", "depth": "expert" },
-      "gating": { "ageBand": ["20-29", "30-39", "40-54", "55-69", "70+"] },
+      "axis": {
+        "category": "health_stress",
+        "period": "thisMonth",
+        "depth": "expert"
+      },
+      "gating": {
+        "ageBand": [
+          "20-29",
+          "30-39",
+          "40-54",
+          "55-69",
+          "70+"
+        ]
+      },
       "templateTokens": [
-        { "kind": "text", "value": "이번 달은 마음·몸의 결을 살피기 좋은 자리예요. " },
-        { "kind": "tag", "tagId": "johu", "label": "조후" },
-        { "kind": "text", "value": "의 균형을 한 번 점검해서, 더운 결과 추운 결의 비중을 의식적으로 맞춰 두면 한 달의 흐름이 부드러워져요." },
-        { "kind": "text", "value": " 일이 한꺼번에 닿는 자리는 " },
-        { "kind": "tag", "tagId": "samhyeong", "label": "삼형" },
-        { "kind": "text", "value": "의 결과 가까워서, 미리 분산해 두는 결이 한 달을 가볍게 해 줘요." },
-        { "kind": "text", "value": " 회복은 " },
-        { "kind": "tag", "tagId": "jeongin", "label": "정인" },
-        { "kind": "text", "value": "의 따뜻한 돌봄에서 가장 또렷해요. 가까운 사람·익숙한 책·따뜻한 차 같은 안정감이 회복의 큰 축이 돼요." }
+        {
+          "kind": "text",
+          "value": "이번 달은 마음·몸의 결을 살피기 좋은 자리예요. "
+        },
+        {
+          "kind": "tag",
+          "tagId": "johu",
+          "label": "조후"
+        },
+        {
+          "kind": "text",
+          "value": "의 균형을 한 번 점검해서, 더운 결과 추운 결의 비중을 의식적으로 맞춰 두면 한 달의 흐름이 부드러워져요."
+        },
+        {
+          "kind": "text",
+          "value": " 일이 한꺼번에 닿는 자리는 "
+        },
+        {
+          "kind": "tag",
+          "tagId": "samhyeong",
+          "label": "삼형"
+        },
+        {
+          "kind": "text",
+          "value": "의 결과 가까워서, 미리 분산해 두는 중심이 한 달을 가볍게 해 줘요."
+        },
+        {
+          "kind": "text",
+          "value": " 회복은 "
+        },
+        {
+          "kind": "tag",
+          "tagId": "jeongin",
+          "label": "정인"
+        },
+        {
+          "kind": "text",
+          "value": "의 따뜻한 돌봄에서 가장 또렷해요. 가까운 사람·익숙한 책·따뜻한 차 같은 안정감이 회복의 큰 축이 돼요."
+        }
       ],
-      "tags": ["johu", "samhyeong", "jeongin"],
+      "tags": [
+        "johu",
+        "samhyeong",
+        "jeongin"
+      ],
       "numericalEvidence": [
         {
           "label": "현재 나이",
@@ -69,20 +115,52 @@
     {
       "schemaVersion": "spring-ts.narrative-fragment.v1",
       "fragmentId": "health_stress.thisMonth.expert.strong_aligned.001",
-      "axis": { "category": "health_stress", "period": "thisMonth", "depth": "expert" },
+      "axis": {
+        "category": "health_stress",
+        "period": "thisMonth",
+        "depth": "expert"
+      },
       "gating": {
-        "dayMasterStrength": ["STRONG", "EXTREME_STRONG"],
-        "yongshinAlignment": ["aligned"]
+        "dayMasterStrength": [
+          "STRONG",
+          "EXTREME_STRONG"
+        ],
+        "yongshinAlignment": [
+          "aligned"
+        ]
       },
       "templateTokens": [
-        { "kind": "text", "value": "이번 달은 일간이 단단하고 " },
-        { "kind": "tag", "tagId": "yongshin", "label": "용신" },
-        { "kind": "text", "value": "이 잘 자리잡은 결이라, 일이 길게 이어져도 큰 흔들림 없이 받아 낼 수 있어요. 다만 강도가 길게 유지되는 결이라 한 칸 미리 강도를 낮추는 결이 큰 도움이 돼요." },
-        { "kind": "text", "value": " 회복은 " },
-        { "kind": "tag", "tagId": "jeongin", "label": "정인" },
-        { "kind": "text", "value": "의 결을 가까이 두면 가장 또렷해요. 익숙한 책·가까운 어른과의 시간이 회복의 자리가 돼요." }
+        {
+          "kind": "text",
+          "value": "이번 달은 일간이 단단하고 "
+        },
+        {
+          "kind": "tag",
+          "tagId": "yongshin",
+          "label": "용신"
+        },
+        {
+          "kind": "text",
+          "value": "이 잘 자리잡은 결이라, 일이 길게 이어져도 큰 흔들림 없이 받아 낼 수 있어요. 다만 강도가 길게 유지되는 결이라 한 칸 미리 강도를 낮추는 결이 큰 도움이 돼요."
+        },
+        {
+          "kind": "text",
+          "value": " 회복은 "
+        },
+        {
+          "kind": "tag",
+          "tagId": "jeongin",
+          "label": "정인"
+        },
+        {
+          "kind": "text",
+          "value": "의 결을 가까이 두면 가장 또렷해요. 익숙한 책·가까운 어른과의 시간이 회복의 자리가 돼요."
+        }
       ],
-      "tags": ["yongshin", "jeongin"],
+      "tags": [
+        "yongshin",
+        "jeongin"
+      ],
       "aiGenerated": true,
       "sourceTier": {
         "tier": "T1_HYPOTHESIS",
@@ -98,20 +176,51 @@
     {
       "schemaVersion": "spring-ts.narrative-fragment.v1",
       "fragmentId": "health_stress.thisMonth.expert.balanced_aligned.001",
-      "axis": { "category": "health_stress", "period": "thisMonth", "depth": "expert" },
+      "axis": {
+        "category": "health_stress",
+        "period": "thisMonth",
+        "depth": "expert"
+      },
       "gating": {
-        "dayMasterStrength": ["BALANCED"],
-        "yongshinAlignment": ["aligned"]
+        "dayMasterStrength": [
+          "BALANCED"
+        ],
+        "yongshinAlignment": [
+          "aligned"
+        ]
       },
       "templateTokens": [
-        { "kind": "text", "value": "이번 달은 일간 기운이 비교적 고른 시기예요. " },
-        { "kind": "tag", "tagId": "johu", "label": "조후" },
-        { "kind": "text", "value": "의 균형이 평이하니 큰 처방보다 일상의 작은 회복이 또렷한 효과를 내요." },
-        { "kind": "text", "value": " " },
-        { "kind": "tag", "tagId": "yongshin", "label": "용신" },
-        { "kind": "text", "value": "의 자리를 가까이 두면 한 달이 한결 부드러워져요." }
+        {
+          "kind": "text",
+          "value": "이번 달은 일간 기운이 비교적 고른 시기예요. "
+        },
+        {
+          "kind": "tag",
+          "tagId": "johu",
+          "label": "조후"
+        },
+        {
+          "kind": "text",
+          "value": "의 균형이 평이하니 큰 처방보다 일상의 작은 회복이 또렷한 효과를 내요."
+        },
+        {
+          "kind": "text",
+          "value": " "
+        },
+        {
+          "kind": "tag",
+          "tagId": "yongshin",
+          "label": "용신"
+        },
+        {
+          "kind": "text",
+          "value": "의 자리를 가까이 두면 한 달이 한결 부드러워져요."
+        }
       ],
-      "tags": ["johu", "yongshin"],
+      "tags": [
+        "johu",
+        "yongshin"
+      ],
       "aiGenerated": true,
       "sourceTier": {
         "tier": "T1_HYPOTHESIS",
@@ -127,23 +236,66 @@
     {
       "schemaVersion": "spring-ts.narrative-fragment.v1",
       "fragmentId": "health_stress.thisMonth.expert.weak_neutral.001",
-      "axis": { "category": "health_stress", "period": "thisMonth", "depth": "expert" },
+      "axis": {
+        "category": "health_stress",
+        "period": "thisMonth",
+        "depth": "expert"
+      },
       "gating": {
-        "dayMasterStrength": ["WEAK", "EXTREME_WEAK"],
-        "yongshinAlignment": ["neutral"]
+        "dayMasterStrength": [
+          "WEAK",
+          "EXTREME_WEAK"
+        ],
+        "yongshinAlignment": [
+          "neutral"
+        ]
       },
       "templateTokens": [
-        { "kind": "text", "value": "이번 달은 일간 기운이 잔잔한 시기예요. " },
-        { "kind": "tag", "tagId": "jeongin", "label": "정인" },
-        { "kind": "text", "value": "의 따뜻한 돌봄을 가까이 두는 습관이 한 달 회복의 큰 축이 돼요." },
-        { "kind": "text", "value": " 압박이 닿는 시기에는 " },
-        { "kind": "tag", "tagId": "pyeongwan", "label": "편관" },
-        { "kind": "text", "value": "의 결이 한꺼번에 누르지 않도록 일을 분산해 두면 흐름이 한결 가벼워져요." },
-        { "kind": "text", "value": " 결과가 더디게 오는 자리는 " },
-        { "kind": "tag", "tagId": "gongmang", "label": "공망" },
-        { "kind": "text", "value": "의 신호와 닿아요. 천천히 익는 시간은 흉한 신호가 아니에요." }
+        {
+          "kind": "text",
+          "value": "이번 달은 일간 기운이 잔잔한 시기예요. "
+        },
+        {
+          "kind": "tag",
+          "tagId": "jeongin",
+          "label": "정인"
+        },
+        {
+          "kind": "text",
+          "value": "의 따뜻한 돌봄을 가까이 두는 습관이 한 달 회복의 큰 축이 돼요."
+        },
+        {
+          "kind": "text",
+          "value": " 압박이 닿는 시기에는 "
+        },
+        {
+          "kind": "tag",
+          "tagId": "pyeongwan",
+          "label": "편관"
+        },
+        {
+          "kind": "text",
+          "value": "의 중심이 한꺼번에 누르지 않도록 일을 분산해 두면 흐름이 한결 가벼워져요."
+        },
+        {
+          "kind": "text",
+          "value": " 결과가 더디게 오는 자리는 "
+        },
+        {
+          "kind": "tag",
+          "tagId": "gongmang",
+          "label": "공망"
+        },
+        {
+          "kind": "text",
+          "value": "의 신호와 닿아요. 천천히 익는 시간은 흉한 신호가 아니에요."
+        }
       ],
-      "tags": ["jeongin", "pyeongwan", "gongmang"],
+      "tags": [
+        "jeongin",
+        "pyeongwan",
+        "gongmang"
+      ],
       "aiGenerated": true,
       "sourceTier": {
         "tier": "T1_HYPOTHESIS",
@@ -159,22 +311,62 @@
     {
       "schemaVersion": "spring-ts.narrative-fragment.v1",
       "fragmentId": "health_stress.thisMonth.expert.weak_conflicting.001",
-      "axis": { "category": "health_stress", "period": "thisMonth", "depth": "expert" },
+      "axis": {
+        "category": "health_stress",
+        "period": "thisMonth",
+        "depth": "expert"
+      },
       "gating": {
-        "dayMasterStrength": ["WEAK", "EXTREME_WEAK"],
-        "yongshinAlignment": ["conflicting"]
+        "dayMasterStrength": [
+          "WEAK",
+          "EXTREME_WEAK"
+        ],
+        "yongshinAlignment": [
+          "conflicting"
+        ]
       },
       "templateTokens": [
-        { "kind": "text", "value": "이번 달은 일간이 잔잔한 결인데 " },
-        { "kind": "tag", "tagId": "pyeongwan", "label": "편관" },
-        { "kind": "text", "value": "의 압박과 " },
-        { "kind": "tag", "tagId": "samhyeong", "label": "삼형" },
-        { "kind": "text", "value": "의 결이 자주 닿기 쉬워요. 큰 결정은 다음 달로 미루고, 한 박자 늦추는 자리를 의식적으로 만들어 두면 한 달이 부드러워져요." },
-        { "kind": "text", "value": " 회복은 " },
-        { "kind": "tag", "tagId": "jeongin", "label": "정인" },
-        { "kind": "text", "value": "의 따뜻한 기운과 함께 와요." }
+        {
+          "kind": "text",
+          "value": "이번 달은 일간이 잔잔한 결인데 "
+        },
+        {
+          "kind": "tag",
+          "tagId": "pyeongwan",
+          "label": "편관"
+        },
+        {
+          "kind": "text",
+          "value": "의 압박과 "
+        },
+        {
+          "kind": "tag",
+          "tagId": "samhyeong",
+          "label": "삼형"
+        },
+        {
+          "kind": "text",
+          "value": "의 리듬이 자주 닿기 쉬워요. 큰 결정은 다음 달로 미루고, 한 박자 늦추는 자리를 의식적으로 만들어 두면 한 달이 부드러워져요."
+        },
+        {
+          "kind": "text",
+          "value": " 회복은 "
+        },
+        {
+          "kind": "tag",
+          "tagId": "jeongin",
+          "label": "정인"
+        },
+        {
+          "kind": "text",
+          "value": "의 따뜻한 기운과 함께 와요."
+        }
       ],
-      "tags": ["pyeongwan", "samhyeong", "jeongin"],
+      "tags": [
+        "pyeongwan",
+        "samhyeong",
+        "jeongin"
+      ],
       "aiGenerated": true,
       "sourceTier": {
         "tier": "T1_HYPOTHESIS",
@@ -190,20 +382,52 @@
     {
       "schemaVersion": "spring-ts.narrative-fragment.v1",
       "fragmentId": "health_stress.thisMonth.expert.male_30_39.001",
-      "axis": { "category": "health_stress", "period": "thisMonth", "depth": "expert" },
+      "axis": {
+        "category": "health_stress",
+        "period": "thisMonth",
+        "depth": "expert"
+      },
       "gating": {
-        "gender": ["male"],
-        "ageBand": ["30-39", "40-54"]
+        "gender": [
+          "male"
+        ],
+        "ageBand": [
+          "30-39",
+          "40-54"
+        ]
       },
       "templateTokens": [
-        { "kind": "text", "value": "이번 달은 책임이 한꺼번에 닿기 쉬운 시기예요. " },
-        { "kind": "tag", "tagId": "pyeongwan", "label": "편관" },
-        { "kind": "text", "value": "의 압박이 강한 시기에는 일을 미리 분산해 두는 방식이 한 달을 부드럽게 해 줘요." },
-        { "kind": "text", "value": " 회복은 자기 사주의 " },
-        { "kind": "tag", "tagId": "yongshin", "label": "용신" },
-        { "kind": "text", "value": " 보완 방향을 가까이 두는 선택에서 가장 또렷해요." }
+        {
+          "kind": "text",
+          "value": "이번 달은 책임이 한꺼번에 닿기 쉬운 시기예요. "
+        },
+        {
+          "kind": "tag",
+          "tagId": "pyeongwan",
+          "label": "편관"
+        },
+        {
+          "kind": "text",
+          "value": "의 압박이 강한 시기에는 일을 미리 분산해 두는 방식이 한 달을 부드럽게 해 줘요."
+        },
+        {
+          "kind": "text",
+          "value": " 회복은 자기 사주의 "
+        },
+        {
+          "kind": "tag",
+          "tagId": "yongshin",
+          "label": "용신"
+        },
+        {
+          "kind": "text",
+          "value": " 보완 방향을 가까이 두는 선택에서 가장 또렷해요."
+        }
       ],
-      "tags": ["pyeongwan", "yongshin"],
+      "tags": [
+        "pyeongwan",
+        "yongshin"
+      ],
       "aiGenerated": true,
       "sourceTier": {
         "tier": "T1_HYPOTHESIS",
@@ -219,20 +443,52 @@
     {
       "schemaVersion": "spring-ts.narrative-fragment.v1",
       "fragmentId": "health_stress.thisMonth.expert.female_20_29.001",
-      "axis": { "category": "health_stress", "period": "thisMonth", "depth": "expert" },
+      "axis": {
+        "category": "health_stress",
+        "period": "thisMonth",
+        "depth": "expert"
+      },
       "gating": {
-        "gender": ["female"],
-        "ageBand": ["20-29", "30-39"]
+        "gender": [
+          "female"
+        ],
+        "ageBand": [
+          "20-29",
+          "30-39"
+        ]
       },
       "templateTokens": [
-        { "kind": "text", "value": "이번 달은 마음·관계·일이 동시에 또렷해지는 시기예요. " },
-        { "kind": "tag", "tagId": "jeongin", "label": "정인" },
-        { "kind": "text", "value": "의 기운을 가까이 둘 때 마음이 단단해지는 구조라, 가까운 어른·스승·책이 회복의 기지가 돼요." },
-        { "kind": "text", "value": " 결정이 몰리는 자리에서는 " },
-        { "kind": "tag", "tagId": "samhyeong", "label": "삼형" },
-        { "kind": "text", "value": "의 신호를 미리 살펴서 일을 분산하면 마음의 짐이 가벼워져요." }
+        {
+          "kind": "text",
+          "value": "이번 달은 마음·관계·일이 동시에 또렷해지는 시기예요. "
+        },
+        {
+          "kind": "tag",
+          "tagId": "jeongin",
+          "label": "정인"
+        },
+        {
+          "kind": "text",
+          "value": "의 기운을 가까이 둘 때 마음이 단단해지는 구조라, 가까운 어른·스승·책이 회복의 기지가 돼요."
+        },
+        {
+          "kind": "text",
+          "value": " 결정이 몰리는 자리에서는 "
+        },
+        {
+          "kind": "tag",
+          "tagId": "samhyeong",
+          "label": "삼형"
+        },
+        {
+          "kind": "text",
+          "value": "의 신호를 미리 살펴서 일을 분산하면 마음의 짐이 가벼워져요."
+        }
       ],
-      "tags": ["jeongin", "samhyeong"],
+      "tags": [
+        "jeongin",
+        "samhyeong"
+      ],
       "aiGenerated": true,
       "sourceTier": {
         "tier": "T1_HYPOTHESIS",
@@ -248,19 +504,48 @@
     {
       "schemaVersion": "spring-ts.narrative-fragment.v1",
       "fragmentId": "health_stress.thisMonth.expert.youth_10_19.001",
-      "axis": { "category": "health_stress", "period": "thisMonth", "depth": "expert" },
+      "axis": {
+        "category": "health_stress",
+        "period": "thisMonth",
+        "depth": "expert"
+      },
       "gating": {
-        "ageBand": ["10-19"]
+        "ageBand": [
+          "10-19"
+        ]
       },
       "templateTokens": [
-        { "kind": "text", "value": "이번 달은 마음이 자주 들썩이기 쉬운 시기예요. " },
-        { "kind": "tag", "tagId": "jeongin", "label": "정인" },
-        { "kind": "text", "value": "의 자리가 가까이 있을 때 마음을 단단하게 받쳐 주는 신호가 살아나고, 가족·스승의 한마디가 회복의 큰 힘이 돼요." },
-        { "kind": "text", "value": " 비교에서 오는 무게는 " },
-        { "kind": "tag", "tagId": "gongmang", "label": "공망" },
-        { "kind": "text", "value": "의 신호처럼 결과가 더디게 오는 자리에서 자주 와요. 천천히 익는 시기는 흉한 자리가 아니에요." }
+        {
+          "kind": "text",
+          "value": "이번 달은 마음이 자주 들썩이기 쉬운 시기예요. "
+        },
+        {
+          "kind": "tag",
+          "tagId": "jeongin",
+          "label": "정인"
+        },
+        {
+          "kind": "text",
+          "value": "의 자리가 가까이 있을 때 마음을 단단하게 받쳐 주는 신호가 살아나고, 가족·스승의 한마디가 회복의 큰 힘이 돼요."
+        },
+        {
+          "kind": "text",
+          "value": " 비교에서 오는 무게는 "
+        },
+        {
+          "kind": "tag",
+          "tagId": "gongmang",
+          "label": "공망"
+        },
+        {
+          "kind": "text",
+          "value": "의 신호처럼 결과가 더디게 오는 자리에서 자주 와요. 천천히 익는 시기는 흉한 자리가 아니에요."
+        }
       ],
-      "tags": ["jeongin", "gongmang"],
+      "tags": [
+        "jeongin",
+        "gongmang"
+      ],
       "aiGenerated": true,
       "sourceTier": {
         "tier": "T1_HYPOTHESIS",
@@ -276,21 +561,58 @@
     {
       "schemaVersion": "spring-ts.narrative-fragment.v1",
       "fragmentId": "health_stress.thisMonth.expert.fire_strong.001",
-      "axis": { "category": "health_stress", "period": "thisMonth", "depth": "expert" },
+      "axis": {
+        "category": "health_stress",
+        "period": "thisMonth",
+        "depth": "expert"
+      },
       "gating": {
-        "dayMasterElement": ["FIRE"],
-        "dayMasterStrength": ["STRONG", "EXTREME_STRONG"]
+        "dayMasterElement": [
+          "FIRE"
+        ],
+        "dayMasterStrength": [
+          "STRONG",
+          "EXTREME_STRONG"
+        ]
       },
       "templateTokens": [
-        { "kind": "text", "value": "이번 달은 일간 " },
-        { "kind": "tag", "tagId": "fire", "label": "불" },
-        { "kind": "text", "value": "이 강한 결이라, " },
-        { "kind": "tag", "tagId": "johu", "label": "조후" },
-        { "kind": "text", "value": "의 균형으로 보면 시원한 " },
-        { "kind": "tag", "tagId": "water", "label": "물" },
-        { "kind": "text", "value": "의 결을 가까이 두는 자리에서 마음이 가장 가벼워져요." }
+        {
+          "kind": "text",
+          "value": "이번 달은 일간 "
+        },
+        {
+          "kind": "tag",
+          "tagId": "fire",
+          "label": "불"
+        },
+        {
+          "kind": "text",
+          "value": "이 강한 결이라, "
+        },
+        {
+          "kind": "tag",
+          "tagId": "johu",
+          "label": "조후"
+        },
+        {
+          "kind": "text",
+          "value": "의 균형으로 보면 시원한 "
+        },
+        {
+          "kind": "tag",
+          "tagId": "water",
+          "label": "물"
+        },
+        {
+          "kind": "text",
+          "value": "의 결을 가까이 두는 자리에서 마음이 가장 가벼워져요."
+        }
       ],
-      "tags": ["fire", "johu", "water"],
+      "tags": [
+        "fire",
+        "johu",
+        "water"
+      ],
       "aiGenerated": true,
       "sourceTier": {
         "tier": "T1_HYPOTHESIS",
@@ -306,22 +628,62 @@
     {
       "schemaVersion": "spring-ts.narrative-fragment.v1",
       "fragmentId": "health_stress.thisMonth.expert.water_weak.001",
-      "axis": { "category": "health_stress", "period": "thisMonth", "depth": "expert" },
+      "axis": {
+        "category": "health_stress",
+        "period": "thisMonth",
+        "depth": "expert"
+      },
       "gating": {
-        "dayMasterElement": ["WATER"],
-        "dayMasterStrength": ["WEAK", "EXTREME_WEAK"]
+        "dayMasterElement": [
+          "WATER"
+        ],
+        "dayMasterStrength": [
+          "WEAK",
+          "EXTREME_WEAK"
+        ]
       },
       "templateTokens": [
-        { "kind": "text", "value": "이번 달 일간 " },
-        { "kind": "tag", "tagId": "water", "label": "물" },
-        { "kind": "text", "value": "의 결이 잔잔해서 마음이 가라앉기 쉬운 자리예요. " },
-        { "kind": "tag", "tagId": "fire", "label": "불" },
-        { "kind": "text", "value": "의 따뜻한 기운을 가까이 두면 마음이 한결 가벼워져요." },
-        { "kind": "text", "value": " 회복은 " },
-        { "kind": "tag", "tagId": "jeongin", "label": "정인" },
-        { "kind": "text", "value": "의 따뜻한 돌봄과 함께 일어나요." }
+        {
+          "kind": "text",
+          "value": "이번 달 일간 "
+        },
+        {
+          "kind": "tag",
+          "tagId": "water",
+          "label": "물"
+        },
+        {
+          "kind": "text",
+          "value": "의 결이 잔잔해서 마음이 가라앉기 쉬운 자리예요. "
+        },
+        {
+          "kind": "tag",
+          "tagId": "fire",
+          "label": "불"
+        },
+        {
+          "kind": "text",
+          "value": "의 따뜻한 기운을 가까이 두면 마음이 한결 가벼워져요."
+        },
+        {
+          "kind": "text",
+          "value": " 회복은 "
+        },
+        {
+          "kind": "tag",
+          "tagId": "jeongin",
+          "label": "정인"
+        },
+        {
+          "kind": "text",
+          "value": "의 따뜻한 돌봄과 함께 일어나요."
+        }
       ],
-      "tags": ["water", "fire", "jeongin"],
+      "tags": [
+        "water",
+        "fire",
+        "jeongin"
+      ],
       "aiGenerated": true,
       "sourceTier": {
         "tier": "T1_HYPOTHESIS",

@@ -7,22 +7,78 @@
     {
       "schemaVersion": "spring-ts.narrative-fragment.v1",
       "fragmentId": "wealth.thisYear.expert.wildcard.001",
-      "axis": { "category": "wealth", "period": "thisYear", "depth": "expert" },
-      "gating": { "ageBand": ["20-29", "30-39", "40-54", "55-69", "70+"] },
+      "axis": {
+        "category": "wealth",
+        "period": "thisYear",
+        "depth": "expert"
+      },
+      "gating": {
+        "ageBand": [
+          "20-29",
+          "30-39",
+          "40-54",
+          "55-69",
+          "70+"
+        ]
+      },
       "templateTokens": [
-        { "kind": "text", "value": "올해의 재물 결은 " },
-        { "kind": "tag", "tagId": "yongshin", "label": "용신" },
-        { "kind": "text", "value": "이 어떤 자리에 들어오는지에 따라 흐름의 색이 달라져요. 같은 한 해도 " },
-        { "kind": "tag", "tagId": "jeongjae", "label": "정재" },
-        { "kind": "text", "value": "에 무게가 실리느냐, " },
-        { "kind": "tag", "tagId": "pyeonjae", "label": "편재" },
-        { "kind": "text", "value": "에 무게가 실리느냐에 따라 결이 갈라져요.\n\n" },
-        { "kind": "tag", "tagId": "geobjae", "label": "겁재" },
-        { "kind": "text", "value": "가 강한 시기엔 동업·돈거래는 한 박자 늦추는 결이 좋아요. " },
-        { "kind": "tag", "tagId": "sajuCompatibility", "label": "사주적합도" },
-        { "kind": "text", "value": "의 흐름이 좋게 들어오는 달을 골라 큰 결정을 두면 결이 더 또렷해져요.\n\n분기 단위로 결을 점검하면 한 해의 자산 결이 한층 단단해져요." }
+        {
+          "kind": "text",
+          "value": "올해의 재물 결은 "
+        },
+        {
+          "kind": "tag",
+          "tagId": "yongshin",
+          "label": "용신"
+        },
+        {
+          "kind": "text",
+          "value": "이 어떤 자리에 들어오는지에 따라 흐름의 색이 달라져요. 같은 한 해도 "
+        },
+        {
+          "kind": "tag",
+          "tagId": "jeongjae",
+          "label": "정재"
+        },
+        {
+          "kind": "text",
+          "value": "에 무게가 실리느냐, "
+        },
+        {
+          "kind": "tag",
+          "tagId": "pyeonjae",
+          "label": "편재"
+        },
+        {
+          "kind": "text",
+          "value": "에 무게가 실리느냐에 따라 결이 갈라져요.\n\n"
+        },
+        {
+          "kind": "tag",
+          "tagId": "geobjae",
+          "label": "겁재"
+        },
+        {
+          "kind": "text",
+          "value": "가 강한 시기엔 동업·돈거래는 한 박자 늦추는 결이 좋아요. "
+        },
+        {
+          "kind": "tag",
+          "tagId": "sajuCompatibility",
+          "label": "사주적합도"
+        },
+        {
+          "kind": "text",
+          "value": "의 흐름이 좋게 들어오는 달을 골라 큰 결정을 두면 결이 더 또렷해져요.\n\n분기 단위로 결을 점검하면 한 해의 자산 중심이 한층 단단해져요."
+        }
       ],
-      "tags": ["yongshin", "jeongjae", "pyeonjae", "geobjae", "sajuCompatibility"],
+      "tags": [
+        "yongshin",
+        "jeongjae",
+        "pyeonjae",
+        "geobjae",
+        "sajuCompatibility"
+      ],
       "numericalEvidence": [
         {
           "label": "현재 나이",
@@ -70,29 +126,94 @@
     {
       "schemaVersion": "spring-ts.narrative-fragment.v1",
       "fragmentId": "wealth.thisYear.expert.strong.aligned.30_39.male.002",
-      "axis": { "category": "wealth", "period": "thisYear", "depth": "expert" },
+      "axis": {
+        "category": "wealth",
+        "period": "thisYear",
+        "depth": "expert"
+      },
       "gating": {
-        "gender": ["male"],
-        "ageBand": ["30-39"],
-        "dayMasterStrength": ["STRONG", "EXTREME_STRONG"],
-        "yongshinAlignment": ["aligned"]
+        "gender": [
+          "male"
+        ],
+        "ageBand": [
+          "30-39"
+        ],
+        "dayMasterStrength": [
+          "STRONG",
+          "EXTREME_STRONG"
+        ],
+        "yongshinAlignment": [
+          "aligned"
+        ]
       },
       "templateTokens": [
-        { "kind": "text", "value": "신강한 일간이 " },
-        { "kind": "tag", "tagId": "pyeonjae", "label": "편재" },
-        { "kind": "text", "value": "를 다스리기 좋은 해예요. " },
-        { "kind": "tag", "tagId": "yongshin", "label": "용신" },
-        { "kind": "text", "value": "의 기운과 잘 맞물려 큰 거래·확장성이 또렷해져요.\n\n" },
-        { "kind": "tag", "tagId": "jeonggwan", "label": "정관" },
-        { "kind": "text", "value": "이 함께 들어오면 결정의 무게가 단단해지고, " },
-        { "kind": "tag", "tagId": "pyeongwan", "label": "편관" },
-        { "kind": "text", "value": "이 들어올 땐 추진력에 통제력이 더해져요. " },
-        { "kind": "tag", "tagId": "pyeonjaegyeok", "label": "편재격" },
-        { "kind": "text", "value": "에 가까운 모양이라면 사람·자원의 폭이 넓어지는 구조예요.\n\n주의할 신호는 " },
-        { "kind": "tag", "tagId": "geobjae", "label": "겁재" },
-        { "kind": "text", "value": "의 기운이 함께 들어올 때예요. 동업·돈거래는 평소보다 한 번 더 살피면 좋아요." }
+        {
+          "kind": "text",
+          "value": "신강한 일간이 "
+        },
+        {
+          "kind": "tag",
+          "tagId": "pyeonjae",
+          "label": "편재"
+        },
+        {
+          "kind": "text",
+          "value": "를 다스리기 좋은 해예요. "
+        },
+        {
+          "kind": "tag",
+          "tagId": "yongshin",
+          "label": "용신"
+        },
+        {
+          "kind": "text",
+          "value": "의 기운과 잘 맞물려 큰 거래·확장성이 또렷해져요.\n\n"
+        },
+        {
+          "kind": "tag",
+          "tagId": "jeonggwan",
+          "label": "정관"
+        },
+        {
+          "kind": "text",
+          "value": "이 함께 들어오면 결정의 무게가 단단해지고, "
+        },
+        {
+          "kind": "tag",
+          "tagId": "pyeongwan",
+          "label": "편관"
+        },
+        {
+          "kind": "text",
+          "value": "이 들어올 땐 추진력에 통제력이 더해져요. "
+        },
+        {
+          "kind": "tag",
+          "tagId": "pyeonjaegyeok",
+          "label": "편재격"
+        },
+        {
+          "kind": "text",
+          "value": "에 가까운 모양이라면 사람·자원의 폭이 넓어지는 구조예요.\n\n주의할 신호는 "
+        },
+        {
+          "kind": "tag",
+          "tagId": "geobjae",
+          "label": "겁재"
+        },
+        {
+          "kind": "text",
+          "value": "의 기운이 함께 들어올 때예요. 동업·돈거래는 평소보다 한 번 더 살피면 좋아요."
+        }
       ],
-      "tags": ["pyeonjae", "yongshin", "jeonggwan", "pyeongwan", "pyeonjaegyeok", "geobjae"],
+      "tags": [
+        "pyeonjae",
+        "yongshin",
+        "jeonggwan",
+        "pyeongwan",
+        "pyeonjaegyeok",
+        "geobjae"
+      ],
       "aiGenerated": true,
       "sourceTier": {
         "tier": "T1_HYPOTHESIS",
@@ -108,25 +229,77 @@
     {
       "schemaVersion": "spring-ts.narrative-fragment.v1",
       "fragmentId": "wealth.thisYear.expert.balanced.aligned.003",
-      "axis": { "category": "wealth", "period": "thisYear", "depth": "expert" },
+      "axis": {
+        "category": "wealth",
+        "period": "thisYear",
+        "depth": "expert"
+      },
       "gating": {
-        "dayMasterStrength": ["BALANCED"],
-        "yongshinAlignment": ["aligned"]
+        "dayMasterStrength": [
+          "BALANCED"
+        ],
+        "yongshinAlignment": [
+          "aligned"
+        ]
       },
       "templateTokens": [
-        { "kind": "text", "value": "균형 잡힌 일간이 " },
-        { "kind": "tag", "tagId": "yongshin", "label": "용신" },
-        { "kind": "text", "value": "과 부드럽게 맞물리는 한 해예요. " },
-        { "kind": "tag", "tagId": "jeongjae", "label": "정재" },
-        { "kind": "text", "value": "의 결이 빛을 내고, 일정한 자산 관리가 잘 어울려요. " },
-        { "kind": "tag", "tagId": "jeongjaegyeok", "label": "정재격" },
-        { "kind": "text", "value": "에 가까운 결이라면 꾸준함이 가장 큰 자산이 되는 모양이에요.\n\n" },
-        { "kind": "tag", "tagId": "sikshin", "label": "식신" },
-        { "kind": "text", "value": "이 들어오면 작은 시도를 더하기 좋고, " },
-        { "kind": "tag", "tagId": "sajuCompatibility", "label": "사주적합도" },
-        { "kind": "text", "value": "의 결이 평균 이상으로 들어와 결정의 시기에 결이 잘 맞물려요." }
+        {
+          "kind": "text",
+          "value": "균형 잡힌 일간이 "
+        },
+        {
+          "kind": "tag",
+          "tagId": "yongshin",
+          "label": "용신"
+        },
+        {
+          "kind": "text",
+          "value": "과 부드럽게 맞물리는 한 해예요. "
+        },
+        {
+          "kind": "tag",
+          "tagId": "jeongjae",
+          "label": "정재"
+        },
+        {
+          "kind": "text",
+          "value": "의 결이 빛을 내고, 일정한 자산 관리가 잘 어울려요. "
+        },
+        {
+          "kind": "tag",
+          "tagId": "jeongjaegyeok",
+          "label": "정재격"
+        },
+        {
+          "kind": "text",
+          "value": "에 가까운 결이라면 꾸준함이 가장 큰 자산이 되는 모양이에요.\n\n"
+        },
+        {
+          "kind": "tag",
+          "tagId": "sikshin",
+          "label": "식신"
+        },
+        {
+          "kind": "text",
+          "value": "이 들어오면 작은 시도를 더하기 좋고, "
+        },
+        {
+          "kind": "tag",
+          "tagId": "sajuCompatibility",
+          "label": "사주적합도"
+        },
+        {
+          "kind": "text",
+          "value": "의 결이 평균 이상으로 들어와 결정의 시기에 흐름이 잘 맞물려요."
+        }
       ],
-      "tags": ["yongshin", "jeongjae", "jeongjaegyeok", "sikshin", "sajuCompatibility"],
+      "tags": [
+        "yongshin",
+        "jeongjae",
+        "jeongjaegyeok",
+        "sikshin",
+        "sajuCompatibility"
+      ],
       "aiGenerated": true,
       "sourceTier": {
         "tier": "T1_HYPOTHESIS",
@@ -142,25 +315,78 @@
     {
       "schemaVersion": "spring-ts.narrative-fragment.v1",
       "fragmentId": "wealth.thisYear.expert.weak.neutral.004",
-      "axis": { "category": "wealth", "period": "thisYear", "depth": "expert" },
+      "axis": {
+        "category": "wealth",
+        "period": "thisYear",
+        "depth": "expert"
+      },
       "gating": {
-        "dayMasterStrength": ["WEAK", "EXTREME_WEAK"],
-        "yongshinAlignment": ["neutral"]
+        "dayMasterStrength": [
+          "WEAK",
+          "EXTREME_WEAK"
+        ],
+        "yongshinAlignment": [
+          "neutral"
+        ]
       },
       "templateTokens": [
-        { "kind": "text", "value": "신약한 일간에 " },
-        { "kind": "tag", "tagId": "jeongin", "label": "정인" },
-        { "kind": "text", "value": "의 기운이 들어오는 한 해예요. " },
-        { "kind": "tag", "tagId": "yongshin", "label": "용신" },
-        { "kind": "text", "value": "이 부드럽게 자리 잡고, 직접 큰 거래를 잡기보다는 익숙한 기준을 다듬는 방식이 잘 어울려요.\n\n" },
-        { "kind": "tag", "tagId": "jeongjae", "label": "정재" },
-        { "kind": "text", "value": "의 기운이 자리 잡혀 일정한 자산 관리가 빛을 내고, " },
-        { "kind": "tag", "tagId": "bigyeon", "label": "비견" },
-        { "kind": "text", "value": "의 기운이 함께 들어오면 든든한 동료의 도움도 따라와요.\n\n" },
-        { "kind": "tag", "tagId": "pyeonjae", "label": "편재" },
-        { "kind": "text", "value": "가 강하게 들어오는 시기엔 한 박자 늦추는 방식이 좋아요." }
+        {
+          "kind": "text",
+          "value": "신약한 일간에 "
+        },
+        {
+          "kind": "tag",
+          "tagId": "jeongin",
+          "label": "정인"
+        },
+        {
+          "kind": "text",
+          "value": "의 기운이 들어오는 한 해예요. "
+        },
+        {
+          "kind": "tag",
+          "tagId": "yongshin",
+          "label": "용신"
+        },
+        {
+          "kind": "text",
+          "value": "이 부드럽게 자리 잡고, 직접 큰 거래를 잡기보다는 익숙한 기준을 다듬는 방식이 잘 어울려요.\n\n"
+        },
+        {
+          "kind": "tag",
+          "tagId": "jeongjae",
+          "label": "정재"
+        },
+        {
+          "kind": "text",
+          "value": "의 기운이 자리 잡혀 일정한 자산 관리가 빛을 내고, "
+        },
+        {
+          "kind": "tag",
+          "tagId": "bigyeon",
+          "label": "비견"
+        },
+        {
+          "kind": "text",
+          "value": "의 기운이 함께 들어오면 든든한 동료의 도움도 따라와요.\n\n"
+        },
+        {
+          "kind": "tag",
+          "tagId": "pyeonjae",
+          "label": "편재"
+        },
+        {
+          "kind": "text",
+          "value": "가 강하게 들어오는 시기엔 한 박자 늦추는 방식이 좋아요."
+        }
       ],
-      "tags": ["jeongin", "yongshin", "jeongjae", "bigyeon", "pyeonjae"],
+      "tags": [
+        "jeongin",
+        "yongshin",
+        "jeongjae",
+        "bigyeon",
+        "pyeonjae"
+      ],
       "aiGenerated": true,
       "sourceTier": {
         "tier": "T1_HYPOTHESIS",
@@ -176,24 +402,74 @@
     {
       "schemaVersion": "spring-ts.narrative-fragment.v1",
       "fragmentId": "wealth.thisYear.expert.conflicting.005",
-      "axis": { "category": "wealth", "period": "thisYear", "depth": "expert" },
+      "axis": {
+        "category": "wealth",
+        "period": "thisYear",
+        "depth": "expert"
+      },
       "gating": {
-        "yongshinAlignment": ["conflicting"]
+        "yongshinAlignment": [
+          "conflicting"
+        ]
       },
       "templateTokens": [
-        { "kind": "text", "value": "올해는 " },
-        { "kind": "tag", "tagId": "gishin", "label": "기신" },
-        { "kind": "text", "value": "의 결이 한 박자 더해지는 시기예요. " },
-        { "kind": "tag", "tagId": "yongshin", "label": "용신" },
-        { "kind": "text", "value": "의 흐름과 어긋난 시기여서, 큰 결정은 한 박자 늦추는 결이 좋아요.\n\n" },
-        { "kind": "tag", "tagId": "geobjae", "label": "겁재" },
-        { "kind": "text", "value": "와 " },
-        { "kind": "tag", "tagId": "pyeonjae", "label": "편재" },
-        { "kind": "text", "value": "가 함께 강해지면 동업·돈거래의 결을 한 번 더 살피면 좋아요. " },
-        { "kind": "tag", "tagId": "sajuCompatibility", "label": "사주적합도" },
-        { "kind": "text", "value": "이 좋게 들어오는 다른 해를 골라도 늦지 않아요." }
+        {
+          "kind": "text",
+          "value": "올해는 "
+        },
+        {
+          "kind": "tag",
+          "tagId": "gishin",
+          "label": "기신"
+        },
+        {
+          "kind": "text",
+          "value": "의 중심이 한 박자 더해지는 시기예요. "
+        },
+        {
+          "kind": "tag",
+          "tagId": "yongshin",
+          "label": "용신"
+        },
+        {
+          "kind": "text",
+          "value": "의 흐름과 어긋난 시기여서, 큰 결정은 한 박자 늦추는 결이 좋아요.\n\n"
+        },
+        {
+          "kind": "tag",
+          "tagId": "geobjae",
+          "label": "겁재"
+        },
+        {
+          "kind": "text",
+          "value": "와 "
+        },
+        {
+          "kind": "tag",
+          "tagId": "pyeonjae",
+          "label": "편재"
+        },
+        {
+          "kind": "text",
+          "value": "가 함께 강해지면 동업·돈거래의 결을 한 번 더 살피면 좋아요. "
+        },
+        {
+          "kind": "tag",
+          "tagId": "sajuCompatibility",
+          "label": "사주적합도"
+        },
+        {
+          "kind": "text",
+          "value": "이 좋게 들어오는 다른 해를 골라도 늦지 않아요."
+        }
       ],
-      "tags": ["gishin", "yongshin", "geobjae", "pyeonjae", "sajuCompatibility"],
+      "tags": [
+        "gishin",
+        "yongshin",
+        "geobjae",
+        "pyeonjae",
+        "sajuCompatibility"
+      ],
       "aiGenerated": true,
       "sourceTier": {
         "tier": "T1_HYPOTHESIS",
@@ -209,25 +485,77 @@
     {
       "schemaVersion": "spring-ts.narrative-fragment.v1",
       "fragmentId": "wealth.thisYear.expert.female.40_54.006",
-      "axis": { "category": "wealth", "period": "thisYear", "depth": "expert" },
+      "axis": {
+        "category": "wealth",
+        "period": "thisYear",
+        "depth": "expert"
+      },
       "gating": {
-        "gender": ["female"],
-        "ageBand": ["40-54"]
+        "gender": [
+          "female"
+        ],
+        "ageBand": [
+          "40-54"
+        ]
       },
       "templateTokens": [
-        { "kind": "text", "value": "올해의 결은 " },
-        { "kind": "tag", "tagId": "jeongjae", "label": "정재" },
-        { "kind": "text", "value": "와 " },
-        { "kind": "tag", "tagId": "jeongin", "label": "정인" },
-        { "kind": "text", "value": "의 결이 함께 자리 잡는 결이에요. 그동안 다져 온 결이 빛을 내는 한 해예요.\n\n" },
-        { "kind": "tag", "tagId": "yongshin", "label": "용신" },
-        { "kind": "text", "value": "의 결이 좋게 들어오는 분기를 골라 자산 정리·재배치를 두면 결이 한층 또렷해져요.\n\n" },
-        { "kind": "tag", "tagId": "pyeongwan", "label": "편관" },
-        { "kind": "text", "value": "이 함께 들어오면 자금 통제력도 단단해져요. " },
-        { "kind": "tag", "tagId": "sajuCompatibility", "label": "사주적합도" },
-        { "kind": "text", "value": "의 결이 평균 이상으로 들어와 결정의 자리가 잘 맞물려요." }
+        {
+          "kind": "text",
+          "value": "올해의 결은 "
+        },
+        {
+          "kind": "tag",
+          "tagId": "jeongjae",
+          "label": "정재"
+        },
+        {
+          "kind": "text",
+          "value": "와 "
+        },
+        {
+          "kind": "tag",
+          "tagId": "jeongin",
+          "label": "정인"
+        },
+        {
+          "kind": "text",
+          "value": "의 결이 함께 자리 잡는 결이에요. 그동안 다져 온 결이 빛을 내는 한 해예요.\n\n"
+        },
+        {
+          "kind": "tag",
+          "tagId": "yongshin",
+          "label": "용신"
+        },
+        {
+          "kind": "text",
+          "value": "의 결이 좋게 들어오는 분기를 골라 자산 정리·재배치를 두면 중심이 한층 또렷해져요.\n\n"
+        },
+        {
+          "kind": "tag",
+          "tagId": "pyeongwan",
+          "label": "편관"
+        },
+        {
+          "kind": "text",
+          "value": "이 함께 들어오면 자금 통제력도 단단해져요. "
+        },
+        {
+          "kind": "tag",
+          "tagId": "sajuCompatibility",
+          "label": "사주적합도"
+        },
+        {
+          "kind": "text",
+          "value": "의 결이 평균 이상으로 들어와 결정의 자리가 잘 맞물려요."
+        }
       ],
-      "tags": ["jeongjae", "jeongin", "yongshin", "pyeongwan", "sajuCompatibility"],
+      "tags": [
+        "jeongjae",
+        "jeongin",
+        "yongshin",
+        "pyeongwan",
+        "sajuCompatibility"
+      ],
       "aiGenerated": true,
       "sourceTier": {
         "tier": "T1_HYPOTHESIS",
@@ -243,22 +571,64 @@
     {
       "schemaVersion": "spring-ts.narrative-fragment.v1",
       "fragmentId": "wealth.thisYear.expert.20_29.007",
-      "axis": { "category": "wealth", "period": "thisYear", "depth": "expert" },
+      "axis": {
+        "category": "wealth",
+        "period": "thisYear",
+        "depth": "expert"
+      },
       "gating": {
-        "ageBand": ["20-29"]
+        "ageBand": [
+          "20-29"
+        ]
       },
       "templateTokens": [
-        { "kind": "text", "value": "이십 대의 결은 " },
-        { "kind": "tag", "tagId": "sikshin", "label": "식신" },
-        { "kind": "text", "value": "의 결과 " },
-        { "kind": "tag", "tagId": "jeongjae", "label": "정재" },
-        { "kind": "text", "value": "의 결이 함께 자라는 한 해예요. 큰 거래보다 작은 결을 다듬기 좋은 시기예요.\n\n" },
-        { "kind": "tag", "tagId": "yongshin", "label": "용신" },
-        { "kind": "text", "value": "의 결이 들어오는 분기를 골라 작은 시도를 더하면 결이 잡혀요. " },
-        { "kind": "tag", "tagId": "pyeonjae", "label": "편재" },
-        { "kind": "text", "value": "의 결이 강해 보이는 시기는 큰 권유를 일주일 이상 살피면 좋아요." }
+        {
+          "kind": "text",
+          "value": "이십 대의 결은 "
+        },
+        {
+          "kind": "tag",
+          "tagId": "sikshin",
+          "label": "식신"
+        },
+        {
+          "kind": "text",
+          "value": "의 결과 "
+        },
+        {
+          "kind": "tag",
+          "tagId": "jeongjae",
+          "label": "정재"
+        },
+        {
+          "kind": "text",
+          "value": "의 결이 함께 자라는 한 해예요. 큰 거래보다 작은 결을 다듬기 좋은 시기예요.\n\n"
+        },
+        {
+          "kind": "tag",
+          "tagId": "yongshin",
+          "label": "용신"
+        },
+        {
+          "kind": "text",
+          "value": "의 결이 들어오는 분기를 골라 작은 시도를 더하면 결이 잡혀요. "
+        },
+        {
+          "kind": "tag",
+          "tagId": "pyeonjae",
+          "label": "편재"
+        },
+        {
+          "kind": "text",
+          "value": "의 결이 강해 보이는 시기는 큰 권유를 일주일 이상 살피면 좋아요."
+        }
       ],
-      "tags": ["sikshin", "jeongjae", "yongshin", "pyeonjae"],
+      "tags": [
+        "sikshin",
+        "jeongjae",
+        "yongshin",
+        "pyeonjae"
+      ],
       "aiGenerated": true,
       "sourceTier": {
         "tier": "T1_HYPOTHESIS",
@@ -274,24 +644,75 @@
     {
       "schemaVersion": "spring-ts.narrative-fragment.v1",
       "fragmentId": "wealth.thisYear.expert.55_69.008",
-      "axis": { "category": "wealth", "period": "thisYear", "depth": "expert" },
+      "axis": {
+        "category": "wealth",
+        "period": "thisYear",
+        "depth": "expert"
+      },
       "gating": {
-        "ageBand": ["55-69", "70+"]
+        "ageBand": [
+          "55-69",
+          "70+"
+        ]
       },
       "templateTokens": [
-        { "kind": "text", "value": "후반기의 결은 " },
-        { "kind": "tag", "tagId": "jeongjae", "label": "정재" },
-        { "kind": "text", "value": "의 결이 결실로 모이는 한 해예요. 새 거래보다 정리·재배치의 결이 자연스러운 시기예요.\n\n" },
-        { "kind": "tag", "tagId": "yongshin", "label": "용신" },
-        { "kind": "text", "value": "이 옆에서 흐름을 부드럽게 만들어 주고, " },
-        { "kind": "tag", "tagId": "jeongin", "label": "정인" },
-        { "kind": "text", "value": "의 결이 든든함을 더해 줘요.\n\n" },
-        { "kind": "tag", "tagId": "geobjae", "label": "겁재" },
-        { "kind": "text", "value": "가 강하게 들어오는 시기엔 갑작스런 큰 권유는 한 박자 늦추는 결이 좋아요. " },
-        { "kind": "tag", "tagId": "sajuCompatibility", "label": "사주적합도" },
-        { "kind": "text", "value": "의 결이 좋게 들어오는 분기를 골라 정리·나눔을 두면 결이 한층 따뜻해져요." }
+        {
+          "kind": "text",
+          "value": "후반기의 결은 "
+        },
+        {
+          "kind": "tag",
+          "tagId": "jeongjae",
+          "label": "정재"
+        },
+        {
+          "kind": "text",
+          "value": "의 결이 결실로 모이는 한 해예요. 새 거래보다 정리·재배치의 리듬이 자연스러운 시기예요.\n\n"
+        },
+        {
+          "kind": "tag",
+          "tagId": "yongshin",
+          "label": "용신"
+        },
+        {
+          "kind": "text",
+          "value": "이 옆에서 흐름을 부드럽게 만들어 주고, "
+        },
+        {
+          "kind": "tag",
+          "tagId": "jeongin",
+          "label": "정인"
+        },
+        {
+          "kind": "text",
+          "value": "의 결이 든든함을 더해 줘요.\n\n"
+        },
+        {
+          "kind": "tag",
+          "tagId": "geobjae",
+          "label": "겁재"
+        },
+        {
+          "kind": "text",
+          "value": "가 강하게 들어오는 시기엔 갑작스런 큰 권유는 한 박자 늦추는 결이 좋아요. "
+        },
+        {
+          "kind": "tag",
+          "tagId": "sajuCompatibility",
+          "label": "사주적합도"
+        },
+        {
+          "kind": "text",
+          "value": "의 결이 좋게 들어오는 분기를 골라 정리·나눔을 두면 중심이 한층 따뜻해져요."
+        }
       ],
-      "tags": ["jeongjae", "yongshin", "jeongin", "geobjae", "sajuCompatibility"],
+      "tags": [
+        "jeongjae",
+        "yongshin",
+        "jeongin",
+        "geobjae",
+        "sajuCompatibility"
+      ],
       "aiGenerated": true,
       "sourceTier": {
         "tier": "T1_HYPOTHESIS",

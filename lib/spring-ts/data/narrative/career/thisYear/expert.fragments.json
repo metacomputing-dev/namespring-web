@@ -7,22 +7,70 @@
     {
       "schemaVersion": "spring-ts.narrative-fragment.v1",
       "fragmentId": "career.thisYear.expert.wildcard.001",
-      "axis": { "category": "career", "period": "thisYear", "depth": "expert" },
+      "axis": {
+        "category": "career",
+        "period": "thisYear",
+        "depth": "expert"
+      },
       "gating": {},
       "templateTokens": [
-        { "kind": "text", "value": "올해의 직업 결은 " },
-        { "kind": "tag", "tagId": "daewoonGungsil", "label": "대운궁실" },
-        { "kind": "text", "value": "의 큰 결과 " },
-        { "kind": "tag", "tagId": "siGungsil", "label": "시궁실" },
-        { "kind": "text", "value": "의 한 해 결이 어떻게 맞물렸는지를 함께 살펴 잡아요. " },
-        { "kind": "tag", "tagId": "jeonggwan", "label": "정관" },
-        { "kind": "text", "value": "이 또렷한 결이라면 자리·자격의 결이 자연스럽게 자라고, " },
-        { "kind": "tag", "tagId": "pyeongwan", "label": "편관" },
-        { "kind": "text", "value": "이 들어오는 결이라면 큰 결단·외부 무대의 자리에 강해지는 한 해예요. 받쳐 주는 " },
-        { "kind": "tag", "tagId": "jeongin", "label": "정인" },
-        { "kind": "text", "value": "의 결을 함께 살펴 두면 자리의 결이 한 단계 더 단단해지는 결이에요." }
+        {
+          "kind": "text",
+          "value": "올해의 직업 결은 "
+        },
+        {
+          "kind": "tag",
+          "tagId": "daewoonGungsil",
+          "label": "대운궁실"
+        },
+        {
+          "kind": "text",
+          "value": "의 큰 결과 "
+        },
+        {
+          "kind": "tag",
+          "tagId": "siGungsil",
+          "label": "시궁실"
+        },
+        {
+          "kind": "text",
+          "value": "의 한 해 결이 어떻게 맞물렸는지를 함께 살펴 잡아요. "
+        },
+        {
+          "kind": "tag",
+          "tagId": "jeonggwan",
+          "label": "정관"
+        },
+        {
+          "kind": "text",
+          "value": "이 또렷한 방향이라면 자리·자격의 리듬이 자연스럽게 자라고, "
+        },
+        {
+          "kind": "tag",
+          "tagId": "pyeongwan",
+          "label": "편관"
+        },
+        {
+          "kind": "text",
+          "value": "이 들어오는 결이라면 큰 결단·외부 무대의 자리에 강해지는 한 해예요. 받쳐 주는 "
+        },
+        {
+          "kind": "tag",
+          "tagId": "jeongin",
+          "label": "정인"
+        },
+        {
+          "kind": "text",
+          "value": "의 결을 함께 살펴 두면 자리의 중심이 한 단계 더 단단해지는요."
+        }
       ],
-      "tags": ["daewoonGungsil", "siGungsil", "jeonggwan", "pyeongwan", "jeongin"],
+      "tags": [
+        "daewoonGungsil",
+        "siGungsil",
+        "jeonggwan",
+        "pyeongwan",
+        "jeongin"
+      ],
       "numericalEvidence": [
         {
           "label": "현재 나이",
@@ -56,147 +104,540 @@
         }
       ],
       "aiGenerated": true,
-      "sourceTier": { "tier": "T1_HYPOTHESIS", "sourceType": "training_derived", "sourceUrl": null, "accessedAt": "2026-05-02", "quoteShort": null, "humanInterpretation": "Phase 2 agent-6 (career) expert thisYear wildcard. Display-only narrative.", "copyrightNote": "No source prose copied; original.", "authorityTruthEligible": false }
+      "sourceTier": {
+        "tier": "T1_HYPOTHESIS",
+        "sourceType": "training_derived",
+        "sourceUrl": null,
+        "accessedAt": "2026-05-02",
+        "quoteShort": null,
+        "humanInterpretation": "Phase 2 agent-6 (career) expert thisYear wildcard. Display-only narrative.",
+        "copyrightNote": "No source prose copied; original.",
+        "authorityTruthEligible": false
+      }
     },
     {
       "schemaVersion": "spring-ts.narrative-fragment.v1",
       "fragmentId": "career.thisYear.expert.strong.aligned.002",
-      "axis": { "category": "career", "period": "thisYear", "depth": "expert" },
-      "gating": { "dayMasterStrength": ["STRONG", "EXTREME_STRONG"], "yongshinAlignment": ["aligned"] },
+      "axis": {
+        "category": "career",
+        "period": "thisYear",
+        "depth": "expert"
+      },
+      "gating": {
+        "dayMasterStrength": [
+          "STRONG",
+          "EXTREME_STRONG"
+        ],
+        "yongshinAlignment": [
+          "aligned"
+        ]
+      },
       "templateTokens": [
-        { "kind": "text", "value": "어깨가 단단한 결에 " },
-        { "kind": "tag", "tagId": "yongshin", "label": "용신" },
-        { "kind": "text", "value": "이 같은 결로 들어오는 올해는 큰 자리의 문이 한 번 더 크게 열리는 흐름이에요. " },
-        { "kind": "tag", "tagId": "pyeongwan", "label": "편관" },
-        { "kind": "text", "value": "이 강해지는 결이라면 큰 결단·확장의 자리가 분기마다 한 번씩 열리고, " },
-        { "kind": "tag", "tagId": "jeonggwan", "label": "정관" },
-        { "kind": "text", "value": "이 또렷한 결이라면 자격·자리의 결이 한 단계 더 단단해져요. " },
-        { "kind": "tag", "tagId": "daewoonGungsil", "label": "대운궁실" },
-        { "kind": "text", "value": "의 결이 인성과 함께 들어오는 시기엔 자리의 폭이 한 번 더 깊어지는 결이에요." }
+        {
+          "kind": "text",
+          "value": "어깨가 단단한 결에 "
+        },
+        {
+          "kind": "tag",
+          "tagId": "yongshin",
+          "label": "용신"
+        },
+        {
+          "kind": "text",
+          "value": "이 같은 결로 들어오는 올해는 큰 자리의 문이 한 번 더 크게 열리는 흐름이에요. "
+        },
+        {
+          "kind": "tag",
+          "tagId": "pyeongwan",
+          "label": "편관"
+        },
+        {
+          "kind": "text",
+          "value": "이 강해지는 결이라면 큰 결단·확장의 자리가 분기마다 한 번씩 열리고, "
+        },
+        {
+          "kind": "tag",
+          "tagId": "jeonggwan",
+          "label": "정관"
+        },
+        {
+          "kind": "text",
+          "value": "이 또렷한 방향이라면 자격·자리의 중심이 한 단계 더 단단해져요. "
+        },
+        {
+          "kind": "tag",
+          "tagId": "daewoonGungsil",
+          "label": "대운궁실"
+        },
+        {
+          "kind": "text",
+          "value": "의 결이 인성과 함께 들어오는 시기엔 자리의 폭이 한 번 더 깊어지는요."
+        }
       ],
-      "tags": ["yongshin", "pyeongwan", "jeonggwan", "daewoonGungsil"],
+      "tags": [
+        "yongshin",
+        "pyeongwan",
+        "jeonggwan",
+        "daewoonGungsil"
+      ],
       "aiGenerated": true,
-      "sourceTier": { "tier": "T1_HYPOTHESIS", "sourceType": "training_derived", "sourceUrl": null, "accessedAt": "2026-05-02", "quoteShort": null, "humanInterpretation": "Phase 2 agent-6 (career) expert thisYear: strong+aligned. Display-only narrative.", "copyrightNote": "No source prose copied; original.", "authorityTruthEligible": false }
+      "sourceTier": {
+        "tier": "T1_HYPOTHESIS",
+        "sourceType": "training_derived",
+        "sourceUrl": null,
+        "accessedAt": "2026-05-02",
+        "quoteShort": null,
+        "humanInterpretation": "Phase 2 agent-6 (career) expert thisYear: strong+aligned. Display-only narrative.",
+        "copyrightNote": "No source prose copied; original.",
+        "authorityTruthEligible": false
+      }
     },
     {
       "schemaVersion": "spring-ts.narrative-fragment.v1",
       "fragmentId": "career.thisYear.expert.weak.aligned.003",
-      "axis": { "category": "career", "period": "thisYear", "depth": "expert" },
-      "gating": { "dayMasterStrength": ["WEAK", "EXTREME_WEAK"], "yongshinAlignment": ["aligned"] },
+      "axis": {
+        "category": "career",
+        "period": "thisYear",
+        "depth": "expert"
+      },
+      "gating": {
+        "dayMasterStrength": [
+          "WEAK",
+          "EXTREME_WEAK"
+        ],
+        "yongshinAlignment": [
+          "aligned"
+        ]
+      },
       "templateTokens": [
-        { "kind": "text", "value": "어깨가 가벼운 결에 " },
-        { "kind": "tag", "tagId": "jeongin", "label": "정인" },
-        { "kind": "text", "value": "이 받쳐 주는 올해는 도움받는 손과 함께 자리가 길게 받쳐지는 흐름이에요. " },
-        { "kind": "tag", "tagId": "yongshin", "label": "용신" },
-        { "kind": "text", "value": "이 인성·비겁의 결이라면 멘토의 짧은 한마디가 큰 자산이 되고, " },
-        { "kind": "tag", "tagId": "daewoonGungsil", "label": "대운궁실" },
-        { "kind": "text", "value": "의 결이 인성과 함께 들어오는 시기엔 자리의 분기점이 한 번 더 또렷해져요. 받쳐 주는 결이 약한 시기에는 " },
-        { "kind": "tag", "tagId": "jeonggwan", "label": "정관" },
-        { "kind": "text", "value": "의 큰 결정은 한 분기 묵혀 두고 결재해도 늦지 않은 결이에요." }
+        {
+          "kind": "text",
+          "value": "어깨가 가벼운 결에 "
+        },
+        {
+          "kind": "tag",
+          "tagId": "jeongin",
+          "label": "정인"
+        },
+        {
+          "kind": "text",
+          "value": "이 받쳐 주는 올해는 도움받는 손과 함께 자리가 길게 받쳐지는 흐름이에요. "
+        },
+        {
+          "kind": "tag",
+          "tagId": "yongshin",
+          "label": "용신"
+        },
+        {
+          "kind": "text",
+          "value": "이 인성·비겁의 결이라면 멘토의 짧은 한마디가 큰 자산이 되고, "
+        },
+        {
+          "kind": "tag",
+          "tagId": "daewoonGungsil",
+          "label": "대운궁실"
+        },
+        {
+          "kind": "text",
+          "value": "의 결이 인성과 함께 들어오는 시기엔 자리의 분기점이 한 번 더 또렷해져요. 받쳐 주는 결이 약한 시기에는 "
+        },
+        {
+          "kind": "tag",
+          "tagId": "jeonggwan",
+          "label": "정관"
+        },
+        {
+          "kind": "text",
+          "value": "의 큰 결정은 한 분기 묵혀 두고 결재해도 늦지 않은 결이에요."
+        }
       ],
-      "tags": ["jeongin", "yongshin", "daewoonGungsil", "jeonggwan"],
+      "tags": [
+        "jeongin",
+        "yongshin",
+        "daewoonGungsil",
+        "jeonggwan"
+      ],
       "aiGenerated": true,
-      "sourceTier": { "tier": "T1_HYPOTHESIS", "sourceType": "training_derived", "sourceUrl": null, "accessedAt": "2026-05-02", "quoteShort": null, "humanInterpretation": "Phase 2 agent-6 (career) expert thisYear: weak+aligned. Display-only narrative.", "copyrightNote": "No source prose copied; original.", "authorityTruthEligible": false }
+      "sourceTier": {
+        "tier": "T1_HYPOTHESIS",
+        "sourceType": "training_derived",
+        "sourceUrl": null,
+        "accessedAt": "2026-05-02",
+        "quoteShort": null,
+        "humanInterpretation": "Phase 2 agent-6 (career) expert thisYear: weak+aligned. Display-only narrative.",
+        "copyrightNote": "No source prose copied; original.",
+        "authorityTruthEligible": false
+      }
     },
     {
       "schemaVersion": "spring-ts.narrative-fragment.v1",
       "fragmentId": "career.thisYear.expert.balanced.aligned.004",
-      "axis": { "category": "career", "period": "thisYear", "depth": "expert" },
-      "gating": { "dayMasterStrength": ["BALANCED"], "yongshinAlignment": ["aligned"] },
+      "axis": {
+        "category": "career",
+        "period": "thisYear",
+        "depth": "expert"
+      },
+      "gating": {
+        "dayMasterStrength": [
+          "BALANCED"
+        ],
+        "yongshinAlignment": [
+          "aligned"
+        ]
+      },
       "templateTokens": [
-        { "kind": "text", "value": "균형이 잡힌 결에 " },
-        { "kind": "tag", "tagId": "yongshin", "label": "용신" },
-        { "kind": "text", "value": "이 같은 결로 들어오는 올해는 자기 페이스를 그대로 따라가기 좋은 흐름이에요. " },
-        { "kind": "tag", "tagId": "siGungsil", "label": "시궁실" },
-        { "kind": "text", "value": "의 결이 정관·인성으로 정돈된다면 자리·자격의 매듭이 자연스럽게 자라고, " },
-        { "kind": "tag", "tagId": "jeonggwan", "label": "정관" },
-        { "kind": "text", "value": "이 또렷한 결이라면 결재·약속의 결이 단단해져요. " },
-        { "kind": "tag", "tagId": "daewoonGungsil", "label": "대운궁실" },
-        { "kind": "text", "value": "의 결을 함께 살피면 자리의 시점이 더 또렷해지는 한 해예요." }
+        {
+          "kind": "text",
+          "value": "균형이 잡힌 결에 "
+        },
+        {
+          "kind": "tag",
+          "tagId": "yongshin",
+          "label": "용신"
+        },
+        {
+          "kind": "text",
+          "value": "이 같은 결로 들어오는 올해는 자기 페이스를 그대로 따라가기 좋은 흐름이에요. "
+        },
+        {
+          "kind": "tag",
+          "tagId": "siGungsil",
+          "label": "시궁실"
+        },
+        {
+          "kind": "text",
+          "value": "의 결이 정관·인성으로 정돈된다면 자리·자격의 매듭이 자연스럽게 자라고, "
+        },
+        {
+          "kind": "tag",
+          "tagId": "jeonggwan",
+          "label": "정관"
+        },
+        {
+          "kind": "text",
+          "value": "이 또렷한 방향이라면 결재·약속의 중심이 단단해져요. "
+        },
+        {
+          "kind": "tag",
+          "tagId": "daewoonGungsil",
+          "label": "대운궁실"
+        },
+        {
+          "kind": "text",
+          "value": "의 결을 함께 살피면 자리의 시점이 더 또렷해지는 한 해예요."
+        }
       ],
-      "tags": ["yongshin", "siGungsil", "jeonggwan", "daewoonGungsil"],
+      "tags": [
+        "yongshin",
+        "siGungsil",
+        "jeonggwan",
+        "daewoonGungsil"
+      ],
       "aiGenerated": true,
-      "sourceTier": { "tier": "T1_HYPOTHESIS", "sourceType": "training_derived", "sourceUrl": null, "accessedAt": "2026-05-02", "quoteShort": null, "humanInterpretation": "Phase 2 agent-6 (career) expert thisYear: balanced+aligned. Display-only narrative.", "copyrightNote": "No source prose copied; original.", "authorityTruthEligible": false }
+      "sourceTier": {
+        "tier": "T1_HYPOTHESIS",
+        "sourceType": "training_derived",
+        "sourceUrl": null,
+        "accessedAt": "2026-05-02",
+        "quoteShort": null,
+        "humanInterpretation": "Phase 2 agent-6 (career) expert thisYear: balanced+aligned. Display-only narrative.",
+        "copyrightNote": "No source prose copied; original.",
+        "authorityTruthEligible": false
+      }
     },
     {
       "schemaVersion": "spring-ts.narrative-fragment.v1",
       "fragmentId": "career.thisYear.expert.conflicting.005",
-      "axis": { "category": "career", "period": "thisYear", "depth": "expert" },
-      "gating": { "yongshinAlignment": ["conflicting"] },
+      "axis": {
+        "category": "career",
+        "period": "thisYear",
+        "depth": "expert"
+      },
+      "gating": {
+        "yongshinAlignment": [
+          "conflicting"
+        ]
+      },
       "templateTokens": [
-        { "kind": "text", "value": "사주의 결과 " },
-        { "kind": "tag", "tagId": "yongshin", "label": "용신" },
-        { "kind": "text", "value": "의 결이 어긋난 올해는 결정의 무게가 분기마다 한 번씩 무거워질 수 있어요. " },
-        { "kind": "tag", "tagId": "pyeongwan", "label": "편관" },
-        { "kind": "text", "value": "이 들어오는 결이라면 압박이 크게 느껴지지만, " },
-        { "kind": "tag", "tagId": "jeongin", "label": "정인" },
-        { "kind": "text", "value": "의 받쳐 주는 결을 끌어다 두면 무게가 자리·결단으로 정돈돼요. " },
-        { "kind": "tag", "tagId": "daewoonGungsil", "label": "대운궁실" },
-        { "kind": "text", "value": "의 결이 어긋나는 시기엔 큰 결정을 분기 한 번으로 줄이는 결이 자기다워요. 부담을 다룬 한 해가 신뢰의 자산이 되는 결이에요." }
+        {
+          "kind": "text",
+          "value": "사주의 결과 "
+        },
+        {
+          "kind": "tag",
+          "tagId": "yongshin",
+          "label": "용신"
+        },
+        {
+          "kind": "text",
+          "value": "의 결이 어긋난 올해는 결정의 무게가 분기마다 한 번씩 무거워질 수 있어요. "
+        },
+        {
+          "kind": "tag",
+          "tagId": "pyeongwan",
+          "label": "편관"
+        },
+        {
+          "kind": "text",
+          "value": "이 들어오는 결이라면 압박이 크게 느껴지지만, "
+        },
+        {
+          "kind": "tag",
+          "tagId": "jeongin",
+          "label": "정인"
+        },
+        {
+          "kind": "text",
+          "value": "의 받쳐 주는 결을 끌어다 두면 무게가 자리·결단으로 정돈돼요. "
+        },
+        {
+          "kind": "tag",
+          "tagId": "daewoonGungsil",
+          "label": "대운궁실"
+        },
+        {
+          "kind": "text",
+          "value": "의 결이 어긋나는 시기엔 큰 결정을 분기 한 번으로 줄이는 리듬이 자기다워요. 부담을 다룬 한 해가 신뢰의 자산이 되는 결이에요."
+        }
       ],
-      "tags": ["yongshin", "pyeongwan", "jeongin", "daewoonGungsil"],
+      "tags": [
+        "yongshin",
+        "pyeongwan",
+        "jeongin",
+        "daewoonGungsil"
+      ],
       "aiGenerated": true,
-      "sourceTier": { "tier": "T1_HYPOTHESIS", "sourceType": "training_derived", "sourceUrl": null, "accessedAt": "2026-05-02", "quoteShort": null, "humanInterpretation": "Phase 2 agent-6 (career) expert thisYear: conflicting. Display-only narrative.", "copyrightNote": "No source prose copied; original.", "authorityTruthEligible": false }
+      "sourceTier": {
+        "tier": "T1_HYPOTHESIS",
+        "sourceType": "training_derived",
+        "sourceUrl": null,
+        "accessedAt": "2026-05-02",
+        "quoteShort": null,
+        "humanInterpretation": "Phase 2 agent-6 (career) expert thisYear: conflicting. Display-only narrative.",
+        "copyrightNote": "No source prose copied; original.",
+        "authorityTruthEligible": false
+      }
     },
     {
       "schemaVersion": "spring-ts.narrative-fragment.v1",
       "fragmentId": "career.thisYear.expert.jeonggwangyeok.006",
-      "axis": { "category": "career", "period": "thisYear", "depth": "expert" },
-      "gating": { "gyeokguk": ["jeonggwangyeok"] },
+      "axis": {
+        "category": "career",
+        "period": "thisYear",
+        "depth": "expert"
+      },
+      "gating": {
+        "gyeokguk": [
+          "jeonggwangyeok"
+        ]
+      },
       "templateTokens": [
-        { "kind": "text", "value": "올해의 결은 " },
-        { "kind": "tag", "tagId": "jeonggwangyeok", "label": "정관격" },
-        { "kind": "text", "value": "의 결을 따라 자리·자격의 큰 결정이 자연스럽게 정돈되는 흐름이에요. " },
-        { "kind": "tag", "tagId": "jeonggwan", "label": "정관" },
-        { "kind": "text", "value": "의 결이 또렷한 시기라 결재·약속·서류의 결이 깔끔하고, " },
-        { "kind": "tag", "tagId": "jeongin", "label": "정인" },
-        { "kind": "text", "value": "의 받쳐 주는 결을 함께 살펴 두면 결정의 깊이가 한 단계 자라요. " },
-        { "kind": "tag", "tagId": "daewoonGungsil", "label": "대운궁실" },
-        { "kind": "text", "value": "의 결이 정관과 같은 결이라면 큰 자리의 분기점이 한 번 더 또렷해지는 결이에요." }
+        {
+          "kind": "text",
+          "value": "올해의 결은 "
+        },
+        {
+          "kind": "tag",
+          "tagId": "jeonggwangyeok",
+          "label": "정관격"
+        },
+        {
+          "kind": "text",
+          "value": "의 결을 따라 자리·자격의 큰 결정이 자연스럽게 정돈되는 흐름이에요. "
+        },
+        {
+          "kind": "tag",
+          "tagId": "jeonggwan",
+          "label": "정관"
+        },
+        {
+          "kind": "text",
+          "value": "의 방향이 또렷한 시기라 결재·약속·서류의 결이 깔끔하고, "
+        },
+        {
+          "kind": "tag",
+          "tagId": "jeongin",
+          "label": "정인"
+        },
+        {
+          "kind": "text",
+          "value": "의 받쳐 주는 결을 함께 살펴 두면 결정의 깊이가 한 단계 자라요. "
+        },
+        {
+          "kind": "tag",
+          "tagId": "daewoonGungsil",
+          "label": "대운궁실"
+        },
+        {
+          "kind": "text",
+          "value": "의 결이 정관과 같은 결이라면 큰 자리의 분기점이 한 번 더 또렷해지는요."
+        }
       ],
-      "tags": ["jeonggwangyeok", "jeonggwan", "jeongin", "daewoonGungsil"],
+      "tags": [
+        "jeonggwangyeok",
+        "jeonggwan",
+        "jeongin",
+        "daewoonGungsil"
+      ],
       "aiGenerated": true,
-      "sourceTier": { "tier": "T1_HYPOTHESIS", "sourceType": "training_derived", "sourceUrl": null, "accessedAt": "2026-05-02", "quoteShort": null, "humanInterpretation": "Phase 2 agent-6 (career) expert thisYear: 정관격. Display-only narrative.", "copyrightNote": "No source prose copied; original.", "authorityTruthEligible": false }
+      "sourceTier": {
+        "tier": "T1_HYPOTHESIS",
+        "sourceType": "training_derived",
+        "sourceUrl": null,
+        "accessedAt": "2026-05-02",
+        "quoteShort": null,
+        "humanInterpretation": "Phase 2 agent-6 (career) expert thisYear: 정관격. Display-only narrative.",
+        "copyrightNote": "No source prose copied; original.",
+        "authorityTruthEligible": false
+      }
     },
     {
       "schemaVersion": "spring-ts.narrative-fragment.v1",
       "fragmentId": "career.thisYear.expert.pyeongwangyeok.007",
-      "axis": { "category": "career", "period": "thisYear", "depth": "expert" },
-      "gating": { "gyeokguk": ["pyeongwangyeok"] },
+      "axis": {
+        "category": "career",
+        "period": "thisYear",
+        "depth": "expert"
+      },
+      "gating": {
+        "gyeokguk": [
+          "pyeongwangyeok"
+        ]
+      },
       "templateTokens": [
-        { "kind": "text", "value": "올해의 결은 " },
-        { "kind": "tag", "tagId": "pyeongwangyeok", "label": "편관격" },
-        { "kind": "text", "value": "의 결을 따라 큰 결단·외부 무대의 자리에 강해지는 흐름이에요. " },
-        { "kind": "tag", "tagId": "pyeongwan", "label": "편관" },
-        { "kind": "text", "value": "이 또렷한 결이라 결정의 무게가 큰 일을 매듭짓기 좋고, " },
-        { "kind": "tag", "tagId": "jeongin", "label": "정인" },
-        { "kind": "text", "value": "의 받쳐 주는 결을 미리 끌어다 두면 압박이 자리·결단으로 다듬어져요. " },
-        { "kind": "tag", "tagId": "daewoonGungsil", "label": "대운궁실" },
-        { "kind": "text", "value": "의 결이 인성과 함께 들어오는 시기엔 큰 자리의 분기점이 한 번 더 또렷해지는 결이에요." }
+        {
+          "kind": "text",
+          "value": "올해의 결은 "
+        },
+        {
+          "kind": "tag",
+          "tagId": "pyeongwangyeok",
+          "label": "편관격"
+        },
+        {
+          "kind": "text",
+          "value": "의 결을 따라 큰 결단·외부 무대의 자리에 강해지는 흐름이에요. "
+        },
+        {
+          "kind": "tag",
+          "tagId": "pyeongwan",
+          "label": "편관"
+        },
+        {
+          "kind": "text",
+          "value": "이 또렷한 방향이라 결정의 무게가 큰 일을 매듭짓기 좋고, "
+        },
+        {
+          "kind": "tag",
+          "tagId": "jeongin",
+          "label": "정인"
+        },
+        {
+          "kind": "text",
+          "value": "의 받쳐 주는 결을 미리 끌어다 두면 압박이 자리·결단으로 다듬어져요. "
+        },
+        {
+          "kind": "tag",
+          "tagId": "daewoonGungsil",
+          "label": "대운궁실"
+        },
+        {
+          "kind": "text",
+          "value": "의 결이 인성과 함께 들어오는 시기엔 큰 자리의 분기점이 한 번 더 또렷해지는요."
+        }
       ],
-      "tags": ["pyeongwangyeok", "pyeongwan", "jeongin", "daewoonGungsil"],
+      "tags": [
+        "pyeongwangyeok",
+        "pyeongwan",
+        "jeongin",
+        "daewoonGungsil"
+      ],
       "aiGenerated": true,
-      "sourceTier": { "tier": "T1_HYPOTHESIS", "sourceType": "training_derived", "sourceUrl": null, "accessedAt": "2026-05-02", "quoteShort": null, "humanInterpretation": "Phase 2 agent-6 (career) expert thisYear: 편관격. Display-only narrative.", "copyrightNote": "No source prose copied; original.", "authorityTruthEligible": false }
+      "sourceTier": {
+        "tier": "T1_HYPOTHESIS",
+        "sourceType": "training_derived",
+        "sourceUrl": null,
+        "accessedAt": "2026-05-02",
+        "quoteShort": null,
+        "humanInterpretation": "Phase 2 agent-6 (career) expert thisYear: 편관격. Display-only narrative.",
+        "copyrightNote": "No source prose copied; original.",
+        "authorityTruthEligible": false
+      }
     },
     {
       "schemaVersion": "spring-ts.narrative-fragment.v1",
       "fragmentId": "career.thisYear.expert.age30plus.008",
-      "axis": { "category": "career", "period": "thisYear", "depth": "expert" },
-      "gating": { "ageBand": ["30-39", "40-54", "55-69"] },
+      "axis": {
+        "category": "career",
+        "period": "thisYear",
+        "depth": "expert"
+      },
+      "gating": {
+        "ageBand": [
+          "30-39",
+          "40-54",
+          "55-69"
+        ]
+      },
       "templateTokens": [
-        { "kind": "text", "value": "장년기의 올해는 " },
-        { "kind": "tag", "tagId": "jeonggwan", "label": "정관" },
-        { "kind": "text", "value": "의 결이 일과 책임을 통해 자기 결로 들어오는 흐름이에요. " },
-        { "kind": "tag", "tagId": "daewoonGungsil", "label": "대운궁실" },
-        { "kind": "text", "value": "의 결이 인성·관성으로 정돈되는 시기라면 결재·약속의 결이 자연스럽게 자라고, " },
-        { "kind": "tag", "tagId": "pyeongwan", "label": "편관" },
-        { "kind": "text", "value": "이 강해지는 결이라면 큰 결단을 매듭짓기 좋아요. " },
-        { "kind": "tag", "tagId": "jeongin", "label": "정인" },
-        { "kind": "text", "value": "의 받쳐 주는 결을 함께 챙겨 두면 자기 자리의 결이 한 단계 더 단단해지는 결이에요." }
+        {
+          "kind": "text",
+          "value": "장년기의 올해는 "
+        },
+        {
+          "kind": "tag",
+          "tagId": "jeonggwan",
+          "label": "정관"
+        },
+        {
+          "kind": "text",
+          "value": "의 결이 일과 책임을 통해 자기 결로 들어오는 흐름이에요. "
+        },
+        {
+          "kind": "tag",
+          "tagId": "daewoonGungsil",
+          "label": "대운궁실"
+        },
+        {
+          "kind": "text",
+          "value": "의 결이 인성·관성으로 정돈되는 시기라면 결재·약속의 리듬이 자연스럽게 자라고, "
+        },
+        {
+          "kind": "tag",
+          "tagId": "pyeongwan",
+          "label": "편관"
+        },
+        {
+          "kind": "text",
+          "value": "이 강해지는 결이라면 큰 결단을 매듭짓기 좋아요. "
+        },
+        {
+          "kind": "tag",
+          "tagId": "jeongin",
+          "label": "정인"
+        },
+        {
+          "kind": "text",
+          "value": "의 받쳐 주는 결을 함께 챙겨 두면 자기 자리의 중심이 한 단계 더 단단해지는요."
+        }
       ],
-      "tags": ["jeonggwan", "daewoonGungsil", "pyeongwan", "jeongin"],
+      "tags": [
+        "jeonggwan",
+        "daewoonGungsil",
+        "pyeongwan",
+        "jeongin"
+      ],
       "aiGenerated": true,
-      "sourceTier": { "tier": "T1_HYPOTHESIS", "sourceType": "training_derived", "sourceUrl": null, "accessedAt": "2026-05-02", "quoteShort": null, "humanInterpretation": "Phase 2 agent-6 (career) expert thisYear: 30+ adult. Display-only narrative.", "copyrightNote": "No source prose copied; original.", "authorityTruthEligible": false }
+      "sourceTier": {
+        "tier": "T1_HYPOTHESIS",
+        "sourceType": "training_derived",
+        "sourceUrl": null,
+        "accessedAt": "2026-05-02",
+        "quoteShort": null,
+        "humanInterpretation": "Phase 2 agent-6 (career) expert thisYear: 30+ adult. Display-only narrative.",
+        "copyrightNote": "No source prose copied; original.",
+        "authorityTruthEligible": false
+      }
     }
   ]
 }

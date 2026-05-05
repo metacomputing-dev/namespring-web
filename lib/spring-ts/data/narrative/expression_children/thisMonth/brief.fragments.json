@@ -8,10 +8,17 @@
     {
       "schemaVersion": "spring-ts.narrative-fragment.v1",
       "fragmentId": "expression_children.thisMonth.brief.wildcard.001",
-      "axis": { "category": "expression_children", "period": "thisMonth", "depth": "brief" },
+      "axis": {
+        "category": "expression_children",
+        "period": "thisMonth",
+        "depth": "brief"
+      },
       "gating": {},
       "templateTokens": [
-        { "kind": "text", "value": "이번 달은 표현이 한 단계 또렷해지는 결이에요." }
+        {
+          "kind": "text",
+          "value": "이번 달은 표현이 한 단계 또렷해지는요."
+        }
       ],
       "tags": [],
       "aiGenerated": true,
@@ -29,10 +36,21 @@
     {
       "schemaVersion": "spring-ts.narrative-fragment.v1",
       "fragmentId": "expression_children.thisMonth.brief.0_9.002",
-      "axis": { "category": "expression_children", "period": "thisMonth", "depth": "brief" },
-      "gating": { "ageBand": ["0-9"] },
+      "axis": {
+        "category": "expression_children",
+        "period": "thisMonth",
+        "depth": "brief"
+      },
+      "gating": {
+        "ageBand": [
+          "0-9"
+        ]
+      },
       "templateTokens": [
-        { "kind": "text", "value": "이번 달은 좋아하는 놀이가 한 단계 자라는 결이에요." }
+        {
+          "kind": "text",
+          "value": "이번 달은 좋아하는 놀이가 한 단계 자라는 결이에요."
+        }
       ],
       "tags": [],
       "aiGenerated": true,
@@ -50,10 +68,21 @@
     {
       "schemaVersion": "spring-ts.narrative-fragment.v1",
       "fragmentId": "expression_children.thisMonth.brief.10_19.003",
-      "axis": { "category": "expression_children", "period": "thisMonth", "depth": "brief" },
-      "gating": { "ageBand": ["10-19"] },
+      "axis": {
+        "category": "expression_children",
+        "period": "thisMonth",
+        "depth": "brief"
+      },
+      "gating": {
+        "ageBand": [
+          "10-19"
+        ]
+      },
       "templateTokens": [
-        { "kind": "text", "value": "이번 달은 자기 색이 한 뼘 단단해지는 결이에요." }
+        {
+          "kind": "text",
+          "value": "이번 달은 자기 색이 한 뼘 단단해지는요."
+        }
       ],
       "tags": [],
       "aiGenerated": true,
@@ -71,10 +100,21 @@
     {
       "schemaVersion": "spring-ts.narrative-fragment.v1",
       "fragmentId": "expression_children.thisMonth.brief.20_29.004",
-      "axis": { "category": "expression_children", "period": "thisMonth", "depth": "brief" },
-      "gating": { "ageBand": ["20-29"] },
+      "axis": {
+        "category": "expression_children",
+        "period": "thisMonth",
+        "depth": "brief"
+      },
+      "gating": {
+        "ageBand": [
+          "20-29"
+        ]
+      },
       "templateTokens": [
-        { "kind": "text", "value": "이번 달은 작은 작업물 한 묶음을 모아 보기 좋아요." }
+        {
+          "kind": "text",
+          "value": "이번 달은 작은 작업물 한 묶음을 모아 보기 좋아요."
+        }
       ],
       "tags": [],
       "aiGenerated": true,
@@ -92,10 +132,21 @@
     {
       "schemaVersion": "spring-ts.narrative-fragment.v1",
       "fragmentId": "expression_children.thisMonth.brief.30_39.005",
-      "axis": { "category": "expression_children", "period": "thisMonth", "depth": "brief" },
-      "gating": { "ageBand": ["30-39"] },
+      "axis": {
+        "category": "expression_children",
+        "period": "thisMonth",
+        "depth": "brief"
+      },
+      "gating": {
+        "ageBand": [
+          "30-39"
+        ]
+      },
       "templateTokens": [
-        { "kind": "text", "value": "이번 달은 가까운 사람과의 협업이 표현을 넓혀 줘요." }
+        {
+          "kind": "text",
+          "value": "이번 달은 가까운 사람과의 협업이 표현을 넓혀 줘요."
+        }
       ],
       "tags": [],
       "aiGenerated": true,
@@ -113,10 +164,21 @@
     {
       "schemaVersion": "spring-ts.narrative-fragment.v1",
       "fragmentId": "expression_children.thisMonth.brief.40_54.006",
-      "axis": { "category": "expression_children", "period": "thisMonth", "depth": "brief" },
-      "gating": { "ageBand": ["40-54"] },
+      "axis": {
+        "category": "expression_children",
+        "period": "thisMonth",
+        "depth": "brief"
+      },
+      "gating": {
+        "ageBand": [
+          "40-54"
+        ]
+      },
       "templateTokens": [
-        { "kind": "text", "value": "이번 달은 작업 한 묶음을 정리해 두기 좋은 결이에요." }
+        {
+          "kind": "text",
+          "value": "이번 달은 작업 한 묶음을 정리해 두기 좋은 흐름이에요."
+        }
       ],
       "tags": [],
       "aiGenerated": true,
@@ -134,10 +196,21 @@
     {
       "schemaVersion": "spring-ts.narrative-fragment.v1",
       "fragmentId": "expression_children.thisMonth.brief.55_69.007",
-      "axis": { "category": "expression_children", "period": "thisMonth", "depth": "brief" },
-      "gating": { "ageBand": ["55-69"] },
+      "axis": {
+        "category": "expression_children",
+        "period": "thisMonth",
+        "depth": "brief"
+      },
+      "gating": {
+        "ageBand": [
+          "55-69"
+        ]
+      },
       "templateTokens": [
-        { "kind": "text", "value": "이번 달은 다음 세대와의 자리가 깊어지는 결이에요." }
+        {
+          "kind": "text",
+          "value": "이번 달은 다음 세대와의 자리가 깊어지는요."
+        }
       ],
       "tags": [],
       "aiGenerated": true,
@@ -155,10 +228,21 @@
     {
       "schemaVersion": "spring-ts.narrative-fragment.v1",
       "fragmentId": "expression_children.thisMonth.brief.70plus.008",
-      "axis": { "category": "expression_children", "period": "thisMonth", "depth": "brief" },
-      "gating": { "ageBand": ["70+"] },
+      "axis": {
+        "category": "expression_children",
+        "period": "thisMonth",
+        "depth": "brief"
+      },
+      "gating": {
+        "ageBand": [
+          "70+"
+        ]
+      },
       "templateTokens": [
-        { "kind": "text", "value": "이번 달은 짧은 기록·이야기가 풍요로움을 더해 줘요." }
+        {
+          "kind": "text",
+          "value": "이번 달은 짧은 기록·이야기가 풍요로움을 더해 줘요."
+        }
       ],
       "tags": [],
       "aiGenerated": true,
@@ -176,10 +260,24 @@
     {
       "schemaVersion": "spring-ts.narrative-fragment.v1",
       "fragmentId": "expression_children.thisMonth.brief.strong_aligned.009",
-      "axis": { "category": "expression_children", "period": "thisMonth", "depth": "brief" },
-      "gating": { "dayMasterStrength": ["STRONG"], "yongshinAlignment": ["aligned"] },
+      "axis": {
+        "category": "expression_children",
+        "period": "thisMonth",
+        "depth": "brief"
+      },
+      "gating": {
+        "dayMasterStrength": [
+          "STRONG"
+        ],
+        "yongshinAlignment": [
+          "aligned"
+        ]
+      },
       "templateTokens": [
-        { "kind": "text", "value": "이번 달은 표현이 시원하게 풀려 나오는 결이에요." }
+        {
+          "kind": "text",
+          "value": "이번 달은 표현이 시원하게 풀려 나오는요."
+        }
       ],
       "tags": [],
       "aiGenerated": true,
@@ -197,10 +295,24 @@
     {
       "schemaVersion": "spring-ts.narrative-fragment.v1",
       "fragmentId": "expression_children.thisMonth.brief.weak_neutral.010",
-      "axis": { "category": "expression_children", "period": "thisMonth", "depth": "brief" },
-      "gating": { "dayMasterStrength": ["WEAK"], "yongshinAlignment": ["neutral"] },
+      "axis": {
+        "category": "expression_children",
+        "period": "thisMonth",
+        "depth": "brief"
+      },
+      "gating": {
+        "dayMasterStrength": [
+          "WEAK"
+        ],
+        "yongshinAlignment": [
+          "neutral"
+        ]
+      },
       "templateTokens": [
-        { "kind": "text", "value": "이번 달은 작은 매듭들이 모여 결이 단단해져요." }
+        {
+          "kind": "text",
+          "value": "이번 달은 작은 매듭들이 모여 중심이 단단해져요."
+        }
       ],
       "tags": [],
       "aiGenerated": true,
@@ -218,10 +330,24 @@
     {
       "schemaVersion": "spring-ts.narrative-fragment.v1",
       "fragmentId": "expression_children.thisMonth.brief.balanced_aligned.011",
-      "axis": { "category": "expression_children", "period": "thisMonth", "depth": "brief" },
-      "gating": { "dayMasterStrength": ["BALANCED"], "yongshinAlignment": ["aligned"] },
+      "axis": {
+        "category": "expression_children",
+        "period": "thisMonth",
+        "depth": "brief"
+      },
+      "gating": {
+        "dayMasterStrength": [
+          "BALANCED"
+        ],
+        "yongshinAlignment": [
+          "aligned"
+        ]
+      },
       "templateTokens": [
-        { "kind": "text", "value": "이번 달은 호흡이 잡혀 자기 색이 또렷해져요." }
+        {
+          "kind": "text",
+          "value": "이번 달은 호흡이 잡혀 자기 색이 또렷해져요."
+        }
       ],
       "tags": [],
       "aiGenerated": true,

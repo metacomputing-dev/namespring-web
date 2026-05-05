@@ -7,142 +7,400 @@
     {
       "schemaVersion": "spring-ts.narrative-fragment.v1",
       "fragmentId": "career.thisMonth.standard.wildcard.001",
-      "axis": { "category": "career", "period": "thisMonth", "depth": "standard" },
+      "axis": {
+        "category": "career",
+        "period": "thisMonth",
+        "depth": "standard"
+      },
       "gating": {},
       "templateTokens": [
-        { "kind": "text", "value": "이번 달의 직업 결을 한 줄로 그리면, 한 자리에서 신뢰가 한 줄 더 자라는 흐름이에요. 한 달은 하나의 큰 자리·결정의 결을 잡기 좋은 단위라, 우선되는 한두 가지 책임을 골라 깊이 매듭짓는 결이 잘 맞아요. 작은 일을 빠르게 처리하기보다 큰 결의 매듭을 챙기면 자리 폭이 한 단계 자라요. 한 달의 결정 결을 짧게 글로 정리해 두면, 다음 달의 결이 흔들림 없이 이어져요. 한 자리에서 단단해진 만큼 다음 자리도 단단해지는 결이에요." }
+        {
+          "kind": "text",
+          "value": "이번 달의 직업 결을 한 줄로 그리면, 한 자리에서 신뢰가 한 줄 더 자라는 흐름이에요. 한 달은 하나의 큰 자리·결정의 결을 잡기 좋은 단위라, 우선되는 한두 가지 책임을 골라 깊이 매듭짓는 흐름이 잘 맞아요. 작은 일을 빠르게 처리하기보다 큰 결의 매듭을 챙기면 자리 폭이 한 단계 자라요. 한 달의 결정 결을 짧게 글로 정리해 두면, 다음 달의 결이 흔들림 없이 이어져요. 한 자리에서 단단해진 만큼 다음 자리도 단단해지는요."
+        }
       ],
       "tags": [],
-      "livingTips": ["우선되는 두 가지 책임 매듭짓기", "월말에 결정 결을 한 줄 정리"],
-      "cautions": ["작은 일에만 시간 쓰지 않기"],
+      "livingTips": [
+        "우선되는 두 가지 책임 매듭짓기",
+        "월말에 결정 결을 한 줄 정리"
+      ],
+      "cautions": [
+        "작은 일에만 시간 쓰지 않기"
+      ],
       "aiGenerated": true,
-      "sourceTier": { "tier": "T1_HYPOTHESIS", "sourceType": "training_derived", "sourceUrl": null, "accessedAt": "2026-05-02", "quoteShort": null, "humanInterpretation": "Phase 2 agent-6 (career) standard thisMonth wildcard. Display-only narrative.", "copyrightNote": "No source prose copied; original.", "authorityTruthEligible": false }
+      "sourceTier": {
+        "tier": "T1_HYPOTHESIS",
+        "sourceType": "training_derived",
+        "sourceUrl": null,
+        "accessedAt": "2026-05-02",
+        "quoteShort": null,
+        "humanInterpretation": "Phase 2 agent-6 (career) standard thisMonth wildcard. Display-only narrative.",
+        "copyrightNote": "No source prose copied; original.",
+        "authorityTruthEligible": false
+      }
     },
     {
       "schemaVersion": "spring-ts.narrative-fragment.v1",
       "fragmentId": "career.thisMonth.standard.strong.aligned.002",
-      "axis": { "category": "career", "period": "thisMonth", "depth": "standard" },
-      "gating": { "dayMasterStrength": ["STRONG", "EXTREME_STRONG"], "yongshinAlignment": ["aligned"] },
+      "axis": {
+        "category": "career",
+        "period": "thisMonth",
+        "depth": "standard"
+      },
+      "gating": {
+        "dayMasterStrength": [
+          "STRONG",
+          "EXTREME_STRONG"
+        ],
+        "yongshinAlignment": [
+          "aligned"
+        ]
+      },
       "templateTokens": [
-        { "kind": "text", "value": "이번 달의 직업 결은 굵직한 결정 한두 가지가 자리의 폭을 한 단계 넓혀 주는 흐름이에요. 어깨가 단단한 결이라 책임의 무게가 큰 일도 자기 페이스로 끌고 갈 수 있어요. 한 번에 여러 결정을 묶기보다 가장 큰 한 가지를 매듭지은 뒤 작은 일들로 옮겨 가는 결이 깔끔해요. 후배·동료에게 결정의 결을 짧게 공유해 두면 다음 결정에서 도움받기 좋아요. 이번 달의 매듭이 다음 분기 자리의 폭을 또렷하게 만들어 줘요." }
+        {
+          "kind": "text",
+          "value": "이번 달의 직업 결은 굵직한 결정 한두 가지가 자리의 폭을 한 단계 넓혀 주는 흐름이에요. 어깨가 단단한 자리가라 책임의 무게가 큰 일도 자기 페이스로 끌고 갈 수 있어요. 한 번에 여러 결정을 묶기보다 가장 큰 한 가지를 매듭지은 뒤 작은 일들로 옮겨 가는 결이 깔끔해요. 후배·동료에게 결정의 결을 짧게 공유해 두면 다음 결정에서 도움받기 좋아요. 이번 달의 매듭이 다음 분기 자리의 폭을 또렷하게 만들어 줘요."
+        }
       ],
       "tags": [],
-      "livingTips": ["가장 큰 결정은 월 초반에 매듭짓기", "결정 결을 글로 공유하기"],
-      "cautions": ["혼자 모든 결정 떠안지 않기"],
+      "livingTips": [
+        "가장 큰 결정은 월 초반에 매듭짓기",
+        "결정 결을 글로 공유하기"
+      ],
+      "cautions": [
+        "혼자 모든 결정 떠안지 않기"
+      ],
       "aiGenerated": true,
-      "sourceTier": { "tier": "T1_HYPOTHESIS", "sourceType": "training_derived", "sourceUrl": null, "accessedAt": "2026-05-02", "quoteShort": null, "humanInterpretation": "Phase 2 agent-6 (career) standard thisMonth: strong+aligned. Display-only narrative.", "copyrightNote": "No source prose copied; original.", "authorityTruthEligible": false }
+      "sourceTier": {
+        "tier": "T1_HYPOTHESIS",
+        "sourceType": "training_derived",
+        "sourceUrl": null,
+        "accessedAt": "2026-05-02",
+        "quoteShort": null,
+        "humanInterpretation": "Phase 2 agent-6 (career) standard thisMonth: strong+aligned. Display-only narrative.",
+        "copyrightNote": "No source prose copied; original.",
+        "authorityTruthEligible": false
+      }
     },
     {
       "schemaVersion": "spring-ts.narrative-fragment.v1",
       "fragmentId": "career.thisMonth.standard.weak.aligned.003",
-      "axis": { "category": "career", "period": "thisMonth", "depth": "standard" },
-      "gating": { "dayMasterStrength": ["WEAK", "EXTREME_WEAK"], "yongshinAlignment": ["aligned"] },
+      "axis": {
+        "category": "career",
+        "period": "thisMonth",
+        "depth": "standard"
+      },
+      "gating": {
+        "dayMasterStrength": [
+          "WEAK",
+          "EXTREME_WEAK"
+        ],
+        "yongshinAlignment": [
+          "aligned"
+        ]
+      },
       "templateTokens": [
-        { "kind": "text", "value": "이번 달의 직업 결은 도움받는 손과 함께 자리가 길게 받쳐지는 흐름이에요. 어깨가 가벼운 결일수록 한 사람의 짧은 의견이 결정의 결을 또렷하게 만들어 줘요. 한 달에 한 번은 신뢰할 만한 멘토와 짧은 만남을 잡아 두면 결의 결정이 한결 단단해져요. 큰 결정이 들어왔다면 며칠 묵혀 두는 결이 자기다워요. 도움받은 만큼 갚는 결을 메모해 두면 다음 자리에서도 인연이 길게 이어져요." }
+        {
+          "kind": "text",
+          "value": "이번 달의 직업 결은 도움받는 손과 함께 자리가 길게 받쳐지는 흐름이에요. 어깨가 가벼운 결일수록 한 사람의 짧은 의견이 결정의 결을 또렷하게 만들어 줘요. 한 달에 한 번은 신뢰할 만한 멘토와 짧은 만남을 잡아 두면 결의 결정이 한결 단단해져요. 큰 결정이 들어왔다면 며칠 묵혀 두는 리듬이 자기다워요. 도움받은 만큼 갚는 결을 메모해 두면 다음 자리에서도 인연이 길게 이어져요."
+        }
       ],
       "tags": [],
-      "livingTips": ["월 1회 멘토 만남 잡기", "도움받은 결을 메모해 두기"],
-      "cautions": ["혼자 안고 결정하지 않기"],
+      "livingTips": [
+        "월 1회 멘토 만남 잡기",
+        "도움받은 결을 메모해 두기"
+      ],
+      "cautions": [
+        "혼자 안고 결정하지 않기"
+      ],
       "aiGenerated": true,
-      "sourceTier": { "tier": "T1_HYPOTHESIS", "sourceType": "training_derived", "sourceUrl": null, "accessedAt": "2026-05-02", "quoteShort": null, "humanInterpretation": "Phase 2 agent-6 (career) standard thisMonth: weak+aligned. Display-only narrative.", "copyrightNote": "No source prose copied; original.", "authorityTruthEligible": false }
+      "sourceTier": {
+        "tier": "T1_HYPOTHESIS",
+        "sourceType": "training_derived",
+        "sourceUrl": null,
+        "accessedAt": "2026-05-02",
+        "quoteShort": null,
+        "humanInterpretation": "Phase 2 agent-6 (career) standard thisMonth: weak+aligned. Display-only narrative.",
+        "copyrightNote": "No source prose copied; original.",
+        "authorityTruthEligible": false
+      }
     },
     {
       "schemaVersion": "spring-ts.narrative-fragment.v1",
       "fragmentId": "career.thisMonth.standard.balanced.neutral.004",
-      "axis": { "category": "career", "period": "thisMonth", "depth": "standard" },
-      "gating": { "dayMasterStrength": ["BALANCED"], "yongshinAlignment": ["neutral"] },
+      "axis": {
+        "category": "career",
+        "period": "thisMonth",
+        "depth": "standard"
+      },
+      "gating": {
+        "dayMasterStrength": [
+          "BALANCED"
+        ],
+        "yongshinAlignment": [
+          "neutral"
+        ]
+      },
       "templateTokens": [
-        { "kind": "text", "value": "이번 달의 직업 결은 익숙한 페이스로 자리를 키워 가는 흐름이에요. 큰 결정보다 평소 미뤄 두었던 정리·점검에 무게를 두면 다음 달이 가벼워져요. 월 초반에 한 달의 결을 짧게 적어 두고, 월말에 다시 점검해 두면 자리의 결이 한결 깔끔해져요. 새 자극이 들어와도 일단 메모해 두고 다음 달로 넘기는 결이 잘 맞아요. 이번 달의 정돈이 한 분기의 결정 한 가지를 가볍게 만들어 줘요." }
+        {
+          "kind": "text",
+          "value": "이번 달의 직업 결은 익숙한 페이스로 자리를 키워 가는 흐름이에요. 큰 결정보다 평소 미뤄 두었던 정리·점검에 무게를 두면 다음 달이 가벼워져요. 월 초반에 한 달의 결을 짧게 적어 두고, 월말에 다시 점검해 두면 자리의 중심이 한결 깔끔해져요. 새 자극이 들어와도 일단 메모해 두고 다음 달로 넘기는 흐름이 잘 맞아요. 이번 달의 정돈이 한 분기의 결정 한 가지를 가볍게 만들어 줘요."
+        }
       ],
       "tags": [],
-      "livingTips": ["월 초반에 결을 짧게 적어 두기", "월말에 결정 결을 정리"],
-      "cautions": ["새 자극은 메모로 옮겨 두기"],
+      "livingTips": [
+        "월 초반에 결을 짧게 적어 두기",
+        "월말에 결정 결을 정리"
+      ],
+      "cautions": [
+        "새 자극은 메모로 옮겨 두기"
+      ],
       "aiGenerated": true,
-      "sourceTier": { "tier": "T1_HYPOTHESIS", "sourceType": "training_derived", "sourceUrl": null, "accessedAt": "2026-05-02", "quoteShort": null, "humanInterpretation": "Phase 2 agent-6 (career) standard thisMonth: balanced. Display-only narrative.", "copyrightNote": "No source prose copied; original.", "authorityTruthEligible": false }
+      "sourceTier": {
+        "tier": "T1_HYPOTHESIS",
+        "sourceType": "training_derived",
+        "sourceUrl": null,
+        "accessedAt": "2026-05-02",
+        "quoteShort": null,
+        "humanInterpretation": "Phase 2 agent-6 (career) standard thisMonth: balanced. Display-only narrative.",
+        "copyrightNote": "No source prose copied; original.",
+        "authorityTruthEligible": false
+      }
     },
     {
       "schemaVersion": "spring-ts.narrative-fragment.v1",
       "fragmentId": "career.thisMonth.standard.conflicting.005",
-      "axis": { "category": "career", "period": "thisMonth", "depth": "standard" },
-      "gating": { "yongshinAlignment": ["conflicting"] },
+      "axis": {
+        "category": "career",
+        "period": "thisMonth",
+        "depth": "standard"
+      },
+      "gating": {
+        "yongshinAlignment": [
+          "conflicting"
+        ]
+      },
       "templateTokens": [
-        { "kind": "text", "value": "이번 달의 직업 결은 부담이 약간 무겁게 들어오는 흐름이에요. 큰 결정을 즉답하기보다 한 주 정도 묵혀 두면 결이 또렷해지고, 응원해 줄 사람 한 명에게 짧게 한마디 듣고 가면 무게가 가벼워져요. 한 달 동안 다 풀지 못한 일은 다음 달로 넘겨 두는 결정이 더 자기다워요. 부담의 시기엔 자기 페이스를 흔들지 말고, 가장 작은 한 가지부터 매듭짓는 결로 가면 좋아요. 부담을 다룬 한 달이 자기 결을 단단하게 만들어요." }
+        {
+          "kind": "text",
+          "value": "이번 달의 직업 결은 부담이 약간 무겁게 들어오는 흐름이에요. 큰 결정을 즉답하기보다 한 주 정도 묵혀 두면 방향이 또렷해지고, 응원해 줄 사람 한 명에게 짧게 한마디 듣고 가면 무게가 가벼워져요. 한 달 동안 다 풀지 못한 일은 다음 달로 넘겨 두는 결정이 더 자기다워요. 부담의 시기엔 자기 페이스를 흔들지 말고, 가장 작은 한 가지부터 매듭짓는 방향으로 가면 좋아요. 부담을 다룬 한 달이 자기 결을 단단하게 만들어요."
+        }
       ],
       "tags": [],
-      "livingTips": ["응원해 줄 한 사람에게 묻기", "큰 결정은 한 주 묵혀 두기"],
-      "cautions": ["다 풀지 못해도 괜찮아요"],
+      "livingTips": [
+        "응원해 줄 한 사람에게 묻기",
+        "큰 결정은 한 주 묵혀 두기"
+      ],
+      "cautions": [
+        "다 풀지 못해도 괜찮아요"
+      ],
       "aiGenerated": true,
-      "sourceTier": { "tier": "T1_HYPOTHESIS", "sourceType": "training_derived", "sourceUrl": null, "accessedAt": "2026-05-02", "quoteShort": null, "humanInterpretation": "Phase 2 agent-6 (career) standard thisMonth: conflicting. Display-only narrative.", "copyrightNote": "No source prose copied; original.", "authorityTruthEligible": false }
+      "sourceTier": {
+        "tier": "T1_HYPOTHESIS",
+        "sourceType": "training_derived",
+        "sourceUrl": null,
+        "accessedAt": "2026-05-02",
+        "quoteShort": null,
+        "humanInterpretation": "Phase 2 agent-6 (career) standard thisMonth: conflicting. Display-only narrative.",
+        "copyrightNote": "No source prose copied; original.",
+        "authorityTruthEligible": false
+      }
     },
     {
       "schemaVersion": "spring-ts.narrative-fragment.v1",
       "fragmentId": "career.thisMonth.standard.age10_19.006",
-      "axis": { "category": "career", "period": "thisMonth", "depth": "standard" },
-      "gating": { "ageBand": ["10-19"] },
+      "axis": {
+        "category": "career",
+        "period": "thisMonth",
+        "depth": "standard"
+      },
+      "gating": {
+        "ageBand": [
+          "10-19"
+        ]
+      },
       "templateTokens": [
-        { "kind": "text", "value": "이번 달은 마음에 닿는 관심사 하나를 더 깊이 파 보기 좋은 흐름이에요. 한 가지 분야의 책 한 권이나 자료 묶음을 한 달 동안 챙겨 두면, 미래의 자리가 자기에게 맞춰져 와요. 어른의 직업 단어에 너무 빨리 자기를 끼워 맞추지 않아도 괜찮아요. 한 달의 끝에 '시간이 빨리 지나간 일'을 적어 두면 다음 단계의 결이 또렷해져요. 작은 호기심의 결이 길게 자라는 한 달이에요." }
+        {
+          "kind": "text",
+          "value": "이번 달은 마음에 닿는 관심사 하나를 더 깊이 파 보기 좋은 흐름이에요. 한 가지 분야의 책 한 권이나 자료 묶음을 한 달 동안 챙겨 두면, 미래의 자리가 자기에게 맞춰져 와요. 어른의 직업 단어에 너무 빨리 자기를 끼워 맞추지 않아도 괜찮아요. 한 달의 끝에 '시간이 빨리 지나간 일'을 적어 두면 다음 단계의 방향이 또렷해져요. 작은 호기심의 결이 길게 자라는 한 달이에요."
+        }
       ],
       "tags": [],
-      "livingTips": ["한 분야 책 한 권 챙기기", "월말에 빠르게 지난 일 적어 두기"],
-      "cautions": ["어른의 직업명에 갇히지 않기"],
+      "livingTips": [
+        "한 분야 책 한 권 챙기기",
+        "월말에 빠르게 지난 일 적어 두기"
+      ],
+      "cautions": [
+        "어른의 직업명에 갇히지 않기"
+      ],
       "aiGenerated": true,
-      "sourceTier": { "tier": "T1_HYPOTHESIS", "sourceType": "training_derived", "sourceUrl": null, "accessedAt": "2026-05-02", "quoteShort": null, "humanInterpretation": "Phase 2 agent-6 (career) standard thisMonth: 10-19 youth. Display-only narrative.", "copyrightNote": "No source prose copied; original.", "authorityTruthEligible": false }
+      "sourceTier": {
+        "tier": "T1_HYPOTHESIS",
+        "sourceType": "training_derived",
+        "sourceUrl": null,
+        "accessedAt": "2026-05-02",
+        "quoteShort": null,
+        "humanInterpretation": "Phase 2 agent-6 (career) standard thisMonth: 10-19 youth. Display-only narrative.",
+        "copyrightNote": "No source prose copied; original.",
+        "authorityTruthEligible": false
+      }
     },
     {
       "schemaVersion": "spring-ts.narrative-fragment.v1",
       "fragmentId": "career.thisMonth.standard.age20_29.007",
-      "axis": { "category": "career", "period": "thisMonth", "depth": "standard" },
-      "gating": { "ageBand": ["20-29"] },
+      "axis": {
+        "category": "career",
+        "period": "thisMonth",
+        "depth": "standard"
+      },
+      "gating": {
+        "ageBand": [
+          "20-29"
+        ]
+      },
       "templateTokens": [
-        { "kind": "text", "value": "이번 달의 직업 결은 첫 자리에서의 작은 인정이 자라는 흐름이에요. 한 달이라는 단위는 한 가지 결과물·작은 마무리를 만들기 좋아요. 빠른 이동보다 한 자리에서의 마무리가 자기 결의 자산이 된다는 점을 메모해 두면 좋아요. 같이 일하는 사람 한 명에게 한 번은 솔직한 의견을 청해 두면 결이 또렷해져요. 시작의 결이 한 달 단위로 단단해지는 결이에요." }
+        {
+          "kind": "text",
+          "value": "이번 달의 직업 결은 첫 자리에서의 작은 인정이 자라는 흐름이에요. 한 달이라는 단위는 한 가지 결과물·작은 마무리를 만들기 좋아요. 빠른 이동보다 한 자리에서의 마무리가 자기 결의 자산이 된다는 점을 메모해 두면 좋아요. 같이 일하는 사람 한 명에게 한 번은 솔직한 의견을 청해 두면 방향이 또렷해져요. 시작의 중심이 한 달 단위로 단단해지는요."
+        }
       ],
       "tags": [],
-      "livingTips": ["한 달 단위 결과물 한 가지 만들기", "한 사람의 솔직한 의견 듣기"],
-      "cautions": ["빠른 이동만 좇지 않기"],
+      "livingTips": [
+        "한 달 단위 결과물 한 가지 만들기",
+        "한 사람의 솔직한 의견 듣기"
+      ],
+      "cautions": [
+        "빠른 이동만 좇지 않기"
+      ],
       "aiGenerated": true,
-      "sourceTier": { "tier": "T1_HYPOTHESIS", "sourceType": "training_derived", "sourceUrl": null, "accessedAt": "2026-05-02", "quoteShort": null, "humanInterpretation": "Phase 2 agent-6 (career) standard thisMonth: 20s. Display-only narrative.", "copyrightNote": "No source prose copied; original.", "authorityTruthEligible": false }
+      "sourceTier": {
+        "tier": "T1_HYPOTHESIS",
+        "sourceType": "training_derived",
+        "sourceUrl": null,
+        "accessedAt": "2026-05-02",
+        "quoteShort": null,
+        "humanInterpretation": "Phase 2 agent-6 (career) standard thisMonth: 20s. Display-only narrative.",
+        "copyrightNote": "No source prose copied; original.",
+        "authorityTruthEligible": false
+      }
     },
     {
       "schemaVersion": "spring-ts.narrative-fragment.v1",
       "fragmentId": "career.thisMonth.standard.age30_39.008",
-      "axis": { "category": "career", "period": "thisMonth", "depth": "standard" },
-      "gating": { "ageBand": ["30-39"] },
+      "axis": {
+        "category": "career",
+        "period": "thisMonth",
+        "depth": "standard"
+      },
+      "gating": {
+        "ageBand": [
+          "30-39"
+        ]
+      },
       "templateTokens": [
-        { "kind": "text", "value": "이번 달의 직업 결은 받은 자리에 책임이 한 줄 더 쌓이는 흐름이에요. 후배·동료의 작은 질문에 짧게라도 답을 주면 자기 자리의 결이 한결 단단해져요. 큰 결정의 무게가 들어올 때는 함께 의논할 사람 한 명을 미리 정해 두면 흔들림이 적어요. 일과 가족 사이의 균형이 어느 한쪽으로 기울지 않게 자기 페이스를 적어 두면 좋아요. 이번 달의 신뢰의 한 줄이 다음 자리의 디딤돌이 돼요." }
+        {
+          "kind": "text",
+          "value": "이번 달의 직업 결은 받은 자리에 책임이 한 줄 더 쌓이는 흐름이에요. 후배·동료의 작은 질문에 짧게라도 답을 주면 자기 자리의 중심이 한결 단단해져요. 큰 결정의 무게가 들어올 때는 함께 의논할 사람 한 명을 미리 정해 두면 흔들림이 적어요. 일과 가족 사이의 균형이 어느 한쪽으로 기울지 않게 자기 페이스를 적어 두면 좋아요. 이번 달의 신뢰의 한 줄이 다음 자리의 디딤돌이 돼요."
+        }
       ],
       "tags": [],
-      "livingTips": ["함께 의논할 사람 한 명 정하기", "후배 질문에 짧게라도 답하기"],
-      "cautions": ["일·가족 균형 한쪽으로 기울지 않기"],
+      "livingTips": [
+        "함께 의논할 사람 한 명 정하기",
+        "후배 질문에 짧게라도 답하기"
+      ],
+      "cautions": [
+        "일·가족 균형 한쪽으로 기울지 않기"
+      ],
       "aiGenerated": true,
-      "sourceTier": { "tier": "T1_HYPOTHESIS", "sourceType": "training_derived", "sourceUrl": null, "accessedAt": "2026-05-02", "quoteShort": null, "humanInterpretation": "Phase 2 agent-6 (career) standard thisMonth: 30s. Display-only narrative.", "copyrightNote": "No source prose copied; original.", "authorityTruthEligible": false }
+      "sourceTier": {
+        "tier": "T1_HYPOTHESIS",
+        "sourceType": "training_derived",
+        "sourceUrl": null,
+        "accessedAt": "2026-05-02",
+        "quoteShort": null,
+        "humanInterpretation": "Phase 2 agent-6 (career) standard thisMonth: 30s. Display-only narrative.",
+        "copyrightNote": "No source prose copied; original.",
+        "authorityTruthEligible": false
+      }
     },
     {
       "schemaVersion": "spring-ts.narrative-fragment.v1",
       "fragmentId": "career.thisMonth.standard.age40_54.009",
-      "axis": { "category": "career", "period": "thisMonth", "depth": "standard" },
-      "gating": { "ageBand": ["40-54"] },
+      "axis": {
+        "category": "career",
+        "period": "thisMonth",
+        "depth": "standard"
+      },
+      "gating": {
+        "ageBand": [
+          "40-54"
+        ]
+      },
       "templateTokens": [
-        { "kind": "text", "value": "이번 달의 직업운은 그동안 쌓아 온 신뢰가 새 기회의 문을 한 번 더 열어 주는 시기예요. 큰 결정의 무게가 들어올 때 한 박자 늦춰 두면 기준이 또렷해지고, 후배 한 명에게 길을 알려 주는 시간을 잡아 두면 자기 기준도 함께 자라요. 자기 분야 밖의 새 관점을 한 줄씩 더해 두면 다음 분기의 선택지가 좁아지지 않아요. 한 달의 결정 기준을 짧게 글로 정리해 두는 습관이 큰 자산이에요." }
+        {
+          "kind": "text",
+          "value": "이번 달의 직업운은 그동안 쌓아 온 신뢰가 새 기회의 문을 한 번 더 열어 주는 시기예요. 큰 결정의 무게가 들어올 때 한 박자 늦춰 두면 기준이 또렷해지고, 후배 한 명에게 길을 알려 주는 시간을 잡아 두면 자기 기준도 함께 자라요. 자기 분야 밖의 새 관점을 한 줄씩 더해 두면 다음 분기의 선택지가 좁아지지 않아요. 한 달의 결정 기준을 짧게 글로 정리해 두는 습관이 큰 자산이에요."
+        }
       ],
       "tags": [],
-      "livingTips": ["큰 결정은 한 박자 늦추기", "후배에게 길 한 번 알려 주기"],
-      "cautions": ["자기 분야에만 갇히지 않기"],
+      "livingTips": [
+        "큰 결정은 한 박자 늦추기",
+        "후배에게 길 한 번 알려 주기"
+      ],
+      "cautions": [
+        "자기 분야에만 갇히지 않기"
+      ],
       "aiGenerated": true,
-      "sourceTier": { "tier": "T1_HYPOTHESIS", "sourceType": "training_derived", "sourceUrl": null, "accessedAt": "2026-05-02", "quoteShort": null, "humanInterpretation": "Phase 2 agent-6 (career) standard thisMonth: 40-54. Display-only narrative.", "copyrightNote": "No source prose copied; original.", "authorityTruthEligible": false }
+      "sourceTier": {
+        "tier": "T1_HYPOTHESIS",
+        "sourceType": "training_derived",
+        "sourceUrl": null,
+        "accessedAt": "2026-05-02",
+        "quoteShort": null,
+        "humanInterpretation": "Phase 2 agent-6 (career) standard thisMonth: 40-54. Display-only narrative.",
+        "copyrightNote": "No source prose copied; original.",
+        "authorityTruthEligible": false
+      }
     },
     {
       "schemaVersion": "spring-ts.narrative-fragment.v1",
       "fragmentId": "career.thisMonth.standard.age55plus.010",
-      "axis": { "category": "career", "period": "thisMonth", "depth": "standard" },
-      "gating": { "ageBand": ["55-69", "70+"] },
+      "axis": {
+        "category": "career",
+        "period": "thisMonth",
+        "depth": "standard"
+      },
+      "gating": {
+        "ageBand": [
+          "55-69",
+          "70+"
+        ]
+      },
       "templateTokens": [
-        { "kind": "text", "value": "이번 달의 직업 결은 오래 쌓아 온 결을 후배에게 한 줄 나누기 좋은 흐름이에요. 큰 결정·새 도전보다 후배·동료의 결정을 옆에서 비춰 주는 자리에 무게를 두면 결이 부드러워져요. 자기 노하우 한 가지를 짧은 글이나 대화로 풀어 두면, 그게 누군가의 자리의 디딤돌이 돼요. 무리한 일정보다 자기 페이스의 결을 우선 두는 게 좋아요. 한 달의 한 줄 나눔이 자기 결의 또 다른 자리를 만들어 줘요." }
+        {
+          "kind": "text",
+          "value": "이번 달의 직업 결은 오래 쌓아 온 결을 후배에게 한 줄 나누기 좋은 흐름이에요. 큰 결정·새 도전보다 후배·동료의 결정을 옆에서 비춰 주는 자리에 무게를 두면 호흡이 부드러워져요. 자기 노하우 한 가지를 짧은 글이나 대화로 풀어 두면, 그게 누군가의 자리의 디딤돌이 돼요. 무리한 일정보다 자기 페이스의 결을 우선 두는 게 좋아요. 한 달의 한 줄 나눔이 자기 결의 또 다른 자리를 만들어 줘요."
+        }
       ],
       "tags": [],
-      "livingTips": ["주 1회 노하우 한 줄 정리", "후배 결정에 짧은 의견 주기"],
-      "cautions": ["무리한 일정 늘리지 않기"],
+      "livingTips": [
+        "주 1회 노하우 한 줄 정리",
+        "후배 결정에 짧은 의견 주기"
+      ],
+      "cautions": [
+        "무리한 일정 늘리지 않기"
+      ],
       "aiGenerated": true,
-      "sourceTier": { "tier": "T1_HYPOTHESIS", "sourceType": "training_derived", "sourceUrl": null, "accessedAt": "2026-05-02", "quoteShort": null, "humanInterpretation": "Phase 2 agent-6 (career) standard thisMonth: 55+ legacy. Display-only narrative.", "copyrightNote": "No source prose copied; original.", "authorityTruthEligible": false }
+      "sourceTier": {
+        "tier": "T1_HYPOTHESIS",
+        "sourceType": "training_derived",
+        "sourceUrl": null,
+        "accessedAt": "2026-05-02",
+        "quoteShort": null,
+        "humanInterpretation": "Phase 2 agent-6 (career) standard thisMonth: 55+ legacy. Display-only narrative.",
+        "copyrightNote": "No source prose copied; original.",
+        "authorityTruthEligible": false
+      }
     }
   ]
 }

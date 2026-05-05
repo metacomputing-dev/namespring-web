@@ -7,17 +7,39 @@
     {
       "schemaVersion": "spring-ts.narrative-fragment.v1",
       "fragmentId": "wealth.thisYear.brief.wildcard.001",
-      "axis": { "category": "wealth", "period": "thisYear", "depth": "brief" },
-      "gating": { "ageBand": ["20-29", "30-39", "40-54", "55-69", "70+"] },
+      "axis": {
+        "category": "wealth",
+        "period": "thisYear",
+        "depth": "brief"
+      },
+      "gating": {
+        "ageBand": [
+          "20-29",
+          "30-39",
+          "40-54",
+          "55-69",
+          "70+"
+        ]
+      },
       "templateTokens": [
-        { "kind": "text", "value": "올해 재물은 " },
-        { "kind": "slot", "name": "phrase", "type": "phrase" },
-        { "kind": "text", "value": "." }
+        {
+          "kind": "text",
+          "value": "올해 재물은 "
+        },
+        {
+          "kind": "slot",
+          "name": "phrase",
+          "type": "phrase"
+        },
+        {
+          "kind": "text",
+          "value": "."
+        }
       ],
       "slots": {
         "phrase": [
           "차곡차곡 모이는 결이에요",
-          "관리의 결이 또렷해지는 해예요",
+          "관리의 방향이 또렷해지는 해예요",
           "기준 한 줄을 다듬기 좋은 해예요"
         ]
       },
@@ -37,21 +59,44 @@
     {
       "schemaVersion": "spring-ts.narrative-fragment.v1",
       "fragmentId": "wealth.thisYear.brief.strong.aligned.30_39.male.002",
-      "axis": { "category": "wealth", "period": "thisYear", "depth": "brief" },
+      "axis": {
+        "category": "wealth",
+        "period": "thisYear",
+        "depth": "brief"
+      },
       "gating": {
-        "gender": ["male"],
-        "ageBand": ["30-39"],
-        "dayMasterStrength": ["STRONG", "EXTREME_STRONG"],
-        "yongshinAlignment": ["aligned"]
+        "gender": [
+          "male"
+        ],
+        "ageBand": [
+          "30-39"
+        ],
+        "dayMasterStrength": [
+          "STRONG",
+          "EXTREME_STRONG"
+        ],
+        "yongshinAlignment": [
+          "aligned"
+        ]
       },
       "templateTokens": [
-        { "kind": "text", "value": "올해는 " },
-        { "kind": "slot", "name": "phrase", "type": "phrase" },
-        { "kind": "text", "value": "." }
+        {
+          "kind": "text",
+          "value": "올해는 "
+        },
+        {
+          "kind": "slot",
+          "name": "phrase",
+          "type": "phrase"
+        },
+        {
+          "kind": "text",
+          "value": "."
+        }
       ],
       "slots": {
         "phrase": [
-          "큰 거래의 결이 또렷해지는 해예요",
+          "큰 거래의 방향이 또렷해지는 해예요",
           "추진력이 빛을 내는 한 해예요",
           "결정의 무게가 단단해지는 결이에요"
         ]
@@ -72,21 +117,40 @@
     {
       "schemaVersion": "spring-ts.narrative-fragment.v1",
       "fragmentId": "wealth.thisYear.brief.strong.aligned.003",
-      "axis": { "category": "wealth", "period": "thisYear", "depth": "brief" },
+      "axis": {
+        "category": "wealth",
+        "period": "thisYear",
+        "depth": "brief"
+      },
       "gating": {
-        "dayMasterStrength": ["STRONG", "EXTREME_STRONG"],
-        "yongshinAlignment": ["aligned"]
+        "dayMasterStrength": [
+          "STRONG",
+          "EXTREME_STRONG"
+        ],
+        "yongshinAlignment": [
+          "aligned"
+        ]
       },
       "templateTokens": [
-        { "kind": "text", "value": "올해는 " },
-        { "kind": "slot", "name": "phrase", "type": "phrase" },
-        { "kind": "text", "value": "." }
+        {
+          "kind": "text",
+          "value": "올해는 "
+        },
+        {
+          "kind": "slot",
+          "name": "phrase",
+          "type": "phrase"
+        },
+        {
+          "kind": "text",
+          "value": "."
+        }
       ],
       "slots": {
         "phrase": [
           "큰 흐름을 단단히 잡는 해예요",
           "추진력이 잘 풀리는 한 해예요",
-          "확장과 결정의 결이 또렷한 해예요"
+          "확장과 결정의 방향이 또렷한 해예요"
         ]
       },
       "tags": [],
@@ -105,15 +169,33 @@
     {
       "schemaVersion": "spring-ts.narrative-fragment.v1",
       "fragmentId": "wealth.thisYear.brief.balanced.aligned.004",
-      "axis": { "category": "wealth", "period": "thisYear", "depth": "brief" },
+      "axis": {
+        "category": "wealth",
+        "period": "thisYear",
+        "depth": "brief"
+      },
       "gating": {
-        "dayMasterStrength": ["BALANCED"],
-        "yongshinAlignment": ["aligned"]
+        "dayMasterStrength": [
+          "BALANCED"
+        ],
+        "yongshinAlignment": [
+          "aligned"
+        ]
       },
       "templateTokens": [
-        { "kind": "text", "value": "올해는 " },
-        { "kind": "slot", "name": "phrase", "type": "phrase" },
-        { "kind": "text", "value": "." }
+        {
+          "kind": "text",
+          "value": "올해는 "
+        },
+        {
+          "kind": "slot",
+          "name": "phrase",
+          "type": "phrase"
+        },
+        {
+          "kind": "text",
+          "value": "."
+        }
       ],
       "slots": {
         "phrase": [
@@ -138,20 +220,39 @@
     {
       "schemaVersion": "spring-ts.narrative-fragment.v1",
       "fragmentId": "wealth.thisYear.brief.weak.neutral.005",
-      "axis": { "category": "wealth", "period": "thisYear", "depth": "brief" },
+      "axis": {
+        "category": "wealth",
+        "period": "thisYear",
+        "depth": "brief"
+      },
       "gating": {
-        "dayMasterStrength": ["WEAK", "EXTREME_WEAK"],
-        "yongshinAlignment": ["neutral"]
+        "dayMasterStrength": [
+          "WEAK",
+          "EXTREME_WEAK"
+        ],
+        "yongshinAlignment": [
+          "neutral"
+        ]
       },
       "templateTokens": [
-        { "kind": "text", "value": "올해는 " },
-        { "kind": "slot", "name": "phrase", "type": "phrase" },
-        { "kind": "text", "value": "." }
+        {
+          "kind": "text",
+          "value": "올해는 "
+        },
+        {
+          "kind": "slot",
+          "name": "phrase",
+          "type": "phrase"
+        },
+        {
+          "kind": "text",
+          "value": "."
+        }
       ],
       "slots": {
         "phrase": [
           "꾸준함이 큰 자산이 되는 해예요",
-          "관리의 결이 또렷해지는 한 해예요",
+          "관리의 방향이 또렷해지는 한 해예요",
           "한 박자 천천히 모이는 결이에요"
         ]
       },
@@ -171,14 +272,30 @@
     {
       "schemaVersion": "spring-ts.narrative-fragment.v1",
       "fragmentId": "wealth.thisYear.brief.conflicting.006",
-      "axis": { "category": "wealth", "period": "thisYear", "depth": "brief" },
+      "axis": {
+        "category": "wealth",
+        "period": "thisYear",
+        "depth": "brief"
+      },
       "gating": {
-        "yongshinAlignment": ["conflicting"]
+        "yongshinAlignment": [
+          "conflicting"
+        ]
       },
       "templateTokens": [
-        { "kind": "text", "value": "올해는 " },
-        { "kind": "slot", "name": "phrase", "type": "phrase" },
-        { "kind": "text", "value": "." }
+        {
+          "kind": "text",
+          "value": "올해는 "
+        },
+        {
+          "kind": "slot",
+          "name": "phrase",
+          "type": "phrase"
+        },
+        {
+          "kind": "text",
+          "value": "."
+        }
       ],
       "slots": {
         "phrase": [
@@ -203,15 +320,33 @@
     {
       "schemaVersion": "spring-ts.narrative-fragment.v1",
       "fragmentId": "wealth.thisYear.brief.female.40_54.007",
-      "axis": { "category": "wealth", "period": "thisYear", "depth": "brief" },
+      "axis": {
+        "category": "wealth",
+        "period": "thisYear",
+        "depth": "brief"
+      },
       "gating": {
-        "gender": ["female"],
-        "ageBand": ["40-54"]
+        "gender": [
+          "female"
+        ],
+        "ageBand": [
+          "40-54"
+        ]
       },
       "templateTokens": [
-        { "kind": "text", "value": "올해는 " },
-        { "kind": "slot", "name": "phrase", "type": "phrase" },
-        { "kind": "text", "value": "." }
+        {
+          "kind": "text",
+          "value": "올해는 "
+        },
+        {
+          "kind": "slot",
+          "name": "phrase",
+          "type": "phrase"
+        },
+        {
+          "kind": "text",
+          "value": "."
+        }
       ],
       "slots": {
         "phrase": [
@@ -236,14 +371,30 @@
     {
       "schemaVersion": "spring-ts.narrative-fragment.v1",
       "fragmentId": "wealth.thisYear.brief.20_29.008",
-      "axis": { "category": "wealth", "period": "thisYear", "depth": "brief" },
+      "axis": {
+        "category": "wealth",
+        "period": "thisYear",
+        "depth": "brief"
+      },
       "gating": {
-        "ageBand": ["20-29"]
+        "ageBand": [
+          "20-29"
+        ]
       },
       "templateTokens": [
-        { "kind": "text", "value": "올해는 " },
-        { "kind": "slot", "name": "phrase", "type": "phrase" },
-        { "kind": "text", "value": "." }
+        {
+          "kind": "text",
+          "value": "올해는 "
+        },
+        {
+          "kind": "slot",
+          "name": "phrase",
+          "type": "phrase"
+        },
+        {
+          "kind": "text",
+          "value": "."
+        }
       ],
       "slots": {
         "phrase": [
@@ -268,20 +419,37 @@
     {
       "schemaVersion": "spring-ts.narrative-fragment.v1",
       "fragmentId": "wealth.thisYear.brief.55_69.009",
-      "axis": { "category": "wealth", "period": "thisYear", "depth": "brief" },
+      "axis": {
+        "category": "wealth",
+        "period": "thisYear",
+        "depth": "brief"
+      },
       "gating": {
-        "ageBand": ["55-69", "70+"]
+        "ageBand": [
+          "55-69",
+          "70+"
+        ]
       },
       "templateTokens": [
-        { "kind": "text", "value": "올해는 " },
-        { "kind": "slot", "name": "phrase", "type": "phrase" },
-        { "kind": "text", "value": "." }
+        {
+          "kind": "text",
+          "value": "올해는 "
+        },
+        {
+          "kind": "slot",
+          "name": "phrase",
+          "type": "phrase"
+        },
+        {
+          "kind": "text",
+          "value": "."
+        }
       ],
       "slots": {
         "phrase": [
-          "정리·나눔의 결이 자연스러운 해예요",
+          "정리·나눔의 리듬이 자연스러운 해예요",
           "익숙한 페이스를 지키기 좋은 한 해예요",
-          "갑작스런 권유는 한 박자 미루면 좋은 결이에요"
+          "갑작스런 권유는 한 박자 미루면 좋은 흐름이에요"
         ]
       },
       "tags": [],
@@ -300,16 +468,37 @@
     {
       "schemaVersion": "spring-ts.narrative-fragment.v1",
       "fragmentId": "wealth.thisYear.brief.weak.female.20_29.010",
-      "axis": { "category": "wealth", "period": "thisYear", "depth": "brief" },
+      "axis": {
+        "category": "wealth",
+        "period": "thisYear",
+        "depth": "brief"
+      },
       "gating": {
-        "gender": ["female"],
-        "ageBand": ["20-29"],
-        "dayMasterStrength": ["WEAK", "EXTREME_WEAK"]
+        "gender": [
+          "female"
+        ],
+        "ageBand": [
+          "20-29"
+        ],
+        "dayMasterStrength": [
+          "WEAK",
+          "EXTREME_WEAK"
+        ]
       },
       "templateTokens": [
-        { "kind": "text", "value": "올해는 " },
-        { "kind": "slot", "name": "phrase", "type": "phrase" },
-        { "kind": "text", "value": "." }
+        {
+          "kind": "text",
+          "value": "올해는 "
+        },
+        {
+          "kind": "slot",
+          "name": "phrase",
+          "type": "phrase"
+        },
+        {
+          "kind": "text",
+          "value": "."
+        }
       ],
       "slots": {
         "phrase": [
@@ -334,20 +523,36 @@
     {
       "schemaVersion": "spring-ts.narrative-fragment.v1",
       "fragmentId": "wealth.thisYear.brief.10_19.011",
-      "axis": { "category": "wealth", "period": "thisYear", "depth": "brief" },
+      "axis": {
+        "category": "wealth",
+        "period": "thisYear",
+        "depth": "brief"
+      },
       "gating": {
-        "ageBand": ["10-19"]
+        "ageBand": [
+          "10-19"
+        ]
       },
       "templateTokens": [
-        { "kind": "text", "value": "올해는 " },
-        { "kind": "slot", "name": "phrase", "type": "phrase" },
-        { "kind": "text", "value": "." }
+        {
+          "kind": "text",
+          "value": "올해는 "
+        },
+        {
+          "kind": "slot",
+          "name": "phrase",
+          "type": "phrase"
+        },
+        {
+          "kind": "text",
+          "value": "."
+        }
       ],
       "slots": {
         "phrase": [
           "용돈 기록을 시작하기 좋은 해예요",
           "작은 모음이 즐거운 한 해예요",
-          "큰 소비는 하루 미루면 좋은 결이에요"
+          "큰 소비는 하루 미루면 좋은 흐름이에요"
         ]
       },
       "tags": [],
@@ -366,19 +571,35 @@
     {
       "schemaVersion": "spring-ts.narrative-fragment.v1",
       "fragmentId": "wealth.thisYear.brief.neutral.012",
-      "axis": { "category": "wealth", "period": "thisYear", "depth": "brief" },
+      "axis": {
+        "category": "wealth",
+        "period": "thisYear",
+        "depth": "brief"
+      },
       "gating": {
-        "gender": ["neutral"]
+        "gender": [
+          "neutral"
+        ]
       },
       "templateTokens": [
-        { "kind": "text", "value": "올해는 " },
-        { "kind": "slot", "name": "phrase", "type": "phrase" },
-        { "kind": "text", "value": "." }
+        {
+          "kind": "text",
+          "value": "올해는 "
+        },
+        {
+          "kind": "slot",
+          "name": "phrase",
+          "type": "phrase"
+        },
+        {
+          "kind": "text",
+          "value": "."
+        }
       ],
       "slots": {
         "phrase": [
           "자기 페이스를 지키기 좋은 해예요",
-          "관리의 결이 또렷해지는 한 해예요",
+          "관리의 방향이 또렷해지는 한 해예요",
           "차분한 결정이 결을 키우는 해예요"
         ]
       },

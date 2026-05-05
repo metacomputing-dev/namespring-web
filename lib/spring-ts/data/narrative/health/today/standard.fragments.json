@@ -7,10 +7,17 @@
     {
       "schemaVersion": "spring-ts.narrative-fragment.v1",
       "fragmentId": "health.today.standard.wild.001",
-      "axis": { "category": "health", "period": "today", "depth": "standard" },
+      "axis": {
+        "category": "health",
+        "period": "today",
+        "depth": "standard"
+      },
       "gating": {},
       "templateTokens": [
-        { "kind": "text", "value": "오늘 컨디션은 잔잔한 호수 같은 결이에요. 큰 출렁임이 없으니 평소 페이스를 그대로 이어 가도 충분히 부드럽게 흘러가요.\n\n다만 어제까지 이어진 자리들이 살짝 누적돼 있다면, 오늘은 조금 천천히 걷는 자리를 만들어 두면 좋아요. 한 박자 늦추는 게 시간 손해가 아니라 회복의 자리가 돼요.\n\n점심·저녁 사이엔 가벼운 산책이나 따뜻한 차 한 잔이 잘 맞아요. 자기 신호에 귀 기울이는 하루로 보내면 큰 흠 없이 마무리돼요." }
+        {
+          "kind": "text",
+          "value": "오늘 컨디션은 잔잔한 호수 같은 결이에요. 큰 출렁임이 없으니 평소 페이스를 그대로 이어 가도 충분히 부드럽게 흘러가요.\n\n다만 어제까지 이어진 자리들이 살짝 누적돼 있다면, 오늘은 조금 천천히 걷는 자리를 만들어 두면 좋아요. 한 박자 늦추는 게 시간 손해가 아니라 회복의 자리가 돼요.\n\n점심·저녁 사이엔 가벼운 산책이나 따뜻한 차 한 잔이 잘 맞아요. 자기 신호에 귀 기울이는 하루로 보내면 큰 흠 없이 마무리돼요."
+        }
       ],
       "tags": [],
       "livingTips": [
@@ -37,13 +44,25 @@
     {
       "schemaVersion": "spring-ts.narrative-fragment.v1",
       "fragmentId": "health.today.standard.weak.aligned.001",
-      "axis": { "category": "health", "period": "today", "depth": "standard" },
+      "axis": {
+        "category": "health",
+        "period": "today",
+        "depth": "standard"
+      },
       "gating": {
-        "dayMasterStrength": ["WEAK", "EXTREME_WEAK"],
-        "yongshinAlignment": ["aligned"]
+        "dayMasterStrength": [
+          "WEAK",
+          "EXTREME_WEAK"
+        ],
+        "yongshinAlignment": [
+          "aligned"
+        ]
       },
       "templateTokens": [
-        { "kind": "text", "value": "오늘은 받쳐 주는 자리들이 잘 따라 주는 결이라, 가볍지만 따뜻한 흐름이에요. 살짝 가는 줄기에 햇볕이 잘 드는 화분 같은 모양이라, 무리하지 않으면 자연스럽게 회복이 따라와요.\n\n점심은 따뜻한 음식, 잠시는 햇볕 받는 자리에서 한 박자 쉬어 가요. 마음 편한 사람과의 짧은 대화나 통화도 그대로 보약이 돼요.\n\n오후에 살짝 처지는 자리가 와도 무리해서 끌어올리기보다, 잠시 눈을 감고 호흡 한 번 깊게 하는 자리가 잘 맞아요. 익숙한 페이스 안에서 부드럽게 흘러가요." }
+        {
+          "kind": "text",
+          "value": "오늘은 받쳐 주는 자리들이 잘 따라 주는 결이라, 가볍지만 따뜻한 흐름이에요. 살짝 가는 줄기에 햇볕이 잘 드는 화분 같은 모양이라, 무리하지 않으면 자연스럽게 회복이 따라와요.\n\n점심은 따뜻한 음식, 잠시는 햇볕 받는 자리에서 한 박자 쉬어 가요. 마음 편한 사람과의 짧은 대화나 통화도 그대로 보약이 돼요.\n\n오후에 살짝 처지는 자리가 와도 무리해서 끌어올리기보다, 잠시 눈을 감고 호흡 한 번 깊게 하는 자리가 잘 맞아요. 익숙한 페이스 안에서 부드럽게 흘러가요."
+        }
       ],
       "tags": [],
       "livingTips": [
@@ -70,12 +89,22 @@
     {
       "schemaVersion": "spring-ts.narrative-fragment.v1",
       "fragmentId": "health.today.standard.weak.001",
-      "axis": { "category": "health", "period": "today", "depth": "standard" },
+      "axis": {
+        "category": "health",
+        "period": "today",
+        "depth": "standard"
+      },
       "gating": {
-        "dayMasterStrength": ["WEAK", "EXTREME_WEAK"]
+        "dayMasterStrength": [
+          "WEAK",
+          "EXTREME_WEAK"
+        ]
       },
       "templateTokens": [
-        { "kind": "text", "value": "오늘은 가벼운 결의 흐름이라, 무리해서 한 번에 많은 일을 처리하기보다 짧게 끊어 가는 페이스가 잘 맞아요. 작은 화분이 쉬어 가며 자라는 모양처럼, 한 박자 늦추는 자리가 회복의 자리예요.\n\n점심은 따뜻한 식사, 오후엔 가벼운 산책이나 짧은 환기가 도움이 돼요. 카페인을 너무 많이 잡으면 저녁에 잠 자리가 흔들릴 수 있으니 한 잔쯤은 미뤄 두면 좋아요.\n\n중요한 결정은 오늘 한 박자 미뤄도 손해가 아니에요. 충분히 쉬고 내일 다시 보면 더 또렷이 보여요." }
+        {
+          "kind": "text",
+          "value": "오늘은 가벼운 결의 흐름이라, 무리해서 한 번에 많은 일을 처리하기보다 짧게 끊어 가는 페이스가 잘 맞아요. 작은 화분이 쉬어 가며 자라는 모양처럼, 한 박자 늦추는 자리가 회복의 자리예요.\n\n점심은 따뜻한 식사, 오후엔 가벼운 산책이나 짧은 환기가 도움이 돼요. 카페인을 너무 많이 잡으면 저녁에 잠 자리가 흔들릴 수 있으니 한 잔쯤은 미뤄 두면 좋아요.\n\n중요한 결정은 오늘 한 박자 미뤄도 손해가 아니에요. 충분히 쉬고 내일 다시 보면 더 또렷이 보여요."
+        }
       ],
       "tags": [],
       "livingTips": [
@@ -102,12 +131,22 @@
     {
       "schemaVersion": "spring-ts.narrative-fragment.v1",
       "fragmentId": "health.today.standard.strong.001",
-      "axis": { "category": "health", "period": "today", "depth": "standard" },
+      "axis": {
+        "category": "health",
+        "period": "today",
+        "depth": "standard"
+      },
       "gating": {
-        "dayMasterStrength": ["STRONG", "EXTREME_STRONG"]
+        "dayMasterStrength": [
+          "STRONG",
+          "EXTREME_STRONG"
+        ]
       },
       "templateTokens": [
-        { "kind": "text", "value": "기운이 가득한 하루의 결이에요. 활동량을 잘 받아 내는 그릇이 큰 결이지만, 강한 결일수록 한 번에 누적된 신호가 또렷이 와요.\n\n오전엔 조금 빠르게 움직이고, 오후엔 페이스를 한 번 늦추는 자리를 만들어 두는 편이 좋아요. 식사를 빠르게 넘기지 말고, 따뜻한 한 끼를 천천히 즐기는 자리가 보약이 돼요.\n\n저녁엔 강한 운동보다 가볍게 풀어 주는 자리가 잘 맞아요. 깊고 길게 호흡하는 시간 한 번이 오늘의 균형을 잡아 줘요." }
+        {
+          "kind": "text",
+          "value": "기운이 가득한 하루의 결이에요. 활동량을 잘 받아 내는 그릇이 큰 결이지만, 강한 결일수록 한 번에 누적된 신호가 또렷이 와요.\n\n오전엔 조금 빠르게 움직이고, 오후엔 페이스를 한 번 늦추는 자리를 만들어 두는 편이 좋아요. 식사를 빠르게 넘기지 말고, 따뜻한 한 끼를 천천히 즐기는 자리가 보약이 돼요.\n\n저녁엔 강한 운동보다 가볍게 풀어 주는 자리가 잘 맞아요. 깊고 길게 호흡하는 시간 한 번이 오늘의 균형을 잡아 줘요."
+        }
       ],
       "tags": [],
       "livingTips": [
@@ -134,13 +173,24 @@
     {
       "schemaVersion": "spring-ts.narrative-fragment.v1",
       "fragmentId": "health.today.standard.female.30_39.001",
-      "axis": { "category": "health", "period": "today", "depth": "standard" },
+      "axis": {
+        "category": "health",
+        "period": "today",
+        "depth": "standard"
+      },
       "gating": {
-        "gender": ["female"],
-        "ageBand": ["30-39"]
+        "gender": [
+          "female"
+        ],
+        "ageBand": [
+          "30-39"
+        ]
       },
       "templateTokens": [
-        { "kind": "text", "value": "오늘은 여러 쪽에서 오는 신호가 한꺼번에 들어오기 쉬운 날이에요. 일·관계·집안일이 동시에 쌓일 때 자기 페이스를 잃지 않는 게 가장 큰 보약이에요.\n\n바쁘게 흘러가는 하루지만, 점심 사이엔 잠시 따뜻한 차 한 잔의 시간을 만들어 두면 좋아요. 마음이 부드러워지면 컨디션도 자연스럽게 따라와요.\n\n저녁엔 오늘 하루의 작은 일들을 가볍게 정리해 두면, 내일 컨디션이 한결 단단해져요. 잠자리는 평소보다 한 시간 일찍 들어가는 편이 잘 맞아요." }
+        {
+          "kind": "text",
+          "value": "오늘은 여러 쪽에서 오는 신호가 한꺼번에 들어오기 쉬운 날이에요. 일·관계·집안일이 동시에 쌓일 때 자기 페이스를 잃지 않는 게 가장 큰 보약이에요.\n\n바쁘게 흘러가는 하루지만, 점심 사이엔 잠시 따뜻한 차 한 잔의 시간을 만들어 두면 좋아요. 마음이 부드러워지면 컨디션도 자연스럽게 따라와요.\n\n저녁엔 오늘 하루의 작은 일들을 가볍게 정리해 두면, 내일 컨디션이 한결 단단해져요. 잠자리는 평소보다 한 시간 일찍 들어가는 편이 잘 맞아요."
+        }
       ],
       "tags": [],
       "livingTips": [
@@ -167,12 +217,21 @@
     {
       "schemaVersion": "spring-ts.narrative-fragment.v1",
       "fragmentId": "health.today.standard.male.001",
-      "axis": { "category": "health", "period": "today", "depth": "standard" },
+      "axis": {
+        "category": "health",
+        "period": "today",
+        "depth": "standard"
+      },
       "gating": {
-        "gender": ["male"]
+        "gender": [
+          "male"
+        ]
       },
       "templateTokens": [
-        { "kind": "text", "value": "오늘 흐름은 활동량이 많아지기 쉬운 결이에요. 여러 일을 한꺼번에 잡고 가는 자리에서 자기 신호를 가볍게 넘기지 않는 게 중요해요.\n\n점심은 빠르게 넘기지 말고 한 끼 제대로 챙기는 편이 좋아요. 사람과 만나는 자리가 길어지면, 술·과식 자리는 한 번 더 살펴보는 편이 좋아요.\n\n저녁엔 짧은 산책이나 가벼운 스트레칭이 잘 맞아요. 강한 자극보다 부드러운 풀어 주는 자리가 오늘의 회복 신호예요." }
+        {
+          "kind": "text",
+          "value": "오늘 흐름은 활동량이 많아지기 쉬운 결이에요. 여러 일을 한꺼번에 잡고 가는 자리에서 자기 신호를 가볍게 넘기지 않는 게 중요해요.\n\n점심은 빠르게 넘기지 말고 한 끼 제대로 챙기는 편이 좋아요. 사람과 만나는 자리가 길어지면, 술·과식 자리는 한 번 더 살펴보는 편이 좋아요.\n\n저녁엔 짧은 산책이나 가벼운 스트레칭이 잘 맞아요. 강한 자극보다 부드러운 풀어 주는 자리가 오늘의 회복 신호예요."
+        }
       ],
       "tags": [],
       "livingTips": [
@@ -199,12 +258,21 @@
     {
       "schemaVersion": "spring-ts.narrative-fragment.v1",
       "fragmentId": "health.today.standard.aligned.001",
-      "axis": { "category": "health", "period": "today", "depth": "standard" },
+      "axis": {
+        "category": "health",
+        "period": "today",
+        "depth": "standard"
+      },
       "gating": {
-        "yongshinAlignment": ["aligned"]
+        "yongshinAlignment": [
+          "aligned"
+        ]
       },
       "templateTokens": [
-        { "kind": "text", "value": "오늘은 흐름이 잘 풀리는 결이라 평소보다 회복도 한결 가볍게 와요. 햇볕이 잘 드는 들판에 화분을 옮기는 자리처럼, 자연스럽게 컨디션이 따라오는 모양이에요.\n\n오전엔 평소처럼 움직이고, 점심엔 좋아하는 음식 한 끼를 천천히 즐기면 좋아요. 익숙한 즐거움이 그대로 보약 역할을 해요.\n\n저녁엔 가까운 사람과 짧은 통화나 산책이 잘 맞아요. 마음이 부드러워지는 자리에서 하루의 결이 부드럽게 마무리돼요." }
+        {
+          "kind": "text",
+          "value": "오늘은 흐름이 잘 풀리는 결이라 평소보다 회복도 한결 가볍게 와요. 햇볕이 잘 드는 들판에 화분을 옮기는 자리처럼, 자연스럽게 컨디션이 따라오는 모양이에요.\n\n오전엔 평소처럼 움직이고, 점심엔 좋아하는 음식 한 끼를 천천히 즐기면 좋아요. 익숙한 즐거움이 그대로 보약 역할을 해요.\n\n저녁엔 가까운 사람과 짧은 통화나 산책이 잘 맞아요. 마음이 부드러워지는 자리에서 하루의 호흡이 부드럽게 마무리돼요."
+        }
       ],
       "tags": [],
       "livingTips": [
@@ -231,12 +299,21 @@
     {
       "schemaVersion": "spring-ts.narrative-fragment.v1",
       "fragmentId": "health.today.standard.conflicting.001",
-      "axis": { "category": "health", "period": "today", "depth": "standard" },
+      "axis": {
+        "category": "health",
+        "period": "today",
+        "depth": "standard"
+      },
       "gating": {
-        "yongshinAlignment": ["conflicting"]
+        "yongshinAlignment": [
+          "conflicting"
+        ]
       },
       "templateTokens": [
-        { "kind": "text", "value": "오늘은 흐름이 살짝 어긋나는 결이라, 한 번에 많은 일을 잡고 가기보다 짧게 끊어 가는 페이스가 잘 맞아요. 작은 신호도 가볍게 넘기지 않는 게 보약이에요.\n\n점심은 따뜻하게, 오후엔 짧은 환기가 도움이 돼요. 갈등 자리·언쟁 자리는 잠시 한 박자 미뤄 두면, 컨디션과 관계 모두 부드럽게 흘러가요.\n\n저녁엔 큰 결정 대신 오늘 일을 가볍게 정리하는 자리가 잘 맞아요. 충분히 쉬고 내일 다시 보면 결정의 결이 한결 또렷해져요." }
+        {
+          "kind": "text",
+          "value": "오늘은 흐름이 살짝 어긋나는 결이라, 한 번에 많은 일을 잡고 가기보다 짧게 끊어 가는 페이스가 잘 맞아요. 작은 신호도 가볍게 넘기지 않는 게 보약이에요.\n\n점심은 따뜻하게, 오후엔 짧은 환기가 도움이 돼요. 갈등 자리·언쟁 자리는 잠시 한 박자 미뤄 두면, 컨디션과 관계 모두 부드럽게 흘러가요.\n\n저녁엔 큰 결정 대신 오늘 일을 가볍게 정리하는 자리가 잘 맞아요. 충분히 쉬고 내일 다시 보면 결정의 중심이 한결 또렷해져요."
+        }
       ],
       "tags": [],
       "livingTips": [
@@ -263,12 +340,21 @@
     {
       "schemaVersion": "spring-ts.narrative-fragment.v1",
       "fragmentId": "health.today.standard.40_54.001",
-      "axis": { "category": "health", "period": "today", "depth": "standard" },
+      "axis": {
+        "category": "health",
+        "period": "today",
+        "depth": "standard"
+      },
       "gating": {
-        "ageBand": ["40-54"]
+        "ageBand": [
+          "40-54"
+        ]
       },
       "templateTokens": [
-        { "kind": "text", "value": "오늘은 누적된 피로가 한 번씩 신호를 보내기 쉬운 날이에요. 큰 일이 아니라 자기 페이스 안에서 정돈하면, 회복도 빠르게 따라와요.\n\n점심엔 한 끼를 천천히, 오후엔 짧은 산책이 잘 맞아요. 어깨와 허리에 살짝 신호가 오면 무리해서 끌어올리기보다 가볍게 풀어 주는 시간을 만들어 두면 좋아요.\n\n저녁엔 일찍 잠자리에 들어가는 편이 좋아요. 푹 자는 시간이 어떤 보약보다 든든한 회복의 자산이에요." }
+        {
+          "kind": "text",
+          "value": "오늘은 누적된 피로가 한 번씩 신호를 보내기 쉬운 날이에요. 큰 일이 아니라 자기 페이스 안에서 정돈하면, 회복도 빠르게 따라와요.\n\n점심엔 한 끼를 천천히, 오후엔 짧은 산책이 잘 맞아요. 어깨와 허리에 살짝 신호가 오면 무리해서 끌어올리기보다 가볍게 풀어 주는 시간을 만들어 두면 좋아요.\n\n저녁엔 일찍 잠자리에 들어가는 편이 좋아요. 푹 자는 시간이 어떤 보약보다 든든한 회복의 자산이에요."
+        }
       ],
       "tags": [],
       "livingTips": [
@@ -295,12 +381,21 @@
     {
       "schemaVersion": "spring-ts.narrative-fragment.v1",
       "fragmentId": "health.today.standard.neutral_gender.001",
-      "axis": { "category": "health", "period": "today", "depth": "standard" },
+      "axis": {
+        "category": "health",
+        "period": "today",
+        "depth": "standard"
+      },
       "gating": {
-        "gender": ["neutral"]
+        "gender": [
+          "neutral"
+        ]
       },
       "templateTokens": [
-        { "kind": "text", "value": "오늘은 자기 페이스 안에서 가볍게 흘러가는 결이에요. 누구의 기대가 아니라 자기 결에 맞는 자리를 골라 가면 회복도 자연스럽게 따라와요.\n\n점심 후엔 짧은 산책이나 한 잔의 차로 자리를 정돈하는 편이 좋아요. 익숙한 자리에서 보내는 시간이 그대로 보약이 돼요.\n\n저녁엔 자기에게 작은 즐거움 한 가지를 챙기는 편이 좋아요. 마음이 부드러워지면 컨디션도 따라와요." }
+        {
+          "kind": "text",
+          "value": "오늘은 자기 페이스 안에서 가볍게 흘러가는 결이에요. 누구의 기대가 아니라 자기 결에 맞는 자리를 골라 가면 회복도 자연스럽게 따라와요.\n\n점심 후엔 짧은 산책이나 한 잔의 차로 자리를 정돈하는 편이 좋아요. 익숙한 자리에서 보내는 시간이 그대로 보약이 돼요.\n\n저녁엔 자기에게 작은 즐거움 한 가지를 챙기는 편이 좋아요. 마음이 부드러워지면 컨디션도 따라와요."
+        }
       ],
       "tags": [],
       "livingTips": [
@@ -327,12 +422,21 @@
     {
       "schemaVersion": "spring-ts.narrative-fragment.v1",
       "fragmentId": "health.today.standard.balanced.001",
-      "axis": { "category": "health", "period": "today", "depth": "standard" },
+      "axis": {
+        "category": "health",
+        "period": "today",
+        "depth": "standard"
+      },
       "gating": {
-        "dayMasterStrength": ["BALANCED"]
+        "dayMasterStrength": [
+          "BALANCED"
+        ]
       },
       "templateTokens": [
-        { "kind": "text", "value": "오늘은 흐름이 고른 결이라 큰 기복 없이 가벼운 하루로 흘러가요. 익숙한 자리들이 평소처럼 흘러가니 무리 없이 자기 페이스를 챙기는 편이 좋아요.\n\n점심·저녁 한 끼를 천천히 즐기는 자리가 그대로 회복의 자리가 돼요. 짧은 산책 한 번이 더 들어가면 균형이 한층 또렷해져요.\n\n저녁엔 잠 자리를 평소처럼 챙기면, 내일 흐름까지 자연스럽게 부드러워져요." }
+        {
+          "kind": "text",
+          "value": "오늘은 흐름이 고른 결이라 큰 기복 없이 가벼운 하루로 흘러가요. 익숙한 자리들이 평소처럼 흘러가니 무리 없이 자기 페이스를 챙기는 편이 좋아요.\n\n점심·저녁 한 끼를 천천히 즐기는 자리가 그대로 회복의 자리가 돼요. 짧은 산책 한 번이 더 들어가면 균형이 한층 또렷해져요.\n\n저녁엔 잠 자리를 평소처럼 챙기면, 내일 흐름까지 자연스럽게 부드러워져요."
+        }
       ],
       "tags": [],
       "livingTips": [

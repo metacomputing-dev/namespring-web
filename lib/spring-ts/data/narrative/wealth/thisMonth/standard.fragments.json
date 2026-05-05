@@ -7,10 +7,25 @@
     {
       "schemaVersion": "spring-ts.narrative-fragment.v1",
       "fragmentId": "wealth.thisMonth.standard.wildcard.001",
-      "axis": { "category": "wealth", "period": "thisMonth", "depth": "standard" },
-      "gating": { "ageBand": ["20-29", "30-39", "40-54", "55-69", "70+"] },
+      "axis": {
+        "category": "wealth",
+        "period": "thisMonth",
+        "depth": "standard"
+      },
+      "gating": {
+        "ageBand": [
+          "20-29",
+          "30-39",
+          "40-54",
+          "55-69",
+          "70+"
+        ]
+      },
       "templateTokens": [
-        { "kind": "text", "value": "이번 달의 재물 흐름은 큰 굴곡 없이 자리 잡는 결이에요. 평소 페이스를 지키되, 한 달의 결을 정리하는 결을 더하면 흐름이 또렷해져요.\n\n비유하자면 한 달 동안 작은 화분에 매주 한 번씩 영양을 더하는 결이에요. 한 번에 모두 채우기보다, 매주의 결이 모여 큰 결이 자라는 시기예요.\n\n잘 풀리는 결은 월별 정리예요. 월말에 한 줄 결산을 두면 다음 달 결이 한 결 가벼워져요.\n\n주의할 결은 즉흥적 큰 결정이에요. 권유받은 결은 한 달 살피면서 결을 다시 보면 좋아요." }
+        {
+          "kind": "text",
+          "value": "이번 달의 재물 흐름은 큰 굴곡 없이 자리 잡는 결이에요. 평소 페이스를 지키되, 한 달의 결을 정리하는 결을 더하면 흐름이 또렷해져요.\n\n비유하자면 한 달 동안 작은 화분에 매주 한 번씩 영양을 더하는 결이에요. 한 번에 모두 채우기보다, 매주의 결이 모여 큰 리듬이 자라는 시기예요.\n\n잘 풀리는 결은 월별 정리예요. 월말에 한 줄 결산을 두면 다음 달 중심이 한 결 가벼워져요.\n\n주의할 결은 즉흥적 큰 결정이에요. 권유받은 결은 한 달 살피면서 결을 다시 보면 좋아요."
+        }
       ],
       "tags": [],
       "livingTips": [
@@ -35,13 +50,25 @@
     {
       "schemaVersion": "spring-ts.narrative-fragment.v1",
       "fragmentId": "wealth.thisMonth.standard.strong.aligned.002",
-      "axis": { "category": "wealth", "period": "thisMonth", "depth": "standard" },
+      "axis": {
+        "category": "wealth",
+        "period": "thisMonth",
+        "depth": "standard"
+      },
       "gating": {
-        "dayMasterStrength": ["STRONG", "EXTREME_STRONG"],
-        "yongshinAlignment": ["aligned"]
+        "dayMasterStrength": [
+          "STRONG",
+          "EXTREME_STRONG"
+        ],
+        "yongshinAlignment": [
+          "aligned"
+        ]
       },
       "templateTokens": [
-        { "kind": "text", "value": "이번 달은 추진력이 단단한 결이에요. 큰 거래·확장의 결이 또렷해지고, 평소 미뤄 두던 결정에 결을 더하기 좋은 한 달이에요.\n\n비유하자면 강의 폭이 넓어지는 시기예요. 한 번에 멀리 갈 수 있지만, 깊이를 함께 살피는 결이 단단함을 만들어 줘요.\n\n잘 풀리는 결은 신뢰가 쌓인 사람과의 결정이에요. 큰 그림을 함께 살피며 결을 두는 한 달이 잘 어울려요.\n\n주의할 결은 욕심이 한 박자 앞설 때예요. 흐름이 좋아 보일수록 결정 하나에 한 박자 늦추면 결이 더 단단해져요." }
+        {
+          "kind": "text",
+          "value": "이번 달은 추진력이 단단한 자리가에요. 큰 거래·확장의 방향이 또렷해지고, 평소 미뤄 두던 결정에 무게를 더하기 좋은 한 달이에요.\n\n비유하자면 강의 폭이 넓어지는 시기예요. 한 번에 멀리 갈 수 있지만, 깊이를 함께 살피는 중심이 단단함을 만들어 줘요.\n\n잘 풀리는 결은 신뢰가 쌓인 사람과의 결정이에요. 큰 그림을 함께 살피며 자리를 잡는 한 달이 잘 어울려요.\n\n주의할 결은 욕심이 한 박자 앞설 때예요. 흐름이 좋아 보일수록 결정 하나에 한 박자 늦추면 결이 더 단단해져요."
+        }
       ],
       "tags": [],
       "livingTips": [
@@ -67,13 +94,24 @@
     {
       "schemaVersion": "spring-ts.narrative-fragment.v1",
       "fragmentId": "wealth.thisMonth.standard.balanced.aligned.003",
-      "axis": { "category": "wealth", "period": "thisMonth", "depth": "standard" },
+      "axis": {
+        "category": "wealth",
+        "period": "thisMonth",
+        "depth": "standard"
+      },
       "gating": {
-        "dayMasterStrength": ["BALANCED"],
-        "yongshinAlignment": ["aligned"]
+        "dayMasterStrength": [
+          "BALANCED"
+        ],
+        "yongshinAlignment": [
+          "aligned"
+        ]
       },
       "templateTokens": [
-        { "kind": "text", "value": "이번 달은 안정과 작은 기회가 함께 들어오는 결이에요. 평소 페이스를 지키되 한 번 작은 시도를 더하면 결이 잘 맞물리는 한 달이에요.\n\n비유하자면 봄 들판에 새싹이 고르게 자라는 결이에요. 큰 비도 큰 햇볕도 아닌 부드러운 결이 결을 가지런히 만들어 줘요.\n\n잘 풀리는 결은 작은 시도예요. 월중에 한 가지 새로운 것을 더하면 결이 한 결 자라요.\n\n주의할 결은 결정의 시기를 미루는 결이에요. 차분히, 그러나 미루지 않고 결을 두면 좋아요." }
+        {
+          "kind": "text",
+          "value": "이번 달은 안정과 작은 기회가 함께 들어오는요. 평소 페이스를 지키되 한 번 작은 시도를 더하면 흐름이 잘 맞물리는 한 달이에요.\n\n비유하자면 봄 들판에 새싹이 고르게 자라는 결이에요. 큰 비도 큰 햇볕도 아닌 부드러운 결이 결을 가지런히 만들어 줘요.\n\n잘 풀리는 결은 작은 시도예요. 월중에 한 가지 새로운 것을 더하면 중심이 한 결 자라요.\n\n주의할 결은 결정의 시기를 미루는 결이에요. 차분히, 그러나 미루지 않고 중심을 잡으면 좋아요."
+        }
       ],
       "tags": [],
       "livingTips": [
@@ -98,13 +136,25 @@
     {
       "schemaVersion": "spring-ts.narrative-fragment.v1",
       "fragmentId": "wealth.thisMonth.standard.weak.neutral.004",
-      "axis": { "category": "wealth", "period": "thisMonth", "depth": "standard" },
+      "axis": {
+        "category": "wealth",
+        "period": "thisMonth",
+        "depth": "standard"
+      },
       "gating": {
-        "dayMasterStrength": ["WEAK", "EXTREME_WEAK"],
-        "yongshinAlignment": ["neutral"]
+        "dayMasterStrength": [
+          "WEAK",
+          "EXTREME_WEAK"
+        ],
+        "yongshinAlignment": [
+          "neutral"
+        ]
       },
       "templateTokens": [
-        { "kind": "text", "value": "이번 달은 작은 돈 관리와 기록을 차곡차곡 정리하기 좋은 한 달이에요. 큰 결정은 한 박자 늦추고, 익숙한 기준을 다듬는 방식이 잘 어울려요.\n\n비유하자면 봄비가 한 달 동안 흙을 적시는 그림이에요. 한 번에 큰돈을 만들기보다 작은 관리가 모여 한 달의 기반을 단단히 적셔 줘요.\n\n잘 풀리는 지점은 꾸준함이에요. 매월 같은 날 자동이체 점검, 작은 적금 점검처럼 일정한 자산 관리가 빛을 내요.\n\n주의할 점은 큰 한 방을 좇는 권유예요. 자기 페이스를 지키는 것이 가장 단단한 선택이에요." }
+        {
+          "kind": "text",
+          "value": "이번 달은 작은 돈 관리와 기록을 차곡차곡 정리하기 좋은 한 달이에요. 큰 결정은 한 박자 늦추고, 익숙한 기준을 다듬는 방식이 잘 어울려요.\n\n비유하자면 봄비가 한 달 동안 흙을 적시는 그림이에요. 한 번에 큰돈을 만들기보다 작은 관리가 모여 한 달의 기반을 단단히 적셔 줘요.\n\n잘 풀리는 지점은 꾸준함이에요. 매월 같은 날 자동이체 점검, 작은 적금 점검처럼 일정한 자산 관리가 빛을 내요.\n\n주의할 점은 큰 한 방을 좇는 권유예요. 자기 페이스를 지키는 것이 가장 단단한 선택이에요."
+        }
       ],
       "tags": [],
       "livingTips": [
@@ -129,12 +179,21 @@
     {
       "schemaVersion": "spring-ts.narrative-fragment.v1",
       "fragmentId": "wealth.thisMonth.standard.conflicting.005",
-      "axis": { "category": "wealth", "period": "thisMonth", "depth": "standard" },
+      "axis": {
+        "category": "wealth",
+        "period": "thisMonth",
+        "depth": "standard"
+      },
       "gating": {
-        "yongshinAlignment": ["conflicting"]
+        "yongshinAlignment": [
+          "conflicting"
+        ]
       },
       "templateTokens": [
-        { "kind": "text", "value": "이번 달은 흐름이 한 박자 어긋나 보일 수 있어요. 무리수만 줄이면 충분한 한 달이에요.\n\n비유하자면 굽이굽이 흐르는 강물이에요. 곧장 가로지르려 하면 흙이 일고, 굽이를 따라 흐르게 두면 결이 부드러워져요.\n\n잘 풀리는 결은 기준을 다시 적어 두는 결이에요. 어디까지 모으고 어디까지 흘려보낼지 한 줄 정리하면 흐름이 또렷해져요.\n\n주의할 결은 즉흥적 큰 결정이에요. 권유받은 흐름은 한 달 살피면서 결을 다시 보면 좋아요." }
+        {
+          "kind": "text",
+          "value": "이번 달은 흐름이 한 박자 어긋나 보일 수 있어요. 무리수만 줄이면 충분한 한 달이에요.\n\n비유하자면 굽이굽이 흐르는 강물이에요. 곧장 가로지르려 하면 흙이 일고, 굽이를 따라 흐르게 두면 호흡이 부드러워져요.\n\n잘 풀리는 결은 기준을 다시 적어 두는 결이에요. 어디까지 모으고 어디까지 흘려보낼지 한 줄 정리하면 흐름이 또렷해져요.\n\n주의할 결은 즉흥적 큰 결정이에요. 권유받은 흐름은 한 달 살피면서 결을 다시 보면 좋아요."
+        }
       ],
       "tags": [],
       "livingTips": [
@@ -160,13 +219,24 @@
     {
       "schemaVersion": "spring-ts.narrative-fragment.v1",
       "fragmentId": "wealth.thisMonth.standard.male.30_39.006",
-      "axis": { "category": "wealth", "period": "thisMonth", "depth": "standard" },
+      "axis": {
+        "category": "wealth",
+        "period": "thisMonth",
+        "depth": "standard"
+      },
       "gating": {
-        "gender": ["male"],
-        "ageBand": ["30-39"]
+        "gender": [
+          "male"
+        ],
+        "ageBand": [
+          "30-39"
+        ]
       },
       "templateTokens": [
-        { "kind": "text", "value": "이번 달은 가족·일·자기 사이의 무게를 살피기 좋은 한 달이에요. 한쪽이 무거우면 다른 쪽 결도 흔들리는 시기예요.\n\n비유하자면 양손에 작은 가방을 든 결이에요. 한쪽이 너무 무거우면 자세가 기울어지듯, 균형을 잠깐 점검하면 결이 다시 또렷해져요.\n\n잘 풀리는 결은 5년 단위 그림을 다시 살피는 결이에요. 짧은 결과보다 긴 결을 그리는 결정이 흐름을 키워요.\n\n주의할 결은 가족·일 한쪽에 무게가 몰리는 결이에요. 작은 메모로 무게를 분산해 두면 좋아요." }
+        {
+          "kind": "text",
+          "value": "이번 달은 가족·일·자기 사이의 무게를 살피기 좋은 한 달이에요. 한쪽이 무거우면 다른 쪽 결도 흔들리는 시기예요.\n\n비유하자면 양손에 작은 가방을 든 결이에요. 한쪽이 너무 무거우면 자세가 기울어지듯, 균형을 잠깐 점검하면 결이 다시 또렷해져요.\n\n잘 풀리는 결은 5년 단위 그림을 다시 살피는 결이에요. 짧은 결과보다 긴 결을 그리는 결정이 흐름을 키워요.\n\n주의할 결은 가족·일 한쪽에 무게가 몰리는 결이에요. 작은 메모로 무게를 분산해 두면 좋아요."
+        }
       ],
       "tags": [],
       "livingTips": [
@@ -191,13 +261,24 @@
     {
       "schemaVersion": "spring-ts.narrative-fragment.v1",
       "fragmentId": "wealth.thisMonth.standard.female.40_54.007",
-      "axis": { "category": "wealth", "period": "thisMonth", "depth": "standard" },
+      "axis": {
+        "category": "wealth",
+        "period": "thisMonth",
+        "depth": "standard"
+      },
       "gating": {
-        "gender": ["female"],
-        "ageBand": ["40-54"]
+        "gender": [
+          "female"
+        ],
+        "ageBand": [
+          "40-54"
+        ]
       },
       "templateTokens": [
-        { "kind": "text", "value": "이번 달은 그동안 다져 온 결이 빛을 내는 한 달이에요. 차분한 결정이 자리를 단단하게 만들어 주는 결이에요.\n\n비유하자면 잘 다진 흙 위에 큰 그늘 나무가 자리 잡는 결이에요. 그늘 아래로 가족도 함께 쉴 수 있는 자리가 만들어져요.\n\n잘 풀리는 결은 관리의 기준을 다시 다듬는 결이에요. 어디에 쓰고 어디에 모을지 결이 또렷해지면 자산이 단단해져요.\n\n주의할 결은 책임이 한쪽에 몰릴 때예요. 가족과 한 번 나누는 대화가 결을 다시 균형 있게 만들어 줘요." }
+        {
+          "kind": "text",
+          "value": "이번 달은 그동안 다져 온 결이 빛을 내는 한 달이에요. 차분한 결정이 자리를 단단하게 만들어 주는 결이에요.\n\n비유하자면 잘 다진 흙 위에 큰 그늘 나무가 자리 잡는 결이에요. 그늘 아래로 가족도 함께 쉴 수 있는 자리가 만들어져요.\n\n잘 풀리는 결은 관리의 기준을 다시 다듬는 결이에요. 어디에 쓰고 어디에 모을지 방향이 또렷해지면 자산이 단단해져요.\n\n주의할 결은 책임이 한쪽에 몰릴 때예요. 가족과 한 번 나누는 대화가 결을 다시 균형 있게 만들어 줘요."
+        }
       ],
       "tags": [],
       "livingTips": [
@@ -222,12 +303,21 @@
     {
       "schemaVersion": "spring-ts.narrative-fragment.v1",
       "fragmentId": "wealth.thisMonth.standard.20_29.008",
-      "axis": { "category": "wealth", "period": "thisMonth", "depth": "standard" },
+      "axis": {
+        "category": "wealth",
+        "period": "thisMonth",
+        "depth": "standard"
+      },
       "gating": {
-        "ageBand": ["20-29"]
+        "ageBand": [
+          "20-29"
+        ]
       },
       "templateTokens": [
-        { "kind": "text", "value": "이번 달은 작은 시도와 기록으로 돈의 기준을 잡아 가기 좋은 한 달이에요. 큰돈을 한 번에 만드는 시기가 아니라, 평생 갈 관리 습관을 다듬는 달이에요.\n\n비유하자면 새로 심은 나무에 잔뿌리를 내리는 그림이에요. 큰 가지를 키우기 전에 잔뿌리가 단단해야 큰 나무로 자라요.\n\n잘 풀리는 지점은 작은 기록과 작은 시도예요. 월말 한 줄 정리, 작은 적금 한 가지가 평생 갈 자산이 돼요.\n\n주의할 점은 큰 한 방을 좇는 권유예요. 큰 권유는 한 달 살피며 기준이 맞는지 다시 확인하면 좋아요." }
+        {
+          "kind": "text",
+          "value": "이번 달은 작은 시도와 기록으로 돈의 기준을 잡아 가기 좋은 한 달이에요. 큰돈을 한 번에 만드는 시기가 아니라, 평생 갈 관리 습관을 다듬는 달이에요.\n\n비유하자면 새로 심은 나무에 잔뿌리를 내리는 그림이에요. 큰 가지를 키우기 전에 잔뿌리가 단단해야 큰 나무로 자라요.\n\n잘 풀리는 지점은 작은 기록과 작은 시도예요. 월말 한 줄 정리, 작은 적금 한 가지가 평생 갈 자산이 돼요.\n\n주의할 점은 큰 한 방을 좇는 권유예요. 큰 권유는 한 달 살피며 기준이 맞는지 다시 확인하면 좋아요."
+        }
       ],
       "tags": [],
       "livingTips": [

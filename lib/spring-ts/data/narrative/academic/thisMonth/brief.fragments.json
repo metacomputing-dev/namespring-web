@@ -8,10 +8,17 @@
     {
       "schemaVersion": "spring-ts.narrative-fragment.v1",
       "fragmentId": "academic.thisMonth.brief.wildcard.001",
-      "axis": { "category": "academic", "period": "thisMonth", "depth": "brief" },
+      "axis": {
+        "category": "academic",
+        "period": "thisMonth",
+        "depth": "brief"
+      },
       "gating": {},
       "templateTokens": [
-        { "kind": "text", "value": "이번 달은 한 권을 차분히 읽기 좋은 결이에요." }
+        {
+          "kind": "text",
+          "value": "이번 달은 한 권을 차분히 읽기 좋은 흐름이에요."
+        }
       ],
       "tags": [],
       "aiGenerated": true,
@@ -29,10 +36,21 @@
     {
       "schemaVersion": "spring-ts.narrative-fragment.v1",
       "fragmentId": "academic.thisMonth.brief.0_9.002",
-      "axis": { "category": "academic", "period": "thisMonth", "depth": "brief" },
-      "gating": { "ageBand": ["0-9"] },
+      "axis": {
+        "category": "academic",
+        "period": "thisMonth",
+        "depth": "brief"
+      },
+      "gating": {
+        "ageBand": [
+          "0-9"
+        ]
+      },
       "templateTokens": [
-        { "kind": "text", "value": "이번 달은 한 가지 활동에 푹 빠지기 좋은 결이에요." }
+        {
+          "kind": "text",
+          "value": "이번 달은 한 가지 활동에 푹 빠지기 좋은 흐름이에요."
+        }
       ],
       "tags": [],
       "aiGenerated": true,
@@ -50,10 +68,21 @@
     {
       "schemaVersion": "spring-ts.narrative-fragment.v1",
       "fragmentId": "academic.thisMonth.brief.10_19.003",
-      "axis": { "category": "academic", "period": "thisMonth", "depth": "brief" },
-      "gating": { "ageBand": ["10-19"] },
+      "axis": {
+        "category": "academic",
+        "period": "thisMonth",
+        "depth": "brief"
+      },
+      "gating": {
+        "ageBand": [
+          "10-19"
+        ]
+      },
       "templateTokens": [
-        { "kind": "text", "value": "이번 달은 어려운 단원의 결을 자기 노트로 묶기 좋아요." }
+        {
+          "kind": "text",
+          "value": "이번 달은 어려운 단원의 결을 자기 노트로 묶기 좋아요."
+        }
       ],
       "tags": [],
       "aiGenerated": true,
@@ -71,10 +100,21 @@
     {
       "schemaVersion": "spring-ts.narrative-fragment.v1",
       "fragmentId": "academic.thisMonth.brief.20_29.004",
-      "axis": { "category": "academic", "period": "thisMonth", "depth": "brief" },
-      "gating": { "ageBand": ["20-29"] },
+      "axis": {
+        "category": "academic",
+        "period": "thisMonth",
+        "depth": "brief"
+      },
+      "gating": {
+        "ageBand": [
+          "20-29"
+        ]
+      },
       "templateTokens": [
-        { "kind": "text", "value": "이번 달은 결과물 한 가지를 매듭짓기 좋아요." }
+        {
+          "kind": "text",
+          "value": "이번 달은 결과물 한 가지를 매듭짓기 좋아요."
+        }
       ],
       "tags": [],
       "aiGenerated": true,
@@ -92,10 +132,22 @@
     {
       "schemaVersion": "spring-ts.narrative-fragment.v1",
       "fragmentId": "academic.thisMonth.brief.30plus.005",
-      "axis": { "category": "academic", "period": "thisMonth", "depth": "brief" },
-      "gating": { "ageBand": ["30-39", "40-54"] },
+      "axis": {
+        "category": "academic",
+        "period": "thisMonth",
+        "depth": "brief"
+      },
+      "gating": {
+        "ageBand": [
+          "30-39",
+          "40-54"
+        ]
+      },
       "templateTokens": [
-        { "kind": "text", "value": "이번 달은 자기계발 책 한 권에 머물기 좋은 결이에요." }
+        {
+          "kind": "text",
+          "value": "이번 달은 자기계발 책 한 권에 머물기 좋은 흐름이에요."
+        }
       ],
       "tags": [],
       "aiGenerated": true,
@@ -113,10 +165,22 @@
     {
       "schemaVersion": "spring-ts.narrative-fragment.v1",
       "fragmentId": "academic.thisMonth.brief.55plus.006",
-      "axis": { "category": "academic", "period": "thisMonth", "depth": "brief" },
-      "gating": { "ageBand": ["55-69", "70+"] },
+      "axis": {
+        "category": "academic",
+        "period": "thisMonth",
+        "depth": "brief"
+      },
+      "gating": {
+        "ageBand": [
+          "55-69",
+          "70+"
+        ]
+      },
       "templateTokens": [
-        { "kind": "text", "value": "이번 달은 좋아하던 분야를 다시 펼치기 좋은 결이에요." }
+        {
+          "kind": "text",
+          "value": "이번 달은 좋아하던 분야를 다시 펼치기 좋은 흐름이에요."
+        }
       ],
       "tags": [],
       "aiGenerated": true,
@@ -134,10 +198,21 @@
     {
       "schemaVersion": "spring-ts.narrative-fragment.v1",
       "fragmentId": "academic.thisMonth.brief.aligned.007",
-      "axis": { "category": "academic", "period": "thisMonth", "depth": "brief" },
-      "gating": { "yongshinAlignment": ["aligned"] },
+      "axis": {
+        "category": "academic",
+        "period": "thisMonth",
+        "depth": "brief"
+      },
+      "gating": {
+        "yongshinAlignment": [
+          "aligned"
+        ]
+      },
       "templateTokens": [
-        { "kind": "text", "value": "이번 달은 깊이가 한 결로 잘 묶이는 흐름이에요." }
+        {
+          "kind": "text",
+          "value": "이번 달은 깊이가 한 결로 잘 묶이는 흐름이에요."
+        }
       ],
       "tags": [],
       "aiGenerated": true,
@@ -155,10 +230,21 @@
     {
       "schemaVersion": "spring-ts.narrative-fragment.v1",
       "fragmentId": "academic.thisMonth.brief.conflicting.008",
-      "axis": { "category": "academic", "period": "thisMonth", "depth": "brief" },
-      "gating": { "yongshinAlignment": ["conflicting"] },
+      "axis": {
+        "category": "academic",
+        "period": "thisMonth",
+        "depth": "brief"
+      },
+      "gating": {
+        "yongshinAlignment": [
+          "conflicting"
+        ]
+      },
       "templateTokens": [
-        { "kind": "text", "value": "이번 달은 분량보다 한 분야의 정리가 잘 어울려요." }
+        {
+          "kind": "text",
+          "value": "이번 달은 분량보다 한 분야의 정리가 잘 어울려요."
+        }
       ],
       "tags": [],
       "aiGenerated": true,
@@ -176,10 +262,21 @@
     {
       "schemaVersion": "spring-ts.narrative-fragment.v1",
       "fragmentId": "academic.thisMonth.brief.balanced.009",
-      "axis": { "category": "academic", "period": "thisMonth", "depth": "brief" },
-      "gating": { "dayMasterStrength": ["BALANCED"] },
+      "axis": {
+        "category": "academic",
+        "period": "thisMonth",
+        "depth": "brief"
+      },
+      "gating": {
+        "dayMasterStrength": [
+          "BALANCED"
+        ]
+      },
       "templateTokens": [
-        { "kind": "text", "value": "이번 달은 평소 페이스로 한 권을 매듭짓기 좋아요." }
+        {
+          "kind": "text",
+          "value": "이번 달은 평소 페이스로 한 권을 매듭짓기 좋아요."
+        }
       ],
       "tags": [],
       "aiGenerated": true,
