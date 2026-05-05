@@ -69,7 +69,7 @@
       "hashLabel": "#형제궁",
       "category": "palace",
       "brief": "형제·동기·가까운 동료의 흐름을 보는 궁이에요.",
-      "detailed": "형제궁은 형제·자매·가까운 또래·동료의 결을 비추는 자리예요. 이 궁이 든든하면 가까운 사람의 도움이 결정적인 자리에서 한 번씩 나타나는 결이라, 같이 일하는 자리·우정의 자산이 길게 이어지는 결로 풀어요.",
+      "detailed": "형제궁은 형제·자매·가까운 또래·동료의 흐름을 비추는 자리예요. 이 궁이 든든하면 가까운 사람의 도움이 결정적인 순간에 한 번씩 나타나, 같이 일하는 자리·우정의 자산이 길게 이어지는 흐름으로 풀어요.",
       "related": ["bigyeon", "geobjae"],
       "aiGenerated": true,
       "sourceTier": { "tier": "T1_HYPOTHESIS", "sourceType": "training_derived", "sourceUrl": null, "accessedAt": "2026-05-02", "quoteShort": null, "humanInterpretation": "AI-derived plain-language definition of 형제궁. Display-only.", "copyrightNote": "No source prose copied.", "authorityTruthEligible": false }
@@ -93,7 +93,7 @@
       "hashLabel": "#처궁",
       "category": "palace",
       "brief": "12궁 전통에서 부부·짝의 자리를 비추는 궁이에요.",
-      "detailed": "처궁은 12궁 전통에서 부부·반려·가까운 짝의 결을 비추는 자리예요. 4기둥 전통의 '배우자궁'과 결이 비슷하지만, 12궁에서는 별도의 자리로 두고 짝의 결·만남의 자리를 더 세세히 풀어요. 결혼·인연 시기에 함께 살피는 자리예요.",
+      "detailed": "처궁은 12궁 전통에서 부부·반려·가까운 짝의 흐름을 비추는 자리예요. 4기둥 전통의 '배우자궁'과 비슷하지만, 12궁에서는 별도의 자리로 두고 짝과 만남의 결을 더 세세히 풀어요. 결혼·인연 시기에 함께 살피는 자리예요.",
       "related": ["baeujagung", "geumyeo"],
       "aiGenerated": true,
       "sourceTier": { "tier": "T1_HYPOTHESIS", "sourceType": "training_derived", "sourceUrl": null, "accessedAt": "2026-05-02", "quoteShort": null, "humanInterpretation": "AI-derived plain-language definition of 처궁. Display-only.", "copyrightNote": "No source prose copied.", "authorityTruthEligible": false }
@@ -165,7 +165,7 @@
       "hashLabel": "#복덕궁",
       "category": "palace",
       "brief": "정신·여유·길흉의 큰 결을 비추는 궁이에요.",
-      "detailed": "복덕궁은 12궁 중 마음의 여유·정신적 결·전체 길흉의 흐름을 비추는 자리예요. 이 궁이 따뜻하면 평소 결의 기복이 작고 한결같은 자리가 자라기 쉬워요. 인생의 큰 그림·내면의 결을 살필 때 함께 보는 궁이에요.",
+      "detailed": "복덕궁은 12궁 중 마음의 여유·정신적 깊이·전체 길흉의 흐름을 비추는 자리예요. 이 궁이 따뜻하면 평소 흐름의 기복이 작고 한결같은 자리가 자라기 쉬워요. 인생의 큰 그림·내면의 결을 살필 때 함께 보는 궁이에요.",
       "related": ["myeonggung", "cheondeokgwiin"],
       "aiGenerated": true,
       "sourceTier": { "tier": "T1_HYPOTHESIS", "sourceType": "training_derived", "sourceUrl": null, "accessedAt": "2026-05-02", "quoteShort": null, "humanInterpretation": "AI-derived plain-language definition of 복덕궁. Display-only.", "copyrightNote": "No source prose copied.", "authorityTruthEligible": false }
