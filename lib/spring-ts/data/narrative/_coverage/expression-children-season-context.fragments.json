@@ -292,34 +292,7 @@
         },
         {
           "kind": "text",
-          "value": "과 맞는 표현인지 확인하세요.\n\n"
-        },
-        {
-          "kind": "tag",
-          "tagId": "janyeogung",
-          "label": "자녀궁"
-        },
-        {
-          "kind": "text",
-          "value": "의 결이 따뜻한 사주는 가까운 자녀·후배·작품과 함께 "
-        },
-        {
-          "kind": "tag",
-          "tagId": "sikshin",
-          "label": "식신"
-        },
-        {
-          "kind": "text",
-          "value": "의 결이 단단하게 자라는 자리예요.\n\n"
-        },
-        {
-          "kind": "tag",
-          "tagId": "hwagae",
-          "label": "화개"
-        },
-        {
-          "kind": "text",
-          "value": "의 결과 "
+          "value": "과 맞는 표현인지 확인하세요.\n\n자녀궁의 결이 따뜻한 사주는 가까운 자녀·후배·작품과 함께 식신의 결이 단단하게 자라는 자리예요.\n\n화개의 결과 "
         },
         {
           "kind": "tag",
@@ -353,8 +326,6 @@
         "sikshin",
         "sanggwan",
         "yongshin",
-        "janyeogung",
-        "hwagae",
         "munchanggwiin",
         "daewoonGungsil",
         "wolun"
@@ -616,29 +587,7 @@
         },
         {
           "kind": "text",
-          "value": "방향의 산출만 우선순위에 남기세요.\n\n"
-        },
-        {
-          "kind": "text",
-          "value": "자기 표현의 흐름은 "
-        },
-        {
-          "kind": "tag",
-          "tagId": "sikshin",
-          "label": "식신"
-        },
-        {
-          "kind": "text",
-          "value": "의 꾸준함과 "
-        },
-        {
-          "kind": "tag",
-          "tagId": "sanggwan",
-          "label": "상관"
-        },
-        {
-          "kind": "text",
-          "value": "의 새로움이 짝을 이루는 자리에서 빛이 나고, 가까운 사람의 한 마디 반응이 다음 흐름의 방향을 만들어 줘요.\n\n"
+          "value": "방향의 산출만 우선순위에 남기세요.\n\n자기 표현의 흐름은 식신의 꾸준함과 상관의 새로움이 짝을 이루는 자리에서 빛이 나고, 가까운 사람의 한 마디 반응이 다음 흐름의 방향을 만들어 줘요.\n\n"
         },
         {
           "kind": "tag",
@@ -647,16 +596,7 @@
         },
         {
           "kind": "text",
-          "value": "의 결이 따뜻한 사주는 가까운 자녀·후배·작품과 함께 "
-        },
-        {
-          "kind": "tag",
-          "tagId": "sikshin",
-          "label": "식신"
-        },
-        {
-          "kind": "text",
-          "value": "의 결이 단단하게 자라는 자리예요.\n\n"
+          "value": "의 결이 따뜻한 사주는 가까운 자녀·후배·작품과 함께 식신의 결이 단단하게 자라는 자리예요.\n\n"
         },
         {
           "kind": "tag",
@@ -920,20 +860,7 @@
         },
         {
           "kind": "text",
-          "value": "과 연결되는 돌봄·교육 이슈는 말의 속도를 낮추세요.\n\n"
-        },
-        {
-          "kind": "text",
-          "value": "자기 표현의 흐름은 "
-        },
-        {
-          "kind": "tag",
-          "tagId": "sikshin",
-          "label": "식신"
-        },
-        {
-          "kind": "text",
-          "value": "의 꾸준함과 "
+          "value": "과 연결되는 돌봄·교육 이슈는 말의 속도를 낮추세요.\n\n자기 표현의 흐름은 식신의 꾸준함과 "
         },
         {
           "kind": "tag",
@@ -951,16 +878,7 @@
         },
         {
           "kind": "text",
-          "value": "의 결이 따뜻한 사주는 가까운 자녀·후배·작품과 함께 "
-        },
-        {
-          "kind": "tag",
-          "tagId": "sikshin",
-          "label": "식신"
-        },
-        {
-          "kind": "text",
-          "value": "의 결이 단단하게 자라는 자리예요."
+          "value": "의 결이 따뜻한 사주는 가까운 자녀·후배·작품과 함께 식신의 결이 단단하게 자라는 자리예요."
         }
       ],
       "tags": [
@@ -1222,20 +1140,7 @@
         },
         {
           "kind": "text",
-          "value": "의 자리가 표현의 결로 맞물리는 시기엔 작품·발표 자리가 한 단계 깊어지는 흐름이 보여요.\n\n"
-        },
-        {
-          "kind": "text",
-          "value": "자기 표현의 흐름은 "
-        },
-        {
-          "kind": "tag",
-          "tagId": "sikshin",
-          "label": "식신"
-        },
-        {
-          "kind": "text",
-          "value": "의 꾸준함과 "
+          "value": "의 자리가 표현의 결로 맞물리는 시기엔 작품·발표 자리가 한 단계 깊어지는 흐름이 보여요.\n\n자기 표현의 흐름은 식신의 꾸준함과 "
         },
         {
           "kind": "tag",
