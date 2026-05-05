@@ -1,0 +1,38 @@
+{
+  "schemaVersion": "spring-ts.metaphor-element-bundle.v1",
+  "element": "EARTH",
+  "elementKorean": "흙",
+  "elementSymbol": "土",
+  "purpose": "Earth (흙) anchor pool. Phase 3 fragment author (A1-A10) reference for word-repetition reduction. Each anchor carries id / Korean label / tone tag / context (시기·문맥 gating) / example usage. Coexists with data/narrative/_metaphor/library.json (Phase 2 phrase-keyed bundle) — author may pick either, do not mix the two schemas in a single fragment.",
+  "aiGenerated": true,
+  "sourceTier": {
+    "tier": "T1_HYPOTHESIS",
+    "sourceType": "training_derived",
+    "sourceUrl": null,
+    "accessedAt": "2026-05-05",
+    "quoteShort": null,
+    "humanInterpretation": "Phase 3 A12 metaphor library — Earth element anchor expansion. Display-only; not authority truth.",
+    "copyrightNote": "No source prose copied; original interpretation.",
+    "authorityTruthEligible": false
+  },
+  "anchors": [
+    { "id": "earth_open_field", "label": "넓은 들판", "tone": "안정·뿌리내림", "context": "all", "exampleUsage": "넓은 들판처럼 여유 있는 자리에 서는 시기예요." },
+    { "id": "earth_warm_soil", "label": "포근한 흙", "tone": "안정·뿌리내림", "context": "all", "exampleUsage": "포근한 흙처럼 일상이 차분히 가라앉는 분위기예요." },
+    { "id": "earth_firm_ground", "label": "단단한 자리", "tone": "단단함·중심", "context": "all", "exampleUsage": "단단한 자리에 발을 디디는 시점이에요." },
+    { "id": "earth_leaning_hill", "label": "어깨를 기댈 언덕", "tone": "안정·뿌리내림", "context": "all", "exampleUsage": "어깨를 기댈 언덕처럼 누군가의 곁이 든든해져요." },
+    { "id": "earth_well_packed_field", "label": "잘 다진 텃밭", "tone": "안정·뿌리내림", "context": "spring|adult", "exampleUsage": "잘 다진 텃밭처럼 준비가 충분히 무르익은 자리예요." },
+    { "id": "earth_solid_rock", "label": "바위처럼 굳은 땅", "tone": "단단함·중심", "context": "adult|senior|expert", "exampleUsage": "바위처럼 굳은 땅에서 흔들리지 않고 결정을 내려요." },
+    { "id": "earth_quiet_courtyard", "label": "고즈넉한 마당", "tone": "고요·축적", "context": "autumn|senior|standard", "exampleUsage": "고즈넉한 마당처럼 조용한 안정감이 흐르는 자리예요." },
+    { "id": "earth_cornerstone", "label": "단단한 주춧돌", "tone": "단단함·중심", "context": "adult|senior", "exampleUsage": "단단한 주춧돌처럼 기반을 받쳐 주는 역할에 서요." },
+    { "id": "earth_sunlit_porch", "label": "햇살 든 마루", "tone": "안정·뿌리내림", "context": "spring|summer", "exampleUsage": "햇살 든 마루처럼 쉬어 가기 좋은 시점이에요." },
+    { "id": "earth_old_clay_wall", "label": "오래된 흙담", "tone": "고요·축적", "context": "senior|expert", "exampleUsage": "오래된 흙담처럼 쌓인 시간의 무게가 단단해지는 자리예요." },
+    { "id": "earth_dry_field", "label": "메마른 들녘", "tone": "고요·축적", "context": "summer|standard", "exampleUsage": "메마른 들녘처럼 보충이 필요한 흐름이 보일 때예요." },
+    { "id": "earth_village_path", "label": "푸근한 마을 길", "tone": "안정·뿌리내림", "context": "all", "exampleUsage": "푸근한 마을 길처럼 익숙한 관계가 다정해지는 시기예요." },
+    { "id": "earth_garden_ridge", "label": "텃밭의 두둑", "tone": "안정·뿌리내림", "context": "spring|summer|adult", "exampleUsage": "텃밭의 두둑처럼 한 줄씩 차근차근 정리해 가는 자리예요." },
+    { "id": "earth_clay_jar", "label": "옹기 항아리", "tone": "고요·축적", "context": "autumn|adult|senior", "exampleUsage": "옹기 항아리처럼 안에서 천천히 익어가는 흐름이에요." },
+    { "id": "earth_mossy_stone_wall", "label": "이끼 낀 돌담", "tone": "고요·축적", "context": "senior|standard|expert", "exampleUsage": "이끼 낀 돌담처럼 쌓인 시간이 결을 더해 주는 자리예요." },
+    { "id": "earth_packed_path", "label": "다져진 길", "tone": "단단함·중심", "context": "all", "exampleUsage": "다져진 길처럼 익숙한 발걸음이 흔들리지 않는 시기예요." },
+    { "id": "earth_grass_lawn", "label": "풀밭", "tone": "출발·시작", "context": "spring|young", "exampleUsage": "풀밭에 가만히 앉은 듯 새로운 자리에 자연스레 익어가요." },
+    { "id": "earth_deep_loam", "label": "깊은 흙 결", "tone": "고요·축적", "context": "expert", "exampleUsage": "깊은 흙 결처럼 보이지 않는 곳에서 자원이 모이는 시기예요." }
+  ]
+}
