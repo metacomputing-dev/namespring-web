@@ -1,0 +1,782 @@
+{
+  "generatedAt": "2026-05-05T07:07:02.404Z",
+  "purpose": "P5-A4 baseline tag distribution audit",
+  "categories": {
+    "overall": {
+      "fragments": 71,
+      "totalTagOccurrences": 208,
+      "byTag": {
+        "yongshin": 51,
+        "heeshin": 18,
+        "sajuCompatibility": 6,
+        "bigyeon": 6,
+        "geobjae": 1,
+        "sikshin": 13,
+        "sanggwan": 6,
+        "dayPillar": 2,
+        "monthPillar": 10,
+        "jeonggwan": 10,
+        "jeongjae": 6,
+        "daewoonGungsil": 3,
+        "baeujagung": 1,
+        "johu": 5,
+        "yearPillar": 5,
+        "yongshinFit": 5,
+        "gishin": 10,
+        "gushin": 1,
+        "samhyeong": 1,
+        "jeongin": 9,
+        "pyeonin": 5,
+        "jojangung": 5,
+        "gongmang": 5,
+        "bumyong": 3,
+        "tonggwanYongshin": 1,
+        "ohaengBalance": 1,
+        "byeongyakYongshin": 1,
+        "johuYongshin": 2,
+        "stabilityIndex": 1,
+        "gyeokgukYongshin": 1,
+        "gyeokgukFit": 1,
+        "jaebakgung": 1,
+        "eumyangHarmony": 1,
+        "myeonggung": 1,
+        "buaekYongshin": 1,
+        "sipsinDistribution": 1,
+        "hyeongjegung": 1,
+        "cheonigung": 1,
+        "munchanggwiin": 1,
+        "geumyeo": 1,
+        "siGungsil": 4
+      },
+      "byPeriod": {
+        "life": 19,
+        "thisYear": 13,
+        "thisMonth": 13,
+        "thisWeek": 13,
+        "today": 13
+      },
+      "uniqueTags": 41,
+      "topTags": [
+        {
+          "tag": "yongshin",
+          "count": 51
+        },
+        {
+          "tag": "heeshin",
+          "count": 18
+        },
+        {
+          "tag": "sikshin",
+          "count": 13
+        },
+        {
+          "tag": "monthPillar",
+          "count": 10
+        },
+        {
+          "tag": "jeonggwan",
+          "count": 10
+        }
+      ],
+      "leastTags": [
+        {
+          "tag": "geobjae",
+          "count": 1
+        },
+        {
+          "tag": "baeujagung",
+          "count": 1
+        },
+        {
+          "tag": "gushin",
+          "count": 1
+        },
+        {
+          "tag": "samhyeong",
+          "count": 1
+        },
+        {
+          "tag": "tonggwanYongshin",
+          "count": 1
+        }
+      ]
+    },
+    "wealth": {
+      "fragments": 38,
+      "totalTagOccurrences": 181,
+      "byTag": {
+        "yongshin": 38,
+        "jeongjae": 25,
+        "pyeonjae": 27,
+        "pyeongwan": 11,
+        "sajuCompatibility": 20,
+        "jeonggwan": 9,
+        "pyeonjaegyeok": 2,
+        "geobjae": 21,
+        "jeongjaegyeok": 2,
+        "sikshin": 7,
+        "jeongin": 12,
+        "bigyeon": 2,
+        "gishin": 5
+      },
+      "byPeriod": {
+        "life": 8,
+        "thisYear": 8,
+        "thisMonth": 7,
+        "thisWeek": 7,
+        "today": 8
+      },
+      "uniqueTags": 13,
+      "topTags": [
+        {
+          "tag": "yongshin",
+          "count": 38
+        },
+        {
+          "tag": "pyeonjae",
+          "count": 27
+        },
+        {
+          "tag": "jeongjae",
+          "count": 25
+        },
+        {
+          "tag": "geobjae",
+          "count": 21
+        },
+        {
+          "tag": "sajuCompatibility",
+          "count": 20
+        }
+      ],
+      "leastTags": [
+        {
+          "tag": "pyeonjaegyeok",
+          "count": 2
+        },
+        {
+          "tag": "jeongjaegyeok",
+          "count": 2
+        },
+        {
+          "tag": "bigyeon",
+          "count": 2
+        },
+        {
+          "tag": "gishin",
+          "count": 5
+        },
+        {
+          "tag": "sikshin",
+          "count": 7
+        }
+      ]
+    },
+    "health": {
+      "fragments": 50,
+      "totalTagOccurrences": 153,
+      "byTag": {
+        "johu": 27,
+        "water": 20,
+        "fire": 14,
+        "jeongin": 23,
+        "sikshin": 31,
+        "gongmang": 7,
+        "earth": 21,
+        "samhyeong": 7,
+        "wood": 2,
+        "metal": 1
+      },
+      "byPeriod": {
+        "life": 10,
+        "thisYear": 13,
+        "thisMonth": 9,
+        "thisWeek": 9,
+        "today": 9
+      },
+      "uniqueTags": 10,
+      "topTags": [
+        {
+          "tag": "sikshin",
+          "count": 31
+        },
+        {
+          "tag": "johu",
+          "count": 27
+        },
+        {
+          "tag": "jeongin",
+          "count": 23
+        },
+        {
+          "tag": "earth",
+          "count": 21
+        },
+        {
+          "tag": "water",
+          "count": 20
+        }
+      ],
+      "leastTags": [
+        {
+          "tag": "metal",
+          "count": 1
+        },
+        {
+          "tag": "wood",
+          "count": 2
+        },
+        {
+          "tag": "gongmang",
+          "count": 7
+        },
+        {
+          "tag": "samhyeong",
+          "count": 7
+        },
+        {
+          "tag": "fire",
+          "count": 14
+        }
+      ]
+    },
+    "academic": {
+      "fragments": 48,
+      "totalTagOccurrences": 144,
+      "byTag": {
+        "jeongin": 30,
+        "pyeonin": 14,
+        "sikshin": 30,
+        "sanggwan": 11,
+        "jeongingyeok": 6,
+        "pyeoningyeok": 6,
+        "sikshingyeok": 2,
+        "hwagae": 8,
+        "sanggwangyeok": 1,
+        "yongshin": 22,
+        "heeshin": 10,
+        "gishin": 4
+      },
+      "byPeriod": {
+        "life": 11,
+        "thisYear": 11,
+        "thisMonth": 8,
+        "thisWeek": 8,
+        "today": 10
+      },
+      "uniqueTags": 12,
+      "topTags": [
+        {
+          "tag": "jeongin",
+          "count": 30
+        },
+        {
+          "tag": "sikshin",
+          "count": 30
+        },
+        {
+          "tag": "yongshin",
+          "count": 22
+        },
+        {
+          "tag": "pyeonin",
+          "count": 14
+        },
+        {
+          "tag": "sanggwan",
+          "count": 11
+        }
+      ],
+      "leastTags": [
+        {
+          "tag": "sanggwangyeok",
+          "count": 1
+        },
+        {
+          "tag": "sikshingyeok",
+          "count": 2
+        },
+        {
+          "tag": "gishin",
+          "count": 4
+        },
+        {
+          "tag": "jeongingyeok",
+          "count": 6
+        },
+        {
+          "tag": "pyeoningyeok",
+          "count": 6
+        }
+      ]
+    },
+    "romance": {
+      "fragments": 46,
+      "totalTagOccurrences": 178,
+      "byTag": {
+        "baeujagung": 38,
+        "jeonggwan": 38,
+        "pyeongwan": 8,
+        "sikshin": 34,
+        "sanggwan": 12,
+        "dohwa": 22,
+        "hongyeom": 13,
+        "janyeogung": 2,
+        "nobokgung": 1,
+        "gabgihab": 1,
+        "jeongimhab": 1,
+        "eulgyeonghab": 1,
+        "byeongsinhab": 1,
+        "mugyehab": 1,
+        "cheogung": 2,
+        "yeokma": 1,
+        "hwagae": 1,
+        "geumyeo": 1
+      },
+      "byPeriod": {
+        "life": 10,
+        "thisYear": 12,
+        "thisMonth": 8,
+        "thisWeek": 8,
+        "today": 8
+      },
+      "uniqueTags": 18,
+      "topTags": [
+        {
+          "tag": "baeujagung",
+          "count": 38
+        },
+        {
+          "tag": "jeonggwan",
+          "count": 38
+        },
+        {
+          "tag": "sikshin",
+          "count": 34
+        },
+        {
+          "tag": "dohwa",
+          "count": 22
+        },
+        {
+          "tag": "hongyeom",
+          "count": 13
+        }
+      ],
+      "leastTags": [
+        {
+          "tag": "nobokgung",
+          "count": 1
+        },
+        {
+          "tag": "gabgihab",
+          "count": 1
+        },
+        {
+          "tag": "jeongimhab",
+          "count": 1
+        },
+        {
+          "tag": "eulgyeonghab",
+          "count": 1
+        },
+        {
+          "tag": "byeongsinhab",
+          "count": 1
+        }
+      ]
+    },
+    "family": {
+      "fragments": 53,
+      "totalTagOccurrences": 123,
+      "byTag": {
+        "jojangung": 9,
+        "bumyong": 32,
+        "jasikgung": 32,
+        "yearPillar": 2,
+        "hourPillar": 12,
+        "jeongin": 16,
+        "pyeonin": 1,
+        "bigyeon": 10,
+        "geobjae": 5,
+        "baeujagung": 4
+      },
+      "byPeriod": {
+        "life": 12,
+        "thisYear": 11,
+        "thisMonth": 10,
+        "thisWeek": 10,
+        "today": 10
+      },
+      "uniqueTags": 10,
+      "topTags": [
+        {
+          "tag": "bumyong",
+          "count": 32
+        },
+        {
+          "tag": "jasikgung",
+          "count": 32
+        },
+        {
+          "tag": "jeongin",
+          "count": 16
+        },
+        {
+          "tag": "hourPillar",
+          "count": 12
+        },
+        {
+          "tag": "bigyeon",
+          "count": 10
+        }
+      ],
+      "leastTags": [
+        {
+          "tag": "pyeonin",
+          "count": 1
+        },
+        {
+          "tag": "yearPillar",
+          "count": 2
+        },
+        {
+          "tag": "baeujagung",
+          "count": 4
+        },
+        {
+          "tag": "geobjae",
+          "count": 5
+        },
+        {
+          "tag": "jojangung",
+          "count": 9
+        }
+      ]
+    },
+    "career": {
+      "fragments": 40,
+      "totalTagOccurrences": 158,
+      "byTag": {
+        "jeonggwan": 30,
+        "pyeongwan": 25,
+        "jeongin": 31,
+        "daewoonGungsil": 16,
+        "jeonggwangyeok": 5,
+        "pyeongwangyeok": 5,
+        "yongshin": 20,
+        "siGungsil": 26
+      },
+      "byPeriod": {
+        "life": 8,
+        "thisYear": 8,
+        "thisMonth": 8,
+        "thisWeek": 8,
+        "today": 8
+      },
+      "uniqueTags": 8,
+      "topTags": [
+        {
+          "tag": "jeongin",
+          "count": 31
+        },
+        {
+          "tag": "jeonggwan",
+          "count": 30
+        },
+        {
+          "tag": "siGungsil",
+          "count": 26
+        },
+        {
+          "tag": "pyeongwan",
+          "count": 25
+        },
+        {
+          "tag": "yongshin",
+          "count": 20
+        }
+      ],
+      "leastTags": [
+        {
+          "tag": "jeonggwangyeok",
+          "count": 5
+        },
+        {
+          "tag": "pyeongwangyeok",
+          "count": 5
+        },
+        {
+          "tag": "daewoonGungsil",
+          "count": 16
+        },
+        {
+          "tag": "yongshin",
+          "count": 20
+        },
+        {
+          "tag": "pyeongwan",
+          "count": 25
+        }
+      ]
+    },
+    "study_document": {
+      "fragments": 54,
+      "totalTagOccurrences": 144,
+      "byTag": {
+        "jeongin": 54,
+        "bumyong": 14,
+        "pyeonin": 24,
+        "sikshin": 31,
+        "jeongingyeok": 11,
+        "pyeoningyeok": 10
+      },
+      "byPeriod": {
+        "life": 12,
+        "thisYear": 12,
+        "thisMonth": 10,
+        "thisWeek": 10,
+        "today": 10
+      },
+      "uniqueTags": 6,
+      "topTags": [
+        {
+          "tag": "jeongin",
+          "count": 54
+        },
+        {
+          "tag": "sikshin",
+          "count": 31
+        },
+        {
+          "tag": "pyeonin",
+          "count": 24
+        },
+        {
+          "tag": "bumyong",
+          "count": 14
+        },
+        {
+          "tag": "jeongingyeok",
+          "count": 11
+        }
+      ],
+      "leastTags": [
+        {
+          "tag": "pyeoningyeok",
+          "count": 10
+        },
+        {
+          "tag": "jeongingyeok",
+          "count": 11
+        },
+        {
+          "tag": "bumyong",
+          "count": 14
+        },
+        {
+          "tag": "pyeonin",
+          "count": 24
+        },
+        {
+          "tag": "sikshin",
+          "count": 31
+        }
+      ]
+    },
+    "expression_children": {
+      "fragments": 47,
+      "totalTagOccurrences": 109,
+      "byTag": {
+        "sikshin": 42,
+        "sanggwan": 18,
+        "jasikgung": 26,
+        "hourPillar": 8,
+        "sikshingyeok": 5,
+        "sanggwangyeok": 5,
+        "dohwa": 5
+      },
+      "byPeriod": {
+        "life": 10,
+        "thisYear": 10,
+        "thisMonth": 9,
+        "thisWeek": 9,
+        "today": 9
+      },
+      "uniqueTags": 7,
+      "topTags": [
+        {
+          "tag": "sikshin",
+          "count": 42
+        },
+        {
+          "tag": "jasikgung",
+          "count": 26
+        },
+        {
+          "tag": "sanggwan",
+          "count": 18
+        },
+        {
+          "tag": "hourPillar",
+          "count": 8
+        },
+        {
+          "tag": "sikshingyeok",
+          "count": 5
+        }
+      ],
+      "leastTags": [
+        {
+          "tag": "sikshingyeok",
+          "count": 5
+        },
+        {
+          "tag": "sanggwangyeok",
+          "count": 5
+        },
+        {
+          "tag": "dohwa",
+          "count": 5
+        },
+        {
+          "tag": "hourPillar",
+          "count": 8
+        },
+        {
+          "tag": "sanggwan",
+          "count": 18
+        }
+      ]
+    },
+    "health_stress": {
+      "fragments": 50,
+      "totalTagOccurrences": 131,
+      "byTag": {
+        "johu": 17,
+        "samhyeong": 17,
+        "gongmang": 10,
+        "jeongin": 36,
+        "yongshin": 15,
+        "pyeongwan": 16,
+        "fire": 10,
+        "water": 10
+      },
+      "byPeriod": {
+        "life": 10,
+        "thisYear": 10,
+        "thisMonth": 10,
+        "thisWeek": 10,
+        "today": 10
+      },
+      "uniqueTags": 8,
+      "topTags": [
+        {
+          "tag": "jeongin",
+          "count": 36
+        },
+        {
+          "tag": "johu",
+          "count": 17
+        },
+        {
+          "tag": "samhyeong",
+          "count": 17
+        },
+        {
+          "tag": "pyeongwan",
+          "count": 16
+        },
+        {
+          "tag": "yongshin",
+          "count": 15
+        }
+      ],
+      "leastTags": [
+        {
+          "tag": "gongmang",
+          "count": 10
+        },
+        {
+          "tag": "fire",
+          "count": 10
+        },
+        {
+          "tag": "water",
+          "count": 10
+        },
+        {
+          "tag": "yongshin",
+          "count": 15
+        },
+        {
+          "tag": "pyeongwan",
+          "count": 16
+        }
+      ]
+    },
+    "movement": {
+      "fragments": 50,
+      "totalTagOccurrences": 179,
+      "byTag": {
+        "yeokma": 50,
+        "daewoonGungsil": 32,
+        "jojangung": 27,
+        "samhyeong": 20,
+        "yongshin": 50
+      },
+      "byPeriod": {
+        "life": 10,
+        "thisYear": 10,
+        "thisMonth": 10,
+        "thisWeek": 10,
+        "today": 10
+      },
+      "uniqueTags": 5,
+      "topTags": [
+        {
+          "tag": "yeokma",
+          "count": 50
+        },
+        {
+          "tag": "yongshin",
+          "count": 50
+        },
+        {
+          "tag": "daewoonGungsil",
+          "count": 32
+        },
+        {
+          "tag": "jojangung",
+          "count": 27
+        },
+        {
+          "tag": "samhyeong",
+          "count": 20
+        }
+      ],
+      "leastTags": [
+        {
+          "tag": "samhyeong",
+          "count": 20
+        },
+        {
+          "tag": "jojangung",
+          "count": 27
+        },
+        {
+          "tag": "daewoonGungsil",
+          "count": 32
+        },
+        {
+          "tag": "yeokma",
+          "count": 50
+        },
+        {
+          "tag": "yongshin",
+          "count": 50
+        }
+      ]
+    }
+  }
+}
