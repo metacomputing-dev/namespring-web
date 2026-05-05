@@ -7,10 +7,17 @@
     {
       "schemaVersion": "spring-ts.narrative-fragment.v1",
       "fragmentId": "health.life.standard.wild.001",
-      "axis": { "category": "health", "period": "life", "depth": "standard" },
+      "axis": {
+        "category": "health",
+        "period": "life",
+        "depth": "standard"
+      },
       "gating": {},
       "templateTokens": [
-        { "kind": "text", "value": "평생의 컨디션은 큰 산을 타기보다 잔잔한 길을 오래 걷는 결이에요. 무리해서 한 번에 큰 변화를 만들기보다, 매일 조금씩 다듬어 가는 흐름에서 가장 단단해져요.\n\n잘 자고, 잘 먹고, 잘 움직이는 세 가지를 시기마다 점검만 해도 큰 흐름이 안정돼요. 환절기·계절 바뀜에 한 번씩 페이스를 늦추는 자리만 챙기면 큰 흠 없이 흘러가요.\n\n결국엔 '오래 갈 수 있는 페이스를 찾는 사람'이 가장 단단한 사주예요. 자기만의 회복 신호를 잘 읽는 연습이 평생의 자산이 돼요." }
+        {
+          "kind": "text",
+          "value": "평생의 컨디션은 큰 산을 타기보다 잔잔한 길을 오래 걷는 결이에요. 무리해서 한 번에 큰 변화를 만들기보다, 매일 조금씩 다듬어 가는 흐름에서 가장 단단해져요.\n\n잘 자고, 잘 먹고, 잘 움직이는 세 가지를 시기마다 점검만 해도 큰 흐름이 안정돼요. 환절기·계절 바뀜에 한 번씩 페이스를 늦추는 자리만 챙기면 큰 흠 없이 흘러가요.\n\n결국엔 '오래 갈 수 있는 페이스를 찾는 사람'이 가장 단단한 사주예요. 자기만의 회복 신호를 잘 읽는 연습이 평생의 자산이 돼요."
+        }
       ],
       "tags": [],
       "livingTips": [
@@ -37,12 +44,21 @@
     {
       "schemaVersion": "spring-ts.narrative-fragment.v1",
       "fragmentId": "health.life.standard.balanced.001",
-      "axis": { "category": "health", "period": "life", "depth": "standard" },
+      "axis": {
+        "category": "health",
+        "period": "life",
+        "depth": "standard"
+      },
       "gating": {
-        "dayMasterStrength": ["BALANCED"]
+        "dayMasterStrength": [
+          "BALANCED"
+        ]
       },
       "templateTokens": [
-        { "kind": "text", "value": "기운이 고르게 자리 잡은 사주라, 평생 흐름에서도 큰 기복 없이 흘러가는 결이에요. 시소가 양쪽에 잘 균형 잡힌 모양처럼, 좋고 나쁨이 한쪽으로 크게 기울지 않아 회복도 빠른 편이에요.\n\n다만 '큰 사고가 없으니 괜찮겠지'라고 신호를 가볍게 넘기기 쉬워요. 작은 피로·소화 불편 같은 알림이 올 때 한 박자 쉬어 가면, 평생 컨디션이 한 단계 더 단단해져요.\n\n익숙한 일상 루틴이 가장 큰 자산인 사주예요. 새 운동·새 식단도 무리 없이 받아들이지만, 오래 가는 한 가지를 정해 두는 편이 결국 더 잘 맞아요." }
+        {
+          "kind": "text",
+          "value": "기운이 고르게 자리 잡은 사주라, 평생 흐름에서도 큰 기복 없이 흘러가는 결이에요. 시소가 양쪽에 잘 균형 잡힌 모양처럼, 좋고 나쁨이 한쪽으로 크게 기울지 않아 회복도 빠른 편이에요.\n\n다만 '큰 사고가 없으니 괜찮겠지'라고 신호를 가볍게 넘기기 쉬워요. 작은 피로·소화 불편 같은 알림이 올 때 한 박자 쉬어 가면, 평생 컨디션이 한 단계 더 단단해져요.\n\n익숙한 일상 루틴이 가장 큰 자산인 사주예요. 새 운동·새 식단도 무리 없이 받아들이지만, 오래 가는 한 가지를 정해 두는 편이 결국 더 잘 맞아요."
+        }
       ],
       "tags": [],
       "livingTips": [
@@ -69,13 +85,25 @@
     {
       "schemaVersion": "spring-ts.narrative-fragment.v1",
       "fragmentId": "health.life.standard.weak.aligned.001",
-      "axis": { "category": "health", "period": "life", "depth": "standard" },
+      "axis": {
+        "category": "health",
+        "period": "life",
+        "depth": "standard"
+      },
       "gating": {
-        "dayMasterStrength": ["WEAK", "EXTREME_WEAK"],
-        "yongshinAlignment": ["aligned"]
+        "dayMasterStrength": [
+          "WEAK",
+          "EXTREME_WEAK"
+        ],
+        "yongshinAlignment": [
+          "aligned"
+        ]
       },
       "templateTokens": [
-        { "kind": "text", "value": "기운이 가벼운 결이지만, 도움 받는 흐름이 잘 따라 주는 사주예요. 마치 살짝 가는 줄기에도 단단한 받침대가 있는 화분 같은 모양이라, 챙겨 주는 자리들이 평생 들고 나며 컨디션을 받쳐 줘요.\n\n한 번에 크게 무리하기보다, 작은 회복 자리를 자주 만들어 가는 페이스가 잘 맞아요. 따뜻한 음식, 충분한 수면, 적당한 햇볕 같은 보편적인 챙김이 그대로 약이 되는 결이에요.\n\n주변 사람·가족·친구의 응원도 컨디션의 큰 자산이에요. 마음이 따뜻해지는 자리에서 회복이 빨라지는 편이라, 의지할 곳을 부끄러워하지 않아도 돼요." }
+        {
+          "kind": "text",
+          "value": "기운이 가벼운 결이지만, 도움 받는 흐름이 잘 따라 주는 사주예요. 마치 살짝 가는 줄기에도 단단한 받침대가 있는 화분 같은 모양이라, 챙겨 주는 자리들이 평생 들고 나며 컨디션을 받쳐 줘요.\n\n한 번에 크게 무리하기보다, 작은 회복 자리를 자주 만들어 가는 페이스가 잘 맞아요. 따뜻한 음식, 충분한 수면, 적당한 햇볕 같은 보편적인 챙김이 그대로 약이 되는 결이에요.\n\n주변 사람·가족·친구의 응원도 컨디션의 큰 자산이에요. 마음이 따뜻해지는 자리에서 회복이 빨라지는 편이라, 의지할 곳을 부끄러워하지 않아도 돼요."
+        }
       ],
       "tags": [],
       "livingTips": [
@@ -102,13 +130,25 @@
     {
       "schemaVersion": "spring-ts.narrative-fragment.v1",
       "fragmentId": "health.life.standard.weak.conflicting.001",
-      "axis": { "category": "health", "period": "life", "depth": "standard" },
+      "axis": {
+        "category": "health",
+        "period": "life",
+        "depth": "standard"
+      },
       "gating": {
-        "dayMasterStrength": ["WEAK", "EXTREME_WEAK"],
-        "yongshinAlignment": ["conflicting"]
+        "dayMasterStrength": [
+          "WEAK",
+          "EXTREME_WEAK"
+        ],
+        "yongshinAlignment": [
+          "conflicting"
+        ]
       },
       "templateTokens": [
-        { "kind": "text", "value": "기운이 가볍고, 받쳐 주는 자리도 흔들리는 결이라 평생 페이스 조절이 가장 큰 과제예요. 작은 화분이 자주 옮겨지는 모양처럼, 변화가 잦으면 회복이 늦어지는 편이라 일상의 결을 단단히 잡아 두는 편이 좋아요.\n\n남보다 한 박자 천천히 가는 게 손해가 아니라 강점이 되는 사주예요. 욕심을 줄이고, 일·휴식·수면의 시간을 또렷하게 정해 두는 것만으로도 평생 큰 흠 없이 흘러가요.\n\n계절이 바뀔 때, 큰 일·시험·이사 같은 변화가 있을 때 한 번씩 잠시 쉬어 가는 자리를 만들어 두면 한결 부드러워요." }
+        {
+          "kind": "text",
+          "value": "기운이 가볍고, 받쳐 주는 자리도 흔들리는 결이라 평생 페이스 조절이 가장 큰 과제예요. 작은 화분이 자주 옮겨지는 모양처럼, 변화가 잦으면 회복이 늦어지는 편이라 일상의 결을 단단히 잡아 두는 편이 좋아요.\n\n남보다 한 박자 천천히 가는 게 손해가 아니라 강점이 되는 사주예요. 욕심을 줄이고, 일·휴식·수면의 시간을 또렷하게 정해 두는 것만으로도 평생 큰 흠 없이 흘러가요.\n\n계절이 바뀔 때, 큰 일·시험·이사 같은 변화가 있을 때 한 번씩 잠시 쉬어 가는 자리를 만들어 두면 한결 부드러워요."
+        }
       ],
       "tags": [],
       "livingTips": [
@@ -135,12 +175,22 @@
     {
       "schemaVersion": "spring-ts.narrative-fragment.v1",
       "fragmentId": "health.life.standard.strong.001",
-      "axis": { "category": "health", "period": "life", "depth": "standard" },
+      "axis": {
+        "category": "health",
+        "period": "life",
+        "depth": "standard"
+      },
       "gating": {
-        "dayMasterStrength": ["STRONG", "EXTREME_STRONG"]
+        "dayMasterStrength": [
+          "STRONG",
+          "EXTREME_STRONG"
+        ]
       },
       "templateTokens": [
-        { "kind": "text", "value": "기운이 단단한 사주라 평생 흐름에서도 회복이 빠른 편이에요. 활짝 자란 나무처럼 위로 뻗는 힘이 좋아 활동량을 받아 내는 그릇이 큰 결이에요.\n\n다만 '괜찮을 거야' 하고 신호를 가볍게 넘기기 쉬워요. 강한 기운일수록 무리한 시기엔 갑자기 한 번에 누적이 터지기도 하니, 정기 점검·정기 휴식 자리를 미리 짜 두는 편이 좋아요.\n\n흐트러지는 게 아니라 다듬는 결을 만들어 가는 시기를 한 번씩 가지면, 평생 컨디션이 더 길게 이어져요. 한 가지 운동·취미를 꾸준히 갈고 닦는 모양이 가장 잘 맞아요." }
+        {
+          "kind": "text",
+          "value": "기운이 단단한 사주라 평생 흐름에서도 회복이 빠른 편이에요. 활짝 자란 나무처럼 위로 뻗는 힘이 좋아 활동량을 받아 내는 그릇이 큰 결이에요.\n\n다만 '괜찮을 거야' 하고 신호를 가볍게 넘기기 쉬워요. 강한 기운일수록 무리한 시기엔 갑자기 한 번에 누적이 터지기도 하니, 정기 점검·정기 휴식 자리를 미리 짜 두는 편이 좋아요.\n\n흐트러지는 게 아니라 다듬는 자리를 만들어 가는 시기를 한 번씩 가지면, 평생 컨디션이 더 길게 이어져요. 한 가지 운동·취미를 꾸준히 갈고 닦는 모양이 가장 잘 맞아요."
+        }
       ],
       "tags": [],
       "livingTips": [
@@ -167,13 +217,24 @@
     {
       "schemaVersion": "spring-ts.narrative-fragment.v1",
       "fragmentId": "health.life.standard.aligned.40_54.001",
-      "axis": { "category": "health", "period": "life", "depth": "standard" },
+      "axis": {
+        "category": "health",
+        "period": "life",
+        "depth": "standard"
+      },
       "gating": {
-        "yongshinAlignment": ["aligned"],
-        "ageBand": ["40-54"]
+        "yongshinAlignment": [
+          "aligned"
+        ],
+        "ageBand": [
+          "40-54"
+        ]
       },
       "templateTokens": [
-        { "kind": "text", "value": "40대 이후의 컨디션 흐름은 그동안 쌓아 온 자산을 정리하고 다듬어 가는 결이에요. 들판이 자기 모양을 또렷하게 잡아 가는 시기처럼, 기력의 결이 단단하게 자리 잡아 가요.\n\n젊은 시절의 무리를 한 번씩 정리해 주면, 후반기 흐름이 한결 가벼워져요. 큰 욕심은 줄이고, 자기 페이스 안에서 꾸준히 만들어 가는 자리를 늘리는 편이 좋아요.\n\n이 시기엔 가족·가까운 사람과 함께 챙기는 흐름이 큰 약이 돼요. 정기적인 점검과 휴식을 같이 짜 두면 평생 컨디션의 큰 그림이 한층 또렷해져요." }
+        {
+          "kind": "text",
+          "value": "40대 이후의 컨디션 흐름은 그동안 쌓아 온 자산을 정리하고 다듬어 가는 결이에요. 들판이 자기 모양을 또렷하게 잡아 가는 시기처럼, 기력의 중심이 단단하게 자리 잡아 가요.\n\n젊은 시절의 무리를 한 번씩 정리해 주면, 후반기 흐름이 한결 가벼워져요. 큰 욕심은 줄이고, 자기 페이스 안에서 꾸준히 만들어 가는 자리를 늘리는 편이 좋아요.\n\n이 시기엔 가족·가까운 사람과 함께 챙기는 흐름이 큰 약이 돼요. 정기적인 점검과 휴식을 같이 짜 두면 평생 컨디션의 큰 그림이 한층 또렷해져요."
+        }
       ],
       "tags": [],
       "livingTips": [
@@ -200,12 +261,21 @@
     {
       "schemaVersion": "spring-ts.narrative-fragment.v1",
       "fragmentId": "health.life.standard.55_69.001",
-      "axis": { "category": "health", "period": "life", "depth": "standard" },
+      "axis": {
+        "category": "health",
+        "period": "life",
+        "depth": "standard"
+      },
       "gating": {
-        "ageBand": ["55-69"]
+        "ageBand": [
+          "55-69"
+        ]
       },
       "templateTokens": [
-        { "kind": "text", "value": "후반기에 들어가는 흐름이라, 평생 컨디션의 결이 정리·전환의 색으로 자리 잡아요. 빠른 변화보다는 부드러운 정돈이 잘 맞는 시기예요.\n\n무리해서 큰 도전을 만들기보다, 좋은 습관을 한 가지씩 더 단단히 만들어 가는 편이 보약이 돼요. 산책, 가벼운 스트레칭, 따뜻한 한 끼처럼 일상의 작은 자리들이 그대로 큰 자산이 돼요.\n\n주변 가족·친구와 함께 챙기는 자리도 의미가 커요. 마음이 든든해지는 만남을 자주 만들면, 컨디션의 결이 자연스럽게 따라와요." }
+        {
+          "kind": "text",
+          "value": "후반기에 들어가는 흐름이라, 평생 컨디션의 결이 정리·전환의 색으로 자리 잡아요. 빠른 변화보다는 부드러운 정돈이 잘 맞는 시기예요.\n\n무리해서 큰 도전을 만들기보다, 좋은 습관을 한 가지씩 더 단단히 만들어 가는 편이 보약이 돼요. 산책, 가벼운 스트레칭, 따뜻한 한 끼처럼 일상의 작은 자리들이 그대로 큰 자산이 돼요.\n\n주변 가족·친구와 함께 챙기는 자리도 의미가 커요. 마음이 든든해지는 만남을 자주 만들면, 컨디션의 리듬이 자연스럽게 따라와요."
+        }
       ],
       "tags": [],
       "livingTips": [
@@ -232,12 +302,21 @@
     {
       "schemaVersion": "spring-ts.narrative-fragment.v1",
       "fragmentId": "health.life.standard.male.001",
-      "axis": { "category": "health", "period": "life", "depth": "standard" },
+      "axis": {
+        "category": "health",
+        "period": "life",
+        "depth": "standard"
+      },
       "gating": {
-        "gender": ["male"]
+        "gender": [
+          "male"
+        ]
       },
       "templateTokens": [
-        { "kind": "text", "value": "활동량이 많은 흐름의 사주라, 평생 페이스에서 강도 조절이 가장 큰 과제예요. 자기 그릇을 알고 한 박자 천천히 가는 자리를 만들어 두면 후반까지 컨디션이 단단하게 이어져요.\n\n무리한 강도·갑작스러운 변화를 한 번씩 누적하면 신호가 늦게 오지만 크게 와요. 정기 점검·정기 휴식 자리를 일정에 미리 넣어 두는 편이 좋아요.\n\n자기 회복 신호를 부끄럽지 않게 받아들이는 연습이 평생 큰 자산이 돼요. 누군가에게 의지하는 시간도 강한 사람의 결의 한 부분이에요." }
+        {
+          "kind": "text",
+          "value": "활동량이 많은 흐름의 사주라, 평생 페이스에서 강도 조절이 가장 큰 과제예요. 자기 그릇을 알고 한 박자 천천히 가는 자리를 만들어 두면 후반까지 컨디션이 단단하게 이어져요.\n\n무리한 강도·갑작스러운 변화를 한 번씩 누적하면 신호가 늦게 오지만 크게 와요. 정기 점검·정기 휴식 자리를 일정에 미리 넣어 두는 편이 좋아요.\n\n자기 회복 신호를 부끄럽지 않게 받아들이는 연습이 평생 큰 자산이 돼요. 누군가에게 의지하는 시간도 강한 사람의 결의 한 부분이에요."
+        }
       ],
       "tags": [],
       "livingTips": [
@@ -264,12 +343,21 @@
     {
       "schemaVersion": "spring-ts.narrative-fragment.v1",
       "fragmentId": "health.life.standard.female.001",
-      "axis": { "category": "health", "period": "life", "depth": "standard" },
+      "axis": {
+        "category": "health",
+        "period": "life",
+        "depth": "standard"
+      },
       "gating": {
-        "gender": ["female"]
+        "gender": [
+          "female"
+        ]
       },
       "templateTokens": [
-        { "kind": "text", "value": "감정과 컨디션이 한 결로 이어진 흐름이라, 평생 마음 자리를 따뜻하게 챙기는 일이 가장 큰 보약이에요. 들판이 햇볕을 받으면 자연스럽게 풀잎이 자라듯, 마음이 부드러워지면 컨디션도 따라와요.\n\n계절이 바뀔 때, 일상이 크게 흔들리는 시기엔 한 박자 천천히 가는 자리를 만들어 두면 좋아요. 따뜻한 차, 가벼운 산책, 충분한 수면은 어떤 보약보다 든든한 일상 자산이에요.\n\n주변과 함께 챙기는 결을 자연스럽게 받아들이는 사주예요. 마음 편한 자리에서 회복이 빨라지니, 그런 자리를 자주 만들어 두면 후반까지 가볍게 흘러가요." }
+        {
+          "kind": "text",
+          "value": "감정과 컨디션이 한 결로 이어진 흐름이라, 평생 마음 자리를 따뜻하게 챙기는 일이 가장 큰 보약이에요. 들판이 햇볕을 받으면 자연스럽게 풀잎이 자라듯, 마음이 부드러워지면 컨디션도 따라와요.\n\n계절이 바뀔 때, 일상이 크게 흔들리는 시기엔 한 박자 천천히 가는 자리를 만들어 두면 좋아요. 따뜻한 차, 가벼운 산책, 충분한 수면은 어떤 보약보다 든든한 일상 자산이에요.\n\n주변과 함께 챙기는 결을 자연스럽게 받아들이는 사주예요. 마음 편한 자리에서 회복이 빨라지니, 그런 자리를 자주 만들어 두면 후반까지 가볍게 흘러가요."
+        }
       ],
       "tags": [],
       "livingTips": [
@@ -296,12 +384,21 @@
     {
       "schemaVersion": "spring-ts.narrative-fragment.v1",
       "fragmentId": "health.life.standard.neutral.001",
-      "axis": { "category": "health", "period": "life", "depth": "standard" },
+      "axis": {
+        "category": "health",
+        "period": "life",
+        "depth": "standard"
+      },
       "gating": {
-        "yongshinAlignment": ["neutral"]
+        "yongshinAlignment": [
+          "neutral"
+        ]
       },
       "templateTokens": [
-        { "kind": "text", "value": "평생 컨디션 흐름이 보통 결로 자리 잡은 사주라, 평소 습관이 그대로 운명의 자산이 돼요. 큰 변동 없이 흐르지만, 작은 신호를 무시하면 후반에 부담이 커질 수 있어요.\n\n잘 자는 자리, 잘 먹는 자리, 잘 움직이는 자리 세 가지를 한 번씩 점검하는 습관만 있어도 충분히 부드러운 흐름이 만들어져요. 매일 같은 시각에 일어나는 작은 규칙이 큰 약이 되는 결이에요.\n\n가벼운 변화·새 시도는 한 번에 하나씩만 들여 봐도 좋아요. 무리하지 않는 페이스가 길게 가는 결의 핵심이에요." }
+        {
+          "kind": "text",
+          "value": "평생 컨디션 흐름이 보통 결로 자리 잡은 사주라, 평소 습관이 그대로 운명의 자산이 돼요. 큰 변동 없이 흐르지만, 작은 신호를 무시하면 후반에 부담이 커질 수 있어요.\n\n잘 자는 자리, 잘 먹는 자리, 잘 움직이는 자리 세 가지를 한 번씩 점검하는 습관만 있어도 충분히 부드러운 흐름이 만들어져요. 매일 같은 시각에 일어나는 작은 규칙이 큰 약이 되는 결이에요.\n\n가벼운 변화·새 시도는 한 번에 하나씩만 들여 봐도 좋아요. 무리하지 않는 페이스가 길게 가는 결의 핵심이에요."
+        }
       ],
       "tags": [],
       "livingTips": [
@@ -328,12 +425,21 @@
     {
       "schemaVersion": "spring-ts.narrative-fragment.v1",
       "fragmentId": "health.life.standard.neutral_gender.001",
-      "axis": { "category": "health", "period": "life", "depth": "standard" },
+      "axis": {
+        "category": "health",
+        "period": "life",
+        "depth": "standard"
+      },
       "gating": {
-        "gender": ["neutral"]
+        "gender": [
+          "neutral"
+        ]
       },
       "templateTokens": [
-        { "kind": "text", "value": "평생의 컨디션은 자기에게 맞는 페이스를 찾아가는 결이에요. 누구의 기준이 아니라 스스로의 결을 따라 움직이면, 회복도 자연스럽게 따라와요.\n\n주변의 어떤 기대와도 거리를 두고, 자기 신호에 귀 기울이는 연습이 평생의 자산이 돼요. 잠 자리·식사 자리·움직임 자리 세 가지를 자기 식대로 챙기는 편이 좋아요.\n\n무리하지 않는 페이스가 가장 길게 가는 결의 핵심이에요. 작은 챙김이 누적되면, 후반기 흐름까지 든든하게 이어져요." }
+        {
+          "kind": "text",
+          "value": "평생의 컨디션은 자기에게 맞는 페이스를 찾아가는 결이에요. 누구의 기준이 아니라 스스로의 결을 따라 움직이면, 회복도 자연스럽게 따라와요.\n\n주변의 어떤 기대와도 거리를 두고, 자기 신호에 귀 기울이는 연습이 평생의 자산이 돼요. 잠 자리·식사 자리·움직임 자리 세 가지를 자기 식대로 챙기는 편이 좋아요.\n\n무리하지 않는 페이스가 가장 길게 가는 결의 핵심이에요. 작은 챙김이 누적되면, 후반기 흐름까지 든든하게 이어져요."
+        }
       ],
       "tags": [],
       "livingTips": [
@@ -360,12 +466,21 @@
     {
       "schemaVersion": "spring-ts.narrative-fragment.v1",
       "fragmentId": "health.life.standard.20_29.001",
-      "axis": { "category": "health", "period": "life", "depth": "standard" },
+      "axis": {
+        "category": "health",
+        "period": "life",
+        "depth": "standard"
+      },
       "gating": {
-        "ageBand": ["20-29"]
+        "ageBand": [
+          "20-29"
+        ]
       },
       "templateTokens": [
-        { "kind": "text", "value": "20대의 컨디션 결은 평생 가는 그릇을 만들어 가는 시기예요. 새싹이 자랄 때 햇볕과 물을 잘 챙겨 주면 줄기가 단단해지듯, 이 시기의 작은 습관이 평생의 자산이 돼요.\n\n무리한 다이어트·과도한 야근·잠 부족 같은 자리만 한 번씩 정리하면, 후반기 흐름이 한결 가벼워져요. 갈피를 못 잡는 시도가 많은 시기지만, 한 가지를 길게 이어 가는 연습이 가장 큰 약이에요.\n\n새 도전·새 운동을 받아 내는 그릇이 큰 시기예요. 다만 '강한 자극이 효과'라는 말에 휘둘리기보다, 자기 페이스를 천천히 찾아가는 편이 잘 맞아요." }
+        {
+          "kind": "text",
+          "value": "20대의 컨디션 결은 평생 가는 그릇을 만들어 가는 시기예요. 새싹이 자랄 때 햇볕과 물을 잘 챙겨 주면 줄기가 단단해지듯, 이 시기의 작은 습관이 평생의 자산이 돼요.\n\n무리한 다이어트·과도한 야근·잠 부족 같은 자리만 한 번씩 정리하면, 후반기 흐름이 한결 가벼워져요. 갈피를 못 잡는 시도가 많은 시기지만, 한 가지를 길게 이어 가는 연습이 가장 큰 약이에요.\n\n새 도전·새 운동을 받아 내는 그릇이 큰 시기예요. 다만 '강한 자극이 효과'라는 말에 휘둘리기보다, 자기 페이스를 천천히 찾아가는 편이 잘 맞아요."
+        }
       ],
       "tags": [],
       "livingTips": [

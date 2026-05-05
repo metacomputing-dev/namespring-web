@@ -8,10 +8,17 @@
     {
       "schemaVersion": "spring-ts.narrative-fragment.v1",
       "fragmentId": "expression_children.thisMonth.standard.wildcard.001",
-      "axis": { "category": "expression_children", "period": "thisMonth", "depth": "standard" },
+      "axis": {
+        "category": "expression_children",
+        "period": "thisMonth",
+        "depth": "standard"
+      },
       "gating": {},
       "templateTokens": [
-        { "kind": "text", "value": "이번 달은 표현 결이 한 단계 또렷해지는 흐름이에요. 한 주 단위의 작은 시도들이 모이면서 자기 색이 한 뼘 진해지고, 작업·말·기록이 자리를 잡아 가요. 봄에서 여름으로 넘어가는 잎처럼 색이 한 결 진해지는 시간이에요. 한 달 안에 매듭지어 둘 작업 한두 개를 정해 두면 결이 단단해져요. 가까운 사람과 함께하는 자리도 좋은 디딤돌이 돼요. 한 번에 큰 무대보다 천천히 깊어지는 한 달이 잘 맞아요." }
+        {
+          "kind": "text",
+          "value": "이번 달은 표현 중심이 한 단계 또렷해지는 흐름이에요. 한 주 단위의 작은 시도들이 모이면서 자기 색이 한 뼘 진해지고, 작업·말·기록이 자리를 잡아 가요. 봄에서 여름으로 넘어가는 잎처럼 색이 한 결 진해지는 시간이에요. 한 달 안에 매듭지어 둘 작업 한두 개를 정해 두면 중심이 단단해져요. 가까운 사람과 함께하는 자리도 좋은 디딤돌이 돼요. 한 번에 큰 무대보다 천천히 깊어지는 한 달이 잘 맞아요."
+        }
       ],
       "tags": [],
       "livingTips": [
@@ -36,10 +43,21 @@
     {
       "schemaVersion": "spring-ts.narrative-fragment.v1",
       "fragmentId": "expression_children.thisMonth.standard.0_9.002",
-      "axis": { "category": "expression_children", "period": "thisMonth", "depth": "standard" },
-      "gating": { "ageBand": ["0-9"] },
+      "axis": {
+        "category": "expression_children",
+        "period": "thisMonth",
+        "depth": "standard"
+      },
+      "gating": {
+        "ageBand": [
+          "0-9"
+        ]
+      },
       "templateTokens": [
-        { "kind": "text", "value": "이번 달은 좋아하는 놀이가 한 단계 자라는 결이에요. 새로운 도구·이야기·노래를 만나는 자리가 자연스럽게 생기고, 자기 색이 한 뼘 또렷해져요. 햇살이 잎의 결을 또렷이 비추는 시간 같은 그림이에요. 결과 평가보다 '신나게 했다'는 마음이 더 큰 자산이에요. 한 달 동안 만든 작품을 한 곳에 모아 두면 자기 결이 잘 보여요. 자유롭게 풀어 두는 시간이 가장 좋은 환경이에요." }
+        {
+          "kind": "text",
+          "value": "이번 달은 좋아하는 놀이가 한 단계 자라는 결이에요. 새로운 도구·이야기·노래를 만나는 자리가 자연스럽게 생기고, 자기 색이 한 뼘 또렷해져요. 햇살이 잎의 결을 또렷이 비추는 시간 같은 그림이에요. 결과 평가보다 '신나게 했다'는 마음이 더 큰 자산이에요. 한 달 동안 만든 작품을 한 곳에 모아 두면 자기 흐름이 잘 보여요. 자유롭게 풀어 두는 시간이 가장 좋은 환경이에요."
+        }
       ],
       "tags": [],
       "livingTips": [
@@ -64,10 +82,21 @@
     {
       "schemaVersion": "spring-ts.narrative-fragment.v1",
       "fragmentId": "expression_children.thisMonth.standard.10_19.003",
-      "axis": { "category": "expression_children", "period": "thisMonth", "depth": "standard" },
-      "gating": { "ageBand": ["10-19"] },
+      "axis": {
+        "category": "expression_children",
+        "period": "thisMonth",
+        "depth": "standard"
+      },
+      "gating": {
+        "ageBand": [
+          "10-19"
+        ]
+      },
       "templateTokens": [
-        { "kind": "text", "value": "이번 달은 자기 색이 한 뼘 단단해지는 결이에요. 좋아하는 작가·아티스트의 결을 따라 해 보거나 자기 식대로 재해석한 작은 작품 한 묶음을 모아 두면 큰 자산이 돼요. 봄바람 맞은 가지가 한 뼘 자라는 시간이에요. 또래 비교가 마음에 들어와도 자기 페이스를 지키면 결이 길게 가요. 작은 발표·동아리 자리에서 시도해 보면 좋아요. 이번 달의 한 매듭이 한 학기 색의 뼈대로 쌓여요." }
+        {
+          "kind": "text",
+          "value": "이번 달은 자기 색이 한 뼘 단단해지는요. 좋아하는 작가·아티스트의 결을 따라 해 보거나 자기 식대로 재해석한 작은 작품 한 묶음을 모아 두면 큰 자산이 돼요. 봄바람 맞은 가지가 한 뼘 자라는 시간이에요. 또래 비교가 마음에 들어와도 자기 페이스를 지키면 결이 길게 가요. 작은 발표·동아리 자리에서 시도해 보면 좋아요. 이번 달의 한 매듭이 한 학기 색의 뼈대로 쌓여요."
+        }
       ],
       "tags": [],
       "livingTips": [
@@ -92,10 +121,21 @@
     {
       "schemaVersion": "spring-ts.narrative-fragment.v1",
       "fragmentId": "expression_children.thisMonth.standard.20_29.004",
-      "axis": { "category": "expression_children", "period": "thisMonth", "depth": "standard" },
-      "gating": { "ageBand": ["20-29"] },
+      "axis": {
+        "category": "expression_children",
+        "period": "thisMonth",
+        "depth": "standard"
+      },
+      "gating": {
+        "ageBand": [
+          "20-29"
+        ]
+      },
       "templateTokens": [
-        { "kind": "text", "value": "이번 달은 작은 작업물 한 묶음을 모아 두기 좋은 결이에요. 글·영상·디자인처럼 손에 닿는 작업을 한 달 단위로 매듭지어 두면 자산이 보여요. 화분에서 잎이 줄지어 펴지는 시간 같은 그림이에요. 너무 큰 무대를 잡지 않고 가까운 자리부터 풀어 보면 다음 달의 결이 가벼워져요. 한 사람에게라도 짧게 보여 보면 다음 결이 또렷해져요. 이번 달의 한 묶음이 한 분기 자기 색의 뼈대로 쌓여요." }
+        {
+          "kind": "text",
+          "value": "이번 달은 작은 작업물 한 묶음을 모아 두기 좋은 흐름이에요. 글·영상·디자인처럼 손에 닿는 작업을 한 달 단위로 매듭지어 두면 자산이 보여요. 화분에서 잎이 줄지어 펴지는 시간 같은 그림이에요. 너무 큰 무대를 잡지 않고 가까운 자리부터 풀어 보면 다음 달의 걸음이 가벼워져요. 한 사람에게라도 짧게 보여 보면 다음 방향이 또렷해져요. 이번 달의 한 묶음이 한 분기 자기 색의 뼈대로 쌓여요."
+        }
       ],
       "tags": [],
       "livingTips": [
@@ -120,10 +160,21 @@
     {
       "schemaVersion": "spring-ts.narrative-fragment.v1",
       "fragmentId": "expression_children.thisMonth.standard.30_39.005",
-      "axis": { "category": "expression_children", "period": "thisMonth", "depth": "standard" },
-      "gating": { "ageBand": ["30-39"] },
+      "axis": {
+        "category": "expression_children",
+        "period": "thisMonth",
+        "depth": "standard"
+      },
+      "gating": {
+        "ageBand": [
+          "30-39"
+        ]
+      },
       "templateTokens": [
-        { "kind": "text", "value": "이번 달은 가까운 사람과의 협업이 표현을 한 단계 넓혀 주는 결이에요. 한 달 동안 두세 명과 함께 만들 수 있는 작은 작업이 결을 단단히 해 줘요. 봄에서 여름으로 넘어가는 잎처럼 색이 한 결 진해지는 시간이에요. 후배·아이·다음 사람과의 자리가 자연스러워요. 자녀와의 결도 함께 비치지만 단정 없이 흐르는 게 좋아요. 이번 달의 한 협업이 다음 분기 작업의 다리예요." }
+        {
+          "kind": "text",
+          "value": "이번 달은 가까운 사람과의 협업이 표현을 한 단계 넓혀 주는 결이에요. 한 달 동안 두세 명과 함께 만들 수 있는 작은 작업이 결을 단단히 해 줘요. 봄에서 여름으로 넘어가는 잎처럼 색이 한 결 진해지는 시간이에요. 후배·아이·다음 사람과의 자리가 자연스러워요. 자녀와의 결도 함께 비치지만 단정 없이 흐르는 게 좋아요. 이번 달의 한 협업이 다음 분기 작업의 다리예요."
+        }
       ],
       "tags": [],
       "livingTips": [
@@ -148,10 +199,21 @@
     {
       "schemaVersion": "spring-ts.narrative-fragment.v1",
       "fragmentId": "expression_children.thisMonth.standard.40_54.006",
-      "axis": { "category": "expression_children", "period": "thisMonth", "depth": "standard" },
-      "gating": { "ageBand": ["40-54"] },
+      "axis": {
+        "category": "expression_children",
+        "period": "thisMonth",
+        "depth": "standard"
+      },
+      "gating": {
+        "ageBand": [
+          "40-54"
+        ]
+      },
       "templateTokens": [
-        { "kind": "text", "value": "이번 달은 작업 한 묶음을 정리해 두기 좋은 결이에요. 그동안 미뤄 둔 자료·기록·아카이빙 한 폴더를 매듭지어 두면 표현 결이 가벼워져요. 가을 햇살에 알맹이가 익는 시간 같은 그림이에요. 후배·아이와의 자리에서는 가르치려 하기보다 함께 만드는 결이 잘 풀려요. 자녀와의 결도 함께 비치지만 단정 없이 흐르는 게 좋아요. 이번 달의 정리가 다음 분기를 가볍게 해 줘요." }
+        {
+          "kind": "text",
+          "value": "이번 달은 작업 한 묶음을 정리해 두기 좋은 흐름이에요. 그동안 미뤄 둔 자료·기록·아카이빙 한 폴더를 매듭지어 두면 표현 걸음이 가벼워져요. 가을 햇살에 알맹이가 익는 시간 같은 그림이에요. 후배·아이와의 자리에서는 가르치려 하기보다 함께 만드는 흐름이 잘 풀려요. 자녀와의 결도 함께 비치지만 단정 없이 흐르는 게 좋아요. 이번 달의 정리가 다음 분기를 가볍게 해 줘요."
+        }
       ],
       "tags": [],
       "livingTips": [
@@ -176,10 +238,21 @@
     {
       "schemaVersion": "spring-ts.narrative-fragment.v1",
       "fragmentId": "expression_children.thisMonth.standard.55_69.007",
-      "axis": { "category": "expression_children", "period": "thisMonth", "depth": "standard" },
-      "gating": { "ageBand": ["55-69"] },
+      "axis": {
+        "category": "expression_children",
+        "period": "thisMonth",
+        "depth": "standard"
+      },
+      "gating": {
+        "ageBand": [
+          "55-69"
+        ]
+      },
       "templateTokens": [
-        { "kind": "text", "value": "이번 달은 다음 세대와의 자리가 깊어지는 결이에요. 짧은 대화·한 권의 책 추천·한 줄의 메모가 한 달 안에 여러 번 자리잡아요. 잘 익은 들판이 다음 해의 씨앗을 남기는 그림 같은 시간이에요. 가르치려 하지 않고 나란히 앉아 있어 주는 자세가 큰 선물이 돼요. 자녀와의 결도 함께 비치지만 단정 없이 흐르는 게 좋아요. 이번 달의 한 자리가 길게 남는 결이에요." }
+        {
+          "kind": "text",
+          "value": "이번 달은 다음 세대와의 자리가 깊어지는요. 짧은 대화·한 권의 책 추천·한 줄의 메모가 한 달 안에 여러 번 자리잡아요. 잘 익은 들판이 다음 해의 씨앗을 남기는 그림 같은 시간이에요. 가르치려 하지 않고 나란히 앉아 있어 주는 자세가 큰 선물이 돼요. 자녀와의 결도 함께 비치지만 단정 없이 흐르는 게 좋아요. 이번 달의 한 자리가 길게 남는 결이에요."
+        }
       ],
       "tags": [],
       "livingTips": [
@@ -204,10 +277,21 @@
     {
       "schemaVersion": "spring-ts.narrative-fragment.v1",
       "fragmentId": "expression_children.thisMonth.standard.70plus.008",
-      "axis": { "category": "expression_children", "period": "thisMonth", "depth": "standard" },
-      "gating": { "ageBand": ["70+"] },
+      "axis": {
+        "category": "expression_children",
+        "period": "thisMonth",
+        "depth": "standard"
+      },
+      "gating": {
+        "ageBand": [
+          "70+"
+        ]
+      },
       "templateTokens": [
-        { "kind": "text", "value": "이번 달은 짧은 기록·이야기가 풍요로움을 더해 주는 결이에요. 또렷이 떠오르는 한 장면·좋아하는 시 한 편을 한 달 동안 천천히 즐겨 두면 결이 가벼워져요. 가을 햇살이 마루에 머무는 시간 같은 그림이에요. 다음 세대와의 자리는 그 자체로 따뜻한 표현이라 굳이 무언가를 가르치지 않아도 충분해요. 자녀와의 결도 함께 비치지만 단정 없이 흐르는 게 좋아요. 이번 달의 짧은 즐거움이 큰 자산이에요." }
+        {
+          "kind": "text",
+          "value": "이번 달은 짧은 기록·이야기가 풍요로움을 더해 주는 결이에요. 또렷이 떠오르는 한 장면·좋아하는 시 한 편을 한 달 동안 천천히 즐겨 두면 걸음이 가벼워져요. 가을 햇살이 마루에 머무는 시간 같은 그림이에요. 다음 세대와의 자리는 그 자체로 따뜻한 표현이라 굳이 무언가를 가르치지 않아도 충분해요. 자녀와의 결도 함께 비치지만 단정 없이 흐르는 게 좋아요. 이번 달의 짧은 즐거움이 큰 자산이에요."
+        }
       ],
       "tags": [],
       "livingTips": [
@@ -232,10 +316,24 @@
     {
       "schemaVersion": "spring-ts.narrative-fragment.v1",
       "fragmentId": "expression_children.thisMonth.standard.strong_aligned.009",
-      "axis": { "category": "expression_children", "period": "thisMonth", "depth": "standard" },
-      "gating": { "dayMasterStrength": ["STRONG"], "yongshinAlignment": ["aligned"] },
+      "axis": {
+        "category": "expression_children",
+        "period": "thisMonth",
+        "depth": "standard"
+      },
+      "gating": {
+        "dayMasterStrength": [
+          "STRONG"
+        ],
+        "yongshinAlignment": [
+          "aligned"
+        ]
+      },
       "templateTokens": [
-        { "kind": "text", "value": "이번 달은 표현이 시원하게 풀려 나오는 결이에요. 안에 쌓인 힘이 자연스럽게 바깥으로 흐르는 사주의 결이라, 한 달 안에 여러 번 자기 무대가 만들어져요. 한낮의 햇살이 깊이 닿는 그림이에요. 강한 흐름인 만큼 마무리·관리에 약할 수 있으니 매듭 한 번을 분명히 두면 좋아요. 이번 달의 한 매듭이 다음 매듭을 가볍게 해 줘요. 자기 무대를 한 달 단위로 정리해 두는 흐름이 잘 맞아요." }
+        {
+          "kind": "text",
+          "value": "이번 달은 표현이 시원하게 풀려 나오는요. 안에 쌓인 힘이 자연스럽게 바깥으로 흐르는 사주의 결이라, 한 달 안에 여러 번 자기 무대가 만들어져요. 한낮의 햇살이 깊이 닿는 그림이에요. 강한 흐름인 만큼 마무리·관리에 약할 수 있으니 매듭 한 번을 분명히 두면 좋아요. 이번 달의 한 매듭이 다음 매듭을 가볍게 해 줘요. 자기 무대를 한 달 단위로 정리해 두는 흐름이 잘 맞아요."
+        }
       ],
       "tags": [],
       "livingTips": [
@@ -260,10 +358,24 @@
     {
       "schemaVersion": "spring-ts.narrative-fragment.v1",
       "fragmentId": "expression_children.thisMonth.standard.weak_neutral.010",
-      "axis": { "category": "expression_children", "period": "thisMonth", "depth": "standard" },
-      "gating": { "dayMasterStrength": ["WEAK"], "yongshinAlignment": ["neutral"] },
+      "axis": {
+        "category": "expression_children",
+        "period": "thisMonth",
+        "depth": "standard"
+      },
+      "gating": {
+        "dayMasterStrength": [
+          "WEAK"
+        ],
+        "yongshinAlignment": [
+          "neutral"
+        ]
+      },
       "templateTokens": [
-        { "kind": "text", "value": "이번 달은 작은 매듭들이 모여 표현이 단단해지는 시기예요. 큰 무대보다 가까운 자리에서 한 매듭·한 줄을 다듬어 두면 한 달의 방향이 또렷해져요. 천천히 자라는 화분에 물 한 모금을 더 주는 시간 같은 한 달이에요. 비교에 흔들리기 쉬운 한 달이지만 자기 페이스를 지키면 표현이 길게 이어져요. 이번 달의 매듭들이 다음 달의 방향을 정해요. 너무 완벽하게 만들지 않고 매듭만 분명히 두면 충분해요." }
+        {
+          "kind": "text",
+          "value": "이번 달은 작은 매듭들이 모여 표현이 단단해지는 시기예요. 큰 무대보다 가까운 자리에서 한 매듭·한 줄을 다듬어 두면 한 달의 방향이 또렷해져요. 천천히 자라는 화분에 물 한 모금을 더 주는 시간 같은 한 달이에요. 비교에 흔들리기 쉬운 한 달이지만 자기 페이스를 지키면 표현이 길게 이어져요. 이번 달의 매듭들이 다음 달의 방향을 정해요. 너무 완벽하게 만들지 않고 매듭만 분명히 두면 충분해요."
+        }
       ],
       "tags": [],
       "livingTips": [

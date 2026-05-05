@@ -7,10 +7,17 @@
     {
       "schemaVersion": "spring-ts.narrative-fragment.v1",
       "fragmentId": "health.thisYear.standard.wild.001",
-      "axis": { "category": "health", "period": "thisYear", "depth": "standard" },
+      "axis": {
+        "category": "health",
+        "period": "thisYear",
+        "depth": "standard"
+      },
       "gating": {},
       "templateTokens": [
-        { "kind": "text", "value": "올해 컨디션은 한 해의 리듬을 천천히 다듬어 가는 시기예요. 사계절을 받아 색을 잡아 가는 들판처럼, 분기 단위로 컨디션 색이 다르게 자리잡아요.\n\n봄·여름엔 활동량을 받아 낼 힘이 커지지만, 무리해서 한꺼번에 큰 변화를 잡지 말아요. 가을·겨울엔 페이스를 한 번씩 늦추는 시간을 만들어 두면 다음 해까지 부드럽게 이어져요.\n\n분기마다 한 번씩 컨디션 점검 시간을 일정에 넣어 두면 좋아요. 컨디션 점검과 충분한 휴식이 한 해의 가장 든든한 자산이 돼요." }
+        {
+          "kind": "text",
+          "value": "올해 컨디션은 한 해의 리듬을 천천히 다듬어 가는 시기예요. 사계절을 받아 색을 잡아 가는 들판처럼, 분기 단위로 컨디션 색이 다르게 자리잡아요.\n\n봄·여름엔 활동량을 받아 낼 힘이 커지지만, 무리해서 한꺼번에 큰 변화를 잡지 말아요. 가을·겨울엔 페이스를 한 번씩 늦추는 시간을 만들어 두면 다음 해까지 부드럽게 이어져요.\n\n분기마다 한 번씩 컨디션 점검 시간을 일정에 넣어 두면 좋아요. 컨디션 점검과 충분한 휴식이 한 해의 가장 든든한 자산이 돼요."
+        }
       ],
       "tags": [],
       "livingTips": [
@@ -37,13 +44,24 @@
     {
       "schemaVersion": "spring-ts.narrative-fragment.v1",
       "fragmentId": "health.thisYear.standard.balanced.aligned.001",
-      "axis": { "category": "health", "period": "thisYear", "depth": "standard" },
+      "axis": {
+        "category": "health",
+        "period": "thisYear",
+        "depth": "standard"
+      },
       "gating": {
-        "dayMasterStrength": ["BALANCED"],
-        "yongshinAlignment": ["aligned"]
+        "dayMasterStrength": [
+          "BALANCED"
+        ],
+        "yongshinAlignment": [
+          "aligned"
+        ]
       },
       "templateTokens": [
-        { "kind": "text", "value": "올해는 흐름이 잘 풀리는 결이라 한 해 동안 컨디션의 결을 한 단계 더 단단히 짚어 가기 좋은 자리예요. 들판이 한 해를 받아 색을 풍성하게 잡아 가는 모양처럼, 익숙한 자리들이 더 또렷한 색으로 자라나요.\n\n새 운동·새 식단을 한 가지 골라 한 해 동안 꾸준히 이어 가는 페이스가 잘 맞아요. 큰 변화 한꺼번에 잡기보다, 한 가지를 길게 가져가는 결이 가장 큰 자산이 돼요.\n\n분기마다 자기에게 작은 보상을 한 가지 챙기는 편이 좋아요. 마음의 결이 가벼워지면 한 해 흐름이 자연스럽게 부드러워져요." }
+        {
+          "kind": "text",
+          "value": "올해는 흐름이 잘 풀리는 결이라 한 해 동안 컨디션의 결을 한 단계 더 단단히 짚어 가기 좋은 자리예요. 들판이 한 해를 받아 색을 풍성하게 잡아 가는 모양처럼, 익숙한 자리들이 더 또렷한 색으로 자라나요.\n\n새 운동·새 식단을 한 가지 골라 한 해 동안 꾸준히 이어 가는 페이스가 잘 맞아요. 큰 변화 한꺼번에 잡기보다, 한 가지를 길게 가져가는 결이 가장 큰 자산이 돼요.\n\n분기마다 자기에게 작은 보상을 한 가지 챙기는 편이 좋아요. 마음의 걸음이 가벼워지면 한 해 흐름이 자연스럽게 부드러워져요."
+        }
       ],
       "tags": [],
       "livingTips": [
@@ -70,13 +88,24 @@
     {
       "schemaVersion": "spring-ts.narrative-fragment.v1",
       "fragmentId": "health.thisYear.standard.female.40_54.001",
-      "axis": { "category": "health", "period": "thisYear", "depth": "standard" },
+      "axis": {
+        "category": "health",
+        "period": "thisYear",
+        "depth": "standard"
+      },
       "gating": {
-        "gender": ["female"],
-        "ageBand": ["40-54"]
+        "gender": [
+          "female"
+        ],
+        "ageBand": [
+          "40-54"
+        ]
       },
       "templateTokens": [
-        { "kind": "text", "value": "올해는 그동안 챙겨 온 습관을 정돈하고 다듬어 가는 시기예요. 일·관계·집안일이 한꺼번에 쌓일 때 자기 페이스를 잘 잡아 두면 후반기 흐름이 한결 단단해져요.\n\n분기마다 자기를 위한 시간을 한 번씩 챙기는 편이 좋아요. 따뜻한 공간·고요한 시간·좋아하는 한 끼처럼 작은 휴식도 한 해 흐름의 큰 자산이에요.\n\n환절기엔 한 박자 늦추는 페이스가 잘 맞아요. 컨디션 점검과 충분한 휴식 시간을 미리 일정에 잡아 두면, 한 해가 부드럽게 마무리돼요." }
+        {
+          "kind": "text",
+          "value": "올해는 그동안 챙겨 온 습관을 정돈하고 다듬어 가는 시기예요. 일·관계·집안일이 한꺼번에 쌓일 때 자기 페이스를 잘 잡아 두면 후반기 흐름이 한결 단단해져요.\n\n분기마다 자기를 위한 시간을 한 번씩 챙기는 편이 좋아요. 따뜻한 공간·고요한 시간·좋아하는 한 끼처럼 작은 휴식도 한 해 흐름의 큰 자산이에요.\n\n환절기엔 한 박자 늦추는 페이스가 잘 맞아요. 컨디션 점검과 충분한 휴식 시간을 미리 일정에 잡아 두면, 한 해가 부드럽게 마무리돼요."
+        }
       ],
       "tags": [],
       "livingTips": [
@@ -103,12 +132,22 @@
     {
       "schemaVersion": "spring-ts.narrative-fragment.v1",
       "fragmentId": "health.thisYear.standard.weak.001",
-      "axis": { "category": "health", "period": "thisYear", "depth": "standard" },
+      "axis": {
+        "category": "health",
+        "period": "thisYear",
+        "depth": "standard"
+      },
       "gating": {
-        "dayMasterStrength": ["WEAK", "EXTREME_WEAK"]
+        "dayMasterStrength": [
+          "WEAK",
+          "EXTREME_WEAK"
+        ]
       },
       "templateTokens": [
-        { "kind": "text", "value": "올해는 가벼운 흐름이라 한 해 동안 짧은 회복 시간을 자주 만들어 두는 페이스가 가장 잘 맞아요. 작은 화분에 물을 자주 주듯, 한 해 동안 꾸준한 챙김이 큰 자산이 돼요.\n\n분기마다 한 번 푹 쉬는 시간을 미리 일정에 넣어 두면 좋아요. 환절기엔 페이스를 한 박자 늦추고, 큰 약속·외출은 한 번에 몰리지 않게 분산하는 편이 잘 맞아요.\n\n한 가지 좋은 습관을 한 해 동안 꾸준히 이어 가면, 다음 해의 컨디션까지 자연스럽게 단단해져요. 무리한 시작보다 작은 챙김이 가장 큰 보약이에요." }
+        {
+          "kind": "text",
+          "value": "올해는 가벼운 흐름이라 한 해 동안 짧은 회복 시간을 자주 만들어 두는 페이스가 가장 잘 맞아요. 작은 화분에 물을 자주 주듯, 한 해 동안 꾸준한 챙김이 큰 자산이 돼요.\n\n분기마다 한 번 푹 쉬는 시간을 미리 일정에 넣어 두면 좋아요. 환절기엔 페이스를 한 박자 늦추고, 큰 약속·외출은 한 번에 몰리지 않게 분산하는 편이 잘 맞아요.\n\n한 가지 좋은 습관을 한 해 동안 꾸준히 이어 가면, 다음 해의 컨디션까지 자연스럽게 단단해져요. 무리한 시작보다 작은 챙김이 가장 큰 보약이에요."
+        }
       ],
       "tags": [],
       "livingTips": [
@@ -135,12 +174,22 @@
     {
       "schemaVersion": "spring-ts.narrative-fragment.v1",
       "fragmentId": "health.thisYear.standard.strong.001",
-      "axis": { "category": "health", "period": "thisYear", "depth": "standard" },
+      "axis": {
+        "category": "health",
+        "period": "thisYear",
+        "depth": "standard"
+      },
       "gating": {
-        "dayMasterStrength": ["STRONG", "EXTREME_STRONG"]
+        "dayMasterStrength": [
+          "STRONG",
+          "EXTREME_STRONG"
+        ]
       },
       "templateTokens": [
-        { "kind": "text", "value": "올해는 활동량을 받아 낼 힘이 큰 해예요. 다만 한 해 단위로 누적되는 피로가 많아질 수 있으니, 분기마다 한 번 페이스를 늦추는 시간을 만들어 두면 후반까지 단단하게 이어져요.\n\n한 가지 운동·한 가지 좋은 습관을 한 해 동안 꾸준히 이어 가는 페이스가 잘 맞아요. 강도 변화를 한 번에 크게 잡기보다, 천천히 단계적으로 올리는 편이 체력 기반을 더 키워 줘요.\n\n환절기엔 자기 신호를 가볍게 넘기지 말아요. 컨디션 점검을 일정에 미리 넣어 두면 한 해의 컨디션이 한층 든든해져요." }
+        {
+          "kind": "text",
+          "value": "올해는 활동량을 받아 낼 힘이 큰 해예요. 다만 한 해 단위로 누적되는 피로가 많아질 수 있으니, 분기마다 한 번 페이스를 늦추는 시간을 만들어 두면 후반까지 단단하게 이어져요.\n\n한 가지 운동·한 가지 좋은 습관을 한 해 동안 꾸준히 이어 가는 페이스가 잘 맞아요. 강도 변화를 한 번에 크게 잡기보다, 천천히 단계적으로 올리는 편이 체력 기반을 더 키워 줘요.\n\n환절기엔 자기 신호를 가볍게 넘기지 말아요. 컨디션 점검을 일정에 미리 넣어 두면 한 해의 컨디션이 한층 든든해져요."
+        }
       ],
       "tags": [],
       "livingTips": [
@@ -167,12 +216,21 @@
     {
       "schemaVersion": "spring-ts.narrative-fragment.v1",
       "fragmentId": "health.thisYear.standard.aligned.001",
-      "axis": { "category": "health", "period": "thisYear", "depth": "standard" },
+      "axis": {
+        "category": "health",
+        "period": "thisYear",
+        "depth": "standard"
+      },
       "gating": {
-        "yongshinAlignment": ["aligned"]
+        "yongshinAlignment": [
+          "aligned"
+        ]
       },
       "templateTokens": [
-        { "kind": "text", "value": "올해는 흐름이 잘 풀리는 결이라 한 해 동안 새 시도를 받아 내는 그릇이 커요. 새 운동·새 식단·새 습관을 한 가지 골라 한 해 동안 꾸준히 이어 가기에 좋은 자리예요.\n\n다만 좋은 흐름일수록 무리해서 큰 변화를 한꺼번에 잡지 말아요. 한 가지를 골라 천천히 단계적으로 가져가는 페이스가 가장 큰 자산이 돼요.\n\n분기마다 자기를 위한 자리를 챙기는 편이 좋아요. 좋아하는 한 끼·짧은 외출·고요한 자리가 한 해 흐름의 결을 부드럽게 잡아 줘요." }
+        {
+          "kind": "text",
+          "value": "올해는 흐름이 잘 풀리는 결이라 한 해 동안 새 시도를 받아 내는 그릇이 커요. 새 운동·새 식단·새 습관을 한 가지 골라 한 해 동안 꾸준히 이어 가기에 좋은 자리예요.\n\n다만 좋은 흐름일수록 무리해서 큰 변화를 한꺼번에 잡지 말아요. 한 가지를 골라 천천히 단계적으로 가져가는 페이스가 가장 큰 자산이 돼요.\n\n분기마다 자기를 위한 자리를 챙기는 편이 좋아요. 좋아하는 한 끼·짧은 외출·고요한 자리가 한 해 흐름의 결을 부드럽게 잡아 줘요."
+        }
       ],
       "tags": [],
       "livingTips": [
@@ -199,12 +257,21 @@
     {
       "schemaVersion": "spring-ts.narrative-fragment.v1",
       "fragmentId": "health.thisYear.standard.conflicting.001",
-      "axis": { "category": "health", "period": "thisYear", "depth": "standard" },
+      "axis": {
+        "category": "health",
+        "period": "thisYear",
+        "depth": "standard"
+      },
       "gating": {
-        "yongshinAlignment": ["conflicting"]
+        "yongshinAlignment": [
+          "conflicting"
+        ]
       },
       "templateTokens": [
-        { "kind": "text", "value": "올해는 흐름이 살짝 어긋나는 결이라 한 해 동안 정돈의 자리로 두는 편이 잘 맞아요. 큰 도전 대신 익숙한 자리를 더 단단히 짚어 가는 시기예요.\n\n분기마다 일정에 휴식 자리를 미리 넣어 두면 좋아요. 약속·외출이 몰리지 않게 분산하면 한 해 컨디션의 결이 한결 단단해져요.\n\n환절기엔 한 박자 늦추는 페이스가 잘 맞아요. 큰 결정·큰 변화는 한 해 동안 한 번씩 살펴보고 천천히 가져가는 편이 잘 맞아요." }
+        {
+          "kind": "text",
+          "value": "올해는 흐름이 살짝 어긋나는 결이라 한 해 동안 정돈의 자리로 두는 편이 잘 맞아요. 큰 도전 대신 익숙한 자리를 더 단단히 짚어 가는 시기예요.\n\n분기마다 일정에 휴식 자리를 미리 넣어 두면 좋아요. 약속·외출이 몰리지 않게 분산하면 한 해 컨디션의 중심이 한결 단단해져요.\n\n환절기엔 한 박자 늦추는 페이스가 잘 맞아요. 큰 결정·큰 변화는 한 해 동안 한 번씩 살펴보고 천천히 가져가는 편이 잘 맞아요."
+        }
       ],
       "tags": [],
       "livingTips": [
@@ -231,12 +298,21 @@
     {
       "schemaVersion": "spring-ts.narrative-fragment.v1",
       "fragmentId": "health.thisYear.standard.40_54.001",
-      "axis": { "category": "health", "period": "thisYear", "depth": "standard" },
+      "axis": {
+        "category": "health",
+        "period": "thisYear",
+        "depth": "standard"
+      },
       "gating": {
-        "ageBand": ["40-54"]
+        "ageBand": [
+          "40-54"
+        ]
       },
       "templateTokens": [
-        { "kind": "text", "value": "올해는 그동안 쌓아 온 생활 습관을 정돈하고 단단히 만드는 시기예요. 분기 단위로 컨디션 리듬을 점검해 두면, 후반기 흐름이 한결 가벼워져요.\n\n젊은 시절의 페이스만 고집하기보다, 자기 체력에 맞춰 한 박자 천천히 가는 시간을 만들어 봐도 좋아요. 한 가지 운동을 한 해 동안 꾸준히 이어 가는 편이 가장 큰 자산이에요.\n\n컨디션 점검을 일정에 미리 잡아 두는 편이 좋아요. 작은 신호를 일찍 챙기는 태도가 한 해의 가장 든든한 보약이에요." }
+        {
+          "kind": "text",
+          "value": "올해는 그동안 쌓아 온 생활 습관을 정돈하고 단단히 만드는 시기예요. 분기 단위로 컨디션 리듬을 점검해 두면, 후반기 흐름이 한결 가벼워져요.\n\n젊은 시절의 페이스만 고집하기보다, 자기 체력에 맞춰 한 박자 천천히 가는 시간을 만들어 봐도 좋아요. 한 가지 운동을 한 해 동안 꾸준히 이어 가는 편이 가장 큰 자산이에요.\n\n컨디션 점검을 일정에 미리 잡아 두는 편이 좋아요. 작은 신호를 일찍 챙기는 태도가 한 해의 가장 든든한 보약이에요."
+        }
       ],
       "tags": [],
       "livingTips": [
@@ -263,12 +339,21 @@
     {
       "schemaVersion": "spring-ts.narrative-fragment.v1",
       "fragmentId": "health.thisYear.standard.10_19.001",
-      "axis": { "category": "health", "period": "thisYear", "depth": "standard" },
+      "axis": {
+        "category": "health",
+        "period": "thisYear",
+        "depth": "standard"
+      },
       "gating": {
-        "ageBand": ["10-19"]
+        "ageBand": [
+          "10-19"
+        ]
       },
       "templateTokens": [
-        { "kind": "text", "value": "올해는 학업과 관계에서 신경 쓸 일이 많아지기 쉬운 시기예요. 자고 먹고 움직이는 세 가지를 한 해 동안 잘 챙기면 큰 흠 없이 흘러가요.\n\n잠은 6시간 이상을 챙기고, 한 끼는 든든한 식사를 챙기는 편이 좋아요. 강한 다이어트나 과한 야식은 한 해 동안 한 번 더 살펴봐 주는 편이 잘 맞아요.\n\n친구와 보내는 시간도 회복에 도움이 돼요. 너무 늦은 약속은 주말로 미루고, 평일엔 잠자리를 챙기는 페이스가 잘 맞아요." }
+        {
+          "kind": "text",
+          "value": "올해는 학업과 관계에서 신경 쓸 일이 많아지기 쉬운 시기예요. 자고 먹고 움직이는 세 가지를 한 해 동안 잘 챙기면 큰 흠 없이 흘러가요.\n\n잠은 6시간 이상을 챙기고, 한 끼는 든든한 식사를 챙기는 편이 좋아요. 강한 다이어트나 과한 야식은 한 해 동안 한 번 더 살펴봐 주는 편이 잘 맞아요.\n\n친구와 보내는 시간도 회복에 도움이 돼요. 너무 늦은 약속은 주말로 미루고, 평일엔 잠자리를 챙기는 페이스가 잘 맞아요."
+        }
       ],
       "tags": [],
       "livingTips": [
@@ -295,12 +380,21 @@
     {
       "schemaVersion": "spring-ts.narrative-fragment.v1",
       "fragmentId": "health.thisYear.standard.balanced.001",
-      "axis": { "category": "health", "period": "thisYear", "depth": "standard" },
+      "axis": {
+        "category": "health",
+        "period": "thisYear",
+        "depth": "standard"
+      },
       "gating": {
-        "dayMasterStrength": ["BALANCED"]
+        "dayMasterStrength": [
+          "BALANCED"
+        ]
       },
       "templateTokens": [
-        { "kind": "text", "value": "올해는 흐름이 고른 결이라 큰 기복 없이 흘러가는 자리예요. 한 해 단위에서 익숙한 자리를 한 단계 더 단단히 만들어 가는 시기로 두면 잘 맞아요.\n\n한 가지 좋은 습관을 한 해 동안 꾸준히 이어 가면, 다음 해의 결까지 자연스럽게 자라요. 한 가지 운동·한 가지 식사 챙김을 정해 두는 편이 잘 맞아요.\n\n분기마다 한 번씩 푹 쉬는 자리도 만들어 두는 편이 좋아요. 균형이 좋아 보일수록 작은 신호 챙김이 더 큰 자산이 돼요." }
+        {
+          "kind": "text",
+          "value": "올해는 흐름이 고른 결이라 큰 기복 없이 흘러가는 자리예요. 한 해 단위에서 익숙한 자리를 한 단계 더 단단히 만들어 가는 시기로 두면 잘 맞아요.\n\n한 가지 좋은 습관을 한 해 동안 꾸준히 이어 가면, 다음 해의 결까지 자연스럽게 자라요. 한 가지 운동·한 가지 식사 챙김을 정해 두는 편이 잘 맞아요.\n\n분기마다 한 번씩 푹 쉬는 자리도 만들어 두는 편이 좋아요. 균형이 좋아 보일수록 작은 신호 챙김이 더 큰 자산이 돼요."
+        }
       ],
       "tags": [],
       "livingTips": [
@@ -327,12 +421,21 @@
     {
       "schemaVersion": "spring-ts.narrative-fragment.v1",
       "fragmentId": "health.thisYear.standard.55_69.001",
-      "axis": { "category": "health", "period": "thisYear", "depth": "standard" },
+      "axis": {
+        "category": "health",
+        "period": "thisYear",
+        "depth": "standard"
+      },
       "gating": {
-        "ageBand": ["55-69"]
+        "ageBand": [
+          "55-69"
+        ]
       },
       "templateTokens": [
-        { "kind": "text", "value": "올해는 후반기 흐름답게 차분히 리듬을 다듬어 가는 시기예요. 무리한 계획 대신 익숙한 생활 리듬을 따뜻하게 이어 가는 페이스가 잘 맞아요.\n\n분기마다 가벼운 산책·가벼운 운동을 한 가지씩 단단히 짚어 봐도 좋아요. 따뜻한 한 끼와 가까운 사람과의 시간이 한 해의 큰 자산이 돼요.\n\n환절기엔 한 박자 늦추는 페이스가 잘 맞아요. 컨디션 점검을 일정에 미리 잡아 두면, 한 해가 부드럽게 마무리돼요." }
+        {
+          "kind": "text",
+          "value": "올해는 후반기 흐름답게 차분히 리듬을 다듬어 가는 시기예요. 무리한 계획 대신 익숙한 생활 리듬을 따뜻하게 이어 가는 페이스가 잘 맞아요.\n\n분기마다 가벼운 산책·가벼운 운동을 한 가지씩 단단히 짚어 봐도 좋아요. 따뜻한 한 끼와 가까운 사람과의 시간이 한 해의 큰 자산이 돼요.\n\n환절기엔 한 박자 늦추는 페이스가 잘 맞아요. 컨디션 점검을 일정에 미리 잡아 두면, 한 해가 부드럽게 마무리돼요."
+        }
       ],
       "tags": [],
       "livingTips": [

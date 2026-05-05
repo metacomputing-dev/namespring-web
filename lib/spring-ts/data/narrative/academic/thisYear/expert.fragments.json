@@ -8,22 +8,69 @@
     {
       "schemaVersion": "spring-ts.narrative-fragment.v1",
       "fragmentId": "academic.thisYear.expert.wildcard.001",
-      "axis": { "category": "academic", "period": "thisYear", "depth": "expert", "tone": "expert" },
+      "axis": {
+        "category": "academic",
+        "period": "thisYear",
+        "depth": "expert",
+        "tone": "expert"
+      },
       "gating": {},
       "templateTokens": [
-        { "kind": "text", "value": "올해의 학업 결은 세운의 흐름이 " },
-        { "kind": "tag", "tagId": "jeongin", "label": "정인" },
-        { "kind": "text", "value": "·" },
-        { "kind": "tag", "tagId": "pyeonin", "label": "편인" },
-        { "kind": "text", "value": " 인성의 결을 어떻게 받쳐 주느냐에 따라 한 해의 농도가 달라지는 자리예요." },
-        { "kind": "text", "value": " 인성 결의 세운이 들어오는 자리에서는 같은 분량의 학습이 평소보다 또렷하게 남고, " },
-        { "kind": "tag", "tagId": "sikshin", "label": "식신" },
-        { "kind": "text", "value": "이 함께 짝을 이루는 자리에서는 익힌 것을 자기 말로 풀어 내기 좋은 결이 자라요." },
-        { "kind": "text", "value": " " },
-        { "kind": "tag", "tagId": "yongshin", "label": "용신" },
-        { "kind": "text", "value": "이 인성 자리에 들어오는 한 해라면 자격·심화 학습이 자기 자산으로 익는 자리가 등장해요." }
+        {
+          "kind": "text",
+          "value": "올해의 학업 결은 세운의 흐름이 "
+        },
+        {
+          "kind": "tag",
+          "tagId": "jeongin",
+          "label": "정인"
+        },
+        {
+          "kind": "text",
+          "value": "·"
+        },
+        {
+          "kind": "tag",
+          "tagId": "pyeonin",
+          "label": "편인"
+        },
+        {
+          "kind": "text",
+          "value": " 인성의 결을 어떻게 받쳐 주느냐에 따라 한 해의 농도가 달라지는 자리예요."
+        },
+        {
+          "kind": "text",
+          "value": " 인성 결의 세운이 들어오는 자리에서는 같은 분량의 학습이 평소보다 또렷하게 남고, "
+        },
+        {
+          "kind": "tag",
+          "tagId": "sikshin",
+          "label": "식신"
+        },
+        {
+          "kind": "text",
+          "value": "이 함께 짝을 이루는 자리에서는 익힌 것을 자기 말로 풀어 내기 좋은 리듬이 자라요."
+        },
+        {
+          "kind": "text",
+          "value": " "
+        },
+        {
+          "kind": "tag",
+          "tagId": "yongshin",
+          "label": "용신"
+        },
+        {
+          "kind": "text",
+          "value": "이 인성 자리에 들어오는 한 해라면 자격·심화 학습이 자기 자산으로 익는 자리가 등장해요."
+        }
       ],
-      "tags": ["jeongin", "pyeonin", "sikshin", "yongshin"],
+      "tags": [
+        "jeongin",
+        "pyeonin",
+        "sikshin",
+        "yongshin"
+      ],
       "numericalEvidence": [
         {
           "label": "현재 나이",
@@ -131,22 +178,73 @@
     {
       "schemaVersion": "spring-ts.narrative-fragment.v1",
       "fragmentId": "academic.thisYear.expert.aligned.002",
-      "axis": { "category": "academic", "period": "thisYear", "depth": "expert", "tone": "expert" },
-      "gating": { "yongshinAlignment": ["aligned"] },
+      "axis": {
+        "category": "academic",
+        "period": "thisYear",
+        "depth": "expert",
+        "tone": "expert"
+      },
+      "gating": {
+        "yongshinAlignment": [
+          "aligned"
+        ]
+      },
       "templateTokens": [
-        { "kind": "text", "value": "올해는 세운의 흐름이 " },
-        { "kind": "tag", "tagId": "yongshin", "label": "용신" },
-        { "kind": "text", "value": "·" },
-        { "kind": "tag", "tagId": "heeshin", "label": "희신" },
-        { "kind": "text", "value": "의 결로 들어와, 학업 흐름이 자기에게 맞물려 단단해지는 한 해예요." },
-        { "kind": "text", "value": " " },
-        { "kind": "tag", "tagId": "jeongin", "label": "정인" },
-        { "kind": "text", "value": "이 두텁게 받쳐 주는 자리에서는 어려운 분야의 한 결이 한 해 안에 자기 자산으로 익는 자리가 보이고, " },
-        { "kind": "tag", "tagId": "sikshin", "label": "식신" },
-        { "kind": "text", "value": "이 함께 짝을 이루는 자리에서는 그동안 익힌 것을 책·강의·자격 한 자락으로 매듭짓기에 좋은 결이에요." },
-        { "kind": "text", "value": " 평소 미뤄 둔 자격·심화 학습 한 결을 닫기에 잘 어울리는 흐름이에요." }
+        {
+          "kind": "text",
+          "value": "올해는 세운의 흐름이 "
+        },
+        {
+          "kind": "tag",
+          "tagId": "yongshin",
+          "label": "용신"
+        },
+        {
+          "kind": "text",
+          "value": "·"
+        },
+        {
+          "kind": "tag",
+          "tagId": "heeshin",
+          "label": "희신"
+        },
+        {
+          "kind": "text",
+          "value": "의 결로 들어와, 학업 흐름이 자기에게 맞물려 단단해지는 한 해예요."
+        },
+        {
+          "kind": "text",
+          "value": " "
+        },
+        {
+          "kind": "tag",
+          "tagId": "jeongin",
+          "label": "정인"
+        },
+        {
+          "kind": "text",
+          "value": "이 두텁게 받쳐 주는 자리에서는 어려운 분야의 한 중심이 한 해 안에 자기 자산으로 익는 자리가 보이고, "
+        },
+        {
+          "kind": "tag",
+          "tagId": "sikshin",
+          "label": "식신"
+        },
+        {
+          "kind": "text",
+          "value": "이 함께 짝을 이루는 자리에서는 그동안 익힌 것을 책·강의·자격 한 자락으로 매듭짓기에 좋은 흐름이에요."
+        },
+        {
+          "kind": "text",
+          "value": " 평소 미뤄 둔 자격·심화 학습 한 결을 닫기에 잘 어울리는 흐름이에요."
+        }
       ],
-      "tags": ["yongshin", "heeshin", "jeongin", "sikshin"],
+      "tags": [
+        "yongshin",
+        "heeshin",
+        "jeongin",
+        "sikshin"
+      ],
       "aiGenerated": true,
       "sourceTier": {
         "tier": "T1_HYPOTHESIS",
@@ -162,19 +260,57 @@
     {
       "schemaVersion": "spring-ts.narrative-fragment.v1",
       "fragmentId": "academic.thisYear.expert.conflicting.003",
-      "axis": { "category": "academic", "period": "thisYear", "depth": "expert", "tone": "expert" },
-      "gating": { "yongshinAlignment": ["conflicting"] },
+      "axis": {
+        "category": "academic",
+        "period": "thisYear",
+        "depth": "expert",
+        "tone": "expert"
+      },
+      "gating": {
+        "yongshinAlignment": [
+          "conflicting"
+        ]
+      },
       "templateTokens": [
-        { "kind": "text", "value": "올해는 세운의 흐름이 " },
-        { "kind": "tag", "tagId": "gishin", "label": "기신" },
-        { "kind": "text", "value": "의 결에 가까워, 학업 흐름이 매끄럽게 잡히지 않는 한 해예요." },
-        { "kind": "text", "value": " 새로 펼치기보다 그동안 익혀 둔 결을 한 권의 노트로 묶어 두는 식이 잘 어울려요." },
-        { "kind": "text", "value": " " },
-        { "kind": "tag", "tagId": "jeongin", "label": "정인" },
-        { "kind": "text", "value": "의 결이 약한 한 해에는 책·자료를 넓게 펼치기보다 한 분야에 머무는 결이 더 깊이를 만들어요." },
-        { "kind": "text", "value": " 다음 해를 위한 휴식과 정리 자리도 학습의 한 자리예요." }
+        {
+          "kind": "text",
+          "value": "올해는 세운의 흐름이 "
+        },
+        {
+          "kind": "tag",
+          "tagId": "gishin",
+          "label": "기신"
+        },
+        {
+          "kind": "text",
+          "value": "의 결에 가까워, 학업 흐름이 매끄럽게 잡히지 않는 한 해예요."
+        },
+        {
+          "kind": "text",
+          "value": " 새로 펼치기보다 그동안 익혀 둔 결을 한 권의 노트로 묶어 두는 식이 잘 어울려요."
+        },
+        {
+          "kind": "text",
+          "value": " "
+        },
+        {
+          "kind": "tag",
+          "tagId": "jeongin",
+          "label": "정인"
+        },
+        {
+          "kind": "text",
+          "value": "의 결이 약한 한 해에는 책·자료를 넓게 펼치기보다 한 분야에 머무는 결이 더 깊이를 만들어요."
+        },
+        {
+          "kind": "text",
+          "value": " 다음 해를 위한 휴식과 정리 자리도 학습의 한 자리예요."
+        }
       ],
-      "tags": ["gishin", "jeongin"],
+      "tags": [
+        "gishin",
+        "jeongin"
+      ],
       "aiGenerated": true,
       "sourceTier": {
         "tier": "T1_HYPOTHESIS",
@@ -190,21 +326,71 @@
     {
       "schemaVersion": "spring-ts.narrative-fragment.v1",
       "fragmentId": "academic.thisYear.expert.weak_aligned.004",
-      "axis": { "category": "academic", "period": "thisYear", "depth": "expert", "tone": "expert" },
-      "gating": { "dayMasterStrength": ["WEAK", "EXTREME_WEAK"], "yongshinAlignment": ["aligned"] },
+      "axis": {
+        "category": "academic",
+        "period": "thisYear",
+        "depth": "expert",
+        "tone": "expert"
+      },
+      "gating": {
+        "dayMasterStrength": [
+          "WEAK",
+          "EXTREME_WEAK"
+        ],
+        "yongshinAlignment": [
+          "aligned"
+        ]
+      },
       "templateTokens": [
-        { "kind": "text", "value": "일간이 약한 자리에 올해 세운의 " },
-        { "kind": "tag", "tagId": "yongshin", "label": "용신" },
-        { "kind": "text", "value": "이 잘 맞물려, 곁의 도움으로 학업 결이 한 해 안에 단단해지는 자리예요." },
-        { "kind": "text", "value": " " },
-        { "kind": "tag", "tagId": "jeongin", "label": "정인" },
-        { "kind": "text", "value": "의 결이 도와주는 자리에서는 책·스승·강의의 한 결이 자기 자산으로 익는 자리가 자주 보여요." },
-        { "kind": "text", "value": " 큰 결과를 한꺼번에 내려는 결보다, " },
-        { "kind": "tag", "tagId": "heeshin", "label": "희신" },
-        { "kind": "text", "value": "이 받쳐 주는 한 매듭에 차분히 머무는 식이 잘 어울려요." },
-        { "kind": "text", "value": " 도움 청하는 한 마디가 한 해의 가장 큰 자산이 되어 주는 사주예요." }
+        {
+          "kind": "text",
+          "value": "일간이 약한 자리에 올해 세운의 "
+        },
+        {
+          "kind": "tag",
+          "tagId": "yongshin",
+          "label": "용신"
+        },
+        {
+          "kind": "text",
+          "value": "이 잘 맞물려, 곁의 도움으로 학업 중심이 한 해 안에 단단해지는 자리예요."
+        },
+        {
+          "kind": "text",
+          "value": " "
+        },
+        {
+          "kind": "tag",
+          "tagId": "jeongin",
+          "label": "정인"
+        },
+        {
+          "kind": "text",
+          "value": "의 결이 도와주는 자리에서는 책·스승·강의의 한 리듬이 자기 자산으로 익는 자리가 자주 보여요."
+        },
+        {
+          "kind": "text",
+          "value": " 큰 결과를 한꺼번에 내려는 결보다, "
+        },
+        {
+          "kind": "tag",
+          "tagId": "heeshin",
+          "label": "희신"
+        },
+        {
+          "kind": "text",
+          "value": "이 받쳐 주는 한 매듭에 차분히 머무는 식이 잘 어울려요."
+        },
+        {
+          "kind": "text",
+          "value": " 도움 청하는 한 마디가 한 해의 가장 큰 자산이 되어 주는 사주예요."
+        }
       ],
-      "tags": ["yongshin", "jeongin", "heeshin"],
+      "tags": [
+        "yongshin",
+        "jeongin",
+        "heeshin"
+      ],
       "aiGenerated": true,
       "sourceTier": {
         "tier": "T1_HYPOTHESIS",
@@ -220,20 +406,67 @@
     {
       "schemaVersion": "spring-ts.narrative-fragment.v1",
       "fragmentId": "academic.thisYear.expert.strong_aligned.005",
-      "axis": { "category": "academic", "period": "thisYear", "depth": "expert", "tone": "expert" },
-      "gating": { "dayMasterStrength": ["STRONG", "EXTREME_STRONG"], "yongshinAlignment": ["aligned"] },
+      "axis": {
+        "category": "academic",
+        "period": "thisYear",
+        "depth": "expert",
+        "tone": "expert"
+      },
+      "gating": {
+        "dayMasterStrength": [
+          "STRONG",
+          "EXTREME_STRONG"
+        ],
+        "yongshinAlignment": [
+          "aligned"
+        ]
+      },
       "templateTokens": [
-        { "kind": "text", "value": "일간이 강한 자리에 올해 세운의 " },
-        { "kind": "tag", "tagId": "yongshin", "label": "용신" },
-        { "kind": "text", "value": "이 잘 맞물려, 학업 결이 자기 안의 힘으로 깊이 파고들기 좋은 한 해예요." },
-        { "kind": "text", "value": " " },
-        { "kind": "tag", "tagId": "sikshin", "label": "식신" },
-        { "kind": "text", "value": "·" },
-        { "kind": "tag", "tagId": "sanggwan", "label": "상관" },
-        { "kind": "text", "value": "의 결이 자기 결을 풀어 주는 자리에서 익힌 것이 책·강의·발표의 한 자락으로 매듭지어지는 결이 자주 보여요." },
-        { "kind": "text", "value": " 인성이 너무 두터워 결정이 느려진다면, 식상의 결로 짧은 글·발표 한 자락을 정기적으로 풀어 두면 흐름이 가벼워져요." }
+        {
+          "kind": "text",
+          "value": "일간이 강한 자리에 올해 세운의 "
+        },
+        {
+          "kind": "tag",
+          "tagId": "yongshin",
+          "label": "용신"
+        },
+        {
+          "kind": "text",
+          "value": "이 잘 맞물려, 학업 리듬이 자기 안의 힘으로 깊이 파고들기 좋은 한 해예요."
+        },
+        {
+          "kind": "text",
+          "value": " "
+        },
+        {
+          "kind": "tag",
+          "tagId": "sikshin",
+          "label": "식신"
+        },
+        {
+          "kind": "text",
+          "value": "·"
+        },
+        {
+          "kind": "tag",
+          "tagId": "sanggwan",
+          "label": "상관"
+        },
+        {
+          "kind": "text",
+          "value": "의 리듬이 자기 결을 풀어 주는 자리에서 익힌 것이 책·강의·발표의 한 자락으로 매듭지어지는 리듬이 자주 보여요."
+        },
+        {
+          "kind": "text",
+          "value": " 인성이 너무 두터워 결정이 느려진다면, 식상의 결로 짧은 글·발표 한 자락을 정기적으로 풀어 두면 흐름이 가벼워져요."
+        }
       ],
-      "tags": ["yongshin", "sikshin", "sanggwan"],
+      "tags": [
+        "yongshin",
+        "sikshin",
+        "sanggwan"
+      ],
       "aiGenerated": true,
       "sourceTier": {
         "tier": "T1_HYPOTHESIS",
@@ -249,20 +482,63 @@
     {
       "schemaVersion": "spring-ts.narrative-fragment.v1",
       "fragmentId": "academic.thisYear.expert.jeongingyeok.006",
-      "axis": { "category": "academic", "period": "thisYear", "depth": "expert", "tone": "expert" },
-      "gating": { "gyeokguk": ["jeongingyeok"] },
+      "axis": {
+        "category": "academic",
+        "period": "thisYear",
+        "depth": "expert",
+        "tone": "expert"
+      },
+      "gating": {
+        "gyeokguk": [
+          "jeongingyeok"
+        ]
+      },
       "templateTokens": [
-        { "kind": "text", "value": "올해는 사주의 중심인 " },
-        { "kind": "tag", "tagId": "jeongingyeok", "label": "정인격" },
-        { "kind": "text", "value": "의 결에 세운이 어떻게 들어오느냐가 학업의 결을 가르는 자리예요." },
-        { "kind": "text", "value": " " },
-        { "kind": "tag", "tagId": "jeongin", "label": "정인" },
-        { "kind": "text", "value": "의 결이 받쳐 주는 한 해에서는 책·스승의 한 결이 평소보다 또렷하게 다가와, 차분히 깊어지기 좋은 자리예요." },
-        { "kind": "text", "value": " 인성이 너무 두텁게 들어오는 한 해라면 " },
-        { "kind": "tag", "tagId": "sikshin", "label": "식신" },
-        { "kind": "text", "value": "의 결로 짧은 글·강의·자격 한 자락을 풀어 두면 흐름이 가벼워지고, 그 자체가 다음 해의 토양이 되어 줘요." }
+        {
+          "kind": "text",
+          "value": "올해는 사주의 중심인 "
+        },
+        {
+          "kind": "tag",
+          "tagId": "jeongingyeok",
+          "label": "정인격"
+        },
+        {
+          "kind": "text",
+          "value": "의 결에 세운이 어떻게 들어오느냐가 학업의 결을 가르는 자리예요."
+        },
+        {
+          "kind": "text",
+          "value": " "
+        },
+        {
+          "kind": "tag",
+          "tagId": "jeongin",
+          "label": "정인"
+        },
+        {
+          "kind": "text",
+          "value": "의 결이 받쳐 주는 한 해에서는 책·스승의 한 결이 평소보다 또렷하게 다가와, 차분히 깊어지기 좋은 자리예요."
+        },
+        {
+          "kind": "text",
+          "value": " 인성이 너무 두텁게 들어오는 한 해라면 "
+        },
+        {
+          "kind": "tag",
+          "tagId": "sikshin",
+          "label": "식신"
+        },
+        {
+          "kind": "text",
+          "value": "의 결로 짧은 글·강의·자격 한 자락을 풀어 두면 흐름이 가벼워지고, 그 자체가 다음 해의 토양이 되어 줘요."
+        }
       ],
-      "tags": ["jeongingyeok", "jeongin", "sikshin"],
+      "tags": [
+        "jeongingyeok",
+        "jeongin",
+        "sikshin"
+      ],
       "aiGenerated": true,
       "sourceTier": {
         "tier": "T1_HYPOTHESIS",
@@ -278,20 +554,63 @@
     {
       "schemaVersion": "spring-ts.narrative-fragment.v1",
       "fragmentId": "academic.thisYear.expert.pyeoningyeok.007",
-      "axis": { "category": "academic", "period": "thisYear", "depth": "expert", "tone": "expert" },
-      "gating": { "gyeokguk": ["pyeoningyeok"] },
+      "axis": {
+        "category": "academic",
+        "period": "thisYear",
+        "depth": "expert",
+        "tone": "expert"
+      },
+      "gating": {
+        "gyeokguk": [
+          "pyeoningyeok"
+        ]
+      },
       "templateTokens": [
-        { "kind": "text", "value": "올해는 사주의 중심인 " },
-        { "kind": "tag", "tagId": "pyeoningyeok", "label": "편인격" },
-        { "kind": "text", "value": "의 결에 세운의 깊이가 어떻게 더해지느냐가 학업 결을 가르는 자리예요." },
-        { "kind": "text", "value": " " },
-        { "kind": "tag", "tagId": "pyeonin", "label": "편인" },
-        { "kind": "text", "value": "이 함께 받쳐 주는 한 해라면 한 분야의 깊이를 한 번 더 파고들기에 좋고, 자기만의 시각으로 한 권의 노트를 정리해 두면 좋은 자산이 돼요." },
-        { "kind": "text", "value": " " },
-        { "kind": "tag", "tagId": "hwagae", "label": "화개" },
-        { "kind": "text", "value": "의 결까지 함께 보이는 자리라면 안으로 들어가는 결이 더 또렷해져, 글·작품·연구의 한 자락을 풀어 두기에 잘 어울려요." }
+        {
+          "kind": "text",
+          "value": "올해는 사주의 중심인 "
+        },
+        {
+          "kind": "tag",
+          "tagId": "pyeoningyeok",
+          "label": "편인격"
+        },
+        {
+          "kind": "text",
+          "value": "의 결에 세운의 깊이가 어떻게 더해지느냐가 학업 결을 가르는 자리예요."
+        },
+        {
+          "kind": "text",
+          "value": " "
+        },
+        {
+          "kind": "tag",
+          "tagId": "pyeonin",
+          "label": "편인"
+        },
+        {
+          "kind": "text",
+          "value": "이 함께 받쳐 주는 한 해라면 한 분야의 깊이를 한 번 더 파고들기에 좋고, 자기만의 시각으로 한 권의 노트를 정리해 두면 좋은 자산이 돼요."
+        },
+        {
+          "kind": "text",
+          "value": " "
+        },
+        {
+          "kind": "tag",
+          "tagId": "hwagae",
+          "label": "화개"
+        },
+        {
+          "kind": "text",
+          "value": "의 결까지 함께 보이는 자리라면 안으로 들어가는 결이 더 또렷해져, 글·작품·연구의 한 자락을 풀어 두기에 잘 어울려요."
+        }
       ],
-      "tags": ["pyeoningyeok", "pyeonin", "hwagae"],
+      "tags": [
+        "pyeoningyeok",
+        "pyeonin",
+        "hwagae"
+      ],
       "aiGenerated": true,
       "sourceTier": {
         "tier": "T1_HYPOTHESIS",
@@ -307,20 +626,64 @@
     {
       "schemaVersion": "spring-ts.narrative-fragment.v1",
       "fragmentId": "academic.thisYear.expert.sikshingyeok.008",
-      "axis": { "category": "academic", "period": "thisYear", "depth": "expert", "tone": "expert" },
-      "gating": { "gyeokguk": ["sikshingyeok", "sanggwangyeok"] },
+      "axis": {
+        "category": "academic",
+        "period": "thisYear",
+        "depth": "expert",
+        "tone": "expert"
+      },
+      "gating": {
+        "gyeokguk": [
+          "sikshingyeok",
+          "sanggwangyeok"
+        ]
+      },
       "templateTokens": [
-        { "kind": "text", "value": "올해는 사주의 중심인 " },
-        { "kind": "tag", "tagId": "sikshin", "label": "식신" },
-        { "kind": "text", "value": "·" },
-        { "kind": "tag", "tagId": "sanggwan", "label": "상관" },
-        { "kind": "text", "value": " 결이 세운의 자리와 어떻게 맞물리느냐가 결을 가르는 한 해예요." },
-        { "kind": "text", "value": " 식상의 결이 부드럽게 풀려 나오는 세운에서는 그동안 익힌 것을 책·강의·작품의 한 자락으로 매듭짓기에 좋고, 짧은 글·발표 한 결이 다음 해의 토양이 되어 줘요." },
-        { "kind": "text", "value": " " },
-        { "kind": "tag", "tagId": "jeongin", "label": "정인" },
-        { "kind": "text", "value": "이 함께 받쳐 주는 자리라면 표현 결의 깊이까지 한 해 안에 익을 수 있어, 평소 미뤄 둔 자기 분야의 정리를 매듭짓기에 좋은 결이에요." }
+        {
+          "kind": "text",
+          "value": "올해는 사주의 중심인 "
+        },
+        {
+          "kind": "tag",
+          "tagId": "sikshin",
+          "label": "식신"
+        },
+        {
+          "kind": "text",
+          "value": "·"
+        },
+        {
+          "kind": "tag",
+          "tagId": "sanggwan",
+          "label": "상관"
+        },
+        {
+          "kind": "text",
+          "value": " 결이 세운의 자리와 어떻게 맞물리느냐가 결을 가르는 한 해예요."
+        },
+        {
+          "kind": "text",
+          "value": " 식상의 호흡이 부드럽게 풀려 나오는 세운에서는 그동안 익힌 것을 책·강의·작품의 한 자락으로 매듭짓기에 좋고, 짧은 글·발표 한 결이 다음 해의 토양이 되어 줘요."
+        },
+        {
+          "kind": "text",
+          "value": " "
+        },
+        {
+          "kind": "tag",
+          "tagId": "jeongin",
+          "label": "정인"
+        },
+        {
+          "kind": "text",
+          "value": "이 함께 받쳐 주는 자리라면 표현 결의 깊이까지 한 해 안에 익을 수 있어, 평소 미뤄 둔 자기 분야의 정리를 매듭짓기에 좋은 흐름이에요."
+        }
       ],
-      "tags": ["sikshin", "sanggwan", "jeongin"],
+      "tags": [
+        "sikshin",
+        "sanggwan",
+        "jeongin"
+      ],
       "aiGenerated": true,
       "sourceTier": {
         "tier": "T1_HYPOTHESIS",
@@ -336,20 +699,63 @@
     {
       "schemaVersion": "spring-ts.narrative-fragment.v1",
       "fragmentId": "academic.thisYear.expert.balanced.009",
-      "axis": { "category": "academic", "period": "thisYear", "depth": "expert", "tone": "expert" },
-      "gating": { "dayMasterStrength": ["BALANCED"] },
+      "axis": {
+        "category": "academic",
+        "period": "thisYear",
+        "depth": "expert",
+        "tone": "expert"
+      },
+      "gating": {
+        "dayMasterStrength": [
+          "BALANCED"
+        ]
+      },
       "templateTokens": [
-        { "kind": "text", "value": "일간이 균형 잡힌 자리라, 올해 세운의 결이 학업 흐름에 큰 변주를 주지 않는 한 해예요." },
-        { "kind": "text", "value": " " },
-        { "kind": "tag", "tagId": "jeongin", "label": "정인" },
-        { "kind": "text", "value": "과 " },
-        { "kind": "tag", "tagId": "sikshin", "label": "식신" },
-        { "kind": "text", "value": "이 어느 한 쪽으로 치우치지 않고 함께 받쳐 주는 결이 자주 보여, 익히는 결과 풀어 내는 결이 자연스럽게 짝을 이루는 흐름이에요." },
-        { "kind": "text", "value": " 평소 페이스대로 한 결을 매듭지어 두는 결이 잘 어울리고, " },
-        { "kind": "tag", "tagId": "yongshin", "label": "용신" },
-        { "kind": "text", "value": "이 조용히 받쳐 주는 자리에서 그동안 모은 메모가 한 해의 자기 자산으로 엮이는 자리가 보일 수 있어요." }
+        {
+          "kind": "text",
+          "value": "일간이 균형 잡힌 자리라, 올해 세운의 결이 학업 흐름에 큰 변주를 주지 않는 한 해예요."
+        },
+        {
+          "kind": "text",
+          "value": " "
+        },
+        {
+          "kind": "tag",
+          "tagId": "jeongin",
+          "label": "정인"
+        },
+        {
+          "kind": "text",
+          "value": "과 "
+        },
+        {
+          "kind": "tag",
+          "tagId": "sikshin",
+          "label": "식신"
+        },
+        {
+          "kind": "text",
+          "value": "이 어느 한 쪽으로 치우치지 않고 함께 받쳐 주는 리듬이 자주 보여, 익히는 결과 풀어 내는 리듬이 자연스럽게 짝을 이루는 흐름이에요."
+        },
+        {
+          "kind": "text",
+          "value": " 평소 페이스대로 한 결을 매듭지어 두는 흐름이 잘 어울리고, "
+        },
+        {
+          "kind": "tag",
+          "tagId": "yongshin",
+          "label": "용신"
+        },
+        {
+          "kind": "text",
+          "value": "이 조용히 받쳐 주는 자리에서 그동안 모은 메모가 한 해의 자기 자산으로 엮이는 자리가 보일 수 있어요."
+        }
       ],
-      "tags": ["jeongin", "sikshin", "yongshin"],
+      "tags": [
+        "jeongin",
+        "sikshin",
+        "yongshin"
+      ],
       "aiGenerated": true,
       "sourceTier": {
         "tier": "T1_HYPOTHESIS",
@@ -365,19 +771,53 @@
     {
       "schemaVersion": "spring-ts.narrative-fragment.v1",
       "fragmentId": "academic.thisYear.expert.hwagae.010",
-      "axis": { "category": "academic", "period": "thisYear", "depth": "expert", "tone": "expert" },
+      "axis": {
+        "category": "academic",
+        "period": "thisYear",
+        "depth": "expert",
+        "tone": "expert"
+      },
       "gating": {},
       "templateTokens": [
-        { "kind": "text", "value": "올해 세운에 " },
-        { "kind": "tag", "tagId": "hwagae", "label": "화개" },
-        { "kind": "text", "value": "의 기운이 도드라지면, 학업운이 안으로 파고들며 한 해 동안 또렷해지는 모습이에요." },
-        { "kind": "text", "value": " 같은 주제도 자기만의 사색을 거쳐 풀어 내는 결이 자연스러워, 한 분야의 깊이를 한 권으로 묶기에 좋은 자리예요." },
-        { "kind": "text", "value": " " },
-        { "kind": "tag", "tagId": "pyeonin", "label": "편인" },
-        { "kind": "text", "value": "이 함께 받쳐 주는 자리라면 한 결의 깊이가 한 해 안에 또렷해지고, 글·작품·연구의 한 자락을 풀어 두기에 잘 어울려요." },
-        { "kind": "text", "value": " 너무 안으로만 들어가지 않게 가까운 동료의 짧은 대화 자리를 정기적으로 챙겨 두면 한 해의 균형이 잡혀요." }
+        {
+          "kind": "text",
+          "value": "올해 세운에 "
+        },
+        {
+          "kind": "tag",
+          "tagId": "hwagae",
+          "label": "화개"
+        },
+        {
+          "kind": "text",
+          "value": "의 기운이 도드라지면, 학업운이 안으로 파고들며 한 해 동안 또렷해지는 모습이에요."
+        },
+        {
+          "kind": "text",
+          "value": " 같은 주제도 자기만의 사색을 거쳐 풀어 내는 리듬이 자연스러워, 한 분야의 깊이를 한 권으로 묶기에 좋은 자리예요."
+        },
+        {
+          "kind": "text",
+          "value": " "
+        },
+        {
+          "kind": "tag",
+          "tagId": "pyeonin",
+          "label": "편인"
+        },
+        {
+          "kind": "text",
+          "value": "이 함께 받쳐 주는 자리라면 한 결의 깊이가 한 해 안에 또렷해지고, 글·작품·연구의 한 자락을 풀어 두기에 잘 어울려요."
+        },
+        {
+          "kind": "text",
+          "value": " 너무 안으로만 들어가지 않게 가까운 동료의 짧은 대화 자리를 정기적으로 챙겨 두면 한 해의 균형이 잡혀요."
+        }
       ],
-      "tags": ["hwagae", "pyeonin"],
+      "tags": [
+        "hwagae",
+        "pyeonin"
+      ],
       "aiGenerated": true,
       "sourceTier": {
         "tier": "T1_HYPOTHESIS",
@@ -393,23 +833,77 @@
     {
       "schemaVersion": "spring-ts.narrative-fragment.v1",
       "fragmentId": "academic.thisYear.expert.10_19.011",
-      "axis": { "category": "academic", "period": "thisYear", "depth": "expert", "tone": "expert" },
-      "gating": { "ageBand": ["10-19"] },
+      "axis": {
+        "category": "academic",
+        "period": "thisYear",
+        "depth": "expert",
+        "tone": "expert"
+      },
+      "gating": {
+        "ageBand": [
+          "10-19"
+        ]
+      },
       "templateTokens": [
-        { "kind": "text", "value": "10대의 올해 학업운을 격국·십성으로 바라보면, " },
-        { "kind": "tag", "tagId": "jeongin", "label": "정인" },
-        { "kind": "text", "value": "이 받쳐 주는 자리에서 차분히 깊어지기 좋아요." },
-        { "kind": "text", "value": " 인성 기운이 부족한 자리에서는 책·스승의 도움을 의도적으로 곁에 두는 것이 곧 자기 자산이 되어 줘요." },
-        { "kind": "text", "value": " " },
-        { "kind": "tag", "tagId": "sikshin", "label": "식신" },
-        { "kind": "text", "value": "·" },
-        { "kind": "tag", "tagId": "sanggwan", "label": "상관" },
-        { "kind": "text", "value": "이 함께 보인다면 익힌 것을 자기 말로 풀어 보는 시간이 깊이를 만들고, 학교 안의 발표·토론·노트 정리가 좋은 무대가 되어 줘요." },
-        { "kind": "text", "value": " " },
-        { "kind": "tag", "tagId": "yongshin", "label": "용신" },
-        { "kind": "text", "value": "이 들어오는 학기에서는 어려워하던 한 단원도 한 번에 풀려 나가는 순간이 올 수 있어요." }
+        {
+          "kind": "text",
+          "value": "10대의 올해 학업운을 격국·십성으로 바라보면, "
+        },
+        {
+          "kind": "tag",
+          "tagId": "jeongin",
+          "label": "정인"
+        },
+        {
+          "kind": "text",
+          "value": "이 받쳐 주는 자리에서 차분히 깊어지기 좋아요."
+        },
+        {
+          "kind": "text",
+          "value": " 인성 기운이 부족한 자리에서는 책·스승의 도움을 의도적으로 곁에 두는 것이 곧 자기 자산이 되어 줘요."
+        },
+        {
+          "kind": "text",
+          "value": " "
+        },
+        {
+          "kind": "tag",
+          "tagId": "sikshin",
+          "label": "식신"
+        },
+        {
+          "kind": "text",
+          "value": "·"
+        },
+        {
+          "kind": "tag",
+          "tagId": "sanggwan",
+          "label": "상관"
+        },
+        {
+          "kind": "text",
+          "value": "이 함께 보인다면 익힌 것을 자기 말로 풀어 보는 시간이 깊이를 만들고, 학교 안의 발표·토론·노트 정리가 좋은 무대가 되어 줘요."
+        },
+        {
+          "kind": "text",
+          "value": " "
+        },
+        {
+          "kind": "tag",
+          "tagId": "yongshin",
+          "label": "용신"
+        },
+        {
+          "kind": "text",
+          "value": "이 들어오는 학기에서는 어려워하던 한 단원도 한 번에 풀려 나가는 순간이 올 수 있어요."
+        }
       ],
-      "tags": ["jeongin", "sikshin", "sanggwan", "yongshin"],
+      "tags": [
+        "jeongin",
+        "sikshin",
+        "sanggwan",
+        "yongshin"
+      ],
       "aiGenerated": true,
       "sourceTier": {
         "tier": "T1_HYPOTHESIS",

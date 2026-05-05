@@ -8,10 +8,17 @@
     {
       "schemaVersion": "spring-ts.narrative-fragment.v1",
       "fragmentId": "academic.today.brief.wildcard.001",
-      "axis": { "category": "academic", "period": "today", "depth": "brief" },
+      "axis": {
+        "category": "academic",
+        "period": "today",
+        "depth": "brief"
+      },
       "gating": {},
       "templateTokens": [
-        { "kind": "text", "value": "오늘은 한 페이지에 차분히 머무는 결이에요." }
+        {
+          "kind": "text",
+          "value": "오늘은 한 페이지에 차분히 머무는 결이에요."
+        }
       ],
       "tags": [],
       "aiGenerated": true,
@@ -29,10 +36,21 @@
     {
       "schemaVersion": "spring-ts.narrative-fragment.v1",
       "fragmentId": "academic.today.brief.0_9.002",
-      "axis": { "category": "academic", "period": "today", "depth": "brief" },
-      "gating": { "ageBand": ["0-9"] },
+      "axis": {
+        "category": "academic",
+        "period": "today",
+        "depth": "brief"
+      },
+      "gating": {
+        "ageBand": [
+          "0-9"
+        ]
+      },
       "templateTokens": [
-        { "kind": "text", "value": "좋아하는 책 한 권에 푹 빠지기 좋은 하루예요." }
+        {
+          "kind": "text",
+          "value": "좋아하는 책 한 권에 푹 빠지기 좋은 하루예요."
+        }
       ],
       "tags": [],
       "aiGenerated": true,
@@ -50,10 +68,21 @@
     {
       "schemaVersion": "spring-ts.narrative-fragment.v1",
       "fragmentId": "academic.today.brief.10_19.003",
-      "axis": { "category": "academic", "period": "today", "depth": "brief" },
-      "gating": { "ageBand": ["10-19"] },
+      "axis": {
+        "category": "academic",
+        "period": "today",
+        "depth": "brief"
+      },
+      "gating": {
+        "ageBand": [
+          "10-19"
+        ]
+      },
       "templateTokens": [
-        { "kind": "text", "value": "오늘은 한 단원을 자기 말로 정리하면 좋은 결이에요." }
+        {
+          "kind": "text",
+          "value": "오늘은 한 단원을 자기 말로 정리하면 좋은 흐름이에요."
+        }
       ],
       "tags": [],
       "aiGenerated": true,
@@ -71,10 +100,21 @@
     {
       "schemaVersion": "spring-ts.narrative-fragment.v1",
       "fragmentId": "academic.today.brief.20_29.004",
-      "axis": { "category": "academic", "period": "today", "depth": "brief" },
-      "gating": { "ageBand": ["20-29"] },
+      "axis": {
+        "category": "academic",
+        "period": "today",
+        "depth": "brief"
+      },
+      "gating": {
+        "ageBand": [
+          "20-29"
+        ]
+      },
       "templateTokens": [
-        { "kind": "text", "value": "오늘 짧은 글 한 장을 마무리하기 좋은 결이에요." }
+        {
+          "kind": "text",
+          "value": "오늘 짧은 글 한 장을 마무리하기 좋은 흐름이에요."
+        }
       ],
       "tags": [],
       "aiGenerated": true,
@@ -92,10 +132,22 @@
     {
       "schemaVersion": "spring-ts.narrative-fragment.v1",
       "fragmentId": "academic.today.brief.30plus.005",
-      "axis": { "category": "academic", "period": "today", "depth": "brief" },
-      "gating": { "ageBand": ["30-39", "40-54"] },
+      "axis": {
+        "category": "academic",
+        "period": "today",
+        "depth": "brief"
+      },
+      "gating": {
+        "ageBand": [
+          "30-39",
+          "40-54"
+        ]
+      },
       "templateTokens": [
-        { "kind": "text", "value": "오늘은 자기계발 한 챕터를 챙기기 좋은 결이에요." }
+        {
+          "kind": "text",
+          "value": "오늘은 자기계발 한 챕터를 챙기기 좋은 흐름이에요."
+        }
       ],
       "tags": [],
       "aiGenerated": true,
@@ -113,10 +165,22 @@
     {
       "schemaVersion": "spring-ts.narrative-fragment.v1",
       "fragmentId": "academic.today.brief.55plus.006",
-      "axis": { "category": "academic", "period": "today", "depth": "brief" },
-      "gating": { "ageBand": ["55-69", "70+"] },
+      "axis": {
+        "category": "academic",
+        "period": "today",
+        "depth": "brief"
+      },
+      "gating": {
+        "ageBand": [
+          "55-69",
+          "70+"
+        ]
+      },
       "templateTokens": [
-        { "kind": "text", "value": "오늘은 좋아하는 책 한 페이지를 음미해도 좋아요." }
+        {
+          "kind": "text",
+          "value": "오늘은 좋아하는 책 한 페이지를 음미해도 좋아요."
+        }
       ],
       "tags": [],
       "aiGenerated": true,
@@ -134,10 +198,21 @@
     {
       "schemaVersion": "spring-ts.narrative-fragment.v1",
       "fragmentId": "academic.today.brief.aligned.007",
-      "axis": { "category": "academic", "period": "today", "depth": "brief" },
-      "gating": { "yongshinAlignment": ["aligned"] },
+      "axis": {
+        "category": "academic",
+        "period": "today",
+        "depth": "brief"
+      },
+      "gating": {
+        "yongshinAlignment": [
+          "aligned"
+        ]
+      },
       "templateTokens": [
-        { "kind": "text", "value": "오늘은 집중이 자연스럽게 잡히는 하루예요." }
+        {
+          "kind": "text",
+          "value": "오늘은 집중이 자연스럽게 잡히는 하루예요."
+        }
       ],
       "tags": [],
       "aiGenerated": true,
@@ -155,10 +230,21 @@
     {
       "schemaVersion": "spring-ts.narrative-fragment.v1",
       "fragmentId": "academic.today.brief.conflicting.008",
-      "axis": { "category": "academic", "period": "today", "depth": "brief" },
-      "gating": { "yongshinAlignment": ["conflicting"] },
+      "axis": {
+        "category": "academic",
+        "period": "today",
+        "depth": "brief"
+      },
+      "gating": {
+        "yongshinAlignment": [
+          "conflicting"
+        ]
+      },
       "templateTokens": [
-        { "kind": "text", "value": "오늘은 짧은 학습 한 토막이 더 잘 어울려요." }
+        {
+          "kind": "text",
+          "value": "오늘은 짧은 학습 한 토막이 더 잘 어울려요."
+        }
       ],
       "tags": [],
       "aiGenerated": true,
@@ -176,10 +262,21 @@
     {
       "schemaVersion": "spring-ts.narrative-fragment.v1",
       "fragmentId": "academic.today.brief.balanced.009",
-      "axis": { "category": "academic", "period": "today", "depth": "brief" },
-      "gating": { "dayMasterStrength": ["BALANCED"] },
+      "axis": {
+        "category": "academic",
+        "period": "today",
+        "depth": "brief"
+      },
+      "gating": {
+        "dayMasterStrength": [
+          "BALANCED"
+        ]
+      },
       "templateTokens": [
-        { "kind": "text", "value": "오늘은 평소 페이스로 한 단원을 마무리해도 좋아요." }
+        {
+          "kind": "text",
+          "value": "오늘은 평소 페이스로 한 단원을 마무리해도 좋아요."
+        }
       ],
       "tags": [],
       "aiGenerated": true,
@@ -197,10 +294,25 @@
     {
       "schemaVersion": "spring-ts.narrative-fragment.v1",
       "fragmentId": "academic.today.brief.strong_aligned.010",
-      "axis": { "category": "academic", "period": "today", "depth": "brief" },
-      "gating": { "dayMasterStrength": ["STRONG", "EXTREME_STRONG"], "yongshinAlignment": ["aligned"] },
+      "axis": {
+        "category": "academic",
+        "period": "today",
+        "depth": "brief"
+      },
+      "gating": {
+        "dayMasterStrength": [
+          "STRONG",
+          "EXTREME_STRONG"
+        ],
+        "yongshinAlignment": [
+          "aligned"
+        ]
+      },
       "templateTokens": [
-        { "kind": "text", "value": "오늘은 깊이 파고드는 한 자락이 잘 어울려요." }
+        {
+          "kind": "text",
+          "value": "오늘은 깊이 파고드는 한 자락이 잘 어울려요."
+        }
       ],
       "tags": [],
       "aiGenerated": true,
@@ -218,10 +330,25 @@
     {
       "schemaVersion": "spring-ts.narrative-fragment.v1",
       "fragmentId": "academic.today.brief.weak_aligned.011",
-      "axis": { "category": "academic", "period": "today", "depth": "brief" },
-      "gating": { "dayMasterStrength": ["WEAK", "EXTREME_WEAK"], "yongshinAlignment": ["aligned"] },
+      "axis": {
+        "category": "academic",
+        "period": "today",
+        "depth": "brief"
+      },
+      "gating": {
+        "dayMasterStrength": [
+          "WEAK",
+          "EXTREME_WEAK"
+        ],
+        "yongshinAlignment": [
+          "aligned"
+        ]
+      },
       "templateTokens": [
-        { "kind": "text", "value": "오늘은 곁의 도움 한 줄이 큰 자산이 되어요." }
+        {
+          "kind": "text",
+          "value": "오늘은 곁의 도움 한 줄이 큰 자산이 되어요."
+        }
       ],
       "tags": [],
       "aiGenerated": true,
@@ -239,10 +366,21 @@
     {
       "schemaVersion": "spring-ts.narrative-fragment.v1",
       "fragmentId": "academic.today.brief.neutral.012",
-      "axis": { "category": "academic", "period": "today", "depth": "brief" },
-      "gating": { "yongshinAlignment": ["neutral"] },
+      "axis": {
+        "category": "academic",
+        "period": "today",
+        "depth": "brief"
+      },
+      "gating": {
+        "yongshinAlignment": [
+          "neutral"
+        ]
+      },
       "templateTokens": [
-        { "kind": "text", "value": "오늘은 익숙한 결을 가볍게 짚어 보기 좋아요." }
+        {
+          "kind": "text",
+          "value": "오늘은 익숙한 결을 가볍게 짚어 보기 좋아요."
+        }
       ],
       "tags": [],
       "aiGenerated": true,

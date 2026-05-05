@@ -7,12 +7,34 @@
     {
       "schemaVersion": "spring-ts.narrative-fragment.v1",
       "fragmentId": "wealth.today.brief.wildcard.001",
-      "axis": { "category": "wealth", "period": "today", "depth": "brief" },
-      "gating": { "ageBand": ["20-29", "30-39", "40-54", "55-69", "70+"] },
+      "axis": {
+        "category": "wealth",
+        "period": "today",
+        "depth": "brief"
+      },
+      "gating": {
+        "ageBand": [
+          "20-29",
+          "30-39",
+          "40-54",
+          "55-69",
+          "70+"
+        ]
+      },
       "templateTokens": [
-        { "kind": "text", "value": "오늘의 재물 흐름은 " },
-        { "kind": "slot", "name": "phrase", "type": "phrase" },
-        { "kind": "text", "value": "." }
+        {
+          "kind": "text",
+          "value": "오늘의 재물 흐름은 "
+        },
+        {
+          "kind": "slot",
+          "name": "phrase",
+          "type": "phrase"
+        },
+        {
+          "kind": "text",
+          "value": "."
+        }
       ],
       "slots": {
         "phrase": [
@@ -37,19 +59,38 @@
     {
       "schemaVersion": "spring-ts.narrative-fragment.v1",
       "fragmentId": "wealth.today.brief.strong.aligned.002",
-      "axis": { "category": "wealth", "period": "today", "depth": "brief" },
+      "axis": {
+        "category": "wealth",
+        "period": "today",
+        "depth": "brief"
+      },
       "gating": {
-        "dayMasterStrength": ["STRONG", "EXTREME_STRONG"],
-        "yongshinAlignment": ["aligned"]
+        "dayMasterStrength": [
+          "STRONG",
+          "EXTREME_STRONG"
+        ],
+        "yongshinAlignment": [
+          "aligned"
+        ]
       },
       "templateTokens": [
-        { "kind": "text", "value": "오늘은 " },
-        { "kind": "slot", "name": "phrase", "type": "phrase" },
-        { "kind": "text", "value": "." }
+        {
+          "kind": "text",
+          "value": "오늘은 "
+        },
+        {
+          "kind": "slot",
+          "name": "phrase",
+          "type": "phrase"
+        },
+        {
+          "kind": "text",
+          "value": "."
+        }
       ],
       "slots": {
         "phrase": [
-          "큰 거래의 결이 또렷해지는 하루예요",
+          "큰 거래의 방향이 또렷해지는 하루예요",
           "추진력이 빛을 내는 하루예요",
           "결정의 기준이 단단해지는 하루예요"
         ]
@@ -70,15 +111,33 @@
     {
       "schemaVersion": "spring-ts.narrative-fragment.v1",
       "fragmentId": "wealth.today.brief.balanced.aligned.003",
-      "axis": { "category": "wealth", "period": "today", "depth": "brief" },
+      "axis": {
+        "category": "wealth",
+        "period": "today",
+        "depth": "brief"
+      },
       "gating": {
-        "dayMasterStrength": ["BALANCED"],
-        "yongshinAlignment": ["aligned"]
+        "dayMasterStrength": [
+          "BALANCED"
+        ],
+        "yongshinAlignment": [
+          "aligned"
+        ]
       },
       "templateTokens": [
-        { "kind": "text", "value": "오늘은 " },
-        { "kind": "slot", "name": "phrase", "type": "phrase" },
-        { "kind": "text", "value": "." }
+        {
+          "kind": "text",
+          "value": "오늘은 "
+        },
+        {
+          "kind": "slot",
+          "name": "phrase",
+          "type": "phrase"
+        },
+        {
+          "kind": "text",
+          "value": "."
+        }
       ],
       "slots": {
         "phrase": [
@@ -103,15 +162,34 @@
     {
       "schemaVersion": "spring-ts.narrative-fragment.v1",
       "fragmentId": "wealth.today.brief.weak.neutral.004",
-      "axis": { "category": "wealth", "period": "today", "depth": "brief" },
+      "axis": {
+        "category": "wealth",
+        "period": "today",
+        "depth": "brief"
+      },
       "gating": {
-        "dayMasterStrength": ["WEAK", "EXTREME_WEAK"],
-        "yongshinAlignment": ["neutral"]
+        "dayMasterStrength": [
+          "WEAK",
+          "EXTREME_WEAK"
+        ],
+        "yongshinAlignment": [
+          "neutral"
+        ]
       },
       "templateTokens": [
-        { "kind": "text", "value": "오늘은 " },
-        { "kind": "slot", "name": "phrase", "type": "phrase" },
-        { "kind": "text", "value": "." }
+        {
+          "kind": "text",
+          "value": "오늘은 "
+        },
+        {
+          "kind": "slot",
+          "name": "phrase",
+          "type": "phrase"
+        },
+        {
+          "kind": "text",
+          "value": "."
+        }
       ],
       "slots": {
         "phrase": [
@@ -136,14 +214,30 @@
     {
       "schemaVersion": "spring-ts.narrative-fragment.v1",
       "fragmentId": "wealth.today.brief.conflicting.005",
-      "axis": { "category": "wealth", "period": "today", "depth": "brief" },
+      "axis": {
+        "category": "wealth",
+        "period": "today",
+        "depth": "brief"
+      },
       "gating": {
-        "yongshinAlignment": ["conflicting"]
+        "yongshinAlignment": [
+          "conflicting"
+        ]
       },
       "templateTokens": [
-        { "kind": "text", "value": "오늘은 " },
-        { "kind": "slot", "name": "phrase", "type": "phrase" },
-        { "kind": "text", "value": "." }
+        {
+          "kind": "text",
+          "value": "오늘은 "
+        },
+        {
+          "kind": "slot",
+          "name": "phrase",
+          "type": "phrase"
+        },
+        {
+          "kind": "text",
+          "value": "."
+        }
       ],
       "slots": {
         "phrase": [
@@ -168,21 +262,39 @@
     {
       "schemaVersion": "spring-ts.narrative-fragment.v1",
       "fragmentId": "wealth.today.brief.male.30_39.006",
-      "axis": { "category": "wealth", "period": "today", "depth": "brief" },
+      "axis": {
+        "category": "wealth",
+        "period": "today",
+        "depth": "brief"
+      },
       "gating": {
-        "gender": ["male"],
-        "ageBand": ["30-39"]
+        "gender": [
+          "male"
+        ],
+        "ageBand": [
+          "30-39"
+        ]
       },
       "templateTokens": [
-        { "kind": "text", "value": "오늘은 " },
-        { "kind": "slot", "name": "phrase", "type": "phrase" },
-        { "kind": "text", "value": "." }
+        {
+          "kind": "text",
+          "value": "오늘은 "
+        },
+        {
+          "kind": "slot",
+          "name": "phrase",
+          "type": "phrase"
+        },
+        {
+          "kind": "text",
+          "value": "."
+        }
       ],
       "slots": {
         "phrase": [
           "장기 그림 한 줄을 다시 살피기 좋은 하루예요",
           "결정의 무게를 가족과 한 번 나누면 좋은 하루예요",
-          "큰 거래는 하루 자고 결정하면 좋은 결이에요"
+          "큰 거래는 하루 자고 결정하면 좋은 흐름이에요"
         ]
       },
       "tags": [],
@@ -201,21 +313,39 @@
     {
       "schemaVersion": "spring-ts.narrative-fragment.v1",
       "fragmentId": "wealth.today.brief.female.40_54.007",
-      "axis": { "category": "wealth", "period": "today", "depth": "brief" },
+      "axis": {
+        "category": "wealth",
+        "period": "today",
+        "depth": "brief"
+      },
       "gating": {
-        "gender": ["female"],
-        "ageBand": ["40-54"]
+        "gender": [
+          "female"
+        ],
+        "ageBand": [
+          "40-54"
+        ]
       },
       "templateTokens": [
-        { "kind": "text", "value": "오늘은 " },
-        { "kind": "slot", "name": "phrase", "type": "phrase" },
-        { "kind": "text", "value": "." }
+        {
+          "kind": "text",
+          "value": "오늘은 "
+        },
+        {
+          "kind": "slot",
+          "name": "phrase",
+          "type": "phrase"
+        },
+        {
+          "kind": "text",
+          "value": "."
+        }
       ],
       "slots": {
         "phrase": [
           "관리의 결을 단단히 다듬기 좋은 하루예요",
           "차분한 결정이 자리를 단단하게 하는 결이에요",
-          "큰 결정은 한 번 더 살피면 좋은 결이에요"
+          "큰 결정은 한 번 더 살피면 좋은 흐름이에요"
         ]
       },
       "tags": [],
@@ -234,20 +364,36 @@
     {
       "schemaVersion": "spring-ts.narrative-fragment.v1",
       "fragmentId": "wealth.today.brief.20_29.008",
-      "axis": { "category": "wealth", "period": "today", "depth": "brief" },
+      "axis": {
+        "category": "wealth",
+        "period": "today",
+        "depth": "brief"
+      },
       "gating": {
-        "ageBand": ["20-29"]
+        "ageBand": [
+          "20-29"
+        ]
       },
       "templateTokens": [
-        { "kind": "text", "value": "오늘은 " },
-        { "kind": "slot", "name": "phrase", "type": "phrase" },
-        { "kind": "text", "value": "." }
+        {
+          "kind": "text",
+          "value": "오늘은 "
+        },
+        {
+          "kind": "slot",
+          "name": "phrase",
+          "type": "phrase"
+        },
+        {
+          "kind": "text",
+          "value": "."
+        }
       ],
       "slots": {
         "phrase": [
           "작은 기록이 결을 만드는 하루예요",
           "월말 한 줄 정리를 떠올려 보는 결이에요",
-          "큰 권유는 한 박자 늦추면 좋은 결이에요"
+          "큰 권유는 한 박자 늦추면 좋은 흐름이에요"
         ]
       },
       "tags": [],
@@ -266,20 +412,37 @@
     {
       "schemaVersion": "spring-ts.narrative-fragment.v1",
       "fragmentId": "wealth.today.brief.55_69.009",
-      "axis": { "category": "wealth", "period": "today", "depth": "brief" },
+      "axis": {
+        "category": "wealth",
+        "period": "today",
+        "depth": "brief"
+      },
       "gating": {
-        "ageBand": ["55-69", "70+"]
+        "ageBand": [
+          "55-69",
+          "70+"
+        ]
       },
       "templateTokens": [
-        { "kind": "text", "value": "오늘은 " },
-        { "kind": "slot", "name": "phrase", "type": "phrase" },
-        { "kind": "text", "value": "." }
+        {
+          "kind": "text",
+          "value": "오늘은 "
+        },
+        {
+          "kind": "slot",
+          "name": "phrase",
+          "type": "phrase"
+        },
+        {
+          "kind": "text",
+          "value": "."
+        }
       ],
       "slots": {
         "phrase": [
-          "정리·나눔의 결이 자연스러운 하루예요",
+          "정리·나눔의 리듬이 자연스러운 하루예요",
           "익숙한 페이스를 지키기 좋은 하루예요",
-          "갑작스런 권유는 한 박자 미루면 좋은 결이에요"
+          "갑작스런 권유는 한 박자 미루면 좋은 흐름이에요"
         ]
       },
       "tags": [],
@@ -298,21 +461,42 @@
     {
       "schemaVersion": "spring-ts.narrative-fragment.v1",
       "fragmentId": "wealth.today.brief.strong.female.30_39.010",
-      "axis": { "category": "wealth", "period": "today", "depth": "brief" },
+      "axis": {
+        "category": "wealth",
+        "period": "today",
+        "depth": "brief"
+      },
       "gating": {
-        "gender": ["female"],
-        "ageBand": ["30-39"],
-        "dayMasterStrength": ["STRONG", "EXTREME_STRONG"]
+        "gender": [
+          "female"
+        ],
+        "ageBand": [
+          "30-39"
+        ],
+        "dayMasterStrength": [
+          "STRONG",
+          "EXTREME_STRONG"
+        ]
       },
       "templateTokens": [
-        { "kind": "text", "value": "오늘은 " },
-        { "kind": "slot", "name": "phrase", "type": "phrase" },
-        { "kind": "text", "value": "." }
+        {
+          "kind": "text",
+          "value": "오늘은 "
+        },
+        {
+          "kind": "slot",
+          "name": "phrase",
+          "type": "phrase"
+        },
+        {
+          "kind": "text",
+          "value": "."
+        }
       ],
       "slots": {
         "phrase": [
-          "추진하는 결이 또렷한 하루예요",
-          "큰 그림을 다듬기 좋은 결이에요",
+          "추진하는 방향이 또렷한 하루예요",
+          "큰 그림을 다듬기 좋은 흐름이에요",
           "결정의 기준을 단단히 두면 빛이 나는 하루예요"
         ]
       },
@@ -332,16 +516,37 @@
     {
       "schemaVersion": "spring-ts.narrative-fragment.v1",
       "fragmentId": "wealth.today.brief.weak.male.20_29.011",
-      "axis": { "category": "wealth", "period": "today", "depth": "brief" },
+      "axis": {
+        "category": "wealth",
+        "period": "today",
+        "depth": "brief"
+      },
       "gating": {
-        "gender": ["male"],
-        "ageBand": ["20-29"],
-        "dayMasterStrength": ["WEAK", "EXTREME_WEAK"]
+        "gender": [
+          "male"
+        ],
+        "ageBand": [
+          "20-29"
+        ],
+        "dayMasterStrength": [
+          "WEAK",
+          "EXTREME_WEAK"
+        ]
       },
       "templateTokens": [
-        { "kind": "text", "value": "오늘은 " },
-        { "kind": "slot", "name": "phrase", "type": "phrase" },
-        { "kind": "text", "value": "." }
+        {
+          "kind": "text",
+          "value": "오늘은 "
+        },
+        {
+          "kind": "slot",
+          "name": "phrase",
+          "type": "phrase"
+        },
+        {
+          "kind": "text",
+          "value": "."
+        }
       ],
       "slots": {
         "phrase": [

@@ -7,22 +7,70 @@
     {
       "schemaVersion": "spring-ts.narrative-fragment.v1",
       "fragmentId": "health.thisWeek.expert.wild.001",
-      "axis": { "category": "health", "period": "thisWeek", "depth": "expert" },
+      "axis": {
+        "category": "health",
+        "period": "thisWeek",
+        "depth": "expert"
+      },
       "gating": {},
       "templateTokens": [
-        { "kind": "text", "value": "이번 주 컨디션 흐름은 " },
-        { "kind": "tag", "tagId": "johu", "label": "조후" },
-        { "kind": "text", "value": "의 균형이 일주일 단위로 어떻게 자리잡는지에 따라 결이 달라져요. 더운 자리가 도드라지면 " },
-        { "kind": "tag", "tagId": "water", "label": "물" },
-        { "kind": "text", "value": "의 결을, 찬 자리가 도드라지면 " },
-        { "kind": "tag", "tagId": "fire", "label": "불" },
-        { "kind": "text", "value": "의 결을 일상에서 보충해 두면 좋아요.\n\n받쳐 주는 자리가 약하면 " },
-        { "kind": "tag", "tagId": "jeongin", "label": "정인" },
-        { "kind": "text", "value": "의 결을 짧은 휴식·가까운 사람과의 자리로 채우면 좋아요. 표현·소화 흐름이 막히면 " },
-        { "kind": "tag", "tagId": "sikshin", "label": "식신" },
-        { "kind": "text", "value": "의 결을 가벼운 자리에서 풀어 주는 편이 잘 맞아요.\n\n주말 무렵엔 한 번씩 페이스를 늦추는 자리를 만들어 두면 다음 주 흐름까지 부드럽게 이어져요." }
+        {
+          "kind": "text",
+          "value": "이번 주 컨디션 흐름은 "
+        },
+        {
+          "kind": "tag",
+          "tagId": "johu",
+          "label": "조후"
+        },
+        {
+          "kind": "text",
+          "value": "의 균형이 일주일 단위로 어떻게 자리잡는지에 따라 결이 달라져요. 더운 자리가 도드라지면 "
+        },
+        {
+          "kind": "tag",
+          "tagId": "water",
+          "label": "물"
+        },
+        {
+          "kind": "text",
+          "value": "의 결을, 찬 자리가 도드라지면 "
+        },
+        {
+          "kind": "tag",
+          "tagId": "fire",
+          "label": "불"
+        },
+        {
+          "kind": "text",
+          "value": "의 결을 일상에서 보충해 두면 좋아요.\n\n받쳐 주는 자리가 약하면 "
+        },
+        {
+          "kind": "tag",
+          "tagId": "jeongin",
+          "label": "정인"
+        },
+        {
+          "kind": "text",
+          "value": "의 결을 짧은 휴식·가까운 사람과의 자리로 채우면 좋아요. 표현·소화 흐름이 막히면 "
+        },
+        {
+          "kind": "tag",
+          "tagId": "sikshin",
+          "label": "식신"
+        },
+        {
+          "kind": "text",
+          "value": "의 결을 가벼운 자리에서 풀어 주는 편이 잘 맞아요.\n\n주말 무렵엔 한 번씩 페이스를 늦추는 자리를 만들어 두면 다음 주 흐름까지 부드럽게 이어져요."
+        }
       ],
-      "tags": ["johu", "water", "fire", "jeongin", "sikshin"],
+      "tags": [
+        "johu",
+        "water",
+        "fire",
+        "jeongin",
+        "sikshin"
+      ],
       "numericalEvidence": [
         {
           "label": "현재 나이",
@@ -70,20 +118,54 @@
     {
       "schemaVersion": "spring-ts.narrative-fragment.v1",
       "fragmentId": "health.thisWeek.expert.extreme_strong.001",
-      "axis": { "category": "health", "period": "thisWeek", "depth": "expert" },
+      "axis": {
+        "category": "health",
+        "period": "thisWeek",
+        "depth": "expert"
+      },
       "gating": {
-        "dayMasterStrength": ["EXTREME_STRONG"]
+        "dayMasterStrength": [
+          "EXTREME_STRONG"
+        ]
       },
       "templateTokens": [
-        { "kind": "text", "value": "이번 주는 일간이 매우 단단한 결이라 활동량이 많아지기 쉬운 자리예요. " },
-        { "kind": "tag", "tagId": "johu", "label": "조후" },
-        { "kind": "text", "value": "가 더운 쪽으로 기울지 않게 " },
-        { "kind": "tag", "tagId": "water", "label": "물" },
-        { "kind": "text", "value": "의 결을 자주 보충해 두면 좋아요. 시원한 음료·고요한 자리·심호흡이 그대로 보약이 돼요.\n\n" },
-        { "kind": "tag", "tagId": "sikshin", "label": "식신" },
-        { "kind": "text", "value": "의 결을 가볍게 풀어 주면 빠르게 끓어오르는 결이 한 번씩 식는 자리가 만들어져요. 주중엔 한 가지 운동을 한 번씩 끊어 가는 페이스가 잘 맞아요.\n\n주말엔 강한 자극보다 부드러운 회복 자리가 다음 주 흐름까지 단단하게 잡아 줘요." }
+        {
+          "kind": "text",
+          "value": "이번 주는 일간이 매우 단단한 자리가라 활동량이 많아지기 쉬운 자리예요. "
+        },
+        {
+          "kind": "tag",
+          "tagId": "johu",
+          "label": "조후"
+        },
+        {
+          "kind": "text",
+          "value": "가 더운 쪽으로 기울지 않게 "
+        },
+        {
+          "kind": "tag",
+          "tagId": "water",
+          "label": "물"
+        },
+        {
+          "kind": "text",
+          "value": "의 결을 자주 보충해 두면 좋아요. 시원한 음료·고요한 자리·심호흡이 그대로 보약이 돼요.\n\n"
+        },
+        {
+          "kind": "tag",
+          "tagId": "sikshin",
+          "label": "식신"
+        },
+        {
+          "kind": "text",
+          "value": "의 결을 가볍게 풀어 주면 빠르게 끓어오르는 중심이 한 번씩 식는 자리가 만들어져요. 주중엔 한 가지 운동을 한 번씩 끊어 가는 페이스가 잘 맞아요.\n\n주말엔 강한 자극보다 부드러운 회복 자리가 다음 주 흐름까지 단단하게 잡아 줘요."
+        }
       ],
-      "tags": ["johu", "water", "sikshin"],
+      "tags": [
+        "johu",
+        "water",
+        "sikshin"
+      ],
       "aiGenerated": true,
       "sourceTier": {
         "tier": "T1_HYPOTHESIS",
@@ -99,18 +181,45 @@
     {
       "schemaVersion": "spring-ts.narrative-fragment.v1",
       "fragmentId": "health.thisWeek.expert.weak.001",
-      "axis": { "category": "health", "period": "thisWeek", "depth": "expert" },
+      "axis": {
+        "category": "health",
+        "period": "thisWeek",
+        "depth": "expert"
+      },
       "gating": {
-        "dayMasterStrength": ["WEAK", "EXTREME_WEAK"]
+        "dayMasterStrength": [
+          "WEAK",
+          "EXTREME_WEAK"
+        ]
       },
       "templateTokens": [
-        { "kind": "text", "value": "이번 주 일간은 가벼운 결이라, " },
-        { "kind": "tag", "tagId": "jeongin", "label": "정인" },
-        { "kind": "text", "value": "의 결로 받쳐 주는 자리를 잘 챙기는 편이 보약이에요. 따뜻한 식사·짧은 휴식·가까운 사람과의 자리가 모두 약이 돼요.\n\n" },
-        { "kind": "tag", "tagId": "earth", "label": "흙" },
-        { "kind": "text", "value": "의 자리가 단단해지면 흩어지기 쉬운 기운이 모이는 자리가 만들어져요. 일상의 단단한 루틴, 같은 시각의 수면이 평일 흐름의 큰 자산이에요.\n\n주말엔 큰 외출 대신 가까운 자리에서 푹 쉬는 편이 잘 맞아요. 다음 주 흐름이 한결 단단하게 시작돼요." }
+        {
+          "kind": "text",
+          "value": "이번 주 일간은 가벼운 결이라, "
+        },
+        {
+          "kind": "tag",
+          "tagId": "jeongin",
+          "label": "정인"
+        },
+        {
+          "kind": "text",
+          "value": "의 결로 받쳐 주는 자리를 잘 챙기는 편이 보약이에요. 따뜻한 식사·짧은 휴식·가까운 사람과의 자리가 모두 약이 돼요.\n\n"
+        },
+        {
+          "kind": "tag",
+          "tagId": "earth",
+          "label": "흙"
+        },
+        {
+          "kind": "text",
+          "value": "의 자리가 단단해지면 흩어지기 쉬운 기운이 모이는 자리가 만들어져요. 일상의 단단한 루틴, 같은 시각의 수면이 평일 흐름의 큰 자산이에요.\n\n주말엔 큰 외출 대신 가까운 자리에서 푹 쉬는 편이 잘 맞아요. 다음 주 흐름이 한결 단단하게 시작돼요."
+        }
       ],
-      "tags": ["jeongin", "earth"],
+      "tags": [
+        "jeongin",
+        "earth"
+      ],
       "aiGenerated": true,
       "sourceTier": {
         "tier": "T1_HYPOTHESIS",
@@ -126,20 +235,54 @@
     {
       "schemaVersion": "spring-ts.narrative-fragment.v1",
       "fragmentId": "health.thisWeek.expert.balanced.001",
-      "axis": { "category": "health", "period": "thisWeek", "depth": "expert" },
+      "axis": {
+        "category": "health",
+        "period": "thisWeek",
+        "depth": "expert"
+      },
       "gating": {
-        "dayMasterStrength": ["BALANCED"]
+        "dayMasterStrength": [
+          "BALANCED"
+        ]
       },
       "templateTokens": [
-        { "kind": "text", "value": "이번 주는 일간이 고른 자리에서 흘러가는 결이라 " },
-        { "kind": "tag", "tagId": "johu", "label": "조후" },
-        { "kind": "text", "value": "의 큰 흔들림 없이 컨디션이 부드럽게 자리잡아요. 평소 페이스를 그대로 유지해도 회복이 자연스럽게 따라와요.\n\n" },
-        { "kind": "tag", "tagId": "earth", "label": "흙" },
-        { "kind": "text", "value": "의 결로 일상의 루틴을 한 단계 더 단단히 짚어 주는 자리예요. 한 가지 운동·한 끼 식사·한 번의 산책을 더 또렷이 잡아 두면 다음 주까지 흐름이 든든해요.\n\n" },
-        { "kind": "tag", "tagId": "sikshin", "label": "식신" },
-        { "kind": "text", "value": "의 결을 즐겁게 풀어 주는 자리도 잘 맞아요. 좋아하는 결을 일주일에 한 번은 챙기는 편이 보약이에요." }
+        {
+          "kind": "text",
+          "value": "이번 주는 일간이 고른 자리에서 흘러가는 결이라 "
+        },
+        {
+          "kind": "tag",
+          "tagId": "johu",
+          "label": "조후"
+        },
+        {
+          "kind": "text",
+          "value": "의 큰 흔들림 없이 컨디션이 부드럽게 자리잡아요. 평소 페이스를 그대로 유지해도 회복이 자연스럽게 따라와요.\n\n"
+        },
+        {
+          "kind": "tag",
+          "tagId": "earth",
+          "label": "흙"
+        },
+        {
+          "kind": "text",
+          "value": "의 결로 일상의 루틴을 한 단계 더 단단히 짚어 주는 자리예요. 한 가지 운동·한 끼 식사·한 번의 산책을 더 또렷이 잡아 두면 다음 주까지 흐름이 든든해요.\n\n"
+        },
+        {
+          "kind": "tag",
+          "tagId": "sikshin",
+          "label": "식신"
+        },
+        {
+          "kind": "text",
+          "value": "의 결을 즐겁게 풀어 주는 자리도 잘 맞아요. 좋아하는 결을 일주일에 한 번은 챙기는 편이 보약이에요."
+        }
       ],
-      "tags": ["johu", "earth", "sikshin"],
+      "tags": [
+        "johu",
+        "earth",
+        "sikshin"
+      ],
       "aiGenerated": true,
       "sourceTier": {
         "tier": "T1_HYPOTHESIS",
@@ -155,18 +298,44 @@
     {
       "schemaVersion": "spring-ts.narrative-fragment.v1",
       "fragmentId": "health.thisWeek.expert.conflicting.001",
-      "axis": { "category": "health", "period": "thisWeek", "depth": "expert" },
+      "axis": {
+        "category": "health",
+        "period": "thisWeek",
+        "depth": "expert"
+      },
       "gating": {
-        "yongshinAlignment": ["conflicting"]
+        "yongshinAlignment": [
+          "conflicting"
+        ]
       },
       "templateTokens": [
-        { "kind": "text", "value": "이번 주는 흐름이 어긋나는 결이라 " },
-        { "kind": "tag", "tagId": "samhyeong", "label": "삼형" },
-        { "kind": "text", "value": "의 자리가 가까이 들어오기 쉬워요. 갈등·언쟁이 컨디션을 흔들 수 있으니 주중엔 한 박자 미뤄 두는 편이 잘 맞아요.\n\n" },
-        { "kind": "tag", "tagId": "johu", "label": "조후" },
-        { "kind": "text", "value": "의 균형이 한쪽으로 기울기 쉬워서, 일상에서 부족한 자리를 잠시 보충해 주는 자리가 보약이 돼요. 따뜻한 차·짧은 환기·심호흡을 자주 만들어 두면 좋아요.\n\n주말엔 무리한 외출보다 가까운 자리에서 푹 쉬는 편이 다음 주 흐름까지 부드럽게 이어져요." }
+        {
+          "kind": "text",
+          "value": "이번 주는 흐름이 어긋나는 결이라 "
+        },
+        {
+          "kind": "tag",
+          "tagId": "samhyeong",
+          "label": "삼형"
+        },
+        {
+          "kind": "text",
+          "value": "의 자리가 가까이 들어오기 쉬워요. 갈등·언쟁이 컨디션을 흔들 수 있으니 주중엔 한 박자 미뤄 두는 편이 잘 맞아요.\n\n"
+        },
+        {
+          "kind": "tag",
+          "tagId": "johu",
+          "label": "조후"
+        },
+        {
+          "kind": "text",
+          "value": "의 균형이 한쪽으로 기울기 쉬워서, 일상에서 부족한 자리를 잠시 보충해 주는 자리가 보약이 돼요. 따뜻한 차·짧은 환기·심호흡을 자주 만들어 두면 좋아요.\n\n주말엔 무리한 외출보다 가까운 자리에서 푹 쉬는 편이 다음 주 흐름까지 부드럽게 이어져요."
+        }
       ],
-      "tags": ["samhyeong", "johu"],
+      "tags": [
+        "samhyeong",
+        "johu"
+      ],
       "aiGenerated": true,
       "sourceTier": {
         "tier": "T1_HYPOTHESIS",
@@ -182,20 +351,54 @@
     {
       "schemaVersion": "spring-ts.narrative-fragment.v1",
       "fragmentId": "health.thisWeek.expert.aligned.001",
-      "axis": { "category": "health", "period": "thisWeek", "depth": "expert" },
+      "axis": {
+        "category": "health",
+        "period": "thisWeek",
+        "depth": "expert"
+      },
       "gating": {
-        "yongshinAlignment": ["aligned"]
+        "yongshinAlignment": [
+          "aligned"
+        ]
       },
       "templateTokens": [
-        { "kind": "text", "value": "이번 주 흐름은 잘 맞는 결이라 " },
-        { "kind": "tag", "tagId": "johu", "label": "조후" },
-        { "kind": "text", "value": "의 균형이 자연스럽게 자리잡아요. 평소 페이스 안에서 회복도 가볍게 따라와요.\n\n" },
-        { "kind": "tag", "tagId": "sikshin", "label": "식신" },
-        { "kind": "text", "value": "의 결을 즐겁게 풀어 주는 자리가 일주일 흐름을 단단히 잡아 줘요. 좋아하는 결의 자리·따뜻한 한 끼·짧은 산책이 모두 보약이에요.\n\n" },
-        { "kind": "tag", "tagId": "jeongin", "label": "정인" },
-        { "kind": "text", "value": "의 결로 책 한 권·고요한 자리를 챙겨 두면, 마음의 결이 한층 부드러워져요." }
+        {
+          "kind": "text",
+          "value": "이번 주 흐름은 잘 맞는 결이라 "
+        },
+        {
+          "kind": "tag",
+          "tagId": "johu",
+          "label": "조후"
+        },
+        {
+          "kind": "text",
+          "value": "의 균형이 자연스럽게 자리잡아요. 평소 페이스 안에서 회복도 가볍게 따라와요.\n\n"
+        },
+        {
+          "kind": "tag",
+          "tagId": "sikshin",
+          "label": "식신"
+        },
+        {
+          "kind": "text",
+          "value": "의 결을 즐겁게 풀어 주는 자리가 일주일 흐름을 단단히 잡아 줘요. 좋아하는 결의 자리·따뜻한 한 끼·짧은 산책이 모두 보약이에요.\n\n"
+        },
+        {
+          "kind": "tag",
+          "tagId": "jeongin",
+          "label": "정인"
+        },
+        {
+          "kind": "text",
+          "value": "의 결로 책 한 권·고요한 자리를 챙겨 두면, 마음의 중심이 한층 부드러워져요."
+        }
       ],
-      "tags": ["johu", "sikshin", "jeongin"],
+      "tags": [
+        "johu",
+        "sikshin",
+        "jeongin"
+      ],
       "aiGenerated": true,
       "sourceTier": {
         "tier": "T1_HYPOTHESIS",
@@ -211,20 +414,54 @@
     {
       "schemaVersion": "spring-ts.narrative-fragment.v1",
       "fragmentId": "health.thisWeek.expert.fire_excess.001",
-      "axis": { "category": "health", "period": "thisWeek", "depth": "expert" },
+      "axis": {
+        "category": "health",
+        "period": "thisWeek",
+        "depth": "expert"
+      },
       "gating": {
-        "dayMasterElement": ["FIRE"]
+        "dayMasterElement": [
+          "FIRE"
+        ]
       },
       "templateTokens": [
-        { "kind": "text", "value": "이번 주는 일간 " },
-        { "kind": "tag", "tagId": "fire", "label": "불" },
-        { "kind": "text", "value": "의 결이 도드라지는 자리예요. " },
-        { "kind": "tag", "tagId": "water", "label": "물" },
-        { "kind": "text", "value": "의 결을 자주 채워 주는 편이 보약이 돼요. 시원한 음료·고요한 자리·심호흡 자리를 매일 만들어 두면 좋아요.\n\n" },
-        { "kind": "tag", "tagId": "sikshin", "label": "식신" },
-        { "kind": "text", "value": "의 결을 가볍게 풀어 주면 빠르게 끓어오르는 결이 한 번씩 식는 자리가 만들어져요.\n\n주말엔 강한 자극보다 부드러운 자리에서 보내는 시간이 잘 맞아요. 다음 주 흐름까지 균형이 단단하게 이어져요." }
+        {
+          "kind": "text",
+          "value": "이번 주는 일간 "
+        },
+        {
+          "kind": "tag",
+          "tagId": "fire",
+          "label": "불"
+        },
+        {
+          "kind": "text",
+          "value": "의 결이 도드라지는 자리예요. "
+        },
+        {
+          "kind": "tag",
+          "tagId": "water",
+          "label": "물"
+        },
+        {
+          "kind": "text",
+          "value": "의 결을 자주 채워 주는 편이 보약이 돼요. 시원한 음료·고요한 자리·심호흡 자리를 매일 만들어 두면 좋아요.\n\n"
+        },
+        {
+          "kind": "tag",
+          "tagId": "sikshin",
+          "label": "식신"
+        },
+        {
+          "kind": "text",
+          "value": "의 결을 가볍게 풀어 주면 빠르게 끓어오르는 중심이 한 번씩 식는 자리가 만들어져요.\n\n주말엔 강한 자극보다 부드러운 자리에서 보내는 시간이 잘 맞아요. 다음 주 흐름까지 균형이 단단하게 이어져요."
+        }
       ],
-      "tags": ["fire", "water", "sikshin"],
+      "tags": [
+        "fire",
+        "water",
+        "sikshin"
+      ],
       "aiGenerated": true,
       "sourceTier": {
         "tier": "T1_HYPOTHESIS",
@@ -240,20 +477,54 @@
     {
       "schemaVersion": "spring-ts.narrative-fragment.v1",
       "fragmentId": "health.thisWeek.expert.water_excess.001",
-      "axis": { "category": "health", "period": "thisWeek", "depth": "expert" },
+      "axis": {
+        "category": "health",
+        "period": "thisWeek",
+        "depth": "expert"
+      },
       "gating": {
-        "dayMasterElement": ["WATER"]
+        "dayMasterElement": [
+          "WATER"
+        ]
       },
       "templateTokens": [
-        { "kind": "text", "value": "이번 주는 일간 " },
-        { "kind": "tag", "tagId": "water", "label": "물" },
-        { "kind": "text", "value": "의 결이라 깊이 가라앉기 쉬운 자리예요. " },
-        { "kind": "tag", "tagId": "fire", "label": "불" },
-        { "kind": "text", "value": "의 결을 따뜻하게 채우는 편이 좋아요. 햇볕 받는 자리·따뜻한 식사·마음 따뜻해지는 자리가 그대로 보약이에요.\n\n" },
-        { "kind": "tag", "tagId": "earth", "label": "흙" },
-        { "kind": "text", "value": "의 결로 단단한 일상 루틴을 한 번 더 짚어 주면, 깊이 가라앉는 자리에서 다시 올라오는 길이 또렷이 보여요.\n\n주말엔 가까운 가족·친구와의 자리가 마음 결을 가볍게 잡아 줘요. 잠 자리는 평소대로 챙기는 편이 잘 맞아요." }
+        {
+          "kind": "text",
+          "value": "이번 주는 일간 "
+        },
+        {
+          "kind": "tag",
+          "tagId": "water",
+          "label": "물"
+        },
+        {
+          "kind": "text",
+          "value": "의 결이라 깊이 가라앉기 쉬운 자리예요. "
+        },
+        {
+          "kind": "tag",
+          "tagId": "fire",
+          "label": "불"
+        },
+        {
+          "kind": "text",
+          "value": "의 결을 따뜻하게 채우는 편이 좋아요. 햇볕 받는 자리·따뜻한 식사·마음 따뜻해지는 자리가 그대로 보약이에요.\n\n"
+        },
+        {
+          "kind": "tag",
+          "tagId": "earth",
+          "label": "흙"
+        },
+        {
+          "kind": "text",
+          "value": "의 결로 단단한 일상 루틴을 한 번 더 짚어 주면, 깊이 가라앉는 자리에서 다시 올라오는 길이 또렷이 보여요.\n\n주말엔 가까운 가족·친구와의 자리가 마음 결을 가볍게 잡아 줘요. 잠 자리는 평소대로 챙기는 편이 잘 맞아요."
+        }
       ],
-      "tags": ["water", "fire", "earth"],
+      "tags": [
+        "water",
+        "fire",
+        "earth"
+      ],
       "aiGenerated": true,
       "sourceTier": {
         "tier": "T1_HYPOTHESIS",

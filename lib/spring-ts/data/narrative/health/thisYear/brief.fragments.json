@@ -7,10 +7,17 @@
     {
       "schemaVersion": "spring-ts.narrative-fragment.v1",
       "fragmentId": "health.thisYear.brief.wild.001",
-      "axis": { "category": "health", "period": "thisYear", "depth": "brief" },
+      "axis": {
+        "category": "health",
+        "period": "thisYear",
+        "depth": "brief"
+      },
       "gating": {},
       "templateTokens": [
-        { "kind": "text", "value": "올해 컨디션은 정기 점검 한 번이 든든해요." }
+        {
+          "kind": "text",
+          "value": "올해 컨디션은 정기 점검 한 번이 든든해요."
+        }
       ],
       "tags": [],
       "aiGenerated": true,
@@ -28,10 +35,17 @@
     {
       "schemaVersion": "spring-ts.narrative-fragment.v1",
       "fragmentId": "health.thisYear.brief.wild.002",
-      "axis": { "category": "health", "period": "thisYear", "depth": "brief" },
+      "axis": {
+        "category": "health",
+        "period": "thisYear",
+        "depth": "brief"
+      },
       "gating": {},
       "templateTokens": [
-        { "kind": "text", "value": "올해는 한 가지 좋은 습관이 큰 자산이 돼요." }
+        {
+          "kind": "text",
+          "value": "올해는 한 가지 좋은 습관이 큰 자산이 돼요."
+        }
       ],
       "tags": [],
       "aiGenerated": true,
@@ -49,12 +63,22 @@
     {
       "schemaVersion": "spring-ts.narrative-fragment.v1",
       "fragmentId": "health.thisYear.brief.strong.001",
-      "axis": { "category": "health", "period": "thisYear", "depth": "brief" },
+      "axis": {
+        "category": "health",
+        "period": "thisYear",
+        "depth": "brief"
+      },
       "gating": {
-        "dayMasterStrength": ["STRONG", "EXTREME_STRONG"]
+        "dayMasterStrength": [
+          "STRONG",
+          "EXTREME_STRONG"
+        ]
       },
       "templateTokens": [
-        { "kind": "text", "value": "올해는 강도 조절이 가장 큰 보약이 돼요." }
+        {
+          "kind": "text",
+          "value": "올해는 강도 조절이 가장 큰 보약이 돼요."
+        }
       ],
       "tags": [],
       "aiGenerated": true,
@@ -72,12 +96,22 @@
     {
       "schemaVersion": "spring-ts.narrative-fragment.v1",
       "fragmentId": "health.thisYear.brief.weak.001",
-      "axis": { "category": "health", "period": "thisYear", "depth": "brief" },
+      "axis": {
+        "category": "health",
+        "period": "thisYear",
+        "depth": "brief"
+      },
       "gating": {
-        "dayMasterStrength": ["WEAK", "EXTREME_WEAK"]
+        "dayMasterStrength": [
+          "WEAK",
+          "EXTREME_WEAK"
+        ]
       },
       "templateTokens": [
-        { "kind": "text", "value": "올해는 짧은 회복 자리를 자주 만들어요." }
+        {
+          "kind": "text",
+          "value": "올해는 짧은 회복 자리를 자주 만들어요."
+        }
       ],
       "tags": [],
       "aiGenerated": true,
@@ -95,12 +129,21 @@
     {
       "schemaVersion": "spring-ts.narrative-fragment.v1",
       "fragmentId": "health.thisYear.brief.balanced.001",
-      "axis": { "category": "health", "period": "thisYear", "depth": "brief" },
+      "axis": {
+        "category": "health",
+        "period": "thisYear",
+        "depth": "brief"
+      },
       "gating": {
-        "dayMasterStrength": ["BALANCED"]
+        "dayMasterStrength": [
+          "BALANCED"
+        ]
       },
       "templateTokens": [
-        { "kind": "text", "value": "올해는 익숙한 결을 든든히 다듬어 가요." }
+        {
+          "kind": "text",
+          "value": "올해는 익숙한 결을 든든히 다듬어 가요."
+        }
       ],
       "tags": [],
       "aiGenerated": true,
@@ -118,12 +161,21 @@
     {
       "schemaVersion": "spring-ts.narrative-fragment.v1",
       "fragmentId": "health.thisYear.brief.male.001",
-      "axis": { "category": "health", "period": "thisYear", "depth": "brief" },
+      "axis": {
+        "category": "health",
+        "period": "thisYear",
+        "depth": "brief"
+      },
       "gating": {
-        "gender": ["male"]
+        "gender": [
+          "male"
+        ]
       },
       "templateTokens": [
-        { "kind": "text", "value": "올해는 컨디션 점검을 미리 일정에 잡아 두는 편이 좋아요." }
+        {
+          "kind": "text",
+          "value": "올해는 컨디션 점검을 미리 일정에 잡아 두는 편이 좋아요."
+        }
       ],
       "tags": [],
       "aiGenerated": true,
@@ -141,12 +193,21 @@
     {
       "schemaVersion": "spring-ts.narrative-fragment.v1",
       "fragmentId": "health.thisYear.brief.aligned.001",
-      "axis": { "category": "health", "period": "thisYear", "depth": "brief" },
+      "axis": {
+        "category": "health",
+        "period": "thisYear",
+        "depth": "brief"
+      },
       "gating": {
-        "yongshinAlignment": ["aligned"]
+        "yongshinAlignment": [
+          "aligned"
+        ]
       },
       "templateTokens": [
-        { "kind": "text", "value": "올해는 새 운동 한 가지를 시작해도 좋아요." }
+        {
+          "kind": "text",
+          "value": "올해는 새 운동 한 가지를 시작해도 좋아요."
+        }
       ],
       "tags": [],
       "aiGenerated": true,
@@ -164,12 +225,21 @@
     {
       "schemaVersion": "spring-ts.narrative-fragment.v1",
       "fragmentId": "health.thisYear.brief.conflicting.001",
-      "axis": { "category": "health", "period": "thisYear", "depth": "brief" },
+      "axis": {
+        "category": "health",
+        "period": "thisYear",
+        "depth": "brief"
+      },
       "gating": {
-        "yongshinAlignment": ["conflicting"]
+        "yongshinAlignment": [
+          "conflicting"
+        ]
       },
       "templateTokens": [
-        { "kind": "text", "value": "올해는 한 박자 천천히 가는 결이 잘 맞아요." }
+        {
+          "kind": "text",
+          "value": "올해는 한 박자 천천히 가는 흐름이 잘 맞아요."
+        }
       ],
       "tags": [],
       "aiGenerated": true,

@@ -8,10 +8,17 @@
     {
       "schemaVersion": "spring-ts.narrative-fragment.v1",
       "fragmentId": "academic.thisYear.brief.wildcard.001",
-      "axis": { "category": "academic", "period": "thisYear", "depth": "brief" },
+      "axis": {
+        "category": "academic",
+        "period": "thisYear",
+        "depth": "brief"
+      },
       "gating": {},
       "templateTokens": [
-        { "kind": "text", "value": "올해는 한 분야를 단단히 다지기 좋은 결이에요." }
+        {
+          "kind": "text",
+          "value": "올해는 한 분야를 단단히 다지기 좋은 흐름이에요."
+        }
       ],
       "tags": [],
       "aiGenerated": true,
@@ -29,10 +36,21 @@
     {
       "schemaVersion": "spring-ts.narrative-fragment.v1",
       "fragmentId": "academic.thisYear.brief.0_9.002",
-      "axis": { "category": "academic", "period": "thisYear", "depth": "brief" },
-      "gating": { "ageBand": ["0-9"] },
+      "axis": {
+        "category": "academic",
+        "period": "thisYear",
+        "depth": "brief"
+      },
+      "gating": {
+        "ageBand": [
+          "0-9"
+        ]
+      },
       "templateTokens": [
-        { "kind": "text", "value": "올해는 좋아하는 결이 또렷해지는 한 해예요." }
+        {
+          "kind": "text",
+          "value": "올해는 좋아하는 방향이 또렷해지는 한 해예요."
+        }
       ],
       "tags": [],
       "aiGenerated": true,
@@ -50,10 +68,21 @@
     {
       "schemaVersion": "spring-ts.narrative-fragment.v1",
       "fragmentId": "academic.thisYear.brief.10_19.003",
-      "axis": { "category": "academic", "period": "thisYear", "depth": "brief" },
-      "gating": { "ageBand": ["10-19"] },
+      "axis": {
+        "category": "academic",
+        "period": "thisYear",
+        "depth": "brief"
+      },
+      "gating": {
+        "ageBand": [
+          "10-19"
+        ]
+      },
       "templateTokens": [
-        { "kind": "text", "value": "올해는 자기 노트가 단단히 자라는 한 해예요." }
+        {
+          "kind": "text",
+          "value": "올해는 자기 노트가 단단히 자라는 한 해예요."
+        }
       ],
       "tags": [],
       "aiGenerated": true,
@@ -71,10 +100,21 @@
     {
       "schemaVersion": "spring-ts.narrative-fragment.v1",
       "fragmentId": "academic.thisYear.brief.20_29.004",
-      "axis": { "category": "academic", "period": "thisYear", "depth": "brief" },
-      "gating": { "ageBand": ["20-29"] },
+      "axis": {
+        "category": "academic",
+        "period": "thisYear",
+        "depth": "brief"
+      },
+      "gating": {
+        "ageBand": [
+          "20-29"
+        ]
+      },
       "templateTokens": [
-        { "kind": "text", "value": "올해는 자기 분야의 결이 또렷해지는 한 해예요." }
+        {
+          "kind": "text",
+          "value": "올해는 자기 분야의 방향이 또렷해지는 한 해예요."
+        }
       ],
       "tags": [],
       "aiGenerated": true,
@@ -92,10 +132,21 @@
     {
       "schemaVersion": "spring-ts.narrative-fragment.v1",
       "fragmentId": "academic.thisYear.brief.30_39.005",
-      "axis": { "category": "academic", "period": "thisYear", "depth": "brief" },
-      "gating": { "ageBand": ["30-39"] },
+      "axis": {
+        "category": "academic",
+        "period": "thisYear",
+        "depth": "brief"
+      },
+      "gating": {
+        "ageBand": [
+          "30-39"
+        ]
+      },
       "templateTokens": [
-        { "kind": "text", "value": "올해는 자격·심화 학습 한 결을 매듭짓기 좋아요." }
+        {
+          "kind": "text",
+          "value": "올해는 자격·심화 학습 한 결을 매듭짓기 좋아요."
+        }
       ],
       "tags": [],
       "aiGenerated": true,
@@ -113,10 +164,21 @@
     {
       "schemaVersion": "spring-ts.narrative-fragment.v1",
       "fragmentId": "academic.thisYear.brief.40_54.006",
-      "axis": { "category": "academic", "period": "thisYear", "depth": "brief" },
-      "gating": { "ageBand": ["40-54"] },
+      "axis": {
+        "category": "academic",
+        "period": "thisYear",
+        "depth": "brief"
+      },
+      "gating": {
+        "ageBand": [
+          "40-54"
+        ]
+      },
       "templateTokens": [
-        { "kind": "text", "value": "올해는 익힌 것을 자기 자산으로 다듬기 좋아요." }
+        {
+          "kind": "text",
+          "value": "올해는 익힌 것을 자기 자산으로 다듬기 좋아요."
+        }
       ],
       "tags": [],
       "aiGenerated": true,
@@ -134,10 +196,22 @@
     {
       "schemaVersion": "spring-ts.narrative-fragment.v1",
       "fragmentId": "academic.thisYear.brief.55plus.007",
-      "axis": { "category": "academic", "period": "thisYear", "depth": "brief" },
-      "gating": { "ageBand": ["55-69", "70+"] },
+      "axis": {
+        "category": "academic",
+        "period": "thisYear",
+        "depth": "brief"
+      },
+      "gating": {
+        "ageBand": [
+          "55-69",
+          "70+"
+        ]
+      },
       "templateTokens": [
-        { "kind": "text", "value": "올해는 좋아하던 분야를 한 번 더 음미하기 좋아요." }
+        {
+          "kind": "text",
+          "value": "올해는 좋아하던 분야를 한 번 더 음미하기 좋아요."
+        }
       ],
       "tags": [],
       "aiGenerated": true,
@@ -155,10 +229,21 @@
     {
       "schemaVersion": "spring-ts.narrative-fragment.v1",
       "fragmentId": "academic.thisYear.brief.aligned.008",
-      "axis": { "category": "academic", "period": "thisYear", "depth": "brief" },
-      "gating": { "yongshinAlignment": ["aligned"] },
+      "axis": {
+        "category": "academic",
+        "period": "thisYear",
+        "depth": "brief"
+      },
+      "gating": {
+        "yongshinAlignment": [
+          "aligned"
+        ]
+      },
       "templateTokens": [
-        { "kind": "text", "value": "올해는 학업 결이 자기 호흡에 잘 맞물려요." }
+        {
+          "kind": "text",
+          "value": "올해는 학업 리듬이 자기 호흡에 잘 맞물려요."
+        }
       ],
       "tags": [],
       "aiGenerated": true,
@@ -176,10 +261,21 @@
     {
       "schemaVersion": "spring-ts.narrative-fragment.v1",
       "fragmentId": "academic.thisYear.brief.conflicting.009",
-      "axis": { "category": "academic", "period": "thisYear", "depth": "brief" },
-      "gating": { "yongshinAlignment": ["conflicting"] },
+      "axis": {
+        "category": "academic",
+        "period": "thisYear",
+        "depth": "brief"
+      },
+      "gating": {
+        "yongshinAlignment": [
+          "conflicting"
+        ]
+      },
       "templateTokens": [
-        { "kind": "text", "value": "올해는 분량보다 한 결의 정리가 잘 어울려요." }
+        {
+          "kind": "text",
+          "value": "올해는 분량보다 한 결의 정리가 잘 어울려요."
+        }
       ],
       "tags": [],
       "aiGenerated": true,
@@ -197,10 +293,21 @@
     {
       "schemaVersion": "spring-ts.narrative-fragment.v1",
       "fragmentId": "academic.thisYear.brief.balanced.010",
-      "axis": { "category": "academic", "period": "thisYear", "depth": "brief" },
-      "gating": { "dayMasterStrength": ["BALANCED"] },
+      "axis": {
+        "category": "academic",
+        "period": "thisYear",
+        "depth": "brief"
+      },
+      "gating": {
+        "dayMasterStrength": [
+          "BALANCED"
+        ]
+      },
       "templateTokens": [
-        { "kind": "text", "value": "올해는 평소 페이스로 한 분야를 매듭짓기 좋아요." }
+        {
+          "kind": "text",
+          "value": "올해는 평소 페이스로 한 분야를 매듭짓기 좋아요."
+        }
       ],
       "tags": [],
       "aiGenerated": true,
@@ -218,10 +325,25 @@
     {
       "schemaVersion": "spring-ts.narrative-fragment.v1",
       "fragmentId": "academic.thisYear.brief.strong_aligned.011",
-      "axis": { "category": "academic", "period": "thisYear", "depth": "brief" },
-      "gating": { "dayMasterStrength": ["STRONG", "EXTREME_STRONG"], "yongshinAlignment": ["aligned"] },
+      "axis": {
+        "category": "academic",
+        "period": "thisYear",
+        "depth": "brief"
+      },
+      "gating": {
+        "dayMasterStrength": [
+          "STRONG",
+          "EXTREME_STRONG"
+        ],
+        "yongshinAlignment": [
+          "aligned"
+        ]
+      },
       "templateTokens": [
-        { "kind": "text", "value": "올해는 깊이 파고드는 학업 결이 단단해지는 한 해예요." }
+        {
+          "kind": "text",
+          "value": "올해는 깊이 파고드는 학업 중심이 단단해지는 한 해예요."
+        }
       ],
       "tags": [],
       "aiGenerated": true,
