@@ -257,7 +257,7 @@ function makeCategorySummary(
     wealth: '재물 흐름이 원활해져요.',
     health: '생활 리듬을 안정적으로 지키기 좋아요.',
     academic: '학습 효율이 올라가는 시기예요.',
-    romance: isMinorRomance ? '친구 관계와 협동 흐름이 좋아져요.' : '인연의 흐름이 좋아져요.',
+    romance: isMinorRomance ? '친구 관계와 협동이 자연스러워져요.' : '인연의 결이 부드러워져요.',
     family: '가정의 분위기가 따뜻해져요.',
   };
 
@@ -285,7 +285,7 @@ function makeCategorySummary(
   if (stars >= 2) {
     return `올해 ${title}은 다소 주의가 필요해요. 무리한 확장보다 안정적인 관리에 집중하세요.`;
   }
-  return `올해 ${title}은 쉽지 않은 흐름이에요. 무리하지 말고 기본을 잘 지키며 꾸준히 관리하는 것이 중요해요.`;
+  return `올해 ${title}은 쉽지 않은 시기예요. 무리하지 말고 기본을 잘 지키며 꾸준히 관리하는 것이 중요해요.`;
 }
 
 // ---------------------------------------------------------------------------
@@ -308,7 +308,7 @@ function makeWealthAdvice(
     advice.push(isMinor
       ? {
           text: '용돈, 저축, 필요한 물건을 구분해 보는 습관을 만들기 좋은 시기예요.',
-          reason: '돈 관리 흐름이 부드러울 때 작은 기록 습관을 만들면 생활 감각이 좋아져요.',
+          reason: '돈 관리가 부드러울 때 작은 기록 습관을 만들면 생활 감각이 좋아져요.',
         }
       : {
           text: '새로운 투자나 사업 기회를 검토해 보기 좋은 시기예요.',
@@ -322,7 +322,7 @@ function makeWealthAdvice(
     advice.push(isMinor
       ? {
           text: '큰 물건을 사거나 돈을 쓰는 일은 혼자 정하지 말고 보호자와 함께 확인하세요.',
-          reason: '돈 관리 흐름이 약한 시기에는 속도를 늦추고 도움을 받는 편이 안전해요.',
+          reason: '돈 관리 기운이 약한 시기에는 속도를 늦추고 도움을 받는 편이 안전해요.',
         }
       : {
           text: '큰 지출이나 투자는 신중하게, 가능하면 전문가 상담 후 결정하세요.',
@@ -350,7 +350,7 @@ function makeHealthAdvice(
 
   if (stars >= 4) {
     advice.push({
-      text: '컨디션 흐름이 안정적인 편이에요. 꾸준한 운동과 휴식 루틴을 유지하면 더욱 좋아요.',
+      text: '컨디션이 안정적인 편이에요. 꾸준한 운동과 휴식 루틴을 유지하면 더욱 좋아요.',
       reason: '인성 기운이 잘 흐르면 생활 리듬을 지키는 힘이 좋아지는 시기예요.',
     });
   } else {
@@ -429,7 +429,7 @@ function makeRomanceAdvice(
     if (isMinor) {
       advice.push({
         text: '친구나 또래와 함께하는 활동에서 좋은 호흡을 만들기 쉬운 시기예요.',
-        reason: '관계 흐름이 부드러워 협동, 대화, 모임 참여가 자연스럽게 이어질 수 있어요.',
+        reason: '관계 기운이 부드러워 협동, 대화, 모임 참여가 자연스럽게 이어질 수 있어요.',
       });
       advice.push({
         text: `${color} 계열의 소품을 가볍게 활용하면 밝고 편안한 인상을 만드는 데 도움이 돼요.`,
@@ -449,7 +449,7 @@ function makeRomanceAdvice(
     advice.push(isMinor
       ? {
           text: '친구 관계에서 급하게 인정받으려 하기보다 편안한 대화부터 쌓아 보세요.',
-          reason: '관계 흐름이 약할 때는 무리해서 가까워지려 하기보다 안정적인 거리감이 더 좋아요.',
+          reason: '관계 기운이 약할 때는 무리해서 가까워지려 하기보다 안정적인 거리감이 더 좋아요.',
         }
       : {
           text: '지금은 새 관계를 서두르기보다 기존 관계를 깊게 가꾸는 데 집중하세요.',
@@ -648,10 +648,10 @@ export function buildCategoryFortuneCards(
     let claim: string;
     const primaryElementName = elementKo(catEls.primary);
     if (isYongshinAligned) {
-      claim = `${title} 영역의 핵심 오행 ${iGa(primaryElementName)} 용신과 일치하여 흐름이 좋은 영역이에요.`;
+      claim = `${title} 영역의 핵심 오행 ${iGa(primaryElementName)} 용신과 일치하여 받침이 좋은 영역이에요.`;
     } else if (isGishinAligned) {
       claim = stars >= 4
-        ? `${title} 영역의 핵심 오행 ${iGa(primaryElementName)} 기신과 겹치지만, 다른 보조 흐름이 받쳐 주어 속도 조절이 중요해요.`
+        ? `${title} 영역의 핵심 오행 ${iGa(primaryElementName)} 기신과 겹치지만, 다른 보조 기운이 받쳐 주어 속도 조절이 중요해요.`
         : `${title} 영역의 핵심 오행 ${iGa(primaryElementName)} 기신과 겹쳐 보수적 운영이 좋아요.`;
     } else {
       claim = `${title} 영역은 ${primaryElementName} 기운을 중심으로 평가했어요.`;
