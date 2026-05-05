@@ -22,10 +22,29 @@ function check(label: string, cond: boolean, evidence?: string): void {
 function makeSaju(overrides: Record<string, unknown> = {}): any {
   return {
     dayMaster: { stem: 'GYE', element: 'WATER', polarity: '\uC74C' },
-    strength: { level: 'WEAK', isStrong: false },
-    yongshin: { element: 'METAL', heeshin: 'WATER', gishin: 'FIRE' },
-    gyeokguk: { type: 'JEONG_IN' },
+    strength: {
+      level: 'WEAK',
+      isStrong: false,
+      totalSupport: 35.7,
+      totalOppose: 64.3,
+      deukryeong: 0,
+      deukji: 0.5,
+      deukse: 0.25,
+    },
+    yongshin: {
+      element: 'METAL',
+      heeshin: 'WATER',
+      gishin: 'FIRE',
+      confidence: 0.42,
+    },
+    gyeokguk: { type: 'JEONG_IN', confidence: 0.78 },
     timeCorrection: { standardYear: 1986, standardMonth: 4 },
+    elementDistribution: { WOOD: 4, FIRE: 1, EARTH: 1, METAL: 0, WATER: 2 },
+    deficientElements: ['EARTH', 'METAL'],
+    excessiveElements: ['WOOD'],
+    cheonganRelations: [{}, {}, {}],
+    jijiRelations: [{}, {}],
+    shinsalHits: [{}, {}, {}, {}, {}],
     ...overrides,
   };
 }
@@ -89,6 +108,78 @@ check('gender axis remains available',
   featureLate20s.gender === 'female', featureLate20s.gender);
 check('genderOrdinal is available for numerical evidence',
   featureLate20s.genderOrdinal === 2, String(featureLate20s.genderOrdinal));
+
+// ─── Phase 3 Agent A16 — additive axes ─────────────────────────────────────
+check('heeshinElementOrdinal is exposed (parallel to yongshinElementOrdinal)',
+  feature40.heeshinElementOrdinal === 5, String(feature40.heeshinElementOrdinal)); // WATER
+check('gishinElementOrdinal is exposed',
+  feature40.gishinElementOrdinal === 2, String(feature40.gishinElementOrdinal)); // FIRE
+check('dayMasterPolarityOrdinal exposes the YIN/YANG axis numerically',
+  feature40.dayMasterPolarityOrdinal === 2, String(feature40.dayMasterPolarityOrdinal));
+check('strengthTotalSupport carries through from saju.strength',
+  feature40.strengthTotalSupport === 35.7, String(feature40.strengthTotalSupport));
+check('strengthTotalOppose carries through from saju.strength',
+  feature40.strengthTotalOppose === 64.3, String(feature40.strengthTotalOppose));
+check('strengthDeukryeong carries through',
+  feature40.strengthDeukryeong === 0, String(feature40.strengthDeukryeong));
+check('strengthDeukji carries through',
+  feature40.strengthDeukji === 0.5, String(feature40.strengthDeukji));
+check('strengthDeukse carries through',
+  feature40.strengthDeukse === 0.25, String(feature40.strengthDeukse));
+check('yongshinConfidence carries through',
+  feature40.yongshinConfidence === 0.42, String(feature40.yongshinConfidence));
+check('gyeokgukConfidence carries through',
+  feature40.gyeokgukConfidence === 0.78, String(feature40.gyeokgukConfidence));
+check('shinsalCount counts the shinsal hits',
+  feature40.shinsalCount === 5, String(feature40.shinsalCount));
+check('deficientElementCount counts deficient elements',
+  feature40.deficientElementCount === 2, String(feature40.deficientElementCount));
+check('excessiveElementCount counts excessive elements',
+  feature40.excessiveElementCount === 1, String(feature40.excessiveElementCount));
+check('cheonganRelationCount counts heavenly-stem relations',
+  feature40.cheonganRelationCount === 3, String(feature40.cheonganRelationCount));
+check('jijiRelationCount counts earthly-branch relations',
+  feature40.jijiRelationCount === 2, String(feature40.jijiRelationCount));
+check('birthMonth resolves from saju.timeCorrection',
+  feature40.birthMonth === 4, String(feature40.birthMonth));
+check('currentMonth follows targetDate (May)',
+  feature40.currentMonth === 5, String(feature40.currentMonth));
+check('woodCount carries through from elementDistribution',
+  feature40.woodCount === 4, String(feature40.woodCount));
+check('metalCount surfaces 0 even when METAL key value is zero',
+  feature40.metalCount === 0, String(feature40.metalCount));
+check('waterCount carries through',
+  feature40.waterCount === 2, String(feature40.waterCount));
+
+// Defaults are 0 when the engine omits the relevant field — important so the
+// resolver always returns a finite number for any documented feature path.
+const minimalFeature = buildFeatureVector(
+  {
+    dayMaster: { stem: 'GAP', element: 'WOOD', polarity: '양' },
+    strength: { level: '신왕', isStrong: true },
+    yongshin: { element: 'METAL', heeshin: null, gishin: null },
+    gyeokguk: { type: 'BI_GYEON' },
+    timeCorrection: { standardYear: 2000, standardMonth: 6 },
+  } as any,
+  { year: 2000, month: 6, day: 15, hour: 12, minute: 0, gender: 'female' } as any,
+  new Date('2026-01-15T00:00:00+09:00'),
+);
+check('minimal saju yields finite default 0 on absent strength fields',
+  minimalFeature.strengthTotalSupport === 0 &&
+  minimalFeature.strengthTotalOppose === 0 &&
+  minimalFeature.strengthDeukryeong === 0,
+  `${minimalFeature.strengthTotalSupport}/${minimalFeature.strengthTotalOppose}/${minimalFeature.strengthDeukryeong}`);
+check('minimal saju yields 0 confidence when omitted',
+  minimalFeature.yongshinConfidence === 0 && minimalFeature.gyeokgukConfidence === 0,
+  `${minimalFeature.yongshinConfidence}/${minimalFeature.gyeokgukConfidence}`);
+check('minimal saju yields 0 element-distribution counts when omitted',
+  minimalFeature.woodCount === 0 && minimalFeature.fireCount === 0 &&
+  minimalFeature.earthCount === 0 && minimalFeature.metalCount === 0 &&
+  minimalFeature.waterCount === 0);
+check('minimal saju heeshinElementOrdinal is 0 when null',
+  minimalFeature.heeshinElementOrdinal === 0);
+check('minimal saju gishinElementOrdinal is 0 when null',
+  minimalFeature.gishinElementOrdinal === 0);
 
 console.log(`\nTiered feature vector axes: ${pass} PASS / ${fail} FAIL`);
 process.exit(fail > 0 ? 1 : 0);

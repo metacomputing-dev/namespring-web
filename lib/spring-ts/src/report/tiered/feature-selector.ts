@@ -257,6 +257,56 @@ function toYongshinAlignment(
   return 'neutral';
 }
 
+const POLARITY_ORDINAL: Record<TieredPolarity, number> = {
+  neutral: 0,
+  YANG: 1,
+  YIN: 2,
+};
+
+function finiteNumber(value: unknown, fallback = 0): number {
+  if (typeof value === 'number' && Number.isFinite(value)) return value;
+  return fallback;
+}
+
+function arrayLength(value: unknown): number {
+  return Array.isArray(value) ? value.length : 0;
+}
+
+function elementDistributionCount(
+  distribution: SajuSummary['elementDistribution'] | undefined,
+  element: ElementCode,
+): number {
+  if (!distribution) return 0;
+  // Probe both English and Korean keys — different upstream paths surface
+  // either depending on options. Engine codes (WOOD/FIRE/...) are the modern
+  // shape; Korean labels (나무/불/...) still appear in legacy adapters.
+  const upperKey = element;
+  const lowerKey = element.toLowerCase();
+  const koreanKey = (
+    element === 'WOOD' ? '나무' :
+    element === 'FIRE' ? '불' :
+    element === 'EARTH' ? '흙' :
+    element === 'METAL' ? '쇠' :
+    element === 'WATER' ? '물' :
+    null
+  );
+  const hanjaKey = (
+    element === 'WOOD' ? '木' :
+    element === 'FIRE' ? '火' :
+    element === 'EARTH' ? '土' :
+    element === 'METAL' ? '金' :
+    element === 'WATER' ? '水' :
+    null
+  );
+  for (const key of [upperKey, lowerKey, koreanKey, hanjaKey]) {
+    if (key && key in distribution) {
+      const v = distribution[key];
+      if (typeof v === 'number' && Number.isFinite(v)) return v;
+    }
+  }
+  return 0;
+}
+
 export interface FeatureVector {
   readonly ageYears: number;
   readonly agePhaseOrdinal: number;
@@ -267,7 +317,13 @@ export interface FeatureVector {
   readonly yongshinElement: ElementCode | null;
   readonly yongshinElementOrdinal: number;
   readonly heeshinElement: ElementCode | null;
+  /** Heeshin ordinal — 0 when unresolved; otherwise 1..5 mirroring
+   *  ELEMENT_ORDINAL. Lets fragment authors reference 희신 오행 순번
+   *  as numeric evidence parallel to yongshinElementOrdinal. */
+  readonly heeshinElementOrdinal: number;
   readonly gishinElement: ElementCode | null;
+  /** Gishin ordinal — see heeshinElementOrdinal. */
+  readonly gishinElementOrdinal: number;
   readonly yongshinAlignment: 'aligned' | 'neutral' | 'conflicting';
   readonly gyeokguk: string | null;
   readonly gyeokgukOrdinal: number;
@@ -280,6 +336,52 @@ export interface FeatureVector {
   readonly currentSeason: TieredSeason;
   readonly currentSeasonOrdinal: number;
   readonly dayMasterPolarity: TieredPolarity;
+  /** Polarity ordinal — neutral=0, YANG=1, YIN=2. Stable enumeration so a
+   *  fragment can attach a numeric backing for `feature.dayMasterPolarityOrdinal`. */
+  readonly dayMasterPolarityOrdinal: number;
+
+  // ─── Additive numeric axes (Phase 3 Agent A16) ──────────────────────────
+  // These widen the set of feature paths a fragment-author can address via
+  // numericalEvidence.valueExpression (contract regex
+  // `^(feature|cell)(\.[A-Za-z_][A-Za-z0-9_]*)+$`). Each defaults to 0
+  // when the underlying SajuSummary field is absent so the resolver in
+  // `numerical-evidence.ts` always returns a finite number.
+  /** Total support score from the strength analysis (`saju.strength.totalSupport`). */
+  readonly strengthTotalSupport: number;
+  /** Total oppose score (`saju.strength.totalOppose`). */
+  readonly strengthTotalOppose: number;
+  /** 득령 score: month-branch alignment with the day-master. */
+  readonly strengthDeukryeong: number;
+  /** 득지 score: same-element root in day branch. */
+  readonly strengthDeukji: number;
+  /** 득세 score: same-element presence across the chart. */
+  readonly strengthDeukse: number;
+  /** Engine confidence in the surfaced 용신 element (0..1). */
+  readonly yongshinConfidence: number;
+  /** Engine confidence in the surfaced 격국 (0..1). */
+  readonly gyeokgukConfidence: number;
+  /** Number of 신살 hits surfaced for this chart. */
+  readonly shinsalCount: number;
+  /** Count of 부족 오행 (deficient elements) reported by the engine. */
+  readonly deficientElementCount: number;
+  /** Count of 과다 오행 (excessive elements). */
+  readonly excessiveElementCount: number;
+  /** Count of 천간 (heavenly-stem) relations. */
+  readonly cheonganRelationCount: number;
+  /** Count of 지지 (earthly-branch) relations. */
+  readonly jijiRelationCount: number;
+  /** 1..12 month from the saju time-correction (preferred over civil month). */
+  readonly birthMonth: number;
+  /** 1..12 calendar month of `targetDate`. */
+  readonly currentMonth: number;
+  /** Element-distribution counts (frequencies of each five-element across the
+   *  chart's stems and branches). 0 when the engine did not surface a count
+   *  for that element. */
+  readonly woodCount: number;
+  readonly fireCount: number;
+  readonly earthCount: number;
+  readonly metalCount: number;
+  readonly waterCount: number;
 }
 
 export function buildFeatureVector(
@@ -300,6 +402,8 @@ export function buildFeatureVector(
   const dayMasterStrength = toStrengthBand(saju);
   const gyeokguk = toGyeokgukCanonical(saju.gyeokguk?.type ?? null);
   const gender = toGender(birth.gender);
+  const dayMasterPolarity = toPolarity(saju.dayMaster?.polarity ?? null);
+  const elementDistribution = saju.elementDistribution;
   return {
     ageYears: age,
     agePhaseOrdinal: AGE_PHASE_ORDINAL[agePhase],
@@ -310,7 +414,9 @@ export function buildFeatureVector(
     yongshinElement,
     yongshinElementOrdinal: yongshinElement ? ELEMENT_ORDINAL[yongshinElement] : 0,
     heeshinElement,
+    heeshinElementOrdinal: heeshinElement ? ELEMENT_ORDINAL[heeshinElement] : 0,
     gishinElement,
+    gishinElementOrdinal: gishinElement ? ELEMENT_ORDINAL[gishinElement] : 0,
     yongshinAlignment: toYongshinAlignment(yongshinElement, dayMasterElement),
     gyeokguk,
     gyeokgukOrdinal: ordinalOrZero(gyeokguk, GYEOKGUK_ORDINAL),
@@ -322,6 +428,26 @@ export function buildFeatureVector(
     birthSeasonOrdinal: SEASON_ORDINAL[birthSeason],
     currentSeason,
     currentSeasonOrdinal: SEASON_ORDINAL[currentSeason],
-    dayMasterPolarity: toPolarity(saju.dayMaster?.polarity ?? null),
+    dayMasterPolarity,
+    dayMasterPolarityOrdinal: POLARITY_ORDINAL[dayMasterPolarity],
+    strengthTotalSupport: finiteNumber(saju.strength?.totalSupport),
+    strengthTotalOppose: finiteNumber(saju.strength?.totalOppose),
+    strengthDeukryeong: finiteNumber(saju.strength?.deukryeong),
+    strengthDeukji: finiteNumber(saju.strength?.deukji),
+    strengthDeukse: finiteNumber(saju.strength?.deukse),
+    yongshinConfidence: finiteNumber(saju.yongshin?.confidence),
+    gyeokgukConfidence: finiteNumber(saju.gyeokguk?.confidence),
+    shinsalCount: arrayLength(saju.shinsalHits),
+    deficientElementCount: arrayLength(saju.deficientElements),
+    excessiveElementCount: arrayLength(saju.excessiveElements),
+    cheonganRelationCount: arrayLength(saju.cheonganRelations),
+    jijiRelationCount: arrayLength(saju.jijiRelations),
+    birthMonth: birthMonth ?? 0,
+    currentMonth: targetDate.getMonth() + 1,
+    woodCount: elementDistributionCount(elementDistribution, 'WOOD'),
+    fireCount: elementDistributionCount(elementDistribution, 'FIRE'),
+    earthCount: elementDistributionCount(elementDistribution, 'EARTH'),
+    metalCount: elementDistributionCount(elementDistribution, 'METAL'),
+    waterCount: elementDistributionCount(elementDistribution, 'WATER'),
   };
 }
