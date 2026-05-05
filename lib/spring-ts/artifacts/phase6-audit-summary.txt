@@ -1,0 +1,223 @@
+
+=== brokenEndings (0 items) ===
+
+=== voiceViolations (0 items) ===
+
+=== crossElementMetaphor (66 items) ===
+  {
+  "fixture": "choi-seongsoo-tiered-fortune",
+  "file": "02-choi-seongsoo-tiered-fortune.json",
+  "period": "life",
+  "category": "wealth",
+  "depth": "standard",
+  "slot": "paragraphs",
+  "fragmentId": null,
+  "text": "평생의 재물은 천천히, 그러나 또렷하게 모이는 편이에요. 한 번에 큰돈을 잡기보다는 작은 관리 습관을 차곡차곡 다듬는 방식이 잘 어울려요. 비유하자면 봄비가 며칠 동안 가지런히 적시는 그림이에요. 한 번에 쏟아지는 폭우보다 잔잔한 봄비가 흙을 깊이 적시듯, 꾸준함이 자산을 키워 줘요. 잘 풀리는 지점은 꾸준한 관리예요. 적금처럼 일정한 기준을 만들어 두면, 시간이 지나며 단단한 자산이 자리 잡아요. 주의할 점은 큰 한 방을 좇아 페이스를 잃는 거예요. 자기 속도와 다른 선택을 따라가다 보면 모은
+  {
+  "fixture": "choi-seongsoo-tiered-fortune",
+  "file": "02-choi-seongsoo-tiered-fortune.json",
+  "period": "today",
+  "category": "wealth",
+  "depth": "standard",
+  "slot": "paragraphs",
+  "fragmentId": null,
+  "text": "오늘은 작은 돈 관리와 기록을 차곡차곡 정리하기 좋은 하루예요. 큰 결정은 한 박자 늦추고, 익숙한 기준을 다듬는 방식이 잘 어울려요. 비유하자면 봄비가 흙을 적시는 그림이에요. 한 번에 큰돈을 만들기보다 작은 관리가 모여 하루의 기반을 단단히 적셔 줘요. 잘 풀리는 지점은 꾸준함이에요. 매월 같은 날 자동이체, 작은 적금처럼 일정한 자산 관리가 빛을 내요. 주의할 점은 큰 한 방을 좇는 권유예요. 자기 페이스를 지키는 것이 가장 단단한 선택이에요.",
+  "elements": [
+    "W
+  {
+  "fixture": "choi-seongsoo-tiered-fortune",
+  "file": "02-choi-seongsoo-tiered-fortune.json",
+  "period": "thisWeek",
+  "category": "wealth",
+  "depth": "standard",
+  "slot": "paragraphs",
+  "fragmentId": null,
+  "text": "이번 주는 작은 돈 관리와 기록을 차곡차곡 정리하기 좋은 한 주예요. 큰 결정은 한 박자 늦추고, 익숙한 기준을 다듬는 방식이 잘 어울려요. 비유하자면 봄비가 며칠 동안 흙을 적시는 그림이에요. 한 번에 큰돈을 만들기보다 작은 관리가 모여 한 주의 기반을 단단히 적셔 줘요. 잘 풀리는 지점은 꾸준함이에요. 매주 같은 날 자동이체 점검, 작은 적금 점검처럼 일정한 자산 관리가 빛을 내요. 주의할 점은 큰 한 방을 좇는 권유예요. 자기 페이스를 지키는 것이 가장 단단한 선택이에요.",
+  "
+  {
+  "fixture": "choi-seongsoo-tiered-fortune",
+  "file": "02-choi-seongsoo-tiered-fortune.json",
+  "period": "thisWeek",
+  "category": "study_document",
+  "depth": "standard",
+  "slot": "paragraphs",
+  "fragmentId": null,
+  "text": "이번 주는 도와줄 사람·기관·자료를 떠올려 한 가지를 풀어 가기 좋은 시기예요. 혼자 다 짊어지기보다 한 번 도움을 청하는 페이스가 잘 맞아요. 좋은 비를 받는 흙의 그림을 떠올려 보면 좋아요. 환경의 도움을 잘 골라 받는 시기예요. 잘 풀리는 면은, 누군가의 한마디 조언으로 막혔던 부분이 풀려요. 부끄럼 없이 한 번 물어보면 가벼워져요. 살짝 주의할 점은, 조언이 너무 많아 결정을 미루는 면이에요. 두 명까지만 듣고 결정은 본인이 내리는 페이스가 잘 맞아요. 천천히 깊어지
+  {
+  "fixture": "choi-seongsoo-tiered-fortune",
+  "file": "02-choi-seongsoo-tiered-fortune.json",
+  "period": "thisMonth",
+  "category": "wealth",
+  "depth": "standard",
+  "slot": "paragraphs",
+  "fragmentId": null,
+  "text": "이번 달은 작은 돈 관리와 기록을 차곡차곡 정리하기 좋은 한 달이에요. 큰 결정은 한 박자 늦추고, 익숙한 기준을 다듬는 방식이 잘 어울려요. 비유하자면 봄비가 한 달 동안 흙을 적시는 그림이에요. 한 번에 큰돈을 만들기보다 작은 관리가 모여 한 달의 기반을 단단히 적셔 줘요. 잘 풀리는 지점은 꾸준함이에요. 매월 같은 날 자동이체 점검, 작은 적금 점검처럼 일정한 자산 관리가 빛을 내요. 주의할 점은 큰 한 방을 좇는 권유예요. 자기 페이스를 지키는 것이 가장 단단한 선택이에요.",
+
+
+=== depthCoherence (25 items) ===
+  {
+  "cellKey": "choi-seongsoo-tiered-fortune|today|expression_children",
+  "fixture": "choi-seongsoo-tiered-fortune",
+  "period": "today",
+  "category": "expression_children",
+  "brief": "오늘은작은한걸음이표현을단단히해요",
+  "standardFirst": "오늘은작은한걸음이표현을단단히해주는날이에요",
+  "similarityRatio": 0.7727272727272727
+}
+  {
+  "cellKey": "choi-seongsoo-tiered-fortune|thisYear|career",
+  "fixture": "choi-seongsoo-tiered-fortune",
+  "period": "thisYear",
+  "category": "career",
+  "brief": "올해는맡은역할을단단히받쳐가는한해예요",
+  "standardFirst": "올해의직업운은맡은역할을단단히받쳐가는한해예요",
+  "similarityRatio": 0.782608695652174
+}
+  {
+  "cellKey": "kim-seoyun-young-female-tiered|thisMonth|expression_children",
+  "fixture": "kim-seoyun-young-female-tiered",
+  "period": "thisMonth",
+  "category": "expression_children",
+  "brief": "이번달은자기색이한뼘단단해져요",
+  "standardFirst": "이번달은자기색이한뼘단단해져요",
+  "similarityRatio": 1
+}
+  {
+  "cellKey": "kim-jiwon-strong-jeonggwan-gyeokguk-tiered|today|expression_children",
+  "fixture": "kim-jiwon-strong-jeonggwan-gyeokguk-tiered",
+  "period": "today",
+  "category": "expression_children",
+  "brief": "오늘은작은한걸음이표현을단단히해요",
+  "standardFirst": "오늘은작은한걸음이표현을단단히해주는날이에요",
+  "similarityRatio": 0.7727272727272727
+}
+  {
+  "cellKey": "choi-yaza-boundary-male-tiered|thisYear|career",
+  "fixture": "choi-yaza-boundary-male-tiered",
+  "period": "thisYear",
+  "category": "career",
+  "brief": "올해는맡은역할을단단히받쳐가는한해예요",
+  "standardFirst": "올해의직업운은맡은역할을단단히받쳐가는한해예요",
+  "similarityRatio": 0.782608695652174
+}
+
+=== tagGlossaryMismatch (0 items) ===
+
+=== lengthViolations (565 items) ===
+  {
+  "fixture": "choi-seongsoo-tiered-fortune",
+  "file": "02-choi-seongsoo-tiered-fortune.json",
+  "period": "today",
+  "category": "health",
+  "depth": "standard",
+  "slot": "livingTips[0]",
+  "fragmentId": null,
+  "text": "오전과 오후에 한 번씩 물을 마시고 몸의 긴장을 풀어보세요.",
+  "length": 25,
+  "threshold": 24
+}
+  {
+  "fixture": "choi-seongsoo-tiered-fortune",
+  "file": "02-choi-seongsoo-tiered-fortune.json",
+  "period": "today",
+  "category": "health",
+  "depth": "standard",
+  "slot": "livingTips[1]",
+  "fragmentId": null,
+  "text": "중요하지 않은 일정은 내일로 미루고 쉬는 시간을 확보하세요.",
+  "length": 26,
+  "threshold": 24
+}
+  {
+  "fixture": "choi-seongsoo-tiered-fortune",
+  "file": "02-choi-seongsoo-tiered-fortune.json",
+  "period": "today",
+  "category": "academic",
+  "depth": "standard",
+  "slot": "livingTips[0]",
+  "fragmentId": null,
+  "text": "틀린 문제를 다시 풀기 전에 왜 틀렸는지 한 줄로 적어보세요.",
+  "length": 25,
+  "threshold": 24
+}
+  {
+  "fixture": "choi-seongsoo-tiered-fortune",
+  "file": "02-choi-seongsoo-tiered-fortune.json",
+  "period": "today",
+  "category": "academic",
+  "depth": "standard",
+  "slot": "livingTips[1]",
+  "fragmentId": null,
+  "text": "공부 시간이 짧다면 새 단원보다 복습 한 묶음을 먼저 끝내세요.",
+  "length": 26,
+  "threshold": 24
+}
+  {
+  "fixture": "choi-seongsoo-tiered-fortune",
+  "file": "02-choi-seongsoo-tiered-fortune.json",
+  "period": "today",
+  "category": "romance",
+  "depth": "standard",
+  "slot": "livingTips[1]",
+  "fragmentId": null,
+  "text": "만남을 제안할 때는 상대가 고를 수 있는 선택지를 두 개 정도 남겨보세요.",
+  "length": 30,
+  "threshold": 24
+}
+
+=== briefCompressionGyeol (43 items) ===
+  {
+  "fixture": "choi-seongsoo-tiered-fortune",
+  "file": "02-choi-seongsoo-tiered-fortune.json",
+  "period": "thisYear",
+  "category": "academic",
+  "depth": "brief",
+  "slot": "headline",
+  "fragmentId": null,
+  "text": "올해는 새 공부를 시작하고 결과를 만들기 좋은 결이에요.",
+  "tail": "올해는 새 공부를 시작하고 결과를 만들기 좋은 결이에요."
+}
+  {
+  "fixture": "kim-seoyun-young-female-tiered",
+  "file": "04-kim-seoyun-young-female-tiered.json",
+  "period": "today",
+  "category": "academic",
+  "depth": "brief",
+  "slot": "headline",
+  "fragmentId": null,
+  "text": "오늘은 한 단원을 자기 말로 정리하면 좋은 결이에요.",
+  "tail": "오늘은 한 단원을 자기 말로 정리하면 좋은 결이에요."
+}
+  {
+  "fixture": "park-minji-late-night-female-tiered",
+  "file": "05-park-minji-late-night-female-tiered.json",
+  "period": "thisWeek",
+  "category": "academic",
+  "depth": "brief",
+  "slot": "headline",
+  "fragmentId": null,
+  "text": "이번 주는 자기계발 책 한 챕터를 챙기기 좋은 결이에요.",
+  "tail": "이번 주는 자기계발 책 한 챕터를 챙기기 좋은 결이에요."
+}
+  {
+  "fixture": "park-minji-late-night-female-tiered",
+  "file": "05-park-minji-late-night-female-tiered.json",
+  "period": "thisMonth",
+  "category": "academic",
+  "depth": "brief",
+  "slot": "headline",
+  "fragmentId": null,
+  "text": "이번 달은 자기계발 책 한 권에 머물기 좋은 결이에요.",
+  "tail": "이번 달은 자기계발 책 한 권에 머물기 좋은 결이에요."
+}
+  {
+  "fixture": "park-minji-late-night-female-tiered",
+  "file": "05-park-minji-late-night-female-tiered.json",
+  "period": "thisYear",
+  "category": "academic",
+  "depth": "brief",
+  "slot": "headline",
+  "fragmentId": null,
+  "text": "올해는 새 공부를 시작하고 결과를 만들기 좋은 결이에요.",
+  "tail": "올해는 새 공부를 시작하고 결과를 만들기 좋은 결이에요."
+}

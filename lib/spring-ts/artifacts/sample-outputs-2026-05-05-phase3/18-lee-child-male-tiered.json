@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-05-05T07:44:07.798Z",
+  "generatedAt": "2026-05-05T08:28:15.714Z",
   "targetDate": "2026-05-05T00:00:00+09:00",
   "sampleId": "lee-child-male-tiered",
   "description": "0-9 세 어린 남아 (2020 출생) — child fallback narrative 활성화 케이스. 어린 audience 안전 보장 (성인 metaphor 회피) 과 tieredMatrix 의 가벼운 톤을 점검하는 fixture.",
@@ -1294,7 +1294,7 @@
     },
     "meta": {
       "version": "1.0.0",
-      "generatedAt": "2026-05-05T07:44:13.987Z",
+      "generatedAt": "2026-05-05T08:28:21.796Z",
       "schoolPreset": {
         "selected": "korean",
         "source": "default",
@@ -1336,8 +1336,8 @@
                 }
               ],
               "livingTips": [
-                "활동적인 놀이 뒤에는 짧은 정리 시간과 쉬는 시간을 함께 넣어 주세요.",
-                "감정을 말로 표현하기 어려워하면 그림, 놀이, 짧은 문장으로 대신 꺼내게 도와주세요."
+                "활동 뒤엔 정리 시간과 쉬는 시간을 넣어 줘요.",
+                "감정 표현이 어려우면 그림·놀이·짧은 문장으로 꺼내요."
               ],
               "cautions": [
                 "씩씩함보다 무서움이나 망설임도 자연스러운 신호로 받아 주세요."
@@ -5566,7 +5566,7 @@
                 ],
                 "livingTips": [
                   "한 달에 하나씩 결과물을 저장할 폴더나 노트를 정하세요.",
-                  "완성도가 낮아도 초안을 남겨 두면 다음 시도에 도움이 돼요."
+                  "완성도가 낮아도 초안을 남겨 두면 다음 시도에 도움돼요."
                 ],
                 "cautions": [
                   "처음부터 완벽하게 보이려 하면 시작이 늦어질 수 있어요."
@@ -6011,7 +6011,7 @@
       },
       "meta": {
         "schemaVersion": "spring-ts.tiered-matrix.v1",
-        "generatedAt": "2026-05-05T07:44:13.987Z",
+        "generatedAt": "2026-05-05T08:28:21.796Z",
         "selectionSeed": "2020|6|10|10|15|male|2026-05-04T15:00:00.000Z",
         "templateContractVersion": "1.0.0",
         "contentSource": "authored",
