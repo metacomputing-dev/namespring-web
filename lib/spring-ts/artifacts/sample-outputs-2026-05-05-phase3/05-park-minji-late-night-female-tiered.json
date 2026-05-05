@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-05-05T06:24:28.964Z",
+  "generatedAt": "2026-05-05T06:29:31.992Z",
   "targetDate": "2026-05-05T00:00:00+09:00",
   "sampleId": "park-minji-late-night-female-tiered",
   "description": "성인 여성 늦은 밤 출생 입력에 야자시, 진태양시, 경도 보정과 tiered 매트릭스를 적용한 케이스.",
@@ -1313,7 +1313,7 @@
     },
     "meta": {
       "version": "1.0.0",
-      "generatedAt": "2026-05-05T06:24:31.414Z",
+      "generatedAt": "2026-05-05T06:29:34.457Z",
       "schoolPreset": {
         "selected": "korean",
         "source": "default",
@@ -2203,7 +2203,7 @@
               "meaningfulness": "meaningful",
               "stars": 1,
               "brief": {
-                "headline": "커리어는 한 번에 크게 바꾸기보다 잘하는 일을 꾸준히 쌓을수록요."
+                "headline": "커리어는 잘하는 일을 꾸준히 쌓는 게 좋아요."
               },
               "standard": {
                 "paragraphs": [
@@ -7375,7 +7375,7 @@
               "meaningfulness": "meaningful",
               "stars": 4,
               "brief": {
-                "headline": "올해는 큰 수익보다 비상금을 지키는 습관이 돈 흐름을 더 안정시요."
+                "headline": "올해는 큰 수익보다 비상금을 지키는 습관이 돈 흐름을 더 안정시켜요."
               },
               "standard": {
                 "paragraphs": [
@@ -9070,7 +9070,7 @@
       },
       "meta": {
         "schemaVersion": "spring-ts.tiered-matrix.v1",
-        "generatedAt": "2026-05-05T06:24:31.414Z",
+        "generatedAt": "2026-05-05T06:29:34.457Z",
         "selectionSeed": "1992|11|3|23|20|female|2026-05-04T15:00:00.000Z",
         "templateContractVersion": "1.0.0",
         "contentSource": "authored",
