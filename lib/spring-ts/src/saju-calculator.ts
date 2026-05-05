@@ -255,14 +255,17 @@ function buildSajuNameSafetyProfile(params: {
     && conflictLevel !== undefined
     && (conflictLevel === 'medium' || conflictLevel === 'high')
     && aggressiveReinforcement >= 0.5;
-  // consensus_aware refinement: when reinforcement is thin (yongshinRatio
-  // below the threshold) and the conflict is high with 3+ competing
-  // elements, force a 'balanced' posture — the safe band would otherwise
-  // mislead by suggesting the name already covers the yongshin when in
-  // fact the chart is split and the name barely contributes.
+  // consensus_aware refinement (informational): when reinforcement is thin
+  // (yongshinRatio below the threshold) and the consensus is split across
+  // 3+ competing elements at medium/high conflict, surface a dedicated
+  // reason so the user can see *why* a balanced posture is being shown.
+  // Medium/high conflict already prevents `safe` posture in the base
+  // condition below, so this guard does not change posture itself —
+  // the score haircut later in `computeYongshinScore` is what bends the
+  // ranking, while this reason explains the bend in plain language.
   const competingCount = params.consensus?.competingElements.length ?? 0;
-  const thinReinforcementGuard = params.mode === 'consensus_aware'
-    && conflictLevel === 'high'
+  const thinReinforcementInfo = params.mode === 'consensus_aware'
+    && (conflictLevel === 'medium' || conflictLevel === 'high')
     && competingCount >= CONSENSUS_AWARE_MULTI_COMPETING_THRESHOLD
     && yongshinRatio < CONSENSUS_AWARE_THIN_REINFORCEMENT_RATIO;
   const baseSafe = riskScore <= 30
@@ -270,7 +273,7 @@ function buildSajuNameSafetyProfile(params: {
     && (!conflictLevel || conflictLevel === 'none' || conflictLevel === 'low');
   const posture: SajuNameSafetyProfile['posture'] = riskScore >= 60 || aggressiveConflict
     ? 'aggressive'
-    : baseSafe && !thinReinforcementGuard
+    : baseSafe
       ? 'safe'
       : 'balanced';
 
@@ -322,7 +325,7 @@ function buildSajuNameSafetyProfile(params: {
       reasons.push(`축별 판단: ${axisLine}`);
     }
   }
-  if (thinReinforcementGuard) {
+  if (thinReinforcementInfo) {
     reasons.push('용신 판단이 갈리는 가운데 이름의 직접 보강 비율이 낮아 균형형으로 안내했어요.');
   }
   if (strategy === 'safe_balance') {
