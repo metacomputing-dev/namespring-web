@@ -6,16 +6,48 @@
     {
       "schemaVersion": "spring-ts.narrative-fragment.v1",
       "fragmentId": "overall.life.expert.agephase.early_40s.301",
-      "axis": { "category": "overall", "period": "life", "depth": "expert" },
-      "gating": { "agePhase": ["early_40s"] },
+      "axis": {
+        "category": "overall",
+        "period": "life",
+        "depth": "expert"
+      },
+      "gating": {
+        "agePhase": [
+          "early_40s"
+        ]
+      },
       "templateTokens": [
-        { "kind": "text", "value": "40대 초반은 쌓아온 역할과 앞으로의 방향을 다시 조정하는 구간으로 봅니다. " },
-        { "kind": "tag", "tagId": "daewoonGungsil", "label": "대운궁실" },
-        { "kind": "text", "value": "상으로는 출발보다 재배치가 중요하고, " },
-        { "kind": "tag", "tagId": "stabilityIndex", "label": "안정성지수" },
-        { "kind": "text", "value": "가 흔들리면 확장보다 기반 정리가 먼저예요. " },
-        { "kind": "tag", "tagId": "yongshinFit", "label": "용신부합도" },
-        { "kind": "text", "value": "는 지금 선택이 내 기운을 보강하는지, 아니면 책임만 늘리는지 가르는 전문가용 확인점으로 쓰면 좋습니다." }
+        {
+          "kind": "text",
+          "value": "40대 초반은 쌓아온 역할과 앞으로의 방향을 다시 조정하는 구간으로 봅니다. "
+        },
+        {
+          "kind": "tag",
+          "tagId": "daewoonGungsil",
+          "label": "대운궁실"
+        },
+        {
+          "kind": "text",
+          "value": "상으로는 출발보다 재배치가 중요하고, "
+        },
+        {
+          "kind": "tag",
+          "tagId": "stabilityIndex",
+          "label": "안정성지수"
+        },
+        {
+          "kind": "text",
+          "value": "가 흔들리면 확장보다 기반 정리가 먼저예요. "
+        },
+        {
+          "kind": "tag",
+          "tagId": "yongshinFit",
+          "label": "용신부합도"
+        },
+        {
+          "kind": "text",
+          "value": "는 지금 선택이 내 기운을 보강하는지, 아니면 책임만 늘리는지 가르는 전문가용 확인점으로 쓰면 좋습니다."
+        }
       ],
       "livingTips": [
         "최근 3개월간 반복된 부담과 성과를 나누어 적어보세요.",
@@ -24,7 +56,11 @@
       "cautions": [
         "방향을 바꾸고 싶은 마음만으로 기반을 한꺼번에 흔들면 피로가 커져요."
       ],
-      "tags": ["daewoonGungsil", "stabilityIndex", "yongshinFit"],
+      "tags": [
+        "daewoonGungsil",
+        "stabilityIndex",
+        "yongshinFit"
+      ],
       "numericalEvidence": [
         {
           "label": "현재 나이",
@@ -72,25 +108,61 @@
     {
       "schemaVersion": "spring-ts.narrative-fragment.v1",
       "fragmentId": "overall.life.expert.agephase.late_40s.301",
-      "axis": { "category": "overall", "period": "life", "depth": "expert" },
-      "gating": { "agePhase": ["late_40s"] },
+      "axis": {
+        "category": "overall",
+        "period": "life",
+        "depth": "expert"
+      },
+      "gating": {
+        "agePhase": [
+          "late_40s"
+        ]
+      },
       "templateTokens": [
-        { "kind": "text", "value": "40대 후반은 경험의 깊이와 현실 책임이 함께 커지는 구간이에요. " },
-        { "kind": "tag", "tagId": "daewoonGungsil", "label": "대운궁실" },
-        { "kind": "text", "value": "에서는 성과를 더 세우는 문제보다 몸과 관계가 오래 버틸 수 있는 구조인지가 중요합니다. " },
-        { "kind": "tag", "tagId": "stabilityIndex", "label": "안정성지수" },
-        { "kind": "text", "value": "가 낮다면 책임을 계속 더하기보다 역할을 나누어야 하고, " },
-        { "kind": "tag", "tagId": "yongshinFit", "label": "용신부합도" },
-        { "kind": "text", "value": "가 맞는 방향으로만 중요한 자원을 집중하는 해석이 정확해요." }
+        {
+          "kind": "text",
+          "value": "40대 후반은 경험의 깊이와 현실 책임이 함께 커지는 구간이에요. "
+        },
+        {
+          "kind": "tag",
+          "tagId": "daewoonGungsil",
+          "label": "대운궁실"
+        },
+        {
+          "kind": "text",
+          "value": "에서는 성과를 더 세우는 문제보다 몸과 관계가 오래 버틸 수 있는 구조인지가 중요합니다. "
+        },
+        {
+          "kind": "tag",
+          "tagId": "stabilityIndex",
+          "label": "안정성지수"
+        },
+        {
+          "kind": "text",
+          "value": "가 낮다면 책임을 계속 더하기보다 역할을 나누어야 하고, "
+        },
+        {
+          "kind": "tag",
+          "tagId": "yongshinFit",
+          "label": "용신부합도"
+        },
+        {
+          "kind": "text",
+          "value": "가 맞는 방향으로만 중요한 자원을 집중하는 해석이 정확해요."
+        }
       ],
       "livingTips": [
-        "가장 오래 유지해야 할 책임과 줄여야 할 책임을 분리해 보세요.",
-        "중요한 관계에서는 기대치보다 실제 가능한 범위를 다시 합의해 보세요."
+        "가장 오래 유지해야 할 책임과 줄여야 할 책임을 분리해요.",
+        "중요한 관계에서는 기대치보다 실제 가능한 범위를 다시 합의해요."
       ],
       "cautions": [
         "익숙하다는 이유로 모든 부담을 계속 안으면 회복 시간이 부족해져요."
       ],
-      "tags": ["daewoonGungsil", "stabilityIndex", "yongshinFit"],
+      "tags": [
+        "daewoonGungsil",
+        "stabilityIndex",
+        "yongshinFit"
+      ],
       "numericalEvidence": [
         {
           "label": "현재 나이",
@@ -138,25 +210,61 @@
     {
       "schemaVersion": "spring-ts.narrative-fragment.v1",
       "fragmentId": "overall.life.expert.agephase.early_50s.301",
-      "axis": { "category": "overall", "period": "life", "depth": "expert" },
-      "gating": { "agePhase": ["early_50s"] },
+      "axis": {
+        "category": "overall",
+        "period": "life",
+        "depth": "expert"
+      },
+      "gating": {
+        "agePhase": [
+          "early_50s"
+        ]
+      },
       "templateTokens": [
-        { "kind": "text", "value": "50대 초반은 사회적 역할과 개인 속도의 균형을 다시 맞추는 구간이에요. " },
-        { "kind": "tag", "tagId": "daewoonGungsil", "label": "대운궁실" },
-        { "kind": "text", "value": "에서는 예전처럼 버티는 힘만 보지 않고, 남은 에너지를 어디에 집중할지 판단해야 합니다. " },
-        { "kind": "tag", "tagId": "stabilityIndex", "label": "안정성지수" },
-        { "kind": "text", "value": "와 " },
-        { "kind": "tag", "tagId": "yongshinFit", "label": "용신부합도" },
-        { "kind": "text", "value": "를 함께 보면 관계, 일, 건강의 우선순위를 더 현실적으로 배치할 수 있어요." }
+        {
+          "kind": "text",
+          "value": "50대 초반은 사회적 역할과 개인 속도의 균형을 다시 맞추는 구간이에요. "
+        },
+        {
+          "kind": "tag",
+          "tagId": "daewoonGungsil",
+          "label": "대운궁실"
+        },
+        {
+          "kind": "text",
+          "value": "에서는 예전처럼 버티는 힘만 보지 않고, 남은 에너지를 어디에 집중할지 판단해야 합니다. "
+        },
+        {
+          "kind": "tag",
+          "tagId": "stabilityIndex",
+          "label": "안정성지수"
+        },
+        {
+          "kind": "text",
+          "value": "와 "
+        },
+        {
+          "kind": "tag",
+          "tagId": "yongshinFit",
+          "label": "용신부합도"
+        },
+        {
+          "kind": "text",
+          "value": "를 함께 보면 관계, 일, 건강의 우선순위를 더 현실적으로 배치할 수 있어요."
+        }
       ],
       "livingTips": [
-        "일과 생활에서 계속 가져갈 것, 위임할 것, 내려놓을 것을 구분해 보세요.",
+        "일과 생활에서 계속 가져갈 것, 위임할 것, 내려놓을 것을 구분해요.",
         "건강 루틴은 큰 결심보다 매주 반복 가능한 작은 기준으로 잡아보세요."
       ],
       "cautions": [
         "예전 체력과 같은 방식으로만 버티면 좋은 기회도 부담으로 바뀔 수 있어요."
       ],
-      "tags": ["daewoonGungsil", "stabilityIndex", "yongshinFit"],
+      "tags": [
+        "daewoonGungsil",
+        "stabilityIndex",
+        "yongshinFit"
+      ],
       "numericalEvidence": [
         {
           "label": "현재 나이",
@@ -204,16 +312,48 @@
     {
       "schemaVersion": "spring-ts.narrative-fragment.v1",
       "fragmentId": "overall.life.expert.agephase.late_50s.301",
-      "axis": { "category": "overall", "period": "life", "depth": "expert" },
-      "gating": { "agePhase": ["late_50s"] },
+      "axis": {
+        "category": "overall",
+        "period": "life",
+        "depth": "expert"
+      },
+      "gating": {
+        "agePhase": [
+          "late_50s"
+        ]
+      },
       "templateTokens": [
-        { "kind": "text", "value": "50대 후반은 쌓은 경험 중 유지할 것과 다음 세대에 넘길 것을 구분하는 구간이에요. " },
-        { "kind": "tag", "tagId": "daewoonGungsil", "label": "대운궁실" },
-        { "kind": "text", "value": "은 확장보다 지속 가능한 역할을 살피는 데 초점을 둡니다. " },
-        { "kind": "tag", "tagId": "stabilityIndex", "label": "안정성지수" },
-        { "kind": "text", "value": "가 충분할 때는 경험 전달이 힘이 되고, 낮을 때는 직접 모두 해내는 방식이 부담을 키웁니다. " },
-        { "kind": "tag", "tagId": "yongshinFit", "label": "용신부합도" },
-        { "kind": "text", "value": "는 남길 일과 넘길 일을 가르는 기준으로 활용할 수 있어요." }
+        {
+          "kind": "text",
+          "value": "50대 후반은 쌓은 경험 중 유지할 것과 다음 세대에 넘길 것을 구분하는 구간이에요. "
+        },
+        {
+          "kind": "tag",
+          "tagId": "daewoonGungsil",
+          "label": "대운궁실"
+        },
+        {
+          "kind": "text",
+          "value": "은 확장보다 지속 가능한 역할을 살피는 데 초점을 둡니다. "
+        },
+        {
+          "kind": "tag",
+          "tagId": "stabilityIndex",
+          "label": "안정성지수"
+        },
+        {
+          "kind": "text",
+          "value": "가 충분할 때는 경험 전달이 힘이 되고, 낮을 때는 직접 모두 해내는 방식이 부담을 키웁니다. "
+        },
+        {
+          "kind": "tag",
+          "tagId": "yongshinFit",
+          "label": "용신부합도"
+        },
+        {
+          "kind": "text",
+          "value": "는 남길 일과 넘길 일을 가르는 기준으로 활용할 수 있어요."
+        }
       ],
       "livingTips": [
         "반복해서 맡아온 일 중 다른 사람과 나눌 수 있는 일을 찾아보세요.",
@@ -222,7 +362,11 @@
       "cautions": [
         "내가 아니면 안 된다는 생각이 강해지면 관계와 몸이 함께 무거워져요."
       ],
-      "tags": ["daewoonGungsil", "stabilityIndex", "yongshinFit"],
+      "tags": [
+        "daewoonGungsil",
+        "stabilityIndex",
+        "yongshinFit"
+      ],
       "numericalEvidence": [
         {
           "label": "현재 나이",
@@ -270,25 +414,61 @@
     {
       "schemaVersion": "spring-ts.narrative-fragment.v1",
       "fragmentId": "overall.life.expert.agephase.early_60s.301",
-      "axis": { "category": "overall", "period": "life", "depth": "expert" },
-      "gating": { "agePhase": ["early_60s"] },
+      "axis": {
+        "category": "overall",
+        "period": "life",
+        "depth": "expert"
+      },
+      "gating": {
+        "agePhase": [
+          "early_60s"
+        ]
+      },
       "templateTokens": [
-        { "kind": "text", "value": "60대 초반은 속도와 역할을 새로 설계하는 구간으로 해석합니다. " },
-        { "kind": "tag", "tagId": "daewoonGungsil", "label": "대운궁실" },
-        { "kind": "text", "value": "의 큰 흐름은 확장보다 안정된 리듬과 회복력을 중심으로 봐야 하고, " },
-        { "kind": "tag", "tagId": "stabilityIndex", "label": "안정성지수" },
-        { "kind": "text", "value": "가 실제 생활 유지력과 직접 연결됩니다. " },
-        { "kind": "tag", "tagId": "yongshinFit", "label": "용신부합도" },
-        { "kind": "text", "value": "가 좋은 활동은 새로 시작해도 오래 가지만, 맞지 않는 활동은 체력 소모가 빠를 수 있어요." }
+        {
+          "kind": "text",
+          "value": "60대 초반은 속도와 역할을 새로 설계하는 구간으로 해석합니다. "
+        },
+        {
+          "kind": "tag",
+          "tagId": "daewoonGungsil",
+          "label": "대운궁실"
+        },
+        {
+          "kind": "text",
+          "value": "의 큰 흐름은 확장보다 안정된 리듬과 회복력을 중심으로 봐야 하고, "
+        },
+        {
+          "kind": "tag",
+          "tagId": "stabilityIndex",
+          "label": "안정성지수"
+        },
+        {
+          "kind": "text",
+          "value": "가 실제 생활 유지력과 직접 연결됩니다. "
+        },
+        {
+          "kind": "tag",
+          "tagId": "yongshinFit",
+          "label": "용신부합도"
+        },
+        {
+          "kind": "text",
+          "value": "가 좋은 활동은 새로 시작해도 오래 가지만, 맞지 않는 활동은 체력 소모가 빠를 수 있어요."
+        }
       ],
       "livingTips": [
-        "새 활동은 체력, 이동, 비용의 기준을 먼저 확인한 뒤 시작해 보세요.",
+        "새 활동은 체력, 이동, 비용의 기준을 먼저 확인한 뒤 시작해요.",
         "하루 루틴에 회복 시간을 고정하면 변화가 부담으로 쌓이는 일을 줄일 수 있어요."
       ],
       "cautions": [
         "갑작스러운 큰 변화가 공허감으로 이어지지 않게 작은 계획부터 잡으세요."
       ],
-      "tags": ["daewoonGungsil", "stabilityIndex", "yongshinFit"],
+      "tags": [
+        "daewoonGungsil",
+        "stabilityIndex",
+        "yongshinFit"
+      ],
       "numericalEvidence": [
         {
           "label": "현재 나이",
@@ -336,25 +516,61 @@
     {
       "schemaVersion": "spring-ts.narrative-fragment.v1",
       "fragmentId": "overall.life.expert.agephase.late_60s.301",
-      "axis": { "category": "overall", "period": "life", "depth": "expert" },
-      "gating": { "agePhase": ["late_60s"] },
+      "axis": {
+        "category": "overall",
+        "period": "life",
+        "depth": "expert"
+      },
+      "gating": {
+        "agePhase": [
+          "late_60s"
+        ]
+      },
       "templateTokens": [
-        { "kind": "text", "value": "60대 후반은 활동의 양보다 삶의 질과 관계의 안정성이 더 중요해지는 구간이에요. " },
-        { "kind": "tag", "tagId": "daewoonGungsil", "label": "대운궁실" },
-        { "kind": "text", "value": "에서는 강한 추진보다 생활 리듬, 가족과의 거리, 건강 관리의 안정성을 함께 봅니다. " },
-        { "kind": "tag", "tagId": "stabilityIndex", "label": "안정성지수" },
-        { "kind": "text", "value": "가 흐름의 중심이고, " },
-        { "kind": "tag", "tagId": "yongshinFit", "label": "용신부합도" },
-        { "kind": "text", "value": "가 맞는 작은 기준을 꾸준히 유지하는 것이 큰 변화보다 더 유리할 수 있습니다." }
+        {
+          "kind": "text",
+          "value": "60대 후반은 활동의 양보다 삶의 질과 관계의 안정성이 더 중요해지는 구간이에요. "
+        },
+        {
+          "kind": "tag",
+          "tagId": "daewoonGungsil",
+          "label": "대운궁실"
+        },
+        {
+          "kind": "text",
+          "value": "에서는 강한 추진보다 생활 리듬, 가족과의 거리, 건강 관리의 안정성을 함께 봅니다. "
+        },
+        {
+          "kind": "tag",
+          "tagId": "stabilityIndex",
+          "label": "안정성지수"
+        },
+        {
+          "kind": "text",
+          "value": "가 흐름의 중심이고, "
+        },
+        {
+          "kind": "tag",
+          "tagId": "yongshinFit",
+          "label": "용신부합도"
+        },
+        {
+          "kind": "text",
+          "value": "가 맞는 작은 기준을 꾸준히 유지하는 것이 큰 변화보다 더 유리할 수 있습니다."
+        }
       ],
       "livingTips": [
-        "자주 만나는 사람, 자주 가는 공간, 자주 하는 활동을 편안한 쪽으로 정리해 보세요.",
+        "자주 만나는 사람, 자주 가는 공간, 자주 하는 활동을 편안한 쪽으로 정리해요.",
         "건강과 이동 계획에는 무리 없는 예비 시간을 꼭 넣어보세요."
       ],
       "cautions": [
         "관계를 줄이기만 하면 마음이 좁아질 수 있으니 편한 연결은 남겨두세요."
       ],
-      "tags": ["daewoonGungsil", "stabilityIndex", "yongshinFit"],
+      "tags": [
+        "daewoonGungsil",
+        "stabilityIndex",
+        "yongshinFit"
+      ],
       "numericalEvidence": [
         {
           "label": "현재 나이",
@@ -402,25 +618,61 @@
     {
       "schemaVersion": "spring-ts.narrative-fragment.v1",
       "fragmentId": "overall.life.expert.agephase.70s.301",
-      "axis": { "category": "overall", "period": "life", "depth": "expert" },
-      "gating": { "agePhase": ["70s"] },
+      "axis": {
+        "category": "overall",
+        "period": "life",
+        "depth": "expert"
+      },
+      "gating": {
+        "agePhase": [
+          "70s"
+        ]
+      },
       "templateTokens": [
-        { "kind": "text", "value": "70대는 속도를 줄이면서 자기 기준과 경험을 편안하게 유지하는 구간이에요. " },
-        { "kind": "tag", "tagId": "daewoonGungsil", "label": "대운궁실" },
-        { "kind": "text", "value": " 해석에서는 성취보다 회복, 관계의 편안함, 몸의 신호를 중심에 둡니다. " },
-        { "kind": "tag", "tagId": "stabilityIndex", "label": "안정성지수" },
-        { "kind": "text", "value": "와 " },
-        { "kind": "tag", "tagId": "yongshinFit", "label": "용신부합도" },
-        { "kind": "text", "value": "가 모두 낮은 구간이면 큰 목표보다 매일 지킬 수 있는 작은 즐거움이 운의 체감도를 높여줍니다." }
+        {
+          "kind": "text",
+          "value": "70대는 속도를 줄이면서 자기 기준과 경험을 편안하게 유지하는 구간이에요. "
+        },
+        {
+          "kind": "tag",
+          "tagId": "daewoonGungsil",
+          "label": "대운궁실"
+        },
+        {
+          "kind": "text",
+          "value": " 해석에서는 성취보다 회복, 관계의 편안함, 몸의 신호를 중심에 둡니다. "
+        },
+        {
+          "kind": "tag",
+          "tagId": "stabilityIndex",
+          "label": "안정성지수"
+        },
+        {
+          "kind": "text",
+          "value": "와 "
+        },
+        {
+          "kind": "tag",
+          "tagId": "yongshinFit",
+          "label": "용신부합도"
+        },
+        {
+          "kind": "text",
+          "value": "가 모두 낮은 구간이면 큰 목표보다 매일 지킬 수 있는 작은 즐거움이 운의 체감도를 높여줍니다."
+        }
       ],
       "livingTips": [
-        "무리한 목표보다 매주 반복 가능한 즐거운 활동을 하나 정해 보세요.",
+        "무리한 목표보다 매주 반복 가능한 즐거운 활동을 하나 정해요.",
         "몸의 신호가 작을 때 바로 쉬고 확인하는 습관을 들여보세요."
       ],
       "cautions": [
         "불편함을 오래 참고 넘기면 작은 문제가 생활 전체를 흔들 수 있어요."
       ],
-      "tags": ["daewoonGungsil", "stabilityIndex", "yongshinFit"],
+      "tags": [
+        "daewoonGungsil",
+        "stabilityIndex",
+        "yongshinFit"
+      ],
       "numericalEvidence": [
         {
           "label": "현재 나이",
@@ -468,25 +720,61 @@
     {
       "schemaVersion": "spring-ts.narrative-fragment.v1",
       "fragmentId": "overall.life.expert.agephase.80s.301",
-      "axis": { "category": "overall", "period": "life", "depth": "expert" },
-      "gating": { "agePhase": ["80s"] },
+      "axis": {
+        "category": "overall",
+        "period": "life",
+        "depth": "expert"
+      },
+      "gating": {
+        "agePhase": [
+          "80s"
+        ]
+      },
       "templateTokens": [
-        { "kind": "text", "value": "80대는 성과보다 안전, 회복, 관계의 여유와 생활의 단순함을 중심에 두는 구간입니다. " },
-        { "kind": "tag", "tagId": "daewoonGungsil", "label": "대운궁실" },
-        { "kind": "text", "value": "에서는 변화의 좋고 나쁨보다 하루를 편안하게 유지하는 조건을 찾는 해석이 더 맞아요. " },
-        { "kind": "tag", "tagId": "stabilityIndex", "label": "안정성지수" },
-        { "kind": "text", "value": "가 낮을수록 동선, 물건, 식사, 휴식의 단순화가 중요하고, " },
-        { "kind": "tag", "tagId": "yongshinFit", "label": "용신부합도" },
-        { "kind": "text", "value": "는 무리 없는 활동을 고르는 참고 기준으로 두면 충분합니다." }
+        {
+          "kind": "text",
+          "value": "80대는 성과보다 안전, 회복, 관계의 여유와 생활의 단순함을 중심에 두는 구간입니다. "
+        },
+        {
+          "kind": "tag",
+          "tagId": "daewoonGungsil",
+          "label": "대운궁실"
+        },
+        {
+          "kind": "text",
+          "value": "에서는 변화의 좋고 나쁨보다 하루를 편안하게 유지하는 조건을 찾는 해석이 더 맞아요. "
+        },
+        {
+          "kind": "tag",
+          "tagId": "stabilityIndex",
+          "label": "안정성지수"
+        },
+        {
+          "kind": "text",
+          "value": "가 낮을수록 동선, 물건, 식사, 휴식의 단순화가 중요하고, "
+        },
+        {
+          "kind": "tag",
+          "tagId": "yongshinFit",
+          "label": "용신부합도"
+        },
+        {
+          "kind": "text",
+          "value": "는 무리 없는 활동을 고르는 참고 기준으로 두면 충분합니다."
+        }
       ],
       "livingTips": [
-        "자주 쓰는 물건과 이동 동선을 단순하고 안전하게 정리해 보세요.",
+        "자주 쓰는 물건과 이동 동선을 단순하고 안전하게 정리해요.",
         "가벼운 움직임, 규칙적인 식사, 짧은 대화를 생활의 중심에 두세요."
       ],
       "cautions": [
         "불편함을 혼자 해결하려 하지 말고 주변 도움을 일찍 요청하는 편이 좋아요."
       ],
-      "tags": ["daewoonGungsil", "stabilityIndex", "yongshinFit"],
+      "tags": [
+        "daewoonGungsil",
+        "stabilityIndex",
+        "yongshinFit"
+      ],
       "numericalEvidence": [
         {
           "label": "현재 나이",
@@ -534,25 +822,61 @@
     {
       "schemaVersion": "spring-ts.narrative-fragment.v1",
       "fragmentId": "overall.life.expert.agephase.90_plus.301",
-      "axis": { "category": "overall", "period": "life", "depth": "expert" },
-      "gating": { "agePhase": ["90_plus"] },
+      "axis": {
+        "category": "overall",
+        "period": "life",
+        "depth": "expert"
+      },
+      "gating": {
+        "agePhase": [
+          "90_plus"
+        ]
+      },
       "templateTokens": [
-        { "kind": "text", "value": "90세 이후는 변화의 크기보다 안정, 존중, 기억의 정리, 편안한 연결을 중심으로 보는 것이 적절합니다. " },
-        { "kind": "tag", "tagId": "daewoonGungsil", "label": "대운궁실" },
-        { "kind": "text", "value": "은 성취 판단보다 생활의 체감 안정성을 읽는 배경으로 두고, " },
-        { "kind": "tag", "tagId": "stabilityIndex", "label": "안정성지수" },
-        { "kind": "text", "value": "를 최우선으로 봐야 해요. " },
-        { "kind": "tag", "tagId": "yongshinFit", "label": "용신부합도" },
-        { "kind": "text", "value": "는 큰 행동을 권하는 지표가 아니라 불편을 줄이고 마음이 놓이는 환경을 찾는 보조 기준입니다." }
+        {
+          "kind": "text",
+          "value": "90세 이후는 변화의 크기보다 안정, 존중, 기억의 정리, 편안한 연결을 중심으로 보는 것이 적절합니다. "
+        },
+        {
+          "kind": "tag",
+          "tagId": "daewoonGungsil",
+          "label": "대운궁실"
+        },
+        {
+          "kind": "text",
+          "value": "은 성취 판단보다 생활의 체감 안정성을 읽는 배경으로 두고, "
+        },
+        {
+          "kind": "tag",
+          "tagId": "stabilityIndex",
+          "label": "안정성지수"
+        },
+        {
+          "kind": "text",
+          "value": "를 최우선으로 봐야 해요. "
+        },
+        {
+          "kind": "tag",
+          "tagId": "yongshinFit",
+          "label": "용신부합도"
+        },
+        {
+          "kind": "text",
+          "value": "는 큰 행동을 권하는 지표가 아니라 불편을 줄이고 마음이 놓이는 환경을 찾는 보조 기준입니다."
+        }
       ],
       "livingTips": [
         "하루 생활에서 불편한 동작이나 공간을 하나씩 줄여보세요.",
-        "가까운 사람과 편안한 이야기를 나누는 시간을 작게라도 유지해 보세요."
+        "가까운 사람과 편안한 이야기를 나누는 시간을 작게라도 유지해요."
       ],
       "cautions": [
         "생활 변화는 작게 나누고 몸과 마음에 무리가 가지 않게 천천히 진행하세요."
       ],
-      "tags": ["daewoonGungsil", "stabilityIndex", "yongshinFit"],
+      "tags": [
+        "daewoonGungsil",
+        "stabilityIndex",
+        "yongshinFit"
+      ],
       "numericalEvidence": [
         {
           "label": "현재 나이",

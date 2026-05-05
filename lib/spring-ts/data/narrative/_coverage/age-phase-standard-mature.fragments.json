@@ -6,14 +6,25 @@
     {
       "schemaVersion": "spring-ts.narrative-fragment.v1",
       "fragmentId": "overall.life.standard.agephase.early_40s.201",
-      "axis": { "category": "overall", "period": "life", "depth": "standard" },
-      "gating": { "agePhase": ["early_40s"] },
+      "axis": {
+        "category": "overall",
+        "period": "life",
+        "depth": "standard"
+      },
+      "gating": {
+        "agePhase": [
+          "early_40s"
+        ]
+      },
       "templateTokens": [
-        { "kind": "text", "value": "40대 초반의 흐름은 지금까지 쌓아온 실력과 역할을 현실 속에서 다시 정리하는 시기예요. 책임이 커지는 만큼 선택의 무게도 커지지만, 모든 것을 혼자 떠안기보다 구조를 다시 짜면 운의 부담이 줄어들어요. 일, 관계, 건강의 우선순위를 다시 세우면 다음 10년의 기반이 더 단단해질 수 있어요." }
+        {
+          "kind": "text",
+          "value": "40대 초반의 흐름은 지금까지 쌓아온 실력과 역할을 현실 속에서 다시 정리하는 시기예요. 책임이 커지는 만큼 선택의 무게도 커지지만, 모든 것을 혼자 떠안기보다 구조를 다시 짜면 운의 부담이 줄어들어요. 일, 관계, 건강의 우선순위를 다시 세우면 다음 10년의 기반이 더 단단해질 수 있어요."
+        }
       ],
       "livingTips": [
-        "지금 맡은 역할을 유지할 것, 나눌 것, 내려놓을 것으로 구분해 보세요.",
-        "건강 점검과 재정 점검을 미루지 말고 일정에 먼저 넣어두세요."
+        "지금 맡은 역할을 유지할 것, 나눌 것, 내려놓을 것으로 구분해요.",
+        "건강 점검과 재정 점검을 미루지 말고 일정에 먼저 넣어요."
       ],
       "cautions": [
         "책임감만으로 계속 버티면 회복 신호를 놓칠 수 있어요."
@@ -34,10 +45,21 @@
     {
       "schemaVersion": "spring-ts.narrative-fragment.v1",
       "fragmentId": "overall.life.standard.agephase.late_40s.201",
-      "axis": { "category": "overall", "period": "life", "depth": "standard" },
-      "gating": { "agePhase": ["late_40s"] },
+      "axis": {
+        "category": "overall",
+        "period": "life",
+        "depth": "standard"
+      },
+      "gating": {
+        "agePhase": [
+          "late_40s"
+        ]
+      },
       "templateTokens": [
-        { "kind": "text", "value": "40대 후반의 흐름은 지금까지의 성과를 점검하고 삶의 방향을 다시 조정하는 시기예요. 확장만 계속하기보다 지킬 것과 줄일 것을 구분해야 에너지가 안정돼요. 관계와 일의 방식도 오래 갈 수 있는 구조로 바꾸면 다음 단계의 부담이 훨씬 줄어들 수 있어요." }
+        {
+          "kind": "text",
+          "value": "40대 후반의 흐름은 지금까지의 성과를 점검하고 삶의 방향을 다시 조정하는 시기예요. 확장만 계속하기보다 지킬 것과 줄일 것을 구분해야 에너지가 안정돼요. 관계와 일의 방식도 오래 갈 수 있는 구조로 바꾸면 다음 단계의 부담이 훨씬 줄어들 수 있어요."
+        }
       ],
       "livingTips": [
         "최근 지치게 만든 반복 업무나 관계를 목록으로 적고 조정 가능성을 살펴보세요.",
@@ -62,13 +84,24 @@
     {
       "schemaVersion": "spring-ts.narrative-fragment.v1",
       "fragmentId": "overall.life.standard.agephase.early_50s.201",
-      "axis": { "category": "overall", "period": "life", "depth": "standard" },
-      "gating": { "agePhase": ["early_50s"] },
+      "axis": {
+        "category": "overall",
+        "period": "life",
+        "depth": "standard"
+      },
+      "gating": {
+        "agePhase": [
+          "early_50s"
+        ]
+      },
       "templateTokens": [
-        { "kind": "text", "value": "50대 초반의 흐름은 경험을 다시 정리해 실질적인 자산으로 바꾸는 시기예요. 새로운 것을 무리하게 늘리기보다 이미 쌓은 실력, 사람, 생활 기반을 잘 쓰는 쪽에서 힘이 나요. 주변에 도움이 되는 방식으로 지식과 경험을 나누면 삶의 의미와 안정감이 함께 커질 수 있어요." }
+        {
+          "kind": "text",
+          "value": "50대 초반의 흐름은 경험을 다시 정리해 실질적인 자산으로 바꾸는 시기예요. 새로운 것을 무리하게 늘리기보다 이미 쌓은 실력, 사람, 생활 기반을 잘 쓰는 쪽에서 힘이 나요. 주변에 도움이 되는 방식으로 지식과 경험을 나누면 삶의 의미와 안정감이 함께 커질 수 있어요."
+        }
       ],
       "livingTips": [
-        "지금까지 쌓은 경험 중 다른 사람에게 전할 수 있는 것을 정리해 보세요.",
+        "지금까지 쌓은 경험 중 다른 사람에게 전할 수 있는 것을 정리해요.",
         "몸과 재정의 기본 지표를 점검하고 무리한 계획을 줄여보세요."
       ],
       "cautions": [
@@ -90,10 +123,21 @@
     {
       "schemaVersion": "spring-ts.narrative-fragment.v1",
       "fragmentId": "overall.life.standard.agephase.late_50s.201",
-      "axis": { "category": "overall", "period": "life", "depth": "standard" },
-      "gating": { "agePhase": ["late_50s"] },
+      "axis": {
+        "category": "overall",
+        "period": "life",
+        "depth": "standard"
+      },
+      "gating": {
+        "agePhase": [
+          "late_50s"
+        ]
+      },
       "templateTokens": [
-        { "kind": "text", "value": "50대 후반의 흐름은 속도를 다시 조절하고 오래 유지할 삶의 리듬을 고르는 시기예요. 과거의 방식이 여전히 맞는지 살펴보면서, 몸과 관계에 무리가 적은 구조로 바꾸면 좋아요. 지금 정리하는 습관과 기준은 다음 시기의 여유와 안정감을 만드는 바탕이 돼요." }
+        {
+          "kind": "text",
+          "value": "50대 후반의 흐름은 속도를 다시 조절하고 오래 유지할 삶의 리듬을 고르는 시기예요. 과거의 방식이 여전히 맞는지 살펴보면서, 몸과 관계에 무리가 적은 구조로 바꾸면 좋아요. 지금 정리하는 습관과 기준은 다음 시기의 여유와 안정감을 만드는 바탕이 돼요."
+        }
       ],
       "livingTips": [
         "매주 꼭 지킬 건강 루틴과 관계 루틴을 하나씩 정해보세요.",
@@ -118,10 +162,21 @@
     {
       "schemaVersion": "spring-ts.narrative-fragment.v1",
       "fragmentId": "overall.life.standard.agephase.early_60s.201",
-      "axis": { "category": "overall", "period": "life", "depth": "standard" },
-      "gating": { "agePhase": ["early_60s"] },
+      "axis": {
+        "category": "overall",
+        "period": "life",
+        "depth": "standard"
+      },
+      "gating": {
+        "agePhase": [
+          "early_60s"
+        ]
+      },
       "templateTokens": [
-        { "kind": "text", "value": "60대 초반의 흐름은 삶의 기준을 새로 정비하고 자신에게 맞는 속도를 되찾는 시기예요. 이전보다 무리한 확장보다는 안정적인 반복, 건강한 관계, 편안한 생활 기반이 더 중요해져요. 경험을 내려놓는 것이 아니라 더 오래 쓰기 좋은 방식으로 재배치하는 과정이라고 보면 좋아요." }
+        {
+          "kind": "text",
+          "value": "60대 초반의 흐름은 삶의 기준을 새로 정비하고 자신에게 맞는 속도를 되찾는 시기예요. 이전보다 무리한 확장보다는 안정적인 반복, 건강한 관계, 편안한 생활 기반이 더 중요해져요. 경험을 내려놓는 것이 아니라 더 오래 쓰기 좋은 방식으로 재배치하는 과정이라고 보면 좋아요."
+        }
       ],
       "livingTips": [
         "하루 체력 리듬에 맞춰 중요한 일을 배치해 보세요.",
@@ -146,10 +201,21 @@
     {
       "schemaVersion": "spring-ts.narrative-fragment.v1",
       "fragmentId": "overall.life.standard.agephase.late_60s.201",
-      "axis": { "category": "overall", "period": "life", "depth": "standard" },
-      "gating": { "agePhase": ["late_60s"] },
+      "axis": {
+        "category": "overall",
+        "period": "life",
+        "depth": "standard"
+      },
+      "gating": {
+        "agePhase": [
+          "late_60s"
+        ]
+      },
       "templateTokens": [
-        { "kind": "text", "value": "60대 후반의 흐름은 익숙한 기반을 소중히 여기면서도 필요한 변화를 부드럽게 받아들이는 시기예요. 가족, 친구, 생활 공간처럼 가까운 것들이 운의 안정감을 만들어줘요. 도움을 주고받는 일을 자연스럽게 받아들이면 관계의 온기도 더 깊어질 수 있어요." }
+        {
+          "kind": "text",
+          "value": "60대 후반의 흐름은 익숙한 기반을 소중히 여기면서도 필요한 변화를 부드럽게 받아들이는 시기예요. 가족, 친구, 생활 공간처럼 가까운 것들이 운의 안정감을 만들어줘요. 도움을 주고받는 일을 자연스럽게 받아들이면 관계의 온기도 더 깊어질 수 있어요."
+        }
       ],
       "livingTips": [
         "정기적으로 연락할 사람과 도움을 요청할 사람을 구분해 두세요.",
@@ -174,10 +240,21 @@
     {
       "schemaVersion": "spring-ts.narrative-fragment.v1",
       "fragmentId": "overall.life.standard.agephase.70s.201",
-      "axis": { "category": "overall", "period": "life", "depth": "standard" },
-      "gating": { "agePhase": ["70s"] },
+      "axis": {
+        "category": "overall",
+        "period": "life",
+        "depth": "standard"
+      },
+      "gating": {
+        "agePhase": [
+          "70s"
+        ]
+      },
       "templateTokens": [
-        { "kind": "text", "value": "70대의 흐름은 삶의 경험이 주변을 안정시키는 힘으로 드러나는 시기예요. 크게 증명하려 하기보다 편안한 관계, 건강한 루틴, 익숙한 즐거움을 지키는 일이 더 큰 운의 바탕이 될 수 있어요. 지나온 시간을 존중하면서 현재의 몸과 마음에 맞는 속도를 찾는 것이 중요해요." }
+        {
+          "kind": "text",
+          "value": "70대의 흐름은 삶의 경험이 주변을 안정시키는 힘으로 드러나는 시기예요. 크게 증명하려 하기보다 편안한 관계, 건강한 루틴, 익숙한 즐거움을 지키는 일이 더 큰 운의 바탕이 될 수 있어요. 지나온 시간을 존중하면서 현재의 몸과 마음에 맞는 속도를 찾는 것이 중요해요."
+        }
       ],
       "livingTips": [
         "무리 없는 산책, 식사, 수면 리듬을 일정하게 유지해 보세요.",
@@ -202,10 +279,21 @@
     {
       "schemaVersion": "spring-ts.narrative-fragment.v1",
       "fragmentId": "overall.life.standard.agephase.80s.201",
-      "axis": { "category": "overall", "period": "life", "depth": "standard" },
-      "gating": { "agePhase": ["80s"] },
+      "axis": {
+        "category": "overall",
+        "period": "life",
+        "depth": "standard"
+      },
+      "gating": {
+        "agePhase": [
+          "80s"
+        ]
+      },
       "templateTokens": [
-        { "kind": "text", "value": "80대의 흐름은 편안함, 존중, 안정된 돌봄이 삶의 중심이 되기 쉬운 시기예요. 새로운 성취보다 매일의 안전과 작은 기쁨이 운의 체감을 크게 바꿔요. 자신에게 익숙한 리듬을 지키면서도 필요한 도움을 자연스럽게 연결하면 마음이 더 편안해질 수 있어요." }
+        {
+          "kind": "text",
+          "value": "80대의 흐름은 편안함, 존중, 안정된 돌봄이 삶의 중심이 되기 쉬운 시기예요. 새로운 성취보다 매일의 안전과 작은 기쁨이 운의 체감을 크게 바꿔요. 자신에게 익숙한 리듬을 지키면서도 필요한 도움을 자연스럽게 연결하면 마음이 더 편안해질 수 있어요."
+        }
       ],
       "livingTips": [
         "하루 중 가장 편안한 시간에 좋아하는 활동을 작게 남겨두세요.",
@@ -230,10 +318,21 @@
     {
       "schemaVersion": "spring-ts.narrative-fragment.v1",
       "fragmentId": "overall.life.standard.agephase.90_plus.201",
-      "axis": { "category": "overall", "period": "life", "depth": "standard" },
-      "gating": { "agePhase": ["90_plus"] },
+      "axis": {
+        "category": "overall",
+        "period": "life",
+        "depth": "standard"
+      },
+      "gating": {
+        "agePhase": [
+          "90_plus"
+        ]
+      },
       "templateTokens": [
-        { "kind": "text", "value": "90대 이후의 흐름은 삶의 속도를 부드럽게 낮추고 평온한 연결을 지키는 일이 중요해요. 큰 변화보다 익숙한 공간, 안정된 돌봄, 마음이 놓이는 사람들과의 관계가 운의 중심이 될 수 있어요. 하루하루의 편안함을 소중히 여기는 태도가 삶의 깊이를 더해줘요." }
+        {
+          "kind": "text",
+          "value": "90대 이후의 흐름은 삶의 속도를 부드럽게 낮추고 평온한 연결을 지키는 일이 중요해요. 큰 변화보다 익숙한 공간, 안정된 돌봄, 마음이 놓이는 사람들과의 관계가 운의 중심이 될 수 있어요. 하루하루의 편안함을 소중히 여기는 태도가 삶의 깊이를 더해줘요."
+        }
       ],
       "livingTips": [
         "익숙한 물건과 동선을 유지해 안정감을 높여보세요.",
