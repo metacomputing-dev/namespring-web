@@ -168,8 +168,8 @@
         },
         {
           "kind": "tag",
-          "tagId": "baeujagung",
-          "label": "배우자궁"
+          "tagId": "jojangung",
+          "label": "조상궁"
         },
         {
           "kind": "text",
@@ -198,7 +198,7 @@
         "bigyeon",
         "geobjae",
         "bumyong",
-        "baeujagung",
+        "jojangung",
         "hyeongjegung",
         "janyeogung"
       ],
