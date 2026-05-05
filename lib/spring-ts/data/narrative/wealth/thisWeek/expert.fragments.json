@@ -382,25 +382,7 @@
         },
         {
           "kind": "text",
-          "value": "가 들어오는 시기엔 한 박자 늦추는 방식이 좋아요.\n\n"
-        },
-        {
-          "kind": "tag",
-          "tagId": "jaebakgung",
-          "label": "재백궁"
-        },
-        {
-          "kind": "text",
-          "value": "의 결과 "
-        },
-        {
-          "kind": "tag",
-          "tagId": "cheonleulgwiin",
-          "label": "천을귀인"
-        },
-        {
-          "kind": "text",
-          "value": "의 자리가 함께 보이면 도움 받는 흐름이 자기 자산이 되는 사주이니, 작은 도움도 미루지 않는 호흡이 잘 어울려요.\n\n"
+          "value": "가 들어오는 시기엔 한 박자 늦추는 방식이 좋아요.\n\n재백궁의 결과 천을귀인의 자리가 함께 보이면 도움 받는 흐름이 자기 자산이 되는 사주이니, 작은 도움도 미루지 않는 호흡이 잘 어울려요.\n\n"
         },
         {
           "kind": "tag",
@@ -426,8 +408,6 @@
         "yongshin",
         "jeongjae",
         "pyeonjae",
-        "jaebakgung",
-        "cheonleulgwiin",
         "gyeokgukFit",
         "stabilityIndex"
       ],

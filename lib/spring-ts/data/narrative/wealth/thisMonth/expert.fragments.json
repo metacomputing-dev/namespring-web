@@ -382,16 +382,7 @@
         },
         {
           "kind": "text",
-          "value": "가 들어오는 시기엔 한 박자 늦추는 방식이 좋아요.\n\n"
-        },
-        {
-          "kind": "tag",
-          "tagId": "pyeonjaegyeok",
-          "label": "편재격"
-        },
-        {
-          "kind": "text",
-          "value": "의 결이나 "
+          "value": "가 들어오는 시기엔 한 박자 늦추는 방식이 좋아요.\n\n편재격의 결이나 "
         },
         {
           "kind": "tag",
@@ -400,20 +391,7 @@
         },
         {
           "kind": "text",
-          "value": "의 결이 또렷한 사주는 자기 격에 맞는 자산 운영 결이 자연스럽게 자리 잡아요.\n\n"
-        },
-        {
-          "kind": "text",
-          "value": "돈의 흐름은 "
-        },
-        {
-          "kind": "tag",
-          "tagId": "jeongjae",
-          "label": "정재"
-        },
-        {
-          "kind": "text",
-          "value": "의 고정 흐름과 "
+          "value": "의 결이 또렷한 사주는 자기 격에 맞는 자산 운영 결이 자연스럽게 자리 잡아요.\n\n돈의 흐름은 정재의 고정 흐름과 "
         },
         {
           "kind": "tag",
@@ -430,7 +408,6 @@
         "yongshin",
         "jeongjae",
         "pyeonjae",
-        "pyeonjaegyeok",
         "jeongjaegyeok"
       ],
       "aiGenerated": true,

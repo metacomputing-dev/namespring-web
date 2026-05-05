@@ -52,16 +52,7 @@
         },
         {
           "kind": "text",
-          "value": "과 맞는 확장인지 먼저 구분해야 합니다.\n\n"
-        },
-        {
-          "kind": "tag",
-          "tagId": "jaebakgung",
-          "label": "재백궁"
-        },
-        {
-          "kind": "text",
-          "value": "의 결과 "
+          "value": "과 맞는 확장인지 먼저 구분해야 합니다.\n\n재백궁의 결과 "
         },
         {
           "kind": "tag",
@@ -95,7 +86,6 @@
         "pyeonjae",
         "jeongjae",
         "yongshin",
-        "jaebakgung",
         "cheonleulgwiin",
         "gyeokgukFit",
         "stabilityIndex"
@@ -552,20 +542,7 @@
         },
         {
           "kind": "text",
-          "value": "의 결이 또렷한 사주는 자기 격에 맞는 자산 운영 결이 자연스럽게 자리 잡아요.\n\n"
-        },
-        {
-          "kind": "text",
-          "value": "돈의 흐름은 "
-        },
-        {
-          "kind": "tag",
-          "tagId": "jeongjae",
-          "label": "정재"
-        },
-        {
-          "kind": "text",
-          "value": "의 고정 흐름과 "
+          "value": "의 결이 또렷한 사주는 자기 격에 맞는 자산 운영 결이 자연스럽게 자리 잡아요.\n\n돈의 흐름은 정재의 고정 흐름과 "
         },
         {
           "kind": "tag",
@@ -754,16 +731,7 @@
         },
         {
           "kind": "text",
-          "value": "과 맞는 방향만 월간 계획에 남기세요.\n\n"
-        },
-        {
-          "kind": "tag",
-          "tagId": "jaebakgung",
-          "label": "재백궁"
-        },
-        {
-          "kind": "text",
-          "value": "의 결과 "
+          "value": "과 맞는 방향만 월간 계획에 남기세요.\n\n재백궁의 결과 "
         },
         {
           "kind": "tag",
@@ -797,7 +765,6 @@
         "pyeonjae",
         "jeongjae",
         "yongshin",
-        "jaebakgung",
         "cheonleulgwiin",
         "gyeokgukFit",
         "stabilityIndex"
@@ -974,20 +941,7 @@
         },
         {
           "kind": "text",
-          "value": "과 맞는 수입원만 장기화하세요.\n\n"
-        },
-        {
-          "kind": "text",
-          "value": "돈의 흐름은 "
-        },
-        {
-          "kind": "tag",
-          "tagId": "jeongjae",
-          "label": "정재"
-        },
-        {
-          "kind": "text",
-          "value": "의 고정 흐름과 "
+          "value": "과 맞는 수입원만 장기화하세요.\n\n돈의 흐름은 정재의 고정 흐름과 "
         },
         {
           "kind": "tag",
