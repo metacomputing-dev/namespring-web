@@ -42,7 +42,7 @@
         { "kind": "text", "value": "은 탐구와 직관을 보태므로 오늘의 선택은 즉답보다 근거 확인 후 실행하는 편이 안정적이에요." }
       ],
       "livingTips": ["오늘은 말하기 전에 핵심 자료와 반대 근거를 한 번 더 확인하세요."],
-      "cautions": ["성별 분기는 커리어 역할을 고정하는 기준이 아니라 출력 맥락 보존용입니다."],
+      "cautions": ["성별 분기는 커리어 역할 고정 기준이 아닌 출력 맥락 보존용입니다."],
       "tags": ["fire", "yongshin", "pyeoningyeok"],
       "numericalEvidence": [
         { "label": "성별 분류값", "valueExpression": "feature.genderOrdinal", "unit": "ordinal", "sourceTier": { "tier": "T3_INTERNAL_ENGINE", "sourceType": "internal_scoring_policy", "sourceUrl": null, "accessedAt": "2026-05-03", "quoteShort": null, "humanInterpretation": "Resolved from deterministic spring-ts runtime output.", "copyrightNote": "No third-party prose copied.", "authorityTruthEligible": false } },

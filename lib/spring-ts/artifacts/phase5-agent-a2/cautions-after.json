@@ -1,0 +1,20 @@
+{
+  "scope": "data/narrative/_coverage",
+  "generatedAt": "2026-05-05T07:19:03.730Z",
+  "threshold": 30,
+  "summary": {
+    "fileCount": 158,
+    "fragmentCount": 1461,
+    "cautionsCount": 658,
+    "violationCount": 0
+  },
+  "distribution": {
+    "1-20": 27,
+    "21-30": 631,
+    "31-35": 0,
+    "36-40": 0,
+    "41-50": 0,
+    "51+": 0
+  },
+  "violations": []
+}

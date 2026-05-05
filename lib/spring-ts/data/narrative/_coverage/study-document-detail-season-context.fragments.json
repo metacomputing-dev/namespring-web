@@ -272,7 +272,7 @@
         { "kind": "text", "value": "올해는 새 범위를 넓히기보다 공부와 문서를 오래 쓸 수 있게 정리하는 데 힘이 있어요. 중요한 계약, 시험, 기록은 확인 단계를 충분히 두면 안정적인 결과로 이어집니다." }
       ],
       "livingTips": ["올해의 중요한 문서는 저장, 백업, 검토 담당을 분명히 하세요.", "공부 계획은 많이 하기보다 끝까지 반복할 수 있는 양으로 조정하세요."],
-      "cautions": ["준비가 부족한 상태에서 중요한 서류나 시험 일정을 무리하게 앞당기지 마세요."],
+      "cautions": ["준비가 부족할 때 중요한 서류나 시험 일정을 무리해 앞당기지 마세요."],
       "tags": [],
       "aiGenerated": true,
       "sourceTier": { "tier": "T1_HYPOTHESIS", "sourceType": "training_derived", "sourceUrl": null, "accessedAt": "2026-05-03", "quoteShort": null, "humanInterpretation": "Plain study/document yearly standard for autumn/winter current season. AI-derived display text; not authority truth.", "copyrightNote": "No source prose copied; original phrasing.", "authorityTruthEligible": false }
