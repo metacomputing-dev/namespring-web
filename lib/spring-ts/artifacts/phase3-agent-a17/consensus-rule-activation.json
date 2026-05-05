@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-05-05T04:57:30.904Z",
+  "generatedAt": "2026-05-05T05:04:39.855Z",
   "fixtureSources": [
     "spring_ts_baseline_cases",
     "jonggyeok_cases"
@@ -52,7 +52,7 @@
   "guardActivation": {
     "multiCompetingHaircut": 18,
     "thinReinforcementInfo": 0,
-    "aggressiveConflict": 0,
+    "aggressiveConflict": 24,
     "scoreGuardAppliedCount": 24
   },
   "cases": [
@@ -74,7 +74,7 @@
       "safetyStrategy": "aggressive_reinforcement",
       "thinReinforcementInfoFired": false,
       "multiCompetingHaircutFired": false,
-      "aggressiveConflictFired": false,
+      "aggressiveConflictFired": true,
       "yongshinRatio": 1,
       "score": 100
     },
@@ -96,7 +96,7 @@
       "safetyStrategy": "aggressive_reinforcement",
       "thinReinforcementInfoFired": false,
       "multiCompetingHaircutFired": true,
-      "aggressiveConflictFired": false,
+      "aggressiveConflictFired": true,
       "yongshinRatio": 1,
       "score": 100
     },
@@ -118,7 +118,7 @@
       "safetyStrategy": "aggressive_reinforcement",
       "thinReinforcementInfoFired": false,
       "multiCompetingHaircutFired": true,
-      "aggressiveConflictFired": false,
+      "aggressiveConflictFired": true,
       "yongshinRatio": 1,
       "score": 100
     },
@@ -140,9 +140,9 @@
       "safetyStrategy": "aggressive_reinforcement",
       "thinReinforcementInfoFired": false,
       "multiCompetingHaircutFired": true,
-      "aggressiveConflictFired": false,
+      "aggressiveConflictFired": true,
       "yongshinRatio": 1,
-      "score": 85.4
+      "score": 89.05
     },
     {
       "id": "fix-05",
@@ -162,7 +162,7 @@
       "safetyStrategy": "aggressive_reinforcement",
       "thinReinforcementInfoFired": false,
       "multiCompetingHaircutFired": true,
-      "aggressiveConflictFired": false,
+      "aggressiveConflictFired": true,
       "yongshinRatio": 1,
       "score": 100
     },
@@ -184,9 +184,9 @@
       "safetyStrategy": "aggressive_reinforcement",
       "thinReinforcementInfoFired": false,
       "multiCompetingHaircutFired": true,
-      "aggressiveConflictFired": false,
+      "aggressiveConflictFired": true,
       "yongshinRatio": 1,
-      "score": 95
+      "score": 96.25
     },
     {
       "id": "fix-07",
@@ -206,9 +206,9 @@
       "safetyStrategy": "aggressive_reinforcement",
       "thinReinforcementInfoFired": false,
       "multiCompetingHaircutFired": true,
-      "aggressiveConflictFired": false,
+      "aggressiveConflictFired": true,
       "yongshinRatio": 1,
-      "score": 95
+      "score": 96.25
     },
     {
       "id": "fix-08",
@@ -228,7 +228,7 @@
       "safetyStrategy": "aggressive_reinforcement",
       "thinReinforcementInfoFired": false,
       "multiCompetingHaircutFired": true,
-      "aggressiveConflictFired": false,
+      "aggressiveConflictFired": true,
       "yongshinRatio": 1,
       "score": 100
     },
@@ -250,7 +250,7 @@
       "safetyStrategy": "aggressive_reinforcement",
       "thinReinforcementInfoFired": false,
       "multiCompetingHaircutFired": false,
-      "aggressiveConflictFired": false,
+      "aggressiveConflictFired": true,
       "yongshinRatio": 1,
       "score": 100
     },
@@ -272,7 +272,7 @@
       "safetyStrategy": "aggressive_reinforcement",
       "thinReinforcementInfoFired": false,
       "multiCompetingHaircutFired": true,
-      "aggressiveConflictFired": false,
+      "aggressiveConflictFired": true,
       "yongshinRatio": 1,
       "score": 100
     },
@@ -294,9 +294,9 @@
       "safetyStrategy": "aggressive_reinforcement",
       "thinReinforcementInfoFired": false,
       "multiCompetingHaircutFired": true,
-      "aggressiveConflictFired": false,
+      "aggressiveConflictFired": true,
       "yongshinRatio": 1,
-      "score": 99
+      "score": 99.25
     },
     {
       "id": "fix-12",
@@ -316,9 +316,9 @@
       "safetyStrategy": "aggressive_reinforcement",
       "thinReinforcementInfoFired": false,
       "multiCompetingHaircutFired": true,
-      "aggressiveConflictFired": false,
+      "aggressiveConflictFired": true,
       "yongshinRatio": 1,
-      "score": 94.6
+      "score": 95.95
     },
     {
       "id": "fix-13",
@@ -338,7 +338,7 @@
       "safetyStrategy": "aggressive_reinforcement",
       "thinReinforcementInfoFired": false,
       "multiCompetingHaircutFired": true,
-      "aggressiveConflictFired": false,
+      "aggressiveConflictFired": true,
       "yongshinRatio": 1,
       "score": 100
     },
@@ -360,9 +360,9 @@
       "safetyStrategy": "aggressive_reinforcement",
       "thinReinforcementInfoFired": false,
       "multiCompetingHaircutFired": true,
-      "aggressiveConflictFired": false,
+      "aggressiveConflictFired": true,
       "yongshinRatio": 1,
-      "score": 99
+      "score": 99.25
     },
     {
       "id": "fix-15",
@@ -382,7 +382,7 @@
       "safetyStrategy": "aggressive_reinforcement",
       "thinReinforcementInfoFired": false,
       "multiCompetingHaircutFired": false,
-      "aggressiveConflictFired": false,
+      "aggressiveConflictFired": true,
       "yongshinRatio": 1,
       "score": 100
     },
@@ -404,9 +404,9 @@
       "safetyStrategy": "aggressive_reinforcement",
       "thinReinforcementInfoFired": false,
       "multiCompetingHaircutFired": true,
-      "aggressiveConflictFired": false,
+      "aggressiveConflictFired": true,
       "yongshinRatio": 1,
-      "score": 96
+      "score": 97
     },
     {
       "id": "fix-jong-02",
@@ -426,9 +426,9 @@
       "safetyStrategy": "aggressive_reinforcement",
       "thinReinforcementInfoFired": false,
       "multiCompetingHaircutFired": true,
-      "aggressiveConflictFired": false,
+      "aggressiveConflictFired": true,
       "yongshinRatio": 1,
-      "score": 84
+      "score": 88
     },
     {
       "id": "fix-jong-03",
@@ -448,7 +448,7 @@
       "safetyStrategy": "aggressive_reinforcement",
       "thinReinforcementInfoFired": false,
       "multiCompetingHaircutFired": true,
-      "aggressiveConflictFired": false,
+      "aggressiveConflictFired": true,
       "yongshinRatio": 1,
       "score": 100
     },
@@ -470,7 +470,7 @@
       "safetyStrategy": "aggressive_reinforcement",
       "thinReinforcementInfoFired": false,
       "multiCompetingHaircutFired": true,
-      "aggressiveConflictFired": false,
+      "aggressiveConflictFired": true,
       "yongshinRatio": 1,
       "score": 100
     },
@@ -492,7 +492,7 @@
       "safetyStrategy": "aggressive_reinforcement",
       "thinReinforcementInfoFired": false,
       "multiCompetingHaircutFired": false,
-      "aggressiveConflictFired": false,
+      "aggressiveConflictFired": true,
       "yongshinRatio": 1,
       "score": 100
     },
@@ -514,7 +514,7 @@
       "safetyStrategy": "aggressive_reinforcement",
       "thinReinforcementInfoFired": false,
       "multiCompetingHaircutFired": true,
-      "aggressiveConflictFired": false,
+      "aggressiveConflictFired": true,
       "yongshinRatio": 1,
       "score": 100
     },
@@ -536,7 +536,7 @@
       "safetyStrategy": "aggressive_reinforcement",
       "thinReinforcementInfoFired": false,
       "multiCompetingHaircutFired": false,
-      "aggressiveConflictFired": false,
+      "aggressiveConflictFired": true,
       "yongshinRatio": 1,
       "score": 100
     },
@@ -558,7 +558,7 @@
       "safetyStrategy": "aggressive_reinforcement",
       "thinReinforcementInfoFired": false,
       "multiCompetingHaircutFired": false,
-      "aggressiveConflictFired": false,
+      "aggressiveConflictFired": true,
       "yongshinRatio": 1,
       "score": 96.25
     },
@@ -580,9 +580,9 @@
       "safetyStrategy": "aggressive_reinforcement",
       "thinReinforcementInfoFired": false,
       "multiCompetingHaircutFired": true,
-      "aggressiveConflictFired": false,
+      "aggressiveConflictFired": true,
       "yongshinRatio": 1,
-      "score": 99
+      "score": 99.25
     }
   ]
 }
