@@ -1,0 +1,280 @@
+{
+  "count": {
+    "위험": 0,
+    "결이": 0,
+    "시기예요": 0,
+    "할 수 있어요": 4,
+    "수 있어요": 417,
+    "흐름이에요": 0,
+    "한 해예요": 14,
+    "전성기": 0,
+    "큰 계약": 0,
+    "투자": 3,
+    "연애": 0,
+    "결혼": 0,
+    "만남": 0,
+    "의학": 0,
+    "진단": 0,
+    "검진": 0,
+    "장기는": 0,
+    "면역력": 0,
+    "발병": 0,
+    "이에요": 612,
+    "예요": 174,
+    "해요": 393,
+    "좋아요": 396
+  },
+  "detail": {
+    "위험": [],
+    "결이": [],
+    "시기예요": [],
+    "할 수 있어요": [
+      {
+        "path": "09-kim-seongsu-special-format-candidate-tiered.json/strengthsWeaknesses/weaknesses/0/text",
+        "text": "남을 챙기느라 내 에너지를 소모할 수 있어요."
+      },
+      {
+        "path": "09-kim-seongsu-special-format-candidate-tiered.json/strengthsWeaknesses/evidence/0/weakness",
+        "text": "남을 챙기느라 내 에너지를 소모할 수 있어요."
+      },
+      {
+        "path": "16-choi-senior-male-tiered.json/strengthsWeaknesses/weaknesses/0/text",
+        "text": "남을 챙기느라 내 에너지를 소모할 수 있어요."
+      },
+      {
+        "path": "16-choi-senior-male-tiered.json/strengthsWeaknesses/evidence/0/weakness",
+        "text": "남을 챙기느라 내 에너지를 소모할 수 있어요."
+      }
+    ],
+    "수 있어요": [
+      {
+        "path": "01-choi-seongsoo-current-fortune.json/overviewSummary/overallSummary",
+        "text": "계 일간을 중심으로, 물 기운의 이슬비와 직관이 돋보이는 사주예요. 전체 에너지는 신약 수준이고, 쇠 기운은 중요한 보완 후보로 참고하면 좋아요. 부족한 쇠 기운을 일상에서 조금씩 채워가면 삶이 더 안정될 수 있어요."
+      },
+      {
+        "path": "01-choi-seongsoo-current-fortune.json/strengthsWeaknesses/weaknesses/0/text",
+        "text": "상대 감정을 과하게 받아들여 지칠 수 있어요."
+      },
+      {
+        "path": "01-choi-seongsoo-current-fortune.json/strengthsWeaknesses/weaknesses/1/text",
+        "text": "결정을 오래 고민하면 기회를 놓칠 수 있어요."
+      },
+      {
+        "path": "01-choi-seongsoo-current-fortune.json/strengthsWeaknesses/weaknesses/2/text",
+        "text": "안전한 선택만 고르면 확장 기회를 놓칠 수 있어요."
+      },
+      {
+        "path": "01-choi-seongsoo-current-fortune.json/strengthsWeaknesses/weaknesses/3/text",
+        "text": "불 기운이 과하면 에너지 균형이 무너져 컨디션이 떨어질 수 있어요."
+      },
+      {
+        "path": "01-choi-seongsoo-current-fortune.json/strengthsWeaknesses/evidence/0/weakness",
+        "text": "상대 감정을 과하게 받아들여 지칠 수 있어요."
+      },
+      {
+        "path": "01-choi-seongsoo-current-fortune.json/dailyFortune/goodActions/1/reason",
+        "text": "쇠 기운의 색과 방위를 활용하면 자연스럽게 좋은 기운을 끌어올 수 있어요."
+      },
+      {
+        "path": "01-choi-seongsoo-current-fortune.json/dailyFortune/badActions/0/reason",
+        "text": "기신인 불 기운이 강해지면 전체 운세 흐름에 방해가 될 수 있어요."
+      }
+    ],
+    "흐름이에요": [],
+    "한 해예요": [
+      {
+        "path": "04-kim-seoyun-young-female-tiered.json/lifeStageFortune/stages/0/summary",
+        "text": "5세~15세에는 쇠 기운이 크게 도와줘요. 배움과 생활 습관이 자연스럽게 자리잡는 한 해예요."
+      },
+      {
+        "path": "04-kim-seoyun-young-female-tiered.json/lifeStageFortune/stages/1/summary",
+        "text": "15세~25세에는 쇠 기운이 크게 도와줘요. 배움과 생활 습관이 자연스럽게 자리잡는 한 해예요."
+      },
+      {
+        "path": "04-kim-seoyun-young-female-tiered.json/lifeStageFortune/evidence/0/claim",
+        "text": "5세~15세에는 쇠 기운이 크게 도와줘요. 배움과 생활 습관이 자연스럽게 자리잡는 한 해예요."
+      },
+      {
+        "path": "06-lee-hajun-unknown-hour-neutral-tiered.json/lifeStageFortune/stages/0/summary",
+        "text": "6세~16세에는 쇠와 나무 기운이 크게 도와줘요. 배움과 생활 습관이 자연스럽게 자리잡는 한 해예요."
+      },
+      {
+        "path": "06-lee-hajun-unknown-hour-neutral-tiered.json/lifeStageFortune/stages/1/summary",
+        "text": "16세~26세에는 쇠와 나무 기운이 크게 도와줘요. 배움과 생활 습관이 자연스럽게 자리잡는 한 해예요."
+      },
+      {
+        "path": "06-lee-hajun-unknown-hour-neutral-tiered.json/lifeStageFortune/evidence/0/claim",
+        "text": "16세~26세에는 쇠와 나무 기운이 크게 도와줘요. 배움과 생활 습관이 자연스럽게 자리잡는 한 해예요."
+      },
+      {
+        "path": "09-kim-seongsu-special-format-candidate-tiered.json/lifeStageFortune/stages/0/summary",
+        "text": "9세~19세에는 쇠 기운이 크게 도와줘요. 배움과 생활 습관이 자연스럽게 자리잡는 한 해예요."
+      },
+      {
+        "path": "16-choi-senior-male-tiered.json/lifeStageFortune/stages/0/summary",
+        "text": "6세~16세에는 불과 흙 기운이 크게 도와줘요. 배움과 생활 습관이 자연스럽게 자리잡는 한 해예요."
+      }
+    ],
+    "전성기": [],
+    "큰 계약": [],
+    "투자": [
+      {
+        "path": "09-kim-seongsu-special-format-candidate-tiered.json/strengthsWeaknesses/weaknesses/2/text",
+        "text": "지출과 투자 범위가 넓어져 관리가 느슨해질 수 있어요."
+      },
+      {
+        "path": "10-choi-yaza-boundary-male-tiered.json/strengthsWeaknesses/weaknesses/2/text",
+        "text": "지출과 투자 범위가 넓어져 관리가 느슨해질 수 있어요."
+      },
+      {
+        "path": "13-oh-extreme-weak-continuous-tiered.json/strengthsWeaknesses/weaknesses/2/text",
+        "text": "지출과 투자 범위가 넓어져 관리가 느슨해질 수 있어요."
+      }
+    ],
+    "연애": [],
+    "결혼": [],
+    "만남": [],
+    "의학": [],
+    "진단": [],
+    "검진": [],
+    "장기는": [],
+    "면역력": [],
+    "발병": [],
+    "이에요": [
+      {
+        "path": "01-choi-seongsoo-current-fortune.json/overviewSummary/strengthDescription",
+        "text": "에너지 균형은 신약이에요."
+      },
+      {
+        "path": "01-choi-seongsoo-current-fortune.json/overviewSummary/yongshinDescription",
+        "text": "사주의 균형을 맞춰주는 용신 후보는 쇠(금) 기운이에요. 출생 시각이나 판단 축에 따라 보조 기운이 달라질 수 있어 참고 기준으로 보는 것이 좋아요. 희신인 물 기운도 함께 챙기면 더 좋아요."
+      },
+      {
+        "path": "01-choi-seongsoo-current-fortune.json/overviewSummary/elementBalance",
+        "text": "오행 중 나무 기운이 가장 강해요. 쇠 기운은 부족한 편이에요."
+      },
+      {
+        "path": "01-choi-seongsoo-current-fortune.json/overviewSummary/evidence/1/claim",
+        "text": "에너지 균형은 신약이에요."
+      },
+      {
+        "path": "01-choi-seongsoo-current-fortune.json/overviewSummary/evidence/2/claim",
+        "text": "사주의 균형을 맞춰주는 용신 후보는 쇠(금) 기운이에요. 출생 시각이나 판단 축에 따라 보조 기운이 달라질 수 있어 참고 기준으로 보는 것이 좋아요. 희신인 물 기운도 함께 챙기면 더 좋아요. (다만 용신 신뢰도가 낮은 편이라 다른 보조 기운도 함께 "
+      },
+      {
+        "path": "01-choi-seongsoo-current-fortune.json/lifeFortuneOverview/summary",
+        "text": "물 기운을 가진 사주로, 안정적인 기본기를 갖추고 있어요. 에너지 균형은 신약이에요. 쇠 기운은 중요한 보완 후보지만, 다른 보조 기운과 함께 살펴보면 더 안전해요. 부족한 쇠 기운을 생활 속에서 조금씩 보충해 보세요."
+      },
+      {
+        "path": "01-choi-seongsoo-current-fortune.json/lifeFortuneOverview/highlights/0",
+        "text": "일간은 물 기운이에요"
+      },
+      {
+        "path": "01-choi-seongsoo-current-fortune.json/lifeFortuneOverview/highlights/2",
+        "text": "용신 후보는 쇠 기운이에요"
+      }
+    ],
+    "예요": [
+      {
+        "path": "01-choi-seongsoo-current-fortune.json/overviewSummary/dayMasterDescription",
+        "text": "일간은 계예요. 물 기운을 가지고 있고, 물처럼 아래로 흘러 모이는 지혜의 기운이 느껴져요. 이슬비처럼 조용히 스며드는 공감 능력이 있어요."
+      },
+      {
+        "path": "01-choi-seongsoo-current-fortune.json/overviewSummary/overallSummary",
+        "text": "계 일간을 중심으로, 물 기운의 이슬비와 직관이 돋보이는 사주예요. 전체 에너지는 신약 수준이고, 쇠 기운은 중요한 보완 후보로 참고하면 좋아요. 부족한 쇠 기운을 일상에서 조금씩 채워가면 삶이 더 안정될 수 있어요."
+      },
+      {
+        "path": "01-choi-seongsoo-current-fortune.json/overviewSummary/evidence/0/claim",
+        "text": "일간은 계예요. 물 기운을 가지고 있고, 물처럼 아래로 흘러 모이는 지혜의 기운이 느껴져요. 이슬비처럼 조용히 스며드는 공감 능력이 있어요."
+      },
+      {
+        "path": "01-choi-seongsoo-current-fortune.json/lifeFortuneOverview/highlights/1",
+        "text": "에너지 균형은 신약 상태예요"
+      },
+      {
+        "path": "01-choi-seongsoo-current-fortune.json/personality/traits/4/description",
+        "text": "내 기운과 같은 힘이 중심이 되는 구조예요."
+      },
+      {
+        "path": "01-choi-seongsoo-current-fortune.json/dailyFortune/evidence/0/claim",
+        "text": "이 시기 천간 흙, 지지 나무의 흐름을 함께 살핀 결과예요."
+      },
+      {
+        "path": "01-choi-seongsoo-current-fortune.json/weeklyFortune/evidence/0/claim",
+        "text": "이 시기 천간 나무, 지지 나무의 흐름을 함께 살핀 결과예요."
+      },
+      {
+        "path": "01-choi-seongsoo-current-fortune.json/monthlyFortune/evidence/0/claim",
+        "text": "이 시기 천간 물, 지지 흙의 흐름을 함께 살핀 결과예요."
+      }
+    ],
+    "해요": [
+      {
+        "path": "01-choi-seongsoo-current-fortune.json/overviewSummary/elementBalance",
+        "text": "오행 중 나무 기운이 가장 강해요. 쇠 기운은 부족한 편이에요."
+      },
+      {
+        "path": "01-choi-seongsoo-current-fortune.json/overviewSummary/evidence/2/weakness",
+        "text": "용신 신뢰도가 낮은 편이라 차트에 따라 조후·통관 같은 보조 해석도 함께 보는 것이 안전해요."
+      },
+      {
+        "path": "01-choi-seongsoo-current-fortune.json/overviewSummary/evidence/4/claim",
+        "text": "격국 후보 간 이견이 있어 선택 격국은 보조 후보와 함께 보는 것이 안전해요."
+      },
+      {
+        "path": "01-choi-seongsoo-current-fortune.json/lifeFortuneOverview/summary",
+        "text": "물 기운을 가진 사주로, 안정적인 기본기를 갖추고 있어요. 에너지 균형은 신약이에요. 쇠 기운은 중요한 보완 후보지만, 다른 보조 기운과 함께 살펴보면 더 안전해요. 부족한 쇠 기운을 생활 속에서 조금씩 보충해 보세요."
+      },
+      {
+        "path": "01-choi-seongsoo-current-fortune.json/lifeFortuneOverview/highlights/3",
+        "text": "쇠 기운이 부족해요"
+      },
+      {
+        "path": "01-choi-seongsoo-current-fortune.json/lifeFortuneOverview/evidence/0/weakness",
+        "text": "용신 신뢰도가 낮은 편이라 조후·통관 같은 보조 해석을 함께 살펴보면 더 안전해요."
+      },
+      {
+        "path": "01-choi-seongsoo-current-fortune.json/personality/traits/5/description",
+        "text": "독립심이 강하고 자기 기준이 뚜렷해요."
+      },
+      {
+        "path": "01-choi-seongsoo-current-fortune.json/strengthsWeaknesses/strengths/0/text",
+        "text": "관계 회복과 감정 케어에서 큰 힘을 발휘해요."
+      }
+    ],
+    "좋아요": [
+      {
+        "path": "01-choi-seongsoo-current-fortune.json/overviewSummary/yongshinDescription",
+        "text": "사주의 균형을 맞춰주는 용신 후보는 쇠(금) 기운이에요. 출생 시각이나 판단 축에 따라 보조 기운이 달라질 수 있어 참고 기준으로 보는 것이 좋아요. 희신인 물 기운도 함께 챙기면 더 좋아요."
+      },
+      {
+        "path": "01-choi-seongsoo-current-fortune.json/overviewSummary/overallSummary",
+        "text": "계 일간을 중심으로, 물 기운의 이슬비와 직관이 돋보이는 사주예요. 전체 에너지는 신약 수준이고, 쇠 기운은 중요한 보완 후보로 참고하면 좋아요. 부족한 쇠 기운을 일상에서 조금씩 채워가면 삶이 더 안정될 수 있어요."
+      },
+      {
+        "path": "01-choi-seongsoo-current-fortune.json/overviewSummary/evidence/2/claim",
+        "text": "사주의 균형을 맞춰주는 용신 후보는 쇠(금) 기운이에요. 출생 시각이나 판단 축에 따라 보조 기운이 달라질 수 있어 참고 기준으로 보는 것이 좋아요. 희신인 물 기운도 함께 챙기면 더 좋아요. (다만 용신 신뢰도가 낮은 편이라 다른 보조 기운도 함께 "
+      },
+      {
+        "path": "01-choi-seongsoo-current-fortune.json/overviewSummary/counterexamples/0/revisedClaim",
+        "text": "용신을 쇠로 단정하기보다, 조후·통관 후보를 함께 살펴보면 좋아요."
+      },
+      {
+        "path": "01-choi-seongsoo-current-fortune.json/overviewSummary/counterexamples/1/revisedClaim",
+        "text": "시진 변경 시 격국·용신 후보가 달라질 수 있어, 두 가지 가능성을 함께 살펴보면 좋아요."
+      },
+      {
+        "path": "01-choi-seongsoo-current-fortune.json/personality/traits/1/description",
+        "text": "감정과 분위기를 빠르게 읽는 직관이 좋아요."
+      },
+      {
+        "path": "01-choi-seongsoo-current-fortune.json/personality/summary",
+        "text": "계 일간의 물 기운을 바탕으로 이슬비, 직관의 성향이 두드러져요. 십성 분포에서는 식상 계열이 강해서, 이 영역의 재능을 잘 살려보면 좋아요. 격국은 비견격으로, 비겁 계열의 삶의 패턴이 자연스럽게 드러나요."
+      },
+      {
+        "path": "01-choi-seongsoo-current-fortune.json/dailyFortune/summary",
+        "text": "오늘은 흙과 나무 기운이 보통 수준으로 흘러요. 무리하지 않고 꾸준히 해나가면 좋아요."
+      }
+    ]
+  }
+}
