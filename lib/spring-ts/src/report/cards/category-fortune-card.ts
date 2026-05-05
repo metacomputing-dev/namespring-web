@@ -313,12 +313,12 @@ function makeCategorySummary(
     return `올해 ${title}은 좋은 편이에요. ${support} ${GOOD_SUFFIX[category]}`;
   }
   if (stars >= 3) {
-    return `올해 ${title}은 평이한 흐름이에요. ${MID_BODY[category]}`;
+    return `올해 ${title}은 큰 굴곡 없는 한 해예요. ${MID_BODY[category]}`;
   }
   if (stars >= 2) {
-    return `올해 ${title}은 다소 조심이 필요한 흐름이에요. ${LOW_BODY[category]}`;
+    return `올해 ${title}은 살짝 조심이 필요해요. ${LOW_BODY[category]}`;
   }
-  return `올해 ${title}은 부담이 큰 흐름이에요. ${HARD_BODY[category]}`;
+  return `올해 ${title}은 부담이 큰 한 해예요. ${HARD_BODY[category]}`;
 }
 
 // ---------------------------------------------------------------------------
@@ -340,11 +340,11 @@ function makeWealthAdvice(
   if (stars >= 4) {
     advice.push(isMinor
       ? {
-          text: '용돈, 저축, 필요한 물건을 구분해 보는 습관을 만들기 좋은 시기예요.',
+          text: '용돈, 저축, 필요한 물건을 구분해 보는 습관을 만들기 좋아요.',
           reason: '돈 관리가 부드러울 때 작은 기록 습관을 만들면 생활 감각이 좋아져요.',
         }
       : {
-          text: '새로운 투자나 사업 기회를 검토해 보기 좋은 시기예요.',
+          text: '새로운 투자나 사업 기회를 검토해 보기 좋은 흐름이에요.',
           reason: '재성 기운이 잘 흐르고 있어서 재물 관련 행동이 좋은 결과로 이어지기 쉬워요.',
         });
     advice.push({
@@ -384,7 +384,7 @@ function makeHealthAdvice(
   if (stars >= 4) {
     advice.push({
       text: '컨디션이 안정적인 편이에요. 꾸준한 운동과 휴식 루틴을 유지하면 더욱 좋아요.',
-      reason: '인성 기운이 잘 흐르면 생활 리듬을 지키는 힘이 좋아지는 시기예요.',
+      reason: '인성 기운이 잘 흐르면 생활 리듬을 지키는 힘이 자연스럽게 좋아져요.',
     });
   } else {
     advice.push({
@@ -427,7 +427,7 @@ function makeAcademicAdvice(stars: StarRating, dayMasterEl: ElementCode): Fortun
 
   if (stars >= 4) {
     advice.push({
-      text: '학습 효율이 높은 시기예요. 새로운 분야에 도전하거나 자격증 준비를 시작해 보세요.',
+      text: '학습 효율이 잘 올라가는 한 해예요. 새로운 분야에 도전하거나 자격증 준비를 시작해 보세요.',
       reason: '식상과 인성 기운이 좋으면 이해력과 표현력이 함께 올라가요.',
     });
     advice.push({
@@ -461,7 +461,7 @@ function makeRomanceAdvice(
   if (stars >= 4) {
     if (isMinor) {
       advice.push({
-        text: '친구나 또래와 함께하는 활동에서 좋은 호흡을 만들기 쉬운 시기예요.',
+        text: '친구나 또래와 함께하는 활동에서 좋은 호흡을 만들기 쉬워요.',
         reason: '관계 기운이 부드러워 협동, 대화, 모임 참여가 자연스럽게 이어질 수 있어요.',
       });
       advice.push({
@@ -470,7 +470,7 @@ function makeRomanceAdvice(
       });
     } else {
       advice.push({
-        text: '새로운 만남이나 인연이 자연스럽게 들어오기 좋은 시기예요. 모임에 적극 참여해 보세요.',
+        text: '새로운 만남이나 인연이 자연스럽게 들어오기 좋은 흐름이에요. 모임에 적극 참여해 보세요.',
         reason: '재성/관성 기운이 잘 흘러 대인 매력과 인연운이 높아져 있어요.',
       });
       advice.push({
@@ -504,7 +504,7 @@ function makeFamilyAdvice(stars: StarRating, dayMasterEl: ElementCode): FortuneA
 
   if (stars >= 4) {
     advice.push({
-      text: '가족과의 소통이 자연스럽게 잘 되는 시기예요. 함께하는 시간을 의도적으로 만들어 보세요.',
+      text: '가족과의 소통이 자연스럽게 잘 풀리는 한 해예요. 함께하는 시간을 의도적으로 만들어 보세요.',
       reason: '인성과 비겁 기운이 좋으면 가족 간 유대와 지지가 강해져요.',
     });
     advice.push({
@@ -557,7 +557,7 @@ function makeCaution(
         : `${fortuneKo} 기운이 ${catKo} 기운(재성)을 압박해 큰 지출이 부담으로 돌아오기 쉬워요.`,
     },
     health: {
-      signal: '컨디션 관리에 평소보다 신경을 더 써야 하는 흐름이에요.',
+      signal: '컨디션 관리에 평소보다 신경을 조금 더 써야 해요.',
       response: '과로를 피하고 수면, 식사, 휴식 리듬을 함께 챙겨 주세요.',
       reason: '인성 기운이 약하면 생활 리듬을 회복하는 데 평소보다 시간이 걸려요.',
     },
@@ -578,7 +578,7 @@ function makeCaution(
         : '재성/관성 기운이 약하면 인연의 타이밍이 어긋나기 쉬워요.',
     },
     family: {
-      signal: '가족 사이에 작은 마찰이 살짝 늘어나는 흐름이에요.',
+      signal: '가족 사이에 작은 마찰이 살짝 늘어날 수 있어요.',
       response: '충고보다 경청을 우선하고, 감정이 올라오면 잠시 자리를 비우세요.',
       reason: '비겁과 인성 기운이 약하면 가까운 사이일수록 사소한 일에 부딪히기 쉬워요.',
     },
