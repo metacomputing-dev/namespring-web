@@ -6,10 +6,21 @@
     {
       "schemaVersion": "spring-ts.narrative-fragment.v1",
       "fragmentId": "overall.life.brief.birthseason.spring.201",
-      "axis": { "category": "overall", "period": "life", "depth": "brief" },
-      "gating": { "birthSeason": ["spring"] },
+      "axis": {
+        "category": "overall",
+        "period": "life",
+        "depth": "brief"
+      },
+      "gating": {
+        "birthSeason": [
+          "spring"
+        ]
+      },
       "templateTokens": [
-        { "kind": "text", "value": "봄에 태어난 흐름은 새로 배우고 자라나는 힘을 바탕으로 삶을 넓혀가요." }
+        {
+          "kind": "text",
+          "value": "봄에 태어난 흐름은 새로 배우고 자라나는 힘을 바탕으로 삶을 넓요."
+        }
       ],
       "tags": [],
       "aiGenerated": true,
@@ -27,10 +38,21 @@
     {
       "schemaVersion": "spring-ts.narrative-fragment.v1",
       "fragmentId": "overall.life.standard.birthseason.spring.201",
-      "axis": { "category": "overall", "period": "life", "depth": "standard" },
-      "gating": { "birthSeason": ["spring"] },
+      "axis": {
+        "category": "overall",
+        "period": "life",
+        "depth": "standard"
+      },
+      "gating": {
+        "birthSeason": [
+          "spring"
+        ]
+      },
       "templateTokens": [
-        { "kind": "text", "value": "봄에 태어난 흐름은 시작, 성장, 관계 확장의 감각이 비교적 잘 살아납니다. 새로운 환경에 적응하고 가능성을 키우는 힘이 장점이지만, 방향을 너무 자주 바꾸면 에너지가 흩어질 수 있어요. 배우고 넓히되 한 가지는 꾸준히 이어가는 방식이 삶의 중심을 잡아줍니다." }
+        {
+          "kind": "text",
+          "value": "봄에 태어난 흐름은 시작, 성장, 관계 확장의 감각이 비교적 잘 살아납니다. 새로운 환경에 적응하고 가능성을 키우는 힘이 장점이지만, 방향을 너무 자주 바꾸면 에너지가 흩어질 수 있어요. 배우고 넓히되 한 가지는 꾸준히 이어가는 방식이 삶의 중심을 잡아줍니다."
+        }
       ],
       "livingTips": [
         "새로운 배움이나 관계를 시작하되, 한 달 이상 이어갈 작은 루틴을 함께 정해 보세요.",
@@ -55,10 +77,21 @@
     {
       "schemaVersion": "spring-ts.narrative-fragment.v1",
       "fragmentId": "overall.life.brief.birthseason.summer.201",
-      "axis": { "category": "overall", "period": "life", "depth": "brief" },
-      "gating": { "birthSeason": ["summer"] },
+      "axis": {
+        "category": "overall",
+        "period": "life",
+        "depth": "brief"
+      },
+      "gating": {
+        "birthSeason": [
+          "summer"
+        ]
+      },
       "templateTokens": [
-        { "kind": "text", "value": "여름에 태어난 흐름은 표현, 열정, 추진력이 바깥으로 잘 드러나는 편이에요." }
+        {
+          "kind": "text",
+          "value": "여름에 태어난 흐름은 표현, 열정, 추진력이 바깥으로 잘 드러나는요."
+        }
       ],
       "tags": [],
       "aiGenerated": true,
@@ -76,10 +109,21 @@
     {
       "schemaVersion": "spring-ts.narrative-fragment.v1",
       "fragmentId": "overall.life.standard.birthseason.summer.201",
-      "axis": { "category": "overall", "period": "life", "depth": "standard" },
-      "gating": { "birthSeason": ["summer"] },
+      "axis": {
+        "category": "overall",
+        "period": "life",
+        "depth": "standard"
+      },
+      "gating": {
+        "birthSeason": [
+          "summer"
+        ]
+      },
       "templateTokens": [
-        { "kind": "text", "value": "여름에 태어난 흐름은 감정과 의지가 비교적 선명하게 드러나고, 사람들 앞에서 힘을 얻기 쉽습니다. 추진력이 장점이지만 속도가 빨라질수록 피로와 과열도 함께 커질 수 있어요. 밝게 표현하고 적극적으로 움직이되, 쉬는 시간을 계획 안에 먼저 넣어두면 장점이 더 오래 갑니다." }
+        {
+          "kind": "text",
+          "value": "여름에 태어난 흐름은 감정과 의지가 비교적 선명하게 드러나고, 사람들 앞에서 힘을 얻기 쉽습니다. 추진력이 장점이지만 속도가 빨라질수록 피로와 과열도 함께 커질 수 있어요. 밝게 표현하고 적극적으로 움직이되, 쉬는 시간을 계획 안에 먼저 넣어두면 장점이 더 오래 갑니다."
+        }
       ],
       "livingTips": [
         "중요한 일정 전후로 회복 시간을 미리 배치해 보세요.",
@@ -104,10 +148,21 @@
     {
       "schemaVersion": "spring-ts.narrative-fragment.v1",
       "fragmentId": "overall.life.brief.birthseason.autumn.201",
-      "axis": { "category": "overall", "period": "life", "depth": "brief" },
-      "gating": { "birthSeason": ["autumn"] },
+      "axis": {
+        "category": "overall",
+        "period": "life",
+        "depth": "brief"
+      },
+      "gating": {
+        "birthSeason": [
+          "autumn"
+        ]
+      },
       "templateTokens": [
-        { "kind": "text", "value": "가을에 태어난 흐름은 정리, 판단, 기준을 세우는 감각이 잘 살아나요." }
+        {
+          "kind": "text",
+          "value": "가을에 태어난 흐름은 정리, 판단, 기준을 세우는 감각이 잘 살아나요."
+        }
       ],
       "tags": [],
       "aiGenerated": true,
@@ -125,10 +180,21 @@
     {
       "schemaVersion": "spring-ts.narrative-fragment.v1",
       "fragmentId": "overall.life.standard.birthseason.autumn.201",
-      "axis": { "category": "overall", "period": "life", "depth": "standard" },
-      "gating": { "birthSeason": ["autumn"] },
+      "axis": {
+        "category": "overall",
+        "period": "life",
+        "depth": "standard"
+      },
+      "gating": {
+        "birthSeason": [
+          "autumn"
+        ]
+      },
       "templateTokens": [
-        { "kind": "text", "value": "가을에 태어난 흐름은 복잡한 상황을 정리하고 필요한 것을 고르는 감각이 강점으로 나타납니다. 기준이 분명해질수록 삶이 안정되지만, 스스로에게도 주변에게도 너무 엄격해지면 관계의 여유가 줄어들 수 있어요. 원칙과 따뜻한 설명을 함께 가져가면 판단력이 더 좋은 방향으로 쓰입니다." }
+        {
+          "kind": "text",
+          "value": "가을에 태어난 흐름은 복잡한 상황을 정리하고 필요한 것을 고르는 감각이 강점으로 나타납니다. 기준이 분명해질수록 삶이 안정되지만, 스스로에게도 주변에게도 너무 엄격해지면 관계의 여유가 줄어들 수 있어요. 원칙과 따뜻한 설명을 함께 가져가면 판단력이 더 좋은 방향으로 쓰입니다."
+        }
       ],
       "livingTips": [
         "해야 할 일을 줄이고 남길 일과 덜어낼 일을 구분해 보세요.",
@@ -153,10 +219,21 @@
     {
       "schemaVersion": "spring-ts.narrative-fragment.v1",
       "fragmentId": "overall.life.brief.birthseason.winter.201",
-      "axis": { "category": "overall", "period": "life", "depth": "brief" },
-      "gating": { "birthSeason": ["winter"] },
+      "axis": {
+        "category": "overall",
+        "period": "life",
+        "depth": "brief"
+      },
+      "gating": {
+        "birthSeason": [
+          "winter"
+        ]
+      },
       "templateTokens": [
-        { "kind": "text", "value": "겨울에 태어난 흐름은 깊이 생각하고 준비하는 힘이 삶의 바탕이 돼요." }
+        {
+          "kind": "text",
+          "value": "겨울에 태어난 흐름은 깊이 생각하고 준비하는 힘이 삶의 바탕이 돼요."
+        }
       ],
       "tags": [],
       "aiGenerated": true,
@@ -174,10 +251,21 @@
     {
       "schemaVersion": "spring-ts.narrative-fragment.v1",
       "fragmentId": "overall.life.standard.birthseason.winter.201",
-      "axis": { "category": "overall", "period": "life", "depth": "standard" },
-      "gating": { "birthSeason": ["winter"] },
+      "axis": {
+        "category": "overall",
+        "period": "life",
+        "depth": "standard"
+      },
+      "gating": {
+        "birthSeason": [
+          "winter"
+        ]
+      },
       "templateTokens": [
-        { "kind": "text", "value": "겨울에 태어난 흐름은 조용히 관찰하고 깊게 준비하는 힘이 두드러집니다. 빠른 결정보다 자료를 모으고 때를 기다리는 방식이 잘 맞지만, 생각이 길어지면 실행 타이밍이 늦어질 수 있어요. 충분히 살핀 뒤에는 작게라도 움직여서 현실의 반응을 확인하는 것이 중요합니다." }
+        {
+          "kind": "text",
+          "value": "겨울에 태어난 흐름은 조용히 관찰하고 깊게 준비하는 힘이 두드러집니다. 빠른 결정보다 자료를 모으고 때를 기다리는 방식이 잘 맞지만, 생각이 길어지면 실행 타이밍이 늦어질 수 있어요. 충분히 살핀 뒤에는 작게라도 움직여서 현실의 반응을 확인하는 것이 중요합니다."
+        }
       ],
       "livingTips": [
         "고민이 길어지는 일은 오늘 할 수 있는 작은 행동 하나로 나눠 보세요.",

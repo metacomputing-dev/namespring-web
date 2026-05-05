@@ -6,10 +6,22 @@
     {
       "schemaVersion": "spring-ts.narrative-fragment.v1",
       "fragmentId": "study_document.life.brief.ageband.young.401",
-      "axis": { "category": "study_document", "period": "life", "depth": "brief" },
-      "gating": { "ageBand": ["10-19", "20-29"] },
+      "axis": {
+        "category": "study_document",
+        "period": "life",
+        "depth": "brief"
+      },
+      "gating": {
+        "ageBand": [
+          "10-19",
+          "20-29"
+        ]
+      },
       "templateTokens": [
-        { "kind": "text", "value": "공부와 기록을 차근차근 쌓을수록 기회가 넓어지는 흐름이에요." }
+        {
+          "kind": "text",
+          "value": "공부와 기록을 차근차근 쌓을수록 기회가 넓어지는 흐름이에요."
+        }
       ],
       "tags": [],
       "aiGenerated": true,
@@ -27,10 +39,24 @@
     {
       "schemaVersion": "spring-ts.narrative-fragment.v1",
       "fragmentId": "study_document.life.brief.ageband.mature.401",
-      "axis": { "category": "study_document", "period": "life", "depth": "brief" },
-      "gating": { "ageBand": ["30-39", "40-54", "55-69", "70+"] },
+      "axis": {
+        "category": "study_document",
+        "period": "life",
+        "depth": "brief"
+      },
+      "gating": {
+        "ageBand": [
+          "30-39",
+          "40-54",
+          "55-69",
+          "70+"
+        ]
+      },
       "templateTokens": [
-        { "kind": "text", "value": "자격, 계약, 증빙을 꼼꼼히 남길수록 생활의 기반이 단단해져요." }
+        {
+          "kind": "text",
+          "value": "자격, 계약, 증빙을 꼼꼼히 남길수록 생활의 기반이 단단해져요."
+        }
       ],
       "tags": [],
       "aiGenerated": true,
@@ -48,10 +74,22 @@
     {
       "schemaVersion": "spring-ts.narrative-fragment.v1",
       "fragmentId": "study_document.today.brief.ageband.young.401",
-      "axis": { "category": "study_document", "period": "today", "depth": "brief" },
-      "gating": { "ageBand": ["10-19", "20-29"] },
+      "axis": {
+        "category": "study_document",
+        "period": "today",
+        "depth": "brief"
+      },
+      "gating": {
+        "ageBand": [
+          "10-19",
+          "20-29"
+        ]
+      },
       "templateTokens": [
-        { "kind": "text", "value": "오늘은 제출물이나 공부 계획을 한 번 더 확인하면 실수를 줄일 수 있어요." }
+        {
+          "kind": "text",
+          "value": "오늘은 제출물이나 공부 계획을 한 번 더 확인하면 실수를 줄일 수요."
+        }
       ],
       "tags": [],
       "aiGenerated": true,
@@ -69,10 +107,24 @@
     {
       "schemaVersion": "spring-ts.narrative-fragment.v1",
       "fragmentId": "study_document.today.brief.ageband.mature.401",
-      "axis": { "category": "study_document", "period": "today", "depth": "brief" },
-      "gating": { "ageBand": ["30-39", "40-54", "55-69", "70+"] },
+      "axis": {
+        "category": "study_document",
+        "period": "today",
+        "depth": "brief"
+      },
+      "gating": {
+        "ageBand": [
+          "30-39",
+          "40-54",
+          "55-69",
+          "70+"
+        ]
+      },
       "templateTokens": [
-        { "kind": "text", "value": "오늘은 계약, 신청서, 증빙 자료의 날짜와 금액을 다시 보는 편이 좋아요." }
+        {
+          "kind": "text",
+          "value": "오늘은 계약, 신청서, 증빙 자료의 날짜와 금액을 다시 보는 편이 좋아요."
+        }
       ],
       "tags": [],
       "aiGenerated": true,
@@ -90,10 +142,22 @@
     {
       "schemaVersion": "spring-ts.narrative-fragment.v1",
       "fragmentId": "study_document.thisWeek.brief.ageband.young.401",
-      "axis": { "category": "study_document", "period": "thisWeek", "depth": "brief" },
-      "gating": { "ageBand": ["10-19", "20-29"] },
+      "axis": {
+        "category": "study_document",
+        "period": "thisWeek",
+        "depth": "brief"
+      },
+      "gating": {
+        "ageBand": [
+          "10-19",
+          "20-29"
+        ]
+      },
       "templateTokens": [
-        { "kind": "text", "value": "이번 주는 공부 자료를 정리해 두면 다음 단계가 훨씬 수월해져요." }
+        {
+          "kind": "text",
+          "value": "이번 주는 공부 자료를 정리해 두면 다음 단계가 훨씬 수월해져요."
+        }
       ],
       "tags": [],
       "aiGenerated": true,
@@ -111,10 +175,24 @@
     {
       "schemaVersion": "spring-ts.narrative-fragment.v1",
       "fragmentId": "study_document.thisWeek.brief.ageband.mature.401",
-      "axis": { "category": "study_document", "period": "thisWeek", "depth": "brief" },
-      "gating": { "ageBand": ["30-39", "40-54", "55-69", "70+"] },
+      "axis": {
+        "category": "study_document",
+        "period": "thisWeek",
+        "depth": "brief"
+      },
+      "gating": {
+        "ageBand": [
+          "30-39",
+          "40-54",
+          "55-69",
+          "70+"
+        ]
+      },
       "templateTokens": [
-        { "kind": "text", "value": "이번 주는 미뤄둔 서류를 정리하고 필요한 증빙을 한곳에 모아두세요." }
+        {
+          "kind": "text",
+          "value": "이번 주는 미뤄둔 서류를 정리하고 필요한 증빙을 한곳에 모아두세요."
+        }
       ],
       "tags": [],
       "aiGenerated": true,
@@ -132,10 +210,22 @@
     {
       "schemaVersion": "spring-ts.narrative-fragment.v1",
       "fragmentId": "study_document.thisMonth.brief.ageband.young.401",
-      "axis": { "category": "study_document", "period": "thisMonth", "depth": "brief" },
-      "gating": { "ageBand": ["10-19", "20-29"] },
+      "axis": {
+        "category": "study_document",
+        "period": "thisMonth",
+        "depth": "brief"
+      },
+      "gating": {
+        "ageBand": [
+          "10-19",
+          "20-29"
+        ]
+      },
       "templateTokens": [
-        { "kind": "text", "value": "이번 달은 시험, 신청, 제출 일정을 미리 나누면 부담이 줄어들어요." }
+        {
+          "kind": "text",
+          "value": "이번 달은 시험, 신청, 제출 일정을 미리 나누면 부담이 줄어들어요."
+        }
       ],
       "tags": [],
       "aiGenerated": true,
@@ -153,10 +243,24 @@
     {
       "schemaVersion": "spring-ts.narrative-fragment.v1",
       "fragmentId": "study_document.thisMonth.brief.ageband.mature.401",
-      "axis": { "category": "study_document", "period": "thisMonth", "depth": "brief" },
-      "gating": { "ageBand": ["30-39", "40-54", "55-69", "70+"] },
+      "axis": {
+        "category": "study_document",
+        "period": "thisMonth",
+        "depth": "brief"
+      },
+      "gating": {
+        "ageBand": [
+          "30-39",
+          "40-54",
+          "55-69",
+          "70+"
+        ]
+      },
       "templateTokens": [
-        { "kind": "text", "value": "이번 달은 중요한 문서의 보관 위치와 갱신 날짜를 정리하기 좋아요." }
+        {
+          "kind": "text",
+          "value": "이번 달은 중요한 문서의 보관 위치와 갱신 날짜를 정리하기 좋아요."
+        }
       ],
       "tags": [],
       "aiGenerated": true,
@@ -174,10 +278,24 @@
     {
       "schemaVersion": "spring-ts.narrative-fragment.v1",
       "fragmentId": "study_document.thisYear.brief.ageband.mature.401",
-      "axis": { "category": "study_document", "period": "thisYear", "depth": "brief" },
-      "gating": { "ageBand": ["30-39", "40-54", "55-69", "70+"] },
+      "axis": {
+        "category": "study_document",
+        "period": "thisYear",
+        "depth": "brief"
+      },
+      "gating": {
+        "ageBand": [
+          "30-39",
+          "40-54",
+          "55-69",
+          "70+"
+        ]
+      },
       "templateTokens": [
-        { "kind": "text", "value": "올해는 자격, 계약, 기록을 체계적으로 관리할수록 중요한 기회를 놓치지 않아요." }
+        {
+          "kind": "text",
+          "value": "올해는 자격, 계약, 기록을 체계적으로 관리할수록 중요한 기회를요."
+        }
       ],
       "tags": [],
       "aiGenerated": true,

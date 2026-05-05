@@ -19,7 +19,7 @@
       "templateTokens": [
         {
           "kind": "text",
-          "value": "성별 분기를 강하게 적용하지 않고, 사주의 핵심 구조와 생활 흐름을 중심으로 해석해요."
+          "value": "성별 분기를 강하게 적용하지 않고, 사주의 핵심 구조와 생활 흐름요."
         }
       ],
       "tags": [],
@@ -127,7 +127,11 @@
       "cautions": [
         "중립 분기에서 전통적 성 역할 문장을 그대로 끌어오면 사용자 맥락과 맞지 않을 수 있어요."
       ],
-      "tags": ["sajuCompatibility", "eumyangHarmony", "stabilityIndex"],
+      "tags": [
+        "sajuCompatibility",
+        "eumyangHarmony",
+        "stabilityIndex"
+      ],
       "numericalEvidence": [
         {
           "label": "성별 분기 순번",
@@ -188,7 +192,7 @@
       "templateTokens": [
         {
           "kind": "text",
-          "value": "오늘의 조언은 성별 역할보다 컨디션, 선택 패턴, 대화 방식에 맞춰 적용하는 편이 좋아요."
+          "value": "오늘의 조언은 성별 역할보다 컨디션, 선택 패턴, 대화 방식에 맞춰요."
         }
       ],
       "tags": [],

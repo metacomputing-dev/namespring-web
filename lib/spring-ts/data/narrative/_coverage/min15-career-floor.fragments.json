@@ -6,10 +6,23 @@
     {
       "schemaVersion": "spring-ts.narrative-fragment.v1",
       "fragmentId": "career.today.standard.priority.504",
-      "axis": { "category": "career", "period": "today", "depth": "standard" },
-      "gating": { "dayMasterElement": ["WOOD", "FIRE", "EARTH"] },
+      "axis": {
+        "category": "career",
+        "period": "today",
+        "depth": "standard"
+      },
+      "gating": {
+        "dayMasterElement": [
+          "WOOD",
+          "FIRE",
+          "EARTH"
+        ]
+      },
       "templateTokens": [
-        { "kind": "text", "value": "오늘 일은 먼저 해야 할 것과 나중에 해도 되는 것을 나누면 좋아요. 급한 요청이 들어와도 기준을 세워두면 흔들림이 줄고, 중요한 일에 시간을 더 잘 쓸 수 있습니다." }
+        {
+          "kind": "text",
+          "value": "오늘 일은 먼저 해야 할 것과 나중에 해도 되는 것을 나누면 좋아요. 급한 요청이 들어와도 기준을 세워두면 흔들림이 줄고, 중요한 일에 시간을 더 잘 쓸 수 있습니다."
+        }
       ],
       "livingTips": [
         "오늘 끝낼 일 세 가지를 먼저 적어보세요.",
@@ -34,10 +47,22 @@
     {
       "schemaVersion": "spring-ts.narrative-fragment.v1",
       "fragmentId": "career.thisWeek.brief.finish.504",
-      "axis": { "category": "career", "period": "thisWeek", "depth": "brief" },
-      "gating": { "currentSeason": ["spring", "summer"] },
+      "axis": {
+        "category": "career",
+        "period": "thisWeek",
+        "depth": "brief"
+      },
+      "gating": {
+        "currentSeason": [
+          "spring",
+          "summer"
+        ]
+      },
       "templateTokens": [
-        { "kind": "text", "value": "이번 주는 새 일을 늘리기보다 끝낼 수 있는 일부터 마무리하면 좋아요." }
+        {
+          "kind": "text",
+          "value": "이번 주는 새 일을 늘리기보다 끝낼 수 있는 일부터 마무리하면 좋아요."
+        }
       ],
       "tags": [],
       "aiGenerated": true,
@@ -55,10 +80,22 @@
     {
       "schemaVersion": "spring-ts.narrative-fragment.v1",
       "fragmentId": "career.thisWeek.standard.role.504",
-      "axis": { "category": "career", "period": "thisWeek", "depth": "standard" },
-      "gating": { "currentSeason": ["autumn", "winter"] },
+      "axis": {
+        "category": "career",
+        "period": "thisWeek",
+        "depth": "standard"
+      },
+      "gating": {
+        "currentSeason": [
+          "autumn",
+          "winter"
+        ]
+      },
       "templateTokens": [
-        { "kind": "text", "value": "이번 주에는 내가 맡은 역할을 분명히 해두는 것이 중요해요. 해야 할 일, 도와줄 일, 결정권이 필요한 일을 구분하면 불필요한 반복과 오해를 줄일 수 있습니다." }
+        {
+          "kind": "text",
+          "value": "이번 주에는 내가 맡은 역할을 분명히 해두는 것이 중요해요. 해야 할 일, 도와줄 일, 결정권이 필요한 일을 구분하면 불필요한 반복과 오해를 줄일 수 있습니다."
+        }
       ],
       "livingTips": [
         "회의나 대화 뒤에는 내 담당 일을 한 줄로 정리하세요.",
@@ -83,10 +120,23 @@
     {
       "schemaVersion": "spring-ts.narrative-fragment.v1",
       "fragmentId": "career.thisMonth.brief.result.504",
-      "axis": { "category": "career", "period": "thisMonth", "depth": "brief" },
-      "gating": { "ageBand": ["20-29", "30-39", "40-54"] },
+      "axis": {
+        "category": "career",
+        "period": "thisMonth",
+        "depth": "brief"
+      },
+      "gating": {
+        "ageBand": [
+          "20-29",
+          "30-39",
+          "40-54"
+        ]
+      },
       "templateTokens": [
-        { "kind": "text", "value": "이번 달은 작아도 보여줄 수 있는 결과 하나를 남기는 것이 좋습니다." }
+        {
+          "kind": "text",
+          "value": "이번 달은 작아도 보여줄 수 있는 결과 하나를 남기는 것이 좋습니다."
+        }
       ],
       "tags": [],
       "aiGenerated": true,
@@ -104,10 +154,24 @@
     {
       "schemaVersion": "spring-ts.narrative-fragment.v1",
       "fragmentId": "career.thisMonth.standard.record.504",
-      "axis": { "category": "career", "period": "thisMonth", "depth": "standard" },
-      "gating": { "ageBand": ["0-9", "10-19", "55-69", "70+"] },
+      "axis": {
+        "category": "career",
+        "period": "thisMonth",
+        "depth": "standard"
+      },
+      "gating": {
+        "ageBand": [
+          "0-9",
+          "10-19",
+          "55-69",
+          "70+"
+        ]
+      },
       "templateTokens": [
-        { "kind": "text", "value": "이번 달 일의 흐름은 기록을 남길수록 좋아져요. 어떤 일을 했고 무엇이 남았는지 정리해 두면 다음 선택이 쉬워지고, 주변과 이야기할 때도 근거가 분명해집니다." }
+        {
+          "kind": "text",
+          "value": "이번 달 일의 흐름은 기록을 남길수록 좋아져요. 어떤 일을 했고 무엇이 남았는지 정리해 두면 다음 선택이 쉬워지고, 주변과 이야기할 때도 근거가 분명해집니다."
+        }
       ],
       "livingTips": [
         "이번 달 진행한 일을 주마다 한 줄씩 남겨보세요.",
@@ -132,10 +196,23 @@
     {
       "schemaVersion": "spring-ts.narrative-fragment.v1",
       "fragmentId": "career.thisYear.brief.direction.504",
-      "axis": { "category": "career", "period": "thisYear", "depth": "brief" },
-      "gating": { "yongshinAlignment": ["aligned", "neutral", "conflicting"] },
+      "axis": {
+        "category": "career",
+        "period": "thisYear",
+        "depth": "brief"
+      },
+      "gating": {
+        "yongshinAlignment": [
+          "aligned",
+          "neutral",
+          "conflicting"
+        ]
+      },
       "templateTokens": [
-        { "kind": "text", "value": "올해 일의 방향은 넓게 벌리기보다 오래 가져갈 기준 하나를 정하면 선명해집니다." }
+        {
+          "kind": "text",
+          "value": "올해 일의 방향은 넓게 벌리기보다 오래 가져갈 기준 하나를 정하요."
+        }
       ],
       "tags": [],
       "aiGenerated": true,
@@ -153,18 +230,56 @@
     {
       "schemaVersion": "spring-ts.narrative-fragment.v1",
       "fragmentId": "career.life.expert.responsibility_balance.504",
-      "axis": { "category": "career", "period": "life", "depth": "expert" },
-      "gating": { "dayMasterStrength": ["BALANCED", "STRONG", "EXTREME_STRONG"] },
+      "axis": {
+        "category": "career",
+        "period": "life",
+        "depth": "expert"
+      },
+      "gating": {
+        "dayMasterStrength": [
+          "BALANCED",
+          "STRONG",
+          "EXTREME_STRONG"
+        ]
+      },
       "templateTokens": [
-        { "kind": "text", "value": "장기 직업운은 " },
-        { "kind": "tag", "tagId": "jeonggwan", "label": "정관" },
-        { "kind": "text", "value": "의 책임 구조와 " },
-        { "kind": "tag", "tagId": "sikshin", "label": "식신" },
-        { "kind": "text", "value": "의 결과 생산을 함께 봅니다. " },
-        { "kind": "tag", "tagId": "gyeokgukFit", "label": "격국적합도" },
-        { "kind": "text", "value": "가 맞을수록 안정적인 역할 안에서 성과를 문서와 결과물로 남기는 방식이 유리합니다." }
+        {
+          "kind": "text",
+          "value": "장기 직업운은 "
+        },
+        {
+          "kind": "tag",
+          "tagId": "jeonggwan",
+          "label": "정관"
+        },
+        {
+          "kind": "text",
+          "value": "의 책임 구조와 "
+        },
+        {
+          "kind": "tag",
+          "tagId": "sikshin",
+          "label": "식신"
+        },
+        {
+          "kind": "text",
+          "value": "의 결과 생산을 함께 봅니다. "
+        },
+        {
+          "kind": "tag",
+          "tagId": "gyeokgukFit",
+          "label": "격국적합도"
+        },
+        {
+          "kind": "text",
+          "value": "가 맞을수록 안정적인 역할 안에서 성과를 문서와 결과물로 남기는 방식이 유리합니다."
+        }
       ],
-      "tags": ["jeonggwan", "sikshin", "gyeokgukFit"],
+      "tags": [
+        "jeonggwan",
+        "sikshin",
+        "gyeokgukFit"
+      ],
       "numericalEvidence": [
         {
           "label": "현재 나이",
@@ -212,18 +327,55 @@
     {
       "schemaVersion": "spring-ts.narrative-fragment.v1",
       "fragmentId": "career.today.expert.execution.504",
-      "axis": { "category": "career", "period": "today", "depth": "expert" },
-      "gating": { "yongshinAlignment": ["aligned", "neutral"] },
+      "axis": {
+        "category": "career",
+        "period": "today",
+        "depth": "expert"
+      },
+      "gating": {
+        "yongshinAlignment": [
+          "aligned",
+          "neutral"
+        ]
+      },
       "templateTokens": [
-        { "kind": "text", "value": "오늘 직업 판단은 " },
-        { "kind": "tag", "tagId": "yongshin", "label": "용신" },
-        { "kind": "text", "value": " 정합성과 " },
-        { "kind": "tag", "tagId": "jeonggwan", "label": "정관" },
-        { "kind": "text", "value": "의 질서감을 같이 봅니다. " },
-        { "kind": "tag", "tagId": "stabilityIndex", "label": "안정성지수" },
-        { "kind": "text", "value": "가 흔들리면 새 결정보다 현재 맡은 일의 범위 확인이 먼저입니다." }
+        {
+          "kind": "text",
+          "value": "오늘 직업 판단은 "
+        },
+        {
+          "kind": "tag",
+          "tagId": "yongshin",
+          "label": "용신"
+        },
+        {
+          "kind": "text",
+          "value": " 정합성과 "
+        },
+        {
+          "kind": "tag",
+          "tagId": "jeonggwan",
+          "label": "정관"
+        },
+        {
+          "kind": "text",
+          "value": "의 질서감을 같이 봅니다. "
+        },
+        {
+          "kind": "tag",
+          "tagId": "stabilityIndex",
+          "label": "안정성지수"
+        },
+        {
+          "kind": "text",
+          "value": "가 흔들리면 새 결정보다 현재 맡은 일의 범위 확인이 먼저입니다."
+        }
       ],
-      "tags": ["yongshin", "jeonggwan", "stabilityIndex"],
+      "tags": [
+        "yongshin",
+        "jeonggwan",
+        "stabilityIndex"
+      ],
       "numericalEvidence": [
         {
           "label": "직업 별점",
@@ -256,18 +408,56 @@
     {
       "schemaVersion": "spring-ts.narrative-fragment.v1",
       "fragmentId": "career.thisWeek.expert.role_output.504",
-      "axis": { "category": "career", "period": "thisWeek", "depth": "expert" },
-      "gating": { "dayMasterStrength": ["WEAK", "BALANCED", "STRONG"] },
+      "axis": {
+        "category": "career",
+        "period": "thisWeek",
+        "depth": "expert"
+      },
+      "gating": {
+        "dayMasterStrength": [
+          "WEAK",
+          "BALANCED",
+          "STRONG"
+        ]
+      },
       "templateTokens": [
-        { "kind": "text", "value": "이번 주 직업운은 " },
-        { "kind": "tag", "tagId": "jeonggwan", "label": "정관" },
-        { "kind": "text", "value": "의 역할 정리와 " },
-        { "kind": "tag", "tagId": "sikshin", "label": "식신" },
-        { "kind": "text", "value": "의 산출 흐름을 봅니다. " },
-        { "kind": "tag", "tagId": "stabilityIndex", "label": "안정성지수" },
-        { "kind": "text", "value": "가 낮으면 결과물 수보다 마감과 책임 범위의 명확성이 더 중요합니다." }
+        {
+          "kind": "text",
+          "value": "이번 주 직업운은 "
+        },
+        {
+          "kind": "tag",
+          "tagId": "jeonggwan",
+          "label": "정관"
+        },
+        {
+          "kind": "text",
+          "value": "의 역할 정리와 "
+        },
+        {
+          "kind": "tag",
+          "tagId": "sikshin",
+          "label": "식신"
+        },
+        {
+          "kind": "text",
+          "value": "의 산출 흐름을 봅니다. "
+        },
+        {
+          "kind": "tag",
+          "tagId": "stabilityIndex",
+          "label": "안정성지수"
+        },
+        {
+          "kind": "text",
+          "value": "가 낮으면 결과물 수보다 마감과 책임 범위의 명확성이 더 중요합니다."
+        }
       ],
-      "tags": ["jeonggwan", "sikshin", "stabilityIndex"],
+      "tags": [
+        "jeonggwan",
+        "sikshin",
+        "stabilityIndex"
+      ],
       "numericalEvidence": [
         {
           "label": "직업 별점",
@@ -300,18 +490,55 @@
     {
       "schemaVersion": "spring-ts.narrative-fragment.v1",
       "fragmentId": "career.thisMonth.expert.authority_result.504",
-      "axis": { "category": "career", "period": "thisMonth", "depth": "expert" },
-      "gating": { "dayMasterStrength": ["STRONG", "EXTREME_STRONG"] },
+      "axis": {
+        "category": "career",
+        "period": "thisMonth",
+        "depth": "expert"
+      },
+      "gating": {
+        "dayMasterStrength": [
+          "STRONG",
+          "EXTREME_STRONG"
+        ]
+      },
       "templateTokens": [
-        { "kind": "text", "value": "이번 달 직업운은 " },
-        { "kind": "tag", "tagId": "pyeongwan", "label": "편관" },
-        { "kind": "text", "value": "의 압박 대응과 " },
-        { "kind": "tag", "tagId": "sanggwan", "label": "상관" },
-        { "kind": "text", "value": "의 문제 해결력을 함께 봅니다. " },
-        { "kind": "tag", "tagId": "gyeokgukFit", "label": "격국적합도" },
-        { "kind": "text", "value": "가 맞으면 까다로운 요구를 새 방식으로 정리해 성과로 바꾸기 쉽습니다." }
+        {
+          "kind": "text",
+          "value": "이번 달 직업운은 "
+        },
+        {
+          "kind": "tag",
+          "tagId": "pyeongwan",
+          "label": "편관"
+        },
+        {
+          "kind": "text",
+          "value": "의 압박 대응과 "
+        },
+        {
+          "kind": "tag",
+          "tagId": "sanggwan",
+          "label": "상관"
+        },
+        {
+          "kind": "text",
+          "value": "의 문제 해결력을 함께 봅니다. "
+        },
+        {
+          "kind": "tag",
+          "tagId": "gyeokgukFit",
+          "label": "격국적합도"
+        },
+        {
+          "kind": "text",
+          "value": "가 맞으면 까다로운 요구를 새 방식으로 정리해 성과로 바꾸기 쉽습니다."
+        }
       ],
-      "tags": ["pyeongwan", "sanggwan", "gyeokgukFit"],
+      "tags": [
+        "pyeongwan",
+        "sanggwan",
+        "gyeokgukFit"
+      ],
       "numericalEvidence": [
         {
           "label": "직업 별점",
@@ -344,18 +571,55 @@
     {
       "schemaVersion": "spring-ts.narrative-fragment.v1",
       "fragmentId": "career.thisYear.expert.role_strategy.504",
-      "axis": { "category": "career", "period": "thisYear", "depth": "expert" },
-      "gating": { "yongshinAlignment": ["aligned", "neutral"] },
+      "axis": {
+        "category": "career",
+        "period": "thisYear",
+        "depth": "expert"
+      },
+      "gating": {
+        "yongshinAlignment": [
+          "aligned",
+          "neutral"
+        ]
+      },
       "templateTokens": [
-        { "kind": "text", "value": "올해 직업운은 " },
-        { "kind": "tag", "tagId": "jeonggwan", "label": "정관" },
-        { "kind": "text", "value": "의 체계성과 " },
-        { "kind": "tag", "tagId": "yongshin", "label": "용신" },
-        { "kind": "text", "value": " 방향의 정합성을 함께 봅니다. " },
-        { "kind": "tag", "tagId": "sikshin", "label": "식신" },
-        { "kind": "text", "value": "이 살아나면 맡은 역할을 실제 산출물과 성과 기록으로 연결하는 전략이 좋습니다." }
+        {
+          "kind": "text",
+          "value": "올해 직업운은 "
+        },
+        {
+          "kind": "tag",
+          "tagId": "jeonggwan",
+          "label": "정관"
+        },
+        {
+          "kind": "text",
+          "value": "의 체계성과 "
+        },
+        {
+          "kind": "tag",
+          "tagId": "yongshin",
+          "label": "용신"
+        },
+        {
+          "kind": "text",
+          "value": " 방향의 정합성을 함께 봅니다. "
+        },
+        {
+          "kind": "tag",
+          "tagId": "sikshin",
+          "label": "식신"
+        },
+        {
+          "kind": "text",
+          "value": "이 살아나면 맡은 역할을 실제 산출물과 성과 기록으로 연결하는 전략이 좋습니다."
+        }
       ],
-      "tags": ["jeonggwan", "yongshin", "sikshin"],
+      "tags": [
+        "jeonggwan",
+        "yongshin",
+        "sikshin"
+      ],
       "numericalEvidence": [
         {
           "label": "현재 나이",

@@ -6,10 +6,22 @@
     {
       "schemaVersion": "spring-ts.narrative-fragment.v1",
       "fragmentId": "expression_children.life.brief.currentseason.spring_summer.301",
-      "axis": { "category": "expression_children", "period": "life", "depth": "brief" },
-      "gating": { "currentSeason": ["spring", "summer"] },
+      "axis": {
+        "category": "expression_children",
+        "period": "life",
+        "depth": "brief"
+      },
+      "gating": {
+        "currentSeason": [
+          "spring",
+          "summer"
+        ]
+      },
       "templateTokens": [
-        { "kind": "text", "value": "긴 흐름에서는 생각을 말이나 결과물로 보여줄 기회가 많아져요. 아이나 가족을 돌보는 일도 작은 시도부터 풀어가면 좋습니다." }
+        {
+          "kind": "text",
+          "value": "긴 흐름에서는 생각을 말이나 결과물로 보여줄 기회가 많아져요."
+        }
       ],
       "tags": [],
       "aiGenerated": true,
@@ -27,10 +39,22 @@
     {
       "schemaVersion": "spring-ts.narrative-fragment.v1",
       "fragmentId": "expression_children.life.brief.currentseason.autumn_winter.301",
-      "axis": { "category": "expression_children", "period": "life", "depth": "brief" },
-      "gating": { "currentSeason": ["autumn", "winter"] },
+      "axis": {
+        "category": "expression_children",
+        "period": "life",
+        "depth": "brief"
+      },
+      "gating": {
+        "currentSeason": [
+          "autumn",
+          "winter"
+        ]
+      },
       "templateTokens": [
-        { "kind": "text", "value": "긴 흐름에서는 말과 행동을 차분히 다듬는 힘이 중요해요. 아이나 가까운 사람에게는 빠른 조언보다 꾸준한 관심이 더 잘 전해집니다." }
+        {
+          "kind": "text",
+          "value": "긴 흐름에서는 말과 행동을 차분히 다듬는 힘이 중요해요."
+        }
       ],
       "tags": [],
       "aiGenerated": true,
@@ -48,10 +72,22 @@
     {
       "schemaVersion": "spring-ts.narrative-fragment.v1",
       "fragmentId": "expression_children.life.standard.currentseason.spring_summer.301",
-      "axis": { "category": "expression_children", "period": "life", "depth": "standard" },
-      "gating": { "currentSeason": ["spring", "summer"] },
+      "axis": {
+        "category": "expression_children",
+        "period": "life",
+        "depth": "standard"
+      },
+      "gating": {
+        "currentSeason": [
+          "spring",
+          "summer"
+        ]
+      },
       "templateTokens": [
-        { "kind": "text", "value": "긴 흐름에서는 생각을 밖으로 꺼내 보이고, 말이나 글, 만들기로 사람들과 연결되기 쉬워요. 아이나 후배, 가족을 돌보는 일도 혼자 끌어안기보다 함께 해보는 방식이 잘 맞습니다." }
+        {
+          "kind": "text",
+          "value": "긴 흐름에서는 생각을 밖으로 꺼내 보이고, 말이나 글, 만들기로 사람들과 연결되기 쉬워요. 아이나 후배, 가족을 돌보는 일도 혼자 끌어안기보다 함께 해보는 방식이 잘 맞습니다."
+        }
       ],
       "livingTips": [
         "하고 싶은 말을 한 문장으로 먼저 적고, 그다음에 필요한 설명을 붙여보세요.",
@@ -76,10 +112,22 @@
     {
       "schemaVersion": "spring-ts.narrative-fragment.v1",
       "fragmentId": "expression_children.life.standard.currentseason.autumn_winter.301",
-      "axis": { "category": "expression_children", "period": "life", "depth": "standard" },
-      "gating": { "currentSeason": ["autumn", "winter"] },
+      "axis": {
+        "category": "expression_children",
+        "period": "life",
+        "depth": "standard"
+      },
+      "gating": {
+        "currentSeason": [
+          "autumn",
+          "winter"
+        ]
+      },
       "templateTokens": [
-        { "kind": "text", "value": "긴 흐름에서는 표현을 많이 늘리기보다 말의 순서와 책임을 차분히 다듬는 편이 좋아요. 아이나 가까운 사람을 대할 때도 큰 변화보다 지켜주는 태도가 관계를 안정시킵니다." }
+        {
+          "kind": "text",
+          "value": "긴 흐름에서는 표현을 많이 늘리기보다 말의 순서와 책임을 차분히 다듬는 편이 좋아요. 아이나 가까운 사람을 대할 때도 큰 변화보다 지켜주는 태도가 관계를 안정시킵니다."
+        }
       ],
       "livingTips": [
         "중요한 대화는 먼저 듣고, 상대가 이해한 내용을 짧게 확인해 보세요.",
@@ -104,10 +152,22 @@
     {
       "schemaVersion": "spring-ts.narrative-fragment.v1",
       "fragmentId": "expression_children.today.brief.currentseason.spring_summer.301",
-      "axis": { "category": "expression_children", "period": "today", "depth": "brief" },
-      "gating": { "currentSeason": ["spring", "summer"] },
+      "axis": {
+        "category": "expression_children",
+        "period": "today",
+        "depth": "brief"
+      },
+      "gating": {
+        "currentSeason": [
+          "spring",
+          "summer"
+        ]
+      },
       "templateTokens": [
-        { "kind": "text", "value": "오늘은 생각을 짧게 말하거나 바로 만들어 보기 좋아요. 아이나 가까운 사람에게는 먼저 웃으며 말을 걸어보세요." }
+        {
+          "kind": "text",
+          "value": "오늘은 생각을 짧게 말하거나 바로 만들어 보기 좋아요."
+        }
       ],
       "tags": [],
       "aiGenerated": true,
@@ -125,10 +185,22 @@
     {
       "schemaVersion": "spring-ts.narrative-fragment.v1",
       "fragmentId": "expression_children.today.brief.currentseason.autumn_winter.301",
-      "axis": { "category": "expression_children", "period": "today", "depth": "brief" },
-      "gating": { "currentSeason": ["autumn", "winter"] },
+      "axis": {
+        "category": "expression_children",
+        "period": "today",
+        "depth": "brief"
+      },
+      "gating": {
+        "currentSeason": [
+          "autumn",
+          "winter"
+        ]
+      },
       "templateTokens": [
-        { "kind": "text", "value": "오늘은 말을 많이 하기보다 핵심만 천천히 전하는 편이 좋아요. 아이나 가족의 말은 끝까지 듣고 답하세요." }
+        {
+          "kind": "text",
+          "value": "오늘은 말을 많이 하기보다 핵심만 천천히 전하는 편이 좋아요."
+        }
       ],
       "tags": [],
       "aiGenerated": true,
@@ -146,10 +218,22 @@
     {
       "schemaVersion": "spring-ts.narrative-fragment.v1",
       "fragmentId": "expression_children.thisWeek.brief.currentseason.spring_summer.301",
-      "axis": { "category": "expression_children", "period": "thisWeek", "depth": "brief" },
-      "gating": { "currentSeason": ["spring", "summer"] },
+      "axis": {
+        "category": "expression_children",
+        "period": "thisWeek",
+        "depth": "brief"
+      },
+      "gating": {
+        "currentSeason": [
+          "spring",
+          "summer"
+        ]
+      },
       "templateTokens": [
-        { "kind": "text", "value": "이번 주는 말, 글, 만들기로 마음을 보여주기 좋아요. 아이나 후배와는 작은 놀이처럼 시작하면 대화가 더 쉽게 풀립니다." }
+        {
+          "kind": "text",
+          "value": "이번 주는 말, 글, 만들기로 마음을 보여주기 좋아요."
+        }
       ],
       "tags": [],
       "aiGenerated": true,
@@ -167,10 +251,22 @@
     {
       "schemaVersion": "spring-ts.narrative-fragment.v1",
       "fragmentId": "expression_children.thisWeek.brief.currentseason.autumn_winter.301",
-      "axis": { "category": "expression_children", "period": "thisWeek", "depth": "brief" },
-      "gating": { "currentSeason": ["autumn", "winter"] },
+      "axis": {
+        "category": "expression_children",
+        "period": "thisWeek",
+        "depth": "brief"
+      },
+      "gating": {
+        "currentSeason": [
+          "autumn",
+          "winter"
+        ]
+      },
       "templateTokens": [
-        { "kind": "text", "value": "이번 주는 말의 양보다 정확한 약속이 더 중요해요. 가족이나 아이와 정한 일은 작게라도 지키는 데 집중하세요." }
+        {
+          "kind": "text",
+          "value": "이번 주는 말의 양보다 정확한 약속이 더 중요해요."
+        }
       ],
       "tags": [],
       "aiGenerated": true,
@@ -188,10 +284,22 @@
     {
       "schemaVersion": "spring-ts.narrative-fragment.v1",
       "fragmentId": "expression_children.thisMonth.brief.currentseason.spring_summer.301",
-      "axis": { "category": "expression_children", "period": "thisMonth", "depth": "brief" },
-      "gating": { "currentSeason": ["spring", "summer"] },
+      "axis": {
+        "category": "expression_children",
+        "period": "thisMonth",
+        "depth": "brief"
+      },
+      "gating": {
+        "currentSeason": [
+          "spring",
+          "summer"
+        ]
+      },
       "templateTokens": [
-        { "kind": "text", "value": "이번 달은 표현할 기회가 넓어지는 흐름이에요. 말하고 싶은 주제를 하나 고르고, 아이나 가족과 함께 하는 시간을 미리 잡아보세요." }
+        {
+          "kind": "text",
+          "value": "이번 달은 표현할 기회가 넓어지는 흐름이에요."
+        }
       ],
       "tags": [],
       "aiGenerated": true,
@@ -209,10 +317,22 @@
     {
       "schemaVersion": "spring-ts.narrative-fragment.v1",
       "fragmentId": "expression_children.thisMonth.brief.currentseason.autumn_winter.301",
-      "axis": { "category": "expression_children", "period": "thisMonth", "depth": "brief" },
-      "gating": { "currentSeason": ["autumn", "winter"] },
+      "axis": {
+        "category": "expression_children",
+        "period": "thisMonth",
+        "depth": "brief"
+      },
+      "gating": {
+        "currentSeason": [
+          "autumn",
+          "winter"
+        ]
+      },
       "templateTokens": [
-        { "kind": "text", "value": "이번 달은 새로운 말보다 이미 한 약속을 잘 지키는 것이 좋아요. 가족이나 아이에게는 꾸준함이 가장 잘 전해집니다." }
+        {
+          "kind": "text",
+          "value": "이번 달은 새로운 말보다 이미 한 약속을 잘 지키는 것이 좋아요."
+        }
       ],
       "tags": [],
       "aiGenerated": true,
@@ -230,10 +350,22 @@
     {
       "schemaVersion": "spring-ts.narrative-fragment.v1",
       "fragmentId": "expression_children.thisYear.brief.currentseason.spring_summer.301",
-      "axis": { "category": "expression_children", "period": "thisYear", "depth": "brief" },
-      "gating": { "currentSeason": ["spring", "summer"] },
+      "axis": {
+        "category": "expression_children",
+        "period": "thisYear",
+        "depth": "brief"
+      },
+      "gating": {
+        "currentSeason": [
+          "spring",
+          "summer"
+        ]
+      },
       "templateTokens": [
-        { "kind": "text", "value": "올해는 말, 글, 만들기로 나를 보여줄 기회가 늘 수 있어요. 가족이나 아이와의 관계도 함께 움직이며 가까워지는 편입니다." }
+        {
+          "kind": "text",
+          "value": "올해는 말, 글, 만들기로 나를 보여줄 기회가 늘 수 있어요."
+        }
       ],
       "tags": [],
       "aiGenerated": true,
@@ -251,10 +383,22 @@
     {
       "schemaVersion": "spring-ts.narrative-fragment.v1",
       "fragmentId": "expression_children.thisYear.brief.currentseason.autumn_winter.301",
-      "axis": { "category": "expression_children", "period": "thisYear", "depth": "brief" },
-      "gating": { "currentSeason": ["autumn", "winter"] },
+      "axis": {
+        "category": "expression_children",
+        "period": "thisYear",
+        "depth": "brief"
+      },
+      "gating": {
+        "currentSeason": [
+          "autumn",
+          "winter"
+        ]
+      },
       "templateTokens": [
-        { "kind": "text", "value": "올해는 표현을 넓히기보다 말과 관계를 차분히 다듬는 편이 좋아요. 아이나 가까운 사람에게는 꾸준한 약속이 큰 힘이 됩니다." }
+        {
+          "kind": "text",
+          "value": "올해는 표현을 넓히기보다 말과 관계를 차분히 다듬는 편이 좋아요."
+        }
       ],
       "tags": [],
       "aiGenerated": true,
@@ -272,10 +416,22 @@
     {
       "schemaVersion": "spring-ts.narrative-fragment.v1",
       "fragmentId": "expression_children.thisYear.standard.currentseason.spring_summer.301",
-      "axis": { "category": "expression_children", "period": "thisYear", "depth": "standard" },
-      "gating": { "currentSeason": ["spring", "summer"] },
+      "axis": {
+        "category": "expression_children",
+        "period": "thisYear",
+        "depth": "standard"
+      },
+      "gating": {
+        "currentSeason": [
+          "spring",
+          "summer"
+        ]
+      },
       "templateTokens": [
-        { "kind": "text", "value": "올해는 말, 글, 만들기처럼 나를 보여주는 일이 조금 더 활발해질 수 있어요. 가족이나 아이와의 일도 함께 움직이고 경험을 쌓을수록 좋아지니, 작은 계획을 밖으로 꺼내 실행해 보세요." }
+        {
+          "kind": "text",
+          "value": "올해는 말, 글, 만들기처럼 나를 보여주는 일이 조금 더 활발해질 수 있어요. 가족이나 아이와의 일도 함께 움직이고 경험을 쌓을수록 좋아지니, 작은 계획을 밖으로 꺼내 실행해 보세요."
+        }
       ],
       "livingTips": [
         "올해 표현하고 싶은 주제를 세 가지로 줄이고, 한 달에 하나씩 작게 시도해 보세요.",
@@ -300,10 +456,22 @@
     {
       "schemaVersion": "spring-ts.narrative-fragment.v1",
       "fragmentId": "expression_children.thisYear.standard.currentseason.autumn_winter.301",
-      "axis": { "category": "expression_children", "period": "thisYear", "depth": "standard" },
-      "gating": { "currentSeason": ["autumn", "winter"] },
+      "axis": {
+        "category": "expression_children",
+        "period": "thisYear",
+        "depth": "standard"
+      },
+      "gating": {
+        "currentSeason": [
+          "autumn",
+          "winter"
+        ]
+      },
       "templateTokens": [
-        { "kind": "text", "value": "올해는 표현을 갑자기 늘리기보다 말의 무게와 관계의 책임을 차분히 챙기는 흐름이에요. 가족이나 아이와는 자주 바꾸는 계획보다 지킬 수 있는 약속을 오래 이어가는 편이 안정적입니다." }
+        {
+          "kind": "text",
+          "value": "올해는 표현을 갑자기 늘리기보다 말의 무게와 관계의 책임을 차분히 챙기는 흐름이에요. 가족이나 아이와는 자주 바꾸는 계획보다 지킬 수 있는 약속을 오래 이어가는 편이 안정적입니다."
+        }
       ],
       "livingTips": [
         "중요한 말은 바로 보내기보다 한 번 읽어보고, 부드러운 표현으로 고쳐보세요.",

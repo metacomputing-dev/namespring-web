@@ -6,10 +6,21 @@
     {
       "schemaVersion": "spring-ts.narrative-fragment.v1",
       "fragmentId": "overall.life.brief.agephase.child_0_9.101",
-      "axis": { "category": "overall", "period": "life", "depth": "brief" },
-      "gating": { "agePhase": ["child_0_9"] },
+      "axis": {
+        "category": "overall",
+        "period": "life",
+        "depth": "brief"
+      },
+      "gating": {
+        "agePhase": [
+          "child_0_9"
+        ]
+      },
       "templateTokens": [
-        { "kind": "text", "value": "어린 시기는 세상을 안전하게 익히고 기본 습관을 만드는 흐름이 중요해요. 칭찬과 반복이 쌓이면 자신감의 뿌리가 단단해질 수 있어요." }
+        {
+          "kind": "text",
+          "value": "어린 시기는 세상을 안전하게 익히고 기본 습관을 만드는 흐름이요."
+        }
       ],
       "tags": [],
       "aiGenerated": true,
@@ -27,10 +38,21 @@
     {
       "schemaVersion": "spring-ts.narrative-fragment.v1",
       "fragmentId": "overall.life.brief.agephase.early_teen.101",
-      "axis": { "category": "overall", "period": "life", "depth": "brief" },
-      "gating": { "agePhase": ["early_teen"] },
+      "axis": {
+        "category": "overall",
+        "period": "life",
+        "depth": "brief"
+      },
+      "gating": {
+        "agePhase": [
+          "early_teen"
+        ]
+      },
       "templateTokens": [
-        { "kind": "text", "value": "초반 십대에는 나와 맞는 규칙과 관심사를 찾아가는 흐름이 커져요. 비교보다 작은 성취를 쌓는 방식이 마음의 안정에 도움이 돼요." }
+        {
+          "kind": "text",
+          "value": "초반 십대에는 나와 맞는 규칙과 관심사를 찾아가는 흐름이 커져요."
+        }
       ],
       "tags": [],
       "aiGenerated": true,
@@ -48,10 +70,21 @@
     {
       "schemaVersion": "spring-ts.narrative-fragment.v1",
       "fragmentId": "overall.life.brief.agephase.late_teen.101",
-      "axis": { "category": "overall", "period": "life", "depth": "brief" },
-      "gating": { "agePhase": ["late_teen"] },
+      "axis": {
+        "category": "overall",
+        "period": "life",
+        "depth": "brief"
+      },
+      "gating": {
+        "agePhase": [
+          "late_teen"
+        ]
+      },
       "templateTokens": [
-        { "kind": "text", "value": "후반 십대에는 선택지가 넓어지고 진로와 관계의 방향을 고민하기 쉬워요. 정답을 빨리 정하기보다 경험을 안전하게 늘리는 태도가 좋아요." }
+        {
+          "kind": "text",
+          "value": "후반 십대에는 선택지가 넓어지고 진로와 관계의 방향을 고민하요."
+        }
       ],
       "tags": [],
       "aiGenerated": true,
@@ -69,10 +102,21 @@
     {
       "schemaVersion": "spring-ts.narrative-fragment.v1",
       "fragmentId": "overall.life.brief.agephase.early_20s.101",
-      "axis": { "category": "overall", "period": "life", "depth": "brief" },
-      "gating": { "agePhase": ["early_20s"] },
+      "axis": {
+        "category": "overall",
+        "period": "life",
+        "depth": "brief"
+      },
+      "gating": {
+        "agePhase": [
+          "early_20s"
+        ]
+      },
       "templateTokens": [
-        { "kind": "text", "value": "20대 초반에는 새로운 환경에 적응하며 나만의 기준을 세우는 힘이 중요해요. 넓게 시도하되 생활 리듬을 잃지 않는 것이 균형을 잡아줘요." }
+        {
+          "kind": "text",
+          "value": "20대 초반에는 새로운 환경에 적응하며 나만의 기준을 세우는 힘이요."
+        }
       ],
       "tags": [],
       "aiGenerated": true,
@@ -90,10 +134,21 @@
     {
       "schemaVersion": "spring-ts.narrative-fragment.v1",
       "fragmentId": "overall.life.brief.agephase.late_20s.101",
-      "axis": { "category": "overall", "period": "life", "depth": "brief" },
-      "gating": { "agePhase": ["late_20s"] },
+      "axis": {
+        "category": "overall",
+        "period": "life",
+        "depth": "brief"
+      },
+      "gating": {
+        "agePhase": [
+          "late_20s"
+        ]
+      },
       "templateTokens": [
-        { "kind": "text", "value": "20대 후반에는 경험을 정리하고 오래 갈 방향을 고르는 흐름이 강해져요. 가능성을 넓히는 일과 집중할 일을 구분하면 성장이 더 선명해져요." }
+        {
+          "kind": "text",
+          "value": "20대 후반에는 경험을 정리하고 오래 갈 방향을 고르는 흐름이 강해져요."
+        }
       ],
       "tags": [],
       "aiGenerated": true,
@@ -111,10 +166,21 @@
     {
       "schemaVersion": "spring-ts.narrative-fragment.v1",
       "fragmentId": "overall.life.brief.agephase.early_30s.101",
-      "axis": { "category": "overall", "period": "life", "depth": "brief" },
-      "gating": { "agePhase": ["early_30s"] },
+      "axis": {
+        "category": "overall",
+        "period": "life",
+        "depth": "brief"
+      },
+      "gating": {
+        "agePhase": [
+          "early_30s"
+        ]
+      },
       "templateTokens": [
-        { "kind": "text", "value": "30대 초반에는 책임과 확장의 균형을 배우는 흐름이 커져요. 무리하게 모든 일을 잡기보다 핵심 역할을 정하면 삶의 밀도가 좋아져요." }
+        {
+          "kind": "text",
+          "value": "30대 초반에는 책임과 확장의 균형을 배우는 흐름이 커져요."
+        }
       ],
       "tags": [],
       "aiGenerated": true,
@@ -132,10 +198,21 @@
     {
       "schemaVersion": "spring-ts.narrative-fragment.v1",
       "fragmentId": "overall.life.brief.agephase.late_30s.101",
-      "axis": { "category": "overall", "period": "life", "depth": "brief" },
-      "gating": { "agePhase": ["late_30s"] },
+      "axis": {
+        "category": "overall",
+        "period": "life",
+        "depth": "brief"
+      },
+      "gating": {
+        "agePhase": [
+          "late_30s"
+        ]
+      },
       "templateTokens": [
-        { "kind": "text", "value": "30대 후반에는 쌓아온 선택의 결과를 점검하고 다음 기반을 다지는 흐름이 중요해요. 속도보다 지속 가능성을 보는 태도가 도움이 돼요." }
+        {
+          "kind": "text",
+          "value": "30대 후반에는 쌓아온 선택의 결과를 점검하고 다음 기반을 다지는요."
+        }
       ],
       "tags": [],
       "aiGenerated": true,
@@ -153,10 +230,21 @@
     {
       "schemaVersion": "spring-ts.narrative-fragment.v1",
       "fragmentId": "overall.life.brief.agephase.late_40s.101",
-      "axis": { "category": "overall", "period": "life", "depth": "brief" },
-      "gating": { "agePhase": ["late_40s"] },
+      "axis": {
+        "category": "overall",
+        "period": "life",
+        "depth": "brief"
+      },
+      "gating": {
+        "agePhase": [
+          "late_40s"
+        ]
+      },
       "templateTokens": [
-        { "kind": "text", "value": "40대 후반에는 책임의 무게를 조정하고 앞으로의 삶을 다시 설계하는 흐름이 생길 수 있어요. 줄일 일과 키울 일을 나누면 방향이 분명해져요." }
+        {
+          "kind": "text",
+          "value": "40대 후반에는 책임의 무게를 조정하고 앞으로의 삶을 다시 설계하요."
+        }
       ],
       "tags": [],
       "aiGenerated": true,
@@ -174,10 +262,21 @@
     {
       "schemaVersion": "spring-ts.narrative-fragment.v1",
       "fragmentId": "overall.life.brief.agephase.early_50s.101",
-      "axis": { "category": "overall", "period": "life", "depth": "brief" },
-      "gating": { "agePhase": ["early_50s"] },
+      "axis": {
+        "category": "overall",
+        "period": "life",
+        "depth": "brief"
+      },
+      "gating": {
+        "agePhase": [
+          "early_50s"
+        ]
+      },
       "templateTokens": [
-        { "kind": "text", "value": "50대 초반에는 경험을 현실적인 자산으로 바꾸는 흐름이 중요해요. 새로 넓히기보다 잘하는 것을 정리하고 전하는 방식이 힘이 될 수 있어요." }
+        {
+          "kind": "text",
+          "value": "50대 초반에는 경험을 현실적인 자산으로 바꾸는 흐름이 중요해요."
+        }
       ],
       "tags": [],
       "aiGenerated": true,
@@ -195,10 +294,21 @@
     {
       "schemaVersion": "spring-ts.narrative-fragment.v1",
       "fragmentId": "overall.life.brief.agephase.late_50s.101",
-      "axis": { "category": "overall", "period": "life", "depth": "brief" },
-      "gating": { "agePhase": ["late_50s"] },
+      "axis": {
+        "category": "overall",
+        "period": "life",
+        "depth": "brief"
+      },
+      "gating": {
+        "agePhase": [
+          "late_50s"
+        ]
+      },
       "templateTokens": [
-        { "kind": "text", "value": "50대 후반에는 삶의 리듬을 다시 고르고 몸과 관계의 지속성을 챙기는 흐름이 커져요. 안정된 루틴이 다음 단계의 여유를 만들어줘요." }
+        {
+          "kind": "text",
+          "value": "50대 후반에는 삶의 리듬을 다시 고르고 몸과 관계의 지속성을 챙기요."
+        }
       ],
       "tags": [],
       "aiGenerated": true,
@@ -216,10 +326,21 @@
     {
       "schemaVersion": "spring-ts.narrative-fragment.v1",
       "fragmentId": "overall.life.brief.agephase.early_60s.101",
-      "axis": { "category": "overall", "period": "life", "depth": "brief" },
-      "gating": { "agePhase": ["early_60s"] },
+      "axis": {
+        "category": "overall",
+        "period": "life",
+        "depth": "brief"
+      },
+      "gating": {
+        "agePhase": [
+          "early_60s"
+        ]
+      },
       "templateTokens": [
-        { "kind": "text", "value": "60대 초반에는 생활의 기준을 새로 정비하고 여유를 회복하는 흐름이 중요해요. 무리한 확장보다 오래 유지할 습관이 삶을 안정시켜요." }
+        {
+          "kind": "text",
+          "value": "60대 초반에는 생활의 기준을 새로 정비하고 여유를 회복하는 흐름요."
+        }
       ],
       "tags": [],
       "aiGenerated": true,
@@ -237,10 +358,21 @@
     {
       "schemaVersion": "spring-ts.narrative-fragment.v1",
       "fragmentId": "overall.life.brief.agephase.late_60s.101",
-      "axis": { "category": "overall", "period": "life", "depth": "brief" },
-      "gating": { "agePhase": ["late_60s"] },
+      "axis": {
+        "category": "overall",
+        "period": "life",
+        "depth": "brief"
+      },
+      "gating": {
+        "agePhase": [
+          "late_60s"
+        ]
+      },
       "templateTokens": [
-        { "kind": "text", "value": "60대 후반에는 익숙한 관계와 생활 기반이 더 큰 의미를 가질 수 있어요. 몸의 리듬을 존중하고 필요한 도움을 자연스럽게 연결하면 안정감이 커져요." }
+        {
+          "kind": "text",
+          "value": "60대 후반에는 익숙한 관계와 생활 기반이 더 큰 의미를 가질 수 있어요."
+        }
       ],
       "tags": [],
       "aiGenerated": true,
@@ -258,10 +390,21 @@
     {
       "schemaVersion": "spring-ts.narrative-fragment.v1",
       "fragmentId": "overall.life.brief.agephase.70s.101",
-      "axis": { "category": "overall", "period": "life", "depth": "brief" },
-      "gating": { "agePhase": ["70s"] },
+      "axis": {
+        "category": "overall",
+        "period": "life",
+        "depth": "brief"
+      },
+      "gating": {
+        "agePhase": [
+          "70s"
+        ]
+      },
       "templateTokens": [
-        { "kind": "text", "value": "70대에는 지나온 경험이 주변을 안정시키는 힘이 될 수 있어요. 몸을 아끼는 생활 리듬과 편안한 관계를 중심에 두면 삶의 만족감이 깊어져요." }
+        {
+          "kind": "text",
+          "value": "70대에는 지나온 경험이 주변을 안정시키는 힘이 될 수 있어요."
+        }
       ],
       "tags": [],
       "aiGenerated": true,
@@ -279,10 +422,21 @@
     {
       "schemaVersion": "spring-ts.narrative-fragment.v1",
       "fragmentId": "overall.life.brief.agephase.80s.101",
-      "axis": { "category": "overall", "period": "life", "depth": "brief" },
-      "gating": { "agePhase": ["80s"] },
+      "axis": {
+        "category": "overall",
+        "period": "life",
+        "depth": "brief"
+      },
+      "gating": {
+        "agePhase": [
+          "80s"
+        ]
+      },
       "templateTokens": [
-        { "kind": "text", "value": "80대에는 편안함과 존중받는 관계가 삶의 중심이 되기 쉬워요. 익숙한 루틴을 지키면서도 작은 즐거움을 계속 남겨두면 마음이 안정돼요." }
+        {
+          "kind": "text",
+          "value": "80대에는 편안함과 존중받는 관계가 삶의 중심이 되기 쉬워요."
+        }
       ],
       "tags": [],
       "aiGenerated": true,
@@ -300,10 +454,21 @@
     {
       "schemaVersion": "spring-ts.narrative-fragment.v1",
       "fragmentId": "overall.life.brief.agephase.90_plus.101",
-      "axis": { "category": "overall", "period": "life", "depth": "brief" },
-      "gating": { "agePhase": ["90_plus"] },
+      "axis": {
+        "category": "overall",
+        "period": "life",
+        "depth": "brief"
+      },
+      "gating": {
+        "agePhase": [
+          "90_plus"
+        ]
+      },
       "templateTokens": [
-        { "kind": "text", "value": "90대 이후에는 삶의 속도를 부드럽게 낮추고 편안한 연결을 지키는 흐름이 중요해요. 무리보다 안정, 큰 변화보다 익숙한 기쁨을 챙기는 태도가 좋아요." }
+        {
+          "kind": "text",
+          "value": "90대 이후에는 삶의 속도를 부드럽게 낮추고 편안한 연결을 지키는요."
+        }
       ],
       "tags": [],
       "aiGenerated": true,

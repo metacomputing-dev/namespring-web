@@ -6,45 +6,120 @@
     {
       "schemaVersion": "spring-ts.narrative-fragment.v1",
       "fragmentId": "romance.life.expert.currentseason.spring_summer.302",
-      "axis": { "category": "romance", "period": "life", "depth": "expert" },
+      "axis": {
+        "category": "romance",
+        "period": "life",
+        "depth": "expert"
+      },
       "gating": {
-        "currentSeason": ["spring", "summer"],
-        "yongshinAlignment": ["aligned", "neutral", "conflicting"]
+        "currentSeason": [
+          "spring",
+          "summer"
+        ],
+        "yongshinAlignment": [
+          "aligned",
+          "neutral",
+          "conflicting"
+        ]
       },
       "templateTokens": [
-        { "kind": "text", "value": "장기 인연 흐름에서 봄과 여름의 현재 계절은 관계의 시작 속도와 표현량을 키웁니다. " },
-        { "kind": "tag", "tagId": "baeujagung", "label": "배우자궁" },
-        { "kind": "text", "value": "의 안정성만 보지 말고, " },
-        { "kind": "tag", "tagId": "sajuCompatibility", "label": "사주 적합성" },
-        { "kind": "text", "value": "이 실제 생활 리듬과 이어지는지도 봐야 합니다. " },
-        { "kind": "tag", "tagId": "eumyangHarmony", "label": "음양 조화" },
-        { "kind": "text", "value": "가 과열되면 설렘이 빠르게 커지지만 관계의 합의는 늦어질 수 있습니다." }
+        {
+          "kind": "text",
+          "value": "장기 인연 흐름에서 봄과 여름의 현재 계절은 관계의 시작 속도와 표현량을 키웁니다. "
+        },
+        {
+          "kind": "tag",
+          "tagId": "baeujagung",
+          "label": "배우자궁"
+        },
+        {
+          "kind": "text",
+          "value": "의 안정성만 보지 말고, "
+        },
+        {
+          "kind": "tag",
+          "tagId": "sajuCompatibility",
+          "label": "사주 적합성"
+        },
+        {
+          "kind": "text",
+          "value": "이 실제 생활 리듬과 이어지는지도 봐야 합니다. "
+        },
+        {
+          "kind": "tag",
+          "tagId": "eumyangHarmony",
+          "label": "음양 조화"
+        },
+        {
+          "kind": "text",
+          "value": "가 과열되면 설렘이 빠르게 커지지만 관계의 합의는 늦어질 수 있습니다."
+        }
       ],
-      "tags": ["baeujagung", "sajuCompatibility", "eumyangHarmony"],
+      "tags": [
+        "baeujagung",
+        "sajuCompatibility",
+        "eumyangHarmony"
+      ],
       "numericalEvidence": [
         {
           "label": "연령 단계 순번",
           "valueExpression": "feature.agePhaseOrdinal",
           "unit": "단계",
-          "sourceTier": { "tier": "T3_INTERNAL_ENGINE", "sourceType": "internal_scoring_policy", "sourceUrl": null, "accessedAt": "2026-05-03", "quoteShort": null, "humanInterpretation": "Resolved from deterministic spring-ts runtime output.", "copyrightNote": "No third-party prose copied.", "authorityTruthEligible": false }
+          "sourceTier": {
+            "tier": "T3_INTERNAL_ENGINE",
+            "sourceType": "internal_scoring_policy",
+            "sourceUrl": null,
+            "accessedAt": "2026-05-03",
+            "quoteShort": null,
+            "humanInterpretation": "Resolved from deterministic spring-ts runtime output.",
+            "copyrightNote": "No third-party prose copied.",
+            "authorityTruthEligible": false
+          }
         },
         {
           "label": "신강도 순번",
           "valueExpression": "feature.dayMasterStrengthOrdinal",
           "unit": "단계",
-          "sourceTier": { "tier": "T3_INTERNAL_ENGINE", "sourceType": "internal_scoring_policy", "sourceUrl": null, "accessedAt": "2026-05-03", "quoteShort": null, "humanInterpretation": "Resolved from deterministic spring-ts runtime output.", "copyrightNote": "No third-party prose copied.", "authorityTruthEligible": false }
+          "sourceTier": {
+            "tier": "T3_INTERNAL_ENGINE",
+            "sourceType": "internal_scoring_policy",
+            "sourceUrl": null,
+            "accessedAt": "2026-05-03",
+            "quoteShort": null,
+            "humanInterpretation": "Resolved from deterministic spring-ts runtime output.",
+            "copyrightNote": "No third-party prose copied.",
+            "authorityTruthEligible": false
+          }
         },
         {
           "label": "출생 계절 순번",
           "valueExpression": "feature.birthSeasonOrdinal",
           "unit": "단계",
-          "sourceTier": { "tier": "T3_INTERNAL_ENGINE", "sourceType": "internal_scoring_policy", "sourceUrl": null, "accessedAt": "2026-05-03", "quoteShort": null, "humanInterpretation": "Resolved from deterministic spring-ts runtime output.", "copyrightNote": "No third-party prose copied.", "authorityTruthEligible": false }
+          "sourceTier": {
+            "tier": "T3_INTERNAL_ENGINE",
+            "sourceType": "internal_scoring_policy",
+            "sourceUrl": null,
+            "accessedAt": "2026-05-03",
+            "quoteShort": null,
+            "humanInterpretation": "Resolved from deterministic spring-ts runtime output.",
+            "copyrightNote": "No third-party prose copied.",
+            "authorityTruthEligible": false
+          }
         },
         {
           "label": "현재 계절 순번",
           "valueExpression": "feature.currentSeasonOrdinal",
           "unit": "단계",
-          "sourceTier": { "tier": "T3_INTERNAL_ENGINE", "sourceType": "internal_scoring_policy", "sourceUrl": null, "accessedAt": "2026-05-03", "quoteShort": null, "humanInterpretation": "Resolved from deterministic spring-ts runtime output.", "copyrightNote": "No third-party prose copied.", "authorityTruthEligible": false }
+          "sourceTier": {
+            "tier": "T3_INTERNAL_ENGINE",
+            "sourceType": "internal_scoring_policy",
+            "sourceUrl": null,
+            "accessedAt": "2026-05-03",
+            "quoteShort": null,
+            "humanInterpretation": "Resolved from deterministic spring-ts runtime output.",
+            "copyrightNote": "No third-party prose copied.",
+            "authorityTruthEligible": false
+          }
         }
       ],
       "aiGenerated": true,
@@ -62,21 +137,60 @@
     {
       "schemaVersion": "spring-ts.narrative-fragment.v1",
       "fragmentId": "romance.life.expert.currentseason.autumn_winter.302",
-      "axis": { "category": "romance", "period": "life", "depth": "expert" },
+      "axis": {
+        "category": "romance",
+        "period": "life",
+        "depth": "expert"
+      },
       "gating": {
-        "currentSeason": ["autumn", "winter"],
-        "yongshinAlignment": ["aligned", "neutral", "conflicting"]
+        "currentSeason": [
+          "autumn",
+          "winter"
+        ],
+        "yongshinAlignment": [
+          "aligned",
+          "neutral",
+          "conflicting"
+        ]
       },
       "templateTokens": [
-        { "kind": "text", "value": "장기 인연 흐름에서 가을과 겨울의 현재 계절은 관계의 지속성과 책임감을 더 크게 봅니다. " },
-        { "kind": "tag", "tagId": "baeujagung", "label": "배우자궁" },
-        { "kind": "text", "value": "은 안정된 약속의 형태를 보여 주고, " },
-        { "kind": "tag", "tagId": "sajuCompatibility", "label": "사주 적합성" },
-        { "kind": "text", "value": "은 감정뿐 아니라 생활 기준의 맞음까지 확인해야 합니다. " },
-        { "kind": "tag", "tagId": "eumyangHarmony", "label": "음양 조화" },
-        { "kind": "text", "value": "가 부족하면 관계가 차갑게 굳지 않도록 표현을 의식적으로 보태야 합니다." }
+        {
+          "kind": "text",
+          "value": "장기 인연 흐름에서 가을과 겨울의 현재 계절은 관계의 지속성과 책임감을 더 크게 봅니다. "
+        },
+        {
+          "kind": "tag",
+          "tagId": "baeujagung",
+          "label": "배우자궁"
+        },
+        {
+          "kind": "text",
+          "value": "은 안정된 약속의 형태를 보여 주고, "
+        },
+        {
+          "kind": "tag",
+          "tagId": "sajuCompatibility",
+          "label": "사주 적합성"
+        },
+        {
+          "kind": "text",
+          "value": "은 감정뿐 아니라 생활 기준의 맞음까지 확인해야 합니다. "
+        },
+        {
+          "kind": "tag",
+          "tagId": "eumyangHarmony",
+          "label": "음양 조화"
+        },
+        {
+          "kind": "text",
+          "value": "가 부족하면 관계가 차갑게 굳지 않도록 표현을 의식적으로 보태야 합니다."
+        }
       ],
-      "tags": ["baeujagung", "sajuCompatibility", "eumyangHarmony"],
+      "tags": [
+        "baeujagung",
+        "sajuCompatibility",
+        "eumyangHarmony"
+      ],
       "aiGenerated": true,
       "sourceTier": {
         "tier": "T1_HYPOTHESIS",
@@ -92,10 +206,22 @@
     {
       "schemaVersion": "spring-ts.narrative-fragment.v1",
       "fragmentId": "career.today.brief.currentseason.spring_summer.301",
-      "axis": { "category": "career", "period": "today", "depth": "brief" },
-      "gating": { "currentSeason": ["spring", "summer"] },
+      "axis": {
+        "category": "career",
+        "period": "today",
+        "depth": "brief"
+      },
+      "gating": {
+        "currentSeason": [
+          "spring",
+          "summer"
+        ]
+      },
       "templateTokens": [
-        { "kind": "text", "value": "오늘은 일에서 먼저 움직이고 제안하기 좋은 흐름이에요. 다만 빠르게 시작한 일도 마감과 담당자를 바로 정해야 안정됩니다." }
+        {
+          "kind": "text",
+          "value": "오늘은 일에서 먼저 움직이고 제안하기 좋은 흐름이에요."
+        }
       ],
       "tags": [],
       "aiGenerated": true,
@@ -113,10 +239,22 @@
     {
       "schemaVersion": "spring-ts.narrative-fragment.v1",
       "fragmentId": "career.today.brief.currentseason.autumn_winter.301",
-      "axis": { "category": "career", "period": "today", "depth": "brief" },
-      "gating": { "currentSeason": ["autumn", "winter"] },
+      "axis": {
+        "category": "career",
+        "period": "today",
+        "depth": "brief"
+      },
+      "gating": {
+        "currentSeason": [
+          "autumn",
+          "winter"
+        ]
+      },
       "templateTokens": [
-        { "kind": "text", "value": "오늘은 새 일을 벌리기보다 맡은 일을 정확히 마무리하기 좋아요. 확인, 보고, 기록을 먼저 챙기면 실수를 줄일 수 있습니다." }
+        {
+          "kind": "text",
+          "value": "오늘은 새 일을 벌리기보다 맡은 일을 정확히 마무리하기 좋아요."
+        }
       ],
       "tags": [],
       "aiGenerated": true,
@@ -134,10 +272,22 @@
     {
       "schemaVersion": "spring-ts.narrative-fragment.v1",
       "fragmentId": "career.today.standard.currentseason.spring_summer.301",
-      "axis": { "category": "career", "period": "today", "depth": "standard" },
-      "gating": { "currentSeason": ["spring", "summer"] },
+      "axis": {
+        "category": "career",
+        "period": "today",
+        "depth": "standard"
+      },
+      "gating": {
+        "currentSeason": [
+          "spring",
+          "summer"
+        ]
+      },
       "templateTokens": [
-        { "kind": "text", "value": "오늘은 업무에서 아이디어와 움직임이 빨라질 수 있어요. 회의, 제안, 연락처럼 먼저 흐름을 여는 일은 잘 맞습니다. 대신 말로만 끝나지 않게 다음 행동, 담당자, 마감 시간을 짧게 남겨 두세요." }
+        {
+          "kind": "text",
+          "value": "오늘은 업무에서 아이디어와 움직임이 빨라질 수 있어요. 회의, 제안, 연락처럼 먼저 흐름을 여는 일은 잘 맞습니다. 대신 말로만 끝나지 않게 다음 행동, 담당자, 마감 시간을 짧게 남겨 두세요."
+        }
       ],
       "livingTips": [
         "회의가 있다면 끝나기 전에 할 일과 마감 시간을 한 줄로 정리하세요.",
@@ -162,10 +312,22 @@
     {
       "schemaVersion": "spring-ts.narrative-fragment.v1",
       "fragmentId": "career.today.standard.currentseason.autumn_winter.301",
-      "axis": { "category": "career", "period": "today", "depth": "standard" },
-      "gating": { "currentSeason": ["autumn", "winter"] },
+      "axis": {
+        "category": "career",
+        "period": "today",
+        "depth": "standard"
+      },
+      "gating": {
+        "currentSeason": [
+          "autumn",
+          "winter"
+        ]
+      },
       "templateTokens": [
-        { "kind": "text", "value": "오늘은 속도보다 정확도가 중요한 업무 흐름이에요. 보고서, 계약, 정산, 승인처럼 기록이 남는 일을 차분히 처리하면 신뢰가 쌓입니다. 새 일을 늘리기보다 이미 맡은 일의 빈틈을 줄이는 데 집중하세요." }
+        {
+          "kind": "text",
+          "value": "오늘은 속도보다 정확도가 중요한 업무 흐름이에요. 보고서, 계약, 정산, 승인처럼 기록이 남는 일을 차분히 처리하면 신뢰가 쌓입니다. 새 일을 늘리기보다 이미 맡은 일의 빈틈을 줄이는 데 집중하세요."
+        }
       ],
       "livingTips": [
         "중요한 문서는 보내기 전에 숫자, 이름, 날짜를 다시 확인하세요.",

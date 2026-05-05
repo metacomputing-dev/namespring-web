@@ -6,10 +6,21 @@
     {
       "schemaVersion": "spring-ts.narrative-fragment.v1",
       "fragmentId": "overall.life.brief.agephase.child_0_9.202",
-      "axis": { "category": "overall", "period": "life", "depth": "brief" },
-      "gating": { "agePhase": ["child_0_9"] },
+      "axis": {
+        "category": "overall",
+        "period": "life",
+        "depth": "brief"
+      },
+      "gating": {
+        "agePhase": [
+          "child_0_9"
+        ]
+      },
       "templateTokens": [
-        { "kind": "text", "value": "이 시기에는 결과보다 안정적인 반복과 칭찬이 중요해요. 작게 해낸 경험이 쌓일수록 자신감의 바탕이 단단해져요." }
+        {
+          "kind": "text",
+          "value": "이 시기에는 결과보다 안정적인 반복과 칭찬이 중요해요."
+        }
       ],
       "tags": [],
       "aiGenerated": true,
@@ -27,10 +38,21 @@
     {
       "schemaVersion": "spring-ts.narrative-fragment.v1",
       "fragmentId": "overall.life.brief.agephase.early_teen.202",
-      "axis": { "category": "overall", "period": "life", "depth": "brief" },
-      "gating": { "agePhase": ["early_teen"] },
+      "axis": {
+        "category": "overall",
+        "period": "life",
+        "depth": "brief"
+      },
+      "gating": {
+        "agePhase": [
+          "early_teen"
+        ]
+      },
       "templateTokens": [
-        { "kind": "text", "value": "초반 10대에는 비교보다 자기 리듬을 찾는 일이 중요해요. 좋아하는 것과 어려운 것을 차분히 구분해 보세요." }
+        {
+          "kind": "text",
+          "value": "초반 10대에는 비교보다 자기 리듬을 찾는 일이 중요해요."
+        }
       ],
       "tags": [],
       "aiGenerated": true,
@@ -48,10 +70,21 @@
     {
       "schemaVersion": "spring-ts.narrative-fragment.v1",
       "fragmentId": "overall.life.brief.agephase.late_teen.202",
-      "axis": { "category": "overall", "period": "life", "depth": "brief" },
-      "gating": { "agePhase": ["late_teen"] },
+      "axis": {
+        "category": "overall",
+        "period": "life",
+        "depth": "brief"
+      },
+      "gating": {
+        "agePhase": [
+          "late_teen"
+        ]
+      },
       "templateTokens": [
-        { "kind": "text", "value": "후반 10대에는 한 번에 정답을 고르기보다 여러 가능성을 안전하게 시험해 보는 흐름이 좋아요." }
+        {
+          "kind": "text",
+          "value": "후반 10대에는 한 번에 정답을 고르기보다 여러 가능성을 안전하게요."
+        }
       ],
       "tags": [],
       "aiGenerated": true,
@@ -69,10 +102,21 @@
     {
       "schemaVersion": "spring-ts.narrative-fragment.v1",
       "fragmentId": "overall.life.brief.agephase.early_20s.202",
-      "axis": { "category": "overall", "period": "life", "depth": "brief" },
-      "gating": { "agePhase": ["early_20s"] },
+      "axis": {
+        "category": "overall",
+        "period": "life",
+        "depth": "brief"
+      },
+      "gating": {
+        "agePhase": [
+          "early_20s"
+        ]
+      },
       "templateTokens": [
-        { "kind": "text", "value": "20대 초반에는 넓게 경험하되 생활 리듬을 잃지 않는 것이 핵심이에요. 작게 벌린 일을 끝까지 마무리해 보세요." }
+        {
+          "kind": "text",
+          "value": "20대 초반에는 넓게 경험하되 생활 리듬을 잃지 않는 것이 핵심이에요."
+        }
       ],
       "tags": [],
       "aiGenerated": true,
@@ -90,10 +134,21 @@
     {
       "schemaVersion": "spring-ts.narrative-fragment.v1",
       "fragmentId": "overall.life.brief.agephase.late_20s.202",
-      "axis": { "category": "overall", "period": "life", "depth": "brief" },
-      "gating": { "agePhase": ["late_20s"] },
+      "axis": {
+        "category": "overall",
+        "period": "life",
+        "depth": "brief"
+      },
+      "gating": {
+        "agePhase": [
+          "late_20s"
+        ]
+      },
       "templateTokens": [
-        { "kind": "text", "value": "20대 후반에는 선택지를 줄이고 오래 가져갈 기준을 세우기 좋아요. 사람, 일, 돈의 우선순위를 다시 정리해 보세요." }
+        {
+          "kind": "text",
+          "value": "20대 후반에는 선택지를 줄이고 오래 가져갈 기준을 세우기 좋아요."
+        }
       ],
       "tags": [],
       "aiGenerated": true,
@@ -111,10 +166,21 @@
     {
       "schemaVersion": "spring-ts.narrative-fragment.v1",
       "fragmentId": "overall.life.brief.agephase.early_30s.202",
-      "axis": { "category": "overall", "period": "life", "depth": "brief" },
-      "gating": { "agePhase": ["early_30s"] },
+      "axis": {
+        "category": "overall",
+        "period": "life",
+        "depth": "brief"
+      },
+      "gating": {
+        "agePhase": [
+          "early_30s"
+        ]
+      },
       "templateTokens": [
-        { "kind": "text", "value": "30대 초반에는 기반을 넓히는 힘이 커져요. 무리하게 증명하기보다 반복 가능한 실력과 관계를 쌓아가면 좋아요." }
+        {
+          "kind": "text",
+          "value": "30대 초반에는 기반을 넓히는 힘이 커져요."
+        }
       ],
       "tags": [],
       "aiGenerated": true,
@@ -132,10 +198,21 @@
     {
       "schemaVersion": "spring-ts.narrative-fragment.v1",
       "fragmentId": "overall.life.brief.agephase.late_30s.202",
-      "axis": { "category": "overall", "period": "life", "depth": "brief" },
-      "gating": { "agePhase": ["late_30s"] },
+      "axis": {
+        "category": "overall",
+        "period": "life",
+        "depth": "brief"
+      },
+      "gating": {
+        "agePhase": [
+          "late_30s"
+        ]
+      },
       "templateTokens": [
-        { "kind": "text", "value": "30대 후반에는 확장과 정리의 균형이 중요해요. 계속 가져갈 책임과 내려놓을 부담을 구분해 보세요." }
+        {
+          "kind": "text",
+          "value": "30대 후반에는 확장과 정리의 균형이 중요해요."
+        }
       ],
       "tags": [],
       "aiGenerated": true,
@@ -153,10 +230,21 @@
     {
       "schemaVersion": "spring-ts.narrative-fragment.v1",
       "fragmentId": "overall.life.brief.agephase.early_40s.202",
-      "axis": { "category": "overall", "period": "life", "depth": "brief" },
-      "gating": { "agePhase": ["early_40s"] },
+      "axis": {
+        "category": "overall",
+        "period": "life",
+        "depth": "brief"
+      },
+      "gating": {
+        "agePhase": [
+          "early_40s"
+        ]
+      },
       "templateTokens": [
-        { "kind": "text", "value": "40대 초반에는 역할이 커지는 만큼 회복 루틴도 함께 필요해요. 책임을 혼자 떠안지 않는 구조를 만들어 보세요." }
+        {
+          "kind": "text",
+          "value": "40대 초반에는 역할이 커지는 만큼 회복 루틴도 함께 필요해요."
+        }
       ],
       "tags": [],
       "aiGenerated": true,
@@ -174,10 +262,21 @@
     {
       "schemaVersion": "spring-ts.narrative-fragment.v1",
       "fragmentId": "overall.life.brief.agephase.late_40s.202",
-      "axis": { "category": "overall", "period": "life", "depth": "brief" },
-      "gating": { "agePhase": ["late_40s"] },
+      "axis": {
+        "category": "overall",
+        "period": "life",
+        "depth": "brief"
+      },
+      "gating": {
+        "agePhase": [
+          "late_40s"
+        ]
+      },
       "templateTokens": [
-        { "kind": "text", "value": "40대 후반에는 익숙한 방식만 고집하기보다 다음 10년을 위한 조정이 필요해요. 몸과 일의 속도를 함께 점검해 보세요." }
+        {
+          "kind": "text",
+          "value": "40대 후반에는 익숙한 방식만 고집하기보다 다음 10년을 위한 조정이요."
+        }
       ],
       "tags": [],
       "aiGenerated": true,
@@ -195,10 +294,21 @@
     {
       "schemaVersion": "spring-ts.narrative-fragment.v1",
       "fragmentId": "overall.life.brief.agephase.early_50s.202",
-      "axis": { "category": "overall", "period": "life", "depth": "brief" },
-      "gating": { "agePhase": ["early_50s"] },
+      "axis": {
+        "category": "overall",
+        "period": "life",
+        "depth": "brief"
+      },
+      "gating": {
+        "agePhase": [
+          "early_50s"
+        ]
+      },
       "templateTokens": [
-        { "kind": "text", "value": "50대 초반에는 쌓아온 경험을 정리해 실질적인 자산으로 바꾸기 좋아요. 관계와 건강의 기본선을 함께 챙기세요." }
+        {
+          "kind": "text",
+          "value": "50대 초반에는 쌓아온 경험을 정리해 실질적인 자산으로 바꾸기 좋아요."
+        }
       ],
       "tags": [],
       "aiGenerated": true,
@@ -216,10 +326,21 @@
     {
       "schemaVersion": "spring-ts.narrative-fragment.v1",
       "fragmentId": "overall.life.brief.agephase.late_50s.202",
-      "axis": { "category": "overall", "period": "life", "depth": "brief" },
-      "gating": { "agePhase": ["late_50s"] },
+      "axis": {
+        "category": "overall",
+        "period": "life",
+        "depth": "brief"
+      },
+      "gating": {
+        "agePhase": [
+          "late_50s"
+        ]
+      },
       "templateTokens": [
-        { "kind": "text", "value": "50대 후반에는 많이 하는 것보다 오래 지속할 수 있는 방식을 고르는 힘이 중요해요. 생활의 무게를 가볍게 정리해 보세요." }
+        {
+          "kind": "text",
+          "value": "50대 후반에는 많이 하는 것보다 오래 지속할 수 있는 방식을 고르는요."
+        }
       ],
       "tags": [],
       "aiGenerated": true,
@@ -237,10 +358,21 @@
     {
       "schemaVersion": "spring-ts.narrative-fragment.v1",
       "fragmentId": "overall.life.brief.agephase.early_60s.202",
-      "axis": { "category": "overall", "period": "life", "depth": "brief" },
-      "gating": { "agePhase": ["early_60s"] },
+      "axis": {
+        "category": "overall",
+        "period": "life",
+        "depth": "brief"
+      },
+      "gating": {
+        "agePhase": [
+          "early_60s"
+        ]
+      },
       "templateTokens": [
-        { "kind": "text", "value": "60대 초반에는 역할 전환을 자연스럽게 받아들이는 태도가 좋아요. 새 리듬을 천천히 만들면 삶의 안정감이 커져요." }
+        {
+          "kind": "text",
+          "value": "60대 초반에는 역할 전환을 자연스럽게 받아들이는 태도가 좋아요."
+        }
       ],
       "tags": [],
       "aiGenerated": true,
@@ -258,10 +390,21 @@
     {
       "schemaVersion": "spring-ts.narrative-fragment.v1",
       "fragmentId": "overall.life.brief.agephase.late_60s.202",
-      "axis": { "category": "overall", "period": "life", "depth": "brief" },
-      "gating": { "agePhase": ["late_60s"] },
+      "axis": {
+        "category": "overall",
+        "period": "life",
+        "depth": "brief"
+      },
+      "gating": {
+        "agePhase": [
+          "late_60s"
+        ]
+      },
       "templateTokens": [
-        { "kind": "text", "value": "60대 후반에는 내 속도에 맞는 관계와 활동이 중요해요. 무리한 약속보다 꾸준히 이어지는 생활을 우선해 보세요." }
+        {
+          "kind": "text",
+          "value": "60대 후반에는 내 속도에 맞는 관계와 활동이 중요해요."
+        }
       ],
       "tags": [],
       "aiGenerated": true,
@@ -279,10 +422,21 @@
     {
       "schemaVersion": "spring-ts.narrative-fragment.v1",
       "fragmentId": "overall.life.brief.agephase.70s.202",
-      "axis": { "category": "overall", "period": "life", "depth": "brief" },
-      "gating": { "agePhase": ["70s"] },
+      "axis": {
+        "category": "overall",
+        "period": "life",
+        "depth": "brief"
+      },
+      "gating": {
+        "agePhase": [
+          "70s"
+        ]
+      },
       "templateTokens": [
-        { "kind": "text", "value": "70대에는 몸의 신호를 존중하면서 익숙한 즐거움을 지키는 것이 좋아요. 작은 약속과 루틴이 하루를 안정시켜요." }
+        {
+          "kind": "text",
+          "value": "70대에는 몸의 신호를 존중하면서 익숙한 즐거움을 지키는 것이 좋아요."
+        }
       ],
       "tags": [],
       "aiGenerated": true,
@@ -300,10 +454,21 @@
     {
       "schemaVersion": "spring-ts.narrative-fragment.v1",
       "fragmentId": "overall.life.brief.agephase.80s.202",
-      "axis": { "category": "overall", "period": "life", "depth": "brief" },
-      "gating": { "agePhase": ["80s"] },
+      "axis": {
+        "category": "overall",
+        "period": "life",
+        "depth": "brief"
+      },
+      "gating": {
+        "agePhase": [
+          "80s"
+        ]
+      },
       "templateTokens": [
-        { "kind": "text", "value": "80대에는 무리한 확장보다 편안한 연결과 안전한 환경이 중요해요. 도움을 받는 것도 좋은 선택이에요." }
+        {
+          "kind": "text",
+          "value": "80대에는 무리한 확장보다 편안한 연결과 안전한 환경이 중요해요."
+        }
       ],
       "tags": [],
       "aiGenerated": true,
@@ -321,10 +486,21 @@
     {
       "schemaVersion": "spring-ts.narrative-fragment.v1",
       "fragmentId": "overall.life.brief.agephase.90_plus.202",
-      "axis": { "category": "overall", "period": "life", "depth": "brief" },
-      "gating": { "agePhase": ["90_plus"] },
+      "axis": {
+        "category": "overall",
+        "period": "life",
+        "depth": "brief"
+      },
+      "gating": {
+        "agePhase": [
+          "90_plus"
+        ]
+      },
       "templateTokens": [
-        { "kind": "text", "value": "90대 이후에는 평온한 생활감과 가까운 사람들의 안정적인 돌봄이 가장 중요해요. 익숙한 리듬을 지키면 마음이 편해져요." }
+        {
+          "kind": "text",
+          "value": "90대 이후에는 평온한 생활감과 가까운 사람들의 안정적인 돌봄이요."
+        }
       ],
       "tags": [],
       "aiGenerated": true,

@@ -6,10 +6,22 @@
     {
       "schemaVersion": "spring-ts.narrative-fragment.v1",
       "fragmentId": "wealth.life.standard.currentseason.spring_summer.301",
-      "axis": { "category": "wealth", "period": "life", "depth": "standard" },
-      "gating": { "currentSeason": ["spring", "summer"] },
+      "axis": {
+        "category": "wealth",
+        "period": "life",
+        "depth": "standard"
+      },
+      "gating": {
+        "currentSeason": [
+          "spring",
+          "summer"
+        ]
+      },
       "templateTokens": [
-        { "kind": "text", "value": "긴 흐름에서는 돈을 움직이며 기회를 찾는 힘이 살아나요. 다만 수입이 늘어나는 시기에도 지출 기준을 같이 세워야, 들어오는 돈이 생활의 안정으로 이어집니다." }
+        {
+          "kind": "text",
+          "value": "긴 흐름에서는 돈을 움직이며 기회를 찾는 힘이 살아나요. 다만 수입이 늘어나는 시기에도 지출 기준을 같이 세워야, 들어오는 돈이 생활의 안정으로 이어집니다."
+        }
       ],
       "livingTips": [
         "새 수입원이 생기면 저축, 생활비, 재투자 비율을 먼저 정하세요.",
@@ -34,10 +46,22 @@
     {
       "schemaVersion": "spring-ts.narrative-fragment.v1",
       "fragmentId": "wealth.life.standard.currentseason.autumn_winter.301",
-      "axis": { "category": "wealth", "period": "life", "depth": "standard" },
-      "gating": { "currentSeason": ["autumn", "winter"] },
+      "axis": {
+        "category": "wealth",
+        "period": "life",
+        "depth": "standard"
+      },
+      "gating": {
+        "currentSeason": [
+          "autumn",
+          "winter"
+        ]
+      },
       "templateTokens": [
-        { "kind": "text", "value": "긴 흐름에서는 돈을 크게 불리는 일보다 오래 지키는 습관이 중요해요. 수입과 지출을 차분히 기록하고, 무리한 확장보다 안전한 기반을 먼저 만들면 안정감이 커집니다." }
+        {
+          "kind": "text",
+          "value": "긴 흐름에서는 돈을 크게 불리는 일보다 오래 지키는 습관이 중요해요. 수입과 지출을 차분히 기록하고, 무리한 확장보다 안전한 기반을 먼저 만들면 안정감이 커집니다."
+        }
       ],
       "livingTips": [
         "고정비를 정기적으로 점검하고 줄일 수 있는 항목을 찾으세요.",
@@ -62,10 +86,22 @@
     {
       "schemaVersion": "spring-ts.narrative-fragment.v1",
       "fragmentId": "wealth.today.brief.currentseason.spring_summer.301",
-      "axis": { "category": "wealth", "period": "today", "depth": "brief" },
-      "gating": { "currentSeason": ["spring", "summer"] },
+      "axis": {
+        "category": "wealth",
+        "period": "today",
+        "depth": "brief"
+      },
+      "gating": {
+        "currentSeason": [
+          "spring",
+          "summer"
+        ]
+      },
       "templateTokens": [
-        { "kind": "text", "value": "오늘은 돈이 움직이기 쉬운 날이에요. 작은 수입 기회는 살피되, 즉흥 지출은 한 번만 더 확인하세요." }
+        {
+          "kind": "text",
+          "value": "오늘은 돈이 움직이기 쉬운 날이에요."
+        }
       ],
       "tags": [],
       "aiGenerated": true,
@@ -83,10 +119,22 @@
     {
       "schemaVersion": "spring-ts.narrative-fragment.v1",
       "fragmentId": "wealth.today.brief.currentseason.autumn_winter.301",
-      "axis": { "category": "wealth", "period": "today", "depth": "brief" },
-      "gating": { "currentSeason": ["autumn", "winter"] },
+      "axis": {
+        "category": "wealth",
+        "period": "today",
+        "depth": "brief"
+      },
+      "gating": {
+        "currentSeason": [
+          "autumn",
+          "winter"
+        ]
+      },
       "templateTokens": [
-        { "kind": "text", "value": "오늘은 돈을 쓰기보다 지키는 쪽이 좋아요. 결제 전 필요한 지출인지 한 번 더 살펴보세요." }
+        {
+          "kind": "text",
+          "value": "오늘은 돈을 쓰기보다 지키는 쪽이 좋아요."
+        }
       ],
       "tags": [],
       "aiGenerated": true,
@@ -104,10 +152,22 @@
     {
       "schemaVersion": "spring-ts.narrative-fragment.v1",
       "fragmentId": "wealth.thisWeek.brief.currentseason.spring_summer.301",
-      "axis": { "category": "wealth", "period": "thisWeek", "depth": "brief" },
-      "gating": { "currentSeason": ["spring", "summer"] },
+      "axis": {
+        "category": "wealth",
+        "period": "thisWeek",
+        "depth": "brief"
+      },
+      "gating": {
+        "currentSeason": [
+          "spring",
+          "summer"
+        ]
+      },
       "templateTokens": [
-        { "kind": "text", "value": "이번 주는 수입과 지출이 함께 늘 수 있어요. 돈이 들어올 때 바로 예산을 나누면 흐름이 안정됩니다." }
+        {
+          "kind": "text",
+          "value": "이번 주는 수입과 지출이 함께 늘 수 있어요."
+        }
       ],
       "tags": [],
       "aiGenerated": true,
@@ -125,10 +185,22 @@
     {
       "schemaVersion": "spring-ts.narrative-fragment.v1",
       "fragmentId": "wealth.thisWeek.brief.currentseason.autumn_winter.301",
-      "axis": { "category": "wealth", "period": "thisWeek", "depth": "brief" },
-      "gating": { "currentSeason": ["autumn", "winter"] },
+      "axis": {
+        "category": "wealth",
+        "period": "thisWeek",
+        "depth": "brief"
+      },
+      "gating": {
+        "currentSeason": [
+          "autumn",
+          "winter"
+        ]
+      },
       "templateTokens": [
-        { "kind": "text", "value": "이번 주는 지출을 줄이고 남는 돈을 확인하기 좋아요. 작은 절약이 한 주의 안정감을 만들어줍니다." }
+        {
+          "kind": "text",
+          "value": "이번 주는 지출을 줄이고 남는 돈을 확인하기 좋아요."
+        }
       ],
       "tags": [],
       "aiGenerated": true,
@@ -146,10 +218,22 @@
     {
       "schemaVersion": "spring-ts.narrative-fragment.v1",
       "fragmentId": "wealth.thisMonth.brief.currentseason.spring_summer.301",
-      "axis": { "category": "wealth", "period": "thisMonth", "depth": "brief" },
-      "gating": { "currentSeason": ["spring", "summer"] },
+      "axis": {
+        "category": "wealth",
+        "period": "thisMonth",
+        "depth": "brief"
+      },
+      "gating": {
+        "currentSeason": [
+          "spring",
+          "summer"
+        ]
+      },
       "templateTokens": [
-        { "kind": "text", "value": "이번 달은 돈의 흐름을 넓게 볼 수 있어요. 새 기회는 살피되, 먼저 한 달 예산을 정해두세요." }
+        {
+          "kind": "text",
+          "value": "이번 달은 돈의 흐름을 넓게 볼 수 있어요."
+        }
       ],
       "tags": [],
       "aiGenerated": true,
@@ -167,10 +251,22 @@
     {
       "schemaVersion": "spring-ts.narrative-fragment.v1",
       "fragmentId": "wealth.thisMonth.brief.currentseason.autumn_winter.301",
-      "axis": { "category": "wealth", "period": "thisMonth", "depth": "brief" },
-      "gating": { "currentSeason": ["autumn", "winter"] },
+      "axis": {
+        "category": "wealth",
+        "period": "thisMonth",
+        "depth": "brief"
+      },
+      "gating": {
+        "currentSeason": [
+          "autumn",
+          "winter"
+        ]
+      },
       "templateTokens": [
-        { "kind": "text", "value": "이번 달은 무리한 확장보다 지출 정리가 더 중요해요. 고정비와 약속된 돈을 먼저 확인하세요." }
+        {
+          "kind": "text",
+          "value": "이번 달은 무리한 확장보다 지출 정리가 더 중요해요."
+        }
       ],
       "tags": [],
       "aiGenerated": true,

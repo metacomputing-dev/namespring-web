@@ -6,10 +6,24 @@
     {
       "schemaVersion": "spring-ts.narrative-fragment.v1",
       "fragmentId": "movement.life.brief.ageband.young.501",
-      "axis": { "category": "movement", "period": "life", "depth": "brief" },
-      "gating": { "ageBand": ["0-9", "10-19", "20-29", "30-39"] },
+      "axis": {
+        "category": "movement",
+        "period": "life",
+        "depth": "brief"
+      },
+      "gating": {
+        "ageBand": [
+          "0-9",
+          "10-19",
+          "20-29",
+          "30-39"
+        ]
+      },
       "templateTokens": [
-        { "kind": "text", "value": "삶 전체로 보면 새로운 장소와 사람을 경험할수록 시야가 넓어지는 편이에요." }
+        {
+          "kind": "text",
+          "value": "삶 전체로 보면 새로운 장소와 사람을 경험할수록 시야가 넓어지요."
+        }
       ],
       "tags": [],
       "aiGenerated": true,
@@ -27,10 +41,23 @@
     {
       "schemaVersion": "spring-ts.narrative-fragment.v1",
       "fragmentId": "movement.life.brief.ageband.mature.501",
-      "axis": { "category": "movement", "period": "life", "depth": "brief" },
-      "gating": { "ageBand": ["40-54", "55-69", "70+"] },
+      "axis": {
+        "category": "movement",
+        "period": "life",
+        "depth": "brief"
+      },
+      "gating": {
+        "ageBand": [
+          "40-54",
+          "55-69",
+          "70+"
+        ]
+      },
       "templateTokens": [
-        { "kind": "text", "value": "삶 전체로 보면 익숙한 기반을 지키면서 필요한 만큼 움직일 때 안정감이 커집니다." }
+        {
+          "kind": "text",
+          "value": "삶 전체로 보면 익숙한 기반을 지키면서 필요한 만큼 움직일 때 안요."
+        }
       ],
       "tags": [],
       "aiGenerated": true,
@@ -48,10 +75,24 @@
     {
       "schemaVersion": "spring-ts.narrative-fragment.v1",
       "fragmentId": "movement.life.standard.ageband.young.501",
-      "axis": { "category": "movement", "period": "life", "depth": "standard" },
-      "gating": { "ageBand": ["0-9", "10-19", "20-29", "30-39"] },
+      "axis": {
+        "category": "movement",
+        "period": "life",
+        "depth": "standard"
+      },
+      "gating": {
+        "ageBand": [
+          "0-9",
+          "10-19",
+          "20-29",
+          "30-39"
+        ]
+      },
       "templateTokens": [
-        { "kind": "text", "value": "장기 이동 흐름은 새로운 경험을 통해 배우는 힘과 연결됩니다. 낯선 장소, 다른 사람, 새로운 일정을 겪을수록 선택지가 넓어지지만, 너무 자주 바꾸면 중심을 잃을 수 있어요." }
+        {
+          "kind": "text",
+          "value": "장기 이동 흐름은 새로운 경험을 통해 배우는 힘과 연결됩니다. 낯선 장소, 다른 사람, 새로운 일정을 겪을수록 선택지가 넓어지지만, 너무 자주 바꾸면 중심을 잃을 수 있어요."
+        }
       ],
       "livingTips": [
         "새로운 장소를 가더라도 돌아올 루틴 하나는 정해두세요.",
@@ -76,10 +117,23 @@
     {
       "schemaVersion": "spring-ts.narrative-fragment.v1",
       "fragmentId": "movement.life.standard.ageband.mature.501",
-      "axis": { "category": "movement", "period": "life", "depth": "standard" },
-      "gating": { "ageBand": ["40-54", "55-69", "70+"] },
+      "axis": {
+        "category": "movement",
+        "period": "life",
+        "depth": "standard"
+      },
+      "gating": {
+        "ageBand": [
+          "40-54",
+          "55-69",
+          "70+"
+        ]
+      },
       "templateTokens": [
-        { "kind": "text", "value": "장기 이동 흐름은 무조건 많이 움직이는 것보다 필요한 변화만 고르는 쪽이 안정적입니다. 생활 기반을 지키면서 새로운 환경을 조금씩 받아들이면 피로를 줄이고 선택의 폭도 유지할 수 있어요." }
+        {
+          "kind": "text",
+          "value": "장기 이동 흐름은 무조건 많이 움직이는 것보다 필요한 변화만 고르는 쪽이 안정적입니다. 생활 기반을 지키면서 새로운 환경을 조금씩 받아들이면 피로를 줄이고 선택의 폭도 유지할 수 있어요."
+        }
       ],
       "livingTips": [
         "큰 이동이나 변화는 준비 기간과 회복 기간을 함께 잡으세요.",
@@ -104,10 +158,23 @@
     {
       "schemaVersion": "spring-ts.narrative-fragment.v1",
       "fragmentId": "movement.today.brief.pacing.501",
-      "axis": { "category": "movement", "period": "today", "depth": "brief" },
-      "gating": { "dayMasterStrength": ["WEAK", "EXTREME_WEAK", "BALANCED"] },
+      "axis": {
+        "category": "movement",
+        "period": "today",
+        "depth": "brief"
+      },
+      "gating": {
+        "dayMasterStrength": [
+          "WEAK",
+          "EXTREME_WEAK",
+          "BALANCED"
+        ]
+      },
       "templateTokens": [
-        { "kind": "text", "value": "오늘은 이동을 줄이고 꼭 필요한 일정만 남기면 몸과 마음이 편해져요." }
+        {
+          "kind": "text",
+          "value": "오늘은 이동을 줄이고 꼭 필요한 일정만 남기면 몸과 마음이 편해져요."
+        }
       ],
       "tags": [],
       "aiGenerated": true,
@@ -125,10 +192,22 @@
     {
       "schemaVersion": "spring-ts.narrative-fragment.v1",
       "fragmentId": "movement.today.brief.activity.501",
-      "axis": { "category": "movement", "period": "today", "depth": "brief" },
-      "gating": { "dayMasterStrength": ["STRONG", "EXTREME_STRONG"] },
+      "axis": {
+        "category": "movement",
+        "period": "today",
+        "depth": "brief"
+      },
+      "gating": {
+        "dayMasterStrength": [
+          "STRONG",
+          "EXTREME_STRONG"
+        ]
+      },
       "templateTokens": [
-        { "kind": "text", "value": "오늘은 짧은 외출이나 가벼운 움직임이 생각 정리에 도움이 됩니다." }
+        {
+          "kind": "text",
+          "value": "오늘은 짧은 외출이나 가벼운 움직임이 생각 정리에 도움이 됩니다."
+        }
       ],
       "tags": [],
       "aiGenerated": true,
@@ -146,10 +225,23 @@
     {
       "schemaVersion": "spring-ts.narrative-fragment.v1",
       "fragmentId": "movement.today.standard.pacing.501",
-      "axis": { "category": "movement", "period": "today", "depth": "standard" },
-      "gating": { "dayMasterStrength": ["WEAK", "EXTREME_WEAK", "BALANCED"] },
+      "axis": {
+        "category": "movement",
+        "period": "today",
+        "depth": "standard"
+      },
+      "gating": {
+        "dayMasterStrength": [
+          "WEAK",
+          "EXTREME_WEAK",
+          "BALANCED"
+        ]
+      },
       "templateTokens": [
-        { "kind": "text", "value": "오늘은 이동을 많이 늘리기보다 동선을 단순하게 만드는 편이 좋아요. 해야 할 일을 가까운 순서로 묶고, 중간에 쉬는 시간을 넣으면 예상 밖의 피로를 줄일 수 있습니다." }
+        {
+          "kind": "text",
+          "value": "오늘은 이동을 많이 늘리기보다 동선을 단순하게 만드는 편이 좋아요. 해야 할 일을 가까운 순서로 묶고, 중간에 쉬는 시간을 넣으면 예상 밖의 피로를 줄일 수 있습니다."
+        }
       ],
       "livingTips": [
         "가야 할 장소를 가까운 순서대로 다시 정렬하세요.",
@@ -174,10 +266,22 @@
     {
       "schemaVersion": "spring-ts.narrative-fragment.v1",
       "fragmentId": "movement.today.standard.activity.501",
-      "axis": { "category": "movement", "period": "today", "depth": "standard" },
-      "gating": { "dayMasterStrength": ["STRONG", "EXTREME_STRONG"] },
+      "axis": {
+        "category": "movement",
+        "period": "today",
+        "depth": "standard"
+      },
+      "gating": {
+        "dayMasterStrength": [
+          "STRONG",
+          "EXTREME_STRONG"
+        ]
+      },
       "templateTokens": [
-        { "kind": "text", "value": "오늘은 가만히 있기보다 몸을 조금 움직일 때 답답함이 풀릴 수 있어요. 다만 즉흥적으로 너무 멀리 가기보다, 짧은 외출이나 가까운 장소에서 기분을 바꾸는 정도가 적당합니다." }
+        {
+          "kind": "text",
+          "value": "오늘은 가만히 있기보다 몸을 조금 움직일 때 답답함이 풀릴 수 있어요. 다만 즉흥적으로 너무 멀리 가기보다, 짧은 외출이나 가까운 장소에서 기분을 바꾸는 정도가 적당합니다."
+        }
       ],
       "livingTips": [
         "걷기, 장보기, 가까운 카페처럼 짧은 동선을 활용하세요.",
@@ -202,10 +306,23 @@
     {
       "schemaVersion": "spring-ts.narrative-fragment.v1",
       "fragmentId": "movement.thisWeek.brief.recovery.501",
-      "axis": { "category": "movement", "period": "thisWeek", "depth": "brief" },
-      "gating": { "ageBand": ["40-54", "55-69", "70+"] },
+      "axis": {
+        "category": "movement",
+        "period": "thisWeek",
+        "depth": "brief"
+      },
+      "gating": {
+        "ageBand": [
+          "40-54",
+          "55-69",
+          "70+"
+        ]
+      },
       "templateTokens": [
-        { "kind": "text", "value": "이번 주는 이동이 많은 날과 쉬는 날을 나누면 부담이 줄어듭니다." }
+        {
+          "kind": "text",
+          "value": "이번 주는 이동이 많은 날과 쉬는 날을 나누면 부담이 줄어듭니다."
+        }
       ],
       "tags": [],
       "aiGenerated": true,
@@ -223,10 +340,24 @@
     {
       "schemaVersion": "spring-ts.narrative-fragment.v1",
       "fragmentId": "movement.thisWeek.brief.explore.501",
-      "axis": { "category": "movement", "period": "thisWeek", "depth": "brief" },
-      "gating": { "ageBand": ["0-9", "10-19", "20-29", "30-39"] },
+      "axis": {
+        "category": "movement",
+        "period": "thisWeek",
+        "depth": "brief"
+      },
+      "gating": {
+        "ageBand": [
+          "0-9",
+          "10-19",
+          "20-29",
+          "30-39"
+        ]
+      },
       "templateTokens": [
-        { "kind": "text", "value": "이번 주는 익숙한 길을 조금 바꿔보면 새로운 생각이 떠오르기 쉬워요." }
+        {
+          "kind": "text",
+          "value": "이번 주는 익숙한 길을 조금 바꿔보면 새로운 생각이 떠오르기 쉬워요."
+        }
       ],
       "tags": [],
       "aiGenerated": true,
@@ -244,10 +375,23 @@
     {
       "schemaVersion": "spring-ts.narrative-fragment.v1",
       "fragmentId": "movement.thisWeek.standard.recovery.501",
-      "axis": { "category": "movement", "period": "thisWeek", "depth": "standard" },
-      "gating": { "ageBand": ["40-54", "55-69", "70+"] },
+      "axis": {
+        "category": "movement",
+        "period": "thisWeek",
+        "depth": "standard"
+      },
+      "gating": {
+        "ageBand": [
+          "40-54",
+          "55-69",
+          "70+"
+        ]
+      },
       "templateTokens": [
-        { "kind": "text", "value": "이번 주는 움직임을 줄이는 날과 필요한 외출을 하는 날을 구분하면 안정적입니다. 몸이 피로한 상태에서 이동이 겹치면 마음도 급해질 수 있으니, 이동 전후의 회복 시간을 먼저 잡아두세요." }
+        {
+          "kind": "text",
+          "value": "이번 주는 움직임을 줄이는 날과 필요한 외출을 하는 날을 구분하면 안정적입니다. 몸이 피로한 상태에서 이동이 겹치면 마음도 급해질 수 있으니, 이동 전후의 회복 시간을 먼저 잡아두세요."
+        }
       ],
       "livingTips": [
         "이번 주 이동이 많은 날을 달력에 먼저 표시하세요.",
@@ -272,10 +416,24 @@
     {
       "schemaVersion": "spring-ts.narrative-fragment.v1",
       "fragmentId": "movement.thisWeek.standard.explore.501",
-      "axis": { "category": "movement", "period": "thisWeek", "depth": "standard" },
-      "gating": { "ageBand": ["0-9", "10-19", "20-29", "30-39"] },
+      "axis": {
+        "category": "movement",
+        "period": "thisWeek",
+        "depth": "standard"
+      },
+      "gating": {
+        "ageBand": [
+          "0-9",
+          "10-19",
+          "20-29",
+          "30-39"
+        ]
+      },
       "templateTokens": [
-        { "kind": "text", "value": "이번 주는 작은 이동과 새로운 경험이 기분 전환에 도움이 됩니다. 멀리 가는 것보다 평소와 다른 길, 다른 사람, 다른 장소를 가볍게 경험해 보는 정도가 좋습니다." }
+        {
+          "kind": "text",
+          "value": "이번 주는 작은 이동과 새로운 경험이 기분 전환에 도움이 됩니다. 멀리 가는 것보다 평소와 다른 길, 다른 사람, 다른 장소를 가볍게 경험해 보는 정도가 좋습니다."
+        }
       ],
       "livingTips": [
         "평소 가던 길 대신 한 번쯤 다른 길을 걸어보세요.",
@@ -300,10 +458,22 @@
     {
       "schemaVersion": "spring-ts.narrative-fragment.v1",
       "fragmentId": "movement.thisMonth.brief.rhythm.501",
-      "axis": { "category": "movement", "period": "thisMonth", "depth": "brief" },
-      "gating": { "currentSeason": ["spring", "summer"] },
+      "axis": {
+        "category": "movement",
+        "period": "thisMonth",
+        "depth": "brief"
+      },
+      "gating": {
+        "currentSeason": [
+          "spring",
+          "summer"
+        ]
+      },
       "templateTokens": [
-        { "kind": "text", "value": "이번 달은 활동 범위가 넓어지기 쉬우니 일정 사이의 여유가 중요합니다." }
+        {
+          "kind": "text",
+          "value": "이번 달은 활동 범위가 넓어지기 쉬우니 일정 사이의 여유가 중요."
+        }
       ],
       "tags": [],
       "aiGenerated": true,
@@ -321,10 +491,22 @@
     {
       "schemaVersion": "spring-ts.narrative-fragment.v1",
       "fragmentId": "movement.thisMonth.brief.reset.501",
-      "axis": { "category": "movement", "period": "thisMonth", "depth": "brief" },
-      "gating": { "currentSeason": ["autumn", "winter"] },
+      "axis": {
+        "category": "movement",
+        "period": "thisMonth",
+        "depth": "brief"
+      },
+      "gating": {
+        "currentSeason": [
+          "autumn",
+          "winter"
+        ]
+      },
       "templateTokens": [
-        { "kind": "text", "value": "이번 달은 움직임을 줄이고 필요한 곳에만 힘을 쓰면 안정감이 커집니다." }
+        {
+          "kind": "text",
+          "value": "이번 달은 움직임을 줄이고 필요한 곳에만 힘을 쓰면 안정감이 커요."
+        }
       ],
       "tags": [],
       "aiGenerated": true,
@@ -342,10 +524,22 @@
     {
       "schemaVersion": "spring-ts.narrative-fragment.v1",
       "fragmentId": "movement.thisMonth.standard.rhythm.501",
-      "axis": { "category": "movement", "period": "thisMonth", "depth": "standard" },
-      "gating": { "currentSeason": ["spring", "summer"] },
+      "axis": {
+        "category": "movement",
+        "period": "thisMonth",
+        "depth": "standard"
+      },
+      "gating": {
+        "currentSeason": [
+          "spring",
+          "summer"
+        ]
+      },
       "templateTokens": [
-        { "kind": "text", "value": "이번 달은 활동과 만남이 늘어날 수 있어 이동 계획을 미리 정리하는 것이 좋습니다. 기회가 많아 보여도 모두 잡기보다 중요한 일정만 고르면 피로를 줄이고 성과도 더 분명해집니다." }
+        {
+          "kind": "text",
+          "value": "이번 달은 활동과 만남이 늘어날 수 있어 이동 계획을 미리 정리하는 것이 좋습니다. 기회가 많아 보여도 모두 잡기보다 중요한 일정만 고르면 피로를 줄이고 성과도 더 분명해집니다."
+        }
       ],
       "livingTips": [
         "이번 달 이동이 큰 일정을 한눈에 보이게 정리하세요.",
@@ -370,10 +564,22 @@
     {
       "schemaVersion": "spring-ts.narrative-fragment.v1",
       "fragmentId": "movement.thisMonth.standard.reset.501",
-      "axis": { "category": "movement", "period": "thisMonth", "depth": "standard" },
-      "gating": { "currentSeason": ["autumn", "winter"] },
+      "axis": {
+        "category": "movement",
+        "period": "thisMonth",
+        "depth": "standard"
+      },
+      "gating": {
+        "currentSeason": [
+          "autumn",
+          "winter"
+        ]
+      },
       "templateTokens": [
-        { "kind": "text", "value": "이번 달은 바깥으로 넓히기보다 내 생활권을 정리하는 데 더 잘 맞습니다. 오래 미뤄둔 방문, 정리, 짧은 이동을 먼저 끝내면 마음이 가벼워지고 다음 계획도 세우기 쉬워집니다." }
+        {
+          "kind": "text",
+          "value": "이번 달은 바깥으로 넓히기보다 내 생활권을 정리하는 데 더 잘 맞습니다. 오래 미뤄둔 방문, 정리, 짧은 이동을 먼저 끝내면 마음이 가벼워지고 다음 계획도 세우기 쉬워집니다."
+        }
       ],
       "livingTips": [
         "미뤄둔 병원, 관공서, 생활 정리 일정을 먼저 처리하세요.",
@@ -398,10 +604,24 @@
     {
       "schemaVersion": "spring-ts.narrative-fragment.v1",
       "fragmentId": "movement.thisYear.brief.foundation.501",
-      "axis": { "category": "movement", "period": "thisYear", "depth": "brief" },
-      "gating": { "ageBand": ["0-9", "10-19", "20-29", "30-39"] },
+      "axis": {
+        "category": "movement",
+        "period": "thisYear",
+        "depth": "brief"
+      },
+      "gating": {
+        "ageBand": [
+          "0-9",
+          "10-19",
+          "20-29",
+          "30-39"
+        ]
+      },
       "templateTokens": [
-        { "kind": "text", "value": "올해는 새로운 경험을 조금씩 넓히면 생각과 관계의 폭이 커질 수 있어요." }
+        {
+          "kind": "text",
+          "value": "올해는 새로운 경험을 조금씩 넓히면 생각과 관계의 폭이 커질 수요."
+        }
       ],
       "tags": [],
       "aiGenerated": true,
@@ -419,10 +639,23 @@
     {
       "schemaVersion": "spring-ts.narrative-fragment.v1",
       "fragmentId": "movement.thisYear.brief.recovery.501",
-      "axis": { "category": "movement", "period": "thisYear", "depth": "brief" },
-      "gating": { "ageBand": ["40-54", "55-69", "70+"] },
+      "axis": {
+        "category": "movement",
+        "period": "thisYear",
+        "depth": "brief"
+      },
+      "gating": {
+        "ageBand": [
+          "40-54",
+          "55-69",
+          "70+"
+        ]
+      },
       "templateTokens": [
-        { "kind": "text", "value": "올해는 무리한 변화보다 필요한 이동만 고르는 태도가 안정적입니다." }
+        {
+          "kind": "text",
+          "value": "올해는 무리한 변화보다 필요한 이동만 고르는 태도가 안정적입니다."
+        }
       ],
       "tags": [],
       "aiGenerated": true,
@@ -440,10 +673,24 @@
     {
       "schemaVersion": "spring-ts.narrative-fragment.v1",
       "fragmentId": "movement.thisYear.standard.foundation.501",
-      "axis": { "category": "movement", "period": "thisYear", "depth": "standard" },
-      "gating": { "ageBand": ["0-9", "10-19", "20-29", "30-39"] },
+      "axis": {
+        "category": "movement",
+        "period": "thisYear",
+        "depth": "standard"
+      },
+      "gating": {
+        "ageBand": [
+          "0-9",
+          "10-19",
+          "20-29",
+          "30-39"
+        ]
+      },
       "templateTokens": [
-        { "kind": "text", "value": "올해 이동 흐름은 새로운 경험을 통해 길을 넓히는 쪽에 가깝습니다. 배우고 싶은 일, 만나고 싶은 사람, 가보고 싶은 장소를 현실적인 순서로 정하면 변화가 부담보다 성장으로 느껴질 수 있어요." }
+        {
+          "kind": "text",
+          "value": "올해 이동 흐름은 새로운 경험을 통해 길을 넓히는 쪽에 가깝습니다. 배우고 싶은 일, 만나고 싶은 사람, 가보고 싶은 장소를 현실적인 순서로 정하면 변화가 부담보다 성장으로 느껴질 수 있어요."
+        }
       ],
       "livingTips": [
         "올해 가보고 싶은 장소와 그 이유를 함께 적어보세요.",
@@ -468,10 +715,23 @@
     {
       "schemaVersion": "spring-ts.narrative-fragment.v1",
       "fragmentId": "movement.thisYear.standard.recovery.501",
-      "axis": { "category": "movement", "period": "thisYear", "depth": "standard" },
-      "gating": { "ageBand": ["40-54", "55-69", "70+"] },
+      "axis": {
+        "category": "movement",
+        "period": "thisYear",
+        "depth": "standard"
+      },
+      "gating": {
+        "ageBand": [
+          "40-54",
+          "55-69",
+          "70+"
+        ]
+      },
       "templateTokens": [
-        { "kind": "text", "value": "올해는 이동과 변화의 양을 조절하는 것이 중요합니다. 필요한 변화는 받아들이되, 기반을 흔들 정도로 서두르지 않으면 몸과 마음의 부담을 줄이고 안정적인 선택을 이어갈 수 있습니다." }
+        {
+          "kind": "text",
+          "value": "올해는 이동과 변화의 양을 조절하는 것이 중요합니다. 필요한 변화는 받아들이되, 기반을 흔들 정도로 서두르지 않으면 몸과 마음의 부담을 줄이고 안정적인 선택을 이어갈 수 있습니다."
+        }
       ],
       "livingTips": [
         "올해 큰 이동 계획은 비용, 체력, 회복 시간을 함께 계산하세요.",

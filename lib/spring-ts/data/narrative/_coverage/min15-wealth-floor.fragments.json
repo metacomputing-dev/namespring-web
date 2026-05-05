@@ -6,10 +6,25 @@
     {
       "schemaVersion": "spring-ts.narrative-fragment.v1",
       "fragmentId": "wealth.life.brief.steady_base.504",
-      "axis": { "category": "wealth", "period": "life", "depth": "brief" },
-      "gating": { "ageBand": ["20-29", "30-39", "40-54", "55-69", "70+"] },
+      "axis": {
+        "category": "wealth",
+        "period": "life",
+        "depth": "brief"
+      },
+      "gating": {
+        "ageBand": [
+          "20-29",
+          "30-39",
+          "40-54",
+          "55-69",
+          "70+"
+        ]
+      },
       "templateTokens": [
-        { "kind": "text", "value": "돈 관리는 크게 벌기보다 오래 지킬 수 있는 기준을 만드는 것이 중요해요." }
+        {
+          "kind": "text",
+          "value": "돈 관리는 크게 벌기보다 오래 지킬 수 있는 기준을 만드는 것이 중요."
+        }
       ],
       "tags": [],
       "aiGenerated": true,
@@ -27,10 +42,25 @@
     {
       "schemaVersion": "spring-ts.narrative-fragment.v1",
       "fragmentId": "wealth.life.standard.money_rule.504",
-      "axis": { "category": "wealth", "period": "life", "depth": "standard" },
-      "gating": { "ageBand": ["20-29", "30-39", "40-54", "55-69", "70+"] },
+      "axis": {
+        "category": "wealth",
+        "period": "life",
+        "depth": "standard"
+      },
+      "gating": {
+        "ageBand": [
+          "20-29",
+          "30-39",
+          "40-54",
+          "55-69",
+          "70+"
+        ]
+      },
       "templateTokens": [
-        { "kind": "text", "value": "긴 흐름에서는 돈을 어떻게 벌지와 어떻게 새지 않게 지킬지를 함께 봐야 해요. 수입이 늘어나는 시기에도 고정 지출, 비상금, 큰 결정을 확인하는 기준이 있으면 흔들림이 줄어듭니다." }
+        {
+          "kind": "text",
+          "value": "긴 흐름에서는 돈을 어떻게 벌지와 어떻게 새지 않게 지킬지를 함께 봐야 해요. 수입이 늘어나는 시기에도 고정 지출, 비상금, 큰 결정을 확인하는 기준이 있으면 흔들림이 줄어듭니다."
+        }
       ],
       "livingTips": [
         "고정 지출과 선택 지출을 나누어 한 달에 한 번 점검하세요.",
@@ -55,10 +85,23 @@
     {
       "schemaVersion": "spring-ts.narrative-fragment.v1",
       "fragmentId": "wealth.today.standard.spend_check.504",
-      "axis": { "category": "wealth", "period": "today", "depth": "standard" },
-      "gating": { "dayMasterStrength": ["WEAK", "BALANCED", "STRONG"] },
+      "axis": {
+        "category": "wealth",
+        "period": "today",
+        "depth": "standard"
+      },
+      "gating": {
+        "dayMasterStrength": [
+          "WEAK",
+          "BALANCED",
+          "STRONG"
+        ]
+      },
       "templateTokens": [
-        { "kind": "text", "value": "오늘은 필요한 지출과 미뤄도 되는 지출을 나누면 좋아요. 작은 결제라도 여러 번 쌓이면 부담이 될 수 있으니, 사기 전에 정말 오늘 필요한지 한 번만 확인해보세요." }
+        {
+          "kind": "text",
+          "value": "오늘은 필요한 지출과 미뤄도 되는 지출을 나누면 좋아요. 작은 결제라도 여러 번 쌓이면 부담이 될 수 있으니, 사기 전에 정말 오늘 필요한지 한 번만 확인해보세요."
+        }
       ],
       "livingTips": [
         "오늘 쓸 돈의 상한선을 짧게 적어두세요.",
@@ -83,10 +126,24 @@
     {
       "schemaVersion": "spring-ts.narrative-fragment.v1",
       "fragmentId": "wealth.thisWeek.standard.cashflow.504",
-      "axis": { "category": "wealth", "period": "thisWeek", "depth": "standard" },
-      "gating": { "currentSeason": ["spring", "summer", "autumn", "winter"] },
+      "axis": {
+        "category": "wealth",
+        "period": "thisWeek",
+        "depth": "standard"
+      },
+      "gating": {
+        "currentSeason": [
+          "spring",
+          "summer",
+          "autumn",
+          "winter"
+        ]
+      },
       "templateTokens": [
-        { "kind": "text", "value": "이번 주는 들어올 돈과 나갈 돈의 날짜를 맞춰보는 것이 중요해요. 수입보다 지출 일정이 먼저 잡혀 있으면 마음이 조급해질 수 있으니, 필요한 결제 순서를 정해두세요." }
+        {
+          "kind": "text",
+          "value": "이번 주는 들어올 돈과 나갈 돈의 날짜를 맞춰보는 것이 중요해요. 수입보다 지출 일정이 먼저 잡혀 있으면 마음이 조급해질 수 있으니, 필요한 결제 순서를 정해두세요."
+        }
       ],
       "livingTips": [
         "이번 주 예정된 결제일과 입금일을 한 표에 적어보세요.",
@@ -111,10 +168,25 @@
     {
       "schemaVersion": "spring-ts.narrative-fragment.v1",
       "fragmentId": "wealth.thisMonth.standard.budget_line.504",
-      "axis": { "category": "wealth", "period": "thisMonth", "depth": "standard" },
-      "gating": { "ageBand": ["20-29", "30-39", "40-54", "55-69", "70+"] },
+      "axis": {
+        "category": "wealth",
+        "period": "thisMonth",
+        "depth": "standard"
+      },
+      "gating": {
+        "ageBand": [
+          "20-29",
+          "30-39",
+          "40-54",
+          "55-69",
+          "70+"
+        ]
+      },
       "templateTokens": [
-        { "kind": "text", "value": "이번 달은 예산선을 먼저 정하면 돈의 흐름이 안정됩니다. 무조건 아끼기보다 꼭 쓸 돈, 줄일 수 있는 돈, 다음 달을 위해 남길 돈을 나누면 선택이 더 쉬워져요." }
+        {
+          "kind": "text",
+          "value": "이번 달은 예산선을 먼저 정하면 돈의 흐름이 안정됩니다. 무조건 아끼기보다 꼭 쓸 돈, 줄일 수 있는 돈, 다음 달을 위해 남길 돈을 나누면 선택이 더 쉬워져요."
+        }
       ],
       "livingTips": [
         "월초나 오늘 기준으로 남은 필수 지출을 먼저 계산하세요.",
@@ -139,10 +211,25 @@
     {
       "schemaVersion": "spring-ts.narrative-fragment.v1",
       "fragmentId": "wealth.thisYear.brief.reserve.504",
-      "axis": { "category": "wealth", "period": "thisYear", "depth": "brief" },
-      "gating": { "ageBand": ["20-29", "30-39", "40-54", "55-69", "70+"] },
+      "axis": {
+        "category": "wealth",
+        "period": "thisYear",
+        "depth": "brief"
+      },
+      "gating": {
+        "ageBand": [
+          "20-29",
+          "30-39",
+          "40-54",
+          "55-69",
+          "70+"
+        ]
+      },
       "templateTokens": [
-        { "kind": "text", "value": "올해는 큰 수익보다 비상금을 지키는 습관이 돈 흐름을 더 안정시킵니다." }
+        {
+          "kind": "text",
+          "value": "올해는 큰 수익보다 비상금을 지키는 습관이 돈 흐름을 더 안정시요."
+        }
       ],
       "tags": [],
       "aiGenerated": true,
@@ -160,10 +247,25 @@
     {
       "schemaVersion": "spring-ts.narrative-fragment.v1",
       "fragmentId": "wealth.thisYear.standard.safe_growth.504",
-      "axis": { "category": "wealth", "period": "thisYear", "depth": "standard" },
-      "gating": { "ageBand": ["20-29", "30-39", "40-54", "55-69", "70+"] },
+      "axis": {
+        "category": "wealth",
+        "period": "thisYear",
+        "depth": "standard"
+      },
+      "gating": {
+        "ageBand": [
+          "20-29",
+          "30-39",
+          "40-54",
+          "55-69",
+          "70+"
+        ]
+      },
       "templateTokens": [
-        { "kind": "text", "value": "올해 돈 관리는 빠른 확장보다 안전한 성장에 맞추는 편이 좋아요. 수입을 늘릴 기회가 있어도 빚, 보증, 큰 계약처럼 오래 영향을 주는 선택은 천천히 확인해야 합니다." }
+        {
+          "kind": "text",
+          "value": "올해 돈 관리는 빠른 확장보다 안전한 성장에 맞추는 편이 좋아요. 수입을 늘릴 기회가 있어도 빚, 보증, 큰 계약처럼 오래 영향을 주는 선택은 천천히 확인해야 합니다."
+        }
       ],
       "livingTips": [
         "올해 꼭 지킬 저축 기준과 절대 넘기지 않을 지출 기준을 정하세요.",
@@ -188,18 +290,55 @@
     {
       "schemaVersion": "spring-ts.narrative-fragment.v1",
       "fragmentId": "wealth.life.expert.asset_root.504",
-      "axis": { "category": "wealth", "period": "life", "depth": "expert" },
-      "gating": { "yongshinAlignment": ["aligned", "neutral"] },
+      "axis": {
+        "category": "wealth",
+        "period": "life",
+        "depth": "expert"
+      },
+      "gating": {
+        "yongshinAlignment": [
+          "aligned",
+          "neutral"
+        ]
+      },
       "templateTokens": [
-        { "kind": "text", "value": "장기 재물운은 " },
-        { "kind": "tag", "tagId": "jeongjae", "label": "정재" },
-        { "kind": "text", "value": "의 안정 수입과 " },
-        { "kind": "tag", "tagId": "pyeonjae", "label": "편재" },
-        { "kind": "text", "value": "의 확장 기회를 함께 봅니다. " },
-        { "kind": "tag", "tagId": "yongshin", "label": "용신" },
-        { "kind": "text", "value": " 방향이 맞으면 투자보다 현금 흐름과 방어 기준을 먼저 세우는 전략이 좋습니다." }
+        {
+          "kind": "text",
+          "value": "장기 재물운은 "
+        },
+        {
+          "kind": "tag",
+          "tagId": "jeongjae",
+          "label": "정재"
+        },
+        {
+          "kind": "text",
+          "value": "의 안정 수입과 "
+        },
+        {
+          "kind": "tag",
+          "tagId": "pyeonjae",
+          "label": "편재"
+        },
+        {
+          "kind": "text",
+          "value": "의 확장 기회를 함께 봅니다. "
+        },
+        {
+          "kind": "tag",
+          "tagId": "yongshin",
+          "label": "용신"
+        },
+        {
+          "kind": "text",
+          "value": " 방향이 맞으면 투자보다 현금 흐름과 방어 기준을 먼저 세우는 전략이 좋습니다."
+        }
       ],
-      "tags": ["jeongjae", "pyeonjae", "yongshin"],
+      "tags": [
+        "jeongjae",
+        "pyeonjae",
+        "yongshin"
+      ],
       "numericalEvidence": [
         {
           "label": "현재 나이",
@@ -247,18 +386,56 @@
     {
       "schemaVersion": "spring-ts.narrative-fragment.v1",
       "fragmentId": "wealth.today.expert.spend_score.504",
-      "axis": { "category": "wealth", "period": "today", "depth": "expert" },
-      "gating": { "dayMasterStrength": ["WEAK", "BALANCED", "STRONG"] },
+      "axis": {
+        "category": "wealth",
+        "period": "today",
+        "depth": "expert"
+      },
+      "gating": {
+        "dayMasterStrength": [
+          "WEAK",
+          "BALANCED",
+          "STRONG"
+        ]
+      },
       "templateTokens": [
-        { "kind": "text", "value": "오늘 재물운은 " },
-        { "kind": "tag", "tagId": "jeongjae", "label": "정재" },
-        { "kind": "text", "value": "의 관리력과 " },
-        { "kind": "tag", "tagId": "geobjae", "label": "겁재" },
-        { "kind": "text", "value": "의 손실 변수를 함께 봅니다. " },
-        { "kind": "tag", "tagId": "stabilityIndex", "label": "안정성지수" },
-        { "kind": "text", "value": "가 낮으면 지출 승인 전 재확인이 우선입니다." }
+        {
+          "kind": "text",
+          "value": "오늘 재물운은 "
+        },
+        {
+          "kind": "tag",
+          "tagId": "jeongjae",
+          "label": "정재"
+        },
+        {
+          "kind": "text",
+          "value": "의 관리력과 "
+        },
+        {
+          "kind": "tag",
+          "tagId": "geobjae",
+          "label": "겁재"
+        },
+        {
+          "kind": "text",
+          "value": "의 손실 변수를 함께 봅니다. "
+        },
+        {
+          "kind": "tag",
+          "tagId": "stabilityIndex",
+          "label": "안정성지수"
+        },
+        {
+          "kind": "text",
+          "value": "가 낮으면 지출 승인 전 재확인이 우선입니다."
+        }
       ],
-      "tags": ["jeongjae", "geobjae", "stabilityIndex"],
+      "tags": [
+        "jeongjae",
+        "geobjae",
+        "stabilityIndex"
+      ],
       "numericalEvidence": [
         {
           "label": "재물 별점",
@@ -291,18 +468,56 @@
     {
       "schemaVersion": "spring-ts.narrative-fragment.v1",
       "fragmentId": "wealth.thisWeek.expert.cashflow_score.504",
-      "axis": { "category": "wealth", "period": "thisWeek", "depth": "expert" },
-      "gating": { "yongshinAlignment": ["aligned", "neutral", "conflicting"] },
+      "axis": {
+        "category": "wealth",
+        "period": "thisWeek",
+        "depth": "expert"
+      },
+      "gating": {
+        "yongshinAlignment": [
+          "aligned",
+          "neutral",
+          "conflicting"
+        ]
+      },
       "templateTokens": [
-        { "kind": "text", "value": "이번 주 재물운은 " },
-        { "kind": "tag", "tagId": "jeongjae", "label": "정재" },
-        { "kind": "text", "value": "의 수입 안정성과 " },
-        { "kind": "tag", "tagId": "pyeonjae", "label": "편재" },
-        { "kind": "text", "value": "의 변동성을 함께 봅니다. " },
-        { "kind": "tag", "tagId": "yongshin", "label": "용신" },
-        { "kind": "text", "value": " 정합성이 낮으면 기회보다 현금 흐름 방어가 먼저입니다." }
+        {
+          "kind": "text",
+          "value": "이번 주 재물운은 "
+        },
+        {
+          "kind": "tag",
+          "tagId": "jeongjae",
+          "label": "정재"
+        },
+        {
+          "kind": "text",
+          "value": "의 수입 안정성과 "
+        },
+        {
+          "kind": "tag",
+          "tagId": "pyeonjae",
+          "label": "편재"
+        },
+        {
+          "kind": "text",
+          "value": "의 변동성을 함께 봅니다. "
+        },
+        {
+          "kind": "tag",
+          "tagId": "yongshin",
+          "label": "용신"
+        },
+        {
+          "kind": "text",
+          "value": " 정합성이 낮으면 기회보다 현금 흐름 방어가 먼저입니다."
+        }
       ],
-      "tags": ["jeongjae", "pyeonjae", "yongshin"],
+      "tags": [
+        "jeongjae",
+        "pyeonjae",
+        "yongshin"
+      ],
       "numericalEvidence": [
         {
           "label": "재물 별점",
@@ -335,18 +550,55 @@
     {
       "schemaVersion": "spring-ts.narrative-fragment.v1",
       "fragmentId": "wealth.thisMonth.expert.budget_score.504",
-      "axis": { "category": "wealth", "period": "thisMonth", "depth": "expert" },
-      "gating": { "yongshinAlignment": ["aligned", "neutral"] },
+      "axis": {
+        "category": "wealth",
+        "period": "thisMonth",
+        "depth": "expert"
+      },
+      "gating": {
+        "yongshinAlignment": [
+          "aligned",
+          "neutral"
+        ]
+      },
       "templateTokens": [
-        { "kind": "text", "value": "이번 달 재물운은 " },
-        { "kind": "tag", "tagId": "jeongjae", "label": "정재" },
-        { "kind": "text", "value": "의 예산력, " },
-        { "kind": "tag", "tagId": "geobjae", "label": "겁재" },
-        { "kind": "text", "value": "의 유출 변수, " },
-        { "kind": "tag", "tagId": "stabilityIndex", "label": "안정성지수" },
-        { "kind": "text", "value": "를 함께 봅니다. 점수가 낮으면 예산선을 먼저 고정해야 합니다." }
+        {
+          "kind": "text",
+          "value": "이번 달 재물운은 "
+        },
+        {
+          "kind": "tag",
+          "tagId": "jeongjae",
+          "label": "정재"
+        },
+        {
+          "kind": "text",
+          "value": "의 예산력, "
+        },
+        {
+          "kind": "tag",
+          "tagId": "geobjae",
+          "label": "겁재"
+        },
+        {
+          "kind": "text",
+          "value": "의 유출 변수, "
+        },
+        {
+          "kind": "tag",
+          "tagId": "stabilityIndex",
+          "label": "안정성지수"
+        },
+        {
+          "kind": "text",
+          "value": "를 함께 봅니다. 점수가 낮으면 예산선을 먼저 고정해야 합니다."
+        }
       ],
-      "tags": ["jeongjae", "geobjae", "stabilityIndex"],
+      "tags": [
+        "jeongjae",
+        "geobjae",
+        "stabilityIndex"
+      ],
       "numericalEvidence": [
         {
           "label": "재물 별점",
@@ -379,18 +631,55 @@
     {
       "schemaVersion": "spring-ts.narrative-fragment.v1",
       "fragmentId": "wealth.thisYear.expert.reserve_score.504",
-      "axis": { "category": "wealth", "period": "thisYear", "depth": "expert" },
-      "gating": { "yongshinAlignment": ["aligned", "neutral"] },
+      "axis": {
+        "category": "wealth",
+        "period": "thisYear",
+        "depth": "expert"
+      },
+      "gating": {
+        "yongshinAlignment": [
+          "aligned",
+          "neutral"
+        ]
+      },
       "templateTokens": [
-        { "kind": "text", "value": "올해 재물운은 " },
-        { "kind": "tag", "tagId": "jeongjae", "label": "정재" },
-        { "kind": "text", "value": "의 축적력, " },
-        { "kind": "tag", "tagId": "pyeonjae", "label": "편재" },
-        { "kind": "text", "value": "의 기회성, " },
-        { "kind": "tag", "tagId": "geobjae", "label": "겁재" },
-        { "kind": "text", "value": "의 손실 리스크를 함께 봅니다. 점수가 낮으면 비상금과 계약 검토가 먼저입니다." }
+        {
+          "kind": "text",
+          "value": "올해 재물운은 "
+        },
+        {
+          "kind": "tag",
+          "tagId": "jeongjae",
+          "label": "정재"
+        },
+        {
+          "kind": "text",
+          "value": "의 축적력, "
+        },
+        {
+          "kind": "tag",
+          "tagId": "pyeonjae",
+          "label": "편재"
+        },
+        {
+          "kind": "text",
+          "value": "의 기회성, "
+        },
+        {
+          "kind": "tag",
+          "tagId": "geobjae",
+          "label": "겁재"
+        },
+        {
+          "kind": "text",
+          "value": "의 손실 리스크를 함께 봅니다. 점수가 낮으면 비상금과 계약 검토가 먼저입니다."
+        }
       ],
-      "tags": ["jeongjae", "pyeonjae", "geobjae"],
+      "tags": [
+        "jeongjae",
+        "pyeonjae",
+        "geobjae"
+      ],
       "numericalEvidence": [
         {
           "label": "현재 나이",

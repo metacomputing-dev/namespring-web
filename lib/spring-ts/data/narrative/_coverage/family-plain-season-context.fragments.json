@@ -6,10 +6,22 @@
     {
       "schemaVersion": "spring-ts.narrative-fragment.v1",
       "fragmentId": "family.life.brief.currentseason.spring_summer.301",
-      "axis": { "category": "family", "period": "life", "depth": "brief" },
-      "gating": { "currentSeason": ["spring", "summer"] },
+      "axis": {
+        "category": "family",
+        "period": "life",
+        "depth": "brief"
+      },
+      "gating": {
+        "currentSeason": [
+          "spring",
+          "summer"
+        ]
+      },
       "templateTokens": [
-        { "kind": "text", "value": "긴 흐름에서는 가족 안에서 대화와 활동이 늘기 쉬워요. 먼저 손을 내밀고 함께 움직이면 관계가 더 부드러워집니다." }
+        {
+          "kind": "text",
+          "value": "긴 흐름에서는 가족 안에서 대화와 활동이 늘기 쉬워요."
+        }
       ],
       "tags": [],
       "aiGenerated": true,
@@ -27,10 +39,22 @@
     {
       "schemaVersion": "spring-ts.narrative-fragment.v1",
       "fragmentId": "family.life.brief.currentseason.autumn_winter.301",
-      "axis": { "category": "family", "period": "life", "depth": "brief" },
-      "gating": { "currentSeason": ["autumn", "winter"] },
+      "axis": {
+        "category": "family",
+        "period": "life",
+        "depth": "brief"
+      },
+      "gating": {
+        "currentSeason": [
+          "autumn",
+          "winter"
+        ]
+      },
       "templateTokens": [
-        { "kind": "text", "value": "긴 흐름에서는 가족 사이의 약속과 기본 생활을 차분히 지키는 힘이 중요해요. 큰 말보다 꾸준한 관심이 더 오래 남습니다." }
+        {
+          "kind": "text",
+          "value": "긴 흐름에서는 가족 사이의 약속과 기본 생활을 차분히 지키는 힘요."
+        }
       ],
       "tags": [],
       "aiGenerated": true,
@@ -48,10 +72,22 @@
     {
       "schemaVersion": "spring-ts.narrative-fragment.v1",
       "fragmentId": "family.today.brief.currentseason.spring_summer.301",
-      "axis": { "category": "family", "period": "today", "depth": "brief" },
-      "gating": { "currentSeason": ["spring", "summer"] },
+      "axis": {
+        "category": "family",
+        "period": "today",
+        "depth": "brief"
+      },
+      "gating": {
+        "currentSeason": [
+          "spring",
+          "summer"
+        ]
+      },
       "templateTokens": [
-        { "kind": "text", "value": "오늘은 가족에게 먼저 안부를 묻기 좋아요. 작은 도움 하나를 먼저 제안하면 분위기가 부드러워집니다." }
+        {
+          "kind": "text",
+          "value": "오늘은 가족에게 먼저 안부를 묻기 좋아요."
+        }
       ],
       "tags": [],
       "aiGenerated": true,
@@ -69,10 +105,22 @@
     {
       "schemaVersion": "spring-ts.narrative-fragment.v1",
       "fragmentId": "family.today.brief.currentseason.autumn_winter.301",
-      "axis": { "category": "family", "period": "today", "depth": "brief" },
-      "gating": { "currentSeason": ["autumn", "winter"] },
+      "axis": {
+        "category": "family",
+        "period": "today",
+        "depth": "brief"
+      },
+      "gating": {
+        "currentSeason": [
+          "autumn",
+          "winter"
+        ]
+      },
       "templateTokens": [
-        { "kind": "text", "value": "오늘은 가족의 말을 끝까지 듣는 것이 좋아요. 바로 판단하기보다 약속과 일정부터 차분히 확인하세요." }
+        {
+          "kind": "text",
+          "value": "오늘은 가족의 말을 끝까지 듣는 것이 좋아요."
+        }
       ],
       "tags": [],
       "aiGenerated": true,
@@ -90,10 +138,22 @@
     {
       "schemaVersion": "spring-ts.narrative-fragment.v1",
       "fragmentId": "family.today.standard.currentseason.spring_summer.301",
-      "axis": { "category": "family", "period": "today", "depth": "standard" },
-      "gating": { "currentSeason": ["spring", "summer"] },
+      "axis": {
+        "category": "family",
+        "period": "today",
+        "depth": "standard"
+      },
+      "gating": {
+        "currentSeason": [
+          "spring",
+          "summer"
+        ]
+      },
       "templateTokens": [
-        { "kind": "text", "value": "오늘은 가족 사이에서 말문을 열기 좋은 날이에요. 무거운 이야기부터 꺼내기보다 안부, 식사, 작은 부탁처럼 쉬운 주제로 시작하면 대화가 자연스럽게 이어집니다." }
+        {
+          "kind": "text",
+          "value": "오늘은 가족 사이에서 말문을 열기 좋은 날이에요. 무거운 이야기부터 꺼내기보다 안부, 식사, 작은 부탁처럼 쉬운 주제로 시작하면 대화가 자연스럽게 이어집니다."
+        }
       ],
       "livingTips": [
         "가족에게 먼저 짧은 안부 메시지를 보내보세요.",
@@ -118,10 +178,22 @@
     {
       "schemaVersion": "spring-ts.narrative-fragment.v1",
       "fragmentId": "family.today.standard.currentseason.autumn_winter.301",
-      "axis": { "category": "family", "period": "today", "depth": "standard" },
-      "gating": { "currentSeason": ["autumn", "winter"] },
+      "axis": {
+        "category": "family",
+        "period": "today",
+        "depth": "standard"
+      },
+      "gating": {
+        "currentSeason": [
+          "autumn",
+          "winter"
+        ]
+      },
       "templateTokens": [
-        { "kind": "text", "value": "오늘은 가족과의 관계에서 차분함이 중요해요. 답을 빨리 내리기보다 서로의 일정과 걱정을 확인하고, 지킬 수 있는 약속만 분명히 정하는 편이 좋습니다." }
+        {
+          "kind": "text",
+          "value": "오늘은 가족과의 관계에서 차분함이 중요해요. 답을 빨리 내리기보다 서로의 일정과 걱정을 확인하고, 지킬 수 있는 약속만 분명히 정하는 편이 좋습니다."
+        }
       ],
       "livingTips": [
         "가족이 말할 때 중간에 끊지 않고 마지막 문장까지 들어보세요.",
@@ -146,10 +218,22 @@
     {
       "schemaVersion": "spring-ts.narrative-fragment.v1",
       "fragmentId": "family.thisWeek.brief.currentseason.spring_summer.301",
-      "axis": { "category": "family", "period": "thisWeek", "depth": "brief" },
-      "gating": { "currentSeason": ["spring", "summer"] },
+      "axis": {
+        "category": "family",
+        "period": "thisWeek",
+        "depth": "brief"
+      },
+      "gating": {
+        "currentSeason": [
+          "spring",
+          "summer"
+        ]
+      },
       "templateTokens": [
-        { "kind": "text", "value": "이번 주는 가족과 함께 움직일 일이 생기기 쉬워요. 먼저 일정을 맞추고, 작은 역할을 나누면 부담이 줄어듭니다." }
+        {
+          "kind": "text",
+          "value": "이번 주는 가족과 함께 움직일 일이 생기기 쉬워요."
+        }
       ],
       "tags": [],
       "aiGenerated": true,
@@ -167,10 +251,22 @@
     {
       "schemaVersion": "spring-ts.narrative-fragment.v1",
       "fragmentId": "family.thisWeek.brief.currentseason.autumn_winter.301",
-      "axis": { "category": "family", "period": "thisWeek", "depth": "brief" },
-      "gating": { "currentSeason": ["autumn", "winter"] },
+      "axis": {
+        "category": "family",
+        "period": "thisWeek",
+        "depth": "brief"
+      },
+      "gating": {
+        "currentSeason": [
+          "autumn",
+          "winter"
+        ]
+      },
       "templateTokens": [
-        { "kind": "text", "value": "이번 주는 가족 안의 약속을 다시 확인하기 좋아요. 말보다 행동으로 챙기는 작은 배려가 안정감을 만듭니다." }
+        {
+          "kind": "text",
+          "value": "이번 주는 가족 안의 약속을 다시 확인하기 좋아요."
+        }
       ],
       "tags": [],
       "aiGenerated": true,
@@ -188,10 +284,22 @@
     {
       "schemaVersion": "spring-ts.narrative-fragment.v1",
       "fragmentId": "family.thisWeek.standard.currentseason.spring_summer.301",
-      "axis": { "category": "family", "period": "thisWeek", "depth": "standard" },
-      "gating": { "currentSeason": ["spring", "summer"] },
+      "axis": {
+        "category": "family",
+        "period": "thisWeek",
+        "depth": "standard"
+      },
+      "gating": {
+        "currentSeason": [
+          "spring",
+          "summer"
+        ]
+      },
       "templateTokens": [
-        { "kind": "text", "value": "이번 주는 가족과 함께 움직이거나 새 이야기를 시작하기 좋은 흐름이에요. 다만 모두의 속도가 같지는 않으니, 결정은 빠르게 밀어붙이기보다 역할과 시간을 나눠서 맞추는 편이 좋습니다." }
+        {
+          "kind": "text",
+          "value": "이번 주는 가족과 함께 움직이거나 새 이야기를 시작하기 좋은 흐름이에요. 다만 모두의 속도가 같지는 않으니, 결정은 빠르게 밀어붙이기보다 역할과 시간을 나눠서 맞추는 편이 좋습니다."
+        }
       ],
       "livingTips": [
         "가족 일정은 한 번에 정리해 공유하고, 각자 맡을 일을 짧게 나누세요.",
@@ -216,10 +324,22 @@
     {
       "schemaVersion": "spring-ts.narrative-fragment.v1",
       "fragmentId": "family.thisWeek.standard.currentseason.autumn_winter.301",
-      "axis": { "category": "family", "period": "thisWeek", "depth": "standard" },
-      "gating": { "currentSeason": ["autumn", "winter"] },
+      "axis": {
+        "category": "family",
+        "period": "thisWeek",
+        "depth": "standard"
+      },
+      "gating": {
+        "currentSeason": [
+          "autumn",
+          "winter"
+        ]
+      },
       "templateTokens": [
-        { "kind": "text", "value": "이번 주는 가족 사이의 기본 약속을 지키는 일이 관계를 안정시켜요. 새로운 계획을 늘리기보다 이미 정한 일, 미뤄둔 연락, 돌봄이 필요한 부분을 차분히 챙기세요." }
+        {
+          "kind": "text",
+          "value": "이번 주는 가족 사이의 기본 약속을 지키는 일이 관계를 안정시켜요. 새로운 계획을 늘리기보다 이미 정한 일, 미뤄둔 연락, 돌봄이 필요한 부분을 차분히 챙기세요."
+        }
       ],
       "livingTips": [
         "이번 주 가족에게 꼭 확인할 일을 세 가지 이하로 정리하세요.",
@@ -244,10 +364,22 @@
     {
       "schemaVersion": "spring-ts.narrative-fragment.v1",
       "fragmentId": "family.thisMonth.brief.currentseason.spring_summer.301",
-      "axis": { "category": "family", "period": "thisMonth", "depth": "brief" },
-      "gating": { "currentSeason": ["spring", "summer"] },
+      "axis": {
+        "category": "family",
+        "period": "thisMonth",
+        "depth": "brief"
+      },
+      "gating": {
+        "currentSeason": [
+          "spring",
+          "summer"
+        ]
+      },
       "templateTokens": [
-        { "kind": "text", "value": "이번 달은 가족과의 대화와 활동이 늘기 쉬워요. 함께 할 일을 하나 정하고, 각자의 부담을 미리 나누면 좋습니다." }
+        {
+          "kind": "text",
+          "value": "이번 달은 가족과의 대화와 활동이 늘기 쉬워요."
+        }
       ],
       "tags": [],
       "aiGenerated": true,
@@ -265,10 +397,22 @@
     {
       "schemaVersion": "spring-ts.narrative-fragment.v1",
       "fragmentId": "family.thisMonth.brief.currentseason.autumn_winter.301",
-      "axis": { "category": "family", "period": "thisMonth", "depth": "brief" },
-      "gating": { "currentSeason": ["autumn", "winter"] },
+      "axis": {
+        "category": "family",
+        "period": "thisMonth",
+        "depth": "brief"
+      },
+      "gating": {
+        "currentSeason": [
+          "autumn",
+          "winter"
+        ]
+      },
       "templateTokens": [
-        { "kind": "text", "value": "이번 달은 가족 안의 생활 리듬을 정돈하기 좋아요. 집안일, 건강, 돈이 오가는 약속을 차분히 확인하세요." }
+        {
+          "kind": "text",
+          "value": "이번 달은 가족 안의 생활 리듬을 정돈하기 좋아요."
+        }
       ],
       "tags": [],
       "aiGenerated": true,
@@ -286,10 +430,22 @@
     {
       "schemaVersion": "spring-ts.narrative-fragment.v1",
       "fragmentId": "family.thisYear.brief.currentseason.spring_summer.301",
-      "axis": { "category": "family", "period": "thisYear", "depth": "brief" },
-      "gating": { "currentSeason": ["spring", "summer"] },
+      "axis": {
+        "category": "family",
+        "period": "thisYear",
+        "depth": "brief"
+      },
+      "gating": {
+        "currentSeason": [
+          "spring",
+          "summer"
+        ]
+      },
       "templateTokens": [
-        { "kind": "text", "value": "올해는 가족과 함께 움직이고 새 계획을 세우기 쉬워요. 기대만 앞세우기보다 서로 맡을 일을 분명히 나누세요." }
+        {
+          "kind": "text",
+          "value": "올해는 가족과 함께 움직이고 새 계획을 세우기 쉬워요."
+        }
       ],
       "tags": [],
       "aiGenerated": true,
@@ -307,10 +463,22 @@
     {
       "schemaVersion": "spring-ts.narrative-fragment.v1",
       "fragmentId": "family.thisYear.brief.currentseason.autumn_winter.301",
-      "axis": { "category": "family", "period": "thisYear", "depth": "brief" },
-      "gating": { "currentSeason": ["autumn", "winter"] },
+      "axis": {
+        "category": "family",
+        "period": "thisYear",
+        "depth": "brief"
+      },
+      "gating": {
+        "currentSeason": [
+          "autumn",
+          "winter"
+        ]
+      },
       "templateTokens": [
-        { "kind": "text", "value": "올해는 가족의 안정과 생활 기반을 지키는 일이 중요해요. 무리한 변화보다 오래 지킬 수 있는 약속을 먼저 세우세요." }
+        {
+          "kind": "text",
+          "value": "올해는 가족의 안정과 생활 기반을 지키는 일이 중요해요."
+        }
       ],
       "tags": [],
       "aiGenerated": true,
@@ -328,10 +496,22 @@
     {
       "schemaVersion": "spring-ts.narrative-fragment.v1",
       "fragmentId": "family.thisYear.standard.currentseason.spring_summer.301",
-      "axis": { "category": "family", "period": "thisYear", "depth": "standard" },
-      "gating": { "currentSeason": ["spring", "summer"] },
+      "axis": {
+        "category": "family",
+        "period": "thisYear",
+        "depth": "standard"
+      },
+      "gating": {
+        "currentSeason": [
+          "spring",
+          "summer"
+        ]
+      },
       "templateTokens": [
-        { "kind": "text", "value": "올해는 가족과 함께 움직이거나 새로운 계획을 세울 일이 늘 수 있어요. 좋은 마음만으로는 부담이 한쪽에 몰릴 수 있으니, 돈과 시간, 돌봄이 필요한 부분을 미리 나눠서 정하는 편이 좋습니다." }
+        {
+          "kind": "text",
+          "value": "올해는 가족과 함께 움직이거나 새로운 계획을 세울 일이 늘 수 있어요. 좋은 마음만으로는 부담이 한쪽에 몰릴 수 있으니, 돈과 시간, 돌봄이 필요한 부분을 미리 나눠서 정하는 편이 좋습니다."
+        }
       ],
       "livingTips": [
         "가족 계획은 목표, 비용, 맡을 사람을 따로 적어보세요.",
@@ -356,10 +536,22 @@
     {
       "schemaVersion": "spring-ts.narrative-fragment.v1",
       "fragmentId": "family.thisYear.standard.currentseason.autumn_winter.301",
-      "axis": { "category": "family", "period": "thisYear", "depth": "standard" },
-      "gating": { "currentSeason": ["autumn", "winter"] },
+      "axis": {
+        "category": "family",
+        "period": "thisYear",
+        "depth": "standard"
+      },
+      "gating": {
+        "currentSeason": [
+          "autumn",
+          "winter"
+        ]
+      },
       "templateTokens": [
-        { "kind": "text", "value": "올해는 가족의 생활 기반을 차분히 지키는 흐름이에요. 새 계획을 크게 늘리기보다 건강, 집안일, 돈이 오가는 약속처럼 꼭 필요한 부분을 정리하면 관계도 더 안정됩니다." }
+        {
+          "kind": "text",
+          "value": "올해는 가족의 생활 기반을 차분히 지키는 흐름이에요. 새 계획을 크게 늘리기보다 건강, 집안일, 돈이 오가는 약속처럼 꼭 필요한 부분을 정리하면 관계도 더 안정됩니다."
+        }
       ],
       "livingTips": [
         "가족의 고정 지출과 돌봄 일정을 한 번에 점검해 보세요.",
