@@ -1,0 +1,29 @@
+{
+  "totalFragments": 150,
+  "totalBriefFragments": 50,
+  "totalExpertFragments": 50,
+  "briefHeadlineViolations": 0,
+  "violationDetails": [],
+  "repetitionCounts": {
+    "결이": 133,
+    "흐름이": 47,
+    "편이": 2,
+    "또렷": 28,
+    "단단": 28,
+    "한 박자": 30,
+    "페이스": 2,
+    "결을": 14,
+    "결로": 13,
+    "한결": 5,
+    "그림이": 6,
+    "모양이": 1
+  },
+  "expertTagUnique": 5,
+  "expertTagDistribution": {
+    "yeokma": 50,
+    "yongshin": 50,
+    "daewoonGungsil": 32,
+    "jojangung": 27,
+    "samhyeong": 20
+  }
+}

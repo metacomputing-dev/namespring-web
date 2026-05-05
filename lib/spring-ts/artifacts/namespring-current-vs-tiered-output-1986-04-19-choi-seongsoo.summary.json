@@ -1,0 +1,1168 @@
+{
+  "generatedAt": "2026-05-02T03:32:47.988Z",
+  "reproductionScope": "NameSpring current combined report request vs spring-ts tieredMatrix opt-in request",
+  "input": {
+    "targetDate": "2026-05-02T00:00:00+09:00",
+    "birth": {
+      "year": 1986,
+      "month": 4,
+      "day": 19,
+      "hour": 5,
+      "minute": 45,
+      "gender": "male",
+      "calendarType": "solar",
+      "region": "서울",
+      "birthPlace": "서울"
+    },
+    "surname": [
+      {
+        "hangul": "최",
+        "hanja": "崔"
+      }
+    ],
+    "givenName": [
+      {
+        "hangul": "성",
+        "hanja": "成"
+      },
+      {
+        "hangul": "수",
+        "hanja": "秀"
+      }
+    ],
+    "options": {
+      "sajuTimePolicy": {
+        "yaza": "on",
+        "trueSolarTime": "on",
+        "longitudeCorrection": "on"
+      }
+    }
+  },
+  "currentNameSpringCombinedRequest": {
+    "targetDate": "2026-05-02T00:00:00+09:00",
+    "birth": {
+      "year": 1986,
+      "month": 4,
+      "day": 19,
+      "hour": 5,
+      "minute": 45,
+      "gender": "male",
+      "calendarType": "solar",
+      "region": "서울",
+      "birthPlace": "서울"
+    },
+    "surname": [
+      {
+        "hangul": "최",
+        "hanja": "崔"
+      }
+    ],
+    "givenName": [
+      {
+        "hangul": "성",
+        "hanja": "成"
+      },
+      {
+        "hangul": "수",
+        "hanja": "秀"
+      }
+    ],
+    "options": {
+      "sajuTimePolicy": {
+        "yaza": "on",
+        "trueSolarTime": "on",
+        "longitudeCorrection": "on"
+      }
+    }
+  },
+  "optInTieredCombinedRequest": {
+    "targetDate": "2026-05-02T00:00:00+09:00",
+    "birth": {
+      "year": 1986,
+      "month": 4,
+      "day": 19,
+      "hour": 5,
+      "minute": 45,
+      "gender": "male",
+      "calendarType": "solar",
+      "region": "서울",
+      "birthPlace": "서울"
+    },
+    "surname": [
+      {
+        "hangul": "최",
+        "hanja": "崔"
+      }
+    ],
+    "givenName": [
+      {
+        "hangul": "성",
+        "hanja": "成"
+      },
+      {
+        "hangul": "수",
+        "hanja": "秀"
+      }
+    ],
+    "options": {
+      "sajuTimePolicy": {
+        "yaza": "on",
+        "trueSolarTime": "on",
+        "longitudeCorrection": "on"
+      },
+      "precisionConfig": {
+        "surfaceTieredMatrix": true
+      }
+    }
+  },
+  "findings": {
+    "currentHasTieredMatrix": false,
+    "optInHasTieredMatrix": true,
+    "currentTopLevelKeys": [
+      "nameCompatibility",
+      "overviewSummary",
+      "lifeFortuneOverview",
+      "personality",
+      "strengthsWeaknesses",
+      "cautions",
+      "dailyFortune",
+      "weeklyFortune",
+      "monthlyFortune",
+      "yearlyFortune",
+      "lifeStageFortune",
+      "categoryFortunes",
+      "meta"
+    ],
+    "optInTopLevelKeys": [
+      "nameCompatibility",
+      "overviewSummary",
+      "lifeFortuneOverview",
+      "personality",
+      "strengthsWeaknesses",
+      "cautions",
+      "dailyFortune",
+      "weeklyFortune",
+      "monthlyFortune",
+      "yearlyFortune",
+      "lifeStageFortune",
+      "categoryFortunes",
+      "meta",
+      "tieredMatrix"
+    ],
+    "optInTieredMeta": {
+      "schemaVersion": "spring-ts.tiered-matrix.v1",
+      "generatedAt": "2026-05-02T03:32:47.979Z",
+      "selectionSeed": "1986|4|19|5|45|male|2026-05-01T15:00:00.000Z",
+      "templateContractVersion": "1.0.0",
+      "contentSource": "authored",
+      "fragmentCount": 1837,
+      "aiGeneratedFragmentCount": 1837
+    },
+    "optInTieredGlossaryCount": 2
+  },
+  "currentFortuneReportSummary": {
+    "topLevelKeys": [
+      "nameCompatibility",
+      "overviewSummary",
+      "lifeFortuneOverview",
+      "personality",
+      "strengthsWeaknesses",
+      "cautions",
+      "dailyFortune",
+      "weeklyFortune",
+      "monthlyFortune",
+      "yearlyFortune",
+      "lifeStageFortune",
+      "categoryFortunes",
+      "meta"
+    ],
+    "hasTieredMatrix": false,
+    "meta": {
+      "version": "1.0.0",
+      "generatedAt": "2026-05-02T03:32:47.918Z",
+      "schoolPreset": {
+        "selected": "korean",
+        "source": "default",
+        "useSchoolPreset": false,
+        "label": "Korean Mainstream (이석영 사주첩경 / 한국 현대 작명 표준)",
+        "doctrine": "mainstream_korean_default",
+        "tradeoffs": [
+          "Default-compatible baseline; best for regression comparison.",
+          "Does not emphasize one doctrine axis beyond current production scoring."
+        ],
+        "scoringEffect": "inactive"
+      }
+    },
+    "nameCompatibility": {
+      "title": "이름 적합도 평가",
+      "overallStars": 3,
+      "overallScore": 56.4,
+      "sajuCompatibilityScore": 36.65268632583379,
+      "nameAnalysisScore": 62.6,
+      "safetyProfile": {
+        "posture": "balanced",
+        "strategy": "legacy_direct_reinforcement",
+        "riskScore": 19,
+        "conflictLevel": "high",
+        "competingElements": [
+          "FIRE",
+          "WATER",
+          "WOOD"
+        ],
+        "yongshinRatio": 0,
+        "heesinRatio": 0,
+        "gishinRatio": 0.3333333333333333,
+        "gusinRatio": 0.3333333333333333,
+        "reasons": [
+          "risk 19",
+          "strategy legacy_direct_reinforcement",
+          "yongshinRatio 0.00",
+          "heesinRatio 0.00",
+          "gishinRatio 0.33",
+          "gusinRatio 0.33",
+          "consensus conflict: high",
+          "competing elements: FIRE,WATER,WOOD"
+        ]
+      },
+      "tenGodPositionEvidence": {
+        "requestedMode": "positional_weighted",
+        "effectiveMode": "simple_count",
+        "score": 49.71875,
+        "normalization": "deviation_from_average_count",
+        "topContributions": [],
+        "groupCounts": {
+          "friend": 2,
+          "output": 3,
+          "wealth": 2,
+          "authority": 1,
+          "resource": 0
+        },
+        "deviations": {
+          "friend": -0.25,
+          "output": -0.875,
+          "wealth": -0.25,
+          "authority": 0.375,
+          "resource": 1
+        },
+        "elementWeights": {
+          "Wood": -0.30625,
+          "Fire": -0.0875,
+          "Earth": 0.375,
+          "Metal": 1,
+          "Water": -0.0875
+        },
+        "fallbackReason": "byPosition_unavailable"
+      },
+      "summary": "이름 적합도는 별 3개 수준이에요. 무난한 수준의 궁합이에요. 종합 56점, 사주 궁합 37점, 이름 분석 63점을 기록했어요.",
+      "details": [
+        "종합 점수는 56점으로, 이름과 사주가 무난하게 맞아요.",
+        "사주 궁합 점수는 37점이에요. 이름의 오행이 사주와 약간 맞지 않는 부분이 있어요.",
+        "이름 분석 점수는 63점이에요. 이름 자체의 균형이 좋은 편이에요.",
+        "이름에 용신 오행과 직접 일치하는 글자는 없지만, 전체 균형으로 보완하고 있어요.",
+        "Saju-name safety: balanced (legacy_direct_reinforcement, risk 19/100).",
+        "이름에 기신 오행과 겹치는 글자가 1개 있어요. 크게 걱정할 수준은 아니지만 참고해 주세요."
+      ],
+      "evidence": [
+        {
+          "axis": "overallScore",
+          "claim": "종합 56점 — 별 3개 평가의 직접적 근거예요.",
+          "supportingFeatures": [
+            "종합 점수: 56 / 100",
+            "사주 궁합 점수: 37 / 100",
+            "이름 분석 점수: 63 / 100"
+          ],
+          "weakness": "종합 점수가 60점 미만이면 이름 보완 또는 다른 후보를 함께 검토하세요."
+        },
+        {
+          "axis": "yongshinAlignment",
+          "claim": "이름의 용신 직접 보강은 없지만, 전체 균형이 일정 부분 보완해요.",
+          "supportingFeatures": [
+            "용신: Metal",
+            "용신 일치 글자 수: 0",
+            "기신 겹침 글자 수: 1"
+          ],
+          "weakness": "기신 겹침이 용신 일치보다 많은 구성이라 한자 후보 추가 검토가 도움이 돼요."
+        },
+        {
+          "axis": "candidateSafetyProfile",
+          "claim": "Saju-name safety posture is balanced using legacy_direct_reinforcement.",
+          "supportingFeatures": [
+            "posture balanced",
+            "strategy legacy_direct_reinforcement",
+            "risk 19",
+            "consensus conflict: high",
+            "competing elements: FIRE,WATER,WOOD",
+            "yongshinRatio 0.00",
+            "heesinRatio 0.00",
+            "gishinRatio 0.33",
+            "gusinRatio 0.33",
+            "risk 19",
+            "strategy legacy_direct_reinforcement",
+            "yongshinRatio 0.00",
+            "heesinRatio 0.00",
+            "gishinRatio 0.33",
+            "gusinRatio 0.33",
+            "consensus conflict: high",
+            "competing elements: FIRE,WATER,WOOD"
+          ]
+        }
+      ]
+    },
+    "overviewSummary": {
+      "title": "총평 요약",
+      "pillars": [
+        {
+          "position": "년주",
+          "stem": "병",
+          "branch": "인",
+          "element": "불/나무"
+        },
+        {
+          "position": "월주",
+          "stem": "임",
+          "branch": "진",
+          "element": "물/흙"
+        },
+        {
+          "position": "일주",
+          "stem": "계",
+          "branch": "사",
+          "element": "물/불"
+        },
+        {
+          "position": "시주",
+          "stem": "갑",
+          "branch": "인",
+          "element": "나무"
+        }
+      ],
+      "dayMasterDescription": "일간은 계예요. 물 기운을 가지고 있고, 물처럼 아래로 흘러 모이는 지혜의 기운이 느껴져요. 이슬비처럼 조용히 스며드는 공감 능력이 있어요.",
+      "strengthDescription": "에너지 균형은 신약이에요. ",
+      "yongshinDescription": "사주의 균형을 맞춰주는 용신은 쇠(금) 기운이에요. 이 기운을 일상에서 가까이하면 좋은 흐름을 만들 수 있어요. 희신인 물 기운도 함께 챙기면 더 좋아요.",
+      "elementBalance": "오행 중 나무 기운이 가장 강해요. 쇠 기운은 부족한 편이에요.",
+      "overallSummary": "계 일간을 중심으로, 물 기운의 이슬비와 직관이 돋보이는 사주예요. 전체 에너지는 신약 수준이고, 쇠 기운을 보충하면 더 좋은 균형을 만들 수 있어요. 부족한 쇠 기운을 일상에서 조금씩 채워가면 삶이 더 안정될 수 있어요.",
+      "axisStrength": {
+        "yongshin": "deferred",
+        "gyeokguk": "practical",
+        "strength": "deferred"
+      },
+      "evidence": [
+        {
+          "axis": "dayMaster",
+          "claim": "일간은 계예요. 물 기운을 가지고 있고, 물처럼 아래로 흘러 모이는 지혜의 기운이 느껴져요. 이슬비처럼 조용히 스며드는 공감 능력이 있어요.",
+          "supportingFeatures": [
+            "계(WATER) 일간 — 물 기운",
+            "기본 성향: 이슬비, 직관"
+          ],
+          "strength": "deferred"
+        },
+        {
+          "axis": "strength",
+          "claim": "에너지 균형은 신약이에요. ",
+          "supportingFeatures": [
+            "totalSupport 2.4000000000000004, totalOppose 5.6000000000000005",
+            "level: 신약"
+          ],
+          "strength": "deferred"
+        },
+        {
+          "axis": "yongshin",
+          "claim": "사주의 균형을 맞춰주는 용신은 쇠(금) 기운이에요. 이 기운을 일상에서 가까이하면 좋은 흐름을 만들 수 있어요. 희신인 물 기운도 함께 챙기면 더 좋아요. (다만 용신 신뢰도가 낮은 편이라 다른 보조 기운도 함께 살펴보세요.)",
+          "supportingFeatures": [
+            "용신 후보: METAL",
+            "confidence: 41",
+            "consensus conflict: high",
+            "consensus axes: eokbu:METAL, johu:FIRE, gyeokguk:WATER, tonggwan:WOOD, byeongyak:METAL, siksangFlow:WOOD",
+            "희신: WATER"
+          ],
+          "weakness": "용신 신뢰도가 0.65 미만이라 차트에 따라 다른 학파(조후 / 통관)의 추천이 더 적합할 수 있음.",
+          "strength": "deferred"
+        },
+        {
+          "axis": "gyeokguk",
+          "claim": "일간과 같은 오행이 월령에 자리하여 본인의 자력이 격을 이룬다.",
+          "supportingFeatures": [
+            "격국: 비견격",
+            "성(成) 조건: 관성 또는 식상이 격을 다스리는 구조"
+          ],
+          "weakness": "비겁이 과중하여 재물·관성을 깨뜨리는 군겁쟁재(群劫爭財)",
+          "strength": "practical"
+        },
+        {
+          "axis": "gyeokgukCandidates",
+          "claim": "격국 후보 간 이견이 있어 선택 격국은 보조 후보와 함께 해석해야 합니다.",
+          "supportingFeatures": [
+            "선택 격국: 비견격",
+            "정관격 후보(score 0.750, confidence 75%): monthHiddenStem:MU, role:MAIN, weight:0.60",
+            "식신격 후보(score 0.300, confidence 30%): monthHiddenStem:EUL, role:MIDDLE, weight:0.30"
+          ],
+          "strength": "practical"
+        }
+      ],
+      "counterexamples": [
+        {
+          "condition": "월령(月令)이 지장간 중 정기와 어긋나거나, 격국 안정성 낮음",
+          "revisedClaim": "용신을 쇠로 단정하기보다, 조후·통관 후보를 함께 검토하세요.",
+          "appliesWhen": "deferred"
+        },
+        {
+          "condition": "시간 미상 또는 입절 경계(±1 일) 이내 출생",
+          "revisedClaim": "시진 변경 시 격국·용신 후보가 달라질 수 있으니 두 가지 가능성을 함께 살펴보세요.",
+          "appliesWhen": "deferred"
+        }
+      ]
+    },
+    "lifeFortuneOverview": {
+      "title": "인생 운세 총평",
+      "stars": 3,
+      "summary": "물 기운을 가진 사주로, 안정적인 기본기를 갖추고 있어요. 에너지 균형은 신약이에요. 쇠 기운을 가까이하면 삶의 흐름이 더 좋아질 수 있어요. 부족한 쇠 기운을 생활 속에서 조금씩 보충해 보세요.",
+      "highlights": [
+        "일간은 물 기운이에요",
+        "에너지 균형은 신약 상태예요",
+        "용신은 쇠 기운이에요",
+        "쇠 기운이 부족해요"
+      ],
+      "axisStrength": {
+        "yongshin": "deferred",
+        "gyeokguk": "practical",
+        "strength": "deferred"
+      },
+      "evidence": [
+        {
+          "axis": "yongshin",
+          "claim": "용신 금 — 신뢰도가 낮아 보조 기운 함께 활용 권장.",
+          "supportingFeatures": [
+            "용신 후보: METAL",
+            "희신: WATER"
+          ],
+          "weakness": "용신 신뢰도가 0.65 미만이라 차트에 따라 다른 학파의 추천이 더 적합할 수 있음.",
+          "strength": "deferred"
+        },
+        {
+          "axis": "gyeokguk",
+          "claim": "일간과 같은 오행이 월령에 자리하여 본인의 자력이 격을 이룬다.",
+          "supportingFeatures": [
+            "격국: 비견격",
+            "성(成) 조건: 관성 또는 식상이 격을 다스리는 구조"
+          ],
+          "weakness": "비겁이 과중하여 재물·관성을 깨뜨리는 군겁쟁재(群劫爭財)",
+          "strength": "practical"
+        }
+      ]
+    },
+    "dailyFortune": {
+      "summary": "오늘은 불과 물 기운이 기신 방향이라 조심이 필요해요. 무리한 도전보다 체력 관리를 우선하세요.",
+      "goodActions": [
+        {
+          "text": "쇠 기운을 보강하는 수영, 자전거 같은 활동을 추천해요.",
+          "reason": "용신인 쇠 기운을 채우면 오늘의 운세 흐름이 좋아져요."
+        },
+        {
+          "text": "흰색 계열 옷이나 소품을 활용하고, 서쪽 방향을 의식하면 도움이 돼요.",
+          "reason": "쇠 기운의 색과 방위를 활용하면 자연스럽게 좋은 기운을 끌어올 수 있어요."
+        }
+      ],
+      "avoidActions": null,
+      "warnings": null
+    },
+    "weeklyFortune": {
+      "summary": "이번 주는 불과 물 기운이 보통 수준이에요. 무리하지 않고 꾸준히 해나가면 좋아요."
+    },
+    "monthlyFortune": {
+      "summary": "이번 달은 물과 흙 기운이 도움을 주는 흐름이에요. 계획한 일을 실행에 옮기기 좋은 시기예요."
+    },
+    "yearlyFortune": {
+      "summary": "올해는 불 기운이 기신 방향이라 조심이 필요해요. 무리한 도전보다 체력 관리를 우선하세요."
+    },
+    "tieredMatrix": null
+  },
+  "tieredFortuneReportSummary": {
+    "topLevelKeys": [
+      "nameCompatibility",
+      "overviewSummary",
+      "lifeFortuneOverview",
+      "personality",
+      "strengthsWeaknesses",
+      "cautions",
+      "dailyFortune",
+      "weeklyFortune",
+      "monthlyFortune",
+      "yearlyFortune",
+      "lifeStageFortune",
+      "categoryFortunes",
+      "meta",
+      "tieredMatrix"
+    ],
+    "hasTieredMatrix": true,
+    "meta": {
+      "version": "1.0.0",
+      "generatedAt": "2026-05-02T03:32:47.979Z",
+      "schoolPreset": {
+        "selected": "korean",
+        "source": "default",
+        "useSchoolPreset": false,
+        "label": "Korean Mainstream (이석영 사주첩경 / 한국 현대 작명 표준)",
+        "doctrine": "mainstream_korean_default",
+        "tradeoffs": [
+          "Default-compatible baseline; best for regression comparison.",
+          "Does not emphasize one doctrine axis beyond current production scoring."
+        ],
+        "scoringEffect": "inactive"
+      }
+    },
+    "nameCompatibility": {
+      "title": "이름 적합도 평가",
+      "overallStars": 3,
+      "overallScore": 56.4,
+      "sajuCompatibilityScore": 36.65268632583379,
+      "nameAnalysisScore": 62.6,
+      "safetyProfile": {
+        "posture": "balanced",
+        "strategy": "legacy_direct_reinforcement",
+        "riskScore": 19,
+        "conflictLevel": "high",
+        "competingElements": [
+          "FIRE",
+          "WATER",
+          "WOOD"
+        ],
+        "yongshinRatio": 0,
+        "heesinRatio": 0,
+        "gishinRatio": 0.3333333333333333,
+        "gusinRatio": 0.3333333333333333,
+        "reasons": [
+          "risk 19",
+          "strategy legacy_direct_reinforcement",
+          "yongshinRatio 0.00",
+          "heesinRatio 0.00",
+          "gishinRatio 0.33",
+          "gusinRatio 0.33",
+          "consensus conflict: high",
+          "competing elements: FIRE,WATER,WOOD"
+        ]
+      },
+      "tenGodPositionEvidence": {
+        "requestedMode": "positional_weighted",
+        "effectiveMode": "simple_count",
+        "score": 49.71875,
+        "normalization": "deviation_from_average_count",
+        "topContributions": [],
+        "groupCounts": {
+          "friend": 2,
+          "output": 3,
+          "wealth": 2,
+          "authority": 1,
+          "resource": 0
+        },
+        "deviations": {
+          "friend": -0.25,
+          "output": -0.875,
+          "wealth": -0.25,
+          "authority": 0.375,
+          "resource": 1
+        },
+        "elementWeights": {
+          "Wood": -0.30625,
+          "Fire": -0.0875,
+          "Earth": 0.375,
+          "Metal": 1,
+          "Water": -0.0875
+        },
+        "fallbackReason": "byPosition_unavailable"
+      },
+      "summary": "이름 적합도는 별 3개 수준이에요. 무난한 수준의 궁합이에요. 종합 56점, 사주 궁합 37점, 이름 분석 63점을 기록했어요.",
+      "details": [
+        "종합 점수는 56점으로, 이름과 사주가 무난하게 맞아요.",
+        "사주 궁합 점수는 37점이에요. 이름의 오행이 사주와 약간 맞지 않는 부분이 있어요.",
+        "이름 분석 점수는 63점이에요. 이름 자체의 균형이 좋은 편이에요.",
+        "이름에 용신 오행과 직접 일치하는 글자는 없지만, 전체 균형으로 보완하고 있어요.",
+        "Saju-name safety: balanced (legacy_direct_reinforcement, risk 19/100).",
+        "이름에 기신 오행과 겹치는 글자가 1개 있어요. 크게 걱정할 수준은 아니지만 참고해 주세요."
+      ],
+      "evidence": [
+        {
+          "axis": "overallScore",
+          "claim": "종합 56점 — 별 3개 평가의 직접적 근거예요.",
+          "supportingFeatures": [
+            "종합 점수: 56 / 100",
+            "사주 궁합 점수: 37 / 100",
+            "이름 분석 점수: 63 / 100"
+          ],
+          "weakness": "종합 점수가 60점 미만이면 이름 보완 또는 다른 후보를 함께 검토하세요."
+        },
+        {
+          "axis": "yongshinAlignment",
+          "claim": "이름의 용신 직접 보강은 없지만, 전체 균형이 일정 부분 보완해요.",
+          "supportingFeatures": [
+            "용신: Metal",
+            "용신 일치 글자 수: 0",
+            "기신 겹침 글자 수: 1"
+          ],
+          "weakness": "기신 겹침이 용신 일치보다 많은 구성이라 한자 후보 추가 검토가 도움이 돼요."
+        },
+        {
+          "axis": "candidateSafetyProfile",
+          "claim": "Saju-name safety posture is balanced using legacy_direct_reinforcement.",
+          "supportingFeatures": [
+            "posture balanced",
+            "strategy legacy_direct_reinforcement",
+            "risk 19",
+            "consensus conflict: high",
+            "competing elements: FIRE,WATER,WOOD",
+            "yongshinRatio 0.00",
+            "heesinRatio 0.00",
+            "gishinRatio 0.33",
+            "gusinRatio 0.33",
+            "risk 19",
+            "strategy legacy_direct_reinforcement",
+            "yongshinRatio 0.00",
+            "heesinRatio 0.00",
+            "gishinRatio 0.33",
+            "gusinRatio 0.33",
+            "consensus conflict: high",
+            "competing elements: FIRE,WATER,WOOD"
+          ]
+        }
+      ]
+    },
+    "overviewSummary": {
+      "title": "총평 요약",
+      "pillars": [
+        {
+          "position": "년주",
+          "stem": "병",
+          "branch": "인",
+          "element": "불/나무"
+        },
+        {
+          "position": "월주",
+          "stem": "임",
+          "branch": "진",
+          "element": "물/흙"
+        },
+        {
+          "position": "일주",
+          "stem": "계",
+          "branch": "사",
+          "element": "물/불"
+        },
+        {
+          "position": "시주",
+          "stem": "갑",
+          "branch": "인",
+          "element": "나무"
+        }
+      ],
+      "dayMasterDescription": "일간은 계예요. 물 기운을 가지고 있고, 물처럼 아래로 흘러 모이는 지혜의 기운이 느껴져요. 이슬비처럼 조용히 스며드는 공감 능력이 있어요.",
+      "strengthDescription": "에너지 균형은 신약이에요. ",
+      "yongshinDescription": "사주의 균형을 맞춰주는 용신은 쇠(금) 기운이에요. 이 기운을 일상에서 가까이하면 좋은 흐름을 만들 수 있어요. 희신인 물 기운도 함께 챙기면 더 좋아요.",
+      "elementBalance": "오행 중 나무 기운이 가장 강해요. 쇠 기운은 부족한 편이에요.",
+      "overallSummary": "계 일간을 중심으로, 물 기운의 이슬비와 직관이 돋보이는 사주예요. 전체 에너지는 신약 수준이고, 쇠 기운을 보충하면 더 좋은 균형을 만들 수 있어요. 부족한 쇠 기운을 일상에서 조금씩 채워가면 삶이 더 안정될 수 있어요.",
+      "axisStrength": {
+        "yongshin": "deferred",
+        "gyeokguk": "practical",
+        "strength": "deferred"
+      },
+      "evidence": [
+        {
+          "axis": "dayMaster",
+          "claim": "일간은 계예요. 물 기운을 가지고 있고, 물처럼 아래로 흘러 모이는 지혜의 기운이 느껴져요. 이슬비처럼 조용히 스며드는 공감 능력이 있어요.",
+          "supportingFeatures": [
+            "계(WATER) 일간 — 물 기운",
+            "기본 성향: 이슬비, 직관"
+          ],
+          "strength": "deferred"
+        },
+        {
+          "axis": "strength",
+          "claim": "에너지 균형은 신약이에요. ",
+          "supportingFeatures": [
+            "totalSupport 2.4000000000000004, totalOppose 5.6000000000000005",
+            "level: 신약"
+          ],
+          "strength": "deferred"
+        },
+        {
+          "axis": "yongshin",
+          "claim": "사주의 균형을 맞춰주는 용신은 쇠(금) 기운이에요. 이 기운을 일상에서 가까이하면 좋은 흐름을 만들 수 있어요. 희신인 물 기운도 함께 챙기면 더 좋아요. (다만 용신 신뢰도가 낮은 편이라 다른 보조 기운도 함께 살펴보세요.)",
+          "supportingFeatures": [
+            "용신 후보: METAL",
+            "confidence: 41",
+            "consensus conflict: high",
+            "consensus axes: eokbu:METAL, johu:FIRE, gyeokguk:WATER, tonggwan:WOOD, byeongyak:METAL, siksangFlow:WOOD",
+            "희신: WATER"
+          ],
+          "weakness": "용신 신뢰도가 0.65 미만이라 차트에 따라 다른 학파(조후 / 통관)의 추천이 더 적합할 수 있음.",
+          "strength": "deferred"
+        },
+        {
+          "axis": "gyeokguk",
+          "claim": "일간과 같은 오행이 월령에 자리하여 본인의 자력이 격을 이룬다.",
+          "supportingFeatures": [
+            "격국: 비견격",
+            "성(成) 조건: 관성 또는 식상이 격을 다스리는 구조"
+          ],
+          "weakness": "비겁이 과중하여 재물·관성을 깨뜨리는 군겁쟁재(群劫爭財)",
+          "strength": "practical"
+        },
+        {
+          "axis": "gyeokgukCandidates",
+          "claim": "격국 후보 간 이견이 있어 선택 격국은 보조 후보와 함께 해석해야 합니다.",
+          "supportingFeatures": [
+            "선택 격국: 비견격",
+            "정관격 후보(score 0.750, confidence 75%): monthHiddenStem:MU, role:MAIN, weight:0.60",
+            "식신격 후보(score 0.300, confidence 30%): monthHiddenStem:EUL, role:MIDDLE, weight:0.30"
+          ],
+          "strength": "practical"
+        }
+      ],
+      "counterexamples": [
+        {
+          "condition": "월령(月令)이 지장간 중 정기와 어긋나거나, 격국 안정성 낮음",
+          "revisedClaim": "용신을 쇠로 단정하기보다, 조후·통관 후보를 함께 검토하세요.",
+          "appliesWhen": "deferred"
+        },
+        {
+          "condition": "시간 미상 또는 입절 경계(±1 일) 이내 출생",
+          "revisedClaim": "시진 변경 시 격국·용신 후보가 달라질 수 있으니 두 가지 가능성을 함께 살펴보세요.",
+          "appliesWhen": "deferred"
+        }
+      ]
+    },
+    "lifeFortuneOverview": {
+      "title": "인생 운세 총평",
+      "stars": 3,
+      "summary": "물 기운을 가진 사주로, 안정적인 기본기를 갖추고 있어요. 에너지 균형은 신약이에요. 쇠 기운을 가까이하면 삶의 흐름이 더 좋아질 수 있어요. 부족한 쇠 기운을 생활 속에서 조금씩 보충해 보세요.",
+      "highlights": [
+        "일간은 물 기운이에요",
+        "에너지 균형은 신약 상태예요",
+        "용신은 쇠 기운이에요",
+        "쇠 기운이 부족해요"
+      ],
+      "axisStrength": {
+        "yongshin": "deferred",
+        "gyeokguk": "practical",
+        "strength": "deferred"
+      },
+      "evidence": [
+        {
+          "axis": "yongshin",
+          "claim": "용신 금 — 신뢰도가 낮아 보조 기운 함께 활용 권장.",
+          "supportingFeatures": [
+            "용신 후보: METAL",
+            "희신: WATER"
+          ],
+          "weakness": "용신 신뢰도가 0.65 미만이라 차트에 따라 다른 학파의 추천이 더 적합할 수 있음.",
+          "strength": "deferred"
+        },
+        {
+          "axis": "gyeokguk",
+          "claim": "일간과 같은 오행이 월령에 자리하여 본인의 자력이 격을 이룬다.",
+          "supportingFeatures": [
+            "격국: 비견격",
+            "성(成) 조건: 관성 또는 식상이 격을 다스리는 구조"
+          ],
+          "weakness": "비겁이 과중하여 재물·관성을 깨뜨리는 군겁쟁재(群劫爭財)",
+          "strength": "practical"
+        }
+      ]
+    },
+    "dailyFortune": {
+      "summary": "오늘은 불과 물 기운이 기신 방향이라 조심이 필요해요. 무리한 도전보다 체력 관리를 우선하세요.",
+      "goodActions": [
+        {
+          "text": "쇠 기운을 보강하는 수영, 자전거 같은 활동을 추천해요.",
+          "reason": "용신인 쇠 기운을 채우면 오늘의 운세 흐름이 좋아져요."
+        },
+        {
+          "text": "흰색 계열 옷이나 소품을 활용하고, 서쪽 방향을 의식하면 도움이 돼요.",
+          "reason": "쇠 기운의 색과 방위를 활용하면 자연스럽게 좋은 기운을 끌어올 수 있어요."
+        }
+      ],
+      "avoidActions": null,
+      "warnings": null
+    },
+    "weeklyFortune": {
+      "summary": "이번 주는 불과 물 기운이 보통 수준이에요. 무리하지 않고 꾸준히 해나가면 좋아요."
+    },
+    "monthlyFortune": {
+      "summary": "이번 달은 물과 흙 기운이 도움을 주는 흐름이에요. 계획한 일을 실행에 옮기기 좋은 시기예요."
+    },
+    "yearlyFortune": {
+      "summary": "올해는 불 기운이 기신 방향이라 조심이 필요해요. 무리한 도전보다 체력 관리를 우선하세요."
+    },
+    "tieredMatrix": {
+      "topLevelKeys": [
+        "schemaVersion",
+        "periods",
+        "glossary",
+        "meta"
+      ],
+      "meta": {
+        "schemaVersion": "spring-ts.tiered-matrix.v1",
+        "generatedAt": "2026-05-02T03:32:47.979Z",
+        "selectionSeed": "1986|4|19|5|45|male|2026-05-01T15:00:00.000Z",
+        "templateContractVersion": "1.0.0",
+        "contentSource": "authored",
+        "fragmentCount": 1837,
+        "aiGeneratedFragmentCount": 1837
+      },
+      "periodKeyCounts": {
+        "life": {
+          "keyCount": 5,
+          "keys": [
+            "periodKind",
+            "periodLabel",
+            "periodMeta",
+            "overall",
+            "byCategory"
+          ]
+        },
+        "today": {
+          "keyCount": 5,
+          "keys": [
+            "periodKind",
+            "periodLabel",
+            "periodMeta",
+            "overall",
+            "byCategory"
+          ]
+        },
+        "thisWeek": {
+          "keyCount": 5,
+          "keys": [
+            "periodKind",
+            "periodLabel",
+            "periodMeta",
+            "overall",
+            "byCategory"
+          ]
+        },
+        "thisMonth": {
+          "keyCount": 5,
+          "keys": [
+            "periodKind",
+            "periodLabel",
+            "periodMeta",
+            "overall",
+            "byCategory"
+          ]
+        },
+        "thisYear": {
+          "keyCount": 5,
+          "keys": [
+            "periodKind",
+            "periodLabel",
+            "periodMeta",
+            "overall",
+            "byCategory"
+          ]
+        }
+      },
+      "glossaryCount": 2,
+      "sample": {
+        "todayOverallBrief": {
+          "headline": "느린 결이라, 휴식 한 박자가 큰 자산이 돼요."
+        },
+        "todayOverallStandard": {
+          "paragraphs": [
+            {
+              "tokens": [
+                {
+                  "kind": "text",
+                  "value": "오늘 하루의 큰 그림을 보면, 잔잔한 호수처럼 큰 파도 없이 흐르는 결이에요. 익숙한 페이스를 지키면 자연스럽게 결과가 따라오고, 작은 신호도 흘려 듣지 않으면 결정의 질이 한 단계 올라가요. 한 가지에 마음을 두고 끝까지 보면, 하루가 단단하게 마무리돼요."
+                }
+              ],
+              "plainText": "오늘 하루의 큰 그림을 보면, 잔잔한 호수처럼 큰 파도 없이 흐르는 결이에요. 익숙한 페이스를 지키면 자연스럽게 결과가 따라오고, 작은 신호도 흘려 듣지 않으면 결정의 질이 한 단계 올라가요. 한 가지에 마음을 두고 끝까지 보면, 하루가 단단하게 마무리돼요."
+            }
+          ],
+          "livingTips": [
+            "오늘 가장 중요한 한 가지를 정해요",
+            "마무리 시간에 짧게 점검해요"
+          ],
+          "cautions": [
+            "급한 결정만 한 박자 늦추면 충분해요"
+          ]
+        },
+        "yearlyCareerBrief": null
+      }
+    }
+  },
+  "currentSpringReportSummary": {
+    "topLevelKeys": [
+      "finalScore",
+      "schoolPreset",
+      "popularityRank",
+      "maleRatio",
+      "nameGender",
+      "namingReport",
+      "sajuReport",
+      "sajuCompatibility",
+      "combinedDistribution",
+      "rank"
+    ],
+    "scores": null,
+    "sajuSummary": null,
+    "name": null
+  },
+  "currentSajuReportSummary": {
+    "topLevelKeys": [
+      "pillars",
+      "coreResult",
+      "strengthResult",
+      "yongshinResult",
+      "gyeokgukResult",
+      "ohaengDistribution",
+      "deficientElements",
+      "excessiveElements",
+      "cheonganRelations",
+      "scoredCheonganRelations",
+      "jijiRelations",
+      "resolvedJijiRelations",
+      "tenGodAnalysis",
+      "shinsalHits",
+      "weightedShinsalHits",
+      "shinsalComposites",
+      "gongmangVoidBranches",
+      "daeunInfo",
+      "saeunPillars",
+      "trace",
+      "timeCorrection",
+      "dayMaster",
+      "strength",
+      "yongshin",
+      "yongshinConsensus",
+      "gyeokguk",
+      "elementDistribution",
+      "hapHwaEvaluations",
+      "sibiUnseong",
+      "gongmang",
+      "palaceAnalysis",
+      "axisStrength",
+      "sajuEnabled"
+    ],
+    "pillars": {
+      "year": {
+        "stem": {
+          "code": "BYEONG",
+          "hangul": "병",
+          "hanja": "丙"
+        },
+        "branch": {
+          "code": "IN",
+          "hangul": "인",
+          "hanja": "寅"
+        }
+      },
+      "month": {
+        "stem": {
+          "code": "IM",
+          "hangul": "임",
+          "hanja": "壬"
+        },
+        "branch": {
+          "code": "JIN",
+          "hangul": "진",
+          "hanja": "辰"
+        }
+      },
+      "day": {
+        "stem": {
+          "code": "GYE",
+          "hangul": "계",
+          "hanja": "癸"
+        },
+        "branch": {
+          "code": "SA",
+          "hangul": "사",
+          "hanja": "巳"
+        }
+      },
+      "hour": {
+        "stem": {
+          "code": "GAP",
+          "hangul": "갑",
+          "hanja": "甲"
+        },
+        "branch": {
+          "code": "IN",
+          "hangul": "인",
+          "hanja": "寅"
+        }
+      }
+    },
+    "dayMaster": {
+      "stem": "계",
+      "element": "WATER",
+      "polarity": "음"
+    },
+    "strength": {
+      "level": "신약",
+      "isStrong": false,
+      "totalSupport": 2.4000000000000004,
+      "totalOppose": 5.6000000000000005,
+      "deukryeong": 2.1,
+      "deukji": 0.30000000000000004,
+      "deukse": 2.4000000000000004,
+      "details": [
+        "강약 판정: 신약",
+        "강약 지수: -0.400",
+        "생조 합: 2.400",
+        "극설 합: 5.600"
+      ]
+    },
+    "yongshin": {
+      "element": "METAL",
+      "heeshin": "WATER",
+      "gishin": "FIRE",
+      "gushin": "EARTH",
+      "confidence": 41,
+      "agreement": "순위 기반",
+      "consensus": {
+        "eokbu": {
+          "element": "METAL",
+          "score": 1,
+          "scores": {
+            "WOOD": 0.175867,
+            "FIRE": 0,
+            "EARTH": 0.18808,
+            "METAL": 1,
+            "WATER": 0.430874
+          },
+          "evidence": [
+            "strengthIndex=-0.4",
+            "support=2.4",
+            "pressure=5.6"
+          ]
+        },
+        "johu": {
+          "element": "FIRE",
+          "score": 1,
+          "scores": {
+            "WOOD": 0.428571,
+            "FIRE": 1,
+            "EARTH": 0.857143,
+            "METAL": 1,
+            "WATER": 0
+          },
+          "evidence": [
+            "climateNeedTemp=0",
+            "climateNeedMoist=-0.2"
+          ]
+        },
+        "gyeokguk": {
+          "element": "WATER",
+          "score": 1,
+          "scores": {
+            "WOOD": 0.207692,
+            "FIRE": 0,
+            "EARTH": 0.692308,
+            "METAL": 0,
+            "WATER": 1
+          },
+          "evidence": [
+            "monthGyeokTenGod=BI_GYEON",
+            "quality=0.764167"
+          ]
+        },
+        "tonggwan": {
+          "element": "WOOD",
+          "score": 1,
+          "scores": {
+            "WOOD": 1,
+            "FIRE": 0.207454,
+            "EARTH": 0.003883,
+            "METAL": 0.239428,
+            "WATER": 0
+          },
+          "evidence": [
+            "maxIntensity=0.512791",
+            "dominance=0.640204"
+          ]
+        },
+        "byeongyak": {
+          "element": "METAL",
+          "score": 1,
+          "scores": {
+            "WOOD": 0,
+            "FIRE": 0,
+            "EARTH": 0.555556,
+            "METAL": 1,
+            "WATER": 0.666667
+          },
+          "evidence": [
+            "medicine=controls_excess_elements"
+          ]
+        },
+        "siksangFlow": {
+          "element": "WOOD",
+          "score": 1,
+          "scores": {
+            "WOOD": 1,
+            "FIRE": 0,
+            "EARTH": 0,
+            "METAL": 0,
+            "WATER": 0
+          },
+          "evidence": [
+            "outputPressure=0.3125"
+          ]
+        },
+        "final": {
+          "element": "METAL",
+          "confidence": 0.4125,
+          "topMargin": 0.4125,
+          "conflictLevel": "high",
+          "competingElements": [
+            "FIRE",
+            "WATER",
+            "WOOD"
+          ],
+          "evidence": [
+            "selected=METAL",
+            "topMargin=0.4125",
+            "conflictRatio=0.666667"
+          ]
+        }
+      },
+      "recommendations": [
+        {
+          "type": "조후",
+          "primaryElement": "금",
+          "secondaryElement": "수",
+          "confidence": 80,
+          "reasoning": "금 기운이 가장 강해 용신 1순위입니다 (신뢰도 80점)."
+        },
+        {
+          "type": "순위 추천",
+          "primaryElement": "수",
+          "secondaryElement": "목",
+          "confidence": 39,
+          "reasoning": "수 기운은 금 기운을 보조하는 희신 후보입니다 (신뢰도 39점)."
+        },
+        {
+          "type": "순위 추천",
+          "primaryElement": "목",
+          "secondaryElement": "토",
+          "confidence": 10,
+          "reasoning": "목 기운은 후순위 균형 보완 후보입니다 (신뢰도 10점)."
+        }
+      ]
+    },
+    "timeCorrection": {
+      "standardYear": 1986,
+      "standardMonth": 4,
+      "standardDay": 19,
+      "standardHour": 5,
+      "standardMinute": 45,
+      "adjustedYear": 1986,
+      "adjustedMonth": 4,
+      "adjustedDay": 19,
+      "adjustedHour": 4,
+      "adjustedMinute": 43,
+      "dstCorrectionMinutes": 0,
+      "longitudeCorrectionMinutes": -32.08800000000002,
+      "equationOfTimeMinutes": 0.6820860156831259
+    }
+  }
+}

@@ -1,0 +1,63 @@
+{
+  "scope": "data/narrative/academic",
+  "totalFragments": 150,
+  "briefFragments": 51,
+  "briefHeadlineViolations": 0,
+  "violationDetails": [],
+  "repetitionCounts": {
+    "결이": 190,
+    "결을": 61,
+    "결로": 36,
+    "결은": 33,
+    "결의": 24,
+    "결이에요": 40,
+    "한 결이": 11,
+    "흐름이": 76,
+    "흐름은": 6,
+    "흐름을": 3,
+    "편이": 2,
+    "또렷": 47,
+    "단단": 25,
+    "한 박자": 0,
+    "페이스": 15
+  },
+  "gatingAxes": {
+    "(none)": 18,
+    "ageBand": 59,
+    "dayMasterStrength+yongshinAlignment": 20,
+    "gyeokguk": 14,
+    "dayMasterStrength": 14,
+    "yongshinAlignment": 25
+  },
+  "tagsUsed": {
+    "jeongin": 30,
+    "pyeonin": 14,
+    "sikshin": 30,
+    "sanggwan": 11,
+    "jeongingyeok": 6,
+    "pyeoningyeok": 6,
+    "sikshingyeok": 2,
+    "hwagae": 8,
+    "sanggwangyeok": 1,
+    "yongshin": 22,
+    "heeshin": 10,
+    "gishin": 4
+  },
+  "periodDepth": {
+    "life.brief": 10,
+    "life.expert": 11,
+    "life.standard": 11,
+    "thisMonth.brief": 9,
+    "thisMonth.expert": 8,
+    "thisMonth.standard": 9,
+    "thisWeek.brief": 9,
+    "thisWeek.expert": 8,
+    "thisWeek.standard": 9,
+    "thisYear.brief": 11,
+    "thisYear.expert": 11,
+    "thisYear.standard": 11,
+    "today.brief": 12,
+    "today.expert": 10,
+    "today.standard": 11
+  }
+}

@@ -1,0 +1,134 @@
+Total: 133
+  life/brief.fragments.json  ::  "value": "아이는 새 자리에서 더 많이 자라는 결이에요. 여행과 전학이 좋은 자극이 돼요." } 
+  life/brief.fragments.json  ::  ", "value": "여행·체험으로 시야가 넓어지는 결이에요. 한 발짝 움직여 볼 자리가 보여요." } 
+  life/brief.fragments.json  ::  ", "value": "새 환경에서 자기 길이 트이는 결이에요." } ], "tags": 
+  life/brief.fragments.json  ::  alue": "이사·이직의 자리가 한 번 크게 열리는 결이에요." } ], "tags": 
+  life/brief.fragments.json  ::   "value": "출장·해외 자리가 자주 만들어지는 결이에요." } ], "tags": 
+  life/brief.fragments.json  ::  ue": "정리와 새 자리 사이에서 한 번 움직여 볼 결이에요." } ], "tags": 
+  life/brief.fragments.json  ::  ext", "value": "여유로운 여행과 머무름의 결이 함께해요." } ], "tags
+  life/brief.fragments.json  ::  alue": "흐름을 타고 새 자리가 시원하게 열리는 결이에요." } ], "tags": 
+  life/brief.fragments.json  ::  value": "익숙한 자리에서 한 발짝씩 넓혀 가는 결이에요." } ], "tags": 
+  life/expert.fragments.json  ::  alue": "이 일지에 들면 한 자리에 머물지 않는 결이 평생 이어져요. 사주 안 " }, { 
+  life/expert.fragments.json  ::   "의 뿌리가 단단해 새 환경의 자극을 잘 받아들이는 결이에요. 환경 변화가 부담이 아니라 자라는 자양분이 되는
+  life/expert.fragments.json  ::  요. 환경 변화가 부담이 아니라 자라는 자양분이 되는 결이라고 봐요.\n\n" }, { "kind
+  life/expert.fragments.json  ::   같은 부드러운 자극을 주면, 평생 가는 호기심의 큰 결이 만들어져요." } ], "tag
+  life/expert.fragments.json  ::  text", "value": "이 본격적으로 발동하는 결이에요.\n\n" }, { "kind": 
+  life/expert.fragments.json  ::  에 들면 마찰을 줄이고 결정의 호흡을 한 박자 늦추는 결이 잘 맞아요." } ], "tag
+  life/expert.fragments.json  ::  , "value": "이 큰 자리에서 한 번 발동하는 결이에요.\n\n" }, { "kind": 
+  life/expert.fragments.json  ::   함께 들 때는 가족 호흡과 충분히 맞춘 뒤 결정하는 결이 잘 맞아요." } ], "tag
+  life/expert.fragments.json  ::  alue": "이 잦은 출장·해외 자리로 풀려 나오는 결이에요.\n\n" }, { "kind": 
+  life/expert.fragments.json  ::  e": "의 뿌리도 살펴서 가족 자리와 호흡을 맞추는 결이 잘 맞아요." } ], "tag
+  life/expert.fragments.json  ::  "이 정리와 새 자리 사이에서 한 번 더 자극을 주는 결이에요.\n\n" }, { "kind": 
+  life/expert.fragments.json  ::   "text", "value": "의 자극이 잔잔해진 결이에요.\n\n" }, { "kind": 
+  life/expert.fragments.json  ::   "의 뿌리가 깊어진 자리에서 가까운 여행과 머무름의 결이 어울려요.\n\n" }, { "kind
+  life/expert.fragments.json  ::  ", "value": "의 자극을 또렷하게 받아들이는 결이에요.\n\n" }, { "kind": 
+  life/expert.fragments.json  ::  시기엔 한 박자 쉬어 가는 호흡을 두면, 평생 이동의 결이 더 단단해져요." } ], "t
+  life/expert.fragments.json  ::  t", "value": "의 자극을 천천히 풀어 내는 결이에요.\n\n" }, { "kind": 
+  life/expert.fragments.json  ::  더해 주는 자리가 우선이라, 큰 변화는 단계로 나누는 결이 잘 맞아요. " }, { "kind":
+  life/standard.fragments.json  ::  ·새 친구·새 풍경에 닿을 때마다 한 뼘씩 더 자라는 결이에요. 봄비 맞은 작은 가지처럼 환경의 신선함이 그대로
+  life/standard.fragments.json  ::   무리한 자리 변경보다 익숙한 자리에서 시야를 넓히는 결이 결실에 가까워요.\n\n다만 가족과 자기 자리 사이의
+  life/standard.fragments.json  ::  보지 않고 가까운 사람의 호흡도 함께 살피면, 이동의 결이 단단해져요." } ], 
+  life/standard.fragments.json  ::  e": "이 시기 이동 결은 여유로운 여행과 머무름의 결이 함께하는 흐름이에요. 멀리 가지 않아도 가까운 자리에
+  life/standard.fragments.json  ::   가지 않아도 가까운 자리에서 풍요로운 풍경을 만나는 결이에요.\n\n호수처럼 잔잔한 자리에서 가까운 친구·가족
+  life/standard.fragments.json  ::   "흐름을 타고 새 자리가 시원하게 열리는 평생 이동 결이에요. 강한 타고난 중심 기운이 새 환경을 두려워하지 
+  life/standard.fragments.json  ::  력이 잘 발휘돼요. 한번 결정하면 빠르게 자리를 잡는 결이 강해서, 새 환경에서 결과가 곧 따라와요.\n\n다만
+  life/standard.fragments.json  ::  기 쉬워요. 한 박자 쉬어 가는 여백을 두면, 이동의 결이 더 단단해져요." } ], 
+  thisMonth/brief.fragments.json  ::  ue": "이번 달은 새 환경의 문이 한두 번 열리는 결이에요." } ], "tags": 
+  thisMonth/brief.fragments.json  ::   "이번 달은 아이가 새 자리·새 친구와 즐겁게 닿는 결이에요." } ], "tags": 
+  thisMonth/brief.fragments.json  ::  "이번 달은 출장·이직·이사 자리가 한 번 또렷해지는 결이에요." } ], "tags": 
+  thisMonth/brief.fragments.json  ::  ": "이번 달은 출장·외근의 자리가 자주 만들어지는 결이에요." } ], "tags": 
+  thisMonth/brief.fragments.json  ::  : "이번 달은 익숙한 자리에서 한 발짝씩 넓혀 가는 결이에요." } ], "tags": 
+  thisMonth/expert.fragments.json  ::  자리가 함께 들면 다툼·갈등의 호흡은 한 박자 늦추는 결이 좋아요." } ], "tags"
+  thisMonth/expert.fragments.json  ::  t", "value": "의 안정된 뿌리가 어우러지는 결이에요.\n\n주말·연휴의 가까운 외출이 좋은 자극이 돼
+  thisMonth/expert.fragments.json  ::  에 어울리는 가까운 자리에서 즐거움을 나누면 한 달의 결이 단단해져요." } ], "tag
+  thisMonth/expert.fragments.json  ::  "text", "value": "이 또렷하게 발동하는 결이에요.\n\n새 자리·새 사람의 자리가 자연스럽게 풀려
+  thisMonth/expert.fragments.json  ::   "이 함께 들면 다툼·갈등의 자리는 한 박자 늦추는 결이 좋아요." } ], "tags"
+  thisMonth/expert.fragments.json  ::  ue": "이 출장·이직·이사 자리로 또렷하게 풀리는 결이에요.\n\n" }, { "kind": 
+  thisMonth/expert.fragments.json  ::  : "이 함께 들면 큰 결정은 다음 달 호흡까지 두는 결이 좋아요." } ], "tags"
+  thisMonth/expert.fragments.json  ::  lue": "이 책임 큰 자리의 출장·외근으로 풀리는 결이에요.\n\n" }, { "kind": 
+  thisMonth/expert.fragments.json  ::  xt", "value": "이 잔잔한 자극으로 풀리는 결이에요.\n\n가까운 자리의 모임·짧은 여행이 잘 어울려
+  thisMonth/expert.fragments.json  ::  ", "value": "의 자극을 시원하게 받아들이는 결이에요.\n\n" }, { "kind": 
+  thisMonth/expert.fragments.json  ::  t", "value": "의 자극을 천천히 받아들이는 결이에요.\n\n" }, { "kind": 
+  thisMonth/standard.fragments.json  ::   흐르는 강물처럼 자연스럽게 새 자리·새 사람과 닿는 결이에요.\n\n출장·외근·여행의 자리가 자주 등장해요. 
+  thisMonth/standard.fragments.json  ::  리가 자주 등장해요. 동선을 미리 그려 두면 한 달의 결이 한결 가벼워져요. 평소 가지 않던 자리에서 의외의 만
+  thisMonth/standard.fragments.json  ::   달이에요.\n\n호흡이 빠른 한 달이어도 잘 풀리는 결이에요. 외근의 자리에서 의외의 결과가 따라오기도 해요.
+  thisMonth/standard.fragments.json  ::  만 빡빡한 일정에 한 박자 휴식을 끼우면, 다음 달의 결이 더 단단해져요. 무리한 추가 일정은 다음 달로 미뤄도
+  thisMonth/standard.fragments.json  ::   큰 자산이 돼요. 무리한 장거리보다 매일 짧게 걷는 결이 좋아요.\n\n다만 날씨가 맞지 않는 날엔 무리하지 
+  thisMonth/standard.fragments.json  ::   결과가 곧 따라와요. 새 자리의 만남에서 의외의 큰 결이 등장하기도 해요.\n\n다만 너무 빠른 결정은 동행자
+  thisMonth/standard.fragments.json  ::   쉬워요. 한 박자 쉬어 가는 여백을 두면, 한 달의 결이 더 단단해져요." } ], 
+  thisWeek/brief.fragments.json  ::  ue": "이번 주는 평소보다 동선이 한 번 넓어지는 결이에요." } ], "tags": 
+  thisWeek/brief.fragments.json  ::  이번 주는 아이가 새 자리에서 즐거움을 더 잘 만나는 결이에요." } ], "tags": 
+  thisWeek/brief.fragments.json  ::  e": "이번 주는 외근·출장 일정이 빡빡하게 짜이는 결이에요." } ], "tags": 
+  thisWeek/brief.fragments.json  ::   "이번 주는 동네 한 바퀴 산책이 가장 잘 어울리는 결이에요." } ], "tags": 
+  thisWeek/expert.fragments.json  ::  자리가 함께 들면 다툼·충돌의 호흡은 한 박자 늦추는 결이 좋아요." } ], "tags"
+  thisWeek/expert.fragments.json  ::  t", "value": "의 안정된 뿌리가 어우러지는 결이에요.\n\n주말의 가까운 외출이 좋은 자극이 돼요. 
+  thisWeek/expert.fragments.json  ::  "의 결에 어울리는 자리에서 즐거움을 나누면 한 주의 결이 단단해져요." } ], "tag
+  thisWeek/expert.fragments.json  ::  "text", "value": "이 또렷하게 발동하는 결이에요.\n\n새 자리·새 사람의 자리가 자연스럽게 풀려
+  thisWeek/expert.fragments.json  ::   "이 함께 들면 다툼·갈등의 자리는 한 박자 늦추는 결이 좋아요." } ], "tags"
+  thisWeek/expert.fragments.json  ::  e": "이 출장·외근의 자리로 또렷하게 풀려 나오는 결이에요.\n\n" }, { "kind": 
+  thisWeek/expert.fragments.json  ::  e": "이 함께 들면 큰 결정은 다음 자리로 미루는 결이 좋아요." } ], "tags"
+  thisWeek/expert.fragments.json  ::  lue": "이 책임 큰 자리의 외근·출장으로 풀리는 결이에요.\n\n" }, { "kind": 
+  thisWeek/expert.fragments.json  ::  xt", "value": "이 잔잔한 자극으로 풀리는 결이에요.\n\n가까운 자리의 짧은 외출과 모임이 잘 어울
+  thisWeek/expert.fragments.json  ::  ", "value": "의 자극을 시원하게 받아들이는 결이에요.\n\n" }, { "kind": 
+  thisWeek/expert.fragments.json  ::  t", "value": "의 자극을 천천히 받아들이는 결이에요.\n\n" }, { "kind": 
+  thisWeek/standard.fragments.json  ::   흐르는 강물처럼 자연스럽게 새 자리·새 사람과 닿는 결이에요.\n\n외근·출장·약속이 한두 번 또렷하게 잡혀요
+  thisWeek/standard.fragments.json  ::   번 잡아 봐도 좋아요. 만남의 자리에서 의외의 좋은 결이 등장해요.\n\n다만 큰 자취·이사·이직 결정은 이번
+  thisWeek/standard.fragments.json  ::  과가 잘 따라와요. 가족과의 짧은 외출도 잘 어울리는 결이에요.\n\n다만 큰 이직·이사 결정은 이번 주의 분주
+  thisWeek/standard.fragments.json  ::   한 주예요.\n\n호흡이 빠른 한 주여도 잘 풀리는 결이에요. 외근의 자리에서 의외의 결과가 따라오기도 해요.
+  thisWeek/standard.fragments.json  ::   빡빡한 일정에 한 박자 휴식을 끼우면, 다음 자리의 결이 더 단단해져요. 무리한 추가 일정은 다음 주로 미뤄도
+  thisWeek/standard.fragments.json  ::  외출이면 충분해요. 무리한 장거리보다 매일 짧게 걷는 결이 한 주의 큰 자산이 돼요.\n\n다만 날씨가 맞지 않
+  thisWeek/standard.fragments.json  ::   결과가 곧 따라와요. 새 자리의 만남에서 의외의 큰 결이 등장하기도 해요.\n\n다만 너무 빠른 결정은 동행자
+  thisWeek/standard.fragments.json  ::   쉬워요. 한 박자 쉬어 가는 여백을 두면, 한 주의 결이 더 단단해져요." } ], 
+  thisYear/brief.fragments.json  ::  : "text", "value": "올해는 새 환경의 결이 한 번 크게 열리는 해예요." } ], 
+  thisYear/brief.fragments.json  ::  , "value": "올해 아이는 새 자리에서 자라는 결이 또렷해져요." } ], "tag
+  thisYear/brief.fragments.json  ::  lue": "올해는 출장·해외 자리가 자주 만들어지는 결이에요." } ], "tags": 
+  thisYear/brief.fragments.json  ::   "올해는 정리와 새 자리 사이에서 한 번 움직여 볼 결이에요." } ], "tags": 
+  thisYear/brief.fragments.json  ::  ", "value": "올해는 가까운 여행과 머무름의 결이 함께해요." } ], "tags
+  thisYear/brief.fragments.json  ::  e": "올해는 익숙한 자리에서 한 발짝씩 넓혀 가는 결이에요." } ], "tags": 
+  thisYear/expert.fragments.json  ::   자리가 함께 들면 큰 결정의 호흡은 한 박자 늦추는 결이 좋아요. " }, { "kind": "
+  thisYear/expert.fragments.json  ::  ", "value": "의 부드러운 자극이 또렷해지는 결이에요.\n\n" }, { "kind": 
+  thisYear/expert.fragments.json  ::  요. 환경 변화가 부담이 아니라 자라는 자양분이 되는 결이라고 봐요.\n\n" }, { "kind
+  thisYear/expert.fragments.json  ::  text", "value": "이 본격적으로 발동하는 결이에요.\n\n" }, { "kind": 
+  thisYear/expert.fragments.json  ::  에 들면 마찰을 줄이고 결정의 호흡을 한 박자 늦추는 결이 잘 맞아요." } ], "tag
+  thisYear/expert.fragments.json  ::  , "value": "이 큰 자리에서 한 번 발동하는 결이에요.\n\n" }, { "kind": 
+  thisYear/expert.fragments.json  ::   함께 들 때는 가족 호흡과 충분히 맞춘 뒤 결정하는 결이 잘 맞아요." } ], "tag
+  thisYear/expert.fragments.json  ::   "value": "이 잦은 출장·해외 자리로 풀리는 결이에요.\n\n" }, { "kind": 
+  thisYear/expert.fragments.json  ::  e": "의 뿌리도 살펴서 가족 자리와 호흡을 맞추는 결이 잘 맞아요." } ], "tag
+  thisYear/expert.fragments.json  ::  "이 정리와 새 자리 사이에서 한 번 더 자극을 주는 결이에요.\n\n" }, { "kind": 
+  thisYear/expert.fragments.json  ::   "text", "value": "의 자극이 잔잔해진 결이에요.\n\n" }, { "kind": 
+  thisYear/expert.fragments.json  ::   "의 뿌리가 깊어진 자리에서 가까운 여행과 머무름의 결이 어울려요.\n\n" }, { "kind
+  thisYear/expert.fragments.json  ::  ", "value": "의 자극을 또렷하게 받아들이는 결이에요.\n\n" }, { "kind": 
+  thisYear/expert.fragments.json  ::  기엔 한 박자 쉬어 가는 호흡을 두면, 한 해 이동의 결이 더 단단해져요." } ], "t
+  thisYear/expert.fragments.json  ::  t", "value": "의 자극을 천천히 풀어 내는 결이에요.\n\n" }, { "kind": 
+  thisYear/expert.fragments.json  ::  더해 주는 자리가 우선이라, 큰 변화는 단계로 나누는 결이 잘 맞아요. " }, { "kind":
+  thisYear/standard.fragments.json  ::  alue": "올해의 이동 결을 살펴보면, 새 환경의 결이 한 번 크게 열리는 한 해예요. 흐르는 강물처럼 자연
+  thisYear/standard.fragments.json  ::  새 자리에서 충분히 익히는 시간을 두면, 올해 이동의 결이 결실로 이어져요." } ],
+  thisYear/standard.fragments.json  ::  ue": "올해 아이의 이동 결은 새 자리에서 자라는 결이 또렷해지는 흐름이에요. 새 환경의 자극이 한 뼘씩 자
+  thisYear/standard.fragments.json  ::  \n전학·체험학습·여행의 자리가 평생의 시야를 넓히는 결이 돼요. 손잡고 함께 걷는 시간이 큰 추억으로 남아요.
+  thisYear/standard.fragments.json  ::  가까운 자리에서 가벼운 환기를 권해요. 무리하지 않는 결이 좋아요." } ], 
+  thisYear/standard.fragments.json  ::   않아요. 큰 변화일수록 천천히, 단계적으로 접근하는 결이 잘 어울려요." } ], 
+  thisYear/standard.fragments.json  ::   무리한 자리 변경보다 익숙한 자리에서 시야를 넓히는 결이 결실에 가까워요.\n\n다만 가족과 자기 자리 사이의
+  thisYear/standard.fragments.json  ::  고 가까운 사람의 호흡도 함께 살피면, 한 해의 이동 결이 단단해져요." } ], 
+  thisYear/standard.fragments.json  ::  alue": "올해 이동 결은 가까운 여행과 머무름의 결이 함께하는 흐름이에요. 멀리 가지 않아도 가까운 자리에
+  thisYear/standard.fragments.json  ::  력이 잘 발휘돼요. 한번 결정하면 빠르게 자리를 잡는 결이 강해서, 새 환경에서 결과가 곧 따라와요.\n\n다만
+  thisYear/standard.fragments.json  ::  요. 한 박자 쉬어 가는 여백을 두면, 한 해의 이동 결이 더 단단해져요." } ], 
+  today/brief.fragments.json  ::  xt", "value": "오늘은 한 발짝 움직여 볼 결이 가벼워요." } ], "tags
+  today/brief.fragments.json  ::  "value": "아이는 오늘 새 자리에서 더 즐거운 결이에요. 짧은 외출이 좋아요." } ], 
+  today/brief.fragments.json  ::  value": "오늘은 새 자리·새 사람과 닿기 좋은 결이에요." } ], "tags": 
+  today/brief.fragments.json  ::  e": "오늘은 추진력이 새 자리에서 시원하게 풀리는 결이에요." } ], "tags": 
+  today/expert.fragments.json  ::   "의 자리가 함께 들면 다툼·충돌은 한 박자 늦추는 결이 잘 맞아요." } ], "tag
+  today/expert.fragments.json  ::  xt", "value": "의 안정된 뿌리가 어우러진 결이에요.\n\n가까운 자리의 짧은 산책·외출이 좋은 자극
+  today/expert.fragments.json  ::  결에 어울리는 가까운 자리에서 즐거움을 나누면 그날의 결이 단단해져요." } ], "tag
+  today/expert.fragments.json  ::  "text", "value": "이 또렷하게 발동하는 결이에요.\n\n새 자리·새 사람의 자리가 자연스럽게 풀려
+  today/expert.fragments.json  ::  e": "이 함께 들면 다툼의 자리는 한 박자 늦추는 결이 좋아요." } ], "tags"
+  today/expert.fragments.json  ::  "value": "이 출장·외근의 자리로 풀려 나오는 결이에요.\n\n" }, { "kind": 
+  today/expert.fragments.json  ::  e": "이 함께 들면 큰 결정은 다음 자리로 미루는 결이 좋아요." } ], "tags"
+  today/expert.fragments.json  ::  ": "이 책임 큰 자리의 외근·출장으로 풀려 나오는 결이에요.\n\n" }, { "kind": 
+  today/expert.fragments.json  ::  xt", "value": "이 잔잔한 자극으로 풀리는 결이에요.\n\n가까운 자리의 짧은 외출과 모임이 잘 어울
+  today/expert.fragments.json  ::  ", "value": "의 자극을 시원하게 받아들이는 결이에요.\n\n" }, { "kind": 
+  today/expert.fragments.json  ::  t", "value": "의 자극을 천천히 받아들이는 결이에요.\n\n" }, { "kind": 
+  today/standard.fragments.json  ::   결과가 따라와요. 가족과의 짧은 외출도 잘 어울리는 결이에요.\n\n다만 큰 이직·이사 결정은 오늘 하루의 흐
+  today/standard.fragments.json  ::   빡빡한 일정에 한 박자 휴식을 끼우면, 다음 자리의 결이 더 단단해져요." } ], 
+  today/standard.fragments.json  ::  집 안에서 가벼운 움직임으로 충분해요. 무리하지 않는 결이 가장 잘 어울려요." } ]
+  today/standard.fragments.json  ::  기 쉬워요. 한 박자 쉬어 가는 여백을 두면, 오늘의 결이 더 단단해져요." } ], 
+  today/standard.fragments.json  ::  utions": [ "종일 앉아 있으면 결이 무거워요" ], "aiGener
