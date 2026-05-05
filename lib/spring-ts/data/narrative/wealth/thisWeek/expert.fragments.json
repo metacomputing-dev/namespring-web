@@ -33,7 +33,7 @@
         },
         {
           "kind": "text",
-          "value": "이 어떤 자리에 들어오는지에 따라 흐름의 색이 달라져요. 같은 한 주도 "
+          "value": "이 어떤 자리에 들어오는지에 따라 흐름의 색이 달라져요.\n\n같은 한 주도 "
         },
         {
           "kind": "tag",
@@ -60,7 +60,7 @@
         },
         {
           "kind": "text",
-          "value": "가 강한 시기엔 동업·돈거래는 한 박자 늦추는 흐름이 좋아요. "
+          "value": "가 강한 시기엔 동업·돈거래는 한 박자 늦추는 흐름이 좋아요.\n\n"
         },
         {
           "kind": "tag",
@@ -188,7 +188,25 @@
         },
         {
           "kind": "text",
-          "value": "의 기운이 함께 들어올 때예요. 동업·돈거래는 평소보다 한 번 더 살피면 좋아요."
+          "value": "의 기운이 함께 들어올 때예요. 동업·돈거래는 평소보다 한 번 더 살피면 좋아요.\n\n"
+        },
+        {
+          "kind": "tag",
+          "tagId": "pyeonjaegyeok",
+          "label": "편재격"
+        },
+        {
+          "kind": "text",
+          "value": "의 결이나 "
+        },
+        {
+          "kind": "tag",
+          "tagId": "jeongjaegyeok",
+          "label": "정재격"
+        },
+        {
+          "kind": "text",
+          "value": "의 결이 또렷한 사주는 자기 격에 맞는 자산 운영 결이 자연스럽게 자리 잡아요."
         }
       ],
       "tags": [
@@ -196,7 +214,9 @@
         "yongshin",
         "jeonggwan",
         "pyeongwan",
-        "geobjae"
+        "geobjae",
+        "pyeonjaegyeok",
+        "jeongjaegyeok"
       ],
       "aiGenerated": true,
       "sourceTier": {
@@ -238,7 +258,7 @@
         },
         {
           "kind": "text",
-          "value": "과 부드럽게 맞물리는 한 주예요. "
+          "value": "과 부드럽게 맞물리는 한 주예요.\n\n"
         },
         {
           "kind": "tag",
@@ -265,14 +285,34 @@
         },
         {
           "kind": "text",
-          "value": "의 결이 평균 이상으로 들어와 결정의 시기에 흐름이 잘 맞물려요."
+          "value": "의 결이 평균 이상으로 들어와 결정의 시기에 흐름이 잘 맞물려요.\n\n"
+        },
+        {
+          "kind": "tag",
+          "tagId": "pyeonjaegyeok",
+          "label": "편재격"
+        },
+        {
+          "kind": "text",
+          "value": "의 결이나 "
+        },
+        {
+          "kind": "tag",
+          "tagId": "jeongjaegyeok",
+          "label": "정재격"
+        },
+        {
+          "kind": "text",
+          "value": "의 결이 또렷한 사주는 자기 격에 맞는 자산 운영 결이 자연스럽게 자리 잡아요."
         }
       ],
       "tags": [
         "yongshin",
         "jeongjae",
         "sikshin",
-        "sajuCompatibility"
+        "sajuCompatibility",
+        "pyeonjaegyeok",
+        "jeongjaegyeok"
       ],
       "aiGenerated": true,
       "sourceTier": {
@@ -342,14 +382,54 @@
         },
         {
           "kind": "text",
-          "value": "가 들어오는 시기엔 한 박자 늦추는 방식이 좋아요."
+          "value": "가 들어오는 시기엔 한 박자 늦추는 방식이 좋아요.\n\n"
+        },
+        {
+          "kind": "tag",
+          "tagId": "jaebakgung",
+          "label": "재백궁"
+        },
+        {
+          "kind": "text",
+          "value": "의 결과 "
+        },
+        {
+          "kind": "tag",
+          "tagId": "cheonleulgwiin",
+          "label": "천을귀인"
+        },
+        {
+          "kind": "text",
+          "value": "의 자리가 함께 보이면 도움 받는 흐름이 자기 자산이 되는 사주이니, 작은 도움도 미루지 않는 호흡이 잘 어울려요.\n\n"
+        },
+        {
+          "kind": "tag",
+          "tagId": "gyeokgukFit",
+          "label": "격국적합도"
+        },
+        {
+          "kind": "text",
+          "value": "의 평균이 또렷한 사주는 자기 격에 맞는 자산 자리가 한 결로 모이고, "
+        },
+        {
+          "kind": "tag",
+          "tagId": "stabilityIndex",
+          "label": "안정성지수"
+        },
+        {
+          "kind": "text",
+          "value": "가 받쳐 주는 시기엔 자산 결이 한 단계 깊어지는 자리가 보여요."
         }
       ],
       "tags": [
         "jeongin",
         "yongshin",
         "jeongjae",
-        "pyeonjae"
+        "pyeonjae",
+        "jaebakgung",
+        "cheonleulgwiin",
+        "gyeokgukFit",
+        "stabilityIndex"
       ],
       "aiGenerated": true,
       "sourceTier": {
@@ -388,7 +468,7 @@
         },
         {
           "kind": "text",
-          "value": "의 중심이 한 박자 더해지는 한 주예요. "
+          "value": "의 중심이 한 박자 더해지는 한 주예요.\n\n"
         },
         {
           "kind": "tag",
@@ -415,7 +495,7 @@
         },
         {
           "kind": "text",
-          "value": "가 함께 강해지면 동업·돈거래의 결을 한 번 더 살피면 좋아요. "
+          "value": "가 함께 강해지면 동업·돈거래의 결을 한 번 더 살피면 좋아요.\n\n"
         },
         {
           "kind": "tag",
@@ -492,7 +572,7 @@
         },
         {
           "kind": "text",
-          "value": "의 결이 좋게 들어오면 큰 결정의 자리가 또렷해져요. 짧은 결과보다 5년 단위 그림을 다시 살피기 좋은 흐름이에요.\n\n"
+          "value": "의 결이 좋게 들어오면 큰 결정의 자리가 또렷해져요.\n\n짧은 결과보다 5년 단위 그림을 다시 살피기 좋은 흐름이에요.\n\n"
         },
         {
           "kind": "tag",
@@ -559,7 +639,7 @@
         },
         {
           "kind": "text",
-          "value": "의 흐름이 함께 자리 잡는 흐름이에요. 그동안 다져 온 결이 빛을 내는 한 주예요.\n\n"
+          "value": "의 흐름이 함께 자리 잡는 흐름이에요.\n\n그동안 다져 온 결이 빛을 내는 한 주예요.\n\n"
         },
         {
           "kind": "tag",
@@ -577,14 +657,34 @@
         },
         {
           "kind": "text",
-          "value": "이 함께 들어오면 자금 통제력도 단단해져요."
+          "value": "이 함께 들어오면 자금 통제력도 단단해져요.\n\n"
+        },
+        {
+          "kind": "tag",
+          "tagId": "pyeonjaegyeok",
+          "label": "편재격"
+        },
+        {
+          "kind": "text",
+          "value": "의 결이나 "
+        },
+        {
+          "kind": "tag",
+          "tagId": "jeongjaegyeok",
+          "label": "정재격"
+        },
+        {
+          "kind": "text",
+          "value": "의 결이 또렷한 사주는 자기 격에 맞는 자산 운영 결이 자연스럽게 자리 잡아요."
         }
       ],
       "tags": [
         "jeongjae",
         "jeongin",
         "yongshin",
-        "pyeongwan"
+        "pyeongwan",
+        "pyeonjaegyeok",
+        "jeongjaegyeok"
       ],
       "aiGenerated": true,
       "sourceTier": {
