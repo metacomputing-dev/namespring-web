@@ -7,22 +7,57 @@
     {
       "schemaVersion": "spring-ts.narrative-fragment.v1",
       "fragmentId": "overall.life.expert.wildcard.001",
-      "axis": { "category": "overall", "period": "life", "depth": "expert" },
+      "axis": {
+        "category": "overall",
+        "period": "life",
+        "depth": "expert"
+      },
       "gating": {},
       "templateTokens": [
-        { "kind": "text", "value": "한 평생의 총운은 " },
-        { "kind": "tag", "tagId": "yongshin", "label": "용신" },
-        { "kind": "text", "value": "의 흐름과 가장 가까이 맞물려요. 보조적으로 " },
-        { "kind": "tag", "tagId": "heeshin", "label": "희신" },
-        { "kind": "text", "value": "의 자리, 그리고 " },
-        { "kind": "tag", "tagId": "sajuCompatibility", "label": "사주적합도" },
-        { "kind": "text", "value": "의 결을 함께 살펴보면 결이 또렷해져요." }
+        {
+          "kind": "text",
+          "value": "한 평생의 총운은 "
+        },
+        {
+          "kind": "tag",
+          "tagId": "yongshin",
+          "label": "용신"
+        },
+        {
+          "kind": "text",
+          "value": "의 흐름과 가장 가까이 맞물려요. 보조적으로 "
+        },
+        {
+          "kind": "tag",
+          "tagId": "heeshin",
+          "label": "희신"
+        },
+        {
+          "kind": "text",
+          "value": "의 자리, 그리고 "
+        },
+        {
+          "kind": "tag",
+          "tagId": "sajuCompatibility",
+          "label": "사주적합도"
+        },
+        {
+          "kind": "text",
+          "value": "의 결을 함께 살펴보면 방향이 또렷해져요."
+        }
       ],
-      "tags": ["yongshin", "heeshin", "sajuCompatibility"],
+      "tags": [
+        "yongshin",
+        "heeshin",
+        "sajuCompatibility"
+      ],
       "aiGenerated": true,
       "sourceTier": {
-        "tier": "T1_HYPOTHESIS", "sourceType": "training_derived", "sourceUrl": null,
-        "accessedAt": "2026-05-02", "quoteShort": null,
+        "tier": "T1_HYPOTHESIS",
+        "sourceType": "training_derived",
+        "sourceUrl": null,
+        "accessedAt": "2026-05-02",
+        "quoteShort": null,
         "humanInterpretation": "Phase 2 overall fragment, agent-15.",
         "copyrightNote": "No source prose copied; original.",
         "authorityTruthEligible": false
@@ -31,33 +66,104 @@
     {
       "schemaVersion": "spring-ts.narrative-fragment.v1",
       "fragmentId": "overall.life.expert.extreme_strong.aligned.002",
-      "axis": { "category": "overall", "period": "life", "depth": "expert" },
+      "axis": {
+        "category": "overall",
+        "period": "life",
+        "depth": "expert"
+      },
       "gating": {
-        "dayMasterStrength": ["EXTREME_STRONG"],
-        "yongshinAlignment": ["aligned"]
+        "dayMasterStrength": [
+          "EXTREME_STRONG"
+        ],
+        "yongshinAlignment": [
+          "aligned"
+        ]
       },
       "templateTokens": [
-        { "kind": "text", "value": "일간이 매우 강한 자리에서 " },
-        { "kind": "tag", "tagId": "yongshin", "label": "용신" },
-        { "kind": "text", "value": "이 흐름과 잘 맞아 떨어지는 자리예요. " },
-        { "kind": "tag", "tagId": "bigyeon", "label": "비견" },
-        { "kind": "text", "value": "·" },
-        { "kind": "tag", "tagId": "geobjae", "label": "겁재" },
-        { "kind": "text", "value": "의 기세가 또렷해 자기 결을 끌고 가는 힘이 강하지만, " },
-        { "kind": "tag", "tagId": "sikshin", "label": "식신" },
-        { "kind": "text", "value": "이나 " },
-        { "kind": "tag", "tagId": "sanggwan", "label": "상관" },
-        { "kind": "text", "value": "이 함께 자리하면 그 힘이 결과로 잘 풀려나가요. 평생의 큰 그림은 " },
-        { "kind": "tag", "tagId": "dayPillar", "label": "일주" },
-        { "kind": "text", "value": "와 " },
-        { "kind": "tag", "tagId": "monthPillar", "label": "월주" },
-        { "kind": "text", "value": "의 관계 속에서 자리 잡는 편이에요." }
+        {
+          "kind": "text",
+          "value": "일간이 매우 강한 자리에서 "
+        },
+        {
+          "kind": "tag",
+          "tagId": "yongshin",
+          "label": "용신"
+        },
+        {
+          "kind": "text",
+          "value": "이 흐름과 잘 맞아 떨어지는 자리예요. "
+        },
+        {
+          "kind": "tag",
+          "tagId": "bigyeon",
+          "label": "비견"
+        },
+        {
+          "kind": "text",
+          "value": "·"
+        },
+        {
+          "kind": "tag",
+          "tagId": "geobjae",
+          "label": "겁재"
+        },
+        {
+          "kind": "text",
+          "value": "의 기세가 또렷해 자기 결을 끌고 가는 힘이 강하지만, "
+        },
+        {
+          "kind": "tag",
+          "tagId": "sikshin",
+          "label": "식신"
+        },
+        {
+          "kind": "text",
+          "value": "이나 "
+        },
+        {
+          "kind": "tag",
+          "tagId": "sanggwan",
+          "label": "상관"
+        },
+        {
+          "kind": "text",
+          "value": "이 함께 자리하면 그 힘이 결과로 잘 풀려나가요. 평생의 큰 그림은 "
+        },
+        {
+          "kind": "tag",
+          "tagId": "dayPillar",
+          "label": "일주"
+        },
+        {
+          "kind": "text",
+          "value": "와 "
+        },
+        {
+          "kind": "tag",
+          "tagId": "monthPillar",
+          "label": "월주"
+        },
+        {
+          "kind": "text",
+          "value": "의 관계 속에서 자리 잡는 편이에요."
+        }
       ],
-      "tags": ["yongshin", "bigyeon", "geobjae", "sikshin", "sanggwan", "dayPillar", "monthPillar"],
+      "tags": [
+        "yongshin",
+        "bigyeon",
+        "geobjae",
+        "sikshin",
+        "sanggwan",
+        "dayPillar",
+        "monthPillar"
+      ],
       "aiGenerated": true,
       "sourceTier": {
-        "tier": "T1_HYPOTHESIS", "sourceType": "training_derived", "sourceUrl": null,
-        "accessedAt": "2026-05-02", "quoteShort": null,
+        "tier": "T1_HYPOTHESIS",
+        "sourceType": "training_derived",
+        "sourceUrl": null,
+        "accessedAt": "2026-05-02",
+        "quoteShort": null,
         "humanInterpretation": "Phase 2 overall fragment, agent-15.",
         "copyrightNote": "No source prose copied; original.",
         "authorityTruthEligible": false
@@ -66,29 +172,84 @@
     {
       "schemaVersion": "spring-ts.narrative-fragment.v1",
       "fragmentId": "overall.life.expert.strong.aligned.003",
-      "axis": { "category": "overall", "period": "life", "depth": "expert" },
+      "axis": {
+        "category": "overall",
+        "period": "life",
+        "depth": "expert"
+      },
       "gating": {
-        "dayMasterStrength": ["STRONG"],
-        "yongshinAlignment": ["aligned"]
+        "dayMasterStrength": [
+          "STRONG"
+        ],
+        "yongshinAlignment": [
+          "aligned"
+        ]
       },
       "templateTokens": [
-        { "kind": "text", "value": "일간이 단단한 자리에 있으면서 " },
-        { "kind": "tag", "tagId": "yongshin", "label": "용신" },
-        { "kind": "text", "value": "이 흐름을 잘 받쳐 주는 리듬이에요. " },
-        { "kind": "tag", "tagId": "jeonggwan", "label": "정관" },
-        { "kind": "text", "value": "이나 " },
-        { "kind": "tag", "tagId": "jeongjae", "label": "정재" },
-        { "kind": "text", "value": "가 " },
-        { "kind": "tag", "tagId": "heeshin", "label": "희신" },
-        { "kind": "text", "value": "으로 작용하면, 평생의 큰 자리가 자연스럽게 잡혀 가요. " },
-        { "kind": "tag", "tagId": "monthPillar", "label": "월주" },
-        { "kind": "text", "value": "의 결이 어디로 향하는지가 한 평생의 방향을 가늠하는 좋은 단서예요." }
+        {
+          "kind": "text",
+          "value": "일간이 단단한 자리에 있으면서 "
+        },
+        {
+          "kind": "tag",
+          "tagId": "yongshin",
+          "label": "용신"
+        },
+        {
+          "kind": "text",
+          "value": "이 흐름을 잘 받쳐 주는 리듬이에요. "
+        },
+        {
+          "kind": "tag",
+          "tagId": "jeonggwan",
+          "label": "정관"
+        },
+        {
+          "kind": "text",
+          "value": "이나 "
+        },
+        {
+          "kind": "tag",
+          "tagId": "jeongjae",
+          "label": "정재"
+        },
+        {
+          "kind": "text",
+          "value": "가 "
+        },
+        {
+          "kind": "tag",
+          "tagId": "heeshin",
+          "label": "희신"
+        },
+        {
+          "kind": "text",
+          "value": "으로 작용하면, 평생의 큰 자리가 자연스럽게 잡혀 가요. "
+        },
+        {
+          "kind": "tag",
+          "tagId": "monthPillar",
+          "label": "월주"
+        },
+        {
+          "kind": "text",
+          "value": "의 결이 어디로 향하는지가 한 평생의 방향을 가늠하는 좋은 단서예요."
+        }
       ],
-      "tags": ["yongshin", "jeonggwan", "jeongjae", "heeshin", "monthPillar"],
+      "tags": [
+        "yongshin",
+        "jeonggwan",
+        "jeongjae",
+        "heeshin",
+        "monthPillar"
+      ],
       "aiGenerated": true,
       "sourceTier": {
-        "tier": "T1_HYPOTHESIS", "sourceType": "training_derived", "sourceUrl": null,
-        "accessedAt": "2026-05-02", "quoteShort": null,
+        "tier": "T1_HYPOTHESIS",
+        "sourceType": "training_derived",
+        "sourceUrl": null,
+        "accessedAt": "2026-05-02",
+        "quoteShort": null,
         "humanInterpretation": "Phase 2 overall fragment, agent-15.",
         "copyrightNote": "No source prose copied; original.",
         "authorityTruthEligible": false
@@ -97,31 +258,90 @@
     {
       "schemaVersion": "spring-ts.narrative-fragment.v1",
       "fragmentId": "overall.life.expert.strong.aligned.male.age30_39.004",
-      "axis": { "category": "overall", "period": "life", "depth": "expert" },
+      "axis": {
+        "category": "overall",
+        "period": "life",
+        "depth": "expert"
+      },
       "gating": {
-        "gender": ["male"],
-        "ageBand": ["30-39"],
-        "dayMasterStrength": ["STRONG"],
-        "yongshinAlignment": ["aligned"]
+        "gender": [
+          "male"
+        ],
+        "ageBand": [
+          "30-39"
+        ],
+        "dayMasterStrength": [
+          "STRONG"
+        ],
+        "yongshinAlignment": [
+          "aligned"
+        ]
       },
       "templateTokens": [
-        { "kind": "text", "value": "활동기에 들어선 자리에서 일간이 단단하고 " },
-        { "kind": "tag", "tagId": "yongshin", "label": "용신" },
-        { "kind": "text", "value": "의 흐름이 잘 맞아 떨어져, " },
-        { "kind": "tag", "tagId": "daewoonGungsil", "label": "대운궁실" },
-        { "kind": "text", "value": "의 결이 또렷해지는 시기예요. " },
-        { "kind": "tag", "tagId": "jeonggwan", "label": "정관" },
-        { "kind": "text", "value": "의 자리가 살아 있으면 책임의 자리가 자연스럽게 자리잡고, " },
-        { "kind": "tag", "tagId": "jeongjae", "label": "정재" },
-        { "kind": "text", "value": "가 함께 자리하면 평생을 통한 누적의 결이 든든해져요. " },
-        { "kind": "tag", "tagId": "baeujagung", "label": "배우자궁" },
-        { "kind": "text", "value": "의 결도 이 시기에 함께 자리잡는 편이에요." }
+        {
+          "kind": "text",
+          "value": "활동기에 들어선 자리에서 일간이 단단하고 "
+        },
+        {
+          "kind": "tag",
+          "tagId": "yongshin",
+          "label": "용신"
+        },
+        {
+          "kind": "text",
+          "value": "의 흐름이 잘 맞아 떨어져, "
+        },
+        {
+          "kind": "tag",
+          "tagId": "daewoonGungsil",
+          "label": "대운궁실"
+        },
+        {
+          "kind": "text",
+          "value": "의 방향이 또렷해지는 시기예요. "
+        },
+        {
+          "kind": "tag",
+          "tagId": "jeonggwan",
+          "label": "정관"
+        },
+        {
+          "kind": "text",
+          "value": "의 자리가 살아 있으면 책임의 자리가 자연스럽게 자리잡고, "
+        },
+        {
+          "kind": "tag",
+          "tagId": "jeongjae",
+          "label": "정재"
+        },
+        {
+          "kind": "text",
+          "value": "가 함께 자리하면 평생을 통한 누적의 결이 든든해져요. "
+        },
+        {
+          "kind": "tag",
+          "tagId": "baeujagung",
+          "label": "배우자궁"
+        },
+        {
+          "kind": "text",
+          "value": "의 결도 이 시기에 함께 자리잡는 편이에요."
+        }
       ],
-      "tags": ["yongshin", "daewoonGungsil", "jeonggwan", "jeongjae", "baeujagung"],
+      "tags": [
+        "yongshin",
+        "daewoonGungsil",
+        "jeonggwan",
+        "jeongjae",
+        "baeujagung"
+      ],
       "aiGenerated": true,
       "sourceTier": {
-        "tier": "T1_HYPOTHESIS", "sourceType": "training_derived", "sourceUrl": null,
-        "accessedAt": "2026-05-02", "quoteShort": null,
+        "tier": "T1_HYPOTHESIS",
+        "sourceType": "training_derived",
+        "sourceUrl": null,
+        "accessedAt": "2026-05-02",
+        "quoteShort": null,
         "humanInterpretation": "Phase 2 overall fragment, agent-15.",
         "copyrightNote": "No source prose copied; original.",
         "authorityTruthEligible": false
@@ -130,27 +350,74 @@
     {
       "schemaVersion": "spring-ts.narrative-fragment.v1",
       "fragmentId": "overall.life.expert.strong.neutral.005",
-      "axis": { "category": "overall", "period": "life", "depth": "expert" },
+      "axis": {
+        "category": "overall",
+        "period": "life",
+        "depth": "expert"
+      },
       "gating": {
-        "dayMasterStrength": ["STRONG"],
-        "yongshinAlignment": ["neutral"]
+        "dayMasterStrength": [
+          "STRONG"
+        ],
+        "yongshinAlignment": [
+          "neutral"
+        ]
       },
       "templateTokens": [
-        { "kind": "text", "value": "일간은 단단해도 " },
-        { "kind": "tag", "tagId": "yongshin", "label": "용신" },
-        { "kind": "text", "value": " 자리가 현재 흐름과는 조금 거리가 있어요. " },
-        { "kind": "tag", "tagId": "johu", "label": "조후" },
-        { "kind": "text", "value": " 균형이 잘 맞을 때 결이 가장 부드럽게 풀리고, " },
-        { "kind": "tag", "tagId": "heeshin", "label": "희신" },
-        { "kind": "text", "value": "이 자리에 들어오는 시기가 평생의 큰 분기점이 되는 편이에요. " },
-        { "kind": "tag", "tagId": "monthPillar", "label": "월주" },
-        { "kind": "text", "value": " 흐름을 천천히 살피며 방향을 고르면, 큰 그림이 또렷해져요." }
+        {
+          "kind": "text",
+          "value": "일간은 단단해도 "
+        },
+        {
+          "kind": "tag",
+          "tagId": "yongshin",
+          "label": "용신"
+        },
+        {
+          "kind": "text",
+          "value": " 자리가 현재 흐름과는 조금 거리가 있어요. "
+        },
+        {
+          "kind": "tag",
+          "tagId": "johu",
+          "label": "조후"
+        },
+        {
+          "kind": "text",
+          "value": " 균형이 잘 맞을 때 결이 가장 부드럽게 풀리고, "
+        },
+        {
+          "kind": "tag",
+          "tagId": "heeshin",
+          "label": "희신"
+        },
+        {
+          "kind": "text",
+          "value": "이 자리에 들어오는 시기가 평생의 큰 분기점이 되는 편이에요. "
+        },
+        {
+          "kind": "tag",
+          "tagId": "monthPillar",
+          "label": "월주"
+        },
+        {
+          "kind": "text",
+          "value": " 흐름을 천천히 살피며 방향을 고르면, 큰 그림이 또렷해져요."
+        }
       ],
-      "tags": ["yongshin", "johu", "heeshin", "monthPillar"],
+      "tags": [
+        "yongshin",
+        "johu",
+        "heeshin",
+        "monthPillar"
+      ],
       "aiGenerated": true,
       "sourceTier": {
-        "tier": "T1_HYPOTHESIS", "sourceType": "training_derived", "sourceUrl": null,
-        "accessedAt": "2026-05-02", "quoteShort": null,
+        "tier": "T1_HYPOTHESIS",
+        "sourceType": "training_derived",
+        "sourceUrl": null,
+        "accessedAt": "2026-05-02",
+        "quoteShort": null,
         "humanInterpretation": "Phase 2 overall fragment, agent-15.",
         "copyrightNote": "No source prose copied; original.",
         "authorityTruthEligible": false
@@ -159,29 +426,84 @@
     {
       "schemaVersion": "spring-ts.narrative-fragment.v1",
       "fragmentId": "overall.life.expert.balanced.aligned.006",
-      "axis": { "category": "overall", "period": "life", "depth": "expert" },
+      "axis": {
+        "category": "overall",
+        "period": "life",
+        "depth": "expert"
+      },
       "gating": {
-        "dayMasterStrength": ["BALANCED"],
-        "yongshinAlignment": ["aligned"]
+        "dayMasterStrength": [
+          "BALANCED"
+        ],
+        "yongshinAlignment": [
+          "aligned"
+        ]
       },
       "templateTokens": [
-        { "kind": "text", "value": "일간이 균형을 잘 잡고 " },
-        { "kind": "tag", "tagId": "yongshin", "label": "용신" },
-        { "kind": "text", "value": "의 흐름과도 자연스럽게 맞물려, 평생의 결이 고르게 풀리는 리듬이에요. " },
-        { "kind": "tag", "tagId": "sajuCompatibility", "label": "사주적합도" },
-        { "kind": "text", "value": "의 점수가 또렷한 편이라, 어떤 시기에도 자기 결을 만들기 좋아요. " },
-        { "kind": "tag", "tagId": "yearPillar", "label": "연주" },
-        { "kind": "text", "value": "·" },
-        { "kind": "tag", "tagId": "monthPillar", "label": "월주" },
-        { "kind": "text", "value": "·" },
-        { "kind": "tag", "tagId": "dayPillar", "label": "일주" },
-        { "kind": "text", "value": "의 결이 서로를 잘 받쳐 줘서, 큰 무리수 없이 자라는 그림이에요." }
+        {
+          "kind": "text",
+          "value": "일간이 균형을 잘 잡고 "
+        },
+        {
+          "kind": "tag",
+          "tagId": "yongshin",
+          "label": "용신"
+        },
+        {
+          "kind": "text",
+          "value": "의 흐름과도 자연스럽게 맞물려, 평생의 결이 고르게 풀리는 리듬이에요. "
+        },
+        {
+          "kind": "tag",
+          "tagId": "sajuCompatibility",
+          "label": "사주적합도"
+        },
+        {
+          "kind": "text",
+          "value": "의 점수가 또렷한 편이라, 어떤 시기에도 자기 결을 만들기 좋아요. "
+        },
+        {
+          "kind": "tag",
+          "tagId": "yearPillar",
+          "label": "연주"
+        },
+        {
+          "kind": "text",
+          "value": "·"
+        },
+        {
+          "kind": "tag",
+          "tagId": "monthPillar",
+          "label": "월주"
+        },
+        {
+          "kind": "text",
+          "value": "·"
+        },
+        {
+          "kind": "tag",
+          "tagId": "dayPillar",
+          "label": "일주"
+        },
+        {
+          "kind": "text",
+          "value": "의 결이 서로를 잘 받쳐 줘서, 큰 무리수 없이 자라는 그림이에요."
+        }
       ],
-      "tags": ["yongshin", "sajuCompatibility", "yearPillar", "monthPillar", "dayPillar"],
+      "tags": [
+        "yongshin",
+        "sajuCompatibility",
+        "yearPillar",
+        "monthPillar",
+        "dayPillar"
+      ],
       "aiGenerated": true,
       "sourceTier": {
-        "tier": "T1_HYPOTHESIS", "sourceType": "training_derived", "sourceUrl": null,
-        "accessedAt": "2026-05-02", "quoteShort": null,
+        "tier": "T1_HYPOTHESIS",
+        "sourceType": "training_derived",
+        "sourceUrl": null,
+        "accessedAt": "2026-05-02",
+        "quoteShort": null,
         "humanInterpretation": "Phase 2 overall fragment, agent-15.",
         "copyrightNote": "No source prose copied; original.",
         "authorityTruthEligible": false
@@ -190,29 +512,80 @@
     {
       "schemaVersion": "spring-ts.narrative-fragment.v1",
       "fragmentId": "overall.life.expert.balanced.aligned.female.age20_29.007",
-      "axis": { "category": "overall", "period": "life", "depth": "expert" },
+      "axis": {
+        "category": "overall",
+        "period": "life",
+        "depth": "expert"
+      },
       "gating": {
-        "gender": ["female"],
-        "ageBand": ["20-29"],
-        "dayMasterStrength": ["BALANCED"],
-        "yongshinAlignment": ["aligned"]
+        "gender": [
+          "female"
+        ],
+        "ageBand": [
+          "20-29"
+        ],
+        "dayMasterStrength": [
+          "BALANCED"
+        ],
+        "yongshinAlignment": [
+          "aligned"
+        ]
       },
       "templateTokens": [
-        { "kind": "text", "value": "일간의 균형이 또렷한 청년기 자리에서 " },
-        { "kind": "tag", "tagId": "yongshin", "label": "용신" },
-        { "kind": "text", "value": "이 자연스럽게 흐름을 받쳐 주는 리듬이에요. " },
-        { "kind": "tag", "tagId": "sikshin", "label": "식신" },
-        { "kind": "text", "value": "·" },
-        { "kind": "tag", "tagId": "sanggwan", "label": "상관" },
-        { "kind": "text", "value": "의 자리가 살아 있으면 새로운 시도가 결과로 잘 풀려요. " },
-        { "kind": "tag", "tagId": "monthPillar", "label": "월주" },
-        { "kind": "text", "value": "의 결이 향하는 방향을 한 번 살펴 두면, 평생의 큰 그림을 일찍 알아챌 수 있어요." }
+        {
+          "kind": "text",
+          "value": "일간의 균형이 또렷한 청년기 자리에서 "
+        },
+        {
+          "kind": "tag",
+          "tagId": "yongshin",
+          "label": "용신"
+        },
+        {
+          "kind": "text",
+          "value": "이 자연스럽게 흐름을 받쳐 주는 리듬이에요. "
+        },
+        {
+          "kind": "tag",
+          "tagId": "sikshin",
+          "label": "식신"
+        },
+        {
+          "kind": "text",
+          "value": "·"
+        },
+        {
+          "kind": "tag",
+          "tagId": "sanggwan",
+          "label": "상관"
+        },
+        {
+          "kind": "text",
+          "value": "의 자리가 살아 있으면 새로운 시도가 결과로 잘 풀려요. "
+        },
+        {
+          "kind": "tag",
+          "tagId": "monthPillar",
+          "label": "월주"
+        },
+        {
+          "kind": "text",
+          "value": "의 결이 향하는 방향을 한 번 살펴 두면, 평생의 큰 그림을 일찍 알아챌 수 있어요."
+        }
       ],
-      "tags": ["yongshin", "sikshin", "sanggwan", "monthPillar"],
+      "tags": [
+        "yongshin",
+        "sikshin",
+        "sanggwan",
+        "monthPillar"
+      ],
       "aiGenerated": true,
       "sourceTier": {
-        "tier": "T1_HYPOTHESIS", "sourceType": "training_derived", "sourceUrl": null,
-        "accessedAt": "2026-05-02", "quoteShort": null,
+        "tier": "T1_HYPOTHESIS",
+        "sourceType": "training_derived",
+        "sourceUrl": null,
+        "accessedAt": "2026-05-02",
+        "quoteShort": null,
         "humanInterpretation": "Phase 2 overall fragment, agent-15.",
         "copyrightNote": "No source prose copied; original.",
         "authorityTruthEligible": false
@@ -221,25 +594,64 @@
     {
       "schemaVersion": "spring-ts.narrative-fragment.v1",
       "fragmentId": "overall.life.expert.balanced.neutral.008",
-      "axis": { "category": "overall", "period": "life", "depth": "expert" },
+      "axis": {
+        "category": "overall",
+        "period": "life",
+        "depth": "expert"
+      },
       "gating": {
-        "dayMasterStrength": ["BALANCED"],
-        "yongshinAlignment": ["neutral"]
+        "dayMasterStrength": [
+          "BALANCED"
+        ],
+        "yongshinAlignment": [
+          "neutral"
+        ]
       },
       "templateTokens": [
-        { "kind": "text", "value": "일간의 균형이 잡힌 자리에서 " },
-        { "kind": "tag", "tagId": "yongshin", "label": "용신" },
-        { "kind": "text", "value": "이 멀리서 흐르는 리듬이에요. 큰 무리수는 적지만, " },
-        { "kind": "tag", "tagId": "heeshin", "label": "희신" },
-        { "kind": "text", "value": "이 들어오는 시기에 한 번씩 결이 또렷해지는 편이에요. " },
-        { "kind": "tag", "tagId": "yongshinFit", "label": "용신적합도" },
-        { "kind": "text", "value": "의 점수를 길게 살펴 두면 흐름의 결이 보여요." }
+        {
+          "kind": "text",
+          "value": "일간의 균형이 잡힌 자리에서 "
+        },
+        {
+          "kind": "tag",
+          "tagId": "yongshin",
+          "label": "용신"
+        },
+        {
+          "kind": "text",
+          "value": "이 멀리서 흐르는 리듬이에요. 큰 무리수는 적지만, "
+        },
+        {
+          "kind": "tag",
+          "tagId": "heeshin",
+          "label": "희신"
+        },
+        {
+          "kind": "text",
+          "value": "이 들어오는 시기에 한 번씩 방향이 또렷해지는 편이에요. "
+        },
+        {
+          "kind": "tag",
+          "tagId": "yongshinFit",
+          "label": "용신적합도"
+        },
+        {
+          "kind": "text",
+          "value": "의 점수를 길게 살펴 두면 흐름의 결이 보여요."
+        }
       ],
-      "tags": ["yongshin", "heeshin", "yongshinFit"],
+      "tags": [
+        "yongshin",
+        "heeshin",
+        "yongshinFit"
+      ],
       "aiGenerated": true,
       "sourceTier": {
-        "tier": "T1_HYPOTHESIS", "sourceType": "training_derived", "sourceUrl": null,
-        "accessedAt": "2026-05-02", "quoteShort": null,
+        "tier": "T1_HYPOTHESIS",
+        "sourceType": "training_derived",
+        "sourceUrl": null,
+        "accessedAt": "2026-05-02",
+        "quoteShort": null,
         "humanInterpretation": "Phase 2 overall fragment, agent-15.",
         "copyrightNote": "No source prose copied; original.",
         "authorityTruthEligible": false
@@ -248,27 +660,74 @@
     {
       "schemaVersion": "spring-ts.narrative-fragment.v1",
       "fragmentId": "overall.life.expert.balanced.conflicting.009",
-      "axis": { "category": "overall", "period": "life", "depth": "expert" },
+      "axis": {
+        "category": "overall",
+        "period": "life",
+        "depth": "expert"
+      },
       "gating": {
-        "dayMasterStrength": ["BALANCED"],
-        "yongshinAlignment": ["conflicting"]
+        "dayMasterStrength": [
+          "BALANCED"
+        ],
+        "yongshinAlignment": [
+          "conflicting"
+        ]
       },
       "templateTokens": [
-        { "kind": "text", "value": "일간의 균형이 있어도 " },
-        { "kind": "tag", "tagId": "gishin", "label": "기신" },
-        { "kind": "text", "value": "이 한 번씩 결을 흔드는 자리에요. " },
-        { "kind": "tag", "tagId": "gushin", "label": "구신" },
-        { "kind": "text", "value": "이 함께 자리할 때 흐름이 더 무거워지지만, " },
-        { "kind": "tag", "tagId": "heeshin", "label": "희신" },
-        { "kind": "text", "value": "이 자리잡는 시기를 잘 만나면 결이 단단해져요. " },
-        { "kind": "tag", "tagId": "samhyeong", "label": "삼형" },
-        { "kind": "text", "value": "이나 큰 충의 결이 있을 때만 페이스를 살짝 늦추면 충분해요." }
+        {
+          "kind": "text",
+          "value": "일간의 균형이 있어도 "
+        },
+        {
+          "kind": "tag",
+          "tagId": "gishin",
+          "label": "기신"
+        },
+        {
+          "kind": "text",
+          "value": "이 한 번씩 결을 흔드는 자리에요. "
+        },
+        {
+          "kind": "tag",
+          "tagId": "gushin",
+          "label": "구신"
+        },
+        {
+          "kind": "text",
+          "value": "이 함께 자리할 때 흐름이 더 무거워지지만, "
+        },
+        {
+          "kind": "tag",
+          "tagId": "heeshin",
+          "label": "희신"
+        },
+        {
+          "kind": "text",
+          "value": "이 자리잡는 시기를 잘 만나면 리듬이 단단해져요. "
+        },
+        {
+          "kind": "tag",
+          "tagId": "samhyeong",
+          "label": "삼형"
+        },
+        {
+          "kind": "text",
+          "value": "이나 큰 충의 결이 있을 때만 페이스를 살짝 늦추면 충분해요."
+        }
       ],
-      "tags": ["gishin", "gushin", "heeshin", "samhyeong"],
+      "tags": [
+        "gishin",
+        "gushin",
+        "heeshin",
+        "samhyeong"
+      ],
       "aiGenerated": true,
       "sourceTier": {
-        "tier": "T1_HYPOTHESIS", "sourceType": "training_derived", "sourceUrl": null,
-        "accessedAt": "2026-05-02", "quoteShort": null,
+        "tier": "T1_HYPOTHESIS",
+        "sourceType": "training_derived",
+        "sourceUrl": null,
+        "accessedAt": "2026-05-02",
+        "quoteShort": null,
         "humanInterpretation": "Phase 2 overall fragment, agent-15.",
         "copyrightNote": "No source prose copied; original.",
         "authorityTruthEligible": false
@@ -277,27 +736,74 @@
     {
       "schemaVersion": "spring-ts.narrative-fragment.v1",
       "fragmentId": "overall.life.expert.weak.aligned.010",
-      "axis": { "category": "overall", "period": "life", "depth": "expert" },
+      "axis": {
+        "category": "overall",
+        "period": "life",
+        "depth": "expert"
+      },
       "gating": {
-        "dayMasterStrength": ["WEAK"],
-        "yongshinAlignment": ["aligned"]
+        "dayMasterStrength": [
+          "WEAK"
+        ],
+        "yongshinAlignment": [
+          "aligned"
+        ]
       },
       "templateTokens": [
-        { "kind": "text", "value": "일간이 약한 자리에서 " },
-        { "kind": "tag", "tagId": "yongshin", "label": "용신" },
-        { "kind": "text", "value": "이 도움의 결로 자리하는 그림이에요. " },
-        { "kind": "tag", "tagId": "jeongin", "label": "정인" },
-        { "kind": "text", "value": "이나 " },
-        { "kind": "tag", "tagId": "pyeonin", "label": "편인" },
-        { "kind": "text", "value": "의 자리가 살아 있으면 곁의 인연이 든든한 받침이 돼요. " },
-        { "kind": "tag", "tagId": "bigyeon", "label": "비견" },
-        { "kind": "text", "value": "의 자리가 함께 작동하는 시기엔 결이 한층 단단해지는 편이에요." }
+        {
+          "kind": "text",
+          "value": "일간이 약한 자리에서 "
+        },
+        {
+          "kind": "tag",
+          "tagId": "yongshin",
+          "label": "용신"
+        },
+        {
+          "kind": "text",
+          "value": "이 도움의 결로 자리하는 그림이에요. "
+        },
+        {
+          "kind": "tag",
+          "tagId": "jeongin",
+          "label": "정인"
+        },
+        {
+          "kind": "text",
+          "value": "이나 "
+        },
+        {
+          "kind": "tag",
+          "tagId": "pyeonin",
+          "label": "편인"
+        },
+        {
+          "kind": "text",
+          "value": "의 자리가 살아 있으면 곁의 인연이 든든한 받침이 돼요. "
+        },
+        {
+          "kind": "tag",
+          "tagId": "bigyeon",
+          "label": "비견"
+        },
+        {
+          "kind": "text",
+          "value": "의 자리가 함께 작동하는 시기엔 결이 한층 단단해지는 편이에요."
+        }
       ],
-      "tags": ["yongshin", "jeongin", "pyeonin", "bigyeon"],
+      "tags": [
+        "yongshin",
+        "jeongin",
+        "pyeonin",
+        "bigyeon"
+      ],
       "aiGenerated": true,
       "sourceTier": {
-        "tier": "T1_HYPOTHESIS", "sourceType": "training_derived", "sourceUrl": null,
-        "accessedAt": "2026-05-02", "quoteShort": null,
+        "tier": "T1_HYPOTHESIS",
+        "sourceType": "training_derived",
+        "sourceUrl": null,
+        "accessedAt": "2026-05-02",
+        "quoteShort": null,
         "humanInterpretation": "Phase 2 overall fragment, agent-15.",
         "copyrightNote": "No source prose copied; original.",
         "authorityTruthEligible": false
@@ -306,22 +812,60 @@
     {
       "schemaVersion": "spring-ts.narrative-fragment.v1",
       "fragmentId": "overall.life.expert.weak.neutral.age40_54.011",
-      "axis": { "category": "overall", "period": "life", "depth": "expert" },
+      "axis": {
+        "category": "overall",
+        "period": "life",
+        "depth": "expert"
+      },
       "gating": {
-        "ageBand": ["40-54"],
-        "dayMasterStrength": ["WEAK"],
-        "yongshinAlignment": ["neutral"]
+        "ageBand": [
+          "40-54"
+        ],
+        "dayMasterStrength": [
+          "WEAK"
+        ],
+        "yongshinAlignment": [
+          "neutral"
+        ]
       },
       "templateTokens": [
-        { "kind": "text", "value": "장년기에 일간이 약한 자리에서 " },
-        { "kind": "tag", "tagId": "yongshin", "label": "용신" },
-        { "kind": "text", "value": " 보강을 천천히 찾아가는 자리예요. " },
-        { "kind": "tag", "tagId": "daewoonGungsil", "label": "대운궁실" },
-        { "kind": "text", "value": "의 결이 한 번 큰 분기를 만들고, " },
-        { "kind": "tag", "tagId": "jojangung", "label": "조장궁" },
-        { "kind": "text", "value": "의 결이 함께 단단해지는 편이에요. 이 시기에 무리한 전환만 줄이면 후반기 결이 한결 안정돼요." }
+        {
+          "kind": "text",
+          "value": "장년기에 일간이 약한 자리에서 "
+        },
+        {
+          "kind": "tag",
+          "tagId": "yongshin",
+          "label": "용신"
+        },
+        {
+          "kind": "text",
+          "value": " 보강을 천천히 찾아가는 자리예요. "
+        },
+        {
+          "kind": "tag",
+          "tagId": "daewoonGungsil",
+          "label": "대운궁실"
+        },
+        {
+          "kind": "text",
+          "value": "의 결이 한 번 큰 분기를 만들고, "
+        },
+        {
+          "kind": "tag",
+          "tagId": "jojangung",
+          "label": "조장궁"
+        },
+        {
+          "kind": "text",
+          "value": "의 결이 함께 단단해지는 편이에요. 이 시기에 무리한 전환만 줄이면 후반기 결이 한결 안정돼요."
+        }
       ],
-      "tags": ["yongshin", "daewoonGungsil", "jojangung"],
+      "tags": [
+        "yongshin",
+        "daewoonGungsil",
+        "jojangung"
+      ],
       "numericalEvidence": [
         {
           "label": "현재 나이",
@@ -416,8 +960,11 @@
       ],
       "aiGenerated": true,
       "sourceTier": {
-        "tier": "T1_HYPOTHESIS", "sourceType": "training_derived", "sourceUrl": null,
-        "accessedAt": "2026-05-02", "quoteShort": null,
+        "tier": "T1_HYPOTHESIS",
+        "sourceType": "training_derived",
+        "sourceUrl": null,
+        "accessedAt": "2026-05-02",
+        "quoteShort": null,
         "humanInterpretation": "Phase 2 overall fragment, agent-15.",
         "copyrightNote": "No source prose copied; original.",
         "authorityTruthEligible": false
@@ -426,27 +973,74 @@
     {
       "schemaVersion": "spring-ts.narrative-fragment.v1",
       "fragmentId": "overall.life.expert.extreme_weak.conflicting.012",
-      "axis": { "category": "overall", "period": "life", "depth": "expert" },
+      "axis": {
+        "category": "overall",
+        "period": "life",
+        "depth": "expert"
+      },
       "gating": {
-        "dayMasterStrength": ["EXTREME_WEAK"],
-        "yongshinAlignment": ["conflicting"]
+        "dayMasterStrength": [
+          "EXTREME_WEAK"
+        ],
+        "yongshinAlignment": [
+          "conflicting"
+        ]
       },
       "templateTokens": [
-        { "kind": "text", "value": "일간이 매우 약한 자리에서 " },
-        { "kind": "tag", "tagId": "gishin", "label": "기신" },
-        { "kind": "text", "value": "의 흐름이 함께 부딪히는 그림이에요. " },
-        { "kind": "tag", "tagId": "yongshin", "label": "용신" },
-        { "kind": "text", "value": "을 살리는 시기를 길게 두면 결이 천천히 자라요. " },
-        { "kind": "tag", "tagId": "gongmang", "label": "공망" },
-        { "kind": "text", "value": "의 자리가 함께 있을 때는 결정 자체를 잠시 미뤄도 괜찮아요. " },
-        { "kind": "tag", "tagId": "heeshin", "label": "희신" },
-        { "kind": "text", "value": "이 들어오는 대운이 평생의 가장 큰 자산이 돼요." }
+        {
+          "kind": "text",
+          "value": "일간이 매우 약한 자리에서 "
+        },
+        {
+          "kind": "tag",
+          "tagId": "gishin",
+          "label": "기신"
+        },
+        {
+          "kind": "text",
+          "value": "의 흐름이 함께 부딪히는 그림이에요. "
+        },
+        {
+          "kind": "tag",
+          "tagId": "yongshin",
+          "label": "용신"
+        },
+        {
+          "kind": "text",
+          "value": "을 살리는 시기를 길게 두면 결이 천천히 자라요. "
+        },
+        {
+          "kind": "tag",
+          "tagId": "gongmang",
+          "label": "공망"
+        },
+        {
+          "kind": "text",
+          "value": "의 자리가 함께 있을 때는 결정 자체를 잠시 미뤄도 괜찮아요. "
+        },
+        {
+          "kind": "tag",
+          "tagId": "heeshin",
+          "label": "희신"
+        },
+        {
+          "kind": "text",
+          "value": "이 들어오는 대운이 평생의 가장 큰 자산이 돼요."
+        }
       ],
-      "tags": ["gishin", "yongshin", "gongmang", "heeshin"],
+      "tags": [
+        "gishin",
+        "yongshin",
+        "gongmang",
+        "heeshin"
+      ],
       "aiGenerated": true,
       "sourceTier": {
-        "tier": "T1_HYPOTHESIS", "sourceType": "training_derived", "sourceUrl": null,
-        "accessedAt": "2026-05-02", "quoteShort": null,
+        "tier": "T1_HYPOTHESIS",
+        "sourceType": "training_derived",
+        "sourceUrl": null,
+        "accessedAt": "2026-05-02",
+        "quoteShort": null,
         "humanInterpretation": "Phase 2 overall fragment, agent-15.",
         "copyrightNote": "No source prose copied; original.",
         "authorityTruthEligible": false
@@ -508,22 +1102,60 @@
     {
       "schemaVersion": "spring-ts.narrative-fragment.v1",
       "fragmentId": "overall.life.expert.yang_balanced_tonggwan.501",
-      "axis": { "category": "overall", "period": "life", "depth": "expert" },
+      "axis": {
+        "category": "overall",
+        "period": "life",
+        "depth": "expert"
+      },
       "gating": {
-        "dayMasterPolarity": ["YANG"],
-        "dayMasterStrength": ["BALANCED"],
-        "yongshinAlignment": ["aligned"]
+        "dayMasterPolarity": [
+          "YANG"
+        ],
+        "dayMasterStrength": [
+          "BALANCED"
+        ],
+        "yongshinAlignment": [
+          "aligned"
+        ]
       },
       "templateTokens": [
-        { "kind": "text", "value": "양의 일간이 균형 자리에 있어 두 기운의 길이 한 번에 부딪힐 때 " },
-        { "kind": "tag", "tagId": "tonggwanYongshin", "label": "통관용신" },
-        { "kind": "text", "value": "이 다리 역할로 부드럽게 풀어 주는 결이에요. " },
-        { "kind": "tag", "tagId": "ohaengBalance", "label": "오행균형도" },
-        { "kind": "text", "value": "가 또렷하게 살아 있어 격정과 침착이 함께 흐르고, " },
-        { "kind": "tag", "tagId": "monthPillar", "label": "월주" },
-        { "kind": "text", "value": "의 자리가 한 평생의 큰 가닥을 만들어 줘요." }
+        {
+          "kind": "text",
+          "value": "양의 일간이 균형 자리에 있어 두 기운의 길이 한 번에 부딪힐 때 "
+        },
+        {
+          "kind": "tag",
+          "tagId": "tonggwanYongshin",
+          "label": "통관용신"
+        },
+        {
+          "kind": "text",
+          "value": "이 다리 역할로 부드럽게 풀어 주는 흐름이에요. "
+        },
+        {
+          "kind": "tag",
+          "tagId": "ohaengBalance",
+          "label": "오행균형도"
+        },
+        {
+          "kind": "text",
+          "value": "가 또렷하게 살아 있어 격정과 침착이 함께 흐르고, "
+        },
+        {
+          "kind": "tag",
+          "tagId": "monthPillar",
+          "label": "월주"
+        },
+        {
+          "kind": "text",
+          "value": "의 자리가 한 평생의 큰 가닥을 만들어 줘요."
+        }
       ],
-      "tags": ["tonggwanYongshin", "ohaengBalance", "monthPillar"],
+      "tags": [
+        "tonggwanYongshin",
+        "ohaengBalance",
+        "monthPillar"
+      ],
       "aiGenerated": true,
       "sourceTier": {
         "tier": "T1_HYPOTHESIS",
@@ -539,22 +1171,60 @@
     {
       "schemaVersion": "spring-ts.narrative-fragment.v1",
       "fragmentId": "overall.life.expert.weak_summer_byeongyak.502",
-      "axis": { "category": "overall", "period": "life", "depth": "expert" },
+      "axis": {
+        "category": "overall",
+        "period": "life",
+        "depth": "expert"
+      },
       "gating": {
-        "dayMasterStrength": ["WEAK"],
-        "birthSeason": ["summer"],
-        "yongshinAlignment": ["conflicting"]
+        "dayMasterStrength": [
+          "WEAK"
+        ],
+        "birthSeason": [
+          "summer"
+        ],
+        "yongshinAlignment": [
+          "conflicting"
+        ]
       },
       "templateTokens": [
-        { "kind": "text", "value": "여름 자리에 일간이 약하면 한낮의 열기가 결을 흔드는 자리예요. " },
-        { "kind": "tag", "tagId": "byeongyakYongshin", "label": "병약용신" },
-        { "kind": "text", "value": "이 흠을 직접 다스리는 약 자리로 들어와, " },
-        { "kind": "tag", "tagId": "johuYongshin", "label": "조후용신" },
-        { "kind": "text", "value": "의 시원한 결과 함께 작동할 때 평생의 큰 그림이 가장 부드러워져요. " },
-        { "kind": "tag", "tagId": "stabilityIndex", "label": "안정성지수" },
-        { "kind": "text", "value": "를 함께 살피면 어느 시기에 회복이 빠른지 가늠하기 좋아요." }
+        {
+          "kind": "text",
+          "value": "여름 자리에 일간이 약하면 한낮의 열기가 결을 흔드는 자리예요. "
+        },
+        {
+          "kind": "tag",
+          "tagId": "byeongyakYongshin",
+          "label": "병약용신"
+        },
+        {
+          "kind": "text",
+          "value": "이 흠을 직접 다스리는 약 자리로 들어와, "
+        },
+        {
+          "kind": "tag",
+          "tagId": "johuYongshin",
+          "label": "조후용신"
+        },
+        {
+          "kind": "text",
+          "value": "의 시원한 결과 함께 작동할 때 평생의 큰 그림이 가장 부드러워져요. "
+        },
+        {
+          "kind": "tag",
+          "tagId": "stabilityIndex",
+          "label": "안정성지수"
+        },
+        {
+          "kind": "text",
+          "value": "를 함께 살피면 어느 시기에 회복이 빠른지 가늠하기 좋아요."
+        }
       ],
-      "tags": ["byeongyakYongshin", "johuYongshin", "stabilityIndex"],
+      "tags": [
+        "byeongyakYongshin",
+        "johuYongshin",
+        "stabilityIndex"
+      ],
       "aiGenerated": true,
       "sourceTier": {
         "tier": "T1_HYPOTHESIS",
@@ -570,21 +1240,57 @@
     {
       "schemaVersion": "spring-ts.narrative-fragment.v1",
       "fragmentId": "overall.life.expert.late50s_aligned_gyeokguk.503",
-      "axis": { "category": "overall", "period": "life", "depth": "expert" },
+      "axis": {
+        "category": "overall",
+        "period": "life",
+        "depth": "expert"
+      },
       "gating": {
-        "agePhase": ["late_50s"],
-        "yongshinAlignment": ["aligned"]
+        "agePhase": [
+          "late_50s"
+        ],
+        "yongshinAlignment": [
+          "aligned"
+        ]
       },
       "templateTokens": [
-        { "kind": "text", "value": "50대 후반의 자리에서 흐름이 잘 맞아 들면 " },
-        { "kind": "tag", "tagId": "gyeokgukYongshin", "label": "격국용신" },
-        { "kind": "text", "value": "이 격의 모양과 가장 가까이 맞물려 평생의 누적이 한 번 결산되는 시기예요. " },
-        { "kind": "tag", "tagId": "gyeokgukFit", "label": "격국적합도" },
-        { "kind": "text", "value": "가 또렷할수록 다음 단계의 자리가 자연스럽게 잡히고, " },
-        { "kind": "tag", "tagId": "jaebakgung", "label": "재백궁" },
-        { "kind": "text", "value": "의 결이 함께 살아 있을 때 책임의 자리가 한층 두툼해져요." }
+        {
+          "kind": "text",
+          "value": "50대 후반의 자리에서 흐름이 잘 맞아 들면 "
+        },
+        {
+          "kind": "tag",
+          "tagId": "gyeokgukYongshin",
+          "label": "격국용신"
+        },
+        {
+          "kind": "text",
+          "value": "이 격의 모양과 가장 가까이 맞물려 평생의 누적이 한 번 결산되는 시기예요. "
+        },
+        {
+          "kind": "tag",
+          "tagId": "gyeokgukFit",
+          "label": "격국적합도"
+        },
+        {
+          "kind": "text",
+          "value": "가 또렷할수록 다음 단계의 자리가 자연스럽게 잡히고, "
+        },
+        {
+          "kind": "tag",
+          "tagId": "jaebakgung",
+          "label": "재백궁"
+        },
+        {
+          "kind": "text",
+          "value": "의 결이 함께 살아 있을 때 책임의 자리가 한층 두툼해져요."
+        }
       ],
-      "tags": ["gyeokgukYongshin", "gyeokgukFit", "jaebakgung"],
+      "tags": [
+        "gyeokgukYongshin",
+        "gyeokgukFit",
+        "jaebakgung"
+      ],
       "aiGenerated": true,
       "sourceTier": {
         "tier": "T1_HYPOTHESIS",
@@ -600,22 +1306,60 @@
     {
       "schemaVersion": "spring-ts.narrative-fragment.v1",
       "fragmentId": "overall.life.expert.yin_late60s_johu.504",
-      "axis": { "category": "overall", "period": "life", "depth": "expert" },
+      "axis": {
+        "category": "overall",
+        "period": "life",
+        "depth": "expert"
+      },
       "gating": {
-        "dayMasterPolarity": ["YIN"],
-        "agePhase": ["late_60s"],
-        "yongshinAlignment": ["neutral"]
+        "dayMasterPolarity": [
+          "YIN"
+        ],
+        "agePhase": [
+          "late_60s"
+        ],
+        "yongshinAlignment": [
+          "neutral"
+        ]
       },
       "templateTokens": [
-        { "kind": "text", "value": "음의 일간이 60대 후반의 자리에 닿으면 " },
-        { "kind": "tag", "tagId": "johuYongshin", "label": "조후용신" },
-        { "kind": "text", "value": "이 사주의 온도를 차분히 맞춰 주는 시기로 들어가요. " },
-        { "kind": "tag", "tagId": "eumyangHarmony", "label": "음양조화도" },
-        { "kind": "text", "value": "가 평생의 흐름을 가지런히 정리하고, " },
-        { "kind": "tag", "tagId": "myeonggung", "label": "명궁" },
-        { "kind": "text", "value": "의 자리가 자기 본연의 색을 다시 비춰 주는 자리가 돼요." }
+        {
+          "kind": "text",
+          "value": "음의 일간이 60대 후반의 자리에 닿으면 "
+        },
+        {
+          "kind": "tag",
+          "tagId": "johuYongshin",
+          "label": "조후용신"
+        },
+        {
+          "kind": "text",
+          "value": "이 사주의 온도를 차분히 맞춰 주는 시기로 들어가요. "
+        },
+        {
+          "kind": "tag",
+          "tagId": "eumyangHarmony",
+          "label": "음양조화도"
+        },
+        {
+          "kind": "text",
+          "value": "가 평생의 흐름을 가지런히 정리하고, "
+        },
+        {
+          "kind": "tag",
+          "tagId": "myeonggung",
+          "label": "명궁"
+        },
+        {
+          "kind": "text",
+          "value": "의 자리가 자기 본연의 색을 다시 비춰 주는 자리가 돼요."
+        }
       ],
-      "tags": ["johuYongshin", "eumyangHarmony", "myeonggung"],
+      "tags": [
+        "johuYongshin",
+        "eumyangHarmony",
+        "myeonggung"
+      ],
       "aiGenerated": true,
       "sourceTier": {
         "tier": "T1_HYPOTHESIS",
@@ -631,22 +1375,60 @@
     {
       "schemaVersion": "spring-ts.narrative-fragment.v1",
       "fragmentId": "overall.life.expert.early30s_male_buaek.505",
-      "axis": { "category": "overall", "period": "life", "depth": "expert" },
+      "axis": {
+        "category": "overall",
+        "period": "life",
+        "depth": "expert"
+      },
       "gating": {
-        "agePhase": ["early_30s"],
-        "gender": ["male"],
-        "dayMasterStrength": ["WEAK"]
+        "agePhase": [
+          "early_30s"
+        ],
+        "gender": [
+          "male"
+        ],
+        "dayMasterStrength": [
+          "WEAK"
+        ]
       },
       "templateTokens": [
-        { "kind": "text", "value": "30대 초반의 남성 자리에서 일간이 약하면 " },
-        { "kind": "tag", "tagId": "buaekYongshin", "label": "부억용신" },
-        { "kind": "text", "value": "의 결이 도와주는 손길로 자리잡고, " },
-        { "kind": "tag", "tagId": "sipsinDistribution", "label": "십신분포도" },
-        { "kind": "text", "value": "가 한쪽으로 기울지 않게 균형을 맞춰 주는 시기예요. " },
-        { "kind": "tag", "tagId": "hyeongjegung", "label": "형제궁" },
-        { "kind": "text", "value": "의 결이 함께 살아 있으면 동기·동료의 자리가 큰 받침이 돼요." }
+        {
+          "kind": "text",
+          "value": "30대 초반의 남성 자리에서 일간이 약하면 "
+        },
+        {
+          "kind": "tag",
+          "tagId": "buaekYongshin",
+          "label": "부억용신"
+        },
+        {
+          "kind": "text",
+          "value": "의 결이 도와주는 손길로 자리잡고, "
+        },
+        {
+          "kind": "tag",
+          "tagId": "sipsinDistribution",
+          "label": "십신분포도"
+        },
+        {
+          "kind": "text",
+          "value": "가 한쪽으로 기울지 않게 균형을 맞춰 주는 시기예요. "
+        },
+        {
+          "kind": "tag",
+          "tagId": "hyeongjegung",
+          "label": "형제궁"
+        },
+        {
+          "kind": "text",
+          "value": "의 결이 함께 살아 있으면 동기·동료의 자리가 큰 받침이 돼요."
+        }
       ],
-      "tags": ["buaekYongshin", "sipsinDistribution", "hyeongjegung"],
+      "tags": [
+        "buaekYongshin",
+        "sipsinDistribution",
+        "hyeongjegung"
+      ],
       "aiGenerated": true,
       "sourceTier": {
         "tier": "T1_HYPOTHESIS",
@@ -662,22 +1444,60 @@
     {
       "schemaVersion": "spring-ts.narrative-fragment.v1",
       "fragmentId": "overall.life.expert.late40s_female_cheoni.506",
-      "axis": { "category": "overall", "period": "life", "depth": "expert" },
+      "axis": {
+        "category": "overall",
+        "period": "life",
+        "depth": "expert"
+      },
       "gating": {
-        "agePhase": ["late_40s"],
-        "gender": ["female"],
-        "yongshinAlignment": ["conflicting"]
+        "agePhase": [
+          "late_40s"
+        ],
+        "gender": [
+          "female"
+        ],
+        "yongshinAlignment": [
+          "conflicting"
+        ]
       },
       "templateTokens": [
-        { "kind": "text", "value": "40대 후반의 여성 자리에서 흐름이 어긋나는 결이 보이면 " },
-        { "kind": "tag", "tagId": "cheonigung", "label": "천이궁" },
-        { "kind": "text", "value": "의 자리가 활동 반경을 넓혀 주는 분기점으로 작용하기 쉬워요. " },
-        { "kind": "tag", "tagId": "munchanggwiin", "label": "문창귀인" },
-        { "kind": "text", "value": "의 길성 신호가 함께 자리하면 새 배움이 운의 매듭을 부드럽게 풀어 주고, " },
-        { "kind": "tag", "tagId": "geumyeo", "label": "금여" },
-        { "kind": "text", "value": "의 따뜻한 결이 가까운 인연의 도움으로 이어져요." }
+        {
+          "kind": "text",
+          "value": "40대 후반의 여성 자리에서 흐름이 어긋나는 결이 보이면 "
+        },
+        {
+          "kind": "tag",
+          "tagId": "cheonigung",
+          "label": "천이궁"
+        },
+        {
+          "kind": "text",
+          "value": "의 자리가 활동 반경을 넓혀 주는 분기점으로 작용하기 쉬워요. "
+        },
+        {
+          "kind": "tag",
+          "tagId": "munchanggwiin",
+          "label": "문창귀인"
+        },
+        {
+          "kind": "text",
+          "value": "의 길성 신호가 함께 자리하면 새 배움이 운의 매듭을 부드럽게 풀어 주고, "
+        },
+        {
+          "kind": "tag",
+          "tagId": "geumyeo",
+          "label": "금여"
+        },
+        {
+          "kind": "text",
+          "value": "의 따뜻한 결이 가까운 인연의 도움으로 이어져요."
+        }
       ],
-      "tags": ["cheonigung", "munchanggwiin", "geumyeo"],
+      "tags": [
+        "cheonigung",
+        "munchanggwiin",
+        "geumyeo"
+      ],
       "aiGenerated": true,
       "sourceTier": {
         "tier": "T1_HYPOTHESIS",

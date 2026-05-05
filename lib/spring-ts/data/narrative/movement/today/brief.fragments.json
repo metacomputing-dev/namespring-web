@@ -8,10 +8,17 @@
     {
       "schemaVersion": "spring-ts.narrative-fragment.v1",
       "fragmentId": "movement.today.brief.wildcard.001",
-      "axis": { "category": "movement", "period": "today", "depth": "brief" },
+      "axis": {
+        "category": "movement",
+        "period": "today",
+        "depth": "brief"
+      },
       "gating": {},
       "templateTokens": [
-        { "kind": "text", "value": "오늘은 한 발짝 움직여 볼 자리가 가벼워요." }
+        {
+          "kind": "text",
+          "value": "오늘은 한 발짝 움직여 볼 자리가 가벼워요."
+        }
       ],
       "tags": [],
       "aiGenerated": true,
@@ -29,10 +36,21 @@
     {
       "schemaVersion": "spring-ts.narrative-fragment.v1",
       "fragmentId": "movement.today.brief.0_9.002",
-      "axis": { "category": "movement", "period": "today", "depth": "brief" },
-      "gating": { "ageBand": ["0-9"] },
+      "axis": {
+        "category": "movement",
+        "period": "today",
+        "depth": "brief"
+      },
+      "gating": {
+        "ageBand": [
+          "0-9"
+        ]
+      },
       "templateTokens": [
-        { "kind": "text", "value": "아이는 오늘 새 자리에서 더 즐거워요. 짧은 외출이 좋아요." }
+        {
+          "kind": "text",
+          "value": "아이는 오늘 새 자리에서 더 즐거워요. 짧은 외출이 좋아요."
+        }
       ],
       "tags": [],
       "aiGenerated": true,
@@ -50,10 +68,21 @@
     {
       "schemaVersion": "spring-ts.narrative-fragment.v1",
       "fragmentId": "movement.today.brief.10_19.003",
-      "axis": { "category": "movement", "period": "today", "depth": "brief" },
-      "gating": { "ageBand": ["10-19"] },
+      "axis": {
+        "category": "movement",
+        "period": "today",
+        "depth": "brief"
+      },
+      "gating": {
+        "ageBand": [
+          "10-19"
+        ]
+      },
       "templateTokens": [
-        { "kind": "text", "value": "오늘은 평소와 다른 길로 한 번 가 봐도 좋아요." }
+        {
+          "kind": "text",
+          "value": "오늘은 평소와 다른 길로 한 번 가 봐도 좋아요."
+        }
       ],
       "tags": [],
       "aiGenerated": true,
@@ -71,10 +100,21 @@
     {
       "schemaVersion": "spring-ts.narrative-fragment.v1",
       "fragmentId": "movement.today.brief.20_29.004",
-      "axis": { "category": "movement", "period": "today", "depth": "brief" },
-      "gating": { "ageBand": ["20-29"] },
+      "axis": {
+        "category": "movement",
+        "period": "today",
+        "depth": "brief"
+      },
+      "gating": {
+        "ageBand": [
+          "20-29"
+        ]
+      },
       "templateTokens": [
-        { "kind": "text", "value": "오늘은 새 자리·새 사람과 닿기 좋은 하루예요." }
+        {
+          "kind": "text",
+          "value": "오늘은 새 자리·새 사람과 닿기 좋은 하루예요."
+        }
       ],
       "tags": [],
       "aiGenerated": true,
@@ -92,10 +132,21 @@
     {
       "schemaVersion": "spring-ts.narrative-fragment.v1",
       "fragmentId": "movement.today.brief.30_39.005",
-      "axis": { "category": "movement", "period": "today", "depth": "brief" },
-      "gating": { "ageBand": ["30-39"] },
+      "axis": {
+        "category": "movement",
+        "period": "today",
+        "depth": "brief"
+      },
+      "gating": {
+        "ageBand": [
+          "30-39"
+        ]
+      },
       "templateTokens": [
-        { "kind": "text", "value": "오늘은 짧은 출장이나 외근의 자리가 술술 풀려요." }
+        {
+          "kind": "text",
+          "value": "오늘은 짧은 출장이나 외근의 자리가 술술 풀려요."
+        }
       ],
       "tags": [],
       "aiGenerated": true,
@@ -113,10 +164,21 @@
     {
       "schemaVersion": "spring-ts.narrative-fragment.v1",
       "fragmentId": "movement.today.brief.40_54.006",
-      "axis": { "category": "movement", "period": "today", "depth": "brief" },
-      "gating": { "ageBand": ["40-54"] },
+      "axis": {
+        "category": "movement",
+        "period": "today",
+        "depth": "brief"
+      },
+      "gating": {
+        "ageBand": [
+          "40-54"
+        ]
+      },
       "templateTokens": [
-        { "kind": "text", "value": "오늘은 동선이 한 번 정리되면 일이 가벼워져요." }
+        {
+          "kind": "text",
+          "value": "오늘은 동선이 한 번 정리되면 일이 가벼워져요."
+        }
       ],
       "tags": [],
       "aiGenerated": true,
@@ -134,10 +196,21 @@
     {
       "schemaVersion": "spring-ts.narrative-fragment.v1",
       "fragmentId": "movement.today.brief.55_69.007",
-      "axis": { "category": "movement", "period": "today", "depth": "brief" },
-      "gating": { "ageBand": ["55-69"] },
+      "axis": {
+        "category": "movement",
+        "period": "today",
+        "depth": "brief"
+      },
+      "gating": {
+        "ageBand": [
+          "55-69"
+        ]
+      },
       "templateTokens": [
-        { "kind": "text", "value": "오늘은 가까운 자리로의 짧은 외출이 잘 어울려요." }
+        {
+          "kind": "text",
+          "value": "오늘은 가까운 자리로의 짧은 외출이 잘 어울려요."
+        }
       ],
       "tags": [],
       "aiGenerated": true,
@@ -155,10 +228,21 @@
     {
       "schemaVersion": "spring-ts.narrative-fragment.v1",
       "fragmentId": "movement.today.brief.70plus.008",
-      "axis": { "category": "movement", "period": "today", "depth": "brief" },
-      "gating": { "ageBand": ["70+"] },
+      "axis": {
+        "category": "movement",
+        "period": "today",
+        "depth": "brief"
+      },
+      "gating": {
+        "ageBand": [
+          "70+"
+        ]
+      },
       "templateTokens": [
-        { "kind": "text", "value": "오늘은 가까운 산책 자리가 가장 좋아요." }
+        {
+          "kind": "text",
+          "value": "오늘은 가까운 산책 자리가 가장 좋아요."
+        }
       ],
       "tags": [],
       "aiGenerated": true,
@@ -176,10 +260,24 @@
     {
       "schemaVersion": "spring-ts.narrative-fragment.v1",
       "fragmentId": "movement.today.brief.strong_aligned.009",
-      "axis": { "category": "movement", "period": "today", "depth": "brief" },
-      "gating": { "dayMasterStrength": ["STRONG"], "yongshinAlignment": ["aligned"] },
+      "axis": {
+        "category": "movement",
+        "period": "today",
+        "depth": "brief"
+      },
+      "gating": {
+        "dayMasterStrength": [
+          "STRONG"
+        ],
+        "yongshinAlignment": [
+          "aligned"
+        ]
+      },
       "templateTokens": [
-        { "kind": "text", "value": "오늘은 추진력이 새 자리에서 시원하게 풀리는 결이에요." }
+        {
+          "kind": "text",
+          "value": "오늘은 추진력이 새 자리에서 시원하게 풀리는 흐름이에요."
+        }
       ],
       "tags": [],
       "aiGenerated": true,
@@ -197,10 +295,24 @@
     {
       "schemaVersion": "spring-ts.narrative-fragment.v1",
       "fragmentId": "movement.today.brief.weak_neutral.010",
-      "axis": { "category": "movement", "period": "today", "depth": "brief" },
-      "gating": { "dayMasterStrength": ["WEAK"], "yongshinAlignment": ["neutral"] },
+      "axis": {
+        "category": "movement",
+        "period": "today",
+        "depth": "brief"
+      },
+      "gating": {
+        "dayMasterStrength": [
+          "WEAK"
+        ],
+        "yongshinAlignment": [
+          "neutral"
+        ]
+      },
       "templateTokens": [
-        { "kind": "text", "value": "오늘은 익숙한 동선을 지키면 호흡이 편안해요." }
+        {
+          "kind": "text",
+          "value": "오늘은 익숙한 동선을 지키면 호흡이 편안해요."
+        }
       ],
       "tags": [],
       "aiGenerated": true,

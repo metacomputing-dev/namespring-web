@@ -8,17 +8,45 @@
     {
       "schemaVersion": "spring-ts.narrative-fragment.v1",
       "fragmentId": "family.thisMonth.expert.wildcard.001",
-      "axis": { "category": "family", "period": "thisMonth", "depth": "expert", "tone": "expert" },
+      "axis": {
+        "category": "family",
+        "period": "thisMonth",
+        "depth": "expert",
+        "tone": "expert"
+      },
       "gating": {},
       "templateTokens": [
-        { "kind": "text", "value": "이번 달의 가족 결은 월운(月運)과 " },
-        { "kind": "tag", "tagId": "bumyong", "label": "부모궁" },
-        { "kind": "text", "value": "·" },
-        { "kind": "tag", "tagId": "jasikgung", "label": "자식궁" },
-        { "kind": "text", "value": "이 어떻게 만나는지로 그려 봐요." },
-        { "kind": "text", "value": " 월지가 궁실 흐름과 잘 맞물리는 자리라면 한 달 동안 결이 부드럽게 데워지고, 부딪히는 결이 들어오면 큰 결정은 다음 달로 한 박자 늦춰 보는 흐름이 잘 맞아요." }
+        {
+          "kind": "text",
+          "value": "이번 달의 가족 결은 월운(月運)과 "
+        },
+        {
+          "kind": "tag",
+          "tagId": "bumyong",
+          "label": "부모궁"
+        },
+        {
+          "kind": "text",
+          "value": "·"
+        },
+        {
+          "kind": "tag",
+          "tagId": "jasikgung",
+          "label": "자식궁"
+        },
+        {
+          "kind": "text",
+          "value": "이 어떻게 만나는지로 그려 봐요."
+        },
+        {
+          "kind": "text",
+          "value": " 월지가 궁실 흐름과 잘 맞물리는 자리라면 한 달 동안 결이 부드럽게 데워지고, 부딪히는 결이 들어오면 큰 결정은 다음 달로 한 박자 늦춰 보는 흐름이 잘 맞아요."
+        }
       ],
-      "tags": ["bumyong", "jasikgung"],
+      "tags": [
+        "bumyong",
+        "jasikgung"
+      ],
       "numericalEvidence": [
         {
           "label": "현재 나이",
@@ -66,17 +94,51 @@
     {
       "schemaVersion": "spring-ts.narrative-fragment.v1",
       "fragmentId": "family.thisMonth.expert.bumyong_focus.002",
-      "axis": { "category": "family", "period": "thisMonth", "depth": "expert", "tone": "expert" },
-      "gating": { "ageBand": ["20-29", "30-39", "40-54"] },
+      "axis": {
+        "category": "family",
+        "period": "thisMonth",
+        "depth": "expert",
+        "tone": "expert"
+      },
+      "gating": {
+        "ageBand": [
+          "20-29",
+          "30-39",
+          "40-54"
+        ]
+      },
       "templateTokens": [
-        { "kind": "text", "value": "월운이 " },
-        { "kind": "tag", "tagId": "bumyong", "label": "부모궁" },
-        { "kind": "text", "value": "에 자주 닿는 한 달이라, 부모님 자리에 한 번 직접 시간을 내는 흐름이 잘 맞아요." },
-        { "kind": "text", "value": " " },
-        { "kind": "tag", "tagId": "jeongin", "label": "정인" },
-        { "kind": "text", "value": "의 결이 도와주는 자리라면 한 달 사이의 안부 한 통이 의미 있는 결이 되고, 큰 자리를 한 번에 만들기보다는 한 달의 작은 호흡으로 결을 다듬는 자리가 좋아요." }
+        {
+          "kind": "text",
+          "value": "월운이 "
+        },
+        {
+          "kind": "tag",
+          "tagId": "bumyong",
+          "label": "부모궁"
+        },
+        {
+          "kind": "text",
+          "value": "에 자주 닿는 한 달이라, 부모님 자리에 한 번 직접 시간을 내는 흐름이 잘 맞아요."
+        },
+        {
+          "kind": "text",
+          "value": " "
+        },
+        {
+          "kind": "tag",
+          "tagId": "jeongin",
+          "label": "정인"
+        },
+        {
+          "kind": "text",
+          "value": "의 결이 도와주는 자리라면 한 달 사이의 안부 한 통이 의미 있는 결이 되고, 큰 자리를 한 번에 만들기보다는 한 달의 작은 호흡으로 결을 다듬는 자리가 좋아요."
+        }
       ],
-      "tags": ["bumyong", "jeongin"],
+      "tags": [
+        "bumyong",
+        "jeongin"
+      ],
       "aiGenerated": true,
       "sourceTier": {
         "tier": "T1_HYPOTHESIS",
@@ -92,17 +154,51 @@
     {
       "schemaVersion": "spring-ts.narrative-fragment.v1",
       "fragmentId": "family.thisMonth.expert.jasik_focus.003",
-      "axis": { "category": "family", "period": "thisMonth", "depth": "expert", "tone": "expert" },
-      "gating": { "ageBand": ["30-39", "40-54", "55-69"] },
+      "axis": {
+        "category": "family",
+        "period": "thisMonth",
+        "depth": "expert",
+        "tone": "expert"
+      },
+      "gating": {
+        "ageBand": [
+          "30-39",
+          "40-54",
+          "55-69"
+        ]
+      },
       "templateTokens": [
-        { "kind": "text", "value": "월운이 " },
-        { "kind": "tag", "tagId": "jasikgung", "label": "자식궁" },
-        { "kind": "text", "value": "·" },
-        { "kind": "tag", "tagId": "hourPillar", "label": "시주" },
-        { "kind": "text", "value": "에 닿는 한 달이라, 자녀·다음 세대와의 자리가 부드럽게 데워지는 흐름이에요." },
-        { "kind": "text", "value": " 큰 가르침을 더하려 하기보다는, 한 달에 한 번 같이 시간을 보내는 자리만 만들어도 결이 단단해져요." }
+        {
+          "kind": "text",
+          "value": "월운이 "
+        },
+        {
+          "kind": "tag",
+          "tagId": "jasikgung",
+          "label": "자식궁"
+        },
+        {
+          "kind": "text",
+          "value": "·"
+        },
+        {
+          "kind": "tag",
+          "tagId": "hourPillar",
+          "label": "시주"
+        },
+        {
+          "kind": "text",
+          "value": "에 닿는 한 달이라, 자녀·다음 세대와의 자리가 부드럽게 데워지는 흐름이에요."
+        },
+        {
+          "kind": "text",
+          "value": " 큰 가르침을 더하려 하기보다는, 한 달에 한 번 같이 시간을 보내는 자리만 만들어도 리듬이 단단해져요."
+        }
       ],
-      "tags": ["jasikgung", "hourPillar"],
+      "tags": [
+        "jasikgung",
+        "hourPillar"
+      ],
       "aiGenerated": true,
       "sourceTier": {
         "tier": "T1_HYPOTHESIS",
@@ -118,17 +214,45 @@
     {
       "schemaVersion": "spring-ts.narrative-fragment.v1",
       "fragmentId": "family.thisMonth.expert.bigyeon_geobjae.004",
-      "axis": { "category": "family", "period": "thisMonth", "depth": "expert", "tone": "expert" },
+      "axis": {
+        "category": "family",
+        "period": "thisMonth",
+        "depth": "expert",
+        "tone": "expert"
+      },
       "gating": {},
       "templateTokens": [
-        { "kind": "text", "value": "이번 달 결에 " },
-        { "kind": "tag", "tagId": "bigyeon", "label": "비견" },
-        { "kind": "text", "value": "·" },
-        { "kind": "tag", "tagId": "geobjae", "label": "겁재" },
-        { "kind": "text", "value": "의 색이 도드라지면, 형제·동료·가까운 이웃과의 결이 또렷해지는 한 달이에요." },
-        { "kind": "text", "value": " 같은 자리에서 결을 두고 호흡을 맞춰야 한다면 한 박자 천천히 정리하고, 한 달 안에 받은 도움은 다음 자리에서 가벼운 답으로 흘려 보내면 결이 자연스럽게 정리돼요." }
+        {
+          "kind": "text",
+          "value": "이번 달 결에 "
+        },
+        {
+          "kind": "tag",
+          "tagId": "bigyeon",
+          "label": "비견"
+        },
+        {
+          "kind": "text",
+          "value": "·"
+        },
+        {
+          "kind": "tag",
+          "tagId": "geobjae",
+          "label": "겁재"
+        },
+        {
+          "kind": "text",
+          "value": "의 색이 도드라지면, 형제·동료·가까운 이웃과의 방향이 또렷해지는 한 달이에요."
+        },
+        {
+          "kind": "text",
+          "value": " 같은 자리에서 결을 두고 호흡을 맞춰야 한다면 한 박자 천천히 정리하고, 한 달 안에 받은 도움은 다음 자리에서 가벼운 답으로 흘려 보내면 결이 자연스럽게 정리돼요."
+        }
       ],
-      "tags": ["bigyeon", "geobjae"],
+      "tags": [
+        "bigyeon",
+        "geobjae"
+      ],
       "aiGenerated": true,
       "sourceTier": {
         "tier": "T1_HYPOTHESIS",
@@ -144,17 +268,50 @@
     {
       "schemaVersion": "spring-ts.narrative-fragment.v1",
       "fragmentId": "family.thisMonth.expert.weak_supported.005",
-      "axis": { "category": "family", "period": "thisMonth", "depth": "expert", "tone": "expert" },
-      "gating": { "dayMasterStrength": ["WEAK", "EXTREME_WEAK"] },
+      "axis": {
+        "category": "family",
+        "period": "thisMonth",
+        "depth": "expert",
+        "tone": "expert"
+      },
+      "gating": {
+        "dayMasterStrength": [
+          "WEAK",
+          "EXTREME_WEAK"
+        ]
+      },
       "templateTokens": [
-        { "kind": "text", "value": "원국 일간이 약한 결이라, 이번 달 " },
-        { "kind": "tag", "tagId": "jeongin", "label": "정인" },
-        { "kind": "text", "value": "·" },
-        { "kind": "tag", "tagId": "bigyeon", "label": "비견" },
-        { "kind": "text", "value": "의 결이 가까운 사람의 모습으로 자주 들어오는 자리예요." },
-        { "kind": "text", "value": " 한 달 안에 작은 부탁 한 가지를 자연스럽게 꺼내 두면 결이 더 든든해지고, 받은 도움은 한 달 안에 가벼운 답으로 흘려 보내면 흐름이 부드럽게 이어져요." }
+        {
+          "kind": "text",
+          "value": "원국 일간이 약한 흐름이라, 이번 달 "
+        },
+        {
+          "kind": "tag",
+          "tagId": "jeongin",
+          "label": "정인"
+        },
+        {
+          "kind": "text",
+          "value": "·"
+        },
+        {
+          "kind": "tag",
+          "tagId": "bigyeon",
+          "label": "비견"
+        },
+        {
+          "kind": "text",
+          "value": "의 결이 가까운 사람의 모습으로 자주 들어오는 자리예요."
+        },
+        {
+          "kind": "text",
+          "value": " 한 달 안에 작은 부탁 한 가지를 자연스럽게 꺼내 두면 결이 더 든든해지고, 받은 도움은 한 달 안에 가벼운 답으로 흘려 보내면 흐름이 부드럽게 이어져요."
+        }
       ],
-      "tags": ["jeongin", "bigyeon"],
+      "tags": [
+        "jeongin",
+        "bigyeon"
+      ],
       "aiGenerated": true,
       "sourceTier": {
         "tier": "T1_HYPOTHESIS",
@@ -170,17 +327,50 @@
     {
       "schemaVersion": "spring-ts.narrative-fragment.v1",
       "fragmentId": "family.thisMonth.expert.strong_giving.006",
-      "axis": { "category": "family", "period": "thisMonth", "depth": "expert", "tone": "expert" },
-      "gating": { "dayMasterStrength": ["STRONG", "EXTREME_STRONG"] },
+      "axis": {
+        "category": "family",
+        "period": "thisMonth",
+        "depth": "expert",
+        "tone": "expert"
+      },
+      "gating": {
+        "dayMasterStrength": [
+          "STRONG",
+          "EXTREME_STRONG"
+        ]
+      },
       "templateTokens": [
-        { "kind": "text", "value": "원국 일간이 강한 결이니, 이번 달은 자기가 " },
-        { "kind": "tag", "tagId": "bumyong", "label": "부모궁" },
-        { "kind": "text", "value": "이나 " },
-        { "kind": "tag", "tagId": "jasikgung", "label": "자식궁" },
-        { "kind": "text", "value": "의 결을 받쳐 주는 손이 자주 움직이는 자리예요." },
-        { "kind": "text", "value": " 받쳐 주는 결만 이어지면 자기 결이 가장자리로 밀릴 수 있어, 한 달 안에 한 자리는 자기 휴식을 위해 비워 두는 흐름이 좋아요." }
+        {
+          "kind": "text",
+          "value": "원국 일간이 강한 결이니, 이번 달은 자기가 "
+        },
+        {
+          "kind": "tag",
+          "tagId": "bumyong",
+          "label": "부모궁"
+        },
+        {
+          "kind": "text",
+          "value": "이나 "
+        },
+        {
+          "kind": "tag",
+          "tagId": "jasikgung",
+          "label": "자식궁"
+        },
+        {
+          "kind": "text",
+          "value": "의 결을 받쳐 주는 손이 자주 움직이는 자리예요."
+        },
+        {
+          "kind": "text",
+          "value": " 받쳐 주는 결만 이어지면 자기 결이 가장자리로 밀릴 수 있어, 한 달 안에 한 자리는 자기 휴식을 위해 비워 두는 흐름이 좋아요."
+        }
       ],
-      "tags": ["bumyong", "jasikgung"],
+      "tags": [
+        "bumyong",
+        "jasikgung"
+      ],
       "aiGenerated": true,
       "sourceTier": {
         "tier": "T1_HYPOTHESIS",
@@ -196,19 +386,59 @@
     {
       "schemaVersion": "spring-ts.narrative-fragment.v1",
       "fragmentId": "family.thisMonth.expert.aligned_open.007",
-      "axis": { "category": "family", "period": "thisMonth", "depth": "expert", "tone": "expert" },
-      "gating": { "yongshinAlignment": ["aligned"] },
+      "axis": {
+        "category": "family",
+        "period": "thisMonth",
+        "depth": "expert",
+        "tone": "expert"
+      },
+      "gating": {
+        "yongshinAlignment": [
+          "aligned"
+        ]
+      },
       "templateTokens": [
-        { "kind": "text", "value": "월운이 용신과 잘 맞물리는 자리이니, 이번 달은 가까운 결이 부드럽게 풀리는 한 달이에요." },
-        { "kind": "text", "value": " " },
-        { "kind": "tag", "tagId": "bumyong", "label": "부모궁" },
-        { "kind": "text", "value": "·" },
-        { "kind": "tag", "tagId": "jasikgung", "label": "자식궁" },
-        { "kind": "text", "value": "·" },
-        { "kind": "tag", "tagId": "baeujagung", "label": "배우자궁" },
-        { "kind": "text", "value": "이 차례로 부드러워지는 결이라, 한 달 안에 한 사람씩 시간을 내 두면 평생의 자산이 자연스럽게 모여요." }
+        {
+          "kind": "text",
+          "value": "월운이 용신과 잘 맞물리는 자리이니, 이번 달은 가까운 결이 부드럽게 풀리는 한 달이에요."
+        },
+        {
+          "kind": "text",
+          "value": " "
+        },
+        {
+          "kind": "tag",
+          "tagId": "bumyong",
+          "label": "부모궁"
+        },
+        {
+          "kind": "text",
+          "value": "·"
+        },
+        {
+          "kind": "tag",
+          "tagId": "jasikgung",
+          "label": "자식궁"
+        },
+        {
+          "kind": "text",
+          "value": "·"
+        },
+        {
+          "kind": "tag",
+          "tagId": "baeujagung",
+          "label": "배우자궁"
+        },
+        {
+          "kind": "text",
+          "value": "이 차례로 부드러워지는 흐름이라, 한 달 안에 한 사람씩 시간을 내 두면 평생의 자산이 자연스럽게 모여요."
+        }
       ],
-      "tags": ["bumyong", "jasikgung", "baeujagung"],
+      "tags": [
+        "bumyong",
+        "jasikgung",
+        "baeujagung"
+      ],
       "aiGenerated": true,
       "sourceTier": {
         "tier": "T1_HYPOTHESIS",
@@ -224,17 +454,49 @@
     {
       "schemaVersion": "spring-ts.narrative-fragment.v1",
       "fragmentId": "family.thisMonth.expert.conflicting_pause.008",
-      "axis": { "category": "family", "period": "thisMonth", "depth": "expert", "tone": "expert" },
-      "gating": { "yongshinAlignment": ["conflicting"] },
+      "axis": {
+        "category": "family",
+        "period": "thisMonth",
+        "depth": "expert",
+        "tone": "expert"
+      },
+      "gating": {
+        "yongshinAlignment": [
+          "conflicting"
+        ]
+      },
       "templateTokens": [
-        { "kind": "text", "value": "월운이 용신과 부딪히는 결이라, 이번 달 가까운 자리에서 호흡 차이가 보일 수 있어요." },
-        { "kind": "text", "value": " " },
-        { "kind": "tag", "tagId": "bumyong", "label": "부모궁" },
-        { "kind": "text", "value": "·" },
-        { "kind": "tag", "tagId": "jasikgung", "label": "자식궁" },
-        { "kind": "text", "value": "에 큰 결정을 한 달 안에 정리하려 하기보다는, 다음 달의 결과 함께 풀어 가는 흐름이 잘 맞아요." }
+        {
+          "kind": "text",
+          "value": "월운이 용신과 부딪히는 흐름이라, 이번 달 가까운 자리에서 호흡 차이가 보일 수 있어요."
+        },
+        {
+          "kind": "text",
+          "value": " "
+        },
+        {
+          "kind": "tag",
+          "tagId": "bumyong",
+          "label": "부모궁"
+        },
+        {
+          "kind": "text",
+          "value": "·"
+        },
+        {
+          "kind": "tag",
+          "tagId": "jasikgung",
+          "label": "자식궁"
+        },
+        {
+          "kind": "text",
+          "value": "에 큰 결정을 한 달 안에 정리하려 하기보다는, 다음 달의 결과 함께 풀어 가는 흐름이 잘 맞아요."
+        }
       ],
-      "tags": ["bumyong", "jasikgung"],
+      "tags": [
+        "bumyong",
+        "jasikgung"
+      ],
       "aiGenerated": true,
       "sourceTier": {
         "tier": "T1_HYPOTHESIS",
@@ -250,17 +512,50 @@
     {
       "schemaVersion": "spring-ts.narrative-fragment.v1",
       "fragmentId": "family.thisMonth.expert.young_caregiver.009",
-      "axis": { "category": "family", "period": "thisMonth", "depth": "expert", "tone": "expert" },
-      "gating": { "ageBand": ["0-9", "10-19"] },
+      "axis": {
+        "category": "family",
+        "period": "thisMonth",
+        "depth": "expert",
+        "tone": "expert"
+      },
+      "gating": {
+        "ageBand": [
+          "0-9",
+          "10-19"
+        ]
+      },
       "templateTokens": [
-        { "kind": "text", "value": "이 시기엔 월운이 " },
-        { "kind": "tag", "tagId": "bumyong", "label": "부모궁" },
-        { "kind": "text", "value": "·" },
-        { "kind": "tag", "tagId": "jeongin", "label": "정인" },
-        { "kind": "text", "value": "이 가장 가까이 닿아, 한 달의 안정감이 보호자의 호흡과 함께 만들어져요." },
-        { "kind": "text", "value": " 한 달 안의 새로운 경험, 함께한 짧은 외출이 자라나는 시기의 작은 뿌리로 남아요." }
+        {
+          "kind": "text",
+          "value": "이 시기엔 월운이 "
+        },
+        {
+          "kind": "tag",
+          "tagId": "bumyong",
+          "label": "부모궁"
+        },
+        {
+          "kind": "text",
+          "value": "·"
+        },
+        {
+          "kind": "tag",
+          "tagId": "jeongin",
+          "label": "정인"
+        },
+        {
+          "kind": "text",
+          "value": "이 가장 가까이 닿아, 한 달의 안정감이 보호자의 호흡과 함께 만들어져요."
+        },
+        {
+          "kind": "text",
+          "value": " 한 달 안의 새로운 경험, 함께한 짧은 외출이 자라나는 시기의 작은 뿌리로 남아요."
+        }
       ],
-      "tags": ["bumyong", "jeongin"],
+      "tags": [
+        "bumyong",
+        "jeongin"
+      ],
       "aiGenerated": true,
       "sourceTier": {
         "tier": "T1_HYPOTHESIS",
@@ -276,19 +571,60 @@
     {
       "schemaVersion": "spring-ts.narrative-fragment.v1",
       "fragmentId": "family.thisMonth.expert.elder_legacy.010",
-      "axis": { "category": "family", "period": "thisMonth", "depth": "expert", "tone": "expert" },
-      "gating": { "ageBand": ["55-69", "70+"] },
+      "axis": {
+        "category": "family",
+        "period": "thisMonth",
+        "depth": "expert",
+        "tone": "expert"
+      },
+      "gating": {
+        "ageBand": [
+          "55-69",
+          "70+"
+        ]
+      },
       "templateTokens": [
-        { "kind": "text", "value": "후반의 결인 만큼 이번 달의 운은 " },
-        { "kind": "tag", "tagId": "jasikgung", "label": "자식궁" },
-        { "kind": "text", "value": "·" },
-        { "kind": "tag", "tagId": "hourPillar", "label": "시주" },
-        { "kind": "text", "value": "의 호흡으로 비춰지는 자리예요." },
-        { "kind": "text", "value": " 다음 세대와 같이 시간을 보내는 한 달의 자리, " },
-        { "kind": "tag", "tagId": "jojangung", "label": "조상궁" },
-        { "kind": "text", "value": "에서 출발한 가풍의 작은 결을 한 줄 메모해 두는 자리만으로도 따뜻한 자산이 모이는 흐름이에요." }
+        {
+          "kind": "text",
+          "value": "후반의 결인 만큼 이번 달의 운은 "
+        },
+        {
+          "kind": "tag",
+          "tagId": "jasikgung",
+          "label": "자식궁"
+        },
+        {
+          "kind": "text",
+          "value": "·"
+        },
+        {
+          "kind": "tag",
+          "tagId": "hourPillar",
+          "label": "시주"
+        },
+        {
+          "kind": "text",
+          "value": "의 호흡으로 비춰지는 자리예요."
+        },
+        {
+          "kind": "text",
+          "value": " 다음 세대와 같이 시간을 보내는 한 달의 자리, "
+        },
+        {
+          "kind": "tag",
+          "tagId": "jojangung",
+          "label": "조상궁"
+        },
+        {
+          "kind": "text",
+          "value": "에서 출발한 가풍의 작은 결을 한 줄 메모해 두는 자리만으로도 따뜻한 자산이 모이는 흐름이에요."
+        }
       ],
-      "tags": ["jasikgung", "hourPillar", "jojangung"],
+      "tags": [
+        "jasikgung",
+        "hourPillar",
+        "jojangung"
+      ],
       "aiGenerated": true,
       "sourceTier": {
         "tier": "T1_HYPOTHESIS",

@@ -8,10 +8,17 @@
     {
       "schemaVersion": "spring-ts.narrative-fragment.v1",
       "fragmentId": "movement.thisYear.brief.wildcard.001",
-      "axis": { "category": "movement", "period": "thisYear", "depth": "brief" },
+      "axis": {
+        "category": "movement",
+        "period": "thisYear",
+        "depth": "brief"
+      },
       "gating": {},
       "templateTokens": [
-        { "kind": "text", "value": "올해는 새 환경의 문이 한 번 크게 열리는 해예요." }
+        {
+          "kind": "text",
+          "value": "올해는 새 환경의 문이 한 번 크게 열리는 해예요."
+        }
       ],
       "tags": [],
       "aiGenerated": true,
@@ -29,10 +36,21 @@
     {
       "schemaVersion": "spring-ts.narrative-fragment.v1",
       "fragmentId": "movement.thisYear.brief.0_9.002",
-      "axis": { "category": "movement", "period": "thisYear", "depth": "brief" },
-      "gating": { "ageBand": ["0-9"] },
+      "axis": {
+        "category": "movement",
+        "period": "thisYear",
+        "depth": "brief"
+      },
+      "gating": {
+        "ageBand": [
+          "0-9"
+        ]
+      },
       "templateTokens": [
-        { "kind": "text", "value": "올해 아이는 새 자리에서 자라는 모습이 또렷해져요." }
+        {
+          "kind": "text",
+          "value": "올해 아이는 새 자리에서 자라는 모습이 또렷해져요."
+        }
       ],
       "tags": [],
       "aiGenerated": true,
@@ -50,10 +68,21 @@
     {
       "schemaVersion": "spring-ts.narrative-fragment.v1",
       "fragmentId": "movement.thisYear.brief.10_19.003",
-      "axis": { "category": "movement", "period": "thisYear", "depth": "brief" },
-      "gating": { "ageBand": ["10-19"] },
+      "axis": {
+        "category": "movement",
+        "period": "thisYear",
+        "depth": "brief"
+      },
+      "gating": {
+        "ageBand": [
+          "10-19"
+        ]
+      },
       "templateTokens": [
-        { "kind": "text", "value": "올해는 여행·체험으로 시야가 넓어지는 한 해예요." }
+        {
+          "kind": "text",
+          "value": "올해는 여행·체험으로 시야가 넓어지는 한 해예요."
+        }
       ],
       "tags": [],
       "aiGenerated": true,
@@ -71,10 +100,21 @@
     {
       "schemaVersion": "spring-ts.narrative-fragment.v1",
       "fragmentId": "movement.thisYear.brief.20_29.004",
-      "axis": { "category": "movement", "period": "thisYear", "depth": "brief" },
-      "gating": { "ageBand": ["20-29"] },
+      "axis": {
+        "category": "movement",
+        "period": "thisYear",
+        "depth": "brief"
+      },
+      "gating": {
+        "ageBand": [
+          "20-29"
+        ]
+      },
       "templateTokens": [
-        { "kind": "text", "value": "올해는 새 자리에서 자기 길이 트이는 한 해예요." }
+        {
+          "kind": "text",
+          "value": "올해는 새 자리에서 자기 길이 트이는 한 해예요."
+        }
       ],
       "tags": [],
       "aiGenerated": true,
@@ -92,10 +132,21 @@
     {
       "schemaVersion": "spring-ts.narrative-fragment.v1",
       "fragmentId": "movement.thisYear.brief.30_39.005",
-      "axis": { "category": "movement", "period": "thisYear", "depth": "brief" },
-      "gating": { "ageBand": ["30-39"] },
+      "axis": {
+        "category": "movement",
+        "period": "thisYear",
+        "depth": "brief"
+      },
+      "gating": {
+        "ageBand": [
+          "30-39"
+        ]
+      },
       "templateTokens": [
-        { "kind": "text", "value": "올해는 이사·이직 자리가 한 번 크게 열리는 해예요." }
+        {
+          "kind": "text",
+          "value": "올해는 이사·이직 자리가 한 번 크게 열리는 해예요."
+        }
       ],
       "tags": [],
       "aiGenerated": true,
@@ -113,10 +164,21 @@
     {
       "schemaVersion": "spring-ts.narrative-fragment.v1",
       "fragmentId": "movement.thisYear.brief.40_54.006",
-      "axis": { "category": "movement", "period": "thisYear", "depth": "brief" },
-      "gating": { "ageBand": ["40-54"] },
+      "axis": {
+        "category": "movement",
+        "period": "thisYear",
+        "depth": "brief"
+      },
+      "gating": {
+        "ageBand": [
+          "40-54"
+        ]
+      },
       "templateTokens": [
-        { "kind": "text", "value": "올해는 출장·해외 자리가 자주 만들어지는 한 해예요." }
+        {
+          "kind": "text",
+          "value": "올해는 출장·해외 자리가 자주 만들어지는 한 해예요."
+        }
       ],
       "tags": [],
       "aiGenerated": true,
@@ -134,10 +196,21 @@
     {
       "schemaVersion": "spring-ts.narrative-fragment.v1",
       "fragmentId": "movement.thisYear.brief.55_69.007",
-      "axis": { "category": "movement", "period": "thisYear", "depth": "brief" },
-      "gating": { "ageBand": ["55-69"] },
+      "axis": {
+        "category": "movement",
+        "period": "thisYear",
+        "depth": "brief"
+      },
+      "gating": {
+        "ageBand": [
+          "55-69"
+        ]
+      },
       "templateTokens": [
-        { "kind": "text", "value": "올해는 정리와 새 자리 사이에서 한 번 움직여 볼 시기예요." }
+        {
+          "kind": "text",
+          "value": "올해는 정리와 새 자리 사이에서 한 번 움직여 볼 시기예요."
+        }
       ],
       "tags": [],
       "aiGenerated": true,
@@ -155,10 +228,21 @@
     {
       "schemaVersion": "spring-ts.narrative-fragment.v1",
       "fragmentId": "movement.thisYear.brief.70plus.008",
-      "axis": { "category": "movement", "period": "thisYear", "depth": "brief" },
-      "gating": { "ageBand": ["70+"] },
+      "axis": {
+        "category": "movement",
+        "period": "thisYear",
+        "depth": "brief"
+      },
+      "gating": {
+        "ageBand": [
+          "70+"
+        ]
+      },
       "templateTokens": [
-        { "kind": "text", "value": "올해는 가까운 여행과 머무름의 자리가 함께해요." }
+        {
+          "kind": "text",
+          "value": "올해는 가까운 여행과 머무름의 자리가 함께해요."
+        }
       ],
       "tags": [],
       "aiGenerated": true,
@@ -176,10 +260,24 @@
     {
       "schemaVersion": "spring-ts.narrative-fragment.v1",
       "fragmentId": "movement.thisYear.brief.strong_aligned.009",
-      "axis": { "category": "movement", "period": "thisYear", "depth": "brief" },
-      "gating": { "dayMasterStrength": ["STRONG"], "yongshinAlignment": ["aligned"] },
+      "axis": {
+        "category": "movement",
+        "period": "thisYear",
+        "depth": "brief"
+      },
+      "gating": {
+        "dayMasterStrength": [
+          "STRONG"
+        ],
+        "yongshinAlignment": [
+          "aligned"
+        ]
+      },
       "templateTokens": [
-        { "kind": "text", "value": "올해는 흐름을 타고 새 자리가 시원하게 열려요." }
+        {
+          "kind": "text",
+          "value": "올해는 흐름을 타고 새 자리가 시원하게 열려요."
+        }
       ],
       "tags": [],
       "aiGenerated": true,
@@ -197,10 +295,24 @@
     {
       "schemaVersion": "spring-ts.narrative-fragment.v1",
       "fragmentId": "movement.thisYear.brief.weak_neutral.010",
-      "axis": { "category": "movement", "period": "thisYear", "depth": "brief" },
-      "gating": { "dayMasterStrength": ["WEAK"], "yongshinAlignment": ["neutral"] },
+      "axis": {
+        "category": "movement",
+        "period": "thisYear",
+        "depth": "brief"
+      },
+      "gating": {
+        "dayMasterStrength": [
+          "WEAK"
+        ],
+        "yongshinAlignment": [
+          "neutral"
+        ]
+      },
       "templateTokens": [
-        { "kind": "text", "value": "올해는 익숙한 자리에서 한 발짝씩 넓혀 가는 결이에요." }
+        {
+          "kind": "text",
+          "value": "올해는 익숙한 자리에서 한 발짝씩 넓혀 가는 흐름이에요."
+        }
       ],
       "tags": [],
       "aiGenerated": true,

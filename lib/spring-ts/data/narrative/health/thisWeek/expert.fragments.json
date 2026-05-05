@@ -195,7 +195,7 @@
       "templateTokens": [
         {
           "kind": "text",
-          "value": "이번 주 일간은 가벼운 결이라, "
+          "value": "이번 주 일간은 가벼운 흐름이라, "
         },
         {
           "kind": "tag",
@@ -248,7 +248,7 @@
       "templateTokens": [
         {
           "kind": "text",
-          "value": "이번 주는 일간이 고른 자리에서 흘러가는 결이라 "
+          "value": "이번 주는 일간이 고른 자리에서 흘러가는 흐름이라 "
         },
         {
           "kind": "tag",
@@ -311,7 +311,7 @@
       "templateTokens": [
         {
           "kind": "text",
-          "value": "이번 주는 흐름이 어긋나는 결이라 "
+          "value": "이번 주는 흐름이 어긋나는 흐름이라 "
         },
         {
           "kind": "tag",
@@ -364,7 +364,7 @@
       "templateTokens": [
         {
           "kind": "text",
-          "value": "이번 주 흐름은 잘 맞는 결이라 "
+          "value": "이번 주 흐름은 잘 맞는 흐름이라 "
         },
         {
           "kind": "tag",
@@ -499,7 +499,7 @@
         },
         {
           "kind": "text",
-          "value": "의 결이라 깊이 가라앉기 쉬운 자리예요. "
+          "value": "의 흐름이라 깊이 가라앉기 쉬운 자리예요. "
         },
         {
           "kind": "tag",

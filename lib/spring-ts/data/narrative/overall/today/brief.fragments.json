@@ -7,16 +7,26 @@
     {
       "schemaVersion": "spring-ts.narrative-fragment.v1",
       "fragmentId": "overall.today.brief.wildcard.001",
-      "axis": { "category": "overall", "period": "today", "depth": "brief" },
+      "axis": {
+        "category": "overall",
+        "period": "today",
+        "depth": "brief"
+      },
       "gating": {},
       "templateTokens": [
-        { "kind": "text", "value": "오늘 하루 결이 잔잔하게 잘 흘러요." }
+        {
+          "kind": "text",
+          "value": "오늘 하루 결이 잔잔하게 잘 흘러요."
+        }
       ],
       "tags": [],
       "aiGenerated": true,
       "sourceTier": {
-        "tier": "T1_HYPOTHESIS", "sourceType": "training_derived", "sourceUrl": null,
-        "accessedAt": "2026-05-02", "quoteShort": null,
+        "tier": "T1_HYPOTHESIS",
+        "sourceType": "training_derived",
+        "sourceUrl": null,
+        "accessedAt": "2026-05-02",
+        "quoteShort": null,
         "humanInterpretation": "Phase 2 overall fragment, agent-15.",
         "copyrightNote": "No source prose copied; original.",
         "authorityTruthEligible": false
@@ -25,19 +35,33 @@
     {
       "schemaVersion": "spring-ts.narrative-fragment.v1",
       "fragmentId": "overall.today.brief.extreme_strong.aligned.002",
-      "axis": { "category": "overall", "period": "today", "depth": "brief" },
+      "axis": {
+        "category": "overall",
+        "period": "today",
+        "depth": "brief"
+      },
       "gating": {
-        "dayMasterStrength": ["EXTREME_STRONG"],
-        "yongshinAlignment": ["aligned"]
+        "dayMasterStrength": [
+          "EXTREME_STRONG"
+        ],
+        "yongshinAlignment": [
+          "aligned"
+        ]
       },
       "templateTokens": [
-        { "kind": "text", "value": "기운이 또렷한 하루라, 마음먹은 일이 잘 잡혀가요." }
+        {
+          "kind": "text",
+          "value": "기운이 또렷한 하루라, 마음먹은 일이 잘 잡혀가요."
+        }
       ],
       "tags": [],
       "aiGenerated": true,
       "sourceTier": {
-        "tier": "T1_HYPOTHESIS", "sourceType": "training_derived", "sourceUrl": null,
-        "accessedAt": "2026-05-02", "quoteShort": null,
+        "tier": "T1_HYPOTHESIS",
+        "sourceType": "training_derived",
+        "sourceUrl": null,
+        "accessedAt": "2026-05-02",
+        "quoteShort": null,
         "humanInterpretation": "Phase 2 overall fragment, agent-15.",
         "copyrightNote": "No source prose copied; original.",
         "authorityTruthEligible": false
@@ -46,19 +70,33 @@
     {
       "schemaVersion": "spring-ts.narrative-fragment.v1",
       "fragmentId": "overall.today.brief.strong.aligned.003",
-      "axis": { "category": "overall", "period": "today", "depth": "brief" },
+      "axis": {
+        "category": "overall",
+        "period": "today",
+        "depth": "brief"
+      },
       "gating": {
-        "dayMasterStrength": ["STRONG"],
-        "yongshinAlignment": ["aligned"]
+        "dayMasterStrength": [
+          "STRONG"
+        ],
+        "yongshinAlignment": [
+          "aligned"
+        ]
       },
       "templateTokens": [
-        { "kind": "text", "value": "오늘 결이 단단해서, 한 가지를 끝까지 끌고 가기 좋아요." }
+        {
+          "kind": "text",
+          "value": "오늘 리듬이 단단해서, 한 가지를 끝까지 끌고 가기 좋아요."
+        }
       ],
       "tags": [],
       "aiGenerated": true,
       "sourceTier": {
-        "tier": "T1_HYPOTHESIS", "sourceType": "training_derived", "sourceUrl": null,
-        "accessedAt": "2026-05-02", "quoteShort": null,
+        "tier": "T1_HYPOTHESIS",
+        "sourceType": "training_derived",
+        "sourceUrl": null,
+        "accessedAt": "2026-05-02",
+        "quoteShort": null,
         "humanInterpretation": "Phase 2 overall fragment, agent-15.",
         "copyrightNote": "No source prose copied; original.",
         "authorityTruthEligible": false
@@ -67,21 +105,39 @@
     {
       "schemaVersion": "spring-ts.narrative-fragment.v1",
       "fragmentId": "overall.today.brief.strong.aligned.male.age30_39.004",
-      "axis": { "category": "overall", "period": "today", "depth": "brief" },
+      "axis": {
+        "category": "overall",
+        "period": "today",
+        "depth": "brief"
+      },
       "gating": {
-        "gender": ["male"],
-        "ageBand": ["30-39"],
-        "dayMasterStrength": ["STRONG"],
-        "yongshinAlignment": ["aligned"]
+        "gender": [
+          "male"
+        ],
+        "ageBand": [
+          "30-39"
+        ],
+        "dayMasterStrength": [
+          "STRONG"
+        ],
+        "yongshinAlignment": [
+          "aligned"
+        ]
       },
       "templateTokens": [
-        { "kind": "text", "value": "오늘은 결정 자리에서 흐름이 잘 풀리는 리듬이에요." }
+        {
+          "kind": "text",
+          "value": "오늘은 결정 자리에서 흐름이 잘 풀리는 리듬이에요."
+        }
       ],
       "tags": [],
       "aiGenerated": true,
       "sourceTier": {
-        "tier": "T1_HYPOTHESIS", "sourceType": "training_derived", "sourceUrl": null,
-        "accessedAt": "2026-05-02", "quoteShort": null,
+        "tier": "T1_HYPOTHESIS",
+        "sourceType": "training_derived",
+        "sourceUrl": null,
+        "accessedAt": "2026-05-02",
+        "quoteShort": null,
         "humanInterpretation": "Phase 2 overall fragment, agent-15.",
         "copyrightNote": "No source prose copied; original.",
         "authorityTruthEligible": false
@@ -90,19 +146,33 @@
     {
       "schemaVersion": "spring-ts.narrative-fragment.v1",
       "fragmentId": "overall.today.brief.strong.neutral.005",
-      "axis": { "category": "overall", "period": "today", "depth": "brief" },
+      "axis": {
+        "category": "overall",
+        "period": "today",
+        "depth": "brief"
+      },
       "gating": {
-        "dayMasterStrength": ["STRONG"],
-        "yongshinAlignment": ["neutral"]
+        "dayMasterStrength": [
+          "STRONG"
+        ],
+        "yongshinAlignment": [
+          "neutral"
+        ]
       },
       "templateTokens": [
-        { "kind": "text", "value": "기운은 충분해도, 한 박자 늦추면 더 또렷해져요." }
+        {
+          "kind": "text",
+          "value": "기운은 충분해도, 한 박자 늦추면 더 또렷해져요."
+        }
       ],
       "tags": [],
       "aiGenerated": true,
       "sourceTier": {
-        "tier": "T1_HYPOTHESIS", "sourceType": "training_derived", "sourceUrl": null,
-        "accessedAt": "2026-05-02", "quoteShort": null,
+        "tier": "T1_HYPOTHESIS",
+        "sourceType": "training_derived",
+        "sourceUrl": null,
+        "accessedAt": "2026-05-02",
+        "quoteShort": null,
         "humanInterpretation": "Phase 2 overall fragment, agent-15.",
         "copyrightNote": "No source prose copied; original.",
         "authorityTruthEligible": false
@@ -111,19 +181,33 @@
     {
       "schemaVersion": "spring-ts.narrative-fragment.v1",
       "fragmentId": "overall.today.brief.balanced.aligned.006",
-      "axis": { "category": "overall", "period": "today", "depth": "brief" },
+      "axis": {
+        "category": "overall",
+        "period": "today",
+        "depth": "brief"
+      },
       "gating": {
-        "dayMasterStrength": ["BALANCED"],
-        "yongshinAlignment": ["aligned"]
+        "dayMasterStrength": [
+          "BALANCED"
+        ],
+        "yongshinAlignment": [
+          "aligned"
+        ]
       },
       "templateTokens": [
-        { "kind": "text", "value": "고른 하루라, 익숙한 결을 지키면 충분해요." }
+        {
+          "kind": "text",
+          "value": "고른 하루라, 익숙한 결을 지키면 충분해요."
+        }
       ],
       "tags": [],
       "aiGenerated": true,
       "sourceTier": {
-        "tier": "T1_HYPOTHESIS", "sourceType": "training_derived", "sourceUrl": null,
-        "accessedAt": "2026-05-02", "quoteShort": null,
+        "tier": "T1_HYPOTHESIS",
+        "sourceType": "training_derived",
+        "sourceUrl": null,
+        "accessedAt": "2026-05-02",
+        "quoteShort": null,
         "humanInterpretation": "Phase 2 overall fragment, agent-15.",
         "copyrightNote": "No source prose copied; original.",
         "authorityTruthEligible": false
@@ -132,21 +216,39 @@
     {
       "schemaVersion": "spring-ts.narrative-fragment.v1",
       "fragmentId": "overall.today.brief.balanced.aligned.female.age20_29.007",
-      "axis": { "category": "overall", "period": "today", "depth": "brief" },
+      "axis": {
+        "category": "overall",
+        "period": "today",
+        "depth": "brief"
+      },
       "gating": {
-        "gender": ["female"],
-        "ageBand": ["20-29"],
-        "dayMasterStrength": ["BALANCED"],
-        "yongshinAlignment": ["aligned"]
+        "gender": [
+          "female"
+        ],
+        "ageBand": [
+          "20-29"
+        ],
+        "dayMasterStrength": [
+          "BALANCED"
+        ],
+        "yongshinAlignment": [
+          "aligned"
+        ]
       },
       "templateTokens": [
-        { "kind": "text", "value": "오늘 한 가지 작은 시도가 좋게 풀리는 시기예요." }
+        {
+          "kind": "text",
+          "value": "오늘 한 가지 작은 시도가 좋게 풀리는 시기예요."
+        }
       ],
       "tags": [],
       "aiGenerated": true,
       "sourceTier": {
-        "tier": "T1_HYPOTHESIS", "sourceType": "training_derived", "sourceUrl": null,
-        "accessedAt": "2026-05-02", "quoteShort": null,
+        "tier": "T1_HYPOTHESIS",
+        "sourceType": "training_derived",
+        "sourceUrl": null,
+        "accessedAt": "2026-05-02",
+        "quoteShort": null,
         "humanInterpretation": "Phase 2 overall fragment, agent-15.",
         "copyrightNote": "No source prose copied; original.",
         "authorityTruthEligible": false
@@ -155,19 +257,33 @@
     {
       "schemaVersion": "spring-ts.narrative-fragment.v1",
       "fragmentId": "overall.today.brief.balanced.neutral.008",
-      "axis": { "category": "overall", "period": "today", "depth": "brief" },
+      "axis": {
+        "category": "overall",
+        "period": "today",
+        "depth": "brief"
+      },
       "gating": {
-        "dayMasterStrength": ["BALANCED"],
-        "yongshinAlignment": ["neutral"]
+        "dayMasterStrength": [
+          "BALANCED"
+        ],
+        "yongshinAlignment": [
+          "neutral"
+        ]
       },
       "templateTokens": [
-        { "kind": "text", "value": "특별한 일 없이 잔잔하게 마무리되는 하루예요." }
+        {
+          "kind": "text",
+          "value": "특별한 일 없이 잔잔하게 마무리되는 하루예요."
+        }
       ],
       "tags": [],
       "aiGenerated": true,
       "sourceTier": {
-        "tier": "T1_HYPOTHESIS", "sourceType": "training_derived", "sourceUrl": null,
-        "accessedAt": "2026-05-02", "quoteShort": null,
+        "tier": "T1_HYPOTHESIS",
+        "sourceType": "training_derived",
+        "sourceUrl": null,
+        "accessedAt": "2026-05-02",
+        "quoteShort": null,
         "humanInterpretation": "Phase 2 overall fragment, agent-15.",
         "copyrightNote": "No source prose copied; original.",
         "authorityTruthEligible": false
@@ -176,19 +292,33 @@
     {
       "schemaVersion": "spring-ts.narrative-fragment.v1",
       "fragmentId": "overall.today.brief.balanced.conflicting.009",
-      "axis": { "category": "overall", "period": "today", "depth": "brief" },
+      "axis": {
+        "category": "overall",
+        "period": "today",
+        "depth": "brief"
+      },
       "gating": {
-        "dayMasterStrength": ["BALANCED"],
-        "yongshinAlignment": ["conflicting"]
+        "dayMasterStrength": [
+          "BALANCED"
+        ],
+        "yongshinAlignment": [
+          "conflicting"
+        ]
       },
       "templateTokens": [
-        { "kind": "text", "value": "결이 한 번 갈리는 자리, 작은 결정만 골라 봐요." }
+        {
+          "kind": "text",
+          "value": "결이 한 번 갈리는 자리, 작은 결정만 골라 봐요."
+        }
       ],
       "tags": [],
       "aiGenerated": true,
       "sourceTier": {
-        "tier": "T1_HYPOTHESIS", "sourceType": "training_derived", "sourceUrl": null,
-        "accessedAt": "2026-05-02", "quoteShort": null,
+        "tier": "T1_HYPOTHESIS",
+        "sourceType": "training_derived",
+        "sourceUrl": null,
+        "accessedAt": "2026-05-02",
+        "quoteShort": null,
         "humanInterpretation": "Phase 2 overall fragment, agent-15.",
         "copyrightNote": "No source prose copied; original.",
         "authorityTruthEligible": false
@@ -197,19 +327,33 @@
     {
       "schemaVersion": "spring-ts.narrative-fragment.v1",
       "fragmentId": "overall.today.brief.weak.aligned.010",
-      "axis": { "category": "overall", "period": "today", "depth": "brief" },
+      "axis": {
+        "category": "overall",
+        "period": "today",
+        "depth": "brief"
+      },
       "gating": {
-        "dayMasterStrength": ["WEAK"],
-        "yongshinAlignment": ["aligned"]
+        "dayMasterStrength": [
+          "WEAK"
+        ],
+        "yongshinAlignment": [
+          "aligned"
+        ]
       },
       "templateTokens": [
-        { "kind": "text", "value": "주변의 도움이 잘 와닿는 하루예요." }
+        {
+          "kind": "text",
+          "value": "주변의 도움이 잘 와닿는 하루예요."
+        }
       ],
       "tags": [],
       "aiGenerated": true,
       "sourceTier": {
-        "tier": "T1_HYPOTHESIS", "sourceType": "training_derived", "sourceUrl": null,
-        "accessedAt": "2026-05-02", "quoteShort": null,
+        "tier": "T1_HYPOTHESIS",
+        "sourceType": "training_derived",
+        "sourceUrl": null,
+        "accessedAt": "2026-05-02",
+        "quoteShort": null,
         "humanInterpretation": "Phase 2 overall fragment, agent-15.",
         "copyrightNote": "No source prose copied; original.",
         "authorityTruthEligible": false
@@ -218,20 +362,36 @@
     {
       "schemaVersion": "spring-ts.narrative-fragment.v1",
       "fragmentId": "overall.today.brief.weak.neutral.age40_54.011",
-      "axis": { "category": "overall", "period": "today", "depth": "brief" },
+      "axis": {
+        "category": "overall",
+        "period": "today",
+        "depth": "brief"
+      },
       "gating": {
-        "ageBand": ["40-54"],
-        "dayMasterStrength": ["WEAK"],
-        "yongshinAlignment": ["neutral"]
+        "ageBand": [
+          "40-54"
+        ],
+        "dayMasterStrength": [
+          "WEAK"
+        ],
+        "yongshinAlignment": [
+          "neutral"
+        ]
       },
       "templateTokens": [
-        { "kind": "text", "value": "느린 결이라, 휴식 한 박자가 큰 자산이 돼요." }
+        {
+          "kind": "text",
+          "value": "느린 흐름이라, 휴식 한 박자가 큰 자산이 돼요."
+        }
       ],
       "tags": [],
       "aiGenerated": true,
       "sourceTier": {
-        "tier": "T1_HYPOTHESIS", "sourceType": "training_derived", "sourceUrl": null,
-        "accessedAt": "2026-05-02", "quoteShort": null,
+        "tier": "T1_HYPOTHESIS",
+        "sourceType": "training_derived",
+        "sourceUrl": null,
+        "accessedAt": "2026-05-02",
+        "quoteShort": null,
         "humanInterpretation": "Phase 2 overall fragment, agent-15.",
         "copyrightNote": "No source prose copied; original.",
         "authorityTruthEligible": false
@@ -240,19 +400,33 @@
     {
       "schemaVersion": "spring-ts.narrative-fragment.v1",
       "fragmentId": "overall.today.brief.extreme_weak.conflicting.012",
-      "axis": { "category": "overall", "period": "today", "depth": "brief" },
+      "axis": {
+        "category": "overall",
+        "period": "today",
+        "depth": "brief"
+      },
       "gating": {
-        "dayMasterStrength": ["EXTREME_WEAK"],
-        "yongshinAlignment": ["conflicting"]
+        "dayMasterStrength": [
+          "EXTREME_WEAK"
+        ],
+        "yongshinAlignment": [
+          "conflicting"
+        ]
       },
       "templateTokens": [
-        { "kind": "text", "value": "큰 결정만 살짝 미루면, 하루가 한결 가벼워져요." }
+        {
+          "kind": "text",
+          "value": "큰 결정만 살짝 미루면, 하루가 한결 가벼워져요."
+        }
       ],
       "tags": [],
       "aiGenerated": true,
       "sourceTier": {
-        "tier": "T1_HYPOTHESIS", "sourceType": "training_derived", "sourceUrl": null,
-        "accessedAt": "2026-05-02", "quoteShort": null,
+        "tier": "T1_HYPOTHESIS",
+        "sourceType": "training_derived",
+        "sourceUrl": null,
+        "accessedAt": "2026-05-02",
+        "quoteShort": null,
         "humanInterpretation": "Phase 2 overall fragment, agent-15.",
         "copyrightNote": "No source prose copied; original.",
         "authorityTruthEligible": false

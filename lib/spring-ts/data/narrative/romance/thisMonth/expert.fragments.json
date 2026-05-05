@@ -6,24 +6,86 @@
     {
       "schemaVersion": "spring-ts.narrative-fragment.v1",
       "fragmentId": "romance.thisMonth.expert.adult.001",
-      "axis": { "category": "romance", "period": "thisMonth", "depth": "expert" },
-      "gating": { "ageBand": ["20-29", "30-39", "40-54", "55-69", "70+"] },
+      "axis": {
+        "category": "romance",
+        "period": "thisMonth",
+        "depth": "expert"
+      },
+      "gating": {
+        "ageBand": [
+          "20-29",
+          "30-39",
+          "40-54",
+          "55-69",
+          "70+"
+        ]
+      },
       "templateTokens": [
-        { "kind": "text", "value": "이번 달의 인연 결은 " },
-        { "kind": "tag", "tagId": "baeujagung", "label": "배우자궁" },
-        { "kind": "text", "value": "의 자리에 한 달의 길이만큼 잔잔한 빛이 비치는 흐름이에요. 큰 사건이 들어오는 시기보다는 일상 속 작은 결이 자산으로 쌓이는 시간이에요." },
-        { "kind": "text", "value": " 표현 기운인 " },
-        { "kind": "tag", "tagId": "sikshin", "label": "식신" },
-        { "kind": "text", "value": "의 기운이 살아 있으면 한 달 동안 따뜻한 한마디가 자주 흘러가고, 매력 신호인 " },
-        { "kind": "tag", "tagId": "dohwa", "label": "도화" },
-        { "kind": "text", "value": "와 " },
-        { "kind": "tag", "tagId": "hongyeom", "label": "홍염" },
-        { "kind": "text", "value": "이 비치면 사람들이 모이는 자리가 한 달에 한두 번 자연스럽게 만들어져요." },
-        { "kind": "text", "value": " 책임 기운인 " },
-        { "kind": "tag", "tagId": "jeonggwan", "label": "정관" },
-        { "kind": "text", "value": "을 함께 챙기면 약속·신뢰의 결이 단단해지고, 갈등의 신호가 들어와도 한 달 안에서 자연스럽게 풀리는 흐름이에요. 큰 결정보다 일상의 결을 다듬는 자리로 한 달을 보내면 잘 어울려요." }
+        {
+          "kind": "text",
+          "value": "이번 달의 인연 결은 "
+        },
+        {
+          "kind": "tag",
+          "tagId": "baeujagung",
+          "label": "배우자궁"
+        },
+        {
+          "kind": "text",
+          "value": "의 자리에 한 달의 길이만큼 잔잔한 빛이 비치는 흐름이에요. 큰 사건이 들어오는 시기보다는 일상 속 작은 결이 자산으로 쌓이는 시간이에요."
+        },
+        {
+          "kind": "text",
+          "value": " 표현 기운인 "
+        },
+        {
+          "kind": "tag",
+          "tagId": "sikshin",
+          "label": "식신"
+        },
+        {
+          "kind": "text",
+          "value": "의 기운이 살아 있으면 한 달 동안 따뜻한 한마디가 자주 흘러가고, 매력 신호인 "
+        },
+        {
+          "kind": "tag",
+          "tagId": "dohwa",
+          "label": "도화"
+        },
+        {
+          "kind": "text",
+          "value": "와 "
+        },
+        {
+          "kind": "tag",
+          "tagId": "hongyeom",
+          "label": "홍염"
+        },
+        {
+          "kind": "text",
+          "value": "이 비치면 사람들이 모이는 자리가 한 달에 한두 번 자연스럽게 만들어져요."
+        },
+        {
+          "kind": "text",
+          "value": " 책임 기운인 "
+        },
+        {
+          "kind": "tag",
+          "tagId": "jeonggwan",
+          "label": "정관"
+        },
+        {
+          "kind": "text",
+          "value": "을 함께 챙기면 약속·신뢰의 리듬이 단단해지고, 갈등의 신호가 들어와도 한 달 안에서 자연스럽게 풀리는 흐름이에요. 큰 결정보다 일상의 결을 다듬는 자리로 한 달을 보내면 잘 어울려요."
+        }
       ],
-      "tags": ["baeujagung", "sikshin", "dohwa", "hongyeom", "jeonggwan"],
+      "tags": [
+        "baeujagung",
+        "sikshin",
+        "dohwa",
+        "hongyeom",
+        "jeonggwan"
+      ],
       "numericalEvidence": [
         {
           "label": "현재 나이",
@@ -71,20 +133,62 @@
     {
       "schemaVersion": "spring-ts.narrative-fragment.v1",
       "fragmentId": "romance.thisMonth.expert.teen.001",
-      "axis": { "category": "romance", "period": "thisMonth", "depth": "expert" },
-      "gating": { "ageBand": ["10-19"] },
+      "axis": {
+        "category": "romance",
+        "period": "thisMonth",
+        "depth": "expert"
+      },
+      "gating": {
+        "ageBand": [
+          "10-19"
+        ]
+      },
       "templateTokens": [
-        { "kind": "text", "value": "이번 달 또래·친구 관계는 " },
-        { "kind": "tag", "tagId": "sikshin", "label": "식신" },
-        { "kind": "text", "value": "과 " },
-        { "kind": "tag", "tagId": "sanggwan", "label": "상관" },
-        { "kind": "text", "value": "의 기운으로 한 달 내내 자라요. 발표·창작·동아리·시험 같은 활동에서 자기 색이 또렷해지고, 친구 사이의 신뢰가 한 단계 단단해지는 모습이에요." },
-        { "kind": "text", "value": " 매력 신호인 " },
-        { "kind": "tag", "tagId": "dohwa", "label": "도화" },
-        { "kind": "text", "value": "가 살짝 비치면 사람들이 모이는 곳에 시선이 한 번씩 모이지만, 그 빛에 들떠 큰 결심을 내리지 않아도 좋아요." },
-        { "kind": "text", "value": " 한 달 동안 다양한 친구 관계를 경험해 두는 일이 가장 큰 자산이에요. 짝과 관련한 결정은 한참 뒤의 이야기로 두고, 자기다움을 다듬는 시간으로 한 달을 보내면 잘 어울려요." }
+        {
+          "kind": "text",
+          "value": "이번 달 또래·친구 관계는 "
+        },
+        {
+          "kind": "tag",
+          "tagId": "sikshin",
+          "label": "식신"
+        },
+        {
+          "kind": "text",
+          "value": "과 "
+        },
+        {
+          "kind": "tag",
+          "tagId": "sanggwan",
+          "label": "상관"
+        },
+        {
+          "kind": "text",
+          "value": "의 기운으로 한 달 내내 자라요. 발표·창작·동아리·시험 같은 활동에서 자기 색이 또렷해지고, 친구 사이의 신뢰가 한 단계 단단해지는 모습이에요."
+        },
+        {
+          "kind": "text",
+          "value": " 매력 신호인 "
+        },
+        {
+          "kind": "tag",
+          "tagId": "dohwa",
+          "label": "도화"
+        },
+        {
+          "kind": "text",
+          "value": "가 살짝 비치면 사람들이 모이는 곳에 시선이 한 번씩 모이지만, 그 빛에 들떠 큰 결심을 내리지 않아도 좋아요."
+        },
+        {
+          "kind": "text",
+          "value": " 한 달 동안 다양한 친구 관계를 경험해 두는 일이 가장 큰 자산이에요. 짝과 관련한 결정은 한참 뒤의 이야기로 두고, 자기다움을 다듬는 시간으로 한 달을 보내면 잘 어울려요."
+        }
       ],
-      "tags": ["sikshin", "sanggwan", "dohwa"],
+      "tags": [
+        "sikshin",
+        "sanggwan",
+        "dohwa"
+      ],
       "aiGenerated": true,
       "sourceTier": {
         "tier": "T1_HYPOTHESIS",
@@ -100,25 +204,86 @@
     {
       "schemaVersion": "spring-ts.narrative-fragment.v1",
       "fragmentId": "romance.thisMonth.expert.young_adult.001",
-      "axis": { "category": "romance", "period": "thisMonth", "depth": "expert" },
-      "gating": { "ageBand": ["20-29"] },
+      "axis": {
+        "category": "romance",
+        "period": "thisMonth",
+        "depth": "expert"
+      },
+      "gating": {
+        "ageBand": [
+          "20-29"
+        ]
+      },
       "templateTokens": [
-        { "kind": "text", "value": "이번 달 새 인연이 들어올 자리는 " },
-        { "kind": "tag", "tagId": "baeujagung", "label": "배우자궁" },
-        { "kind": "text", "value": "을 한두 번 두드리는 모양이에요. 모임·소개·우연한 자리에서 처음 만나는 사람과의 대화가 한 달 안에서 자연스럽게 이어지는 흐름이에요." },
-        { "kind": "text", "value": " 이동·새 자리의 기운인 " },
-        { "kind": "tag", "tagId": "yeokma", "label": "역마" },
-        { "kind": "text", "value": "이 함께 살아 있으면 평소와 다른 동선·여행·짧은 출장 같은 자리에서 새 인연의 가능성이 한 번 더 열려요." },
-        { "kind": "text", "value": " " },
-        { "kind": "tag", "tagId": "sikshin", "label": "식신" },
-        { "kind": "text", "value": "의 기운을 살리면 자기다움이 또렷이 보여 매력이 자연스럽게 흘러가요. 매력 신호인 " },
-        { "kind": "tag", "tagId": "dohwa", "label": "도화" },
-        { "kind": "text", "value": "와 " },
-        { "kind": "tag", "tagId": "hongyeom", "label": "홍염" },
-        { "kind": "text", "value": "이 함께 비치면 사람들이 모이는 자리가 한 달에 한두 번 자연스럽게 만들어져요." },
-        { "kind": "text", "value": " 결정의 시기를 못 박지 않아도 한 달 동안 모은 신호만으로 충분해요. 자기 자리를 단단히 가꾸는 마음가짐이 새 인연 자산을 가장 길게 받쳐 주는 토대예요." }
+        {
+          "kind": "text",
+          "value": "이번 달 새 인연이 들어올 자리는 "
+        },
+        {
+          "kind": "tag",
+          "tagId": "baeujagung",
+          "label": "배우자궁"
+        },
+        {
+          "kind": "text",
+          "value": "을 한두 번 두드리는 모양이에요. 모임·소개·우연한 자리에서 처음 만나는 사람과의 대화가 한 달 안에서 자연스럽게 이어지는 흐름이에요."
+        },
+        {
+          "kind": "text",
+          "value": " 이동·새 자리의 기운인 "
+        },
+        {
+          "kind": "tag",
+          "tagId": "yeokma",
+          "label": "역마"
+        },
+        {
+          "kind": "text",
+          "value": "이 함께 살아 있으면 평소와 다른 동선·여행·짧은 출장 같은 자리에서 새 인연의 가능성이 한 번 더 열려요."
+        },
+        {
+          "kind": "text",
+          "value": " "
+        },
+        {
+          "kind": "tag",
+          "tagId": "sikshin",
+          "label": "식신"
+        },
+        {
+          "kind": "text",
+          "value": "의 기운을 살리면 자기다움이 또렷이 보여 매력이 자연스럽게 흘러가요. 매력 신호인 "
+        },
+        {
+          "kind": "tag",
+          "tagId": "dohwa",
+          "label": "도화"
+        },
+        {
+          "kind": "text",
+          "value": "와 "
+        },
+        {
+          "kind": "tag",
+          "tagId": "hongyeom",
+          "label": "홍염"
+        },
+        {
+          "kind": "text",
+          "value": "이 함께 비치면 사람들이 모이는 자리가 한 달에 한두 번 자연스럽게 만들어져요."
+        },
+        {
+          "kind": "text",
+          "value": " 결정의 시기를 못 박지 않아도 한 달 동안 모은 신호만으로 충분해요. 자기 자리를 단단히 가꾸는 마음가짐이 새 인연 자산을 가장 길게 받쳐 주는 토대예요."
+        }
       ],
-      "tags": ["baeujagung", "yeokma", "sikshin", "dohwa", "hongyeom"],
+      "tags": [
+        "baeujagung",
+        "yeokma",
+        "sikshin",
+        "dohwa",
+        "hongyeom"
+      ],
       "aiGenerated": true,
       "sourceTier": {
         "tier": "T1_HYPOTHESIS",
@@ -134,20 +299,66 @@
     {
       "schemaVersion": "spring-ts.narrative-fragment.v1",
       "fragmentId": "romance.thisMonth.expert.midlife.aligned.001",
-      "axis": { "category": "romance", "period": "thisMonth", "depth": "expert" },
-      "gating": { "ageBand": ["30-39", "40-54"], "yongshinAlignment": ["aligned"] },
+      "axis": {
+        "category": "romance",
+        "period": "thisMonth",
+        "depth": "expert"
+      },
+      "gating": {
+        "ageBand": [
+          "30-39",
+          "40-54"
+        ],
+        "yongshinAlignment": [
+          "aligned"
+        ]
+      },
       "templateTokens": [
-        { "kind": "text", "value": "이번 달 곁의 사람과의 결은 " },
-        { "kind": "tag", "tagId": "baeujagung", "label": "배우자궁" },
-        { "kind": "text", "value": "의 자리가 한 달 내내 단단히 받쳐 주는 흐름이에요. " },
-        { "kind": "tag", "tagId": "jeonggwan", "label": "정관" },
-        { "kind": "text", "value": "의 결이 약속·신뢰의 토대를 잡아 주고, " },
-        { "kind": "tag", "tagId": "sikshin", "label": "식신" },
-        { "kind": "text", "value": "의 결이 곁의 사람에게 따뜻한 표현을 더해 줘요." },
-        { "kind": "text", "value": " 일과 관계 사이의 균형이 무너지지 않는 구조라, 한 달 동안 관계 쪽에 작은 정성을 자주 두면 신뢰가 한 단계 단단해져요. 갈등의 신호가 한두 번 보여도 길게 끌지 않으면 자연스럽게 회복되니, 무리한 단정은 멀리 두면 좋아요." },
-        { "kind": "text", "value": " 한 달의 끝에 곁의 사람에게 짧은 감사의 한 줄을 남기면, 다음 달의 결이 더 부드러워져요." }
+        {
+          "kind": "text",
+          "value": "이번 달 곁의 사람과의 결은 "
+        },
+        {
+          "kind": "tag",
+          "tagId": "baeujagung",
+          "label": "배우자궁"
+        },
+        {
+          "kind": "text",
+          "value": "의 자리가 한 달 내내 단단히 받쳐 주는 흐름이에요. "
+        },
+        {
+          "kind": "tag",
+          "tagId": "jeonggwan",
+          "label": "정관"
+        },
+        {
+          "kind": "text",
+          "value": "의 결이 약속·신뢰의 토대를 잡아 주고, "
+        },
+        {
+          "kind": "tag",
+          "tagId": "sikshin",
+          "label": "식신"
+        },
+        {
+          "kind": "text",
+          "value": "의 결이 곁의 사람에게 따뜻한 표현을 더해 줘요."
+        },
+        {
+          "kind": "text",
+          "value": " 일과 관계 사이의 균형이 무너지지 않는 구조라, 한 달 동안 관계 쪽에 작은 정성을 자주 두면 신뢰가 한 단계 단단해져요. 갈등의 신호가 한두 번 보여도 길게 끌지 않으면 자연스럽게 회복되니, 무리한 단정은 멀리 두면 좋아요."
+        },
+        {
+          "kind": "text",
+          "value": " 한 달의 끝에 곁의 사람에게 짧은 감사의 한 줄을 남기면, 다음 달의 결이 더 부드러워져요."
+        }
       ],
-      "tags": ["baeujagung", "jeonggwan", "sikshin"],
+      "tags": [
+        "baeujagung",
+        "jeonggwan",
+        "sikshin"
+      ],
       "aiGenerated": true,
       "sourceTier": {
         "tier": "T1_HYPOTHESIS",
@@ -163,22 +374,76 @@
     {
       "schemaVersion": "spring-ts.narrative-fragment.v1",
       "fragmentId": "romance.thisMonth.expert.midlife.conflicting.001",
-      "axis": { "category": "romance", "period": "thisMonth", "depth": "expert" },
-      "gating": { "ageBand": ["30-39", "40-54"], "yongshinAlignment": ["conflicting"] },
+      "axis": {
+        "category": "romance",
+        "period": "thisMonth",
+        "depth": "expert"
+      },
+      "gating": {
+        "ageBand": [
+          "30-39",
+          "40-54"
+        ],
+        "yongshinAlignment": [
+          "conflicting"
+        ]
+      },
       "templateTokens": [
-        { "kind": "text", "value": "이번 달 곁의 사람과의 결이 한 달 안에서 한두 번 어긋나는 자리가 보일 수 있어요. 이 신호는 갈등의 단정이 아니라, " },
-        { "kind": "tag", "tagId": "baeujagung", "label": "배우자궁" },
-        { "kind": "text", "value": "의 결을 한 박자 늦춰 다듬으라는 의미로 풀면 잘 맞아요." },
-        { "kind": "text", "value": " " },
-        { "kind": "tag", "tagId": "sanggwan", "label": "상관" },
-        { "kind": "text", "value": "의 결이 강하게 비치면 날카로운 표현이 잠깐 거리감을 만들 수 있고, 빠른 결단의 결인 " },
-        { "kind": "tag", "tagId": "pyeongwan", "label": "편관" },
-        { "kind": "text", "value": "은 한 박자 미루는 편이 좋아요." },
-        { "kind": "text", "value": " 약속·정성의 결인 " },
-        { "kind": "tag", "tagId": "jeonggwan", "label": "정관" },
-        { "kind": "text", "value": "을 자주 빌리면 한마디 한마디를 정성껏 고르게 돼요. 한 달 동안 큰 결정을 미루고 거리만 살짝 다듬으면, 다음 달의 결이 한결 부드러워지는 흐름이에요." }
+        {
+          "kind": "text",
+          "value": "이번 달 곁의 사람과의 결이 한 달 안에서 한두 번 어긋나는 자리가 보일 수 있어요. 이 신호는 갈등의 단정이 아니라, "
+        },
+        {
+          "kind": "tag",
+          "tagId": "baeujagung",
+          "label": "배우자궁"
+        },
+        {
+          "kind": "text",
+          "value": "의 결을 한 박자 늦춰 다듬으라는 의미로 풀면 잘 맞아요."
+        },
+        {
+          "kind": "text",
+          "value": " "
+        },
+        {
+          "kind": "tag",
+          "tagId": "sanggwan",
+          "label": "상관"
+        },
+        {
+          "kind": "text",
+          "value": "의 결이 강하게 비치면 날카로운 표현이 잠깐 거리감을 만들 수 있고, 빠른 결단의 결인 "
+        },
+        {
+          "kind": "tag",
+          "tagId": "pyeongwan",
+          "label": "편관"
+        },
+        {
+          "kind": "text",
+          "value": "은 한 박자 미루는 편이 좋아요."
+        },
+        {
+          "kind": "text",
+          "value": " 약속·정성의 결인 "
+        },
+        {
+          "kind": "tag",
+          "tagId": "jeonggwan",
+          "label": "정관"
+        },
+        {
+          "kind": "text",
+          "value": "을 자주 빌리면 한마디 한마디를 정성껏 고르게 돼요. 한 달 동안 큰 결정을 미루고 거리만 살짝 다듬으면, 다음 달의 결이 한결 부드러워지는 흐름이에요."
+        }
       ],
-      "tags": ["baeujagung", "sanggwan", "pyeongwan", "jeonggwan"],
+      "tags": [
+        "baeujagung",
+        "sanggwan",
+        "pyeongwan",
+        "jeonggwan"
+      ],
       "aiGenerated": true,
       "sourceTier": {
         "tier": "T1_HYPOTHESIS",
@@ -194,20 +459,63 @@
     {
       "schemaVersion": "spring-ts.narrative-fragment.v1",
       "fragmentId": "romance.thisMonth.expert.late_life.001",
-      "axis": { "category": "romance", "period": "thisMonth", "depth": "expert" },
-      "gating": { "ageBand": ["55-69", "70+"] },
+      "axis": {
+        "category": "romance",
+        "period": "thisMonth",
+        "depth": "expert"
+      },
+      "gating": {
+        "ageBand": [
+          "55-69",
+          "70+"
+        ]
+      },
       "templateTokens": [
-        { "kind": "text", "value": "이번 달 후반기의 인연 결은 " },
-        { "kind": "tag", "tagId": "baeujagung", "label": "배우자궁" },
-        { "kind": "text", "value": "의 자리가 한 달 내내 잔잔히 살아나는 흐름이에요. 새로움보다 오래 함께한 결의 깊이가 한 단계 또렷해지는 시간이에요." },
-        { "kind": "text", "value": " " },
-        { "kind": "tag", "tagId": "jeonggwan", "label": "정관" },
-        { "kind": "text", "value": "의 결이 가족·반려와의 신뢰를 받쳐 주고, " },
-        { "kind": "tag", "tagId": "sikshin", "label": "식신" },
-        { "kind": "text", "value": "의 결이 일상의 다정함을 잔잔하게 더해 줘요." },
-        { "kind": "text", "value": " 외로움이 들어오는 시기가 한 번씩 있어도 그 결을 부드럽게 받아들이고, 좋아하는 사람·취미와의 자리를 챙기면 한 달의 흐름이 자연스럽게 회복돼요. 큰 결정 대신 곁의 사람에게 안부를 자주 두는 자리로 보내면 잘 어울려요." }
+        {
+          "kind": "text",
+          "value": "이번 달 후반기의 인연 결은 "
+        },
+        {
+          "kind": "tag",
+          "tagId": "baeujagung",
+          "label": "배우자궁"
+        },
+        {
+          "kind": "text",
+          "value": "의 자리가 한 달 내내 잔잔히 살아나는 흐름이에요. 새로움보다 오래 함께한 결의 깊이가 한 단계 또렷해지는 시간이에요."
+        },
+        {
+          "kind": "text",
+          "value": " "
+        },
+        {
+          "kind": "tag",
+          "tagId": "jeonggwan",
+          "label": "정관"
+        },
+        {
+          "kind": "text",
+          "value": "의 결이 가족·반려와의 신뢰를 받쳐 주고, "
+        },
+        {
+          "kind": "tag",
+          "tagId": "sikshin",
+          "label": "식신"
+        },
+        {
+          "kind": "text",
+          "value": "의 결이 일상의 다정함을 잔잔하게 더해 줘요."
+        },
+        {
+          "kind": "text",
+          "value": " 외로움이 들어오는 시기가 한 번씩 있어도 그 결을 부드럽게 받아들이고, 좋아하는 사람·취미와의 자리를 챙기면 한 달의 흐름이 자연스럽게 회복돼요. 큰 결정 대신 곁의 사람에게 안부를 자주 두는 자리로 보내면 잘 어울려요."
+        }
       ],
-      "tags": ["baeujagung", "jeonggwan", "sikshin"],
+      "tags": [
+        "baeujagung",
+        "jeonggwan",
+        "sikshin"
+      ],
       "aiGenerated": true,
       "sourceTier": {
         "tier": "T1_HYPOTHESIS",
@@ -223,20 +531,68 @@
     {
       "schemaVersion": "spring-ts.narrative-fragment.v1",
       "fragmentId": "romance.thisMonth.expert.adult.strong.001",
-      "axis": { "category": "romance", "period": "thisMonth", "depth": "expert" },
-      "gating": { "ageBand": ["20-29", "30-39", "40-54"], "dayMasterStrength": ["STRONG", "EXTREME_STRONG"] },
+      "axis": {
+        "category": "romance",
+        "period": "thisMonth",
+        "depth": "expert"
+      },
+      "gating": {
+        "ageBand": [
+          "20-29",
+          "30-39",
+          "40-54"
+        ],
+        "dayMasterStrength": [
+          "STRONG",
+          "EXTREME_STRONG"
+        ]
+      },
       "templateTokens": [
-        { "kind": "text", "value": "이번 달의 인연은 일간이 강한 사주답게 먼저 다가가는 기회가 한 달 내내 자연스럽게 열리는 시기예요. " },
-        { "kind": "tag", "tagId": "baeujagung", "label": "배우자궁" },
-        { "kind": "text", "value": "에서는 자기 생각을 또렷이 표현해도 곁의 사람들이 자연스럽게 받아들이기 쉬워요." },
-        { "kind": "text", "value": " 매력 신호인 " },
-        { "kind": "tag", "tagId": "dohwa", "label": "도화" },
-        { "kind": "text", "value": "가 함께 비치면 한 달 안에서 사람을 끌어모으는 기회가 한두 번 만들어지고, " },
-        { "kind": "tag", "tagId": "jeonggwan", "label": "정관" },
-        { "kind": "text", "value": "의 기운이 함께 잡히면 약속·신뢰의 토대가 한 달 동안 다듬어져요." },
-        { "kind": "text", "value": " 다만 강한 기운을 너무 밀어붙이면 거리감이 생길 수 있어요. 한 달 동안 듣는 시간을 한 박자 더 두면, 다음 달의 관계가 한결 부드러워져요." }
+        {
+          "kind": "text",
+          "value": "이번 달의 인연은 일간이 강한 사주답게 먼저 다가가는 기회가 한 달 내내 자연스럽게 열리는 시기예요. "
+        },
+        {
+          "kind": "tag",
+          "tagId": "baeujagung",
+          "label": "배우자궁"
+        },
+        {
+          "kind": "text",
+          "value": "에서는 자기 생각을 또렷이 표현해도 곁의 사람들이 자연스럽게 받아들이기 쉬워요."
+        },
+        {
+          "kind": "text",
+          "value": " 매력 신호인 "
+        },
+        {
+          "kind": "tag",
+          "tagId": "dohwa",
+          "label": "도화"
+        },
+        {
+          "kind": "text",
+          "value": "가 함께 비치면 한 달 안에서 사람을 끌어모으는 기회가 한두 번 만들어지고, "
+        },
+        {
+          "kind": "tag",
+          "tagId": "jeonggwan",
+          "label": "정관"
+        },
+        {
+          "kind": "text",
+          "value": "의 기운이 함께 잡히면 약속·신뢰의 토대가 한 달 동안 다듬어져요."
+        },
+        {
+          "kind": "text",
+          "value": " 다만 강한 기운을 너무 밀어붙이면 거리감이 생길 수 있어요. 한 달 동안 듣는 시간을 한 박자 더 두면, 다음 달의 관계가 한결 부드러워져요."
+        }
       ],
-      "tags": ["baeujagung", "dohwa", "jeonggwan"],
+      "tags": [
+        "baeujagung",
+        "dohwa",
+        "jeonggwan"
+      ],
       "aiGenerated": true,
       "sourceTier": {
         "tier": "T1_HYPOTHESIS",
@@ -252,20 +608,68 @@
     {
       "schemaVersion": "spring-ts.narrative-fragment.v1",
       "fragmentId": "romance.thisMonth.expert.adult.weak.001",
-      "axis": { "category": "romance", "period": "thisMonth", "depth": "expert" },
-      "gating": { "ageBand": ["20-29", "30-39", "40-54"], "dayMasterStrength": ["WEAK", "EXTREME_WEAK"] },
+      "axis": {
+        "category": "romance",
+        "period": "thisMonth",
+        "depth": "expert"
+      },
+      "gating": {
+        "ageBand": [
+          "20-29",
+          "30-39",
+          "40-54"
+        ],
+        "dayMasterStrength": [
+          "WEAK",
+          "EXTREME_WEAK"
+        ]
+      },
       "templateTokens": [
-        { "kind": "text", "value": "이번 달의 인연은 부드러운 일간 특성상 한 달 동안 곁의 신호를 받아들이는 자리가 잘 어울리는 시기예요. " },
-        { "kind": "tag", "tagId": "baeujagung", "label": "배우자궁" },
-        { "kind": "text", "value": "의 자리에서 들어오는 관심을 따뜻하게 맞이하면, 한 달 안에서 신뢰가 자연스럽게 쌓여요." },
-        { "kind": "text", "value": " 표현 기운인 " },
-        { "kind": "tag", "tagId": "sikshin", "label": "식신" },
-        { "kind": "text", "value": "을 살리면 한결같은 다정함이 자연스럽게 흘러가고, 책임 기운인 " },
-        { "kind": "tag", "tagId": "jeonggwan", "label": "정관" },
-        { "kind": "text", "value": "이 한 달의 약속과 신뢰를 단단히 받쳐 줘요." },
-        { "kind": "text", "value": " 자기 마음을 너무 묵혀 두지 않고 짧은 한마디라도 한 달에 한두 번 자주 표현하면, 다음 달의 관계가 한결 또렷해져요." }
+        {
+          "kind": "text",
+          "value": "이번 달의 인연은 부드러운 일간 특성상 한 달 동안 곁의 신호를 받아들이는 자리가 잘 어울리는 시기예요. "
+        },
+        {
+          "kind": "tag",
+          "tagId": "baeujagung",
+          "label": "배우자궁"
+        },
+        {
+          "kind": "text",
+          "value": "의 자리에서 들어오는 관심을 따뜻하게 맞이하면, 한 달 안에서 신뢰가 자연스럽게 쌓여요."
+        },
+        {
+          "kind": "text",
+          "value": " 표현 기운인 "
+        },
+        {
+          "kind": "tag",
+          "tagId": "sikshin",
+          "label": "식신"
+        },
+        {
+          "kind": "text",
+          "value": "을 살리면 한결같은 다정함이 자연스럽게 흘러가고, 책임 기운인 "
+        },
+        {
+          "kind": "tag",
+          "tagId": "jeonggwan",
+          "label": "정관"
+        },
+        {
+          "kind": "text",
+          "value": "이 한 달의 약속과 신뢰를 단단히 받쳐 줘요."
+        },
+        {
+          "kind": "text",
+          "value": " 자기 마음을 너무 묵혀 두지 않고 짧은 한마디라도 한 달에 한두 번 자주 표현하면, 다음 달의 관계가 한결 또렷해져요."
+        }
       ],
-      "tags": ["baeujagung", "sikshin", "jeonggwan"],
+      "tags": [
+        "baeujagung",
+        "sikshin",
+        "jeonggwan"
+      ],
       "aiGenerated": true,
       "sourceTier": {
         "tier": "T1_HYPOTHESIS",
