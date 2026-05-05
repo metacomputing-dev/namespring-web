@@ -704,7 +704,68 @@ function plainTextFromTokens(tokens: readonly ParagraphToken[]): string {
       out += ' ';
     }
   }
-  return normalizeRenderedText(out.replace(/\s{2,}/g, ' '));
+  return compressBriefHeadlineIfApplicable(normalizeRenderedText(out.replace(/\s{2,}/g, ' ')));
+}
+
+/**
+ * Brief-tier post-pass: undo the `reduceOverusedGyeol`-style `결X → 흐름X`
+ * style rewrite when, and only when, doing so is needed to keep the output
+ * within the contract's `≤ 28 Korean characters` brief invariant
+ * (`data/narrative/_contract/v1.json:depthContracts.brief.intent`).
+ *
+ * Length-gated:
+ *   • input ≤ 28 chars  → return unchanged (already fits).
+ *   • input > 32 chars  → return unchanged (standard/expert paragraph;
+ *                          probe shows tier-2/3 plainText is always > 60).
+ *   • 29 ≤ input ≤ 32   → minimal reversal until ≤ 28 (or no more applies).
+ *
+ * Reversal set excludes `흐름의 → 결의` because that re-creates the
+ * `결의 결과` anti-pattern guarded by tiered-progressive-disclosure.test.ts.
+ *
+ * Idempotent: a second call finds no `흐름X` left to reverse.
+ */
+export function compressBriefHeadlineIfApplicable(text: string): string {
+  const len = [...text].length;
+  if (len <= 28 || len > 32) return text;
+  return compressBriefHeadline(text);
+}
+
+const BRIEF_HEADLINE_REVERSALS: ReadonlyArray<readonly [RegExp, string]> = [
+  // Longer matches first so a shorter prefix (e.g., 흐름이) does not steal
+  // characters from a longer, more idiomatic ending (e.g., 흐름이에요).
+  [/흐름입니다/, '결입니다'],
+  [/흐름이에요/, '결이에요'],
+  [/흐름이라/, '결이라'],
+  [/흐름이고/, '결이고'],
+  [/흐름으로/, '결로'],
+  [/흐름처럼/, '결처럼'],
+  [/흐름마다/, '결마다'],
+  [/흐름이/, '결이'],
+  [/흐름은/, '결은'],
+  [/흐름을/, '결을'],
+  [/흐름도/, '결도'],
+  [/흐름만/, '결만'],
+];
+
+function compressBriefHeadline(text: string): string {
+  let out = text;
+  let outLen = [...out].length;
+  if (outLen <= 28) return out;
+
+  let changed = true;
+  while (changed && outLen > 28) {
+    changed = false;
+    for (const [re, replacement] of BRIEF_HEADLINE_REVERSALS) {
+      const next = out.replace(re, replacement);
+      if (next !== out) {
+        out = next;
+        outLen = [...out].length;
+        changed = true;
+        if (outLen <= 28) return out;
+      }
+    }
+  }
+  return out;
 }
 
 function resolveSlot(

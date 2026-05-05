@@ -1,0 +1,532 @@
+{
+  "schemaVersion": "spring-ts.phase3-agent-a16.brief-headline-invariant.v1",
+  "purpose": "Audit how the brief-tier ≤28-Korean-character invariant fares after normalizeRenderedText() runs. Used to decide whether brief depth needs an opt-out path through the inflate-style regex rewrites.",
+  "generatedAt": "2026-05-05T04:43:17.508Z",
+  "targetDate": "2026-05-01T15:00:00.000Z",
+  "fixtureCount": 15,
+  "cellCount": 825,
+  "maxBriefKoreanChars": 28,
+  "maxObservedLength": 94,
+  "maxObservedExample": {
+    "fixtureId": "fix-09",
+    "fixtureLabel": "1988-05-05 male — 입하 boundary",
+    "period": "today",
+    "category": "health",
+    "headline": "양의 리듬이 강하게 올라오는 날에는 몸도 마음도 먼저 움직이려 할 수 있어요. 급하게 몰아붙이기보다 시작 전 호흡과 중간 휴식을 넣으면 기운을 더 오래 쓸 수 있습니다.",
+    "codePointLength": 94,
+    "fragmentId": "health.today.brief.daymasterpolarity.yang.205"
+  },
+  "violationCount": 577,
+  "violationRatio": 0.6993939393939393,
+  "histogram": {
+    "17": 2,
+    "18": 1,
+    "19": 5,
+    "20": 6,
+    "21": 10,
+    "22": 19,
+    "23": 20,
+    "24": 25,
+    "25": 32,
+    "26": 18,
+    "27": 62,
+    "28": 48,
+    "29": 26,
+    "30": 23,
+    "31": 30,
+    "32": 4,
+    "33": 14,
+    "34": 11,
+    "35": 13,
+    "36": 8,
+    "37": 15,
+    "38": 14,
+    "39": 15,
+    "40": 32,
+    "41": 37,
+    "42": 24,
+    "43": 30,
+    "44": 19,
+    "45": 10,
+    "46": 10,
+    "47": 6,
+    "48": 4,
+    "51": 4,
+    "52": 3,
+    "54": 3,
+    "55": 7,
+    "56": 2,
+    "57": 5,
+    "58": 15,
+    "59": 18,
+    "60": 17,
+    "61": 18,
+    "62": 12,
+    "63": 11,
+    "64": 4,
+    "65": 28,
+    "66": 15,
+    "67": 15,
+    "68": 11,
+    "69": 10,
+    "70": 1,
+    "71": 4,
+    "72": 6,
+    "74": 19,
+    "75": 1,
+    "77": 1,
+    "94": 2
+  },
+  "violations": [
+    {
+      "fixtureId": "fix-01",
+      "fixtureLabel": "1986-04-19 male — 戊土 일간 (README example)",
+      "period": "life",
+      "category": "overall",
+      "headline": "큰 자극을 줄이고 믿을 만한 사람이나 환경에 기대어 진행하세요.",
+      "codePointLength": 35,
+      "fragmentId": "overall.life.brief.tuple_water_metal_weak_practice.624"
+    },
+    {
+      "fixtureId": "fix-01",
+      "fixtureLabel": "1986-04-19 male — 戊土 일간 (README example)",
+      "period": "life",
+      "category": "health",
+      "headline": "긴 흐름에서는 몸을 조금씩 움직이며 활력을 살리기 좋아요. 다만 무리해서 몰아붙이기보다 땀, 수면, 식사를 함께 챙기세요.",
+      "codePointLength": 68,
+      "fragmentId": "health.life.brief.currentseason.spring_summer.301"
+    },
+    {
+      "fixtureId": "fix-01",
+      "fixtureLabel": "1986-04-19 male — 戊土 일간 (README example)",
+      "period": "life",
+      "category": "romance",
+      "headline": "인연의 흐름은 큰 사건보다 매일의 태도에서 천천히 만들어져요. 편안한 거리감과 꾸준한 표현이 오래 가는 관계의 바탕이 될 수 있어요.",
+      "codePointLength": 74,
+      "fragmentId": "romance.life.brief.neutral.002"
+    },
+    {
+      "fixtureId": "fix-01",
+      "fixtureLabel": "1986-04-19 male — 戊土 일간 (README example)",
+      "period": "life",
+      "category": "career",
+      "headline": "커리어는 한 번에 크게 바꾸기보다 잘하는 일을 꾸준히 쌓을수록 안정돼요.",
+      "codePointLength": 40,
+      "fragmentId": "career.life.brief.strategy.502"
+    },
+    {
+      "fixtureId": "fix-01",
+      "fixtureLabel": "1986-04-19 male — 戊土 일간 (README example)",
+      "period": "life",
+      "category": "study_document",
+      "headline": "중요한 문서와 지식은 천천히 검토할수록 실수를 줄일 수 있어요.",
+      "codePointLength": 35,
+      "fragmentId": "study_document.life.brief.ageband.adult.501"
+    },
+    {
+      "fixtureId": "fix-01",
+      "fixtureLabel": "1986-04-19 male — 戊土 일간 (README example)",
+      "period": "life",
+      "category": "health_stress",
+      "headline": "어깨에 얹힌 무게를 가끔 풀어 줘요. 몸을 움직이는 휴식이 가장 잘 맞아요.",
+      "codePointLength": 42,
+      "fragmentId": "health_stress.life.brief.male_30_39.001"
+    },
+    {
+      "fixtureId": "fix-01",
+      "fixtureLabel": "1986-04-19 male — 戊土 일간 (README example)",
+      "period": "today",
+      "category": "health",
+      "headline": "오늘은 무리한 운동보다 식사, 물, 휴식 시간을 먼저 챙기면 몸이 편해져요.",
+      "codePointLength": 42,
+      "fragmentId": "health.today.brief.ageband.mature.401"
+    },
+    {
+      "fixtureId": "fix-01",
+      "fixtureLabel": "1986-04-19 male — 戊土 일간 (README example)",
+      "period": "today",
+      "category": "academic",
+      "headline": "오늘은 공부를 바로 시작하기 좋은 날이에요. 짧게라도 문제를 풀거나 과제를 손에 잡으면 흐름이 살아납니다.",
+      "codePointLength": 59,
+      "fragmentId": "academic.today.brief.currentseason.spring_summer.301"
+    },
+    {
+      "fixtureId": "fix-01",
+      "fixtureLabel": "1986-04-19 male — 戊土 일간 (README example)",
+      "period": "today",
+      "category": "romance",
+      "headline": "오늘은 마음을 급히 확인하려 하기보다 편안한 대화가 더 좋아요. 짧은 안부와 부드러운 표현이 관계 흐름을 안정시켜요.",
+      "codePointLength": 65,
+      "fragmentId": "romance.today.brief.neutral.002"
+    },
+    {
+      "fixtureId": "fix-01",
+      "fixtureLabel": "1986-04-19 male — 戊土 일간 (README example)",
+      "period": "today",
+      "category": "family",
+      "headline": "오늘은 가족에게 먼저 짧게 안부를 묻는 것만으로도 분위기가 부드러워집니다.",
+      "codePointLength": 41,
+      "fragmentId": "family.today.brief.first_contact.504"
+    },
+    {
+      "fixtureId": "fix-01",
+      "fixtureLabel": "1986-04-19 male — 戊土 일간 (README example)",
+      "period": "today",
+      "category": "study_document",
+      "headline": "오늘은 계약, 신청서, 증빙 자료의 날짜와 금액을 다시 보는 편이 좋아요.",
+      "codePointLength": 41,
+      "fragmentId": "study_document.today.brief.ageband.mature.401"
+    },
+    {
+      "fixtureId": "fix-01",
+      "fixtureLabel": "1986-04-19 male — 戊土 일간 (README example)",
+      "period": "today",
+      "category": "health_stress",
+      "headline": "오늘은 무리하지 않는 흐름이 가장 좋아요. 일찍 잠드는 시간을 챙겨요.",
+      "codePointLength": 39,
+      "fragmentId": "health_stress.today.brief.weak_neutral.001"
+    },
+    {
+      "fixtureId": "fix-01",
+      "fixtureLabel": "1986-04-19 male — 戊土 일간 (README example)",
+      "period": "thisWeek",
+      "category": "overall",
+      "headline": "느긋한 보폭이 잘 맞는 한 주, 휴식 한 번이 큰 자산이에요.",
+      "codePointLength": 34,
+      "fragmentId": "overall.thisWeek.brief.weak.neutral.age40_54.011"
+    },
+    {
+      "fixtureId": "fix-01",
+      "fixtureLabel": "1986-04-19 male — 戊土 일간 (README example)",
+      "period": "thisWeek",
+      "category": "academic",
+      "headline": "이번 주는 새 단원이나 어려운 문제를 시작하기 좋아요. 막히면 오래 붙잡기보다 질문하고 다시 풀어 보는 방식이 효율적이에요.",
+      "codePointLength": 69,
+      "fragmentId": "academic.thisWeek.brief.currentseason.spring_summer.301"
+    },
+    {
+      "fixtureId": "fix-01",
+      "fixtureLabel": "1986-04-19 male — 戊土 일간 (README example)",
+      "period": "thisWeek",
+      "category": "romance",
+      "headline": "이번 주는 인연을 서두르기보다 자연스럽게 이어가는 흐름이 좋아요. 작은 약속을 지키는 태도가 신뢰를 쌓아줘요.",
+      "codePointLength": 61,
+      "fragmentId": "romance.thisWeek.brief.neutral.002"
+    },
+    {
+      "fixtureId": "fix-01",
+      "fixtureLabel": "1986-04-19 male — 戊土 일간 (README example)",
+      "period": "thisWeek",
+      "category": "family",
+      "headline": "이번 주는 가족에게 먼저 안부를 묻는 작은 행동이 관계를 편하게 만듭니다.",
+      "codePointLength": 41,
+      "fragmentId": "family.thisWeek.brief.checkin.502"
+    },
+    {
+      "fixtureId": "fix-01",
+      "fixtureLabel": "1986-04-19 male — 戊土 일간 (README example)",
+      "period": "thisWeek",
+      "category": "career",
+      "headline": "이번 주는 길게 쌓아 온 리듬이 자리를 정돈해 줘요.",
+      "codePointLength": 29,
+      "fragmentId": "career.thisWeek.brief.age40plus.009"
+    },
+    {
+      "fixtureId": "fix-01",
+      "fixtureLabel": "1986-04-19 male — 戊土 일간 (README example)",
+      "period": "thisWeek",
+      "category": "health_stress",
+      "headline": "이번 주는 어깨를 풀어 주는 시기예요. 몸을 움직이는 휴식이 잘 맞아요.",
+      "codePointLength": 40,
+      "fragmentId": "health_stress.thisWeek.brief.male_30_39.001"
+    },
+    {
+      "fixtureId": "fix-01",
+      "fixtureLabel": "1986-04-19 male — 戊土 일간 (README example)",
+      "period": "thisMonth",
+      "category": "overall",
+      "headline": "느긋한 보폭이 잘 맞는 한 달, 휴식이 큰 자산이에요.",
+      "codePointLength": 30,
+      "fragmentId": "overall.thisMonth.brief.weak.neutral.age40_54.011"
+    },
+    {
+      "fixtureId": "fix-01",
+      "fixtureLabel": "1986-04-19 male — 戊土 일간 (README example)",
+      "period": "thisMonth",
+      "category": "health",
+      "headline": "이번 달은 몸이 보내는 작은 신호를 무시하지 않고 일찍 쉬는 습관이 도움이 돼요.",
+      "codePointLength": 45,
+      "fragmentId": "health.thisMonth.brief.ageband.mature.401"
+    },
+    {
+      "fixtureId": "fix-01",
+      "fixtureLabel": "1986-04-19 male — 戊土 일간 (README example)",
+      "period": "thisMonth",
+      "category": "academic",
+      "headline": "이번 달 공부는 중간 점검일을 미리 정하면 끝까지 이어가기 쉽습니다.",
+      "codePointLength": 38,
+      "fragmentId": "academic.thisMonth.brief.checkpoint.504"
+    },
+    {
+      "fixtureId": "fix-01",
+      "fixtureLabel": "1986-04-19 male — 戊土 일간 (README example)",
+      "period": "thisMonth",
+      "category": "romance",
+      "headline": "이번 달은 관계의 속도를 맞추는 감각이 중요해요. 편안한 대화와 일정한 표현이 인연의 흐름을 안정시켜요.",
+      "codePointLength": 58,
+      "fragmentId": "romance.thisMonth.brief.neutral.002"
+    },
+    {
+      "fixtureId": "fix-01",
+      "fixtureLabel": "1986-04-19 male — 戊土 일간 (README example)",
+      "period": "thisMonth",
+      "category": "family",
+      "headline": "이번 달은 가족과의 대화와 활동이 늘기 쉬워요. 함께 할 일을 하나 정하고, 각자의 부담을 미리 나누면 좋아요.",
+      "codePointLength": 62,
+      "fragmentId": "family.thisMonth.brief.currentseason.spring_summer.301"
+    },
+    {
+      "fixtureId": "fix-01",
+      "fixtureLabel": "1986-04-19 male — 戊土 일간 (README example)",
+      "period": "thisMonth",
+      "category": "career",
+      "headline": "쌓아 온 신뢰가 새 기회의 문을 한 번 더 열어 줘요.",
+      "codePointLength": 30,
+      "fragmentId": "career.thisMonth.brief.age40_54.009"
+    },
+    {
+      "fixtureId": "fix-01",
+      "fixtureLabel": "1986-04-19 male — 戊土 일간 (README example)",
+      "period": "thisMonth",
+      "category": "study_document",
+      "headline": "이번 달은 자료와 메모를 찾기 쉽게 정리하면 공부와 서류 처리가 빨라져요.",
+      "codePointLength": 41,
+      "fragmentId": "study_document.thisMonth.brief.folder.504"
+    },
+    {
+      "fixtureId": "fix-01",
+      "fixtureLabel": "1986-04-19 male — 戊土 일간 (README example)",
+      "period": "thisMonth",
+      "category": "health_stress",
+      "headline": "이번 달은 어깨를 자주 풀어 주는 시기예요. 몸을 움직이는 휴식이 잘 어울려요.",
+      "codePointLength": 44,
+      "fragmentId": "health_stress.thisMonth.brief.male_30_39.001"
+    },
+    {
+      "fixtureId": "fix-01",
+      "fixtureLabel": "1986-04-19 male — 戊土 일간 (README example)",
+      "period": "thisMonth",
+      "category": "movement",
+      "headline": "이번 달은 익숙한 동선에서 한 발짝씩 넓혀 가기 좋아요.",
+      "codePointLength": 31,
+      "fragmentId": "movement.thisMonth.brief.weak_neutral.010"
+    },
+    {
+      "fixtureId": "fix-01",
+      "fixtureLabel": "1986-04-19 male — 戊土 일간 (README example)",
+      "period": "thisYear",
+      "category": "overall",
+      "headline": "느긋한 보폭이 잘 맞는 한 해, 휴식이 큰 자산이에요.",
+      "codePointLength": 30,
+      "fragmentId": "overall.thisYear.brief.weak.neutral.age40_54.011"
+    },
+    {
+      "fixtureId": "fix-01",
+      "fixtureLabel": "1986-04-19 male — 戊土 일간 (README example)",
+      "period": "thisYear",
+      "category": "health",
+      "headline": "올해는 꾸준한 점검과 회복 루틴을 만들수록 건강운이 안정돼요.",
+      "codePointLength": 34,
+      "fragmentId": "health.thisYear.brief.ageband.mature.401"
+    },
+    {
+      "fixtureId": "fix-01",
+      "fixtureLabel": "1986-04-19 male — 戊土 일간 (README example)",
+      "period": "thisYear",
+      "category": "family",
+      "headline": "올해 가족 관계는 조언보다 먼저 들어주는 태도가 안정감을 만듭니다.",
+      "codePointLength": 37,
+      "fragmentId": "family.thisYear.brief.listen.504"
+    },
+    {
+      "fixtureId": "fix-01",
+      "fixtureLabel": "1986-04-19 male — 戊土 일간 (README example)",
+      "period": "thisYear",
+      "category": "health_stress",
+      "headline": "올해는 무리하지 않는 흐름이 약이에요. 충분한 수면이 가장 큰 힘이에요.",
+      "codePointLength": 40,
+      "fragmentId": "health_stress.thisYear.brief.weak_neutral.001"
+    },
+    {
+      "fixtureId": "fix-01",
+      "fixtureLabel": "1986-04-19 male — 戊土 일간 (README example)",
+      "period": "thisYear",
+      "category": "movement",
+      "headline": "올해는 익숙한 동선에서 한 발짝씩 넓혀 가기 좋아요.",
+      "codePointLength": 29,
+      "fragmentId": "movement.thisYear.brief.weak_neutral.010"
+    },
+    {
+      "fixtureId": "fix-02",
+      "fixtureLabel": "1992-09-15 female — 壬水 일간, 가을",
+      "period": "life",
+      "category": "overall",
+      "headline": "기운이 약한 날에는 큰 결정보다 컨디션 회복을 먼저 챙기세요.",
+      "codePointLength": 34,
+      "fragmentId": "overall.life.brief.water_neutral_weak.094"
+    },
+    {
+      "fixtureId": "fix-02",
+      "fixtureLabel": "1992-09-15 female — 壬水 일간, 가을",
+      "period": "life",
+      "category": "wealth",
+      "headline": "삼십 대의 재물은 균형 잡힌 선택이 자산을 키우는 흐름이에요.",
+      "codePointLength": 34,
+      "fragmentId": "wealth.life.brief.female.30_39.007"
+    },
+    {
+      "fixtureId": "fix-02",
+      "fixtureLabel": "1992-09-15 female — 壬水 일간, 가을",
+      "period": "life",
+      "category": "health",
+      "headline": "긴 흐름에서는 몸을 조금씩 움직이며 활력을 살리기 좋아요. 다만 무리해서 몰아붙이기보다 땀, 수면, 식사를 함께 챙기세요.",
+      "codePointLength": 68,
+      "fragmentId": "health.life.brief.currentseason.spring_summer.301"
+    },
+    {
+      "fixtureId": "fix-02",
+      "fixtureLabel": "1992-09-15 female — 壬水 일간, 가을",
+      "period": "life",
+      "category": "romance",
+      "headline": "인연의 흐름은 큰 사건보다 매일의 태도에서 천천히 만들어져요. 편안한 거리감과 꾸준한 표현이 오래 가는 관계의 바탕이 될 수 있어요.",
+      "codePointLength": 74,
+      "fragmentId": "romance.life.brief.neutral.002"
+    },
+    {
+      "fixtureId": "fix-02",
+      "fixtureLabel": "1992-09-15 female — 壬水 일간, 가을",
+      "period": "life",
+      "category": "career",
+      "headline": "긴 흐름에서는 새 역할과 기회를 직접 만나며 일이 넓어지는 편이에요. 움직여 보되, 배운 점을 기록해 다음 선택의 기준으로 삼으세요.",
+      "codePointLength": 74,
+      "fragmentId": "career.life.brief.currentseason.spring_summer.301"
+    },
+    {
+      "fixtureId": "fix-02",
+      "fixtureLabel": "1992-09-15 female — 壬水 일간, 가을",
+      "period": "life",
+      "category": "study_document",
+      "headline": "배우고 정리하는 일은 먼저 시도해 보며 감을 잡을 때 잘 풀려요. 오래 고민하기보다 작은 자료부터 만들고 고쳐 가는 방식이 잘 맞아요.",
+      "codePointLength": 75,
+      "fragmentId": "study_document.life.brief.currentseason.spring_summer.301"
+    },
+    {
+      "fixtureId": "fix-02",
+      "fixtureLabel": "1992-09-15 female — 壬水 일간, 가을",
+      "period": "life",
+      "category": "health_stress",
+      "headline": "마음을 쓰는 만큼 비우는 시간도 챙겨요. 따뜻한 차 한 잔이 균형을 돕는 흐름이에요.",
+      "codePointLength": 47,
+      "fragmentId": "health_stress.life.brief.female_20_29.001"
+    },
+    {
+      "fixtureId": "fix-02",
+      "fixtureLabel": "1992-09-15 female — 壬水 일간, 가을",
+      "period": "today",
+      "category": "overall",
+      "headline": "지금 시기가 여름 흐름이라면 추진력은 올라오지만 쉽게 과열될 수 있어요. 오늘은 속도를 내되, 중간중간 식히는 시간을 넣어주세요.",
+      "codePointLength": 72,
+      "fragmentId": "overall.today.brief.currentseason.summer.101"
+    },
+    {
+      "fixtureId": "fix-02",
+      "fixtureLabel": "1992-09-15 female — 壬水 일간, 가을",
+      "period": "today",
+      "category": "romance",
+      "headline": "오늘은 마음을 급히 확인하려 하기보다 편안한 대화가 더 좋아요. 짧은 안부와 부드러운 표현이 관계 흐름을 안정시켜요.",
+      "codePointLength": 65,
+      "fragmentId": "romance.today.brief.neutral.002"
+    },
+    {
+      "fixtureId": "fix-02",
+      "fixtureLabel": "1992-09-15 female — 壬水 일간, 가을",
+      "period": "today",
+      "category": "family",
+      "headline": "오늘은 가족에게 먼저 짧게 안부를 묻는 것만으로도 분위기가 부드러워집니다.",
+      "codePointLength": 41,
+      "fragmentId": "family.today.brief.first_contact.504"
+    },
+    {
+      "fixtureId": "fix-02",
+      "fixtureLabel": "1992-09-15 female — 壬水 일간, 가을",
+      "period": "today",
+      "category": "study_document",
+      "headline": "오늘은 문서의 숫자와 조건을 한 번 더 확인하면 실수를 줄일 수 있어요.",
+      "codePointLength": 40,
+      "fragmentId": "study_document.today.brief.ageband.adult.501"
+    },
+    {
+      "fixtureId": "fix-02",
+      "fixtureLabel": "1992-09-15 female — 壬水 일간, 가을",
+      "period": "today",
+      "category": "health_stress",
+      "headline": "오늘은 무리하지 않는 흐름이 가장 좋아요. 일찍 잠드는 시간을 챙겨요.",
+      "codePointLength": 39,
+      "fragmentId": "health_stress.today.brief.weak_neutral.001"
+    },
+    {
+      "fixtureId": "fix-02",
+      "fixtureLabel": "1992-09-15 female — 壬水 일간, 가을",
+      "period": "thisWeek",
+      "category": "overall",
+      "headline": "이번 주는 움직이며 흐름을 만들기 좋아요. 새 일을 시작하되, 가장 중요한 한두 가지부터 작게 실행하세요.",
+      "codePointLength": 59,
+      "fragmentId": "overall.thisWeek.brief.currentseason.spring_summer.301"
+    },
+    {
+      "fixtureId": "fix-02",
+      "fixtureLabel": "1992-09-15 female — 壬水 일간, 가을",
+      "period": "thisWeek",
+      "category": "academic",
+      "headline": "이번 주는 새 단원이나 어려운 문제를 시작하기 좋아요. 막히면 오래 붙잡기보다 질문하고 다시 풀어 보는 방식이 효율적이에요.",
+      "codePointLength": 69,
+      "fragmentId": "academic.thisWeek.brief.currentseason.spring_summer.301"
+    },
+    {
+      "fixtureId": "fix-02",
+      "fixtureLabel": "1992-09-15 female — 壬水 일간, 가을",
+      "period": "thisWeek",
+      "category": "romance",
+      "headline": "이번 주는 인연을 서두르기보다 자연스럽게 이어가는 흐름이 좋아요. 작은 약속을 지키는 태도가 신뢰를 쌓아줘요.",
+      "codePointLength": 61,
+      "fragmentId": "romance.thisWeek.brief.neutral.002"
+    },
+    {
+      "fixtureId": "fix-02",
+      "fixtureLabel": "1992-09-15 female — 壬水 일간, 가을",
+      "period": "thisWeek",
+      "category": "family",
+      "headline": "이번 주는 가족에게 먼저 안부를 묻는 작은 행동이 관계를 편하게 만듭니다.",
+      "codePointLength": 41,
+      "fragmentId": "family.thisWeek.brief.checkin.502"
+    },
+    {
+      "fixtureId": "fix-02",
+      "fixtureLabel": "1992-09-15 female — 壬水 일간, 가을",
+      "period": "thisWeek",
+      "category": "study_document",
+      "headline": "이번 주는 새로 배우는 것보다 이미 배운 내용을 다시 정리하는 시간이 도움이 돼요.",
+      "codePointLength": 46,
+      "fragmentId": "study_document.thisWeek.brief.review.504"
+    },
+    {
+      "fixtureId": "fix-02",
+      "fixtureLabel": "1992-09-15 female — 壬水 일간, 가을",
+      "period": "thisWeek",
+      "category": "health_stress",
+      "headline": "이번 주는 마음을 비우는 시간이 필요해요. 들어 주는 사람을 가까이 두면 좋아요.",
+      "codePointLength": 45,
+      "fragmentId": "health_stress.thisWeek.brief.female_20_29.001"
+    }
+  ]
+}
