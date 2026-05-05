@@ -1,0 +1,294 @@
+[
+  {
+    "fragmentId": "academic.today.expert.ageband.adult.301",
+    "newText": "성과 압박이 강한 날엔 공부량보다 회수 가능한 핵심 한 가지를 남기세요."
+  },
+  {
+    "fragmentId": "overall.life.standard.age_0_9_gender_male.201",
+    "newText": "씩씩함보다 무서움이나 망설임도 자연스러운 신호로 받아 주세요."
+  },
+  {
+    "fragmentId": "overall.life.standard.age_10_19_gender_male.201",
+    "newText": "괜찮은 척 버티기보다 어려운 부분을 짧게 말하는 연습이 필요해요."
+  },
+  {
+    "fragmentId": "overall.life.standard.age_55_69_gender_male.201",
+    "newText": "괜찮다고만 말하면 부담이 잘 안 보이니 필요한 도움을 구체적으로 말해요."
+  },
+  {
+    "fragmentId": "overall.life.standard.age_70_plus_gender_neutral.201",
+    "newText": "생활 반경이 좁아지면 기분이 가라앉아요. 안전한 연결을 꾸준히 남겨요."
+  },
+  {
+    "fragmentId": "overall.life.expert.agephase.90_plus.301",
+    "newText": "생활 변화는 작게 나누고 몸과 마음에 무리가 가지 않게 천천히 진행하세요."
+  },
+  {
+    "fragmentId": "overall.life.standard.agephase_gender.late_20s.male.202",
+    "newText": "성과 압박이 커지면 건강과 관계 신호를 뒤로 미루기 쉬워요."
+  },
+  {
+    "fragmentId": "overall.life.standard.agephase_gender.late_50s.male.205",
+    "newText": "혼자 판단하는 시간이 길어지면 새 정보나 도움을 받기 어려워져요."
+  },
+  {
+    "fragmentId": "overall.life.standard.agephase_gender.early_60s.male.206",
+    "newText": "역할 축소를 손실로만 보면 새 생활 리듬을 만들기 어려워져요."
+  },
+  {
+    "fragmentId": "overall.life.standard.agephase_gender.child_0_9.male.201",
+    "newText": "씩씩해야 한다는 말보다 감정을 말로 표현하게 도와주는 편이 좋아요."
+  },
+  {
+    "fragmentId": "overall.life.standard.agephase.late_40s.201",
+    "newText": "익숙하다는 이유로 맞지 않는 방식을 계속 유지하지 않게 주의하세요."
+  },
+  {
+    "fragmentId": "overall.thisYear.standard.agephase.early_30s.203",
+    "newText": "속도만 목표로 삼으면 번아웃이 빨리 오니 회복 계획도 함께 두세요."
+  },
+  {
+    "fragmentId": "overall.thisYear.standard.agephase.early_60s.203",
+    "newText": "역할 축소를 혼자 견디기보다 작은 소속감을 만들어 보세요."
+  },
+  {
+    "fragmentId": "overall.thisYear.standard.agephase.80s.203",
+    "newText": "도움 요청을 부담으로 여기지 말고 안전을 위한 준비로 받아들이세요."
+  },
+  {
+    "fragmentId": "overall.thisMonth.standard.birth_autumn_current_autumn.201",
+    "newText": "판단이 예리해질수록 말이 차갑지 않게 이유와 배려를 함께 전해요."
+  },
+  {
+    "fragmentId": "overall.thisMonth.standard.birth_autumn_current_winter.201",
+    "newText": "혼자 검토할수록 기준이 엄격해지니 중간 의견을 받아 보세요."
+  },
+  {
+    "fragmentId": "overall.life.standard.birthseason.spring.203",
+    "newText": "가능성에 끌릴수록 지금 돌보는 일의 마무리를 놓치지 않는 게 중요해요."
+  },
+  {
+    "fragmentId": "overall.life.standard.birthseason.summer.203",
+    "newText": "분위기가 뜨거울수록 즉흥적인 약속이 늘지 않게 조절하세요."
+  },
+  {
+    "fragmentId": "overall.life.standard.birthseason.autumn.203",
+    "newText": "완벽한 조건을 기다리다가 실행이 늦어지지 않게 작게 시도하세요."
+  },
+  {
+    "fragmentId": "health.life.standard.birthseason.autumn.204",
+    "newText": "완벽한 루틴을 만들려다 시작이 늦어지지 않게 기준을 단순히 잡아요."
+  },
+  {
+    "fragmentId": "health.life.standard.birthseason.winter.204",
+    "newText": "쉬는 시간이 길어져도 완전히 고립되지 않게 작은 활동을 남겨 두세요."
+  },
+  {
+    "fragmentId": "overall.thisMonth.standard.birth_spring_current_autumn.201",
+    "newText": "정리 과정에서 가능성을 부정하지 말고, 지금 가능한 범위만 정해요."
+  },
+  {
+    "fragmentId": "overall.thisMonth.standard.birth_winter_current_summer.201",
+    "newText": "밝고 빠른 분위기에 무리해 맞추지 않게 몸의 신호를 살펴 주세요."
+  },
+  {
+    "fragmentId": "overall.thisMonth.standard.birth_winter_current_winter.201",
+    "newText": "쉬는 시간이 필요해도 생활 리듬과 기본 약속은 너무 무너지지 않게요."
+  },
+  {
+    "fragmentId": "career.life.expert.currentseason.spring_summer.301",
+    "newText": "외부 반응이 좋아도 용신 방향과 다른 확장은 장기 부담이 됩니다."
+  },
+  {
+    "fragmentId": "career.life.expert.currentseason.autumn_winter.301",
+    "newText": "책임을 많이 맡는 게 곧 좋은 운이라고 단정하지 말고 회복 여력을 보세요."
+  },
+  {
+    "fragmentId": "career.today.expert.categorical_wave2.female_fire_yongshin_water_pyeoningyeok.402",
+    "newText": "성별 분기는 커리어 역할 고정 기준이 아닌 출력 맥락 보존용입니다."
+  },
+  {
+    "fragmentId": "wealth.thisMonth.standard.currentseason.winter.205",
+    "newText": "불안 때문에 결정을 못 하면 좋은 조건도 지나가니 작은 기준을 세워요."
+  },
+  {
+    "fragmentId": "overall.thisWeek.standard.currentseason.spring.203",
+    "newText": "시작이 많아질수록 기존 일정 마감과 체력 배분을 놓치지 않게 주의해요."
+  },
+  {
+    "fragmentId": "overall.thisWeek.standard.currentseason.summer.203",
+    "newText": "분위기에 밀려 약속하기보다 한 번 확인한 뒤 확정하세요."
+  },
+  {
+    "fragmentId": "overall.thisWeek.standard.currentseason.autumn.203",
+    "newText": "완벽히 준비될 때까지 기다리지 말고 필요한 기준만 충족하면 넘어가요."
+  },
+  {
+    "fragmentId": "overall.thisWeek.standard.currentseason.winter.203",
+    "newText": "지켜보기만 하다가 필요한 말이나 행동을 놓치지 않게 마감을 정해요."
+  },
+  {
+    "fragmentId": "overall.life.standard.day_master_earth_strength_strong.201",
+    "newText": "책임감이 강할수록 도움 요청을 미루기 쉬우니 부담이 커지기 전에 나눠요."
+  },
+  {
+    "fragmentId": "overall.life.standard.day_master_earth_strength_extreme_strong.201",
+    "newText": "안정을 지키려는 마음이 강해질수록 새 정보를 바로 막지 않게 주의해요."
+  },
+  {
+    "fragmentId": "overall.life.standard.day_master_earth_strength_weak.201",
+    "newText": "불안하다고 일을 미루면 기반이 약해지니 작은 실행부터 시작하세요."
+  },
+  {
+    "fragmentId": "overall.life.standard.daymasterelement.fire.202",
+    "newText": "열정이 강할수록 상대가 받는 속도와 상황도 함께 살피는 게 좋아요."
+  },
+  {
+    "fragmentId": "overall.life.standard.day_master_fire_strength_weak.201",
+    "newText": "반응이 늦다고 숨기기보다 작게라도 표현하는 연습을 이어가요."
+  },
+  {
+    "fragmentId": "overall.life.standard.day_master_metal_strength_balanced.201",
+    "newText": "명확함이 장점이지만 단호함으로 들릴 수 있으니 말의 온도를 조절해요."
+  },
+  {
+    "fragmentId": "overall.life.standard.day_master_metal_strength_strong.201",
+    "newText": "틀렸다 느껴도 바로 잘라내기보다 확인 시간을 한 번 두면 마찰이 줄어요."
+  },
+  {
+    "fragmentId": "overall.life.standard.day_master_metal_strength_extreme_strong.201",
+    "newText": "완벽한 기준을 앞세우면 협력 폭이 좁아지니 필요한 예외도 살펴요."
+  },
+  {
+    "fragmentId": "overall.life.standard.day_master_metal_strength_weak.201",
+    "newText": "확신이 부족해 결정을 미루면 피로가 쌓이니 작은 마감선을 정해요."
+  },
+  {
+    "fragmentId": "overall.thisWeek.standard.daymasterpolarity.yang.203",
+    "newText": "빠른 판단이 강점이어도 급하게 보이면 협력이 줄어드니 설명을 붙여요."
+  },
+  {
+    "fragmentId": "overall.thisWeek.standard.daymasterpolarity.yin.203",
+    "newText": "배려와 신중이 길어지면 내 의견이 안 보이니 표현 시점을 놓치지 마요."
+  },
+  {
+    "fragmentId": "overall.life.standard.day_master_water_strength_balanced.201",
+    "newText": "이해하려는 마음이 커질수록 실행 시점을 놓치지 않게 마감선을 정해요."
+  },
+  {
+    "fragmentId": "overall.life.standard.day_master_water_strength_strong.201",
+    "newText": "모든 변수를 다 확인하려 하면 결정이 늦어지니 충분한 기준에서 멈춰요."
+  },
+  {
+    "fragmentId": "overall.life.standard.day_master_water_strength_extreme_strong.201",
+    "newText": "깊게 보는 힘이 걱정이 되지 않게 확인할 사람이나 기준을 미리 정해요."
+  },
+  {
+    "fragmentId": "overall.life.standard.day_master_wood_strength_extreme_strong.201",
+    "newText": "성장 욕구가 강할수록 멈춤을 실패가 아닌 조정 시간으로 받아들여요."
+  },
+  {
+    "fragmentId": "overall.life.standard.daymasterelement.wood.yongshinelement.metal.206",
+    "newText": "기준이 필요하다고 너무 강하게 몰아붙이면 시작이 어려워질 수 있어요."
+  },
+  {
+    "fragmentId": "expression_children.life.standard.currentseason.spring_summer.301",
+    "newText": "생각나는 대로 다 말하면 부담스러우니 중요한 말은 정리해 전하세요."
+  },
+  {
+    "fragmentId": "expression_children.life.standard.currentseason.autumn_winter.301",
+    "newText": "걱정에 말을 줄이면 마음이 멀어지니 짧고 따뜻한 표현을 남겨요."
+  },
+  {
+    "fragmentId": "expression_children.thisYear.standard.currentseason.spring_summer.301",
+    "newText": "할 일이 많아도 동시에 시작하면 지치니 중요한 것부터 하나씩 넓혀요."
+  },
+  {
+    "fragmentId": "expression_children.thisYear.standard.currentseason.autumn_winter.301",
+    "newText": "마음을 숨긴 채 참기만 하면 오해가 쌓이니 짧고 차분히 전하세요."
+  },
+  {
+    "fragmentId": "overall.life.standard.extreme_strong_yongshin_alignment.conflicting.201",
+    "newText": "속도를 더 내고 싶어도 지금은 한 박자 늦추는 것이 결과를 지켜요."
+  },
+  {
+    "fragmentId": "overall.life.standard.gender.neutral.201",
+    "newText": "성별 정보가 없을 때 결혼, 가족, 직업 역할을 단정하지 않는 게 좋아요."
+  },
+  {
+    "fragmentId": "overall.life.expert.gender.neutral.201",
+    "newText": "중립 분기에서 전통 성 역할 문장을 그대로 끌어오면 맥락이 안 맞아요."
+  },
+  {
+    "fragmentId": "overall.life.standard.gyeokguk_sikshingyeok_strength_extreme_strong.201",
+    "newText": "계속 만들 수 있는 느낌이 강해도 몸과 감정 회복 속도는 따로 봐야 해요."
+  },
+  {
+    "fragmentId": "overall.life.standard.gyeokguk_sikshingyeok_strength_extreme_weak.201",
+    "newText": "표현이 느려도 재능이 없는 건 아니니 속도보다 반복을 기준으로 봐요."
+  },
+  {
+    "fragmentId": "overall.life.standard.gyeokguk_sanggwangyeok_strength_weak.201",
+    "newText": "표현이 막혀도 생각이 약한 건 아니니 작은 발표부터 시작해 보세요."
+  },
+  {
+    "fragmentId": "overall.life.standard.gyeokguk_jeonggwangyeok_strength_strong.201",
+    "newText": "옳다는 확신이 강할수록 말투와 절차가 딱딱해지지 않게 주의하세요."
+  },
+  {
+    "fragmentId": "overall.life.standard.gyeokguk_jeonggwangyeok_strength_extreme_weak.201",
+    "newText": "부담을 못 견뎠다고 자신을 탓하기보다 구조를 작게 다시 짜요."
+  },
+  {
+    "fragmentId": "overall.life.standard.gyeokguk_pyeongwangyeok_strength_weak.201",
+    "newText": "압박을 못 견뎠다고 판단하기보다 감당 가능한 크기로 다시 설계해요."
+  },
+  {
+    "fragmentId": "overall.life.standard.gyeokguk_jeongingyeok_strength_strong.201",
+    "newText": "아는 것이 많을수록 결정을 미루기 쉬우니 기준을 단순히 잡아요."
+  },
+  {
+    "fragmentId": "overall.life.standard.gyeokguk_pyeoningyeok_strength_balanced.201",
+    "newText": "독특한 관점이 강점이어도 검증 없이 확신으로 굳어지지 않게요."
+  },
+  {
+    "fragmentId": "overall.life.standard.gyeokguk_pyeoningyeok_strength_strong.201",
+    "newText": "내 맥락이 선명할수록 다른 사람에겐 낯설 수 있다는 점을 기억해요."
+  },
+  {
+    "fragmentId": "overall.life.standard.gyeokguk_pyeoningyeok_strength_extreme_weak.201",
+    "newText": "예민함을 문제로만 보지 말고 몸이 지치지 않게 다루는 법을 찾아요."
+  },
+  {
+    "fragmentId": "movement.thisWeek.standard.two_step.504",
+    "newText": "좋아 보이는 제안도 준비 없이 움직이면 체력과 시간이 새기 쉬워요."
+  },
+  {
+    "fragmentId": "overall.today.expert.ordinal.gender_female.401",
+    "newText": "성별값을 직업, 관계, 재물 운의 좋고 나쁨 결정 축으로 쓰지 마세요."
+  },
+  {
+    "fragmentId": "study_document.thisYear.standard.currentseason.autumn_winter.301",
+    "newText": "준비가 부족할 때 중요한 서류나 시험 일정을 무리해 앞당기지 마세요."
+  },
+  {
+    "fragmentId": "wealth.thisYear.standard.ageband.mature.401",
+    "newText": "좋은 기회라도 생활비와 비상금을 건드리면서 무리하지 마세요."
+  },
+  {
+    "fragmentId": "overall.life.standard.yongshin_metal_alignment.aligned.201",
+    "newText": "판단이 잘 서는 시기라도 말이 차갑지 않게 표현을 부드럽게 조절해요."
+  },
+  {
+    "fragmentId": "overall.thisMonth.standard.yongshin.wood.203",
+    "newText": "새 시작이 많아질수록 마무리 기준을 함께 정해야 흐름이 안 흩어져요."
+  },
+  {
+    "fragmentId": "overall.thisMonth.standard.yongshin.earth.203",
+    "newText": "안정만 붙잡다 보면 필요한 변화까지 늦어지니 조정 날짜도 정해요."
+  },
+  {
+    "fragmentId": "overall.thisMonth.standard.yongshin.metal.203",
+    "newText": "기준이 명확해질수록 말투가 차가워지지 않게 설명과 배려를 함께요."
+  }
+]

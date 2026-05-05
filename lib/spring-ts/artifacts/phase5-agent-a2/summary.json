@@ -1,0 +1,33 @@
+{
+  "task": "P5-A2",
+  "taskName": "cautions 30자 contract enforcement",
+  "scope": "data/narrative/_coverage",
+  "threshold": 30,
+  "before": {
+    "violationCount": 137,
+    "distribution": {
+      "1-20": 27,
+      "21-30": 494,
+      "31-35": 123,
+      "36-40": 14,
+      "41-50": 0,
+      "51+": 0
+    }
+  },
+  "after": {
+    "violationCount": 0,
+    "distribution": {
+      "1-20": 27,
+      "21-30": 631,
+      "31-35": 0,
+      "36-40": 0,
+      "41-50": 0,
+      "51+": 0
+    }
+  },
+  "cautionsTotal": 658,
+  "fragmentsScanned": 1461,
+  "filesScanned": 158,
+  "trimsApplied": 137,
+  "generatedAt": "2026-05-05T07:26:55.571Z"
+}
