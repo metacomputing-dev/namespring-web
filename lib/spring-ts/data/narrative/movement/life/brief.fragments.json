@@ -32,7 +32,7 @@
       "axis": { "category": "movement", "period": "life", "depth": "brief" },
       "gating": { "ageBand": ["0-9"] },
       "templateTokens": [
-        { "kind": "text", "value": "아이는 새 자리에서 더 많이 자라는 결이에요. 여행과 전학이 좋은 자극이 돼요." }
+        { "kind": "text", "value": "아이는 새 자리에서 한 뼘씩 자라는 모습이에요. 여행과 전학이 좋은 자극이 돼요." }
       ],
       "tags": [],
       "aiGenerated": true,
@@ -53,7 +53,7 @@
       "axis": { "category": "movement", "period": "life", "depth": "brief" },
       "gating": { "ageBand": ["10-19"] },
       "templateTokens": [
-        { "kind": "text", "value": "여행·체험으로 시야가 넓어지는 결이에요. 한 발짝 움직여 볼 자리가 보여요." }
+        { "kind": "text", "value": "여행·체험으로 시야가 한 뼘 넓어지는 흐름이에요. 한 발짝 움직여 볼 자리가 보여요." }
       ],
       "tags": [],
       "aiGenerated": true,
@@ -74,7 +74,7 @@
       "axis": { "category": "movement", "period": "life", "depth": "brief" },
       "gating": { "ageBand": ["20-29"] },
       "templateTokens": [
-        { "kind": "text", "value": "새 환경에서 자기 길이 트이는 결이에요." }
+        { "kind": "text", "value": "새 환경에서 자기 길이 트이는 시기예요." }
       ],
       "tags": [],
       "aiGenerated": true,
@@ -95,7 +95,7 @@
       "axis": { "category": "movement", "period": "life", "depth": "brief" },
       "gating": { "ageBand": ["30-39"] },
       "templateTokens": [
-        { "kind": "text", "value": "이사·이직의 자리가 한 번 크게 열리는 결이에요." }
+        { "kind": "text", "value": "이사·이직의 자리가 한 번 크게 열리는 시기예요." }
       ],
       "tags": [],
       "aiGenerated": true,
@@ -116,7 +116,7 @@
       "axis": { "category": "movement", "period": "life", "depth": "brief" },
       "gating": { "ageBand": ["40-54"] },
       "templateTokens": [
-        { "kind": "text", "value": "출장·해외 자리가 자주 만들어지는 결이에요." }
+        { "kind": "text", "value": "출장·해외 자리가 자주 만들어지는 흐름이에요." }
       ],
       "tags": [],
       "aiGenerated": true,
@@ -137,7 +137,7 @@
       "axis": { "category": "movement", "period": "life", "depth": "brief" },
       "gating": { "ageBand": ["55-69"] },
       "templateTokens": [
-        { "kind": "text", "value": "정리와 새 자리 사이에서 한 번 움직여 볼 결이에요." }
+        { "kind": "text", "value": "정리와 새 자리 사이에서 한 번 움직여 볼 시기예요." }
       ],
       "tags": [],
       "aiGenerated": true,
@@ -158,7 +158,7 @@
       "axis": { "category": "movement", "period": "life", "depth": "brief" },
       "gating": { "ageBand": ["70+"] },
       "templateTokens": [
-        { "kind": "text", "value": "여유로운 여행과 머무름의 결이 함께해요." }
+        { "kind": "text", "value": "여유로운 여행과 머무름이 함께하는 시기예요." }
       ],
       "tags": [],
       "aiGenerated": true,
@@ -179,7 +179,7 @@
       "axis": { "category": "movement", "period": "life", "depth": "brief" },
       "gating": { "dayMasterStrength": ["STRONG"], "yongshinAlignment": ["aligned"] },
       "templateTokens": [
-        { "kind": "text", "value": "흐름을 타고 새 자리가 시원하게 열리는 결이에요." }
+        { "kind": "text", "value": "흐름을 타고 새 자리가 시원하게 열리는 모양이에요." }
       ],
       "tags": [],
       "aiGenerated": true,
