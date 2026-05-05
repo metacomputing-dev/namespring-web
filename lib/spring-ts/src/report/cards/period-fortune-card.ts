@@ -333,7 +333,7 @@ function makeGoodActions(
         text: hobbies.length > 0
           ? `${elementKo(yongshinEl)} 기운을 보강하는 ${hobbies.slice(0, 2).join(', ')} 같은 활동을 추천해요.`
           : `${elementKo(yongshinEl)} 기운을 보강하는 활동이 오늘 운세 흐름에 도움이 돼요.`,
-        reason: `용신인 ${elementKo(yongshinEl)} 기운을 채우면 오늘의 운세 흐름이 좋아져요.`,
+        reason: `용신인 ${elementKo(yongshinEl)} 기운을 채우면 오늘 하루의 결이 잡혀요.`,
       });
     }
     if (color && direction) {
@@ -386,7 +386,7 @@ function makeGoodActions(
       actions.push({
         text: hobbies.length > 0
           ? `${hobbies.slice(0, 2).join(', ')} 같은 활동을 주 2~3회 루틴으로 만들면 ${elementKo(yongshinEl)} 기운이 보강돼요.`
-          : `${elementKo(yongshinEl)} 기운을 보강하는 활동을 주기적으로 하면 이번 달 운세 흐름이 좋아져요.`,
+          : `${elementKo(yongshinEl)} 기운을 보강하는 활동을 주기적으로 하면 이번 달의 페이스가 안정돼요.`,
         reason: '용신 기운을 꾸준히 채우는 루틴이 월간 운세의 핵심이에요.',
       });
     }
@@ -433,7 +433,7 @@ function makeGoodActions(
     // Fallback (decade or unknown)
     actions.push({
       text: `${elementKo(yongshinEl)} 기운을 보강하는 활동이 좋아요. ${hobbies.length > 0 ? hobbies.slice(0, 2).join(', ') + ' 같은 활동을 추천해요.' : '편안한 활동을 찾아보세요.'}`,
-      reason: `용신인 ${elementKo(yongshinEl)} 기운을 채우면 전체 운세 흐름이 좋아져요.`,
+      reason: `용신인 ${elementKo(yongshinEl)} 기운을 채우면 전체 운세 리듬이 안정돼요.`,
     });
   }
 
@@ -897,7 +897,7 @@ export function buildPeriodFortuneCard(
 
   let periodClaim: string;
   if (isYongshinAligned) {
-    periodClaim = `이 시기의 천간 ${iGa(stemKo)} 용신과 일치하여 흐름이 좋은 시기예요.`;
+    periodClaim = `이 시기의 천간 ${iGa(stemKo)} 용신과 일치하여 받침이 좋은 시기예요.`;
   } else if (isGishinAligned) {
     periodClaim = `이 시기의 천간 ${iGa(stemKo)} 기신과 겹쳐 주의가 필요한 시기예요.`;
   } else {
