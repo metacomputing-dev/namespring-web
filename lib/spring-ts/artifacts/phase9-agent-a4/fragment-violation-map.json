@@ -1,0 +1,638 @@
+{
+  "uniqueFragmentCount": 32,
+  "totalParagraphHits": 290,
+  "bySourceFile": {
+    "C:\\Projects\\metaintelligence\\namespring-web\\.claude\\worktrees\\agent-a5ce3e9b2412a4f47\\lib\\spring-ts\\data\\narrative\\_coverage\\expression-children-season-context.fragments.json": 4,
+    "C:\\Projects\\metaintelligence\\namespring-web\\.claude\\worktrees\\agent-a5ce3e9b2412a4f47\\lib\\spring-ts\\data\\narrative\\health_stress\\thisYear\\expert.fragments.json": 1,
+    "C:\\Projects\\metaintelligence\\namespring-web\\.claude\\worktrees\\agent-a5ce3e9b2412a4f47\\lib\\spring-ts\\data\\narrative\\wealth\\thisWeek\\expert.fragments.json": 1,
+    "C:\\Projects\\metaintelligence\\namespring-web\\.claude\\worktrees\\agent-a5ce3e9b2412a4f47\\lib\\spring-ts\\data\\narrative\\wealth\\today\\expert.fragments.json": 1,
+    "C:\\Projects\\metaintelligence\\namespring-web\\.claude\\worktrees\\agent-a5ce3e9b2412a4f47\\lib\\spring-ts\\data\\narrative\\wealth\\thisMonth\\expert.fragments.json": 1,
+    "C:\\Projects\\metaintelligence\\namespring-web\\.claude\\worktrees\\agent-a5ce3e9b2412a4f47\\lib\\spring-ts\\data\\narrative\\_coverage\\health-long-season-context.fragments.json": 2,
+    "C:\\Projects\\metaintelligence\\namespring-web\\.claude\\worktrees\\agent-a5ce3e9b2412a4f47\\lib\\spring-ts\\data\\narrative\\_coverage\\health-season-context.fragments.json": 3,
+    "C:\\Projects\\metaintelligence\\namespring-web\\.claude\\worktrees\\agent-a5ce3e9b2412a4f47\\lib\\spring-ts\\data\\narrative\\_coverage\\study-document-detail-season-context.fragments.json": 2,
+    "C:\\Projects\\metaintelligence\\namespring-web\\.claude\\worktrees\\agent-a5ce3e9b2412a4f47\\lib\\spring-ts\\data\\narrative\\_coverage\\movement-long-season-context.fragments.json": 1,
+    "C:\\Projects\\metaintelligence\\namespring-web\\.claude\\worktrees\\agent-a5ce3e9b2412a4f47\\lib\\spring-ts\\data\\narrative\\_coverage\\wealth-season-context.fragments.json": 4,
+    "C:\\Projects\\metaintelligence\\namespring-web\\.claude\\worktrees\\agent-a5ce3e9b2412a4f47\\lib\\spring-ts\\data\\narrative\\_coverage\\min14-career-floor.fragments.json": 3,
+    "C:\\Projects\\metaintelligence\\namespring-web\\.claude\\worktrees\\agent-a5ce3e9b2412a4f47\\lib\\spring-ts\\data\\narrative\\_coverage\\min14-expression-children-floor.fragments.json": 1,
+    "C:\\Projects\\metaintelligence\\namespring-web\\.claude\\worktrees\\agent-a5ce3e9b2412a4f47\\lib\\spring-ts\\data\\narrative\\_coverage\\movement-short-season-context.fragments.json": 1,
+    "C:\\Projects\\metaintelligence\\namespring-web\\.claude\\worktrees\\agent-a5ce3e9b2412a4f47\\lib\\spring-ts\\data\\narrative\\_coverage\\health-stress-short-season-context.fragments.json": 1,
+    "C:\\Projects\\metaintelligence\\namespring-web\\.claude\\worktrees\\agent-a5ce3e9b2412a4f47\\lib\\spring-ts\\data\\narrative\\_coverage\\underfilled-min8.fragments.json": 1,
+    "C:\\Projects\\metaintelligence\\namespring-web\\.claude\\worktrees\\agent-a5ce3e9b2412a4f47\\lib\\spring-ts\\data\\narrative\\wealth\\thisYear\\expert.fragments.json": 1,
+    "C:\\Projects\\metaintelligence\\namespring-web\\.claude\\worktrees\\agent-a5ce3e9b2412a4f47\\lib\\spring-ts\\data\\narrative\\health_stress\\thisWeek\\expert.fragments.json": 1,
+    "C:\\Projects\\metaintelligence\\namespring-web\\.claude\\worktrees\\agent-a5ce3e9b2412a4f47\\lib\\spring-ts\\data\\narrative\\family\\thisYear\\expert.fragments.json": 1,
+    "C:\\Projects\\metaintelligence\\namespring-web\\.claude\\worktrees\\agent-a5ce3e9b2412a4f47\\lib\\spring-ts\\data\\narrative\\health_stress\\thisMonth\\expert.fragments.json": 1,
+    "C:\\Projects\\metaintelligence\\namespring-web\\.claude\\worktrees\\agent-a5ce3e9b2412a4f47\\lib\\spring-ts\\data\\narrative\\health_stress\\today\\expert.fragments.json": 1
+  },
+  "records": [
+    {
+      "fragmentId": "expression_children.today.expert.currentseason.spring_summer.301",
+      "tagCount": 9,
+      "fixtureCount": 17,
+      "fixtures": [
+        "02-choi-seongsoo-tiered-fortune.json",
+        "05-park-minji-late-night-female-tiered.json",
+        "06-lee-hajun-unknown-hour-neutral-tiered.json",
+        "08-kim-jiwon-strong-jeonggwan-gyeokguk-tiered.json",
+        "09-kim-seongsu-special-format-candidate-tiered.json",
+        "10-choi-yaza-boundary-male-tiered.json",
+        "11-park-jeolgi-boundary-female-tiered.json",
+        "12-jeong-extreme-strong-continuous-tiered.json",
+        "13-oh-extreme-weak-continuous-tiered.json",
+        "14-choi-palace-naeum-surface-tiered.json",
+        "15-choi-consensus-aware-yongshin-tiered.json",
+        "16-choi-senior-male-tiered.json",
+        "17-kim-senior-female-tiered.json",
+        "19-gyeokguk-conflict-jeonggwan-vs-bigyeop-tiered.json",
+        "20-gyeokguk-conflict-consensus-aware-tiered.json",
+        "21-multi-axis-evaluator-enabled-tiered.json",
+        "22-low-confidence-yongshin-tiered.json"
+      ],
+      "category": "expression_children",
+      "period": "today",
+      "sourceFile": "C:\\Projects\\metaintelligence\\namespring-web\\.claude\\worktrees\\agent-a5ce3e9b2412a4f47\\lib\\spring-ts\\data\\narrative\\_coverage\\expression-children-season-context.fragments.json"
+    },
+    {
+      "fragmentId": "expression_children.thisWeek.expert.currentseason.spring_summer.301",
+      "tagCount": 9,
+      "fixtureCount": 17,
+      "fixtures": [
+        "02-choi-seongsoo-tiered-fortune.json",
+        "05-park-minji-late-night-female-tiered.json",
+        "06-lee-hajun-unknown-hour-neutral-tiered.json",
+        "08-kim-jiwon-strong-jeonggwan-gyeokguk-tiered.json",
+        "09-kim-seongsu-special-format-candidate-tiered.json",
+        "10-choi-yaza-boundary-male-tiered.json",
+        "11-park-jeolgi-boundary-female-tiered.json",
+        "12-jeong-extreme-strong-continuous-tiered.json",
+        "13-oh-extreme-weak-continuous-tiered.json",
+        "14-choi-palace-naeum-surface-tiered.json",
+        "15-choi-consensus-aware-yongshin-tiered.json",
+        "16-choi-senior-male-tiered.json",
+        "17-kim-senior-female-tiered.json",
+        "19-gyeokguk-conflict-jeonggwan-vs-bigyeop-tiered.json",
+        "20-gyeokguk-conflict-consensus-aware-tiered.json",
+        "21-multi-axis-evaluator-enabled-tiered.json",
+        "22-low-confidence-yongshin-tiered.json"
+      ],
+      "category": "expression_children",
+      "period": "thisWeek",
+      "sourceFile": "C:\\Projects\\metaintelligence\\namespring-web\\.claude\\worktrees\\agent-a5ce3e9b2412a4f47\\lib\\spring-ts\\data\\narrative\\_coverage\\expression-children-season-context.fragments.json"
+    },
+    {
+      "fragmentId": "health_stress.thisYear.expert.fire_strong.001",
+      "tagCount": 9,
+      "fixtureCount": 1,
+      "fixtures": [
+        "17-kim-senior-female-tiered.json"
+      ],
+      "category": "health_stress",
+      "period": "thisYear",
+      "sourceFile": "C:\\Projects\\metaintelligence\\namespring-web\\.claude\\worktrees\\agent-a5ce3e9b2412a4f47\\lib\\spring-ts\\data\\narrative\\health_stress\\thisYear\\expert.fragments.json"
+    },
+    {
+      "fragmentId": "wealth.thisWeek.expert.weak.neutral.004",
+      "tagCount": 8,
+      "fixtureCount": 4,
+      "fixtures": [
+        "02-choi-seongsoo-tiered-fortune.json",
+        "14-choi-palace-naeum-surface-tiered.json",
+        "15-choi-consensus-aware-yongshin-tiered.json",
+        "21-multi-axis-evaluator-enabled-tiered.json"
+      ],
+      "category": "wealth",
+      "period": "thisWeek",
+      "sourceFile": "C:\\Projects\\metaintelligence\\namespring-web\\.claude\\worktrees\\agent-a5ce3e9b2412a4f47\\lib\\spring-ts\\data\\narrative\\wealth\\thisWeek\\expert.fragments.json"
+    },
+    {
+      "fragmentId": "wealth.today.expert.weak.neutral.004",
+      "tagCount": 8,
+      "fixtureCount": 4,
+      "fixtures": [
+        "11-park-jeolgi-boundary-female-tiered.json",
+        "12-jeong-extreme-strong-continuous-tiered.json",
+        "16-choi-senior-male-tiered.json",
+        "20-gyeokguk-conflict-consensus-aware-tiered.json"
+      ],
+      "category": "wealth",
+      "period": "today",
+      "sourceFile": "C:\\Projects\\metaintelligence\\namespring-web\\.claude\\worktrees\\agent-a5ce3e9b2412a4f47\\lib\\spring-ts\\data\\narrative\\wealth\\today\\expert.fragments.json"
+    },
+    {
+      "fragmentId": "wealth.thisMonth.expert.weak.neutral.004",
+      "tagCount": 8,
+      "fixtureCount": 1,
+      "fixtures": [
+        "20-gyeokguk-conflict-consensus-aware-tiered.json"
+      ],
+      "category": "wealth",
+      "period": "thisMonth",
+      "sourceFile": "C:\\Projects\\metaintelligence\\namespring-web\\.claude\\worktrees\\agent-a5ce3e9b2412a4f47\\lib\\spring-ts\\data\\narrative\\wealth\\thisMonth\\expert.fragments.json"
+    },
+    {
+      "fragmentId": "health.life.expert.currentseason.spring_summer.301",
+      "tagCount": 7,
+      "fixtureCount": 17,
+      "fixtures": [
+        "02-choi-seongsoo-tiered-fortune.json",
+        "05-park-minji-late-night-female-tiered.json",
+        "06-lee-hajun-unknown-hour-neutral-tiered.json",
+        "08-kim-jiwon-strong-jeonggwan-gyeokguk-tiered.json",
+        "09-kim-seongsu-special-format-candidate-tiered.json",
+        "10-choi-yaza-boundary-male-tiered.json",
+        "11-park-jeolgi-boundary-female-tiered.json",
+        "12-jeong-extreme-strong-continuous-tiered.json",
+        "13-oh-extreme-weak-continuous-tiered.json",
+        "14-choi-palace-naeum-surface-tiered.json",
+        "15-choi-consensus-aware-yongshin-tiered.json",
+        "16-choi-senior-male-tiered.json",
+        "17-kim-senior-female-tiered.json",
+        "19-gyeokguk-conflict-jeonggwan-vs-bigyeop-tiered.json",
+        "20-gyeokguk-conflict-consensus-aware-tiered.json",
+        "21-multi-axis-evaluator-enabled-tiered.json",
+        "22-low-confidence-yongshin-tiered.json"
+      ],
+      "category": "health",
+      "period": "life",
+      "sourceFile": "C:\\Projects\\metaintelligence\\namespring-web\\.claude\\worktrees\\agent-a5ce3e9b2412a4f47\\lib\\spring-ts\\data\\narrative\\_coverage\\health-long-season-context.fragments.json"
+    },
+    {
+      "fragmentId": "health.today.expert.currentseason.spring_summer.301",
+      "tagCount": 7,
+      "fixtureCount": 17,
+      "fixtures": [
+        "02-choi-seongsoo-tiered-fortune.json",
+        "05-park-minji-late-night-female-tiered.json",
+        "06-lee-hajun-unknown-hour-neutral-tiered.json",
+        "08-kim-jiwon-strong-jeonggwan-gyeokguk-tiered.json",
+        "09-kim-seongsu-special-format-candidate-tiered.json",
+        "10-choi-yaza-boundary-male-tiered.json",
+        "11-park-jeolgi-boundary-female-tiered.json",
+        "12-jeong-extreme-strong-continuous-tiered.json",
+        "13-oh-extreme-weak-continuous-tiered.json",
+        "14-choi-palace-naeum-surface-tiered.json",
+        "15-choi-consensus-aware-yongshin-tiered.json",
+        "16-choi-senior-male-tiered.json",
+        "17-kim-senior-female-tiered.json",
+        "19-gyeokguk-conflict-jeonggwan-vs-bigyeop-tiered.json",
+        "20-gyeokguk-conflict-consensus-aware-tiered.json",
+        "21-multi-axis-evaluator-enabled-tiered.json",
+        "22-low-confidence-yongshin-tiered.json"
+      ],
+      "category": "health",
+      "period": "today",
+      "sourceFile": "C:\\Projects\\metaintelligence\\namespring-web\\.claude\\worktrees\\agent-a5ce3e9b2412a4f47\\lib\\spring-ts\\data\\narrative\\_coverage\\health-season-context.fragments.json"
+    },
+    {
+      "fragmentId": "health.thisWeek.expert.currentseason.spring_summer.301",
+      "tagCount": 7,
+      "fixtureCount": 17,
+      "fixtures": [
+        "02-choi-seongsoo-tiered-fortune.json",
+        "05-park-minji-late-night-female-tiered.json",
+        "06-lee-hajun-unknown-hour-neutral-tiered.json",
+        "08-kim-jiwon-strong-jeonggwan-gyeokguk-tiered.json",
+        "09-kim-seongsu-special-format-candidate-tiered.json",
+        "10-choi-yaza-boundary-male-tiered.json",
+        "11-park-jeolgi-boundary-female-tiered.json",
+        "12-jeong-extreme-strong-continuous-tiered.json",
+        "13-oh-extreme-weak-continuous-tiered.json",
+        "14-choi-palace-naeum-surface-tiered.json",
+        "15-choi-consensus-aware-yongshin-tiered.json",
+        "16-choi-senior-male-tiered.json",
+        "17-kim-senior-female-tiered.json",
+        "19-gyeokguk-conflict-jeonggwan-vs-bigyeop-tiered.json",
+        "20-gyeokguk-conflict-consensus-aware-tiered.json",
+        "21-multi-axis-evaluator-enabled-tiered.json",
+        "22-low-confidence-yongshin-tiered.json"
+      ],
+      "category": "health",
+      "period": "thisWeek",
+      "sourceFile": "C:\\Projects\\metaintelligence\\namespring-web\\.claude\\worktrees\\agent-a5ce3e9b2412a4f47\\lib\\spring-ts\\data\\narrative\\_coverage\\health-season-context.fragments.json"
+    },
+    {
+      "fragmentId": "study_document.thisWeek.expert.currentseason.spring_summer.301",
+      "tagCount": 7,
+      "fixtureCount": 17,
+      "fixtures": [
+        "02-choi-seongsoo-tiered-fortune.json",
+        "05-park-minji-late-night-female-tiered.json",
+        "06-lee-hajun-unknown-hour-neutral-tiered.json",
+        "08-kim-jiwon-strong-jeonggwan-gyeokguk-tiered.json",
+        "09-kim-seongsu-special-format-candidate-tiered.json",
+        "10-choi-yaza-boundary-male-tiered.json",
+        "11-park-jeolgi-boundary-female-tiered.json",
+        "12-jeong-extreme-strong-continuous-tiered.json",
+        "13-oh-extreme-weak-continuous-tiered.json",
+        "14-choi-palace-naeum-surface-tiered.json",
+        "15-choi-consensus-aware-yongshin-tiered.json",
+        "16-choi-senior-male-tiered.json",
+        "17-kim-senior-female-tiered.json",
+        "19-gyeokguk-conflict-jeonggwan-vs-bigyeop-tiered.json",
+        "20-gyeokguk-conflict-consensus-aware-tiered.json",
+        "21-multi-axis-evaluator-enabled-tiered.json",
+        "22-low-confidence-yongshin-tiered.json"
+      ],
+      "category": "study_document",
+      "period": "thisWeek",
+      "sourceFile": "C:\\Projects\\metaintelligence\\namespring-web\\.claude\\worktrees\\agent-a5ce3e9b2412a4f47\\lib\\spring-ts\\data\\narrative\\_coverage\\study-document-detail-season-context.fragments.json"
+    },
+    {
+      "fragmentId": "health.thisMonth.expert.currentseason.spring_summer.301",
+      "tagCount": 7,
+      "fixtureCount": 17,
+      "fixtures": [
+        "02-choi-seongsoo-tiered-fortune.json",
+        "05-park-minji-late-night-female-tiered.json",
+        "06-lee-hajun-unknown-hour-neutral-tiered.json",
+        "08-kim-jiwon-strong-jeonggwan-gyeokguk-tiered.json",
+        "09-kim-seongsu-special-format-candidate-tiered.json",
+        "10-choi-yaza-boundary-male-tiered.json",
+        "11-park-jeolgi-boundary-female-tiered.json",
+        "12-jeong-extreme-strong-continuous-tiered.json",
+        "13-oh-extreme-weak-continuous-tiered.json",
+        "14-choi-palace-naeum-surface-tiered.json",
+        "15-choi-consensus-aware-yongshin-tiered.json",
+        "16-choi-senior-male-tiered.json",
+        "17-kim-senior-female-tiered.json",
+        "19-gyeokguk-conflict-jeonggwan-vs-bigyeop-tiered.json",
+        "20-gyeokguk-conflict-consensus-aware-tiered.json",
+        "21-multi-axis-evaluator-enabled-tiered.json",
+        "22-low-confidence-yongshin-tiered.json"
+      ],
+      "category": "health",
+      "period": "thisMonth",
+      "sourceFile": "C:\\Projects\\metaintelligence\\namespring-web\\.claude\\worktrees\\agent-a5ce3e9b2412a4f47\\lib\\spring-ts\\data\\narrative\\_coverage\\health-season-context.fragments.json"
+    },
+    {
+      "fragmentId": "study_document.thisMonth.expert.currentseason.spring_summer.301",
+      "tagCount": 7,
+      "fixtureCount": 17,
+      "fixtures": [
+        "02-choi-seongsoo-tiered-fortune.json",
+        "05-park-minji-late-night-female-tiered.json",
+        "06-lee-hajun-unknown-hour-neutral-tiered.json",
+        "08-kim-jiwon-strong-jeonggwan-gyeokguk-tiered.json",
+        "09-kim-seongsu-special-format-candidate-tiered.json",
+        "10-choi-yaza-boundary-male-tiered.json",
+        "11-park-jeolgi-boundary-female-tiered.json",
+        "12-jeong-extreme-strong-continuous-tiered.json",
+        "13-oh-extreme-weak-continuous-tiered.json",
+        "14-choi-palace-naeum-surface-tiered.json",
+        "15-choi-consensus-aware-yongshin-tiered.json",
+        "16-choi-senior-male-tiered.json",
+        "17-kim-senior-female-tiered.json",
+        "19-gyeokguk-conflict-jeonggwan-vs-bigyeop-tiered.json",
+        "20-gyeokguk-conflict-consensus-aware-tiered.json",
+        "21-multi-axis-evaluator-enabled-tiered.json",
+        "22-low-confidence-yongshin-tiered.json"
+      ],
+      "category": "study_document",
+      "period": "thisMonth",
+      "sourceFile": "C:\\Projects\\metaintelligence\\namespring-web\\.claude\\worktrees\\agent-a5ce3e9b2412a4f47\\lib\\spring-ts\\data\\narrative\\_coverage\\study-document-detail-season-context.fragments.json"
+    },
+    {
+      "fragmentId": "expression_children.thisYear.expert.currentseason.spring_summer.301",
+      "tagCount": 7,
+      "fixtureCount": 17,
+      "fixtures": [
+        "02-choi-seongsoo-tiered-fortune.json",
+        "05-park-minji-late-night-female-tiered.json",
+        "06-lee-hajun-unknown-hour-neutral-tiered.json",
+        "08-kim-jiwon-strong-jeonggwan-gyeokguk-tiered.json",
+        "09-kim-seongsu-special-format-candidate-tiered.json",
+        "10-choi-yaza-boundary-male-tiered.json",
+        "11-park-jeolgi-boundary-female-tiered.json",
+        "12-jeong-extreme-strong-continuous-tiered.json",
+        "13-oh-extreme-weak-continuous-tiered.json",
+        "14-choi-palace-naeum-surface-tiered.json",
+        "15-choi-consensus-aware-yongshin-tiered.json",
+        "16-choi-senior-male-tiered.json",
+        "17-kim-senior-female-tiered.json",
+        "19-gyeokguk-conflict-jeonggwan-vs-bigyeop-tiered.json",
+        "20-gyeokguk-conflict-consensus-aware-tiered.json",
+        "21-multi-axis-evaluator-enabled-tiered.json",
+        "22-low-confidence-yongshin-tiered.json"
+      ],
+      "category": "expression_children",
+      "period": "thisYear",
+      "sourceFile": "C:\\Projects\\metaintelligence\\namespring-web\\.claude\\worktrees\\agent-a5ce3e9b2412a4f47\\lib\\spring-ts\\data\\narrative\\_coverage\\expression-children-season-context.fragments.json"
+    },
+    {
+      "fragmentId": "movement.thisYear.expert.currentseason.spring_summer.301",
+      "tagCount": 7,
+      "fixtureCount": 14,
+      "fixtures": [
+        "02-choi-seongsoo-tiered-fortune.json",
+        "05-park-minji-late-night-female-tiered.json",
+        "06-lee-hajun-unknown-hour-neutral-tiered.json",
+        "08-kim-jiwon-strong-jeonggwan-gyeokguk-tiered.json",
+        "09-kim-seongsu-special-format-candidate-tiered.json",
+        "10-choi-yaza-boundary-male-tiered.json",
+        "13-oh-extreme-weak-continuous-tiered.json",
+        "14-choi-palace-naeum-surface-tiered.json",
+        "15-choi-consensus-aware-yongshin-tiered.json",
+        "17-kim-senior-female-tiered.json",
+        "19-gyeokguk-conflict-jeonggwan-vs-bigyeop-tiered.json",
+        "20-gyeokguk-conflict-consensus-aware-tiered.json",
+        "21-multi-axis-evaluator-enabled-tiered.json",
+        "22-low-confidence-yongshin-tiered.json"
+      ],
+      "category": "movement",
+      "period": "thisYear",
+      "sourceFile": "C:\\Projects\\metaintelligence\\namespring-web\\.claude\\worktrees\\agent-a5ce3e9b2412a4f47\\lib\\spring-ts\\data\\narrative\\_coverage\\movement-long-season-context.fragments.json"
+    },
+    {
+      "fragmentId": "wealth.thisYear.expert.currentseason.spring_summer.301",
+      "tagCount": 7,
+      "fixtureCount": 12,
+      "fixtures": [
+        "02-choi-seongsoo-tiered-fortune.json",
+        "05-park-minji-late-night-female-tiered.json",
+        "06-lee-hajun-unknown-hour-neutral-tiered.json",
+        "08-kim-jiwon-strong-jeonggwan-gyeokguk-tiered.json",
+        "09-kim-seongsu-special-format-candidate-tiered.json",
+        "10-choi-yaza-boundary-male-tiered.json",
+        "14-choi-palace-naeum-surface-tiered.json",
+        "15-choi-consensus-aware-yongshin-tiered.json",
+        "17-kim-senior-female-tiered.json",
+        "19-gyeokguk-conflict-jeonggwan-vs-bigyeop-tiered.json",
+        "21-multi-axis-evaluator-enabled-tiered.json",
+        "22-low-confidence-yongshin-tiered.json"
+      ],
+      "category": "wealth",
+      "period": "thisYear",
+      "sourceFile": "C:\\Projects\\metaintelligence\\namespring-web\\.claude\\worktrees\\agent-a5ce3e9b2412a4f47\\lib\\spring-ts\\data\\narrative\\_coverage\\wealth-season-context.fragments.json"
+    },
+    {
+      "fragmentId": "career.thisMonth.expert.season.spring_summer.501",
+      "tagCount": 7,
+      "fixtureCount": 11,
+      "fixtures": [
+        "02-choi-seongsoo-tiered-fortune.json",
+        "05-park-minji-late-night-female-tiered.json",
+        "06-lee-hajun-unknown-hour-neutral-tiered.json",
+        "08-kim-jiwon-strong-jeonggwan-gyeokguk-tiered.json",
+        "09-kim-seongsu-special-format-candidate-tiered.json",
+        "14-choi-palace-naeum-surface-tiered.json",
+        "15-choi-consensus-aware-yongshin-tiered.json",
+        "19-gyeokguk-conflict-jeonggwan-vs-bigyeop-tiered.json",
+        "20-gyeokguk-conflict-consensus-aware-tiered.json",
+        "21-multi-axis-evaluator-enabled-tiered.json",
+        "22-low-confidence-yongshin-tiered.json"
+      ],
+      "category": "career",
+      "period": "thisMonth",
+      "sourceFile": "C:\\Projects\\metaintelligence\\namespring-web\\.claude\\worktrees\\agent-a5ce3e9b2412a4f47\\lib\\spring-ts\\data\\narrative\\_coverage\\min14-career-floor.fragments.json"
+    },
+    {
+      "fragmentId": "expression_children.thisMonth.expert.output.season.spring_summer.501",
+      "tagCount": 7,
+      "fixtureCount": 11,
+      "fixtures": [
+        "02-choi-seongsoo-tiered-fortune.json",
+        "05-park-minji-late-night-female-tiered.json",
+        "06-lee-hajun-unknown-hour-neutral-tiered.json",
+        "08-kim-jiwon-strong-jeonggwan-gyeokguk-tiered.json",
+        "09-kim-seongsu-special-format-candidate-tiered.json",
+        "14-choi-palace-naeum-surface-tiered.json",
+        "15-choi-consensus-aware-yongshin-tiered.json",
+        "19-gyeokguk-conflict-jeonggwan-vs-bigyeop-tiered.json",
+        "20-gyeokguk-conflict-consensus-aware-tiered.json",
+        "21-multi-axis-evaluator-enabled-tiered.json",
+        "22-low-confidence-yongshin-tiered.json"
+      ],
+      "category": "expression_children",
+      "period": "thisMonth",
+      "sourceFile": "C:\\Projects\\metaintelligence\\namespring-web\\.claude\\worktrees\\agent-a5ce3e9b2412a4f47\\lib\\spring-ts\\data\\narrative\\_coverage\\min14-expression-children-floor.fragments.json"
+    },
+    {
+      "fragmentId": "wealth.life.expert.currentseason.spring_summer.301",
+      "tagCount": 7,
+      "fixtureCount": 10,
+      "fixtures": [
+        "05-park-minji-late-night-female-tiered.json",
+        "06-lee-hajun-unknown-hour-neutral-tiered.json",
+        "09-kim-seongsu-special-format-candidate-tiered.json",
+        "10-choi-yaza-boundary-male-tiered.json",
+        "11-park-jeolgi-boundary-female-tiered.json",
+        "12-jeong-extreme-strong-continuous-tiered.json",
+        "13-oh-extreme-weak-continuous-tiered.json",
+        "16-choi-senior-male-tiered.json",
+        "17-kim-senior-female-tiered.json",
+        "19-gyeokguk-conflict-jeonggwan-vs-bigyeop-tiered.json"
+      ],
+      "category": "wealth",
+      "period": "life",
+      "sourceFile": "C:\\Projects\\metaintelligence\\namespring-web\\.claude\\worktrees\\agent-a5ce3e9b2412a4f47\\lib\\spring-ts\\data\\narrative\\_coverage\\wealth-season-context.fragments.json"
+    },
+    {
+      "fragmentId": "movement.thisWeek.expert.currentseason.spring_summer.301",
+      "tagCount": 7,
+      "fixtureCount": 10,
+      "fixtures": [
+        "05-park-minji-late-night-female-tiered.json",
+        "06-lee-hajun-unknown-hour-neutral-tiered.json",
+        "09-kim-seongsu-special-format-candidate-tiered.json",
+        "10-choi-yaza-boundary-male-tiered.json",
+        "11-park-jeolgi-boundary-female-tiered.json",
+        "12-jeong-extreme-strong-continuous-tiered.json",
+        "13-oh-extreme-weak-continuous-tiered.json",
+        "16-choi-senior-male-tiered.json",
+        "17-kim-senior-female-tiered.json",
+        "19-gyeokguk-conflict-jeonggwan-vs-bigyeop-tiered.json"
+      ],
+      "category": "movement",
+      "period": "thisWeek",
+      "sourceFile": "C:\\Projects\\metaintelligence\\namespring-web\\.claude\\worktrees\\agent-a5ce3e9b2412a4f47\\lib\\spring-ts\\data\\narrative\\_coverage\\movement-short-season-context.fragments.json"
+    },
+    {
+      "fragmentId": "health_stress.thisYear.expert.currentseason.spring_summer.301",
+      "tagCount": 7,
+      "fixtureCount": 9,
+      "fixtures": [
+        "05-park-minji-late-night-female-tiered.json",
+        "06-lee-hajun-unknown-hour-neutral-tiered.json",
+        "08-kim-jiwon-strong-jeonggwan-gyeokguk-tiered.json",
+        "09-kim-seongsu-special-format-candidate-tiered.json",
+        "12-jeong-extreme-strong-continuous-tiered.json",
+        "13-oh-extreme-weak-continuous-tiered.json",
+        "14-choi-palace-naeum-surface-tiered.json",
+        "19-gyeokguk-conflict-jeonggwan-vs-bigyeop-tiered.json",
+        "20-gyeokguk-conflict-consensus-aware-tiered.json"
+      ],
+      "category": "health_stress",
+      "period": "thisYear",
+      "sourceFile": "C:\\Projects\\metaintelligence\\namespring-web\\.claude\\worktrees\\agent-a5ce3e9b2412a4f47\\lib\\spring-ts\\data\\narrative\\_coverage\\health-long-season-context.fragments.json"
+    },
+    {
+      "fragmentId": "health_stress.today.expert.currentseason.spring_summer.301",
+      "tagCount": 7,
+      "fixtureCount": 8,
+      "fixtures": [
+        "05-park-minji-late-night-female-tiered.json",
+        "06-lee-hajun-unknown-hour-neutral-tiered.json",
+        "08-kim-jiwon-strong-jeonggwan-gyeokguk-tiered.json",
+        "09-kim-seongsu-special-format-candidate-tiered.json",
+        "13-oh-extreme-weak-continuous-tiered.json",
+        "14-choi-palace-naeum-surface-tiered.json",
+        "19-gyeokguk-conflict-jeonggwan-vs-bigyeop-tiered.json",
+        "20-gyeokguk-conflict-consensus-aware-tiered.json"
+      ],
+      "category": "health_stress",
+      "period": "today",
+      "sourceFile": "C:\\Projects\\metaintelligence\\namespring-web\\.claude\\worktrees\\agent-a5ce3e9b2412a4f47\\lib\\spring-ts\\data\\narrative\\_coverage\\health-stress-short-season-context.fragments.json"
+    },
+    {
+      "fragmentId": "career.life.expert.energy.weak.501",
+      "tagCount": 7,
+      "fixtureCount": 7,
+      "fixtures": [
+        "02-choi-seongsoo-tiered-fortune.json",
+        "08-kim-jiwon-strong-jeonggwan-gyeokguk-tiered.json",
+        "14-choi-palace-naeum-surface-tiered.json",
+        "15-choi-consensus-aware-yongshin-tiered.json",
+        "20-gyeokguk-conflict-consensus-aware-tiered.json",
+        "21-multi-axis-evaluator-enabled-tiered.json",
+        "22-low-confidence-yongshin-tiered.json"
+      ],
+      "category": "career",
+      "period": "life",
+      "sourceFile": "C:\\Projects\\metaintelligence\\namespring-web\\.claude\\worktrees\\agent-a5ce3e9b2412a4f47\\lib\\spring-ts\\data\\narrative\\_coverage\\min14-career-floor.fragments.json"
+    },
+    {
+      "fragmentId": "wealth.thisWeek.expert.neutral.cashflow.008",
+      "tagCount": 7,
+      "fixtureCount": 7,
+      "fixtures": [
+        "05-park-minji-late-night-female-tiered.json",
+        "06-lee-hajun-unknown-hour-neutral-tiered.json",
+        "09-kim-seongsu-special-format-candidate-tiered.json",
+        "13-oh-extreme-weak-continuous-tiered.json",
+        "19-gyeokguk-conflict-jeonggwan-vs-bigyeop-tiered.json",
+        "20-gyeokguk-conflict-consensus-aware-tiered.json",
+        "22-low-confidence-yongshin-tiered.json"
+      ],
+      "category": "wealth",
+      "period": "thisWeek",
+      "sourceFile": "C:\\Projects\\metaintelligence\\namespring-web\\.claude\\worktrees\\agent-a5ce3e9b2412a4f47\\lib\\spring-ts\\data\\narrative\\_coverage\\underfilled-min8.fragments.json"
+    },
+    {
+      "fragmentId": "expression_children.thisMonth.expert.currentseason.spring_summer.301",
+      "tagCount": 7,
+      "fixtureCount": 6,
+      "fixtures": [
+        "10-choi-yaza-boundary-male-tiered.json",
+        "11-park-jeolgi-boundary-female-tiered.json",
+        "12-jeong-extreme-strong-continuous-tiered.json",
+        "13-oh-extreme-weak-continuous-tiered.json",
+        "16-choi-senior-male-tiered.json",
+        "17-kim-senior-female-tiered.json"
+      ],
+      "category": "expression_children",
+      "period": "thisMonth",
+      "sourceFile": "C:\\Projects\\metaintelligence\\namespring-web\\.claude\\worktrees\\agent-a5ce3e9b2412a4f47\\lib\\spring-ts\\data\\narrative\\_coverage\\expression-children-season-context.fragments.json"
+    },
+    {
+      "fragmentId": "wealth.thisWeek.expert.currentseason.spring_summer.301",
+      "tagCount": 7,
+      "fixtureCount": 5,
+      "fixtures": [
+        "08-kim-jiwon-strong-jeonggwan-gyeokguk-tiered.json",
+        "11-park-jeolgi-boundary-female-tiered.json",
+        "12-jeong-extreme-strong-continuous-tiered.json",
+        "16-choi-senior-male-tiered.json",
+        "17-kim-senior-female-tiered.json"
+      ],
+      "category": "wealth",
+      "period": "thisWeek",
+      "sourceFile": "C:\\Projects\\metaintelligence\\namespring-web\\.claude\\worktrees\\agent-a5ce3e9b2412a4f47\\lib\\spring-ts\\data\\narrative\\_coverage\\wealth-season-context.fragments.json"
+    },
+    {
+      "fragmentId": "wealth.thisYear.expert.weak.neutral.004",
+      "tagCount": 7,
+      "fixtureCount": 4,
+      "fixtures": [
+        "11-park-jeolgi-boundary-female-tiered.json",
+        "12-jeong-extreme-strong-continuous-tiered.json",
+        "16-choi-senior-male-tiered.json",
+        "20-gyeokguk-conflict-consensus-aware-tiered.json"
+      ],
+      "category": "wealth",
+      "period": "thisYear",
+      "sourceFile": "C:\\Projects\\metaintelligence\\namespring-web\\.claude\\worktrees\\agent-a5ce3e9b2412a4f47\\lib\\spring-ts\\data\\narrative\\wealth\\thisYear\\expert.fragments.json"
+    },
+    {
+      "fragmentId": "health_stress.thisWeek.expert.water_weak.001",
+      "tagCount": 7,
+      "fixtureCount": 3,
+      "fixtures": [
+        "02-choi-seongsoo-tiered-fortune.json",
+        "15-choi-consensus-aware-yongshin-tiered.json",
+        "21-multi-axis-evaluator-enabled-tiered.json"
+      ],
+      "category": "health_stress",
+      "period": "thisWeek",
+      "sourceFile": "C:\\Projects\\metaintelligence\\namespring-web\\.claude\\worktrees\\agent-a5ce3e9b2412a4f47\\lib\\spring-ts\\data\\narrative\\health_stress\\thisWeek\\expert.fragments.json"
+    },
+    {
+      "fragmentId": "career.life.expert.responsibility.strong.501",
+      "tagCount": 7,
+      "fixtureCount": 3,
+      "fixtures": [
+        "05-park-minji-late-night-female-tiered.json",
+        "06-lee-hajun-unknown-hour-neutral-tiered.json",
+        "09-kim-seongsu-special-format-candidate-tiered.json"
+      ],
+      "category": "career",
+      "period": "life",
+      "sourceFile": "C:\\Projects\\metaintelligence\\namespring-web\\.claude\\worktrees\\agent-a5ce3e9b2412a4f47\\lib\\spring-ts\\data\\narrative\\_coverage\\min14-career-floor.fragments.json"
+    },
+    {
+      "fragmentId": "wealth.thisMonth.expert.currentseason.spring_summer.301",
+      "tagCount": 7,
+      "fixtureCount": 3,
+      "fixtures": [
+        "08-kim-jiwon-strong-jeonggwan-gyeokguk-tiered.json",
+        "10-choi-yaza-boundary-male-tiered.json",
+        "17-kim-senior-female-tiered.json"
+      ],
+      "category": "wealth",
+      "period": "thisMonth",
+      "sourceFile": "C:\\Projects\\metaintelligence\\namespring-web\\.claude\\worktrees\\agent-a5ce3e9b2412a4f47\\lib\\spring-ts\\data\\narrative\\_coverage\\wealth-season-context.fragments.json"
+    },
+    {
+      "fragmentId": "family.thisYear.expert.young_caregiver.009",
+      "tagCount": 7,
+      "fixtureCount": 2,
+      "fixtures": [
+        "04-kim-seoyun-young-female-tiered.json",
+        "18-lee-child-male-tiered.json"
+      ],
+      "category": "family",
+      "period": "thisYear",
+      "sourceFile": "C:\\Projects\\metaintelligence\\namespring-web\\.claude\\worktrees\\agent-a5ce3e9b2412a4f47\\lib\\spring-ts\\data\\narrative\\family\\thisYear\\expert.fragments.json"
+    },
+    {
+      "fragmentId": "health_stress.thisMonth.expert.water_weak.001",
+      "tagCount": 7,
+      "fixtureCount": 1,
+      "fixtures": [
+        "08-kim-jiwon-strong-jeonggwan-gyeokguk-tiered.json"
+      ],
+      "category": "health_stress",
+      "period": "thisMonth",
+      "sourceFile": "C:\\Projects\\metaintelligence\\namespring-web\\.claude\\worktrees\\agent-a5ce3e9b2412a4f47\\lib\\spring-ts\\data\\narrative\\health_stress\\thisMonth\\expert.fragments.json"
+    },
+    {
+      "fragmentId": "health_stress.today.expert.fire_strong.001",
+      "tagCount": 7,
+      "fixtureCount": 1,
+      "fixtures": [
+        "17-kim-senior-female-tiered.json"
+      ],
+      "category": "health_stress",
+      "period": "today",
+      "sourceFile": "C:\\Projects\\metaintelligence\\namespring-web\\.claude\\worktrees\\agent-a5ce3e9b2412a4f47\\lib\\spring-ts\\data\\narrative\\health_stress\\today\\expert.fragments.json"
+    }
+  ]
+}

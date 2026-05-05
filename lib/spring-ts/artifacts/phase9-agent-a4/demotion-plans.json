@@ -1,0 +1,1633 @@
+{
+  "planCount": 31,
+  "plans": [
+    {
+      "fragmentId": "expression_children.today.expert.currentseason.spring_summer.301",
+      "sourceFile": "C:\\Projects\\metaintelligence\\namespring-web\\.claude\\worktrees\\agent-a5ce3e9b2412a4f47\\lib\\spring-ts\\data\\narrative\\_coverage\\expression-children-season-context.fragments.json",
+      "headTagCount": 9,
+      "preTagCount": 3,
+      "closerStartIdx": 1,
+      "bucketCount": 4,
+      "tagCountsPerPara": [
+        3,
+        2,
+        2,
+        2
+      ],
+      "demoteCount": 3,
+      "finalCloserTagCount": 2,
+      "demotedPositions": [
+        {
+          "paraIdx": 1,
+          "tagId": "sikshin",
+          "isDupOfBody": true,
+          "isFinalCloser": false
+        },
+        {
+          "paraIdx": 1,
+          "tagId": "janyeogung",
+          "isDupOfBody": false,
+          "isFinalCloser": false
+        },
+        {
+          "paraIdx": 2,
+          "tagId": "hwagae",
+          "isDupOfBody": false,
+          "isFinalCloser": false
+        }
+      ],
+      "closerTagPositions": [
+        {
+          "paraIdx": 1,
+          "tagId": "janyeogung",
+          "isDupOfBody": false,
+          "isFinalCloser": false
+        },
+        {
+          "paraIdx": 1,
+          "tagId": "sikshin",
+          "isDupOfBody": true,
+          "isFinalCloser": false
+        },
+        {
+          "paraIdx": 2,
+          "tagId": "hwagae",
+          "isDupOfBody": false,
+          "isFinalCloser": false
+        },
+        {
+          "paraIdx": 2,
+          "tagId": "munchanggwiin",
+          "isDupOfBody": false,
+          "isFinalCloser": false
+        },
+        {
+          "paraIdx": 3,
+          "tagId": "daewoonGungsil",
+          "isDupOfBody": false,
+          "isFinalCloser": true
+        },
+        {
+          "paraIdx": 3,
+          "tagId": "wolun",
+          "isDupOfBody": false,
+          "isFinalCloser": true
+        }
+      ]
+    },
+    {
+      "fragmentId": "expression_children.thisWeek.expert.currentseason.spring_summer.301",
+      "sourceFile": "C:\\Projects\\metaintelligence\\namespring-web\\.claude\\worktrees\\agent-a5ce3e9b2412a4f47\\lib\\spring-ts\\data\\narrative\\_coverage\\expression-children-season-context.fragments.json",
+      "headTagCount": 9,
+      "preTagCount": 3,
+      "closerStartIdx": 1,
+      "bucketCount": 4,
+      "tagCountsPerPara": [
+        3,
+        2,
+        2,
+        2
+      ],
+      "demoteCount": 3,
+      "finalCloserTagCount": 2,
+      "demotedPositions": [
+        {
+          "paraIdx": 1,
+          "tagId": "sikshin",
+          "isDupOfBody": true,
+          "isFinalCloser": false
+        },
+        {
+          "paraIdx": 1,
+          "tagId": "sanggwan",
+          "isDupOfBody": true,
+          "isFinalCloser": false
+        },
+        {
+          "paraIdx": 2,
+          "tagId": "sikshin",
+          "isDupOfBody": true,
+          "isFinalCloser": false
+        }
+      ],
+      "closerTagPositions": [
+        {
+          "paraIdx": 1,
+          "tagId": "sikshin",
+          "isDupOfBody": true,
+          "isFinalCloser": false
+        },
+        {
+          "paraIdx": 1,
+          "tagId": "sanggwan",
+          "isDupOfBody": true,
+          "isFinalCloser": false
+        },
+        {
+          "paraIdx": 2,
+          "tagId": "janyeogung",
+          "isDupOfBody": false,
+          "isFinalCloser": false
+        },
+        {
+          "paraIdx": 2,
+          "tagId": "sikshin",
+          "isDupOfBody": true,
+          "isFinalCloser": false
+        },
+        {
+          "paraIdx": 3,
+          "tagId": "hwagae",
+          "isDupOfBody": false,
+          "isFinalCloser": true
+        },
+        {
+          "paraIdx": 3,
+          "tagId": "munchanggwiin",
+          "isDupOfBody": false,
+          "isFinalCloser": true
+        }
+      ]
+    },
+    {
+      "fragmentId": "health_stress.thisYear.expert.fire_strong.001",
+      "sourceFile": "C:\\Projects\\metaintelligence\\namespring-web\\.claude\\worktrees\\agent-a5ce3e9b2412a4f47\\lib\\spring-ts\\data\\narrative\\health_stress\\thisYear\\expert.fragments.json",
+      "headTagCount": 9,
+      "preTagCount": 3,
+      "closerStartIdx": 1,
+      "bucketCount": 4,
+      "tagCountsPerPara": [
+        3,
+        2,
+        2,
+        2
+      ],
+      "demoteCount": 3,
+      "finalCloserTagCount": 2,
+      "demotedPositions": [
+        {
+          "paraIdx": 1,
+          "tagId": "baekho",
+          "isDupOfBody": false,
+          "isFinalCloser": false
+        },
+        {
+          "paraIdx": 1,
+          "tagId": "goegang",
+          "isDupOfBody": false,
+          "isFinalCloser": false
+        },
+        {
+          "paraIdx": 2,
+          "tagId": "gongmang",
+          "isDupOfBody": false,
+          "isFinalCloser": false
+        }
+      ],
+      "closerTagPositions": [
+        {
+          "paraIdx": 1,
+          "tagId": "baekho",
+          "isDupOfBody": false,
+          "isFinalCloser": false
+        },
+        {
+          "paraIdx": 1,
+          "tagId": "goegang",
+          "isDupOfBody": false,
+          "isFinalCloser": false
+        },
+        {
+          "paraIdx": 2,
+          "tagId": "gongmang",
+          "isDupOfBody": false,
+          "isFinalCloser": false
+        },
+        {
+          "paraIdx": 2,
+          "tagId": "stabilityIndex",
+          "isDupOfBody": false,
+          "isFinalCloser": false
+        },
+        {
+          "paraIdx": 3,
+          "tagId": "pyeongwan",
+          "isDupOfBody": false,
+          "isFinalCloser": true
+        },
+        {
+          "paraIdx": 3,
+          "tagId": "jeongin",
+          "isDupOfBody": false,
+          "isFinalCloser": true
+        }
+      ]
+    },
+    {
+      "fragmentId": "wealth.thisWeek.expert.weak.neutral.004",
+      "sourceFile": "C:\\Projects\\metaintelligence\\namespring-web\\.claude\\worktrees\\agent-a5ce3e9b2412a4f47\\lib\\spring-ts\\data\\narrative\\wealth\\thisWeek\\expert.fragments.json",
+      "headTagCount": 8,
+      "preTagCount": 4,
+      "closerStartIdx": 2,
+      "bucketCount": 4,
+      "tagCountsPerPara": [
+        2,
+        2,
+        2,
+        2
+      ],
+      "demoteCount": 2,
+      "finalCloserTagCount": 2,
+      "demotedPositions": [
+        {
+          "paraIdx": 2,
+          "tagId": "jaebakgung",
+          "isDupOfBody": false,
+          "isFinalCloser": false
+        },
+        {
+          "paraIdx": 2,
+          "tagId": "cheonleulgwiin",
+          "isDupOfBody": false,
+          "isFinalCloser": false
+        }
+      ],
+      "closerTagPositions": [
+        {
+          "paraIdx": 2,
+          "tagId": "jaebakgung",
+          "isDupOfBody": false,
+          "isFinalCloser": false
+        },
+        {
+          "paraIdx": 2,
+          "tagId": "cheonleulgwiin",
+          "isDupOfBody": false,
+          "isFinalCloser": false
+        },
+        {
+          "paraIdx": 3,
+          "tagId": "gyeokgukFit",
+          "isDupOfBody": false,
+          "isFinalCloser": true
+        },
+        {
+          "paraIdx": 3,
+          "tagId": "stabilityIndex",
+          "isDupOfBody": false,
+          "isFinalCloser": true
+        }
+      ]
+    },
+    {
+      "fragmentId": "wealth.today.expert.weak.neutral.004",
+      "sourceFile": "C:\\Projects\\metaintelligence\\namespring-web\\.claude\\worktrees\\agent-a5ce3e9b2412a4f47\\lib\\spring-ts\\data\\narrative\\wealth\\today\\expert.fragments.json",
+      "headTagCount": 8,
+      "preTagCount": 4,
+      "closerStartIdx": 2,
+      "bucketCount": 4,
+      "tagCountsPerPara": [
+        2,
+        2,
+        2,
+        2
+      ],
+      "demoteCount": 2,
+      "finalCloserTagCount": 2,
+      "demotedPositions": [
+        {
+          "paraIdx": 2,
+          "tagId": "jeongjae",
+          "isDupOfBody": true,
+          "isFinalCloser": false
+        },
+        {
+          "paraIdx": 2,
+          "tagId": "pyeonjae",
+          "isDupOfBody": true,
+          "isFinalCloser": false
+        }
+      ],
+      "closerTagPositions": [
+        {
+          "paraIdx": 2,
+          "tagId": "jeongjae",
+          "isDupOfBody": true,
+          "isFinalCloser": false
+        },
+        {
+          "paraIdx": 2,
+          "tagId": "pyeonjae",
+          "isDupOfBody": true,
+          "isFinalCloser": false
+        },
+        {
+          "paraIdx": 3,
+          "tagId": "jaebakgung",
+          "isDupOfBody": false,
+          "isFinalCloser": true
+        },
+        {
+          "paraIdx": 3,
+          "tagId": "cheonleulgwiin",
+          "isDupOfBody": false,
+          "isFinalCloser": true
+        }
+      ]
+    },
+    {
+      "fragmentId": "wealth.thisMonth.expert.weak.neutral.004",
+      "sourceFile": "C:\\Projects\\metaintelligence\\namespring-web\\.claude\\worktrees\\agent-a5ce3e9b2412a4f47\\lib\\spring-ts\\data\\narrative\\wealth\\thisMonth\\expert.fragments.json",
+      "headTagCount": 8,
+      "preTagCount": 4,
+      "closerStartIdx": 2,
+      "bucketCount": 4,
+      "tagCountsPerPara": [
+        2,
+        2,
+        2,
+        2
+      ],
+      "demoteCount": 2,
+      "finalCloserTagCount": 2,
+      "demotedPositions": [
+        {
+          "paraIdx": 3,
+          "tagId": "jeongjae",
+          "isDupOfBody": true,
+          "isFinalCloser": true
+        },
+        {
+          "paraIdx": 2,
+          "tagId": "pyeonjaegyeok",
+          "isDupOfBody": false,
+          "isFinalCloser": false
+        }
+      ],
+      "closerTagPositions": [
+        {
+          "paraIdx": 2,
+          "tagId": "pyeonjaegyeok",
+          "isDupOfBody": false,
+          "isFinalCloser": false
+        },
+        {
+          "paraIdx": 2,
+          "tagId": "jeongjaegyeok",
+          "isDupOfBody": false,
+          "isFinalCloser": false
+        },
+        {
+          "paraIdx": 3,
+          "tagId": "jeongjae",
+          "isDupOfBody": true,
+          "isFinalCloser": true
+        },
+        {
+          "paraIdx": 3,
+          "tagId": "pyeonjae",
+          "isDupOfBody": true,
+          "isFinalCloser": true
+        }
+      ]
+    },
+    {
+      "fragmentId": "health.life.expert.currentseason.spring_summer.301",
+      "sourceFile": "C:\\Projects\\metaintelligence\\namespring-web\\.claude\\worktrees\\agent-a5ce3e9b2412a4f47\\lib\\spring-ts\\data\\narrative\\_coverage\\health-long-season-context.fragments.json",
+      "headTagCount": 7,
+      "preTagCount": 3,
+      "closerStartIdx": 2,
+      "bucketCount": 4,
+      "tagCountsPerPara": [
+        0,
+        3,
+        2,
+        2
+      ],
+      "demoteCount": 1,
+      "finalCloserTagCount": 2,
+      "demotedPositions": [
+        {
+          "paraIdx": 2,
+          "tagId": "jisal",
+          "isDupOfBody": false,
+          "isFinalCloser": false
+        }
+      ],
+      "closerTagPositions": [
+        {
+          "paraIdx": 2,
+          "tagId": "jisal",
+          "isDupOfBody": false,
+          "isFinalCloser": false
+        },
+        {
+          "paraIdx": 2,
+          "tagId": "cheonui",
+          "isDupOfBody": false,
+          "isFinalCloser": false
+        },
+        {
+          "paraIdx": 3,
+          "tagId": "eumyangHarmony",
+          "isDupOfBody": false,
+          "isFinalCloser": true
+        },
+        {
+          "paraIdx": 3,
+          "tagId": "stabilityIndex",
+          "isDupOfBody": false,
+          "isFinalCloser": true
+        }
+      ]
+    },
+    {
+      "fragmentId": "health.today.expert.currentseason.spring_summer.301",
+      "sourceFile": "C:\\Projects\\metaintelligence\\namespring-web\\.claude\\worktrees\\agent-a5ce3e9b2412a4f47\\lib\\spring-ts\\data\\narrative\\_coverage\\health-season-context.fragments.json",
+      "headTagCount": 7,
+      "preTagCount": 3,
+      "closerStartIdx": 2,
+      "bucketCount": 4,
+      "tagCountsPerPara": [
+        0,
+        3,
+        2,
+        2
+      ],
+      "demoteCount": 1,
+      "finalCloserTagCount": 2,
+      "demotedPositions": [
+        {
+          "paraIdx": 2,
+          "tagId": "johuYongshin",
+          "isDupOfBody": false,
+          "isFinalCloser": false
+        }
+      ],
+      "closerTagPositions": [
+        {
+          "paraIdx": 2,
+          "tagId": "johuYongshin",
+          "isDupOfBody": false,
+          "isFinalCloser": false
+        },
+        {
+          "paraIdx": 2,
+          "tagId": "johu",
+          "isDupOfBody": false,
+          "isFinalCloser": false
+        },
+        {
+          "paraIdx": 3,
+          "tagId": "jisal",
+          "isDupOfBody": false,
+          "isFinalCloser": true
+        },
+        {
+          "paraIdx": 3,
+          "tagId": "cheonui",
+          "isDupOfBody": false,
+          "isFinalCloser": true
+        }
+      ]
+    },
+    {
+      "fragmentId": "health.thisWeek.expert.currentseason.spring_summer.301",
+      "sourceFile": "C:\\Projects\\metaintelligence\\namespring-web\\.claude\\worktrees\\agent-a5ce3e9b2412a4f47\\lib\\spring-ts\\data\\narrative\\_coverage\\health-season-context.fragments.json",
+      "headTagCount": 7,
+      "preTagCount": 3,
+      "closerStartIdx": 2,
+      "bucketCount": 4,
+      "tagCountsPerPara": [
+        0,
+        3,
+        2,
+        2
+      ],
+      "demoteCount": 1,
+      "finalCloserTagCount": 2,
+      "demotedPositions": [
+        {
+          "paraIdx": 2,
+          "tagId": "jeongin",
+          "isDupOfBody": true,
+          "isFinalCloser": false
+        }
+      ],
+      "closerTagPositions": [
+        {
+          "paraIdx": 2,
+          "tagId": "johu",
+          "isDupOfBody": false,
+          "isFinalCloser": false
+        },
+        {
+          "paraIdx": 2,
+          "tagId": "jeongin",
+          "isDupOfBody": true,
+          "isFinalCloser": false
+        },
+        {
+          "paraIdx": 3,
+          "tagId": "johuYongshin",
+          "isDupOfBody": false,
+          "isFinalCloser": true
+        },
+        {
+          "paraIdx": 3,
+          "tagId": "johu",
+          "isDupOfBody": false,
+          "isFinalCloser": true
+        }
+      ]
+    },
+    {
+      "fragmentId": "study_document.thisWeek.expert.currentseason.spring_summer.301",
+      "sourceFile": "C:\\Projects\\metaintelligence\\namespring-web\\.claude\\worktrees\\agent-a5ce3e9b2412a4f47\\lib\\spring-ts\\data\\narrative\\_coverage\\study-document-detail-season-context.fragments.json",
+      "headTagCount": 7,
+      "preTagCount": 3,
+      "closerStartIdx": 2,
+      "bucketCount": 4,
+      "tagCountsPerPara": [
+        0,
+        3,
+        2,
+        2
+      ],
+      "demoteCount": 1,
+      "finalCloserTagCount": 2,
+      "demotedPositions": [
+        {
+          "paraIdx": 2,
+          "tagId": "munchanggwiin",
+          "isDupOfBody": false,
+          "isFinalCloser": false
+        }
+      ],
+      "closerTagPositions": [
+        {
+          "paraIdx": 2,
+          "tagId": "munchanggwiin",
+          "isDupOfBody": false,
+          "isFinalCloser": false
+        },
+        {
+          "paraIdx": 2,
+          "tagId": "pyeonin",
+          "isDupOfBody": false,
+          "isFinalCloser": false
+        },
+        {
+          "paraIdx": 3,
+          "tagId": "gwanrokgung",
+          "isDupOfBody": false,
+          "isFinalCloser": true
+        },
+        {
+          "paraIdx": 3,
+          "tagId": "bokdeokgung",
+          "isDupOfBody": false,
+          "isFinalCloser": true
+        }
+      ]
+    },
+    {
+      "fragmentId": "health.thisMonth.expert.currentseason.spring_summer.301",
+      "sourceFile": "C:\\Projects\\metaintelligence\\namespring-web\\.claude\\worktrees\\agent-a5ce3e9b2412a4f47\\lib\\spring-ts\\data\\narrative\\_coverage\\health-season-context.fragments.json",
+      "headTagCount": 7,
+      "preTagCount": 3,
+      "closerStartIdx": 2,
+      "bucketCount": 4,
+      "tagCountsPerPara": [
+        0,
+        3,
+        2,
+        2
+      ],
+      "demoteCount": 1,
+      "finalCloserTagCount": 2,
+      "demotedPositions": [
+        {
+          "paraIdx": 2,
+          "tagId": "jeongin",
+          "isDupOfBody": true,
+          "isFinalCloser": false
+        }
+      ],
+      "closerTagPositions": [
+        {
+          "paraIdx": 2,
+          "tagId": "johu",
+          "isDupOfBody": false,
+          "isFinalCloser": false
+        },
+        {
+          "paraIdx": 2,
+          "tagId": "jeongin",
+          "isDupOfBody": true,
+          "isFinalCloser": false
+        },
+        {
+          "paraIdx": 3,
+          "tagId": "johuYongshin",
+          "isDupOfBody": false,
+          "isFinalCloser": true
+        },
+        {
+          "paraIdx": 3,
+          "tagId": "johu",
+          "isDupOfBody": false,
+          "isFinalCloser": true
+        }
+      ]
+    },
+    {
+      "fragmentId": "study_document.thisMonth.expert.currentseason.spring_summer.301",
+      "sourceFile": "C:\\Projects\\metaintelligence\\namespring-web\\.claude\\worktrees\\agent-a5ce3e9b2412a4f47\\lib\\spring-ts\\data\\narrative\\_coverage\\study-document-detail-season-context.fragments.json",
+      "headTagCount": 7,
+      "preTagCount": 3,
+      "closerStartIdx": 2,
+      "bucketCount": 4,
+      "tagCountsPerPara": [
+        0,
+        3,
+        2,
+        2
+      ],
+      "demoteCount": 1,
+      "finalCloserTagCount": 2,
+      "demotedPositions": [
+        {
+          "paraIdx": 3,
+          "tagId": "jeongin",
+          "isDupOfBody": true,
+          "isFinalCloser": true
+        }
+      ],
+      "closerTagPositions": [
+        {
+          "paraIdx": 2,
+          "tagId": "cheondeokgwiin",
+          "isDupOfBody": false,
+          "isFinalCloser": false
+        },
+        {
+          "paraIdx": 2,
+          "tagId": "woldeokgwiin",
+          "isDupOfBody": false,
+          "isFinalCloser": false
+        },
+        {
+          "paraIdx": 3,
+          "tagId": "jeongin",
+          "isDupOfBody": true,
+          "isFinalCloser": true
+        },
+        {
+          "paraIdx": 3,
+          "tagId": "sikshin",
+          "isDupOfBody": true,
+          "isFinalCloser": true
+        }
+      ]
+    },
+    {
+      "fragmentId": "expression_children.thisYear.expert.currentseason.spring_summer.301",
+      "sourceFile": "C:\\Projects\\metaintelligence\\namespring-web\\.claude\\worktrees\\agent-a5ce3e9b2412a4f47\\lib\\spring-ts\\data\\narrative\\_coverage\\expression-children-season-context.fragments.json",
+      "headTagCount": 7,
+      "preTagCount": 3,
+      "closerStartIdx": 2,
+      "bucketCount": 4,
+      "tagCountsPerPara": [
+        2,
+        1,
+        2,
+        2
+      ],
+      "demoteCount": 1,
+      "finalCloserTagCount": 2,
+      "demotedPositions": [
+        {
+          "paraIdx": 3,
+          "tagId": "sikshin",
+          "isDupOfBody": true,
+          "isFinalCloser": true
+        }
+      ],
+      "closerTagPositions": [
+        {
+          "paraIdx": 2,
+          "tagId": "daewoonGungsil",
+          "isDupOfBody": false,
+          "isFinalCloser": false
+        },
+        {
+          "paraIdx": 2,
+          "tagId": "wolun",
+          "isDupOfBody": false,
+          "isFinalCloser": false
+        },
+        {
+          "paraIdx": 3,
+          "tagId": "sikshin",
+          "isDupOfBody": true,
+          "isFinalCloser": true
+        },
+        {
+          "paraIdx": 3,
+          "tagId": "sanggwan",
+          "isDupOfBody": true,
+          "isFinalCloser": true
+        }
+      ]
+    },
+    {
+      "fragmentId": "movement.thisYear.expert.currentseason.spring_summer.301",
+      "sourceFile": "C:\\Projects\\metaintelligence\\namespring-web\\.claude\\worktrees\\agent-a5ce3e9b2412a4f47\\lib\\spring-ts\\data\\narrative\\_coverage\\movement-long-season-context.fragments.json",
+      "headTagCount": 7,
+      "preTagCount": 3,
+      "closerStartIdx": 2,
+      "bucketCount": 4,
+      "tagCountsPerPara": [
+        0,
+        3,
+        2,
+        2
+      ],
+      "demoteCount": 1,
+      "finalCloserTagCount": 2,
+      "demotedPositions": [
+        {
+          "paraIdx": 2,
+          "tagId": "yeokma",
+          "isDupOfBody": true,
+          "isFinalCloser": false
+        }
+      ],
+      "closerTagPositions": [
+        {
+          "paraIdx": 2,
+          "tagId": "yeokma",
+          "isDupOfBody": true,
+          "isFinalCloser": false
+        },
+        {
+          "paraIdx": 2,
+          "tagId": "jojangung",
+          "isDupOfBody": false,
+          "isFinalCloser": false
+        },
+        {
+          "paraIdx": 3,
+          "tagId": "jisal",
+          "isDupOfBody": false,
+          "isFinalCloser": true
+        },
+        {
+          "paraIdx": 3,
+          "tagId": "cheonigung",
+          "isDupOfBody": false,
+          "isFinalCloser": true
+        }
+      ]
+    },
+    {
+      "fragmentId": "wealth.thisYear.expert.currentseason.spring_summer.301",
+      "sourceFile": "C:\\Projects\\metaintelligence\\namespring-web\\.claude\\worktrees\\agent-a5ce3e9b2412a4f47\\lib\\spring-ts\\data\\narrative\\_coverage\\wealth-season-context.fragments.json",
+      "headTagCount": 7,
+      "preTagCount": 3,
+      "closerStartIdx": 2,
+      "bucketCount": 4,
+      "tagCountsPerPara": [
+        0,
+        3,
+        2,
+        2
+      ],
+      "demoteCount": 1,
+      "finalCloserTagCount": 2,
+      "demotedPositions": [
+        {
+          "paraIdx": 2,
+          "tagId": "jeongjae",
+          "isDupOfBody": true,
+          "isFinalCloser": false
+        }
+      ],
+      "closerTagPositions": [
+        {
+          "paraIdx": 2,
+          "tagId": "jeongjae",
+          "isDupOfBody": true,
+          "isFinalCloser": false
+        },
+        {
+          "paraIdx": 2,
+          "tagId": "pyeonjae",
+          "isDupOfBody": true,
+          "isFinalCloser": false
+        },
+        {
+          "paraIdx": 3,
+          "tagId": "jaebakgung",
+          "isDupOfBody": false,
+          "isFinalCloser": true
+        },
+        {
+          "paraIdx": 3,
+          "tagId": "cheonleulgwiin",
+          "isDupOfBody": false,
+          "isFinalCloser": true
+        }
+      ]
+    },
+    {
+      "fragmentId": "career.thisMonth.expert.season.spring_summer.501",
+      "sourceFile": "C:\\Projects\\metaintelligence\\namespring-web\\.claude\\worktrees\\agent-a5ce3e9b2412a4f47\\lib\\spring-ts\\data\\narrative\\_coverage\\min14-career-floor.fragments.json",
+      "headTagCount": 7,
+      "preTagCount": 3,
+      "closerStartIdx": 2,
+      "bucketCount": 4,
+      "tagCountsPerPara": [
+        2,
+        1,
+        2,
+        2
+      ],
+      "demoteCount": 1,
+      "finalCloserTagCount": 2,
+      "demotedPositions": [
+        {
+          "paraIdx": 2,
+          "tagId": "gwanrokgung",
+          "isDupOfBody": false,
+          "isFinalCloser": false
+        }
+      ],
+      "closerTagPositions": [
+        {
+          "paraIdx": 2,
+          "tagId": "gwanrokgung",
+          "isDupOfBody": false,
+          "isFinalCloser": false
+        },
+        {
+          "paraIdx": 2,
+          "tagId": "pyeongwan",
+          "isDupOfBody": false,
+          "isFinalCloser": false
+        },
+        {
+          "paraIdx": 3,
+          "tagId": "gyeokgukYongshin",
+          "isDupOfBody": false,
+          "isFinalCloser": true
+        },
+        {
+          "paraIdx": 3,
+          "tagId": "gyeokgukFit",
+          "isDupOfBody": false,
+          "isFinalCloser": true
+        }
+      ]
+    },
+    {
+      "fragmentId": "expression_children.thisMonth.expert.output.season.spring_summer.501",
+      "sourceFile": "C:\\Projects\\metaintelligence\\namespring-web\\.claude\\worktrees\\agent-a5ce3e9b2412a4f47\\lib\\spring-ts\\data\\narrative\\_coverage\\min14-expression-children-floor.fragments.json",
+      "headTagCount": 7,
+      "preTagCount": 3,
+      "closerStartIdx": 2,
+      "bucketCount": 4,
+      "tagCountsPerPara": [
+        0,
+        3,
+        2,
+        2
+      ],
+      "demoteCount": 1,
+      "finalCloserTagCount": 2,
+      "demotedPositions": [
+        {
+          "paraIdx": 2,
+          "tagId": "hwagae",
+          "isDupOfBody": false,
+          "isFinalCloser": false
+        }
+      ],
+      "closerTagPositions": [
+        {
+          "paraIdx": 2,
+          "tagId": "hwagae",
+          "isDupOfBody": false,
+          "isFinalCloser": false
+        },
+        {
+          "paraIdx": 2,
+          "tagId": "munchanggwiin",
+          "isDupOfBody": false,
+          "isFinalCloser": false
+        },
+        {
+          "paraIdx": 3,
+          "tagId": "daewoonGungsil",
+          "isDupOfBody": false,
+          "isFinalCloser": true
+        },
+        {
+          "paraIdx": 3,
+          "tagId": "wolun",
+          "isDupOfBody": false,
+          "isFinalCloser": true
+        }
+      ]
+    },
+    {
+      "fragmentId": "wealth.life.expert.currentseason.spring_summer.301",
+      "sourceFile": "C:\\Projects\\metaintelligence\\namespring-web\\.claude\\worktrees\\agent-a5ce3e9b2412a4f47\\lib\\spring-ts\\data\\narrative\\_coverage\\wealth-season-context.fragments.json",
+      "headTagCount": 7,
+      "preTagCount": 3,
+      "closerStartIdx": 2,
+      "bucketCount": 4,
+      "tagCountsPerPara": [
+        0,
+        3,
+        2,
+        2
+      ],
+      "demoteCount": 1,
+      "finalCloserTagCount": 2,
+      "demotedPositions": [
+        {
+          "paraIdx": 2,
+          "tagId": "jaebakgung",
+          "isDupOfBody": false,
+          "isFinalCloser": false
+        }
+      ],
+      "closerTagPositions": [
+        {
+          "paraIdx": 2,
+          "tagId": "jaebakgung",
+          "isDupOfBody": false,
+          "isFinalCloser": false
+        },
+        {
+          "paraIdx": 2,
+          "tagId": "cheonleulgwiin",
+          "isDupOfBody": false,
+          "isFinalCloser": false
+        },
+        {
+          "paraIdx": 3,
+          "tagId": "gyeokgukFit",
+          "isDupOfBody": false,
+          "isFinalCloser": true
+        },
+        {
+          "paraIdx": 3,
+          "tagId": "stabilityIndex",
+          "isDupOfBody": false,
+          "isFinalCloser": true
+        }
+      ]
+    },
+    {
+      "fragmentId": "movement.thisWeek.expert.currentseason.spring_summer.301",
+      "sourceFile": "C:\\Projects\\metaintelligence\\namespring-web\\.claude\\worktrees\\agent-a5ce3e9b2412a4f47\\lib\\spring-ts\\data\\narrative\\_coverage\\movement-short-season-context.fragments.json",
+      "headTagCount": 7,
+      "preTagCount": 3,
+      "closerStartIdx": 2,
+      "bucketCount": 4,
+      "tagCountsPerPara": [
+        0,
+        3,
+        2,
+        2
+      ],
+      "demoteCount": 1,
+      "finalCloserTagCount": 2,
+      "demotedPositions": [
+        {
+          "paraIdx": 2,
+          "tagId": "daewoonGungsil",
+          "isDupOfBody": true,
+          "isFinalCloser": false
+        }
+      ],
+      "closerTagPositions": [
+        {
+          "paraIdx": 2,
+          "tagId": "daewoonGungsil",
+          "isDupOfBody": true,
+          "isFinalCloser": false
+        },
+        {
+          "paraIdx": 2,
+          "tagId": "iljin",
+          "isDupOfBody": false,
+          "isFinalCloser": false
+        },
+        {
+          "paraIdx": 3,
+          "tagId": "yeokma",
+          "isDupOfBody": true,
+          "isFinalCloser": true
+        },
+        {
+          "paraIdx": 3,
+          "tagId": "jojangung",
+          "isDupOfBody": false,
+          "isFinalCloser": true
+        }
+      ]
+    },
+    {
+      "fragmentId": "health_stress.thisYear.expert.currentseason.spring_summer.301",
+      "sourceFile": "C:\\Projects\\metaintelligence\\namespring-web\\.claude\\worktrees\\agent-a5ce3e9b2412a4f47\\lib\\spring-ts\\data\\narrative\\_coverage\\health-long-season-context.fragments.json",
+      "headTagCount": 7,
+      "preTagCount": 3,
+      "closerStartIdx": 2,
+      "bucketCount": 4,
+      "tagCountsPerPara": [
+        0,
+        3,
+        2,
+        2
+      ],
+      "demoteCount": 1,
+      "finalCloserTagCount": 2,
+      "demotedPositions": [
+        {
+          "paraIdx": 2,
+          "tagId": "jeongin",
+          "isDupOfBody": true,
+          "isFinalCloser": false
+        }
+      ],
+      "closerTagPositions": [
+        {
+          "paraIdx": 2,
+          "tagId": "pyeongwan",
+          "isDupOfBody": false,
+          "isFinalCloser": false
+        },
+        {
+          "paraIdx": 2,
+          "tagId": "jeongin",
+          "isDupOfBody": true,
+          "isFinalCloser": false
+        },
+        {
+          "paraIdx": 3,
+          "tagId": "cheonui",
+          "isDupOfBody": false,
+          "isFinalCloser": true
+        },
+        {
+          "paraIdx": 3,
+          "tagId": "cheondeokgwiin",
+          "isDupOfBody": false,
+          "isFinalCloser": true
+        }
+      ]
+    },
+    {
+      "fragmentId": "health_stress.today.expert.currentseason.spring_summer.301",
+      "sourceFile": "C:\\Projects\\metaintelligence\\namespring-web\\.claude\\worktrees\\agent-a5ce3e9b2412a4f47\\lib\\spring-ts\\data\\narrative\\_coverage\\health-stress-short-season-context.fragments.json",
+      "headTagCount": 7,
+      "preTagCount": 3,
+      "closerStartIdx": 2,
+      "bucketCount": 4,
+      "tagCountsPerPara": [
+        0,
+        3,
+        2,
+        2
+      ],
+      "demoteCount": 1,
+      "finalCloserTagCount": 2,
+      "demotedPositions": [
+        {
+          "paraIdx": 2,
+          "tagId": "jeongin",
+          "isDupOfBody": true,
+          "isFinalCloser": false
+        }
+      ],
+      "closerTagPositions": [
+        {
+          "paraIdx": 2,
+          "tagId": "pyeongwan",
+          "isDupOfBody": false,
+          "isFinalCloser": false
+        },
+        {
+          "paraIdx": 2,
+          "tagId": "jeongin",
+          "isDupOfBody": true,
+          "isFinalCloser": false
+        },
+        {
+          "paraIdx": 3,
+          "tagId": "cheonui",
+          "isDupOfBody": false,
+          "isFinalCloser": true
+        },
+        {
+          "paraIdx": 3,
+          "tagId": "cheondeokgwiin",
+          "isDupOfBody": false,
+          "isFinalCloser": true
+        }
+      ]
+    },
+    {
+      "fragmentId": "career.life.expert.energy.weak.501",
+      "sourceFile": "C:\\Projects\\metaintelligence\\namespring-web\\.claude\\worktrees\\agent-a5ce3e9b2412a4f47\\lib\\spring-ts\\data\\narrative\\_coverage\\min14-career-floor.fragments.json",
+      "headTagCount": 7,
+      "preTagCount": 3,
+      "closerStartIdx": 2,
+      "bucketCount": 4,
+      "tagCountsPerPara": [
+        1,
+        2,
+        2,
+        2
+      ],
+      "demoteCount": 1,
+      "finalCloserTagCount": 2,
+      "demotedPositions": [
+        {
+          "paraIdx": 2,
+          "tagId": "jangseongsal",
+          "isDupOfBody": false,
+          "isFinalCloser": false
+        }
+      ],
+      "closerTagPositions": [
+        {
+          "paraIdx": 2,
+          "tagId": "jangseongsal",
+          "isDupOfBody": false,
+          "isFinalCloser": false
+        },
+        {
+          "paraIdx": 2,
+          "tagId": "cheonui",
+          "isDupOfBody": false,
+          "isFinalCloser": false
+        },
+        {
+          "paraIdx": 3,
+          "tagId": "jeonggwan",
+          "isDupOfBody": false,
+          "isFinalCloser": true
+        },
+        {
+          "paraIdx": 3,
+          "tagId": "sikshin",
+          "isDupOfBody": false,
+          "isFinalCloser": true
+        }
+      ]
+    },
+    {
+      "fragmentId": "wealth.thisWeek.expert.neutral.cashflow.008",
+      "sourceFile": "C:\\Projects\\metaintelligence\\namespring-web\\.claude\\worktrees\\agent-a5ce3e9b2412a4f47\\lib\\spring-ts\\data\\narrative\\_coverage\\underfilled-min8.fragments.json",
+      "headTagCount": 7,
+      "preTagCount": 3,
+      "closerStartIdx": 2,
+      "bucketCount": 4,
+      "tagCountsPerPara": [
+        2,
+        1,
+        2,
+        2
+      ],
+      "demoteCount": 1,
+      "finalCloserTagCount": 2,
+      "demotedPositions": [
+        {
+          "paraIdx": 2,
+          "tagId": "jeongjae",
+          "isDupOfBody": true,
+          "isFinalCloser": false
+        }
+      ],
+      "closerTagPositions": [
+        {
+          "paraIdx": 2,
+          "tagId": "jeongjae",
+          "isDupOfBody": true,
+          "isFinalCloser": false
+        },
+        {
+          "paraIdx": 2,
+          "tagId": "pyeonjae",
+          "isDupOfBody": true,
+          "isFinalCloser": false
+        },
+        {
+          "paraIdx": 3,
+          "tagId": "jaebakgung",
+          "isDupOfBody": false,
+          "isFinalCloser": true
+        },
+        {
+          "paraIdx": 3,
+          "tagId": "cheonleulgwiin",
+          "isDupOfBody": false,
+          "isFinalCloser": true
+        }
+      ]
+    },
+    {
+      "fragmentId": "expression_children.thisMonth.expert.currentseason.spring_summer.301",
+      "sourceFile": "C:\\Projects\\metaintelligence\\namespring-web\\.claude\\worktrees\\agent-a5ce3e9b2412a4f47\\lib\\spring-ts\\data\\narrative\\_coverage\\expression-children-season-context.fragments.json",
+      "headTagCount": 7,
+      "preTagCount": 3,
+      "closerStartIdx": 2,
+      "bucketCount": 4,
+      "tagCountsPerPara": [
+        2,
+        1,
+        2,
+        2
+      ],
+      "demoteCount": 1,
+      "finalCloserTagCount": 2,
+      "demotedPositions": [
+        {
+          "paraIdx": 2,
+          "tagId": "sikshin",
+          "isDupOfBody": true,
+          "isFinalCloser": false
+        }
+      ],
+      "closerTagPositions": [
+        {
+          "paraIdx": 2,
+          "tagId": "sikshin",
+          "isDupOfBody": true,
+          "isFinalCloser": false
+        },
+        {
+          "paraIdx": 2,
+          "tagId": "sanggwan",
+          "isDupOfBody": true,
+          "isFinalCloser": false
+        },
+        {
+          "paraIdx": 3,
+          "tagId": "janyeogung",
+          "isDupOfBody": false,
+          "isFinalCloser": true
+        },
+        {
+          "paraIdx": 3,
+          "tagId": "sikshin",
+          "isDupOfBody": true,
+          "isFinalCloser": true
+        }
+      ]
+    },
+    {
+      "fragmentId": "wealth.thisWeek.expert.currentseason.spring_summer.301",
+      "sourceFile": "C:\\Projects\\metaintelligence\\namespring-web\\.claude\\worktrees\\agent-a5ce3e9b2412a4f47\\lib\\spring-ts\\data\\narrative\\_coverage\\wealth-season-context.fragments.json",
+      "headTagCount": 7,
+      "preTagCount": 3,
+      "closerStartIdx": 2,
+      "bucketCount": 4,
+      "tagCountsPerPara": [
+        0,
+        3,
+        2,
+        2
+      ],
+      "demoteCount": 1,
+      "finalCloserTagCount": 2,
+      "demotedPositions": [
+        {
+          "paraIdx": 3,
+          "tagId": "jeongjae",
+          "isDupOfBody": true,
+          "isFinalCloser": true
+        }
+      ],
+      "closerTagPositions": [
+        {
+          "paraIdx": 2,
+          "tagId": "pyeonjaegyeok",
+          "isDupOfBody": false,
+          "isFinalCloser": false
+        },
+        {
+          "paraIdx": 2,
+          "tagId": "jeongjaegyeok",
+          "isDupOfBody": false,
+          "isFinalCloser": false
+        },
+        {
+          "paraIdx": 3,
+          "tagId": "jeongjae",
+          "isDupOfBody": true,
+          "isFinalCloser": true
+        },
+        {
+          "paraIdx": 3,
+          "tagId": "pyeonjae",
+          "isDupOfBody": true,
+          "isFinalCloser": true
+        }
+      ]
+    },
+    {
+      "fragmentId": "wealth.thisYear.expert.weak.neutral.004",
+      "sourceFile": "C:\\Projects\\metaintelligence\\namespring-web\\.claude\\worktrees\\agent-a5ce3e9b2412a4f47\\lib\\spring-ts\\data\\narrative\\wealth\\thisYear\\expert.fragments.json",
+      "headTagCount": 7,
+      "preTagCount": 5,
+      "closerStartIdx": 3,
+      "bucketCount": 4,
+      "tagCountsPerPara": [
+        2,
+        2,
+        1,
+        2
+      ],
+      "demoteCount": 1,
+      "finalCloserTagCount": 2,
+      "demotedPositions": [
+        {
+          "paraIdx": 3,
+          "tagId": "jeongjae",
+          "isDupOfBody": true,
+          "isFinalCloser": true
+        }
+      ],
+      "closerTagPositions": [
+        {
+          "paraIdx": 3,
+          "tagId": "jeongjae",
+          "isDupOfBody": true,
+          "isFinalCloser": true
+        },
+        {
+          "paraIdx": 3,
+          "tagId": "pyeonjae",
+          "isDupOfBody": true,
+          "isFinalCloser": true
+        }
+      ]
+    },
+    {
+      "fragmentId": "health_stress.thisWeek.expert.water_weak.001",
+      "sourceFile": "C:\\Projects\\metaintelligence\\namespring-web\\.claude\\worktrees\\agent-a5ce3e9b2412a4f47\\lib\\spring-ts\\data\\narrative\\health_stress\\thisWeek\\expert.fragments.json",
+      "headTagCount": 7,
+      "preTagCount": 3,
+      "closerStartIdx": 2,
+      "bucketCount": 4,
+      "tagCountsPerPara": [
+        1,
+        2,
+        2,
+        2
+      ],
+      "demoteCount": 1,
+      "finalCloserTagCount": 2,
+      "demotedPositions": [
+        {
+          "paraIdx": 3,
+          "tagId": "jeongin",
+          "isDupOfBody": true,
+          "isFinalCloser": true
+        }
+      ],
+      "closerTagPositions": [
+        {
+          "paraIdx": 2,
+          "tagId": "gongmang",
+          "isDupOfBody": false,
+          "isFinalCloser": false
+        },
+        {
+          "paraIdx": 2,
+          "tagId": "stabilityIndex",
+          "isDupOfBody": false,
+          "isFinalCloser": false
+        },
+        {
+          "paraIdx": 3,
+          "tagId": "pyeongwan",
+          "isDupOfBody": false,
+          "isFinalCloser": true
+        },
+        {
+          "paraIdx": 3,
+          "tagId": "jeongin",
+          "isDupOfBody": true,
+          "isFinalCloser": true
+        }
+      ]
+    },
+    {
+      "fragmentId": "career.life.expert.responsibility.strong.501",
+      "sourceFile": "C:\\Projects\\metaintelligence\\namespring-web\\.claude\\worktrees\\agent-a5ce3e9b2412a4f47\\lib\\spring-ts\\data\\narrative\\_coverage\\min14-career-floor.fragments.json",
+      "headTagCount": 7,
+      "preTagCount": 3,
+      "closerStartIdx": 2,
+      "bucketCount": 4,
+      "tagCountsPerPara": [
+        2,
+        1,
+        2,
+        2
+      ],
+      "demoteCount": 1,
+      "finalCloserTagCount": 2,
+      "demotedPositions": [
+        {
+          "paraIdx": 2,
+          "tagId": "gyeokgukYongshin",
+          "isDupOfBody": false,
+          "isFinalCloser": false
+        }
+      ],
+      "closerTagPositions": [
+        {
+          "paraIdx": 2,
+          "tagId": "gyeokgukYongshin",
+          "isDupOfBody": false,
+          "isFinalCloser": false
+        },
+        {
+          "paraIdx": 2,
+          "tagId": "gyeokgukFit",
+          "isDupOfBody": false,
+          "isFinalCloser": false
+        },
+        {
+          "paraIdx": 3,
+          "tagId": "jangseongsal",
+          "isDupOfBody": false,
+          "isFinalCloser": true
+        },
+        {
+          "paraIdx": 3,
+          "tagId": "cheonui",
+          "isDupOfBody": false,
+          "isFinalCloser": true
+        }
+      ]
+    },
+    {
+      "fragmentId": "wealth.thisMonth.expert.currentseason.spring_summer.301",
+      "sourceFile": "C:\\Projects\\metaintelligence\\namespring-web\\.claude\\worktrees\\agent-a5ce3e9b2412a4f47\\lib\\spring-ts\\data\\narrative\\_coverage\\wealth-season-context.fragments.json",
+      "headTagCount": 7,
+      "preTagCount": 3,
+      "closerStartIdx": 2,
+      "bucketCount": 4,
+      "tagCountsPerPara": [
+        0,
+        3,
+        2,
+        2
+      ],
+      "demoteCount": 1,
+      "finalCloserTagCount": 2,
+      "demotedPositions": [
+        {
+          "paraIdx": 2,
+          "tagId": "jaebakgung",
+          "isDupOfBody": false,
+          "isFinalCloser": false
+        }
+      ],
+      "closerTagPositions": [
+        {
+          "paraIdx": 2,
+          "tagId": "jaebakgung",
+          "isDupOfBody": false,
+          "isFinalCloser": false
+        },
+        {
+          "paraIdx": 2,
+          "tagId": "cheonleulgwiin",
+          "isDupOfBody": false,
+          "isFinalCloser": false
+        },
+        {
+          "paraIdx": 3,
+          "tagId": "gyeokgukFit",
+          "isDupOfBody": false,
+          "isFinalCloser": true
+        },
+        {
+          "paraIdx": 3,
+          "tagId": "stabilityIndex",
+          "isDupOfBody": false,
+          "isFinalCloser": true
+        }
+      ]
+    },
+    {
+      "fragmentId": "health_stress.thisMonth.expert.water_weak.001",
+      "sourceFile": "C:\\Projects\\metaintelligence\\namespring-web\\.claude\\worktrees\\agent-a5ce3e9b2412a4f47\\lib\\spring-ts\\data\\narrative\\health_stress\\thisMonth\\expert.fragments.json",
+      "headTagCount": 7,
+      "preTagCount": 3,
+      "closerStartIdx": 2,
+      "bucketCount": 4,
+      "tagCountsPerPara": [
+        1,
+        2,
+        2,
+        2
+      ],
+      "demoteCount": 1,
+      "finalCloserTagCount": 2,
+      "demotedPositions": [
+        {
+          "paraIdx": 2,
+          "tagId": "cheonui",
+          "isDupOfBody": false,
+          "isFinalCloser": false
+        }
+      ],
+      "closerTagPositions": [
+        {
+          "paraIdx": 2,
+          "tagId": "cheonui",
+          "isDupOfBody": false,
+          "isFinalCloser": false
+        },
+        {
+          "paraIdx": 2,
+          "tagId": "cheondeokgwiin",
+          "isDupOfBody": false,
+          "isFinalCloser": false
+        },
+        {
+          "paraIdx": 3,
+          "tagId": "baekho",
+          "isDupOfBody": false,
+          "isFinalCloser": true
+        },
+        {
+          "paraIdx": 3,
+          "tagId": "goegang",
+          "isDupOfBody": false,
+          "isFinalCloser": true
+        }
+      ]
+    },
+    {
+      "fragmentId": "health_stress.today.expert.fire_strong.001",
+      "sourceFile": "C:\\Projects\\metaintelligence\\namespring-web\\.claude\\worktrees\\agent-a5ce3e9b2412a4f47\\lib\\spring-ts\\data\\narrative\\health_stress\\today\\expert.fragments.json",
+      "headTagCount": 7,
+      "preTagCount": 3,
+      "closerStartIdx": 2,
+      "bucketCount": 4,
+      "tagCountsPerPara": [
+        3,
+        0,
+        2,
+        2
+      ],
+      "demoteCount": 1,
+      "finalCloserTagCount": 2,
+      "demotedPositions": [
+        {
+          "paraIdx": 2,
+          "tagId": "baekho",
+          "isDupOfBody": false,
+          "isFinalCloser": false
+        }
+      ],
+      "closerTagPositions": [
+        {
+          "paraIdx": 2,
+          "tagId": "baekho",
+          "isDupOfBody": false,
+          "isFinalCloser": false
+        },
+        {
+          "paraIdx": 2,
+          "tagId": "goegang",
+          "isDupOfBody": false,
+          "isFinalCloser": false
+        },
+        {
+          "paraIdx": 3,
+          "tagId": "gongmang",
+          "isDupOfBody": false,
+          "isFinalCloser": true
+        },
+        {
+          "paraIdx": 3,
+          "tagId": "stabilityIndex",
+          "isDupOfBody": false,
+          "isFinalCloser": true
+        }
+      ]
+    }
+  ]
+}

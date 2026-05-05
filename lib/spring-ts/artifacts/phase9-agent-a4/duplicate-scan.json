@@ -1,0 +1,367 @@
+{
+  "count": 19,
+  "records": [
+    {
+      "fragmentId": "expression_children.today.expert.currentseason.spring_summer.301",
+      "tagCount": 9,
+      "tagIds": [
+        "sikshin",
+        "sanggwan",
+        "yongshin",
+        "janyeogung",
+        "sikshin",
+        "hwagae",
+        "munchanggwiin",
+        "daewoonGungsil",
+        "wolun"
+      ],
+      "dups": [
+        "sikshin"
+      ],
+      "period": "today",
+      "category": "expression_children"
+    },
+    {
+      "fragmentId": "health.thisWeek.expert.currentseason.spring_summer.301",
+      "tagCount": 7,
+      "tagIds": [
+        "jeongin",
+        "pyeonin",
+        "stabilityIndex",
+        "johu",
+        "jeongin",
+        "johuYongshin",
+        "johu"
+      ],
+      "dups": [
+        "jeongin",
+        "johu"
+      ],
+      "period": "thisWeek",
+      "category": "health"
+    },
+    {
+      "fragmentId": "expression_children.thisWeek.expert.currentseason.spring_summer.301",
+      "tagCount": 9,
+      "tagIds": [
+        "sikshin",
+        "sanggwan",
+        "yongshin",
+        "sikshin",
+        "sanggwan",
+        "janyeogung",
+        "sikshin",
+        "hwagae",
+        "munchanggwiin"
+      ],
+      "dups": [
+        "sikshin",
+        "sanggwan"
+      ],
+      "period": "thisWeek",
+      "category": "expression_children"
+    },
+    {
+      "fragmentId": "health_stress.thisWeek.expert.water_weak.001",
+      "tagCount": 7,
+      "tagIds": [
+        "water",
+        "fire",
+        "jeongin",
+        "gongmang",
+        "stabilityIndex",
+        "pyeongwan",
+        "jeongin"
+      ],
+      "dups": [
+        "jeongin"
+      ],
+      "period": "thisWeek",
+      "category": "health_stress"
+    },
+    {
+      "fragmentId": "health.thisMonth.expert.currentseason.spring_summer.301",
+      "tagCount": 7,
+      "tagIds": [
+        "jeongin",
+        "pyeonin",
+        "stabilityIndex",
+        "johu",
+        "jeongin",
+        "johuYongshin",
+        "johu"
+      ],
+      "dups": [
+        "jeongin",
+        "johu"
+      ],
+      "period": "thisMonth",
+      "category": "health"
+    },
+    {
+      "fragmentId": "study_document.thisMonth.expert.currentseason.spring_summer.301",
+      "tagCount": 7,
+      "tagIds": [
+        "jeongin",
+        "sikshin",
+        "sanggwan",
+        "cheondeokgwiin",
+        "woldeokgwiin",
+        "jeongin",
+        "sikshin"
+      ],
+      "dups": [
+        "jeongin",
+        "sikshin"
+      ],
+      "period": "thisMonth",
+      "category": "study_document"
+    },
+    {
+      "fragmentId": "wealth.thisYear.expert.currentseason.spring_summer.301",
+      "tagCount": 7,
+      "tagIds": [
+        "pyeonjae",
+        "jeongjae",
+        "yongshin",
+        "jeongjae",
+        "pyeonjae",
+        "jaebakgung",
+        "cheonleulgwiin"
+      ],
+      "dups": [
+        "pyeonjae",
+        "jeongjae"
+      ],
+      "period": "thisYear",
+      "category": "wealth"
+    },
+    {
+      "fragmentId": "expression_children.thisYear.expert.currentseason.spring_summer.301",
+      "tagCount": 7,
+      "tagIds": [
+        "sikshin",
+        "sanggwan",
+        "yongshin",
+        "daewoonGungsil",
+        "wolun",
+        "sikshin",
+        "sanggwan"
+      ],
+      "dups": [
+        "sikshin",
+        "sanggwan"
+      ],
+      "period": "thisYear",
+      "category": "expression_children"
+    },
+    {
+      "fragmentId": "movement.thisYear.expert.currentseason.spring_summer.301",
+      "tagCount": 7,
+      "tagIds": [
+        "yeokma",
+        "daewoonGungsil",
+        "yongshin",
+        "yeokma",
+        "jojangung",
+        "jisal",
+        "cheonigung"
+      ],
+      "dups": [
+        "yeokma"
+      ],
+      "period": "thisYear",
+      "category": "movement"
+    },
+    {
+      "fragmentId": "family.thisYear.expert.young_caregiver.009",
+      "tagCount": 7,
+      "tagIds": [
+        "bumyong",
+        "jeongin",
+        "jojangung",
+        "bumyong",
+        "jojangung",
+        "hyeongjegung",
+        "janyeogung"
+      ],
+      "dups": [
+        "bumyong",
+        "jojangung"
+      ],
+      "period": "thisYear",
+      "category": "family"
+    },
+    {
+      "fragmentId": "health_stress.today.expert.currentseason.spring_summer.301",
+      "tagCount": 7,
+      "tagIds": [
+        "pyeonin",
+        "jeongin",
+        "stabilityIndex",
+        "pyeongwan",
+        "jeongin",
+        "cheonui",
+        "cheondeokgwiin"
+      ],
+      "dups": [
+        "jeongin"
+      ],
+      "period": "today",
+      "category": "health_stress"
+    },
+    {
+      "fragmentId": "wealth.thisWeek.expert.neutral.cashflow.008",
+      "tagCount": 7,
+      "tagIds": [
+        "jeongjae",
+        "pyeonjae",
+        "stabilityIndex",
+        "jeongjae",
+        "pyeonjae",
+        "jaebakgung",
+        "cheonleulgwiin"
+      ],
+      "dups": [
+        "jeongjae",
+        "pyeonjae"
+      ],
+      "period": "thisWeek",
+      "category": "wealth"
+    },
+    {
+      "fragmentId": "movement.thisWeek.expert.currentseason.spring_summer.301",
+      "tagCount": 7,
+      "tagIds": [
+        "yeokma",
+        "daewoonGungsil",
+        "yongshin",
+        "daewoonGungsil",
+        "iljin",
+        "yeokma",
+        "jojangung"
+      ],
+      "dups": [
+        "yeokma",
+        "daewoonGungsil"
+      ],
+      "period": "thisWeek",
+      "category": "movement"
+    },
+    {
+      "fragmentId": "health_stress.thisYear.expert.currentseason.spring_summer.301",
+      "tagCount": 7,
+      "tagIds": [
+        "pyeonin",
+        "jeongin",
+        "stabilityIndex",
+        "pyeongwan",
+        "jeongin",
+        "cheonui",
+        "cheondeokgwiin"
+      ],
+      "dups": [
+        "jeongin"
+      ],
+      "period": "thisYear",
+      "category": "health_stress"
+    },
+    {
+      "fragmentId": "wealth.thisWeek.expert.currentseason.spring_summer.301",
+      "tagCount": 7,
+      "tagIds": [
+        "pyeonjae",
+        "jeongjae",
+        "yongshin",
+        "pyeonjaegyeok",
+        "jeongjaegyeok",
+        "jeongjae",
+        "pyeonjae"
+      ],
+      "dups": [
+        "pyeonjae",
+        "jeongjae"
+      ],
+      "period": "thisWeek",
+      "category": "wealth"
+    },
+    {
+      "fragmentId": "expression_children.thisMonth.expert.currentseason.spring_summer.301",
+      "tagCount": 7,
+      "tagIds": [
+        "sikshin",
+        "sanggwan",
+        "jasikgung",
+        "sikshin",
+        "sanggwan",
+        "janyeogung",
+        "sikshin"
+      ],
+      "dups": [
+        "sikshin",
+        "sanggwan"
+      ],
+      "period": "thisMonth",
+      "category": "expression_children"
+    },
+    {
+      "fragmentId": "wealth.today.expert.weak.neutral.004",
+      "tagCount": 8,
+      "tagIds": [
+        "jeongin",
+        "yongshin",
+        "jeongjae",
+        "pyeonjae",
+        "jeongjae",
+        "pyeonjae",
+        "jaebakgung",
+        "cheonleulgwiin"
+      ],
+      "dups": [
+        "jeongjae",
+        "pyeonjae"
+      ],
+      "period": "today",
+      "category": "wealth"
+    },
+    {
+      "fragmentId": "wealth.thisYear.expert.weak.neutral.004",
+      "tagCount": 7,
+      "tagIds": [
+        "jeongin",
+        "yongshin",
+        "jeongjae",
+        "bigyeon",
+        "pyeonjae",
+        "jeongjae",
+        "pyeonjae"
+      ],
+      "dups": [
+        "jeongjae",
+        "pyeonjae"
+      ],
+      "period": "thisYear",
+      "category": "wealth"
+    },
+    {
+      "fragmentId": "wealth.thisMonth.expert.weak.neutral.004",
+      "tagCount": 8,
+      "tagIds": [
+        "jeongin",
+        "yongshin",
+        "jeongjae",
+        "pyeonjae",
+        "pyeonjaegyeok",
+        "jeongjaegyeok",
+        "jeongjae",
+        "pyeonjae"
+      ],
+      "dups": [
+        "jeongjae",
+        "pyeonjae"
+      ],
+      "period": "thisMonth",
+      "category": "wealth"
+    }
+  ]
+}

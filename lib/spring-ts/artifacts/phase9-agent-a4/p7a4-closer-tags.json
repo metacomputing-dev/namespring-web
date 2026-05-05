@@ -1,0 +1,1051 @@
+{
+  "recordCount": 32,
+  "records": [
+    {
+      "fragmentId": "expression_children.today.expert.currentseason.spring_summer.301",
+      "sourceFile": "C:\\Projects\\metaintelligence\\namespring-web\\.claude\\worktrees\\agent-a5ce3e9b2412a4f47\\lib\\spring-ts\\data\\narrative\\_coverage\\expression-children-season-context.fragments.json",
+      "tagCount": 9,
+      "headTags": [
+        "sikshin",
+        "sanggwan",
+        "yongshin",
+        "janyeogung",
+        "sikshin",
+        "hwagae",
+        "munchanggwiin",
+        "daewoonGungsil",
+        "wolun"
+      ],
+      "preP7A4Tags": [
+        "sikshin",
+        "sanggwan",
+        "yongshin"
+      ],
+      "addedTags": [
+        "janyeogung",
+        "sikshin",
+        "hwagae",
+        "munchanggwiin",
+        "daewoonGungsil",
+        "wolun"
+      ],
+      "addedTagPositions": [
+        3,
+        4,
+        5,
+        6,
+        7,
+        8
+      ],
+      "foundCommit": "775fac1"
+    },
+    {
+      "fragmentId": "expression_children.thisWeek.expert.currentseason.spring_summer.301",
+      "sourceFile": "C:\\Projects\\metaintelligence\\namespring-web\\.claude\\worktrees\\agent-a5ce3e9b2412a4f47\\lib\\spring-ts\\data\\narrative\\_coverage\\expression-children-season-context.fragments.json",
+      "tagCount": 9,
+      "headTags": [
+        "sikshin",
+        "sanggwan",
+        "yongshin",
+        "sikshin",
+        "sanggwan",
+        "janyeogung",
+        "sikshin",
+        "hwagae",
+        "munchanggwiin"
+      ],
+      "preP7A4Tags": [
+        "sikshin",
+        "sanggwan",
+        "yongshin"
+      ],
+      "addedTags": [
+        "sikshin",
+        "sanggwan",
+        "janyeogung",
+        "sikshin",
+        "hwagae",
+        "munchanggwiin"
+      ],
+      "addedTagPositions": [
+        3,
+        4,
+        5,
+        6,
+        7,
+        8
+      ],
+      "foundCommit": "775fac1"
+    },
+    {
+      "fragmentId": "health_stress.thisYear.expert.fire_strong.001",
+      "sourceFile": "C:\\Projects\\metaintelligence\\namespring-web\\.claude\\worktrees\\agent-a5ce3e9b2412a4f47\\lib\\spring-ts\\data\\narrative\\health_stress\\thisYear\\expert.fragments.json",
+      "tagCount": 9,
+      "headTags": [
+        "fire",
+        "johu",
+        "water",
+        "baekho",
+        "goegang",
+        "gongmang",
+        "stabilityIndex",
+        "pyeongwan",
+        "jeongin"
+      ],
+      "preP7A4Tags": [
+        "fire",
+        "johu",
+        "water"
+      ],
+      "addedTags": [
+        "baekho",
+        "goegang",
+        "gongmang",
+        "stabilityIndex",
+        "pyeongwan",
+        "jeongin"
+      ],
+      "addedTagPositions": [
+        3,
+        4,
+        5,
+        6,
+        7,
+        8
+      ],
+      "foundCommit": "9a5bb8e"
+    },
+    {
+      "fragmentId": "wealth.thisWeek.expert.weak.neutral.004",
+      "sourceFile": "C:\\Projects\\metaintelligence\\namespring-web\\.claude\\worktrees\\agent-a5ce3e9b2412a4f47\\lib\\spring-ts\\data\\narrative\\wealth\\thisWeek\\expert.fragments.json",
+      "tagCount": 8,
+      "headTags": [
+        "jeongin",
+        "yongshin",
+        "jeongjae",
+        "pyeonjae",
+        "jaebakgung",
+        "cheonleulgwiin",
+        "gyeokgukFit",
+        "stabilityIndex"
+      ],
+      "preP7A4Tags": [
+        "jeongin",
+        "yongshin",
+        "jeongjae",
+        "pyeonjae"
+      ],
+      "addedTags": [
+        "jaebakgung",
+        "cheonleulgwiin",
+        "gyeokgukFit",
+        "stabilityIndex"
+      ],
+      "addedTagPositions": [
+        4,
+        5,
+        6,
+        7
+      ],
+      "foundCommit": "173fb2c"
+    },
+    {
+      "fragmentId": "wealth.today.expert.weak.neutral.004",
+      "sourceFile": "C:\\Projects\\metaintelligence\\namespring-web\\.claude\\worktrees\\agent-a5ce3e9b2412a4f47\\lib\\spring-ts\\data\\narrative\\wealth\\today\\expert.fragments.json",
+      "tagCount": 8,
+      "headTags": [
+        "jeongin",
+        "yongshin",
+        "jeongjae",
+        "pyeonjae",
+        "jeongjae",
+        "pyeonjae",
+        "jaebakgung",
+        "cheonleulgwiin"
+      ],
+      "preP7A4Tags": [
+        "jeongin",
+        "yongshin",
+        "jeongjae",
+        "pyeonjae"
+      ],
+      "addedTags": [
+        "jeongjae",
+        "pyeonjae",
+        "jaebakgung",
+        "cheonleulgwiin"
+      ],
+      "addedTagPositions": [
+        4,
+        5,
+        6,
+        7
+      ],
+      "foundCommit": "173fb2c"
+    },
+    {
+      "fragmentId": "wealth.thisMonth.expert.weak.neutral.004",
+      "sourceFile": "C:\\Projects\\metaintelligence\\namespring-web\\.claude\\worktrees\\agent-a5ce3e9b2412a4f47\\lib\\spring-ts\\data\\narrative\\wealth\\thisMonth\\expert.fragments.json",
+      "tagCount": 8,
+      "headTags": [
+        "jeongin",
+        "yongshin",
+        "jeongjae",
+        "pyeonjae",
+        "pyeonjaegyeok",
+        "jeongjaegyeok",
+        "jeongjae",
+        "pyeonjae"
+      ],
+      "preP7A4Tags": [
+        "jeongin",
+        "yongshin",
+        "jeongjae",
+        "pyeonjae"
+      ],
+      "addedTags": [
+        "pyeonjaegyeok",
+        "jeongjaegyeok",
+        "jeongjae",
+        "pyeonjae"
+      ],
+      "addedTagPositions": [
+        4,
+        5,
+        6,
+        7
+      ],
+      "foundCommit": "173fb2c"
+    },
+    {
+      "fragmentId": "health.life.expert.currentseason.spring_summer.301",
+      "sourceFile": "C:\\Projects\\metaintelligence\\namespring-web\\.claude\\worktrees\\agent-a5ce3e9b2412a4f47\\lib\\spring-ts\\data\\narrative\\_coverage\\health-long-season-context.fragments.json",
+      "tagCount": 7,
+      "headTags": [
+        "jeongin",
+        "pyeonin",
+        "yongshin",
+        "jisal",
+        "cheonui",
+        "eumyangHarmony",
+        "stabilityIndex"
+      ],
+      "preP7A4Tags": [
+        "jeongin",
+        "pyeonin",
+        "yongshin"
+      ],
+      "addedTags": [
+        "jisal",
+        "cheonui",
+        "eumyangHarmony",
+        "stabilityIndex"
+      ],
+      "addedTagPositions": [
+        3,
+        4,
+        5,
+        6
+      ],
+      "foundCommit": "775fac1"
+    },
+    {
+      "fragmentId": "health.today.expert.currentseason.spring_summer.301",
+      "sourceFile": "C:\\Projects\\metaintelligence\\namespring-web\\.claude\\worktrees\\agent-a5ce3e9b2412a4f47\\lib\\spring-ts\\data\\narrative\\_coverage\\health-season-context.fragments.json",
+      "tagCount": 7,
+      "headTags": [
+        "jeongin",
+        "pyeonin",
+        "stabilityIndex",
+        "johuYongshin",
+        "johu",
+        "jisal",
+        "cheonui"
+      ],
+      "preP7A4Tags": [
+        "jeongin",
+        "pyeonin",
+        "stabilityIndex"
+      ],
+      "addedTags": [
+        "johuYongshin",
+        "johu",
+        "jisal",
+        "cheonui"
+      ],
+      "addedTagPositions": [
+        3,
+        4,
+        5,
+        6
+      ],
+      "foundCommit": "775fac1"
+    },
+    {
+      "fragmentId": "health.thisWeek.expert.currentseason.spring_summer.301",
+      "sourceFile": "C:\\Projects\\metaintelligence\\namespring-web\\.claude\\worktrees\\agent-a5ce3e9b2412a4f47\\lib\\spring-ts\\data\\narrative\\_coverage\\health-season-context.fragments.json",
+      "tagCount": 7,
+      "headTags": [
+        "jeongin",
+        "pyeonin",
+        "stabilityIndex",
+        "johu",
+        "jeongin",
+        "johuYongshin",
+        "johu"
+      ],
+      "preP7A4Tags": [
+        "jeongin",
+        "pyeonin",
+        "stabilityIndex"
+      ],
+      "addedTags": [
+        "johu",
+        "jeongin",
+        "johuYongshin",
+        "johu"
+      ],
+      "addedTagPositions": [
+        3,
+        4,
+        5,
+        6
+      ],
+      "foundCommit": "775fac1"
+    },
+    {
+      "fragmentId": "study_document.thisWeek.expert.currentseason.spring_summer.301",
+      "sourceFile": "C:\\Projects\\metaintelligence\\namespring-web\\.claude\\worktrees\\agent-a5ce3e9b2412a4f47\\lib\\spring-ts\\data\\narrative\\_coverage\\study-document-detail-season-context.fragments.json",
+      "tagCount": 7,
+      "headTags": [
+        "jeongin",
+        "sikshin",
+        "sanggwan",
+        "munchanggwiin",
+        "pyeonin",
+        "gwanrokgung",
+        "bokdeokgung"
+      ],
+      "preP7A4Tags": [
+        "jeongin",
+        "sikshin",
+        "sanggwan"
+      ],
+      "addedTags": [
+        "munchanggwiin",
+        "pyeonin",
+        "gwanrokgung",
+        "bokdeokgung"
+      ],
+      "addedTagPositions": [
+        3,
+        4,
+        5,
+        6
+      ],
+      "foundCommit": "775fac1"
+    },
+    {
+      "fragmentId": "health.thisMonth.expert.currentseason.spring_summer.301",
+      "sourceFile": "C:\\Projects\\metaintelligence\\namespring-web\\.claude\\worktrees\\agent-a5ce3e9b2412a4f47\\lib\\spring-ts\\data\\narrative\\_coverage\\health-season-context.fragments.json",
+      "tagCount": 7,
+      "headTags": [
+        "jeongin",
+        "pyeonin",
+        "stabilityIndex",
+        "johu",
+        "jeongin",
+        "johuYongshin",
+        "johu"
+      ],
+      "preP7A4Tags": [
+        "jeongin",
+        "pyeonin",
+        "stabilityIndex"
+      ],
+      "addedTags": [
+        "johu",
+        "jeongin",
+        "johuYongshin",
+        "johu"
+      ],
+      "addedTagPositions": [
+        3,
+        4,
+        5,
+        6
+      ],
+      "foundCommit": "775fac1"
+    },
+    {
+      "fragmentId": "study_document.thisMonth.expert.currentseason.spring_summer.301",
+      "sourceFile": "C:\\Projects\\metaintelligence\\namespring-web\\.claude\\worktrees\\agent-a5ce3e9b2412a4f47\\lib\\spring-ts\\data\\narrative\\_coverage\\study-document-detail-season-context.fragments.json",
+      "tagCount": 7,
+      "headTags": [
+        "jeongin",
+        "sikshin",
+        "sanggwan",
+        "cheondeokgwiin",
+        "woldeokgwiin",
+        "jeongin",
+        "sikshin"
+      ],
+      "preP7A4Tags": [
+        "jeongin",
+        "sikshin",
+        "sanggwan"
+      ],
+      "addedTags": [
+        "cheondeokgwiin",
+        "woldeokgwiin",
+        "jeongin",
+        "sikshin"
+      ],
+      "addedTagPositions": [
+        3,
+        4,
+        5,
+        6
+      ],
+      "foundCommit": "775fac1"
+    },
+    {
+      "fragmentId": "expression_children.thisYear.expert.currentseason.spring_summer.301",
+      "sourceFile": "C:\\Projects\\metaintelligence\\namespring-web\\.claude\\worktrees\\agent-a5ce3e9b2412a4f47\\lib\\spring-ts\\data\\narrative\\_coverage\\expression-children-season-context.fragments.json",
+      "tagCount": 7,
+      "headTags": [
+        "sikshin",
+        "sanggwan",
+        "yongshin",
+        "daewoonGungsil",
+        "wolun",
+        "sikshin",
+        "sanggwan"
+      ],
+      "preP7A4Tags": [
+        "sikshin",
+        "sanggwan",
+        "yongshin"
+      ],
+      "addedTags": [
+        "daewoonGungsil",
+        "wolun",
+        "sikshin",
+        "sanggwan"
+      ],
+      "addedTagPositions": [
+        3,
+        4,
+        5,
+        6
+      ],
+      "foundCommit": "775fac1"
+    },
+    {
+      "fragmentId": "movement.thisYear.expert.currentseason.spring_summer.301",
+      "sourceFile": "C:\\Projects\\metaintelligence\\namespring-web\\.claude\\worktrees\\agent-a5ce3e9b2412a4f47\\lib\\spring-ts\\data\\narrative\\_coverage\\movement-long-season-context.fragments.json",
+      "tagCount": 7,
+      "headTags": [
+        "yeokma",
+        "daewoonGungsil",
+        "yongshin",
+        "yeokma",
+        "jojangung",
+        "jisal",
+        "cheonigung"
+      ],
+      "preP7A4Tags": [
+        "yeokma",
+        "daewoonGungsil",
+        "yongshin"
+      ],
+      "addedTags": [
+        "yeokma",
+        "jojangung",
+        "jisal",
+        "cheonigung"
+      ],
+      "addedTagPositions": [
+        3,
+        4,
+        5,
+        6
+      ],
+      "foundCommit": "775fac1"
+    },
+    {
+      "fragmentId": "wealth.thisYear.expert.currentseason.spring_summer.301",
+      "sourceFile": "C:\\Projects\\metaintelligence\\namespring-web\\.claude\\worktrees\\agent-a5ce3e9b2412a4f47\\lib\\spring-ts\\data\\narrative\\_coverage\\wealth-season-context.fragments.json",
+      "tagCount": 7,
+      "headTags": [
+        "pyeonjae",
+        "jeongjae",
+        "yongshin",
+        "jeongjae",
+        "pyeonjae",
+        "jaebakgung",
+        "cheonleulgwiin"
+      ],
+      "preP7A4Tags": [
+        "pyeonjae",
+        "jeongjae",
+        "yongshin"
+      ],
+      "addedTags": [
+        "jeongjae",
+        "pyeonjae",
+        "jaebakgung",
+        "cheonleulgwiin"
+      ],
+      "addedTagPositions": [
+        3,
+        4,
+        5,
+        6
+      ],
+      "foundCommit": "775fac1"
+    },
+    {
+      "fragmentId": "career.thisMonth.expert.season.spring_summer.501",
+      "sourceFile": "C:\\Projects\\metaintelligence\\namespring-web\\.claude\\worktrees\\agent-a5ce3e9b2412a4f47\\lib\\spring-ts\\data\\narrative\\_coverage\\min14-career-floor.fragments.json",
+      "tagCount": 7,
+      "headTags": [
+        "sikshin",
+        "jeonggwan",
+        "siGungsil",
+        "gwanrokgung",
+        "pyeongwan",
+        "gyeokgukYongshin",
+        "gyeokgukFit"
+      ],
+      "preP7A4Tags": [
+        "sikshin",
+        "jeonggwan",
+        "siGungsil"
+      ],
+      "addedTags": [
+        "gwanrokgung",
+        "pyeongwan",
+        "gyeokgukYongshin",
+        "gyeokgukFit"
+      ],
+      "addedTagPositions": [
+        3,
+        4,
+        5,
+        6
+      ],
+      "foundCommit": "775fac1"
+    },
+    {
+      "fragmentId": "expression_children.thisMonth.expert.output.season.spring_summer.501",
+      "sourceFile": "C:\\Projects\\metaintelligence\\namespring-web\\.claude\\worktrees\\agent-a5ce3e9b2412a4f47\\lib\\spring-ts\\data\\narrative\\_coverage\\min14-expression-children-floor.fragments.json",
+      "tagCount": 7,
+      "headTags": [
+        "sanggwan",
+        "sikshin",
+        "jasikgung",
+        "hwagae",
+        "munchanggwiin",
+        "daewoonGungsil",
+        "wolun"
+      ],
+      "preP7A4Tags": [
+        "sanggwan",
+        "sikshin",
+        "jasikgung"
+      ],
+      "addedTags": [
+        "hwagae",
+        "munchanggwiin",
+        "daewoonGungsil",
+        "wolun"
+      ],
+      "addedTagPositions": [
+        3,
+        4,
+        5,
+        6
+      ],
+      "foundCommit": "775fac1"
+    },
+    {
+      "fragmentId": "wealth.life.expert.currentseason.spring_summer.301",
+      "sourceFile": "C:\\Projects\\metaintelligence\\namespring-web\\.claude\\worktrees\\agent-a5ce3e9b2412a4f47\\lib\\spring-ts\\data\\narrative\\_coverage\\wealth-season-context.fragments.json",
+      "tagCount": 7,
+      "headTags": [
+        "pyeonjae",
+        "jeongjae",
+        "yongshin",
+        "jaebakgung",
+        "cheonleulgwiin",
+        "gyeokgukFit",
+        "stabilityIndex"
+      ],
+      "preP7A4Tags": [
+        "pyeonjae",
+        "jeongjae",
+        "yongshin"
+      ],
+      "addedTags": [
+        "jaebakgung",
+        "cheonleulgwiin",
+        "gyeokgukFit",
+        "stabilityIndex"
+      ],
+      "addedTagPositions": [
+        3,
+        4,
+        5,
+        6
+      ],
+      "foundCommit": "775fac1"
+    },
+    {
+      "fragmentId": "movement.thisWeek.expert.currentseason.spring_summer.301",
+      "sourceFile": "C:\\Projects\\metaintelligence\\namespring-web\\.claude\\worktrees\\agent-a5ce3e9b2412a4f47\\lib\\spring-ts\\data\\narrative\\_coverage\\movement-short-season-context.fragments.json",
+      "tagCount": 7,
+      "headTags": [
+        "yeokma",
+        "daewoonGungsil",
+        "yongshin",
+        "daewoonGungsil",
+        "iljin",
+        "yeokma",
+        "jojangung"
+      ],
+      "preP7A4Tags": [
+        "yeokma",
+        "daewoonGungsil",
+        "yongshin"
+      ],
+      "addedTags": [
+        "daewoonGungsil",
+        "iljin",
+        "yeokma",
+        "jojangung"
+      ],
+      "addedTagPositions": [
+        3,
+        4,
+        5,
+        6
+      ],
+      "foundCommit": "775fac1"
+    },
+    {
+      "fragmentId": "health_stress.thisYear.expert.currentseason.spring_summer.301",
+      "sourceFile": "C:\\Projects\\metaintelligence\\namespring-web\\.claude\\worktrees\\agent-a5ce3e9b2412a4f47\\lib\\spring-ts\\data\\narrative\\_coverage\\health-long-season-context.fragments.json",
+      "tagCount": 7,
+      "headTags": [
+        "pyeonin",
+        "jeongin",
+        "stabilityIndex",
+        "pyeongwan",
+        "jeongin",
+        "cheonui",
+        "cheondeokgwiin"
+      ],
+      "preP7A4Tags": [
+        "pyeonin",
+        "jeongin",
+        "stabilityIndex"
+      ],
+      "addedTags": [
+        "pyeongwan",
+        "jeongin",
+        "cheonui",
+        "cheondeokgwiin"
+      ],
+      "addedTagPositions": [
+        3,
+        4,
+        5,
+        6
+      ],
+      "foundCommit": "775fac1"
+    },
+    {
+      "fragmentId": "health_stress.today.expert.currentseason.spring_summer.301",
+      "sourceFile": "C:\\Projects\\metaintelligence\\namespring-web\\.claude\\worktrees\\agent-a5ce3e9b2412a4f47\\lib\\spring-ts\\data\\narrative\\_coverage\\health-stress-short-season-context.fragments.json",
+      "tagCount": 7,
+      "headTags": [
+        "pyeonin",
+        "jeongin",
+        "stabilityIndex",
+        "pyeongwan",
+        "jeongin",
+        "cheonui",
+        "cheondeokgwiin"
+      ],
+      "preP7A4Tags": [
+        "pyeonin",
+        "jeongin",
+        "stabilityIndex"
+      ],
+      "addedTags": [
+        "pyeongwan",
+        "jeongin",
+        "cheonui",
+        "cheondeokgwiin"
+      ],
+      "addedTagPositions": [
+        3,
+        4,
+        5,
+        6
+      ],
+      "foundCommit": "775fac1"
+    },
+    {
+      "fragmentId": "career.life.expert.energy.weak.501",
+      "sourceFile": "C:\\Projects\\metaintelligence\\namespring-web\\.claude\\worktrees\\agent-a5ce3e9b2412a4f47\\lib\\spring-ts\\data\\narrative\\_coverage\\min14-career-floor.fragments.json",
+      "tagCount": 7,
+      "headTags": [
+        "jeongin",
+        "pyeongwan",
+        "stabilityIndex",
+        "jangseongsal",
+        "cheonui",
+        "jeonggwan",
+        "sikshin"
+      ],
+      "preP7A4Tags": [
+        "jeongin",
+        "pyeongwan",
+        "stabilityIndex"
+      ],
+      "addedTags": [
+        "jangseongsal",
+        "cheonui",
+        "jeonggwan",
+        "sikshin"
+      ],
+      "addedTagPositions": [
+        3,
+        4,
+        5,
+        6
+      ],
+      "foundCommit": "775fac1"
+    },
+    {
+      "fragmentId": "wealth.thisWeek.expert.neutral.cashflow.008",
+      "sourceFile": "C:\\Projects\\metaintelligence\\namespring-web\\.claude\\worktrees\\agent-a5ce3e9b2412a4f47\\lib\\spring-ts\\data\\narrative\\_coverage\\underfilled-min8.fragments.json",
+      "tagCount": 7,
+      "headTags": [
+        "jeongjae",
+        "pyeonjae",
+        "stabilityIndex",
+        "jeongjae",
+        "pyeonjae",
+        "jaebakgung",
+        "cheonleulgwiin"
+      ],
+      "preP7A4Tags": [
+        "jeongjae",
+        "pyeonjae",
+        "stabilityIndex"
+      ],
+      "addedTags": [
+        "jeongjae",
+        "pyeonjae",
+        "jaebakgung",
+        "cheonleulgwiin"
+      ],
+      "addedTagPositions": [
+        3,
+        4,
+        5,
+        6
+      ],
+      "foundCommit": "775fac1"
+    },
+    {
+      "fragmentId": "expression_children.thisMonth.expert.currentseason.spring_summer.301",
+      "sourceFile": "C:\\Projects\\metaintelligence\\namespring-web\\.claude\\worktrees\\agent-a5ce3e9b2412a4f47\\lib\\spring-ts\\data\\narrative\\_coverage\\expression-children-season-context.fragments.json",
+      "tagCount": 7,
+      "headTags": [
+        "sikshin",
+        "sanggwan",
+        "jasikgung",
+        "sikshin",
+        "sanggwan",
+        "janyeogung",
+        "sikshin"
+      ],
+      "preP7A4Tags": [
+        "sikshin",
+        "sanggwan",
+        "jasikgung"
+      ],
+      "addedTags": [
+        "sikshin",
+        "sanggwan",
+        "janyeogung",
+        "sikshin"
+      ],
+      "addedTagPositions": [
+        3,
+        4,
+        5,
+        6
+      ],
+      "foundCommit": "775fac1"
+    },
+    {
+      "fragmentId": "wealth.thisWeek.expert.currentseason.spring_summer.301",
+      "sourceFile": "C:\\Projects\\metaintelligence\\namespring-web\\.claude\\worktrees\\agent-a5ce3e9b2412a4f47\\lib\\spring-ts\\data\\narrative\\_coverage\\wealth-season-context.fragments.json",
+      "tagCount": 7,
+      "headTags": [
+        "pyeonjae",
+        "jeongjae",
+        "yongshin",
+        "pyeonjaegyeok",
+        "jeongjaegyeok",
+        "jeongjae",
+        "pyeonjae"
+      ],
+      "preP7A4Tags": [
+        "pyeonjae",
+        "jeongjae",
+        "yongshin"
+      ],
+      "addedTags": [
+        "pyeonjaegyeok",
+        "jeongjaegyeok",
+        "jeongjae",
+        "pyeonjae"
+      ],
+      "addedTagPositions": [
+        3,
+        4,
+        5,
+        6
+      ],
+      "foundCommit": "775fac1"
+    },
+    {
+      "fragmentId": "wealth.thisYear.expert.weak.neutral.004",
+      "sourceFile": "C:\\Projects\\metaintelligence\\namespring-web\\.claude\\worktrees\\agent-a5ce3e9b2412a4f47\\lib\\spring-ts\\data\\narrative\\wealth\\thisYear\\expert.fragments.json",
+      "tagCount": 7,
+      "headTags": [
+        "jeongin",
+        "yongshin",
+        "jeongjae",
+        "bigyeon",
+        "pyeonjae",
+        "jeongjae",
+        "pyeonjae"
+      ],
+      "preP7A4Tags": [
+        "jeongin",
+        "yongshin",
+        "jeongjae",
+        "bigyeon",
+        "pyeonjae"
+      ],
+      "addedTags": [
+        "jeongjae",
+        "pyeonjae"
+      ],
+      "addedTagPositions": [
+        5,
+        6
+      ],
+      "foundCommit": "173fb2c"
+    },
+    {
+      "fragmentId": "health_stress.thisWeek.expert.water_weak.001",
+      "sourceFile": "C:\\Projects\\metaintelligence\\namespring-web\\.claude\\worktrees\\agent-a5ce3e9b2412a4f47\\lib\\spring-ts\\data\\narrative\\health_stress\\thisWeek\\expert.fragments.json",
+      "tagCount": 7,
+      "headTags": [
+        "water",
+        "fire",
+        "jeongin",
+        "gongmang",
+        "stabilityIndex",
+        "pyeongwan",
+        "jeongin"
+      ],
+      "preP7A4Tags": [
+        "water",
+        "fire",
+        "jeongin"
+      ],
+      "addedTags": [
+        "gongmang",
+        "stabilityIndex",
+        "pyeongwan",
+        "jeongin"
+      ],
+      "addedTagPositions": [
+        3,
+        4,
+        5,
+        6
+      ],
+      "foundCommit": "9a5bb8e"
+    },
+    {
+      "fragmentId": "career.life.expert.responsibility.strong.501",
+      "sourceFile": "C:\\Projects\\metaintelligence\\namespring-web\\.claude\\worktrees\\agent-a5ce3e9b2412a4f47\\lib\\spring-ts\\data\\narrative\\_coverage\\min14-career-floor.fragments.json",
+      "tagCount": 7,
+      "headTags": [
+        "jeonggwan",
+        "pyeongwan",
+        "yongshin",
+        "gyeokgukYongshin",
+        "gyeokgukFit",
+        "jangseongsal",
+        "cheonui"
+      ],
+      "preP7A4Tags": [
+        "jeonggwan",
+        "pyeongwan",
+        "yongshin"
+      ],
+      "addedTags": [
+        "gyeokgukYongshin",
+        "gyeokgukFit",
+        "jangseongsal",
+        "cheonui"
+      ],
+      "addedTagPositions": [
+        3,
+        4,
+        5,
+        6
+      ],
+      "foundCommit": "775fac1"
+    },
+    {
+      "fragmentId": "wealth.thisMonth.expert.currentseason.spring_summer.301",
+      "sourceFile": "C:\\Projects\\metaintelligence\\namespring-web\\.claude\\worktrees\\agent-a5ce3e9b2412a4f47\\lib\\spring-ts\\data\\narrative\\_coverage\\wealth-season-context.fragments.json",
+      "tagCount": 7,
+      "headTags": [
+        "pyeonjae",
+        "jeongjae",
+        "yongshin",
+        "jaebakgung",
+        "cheonleulgwiin",
+        "gyeokgukFit",
+        "stabilityIndex"
+      ],
+      "preP7A4Tags": [
+        "pyeonjae",
+        "jeongjae",
+        "yongshin"
+      ],
+      "addedTags": [
+        "jaebakgung",
+        "cheonleulgwiin",
+        "gyeokgukFit",
+        "stabilityIndex"
+      ],
+      "addedTagPositions": [
+        3,
+        4,
+        5,
+        6
+      ],
+      "foundCommit": "775fac1"
+    },
+    {
+      "fragmentId": "family.thisYear.expert.young_caregiver.009",
+      "sourceFile": "C:\\Projects\\metaintelligence\\namespring-web\\.claude\\worktrees\\agent-a5ce3e9b2412a4f47\\lib\\spring-ts\\data\\narrative\\family\\thisYear\\expert.fragments.json",
+      "tagCount": 7,
+      "headTags": [
+        "bumyong",
+        "jeongin",
+        "jojangung",
+        "bumyong",
+        "jojangung",
+        "hyeongjegung",
+        "janyeogung"
+      ],
+      "preP7A4Tags": [
+        "bumyong",
+        "jeongin",
+        "jojangung"
+      ],
+      "addedTags": [
+        "bumyong",
+        "jojangung",
+        "hyeongjegung",
+        "janyeogung"
+      ],
+      "addedTagPositions": [
+        3,
+        4,
+        5,
+        6
+      ],
+      "foundCommit": "1fb710f"
+    },
+    {
+      "fragmentId": "health_stress.thisMonth.expert.water_weak.001",
+      "sourceFile": "C:\\Projects\\metaintelligence\\namespring-web\\.claude\\worktrees\\agent-a5ce3e9b2412a4f47\\lib\\spring-ts\\data\\narrative\\health_stress\\thisMonth\\expert.fragments.json",
+      "tagCount": 7,
+      "headTags": [
+        "water",
+        "fire",
+        "jeongin",
+        "cheonui",
+        "cheondeokgwiin",
+        "baekho",
+        "goegang"
+      ],
+      "preP7A4Tags": [
+        "water",
+        "fire",
+        "jeongin"
+      ],
+      "addedTags": [
+        "cheonui",
+        "cheondeokgwiin",
+        "baekho",
+        "goegang"
+      ],
+      "addedTagPositions": [
+        3,
+        4,
+        5,
+        6
+      ],
+      "foundCommit": "9a5bb8e"
+    },
+    {
+      "fragmentId": "health_stress.today.expert.fire_strong.001",
+      "sourceFile": "C:\\Projects\\metaintelligence\\namespring-web\\.claude\\worktrees\\agent-a5ce3e9b2412a4f47\\lib\\spring-ts\\data\\narrative\\health_stress\\today\\expert.fragments.json",
+      "tagCount": 7,
+      "headTags": [
+        "fire",
+        "johu",
+        "water",
+        "baekho",
+        "goegang",
+        "gongmang",
+        "stabilityIndex"
+      ],
+      "preP7A4Tags": [
+        "fire",
+        "johu",
+        "water"
+      ],
+      "addedTags": [
+        "baekho",
+        "goegang",
+        "gongmang",
+        "stabilityIndex"
+      ],
+      "addedTagPositions": [
+        3,
+        4,
+        5,
+        6
+      ],
+      "foundCommit": "9a5bb8e"
+    }
+  ]
+}
