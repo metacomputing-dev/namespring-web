@@ -788,16 +788,7 @@
         },
         {
           "kind": "text",
-          "value": "방향의 보충 루틴을 오래 유지하세요.\n\n"
-        },
-        {
-          "kind": "tag",
-          "tagId": "jisal",
-          "label": "지살"
-        },
-        {
-          "kind": "text",
-          "value": "의 결이 보일 때는 잠깐의 환경 변화가 컨디션을 환기시키고, "
+          "value": "방향의 보충 루틴을 오래 유지하세요.\n\n지살의 결이 보일 때는 잠깐의 환경 변화가 컨디션을 환기시키고, "
         },
         {
           "kind": "tag",
@@ -831,7 +822,6 @@
         "jeongin",
         "pyeonin",
         "yongshin",
-        "jisal",
         "cheonui",
         "eumyangHarmony",
         "stabilityIndex"

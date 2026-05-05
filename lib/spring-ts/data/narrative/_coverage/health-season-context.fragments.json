@@ -52,16 +52,7 @@
         },
         {
           "kind": "text",
-          "value": "를 낮추는 선택은 피하세요.\n\n"
-        },
-        {
-          "kind": "tag",
-          "tagId": "johuYongshin",
-          "label": "조후용신"
-        },
-        {
-          "kind": "text",
-          "value": "의 결이 또렷한 사주는 "
+          "value": "를 낮추는 선택은 피하세요.\n\n조후용신의 결이 또렷한 사주는 "
         },
         {
           "kind": "tag",
@@ -95,7 +86,6 @@
         "jeongin",
         "pyeonin",
         "stabilityIndex",
-        "johuYongshin",
         "johu",
         "jisal",
         "cheonui"
@@ -400,11 +390,7 @@
         },
         {
           "kind": "text",
-          "value": "를 유지하는 수면 계획이 필요합니다.\n\n"
-        },
-        {
-          "kind": "text",
-          "value": "몸의 흐름은 "
+          "value": "를 유지하는 수면 계획이 필요합니다.\n\n몸의 흐름은 "
         },
         {
           "kind": "tag",
@@ -413,16 +399,7 @@
         },
         {
           "kind": "text",
-          "value": "의 균형과 "
-        },
-        {
-          "kind": "tag",
-          "tagId": "jeongin",
-          "label": "정인"
-        },
-        {
-          "kind": "text",
-          "value": "의 돌봄 자산이 함께 챙겨질 때 한층 부드러워지고, 무리한 회복보다 작은 회복의 반복이 자기 페이스에 잘 맞아요.\n\n"
+          "value": "의 균형과 정인의 돌봄 자산이 함께 챙겨질 때 한층 부드러워지고, 무리한 회복보다 작은 회복의 반복이 자기 페이스에 잘 맞아요.\n\n"
         },
         {
           "kind": "tag",
@@ -686,11 +663,7 @@
         },
         {
           "kind": "text",
-          "value": "를 낮추는 과로는 줄이세요.\n\n"
-        },
-        {
-          "kind": "text",
-          "value": "몸의 흐름은 "
+          "value": "를 낮추는 과로는 줄이세요.\n\n몸의 흐름은 "
         },
         {
           "kind": "tag",
@@ -699,16 +672,7 @@
         },
         {
           "kind": "text",
-          "value": "의 균형과 "
-        },
-        {
-          "kind": "tag",
-          "tagId": "jeongin",
-          "label": "정인"
-        },
-        {
-          "kind": "text",
-          "value": "의 돌봄 자산이 함께 챙겨질 때 한층 부드러워지고, 무리한 회복보다 작은 회복의 반복이 자기 페이스에 잘 맞아요.\n\n"
+          "value": "의 균형과 정인의 돌봄 자산이 함께 챙겨질 때 한층 부드러워지고, 무리한 회복보다 작은 회복의 반복이 자기 페이스에 잘 맞아요.\n\n"
         },
         {
           "kind": "tag",
