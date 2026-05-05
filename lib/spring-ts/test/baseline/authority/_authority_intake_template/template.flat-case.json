@@ -1,0 +1,41 @@
+{
+  "_template_note": "이 파일은 책 자료 ingestion template입니다. 복사 후 _template_note 키 제거 + 모든 TBD 채우기. _ prefix 디렉토리이므로 validate:reference-authority가 검증하지 않음.",
+  "case_id": "TBD_<author>_<book>_<chart-id>",
+  "source": {
+    "text": "TBD_book_title (e.g., 사주첩경 6권)",
+    "author": "TBD_author (e.g., 이석영)",
+    "page": "TBD_page_number_or_chapter",
+    "category": "TBD_chart_sample_or_theory_chapter_or_case_study"
+  },
+  "expected": {
+    "summary50char": "TBD_paraphrase_50_korean_chars_or_less",
+    "yongshinElement": "WOOD",
+    "strengthLevel": "신강",
+    "gyeokguk": "TBD_optional"
+  },
+  "narrative": {
+    "charsPerClaim": null,
+    "evidenceRowsPerClaim": null,
+    "counterexampleCountPerCard": null
+  },
+  "hedge": {
+    "shouldHedge": false,
+    "reason": ""
+  },
+  "sourceTier": {
+    "tier": "T3_AUTHORED_INTERPRETATION",
+    "sourceType": "book",
+    "sourceUrl": null,
+    "accessedAt": "TBD_yyyy-mm-dd",
+    "quoteShort": "TBD_short_paraphrase_80_chars_or_less_no_verbatim",
+    "humanInterpretation": "TBD_what_we_understood_from_the_book",
+    "copyrightNote": "Paraphrase only, fair-use citation; no verbatim text stored.",
+    "authorityTruthEligible": true
+  },
+  "_tier_choice_note": "T3_AUTHORED_INTERPRETATION 가 modern 책 (사주첩경/박재완 등) paraphrase 의 default. T4_PRIMARY_TEXT 는 public-domain classical (명리존험 등) 직접 발췌 시 사용. T2/T1/T0 는 authority truth eligible 로 사용 불가 (ci:no-ai-policy 검증).",
+  "copyrightNote": [
+    "Paraphrase only, no verbatim text stored.",
+    "Citation: <author> (<year>), <book>, p<page>.",
+    "Used under fair-use for academic / engineering verification."
+  ]
+}

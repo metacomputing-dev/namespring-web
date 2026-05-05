@@ -1,0 +1,27 @@
+
+> spring-ts@1.0.0 narrative:axis-pairs
+> node tools/narrative_axis_pair_report.mjs
+
+Narrative Axis Pair Report
+Bundles: 345
+Fragments: 4055 total, 3890 authored
+Pairs: 8
+Missing pair combinations: 0
+Thin pair combinations (<1 authored): 0, deficit=0
+
+ageBand:gender: 21/21 covered (1)
+  authored pair hits: 202; thin=0; deficit=0
+agePhase:gender: 48/48 covered (1)
+  authored pair hits: 99; thin=0; deficit=0
+birthSeason:currentSeason: 16/16 covered (1)
+  authored pair hits: 128; thin=0; deficit=0
+dayMasterElement:dayMasterStrength: 25/25 covered (1)
+  authored pair hits: 603; thin=0; deficit=0
+dayMasterElement:yongshinElement: 25/25 covered (1)
+  authored pair hits: 316; thin=0; deficit=0
+dayMasterStrength:yongshinAlignment: 15/15 covered (1)
+  authored pair hits: 577; thin=0; deficit=0
+gyeokguk:dayMasterStrength: 30/30 covered (1)
+  authored pair hits: 353; thin=0; deficit=0
+yongshinElement:yongshinAlignment: 15/15 covered (1)
+  authored pair hits: 30; thin=0; deficit=0

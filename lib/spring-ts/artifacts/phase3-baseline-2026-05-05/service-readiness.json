@@ -1,0 +1,574 @@
+
+> spring-ts@1.0.0 service:readiness
+> node tools/service_readiness_report.mjs --json
+
+{
+  "schemaVersion": "spring-ts.service-readiness-report.v1",
+  "generatedAt": "2026-05-05T03:09:38.594Z",
+  "minAuthoredThreshold": 12,
+  "thresholds": {
+    "maxThinExpertAxisValues": null,
+    "minAuthorityTruthEligibleFragments": 0,
+    "minAuthorityTruthEligibleNumericalEvidence": 0,
+    "maxZeroAuthorityCells": null,
+    "maxReferenceAuthorityIntakeViolations": null
+  },
+  "frontendHandoff": {
+    "status": "ready_for_frontend_integration",
+    "docs": {
+      "frontendExtensions": true,
+      "tieredMatrixSpec": true,
+      "narrativeStyleGuide": true
+    },
+    "tests": {
+      "progressiveDisclosure": true
+    },
+    "checks": [
+      {
+        "id": "tiered_matrix_cells_populated",
+        "status": "pass",
+        "evidence": "165/165"
+      },
+      {
+        "id": "expert_internal_evidence_complete",
+        "status": "pass",
+        "evidence": "55/55"
+      },
+      {
+        "id": "documented_frontend_surface",
+        "status": "pass",
+        "evidence": "frontendExtensions:present,tieredMatrixSpec:present,narrativeStyleGuide:present"
+      },
+      {
+        "id": "progressive_disclosure_runtime_contract",
+        "status": "pass",
+        "evidence": "progressiveDisclosure:present"
+      },
+      {
+        "id": "known_content_density_gaps",
+        "status": "pass",
+        "evidence": "thinExpertAxisValueCount=0"
+      }
+    ],
+    "nextFrontendSteps": [
+      "Enable precisionConfig.surfaceTieredMatrix in a frontend-only branch.",
+      "Render brief first, then standard, then expert details behind explicit expansion controls.",
+      "Hide expert tags and numerical evidence unless the user opens expert detail.",
+      "Use selectedFragments and glossary only for debug, QA, or expert-detail panels."
+    ]
+  },
+  "commercialReadiness": {
+    "status": "blocked_for_authority_claims",
+    "allowedUse": [
+      "Frontend integration and internal QA.",
+      "User-facing entertainment or reflective reading only after product/legal copy review.",
+      "Paid expert-verified claims only after authorityTruthEligible evidence thresholds are met."
+    ],
+    "blockers": [
+      {
+        "id": "no_authority_truth_fragments",
+        "severity": "blocker",
+        "message": "No narrative fragment is authority-truth eligible; do not market expert-verified interpretations yet."
+      },
+      {
+        "id": "no_authority_truth_numerical_evidence",
+        "severity": "blocker",
+        "message": "Expert numerical evidence is internally deterministic but not authority-truth eligible."
+      },
+      {
+        "id": "zero_authority_cells",
+        "severity": "blocker",
+        "message": "165/165 tiered cells have no authority-truth eligible backing."
+      }
+    ],
+    "requiredBeforePaidExpertClaims": [
+      "Pass validate:reference-authority for every top-level Reference A fixture.",
+      "Add Reference A or equivalent reviewed authority fixtures with sourceTier.authorityTruthEligible=true.",
+      "Reduce zero-authority tiered cells or gate claims away from authority language.",
+      "Run a frontend acceptance pass for brief/standard/expert progressive disclosure."
+    ]
+  },
+  "authorityIntake": {
+    "status": "PASS",
+    "directory": "test/baseline/authority",
+    "flatCaseCount": 0,
+    "authorityTruthEligibleCaseCount": 0,
+    "violationCount": 0,
+    "violations": []
+  },
+  "metrics": {
+    "bundleCount": 345,
+    "fragmentCount": 4055,
+    "authoredFragmentCount": 3890,
+    "expectedCells": 165,
+    "populatedCells": 165,
+    "expertCellCount": 55,
+    "expertInternalEvidenceBackedCells": 55,
+    "thinExpertAxisValueCount": 0,
+    "thinExpertAxisFieldSummary": [],
+    "authorityTruthEligibleFragmentCount": 0,
+    "authorityTruthEligibleNumericalEvidenceCount": 0,
+    "zeroAuthorityCellCount": 165,
+    "internalNumericalEvidenceRecordCount": 897,
+    "referenceAuthorityFlatCaseCount": 0,
+    "referenceAuthorityIntakeViolationCount": 0
+  },
+  "nextDensityTargets": [],
+  "nextAuthorityWork": [
+    {
+      "priorityClass": "P0_EXPERT_INTERNAL_EVIDENCE_REVIEW",
+      "category": "overall",
+      "period": "life",
+      "depth": "expert",
+      "authoredFragments": 61,
+      "internalNumericalEvidenceRecords": 78,
+      "expertInternalNumericalEvidenceFragments": 44,
+      "neededEvidence": [
+        "authority_fragment_source",
+        "authority_numerical_evidence_review"
+      ],
+      "firstAction": "Attach a reviewed authority source to the expert interpretation and review the deterministic numericalEvidence before promoting authority truth.",
+      "reviewExamples": [
+        {
+          "fragmentId": "overall.life.expert.agephase.early_40s.301",
+          "file": "data/narrative/_coverage/age-phase-expert-mature.fragments.json",
+          "sourceTier": "T1_HYPOTHESIS",
+          "authorityTruthEligible": false,
+          "gating": {
+            "agePhase": [
+              "early_40s"
+            ]
+          },
+          "tags": [
+            "daewoonGungsil",
+            "stabilityIndex",
+            "yongshinFit"
+          ],
+          "numericalEvidenceCount": 2,
+          "internalNumericalEvidenceRecords": 2,
+          "authorityTruthEligibleNumericalEvidenceRecords": 0,
+          "numericalEvidenceLabels": [
+            "현재 나이",
+            "셀 별점"
+          ]
+        },
+        {
+          "fragmentId": "overall.life.expert.agephase.late_40s.301",
+          "file": "data/narrative/_coverage/age-phase-expert-mature.fragments.json",
+          "sourceTier": "T1_HYPOTHESIS",
+          "authorityTruthEligible": false,
+          "gating": {
+            "agePhase": [
+              "late_40s"
+            ]
+          },
+          "tags": [
+            "daewoonGungsil",
+            "stabilityIndex",
+            "yongshinFit"
+          ],
+          "numericalEvidenceCount": 2,
+          "internalNumericalEvidenceRecords": 2,
+          "authorityTruthEligibleNumericalEvidenceRecords": 0,
+          "numericalEvidenceLabels": [
+            "현재 나이",
+            "셀 별점"
+          ]
+        },
+        {
+          "fragmentId": "overall.life.expert.agephase.early_50s.301",
+          "file": "data/narrative/_coverage/age-phase-expert-mature.fragments.json",
+          "sourceTier": "T1_HYPOTHESIS",
+          "authorityTruthEligible": false,
+          "gating": {
+            "agePhase": [
+              "early_50s"
+            ]
+          },
+          "tags": [
+            "daewoonGungsil",
+            "stabilityIndex",
+            "yongshinFit"
+          ],
+          "numericalEvidenceCount": 2,
+          "internalNumericalEvidenceRecords": 2,
+          "authorityTruthEligibleNumericalEvidenceRecords": 0,
+          "numericalEvidenceLabels": [
+            "현재 나이",
+            "셀 별점"
+          ]
+        }
+      ]
+    },
+    {
+      "priorityClass": "P0_EXPERT_INTERNAL_EVIDENCE_REVIEW",
+      "category": "health",
+      "period": "today",
+      "depth": "expert",
+      "authoredFragments": 32,
+      "internalNumericalEvidenceRecords": 33,
+      "expertInternalNumericalEvidenceFragments": 23,
+      "neededEvidence": [
+        "authority_fragment_source",
+        "authority_numerical_evidence_review"
+      ],
+      "firstAction": "Attach a reviewed authority source to the expert interpretation and review the deterministic numericalEvidence before promoting authority truth.",
+      "reviewExamples": [
+        {
+          "fragmentId": "health.today.expert.categorical_wave3.neutral_fire_yongshin_metal_sikshingyeok.403",
+          "file": "data/narrative/_coverage/categorical-evidence-density-wave3.fragments.json",
+          "sourceTier": "T1_HYPOTHESIS",
+          "authorityTruthEligible": false,
+          "gating": {
+            "gender": [
+              "neutral"
+            ],
+            "dayMasterElement": [
+              "FIRE"
+            ],
+            "yongshinElement": [
+              "METAL"
+            ],
+            "gyeokguk": [
+              "sikshingyeok"
+            ]
+          },
+          "tags": [
+            "fire",
+            "yongshin",
+            "sikshingyeok"
+          ],
+          "numericalEvidenceCount": 4,
+          "internalNumericalEvidenceRecords": 4,
+          "authorityTruthEligibleNumericalEvidenceRecords": 0,
+          "numericalEvidenceLabels": [
+            "성별 분류값",
+            "일간 오행 분류값",
+            "용신 오행 분류값",
+            "격국 분류값"
+          ]
+        },
+        {
+          "fragmentId": "health.today.expert.age.70s.501",
+          "file": "data/narrative/_coverage/expert-70s-age-density.fragments.json",
+          "sourceTier": "T1_HYPOTHESIS",
+          "authorityTruthEligible": false,
+          "gating": {
+            "agePhase": [
+              "70s"
+            ]
+          },
+          "tags": [
+            "yongshin",
+            "gishin"
+          ],
+          "numericalEvidenceCount": 1,
+          "internalNumericalEvidenceRecords": 1,
+          "authorityTruthEligibleNumericalEvidenceRecords": 0,
+          "numericalEvidenceLabels": [
+            "연령 단계 서번"
+          ]
+        },
+        {
+          "fragmentId": "health.today.expert.age.80s.501",
+          "file": "data/narrative/_coverage/expert-80s-age-density.fragments.json",
+          "sourceTier": "T1_HYPOTHESIS",
+          "authorityTruthEligible": false,
+          "gating": {
+            "agePhase": [
+              "80s"
+            ]
+          },
+          "tags": [
+            "yongshin",
+            "gishin"
+          ],
+          "numericalEvidenceCount": 1,
+          "internalNumericalEvidenceRecords": 1,
+          "authorityTruthEligibleNumericalEvidenceRecords": 0,
+          "numericalEvidenceLabels": [
+            "연령 단계 서번"
+          ]
+        }
+      ]
+    },
+    {
+      "priorityClass": "P0_EXPERT_INTERNAL_EVIDENCE_REVIEW",
+      "category": "wealth",
+      "period": "thisMonth",
+      "depth": "expert",
+      "authoredFragments": 32,
+      "internalNumericalEvidenceRecords": 28,
+      "expertInternalNumericalEvidenceFragments": 23,
+      "neededEvidence": [
+        "authority_fragment_source",
+        "authority_numerical_evidence_review"
+      ],
+      "firstAction": "Attach a reviewed authority source to the expert interpretation and review the deterministic numericalEvidence before promoting authority truth.",
+      "reviewExamples": [
+        {
+          "fragmentId": "wealth.thisMonth.expert.categorical_wave2.neutral_earth_yongshin_wood_sikshingyeok.402",
+          "file": "data/narrative/_coverage/categorical-evidence-density-wave2.fragments.json",
+          "sourceTier": "T1_HYPOTHESIS",
+          "authorityTruthEligible": false,
+          "gating": {
+            "gender": [
+              "neutral"
+            ],
+            "dayMasterElement": [
+              "EARTH"
+            ],
+            "yongshinElement": [
+              "WOOD"
+            ],
+            "gyeokguk": [
+              "sikshingyeok"
+            ]
+          },
+          "tags": [
+            "earth",
+            "yongshin",
+            "sikshingyeok"
+          ],
+          "numericalEvidenceCount": 4,
+          "internalNumericalEvidenceRecords": 4,
+          "authorityTruthEligibleNumericalEvidenceRecords": 0,
+          "numericalEvidenceLabels": [
+            "성별 분류값",
+            "일간 오행 분류값",
+            "용신 오행 분류값",
+            "격국 분류값"
+          ]
+        },
+        {
+          "fragmentId": "wealth.thisMonth.expert.age.70s.501",
+          "file": "data/narrative/_coverage/expert-70s-age-density.fragments.json",
+          "sourceTier": "T1_HYPOTHESIS",
+          "authorityTruthEligible": false,
+          "gating": {
+            "agePhase": [
+              "70s"
+            ]
+          },
+          "tags": [
+            "jeongjae",
+            "pyeonjae"
+          ],
+          "numericalEvidenceCount": 1,
+          "internalNumericalEvidenceRecords": 1,
+          "authorityTruthEligibleNumericalEvidenceRecords": 0,
+          "numericalEvidenceLabels": [
+            "연령 단계 서번"
+          ]
+        },
+        {
+          "fragmentId": "wealth.thisMonth.expert.age.80s.501",
+          "file": "data/narrative/_coverage/expert-80s-age-density.fragments.json",
+          "sourceTier": "T1_HYPOTHESIS",
+          "authorityTruthEligible": false,
+          "gating": {
+            "agePhase": [
+              "80s"
+            ]
+          },
+          "tags": [
+            "jeongjae",
+            "pyeonjae"
+          ],
+          "numericalEvidenceCount": 1,
+          "internalNumericalEvidenceRecords": 1,
+          "authorityTruthEligibleNumericalEvidenceRecords": 0,
+          "numericalEvidenceLabels": [
+            "연령 단계 서번"
+          ]
+        }
+      ]
+    },
+    {
+      "priorityClass": "P0_EXPERT_INTERNAL_EVIDENCE_REVIEW",
+      "category": "academic",
+      "period": "today",
+      "depth": "expert",
+      "authoredFragments": 30,
+      "internalNumericalEvidenceRecords": 35,
+      "expertInternalNumericalEvidenceFragments": 20,
+      "neededEvidence": [
+        "authority_fragment_source",
+        "authority_numerical_evidence_review"
+      ],
+      "firstAction": "Attach a reviewed authority source to the expert interpretation and review the deterministic numericalEvidence before promoting authority truth.",
+      "reviewExamples": [
+        {
+          "fragmentId": "academic.today.expert.ageband.child_teen.301",
+          "file": "data/narrative/_coverage/academic-short-term-expert-audience.fragments.json",
+          "sourceTier": "T1_HYPOTHESIS",
+          "authorityTruthEligible": false,
+          "gating": {
+            "ageBand": [
+              "0-9",
+              "10-19"
+            ],
+            "yongshinAlignment": [
+              "aligned",
+              "neutral",
+              "conflicting"
+            ]
+          },
+          "tags": [
+            "jeongin",
+            "pyeonin",
+            "sikshin",
+            "yongshinFit"
+          ],
+          "numericalEvidenceCount": 2,
+          "internalNumericalEvidenceRecords": 2,
+          "authorityTruthEligibleNumericalEvidenceRecords": 0,
+          "numericalEvidenceLabels": [
+            "현재 나이",
+            "셀 별점"
+          ]
+        },
+        {
+          "fragmentId": "academic.today.expert.ageband.adult.301",
+          "file": "data/narrative/_coverage/academic-short-term-expert-audience.fragments.json",
+          "sourceTier": "T1_HYPOTHESIS",
+          "authorityTruthEligible": false,
+          "gating": {
+            "ageBand": [
+              "20-29",
+              "30-39",
+              "40-54"
+            ],
+            "yongshinAlignment": [
+              "aligned",
+              "neutral",
+              "conflicting"
+            ]
+          },
+          "tags": [
+            "jeongin",
+            "pyeonin",
+            "sikshin",
+            "stabilityIndex"
+          ],
+          "numericalEvidenceCount": 2,
+          "internalNumericalEvidenceRecords": 2,
+          "authorityTruthEligibleNumericalEvidenceRecords": 0,
+          "numericalEvidenceLabels": [
+            "현재 나이",
+            "셀 별점"
+          ]
+        },
+        {
+          "fragmentId": "academic.today.expert.ageband.senior.301",
+          "file": "data/narrative/_coverage/academic-short-term-expert-audience.fragments.json",
+          "sourceTier": "T1_HYPOTHESIS",
+          "authorityTruthEligible": false,
+          "gating": {
+            "ageBand": [
+              "55-69",
+              "70+"
+            ],
+            "yongshinAlignment": [
+              "aligned",
+              "neutral",
+              "conflicting"
+            ]
+          },
+          "tags": [
+            "jeongin",
+            "pyeonin",
+            "stabilityIndex",
+            "sikshin"
+          ],
+          "numericalEvidenceCount": 2,
+          "internalNumericalEvidenceRecords": 2,
+          "authorityTruthEligibleNumericalEvidenceRecords": 0,
+          "numericalEvidenceLabels": [
+            "현재 나이",
+            "셀 별점"
+          ]
+        }
+      ]
+    },
+    {
+      "priorityClass": "P0_EXPERT_INTERNAL_EVIDENCE_REVIEW",
+      "category": "family",
+      "period": "thisWeek",
+      "depth": "expert",
+      "authoredFragments": 30,
+      "internalNumericalEvidenceRecords": 21,
+      "expertInternalNumericalEvidenceFragments": 19,
+      "neededEvidence": [
+        "authority_fragment_source",
+        "authority_numerical_evidence_review"
+      ],
+      "firstAction": "Attach a reviewed authority source to the expert interpretation and review the deterministic numericalEvidence before promoting authority truth.",
+      "reviewExamples": [
+        {
+          "fragmentId": "family.thisWeek.expert.age.70s.501",
+          "file": "data/narrative/_coverage/expert-70s-age-density.fragments.json",
+          "sourceTier": "T1_HYPOTHESIS",
+          "authorityTruthEligible": false,
+          "gating": {
+            "agePhase": [
+              "70s"
+            ]
+          },
+          "tags": [
+            "bigyeon",
+            "jeonggwan"
+          ],
+          "numericalEvidenceCount": 1,
+          "internalNumericalEvidenceRecords": 1,
+          "authorityTruthEligibleNumericalEvidenceRecords": 0,
+          "numericalEvidenceLabels": [
+            "연령 단계 서번"
+          ]
+        },
+        {
+          "fragmentId": "family.thisWeek.expert.age.80s.501",
+          "file": "data/narrative/_coverage/expert-80s-age-density.fragments.json",
+          "sourceTier": "T1_HYPOTHESIS",
+          "authorityTruthEligible": false,
+          "gating": {
+            "agePhase": [
+              "80s"
+            ]
+          },
+          "tags": [
+            "bigyeon",
+            "jeongin"
+          ],
+          "numericalEvidenceCount": 1,
+          "internalNumericalEvidenceRecords": 1,
+          "authorityTruthEligibleNumericalEvidenceRecords": 0,
+          "numericalEvidenceLabels": [
+            "연령 단계 서번"
+          ]
+        },
+        {
+          "fragmentId": "family.thisWeek.expert.age.90_plus.501",
+          "file": "data/narrative/_coverage/expert-90-plus-age-density.fragments.json",
+          "sourceTier": "T1_HYPOTHESIS",
+          "authorityTruthEligible": false,
+          "gating": {
+            "agePhase": [
+              "90_plus"
+            ]
+          },
+          "tags": [
+            "bigyeon",
+            "jeongin"
+          ],
+          "numericalEvidenceCount": 1,
+          "internalNumericalEvidenceRecords": 1,
+          "authorityTruthEligibleNumericalEvidenceRecords": 0,
+          "numericalEvidenceLabels": [
+            "연령 단계 순번"
+          ]
+        }
+      ]
+    }
+  ]
+}
