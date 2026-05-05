@@ -174,7 +174,7 @@
       "hashLabel": "#합의용신",
       "category": "yongshin",
       "brief": "여러 풀이 방식이 한 결로 모일 때 잡히는 용신이에요.",
-      "detailed": "강약·조후·격국 같은 여러 방식이 모두 같은 기운을 용신으로 가리킬 때, 그 결을 합의용신이라고 해요. 한 가지 방식만으로는 흔들릴 수 있는 결을 여러 잣대가 함께 가리키는 자리라, 결의 방향이 또렷한 사주에서 핵심 결로 풀어요.",
+      "detailed": "강약·조후·격국 같은 여러 방식이 모두 같은 기운을 용신으로 가리킬 때, 그 자리를 합의용신이라고 해요. 한 가지 방식만으로는 흔들릴 수 있는 판단을 여러 잣대가 함께 가리키는 흐름이라, 방향이 또렷한 사주에서 핵심 단서로 풀어요.",
       "related": ["yongshin", "buaekYongshin", "johuYongshin", "gyeokgukYongshin"],
       "aiGenerated": true,
       "sourceTier": { "tier": "T1_HYPOTHESIS", "sourceType": "training_derived", "sourceUrl": null, "accessedAt": "2026-05-02", "quoteShort": null, "humanInterpretation": "AI-derived plain-language definition of 합의용신. Display-only.", "copyrightNote": "No source prose copied.", "authorityTruthEligible": false }

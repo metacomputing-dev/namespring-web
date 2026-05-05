@@ -259,7 +259,7 @@
       "hashLabel": "#비겁",
       "category": "tenGod",
       "brief": "비견과 겁재를 묶어 부르는, 같은 편의 결이에요.",
-      "detailed": "비겁은 비견(나와 같은 결의 친구)과 겁재(좀 더 거친 형제 같은 결)를 한 무리로 부르는 결이에요. 사주에 비겁이 강하면 동료·형제·팀의 결이 인생을 풀어 주는 단서가 되고, 너무 강하면 동업·돈거래의 자리에서 한 박자 늦추는 신호로도 풀어요.",
+      "detailed": "비겁은 비견(나와 같은 편의 친구)과 겁재(좀 더 거친 형제 같은 기운)를 한 무리로 부르는 묶음이에요. 사주에 비겁이 강하면 동료·형제·팀의 자리가 인생을 풀어 주는 단서가 되고, 너무 강하면 동업·돈거래에서 한 박자 늦추는 신호로도 풀어요.",
       "related": ["bigyeon", "geobjae"],
       "aiGenerated": true,
       "sourceTier": { "tier": "T1_HYPOTHESIS", "sourceType": "training_derived", "sourceUrl": null, "accessedAt": "2026-05-02", "quoteShort": null, "humanInterpretation": "AI-derived plain-language definition of 비겁. Display-only narrative.", "copyrightNote": "No source prose copied.", "authorityTruthEligible": false }
@@ -271,7 +271,7 @@
       "hashLabel": "#식상",
       "category": "tenGod",
       "brief": "식신과 상관을 묶어 부르는, 표현·결과물의 결이에요.",
-      "detailed": "식상은 식신(부드러운 표현)과 상관(개성 있는 표현)을 한 무리로 부르는 결이에요. 내가 만들어 내는 결과물·말·작품의 자리라, 식상이 강하면 창작·서비스·기획의 자리에서 결이 또렷이 살아나고, 윗사람과의 거리는 한 번 더 살피는 신호로도 풀어요.",
+      "detailed": "식상은 식신(부드러운 표현)과 상관(개성 있는 표현)을 한 무리로 부르는 묶음이에요. 내가 만들어 내는 결과물·말·작품의 자리라, 식상이 강하면 창작·서비스·기획에서 빛이 또렷이 살아나고, 윗사람과의 거리는 한 번 더 살피는 신호로도 풀어요.",
       "related": ["sikshin", "sanggwan"],
       "aiGenerated": true,
       "sourceTier": { "tier": "T1_HYPOTHESIS", "sourceType": "training_derived", "sourceUrl": null, "accessedAt": "2026-05-02", "quoteShort": null, "humanInterpretation": "AI-derived plain-language definition of 식상. Display-only narrative.", "copyrightNote": "No source prose copied.", "authorityTruthEligible": false }
@@ -283,7 +283,7 @@
       "hashLabel": "#재성",
       "category": "tenGod",
       "brief": "정재와 편재를 묶어 부르는, 재물·자원의 결이에요.",
-      "detailed": "재성은 정재(꾸준히 모이는 자원)와 편재(큰 흐름의 자원)를 한 무리로 부르는 결이에요. 사주에 재성이 또렷하면 재물·자원을 다스리는 결이 강하고, 너무 강하면 자기 자리가 흔들리기 쉬워 평소 결을 차분히 세우는 연습이 자산이 돼요.",
+      "detailed": "재성은 정재(꾸준히 모이는 자원)와 편재(큰 흐름의 자원)를 한 무리로 부르는 묶음이에요. 사주에 재성이 또렷하면 재물·자원을 다스리는 힘이 강하고, 너무 강하면 자기 중심이 흔들리기 쉬워 평소 자리를 차분히 세우는 연습이 자산이 돼요.",
       "related": ["jeongjae", "pyeonjae"],
       "aiGenerated": true,
       "sourceTier": { "tier": "T1_HYPOTHESIS", "sourceType": "training_derived", "sourceUrl": null, "accessedAt": "2026-05-02", "quoteShort": null, "humanInterpretation": "AI-derived plain-language definition of 재성. Display-only narrative.", "copyrightNote": "No source prose copied.", "authorityTruthEligible": false }
@@ -295,7 +295,7 @@
       "hashLabel": "#관성",
       "category": "tenGod",
       "brief": "정관과 편관을 묶어 부르는, 자리·책임·압박의 결이에요.",
-      "detailed": "관성은 정관(반듯한 책임)과 편관(강한 도전)을 한 무리로 부르는 결이에요. 자리·신뢰·자격·외부 압력의 결이라, 사주에 관성이 또렷하면 사회적 자리·자격이 자라기 좋고, 너무 강하면 부담의 결이라 인성의 응원이 함께 있어야 자리가 자산이 돼요.",
+      "detailed": "관성은 정관(반듯한 책임)과 편관(강한 도전)을 한 무리로 부르는 묶음이에요. 자리·신뢰·자격·외부 압력의 흐름이라, 사주에 관성이 또렷하면 사회적 자리·자격이 자라기 좋고, 너무 강하면 부담이 커지므로 인성의 응원이 함께 있어야 자산이 돼요.",
       "related": ["jeonggwan", "pyeongwan", "jeongin"],
       "aiGenerated": true,
       "sourceTier": { "tier": "T1_HYPOTHESIS", "sourceType": "training_derived", "sourceUrl": null, "accessedAt": "2026-05-02", "quoteShort": null, "humanInterpretation": "AI-derived plain-language definition of 관성. Display-only narrative.", "copyrightNote": "No source prose copied.", "authorityTruthEligible": false }
@@ -307,7 +307,7 @@
       "hashLabel": "#인성",
       "category": "tenGod",
       "brief": "정인과 편인을 묶어 부르는, 공부·돌봄·후원의 결이에요.",
-      "detailed": "인성은 정인(따뜻한 후원)과 편인(독특한 통찰)을 한 무리로 부르는 결이에요. 나를 길러 주는 결이라 부모·스승·책·자격증의 자리가 잘 자라고, 너무 강하면 결정을 미루는 결이 따라오기 쉬워 한 박자 옮기는 연습이 자산이 돼요.",
+      "detailed": "인성은 정인(따뜻한 후원)과 편인(독특한 통찰)을 한 무리로 부르는 묶음이에요. 나를 길러 주는 흐름이라 부모·스승·책·자격증의 자리가 잘 자라고, 너무 강하면 결정을 미루는 면이 따라오기 쉬워 한 박자 옮기는 연습이 자산이 돼요.",
       "related": ["jeongin", "pyeonin"],
       "aiGenerated": true,
       "sourceTier": { "tier": "T1_HYPOTHESIS", "sourceType": "training_derived", "sourceUrl": null, "accessedAt": "2026-05-02", "quoteShort": null, "humanInterpretation": "AI-derived plain-language definition of 인성. Display-only narrative.", "copyrightNote": "No source prose copied.", "authorityTruthEligible": false }
