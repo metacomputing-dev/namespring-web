@@ -71,7 +71,7 @@
       "templateTokens": [
         { "kind": "text", "value": "일간이 또렷한 자리에서 " },
         { "kind": "tag", "tagId": "yongshin", "label": "용신" },
-        { "kind": "text", "value": "이 흐름과 잘 맞아 떨어져, 이번 주의 결정이 또렷해지는 결이에요. " },
+        { "kind": "text", "value": "이 흐름과 잘 맞아 떨어져, 이번 주의 결정이 또렷해지는 시기예요. " },
         { "kind": "tag", "tagId": "bigyeon", "label": "비견" },
         { "kind": "text", "value": "의 기세가 살아 있어 자기 결을 끌고 가는 힘이 강하지만, " },
         { "kind": "tag", "tagId": "sikshin", "label": "식신" },
@@ -100,7 +100,7 @@
         { "kind": "tag", "tagId": "yongshin", "label": "용신" },
         { "kind": "text", "value": "이 흐름을 잘 받쳐 주는 한 주예요. " },
         { "kind": "tag", "tagId": "jeonggwan", "label": "정관" },
-        { "kind": "text", "value": "의 자리가 살아 있으면 책임의 결이 또렷해지고, " },
+        { "kind": "text", "value": "의 자리가 살아 있으면 책임의 자리가 또렷해지고, " },
         { "kind": "tag", "tagId": "jeongjae", "label": "정재" },
         { "kind": "text", "value": "가 함께 자리하면 결과가 단단해져요." }
       ],
@@ -129,9 +129,9 @@
         { "kind": "tag", "tagId": "yongshin", "label": "용신" },
         { "kind": "text", "value": "이 결을 잘 받쳐, 이번 주의 자리가 또렷한 그림이에요. " },
         { "kind": "tag", "tagId": "siGungsil", "label": "시궁실" },
-        { "kind": "text", "value": "의 결이 흐름과 맞을 때 결정의 무게가 가벼워지고, " },
+        { "kind": "text", "value": "의 흐름이 함께 맞을 때 결정의 무게가 가벼워지고, " },
         { "kind": "tag", "tagId": "jeonggwan", "label": "정관" },
-        { "kind": "text", "value": "의 자리가 함께 살아 있으면 책임의 결이 자연스럽게 풀려요." }
+        { "kind": "text", "value": "의 자리가 함께 살아 있으면 책임의 흐름이 자연스럽게 풀려요." }
       ],
       "tags": ["yongshin", "siGungsil", "jeonggwan"],
       "aiGenerated": true,
@@ -206,7 +206,7 @@
         "yongshinAlignment": ["aligned"]
       },
       "templateTokens": [
-        { "kind": "text", "value": "청년기의 균형 잡힌 결이 한 주에 잘 모이는 흐름이에요. " },
+        { "kind": "text", "value": "청년기의 균형 잡힌 흐름이 한 주에 잘 모이는 흐름이에요. " },
         { "kind": "tag", "tagId": "yongshin", "label": "용신" },
         { "kind": "text", "value": "이 자연스럽게 받쳐 주는 자리라, " },
         { "kind": "tag", "tagId": "sikshin", "label": "식신" },
@@ -235,7 +235,7 @@
       "templateTokens": [
         { "kind": "text", "value": "일간의 균형이 잡힌 자리에서 " },
         { "kind": "tag", "tagId": "yongshin", "label": "용신" },
-        { "kind": "text", "value": "이 멀리서 흐르는 결이에요. 큰 자극은 적은 편이지만, " },
+        { "kind": "text", "value": "이 멀리서 흐르는 흐름이에요. 큰 자극은 적은 편이지만, " },
         { "kind": "tag", "tagId": "yongshinFit", "label": "용신적합도" },
         { "kind": "text", "value": "의 결을 한 번 살펴 두면 결정이 더 또렷해져요." }
       ],
@@ -315,7 +315,7 @@
         { "kind": "tag", "tagId": "yongshin", "label": "용신" },
         { "kind": "text", "value": " 보강을 의식적으로 챙겨야 하는 자리라, 이번 주의 짧은 휴식이 큰 자산이 돼요. " },
         { "kind": "tag", "tagId": "jojangung", "label": "조장궁" },
-        { "kind": "text", "value": "의 결이 단단할 때 한 주의 흐름이 한결 안정돼요." }
+        { "kind": "text", "value": "의 흐름이 단단할 때 한 주의 흐름이 한결 안정돼요." }
       ],
       "tags": ["yongshin", "jojangung"],
       "aiGenerated": true,
@@ -338,7 +338,7 @@
       "templateTokens": [
         { "kind": "text", "value": "일간이 매우 약한 자리에서 " },
         { "kind": "tag", "tagId": "gishin", "label": "기신" },
-        { "kind": "text", "value": "의 결이 흐름과 부딪히는 한 주예요. " },
+        { "kind": "text", "value": "의 리듬이 흐름과 부딪히는 한 주예요. " },
         { "kind": "tag", "tagId": "gongmang", "label": "공망" },
         { "kind": "text", "value": "의 자리가 함께 보일 때는 결정 자체를 잠시 미뤄도 흐름이 흐트러지지 않아요." }
       ],
