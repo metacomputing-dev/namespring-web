@@ -1,0 +1,1225 @@
+{
+  "totalFixtures": 15,
+  "results": [
+    {
+      "fixture": "fix-01",
+      "label": "1986-04-19 male — 戊土 일간 (README example)",
+      "diffs": [
+        {
+          "path": "candidatesTop5[0].finalScore",
+          "baseline": 79.9,
+          "current": 80.9
+        },
+        {
+          "path": "candidatesTop5[0].fullHangul",
+          "baseline": "최영장",
+          "current": "최이수"
+        },
+        {
+          "path": "candidatesTop5[0].fullHanja",
+          "baseline": "崔齡贓",
+          "current": "崔理琇"
+        },
+        {
+          "path": "candidatesTop5[1].finalScore",
+          "baseline": 79.9,
+          "current": 79.2
+        },
+        {
+          "path": "candidatesTop5[1].fullHangul",
+          "baseline": "최영철",
+          "current": "최유단"
+        },
+        {
+          "path": "candidatesTop5[1].fullHanja",
+          "baseline": "崔齡鐵",
+          "current": "崔攸端"
+        },
+        {
+          "path": "candidatesTop5[2].finalScore",
+          "baseline": 79,
+          "current": 79.2
+        },
+        {
+          "path": "candidatesTop5[2].fullHangul",
+          "baseline": "최영작",
+          "current": "최영정"
+        },
+        {
+          "path": "candidatesTop5[2].fullHanja",
+          "baseline": "崔永勺",
+          "current": "崔瑛玎"
+        },
+        {
+          "path": "candidatesTop5[3].finalScore",
+          "baseline": 79,
+          "current": 79.2
+        },
+        {
+          "path": "candidatesTop5[3].fullHangul",
+          "baseline": "최영탁",
+          "current": "최영진"
+        },
+        {
+          "path": "candidatesTop5[3].fullHanja",
+          "baseline": "崔齡鐸",
+          "current": "崔瑛珍"
+        },
+        {
+          "path": "candidatesTop5[4].fullHangul",
+          "baseline": "최요주",
+          "current": "최정영"
+        },
+        {
+          "path": "candidatesTop5[4].fullHanja",
+          "baseline": "崔了鑄",
+          "current": "崔玎瑛"
+        }
+      ]
+    },
+    {
+      "fixture": "fix-02",
+      "label": "1992-09-15 female — 壬水 일간, 가을",
+      "diffs": [
+        {
+          "path": "candidatesTop5[0].finalScore",
+          "baseline": 76.7,
+          "current": 74.6
+        },
+        {
+          "path": "candidatesTop5[0].fullHangul",
+          "baseline": "김미규",
+          "current": "김배주"
+        },
+        {
+          "path": "candidatesTop5[0].fullHanja",
+          "baseline": "金味叫",
+          "current": "金北宙"
+        },
+        {
+          "path": "candidatesTop5[1].finalScore",
+          "baseline": 75.9,
+          "current": 74.6
+        },
+        {
+          "path": "candidatesTop5[1].fullHangul",
+          "baseline": "김미정",
+          "current": "김사영"
+        },
+        {
+          "path": "candidatesTop5[1].fullHanja",
+          "baseline": "金味靚",
+          "current": "金事永"
+        },
+        {
+          "path": "candidatesTop5[2].finalScore",
+          "baseline": 75.7,
+          "current": 74.6
+        },
+        {
+          "path": "candidatesTop5[2].fullHangul",
+          "baseline": "김미수",
+          "current": "김사영"
+        },
+        {
+          "path": "candidatesTop5[2].fullHanja",
+          "baseline": "金味囚",
+          "current": "金祀永"
+        },
+        {
+          "path": "candidatesTop5[3].finalScore",
+          "baseline": 75.7,
+          "current": 74.6
+        },
+        {
+          "path": "candidatesTop5[3].fullHangul",
+          "baseline": "김미정",
+          "current": "김서영"
+        },
+        {
+          "path": "candidatesTop5[3].fullHanja",
+          "baseline": "金味霆",
+          "current": "金抒永"
+        },
+        {
+          "path": "candidatesTop5[4].finalScore",
+          "baseline": 75.6,
+          "current": 74.6
+        },
+        {
+          "path": "candidatesTop5[4].fullHangul",
+          "baseline": "김수미",
+          "current": "김서우"
+        },
+        {
+          "path": "candidatesTop5[4].fullHanja",
+          "baseline": "金受未",
+          "current": "金抒右"
+        }
+      ]
+    },
+    {
+      "fixture": "fix-03",
+      "label": "2000-01-01 00:30 male — 子時 boundary edge",
+      "diffs": [
+        {
+          "path": "namingReport.fullHangul",
+          "baseline": "리민준",
+          "current": "이민준"
+        },
+        {
+          "path": "candidatesTop5[0].finalScore",
+          "baseline": 78.6,
+          "current": 78.7
+        },
+        {
+          "path": "candidatesTop5[0].fullHangul",
+          "baseline": "리희찬",
+          "current": "이대영"
+        },
+        {
+          "path": "candidatesTop5[0].fullHanja",
+          "baseline": "李羲纘",
+          "current": "李岱穎"
+        },
+        {
+          "path": "candidatesTop5[1].finalScore",
+          "baseline": 78.4,
+          "current": 78.5
+        },
+        {
+          "path": "candidatesTop5[1].fullHangul",
+          "baseline": "리희장",
+          "current": "이대유"
+        },
+        {
+          "path": "candidatesTop5[1].fullHanja",
+          "baseline": "李羲樟",
+          "current": "李岱遊"
+        },
+        {
+          "path": "candidatesTop5[2].finalScore",
+          "baseline": 78.3,
+          "current": 78.4
+        },
+        {
+          "path": "candidatesTop5[2].fullHangul",
+          "baseline": "리희장",
+          "current": "이승만"
+        },
+        {
+          "path": "candidatesTop5[2].fullHanja",
+          "baseline": "李姬樟",
+          "current": "李丞娩"
+        },
+        {
+          "path": "candidatesTop5[3].fullHangul",
+          "baseline": "리대희",
+          "current": "이주민"
+        },
+        {
+          "path": "candidatesTop5[3].fullHanja",
+          "baseline": "李坮羲",
+          "current": "李遒岷"
+        },
+        {
+          "path": "candidatesTop5[4].finalScore",
+          "baseline": 78.2,
+          "current": 77.7
+        },
+        {
+          "path": "candidatesTop5[4].fullHangul",
+          "baseline": "리대희",
+          "current": "이선호"
+        },
+        {
+          "path": "candidatesTop5[4].fullHanja",
+          "baseline": "李垈羲",
+          "current": "李繕好"
+        },
+        {
+          "path": "fortuneReport.lifeStars",
+          "baseline": 3,
+          "current": 4
+        }
+      ]
+    },
+    {
+      "fixture": "fix-04",
+      "label": "1965-08-08 19:00 female — 丙火 일간, 종왕 후보 (강한 火)",
+      "diffs": [
+        {
+          "path": "candidatesTop5[0].fullHangul",
+          "baseline": "박해정",
+          "current": "박수진"
+        },
+        {
+          "path": "candidatesTop5[0].fullHanja",
+          "baseline": "朴奚町",
+          "current": "朴修辰"
+        },
+        {
+          "path": "candidatesTop5[1].finalScore",
+          "baseline": 75.9,
+          "current": 74.5
+        },
+        {
+          "path": "candidatesTop5[1].fullHangul",
+          "baseline": "박혜정",
+          "current": "박구혜"
+        },
+        {
+          "path": "candidatesTop5[1].fullHanja",
+          "baseline": "朴恵町",
+          "current": "朴舊蹊"
+        },
+        {
+          "path": "candidatesTop5[2].finalScore",
+          "baseline": 75.9,
+          "current": 73.9
+        },
+        {
+          "path": "candidatesTop5[2].fullHangul",
+          "baseline": "박시정",
+          "current": "박로희"
+        },
+        {
+          "path": "candidatesTop5[2].fullHanja",
+          "baseline": "朴恃町",
+          "current": "朴潞嬉"
+        },
+        {
+          "path": "candidatesTop5[3].finalScore",
+          "baseline": 75.9,
+          "current": 73.7
+        },
+        {
+          "path": "candidatesTop5[3].fullHangul",
+          "baseline": "박시정",
+          "current": "박정미"
+        },
+        {
+          "path": "candidatesTop5[3].fullHanja",
+          "baseline": "朴時町",
+          "current": "朴炡美"
+        },
+        {
+          "path": "candidatesTop5[4].finalScore",
+          "baseline": 75.9,
+          "current": 73.5
+        },
+        {
+          "path": "candidatesTop5[4].fullHangul",
+          "baseline": "박시정",
+          "current": "박구자"
+        },
+        {
+          "path": "candidatesTop5[4].fullHanja",
+          "baseline": "朴翅町",
+          "current": "朴舊孜"
+        }
+      ]
+    },
+    {
+      "fixture": "fix-05",
+      "label": "2005-12-25 06:00 male — 겨울 조후 case (한랭)",
+      "diffs": [
+        {
+          "path": "candidatesTop5[0].fullHangul",
+          "baseline": "정반정",
+          "current": "정임수"
+        },
+        {
+          "path": "candidatesTop5[0].fullHanja",
+          "baseline": "鄭反珵",
+          "current": "鄭壬琇"
+        },
+        {
+          "path": "candidatesTop5[1].finalScore",
+          "baseline": 76.6,
+          "current": 75.3
+        },
+        {
+          "path": "candidatesTop5[1].fullHangul",
+          "baseline": "정반정",
+          "current": "정부이"
+        },
+        {
+          "path": "candidatesTop5[1].fullHanja",
+          "baseline": "鄭反珽",
+          "current": "鄭不理"
+        },
+        {
+          "path": "candidatesTop5[2].finalScore",
+          "baseline": 75.8,
+          "current": 74
+        },
+        {
+          "path": "candidatesTop5[2].fullHangul",
+          "baseline": "정아대",
+          "current": "정정리"
+        },
+        {
+          "path": "candidatesTop5[2].fullHanja",
+          "baseline": "鄭牙貸",
+          "current": "鄭井理"
+        },
+        {
+          "path": "candidatesTop5[3].finalScore",
+          "baseline": 75.6,
+          "current": 74
+        },
+        {
+          "path": "candidatesTop5[3].fullHangul",
+          "baseline": "정우대",
+          "current": "정소수"
+        },
+        {
+          "path": "candidatesTop5[3].fullHanja",
+          "baseline": "鄭友貸",
+          "current": "鄭少琇"
+        },
+        {
+          "path": "candidatesTop5[4].finalScore",
+          "baseline": 74.4,
+          "current": 73.3
+        },
+        {
+          "path": "candidatesTop5[4].fullHangul",
+          "baseline": "정우작",
+          "current": "정월수"
+        },
+        {
+          "path": "candidatesTop5[4].fullHanja",
+          "baseline": "鄭友勺",
+          "current": "鄭月琇"
+        }
+      ]
+    },
+    {
+      "fixture": "fix-06",
+      "label": "1978-06-15 14:00 female — 庚金 일간, 여름",
+      "diffs": [
+        {
+          "path": "candidatesTop5[0].finalScore",
+          "baseline": 79.3,
+          "current": 78
+        },
+        {
+          "path": "candidatesTop5[0].fullHangul",
+          "baseline": "강라예",
+          "current": "강리희"
+        },
+        {
+          "path": "candidatesTop5[0].fullHanja",
+          "baseline": "姜裸乂",
+          "current": "姜理稀"
+        },
+        {
+          "path": "candidatesTop5[1].finalScore",
+          "baseline": 78.1,
+          "current": 77
+        },
+        {
+          "path": "candidatesTop5[1].fullHangul",
+          "baseline": "강혜정",
+          "current": "강리영"
+        },
+        {
+          "path": "candidatesTop5[1].fullHanja",
+          "baseline": "姜兮幀",
+          "current": "姜利穎"
+        },
+        {
+          "path": "candidatesTop5[2].finalScore",
+          "baseline": 78.1,
+          "current": 77
+        },
+        {
+          "path": "candidatesTop5[2].fullHangul",
+          "baseline": "강아정",
+          "current": "강로희"
+        },
+        {
+          "path": "candidatesTop5[2].fullHanja",
+          "baseline": "姜牙幀",
+          "current": "姜瀘稀"
+        },
+        {
+          "path": "candidatesTop5[3].finalScore",
+          "baseline": 77,
+          "current": 76.9
+        },
+        {
+          "path": "candidatesTop5[3].fullHangul",
+          "baseline": "강수비",
+          "current": "강임정"
+        },
+        {
+          "path": "candidatesTop5[3].fullHanja",
+          "baseline": "姜手匕",
+          "current": "姜壬珽"
+        },
+        {
+          "path": "candidatesTop5[4].finalScore",
+          "baseline": 76.9,
+          "current": 76.8
+        },
+        {
+          "path": "candidatesTop5[4].fullHangul",
+          "baseline": "강혜정",
+          "current": "강수정"
+        },
+        {
+          "path": "candidatesTop5[4].fullHanja",
+          "baseline": "姜兮淀",
+          "current": "姜手珽"
+        },
+        {
+          "path": "fortuneReport.lifeStars",
+          "baseline": 2,
+          "current": 3
+        }
+      ]
+    },
+    {
+      "fixture": "fix-07",
+      "label": "1957-02-04 male — 입춘 boundary",
+      "diffs": [
+        {
+          "path": "candidatesTop5[0].finalScore",
+          "baseline": 78.3,
+          "current": 78.4
+        },
+        {
+          "path": "candidatesTop5[0].fullHangul",
+          "baseline": "윤장정",
+          "current": "윤장희"
+        },
+        {
+          "path": "candidatesTop5[0].fullHanja",
+          "baseline": "尹薔婷",
+          "current": "尹薔稀"
+        },
+        {
+          "path": "candidatesTop5[1].finalScore",
+          "baseline": 78.3,
+          "current": 78.2
+        },
+        {
+          "path": "candidatesTop5[1].fullHangul",
+          "baseline": "윤장정",
+          "current": "윤수봉"
+        },
+        {
+          "path": "candidatesTop5[1].fullHanja",
+          "baseline": "尹障幀",
+          "current": "尹隧蓬"
+        },
+        {
+          "path": "candidatesTop5[2].finalScore",
+          "baseline": 78.3,
+          "current": 77.8
+        },
+        {
+          "path": "candidatesTop5[2].fullHangul",
+          "baseline": "윤신장",
+          "current": "윤희장"
+        },
+        {
+          "path": "candidatesTop5[2].fullHanja",
+          "baseline": "尹薪場",
+          "current": "尹稀薔"
+        },
+        {
+          "path": "candidatesTop5[3].finalScore",
+          "baseline": 78.1,
+          "current": 77.5
+        },
+        {
+          "path": "candidatesTop5[3].fullHangul",
+          "baseline": "윤장정",
+          "current": "윤수만"
+        },
+        {
+          "path": "candidatesTop5[3].fullHanja",
+          "baseline": "尹薔幀",
+          "current": "尹隧挽"
+        },
+        {
+          "path": "candidatesTop5[4].finalScore",
+          "baseline": 78,
+          "current": 77.4
+        },
+        {
+          "path": "candidatesTop5[4].fullHangul",
+          "baseline": "윤정신",
+          "current": "윤탁희"
+        },
+        {
+          "path": "candidatesTop5[4].fullHanja",
+          "baseline": "尹婷薪",
+          "current": "尹拓稀"
+        }
+      ]
+    },
+    {
+      "fixture": "fix-08",
+      "label": "2020-08-23 female — 처서 boundary",
+      "diffs": [
+        {
+          "path": "candidatesTop5[0].fullHangul",
+          "baseline": "조해정",
+          "current": "조혜신"
+        },
+        {
+          "path": "candidatesTop5[0].fullHanja",
+          "baseline": "趙懈町",
+          "current": "趙蹊伸"
+        },
+        {
+          "path": "candidatesTop5[1].finalScore",
+          "baseline": 74.3,
+          "current": 73.8
+        },
+        {
+          "path": "candidatesTop5[1].fullHangul",
+          "baseline": "조혜신",
+          "current": "조예수"
+        },
+        {
+          "path": "candidatesTop5[1].fullHanja",
+          "baseline": "趙蹊伸",
+          "current": "趙乂隨"
+        },
+        {
+          "path": "candidatesTop5[2].finalScore",
+          "baseline": 73.5,
+          "current": 73.8
+        },
+        {
+          "path": "candidatesTop5[2].fullHangul",
+          "baseline": "조수비",
+          "current": "조예사"
+        },
+        {
+          "path": "candidatesTop5[2].fullHanja",
+          "baseline": "趙邃匕",
+          "current": "趙乂麝"
+        },
+        {
+          "path": "candidatesTop5[3].finalScore",
+          "baseline": 73.5,
+          "current": 73.4
+        },
+        {
+          "path": "candidatesTop5[3].fullHangul",
+          "baseline": "조수비",
+          "current": "조혜진"
+        },
+        {
+          "path": "candidatesTop5[3].fullHanja",
+          "baseline": "趙隨匕",
+          "current": "趙蹊辰"
+        },
+        {
+          "path": "candidatesTop5[4].fullHangul",
+          "baseline": "조혜정",
+          "current": "조혜신"
+        },
+        {
+          "path": "candidatesTop5[4].fullHanja",
+          "baseline": "趙蹊町",
+          "current": "趙蹊辰"
+        }
+      ]
+    },
+    {
+      "fixture": "fix-09",
+      "label": "1988-05-05 male — 입하 boundary",
+      "diffs": [
+        {
+          "path": "candidatesTop5[0].finalScore",
+          "baseline": 78.2,
+          "current": 77.3
+        },
+        {
+          "path": "candidatesTop5[0].fullHangul",
+          "baseline": "최시우",
+          "current": "최오정"
+        },
+        {
+          "path": "candidatesTop5[0].fullHanja",
+          "baseline": "崔市又",
+          "current": "崔鼇靖"
+        },
+        {
+          "path": "candidatesTop5[1].finalScore",
+          "baseline": 78.2,
+          "current": 77.3
+        },
+        {
+          "path": "candidatesTop5[1].fullHangul",
+          "baseline": "최시우",
+          "current": "최염정"
+        },
+        {
+          "path": "candidatesTop5[1].fullHanja",
+          "baseline": "崔示又",
+          "current": "崔鹽靖"
+        },
+        {
+          "path": "candidatesTop5[2].finalScore",
+          "baseline": 77.5,
+          "current": 77.2
+        },
+        {
+          "path": "candidatesTop5[2].fullHangul",
+          "baseline": "최우수",
+          "current": "최한수"
+        },
+        {
+          "path": "candidatesTop5[2].fullHanja",
+          "baseline": "崔又手",
+          "current": "崔瀚手"
+        },
+        {
+          "path": "candidatesTop5[3].finalScore",
+          "baseline": 77.5,
+          "current": 77
+        },
+        {
+          "path": "candidatesTop5[3].fullHangul",
+          "baseline": "최우재",
+          "current": "최희장"
+        },
+        {
+          "path": "candidatesTop5[3].fullHanja",
+          "baseline": "崔又才",
+          "current": "崔喜掌"
+        },
+        {
+          "path": "candidatesTop5[4].finalScore",
+          "baseline": 77.3,
+          "current": 76.9
+        },
+        {
+          "path": "candidatesTop5[4].fullHangul",
+          "baseline": "최오정",
+          "current": "최서부"
+        },
+        {
+          "path": "candidatesTop5[4].fullHanja",
+          "baseline": "崔鼇楨",
+          "current": "崔薯不"
+        }
+      ]
+    },
+    {
+      "fixture": "fix-10",
+      "label": "2018-11-22 female — 소설 boundary",
+      "diffs": [
+        {
+          "path": "candidatesTop5[0].finalScore",
+          "baseline": 82.2,
+          "current": 83.4
+        },
+        {
+          "path": "candidatesTop5[0].fullHangul",
+          "baseline": "한수비",
+          "current": "한소범"
+        },
+        {
+          "path": "candidatesTop5[0].fullHanja",
+          "baseline": "韓手譬",
+          "current": "韓蕭帆"
+        },
+        {
+          "path": "candidatesTop5[1].finalScore",
+          "baseline": 82.2,
+          "current": 81.7
+        },
+        {
+          "path": "candidatesTop5[1].fullHangul",
+          "baseline": "한혜수",
+          "current": "한선해"
+        },
+        {
+          "path": "candidatesTop5[1].fullHanja",
+          "baseline": "韓蕙戍",
+          "current": "韓繕亥"
+        },
+        {
+          "path": "candidatesTop5[2].finalScore",
+          "baseline": 82.2,
+          "current": 81.7
+        },
+        {
+          "path": "candidatesTop5[2].fullHangul",
+          "baseline": "한혜수",
+          "current": "한소후"
+        },
+        {
+          "path": "candidatesTop5[2].fullHanja",
+          "baseline": "韓蕙收",
+          "current": "韓蕭后"
+        },
+        {
+          "path": "candidatesTop5[3].finalScore",
+          "baseline": 82.2,
+          "current": 81.5
+        },
+        {
+          "path": "candidatesTop5[3].fullHangul",
+          "baseline": "한수자",
+          "current": "한수영"
+        },
+        {
+          "path": "candidatesTop5[3].fullHanja",
+          "baseline": "韓璲字",
+          "current": "韓秀瑛"
+        },
+        {
+          "path": "candidatesTop5[4].finalScore",
+          "baseline": 82.2,
+          "current": 81.5
+        },
+        {
+          "path": "candidatesTop5[4].fullHangul",
+          "baseline": "한수자",
+          "current": "한사영"
+        },
+        {
+          "path": "candidatesTop5[4].fullHanja",
+          "baseline": "韓璲自",
+          "current": "韓些瑛"
+        }
+      ]
+    },
+    {
+      "fixture": "fix-11",
+      "label": "1995-08-15 female — 시간미상 (unknown-hour)",
+      "diffs": [
+        {
+          "path": "namingReport.totalScore",
+          "baseline": 53.5,
+          "current": 56.6
+        },
+        {
+          "path": "namingReport.scores.hangul",
+          "baseline": 71.3,
+          "current": 80
+        },
+        {
+          "path": "namingReport.fullHangul",
+          "baseline": "리지혜",
+          "current": "이지혜"
+        },
+        {
+          "path": "candidatesTop5[0].finalScore",
+          "baseline": 77.7,
+          "current": 76.7
+        },
+        {
+          "path": "candidatesTop5[0].fullHangul",
+          "baseline": "리해정",
+          "current": "이진희"
+        },
+        {
+          "path": "candidatesTop5[0].fullHanja",
+          "baseline": "李諧亭",
+          "current": "李璡僖"
+        },
+        {
+          "path": "candidatesTop5[1].finalScore",
+          "baseline": 77.7,
+          "current": 76.7
+        },
+        {
+          "path": "candidatesTop5[1].fullHangul",
+          "baseline": "리해정",
+          "current": "이린희"
+        },
+        {
+          "path": "candidatesTop5[1].fullHanja",
+          "baseline": "李諧侹",
+          "current": "李璘僖"
+        },
+        {
+          "path": "candidatesTop5[2].finalScore",
+          "baseline": 77.7,
+          "current": 76.5
+        },
+        {
+          "path": "candidatesTop5[2].fullHangul",
+          "baseline": "리해정",
+          "current": "이지영"
+        },
+        {
+          "path": "candidatesTop5[2].fullHanja",
+          "baseline": "李諧炡",
+          "current": "李旨玲"
+        },
+        {
+          "path": "candidatesTop5[3].finalScore",
+          "baseline": 77.7,
+          "current": 76.5
+        },
+        {
+          "path": "candidatesTop5[3].fullHangul",
+          "baseline": "리해정",
+          "current": "이린영"
+        },
+        {
+          "path": "candidatesTop5[3].fullHanja",
+          "baseline": "李駭訂",
+          "current": "李璘瑛"
+        },
+        {
+          "path": "candidatesTop5[4].finalScore",
+          "baseline": 77.7,
+          "current": 76.3
+        },
+        {
+          "path": "candidatesTop5[4].fullHangul",
+          "baseline": "리해정",
+          "current": "이정해"
+        },
+        {
+          "path": "candidatesTop5[4].fullHanja",
+          "baseline": "李駭貞",
+          "current": "李炡諧"
+        }
+      ]
+    },
+    {
+      "fixture": "fix-12",
+      "label": "1991-03-20 male — borderline-strength (춘분 즈음, 중화 후보)",
+      "diffs": [
+        {
+          "path": "candidatesTop5[0].fullHangul",
+          "baseline": "정오정",
+          "current": "정일정"
+        },
+        {
+          "path": "candidatesTop5[0].fullHanja",
+          "baseline": "鄭午淀",
+          "current": "鄭日淨"
+        },
+        {
+          "path": "candidatesTop5[1].finalScore",
+          "baseline": 78.7,
+          "current": 77.4
+        },
+        {
+          "path": "candidatesTop5[1].fullHangul",
+          "baseline": "정오정",
+          "current": "정일희"
+        },
+        {
+          "path": "candidatesTop5[1].fullHanja",
+          "baseline": "鄭午淨",
+          "current": "鄭日喜"
+        },
+        {
+          "path": "candidatesTop5[2].fullHangul",
+          "baseline": "정오정",
+          "current": "정일정"
+        },
+        {
+          "path": "candidatesTop5[2].fullHanja",
+          "baseline": "鄭午情",
+          "current": "鄭日晶"
+        },
+        {
+          "path": "candidatesTop5[3].fullHangul",
+          "baseline": "정오정",
+          "current": "정일정"
+        },
+        {
+          "path": "candidatesTop5[3].fullHanja",
+          "baseline": "鄭午晶",
+          "current": "鄭日晸"
+        },
+        {
+          "path": "candidatesTop5[4].finalScore",
+          "baseline": 75.8,
+          "current": 75.7
+        },
+        {
+          "path": "candidatesTop5[4].fullHangul",
+          "baseline": "정오정",
+          "current": "정일정"
+        },
+        {
+          "path": "candidatesTop5[4].fullHanja",
+          "baseline": "鄭午晸",
+          "current": "鄭日珽"
+        }
+      ]
+    },
+    {
+      "fixture": "fix-13",
+      "label": "1989-07-23 male — borderline-strength practical tier (정재격, 여름 yongshin=WATER)",
+      "diffs": [
+        {
+          "path": "candidatesTop5[0].finalScore",
+          "baseline": 80.7,
+          "current": 79.7
+        },
+        {
+          "path": "candidatesTop5[0].fullHangul",
+          "baseline": "김왕수",
+          "current": "김배서"
+        },
+        {
+          "path": "candidatesTop5[0].fullHanja",
+          "baseline": "金枉囚",
+          "current": "金北抒"
+        },
+        {
+          "path": "candidatesTop5[1].finalScore",
+          "baseline": 80.7,
+          "current": 79.7
+        },
+        {
+          "path": "candidatesTop5[1].fullHangul",
+          "baseline": "김왕정",
+          "current": "김사우"
+        },
+        {
+          "path": "candidatesTop5[1].fullHanja",
+          "baseline": "金枉霆",
+          "current": "金事右"
+        },
+        {
+          "path": "candidatesTop5[2].finalScore",
+          "baseline": 80.7,
+          "current": 79.7
+        },
+        {
+          "path": "candidatesTop5[2].fullHangul",
+          "baseline": "김왕정",
+          "current": "김사우"
+        },
+        {
+          "path": "candidatesTop5[2].fullHanja",
+          "baseline": "金汪靚",
+          "current": "金祀右"
+        },
+        {
+          "path": "candidatesTop5[3].finalScore",
+          "baseline": 79.4,
+          "current": 79.7
+        },
+        {
+          "path": "candidatesTop5[3].fullHangul",
+          "baseline": "김정수",
+          "current": "김주영"
+        },
+        {
+          "path": "candidatesTop5[3].fullHanja",
+          "baseline": "金定囚",
+          "current": "金宙永"
+        },
+        {
+          "path": "candidatesTop5[4].finalScore",
+          "baseline": 78.5,
+          "current": 79.7
+        },
+        {
+          "path": "candidatesTop5[4].fullHangul",
+          "baseline": "김수왕",
+          "current": "김주우"
+        },
+        {
+          "path": "candidatesTop5[4].fullHanja",
+          "baseline": "金囚枉",
+          "current": "金宙右"
+        }
+      ]
+    },
+    {
+      "fixture": "fix-14",
+      "label": "1980-08-07 male — borderline-strength candidate tier (정관격, 가을 yongshin=WOOD)",
+      "diffs": [
+        {
+          "path": "candidatesTop5[0].finalScore",
+          "baseline": 83.1,
+          "current": 85
+        },
+        {
+          "path": "candidatesTop5[0].fullHangul",
+          "baseline": "박대혜",
+          "current": "박수신"
+        },
+        {
+          "path": "candidatesTop5[0].fullHanja",
+          "baseline": "朴隊慧",
+          "current": "朴修辰"
+        },
+        {
+          "path": "candidatesTop5[1].finalScore",
+          "baseline": 83.1,
+          "current": 84.9
+        },
+        {
+          "path": "candidatesTop5[1].fullHangul",
+          "baseline": "박대혜",
+          "current": "박구대"
+        },
+        {
+          "path": "candidatesTop5[1].fullHanja",
+          "baseline": "朴隊暳",
+          "current": "朴舊旲"
+        },
+        {
+          "path": "candidatesTop5[2].finalScore",
+          "baseline": 82.2,
+          "current": 83.8
+        },
+        {
+          "path": "candidatesTop5[2].fullHangul",
+          "baseline": "박정기",
+          "current": "박구영"
+        },
+        {
+          "path": "candidatesTop5[2].fullHanja",
+          "baseline": "朴町羈",
+          "current": "朴舊營"
+        },
+        {
+          "path": "candidatesTop5[3].finalScore",
+          "baseline": 81.9,
+          "current": 83.1
+        },
+        {
+          "path": "candidatesTop5[3].fullHangul",
+          "baseline": "박기정",
+          "current": "박진혁"
+        },
+        {
+          "path": "candidatesTop5[3].fullHanja",
+          "baseline": "朴羈町",
+          "current": "朴辰爀"
+        },
+        {
+          "path": "candidatesTop5[4].finalScore",
+          "baseline": 80.8,
+          "current": 83.1
+        },
+        {
+          "path": "candidatesTop5[4].fullHangul",
+          "baseline": "박정수",
+          "current": "박신혁"
+        },
+        {
+          "path": "candidatesTop5[4].fullHanja",
+          "baseline": "朴情獸",
+          "current": "朴辰爀"
+        },
+        {
+          "path": "fortuneReport.lifeStars",
+          "baseline": 2,
+          "current": 3
+        }
+      ]
+    },
+    {
+      "fixture": "fix-15",
+      "label": "1985-03-21 male — borderline-strength deferred tier (편관격, 춘분 yongshin=METAL)",
+      "diffs": [
+        {
+          "path": "namingReport.totalScore",
+          "baseline": 63.1,
+          "current": 66.2
+        },
+        {
+          "path": "namingReport.scores.hangul",
+          "baseline": 75,
+          "current": 83.8
+        },
+        {
+          "path": "namingReport.fullHangul",
+          "baseline": "리성민",
+          "current": "이성민"
+        },
+        {
+          "path": "candidatesTop5[0].finalScore",
+          "baseline": 80.5,
+          "current": 79.4
+        },
+        {
+          "path": "candidatesTop5[0].fullHangul",
+          "baseline": "리왕정",
+          "current": "이선민"
+        },
+        {
+          "path": "candidatesTop5[0].fullHanja",
+          "baseline": "李汪整",
+          "current": "李璇泯"
+        },
+        {
+          "path": "candidatesTop5[1].finalScore",
+          "baseline": 80.5,
+          "current": 79.2
+        },
+        {
+          "path": "candidatesTop5[1].fullHangul",
+          "baseline": "리왕정",
+          "current": "이왕서"
+        },
+        {
+          "path": "candidatesTop5[1].fullHanja",
+          "baseline": "李汪諪",
+          "current": "李汪諝"
+        },
+        {
+          "path": "candidatesTop5[2].finalScore",
+          "baseline": 80.5,
+          "current": 79.2
+        },
+        {
+          "path": "candidatesTop5[2].fullHangul",
+          "baseline": "리왕정",
+          "current": "이왕선"
+        },
+        {
+          "path": "candidatesTop5[2].fullHanja",
+          "baseline": "李汪錠",
+          "current": "李汪璇"
+        },
+        {
+          "path": "candidatesTop5[3].finalScore",
+          "baseline": 79.4,
+          "current": 79.2
+        },
+        {
+          "path": "candidatesTop5[3].fullHangul",
+          "baseline": "리영수",
+          "current": "이운서"
+        },
+        {
+          "path": "candidatesTop5[3].fullHanja",
+          "baseline": "李濚戍",
+          "current": "李沄諝"
+        },
+        {
+          "path": "candidatesTop5[4].finalScore",
+          "baseline": 79.4,
+          "current": 79.2
+        },
+        {
+          "path": "candidatesTop5[4].fullHangul",
+          "baseline": "리영수",
+          "current": "이운선"
+        },
+        {
+          "path": "candidatesTop5[4].fullHanja",
+          "baseline": "李濚收",
+          "current": "李沄璇"
+        }
+      ]
+    }
+  ]
+}
