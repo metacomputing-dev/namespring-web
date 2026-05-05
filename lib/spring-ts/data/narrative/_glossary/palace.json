@@ -145,6 +145,30 @@
       "related": ["yeokma"],
       "aiGenerated": true,
       "sourceTier": { "tier": "T1_HYPOTHESIS", "sourceType": "training_derived", "sourceUrl": null, "accessedAt": "2026-05-02", "quoteShort": null, "humanInterpretation": "AI-derived plain-language definition of 천이궁. Display-only.", "copyrightNote": "No source prose copied.", "authorityTruthEligible": false }
+    },
+    {
+      "schemaVersion": "spring-ts.glossary-entry.v1",
+      "id": "gwanrokgung",
+      "label": "관록궁",
+      "hashLabel": "#관록궁",
+      "category": "palace",
+      "brief": "직장·자리·승진의 흐름을 비추는 궁이에요.",
+      "detailed": "관록궁은 12궁 중 직책·자리·신뢰·자격의 결을 비추는 자리예요. 이 궁이 단단하면 사회적 자리·직장 자산이 자라기 좋고, 흔들림이 잦으면 자리바꿈·이직 시기에 한 박자 더 점검하라는 신호로 풀어요. 직장·승진·창업 카드에서 함께 살피는 궁이에요.",
+      "related": ["jeonggwan", "pyeongwan"],
+      "aiGenerated": true,
+      "sourceTier": { "tier": "T1_HYPOTHESIS", "sourceType": "training_derived", "sourceUrl": null, "accessedAt": "2026-05-02", "quoteShort": null, "humanInterpretation": "AI-derived plain-language definition of 관록궁. Display-only.", "copyrightNote": "No source prose copied.", "authorityTruthEligible": false }
+    },
+    {
+      "schemaVersion": "spring-ts.glossary-entry.v1",
+      "id": "bokdeokgung",
+      "label": "복덕궁",
+      "hashLabel": "#복덕궁",
+      "category": "palace",
+      "brief": "정신·여유·길흉의 큰 결을 비추는 궁이에요.",
+      "detailed": "복덕궁은 12궁 중 마음의 여유·정신적 결·전체 길흉의 흐름을 비추는 자리예요. 이 궁이 따뜻하면 평소 결의 기복이 작고 한결같은 자리가 자라기 쉬워요. 인생의 큰 그림·내면의 결을 살필 때 함께 보는 궁이에요.",
+      "related": ["myeonggung", "cheondeokgwiin"],
+      "aiGenerated": true,
+      "sourceTier": { "tier": "T1_HYPOTHESIS", "sourceType": "training_derived", "sourceUrl": null, "accessedAt": "2026-05-02", "quoteShort": null, "humanInterpretation": "AI-derived plain-language definition of 복덕궁. Display-only.", "copyrightNote": "No source prose copied.", "authorityTruthEligible": false }
     }
   ]
 }

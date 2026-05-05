@@ -85,6 +85,30 @@
       "related": ["yongshinFit", "ohaengBalance"],
       "aiGenerated": true,
       "sourceTier": { "tier": "T1_HYPOTHESIS", "sourceType": "training_derived", "sourceUrl": null, "accessedAt": "2026-05-02", "quoteShort": null, "humanInterpretation": "AI-derived plain-language definition of 안정성지수. Display-only.", "copyrightNote": "No source prose copied.", "authorityTruthEligible": false }
+    },
+    {
+      "schemaVersion": "spring-ts.glossary-entry.v1",
+      "id": "growthPotential",
+      "label": "성장잠재력",
+      "hashLabel": "#성장잠재력",
+      "category": "compatibility",
+      "brief": "이름·시기가 사주의 결을 얼마나 자라게 하는지 보여 주는 점수예요.",
+      "detailed": "사주가 가진 결을 이름이나 운세가 얼마나 키워 줄 수 있는지를 0~100 점으로 보여 주는 결이에요. 점수가 높을수록 직업·학업·관계의 자리에서 자라는 폭이 큰 결이라, 새 출발·이름 짓기·진로 결정 카드에서 함께 살피는 단서가 돼요.",
+      "related": ["yongshinFit", "sajuCompatibility"],
+      "aiGenerated": true,
+      "sourceTier": { "tier": "T1_HYPOTHESIS", "sourceType": "training_derived", "sourceUrl": null, "accessedAt": "2026-05-02", "quoteShort": null, "humanInterpretation": "AI-derived plain-language definition of 성장잠재력. Display-only.", "copyrightNote": "No source prose copied.", "authorityTruthEligible": false }
+    },
+    {
+      "schemaVersion": "spring-ts.glossary-entry.v1",
+      "id": "harmonyScore",
+      "label": "어울림점수",
+      "hashLabel": "#어울림점수",
+      "category": "compatibility",
+      "brief": "이름·짝이 사주와 얼마나 결이 맞는지 보여 주는 점수예요.",
+      "detailed": "두 사람의 사주, 또는 사람과 이름의 결이 서로 얼마나 자연스럽게 어울리는지를 0~100 점으로 보여 주는 결이에요. 점수가 높을수록 가까운 자리·동업·반려의 결이 부드럽게 풀리는 자리라, 궁합·작명 카드에서 함께 살피는 단서가 돼요.",
+      "related": ["yongshinFit", "sajuCompatibility", "eumyangHarmony"],
+      "aiGenerated": true,
+      "sourceTier": { "tier": "T1_HYPOTHESIS", "sourceType": "training_derived", "sourceUrl": null, "accessedAt": "2026-05-02", "quoteShort": null, "humanInterpretation": "AI-derived plain-language definition of 어울림점수. Display-only.", "copyrightNote": "No source prose copied.", "authorityTruthEligible": false }
     }
   ]
 }

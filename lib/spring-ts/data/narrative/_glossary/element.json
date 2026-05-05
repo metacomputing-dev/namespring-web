@@ -226,6 +226,66 @@
       "related": ["metal", "wood"],
       "aiGenerated": true,
       "sourceTier": { "tier": "T1_HYPOTHESIS", "sourceType": "training_derived", "sourceUrl": null, "accessedAt": "2026-05-02", "quoteShort": null, "humanInterpretation": "AI-derived plain-language definition of 금극목. Display-only.", "copyrightNote": "No source prose copied.", "authorityTruthEligible": false }
+    },
+    {
+      "schemaVersion": "spring-ts.glossary-entry.v1",
+      "id": "eumyang",
+      "label": "음양",
+      "hashLabel": "#음양",
+      "category": "element",
+      "brief": "사주를 이루는 두 가지 결, 음(陰)과 양(陽)이에요.",
+      "detailed": "사주의 모든 글자는 양(陽)과 음(陰) 두 결로 나뉘어요. 양은 환하고 활동적인 결(낮·여름·표현), 음은 차분하고 안으로 모이는 결(밤·겨울·휴식)이에요. 두 결이 한쪽으로 치우치지 않고 어우러질 때 사주의 결이 부드럽게 풀려요.",
+      "related": ["wood", "fire", "earth", "metal", "water", "eumyangHarmony"],
+      "aiGenerated": true,
+      "sourceTier": { "tier": "T1_HYPOTHESIS", "sourceType": "training_derived", "sourceUrl": null, "accessedAt": "2026-05-02", "quoteShort": null, "humanInterpretation": "AI-derived plain-language definition of 음양. Display-only.", "copyrightNote": "No source prose copied.", "authorityTruthEligible": false }
+    },
+    {
+      "schemaVersion": "spring-ts.glossary-entry.v1",
+      "id": "yang_polarity",
+      "label": "양",
+      "hashLabel": "#양극",
+      "category": "element",
+      "brief": "사주에서 환하고 활동적인 결, 양(陽)이에요.",
+      "detailed": "양(陽)은 햇빛·낮·여름·드러냄처럼 환하고 활동적인 결이에요. 사주에서 양 결이 강하면 표현·활동·도전이 또렷한 자리가 자라기 좋고, 너무 강하면 쉬는 결이 부족해질 수 있어요. 음양의 균형이 결의 부드러움을 정해요.",
+      "related": ["eumyang", "yin_polarity"],
+      "aiGenerated": true,
+      "sourceTier": { "tier": "T1_HYPOTHESIS", "sourceType": "training_derived", "sourceUrl": null, "accessedAt": "2026-05-02", "quoteShort": null, "humanInterpretation": "AI-derived plain-language definition of 양. Display-only.", "copyrightNote": "No source prose copied.", "authorityTruthEligible": false }
+    },
+    {
+      "schemaVersion": "spring-ts.glossary-entry.v1",
+      "id": "yin_polarity",
+      "label": "음",
+      "hashLabel": "#음극",
+      "category": "element",
+      "brief": "사주에서 차분히 안으로 모이는 결, 음(陰)이에요.",
+      "detailed": "음(陰)은 달빛·밤·겨울·갈무리처럼 차분히 안으로 모이는 결이에요. 사주에서 음 결이 강하면 사고·통찰·내실 다지는 자리가 자라기 좋고, 너무 강하면 활동·표현이 더뎌질 수 있어요. 양 결과 함께 어우러질 때 결이 부드럽게 풀려요.",
+      "related": ["eumyang", "yang_polarity"],
+      "aiGenerated": true,
+      "sourceTier": { "tier": "T1_HYPOTHESIS", "sourceType": "training_derived", "sourceUrl": null, "accessedAt": "2026-05-02", "quoteShort": null, "humanInterpretation": "AI-derived plain-language definition of 음. Display-only.", "copyrightNote": "No source prose copied.", "authorityTruthEligible": false }
+    },
+    {
+      "schemaVersion": "spring-ts.glossary-entry.v1",
+      "id": "cheongan",
+      "label": "천간",
+      "hashLabel": "#천간",
+      "category": "element",
+      "brief": "사주 위쪽에 자리한 열 글자, 갑·을·병·정·무·기·경·신·임·계예요.",
+      "detailed": "천간(天干)은 사주의 윗줄에 놓이는 10 글자(甲·乙·丙·丁·戊·己·庚·辛·壬·癸)예요. 각각 오행과 음양이 정해져 있고, 일간(자기 자리의 천간)은 사주의 '나 자신'을 가리키는 핵심 자리예요. 사주 해석의 가장 처음 단서가 되는 결이에요.",
+      "related": ["jiji", "wood", "fire", "earth", "metal", "water"],
+      "aiGenerated": true,
+      "sourceTier": { "tier": "T1_HYPOTHESIS", "sourceType": "training_derived", "sourceUrl": null, "accessedAt": "2026-05-02", "quoteShort": null, "humanInterpretation": "AI-derived plain-language definition of 천간. Display-only.", "copyrightNote": "No source prose copied.", "authorityTruthEligible": false }
+    },
+    {
+      "schemaVersion": "spring-ts.glossary-entry.v1",
+      "id": "jiji",
+      "label": "지지",
+      "hashLabel": "#지지",
+      "category": "element",
+      "brief": "사주 아래쪽에 자리한 열두 글자, 자·축·인·묘…해예요.",
+      "detailed": "지지(地支)는 사주의 아랫줄에 놓이는 12 글자(子·丑·寅·卯·辰·巳·午·未·申·酉·戌·亥)예요. 12 동물 띠와도 짝을 이루며 시간·계절·방향을 가리키고, 천간이 자리잡는 '땅'의 결이에요. 합·충·형·해 같은 결의 변화는 대부분 지지에서 일어나요.",
+      "related": ["cheongan", "jaochung", "samhab_haemyomi"],
+      "aiGenerated": true,
+      "sourceTier": { "tier": "T1_HYPOTHESIS", "sourceType": "training_derived", "sourceUrl": null, "accessedAt": "2026-05-02", "quoteShort": null, "humanInterpretation": "AI-derived plain-language definition of 지지. Display-only.", "copyrightNote": "No source prose copied.", "authorityTruthEligible": false }
     }
   ]
 }
