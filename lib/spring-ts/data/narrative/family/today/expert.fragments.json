@@ -289,8 +289,8 @@
         },
         {
           "kind": "tag",
-          "tagId": "baeujagung",
-          "label": "배우자궁"
+          "tagId": "jojangung",
+          "label": "조상궁"
         },
         {
           "kind": "text",
@@ -319,7 +319,7 @@
         "jasikgung",
         "hourPillar",
         "bumyong",
-        "baeujagung",
+        "jojangung",
         "hyeongjegung",
         "janyeogung"
       ],
@@ -585,8 +585,8 @@
         },
         {
           "kind": "tag",
-          "tagId": "baeujagung",
-          "label": "배우자궁"
+          "tagId": "jojangung",
+          "label": "조상궁"
         },
         {
           "kind": "text",
@@ -614,7 +614,7 @@
       "tags": [
         "bumyong",
         "jasikgung",
-        "baeujagung",
+        "jojangung",
         "hyeongjegung",
         "janyeogung"
       ],
@@ -695,8 +695,8 @@
         },
         {
           "kind": "tag",
-          "tagId": "baeujagung",
-          "label": "배우자궁"
+          "tagId": "jojangung",
+          "label": "조상궁"
         },
         {
           "kind": "text",
@@ -725,6 +725,7 @@
         "bumyong",
         "jasikgung",
         "baeujagung",
+        "jojangung",
         "hyeongjegung",
         "janyeogung"
       ],
@@ -814,8 +815,8 @@
         },
         {
           "kind": "tag",
-          "tagId": "baeujagung",
-          "label": "배우자궁"
+          "tagId": "jojangung",
+          "label": "조상궁"
         },
         {
           "kind": "text",
@@ -827,7 +828,7 @@
         "jasikgung",
         "samhyeong",
         "hyeongsal",
-        "baeujagung"
+        "jojangung"
       ],
       "aiGenerated": true,
       "sourceTier": {
@@ -1015,8 +1016,8 @@
         },
         {
           "kind": "tag",
-          "tagId": "baeujagung",
-          "label": "배우자궁"
+          "tagId": "jojangung",
+          "label": "조상궁"
         },
         {
           "kind": "text",
@@ -1029,7 +1030,7 @@
         "samhyeong",
         "hyeongsal",
         "bumyong",
-        "baeujagung"
+        "jojangung"
       ],
       "aiGenerated": true,
       "sourceTier": {

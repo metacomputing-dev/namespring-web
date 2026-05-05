@@ -84,8 +84,8 @@
         },
         {
           "kind": "tag",
-          "tagId": "baeujagung",
-          "label": "배우자궁"
+          "tagId": "jojangung",
+          "label": "조상궁"
         },
         {
           "kind": "text",
@@ -116,7 +116,6 @@
         "jasikgung",
         "yearPillar",
         "hourPillar",
-        "baeujagung",
         "hyeongjegung",
         "janyeogung"
       ],
@@ -386,8 +385,8 @@
         },
         {
           "kind": "tag",
-          "tagId": "baeujagung",
-          "label": "배우자궁"
+          "tagId": "jojangung",
+          "label": "조상궁"
         },
         {
           "kind": "text",
@@ -399,8 +398,7 @@
         "jojangung",
         "samhyeong",
         "hyeongsal",
-        "bumyong",
-        "baeujagung"
+        "bumyong"
       ],
       "aiGenerated": true,
       "sourceTier": {
@@ -726,8 +724,8 @@
         },
         {
           "kind": "tag",
-          "tagId": "baeujagung",
-          "label": "배우자궁"
+          "tagId": "jojangung",
+          "label": "조상궁"
         },
         {
           "kind": "text",
@@ -738,7 +736,7 @@
         "hourPillar",
         "jasikgung",
         "bumyong",
-        "baeujagung"
+        "jojangung"
       ],
       "aiGenerated": true,
       "sourceTier": {
@@ -915,8 +913,8 @@
         },
         {
           "kind": "tag",
-          "tagId": "baeujagung",
-          "label": "배우자궁"
+          "tagId": "jojangung",
+          "label": "조상궁"
         },
         {
           "kind": "text",
@@ -927,7 +925,7 @@
         "bumyong",
         "jasikgung",
         "jeongin",
-        "baeujagung"
+        "jojangung"
       ],
       "aiGenerated": true,
       "sourceTier": {
