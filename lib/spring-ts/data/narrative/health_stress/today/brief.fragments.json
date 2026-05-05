@@ -8,11 +8,29 @@
     {
       "schemaVersion": "spring-ts.narrative-fragment.v1",
       "fragmentId": "health_stress.today.brief.wildcard.001",
-      "axis": { "category": "health_stress", "period": "today", "depth": "brief" },
-      "gating": { "ageBand": ["20-29", "30-39", "40-54", "55-69", "70+"] },
+      "axis": {
+        "category": "health_stress",
+        "period": "today",
+        "depth": "brief"
+      },
+      "gating": {
+        "ageBand": [
+          "20-29",
+          "30-39",
+          "40-54",
+          "55-69",
+          "70+"
+        ]
+      },
       "templateTokens": [
-        { "kind": "text", "value": "오늘은 한 박자 늦추는 자리가 잘 어울려요." },
-        { "kind": "text", "value": " 가벼운 호흡으로 균형이 돌아와요." }
+        {
+          "kind": "text",
+          "value": "오늘은 한 박자 늦추는 자리가 잘 어울려요."
+        },
+        {
+          "kind": "text",
+          "value": " 가벼운 호흡으로 균형이 돌아와요."
+        }
       ],
       "tags": [],
       "aiGenerated": true,
@@ -30,14 +48,29 @@
     {
       "schemaVersion": "spring-ts.narrative-fragment.v1",
       "fragmentId": "health_stress.today.brief.strong_aligned.001",
-      "axis": { "category": "health_stress", "period": "today", "depth": "brief" },
+      "axis": {
+        "category": "health_stress",
+        "period": "today",
+        "depth": "brief"
+      },
       "gating": {
-        "dayMasterStrength": ["STRONG", "EXTREME_STRONG"],
-        "yongshinAlignment": ["aligned"]
+        "dayMasterStrength": [
+          "STRONG",
+          "EXTREME_STRONG"
+        ],
+        "yongshinAlignment": [
+          "aligned"
+        ]
       },
       "templateTokens": [
-        { "kind": "text", "value": "오늘은 단단함 위에 쉼이 잘 얹혀요." },
-        { "kind": "text", "value": " 무리만 줄이면 마음이 가벼워져요." }
+        {
+          "kind": "text",
+          "value": "오늘은 단단함 위에 쉼이 잘 얹혀요."
+        },
+        {
+          "kind": "text",
+          "value": " 무리만 줄이면 마음이 가벼워져요."
+        }
       ],
       "tags": [],
       "aiGenerated": true,
@@ -55,14 +88,28 @@
     {
       "schemaVersion": "spring-ts.narrative-fragment.v1",
       "fragmentId": "health_stress.today.brief.balanced_aligned.001",
-      "axis": { "category": "health_stress", "period": "today", "depth": "brief" },
+      "axis": {
+        "category": "health_stress",
+        "period": "today",
+        "depth": "brief"
+      },
       "gating": {
-        "dayMasterStrength": ["BALANCED"],
-        "yongshinAlignment": ["aligned"]
+        "dayMasterStrength": [
+          "BALANCED"
+        ],
+        "yongshinAlignment": [
+          "aligned"
+        ]
       },
       "templateTokens": [
-        { "kind": "text", "value": "오늘은 마음과 몸의 결이 고른 하루예요." },
-        { "kind": "text", "value": " 짧은 산책이 약이 돼요." }
+        {
+          "kind": "text",
+          "value": "오늘은 마음과 몸의 결이 고른 하루예요."
+        },
+        {
+          "kind": "text",
+          "value": " 짧은 산책이 약이 돼요."
+        }
       ],
       "tags": [],
       "aiGenerated": true,
@@ -80,14 +127,29 @@
     {
       "schemaVersion": "spring-ts.narrative-fragment.v1",
       "fragmentId": "health_stress.today.brief.weak_neutral.001",
-      "axis": { "category": "health_stress", "period": "today", "depth": "brief" },
+      "axis": {
+        "category": "health_stress",
+        "period": "today",
+        "depth": "brief"
+      },
       "gating": {
-        "dayMasterStrength": ["WEAK", "EXTREME_WEAK"],
-        "yongshinAlignment": ["neutral"]
+        "dayMasterStrength": [
+          "WEAK",
+          "EXTREME_WEAK"
+        ],
+        "yongshinAlignment": [
+          "neutral"
+        ]
       },
       "templateTokens": [
-        { "kind": "text", "value": "오늘은 무리하지 않는 결이 가장 좋아요." },
-        { "kind": "text", "value": " 일찍 잠드는 자리를 챙겨요." }
+        {
+          "kind": "text",
+          "value": "오늘은 무리하지 않는 결이 가장 좋아요."
+        },
+        {
+          "kind": "text",
+          "value": " 일찍 잠드는 자리를 챙겨요."
+        }
       ],
       "tags": [],
       "aiGenerated": true,
@@ -105,14 +167,29 @@
     {
       "schemaVersion": "spring-ts.narrative-fragment.v1",
       "fragmentId": "health_stress.today.brief.weak_conflicting.001",
-      "axis": { "category": "health_stress", "period": "today", "depth": "brief" },
+      "axis": {
+        "category": "health_stress",
+        "period": "today",
+        "depth": "brief"
+      },
       "gating": {
-        "dayMasterStrength": ["WEAK", "EXTREME_WEAK"],
-        "yongshinAlignment": ["conflicting"]
+        "dayMasterStrength": [
+          "WEAK",
+          "EXTREME_WEAK"
+        ],
+        "yongshinAlignment": [
+          "conflicting"
+        ]
       },
       "templateTokens": [
-        { "kind": "text", "value": "오늘은 짐을 잠시 내려놓는 시간이 필요해요." },
-        { "kind": "text", "value": " 큰 결정은 다음 자리로 미뤄요." }
+        {
+          "kind": "text",
+          "value": "오늘은 짐을 잠시 내려놓는 시간이 필요해요."
+        },
+        {
+          "kind": "text",
+          "value": " 큰 결정은 다음 자리로 미뤄요."
+        }
       ],
       "tags": [],
       "aiGenerated": true,
@@ -130,14 +207,29 @@
     {
       "schemaVersion": "spring-ts.narrative-fragment.v1",
       "fragmentId": "health_stress.today.brief.male_30_39.001",
-      "axis": { "category": "health_stress", "period": "today", "depth": "brief" },
+      "axis": {
+        "category": "health_stress",
+        "period": "today",
+        "depth": "brief"
+      },
       "gating": {
-        "gender": ["male"],
-        "ageBand": ["30-39", "40-54"]
+        "gender": [
+          "male"
+        ],
+        "ageBand": [
+          "30-39",
+          "40-54"
+        ]
       },
       "templateTokens": [
-        { "kind": "text", "value": "오늘은 어깨를 한 번 풀어 주는 결이에요." },
-        { "kind": "text", "value": " 짧게 몸을 움직이는 휴식이 잘 맞아요." }
+        {
+          "kind": "text",
+          "value": "오늘은 어깨를 한 번 풀어 주는 흐름이에요."
+        },
+        {
+          "kind": "text",
+          "value": " 짧게 몸을 움직이는 휴식이 잘 맞아요."
+        }
       ],
       "tags": [],
       "aiGenerated": true,
@@ -155,14 +247,29 @@
     {
       "schemaVersion": "spring-ts.narrative-fragment.v1",
       "fragmentId": "health_stress.today.brief.female_20_29.001",
-      "axis": { "category": "health_stress", "period": "today", "depth": "brief" },
+      "axis": {
+        "category": "health_stress",
+        "period": "today",
+        "depth": "brief"
+      },
       "gating": {
-        "gender": ["female"],
-        "ageBand": ["20-29", "30-39"]
+        "gender": [
+          "female"
+        ],
+        "ageBand": [
+          "20-29",
+          "30-39"
+        ]
       },
       "templateTokens": [
-        { "kind": "text", "value": "오늘은 마음을 비우는 시간이 필요해요." },
-        { "kind": "text", "value": " 따뜻한 차 한 잔이 균형을 도와요." }
+        {
+          "kind": "text",
+          "value": "오늘은 마음을 비우는 시간이 필요해요."
+        },
+        {
+          "kind": "text",
+          "value": " 따뜻한 차 한 잔이 균형을 도와요."
+        }
       ],
       "tags": [],
       "aiGenerated": true,
@@ -180,13 +287,25 @@
     {
       "schemaVersion": "spring-ts.narrative-fragment.v1",
       "fragmentId": "health_stress.today.brief.youth_10_19.001",
-      "axis": { "category": "health_stress", "period": "today", "depth": "brief" },
+      "axis": {
+        "category": "health_stress",
+        "period": "today",
+        "depth": "brief"
+      },
       "gating": {
-        "ageBand": ["10-19"]
+        "ageBand": [
+          "10-19"
+        ]
       },
       "templateTokens": [
-        { "kind": "text", "value": "오늘은 잠을 충분히 챙기는 자리예요." },
-        { "kind": "text", "value": " 짧은 산책이 마음을 가볍게 해요." }
+        {
+          "kind": "text",
+          "value": "오늘은 잠을 충분히 챙기는 자리예요."
+        },
+        {
+          "kind": "text",
+          "value": " 짧은 산책이 마음을 가볍게 해요."
+        }
       ],
       "tags": [],
       "aiGenerated": true,
@@ -204,13 +323,26 @@
     {
       "schemaVersion": "spring-ts.narrative-fragment.v1",
       "fragmentId": "health_stress.today.brief.senior_55_69.001",
-      "axis": { "category": "health_stress", "period": "today", "depth": "brief" },
+      "axis": {
+        "category": "health_stress",
+        "period": "today",
+        "depth": "brief"
+      },
       "gating": {
-        "ageBand": ["55-69", "70+"]
+        "ageBand": [
+          "55-69",
+          "70+"
+        ]
       },
       "templateTokens": [
-        { "kind": "text", "value": "오늘은 익숙한 일상 속에서 쉼이 와요." },
-        { "kind": "text", "value": " 가까운 사람과의 시간이 좋아요." }
+        {
+          "kind": "text",
+          "value": "오늘은 익숙한 일상 속에서 쉼이 와요."
+        },
+        {
+          "kind": "text",
+          "value": " 가까운 사람과의 시간이 좋아요."
+        }
       ],
       "tags": [],
       "aiGenerated": true,
@@ -228,14 +360,29 @@
     {
       "schemaVersion": "spring-ts.narrative-fragment.v1",
       "fragmentId": "health_stress.today.brief.fire_strong.001",
-      "axis": { "category": "health_stress", "period": "today", "depth": "brief" },
+      "axis": {
+        "category": "health_stress",
+        "period": "today",
+        "depth": "brief"
+      },
       "gating": {
-        "dayMasterElement": ["FIRE"],
-        "dayMasterStrength": ["STRONG", "EXTREME_STRONG"]
+        "dayMasterElement": [
+          "FIRE"
+        ],
+        "dayMasterStrength": [
+          "STRONG",
+          "EXTREME_STRONG"
+        ]
       },
       "templateTokens": [
-        { "kind": "text", "value": "오늘은 시원한 자리에서 쉼이 잘 와요." },
-        { "kind": "text", "value": " 물 한 모금처럼 가벼운 호흡으로요." }
+        {
+          "kind": "text",
+          "value": "오늘은 시원한 자리에서 쉼이 잘 와요."
+        },
+        {
+          "kind": "text",
+          "value": " 물 한 모금처럼 가벼운 호흡으로요."
+        }
       ],
       "tags": [],
       "aiGenerated": true,

@@ -8,10 +8,17 @@
     {
       "schemaVersion": "spring-ts.narrative-fragment.v1",
       "fragmentId": "expression_children.today.brief.wildcard.001",
-      "axis": { "category": "expression_children", "period": "today", "depth": "brief" },
+      "axis": {
+        "category": "expression_children",
+        "period": "today",
+        "depth": "brief"
+      },
       "gating": {},
       "templateTokens": [
-        { "kind": "text", "value": "오늘은 표현이 풀리는 결이에요." }
+        {
+          "kind": "text",
+          "value": "오늘은 표현이 풀리는 흐름이에요."
+        }
       ],
       "tags": [],
       "aiGenerated": true,
@@ -29,10 +36,21 @@
     {
       "schemaVersion": "spring-ts.narrative-fragment.v1",
       "fragmentId": "expression_children.today.brief.0_9.002",
-      "axis": { "category": "expression_children", "period": "today", "depth": "brief" },
-      "gating": { "ageBand": ["0-9"] },
+      "axis": {
+        "category": "expression_children",
+        "period": "today",
+        "depth": "brief"
+      },
+      "gating": {
+        "ageBand": [
+          "0-9"
+        ]
+      },
       "templateTokens": [
-        { "kind": "text", "value": "오늘은 좋아하는 놀이로 즐거움이 가득해요." }
+        {
+          "kind": "text",
+          "value": "오늘은 좋아하는 놀이로 즐거움이 가득해요."
+        }
       ],
       "tags": [],
       "aiGenerated": true,
@@ -50,10 +68,21 @@
     {
       "schemaVersion": "spring-ts.narrative-fragment.v1",
       "fragmentId": "expression_children.today.brief.10_19.003",
-      "axis": { "category": "expression_children", "period": "today", "depth": "brief" },
-      "gating": { "ageBand": ["10-19"] },
+      "axis": {
+        "category": "expression_children",
+        "period": "today",
+        "depth": "brief"
+      },
+      "gating": {
+        "ageBand": [
+          "10-19"
+        ]
+      },
       "templateTokens": [
-        { "kind": "text", "value": "오늘은 자기 색이 살짝 또렷해지는 날이에요." }
+        {
+          "kind": "text",
+          "value": "오늘은 자기 색이 살짝 또렷해지는 날이에요."
+        }
       ],
       "tags": [],
       "aiGenerated": true,
@@ -71,10 +100,21 @@
     {
       "schemaVersion": "spring-ts.narrative-fragment.v1",
       "fragmentId": "expression_children.today.brief.20_29.004",
-      "axis": { "category": "expression_children", "period": "today", "depth": "brief" },
-      "gating": { "ageBand": ["20-29"] },
+      "axis": {
+        "category": "expression_children",
+        "period": "today",
+        "depth": "brief"
+      },
+      "gating": {
+        "ageBand": [
+          "20-29"
+        ]
+      },
       "templateTokens": [
-        { "kind": "text", "value": "오늘은 작은 표현 하나를 시도해 보기 좋은 날이에요." }
+        {
+          "kind": "text",
+          "value": "오늘은 작은 표현 하나를 시도해 보기 좋은 날이에요."
+        }
       ],
       "tags": [],
       "aiGenerated": true,
@@ -92,10 +132,21 @@
     {
       "schemaVersion": "spring-ts.narrative-fragment.v1",
       "fragmentId": "expression_children.today.brief.30_39.005",
-      "axis": { "category": "expression_children", "period": "today", "depth": "brief" },
-      "gating": { "ageBand": ["30-39"] },
+      "axis": {
+        "category": "expression_children",
+        "period": "today",
+        "depth": "brief"
+      },
+      "gating": {
+        "ageBand": [
+          "30-39"
+        ]
+      },
       "templateTokens": [
-        { "kind": "text", "value": "오늘은 가까운 사람과의 대화가 표현을 풀어 줘요." }
+        {
+          "kind": "text",
+          "value": "오늘은 가까운 사람과의 대화가 표현을 풀어 줘요."
+        }
       ],
       "tags": [],
       "aiGenerated": true,
@@ -113,10 +164,21 @@
     {
       "schemaVersion": "spring-ts.narrative-fragment.v1",
       "fragmentId": "expression_children.today.brief.40_54.006",
-      "axis": { "category": "expression_children", "period": "today", "depth": "brief" },
-      "gating": { "ageBand": ["40-54"] },
+      "axis": {
+        "category": "expression_children",
+        "period": "today",
+        "depth": "brief"
+      },
+      "gating": {
+        "ageBand": [
+          "40-54"
+        ]
+      },
       "templateTokens": [
-        { "kind": "text", "value": "오늘은 한 가지를 정성껏 다듬어 두는 결이에요." }
+        {
+          "kind": "text",
+          "value": "오늘은 한 가지를 정성껏 다듬어 두는 흐름이에요."
+        }
       ],
       "tags": [],
       "aiGenerated": true,
@@ -134,10 +196,21 @@
     {
       "schemaVersion": "spring-ts.narrative-fragment.v1",
       "fragmentId": "expression_children.today.brief.55_69.007",
-      "axis": { "category": "expression_children", "period": "today", "depth": "brief" },
-      "gating": { "ageBand": ["55-69"] },
+      "axis": {
+        "category": "expression_children",
+        "period": "today",
+        "depth": "brief"
+      },
+      "gating": {
+        "ageBand": [
+          "55-69"
+        ]
+      },
       "templateTokens": [
-        { "kind": "text", "value": "오늘은 다음 세대와의 짧은 자리가 따뜻해요." }
+        {
+          "kind": "text",
+          "value": "오늘은 다음 세대와의 짧은 자리가 따뜻해요."
+        }
       ],
       "tags": [],
       "aiGenerated": true,
@@ -155,10 +228,21 @@
     {
       "schemaVersion": "spring-ts.narrative-fragment.v1",
       "fragmentId": "expression_children.today.brief.70plus.008",
-      "axis": { "category": "expression_children", "period": "today", "depth": "brief" },
-      "gating": { "ageBand": ["70+"] },
+      "axis": {
+        "category": "expression_children",
+        "period": "today",
+        "depth": "brief"
+      },
+      "gating": {
+        "ageBand": [
+          "70+"
+        ]
+      },
       "templateTokens": [
-        { "kind": "text", "value": "오늘은 한 줄의 기록이 마음을 가볍게 해요." }
+        {
+          "kind": "text",
+          "value": "오늘은 한 줄의 기록이 마음을 가볍게 해요."
+        }
       ],
       "tags": [],
       "aiGenerated": true,
@@ -176,10 +260,24 @@
     {
       "schemaVersion": "spring-ts.narrative-fragment.v1",
       "fragmentId": "expression_children.today.brief.strong_aligned.009",
-      "axis": { "category": "expression_children", "period": "today", "depth": "brief" },
-      "gating": { "dayMasterStrength": ["STRONG"], "yongshinAlignment": ["aligned"] },
+      "axis": {
+        "category": "expression_children",
+        "period": "today",
+        "depth": "brief"
+      },
+      "gating": {
+        "dayMasterStrength": [
+          "STRONG"
+        ],
+        "yongshinAlignment": [
+          "aligned"
+        ]
+      },
       "templateTokens": [
-        { "kind": "text", "value": "오늘은 표현이 시원하게 풀리는 결이에요." }
+        {
+          "kind": "text",
+          "value": "오늘은 표현이 시원하게 풀리는 흐름이에요."
+        }
       ],
       "tags": [],
       "aiGenerated": true,
@@ -197,10 +295,24 @@
     {
       "schemaVersion": "spring-ts.narrative-fragment.v1",
       "fragmentId": "expression_children.today.brief.weak_neutral.010",
-      "axis": { "category": "expression_children", "period": "today", "depth": "brief" },
-      "gating": { "dayMasterStrength": ["WEAK"], "yongshinAlignment": ["neutral"] },
+      "axis": {
+        "category": "expression_children",
+        "period": "today",
+        "depth": "brief"
+      },
+      "gating": {
+        "dayMasterStrength": [
+          "WEAK"
+        ],
+        "yongshinAlignment": [
+          "neutral"
+        ]
+      },
       "templateTokens": [
-        { "kind": "text", "value": "오늘은 작은 한 걸음이 표현을 단단히 해요." }
+        {
+          "kind": "text",
+          "value": "오늘은 작은 한 걸음이 표현을 단단히 해요."
+        }
       ],
       "tags": [],
       "aiGenerated": true,
@@ -218,10 +330,24 @@
     {
       "schemaVersion": "spring-ts.narrative-fragment.v1",
       "fragmentId": "expression_children.today.brief.balanced_aligned.011",
-      "axis": { "category": "expression_children", "period": "today", "depth": "brief" },
-      "gating": { "dayMasterStrength": ["BALANCED"], "yongshinAlignment": ["aligned"] },
+      "axis": {
+        "category": "expression_children",
+        "period": "today",
+        "depth": "brief"
+      },
+      "gating": {
+        "dayMasterStrength": [
+          "BALANCED"
+        ],
+        "yongshinAlignment": [
+          "aligned"
+        ]
+      },
       "templateTokens": [
-        { "kind": "text", "value": "오늘은 호흡이 잡혀 표현이 또렷해져요." }
+        {
+          "kind": "text",
+          "value": "오늘은 호흡이 잡혀 표현이 또렷해져요."
+        }
       ],
       "tags": [],
       "aiGenerated": true,

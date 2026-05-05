@@ -7,10 +7,17 @@
     {
       "schemaVersion": "spring-ts.narrative-fragment.v1",
       "fragmentId": "health.thisWeek.brief.wild.001",
-      "axis": { "category": "health", "period": "thisWeek", "depth": "brief" },
+      "axis": {
+        "category": "health",
+        "period": "thisWeek",
+        "depth": "brief"
+      },
       "gating": {},
       "templateTokens": [
-        { "kind": "text", "value": "이번 주는 페이스를 살짝 늦추는 게 잘 맞아요." }
+        {
+          "kind": "text",
+          "value": "이번 주는 페이스를 살짝 늦추는 게 잘 맞아요."
+        }
       ],
       "tags": [],
       "aiGenerated": true,
@@ -28,10 +35,17 @@
     {
       "schemaVersion": "spring-ts.narrative-fragment.v1",
       "fragmentId": "health.thisWeek.brief.wild.002",
-      "axis": { "category": "health", "period": "thisWeek", "depth": "brief" },
+      "axis": {
+        "category": "health",
+        "period": "thisWeek",
+        "depth": "brief"
+      },
       "gating": {},
       "templateTokens": [
-        { "kind": "text", "value": "이번 주 컨디션은 잠 자리가 든든한 보약이에요." }
+        {
+          "kind": "text",
+          "value": "이번 주 컨디션은 잠 자리가 든든한 보약이에요."
+        }
       ],
       "tags": [],
       "aiGenerated": true,
@@ -49,12 +63,22 @@
     {
       "schemaVersion": "spring-ts.narrative-fragment.v1",
       "fragmentId": "health.thisWeek.brief.weak.001",
-      "axis": { "category": "health", "period": "thisWeek", "depth": "brief" },
+      "axis": {
+        "category": "health",
+        "period": "thisWeek",
+        "depth": "brief"
+      },
       "gating": {
-        "dayMasterStrength": ["WEAK", "EXTREME_WEAK"]
+        "dayMasterStrength": [
+          "WEAK",
+          "EXTREME_WEAK"
+        ]
       },
       "templateTokens": [
-        { "kind": "text", "value": "이번 주는 짧은 회복 자리를 자주 만들어요." }
+        {
+          "kind": "text",
+          "value": "이번 주는 짧은 회복 자리를 자주 만들어요."
+        }
       ],
       "tags": [],
       "aiGenerated": true,
@@ -72,12 +96,22 @@
     {
       "schemaVersion": "spring-ts.narrative-fragment.v1",
       "fragmentId": "health.thisWeek.brief.strong.001",
-      "axis": { "category": "health", "period": "thisWeek", "depth": "brief" },
+      "axis": {
+        "category": "health",
+        "period": "thisWeek",
+        "depth": "brief"
+      },
       "gating": {
-        "dayMasterStrength": ["STRONG", "EXTREME_STRONG"]
+        "dayMasterStrength": [
+          "STRONG",
+          "EXTREME_STRONG"
+        ]
       },
       "templateTokens": [
-        { "kind": "text", "value": "이번 주는 활동량 누적만 한 번 점검해요." }
+        {
+          "kind": "text",
+          "value": "이번 주는 활동량 누적만 한 번 점검해요."
+        }
       ],
       "tags": [],
       "aiGenerated": true,
@@ -95,12 +129,21 @@
     {
       "schemaVersion": "spring-ts.narrative-fragment.v1",
       "fragmentId": "health.thisWeek.brief.balanced.001",
-      "axis": { "category": "health", "period": "thisWeek", "depth": "brief" },
+      "axis": {
+        "category": "health",
+        "period": "thisWeek",
+        "depth": "brief"
+      },
       "gating": {
-        "dayMasterStrength": ["BALANCED"]
+        "dayMasterStrength": [
+          "BALANCED"
+        ]
       },
       "templateTokens": [
-        { "kind": "text", "value": "이번 주는 평소 페이스가 가장 잘 맞아요." }
+        {
+          "kind": "text",
+          "value": "이번 주는 평소 페이스가 가장 잘 맞아요."
+        }
       ],
       "tags": [],
       "aiGenerated": true,
@@ -118,12 +161,21 @@
     {
       "schemaVersion": "spring-ts.narrative-fragment.v1",
       "fragmentId": "health.thisWeek.brief.aligned.001",
-      "axis": { "category": "health", "period": "thisWeek", "depth": "brief" },
+      "axis": {
+        "category": "health",
+        "period": "thisWeek",
+        "depth": "brief"
+      },
       "gating": {
-        "yongshinAlignment": ["aligned"]
+        "yongshinAlignment": [
+          "aligned"
+        ]
       },
       "templateTokens": [
-        { "kind": "text", "value": "이번 주 흐름이 잘 풀려 회복도 가벼워요." }
+        {
+          "kind": "text",
+          "value": "이번 주 흐름이 잘 풀려 회복도 가벼워요."
+        }
       ],
       "tags": [],
       "aiGenerated": true,
@@ -141,12 +193,21 @@
     {
       "schemaVersion": "spring-ts.narrative-fragment.v1",
       "fragmentId": "health.thisWeek.brief.20_29.001",
-      "axis": { "category": "health", "period": "thisWeek", "depth": "brief" },
+      "axis": {
+        "category": "health",
+        "period": "thisWeek",
+        "depth": "brief"
+      },
       "gating": {
-        "ageBand": ["20-29"]
+        "ageBand": [
+          "20-29"
+        ]
       },
       "templateTokens": [
-        { "kind": "text", "value": "이번 주는 잠 6시간을 꼭 챙기는 편이 좋아요." }
+        {
+          "kind": "text",
+          "value": "이번 주는 잠 6시간을 꼭 챙기는 편이 좋아요."
+        }
       ],
       "tags": [],
       "aiGenerated": true,
@@ -164,12 +225,21 @@
     {
       "schemaVersion": "spring-ts.narrative-fragment.v1",
       "fragmentId": "health.thisWeek.brief.conflicting.001",
-      "axis": { "category": "health", "period": "thisWeek", "depth": "brief" },
+      "axis": {
+        "category": "health",
+        "period": "thisWeek",
+        "depth": "brief"
+      },
       "gating": {
-        "yongshinAlignment": ["conflicting"]
+        "yongshinAlignment": [
+          "conflicting"
+        ]
       },
       "templateTokens": [
-        { "kind": "text", "value": "이번 주는 강행군을 한 박자 미뤄요." }
+        {
+          "kind": "text",
+          "value": "이번 주는 강행군을 한 박자 미뤄요."
+        }
       ],
       "tags": [],
       "aiGenerated": true,
@@ -200,7 +270,7 @@
       "templateTokens": [
         {
           "kind": "text",
-          "value": "아이는 이번 주 잘 자라는 결이에요. 놀이 시간을 푹 누리는 흐름이에요."
+          "value": "아이는 이번 주 잘 자라는 흐름이에요. 놀이 시간을 푹 누리는 흐름이에요."
         }
       ],
       "tags": [],
