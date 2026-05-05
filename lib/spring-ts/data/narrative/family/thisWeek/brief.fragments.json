@@ -53,7 +53,7 @@
       "axis": { "category": "family", "period": "thisWeek", "depth": "brief", "tone": "plain" },
       "gating": { "ageBand": ["0-9"] },
       "templateTokens": [
-        { "kind": "text", "value": "보호자와 함께한 자리가 한 주의 결이에요." }
+        { "kind": "text", "value": "보호자와 함께한 시간이 한 주의 결실이에요." }
       ],
       "tags": [],
       "aiGenerated": true,
@@ -74,7 +74,7 @@
       "axis": { "category": "family", "period": "thisWeek", "depth": "brief", "tone": "plain" },
       "gating": { "ageBand": ["10-19"] },
       "templateTokens": [
-        { "kind": "text", "value": "주말 한 끼만 같이 챙겨도 결이 따뜻해요." }
+        { "kind": "text", "value": "주말 한 끼만 같이 챙겨도 분위기가 따뜻해요." }
       ],
       "tags": [],
       "aiGenerated": true,

@@ -11,7 +11,7 @@
       "axis": { "category": "family", "period": "thisMonth", "depth": "brief", "tone": "plain" },
       "gating": {},
       "templateTokens": [
-        { "kind": "text", "value": "이번 달은 가족 자리를 차분히 챙기는 결이에요." }
+        { "kind": "text", "value": "이번 달은 가족 자리를 차분히 챙기는 시기예요." }
       ],
       "tags": [],
       "aiGenerated": true,
@@ -32,7 +32,7 @@
       "axis": { "category": "family", "period": "thisMonth", "depth": "brief", "tone": "plain" },
       "gating": {},
       "templateTokens": [
-        { "kind": "text", "value": "한 달의 결이 가까운 사람과 함께 데워져요." }
+        { "kind": "text", "value": "한 달의 분위기가 가까운 사람과 함께 데워져요." }
       ],
       "tags": [],
       "aiGenerated": true,
@@ -179,7 +179,7 @@
       "axis": { "category": "family", "period": "thisMonth", "depth": "brief", "tone": "plain" },
       "gating": { "ageBand": ["70+"] },
       "templateTokens": [
-        { "kind": "text", "value": "곁의 결이 평안하게 흐르는 한 달이에요." }
+        { "kind": "text", "value": "곁의 따뜻함이 평안하게 모이는 한 달이에요." }
       ],
       "tags": [],
       "aiGenerated": true,
@@ -221,7 +221,7 @@
       "axis": { "category": "family", "period": "thisMonth", "depth": "brief", "tone": "plain" },
       "gating": { "dayMasterStrength": ["WEAK", "EXTREME_WEAK"] },
       "templateTokens": [
-        { "kind": "text", "value": "곁 사람의 도움이 결을 받쳐 주는 한 달이에요." }
+        { "kind": "text", "value": "곁 사람의 도움이 자리를 받쳐 주는 한 달이에요." }
       ],
       "tags": [],
       "aiGenerated": true,

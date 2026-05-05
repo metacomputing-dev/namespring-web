@@ -11,7 +11,7 @@
       "axis": { "category": "family", "period": "thisYear", "depth": "brief", "tone": "plain" },
       "gating": {},
       "templateTokens": [
-        { "kind": "text", "value": "올해는 가까운 사람과의 결이 따뜻하게 자라요." }
+        { "kind": "text", "value": "올해는 가까운 사람과의 인연이 따뜻하게 자라요." }
       ],
       "tags": [],
       "aiGenerated": true,
@@ -95,7 +95,7 @@
       "axis": { "category": "family", "period": "thisYear", "depth": "brief", "tone": "plain" },
       "gating": { "ageBand": ["20-29"] },
       "templateTokens": [
-        { "kind": "text", "value": "독립과 가족 결이 같이 자라는 한 해예요." }
+        { "kind": "text", "value": "독립과 가족 자리가 같이 자라는 한 해예요." }
       ],
       "tags": [],
       "aiGenerated": true,
