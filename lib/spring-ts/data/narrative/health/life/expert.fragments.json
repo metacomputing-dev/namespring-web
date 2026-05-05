@@ -7,24 +7,80 @@
     {
       "schemaVersion": "spring-ts.narrative-fragment.v1",
       "fragmentId": "health.life.expert.wild.001",
-      "axis": { "category": "health", "period": "life", "depth": "expert" },
+      "axis": {
+        "category": "health",
+        "period": "life",
+        "depth": "expert"
+      },
       "gating": {},
       "templateTokens": [
-        { "kind": "text", "value": "평생의 건강 흐름은 " },
-        { "kind": "tag", "tagId": "johu", "label": "조후" },
-        { "kind": "text", "value": "의 균형이 어떻게 자리 잡는지에 따라 결이 달라져요. 더운 기운이 많으면 " },
-        { "kind": "tag", "tagId": "water", "label": "물" },
-        { "kind": "text", "value": "의 자리가, 찬 기운이 많으면 " },
-        { "kind": "tag", "tagId": "fire", "label": "불" },
-        { "kind": "text", "value": "의 자리가 보약 역할을 해요.\n\n받쳐 주는 자리가 약하면 " },
-        { "kind": "tag", "tagId": "jeongin", "label": "정인" },
-        { "kind": "text", "value": "의 결을 일상의 돌봄·휴식 습관으로 채워 두는 편이 좋아요. 또 표현·소화 흐름이 막히면 " },
-        { "kind": "tag", "tagId": "sikshin", "label": "식신" },
-        { "kind": "text", "value": "의 자리를 부드럽게 풀어 주는 자리가 도움이 돼요.\n\n비워 있는 자리가 많은 사주는 " },
-        { "kind": "tag", "tagId": "gongmang", "label": "공망" },
-        { "kind": "text", "value": "의 결로, '천천히 익는 자리'로 받아들이면 평생 컨디션이 한결 부드러워져요. 결국엔 자기 사주의 부족한 자리를 일상에서 보완해 가는 사람이 가장 단단해요." }
+        {
+          "kind": "text",
+          "value": "평생의 건강 흐름은 "
+        },
+        {
+          "kind": "tag",
+          "tagId": "johu",
+          "label": "조후"
+        },
+        {
+          "kind": "text",
+          "value": "의 균형이 어떻게 자리 잡는지에 따라 결이 달라져요. 더운 기운이 많으면 "
+        },
+        {
+          "kind": "tag",
+          "tagId": "water",
+          "label": "물"
+        },
+        {
+          "kind": "text",
+          "value": "의 자리가, 찬 기운이 많으면 "
+        },
+        {
+          "kind": "tag",
+          "tagId": "fire",
+          "label": "불"
+        },
+        {
+          "kind": "text",
+          "value": "의 자리가 보약 역할을 해요.\n\n받쳐 주는 자리가 약하면 "
+        },
+        {
+          "kind": "tag",
+          "tagId": "jeongin",
+          "label": "정인"
+        },
+        {
+          "kind": "text",
+          "value": "의 결을 일상의 돌봄·휴식 습관으로 채워 두는 편이 좋아요. 또 표현·소화 흐름이 막히면 "
+        },
+        {
+          "kind": "tag",
+          "tagId": "sikshin",
+          "label": "식신"
+        },
+        {
+          "kind": "text",
+          "value": "의 자리를 부드럽게 풀어 주는 자리가 도움이 돼요.\n\n비워 있는 자리가 많은 사주는 "
+        },
+        {
+          "kind": "tag",
+          "tagId": "gongmang",
+          "label": "공망"
+        },
+        {
+          "kind": "text",
+          "value": "의 결로, '천천히 익는 자리'로 받아들이면 평생 컨디션이 한결 부드러워져요. 결국엔 자기 사주의 부족한 자리를 일상에서 보완해 가는 사람이 가장 단단해요."
+        }
       ],
-      "tags": ["johu", "water", "fire", "jeongin", "sikshin", "gongmang"],
+      "tags": [
+        "johu",
+        "water",
+        "fire",
+        "jeongin",
+        "sikshin",
+        "gongmang"
+      ],
       "numericalEvidence": [
         {
           "label": "현재 나이",
@@ -132,20 +188,54 @@
     {
       "schemaVersion": "spring-ts.narrative-fragment.v1",
       "fragmentId": "health.life.expert.extreme_strong.001",
-      "axis": { "category": "health", "period": "life", "depth": "expert" },
+      "axis": {
+        "category": "health",
+        "period": "life",
+        "depth": "expert"
+      },
       "gating": {
-        "dayMasterStrength": ["EXTREME_STRONG"]
+        "dayMasterStrength": [
+          "EXTREME_STRONG"
+        ]
       },
       "templateTokens": [
-        { "kind": "text", "value": "일간이 매우 강한 결의 사주예요. 활동량이 많고 회복이 빠르지만, " },
-        { "kind": "tag", "tagId": "johu", "label": "조후" },
-        { "kind": "text", "value": "가 더운 쪽으로 기울기 쉬워서 평생 흐름에서 " },
-        { "kind": "tag", "tagId": "water", "label": "물" },
-        { "kind": "text", "value": "의 자리가 보약 역할을 해요.\n\n표현·소화 흐름이 한쪽으로 몰리면 " },
-        { "kind": "tag", "tagId": "sikshin", "label": "식신" },
-        { "kind": "text", "value": "의 결을 일상에서 부드럽게 풀어 주는 자리가 도움이 돼요. 산책·심호흡·따뜻한 차 같은 보편 챙김이 그대로 약이 되는 결이에요.\n\n강한 기운일수록 한 번에 누적되는 신호가 늦지만 또렷이 와요. 정기 점검·정기 휴식 자리를 미리 일정에 넣어 두는 편이 평생 큰 자산이에요." }
+        {
+          "kind": "text",
+          "value": "일간이 매우 강한 결의 사주예요. 활동량이 많고 회복이 빠르지만, "
+        },
+        {
+          "kind": "tag",
+          "tagId": "johu",
+          "label": "조후"
+        },
+        {
+          "kind": "text",
+          "value": "가 더운 쪽으로 기울기 쉬워서 평생 흐름에서 "
+        },
+        {
+          "kind": "tag",
+          "tagId": "water",
+          "label": "물"
+        },
+        {
+          "kind": "text",
+          "value": "의 자리가 보약 역할을 해요.\n\n표현·소화 흐름이 한쪽으로 몰리면 "
+        },
+        {
+          "kind": "tag",
+          "tagId": "sikshin",
+          "label": "식신"
+        },
+        {
+          "kind": "text",
+          "value": "의 결을 일상에서 부드럽게 풀어 주는 자리가 도움이 돼요. 산책·심호흡·따뜻한 차 같은 보편 챙김이 그대로 약이 되는 결이에요.\n\n강한 기운일수록 한 번에 누적되는 신호가 늦지만 또렷이 와요. 정기 점검·정기 휴식 자리를 미리 일정에 넣어 두는 편이 평생 큰 자산이에요."
+        }
       ],
-      "tags": ["johu", "water", "sikshin"],
+      "tags": [
+        "johu",
+        "water",
+        "sikshin"
+      ],
       "aiGenerated": true,
       "sourceTier": {
         "tier": "T1_HYPOTHESIS",
@@ -161,20 +251,54 @@
     {
       "schemaVersion": "spring-ts.narrative-fragment.v1",
       "fragmentId": "health.life.expert.extreme_weak.001",
-      "axis": { "category": "health", "period": "life", "depth": "expert" },
+      "axis": {
+        "category": "health",
+        "period": "life",
+        "depth": "expert"
+      },
       "gating": {
-        "dayMasterStrength": ["EXTREME_WEAK"]
+        "dayMasterStrength": [
+          "EXTREME_WEAK"
+        ]
       },
       "templateTokens": [
-        { "kind": "text", "value": "일간이 매우 가벼운 결의 사주예요. 평생 흐름에서 " },
-        { "kind": "tag", "tagId": "jeongin", "label": "정인" },
-        { "kind": "text", "value": "의 결로 받쳐 주는 자리가 가장 큰 보약 역할을 해요. 학문·돌봄·따뜻한 자리를 일상에 넉넉히 두는 편이 좋아요.\n\n" },
-        { "kind": "tag", "tagId": "earth", "label": "흙" },
-        { "kind": "text", "value": "의 자리가 함께 자리잡으면, 흩어지기 쉬운 기운이 안정되는 결이 만들어져요. 충분한 수면, 따뜻한 식사, 든든한 자리가 평생 자산이에요.\n\n비어 있는 자리가 강하면 " },
-        { "kind": "tag", "tagId": "gongmang", "label": "공망" },
-        { "kind": "text", "value": "의 결로, 결과가 더디게 와요. '천천히 익는 자리'로 받아들이고 페이스를 늦추는 편이 후반까지 단단하게 가요." }
+        {
+          "kind": "text",
+          "value": "일간이 매우 가벼운 결의 사주예요. 평생 흐름에서 "
+        },
+        {
+          "kind": "tag",
+          "tagId": "jeongin",
+          "label": "정인"
+        },
+        {
+          "kind": "text",
+          "value": "의 결로 받쳐 주는 자리가 가장 큰 보약 역할을 해요. 학문·돌봄·따뜻한 자리를 일상에 넉넉히 두는 편이 좋아요.\n\n"
+        },
+        {
+          "kind": "tag",
+          "tagId": "earth",
+          "label": "흙"
+        },
+        {
+          "kind": "text",
+          "value": "의 자리가 함께 자리잡으면, 흩어지기 쉬운 기운이 안정되는 결이 만들어져요. 충분한 수면, 따뜻한 식사, 든든한 자리가 평생 자산이에요.\n\n비어 있는 자리가 강하면 "
+        },
+        {
+          "kind": "tag",
+          "tagId": "gongmang",
+          "label": "공망"
+        },
+        {
+          "kind": "text",
+          "value": "의 결로, 결과가 더디게 와요. '천천히 익는 자리'로 받아들이고 페이스를 늦추는 편이 후반까지 단단하게 가요."
+        }
       ],
-      "tags": ["jeongin", "earth", "gongmang"],
+      "tags": [
+        "jeongin",
+        "earth",
+        "gongmang"
+      ],
       "aiGenerated": true,
       "sourceTier": {
         "tier": "T1_HYPOTHESIS",
@@ -190,20 +314,54 @@
     {
       "schemaVersion": "spring-ts.narrative-fragment.v1",
       "fragmentId": "health.life.expert.aligned.001",
-      "axis": { "category": "health", "period": "life", "depth": "expert" },
+      "axis": {
+        "category": "health",
+        "period": "life",
+        "depth": "expert"
+      },
       "gating": {
-        "yongshinAlignment": ["aligned"]
+        "yongshinAlignment": [
+          "aligned"
+        ]
       },
       "templateTokens": [
-        { "kind": "text", "value": "용신 보완 방향이 잘 맞는 사주라, 평생 컨디션의 큰 그림이 부드럽게 풀리는 구조예요. " },
-        { "kind": "tag", "tagId": "johu", "label": "조후" },
-        { "kind": "text", "value": "가 균형 잡힌 자리에서 시작하니, 회복 속도와 안정감이 든든한 자산이에요.\n\n" },
-        { "kind": "tag", "tagId": "jeongin", "label": "정인" },
-        { "kind": "text", "value": "의 기운으로 받쳐 주는 자리가 길게 작용해, 가족·스승·환경 같은 자산이 컨디션의 든든한 받침대 역할을 해요. 잘 받아들이는 연습이 평생 약이 돼요.\n\n" },
-        { "kind": "tag", "tagId": "sikshin", "label": "식신" },
-        { "kind": "text", "value": "의 기운이 좋게 작용하면, 표현·소화·일상의 즐거움이 자연스럽게 회복의 자리가 돼요. 무리한 변화보다 익숙한 루틴을 길게 이어 가는 편이 잘 맞아요." }
+        {
+          "kind": "text",
+          "value": "용신 보완 방향이 잘 맞는 사주라, 평생 컨디션의 큰 그림이 부드럽게 풀리는 구조예요. "
+        },
+        {
+          "kind": "tag",
+          "tagId": "johu",
+          "label": "조후"
+        },
+        {
+          "kind": "text",
+          "value": "가 균형 잡힌 자리에서 시작하니, 회복 속도와 안정감이 든든한 자산이에요.\n\n"
+        },
+        {
+          "kind": "tag",
+          "tagId": "jeongin",
+          "label": "정인"
+        },
+        {
+          "kind": "text",
+          "value": "의 기운으로 받쳐 주는 자리가 길게 작용해, 가족·스승·환경 같은 자산이 컨디션의 든든한 받침대 역할을 해요. 잘 받아들이는 연습이 평생 약이 돼요.\n\n"
+        },
+        {
+          "kind": "tag",
+          "tagId": "sikshin",
+          "label": "식신"
+        },
+        {
+          "kind": "text",
+          "value": "의 기운이 좋게 작용하면, 표현·소화·일상의 즐거움이 자연스럽게 회복의 자리가 돼요. 무리한 변화보다 익숙한 루틴을 길게 이어 가는 편이 잘 맞아요."
+        }
       ],
-      "tags": ["johu", "jeongin", "sikshin"],
+      "tags": [
+        "johu",
+        "jeongin",
+        "sikshin"
+      ],
       "aiGenerated": true,
       "sourceTier": {
         "tier": "T1_HYPOTHESIS",
@@ -219,20 +377,54 @@
     {
       "schemaVersion": "spring-ts.narrative-fragment.v1",
       "fragmentId": "health.life.expert.conflicting.001",
-      "axis": { "category": "health", "period": "life", "depth": "expert" },
+      "axis": {
+        "category": "health",
+        "period": "life",
+        "depth": "expert"
+      },
       "gating": {
-        "yongshinAlignment": ["conflicting"]
+        "yongshinAlignment": [
+          "conflicting"
+        ]
       },
       "templateTokens": [
-        { "kind": "text", "value": "용신 보완 방향이 어긋나는 구조라, 평생 컨디션 관리에서 페이스 조절이 가장 큰 과제예요. " },
-        { "kind": "tag", "tagId": "samhyeong", "label": "삼형" },
-        { "kind": "text", "value": "의 신호가 함께 자리잡으면, 큰 변화·갈등 자리에서 컨디션이 출렁이기 쉬워요.\n\n" },
-        { "kind": "tag", "tagId": "johu", "label": "조후" },
-        { "kind": "text", "value": "의 균형이 한쪽으로 기울어 있으니, 일상에서 부족한 자리를 보완하는 보편 챙김이 가장 든든한 약이 돼요. 따뜻한 자리·시원한 자리·고요한 자리·움직이는 자리를 시기마다 다르게 채워 가요.\n\n" },
-        { "kind": "tag", "tagId": "gongmang", "label": "공망" },
-        { "kind": "text", "value": "의 신호로 결과가 더디게 오는 자리가 있어도, 무리하기보다 천천히 가는 편이 후반까지 단단하게 이어져요." }
+        {
+          "kind": "text",
+          "value": "용신 보완 방향이 어긋나는 구조라, 평생 컨디션 관리에서 페이스 조절이 가장 큰 과제예요. "
+        },
+        {
+          "kind": "tag",
+          "tagId": "samhyeong",
+          "label": "삼형"
+        },
+        {
+          "kind": "text",
+          "value": "의 신호가 함께 자리잡으면, 큰 변화·갈등 자리에서 컨디션이 출렁이기 쉬워요.\n\n"
+        },
+        {
+          "kind": "tag",
+          "tagId": "johu",
+          "label": "조후"
+        },
+        {
+          "kind": "text",
+          "value": "의 균형이 한쪽으로 기울어 있으니, 일상에서 부족한 자리를 보완하는 보편 챙김이 가장 든든한 약이 돼요. 따뜻한 자리·시원한 자리·고요한 자리·움직이는 자리를 시기마다 다르게 채워 가요.\n\n"
+        },
+        {
+          "kind": "tag",
+          "tagId": "gongmang",
+          "label": "공망"
+        },
+        {
+          "kind": "text",
+          "value": "의 신호로 결과가 더디게 오는 자리가 있어도, 무리하기보다 천천히 가는 편이 후반까지 단단하게 이어져요."
+        }
       ],
-      "tags": ["samhyeong", "johu", "gongmang"],
+      "tags": [
+        "samhyeong",
+        "johu",
+        "gongmang"
+      ],
       "aiGenerated": true,
       "sourceTier": {
         "tier": "T1_HYPOTHESIS",
@@ -248,22 +440,64 @@
     {
       "schemaVersion": "spring-ts.narrative-fragment.v1",
       "fragmentId": "health.life.expert.fire_excess.001",
-      "axis": { "category": "health", "period": "life", "depth": "expert" },
+      "axis": {
+        "category": "health",
+        "period": "life",
+        "depth": "expert"
+      },
       "gating": {
-        "dayMasterElement": ["FIRE"]
+        "dayMasterElement": [
+          "FIRE"
+        ]
       },
       "templateTokens": [
-        { "kind": "text", "value": "일간이 " },
-        { "kind": "tag", "tagId": "fire", "label": "불" },
-        { "kind": "text", "value": "의 결이라, 평생 흐름에서 더운 기운이 한쪽으로 몰릴 수 있어요. " },
-        { "kind": "tag", "tagId": "johu", "label": "조후" },
-        { "kind": "text", "value": "의 균형을 위해 " },
-        { "kind": "tag", "tagId": "water", "label": "물" },
-        { "kind": "text", "value": "의 자리를 일상에서 자주 만들어 두는 편이 보약이에요.\n\n물 한 잔, 시원한 산책, 고요한 자리 같은 보편 챙김이 그대로 큰 약으로 작용해요. 빠르게 끓어오르는 결이라 한 박자 늦추는 자리가 늘 도움이 돼요.\n\n표현·소화의 결이 막히면 " },
-        { "kind": "tag", "tagId": "sikshin", "label": "식신" },
-        { "kind": "text", "value": "의 자리를 부드럽게 풀어 주는 시간을 자주 챙겨요. 평생의 컨디션이 또렷이 단단해져요." }
+        {
+          "kind": "text",
+          "value": "일간이 "
+        },
+        {
+          "kind": "tag",
+          "tagId": "fire",
+          "label": "불"
+        },
+        {
+          "kind": "text",
+          "value": "의 결이라, 평생 흐름에서 더운 기운이 한쪽으로 몰릴 수 있어요. "
+        },
+        {
+          "kind": "tag",
+          "tagId": "johu",
+          "label": "조후"
+        },
+        {
+          "kind": "text",
+          "value": "의 균형을 위해 "
+        },
+        {
+          "kind": "tag",
+          "tagId": "water",
+          "label": "물"
+        },
+        {
+          "kind": "text",
+          "value": "의 자리를 일상에서 자주 만들어 두는 편이 보약이에요.\n\n물 한 잔, 시원한 산책, 고요한 자리 같은 보편 챙김이 그대로 큰 약으로 작용해요. 빠르게 끓어오르는 결이라 한 박자 늦추는 자리가 늘 도움이 돼요.\n\n표현·소화의 결이 막히면 "
+        },
+        {
+          "kind": "tag",
+          "tagId": "sikshin",
+          "label": "식신"
+        },
+        {
+          "kind": "text",
+          "value": "의 자리를 부드럽게 풀어 주는 시간을 자주 챙겨요. 평생의 컨디션이 또렷이 단단해져요."
+        }
       ],
-      "tags": ["fire", "johu", "water", "sikshin"],
+      "tags": [
+        "fire",
+        "johu",
+        "water",
+        "sikshin"
+      ],
       "aiGenerated": true,
       "sourceTier": {
         "tier": "T1_HYPOTHESIS",
@@ -279,22 +513,64 @@
     {
       "schemaVersion": "spring-ts.narrative-fragment.v1",
       "fragmentId": "health.life.expert.water_excess.001",
-      "axis": { "category": "health", "period": "life", "depth": "expert" },
+      "axis": {
+        "category": "health",
+        "period": "life",
+        "depth": "expert"
+      },
       "gating": {
-        "dayMasterElement": ["WATER"]
+        "dayMasterElement": [
+          "WATER"
+        ]
       },
       "templateTokens": [
-        { "kind": "text", "value": "일간이 " },
-        { "kind": "tag", "tagId": "water", "label": "물" },
-        { "kind": "text", "value": "의 결이라, 평생 흐름에서 찬 기운이 강하게 자리잡기 쉬워요. " },
-        { "kind": "tag", "tagId": "johu", "label": "조후" },
-        { "kind": "text", "value": "의 균형을 위해 " },
-        { "kind": "tag", "tagId": "fire", "label": "불" },
-        { "kind": "text", "value": "의 자리를 일상에서 따뜻하게 만들어 두는 편이 좋아요.\n\n따뜻한 식사, 햇볕 받는 산책, 마음 따뜻해지는 자리 같은 보편 챙김이 그대로 보약이 돼요. 깊이 가라앉는 결의 시기엔 한 번씩 환기해 주는 자리도 의미가 커요.\n\n받쳐 주는 자리로 " },
-        { "kind": "tag", "tagId": "earth", "label": "흙" },
-        { "kind": "text", "value": "의 결을 일상의 단단한 루틴으로 채우면, 후반기 흐름까지 흔들림이 줄어들어요." }
+        {
+          "kind": "text",
+          "value": "일간이 "
+        },
+        {
+          "kind": "tag",
+          "tagId": "water",
+          "label": "물"
+        },
+        {
+          "kind": "text",
+          "value": "의 결이라, 평생 흐름에서 찬 기운이 강하게 자리잡기 쉬워요. "
+        },
+        {
+          "kind": "tag",
+          "tagId": "johu",
+          "label": "조후"
+        },
+        {
+          "kind": "text",
+          "value": "의 균형을 위해 "
+        },
+        {
+          "kind": "tag",
+          "tagId": "fire",
+          "label": "불"
+        },
+        {
+          "kind": "text",
+          "value": "의 자리를 일상에서 따뜻하게 만들어 두는 편이 좋아요.\n\n따뜻한 식사, 햇볕 받는 산책, 마음 따뜻해지는 자리 같은 보편 챙김이 그대로 보약이 돼요. 깊이 가라앉는 결의 시기엔 한 번씩 환기해 주는 자리도 의미가 커요.\n\n받쳐 주는 자리로 "
+        },
+        {
+          "kind": "tag",
+          "tagId": "earth",
+          "label": "흙"
+        },
+        {
+          "kind": "text",
+          "value": "의 결을 일상의 단단한 루틴으로 채우면, 후반기 흐름까지 흔들림이 줄어들어요."
+        }
       ],
-      "tags": ["water", "johu", "fire", "earth"],
+      "tags": [
+        "water",
+        "johu",
+        "fire",
+        "earth"
+      ],
       "aiGenerated": true,
       "sourceTier": {
         "tier": "T1_HYPOTHESIS",
@@ -310,20 +586,54 @@
     {
       "schemaVersion": "spring-ts.narrative-fragment.v1",
       "fragmentId": "health.life.expert.balanced.001",
-      "axis": { "category": "health", "period": "life", "depth": "expert" },
+      "axis": {
+        "category": "health",
+        "period": "life",
+        "depth": "expert"
+      },
       "gating": {
-        "dayMasterStrength": ["BALANCED"]
+        "dayMasterStrength": [
+          "BALANCED"
+        ]
       },
       "templateTokens": [
-        { "kind": "text", "value": "기운이 고르게 자리잡은 사주라, 평생 흐름에서도 큰 기복 없이 흘러가요. " },
-        { "kind": "tag", "tagId": "johu", "label": "조후" },
-        { "kind": "text", "value": "가 한쪽으로 기울지 않은 결이라 회복도 빠른 편이에요.\n\n" },
-        { "kind": "tag", "tagId": "earth", "label": "흙" },
-        { "kind": "text", "value": "의 자리가 든든히 자리잡으면 안정감이 더 또렷해져요. 한 가지 운동·한 가지 루틴을 길게 이어 가는 편이 가장 잘 맞아요.\n\n다만 균형이 좋다고 해서 신호를 가볍게 여기면, 작은 누적이 후반에 한 번에 와요. " },
-        { "kind": "tag", "tagId": "sikshin", "label": "식신" },
-        { "kind": "text", "value": "의 결을 일상에서 자주 풀어 주는 자리, 정기 점검의 자리만 미리 짜 두면 평생 가볍게 흘러가요." }
+        {
+          "kind": "text",
+          "value": "기운이 고르게 자리잡은 사주라, 평생 흐름에서도 큰 기복 없이 흘러가요. "
+        },
+        {
+          "kind": "tag",
+          "tagId": "johu",
+          "label": "조후"
+        },
+        {
+          "kind": "text",
+          "value": "가 한쪽으로 기울지 않은 결이라 회복도 빠른 편이에요.\n\n"
+        },
+        {
+          "kind": "tag",
+          "tagId": "earth",
+          "label": "흙"
+        },
+        {
+          "kind": "text",
+          "value": "의 자리가 든든히 자리잡으면 안정감이 더 또렷해져요. 한 가지 운동·한 가지 루틴을 길게 이어 가는 편이 가장 잘 맞아요.\n\n다만 균형이 좋다고 해서 신호를 가볍게 여기면, 작은 누적이 후반에 한 번에 와요. "
+        },
+        {
+          "kind": "tag",
+          "tagId": "sikshin",
+          "label": "식신"
+        },
+        {
+          "kind": "text",
+          "value": "의 결을 일상에서 자주 풀어 주는 자리, 정기 점검의 자리만 미리 짜 두면 평생 가볍게 흘러가요."
+        }
       ],
-      "tags": ["johu", "earth", "sikshin"],
+      "tags": [
+        "johu",
+        "earth",
+        "sikshin"
+      ],
       "aiGenerated": true,
       "sourceTier": {
         "tier": "T1_HYPOTHESIS",
@@ -339,18 +649,44 @@
     {
       "schemaVersion": "spring-ts.narrative-fragment.v1",
       "fragmentId": "health.life.expert.weak.001",
-      "axis": { "category": "health", "period": "life", "depth": "expert" },
+      "axis": {
+        "category": "health",
+        "period": "life",
+        "depth": "expert"
+      },
       "gating": {
-        "dayMasterStrength": ["WEAK"]
+        "dayMasterStrength": [
+          "WEAK"
+        ]
       },
       "templateTokens": [
-        { "kind": "text", "value": "일간이 가벼운 결이라, 평생 흐름에서 받쳐 주는 자리를 챙기는 일이 가장 큰 보약이에요. " },
-        { "kind": "tag", "tagId": "jeongin", "label": "정인" },
-        { "kind": "text", "value": "의 결을 일상의 돌봄·휴식·학문 자리로 채우는 편이 잘 맞아요.\n\n" },
-        { "kind": "tag", "tagId": "earth", "label": "흙" },
-        { "kind": "text", "value": "의 자리가 단단해지면 흩어지기 쉬운 기운이 한자리에 모이는 결이 만들어져요. 같은 시각의 수면, 따뜻한 식사, 든든한 일상의 결이 평생 자산이에요.\n\n과로·강행군이 누적되면 회복이 더디게 와요. 페이스를 한 박자 천천히 가져가는 자리를 만들어 두면, 후반까지 흐름이 부드럽게 이어져요." }
+        {
+          "kind": "text",
+          "value": "일간이 가벼운 결이라, 평생 흐름에서 받쳐 주는 자리를 챙기는 일이 가장 큰 보약이에요. "
+        },
+        {
+          "kind": "tag",
+          "tagId": "jeongin",
+          "label": "정인"
+        },
+        {
+          "kind": "text",
+          "value": "의 결을 일상의 돌봄·휴식·학문 자리로 채우는 편이 잘 맞아요.\n\n"
+        },
+        {
+          "kind": "tag",
+          "tagId": "earth",
+          "label": "흙"
+        },
+        {
+          "kind": "text",
+          "value": "의 자리가 단단해지면 흩어지기 쉬운 기운이 한자리에 모이는 결이 만들어져요. 같은 시각의 수면, 따뜻한 식사, 든든한 일상의 흐름이 평생 자산이에요.\n\n과로·강행군이 누적되면 회복이 더디게 와요. 페이스를 한 박자 천천히 가져가는 자리를 만들어 두면, 후반까지 흐름이 부드럽게 이어져요."
+        }
       ],
-      "tags": ["jeongin", "earth"],
+      "tags": [
+        "jeongin",
+        "earth"
+      ],
       "aiGenerated": true,
       "sourceTier": {
         "tier": "T1_HYPOTHESIS",
