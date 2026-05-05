@@ -25,7 +25,7 @@
       "templateTokens": [
         {
           "kind": "text",
-          "value": "봄·여름의 오늘 연애운은 감정 표현과 만남의 속도가 빨라지는 쪽으로 읽습니다. "
+          "value": "봄·여름의 오늘 연애운은 감정 표현과 만남의 속도가 빨라지는 쪽으로 읽습니다.\n\n"
         },
         {
           "kind": "tag",
@@ -43,7 +43,7 @@
         },
         {
           "kind": "text",
-          "value": "는 당장의 설렘보다 관계가 실제 리듬을 버틸 수 있는지로 보아야 해요. "
+          "value": "는 당장의 설렘보다 관계가 실제 리듬을 버틸 수 있는지로 보아야 해요.\n\n"
         },
         {
           "kind": "tag",
@@ -52,7 +52,25 @@
         },
         {
           "kind": "text",
-          "value": "가 과하게 치우치면 말이 앞설 수 있으니, 오늘은 빠른 호감과 안정된 확인을 함께 두는 해석이 맞습니다."
+          "value": "가 과하게 치우치면 말이 앞설 수 있으니, 오늘은 빠른 호감과 안정된 확인을 함께 두는 해석이 맞습니다.\n\n"
+        },
+        {
+          "kind": "tag",
+          "tagId": "cheogung",
+          "label": "처궁"
+        },
+        {
+          "kind": "text",
+          "value": "의 결과 "
+        },
+        {
+          "kind": "tag",
+          "tagId": "jasikgung",
+          "label": "자식궁"
+        },
+        {
+          "kind": "text",
+          "value": "의 자리가 함께 살아나는 시기엔 가까운 관계가 한 단계 깊어지는 흐름이 보여요."
         }
       ],
       "livingTips": [
@@ -65,7 +83,9 @@
       "tags": [
         "baeujagung",
         "sajuCompatibility",
-        "eumyangHarmony"
+        "eumyangHarmony",
+        "cheogung",
+        "jasikgung"
       ],
       "numericalEvidence": [
         {
@@ -133,7 +153,7 @@
       "templateTokens": [
         {
           "kind": "text",
-          "value": "가을·겨울의 오늘 연애운은 속도보다 신뢰, 거리, 확인을 중심으로 해석합니다. "
+          "value": "가을·겨울의 오늘 연애운은 속도보다 신뢰, 거리, 확인을 중심으로 해석합니다.\n\n"
         },
         {
           "kind": "tag",
@@ -151,7 +171,7 @@
         },
         {
           "kind": "text",
-          "value": "는 상대와의 생활 온도가 맞는지 보는 쪽이 더 정확해요. "
+          "value": "는 상대와의 생활 온도가 맞는지 보는 쪽이 더 정확해요.\n\n"
         },
         {
           "kind": "tag",
@@ -160,7 +180,16 @@
         },
         {
           "kind": "text",
-          "value": "가 낮으면 오늘은 결정 대신 관계의 피로를 줄이는 선택이 좋습니다."
+          "value": "가 낮으면 오늘은 결정 대신 관계의 피로를 줄이는 선택이 좋습니다.\n\n"
+        },
+        {
+          "kind": "tag",
+          "tagId": "cheonleulgwiin",
+          "label": "천을귀인"
+        },
+        {
+          "kind": "text",
+          "value": "의 결이 보이면 인연 자리에서도 부드러운 도움을 받는 흐름이 자기 자산이 되어 줘요."
         }
       ],
       "livingTips": [
@@ -173,7 +202,8 @@
       "tags": [
         "baeujagung",
         "sajuCompatibility",
-        "stabilityIndex"
+        "stabilityIndex",
+        "cheonleulgwiin"
       ],
       "numericalEvidence": [
         {
@@ -241,7 +271,7 @@
       "templateTokens": [
         {
           "kind": "text",
-          "value": "봄·여름의 이번 주 연애운은 만남과 표현의 기회가 늘어나는 방향으로 읽습니다. "
+          "value": "봄·여름의 이번 주 연애운은 만남과 표현의 기회가 늘어나는 방향으로 읽습니다.\n\n"
         },
         {
           "kind": "tag",
@@ -259,7 +289,7 @@
         },
         {
           "kind": "text",
-          "value": "가 맞으면 가벼운 대화가 자연스럽게 다음 약속으로 이어질 수 있어요. "
+          "value": "가 맞으면 가벼운 대화가 자연스럽게 다음 약속으로 이어질 수 있어요.\n\n"
         },
         {
           "kind": "tag",
@@ -268,7 +298,25 @@
         },
         {
           "kind": "text",
-          "value": "는 설렘의 크기보다 반복 가능한 연락과 만남의 리듬으로 확인해야 합니다."
+          "value": "는 설렘의 크기보다 반복 가능한 연락과 만남의 리듬으로 확인해야 합니다.\n\n"
+        },
+        {
+          "kind": "tag",
+          "tagId": "dohwa",
+          "label": "도화"
+        },
+        {
+          "kind": "text",
+          "value": "의 신호와 "
+        },
+        {
+          "kind": "tag",
+          "tagId": "hongyeom",
+          "label": "홍염"
+        },
+        {
+          "kind": "text",
+          "value": "의 결이 함께 보이면 매력의 흐름이 또렷해지지만, 자기 호흡을 잃지 않는 페이스가 자기를 지키는 자리예요."
         }
       ],
       "livingTips": [
@@ -281,7 +329,9 @@
       "tags": [
         "baeujagung",
         "eumyangHarmony",
-        "sajuCompatibility"
+        "sajuCompatibility",
+        "dohwa",
+        "hongyeom"
       ],
       "numericalEvidence": [
         {
@@ -349,7 +399,7 @@
       "templateTokens": [
         {
           "kind": "text",
-          "value": "가을·겨울의 이번 주 연애운은 관계를 넓히기보다 신뢰와 온도를 정리하는 방향이 맞습니다. "
+          "value": "가을·겨울의 이번 주 연애운은 관계를 넓히기보다 신뢰와 온도를 정리하는 방향이 맞습니다.\n\n"
         },
         {
           "kind": "tag",
@@ -367,7 +417,7 @@
         },
         {
           "kind": "text",
-          "value": "가 약하면 만남의 횟수보다 피로를 줄이는 선택이 중요합니다. "
+          "value": "가 약하면 만남의 횟수보다 피로를 줄이는 선택이 중요합니다.\n\n"
         },
         {
           "kind": "tag",
@@ -376,7 +426,29 @@
         },
         {
           "kind": "text",
-          "value": "는 차분한 대화와 현실 조건을 함께 볼 때 더 정확해집니다."
+          "value": "는 차분한 대화와 현실 조건을 함께 볼 때 더 정확해집니다.\n\n"
+        },
+        {
+          "kind": "text",
+          "value": "인연 자리는 "
+        },
+        {
+          "kind": "tag",
+          "tagId": "baeujagung",
+          "label": "배우자궁"
+        },
+        {
+          "kind": "text",
+          "value": "의 결과 "
+        },
+        {
+          "kind": "tag",
+          "tagId": "jeonggwan",
+          "label": "정관"
+        },
+        {
+          "kind": "text",
+          "value": "의 책임 결이 함께 단단해질 때 깊이가 자라고, 자기 흐름을 감추기보다 부드럽게 보여 두는 호흡이 잘 어울려요."
         }
       ],
       "livingTips": [
@@ -389,7 +461,8 @@
       "tags": [
         "baeujagung",
         "stabilityIndex",
-        "sajuCompatibility"
+        "sajuCompatibility",
+        "jeonggwan"
       ],
       "numericalEvidence": [
         {
@@ -457,7 +530,7 @@
       "templateTokens": [
         {
           "kind": "text",
-          "value": "봄·여름의 이번 달 연애운은 관계를 새로 열거나 표현을 늘리는 흐름이 강해집니다. "
+          "value": "봄·여름의 이번 달 연애운은 관계를 새로 열거나 표현을 늘리는 흐름이 강해집니다.\n\n"
         },
         {
           "kind": "tag",
@@ -475,7 +548,7 @@
         },
         {
           "kind": "text",
-          "value": "가 감정의 속도와 생활 리듬을 함께 맞추는지로 보아야 합니다. "
+          "value": "가 감정의 속도와 생활 리듬을 함께 맞추는지로 보아야 합니다.\n\n"
         },
         {
           "kind": "tag",
@@ -484,7 +557,16 @@
         },
         {
           "kind": "text",
-          "value": "는 한 달 동안 반복 가능한 소통 방식이 생기는지 확인할 때 선명해져요."
+          "value": "는 한 달 동안 반복 가능한 소통 방식이 생기는지 확인할 때 선명해져요.\n\n"
+        },
+        {
+          "kind": "tag",
+          "tagId": "cheonleulgwiin",
+          "label": "천을귀인"
+        },
+        {
+          "kind": "text",
+          "value": "의 결이 보이면 인연 자리에서도 부드러운 도움을 받는 흐름이 자기 자산이 되어 줘요."
         }
       ],
       "livingTips": [
@@ -497,7 +579,8 @@
       "tags": [
         "baeujagung",
         "eumyangHarmony",
-        "sajuCompatibility"
+        "sajuCompatibility",
+        "cheonleulgwiin"
       ],
       "numericalEvidence": [
         {
@@ -565,7 +648,7 @@
       "templateTokens": [
         {
           "kind": "text",
-          "value": "가을·겨울의 이번 달 연애운은 관계의 깊이, 신뢰, 생활 온도를 정리하는 흐름으로 봅니다. "
+          "value": "가을·겨울의 이번 달 연애운은 관계의 깊이, 신뢰, 생활 온도를 정리하는 흐름으로 봅니다.\n\n"
         },
         {
           "kind": "tag",
@@ -583,7 +666,7 @@
         },
         {
           "kind": "text",
-          "value": "가 낮으면 관계를 넓히기보다 피로한 연결을 정리하는 편이 좋습니다. "
+          "value": "가 낮으면 관계를 넓히기보다 피로한 연결을 정리하는 편이 좋습니다.\n\n"
         },
         {
           "kind": "tag",
@@ -592,7 +675,25 @@
         },
         {
           "kind": "text",
-          "value": "는 감정의 크기보다 생활 기준과 책임의 온도가 맞는지에서 더 분명해져요."
+          "value": "는 감정의 크기보다 생활 기준과 책임의 온도가 맞는지에서 더 분명해져요.\n\n"
+        },
+        {
+          "kind": "tag",
+          "tagId": "cheogung",
+          "label": "처궁"
+        },
+        {
+          "kind": "text",
+          "value": "의 결과 "
+        },
+        {
+          "kind": "tag",
+          "tagId": "jasikgung",
+          "label": "자식궁"
+        },
+        {
+          "kind": "text",
+          "value": "의 자리가 함께 살아나는 시기엔 가까운 관계가 한 단계 깊어지는 흐름이 보여요."
         }
       ],
       "livingTips": [
@@ -605,7 +706,9 @@
       "tags": [
         "baeujagung",
         "stabilityIndex",
-        "sajuCompatibility"
+        "sajuCompatibility",
+        "cheogung",
+        "jasikgung"
       ],
       "numericalEvidence": [
         {

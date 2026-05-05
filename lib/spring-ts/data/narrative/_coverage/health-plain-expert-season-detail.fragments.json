@@ -331,7 +331,7 @@
       "templateTokens": [
         {
           "kind": "text",
-          "value": "연간 건강운에서 봄과 여름의 현재 계절은 활동성, 열감, 회복 소모의 균형을 함께 봅니다. "
+          "value": "연간 건강운에서 봄과 여름의 현재 계절은 활동성, 열감, 회복 소모의 균형을 함께 봅니다.\n\n"
         },
         {
           "kind": "tag",
@@ -349,7 +349,7 @@
         },
         {
           "kind": "text",
-          "value": "는 회복과 진정 리듬을 보완합니다. "
+          "value": "는 회복과 진정 리듬을 보완합니다.\n\n"
         },
         {
           "kind": "tag",
@@ -358,13 +358,33 @@
         },
         {
           "kind": "text",
-          "value": "정렬이 낮으면 활동량보다 회복 간격을 먼저 설계하는 해석이 적절합니다."
+          "value": "정렬이 낮으면 활동량보다 회복 간격을 먼저 설계하는 해석이 적절합니다.\n\n"
+        },
+        {
+          "kind": "tag",
+          "tagId": "eumyangHarmony",
+          "label": "음양조화도"
+        },
+        {
+          "kind": "text",
+          "value": "의 평균이 또렷한 사주는 "
+        },
+        {
+          "kind": "tag",
+          "tagId": "stabilityIndex",
+          "label": "안정성지수"
+        },
+        {
+          "kind": "text",
+          "value": "도 함께 단단해지는 자리라, 큰 결정보다 작은 회복 습관이 평생의 무기가 돼요."
         }
       ],
       "tags": [
         "fire",
         "water",
-        "yongshin"
+        "yongshin",
+        "eumyangHarmony",
+        "stabilityIndex"
       ],
       "numericalEvidence": [
         {
@@ -462,7 +482,7 @@
       "templateTokens": [
         {
           "kind": "text",
-          "value": "연간 건강운에서 가을과 겨울의 현재 계절은 보존, 축적, 회복력의 안정성을 중시합니다. "
+          "value": "연간 건강운에서 가을과 겨울의 현재 계절은 보존, 축적, 회복력의 안정성을 중시합니다.\n\n"
         },
         {
           "kind": "tag",
@@ -480,7 +500,7 @@
         },
         {
           "kind": "text",
-          "value": "는 생활 리듬의 지속 가능성을 봅니다. "
+          "value": "는 생활 리듬의 지속 가능성을 봅니다.\n\n"
         },
         {
           "kind": "tag",
@@ -489,13 +509,33 @@
         },
         {
           "kind": "text",
-          "value": "이 약하면 운동 확장보다 수면, 식사, 점검 루틴을 먼저 고정하는 편이 안전합니다."
+          "value": "이 약하면 운동 확장보다 수면, 식사, 점검 루틴을 먼저 고정하는 편이 안전합니다.\n\n"
+        },
+        {
+          "kind": "tag",
+          "tagId": "jisal",
+          "label": "지살"
+        },
+        {
+          "kind": "text",
+          "value": "의 결이 보일 때는 잠깐의 환경 변화가 컨디션을 환기시키고, "
+        },
+        {
+          "kind": "tag",
+          "tagId": "cheonui",
+          "label": "천의"
+        },
+        {
+          "kind": "text",
+          "value": "의 자리는 의료·치유 흐름의 도움을 부드럽게 받게 해 줘요."
         }
       ],
       "tags": [
         "jeongin",
         "stabilityIndex",
-        "yongshin"
+        "yongshin",
+        "jisal",
+        "cheonui"
       ],
       "aiGenerated": true,
       "sourceTier": {

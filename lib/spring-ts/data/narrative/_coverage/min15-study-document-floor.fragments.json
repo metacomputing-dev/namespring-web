@@ -401,7 +401,7 @@
         },
         {
           "kind": "text",
-          "value": "의 탐구성을 함께 봅니다. "
+          "value": "의 탐구성을 함께 봅니다.\n\n"
         },
         {
           "kind": "tag",
@@ -410,13 +410,55 @@
         },
         {
           "kind": "text",
-          "value": " 방향이 맞으면 기록과 복습을 장기 자산으로 만드는 전략이 좋습니다."
+          "value": " 방향이 맞으면 기록과 복습을 장기 자산으로 만드는 전략이 좋습니다.\n\n"
+        },
+        {
+          "kind": "text",
+          "value": "문서 자리는 "
+        },
+        {
+          "kind": "tag",
+          "tagId": "jeongin",
+          "label": "정인"
+        },
+        {
+          "kind": "text",
+          "value": "의 자격 자산과 "
+        },
+        {
+          "kind": "tag",
+          "tagId": "sikshin",
+          "label": "식신"
+        },
+        {
+          "kind": "text",
+          "value": "의 정리 결이 함께 단단해질 때 한 결로 마무리되고, 두 사람 이상의 검토를 거치는 호흡이 자기 자산을 지켜 줘요.\n\n"
+        },
+        {
+          "kind": "tag",
+          "tagId": "munchanggwiin",
+          "label": "문창귀인"
+        },
+        {
+          "kind": "text",
+          "value": "의 결과 "
+        },
+        {
+          "kind": "tag",
+          "tagId": "pyeonin",
+          "label": "편인"
+        },
+        {
+          "kind": "text",
+          "value": "의 깊이가 함께 보이는 사주는 한 분야의 권위 자리가 자기 자산이 되는 모양이에요."
         }
       ],
       "tags": [
         "jeongin",
         "pyeonin",
-        "yongshin"
+        "yongshin",
+        "sikshin",
+        "munchanggwiin"
       ],
       "numericalEvidence": [
         {
@@ -498,7 +540,7 @@
         },
         {
           "kind": "text",
-          "value": "의 산출력을 함께 봅니다. "
+          "value": "의 산출력을 함께 봅니다.\n\n"
         },
         {
           "kind": "tag",
@@ -507,13 +549,53 @@
         },
         {
           "kind": "text",
-          "value": "가 낮으면 새 작업보다 검토와 누락 확인이 먼저입니다."
+          "value": "가 낮으면 새 작업보다 검토와 누락 확인이 먼저입니다.\n\n"
+        },
+        {
+          "kind": "tag",
+          "tagId": "munchanggwiin",
+          "label": "문창귀인"
+        },
+        {
+          "kind": "text",
+          "value": "의 결과 "
+        },
+        {
+          "kind": "tag",
+          "tagId": "pyeonin",
+          "label": "편인"
+        },
+        {
+          "kind": "text",
+          "value": "의 깊이가 함께 보이는 사주는 한 분야의 권위 자리가 자기 자산이 되는 모양이에요.\n\n"
+        },
+        {
+          "kind": "tag",
+          "tagId": "gwanrokgung",
+          "label": "관록궁"
+        },
+        {
+          "kind": "text",
+          "value": "의 자리와 "
+        },
+        {
+          "kind": "tag",
+          "tagId": "bokdeokgung",
+          "label": "복덕궁"
+        },
+        {
+          "kind": "text",
+          "value": "의 결이 함께 또렷해지는 시기엔 자격·계약·발표 결이 한 결로 마무리되는 자리가 보여요."
         }
       ],
       "tags": [
         "jeongin",
         "sikshin",
-        "stabilityIndex"
+        "stabilityIndex",
+        "munchanggwiin",
+        "pyeonin",
+        "gwanrokgung",
+        "bokdeokgung"
       ],
       "numericalEvidence": [
         {
@@ -580,7 +662,7 @@
         },
         {
           "kind": "text",
-          "value": "의 표현력이 균형을 이루는지를 봅니다. "
+          "value": "의 표현력이 균형을 이루는지를 봅니다.\n\n"
         },
         {
           "kind": "tag",
@@ -589,13 +671,53 @@
         },
         {
           "kind": "text",
-          "value": " 정합성이 낮으면 아이디어보다 구조를 먼저 잡아야 합니다."
+          "value": " 정합성이 낮으면 아이디어보다 구조를 먼저 잡아야 합니다.\n\n"
+        },
+        {
+          "kind": "tag",
+          "tagId": "munchanggwiin",
+          "label": "문창귀인"
+        },
+        {
+          "kind": "text",
+          "value": "의 결과 "
+        },
+        {
+          "kind": "tag",
+          "tagId": "pyeonin",
+          "label": "편인"
+        },
+        {
+          "kind": "text",
+          "value": "의 깊이가 함께 보이는 사주는 한 분야의 권위 자리가 자기 자산이 되는 모양이에요.\n\n"
+        },
+        {
+          "kind": "tag",
+          "tagId": "gwanrokgung",
+          "label": "관록궁"
+        },
+        {
+          "kind": "text",
+          "value": "의 자리와 "
+        },
+        {
+          "kind": "tag",
+          "tagId": "bokdeokgung",
+          "label": "복덕궁"
+        },
+        {
+          "kind": "text",
+          "value": "의 결이 함께 또렷해지는 시기엔 자격·계약·발표 결이 한 결로 마무리되는 자리가 보여요."
         }
       ],
       "tags": [
         "jeongin",
         "sanggwan",
-        "yongshin"
+        "yongshin",
+        "munchanggwiin",
+        "pyeonin",
+        "gwanrokgung",
+        "bokdeokgung"
       ],
       "numericalEvidence": [
         {
@@ -661,7 +783,7 @@
         },
         {
           "kind": "text",
-          "value": "의 보관·정리 흐름을 함께 봅니다. "
+          "value": "의 보관·정리 흐름을 함께 봅니다.\n\n"
         },
         {
           "kind": "tag",
@@ -670,13 +792,56 @@
         },
         {
           "kind": "text",
-          "value": "가 낮으면 자료 확장보다 분류와 검토가 먼저입니다."
+          "value": "가 낮으면 자료 확장보다 분류와 검토가 먼저입니다.\n\n"
+        },
+        {
+          "kind": "tag",
+          "tagId": "cheondeokgwiin",
+          "label": "천덕귀인"
+        },
+        {
+          "kind": "text",
+          "value": "의 결과 "
+        },
+        {
+          "kind": "tag",
+          "tagId": "woldeokgwiin",
+          "label": "월덕귀인"
+        },
+        {
+          "kind": "text",
+          "value": "의 자리가 함께 보이면 문서 흐름이 차분하게 자리 잡는 사주이니, 작은 도움도 미루지 않는 호흡이 잘 어울려요.\n\n"
+        },
+        {
+          "kind": "text",
+          "value": "문서 자리는 "
+        },
+        {
+          "kind": "tag",
+          "tagId": "jeongin",
+          "label": "정인"
+        },
+        {
+          "kind": "text",
+          "value": "의 자격 자산과 "
+        },
+        {
+          "kind": "tag",
+          "tagId": "sikshin",
+          "label": "식신"
+        },
+        {
+          "kind": "text",
+          "value": "의 정리 결이 함께 단단해질 때 한 결로 마무리되고, 두 사람 이상의 검토를 거치는 호흡이 자기 자산을 지켜 줘요."
         }
       ],
       "tags": [
         "pyeonin",
         "jeongin",
-        "stabilityIndex"
+        "stabilityIndex",
+        "cheondeokgwiin",
+        "woldeokgwiin",
+        "sikshin"
       ],
       "numericalEvidence": [
         {
@@ -751,13 +916,55 @@
         },
         {
           "kind": "text",
-          "value": "를 함께 봅니다. 점수가 낮으면 학습량보다 보관·검토 체계를 먼저 세워야 합니다."
+          "value": "를 함께 봅니다.\n\n점수가 낮으면 학습량보다 보관·검토 체계를 먼저 세워야 합니다.\n\n"
+        },
+        {
+          "kind": "text",
+          "value": "문서 자리는 "
+        },
+        {
+          "kind": "tag",
+          "tagId": "jeongin",
+          "label": "정인"
+        },
+        {
+          "kind": "text",
+          "value": "의 자격 자산과 "
+        },
+        {
+          "kind": "tag",
+          "tagId": "sikshin",
+          "label": "식신"
+        },
+        {
+          "kind": "text",
+          "value": "의 정리 결이 함께 단단해질 때 한 결로 마무리되고, 두 사람 이상의 검토를 거치는 호흡이 자기 자산을 지켜 줘요.\n\n"
+        },
+        {
+          "kind": "tag",
+          "tagId": "munchanggwiin",
+          "label": "문창귀인"
+        },
+        {
+          "kind": "text",
+          "value": "의 결과 "
+        },
+        {
+          "kind": "tag",
+          "tagId": "pyeonin",
+          "label": "편인"
+        },
+        {
+          "kind": "text",
+          "value": "의 깊이가 함께 보이는 사주는 한 분야의 권위 자리가 자기 자산이 되는 모양이에요."
         }
       ],
       "tags": [
         "jeongin",
         "sikshin",
-        "gyeokgukFit"
+        "gyeokgukFit",
+        "munchanggwiin",
+        "pyeonin"
       ],
       "numericalEvidence": [
         {

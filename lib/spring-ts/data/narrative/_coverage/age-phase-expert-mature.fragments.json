@@ -19,7 +19,7 @@
       "templateTokens": [
         {
           "kind": "text",
-          "value": "40대 초반은 쌓아온 역할과 앞으로의 방향을 다시 조정하는 구간으로 봅니다. "
+          "value": "40대 초반은 쌓아온 역할과 앞으로의 방향을 다시 조정하는 구간으로 봅니다.\n\n"
         },
         {
           "kind": "tag",
@@ -37,7 +37,7 @@
         },
         {
           "kind": "text",
-          "value": "가 흔들리면 확장보다 기반 정리가 먼저예요. "
+          "value": "가 흔들리면 확장보다 기반 정리가 먼저예요.\n\n"
         },
         {
           "kind": "tag",
@@ -46,7 +46,25 @@
         },
         {
           "kind": "text",
-          "value": "는 지금 선택이 내 기운을 보강하는지, 아니면 책임만 늘리는지 가르는 전문가용 확인점으로 쓰면 좋습니다."
+          "value": "는 지금 선택이 내 기운을 보강하는지, 아니면 책임만 늘리는지 가르는 전문가용 확인점으로 쓰면 좋습니다.\n\n"
+        },
+        {
+          "kind": "tag",
+          "tagId": "naeum",
+          "label": "납음"
+        },
+        {
+          "kind": "text",
+          "value": "의 결을 함께 살펴 두면 사주 모양의 깊은 색이 더 또렷해지고, "
+        },
+        {
+          "kind": "tag",
+          "tagId": "naeumElement",
+          "label": "납음오행"
+        },
+        {
+          "kind": "text",
+          "value": "의 흐름이 자기 결을 보완하는 자리가 자주 등장해요."
         }
       ],
       "livingTips": [
@@ -59,7 +77,9 @@
       "tags": [
         "daewoonGungsil",
         "stabilityIndex",
-        "yongshinFit"
+        "yongshinFit",
+        "naeum",
+        "naeumElement"
       ],
       "numericalEvidence": [
         {
@@ -121,7 +141,7 @@
       "templateTokens": [
         {
           "kind": "text",
-          "value": "40대 후반은 경험의 깊이와 현실 책임이 함께 커지는 구간이에요. "
+          "value": "40대 후반은 경험의 깊이와 현실 책임이 함께 커지는 구간이에요.\n\n"
         },
         {
           "kind": "tag",
@@ -130,7 +150,7 @@
         },
         {
           "kind": "text",
-          "value": "에서는 성과를 더 세우는 문제보다 몸과 관계가 오래 버틸 수 있는 구조인지가 중요합니다. "
+          "value": "에서는 성과를 더 세우는 문제보다 몸과 관계가 오래 버틸 수 있는 구조인지가 중요합니다.\n\n"
         },
         {
           "kind": "tag",
@@ -148,7 +168,29 @@
         },
         {
           "kind": "text",
-          "value": "가 맞는 방향으로만 중요한 자원을 집중하는 해석이 정확해요."
+          "value": "가 맞는 방향으로만 중요한 자원을 집중하는 해석이 정확해요.\n\n"
+        },
+        {
+          "kind": "text",
+          "value": "전체의 흐름은 "
+        },
+        {
+          "kind": "tag",
+          "tagId": "yongshin",
+          "label": "용신"
+        },
+        {
+          "kind": "text",
+          "value": " 방향과 "
+        },
+        {
+          "kind": "tag",
+          "tagId": "heeshin",
+          "label": "희신"
+        },
+        {
+          "kind": "text",
+          "value": "의 받침이 함께 들어오는 시기에 한 단계 부드러워지고, 거스르는 시기에는 한 박자 늦추는 호흡이 자기를 지키는 자리예요."
         }
       ],
       "livingTips": [
@@ -161,7 +203,9 @@
       "tags": [
         "daewoonGungsil",
         "stabilityIndex",
-        "yongshinFit"
+        "yongshinFit",
+        "yongshin",
+        "heeshin"
       ],
       "numericalEvidence": [
         {
@@ -223,7 +267,7 @@
       "templateTokens": [
         {
           "kind": "text",
-          "value": "50대 초반은 사회적 역할과 개인 속도의 균형을 다시 맞추는 구간이에요. "
+          "value": "50대 초반은 사회적 역할과 개인 속도의 균형을 다시 맞추는 구간이에요.\n\n"
         },
         {
           "kind": "tag",
@@ -232,7 +276,7 @@
         },
         {
           "kind": "text",
-          "value": "에서는 예전처럼 버티는 힘만 보지 않고, 남은 에너지를 어디에 집중할지 판단해야 합니다. "
+          "value": "에서는 예전처럼 버티는 힘만 보지 않고, 남은 에너지를 어디에 집중할지 판단해야 합니다.\n\n"
         },
         {
           "kind": "tag",
@@ -250,7 +294,29 @@
         },
         {
           "kind": "text",
-          "value": "를 함께 보면 관계, 일, 건강의 우선순위를 더 현실적으로 배치할 수 있어요."
+          "value": "를 함께 보면 관계, 일, 건강의 우선순위를 더 현실적으로 배치할 수 있어요.\n\n"
+        },
+        {
+          "kind": "text",
+          "value": "전체의 흐름은 "
+        },
+        {
+          "kind": "tag",
+          "tagId": "yongshin",
+          "label": "용신"
+        },
+        {
+          "kind": "text",
+          "value": " 방향과 "
+        },
+        {
+          "kind": "tag",
+          "tagId": "heeshin",
+          "label": "희신"
+        },
+        {
+          "kind": "text",
+          "value": "의 받침이 함께 들어오는 시기에 한 단계 부드러워지고, 거스르는 시기에는 한 박자 늦추는 호흡이 자기를 지키는 자리예요."
         }
       ],
       "livingTips": [
@@ -263,7 +329,9 @@
       "tags": [
         "daewoonGungsil",
         "stabilityIndex",
-        "yongshinFit"
+        "yongshinFit",
+        "yongshin",
+        "heeshin"
       ],
       "numericalEvidence": [
         {
@@ -325,7 +393,7 @@
       "templateTokens": [
         {
           "kind": "text",
-          "value": "50대 후반은 쌓은 경험 중 유지할 것과 다음 세대에 넘길 것을 구분하는 구간이에요. "
+          "value": "50대 후반은 쌓은 경험 중 유지할 것과 다음 세대에 넘길 것을 구분하는 구간이에요.\n\n"
         },
         {
           "kind": "tag",
@@ -334,7 +402,7 @@
         },
         {
           "kind": "text",
-          "value": "은 확장보다 지속 가능한 역할을 살피는 데 초점을 둡니다. "
+          "value": "은 확장보다 지속 가능한 역할을 살피는 데 초점을 둡니다.\n\n"
         },
         {
           "kind": "tag",
@@ -343,7 +411,7 @@
         },
         {
           "kind": "text",
-          "value": "가 충분할 때는 경험 전달이 힘이 되고, 낮을 때는 직접 모두 해내는 방식이 부담을 키웁니다. "
+          "value": "가 충분할 때는 경험 전달이 힘이 되고, 낮을 때는 직접 모두 해내는 방식이 부담을 키웁니다.\n\n"
         },
         {
           "kind": "tag",
@@ -427,7 +495,7 @@
       "templateTokens": [
         {
           "kind": "text",
-          "value": "60대 초반은 속도와 역할을 새로 설계하는 구간으로 해석합니다. "
+          "value": "60대 초반은 속도와 역할을 새로 설계하는 구간으로 해석합니다.\n\n"
         },
         {
           "kind": "tag",
@@ -445,7 +513,7 @@
         },
         {
           "kind": "text",
-          "value": "가 실제 생활 유지력과 직접 연결됩니다. "
+          "value": "가 실제 생활 유지력과 직접 연결됩니다.\n\n"
         },
         {
           "kind": "tag",
@@ -454,7 +522,25 @@
         },
         {
           "kind": "text",
-          "value": "가 좋은 활동은 새로 시작해도 오래 가지만, 맞지 않는 활동은 체력 소모가 빠를 수 있어요."
+          "value": "가 좋은 활동은 새로 시작해도 오래 가지만, 맞지 않는 활동은 체력 소모가 빠를 수 있어요.\n\n"
+        },
+        {
+          "kind": "tag",
+          "tagId": "gyeokgukYongshin",
+          "label": "격국용신"
+        },
+        {
+          "kind": "text",
+          "value": "의 결과 "
+        },
+        {
+          "kind": "tag",
+          "tagId": "gyeokgukFit",
+          "label": "격국적합도"
+        },
+        {
+          "kind": "text",
+          "value": "의 평균이 또렷한 사주는 자기 격에 맞는 길로 큰 흐름이 모이는 자리가 자주 등장해요."
         }
       ],
       "livingTips": [
@@ -467,7 +553,9 @@
       "tags": [
         "daewoonGungsil",
         "stabilityIndex",
-        "yongshinFit"
+        "yongshinFit",
+        "gyeokgukYongshin",
+        "gyeokgukFit"
       ],
       "numericalEvidence": [
         {
@@ -529,7 +617,7 @@
       "templateTokens": [
         {
           "kind": "text",
-          "value": "60대 후반은 활동의 양보다 삶의 질과 관계의 안정성이 더 중요해지는 구간이에요. "
+          "value": "60대 후반은 활동의 양보다 삶의 질과 관계의 안정성이 더 중요해지는 구간이에요.\n\n"
         },
         {
           "kind": "tag",
@@ -538,7 +626,7 @@
         },
         {
           "kind": "text",
-          "value": "에서는 강한 추진보다 생활 리듬, 가족과의 거리, 건강 관리의 안정성을 함께 봅니다. "
+          "value": "에서는 강한 추진보다 생활 리듬, 가족과의 거리, 건강 관리의 안정성을 함께 봅니다.\n\n"
         },
         {
           "kind": "tag",
@@ -556,7 +644,25 @@
         },
         {
           "kind": "text",
-          "value": "가 맞는 작은 기준을 꾸준히 유지하는 것이 큰 변화보다 더 유리할 수 있습니다."
+          "value": "가 맞는 작은 기준을 꾸준히 유지하는 것이 큰 변화보다 더 유리할 수 있습니다.\n\n"
+        },
+        {
+          "kind": "tag",
+          "tagId": "tonggwanYongshin",
+          "label": "통관용신"
+        },
+        {
+          "kind": "text",
+          "value": "의 결이 보이면 흐름의 막힌 자리를 풀어 주는 자리가 보이고, "
+        },
+        {
+          "kind": "tag",
+          "tagId": "byeongyakYongshin",
+          "label": "병약용신"
+        },
+        {
+          "kind": "text",
+          "value": "의 자리가 함께 들어오면 약한 자리를 메우는 결이 함께 작동해요."
         }
       ],
       "livingTips": [
@@ -569,7 +675,9 @@
       "tags": [
         "daewoonGungsil",
         "stabilityIndex",
-        "yongshinFit"
+        "yongshinFit",
+        "tonggwanYongshin",
+        "byeongyakYongshin"
       ],
       "numericalEvidence": [
         {
@@ -631,7 +739,7 @@
       "templateTokens": [
         {
           "kind": "text",
-          "value": "70대는 속도를 줄이면서 자기 기준과 경험을 편안하게 유지하는 구간이에요. "
+          "value": "70대는 속도를 줄이면서 자기 기준과 경험을 편안하게 유지하는 구간이에요.\n\n"
         },
         {
           "kind": "tag",
@@ -640,7 +748,7 @@
         },
         {
           "kind": "text",
-          "value": " 해석에서는 성취보다 회복, 관계의 편안함, 몸의 신호를 중심에 둡니다. "
+          "value": " 해석에서는 성취보다 회복, 관계의 편안함, 몸의 신호를 중심에 둡니다.\n\n"
         },
         {
           "kind": "tag",
@@ -658,7 +766,25 @@
         },
         {
           "kind": "text",
-          "value": "가 모두 낮은 구간이면 큰 목표보다 매일 지킬 수 있는 작은 즐거움이 운의 체감도를 높여줍니다."
+          "value": "가 모두 낮은 구간이면 큰 목표보다 매일 지킬 수 있는 작은 즐거움이 운의 체감도를 높여줍니다.\n\n"
+        },
+        {
+          "kind": "tag",
+          "tagId": "tonggwanYongshin",
+          "label": "통관용신"
+        },
+        {
+          "kind": "text",
+          "value": "의 결이 보이면 흐름의 막힌 자리를 풀어 주는 자리가 보이고, "
+        },
+        {
+          "kind": "tag",
+          "tagId": "byeongyakYongshin",
+          "label": "병약용신"
+        },
+        {
+          "kind": "text",
+          "value": "의 자리가 함께 들어오면 약한 자리를 메우는 결이 함께 작동해요."
         }
       ],
       "livingTips": [
@@ -671,7 +797,9 @@
       "tags": [
         "daewoonGungsil",
         "stabilityIndex",
-        "yongshinFit"
+        "yongshinFit",
+        "tonggwanYongshin",
+        "byeongyakYongshin"
       ],
       "numericalEvidence": [
         {
@@ -733,7 +861,7 @@
       "templateTokens": [
         {
           "kind": "text",
-          "value": "80대는 성과보다 안전, 회복, 관계의 여유와 생활의 단순함을 중심에 두는 구간입니다. "
+          "value": "80대는 성과보다 안전, 회복, 관계의 여유와 생활의 단순함을 중심에 두는 구간입니다.\n\n"
         },
         {
           "kind": "tag",
@@ -742,7 +870,7 @@
         },
         {
           "kind": "text",
-          "value": "에서는 변화의 좋고 나쁨보다 하루를 편안하게 유지하는 조건을 찾는 해석이 더 맞아요. "
+          "value": "에서는 변화의 좋고 나쁨보다 하루를 편안하게 유지하는 조건을 찾는 해석이 더 맞아요.\n\n"
         },
         {
           "kind": "tag",
@@ -760,7 +888,25 @@
         },
         {
           "kind": "text",
-          "value": "는 무리 없는 활동을 고르는 참고 기준으로 두면 충분합니다."
+          "value": "는 무리 없는 활동을 고르는 참고 기준으로 두면 충분합니다.\n\n"
+        },
+        {
+          "kind": "tag",
+          "tagId": "naeum",
+          "label": "납음"
+        },
+        {
+          "kind": "text",
+          "value": "의 결을 함께 살펴 두면 사주 모양의 깊은 색이 더 또렷해지고, "
+        },
+        {
+          "kind": "tag",
+          "tagId": "naeumElement",
+          "label": "납음오행"
+        },
+        {
+          "kind": "text",
+          "value": "의 흐름이 자기 결을 보완하는 자리가 자주 등장해요."
         }
       ],
       "livingTips": [
@@ -773,7 +919,9 @@
       "tags": [
         "daewoonGungsil",
         "stabilityIndex",
-        "yongshinFit"
+        "yongshinFit",
+        "naeum",
+        "naeumElement"
       ],
       "numericalEvidence": [
         {
@@ -835,7 +983,7 @@
       "templateTokens": [
         {
           "kind": "text",
-          "value": "90세 이후는 변화의 크기보다 안정, 존중, 기억의 정리, 편안한 연결을 중심으로 보는 것이 적절합니다. "
+          "value": "90세 이후는 변화의 크기보다 안정, 존중, 기억의 정리, 편안한 연결을 중심으로 보는 것이 적절합니다.\n\n"
         },
         {
           "kind": "tag",
@@ -853,7 +1001,7 @@
         },
         {
           "kind": "text",
-          "value": "를 최우선으로 봐야 해요. "
+          "value": "를 최우선으로 봐야 해요.\n\n"
         },
         {
           "kind": "tag",
@@ -862,7 +1010,29 @@
         },
         {
           "kind": "text",
-          "value": "는 큰 행동을 권하는 지표가 아니라 불편을 줄이고 마음이 놓이는 환경을 찾는 보조 기준입니다."
+          "value": "는 큰 행동을 권하는 지표가 아니라 불편을 줄이고 마음이 놓이는 환경을 찾는 보조 기준입니다.\n\n"
+        },
+        {
+          "kind": "text",
+          "value": "전체의 흐름은 "
+        },
+        {
+          "kind": "tag",
+          "tagId": "yongshin",
+          "label": "용신"
+        },
+        {
+          "kind": "text",
+          "value": " 방향과 "
+        },
+        {
+          "kind": "tag",
+          "tagId": "heeshin",
+          "label": "희신"
+        },
+        {
+          "kind": "text",
+          "value": "의 받침이 함께 들어오는 시기에 한 단계 부드러워지고, 거스르는 시기에는 한 박자 늦추는 호흡이 자기를 지키는 자리예요."
         }
       ],
       "livingTips": [
@@ -875,7 +1045,9 @@
       "tags": [
         "daewoonGungsil",
         "stabilityIndex",
-        "yongshinFit"
+        "yongshinFit",
+        "yongshin",
+        "heeshin"
       ],
       "numericalEvidence": [
         {

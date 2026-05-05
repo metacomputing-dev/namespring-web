@@ -305,13 +305,73 @@
         },
         {
           "kind": "text",
-          "value": "가 낮으면 조언보다 경청이 먼저입니다."
+          "value": "가 낮으면 조언보다 경청이 먼저입니다.\n\n"
+        },
+        {
+          "kind": "tag",
+          "tagId": "hyeongjegung",
+          "label": "형제궁"
+        },
+        {
+          "kind": "text",
+          "value": "의 결과 "
+        },
+        {
+          "kind": "tag",
+          "tagId": "janyeogung",
+          "label": "자녀궁"
+        },
+        {
+          "kind": "text",
+          "value": "의 결을 함께 살펴 두면 가족 안의 분위기 흐름이 더 또렷해져요.\n\n"
+        },
+        {
+          "kind": "tag",
+          "tagId": "cheondeokgwiin",
+          "label": "천덕귀인"
+        },
+        {
+          "kind": "text",
+          "value": "의 결과 "
+        },
+        {
+          "kind": "tag",
+          "tagId": "woldeokgwiin",
+          "label": "월덕귀인"
+        },
+        {
+          "kind": "text",
+          "value": "의 자리가 함께 보이는 사주는 가족 안에서 부드럽게 도움 주고받는 흐름이 자기 자산이 되는 모양이에요.\n\n"
+        },
+        {
+          "kind": "tag",
+          "tagId": "samhyeong",
+          "label": "삼형"
+        },
+        {
+          "kind": "text",
+          "value": "이나 "
+        },
+        {
+          "kind": "tag",
+          "tagId": "hyeongsal",
+          "label": "형살"
+        },
+        {
+          "kind": "text",
+          "value": "의 신호가 보이는 시기엔 가족 안의 작은 부딪힘을 짧게 끊고 가는 호흡이 잘 어울려요."
         }
       ],
       "tags": [
         "jeongin",
         "bigyeon",
-        "stabilityIndex"
+        "stabilityIndex",
+        "hyeongjegung",
+        "janyeogung",
+        "cheondeokgwiin",
+        "woldeokgwiin",
+        "samhyeong",
+        "hyeongsal"
       ],
       "numericalEvidence": [
         {
@@ -377,7 +437,7 @@
         },
         {
           "kind": "text",
-          "value": "의 돌봄 흐름을 함께 봅니다. "
+          "value": "의 돌봄 흐름을 함께 봅니다.\n\n"
         },
         {
           "kind": "tag",
@@ -386,13 +446,53 @@
         },
         {
           "kind": "text",
-          "value": " 방향이 맞으면 가족의 기반을 지키면서도 개인 리듬을 살리는 방식이 안정적입니다."
+          "value": " 방향이 맞으면 가족의 기반을 지키면서도 개인 리듬을 살리는 방식이 안정적입니다.\n\n"
+        },
+        {
+          "kind": "tag",
+          "tagId": "cheondeokgwiin",
+          "label": "천덕귀인"
+        },
+        {
+          "kind": "text",
+          "value": "의 결과 "
+        },
+        {
+          "kind": "tag",
+          "tagId": "woldeokgwiin",
+          "label": "월덕귀인"
+        },
+        {
+          "kind": "text",
+          "value": "의 자리가 함께 보이는 사주는 가족 안에서 부드럽게 도움 주고받는 흐름이 자기 자산이 되는 모양이에요.\n\n"
+        },
+        {
+          "kind": "tag",
+          "tagId": "samhyeong",
+          "label": "삼형"
+        },
+        {
+          "kind": "text",
+          "value": "이나 "
+        },
+        {
+          "kind": "tag",
+          "tagId": "hyeongsal",
+          "label": "형살"
+        },
+        {
+          "kind": "text",
+          "value": "의 신호가 보이는 시기엔 가족 안의 작은 부딪힘을 짧게 끊고 가는 호흡이 잘 어울려요."
         }
       ],
       "tags": [
         "jojangung",
         "jeongin",
-        "yongshin"
+        "yongshin",
+        "cheondeokgwiin",
+        "woldeokgwiin",
+        "samhyeong",
+        "hyeongsal"
       ],
       "numericalEvidence": [
         {
@@ -474,7 +574,7 @@
         },
         {
           "kind": "text",
-          "value": "의 보호성이 균형을 이루는지를 봅니다. "
+          "value": "의 보호성이 균형을 이루는지를 봅니다.\n\n"
         },
         {
           "kind": "tag",
@@ -483,13 +583,53 @@
         },
         {
           "kind": "text",
-          "value": "가 낮을수록 역할을 말로 확인해야 마찰이 줄어듭니다."
+          "value": "가 낮을수록 역할을 말로 확인해야 마찰이 줄어듭니다.\n\n"
+        },
+        {
+          "kind": "tag",
+          "tagId": "hyeongjegung",
+          "label": "형제궁"
+        },
+        {
+          "kind": "text",
+          "value": "의 결과 "
+        },
+        {
+          "kind": "tag",
+          "tagId": "janyeogung",
+          "label": "자녀궁"
+        },
+        {
+          "kind": "text",
+          "value": "의 결을 함께 살펴 두면 가족 안의 분위기 흐름이 더 또렷해져요.\n\n"
+        },
+        {
+          "kind": "tag",
+          "tagId": "cheondeokgwiin",
+          "label": "천덕귀인"
+        },
+        {
+          "kind": "text",
+          "value": "의 결과 "
+        },
+        {
+          "kind": "tag",
+          "tagId": "woldeokgwiin",
+          "label": "월덕귀인"
+        },
+        {
+          "kind": "text",
+          "value": "의 자리가 함께 보이는 사주는 가족 안에서 부드럽게 도움 주고받는 흐름이 자기 자산이 되는 모양이에요."
         }
       ],
       "tags": [
         "bigyeon",
         "jeongin",
-        "stabilityIndex"
+        "stabilityIndex",
+        "hyeongjegung",
+        "janyeogung",
+        "cheondeokgwiin",
+        "woldeokgwiin"
       ],
       "numericalEvidence": [
         {
@@ -555,7 +695,7 @@
         },
         {
           "kind": "text",
-          "value": "의 보호 흐름을 함께 봅니다. "
+          "value": "의 보호 흐름을 함께 봅니다.\n\n"
         },
         {
           "kind": "tag",
@@ -564,13 +704,57 @@
         },
         {
           "kind": "text",
-          "value": " 정합성이 맞으면 가족을 돕는 방식도 꾸준한 루틴으로 정리됩니다."
+          "value": " 정합성이 맞으면 가족을 돕는 방식도 꾸준한 루틴으로 정리됩니다.\n\n"
+        },
+        {
+          "kind": "text",
+          "value": "가족 자리는 "
+        },
+        {
+          "kind": "tag",
+          "tagId": "bumyong",
+          "label": "부모궁"
+        },
+        {
+          "kind": "text",
+          "value": "과 "
+        },
+        {
+          "kind": "tag",
+          "tagId": "baeujagung",
+          "label": "배우자궁"
+        },
+        {
+          "kind": "text",
+          "value": "의 결이 어떻게 받쳐 주느냐를 함께 살펴 두면 흐름의 결정이 더 단단해지고, 작은 인사 한 마디가 평생의 자산이 되는 자리예요.\n\n"
+        },
+        {
+          "kind": "tag",
+          "tagId": "hyeongjegung",
+          "label": "형제궁"
+        },
+        {
+          "kind": "text",
+          "value": "의 결과 "
+        },
+        {
+          "kind": "tag",
+          "tagId": "janyeogung",
+          "label": "자녀궁"
+        },
+        {
+          "kind": "text",
+          "value": "의 결을 함께 살펴 두면 가족 안의 분위기 흐름이 더 또렷해져요."
         }
       ],
       "tags": [
         "jasikgung",
         "jeongin",
-        "yongshin"
+        "yongshin",
+        "bumyong",
+        "baeujagung",
+        "hyeongjegung",
+        "janyeogung"
       ],
       "numericalEvidence": [
         {
@@ -636,7 +820,7 @@
         },
         {
           "kind": "text",
-          "value": "의 자율성이 충돌하지 않게 배치되는지가 핵심입니다. "
+          "value": "의 자율성이 충돌하지 않게 배치되는지가 핵심입니다.\n\n"
         },
         {
           "kind": "tag",
@@ -645,13 +829,57 @@
         },
         {
           "kind": "text",
-          "value": " 흐름이 맞으면 지원과 독립의 균형을 잡기 쉽습니다."
+          "value": " 흐름이 맞으면 지원과 독립의 균형을 잡기 쉽습니다.\n\n"
+        },
+        {
+          "kind": "text",
+          "value": "가족 자리는 "
+        },
+        {
+          "kind": "tag",
+          "tagId": "bumyong",
+          "label": "부모궁"
+        },
+        {
+          "kind": "text",
+          "value": "과 "
+        },
+        {
+          "kind": "tag",
+          "tagId": "baeujagung",
+          "label": "배우자궁"
+        },
+        {
+          "kind": "text",
+          "value": "의 결이 어떻게 받쳐 주느냐를 함께 살펴 두면 흐름의 결정이 더 단단해지고, 작은 인사 한 마디가 평생의 자산이 되는 자리예요.\n\n"
+        },
+        {
+          "kind": "tag",
+          "tagId": "hyeongjegung",
+          "label": "형제궁"
+        },
+        {
+          "kind": "text",
+          "value": "의 결과 "
+        },
+        {
+          "kind": "tag",
+          "tagId": "janyeogung",
+          "label": "자녀궁"
+        },
+        {
+          "kind": "text",
+          "value": "의 결을 함께 살펴 두면 가족 안의 분위기 흐름이 더 또렷해져요."
         }
       ],
       "tags": [
         "jeongin",
         "bigyeon",
-        "yongshin"
+        "yongshin",
+        "bumyong",
+        "baeujagung",
+        "hyeongjegung",
+        "janyeogung"
       ],
       "numericalEvidence": [
         {

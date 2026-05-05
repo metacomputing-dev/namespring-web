@@ -6,21 +6,101 @@
     {
       "schemaVersion": "spring-ts.narrative-fragment.v1",
       "fragmentId": "family.life.expert.gender.neutral.gyeokguk.pyeongwangyeok.401",
-      "axis": { "category": "family", "period": "life", "depth": "expert" },
+      "axis": {
+        "category": "family",
+        "period": "life",
+        "depth": "expert"
+      },
       "gating": {
-        "gender": ["neutral"],
-        "gyeokguk": ["pyeongwangyeok"]
+        "gender": [
+          "neutral"
+        ],
+        "gyeokguk": [
+          "pyeongwangyeok"
+        ]
       },
       "templateTokens": [
-        { "kind": "text", "value": "성별 해석을 중립값으로 두고 편관격을 함께 보면, 가족운에서는 역할 압박과 보호 본능을 분리해서 읽어야 합니다. " },
-        { "kind": "tag", "tagId": "pyeongwangyeok", "label": "편관격" },
-        { "kind": "text", "value": "은 긴장과 책임을 빠르게 끌어올리지만, " },
-        { "kind": "tag", "tagId": "jeongin", "label": "정인" },
-        { "kind": "text", "value": "이나 " },
-        { "kind": "tag", "tagId": "yongshin", "label": "용신" },
-        { "kind": "text", "value": "의 보정이 있으면 가족 안에서 기준을 세우되 과도한 통제는 줄이는 방향이 좋습니다." }
+        {
+          "kind": "text",
+          "value": "성별 해석을 중립값으로 두고 편관격을 함께 보면, 가족운에서는 역할 압박과 보호 본능을 분리해서 읽어야 합니다.\n\n"
+        },
+        {
+          "kind": "tag",
+          "tagId": "pyeongwangyeok",
+          "label": "편관격"
+        },
+        {
+          "kind": "text",
+          "value": "은 긴장과 책임을 빠르게 끌어올리지만, "
+        },
+        {
+          "kind": "tag",
+          "tagId": "jeongin",
+          "label": "정인"
+        },
+        {
+          "kind": "text",
+          "value": "이나 "
+        },
+        {
+          "kind": "tag",
+          "tagId": "yongshin",
+          "label": "용신"
+        },
+        {
+          "kind": "text",
+          "value": "의 보정이 있으면 가족 안에서 기준을 세우되 과도한 통제는 줄이는 방향이 좋습니다.\n\n"
+        },
+        {
+          "kind": "tag",
+          "tagId": "samhyeong",
+          "label": "삼형"
+        },
+        {
+          "kind": "text",
+          "value": "이나 "
+        },
+        {
+          "kind": "tag",
+          "tagId": "hyeongsal",
+          "label": "형살"
+        },
+        {
+          "kind": "text",
+          "value": "의 신호가 보이는 시기엔 가족 안의 작은 부딪힘을 짧게 끊고 가는 호흡이 잘 어울려요.\n\n"
+        },
+        {
+          "kind": "text",
+          "value": "가족 자리는 "
+        },
+        {
+          "kind": "tag",
+          "tagId": "bumyong",
+          "label": "부모궁"
+        },
+        {
+          "kind": "text",
+          "value": "과 "
+        },
+        {
+          "kind": "tag",
+          "tagId": "baeujagung",
+          "label": "배우자궁"
+        },
+        {
+          "kind": "text",
+          "value": "의 결이 어떻게 받쳐 주느냐를 함께 살펴 두면 흐름의 결정이 더 단단해지고, 작은 인사 한 마디가 평생의 자산이 되는 자리예요."
+        }
       ],
-      "tags": ["pyeongwangyeok", "jeongin", "yongshin"],
+      "tags": [
+        "pyeongwangyeok",
+        "jeongin",
+        "yongshin",
+        "samhyeong",
+        "hyeongsal",
+        "bumyong",
+        "baeujagung"
+      ],
       "numericalEvidence": [
         {
           "label": "성별 분기 순번",
@@ -83,21 +163,97 @@
     {
       "schemaVersion": "spring-ts.narrative-fragment.v1",
       "fragmentId": "career.thisYear.expert.gender.neutral.gyeokguk.pyeongwangyeok.401",
-      "axis": { "category": "career", "period": "thisYear", "depth": "expert" },
+      "axis": {
+        "category": "career",
+        "period": "thisYear",
+        "depth": "expert"
+      },
       "gating": {
-        "gender": ["neutral"],
-        "gyeokguk": ["pyeongwangyeok"]
+        "gender": [
+          "neutral"
+        ],
+        "gyeokguk": [
+          "pyeongwangyeok"
+        ]
       },
       "templateTokens": [
-        { "kind": "text", "value": "성별 가중을 중립으로 두고 올해 커리어를 볼 때 편관격은 압박을 성과 구조로 바꾸는지가 핵심입니다. " },
-        { "kind": "tag", "tagId": "pyeongwangyeok", "label": "편관격" },
-        { "kind": "text", "value": "의 경쟁 신호가 강하면 목표는 선명해지지만, " },
-        { "kind": "tag", "tagId": "jeonggwan", "label": "정관" },
-        { "kind": "text", "value": "의 규칙성과 " },
-        { "kind": "tag", "tagId": "yongshin", "label": "용신" },
-        { "kind": "text", "value": "의 보정 방향을 같이 보아야 과한 승부수와 필요한 도전을 구분할 수 있습니다." }
+        {
+          "kind": "text",
+          "value": "성별 가중을 중립으로 두고 올해 커리어를 볼 때 편관격은 압박을 성과 구조로 바꾸는지가 핵심입니다.\n\n"
+        },
+        {
+          "kind": "tag",
+          "tagId": "pyeongwangyeok",
+          "label": "편관격"
+        },
+        {
+          "kind": "text",
+          "value": "의 경쟁 신호가 강하면 목표는 선명해지지만, "
+        },
+        {
+          "kind": "tag",
+          "tagId": "jeonggwan",
+          "label": "정관"
+        },
+        {
+          "kind": "text",
+          "value": "의 규칙성과 "
+        },
+        {
+          "kind": "tag",
+          "tagId": "yongshin",
+          "label": "용신"
+        },
+        {
+          "kind": "text",
+          "value": "의 보정 방향을 같이 보아야 과한 승부수와 필요한 도전을 구분할 수 있습니다.\n\n"
+        },
+        {
+          "kind": "tag",
+          "tagId": "gyeokgukYongshin",
+          "label": "격국용신"
+        },
+        {
+          "kind": "text",
+          "value": "의 결과 "
+        },
+        {
+          "kind": "tag",
+          "tagId": "gyeokgukFit",
+          "label": "격국적합도"
+        },
+        {
+          "kind": "text",
+          "value": "의 평균이 또렷한 사주는 자기 격에 맞는 직업 길이 한 결로 모이는 자리가 자주 등장해요.\n\n"
+        },
+        {
+          "kind": "tag",
+          "tagId": "jangseongsal",
+          "label": "장성살"
+        },
+        {
+          "kind": "text",
+          "value": "의 신호와 "
+        },
+        {
+          "kind": "tag",
+          "tagId": "cheonui",
+          "label": "천의"
+        },
+        {
+          "kind": "text",
+          "value": "의 결이 함께 보이는 사주는 자기 자리에 머무는 호흡과 곁의 도움을 거절하지 않는 호흡이 둘 다 잘 어울려요."
+        }
       ],
-      "tags": ["pyeongwangyeok", "jeonggwan", "yongshin"],
+      "tags": [
+        "pyeongwangyeok",
+        "jeonggwan",
+        "yongshin",
+        "gyeokgukYongshin",
+        "gyeokgukFit",
+        "jangseongsal",
+        "cheonui"
+      ],
       "numericalEvidence": [
         {
           "label": "성별 분기 순번",

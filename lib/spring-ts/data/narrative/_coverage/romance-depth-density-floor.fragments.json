@@ -740,7 +740,7 @@
         },
         {
           "kind": "text",
-          "value": "의 안정감만 보지 말고, 실제 생활에서 관계가 버티는지를 함께 봅니다. "
+          "value": "의 안정감만 보지 말고, 실제 생활에서 관계가 버티는지를 함께 봅니다.\n\n"
         },
         {
           "kind": "tag",
@@ -758,13 +758,43 @@
         },
         {
           "kind": "text",
-          "value": "가 낮게 읽히면 관계의 속도를 늦추고 확인 절차를 늘리는 편이 좋습니다."
+          "value": "가 낮게 읽히면 관계의 속도를 늦추고 확인 절차를 늘리는 편이 좋습니다.\n\n"
+        },
+        {
+          "kind": "tag",
+          "tagId": "cheogung",
+          "label": "처궁"
+        },
+        {
+          "kind": "text",
+          "value": "의 결과 "
+        },
+        {
+          "kind": "tag",
+          "tagId": "jasikgung",
+          "label": "자식궁"
+        },
+        {
+          "kind": "text",
+          "value": "의 자리가 함께 살아나는 시기엔 가까운 관계가 한 단계 깊어지는 흐름이 보여요.\n\n"
+        },
+        {
+          "kind": "tag",
+          "tagId": "cheonleulgwiin",
+          "label": "천을귀인"
+        },
+        {
+          "kind": "text",
+          "value": "의 결이 보이면 인연 자리에서도 부드러운 도움을 받는 흐름이 자기 자산이 되어 줘요."
         }
       ],
       "tags": [
         "baeujagung",
         "sajuCompatibility",
-        "stabilityIndex"
+        "stabilityIndex",
+        "cheogung",
+        "jasikgung",
+        "cheonleulgwiin"
       ],
       "numericalEvidence": [
         {
@@ -836,7 +866,7 @@
         },
         {
           "kind": "text",
-          "value": " 흐름이 크게 막히지 않을 때 감정 표현의 부담이 줄어드는 쪽으로 봅니다. "
+          "value": " 흐름이 크게 막히지 않을 때 감정 표현의 부담이 줄어드는 쪽으로 봅니다.\n\n"
         },
         {
           "kind": "tag",
@@ -854,13 +884,43 @@
         },
         {
           "kind": "text",
-          "value": "가 한쪽으로 치우치지 않도록 표현과 경청을 함께 두는 해석이 적절합니다."
+          "value": "가 한쪽으로 치우치지 않도록 표현과 경청을 함께 두는 해석이 적절합니다.\n\n"
+        },
+        {
+          "kind": "tag",
+          "tagId": "cheogung",
+          "label": "처궁"
+        },
+        {
+          "kind": "text",
+          "value": "의 결과 "
+        },
+        {
+          "kind": "tag",
+          "tagId": "jasikgung",
+          "label": "자식궁"
+        },
+        {
+          "kind": "text",
+          "value": "의 자리가 함께 살아나는 시기엔 가까운 관계가 한 단계 깊어지는 흐름이 보여요.\n\n"
+        },
+        {
+          "kind": "tag",
+          "tagId": "cheonleulgwiin",
+          "label": "천을귀인"
+        },
+        {
+          "kind": "text",
+          "value": "의 결이 보이면 인연 자리에서도 부드러운 도움을 받는 흐름이 자기 자산이 되어 줘요."
         }
       ],
       "tags": [
         "yongshin",
         "baeujagung",
-        "eumyangHarmony"
+        "eumyangHarmony",
+        "cheogung",
+        "jasikgung",
+        "cheonleulgwiin"
       ],
       "numericalEvidence": [
         {
@@ -916,7 +976,7 @@
         },
         {
           "kind": "text",
-          "value": " 흐름과 충돌하는 기운이 있으면 관계 판단을 서두르지 않는 편이 낫습니다. "
+          "value": " 흐름과 충돌하는 기운이 있으면 관계 판단을 서두르지 않는 편이 낫습니다.\n\n"
         },
         {
           "kind": "tag",
@@ -934,13 +994,47 @@
         },
         {
           "kind": "text",
-          "value": "가 흔들리면 중요한 답변은 하루 정도 늦춰 해석합니다."
+          "value": "가 흔들리면 중요한 답변은 하루 정도 늦춰 해석합니다.\n\n"
+        },
+        {
+          "kind": "tag",
+          "tagId": "cheonleulgwiin",
+          "label": "천을귀인"
+        },
+        {
+          "kind": "text",
+          "value": "의 결이 보이면 인연 자리에서도 부드러운 도움을 받는 흐름이 자기 자산이 되어 줘요.\n\n"
+        },
+        {
+          "kind": "text",
+          "value": "인연 자리는 "
+        },
+        {
+          "kind": "tag",
+          "tagId": "baeujagung",
+          "label": "배우자궁"
+        },
+        {
+          "kind": "text",
+          "value": "의 결과 "
+        },
+        {
+          "kind": "tag",
+          "tagId": "jeonggwan",
+          "label": "정관"
+        },
+        {
+          "kind": "text",
+          "value": "의 책임 결이 함께 단단해질 때 깊이가 자라고, 자기 흐름을 감추기보다 부드럽게 보여 두는 호흡이 잘 어울려요."
         }
       ],
       "tags": [
         "yongshin",
         "sajuCompatibility",
-        "stabilityIndex"
+        "stabilityIndex",
+        "cheonleulgwiin",
+        "baeujagung",
+        "jeonggwan"
       ],
       "numericalEvidence": [
         {
@@ -997,7 +1091,7 @@
         },
         {
           "kind": "text",
-          "value": " 보조가 있을 때 관계의 진전보다 대화 리듬의 안정성을 우선 봅니다. "
+          "value": " 보조가 있을 때 관계의 진전보다 대화 리듬의 안정성을 우선 봅니다.\n\n"
         },
         {
           "kind": "tag",
@@ -1015,13 +1109,46 @@
         },
         {
           "kind": "text",
-          "value": "는 서로의 일정 조율 능력까지 포함해 판단합니다."
+          "value": "는 서로의 일정 조율 능력까지 포함해 판단합니다.\n\n"
+        },
+        {
+          "kind": "tag",
+          "tagId": "cheonleulgwiin",
+          "label": "천을귀인"
+        },
+        {
+          "kind": "text",
+          "value": "의 결이 보이면 인연 자리에서도 부드러운 도움을 받는 흐름이 자기 자산이 되어 줘요.\n\n"
+        },
+        {
+          "kind": "text",
+          "value": "인연 자리는 "
+        },
+        {
+          "kind": "tag",
+          "tagId": "baeujagung",
+          "label": "배우자궁"
+        },
+        {
+          "kind": "text",
+          "value": "의 결과 "
+        },
+        {
+          "kind": "tag",
+          "tagId": "jeonggwan",
+          "label": "정관"
+        },
+        {
+          "kind": "text",
+          "value": "의 책임 결이 함께 단단해질 때 깊이가 자라고, 자기 흐름을 감추기보다 부드럽게 보여 두는 호흡이 잘 어울려요."
         }
       ],
       "tags": [
         "yongshin",
         "baeujagung",
-        "sajuCompatibility"
+        "sajuCompatibility",
+        "cheonleulgwiin",
+        "jeonggwan"
       ],
       "numericalEvidence": [
         {
@@ -1077,7 +1204,7 @@
         },
         {
           "kind": "text",
-          "value": " 충돌이 관계 해석에 잡히면 고백, 약속, 관계 정의를 한 번 늦춰 보는 편이 안전합니다. "
+          "value": " 충돌이 관계 해석에 잡히면 고백, 약속, 관계 정의를 한 번 늦춰 보는 편이 안전합니다.\n\n"
         },
         {
           "kind": "tag",
@@ -1095,13 +1222,57 @@
         },
         {
           "kind": "text",
-          "value": "를 확인하듯 대화의 지속성을 먼저 봅니다."
+          "value": "를 확인하듯 대화의 지속성을 먼저 봅니다.\n\n"
+        },
+        {
+          "kind": "text",
+          "value": "인연 자리는 "
+        },
+        {
+          "kind": "tag",
+          "tagId": "baeujagung",
+          "label": "배우자궁"
+        },
+        {
+          "kind": "text",
+          "value": "의 결과 "
+        },
+        {
+          "kind": "tag",
+          "tagId": "jeonggwan",
+          "label": "정관"
+        },
+        {
+          "kind": "text",
+          "value": "의 책임 결이 함께 단단해질 때 깊이가 자라고, 자기 흐름을 감추기보다 부드럽게 보여 두는 호흡이 잘 어울려요.\n\n"
+        },
+        {
+          "kind": "tag",
+          "tagId": "dohwa",
+          "label": "도화"
+        },
+        {
+          "kind": "text",
+          "value": "의 신호와 "
+        },
+        {
+          "kind": "tag",
+          "tagId": "hongyeom",
+          "label": "홍염"
+        },
+        {
+          "kind": "text",
+          "value": "의 결이 함께 보이면 매력의 흐름이 또렷해지지만, 자기 호흡을 잃지 않는 페이스가 자기를 지키는 자리예요."
         }
       ],
       "tags": [
         "yongshin",
         "eumyangHarmony",
-        "stabilityIndex"
+        "stabilityIndex",
+        "baeujagung",
+        "jeonggwan",
+        "dohwa",
+        "hongyeom"
       ],
       "numericalEvidence": [
         {
@@ -1158,7 +1329,7 @@
         },
         {
           "kind": "text",
-          "value": " 흐름이 받쳐줄 때 관계의 확장보다 유지력이 핵심입니다. "
+          "value": " 흐름이 받쳐줄 때 관계의 확장보다 유지력이 핵심입니다.\n\n"
         },
         {
           "kind": "tag",
@@ -1176,13 +1347,53 @@
         },
         {
           "kind": "text",
-          "value": "는 서로의 생활 패턴이 무리 없이 맞는지까지 포함해 읽어야 합니다."
+          "value": "는 서로의 생활 패턴이 무리 없이 맞는지까지 포함해 읽어야 합니다.\n\n"
+        },
+        {
+          "kind": "tag",
+          "tagId": "dohwa",
+          "label": "도화"
+        },
+        {
+          "kind": "text",
+          "value": "의 신호와 "
+        },
+        {
+          "kind": "tag",
+          "tagId": "hongyeom",
+          "label": "홍염"
+        },
+        {
+          "kind": "text",
+          "value": "의 결이 함께 보이면 매력의 흐름이 또렷해지지만, 자기 호흡을 잃지 않는 페이스가 자기를 지키는 자리예요.\n\n"
+        },
+        {
+          "kind": "tag",
+          "tagId": "cheogung",
+          "label": "처궁"
+        },
+        {
+          "kind": "text",
+          "value": "의 결과 "
+        },
+        {
+          "kind": "tag",
+          "tagId": "jasikgung",
+          "label": "자식궁"
+        },
+        {
+          "kind": "text",
+          "value": "의 자리가 함께 살아나는 시기엔 가까운 관계가 한 단계 깊어지는 흐름이 보여요."
         }
       ],
       "tags": [
         "yongshin",
         "baeujagung",
-        "sajuCompatibility"
+        "sajuCompatibility",
+        "dohwa",
+        "hongyeom",
+        "cheogung",
+        "jasikgung"
       ],
       "numericalEvidence": [
         {
@@ -1238,7 +1449,7 @@
         },
         {
           "kind": "text",
-          "value": "과 충돌하는 흐름이 보이면 관계 결정을 한 번에 확정하지 않는 편이 좋습니다. "
+          "value": "과 충돌하는 흐름이 보이면 관계 결정을 한 번에 확정하지 않는 편이 좋습니다.\n\n"
         },
         {
           "kind": "tag",
@@ -1256,13 +1467,43 @@
         },
         {
           "kind": "text",
-          "value": "가 회복될 때까지 대화의 압박을 줄이는 해석이 맞습니다."
+          "value": "가 회복될 때까지 대화의 압박을 줄이는 해석이 맞습니다.\n\n"
+        },
+        {
+          "kind": "tag",
+          "tagId": "cheogung",
+          "label": "처궁"
+        },
+        {
+          "kind": "text",
+          "value": "의 결과 "
+        },
+        {
+          "kind": "tag",
+          "tagId": "jasikgung",
+          "label": "자식궁"
+        },
+        {
+          "kind": "text",
+          "value": "의 자리가 함께 살아나는 시기엔 가까운 관계가 한 단계 깊어지는 흐름이 보여요.\n\n"
+        },
+        {
+          "kind": "tag",
+          "tagId": "cheonleulgwiin",
+          "label": "천을귀인"
+        },
+        {
+          "kind": "text",
+          "value": "의 결이 보이면 인연 자리에서도 부드러운 도움을 받는 흐름이 자기 자산이 되어 줘요."
         }
       ],
       "tags": [
         "yongshin",
         "stabilityIndex",
-        "eumyangHarmony"
+        "eumyangHarmony",
+        "cheogung",
+        "jasikgung",
+        "cheonleulgwiin"
       ],
       "numericalEvidence": [
         {

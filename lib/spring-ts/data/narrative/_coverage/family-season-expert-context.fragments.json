@@ -6,21 +6,80 @@
     {
       "schemaVersion": "spring-ts.narrative-fragment.v1",
       "fragmentId": "family.today.expert.currentseason.spring_summer.301",
-      "axis": { "category": "family", "period": "today", "depth": "expert" },
+      "axis": {
+        "category": "family",
+        "period": "today",
+        "depth": "expert"
+      },
       "gating": {
-        "currentSeason": ["spring", "summer"],
-        "yongshinAlignment": ["aligned", "neutral", "conflicting"]
+        "currentSeason": [
+          "spring",
+          "summer"
+        ],
+        "yongshinAlignment": [
+          "aligned",
+          "neutral",
+          "conflicting"
+        ]
       },
       "templateTokens": [
-        { "kind": "text", "value": "오늘 가족 흐름에서 봄과 여름 기운은 말과 반응 속도를 빠르게 만듭니다. " },
-        { "kind": "tag", "tagId": "bigyeon", "label": "비견" },
-        { "kind": "text", "value": "이 강하면 내 기준을 지키려는 힘이 커지고, " },
-        { "kind": "tag", "tagId": "jeongin", "label": "정인" },
-        { "kind": "text", "value": "이 받쳐 주면 정서적 회복이 빠릅니다. " },
-        { "kind": "tag", "tagId": "jeonggwan", "label": "정관" },
-        { "kind": "text", "value": "처럼 책임을 앞세운 말이 과하면 대화가 지시처럼 들릴 수 있습니다." }
+        {
+          "kind": "text",
+          "value": "오늘 가족 흐름에서 봄과 여름 기운은 말과 반응 속도를 빠르게 만듭니다.\n\n"
+        },
+        {
+          "kind": "tag",
+          "tagId": "bigyeon",
+          "label": "비견"
+        },
+        {
+          "kind": "text",
+          "value": "이 강하면 내 기준을 지키려는 힘이 커지고, "
+        },
+        {
+          "kind": "tag",
+          "tagId": "jeongin",
+          "label": "정인"
+        },
+        {
+          "kind": "text",
+          "value": "이 받쳐 주면 정서적 회복이 빠릅니다.\n\n"
+        },
+        {
+          "kind": "tag",
+          "tagId": "jeonggwan",
+          "label": "정관"
+        },
+        {
+          "kind": "text",
+          "value": "처럼 책임을 앞세운 말이 과하면 대화가 지시처럼 들릴 수 있습니다.\n\n"
+        },
+        {
+          "kind": "tag",
+          "tagId": "samhyeong",
+          "label": "삼형"
+        },
+        {
+          "kind": "text",
+          "value": "이나 "
+        },
+        {
+          "kind": "tag",
+          "tagId": "hyeongsal",
+          "label": "형살"
+        },
+        {
+          "kind": "text",
+          "value": "의 신호가 보이는 시기엔 가족 안의 작은 부딪힘을 짧게 끊고 가는 호흡이 잘 어울려요."
+        }
       ],
-      "tags": ["bigyeon", "jeongin", "jeonggwan"],
+      "tags": [
+        "bigyeon",
+        "jeongin",
+        "jeonggwan",
+        "samhyeong",
+        "hyeongsal"
+      ],
       "numericalEvidence": [
         {
           "label": "연령 단계 순번",
@@ -98,21 +157,80 @@
     {
       "schemaVersion": "spring-ts.narrative-fragment.v1",
       "fragmentId": "family.today.expert.currentseason.autumn_winter.301",
-      "axis": { "category": "family", "period": "today", "depth": "expert" },
+      "axis": {
+        "category": "family",
+        "period": "today",
+        "depth": "expert"
+      },
       "gating": {
-        "currentSeason": ["autumn", "winter"],
-        "yongshinAlignment": ["aligned", "neutral", "conflicting"]
+        "currentSeason": [
+          "autumn",
+          "winter"
+        ],
+        "yongshinAlignment": [
+          "aligned",
+          "neutral",
+          "conflicting"
+        ]
       },
       "templateTokens": [
-        { "kind": "text", "value": "오늘 가족 흐름에서 가을과 겨울 기운은 책임과 약속을 확인하게 합니다. " },
-        { "kind": "tag", "tagId": "jeonggwan", "label": "정관" },
-        { "kind": "text", "value": "이 안정되면 역할이 분명해지고, " },
-        { "kind": "tag", "tagId": "jeongin", "label": "정인" },
-        { "kind": "text", "value": "은 서로를 보호하는 정서적 기반이 됩니다. " },
-        { "kind": "tag", "tagId": "bigyeon", "label": "비견" },
-        { "kind": "text", "value": "이 과하면 각자 옳다고 버티는 흐름이 생길 수 있습니다." }
+        {
+          "kind": "text",
+          "value": "오늘 가족 흐름에서 가을과 겨울 기운은 책임과 약속을 확인하게 합니다.\n\n"
+        },
+        {
+          "kind": "tag",
+          "tagId": "jeonggwan",
+          "label": "정관"
+        },
+        {
+          "kind": "text",
+          "value": "이 안정되면 역할이 분명해지고, "
+        },
+        {
+          "kind": "tag",
+          "tagId": "jeongin",
+          "label": "정인"
+        },
+        {
+          "kind": "text",
+          "value": "은 서로를 보호하는 정서적 기반이 됩니다.\n\n"
+        },
+        {
+          "kind": "tag",
+          "tagId": "bigyeon",
+          "label": "비견"
+        },
+        {
+          "kind": "text",
+          "value": "이 과하면 각자 옳다고 버티는 흐름이 생길 수 있습니다.\n\n"
+        },
+        {
+          "kind": "tag",
+          "tagId": "cheondeokgwiin",
+          "label": "천덕귀인"
+        },
+        {
+          "kind": "text",
+          "value": "의 결과 "
+        },
+        {
+          "kind": "tag",
+          "tagId": "woldeokgwiin",
+          "label": "월덕귀인"
+        },
+        {
+          "kind": "text",
+          "value": "의 자리가 함께 보이는 사주는 가족 안에서 부드럽게 도움 주고받는 흐름이 자기 자산이 되는 모양이에요."
+        }
       ],
-      "tags": ["jeonggwan", "jeongin", "bigyeon"],
+      "tags": [
+        "jeonggwan",
+        "jeongin",
+        "bigyeon",
+        "cheondeokgwiin",
+        "woldeokgwiin"
+      ],
       "aiGenerated": true,
       "sourceTier": {
         "tier": "T1_HYPOTHESIS",
@@ -128,21 +246,80 @@
     {
       "schemaVersion": "spring-ts.narrative-fragment.v1",
       "fragmentId": "family.thisWeek.expert.currentseason.spring_summer.301",
-      "axis": { "category": "family", "period": "thisWeek", "depth": "expert" },
+      "axis": {
+        "category": "family",
+        "period": "thisWeek",
+        "depth": "expert"
+      },
       "gating": {
-        "currentSeason": ["spring", "summer"],
-        "yongshinAlignment": ["aligned", "neutral", "conflicting"]
+        "currentSeason": [
+          "spring",
+          "summer"
+        ],
+        "yongshinAlignment": [
+          "aligned",
+          "neutral",
+          "conflicting"
+        ]
       },
       "templateTokens": [
-        { "kind": "text", "value": "이번 주 가족 흐름은 즉각적인 소통과 빠른 조정이 늘 수 있습니다. " },
-        { "kind": "tag", "tagId": "bigyeon", "label": "비견" },
-        { "kind": "text", "value": "은 자기 기준을 드러내고, " },
-        { "kind": "tag", "tagId": "jeongin", "label": "정인" },
-        { "kind": "text", "value": "은 들어 주고 회복시키는 역할을 합니다. " },
-        { "kind": "tag", "tagId": "jeonggwan", "label": "정관" },
-        { "kind": "text", "value": "이 강한 사람과는 역할과 마감선을 먼저 합의해야 합니다." }
+        {
+          "kind": "text",
+          "value": "이번 주 가족 흐름은 즉각적인 소통과 빠른 조정이 늘 수 있습니다.\n\n"
+        },
+        {
+          "kind": "tag",
+          "tagId": "bigyeon",
+          "label": "비견"
+        },
+        {
+          "kind": "text",
+          "value": "은 자기 기준을 드러내고, "
+        },
+        {
+          "kind": "tag",
+          "tagId": "jeongin",
+          "label": "정인"
+        },
+        {
+          "kind": "text",
+          "value": "은 들어 주고 회복시키는 역할을 합니다.\n\n"
+        },
+        {
+          "kind": "tag",
+          "tagId": "jeonggwan",
+          "label": "정관"
+        },
+        {
+          "kind": "text",
+          "value": "이 강한 사람과는 역할과 마감선을 먼저 합의해야 합니다.\n\n"
+        },
+        {
+          "kind": "tag",
+          "tagId": "cheondeokgwiin",
+          "label": "천덕귀인"
+        },
+        {
+          "kind": "text",
+          "value": "의 결과 "
+        },
+        {
+          "kind": "tag",
+          "tagId": "woldeokgwiin",
+          "label": "월덕귀인"
+        },
+        {
+          "kind": "text",
+          "value": "의 자리가 함께 보이는 사주는 가족 안에서 부드럽게 도움 주고받는 흐름이 자기 자산이 되는 모양이에요."
+        }
       ],
-      "tags": ["bigyeon", "jeongin", "jeonggwan"],
+      "tags": [
+        "bigyeon",
+        "jeongin",
+        "jeonggwan",
+        "cheondeokgwiin",
+        "woldeokgwiin"
+      ],
       "aiGenerated": true,
       "sourceTier": {
         "tier": "T1_HYPOTHESIS",
@@ -158,21 +335,104 @@
     {
       "schemaVersion": "spring-ts.narrative-fragment.v1",
       "fragmentId": "family.thisWeek.expert.currentseason.autumn_winter.301",
-      "axis": { "category": "family", "period": "thisWeek", "depth": "expert" },
+      "axis": {
+        "category": "family",
+        "period": "thisWeek",
+        "depth": "expert"
+      },
       "gating": {
-        "currentSeason": ["autumn", "winter"],
-        "yongshinAlignment": ["aligned", "neutral", "conflicting"]
+        "currentSeason": [
+          "autumn",
+          "winter"
+        ],
+        "yongshinAlignment": [
+          "aligned",
+          "neutral",
+          "conflicting"
+        ]
       },
       "templateTokens": [
-        { "kind": "text", "value": "이번 주 가족 흐름은 약속, 비용, 책임처럼 현실적인 주제가 중심이 됩니다. " },
-        { "kind": "tag", "tagId": "jeonggwan", "label": "정관" },
-        { "kind": "text", "value": "은 규칙을 세우지만, " },
-        { "kind": "tag", "tagId": "bigyeon", "label": "비견" },
-        { "kind": "text", "value": "이 강하면 서로 양보하지 않는 대립이 생길 수 있습니다. " },
-        { "kind": "tag", "tagId": "jeongin", "label": "정인" },
-        { "kind": "text", "value": "의 완충 역할을 먼저 확보하세요." }
+        {
+          "kind": "text",
+          "value": "이번 주 가족 흐름은 약속, 비용, 책임처럼 현실적인 주제가 중심이 됩니다.\n\n"
+        },
+        {
+          "kind": "tag",
+          "tagId": "jeonggwan",
+          "label": "정관"
+        },
+        {
+          "kind": "text",
+          "value": "은 규칙을 세우지만, "
+        },
+        {
+          "kind": "tag",
+          "tagId": "bigyeon",
+          "label": "비견"
+        },
+        {
+          "kind": "text",
+          "value": "이 강하면 서로 양보하지 않는 대립이 생길 수 있습니다. "
+        },
+        {
+          "kind": "tag",
+          "tagId": "jeongin",
+          "label": "정인"
+        },
+        {
+          "kind": "text",
+          "value": "의 완충 역할을 먼저 확보하세요.\n\n"
+        },
+        {
+          "kind": "tag",
+          "tagId": "samhyeong",
+          "label": "삼형"
+        },
+        {
+          "kind": "text",
+          "value": "이나 "
+        },
+        {
+          "kind": "tag",
+          "tagId": "hyeongsal",
+          "label": "형살"
+        },
+        {
+          "kind": "text",
+          "value": "의 신호가 보이는 시기엔 가족 안의 작은 부딪힘을 짧게 끊고 가는 호흡이 잘 어울려요.\n\n"
+        },
+        {
+          "kind": "text",
+          "value": "가족 자리는 "
+        },
+        {
+          "kind": "tag",
+          "tagId": "bumyong",
+          "label": "부모궁"
+        },
+        {
+          "kind": "text",
+          "value": "과 "
+        },
+        {
+          "kind": "tag",
+          "tagId": "baeujagung",
+          "label": "배우자궁"
+        },
+        {
+          "kind": "text",
+          "value": "의 결이 어떻게 받쳐 주느냐를 함께 살펴 두면 흐름의 결정이 더 단단해지고, 작은 인사 한 마디가 평생의 자산이 되는 자리예요."
+        }
       ],
-      "tags": ["jeonggwan", "bigyeon", "jeongin"],
+      "tags": [
+        "jeonggwan",
+        "bigyeon",
+        "jeongin",
+        "samhyeong",
+        "hyeongsal",
+        "bumyong",
+        "baeujagung"
+      ],
       "aiGenerated": true,
       "sourceTier": {
         "tier": "T1_HYPOTHESIS",
@@ -188,21 +448,80 @@
     {
       "schemaVersion": "spring-ts.narrative-fragment.v1",
       "fragmentId": "family.thisMonth.expert.currentseason.spring_summer.301",
-      "axis": { "category": "family", "period": "thisMonth", "depth": "expert" },
+      "axis": {
+        "category": "family",
+        "period": "thisMonth",
+        "depth": "expert"
+      },
       "gating": {
-        "currentSeason": ["spring", "summer"],
-        "yongshinAlignment": ["aligned", "neutral", "conflicting"]
+        "currentSeason": [
+          "spring",
+          "summer"
+        ],
+        "yongshinAlignment": [
+          "aligned",
+          "neutral",
+          "conflicting"
+        ]
       },
       "templateTokens": [
-        { "kind": "text", "value": "이번 달 가족 흐름은 소통량이 늘면서 묵혀 둔 감정도 같이 드러날 수 있습니다. " },
-        { "kind": "tag", "tagId": "bigyeon", "label": "비견" },
-        { "kind": "text", "value": "은 각자의 기준을 선명하게 만들고, " },
-        { "kind": "tag", "tagId": "jeongin", "label": "정인" },
-        { "kind": "text", "value": "은 그 기준을 부드럽게 받아 주는 역할을 합니다. " },
-        { "kind": "tag", "tagId": "jeonggwan", "label": "정관" },
-        { "kind": "text", "value": "의 책임 배분은 문장으로 남겨 오해를 줄이세요." }
+        {
+          "kind": "text",
+          "value": "이번 달 가족 흐름은 소통량이 늘면서 묵혀 둔 감정도 같이 드러날 수 있습니다.\n\n"
+        },
+        {
+          "kind": "tag",
+          "tagId": "bigyeon",
+          "label": "비견"
+        },
+        {
+          "kind": "text",
+          "value": "은 각자의 기준을 선명하게 만들고, "
+        },
+        {
+          "kind": "tag",
+          "tagId": "jeongin",
+          "label": "정인"
+        },
+        {
+          "kind": "text",
+          "value": "은 그 기준을 부드럽게 받아 주는 역할을 합니다.\n\n"
+        },
+        {
+          "kind": "tag",
+          "tagId": "jeonggwan",
+          "label": "정관"
+        },
+        {
+          "kind": "text",
+          "value": "의 책임 배분은 문장으로 남겨 오해를 줄이세요.\n\n"
+        },
+        {
+          "kind": "tag",
+          "tagId": "cheondeokgwiin",
+          "label": "천덕귀인"
+        },
+        {
+          "kind": "text",
+          "value": "의 결과 "
+        },
+        {
+          "kind": "tag",
+          "tagId": "woldeokgwiin",
+          "label": "월덕귀인"
+        },
+        {
+          "kind": "text",
+          "value": "의 자리가 함께 보이는 사주는 가족 안에서 부드럽게 도움 주고받는 흐름이 자기 자산이 되는 모양이에요."
+        }
       ],
-      "tags": ["bigyeon", "jeongin", "jeonggwan"],
+      "tags": [
+        "bigyeon",
+        "jeongin",
+        "jeonggwan",
+        "cheondeokgwiin",
+        "woldeokgwiin"
+      ],
       "aiGenerated": true,
       "sourceTier": {
         "tier": "T1_HYPOTHESIS",
@@ -218,21 +537,80 @@
     {
       "schemaVersion": "spring-ts.narrative-fragment.v1",
       "fragmentId": "family.thisMonth.expert.currentseason.autumn_winter.301",
-      "axis": { "category": "family", "period": "thisMonth", "depth": "expert" },
+      "axis": {
+        "category": "family",
+        "period": "thisMonth",
+        "depth": "expert"
+      },
       "gating": {
-        "currentSeason": ["autumn", "winter"],
-        "yongshinAlignment": ["aligned", "neutral", "conflicting"]
+        "currentSeason": [
+          "autumn",
+          "winter"
+        ],
+        "yongshinAlignment": [
+          "aligned",
+          "neutral",
+          "conflicting"
+        ]
       },
       "templateTokens": [
-        { "kind": "text", "value": "이번 달 가족 흐름은 장기적인 책임과 신뢰 회복을 점검하게 합니다. " },
-        { "kind": "tag", "tagId": "jeonggwan", "label": "정관" },
-        { "kind": "text", "value": "은 역할을 고정하고, " },
-        { "kind": "tag", "tagId": "jeongin", "label": "정인" },
-        { "kind": "text", "value": "은 감정적 안전감을 만듭니다. " },
-        { "kind": "tag", "tagId": "bigyeon", "label": "비견" },
-        { "kind": "text", "value": "이 과하면 가족 안에서도 경쟁처럼 느껴질 수 있으니 비교 표현은 줄이세요." }
+        {
+          "kind": "text",
+          "value": "이번 달 가족 흐름은 장기적인 책임과 신뢰 회복을 점검하게 합니다.\n\n"
+        },
+        {
+          "kind": "tag",
+          "tagId": "jeonggwan",
+          "label": "정관"
+        },
+        {
+          "kind": "text",
+          "value": "은 역할을 고정하고, "
+        },
+        {
+          "kind": "tag",
+          "tagId": "jeongin",
+          "label": "정인"
+        },
+        {
+          "kind": "text",
+          "value": "은 감정적 안전감을 만듭니다.\n\n"
+        },
+        {
+          "kind": "tag",
+          "tagId": "bigyeon",
+          "label": "비견"
+        },
+        {
+          "kind": "text",
+          "value": "이 과하면 가족 안에서도 경쟁처럼 느껴질 수 있으니 비교 표현은 줄이세요.\n\n"
+        },
+        {
+          "kind": "tag",
+          "tagId": "samhyeong",
+          "label": "삼형"
+        },
+        {
+          "kind": "text",
+          "value": "이나 "
+        },
+        {
+          "kind": "tag",
+          "tagId": "hyeongsal",
+          "label": "형살"
+        },
+        {
+          "kind": "text",
+          "value": "의 신호가 보이는 시기엔 가족 안의 작은 부딪힘을 짧게 끊고 가는 호흡이 잘 어울려요."
+        }
       ],
-      "tags": ["jeonggwan", "jeongin", "bigyeon"],
+      "tags": [
+        "jeonggwan",
+        "jeongin",
+        "bigyeon",
+        "samhyeong",
+        "hyeongsal"
+      ],
       "aiGenerated": true,
       "sourceTier": {
         "tier": "T1_HYPOTHESIS",

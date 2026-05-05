@@ -25,7 +25,7 @@
       "templateTokens": [
         {
           "kind": "text",
-          "value": "아동·청소년의 오늘 학업운은 성취 판정보다 집중을 유지할 수 있는 환경을 먼저 봐야 해요. "
+          "value": "아동·청소년의 오늘 학업운은 성취 판정보다 집중을 유지할 수 있는 환경을 먼저 봐야 해요.\n\n"
         },
         {
           "kind": "tag",
@@ -43,7 +43,7 @@
         },
         {
           "kind": "text",
-          "value": "의 학습 수용성이 흔들리면 새 내용을 밀어붙이기보다 짧은 복습 단위가 좋습니다. "
+          "value": "의 학습 수용성이 흔들리면 새 내용을 밀어붙이기보다 짧은 복습 단위가 좋습니다.\n\n"
         },
         {
           "kind": "tag",
@@ -61,7 +61,29 @@
         },
         {
           "kind": "text",
-          "value": "는 오늘 공부 방식이 아이의 회복 리듬과 맞는지 확인하는 보조 지표입니다."
+          "value": "는 오늘 공부 방식이 아이의 회복 리듬과 맞는지 확인하는 보조 지표입니다.\n\n"
+        },
+        {
+          "kind": "text",
+          "value": "평소엔 "
+        },
+        {
+          "kind": "tag",
+          "tagId": "jeongin",
+          "label": "정인"
+        },
+        {
+          "kind": "text",
+          "value": "의 토대를 단단히 두고, "
+        },
+        {
+          "kind": "tag",
+          "tagId": "sikshin",
+          "label": "식신"
+        },
+        {
+          "kind": "text",
+          "value": "이 받쳐 주는 시기에는 익힌 것을 자기 말로 풀어 두는 자리를 챙기면 학업의 흐름이 더 또렷해져요."
         }
       ],
       "livingTips": [
@@ -144,7 +166,7 @@
       "templateTokens": [
         {
           "kind": "text",
-          "value": "성인 초·중년의 오늘 학업운은 업무, 자격, 실무 학습을 동시에 고려해야 해요. "
+          "value": "성인 초·중년의 오늘 학업운은 업무, 자격, 실무 학습을 동시에 고려해야 해요.\n\n"
         },
         {
           "kind": "tag",
@@ -162,7 +184,7 @@
         },
         {
           "kind": "text",
-          "value": "은 낯선 자료를 해석하는 힘으로 봅니다. "
+          "value": "은 낯선 자료를 해석하는 힘으로 봅니다.\n\n"
         },
         {
           "kind": "tag",
@@ -180,7 +202,25 @@
         },
         {
           "kind": "text",
-          "value": "가 낮으면 오늘은 새 범위보다 기존 자료 정리가 더 안전합니다."
+          "value": "가 낮으면 오늘은 새 범위보다 기존 자료 정리가 더 안전합니다.\n\n"
+        },
+        {
+          "kind": "tag",
+          "tagId": "tonggwanYongshin",
+          "label": "통관용신"
+        },
+        {
+          "kind": "text",
+          "value": "의 결과 "
+        },
+        {
+          "kind": "tag",
+          "tagId": "byeongyakYongshin",
+          "label": "병약용신"
+        },
+        {
+          "kind": "text",
+          "value": "의 자리가 함께 또렷해지는 사주는 학습의 깊이가 자기 흐름의 균형을 따라가는 자리예요."
         }
       ],
       "livingTips": [
@@ -194,7 +234,9 @@
         "jeongin",
         "pyeonin",
         "sikshin",
-        "stabilityIndex"
+        "stabilityIndex",
+        "tonggwanYongshin",
+        "byeongyakYongshin"
       ],
       "numericalEvidence": [
         {
@@ -262,7 +304,7 @@
       "templateTokens": [
         {
           "kind": "text",
-          "value": "중·장년 이후의 오늘 학업운은 시험식 성취보다 기억 정리와 경험 재해석을 중심에 둡니다. "
+          "value": "중·장년 이후의 오늘 학업운은 시험식 성취보다 기억 정리와 경험 재해석을 중심에 둡니다.\n\n"
         },
         {
           "kind": "tag",
@@ -280,7 +322,7 @@
         },
         {
           "kind": "text",
-          "value": "은 관심 주제를 깊게 파고드는 흐름으로 쓰기 좋아요. "
+          "value": "은 관심 주제를 깊게 파고드는 흐름으로 쓰기 좋아요.\n\n"
         },
         {
           "kind": "tag",
@@ -298,7 +340,25 @@
         },
         {
           "kind": "text",
-          "value": "은 배운 것을 누군가에게 설명하거나 기록으로 남길 때 살아납니다."
+          "value": "은 배운 것을 누군가에게 설명하거나 기록으로 남길 때 살아납니다.\n\n"
+        },
+        {
+          "kind": "tag",
+          "tagId": "daewoonGungsil",
+          "label": "대운궁실"
+        },
+        {
+          "kind": "text",
+          "value": "의 결과 "
+        },
+        {
+          "kind": "tag",
+          "tagId": "iljin",
+          "label": "일진"
+        },
+        {
+          "kind": "text",
+          "value": "의 자리가 함께 살아나는 시기엔 평소 미뤄 둔 학습 한 단원을 매듭짓기에 좋은 흐름이 보여요."
         }
       ],
       "livingTips": [
@@ -312,7 +372,9 @@
         "jeongin",
         "pyeonin",
         "stabilityIndex",
-        "sikshin"
+        "sikshin",
+        "daewoonGungsil",
+        "iljin"
       ],
       "numericalEvidence": [
         {
@@ -380,7 +442,7 @@
       "templateTokens": [
         {
           "kind": "text",
-          "value": "아동·청소년의 이번 주 학업운은 한 번의 성과보다 학습 리듬의 반복성을 봐야 합니다. "
+          "value": "아동·청소년의 이번 주 학업운은 한 번의 성과보다 학습 리듬의 반복성을 봐야 합니다.\n\n"
         },
         {
           "kind": "tag",
@@ -398,7 +460,7 @@
         },
         {
           "kind": "text",
-          "value": "은 낯선 문제를 관찰하는 힘으로 작용해요. "
+          "value": "은 낯선 문제를 관찰하는 힘으로 작용해요.\n\n"
         },
         {
           "kind": "tag",
@@ -416,7 +478,25 @@
         },
         {
           "kind": "text",
-          "value": "가 낮으면 학습량보다 회복과 반복 간격을 조정하는 것이 우선입니다."
+          "value": "가 낮으면 학습량보다 회복과 반복 간격을 조정하는 것이 우선입니다.\n\n"
+        },
+        {
+          "kind": "tag",
+          "tagId": "tonggwanYongshin",
+          "label": "통관용신"
+        },
+        {
+          "kind": "text",
+          "value": "의 결과 "
+        },
+        {
+          "kind": "tag",
+          "tagId": "byeongyakYongshin",
+          "label": "병약용신"
+        },
+        {
+          "kind": "text",
+          "value": "의 자리가 함께 또렷해지는 사주는 학습의 깊이가 자기 흐름의 균형을 따라가는 자리예요."
         }
       ],
       "livingTips": [
@@ -430,7 +510,9 @@
         "jeongin",
         "pyeonin",
         "sikshin",
-        "yongshinFit"
+        "yongshinFit",
+        "tonggwanYongshin",
+        "byeongyakYongshin"
       ],
       "numericalEvidence": [
         {
@@ -499,7 +581,7 @@
       "templateTokens": [
         {
           "kind": "text",
-          "value": "성인 초·중년의 이번 주 학업운은 일정 관리와 결과물 전환을 함께 봐야 합니다. "
+          "value": "성인 초·중년의 이번 주 학업운은 일정 관리와 결과물 전환을 함께 봐야 합니다.\n\n"
         },
         {
           "kind": "tag",
@@ -517,7 +599,7 @@
         },
         {
           "kind": "text",
-          "value": "은 깊은 탐구와 해석으로 드러납니다. "
+          "value": "은 깊은 탐구와 해석으로 드러납니다.\n\n"
         },
         {
           "kind": "tag",
@@ -535,7 +617,25 @@
         },
         {
           "kind": "text",
-          "value": "는 학습 계획이 실제 업무와 생활을 무너뜨리지 않는지 확인하는 기준입니다."
+          "value": "는 학습 계획이 실제 업무와 생활을 무너뜨리지 않는지 확인하는 기준입니다.\n\n"
+        },
+        {
+          "kind": "tag",
+          "tagId": "munchanggwiin",
+          "label": "문창귀인"
+        },
+        {
+          "kind": "text",
+          "value": "의 결과 "
+        },
+        {
+          "kind": "tag",
+          "tagId": "hakdang",
+          "label": "학당"
+        },
+        {
+          "kind": "text",
+          "value": "의 자리가 함께 보이는 사주는 시험·연구 흐름이 부드럽게 자리 잡는 모양이라, 자기 흐름을 차분히 따라가는 페이스가 잘 어울려요."
         }
       ],
       "livingTips": [
@@ -549,7 +649,9 @@
         "jeongin",
         "pyeonin",
         "sikshin",
-        "stabilityIndex"
+        "stabilityIndex",
+        "munchanggwiin",
+        "hakdang"
       ],
       "numericalEvidence": [
         {
@@ -617,7 +719,7 @@
       "templateTokens": [
         {
           "kind": "text",
-          "value": "중·장년 이후의 이번 주 학업운은 오래 버티는 공부보다 기억, 취미, 경험 정리를 연결하는 흐름이 좋습니다. "
+          "value": "중·장년 이후의 이번 주 학업운은 오래 버티는 공부보다 기억, 취미, 경험 정리를 연결하는 흐름이 좋습니다.\n\n"
         },
         {
           "kind": "tag",
@@ -635,7 +737,7 @@
         },
         {
           "kind": "text",
-          "value": "은 관심 분야의 깊은 관찰로 작용합니다. "
+          "value": "은 관심 분야의 깊은 관찰로 작용합니다.\n\n"
         },
         {
           "kind": "tag",
@@ -653,7 +755,25 @@
         },
         {
           "kind": "text",
-          "value": "가 낮은 주에는 학습보다 건강한 반복을 먼저 지켜야 합니다."
+          "value": "가 낮은 주에는 학습보다 건강한 반복을 먼저 지켜야 합니다.\n\n"
+        },
+        {
+          "kind": "tag",
+          "tagId": "munchanggwiin",
+          "label": "문창귀인"
+        },
+        {
+          "kind": "text",
+          "value": "의 결과 "
+        },
+        {
+          "kind": "tag",
+          "tagId": "hakdang",
+          "label": "학당"
+        },
+        {
+          "kind": "text",
+          "value": "의 자리가 함께 보이는 사주는 시험·연구 흐름이 부드럽게 자리 잡는 모양이라, 자기 흐름을 차분히 따라가는 페이스가 잘 어울려요."
         }
       ],
       "livingTips": [
@@ -667,7 +787,9 @@
         "jeongin",
         "pyeonin",
         "sikshin",
-        "stabilityIndex"
+        "stabilityIndex",
+        "munchanggwiin",
+        "hakdang"
       ],
       "numericalEvidence": [
         {
@@ -735,7 +857,7 @@
       "templateTokens": [
         {
           "kind": "text",
-          "value": "아동·청소년의 이번 달 학업운은 한 달 안에 습관이 자리를 잡는지 보는 것이 핵심이에요. "
+          "value": "아동·청소년의 이번 달 학업운은 한 달 안에 습관이 자리를 잡는지 보는 것이 핵심이에요.\n\n"
         },
         {
           "kind": "tag",
@@ -753,7 +875,7 @@
         },
         {
           "kind": "text",
-          "value": "은 어려운 과목을 바라보는 관찰력으로 읽습니다. "
+          "value": "은 어려운 과목을 바라보는 관찰력으로 읽습니다.\n\n"
         },
         {
           "kind": "tag",
@@ -771,7 +893,25 @@
         },
         {
           "kind": "text",
-          "value": "가 낮은 달에는 성취 목표보다 루틴을 유지하는 보조 환경이 더 중요합니다."
+          "value": "가 낮은 달에는 성취 목표보다 루틴을 유지하는 보조 환경이 더 중요합니다.\n\n"
+        },
+        {
+          "kind": "tag",
+          "tagId": "daewoonGungsil",
+          "label": "대운궁실"
+        },
+        {
+          "kind": "text",
+          "value": "의 결과 "
+        },
+        {
+          "kind": "tag",
+          "tagId": "iljin",
+          "label": "일진"
+        },
+        {
+          "kind": "text",
+          "value": "의 자리가 함께 살아나는 시기엔 평소 미뤄 둔 학습 한 단원을 매듭짓기에 좋은 흐름이 보여요."
         }
       ],
       "livingTips": [
@@ -785,7 +925,9 @@
         "jeongin",
         "pyeonin",
         "sikshin",
-        "yongshinFit"
+        "yongshinFit",
+        "daewoonGungsil",
+        "iljin"
       ],
       "numericalEvidence": [
         {
@@ -854,7 +996,7 @@
       "templateTokens": [
         {
           "kind": "text",
-          "value": "성인 초·중년의 이번 달 학업운은 자격, 실무, 자기계발을 생활 구조와 함께 읽어야 합니다. "
+          "value": "성인 초·중년의 이번 달 학업운은 자격, 실무, 자기계발을 생활 구조와 함께 읽어야 합니다.\n\n"
         },
         {
           "kind": "tag",
@@ -881,7 +1023,7 @@
         },
         {
           "kind": "text",
-          "value": "은 결과물을 밖으로 내는 힘입니다. "
+          "value": "은 결과물을 밖으로 내는 힘입니다.\n\n"
         },
         {
           "kind": "tag",
@@ -890,7 +1032,29 @@
         },
         {
           "kind": "text",
-          "value": "가 받쳐 주면 한 달 과정이 자산으로 남지만, 낮으면 공부보다 일정 구조 조정이 먼저예요."
+          "value": "가 받쳐 주면 한 달 과정이 자산으로 남지만, 낮으면 공부보다 일정 구조 조정이 먼저예요.\n\n"
+        },
+        {
+          "kind": "text",
+          "value": "평소엔 "
+        },
+        {
+          "kind": "tag",
+          "tagId": "jeongin",
+          "label": "정인"
+        },
+        {
+          "kind": "text",
+          "value": "의 토대를 단단히 두고, "
+        },
+        {
+          "kind": "tag",
+          "tagId": "sikshin",
+          "label": "식신"
+        },
+        {
+          "kind": "text",
+          "value": "이 받쳐 주는 시기에는 익힌 것을 자기 말로 풀어 두는 자리를 챙기면 학업의 흐름이 더 또렷해져요."
         }
       ],
       "livingTips": [
@@ -972,7 +1136,7 @@
       "templateTokens": [
         {
           "kind": "text",
-          "value": "중·장년 이후의 이번 달 학업운은 지식 습득보다 경험을 다시 정리하고 나누는 흐름으로 보는 편이 맞습니다. "
+          "value": "중·장년 이후의 이번 달 학업운은 지식 습득보다 경험을 다시 정리하고 나누는 흐름으로 보는 편이 맞습니다.\n\n"
         },
         {
           "kind": "tag",
@@ -990,7 +1154,7 @@
         },
         {
           "kind": "text",
-          "value": "은 관심 주제의 깊은 이해로 쓰입니다. "
+          "value": "은 관심 주제의 깊은 이해로 쓰입니다.\n\n"
         },
         {
           "kind": "tag",
@@ -1008,7 +1172,29 @@
         },
         {
           "kind": "text",
-          "value": "가 낮은 달에는 무리한 일정 대신 편한 반복을 지키는 것이 학업운을 살립니다."
+          "value": "가 낮은 달에는 무리한 일정 대신 편한 반복을 지키는 것이 학업운을 살립니다.\n\n"
+        },
+        {
+          "kind": "text",
+          "value": "평소엔 "
+        },
+        {
+          "kind": "tag",
+          "tagId": "jeongin",
+          "label": "정인"
+        },
+        {
+          "kind": "text",
+          "value": "의 토대를 단단히 두고, "
+        },
+        {
+          "kind": "tag",
+          "tagId": "sikshin",
+          "label": "식신"
+        },
+        {
+          "kind": "text",
+          "value": "이 받쳐 주는 시기에는 익힌 것을 자기 말로 풀어 두는 자리를 챙기면 학업의 흐름이 더 또렷해져요."
         }
       ],
       "livingTips": [

@@ -6,327 +6,2051 @@
     {
       "schemaVersion": "spring-ts.narrative-fragment.v1",
       "fragmentId": "overall.thisWeek.expert.categorical_wave2.male_wood_yongshin_metal_jeongingyeok.402",
-      "axis": { "category": "overall", "period": "thisWeek", "depth": "expert" },
-      "gating": { "gender": ["male"], "dayMasterElement": ["WOOD"], "yongshinElement": ["METAL"], "gyeokguk": ["jeongingyeok"] },
+      "axis": {
+        "category": "overall",
+        "period": "thisWeek",
+        "depth": "expert"
+      },
+      "gating": {
+        "gender": [
+          "male"
+        ],
+        "dayMasterElement": [
+          "WOOD"
+        ],
+        "yongshinElement": [
+          "METAL"
+        ],
+        "gyeokguk": [
+          "jeongingyeok"
+        ]
+      },
       "templateTokens": [
-        { "kind": "tag", "tagId": "wood", "label": "나무" },
-        { "kind": "text", "value": " 일간이 이번 주 전체 흐름에서 확장 욕구를 만들고, " },
-        { "kind": "tag", "tagId": "yongshin", "label": "용신" },
-        { "kind": "text", "value": "이 쇠라면 기준과 정리가 균형축이 됩니다. " },
-        { "kind": "tag", "tagId": "jeongingyeok", "label": "정인격" },
-        { "kind": "text", "value": "은 배움과 보호의 구조를 강화하므로, 성별 분기는 역할 판단이 아니라 상담 맥락을 보존하는 보조값으로만 해석하세요." }
+        {
+          "kind": "tag",
+          "tagId": "wood",
+          "label": "나무"
+        },
+        {
+          "kind": "text",
+          "value": " 일간이 이번 주 전체 흐름에서 확장 욕구를 만들고, "
+        },
+        {
+          "kind": "tag",
+          "tagId": "yongshin",
+          "label": "용신"
+        },
+        {
+          "kind": "text",
+          "value": "이 쇠라면 기준과 정리가 균형축이 됩니다.\n\n"
+        },
+        {
+          "kind": "tag",
+          "tagId": "jeongingyeok",
+          "label": "정인격"
+        },
+        {
+          "kind": "text",
+          "value": "은 배움과 보호의 구조를 강화하므로, 성별 분기는 역할 판단이 아니라 상담 맥락을 보존하는 보조값으로만 해석하세요.\n\n"
+        },
+        {
+          "kind": "tag",
+          "tagId": "naeum",
+          "label": "납음"
+        },
+        {
+          "kind": "text",
+          "value": "의 결을 함께 살펴 두면 사주 모양의 깊은 색이 더 또렷해지고, "
+        },
+        {
+          "kind": "tag",
+          "tagId": "naeumElement",
+          "label": "납음오행"
+        },
+        {
+          "kind": "text",
+          "value": "의 흐름이 자기 결을 보완하는 자리가 자주 등장해요.\n\n"
+        },
+        {
+          "kind": "text",
+          "value": "전체의 흐름은 "
+        },
+        {
+          "kind": "tag",
+          "tagId": "yongshin",
+          "label": "용신"
+        },
+        {
+          "kind": "text",
+          "value": " 방향과 "
+        },
+        {
+          "kind": "tag",
+          "tagId": "heeshin",
+          "label": "희신"
+        },
+        {
+          "kind": "text",
+          "value": "의 받침이 함께 들어오는 시기에 한 단계 부드러워지고, 거스르는 시기에는 한 박자 늦추는 호흡이 자기를 지키는 자리예요."
+        }
       ],
-      "livingTips": ["이번 주에는 새 일을 넓히 기준, 문서, 검토 순서를 잡으세요."],
-      "cautions": ["성별값을 책임 배분의 근거로 직접 쓰지 말고 실제 상황 정보를 우선하세요."],
-      "tags": ["wood", "yongshin", "jeongingyeok"],
+      "livingTips": [
+        "이번 주에는 새 일을 넓히 기준, 문서, 검토 순서를 잡으세요."
+      ],
+      "cautions": [
+        "성별값을 책임 배분의 근거로 직접 쓰지 말고 실제 상황 정보를 우선하세요."
+      ],
+      "tags": [
+        "wood",
+        "yongshin",
+        "jeongingyeok",
+        "naeum",
+        "naeumElement",
+        "heeshin"
+      ],
       "numericalEvidence": [
-        { "label": "성별 분류값", "valueExpression": "feature.genderOrdinal", "unit": "ordinal", "sourceTier": { "tier": "T3_INTERNAL_ENGINE", "sourceType": "internal_scoring_policy", "sourceUrl": null, "accessedAt": "2026-05-03", "quoteShort": null, "humanInterpretation": "Resolved from deterministic spring-ts runtime output.", "copyrightNote": "No third-party prose copied.", "authorityTruthEligible": false } },
-        { "label": "일간 오행 분류값", "valueExpression": "feature.dayMasterElementOrdinal", "unit": "ordinal", "sourceTier": { "tier": "T3_INTERNAL_ENGINE", "sourceType": "internal_scoring_policy", "sourceUrl": null, "accessedAt": "2026-05-03", "quoteShort": null, "humanInterpretation": "Resolved from deterministic spring-ts runtime output.", "copyrightNote": "No third-party prose copied.", "authorityTruthEligible": false } },
-        { "label": "용신 오행 분류값", "valueExpression": "feature.yongshinElementOrdinal", "unit": "ordinal", "sourceTier": { "tier": "T3_INTERNAL_ENGINE", "sourceType": "internal_scoring_policy", "sourceUrl": null, "accessedAt": "2026-05-03", "quoteShort": null, "humanInterpretation": "Resolved from deterministic spring-ts runtime output.", "copyrightNote": "No third-party prose copied.", "authorityTruthEligible": false } },
-        { "label": "격국 분류값", "valueExpression": "feature.gyeokgukOrdinal", "unit": "ordinal", "sourceTier": { "tier": "T3_INTERNAL_ENGINE", "sourceType": "internal_scoring_policy", "sourceUrl": null, "accessedAt": "2026-05-03", "quoteShort": null, "humanInterpretation": "Resolved from deterministic spring-ts runtime output.", "copyrightNote": "No third-party prose copied.", "authorityTruthEligible": false } }
+        {
+          "label": "성별 분류값",
+          "valueExpression": "feature.genderOrdinal",
+          "unit": "ordinal",
+          "sourceTier": {
+            "tier": "T3_INTERNAL_ENGINE",
+            "sourceType": "internal_scoring_policy",
+            "sourceUrl": null,
+            "accessedAt": "2026-05-03",
+            "quoteShort": null,
+            "humanInterpretation": "Resolved from deterministic spring-ts runtime output.",
+            "copyrightNote": "No third-party prose copied.",
+            "authorityTruthEligible": false
+          }
+        },
+        {
+          "label": "일간 오행 분류값",
+          "valueExpression": "feature.dayMasterElementOrdinal",
+          "unit": "ordinal",
+          "sourceTier": {
+            "tier": "T3_INTERNAL_ENGINE",
+            "sourceType": "internal_scoring_policy",
+            "sourceUrl": null,
+            "accessedAt": "2026-05-03",
+            "quoteShort": null,
+            "humanInterpretation": "Resolved from deterministic spring-ts runtime output.",
+            "copyrightNote": "No third-party prose copied.",
+            "authorityTruthEligible": false
+          }
+        },
+        {
+          "label": "용신 오행 분류값",
+          "valueExpression": "feature.yongshinElementOrdinal",
+          "unit": "ordinal",
+          "sourceTier": {
+            "tier": "T3_INTERNAL_ENGINE",
+            "sourceType": "internal_scoring_policy",
+            "sourceUrl": null,
+            "accessedAt": "2026-05-03",
+            "quoteShort": null,
+            "humanInterpretation": "Resolved from deterministic spring-ts runtime output.",
+            "copyrightNote": "No third-party prose copied.",
+            "authorityTruthEligible": false
+          }
+        },
+        {
+          "label": "격국 분류값",
+          "valueExpression": "feature.gyeokgukOrdinal",
+          "unit": "ordinal",
+          "sourceTier": {
+            "tier": "T3_INTERNAL_ENGINE",
+            "sourceType": "internal_scoring_policy",
+            "sourceUrl": null,
+            "accessedAt": "2026-05-03",
+            "quoteShort": null,
+            "humanInterpretation": "Resolved from deterministic spring-ts runtime output.",
+            "copyrightNote": "No third-party prose copied.",
+            "authorityTruthEligible": false
+          }
+        }
       ],
       "aiGenerated": true,
-      "sourceTier": { "tier": "T1_HYPOTHESIS", "sourceType": "training_derived", "sourceUrl": null, "accessedAt": "2026-05-03", "quoteShort": null, "humanInterpretation": "Expert categorical evidence density wave 2 fragment. AI-derived display text; not authority truth.", "copyrightNote": "No source prose copied; original phrasing.", "authorityTruthEligible": false }
+      "sourceTier": {
+        "tier": "T1_HYPOTHESIS",
+        "sourceType": "training_derived",
+        "sourceUrl": null,
+        "accessedAt": "2026-05-03",
+        "quoteShort": null,
+        "humanInterpretation": "Expert categorical evidence density wave 2 fragment. AI-derived display text; not authority truth.",
+        "copyrightNote": "No source prose copied; original phrasing.",
+        "authorityTruthEligible": false
+      }
     },
     {
       "schemaVersion": "spring-ts.narrative-fragment.v1",
       "fragmentId": "career.today.expert.categorical_wave2.female_fire_yongshin_water_pyeoningyeok.402",
-      "axis": { "category": "career", "period": "today", "depth": "expert" },
-      "gating": { "gender": ["female"], "dayMasterElement": ["FIRE"], "yongshinElement": ["WATER"], "gyeokguk": ["pyeoningyeok"] },
+      "axis": {
+        "category": "career",
+        "period": "today",
+        "depth": "expert"
+      },
+      "gating": {
+        "gender": [
+          "female"
+        ],
+        "dayMasterElement": [
+          "FIRE"
+        ],
+        "yongshinElement": [
+          "WATER"
+        ],
+        "gyeokguk": [
+          "pyeoningyeok"
+        ]
+      },
       "templateTokens": [
-        { "kind": "tag", "tagId": "fire", "label": "불" },
-        { "kind": "text", "value": " 일간은 오늘 커리어 판단에서 빠른 표현과 노출 욕구를 키울 수 있어요. " },
-        { "kind": "tag", "tagId": "yongshin", "label": "용신" },
-        { "kind": "text", "value": "이 물이면 속도보다 정보 정리와 감정 온도 조절을 먼저 봐야 합니다. " },
-        { "kind": "tag", "tagId": "pyeoningyeok", "label": "편인격" },
-        { "kind": "text", "value": "은 탐구와 직관을 보태므로 오늘의 선택은 즉답보다 근거 확인 후 실행하는 편이 안정적이에요." }
+        {
+          "kind": "tag",
+          "tagId": "fire",
+          "label": "불"
+        },
+        {
+          "kind": "text",
+          "value": " 일간은 오늘 커리어 판단에서 빠른 표현과 노출 욕구를 키울 수 있어요.\n\n"
+        },
+        {
+          "kind": "tag",
+          "tagId": "yongshin",
+          "label": "용신"
+        },
+        {
+          "kind": "text",
+          "value": "이 물이면 속도보다 정보 정리와 감정 온도 조절을 먼저 봐야 합니다.\n\n"
+        },
+        {
+          "kind": "tag",
+          "tagId": "pyeoningyeok",
+          "label": "편인격"
+        },
+        {
+          "kind": "text",
+          "value": "은 탐구와 직관을 보태므로 오늘의 선택은 즉답보다 근거 확인 후 실행하는 편이 안정적이에요.\n\n"
+        },
+        {
+          "kind": "tag",
+          "tagId": "jangseongsal",
+          "label": "장성살"
+        },
+        {
+          "kind": "text",
+          "value": "의 신호와 "
+        },
+        {
+          "kind": "tag",
+          "tagId": "cheonui",
+          "label": "천의"
+        },
+        {
+          "kind": "text",
+          "value": "의 결이 함께 보이는 사주는 자기 자리에 머무는 호흡과 곁의 도움을 거절하지 않는 호흡이 둘 다 잘 어울려요."
+        }
       ],
-      "livingTips": ["오늘은 말하기 전에 핵심 자료와 반대 근거를 더 확인하세요."],
-      "cautions": ["성별 분기는 커리어 역할 고정 기준이 아닌 출력 맥락 보존용입니다."],
-      "tags": ["fire", "yongshin", "pyeoningyeok"],
+      "livingTips": [
+        "오늘은 말하기 전에 핵심 자료와 반대 근거를 더 확인하세요."
+      ],
+      "cautions": [
+        "성별 분기는 커리어 역할 고정 기준이 아닌 출력 맥락 보존용입니다."
+      ],
+      "tags": [
+        "fire",
+        "yongshin",
+        "pyeoningyeok",
+        "jangseongsal",
+        "cheonui"
+      ],
       "numericalEvidence": [
-        { "label": "성별 분류값", "valueExpression": "feature.genderOrdinal", "unit": "ordinal", "sourceTier": { "tier": "T3_INTERNAL_ENGINE", "sourceType": "internal_scoring_policy", "sourceUrl": null, "accessedAt": "2026-05-03", "quoteShort": null, "humanInterpretation": "Resolved from deterministic spring-ts runtime output.", "copyrightNote": "No third-party prose copied.", "authorityTruthEligible": false } },
-        { "label": "일간 오행 분류값", "valueExpression": "feature.dayMasterElementOrdinal", "unit": "ordinal", "sourceTier": { "tier": "T3_INTERNAL_ENGINE", "sourceType": "internal_scoring_policy", "sourceUrl": null, "accessedAt": "2026-05-03", "quoteShort": null, "humanInterpretation": "Resolved from deterministic spring-ts runtime output.", "copyrightNote": "No third-party prose copied.", "authorityTruthEligible": false } },
-        { "label": "용신 오행 분류값", "valueExpression": "feature.yongshinElementOrdinal", "unit": "ordinal", "sourceTier": { "tier": "T3_INTERNAL_ENGINE", "sourceType": "internal_scoring_policy", "sourceUrl": null, "accessedAt": "2026-05-03", "quoteShort": null, "humanInterpretation": "Resolved from deterministic spring-ts runtime output.", "copyrightNote": "No third-party prose copied.", "authorityTruthEligible": false } },
-        { "label": "격국 분류값", "valueExpression": "feature.gyeokgukOrdinal", "unit": "ordinal", "sourceTier": { "tier": "T3_INTERNAL_ENGINE", "sourceType": "internal_scoring_policy", "sourceUrl": null, "accessedAt": "2026-05-03", "quoteShort": null, "humanInterpretation": "Resolved from deterministic spring-ts runtime output.", "copyrightNote": "No third-party prose copied.", "authorityTruthEligible": false } }
+        {
+          "label": "성별 분류값",
+          "valueExpression": "feature.genderOrdinal",
+          "unit": "ordinal",
+          "sourceTier": {
+            "tier": "T3_INTERNAL_ENGINE",
+            "sourceType": "internal_scoring_policy",
+            "sourceUrl": null,
+            "accessedAt": "2026-05-03",
+            "quoteShort": null,
+            "humanInterpretation": "Resolved from deterministic spring-ts runtime output.",
+            "copyrightNote": "No third-party prose copied.",
+            "authorityTruthEligible": false
+          }
+        },
+        {
+          "label": "일간 오행 분류값",
+          "valueExpression": "feature.dayMasterElementOrdinal",
+          "unit": "ordinal",
+          "sourceTier": {
+            "tier": "T3_INTERNAL_ENGINE",
+            "sourceType": "internal_scoring_policy",
+            "sourceUrl": null,
+            "accessedAt": "2026-05-03",
+            "quoteShort": null,
+            "humanInterpretation": "Resolved from deterministic spring-ts runtime output.",
+            "copyrightNote": "No third-party prose copied.",
+            "authorityTruthEligible": false
+          }
+        },
+        {
+          "label": "용신 오행 분류값",
+          "valueExpression": "feature.yongshinElementOrdinal",
+          "unit": "ordinal",
+          "sourceTier": {
+            "tier": "T3_INTERNAL_ENGINE",
+            "sourceType": "internal_scoring_policy",
+            "sourceUrl": null,
+            "accessedAt": "2026-05-03",
+            "quoteShort": null,
+            "humanInterpretation": "Resolved from deterministic spring-ts runtime output.",
+            "copyrightNote": "No third-party prose copied.",
+            "authorityTruthEligible": false
+          }
+        },
+        {
+          "label": "격국 분류값",
+          "valueExpression": "feature.gyeokgukOrdinal",
+          "unit": "ordinal",
+          "sourceTier": {
+            "tier": "T3_INTERNAL_ENGINE",
+            "sourceType": "internal_scoring_policy",
+            "sourceUrl": null,
+            "accessedAt": "2026-05-03",
+            "quoteShort": null,
+            "humanInterpretation": "Resolved from deterministic spring-ts runtime output.",
+            "copyrightNote": "No third-party prose copied.",
+            "authorityTruthEligible": false
+          }
+        }
       ],
       "aiGenerated": true,
-      "sourceTier": { "tier": "T1_HYPOTHESIS", "sourceType": "training_derived", "sourceUrl": null, "accessedAt": "2026-05-03", "quoteShort": null, "humanInterpretation": "Expert categorical evidence density wave 2 fragment. AI-derived display text; not authority truth.", "copyrightNote": "No source prose copied; original phrasing.", "authorityTruthEligible": false }
+      "sourceTier": {
+        "tier": "T1_HYPOTHESIS",
+        "sourceType": "training_derived",
+        "sourceUrl": null,
+        "accessedAt": "2026-05-03",
+        "quoteShort": null,
+        "humanInterpretation": "Expert categorical evidence density wave 2 fragment. AI-derived display text; not authority truth.",
+        "copyrightNote": "No source prose copied; original phrasing.",
+        "authorityTruthEligible": false
+      }
     },
     {
       "schemaVersion": "spring-ts.narrative-fragment.v1",
       "fragmentId": "wealth.thisMonth.expert.categorical_wave2.neutral_earth_yongshin_wood_sikshingyeok.402",
-      "axis": { "category": "wealth", "period": "thisMonth", "depth": "expert" },
-      "gating": { "gender": ["neutral"], "dayMasterElement": ["EARTH"], "yongshinElement": ["WOOD"], "gyeokguk": ["sikshingyeok"] },
+      "axis": {
+        "category": "wealth",
+        "period": "thisMonth",
+        "depth": "expert"
+      },
+      "gating": {
+        "gender": [
+          "neutral"
+        ],
+        "dayMasterElement": [
+          "EARTH"
+        ],
+        "yongshinElement": [
+          "WOOD"
+        ],
+        "gyeokguk": [
+          "sikshingyeok"
+        ]
+      },
       "templateTokens": [
-        { "kind": "tag", "tagId": "earth", "label": "흙" },
-        { "kind": "text", "value": " 일간은 이번 달 재물 판단에서 안정과 보존을 우선하게 만들어요. " },
-        { "kind": "tag", "tagId": "yongshin", "label": "용신" },
-        { "kind": "text", "value": "이 나무이면 돈의 흐름을 막기보다 성장 가능한 지출과 배움을 구분해야 합니다. " },
-        { "kind": "tag", "tagId": "sikshingyeok", "label": "식신격" },
-        { "kind": "text", "value": "은 꾸준한 산출을 중시하므로 반복 수입과 작은 결과물을 함께 보는 해석이 맞아요." }
+        {
+          "kind": "tag",
+          "tagId": "earth",
+          "label": "흙"
+        },
+        {
+          "kind": "text",
+          "value": " 일간은 이번 달 재물 판단에서 안정과 보존을 우선하게 만들어요.\n\n"
+        },
+        {
+          "kind": "tag",
+          "tagId": "yongshin",
+          "label": "용신"
+        },
+        {
+          "kind": "text",
+          "value": "이 나무이면 돈의 흐름을 막기보다 성장 가능한 지출과 배움을 구분해야 합니다.\n\n"
+        },
+        {
+          "kind": "tag",
+          "tagId": "sikshingyeok",
+          "label": "식신격"
+        },
+        {
+          "kind": "text",
+          "value": "은 꾸준한 산출을 중시하므로 반복 수입과 작은 결과물을 함께 보는 해석이 맞아요.\n\n"
+        },
+        {
+          "kind": "tag",
+          "tagId": "jaebakgung",
+          "label": "재백궁"
+        },
+        {
+          "kind": "text",
+          "value": "의 결과 "
+        },
+        {
+          "kind": "tag",
+          "tagId": "cheonleulgwiin",
+          "label": "천을귀인"
+        },
+        {
+          "kind": "text",
+          "value": "의 자리가 함께 보이면 도움 받는 흐름이 자기 자산이 되는 사주이니, 작은 도움도 미루지 않는 호흡이 잘 어울려요."
+        }
       ],
-      "livingTips": ["이번 달 지출은 유지비, 성장비, 즉흥비로 나누어 기록하세요."],
-      "cautions": ["중립 성별값은 결측이 아니라 안전한 기본 분기로 다루세요."],
-      "tags": ["earth", "yongshin", "sikshingyeok"],
+      "livingTips": [
+        "이번 달 지출은 유지비, 성장비, 즉흥비로 나누어 기록하세요."
+      ],
+      "cautions": [
+        "중립 성별값은 결측이 아니라 안전한 기본 분기로 다루세요."
+      ],
+      "tags": [
+        "earth",
+        "yongshin",
+        "sikshingyeok",
+        "jaebakgung",
+        "cheonleulgwiin"
+      ],
       "numericalEvidence": [
-        { "label": "성별 분류값", "valueExpression": "feature.genderOrdinal", "unit": "ordinal", "sourceTier": { "tier": "T3_INTERNAL_ENGINE", "sourceType": "internal_scoring_policy", "sourceUrl": null, "accessedAt": "2026-05-03", "quoteShort": null, "humanInterpretation": "Resolved from deterministic spring-ts runtime output.", "copyrightNote": "No third-party prose copied.", "authorityTruthEligible": false } },
-        { "label": "일간 오행 분류값", "valueExpression": "feature.dayMasterElementOrdinal", "unit": "ordinal", "sourceTier": { "tier": "T3_INTERNAL_ENGINE", "sourceType": "internal_scoring_policy", "sourceUrl": null, "accessedAt": "2026-05-03", "quoteShort": null, "humanInterpretation": "Resolved from deterministic spring-ts runtime output.", "copyrightNote": "No third-party prose copied.", "authorityTruthEligible": false } },
-        { "label": "용신 오행 분류값", "valueExpression": "feature.yongshinElementOrdinal", "unit": "ordinal", "sourceTier": { "tier": "T3_INTERNAL_ENGINE", "sourceType": "internal_scoring_policy", "sourceUrl": null, "accessedAt": "2026-05-03", "quoteShort": null, "humanInterpretation": "Resolved from deterministic spring-ts runtime output.", "copyrightNote": "No third-party prose copied.", "authorityTruthEligible": false } },
-        { "label": "격국 분류값", "valueExpression": "feature.gyeokgukOrdinal", "unit": "ordinal", "sourceTier": { "tier": "T3_INTERNAL_ENGINE", "sourceType": "internal_scoring_policy", "sourceUrl": null, "accessedAt": "2026-05-03", "quoteShort": null, "humanInterpretation": "Resolved from deterministic spring-ts runtime output.", "copyrightNote": "No third-party prose copied.", "authorityTruthEligible": false } }
+        {
+          "label": "성별 분류값",
+          "valueExpression": "feature.genderOrdinal",
+          "unit": "ordinal",
+          "sourceTier": {
+            "tier": "T3_INTERNAL_ENGINE",
+            "sourceType": "internal_scoring_policy",
+            "sourceUrl": null,
+            "accessedAt": "2026-05-03",
+            "quoteShort": null,
+            "humanInterpretation": "Resolved from deterministic spring-ts runtime output.",
+            "copyrightNote": "No third-party prose copied.",
+            "authorityTruthEligible": false
+          }
+        },
+        {
+          "label": "일간 오행 분류값",
+          "valueExpression": "feature.dayMasterElementOrdinal",
+          "unit": "ordinal",
+          "sourceTier": {
+            "tier": "T3_INTERNAL_ENGINE",
+            "sourceType": "internal_scoring_policy",
+            "sourceUrl": null,
+            "accessedAt": "2026-05-03",
+            "quoteShort": null,
+            "humanInterpretation": "Resolved from deterministic spring-ts runtime output.",
+            "copyrightNote": "No third-party prose copied.",
+            "authorityTruthEligible": false
+          }
+        },
+        {
+          "label": "용신 오행 분류값",
+          "valueExpression": "feature.yongshinElementOrdinal",
+          "unit": "ordinal",
+          "sourceTier": {
+            "tier": "T3_INTERNAL_ENGINE",
+            "sourceType": "internal_scoring_policy",
+            "sourceUrl": null,
+            "accessedAt": "2026-05-03",
+            "quoteShort": null,
+            "humanInterpretation": "Resolved from deterministic spring-ts runtime output.",
+            "copyrightNote": "No third-party prose copied.",
+            "authorityTruthEligible": false
+          }
+        },
+        {
+          "label": "격국 분류값",
+          "valueExpression": "feature.gyeokgukOrdinal",
+          "unit": "ordinal",
+          "sourceTier": {
+            "tier": "T3_INTERNAL_ENGINE",
+            "sourceType": "internal_scoring_policy",
+            "sourceUrl": null,
+            "accessedAt": "2026-05-03",
+            "quoteShort": null,
+            "humanInterpretation": "Resolved from deterministic spring-ts runtime output.",
+            "copyrightNote": "No third-party prose copied.",
+            "authorityTruthEligible": false
+          }
+        }
       ],
       "aiGenerated": true,
-      "sourceTier": { "tier": "T1_HYPOTHESIS", "sourceType": "training_derived", "sourceUrl": null, "accessedAt": "2026-05-03", "quoteShort": null, "humanInterpretation": "Expert categorical evidence density wave 2 fragment. AI-derived display text; not authority truth.", "copyrightNote": "No source prose copied; original phrasing.", "authorityTruthEligible": false }
+      "sourceTier": {
+        "tier": "T1_HYPOTHESIS",
+        "sourceType": "training_derived",
+        "sourceUrl": null,
+        "accessedAt": "2026-05-03",
+        "quoteShort": null,
+        "humanInterpretation": "Expert categorical evidence density wave 2 fragment. AI-derived display text; not authority truth.",
+        "copyrightNote": "No source prose copied; original phrasing.",
+        "authorityTruthEligible": false
+      }
     },
     {
       "schemaVersion": "spring-ts.narrative-fragment.v1",
       "fragmentId": "health.thisYear.expert.categorical_wave2.male_metal_yongshin_fire_sanggwangyeok.402",
-      "axis": { "category": "health", "period": "thisYear", "depth": "expert" },
-      "gating": { "gender": ["male"], "dayMasterElement": ["METAL"], "yongshinElement": ["FIRE"], "gyeokguk": ["sanggwangyeok"] },
+      "axis": {
+        "category": "health",
+        "period": "thisYear",
+        "depth": "expert"
+      },
+      "gating": {
+        "gender": [
+          "male"
+        ],
+        "dayMasterElement": [
+          "METAL"
+        ],
+        "yongshinElement": [
+          "FIRE"
+        ],
+        "gyeokguk": [
+          "sanggwangyeok"
+        ]
+      },
       "templateTokens": [
-        { "kind": "tag", "tagId": "metal", "label": "쇠" },
-        { "kind": "text", "value": " 일간은 올해 건강 관리에서 기준과 절제를 강하게 세우게 해요. " },
-        { "kind": "tag", "tagId": "yongshin", "label": "용신" },
-        { "kind": "text", "value": "이 불이면 움직임과 표현을 통해 순환을 살리는 방식이 필요합니다. " },
-        { "kind": "tag", "tagId": "sanggwangyeok", "label": "상관격" },
-        { "kind": "text", "value": "은 표현 에너지를 키우므로 긴장을 풀어내는 루틴을 함께 설계해야 해요." }
+        {
+          "kind": "tag",
+          "tagId": "metal",
+          "label": "쇠"
+        },
+        {
+          "kind": "text",
+          "value": " 일간은 올해 건강 관리에서 기준과 절제를 강하게 세우게 해요.\n\n"
+        },
+        {
+          "kind": "tag",
+          "tagId": "yongshin",
+          "label": "용신"
+        },
+        {
+          "kind": "text",
+          "value": "이 불이면 움직임과 표현을 통해 순환을 살리는 방식이 필요합니다.\n\n"
+        },
+        {
+          "kind": "tag",
+          "tagId": "sanggwangyeok",
+          "label": "상관격"
+        },
+        {
+          "kind": "text",
+          "value": "은 표현 에너지를 키우므로 긴장을 풀어내는 루틴을 함께 설계해야 해요.\n\n"
+        },
+        {
+          "kind": "text",
+          "value": "몸의 흐름은 "
+        },
+        {
+          "kind": "tag",
+          "tagId": "johu",
+          "label": "조후"
+        },
+        {
+          "kind": "text",
+          "value": "의 균형과 "
+        },
+        {
+          "kind": "tag",
+          "tagId": "jeongin",
+          "label": "정인"
+        },
+        {
+          "kind": "text",
+          "value": "의 돌봄 자산이 함께 챙겨질 때 한층 부드러워지고, 무리한 회복보다 작은 회복의 반복이 자기 페이스에 잘 맞아요."
+        }
       ],
-      "livingTips": ["운동 목표는 강도보다 지속 시간과 회복 시간을 함께 정해요."],
-      "cautions": ["기준을 세우는 힘이 강할수록 몸의 유연성과 휴식도 같이 봐야 합니다."],
-      "tags": ["metal", "yongshin", "sanggwangyeok"],
+      "livingTips": [
+        "운동 목표는 강도보다 지속 시간과 회복 시간을 함께 정해요."
+      ],
+      "cautions": [
+        "기준을 세우는 힘이 강할수록 몸의 유연성과 휴식도 같이 봐야 합니다."
+      ],
+      "tags": [
+        "metal",
+        "yongshin",
+        "sanggwangyeok",
+        "johu",
+        "jeongin"
+      ],
       "numericalEvidence": [
-        { "label": "성별 분류값", "valueExpression": "feature.genderOrdinal", "unit": "ordinal", "sourceTier": { "tier": "T3_INTERNAL_ENGINE", "sourceType": "internal_scoring_policy", "sourceUrl": null, "accessedAt": "2026-05-03", "quoteShort": null, "humanInterpretation": "Resolved from deterministic spring-ts runtime output.", "copyrightNote": "No third-party prose copied.", "authorityTruthEligible": false } },
-        { "label": "일간 오행 분류값", "valueExpression": "feature.dayMasterElementOrdinal", "unit": "ordinal", "sourceTier": { "tier": "T3_INTERNAL_ENGINE", "sourceType": "internal_scoring_policy", "sourceUrl": null, "accessedAt": "2026-05-03", "quoteShort": null, "humanInterpretation": "Resolved from deterministic spring-ts runtime output.", "copyrightNote": "No third-party prose copied.", "authorityTruthEligible": false } },
-        { "label": "용신 오행 분류값", "valueExpression": "feature.yongshinElementOrdinal", "unit": "ordinal", "sourceTier": { "tier": "T3_INTERNAL_ENGINE", "sourceType": "internal_scoring_policy", "sourceUrl": null, "accessedAt": "2026-05-03", "quoteShort": null, "humanInterpretation": "Resolved from deterministic spring-ts runtime output.", "copyrightNote": "No third-party prose copied.", "authorityTruthEligible": false } },
-        { "label": "격국 분류값", "valueExpression": "feature.gyeokgukOrdinal", "unit": "ordinal", "sourceTier": { "tier": "T3_INTERNAL_ENGINE", "sourceType": "internal_scoring_policy", "sourceUrl": null, "accessedAt": "2026-05-03", "quoteShort": null, "humanInterpretation": "Resolved from deterministic spring-ts runtime output.", "copyrightNote": "No third-party prose copied.", "authorityTruthEligible": false } }
+        {
+          "label": "성별 분류값",
+          "valueExpression": "feature.genderOrdinal",
+          "unit": "ordinal",
+          "sourceTier": {
+            "tier": "T3_INTERNAL_ENGINE",
+            "sourceType": "internal_scoring_policy",
+            "sourceUrl": null,
+            "accessedAt": "2026-05-03",
+            "quoteShort": null,
+            "humanInterpretation": "Resolved from deterministic spring-ts runtime output.",
+            "copyrightNote": "No third-party prose copied.",
+            "authorityTruthEligible": false
+          }
+        },
+        {
+          "label": "일간 오행 분류값",
+          "valueExpression": "feature.dayMasterElementOrdinal",
+          "unit": "ordinal",
+          "sourceTier": {
+            "tier": "T3_INTERNAL_ENGINE",
+            "sourceType": "internal_scoring_policy",
+            "sourceUrl": null,
+            "accessedAt": "2026-05-03",
+            "quoteShort": null,
+            "humanInterpretation": "Resolved from deterministic spring-ts runtime output.",
+            "copyrightNote": "No third-party prose copied.",
+            "authorityTruthEligible": false
+          }
+        },
+        {
+          "label": "용신 오행 분류값",
+          "valueExpression": "feature.yongshinElementOrdinal",
+          "unit": "ordinal",
+          "sourceTier": {
+            "tier": "T3_INTERNAL_ENGINE",
+            "sourceType": "internal_scoring_policy",
+            "sourceUrl": null,
+            "accessedAt": "2026-05-03",
+            "quoteShort": null,
+            "humanInterpretation": "Resolved from deterministic spring-ts runtime output.",
+            "copyrightNote": "No third-party prose copied.",
+            "authorityTruthEligible": false
+          }
+        },
+        {
+          "label": "격국 분류값",
+          "valueExpression": "feature.gyeokgukOrdinal",
+          "unit": "ordinal",
+          "sourceTier": {
+            "tier": "T3_INTERNAL_ENGINE",
+            "sourceType": "internal_scoring_policy",
+            "sourceUrl": null,
+            "accessedAt": "2026-05-03",
+            "quoteShort": null,
+            "humanInterpretation": "Resolved from deterministic spring-ts runtime output.",
+            "copyrightNote": "No third-party prose copied.",
+            "authorityTruthEligible": false
+          }
+        }
       ],
       "aiGenerated": true,
-      "sourceTier": { "tier": "T1_HYPOTHESIS", "sourceType": "training_derived", "sourceUrl": null, "accessedAt": "2026-05-03", "quoteShort": null, "humanInterpretation": "Expert categorical evidence density wave 2 fragment. AI-derived display text; not authority truth.", "copyrightNote": "No source prose copied; original phrasing.", "authorityTruthEligible": false }
+      "sourceTier": {
+        "tier": "T1_HYPOTHESIS",
+        "sourceType": "training_derived",
+        "sourceUrl": null,
+        "accessedAt": "2026-05-03",
+        "quoteShort": null,
+        "humanInterpretation": "Expert categorical evidence density wave 2 fragment. AI-derived display text; not authority truth.",
+        "copyrightNote": "No source prose copied; original phrasing.",
+        "authorityTruthEligible": false
+      }
     },
     {
       "schemaVersion": "spring-ts.narrative-fragment.v1",
       "fragmentId": "romance.thisWeek.expert.categorical_wave2.female_water_yongshin_earth_jeonggwangyeok.402",
-      "axis": { "category": "romance", "period": "thisWeek", "depth": "expert" },
-      "gating": { "gender": ["female"], "dayMasterElement": ["WATER"], "yongshinElement": ["EARTH"], "gyeokguk": ["jeonggwangyeok"] },
+      "axis": {
+        "category": "romance",
+        "period": "thisWeek",
+        "depth": "expert"
+      },
+      "gating": {
+        "gender": [
+          "female"
+        ],
+        "dayMasterElement": [
+          "WATER"
+        ],
+        "yongshinElement": [
+          "EARTH"
+        ],
+        "gyeokguk": [
+          "jeonggwangyeok"
+        ]
+      },
       "templateTokens": [
-        { "kind": "tag", "tagId": "water", "label": "물" },
-        { "kind": "text", "value": " 일간은 이번 주 관계에서 분위기를 민감하게 읽게 해요. " },
-        { "kind": "tag", "tagId": "yongshin", "label": "용신" },
-        { "kind": "text", "value": "이 흙이면 감정의 흐름을 약속, 경계, 생활 리듬 안에 안정시키는 해석이 필요합니다. " },
-        { "kind": "tag", "tagId": "jeonggwangyeok", "label": "정관격" },
-        { "kind": "text", "value": "은 관계에서 신뢰와 책임을 중시하므로 말보다 지속 가능한 태도를 먼저 보세요." }
+        {
+          "kind": "tag",
+          "tagId": "water",
+          "label": "물"
+        },
+        {
+          "kind": "text",
+          "value": " 일간은 이번 주 관계에서 분위기를 민감하게 읽게 해요.\n\n"
+        },
+        {
+          "kind": "tag",
+          "tagId": "yongshin",
+          "label": "용신"
+        },
+        {
+          "kind": "text",
+          "value": "이 흙이면 감정의 흐름을 약속, 경계, 생활 리듬 안에 안정시키는 해석이 필요합니다.\n\n"
+        },
+        {
+          "kind": "tag",
+          "tagId": "jeonggwangyeok",
+          "label": "정관격"
+        },
+        {
+          "kind": "text",
+          "value": "은 관계에서 신뢰와 책임을 중시하므로 말보다 지속 가능한 태도를 먼저 보세요.\n\n"
+        },
+        {
+          "kind": "tag",
+          "tagId": "cheonleulgwiin",
+          "label": "천을귀인"
+        },
+        {
+          "kind": "text",
+          "value": "의 결이 보이면 인연 자리에서도 부드러운 도움을 받는 흐름이 자기 자산이 되어 줘요."
+        }
       ],
-      "livingTips": ["이번 주 관계 대화는 기대, 약속, 가능한 시간을 나누세요."],
-      "cautions": ["상대의 기분을 많이 읽다가 내 기준이 흐려지지 않게 하세요."],
-      "tags": ["water", "yongshin", "jeonggwangyeok"],
+      "livingTips": [
+        "이번 주 관계 대화는 기대, 약속, 가능한 시간을 나누세요."
+      ],
+      "cautions": [
+        "상대의 기분을 많이 읽다가 내 기준이 흐려지지 않게 하세요."
+      ],
+      "tags": [
+        "water",
+        "yongshin",
+        "jeonggwangyeok",
+        "cheonleulgwiin"
+      ],
       "numericalEvidence": [
-        { "label": "성별 분류값", "valueExpression": "feature.genderOrdinal", "unit": "ordinal", "sourceTier": { "tier": "T3_INTERNAL_ENGINE", "sourceType": "internal_scoring_policy", "sourceUrl": null, "accessedAt": "2026-05-03", "quoteShort": null, "humanInterpretation": "Resolved from deterministic spring-ts runtime output.", "copyrightNote": "No third-party prose copied.", "authorityTruthEligible": false } },
-        { "label": "일간 오행 분류값", "valueExpression": "feature.dayMasterElementOrdinal", "unit": "ordinal", "sourceTier": { "tier": "T3_INTERNAL_ENGINE", "sourceType": "internal_scoring_policy", "sourceUrl": null, "accessedAt": "2026-05-03", "quoteShort": null, "humanInterpretation": "Resolved from deterministic spring-ts runtime output.", "copyrightNote": "No third-party prose copied.", "authorityTruthEligible": false } },
-        { "label": "용신 오행 분류값", "valueExpression": "feature.yongshinElementOrdinal", "unit": "ordinal", "sourceTier": { "tier": "T3_INTERNAL_ENGINE", "sourceType": "internal_scoring_policy", "sourceUrl": null, "accessedAt": "2026-05-03", "quoteShort": null, "humanInterpretation": "Resolved from deterministic spring-ts runtime output.", "copyrightNote": "No third-party prose copied.", "authorityTruthEligible": false } },
-        { "label": "격국 분류값", "valueExpression": "feature.gyeokgukOrdinal", "unit": "ordinal", "sourceTier": { "tier": "T3_INTERNAL_ENGINE", "sourceType": "internal_scoring_policy", "sourceUrl": null, "accessedAt": "2026-05-03", "quoteShort": null, "humanInterpretation": "Resolved from deterministic spring-ts runtime output.", "copyrightNote": "No third-party prose copied.", "authorityTruthEligible": false } }
+        {
+          "label": "성별 분류값",
+          "valueExpression": "feature.genderOrdinal",
+          "unit": "ordinal",
+          "sourceTier": {
+            "tier": "T3_INTERNAL_ENGINE",
+            "sourceType": "internal_scoring_policy",
+            "sourceUrl": null,
+            "accessedAt": "2026-05-03",
+            "quoteShort": null,
+            "humanInterpretation": "Resolved from deterministic spring-ts runtime output.",
+            "copyrightNote": "No third-party prose copied.",
+            "authorityTruthEligible": false
+          }
+        },
+        {
+          "label": "일간 오행 분류값",
+          "valueExpression": "feature.dayMasterElementOrdinal",
+          "unit": "ordinal",
+          "sourceTier": {
+            "tier": "T3_INTERNAL_ENGINE",
+            "sourceType": "internal_scoring_policy",
+            "sourceUrl": null,
+            "accessedAt": "2026-05-03",
+            "quoteShort": null,
+            "humanInterpretation": "Resolved from deterministic spring-ts runtime output.",
+            "copyrightNote": "No third-party prose copied.",
+            "authorityTruthEligible": false
+          }
+        },
+        {
+          "label": "용신 오행 분류값",
+          "valueExpression": "feature.yongshinElementOrdinal",
+          "unit": "ordinal",
+          "sourceTier": {
+            "tier": "T3_INTERNAL_ENGINE",
+            "sourceType": "internal_scoring_policy",
+            "sourceUrl": null,
+            "accessedAt": "2026-05-03",
+            "quoteShort": null,
+            "humanInterpretation": "Resolved from deterministic spring-ts runtime output.",
+            "copyrightNote": "No third-party prose copied.",
+            "authorityTruthEligible": false
+          }
+        },
+        {
+          "label": "격국 분류값",
+          "valueExpression": "feature.gyeokgukOrdinal",
+          "unit": "ordinal",
+          "sourceTier": {
+            "tier": "T3_INTERNAL_ENGINE",
+            "sourceType": "internal_scoring_policy",
+            "sourceUrl": null,
+            "accessedAt": "2026-05-03",
+            "quoteShort": null,
+            "humanInterpretation": "Resolved from deterministic spring-ts runtime output.",
+            "copyrightNote": "No third-party prose copied.",
+            "authorityTruthEligible": false
+          }
+        }
       ],
       "aiGenerated": true,
-      "sourceTier": { "tier": "T1_HYPOTHESIS", "sourceType": "training_derived", "sourceUrl": null, "accessedAt": "2026-05-03", "quoteShort": null, "humanInterpretation": "Expert categorical evidence density wave 2 fragment. AI-derived display text; not authority truth.", "copyrightNote": "No source prose copied; original phrasing.", "authorityTruthEligible": false }
+      "sourceTier": {
+        "tier": "T1_HYPOTHESIS",
+        "sourceType": "training_derived",
+        "sourceUrl": null,
+        "accessedAt": "2026-05-03",
+        "quoteShort": null,
+        "humanInterpretation": "Expert categorical evidence density wave 2 fragment. AI-derived display text; not authority truth.",
+        "copyrightNote": "No source prose copied; original phrasing.",
+        "authorityTruthEligible": false
+      }
     },
     {
       "schemaVersion": "spring-ts.narrative-fragment.v1",
       "fragmentId": "family.thisMonth.expert.categorical_wave2.neutral_wood_yongshin_water_pyeongwangyeok.402",
-      "axis": { "category": "family", "period": "thisMonth", "depth": "expert" },
-      "gating": { "gender": ["neutral"], "dayMasterElement": ["WOOD"], "yongshinElement": ["WATER"], "gyeokguk": ["pyeongwangyeok"] },
+      "axis": {
+        "category": "family",
+        "period": "thisMonth",
+        "depth": "expert"
+      },
+      "gating": {
+        "gender": [
+          "neutral"
+        ],
+        "dayMasterElement": [
+          "WOOD"
+        ],
+        "yongshinElement": [
+          "WATER"
+        ],
+        "gyeokguk": [
+          "pyeongwangyeok"
+        ]
+      },
       "templateTokens": [
-        { "kind": "tag", "tagId": "wood", "label": "나무" },
-        { "kind": "text", "value": " 일간은 이번 달 가족 관계에서 개선하고 키우려는 마음을 만들 수 있어요. " },
-        { "kind": "tag", "tagId": "yongshin", "label": "용신" },
-        { "kind": "text", "value": "이 물이면 바로 밀어붙이기보다 듣고 정리하는 시간이 먼저 필요합니다. " },
-        { "kind": "tag", "tagId": "pyeongwangyeok", "label": "편관격" },
-        { "kind": "text", "value": "은 긴장과 책임 압박을 키우므로 갈등 대응 순서를 구체화해야 해요." }
+        {
+          "kind": "tag",
+          "tagId": "wood",
+          "label": "나무"
+        },
+        {
+          "kind": "text",
+          "value": " 일간은 이번 달 가족 관계에서 개선하고 키우려는 마음을 만들 수 있어요.\n\n"
+        },
+        {
+          "kind": "tag",
+          "tagId": "yongshin",
+          "label": "용신"
+        },
+        {
+          "kind": "text",
+          "value": "이 물이면 바로 밀어붙이기보다 듣고 정리하는 시간이 먼저 필요합니다.\n\n"
+        },
+        {
+          "kind": "tag",
+          "tagId": "pyeongwangyeok",
+          "label": "편관격"
+        },
+        {
+          "kind": "text",
+          "value": "은 긴장과 책임 압박을 키우므로 갈등 대응 순서를 구체화해야 해요.\n\n"
+        },
+        {
+          "kind": "text",
+          "value": "가족 자리는 "
+        },
+        {
+          "kind": "tag",
+          "tagId": "bumyong",
+          "label": "부모궁"
+        },
+        {
+          "kind": "text",
+          "value": "과 "
+        },
+        {
+          "kind": "tag",
+          "tagId": "baeujagung",
+          "label": "배우자궁"
+        },
+        {
+          "kind": "text",
+          "value": "의 결이 어떻게 받쳐 주느냐를 함께 살펴 두면 흐름의 결정이 더 단단해지고, 작은 인사 한 마디가 평생의 자산이 되는 자리예요."
+        }
       ],
-      "livingTips": ["가족 대화 전에 요구와 양보 범위를 정리해요."],
-      "cautions": ["문제를 해결하려는 마음이 강해도 상대 속도를 무시하지 마세요."],
-      "tags": ["wood", "yongshin", "pyeongwangyeok"],
+      "livingTips": [
+        "가족 대화 전에 요구와 양보 범위를 정리해요."
+      ],
+      "cautions": [
+        "문제를 해결하려는 마음이 강해도 상대 속도를 무시하지 마세요."
+      ],
+      "tags": [
+        "wood",
+        "yongshin",
+        "pyeongwangyeok",
+        "bumyong",
+        "baeujagung"
+      ],
       "numericalEvidence": [
-        { "label": "성별 분류값", "valueExpression": "feature.genderOrdinal", "unit": "ordinal", "sourceTier": { "tier": "T3_INTERNAL_ENGINE", "sourceType": "internal_scoring_policy", "sourceUrl": null, "accessedAt": "2026-05-03", "quoteShort": null, "humanInterpretation": "Resolved from deterministic spring-ts runtime output.", "copyrightNote": "No third-party prose copied.", "authorityTruthEligible": false } },
-        { "label": "일간 오행 분류값", "valueExpression": "feature.dayMasterElementOrdinal", "unit": "ordinal", "sourceTier": { "tier": "T3_INTERNAL_ENGINE", "sourceType": "internal_scoring_policy", "sourceUrl": null, "accessedAt": "2026-05-03", "quoteShort": null, "humanInterpretation": "Resolved from deterministic spring-ts runtime output.", "copyrightNote": "No third-party prose copied.", "authorityTruthEligible": false } },
-        { "label": "용신 오행 분류값", "valueExpression": "feature.yongshinElementOrdinal", "unit": "ordinal", "sourceTier": { "tier": "T3_INTERNAL_ENGINE", "sourceType": "internal_scoring_policy", "sourceUrl": null, "accessedAt": "2026-05-03", "quoteShort": null, "humanInterpretation": "Resolved from deterministic spring-ts runtime output.", "copyrightNote": "No third-party prose copied.", "authorityTruthEligible": false } },
-        { "label": "격국 분류값", "valueExpression": "feature.gyeokgukOrdinal", "unit": "ordinal", "sourceTier": { "tier": "T3_INTERNAL_ENGINE", "sourceType": "internal_scoring_policy", "sourceUrl": null, "accessedAt": "2026-05-03", "quoteShort": null, "humanInterpretation": "Resolved from deterministic spring-ts runtime output.", "copyrightNote": "No third-party prose copied.", "authorityTruthEligible": false } }
+        {
+          "label": "성별 분류값",
+          "valueExpression": "feature.genderOrdinal",
+          "unit": "ordinal",
+          "sourceTier": {
+            "tier": "T3_INTERNAL_ENGINE",
+            "sourceType": "internal_scoring_policy",
+            "sourceUrl": null,
+            "accessedAt": "2026-05-03",
+            "quoteShort": null,
+            "humanInterpretation": "Resolved from deterministic spring-ts runtime output.",
+            "copyrightNote": "No third-party prose copied.",
+            "authorityTruthEligible": false
+          }
+        },
+        {
+          "label": "일간 오행 분류값",
+          "valueExpression": "feature.dayMasterElementOrdinal",
+          "unit": "ordinal",
+          "sourceTier": {
+            "tier": "T3_INTERNAL_ENGINE",
+            "sourceType": "internal_scoring_policy",
+            "sourceUrl": null,
+            "accessedAt": "2026-05-03",
+            "quoteShort": null,
+            "humanInterpretation": "Resolved from deterministic spring-ts runtime output.",
+            "copyrightNote": "No third-party prose copied.",
+            "authorityTruthEligible": false
+          }
+        },
+        {
+          "label": "용신 오행 분류값",
+          "valueExpression": "feature.yongshinElementOrdinal",
+          "unit": "ordinal",
+          "sourceTier": {
+            "tier": "T3_INTERNAL_ENGINE",
+            "sourceType": "internal_scoring_policy",
+            "sourceUrl": null,
+            "accessedAt": "2026-05-03",
+            "quoteShort": null,
+            "humanInterpretation": "Resolved from deterministic spring-ts runtime output.",
+            "copyrightNote": "No third-party prose copied.",
+            "authorityTruthEligible": false
+          }
+        },
+        {
+          "label": "격국 분류값",
+          "valueExpression": "feature.gyeokgukOrdinal",
+          "unit": "ordinal",
+          "sourceTier": {
+            "tier": "T3_INTERNAL_ENGINE",
+            "sourceType": "internal_scoring_policy",
+            "sourceUrl": null,
+            "accessedAt": "2026-05-03",
+            "quoteShort": null,
+            "humanInterpretation": "Resolved from deterministic spring-ts runtime output.",
+            "copyrightNote": "No third-party prose copied.",
+            "authorityTruthEligible": false
+          }
+        }
       ],
       "aiGenerated": true,
-      "sourceTier": { "tier": "T1_HYPOTHESIS", "sourceType": "training_derived", "sourceUrl": null, "accessedAt": "2026-05-03", "quoteShort": null, "humanInterpretation": "Expert categorical evidence density wave 2 fragment. AI-derived display text; not authority truth.", "copyrightNote": "No source prose copied; original phrasing.", "authorityTruthEligible": false }
+      "sourceTier": {
+        "tier": "T1_HYPOTHESIS",
+        "sourceType": "training_derived",
+        "sourceUrl": null,
+        "accessedAt": "2026-05-03",
+        "quoteShort": null,
+        "humanInterpretation": "Expert categorical evidence density wave 2 fragment. AI-derived display text; not authority truth.",
+        "copyrightNote": "No source prose copied; original phrasing.",
+        "authorityTruthEligible": false
+      }
     },
     {
       "schemaVersion": "spring-ts.narrative-fragment.v1",
       "fragmentId": "academic.today.expert.categorical_wave2.male_fire_yongshin_metal_jeongingyeok.402",
-      "axis": { "category": "academic", "period": "today", "depth": "expert" },
-      "gating": { "gender": ["male"], "dayMasterElement": ["FIRE"], "yongshinElement": ["METAL"], "gyeokguk": ["jeongingyeok"] },
+      "axis": {
+        "category": "academic",
+        "period": "today",
+        "depth": "expert"
+      },
+      "gating": {
+        "gender": [
+          "male"
+        ],
+        "dayMasterElement": [
+          "FIRE"
+        ],
+        "yongshinElement": [
+          "METAL"
+        ],
+        "gyeokguk": [
+          "jeongingyeok"
+        ]
+      },
       "templateTokens": [
-        { "kind": "tag", "tagId": "fire", "label": "불" },
-        { "kind": "text", "value": " 일간은 오늘 학업에서 이해한 것을 바로 말하고 싶게 만들 수 있어요. " },
-        { "kind": "tag", "tagId": "yongshin", "label": "용신" },
-        { "kind": "text", "value": "이 쇠이면 표현보다 정리, 요약, 기준화가 먼저입니다. " },
-        { "kind": "tag", "tagId": "jeongingyeok", "label": "정인격" },
-        { "kind": "text", "value": "은 학습 보호와 기본기를 보태므로 오늘은 복습 구조를 먼저 잡는 해석이 맞아요." }
+        {
+          "kind": "tag",
+          "tagId": "fire",
+          "label": "불"
+        },
+        {
+          "kind": "text",
+          "value": " 일간은 오늘 학업에서 이해한 것을 바로 말하고 싶게 만들 수 있어요.\n\n"
+        },
+        {
+          "kind": "tag",
+          "tagId": "yongshin",
+          "label": "용신"
+        },
+        {
+          "kind": "text",
+          "value": "이 쇠이면 표현보다 정리, 요약, 기준화가 먼저입니다.\n\n"
+        },
+        {
+          "kind": "tag",
+          "tagId": "jeongingyeok",
+          "label": "정인격"
+        },
+        {
+          "kind": "text",
+          "value": "은 학습 보호와 기본기를 보태므로 오늘은 복습 구조를 먼저 잡는 해석이 맞아요.\n\n"
+        },
+        {
+          "kind": "tag",
+          "tagId": "tonggwanYongshin",
+          "label": "통관용신"
+        },
+        {
+          "kind": "text",
+          "value": "의 결과 "
+        },
+        {
+          "kind": "tag",
+          "tagId": "byeongyakYongshin",
+          "label": "병약용신"
+        },
+        {
+          "kind": "text",
+          "value": "의 자리가 함께 또렷해지는 사주는 학습의 깊이가 자기 흐름의 균형을 따라가는 자리예요."
+        }
       ],
-      "livingTips": ["공부한 내용을 3줄 요약한 뒤 문제 풀이로 넘어가세요."],
-      "cautions": ["안다고 느낀 내용을 검증하지 않으면 실수가 남을 수 있어요."],
-      "tags": ["fire", "yongshin", "jeongingyeok"],
+      "livingTips": [
+        "공부한 내용을 3줄 요약한 뒤 문제 풀이로 넘어가세요."
+      ],
+      "cautions": [
+        "안다고 느낀 내용을 검증하지 않으면 실수가 남을 수 있어요."
+      ],
+      "tags": [
+        "fire",
+        "yongshin",
+        "jeongingyeok",
+        "tonggwanYongshin",
+        "byeongyakYongshin"
+      ],
       "numericalEvidence": [
-        { "label": "성별 분류값", "valueExpression": "feature.genderOrdinal", "unit": "ordinal", "sourceTier": { "tier": "T3_INTERNAL_ENGINE", "sourceType": "internal_scoring_policy", "sourceUrl": null, "accessedAt": "2026-05-03", "quoteShort": null, "humanInterpretation": "Resolved from deterministic spring-ts runtime output.", "copyrightNote": "No third-party prose copied.", "authorityTruthEligible": false } },
-        { "label": "일간 오행 분류값", "valueExpression": "feature.dayMasterElementOrdinal", "unit": "ordinal", "sourceTier": { "tier": "T3_INTERNAL_ENGINE", "sourceType": "internal_scoring_policy", "sourceUrl": null, "accessedAt": "2026-05-03", "quoteShort": null, "humanInterpretation": "Resolved from deterministic spring-ts runtime output.", "copyrightNote": "No third-party prose copied.", "authorityTruthEligible": false } },
-        { "label": "용신 오행 분류값", "valueExpression": "feature.yongshinElementOrdinal", "unit": "ordinal", "sourceTier": { "tier": "T3_INTERNAL_ENGINE", "sourceType": "internal_scoring_policy", "sourceUrl": null, "accessedAt": "2026-05-03", "quoteShort": null, "humanInterpretation": "Resolved from deterministic spring-ts runtime output.", "copyrightNote": "No third-party prose copied.", "authorityTruthEligible": false } },
-        { "label": "격국 분류값", "valueExpression": "feature.gyeokgukOrdinal", "unit": "ordinal", "sourceTier": { "tier": "T3_INTERNAL_ENGINE", "sourceType": "internal_scoring_policy", "sourceUrl": null, "accessedAt": "2026-05-03", "quoteShort": null, "humanInterpretation": "Resolved from deterministic spring-ts runtime output.", "copyrightNote": "No third-party prose copied.", "authorityTruthEligible": false } }
+        {
+          "label": "성별 분류값",
+          "valueExpression": "feature.genderOrdinal",
+          "unit": "ordinal",
+          "sourceTier": {
+            "tier": "T3_INTERNAL_ENGINE",
+            "sourceType": "internal_scoring_policy",
+            "sourceUrl": null,
+            "accessedAt": "2026-05-03",
+            "quoteShort": null,
+            "humanInterpretation": "Resolved from deterministic spring-ts runtime output.",
+            "copyrightNote": "No third-party prose copied.",
+            "authorityTruthEligible": false
+          }
+        },
+        {
+          "label": "일간 오행 분류값",
+          "valueExpression": "feature.dayMasterElementOrdinal",
+          "unit": "ordinal",
+          "sourceTier": {
+            "tier": "T3_INTERNAL_ENGINE",
+            "sourceType": "internal_scoring_policy",
+            "sourceUrl": null,
+            "accessedAt": "2026-05-03",
+            "quoteShort": null,
+            "humanInterpretation": "Resolved from deterministic spring-ts runtime output.",
+            "copyrightNote": "No third-party prose copied.",
+            "authorityTruthEligible": false
+          }
+        },
+        {
+          "label": "용신 오행 분류값",
+          "valueExpression": "feature.yongshinElementOrdinal",
+          "unit": "ordinal",
+          "sourceTier": {
+            "tier": "T3_INTERNAL_ENGINE",
+            "sourceType": "internal_scoring_policy",
+            "sourceUrl": null,
+            "accessedAt": "2026-05-03",
+            "quoteShort": null,
+            "humanInterpretation": "Resolved from deterministic spring-ts runtime output.",
+            "copyrightNote": "No third-party prose copied.",
+            "authorityTruthEligible": false
+          }
+        },
+        {
+          "label": "격국 분류값",
+          "valueExpression": "feature.gyeokgukOrdinal",
+          "unit": "ordinal",
+          "sourceTier": {
+            "tier": "T3_INTERNAL_ENGINE",
+            "sourceType": "internal_scoring_policy",
+            "sourceUrl": null,
+            "accessedAt": "2026-05-03",
+            "quoteShort": null,
+            "humanInterpretation": "Resolved from deterministic spring-ts runtime output.",
+            "copyrightNote": "No third-party prose copied.",
+            "authorityTruthEligible": false
+          }
+        }
       ],
       "aiGenerated": true,
-      "sourceTier": { "tier": "T1_HYPOTHESIS", "sourceType": "training_derived", "sourceUrl": null, "accessedAt": "2026-05-03", "quoteShort": null, "humanInterpretation": "Expert categorical evidence density wave 2 fragment. AI-derived display text; not authority truth.", "copyrightNote": "No source prose copied; original phrasing.", "authorityTruthEligible": false }
+      "sourceTier": {
+        "tier": "T1_HYPOTHESIS",
+        "sourceType": "training_derived",
+        "sourceUrl": null,
+        "accessedAt": "2026-05-03",
+        "quoteShort": null,
+        "humanInterpretation": "Expert categorical evidence density wave 2 fragment. AI-derived display text; not authority truth.",
+        "copyrightNote": "No source prose copied; original phrasing.",
+        "authorityTruthEligible": false
+      }
     },
     {
       "schemaVersion": "spring-ts.narrative-fragment.v1",
       "fragmentId": "study_document.thisYear.expert.categorical_wave2.female_earth_yongshin_fire_pyeoningyeok.402",
-      "axis": { "category": "study_document", "period": "thisYear", "depth": "expert" },
-      "gating": { "gender": ["female"], "dayMasterElement": ["EARTH"], "yongshinElement": ["FIRE"], "gyeokguk": ["pyeoningyeok"] },
+      "axis": {
+        "category": "study_document",
+        "period": "thisYear",
+        "depth": "expert"
+      },
+      "gating": {
+        "gender": [
+          "female"
+        ],
+        "dayMasterElement": [
+          "EARTH"
+        ],
+        "yongshinElement": [
+          "FIRE"
+        ],
+        "gyeokguk": [
+          "pyeoningyeok"
+        ]
+      },
       "templateTokens": [
-        { "kind": "tag", "tagId": "earth", "label": "흙" },
-        { "kind": "text", "value": " 일간은 올해 문서와 학습 자료를 오래 붙들고 구조화하려는 힘을 만듭니다. " },
-        { "kind": "tag", "tagId": "yongshin", "label": "용신" },
-        { "kind": "text", "value": "이 불이면 정리한 내용을 드러내고 발표하는 흐름이 필요해요. " },
-        { "kind": "tag", "tagId": "pyeoningyeok", "label": "편인격" },
-        { "kind": "text", "value": "은 탐구 깊이를 보태므로 자료를 모으되 공개 가능한 산출물로 전환해야 합니다." }
+        {
+          "kind": "tag",
+          "tagId": "earth",
+          "label": "흙"
+        },
+        {
+          "kind": "text",
+          "value": " 일간은 올해 문서와 학습 자료를 오래 붙들고 구조화하려는 힘을 만듭니다.\n\n"
+        },
+        {
+          "kind": "tag",
+          "tagId": "yongshin",
+          "label": "용신"
+        },
+        {
+          "kind": "text",
+          "value": "이 불이면 정리한 내용을 드러내고 발표하는 흐름이 필요해요.\n\n"
+        },
+        {
+          "kind": "tag",
+          "tagId": "pyeoningyeok",
+          "label": "편인격"
+        },
+        {
+          "kind": "text",
+          "value": "은 탐구 깊이를 보태므로 자료를 모으되 공개 가능한 산출물로 전환해야 합니다.\n\n"
+        },
+        {
+          "kind": "tag",
+          "tagId": "cheondeokgwiin",
+          "label": "천덕귀인"
+        },
+        {
+          "kind": "text",
+          "value": "의 결과 "
+        },
+        {
+          "kind": "tag",
+          "tagId": "woldeokgwiin",
+          "label": "월덕귀인"
+        },
+        {
+          "kind": "text",
+          "value": "의 자리가 함께 보이면 문서 흐름이 차분하게 자리 잡는 사주이니, 작은 도움도 미루지 않는 호흡이 잘 어울려요."
+        }
       ],
-      "livingTips": ["긴 자료는 목차, 핵심 문장, 공개용 요약으로 나누어 정리해요."],
-      "cautions": ["준비가 길어질수록 실제 제출과 공유 시점을 놓치지 않게 하세요."],
-      "tags": ["earth", "yongshin", "pyeoningyeok"],
+      "livingTips": [
+        "긴 자료는 목차, 핵심 문장, 공개용 요약으로 나누어 정리해요."
+      ],
+      "cautions": [
+        "준비가 길어질수록 실제 제출과 공유 시점을 놓치지 않게 하세요."
+      ],
+      "tags": [
+        "earth",
+        "yongshin",
+        "pyeoningyeok",
+        "cheondeokgwiin",
+        "woldeokgwiin"
+      ],
       "numericalEvidence": [
-        { "label": "성별 분류값", "valueExpression": "feature.genderOrdinal", "unit": "ordinal", "sourceTier": { "tier": "T3_INTERNAL_ENGINE", "sourceType": "internal_scoring_policy", "sourceUrl": null, "accessedAt": "2026-05-03", "quoteShort": null, "humanInterpretation": "Resolved from deterministic spring-ts runtime output.", "copyrightNote": "No third-party prose copied.", "authorityTruthEligible": false } },
-        { "label": "일간 오행 분류값", "valueExpression": "feature.dayMasterElementOrdinal", "unit": "ordinal", "sourceTier": { "tier": "T3_INTERNAL_ENGINE", "sourceType": "internal_scoring_policy", "sourceUrl": null, "accessedAt": "2026-05-03", "quoteShort": null, "humanInterpretation": "Resolved from deterministic spring-ts runtime output.", "copyrightNote": "No third-party prose copied.", "authorityTruthEligible": false } },
-        { "label": "용신 오행 분류값", "valueExpression": "feature.yongshinElementOrdinal", "unit": "ordinal", "sourceTier": { "tier": "T3_INTERNAL_ENGINE", "sourceType": "internal_scoring_policy", "sourceUrl": null, "accessedAt": "2026-05-03", "quoteShort": null, "humanInterpretation": "Resolved from deterministic spring-ts runtime output.", "copyrightNote": "No third-party prose copied.", "authorityTruthEligible": false } },
-        { "label": "격국 분류값", "valueExpression": "feature.gyeokgukOrdinal", "unit": "ordinal", "sourceTier": { "tier": "T3_INTERNAL_ENGINE", "sourceType": "internal_scoring_policy", "sourceUrl": null, "accessedAt": "2026-05-03", "quoteShort": null, "humanInterpretation": "Resolved from deterministic spring-ts runtime output.", "copyrightNote": "No third-party prose copied.", "authorityTruthEligible": false } }
+        {
+          "label": "성별 분류값",
+          "valueExpression": "feature.genderOrdinal",
+          "unit": "ordinal",
+          "sourceTier": {
+            "tier": "T3_INTERNAL_ENGINE",
+            "sourceType": "internal_scoring_policy",
+            "sourceUrl": null,
+            "accessedAt": "2026-05-03",
+            "quoteShort": null,
+            "humanInterpretation": "Resolved from deterministic spring-ts runtime output.",
+            "copyrightNote": "No third-party prose copied.",
+            "authorityTruthEligible": false
+          }
+        },
+        {
+          "label": "일간 오행 분류값",
+          "valueExpression": "feature.dayMasterElementOrdinal",
+          "unit": "ordinal",
+          "sourceTier": {
+            "tier": "T3_INTERNAL_ENGINE",
+            "sourceType": "internal_scoring_policy",
+            "sourceUrl": null,
+            "accessedAt": "2026-05-03",
+            "quoteShort": null,
+            "humanInterpretation": "Resolved from deterministic spring-ts runtime output.",
+            "copyrightNote": "No third-party prose copied.",
+            "authorityTruthEligible": false
+          }
+        },
+        {
+          "label": "용신 오행 분류값",
+          "valueExpression": "feature.yongshinElementOrdinal",
+          "unit": "ordinal",
+          "sourceTier": {
+            "tier": "T3_INTERNAL_ENGINE",
+            "sourceType": "internal_scoring_policy",
+            "sourceUrl": null,
+            "accessedAt": "2026-05-03",
+            "quoteShort": null,
+            "humanInterpretation": "Resolved from deterministic spring-ts runtime output.",
+            "copyrightNote": "No third-party prose copied.",
+            "authorityTruthEligible": false
+          }
+        },
+        {
+          "label": "격국 분류값",
+          "valueExpression": "feature.gyeokgukOrdinal",
+          "unit": "ordinal",
+          "sourceTier": {
+            "tier": "T3_INTERNAL_ENGINE",
+            "sourceType": "internal_scoring_policy",
+            "sourceUrl": null,
+            "accessedAt": "2026-05-03",
+            "quoteShort": null,
+            "humanInterpretation": "Resolved from deterministic spring-ts runtime output.",
+            "copyrightNote": "No third-party prose copied.",
+            "authorityTruthEligible": false
+          }
+        }
       ],
       "aiGenerated": true,
-      "sourceTier": { "tier": "T1_HYPOTHESIS", "sourceType": "training_derived", "sourceUrl": null, "accessedAt": "2026-05-03", "quoteShort": null, "humanInterpretation": "Expert categorical evidence density wave 2 fragment. AI-derived display text; not authority truth.", "copyrightNote": "No source prose copied; original phrasing.", "authorityTruthEligible": false }
+      "sourceTier": {
+        "tier": "T1_HYPOTHESIS",
+        "sourceType": "training_derived",
+        "sourceUrl": null,
+        "accessedAt": "2026-05-03",
+        "quoteShort": null,
+        "humanInterpretation": "Expert categorical evidence density wave 2 fragment. AI-derived display text; not authority truth.",
+        "copyrightNote": "No source prose copied; original phrasing.",
+        "authorityTruthEligible": false
+      }
     },
     {
       "schemaVersion": "spring-ts.narrative-fragment.v1",
       "fragmentId": "expression_children.thisWeek.expert.categorical_wave2.neutral_metal_yongshin_earth_sikshingyeok.402",
-      "axis": { "category": "expression_children", "period": "thisWeek", "depth": "expert" },
-      "gating": { "gender": ["neutral"], "dayMasterElement": ["METAL"], "yongshinElement": ["EARTH"], "gyeokguk": ["sikshingyeok"] },
+      "axis": {
+        "category": "expression_children",
+        "period": "thisWeek",
+        "depth": "expert"
+      },
+      "gating": {
+        "gender": [
+          "neutral"
+        ],
+        "dayMasterElement": [
+          "METAL"
+        ],
+        "yongshinElement": [
+          "EARTH"
+        ],
+        "gyeokguk": [
+          "sikshingyeok"
+        ]
+      },
       "templateTokens": [
-        { "kind": "tag", "tagId": "metal", "label": "쇠" },
-        { "kind": "text", "value": " 일간은 이번 주 표현에서 기준과 완성도를 높이게 해요. " },
-        { "kind": "tag", "tagId": "yongshin", "label": "용신" },
-        { "kind": "text", "value": "이 흙이면 결과물을 안정적으로 쌓는 구조가 필요합니다. " },
-        { "kind": "tag", "tagId": "sikshingyeok", "label": "식신격" },
-        { "kind": "text", "value": "은 꾸준한 창작과 산출을 보태므로 작은 결과물을 반복해 내는 전략이 맞아요." }
+        {
+          "kind": "tag",
+          "tagId": "metal",
+          "label": "쇠"
+        },
+        {
+          "kind": "text",
+          "value": " 일간은 이번 주 표현에서 기준과 완성도를 높이게 해요.\n\n"
+        },
+        {
+          "kind": "tag",
+          "tagId": "yongshin",
+          "label": "용신"
+        },
+        {
+          "kind": "text",
+          "value": "이 흙이면 결과물을 안정적으로 쌓는 구조가 필요합니다.\n\n"
+        },
+        {
+          "kind": "tag",
+          "tagId": "sikshingyeok",
+          "label": "식신격"
+        },
+        {
+          "kind": "text",
+          "value": "은 꾸준한 창작과 산출을 보태므로 작은 결과물을 반복해 내는 전략이 맞아요.\n\n"
+        },
+        {
+          "kind": "tag",
+          "tagId": "hwagae",
+          "label": "화개"
+        },
+        {
+          "kind": "text",
+          "value": "의 결과 "
+        },
+        {
+          "kind": "tag",
+          "tagId": "munchanggwiin",
+          "label": "문창귀인"
+        },
+        {
+          "kind": "text",
+          "value": "의 자리가 함께 보이는 사주는 깊이 있는 표현이 자기 자산이 되는 모양이에요."
+        }
       ],
-      "livingTips": ["표현할 주제를 하나로 좁히고 완성 기준을 먼저 적어보세요."],
-      "cautions": ["완성도를 높이려다 시작 자체가 늦어지지 않게 하세요."],
-      "tags": ["metal", "yongshin", "sikshingyeok"],
+      "livingTips": [
+        "표현할 주제를 하나로 좁히고 완성 기준을 먼저 적어보세요."
+      ],
+      "cautions": [
+        "완성도를 높이려다 시작 자체가 늦어지지 않게 하세요."
+      ],
+      "tags": [
+        "metal",
+        "yongshin",
+        "sikshingyeok",
+        "hwagae",
+        "munchanggwiin"
+      ],
       "numericalEvidence": [
-        { "label": "성별 분류값", "valueExpression": "feature.genderOrdinal", "unit": "ordinal", "sourceTier": { "tier": "T3_INTERNAL_ENGINE", "sourceType": "internal_scoring_policy", "sourceUrl": null, "accessedAt": "2026-05-03", "quoteShort": null, "humanInterpretation": "Resolved from deterministic spring-ts runtime output.", "copyrightNote": "No third-party prose copied.", "authorityTruthEligible": false } },
-        { "label": "일간 오행 분류값", "valueExpression": "feature.dayMasterElementOrdinal", "unit": "ordinal", "sourceTier": { "tier": "T3_INTERNAL_ENGINE", "sourceType": "internal_scoring_policy", "sourceUrl": null, "accessedAt": "2026-05-03", "quoteShort": null, "humanInterpretation": "Resolved from deterministic spring-ts runtime output.", "copyrightNote": "No third-party prose copied.", "authorityTruthEligible": false } },
-        { "label": "용신 오행 분류값", "valueExpression": "feature.yongshinElementOrdinal", "unit": "ordinal", "sourceTier": { "tier": "T3_INTERNAL_ENGINE", "sourceType": "internal_scoring_policy", "sourceUrl": null, "accessedAt": "2026-05-03", "quoteShort": null, "humanInterpretation": "Resolved from deterministic spring-ts runtime output.", "copyrightNote": "No third-party prose copied.", "authorityTruthEligible": false } },
-        { "label": "격국 분류값", "valueExpression": "feature.gyeokgukOrdinal", "unit": "ordinal", "sourceTier": { "tier": "T3_INTERNAL_ENGINE", "sourceType": "internal_scoring_policy", "sourceUrl": null, "accessedAt": "2026-05-03", "quoteShort": null, "humanInterpretation": "Resolved from deterministic spring-ts runtime output.", "copyrightNote": "No third-party prose copied.", "authorityTruthEligible": false } }
+        {
+          "label": "성별 분류값",
+          "valueExpression": "feature.genderOrdinal",
+          "unit": "ordinal",
+          "sourceTier": {
+            "tier": "T3_INTERNAL_ENGINE",
+            "sourceType": "internal_scoring_policy",
+            "sourceUrl": null,
+            "accessedAt": "2026-05-03",
+            "quoteShort": null,
+            "humanInterpretation": "Resolved from deterministic spring-ts runtime output.",
+            "copyrightNote": "No third-party prose copied.",
+            "authorityTruthEligible": false
+          }
+        },
+        {
+          "label": "일간 오행 분류값",
+          "valueExpression": "feature.dayMasterElementOrdinal",
+          "unit": "ordinal",
+          "sourceTier": {
+            "tier": "T3_INTERNAL_ENGINE",
+            "sourceType": "internal_scoring_policy",
+            "sourceUrl": null,
+            "accessedAt": "2026-05-03",
+            "quoteShort": null,
+            "humanInterpretation": "Resolved from deterministic spring-ts runtime output.",
+            "copyrightNote": "No third-party prose copied.",
+            "authorityTruthEligible": false
+          }
+        },
+        {
+          "label": "용신 오행 분류값",
+          "valueExpression": "feature.yongshinElementOrdinal",
+          "unit": "ordinal",
+          "sourceTier": {
+            "tier": "T3_INTERNAL_ENGINE",
+            "sourceType": "internal_scoring_policy",
+            "sourceUrl": null,
+            "accessedAt": "2026-05-03",
+            "quoteShort": null,
+            "humanInterpretation": "Resolved from deterministic spring-ts runtime output.",
+            "copyrightNote": "No third-party prose copied.",
+            "authorityTruthEligible": false
+          }
+        },
+        {
+          "label": "격국 분류값",
+          "valueExpression": "feature.gyeokgukOrdinal",
+          "unit": "ordinal",
+          "sourceTier": {
+            "tier": "T3_INTERNAL_ENGINE",
+            "sourceType": "internal_scoring_policy",
+            "sourceUrl": null,
+            "accessedAt": "2026-05-03",
+            "quoteShort": null,
+            "humanInterpretation": "Resolved from deterministic spring-ts runtime output.",
+            "copyrightNote": "No third-party prose copied.",
+            "authorityTruthEligible": false
+          }
+        }
       ],
       "aiGenerated": true,
-      "sourceTier": { "tier": "T1_HYPOTHESIS", "sourceType": "training_derived", "sourceUrl": null, "accessedAt": "2026-05-03", "quoteShort": null, "humanInterpretation": "Expert categorical evidence density wave 2 fragment. AI-derived display text; not authority truth.", "copyrightNote": "No source prose copied; original phrasing.", "authorityTruthEligible": false }
+      "sourceTier": {
+        "tier": "T1_HYPOTHESIS",
+        "sourceType": "training_derived",
+        "sourceUrl": null,
+        "accessedAt": "2026-05-03",
+        "quoteShort": null,
+        "humanInterpretation": "Expert categorical evidence density wave 2 fragment. AI-derived display text; not authority truth.",
+        "copyrightNote": "No source prose copied; original phrasing.",
+        "authorityTruthEligible": false
+      }
     },
     {
       "schemaVersion": "spring-ts.narrative-fragment.v1",
       "fragmentId": "health_stress.thisMonth.expert.categorical_wave2.male_water_yongshin_wood_sanggwangyeok.402",
-      "axis": { "category": "health_stress", "period": "thisMonth", "depth": "expert" },
-      "gating": { "gender": ["male"], "dayMasterElement": ["WATER"], "yongshinElement": ["WOOD"], "gyeokguk": ["sanggwangyeok"] },
+      "axis": {
+        "category": "health_stress",
+        "period": "thisMonth",
+        "depth": "expert"
+      },
+      "gating": {
+        "gender": [
+          "male"
+        ],
+        "dayMasterElement": [
+          "WATER"
+        ],
+        "yongshinElement": [
+          "WOOD"
+        ],
+        "gyeokguk": [
+          "sanggwangyeok"
+        ]
+      },
       "templateTokens": [
-        { "kind": "tag", "tagId": "water", "label": "물" },
-        { "kind": "text", "value": " 일간은 이번 달 스트레스를 생각과 감정 안쪽에 오래 담아둘 수 있어요. " },
-        { "kind": "tag", "tagId": "yongshin", "label": "용신" },
-        { "kind": "text", "value": "이 나무이면 회복 후 다시 성장하는 루틴이 필요합니다. " },
-        { "kind": "tag", "tagId": "sanggwangyeok", "label": "상관격" },
-        { "kind": "text", "value": "은 표현 욕구를 키우므로 말과 행동으로 긴장을 건강하게 풀어내야 해요." }
+        {
+          "kind": "tag",
+          "tagId": "water",
+          "label": "물"
+        },
+        {
+          "kind": "text",
+          "value": " 일간은 이번 달 스트레스를 생각과 감정 안쪽에 오래 담아둘 수 있어요.\n\n"
+        },
+        {
+          "kind": "tag",
+          "tagId": "yongshin",
+          "label": "용신"
+        },
+        {
+          "kind": "text",
+          "value": "이 나무이면 회복 후 다시 성장하는 루틴이 필요합니다.\n\n"
+        },
+        {
+          "kind": "tag",
+          "tagId": "sanggwangyeok",
+          "label": "상관격"
+        },
+        {
+          "kind": "text",
+          "value": "은 표현 욕구를 키우므로 말과 행동으로 긴장을 건강하게 풀어내야 해요.\n\n"
+        },
+        {
+          "kind": "tag",
+          "tagId": "gongmang",
+          "label": "공망"
+        },
+        {
+          "kind": "text",
+          "value": "의 결과 "
+        },
+        {
+          "kind": "tag",
+          "tagId": "stabilityIndex",
+          "label": "안정성지수"
+        },
+        {
+          "kind": "text",
+          "value": "를 함께 살펴 두면 비워 두는 자리와 채워 두는 자리의 결이 한층 또렷해져요."
+        }
       ],
-      "livingTips": ["감정 기록, 짧은 산책, 작은 실행을 한 묶음으로 반복하세요."],
-      "cautions": ["생각이 길어질수록 실제 회복 행동이 늦어지지 않게 하세요."],
-      "tags": ["water", "yongshin", "sanggwangyeok"],
+      "livingTips": [
+        "감정 기록, 짧은 산책, 작은 실행을 한 묶음으로 반복하세요."
+      ],
+      "cautions": [
+        "생각이 길어질수록 실제 회복 행동이 늦어지지 않게 하세요."
+      ],
+      "tags": [
+        "water",
+        "yongshin",
+        "sanggwangyeok",
+        "gongmang",
+        "stabilityIndex"
+      ],
       "numericalEvidence": [
-        { "label": "성별 분류값", "valueExpression": "feature.genderOrdinal", "unit": "ordinal", "sourceTier": { "tier": "T3_INTERNAL_ENGINE", "sourceType": "internal_scoring_policy", "sourceUrl": null, "accessedAt": "2026-05-03", "quoteShort": null, "humanInterpretation": "Resolved from deterministic spring-ts runtime output.", "copyrightNote": "No third-party prose copied.", "authorityTruthEligible": false } },
-        { "label": "일간 오행 분류값", "valueExpression": "feature.dayMasterElementOrdinal", "unit": "ordinal", "sourceTier": { "tier": "T3_INTERNAL_ENGINE", "sourceType": "internal_scoring_policy", "sourceUrl": null, "accessedAt": "2026-05-03", "quoteShort": null, "humanInterpretation": "Resolved from deterministic spring-ts runtime output.", "copyrightNote": "No third-party prose copied.", "authorityTruthEligible": false } },
-        { "label": "용신 오행 분류값", "valueExpression": "feature.yongshinElementOrdinal", "unit": "ordinal", "sourceTier": { "tier": "T3_INTERNAL_ENGINE", "sourceType": "internal_scoring_policy", "sourceUrl": null, "accessedAt": "2026-05-03", "quoteShort": null, "humanInterpretation": "Resolved from deterministic spring-ts runtime output.", "copyrightNote": "No third-party prose copied.", "authorityTruthEligible": false } },
-        { "label": "격국 분류값", "valueExpression": "feature.gyeokgukOrdinal", "unit": "ordinal", "sourceTier": { "tier": "T3_INTERNAL_ENGINE", "sourceType": "internal_scoring_policy", "sourceUrl": null, "accessedAt": "2026-05-03", "quoteShort": null, "humanInterpretation": "Resolved from deterministic spring-ts runtime output.", "copyrightNote": "No third-party prose copied.", "authorityTruthEligible": false } }
+        {
+          "label": "성별 분류값",
+          "valueExpression": "feature.genderOrdinal",
+          "unit": "ordinal",
+          "sourceTier": {
+            "tier": "T3_INTERNAL_ENGINE",
+            "sourceType": "internal_scoring_policy",
+            "sourceUrl": null,
+            "accessedAt": "2026-05-03",
+            "quoteShort": null,
+            "humanInterpretation": "Resolved from deterministic spring-ts runtime output.",
+            "copyrightNote": "No third-party prose copied.",
+            "authorityTruthEligible": false
+          }
+        },
+        {
+          "label": "일간 오행 분류값",
+          "valueExpression": "feature.dayMasterElementOrdinal",
+          "unit": "ordinal",
+          "sourceTier": {
+            "tier": "T3_INTERNAL_ENGINE",
+            "sourceType": "internal_scoring_policy",
+            "sourceUrl": null,
+            "accessedAt": "2026-05-03",
+            "quoteShort": null,
+            "humanInterpretation": "Resolved from deterministic spring-ts runtime output.",
+            "copyrightNote": "No third-party prose copied.",
+            "authorityTruthEligible": false
+          }
+        },
+        {
+          "label": "용신 오행 분류값",
+          "valueExpression": "feature.yongshinElementOrdinal",
+          "unit": "ordinal",
+          "sourceTier": {
+            "tier": "T3_INTERNAL_ENGINE",
+            "sourceType": "internal_scoring_policy",
+            "sourceUrl": null,
+            "accessedAt": "2026-05-03",
+            "quoteShort": null,
+            "humanInterpretation": "Resolved from deterministic spring-ts runtime output.",
+            "copyrightNote": "No third-party prose copied.",
+            "authorityTruthEligible": false
+          }
+        },
+        {
+          "label": "격국 분류값",
+          "valueExpression": "feature.gyeokgukOrdinal",
+          "unit": "ordinal",
+          "sourceTier": {
+            "tier": "T3_INTERNAL_ENGINE",
+            "sourceType": "internal_scoring_policy",
+            "sourceUrl": null,
+            "accessedAt": "2026-05-03",
+            "quoteShort": null,
+            "humanInterpretation": "Resolved from deterministic spring-ts runtime output.",
+            "copyrightNote": "No third-party prose copied.",
+            "authorityTruthEligible": false
+          }
+        }
       ],
       "aiGenerated": true,
-      "sourceTier": { "tier": "T1_HYPOTHESIS", "sourceType": "training_derived", "sourceUrl": null, "accessedAt": "2026-05-03", "quoteShort": null, "humanInterpretation": "Expert categorical evidence density wave 2 fragment. AI-derived display text; not authority truth.", "copyrightNote": "No source prose copied; original phrasing.", "authorityTruthEligible": false }
+      "sourceTier": {
+        "tier": "T1_HYPOTHESIS",
+        "sourceType": "training_derived",
+        "sourceUrl": null,
+        "accessedAt": "2026-05-03",
+        "quoteShort": null,
+        "humanInterpretation": "Expert categorical evidence density wave 2 fragment. AI-derived display text; not authority truth.",
+        "copyrightNote": "No source prose copied; original phrasing.",
+        "authorityTruthEligible": false
+      }
     },
     {
       "schemaVersion": "spring-ts.narrative-fragment.v1",
       "fragmentId": "movement.today.expert.categorical_wave2.female_wood_yongshin_metal_pyeongwangyeok.402",
-      "axis": { "category": "movement", "period": "today", "depth": "expert" },
-      "gating": { "gender": ["female"], "dayMasterElement": ["WOOD"], "yongshinElement": ["METAL"], "gyeokguk": ["pyeongwangyeok"] },
+      "axis": {
+        "category": "movement",
+        "period": "today",
+        "depth": "expert"
+      },
+      "gating": {
+        "gender": [
+          "female"
+        ],
+        "dayMasterElement": [
+          "WOOD"
+        ],
+        "yongshinElement": [
+          "METAL"
+        ],
+        "gyeokguk": [
+          "pyeongwangyeok"
+        ]
+      },
       "templateTokens": [
-        { "kind": "tag", "tagId": "wood", "label": "나무" },
-        { "kind": "text", "value": " 일간은 오늘 이동과 변화를 성장 기회로 읽게 해요. " },
-        { "kind": "tag", "tagId": "yongshin", "label": "용신" },
-        { "kind": "text", "value": "이 쇠이면 움직이기 전 기준, 문서, 약속을 정리해야 안정됩니다. " },
-        { "kind": "tag", "tagId": "pyeongwangyeok", "label": "편관격" },
-        { "kind": "text", "value": "은 돌발 변수 대응을 키우므로 예비 시간을 반드시 둬야 해요." }
+        {
+          "kind": "tag",
+          "tagId": "wood",
+          "label": "나무"
+        },
+        {
+          "kind": "text",
+          "value": " 일간은 오늘 이동과 변화를 성장 기회로 읽게 해요.\n\n"
+        },
+        {
+          "kind": "tag",
+          "tagId": "yongshin",
+          "label": "용신"
+        },
+        {
+          "kind": "text",
+          "value": "이 쇠이면 움직이기 전 기준, 문서, 약속을 정리해야 안정됩니다.\n\n"
+        },
+        {
+          "kind": "tag",
+          "tagId": "pyeongwangyeok",
+          "label": "편관격"
+        },
+        {
+          "kind": "text",
+          "value": "은 돌발 변수 대응을 키우므로 예비 시간을 반드시 둬야 해요.\n\n"
+        },
+        {
+          "kind": "tag",
+          "tagId": "jisal",
+          "label": "지살"
+        },
+        {
+          "kind": "text",
+          "value": "의 신호와 "
+        },
+        {
+          "kind": "tag",
+          "tagId": "cheonigung",
+          "label": "천이궁"
+        },
+        {
+          "kind": "text",
+          "value": "의 결을 함께 살펴 두면 이동의 결이 어디로 이어질지 한층 또렷해져요."
+        }
       ],
-      "livingTips": ["오늘 이동 전에는 목적, 시간, 예비 경로를 짧게 확인하세요."],
-      "cautions": ["급한 이동일수록 약속과 문서 확인을 생략하지 마세요."],
-      "tags": ["wood", "yongshin", "pyeongwangyeok"],
+      "livingTips": [
+        "오늘 이동 전에는 목적, 시간, 예비 경로를 짧게 확인하세요."
+      ],
+      "cautions": [
+        "급한 이동일수록 약속과 문서 확인을 생략하지 마세요."
+      ],
+      "tags": [
+        "wood",
+        "yongshin",
+        "pyeongwangyeok",
+        "jisal",
+        "cheonigung"
+      ],
       "numericalEvidence": [
-        { "label": "성별 분류값", "valueExpression": "feature.genderOrdinal", "unit": "ordinal", "sourceTier": { "tier": "T3_INTERNAL_ENGINE", "sourceType": "internal_scoring_policy", "sourceUrl": null, "accessedAt": "2026-05-03", "quoteShort": null, "humanInterpretation": "Resolved from deterministic spring-ts runtime output.", "copyrightNote": "No third-party prose copied.", "authorityTruthEligible": false } },
-        { "label": "일간 오행 분류값", "valueExpression": "feature.dayMasterElementOrdinal", "unit": "ordinal", "sourceTier": { "tier": "T3_INTERNAL_ENGINE", "sourceType": "internal_scoring_policy", "sourceUrl": null, "accessedAt": "2026-05-03", "quoteShort": null, "humanInterpretation": "Resolved from deterministic spring-ts runtime output.", "copyrightNote": "No third-party prose copied.", "authorityTruthEligible": false } },
-        { "label": "용신 오행 분류값", "valueExpression": "feature.yongshinElementOrdinal", "unit": "ordinal", "sourceTier": { "tier": "T3_INTERNAL_ENGINE", "sourceType": "internal_scoring_policy", "sourceUrl": null, "accessedAt": "2026-05-03", "quoteShort": null, "humanInterpretation": "Resolved from deterministic spring-ts runtime output.", "copyrightNote": "No third-party prose copied.", "authorityTruthEligible": false } },
-        { "label": "격국 분류값", "valueExpression": "feature.gyeokgukOrdinal", "unit": "ordinal", "sourceTier": { "tier": "T3_INTERNAL_ENGINE", "sourceType": "internal_scoring_policy", "sourceUrl": null, "accessedAt": "2026-05-03", "quoteShort": null, "humanInterpretation": "Resolved from deterministic spring-ts runtime output.", "copyrightNote": "No third-party prose copied.", "authorityTruthEligible": false } }
+        {
+          "label": "성별 분류값",
+          "valueExpression": "feature.genderOrdinal",
+          "unit": "ordinal",
+          "sourceTier": {
+            "tier": "T3_INTERNAL_ENGINE",
+            "sourceType": "internal_scoring_policy",
+            "sourceUrl": null,
+            "accessedAt": "2026-05-03",
+            "quoteShort": null,
+            "humanInterpretation": "Resolved from deterministic spring-ts runtime output.",
+            "copyrightNote": "No third-party prose copied.",
+            "authorityTruthEligible": false
+          }
+        },
+        {
+          "label": "일간 오행 분류값",
+          "valueExpression": "feature.dayMasterElementOrdinal",
+          "unit": "ordinal",
+          "sourceTier": {
+            "tier": "T3_INTERNAL_ENGINE",
+            "sourceType": "internal_scoring_policy",
+            "sourceUrl": null,
+            "accessedAt": "2026-05-03",
+            "quoteShort": null,
+            "humanInterpretation": "Resolved from deterministic spring-ts runtime output.",
+            "copyrightNote": "No third-party prose copied.",
+            "authorityTruthEligible": false
+          }
+        },
+        {
+          "label": "용신 오행 분류값",
+          "valueExpression": "feature.yongshinElementOrdinal",
+          "unit": "ordinal",
+          "sourceTier": {
+            "tier": "T3_INTERNAL_ENGINE",
+            "sourceType": "internal_scoring_policy",
+            "sourceUrl": null,
+            "accessedAt": "2026-05-03",
+            "quoteShort": null,
+            "humanInterpretation": "Resolved from deterministic spring-ts runtime output.",
+            "copyrightNote": "No third-party prose copied.",
+            "authorityTruthEligible": false
+          }
+        },
+        {
+          "label": "격국 분류값",
+          "valueExpression": "feature.gyeokgukOrdinal",
+          "unit": "ordinal",
+          "sourceTier": {
+            "tier": "T3_INTERNAL_ENGINE",
+            "sourceType": "internal_scoring_policy",
+            "sourceUrl": null,
+            "accessedAt": "2026-05-03",
+            "quoteShort": null,
+            "humanInterpretation": "Resolved from deterministic spring-ts runtime output.",
+            "copyrightNote": "No third-party prose copied.",
+            "authorityTruthEligible": false
+          }
+        }
       ],
       "aiGenerated": true,
-      "sourceTier": { "tier": "T1_HYPOTHESIS", "sourceType": "training_derived", "sourceUrl": null, "accessedAt": "2026-05-03", "quoteShort": null, "humanInterpretation": "Expert categorical evidence density wave 2 fragment. AI-derived display text; not authority truth.", "copyrightNote": "No source prose copied; original phrasing.", "authorityTruthEligible": false }
+      "sourceTier": {
+        "tier": "T1_HYPOTHESIS",
+        "sourceType": "training_derived",
+        "sourceUrl": null,
+        "accessedAt": "2026-05-03",
+        "quoteShort": null,
+        "humanInterpretation": "Expert categorical evidence density wave 2 fragment. AI-derived display text; not authority truth.",
+        "copyrightNote": "No source prose copied; original phrasing.",
+        "authorityTruthEligible": false
+      }
     },
     {
       "schemaVersion": "spring-ts.narrative-fragment.v1",
       "fragmentId": "overall.thisYear.expert.categorical_wave2.neutral_fire_yongshin_water_jeonggwangyeok.402",
-      "axis": { "category": "overall", "period": "thisYear", "depth": "expert" },
-      "gating": { "gender": ["neutral"], "dayMasterElement": ["FIRE"], "yongshinElement": ["WATER"], "gyeokguk": ["jeonggwangyeok"] },
+      "axis": {
+        "category": "overall",
+        "period": "thisYear",
+        "depth": "expert"
+      },
+      "gating": {
+        "gender": [
+          "neutral"
+        ],
+        "dayMasterElement": [
+          "FIRE"
+        ],
+        "yongshinElement": [
+          "WATER"
+        ],
+        "gyeokguk": [
+          "jeonggwangyeok"
+        ]
+      },
       "templateTokens": [
-        { "kind": "tag", "tagId": "fire", "label": "불" },
-        { "kind": "text", "value": " 일간은 올해 전체 흐름에서 드러내고 추진하려는 힘을 만들 수 있어요. " },
-        { "kind": "tag", "tagId": "yongshin", "label": "용신" },
-        { "kind": "text", "value": "이 물이면 추진 전 정보와 휴식 리듬을 확보해야 합니다. " },
-        { "kind": "tag", "tagId": "jeonggwangyeok", "label": "정관격" },
-        { "kind": "text", "value": "은 책임과 질서를 보태므로 올해 계획은 속도보다 신뢰 가능한 구조가 핵심이에요." }
+        {
+          "kind": "tag",
+          "tagId": "fire",
+          "label": "불"
+        },
+        {
+          "kind": "text",
+          "value": " 일간은 올해 전체 흐름에서 드러내고 추진하려는 힘을 만들 수 있어요.\n\n"
+        },
+        {
+          "kind": "tag",
+          "tagId": "yongshin",
+          "label": "용신"
+        },
+        {
+          "kind": "text",
+          "value": "이 물이면 추진 전 정보와 휴식 리듬을 확보해야 합니다.\n\n"
+        },
+        {
+          "kind": "tag",
+          "tagId": "jeonggwangyeok",
+          "label": "정관격"
+        },
+        {
+          "kind": "text",
+          "value": "은 책임과 질서를 보태므로 올해 계획은 속도보다 신뢰 가능한 구조가 핵심이에요.\n\n"
+        },
+        {
+          "kind": "tag",
+          "tagId": "naeum",
+          "label": "납음"
+        },
+        {
+          "kind": "text",
+          "value": "의 결을 함께 살펴 두면 사주 모양의 깊은 색이 더 또렷해지고, "
+        },
+        {
+          "kind": "tag",
+          "tagId": "naeumElement",
+          "label": "납음오행"
+        },
+        {
+          "kind": "text",
+          "value": "의 흐름이 자기 결을 보완하는 자리가 자주 등장해요."
+        }
       ],
-      "livingTips": ["올해 목표는 공개 일정과 회복 루틴을 함께 넣어 관리하세요."],
-      "cautions": ["중립 성별값에서는 성별 역할보다 실제 목표와 환경 정보를 우선하세요."],
-      "tags": ["fire", "yongshin", "jeonggwangyeok"],
+      "livingTips": [
+        "올해 목표는 공개 일정과 회복 루틴을 함께 넣어 관리하세요."
+      ],
+      "cautions": [
+        "중립 성별값에서는 성별 역할보다 실제 목표와 환경 정보를 우선하세요."
+      ],
+      "tags": [
+        "fire",
+        "yongshin",
+        "jeonggwangyeok",
+        "naeum",
+        "naeumElement"
+      ],
       "numericalEvidence": [
-        { "label": "성별 분류값", "valueExpression": "feature.genderOrdinal", "unit": "ordinal", "sourceTier": { "tier": "T3_INTERNAL_ENGINE", "sourceType": "internal_scoring_policy", "sourceUrl": null, "accessedAt": "2026-05-03", "quoteShort": null, "humanInterpretation": "Resolved from deterministic spring-ts runtime output.", "copyrightNote": "No third-party prose copied.", "authorityTruthEligible": false } },
-        { "label": "일간 오행 분류값", "valueExpression": "feature.dayMasterElementOrdinal", "unit": "ordinal", "sourceTier": { "tier": "T3_INTERNAL_ENGINE", "sourceType": "internal_scoring_policy", "sourceUrl": null, "accessedAt": "2026-05-03", "quoteShort": null, "humanInterpretation": "Resolved from deterministic spring-ts runtime output.", "copyrightNote": "No third-party prose copied.", "authorityTruthEligible": false } },
-        { "label": "용신 오행 분류값", "valueExpression": "feature.yongshinElementOrdinal", "unit": "ordinal", "sourceTier": { "tier": "T3_INTERNAL_ENGINE", "sourceType": "internal_scoring_policy", "sourceUrl": null, "accessedAt": "2026-05-03", "quoteShort": null, "humanInterpretation": "Resolved from deterministic spring-ts runtime output.", "copyrightNote": "No third-party prose copied.", "authorityTruthEligible": false } },
-        { "label": "격국 분류값", "valueExpression": "feature.gyeokgukOrdinal", "unit": "ordinal", "sourceTier": { "tier": "T3_INTERNAL_ENGINE", "sourceType": "internal_scoring_policy", "sourceUrl": null, "accessedAt": "2026-05-03", "quoteShort": null, "humanInterpretation": "Resolved from deterministic spring-ts runtime output.", "copyrightNote": "No third-party prose copied.", "authorityTruthEligible": false } }
+        {
+          "label": "성별 분류값",
+          "valueExpression": "feature.genderOrdinal",
+          "unit": "ordinal",
+          "sourceTier": {
+            "tier": "T3_INTERNAL_ENGINE",
+            "sourceType": "internal_scoring_policy",
+            "sourceUrl": null,
+            "accessedAt": "2026-05-03",
+            "quoteShort": null,
+            "humanInterpretation": "Resolved from deterministic spring-ts runtime output.",
+            "copyrightNote": "No third-party prose copied.",
+            "authorityTruthEligible": false
+          }
+        },
+        {
+          "label": "일간 오행 분류값",
+          "valueExpression": "feature.dayMasterElementOrdinal",
+          "unit": "ordinal",
+          "sourceTier": {
+            "tier": "T3_INTERNAL_ENGINE",
+            "sourceType": "internal_scoring_policy",
+            "sourceUrl": null,
+            "accessedAt": "2026-05-03",
+            "quoteShort": null,
+            "humanInterpretation": "Resolved from deterministic spring-ts runtime output.",
+            "copyrightNote": "No third-party prose copied.",
+            "authorityTruthEligible": false
+          }
+        },
+        {
+          "label": "용신 오행 분류값",
+          "valueExpression": "feature.yongshinElementOrdinal",
+          "unit": "ordinal",
+          "sourceTier": {
+            "tier": "T3_INTERNAL_ENGINE",
+            "sourceType": "internal_scoring_policy",
+            "sourceUrl": null,
+            "accessedAt": "2026-05-03",
+            "quoteShort": null,
+            "humanInterpretation": "Resolved from deterministic spring-ts runtime output.",
+            "copyrightNote": "No third-party prose copied.",
+            "authorityTruthEligible": false
+          }
+        },
+        {
+          "label": "격국 분류값",
+          "valueExpression": "feature.gyeokgukOrdinal",
+          "unit": "ordinal",
+          "sourceTier": {
+            "tier": "T3_INTERNAL_ENGINE",
+            "sourceType": "internal_scoring_policy",
+            "sourceUrl": null,
+            "accessedAt": "2026-05-03",
+            "quoteShort": null,
+            "humanInterpretation": "Resolved from deterministic spring-ts runtime output.",
+            "copyrightNote": "No third-party prose copied.",
+            "authorityTruthEligible": false
+          }
+        }
       ],
       "aiGenerated": true,
-      "sourceTier": { "tier": "T1_HYPOTHESIS", "sourceType": "training_derived", "sourceUrl": null, "accessedAt": "2026-05-03", "quoteShort": null, "humanInterpretation": "Expert categorical evidence density wave 2 fragment. AI-derived display text; not authority truth.", "copyrightNote": "No source prose copied; original phrasing.", "authorityTruthEligible": false }
+      "sourceTier": {
+        "tier": "T1_HYPOTHESIS",
+        "sourceType": "training_derived",
+        "sourceUrl": null,
+        "accessedAt": "2026-05-03",
+        "quoteShort": null,
+        "humanInterpretation": "Expert categorical evidence density wave 2 fragment. AI-derived display text; not authority truth.",
+        "copyrightNote": "No source prose copied; original phrasing.",
+        "authorityTruthEligible": false
+      }
     },
     {
       "schemaVersion": "spring-ts.narrative-fragment.v1",
       "fragmentId": "career.thisYear.expert.categorical_wave2.male_earth_yongshin_wood_sikshingyeok.402",
-      "axis": { "category": "career", "period": "thisYear", "depth": "expert" },
-      "gating": { "gender": ["male"], "dayMasterElement": ["EARTH"], "yongshinElement": ["WOOD"], "gyeokguk": ["sikshingyeok"] },
+      "axis": {
+        "category": "career",
+        "period": "thisYear",
+        "depth": "expert"
+      },
+      "gating": {
+        "gender": [
+          "male"
+        ],
+        "dayMasterElement": [
+          "EARTH"
+        ],
+        "yongshinElement": [
+          "WOOD"
+        ],
+        "gyeokguk": [
+          "sikshingyeok"
+        ]
+      },
       "templateTokens": [
-        { "kind": "tag", "tagId": "earth", "label": "흙" },
-        { "kind": "text", "value": " 일간은 올해 커리어에서 안정된 기반과 책임 범위를 중시하게 해요. " },
-        { "kind": "tag", "tagId": "yongshin", "label": "용신" },
-        { "kind": "text", "value": "이 나무라면 기반을 지키면서도 성장할 통로를 열어야 합니다. " },
-        { "kind": "tag", "tagId": "sikshingyeok", "label": "식신격" },
-        { "kind": "text", "value": "은 결과물을 꾸준히 쌓는 힘이므로 장기 프로젝트의 산출 주기를 봐야 해요." }
+        {
+          "kind": "tag",
+          "tagId": "earth",
+          "label": "흙"
+        },
+        {
+          "kind": "text",
+          "value": " 일간은 올해 커리어에서 안정된 기반과 책임 범위를 중시하게 해요.\n\n"
+        },
+        {
+          "kind": "tag",
+          "tagId": "yongshin",
+          "label": "용신"
+        },
+        {
+          "kind": "text",
+          "value": "이 나무라면 기반을 지키면서도 성장할 통로를 열어야 합니다.\n\n"
+        },
+        {
+          "kind": "tag",
+          "tagId": "sikshingyeok",
+          "label": "식신격"
+        },
+        {
+          "kind": "text",
+          "value": "은 결과물을 꾸준히 쌓는 힘이므로 장기 프로젝트의 산출 주기를 봐야 해요.\n\n"
+        },
+        {
+          "kind": "tag",
+          "tagId": "gwanrokgung",
+          "label": "관록궁"
+        },
+        {
+          "kind": "text",
+          "value": "의 결과 "
+        },
+        {
+          "kind": "tag",
+          "tagId": "pyeongwan",
+          "label": "편관"
+        },
+        {
+          "kind": "text",
+          "value": "의 압박이 함께 들어오는 시기에는 일을 미리 분산해 두는 호흡이 자기 페이스를 지켜 줘요."
+        }
       ],
-      "livingTips": ["올해 업무는 분기 결과물과 유지 기준을 적어요."],
-      "cautions": ["안정만 고르면 성장 기회를 놓칠 수 있으니 작은 확장 목표를 남겨두세요."],
-      "tags": ["earth", "yongshin", "sikshingyeok"],
+      "livingTips": [
+        "올해 업무는 분기 결과물과 유지 기준을 적어요."
+      ],
+      "cautions": [
+        "안정만 고르면 성장 기회를 놓칠 수 있으니 작은 확장 목표를 남겨두세요."
+      ],
+      "tags": [
+        "earth",
+        "yongshin",
+        "sikshingyeok",
+        "gwanrokgung",
+        "pyeongwan"
+      ],
       "numericalEvidence": [
-        { "label": "성별 분류값", "valueExpression": "feature.genderOrdinal", "unit": "ordinal", "sourceTier": { "tier": "T3_INTERNAL_ENGINE", "sourceType": "internal_scoring_policy", "sourceUrl": null, "accessedAt": "2026-05-03", "quoteShort": null, "humanInterpretation": "Resolved from deterministic spring-ts runtime output.", "copyrightNote": "No third-party prose copied.", "authorityTruthEligible": false } },
-        { "label": "일간 오행 분류값", "valueExpression": "feature.dayMasterElementOrdinal", "unit": "ordinal", "sourceTier": { "tier": "T3_INTERNAL_ENGINE", "sourceType": "internal_scoring_policy", "sourceUrl": null, "accessedAt": "2026-05-03", "quoteShort": null, "humanInterpretation": "Resolved from deterministic spring-ts runtime output.", "copyrightNote": "No third-party prose copied.", "authorityTruthEligible": false } },
-        { "label": "용신 오행 분류값", "valueExpression": "feature.yongshinElementOrdinal", "unit": "ordinal", "sourceTier": { "tier": "T3_INTERNAL_ENGINE", "sourceType": "internal_scoring_policy", "sourceUrl": null, "accessedAt": "2026-05-03", "quoteShort": null, "humanInterpretation": "Resolved from deterministic spring-ts runtime output.", "copyrightNote": "No third-party prose copied.", "authorityTruthEligible": false } },
-        { "label": "격국 분류값", "valueExpression": "feature.gyeokgukOrdinal", "unit": "ordinal", "sourceTier": { "tier": "T3_INTERNAL_ENGINE", "sourceType": "internal_scoring_policy", "sourceUrl": null, "accessedAt": "2026-05-03", "quoteShort": null, "humanInterpretation": "Resolved from deterministic spring-ts runtime output.", "copyrightNote": "No third-party prose copied.", "authorityTruthEligible": false } }
+        {
+          "label": "성별 분류값",
+          "valueExpression": "feature.genderOrdinal",
+          "unit": "ordinal",
+          "sourceTier": {
+            "tier": "T3_INTERNAL_ENGINE",
+            "sourceType": "internal_scoring_policy",
+            "sourceUrl": null,
+            "accessedAt": "2026-05-03",
+            "quoteShort": null,
+            "humanInterpretation": "Resolved from deterministic spring-ts runtime output.",
+            "copyrightNote": "No third-party prose copied.",
+            "authorityTruthEligible": false
+          }
+        },
+        {
+          "label": "일간 오행 분류값",
+          "valueExpression": "feature.dayMasterElementOrdinal",
+          "unit": "ordinal",
+          "sourceTier": {
+            "tier": "T3_INTERNAL_ENGINE",
+            "sourceType": "internal_scoring_policy",
+            "sourceUrl": null,
+            "accessedAt": "2026-05-03",
+            "quoteShort": null,
+            "humanInterpretation": "Resolved from deterministic spring-ts runtime output.",
+            "copyrightNote": "No third-party prose copied.",
+            "authorityTruthEligible": false
+          }
+        },
+        {
+          "label": "용신 오행 분류값",
+          "valueExpression": "feature.yongshinElementOrdinal",
+          "unit": "ordinal",
+          "sourceTier": {
+            "tier": "T3_INTERNAL_ENGINE",
+            "sourceType": "internal_scoring_policy",
+            "sourceUrl": null,
+            "accessedAt": "2026-05-03",
+            "quoteShort": null,
+            "humanInterpretation": "Resolved from deterministic spring-ts runtime output.",
+            "copyrightNote": "No third-party prose copied.",
+            "authorityTruthEligible": false
+          }
+        },
+        {
+          "label": "격국 분류값",
+          "valueExpression": "feature.gyeokgukOrdinal",
+          "unit": "ordinal",
+          "sourceTier": {
+            "tier": "T3_INTERNAL_ENGINE",
+            "sourceType": "internal_scoring_policy",
+            "sourceUrl": null,
+            "accessedAt": "2026-05-03",
+            "quoteShort": null,
+            "humanInterpretation": "Resolved from deterministic spring-ts runtime output.",
+            "copyrightNote": "No third-party prose copied.",
+            "authorityTruthEligible": false
+          }
+        }
       ],
       "aiGenerated": true,
-      "sourceTier": { "tier": "T1_HYPOTHESIS", "sourceType": "training_derived", "sourceUrl": null, "accessedAt": "2026-05-03", "quoteShort": null, "humanInterpretation": "Expert categorical evidence density wave 2 fragment. AI-derived display text; not authority truth.", "copyrightNote": "No source prose copied; original phrasing.", "authorityTruthEligible": false }
+      "sourceTier": {
+        "tier": "T1_HYPOTHESIS",
+        "sourceType": "training_derived",
+        "sourceUrl": null,
+        "accessedAt": "2026-05-03",
+        "quoteShort": null,
+        "humanInterpretation": "Expert categorical evidence density wave 2 fragment. AI-derived display text; not authority truth.",
+        "copyrightNote": "No source prose copied; original phrasing.",
+        "authorityTruthEligible": false
+      }
     }
   ]
 }

@@ -268,7 +268,7 @@
         },
         {
           "kind": "text",
-          "value": "의 출력 전환을 함께 봅니다. "
+          "value": "의 출력 전환을 함께 봅니다.\n\n"
         },
         {
           "kind": "tag",
@@ -277,13 +277,55 @@
         },
         {
           "kind": "text",
-          "value": "가 낮은 구간에서는 범위를 좁혀 반복하고, 별점이 높아질 때 결과물로 전환하는 전략이 맞습니다."
+          "value": "가 낮은 구간에서는 범위를 좁혀 반복하고, 별점이 높아질 때 결과물로 전환하는 전략이 맞습니다.\n\n"
+        },
+        {
+          "kind": "tag",
+          "tagId": "daewoonGungsil",
+          "label": "대운궁실"
+        },
+        {
+          "kind": "text",
+          "value": "의 결과 "
+        },
+        {
+          "kind": "tag",
+          "tagId": "iljin",
+          "label": "일진"
+        },
+        {
+          "kind": "text",
+          "value": "의 자리가 함께 살아나는 시기엔 평소 미뤄 둔 학습 한 단원을 매듭짓기에 좋은 흐름이 보여요.\n\n"
+        },
+        {
+          "kind": "text",
+          "value": "평소엔 "
+        },
+        {
+          "kind": "tag",
+          "tagId": "jeongin",
+          "label": "정인"
+        },
+        {
+          "kind": "text",
+          "value": "의 토대를 단단히 두고, "
+        },
+        {
+          "kind": "tag",
+          "tagId": "sikshin",
+          "label": "식신"
+        },
+        {
+          "kind": "text",
+          "value": "이 받쳐 주는 시기에는 익힌 것을 자기 말로 풀어 두는 자리를 챙기면 학업의 흐름이 더 또렷해져요."
         }
       ],
       "tags": [
         "jeongin",
         "sikshin",
-        "stabilityIndex"
+        "stabilityIndex",
+        "daewoonGungsil",
+        "iljin"
       ],
       "numericalEvidence": [
         {
@@ -364,7 +406,7 @@
         },
         {
           "kind": "text",
-          "value": "으로 풀이와 설명을 꺼내는 흐름입니다. "
+          "value": "으로 풀이와 설명을 꺼내는 흐름입니다.\n\n"
         },
         {
           "kind": "tag",
@@ -373,13 +415,53 @@
         },
         {
           "kind": "text",
-          "value": " 정합성이 맞으면 복습 뒤 바로 문제나 발표로 확인하는 방식이 효율적입니다."
+          "value": " 정합성이 맞으면 복습 뒤 바로 문제나 발표로 확인하는 방식이 효율적입니다.\n\n"
+        },
+        {
+          "kind": "tag",
+          "tagId": "tonggwanYongshin",
+          "label": "통관용신"
+        },
+        {
+          "kind": "text",
+          "value": "의 결과 "
+        },
+        {
+          "kind": "tag",
+          "tagId": "byeongyakYongshin",
+          "label": "병약용신"
+        },
+        {
+          "kind": "text",
+          "value": "의 자리가 함께 또렷해지는 사주는 학습의 깊이가 자기 흐름의 균형을 따라가는 자리예요.\n\n"
+        },
+        {
+          "kind": "tag",
+          "tagId": "munchanggwiin",
+          "label": "문창귀인"
+        },
+        {
+          "kind": "text",
+          "value": "의 결과 "
+        },
+        {
+          "kind": "tag",
+          "tagId": "hakdang",
+          "label": "학당"
+        },
+        {
+          "kind": "text",
+          "value": "의 자리가 함께 보이는 사주는 시험·연구 흐름이 부드럽게 자리 잡는 모양이라, 자기 흐름을 차분히 따라가는 페이스가 잘 어울려요."
         }
       ],
       "tags": [
         "jeongin",
         "sikshin",
-        "yongshin"
+        "yongshin",
+        "tonggwanYongshin",
+        "byeongyakYongshin",
+        "munchanggwiin",
+        "hakdang"
       ],
       "numericalEvidence": [
         {
@@ -446,7 +528,7 @@
         },
         {
           "kind": "text",
-          "value": "의 재해석 능력이 같이 움직이는 구간입니다. "
+          "value": "의 재해석 능력이 같이 움직이는 구간입니다.\n\n"
         },
         {
           "kind": "tag",
@@ -455,13 +537,53 @@
         },
         {
           "kind": "text",
-          "value": "가 맞으면 어려운 개념을 자기 언어로 바꾸는 과제에서 성과가 납니다."
+          "value": "가 맞으면 어려운 개념을 자기 언어로 바꾸는 과제에서 성과가 납니다.\n\n"
+        },
+        {
+          "kind": "tag",
+          "tagId": "munchanggwiin",
+          "label": "문창귀인"
+        },
+        {
+          "kind": "text",
+          "value": "의 결과 "
+        },
+        {
+          "kind": "tag",
+          "tagId": "hakdang",
+          "label": "학당"
+        },
+        {
+          "kind": "text",
+          "value": "의 자리가 함께 보이는 사주는 시험·연구 흐름이 부드럽게 자리 잡는 모양이라, 자기 흐름을 차분히 따라가는 페이스가 잘 어울려요.\n\n"
+        },
+        {
+          "kind": "tag",
+          "tagId": "daewoonGungsil",
+          "label": "대운궁실"
+        },
+        {
+          "kind": "text",
+          "value": "의 결과 "
+        },
+        {
+          "kind": "tag",
+          "tagId": "iljin",
+          "label": "일진"
+        },
+        {
+          "kind": "text",
+          "value": "의 자리가 함께 살아나는 시기엔 평소 미뤄 둔 학습 한 단원을 매듭짓기에 좋은 흐름이 보여요."
         }
       ],
       "tags": [
         "pyeonin",
         "sanggwan",
-        "gyeokgukFit"
+        "gyeokgukFit",
+        "munchanggwiin",
+        "hakdang",
+        "daewoonGungsil",
+        "iljin"
       ],
       "numericalEvidence": [
         {
@@ -527,7 +649,7 @@
         },
         {
           "kind": "text",
-          "value": "의 결과화가 이어지는지를 봅니다. "
+          "value": "의 결과화가 이어지는지를 봅니다.\n\n"
         },
         {
           "kind": "tag",
@@ -536,13 +658,55 @@
         },
         {
           "kind": "text",
-          "value": " 흐름이 맞을수록 자격, 문서, 발표처럼 확인 가능한 성취로 묶는 전략이 유리합니다."
+          "value": " 흐름이 맞을수록 자격, 문서, 발표처럼 확인 가능한 성취로 묶는 전략이 유리합니다.\n\n"
+        },
+        {
+          "kind": "text",
+          "value": "평소엔 "
+        },
+        {
+          "kind": "tag",
+          "tagId": "jeongin",
+          "label": "정인"
+        },
+        {
+          "kind": "text",
+          "value": "의 토대를 단단히 두고, "
+        },
+        {
+          "kind": "tag",
+          "tagId": "sikshin",
+          "label": "식신"
+        },
+        {
+          "kind": "text",
+          "value": "이 받쳐 주는 시기에는 익힌 것을 자기 말로 풀어 두는 자리를 챙기면 학업의 흐름이 더 또렷해져요.\n\n"
+        },
+        {
+          "kind": "tag",
+          "tagId": "tonggwanYongshin",
+          "label": "통관용신"
+        },
+        {
+          "kind": "text",
+          "value": "의 결과 "
+        },
+        {
+          "kind": "tag",
+          "tagId": "byeongyakYongshin",
+          "label": "병약용신"
+        },
+        {
+          "kind": "text",
+          "value": "의 자리가 함께 또렷해지는 사주는 학습의 깊이가 자기 흐름의 균형을 따라가는 자리예요."
         }
       ],
       "tags": [
         "jeongin",
         "sikshin",
-        "yongshin"
+        "yongshin",
+        "tonggwanYongshin",
+        "byeongyakYongshin"
       ],
       "numericalEvidence": [
         {

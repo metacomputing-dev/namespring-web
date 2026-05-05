@@ -99,7 +99,7 @@
         },
         {
           "kind": "text",
-          "value": "은 일반적으로 질서, 명분, 신뢰, 제도적 역할을 중심으로 삶의 패턴을 해석하는 데 쓰기 좋습니다. 다만 "
+          "value": "은 일반적으로 질서, 명분, 신뢰, 제도적 역할을 중심으로 삶의 패턴을 해석하는 데 쓰기 좋습니다.\n\n다만 "
         },
         {
           "kind": "tag",
@@ -117,7 +117,29 @@
         },
         {
           "kind": "text",
-          "value": " 방향, 실제 운의 흐름을 함께 보아야 합니다. 구조가 잘 맞을 때는 책임 있는 위치에서 안정감을 얻지만, 구조가 과해지면 자기 기준이 부담으로 바뀔 수 있습니다."
+          "value": " 방향, 실제 운의 흐름을 함께 보아야 합니다.\n\n구조가 잘 맞을 때는 책임 있는 위치에서 안정감을 얻지만, 구조가 과해지면 자기 기준이 부담으로 바뀔 수 있습니다.\n\n"
+        },
+        {
+          "kind": "text",
+          "value": "전체의 흐름은 "
+        },
+        {
+          "kind": "tag",
+          "tagId": "yongshin",
+          "label": "용신"
+        },
+        {
+          "kind": "text",
+          "value": " 방향과 "
+        },
+        {
+          "kind": "tag",
+          "tagId": "heeshin",
+          "label": "희신"
+        },
+        {
+          "kind": "text",
+          "value": "의 받침이 함께 들어오는 시기에 한 단계 부드러워지고, 거스르는 시기에는 한 박자 늦추는 호흡이 자기를 지키는 자리예요."
         }
       ],
       "livingTips": [
@@ -130,7 +152,8 @@
       "tags": [
         "jeonggwangyeok",
         "gyeokgukFit",
-        "yongshin"
+        "yongshin",
+        "heeshin"
       ],
       "numericalEvidence": [
         {
@@ -272,7 +295,7 @@
         },
         {
           "kind": "text",
-          "value": "은 긴장, 통제, 압박, 경쟁, 돌파의 패턴을 해석할 때 유용한 축입니다. 하지만 "
+          "value": "은 긴장, 통제, 압박, 경쟁, 돌파의 패턴을 해석할 때 유용한 축입니다.\n\n하지만 "
         },
         {
           "kind": "tag",
@@ -290,7 +313,25 @@
         },
         {
           "kind": "text",
-          "value": "와 실제 생활 환경을 함께 봐야 합니다. 잘 조율되면 어려운 상황을 해결하는 힘이 되지만, 조율이 약하면 과로와 갈등으로 나타날 수 있습니다."
+          "value": "와 실제 생활 환경을 함께 봐야 합니다.\n\n잘 조율되면 어려운 상황을 해결하는 힘이 되지만, 조율이 약하면 과로와 갈등으로 나타날 수 있습니다.\n\n"
+        },
+        {
+          "kind": "tag",
+          "tagId": "tonggwanYongshin",
+          "label": "통관용신"
+        },
+        {
+          "kind": "text",
+          "value": "의 결이 보이면 흐름의 막힌 자리를 풀어 주는 자리가 보이고, "
+        },
+        {
+          "kind": "tag",
+          "tagId": "byeongyakYongshin",
+          "label": "병약용신"
+        },
+        {
+          "kind": "text",
+          "value": "의 자리가 함께 들어오면 약한 자리를 메우는 결이 함께 작동해요."
         }
       ],
       "livingTips": [
@@ -303,7 +344,9 @@
       "tags": [
         "pyeongwangyeok",
         "pyeongwan",
-        "gyeokgukFit"
+        "gyeokgukFit",
+        "tonggwanYongshin",
+        "byeongyakYongshin"
       ],
       "aiGenerated": true,
       "sourceTier": {

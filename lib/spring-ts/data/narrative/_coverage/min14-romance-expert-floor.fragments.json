@@ -6,18 +6,101 @@
     {
       "schemaVersion": "spring-ts.narrative-fragment.v1",
       "fragmentId": "romance.life.expert.compatibility.501",
-      "axis": { "category": "romance", "period": "life", "depth": "expert" },
-      "gating": { "ageBand": ["20-29", "30-39", "40-54", "55-69", "70+"] },
+      "axis": {
+        "category": "romance",
+        "period": "life",
+        "depth": "expert"
+      },
+      "gating": {
+        "ageBand": [
+          "20-29",
+          "30-39",
+          "40-54",
+          "55-69",
+          "70+"
+        ]
+      },
       "templateTokens": [
-        { "kind": "text", "value": "장기 인연 해석은 " },
-        { "kind": "tag", "tagId": "baeujagung", "label": "배우자궁" },
-        { "kind": "text", "value": "의 안정성과 " },
-        { "kind": "tag", "tagId": "sajuCompatibility", "label": "사주궁합" },
-        { "kind": "text", "value": "의 상호 보완성을 함께 봅니다. " },
-        { "kind": "tag", "tagId": "eumyangHarmony", "label": "음양조화" },
-        { "kind": "text", "value": "가 맞으면 설렘보다 생활 리듬의 지속성이 더 중요한 판단 근거가 됩니다." }
+        {
+          "kind": "text",
+          "value": "장기 인연 해석은 "
+        },
+        {
+          "kind": "tag",
+          "tagId": "baeujagung",
+          "label": "배우자궁"
+        },
+        {
+          "kind": "text",
+          "value": "의 안정성과 "
+        },
+        {
+          "kind": "tag",
+          "tagId": "sajuCompatibility",
+          "label": "사주궁합"
+        },
+        {
+          "kind": "text",
+          "value": "의 상호 보완성을 함께 봅니다.\n\n"
+        },
+        {
+          "kind": "tag",
+          "tagId": "eumyangHarmony",
+          "label": "음양조화"
+        },
+        {
+          "kind": "text",
+          "value": "가 맞으면 설렘보다 생활 리듬의 지속성이 더 중요한 판단 근거가 됩니다.\n\n"
+        },
+        {
+          "kind": "text",
+          "value": "인연 자리는 "
+        },
+        {
+          "kind": "tag",
+          "tagId": "baeujagung",
+          "label": "배우자궁"
+        },
+        {
+          "kind": "text",
+          "value": "의 결과 "
+        },
+        {
+          "kind": "tag",
+          "tagId": "jeonggwan",
+          "label": "정관"
+        },
+        {
+          "kind": "text",
+          "value": "의 책임 결이 함께 단단해질 때 깊이가 자라고, 자기 흐름을 감추기보다 부드럽게 보여 두는 호흡이 잘 어울려요.\n\n"
+        },
+        {
+          "kind": "tag",
+          "tagId": "dohwa",
+          "label": "도화"
+        },
+        {
+          "kind": "text",
+          "value": "의 신호와 "
+        },
+        {
+          "kind": "tag",
+          "tagId": "hongyeom",
+          "label": "홍염"
+        },
+        {
+          "kind": "text",
+          "value": "의 결이 함께 보이면 매력의 흐름이 또렷해지지만, 자기 호흡을 잃지 않는 페이스가 자기를 지키는 자리예요."
+        }
       ],
-      "tags": ["baeujagung", "sajuCompatibility", "eumyangHarmony"],
+      "tags": [
+        "baeujagung",
+        "sajuCompatibility",
+        "eumyangHarmony",
+        "jeonggwan",
+        "dohwa",
+        "hongyeom"
+      ],
       "numericalEvidence": [
         {
           "label": "현재 나이",
@@ -65,18 +148,85 @@
     {
       "schemaVersion": "spring-ts.narrative-fragment.v1",
       "fragmentId": "romance.life.expert.expression.501",
-      "axis": { "category": "romance", "period": "life", "depth": "expert" },
-      "gating": { "ageBand": ["0-9", "10-19"] },
+      "axis": {
+        "category": "romance",
+        "period": "life",
+        "depth": "expert"
+      },
+      "gating": {
+        "ageBand": [
+          "0-9",
+          "10-19"
+        ]
+      },
       "templateTokens": [
-        { "kind": "text", "value": "어린 연령대의 관계 해석은 결혼성보다 " },
-        { "kind": "tag", "tagId": "sikshin", "label": "식신" },
-        { "kind": "text", "value": "과 " },
-        { "kind": "tag", "tagId": "sanggwan", "label": "상관" },
-        { "kind": "text", "value": "이 만드는 표현 방식을 먼저 봅니다. " },
-        { "kind": "tag", "tagId": "eumyangHarmony", "label": "음양조화" },
-        { "kind": "text", "value": "는 친구 관계에서 주고받는 속도와 경계감을 읽는 보조 지표입니다." }
+        {
+          "kind": "text",
+          "value": "어린 연령대의 관계 해석은 결혼성보다 "
+        },
+        {
+          "kind": "tag",
+          "tagId": "sikshin",
+          "label": "식신"
+        },
+        {
+          "kind": "text",
+          "value": "과 "
+        },
+        {
+          "kind": "tag",
+          "tagId": "sanggwan",
+          "label": "상관"
+        },
+        {
+          "kind": "text",
+          "value": "이 만드는 표현 방식을 먼저 봅니다.\n\n"
+        },
+        {
+          "kind": "tag",
+          "tagId": "eumyangHarmony",
+          "label": "음양조화"
+        },
+        {
+          "kind": "text",
+          "value": "는 친구 관계에서 주고받는 속도와 경계감을 읽는 보조 지표입니다.\n\n"
+        },
+        {
+          "kind": "tag",
+          "tagId": "cheogung",
+          "label": "처궁"
+        },
+        {
+          "kind": "text",
+          "value": "의 결과 "
+        },
+        {
+          "kind": "tag",
+          "tagId": "jasikgung",
+          "label": "자식궁"
+        },
+        {
+          "kind": "text",
+          "value": "의 자리가 함께 살아나는 시기엔 가까운 관계가 한 단계 깊어지는 흐름이 보여요.\n\n"
+        },
+        {
+          "kind": "tag",
+          "tagId": "cheonleulgwiin",
+          "label": "천을귀인"
+        },
+        {
+          "kind": "text",
+          "value": "의 결이 보이면 인연 자리에서도 부드러운 도움을 받는 흐름이 자기 자산이 되어 줘요."
+        }
       ],
-      "tags": ["sikshin", "sanggwan", "eumyangHarmony"],
+      "tags": [
+        "sikshin",
+        "sanggwan",
+        "eumyangHarmony",
+        "cheogung",
+        "jasikgung",
+        "cheonleulgwiin"
+      ],
       "numericalEvidence": [
         {
           "label": "현재 나이",
@@ -124,18 +274,95 @@
     {
       "schemaVersion": "spring-ts.narrative-fragment.v1",
       "fragmentId": "romance.today.expert.aligned.501",
-      "axis": { "category": "romance", "period": "today", "depth": "expert" },
-      "gating": { "yongshinAlignment": ["aligned", "neutral"] },
+      "axis": {
+        "category": "romance",
+        "period": "today",
+        "depth": "expert"
+      },
+      "gating": {
+        "yongshinAlignment": [
+          "aligned",
+          "neutral"
+        ]
+      },
       "templateTokens": [
-        { "kind": "text", "value": "오늘 관계운은 " },
-        { "kind": "tag", "tagId": "yongshin", "label": "용신" },
-        { "kind": "text", "value": " 방향이 맞을 때 짧은 대화도 회복 신호가 됩니다. " },
-        { "kind": "tag", "tagId": "sikshin", "label": "식신" },
-        { "kind": "text", "value": "은 부드러운 표현을, " },
-        { "kind": "tag", "tagId": "baeujagung", "label": "배우자궁" },
-        { "kind": "text", "value": "은 가까운 관계에서 안정감을 확인하는 자리로 봅니다." }
+        {
+          "kind": "text",
+          "value": "오늘 관계운은 "
+        },
+        {
+          "kind": "tag",
+          "tagId": "yongshin",
+          "label": "용신"
+        },
+        {
+          "kind": "text",
+          "value": " 방향이 맞을 때 짧은 대화도 회복 신호가 됩니다.\n\n"
+        },
+        {
+          "kind": "tag",
+          "tagId": "sikshin",
+          "label": "식신"
+        },
+        {
+          "kind": "text",
+          "value": "은 부드러운 표현을, "
+        },
+        {
+          "kind": "tag",
+          "tagId": "baeujagung",
+          "label": "배우자궁"
+        },
+        {
+          "kind": "text",
+          "value": "은 가까운 관계에서 안정감을 확인하는 자리로 봅니다.\n\n"
+        },
+        {
+          "kind": "tag",
+          "tagId": "dohwa",
+          "label": "도화"
+        },
+        {
+          "kind": "text",
+          "value": "의 신호와 "
+        },
+        {
+          "kind": "tag",
+          "tagId": "hongyeom",
+          "label": "홍염"
+        },
+        {
+          "kind": "text",
+          "value": "의 결이 함께 보이면 매력의 흐름이 또렷해지지만, 자기 호흡을 잃지 않는 페이스가 자기를 지키는 자리예요.\n\n"
+        },
+        {
+          "kind": "tag",
+          "tagId": "cheogung",
+          "label": "처궁"
+        },
+        {
+          "kind": "text",
+          "value": "의 결과 "
+        },
+        {
+          "kind": "tag",
+          "tagId": "jasikgung",
+          "label": "자식궁"
+        },
+        {
+          "kind": "text",
+          "value": "의 자리가 함께 살아나는 시기엔 가까운 관계가 한 단계 깊어지는 흐름이 보여요."
+        }
       ],
-      "tags": ["yongshin", "sikshin", "baeujagung"],
+      "tags": [
+        "yongshin",
+        "sikshin",
+        "baeujagung",
+        "dohwa",
+        "hongyeom",
+        "cheogung",
+        "jasikgung"
+      ],
       "numericalEvidence": [
         {
           "label": "관계 별점",
@@ -168,18 +395,98 @@
     {
       "schemaVersion": "spring-ts.narrative-fragment.v1",
       "fragmentId": "romance.today.expert.caution.501",
-      "axis": { "category": "romance", "period": "today", "depth": "expert" },
-      "gating": { "yongshinAlignment": ["conflicting"] },
+      "axis": {
+        "category": "romance",
+        "period": "today",
+        "depth": "expert"
+      },
+      "gating": {
+        "yongshinAlignment": [
+          "conflicting"
+        ]
+      },
       "templateTokens": [
-        { "kind": "text", "value": "오늘은 " },
-        { "kind": "tag", "tagId": "yongshin", "label": "용신" },
-        { "kind": "text", "value": "과 충돌하는 표현을 줄이는 쪽이 좋습니다. " },
-        { "kind": "tag", "tagId": "sanggwan", "label": "상관" },
-        { "kind": "text", "value": "이 날카롭게 나오면 말이 앞서고, " },
-        { "kind": "tag", "tagId": "pyeongwan", "label": "편관" },
-        { "kind": "text", "value": "이 강하면 관계를 통제하려는 느낌으로 읽힐 수 있습니다." }
+        {
+          "kind": "text",
+          "value": "오늘은 "
+        },
+        {
+          "kind": "tag",
+          "tagId": "yongshin",
+          "label": "용신"
+        },
+        {
+          "kind": "text",
+          "value": "과 충돌하는 표현을 줄이는 쪽이 좋습니다.\n\n"
+        },
+        {
+          "kind": "tag",
+          "tagId": "sanggwan",
+          "label": "상관"
+        },
+        {
+          "kind": "text",
+          "value": "이 날카롭게 나오면 말이 앞서고, "
+        },
+        {
+          "kind": "tag",
+          "tagId": "pyeongwan",
+          "label": "편관"
+        },
+        {
+          "kind": "text",
+          "value": "이 강하면 관계를 통제하려는 느낌으로 읽힐 수 있습니다.\n\n"
+        },
+        {
+          "kind": "text",
+          "value": "인연 자리는 "
+        },
+        {
+          "kind": "tag",
+          "tagId": "baeujagung",
+          "label": "배우자궁"
+        },
+        {
+          "kind": "text",
+          "value": "의 결과 "
+        },
+        {
+          "kind": "tag",
+          "tagId": "jeonggwan",
+          "label": "정관"
+        },
+        {
+          "kind": "text",
+          "value": "의 책임 결이 함께 단단해질 때 깊이가 자라고, 자기 흐름을 감추기보다 부드럽게 보여 두는 호흡이 잘 어울려요.\n\n"
+        },
+        {
+          "kind": "tag",
+          "tagId": "dohwa",
+          "label": "도화"
+        },
+        {
+          "kind": "text",
+          "value": "의 신호와 "
+        },
+        {
+          "kind": "tag",
+          "tagId": "hongyeom",
+          "label": "홍염"
+        },
+        {
+          "kind": "text",
+          "value": "의 결이 함께 보이면 매력의 흐름이 또렷해지지만, 자기 호흡을 잃지 않는 페이스가 자기를 지키는 자리예요."
+        }
       ],
-      "tags": ["yongshin", "sanggwan", "pyeongwan"],
+      "tags": [
+        "yongshin",
+        "sanggwan",
+        "pyeongwan",
+        "baeujagung",
+        "jeonggwan",
+        "dohwa",
+        "hongyeom"
+      ],
       "numericalEvidence": [
         {
           "label": "관계 별점",
@@ -212,18 +519,85 @@
     {
       "schemaVersion": "spring-ts.narrative-fragment.v1",
       "fragmentId": "romance.thisWeek.expert.affinity.501",
-      "axis": { "category": "romance", "period": "thisWeek", "depth": "expert" },
-      "gating": { "currentSeason": ["spring", "summer"] },
+      "axis": {
+        "category": "romance",
+        "period": "thisWeek",
+        "depth": "expert"
+      },
+      "gating": {
+        "currentSeason": [
+          "spring",
+          "summer"
+        ]
+      },
       "templateTokens": [
-        { "kind": "text", "value": "이번 주는 " },
-        { "kind": "tag", "tagId": "sajuCompatibility", "label": "사주궁합" },
-        { "kind": "text", "value": "보다 실제 상호작용의 질을 같이 봅니다. " },
-        { "kind": "tag", "tagId": "sikshin", "label": "식신" },
-        { "kind": "text", "value": "이 살아나면 자연스러운 표현이 늘고, " },
-        { "kind": "tag", "tagId": "eumyangHarmony", "label": "음양조화" },
-        { "kind": "text", "value": "는 주고받는 리듬의 균형을 확인하게 합니다." }
+        {
+          "kind": "text",
+          "value": "이번 주는 "
+        },
+        {
+          "kind": "tag",
+          "tagId": "sajuCompatibility",
+          "label": "사주궁합"
+        },
+        {
+          "kind": "text",
+          "value": "보다 실제 상호작용의 질을 같이 봅니다.\n\n"
+        },
+        {
+          "kind": "tag",
+          "tagId": "sikshin",
+          "label": "식신"
+        },
+        {
+          "kind": "text",
+          "value": "이 살아나면 자연스러운 표현이 늘고, "
+        },
+        {
+          "kind": "tag",
+          "tagId": "eumyangHarmony",
+          "label": "음양조화"
+        },
+        {
+          "kind": "text",
+          "value": "는 주고받는 리듬의 균형을 확인하게 합니다.\n\n"
+        },
+        {
+          "kind": "tag",
+          "tagId": "cheogung",
+          "label": "처궁"
+        },
+        {
+          "kind": "text",
+          "value": "의 결과 "
+        },
+        {
+          "kind": "tag",
+          "tagId": "jasikgung",
+          "label": "자식궁"
+        },
+        {
+          "kind": "text",
+          "value": "의 자리가 함께 살아나는 시기엔 가까운 관계가 한 단계 깊어지는 흐름이 보여요.\n\n"
+        },
+        {
+          "kind": "tag",
+          "tagId": "cheonleulgwiin",
+          "label": "천을귀인"
+        },
+        {
+          "kind": "text",
+          "value": "의 결이 보이면 인연 자리에서도 부드러운 도움을 받는 흐름이 자기 자산이 되어 줘요."
+        }
       ],
-      "tags": ["sajuCompatibility", "sikshin", "eumyangHarmony"],
+      "tags": [
+        "sajuCompatibility",
+        "sikshin",
+        "eumyangHarmony",
+        "cheogung",
+        "jasikgung",
+        "cheonleulgwiin"
+      ],
       "numericalEvidence": [
         {
           "label": "관계 별점",
@@ -256,18 +630,97 @@
     {
       "schemaVersion": "spring-ts.narrative-fragment.v1",
       "fragmentId": "romance.thisWeek.expert.boundary.501",
-      "axis": { "category": "romance", "period": "thisWeek", "depth": "expert" },
-      "gating": { "currentSeason": ["autumn", "winter"] },
+      "axis": {
+        "category": "romance",
+        "period": "thisWeek",
+        "depth": "expert"
+      },
+      "gating": {
+        "currentSeason": [
+          "autumn",
+          "winter"
+        ]
+      },
       "templateTokens": [
-        { "kind": "text", "value": "이번 주는 관계를 넓히기보다 " },
-        { "kind": "tag", "tagId": "baeujagung", "label": "배우자궁" },
-        { "kind": "text", "value": "의 안정성을 확인하는 흐름입니다. " },
-        { "kind": "tag", "tagId": "jeonggwan", "label": "정관" },
-        { "kind": "text", "value": "은 약속과 책임을, " },
-        { "kind": "tag", "tagId": "pyeongwan", "label": "편관" },
-        { "kind": "text", "value": "은 압박감과 경계선 문제를 함께 점검하게 합니다." }
+        {
+          "kind": "text",
+          "value": "이번 주는 관계를 넓히기보다 "
+        },
+        {
+          "kind": "tag",
+          "tagId": "baeujagung",
+          "label": "배우자궁"
+        },
+        {
+          "kind": "text",
+          "value": "의 안정성을 확인하는 흐름입니다.\n\n"
+        },
+        {
+          "kind": "tag",
+          "tagId": "jeonggwan",
+          "label": "정관"
+        },
+        {
+          "kind": "text",
+          "value": "은 약속과 책임을, "
+        },
+        {
+          "kind": "tag",
+          "tagId": "pyeongwan",
+          "label": "편관"
+        },
+        {
+          "kind": "text",
+          "value": "은 압박감과 경계선 문제를 함께 점검하게 합니다.\n\n"
+        },
+        {
+          "kind": "text",
+          "value": "인연 자리는 "
+        },
+        {
+          "kind": "tag",
+          "tagId": "baeujagung",
+          "label": "배우자궁"
+        },
+        {
+          "kind": "text",
+          "value": "의 결과 "
+        },
+        {
+          "kind": "tag",
+          "tagId": "jeonggwan",
+          "label": "정관"
+        },
+        {
+          "kind": "text",
+          "value": "의 책임 결이 함께 단단해질 때 깊이가 자라고, 자기 흐름을 감추기보다 부드럽게 보여 두는 호흡이 잘 어울려요.\n\n"
+        },
+        {
+          "kind": "tag",
+          "tagId": "dohwa",
+          "label": "도화"
+        },
+        {
+          "kind": "text",
+          "value": "의 신호와 "
+        },
+        {
+          "kind": "tag",
+          "tagId": "hongyeom",
+          "label": "홍염"
+        },
+        {
+          "kind": "text",
+          "value": "의 결이 함께 보이면 매력의 흐름이 또렷해지지만, 자기 호흡을 잃지 않는 페이스가 자기를 지키는 자리예요."
+        }
       ],
-      "tags": ["baeujagung", "jeonggwan", "pyeongwan"],
+      "tags": [
+        "baeujagung",
+        "jeonggwan",
+        "pyeongwan",
+        "dohwa",
+        "hongyeom"
+      ],
       "numericalEvidence": [
         {
           "label": "관계 별점",
@@ -300,18 +753,95 @@
     {
       "schemaVersion": "spring-ts.narrative-fragment.v1",
       "fragmentId": "romance.thisMonth.expert.commitment.501",
-      "axis": { "category": "romance", "period": "thisMonth", "depth": "expert" },
-      "gating": { "yongshinAlignment": ["aligned", "neutral"] },
+      "axis": {
+        "category": "romance",
+        "period": "thisMonth",
+        "depth": "expert"
+      },
+      "gating": {
+        "yongshinAlignment": [
+          "aligned",
+          "neutral"
+        ]
+      },
       "templateTokens": [
-        { "kind": "text", "value": "이번 달은 " },
-        { "kind": "tag", "tagId": "yongshin", "label": "용신" },
-        { "kind": "text", "value": "이 관계의 안정 쪽으로 작동할 때 약속을 구체화하기 좋습니다. " },
-        { "kind": "tag", "tagId": "jeonggwan", "label": "정관" },
-        { "kind": "text", "value": "은 책임감을, " },
-        { "kind": "tag", "tagId": "baeujagung", "label": "배우자궁" },
-        { "kind": "text", "value": "은 함께 머무를 수 있는 기반을 판단하게 합니다." }
+        {
+          "kind": "text",
+          "value": "이번 달은 "
+        },
+        {
+          "kind": "tag",
+          "tagId": "yongshin",
+          "label": "용신"
+        },
+        {
+          "kind": "text",
+          "value": "이 관계의 안정 쪽으로 작동할 때 약속을 구체화하기 좋습니다.\n\n"
+        },
+        {
+          "kind": "tag",
+          "tagId": "jeonggwan",
+          "label": "정관"
+        },
+        {
+          "kind": "text",
+          "value": "은 책임감을, "
+        },
+        {
+          "kind": "tag",
+          "tagId": "baeujagung",
+          "label": "배우자궁"
+        },
+        {
+          "kind": "text",
+          "value": "은 함께 머무를 수 있는 기반을 판단하게 합니다.\n\n"
+        },
+        {
+          "kind": "tag",
+          "tagId": "dohwa",
+          "label": "도화"
+        },
+        {
+          "kind": "text",
+          "value": "의 신호와 "
+        },
+        {
+          "kind": "tag",
+          "tagId": "hongyeom",
+          "label": "홍염"
+        },
+        {
+          "kind": "text",
+          "value": "의 결이 함께 보이면 매력의 흐름이 또렷해지지만, 자기 호흡을 잃지 않는 페이스가 자기를 지키는 자리예요.\n\n"
+        },
+        {
+          "kind": "tag",
+          "tagId": "cheogung",
+          "label": "처궁"
+        },
+        {
+          "kind": "text",
+          "value": "의 결과 "
+        },
+        {
+          "kind": "tag",
+          "tagId": "jasikgung",
+          "label": "자식궁"
+        },
+        {
+          "kind": "text",
+          "value": "의 자리가 함께 살아나는 시기엔 가까운 관계가 한 단계 깊어지는 흐름이 보여요."
+        }
       ],
-      "tags": ["yongshin", "jeonggwan", "baeujagung"],
+      "tags": [
+        "yongshin",
+        "jeonggwan",
+        "baeujagung",
+        "dohwa",
+        "hongyeom",
+        "cheogung",
+        "jasikgung"
+      ],
       "numericalEvidence": [
         {
           "label": "관계 별점",
@@ -344,18 +874,88 @@
     {
       "schemaVersion": "spring-ts.narrative-fragment.v1",
       "fragmentId": "romance.thisMonth.expert.recalibration.501",
-      "axis": { "category": "romance", "period": "thisMonth", "depth": "expert" },
-      "gating": { "yongshinAlignment": ["conflicting"] },
+      "axis": {
+        "category": "romance",
+        "period": "thisMonth",
+        "depth": "expert"
+      },
+      "gating": {
+        "yongshinAlignment": [
+          "conflicting"
+        ]
+      },
       "templateTokens": [
-        { "kind": "text", "value": "이번 달은 " },
-        { "kind": "tag", "tagId": "yongshin", "label": "용신" },
-        { "kind": "text", "value": " 충돌이 있으면 속도 조절을 우선합니다. " },
-        { "kind": "tag", "tagId": "sanggwan", "label": "상관" },
-        { "kind": "text", "value": "이 강한 말로 나오면 오해가 커지고, " },
-        { "kind": "tag", "tagId": "stabilityIndex", "label": "안정성지수" },
-        { "kind": "text", "value": "가 낮으면 관계의 기본 루틴부터 다시 맞춥니다." }
+        {
+          "kind": "text",
+          "value": "이번 달은 "
+        },
+        {
+          "kind": "tag",
+          "tagId": "yongshin",
+          "label": "용신"
+        },
+        {
+          "kind": "text",
+          "value": " 충돌이 있으면 속도 조절을 우선합니다.\n\n"
+        },
+        {
+          "kind": "tag",
+          "tagId": "sanggwan",
+          "label": "상관"
+        },
+        {
+          "kind": "text",
+          "value": "이 강한 말로 나오면 오해가 커지고, "
+        },
+        {
+          "kind": "tag",
+          "tagId": "stabilityIndex",
+          "label": "안정성지수"
+        },
+        {
+          "kind": "text",
+          "value": "가 낮으면 관계의 기본 루틴부터 다시 맞춥니다.\n\n"
+        },
+        {
+          "kind": "tag",
+          "tagId": "cheonleulgwiin",
+          "label": "천을귀인"
+        },
+        {
+          "kind": "text",
+          "value": "의 결이 보이면 인연 자리에서도 부드러운 도움을 받는 흐름이 자기 자산이 되어 줘요.\n\n"
+        },
+        {
+          "kind": "text",
+          "value": "인연 자리는 "
+        },
+        {
+          "kind": "tag",
+          "tagId": "baeujagung",
+          "label": "배우자궁"
+        },
+        {
+          "kind": "text",
+          "value": "의 결과 "
+        },
+        {
+          "kind": "tag",
+          "tagId": "jeonggwan",
+          "label": "정관"
+        },
+        {
+          "kind": "text",
+          "value": "의 책임 결이 함께 단단해질 때 깊이가 자라고, 자기 흐름을 감추기보다 부드럽게 보여 두는 호흡이 잘 어울려요."
+        }
       ],
-      "tags": ["yongshin", "sanggwan", "stabilityIndex"],
+      "tags": [
+        "yongshin",
+        "sanggwan",
+        "stabilityIndex",
+        "cheonleulgwiin",
+        "baeujagung",
+        "jeonggwan"
+      ],
       "numericalEvidence": [
         {
           "label": "관계 별점",
@@ -388,18 +988,99 @@
     {
       "schemaVersion": "spring-ts.narrative-fragment.v1",
       "fragmentId": "romance.thisYear.expert.yearly_harmony.501",
-      "axis": { "category": "romance", "period": "thisYear", "depth": "expert" },
-      "gating": { "yongshinAlignment": ["aligned", "neutral"] },
+      "axis": {
+        "category": "romance",
+        "period": "thisYear",
+        "depth": "expert"
+      },
+      "gating": {
+        "yongshinAlignment": [
+          "aligned",
+          "neutral"
+        ]
+      },
       "templateTokens": [
-        { "kind": "text", "value": "올해 관계운은 " },
-        { "kind": "tag", "tagId": "sajuCompatibility", "label": "사주궁합" },
-        { "kind": "text", "value": "의 전체 균형과 " },
-        { "kind": "tag", "tagId": "eumyangHarmony", "label": "음양조화" },
-        { "kind": "text", "value": "를 같이 봅니다. " },
-        { "kind": "tag", "tagId": "yongshin", "label": "용신" },
-        { "kind": "text", "value": " 흐름이 맞으면 관계가 성장 자원으로 작동하기 쉽습니다." }
+        {
+          "kind": "text",
+          "value": "올해 관계운은 "
+        },
+        {
+          "kind": "tag",
+          "tagId": "sajuCompatibility",
+          "label": "사주궁합"
+        },
+        {
+          "kind": "text",
+          "value": "의 전체 균형과 "
+        },
+        {
+          "kind": "tag",
+          "tagId": "eumyangHarmony",
+          "label": "음양조화"
+        },
+        {
+          "kind": "text",
+          "value": "를 같이 봅니다.\n\n"
+        },
+        {
+          "kind": "tag",
+          "tagId": "yongshin",
+          "label": "용신"
+        },
+        {
+          "kind": "text",
+          "value": " 흐름이 맞으면 관계가 성장 자원으로 작동하기 쉽습니다.\n\n"
+        },
+        {
+          "kind": "text",
+          "value": "인연 자리는 "
+        },
+        {
+          "kind": "tag",
+          "tagId": "baeujagung",
+          "label": "배우자궁"
+        },
+        {
+          "kind": "text",
+          "value": "의 결과 "
+        },
+        {
+          "kind": "tag",
+          "tagId": "jeonggwan",
+          "label": "정관"
+        },
+        {
+          "kind": "text",
+          "value": "의 책임 결이 함께 단단해질 때 깊이가 자라고, 자기 흐름을 감추기보다 부드럽게 보여 두는 호흡이 잘 어울려요.\n\n"
+        },
+        {
+          "kind": "tag",
+          "tagId": "dohwa",
+          "label": "도화"
+        },
+        {
+          "kind": "text",
+          "value": "의 신호와 "
+        },
+        {
+          "kind": "tag",
+          "tagId": "hongyeom",
+          "label": "홍염"
+        },
+        {
+          "kind": "text",
+          "value": "의 결이 함께 보이면 매력의 흐름이 또렷해지지만, 자기 호흡을 잃지 않는 페이스가 자기를 지키는 자리예요."
+        }
       ],
-      "tags": ["sajuCompatibility", "eumyangHarmony", "yongshin"],
+      "tags": [
+        "sajuCompatibility",
+        "eumyangHarmony",
+        "yongshin",
+        "baeujagung",
+        "jeonggwan",
+        "dohwa",
+        "hongyeom"
+      ],
       "numericalEvidence": [
         {
           "label": "현재 나이",
@@ -447,18 +1128,87 @@
     {
       "schemaVersion": "spring-ts.narrative-fragment.v1",
       "fragmentId": "romance.thisYear.expert.yearly_caution.501",
-      "axis": { "category": "romance", "period": "thisYear", "depth": "expert" },
-      "gating": { "yongshinAlignment": ["conflicting"] },
+      "axis": {
+        "category": "romance",
+        "period": "thisYear",
+        "depth": "expert"
+      },
+      "gating": {
+        "yongshinAlignment": [
+          "conflicting"
+        ]
+      },
       "templateTokens": [
-        { "kind": "text", "value": "올해는 " },
-        { "kind": "tag", "tagId": "baeujagung", "label": "배우자궁" },
-        { "kind": "text", "value": "이 흔들릴 때 관계 판단을 서두르지 않습니다. " },
-        { "kind": "tag", "tagId": "pyeongwan", "label": "편관" },
-        { "kind": "text", "value": "이 강하면 긴장과 압박을, " },
-        { "kind": "tag", "tagId": "stabilityIndex", "label": "안정성지수" },
-        { "kind": "text", "value": "는 관계가 생활 안에서 버틸 수 있는지를 확인하는 지표로 씁니다." }
+        {
+          "kind": "text",
+          "value": "올해는 "
+        },
+        {
+          "kind": "tag",
+          "tagId": "baeujagung",
+          "label": "배우자궁"
+        },
+        {
+          "kind": "text",
+          "value": "이 흔들릴 때 관계 판단을 서두르지 않습니다.\n\n"
+        },
+        {
+          "kind": "tag",
+          "tagId": "pyeongwan",
+          "label": "편관"
+        },
+        {
+          "kind": "text",
+          "value": "이 강하면 긴장과 압박을, "
+        },
+        {
+          "kind": "tag",
+          "tagId": "stabilityIndex",
+          "label": "안정성지수"
+        },
+        {
+          "kind": "text",
+          "value": "는 관계가 생활 안에서 버틸 수 있는지를 확인하는 지표로 씁니다.\n\n"
+        },
+        {
+          "kind": "tag",
+          "tagId": "cheonleulgwiin",
+          "label": "천을귀인"
+        },
+        {
+          "kind": "text",
+          "value": "의 결이 보이면 인연 자리에서도 부드러운 도움을 받는 흐름이 자기 자산이 되어 줘요.\n\n"
+        },
+        {
+          "kind": "text",
+          "value": "인연 자리는 "
+        },
+        {
+          "kind": "tag",
+          "tagId": "baeujagung",
+          "label": "배우자궁"
+        },
+        {
+          "kind": "text",
+          "value": "의 결과 "
+        },
+        {
+          "kind": "tag",
+          "tagId": "jeonggwan",
+          "label": "정관"
+        },
+        {
+          "kind": "text",
+          "value": "의 책임 결이 함께 단단해질 때 깊이가 자라고, 자기 흐름을 감추기보다 부드럽게 보여 두는 호흡이 잘 어울려요."
+        }
       ],
-      "tags": ["baeujagung", "pyeongwan", "stabilityIndex"],
+      "tags": [
+        "baeujagung",
+        "pyeongwan",
+        "stabilityIndex",
+        "cheonleulgwiin",
+        "jeonggwan"
+      ],
       "numericalEvidence": [
         {
           "label": "현재 나이",

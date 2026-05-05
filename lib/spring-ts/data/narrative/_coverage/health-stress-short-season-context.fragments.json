@@ -157,7 +157,7 @@
       "templateTokens": [
         {
           "kind": "text",
-          "value": "오늘 스트레스 흐름에서 봄과 여름 기운은 반응성과 열감을 끌어올립니다. "
+          "value": "오늘 스트레스 흐름에서 봄과 여름 기운은 반응성과 열감을 끌어올립니다.\n\n"
         },
         {
           "kind": "tag",
@@ -184,13 +184,56 @@
         },
         {
           "kind": "text",
-          "value": "를 떨어뜨리는 즉흥 반응은 피하세요."
+          "value": "를 떨어뜨리는 즉흥 반응은 피하세요.\n\n"
+        },
+        {
+          "kind": "text",
+          "value": "긴장과 회복의 흐름은 "
+        },
+        {
+          "kind": "tag",
+          "tagId": "pyeongwan",
+          "label": "편관"
+        },
+        {
+          "kind": "text",
+          "value": "의 압박을 "
+        },
+        {
+          "kind": "tag",
+          "tagId": "jeongin",
+          "label": "정인"
+        },
+        {
+          "kind": "text",
+          "value": "의 돌봄으로 풀어 두는 자리에서 한결 단단해지고, 자기 한계를 의식적으로 두는 호흡이 가장 큰 무기가 돼요.\n\n"
+        },
+        {
+          "kind": "tag",
+          "tagId": "cheonui",
+          "label": "천의"
+        },
+        {
+          "kind": "text",
+          "value": "의 자리와 "
+        },
+        {
+          "kind": "tag",
+          "tagId": "cheondeokgwiin",
+          "label": "천덕귀인"
+        },
+        {
+          "kind": "text",
+          "value": "의 결이 함께 보이면 회복의 흐름이 부드럽게 자리 잡는 사주이니, 자기 곁의 도움을 미루지 않는 호흡이 잘 어울려요."
         }
       ],
       "tags": [
         "pyeonin",
         "jeongin",
-        "stabilityIndex"
+        "stabilityIndex",
+        "pyeongwan",
+        "cheonui",
+        "cheondeokgwiin"
       ],
       "numericalEvidence": [
         {
@@ -288,7 +331,7 @@
       "templateTokens": [
         {
           "kind": "text",
-          "value": "오늘 스트레스 흐름에서 가을과 겨울 기운은 긴장과 회복 저장량을 보수적으로 봐야 합니다. "
+          "value": "오늘 스트레스 흐름에서 가을과 겨울 기운은 긴장과 회복 저장량을 보수적으로 봐야 합니다.\n\n"
         },
         {
           "kind": "tag",
@@ -315,13 +358,53 @@
         },
         {
           "kind": "text",
-          "value": "를 지키는 수면 선택이 우선입니다."
+          "value": "를 지키는 수면 선택이 우선입니다.\n\n"
+        },
+        {
+          "kind": "tag",
+          "tagId": "cheonui",
+          "label": "천의"
+        },
+        {
+          "kind": "text",
+          "value": "의 자리와 "
+        },
+        {
+          "kind": "tag",
+          "tagId": "cheondeokgwiin",
+          "label": "천덕귀인"
+        },
+        {
+          "kind": "text",
+          "value": "의 결이 함께 보이면 회복의 흐름이 부드럽게 자리 잡는 사주이니, 자기 곁의 도움을 미루지 않는 호흡이 잘 어울려요.\n\n"
+        },
+        {
+          "kind": "tag",
+          "tagId": "baekho",
+          "label": "백호대살"
+        },
+        {
+          "kind": "text",
+          "value": "의 신호와 "
+        },
+        {
+          "kind": "tag",
+          "tagId": "goegang",
+          "label": "괴강살"
+        },
+        {
+          "kind": "text",
+          "value": "의 결이 함께 보이는 시기엔 자기 한계를 의식적으로 두는 호흡이 가장 든든한 회복 자리예요."
         }
       ],
       "tags": [
         "jeongin",
         "pyeonin",
-        "stabilityIndex"
+        "stabilityIndex",
+        "cheonui",
+        "cheondeokgwiin",
+        "baekho",
+        "goegang"
       ],
       "aiGenerated": true,
       "sourceTier": {
@@ -423,7 +506,7 @@
       "templateTokens": [
         {
           "kind": "text",
-          "value": "이번 주 스트레스 흐름은 활동량과 감각 과부하를 같이 봐야 합니다. "
+          "value": "이번 주 스트레스 흐름은 활동량과 감각 과부하를 같이 봐야 합니다.\n\n"
         },
         {
           "kind": "tag",
@@ -441,7 +524,7 @@
         },
         {
           "kind": "text",
-          "value": "은 반복 회복 루틴을 만듭니다. "
+          "value": "은 반복 회복 루틴을 만듭니다.\n\n"
         },
         {
           "kind": "tag",
@@ -450,13 +533,32 @@
         },
         {
           "kind": "text",
-          "value": "를 지키려면 일정 사이의 빈칸이 필요합니다."
+          "value": "를 지키려면 일정 사이의 빈칸이 필요합니다.\n\n"
+        },
+        {
+          "kind": "tag",
+          "tagId": "gongmang",
+          "label": "공망"
+        },
+        {
+          "kind": "text",
+          "value": "의 결과 "
+        },
+        {
+          "kind": "tag",
+          "tagId": "stabilityIndex",
+          "label": "안정성지수"
+        },
+        {
+          "kind": "text",
+          "value": "를 함께 살펴 두면 비워 두는 자리와 채워 두는 자리의 결이 한층 또렷해져요."
         }
       ],
       "tags": [
         "pyeonin",
         "jeongin",
-        "stabilityIndex"
+        "stabilityIndex",
+        "gongmang"
       ],
       "aiGenerated": true,
       "sourceTier": {
@@ -492,7 +594,7 @@
       "templateTokens": [
         {
           "kind": "text",
-          "value": "이번 주 스트레스 흐름은 회복 저장량을 아끼는 해석이 중요합니다. "
+          "value": "이번 주 스트레스 흐름은 회복 저장량을 아끼는 해석이 중요합니다.\n\n"
         },
         {
           "kind": "tag",
@@ -519,13 +621,52 @@
         },
         {
           "kind": "text",
-          "value": "를 낮추는 야간 과부하는 피하세요."
+          "value": "를 낮추는 야간 과부하는 피하세요.\n\n"
+        },
+        {
+          "kind": "tag",
+          "tagId": "baekho",
+          "label": "백호대살"
+        },
+        {
+          "kind": "text",
+          "value": "의 신호와 "
+        },
+        {
+          "kind": "tag",
+          "tagId": "goegang",
+          "label": "괴강살"
+        },
+        {
+          "kind": "text",
+          "value": "의 결이 함께 보이는 시기엔 자기 한계를 의식적으로 두는 호흡이 가장 든든한 회복 자리예요.\n\n"
+        },
+        {
+          "kind": "tag",
+          "tagId": "gongmang",
+          "label": "공망"
+        },
+        {
+          "kind": "text",
+          "value": "의 결과 "
+        },
+        {
+          "kind": "tag",
+          "tagId": "stabilityIndex",
+          "label": "안정성지수"
+        },
+        {
+          "kind": "text",
+          "value": "를 함께 살펴 두면 비워 두는 자리와 채워 두는 자리의 결이 한층 또렷해져요."
         }
       ],
       "tags": [
         "jeongin",
         "pyeonin",
-        "stabilityIndex"
+        "stabilityIndex",
+        "baekho",
+        "goegang",
+        "gongmang"
       ],
       "aiGenerated": true,
       "sourceTier": {
@@ -693,7 +834,7 @@
       "templateTokens": [
         {
           "kind": "text",
-          "value": "이번 달 스트레스 흐름은 활동성 증가와 회복 루틴의 균형을 봅니다. "
+          "value": "이번 달 스트레스 흐름은 활동성 증가와 회복 루틴의 균형을 봅니다.\n\n"
         },
         {
           "kind": "tag",
@@ -711,7 +852,7 @@
         },
         {
           "kind": "text",
-          "value": "은 반복 가능한 회복 장치를 만듭니다. "
+          "value": "은 반복 가능한 회복 장치를 만듭니다.\n\n"
         },
         {
           "kind": "tag",
@@ -720,13 +861,33 @@
         },
         {
           "kind": "text",
-          "value": "를 유지하려면 월간 일정에 휴식 블록이 먼저 들어가야 합니다."
+          "value": "를 유지하려면 월간 일정에 휴식 블록이 먼저 들어가야 합니다.\n\n"
+        },
+        {
+          "kind": "tag",
+          "tagId": "cheonui",
+          "label": "천의"
+        },
+        {
+          "kind": "text",
+          "value": "의 자리와 "
+        },
+        {
+          "kind": "tag",
+          "tagId": "cheondeokgwiin",
+          "label": "천덕귀인"
+        },
+        {
+          "kind": "text",
+          "value": "의 결이 함께 보이면 회복의 흐름이 부드럽게 자리 잡는 사주이니, 자기 곁의 도움을 미루지 않는 호흡이 잘 어울려요."
         }
       ],
       "tags": [
         "pyeonin",
         "jeongin",
-        "stabilityIndex"
+        "stabilityIndex",
+        "cheonui",
+        "cheondeokgwiin"
       ],
       "aiGenerated": true,
       "sourceTier": {
@@ -762,7 +923,7 @@
       "templateTokens": [
         {
           "kind": "text",
-          "value": "이번 달 스트레스 흐름은 회복 저장량과 정서적 방어선을 보수적으로 봐야 합니다. "
+          "value": "이번 달 스트레스 흐름은 회복 저장량과 정서적 방어선을 보수적으로 봐야 합니다.\n\n"
         },
         {
           "kind": "tag",
@@ -780,7 +941,7 @@
         },
         {
           "kind": "text",
-          "value": "은 지나친 내면화로 흐를 수 있습니다. "
+          "value": "은 지나친 내면화로 흐를 수 있습니다.\n\n"
         },
         {
           "kind": "tag",
@@ -789,13 +950,36 @@
         },
         {
           "kind": "text",
-          "value": "를 높이는 반복 루틴을 월초부터 고정하세요."
+          "value": "를 높이는 반복 루틴을 월초부터 고정하세요.\n\n"
+        },
+        {
+          "kind": "text",
+          "value": "긴장과 회복의 흐름은 "
+        },
+        {
+          "kind": "tag",
+          "tagId": "pyeongwan",
+          "label": "편관"
+        },
+        {
+          "kind": "text",
+          "value": "의 압박을 "
+        },
+        {
+          "kind": "tag",
+          "tagId": "jeongin",
+          "label": "정인"
+        },
+        {
+          "kind": "text",
+          "value": "의 돌봄으로 풀어 두는 자리에서 한결 단단해지고, 자기 한계를 의식적으로 두는 호흡이 가장 큰 무기가 돼요."
         }
       ],
       "tags": [
         "jeongin",
         "pyeonin",
-        "stabilityIndex"
+        "stabilityIndex",
+        "pyeongwan"
       ],
       "aiGenerated": true,
       "sourceTier": {

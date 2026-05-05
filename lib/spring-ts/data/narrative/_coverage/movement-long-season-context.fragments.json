@@ -171,7 +171,7 @@
       "templateTokens": [
         {
           "kind": "text",
-          "value": "생애 이동운에서 봄과 여름의 현재 계절은 활동 반경 확장과 환경 전환을 촉진합니다. "
+          "value": "생애 이동운에서 봄과 여름의 현재 계절은 활동 반경 확장과 환경 전환을 촉진합니다.\n\n"
         },
         {
           "kind": "tag",
@@ -189,7 +189,7 @@
         },
         {
           "kind": "text",
-          "value": "의 장기 방향과 어긋나는 이동은 반복 소모를 만들 수 있습니다. "
+          "value": "의 장기 방향과 어긋나는 이동은 반복 소모를 만들 수 있습니다.\n\n"
         },
         {
           "kind": "tag",
@@ -198,13 +198,33 @@
         },
         {
           "kind": "text",
-          "value": "과 맞는 지역, 업장, 생활 리듬을 우선 기준으로 삼으세요."
+          "value": "과 맞는 지역, 업장, 생활 리듬을 우선 기준으로 삼으세요.\n\n"
+        },
+        {
+          "kind": "tag",
+          "tagId": "jisal",
+          "label": "지살"
+        },
+        {
+          "kind": "text",
+          "value": "의 신호와 "
+        },
+        {
+          "kind": "tag",
+          "tagId": "cheonigung",
+          "label": "천이궁"
+        },
+        {
+          "kind": "text",
+          "value": "의 결을 함께 살펴 두면 이동의 결이 어디로 이어질지 한층 또렷해져요."
         }
       ],
       "tags": [
         "yeokma",
         "daewoonGungsil",
-        "yongshin"
+        "yongshin",
+        "jisal",
+        "cheonigung"
       ],
       "numericalEvidence": [
         {
@@ -302,7 +322,7 @@
       "templateTokens": [
         {
           "kind": "text",
-          "value": "생애 이동운에서 가을과 겨울의 현재 계절은 확장보다 기반 보존과 회수의 판단을 강조합니다. "
+          "value": "생애 이동운에서 가을과 겨울의 현재 계절은 확장보다 기반 보존과 회수의 판단을 강조합니다.\n\n"
         },
         {
           "kind": "tag",
@@ -320,7 +340,7 @@
         },
         {
           "kind": "text",
-          "value": " 기반은 주거, 가족, 오래된 관계의 안정성을 함께 점검하게 합니다. "
+          "value": " 기반은 주거, 가족, 오래된 관계의 안정성을 함께 점검하게 합니다.\n\n"
         },
         {
           "kind": "tag",
@@ -329,7 +349,29 @@
         },
         {
           "kind": "text",
-          "value": " 보강이 가능한 동선만 남기는 편이 유리합니다."
+          "value": " 보강이 가능한 동선만 남기는 편이 유리합니다.\n\n"
+        },
+        {
+          "kind": "text",
+          "value": "이동의 흐름은 "
+        },
+        {
+          "kind": "tag",
+          "tagId": "yeokma",
+          "label": "역마"
+        },
+        {
+          "kind": "text",
+          "value": "의 자극과 "
+        },
+        {
+          "kind": "tag",
+          "tagId": "jojangung",
+          "label": "조상궁"
+        },
+        {
+          "kind": "text",
+          "value": "의 뿌리가 함께 살아나는 자리에서 단단해지고, 익숙한 동선부터 한 걸음씩 넓히는 페이스가 잘 어울려요."
         }
       ],
       "tags": [
@@ -517,7 +559,7 @@
       "templateTokens": [
         {
           "kind": "text",
-          "value": "연간 이동운에서 봄과 여름의 현재 계절은 이동, 방문, 전환 이벤트의 발생 빈도를 올립니다. "
+          "value": "연간 이동운에서 봄과 여름의 현재 계절은 이동, 방문, 전환 이벤트의 발생 빈도를 올립니다.\n\n"
         },
         {
           "kind": "tag",
@@ -544,13 +586,56 @@
         },
         {
           "kind": "text",
-          "value": "과 맞는 이동만 연간 우선순위로 올리세요."
+          "value": "과 맞는 이동만 연간 우선순위로 올리세요.\n\n"
+        },
+        {
+          "kind": "text",
+          "value": "이동의 흐름은 "
+        },
+        {
+          "kind": "tag",
+          "tagId": "yeokma",
+          "label": "역마"
+        },
+        {
+          "kind": "text",
+          "value": "의 자극과 "
+        },
+        {
+          "kind": "tag",
+          "tagId": "jojangung",
+          "label": "조상궁"
+        },
+        {
+          "kind": "text",
+          "value": "의 뿌리가 함께 살아나는 자리에서 단단해지고, 익숙한 동선부터 한 걸음씩 넓히는 페이스가 잘 어울려요.\n\n"
+        },
+        {
+          "kind": "tag",
+          "tagId": "jisal",
+          "label": "지살"
+        },
+        {
+          "kind": "text",
+          "value": "의 신호와 "
+        },
+        {
+          "kind": "tag",
+          "tagId": "cheonigung",
+          "label": "천이궁"
+        },
+        {
+          "kind": "text",
+          "value": "의 결을 함께 살펴 두면 이동의 결이 어디로 이어질지 한층 또렷해져요."
         }
       ],
       "tags": [
         "yeokma",
         "daewoonGungsil",
-        "yongshin"
+        "yongshin",
+        "jojangung",
+        "jisal",
+        "cheonigung"
       ],
       "aiGenerated": true,
       "sourceTier": {
@@ -586,7 +671,7 @@
       "templateTokens": [
         {
           "kind": "text",
-          "value": "연간 이동운에서 가을과 겨울의 현재 계절은 확장형 이동보다 기반 점검형 이동을 우선합니다. "
+          "value": "연간 이동운에서 가을과 겨울의 현재 계절은 확장형 이동보다 기반 점검형 이동을 우선합니다.\n\n"
         },
         {
           "kind": "tag",
@@ -604,7 +689,7 @@
         },
         {
           "kind": "text",
-          "value": " 축은 주거와 가족 기반의 안정성을 함께 봅니다. "
+          "value": " 축은 주거와 가족 기반의 안정성을 함께 봅니다.\n\n"
         },
         {
           "kind": "tag",
@@ -613,13 +698,33 @@
         },
         {
           "kind": "text",
-          "value": " 보완 방향을 기준으로 연간 이동량을 줄이면 리스크가 낮아집니다."
+          "value": " 보완 방향을 기준으로 연간 이동량을 줄이면 리스크가 낮아집니다.\n\n"
+        },
+        {
+          "kind": "tag",
+          "tagId": "jisal",
+          "label": "지살"
+        },
+        {
+          "kind": "text",
+          "value": "의 신호와 "
+        },
+        {
+          "kind": "tag",
+          "tagId": "cheonigung",
+          "label": "천이궁"
+        },
+        {
+          "kind": "text",
+          "value": "의 결을 함께 살펴 두면 이동의 결이 어디로 이어질지 한층 또렷해져요."
         }
       ],
       "tags": [
         "yeokma",
         "jojangung",
-        "yongshin"
+        "yongshin",
+        "jisal",
+        "cheonigung"
       ],
       "aiGenerated": true,
       "sourceTier": {

@@ -25,7 +25,7 @@
       "templateTokens": [
         {
           "kind": "text",
-          "value": "장기 인연 흐름에서 봄과 여름의 현재 계절은 관계의 시작 속도와 표현량을 키웁니다. "
+          "value": "장기 인연 흐름에서 봄과 여름의 현재 계절은 관계의 시작 속도와 표현량을 키웁니다.\n\n"
         },
         {
           "kind": "tag",
@@ -43,7 +43,7 @@
         },
         {
           "kind": "text",
-          "value": "이 실제 생활 리듬과 이어지는지도 봐야 합니다. "
+          "value": "이 실제 생활 리듬과 이어지는지도 봐야 합니다.\n\n"
         },
         {
           "kind": "tag",
@@ -52,13 +52,33 @@
         },
         {
           "kind": "text",
-          "value": "가 과열되면 설렘이 빠르게 커지지만 관계의 합의는 늦어질 수 있습니다."
+          "value": "가 과열되면 설렘이 빠르게 커지지만 관계의 합의는 늦어질 수 있습니다.\n\n"
+        },
+        {
+          "kind": "tag",
+          "tagId": "cheogung",
+          "label": "처궁"
+        },
+        {
+          "kind": "text",
+          "value": "의 결과 "
+        },
+        {
+          "kind": "tag",
+          "tagId": "jasikgung",
+          "label": "자식궁"
+        },
+        {
+          "kind": "text",
+          "value": "의 자리가 함께 살아나는 시기엔 가까운 관계가 한 단계 깊어지는 흐름이 보여요."
         }
       ],
       "tags": [
         "baeujagung",
         "sajuCompatibility",
-        "eumyangHarmony"
+        "eumyangHarmony",
+        "cheogung",
+        "jasikgung"
       ],
       "numericalEvidence": [
         {
@@ -156,7 +176,7 @@
       "templateTokens": [
         {
           "kind": "text",
-          "value": "장기 인연 흐름에서 가을과 겨울의 현재 계절은 관계의 지속성과 책임감을 더 크게 봅니다. "
+          "value": "장기 인연 흐름에서 가을과 겨울의 현재 계절은 관계의 지속성과 책임감을 더 크게 봅니다.\n\n"
         },
         {
           "kind": "tag",
@@ -174,7 +194,7 @@
         },
         {
           "kind": "text",
-          "value": "은 감정뿐 아니라 생활 기준의 맞음까지 확인해야 합니다. "
+          "value": "은 감정뿐 아니라 생활 기준의 맞음까지 확인해야 합니다.\n\n"
         },
         {
           "kind": "tag",
@@ -183,13 +203,23 @@
         },
         {
           "kind": "text",
-          "value": "가 부족하면 관계가 차갑게 굳지 않도록 표현을 의식적으로 보태야 합니다."
+          "value": "가 부족하면 관계가 차갑게 굳지 않도록 표현을 의식적으로 보태야 합니다.\n\n"
+        },
+        {
+          "kind": "tag",
+          "tagId": "cheonleulgwiin",
+          "label": "천을귀인"
+        },
+        {
+          "kind": "text",
+          "value": "의 결이 보이면 인연 자리에서도 부드러운 도움을 받는 흐름이 자기 자산이 되어 줘요."
         }
       ],
       "tags": [
         "baeujagung",
         "sajuCompatibility",
-        "eumyangHarmony"
+        "eumyangHarmony",
+        "cheonleulgwiin"
       ],
       "aiGenerated": true,
       "sourceTier": {

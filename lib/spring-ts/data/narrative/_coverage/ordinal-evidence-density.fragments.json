@@ -24,7 +24,7 @@
         },
         {
           "kind": "text",
-          "value": "를 볼 때 남성 분기는 역할을 단정하는 값이 아니라 사용자가 실제로 입력한 상담 맥락을 유지하기 위한 분류 축이에요. "
+          "value": "를 볼 때 남성 분기는 역할을 단정하는 값이 아니라 사용자가 실제로 입력한 상담 맥락을 유지하기 위한 분류 축이에요.\n\n"
         },
         {
           "kind": "tag",
@@ -33,7 +33,43 @@
         },
         {
           "kind": "text",
-          "value": "와 일간 오행을 함께 보면 오늘 조언이 과하게 일반화되지 않고 말투, 부담, 실행 강도를 조금 더 정밀하게 조절할 수 있어요."
+          "value": "와 일간 오행을 함께 보면 오늘 조언이 과하게 일반화되지 않고 말투, 부담, 실행 강도를 조금 더 정밀하게 조절할 수 있어요.\n\n"
+        },
+        {
+          "kind": "tag",
+          "tagId": "tonggwanYongshin",
+          "label": "통관용신"
+        },
+        {
+          "kind": "text",
+          "value": "의 결이 보이면 흐름의 막힌 자리를 풀어 주는 자리가 보이고, "
+        },
+        {
+          "kind": "tag",
+          "tagId": "byeongyakYongshin",
+          "label": "병약용신"
+        },
+        {
+          "kind": "text",
+          "value": "의 자리가 함께 들어오면 약한 자리를 메우는 결이 함께 작동해요.\n\n"
+        },
+        {
+          "kind": "tag",
+          "tagId": "naeum",
+          "label": "납음"
+        },
+        {
+          "kind": "text",
+          "value": "의 결을 함께 살펴 두면 사주 모양의 깊은 색이 더 또렷해지고, "
+        },
+        {
+          "kind": "tag",
+          "tagId": "naeumElement",
+          "label": "납음오행"
+        },
+        {
+          "kind": "text",
+          "value": "의 흐름이 자기 결을 보완하는 자리가 자주 등장해요."
         }
       ],
       "livingTips": [
@@ -45,7 +81,11 @@
       ],
       "tags": [
         "sajuCompatibility",
-        "eumyangHarmony"
+        "eumyangHarmony",
+        "tonggwanYongshin",
+        "byeongyakYongshin",
+        "naeum",
+        "naeumElement"
       ],
       "numericalEvidence": [
         {
@@ -112,7 +152,7 @@
         },
         {
           "kind": "text",
-          "value": "에서 여성 분기는 사용자의 상담 맥락을 보존하는 보조 축이에요. 역할을 고정하지 않고, 오늘 카드의 표현 강도와 관계 조언의 거리감을 조절하는 데만 사용해야 해요. "
+          "value": "에서 여성 분기는 사용자의 상담 맥락을 보존하는 보조 축이에요.\n\n역할을 고정하지 않고, 오늘 카드의 표현 강도와 관계 조언의 거리감을 조절하는 데만 사용해야 해요.\n\n"
         },
         {
           "kind": "tag",
@@ -121,7 +161,25 @@
         },
         {
           "kind": "text",
-          "value": "값과 함께 보면 같은 점수라도 돌봄, 경계, 실행 중 어디를 먼저 말할지 더 안정적으로 고를 수 있어요."
+          "value": "값과 함께 보면 같은 점수라도 돌봄, 경계, 실행 중 어디를 먼저 말할지 더 안정적으로 고를 수 있어요.\n\n"
+        },
+        {
+          "kind": "tag",
+          "tagId": "naeum",
+          "label": "납음"
+        },
+        {
+          "kind": "text",
+          "value": "의 결을 함께 살펴 두면 사주 모양의 깊은 색이 더 또렷해지고, "
+        },
+        {
+          "kind": "tag",
+          "tagId": "naeumElement",
+          "label": "납음오행"
+        },
+        {
+          "kind": "text",
+          "value": "의 흐름이 자기 결을 보완하는 자리가 자주 등장해요."
         }
       ],
       "livingTips": [
@@ -133,7 +191,9 @@
       ],
       "tags": [
         "sajuCompatibility",
-        "eumyangHarmony"
+        "eumyangHarmony",
+        "naeum",
+        "naeumElement"
       ],
       "numericalEvidence": [
         {
@@ -200,7 +260,7 @@
         },
         {
           "kind": "text",
-          "value": "에서 중립 성별 분기는 성별 정보가 없거나 적용하지 않는 상황을 안전하게 처리하는 축이에요. "
+          "value": "에서 중립 성별 분기는 성별 정보가 없거나 적용하지 않는 상황을 안전하게 처리하는 축이에요.\n\n"
         },
         {
           "kind": "tag",
@@ -209,7 +269,47 @@
         },
         {
           "kind": "text",
-          "value": "와 일간 오행을 우선해 문장을 고르면, 불필요한 역할 추정을 피하면서도 오늘 필요한 행동 조언은 충분히 구체화할 수 있어요."
+          "value": "와 일간 오행을 우선해 문장을 고르면, 불필요한 역할 추정을 피하면서도 오늘 필요한 행동 조언은 충분히 구체화할 수 있어요.\n\n"
+        },
+        {
+          "kind": "text",
+          "value": "전체의 흐름은 "
+        },
+        {
+          "kind": "tag",
+          "tagId": "yongshin",
+          "label": "용신"
+        },
+        {
+          "kind": "text",
+          "value": " 방향과 "
+        },
+        {
+          "kind": "tag",
+          "tagId": "heeshin",
+          "label": "희신"
+        },
+        {
+          "kind": "text",
+          "value": "의 받침이 함께 들어오는 시기에 한 단계 부드러워지고, 거스르는 시기에는 한 박자 늦추는 호흡이 자기를 지키는 자리예요.\n\n"
+        },
+        {
+          "kind": "tag",
+          "tagId": "gyeokgukYongshin",
+          "label": "격국용신"
+        },
+        {
+          "kind": "text",
+          "value": "의 결과 "
+        },
+        {
+          "kind": "tag",
+          "tagId": "gyeokgukFit",
+          "label": "격국적합도"
+        },
+        {
+          "kind": "text",
+          "value": "의 평균이 또렷한 사주는 자기 격에 맞는 길로 큰 흐름이 모이는 자리가 자주 등장해요."
         }
       ],
       "livingTips": [
@@ -221,7 +321,11 @@
       ],
       "tags": [
         "sajuCompatibility",
-        "eumyangHarmony"
+        "eumyangHarmony",
+        "yongshin",
+        "heeshin",
+        "gyeokgukYongshin",
+        "gyeokgukFit"
       ],
       "numericalEvidence": [
         {
@@ -288,7 +392,7 @@
         },
         {
           "kind": "text",
-          "value": " 일간은 한 주의 스트레스를 성장 압력으로 받아들이기 쉬워요. "
+          "value": " 일간은 한 주의 스트레스를 성장 압력으로 받아들이기 쉬워요.\n\n"
         },
         {
           "kind": "tag",
@@ -297,7 +401,43 @@
         },
         {
           "kind": "text",
-          "value": "을 함께 보면 해야 할 일을 늘리기보다 회복 루틴을 먼저 세우는 해석이 더 안정적이에요."
+          "value": "을 함께 보면 해야 할 일을 늘리기보다 회복 루틴을 먼저 세우는 해석이 더 안정적이에요.\n\n"
+        },
+        {
+          "kind": "tag",
+          "tagId": "baekho",
+          "label": "백호대살"
+        },
+        {
+          "kind": "text",
+          "value": "의 신호와 "
+        },
+        {
+          "kind": "tag",
+          "tagId": "goegang",
+          "label": "괴강살"
+        },
+        {
+          "kind": "text",
+          "value": "의 결이 함께 보이는 시기엔 자기 한계를 의식적으로 두는 호흡이 가장 든든한 회복 자리예요.\n\n"
+        },
+        {
+          "kind": "tag",
+          "tagId": "gongmang",
+          "label": "공망"
+        },
+        {
+          "kind": "text",
+          "value": "의 결과 "
+        },
+        {
+          "kind": "tag",
+          "tagId": "stabilityIndex",
+          "label": "안정성지수"
+        },
+        {
+          "kind": "text",
+          "value": "를 함께 살펴 두면 비워 두는 자리와 채워 두는 자리의 결이 한층 또렷해져요."
         }
       ],
       "livingTips": [
@@ -308,7 +448,11 @@
       ],
       "tags": [
         "wood",
-        "ohaengBalance"
+        "ohaengBalance",
+        "baekho",
+        "goegang",
+        "gongmang",
+        "stabilityIndex"
       ],
       "numericalEvidence": [
         {
@@ -360,7 +504,7 @@
         },
         {
           "kind": "text",
-          "value": " 일간은 반응 속도가 빠른 만큼 한 주의 피로도 빠르게 올라올 수 있어요. "
+          "value": " 일간은 반응 속도가 빠른 만큼 한 주의 피로도 빠르게 올라올 수 있어요.\n\n"
         },
         {
           "kind": "tag",
@@ -369,7 +513,47 @@
         },
         {
           "kind": "text",
-          "value": "에서는 열정의 양보다 쉬는 타이밍을 수치 근거와 함께 확인하는 것이 중요해요."
+          "value": "에서는 열정의 양보다 쉬는 타이밍을 수치 근거와 함께 확인하는 것이 중요해요.\n\n"
+        },
+        {
+          "kind": "tag",
+          "tagId": "gongmang",
+          "label": "공망"
+        },
+        {
+          "kind": "text",
+          "value": "의 결과 "
+        },
+        {
+          "kind": "tag",
+          "tagId": "stabilityIndex",
+          "label": "안정성지수"
+        },
+        {
+          "kind": "text",
+          "value": "를 함께 살펴 두면 비워 두는 자리와 채워 두는 자리의 결이 한층 또렷해져요.\n\n"
+        },
+        {
+          "kind": "text",
+          "value": "긴장과 회복의 흐름은 "
+        },
+        {
+          "kind": "tag",
+          "tagId": "pyeongwan",
+          "label": "편관"
+        },
+        {
+          "kind": "text",
+          "value": "의 압박을 "
+        },
+        {
+          "kind": "tag",
+          "tagId": "jeongin",
+          "label": "정인"
+        },
+        {
+          "kind": "text",
+          "value": "의 돌봄으로 풀어 두는 자리에서 한결 단단해지고, 자기 한계를 의식적으로 두는 호흡이 가장 큰 무기가 돼요."
         }
       ],
       "livingTips": [
@@ -380,7 +564,11 @@
       ],
       "tags": [
         "fire",
-        "ohaengBalance"
+        "ohaengBalance",
+        "gongmang",
+        "stabilityIndex",
+        "pyeongwan",
+        "jeongin"
       ],
       "numericalEvidence": [
         {
@@ -432,7 +620,7 @@
         },
         {
           "kind": "text",
-          "value": " 일간은 책임을 오래 붙들기 쉬워 한 주의 스트레스가 몸의 무거움으로 쌓일 수 있어요. "
+          "value": " 일간은 책임을 오래 붙들기 쉬워 한 주의 스트레스가 몸의 무거움으로 쌓일 수 있어요.\n\n"
         },
         {
           "kind": "tag",
@@ -441,7 +629,47 @@
         },
         {
           "kind": "text",
-          "value": "에서는 버티는 힘과 내려놓는 기준을 함께 보는 것이 핵심이에요."
+          "value": "에서는 버티는 힘과 내려놓는 기준을 함께 보는 것이 핵심이에요.\n\n"
+        },
+        {
+          "kind": "tag",
+          "tagId": "gongmang",
+          "label": "공망"
+        },
+        {
+          "kind": "text",
+          "value": "의 결과 "
+        },
+        {
+          "kind": "tag",
+          "tagId": "stabilityIndex",
+          "label": "안정성지수"
+        },
+        {
+          "kind": "text",
+          "value": "를 함께 살펴 두면 비워 두는 자리와 채워 두는 자리의 결이 한층 또렷해져요.\n\n"
+        },
+        {
+          "kind": "text",
+          "value": "긴장과 회복의 흐름은 "
+        },
+        {
+          "kind": "tag",
+          "tagId": "pyeongwan",
+          "label": "편관"
+        },
+        {
+          "kind": "text",
+          "value": "의 압박을 "
+        },
+        {
+          "kind": "tag",
+          "tagId": "jeongin",
+          "label": "정인"
+        },
+        {
+          "kind": "text",
+          "value": "의 돌봄으로 풀어 두는 자리에서 한결 단단해지고, 자기 한계를 의식적으로 두는 호흡이 가장 큰 무기가 돼요."
         }
       ],
       "livingTips": [
@@ -452,7 +680,11 @@
       ],
       "tags": [
         "earth",
-        "ohaengBalance"
+        "ohaengBalance",
+        "gongmang",
+        "stabilityIndex",
+        "pyeongwan",
+        "jeongin"
       ],
       "numericalEvidence": [
         {
@@ -504,7 +736,7 @@
         },
         {
           "kind": "text",
-          "value": " 일간은 기준이 분명해질수록 스트레스를 빨리 정리할 수 있지만, 기준이 너무 날카로우면 긴장이 오래 남을 수 있어요. "
+          "value": " 일간은 기준이 분명해질수록 스트레스를 빨리 정리할 수 있지만, 기준이 너무 날카로우면 긴장이 오래 남을 수 있어요.\n\n"
         },
         {
           "kind": "tag",
@@ -513,7 +745,47 @@
         },
         {
           "kind": "text",
-          "value": "에서는 결정 기준과 몸의 긴장도를 함께 확인해야 해요."
+          "value": "에서는 결정 기준과 몸의 긴장도를 함께 확인해야 해요.\n\n"
+        },
+        {
+          "kind": "text",
+          "value": "긴장과 회복의 흐름은 "
+        },
+        {
+          "kind": "tag",
+          "tagId": "pyeongwan",
+          "label": "편관"
+        },
+        {
+          "kind": "text",
+          "value": "의 압박을 "
+        },
+        {
+          "kind": "tag",
+          "tagId": "jeongin",
+          "label": "정인"
+        },
+        {
+          "kind": "text",
+          "value": "의 돌봄으로 풀어 두는 자리에서 한결 단단해지고, 자기 한계를 의식적으로 두는 호흡이 가장 큰 무기가 돼요.\n\n"
+        },
+        {
+          "kind": "tag",
+          "tagId": "cheonui",
+          "label": "천의"
+        },
+        {
+          "kind": "text",
+          "value": "의 자리와 "
+        },
+        {
+          "kind": "tag",
+          "tagId": "cheondeokgwiin",
+          "label": "천덕귀인"
+        },
+        {
+          "kind": "text",
+          "value": "의 결이 함께 보이면 회복의 흐름이 부드럽게 자리 잡는 사주이니, 자기 곁의 도움을 미루지 않는 호흡이 잘 어울려요."
         }
       ],
       "livingTips": [
@@ -524,7 +796,11 @@
       ],
       "tags": [
         "metal",
-        "ohaengBalance"
+        "ohaengBalance",
+        "pyeongwan",
+        "jeongin",
+        "cheonui",
+        "cheondeokgwiin"
       ],
       "numericalEvidence": [
         {
@@ -576,7 +852,7 @@
         },
         {
           "kind": "text",
-          "value": " 일간은 분위기를 많이 읽어 스트레스가 생각과 감정 안쪽에 쌓이기 쉬워요. "
+          "value": " 일간은 분위기를 많이 읽어 스트레스가 생각과 감정 안쪽에 쌓이기 쉬워요.\n\n"
         },
         {
           "kind": "tag",
@@ -585,7 +861,47 @@
         },
         {
           "kind": "text",
-          "value": "에서는 관찰력의 장점과 망설임의 비용을 함께 보고 회복 전략을 골라야 해요."
+          "value": "에서는 관찰력의 장점과 망설임의 비용을 함께 보고 회복 전략을 골라야 해요.\n\n"
+        },
+        {
+          "kind": "text",
+          "value": "긴장과 회복의 흐름은 "
+        },
+        {
+          "kind": "tag",
+          "tagId": "pyeongwan",
+          "label": "편관"
+        },
+        {
+          "kind": "text",
+          "value": "의 압박을 "
+        },
+        {
+          "kind": "tag",
+          "tagId": "jeongin",
+          "label": "정인"
+        },
+        {
+          "kind": "text",
+          "value": "의 돌봄으로 풀어 두는 자리에서 한결 단단해지고, 자기 한계를 의식적으로 두는 호흡이 가장 큰 무기가 돼요.\n\n"
+        },
+        {
+          "kind": "tag",
+          "tagId": "cheonui",
+          "label": "천의"
+        },
+        {
+          "kind": "text",
+          "value": "의 자리와 "
+        },
+        {
+          "kind": "tag",
+          "tagId": "cheondeokgwiin",
+          "label": "천덕귀인"
+        },
+        {
+          "kind": "text",
+          "value": "의 결이 함께 보이면 회복의 흐름이 부드럽게 자리 잡는 사주이니, 자기 곁의 도움을 미루지 않는 호흡이 잘 어울려요."
         }
       ],
       "livingTips": [
@@ -596,7 +912,11 @@
       ],
       "tags": [
         "water",
-        "ohaengBalance"
+        "ohaengBalance",
+        "pyeongwan",
+        "jeongin",
+        "cheonui",
+        "cheondeokgwiin"
       ],
       "numericalEvidence": [
         {
@@ -648,7 +968,7 @@
         },
         {
           "kind": "text",
-          "value": "이 나무일 때 이번 달 이동과 변화는 성장 방향을 정리하는 쪽으로 쓰는 것이 좋아요. "
+          "value": "이 나무일 때 이번 달 이동과 변화는 성장 방향을 정리하는 쪽으로 쓰는 것이 좋아요.\n\n"
         },
         {
           "kind": "tag",
@@ -657,7 +977,47 @@
         },
         {
           "kind": "text",
-          "value": "를 함께 보면 이동 자체보다 배움, 확장, 관계 회복으로 이어지는지 확인할 수 있어요."
+          "value": "를 함께 보면 이동 자체보다 배움, 확장, 관계 회복으로 이어지는지 확인할 수 있어요.\n\n"
+        },
+        {
+          "kind": "tag",
+          "tagId": "daewoonGungsil",
+          "label": "대운궁실"
+        },
+        {
+          "kind": "text",
+          "value": "의 결이 새로운 자리로 들어오는 시기와 "
+        },
+        {
+          "kind": "tag",
+          "tagId": "iljin",
+          "label": "일진"
+        },
+        {
+          "kind": "text",
+          "value": "의 자리가 부드러운 시기를 함께 보면 이동의 결이 자기 자산으로 익어 가는 흐름이 보여요.\n\n"
+        },
+        {
+          "kind": "text",
+          "value": "이동의 흐름은 "
+        },
+        {
+          "kind": "tag",
+          "tagId": "yeokma",
+          "label": "역마"
+        },
+        {
+          "kind": "text",
+          "value": "의 자극과 "
+        },
+        {
+          "kind": "tag",
+          "tagId": "jojangung",
+          "label": "조상궁"
+        },
+        {
+          "kind": "text",
+          "value": "의 뿌리가 함께 살아나는 자리에서 단단해지고, 익숙한 동선부터 한 걸음씩 넓히는 페이스가 잘 어울려요."
         }
       ],
       "livingTips": [
@@ -668,7 +1028,11 @@
       ],
       "tags": [
         "yongshin",
-        "yongshinFit"
+        "yongshinFit",
+        "daewoonGungsil",
+        "iljin",
+        "yeokma",
+        "jojangung"
       ],
       "numericalEvidence": [
         {
@@ -720,7 +1084,7 @@
         },
         {
           "kind": "text",
-          "value": "이 불일 때 이번 달 이동은 드러내기, 발표, 관계 확장과 연결될 때 힘이 좋아져요. "
+          "value": "이 불일 때 이번 달 이동은 드러내기, 발표, 관계 확장과 연결될 때 힘이 좋아져요.\n\n"
         },
         {
           "kind": "tag",
@@ -729,7 +1093,43 @@
         },
         {
           "kind": "text",
-          "value": "를 함께 보면 움직임이 단순한 분주함인지 실제 기회 노출인지 구분할 수 있어요."
+          "value": "를 함께 보면 움직임이 단순한 분주함인지 실제 기회 노출인지 구분할 수 있어요.\n\n"
+        },
+        {
+          "kind": "tag",
+          "tagId": "banansal",
+          "label": "반안살"
+        },
+        {
+          "kind": "text",
+          "value": "의 자리와 "
+        },
+        {
+          "kind": "tag",
+          "tagId": "wolsal",
+          "label": "월살"
+        },
+        {
+          "kind": "text",
+          "value": "의 결이 함께 보이는 시기엔 자기 동선의 한 결을 점검해 두는 호흡이 잘 맞아요.\n\n"
+        },
+        {
+          "kind": "tag",
+          "tagId": "daewoonGungsil",
+          "label": "대운궁실"
+        },
+        {
+          "kind": "text",
+          "value": "의 결이 새로운 자리로 들어오는 시기와 "
+        },
+        {
+          "kind": "tag",
+          "tagId": "iljin",
+          "label": "일진"
+        },
+        {
+          "kind": "text",
+          "value": "의 자리가 부드러운 시기를 함께 보면 이동의 결이 자기 자산으로 익어 가는 흐름이 보여요."
         }
       ],
       "livingTips": [
@@ -740,7 +1140,11 @@
       ],
       "tags": [
         "yongshin",
-        "yongshinFit"
+        "yongshinFit",
+        "banansal",
+        "wolsal",
+        "daewoonGungsil",
+        "iljin"
       ],
       "numericalEvidence": [
         {
@@ -792,7 +1196,7 @@
         },
         {
           "kind": "text",
-          "value": "이 흙일 때 이번 달 이동은 기반을 만들거나 책임 범위를 정리하는 방향일수록 안정적이에요. "
+          "value": "이 흙일 때 이번 달 이동은 기반을 만들거나 책임 범위를 정리하는 방향일수록 안정적이에요.\n\n"
         },
         {
           "kind": "tag",
@@ -801,7 +1205,47 @@
         },
         {
           "kind": "text",
-          "value": "와 함께 보면 변화가 흔들림인지 자리 잡기인지 더 분명하게 나뉘어요."
+          "value": "와 함께 보면 변화가 흔들림인지 자리 잡기인지 더 분명하게 나뉘어요.\n\n"
+        },
+        {
+          "kind": "text",
+          "value": "이동의 흐름은 "
+        },
+        {
+          "kind": "tag",
+          "tagId": "yeokma",
+          "label": "역마"
+        },
+        {
+          "kind": "text",
+          "value": "의 자극과 "
+        },
+        {
+          "kind": "tag",
+          "tagId": "jojangung",
+          "label": "조상궁"
+        },
+        {
+          "kind": "text",
+          "value": "의 뿌리가 함께 살아나는 자리에서 단단해지고, 익숙한 동선부터 한 걸음씩 넓히는 페이스가 잘 어울려요.\n\n"
+        },
+        {
+          "kind": "tag",
+          "tagId": "jisal",
+          "label": "지살"
+        },
+        {
+          "kind": "text",
+          "value": "의 신호와 "
+        },
+        {
+          "kind": "tag",
+          "tagId": "cheonigung",
+          "label": "천이궁"
+        },
+        {
+          "kind": "text",
+          "value": "의 결을 함께 살펴 두면 이동의 결이 어디로 이어질지 한층 또렷해져요."
         }
       ],
       "livingTips": [
@@ -812,7 +1256,11 @@
       ],
       "tags": [
         "yongshin",
-        "yongshinFit"
+        "yongshinFit",
+        "yeokma",
+        "jojangung",
+        "jisal",
+        "cheonigung"
       ],
       "numericalEvidence": [
         {
@@ -864,7 +1312,7 @@
         },
         {
           "kind": "text",
-          "value": "이 쇠일 때 이번 달 이동은 정리, 계약, 기준 확정과 연결될수록 효율이 좋아요. "
+          "value": "이 쇠일 때 이번 달 이동은 정리, 계약, 기준 확정과 연결될수록 효율이 좋아요.\n\n"
         },
         {
           "kind": "tag",
@@ -873,7 +1321,47 @@
         },
         {
           "kind": "text",
-          "value": "를 함께 보면 움직임이 산만한 확장이 아니라 결정을 단단히 만드는 과정인지 확인할 수 있어요."
+          "value": "를 함께 보면 움직임이 산만한 확장이 아니라 결정을 단단히 만드는 과정인지 확인할 수 있어요.\n\n"
+        },
+        {
+          "kind": "tag",
+          "tagId": "daewoonGungsil",
+          "label": "대운궁실"
+        },
+        {
+          "kind": "text",
+          "value": "의 결이 새로운 자리로 들어오는 시기와 "
+        },
+        {
+          "kind": "tag",
+          "tagId": "iljin",
+          "label": "일진"
+        },
+        {
+          "kind": "text",
+          "value": "의 자리가 부드러운 시기를 함께 보면 이동의 결이 자기 자산으로 익어 가는 흐름이 보여요.\n\n"
+        },
+        {
+          "kind": "text",
+          "value": "이동의 흐름은 "
+        },
+        {
+          "kind": "tag",
+          "tagId": "yeokma",
+          "label": "역마"
+        },
+        {
+          "kind": "text",
+          "value": "의 자극과 "
+        },
+        {
+          "kind": "tag",
+          "tagId": "jojangung",
+          "label": "조상궁"
+        },
+        {
+          "kind": "text",
+          "value": "의 뿌리가 함께 살아나는 자리에서 단단해지고, 익숙한 동선부터 한 걸음씩 넓히는 페이스가 잘 어울려요."
         }
       ],
       "livingTips": [
@@ -884,7 +1372,11 @@
       ],
       "tags": [
         "yongshin",
-        "yongshinFit"
+        "yongshinFit",
+        "daewoonGungsil",
+        "iljin",
+        "yeokma",
+        "jojangung"
       ],
       "numericalEvidence": [
         {
@@ -936,7 +1428,7 @@
         },
         {
           "kind": "text",
-          "value": "이 물일 때 이번 달 이동은 정보 수집, 휴식, 방향 전환과 맞물릴수록 도움이 돼요. "
+          "value": "이 물일 때 이번 달 이동은 정보 수집, 휴식, 방향 전환과 맞물릴수록 도움이 돼요.\n\n"
         },
         {
           "kind": "tag",
@@ -945,7 +1437,47 @@
         },
         {
           "kind": "text",
-          "value": "를 함께 보면 이동이 도피인지 재정비인지 더 정확히 나눌 수 있어요."
+          "value": "를 함께 보면 이동이 도피인지 재정비인지 더 정확히 나눌 수 있어요.\n\n"
+        },
+        {
+          "kind": "tag",
+          "tagId": "daewoonGungsil",
+          "label": "대운궁실"
+        },
+        {
+          "kind": "text",
+          "value": "의 결이 새로운 자리로 들어오는 시기와 "
+        },
+        {
+          "kind": "tag",
+          "tagId": "iljin",
+          "label": "일진"
+        },
+        {
+          "kind": "text",
+          "value": "의 자리가 부드러운 시기를 함께 보면 이동의 결이 자기 자산으로 익어 가는 흐름이 보여요.\n\n"
+        },
+        {
+          "kind": "text",
+          "value": "이동의 흐름은 "
+        },
+        {
+          "kind": "tag",
+          "tagId": "yeokma",
+          "label": "역마"
+        },
+        {
+          "kind": "text",
+          "value": "의 자극과 "
+        },
+        {
+          "kind": "tag",
+          "tagId": "jojangung",
+          "label": "조상궁"
+        },
+        {
+          "kind": "text",
+          "value": "의 뿌리가 함께 살아나는 자리에서 단단해지고, 익숙한 동선부터 한 걸음씩 넓히는 페이스가 잘 어울려요."
         }
       ],
       "livingTips": [
@@ -956,7 +1488,11 @@
       ],
       "tags": [
         "yongshin",
-        "yongshinFit"
+        "yongshinFit",
+        "daewoonGungsil",
+        "iljin",
+        "yeokma",
+        "jojangung"
       ],
       "numericalEvidence": [
         {
@@ -1008,7 +1544,7 @@
         },
         {
           "kind": "text",
-          "value": "은 커리어에서 배움, 보호, 자격의 흐름을 먼저 보게 해요. "
+          "value": "은 커리어에서 배움, 보호, 자격의 흐름을 먼저 보게 해요.\n\n"
         },
         {
           "kind": "tag",
@@ -1017,7 +1553,47 @@
         },
         {
           "kind": "text",
-          "value": "를 함께 보면 이번 달 선택이 지식 축적과 안정적인 역할 확장에 맞는지 확인할 수 있어요."
+          "value": "를 함께 보면 이번 달 선택이 지식 축적과 안정적인 역할 확장에 맞는지 확인할 수 있어요.\n\n"
+        },
+        {
+          "kind": "tag",
+          "tagId": "jangseongsal",
+          "label": "장성살"
+        },
+        {
+          "kind": "text",
+          "value": "의 신호와 "
+        },
+        {
+          "kind": "tag",
+          "tagId": "cheonui",
+          "label": "천의"
+        },
+        {
+          "kind": "text",
+          "value": "의 결이 함께 보이는 사주는 자기 자리에 머무는 호흡과 곁의 도움을 거절하지 않는 호흡이 둘 다 잘 어울려요.\n\n"
+        },
+        {
+          "kind": "text",
+          "value": "직업 흐름은 "
+        },
+        {
+          "kind": "tag",
+          "tagId": "jeonggwan",
+          "label": "정관"
+        },
+        {
+          "kind": "text",
+          "value": "의 책임 자리와 "
+        },
+        {
+          "kind": "tag",
+          "tagId": "sikshin",
+          "label": "식신"
+        },
+        {
+          "kind": "text",
+          "value": "의 결과 자리가 함께 단단해질 때 한 단계 더 또렷해지는 흐름이라, 무리한 한 번보다 자기 호흡대로의 결과물 쌓기가 잘 어울려요."
         }
       ],
       "livingTips": [
@@ -1028,7 +1604,11 @@
       ],
       "tags": [
         "jeongingyeok",
-        "gyeokgukFit"
+        "gyeokgukFit",
+        "jangseongsal",
+        "cheonui",
+        "jeonggwan",
+        "sikshin"
       ],
       "numericalEvidence": [
         {
@@ -1080,7 +1660,7 @@
         },
         {
           "kind": "text",
-          "value": "은 커리어에서 탐구, 직관, 낯선 방식의 이해를 먼저 보게 해요. "
+          "value": "은 커리어에서 탐구, 직관, 낯선 방식의 이해를 먼저 보게 해요.\n\n"
         },
         {
           "kind": "tag",
@@ -1089,7 +1669,43 @@
         },
         {
           "kind": "text",
-          "value": "와 함께 보면 이번 달 선택이 깊은 조사나 새 관점의 기획으로 이어지는지 점검할 수 있어요."
+          "value": "와 함께 보면 이번 달 선택이 깊은 조사나 새 관점의 기획으로 이어지는지 점검할 수 있어요.\n\n"
+        },
+        {
+          "kind": "tag",
+          "tagId": "gwanrokgung",
+          "label": "관록궁"
+        },
+        {
+          "kind": "text",
+          "value": "의 결과 "
+        },
+        {
+          "kind": "tag",
+          "tagId": "pyeongwan",
+          "label": "편관"
+        },
+        {
+          "kind": "text",
+          "value": "의 압박이 함께 들어오는 시기에는 일을 미리 분산해 두는 호흡이 자기 페이스를 지켜 줘요.\n\n"
+        },
+        {
+          "kind": "tag",
+          "tagId": "gyeokgukYongshin",
+          "label": "격국용신"
+        },
+        {
+          "kind": "text",
+          "value": "의 결과 "
+        },
+        {
+          "kind": "tag",
+          "tagId": "gyeokgukFit",
+          "label": "격국적합도"
+        },
+        {
+          "kind": "text",
+          "value": "의 평균이 또렷한 사주는 자기 격에 맞는 직업 길이 한 결로 모이는 자리가 자주 등장해요."
         }
       ],
       "livingTips": [
@@ -1100,7 +1716,10 @@
       ],
       "tags": [
         "pyeoningyeok",
-        "gyeokgukFit"
+        "gyeokgukFit",
+        "gwanrokgung",
+        "pyeongwan",
+        "gyeokgukYongshin"
       ],
       "numericalEvidence": [
         {
@@ -1152,7 +1771,7 @@
         },
         {
           "kind": "text",
-          "value": "은 커리어에서 꾸준한 산출과 결과물의 흐름을 먼저 봐야 해요. "
+          "value": "은 커리어에서 꾸준한 산출과 결과물의 흐름을 먼저 봐야 해요.\n\n"
         },
         {
           "kind": "tag",
@@ -1161,7 +1780,43 @@
         },
         {
           "kind": "text",
-          "value": "를 함께 보면 이번 달 일이 말보다 결과물, 기록, 반복 가능한 루틴으로 쌓이는지 확인할 수 있어요."
+          "value": "를 함께 보면 이번 달 일이 말보다 결과물, 기록, 반복 가능한 루틴으로 쌓이는지 확인할 수 있어요.\n\n"
+        },
+        {
+          "kind": "tag",
+          "tagId": "gyeokgukYongshin",
+          "label": "격국용신"
+        },
+        {
+          "kind": "text",
+          "value": "의 결과 "
+        },
+        {
+          "kind": "tag",
+          "tagId": "gyeokgukFit",
+          "label": "격국적합도"
+        },
+        {
+          "kind": "text",
+          "value": "의 평균이 또렷한 사주는 자기 격에 맞는 직업 길이 한 결로 모이는 자리가 자주 등장해요.\n\n"
+        },
+        {
+          "kind": "tag",
+          "tagId": "jangseongsal",
+          "label": "장성살"
+        },
+        {
+          "kind": "text",
+          "value": "의 신호와 "
+        },
+        {
+          "kind": "tag",
+          "tagId": "cheonui",
+          "label": "천의"
+        },
+        {
+          "kind": "text",
+          "value": "의 결이 함께 보이는 사주는 자기 자리에 머무는 호흡과 곁의 도움을 거절하지 않는 호흡이 둘 다 잘 어울려요."
         }
       ],
       "livingTips": [
@@ -1172,7 +1827,10 @@
       ],
       "tags": [
         "sikshingyeok",
-        "gyeokgukFit"
+        "gyeokgukFit",
+        "gyeokgukYongshin",
+        "jangseongsal",
+        "cheonui"
       ],
       "numericalEvidence": [
         {
@@ -1224,7 +1882,7 @@
         },
         {
           "kind": "text",
-          "value": "은 커리어에서 표현, 기획, 기존 틀을 바꾸는 힘을 먼저 보게 해요. "
+          "value": "은 커리어에서 표현, 기획, 기존 틀을 바꾸는 힘을 먼저 보게 해요.\n\n"
         },
         {
           "kind": "tag",
@@ -1233,7 +1891,43 @@
         },
         {
           "kind": "text",
-          "value": "와 함께 보면 이번 달 변화 제안이 설득 가능한 구조인지, 충돌만 키우는 표현인지 나눌 수 있어요."
+          "value": "와 함께 보면 이번 달 변화 제안이 설득 가능한 구조인지, 충돌만 키우는 표현인지 나눌 수 있어요.\n\n"
+        },
+        {
+          "kind": "tag",
+          "tagId": "gwanrokgung",
+          "label": "관록궁"
+        },
+        {
+          "kind": "text",
+          "value": "의 결과 "
+        },
+        {
+          "kind": "tag",
+          "tagId": "pyeongwan",
+          "label": "편관"
+        },
+        {
+          "kind": "text",
+          "value": "의 압박이 함께 들어오는 시기에는 일을 미리 분산해 두는 호흡이 자기 페이스를 지켜 줘요.\n\n"
+        },
+        {
+          "kind": "tag",
+          "tagId": "gyeokgukYongshin",
+          "label": "격국용신"
+        },
+        {
+          "kind": "text",
+          "value": "의 결과 "
+        },
+        {
+          "kind": "tag",
+          "tagId": "gyeokgukFit",
+          "label": "격국적합도"
+        },
+        {
+          "kind": "text",
+          "value": "의 평균이 또렷한 사주는 자기 격에 맞는 직업 길이 한 결로 모이는 자리가 자주 등장해요."
         }
       ],
       "livingTips": [
@@ -1244,7 +1938,10 @@
       ],
       "tags": [
         "sanggwangyeok",
-        "gyeokgukFit"
+        "gyeokgukFit",
+        "gwanrokgung",
+        "pyeongwan",
+        "gyeokgukYongshin"
       ],
       "numericalEvidence": [
         {
@@ -1296,7 +1993,7 @@
         },
         {
           "kind": "text",
-          "value": "은 커리어에서 책임, 질서, 신뢰의 구조를 먼저 보게 해요. "
+          "value": "은 커리어에서 책임, 질서, 신뢰의 구조를 먼저 보게 해요.\n\n"
         },
         {
           "kind": "tag",
@@ -1305,7 +2002,43 @@
         },
         {
           "kind": "text",
-          "value": "를 함께 보면 이번 달 선택이 직책, 규칙, 신뢰 축적에 도움이 되는지 확인할 수 있어요."
+          "value": "를 함께 보면 이번 달 선택이 직책, 규칙, 신뢰 축적에 도움이 되는지 확인할 수 있어요.\n\n"
+        },
+        {
+          "kind": "tag",
+          "tagId": "gwanrokgung",
+          "label": "관록궁"
+        },
+        {
+          "kind": "text",
+          "value": "의 결과 "
+        },
+        {
+          "kind": "tag",
+          "tagId": "pyeongwan",
+          "label": "편관"
+        },
+        {
+          "kind": "text",
+          "value": "의 압박이 함께 들어오는 시기에는 일을 미리 분산해 두는 호흡이 자기 페이스를 지켜 줘요.\n\n"
+        },
+        {
+          "kind": "tag",
+          "tagId": "gyeokgukYongshin",
+          "label": "격국용신"
+        },
+        {
+          "kind": "text",
+          "value": "의 결과 "
+        },
+        {
+          "kind": "tag",
+          "tagId": "gyeokgukFit",
+          "label": "격국적합도"
+        },
+        {
+          "kind": "text",
+          "value": "의 평균이 또렷한 사주는 자기 격에 맞는 직업 길이 한 결로 모이는 자리가 자주 등장해요."
         }
       ],
       "livingTips": [
@@ -1316,7 +2049,10 @@
       ],
       "tags": [
         "jeonggwangyeok",
-        "gyeokgukFit"
+        "gyeokgukFit",
+        "gwanrokgung",
+        "pyeongwan",
+        "gyeokgukYongshin"
       ],
       "numericalEvidence": [
         {
@@ -1368,7 +2104,7 @@
         },
         {
           "kind": "text",
-          "value": "은 커리어에서 압박, 돌파, 위기 대응의 흐름을 먼저 보게 해요. "
+          "value": "은 커리어에서 압박, 돌파, 위기 대응의 흐름을 먼저 보게 해요.\n\n"
         },
         {
           "kind": "tag",
@@ -1377,7 +2113,47 @@
         },
         {
           "kind": "text",
-          "value": "와 함께 보면 이번 달 긴장이 성과로 전환되는지, 피로와 충돌로 남는지 나눠 볼 수 있어요."
+          "value": "와 함께 보면 이번 달 긴장이 성과로 전환되는지, 피로와 충돌로 남는지 나눠 볼 수 있어요.\n\n"
+        },
+        {
+          "kind": "tag",
+          "tagId": "jangseongsal",
+          "label": "장성살"
+        },
+        {
+          "kind": "text",
+          "value": "의 신호와 "
+        },
+        {
+          "kind": "tag",
+          "tagId": "cheonui",
+          "label": "천의"
+        },
+        {
+          "kind": "text",
+          "value": "의 결이 함께 보이는 사주는 자기 자리에 머무는 호흡과 곁의 도움을 거절하지 않는 호흡이 둘 다 잘 어울려요.\n\n"
+        },
+        {
+          "kind": "text",
+          "value": "직업 흐름은 "
+        },
+        {
+          "kind": "tag",
+          "tagId": "jeonggwan",
+          "label": "정관"
+        },
+        {
+          "kind": "text",
+          "value": "의 책임 자리와 "
+        },
+        {
+          "kind": "tag",
+          "tagId": "sikshin",
+          "label": "식신"
+        },
+        {
+          "kind": "text",
+          "value": "의 결과 자리가 함께 단단해질 때 한 단계 더 또렷해지는 흐름이라, 무리한 한 번보다 자기 호흡대로의 결과물 쌓기가 잘 어울려요."
         }
       ],
       "livingTips": [
@@ -1388,7 +2164,11 @@
       ],
       "tags": [
         "pyeongwangyeok",
-        "gyeokgukFit"
+        "gyeokgukFit",
+        "jangseongsal",
+        "cheonui",
+        "jeonggwan",
+        "sikshin"
       ],
       "numericalEvidence": [
         {

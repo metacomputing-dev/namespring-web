@@ -25,7 +25,7 @@
       "templateTokens": [
         {
           "kind": "text",
-          "value": "직업 흐름을 장기 구조로 볼 때 봄과 여름의 현재 계절은 밖으로 드러나는 실행 속도를 빠르게 만듭니다. "
+          "value": "직업 흐름을 장기 구조로 볼 때 봄과 여름의 현재 계절은 밖으로 드러나는 실행 속도를 빠르게 만듭니다.\n\n"
         },
         {
           "kind": "tag",
@@ -43,7 +43,7 @@
         },
         {
           "kind": "text",
-          "value": "과 어긋나면 바쁜 일은 많아도 축적은 약해질 수 있습니다. "
+          "value": "과 어긋나면 바쁜 일은 많아도 축적은 약해질 수 있습니다.\n\n"
         },
         {
           "kind": "tag",
@@ -52,7 +52,25 @@
         },
         {
           "kind": "text",
-          "value": "의 산출 능력이 살아나는지, 단순 활동량만 늘어나는지 구분해 보는 해석이 필요합니다."
+          "value": "의 산출 능력이 살아나는지, 단순 활동량만 늘어나는지 구분해 보는 해석이 필요합니다.\n\n"
+        },
+        {
+          "kind": "tag",
+          "tagId": "gyeokgukYongshin",
+          "label": "격국용신"
+        },
+        {
+          "kind": "text",
+          "value": "의 결과 "
+        },
+        {
+          "kind": "tag",
+          "tagId": "gyeokgukFit",
+          "label": "격국적합도"
+        },
+        {
+          "kind": "text",
+          "value": "의 평균이 또렷한 사주는 자기 격에 맞는 직업 길이 한 결로 모이는 자리가 자주 등장해요."
         }
       ],
       "livingTips": [
@@ -65,7 +83,8 @@
       "tags": [
         "gyeokgukFit",
         "yongshin",
-        "sikshin"
+        "sikshin",
+        "gyeokgukYongshin"
       ],
       "numericalEvidence": [
         {
@@ -133,7 +152,7 @@
       "templateTokens": [
         {
           "kind": "text",
-          "value": "직업 흐름을 장기 구조로 볼 때 가을과 겨울의 현재 계절은 결과를 정리하고 역할을 고정하는 힘을 키웁니다. "
+          "value": "직업 흐름을 장기 구조로 볼 때 가을과 겨울의 현재 계절은 결과를 정리하고 역할을 고정하는 힘을 키웁니다.\n\n"
         },
         {
           "kind": "tag",
@@ -151,7 +170,7 @@
         },
         {
           "kind": "text",
-          "value": "의 압박이 어떤 비율로 작동하는지 확인하면 좋습니다. "
+          "value": "의 압박이 어떤 비율로 작동하는지 확인하면 좋습니다.\n\n"
         },
         {
           "kind": "tag",
@@ -160,7 +179,25 @@
         },
         {
           "kind": "text",
-          "value": "이 받쳐 주면 직책과 신뢰가 쌓이지만, 어긋나면 책임만 무거워질 수 있습니다."
+          "value": "이 받쳐 주면 직책과 신뢰가 쌓이지만, 어긋나면 책임만 무거워질 수 있습니다.\n\n"
+        },
+        {
+          "kind": "tag",
+          "tagId": "jangseongsal",
+          "label": "장성살"
+        },
+        {
+          "kind": "text",
+          "value": "의 신호와 "
+        },
+        {
+          "kind": "tag",
+          "tagId": "cheonui",
+          "label": "천의"
+        },
+        {
+          "kind": "text",
+          "value": "의 결이 함께 보이는 사주는 자기 자리에 머무는 호흡과 곁의 도움을 거절하지 않는 호흡이 둘 다 잘 어울려요."
         }
       ],
       "livingTips": [
@@ -173,7 +210,9 @@
       "tags": [
         "jeonggwan",
         "pyeongwan",
-        "yongshin"
+        "yongshin",
+        "jangseongsal",
+        "cheonui"
       ],
       "numericalEvidence": [
         {
@@ -241,7 +280,7 @@
       "templateTokens": [
         {
           "kind": "text",
-          "value": "오늘의 직업운에서 봄과 여름 기운은 말, 제안, 빠른 실행을 앞세웁니다. "
+          "value": "오늘의 직업운에서 봄과 여름 기운은 말, 제안, 빠른 실행을 앞세웁니다.\n\n"
         },
         {
           "kind": "tag",
@@ -259,7 +298,7 @@
         },
         {
           "kind": "text",
-          "value": "가 오늘 맡은 역할과 맞는지 함께 보세요. "
+          "value": "가 오늘 맡은 역할과 맞는지 함께 보세요.\n\n"
         },
         {
           "kind": "tag",
@@ -268,7 +307,25 @@
         },
         {
           "kind": "text",
-          "value": "방향이면 제안과 발표가 득이 되지만, 충돌하면 말이 앞서고 마감이 흔들릴 수 있습니다."
+          "value": "방향이면 제안과 발표가 득이 되지만, 충돌하면 말이 앞서고 마감이 흔들릴 수 있습니다.\n\n"
+        },
+        {
+          "kind": "tag",
+          "tagId": "gwanrokgung",
+          "label": "관록궁"
+        },
+        {
+          "kind": "text",
+          "value": "의 결과 "
+        },
+        {
+          "kind": "tag",
+          "tagId": "pyeongwan",
+          "label": "편관"
+        },
+        {
+          "kind": "text",
+          "value": "의 압박이 함께 들어오는 시기에는 일을 미리 분산해 두는 호흡이 자기 페이스를 지켜 줘요."
         }
       ],
       "livingTips": [
@@ -281,7 +338,9 @@
       "tags": [
         "sikshin",
         "gyeokgukFit",
-        "yongshin"
+        "yongshin",
+        "gwanrokgung",
+        "pyeongwan"
       ],
       "numericalEvidence": [
         {
@@ -349,7 +408,7 @@
       "templateTokens": [
         {
           "kind": "text",
-          "value": "오늘의 직업운에서 가을과 겨울 기운은 성과 정리와 책임 확인을 앞세웁니다. "
+          "value": "오늘의 직업운에서 가을과 겨울 기운은 성과 정리와 책임 확인을 앞세웁니다.\n\n"
         },
         {
           "kind": "tag",
@@ -367,7 +426,7 @@
         },
         {
           "kind": "text",
-          "value": "이 과하면 압박과 재촉으로 느껴질 수 있습니다. "
+          "value": "이 과하면 압박과 재촉으로 느껴질 수 있습니다.\n\n"
         },
         {
           "kind": "tag",
@@ -376,7 +435,29 @@
         },
         {
           "kind": "text",
-          "value": "과의 관계를 보며 오늘은 속도보다 오류를 줄이는 쪽을 우선하세요."
+          "value": "과의 관계를 보며 오늘은 속도보다 오류를 줄이는 쪽을 우선하세요.\n\n"
+        },
+        {
+          "kind": "text",
+          "value": "직업 흐름은 "
+        },
+        {
+          "kind": "tag",
+          "tagId": "jeonggwan",
+          "label": "정관"
+        },
+        {
+          "kind": "text",
+          "value": "의 책임 자리와 "
+        },
+        {
+          "kind": "tag",
+          "tagId": "sikshin",
+          "label": "식신"
+        },
+        {
+          "kind": "text",
+          "value": "의 결과 자리가 함께 단단해질 때 한 단계 더 또렷해지는 흐름이라, 무리한 한 번보다 자기 호흡대로의 결과물 쌓기가 잘 어울려요."
         }
       ],
       "livingTips": [
@@ -389,7 +470,8 @@
       "tags": [
         "jeonggwan",
         "pyeongwan",
-        "yongshin"
+        "yongshin",
+        "sikshin"
       ],
       "numericalEvidence": [
         {
@@ -457,7 +539,7 @@
       "templateTokens": [
         {
           "kind": "text",
-          "value": "이번 주 직업운에서 봄과 여름 기운은 새 제안과 빠른 협업을 늘립니다. "
+          "value": "이번 주 직업운에서 봄과 여름 기운은 새 제안과 빠른 협업을 늘립니다.\n\n"
         },
         {
           "kind": "tag",
@@ -475,7 +557,7 @@
         },
         {
           "kind": "text",
-          "value": "가 팀 안 역할과 맞는지 점검해야 합니다. "
+          "value": "가 팀 안 역할과 맞는지 점검해야 합니다.\n\n"
         },
         {
           "kind": "tag",
@@ -484,7 +566,29 @@
         },
         {
           "kind": "text",
-          "value": "방향이면 주간 확장이 실적이 되지만, 충돌하면 진행 중인 일이 흩어질 수 있습니다."
+          "value": "방향이면 주간 확장이 실적이 되지만, 충돌하면 진행 중인 일이 흩어질 수 있습니다.\n\n"
+        },
+        {
+          "kind": "text",
+          "value": "직업 흐름은 "
+        },
+        {
+          "kind": "tag",
+          "tagId": "jeonggwan",
+          "label": "정관"
+        },
+        {
+          "kind": "text",
+          "value": "의 책임 자리와 "
+        },
+        {
+          "kind": "tag",
+          "tagId": "sikshin",
+          "label": "식신"
+        },
+        {
+          "kind": "text",
+          "value": "의 결과 자리가 함께 단단해질 때 한 단계 더 또렷해지는 흐름이라, 무리한 한 번보다 자기 호흡대로의 결과물 쌓기가 잘 어울려요."
         }
       ],
       "livingTips": [
@@ -497,7 +601,8 @@
       "tags": [
         "sikshin",
         "gyeokgukFit",
-        "yongshin"
+        "yongshin",
+        "jeonggwan"
       ],
       "numericalEvidence": [
         {
@@ -565,7 +670,7 @@
       "templateTokens": [
         {
           "kind": "text",
-          "value": "이번 주 직업운에서 가을과 겨울 기운은 점검, 승인, 마감 관리로 드러납니다. "
+          "value": "이번 주 직업운에서 가을과 겨울 기운은 점검, 승인, 마감 관리로 드러납니다.\n\n"
         },
         {
           "kind": "tag",
@@ -583,7 +688,7 @@
         },
         {
           "kind": "text",
-          "value": "이 강하면 압박성 일정이 늘 수 있습니다. "
+          "value": "이 강하면 압박성 일정이 늘 수 있습니다.\n\n"
         },
         {
           "kind": "tag",
@@ -592,7 +697,25 @@
         },
         {
           "kind": "text",
-          "value": "과 맞는 책임은 받아도 좋지만, 맞지 않는 책임은 범위를 줄여야 합니다."
+          "value": "과 맞는 책임은 받아도 좋지만, 맞지 않는 책임은 범위를 줄여야 합니다.\n\n"
+        },
+        {
+          "kind": "tag",
+          "tagId": "gwanrokgung",
+          "label": "관록궁"
+        },
+        {
+          "kind": "text",
+          "value": "의 결과 "
+        },
+        {
+          "kind": "tag",
+          "tagId": "pyeongwan",
+          "label": "편관"
+        },
+        {
+          "kind": "text",
+          "value": "의 압박이 함께 들어오는 시기에는 일을 미리 분산해 두는 호흡이 자기 페이스를 지켜 줘요."
         }
       ],
       "livingTips": [
@@ -605,7 +728,8 @@
       "tags": [
         "jeonggwan",
         "pyeongwan",
-        "yongshin"
+        "yongshin",
+        "gwanrokgung"
       ],
       "numericalEvidence": [
         {
@@ -673,7 +797,7 @@
       "templateTokens": [
         {
           "kind": "text",
-          "value": "이번 달 직업운에서 봄과 여름 기운은 프로젝트 착수와 대외 노출을 키웁니다. "
+          "value": "이번 달 직업운에서 봄과 여름 기운은 프로젝트 착수와 대외 노출을 키웁니다.\n\n"
         },
         {
           "kind": "tag",
@@ -691,7 +815,7 @@
         },
         {
           "kind": "text",
-          "value": "가 장기 역할과 충돌하지 않는지 봐야 합니다. "
+          "value": "가 장기 역할과 충돌하지 않는지 봐야 합니다.\n\n"
         },
         {
           "kind": "tag",
@@ -700,7 +824,29 @@
         },
         {
           "kind": "text",
-          "value": "이 받쳐 주면 공개 성과가 커지고, 어긋나면 과한 확장으로 비용이 늘 수 있습니다."
+          "value": "이 받쳐 주면 공개 성과가 커지고, 어긋나면 과한 확장으로 비용이 늘 수 있습니다.\n\n"
+        },
+        {
+          "kind": "text",
+          "value": "직업 흐름은 "
+        },
+        {
+          "kind": "tag",
+          "tagId": "jeonggwan",
+          "label": "정관"
+        },
+        {
+          "kind": "text",
+          "value": "의 책임 자리와 "
+        },
+        {
+          "kind": "tag",
+          "tagId": "sikshin",
+          "label": "식신"
+        },
+        {
+          "kind": "text",
+          "value": "의 결과 자리가 함께 단단해질 때 한 단계 더 또렷해지는 흐름이라, 무리한 한 번보다 자기 호흡대로의 결과물 쌓기가 잘 어울려요."
         }
       ],
       "livingTips": [
@@ -713,7 +859,8 @@
       "tags": [
         "sikshin",
         "gyeokgukFit",
-        "yongshin"
+        "yongshin",
+        "jeonggwan"
       ],
       "numericalEvidence": [
         {
@@ -781,7 +928,7 @@
       "templateTokens": [
         {
           "kind": "text",
-          "value": "이번 달 직업운에서 가을과 겨울 기운은 평가, 정산, 제도화의 흐름을 강하게 만듭니다. "
+          "value": "이번 달 직업운에서 가을과 겨울 기운은 평가, 정산, 제도화의 흐름을 강하게 만듭니다.\n\n"
         },
         {
           "kind": "tag",
@@ -799,7 +946,7 @@
         },
         {
           "kind": "text",
-          "value": "이 강하면 압박이 성과 기준으로 들어올 수 있습니다. "
+          "value": "이 강하면 압박이 성과 기준으로 들어올 수 있습니다.\n\n"
         },
         {
           "kind": "tag",
@@ -808,7 +955,25 @@
         },
         {
           "kind": "text",
-          "value": "방향과 맞는 규칙은 받아들이고, 맞지 않는 규칙은 조정 근거를 준비하세요."
+          "value": "방향과 맞는 규칙은 받아들이고, 맞지 않는 규칙은 조정 근거를 준비하세요.\n\n"
+        },
+        {
+          "kind": "tag",
+          "tagId": "gwanrokgung",
+          "label": "관록궁"
+        },
+        {
+          "kind": "text",
+          "value": "의 결과 "
+        },
+        {
+          "kind": "tag",
+          "tagId": "pyeongwan",
+          "label": "편관"
+        },
+        {
+          "kind": "text",
+          "value": "의 압박이 함께 들어오는 시기에는 일을 미리 분산해 두는 호흡이 자기 페이스를 지켜 줘요."
         }
       ],
       "livingTips": [
@@ -821,7 +986,8 @@
       "tags": [
         "jeonggwan",
         "pyeongwan",
-        "yongshin"
+        "yongshin",
+        "gwanrokgung"
       ],
       "numericalEvidence": [
         {
@@ -889,7 +1055,7 @@
       "templateTokens": [
         {
           "kind": "text",
-          "value": "올해 직업운에서 봄과 여름의 현재 계절은 새 시장, 새 역할, 공개 활동의 신호를 키웁니다. "
+          "value": "올해 직업운에서 봄과 여름의 현재 계절은 새 시장, 새 역할, 공개 활동의 신호를 키웁니다.\n\n"
         },
         {
           "kind": "tag",
@@ -907,7 +1073,7 @@
         },
         {
           "kind": "text",
-          "value": "가 맞으면 역할 상승으로 이어질 수 있습니다. "
+          "value": "가 맞으면 역할 상승으로 이어질 수 있습니다.\n\n"
         },
         {
           "kind": "tag",
@@ -916,7 +1082,25 @@
         },
         {
           "kind": "text",
-          "value": "이 충돌하면 올해의 큰 확장은 비용부터 계산해야 합니다."
+          "value": "이 충돌하면 올해의 큰 확장은 비용부터 계산해야 합니다.\n\n"
+        },
+        {
+          "kind": "tag",
+          "tagId": "jangseongsal",
+          "label": "장성살"
+        },
+        {
+          "kind": "text",
+          "value": "의 신호와 "
+        },
+        {
+          "kind": "tag",
+          "tagId": "cheonui",
+          "label": "천의"
+        },
+        {
+          "kind": "text",
+          "value": "의 결이 함께 보이는 사주는 자기 자리에 머무는 호흡과 곁의 도움을 거절하지 않는 호흡이 둘 다 잘 어울려요."
         }
       ],
       "livingTips": [
@@ -929,7 +1113,9 @@
       "tags": [
         "sikshin",
         "gyeokgukFit",
-        "yongshin"
+        "yongshin",
+        "jangseongsal",
+        "cheonui"
       ],
       "numericalEvidence": [
         {
@@ -997,7 +1183,7 @@
       "templateTokens": [
         {
           "kind": "text",
-          "value": "올해 직업운에서 가을과 겨울의 현재 계절은 성과를 제도화하고 직함과 책임을 확정하는 쪽으로 움직입니다. "
+          "value": "올해 직업운에서 가을과 겨울의 현재 계절은 성과를 제도화하고 직함과 책임을 확정하는 쪽으로 움직입니다.\n\n"
         },
         {
           "kind": "tag",
@@ -1015,7 +1201,7 @@
         },
         {
           "kind": "text",
-          "value": "은 경쟁과 압박을 보여 줄 수 있습니다. "
+          "value": "은 경쟁과 압박을 보여 줄 수 있습니다.\n\n"
         },
         {
           "kind": "tag",
@@ -1024,7 +1210,25 @@
         },
         {
           "kind": "text",
-          "value": "과 맞는 제도화는 받아들이고, 맞지 않는 압박은 계약과 권한으로 조정하는 해석이 필요합니다."
+          "value": "과 맞는 제도화는 받아들이고, 맞지 않는 압박은 계약과 권한으로 조정하는 해석이 필요합니다.\n\n"
+        },
+        {
+          "kind": "tag",
+          "tagId": "gyeokgukYongshin",
+          "label": "격국용신"
+        },
+        {
+          "kind": "text",
+          "value": "의 결과 "
+        },
+        {
+          "kind": "tag",
+          "tagId": "gyeokgukFit",
+          "label": "격국적합도"
+        },
+        {
+          "kind": "text",
+          "value": "의 평균이 또렷한 사주는 자기 격에 맞는 직업 길이 한 결로 모이는 자리가 자주 등장해요."
         }
       ],
       "livingTips": [
@@ -1037,7 +1241,9 @@
       "tags": [
         "jeonggwan",
         "pyeongwan",
-        "yongshin"
+        "yongshin",
+        "gyeokgukYongshin",
+        "gyeokgukFit"
       ],
       "numericalEvidence": [
         {

@@ -6,18 +6,97 @@
     {
       "schemaVersion": "spring-ts.narrative-fragment.v1",
       "fragmentId": "wealth.thisYear.expert.daymaster.wood.yongshin.earth.401",
-      "axis": { "category": "wealth", "period": "thisYear", "depth": "expert" },
-      "gating": { "dayMasterElement": ["WOOD"], "yongshinElement": ["EARTH"] },
+      "axis": {
+        "category": "wealth",
+        "period": "thisYear",
+        "depth": "expert"
+      },
+      "gating": {
+        "dayMasterElement": [
+          "WOOD"
+        ],
+        "yongshinElement": [
+          "EARTH"
+        ]
+      },
       "templateTokens": [
-        { "kind": "text", "value": "일간 목에 용신 토가 붙으면 올해 재물운은 확장 욕구를 현실적인 저장 구조로 묶는지가 핵심입니다. " },
-        { "kind": "tag", "tagId": "yongshin", "label": "용신" },
-        { "kind": "text", "value": "토가 재무 기준을 보정하므로 새 계획은 좋지만, " },
-        { "kind": "tag", "tagId": "jeongjae", "label": "정재" },
-        { "kind": "text", "value": "식 예산표와 " },
-        { "kind": "tag", "tagId": "pyeonjae", "label": "편재" },
-        { "kind": "text", "value": "식 기회 판단을 분리해서 보는 편이 안정적입니다." }
+        {
+          "kind": "text",
+          "value": "일간 목에 용신 토가 붙으면 올해 재물운은 확장 욕구를 현실적인 저장 구조로 묶는지가 핵심입니다.\n\n"
+        },
+        {
+          "kind": "tag",
+          "tagId": "yongshin",
+          "label": "용신"
+        },
+        {
+          "kind": "text",
+          "value": "토가 재무 기준을 보정하므로 새 계획은 좋지만, "
+        },
+        {
+          "kind": "tag",
+          "tagId": "jeongjae",
+          "label": "정재"
+        },
+        {
+          "kind": "text",
+          "value": "식 예산표와 "
+        },
+        {
+          "kind": "tag",
+          "tagId": "pyeonjae",
+          "label": "편재"
+        },
+        {
+          "kind": "text",
+          "value": "식 기회 판단을 분리해서 보는 편이 안정적입니다.\n\n"
+        },
+        {
+          "kind": "tag",
+          "tagId": "gyeokgukFit",
+          "label": "격국적합도"
+        },
+        {
+          "kind": "text",
+          "value": "의 평균이 또렷한 사주는 자기 격에 맞는 자산 자리가 한 결로 모이고, "
+        },
+        {
+          "kind": "tag",
+          "tagId": "stabilityIndex",
+          "label": "안정성지수"
+        },
+        {
+          "kind": "text",
+          "value": "가 받쳐 주는 시기엔 자산 결이 한 단계 깊어지는 자리가 보여요.\n\n"
+        },
+        {
+          "kind": "tag",
+          "tagId": "pyeonjaegyeok",
+          "label": "편재격"
+        },
+        {
+          "kind": "text",
+          "value": "의 결이나 "
+        },
+        {
+          "kind": "tag",
+          "tagId": "jeongjaegyeok",
+          "label": "정재격"
+        },
+        {
+          "kind": "text",
+          "value": "의 결이 또렷한 사주는 자기 격에 맞는 자산 운영 결이 자연스럽게 자리 잡아요."
+        }
       ],
-      "tags": ["yongshin", "jeongjae", "pyeonjae"],
+      "tags": [
+        "yongshin",
+        "jeongjae",
+        "pyeonjae",
+        "gyeokgukFit",
+        "stabilityIndex",
+        "pyeonjaegyeok",
+        "jeongjaegyeok"
+      ],
       "numericalEvidence": [
         {
           "label": "일간 오행 순번",
@@ -65,16 +144,91 @@
     {
       "schemaVersion": "spring-ts.narrative-fragment.v1",
       "fragmentId": "family.thisMonth.expert.daymaster.wood.yongshin.earth.401",
-      "axis": { "category": "family", "period": "thisMonth", "depth": "expert" },
-      "gating": { "dayMasterElement": ["WOOD"], "yongshinElement": ["EARTH"] },
+      "axis": {
+        "category": "family",
+        "period": "thisMonth",
+        "depth": "expert"
+      },
+      "gating": {
+        "dayMasterElement": [
+          "WOOD"
+        ],
+        "yongshinElement": [
+          "EARTH"
+        ]
+      },
       "templateTokens": [
-        { "kind": "text", "value": "일간 목과 용신 토의 조합은 이번 달 가족운에서 성장 욕구와 생활 기반을 함께 조율하게 합니다. " },
-        { "kind": "tag", "tagId": "bigyeon", "label": "비견" },
-        { "kind": "text", "value": "이 강하면 자기 기준이 빨리 올라오고, " },
-        { "kind": "tag", "tagId": "yongshin", "label": "용신" },
-        { "kind": "text", "value": "토는 역할, 집안일, 돈의 경계를 현실적으로 정리하는 보정값으로 작동합니다." }
+        {
+          "kind": "text",
+          "value": "일간 목과 용신 토의 조합은 이번 달 가족운에서 성장 욕구와 생활 기반을 함께 조율하게 합니다.\n\n"
+        },
+        {
+          "kind": "tag",
+          "tagId": "bigyeon",
+          "label": "비견"
+        },
+        {
+          "kind": "text",
+          "value": "이 강하면 자기 기준이 빨리 올라오고, "
+        },
+        {
+          "kind": "tag",
+          "tagId": "yongshin",
+          "label": "용신"
+        },
+        {
+          "kind": "text",
+          "value": "토는 역할, 집안일, 돈의 경계를 현실적으로 정리하는 보정값으로 작동합니다.\n\n"
+        },
+        {
+          "kind": "text",
+          "value": "가족 자리는 "
+        },
+        {
+          "kind": "tag",
+          "tagId": "bumyong",
+          "label": "부모궁"
+        },
+        {
+          "kind": "text",
+          "value": "과 "
+        },
+        {
+          "kind": "tag",
+          "tagId": "baeujagung",
+          "label": "배우자궁"
+        },
+        {
+          "kind": "text",
+          "value": "의 결이 어떻게 받쳐 주느냐를 함께 살펴 두면 흐름의 결정이 더 단단해지고, 작은 인사 한 마디가 평생의 자산이 되는 자리예요.\n\n"
+        },
+        {
+          "kind": "tag",
+          "tagId": "hyeongjegung",
+          "label": "형제궁"
+        },
+        {
+          "kind": "text",
+          "value": "의 결과 "
+        },
+        {
+          "kind": "tag",
+          "tagId": "janyeogung",
+          "label": "자녀궁"
+        },
+        {
+          "kind": "text",
+          "value": "의 결을 함께 살펴 두면 가족 안의 분위기 흐름이 더 또렷해져요."
+        }
       ],
-      "tags": ["bigyeon", "yongshin"],
+      "tags": [
+        "bigyeon",
+        "yongshin",
+        "bumyong",
+        "baeujagung",
+        "hyeongjegung",
+        "janyeogung"
+      ],
       "numericalEvidence": [
         {
           "label": "일간 오행 순번",
@@ -122,18 +276,100 @@
     {
       "schemaVersion": "spring-ts.narrative-fragment.v1",
       "fragmentId": "career.today.expert.daymaster.wood.yongshin.earth.401",
-      "axis": { "category": "career", "period": "today", "depth": "expert" },
-      "gating": { "dayMasterElement": ["WOOD"], "yongshinElement": ["EARTH"] },
+      "axis": {
+        "category": "career",
+        "period": "today",
+        "depth": "expert"
+      },
+      "gating": {
+        "dayMasterElement": [
+          "WOOD"
+        ],
+        "yongshinElement": [
+          "EARTH"
+        ]
+      },
       "templateTokens": [
-        { "kind": "text", "value": "일간 목에 용신 토가 붙은 오늘의 커리어운은 아이디어를 실제 일정과 책임 구조로 고정하는 해석이 중요합니다. " },
-        { "kind": "tag", "tagId": "sanggwan", "label": "상관" },
-        { "kind": "text", "value": "이 먼저 튀어나오면 말이 앞설 수 있고, " },
-        { "kind": "tag", "tagId": "jeonggwan", "label": "정관" },
-        { "kind": "text", "value": "과 " },
-        { "kind": "tag", "tagId": "yongshin", "label": "용신" },
-        { "kind": "text", "value": "토를 함께 보아 실행 책임을 정리하면 안정적입니다." }
+        {
+          "kind": "text",
+          "value": "일간 목에 용신 토가 붙은 오늘의 커리어운은 아이디어를 실제 일정과 책임 구조로 고정하는 해석이 중요합니다.\n\n"
+        },
+        {
+          "kind": "tag",
+          "tagId": "sanggwan",
+          "label": "상관"
+        },
+        {
+          "kind": "text",
+          "value": "이 먼저 튀어나오면 말이 앞설 수 있고, "
+        },
+        {
+          "kind": "tag",
+          "tagId": "jeonggwan",
+          "label": "정관"
+        },
+        {
+          "kind": "text",
+          "value": "과 "
+        },
+        {
+          "kind": "tag",
+          "tagId": "yongshin",
+          "label": "용신"
+        },
+        {
+          "kind": "text",
+          "value": "토를 함께 보아 실행 책임을 정리하면 안정적입니다.\n\n"
+        },
+        {
+          "kind": "tag",
+          "tagId": "jangseongsal",
+          "label": "장성살"
+        },
+        {
+          "kind": "text",
+          "value": "의 신호와 "
+        },
+        {
+          "kind": "tag",
+          "tagId": "cheonui",
+          "label": "천의"
+        },
+        {
+          "kind": "text",
+          "value": "의 결이 함께 보이는 사주는 자기 자리에 머무는 호흡과 곁의 도움을 거절하지 않는 호흡이 둘 다 잘 어울려요.\n\n"
+        },
+        {
+          "kind": "text",
+          "value": "직업 흐름은 "
+        },
+        {
+          "kind": "tag",
+          "tagId": "jeonggwan",
+          "label": "정관"
+        },
+        {
+          "kind": "text",
+          "value": "의 책임 자리와 "
+        },
+        {
+          "kind": "tag",
+          "tagId": "sikshin",
+          "label": "식신"
+        },
+        {
+          "kind": "text",
+          "value": "의 결과 자리가 함께 단단해질 때 한 단계 더 또렷해지는 흐름이라, 무리한 한 번보다 자기 호흡대로의 결과물 쌓기가 잘 어울려요."
+        }
       ],
-      "tags": ["sanggwan", "jeonggwan", "yongshin"],
+      "tags": [
+        "sanggwan",
+        "jeonggwan",
+        "yongshin",
+        "jangseongsal",
+        "cheonui",
+        "sikshin"
+      ],
       "numericalEvidence": [
         {
           "label": "일간 오행 순번",
@@ -181,18 +417,97 @@
     {
       "schemaVersion": "spring-ts.narrative-fragment.v1",
       "fragmentId": "academic.life.expert.daymaster.wood.yongshin.earth.401",
-      "axis": { "category": "academic", "period": "life", "depth": "expert" },
-      "gating": { "dayMasterElement": ["WOOD"], "yongshinElement": ["EARTH"] },
+      "axis": {
+        "category": "academic",
+        "period": "life",
+        "depth": "expert"
+      },
+      "gating": {
+        "dayMasterElement": [
+          "WOOD"
+        ],
+        "yongshinElement": [
+          "EARTH"
+        ]
+      },
       "templateTokens": [
-        { "kind": "text", "value": "일간 목과 용신 토의 학업 해석은 성장 속도와 기본기 축적을 함께 보는 구조입니다. " },
-        { "kind": "tag", "tagId": "sikshin", "label": "식신" },
-        { "kind": "text", "value": "이 이해를 넓히고, " },
-        { "kind": "tag", "tagId": "jeongin", "label": "정인" },
-        { "kind": "text", "value": "이 자료를 붙잡아 주며, " },
-        { "kind": "tag", "tagId": "yongshin", "label": "용신" },
-        { "kind": "text", "value": "토는 공부량을 루틴과 성취 기준으로 바꾸는 보정축입니다." }
+        {
+          "kind": "text",
+          "value": "일간 목과 용신 토의 학업 해석은 성장 속도와 기본기 축적을 함께 보는 구조입니다.\n\n"
+        },
+        {
+          "kind": "tag",
+          "tagId": "sikshin",
+          "label": "식신"
+        },
+        {
+          "kind": "text",
+          "value": "이 이해를 넓히고, "
+        },
+        {
+          "kind": "tag",
+          "tagId": "jeongin",
+          "label": "정인"
+        },
+        {
+          "kind": "text",
+          "value": "이 자료를 붙잡아 주며, "
+        },
+        {
+          "kind": "tag",
+          "tagId": "yongshin",
+          "label": "용신"
+        },
+        {
+          "kind": "text",
+          "value": "토는 공부량을 루틴과 성취 기준으로 바꾸는 보정축입니다.\n\n"
+        },
+        {
+          "kind": "tag",
+          "tagId": "tonggwanYongshin",
+          "label": "통관용신"
+        },
+        {
+          "kind": "text",
+          "value": "의 결과 "
+        },
+        {
+          "kind": "tag",
+          "tagId": "byeongyakYongshin",
+          "label": "병약용신"
+        },
+        {
+          "kind": "text",
+          "value": "의 자리가 함께 또렷해지는 사주는 학습의 깊이가 자기 흐름의 균형을 따라가는 자리예요.\n\n"
+        },
+        {
+          "kind": "tag",
+          "tagId": "munchanggwiin",
+          "label": "문창귀인"
+        },
+        {
+          "kind": "text",
+          "value": "의 결과 "
+        },
+        {
+          "kind": "tag",
+          "tagId": "hakdang",
+          "label": "학당"
+        },
+        {
+          "kind": "text",
+          "value": "의 자리가 함께 보이는 사주는 시험·연구 흐름이 부드럽게 자리 잡는 모양이라, 자기 흐름을 차분히 따라가는 페이스가 잘 어울려요."
+        }
       ],
-      "tags": ["sikshin", "jeongin", "yongshin"],
+      "tags": [
+        "sikshin",
+        "jeongin",
+        "yongshin",
+        "tonggwanYongshin",
+        "byeongyakYongshin",
+        "munchanggwiin",
+        "hakdang"
+      ],
       "numericalEvidence": [
         {
           "label": "일간 오행 순번",
@@ -240,16 +555,87 @@
     {
       "schemaVersion": "spring-ts.narrative-fragment.v1",
       "fragmentId": "movement.thisWeek.expert.daymaster.wood.yongshin.earth.401",
-      "axis": { "category": "movement", "period": "thisWeek", "depth": "expert" },
-      "gating": { "dayMasterElement": ["WOOD"], "yongshinElement": ["EARTH"] },
+      "axis": {
+        "category": "movement",
+        "period": "thisWeek",
+        "depth": "expert"
+      },
+      "gating": {
+        "dayMasterElement": [
+          "WOOD"
+        ],
+        "yongshinElement": [
+          "EARTH"
+        ]
+      },
       "templateTokens": [
-        { "kind": "text", "value": "일간 목에 용신 토가 붙은 이번 주 이동운은 움직임을 넓히되 기반을 잃지 않는 배치가 중요합니다. " },
-        { "kind": "tag", "tagId": "yeokma", "label": "역마" },
-        { "kind": "text", "value": "가 강하면 동선이 늘고, " },
-        { "kind": "tag", "tagId": "yongshin", "label": "용신" },
-        { "kind": "text", "value": "토는 숙소, 교통, 약속 시간을 먼저 고정하는 보정값으로 작동합니다." }
+        {
+          "kind": "text",
+          "value": "일간 목에 용신 토가 붙은 이번 주 이동운은 움직임을 넓히되 기반을 잃지 않는 배치가 중요합니다.\n\n"
+        },
+        {
+          "kind": "tag",
+          "tagId": "yeokma",
+          "label": "역마"
+        },
+        {
+          "kind": "text",
+          "value": "가 강하면 동선이 늘고, "
+        },
+        {
+          "kind": "tag",
+          "tagId": "yongshin",
+          "label": "용신"
+        },
+        {
+          "kind": "text",
+          "value": "토는 숙소, 교통, 약속 시간을 먼저 고정하는 보정값으로 작동합니다.\n\n"
+        },
+        {
+          "kind": "tag",
+          "tagId": "jisal",
+          "label": "지살"
+        },
+        {
+          "kind": "text",
+          "value": "의 신호와 "
+        },
+        {
+          "kind": "tag",
+          "tagId": "cheonigung",
+          "label": "천이궁"
+        },
+        {
+          "kind": "text",
+          "value": "의 결을 함께 살펴 두면 이동의 결이 어디로 이어질지 한층 또렷해져요.\n\n"
+        },
+        {
+          "kind": "tag",
+          "tagId": "banansal",
+          "label": "반안살"
+        },
+        {
+          "kind": "text",
+          "value": "의 자리와 "
+        },
+        {
+          "kind": "tag",
+          "tagId": "wolsal",
+          "label": "월살"
+        },
+        {
+          "kind": "text",
+          "value": "의 결이 함께 보이는 시기엔 자기 동선의 한 결을 점검해 두는 호흡이 잘 맞아요."
+        }
       ],
-      "tags": ["yeokma", "yongshin"],
+      "tags": [
+        "yeokma",
+        "yongshin",
+        "jisal",
+        "cheonigung",
+        "banansal",
+        "wolsal"
+      ],
       "numericalEvidence": [
         {
           "label": "일간 오행 순번",
@@ -297,16 +683,87 @@
     {
       "schemaVersion": "spring-ts.narrative-fragment.v1",
       "fragmentId": "health.thisMonth.expert.daymaster.wood.yongshin.earth.401",
-      "axis": { "category": "health", "period": "thisMonth", "depth": "expert" },
-      "gating": { "dayMasterElement": ["WOOD"], "yongshinElement": ["EARTH"] },
+      "axis": {
+        "category": "health",
+        "period": "thisMonth",
+        "depth": "expert"
+      },
+      "gating": {
+        "dayMasterElement": [
+          "WOOD"
+        ],
+        "yongshinElement": [
+          "EARTH"
+        ]
+      },
       "templateTokens": [
-        { "kind": "text", "value": "일간 목과 용신 토가 함께 보이면 이번 달 건강운은 성장 에너지와 소화, 근육, 생활 리듬의 기반을 함께 점검합니다. " },
-        { "kind": "tag", "tagId": "yongshin", "label": "용신" },
-        { "kind": "text", "value": "토가 균형을 잡아 주면 루틴 유지가 좋아지고, " },
-        { "kind": "tag", "tagId": "gishin", "label": "기신" },
-        { "kind": "text", "value": "이 목을 과하게 자극하면 무리한 확장보다 회복 주기를 먼저 봅니다." }
+        {
+          "kind": "text",
+          "value": "일간 목과 용신 토가 함께 보이면 이번 달 건강운은 성장 에너지와 소화, 근육, 생활 리듬의 기반을 함께 점검합니다.\n\n"
+        },
+        {
+          "kind": "tag",
+          "tagId": "yongshin",
+          "label": "용신"
+        },
+        {
+          "kind": "text",
+          "value": "토가 균형을 잡아 주면 루틴 유지가 좋아지고, "
+        },
+        {
+          "kind": "tag",
+          "tagId": "gishin",
+          "label": "기신"
+        },
+        {
+          "kind": "text",
+          "value": "이 목을 과하게 자극하면 무리한 확장보다 회복 주기를 먼저 봅니다.\n\n"
+        },
+        {
+          "kind": "tag",
+          "tagId": "jisal",
+          "label": "지살"
+        },
+        {
+          "kind": "text",
+          "value": "의 결이 보일 때는 잠깐의 환경 변화가 컨디션을 환기시키고, "
+        },
+        {
+          "kind": "tag",
+          "tagId": "cheonui",
+          "label": "천의"
+        },
+        {
+          "kind": "text",
+          "value": "의 자리는 의료·치유 흐름의 도움을 부드럽게 받게 해 줘요.\n\n"
+        },
+        {
+          "kind": "tag",
+          "tagId": "eumyangHarmony",
+          "label": "음양조화도"
+        },
+        {
+          "kind": "text",
+          "value": "의 평균이 또렷한 사주는 "
+        },
+        {
+          "kind": "tag",
+          "tagId": "stabilityIndex",
+          "label": "안정성지수"
+        },
+        {
+          "kind": "text",
+          "value": "도 함께 단단해지는 자리라, 큰 결정보다 작은 회복 습관이 평생의 무기가 돼요."
+        }
       ],
-      "tags": ["yongshin", "gishin"],
+      "tags": [
+        "yongshin",
+        "gishin",
+        "jisal",
+        "cheonui",
+        "eumyangHarmony",
+        "stabilityIndex"
+      ],
       "numericalEvidence": [
         {
           "label": "일간 오행 순번",

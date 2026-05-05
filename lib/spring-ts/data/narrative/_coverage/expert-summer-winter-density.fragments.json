@@ -6,19 +6,87 @@
     {
       "schemaVersion": "spring-ts.narrative-fragment.v1",
       "fragmentId": "health.today.expert.birthSeason.summer.age.early_60s.401",
-      "axis": { "category": "health", "period": "today", "depth": "expert" },
+      "axis": {
+        "category": "health",
+        "period": "today",
+        "depth": "expert"
+      },
       "gating": {
-        "agePhase": ["early_60s"],
-        "birthSeason": ["summer"]
+        "agePhase": [
+          "early_60s"
+        ],
+        "birthSeason": [
+          "summer"
+        ]
       },
       "templateTokens": [
-        { "kind": "text", "value": "초반 60대의 여름 출생 건강운은 열감과 속도를 먼저 낮추는 해석이 필요합니다. " },
-        { "kind": "tag", "tagId": "gishin", "label": "기신" },
-        { "kind": "text", "value": "으로 과열되는 구간을 줄이고 " },
-        { "kind": "tag", "tagId": "yongshin", "label": "용신" },
-        { "kind": "text", "value": "에 맞춘 회복 루틴을 붙이면 하루 컨디션의 흔들림을 줄일 수 있습니다." }
+        {
+          "kind": "text",
+          "value": "초반 60대의 여름 출생 건강운은 열감과 속도를 먼저 낮추는 해석이 필요합니다.\n\n"
+        },
+        {
+          "kind": "tag",
+          "tagId": "gishin",
+          "label": "기신"
+        },
+        {
+          "kind": "text",
+          "value": "으로 과열되는 구간을 줄이고 "
+        },
+        {
+          "kind": "tag",
+          "tagId": "yongshin",
+          "label": "용신"
+        },
+        {
+          "kind": "text",
+          "value": "에 맞춘 회복 루틴을 붙이면 하루 컨디션의 흔들림을 줄일 수 있습니다.\n\n"
+        },
+        {
+          "kind": "tag",
+          "tagId": "jisal",
+          "label": "지살"
+        },
+        {
+          "kind": "text",
+          "value": "의 결이 보일 때는 잠깐의 환경 변화가 컨디션을 환기시키고, "
+        },
+        {
+          "kind": "tag",
+          "tagId": "cheonui",
+          "label": "천의"
+        },
+        {
+          "kind": "text",
+          "value": "의 자리는 의료·치유 흐름의 도움을 부드럽게 받게 해 줘요.\n\n"
+        },
+        {
+          "kind": "tag",
+          "tagId": "eumyangHarmony",
+          "label": "음양조화도"
+        },
+        {
+          "kind": "text",
+          "value": "의 평균이 또렷한 사주는 "
+        },
+        {
+          "kind": "tag",
+          "tagId": "stabilityIndex",
+          "label": "안정성지수"
+        },
+        {
+          "kind": "text",
+          "value": "도 함께 단단해지는 자리라, 큰 결정보다 작은 회복 습관이 평생의 무기가 돼요."
+        }
       ],
-      "tags": ["gishin", "yongshin"],
+      "tags": [
+        "gishin",
+        "yongshin",
+        "jisal",
+        "cheonui",
+        "eumyangHarmony",
+        "stabilityIndex"
+      ],
       "numericalEvidence": [
         {
           "label": "연령 단계 서번",
@@ -66,19 +134,90 @@
     {
       "schemaVersion": "spring-ts.narrative-fragment.v1",
       "fragmentId": "career.thisWeek.expert.birthSeason.summer.age.80s.401",
-      "axis": { "category": "career", "period": "thisWeek", "depth": "expert" },
+      "axis": {
+        "category": "career",
+        "period": "thisWeek",
+        "depth": "expert"
+      },
       "gating": {
-        "agePhase": ["80s"],
-        "birthSeason": ["summer"]
+        "agePhase": [
+          "80s"
+        ],
+        "birthSeason": [
+          "summer"
+        ]
       },
       "templateTokens": [
-        { "kind": "text", "value": "80대의 여름 출생 커리어 흐름은 경험을 빠르게 밀어붙이기보다 필요한 자리에서만 또렷하게 꺼내는 쪽이 좋습니다. " },
-        { "kind": "tag", "tagId": "jeonggwan", "label": "정관" },
-        { "kind": "text", "value": "은 역할의 경계를 세우고 " },
-        { "kind": "tag", "tagId": "sanggwan", "label": "상관" },
-        { "kind": "text", "value": "은 축적된 판단을 말과 조언으로 정리하는 힘을 줍니다." }
+        {
+          "kind": "text",
+          "value": "80대의 여름 출생 커리어 흐름은 경험을 빠르게 밀어붙이기보다 필요한 자리에서만 또렷하게 꺼내는 쪽이 좋습니다.\n\n"
+        },
+        {
+          "kind": "tag",
+          "tagId": "jeonggwan",
+          "label": "정관"
+        },
+        {
+          "kind": "text",
+          "value": "은 역할의 경계를 세우고 "
+        },
+        {
+          "kind": "tag",
+          "tagId": "sanggwan",
+          "label": "상관"
+        },
+        {
+          "kind": "text",
+          "value": "은 축적된 판단을 말과 조언으로 정리하는 힘을 줍니다.\n\n"
+        },
+        {
+          "kind": "tag",
+          "tagId": "jangseongsal",
+          "label": "장성살"
+        },
+        {
+          "kind": "text",
+          "value": "의 신호와 "
+        },
+        {
+          "kind": "tag",
+          "tagId": "cheonui",
+          "label": "천의"
+        },
+        {
+          "kind": "text",
+          "value": "의 결이 함께 보이는 사주는 자기 자리에 머무는 호흡과 곁의 도움을 거절하지 않는 호흡이 둘 다 잘 어울려요.\n\n"
+        },
+        {
+          "kind": "text",
+          "value": "직업 흐름은 "
+        },
+        {
+          "kind": "tag",
+          "tagId": "jeonggwan",
+          "label": "정관"
+        },
+        {
+          "kind": "text",
+          "value": "의 책임 자리와 "
+        },
+        {
+          "kind": "tag",
+          "tagId": "sikshin",
+          "label": "식신"
+        },
+        {
+          "kind": "text",
+          "value": "의 결과 자리가 함께 단단해질 때 한 단계 더 또렷해지는 흐름이라, 무리한 한 번보다 자기 호흡대로의 결과물 쌓기가 잘 어울려요."
+        }
       ],
-      "tags": ["jeonggwan", "sanggwan"],
+      "tags": [
+        "jeonggwan",
+        "sanggwan",
+        "jangseongsal",
+        "cheonui",
+        "sikshin"
+      ],
       "numericalEvidence": [
         {
           "label": "연령 단계 서번",
@@ -126,19 +265,91 @@
     {
       "schemaVersion": "spring-ts.narrative-fragment.v1",
       "fragmentId": "family.thisMonth.expert.birthSeason.summer.age.late_50s.401",
-      "axis": { "category": "family", "period": "thisMonth", "depth": "expert" },
+      "axis": {
+        "category": "family",
+        "period": "thisMonth",
+        "depth": "expert"
+      },
       "gating": {
-        "agePhase": ["late_50s"],
-        "birthSeason": ["summer"]
+        "agePhase": [
+          "late_50s"
+        ],
+        "birthSeason": [
+          "summer"
+        ]
       },
       "templateTokens": [
-        { "kind": "text", "value": "후반 50대의 여름 출생 가족운은 감정 온도가 올라가기 쉬운 만큼 대화의 순서를 정하는 해석이 중요합니다. " },
-        { "kind": "tag", "tagId": "bigyeon", "label": "비견" },
-        { "kind": "text", "value": "은 내 기준을 확인하게 하고 " },
-        { "kind": "tag", "tagId": "jeonggwan", "label": "정관" },
-        { "kind": "text", "value": "은 가족 안의 책임과 약속을 차분히 정리하게 합니다." }
+        {
+          "kind": "text",
+          "value": "후반 50대의 여름 출생 가족운은 감정 온도가 올라가기 쉬운 만큼 대화의 순서를 정하는 해석이 중요합니다.\n\n"
+        },
+        {
+          "kind": "tag",
+          "tagId": "bigyeon",
+          "label": "비견"
+        },
+        {
+          "kind": "text",
+          "value": "은 내 기준을 확인하게 하고 "
+        },
+        {
+          "kind": "tag",
+          "tagId": "jeonggwan",
+          "label": "정관"
+        },
+        {
+          "kind": "text",
+          "value": "은 가족 안의 책임과 약속을 차분히 정리하게 합니다.\n\n"
+        },
+        {
+          "kind": "tag",
+          "tagId": "samhyeong",
+          "label": "삼형"
+        },
+        {
+          "kind": "text",
+          "value": "이나 "
+        },
+        {
+          "kind": "tag",
+          "tagId": "hyeongsal",
+          "label": "형살"
+        },
+        {
+          "kind": "text",
+          "value": "의 신호가 보이는 시기엔 가족 안의 작은 부딪힘을 짧게 끊고 가는 호흡이 잘 어울려요.\n\n"
+        },
+        {
+          "kind": "text",
+          "value": "가족 자리는 "
+        },
+        {
+          "kind": "tag",
+          "tagId": "bumyong",
+          "label": "부모궁"
+        },
+        {
+          "kind": "text",
+          "value": "과 "
+        },
+        {
+          "kind": "tag",
+          "tagId": "baeujagung",
+          "label": "배우자궁"
+        },
+        {
+          "kind": "text",
+          "value": "의 결이 어떻게 받쳐 주느냐를 함께 살펴 두면 흐름의 결정이 더 단단해지고, 작은 인사 한 마디가 평생의 자산이 되는 자리예요."
+        }
       ],
-      "tags": ["bigyeon", "jeonggwan"],
+      "tags": [
+        "bigyeon",
+        "jeonggwan",
+        "samhyeong",
+        "hyeongsal",
+        "bumyong",
+        "baeujagung"
+      ],
       "numericalEvidence": [
         {
           "label": "연령 단계 서번",
@@ -186,19 +397,87 @@
     {
       "schemaVersion": "spring-ts.narrative-fragment.v1",
       "fragmentId": "academic.today.expert.birthSeason.winter.age.90_plus.401",
-      "axis": { "category": "academic", "period": "today", "depth": "expert" },
+      "axis": {
+        "category": "academic",
+        "period": "today",
+        "depth": "expert"
+      },
       "gating": {
-        "agePhase": ["90_plus"],
-        "birthSeason": ["winter"]
+        "agePhase": [
+          "90_plus"
+        ],
+        "birthSeason": [
+          "winter"
+        ]
       },
       "templateTokens": [
-        { "kind": "text", "value": "90대 이상의 겨울 출생 학습운은 넓게 새로 넣는 공부보다 기억과 기록을 천천히 연결하는 방식에서 안정됩니다. " },
-        { "kind": "tag", "tagId": "jeongin", "label": "정인" },
-        { "kind": "text", "value": "은 축적된 지식의 뼈대를 잡고 " },
-        { "kind": "tag", "tagId": "sikshin", "label": "식신" },
-        { "kind": "text", "value": "은 그 내용을 짧은 설명이나 일상 대화로 꺼내게 합니다." }
+        {
+          "kind": "text",
+          "value": "90대 이상의 겨울 출생 학습운은 넓게 새로 넣는 공부보다 기억과 기록을 천천히 연결하는 방식에서 안정됩니다.\n\n"
+        },
+        {
+          "kind": "tag",
+          "tagId": "jeongin",
+          "label": "정인"
+        },
+        {
+          "kind": "text",
+          "value": "은 축적된 지식의 뼈대를 잡고 "
+        },
+        {
+          "kind": "tag",
+          "tagId": "sikshin",
+          "label": "식신"
+        },
+        {
+          "kind": "text",
+          "value": "은 그 내용을 짧은 설명이나 일상 대화로 꺼내게 합니다.\n\n"
+        },
+        {
+          "kind": "tag",
+          "tagId": "munchanggwiin",
+          "label": "문창귀인"
+        },
+        {
+          "kind": "text",
+          "value": "의 결과 "
+        },
+        {
+          "kind": "tag",
+          "tagId": "hakdang",
+          "label": "학당"
+        },
+        {
+          "kind": "text",
+          "value": "의 자리가 함께 보이는 사주는 시험·연구 흐름이 부드럽게 자리 잡는 모양이라, 자기 흐름을 차분히 따라가는 페이스가 잘 어울려요.\n\n"
+        },
+        {
+          "kind": "tag",
+          "tagId": "daewoonGungsil",
+          "label": "대운궁실"
+        },
+        {
+          "kind": "text",
+          "value": "의 결과 "
+        },
+        {
+          "kind": "tag",
+          "tagId": "iljin",
+          "label": "일진"
+        },
+        {
+          "kind": "text",
+          "value": "의 자리가 함께 살아나는 시기엔 평소 미뤄 둔 학습 한 단원을 매듭짓기에 좋은 흐름이 보여요."
+        }
       ],
-      "tags": ["jeongin", "sikshin"],
+      "tags": [
+        "jeongin",
+        "sikshin",
+        "munchanggwiin",
+        "hakdang",
+        "daewoonGungsil",
+        "iljin"
+      ],
       "numericalEvidence": [
         {
           "label": "연령 단계 서번",
@@ -246,19 +525,87 @@
     {
       "schemaVersion": "spring-ts.narrative-fragment.v1",
       "fragmentId": "wealth.thisYear.expert.birthSeason.winter.age.early_20s.401",
-      "axis": { "category": "wealth", "period": "thisYear", "depth": "expert" },
+      "axis": {
+        "category": "wealth",
+        "period": "thisYear",
+        "depth": "expert"
+      },
       "gating": {
-        "agePhase": ["early_20s"],
-        "birthSeason": ["winter"]
+        "agePhase": [
+          "early_20s"
+        ],
+        "birthSeason": [
+          "winter"
+        ]
       },
       "templateTokens": [
-        { "kind": "text", "value": "초반 20대의 겨울 출생 재물운은 빠른 수익보다 자금 흐름을 차갑게 점검하는 판단이 먼저입니다. " },
-        { "kind": "tag", "tagId": "jeongjae", "label": "정재" },
-        { "kind": "text", "value": "는 고정 수입과 지출의 틀을 잡고 " },
-        { "kind": "tag", "tagId": "pyeonjae", "label": "편재" },
-        { "kind": "text", "value": "는 작은 실험 단위로만 열어 두는 방식이 안전합니다." }
+        {
+          "kind": "text",
+          "value": "초반 20대의 겨울 출생 재물운은 빠른 수익보다 자금 흐름을 차갑게 점검하는 판단이 먼저입니다.\n\n"
+        },
+        {
+          "kind": "tag",
+          "tagId": "jeongjae",
+          "label": "정재"
+        },
+        {
+          "kind": "text",
+          "value": "는 고정 수입과 지출의 틀을 잡고 "
+        },
+        {
+          "kind": "tag",
+          "tagId": "pyeonjae",
+          "label": "편재"
+        },
+        {
+          "kind": "text",
+          "value": "는 작은 실험 단위로만 열어 두는 방식이 안전합니다.\n\n"
+        },
+        {
+          "kind": "tag",
+          "tagId": "jaebakgung",
+          "label": "재백궁"
+        },
+        {
+          "kind": "text",
+          "value": "의 결과 "
+        },
+        {
+          "kind": "tag",
+          "tagId": "cheonleulgwiin",
+          "label": "천을귀인"
+        },
+        {
+          "kind": "text",
+          "value": "의 자리가 함께 보이면 도움 받는 흐름이 자기 자산이 되는 사주이니, 작은 도움도 미루지 않는 호흡이 잘 어울려요.\n\n"
+        },
+        {
+          "kind": "tag",
+          "tagId": "gyeokgukFit",
+          "label": "격국적합도"
+        },
+        {
+          "kind": "text",
+          "value": "의 평균이 또렷한 사주는 자기 격에 맞는 자산 자리가 한 결로 모이고, "
+        },
+        {
+          "kind": "tag",
+          "tagId": "stabilityIndex",
+          "label": "안정성지수"
+        },
+        {
+          "kind": "text",
+          "value": "가 받쳐 주는 시기엔 자산 결이 한 단계 깊어지는 자리가 보여요."
+        }
       ],
-      "tags": ["jeongjae", "pyeonjae"],
+      "tags": [
+        "jeongjae",
+        "pyeonjae",
+        "jaebakgung",
+        "cheonleulgwiin",
+        "gyeokgukFit",
+        "stabilityIndex"
+      ],
       "numericalEvidence": [
         {
           "label": "연령 단계 서번",
@@ -306,19 +653,87 @@
     {
       "schemaVersion": "spring-ts.narrative-fragment.v1",
       "fragmentId": "movement.life.expert.birthSeason.winter.age.late_60s.401",
-      "axis": { "category": "movement", "period": "life", "depth": "expert" },
+      "axis": {
+        "category": "movement",
+        "period": "life",
+        "depth": "expert"
+      },
       "gating": {
-        "agePhase": ["late_60s"],
-        "birthSeason": ["winter"]
+        "agePhase": [
+          "late_60s"
+        ],
+        "birthSeason": [
+          "winter"
+        ]
       },
       "templateTokens": [
-        { "kind": "text", "value": "후반 60대의 겨울 출생 이동 총운은 움직임을 많이 늘리기보다 필요한 변화만 깊게 정착시키는 방향이 맞습니다. " },
-        { "kind": "tag", "tagId": "yeokma", "label": "역마" },
-        { "kind": "text", "value": "는 이동 신호를 만들지만 " },
-        { "kind": "tag", "tagId": "yongshin", "label": "용신" },
-        { "kind": "text", "value": "에 맞춘 보정이 붙을 때 이동 뒤 피로와 손실을 줄일 수 있습니다." }
+        {
+          "kind": "text",
+          "value": "후반 60대의 겨울 출생 이동 총운은 움직임을 많이 늘리기보다 필요한 변화만 깊게 정착시키는 방향이 맞습니다.\n\n"
+        },
+        {
+          "kind": "tag",
+          "tagId": "yeokma",
+          "label": "역마"
+        },
+        {
+          "kind": "text",
+          "value": "는 이동 신호를 만들지만 "
+        },
+        {
+          "kind": "tag",
+          "tagId": "yongshin",
+          "label": "용신"
+        },
+        {
+          "kind": "text",
+          "value": "에 맞춘 보정이 붙을 때 이동 뒤 피로와 손실을 줄일 수 있습니다.\n\n"
+        },
+        {
+          "kind": "tag",
+          "tagId": "jisal",
+          "label": "지살"
+        },
+        {
+          "kind": "text",
+          "value": "의 신호와 "
+        },
+        {
+          "kind": "tag",
+          "tagId": "cheonigung",
+          "label": "천이궁"
+        },
+        {
+          "kind": "text",
+          "value": "의 결을 함께 살펴 두면 이동의 결이 어디로 이어질지 한층 또렷해져요.\n\n"
+        },
+        {
+          "kind": "tag",
+          "tagId": "banansal",
+          "label": "반안살"
+        },
+        {
+          "kind": "text",
+          "value": "의 자리와 "
+        },
+        {
+          "kind": "tag",
+          "tagId": "wolsal",
+          "label": "월살"
+        },
+        {
+          "kind": "text",
+          "value": "의 결이 함께 보이는 시기엔 자기 동선의 한 결을 점검해 두는 호흡이 잘 맞아요."
+        }
       ],
-      "tags": ["yeokma", "yongshin"],
+      "tags": [
+        "yeokma",
+        "yongshin",
+        "jisal",
+        "cheonigung",
+        "banansal",
+        "wolsal"
+      ],
       "numericalEvidence": [
         {
           "label": "연령 단계 서번",
