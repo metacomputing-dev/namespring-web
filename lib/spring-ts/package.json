@@ -51,6 +51,7 @@
     "test:tiered-isolation": "npx tsx test/integration/tiered-isolation-guard.test.ts",
     "test:tiered-progressive-disclosure": "npx tsx test/integration/tiered-progressive-disclosure.test.ts",
     "test:tiered-minor-depth-fallback": "npx tsx test/integration/tiered-minor-depth-fallback.test.ts",
+    "test:tiered-brief-headline-invariant": "npx tsx test/integration/tiered-brief-headline-invariant.test.ts",
     "test:narrative-schema": "npx tsx test/integration/narrative-schema.test.ts",
     "test:narrative-schema:summary": "npx tsx test/integration/narrative-schema.test.ts --summary",
     "test:narrative-coverage-report": "npx tsx test/integration/narrative-coverage-report.test.ts",
