@@ -201,6 +201,56 @@
         "copyrightNote": "No source prose copied; original phrasing.",
         "authorityTruthEligible": false
       }
+    },
+    {
+      "schemaVersion": "spring-ts.narrative-fragment.v1",
+      "fragmentId": "romance.life.standard.male.metal.001",
+      "axis": { "category": "romance", "period": "life", "depth": "standard" },
+      "gating": { "gender": ["male"], "yongshinElement": ["METAL"], "ageBand": ["20-29", "30-39", "40-54"] },
+      "templateTokens": [
+        { "kind": "text", "value": "남성으로 살아가는 인생 전체의 인연 흐름은 가을바람처럼 담백한 결을 가까이 두는 시기가 많아요. 사주에 가장 필요한 기운이 쇠(金)인 사람의 인연 자리는 한 번에 빠르게 만들어지기보다, 잘 다듬은 도구처럼 천천히 형태를 잡는 모양이에요." },
+        { "kind": "text", "value": " 마음을 표현할 때 정확하고 단정한 한마디가 가장 큰 자산이 돼요. 빠르게 결론짓는 자리보다 짧은 약속을 정확히 지키는 자리가 인연의 토대를 단단하게 만들어 줘요. 곁의 사람에게는 큰 표현보다 한결같은 자리가 한층 부드럽게 닿아요." },
+        { "kind": "text", "value": " 결혼·이별 같은 큰 사건은 시기를 못 박지 않고, 매 시기마다 다듬어지는 결을 따라가면 자연스럽게 자기 자리가 보여요." }
+      ],
+      "tags": [],
+      "livingTips": ["짧은 약속을 정확히 지켜 봐요", "한결같은 자리를 자주 두어요"],
+      "cautions": ["빠른 단정만 줄이면 충분해요"],
+      "aiGenerated": true,
+      "sourceTier": {
+        "tier": "T1_HYPOTHESIS",
+        "sourceType": "training_derived",
+        "sourceUrl": null,
+        "accessedAt": "2026-05-05",
+        "quoteShort": null,
+        "humanInterpretation": "Phase 3 A4 gating fan-out (gender × yongshinElement). AI-derived display narrative; no marriage/breakup determinism. No source prose copied.",
+        "copyrightNote": "No source prose copied; original phrasing.",
+        "authorityTruthEligible": false
+      }
+    },
+    {
+      "schemaVersion": "spring-ts.narrative-fragment.v1",
+      "fragmentId": "romance.life.standard.female.water.001",
+      "axis": { "category": "romance", "period": "life", "depth": "standard" },
+      "gating": { "gender": ["female"], "yongshinElement": ["WATER"], "ageBand": ["20-29", "30-39", "40-54"] },
+      "templateTokens": [
+        { "kind": "text", "value": "여성으로 살아가는 인생 전체의 인연 흐름은 우물처럼 깊은 자리에 마음을 두는 시기가 많아요. 사주에 가장 필요한 기운이 물(水)인 사람의 인연 자리는 큰 사건의 단정보다, 천천히 스며드는 다정함이 모양을 잡는 결로 풀려요." },
+        { "kind": "text", "value": " 마음의 깊이가 곧 매력이 되는 시기라, 자기 안의 호흡을 정성껏 챙기는 일이 곁의 사람에게도 가장 길게 닿아요. 짧은 한마디라도 진심이 담기면 평소의 한 달치 자산만큼 신뢰가 단단해져요. 빠른 답을 강요받는 자리에서는 한 박자 늦추는 결이 잘 어울려요." },
+        { "kind": "text", "value": " 큰 약속의 시기를 미리 못 박지 않아도 시간이 자연스럽게 자리를 잡아 줘요. 자기 자리를 가꾸는 일이 가장 큰 인연 자산이 돼요." }
+      ],
+      "tags": [],
+      "livingTips": ["진심 담은 한마디를 자주 건네요", "자기 호흡을 정성껏 챙겨요"],
+      "cautions": ["빠른 답 강요만 줄이면 충분해요"],
+      "aiGenerated": true,
+      "sourceTier": {
+        "tier": "T1_HYPOTHESIS",
+        "sourceType": "training_derived",
+        "sourceUrl": null,
+        "accessedAt": "2026-05-05",
+        "quoteShort": null,
+        "humanInterpretation": "Phase 3 A4 gating fan-out (gender × yongshinElement). AI-derived display narrative; no marriage/breakup determinism. No source prose copied.",
+        "copyrightNote": "No source prose copied; original phrasing.",
+        "authorityTruthEligible": false
+      }
     }
   ]
 }

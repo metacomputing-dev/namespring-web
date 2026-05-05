@@ -353,6 +353,67 @@
         "copyrightNote": "No source prose copied; original phrasing.",
         "authorityTruthEligible": false
       }
+    },
+    {
+      "schemaVersion": "spring-ts.narrative-fragment.v1",
+      "fragmentId": "romance.thisYear.expert.early_30s.aligned.001",
+      "axis": { "category": "romance", "period": "thisYear", "depth": "expert" },
+      "gating": { "agePhase": ["early_30s"], "yongshinAlignment": ["aligned"] },
+      "templateTokens": [
+        { "kind": "text", "value": "30대 초반의 인연 흐름은 한 해 동안 " },
+        { "kind": "tag", "tagId": "baeujagung", "label": "배우자궁" },
+        { "kind": "text", "value": "의 자리에 큰 변동 없이 단단함이 자라는 시기예요. 사주의 핵심 기운이 잘 맞물리는 해라, 곁의 사람과의 신뢰가 한 단계 더 또렷해져요." },
+        { "kind": "text", "value": " " },
+        { "kind": "tag", "tagId": "jeonggwan", "label": "정관" },
+        { "kind": "text", "value": "의 결이 약속·책임의 토대를 받쳐 주고, " },
+        { "kind": "tag", "tagId": "sikshin", "label": "식신" },
+        { "kind": "text", "value": "의 결이 일상의 다정함을 더해 줘요. 12궁의 짝 자리인 " },
+        { "kind": "tag", "tagId": "cheogung", "label": "처궁" },
+        { "kind": "text", "value": "도 안정적으로 자리를 잡고 있는 모양이라, 한 해 동안 큰 단정 없이 작은 정성을 자주 두면 신뢰가 한층 단단해져요." },
+        { "kind": "text", "value": " 새 만남보다 곁의 인연을 가꾸는 자리가 한 해의 큰 자산이 돼요. 시기를 못 박지 않아도 흐름이 무르익을 때 자연스럽게 길이 보이는 한 해예요." }
+      ],
+      "tags": ["baeujagung", "jeonggwan", "sikshin", "cheogung"],
+      "aiGenerated": true,
+      "sourceTier": {
+        "tier": "T1_HYPOTHESIS",
+        "sourceType": "training_derived",
+        "sourceUrl": null,
+        "accessedAt": "2026-05-05",
+        "quoteShort": null,
+        "humanInterpretation": "Phase 3 A4 gating fan-out (agePhase early_30s × yongshinAlignment aligned). AI-derived; no marriage/breakup determinism.",
+        "copyrightNote": "No source prose copied; original phrasing.",
+        "authorityTruthEligible": false
+      }
+    },
+    {
+      "schemaVersion": "spring-ts.narrative-fragment.v1",
+      "fragmentId": "romance.thisYear.expert.early_60s.conflicting.001",
+      "axis": { "category": "romance", "period": "thisYear", "depth": "expert" },
+      "gating": { "agePhase": ["early_60s"], "yongshinAlignment": ["conflicting"] },
+      "templateTokens": [
+        { "kind": "text", "value": "60대 초반의 인연 흐름이 사주의 핵심 기운과 한 해의 길이로 살짝 어긋나는 자리에 있어요. 이 신호는 외로움의 단정이 아니라, 오랜 인연과의 거리를 천천히 다듬으라는 의미로 풀면 잘 맞아요." },
+        { "kind": "text", "value": " " },
+        { "kind": "tag", "tagId": "baeujagung", "label": "배우자궁" },
+        { "kind": "text", "value": "의 자리에서 들어오는 신호를 천천히 받아들이고, " },
+        { "kind": "tag", "tagId": "jeonggwan", "label": "정관" },
+        { "kind": "text", "value": "의 결로 약속·정성의 자리를 자주 두면 한 해 안에서 흐름이 다시 안정된 자리로 돌아와요." },
+        { "kind": "text", "value": " 자녀와 후세를 살피는 " },
+        { "kind": "tag", "tagId": "janyeogung", "label": "자녀궁" },
+        { "kind": "text", "value": "의 자리에서는 오래 키운 마음이 결실로 돌아오는 한 해라, 곁의 가족·반려에게 짧은 한마디를 자주 남기면 다음 해의 흐름이 부드러워져요." },
+        { "kind": "text", "value": " 큰 결정보다 일상의 호흡을 가다듬는 자리로 한 해를 보내면 잘 어울려요. 거리감이 다른 결로 흐를 수 있다는 점을 받아들이면 흔들림이 줄어드는 시기예요." }
+      ],
+      "tags": ["baeujagung", "jeonggwan", "janyeogung"],
+      "aiGenerated": true,
+      "sourceTier": {
+        "tier": "T1_HYPOTHESIS",
+        "sourceType": "training_derived",
+        "sourceUrl": null,
+        "accessedAt": "2026-05-05",
+        "quoteShort": null,
+        "humanInterpretation": "Phase 3 A4 gating fan-out (agePhase early_60s × yongshinAlignment conflicting). AI-derived; reframed slow-build, no determinism.",
+        "copyrightNote": "No source prose copied; original phrasing.",
+        "authorityTruthEligible": false
+      }
     }
   ]
 }

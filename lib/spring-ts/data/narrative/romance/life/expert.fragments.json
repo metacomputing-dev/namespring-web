@@ -378,6 +378,40 @@
         "copyrightNote": "No source prose copied; original phrasing.",
         "authorityTruthEligible": false
       }
+    },
+    {
+      "schemaVersion": "spring-ts.narrative-fragment.v1",
+      "fragmentId": "romance.life.expert.adult.hab.001",
+      "axis": { "category": "romance", "period": "life", "depth": "expert" },
+      "gating": { "ageBand": ["20-29", "30-39", "40-54"] },
+      "templateTokens": [
+        { "kind": "text", "value": "사주의 천간 사이에 합의 결이 보이면 가까이서 어울리는 자리가 한 인생의 길이로 자주 만들어지는 흐름이에요. 어떤 합이 들어오느냐에 따라 인연의 색이 달라지지만, 큰 사건의 단정보다 자연스럽게 모이고 머무는 결로 풀어 보면 잘 맞아요." },
+        { "kind": "text", "value": " 부드러운 시작의 합인 " },
+        { "kind": "tag", "tagId": "gabgihab", "label": "갑기합" },
+        { "kind": "text", "value": "이나 따뜻한 새싹의 합인 " },
+        { "kind": "tag", "tagId": "jeongimhab", "label": "정임합" },
+        { "kind": "text", "value": "이 비치면 새 자리에서 가까워지는 흐름이 자연스럽고, 정리·결단의 합인 " },
+        { "kind": "tag", "tagId": "eulgyeonghab", "label": "을경합" },
+        { "kind": "text", "value": "이나 통찰의 합인 " },
+        { "kind": "tag", "tagId": "byeongsinhab", "label": "병신합" },
+        { "kind": "text", "value": "이 들어오면 깊은 대화의 자리에서 신뢰가 자라요." },
+        { "kind": "text", "value": " 빛이 또렷한 합인 " },
+        { "kind": "tag", "tagId": "mugyehab", "label": "무계합" },
+        { "kind": "text", "value": "은 표현·창작 자리에서 인연이 모이는 결이라, 자기 일의 흐름과 함께 살피면 의미가 더 또렷해져요." },
+        { "kind": "text", "value": " 합의 결이 보여도 결혼·이별 같은 단정은 미리 두지 않아요. 합은 가능성의 신호일 뿐이라, 한 자리 한 자리를 정성껏 살피는 일이 가장 큰 인연 자산이 돼요." }
+      ],
+      "tags": ["gabgihab", "jeongimhab", "eulgyeonghab", "byeongsinhab", "mugyehab"],
+      "aiGenerated": true,
+      "sourceTier": {
+        "tier": "T1_HYPOTHESIS",
+        "sourceType": "training_derived",
+        "sourceUrl": null,
+        "accessedAt": "2026-05-05",
+        "quoteShort": null,
+        "humanInterpretation": "Phase 3 A4 gating fan-out (합화 axis via templateTokens, ageBand 20-29/30-39/40-54). AI-derived; possibility framing only, no marriage/breakup determinism.",
+        "copyrightNote": "No source prose copied; original phrasing.",
+        "authorityTruthEligible": false
+      }
     }
   ]
 }
