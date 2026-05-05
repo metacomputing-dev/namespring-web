@@ -9,7 +9,7 @@
       "hashLabel": "#용신",
       "category": "yongshin",
       "brief": "내 사주를 가장 잘 도와주는, 가장 필요한 한 가지 기운이에요.",
-      "detailed": "내 사주의 균형이 한쪽으로 기울었을 때, 그 균형을 맞춰 주는 가장 중요한 기운을 용신이라고 해요. 비유하자면 '내 인생의 키 자물쇠를 여는 열쇠' 같은 역할이에요. 작명·운세·궁합 모두에서 가장 먼저 살피는 핵심 단서랍니다.",
+      "detailed": "내 사주의 균형이 한쪽으로 기울었을 때, 그 균형을 맞춰 주는 가장 중요한 기운을 용신이라고 해요. 비유하자면 '내 인생의 자물쇠를 여는 열쇠' 같은 역할이에요. 한국 현대 명리(이석영·박재완 흐름)에서도 작명·운세·궁합 모두에서 가장 먼저 살피는 핵심 단서로 봐요.",
       "related": ["heeshin", "gishin", "gushin", "johu", "wood", "fire", "earth", "metal", "water"],
       "aiGenerated": true,
       "sourceTier": {
@@ -138,7 +138,7 @@
       "hashLabel": "#부억용신",
       "category": "yongshin",
       "brief": "내 기운이 약하면 도와주고 강하면 눌러 주는 용신이에요.",
-      "detailed": "부억은 '도와줌과 누름'이라는 뜻으로, 내 기운(일간)이 약할 땐 같은 편을 보태 주고, 강할 땐 다듬어 주는 결의 용신이에요. 가장 흔히 쓰는 용신 잡는 결이라, 사주의 균형을 맞추는 첫 번째 잣대로 자주 쓰여요.",
+      "detailed": "부억은 '도와줌과 누름'이라는 뜻으로, 내 기운(일간)이 약할 땐 같은 편을 보태 주고, 강할 땐 다듬어 주는 방식의 용신이에요. 한국 현대 명리에서 가장 흔히 쓰는 용신 잡는 법으로, 사주의 균형을 맞추는 첫 번째 잣대로 자주 쓰여요.",
       "related": ["yongshin", "bigyeon"],
       "aiGenerated": true,
       "sourceTier": { "tier": "T1_HYPOTHESIS", "sourceType": "training_derived", "sourceUrl": null, "accessedAt": "2026-05-02", "quoteShort": null, "humanInterpretation": "AI-derived plain-language definition of 부억용신. Display-only.", "copyrightNote": "No source prose copied.", "authorityTruthEligible": false }
@@ -162,7 +162,7 @@
       "hashLabel": "#격국용신",
       "category": "yongshin",
       "brief": "사주의 격국 모양에 맞춰 잡는 용신이에요.",
-      "detailed": "단순히 강약·온도만 보지 않고, 사주의 격국 모양 전체를 살펴 그 격에 가장 잘 어울리는 기운을 용신으로 잡는 방식이에요. 사주의 큰 그림을 함께 보며 잡는 용신이라, 직업·자리·인생 흐름을 길게 보는 데 도움이 돼요.",
+      "detailed": "단순히 강약·온도만 보지 않고, 사주의 격국 모양 전체를 살펴 그 격에 가장 잘 어울리는 기운을 용신으로 잡는 방식이에요. 고전 자평 계열에서 발달한 잣대를 한국 현대 명리에서도 보조 단서로 받아쓰며, 직업·자리·인생 흐름을 길게 보는 데 도움이 돼요.",
       "related": ["yongshin", "jeonggwangyeok", "jeongjaegyeok"],
       "aiGenerated": true,
       "sourceTier": { "tier": "T1_HYPOTHESIS", "sourceType": "training_derived", "sourceUrl": null, "accessedAt": "2026-05-02", "quoteShort": null, "humanInterpretation": "AI-derived plain-language definition of 격국용신. Display-only.", "copyrightNote": "No source prose copied.", "authorityTruthEligible": false }

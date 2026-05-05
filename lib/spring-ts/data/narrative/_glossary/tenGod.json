@@ -43,7 +43,7 @@
       "hashLabel": "#식신",
       "category": "tenGod",
       "brief": "내가 만들어 내는 표현·재능·즐거움 기운이에요.",
-      "detailed": "내가 길러 내고 풀어 내는 힘, 즉 '내가 만든 것'을 뜻해요. 음식, 글, 노래, 발표처럼 표현·창작·여유를 즐기는 결이에요. 식신이 좋으면 분위기가 부드럽고, 자기 분야에서 꾸준히 결과물을 쌓는 사람이 많아요.",
+      "detailed": "내가 길러 내고 풀어 내는 힘, 즉 '내가 만든 것'을 뜻해요. 음식, 글, 노래, 발표처럼 표현·창작·여유를 즐기는 흐름이에요. 한국 현대 명리에서는 '꾸준한 표현'과 식록(食祿) 자산으로 풀어, 식신이 좋으면 분위기가 부드럽고 자기 분야에서 결과물을 차곡차곡 쌓는 사람이 많다고 봐요.",
       "related": ["sanggwan"],
       "aiGenerated": true,
       "sourceTier": { "tier": "T1_HYPOTHESIS", "sourceType": "training_derived", "sourceUrl": null, "accessedAt": "2026-05-02", "quoteShort": null, "humanInterpretation": "AI-derived plain-language definition of sikshin (식신). Display-only narrative.", "copyrightNote": "No source prose copied.", "authorityTruthEligible": false }
@@ -55,7 +55,7 @@
       "hashLabel": "#상관",
       "category": "tenGod",
       "brief": "톡톡 튀고 자기 색깔이 분명한 표현·재능 기운이에요.",
-      "detailed": "식신과 같은 '내가 만들어 내는 힘'이지만, 더 날카롭고 개성이 강해요. 비판력·창의성이 도드라지지만 규칙·윗사람과 부딪치기 쉬워서, 큰 무대를 만나면 빛을 내고 작은 자리에선 답답함을 느껴요.",
+      "detailed": "식신과 같은 '내가 만들어 내는 힘'이지만, 더 날카롭고 개성이 강해요. 비판력·창의성이 도드라지지만 규칙·윗사람과 부딪치기 쉬워서, 큰 무대를 만나면 빛을 내고 작은 자리에선 답답함을 느껴요. 한국 현대 명리에서는 '재능을 쓰임으로 다듬는 결'로 풀어, 적절한 무대를 찾으면 강점이 돼요.",
       "related": ["sikshin"],
       "aiGenerated": true,
       "sourceTier": { "tier": "T1_HYPOTHESIS", "sourceType": "training_derived", "sourceUrl": null, "accessedAt": "2026-05-02", "quoteShort": null, "humanInterpretation": "AI-derived plain-language definition of sanggwan (상관). Display-only narrative.", "copyrightNote": "No source prose copied.", "authorityTruthEligible": false }
@@ -79,7 +79,7 @@
       "hashLabel": "#정재",
       "category": "tenGod",
       "brief": "꼬박꼬박 모이는 안정된 돈·자원 기운이에요.",
-      "detailed": "월급, 적금, 차곡차곡 쌓는 식의 재물·자원이에요. 큰 한 방보다는 꾸준한 관리에 강해요. 정재가 좋으면 가족·가정·생활의 안정도 함께 따르는 경우가 많아요.",
+      "detailed": "월급, 적금, 차곡차곡 쌓는 식의 재물·자원이에요. 큰 한 방보다는 꾸준한 관리에 강해요. 한국 현대 작명에서는 정재를 안정·신뢰·가정의 결로 풀어, 정재가 좋으면 가족·가정·생활의 안정도 함께 따르는 경우가 많다고 봐요.",
       "related": ["pyeonjae"],
       "aiGenerated": true,
       "sourceTier": { "tier": "T1_HYPOTHESIS", "sourceType": "training_derived", "sourceUrl": null, "accessedAt": "2026-05-02", "quoteShort": null, "humanInterpretation": "AI-derived plain-language definition of jeongjae (정재). Display-only narrative.", "copyrightNote": "No source prose copied.", "authorityTruthEligible": false }
@@ -103,7 +103,7 @@
       "hashLabel": "#정관",
       "category": "tenGod",
       "brief": "자리·직책·약속처럼 '바른 책임'을 뜻하는 기운이에요.",
-      "detailed": "사회적 자리, 신뢰, 약속을 지키는 결이에요. 정관이 강하고 균형이 좋은 사람은 책임감·반듯함·인정이 잘 따르고, 너무 강하면 부담이 커져요. 작명에서도 정관이 좋게 작용하는 사주가 많아요.",
+      "detailed": "사회적 자리, 신뢰, 약속을 지키는 흐름이에요. 정관이 강하고 균형이 좋은 사람은 책임감·반듯함·인정이 잘 따르고, 너무 강하면 부담이 커져요. 한국 현대 작명에서도 정관을 '귀(貴)' 자산으로 보아, 정관이 잘 자리잡은 사주는 사회적 인정 결이 길게 자란다고 풀어요.",
       "related": ["pyeongwan"],
       "aiGenerated": true,
       "sourceTier": { "tier": "T1_HYPOTHESIS", "sourceType": "training_derived", "sourceUrl": null, "accessedAt": "2026-05-02", "quoteShort": null, "humanInterpretation": "AI-derived plain-language definition of jeonggwan (정관). Display-only narrative.", "copyrightNote": "No source prose copied.", "authorityTruthEligible": false }
@@ -127,7 +127,7 @@
       "hashLabel": "#정인",
       "category": "tenGod",
       "brief": "엄마처럼 따뜻하게 챙겨 주는 공부·후원 기운이에요.",
-      "detailed": "정통 학문·전통·돌봄·후원의 결이에요. 정인이 좋으면 부모·스승·책의 도움을 잘 받고, 차분히 깊어지는 성품이 자라요. 너무 강하면 결정을 미루는 면이 보이기도 해요.",
+      "detailed": "정통 학문·전통·돌봄·후원의 흐름이에요. 한국 현대 명리에서는 정인을 '학(學)·인덕'의 자산으로 풀어, 정인이 좋으면 부모·스승·책의 도움을 잘 받고 차분히 깊어지는 성품이 자라요. 너무 강하면 결정을 미루는 면이 보이기도 해요.",
       "related": ["pyeonin"],
       "aiGenerated": true,
       "sourceTier": { "tier": "T1_HYPOTHESIS", "sourceType": "training_derived", "sourceUrl": null, "accessedAt": "2026-05-02", "quoteShort": null, "humanInterpretation": "AI-derived plain-language definition of jeongin (정인). Display-only narrative.", "copyrightNote": "No source prose copied.", "authorityTruthEligible": false }
