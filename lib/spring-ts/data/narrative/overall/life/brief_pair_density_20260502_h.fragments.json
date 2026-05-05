@@ -14,7 +14,7 @@
         "dayMasterStrength": ["BALANCED"]
       },
       "templateTokens": [
-        { "kind": "text", "value": "안정의 보완 기운이 현재 흐름과 잘 맞아요. 급하게 바꾸기보다 생활 기준을 꾸준히 지키면 중심이 단단해집니다." }
+        { "kind": "text", "value": "급하게 바꾸기보다 생활 기준을 꾸준히 지키면 중심이 단단해집니다." }
       ],
       "tags": [],
       "aiGenerated": true,
@@ -39,7 +39,7 @@
         "dayMasterStrength": ["EXTREME_STRONG"]
       },
       "templateTokens": [
-        { "kind": "text", "value": "안정이 필요하지만 강한 흐름과 부딪힐 수 있어요. 속도를 낮추고 확인 절차를 두면 과한 추진을 줄일 수 있습니다." }
+        { "kind": "text", "value": "속도를 낮추고 확인 절차를 두면 과한 추진을 줄일 수 있습니다." }
       ],
       "tags": [],
       "aiGenerated": true,
@@ -64,7 +64,7 @@
         "dayMasterStrength": ["EXTREME_STRONG"]
       },
       "templateTokens": [
-        { "kind": "text", "value": "안정의 보완 기운은 필요할 때 힘을 줘요. 이미 기운이 강한 편이라, 큰 결정보다 기준 정리에 먼저 쓰면 좋습니다." }
+        { "kind": "text", "value": "이미 기운이 강한 편이라, 큰 결정보다 기준 정리에 먼저 쓰면 좋습니다." }
       ],
       "tags": [],
       "aiGenerated": true,
@@ -89,7 +89,7 @@
         "dayMasterStrength": ["STRONG"]
       },
       "templateTokens": [
-        { "kind": "text", "value": "표현과 활력의 보완 기운이 잘 맞는 흐름이에요. 사람 앞에서 생각을 밝게 전하면 강점이 자연스럽게 드러납니다." }
+        { "kind": "text", "value": "사람 앞에서 생각을 밝게 전하면 강점이 자연스럽게 드러납니다." }
       ],
       "tags": [],
       "aiGenerated": true,
@@ -114,7 +114,7 @@
         "dayMasterStrength": ["WEAK"]
       },
       "templateTokens": [
-        { "kind": "text", "value": "활력의 보완 기운이 필요해도 무리한 자극은 부담이 될 수 있어요. 작은 즐거움부터 회복하면 흐름이 가벼워집니다." }
+        { "kind": "text", "value": "활력의 보완 기운이 필요해도 무리한 자극은 부담이 될 수 있어요." }
       ],
       "tags": [],
       "aiGenerated": true,
@@ -139,7 +139,7 @@
         "dayMasterStrength": ["BALANCED"]
       },
       "templateTokens": [
-        { "kind": "text", "value": "활력의 보완 기운은 상황에 따라 도움이 돼요. 이미 균형이 있는 편이니, 필요한 순간에만 열정을 더하면 좋습니다." }
+        { "kind": "text", "value": "이미 균형이 있는 편이니, 필요한 순간에만 열정을 더하면 좋습니다." }
       ],
       "tags": [],
       "aiGenerated": true,
@@ -164,7 +164,7 @@
         "dayMasterStrength": ["STRONG"]
       },
       "templateTokens": [
-        { "kind": "text", "value": "정리와 결단의 보완 기운이 잘 맞아요. 이미 힘이 있는 흐름이라 기준을 세우면 결과가 빠르게 정돈됩니다." }
+        { "kind": "text", "value": "이미 힘이 있는 흐름이라 기준을 세우면 결과가 빠르게 정돈됩니다." }
       ],
       "tags": [],
       "aiGenerated": true,
@@ -189,7 +189,7 @@
         "dayMasterStrength": ["WEAK"]
       },
       "templateTokens": [
-        { "kind": "text", "value": "정리하려는 보완 기운이 부담으로 느껴질 수 있어요. 규칙을 크게 만들기보다 아주 작은 기준부터 시작하세요." }
+        { "kind": "text", "value": "규칙을 크게 만들기보다 아주 작은 기준부터 시작하세요." }
       ],
       "tags": [],
       "aiGenerated": true,
@@ -214,7 +214,7 @@
         "dayMasterStrength": ["BALANCED"]
       },
       "templateTokens": [
-        { "kind": "text", "value": "정리의 보완 기운은 필요할 때 삶을 단단하게 잡아줘요. 균형을 유지하며 선택지를 하나씩 줄여가면 편해집니다." }
+        { "kind": "text", "value": "균형을 유지하며 선택지를 하나씩 줄여가면 편해집니다." }
       ],
       "tags": [],
       "aiGenerated": true,
@@ -239,7 +239,7 @@
         "dayMasterStrength": ["EXTREME_WEAK"]
       },
       "templateTokens": [
-        { "kind": "text", "value": "차분한 보완 기운이 잘 맞는 흐름이에요. 힘이 약해질 때는 쉬어가며 생각을 정리하면 회복이 빨라집니다." }
+        { "kind": "text", "value": "힘이 약해질 때는 쉬어가며 생각을 정리하면 회복이 빨라집니다." }
       ],
       "tags": [],
       "aiGenerated": true,
@@ -264,7 +264,7 @@
         "dayMasterStrength": ["STRONG"]
       },
       "templateTokens": [
-        { "kind": "text", "value": "차분함이 필요하지만 흐름과 부딪히면 망설임이 길어질 수 있어요. 생각을 적고 우선순위를 정하면 안정됩니다." }
+        { "kind": "text", "value": "차분함이 필요하지만 흐름과 부딪히면 망설임이 길어질 수 있어요." }
       ],
       "tags": [],
       "aiGenerated": true,
@@ -289,7 +289,7 @@
         "dayMasterStrength": ["WEAK"]
       },
       "templateTokens": [
-        { "kind": "text", "value": "차분한 보완 기운은 부담을 낮추는 데 좋아요. 기운이 약한 날에는 큰 결정보다 컨디션 회복을 먼저 챙기세요." }
+        { "kind": "text", "value": "기운이 약한 날에는 큰 결정보다 컨디션 회복을 먼저 챙기세요." }
       ],
       "tags": [],
       "aiGenerated": true,
@@ -314,7 +314,7 @@
         "dayMasterStrength": ["BALANCED"]
       },
       "templateTokens": [
-        { "kind": "text", "value": "성장의 보완 기운이 현재 흐름과 잘 맞아요. 배우고 시도하는 일을 꾸준히 이어가면 가능성이 자연스럽게 넓어집니다." }
+        { "kind": "text", "value": "성장의 보완 기운이 현재 흐름과 잘 맞아요." }
       ],
       "tags": [],
       "aiGenerated": true,
@@ -339,7 +339,7 @@
         "dayMasterStrength": ["EXTREME_WEAK"]
       },
       "templateTokens": [
-        { "kind": "text", "value": "성장하려는 기운이 부담으로 느껴질 수 있어요. 기운이 약한 시기에는 새 목표보다 쉬운 반복부터 회복하는 것이 좋아요." }
+        { "kind": "text", "value": "성장하려는 기운이 부담으로 느껴질 수 있어요." }
       ],
       "tags": [],
       "aiGenerated": true,
@@ -364,7 +364,7 @@
         "dayMasterStrength": ["STRONG"]
       },
       "templateTokens": [
-        { "kind": "text", "value": "성장의 보완 기운은 필요할 때 방향을 넓혀줘요. 이미 힘이 있는 흐름이라, 새 시도는 작게 나누면 더 오래 갑니다." }
+        { "kind": "text", "value": "이미 힘이 있는 흐름이라, 새 시도는 작게 나누면 더 오래 갑니다." }
       ],
       "tags": [],
       "aiGenerated": true,

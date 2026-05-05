@@ -14,7 +14,7 @@
         "dayMasterElement": ["EARTH"]
       },
       "templateTokens": [
-        { "kind": "text", "value": "자기 기준은 있지만 힘이 약해질 수 있는 흐름이에요. 안정적인 생활 바탕을 먼저 잡으면 선택이 덜 흔들립니다." }
+        { "kind": "text", "value": "안정적인 생활 바탕을 먼저 잡으면 선택이 덜 흔들립니다." }
       ],
       "tags": [],
       "aiGenerated": true,
@@ -40,7 +40,7 @@
         "yongshinElement": ["WATER"]
       },
       "templateTokens": [
-        { "kind": "text", "value": "배움과 보호의 흐름이 균형 있게 작동해요. 차분히 생각을 정리하는 시간이 쌓이면 판단이 더 깊어집니다." }
+        { "kind": "text", "value": "차분히 생각을 정리하는 시간이 쌓이면 판단이 더 깊어집니다." }
       ],
       "tags": [],
       "aiGenerated": true,
@@ -66,7 +66,7 @@
         "yongshinElement": ["FIRE"]
       },
       "templateTokens": [
-        { "kind": "text", "value": "배우고 지키는 힘이 강하게 드러나요. 따뜻하게 표현하는 보완 기운을 더하면 단단함이 설득력으로 바뀝니다." }
+        { "kind": "text", "value": "배우고 지키는 힘이 강하게 드러나요." }
       ],
       "tags": [],
       "aiGenerated": true,
@@ -92,7 +92,7 @@
         "yongshinElement": ["METAL"]
       },
       "templateTokens": [
-        { "kind": "text", "value": "도움을 받는 흐름은 있지만 기운이 쉽게 빠질 수 있어요. 정리하는 보완 기운을 쓰면 약한 기반도 조금씩 단단해집니다." }
+        { "kind": "text", "value": "정리하는 보완 기운을 쓰면 약한 기반도 조금씩 단단해집니다." }
       ],
       "tags": [],
       "aiGenerated": true,
@@ -118,7 +118,7 @@
         "yongshinElement": ["WATER"]
       },
       "templateTokens": [
-        { "kind": "text", "value": "배움과 기준을 밀고 가는 힘이 좋아요. 차분한 보완 기운을 곁들이면 성장이 급해지지 않고 오래 이어집니다." }
+        { "kind": "text", "value": "차분한 보완 기운을 곁들이면 성장이 급해지지 않고 오래 이어집니다." }
       ],
       "tags": [],
       "aiGenerated": true,
@@ -144,7 +144,7 @@
         "yongshinElement": ["WOOD"]
       },
       "templateTokens": [
-        { "kind": "text", "value": "도움을 받으며 성장하는 흐름이지만 체력이 먼저 흔들릴 수 있어요. 작은 배움과 반복을 쌓으면 다시 힘이 붙습니다." }
+        { "kind": "text", "value": "도움을 받으며 성장하는 흐름이지만 체력이 먼저 흔들릴 수 있어요." }
       ],
       "tags": [],
       "aiGenerated": true,
@@ -170,7 +170,7 @@
         "yongshinElement": ["WOOD"]
       },
       "templateTokens": [
-        { "kind": "text", "value": "표현과 아이디어가 균형 있게 움직이는 흐름이에요. 생각을 키워주는 보완 기운을 쓰면 말과 기획이 더 잘 자랍니다." }
+        { "kind": "text", "value": "생각을 키워주는 보완 기운을 쓰면 말과 기획이 더 잘 자랍니다." }
       ],
       "tags": [],
       "aiGenerated": true,
@@ -194,7 +194,7 @@
         "dayMasterStrength": ["EXTREME_STRONG"]
       },
       "templateTokens": [
-        { "kind": "text", "value": "표현의 힘이 매우 강해질 수 있어요. 바로 말하기보다 한 번 정리하고 전하면 영향력이 더 안정적으로 쓰입니다." }
+        { "kind": "text", "value": "표현의 힘이 매우 강해질 수 있어요." }
       ],
       "tags": [],
       "aiGenerated": true,
@@ -218,7 +218,7 @@
         "dayMasterStrength": ["EXTREME_WEAK"]
       },
       "templateTokens": [
-        { "kind": "text", "value": "표현하고 싶은 마음은 있어도 힘이 부족할 수 있어요. 결과를 크게 기대하기보다 작은 말과 작은 실행부터 시작하세요." }
+        { "kind": "text", "value": "결과를 크게 기대하기보다 작은 말과 작은 실행부터 시작하세요." }
       ],
       "tags": [],
       "aiGenerated": true,
@@ -242,7 +242,7 @@
         "dayMasterStrength": ["STRONG"]
       },
       "templateTokens": [
-        { "kind": "text", "value": "아이디어를 밖으로 꺼내는 힘이 좋아요. 다만 반응을 확인하며 조절하면 좋은 의견이 더 오래 살아남습니다." }
+        { "kind": "text", "value": "다만 반응을 확인하며 조절하면 좋은 의견이 더 오래 살아남습니다." }
       ],
       "tags": [],
       "aiGenerated": true,
@@ -266,7 +266,7 @@
         "dayMasterStrength": ["WEAK"]
       },
       "templateTokens": [
-        { "kind": "text", "value": "표현의 흐름은 있지만 체력이 따라오지 않을 수 있어요. 말과 일을 줄여 핵심만 남기면 부담이 줄어듭니다." }
+        { "kind": "text", "value": "표현의 흐름은 있지만 체력이 따라오지 않을 수 있어요." }
       ],
       "tags": [],
       "aiGenerated": true,
@@ -290,7 +290,7 @@
         "dayMasterStrength": ["BALANCED"]
       },
       "templateTokens": [
-        { "kind": "text", "value": "꾸준히 만들고 나누는 힘이 균형 있게 흐릅니다. 반복할 수 있는 일을 고르면 재능이 안정적으로 쌓여요." }
+        { "kind": "text", "value": "반복할 수 있는 일을 고르면 재능이 안정적으로 쌓여요." }
       ],
       "tags": [],
       "aiGenerated": true,
@@ -314,7 +314,7 @@
         "dayMasterStrength": ["EXTREME_STRONG"]
       },
       "templateTokens": [
-        { "kind": "text", "value": "만들어내는 힘이 매우 강하게 드러날 수 있어요. 욕심을 줄이고 품질 기준을 정하면 성과가 더 단단해집니다." }
+        { "kind": "text", "value": "욕심을 줄이고 품질 기준을 정하면 성과가 더 단단해집니다." }
       ],
       "tags": [],
       "aiGenerated": true,
@@ -338,7 +338,7 @@
         "dayMasterStrength": ["EXTREME_WEAK"]
       },
       "templateTokens": [
-        { "kind": "text", "value": "꾸준히 만들고 싶은 마음은 있지만 기운이 금방 빠질 수 있어요. 양을 줄이고 리듬을 먼저 회복하세요." }
+        { "kind": "text", "value": "꾸준히 만들고 싶은 마음은 있지만 기운이 금방 빠질 수 있어요." }
       ],
       "tags": [],
       "aiGenerated": true,
@@ -362,7 +362,7 @@
         "dayMasterStrength": ["STRONG"]
       },
       "templateTokens": [
-        { "kind": "text", "value": "꾸준히 결과를 만드는 힘이 좋은 흐름이에요. 혼자 다 처리하기보다 과정을 나누면 오래 가는 성과가 됩니다." }
+        { "kind": "text", "value": "혼자 다 처리하기보다 과정을 나누면 오래 가는 성과가 됩니다." }
       ],
       "tags": [],
       "aiGenerated": true,
@@ -386,7 +386,7 @@
         "dayMasterStrength": ["WEAK"]
       },
       "templateTokens": [
-        { "kind": "text", "value": "무언가를 꾸준히 만들수록 힘이 살아나는 흐름이에요. 단, 체력은 아껴야 하니 작은 단위로 나누어 진행하세요." }
+        { "kind": "text", "value": "무언가를 꾸준히 만들수록 힘이 살아나는 흐름이에요." }
       ],
       "tags": [],
       "aiGenerated": true,

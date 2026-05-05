@@ -14,7 +14,7 @@
         "gender": ["female"]
       },
       "templateTokens": [
-        { "kind": "text", "value": "60대 후반 여성 흐름에서는 익숙한 관계 속에서 마음의 안정이 커져요. 무리한 역할보다 편안한 리듬을 지키는 것이 좋아요." }
+        { "kind": "text", "value": "60대 후반 여성 흐름에서는 익숙한 관계 속에서 마음의 안정이 커져요." }
       ],
       "tags": [],
       "aiGenerated": true,
@@ -39,7 +39,7 @@
         "gender": ["male"]
       },
       "templateTokens": [
-        { "kind": "text", "value": "60대 후반 남성 흐름에서는 책임을 내려놓는 연습이 필요할 수 있어요. 몸의 속도에 맞추면 삶의 만족이 더 오래 갑니다." }
+        { "kind": "text", "value": "60대 후반 남성 흐름에서는 책임을 내려놓는 연습이 필요할 수 있어요." }
       ],
       "tags": [],
       "aiGenerated": true,
@@ -64,7 +64,7 @@
         "gender": ["neutral"]
       },
       "templateTokens": [
-        { "kind": "text", "value": "60대 후반 흐름에서는 생활을 단순하게 만들수록 마음이 편해져요. 오래 지킬 수 있는 약속만 남기면 안정감이 커집니다." }
+        { "kind": "text", "value": "60대 후반 흐름에서는 생활을 단순하게 만들수록 마음이 편해져요." }
       ],
       "tags": [],
       "aiGenerated": true,
@@ -89,7 +89,7 @@
         "gender": ["female"]
       },
       "templateTokens": [
-        { "kind": "text", "value": "10대 후반 여성 흐름에서는 나만의 기준을 찾는 일이 중요해요. 비교를 줄이고 잘 맞는 환경을 고르면 자신감이 자랍니다." }
+        { "kind": "text", "value": "10대 후반 여성 흐름에서는 나만의 기준을 찾는 일이 중요해요." }
       ],
       "tags": [],
       "aiGenerated": true,
@@ -114,7 +114,7 @@
         "gender": ["male"]
       },
       "templateTokens": [
-        { "kind": "text", "value": "10대 후반 남성 흐름에서는 빠르게 증명하고 싶은 마음이 커질 수 있어요. 기본기를 지키면 실력이 더 안정적으로 보입니다." }
+        { "kind": "text", "value": "10대 후반 남성 흐름에서는 빠르게 증명하고 싶은 마음이 커질 수 있어요." }
       ],
       "tags": [],
       "aiGenerated": true,
@@ -139,7 +139,7 @@
         "gender": ["neutral"]
       },
       "templateTokens": [
-        { "kind": "text", "value": "10대 후반 흐름에서는 선택지가 넓어지며 마음도 바빠질 수 있어요. 작은 기준을 세우면 방향을 고르기 쉬워집니다." }
+        { "kind": "text", "value": "10대 후반 흐름에서는 선택지가 넓어지며 마음도 바빠질 수 있어요." }
       ],
       "tags": [],
       "aiGenerated": true,
@@ -160,7 +160,7 @@
       "axis": { "category": "overall", "period": "life", "depth": "brief" },
       "gating": { "birthSeason": ["autumn"], "currentSeason": ["autumn"] },
       "templateTokens": [
-        { "kind": "text", "value": "타고난 정리감과 현재의 결실 흐름이 잘 맞아요. 마무리할 일을 선명하게 고르면 성과가 차분히 드러납니다." }
+        { "kind": "text", "value": "마무리할 일을 선명하게 고르면 성과가 차분히 드러납니다." }
       ],
       "tags": [],
       "aiGenerated": true,
@@ -181,7 +181,7 @@
       "axis": { "category": "overall", "period": "life", "depth": "brief" },
       "gating": { "birthSeason": ["autumn"], "currentSeason": ["spring"] },
       "templateTokens": [
-        { "kind": "text", "value": "정리하려는 성향과 새로 시작하는 흐름이 함께 와요. 바로 확장하기보다 작은 실험으로 방향을 확인하면 좋아요." }
+        { "kind": "text", "value": "바로 확장하기보다 작은 실험으로 방향을 확인하면 좋아요." }
       ],
       "tags": [],
       "aiGenerated": true,
@@ -202,7 +202,7 @@
       "axis": { "category": "overall", "period": "life", "depth": "brief" },
       "gating": { "birthSeason": ["autumn"], "currentSeason": ["summer"] },
       "templateTokens": [
-        { "kind": "text", "value": "차분히 정리하려는 힘에 뜨거운 활동성이 더해져요. 속도를 올리되 기준을 잃지 않으면 좋은 흐름입니다." }
+        { "kind": "text", "value": "차분히 정리하려는 힘에 뜨거운 활동성이 더해져요." }
       ],
       "tags": [],
       "aiGenerated": true,
@@ -223,7 +223,7 @@
       "axis": { "category": "overall", "period": "life", "depth": "brief" },
       "gating": { "birthSeason": ["autumn"], "currentSeason": ["winter"] },
       "templateTokens": [
-        { "kind": "text", "value": "정리와 휴식의 흐름이 함께 들어와요. 무리해서 새로 벌이기보다 생각과 공간을 비우면 다음 선택이 쉬워집니다." }
+        { "kind": "text", "value": "정리와 휴식의 흐름이 함께 들어와요." }
       ],
       "tags": [],
       "aiGenerated": true,
@@ -244,7 +244,7 @@
       "axis": { "category": "overall", "period": "life", "depth": "brief" },
       "gating": { "birthSeason": ["spring"], "currentSeason": ["autumn"] },
       "templateTokens": [
-        { "kind": "text", "value": "자라려는 성향에 정리와 결실의 흐름이 더해져요. 새로 늘리기보다 이미 키운 것을 다듬기 좋은 시기예요." }
+        { "kind": "text", "value": "새로 늘리기보다 이미 키운 것을 다듬기 좋은 시기예요." }
       ],
       "tags": [],
       "aiGenerated": true,
@@ -265,7 +265,7 @@
       "axis": { "category": "overall", "period": "life", "depth": "brief" },
       "gating": { "birthSeason": ["spring"], "currentSeason": ["summer"] },
       "templateTokens": [
-        { "kind": "text", "value": "성장하려는 힘에 활동성이 붙는 흐름이에요. 좋은 기회가 와도 체력과 시간을 함께 계산하면 더 오래 갑니다." }
+        { "kind": "text", "value": "좋은 기회가 와도 체력과 시간을 함께 계산하면 더 오래 갑니다." }
       ],
       "tags": [],
       "aiGenerated": true,
@@ -286,7 +286,7 @@
       "axis": { "category": "overall", "period": "life", "depth": "brief" },
       "gating": { "birthSeason": ["spring"], "currentSeason": ["winter"] },
       "templateTokens": [
-        { "kind": "text", "value": "자라려는 마음과 쉬어가야 하는 흐름이 함께 와요. 잠시 느려져도 준비를 쌓는 시간으로 보면 좋습니다." }
+        { "kind": "text", "value": "잠시 느려져도 준비를 쌓는 시간으로 보면 좋습니다." }
       ],
       "tags": [],
       "aiGenerated": true,
@@ -307,7 +307,7 @@
       "axis": { "category": "overall", "period": "life", "depth": "brief" },
       "gating": { "birthSeason": ["summer"], "currentSeason": ["autumn"] },
       "templateTokens": [
-        { "kind": "text", "value": "뜨거운 추진력에 정리의 흐름이 더해져요. 성과를 급하게 넓히기보다 중요한 결과를 골라 마무리하세요." }
+        { "kind": "text", "value": "성과를 급하게 넓히기보다 중요한 결과를 골라 마무리하세요." }
       ],
       "tags": [],
       "aiGenerated": true,
@@ -328,7 +328,7 @@
       "axis": { "category": "overall", "period": "life", "depth": "brief" },
       "gating": { "birthSeason": ["summer"], "currentSeason": ["spring"] },
       "templateTokens": [
-        { "kind": "text", "value": "활동성과 시작의 흐름이 함께 커져요. 마음이 앞서기 쉬우니 우선순위를 정하면 기회가 더 분명해집니다." }
+        { "kind": "text", "value": "마음이 앞서기 쉬우니 우선순위를 정하면 기회가 더 분명해집니다." }
       ],
       "tags": [],
       "aiGenerated": true,
@@ -349,7 +349,7 @@
       "axis": { "category": "overall", "period": "life", "depth": "brief" },
       "gating": { "birthSeason": ["summer"], "currentSeason": ["summer"] },
       "templateTokens": [
-        { "kind": "text", "value": "타고난 활동성과 현재의 열기가 잘 맞아요. 다만 과열되기 쉬우니 쉬는 시간을 미리 정하면 흐름이 안정됩니다." }
+        { "kind": "text", "value": "다만 과열되기 쉬우니 쉬는 시간을 미리 정하면 흐름이 안정됩니다." }
       ],
       "tags": [],
       "aiGenerated": true,
@@ -370,7 +370,7 @@
       "axis": { "category": "overall", "period": "life", "depth": "brief" },
       "gating": { "birthSeason": ["summer"], "currentSeason": ["winter"] },
       "templateTokens": [
-        { "kind": "text", "value": "활동하려는 마음과 쉬어가야 하는 흐름이 부딪힐 수 있어요. 당장 밀어붙이기보다 에너지를 아껴 쓰세요." }
+        { "kind": "text", "value": "활동하려는 마음과 쉬어가야 하는 흐름이 부딪힐 수 있어요." }
       ],
       "tags": [],
       "aiGenerated": true,
@@ -391,7 +391,7 @@
       "axis": { "category": "overall", "period": "life", "depth": "brief" },
       "gating": { "birthSeason": ["winter"], "currentSeason": ["autumn"] },
       "templateTokens": [
-        { "kind": "text", "value": "깊게 생각하는 성향에 정리의 흐름이 더해져요. 조용히 점검하고 덜어내면 다음 선택이 가벼워집니다." }
+        { "kind": "text", "value": "조용히 점검하고 덜어내면 다음 선택이 가벼워집니다." }
       ],
       "tags": [],
       "aiGenerated": true,
@@ -412,7 +412,7 @@
       "axis": { "category": "overall", "period": "life", "depth": "brief" },
       "gating": { "birthSeason": ["winter"], "currentSeason": ["spring"] },
       "templateTokens": [
-        { "kind": "text", "value": "깊게 준비한 것이 새롭게 움직이기 시작하는 흐름이에요. 처음부터 크게 펼치기보다 작은 시작이 잘 맞습니다." }
+        { "kind": "text", "value": "깊게 준비한 것이 새롭게 움직이기 시작하는 흐름이에요." }
       ],
       "tags": [],
       "aiGenerated": true,
@@ -433,7 +433,7 @@
       "axis": { "category": "overall", "period": "life", "depth": "brief" },
       "gating": { "birthSeason": ["winter"], "currentSeason": ["summer"] },
       "templateTokens": [
-        { "kind": "text", "value": "차분한 성향에 활동적인 흐름이 들어와요. 갑자기 속도를 올리기보다 몸이 따라올 만큼만 움직이면 좋습니다." }
+        { "kind": "text", "value": "갑자기 속도를 올리기보다 몸이 따라올 만큼만 움직이면 좋습니다." }
       ],
       "tags": [],
       "aiGenerated": true,
@@ -454,7 +454,7 @@
       "axis": { "category": "overall", "period": "life", "depth": "brief" },
       "gating": { "birthSeason": ["winter"], "currentSeason": ["winter"] },
       "templateTokens": [
-        { "kind": "text", "value": "깊게 쉬고 정리하는 흐름이 잘 맞아요. 당장 드러나는 성과보다 준비와 회복에 집중하면 다음 힘이 쌓입니다." }
+        { "kind": "text", "value": "당장 드러나는 성과보다 준비와 회복에 집중하면 다음 힘이 쌓입니다." }
       ],
       "tags": [],
       "aiGenerated": true,
