@@ -6,29 +6,110 @@
     {
       "schemaVersion": "spring-ts.narrative-fragment.v1",
       "fragmentId": "romance.life.expert.adult.001",
-      "axis": { "category": "romance", "period": "life", "depth": "expert" },
-      "gating": { "ageBand": ["20-29", "30-39", "40-54", "55-69", "70+"] },
+      "axis": {
+        "category": "romance",
+        "period": "life",
+        "depth": "expert"
+      },
+      "gating": {
+        "ageBand": [
+          "20-29",
+          "30-39",
+          "40-54",
+          "55-69",
+          "70+"
+        ]
+      },
       "templateTokens": [
-        { "kind": "text", "value": "인생 전반의 인연 흐름은 " },
-        { "kind": "tag", "tagId": "baeujagung", "label": "배우자궁" },
-        { "kind": "text", "value": "의 모양과 가장 가까이 맞물려 작용해요. 일지 자리의 안정성이 짝과의 거리·신뢰의 토대를 가늠하는 첫 단서가 돼요." },
-        { "kind": "text", "value": " 그 위에 " },
-        { "kind": "tag", "tagId": "jeonggwan", "label": "정관" },
-        { "kind": "text", "value": "이 또렷하면 약속·책임의 자리가 단단해지고, " },
-        { "kind": "tag", "tagId": "pyeongwan", "label": "편관" },
-        { "kind": "text", "value": "이 강하면 강한 결단의 자리에서 관계의 색이 빛을 내요." },
-        { "kind": "text", "value": " 표현의 무늬로는 " },
-        { "kind": "tag", "tagId": "sikshin", "label": "식신" },
-        { "kind": "text", "value": "과 " },
-        { "kind": "tag", "tagId": "sanggwan", "label": "상관" },
-        { "kind": "text", "value": "이 인연의 색을 더해 줘요." },
-        { "kind": "text", "value": " 매력의 무늬로는 " },
-        { "kind": "tag", "tagId": "dohwa", "label": "도화" },
-        { "kind": "text", "value": "와 " },
-        { "kind": "tag", "tagId": "hongyeom", "label": "홍염" },
-        { "kind": "text", "value": "이 어떤 자리에 머물러 있는지를 함께 살펴보면, 평생의 인연 흐름이 자연스럽게 그려져요." }
+        {
+          "kind": "text",
+          "value": "인생 전반의 인연 흐름은 "
+        },
+        {
+          "kind": "tag",
+          "tagId": "baeujagung",
+          "label": "배우자궁"
+        },
+        {
+          "kind": "text",
+          "value": "의 모양과 가장 가까이 맞물려 작용해요.\n\n일지 자리의 안정성이 짝과의 거리·신뢰의 토대를 가늠하는 첫 단서가 돼요.\n\n"
+        },
+        {
+          "kind": "text",
+          "value": " 그 위에 "
+        },
+        {
+          "kind": "tag",
+          "tagId": "jeonggwan",
+          "label": "정관"
+        },
+        {
+          "kind": "text",
+          "value": "이 또렷하면 약속·책임의 자리가 단단해지고, "
+        },
+        {
+          "kind": "tag",
+          "tagId": "pyeongwan",
+          "label": "편관"
+        },
+        {
+          "kind": "text",
+          "value": "이 강하면 강한 결단의 자리에서 관계의 색이 빛을 내요.\n\n"
+        },
+        {
+          "kind": "text",
+          "value": " 표현의 무늬로는 "
+        },
+        {
+          "kind": "tag",
+          "tagId": "sikshin",
+          "label": "식신"
+        },
+        {
+          "kind": "text",
+          "value": "과 "
+        },
+        {
+          "kind": "tag",
+          "tagId": "sanggwan",
+          "label": "상관"
+        },
+        {
+          "kind": "text",
+          "value": "이 인연의 색을 더해 줘요.\n\n"
+        },
+        {
+          "kind": "text",
+          "value": " 매력의 무늬로는 "
+        },
+        {
+          "kind": "tag",
+          "tagId": "dohwa",
+          "label": "도화"
+        },
+        {
+          "kind": "text",
+          "value": "와 "
+        },
+        {
+          "kind": "tag",
+          "tagId": "hongyeom",
+          "label": "홍염"
+        },
+        {
+          "kind": "text",
+          "value": "이 어떤 자리에 머물러 있는지를 함께 살펴보면, 평생의 인연 흐름이 자연스럽게 그려져요."
+        }
       ],
-      "tags": ["baeujagung", "jeonggwan", "pyeongwan", "sikshin", "sanggwan", "dohwa", "hongyeom"],
+      "tags": [
+        "baeujagung",
+        "jeonggwan",
+        "pyeongwan",
+        "sikshin",
+        "sanggwan",
+        "dohwa",
+        "hongyeom"
+      ],
       "numericalEvidence": [
         {
           "label": "현재 나이",
@@ -136,24 +217,82 @@
     {
       "schemaVersion": "spring-ts.narrative-fragment.v1",
       "fragmentId": "romance.life.expert.teen.001",
-      "axis": { "category": "romance", "period": "life", "depth": "expert" },
-      "gating": { "ageBand": ["10-19"] },
+      "axis": {
+        "category": "romance",
+        "period": "life",
+        "depth": "expert"
+      },
+      "gating": {
+        "ageBand": [
+          "10-19"
+        ]
+      },
       "templateTokens": [
-        { "kind": "text", "value": "10대의 인연 흐름은 본격적인 짝의 자리보다 또래·집단의 사이를 먼저 풀어요. 이 시기엔 " },
-        { "kind": "tag", "tagId": "sikshin", "label": "식신" },
-        { "kind": "text", "value": "과 " },
-        { "kind": "tag", "tagId": "sanggwan", "label": "상관" },
-        { "kind": "text", "value": "이 만들어 내는 표현의 색이 친구와의 신뢰를 잇는 다리예요." },
-        { "kind": "text", "value": " 매력 신호인 " },
-        { "kind": "tag", "tagId": "dohwa", "label": "도화" },
-        { "kind": "text", "value": "와 " },
-        { "kind": "tag", "tagId": "hongyeom", "label": "홍염" },
-        { "kind": "text", "value": "이 또렷하면 무대·발표·창작 같은 활동에서 자기 색이 또렷해져요. 책임 기운인 " },
-        { "kind": "tag", "tagId": "jeonggwan", "label": "정관" },
-        { "kind": "text", "value": "은 진로·약속의 책임감으로 자라기 시작해요." },
-        { "kind": "text", "value": " 짝과 관련한 큰 결정은 한참 뒤의 이야기로 두고, 지금은 자기다움을 다듬는 시간을 충분히 누리면 좋아요." }
+        {
+          "kind": "text",
+          "value": "10대의 인연 흐름은 본격적인 짝의 자리보다 또래·집단의 사이를 먼저 풀어요.\n\n이 시기엔 "
+        },
+        {
+          "kind": "tag",
+          "tagId": "sikshin",
+          "label": "식신"
+        },
+        {
+          "kind": "text",
+          "value": "과 "
+        },
+        {
+          "kind": "tag",
+          "tagId": "sanggwan",
+          "label": "상관"
+        },
+        {
+          "kind": "text",
+          "value": "이 만들어 내는 표현의 색이 친구와의 신뢰를 잇는 다리예요.\n\n"
+        },
+        {
+          "kind": "text",
+          "value": " 매력 신호인 "
+        },
+        {
+          "kind": "tag",
+          "tagId": "dohwa",
+          "label": "도화"
+        },
+        {
+          "kind": "text",
+          "value": "와 "
+        },
+        {
+          "kind": "tag",
+          "tagId": "hongyeom",
+          "label": "홍염"
+        },
+        {
+          "kind": "text",
+          "value": "이 또렷하면 무대·발표·창작 같은 활동에서 자기 색이 또렷해져요.\n\n책임 기운인 "
+        },
+        {
+          "kind": "tag",
+          "tagId": "jeonggwan",
+          "label": "정관"
+        },
+        {
+          "kind": "text",
+          "value": "은 진로·약속의 책임감으로 자라기 시작해요.\n\n"
+        },
+        {
+          "kind": "text",
+          "value": " 짝과 관련한 큰 결정은 한참 뒤의 이야기로 두고, 지금은 자기다움을 다듬는 시간을 충분히 누리면 좋아요."
+        }
       ],
-      "tags": ["sikshin", "sanggwan", "dohwa", "hongyeom", "jeonggwan"],
+      "tags": [
+        "sikshin",
+        "sanggwan",
+        "dohwa",
+        "hongyeom",
+        "jeonggwan"
+      ],
       "aiGenerated": true,
       "sourceTier": {
         "tier": "T1_HYPOTHESIS",
@@ -169,22 +308,75 @@
     {
       "schemaVersion": "spring-ts.narrative-fragment.v1",
       "fragmentId": "romance.life.expert.young_adult.aligned.001",
-      "axis": { "category": "romance", "period": "life", "depth": "expert" },
-      "gating": { "ageBand": ["20-29"], "yongshinAlignment": ["aligned"] },
+      "axis": {
+        "category": "romance",
+        "period": "life",
+        "depth": "expert"
+      },
+      "gating": {
+        "ageBand": [
+          "20-29"
+        ],
+        "yongshinAlignment": [
+          "aligned"
+        ]
+      },
       "templateTokens": [
-        { "kind": "text", "value": "20대의 인연 흐름이 사주의 핵심 기운과 잘 맞물려 흘러가는 자리예요. " },
-        { "kind": "tag", "tagId": "baeujagung", "label": "배우자궁" },
-        { "kind": "text", "value": "의 토대가 안정적이고, " },
-        { "kind": "tag", "tagId": "jeonggwan", "label": "정관" },
-        { "kind": "text", "value": "이나 " },
-        { "kind": "tag", "tagId": "sikshin", "label": "식신" },
-        { "kind": "text", "value": "이 부드럽게 자리를 잡고 있어요." },
-        { "kind": "text", "value": " 매력 신호인 " },
-        { "kind": "tag", "tagId": "dohwa", "label": "도화" },
-        { "kind": "text", "value": "가 함께 비추면 사람을 모으는 자리가 자주 열리고, 그 자리에서 색이 맞는 인연이 자연스럽게 머물러요." },
-        { "kind": "text", "value": " 큰 약속의 시기를 못 박지 않아도 흐름이 무르익을 때 길이 자연스럽게 보이는 시기예요. 자기를 단단히 가꾸는 일이 곧 가장 큰 인연 자산이라는 점을 떠올리면, 이 시기의 호흡이 한결 또렷해져요." }
+        {
+          "kind": "text",
+          "value": "20대의 인연 흐름이 사주의 핵심 기운과 잘 맞물려 흘러가는 자리예요.\n\n"
+        },
+        {
+          "kind": "tag",
+          "tagId": "baeujagung",
+          "label": "배우자궁"
+        },
+        {
+          "kind": "text",
+          "value": "의 토대가 안정적이고, "
+        },
+        {
+          "kind": "tag",
+          "tagId": "jeonggwan",
+          "label": "정관"
+        },
+        {
+          "kind": "text",
+          "value": "이나 "
+        },
+        {
+          "kind": "tag",
+          "tagId": "sikshin",
+          "label": "식신"
+        },
+        {
+          "kind": "text",
+          "value": "이 부드럽게 자리를 잡고 있어요.\n\n"
+        },
+        {
+          "kind": "text",
+          "value": " 매력 신호인 "
+        },
+        {
+          "kind": "tag",
+          "tagId": "dohwa",
+          "label": "도화"
+        },
+        {
+          "kind": "text",
+          "value": "가 함께 비추면 사람을 모으는 자리가 자주 열리고, 그 자리에서 색이 맞는 인연이 자연스럽게 머물러요.\n\n"
+        },
+        {
+          "kind": "text",
+          "value": " 큰 약속의 시기를 못 박지 않아도 흐름이 무르익을 때 길이 자연스럽게 보이는 시기예요.\n\n자기를 단단히 가꾸는 일이 곧 가장 큰 인연 자산이라는 점을 떠올리면, 이 시기의 호흡이 한결 또렷해져요."
+        }
       ],
-      "tags": ["baeujagung", "jeonggwan", "sikshin", "dohwa"],
+      "tags": [
+        "baeujagung",
+        "jeonggwan",
+        "sikshin",
+        "dohwa"
+      ],
       "aiGenerated": true,
       "sourceTier": {
         "tier": "T1_HYPOTHESIS",
@@ -200,22 +392,76 @@
     {
       "schemaVersion": "spring-ts.narrative-fragment.v1",
       "fragmentId": "romance.life.expert.midlife.aligned.001",
-      "axis": { "category": "romance", "period": "life", "depth": "expert" },
-      "gating": { "ageBand": ["30-39", "40-54"], "yongshinAlignment": ["aligned"] },
+      "axis": {
+        "category": "romance",
+        "period": "life",
+        "depth": "expert"
+      },
+      "gating": {
+        "ageBand": [
+          "30-39",
+          "40-54"
+        ],
+        "yongshinAlignment": [
+          "aligned"
+        ]
+      },
       "templateTokens": [
-        { "kind": "text", "value": "장년기의 인연 흐름이 사주의 핵심 기운과 든든히 맞물려 있는 자리예요. " },
-        { "kind": "tag", "tagId": "baeujagung", "label": "배우자궁" },
-        { "kind": "text", "value": "이 안정적으로 자리하고, " },
-        { "kind": "tag", "tagId": "jeonggwan", "label": "정관" },
-        { "kind": "text", "value": "의 기운이 약속·신뢰의 토대를 단단히 받쳐 줘요." },
-        { "kind": "text", "value": " 표현 기운인 " },
-        { "kind": "tag", "tagId": "sikshin", "label": "식신" },
-        { "kind": "text", "value": "이 곁에 있으면 곁의 사람에게 따뜻한 말이 자주 흘러가요. 매력 신호인 " },
-        { "kind": "tag", "tagId": "hongyeom", "label": "홍염" },
-        { "kind": "text", "value": "이 함께 머물면 오래된 관계 안에서도 새로운 다정함이 자라요." },
-        { "kind": "text", "value": " 큰 결정의 시기를 미리 단정하지 않아도 흐름이 무르익을 때 자연스럽게 길이 열려요. 갈등이 와도 결국 신뢰가 다시 자리를 잡는 모양이라, 작은 표현을 자주 두는 습관이 가장 큰 자산이 돼요." }
+        {
+          "kind": "text",
+          "value": "장년기의 인연 흐름이 사주의 핵심 기운과 든든히 맞물려 있는 자리예요.\n\n"
+        },
+        {
+          "kind": "tag",
+          "tagId": "baeujagung",
+          "label": "배우자궁"
+        },
+        {
+          "kind": "text",
+          "value": "이 안정적으로 자리하고, "
+        },
+        {
+          "kind": "tag",
+          "tagId": "jeonggwan",
+          "label": "정관"
+        },
+        {
+          "kind": "text",
+          "value": "의 기운이 약속·신뢰의 토대를 단단히 받쳐 줘요.\n\n"
+        },
+        {
+          "kind": "text",
+          "value": " 표현 기운인 "
+        },
+        {
+          "kind": "tag",
+          "tagId": "sikshin",
+          "label": "식신"
+        },
+        {
+          "kind": "text",
+          "value": "이 곁에 있으면 곁의 사람에게 따뜻한 말이 자주 흘러가요.\n\n매력 신호인 "
+        },
+        {
+          "kind": "tag",
+          "tagId": "hongyeom",
+          "label": "홍염"
+        },
+        {
+          "kind": "text",
+          "value": "이 함께 머물면 오래된 관계 안에서도 새로운 다정함이 자라요.\n\n"
+        },
+        {
+          "kind": "text",
+          "value": " 큰 결정의 시기를 미리 단정하지 않아도 흐름이 무르익을 때 자연스럽게 길이 열려요.\n\n갈등이 와도 결국 신뢰가 다시 자리를 잡는 모양이라, 작은 표현을 자주 두는 습관이 가장 큰 자산이 돼요."
+        }
       ],
-      "tags": ["baeujagung", "jeonggwan", "sikshin", "hongyeom"],
+      "tags": [
+        "baeujagung",
+        "jeonggwan",
+        "sikshin",
+        "hongyeom"
+      ],
       "aiGenerated": true,
       "sourceTier": {
         "tier": "T1_HYPOTHESIS",
@@ -231,22 +477,76 @@
     {
       "schemaVersion": "spring-ts.narrative-fragment.v1",
       "fragmentId": "romance.life.expert.midlife.conflicting.001",
-      "axis": { "category": "romance", "period": "life", "depth": "expert" },
-      "gating": { "ageBand": ["30-39", "40-54"], "yongshinAlignment": ["conflicting"] },
+      "axis": {
+        "category": "romance",
+        "period": "life",
+        "depth": "expert"
+      },
+      "gating": {
+        "ageBand": [
+          "30-39",
+          "40-54"
+        ],
+        "yongshinAlignment": [
+          "conflicting"
+        ]
+      },
       "templateTokens": [
-        { "kind": "text", "value": "장년기 인연의 흐름이 사주의 핵심 기운과 약간 어긋나는 자리에 있어요. 이 모양은 관계가 막혀 있다는 뜻이 아니라, " },
-        { "kind": "tag", "tagId": "baeujagung", "label": "배우자궁" },
-        { "kind": "text", "value": "의 호흡을 천천히 다듬어야 더 단단해진다는 신호로 풀려요." },
-        { "kind": "text", "value": " " },
-        { "kind": "tag", "tagId": "pyeongwan", "label": "편관" },
-        { "kind": "text", "value": "이나 " },
-        { "kind": "tag", "tagId": "sanggwan", "label": "상관" },
-        { "kind": "text", "value": "의 기운이 강하게 비치면 빠른 결단이나 날카로운 표현이 잠깐의 거리감을 만들 수 있으니, 한 박자 늦추는 습관이 큰 도움이 돼요." },
-        { "kind": "text", "value": " " },
-        { "kind": "tag", "tagId": "jeonggwan", "label": "정관" },
-        { "kind": "text", "value": "의 기운을 자주 빌려 약속·정성의 자리를 늘리면, 인연의 흐름이 다시 안정된 자리로 돌아와요. 시기마다 거리감이 다른 모양으로 흐를 수 있다는 점을 받아들이면, 어느 시기에도 흔들림이 줄어요." }
+        {
+          "kind": "text",
+          "value": "장년기 인연의 흐름이 사주의 핵심 기운과 약간 어긋나는 자리에 있어요.\n\n이 모양은 관계가 막혀 있다는 뜻이 아니라, "
+        },
+        {
+          "kind": "tag",
+          "tagId": "baeujagung",
+          "label": "배우자궁"
+        },
+        {
+          "kind": "text",
+          "value": "의 호흡을 천천히 다듬어야 더 단단해진다는 신호로 풀려요.\n\n"
+        },
+        {
+          "kind": "text",
+          "value": " "
+        },
+        {
+          "kind": "tag",
+          "tagId": "pyeongwan",
+          "label": "편관"
+        },
+        {
+          "kind": "text",
+          "value": "이나 "
+        },
+        {
+          "kind": "tag",
+          "tagId": "sanggwan",
+          "label": "상관"
+        },
+        {
+          "kind": "text",
+          "value": "의 기운이 강하게 비치면 빠른 결단이나 날카로운 표현이 잠깐의 거리감을 만들 수 있으니, 한 박자 늦추는 습관이 큰 도움이 돼요.\n\n"
+        },
+        {
+          "kind": "text",
+          "value": " "
+        },
+        {
+          "kind": "tag",
+          "tagId": "jeonggwan",
+          "label": "정관"
+        },
+        {
+          "kind": "text",
+          "value": "의 기운을 자주 빌려 약속·정성의 자리를 늘리면, 인연의 흐름이 다시 안정된 자리로 돌아와요.\n\n시기마다 거리감이 다른 모양으로 흐를 수 있다는 점을 받아들이면, 어느 시기에도 흔들림이 줄어요."
+        }
       ],
-      "tags": ["baeujagung", "pyeongwan", "sanggwan", "jeonggwan"],
+      "tags": [
+        "baeujagung",
+        "pyeongwan",
+        "sanggwan",
+        "jeonggwan"
+      ],
       "aiGenerated": true,
       "sourceTier": {
         "tier": "T1_HYPOTHESIS",
@@ -262,22 +562,73 @@
     {
       "schemaVersion": "spring-ts.narrative-fragment.v1",
       "fragmentId": "romance.life.expert.late_life.001",
-      "axis": { "category": "romance", "period": "life", "depth": "expert" },
-      "gating": { "ageBand": ["55-69", "70+"] },
+      "axis": {
+        "category": "romance",
+        "period": "life",
+        "depth": "expert"
+      },
+      "gating": {
+        "ageBand": [
+          "55-69",
+          "70+"
+        ]
+      },
       "templateTokens": [
-        { "kind": "text", "value": "후반기 인연 흐름은 " },
-        { "kind": "tag", "tagId": "baeujagung", "label": "배우자궁" },
-        { "kind": "text", "value": "의 자리가 한층 깊어지는 시기예요. 새로운 자극보다는 오래 함께한 사람과의 정이 한 번 더 또렷해져요." },
-        { "kind": "text", "value": " " },
-        { "kind": "tag", "tagId": "jeonggwan", "label": "정관" },
-        { "kind": "text", "value": "의 기운이 든든하면 가족·반려와의 신뢰가 단단해지고, 자녀와 후세를 살피는 " },
-        { "kind": "tag", "tagId": "janyeogung", "label": "자녀궁" },
-        { "kind": "text", "value": "의 자리에서는 오래 키운 마음이 결실로 돌아오는 시기로 풀려요. " },
-        { "kind": "tag", "tagId": "sikshin", "label": "식신" },
-        { "kind": "text", "value": "의 색이 살아 있으면 일상 속 다정한 표현이 잔잔히 흘러가요." },
-        { "kind": "text", "value": " 자리가 비어 있던 부분도 시간이 흐르며 작은 다정함으로 채워지는 모양이라, 큰 결정보다는 곁의 사람에게 시선을 자주 두는 일이 가장 큰 자산이 돼요." }
+        {
+          "kind": "text",
+          "value": "후반기 인연 흐름은 "
+        },
+        {
+          "kind": "tag",
+          "tagId": "baeujagung",
+          "label": "배우자궁"
+        },
+        {
+          "kind": "text",
+          "value": "의 자리가 한층 깊어지는 시기예요.\n\n새로운 자극보다는 오래 함께한 사람과의 정이 한 번 더 또렷해져요.\n\n"
+        },
+        {
+          "kind": "text",
+          "value": " "
+        },
+        {
+          "kind": "tag",
+          "tagId": "jeonggwan",
+          "label": "정관"
+        },
+        {
+          "kind": "text",
+          "value": "의 기운이 든든하면 가족·반려와의 신뢰가 단단해지고, 자녀와 후세를 살피는 "
+        },
+        {
+          "kind": "tag",
+          "tagId": "janyeogung",
+          "label": "자녀궁"
+        },
+        {
+          "kind": "text",
+          "value": "의 자리에서는 오래 키운 마음이 결실로 돌아오는 시기로 풀려요.\n\n"
+        },
+        {
+          "kind": "tag",
+          "tagId": "sikshin",
+          "label": "식신"
+        },
+        {
+          "kind": "text",
+          "value": "의 색이 살아 있으면 일상 속 다정한 표현이 잔잔히 흘러가요.\n\n"
+        },
+        {
+          "kind": "text",
+          "value": " 자리가 비어 있던 부분도 시간이 흐르며 작은 다정함으로 채워지는 모양이라, 큰 결정보다는 곁의 사람에게 시선을 자주 두는 일이 가장 큰 자산이 돼요."
+        }
       ],
-      "tags": ["baeujagung", "jeonggwan", "janyeogung", "sikshin"],
+      "tags": [
+        "baeujagung",
+        "jeonggwan",
+        "janyeogung",
+        "sikshin"
+      ],
       "aiGenerated": true,
       "sourceTier": {
         "tier": "T1_HYPOTHESIS",
@@ -293,20 +644,64 @@
     {
       "schemaVersion": "spring-ts.narrative-fragment.v1",
       "fragmentId": "romance.life.expert.dohwa_strong.001",
-      "axis": { "category": "romance", "period": "life", "depth": "expert" },
-      "gating": { "ageBand": ["20-29", "30-39", "40-54"] },
+      "axis": {
+        "category": "romance",
+        "period": "life",
+        "depth": "expert"
+      },
+      "gating": {
+        "ageBand": [
+          "20-29",
+          "30-39",
+          "40-54"
+        ]
+      },
       "templateTokens": [
-        { "kind": "text", "value": "사람들의 시선이 자주 모이는 무늬가 또렷한 사주예요. " },
-        { "kind": "tag", "tagId": "dohwa", "label": "도화" },
-        { "kind": "text", "value": "의 기운이 강하면 무대·서비스·창작 자리에서 매력이 쉽게 빛나고, " },
-        { "kind": "tag", "tagId": "hongyeom", "label": "홍염" },
-        { "kind": "text", "value": "이 함께 머물면 그 빛이 한층 부드러워져요." },
-        { "kind": "text", "value": " 인연의 자리가 자주 바뀌는 흐름으로 풀릴 수 있으니, " },
-        { "kind": "tag", "tagId": "jeonggwan", "label": "정관" },
-        { "kind": "text", "value": "처럼 약속·책임의 무게를 함께 길러 두면 관계의 토대가 흔들리지 않아요." },
-        { "kind": "text", "value": " 매력의 색을 자기 일·표현에 잘 쓰면, 사람과의 거리가 자연스럽게 단단해져요. 화려한 자리만 좇는 마음만 다스리면, 평생의 인연 자산이 한결 깊어지는 흐름이에요." }
+        {
+          "kind": "text",
+          "value": "사람들의 시선이 자주 모이는 무늬가 또렷한 사주예요. "
+        },
+        {
+          "kind": "tag",
+          "tagId": "dohwa",
+          "label": "도화"
+        },
+        {
+          "kind": "text",
+          "value": "의 기운이 강하면 무대·서비스·창작 자리에서 매력이 쉽게 빛나고, "
+        },
+        {
+          "kind": "tag",
+          "tagId": "hongyeom",
+          "label": "홍염"
+        },
+        {
+          "kind": "text",
+          "value": "이 함께 머물면 그 빛이 한층 부드러워져요.\n\n"
+        },
+        {
+          "kind": "text",
+          "value": " 인연의 자리가 자주 바뀌는 흐름으로 풀릴 수 있으니, "
+        },
+        {
+          "kind": "tag",
+          "tagId": "jeonggwan",
+          "label": "정관"
+        },
+        {
+          "kind": "text",
+          "value": "처럼 약속·책임의 무게를 함께 길러 두면 관계의 토대가 흔들리지 않아요.\n\n"
+        },
+        {
+          "kind": "text",
+          "value": " 매력의 색을 자기 일·표현에 잘 쓰면, 사람과의 거리가 자연스럽게 단단해져요.\n\n화려한 자리만 좇는 마음만 다스리면, 평생의 인연 자산이 한결 깊어지는 흐름이에요."
+        }
       ],
-      "tags": ["dohwa", "hongyeom", "jeonggwan"],
+      "tags": [
+        "dohwa",
+        "hongyeom",
+        "jeonggwan"
+      ],
       "aiGenerated": true,
       "sourceTier": {
         "tier": "T1_HYPOTHESIS",
@@ -322,20 +717,68 @@
     {
       "schemaVersion": "spring-ts.narrative-fragment.v1",
       "fragmentId": "romance.life.expert.adult.strong.001",
-      "axis": { "category": "romance", "period": "life", "depth": "expert" },
-      "gating": { "ageBand": ["20-29", "30-39", "40-54"], "dayMasterStrength": ["STRONG", "EXTREME_STRONG"] },
+      "axis": {
+        "category": "romance",
+        "period": "life",
+        "depth": "expert"
+      },
+      "gating": {
+        "ageBand": [
+          "20-29",
+          "30-39",
+          "40-54"
+        ],
+        "dayMasterStrength": [
+          "STRONG",
+          "EXTREME_STRONG"
+        ]
+      },
       "templateTokens": [
-        { "kind": "text", "value": "사주의 일간이 강한 사람이라, 인연 자리에서도 먼저 다가가고 자기 색을 분명히 드러내는 흐름이 잘 살아 있어요. " },
-        { "kind": "tag", "tagId": "baeujagung", "label": "배우자궁" },
-        { "kind": "text", "value": "의 자리에서 결단·표현이 또렷하게 드러나는 모양이에요." },
-        { "kind": "text", "value": " 책임 기운인 " },
-        { "kind": "tag", "tagId": "jeonggwan", "label": "정관" },
-        { "kind": "text", "value": "을 함께 챙기면 자기 주도성이 약속·신뢰로 잘 자리 잡고, 매력 신호인 " },
-        { "kind": "tag", "tagId": "dohwa", "label": "도화" },
-        { "kind": "text", "value": "가 함께 비치면 사람을 끌어모으는 기회가 자주 만들어져요." },
-        { "kind": "text", "value": " 다만 자기 생각을 너무 강하게 밀어붙이면 곁의 사람이 거리를 둘 수 있어요. 한 박자 듣고, 곁의 신호를 받아들이는 여유도 남겨 두면 평생의 인연 자산을 길게 받쳐 줘요." }
+        {
+          "kind": "text",
+          "value": "사주의 일간이 강한 사람이라, 인연 자리에서도 먼저 다가가고 자기 색을 분명히 드러내는 흐름이 잘 살아 있어요.\n\n"
+        },
+        {
+          "kind": "tag",
+          "tagId": "baeujagung",
+          "label": "배우자궁"
+        },
+        {
+          "kind": "text",
+          "value": "의 자리에서 결단·표현이 또렷하게 드러나는 모양이에요.\n\n"
+        },
+        {
+          "kind": "text",
+          "value": " 책임 기운인 "
+        },
+        {
+          "kind": "tag",
+          "tagId": "jeonggwan",
+          "label": "정관"
+        },
+        {
+          "kind": "text",
+          "value": "을 함께 챙기면 자기 주도성이 약속·신뢰로 잘 자리 잡고, 매력 신호인 "
+        },
+        {
+          "kind": "tag",
+          "tagId": "dohwa",
+          "label": "도화"
+        },
+        {
+          "kind": "text",
+          "value": "가 함께 비치면 사람을 끌어모으는 기회가 자주 만들어져요.\n\n"
+        },
+        {
+          "kind": "text",
+          "value": " 다만 자기 생각을 너무 강하게 밀어붙이면 곁의 사람이 거리를 둘 수 있어요.\n\n한 박자 듣고, 곁의 신호를 받아들이는 여유도 남겨 두면 평생의 인연 자산을 길게 받쳐 줘요."
+        }
       ],
-      "tags": ["baeujagung", "jeonggwan", "dohwa"],
+      "tags": [
+        "baeujagung",
+        "jeonggwan",
+        "dohwa"
+      ],
       "aiGenerated": true,
       "sourceTier": {
         "tier": "T1_HYPOTHESIS",
@@ -351,22 +794,78 @@
     {
       "schemaVersion": "spring-ts.narrative-fragment.v1",
       "fragmentId": "romance.life.expert.adult.weak.001",
-      "axis": { "category": "romance", "period": "life", "depth": "expert" },
-      "gating": { "ageBand": ["20-29", "30-39", "40-54"], "dayMasterStrength": ["WEAK", "EXTREME_WEAK"] },
+      "axis": {
+        "category": "romance",
+        "period": "life",
+        "depth": "expert"
+      },
+      "gating": {
+        "ageBand": [
+          "20-29",
+          "30-39",
+          "40-54"
+        ],
+        "dayMasterStrength": [
+          "WEAK",
+          "EXTREME_WEAK"
+        ]
+      },
       "templateTokens": [
-        { "kind": "text", "value": "사주의 일간이 부드러운 사람이라, 인연 자리에서 먼저 손을 내밀기보다 다가오는 마음을 받아들이는 흐름이 자연스러워요. " },
-        { "kind": "tag", "tagId": "baeujagung", "label": "배우자궁" },
-        { "kind": "text", "value": "의 자리에서 들어오는 신호를 따뜻하게 맞이하는 모양이 또렷해요." },
-        { "kind": "text", "value": " 따뜻한 표현 기운인 " },
-        { "kind": "tag", "tagId": "sikshin", "label": "식신" },
-        { "kind": "text", "value": "이 살아 있으면 곁의 사람에게 한결같은 다정함이 자연스럽게 흘러가고, 책임 기운인 " },
-        { "kind": "tag", "tagId": "jeonggwan", "label": "정관" },
-        { "kind": "text", "value": "이 자리를 잡으면 신뢰의 토대가 단단해져요. 일을 함께 받쳐 주는 사람과의 자리인 " },
-        { "kind": "tag", "tagId": "nobokgung", "label": "노복궁" },
-        { "kind": "text", "value": "이 든든하면 가까운 곁의 사람들이 자연스럽게 손을 잡아 주는 자리가 자주 열려요." },
-        { "kind": "text", "value": " 다만 자기 마음을 표현하지 못하고 묵혀 두면 거리가 멀어질 수 있어요. 짧은 한마디라도 자기 색을 자주 드러내는 일이 평생의 관계 자산을 단단히 받쳐 주는 토대가 돼요." }
+        {
+          "kind": "text",
+          "value": "사주의 일간이 부드러운 사람이라, 인연 자리에서 먼저 손을 내밀기보다 다가오는 마음을 받아들이는 흐름이 자연스러워요.\n\n"
+        },
+        {
+          "kind": "tag",
+          "tagId": "baeujagung",
+          "label": "배우자궁"
+        },
+        {
+          "kind": "text",
+          "value": "의 자리에서 들어오는 신호를 따뜻하게 맞이하는 모양이 또렷해요.\n\n"
+        },
+        {
+          "kind": "text",
+          "value": " 따뜻한 표현 기운인 "
+        },
+        {
+          "kind": "tag",
+          "tagId": "sikshin",
+          "label": "식신"
+        },
+        {
+          "kind": "text",
+          "value": "이 살아 있으면 곁의 사람에게 한결같은 다정함이 자연스럽게 흘러가고, 책임 기운인 "
+        },
+        {
+          "kind": "tag",
+          "tagId": "jeonggwan",
+          "label": "정관"
+        },
+        {
+          "kind": "text",
+          "value": "이 자리를 잡으면 신뢰의 토대가 단단해져요.\n\n일을 함께 받쳐 주는 사람과의 자리인 "
+        },
+        {
+          "kind": "tag",
+          "tagId": "nobokgung",
+          "label": "노복궁"
+        },
+        {
+          "kind": "text",
+          "value": "이 든든하면 가까운 곁의 사람들이 자연스럽게 손을 잡아 주는 자리가 자주 열려요.\n\n"
+        },
+        {
+          "kind": "text",
+          "value": " 다만 자기 마음을 표현하지 못하고 묵혀 두면 거리가 멀어질 수 있어요.\n\n짧은 한마디라도 자기 색을 자주 드러내는 일이 평생의 관계 자산을 단단히 받쳐 주는 토대가 돼요."
+        }
       ],
-      "tags": ["baeujagung", "sikshin", "jeonggwan", "nobokgung"],
+      "tags": [
+        "baeujagung",
+        "sikshin",
+        "jeonggwan",
+        "nobokgung"
+      ],
       "aiGenerated": true,
       "sourceTier": {
         "tier": "T1_HYPOTHESIS",
@@ -382,25 +881,88 @@
     {
       "schemaVersion": "spring-ts.narrative-fragment.v1",
       "fragmentId": "romance.life.expert.adult.hab.001",
-      "axis": { "category": "romance", "period": "life", "depth": "expert" },
-      "gating": { "ageBand": ["20-29", "30-39", "40-54"] },
+      "axis": {
+        "category": "romance",
+        "period": "life",
+        "depth": "expert"
+      },
+      "gating": {
+        "ageBand": [
+          "20-29",
+          "30-39",
+          "40-54"
+        ]
+      },
       "templateTokens": [
-        { "kind": "text", "value": "사주의 천간 사이에 합의 무늬가 보이면 가까이서 어울리는 자리가 한 인생의 길이로 자주 만들어지는 흐름이에요. 어떤 합이 들어오느냐에 따라 인연의 색이 달라지지만, 큰 사건의 단정보다 자연스럽게 모이고 머무는 모양으로 풀어 보면 잘 맞아요." },
-        { "kind": "text", "value": " 부드러운 시작의 합인 " },
-        { "kind": "tag", "tagId": "gabgihab", "label": "갑기합" },
-        { "kind": "text", "value": "이나 따뜻한 새싹의 합인 " },
-        { "kind": "tag", "tagId": "jeongimhab", "label": "정임합" },
-        { "kind": "text", "value": "이 비치면 새 자리에서 가까워지는 흐름이 자연스럽고, 정리·결단의 합인 " },
-        { "kind": "tag", "tagId": "eulgyeonghab", "label": "을경합" },
-        { "kind": "text", "value": "이나 통찰의 합인 " },
-        { "kind": "tag", "tagId": "byeongsinhab", "label": "병신합" },
-        { "kind": "text", "value": "이 들어오면 깊은 대화의 자리에서 신뢰가 자라요." },
-        { "kind": "text", "value": " 빛이 또렷한 합인 " },
-        { "kind": "tag", "tagId": "mugyehab", "label": "무계합" },
-        { "kind": "text", "value": "은 표현·창작 자리에서 인연이 모이는 흐름이라, 자기 일의 흐름과 함께 살피면 의미가 더 또렷해져요." },
-        { "kind": "text", "value": " 합의 무늬가 보여도 결혼·이별 같은 단정은 미리 두지 않아요. 합은 가능성의 신호일 뿐이라, 한 자리 한 자리를 정성껏 살피는 일이 가장 큰 인연 자산이 돼요." }
+        {
+          "kind": "text",
+          "value": "사주의 천간 사이에 합의 무늬가 보이면 가까이서 어울리는 자리가 한 인생의 길이로 자주 만들어지는 흐름이에요.\n\n어떤 합이 들어오느냐에 따라 인연의 색이 달라지지만, 큰 사건의 단정보다 자연스럽게 모이고 머무는 모양으로 풀어 보면 잘 맞아요.\n\n"
+        },
+        {
+          "kind": "text",
+          "value": " 부드러운 시작의 합인 "
+        },
+        {
+          "kind": "tag",
+          "tagId": "gabgihab",
+          "label": "갑기합"
+        },
+        {
+          "kind": "text",
+          "value": "이나 따뜻한 새싹의 합인 "
+        },
+        {
+          "kind": "tag",
+          "tagId": "jeongimhab",
+          "label": "정임합"
+        },
+        {
+          "kind": "text",
+          "value": "이 비치면 새 자리에서 가까워지는 흐름이 자연스럽고, 정리·결단의 합인 "
+        },
+        {
+          "kind": "tag",
+          "tagId": "eulgyeonghab",
+          "label": "을경합"
+        },
+        {
+          "kind": "text",
+          "value": "이나 통찰의 합인 "
+        },
+        {
+          "kind": "tag",
+          "tagId": "byeongsinhab",
+          "label": "병신합"
+        },
+        {
+          "kind": "text",
+          "value": "이 들어오면 깊은 대화의 자리에서 신뢰가 자라요.\n\n"
+        },
+        {
+          "kind": "text",
+          "value": " 빛이 또렷한 합인 "
+        },
+        {
+          "kind": "tag",
+          "tagId": "mugyehab",
+          "label": "무계합"
+        },
+        {
+          "kind": "text",
+          "value": "은 표현·창작 자리에서 인연이 모이는 흐름이라, 자기 일의 흐름과 함께 살피면 의미가 더 또렷해져요.\n\n"
+        },
+        {
+          "kind": "text",
+          "value": " 합의 무늬가 보여도 결혼·이별 같은 단정은 미리 두지 않아요.\n\n합은 가능성의 신호일 뿐이라, 한 자리 한 자리를 정성껏 살피는 일이 가장 큰 인연 자산이 돼요."
+        }
       ],
-      "tags": ["gabgihab", "jeongimhab", "eulgyeonghab", "byeongsinhab", "mugyehab"],
+      "tags": [
+        "gabgihab",
+        "jeongimhab",
+        "eulgyeonghab",
+        "byeongsinhab",
+        "mugyehab"
+      ],
       "aiGenerated": true,
       "sourceTier": {
         "tier": "T1_HYPOTHESIS",
@@ -433,7 +995,7 @@
       "templateTokens": [
         {
           "kind": "text",
-          "value": "평생의 인연 결을 더 또렷이 짚으려면 십성·궁실·합의 큰 그림이 함께 들어와요. "
+          "value": "평생의 인연 결을 더 또렷이 짚으려면 십성·궁실·합의 큰 그림이 함께 들어와요.\n\n"
         },
         {
           "kind": "tag",
@@ -451,7 +1013,7 @@
         },
         {
           "kind": "text",
-          "value": "에 들어오는 결이 따뜻한 모양이라면 인연의 자리가 후반기까지 한 결로 이어지는 흐름이에요. "
+          "value": "에 들어오는 결이 따뜻한 모양이라면 인연의 자리가 후반기까지 한 결로 이어지는 흐름이에요.\n\n"
         },
         {
           "kind": "tag",
@@ -478,7 +1040,7 @@
         },
         {
           "kind": "text",
-          "value": "의 결을 함께 살피면 평생의 인연 그림이 한층 또렷해져요. 단정보다 자기 결을 정성껏 살피는 일이 가장 큰 자산이에요."
+          "value": "의 결을 함께 살피면 평생의 인연 그림이 한층 또렷해져요.\n\n단정보다 자기 결을 정성껏 살피는 일이 가장 큰 자산이에요."
         }
       ],
       "tags": [
