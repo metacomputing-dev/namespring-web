@@ -222,7 +222,7 @@
         { "kind": "tag", "tagId": "ohaengBalance", "label": "오행 균형" },
         { "kind": "text", "value": "에서는 관찰력의 장점과 망설임의 비용을 함께 보고 회복 전략을 골라야 해요." }
       ],
-      "livingTips": ["고민을 오래 붙들기보다 기록, 산책, 짧은 대화로 밖으로 꺼내세요."],
+      "livingTips": ["고민을 오래 붙들 기록, 산책, 짧은 대화로 밖으로 꺼내세요."],
       "cautions": ["상대의 감정을 과하게 읽다가 내 컨디션을 놓치지 않게 하세요."],
       "tags": ["water", "ohaengBalance"],
       "numericalEvidence": [
@@ -347,7 +347,7 @@
         { "kind": "tag", "tagId": "yongshinFit", "label": "용신 부합도" },
         { "kind": "text", "value": "를 함께 보면 이동이 도피인지 재정비인지 더 정확히 나눌 수 있어요." }
       ],
-      "livingTips": ["새로운 곳에 가기 전 필요한 자료와 쉬는 시간을 함께 확보하세요."],
+      "livingTips": ["새 곳에 가기 전 필요한 자료와 쉬는 시간을 함께 확보하세요."],
       "cautions": ["생각만 길어지고 실제 이동이나 정리는 미뤄지지 않게 하세요."],
       "tags": ["yongshin", "yongshinFit"],
       "numericalEvidence": [
@@ -397,7 +397,7 @@
         { "kind": "tag", "tagId": "gyeokgukFit", "label": "격국 적합도" },
         { "kind": "text", "value": "와 함께 보면 이번 달 선택이 깊은 조사나 새 관점의 기획으로 이어지는지 점검할 수 있어요." }
       ],
-      "livingTips": ["복잡한 문제는 바로 결론 내리기보다 자료와 가설을 분리해 보세요."],
+      "livingTips": ["복잡한 문제는 바로 결론 내리 자료와 가설을 분리해 보세요."],
       "cautions": ["생각이 너무 깊어져 협업 속도가 늦어지지 않게 공유 시점을 정하세요."],
       "tags": ["pyeoningyeok", "gyeokgukFit"],
       "numericalEvidence": [
@@ -497,7 +497,7 @@
         { "kind": "tag", "tagId": "gyeokgukFit", "label": "격국 적합도" },
         { "kind": "text", "value": "와 함께 보면 이번 달 긴장이 성과로 전환되는지, 피로와 충돌로 남는지 나눠 볼 수 있어요." }
       ],
-      "livingTips": ["큰 과제는 위험 요소, 도움 요청, 마감 기준을 분리해 관리하세요."],
+      "livingTips": ["큰 과제는 위험 요소, 도움 요청, 마감 기준을 분리해 관리해요."],
       "cautions": ["돌파력이 강한 달일수록 몸의 긴장과 관계 마찰을 같이 확인하세요."],
       "tags": ["pyeongwangyeok", "gyeokgukFit"],
       "numericalEvidence": [

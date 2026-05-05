@@ -16,7 +16,7 @@
         { "kind": "tag", "tagId": "jeongingyeok", "label": "정인격" },
         { "kind": "text", "value": "은 배움과 보호의 구조를 강화하므로, 성별 분기는 역할 판단이 아니라 상담 맥락을 보존하는 보조값으로만 해석하세요." }
       ],
-      "livingTips": ["이번 주에는 새 일을 넓히기보다 기준, 문서, 검토 순서를 먼저 잡으세요."],
+      "livingTips": ["주중 새 일을 넓히 기준, 문서, 검토 순서를 먼저 잡으세요."],
       "cautions": ["성별값을 책임 배분의 근거로 직접 쓰지 말고 실제 상황 정보를 우선하세요."],
       "tags": ["wood", "yongshin", "jeongingyeok"],
       "numericalEvidence": [
@@ -41,7 +41,7 @@
         { "kind": "tag", "tagId": "pyeoningyeok", "label": "편인격" },
         { "kind": "text", "value": "은 탐구와 직관을 보태므로 오늘의 선택은 즉답보다 근거 확인 후 실행하는 편이 안정적이에요." }
       ],
-      "livingTips": ["오늘은 말하기 전에 핵심 자료와 반대 근거를 한 번 더 확인하세요."],
+      "livingTips": ["말하기 전에 핵심 자료와 반대 근거를 한 번 더 확인하세요."],
       "cautions": ["성별 분기는 커리어 역할을 고정하는 기준이 아니라 출력 맥락 보존용입니다."],
       "tags": ["fire", "yongshin", "pyeoningyeok"],
       "numericalEvidence": [
@@ -91,7 +91,7 @@
         { "kind": "tag", "tagId": "sanggwangyeok", "label": "상관격" },
         { "kind": "text", "value": "은 표현 에너지를 키우므로 긴장을 풀어내는 루틴을 함께 설계해야 해요." }
       ],
-      "livingTips": ["운동 목표는 강도보다 지속 시간과 회복 시간을 함께 정하세요."],
+      "livingTips": ["운동 목표는 강도보다 지속 시간과 회복 시간을 함께 정해요."],
       "cautions": ["기준을 세우는 힘이 강할수록 몸의 유연성과 휴식도 같이 봐야 합니다."],
       "tags": ["metal", "yongshin", "sanggwangyeok"],
       "numericalEvidence": [
@@ -191,7 +191,7 @@
         { "kind": "tag", "tagId": "pyeoningyeok", "label": "편인격" },
         { "kind": "text", "value": "은 탐구 깊이를 보태므로 자료를 모으되 공개 가능한 산출물로 전환해야 합니다." }
       ],
-      "livingTips": ["긴 자료는 목차, 핵심 문장, 공개용 요약으로 나누어 정리하세요."],
+      "livingTips": ["긴 자료는 목차, 핵심 문장, 공개용 요약으로 나누어 정리해요."],
       "cautions": ["준비가 길어질수록 실제 제출과 공유 시점을 놓치지 않게 하세요."],
       "tags": ["earth", "yongshin", "pyeoningyeok"],
       "numericalEvidence": [

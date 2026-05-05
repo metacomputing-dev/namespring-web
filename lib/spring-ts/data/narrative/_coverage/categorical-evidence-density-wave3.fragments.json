@@ -228,7 +228,7 @@
         { "kind": "tag", "tagId": "eumyangHarmony", "label": "음양 조화" },
         { "kind": "text", "value": "를 우선하면 불필요한 역할 추정을 줄이고 사주 구조 중심의 문장을 유지할 수 있어요." }
       ],
-      "livingTips": ["중립값에서는 사주 구조, 연령대, 현재 시기 흐름을 우선하세요."],
+      "livingTips": ["중립값에서는 사주 구조, 연령대, 현재 시기 흐름을 우선해요."],
       "cautions": ["중립 성별값을 오류로 처리하지 말고 안전한 기본 분기로 보세요."],
       "tags": ["sajuCompatibility", "eumyangHarmony"],
       "numericalEvidence": [
