@@ -199,16 +199,7 @@
         },
         {
           "kind": "text",
-          "value": " 방향이 받쳐질 때는 성과 확장보다 책임 범위의 지속 가능성을 먼저 보아야 합니다.\n\n"
-        },
-        {
-          "kind": "tag",
-          "tagId": "gyeokgukYongshin",
-          "label": "격국용신"
-        },
-        {
-          "kind": "text",
-          "value": "의 결과 "
+          "value": " 방향이 받쳐질 때는 성과 확장보다 책임 범위의 지속 가능성을 먼저 보아야 합니다.\n\n격국용신의 결과 "
         },
         {
           "kind": "tag",
@@ -242,7 +233,6 @@
         "jeonggwan",
         "pyeongwan",
         "yongshin",
-        "gyeokgukYongshin",
         "gyeokgukFit",
         "jangseongsal",
         "cheonui"
@@ -324,16 +314,7 @@
         },
         {
           "kind": "text",
-          "value": "를 함께 보아야 합니다.\n\n"
-        },
-        {
-          "kind": "tag",
-          "tagId": "jangseongsal",
-          "label": "장성살"
-        },
-        {
-          "kind": "text",
-          "value": "의 신호와 "
+          "value": "를 함께 보아야 합니다.\n\n장성살의 신호와 "
         },
         {
           "kind": "tag",
@@ -371,7 +352,6 @@
         "jeongin",
         "pyeongwan",
         "stabilityIndex",
-        "jangseongsal",
         "cheonui",
         "jeonggwan",
         "sikshin"
@@ -943,16 +923,7 @@
         },
         {
           "kind": "text",
-          "value": "이 과로 신호를 만들면 확장보다 일정 조정이 먼저입니다.\n\n"
-        },
-        {
-          "kind": "tag",
-          "tagId": "gwanrokgung",
-          "label": "관록궁"
-        },
-        {
-          "kind": "text",
-          "value": "의 결과 "
+          "value": "이 과로 신호를 만들면 확장보다 일정 조정이 먼저입니다.\n\n관록궁의 결과 "
         },
         {
           "kind": "tag",
@@ -986,7 +957,6 @@
         "sikshin",
         "jeonggwan",
         "siGungsil",
-        "gwanrokgung",
         "pyeongwan",
         "gyeokgukYongshin",
         "gyeokgukFit"

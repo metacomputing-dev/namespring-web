@@ -532,16 +532,7 @@
         },
         {
           "kind": "text",
-          "value": "은 기존 자료를 새 관점으로 재구성합니다.\n\n"
-        },
-        {
-          "kind": "tag",
-          "tagId": "munchanggwiin",
-          "label": "문창귀인"
-        },
-        {
-          "kind": "text",
-          "value": "의 결과 "
+          "value": "은 기존 자료를 새 관점으로 재구성합니다.\n\n문창귀인의 결과 "
         },
         {
           "kind": "tag",
@@ -575,7 +566,6 @@
         "jeongin",
         "sikshin",
         "sanggwan",
-        "munchanggwiin",
         "pyeonin",
         "gwanrokgung",
         "bokdeokgung"
@@ -830,20 +820,7 @@
         },
         {
           "kind": "text",
-          "value": "의 자리가 함께 보이면 문서 흐름이 차분하게 자리 잡는 사주이니, 작은 도움도 미루지 않는 호흡이 잘 어울려요.\n\n"
-        },
-        {
-          "kind": "text",
-          "value": "문서 자리는 "
-        },
-        {
-          "kind": "tag",
-          "tagId": "jeongin",
-          "label": "정인"
-        },
-        {
-          "kind": "text",
-          "value": "의 자격 자산과 "
+          "value": "의 자리가 함께 보이면 문서 흐름이 차분하게 자리 잡는 사주이니, 작은 도움도 미루지 않는 호흡이 잘 어울려요.\n\n문서 자리는 정인의 자격 자산과 "
         },
         {
           "kind": "tag",
