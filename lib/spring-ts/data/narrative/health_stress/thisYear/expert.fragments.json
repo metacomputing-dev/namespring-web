@@ -34,7 +34,7 @@
         },
         {
           "kind": "text",
-          "value": "의 균형을 한 번 점검해서, 더운 결과 추운 결의 비중을 의식적으로 맞춰 두면 한 해의 흐름이 부드러워져요."
+          "value": "의 균형을 한 번 점검해서, 더운 결과 추운 결의 비중을 의식적으로 맞춰 두면 한 해의 흐름이 부드러워져요.\n\n"
         },
         {
           "kind": "text",
@@ -47,7 +47,7 @@
         },
         {
           "kind": "text",
-          "value": "의 결과 가까워서, 미리 분산해 두는 중심이 한 해를 가볍게 해 줘요."
+          "value": "의 결과 가까워서, 미리 분산해 두는 중심이 한 해를 가볍게 해 줘요.\n\n"
         },
         {
           "kind": "text",
@@ -73,7 +73,7 @@
         },
         {
           "kind": "text",
-          "value": "의 신호와 닿아요. 천천히 익는 시간은 흉한 신호가 아니니, 인내·기록·꾸준함이 마음의 짐을 덜어 줘요."
+          "value": "의 신호와 닿아요.\n\n천천히 익는 시간은 흉한 신호가 아니니, 인내·기록·꾸준함이 마음의 짐을 덜어 줘요."
         }
       ],
       "tags": [
@@ -155,7 +155,7 @@
         },
         {
           "kind": "text",
-          "value": "이 잘 자리잡은 흐름이라, 일이 길게 이어져도 큰 흔들림 없이 받아 낼 수 있어요. 다만 강도가 길게 유지되는 흐름이라 한 칸 미리 강도를 낮추는 결이 큰 도움이 돼요."
+          "value": "이 잘 자리잡은 흐름이라, 일이 길게 이어져도 큰 흔들림 없이 받아 낼 수 있어요.\n\n다만 강도가 길게 유지되는 흐름이라 한 칸 미리 강도를 낮추는 결이 큰 도움이 돼요.\n\n"
         },
         {
           "kind": "text",
@@ -168,7 +168,7 @@
         },
         {
           "kind": "text",
-          "value": "의 결을 가까이 두면 가장 또렷해요. 익숙한 책·가까운 어른과의 시간이 회복의 자리가 돼요."
+          "value": "의 결을 가까이 두면 가장 또렷해요. 익숙한 책·가까운 어른과의 시간이 회복의 자리가 돼요.\n\n"
         },
         {
           "kind": "text",
@@ -229,7 +229,7 @@
         },
         {
           "kind": "text",
-          "value": "의 균형이 평이하니 큰 처방보다 일상의 작은 회복이 또렷한 효과를 내요."
+          "value": "의 균형이 평이하니 큰 처방보다 일상의 작은 회복이 또렷한 효과를 내요.\n\n"
         },
         {
           "kind": "text",
@@ -242,12 +242,52 @@
         },
         {
           "kind": "text",
-          "value": "의 자리를 가까이 두면 한 해가 한결 부드러워져요."
+          "value": "의 자리를 가까이 두면 한 해가 한결 부드러워져요.\n\n"
+        },
+        {
+          "kind": "tag",
+          "tagId": "cheonui",
+          "label": "천의"
+        },
+        {
+          "kind": "text",
+          "value": "의 자리와 "
+        },
+        {
+          "kind": "tag",
+          "tagId": "cheondeokgwiin",
+          "label": "천덕귀인"
+        },
+        {
+          "kind": "text",
+          "value": "의 결이 함께 보이면 회복의 흐름이 부드럽게 자리 잡는 사주이니, 자기 곁의 도움을 미루지 않는 호흡이 잘 어울려요.\n\n"
+        },
+        {
+          "kind": "tag",
+          "tagId": "baekho",
+          "label": "백호대살"
+        },
+        {
+          "kind": "text",
+          "value": "의 신호와 "
+        },
+        {
+          "kind": "tag",
+          "tagId": "goegang",
+          "label": "괴강살"
+        },
+        {
+          "kind": "text",
+          "value": "의 결이 함께 보이는 시기엔 자기 한계를 의식적으로 두는 호흡이 가장 든든한 회복 자리예요."
         }
       ],
       "tags": [
         "johu",
-        "yongshin"
+        "yongshin",
+        "cheonui",
+        "cheondeokgwiin",
+        "baekho",
+        "goegang"
       ],
       "aiGenerated": true,
       "sourceTier": {
@@ -290,7 +330,7 @@
         },
         {
           "kind": "text",
-          "value": "의 따뜻한 돌봄을 가까이 두는 습관이 한 해 회복의 큰 축이 돼요."
+          "value": "의 따뜻한 돌봄을 가까이 두는 습관이 한 해 회복의 큰 축이 돼요.\n\n"
         },
         {
           "kind": "text",
@@ -303,7 +343,7 @@
         },
         {
           "kind": "text",
-          "value": "의 압박이 한꺼번에 누르지 않도록 일을 분산하면 한 해의 부담이 가벼워져요."
+          "value": "의 압박이 한꺼번에 누르지 않도록 일을 분산하면 한 해의 부담이 가벼워져요.\n\n"
         },
         {
           "kind": "text",
@@ -316,13 +356,33 @@
         },
         {
           "kind": "text",
-          "value": "의 신호와 닿아요. 천천히 익는 시간은 흉한 신호가 아니니, 인내가 큰 자산이 돼요."
+          "value": "의 신호와 닿아요. 천천히 익는 시간은 흉한 신호가 아니니, 인내가 큰 자산이 돼요.\n\n"
+        },
+        {
+          "kind": "tag",
+          "tagId": "baekho",
+          "label": "백호대살"
+        },
+        {
+          "kind": "text",
+          "value": "의 신호와 "
+        },
+        {
+          "kind": "tag",
+          "tagId": "goegang",
+          "label": "괴강살"
+        },
+        {
+          "kind": "text",
+          "value": "의 결이 함께 보이는 시기엔 자기 한계를 의식적으로 두는 호흡이 가장 든든한 회복 자리예요."
         }
       ],
       "tags": [
         "jeongin",
         "pyeongwan",
-        "gongmang"
+        "gongmang",
+        "baekho",
+        "goegang"
       ],
       "aiGenerated": true,
       "sourceTier": {
@@ -374,7 +434,7 @@
         },
         {
           "kind": "text",
-          "value": "의 리듬이 자주 닿기 쉬워요. 큰 결정은 다음 해로 미루고, 한 박자 늦추는 자리를 의식적으로 만들면 한 해가 부드러워져요."
+          "value": "의 리듬이 자주 닿기 쉬워요.\n\n큰 결정은 다음 해로 미루고, 한 박자 늦추는 자리를 의식적으로 만들면 한 해가 부드러워져요.\n\n"
         },
         {
           "kind": "text",
@@ -396,14 +456,34 @@
         },
         {
           "kind": "text",
-          "value": "의 균형도 함께 살펴서 더운 시기·추운 시기에 결을 맞추는 중심이 한 해를 가볍게 해 줘요."
+          "value": "의 균형도 함께 살펴서 더운 시기·추운 시기에 결을 맞추는 중심이 한 해를 가볍게 해 줘요.\n\n"
+        },
+        {
+          "kind": "tag",
+          "tagId": "gongmang",
+          "label": "공망"
+        },
+        {
+          "kind": "text",
+          "value": "의 결과 "
+        },
+        {
+          "kind": "tag",
+          "tagId": "stabilityIndex",
+          "label": "안정성지수"
+        },
+        {
+          "kind": "text",
+          "value": "를 함께 살펴 두면 비워 두는 자리와 채워 두는 자리의 결이 한층 또렷해져요."
         }
       ],
       "tags": [
         "pyeongwan",
         "samhyeong",
         "jeongin",
-        "johu"
+        "johu",
+        "gongmang",
+        "stabilityIndex"
       ],
       "aiGenerated": true,
       "sourceTier": {
@@ -446,7 +526,7 @@
         },
         {
           "kind": "text",
-          "value": "의 결이 강한 시기에는 일을 미리 분산해 두는 중심이 한 해를 부드럽게 해 줘요."
+          "value": "의 결이 강한 시기에는 일을 미리 분산해 두는 중심이 한 해를 부드럽게 해 줘요.\n\n"
         },
         {
           "kind": "text",
@@ -459,12 +539,55 @@
         },
         {
           "kind": "text",
-          "value": "의 결을 가까이 두는 자리에서 가장 또렷해요. 활동성 쉼이 마음의 짐을 가장 잘 풀어 줘요."
+          "value": "의 결을 가까이 두는 자리에서 가장 또렷해요. 활동성 쉼이 마음의 짐을 가장 잘 풀어 줘요.\n\n"
+        },
+        {
+          "kind": "text",
+          "value": "긴장과 회복의 흐름은 "
+        },
+        {
+          "kind": "tag",
+          "tagId": "pyeongwan",
+          "label": "편관"
+        },
+        {
+          "kind": "text",
+          "value": "의 압박을 "
+        },
+        {
+          "kind": "tag",
+          "tagId": "jeongin",
+          "label": "정인"
+        },
+        {
+          "kind": "text",
+          "value": "의 돌봄으로 풀어 두는 자리에서 한결 단단해지고, 자기 한계를 의식적으로 두는 호흡이 가장 큰 무기가 돼요.\n\n"
+        },
+        {
+          "kind": "tag",
+          "tagId": "cheonui",
+          "label": "천의"
+        },
+        {
+          "kind": "text",
+          "value": "의 자리와 "
+        },
+        {
+          "kind": "tag",
+          "tagId": "cheondeokgwiin",
+          "label": "천덕귀인"
+        },
+        {
+          "kind": "text",
+          "value": "의 결이 함께 보이면 회복의 흐름이 부드럽게 자리 잡는 사주이니, 자기 곁의 도움을 미루지 않는 호흡이 잘 어울려요."
         }
       ],
       "tags": [
         "pyeongwan",
-        "yongshin"
+        "yongshin",
+        "jeongin",
+        "cheonui",
+        "cheondeokgwiin"
       ],
       "aiGenerated": true,
       "sourceTier": {
@@ -507,7 +630,7 @@
         },
         {
           "kind": "text",
-          "value": "의 기운을 가까이 둘 때 마음이 단단해지는 구조라, 가까운 어른·스승·책이 회복의 기지가 돼요."
+          "value": "의 기운을 가까이 둘 때 마음이 단단해지는 구조라, 가까운 어른·스승·책이 회복의 기지가 돼요.\n\n"
         },
         {
           "kind": "text",
@@ -520,12 +643,55 @@
         },
         {
           "kind": "text",
-          "value": "의 신호를 미리 살펴서 일을 분산하면 마음의 짐이 가벼워져요."
+          "value": "의 신호를 미리 살펴서 일을 분산하면 마음의 짐이 가벼워져요.\n\n"
+        },
+        {
+          "kind": "tag",
+          "tagId": "gongmang",
+          "label": "공망"
+        },
+        {
+          "kind": "text",
+          "value": "의 결과 "
+        },
+        {
+          "kind": "tag",
+          "tagId": "stabilityIndex",
+          "label": "안정성지수"
+        },
+        {
+          "kind": "text",
+          "value": "를 함께 살펴 두면 비워 두는 자리와 채워 두는 자리의 결이 한층 또렷해져요.\n\n"
+        },
+        {
+          "kind": "text",
+          "value": "긴장과 회복의 흐름은 "
+        },
+        {
+          "kind": "tag",
+          "tagId": "pyeongwan",
+          "label": "편관"
+        },
+        {
+          "kind": "text",
+          "value": "의 압박을 "
+        },
+        {
+          "kind": "tag",
+          "tagId": "jeongin",
+          "label": "정인"
+        },
+        {
+          "kind": "text",
+          "value": "의 돌봄으로 풀어 두는 자리에서 한결 단단해지고, 자기 한계를 의식적으로 두는 호흡이 가장 큰 무기가 돼요."
         }
       ],
       "tags": [
         "jeongin",
-        "samhyeong"
+        "samhyeong",
+        "gongmang",
+        "stabilityIndex",
+        "pyeongwan"
       ],
       "aiGenerated": true,
       "sourceTier": {
@@ -564,7 +730,7 @@
         },
         {
           "kind": "text",
-          "value": "의 자리가 가까이 있을 때 마음을 단단하게 받쳐 주는 신호가 살아나고, 가족·스승의 한마디가 회복의 큰 힘이 돼요."
+          "value": "의 자리가 가까이 있을 때 마음을 단단하게 받쳐 주는 신호가 살아나고, 가족·스승의 한마디가 회복의 큰 힘이 돼요.\n\n"
         },
         {
           "kind": "text",
@@ -577,12 +743,55 @@
         },
         {
           "kind": "text",
-          "value": "의 신호처럼 결과가 더디게 오는 자리에서 자주 와요. 천천히 익는 시기는 흉한 자리가 아니에요."
+          "value": "의 신호처럼 결과가 더디게 오는 자리에서 자주 와요. 천천히 익는 시기는 흉한 자리가 아니에요.\n\n"
+        },
+        {
+          "kind": "text",
+          "value": "긴장과 회복의 흐름은 "
+        },
+        {
+          "kind": "tag",
+          "tagId": "pyeongwan",
+          "label": "편관"
+        },
+        {
+          "kind": "text",
+          "value": "의 압박을 "
+        },
+        {
+          "kind": "tag",
+          "tagId": "jeongin",
+          "label": "정인"
+        },
+        {
+          "kind": "text",
+          "value": "의 돌봄으로 풀어 두는 자리에서 한결 단단해지고, 자기 한계를 의식적으로 두는 호흡이 가장 큰 무기가 돼요.\n\n"
+        },
+        {
+          "kind": "tag",
+          "tagId": "cheonui",
+          "label": "천의"
+        },
+        {
+          "kind": "text",
+          "value": "의 자리와 "
+        },
+        {
+          "kind": "tag",
+          "tagId": "cheondeokgwiin",
+          "label": "천덕귀인"
+        },
+        {
+          "kind": "text",
+          "value": "의 결이 함께 보이면 회복의 흐름이 부드럽게 자리 잡는 사주이니, 자기 곁의 도움을 미루지 않는 호흡이 잘 어울려요."
         }
       ],
       "tags": [
         "jeongin",
-        "gongmang"
+        "gongmang",
+        "pyeongwan",
+        "cheonui",
+        "cheondeokgwiin"
       ],
       "aiGenerated": true,
       "sourceTier": {
@@ -643,13 +852,77 @@
         },
         {
           "kind": "text",
-          "value": "의 결을 가까이 두는 자리에서 마음이 가장 가벼워져요."
+          "value": "의 결을 가까이 두는 자리에서 마음이 가장 가벼워져요.\n\n"
+        },
+        {
+          "kind": "tag",
+          "tagId": "baekho",
+          "label": "백호대살"
+        },
+        {
+          "kind": "text",
+          "value": "의 신호와 "
+        },
+        {
+          "kind": "tag",
+          "tagId": "goegang",
+          "label": "괴강살"
+        },
+        {
+          "kind": "text",
+          "value": "의 결이 함께 보이는 시기엔 자기 한계를 의식적으로 두는 호흡이 가장 든든한 회복 자리예요.\n\n"
+        },
+        {
+          "kind": "tag",
+          "tagId": "gongmang",
+          "label": "공망"
+        },
+        {
+          "kind": "text",
+          "value": "의 결과 "
+        },
+        {
+          "kind": "tag",
+          "tagId": "stabilityIndex",
+          "label": "안정성지수"
+        },
+        {
+          "kind": "text",
+          "value": "를 함께 살펴 두면 비워 두는 자리와 채워 두는 자리의 결이 한층 또렷해져요.\n\n"
+        },
+        {
+          "kind": "text",
+          "value": "긴장과 회복의 흐름은 "
+        },
+        {
+          "kind": "tag",
+          "tagId": "pyeongwan",
+          "label": "편관"
+        },
+        {
+          "kind": "text",
+          "value": "의 압박을 "
+        },
+        {
+          "kind": "tag",
+          "tagId": "jeongin",
+          "label": "정인"
+        },
+        {
+          "kind": "text",
+          "value": "의 돌봄으로 풀어 두는 자리에서 한결 단단해지고, 자기 한계를 의식적으로 두는 호흡이 가장 큰 무기가 돼요."
         }
       ],
       "tags": [
         "fire",
         "johu",
-        "water"
+        "water",
+        "baekho",
+        "goegang",
+        "gongmang",
+        "stabilityIndex",
+        "pyeongwan",
+        "jeongin"
       ],
       "aiGenerated": true,
       "sourceTier": {
@@ -692,7 +965,7 @@
         },
         {
           "kind": "text",
-          "value": "의 결이 잔잔해서 마음이 가라앉기 쉬운 자리예요. "
+          "value": "의 결이 잔잔해서 마음이 가라앉기 쉬운 자리예요.\n\n"
         },
         {
           "kind": "tag",
@@ -714,13 +987,53 @@
         },
         {
           "kind": "text",
-          "value": "의 따뜻한 돌봄과 함께 일어나요."
+          "value": "의 따뜻한 돌봄과 함께 일어나요.\n\n"
+        },
+        {
+          "kind": "tag",
+          "tagId": "baekho",
+          "label": "백호대살"
+        },
+        {
+          "kind": "text",
+          "value": "의 신호와 "
+        },
+        {
+          "kind": "tag",
+          "tagId": "goegang",
+          "label": "괴강살"
+        },
+        {
+          "kind": "text",
+          "value": "의 결이 함께 보이는 시기엔 자기 한계를 의식적으로 두는 호흡이 가장 든든한 회복 자리예요.\n\n"
+        },
+        {
+          "kind": "tag",
+          "tagId": "gongmang",
+          "label": "공망"
+        },
+        {
+          "kind": "text",
+          "value": "의 결과 "
+        },
+        {
+          "kind": "tag",
+          "tagId": "stabilityIndex",
+          "label": "안정성지수"
+        },
+        {
+          "kind": "text",
+          "value": "를 함께 살펴 두면 비워 두는 자리와 채워 두는 자리의 결이 한층 또렷해져요."
         }
       ],
       "tags": [
         "water",
         "fire",
-        "jeongin"
+        "jeongin",
+        "baekho",
+        "goegang",
+        "gongmang",
+        "stabilityIndex"
       ],
       "aiGenerated": true,
       "sourceTier": {
