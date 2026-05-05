@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-05-05T10:09:37.274Z",
+  "generatedAt": "2026-05-05T10:27:08.637Z",
   "targetDate": "2026-05-05T00:00:00+09:00",
   "sampleId": "choi-seongsoo-candidate-summaries",
   "description": "UI 추천 목록 렌더링용 샘플: 점수 벡터와 공개 표시 안전 후보 필터를 함께 확인하는 케이스.",
@@ -41,12 +41,12 @@
   },
   "payload": [
     {
-      "finalScore": 73.8,
+      "finalScore": 81,
       "scoreVector": {
         "legal": 75,
-        "sajuFit": 55.8,
-        "yongshinFit": 49.2,
-        "elementBalance": 80,
+        "sajuFit": 84.6,
+        "yongshinFit": 55.3,
+        "elementBalance": 78.8,
         "hanjaMeaning": 100,
         "phonetic": 100,
         "eraFit": null,
@@ -69,34 +69,34 @@
         ],
         "paretoFrontier": false
       },
-      "fullHangul": "최오정",
-      "fullHanja": "崔鼇靖",
-      "givenHangul": "오정",
+      "fullHangul": "최이수",
+      "fullHanja": "崔理琇",
+      "givenHangul": "이수",
       "givenName": [
         {
-          "hangul": "오",
-          "hanja": "鼇",
-          "meaning": "자라 오, 큰거북 오",
-          "strokes": 24,
-          "element": "Water",
-          "elementLabel": "물",
+          "hangul": "이",
+          "hanja": "理",
+          "meaning": "다스릴 리, 성품 리",
+          "strokes": 12,
+          "element": "Metal",
+          "elementLabel": "쇠",
           "legalStatus": "unknown"
         },
         {
-          "hangul": "정",
-          "hanja": "靖",
-          "meaning": "편안할 정, 고요할 정",
-          "strokes": 13,
-          "element": "Wood",
-          "elementLabel": "나무",
+          "hangul": "수",
+          "hanja": "琇",
+          "meaning": "옥돌 수, 귀막이 수",
+          "strokes": 12,
+          "element": "Metal",
+          "elementLabel": "쇠",
           "legalStatus": "unknown"
         }
       ],
-      "popularityRank": 7214,
-      "maleRatio": 0.8888888888888888,
+      "popularityRank": 139,
+      "maleRatio": 0.5126943005181347,
       "nameGender": "male",
       "nameTrend": {
-        "givenHangul": "오정",
+        "givenHangul": "이수",
         "gender": "male",
         "birthYear": 1986,
         "matchedYear": null,
@@ -112,9 +112,9 @@
         "authorityTruthEligible": true
       },
       "phonetic": {
-        "fullHangul": "최오정",
+        "fullHangul": "최이수",
         "surnameHangul": "최",
-        "givenHangul": "오정",
+        "givenHangul": "이수",
         "phoneticScore": 100,
         "transitionScore": 100,
         "familyNameFitScore": 100,
@@ -122,15 +122,15 @@
         "transitions": [
           {
             "from": "최",
-            "to": "오",
+            "to": "이",
             "boundary": "surname_given",
             "score": 100,
             "risk": "low",
             "signals": []
           },
           {
-            "from": "오",
-            "to": "정",
+            "from": "이",
+            "to": "수",
             "boundary": "given_internal",
             "score": 100,
             "risk": "low",
@@ -140,7 +140,7 @@
         "warnings": [],
         "evidence": [
           "음운 흐름 점수 100/100 (부드러움); 표시용 근거이며 총점이나 순위에는 반영되지 않아요.",
-          "성-이름 연결 점수 100/100 (최오).",
+          "성-이름 연결 점수 100/100 (최이).",
           "받침 충돌이나 반복 발음 경고는 감지되지 않았어요."
         ],
         "sourceTier": "T3_AUTHORED_INTERPRETATION",
@@ -149,12 +149,12 @@
       "rank": 1
     },
     {
-      "finalScore": 73.8,
+      "finalScore": 79.3,
       "scoreVector": {
         "legal": 75,
-        "sajuFit": 55.8,
-        "yongshinFit": 49.2,
-        "elementBalance": 80,
+        "sajuFit": 84.6,
+        "yongshinFit": 55.3,
+        "elementBalance": 77.5,
         "hanjaMeaning": 100,
         "phonetic": 100,
         "eraFit": null,
@@ -177,34 +177,34 @@
         ],
         "paretoFrontier": false
       },
-      "fullHangul": "최염정",
-      "fullHanja": "崔鹽靖",
-      "givenHangul": "염정",
+      "fullHangul": "최유단",
+      "fullHanja": "崔攸端",
+      "givenHangul": "유단",
       "givenName": [
         {
-          "hangul": "염",
-          "hanja": "鹽",
-          "meaning": "소금 염, 자반 염",
-          "strokes": 24,
-          "element": "Water",
-          "elementLabel": "물",
+          "hangul": "유",
+          "hanja": "攸",
+          "meaning": "바 유, 다스릴 유",
+          "strokes": 7,
+          "element": "Metal",
+          "elementLabel": "쇠",
           "legalStatus": "unknown"
         },
         {
-          "hangul": "정",
-          "hanja": "靖",
-          "meaning": "편안할 정, 고요할 정",
-          "strokes": 13,
-          "element": "Wood",
-          "elementLabel": "나무",
+          "hangul": "단",
+          "hanja": "端",
+          "meaning": "바를 단, 곧을 단",
+          "strokes": 14,
+          "element": "Metal",
+          "elementLabel": "쇠",
           "legalStatus": "unknown"
         }
       ],
-      "popularityRank": 5750,
-      "maleRatio": 1,
+      "popularityRank": 2486,
+      "maleRatio": 0.6732673267326733,
       "nameGender": "male",
       "nameTrend": {
-        "givenHangul": "염정",
+        "givenHangul": "유단",
         "gender": "male",
         "birthYear": 1986,
         "matchedYear": null,
@@ -220,9 +220,9 @@
         "authorityTruthEligible": true
       },
       "phonetic": {
-        "fullHangul": "최염정",
+        "fullHangul": "최유단",
         "surnameHangul": "최",
-        "givenHangul": "염정",
+        "givenHangul": "유단",
         "phoneticScore": 100,
         "transitionScore": 100,
         "familyNameFitScore": 100,
@@ -230,15 +230,15 @@
         "transitions": [
           {
             "from": "최",
-            "to": "염",
+            "to": "유",
             "boundary": "surname_given",
             "score": 100,
             "risk": "low",
             "signals": []
           },
           {
-            "from": "염",
-            "to": "정",
+            "from": "유",
+            "to": "단",
             "boundary": "given_internal",
             "score": 100,
             "risk": "low",
@@ -248,7 +248,7 @@
         "warnings": [],
         "evidence": [
           "음운 흐름 점수 100/100 (부드러움); 표시용 근거이며 총점이나 순위에는 반영되지 않아요.",
-          "성-이름 연결 점수 100/100 (최염).",
+          "성-이름 연결 점수 100/100 (최유).",
           "받침 충돌이나 반복 발음 경고는 감지되지 않았어요."
         ],
         "sourceTier": "T3_AUTHORED_INTERPRETATION",
@@ -257,12 +257,12 @@
       "rank": 2
     },
     {
-      "finalScore": 73.7,
+      "finalScore": 79.3,
       "scoreVector": {
         "legal": 75,
-        "sajuFit": 55.8,
-        "yongshinFit": 49.2,
-        "elementBalance": 71.9,
+        "sajuFit": 84.6,
+        "yongshinFit": 55.3,
+        "elementBalance": 81.9,
         "hanjaMeaning": 100,
         "phonetic": 100,
         "eraFit": null,
@@ -285,34 +285,34 @@
         ],
         "paretoFrontier": false
       },
-      "fullHangul": "최훈정",
-      "fullHanja": "崔薰井",
-      "givenHangul": "훈정",
+      "fullHangul": "최영정",
+      "fullHanja": "崔瑛玎",
+      "givenHangul": "영정",
       "givenName": [
         {
-          "hangul": "훈",
-          "hanja": "薰",
-          "meaning": "향풀 훈, 향기날 훈",
-          "strokes": 20,
-          "element": "Wood",
-          "elementLabel": "나무",
+          "hangul": "영",
+          "hanja": "瑛",
+          "meaning": "옥빛 영, 수정 영",
+          "strokes": 14,
+          "element": "Metal",
+          "elementLabel": "쇠",
           "legalStatus": "unknown"
         },
         {
           "hangul": "정",
-          "hanja": "井",
-          "meaning": "우물 정, 샘 정",
-          "strokes": 4,
-          "element": "Water",
-          "elementLabel": "물",
+          "hanja": "玎",
+          "meaning": "옥소리 정",
+          "strokes": 7,
+          "element": "Metal",
+          "elementLabel": "쇠",
           "legalStatus": "unknown"
         }
       ],
-      "popularityRank": 5750,
-      "maleRatio": 0.6,
+      "popularityRank": 4932,
+      "maleRatio": 0.5714285714285714,
       "nameGender": "male",
       "nameTrend": {
-        "givenHangul": "훈정",
+        "givenHangul": "영정",
         "gender": "male",
         "birthYear": 1986,
         "matchedYear": null,
@@ -328,9 +328,9 @@
         "authorityTruthEligible": true
       },
       "phonetic": {
-        "fullHangul": "최훈정",
+        "fullHangul": "최영정",
         "surnameHangul": "최",
-        "givenHangul": "훈정",
+        "givenHangul": "영정",
         "phoneticScore": 100,
         "transitionScore": 100,
         "familyNameFitScore": 100,
@@ -338,14 +338,14 @@
         "transitions": [
           {
             "from": "최",
-            "to": "훈",
+            "to": "영",
             "boundary": "surname_given",
             "score": 100,
             "risk": "low",
             "signals": []
           },
           {
-            "from": "훈",
+            "from": "영",
             "to": "정",
             "boundary": "given_internal",
             "score": 100,
@@ -356,7 +356,7 @@
         "warnings": [],
         "evidence": [
           "음운 흐름 점수 100/100 (부드러움); 표시용 근거이며 총점이나 순위에는 반영되지 않아요.",
-          "성-이름 연결 점수 100/100 (최훈).",
+          "성-이름 연결 점수 100/100 (최영).",
           "받침 충돌이나 반복 발음 경고는 감지되지 않았어요."
         ],
         "sourceTier": "T3_AUTHORED_INTERPRETATION",
@@ -365,12 +365,12 @@
       "rank": 3
     },
     {
-      "finalScore": 73.7,
+      "finalScore": 79.3,
       "scoreVector": {
         "legal": 75,
-        "sajuFit": 55.8,
-        "yongshinFit": 49.2,
-        "elementBalance": 71.9,
+        "sajuFit": 84.6,
+        "yongshinFit": 55.3,
+        "elementBalance": 81.9,
         "hanjaMeaning": 100,
         "phonetic": 100,
         "eraFit": null,
@@ -393,34 +393,34 @@
         ],
         "paretoFrontier": false
       },
-      "fullHangul": "최형정",
-      "fullHanja": "崔馨井",
-      "givenHangul": "형정",
+      "fullHangul": "최영진",
+      "fullHanja": "崔瑛珍",
+      "givenHangul": "영진",
       "givenName": [
         {
-          "hangul": "형",
-          "hanja": "馨",
-          "meaning": "향기 형, 향내 형",
-          "strokes": 20,
-          "element": "Wood",
-          "elementLabel": "나무",
+          "hangul": "영",
+          "hanja": "瑛",
+          "meaning": "옥빛 영, 수정 영",
+          "strokes": 14,
+          "element": "Metal",
+          "elementLabel": "쇠",
           "legalStatus": "unknown"
         },
         {
-          "hangul": "정",
-          "hanja": "井",
-          "meaning": "우물 정, 샘 정",
-          "strokes": 4,
-          "element": "Water",
-          "elementLabel": "물",
+          "hangul": "진",
+          "hanja": "珍",
+          "meaning": "보배 진, 진귀할 진",
+          "strokes": 10,
+          "element": "Metal",
+          "elementLabel": "쇠",
           "legalStatus": "unknown"
         }
       ],
-      "popularityRank": 5987,
-      "maleRatio": 0.5,
+      "popularityRank": 1446,
+      "maleRatio": 0.9048200122025626,
       "nameGender": "male",
       "nameTrend": {
-        "givenHangul": "형정",
+        "givenHangul": "영진",
         "gender": "male",
         "birthYear": 1986,
         "matchedYear": null,
@@ -436,9 +436,9 @@
         "authorityTruthEligible": true
       },
       "phonetic": {
-        "fullHangul": "최형정",
+        "fullHangul": "최영진",
         "surnameHangul": "최",
-        "givenHangul": "형정",
+        "givenHangul": "영진",
         "phoneticScore": 100,
         "transitionScore": 100,
         "familyNameFitScore": 100,
@@ -446,15 +446,15 @@
         "transitions": [
           {
             "from": "최",
-            "to": "형",
+            "to": "영",
             "boundary": "surname_given",
             "score": 100,
             "risk": "low",
             "signals": []
           },
           {
-            "from": "형",
-            "to": "정",
+            "from": "영",
+            "to": "진",
             "boundary": "given_internal",
             "score": 100,
             "risk": "low",
@@ -464,7 +464,7 @@
         "warnings": [],
         "evidence": [
           "음운 흐름 점수 100/100 (부드러움); 표시용 근거이며 총점이나 순위에는 반영되지 않아요.",
-          "성-이름 연결 점수 100/100 (최형).",
+          "성-이름 연결 점수 100/100 (최영).",
           "받침 충돌이나 반복 발음 경고는 감지되지 않았어요."
         ],
         "sourceTier": "T3_AUTHORED_INTERPRETATION",
@@ -473,16 +473,16 @@
       "rank": 4
     },
     {
-      "finalScore": 73.4,
+      "finalScore": 79,
       "scoreVector": {
         "legal": 75,
-        "sajuFit": 55.8,
-        "yongshinFit": 49.2,
-        "elementBalance": 71.3,
+        "sajuFit": 84.6,
+        "yongshinFit": 55.3,
+        "elementBalance": 76.9,
         "hanjaMeaning": 100,
-        "phonetic": 94.4,
+        "phonetic": 97.9,
         "eraFit": null,
-        "familyFit": 92,
+        "familyFit": 100,
         "risk": 25
       },
       "strengthProfile": {
@@ -490,45 +490,45 @@
         "label": "발음 안정형",
         "primaryAxis": "phonetic",
         "reasons": [
-          "발음 흐름 94.4점",
-          "성과 이름 연결 92점",
+          "발음 흐름 97.9점",
+          "성과 이름 연결 100점",
           "주의 신호 안정도 75점"
         ],
         "displayReasons": [
-          "발음 흐름 94.4점",
-          "성과 이름 연결 92점",
+          "발음 흐름 97.9점",
+          "성과 이름 연결 100점",
           "주의 신호 안정도 75점"
         ],
         "paretoFrontier": false
       },
-      "fullHangul": "최천비",
-      "fullHanja": "崔闡比",
-      "givenHangul": "천비",
+      "fullHangul": "최정영",
+      "fullHanja": "崔玎瑛",
+      "givenHangul": "정영",
       "givenName": [
         {
-          "hangul": "천",
-          "hanja": "闡",
-          "meaning": "열 천, 넓힐 천",
-          "strokes": 20,
-          "element": "Wood",
-          "elementLabel": "나무",
+          "hangul": "정",
+          "hanja": "玎",
+          "meaning": "옥소리 정",
+          "strokes": 7,
+          "element": "Metal",
+          "elementLabel": "쇠",
           "legalStatus": "unknown"
         },
         {
-          "hangul": "비",
-          "hanja": "比",
-          "meaning": "견줄 비, 도울 비",
-          "strokes": 4,
-          "element": "Fire",
-          "elementLabel": "불",
+          "hangul": "영",
+          "hanja": "瑛",
+          "meaning": "옥빛 영, 수정 영",
+          "strokes": 14,
+          "element": "Metal",
+          "elementLabel": "쇠",
           "legalStatus": "unknown"
         }
       ],
-      "popularityRank": 7975,
-      "maleRatio": 0.5,
+      "popularityRank": 3527,
+      "maleRatio": 0.6140350877192983,
       "nameGender": "male",
       "nameTrend": {
-        "givenHangul": "천비",
+        "givenHangul": "정영",
         "gender": "male",
         "birthYear": 1986,
         "matchedYear": null,
@@ -544,50 +544,50 @@
         "authorityTruthEligible": true
       },
       "phonetic": {
-        "fullHangul": "최천비",
+        "fullHangul": "최정영",
         "surnameHangul": "최",
-        "givenHangul": "천비",
-        "phoneticScore": 94.4,
-        "transitionScore": 96,
-        "familyNameFitScore": 92,
+        "givenHangul": "정영",
+        "phoneticScore": 97.9,
+        "transitionScore": 96.5,
+        "familyNameFitScore": 100,
         "status": "smooth",
         "transitions": [
           {
             "from": "최",
-            "to": "천",
+            "to": "정",
             "boundary": "surname_given",
-            "score": 92,
-            "risk": "low",
-            "signals": [
-              {
-                "code": "same_initial_repeat",
-                "severity": "low",
-                "penalty": 8,
-                "message": "최천 연결은 첫소리가 반복돼요."
-              }
-            ]
-          },
-          {
-            "from": "천",
-            "to": "비",
-            "boundary": "given_internal",
             "score": 100,
             "risk": "low",
             "signals": []
+          },
+          {
+            "from": "정",
+            "to": "영",
+            "boundary": "given_internal",
+            "score": 93,
+            "risk": "low",
+            "signals": [
+              {
+                "code": "same_coda_onset_repeat",
+                "severity": "medium",
+                "penalty": 7,
+                "message": "정영 연결은 앞 글자 받침과 뒤 글자 첫소리가 반복돼요."
+              }
+            ]
           }
         ],
         "warnings": [
           {
-            "code": "same_initial_repeat",
-            "severity": "low",
-            "penalty": 8,
-            "message": "최천 연결은 첫소리가 반복돼요."
+            "code": "same_coda_onset_repeat",
+            "severity": "medium",
+            "penalty": 7,
+            "message": "정영 연결은 앞 글자 받침과 뒤 글자 첫소리가 반복돼요."
           }
         ],
         "evidence": [
-          "음운 흐름 점수 94.4/100 (부드러움); 표시용 근거이며 총점이나 순위에는 반영되지 않아요.",
-          "성-이름 연결 점수 92/100 (최천).",
-          "최천 연결은 첫소리가 반복돼요."
+          "음운 흐름 점수 97.9/100 (부드러움); 표시용 근거이며 총점이나 순위에는 반영되지 않아요.",
+          "성-이름 연결 점수 100/100 (최정).",
+          "정영 연결은 앞 글자 받침과 뒤 글자 첫소리가 반복돼요."
         ],
         "sourceTier": "T3_AUTHORED_INTERPRETATION",
         "authorityTruthEligible": false
