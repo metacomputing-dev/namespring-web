@@ -58,7 +58,7 @@
       "axis": { "category": "career", "period": "today", "depth": "brief" },
       "gating": { "yongshinAlignment": ["conflicting"] },
       "templateTokens": [
-        { "kind": "text", "value": "큰 결정은 하루 묵혀 두면 결이 또렷해져요." }
+        { "kind": "text", "value": "큰 결정은 하루 묵혀 두면 방향이 또렷해져요." }
       ],
       "tags": [],
       "aiGenerated": true,
