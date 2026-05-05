@@ -230,7 +230,12 @@ async function run(): Promise<void> {
     if (safetyPosture) postureDistribution[safetyPosture] = (postureDistribution[safetyPosture] ?? 0) + 1;
 
     // Detect each Task-2 condition firing by re-evaluating its predicate.
-    const aggressiveReinforcement = root[(yongshin.element as ElementKey) ?? 'Earth']
+    // We can derive aggressiveReinforcement directly from yongshinRatio
+    // (which the helper above already computed via the case-translated
+    // element key); reaching back into `root` with the upstream uppercase
+    // element string skips the casing translation and silently yields
+    // undefined, which is the bug the previous version had.
+    const aggressiveReinforcement = yongshinRatio > 0
       ? Math.min(1, Math.max(0, (yongshinRatio - 0.5) / 0.5))
       : 0;
     const aggressiveConflictFired =
