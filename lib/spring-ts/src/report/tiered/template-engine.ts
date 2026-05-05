@@ -849,11 +849,18 @@ export interface RenderContext {
   readonly feature: FeatureVector;
 }
 
-/** Render a fragment's templateTokens into a TaggedParagraph. */
-export function renderFragment(
+/**
+ * Resolve a fragment's templateTokens into a flat ParagraphToken stream.
+ * Slot tokens are looked up via `resolveSlot` (variant pools / feature axes),
+ * tag tokens are passed through, and text tokens are normalized in place.
+ *
+ * The returned stream still contains literal `\n\n` markers inside text
+ * values — paragraph splitting is the caller's job (see `splitIntoParagraphs`).
+ */
+function resolveTokens(
   fragment: NarrativeFragment,
   ctx: RenderContext,
-): TaggedParagraph {
+): ParagraphToken[] {
   const out: ParagraphToken[] = [];
   for (const tok of fragment.templateTokens) {
     if (tok.kind === 'text') {
@@ -867,9 +874,141 @@ export function renderFragment(
       }
     }
   }
-  const merged = normalizeParticlesAfterTags(mergeAdjacentText(out)).map((token) =>
-    token.kind === 'text'
-      ? { ...token, value: normalizeRenderedText(token.value) }
-      : token);
+  return out;
+}
+
+/**
+ * Walk a resolved token stream and split into paragraph buckets at every
+ * `\n\n` (double-newline) boundary inside a text token.
+ *
+ * Splitting happens BEFORE `mergeAdjacentText` so the boundary markers are
+ * still present in their original positions. A text token whose value
+ * contains `\n\n` is sliced — the prefix flushes the current paragraph,
+ * the suffix opens the next one. Tag tokens always belong to whichever
+ * paragraph is open at their stream position; this naturally distributes
+ * them to the leading or trailing side of any nearby `\n\n`.
+ *
+ * Empty paragraphs (a leading or trailing `\n\n`, or `\n\n\n`) are dropped
+ * so callers see only meaningful content.
+ */
+function splitIntoParagraphs(tokens: readonly ParagraphToken[]): ParagraphToken[][] {
+  const buckets: ParagraphToken[][] = [];
+  let current: ParagraphToken[] = [];
+
+  for (const tok of tokens) {
+    if (tok.kind !== 'text' || !tok.value.includes('\n\n')) {
+      current.push(tok);
+      continue;
+    }
+
+    // Slice the text token at every `\n\n` boundary, flushing between slices.
+    const parts = tok.value.split(/\n\n+/);
+    for (let i = 0; i < parts.length; i += 1) {
+      const piece = parts[i];
+      if (piece.length > 0) current.push({ kind: 'text', value: piece });
+      // Flush after every part EXCEPT the last — the last piece keeps the
+      // current paragraph open so trailing tokens (tag, text) can attach.
+      if (i < parts.length - 1) {
+        if (current.length > 0) buckets.push(current);
+        current = [];
+      }
+    }
+  }
+
+  if (current.length > 0) buckets.push(current);
+  return buckets;
+}
+
+/**
+ * Trim leading whitespace from the first text token and trailing whitespace
+ * from the last text token of a paragraph. Splitting at `\n\n` commonly
+ * leaves boundary text like `"...결이 갈려요."` (clean) on one side and
+ * `" 인성의 흐름이..."` (leading space) on the other — without trimming,
+ * `plainText` would surface that leading space.
+ *
+ * Whitespace-only paragraphs (every text token empty after trim, no tags)
+ * collapse to an empty token list and are filtered by the caller.
+ */
+function trimParagraphEdges(tokens: readonly ParagraphToken[]): ParagraphToken[] {
+  if (tokens.length === 0) return [];
+  const trimmed = tokens.map((token) => ({ ...token }));
+
+  // First text token: trim leading whitespace.
+  const firstTextIdx = trimmed.findIndex((t) => t.kind === 'text');
+  if (firstTextIdx >= 0) {
+    const t = trimmed[firstTextIdx] as { kind: 'text'; value: string };
+    t.value = t.value.replace(/^\s+/u, '');
+  }
+  // Last text token: trim trailing whitespace.
+  for (let i = trimmed.length - 1; i >= 0; i -= 1) {
+    if (trimmed[i].kind === 'text') {
+      const t = trimmed[i] as { kind: 'text'; value: string };
+      t.value = t.value.replace(/\s+$/u, '');
+      break;
+    }
+  }
+  // Drop fully-empty text tokens so they do not survive merging.
+  return trimmed.filter((token) => token.kind !== 'text' || token.value.length > 0);
+}
+
+/**
+ * Render a fragment's templateTokens into one OR MORE TaggedParagraphs.
+ *
+ * Source `data/narrative/**` fragments use literal `\n\n` inside text token
+ * values to mark paragraph boundaries (≈95% of expert fragments, ≈17% of
+ * standard fragments, 0% of brief fragments per Phase 7 enrichment).
+ * Splitting at those markers gives expert cells the 4–8 paragraph shape
+ * recommended by the style guide §2-3 instead of a single concatenated blob.
+ *
+ * Brief fragments contain no `\n\n`, so they always return a single paragraph.
+ */
+export function renderFragmentParagraphs(
+  fragment: NarrativeFragment,
+  ctx: RenderContext,
+): TaggedParagraph[] {
+  const resolved = resolveTokens(fragment, ctx);
+  const buckets = splitIntoParagraphs(resolved);
+  const paragraphs: TaggedParagraph[] = [];
+
+  for (const bucket of buckets) {
+    const trimmed = trimParagraphEdges(bucket);
+    if (trimmed.length === 0) continue;
+    const merged = normalizeParticlesAfterTags(mergeAdjacentText(trimmed)).map((token) =>
+      token.kind === 'text'
+        ? { ...token, value: normalizeRenderedText(token.value) }
+        : token);
+    if (merged.length === 0) continue;
+    paragraphs.push({ tokens: merged, plainText: plainTextFromTokens(merged) });
+  }
+
+  return paragraphs;
+}
+
+/**
+ * Render a fragment's templateTokens into a TaggedParagraph.
+ *
+ * Backwards-compatible single-paragraph view of `renderFragmentParagraphs`.
+ * If splitting yields multiple paragraphs (expert/standard fragments with
+ * `\n\n` markers), they are concatenated with a single space separator so
+ * the legacy callers (build-tiered-matrix's `deriveBrief`, verify-render
+ * artifacts, baseline-snapshot tools) keep their existing single-paragraph
+ * contract. The `plainText` is the concatenation of the per-paragraph
+ * plain texts; the token list is the flat concatenation with a space
+ * insertion between paragraphs to avoid word collisions.
+ */
+export function renderFragment(
+  fragment: NarrativeFragment,
+  ctx: RenderContext,
+): TaggedParagraph {
+  const paragraphs = renderFragmentParagraphs(fragment, ctx);
+  if (paragraphs.length === 0) return { tokens: [], plainText: '' };
+  if (paragraphs.length === 1) return paragraphs[0];
+
+  const tokens: ParagraphToken[] = [];
+  for (let i = 0; i < paragraphs.length; i += 1) {
+    if (i > 0) tokens.push({ kind: 'text', value: ' ' });
+    for (const tok of paragraphs[i].tokens) tokens.push(tok);
+  }
+  const merged = mergeAdjacentText(tokens);
   return { tokens: merged, plainText: plainTextFromTokens(merged) };
 }
