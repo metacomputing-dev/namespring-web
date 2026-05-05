@@ -33,6 +33,17 @@
 | 17 | SUB_DOMAIN_NARRATIVES romance.high | `인연의 결이 부드러워지고` (task 명시 `결이` 반복) | task 명시 | `인연의 호흡이 부드러워지고` |
 | 18 | SUB_DOMAIN_NARRATIVES health.low | `혼자 버티지 말고 필요한 도움을 받으세요` (부담 어조) | §6 health voice = 따뜻함 | `일찍 도움을 청하세요` (간결 + 따뜻) |
 | 19 | SUB_DOMAIN_NARRATIVES `~ 영역은 ~ 것이 좋아요` 단정형 (wealth/family/health) | `것이 좋아요` 단정 | §1 약한 확신 (`~ 편이에요`) | `~ 편이 좋아요` |
+| 20 | makeCategorySummary stars=3 / stars=1 종결조 단조 | iter1 후 `흐름이에요` 80건 (5 카테고리 동시 등장) → 새 단조 | §1 단조 회피 | stars=3 `평이한 흐름이에요` → `큰 굴곡 없는 한 해예요`, stars=1 `부담이 큰 흐름이에요` → `부담이 큰 한 해예요`, stars=2 `다소 조심이 필요한 흐름이에요` → `살짝 조심이 필요해요` (분산) |
+| 21 | makeCaution.signal (health) `~흐름이에요` | `흐름이에요` 다른 곳에 또 사용 | §1 단조 회피 | `평소보다 신경을 조금 더 써야 해요` |
+| 22 | makeCaution.signal (family) `~흐름이에요` | 동일 | §1 단조 회피 | `살짝 늘어날 수 있어요` |
+| 23 | SUB_DOMAIN_NARRATIVES.health_stress.high `~좋은 흐름이에요` | 동일 | §1 단조 회피 | `자연스럽게 회복돼요` |
+| 24 | makeHealthAdvice (stars≥4) `~좋아지는 시기예요` (advice.reason) | 위 변경의 단조 다양화 후 다시 잡힌 `시기예요` | §1 단조 회피 | `자연스럽게 좋아져요` |
+| 25 | makeFamilyAdvice (stars≥4) `~잘 되는 시기예요. 함께~` (advice.text) | 동일 | §1 단조 회피 | `~잘 풀리는 한 해예요. 함께~` |
+| 26 | makeWealthAdvice (stars≥4 minor) `~만들기 좋은 시기예요` | 동일 | §1 단조 회피 | `~만들기 좋아요` |
+| 27 | makeWealthAdvice (stars≥4 non-minor) `~검토해 보기 좋은 시기예요` | 동일 | §1 단조 회피 | `~검토해 보기 좋은 흐름이에요` |
+| 28 | makeAcademicAdvice (stars≥4) `학습 효율이 높은 시기예요` | 동일 | §1 단조 회피 | `학습 효율이 잘 올라가는 한 해예요` |
+| 29 | makeRomanceAdvice (stars≥4 minor) `~만들기 쉬운 시기예요` | 동일 | §1 단조 회피 | `~만들기 쉬워요` |
+| 30 | makeRomanceAdvice (stars≥4 non-minor) `~들어오기 좋은 시기예요. 모임에~` | 동일 | §1 단조 회피 | `~들어오기 좋은 흐름이에요. 모임에~` |
 
 ## 3. Service-visible-output invariant 보존 검증
 
@@ -56,25 +67,44 @@ Pre-edit baseline regen → 우리 변경 적용 후 regen 후 비교 (`before-c
 | 측정 | 결과 |
 |---|---|
 | 비교한 text 필드 (summary/signal/response/reason/claim/narrative/text/weakness) | 920 |
-| 변경 발생 필드 | 300 |
-| Unique change pattern | 15 |
+| 변경 발생 필드 | 300+ (iter1) → 추가 polish iter2 후 더 다양화 |
+| Unique change pattern | 15 (iter1) → diversification 추가 패턴 |
 | 새로 도입된 violation/forbidden 어구 | 0 |
 
-15 unique change pattern 모두 위 issue 표 의 fix 결과 — 의도된 변경이며, 의미 보존 (격국·용신 정보 / 카테고리 voice / 강도 hedge 등 모두 일관).
+종결조 분포 (전체 categoryFortunes payload 의 `JSON.stringify` 위에서 단순 substring count):
+
+| 어구 | before | after iter1 | after iter2 (final) |
+|---|---|---|---|
+| `위험` (forbidden) | 20 | 0 | 0 |
+| `결이` (task 명시) | 0 | 0 | 0 |
+| `최고예요` (단정) | 0 | 0 | 0 |
+| `시기예요` (반복) | 100 | 40 | 0 |
+| `흐름이에요` (iter1 새 단조) | 0 | 80 | 0 |
+| `한 해예요` (분산용) | 0 | 0 | 40 |
+
+iter1 의 `흐름이에요` 80건 새 단조를 iter2 에서 다시 분산하여 종결조가 카테고리당 다양해지도록 하였음. 최종적으로 forbidden 어구 / 명시 단조 어구 모두 0.
+
+iter1 + iter2 unique change pattern 모두 위 issue 표 의 fix 결과 — 의도된 변경이며, 의미 보존 (격국·용신 정보 / 카테고리 voice / 강도 hedge 등 모두 일관).
 
 (stars 4·5·1 분기는 22 fixture 의 distribution 상 노출되지 않아 이번 fixture diff 에는 잡히지 않음. source 차원에서 모두 변경됨.)
 
 ## 5. Acceptance test 결과 (worktree baseline 기준 fail 갯수 무증가)
 
+워크트리 HEAD = 5ea230e (Phase 6 audit fixes). 메인 checkout 에 unstaged 된 P7-A1
+의 `overview-summary-card.ts` (`roEuro` helper / counterexample 어조 변경) 가
+워크트리에 미반영 — 그래서 워크트리 baseline 에서는 일부 test 가 baseline 으로 FAIL.
+우리 영역 외 (텍스트만 변경하므로 영향 없음).
+
 | Test | Baseline | After P7-A3 | 비고 |
 |---|---|---|---|
 | typecheck | 0 error | 0 error | OK |
 | ci:no-ai-policy | PASS | PASS | OK |
-| test:service-visible-output | 7 PASS / 6 FAIL | 7 PASS / 6 FAIL | 6 FAIL 은 워크트리 baseline (메인 checkout 의 P7-A1 미반영 — 우리 영역 외) |
+| test:service-visible-output | 7 PASS / 6 FAIL | 7 PASS / 6 FAIL | 6 FAIL 은 워크트리 baseline (메인 checkout 의 P7-A1 unstaged 변경 미반영 — 우리 영역 외) |
 | test:tengod-report-surface | 1 PASS / 7 FAIL | 1 PASS / 7 FAIL | 워크트리 baseline issue |
 | test:overview-pillar-elements | 2 PASS / 0 FAIL | 2 PASS / 0 FAIL | OK |
 | test:namespring-compat | 182 PASS / 1 FAIL | 182 PASS / 1 FAIL | 1 FAIL 은 baseline issue (overview pillar) |
-| test:snapshot | 0/15 PASS (numeric 동등; stored snapshot stale) | 동일 | numeric 변경 0 — 텍스트만 polish (`measure_regression` 0 diff 별도 PASS) |
+| test:snapshot (stored snapshot 비교) | 0/15 PASS (stored snapshot stale, Phase 6 변경 미캡쳐) | 동일 | numeric 변경 0. acceptance "default 변경 없음" 은 stored snapshot 갱신 여부와 무관하게 우리 변경의 numeric 영향 0 임을 확인. |
+| measure_regression (main vs HEAD) | 0 diffs PASS | 0 diffs PASS | 우리 텍스트 변경이 numeric/categorical 결과에 영향 없음 직접 확인 |
 
 **우리 변경으로 새 fail 도입 0건 — 모든 fail 은 워크트리 baseline 기존 상태.**
 
@@ -88,10 +118,12 @@ Pre-edit baseline regen → 우리 변경 적용 후 regen 후 비교 (`before-c
 
 ## 7. Commit 목록
 
-| SHA | 메시지 (요약) | LOC |
+| SHA | 메시지 (요약) | 비고 |
 |---|---|---|
-| 30a729e | P7-A3 categoryFortunes prose polish — remove forbidden 위험 wording | 2 +/- |
-| dc85e59 | P7-A3 categoryFortunes prose polish — diversify summary/caution voice | 50 +/- |
-| c350372 | P7-A3 categoryFortunes prose polish — subdomain narratives + evidence claim | 20 +/- |
+| 70f377b | feat(card): P7-A3 categoryFortunes prose polish | iter1 — issue 1~19 (소스 변경 110 LOC) |
+| 971b960 | artifacts(phase7-a3): regenerate samples + record categoryFortunes before/after | iter1 fixture regen + before/after.md + before/after JSON snapshot |
+| (이후) | feat(card)+artifacts: P7-A3 prose iter2 — diversify ending after `흐름이에요` 80x audit | iter2 — issue 20~30 (`흐름이에요` 새 단조 발견 후 분산) |
 
-총 1 file (category-fortune-card.ts) + 1 file (category-fortune-subdomain-data.ts) — 텍스트만 변경, 모든 commit ≤300 LOC, 1 commit = 1 intent.
+총 2 file (텍스트만 변경): `category-fortune-card.ts` + `category-fortune-subdomain-data.ts`.
+모든 commit < 300 LOC, 1 commit = 1 intent (소스 prose polish / fixture regen 으로 분리).
+`data/narrative/**`, `_glossary/`, `_metaphor/`, `_modifier_*/`, `_seed/`, `../../namespring/` 무수정.
