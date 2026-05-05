@@ -1,0 +1,229 @@
+{
+  "generatedAt": "2026-05-05T05:20:25.248Z",
+  "pair": {
+    "legacy": {
+      "file": "01-choi-seongsoo-current-fortune.json",
+      "sampleId": "choi-seongsoo-current-fortune",
+      "call": "getFortuneReport"
+    },
+    "tiered": {
+      "file": "02-choi-seongsoo-tiered-fortune.json",
+      "sampleId": "choi-seongsoo-tiered-fortune",
+      "call": "getFortuneReport"
+    }
+  },
+  "topLevel": {
+    "legacyKeys": [
+      "categoryFortunes",
+      "cautions",
+      "dailyFortune",
+      "lifeFortuneOverview",
+      "lifeStageFortune",
+      "meta",
+      "monthlyFortune",
+      "nameCompatibility",
+      "overviewSummary",
+      "personality",
+      "strengthsWeaknesses",
+      "weeklyFortune",
+      "yearlyFortune"
+    ],
+    "tieredKeys": [
+      "categoryFortunes",
+      "cautions",
+      "dailyFortune",
+      "lifeFortuneOverview",
+      "lifeStageFortune",
+      "meta",
+      "monthlyFortune",
+      "nameCompatibility",
+      "overviewSummary",
+      "personality",
+      "strengthsWeaknesses",
+      "tieredMatrix",
+      "weeklyFortune",
+      "yearlyFortune"
+    ],
+    "addedInTiered": [
+      "tieredMatrix"
+    ],
+    "removedInTiered": [],
+    "shared": [
+      "categoryFortunes",
+      "cautions",
+      "dailyFortune",
+      "lifeFortuneOverview",
+      "lifeStageFortune",
+      "meta",
+      "monthlyFortune",
+      "nameCompatibility",
+      "overviewSummary",
+      "personality",
+      "strengthsWeaknesses",
+      "weeklyFortune",
+      "yearlyFortune"
+    ],
+    "keyCountLegacy": 13,
+    "keyCountTiered": 14
+  },
+  "leafPathDiff": {
+    "legacyLeafCount": 336,
+    "tieredLeafCount": 673,
+    "sharedLeafCount": 336,
+    "addedSample": [
+      "tieredMatrix.glossary.entries.baeujagung.brief",
+      "tieredMatrix.glossary.entries.baeujagung.category",
+      "tieredMatrix.glossary.entries.baeujagung.detailed",
+      "tieredMatrix.glossary.entries.baeujagung.hashLabel",
+      "tieredMatrix.glossary.entries.baeujagung.id",
+      "tieredMatrix.glossary.entries.baeujagung.label",
+      "tieredMatrix.glossary.entries.baeujagung.related[]",
+      "tieredMatrix.glossary.entries.bigyeon.brief",
+      "tieredMatrix.glossary.entries.bigyeon.category",
+      "tieredMatrix.glossary.entries.bigyeon.detailed",
+      "tieredMatrix.glossary.entries.bigyeon.hashLabel",
+      "tieredMatrix.glossary.entries.bigyeon.id",
+      "tieredMatrix.glossary.entries.bigyeon.label",
+      "tieredMatrix.glossary.entries.bigyeon.related[]",
+      "tieredMatrix.glossary.entries.bumyong.brief",
+      "tieredMatrix.glossary.entries.bumyong.category",
+      "tieredMatrix.glossary.entries.bumyong.detailed",
+      "tieredMatrix.glossary.entries.bumyong.hashLabel",
+      "tieredMatrix.glossary.entries.bumyong.id",
+      "tieredMatrix.glossary.entries.bumyong.label",
+      "tieredMatrix.glossary.entries.bumyong.related[]",
+      "tieredMatrix.glossary.entries.daewoonGungsil.brief",
+      "tieredMatrix.glossary.entries.daewoonGungsil.category",
+      "tieredMatrix.glossary.entries.daewoonGungsil.detailed",
+      "tieredMatrix.glossary.entries.daewoonGungsil.hashLabel"
+    ],
+    "removedSample": []
+  },
+  "tieredMatrix": {
+    "schemaVersion": "spring-ts.tiered-matrix.v1",
+    "periods": [
+      "life",
+      "today",
+      "thisWeek",
+      "thisMonth",
+      "thisYear"
+    ],
+    "categoriesPerPeriod": {
+      "life": [
+        "overall",
+        "wealth",
+        "health",
+        "academic",
+        "romance",
+        "family",
+        "career",
+        "study_document",
+        "expression_children",
+        "health_stress",
+        "movement"
+      ],
+      "today": [
+        "overall",
+        "wealth",
+        "health",
+        "academic",
+        "romance",
+        "family",
+        "career",
+        "study_document",
+        "expression_children",
+        "health_stress",
+        "movement"
+      ],
+      "thisWeek": [
+        "overall",
+        "wealth",
+        "health",
+        "academic",
+        "romance",
+        "family",
+        "career",
+        "study_document",
+        "expression_children",
+        "health_stress",
+        "movement"
+      ],
+      "thisMonth": [
+        "overall",
+        "wealth",
+        "health",
+        "academic",
+        "romance",
+        "family",
+        "career",
+        "study_document",
+        "expression_children",
+        "health_stress",
+        "movement"
+      ],
+      "thisYear": [
+        "overall",
+        "wealth",
+        "health",
+        "academic",
+        "romance",
+        "family",
+        "career",
+        "study_document",
+        "expression_children",
+        "health_stress",
+        "movement"
+      ]
+    },
+    "glossaryEntryCount": 26,
+    "glossaryUsedCount": 26,
+    "meta": {
+      "schemaVersion": "spring-ts.tiered-matrix.v1",
+      "generatedAt": "2026-05-05T05:20:19.629Z",
+      "selectionSeed": "1986|4|19|5|45|male|2026-05-04T15:00:00.000Z",
+      "templateContractVersion": "1.0.0",
+      "contentSource": "authored",
+      "fragmentCount": 4066,
+      "aiGeneratedFragmentCount": 4066
+    },
+    "hasNamingEvidence": true
+  },
+  "springReportVector": {
+    "file": "03-choi-seongsoo-spring-report-vector.json",
+    "sampleId": "choi-seongsoo-spring-report-vector",
+    "call": "getSpringReport",
+    "topLevelKeys": [
+      "combinedDistribution",
+      "finalScore",
+      "maleRatio",
+      "nameGender",
+      "nameTrend",
+      "namingReport",
+      "phonetic",
+      "popularityRank",
+      "rank",
+      "sajuCompatibility",
+      "sajuReport",
+      "schoolPreset",
+      "scoreVector",
+      "strengthProfile"
+    ],
+    "addedVsLegacyFortune": [
+      "combinedDistribution",
+      "finalScore",
+      "maleRatio",
+      "nameGender",
+      "nameTrend",
+      "namingReport",
+      "phonetic",
+      "popularityRank",
+      "rank",
+      "sajuCompatibility",
+      "sajuReport",
+      "schoolPreset",
+      "scoreVector",
+      "strengthProfile"
+    ],
+    "note": "getSpringReport vs getFortuneReport — different envelope (combines naming + saju), so top-level shape diverges by design."
+  }
+}
