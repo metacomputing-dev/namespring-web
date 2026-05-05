@@ -412,6 +412,93 @@
         "copyrightNote": "No source prose copied; original phrasing.",
         "authorityTruthEligible": false
       }
+    },
+    {
+      "schemaVersion": "spring-ts.narrative-fragment.v1",
+      "fragmentId": "romance.life.expert.diversity.anchor.001",
+      "axis": {
+        "category": "romance",
+        "period": "life",
+        "depth": "expert"
+      },
+      "gating": {
+        "ageBand": [
+          "20-29",
+          "30-39",
+          "40-54",
+          "55-69",
+          "70+"
+        ]
+      },
+      "templateTokens": [
+        {
+          "kind": "text",
+          "value": "평생의 인연 결을 더 또렷이 짚으려면 십성·궁실·합의 큰 그림이 함께 들어와요. "
+        },
+        {
+          "kind": "tag",
+          "tagId": "gwanseong",
+          "label": "관성"
+        },
+        {
+          "kind": "text",
+          "value": "의 전체 분포가 또렷이 자리 잡힌 사주는 책임과 인연의 결이 함께 자라는 흐름이에요.\n\n"
+        },
+        {
+          "kind": "tag",
+          "tagId": "siGungsil",
+          "label": "시궁실"
+        },
+        {
+          "kind": "text",
+          "value": "에 들어오는 결이 따뜻한 모양이라면 인연의 자리가 후반기까지 한 결로 이어지는 흐름이에요. "
+        },
+        {
+          "kind": "tag",
+          "tagId": "banghab_inmyojin",
+          "label": "인묘진 방합"
+        },
+        {
+          "kind": "text",
+          "value": "처럼 지지의 큰 합이 또렷이 모이는 시기엔 가까운 자리가 한 결로 이어지는 흐름이에요.\n\n"
+        },
+        {
+          "kind": "tag",
+          "tagId": "eumyangHarmony",
+          "label": "음양조화도"
+        },
+        {
+          "kind": "text",
+          "value": "의 결이 평균 이상이라면 인연의 결이 부드럽게 자리 잡는 흐름이고, "
+        },
+        {
+          "kind": "tag",
+          "tagId": "harmonyScore",
+          "label": "어울림점수"
+        },
+        {
+          "kind": "text",
+          "value": "의 결을 함께 살피면 평생의 인연 그림이 한층 또렷해져요. 단정보다 자기 결을 정성껏 살피는 일이 가장 큰 자산이에요."
+        }
+      ],
+      "tags": [
+        "gwanseong",
+        "siGungsil",
+        "banghab_inmyojin",
+        "eumyangHarmony",
+        "harmonyScore"
+      ],
+      "aiGenerated": true,
+      "sourceTier": {
+        "tier": "T1_HYPOTHESIS",
+        "sourceType": "training_derived",
+        "sourceUrl": null,
+        "accessedAt": "2026-05-05",
+        "quoteShort": null,
+        "humanInterpretation": "Phase 5 P5-A4 romance tag-diversity expansion.",
+        "copyrightNote": "No source prose copied; original.",
+        "authorityTruthEligible": false
+      }
     }
   ]
 }
