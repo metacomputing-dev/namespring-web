@@ -31,7 +31,7 @@ import type {
 import { buildFeatureVector, type FeatureVector } from './feature-selector.js';
 import { loadFragmentRegistry, type FragmentRegistry, type NarrativeFragment } from './fragment-registry.js';
 import { selectFragment, buildSelectionSeed } from './fragment-selector.js';
-import { normalizeRenderedText, renderFragment, type RenderContext } from './template-engine.js';
+import { normalizeRenderedText, renderFragment, renderFragmentParagraphs, type RenderContext } from './template-engine.js';
 import { gradeCell } from './cell-grader.js';
 import { buildPeriodMeta, periodFortuneElement } from './period-meta-builder.js';
 import { loadGlossary } from './glossary-loader.js';
@@ -188,24 +188,29 @@ function buildMinorFallbackCell(
 
 function buildExpertText(
   fragment: NarrativeFragment | null,
-  rendered: TaggedParagraph,
+  rendered: readonly TaggedParagraph[],
   evidenceContext: NumericalEvidenceContext,
 ): ExpertFortuneText {
   if (!fragment) return PLACEHOLDER_EXPERT;
   const numericalEvidence = resolveNumericalEvidence(fragment, evidenceContext);
+  // A paragraph counts as content-bearing if it has any tokens. The
+  // splitter already drops fully-empty paragraphs, so this filter is
+  // belt-and-braces — typical case is `rendered` already valid.
+  const paragraphs = rendered.filter((p) => p.tokens.length > 0);
   return {
-    paragraphs: rendered.tokens.length ? [rendered] : EMPTY_PARAGRAPHS,
+    paragraphs: paragraphs.length ? paragraphs : EMPTY_PARAGRAPHS,
     ...(numericalEvidence ? { numericalEvidence } : {}),
   };
 }
 
 function buildStandardText(
   fragment: NarrativeFragment | null,
-  rendered: TaggedParagraph,
+  rendered: readonly TaggedParagraph[],
 ): StandardFortuneText {
   if (!fragment) return PLACEHOLDER_STANDARD;
+  const paragraphs = rendered.filter((p) => p.tokens.length > 0);
   return {
-    paragraphs: rendered.tokens.length ? [rendered] : EMPTY_PARAGRAPHS,
+    paragraphs: paragraphs.length ? paragraphs : EMPTY_PARAGRAPHS,
     ...(fragment.livingTips && fragment.livingTips.length
       ? { livingTips: fragment.livingTips.map((text) => normalizeRenderedText(text)) }
       : {}),
@@ -269,17 +274,22 @@ function buildCell(
   const standardFrag = selectFragment(registry, category, period, 'standard', feature, { seedKey });
   const expertFrag = selectFragment(registry, category, period, 'expert', feature, { seedKey });
 
+  // Brief stays a concise headline — collapse any (rare/absent) `\n\n`
+  // splits via `renderFragment` into a single paragraph for headline use.
   const briefRender = briefFrag ? renderFragment(briefFrag, ctx) : null;
-  const standardRender = standardFrag ? renderFragment(standardFrag, ctx) : null;
-  const expertRender = expertFrag ? renderFragment(expertFrag, ctx) : null;
+  // Standard/Expert preserve `\n\n` paragraph boundaries from the source
+  // narrative fragments (style guide §2-3 recommends 4-8 paragraphs for
+  // expert depth; renderer collapsed everything to 1 prior to P9-A1).
+  const standardRender = standardFrag ? renderFragmentParagraphs(standardFrag, ctx) : EMPTY_PARAGRAPHS;
+  const expertRender = expertFrag ? renderFragmentParagraphs(expertFrag, ctx) : EMPTY_PARAGRAPHS;
   const hasAnyFragment = Boolean(briefFrag || standardFrag || expertFrag);
 
   const brief = briefRender ? deriveBrief(briefRender) : PLACEHOLDER_BRIEF;
   const standard = standardFrag
-    ? buildStandardText(standardFrag, standardRender ?? { tokens: [], plainText: '' })
+    ? buildStandardText(standardFrag, standardRender)
     : (hasAnyFragment ? (buildMinorStandardFallback(feature, category, periodLabel) ?? PLACEHOLDER_STANDARD) : PLACEHOLDER_STANDARD);
   const expert = expertFrag
-    ? buildExpertText(expertFrag, expertRender ?? { tokens: [], plainText: '' }, {
+    ? buildExpertText(expertFrag, expertRender, {
       feature,
       cell: { stars: grade.stars },
     })

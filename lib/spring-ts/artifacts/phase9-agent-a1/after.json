@@ -1,0 +1,24 @@
+{
+  "fixtureCount": 15,
+  "cellCount": 825,
+  "expert": {
+    "distribution": {
+      "1": 64,
+      "4": 742,
+      "5": 17,
+      "6": 2
+    },
+    "avgWhenPresent": 3.79,
+    "nonZeroCells": 825
+  },
+  "standard": {
+    "distribution": {
+      "1": 677,
+      "3": 87,
+      "4": 29,
+      "5": 32
+    },
+    "avgWhenPresent": 1.47,
+    "nonZeroCells": 825
+  }
+}

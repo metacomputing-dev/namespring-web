@@ -1,0 +1,77 @@
+{
+  "phase": "P9-A1",
+  "intent": "renderer-level expert paragraph splitting at \\n\\n boundaries",
+  "ownedFiles": [
+    "src/report/tiered/template-engine.ts",
+    "src/report/tiered/build-tiered-matrix.ts"
+  ],
+  "measurement": {
+    "scope": "buildTieredMatrix output across 15 baseline fixtures × 55 cells = 825 cells",
+    "targetDate": "2026-05-05T00:00:00.000Z"
+  },
+  "before": {
+    "fixtureCount": 15,
+    "cellCount": 825,
+    "expert": {
+      "distribution": {
+        "1": 825
+      },
+      "avgWhenPresent": 1.0,
+      "nonZeroCells": 825
+    },
+    "standard": {
+      "distribution": {
+        "1": 825
+      },
+      "avgWhenPresent": 1.0,
+      "nonZeroCells": 825
+    }
+  },
+  "after": {
+    "fixtureCount": 15,
+    "cellCount": 825,
+    "expert": {
+      "distribution": {
+        "1": 64,
+        "4": 742,
+        "5": 17,
+        "6": 2
+      },
+      "avgWhenPresent": 3.79,
+      "nonZeroCells": 825,
+      "multiParagraphRate": "92.2% (761/825 cells with ≥4 paragraphs)"
+    },
+    "standard": {
+      "distribution": {
+        "1": 677,
+        "3": 87,
+        "4": 29,
+        "5": 32
+      },
+      "avgWhenPresent": 1.47,
+      "nonZeroCells": 825,
+      "multiParagraphRate": "17.9% (148/825 cells with multi-paragraph)"
+    }
+  },
+  "delta": {
+    "expert": {
+      "avgIncrease": "+2.79 paragraphs/cell",
+      "noteToReader": "Style guide §2-3 recommends 4-8 paragraphs at expert depth; 92.2% of expert cells now meet that floor (4+). The 64 single-paragraph expert cells correspond to fragments without any \\n\\n marker (the remaining ≈5% in source data + minor-age fallbacks)."
+    },
+    "standard": {
+      "avgIncrease": "+0.47 paragraphs/cell",
+      "noteToReader": "Standard fragments only contain \\n\\n in 17% of source data (per Phase 7 enrichment); brief fragments contain none. Brief tier still always returns 1 headline as expected."
+    }
+  },
+  "verification": {
+    "typecheck": "PASS",
+    "ci:no-ai-policy": "PASS",
+    "test:tiered-isolation": "37 PASS / 0 FAIL",
+    "test:tiered-shape": "958 PASS / 0 FAIL",
+    "test:tiered-determinism": "4 PASS / 0 FAIL",
+    "test:tiered-numerical-evidence": "35 PASS / 0 FAIL",
+    "test:tiered-progressive-disclosure": "11 PASS / 1 FAIL (pre-existing on baseline; awkward-prose check surfaces a different sentence post-split but the assertion was already failing before P9-A1)",
+    "test:namespring-compat": "182 PASS / 1 FAIL (pre-existing pillar-elements failure on this branch baseline; tieredMatrix invariants intact)",
+    "test:snapshot": "0 PASS / 15 FAIL surface-level, but tools/measure_regression.mjs reports 0 default-mode diffs across 15 fixtures (pre-existing baseline drift unrelated to P9-A1)"
+  }
+}
