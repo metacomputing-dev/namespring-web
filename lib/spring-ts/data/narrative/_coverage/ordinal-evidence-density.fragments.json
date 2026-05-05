@@ -122,7 +122,7 @@
         { "kind": "tag", "tagId": "ohaengBalance", "label": "오행 균형" },
         { "kind": "text", "value": "을 함께 보면 해야 할 일을 늘리기보다 회복 루틴을 먼저 세우는 해석이 더 안정적이에요." }
       ],
-      "livingTips": ["할 일을 새로 벌리기 전에 수면, 식사, 일정 간격을 먼저 고정하세요."],
+      "livingTips": ["할 일을 새로 벌리기 전에 수면, 식사, 일정 간격을 고정하세요."],
       "cautions": ["성장 욕구가 강해질수록 피로 신호를 뒤로 미루기 쉬워요."],
       "tags": ["wood", "ohaengBalance"],
       "numericalEvidence": [

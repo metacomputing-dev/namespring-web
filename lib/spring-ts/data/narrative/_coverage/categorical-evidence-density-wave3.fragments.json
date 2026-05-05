@@ -208,7 +208,7 @@
         { "kind": "tag", "tagId": "eumyangHarmony", "label": "음양 조화" },
         { "kind": "text", "value": "와 함께 보면 관계, 일, 가족 조언의 말투를 더 조심스럽게 조절할 수 있습니다." }
       ],
-      "livingTips": ["성별보다 실제 질문의 주제와 현재 시기 흐름을 먼저 놓고 보세요."],
+      "livingTips": ["성별보다 실제 질문의 주제와 현재 시기 흐름을 놓고 보세요."],
       "cautions": ["성별값으로 강점과 약점을 단정하지 않도록 주의하세요."],
       "tags": ["sajuCompatibility", "eumyangHarmony"],
       "numericalEvidence": [
