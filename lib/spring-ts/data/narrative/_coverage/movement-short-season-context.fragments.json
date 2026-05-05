@@ -171,7 +171,7 @@
       "templateTokens": [
         {
           "kind": "text",
-          "value": "일간 단위 이동 해석에서 봄과 여름의 현재 계절은 외부 활동성을 빠르게 올립니다. "
+          "value": "일간 단위 이동 해석에서 봄과 여름의 현재 계절은 외부 활동성을 빠르게 올립니다.\n\n"
         },
         {
           "kind": "tag",
@@ -189,7 +189,7 @@
         },
         {
           "kind": "text",
-          "value": " 방향과 어긋나면 체력 소모가 먼저 커질 수 있습니다. "
+          "value": " 방향과 어긋나면 체력 소모가 먼저 커질 수 있습니다.\n\n"
         },
         {
           "kind": "tag",
@@ -198,13 +198,36 @@
         },
         {
           "kind": "text",
-          "value": " 흐름과 겹치는 일정은 실행 순서를 좁혀 관리하세요."
+          "value": " 흐름과 겹치는 일정은 실행 순서를 좁혀 관리하세요.\n\n"
+        },
+        {
+          "kind": "text",
+          "value": "이동의 흐름은 "
+        },
+        {
+          "kind": "tag",
+          "tagId": "yeokma",
+          "label": "역마"
+        },
+        {
+          "kind": "text",
+          "value": "의 자극과 "
+        },
+        {
+          "kind": "tag",
+          "tagId": "jojangung",
+          "label": "조상궁"
+        },
+        {
+          "kind": "text",
+          "value": "의 뿌리가 함께 살아나는 자리에서 단단해지고, 익숙한 동선부터 한 걸음씩 넓히는 페이스가 잘 어울려요."
         }
       ],
       "tags": [
         "yeokma",
         "yongshin",
-        "daewoonGungsil"
+        "daewoonGungsil",
+        "jojangung"
       ],
       "numericalEvidence": [
         {
@@ -302,7 +325,7 @@
       "templateTokens": [
         {
           "kind": "text",
-          "value": "일간 단위 이동 해석에서 가을과 겨울의 현재 계절은 확장보다 보존과 회수를 우선하게 합니다. "
+          "value": "일간 단위 이동 해석에서 가을과 겨울의 현재 계절은 확장보다 보존과 회수를 우선하게 합니다.\n\n"
         },
         {
           "kind": "tag",
@@ -320,7 +343,7 @@
         },
         {
           "kind": "text",
-          "value": " 관련 기반 일정은 지연 가능성을 보수적으로 보아야 합니다. "
+          "value": " 관련 기반 일정은 지연 가능성을 보수적으로 보아야 합니다.\n\n"
         },
         {
           "kind": "tag",
@@ -329,13 +352,33 @@
         },
         {
           "kind": "text",
-          "value": " 보강 활동을 이동 전후에 배치하면 소모를 줄일 수 있습니다."
+          "value": " 보강 활동을 이동 전후에 배치하면 소모를 줄일 수 있습니다.\n\n"
+        },
+        {
+          "kind": "tag",
+          "tagId": "jisal",
+          "label": "지살"
+        },
+        {
+          "kind": "text",
+          "value": "의 신호와 "
+        },
+        {
+          "kind": "tag",
+          "tagId": "cheonigung",
+          "label": "천이궁"
+        },
+        {
+          "kind": "text",
+          "value": "의 결을 함께 살펴 두면 이동의 결이 어디로 이어질지 한층 또렷해져요."
         }
       ],
       "tags": [
         "yeokma",
         "jojangung",
-        "yongshin"
+        "yongshin",
+        "jisal",
+        "cheonigung"
       ],
       "aiGenerated": true,
       "sourceTier": {
@@ -517,7 +560,7 @@
       "templateTokens": [
         {
           "kind": "text",
-          "value": "주간 이동운에서 봄과 여름의 현재 계절은 활동 반경을 넓히는 쪽으로 작동합니다. "
+          "value": "주간 이동운에서 봄과 여름의 현재 계절은 활동 반경을 넓히는 쪽으로 작동합니다.\n\n"
         },
         {
           "kind": "tag",
@@ -544,13 +587,55 @@
         },
         {
           "kind": "text",
-          "value": " 보강 루틴을 주간 이동 전후에 배치하세요."
+          "value": " 보강 루틴을 주간 이동 전후에 배치하세요.\n\n"
+        },
+        {
+          "kind": "tag",
+          "tagId": "daewoonGungsil",
+          "label": "대운궁실"
+        },
+        {
+          "kind": "text",
+          "value": "의 결이 새로운 자리로 들어오는 시기와 "
+        },
+        {
+          "kind": "tag",
+          "tagId": "iljin",
+          "label": "일진"
+        },
+        {
+          "kind": "text",
+          "value": "의 자리가 부드러운 시기를 함께 보면 이동의 결이 자기 자산으로 익어 가는 흐름이 보여요.\n\n"
+        },
+        {
+          "kind": "text",
+          "value": "이동의 흐름은 "
+        },
+        {
+          "kind": "tag",
+          "tagId": "yeokma",
+          "label": "역마"
+        },
+        {
+          "kind": "text",
+          "value": "의 자극과 "
+        },
+        {
+          "kind": "tag",
+          "tagId": "jojangung",
+          "label": "조상궁"
+        },
+        {
+          "kind": "text",
+          "value": "의 뿌리가 함께 살아나는 자리에서 단단해지고, 익숙한 동선부터 한 걸음씩 넓히는 페이스가 잘 어울려요."
         }
       ],
       "tags": [
         "yeokma",
         "daewoonGungsil",
-        "yongshin"
+        "yongshin",
+        "iljin",
+        "jojangung"
       ],
       "aiGenerated": true,
       "sourceTier": {
@@ -586,7 +671,7 @@
       "templateTokens": [
         {
           "kind": "text",
-          "value": "주간 이동운에서 가을과 겨울의 현재 계절은 이동량보다 회수와 정리를 중시합니다. "
+          "value": "주간 이동운에서 가을과 겨울의 현재 계절은 이동량보다 회수와 정리를 중시합니다.\n\n"
         },
         {
           "kind": "tag",
@@ -613,13 +698,53 @@
         },
         {
           "kind": "text",
-          "value": "과 맞는 보완 행동을 주 후반에 남겨 두세요."
+          "value": "과 맞는 보완 행동을 주 후반에 남겨 두세요.\n\n"
+        },
+        {
+          "kind": "tag",
+          "tagId": "banansal",
+          "label": "반안살"
+        },
+        {
+          "kind": "text",
+          "value": "의 자리와 "
+        },
+        {
+          "kind": "tag",
+          "tagId": "wolsal",
+          "label": "월살"
+        },
+        {
+          "kind": "text",
+          "value": "의 결이 함께 보이는 시기엔 자기 동선의 한 결을 점검해 두는 호흡이 잘 맞아요.\n\n"
+        },
+        {
+          "kind": "tag",
+          "tagId": "daewoonGungsil",
+          "label": "대운궁실"
+        },
+        {
+          "kind": "text",
+          "value": "의 결이 새로운 자리로 들어오는 시기와 "
+        },
+        {
+          "kind": "tag",
+          "tagId": "iljin",
+          "label": "일진"
+        },
+        {
+          "kind": "text",
+          "value": "의 자리가 부드러운 시기를 함께 보면 이동의 결이 자기 자산으로 익어 가는 흐름이 보여요."
         }
       ],
       "tags": [
         "yeokma",
         "jojangung",
-        "yongshin"
+        "yongshin",
+        "banansal",
+        "wolsal",
+        "daewoonGungsil",
+        "iljin"
       ],
       "aiGenerated": true,
       "sourceTier": {
@@ -801,7 +926,7 @@
       "templateTokens": [
         {
           "kind": "text",
-          "value": "월간 이동운에서 봄과 여름의 현재 계절은 외부 접촉과 활동 반경을 확장하는 방향으로 작동합니다. "
+          "value": "월간 이동운에서 봄과 여름의 현재 계절은 외부 접촉과 활동 반경을 확장하는 방향으로 작동합니다.\n\n"
         },
         {
           "kind": "tag",
@@ -819,7 +944,7 @@
         },
         {
           "kind": "text",
-          "value": "의 장기 흐름과 충돌하는 이동은 우선순위를 낮춰야 합니다. "
+          "value": "의 장기 흐름과 충돌하는 이동은 우선순위를 낮춰야 합니다.\n\n"
         },
         {
           "kind": "tag",
@@ -828,13 +953,33 @@
         },
         {
           "kind": "text",
-          "value": "과 맞는 방향의 이동을 월간 중심축으로 두세요."
+          "value": "과 맞는 방향의 이동을 월간 중심축으로 두세요.\n\n"
+        },
+        {
+          "kind": "tag",
+          "tagId": "jisal",
+          "label": "지살"
+        },
+        {
+          "kind": "text",
+          "value": "의 신호와 "
+        },
+        {
+          "kind": "tag",
+          "tagId": "cheonigung",
+          "label": "천이궁"
+        },
+        {
+          "kind": "text",
+          "value": "의 결을 함께 살펴 두면 이동의 결이 어디로 이어질지 한층 또렷해져요."
         }
       ],
       "tags": [
         "yeokma",
         "daewoonGungsil",
-        "yongshin"
+        "yongshin",
+        "jisal",
+        "cheonigung"
       ],
       "aiGenerated": true,
       "sourceTier": {
@@ -870,7 +1015,7 @@
       "templateTokens": [
         {
           "kind": "text",
-          "value": "월간 이동운에서 가을과 겨울의 현재 계절은 확장보다 회수, 정리, 기반 점검에 무게를 둡니다. "
+          "value": "월간 이동운에서 가을과 겨울의 현재 계절은 확장보다 회수, 정리, 기반 점검에 무게를 둡니다.\n\n"
         },
         {
           "kind": "tag",
@@ -888,7 +1033,7 @@
         },
         {
           "kind": "text",
-          "value": "과 연결된 기반 문제는 문서와 약속 확인이 중요합니다. "
+          "value": "과 연결된 기반 문제는 문서와 약속 확인이 중요합니다.\n\n"
         },
         {
           "kind": "tag",
@@ -897,7 +1042,29 @@
         },
         {
           "kind": "text",
-          "value": " 보강 방향을 기준으로 월간 동선을 압축하세요."
+          "value": " 보강 방향을 기준으로 월간 동선을 압축하세요.\n\n"
+        },
+        {
+          "kind": "text",
+          "value": "이동의 흐름은 "
+        },
+        {
+          "kind": "tag",
+          "tagId": "yeokma",
+          "label": "역마"
+        },
+        {
+          "kind": "text",
+          "value": "의 자극과 "
+        },
+        {
+          "kind": "tag",
+          "tagId": "jojangung",
+          "label": "조상궁"
+        },
+        {
+          "kind": "text",
+          "value": "의 뿌리가 함께 살아나는 자리에서 단단해지고, 익숙한 동선부터 한 걸음씩 넓히는 페이스가 잘 어울려요."
         }
       ],
       "tags": [

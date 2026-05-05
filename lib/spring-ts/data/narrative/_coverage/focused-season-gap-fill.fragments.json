@@ -397,7 +397,7 @@
       "templateTokens": [
         {
           "kind": "text",
-          "value": "일간 학업운에서 봄과 여름의 현재 계절은 학습 산출과 즉시 실행을 강하게 봅니다. "
+          "value": "일간 학업운에서 봄과 여름의 현재 계절은 학습 산출과 즉시 실행을 강하게 봅니다.\n\n"
         },
         {
           "kind": "tag",
@@ -415,7 +415,7 @@
         },
         {
           "kind": "text",
-          "value": "은 배운 내용을 문제 풀이와 설명으로 바꾸는 힘을 뜻합니다. "
+          "value": "은 배운 내용을 문제 풀이와 설명으로 바꾸는 힘을 뜻합니다.\n\n"
         },
         {
           "kind": "tag",
@@ -424,13 +424,33 @@
         },
         {
           "kind": "text",
-          "value": "정렬이 낮으면 범위를 줄이고 짧은 산출부터 만드는 편이 안정적입니다."
+          "value": "정렬이 낮으면 범위를 줄이고 짧은 산출부터 만드는 편이 안정적입니다.\n\n"
+        },
+        {
+          "kind": "tag",
+          "tagId": "munchanggwiin",
+          "label": "문창귀인"
+        },
+        {
+          "kind": "text",
+          "value": "의 결과 "
+        },
+        {
+          "kind": "tag",
+          "tagId": "hakdang",
+          "label": "학당"
+        },
+        {
+          "kind": "text",
+          "value": "의 자리가 함께 보이는 사주는 시험·연구 흐름이 부드럽게 자리 잡는 모양이라, 자기 흐름을 차분히 따라가는 페이스가 잘 어울려요."
         }
       ],
       "tags": [
         "jeongin",
         "sikshin",
-        "yongshin"
+        "yongshin",
+        "munchanggwiin",
+        "hakdang"
       ],
       "numericalEvidence": [
         {
@@ -528,7 +548,7 @@
       "templateTokens": [
         {
           "kind": "text",
-          "value": "일간 학업운에서 가을과 겨울의 현재 계절은 복습, 검증, 기억 고정을 중시합니다. "
+          "value": "일간 학업운에서 가을과 겨울의 현재 계절은 복습, 검증, 기억 고정을 중시합니다.\n\n"
         },
         {
           "kind": "tag",
@@ -546,7 +566,7 @@
         },
         {
           "kind": "text",
-          "value": "은 어려운 개념의 숨은 연결을 찾습니다. "
+          "value": "은 어려운 개념의 숨은 연결을 찾습니다.\n\n"
         },
         {
           "kind": "tag",
@@ -555,13 +575,33 @@
         },
         {
           "kind": "text",
-          "value": "가 낮으면 오늘은 새 범위보다 오답 회전과 개념 확인이 우선입니다."
+          "value": "가 낮으면 오늘은 새 범위보다 오답 회전과 개념 확인이 우선입니다.\n\n"
+        },
+        {
+          "kind": "tag",
+          "tagId": "daewoonGungsil",
+          "label": "대운궁실"
+        },
+        {
+          "kind": "text",
+          "value": "의 결과 "
+        },
+        {
+          "kind": "tag",
+          "tagId": "iljin",
+          "label": "일진"
+        },
+        {
+          "kind": "text",
+          "value": "의 자리가 함께 살아나는 시기엔 평소 미뤄 둔 학습 한 단원을 매듭짓기에 좋은 흐름이 보여요."
         }
       ],
       "tags": [
         "jeongin",
         "pyeonin",
-        "stabilityIndex"
+        "stabilityIndex",
+        "daewoonGungsil",
+        "iljin"
       ],
       "aiGenerated": true,
       "sourceTier": {
@@ -597,7 +637,7 @@
       "templateTokens": [
         {
           "kind": "text",
-          "value": "문서 장기운에서 봄과 여름의 현재 계절은 문서 작성, 제출, 결과물 전환이 빨라지는 흐름입니다. "
+          "value": "문서 장기운에서 봄과 여름의 현재 계절은 문서 작성, 제출, 결과물 전환이 빨라지는 흐름입니다.\n\n"
         },
         {
           "kind": "tag",
@@ -615,7 +655,7 @@
         },
         {
           "kind": "text",
-          "value": "은 문서 결과물의 생산성을 봅니다. "
+          "value": "은 문서 결과물의 생산성을 봅니다.\n\n"
         },
         {
           "kind": "tag",
@@ -624,13 +664,33 @@
         },
         {
           "kind": "text",
-          "value": "과 충돌하면 제출 범위를 줄이고 검토 단계를 앞당기는 편이 적절합니다."
+          "value": "과 충돌하면 제출 범위를 줄이고 검토 단계를 앞당기는 편이 적절합니다.\n\n"
+        },
+        {
+          "kind": "tag",
+          "tagId": "cheondeokgwiin",
+          "label": "천덕귀인"
+        },
+        {
+          "kind": "text",
+          "value": "의 결과 "
+        },
+        {
+          "kind": "tag",
+          "tagId": "woldeokgwiin",
+          "label": "월덕귀인"
+        },
+        {
+          "kind": "text",
+          "value": "의 자리가 함께 보이면 문서 흐름이 차분하게 자리 잡는 사주이니, 작은 도움도 미루지 않는 호흡이 잘 어울려요."
         }
       ],
       "tags": [
         "jeongin",
         "sikshin",
-        "yongshin"
+        "yongshin",
+        "cheondeokgwiin",
+        "woldeokgwiin"
       ],
       "aiGenerated": true,
       "sourceTier": {
@@ -666,7 +726,7 @@
       "templateTokens": [
         {
           "kind": "text",
-          "value": "문서 장기운에서 가을과 겨울의 현재 계절은 검토, 보관, 증빙의 안정성을 중시합니다. "
+          "value": "문서 장기운에서 가을과 겨울의 현재 계절은 검토, 보관, 증빙의 안정성을 중시합니다.\n\n"
         },
         {
           "kind": "tag",
@@ -684,7 +744,7 @@
         },
         {
           "kind": "text",
-          "value": "는 문서 흐름의 지속 가능성을 봅니다. "
+          "value": "는 문서 흐름의 지속 가능성을 봅니다.\n\n"
         },
         {
           "kind": "tag",
@@ -693,13 +753,33 @@
         },
         {
           "kind": "text",
-          "value": "이 강하면 예외 조항과 숨은 조건을 따로 점검해야 합니다."
+          "value": "이 강하면 예외 조항과 숨은 조건을 따로 점검해야 합니다.\n\n"
+        },
+        {
+          "kind": "tag",
+          "tagId": "gwanrokgung",
+          "label": "관록궁"
+        },
+        {
+          "kind": "text",
+          "value": "의 자리와 "
+        },
+        {
+          "kind": "tag",
+          "tagId": "bokdeokgung",
+          "label": "복덕궁"
+        },
+        {
+          "kind": "text",
+          "value": "의 결이 함께 또렷해지는 시기엔 자격·계약·발표 결이 한 결로 마무리되는 자리가 보여요."
         }
       ],
       "tags": [
         "jeongin",
         "stabilityIndex",
-        "pyeonin"
+        "pyeonin",
+        "gwanrokgung",
+        "bokdeokgung"
       ],
       "aiGenerated": true,
       "sourceTier": {
@@ -735,7 +815,7 @@
       "templateTokens": [
         {
           "kind": "text",
-          "value": "연간 문서운에서 봄과 여름의 현재 계절은 접수, 발표, 계약 초안처럼 밖으로 드러나는 문서 활동을 키웁니다. "
+          "value": "연간 문서운에서 봄과 여름의 현재 계절은 접수, 발표, 계약 초안처럼 밖으로 드러나는 문서 활동을 키웁니다.\n\n"
         },
         {
           "kind": "tag",
@@ -753,7 +833,7 @@
         },
         {
           "kind": "text",
-          "value": "은 산출 속도를 뜻합니다. "
+          "value": "은 산출 속도를 뜻합니다.\n\n"
         },
         {
           "kind": "tag",
@@ -762,13 +842,33 @@
         },
         {
           "kind": "text",
-          "value": "정렬이 낮으면 올해 문서 목표를 넓히기보다 초안, 검토, 제출 순서를 고정해야 합니다."
+          "value": "정렬이 낮으면 올해 문서 목표를 넓히기보다 초안, 검토, 제출 순서를 고정해야 합니다.\n\n"
+        },
+        {
+          "kind": "tag",
+          "tagId": "gwanrokgung",
+          "label": "관록궁"
+        },
+        {
+          "kind": "text",
+          "value": "의 자리와 "
+        },
+        {
+          "kind": "tag",
+          "tagId": "bokdeokgung",
+          "label": "복덕궁"
+        },
+        {
+          "kind": "text",
+          "value": "의 결이 함께 또렷해지는 시기엔 자격·계약·발표 결이 한 결로 마무리되는 자리가 보여요."
         }
       ],
       "tags": [
         "jeongin",
         "sikshin",
-        "yongshin"
+        "yongshin",
+        "gwanrokgung",
+        "bokdeokgung"
       ],
       "aiGenerated": true,
       "sourceTier": {
@@ -804,7 +904,7 @@
       "templateTokens": [
         {
           "kind": "text",
-          "value": "연간 문서운에서 가을과 겨울의 현재 계절은 보관, 재검토, 증빙 관리가 핵심입니다. "
+          "value": "연간 문서운에서 가을과 겨울의 현재 계절은 보관, 재검토, 증빙 관리가 핵심입니다.\n\n"
         },
         {
           "kind": "tag",
@@ -822,7 +922,7 @@
         },
         {
           "kind": "text",
-          "value": "는 장기 보존과 반복 검토의 질을 봅니다. "
+          "value": "는 장기 보존과 반복 검토의 질을 봅니다.\n\n"
         },
         {
           "kind": "tag",
@@ -831,13 +931,33 @@
         },
         {
           "kind": "text",
-          "value": "과 어긋나면 서명, 제출, 보관 위치를 한 번 더 확인하는 것이 안전합니다."
+          "value": "과 어긋나면 서명, 제출, 보관 위치를 한 번 더 확인하는 것이 안전합니다.\n\n"
+        },
+        {
+          "kind": "tag",
+          "tagId": "cheondeokgwiin",
+          "label": "천덕귀인"
+        },
+        {
+          "kind": "text",
+          "value": "의 결과 "
+        },
+        {
+          "kind": "tag",
+          "tagId": "woldeokgwiin",
+          "label": "월덕귀인"
+        },
+        {
+          "kind": "text",
+          "value": "의 자리가 함께 보이면 문서 흐름이 차분하게 자리 잡는 사주이니, 작은 도움도 미루지 않는 호흡이 잘 어울려요."
         }
       ],
       "tags": [
         "jeongin",
         "stabilityIndex",
-        "yongshin"
+        "yongshin",
+        "cheondeokgwiin",
+        "woldeokgwiin"
       ],
       "aiGenerated": true,
       "sourceTier": {

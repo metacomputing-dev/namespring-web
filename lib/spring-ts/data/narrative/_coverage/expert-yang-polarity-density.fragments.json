@@ -6,20 +6,92 @@
     {
       "schemaVersion": "spring-ts.narrative-fragment.v1",
       "fragmentId": "career.today.expert.polarity.yang.age.child_0_9.401",
-      "axis": { "category": "career", "period": "today", "depth": "expert" },
+      "axis": {
+        "category": "career",
+        "period": "today",
+        "depth": "expert"
+      },
       "gating": {
-        "agePhase": ["child_0_9"],
-        "birthSeason": ["autumn"],
-        "dayMasterPolarity": ["YANG"]
+        "agePhase": [
+          "child_0_9"
+        ],
+        "birthSeason": [
+          "autumn"
+        ],
+        "dayMasterPolarity": [
+          "YANG"
+        ]
       },
       "templateTokens": [
-        { "kind": "text", "value": "아동기, 가을 출생, 양 일간이면 오늘 진로성 해석은 밖으로 먼저 반응하는 힘과 규칙 학습을 함께 봅니다. " },
-        { "kind": "tag", "tagId": "jeonggwan", "label": "정관" },
-        { "kind": "text", "value": "의 질서가 잡히면 행동 기준이 빨리 생기고, " },
-        { "kind": "tag", "tagId": "sikshin", "label": "식신" },
-        { "kind": "text", "value": "은 호기심을 실제 표현으로 꺼내는 통로가 됩니다." }
+        {
+          "kind": "text",
+          "value": "아동기, 가을 출생, 양 일간이면 오늘 진로성 해석은 밖으로 먼저 반응하는 힘과 규칙 학습을 함께 봅니다.\n\n"
+        },
+        {
+          "kind": "tag",
+          "tagId": "jeonggwan",
+          "label": "정관"
+        },
+        {
+          "kind": "text",
+          "value": "의 질서가 잡히면 행동 기준이 빨리 생기고, "
+        },
+        {
+          "kind": "tag",
+          "tagId": "sikshin",
+          "label": "식신"
+        },
+        {
+          "kind": "text",
+          "value": "은 호기심을 실제 표현으로 꺼내는 통로가 됩니다.\n\n"
+        },
+        {
+          "kind": "text",
+          "value": "직업 흐름은 "
+        },
+        {
+          "kind": "tag",
+          "tagId": "jeonggwan",
+          "label": "정관"
+        },
+        {
+          "kind": "text",
+          "value": "의 책임 자리와 "
+        },
+        {
+          "kind": "tag",
+          "tagId": "sikshin",
+          "label": "식신"
+        },
+        {
+          "kind": "text",
+          "value": "의 결과 자리가 함께 단단해질 때 한 단계 더 또렷해지는 흐름이라, 무리한 한 번보다 자기 호흡대로의 결과물 쌓기가 잘 어울려요.\n\n"
+        },
+        {
+          "kind": "tag",
+          "tagId": "gwanrokgung",
+          "label": "관록궁"
+        },
+        {
+          "kind": "text",
+          "value": "의 결과 "
+        },
+        {
+          "kind": "tag",
+          "tagId": "pyeongwan",
+          "label": "편관"
+        },
+        {
+          "kind": "text",
+          "value": "의 압박이 함께 들어오는 시기에는 일을 미리 분산해 두는 호흡이 자기 페이스를 지켜 줘요."
+        }
       ],
-      "tags": ["jeonggwan", "sikshin"],
+      "tags": [
+        "jeonggwan",
+        "sikshin",
+        "gwanrokgung",
+        "pyeongwan"
+      ],
       "numericalEvidence": [
         {
           "label": "연령 단계 순번",
@@ -67,20 +139,94 @@
     {
       "schemaVersion": "spring-ts.narrative-fragment.v1",
       "fragmentId": "health.thisWeek.expert.polarity.yang.age.early_60s.401",
-      "axis": { "category": "health", "period": "thisWeek", "depth": "expert" },
+      "axis": {
+        "category": "health",
+        "period": "thisWeek",
+        "depth": "expert"
+      },
       "gating": {
-        "agePhase": ["early_60s"],
-        "birthSeason": ["winter"],
-        "dayMasterPolarity": ["YANG"]
+        "agePhase": [
+          "early_60s"
+        ],
+        "birthSeason": [
+          "winter"
+        ],
+        "dayMasterPolarity": [
+          "YANG"
+        ]
       },
       "templateTokens": [
-        { "kind": "text", "value": "초반 60대, 겨울 출생, 양 일간이면 이번 주 건강운은 회복을 기다리기보다 생활 리듬을 직접 조정하려는 힘을 봅니다. " },
-        { "kind": "tag", "tagId": "yongshin", "label": "용신" },
-        { "kind": "text", "value": "이 움직임을 보정하면 활력이 살아나지만, " },
-        { "kind": "tag", "tagId": "gishin", "label": "기신" },
-        { "kind": "text", "value": "과 겹치면 과속 회복 시도를 줄이는 해석이 필요합니다." }
+        {
+          "kind": "text",
+          "value": "초반 60대, 겨울 출생, 양 일간이면 이번 주 건강운은 회복을 기다리기보다 생활 리듬을 직접 조정하려는 힘을 봅니다.\n\n"
+        },
+        {
+          "kind": "tag",
+          "tagId": "yongshin",
+          "label": "용신"
+        },
+        {
+          "kind": "text",
+          "value": "이 움직임을 보정하면 활력이 살아나지만, "
+        },
+        {
+          "kind": "tag",
+          "tagId": "gishin",
+          "label": "기신"
+        },
+        {
+          "kind": "text",
+          "value": "과 겹치면 과속 회복 시도를 줄이는 해석이 필요합니다.\n\n"
+        },
+        {
+          "kind": "tag",
+          "tagId": "eumyangHarmony",
+          "label": "음양조화도"
+        },
+        {
+          "kind": "text",
+          "value": "의 평균이 또렷한 사주는 "
+        },
+        {
+          "kind": "tag",
+          "tagId": "stabilityIndex",
+          "label": "안정성지수"
+        },
+        {
+          "kind": "text",
+          "value": "도 함께 단단해지는 자리라, 큰 결정보다 작은 회복 습관이 평생의 무기가 돼요.\n\n"
+        },
+        {
+          "kind": "text",
+          "value": "몸의 흐름은 "
+        },
+        {
+          "kind": "tag",
+          "tagId": "johu",
+          "label": "조후"
+        },
+        {
+          "kind": "text",
+          "value": "의 균형과 "
+        },
+        {
+          "kind": "tag",
+          "tagId": "jeongin",
+          "label": "정인"
+        },
+        {
+          "kind": "text",
+          "value": "의 돌봄 자산이 함께 챙겨질 때 한층 부드러워지고, 무리한 회복보다 작은 회복의 반복이 자기 페이스에 잘 맞아요."
+        }
       ],
-      "tags": ["yongshin", "gishin"],
+      "tags": [
+        "yongshin",
+        "gishin",
+        "eumyangHarmony",
+        "stabilityIndex",
+        "johu",
+        "jeongin"
+      ],
       "numericalEvidence": [
         {
           "label": "연령 단계 순번",
@@ -128,20 +274,90 @@
     {
       "schemaVersion": "spring-ts.narrative-fragment.v1",
       "fragmentId": "wealth.life.expert.polarity.yang.age.70s.401",
-      "axis": { "category": "wealth", "period": "life", "depth": "expert" },
+      "axis": {
+        "category": "wealth",
+        "period": "life",
+        "depth": "expert"
+      },
       "gating": {
-        "agePhase": ["70s"],
-        "birthSeason": ["spring"],
-        "dayMasterPolarity": ["YANG"]
+        "agePhase": [
+          "70s"
+        ],
+        "birthSeason": [
+          "spring"
+        ],
+        "dayMasterPolarity": [
+          "YANG"
+        ]
       },
       "templateTokens": [
-        { "kind": "text", "value": "70대, 봄 출생, 양 일간이면 재물운은 모아 둔 기반을 직접 관리하고 새 쓰임을 찾으려는 흐름으로 읽습니다. " },
-        { "kind": "tag", "tagId": "jeongjae", "label": "정재" },
-        { "kind": "text", "value": "가 안정 자산을 맡고, " },
-        { "kind": "tag", "tagId": "pyeonjae", "label": "편재" },
-        { "kind": "text", "value": "가 갑작스러운 기회와 지출을 만들 때 기준선을 먼저 세우는 편이 좋습니다." }
+        {
+          "kind": "text",
+          "value": "70대, 봄 출생, 양 일간이면 재물운은 모아 둔 기반을 직접 관리하고 새 쓰임을 찾으려는 흐름으로 읽습니다.\n\n"
+        },
+        {
+          "kind": "tag",
+          "tagId": "jeongjae",
+          "label": "정재"
+        },
+        {
+          "kind": "text",
+          "value": "가 안정 자산을 맡고, "
+        },
+        {
+          "kind": "tag",
+          "tagId": "pyeonjae",
+          "label": "편재"
+        },
+        {
+          "kind": "text",
+          "value": "가 갑작스러운 기회와 지출을 만들 때 기준선을 먼저 세우는 편이 좋습니다.\n\n"
+        },
+        {
+          "kind": "tag",
+          "tagId": "jaebakgung",
+          "label": "재백궁"
+        },
+        {
+          "kind": "text",
+          "value": "의 결과 "
+        },
+        {
+          "kind": "tag",
+          "tagId": "cheonleulgwiin",
+          "label": "천을귀인"
+        },
+        {
+          "kind": "text",
+          "value": "의 자리가 함께 보이면 도움 받는 흐름이 자기 자산이 되는 사주이니, 작은 도움도 미루지 않는 호흡이 잘 어울려요.\n\n"
+        },
+        {
+          "kind": "tag",
+          "tagId": "gyeokgukFit",
+          "label": "격국적합도"
+        },
+        {
+          "kind": "text",
+          "value": "의 평균이 또렷한 사주는 자기 격에 맞는 자산 자리가 한 결로 모이고, "
+        },
+        {
+          "kind": "tag",
+          "tagId": "stabilityIndex",
+          "label": "안정성지수"
+        },
+        {
+          "kind": "text",
+          "value": "가 받쳐 주는 시기엔 자산 결이 한 단계 깊어지는 자리가 보여요."
+        }
       ],
-      "tags": ["jeongjae", "pyeonjae"],
+      "tags": [
+        "jeongjae",
+        "pyeonjae",
+        "jaebakgung",
+        "cheonleulgwiin",
+        "gyeokgukFit",
+        "stabilityIndex"
+      ],
       "numericalEvidence": [
         {
           "label": "연령 단계 순번",
@@ -189,20 +405,93 @@
     {
       "schemaVersion": "spring-ts.narrative-fragment.v1",
       "fragmentId": "movement.thisMonth.expert.polarity.yang.age.early_20s.402",
-      "axis": { "category": "movement", "period": "thisMonth", "depth": "expert" },
+      "axis": {
+        "category": "movement",
+        "period": "thisMonth",
+        "depth": "expert"
+      },
       "gating": {
-        "agePhase": ["early_20s"],
-        "birthSeason": ["summer"],
-        "dayMasterPolarity": ["YANG"]
+        "agePhase": [
+          "early_20s"
+        ],
+        "birthSeason": [
+          "summer"
+        ],
+        "dayMasterPolarity": [
+          "YANG"
+        ]
       },
       "templateTokens": [
-        { "kind": "text", "value": "초반 20대, 여름 출생, 양 일간이면 이번 달 이동운은 먼저 움직이고 경험으로 확인하려는 성향이 강해집니다. " },
-        { "kind": "tag", "tagId": "yeokma", "label": "역마" },
-        { "kind": "text", "value": "가 강하면 이동 범위가 커지고, " },
-        { "kind": "tag", "tagId": "yongshin", "label": "용신" },
-        { "kind": "text", "value": "이 받쳐 주면 활동이 단순 소모가 아니라 방향 있는 확장으로 바뀝니다." }
+        {
+          "kind": "text",
+          "value": "초반 20대, 여름 출생, 양 일간이면 이번 달 이동운은 먼저 움직이고 경험으로 확인하려는 성향이 강해집니다.\n\n"
+        },
+        {
+          "kind": "tag",
+          "tagId": "yeokma",
+          "label": "역마"
+        },
+        {
+          "kind": "text",
+          "value": "가 강하면 이동 범위가 커지고, "
+        },
+        {
+          "kind": "tag",
+          "tagId": "yongshin",
+          "label": "용신"
+        },
+        {
+          "kind": "text",
+          "value": "이 받쳐 주면 활동이 단순 소모가 아니라 방향 있는 확장으로 바뀝니다.\n\n"
+        },
+        {
+          "kind": "tag",
+          "tagId": "daewoonGungsil",
+          "label": "대운궁실"
+        },
+        {
+          "kind": "text",
+          "value": "의 결이 새로운 자리로 들어오는 시기와 "
+        },
+        {
+          "kind": "tag",
+          "tagId": "iljin",
+          "label": "일진"
+        },
+        {
+          "kind": "text",
+          "value": "의 자리가 부드러운 시기를 함께 보면 이동의 결이 자기 자산으로 익어 가는 흐름이 보여요.\n\n"
+        },
+        {
+          "kind": "text",
+          "value": "이동의 흐름은 "
+        },
+        {
+          "kind": "tag",
+          "tagId": "yeokma",
+          "label": "역마"
+        },
+        {
+          "kind": "text",
+          "value": "의 자극과 "
+        },
+        {
+          "kind": "tag",
+          "tagId": "jojangung",
+          "label": "조상궁"
+        },
+        {
+          "kind": "text",
+          "value": "의 뿌리가 함께 살아나는 자리에서 단단해지고, 익숙한 동선부터 한 걸음씩 넓히는 페이스가 잘 어울려요."
+        }
       ],
-      "tags": ["yeokma", "yongshin"],
+      "tags": [
+        "yeokma",
+        "yongshin",
+        "daewoonGungsil",
+        "iljin",
+        "jojangung"
+      ],
       "numericalEvidence": [
         {
           "label": "연령 단계 순번",
@@ -250,20 +539,90 @@
     {
       "schemaVersion": "spring-ts.narrative-fragment.v1",
       "fragmentId": "family.thisYear.expert.polarity.yang.age.late_30s.401",
-      "axis": { "category": "family", "period": "thisYear", "depth": "expert" },
+      "axis": {
+        "category": "family",
+        "period": "thisYear",
+        "depth": "expert"
+      },
       "gating": {
-        "agePhase": ["late_30s"],
-        "birthSeason": ["autumn"],
-        "dayMasterPolarity": ["YANG"]
+        "agePhase": [
+          "late_30s"
+        ],
+        "birthSeason": [
+          "autumn"
+        ],
+        "dayMasterPolarity": [
+          "YANG"
+        ]
       },
       "templateTokens": [
-        { "kind": "text", "value": "후반 30대, 가을 출생, 양 일간이면 올해 가족운은 내가 먼저 기준을 세우고 역할을 정리하려는 힘이 강합니다. " },
-        { "kind": "tag", "tagId": "bigyeon", "label": "비견" },
-        { "kind": "text", "value": "이 자기 기준을 올리고, " },
-        { "kind": "tag", "tagId": "jeonggwan", "label": "정관" },
-        { "kind": "text", "value": "이 책임 경계를 세우면 관계가 덜 흔들립니다." }
+        {
+          "kind": "text",
+          "value": "후반 30대, 가을 출생, 양 일간이면 올해 가족운은 내가 먼저 기준을 세우고 역할을 정리하려는 힘이 강합니다.\n\n"
+        },
+        {
+          "kind": "tag",
+          "tagId": "bigyeon",
+          "label": "비견"
+        },
+        {
+          "kind": "text",
+          "value": "이 자기 기준을 올리고, "
+        },
+        {
+          "kind": "tag",
+          "tagId": "jeonggwan",
+          "label": "정관"
+        },
+        {
+          "kind": "text",
+          "value": "이 책임 경계를 세우면 관계가 덜 흔들립니다.\n\n"
+        },
+        {
+          "kind": "tag",
+          "tagId": "cheondeokgwiin",
+          "label": "천덕귀인"
+        },
+        {
+          "kind": "text",
+          "value": "의 결과 "
+        },
+        {
+          "kind": "tag",
+          "tagId": "woldeokgwiin",
+          "label": "월덕귀인"
+        },
+        {
+          "kind": "text",
+          "value": "의 자리가 함께 보이는 사주는 가족 안에서 부드럽게 도움 주고받는 흐름이 자기 자산이 되는 모양이에요.\n\n"
+        },
+        {
+          "kind": "tag",
+          "tagId": "samhyeong",
+          "label": "삼형"
+        },
+        {
+          "kind": "text",
+          "value": "이나 "
+        },
+        {
+          "kind": "tag",
+          "tagId": "hyeongsal",
+          "label": "형살"
+        },
+        {
+          "kind": "text",
+          "value": "의 신호가 보이는 시기엔 가족 안의 작은 부딪힘을 짧게 끊고 가는 호흡이 잘 어울려요."
+        }
       ],
-      "tags": ["bigyeon", "jeonggwan"],
+      "tags": [
+        "bigyeon",
+        "jeonggwan",
+        "cheondeokgwiin",
+        "woldeokgwiin",
+        "samhyeong",
+        "hyeongsal"
+      ],
       "numericalEvidence": [
         {
           "label": "연령 단계 순번",
@@ -311,20 +670,93 @@
     {
       "schemaVersion": "spring-ts.narrative-fragment.v1",
       "fragmentId": "academic.thisWeek.expert.polarity.yang.age.early_40s.401",
-      "axis": { "category": "academic", "period": "thisWeek", "depth": "expert" },
+      "axis": {
+        "category": "academic",
+        "period": "thisWeek",
+        "depth": "expert"
+      },
       "gating": {
-        "agePhase": ["early_40s"],
-        "birthSeason": ["winter"],
-        "dayMasterPolarity": ["YANG"]
+        "agePhase": [
+          "early_40s"
+        ],
+        "birthSeason": [
+          "winter"
+        ],
+        "dayMasterPolarity": [
+          "YANG"
+        ]
       },
       "templateTokens": [
-        { "kind": "text", "value": "초반 40대, 겨울 출생, 양 일간이면 이번 주 학업운은 묵혀 둔 지식을 밖으로 꺼내 검증하려는 흐름으로 봅니다. " },
-        { "kind": "tag", "tagId": "jeongin", "label": "정인" },
-        { "kind": "text", "value": "이 자료를 잡고, " },
-        { "kind": "tag", "tagId": "sanggwan", "label": "상관" },
-        { "kind": "text", "value": "이 발표와 비판적 정리를 맡을 때 결과물이 선명해집니다." }
+        {
+          "kind": "text",
+          "value": "초반 40대, 겨울 출생, 양 일간이면 이번 주 학업운은 묵혀 둔 지식을 밖으로 꺼내 검증하려는 흐름으로 봅니다.\n\n"
+        },
+        {
+          "kind": "tag",
+          "tagId": "jeongin",
+          "label": "정인"
+        },
+        {
+          "kind": "text",
+          "value": "이 자료를 잡고, "
+        },
+        {
+          "kind": "tag",
+          "tagId": "sanggwan",
+          "label": "상관"
+        },
+        {
+          "kind": "text",
+          "value": "이 발표와 비판적 정리를 맡을 때 결과물이 선명해집니다.\n\n"
+        },
+        {
+          "kind": "text",
+          "value": "평소엔 "
+        },
+        {
+          "kind": "tag",
+          "tagId": "jeongin",
+          "label": "정인"
+        },
+        {
+          "kind": "text",
+          "value": "의 토대를 단단히 두고, "
+        },
+        {
+          "kind": "tag",
+          "tagId": "sikshin",
+          "label": "식신"
+        },
+        {
+          "kind": "text",
+          "value": "이 받쳐 주는 시기에는 익힌 것을 자기 말로 풀어 두는 자리를 챙기면 학업의 흐름이 더 또렷해져요.\n\n"
+        },
+        {
+          "kind": "tag",
+          "tagId": "tonggwanYongshin",
+          "label": "통관용신"
+        },
+        {
+          "kind": "text",
+          "value": "의 결과 "
+        },
+        {
+          "kind": "tag",
+          "tagId": "byeongyakYongshin",
+          "label": "병약용신"
+        },
+        {
+          "kind": "text",
+          "value": "의 자리가 함께 또렷해지는 사주는 학습의 깊이가 자기 흐름의 균형을 따라가는 자리예요."
+        }
       ],
-      "tags": ["jeongin", "sanggwan"],
+      "tags": [
+        "jeongin",
+        "sanggwan",
+        "sikshin",
+        "tonggwanYongshin",
+        "byeongyakYongshin"
+      ],
       "numericalEvidence": [
         {
           "label": "연령 단계 순번",

@@ -338,7 +338,7 @@
         },
         {
           "kind": "text",
-          "value": "의 현금 흐름 관리로 보는 편이 안정적이에요. 수입과 지출의 균형이 크게 흔들리지 않는지 먼저 확인하고, "
+          "value": "의 현금 흐름 관리로 보는 편이 안정적이에요.\n\n수입과 지출의 균형이 크게 흔들리지 않는지 먼저 확인하고, "
         },
         {
           "kind": "tag",
@@ -347,7 +347,47 @@
         },
         {
           "kind": "text",
-          "value": "가 낮아질 수 있는 예상 밖 지출은 즉시 결정하기보다 하루 정도 검토 시간을 두는 전략이 좋아요."
+          "value": "가 낮아질 수 있는 예상 밖 지출은 즉시 결정하기보다 하루 정도 검토 시간을 두는 전략이 좋아요.\n\n"
+        },
+        {
+          "kind": "text",
+          "value": "돈의 흐름은 "
+        },
+        {
+          "kind": "tag",
+          "tagId": "jeongjae",
+          "label": "정재"
+        },
+        {
+          "kind": "text",
+          "value": "의 고정 흐름과 "
+        },
+        {
+          "kind": "tag",
+          "tagId": "pyeonjae",
+          "label": "편재"
+        },
+        {
+          "kind": "text",
+          "value": "의 변동 흐름을 함께 살펴 두는 자리에서 단단해지고, 큰 한 번보다 작은 결정 쌓기가 자기 페이스에 잘 맞아요.\n\n"
+        },
+        {
+          "kind": "tag",
+          "tagId": "jaebakgung",
+          "label": "재백궁"
+        },
+        {
+          "kind": "text",
+          "value": "의 결과 "
+        },
+        {
+          "kind": "tag",
+          "tagId": "cheonleulgwiin",
+          "label": "천을귀인"
+        },
+        {
+          "kind": "text",
+          "value": "의 자리가 함께 보이면 도움 받는 흐름이 자기 자산이 되는 사주이니, 작은 도움도 미루지 않는 호흡이 잘 어울려요."
         }
       ],
       "livingTips": [
@@ -360,7 +400,9 @@
       "tags": [
         "jeongjae",
         "pyeonjae",
-        "stabilityIndex"
+        "stabilityIndex",
+        "jaebakgung",
+        "cheonleulgwiin"
       ],
       "numericalEvidence": [
         {
@@ -486,7 +528,25 @@
         },
         {
           "kind": "text",
-          "value": "를 함께 보는 예산 구조의 안정성으로 판단하는 것이 좋아요. 들어오는 돈, 반드시 나가는 돈, 선택적으로 조정할 돈을 나누면 재물운의 체감이 훨씬 선명해져요. 무리한 확대보다 손실을 줄이는 결정이 다음 기회를 만드는 기반이 될 수 있어요."
+          "value": "를 함께 보는 예산 구조의 안정성으로 판단하는 것이 좋아요.\n\n들어오는 돈, 반드시 나가는 돈, 선택적으로 조정할 돈을 나누면 재물운의 체감이 훨씬 선명해져요.\n\n무리한 확대보다 손실을 줄이는 결정이 다음 기회를 만드는 기반이 될 수 있어요.\n\n"
+        },
+        {
+          "kind": "tag",
+          "tagId": "gyeokgukFit",
+          "label": "격국적합도"
+        },
+        {
+          "kind": "text",
+          "value": "의 평균이 또렷한 사주는 자기 격에 맞는 자산 자리가 한 결로 모이고, "
+        },
+        {
+          "kind": "tag",
+          "tagId": "stabilityIndex",
+          "label": "안정성지수"
+        },
+        {
+          "kind": "text",
+          "value": "가 받쳐 주는 시기엔 자산 결이 한 단계 깊어지는 자리가 보여요."
         }
       ],
       "livingTips": [
@@ -499,7 +559,8 @@
       "tags": [
         "jeongjae",
         "pyeonjae",
-        "stabilityIndex"
+        "stabilityIndex",
+        "gyeokgukFit"
       ],
       "aiGenerated": true,
       "sourceTier": {

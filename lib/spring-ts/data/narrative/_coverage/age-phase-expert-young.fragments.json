@@ -19,7 +19,7 @@
       "templateTokens": [
         {
           "kind": "text",
-          "value": "0~9세 구간은 원국의 강약을 성취로 바로 판단하기보다 보호 환경과 생활 리듬을 먼저 봐야 해요. "
+          "value": "0~9세 구간은 원국의 강약을 성취로 바로 판단하기보다 보호 환경과 생활 리듬을 먼저 봐야 해요.\n\n"
         },
         {
           "kind": "tag",
@@ -37,7 +37,7 @@
         },
         {
           "kind": "text",
-          "value": "는 반복되는 수면, 식사, 놀이의 안정감으로 읽는 편이 맞아요. "
+          "value": "는 반복되는 수면, 식사, 놀이의 안정감으로 읽는 편이 맞아요.\n\n"
         },
         {
           "kind": "tag",
@@ -46,7 +46,25 @@
         },
         {
           "kind": "text",
-          "value": "가 낮아 보이는 날도 아이의 기질을 단정하지 말고, 편안해지는 환경을 찾는 보조 정보로 다루는 것이 안전합니다."
+          "value": "가 낮아 보이는 날도 아이의 기질을 단정하지 말고, 편안해지는 환경을 찾는 보조 정보로 다루는 것이 안전합니다.\n\n"
+        },
+        {
+          "kind": "tag",
+          "tagId": "naeum",
+          "label": "납음"
+        },
+        {
+          "kind": "text",
+          "value": "의 결을 함께 살펴 두면 사주 모양의 깊은 색이 더 또렷해지고, "
+        },
+        {
+          "kind": "tag",
+          "tagId": "naeumElement",
+          "label": "납음오행"
+        },
+        {
+          "kind": "text",
+          "value": "의 흐름이 자기 결을 보완하는 자리가 자주 등장해요."
         }
       ],
       "livingTips": [
@@ -59,7 +77,9 @@
       "tags": [
         "daewoonGungsil",
         "stabilityIndex",
-        "yongshinFit"
+        "yongshinFit",
+        "naeum",
+        "naeumElement"
       ],
       "numericalEvidence": [
         {
@@ -121,7 +141,7 @@
       "templateTokens": [
         {
           "kind": "text",
-          "value": "초등 고학년에서 중학교 초입은 자기 기준이 생기지만 아직 주변 반응에 크게 흔들리는 시기예요. "
+          "value": "초등 고학년에서 중학교 초입은 자기 기준이 생기지만 아직 주변 반응에 크게 흔들리는 시기예요.\n\n"
         },
         {
           "kind": "tag",
@@ -130,7 +150,7 @@
         },
         {
           "kind": "text",
-          "value": "처럼 짧은 환경 변화가 체감에 크게 작용하므로, 한 번의 성적이나 관계 사건으로 전체 흐름을 판단하면 안 됩니다. "
+          "value": "처럼 짧은 환경 변화가 체감에 크게 작용하므로, 한 번의 성적이나 관계 사건으로 전체 흐름을 판단하면 안 됩니다.\n\n"
         },
         {
           "kind": "tag",
@@ -148,7 +168,25 @@
         },
         {
           "kind": "text",
-          "value": "는 부족한 기운을 공부나 활동 습관으로 보완할 수 있는지 살피는 보조 기준이 됩니다."
+          "value": "는 부족한 기운을 공부나 활동 습관으로 보완할 수 있는지 살피는 보조 기준이 됩니다.\n\n"
+        },
+        {
+          "kind": "tag",
+          "tagId": "tonggwanYongshin",
+          "label": "통관용신"
+        },
+        {
+          "kind": "text",
+          "value": "의 결이 보이면 흐름의 막힌 자리를 풀어 주는 자리가 보이고, "
+        },
+        {
+          "kind": "tag",
+          "tagId": "byeongyakYongshin",
+          "label": "병약용신"
+        },
+        {
+          "kind": "text",
+          "value": "의 자리가 함께 들어오면 약한 자리를 메우는 결이 함께 작동해요."
         }
       ],
       "livingTips": [
@@ -161,7 +199,9 @@
       "tags": [
         "soun",
         "stabilityIndex",
-        "yongshinFit"
+        "yongshinFit",
+        "tonggwanYongshin",
+        "byeongyakYongshin"
       ],
       "numericalEvidence": [
         {
@@ -223,7 +263,7 @@
       "templateTokens": [
         {
           "kind": "text",
-          "value": "10대 후반은 진로, 관계, 가족 기대가 겹치며 자기 방향을 시험하는 구간이에요. "
+          "value": "10대 후반은 진로, 관계, 가족 기대가 겹치며 자기 방향을 시험하는 구간이에요.\n\n"
         },
         {
           "kind": "tag",
@@ -241,7 +281,7 @@
         },
         {
           "kind": "text",
-          "value": "의 단기 변동을 보되, 그 결과를 평생 결론으로 고정하지 않는 해석이 필요해요. "
+          "value": "의 단기 변동을 보되, 그 결과를 평생 결론으로 고정하지 않는 해석이 필요해요.\n\n"
         },
         {
           "kind": "tag",
@@ -250,7 +290,25 @@
         },
         {
           "kind": "text",
-          "value": "가 낮게 느껴질수록 선택지를 줄이기보다 체력, 감정, 공부 리듬을 버틸 수 있는 범위로 조정하는 것이 핵심입니다."
+          "value": "가 낮게 느껴질수록 선택지를 줄이기보다 체력, 감정, 공부 리듬을 버틸 수 있는 범위로 조정하는 것이 핵심입니다.\n\n"
+        },
+        {
+          "kind": "tag",
+          "tagId": "naeum",
+          "label": "납음"
+        },
+        {
+          "kind": "text",
+          "value": "의 결을 함께 살펴 두면 사주 모양의 깊은 색이 더 또렷해지고, "
+        },
+        {
+          "kind": "tag",
+          "tagId": "naeumElement",
+          "label": "납음오행"
+        },
+        {
+          "kind": "text",
+          "value": "의 흐름이 자기 결을 보완하는 자리가 자주 등장해요."
         }
       ],
       "livingTips": [
@@ -263,7 +321,9 @@
       "tags": [
         "soun",
         "yunyeon",
-        "stabilityIndex"
+        "stabilityIndex",
+        "naeum",
+        "naeumElement"
       ],
       "numericalEvidence": [
         {
@@ -325,7 +385,7 @@
       "templateTokens": [
         {
           "kind": "text",
-          "value": "20대 초반은 학업, 일, 관계의 환경이 빠르게 바뀌면서 사주의 쓰임을 실제로 시험하는 시기예요. "
+          "value": "20대 초반은 학업, 일, 관계의 환경이 빠르게 바뀌면서 사주의 쓰임을 실제로 시험하는 시기예요.\n\n"
         },
         {
           "kind": "tag",
@@ -343,7 +403,7 @@
         },
         {
           "kind": "text",
-          "value": "은 당장의 흔들림을 보는 보조축으로 나누어야 해석이 과장되지 않아요. "
+          "value": "은 당장의 흔들림을 보는 보조축으로 나누어야 해석이 과장되지 않아요.\n\n"
         },
         {
           "kind": "tag",
@@ -352,7 +412,25 @@
         },
         {
           "kind": "text",
-          "value": "가 낮은 구간에서는 확장보다 기본 생활 질서와 회복 루틴을 먼저 고정해야 좋은 기회를 오래 유지할 수 있습니다."
+          "value": "가 낮은 구간에서는 확장보다 기본 생활 질서와 회복 루틴을 먼저 고정해야 좋은 기회를 오래 유지할 수 있습니다.\n\n"
+        },
+        {
+          "kind": "tag",
+          "tagId": "gyeokgukYongshin",
+          "label": "격국용신"
+        },
+        {
+          "kind": "text",
+          "value": "의 결과 "
+        },
+        {
+          "kind": "tag",
+          "tagId": "gyeokgukFit",
+          "label": "격국적합도"
+        },
+        {
+          "kind": "text",
+          "value": "의 평균이 또렷한 사주는 자기 격에 맞는 길로 큰 흐름이 모이는 자리가 자주 등장해요."
         }
       ],
       "livingTips": [
@@ -365,7 +443,9 @@
       "tags": [
         "daewoonGungsil",
         "soun",
-        "yongshinFit"
+        "yongshinFit",
+        "gyeokgukYongshin",
+        "gyeokgukFit"
       ],
       "numericalEvidence": [
         {
@@ -427,7 +507,7 @@
       "templateTokens": [
         {
           "kind": "text",
-          "value": "20대 후반은 가능성 탐색에서 실제 선택과 책임으로 넘어가는 시기예요. "
+          "value": "20대 후반은 가능성 탐색에서 실제 선택과 책임으로 넘어가는 시기예요.\n\n"
         },
         {
           "kind": "tag",
@@ -445,7 +525,7 @@
         },
         {
           "kind": "text",
-          "value": "가 받쳐 주는 선택인지 확인해야 해요. "
+          "value": "가 받쳐 주는 선택인지 확인해야 해요.\n\n"
         },
         {
           "kind": "tag",
@@ -454,7 +534,25 @@
         },
         {
           "kind": "text",
-          "value": "는 지금 붙잡을 기회와 정리할 기회를 가르는 기준으로 쓰면 과한 확장을 막아줍니다."
+          "value": "는 지금 붙잡을 기회와 정리할 기회를 가르는 기준으로 쓰면 과한 확장을 막아줍니다.\n\n"
+        },
+        {
+          "kind": "tag",
+          "tagId": "tonggwanYongshin",
+          "label": "통관용신"
+        },
+        {
+          "kind": "text",
+          "value": "의 결이 보이면 흐름의 막힌 자리를 풀어 주는 자리가 보이고, "
+        },
+        {
+          "kind": "tag",
+          "tagId": "byeongyakYongshin",
+          "label": "병약용신"
+        },
+        {
+          "kind": "text",
+          "value": "의 자리가 함께 들어오면 약한 자리를 메우는 결이 함께 작동해요."
         }
       ],
       "livingTips": [
@@ -467,7 +565,9 @@
       "tags": [
         "daewoonGungsil",
         "stabilityIndex",
-        "yongshinFit"
+        "yongshinFit",
+        "tonggwanYongshin",
+        "byeongyakYongshin"
       ],
       "numericalEvidence": [
         {
@@ -529,7 +629,7 @@
       "templateTokens": [
         {
           "kind": "text",
-          "value": "30대 초반은 사회적 역할과 개인 욕구가 충돌하거나 재정렬되는 구간이에요. "
+          "value": "30대 초반은 사회적 역할과 개인 욕구가 충돌하거나 재정렬되는 구간이에요.\n\n"
         },
         {
           "kind": "tag",
@@ -547,7 +647,7 @@
         },
         {
           "kind": "text",
-          "value": "는 책임의 양과 회복 시간의 균형으로 해석해야 해요. "
+          "value": "는 책임의 양과 회복 시간의 균형으로 해석해야 해요.\n\n"
         },
         {
           "kind": "tag",
@@ -556,7 +656,25 @@
         },
         {
           "kind": "text",
-          "value": "가 맞는 방향은 부담이 있어도 오래 갈 수 있지만, 맞지 않는 방향은 성과가 있어도 피로가 빠르게 쌓입니다."
+          "value": "가 맞는 방향은 부담이 있어도 오래 갈 수 있지만, 맞지 않는 방향은 성과가 있어도 피로가 빠르게 쌓입니다.\n\n"
+        },
+        {
+          "kind": "tag",
+          "tagId": "tonggwanYongshin",
+          "label": "통관용신"
+        },
+        {
+          "kind": "text",
+          "value": "의 결이 보이면 흐름의 막힌 자리를 풀어 주는 자리가 보이고, "
+        },
+        {
+          "kind": "tag",
+          "tagId": "byeongyakYongshin",
+          "label": "병약용신"
+        },
+        {
+          "kind": "text",
+          "value": "의 자리가 함께 들어오면 약한 자리를 메우는 결이 함께 작동해요."
         }
       ],
       "livingTips": [
@@ -569,7 +687,9 @@
       "tags": [
         "daewoonGungsil",
         "stabilityIndex",
-        "yongshinFit"
+        "yongshinFit",
+        "tonggwanYongshin",
+        "byeongyakYongshin"
       ],
       "numericalEvidence": [
         {
@@ -631,7 +751,7 @@
       "templateTokens": [
         {
           "kind": "text",
-          "value": "30대 후반은 쌓아온 선택의 결과가 생활 구조와 관계 안에서 뚜렷해지는 구간이에요. "
+          "value": "30대 후반은 쌓아온 선택의 결과가 생활 구조와 관계 안에서 뚜렷해지는 구간이에요.\n\n"
         },
         {
           "kind": "tag",
@@ -649,7 +769,7 @@
         },
         {
           "kind": "text",
-          "value": "가 낮으면 체력, 가족, 일의 균형을 먼저 조정해야 해요. "
+          "value": "가 낮으면 체력, 가족, 일의 균형을 먼저 조정해야 해요.\n\n"
         },
         {
           "kind": "tag",
@@ -658,7 +778,25 @@
         },
         {
           "kind": "text",
-          "value": "는 앞으로 10년을 버틸 구조인지 판단하는 핵심 보조 지표로 쓰기 좋습니다."
+          "value": "는 앞으로 10년을 버틸 구조인지 판단하는 핵심 보조 지표로 쓰기 좋습니다.\n\n"
+        },
+        {
+          "kind": "tag",
+          "tagId": "gyeokgukYongshin",
+          "label": "격국용신"
+        },
+        {
+          "kind": "text",
+          "value": "의 결과 "
+        },
+        {
+          "kind": "tag",
+          "tagId": "gyeokgukFit",
+          "label": "격국적합도"
+        },
+        {
+          "kind": "text",
+          "value": "의 평균이 또렷한 사주는 자기 격에 맞는 길로 큰 흐름이 모이는 자리가 자주 등장해요."
         }
       ],
       "livingTips": [
@@ -671,7 +809,9 @@
       "tags": [
         "daewoonGungsil",
         "stabilityIndex",
-        "yongshinFit"
+        "yongshinFit",
+        "gyeokgukYongshin",
+        "gyeokgukFit"
       ],
       "numericalEvidence": [
         {

@@ -409,13 +409,52 @@
         },
         {
           "kind": "text",
-          "value": " 정합성을 함께 봅니다. 흐름이 맞으면 확장보다 기반을 유지하는 이동이 좋습니다."
+          "value": " 정합성을 함께 봅니다.\n\n흐름이 맞으면 확장보다 기반을 유지하는 이동이 좋습니다.\n\n"
+        },
+        {
+          "kind": "tag",
+          "tagId": "banansal",
+          "label": "반안살"
+        },
+        {
+          "kind": "text",
+          "value": "의 자리와 "
+        },
+        {
+          "kind": "tag",
+          "tagId": "wolsal",
+          "label": "월살"
+        },
+        {
+          "kind": "text",
+          "value": "의 결이 함께 보이는 시기엔 자기 동선의 한 결을 점검해 두는 호흡이 잘 맞아요.\n\n"
+        },
+        {
+          "kind": "tag",
+          "tagId": "daewoonGungsil",
+          "label": "대운궁실"
+        },
+        {
+          "kind": "text",
+          "value": "의 결이 새로운 자리로 들어오는 시기와 "
+        },
+        {
+          "kind": "tag",
+          "tagId": "iljin",
+          "label": "일진"
+        },
+        {
+          "kind": "text",
+          "value": "의 자리가 부드러운 시기를 함께 보면 이동의 결이 자기 자산으로 익어 가는 흐름이 보여요."
         }
       ],
       "tags": [
         "yeokma",
         "daewoonGungsil",
-        "yongshin"
+        "yongshin",
+        "banansal",
+        "wolsal",
+        "iljin"
       ],
       "numericalEvidence": [
         {
@@ -497,12 +536,55 @@
         },
         {
           "kind": "text",
-          "value": "를 함께 봅니다. 점수가 낮으면 이동 횟수보다 동선 검증이 우선입니다."
+          "value": "를 함께 봅니다.\n\n점수가 낮으면 이동 횟수보다 동선 검증이 우선입니다.\n\n"
+        },
+        {
+          "kind": "text",
+          "value": "이동의 흐름은 "
+        },
+        {
+          "kind": "tag",
+          "tagId": "yeokma",
+          "label": "역마"
+        },
+        {
+          "kind": "text",
+          "value": "의 자극과 "
+        },
+        {
+          "kind": "tag",
+          "tagId": "jojangung",
+          "label": "조상궁"
+        },
+        {
+          "kind": "text",
+          "value": "의 뿌리가 함께 살아나는 자리에서 단단해지고, 익숙한 동선부터 한 걸음씩 넓히는 페이스가 잘 어울려요.\n\n"
+        },
+        {
+          "kind": "tag",
+          "tagId": "jisal",
+          "label": "지살"
+        },
+        {
+          "kind": "text",
+          "value": "의 신호와 "
+        },
+        {
+          "kind": "tag",
+          "tagId": "cheonigung",
+          "label": "천이궁"
+        },
+        {
+          "kind": "text",
+          "value": "의 결을 함께 살펴 두면 이동의 결이 어디로 이어질지 한층 또렷해져요."
         }
       ],
       "tags": [
         "yeokma",
-        "stabilityIndex"
+        "stabilityIndex",
+        "jojangung",
+        "jisal",
+        "cheonigung"
       ],
       "numericalEvidence": [
         {
@@ -569,7 +651,7 @@
         },
         {
           "kind": "text",
-          "value": " 방향이 맞는지를 봅니다. "
+          "value": " 방향이 맞는지를 봅니다.\n\n"
         },
         {
           "kind": "tag",
@@ -578,13 +660,56 @@
         },
         {
           "kind": "text",
-          "value": "가 낮으면 변화 폭을 줄이고 검증 단계를 늘리세요."
+          "value": "가 낮으면 변화 폭을 줄이고 검증 단계를 늘리세요.\n\n"
+        },
+        {
+          "kind": "text",
+          "value": "이동의 흐름은 "
+        },
+        {
+          "kind": "tag",
+          "tagId": "yeokma",
+          "label": "역마"
+        },
+        {
+          "kind": "text",
+          "value": "의 자극과 "
+        },
+        {
+          "kind": "tag",
+          "tagId": "jojangung",
+          "label": "조상궁"
+        },
+        {
+          "kind": "text",
+          "value": "의 뿌리가 함께 살아나는 자리에서 단단해지고, 익숙한 동선부터 한 걸음씩 넓히는 페이스가 잘 어울려요.\n\n"
+        },
+        {
+          "kind": "tag",
+          "tagId": "jisal",
+          "label": "지살"
+        },
+        {
+          "kind": "text",
+          "value": "의 신호와 "
+        },
+        {
+          "kind": "tag",
+          "tagId": "cheonigung",
+          "label": "천이궁"
+        },
+        {
+          "kind": "text",
+          "value": "의 결을 함께 살펴 두면 이동의 결이 어디로 이어질지 한층 또렷해져요."
         }
       ],
       "tags": [
         "yeokma",
         "yongshin",
-        "stabilityIndex"
+        "stabilityIndex",
+        "jojangung",
+        "jisal",
+        "cheonigung"
       ],
       "numericalEvidence": [
         {
@@ -650,7 +775,7 @@
         },
         {
           "kind": "text",
-          "value": "의 배경을 함께 봅니다. "
+          "value": "의 배경을 함께 봅니다.\n\n"
         },
         {
           "kind": "tag",
@@ -659,13 +784,52 @@
         },
         {
           "kind": "text",
-          "value": " 정합성이 맞으면 이동을 늘리되 비용과 회복 시간을 같이 계산해야 합니다."
+          "value": " 정합성이 맞으면 이동을 늘리되 비용과 회복 시간을 같이 계산해야 합니다.\n\n"
+        },
+        {
+          "kind": "tag",
+          "tagId": "banansal",
+          "label": "반안살"
+        },
+        {
+          "kind": "text",
+          "value": "의 자리와 "
+        },
+        {
+          "kind": "tag",
+          "tagId": "wolsal",
+          "label": "월살"
+        },
+        {
+          "kind": "text",
+          "value": "의 결이 함께 보이는 시기엔 자기 동선의 한 결을 점검해 두는 호흡이 잘 맞아요.\n\n"
+        },
+        {
+          "kind": "tag",
+          "tagId": "daewoonGungsil",
+          "label": "대운궁실"
+        },
+        {
+          "kind": "text",
+          "value": "의 결이 새로운 자리로 들어오는 시기와 "
+        },
+        {
+          "kind": "tag",
+          "tagId": "iljin",
+          "label": "일진"
+        },
+        {
+          "kind": "text",
+          "value": "의 자리가 부드러운 시기를 함께 보면 이동의 결이 자기 자산으로 익어 가는 흐름이 보여요."
         }
       ],
       "tags": [
         "yeokma",
         "daewoonGungsil",
-        "yongshin"
+        "yongshin",
+        "banansal",
+        "wolsal",
+        "iljin"
       ],
       "numericalEvidence": [
         {
@@ -740,13 +904,76 @@
         },
         {
           "kind": "text",
-          "value": "를 함께 봅니다. 점수가 낮으면 이동보다 기반 정비가 먼저입니다."
+          "value": "를 함께 봅니다. 점수가 낮으면 이동보다 기반 정비가 먼저입니다.\n\n"
+        },
+        {
+          "kind": "text",
+          "value": "이동의 흐름은 "
+        },
+        {
+          "kind": "tag",
+          "tagId": "yeokma",
+          "label": "역마"
+        },
+        {
+          "kind": "text",
+          "value": "의 자극과 "
+        },
+        {
+          "kind": "tag",
+          "tagId": "jojangung",
+          "label": "조상궁"
+        },
+        {
+          "kind": "text",
+          "value": "의 뿌리가 함께 살아나는 자리에서 단단해지고, 익숙한 동선부터 한 걸음씩 넓히는 페이스가 잘 어울려요.\n\n"
+        },
+        {
+          "kind": "tag",
+          "tagId": "jisal",
+          "label": "지살"
+        },
+        {
+          "kind": "text",
+          "value": "의 신호와 "
+        },
+        {
+          "kind": "tag",
+          "tagId": "cheonigung",
+          "label": "천이궁"
+        },
+        {
+          "kind": "text",
+          "value": "의 결을 함께 살펴 두면 이동의 결이 어디로 이어질지 한층 또렷해져요.\n\n"
+        },
+        {
+          "kind": "tag",
+          "tagId": "banansal",
+          "label": "반안살"
+        },
+        {
+          "kind": "text",
+          "value": "의 자리와 "
+        },
+        {
+          "kind": "tag",
+          "tagId": "wolsal",
+          "label": "월살"
+        },
+        {
+          "kind": "text",
+          "value": "의 결이 함께 보이는 시기엔 자기 동선의 한 결을 점검해 두는 호흡이 잘 맞아요."
         }
       ],
       "tags": [
         "yeokma",
         "daewoonGungsil",
-        "stabilityIndex"
+        "stabilityIndex",
+        "jojangung",
+        "jisal",
+        "cheonigung",
+        "banansal",
+        "wolsal"
       ],
       "numericalEvidence": [
         {

@@ -401,7 +401,7 @@
         },
         {
           "kind": "text",
-          "value": "의 상호 보완성을 함께 봅니다. "
+          "value": "의 상호 보완성을 함께 봅니다.\n\n"
         },
         {
           "kind": "tag",
@@ -410,13 +410,56 @@
         },
         {
           "kind": "text",
-          "value": " 방향이 맞으면 설렘보다 신뢰를 쌓는 선택이 오래 갑니다."
+          "value": " 방향이 맞으면 설렘보다 신뢰를 쌓는 선택이 오래 갑니다.\n\n"
+        },
+        {
+          "kind": "text",
+          "value": "인연 자리는 "
+        },
+        {
+          "kind": "tag",
+          "tagId": "baeujagung",
+          "label": "배우자궁"
+        },
+        {
+          "kind": "text",
+          "value": "의 결과 "
+        },
+        {
+          "kind": "tag",
+          "tagId": "jeonggwan",
+          "label": "정관"
+        },
+        {
+          "kind": "text",
+          "value": "의 책임 결이 함께 단단해질 때 깊이가 자라고, 자기 흐름을 감추기보다 부드럽게 보여 두는 호흡이 잘 어울려요.\n\n"
+        },
+        {
+          "kind": "tag",
+          "tagId": "dohwa",
+          "label": "도화"
+        },
+        {
+          "kind": "text",
+          "value": "의 신호와 "
+        },
+        {
+          "kind": "tag",
+          "tagId": "hongyeom",
+          "label": "홍염"
+        },
+        {
+          "kind": "text",
+          "value": "의 결이 함께 보이면 매력의 흐름이 또렷해지지만, 자기 호흡을 잃지 않는 페이스가 자기를 지키는 자리예요."
         }
       ],
       "tags": [
         "baeujagung",
         "sajuCompatibility",
-        "yongshin"
+        "yongshin",
+        "jeonggwan",
+        "dohwa",
+        "hongyeom"
       ],
       "numericalEvidence": [
         {
@@ -498,7 +541,7 @@
         },
         {
           "kind": "text",
-          "value": "의 반응성을 함께 봅니다. "
+          "value": "의 반응성을 함께 봅니다.\n\n"
         },
         {
           "kind": "tag",
@@ -507,13 +550,53 @@
         },
         {
           "kind": "text",
-          "value": "가 낮으면 확인보다 부드러운 대화가 먼저입니다."
+          "value": "가 낮으면 확인보다 부드러운 대화가 먼저입니다.\n\n"
+        },
+        {
+          "kind": "tag",
+          "tagId": "dohwa",
+          "label": "도화"
+        },
+        {
+          "kind": "text",
+          "value": "의 신호와 "
+        },
+        {
+          "kind": "tag",
+          "tagId": "hongyeom",
+          "label": "홍염"
+        },
+        {
+          "kind": "text",
+          "value": "의 결이 함께 보이면 매력의 흐름이 또렷해지지만, 자기 호흡을 잃지 않는 페이스가 자기를 지키는 자리예요.\n\n"
+        },
+        {
+          "kind": "tag",
+          "tagId": "cheogung",
+          "label": "처궁"
+        },
+        {
+          "kind": "text",
+          "value": "의 결과 "
+        },
+        {
+          "kind": "tag",
+          "tagId": "jasikgung",
+          "label": "자식궁"
+        },
+        {
+          "kind": "text",
+          "value": "의 자리가 함께 살아나는 시기엔 가까운 관계가 한 단계 깊어지는 흐름이 보여요."
         }
       ],
       "tags": [
         "eumyangHarmony",
         "baeujagung",
-        "stabilityIndex"
+        "stabilityIndex",
+        "dohwa",
+        "hongyeom",
+        "cheogung",
+        "jasikgung"
       ],
       "numericalEvidence": [
         {
@@ -580,7 +663,7 @@
         },
         {
           "kind": "text",
-          "value": "를 함께 봅니다. "
+          "value": "를 함께 봅니다.\n\n"
         },
         {
           "kind": "tag",
@@ -589,13 +672,57 @@
         },
         {
           "kind": "text",
-          "value": " 정합성이 낮으면 관계 속도를 줄이고 상대 반응을 더 확인해야 합니다."
+          "value": " 정합성이 낮으면 관계 속도를 줄이고 상대 반응을 더 확인해야 합니다.\n\n"
+        },
+        {
+          "kind": "text",
+          "value": "인연 자리는 "
+        },
+        {
+          "kind": "tag",
+          "tagId": "baeujagung",
+          "label": "배우자궁"
+        },
+        {
+          "kind": "text",
+          "value": "의 결과 "
+        },
+        {
+          "kind": "tag",
+          "tagId": "jeonggwan",
+          "label": "정관"
+        },
+        {
+          "kind": "text",
+          "value": "의 책임 결이 함께 단단해질 때 깊이가 자라고, 자기 흐름을 감추기보다 부드럽게 보여 두는 호흡이 잘 어울려요.\n\n"
+        },
+        {
+          "kind": "tag",
+          "tagId": "dohwa",
+          "label": "도화"
+        },
+        {
+          "kind": "text",
+          "value": "의 신호와 "
+        },
+        {
+          "kind": "tag",
+          "tagId": "hongyeom",
+          "label": "홍염"
+        },
+        {
+          "kind": "text",
+          "value": "의 결이 함께 보이면 매력의 흐름이 또렷해지지만, 자기 호흡을 잃지 않는 페이스가 자기를 지키는 자리예요."
         }
       ],
       "tags": [
         "sajuCompatibility",
         "eumyangHarmony",
-        "yongshin"
+        "yongshin",
+        "baeujagung",
+        "jeonggwan",
+        "dohwa",
+        "hongyeom"
       ],
       "numericalEvidence": [
         {
@@ -670,13 +797,46 @@
         },
         {
           "kind": "text",
-          "value": "의 수용성을 함께 봅니다. 점수가 낮으면 약속 빈도보다 신뢰 유지가 먼저입니다."
+          "value": "의 수용성을 함께 봅니다.\n\n점수가 낮으면 약속 빈도보다 신뢰 유지가 먼저입니다.\n\n"
+        },
+        {
+          "kind": "tag",
+          "tagId": "cheonleulgwiin",
+          "label": "천을귀인"
+        },
+        {
+          "kind": "text",
+          "value": "의 결이 보이면 인연 자리에서도 부드러운 도움을 받는 흐름이 자기 자산이 되어 줘요.\n\n"
+        },
+        {
+          "kind": "text",
+          "value": "인연 자리는 "
+        },
+        {
+          "kind": "tag",
+          "tagId": "baeujagung",
+          "label": "배우자궁"
+        },
+        {
+          "kind": "text",
+          "value": "의 결과 "
+        },
+        {
+          "kind": "tag",
+          "tagId": "jeonggwan",
+          "label": "정관"
+        },
+        {
+          "kind": "text",
+          "value": "의 책임 결이 함께 단단해질 때 깊이가 자라고, 자기 흐름을 감추기보다 부드럽게 보여 두는 호흡이 잘 어울려요."
         }
       ],
       "tags": [
         "jeongjae",
         "pyeonjae",
-        "baeujagung"
+        "baeujagung",
+        "cheonleulgwiin",
+        "jeonggwan"
       ],
       "numericalEvidence": [
         {
@@ -751,13 +911,75 @@
         },
         {
           "kind": "text",
-          "value": "을 함께 보며 관계의 지속 가능성을 판단합니다. 점수가 낮으면 확정보다 조율을 우선하세요."
+          "value": "을 함께 보며 관계의 지속 가능성을 판단합니다. 점수가 낮으면 확정보다 조율을 우선하세요.\n\n"
+        },
+        {
+          "kind": "text",
+          "value": "인연 자리는 "
+        },
+        {
+          "kind": "tag",
+          "tagId": "baeujagung",
+          "label": "배우자궁"
+        },
+        {
+          "kind": "text",
+          "value": "의 결과 "
+        },
+        {
+          "kind": "tag",
+          "tagId": "jeonggwan",
+          "label": "정관"
+        },
+        {
+          "kind": "text",
+          "value": "의 책임 결이 함께 단단해질 때 깊이가 자라고, 자기 흐름을 감추기보다 부드럽게 보여 두는 호흡이 잘 어울려요.\n\n"
+        },
+        {
+          "kind": "tag",
+          "tagId": "dohwa",
+          "label": "도화"
+        },
+        {
+          "kind": "text",
+          "value": "의 신호와 "
+        },
+        {
+          "kind": "tag",
+          "tagId": "hongyeom",
+          "label": "홍염"
+        },
+        {
+          "kind": "text",
+          "value": "의 결이 함께 보이면 매력의 흐름이 또렷해지지만, 자기 호흡을 잃지 않는 페이스가 자기를 지키는 자리예요.\n\n"
+        },
+        {
+          "kind": "tag",
+          "tagId": "cheogung",
+          "label": "처궁"
+        },
+        {
+          "kind": "text",
+          "value": "의 결과 "
+        },
+        {
+          "kind": "tag",
+          "tagId": "jasikgung",
+          "label": "자식궁"
+        },
+        {
+          "kind": "text",
+          "value": "의 자리가 함께 살아나는 시기엔 가까운 관계가 한 단계 깊어지는 흐름이 보여요."
         }
       ],
       "tags": [
         "baeujagung",
         "jeonggwan",
-        "sajuCompatibility"
+        "sajuCompatibility",
+        "dohwa",
+        "hongyeom",
+        "cheogung",
+        "jasikgung"
       ],
       "numericalEvidence": [
         {

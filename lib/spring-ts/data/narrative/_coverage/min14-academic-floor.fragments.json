@@ -6,18 +6,97 @@
     {
       "schemaVersion": "spring-ts.narrative-fragment.v1",
       "fragmentId": "academic.life.expert.integrated_learning.501",
-      "axis": { "category": "academic", "period": "life", "depth": "expert" },
-      "gating": { "yongshinAlignment": ["aligned", "neutral"] },
+      "axis": {
+        "category": "academic",
+        "period": "life",
+        "depth": "expert"
+      },
+      "gating": {
+        "yongshinAlignment": [
+          "aligned",
+          "neutral"
+        ]
+      },
       "templateTokens": [
-        { "kind": "text", "value": "장기 학업 흐름은 " },
-        { "kind": "tag", "tagId": "jeongin", "label": "정인" },
-        { "kind": "text", "value": "이 지식 흡수를 맡고 " },
-        { "kind": "tag", "tagId": "sikshin", "label": "식신" },
-        { "kind": "text", "value": "이 배운 것을 결과물로 바꾸는 구조를 봅니다. " },
-        { "kind": "tag", "tagId": "yongshin", "label": "용신" },
-        { "kind": "text", "value": " 방향이 맞으면 공부가 자격, 글, 발표, 전문성으로 이어지기 쉽습니다." }
+        {
+          "kind": "text",
+          "value": "장기 학업 흐름은 "
+        },
+        {
+          "kind": "tag",
+          "tagId": "jeongin",
+          "label": "정인"
+        },
+        {
+          "kind": "text",
+          "value": "이 지식 흡수를 맡고 "
+        },
+        {
+          "kind": "tag",
+          "tagId": "sikshin",
+          "label": "식신"
+        },
+        {
+          "kind": "text",
+          "value": "이 배운 것을 결과물로 바꾸는 구조를 봅니다.\n\n"
+        },
+        {
+          "kind": "tag",
+          "tagId": "yongshin",
+          "label": "용신"
+        },
+        {
+          "kind": "text",
+          "value": " 방향이 맞으면 공부가 자격, 글, 발표, 전문성으로 이어지기 쉽습니다.\n\n"
+        },
+        {
+          "kind": "text",
+          "value": "평소엔 "
+        },
+        {
+          "kind": "tag",
+          "tagId": "jeongin",
+          "label": "정인"
+        },
+        {
+          "kind": "text",
+          "value": "의 토대를 단단히 두고, "
+        },
+        {
+          "kind": "tag",
+          "tagId": "sikshin",
+          "label": "식신"
+        },
+        {
+          "kind": "text",
+          "value": "이 받쳐 주는 시기에는 익힌 것을 자기 말로 풀어 두는 자리를 챙기면 학업의 흐름이 더 또렷해져요.\n\n"
+        },
+        {
+          "kind": "tag",
+          "tagId": "tonggwanYongshin",
+          "label": "통관용신"
+        },
+        {
+          "kind": "text",
+          "value": "의 결과 "
+        },
+        {
+          "kind": "tag",
+          "tagId": "byeongyakYongshin",
+          "label": "병약용신"
+        },
+        {
+          "kind": "text",
+          "value": "의 자리가 함께 또렷해지는 사주는 학습의 깊이가 자기 흐름의 균형을 따라가는 자리예요."
+        }
       ],
-      "tags": ["jeongin", "sikshin", "yongshin"],
+      "tags": [
+        "jeongin",
+        "sikshin",
+        "yongshin",
+        "tonggwanYongshin",
+        "byeongyakYongshin"
+      ],
       "numericalEvidence": [
         {
           "label": "현재 나이",
@@ -65,18 +144,95 @@
     {
       "schemaVersion": "spring-ts.narrative-fragment.v1",
       "fragmentId": "academic.thisWeek.expert.focus.501",
-      "axis": { "category": "academic", "period": "thisWeek", "depth": "expert" },
-      "gating": { "dayMasterStrength": ["WEAK", "BALANCED"] },
+      "axis": {
+        "category": "academic",
+        "period": "thisWeek",
+        "depth": "expert"
+      },
+      "gating": {
+        "dayMasterStrength": [
+          "WEAK",
+          "BALANCED"
+        ]
+      },
       "templateTokens": [
-        { "kind": "text", "value": "이번 주 학업운은 " },
-        { "kind": "tag", "tagId": "jeongin", "label": "정인" },
-        { "kind": "text", "value": "으로 기본 자료를 안정시키고 " },
-        { "kind": "tag", "tagId": "pyeonin", "label": "편인" },
-        { "kind": "text", "value": "으로 어려운 부분을 파고드는 흐름입니다. " },
-        { "kind": "tag", "tagId": "stabilityIndex", "label": "안정성지수" },
-        { "kind": "text", "value": "가 낮으면 범위를 줄이고 반복 확인을 우선합니다." }
+        {
+          "kind": "text",
+          "value": "이번 주 학업운은 "
+        },
+        {
+          "kind": "tag",
+          "tagId": "jeongin",
+          "label": "정인"
+        },
+        {
+          "kind": "text",
+          "value": "으로 기본 자료를 안정시키고 "
+        },
+        {
+          "kind": "tag",
+          "tagId": "pyeonin",
+          "label": "편인"
+        },
+        {
+          "kind": "text",
+          "value": "으로 어려운 부분을 파고드는 흐름입니다.\n\n"
+        },
+        {
+          "kind": "tag",
+          "tagId": "stabilityIndex",
+          "label": "안정성지수"
+        },
+        {
+          "kind": "text",
+          "value": "가 낮으면 범위를 줄이고 반복 확인을 우선합니다.\n\n"
+        },
+        {
+          "kind": "tag",
+          "tagId": "munchanggwiin",
+          "label": "문창귀인"
+        },
+        {
+          "kind": "text",
+          "value": "의 결과 "
+        },
+        {
+          "kind": "tag",
+          "tagId": "hakdang",
+          "label": "학당"
+        },
+        {
+          "kind": "text",
+          "value": "의 자리가 함께 보이는 사주는 시험·연구 흐름이 부드럽게 자리 잡는 모양이라, 자기 흐름을 차분히 따라가는 페이스가 잘 어울려요.\n\n"
+        },
+        {
+          "kind": "tag",
+          "tagId": "daewoonGungsil",
+          "label": "대운궁실"
+        },
+        {
+          "kind": "text",
+          "value": "의 결과 "
+        },
+        {
+          "kind": "tag",
+          "tagId": "iljin",
+          "label": "일진"
+        },
+        {
+          "kind": "text",
+          "value": "의 자리가 함께 살아나는 시기엔 평소 미뤄 둔 학습 한 단원을 매듭짓기에 좋은 흐름이 보여요."
+        }
       ],
-      "tags": ["jeongin", "pyeonin", "stabilityIndex"],
+      "tags": [
+        "jeongin",
+        "pyeonin",
+        "stabilityIndex",
+        "munchanggwiin",
+        "hakdang",
+        "daewoonGungsil",
+        "iljin"
+      ],
       "numericalEvidence": [
         {
           "label": "학업 별점",
@@ -109,18 +265,95 @@
     {
       "schemaVersion": "spring-ts.narrative-fragment.v1",
       "fragmentId": "academic.thisMonth.expert.output.501",
-      "axis": { "category": "academic", "period": "thisMonth", "depth": "expert" },
-      "gating": { "dayMasterStrength": ["STRONG", "EXTREME_STRONG"] },
+      "axis": {
+        "category": "academic",
+        "period": "thisMonth",
+        "depth": "expert"
+      },
+      "gating": {
+        "dayMasterStrength": [
+          "STRONG",
+          "EXTREME_STRONG"
+        ]
+      },
       "templateTokens": [
-        { "kind": "text", "value": "이번 달은 " },
-        { "kind": "tag", "tagId": "sikshin", "label": "식신" },
-        { "kind": "text", "value": "이 배운 것을 정리하고 " },
-        { "kind": "tag", "tagId": "sanggwan", "label": "상관" },
-        { "kind": "text", "value": "이 새 해석으로 꺼내는 힘을 봅니다. " },
-        { "kind": "tag", "tagId": "gyeokgukFit", "label": "격국적합도" },
-        { "kind": "text", "value": "가 맞으면 발표, 글쓰기, 실전 과제처럼 밖으로 내는 결과물이 좋아집니다." }
+        {
+          "kind": "text",
+          "value": "이번 달은 "
+        },
+        {
+          "kind": "tag",
+          "tagId": "sikshin",
+          "label": "식신"
+        },
+        {
+          "kind": "text",
+          "value": "이 배운 것을 정리하고 "
+        },
+        {
+          "kind": "tag",
+          "tagId": "sanggwan",
+          "label": "상관"
+        },
+        {
+          "kind": "text",
+          "value": "이 새 해석으로 꺼내는 힘을 봅니다.\n\n"
+        },
+        {
+          "kind": "tag",
+          "tagId": "gyeokgukFit",
+          "label": "격국적합도"
+        },
+        {
+          "kind": "text",
+          "value": "가 맞으면 발표, 글쓰기, 실전 과제처럼 밖으로 내는 결과물이 좋아집니다.\n\n"
+        },
+        {
+          "kind": "tag",
+          "tagId": "tonggwanYongshin",
+          "label": "통관용신"
+        },
+        {
+          "kind": "text",
+          "value": "의 결과 "
+        },
+        {
+          "kind": "tag",
+          "tagId": "byeongyakYongshin",
+          "label": "병약용신"
+        },
+        {
+          "kind": "text",
+          "value": "의 자리가 함께 또렷해지는 사주는 학습의 깊이가 자기 흐름의 균형을 따라가는 자리예요.\n\n"
+        },
+        {
+          "kind": "tag",
+          "tagId": "munchanggwiin",
+          "label": "문창귀인"
+        },
+        {
+          "kind": "text",
+          "value": "의 결과 "
+        },
+        {
+          "kind": "tag",
+          "tagId": "hakdang",
+          "label": "학당"
+        },
+        {
+          "kind": "text",
+          "value": "의 자리가 함께 보이는 사주는 시험·연구 흐름이 부드럽게 자리 잡는 모양이라, 자기 흐름을 차분히 따라가는 페이스가 잘 어울려요."
+        }
       ],
-      "tags": ["sikshin", "sanggwan", "gyeokgukFit"],
+      "tags": [
+        "sikshin",
+        "sanggwan",
+        "gyeokgukFit",
+        "tonggwanYongshin",
+        "byeongyakYongshin",
+        "munchanggwiin",
+        "hakdang"
+      ],
       "numericalEvidence": [
         {
           "label": "학업 별점",
@@ -153,10 +386,23 @@
     {
       "schemaVersion": "spring-ts.narrative-fragment.v1",
       "fragmentId": "academic.thisYear.brief.plan.501",
-      "axis": { "category": "academic", "period": "thisYear", "depth": "brief" },
-      "gating": { "ageBand": ["0-9", "10-19", "20-29"] },
+      "axis": {
+        "category": "academic",
+        "period": "thisYear",
+        "depth": "brief"
+      },
+      "gating": {
+        "ageBand": [
+          "0-9",
+          "10-19",
+          "20-29"
+        ]
+      },
       "templateTokens": [
-        { "kind": "text", "value": "올해는 큰 목표보다 매달 다시 볼 작은 공부 목표를 세우면 좋아요." }
+        {
+          "kind": "text",
+          "value": "올해는 큰 목표보다 매달 다시 볼 작은 공부 목표를 세우면 좋아요."
+        }
       ],
       "tags": [],
       "aiGenerated": true,
@@ -174,10 +420,24 @@
     {
       "schemaVersion": "spring-ts.narrative-fragment.v1",
       "fragmentId": "academic.thisYear.standard.plan.501",
-      "axis": { "category": "academic", "period": "thisYear", "depth": "standard" },
-      "gating": { "ageBand": ["30-39", "40-54", "55-69", "70+"] },
+      "axis": {
+        "category": "academic",
+        "period": "thisYear",
+        "depth": "standard"
+      },
+      "gating": {
+        "ageBand": [
+          "30-39",
+          "40-54",
+          "55-69",
+          "70+"
+        ]
+      },
       "templateTokens": [
-        { "kind": "text", "value": "올해 배움은 필요한 지식부터 순서를 정하는 것이 중요해요. 자격, 업무, 취미 공부를 모두 넓히기보다 실제로 쓸 곳이 있는 주제를 먼저 잡으면 오래 이어가기 쉽습니다." }
+        {
+          "kind": "text",
+          "value": "올해 배움은 필요한 지식부터 순서를 정하는 것이 중요해요. 자격, 업무, 취미 공부를 모두 넓히기보다 실제로 쓸 곳이 있는 주제를 먼저 잡으면 오래 이어가기 쉽습니다."
+        }
       ],
       "livingTips": [
         "올해 꼭 끝내고 싶은 공부 주제 한 가지를 먼저 고르세요.",
@@ -202,18 +462,95 @@
     {
       "schemaVersion": "spring-ts.narrative-fragment.v1",
       "fragmentId": "academic.thisYear.expert.year_strategy.501",
-      "axis": { "category": "academic", "period": "thisYear", "depth": "expert" },
-      "gating": { "yongshinAlignment": ["aligned", "neutral"] },
+      "axis": {
+        "category": "academic",
+        "period": "thisYear",
+        "depth": "expert"
+      },
+      "gating": {
+        "yongshinAlignment": [
+          "aligned",
+          "neutral"
+        ]
+      },
       "templateTokens": [
-        { "kind": "text", "value": "올해 학업운은 " },
-        { "kind": "tag", "tagId": "jeongin", "label": "정인" },
-        { "kind": "text", "value": "의 입력과 " },
-        { "kind": "tag", "tagId": "sikshin", "label": "식신" },
-        { "kind": "text", "value": "의 출력 균형을 봅니다. " },
-        { "kind": "tag", "tagId": "yongshin", "label": "용신" },
-        { "kind": "text", "value": " 흐름이 맞으면 공부가 단순 흥미를 넘어 자격, 문서, 설명 능력으로 연결됩니다." }
+        {
+          "kind": "text",
+          "value": "올해 학업운은 "
+        },
+        {
+          "kind": "tag",
+          "tagId": "jeongin",
+          "label": "정인"
+        },
+        {
+          "kind": "text",
+          "value": "의 입력과 "
+        },
+        {
+          "kind": "tag",
+          "tagId": "sikshin",
+          "label": "식신"
+        },
+        {
+          "kind": "text",
+          "value": "의 출력 균형을 봅니다.\n\n"
+        },
+        {
+          "kind": "tag",
+          "tagId": "yongshin",
+          "label": "용신"
+        },
+        {
+          "kind": "text",
+          "value": " 흐름이 맞으면 공부가 단순 흥미를 넘어 자격, 문서, 설명 능력으로 연결됩니다.\n\n"
+        },
+        {
+          "kind": "tag",
+          "tagId": "munchanggwiin",
+          "label": "문창귀인"
+        },
+        {
+          "kind": "text",
+          "value": "의 결과 "
+        },
+        {
+          "kind": "tag",
+          "tagId": "hakdang",
+          "label": "학당"
+        },
+        {
+          "kind": "text",
+          "value": "의 자리가 함께 보이는 사주는 시험·연구 흐름이 부드럽게 자리 잡는 모양이라, 자기 흐름을 차분히 따라가는 페이스가 잘 어울려요.\n\n"
+        },
+        {
+          "kind": "tag",
+          "tagId": "daewoonGungsil",
+          "label": "대운궁실"
+        },
+        {
+          "kind": "text",
+          "value": "의 결과 "
+        },
+        {
+          "kind": "tag",
+          "tagId": "iljin",
+          "label": "일진"
+        },
+        {
+          "kind": "text",
+          "value": "의 자리가 함께 살아나는 시기엔 평소 미뤄 둔 학습 한 단원을 매듭짓기에 좋은 흐름이 보여요."
+        }
       ],
-      "tags": ["jeongin", "sikshin", "yongshin"],
+      "tags": [
+        "jeongin",
+        "sikshin",
+        "yongshin",
+        "munchanggwiin",
+        "hakdang",
+        "daewoonGungsil",
+        "iljin"
+      ],
       "numericalEvidence": [
         {
           "label": "현재 나이",
@@ -261,10 +598,22 @@
     {
       "schemaVersion": "spring-ts.narrative-fragment.v1",
       "fragmentId": "academic.today.standard.review.501",
-      "axis": { "category": "academic", "period": "today", "depth": "standard" },
-      "gating": { "yongshinAlignment": ["conflicting", "neutral"] },
+      "axis": {
+        "category": "academic",
+        "period": "today",
+        "depth": "standard"
+      },
+      "gating": {
+        "yongshinAlignment": [
+          "conflicting",
+          "neutral"
+        ]
+      },
       "templateTokens": [
-        { "kind": "text", "value": "오늘 공부는 새 내용을 많이 넣기보다 이미 배운 것을 다시 확인하는 쪽이 좋아요. 틀린 이유를 짧게 적고, 막히는 부분은 표시해 두면 다음 공부가 훨씬 쉬워집니다." }
+        {
+          "kind": "text",
+          "value": "오늘 공부는 새 내용을 많이 넣기보다 이미 배운 것을 다시 확인하는 쪽이 좋아요. 틀린 이유를 짧게 적고, 막히는 부분은 표시해 두면 다음 공부가 훨씬 쉬워집니다."
+        }
       ],
       "livingTips": [
         "틀린 문제를 다시 풀기 전에 왜 틀렸는지 한 줄로 적어보세요.",

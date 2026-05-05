@@ -153,7 +153,7 @@
         },
         {
           "kind": "text",
-          "value": "의 거리 조절을 함께 봅니다. "
+          "value": "의 거리 조절을 함께 봅니다.\n\n"
         },
         {
           "kind": "tag",
@@ -162,13 +162,53 @@
         },
         {
           "kind": "text",
-          "value": " 흐름이 맞으면 가족에게 필요한 도움을 주되 역할 경계를 지키는 방식이 가장 안정적입니다."
+          "value": " 흐름이 맞으면 가족에게 필요한 도움을 주되 역할 경계를 지키는 방식이 가장 안정적입니다.\n\n"
+        },
+        {
+          "kind": "tag",
+          "tagId": "hyeongjegung",
+          "label": "형제궁"
+        },
+        {
+          "kind": "text",
+          "value": "의 결과 "
+        },
+        {
+          "kind": "tag",
+          "tagId": "janyeogung",
+          "label": "자녀궁"
+        },
+        {
+          "kind": "text",
+          "value": "의 결을 함께 살펴 두면 가족 안의 분위기 흐름이 더 또렷해져요.\n\n"
+        },
+        {
+          "kind": "tag",
+          "tagId": "cheondeokgwiin",
+          "label": "천덕귀인"
+        },
+        {
+          "kind": "text",
+          "value": "의 결과 "
+        },
+        {
+          "kind": "tag",
+          "tagId": "woldeokgwiin",
+          "label": "월덕귀인"
+        },
+        {
+          "kind": "text",
+          "value": "의 자리가 함께 보이는 사주는 가족 안에서 부드럽게 도움 주고받는 흐름이 자기 자산이 되는 모양이에요."
         }
       ],
       "tags": [
         "jeongin",
         "bigyeon",
-        "yongshin"
+        "yongshin",
+        "hyeongjegung",
+        "janyeogung",
+        "cheondeokgwiin",
+        "woldeokgwiin"
       ],
       "numericalEvidence": [
         {

@@ -25,7 +25,7 @@
       "templateTokens": [
         {
           "kind": "text",
-          "value": "생애 학업운에서 봄과 여름의 현재 계절은 학습 입력을 실제 산출로 전환하는 힘을 키웁니다. "
+          "value": "생애 학업운에서 봄과 여름의 현재 계절은 학습 입력을 실제 산출로 전환하는 힘을 키웁니다.\n\n"
         },
         {
           "kind": "tag",
@@ -43,7 +43,7 @@
         },
         {
           "kind": "text",
-          "value": "은 배운 내용을 설명과 결과물로 바꿉니다. "
+          "value": "은 배운 내용을 설명과 결과물로 바꿉니다.\n\n"
         },
         {
           "kind": "tag",
@@ -52,13 +52,33 @@
         },
         {
           "kind": "text",
-          "value": " 방향과 맞는 학습 루틴을 장기 기준으로 두면 좋습니다."
+          "value": " 방향과 맞는 학습 루틴을 장기 기준으로 두면 좋습니다.\n\n"
+        },
+        {
+          "kind": "tag",
+          "tagId": "daewoonGungsil",
+          "label": "대운궁실"
+        },
+        {
+          "kind": "text",
+          "value": "의 결과 "
+        },
+        {
+          "kind": "tag",
+          "tagId": "iljin",
+          "label": "일진"
+        },
+        {
+          "kind": "text",
+          "value": "의 자리가 함께 살아나는 시기엔 평소 미뤄 둔 학습 한 단원을 매듭짓기에 좋은 흐름이 보여요."
         }
       ],
       "tags": [
         "jeongin",
         "sikshin",
-        "yongshin"
+        "yongshin",
+        "daewoonGungsil",
+        "iljin"
       ],
       "numericalEvidence": [
         {
@@ -156,7 +176,7 @@
       "templateTokens": [
         {
           "kind": "text",
-          "value": "생애 학업운에서 가을과 겨울의 현재 계절은 축적, 검증, 장기 기억을 중시합니다. "
+          "value": "생애 학업운에서 가을과 겨울의 현재 계절은 축적, 검증, 장기 기억을 중시합니다.\n\n"
         },
         {
           "kind": "tag",
@@ -174,7 +194,7 @@
         },
         {
           "kind": "text",
-          "value": "은 어려운 개념의 숨은 연결을 찾습니다. "
+          "value": "은 어려운 개념의 숨은 연결을 찾습니다.\n\n"
         },
         {
           "kind": "tag",
@@ -183,13 +203,33 @@
         },
         {
           "kind": "text",
-          "value": "를 높이려면 범위를 좁혀 오래 반복하는 전략이 필요합니다."
+          "value": "를 높이려면 범위를 좁혀 오래 반복하는 전략이 필요합니다.\n\n"
+        },
+        {
+          "kind": "tag",
+          "tagId": "munchanggwiin",
+          "label": "문창귀인"
+        },
+        {
+          "kind": "text",
+          "value": "의 결과 "
+        },
+        {
+          "kind": "tag",
+          "tagId": "hakdang",
+          "label": "학당"
+        },
+        {
+          "kind": "text",
+          "value": "의 자리가 함께 보이는 사주는 시험·연구 흐름이 부드럽게 자리 잡는 모양이라, 자기 흐름을 차분히 따라가는 페이스가 잘 어울려요."
         }
       ],
       "tags": [
         "jeongin",
         "pyeonin",
-        "stabilityIndex"
+        "stabilityIndex",
+        "munchanggwiin",
+        "hakdang"
       ],
       "aiGenerated": true,
       "sourceTier": {
@@ -371,7 +411,7 @@
       "templateTokens": [
         {
           "kind": "text",
-          "value": "주간 학업운에서 봄과 여름의 현재 계절은 학습 속도와 표현량을 올립니다. "
+          "value": "주간 학업운에서 봄과 여름의 현재 계절은 학습 속도와 표현량을 올립니다.\n\n"
         },
         {
           "kind": "tag",
@@ -389,7 +429,7 @@
         },
         {
           "kind": "text",
-          "value": "으로 문제 풀이와 설명을 늘리면 효과가 큽니다. "
+          "value": "으로 문제 풀이와 설명을 늘리면 효과가 큽니다.\n\n"
         },
         {
           "kind": "tag",
@@ -398,13 +438,33 @@
         },
         {
           "kind": "text",
-          "value": "이 과하면 방식만 바꾸다 시간이 새므로 주간 목표를 고정하세요."
+          "value": "이 과하면 방식만 바꾸다 시간이 새므로 주간 목표를 고정하세요.\n\n"
+        },
+        {
+          "kind": "tag",
+          "tagId": "tonggwanYongshin",
+          "label": "통관용신"
+        },
+        {
+          "kind": "text",
+          "value": "의 결과 "
+        },
+        {
+          "kind": "tag",
+          "tagId": "byeongyakYongshin",
+          "label": "병약용신"
+        },
+        {
+          "kind": "text",
+          "value": "의 자리가 함께 또렷해지는 사주는 학습의 깊이가 자기 흐름의 균형을 따라가는 자리예요."
         }
       ],
       "tags": [
         "jeongin",
         "sikshin",
-        "sanggwan"
+        "sanggwan",
+        "tonggwanYongshin",
+        "byeongyakYongshin"
       ],
       "aiGenerated": true,
       "sourceTier": {
@@ -440,7 +500,7 @@
       "templateTokens": [
         {
           "kind": "text",
-          "value": "주간 학업운에서 가을과 겨울의 현재 계절은 복습, 오답 정리, 장기 기억에 유리합니다. "
+          "value": "주간 학업운에서 가을과 겨울의 현재 계절은 복습, 오답 정리, 장기 기억에 유리합니다.\n\n"
         },
         {
           "kind": "tag",
@@ -458,7 +518,7 @@
         },
         {
           "kind": "text",
-          "value": "은 어려운 개념의 변칙 포인트를 잡습니다. "
+          "value": "은 어려운 개념의 변칙 포인트를 잡습니다.\n\n"
         },
         {
           "kind": "tag",
@@ -467,13 +527,36 @@
         },
         {
           "kind": "text",
-          "value": "를 높이려면 같은 시간대에 반복하는 것이 좋습니다."
+          "value": "를 높이려면 같은 시간대에 반복하는 것이 좋습니다.\n\n"
+        },
+        {
+          "kind": "text",
+          "value": "평소엔 "
+        },
+        {
+          "kind": "tag",
+          "tagId": "jeongin",
+          "label": "정인"
+        },
+        {
+          "kind": "text",
+          "value": "의 토대를 단단히 두고, "
+        },
+        {
+          "kind": "tag",
+          "tagId": "sikshin",
+          "label": "식신"
+        },
+        {
+          "kind": "text",
+          "value": "이 받쳐 주는 시기에는 익힌 것을 자기 말로 풀어 두는 자리를 챙기면 학업의 흐름이 더 또렷해져요."
         }
       ],
       "tags": [
         "jeongin",
         "pyeonin",
-        "stabilityIndex"
+        "stabilityIndex",
+        "sikshin"
       ],
       "aiGenerated": true,
       "sourceTier": {
@@ -509,7 +592,7 @@
       "templateTokens": [
         {
           "kind": "text",
-          "value": "월간 학업운에서 봄과 여름의 현재 계절은 새 과목 진입과 결과물 생산을 촉진합니다. "
+          "value": "월간 학업운에서 봄과 여름의 현재 계절은 새 과목 진입과 결과물 생산을 촉진합니다.\n\n"
         },
         {
           "kind": "tag",
@@ -527,7 +610,7 @@
         },
         {
           "kind": "text",
-          "value": "이 과제와 풀이량을 밀어줍니다. "
+          "value": "이 과제와 풀이량을 밀어줍니다.\n\n"
         },
         {
           "kind": "tag",
@@ -536,13 +619,33 @@
         },
         {
           "kind": "text",
-          "value": "과 맞는 학습 환경을 고르면 효율이 안정됩니다."
+          "value": "과 맞는 학습 환경을 고르면 효율이 안정됩니다.\n\n"
+        },
+        {
+          "kind": "tag",
+          "tagId": "daewoonGungsil",
+          "label": "대운궁실"
+        },
+        {
+          "kind": "text",
+          "value": "의 결과 "
+        },
+        {
+          "kind": "tag",
+          "tagId": "iljin",
+          "label": "일진"
+        },
+        {
+          "kind": "text",
+          "value": "의 자리가 함께 살아나는 시기엔 평소 미뤄 둔 학습 한 단원을 매듭짓기에 좋은 흐름이 보여요."
         }
       ],
       "tags": [
         "jeongin",
         "sikshin",
-        "yongshin"
+        "yongshin",
+        "daewoonGungsil",
+        "iljin"
       ],
       "aiGenerated": true,
       "sourceTier": {
@@ -578,7 +681,7 @@
       "templateTokens": [
         {
           "kind": "text",
-          "value": "월간 학업운에서 가을과 겨울의 현재 계절은 범위 확장보다 정리와 점검을 중시합니다. "
+          "value": "월간 학업운에서 가을과 겨울의 현재 계절은 범위 확장보다 정리와 점검을 중시합니다.\n\n"
         },
         {
           "kind": "tag",
@@ -596,7 +699,7 @@
         },
         {
           "kind": "text",
-          "value": "은 어려운 단원의 숨은 구조를 파악하게 합니다. "
+          "value": "은 어려운 단원의 숨은 구조를 파악하게 합니다.\n\n"
         },
         {
           "kind": "tag",
@@ -605,13 +708,33 @@
         },
         {
           "kind": "text",
-          "value": "가 낮으면 월간 범위를 줄이고 오답 회전을 늘리세요."
+          "value": "가 낮으면 월간 범위를 줄이고 오답 회전을 늘리세요.\n\n"
+        },
+        {
+          "kind": "tag",
+          "tagId": "munchanggwiin",
+          "label": "문창귀인"
+        },
+        {
+          "kind": "text",
+          "value": "의 결과 "
+        },
+        {
+          "kind": "tag",
+          "tagId": "hakdang",
+          "label": "학당"
+        },
+        {
+          "kind": "text",
+          "value": "의 자리가 함께 보이는 사주는 시험·연구 흐름이 부드럽게 자리 잡는 모양이라, 자기 흐름을 차분히 따라가는 페이스가 잘 어울려요."
         }
       ],
       "tags": [
         "jeongin",
         "pyeonin",
-        "stabilityIndex"
+        "stabilityIndex",
+        "munchanggwiin",
+        "hakdang"
       ],
       "aiGenerated": true,
       "sourceTier": {
@@ -793,7 +916,7 @@
       "templateTokens": [
         {
           "kind": "text",
-          "value": "연간 학업운에서 봄과 여름의 현재 계절은 신규 학습, 시험 진입, 성과 생산을 강화합니다. "
+          "value": "연간 학업운에서 봄과 여름의 현재 계절은 신규 학습, 시험 진입, 성과 생산을 강화합니다.\n\n"
         },
         {
           "kind": "tag",
@@ -811,7 +934,7 @@
         },
         {
           "kind": "text",
-          "value": "으로 풀이량과 결과물을 확보하세요. "
+          "value": "으로 풀이량과 결과물을 확보하세요.\n\n"
         },
         {
           "kind": "tag",
@@ -820,13 +943,33 @@
         },
         {
           "kind": "text",
-          "value": "과 맞는 공부 환경이면 연간 지속력이 높아집니다."
+          "value": "과 맞는 공부 환경이면 연간 지속력이 높아집니다.\n\n"
+        },
+        {
+          "kind": "tag",
+          "tagId": "munchanggwiin",
+          "label": "문창귀인"
+        },
+        {
+          "kind": "text",
+          "value": "의 결과 "
+        },
+        {
+          "kind": "tag",
+          "tagId": "hakdang",
+          "label": "학당"
+        },
+        {
+          "kind": "text",
+          "value": "의 자리가 함께 보이는 사주는 시험·연구 흐름이 부드럽게 자리 잡는 모양이라, 자기 흐름을 차분히 따라가는 페이스가 잘 어울려요."
         }
       ],
       "tags": [
         "jeongin",
         "sikshin",
-        "yongshin"
+        "yongshin",
+        "munchanggwiin",
+        "hakdang"
       ],
       "aiGenerated": true,
       "sourceTier": {
@@ -862,7 +1005,7 @@
       "templateTokens": [
         {
           "kind": "text",
-          "value": "연간 학업운에서 가을과 겨울의 현재 계절은 장기 축적과 검증형 공부를 강조합니다. "
+          "value": "연간 학업운에서 가을과 겨울의 현재 계절은 장기 축적과 검증형 공부를 강조합니다.\n\n"
         },
         {
           "kind": "tag",
@@ -880,7 +1023,7 @@
         },
         {
           "kind": "text",
-          "value": "은 까다로운 개념과 변칙 문제를 파고듭니다. "
+          "value": "은 까다로운 개념과 변칙 문제를 파고듭니다.\n\n"
         },
         {
           "kind": "tag",
@@ -889,13 +1032,33 @@
         },
         {
           "kind": "text",
-          "value": "가 흔들리면 과목 수를 줄이고 반복 회차를 늘리세요."
+          "value": "가 흔들리면 과목 수를 줄이고 반복 회차를 늘리세요.\n\n"
+        },
+        {
+          "kind": "tag",
+          "tagId": "daewoonGungsil",
+          "label": "대운궁실"
+        },
+        {
+          "kind": "text",
+          "value": "의 결과 "
+        },
+        {
+          "kind": "tag",
+          "tagId": "iljin",
+          "label": "일진"
+        },
+        {
+          "kind": "text",
+          "value": "의 자리가 함께 살아나는 시기엔 평소 미뤄 둔 학습 한 단원을 매듭짓기에 좋은 흐름이 보여요."
         }
       ],
       "tags": [
         "jeongin",
         "pyeonin",
-        "stabilityIndex"
+        "stabilityIndex",
+        "daewoonGungsil",
+        "iljin"
       ],
       "aiGenerated": true,
       "sourceTier": {

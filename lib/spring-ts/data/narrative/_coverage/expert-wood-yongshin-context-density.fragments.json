@@ -6,21 +6,93 @@
     {
       "schemaVersion": "spring-ts.narrative-fragment.v1",
       "fragmentId": "career.today.expert.yongshin.wood.age.early_teen.401",
-      "axis": { "category": "career", "period": "today", "depth": "expert" },
+      "axis": {
+        "category": "career",
+        "period": "today",
+        "depth": "expert"
+      },
       "gating": {
-        "agePhase": ["early_teen"],
-        "birthSeason": ["spring"],
-        "dayMasterPolarity": ["YIN"],
-        "yongshinElement": ["WOOD"]
+        "agePhase": [
+          "early_teen"
+        ],
+        "birthSeason": [
+          "spring"
+        ],
+        "dayMasterPolarity": [
+          "YIN"
+        ],
+        "yongshinElement": [
+          "WOOD"
+        ]
       },
       "templateTokens": [
-        { "kind": "text", "value": "초반 10대, 봄 출생, 음 일간에 용신 목이 놓이면 오늘 진로 해석은 호기심을 키우되 속도를 부드럽게 조절하는 쪽으로 봅니다. " },
-        { "kind": "tag", "tagId": "yongshin", "label": "용신" },
-        { "kind": "text", "value": "목은 성장 방향을 열어 주고, " },
-        { "kind": "tag", "tagId": "jeongin", "label": "정인" },
-        { "kind": "text", "value": "은 배움의 기반을 잡아 줍니다." }
+        {
+          "kind": "text",
+          "value": "초반 10대, 봄 출생, 음 일간에 용신 목이 놓이면 오늘 진로 해석은 호기심을 키우되 속도를 부드럽게 조절하는 쪽으로 봅니다.\n\n"
+        },
+        {
+          "kind": "tag",
+          "tagId": "yongshin",
+          "label": "용신"
+        },
+        {
+          "kind": "text",
+          "value": "목은 성장 방향을 열어 주고, "
+        },
+        {
+          "kind": "tag",
+          "tagId": "jeongin",
+          "label": "정인"
+        },
+        {
+          "kind": "text",
+          "value": "은 배움의 기반을 잡아 줍니다.\n\n"
+        },
+        {
+          "kind": "tag",
+          "tagId": "gyeokgukYongshin",
+          "label": "격국용신"
+        },
+        {
+          "kind": "text",
+          "value": "의 결과 "
+        },
+        {
+          "kind": "tag",
+          "tagId": "gyeokgukFit",
+          "label": "격국적합도"
+        },
+        {
+          "kind": "text",
+          "value": "의 평균이 또렷한 사주는 자기 격에 맞는 직업 길이 한 결로 모이는 자리가 자주 등장해요.\n\n"
+        },
+        {
+          "kind": "tag",
+          "tagId": "jangseongsal",
+          "label": "장성살"
+        },
+        {
+          "kind": "text",
+          "value": "의 신호와 "
+        },
+        {
+          "kind": "tag",
+          "tagId": "cheonui",
+          "label": "천의"
+        },
+        {
+          "kind": "text",
+          "value": "의 결이 함께 보이는 사주는 자기 자리에 머무는 호흡과 곁의 도움을 거절하지 않는 호흡이 둘 다 잘 어울려요."
+        }
       ],
-      "tags": ["yongshin", "jeongin"],
+      "tags": [
+        "yongshin",
+        "jeongin",
+        "gyeokgukYongshin",
+        "gyeokgukFit",
+        "jangseongsal",
+        "cheonui"
+      ],
       "numericalEvidence": [
         {
           "label": "연령 단계 순번",
@@ -68,21 +140,93 @@
     {
       "schemaVersion": "spring-ts.narrative-fragment.v1",
       "fragmentId": "academic.thisWeek.expert.yongshin.wood.age.late_teen.401",
-      "axis": { "category": "academic", "period": "thisWeek", "depth": "expert" },
+      "axis": {
+        "category": "academic",
+        "period": "thisWeek",
+        "depth": "expert"
+      },
       "gating": {
-        "agePhase": ["late_teen"],
-        "birthSeason": ["summer"],
-        "dayMasterPolarity": ["neutral"],
-        "yongshinElement": ["WOOD"]
+        "agePhase": [
+          "late_teen"
+        ],
+        "birthSeason": [
+          "summer"
+        ],
+        "dayMasterPolarity": [
+          "neutral"
+        ],
+        "yongshinElement": [
+          "WOOD"
+        ]
       },
       "templateTokens": [
-        { "kind": "text", "value": "후반 10대, 여름 출생, 중립 음양 값에 용신 목이 붙으면 이번 주 학업운은 확장 의욕과 기본기 조율을 함께 봅니다. " },
-        { "kind": "tag", "tagId": "sikshin", "label": "식신" },
-        { "kind": "text", "value": "이 이해를 넓히고, " },
-        { "kind": "tag", "tagId": "yongshin", "label": "용신" },
-        { "kind": "text", "value": "목은 다음 단계로 뻗는 힘을 보정합니다." }
+        {
+          "kind": "text",
+          "value": "후반 10대, 여름 출생, 중립 음양 값에 용신 목이 붙으면 이번 주 학업운은 확장 의욕과 기본기 조율을 함께 봅니다.\n\n"
+        },
+        {
+          "kind": "tag",
+          "tagId": "sikshin",
+          "label": "식신"
+        },
+        {
+          "kind": "text",
+          "value": "이 이해를 넓히고, "
+        },
+        {
+          "kind": "tag",
+          "tagId": "yongshin",
+          "label": "용신"
+        },
+        {
+          "kind": "text",
+          "value": "목은 다음 단계로 뻗는 힘을 보정합니다.\n\n"
+        },
+        {
+          "kind": "tag",
+          "tagId": "tonggwanYongshin",
+          "label": "통관용신"
+        },
+        {
+          "kind": "text",
+          "value": "의 결과 "
+        },
+        {
+          "kind": "tag",
+          "tagId": "byeongyakYongshin",
+          "label": "병약용신"
+        },
+        {
+          "kind": "text",
+          "value": "의 자리가 함께 또렷해지는 사주는 학습의 깊이가 자기 흐름의 균형을 따라가는 자리예요.\n\n"
+        },
+        {
+          "kind": "tag",
+          "tagId": "munchanggwiin",
+          "label": "문창귀인"
+        },
+        {
+          "kind": "text",
+          "value": "의 결과 "
+        },
+        {
+          "kind": "tag",
+          "tagId": "hakdang",
+          "label": "학당"
+        },
+        {
+          "kind": "text",
+          "value": "의 자리가 함께 보이는 사주는 시험·연구 흐름이 부드럽게 자리 잡는 모양이라, 자기 흐름을 차분히 따라가는 페이스가 잘 어울려요."
+        }
       ],
-      "tags": ["sikshin", "yongshin"],
+      "tags": [
+        "sikshin",
+        "yongshin",
+        "tonggwanYongshin",
+        "byeongyakYongshin",
+        "munchanggwiin",
+        "hakdang"
+      ],
       "numericalEvidence": [
         {
           "label": "연령 단계 순번",
@@ -130,21 +274,96 @@
     {
       "schemaVersion": "spring-ts.narrative-fragment.v1",
       "fragmentId": "wealth.thisMonth.expert.yongshin.wood.age.late_50s.401",
-      "axis": { "category": "wealth", "period": "thisMonth", "depth": "expert" },
+      "axis": {
+        "category": "wealth",
+        "period": "thisMonth",
+        "depth": "expert"
+      },
       "gating": {
-        "agePhase": ["late_50s"],
-        "birthSeason": ["autumn"],
-        "dayMasterPolarity": ["YANG"],
-        "yongshinElement": ["WOOD"]
+        "agePhase": [
+          "late_50s"
+        ],
+        "birthSeason": [
+          "autumn"
+        ],
+        "dayMasterPolarity": [
+          "YANG"
+        ],
+        "yongshinElement": [
+          "WOOD"
+        ]
       },
       "templateTokens": [
-        { "kind": "text", "value": "후반 50대, 가을 출생, 양 일간에 용신 목이 있으면 이번 달 재물운은 정리한 기반 위에 새 수입 가지를 만드는 방식으로 봅니다. " },
-        { "kind": "tag", "tagId": "jeongjae", "label": "정재" },
-        { "kind": "text", "value": "가 안정성을 맡고, " },
-        { "kind": "tag", "tagId": "yongshin", "label": "용신" },
-        { "kind": "text", "value": "목은 과하게 굳은 계획에 성장성을 더합니다." }
+        {
+          "kind": "text",
+          "value": "후반 50대, 가을 출생, 양 일간에 용신 목이 있으면 이번 달 재물운은 정리한 기반 위에 새 수입 가지를 만드는 방식으로 봅니다.\n\n"
+        },
+        {
+          "kind": "tag",
+          "tagId": "jeongjae",
+          "label": "정재"
+        },
+        {
+          "kind": "text",
+          "value": "가 안정성을 맡고, "
+        },
+        {
+          "kind": "tag",
+          "tagId": "yongshin",
+          "label": "용신"
+        },
+        {
+          "kind": "text",
+          "value": "목은 과하게 굳은 계획에 성장성을 더합니다.\n\n"
+        },
+        {
+          "kind": "tag",
+          "tagId": "pyeonjaegyeok",
+          "label": "편재격"
+        },
+        {
+          "kind": "text",
+          "value": "의 결이나 "
+        },
+        {
+          "kind": "tag",
+          "tagId": "jeongjaegyeok",
+          "label": "정재격"
+        },
+        {
+          "kind": "text",
+          "value": "의 결이 또렷한 사주는 자기 격에 맞는 자산 운영 결이 자연스럽게 자리 잡아요.\n\n"
+        },
+        {
+          "kind": "text",
+          "value": "돈의 흐름은 "
+        },
+        {
+          "kind": "tag",
+          "tagId": "jeongjae",
+          "label": "정재"
+        },
+        {
+          "kind": "text",
+          "value": "의 고정 흐름과 "
+        },
+        {
+          "kind": "tag",
+          "tagId": "pyeonjae",
+          "label": "편재"
+        },
+        {
+          "kind": "text",
+          "value": "의 변동 흐름을 함께 살펴 두는 자리에서 단단해지고, 큰 한 번보다 작은 결정 쌓기가 자기 페이스에 잘 맞아요."
+        }
       ],
-      "tags": ["jeongjae", "yongshin"],
+      "tags": [
+        "jeongjae",
+        "yongshin",
+        "pyeonjaegyeok",
+        "jeongjaegyeok",
+        "pyeonjae"
+      ],
       "numericalEvidence": [
         {
           "label": "연령 단계 순번",
@@ -192,21 +411,93 @@
     {
       "schemaVersion": "spring-ts.narrative-fragment.v1",
       "fragmentId": "family.thisYear.expert.yongshin.wood.age.late_60s.401",
-      "axis": { "category": "family", "period": "thisYear", "depth": "expert" },
+      "axis": {
+        "category": "family",
+        "period": "thisYear",
+        "depth": "expert"
+      },
       "gating": {
-        "agePhase": ["late_60s"],
-        "birthSeason": ["winter"],
-        "dayMasterPolarity": ["YIN"],
-        "yongshinElement": ["WOOD"]
+        "agePhase": [
+          "late_60s"
+        ],
+        "birthSeason": [
+          "winter"
+        ],
+        "dayMasterPolarity": [
+          "YIN"
+        ],
+        "yongshinElement": [
+          "WOOD"
+        ]
       },
       "templateTokens": [
-        { "kind": "text", "value": "후반 60대, 겨울 출생, 음 일간에 용신 목이 놓이면 올해 가족운은 조용히 쌓인 관계를 다시 자라게 하는 방향으로 읽습니다. " },
-        { "kind": "tag", "tagId": "jeongin", "label": "정인" },
-        { "kind": "text", "value": "이 보호와 기억을 맡고, " },
-        { "kind": "tag", "tagId": "yongshin", "label": "용신" },
-        { "kind": "text", "value": "목은 대화와 돌봄을 새로 시작하게 하는 보정입니다." }
+        {
+          "kind": "text",
+          "value": "후반 60대, 겨울 출생, 음 일간에 용신 목이 놓이면 올해 가족운은 조용히 쌓인 관계를 다시 자라게 하는 방향으로 읽습니다.\n\n"
+        },
+        {
+          "kind": "tag",
+          "tagId": "jeongin",
+          "label": "정인"
+        },
+        {
+          "kind": "text",
+          "value": "이 보호와 기억을 맡고, "
+        },
+        {
+          "kind": "tag",
+          "tagId": "yongshin",
+          "label": "용신"
+        },
+        {
+          "kind": "text",
+          "value": "목은 대화와 돌봄을 새로 시작하게 하는 보정입니다.\n\n"
+        },
+        {
+          "kind": "tag",
+          "tagId": "cheondeokgwiin",
+          "label": "천덕귀인"
+        },
+        {
+          "kind": "text",
+          "value": "의 결과 "
+        },
+        {
+          "kind": "tag",
+          "tagId": "woldeokgwiin",
+          "label": "월덕귀인"
+        },
+        {
+          "kind": "text",
+          "value": "의 자리가 함께 보이는 사주는 가족 안에서 부드럽게 도움 주고받는 흐름이 자기 자산이 되는 모양이에요.\n\n"
+        },
+        {
+          "kind": "tag",
+          "tagId": "samhyeong",
+          "label": "삼형"
+        },
+        {
+          "kind": "text",
+          "value": "이나 "
+        },
+        {
+          "kind": "tag",
+          "tagId": "hyeongsal",
+          "label": "형살"
+        },
+        {
+          "kind": "text",
+          "value": "의 신호가 보이는 시기엔 가족 안의 작은 부딪힘을 짧게 끊고 가는 호흡이 잘 어울려요."
+        }
       ],
-      "tags": ["jeongin", "yongshin"],
+      "tags": [
+        "jeongin",
+        "yongshin",
+        "cheondeokgwiin",
+        "woldeokgwiin",
+        "samhyeong",
+        "hyeongsal"
+      ],
       "numericalEvidence": [
         {
           "label": "연령 단계 순번",
@@ -254,21 +545,96 @@
     {
       "schemaVersion": "spring-ts.narrative-fragment.v1",
       "fragmentId": "health.today.expert.yongshin.wood.age.70s.401",
-      "axis": { "category": "health", "period": "today", "depth": "expert" },
+      "axis": {
+        "category": "health",
+        "period": "today",
+        "depth": "expert"
+      },
       "gating": {
-        "agePhase": ["70s"],
-        "birthSeason": ["spring"],
-        "dayMasterPolarity": ["neutral"],
-        "yongshinElement": ["WOOD"]
+        "agePhase": [
+          "70s"
+        ],
+        "birthSeason": [
+          "spring"
+        ],
+        "dayMasterPolarity": [
+          "neutral"
+        ],
+        "yongshinElement": [
+          "WOOD"
+        ]
       },
       "templateTokens": [
-        { "kind": "text", "value": "70대, 봄 출생, 중립 음양 값에 용신 목이 들어오면 오늘 건강운은 관절, 근육, 산책 리듬처럼 부드러운 성장성을 봅니다. " },
-        { "kind": "tag", "tagId": "yongshin", "label": "용신" },
-        { "kind": "text", "value": "목은 움직임을 살리지만, " },
-        { "kind": "tag", "tagId": "gishin", "label": "기신" },
-        { "kind": "text", "value": "과 겹치면 무리한 확장보다 회복 폭을 먼저 계산합니다." }
+        {
+          "kind": "text",
+          "value": "70대, 봄 출생, 중립 음양 값에 용신 목이 들어오면 오늘 건강운은 관절, 근육, 산책 리듬처럼 부드러운 성장성을 봅니다.\n\n"
+        },
+        {
+          "kind": "tag",
+          "tagId": "yongshin",
+          "label": "용신"
+        },
+        {
+          "kind": "text",
+          "value": "목은 움직임을 살리지만, "
+        },
+        {
+          "kind": "tag",
+          "tagId": "gishin",
+          "label": "기신"
+        },
+        {
+          "kind": "text",
+          "value": "과 겹치면 무리한 확장보다 회복 폭을 먼저 계산합니다.\n\n"
+        },
+        {
+          "kind": "text",
+          "value": "몸의 흐름은 "
+        },
+        {
+          "kind": "tag",
+          "tagId": "johu",
+          "label": "조후"
+        },
+        {
+          "kind": "text",
+          "value": "의 균형과 "
+        },
+        {
+          "kind": "tag",
+          "tagId": "jeongin",
+          "label": "정인"
+        },
+        {
+          "kind": "text",
+          "value": "의 돌봄 자산이 함께 챙겨질 때 한층 부드러워지고, 무리한 회복보다 작은 회복의 반복이 자기 페이스에 잘 맞아요.\n\n"
+        },
+        {
+          "kind": "tag",
+          "tagId": "johuYongshin",
+          "label": "조후용신"
+        },
+        {
+          "kind": "text",
+          "value": "의 결이 또렷한 사주는 "
+        },
+        {
+          "kind": "tag",
+          "tagId": "johu",
+          "label": "조후"
+        },
+        {
+          "kind": "text",
+          "value": "의 균형이 컨디션을 만드는 가장 큰 축이라, 계절의 결을 따라 자기 페이스를 맞춰 두는 호흡이 잘 어울려요."
+        }
       ],
-      "tags": ["yongshin", "gishin"],
+      "tags": [
+        "yongshin",
+        "gishin",
+        "johu",
+        "jeongin",
+        "johuYongshin"
+      ],
       "numericalEvidence": [
         {
           "label": "연령 단계 순번",
@@ -316,21 +682,93 @@
     {
       "schemaVersion": "spring-ts.narrative-fragment.v1",
       "fragmentId": "movement.thisMonth.expert.yongshin.wood.age.80s.401",
-      "axis": { "category": "movement", "period": "thisMonth", "depth": "expert" },
+      "axis": {
+        "category": "movement",
+        "period": "thisMonth",
+        "depth": "expert"
+      },
       "gating": {
-        "agePhase": ["80s"],
-        "birthSeason": ["summer"],
-        "dayMasterPolarity": ["YANG"],
-        "yongshinElement": ["WOOD"]
+        "agePhase": [
+          "80s"
+        ],
+        "birthSeason": [
+          "summer"
+        ],
+        "dayMasterPolarity": [
+          "YANG"
+        ],
+        "yongshinElement": [
+          "WOOD"
+        ]
       },
       "templateTokens": [
-        { "kind": "text", "value": "80대, 여름 출생, 양 일간에 용신 목이 붙으면 이번 달 이동운은 무리한 확장보다 안전한 생활 반경을 조금씩 넓히는 쪽으로 봅니다. " },
-        { "kind": "tag", "tagId": "yeokma", "label": "역마" },
-        { "kind": "text", "value": "가 움직임을 만들고, " },
-        { "kind": "tag", "tagId": "yongshin", "label": "용신" },
-        { "kind": "text", "value": "목은 산책, 방문, 소통의 회복성을 보정합니다." }
+        {
+          "kind": "text",
+          "value": "80대, 여름 출생, 양 일간에 용신 목이 붙으면 이번 달 이동운은 무리한 확장보다 안전한 생활 반경을 조금씩 넓히는 쪽으로 봅니다.\n\n"
+        },
+        {
+          "kind": "tag",
+          "tagId": "yeokma",
+          "label": "역마"
+        },
+        {
+          "kind": "text",
+          "value": "가 움직임을 만들고, "
+        },
+        {
+          "kind": "tag",
+          "tagId": "yongshin",
+          "label": "용신"
+        },
+        {
+          "kind": "text",
+          "value": "목은 산책, 방문, 소통의 회복성을 보정합니다.\n\n"
+        },
+        {
+          "kind": "tag",
+          "tagId": "jisal",
+          "label": "지살"
+        },
+        {
+          "kind": "text",
+          "value": "의 신호와 "
+        },
+        {
+          "kind": "tag",
+          "tagId": "cheonigung",
+          "label": "천이궁"
+        },
+        {
+          "kind": "text",
+          "value": "의 결을 함께 살펴 두면 이동의 결이 어디로 이어질지 한층 또렷해져요.\n\n"
+        },
+        {
+          "kind": "tag",
+          "tagId": "banansal",
+          "label": "반안살"
+        },
+        {
+          "kind": "text",
+          "value": "의 자리와 "
+        },
+        {
+          "kind": "tag",
+          "tagId": "wolsal",
+          "label": "월살"
+        },
+        {
+          "kind": "text",
+          "value": "의 결이 함께 보이는 시기엔 자기 동선의 한 결을 점검해 두는 호흡이 잘 맞아요."
+        }
       ],
-      "tags": ["yeokma", "yongshin"],
+      "tags": [
+        "yeokma",
+        "yongshin",
+        "jisal",
+        "cheonigung",
+        "banansal",
+        "wolsal"
+      ],
       "numericalEvidence": [
         {
           "label": "연령 단계 순번",
@@ -378,21 +816,96 @@
     {
       "schemaVersion": "spring-ts.narrative-fragment.v1",
       "fragmentId": "romance.life.expert.yongshin.wood.age.90_plus.401",
-      "axis": { "category": "romance", "period": "life", "depth": "expert" },
+      "axis": {
+        "category": "romance",
+        "period": "life",
+        "depth": "expert"
+      },
       "gating": {
-        "agePhase": ["90_plus"],
-        "birthSeason": ["winter"],
-        "dayMasterPolarity": ["YIN"],
-        "yongshinElement": ["WOOD"]
+        "agePhase": [
+          "90_plus"
+        ],
+        "birthSeason": [
+          "winter"
+        ],
+        "dayMasterPolarity": [
+          "YIN"
+        ],
+        "yongshinElement": [
+          "WOOD"
+        ]
       },
       "templateTokens": [
-        { "kind": "text", "value": "90대 이상, 겨울 출생, 음 일간에 용신 목이 들어오면 인연운은 오래된 관계 안에서 다시 살아나는 정서적 성장성을 봅니다. " },
-        { "kind": "tag", "tagId": "baeujagung", "label": "배우자궁" },
-        { "kind": "text", "value": "의 기억과 정서가 깊을수록 " },
-        { "kind": "tag", "tagId": "yongshin", "label": "용신" },
-        { "kind": "text", "value": "목은 안부, 돌봄, 따뜻한 표현을 다시 싹트게 하는 보정으로 작동합니다." }
+        {
+          "kind": "text",
+          "value": "90대 이상, 겨울 출생, 음 일간에 용신 목이 들어오면 인연운은 오래된 관계 안에서 다시 살아나는 정서적 성장성을 봅니다.\n\n"
+        },
+        {
+          "kind": "tag",
+          "tagId": "baeujagung",
+          "label": "배우자궁"
+        },
+        {
+          "kind": "text",
+          "value": "의 기억과 정서가 깊을수록 "
+        },
+        {
+          "kind": "tag",
+          "tagId": "yongshin",
+          "label": "용신"
+        },
+        {
+          "kind": "text",
+          "value": "목은 안부, 돌봄, 따뜻한 표현을 다시 싹트게 하는 보정으로 작동합니다.\n\n"
+        },
+        {
+          "kind": "text",
+          "value": "인연 자리는 "
+        },
+        {
+          "kind": "tag",
+          "tagId": "baeujagung",
+          "label": "배우자궁"
+        },
+        {
+          "kind": "text",
+          "value": "의 결과 "
+        },
+        {
+          "kind": "tag",
+          "tagId": "jeonggwan",
+          "label": "정관"
+        },
+        {
+          "kind": "text",
+          "value": "의 책임 결이 함께 단단해질 때 깊이가 자라고, 자기 흐름을 감추기보다 부드럽게 보여 두는 호흡이 잘 어울려요.\n\n"
+        },
+        {
+          "kind": "tag",
+          "tagId": "dohwa",
+          "label": "도화"
+        },
+        {
+          "kind": "text",
+          "value": "의 신호와 "
+        },
+        {
+          "kind": "tag",
+          "tagId": "hongyeom",
+          "label": "홍염"
+        },
+        {
+          "kind": "text",
+          "value": "의 결이 함께 보이면 매력의 흐름이 또렷해지지만, 자기 호흡을 잃지 않는 페이스가 자기를 지키는 자리예요."
+        }
       ],
-      "tags": ["baeujagung", "yongshin"],
+      "tags": [
+        "baeujagung",
+        "yongshin",
+        "jeonggwan",
+        "dohwa",
+        "hongyeom"
+      ],
       "numericalEvidence": [
         {
           "label": "연령 단계 순번",

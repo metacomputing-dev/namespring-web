@@ -171,7 +171,7 @@
       "templateTokens": [
         {
           "kind": "text",
-          "value": "장기 스트레스 구조에서 봄과 여름의 현재 계절은 반응성과 열감을 증폭합니다. "
+          "value": "장기 스트레스 구조에서 봄과 여름의 현재 계절은 반응성과 열감을 증폭합니다.\n\n"
         },
         {
           "kind": "tag",
@@ -189,7 +189,7 @@
         },
         {
           "kind": "text",
-          "value": "은 반복 회복 루틴을 통해 몸을 안정시킵니다. "
+          "value": "은 반복 회복 루틴을 통해 몸을 안정시킵니다.\n\n"
         },
         {
           "kind": "tag",
@@ -198,13 +198,33 @@
         },
         {
           "kind": "text",
-          "value": "를 낮추는 과속 패턴을 장기적으로 줄여야 합니다."
+          "value": "를 낮추는 과속 패턴을 장기적으로 줄여야 합니다.\n\n"
+        },
+        {
+          "kind": "tag",
+          "tagId": "cheonui",
+          "label": "천의"
+        },
+        {
+          "kind": "text",
+          "value": "의 자리와 "
+        },
+        {
+          "kind": "tag",
+          "tagId": "cheondeokgwiin",
+          "label": "천덕귀인"
+        },
+        {
+          "kind": "text",
+          "value": "의 결이 함께 보이면 회복의 흐름이 부드럽게 자리 잡는 사주이니, 자기 곁의 도움을 미루지 않는 호흡이 잘 어울려요."
         }
       ],
       "tags": [
         "pyeonin",
         "jeongin",
-        "stabilityIndex"
+        "stabilityIndex",
+        "cheonui",
+        "cheondeokgwiin"
       ],
       "numericalEvidence": [
         {
@@ -302,7 +322,7 @@
       "templateTokens": [
         {
           "kind": "text",
-          "value": "장기 스트레스 구조에서 가을과 겨울의 현재 계절은 긴장을 안쪽으로 저장하는 경향을 봅니다. "
+          "value": "장기 스트레스 구조에서 가을과 겨울의 현재 계절은 긴장을 안쪽으로 저장하는 경향을 봅니다.\n\n"
         },
         {
           "kind": "tag",
@@ -320,7 +340,7 @@
         },
         {
           "kind": "text",
-          "value": "은 내면화된 걱정으로 굳을 수 있습니다. "
+          "value": "은 내면화된 걱정으로 굳을 수 있습니다.\n\n"
         },
         {
           "kind": "tag",
@@ -329,13 +349,36 @@
         },
         {
           "kind": "text",
-          "value": "를 높이는 수면·식사·온도 관리가 핵심입니다."
+          "value": "를 높이는 수면·식사·온도 관리가 핵심입니다.\n\n"
+        },
+        {
+          "kind": "text",
+          "value": "긴장과 회복의 흐름은 "
+        },
+        {
+          "kind": "tag",
+          "tagId": "pyeongwan",
+          "label": "편관"
+        },
+        {
+          "kind": "text",
+          "value": "의 압박을 "
+        },
+        {
+          "kind": "tag",
+          "tagId": "jeongin",
+          "label": "정인"
+        },
+        {
+          "kind": "text",
+          "value": "의 돌봄으로 풀어 두는 자리에서 한결 단단해지고, 자기 한계를 의식적으로 두는 호흡이 가장 큰 무기가 돼요."
         }
       ],
       "tags": [
         "jeongin",
         "pyeonin",
-        "stabilityIndex"
+        "stabilityIndex",
+        "pyeongwan"
       ],
       "aiGenerated": true,
       "sourceTier": {
@@ -517,7 +560,7 @@
       "templateTokens": [
         {
           "kind": "text",
-          "value": "올해 스트레스 흐름에서 봄과 여름 기운은 외부 활동과 반응성을 키웁니다. "
+          "value": "올해 스트레스 흐름에서 봄과 여름 기운은 외부 활동과 반응성을 키웁니다.\n\n"
         },
         {
           "kind": "tag",
@@ -544,13 +587,56 @@
         },
         {
           "kind": "text",
-          "value": "를 연간 기준으로 관리해야 합니다."
+          "value": "를 연간 기준으로 관리해야 합니다.\n\n"
+        },
+        {
+          "kind": "text",
+          "value": "긴장과 회복의 흐름은 "
+        },
+        {
+          "kind": "tag",
+          "tagId": "pyeongwan",
+          "label": "편관"
+        },
+        {
+          "kind": "text",
+          "value": "의 압박을 "
+        },
+        {
+          "kind": "tag",
+          "tagId": "jeongin",
+          "label": "정인"
+        },
+        {
+          "kind": "text",
+          "value": "의 돌봄으로 풀어 두는 자리에서 한결 단단해지고, 자기 한계를 의식적으로 두는 호흡이 가장 큰 무기가 돼요.\n\n"
+        },
+        {
+          "kind": "tag",
+          "tagId": "cheonui",
+          "label": "천의"
+        },
+        {
+          "kind": "text",
+          "value": "의 자리와 "
+        },
+        {
+          "kind": "tag",
+          "tagId": "cheondeokgwiin",
+          "label": "천덕귀인"
+        },
+        {
+          "kind": "text",
+          "value": "의 결이 함께 보이면 회복의 흐름이 부드럽게 자리 잡는 사주이니, 자기 곁의 도움을 미루지 않는 호흡이 잘 어울려요."
         }
       ],
       "tags": [
         "pyeonin",
         "jeongin",
-        "stabilityIndex"
+        "stabilityIndex",
+        "pyeongwan",
+        "cheonui",
+        "cheondeokgwiin"
       ],
       "aiGenerated": true,
       "sourceTier": {
@@ -586,7 +672,7 @@
       "templateTokens": [
         {
           "kind": "text",
-          "value": "올해 스트레스 흐름에서 가을과 겨울 기운은 내면화된 긴장과 회복 저장량을 봅니다. "
+          "value": "올해 스트레스 흐름에서 가을과 겨울 기운은 내면화된 긴장과 회복 저장량을 봅니다.\n\n"
         },
         {
           "kind": "tag",
@@ -604,7 +690,7 @@
         },
         {
           "kind": "text",
-          "value": "은 혼자 감당하려는 습관으로 치우칠 수 있습니다. "
+          "value": "은 혼자 감당하려는 습관으로 치우칠 수 있습니다.\n\n"
         },
         {
           "kind": "tag",
@@ -613,13 +699,33 @@
         },
         {
           "kind": "text",
-          "value": "가 흔들리지 않도록 정기 점검과 휴식 루틴을 세우세요."
+          "value": "가 흔들리지 않도록 정기 점검과 휴식 루틴을 세우세요.\n\n"
+        },
+        {
+          "kind": "tag",
+          "tagId": "cheonui",
+          "label": "천의"
+        },
+        {
+          "kind": "text",
+          "value": "의 자리와 "
+        },
+        {
+          "kind": "tag",
+          "tagId": "cheondeokgwiin",
+          "label": "천덕귀인"
+        },
+        {
+          "kind": "text",
+          "value": "의 결이 함께 보이면 회복의 흐름이 부드럽게 자리 잡는 사주이니, 자기 곁의 도움을 미루지 않는 호흡이 잘 어울려요."
         }
       ],
       "tags": [
         "jeongin",
         "pyeonin",
-        "stabilityIndex"
+        "stabilityIndex",
+        "cheonui",
+        "cheondeokgwiin"
       ],
       "aiGenerated": true,
       "sourceTier": {
@@ -655,7 +761,7 @@
       "templateTokens": [
         {
           "kind": "text",
-          "value": "장기 건강 흐름에서 봄과 여름의 현재 계절은 활동성과 대사 리듬을 빠르게 만듭니다. "
+          "value": "장기 건강 흐름에서 봄과 여름의 현재 계절은 활동성과 대사 리듬을 빠르게 만듭니다.\n\n"
         },
         {
           "kind": "tag",
@@ -682,13 +788,53 @@
         },
         {
           "kind": "text",
-          "value": "방향의 보충 루틴을 오래 유지하세요."
+          "value": "방향의 보충 루틴을 오래 유지하세요.\n\n"
+        },
+        {
+          "kind": "tag",
+          "tagId": "jisal",
+          "label": "지살"
+        },
+        {
+          "kind": "text",
+          "value": "의 결이 보일 때는 잠깐의 환경 변화가 컨디션을 환기시키고, "
+        },
+        {
+          "kind": "tag",
+          "tagId": "cheonui",
+          "label": "천의"
+        },
+        {
+          "kind": "text",
+          "value": "의 자리는 의료·치유 흐름의 도움을 부드럽게 받게 해 줘요.\n\n"
+        },
+        {
+          "kind": "tag",
+          "tagId": "eumyangHarmony",
+          "label": "음양조화도"
+        },
+        {
+          "kind": "text",
+          "value": "의 평균이 또렷한 사주는 "
+        },
+        {
+          "kind": "tag",
+          "tagId": "stabilityIndex",
+          "label": "안정성지수"
+        },
+        {
+          "kind": "text",
+          "value": "도 함께 단단해지는 자리라, 큰 결정보다 작은 회복 습관이 평생의 무기가 돼요."
         }
       ],
       "tags": [
         "jeongin",
         "pyeonin",
-        "yongshin"
+        "yongshin",
+        "jisal",
+        "cheonui",
+        "eumyangHarmony",
+        "stabilityIndex"
       ],
       "aiGenerated": true,
       "sourceTier": {
@@ -724,7 +870,7 @@
       "templateTokens": [
         {
           "kind": "text",
-          "value": "장기 건강 흐름에서 가을과 겨울의 현재 계절은 회복 저장량과 보온, 건조 관리가 중요합니다. "
+          "value": "장기 건강 흐름에서 가을과 겨울의 현재 계절은 회복 저장량과 보온, 건조 관리가 중요합니다.\n\n"
         },
         {
           "kind": "tag",
@@ -742,7 +888,7 @@
         },
         {
           "kind": "text",
-          "value": "은 예민한 신호 해석을 보여 줍니다. "
+          "value": "은 예민한 신호 해석을 보여 줍니다.\n\n"
         },
         {
           "kind": "tag",
@@ -751,13 +897,33 @@
         },
         {
           "kind": "text",
-          "value": "과 맞는 보수적 관리가 장기 컨디션을 지킵니다."
+          "value": "과 맞는 보수적 관리가 장기 컨디션을 지킵니다.\n\n"
+        },
+        {
+          "kind": "tag",
+          "tagId": "eumyangHarmony",
+          "label": "음양조화도"
+        },
+        {
+          "kind": "text",
+          "value": "의 평균이 또렷한 사주는 "
+        },
+        {
+          "kind": "tag",
+          "tagId": "stabilityIndex",
+          "label": "안정성지수"
+        },
+        {
+          "kind": "text",
+          "value": "도 함께 단단해지는 자리라, 큰 결정보다 작은 회복 습관이 평생의 무기가 돼요."
         }
       ],
       "tags": [
         "jeongin",
         "pyeonin",
-        "yongshin"
+        "yongshin",
+        "eumyangHarmony",
+        "stabilityIndex"
       ],
       "aiGenerated": true,
       "sourceTier": {

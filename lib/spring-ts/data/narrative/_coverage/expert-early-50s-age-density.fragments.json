@@ -6,173 +6,996 @@
     {
       "schemaVersion": "spring-ts.narrative-fragment.v1",
       "fragmentId": "overall.today.expert.age.early_50s.501",
-      "axis": { "category": "overall", "period": "today", "depth": "expert" },
-      "gating": { "agePhase": ["early_50s"] },
+      "axis": {
+        "category": "overall",
+        "period": "today",
+        "depth": "expert"
+      },
+      "gating": {
+        "agePhase": [
+          "early_50s"
+        ]
+      },
       "templateTokens": [
-        { "kind": "text", "value": "초반 50대의 오늘 총운은 새 판을 크게 벌리기보다 기존 책임을 재정렬하는 흐름으로 봅니다. " },
-        { "kind": "tag", "tagId": "jeonggwan", "label": "정관" },
-        { "kind": "text", "value": "은 역할의 기준을 세우고 " },
-        { "kind": "tag", "tagId": "jeongin", "label": "정인" },
-        { "kind": "text", "value": "은 경험에서 배운 원칙을 다시 확인하게 합니다." }
+        {
+          "kind": "text",
+          "value": "초반 50대의 오늘 총운은 새 판을 크게 벌리기보다 기존 책임을 재정렬하는 흐름으로 봅니다.\n\n"
+        },
+        {
+          "kind": "tag",
+          "tagId": "jeonggwan",
+          "label": "정관"
+        },
+        {
+          "kind": "text",
+          "value": "은 역할의 기준을 세우고 "
+        },
+        {
+          "kind": "tag",
+          "tagId": "jeongin",
+          "label": "정인"
+        },
+        {
+          "kind": "text",
+          "value": "은 경험에서 배운 원칙을 다시 확인하게 합니다.\n\n"
+        },
+        {
+          "kind": "tag",
+          "tagId": "tonggwanYongshin",
+          "label": "통관용신"
+        },
+        {
+          "kind": "text",
+          "value": "의 결이 보이면 흐름의 막힌 자리를 풀어 주는 자리가 보이고, "
+        },
+        {
+          "kind": "tag",
+          "tagId": "byeongyakYongshin",
+          "label": "병약용신"
+        },
+        {
+          "kind": "text",
+          "value": "의 자리가 함께 들어오면 약한 자리를 메우는 결이 함께 작동해요.\n\n"
+        },
+        {
+          "kind": "tag",
+          "tagId": "naeum",
+          "label": "납음"
+        },
+        {
+          "kind": "text",
+          "value": "의 결을 함께 살펴 두면 사주 모양의 깊은 색이 더 또렷해지고, "
+        },
+        {
+          "kind": "tag",
+          "tagId": "naeumElement",
+          "label": "납음오행"
+        },
+        {
+          "kind": "text",
+          "value": "의 흐름이 자기 결을 보완하는 자리가 자주 등장해요."
+        }
       ],
-      "tags": ["jeonggwan", "jeongin"],
+      "tags": [
+        "jeonggwan",
+        "jeongin",
+        "tonggwanYongshin",
+        "byeongyakYongshin",
+        "naeum",
+        "naeumElement"
+      ],
       "numericalEvidence": [
-        { "label": "연령 단계 서번", "valueExpression": "feature.agePhaseOrdinal", "unit": "ordinal", "sourceTier": { "tier": "T3_INTERNAL_ENGINE", "sourceType": "internal_scoring_policy", "sourceUrl": null, "accessedAt": "2026-05-04", "quoteShort": null, "humanInterpretation": "Resolved from deterministic spring-ts runtime output.", "copyrightNote": "No third-party prose copied.", "authorityTruthEligible": false } }
+        {
+          "label": "연령 단계 서번",
+          "valueExpression": "feature.agePhaseOrdinal",
+          "unit": "ordinal",
+          "sourceTier": {
+            "tier": "T3_INTERNAL_ENGINE",
+            "sourceType": "internal_scoring_policy",
+            "sourceUrl": null,
+            "accessedAt": "2026-05-04",
+            "quoteShort": null,
+            "humanInterpretation": "Resolved from deterministic spring-ts runtime output.",
+            "copyrightNote": "No third-party prose copied.",
+            "authorityTruthEligible": false
+          }
+        }
       ],
       "aiGenerated": true,
-      "sourceTier": { "tier": "T1_HYPOTHESIS", "sourceType": "training_derived", "sourceUrl": null, "accessedAt": "2026-05-04", "quoteShort": null, "humanInterpretation": "Expert early-50s agePhase density fragment for daily overview. AI-derived display text; not authority truth.", "copyrightNote": "No source prose copied; original phrasing.", "authorityTruthEligible": false }
+      "sourceTier": {
+        "tier": "T1_HYPOTHESIS",
+        "sourceType": "training_derived",
+        "sourceUrl": null,
+        "accessedAt": "2026-05-04",
+        "quoteShort": null,
+        "humanInterpretation": "Expert early-50s agePhase density fragment for daily overview. AI-derived display text; not authority truth.",
+        "copyrightNote": "No source prose copied; original phrasing.",
+        "authorityTruthEligible": false
+      }
     },
     {
       "schemaVersion": "spring-ts.narrative-fragment.v1",
       "fragmentId": "career.thisWeek.expert.age.early_50s.501",
-      "axis": { "category": "career", "period": "thisWeek", "depth": "expert" },
-      "gating": { "agePhase": ["early_50s"] },
+      "axis": {
+        "category": "career",
+        "period": "thisWeek",
+        "depth": "expert"
+      },
+      "gating": {
+        "agePhase": [
+          "early_50s"
+        ]
+      },
       "templateTokens": [
-        { "kind": "text", "value": "초반 50대의 이번 주 커리어운은 성과 확대보다 영향력의 쓰임새를 정교하게 고르는 시점입니다. " },
-        { "kind": "tag", "tagId": "jeonggwan", "label": "정관" },
-        { "kind": "text", "value": "은 직책과 책임을 안정시키고 " },
-        { "kind": "tag", "tagId": "sanggwan", "label": "상관" },
-        { "kind": "text", "value": "은 축적된 판단을 말과 기획으로 꺼내게 합니다." }
+        {
+          "kind": "text",
+          "value": "초반 50대의 이번 주 커리어운은 성과 확대보다 영향력의 쓰임새를 정교하게 고르는 시점입니다.\n\n"
+        },
+        {
+          "kind": "tag",
+          "tagId": "jeonggwan",
+          "label": "정관"
+        },
+        {
+          "kind": "text",
+          "value": "은 직책과 책임을 안정시키고 "
+        },
+        {
+          "kind": "tag",
+          "tagId": "sanggwan",
+          "label": "상관"
+        },
+        {
+          "kind": "text",
+          "value": "은 축적된 판단을 말과 기획으로 꺼내게 합니다.\n\n"
+        },
+        {
+          "kind": "text",
+          "value": "직업 흐름은 "
+        },
+        {
+          "kind": "tag",
+          "tagId": "jeonggwan",
+          "label": "정관"
+        },
+        {
+          "kind": "text",
+          "value": "의 책임 자리와 "
+        },
+        {
+          "kind": "tag",
+          "tagId": "sikshin",
+          "label": "식신"
+        },
+        {
+          "kind": "text",
+          "value": "의 결과 자리가 함께 단단해질 때 한 단계 더 또렷해지는 흐름이라, 무리한 한 번보다 자기 호흡대로의 결과물 쌓기가 잘 어울려요.\n\n"
+        },
+        {
+          "kind": "tag",
+          "tagId": "gwanrokgung",
+          "label": "관록궁"
+        },
+        {
+          "kind": "text",
+          "value": "의 결과 "
+        },
+        {
+          "kind": "tag",
+          "tagId": "pyeongwan",
+          "label": "편관"
+        },
+        {
+          "kind": "text",
+          "value": "의 압박이 함께 들어오는 시기에는 일을 미리 분산해 두는 호흡이 자기 페이스를 지켜 줘요."
+        }
       ],
-      "tags": ["jeonggwan", "sanggwan"],
+      "tags": [
+        "jeonggwan",
+        "sanggwan",
+        "sikshin",
+        "gwanrokgung",
+        "pyeongwan"
+      ],
       "numericalEvidence": [
-        { "label": "연령 단계 서번", "valueExpression": "feature.agePhaseOrdinal", "unit": "ordinal", "sourceTier": { "tier": "T3_INTERNAL_ENGINE", "sourceType": "internal_scoring_policy", "sourceUrl": null, "accessedAt": "2026-05-04", "quoteShort": null, "humanInterpretation": "Resolved from deterministic spring-ts runtime output.", "copyrightNote": "No third-party prose copied.", "authorityTruthEligible": false } }
+        {
+          "label": "연령 단계 서번",
+          "valueExpression": "feature.agePhaseOrdinal",
+          "unit": "ordinal",
+          "sourceTier": {
+            "tier": "T3_INTERNAL_ENGINE",
+            "sourceType": "internal_scoring_policy",
+            "sourceUrl": null,
+            "accessedAt": "2026-05-04",
+            "quoteShort": null,
+            "humanInterpretation": "Resolved from deterministic spring-ts runtime output.",
+            "copyrightNote": "No third-party prose copied.",
+            "authorityTruthEligible": false
+          }
+        }
       ],
       "aiGenerated": true,
-      "sourceTier": { "tier": "T1_HYPOTHESIS", "sourceType": "training_derived", "sourceUrl": null, "accessedAt": "2026-05-04", "quoteShort": null, "humanInterpretation": "Expert early-50s agePhase density fragment for weekly career. AI-derived display text; not authority truth.", "copyrightNote": "No source prose copied; original phrasing.", "authorityTruthEligible": false }
+      "sourceTier": {
+        "tier": "T1_HYPOTHESIS",
+        "sourceType": "training_derived",
+        "sourceUrl": null,
+        "accessedAt": "2026-05-04",
+        "quoteShort": null,
+        "humanInterpretation": "Expert early-50s agePhase density fragment for weekly career. AI-derived display text; not authority truth.",
+        "copyrightNote": "No source prose copied; original phrasing.",
+        "authorityTruthEligible": false
+      }
     },
     {
       "schemaVersion": "spring-ts.narrative-fragment.v1",
       "fragmentId": "wealth.thisMonth.expert.age.early_50s.501",
-      "axis": { "category": "wealth", "period": "thisMonth", "depth": "expert" },
-      "gating": { "agePhase": ["early_50s"] },
+      "axis": {
+        "category": "wealth",
+        "period": "thisMonth",
+        "depth": "expert"
+      },
+      "gating": {
+        "agePhase": [
+          "early_50s"
+        ]
+      },
       "templateTokens": [
-        { "kind": "text", "value": "초반 50대의 이번 달 재물운은 수입의 크기보다 구조의 안정성과 회수 가능성을 먼저 봐야 합니다. " },
-        { "kind": "tag", "tagId": "jeongjae", "label": "정재" },
-        { "kind": "text", "value": "는 고정 흐름을 점검하고 " },
-        { "kind": "tag", "tagId": "pyeonjae", "label": "편재" },
-        { "kind": "text", "value": "는 변동 자산을 작게 나누어 검증하는 방식으로 쓰입니다." }
+        {
+          "kind": "text",
+          "value": "초반 50대의 이번 달 재물운은 수입의 크기보다 구조의 안정성과 회수 가능성을 먼저 봐야 합니다.\n\n"
+        },
+        {
+          "kind": "tag",
+          "tagId": "jeongjae",
+          "label": "정재"
+        },
+        {
+          "kind": "text",
+          "value": "는 고정 흐름을 점검하고 "
+        },
+        {
+          "kind": "tag",
+          "tagId": "pyeonjae",
+          "label": "편재"
+        },
+        {
+          "kind": "text",
+          "value": "는 변동 자산을 작게 나누어 검증하는 방식으로 쓰입니다.\n\n"
+        },
+        {
+          "kind": "tag",
+          "tagId": "jaebakgung",
+          "label": "재백궁"
+        },
+        {
+          "kind": "text",
+          "value": "의 결과 "
+        },
+        {
+          "kind": "tag",
+          "tagId": "cheonleulgwiin",
+          "label": "천을귀인"
+        },
+        {
+          "kind": "text",
+          "value": "의 자리가 함께 보이면 도움 받는 흐름이 자기 자산이 되는 사주이니, 작은 도움도 미루지 않는 호흡이 잘 어울려요.\n\n"
+        },
+        {
+          "kind": "tag",
+          "tagId": "gyeokgukFit",
+          "label": "격국적합도"
+        },
+        {
+          "kind": "text",
+          "value": "의 평균이 또렷한 사주는 자기 격에 맞는 자산 자리가 한 결로 모이고, "
+        },
+        {
+          "kind": "tag",
+          "tagId": "stabilityIndex",
+          "label": "안정성지수"
+        },
+        {
+          "kind": "text",
+          "value": "가 받쳐 주는 시기엔 자산 결이 한 단계 깊어지는 자리가 보여요."
+        }
       ],
-      "tags": ["jeongjae", "pyeonjae"],
+      "tags": [
+        "jeongjae",
+        "pyeonjae",
+        "jaebakgung",
+        "cheonleulgwiin",
+        "gyeokgukFit",
+        "stabilityIndex"
+      ],
       "numericalEvidence": [
-        { "label": "연령 단계 서번", "valueExpression": "feature.agePhaseOrdinal", "unit": "ordinal", "sourceTier": { "tier": "T3_INTERNAL_ENGINE", "sourceType": "internal_scoring_policy", "sourceUrl": null, "accessedAt": "2026-05-04", "quoteShort": null, "humanInterpretation": "Resolved from deterministic spring-ts runtime output.", "copyrightNote": "No third-party prose copied.", "authorityTruthEligible": false } }
+        {
+          "label": "연령 단계 서번",
+          "valueExpression": "feature.agePhaseOrdinal",
+          "unit": "ordinal",
+          "sourceTier": {
+            "tier": "T3_INTERNAL_ENGINE",
+            "sourceType": "internal_scoring_policy",
+            "sourceUrl": null,
+            "accessedAt": "2026-05-04",
+            "quoteShort": null,
+            "humanInterpretation": "Resolved from deterministic spring-ts runtime output.",
+            "copyrightNote": "No third-party prose copied.",
+            "authorityTruthEligible": false
+          }
+        }
       ],
       "aiGenerated": true,
-      "sourceTier": { "tier": "T1_HYPOTHESIS", "sourceType": "training_derived", "sourceUrl": null, "accessedAt": "2026-05-04", "quoteShort": null, "humanInterpretation": "Expert early-50s agePhase density fragment for monthly wealth. AI-derived display text; not authority truth.", "copyrightNote": "No source prose copied; original phrasing.", "authorityTruthEligible": false }
+      "sourceTier": {
+        "tier": "T1_HYPOTHESIS",
+        "sourceType": "training_derived",
+        "sourceUrl": null,
+        "accessedAt": "2026-05-04",
+        "quoteShort": null,
+        "humanInterpretation": "Expert early-50s agePhase density fragment for monthly wealth. AI-derived display text; not authority truth.",
+        "copyrightNote": "No source prose copied; original phrasing.",
+        "authorityTruthEligible": false
+      }
     },
     {
       "schemaVersion": "spring-ts.narrative-fragment.v1",
       "fragmentId": "health.thisYear.expert.age.early_50s.501",
-      "axis": { "category": "health", "period": "thisYear", "depth": "expert" },
-      "gating": { "agePhase": ["early_50s"] },
+      "axis": {
+        "category": "health",
+        "period": "thisYear",
+        "depth": "expert"
+      },
+      "gating": {
+        "agePhase": [
+          "early_50s"
+        ]
+      },
       "templateTokens": [
-        { "kind": "text", "value": "초반 50대의 올해 건강운은 회복 속도보다 누적 피로의 패턴을 읽는 것이 정확합니다. " },
-        { "kind": "tag", "tagId": "yongshin", "label": "용신" },
-        { "kind": "text", "value": "은 보강 루틴의 방향을 정하고 " },
-        { "kind": "tag", "tagId": "gishin", "label": "기신" },
-        { "kind": "text", "value": "은 반복적으로 컨디션을 깎는 환경을 찾는 기준이 됩니다." }
+        {
+          "kind": "text",
+          "value": "초반 50대의 올해 건강운은 회복 속도보다 누적 피로의 패턴을 읽는 것이 정확합니다.\n\n"
+        },
+        {
+          "kind": "tag",
+          "tagId": "yongshin",
+          "label": "용신"
+        },
+        {
+          "kind": "text",
+          "value": "은 보강 루틴의 방향을 정하고 "
+        },
+        {
+          "kind": "tag",
+          "tagId": "gishin",
+          "label": "기신"
+        },
+        {
+          "kind": "text",
+          "value": "은 반복적으로 컨디션을 깎는 환경을 찾는 기준이 됩니다.\n\n"
+        },
+        {
+          "kind": "tag",
+          "tagId": "eumyangHarmony",
+          "label": "음양조화도"
+        },
+        {
+          "kind": "text",
+          "value": "의 평균이 또렷한 사주는 "
+        },
+        {
+          "kind": "tag",
+          "tagId": "stabilityIndex",
+          "label": "안정성지수"
+        },
+        {
+          "kind": "text",
+          "value": "도 함께 단단해지는 자리라, 큰 결정보다 작은 회복 습관이 평생의 무기가 돼요.\n\n"
+        },
+        {
+          "kind": "text",
+          "value": "몸의 흐름은 "
+        },
+        {
+          "kind": "tag",
+          "tagId": "johu",
+          "label": "조후"
+        },
+        {
+          "kind": "text",
+          "value": "의 균형과 "
+        },
+        {
+          "kind": "tag",
+          "tagId": "jeongin",
+          "label": "정인"
+        },
+        {
+          "kind": "text",
+          "value": "의 돌봄 자산이 함께 챙겨질 때 한층 부드러워지고, 무리한 회복보다 작은 회복의 반복이 자기 페이스에 잘 맞아요."
+        }
       ],
-      "tags": ["yongshin", "gishin"],
+      "tags": [
+        "yongshin",
+        "gishin",
+        "eumyangHarmony",
+        "stabilityIndex",
+        "johu",
+        "jeongin"
+      ],
       "numericalEvidence": [
-        { "label": "연령 단계 서번", "valueExpression": "feature.agePhaseOrdinal", "unit": "ordinal", "sourceTier": { "tier": "T3_INTERNAL_ENGINE", "sourceType": "internal_scoring_policy", "sourceUrl": null, "accessedAt": "2026-05-04", "quoteShort": null, "humanInterpretation": "Resolved from deterministic spring-ts runtime output.", "copyrightNote": "No third-party prose copied.", "authorityTruthEligible": false } }
+        {
+          "label": "연령 단계 서번",
+          "valueExpression": "feature.agePhaseOrdinal",
+          "unit": "ordinal",
+          "sourceTier": {
+            "tier": "T3_INTERNAL_ENGINE",
+            "sourceType": "internal_scoring_policy",
+            "sourceUrl": null,
+            "accessedAt": "2026-05-04",
+            "quoteShort": null,
+            "humanInterpretation": "Resolved from deterministic spring-ts runtime output.",
+            "copyrightNote": "No third-party prose copied.",
+            "authorityTruthEligible": false
+          }
+        }
       ],
       "aiGenerated": true,
-      "sourceTier": { "tier": "T1_HYPOTHESIS", "sourceType": "training_derived", "sourceUrl": null, "accessedAt": "2026-05-04", "quoteShort": null, "humanInterpretation": "Expert early-50s agePhase density fragment for yearly health. AI-derived display text; not authority truth.", "copyrightNote": "No source prose copied; original phrasing.", "authorityTruthEligible": false }
+      "sourceTier": {
+        "tier": "T1_HYPOTHESIS",
+        "sourceType": "training_derived",
+        "sourceUrl": null,
+        "accessedAt": "2026-05-04",
+        "quoteShort": null,
+        "humanInterpretation": "Expert early-50s agePhase density fragment for yearly health. AI-derived display text; not authority truth.",
+        "copyrightNote": "No source prose copied; original phrasing.",
+        "authorityTruthEligible": false
+      }
     },
     {
       "schemaVersion": "spring-ts.narrative-fragment.v1",
       "fragmentId": "romance.life.expert.age.early_50s.501",
-      "axis": { "category": "romance", "period": "life", "depth": "expert" },
-      "gating": { "agePhase": ["early_50s"] },
+      "axis": {
+        "category": "romance",
+        "period": "life",
+        "depth": "expert"
+      },
+      "gating": {
+        "agePhase": [
+          "early_50s"
+        ]
+      },
       "templateTokens": [
-        { "kind": "text", "value": "초반 50대의 인연 총운은 설렘만으로 판단하기보다 관계의 책임과 생활 리듬이 맞는지를 함께 봅니다. " },
-        { "kind": "tag", "tagId": "jeongjae", "label": "정재" },
-        { "kind": "text", "value": "는 안정된 관계 운영을 보게 하고 " },
-        { "kind": "tag", "tagId": "jeonggwan", "label": "정관" },
-        { "kind": "text", "value": "은 약속과 경계를 분명히 하는 근거가 됩니다." }
+        {
+          "kind": "text",
+          "value": "초반 50대의 인연 총운은 설렘만으로 판단하기보다 관계의 책임과 생활 리듬이 맞는지를 함께 봅니다.\n\n"
+        },
+        {
+          "kind": "tag",
+          "tagId": "jeongjae",
+          "label": "정재"
+        },
+        {
+          "kind": "text",
+          "value": "는 안정된 관계 운영을 보게 하고 "
+        },
+        {
+          "kind": "tag",
+          "tagId": "jeonggwan",
+          "label": "정관"
+        },
+        {
+          "kind": "text",
+          "value": "은 약속과 경계를 분명히 하는 근거가 됩니다.\n\n"
+        },
+        {
+          "kind": "tag",
+          "tagId": "cheonleulgwiin",
+          "label": "천을귀인"
+        },
+        {
+          "kind": "text",
+          "value": "의 결이 보이면 인연 자리에서도 부드러운 도움을 받는 흐름이 자기 자산이 되어 줘요.\n\n"
+        },
+        {
+          "kind": "text",
+          "value": "인연 자리는 "
+        },
+        {
+          "kind": "tag",
+          "tagId": "baeujagung",
+          "label": "배우자궁"
+        },
+        {
+          "kind": "text",
+          "value": "의 결과 "
+        },
+        {
+          "kind": "tag",
+          "tagId": "jeonggwan",
+          "label": "정관"
+        },
+        {
+          "kind": "text",
+          "value": "의 책임 결이 함께 단단해질 때 깊이가 자라고, 자기 흐름을 감추기보다 부드럽게 보여 두는 호흡이 잘 어울려요."
+        }
       ],
-      "tags": ["jeongjae", "jeonggwan"],
+      "tags": [
+        "jeongjae",
+        "jeonggwan",
+        "cheonleulgwiin",
+        "baeujagung"
+      ],
       "numericalEvidence": [
-        { "label": "연령 단계 서번", "valueExpression": "feature.agePhaseOrdinal", "unit": "ordinal", "sourceTier": { "tier": "T3_INTERNAL_ENGINE", "sourceType": "internal_scoring_policy", "sourceUrl": null, "accessedAt": "2026-05-04", "quoteShort": null, "humanInterpretation": "Resolved from deterministic spring-ts runtime output.", "copyrightNote": "No third-party prose copied.", "authorityTruthEligible": false } }
+        {
+          "label": "연령 단계 서번",
+          "valueExpression": "feature.agePhaseOrdinal",
+          "unit": "ordinal",
+          "sourceTier": {
+            "tier": "T3_INTERNAL_ENGINE",
+            "sourceType": "internal_scoring_policy",
+            "sourceUrl": null,
+            "accessedAt": "2026-05-04",
+            "quoteShort": null,
+            "humanInterpretation": "Resolved from deterministic spring-ts runtime output.",
+            "copyrightNote": "No third-party prose copied.",
+            "authorityTruthEligible": false
+          }
+        }
       ],
       "aiGenerated": true,
-      "sourceTier": { "tier": "T1_HYPOTHESIS", "sourceType": "training_derived", "sourceUrl": null, "accessedAt": "2026-05-04", "quoteShort": null, "humanInterpretation": "Expert early-50s agePhase density fragment for life romance. AI-derived display text; not authority truth.", "copyrightNote": "No source prose copied; original phrasing.", "authorityTruthEligible": false }
+      "sourceTier": {
+        "tier": "T1_HYPOTHESIS",
+        "sourceType": "training_derived",
+        "sourceUrl": null,
+        "accessedAt": "2026-05-04",
+        "quoteShort": null,
+        "humanInterpretation": "Expert early-50s agePhase density fragment for life romance. AI-derived display text; not authority truth.",
+        "copyrightNote": "No source prose copied; original phrasing.",
+        "authorityTruthEligible": false
+      }
     },
     {
       "schemaVersion": "spring-ts.narrative-fragment.v1",
       "fragmentId": "family.today.expert.age.early_50s.501",
-      "axis": { "category": "family", "period": "today", "depth": "expert" },
-      "gating": { "agePhase": ["early_50s"] },
+      "axis": {
+        "category": "family",
+        "period": "today",
+        "depth": "expert"
+      },
+      "gating": {
+        "agePhase": [
+          "early_50s"
+        ]
+      },
       "templateTokens": [
-        { "kind": "text", "value": "초반 50대의 오늘 가족운은 가족 안에서 내가 맡은 몫과 상대가 감당할 몫을 분리해야 편안합니다. " },
-        { "kind": "tag", "tagId": "bigyeon", "label": "비견" },
-        { "kind": "text", "value": "은 자기 기준을 지키게 하고 " },
-        { "kind": "tag", "tagId": "jeonggwan", "label": "정관" },
-        { "kind": "text", "value": "은 역할을 과하게 떠안지 않도록 경계를 세웁니다." }
+        {
+          "kind": "text",
+          "value": "초반 50대의 오늘 가족운은 가족 안에서 내가 맡은 몫과 상대가 감당할 몫을 분리해야 편안합니다.\n\n"
+        },
+        {
+          "kind": "tag",
+          "tagId": "bigyeon",
+          "label": "비견"
+        },
+        {
+          "kind": "text",
+          "value": "은 자기 기준을 지키게 하고 "
+        },
+        {
+          "kind": "tag",
+          "tagId": "jeonggwan",
+          "label": "정관"
+        },
+        {
+          "kind": "text",
+          "value": "은 역할을 과하게 떠안지 않도록 경계를 세웁니다.\n\n"
+        },
+        {
+          "kind": "tag",
+          "tagId": "samhyeong",
+          "label": "삼형"
+        },
+        {
+          "kind": "text",
+          "value": "이나 "
+        },
+        {
+          "kind": "tag",
+          "tagId": "hyeongsal",
+          "label": "형살"
+        },
+        {
+          "kind": "text",
+          "value": "의 신호가 보이는 시기엔 가족 안의 작은 부딪힘을 짧게 끊고 가는 호흡이 잘 어울려요.\n\n"
+        },
+        {
+          "kind": "text",
+          "value": "가족 자리는 "
+        },
+        {
+          "kind": "tag",
+          "tagId": "bumyong",
+          "label": "부모궁"
+        },
+        {
+          "kind": "text",
+          "value": "과 "
+        },
+        {
+          "kind": "tag",
+          "tagId": "baeujagung",
+          "label": "배우자궁"
+        },
+        {
+          "kind": "text",
+          "value": "의 결이 어떻게 받쳐 주느냐를 함께 살펴 두면 흐름의 결정이 더 단단해지고, 작은 인사 한 마디가 평생의 자산이 되는 자리예요."
+        }
       ],
-      "tags": ["bigyeon", "jeonggwan"],
+      "tags": [
+        "bigyeon",
+        "jeonggwan",
+        "samhyeong",
+        "hyeongsal",
+        "bumyong",
+        "baeujagung"
+      ],
       "numericalEvidence": [
-        { "label": "연령 단계 서번", "valueExpression": "feature.agePhaseOrdinal", "unit": "ordinal", "sourceTier": { "tier": "T3_INTERNAL_ENGINE", "sourceType": "internal_scoring_policy", "sourceUrl": null, "accessedAt": "2026-05-04", "quoteShort": null, "humanInterpretation": "Resolved from deterministic spring-ts runtime output.", "copyrightNote": "No third-party prose copied.", "authorityTruthEligible": false } }
+        {
+          "label": "연령 단계 서번",
+          "valueExpression": "feature.agePhaseOrdinal",
+          "unit": "ordinal",
+          "sourceTier": {
+            "tier": "T3_INTERNAL_ENGINE",
+            "sourceType": "internal_scoring_policy",
+            "sourceUrl": null,
+            "accessedAt": "2026-05-04",
+            "quoteShort": null,
+            "humanInterpretation": "Resolved from deterministic spring-ts runtime output.",
+            "copyrightNote": "No third-party prose copied.",
+            "authorityTruthEligible": false
+          }
+        }
       ],
       "aiGenerated": true,
-      "sourceTier": { "tier": "T1_HYPOTHESIS", "sourceType": "training_derived", "sourceUrl": null, "accessedAt": "2026-05-04", "quoteShort": null, "humanInterpretation": "Expert early-50s agePhase density fragment for daily family. AI-derived display text; not authority truth.", "copyrightNote": "No source prose copied; original phrasing.", "authorityTruthEligible": false }
+      "sourceTier": {
+        "tier": "T1_HYPOTHESIS",
+        "sourceType": "training_derived",
+        "sourceUrl": null,
+        "accessedAt": "2026-05-04",
+        "quoteShort": null,
+        "humanInterpretation": "Expert early-50s agePhase density fragment for daily family. AI-derived display text; not authority truth.",
+        "copyrightNote": "No source prose copied; original phrasing.",
+        "authorityTruthEligible": false
+      }
     },
     {
       "schemaVersion": "spring-ts.narrative-fragment.v1",
       "fragmentId": "academic.thisWeek.expert.age.early_50s.501",
-      "axis": { "category": "academic", "period": "thisWeek", "depth": "expert" },
-      "gating": { "agePhase": ["early_50s"] },
+      "axis": {
+        "category": "academic",
+        "period": "thisWeek",
+        "depth": "expert"
+      },
+      "gating": {
+        "agePhase": [
+          "early_50s"
+        ]
+      },
       "templateTokens": [
-        { "kind": "text", "value": "초반 50대의 이번 주 학업운은 빠른 암기보다 기존 경험을 새 지식과 연결하는 방식에서 효율이 납니다. " },
-        { "kind": "tag", "tagId": "jeongin", "label": "정인" },
-        { "kind": "text", "value": "은 원리 이해를 붙잡고 " },
-        { "kind": "tag", "tagId": "sikshin", "label": "식신" },
-        { "kind": "text", "value": "은 배운 내용을 설명과 실습으로 꺼내게 합니다." }
+        {
+          "kind": "text",
+          "value": "초반 50대의 이번 주 학업운은 빠른 암기보다 기존 경험을 새 지식과 연결하는 방식에서 효율이 납니다.\n\n"
+        },
+        {
+          "kind": "tag",
+          "tagId": "jeongin",
+          "label": "정인"
+        },
+        {
+          "kind": "text",
+          "value": "은 원리 이해를 붙잡고 "
+        },
+        {
+          "kind": "tag",
+          "tagId": "sikshin",
+          "label": "식신"
+        },
+        {
+          "kind": "text",
+          "value": "은 배운 내용을 설명과 실습으로 꺼내게 합니다.\n\n"
+        },
+        {
+          "kind": "tag",
+          "tagId": "tonggwanYongshin",
+          "label": "통관용신"
+        },
+        {
+          "kind": "text",
+          "value": "의 결과 "
+        },
+        {
+          "kind": "tag",
+          "tagId": "byeongyakYongshin",
+          "label": "병약용신"
+        },
+        {
+          "kind": "text",
+          "value": "의 자리가 함께 또렷해지는 사주는 학습의 깊이가 자기 흐름의 균형을 따라가는 자리예요.\n\n"
+        },
+        {
+          "kind": "tag",
+          "tagId": "munchanggwiin",
+          "label": "문창귀인"
+        },
+        {
+          "kind": "text",
+          "value": "의 결과 "
+        },
+        {
+          "kind": "tag",
+          "tagId": "hakdang",
+          "label": "학당"
+        },
+        {
+          "kind": "text",
+          "value": "의 자리가 함께 보이는 사주는 시험·연구 흐름이 부드럽게 자리 잡는 모양이라, 자기 흐름을 차분히 따라가는 페이스가 잘 어울려요."
+        }
       ],
-      "tags": ["jeongin", "sikshin"],
+      "tags": [
+        "jeongin",
+        "sikshin",
+        "tonggwanYongshin",
+        "byeongyakYongshin",
+        "munchanggwiin",
+        "hakdang"
+      ],
       "numericalEvidence": [
-        { "label": "연령 단계 서번", "valueExpression": "feature.agePhaseOrdinal", "unit": "ordinal", "sourceTier": { "tier": "T3_INTERNAL_ENGINE", "sourceType": "internal_scoring_policy", "sourceUrl": null, "accessedAt": "2026-05-04", "quoteShort": null, "humanInterpretation": "Resolved from deterministic spring-ts runtime output.", "copyrightNote": "No third-party prose copied.", "authorityTruthEligible": false } }
+        {
+          "label": "연령 단계 서번",
+          "valueExpression": "feature.agePhaseOrdinal",
+          "unit": "ordinal",
+          "sourceTier": {
+            "tier": "T3_INTERNAL_ENGINE",
+            "sourceType": "internal_scoring_policy",
+            "sourceUrl": null,
+            "accessedAt": "2026-05-04",
+            "quoteShort": null,
+            "humanInterpretation": "Resolved from deterministic spring-ts runtime output.",
+            "copyrightNote": "No third-party prose copied.",
+            "authorityTruthEligible": false
+          }
+        }
       ],
       "aiGenerated": true,
-      "sourceTier": { "tier": "T1_HYPOTHESIS", "sourceType": "training_derived", "sourceUrl": null, "accessedAt": "2026-05-04", "quoteShort": null, "humanInterpretation": "Expert early-50s agePhase density fragment for weekly academic. AI-derived display text; not authority truth.", "copyrightNote": "No source prose copied; original phrasing.", "authorityTruthEligible": false }
+      "sourceTier": {
+        "tier": "T1_HYPOTHESIS",
+        "sourceType": "training_derived",
+        "sourceUrl": null,
+        "accessedAt": "2026-05-04",
+        "quoteShort": null,
+        "humanInterpretation": "Expert early-50s agePhase density fragment for weekly academic. AI-derived display text; not authority truth.",
+        "copyrightNote": "No source prose copied; original phrasing.",
+        "authorityTruthEligible": false
+      }
     },
     {
       "schemaVersion": "spring-ts.narrative-fragment.v1",
       "fragmentId": "movement.thisMonth.expert.age.early_50s.501",
-      "axis": { "category": "movement", "period": "thisMonth", "depth": "expert" },
-      "gating": { "agePhase": ["early_50s"] },
+      "axis": {
+        "category": "movement",
+        "period": "thisMonth",
+        "depth": "expert"
+      },
+      "gating": {
+        "agePhase": [
+          "early_50s"
+        ]
+      },
       "templateTokens": [
-        { "kind": "text", "value": "초반 50대의 이번 달 이동운은 이동량보다 이동 목적과 회복 여력을 동시에 계산해야 합니다. " },
-        { "kind": "tag", "tagId": "yeokma", "label": "역마" },
-        { "kind": "text", "value": "는 변화를 열지만 " },
-        { "kind": "tag", "tagId": "yongshin", "label": "용신" },
-        { "kind": "text", "value": "에 맞춘 보정이 붙을 때 이동 뒤 손실이 줄어듭니다." }
+        {
+          "kind": "text",
+          "value": "초반 50대의 이번 달 이동운은 이동량보다 이동 목적과 회복 여력을 동시에 계산해야 합니다.\n\n"
+        },
+        {
+          "kind": "tag",
+          "tagId": "yeokma",
+          "label": "역마"
+        },
+        {
+          "kind": "text",
+          "value": "는 변화를 열지만 "
+        },
+        {
+          "kind": "tag",
+          "tagId": "yongshin",
+          "label": "용신"
+        },
+        {
+          "kind": "text",
+          "value": "에 맞춘 보정이 붙을 때 이동 뒤 손실이 줄어듭니다.\n\n"
+        },
+        {
+          "kind": "tag",
+          "tagId": "jisal",
+          "label": "지살"
+        },
+        {
+          "kind": "text",
+          "value": "의 신호와 "
+        },
+        {
+          "kind": "tag",
+          "tagId": "cheonigung",
+          "label": "천이궁"
+        },
+        {
+          "kind": "text",
+          "value": "의 결을 함께 살펴 두면 이동의 결이 어디로 이어질지 한층 또렷해져요.\n\n"
+        },
+        {
+          "kind": "tag",
+          "tagId": "banansal",
+          "label": "반안살"
+        },
+        {
+          "kind": "text",
+          "value": "의 자리와 "
+        },
+        {
+          "kind": "tag",
+          "tagId": "wolsal",
+          "label": "월살"
+        },
+        {
+          "kind": "text",
+          "value": "의 결이 함께 보이는 시기엔 자기 동선의 한 결을 점검해 두는 호흡이 잘 맞아요."
+        }
       ],
-      "tags": ["yeokma", "yongshin"],
+      "tags": [
+        "yeokma",
+        "yongshin",
+        "jisal",
+        "cheonigung",
+        "banansal",
+        "wolsal"
+      ],
       "numericalEvidence": [
-        { "label": "연령 단계 서번", "valueExpression": "feature.agePhaseOrdinal", "unit": "ordinal", "sourceTier": { "tier": "T3_INTERNAL_ENGINE", "sourceType": "internal_scoring_policy", "sourceUrl": null, "accessedAt": "2026-05-04", "quoteShort": null, "humanInterpretation": "Resolved from deterministic spring-ts runtime output.", "copyrightNote": "No third-party prose copied.", "authorityTruthEligible": false } }
+        {
+          "label": "연령 단계 서번",
+          "valueExpression": "feature.agePhaseOrdinal",
+          "unit": "ordinal",
+          "sourceTier": {
+            "tier": "T3_INTERNAL_ENGINE",
+            "sourceType": "internal_scoring_policy",
+            "sourceUrl": null,
+            "accessedAt": "2026-05-04",
+            "quoteShort": null,
+            "humanInterpretation": "Resolved from deterministic spring-ts runtime output.",
+            "copyrightNote": "No third-party prose copied.",
+            "authorityTruthEligible": false
+          }
+        }
       ],
       "aiGenerated": true,
-      "sourceTier": { "tier": "T1_HYPOTHESIS", "sourceType": "training_derived", "sourceUrl": null, "accessedAt": "2026-05-04", "quoteShort": null, "humanInterpretation": "Expert early-50s agePhase density fragment for monthly movement. AI-derived display text; not authority truth.", "copyrightNote": "No source prose copied; original phrasing.", "authorityTruthEligible": false }
+      "sourceTier": {
+        "tier": "T1_HYPOTHESIS",
+        "sourceType": "training_derived",
+        "sourceUrl": null,
+        "accessedAt": "2026-05-04",
+        "quoteShort": null,
+        "humanInterpretation": "Expert early-50s agePhase density fragment for monthly movement. AI-derived display text; not authority truth.",
+        "copyrightNote": "No source prose copied; original phrasing.",
+        "authorityTruthEligible": false
+      }
     },
     {
       "schemaVersion": "spring-ts.narrative-fragment.v1",
       "fragmentId": "health_stress.life.expert.age.early_50s.501",
-      "axis": { "category": "health_stress", "period": "life", "depth": "expert" },
-      "gating": { "agePhase": ["early_50s"] },
+      "axis": {
+        "category": "health_stress",
+        "period": "life",
+        "depth": "expert"
+      },
+      "gating": {
+        "agePhase": [
+          "early_50s"
+        ]
+      },
       "templateTokens": [
-        { "kind": "text", "value": "초반 50대의 스트레스 총운은 외부 압박보다 내가 계속 반복하는 부담 패턴을 읽어야 정밀합니다. " },
-        { "kind": "tag", "tagId": "gishin", "label": "기신" },
-        { "kind": "text", "value": "은 피로가 누적되는 지점을 드러내고 " },
-        { "kind": "tag", "tagId": "jeongin", "label": "정인" },
-        { "kind": "text", "value": "은 회복에 필요한 안전한 기준과 쉼의 구조를 세웁니다." }
+        {
+          "kind": "text",
+          "value": "초반 50대의 스트레스 총운은 외부 압박보다 내가 계속 반복하는 부담 패턴을 읽어야 정밀합니다.\n\n"
+        },
+        {
+          "kind": "tag",
+          "tagId": "gishin",
+          "label": "기신"
+        },
+        {
+          "kind": "text",
+          "value": "은 피로가 누적되는 지점을 드러내고 "
+        },
+        {
+          "kind": "tag",
+          "tagId": "jeongin",
+          "label": "정인"
+        },
+        {
+          "kind": "text",
+          "value": "은 회복에 필요한 안전한 기준과 쉼의 구조를 세웁니다.\n\n"
+        },
+        {
+          "kind": "tag",
+          "tagId": "cheonui",
+          "label": "천의"
+        },
+        {
+          "kind": "text",
+          "value": "의 자리와 "
+        },
+        {
+          "kind": "tag",
+          "tagId": "cheondeokgwiin",
+          "label": "천덕귀인"
+        },
+        {
+          "kind": "text",
+          "value": "의 결이 함께 보이면 회복의 흐름이 부드럽게 자리 잡는 사주이니, 자기 곁의 도움을 미루지 않는 호흡이 잘 어울려요.\n\n"
+        },
+        {
+          "kind": "tag",
+          "tagId": "baekho",
+          "label": "백호대살"
+        },
+        {
+          "kind": "text",
+          "value": "의 신호와 "
+        },
+        {
+          "kind": "tag",
+          "tagId": "goegang",
+          "label": "괴강살"
+        },
+        {
+          "kind": "text",
+          "value": "의 결이 함께 보이는 시기엔 자기 한계를 의식적으로 두는 호흡이 가장 든든한 회복 자리예요."
+        }
       ],
-      "tags": ["gishin", "jeongin"],
+      "tags": [
+        "gishin",
+        "jeongin",
+        "cheonui",
+        "cheondeokgwiin",
+        "baekho",
+        "goegang"
+      ],
       "numericalEvidence": [
-        { "label": "연령 단계 서번", "valueExpression": "feature.agePhaseOrdinal", "unit": "ordinal", "sourceTier": { "tier": "T3_INTERNAL_ENGINE", "sourceType": "internal_scoring_policy", "sourceUrl": null, "accessedAt": "2026-05-04", "quoteShort": null, "humanInterpretation": "Resolved from deterministic spring-ts runtime output.", "copyrightNote": "No third-party prose copied.", "authorityTruthEligible": false } }
+        {
+          "label": "연령 단계 서번",
+          "valueExpression": "feature.agePhaseOrdinal",
+          "unit": "ordinal",
+          "sourceTier": {
+            "tier": "T3_INTERNAL_ENGINE",
+            "sourceType": "internal_scoring_policy",
+            "sourceUrl": null,
+            "accessedAt": "2026-05-04",
+            "quoteShort": null,
+            "humanInterpretation": "Resolved from deterministic spring-ts runtime output.",
+            "copyrightNote": "No third-party prose copied.",
+            "authorityTruthEligible": false
+          }
+        }
       ],
       "aiGenerated": true,
-      "sourceTier": { "tier": "T1_HYPOTHESIS", "sourceType": "training_derived", "sourceUrl": null, "accessedAt": "2026-05-04", "quoteShort": null, "humanInterpretation": "Expert early-50s agePhase density fragment for life health stress. AI-derived display text; not authority truth.", "copyrightNote": "No source prose copied; original phrasing.", "authorityTruthEligible": false }
+      "sourceTier": {
+        "tier": "T1_HYPOTHESIS",
+        "sourceType": "training_derived",
+        "sourceUrl": null,
+        "accessedAt": "2026-05-04",
+        "quoteShort": null,
+        "humanInterpretation": "Expert early-50s agePhase density fragment for life health stress. AI-derived display text; not authority truth.",
+        "copyrightNote": "No source prose copied; original phrasing.",
+        "authorityTruthEligible": false
+      }
     }
   ]
 }

@@ -263,7 +263,7 @@
         },
         {
           "kind": "text",
-          "value": "의 결과 생산을 함께 봅니다. "
+          "value": "의 결과 생산을 함께 봅니다.\n\n"
         },
         {
           "kind": "tag",
@@ -272,13 +272,52 @@
         },
         {
           "kind": "text",
-          "value": "가 맞을수록 안정적인 역할 안에서 성과를 문서와 결과물로 남기는 방식이 유리합니다."
+          "value": "가 맞을수록 안정적인 역할 안에서 성과를 문서와 결과물로 남기는 방식이 유리합니다.\n\n"
+        },
+        {
+          "kind": "tag",
+          "tagId": "gwanrokgung",
+          "label": "관록궁"
+        },
+        {
+          "kind": "text",
+          "value": "의 결과 "
+        },
+        {
+          "kind": "tag",
+          "tagId": "pyeongwan",
+          "label": "편관"
+        },
+        {
+          "kind": "text",
+          "value": "의 압박이 함께 들어오는 시기에는 일을 미리 분산해 두는 호흡이 자기 페이스를 지켜 줘요.\n\n"
+        },
+        {
+          "kind": "tag",
+          "tagId": "gyeokgukYongshin",
+          "label": "격국용신"
+        },
+        {
+          "kind": "text",
+          "value": "의 결과 "
+        },
+        {
+          "kind": "tag",
+          "tagId": "gyeokgukFit",
+          "label": "격국적합도"
+        },
+        {
+          "kind": "text",
+          "value": "의 평균이 또렷한 사주는 자기 격에 맞는 직업 길이 한 결로 모이는 자리가 자주 등장해요."
         }
       ],
       "tags": [
         "jeonggwan",
         "sikshin",
-        "gyeokgukFit"
+        "gyeokgukFit",
+        "gwanrokgung",
+        "pyeongwan",
+        "gyeokgukYongshin"
       ],
       "numericalEvidence": [
         {
@@ -359,7 +398,7 @@
         },
         {
           "kind": "text",
-          "value": "의 질서감을 같이 봅니다. "
+          "value": "의 질서감을 같이 봅니다.\n\n"
         },
         {
           "kind": "tag",
@@ -368,13 +407,56 @@
         },
         {
           "kind": "text",
-          "value": "가 흔들리면 새 결정보다 현재 맡은 일의 범위 확인이 먼저입니다."
+          "value": "가 흔들리면 새 결정보다 현재 맡은 일의 범위 확인이 먼저입니다.\n\n"
+        },
+        {
+          "kind": "tag",
+          "tagId": "jangseongsal",
+          "label": "장성살"
+        },
+        {
+          "kind": "text",
+          "value": "의 신호와 "
+        },
+        {
+          "kind": "tag",
+          "tagId": "cheonui",
+          "label": "천의"
+        },
+        {
+          "kind": "text",
+          "value": "의 결이 함께 보이는 사주는 자기 자리에 머무는 호흡과 곁의 도움을 거절하지 않는 호흡이 둘 다 잘 어울려요.\n\n"
+        },
+        {
+          "kind": "text",
+          "value": "직업 흐름은 "
+        },
+        {
+          "kind": "tag",
+          "tagId": "jeonggwan",
+          "label": "정관"
+        },
+        {
+          "kind": "text",
+          "value": "의 책임 자리와 "
+        },
+        {
+          "kind": "tag",
+          "tagId": "sikshin",
+          "label": "식신"
+        },
+        {
+          "kind": "text",
+          "value": "의 결과 자리가 함께 단단해질 때 한 단계 더 또렷해지는 흐름이라, 무리한 한 번보다 자기 호흡대로의 결과물 쌓기가 잘 어울려요."
         }
       ],
       "tags": [
         "yongshin",
         "jeonggwan",
-        "stabilityIndex"
+        "stabilityIndex",
+        "jangseongsal",
+        "cheonui",
+        "sikshin"
       ],
       "numericalEvidence": [
         {
@@ -441,7 +523,7 @@
         },
         {
           "kind": "text",
-          "value": "의 산출 흐름을 봅니다. "
+          "value": "의 산출 흐름을 봅니다.\n\n"
         },
         {
           "kind": "tag",
@@ -450,13 +532,55 @@
         },
         {
           "kind": "text",
-          "value": "가 낮으면 결과물 수보다 마감과 책임 범위의 명확성이 더 중요합니다."
+          "value": "가 낮으면 결과물 수보다 마감과 책임 범위의 명확성이 더 중요합니다.\n\n"
+        },
+        {
+          "kind": "text",
+          "value": "직업 흐름은 "
+        },
+        {
+          "kind": "tag",
+          "tagId": "jeonggwan",
+          "label": "정관"
+        },
+        {
+          "kind": "text",
+          "value": "의 책임 자리와 "
+        },
+        {
+          "kind": "tag",
+          "tagId": "sikshin",
+          "label": "식신"
+        },
+        {
+          "kind": "text",
+          "value": "의 결과 자리가 함께 단단해질 때 한 단계 더 또렷해지는 흐름이라, 무리한 한 번보다 자기 호흡대로의 결과물 쌓기가 잘 어울려요.\n\n"
+        },
+        {
+          "kind": "tag",
+          "tagId": "gwanrokgung",
+          "label": "관록궁"
+        },
+        {
+          "kind": "text",
+          "value": "의 결과 "
+        },
+        {
+          "kind": "tag",
+          "tagId": "pyeongwan",
+          "label": "편관"
+        },
+        {
+          "kind": "text",
+          "value": "의 압박이 함께 들어오는 시기에는 일을 미리 분산해 두는 호흡이 자기 페이스를 지켜 줘요."
         }
       ],
       "tags": [
         "jeonggwan",
         "sikshin",
-        "stabilityIndex"
+        "stabilityIndex",
+        "gwanrokgung",
+        "pyeongwan"
       ],
       "numericalEvidence": [
         {
@@ -522,7 +646,7 @@
         },
         {
           "kind": "text",
-          "value": "의 문제 해결력을 함께 봅니다. "
+          "value": "의 문제 해결력을 함께 봅니다.\n\n"
         },
         {
           "kind": "tag",
@@ -531,13 +655,51 @@
         },
         {
           "kind": "text",
-          "value": "가 맞으면 까다로운 요구를 새 방식으로 정리해 성과로 바꾸기 쉽습니다."
+          "value": "가 맞으면 까다로운 요구를 새 방식으로 정리해 성과로 바꾸기 쉽습니다.\n\n"
+        },
+        {
+          "kind": "tag",
+          "tagId": "gwanrokgung",
+          "label": "관록궁"
+        },
+        {
+          "kind": "text",
+          "value": "의 결과 "
+        },
+        {
+          "kind": "tag",
+          "tagId": "pyeongwan",
+          "label": "편관"
+        },
+        {
+          "kind": "text",
+          "value": "의 압박이 함께 들어오는 시기에는 일을 미리 분산해 두는 호흡이 자기 페이스를 지켜 줘요.\n\n"
+        },
+        {
+          "kind": "tag",
+          "tagId": "gyeokgukYongshin",
+          "label": "격국용신"
+        },
+        {
+          "kind": "text",
+          "value": "의 결과 "
+        },
+        {
+          "kind": "tag",
+          "tagId": "gyeokgukFit",
+          "label": "격국적합도"
+        },
+        {
+          "kind": "text",
+          "value": "의 평균이 또렷한 사주는 자기 격에 맞는 직업 길이 한 결로 모이는 자리가 자주 등장해요."
         }
       ],
       "tags": [
         "pyeongwan",
         "sanggwan",
-        "gyeokgukFit"
+        "gyeokgukFit",
+        "gwanrokgung",
+        "gyeokgukYongshin"
       ],
       "numericalEvidence": [
         {
@@ -603,7 +765,7 @@
         },
         {
           "kind": "text",
-          "value": " 방향의 정합성을 함께 봅니다. "
+          "value": " 방향의 정합성을 함께 봅니다.\n\n"
         },
         {
           "kind": "tag",
@@ -612,13 +774,55 @@
         },
         {
           "kind": "text",
-          "value": "이 살아나면 맡은 역할을 실제 산출물과 성과 기록으로 연결하는 전략이 좋습니다."
+          "value": "이 살아나면 맡은 역할을 실제 산출물과 성과 기록으로 연결하는 전략이 좋습니다.\n\n"
+        },
+        {
+          "kind": "tag",
+          "tagId": "jangseongsal",
+          "label": "장성살"
+        },
+        {
+          "kind": "text",
+          "value": "의 신호와 "
+        },
+        {
+          "kind": "tag",
+          "tagId": "cheonui",
+          "label": "천의"
+        },
+        {
+          "kind": "text",
+          "value": "의 결이 함께 보이는 사주는 자기 자리에 머무는 호흡과 곁의 도움을 거절하지 않는 호흡이 둘 다 잘 어울려요.\n\n"
+        },
+        {
+          "kind": "text",
+          "value": "직업 흐름은 "
+        },
+        {
+          "kind": "tag",
+          "tagId": "jeonggwan",
+          "label": "정관"
+        },
+        {
+          "kind": "text",
+          "value": "의 책임 자리와 "
+        },
+        {
+          "kind": "tag",
+          "tagId": "sikshin",
+          "label": "식신"
+        },
+        {
+          "kind": "text",
+          "value": "의 결과 자리가 함께 단단해질 때 한 단계 더 또렷해지는 흐름이라, 무리한 한 번보다 자기 호흡대로의 결과물 쌓기가 잘 어울려요."
         }
       ],
       "tags": [
         "jeonggwan",
         "yongshin",
-        "sikshin"
+        "sikshin",
+        "jangseongsal",
+        "cheonui"
       ],
       "numericalEvidence": [
         {

@@ -108,7 +108,7 @@
         },
         {
           "kind": "text",
-          "value": "의 구조를 분리해 보는 접근이 필요합니다. 이후 사용자가 제공한 실제 맥락이 있을 때만 관계 역할, 진로 역할, 가족 책임을 좁혀 해석하는 편이 "
+          "value": "의 구조를 분리해 보는 접근이 필요합니다.\n\n이후 사용자가 제공한 실제 맥락이 있을 때만 관계 역할, 진로 역할, 가족 책임을 좁혀 해석하는 편이 "
         },
         {
           "kind": "tag",
@@ -117,7 +117,43 @@
         },
         {
           "kind": "text",
-          "value": " 관점에서도 오판을 줄입니다."
+          "value": " 관점에서도 오판을 줄입니다.\n\n"
+        },
+        {
+          "kind": "tag",
+          "tagId": "gyeokgukYongshin",
+          "label": "격국용신"
+        },
+        {
+          "kind": "text",
+          "value": "의 결과 "
+        },
+        {
+          "kind": "tag",
+          "tagId": "gyeokgukFit",
+          "label": "격국적합도"
+        },
+        {
+          "kind": "text",
+          "value": "의 평균이 또렷한 사주는 자기 격에 맞는 길로 큰 흐름이 모이는 자리가 자주 등장해요.\n\n"
+        },
+        {
+          "kind": "tag",
+          "tagId": "tonggwanYongshin",
+          "label": "통관용신"
+        },
+        {
+          "kind": "text",
+          "value": "의 결이 보이면 흐름의 막힌 자리를 풀어 주는 자리가 보이고, "
+        },
+        {
+          "kind": "tag",
+          "tagId": "byeongyakYongshin",
+          "label": "병약용신"
+        },
+        {
+          "kind": "text",
+          "value": "의 자리가 함께 들어오면 약한 자리를 메우는 결이 함께 작동해요."
         }
       ],
       "livingTips": [
@@ -130,7 +166,11 @@
       "tags": [
         "sajuCompatibility",
         "eumyangHarmony",
-        "stabilityIndex"
+        "stabilityIndex",
+        "gyeokgukYongshin",
+        "gyeokgukFit",
+        "tonggwanYongshin",
+        "byeongyakYongshin"
       ],
       "numericalEvidence": [
         {

@@ -6,42 +6,160 @@
     {
       "schemaVersion": "spring-ts.narrative-fragment.v1",
       "fragmentId": "wealth.life.expert.currentseason.spring_summer.301",
-      "axis": { "category": "wealth", "period": "life", "depth": "expert" },
-      "gating": { "currentSeason": ["spring", "summer"], "yongshinAlignment": ["aligned", "neutral", "conflicting"] },
+      "axis": {
+        "category": "wealth",
+        "period": "life",
+        "depth": "expert"
+      },
+      "gating": {
+        "currentSeason": [
+          "spring",
+          "summer"
+        ],
+        "yongshinAlignment": [
+          "aligned",
+          "neutral",
+          "conflicting"
+        ]
+      },
       "templateTokens": [
-        { "kind": "text", "value": "장기 재물 흐름에서 봄과 여름의 현재 계절은 기회 탐색과 거래 속도를 키웁니다. " },
-        { "kind": "tag", "tagId": "pyeonjae", "label": "편재" },
-        { "kind": "text", "value": "가 활동성을 만들 수 있지만, " },
-        { "kind": "tag", "tagId": "jeongjae", "label": "정재" },
-        { "kind": "text", "value": "의 관리 구조가 약하면 흩어지는 돈이 늘 수 있습니다. " },
-        { "kind": "tag", "tagId": "yongshin", "label": "용신" },
-        { "kind": "text", "value": "과 맞는 확장인지 먼저 구분해야 합니다." }
+        {
+          "kind": "text",
+          "value": "장기 재물 흐름에서 봄과 여름의 현재 계절은 기회 탐색과 거래 속도를 키웁니다.\n\n"
+        },
+        {
+          "kind": "tag",
+          "tagId": "pyeonjae",
+          "label": "편재"
+        },
+        {
+          "kind": "text",
+          "value": "가 활동성을 만들 수 있지만, "
+        },
+        {
+          "kind": "tag",
+          "tagId": "jeongjae",
+          "label": "정재"
+        },
+        {
+          "kind": "text",
+          "value": "의 관리 구조가 약하면 흩어지는 돈이 늘 수 있습니다. "
+        },
+        {
+          "kind": "tag",
+          "tagId": "yongshin",
+          "label": "용신"
+        },
+        {
+          "kind": "text",
+          "value": "과 맞는 확장인지 먼저 구분해야 합니다.\n\n"
+        },
+        {
+          "kind": "tag",
+          "tagId": "jaebakgung",
+          "label": "재백궁"
+        },
+        {
+          "kind": "text",
+          "value": "의 결과 "
+        },
+        {
+          "kind": "tag",
+          "tagId": "cheonleulgwiin",
+          "label": "천을귀인"
+        },
+        {
+          "kind": "text",
+          "value": "의 자리가 함께 보이면 도움 받는 흐름이 자기 자산이 되는 사주이니, 작은 도움도 미루지 않는 호흡이 잘 어울려요.\n\n"
+        },
+        {
+          "kind": "tag",
+          "tagId": "gyeokgukFit",
+          "label": "격국적합도"
+        },
+        {
+          "kind": "text",
+          "value": "의 평균이 또렷한 사주는 자기 격에 맞는 자산 자리가 한 결로 모이고, "
+        },
+        {
+          "kind": "tag",
+          "tagId": "stabilityIndex",
+          "label": "안정성지수"
+        },
+        {
+          "kind": "text",
+          "value": "가 받쳐 주는 시기엔 자산 결이 한 단계 깊어지는 자리가 보여요."
+        }
       ],
-      "tags": ["pyeonjae", "jeongjae", "yongshin"],
+      "tags": [
+        "pyeonjae",
+        "jeongjae",
+        "yongshin",
+        "jaebakgung",
+        "cheonleulgwiin",
+        "gyeokgukFit",
+        "stabilityIndex"
+      ],
       "numericalEvidence": [
         {
           "label": "연령 단계 순번",
           "valueExpression": "feature.agePhaseOrdinal",
           "unit": "단계",
-          "sourceTier": { "tier": "T3_INTERNAL_ENGINE", "sourceType": "internal_scoring_policy", "sourceUrl": null, "accessedAt": "2026-05-03", "quoteShort": null, "humanInterpretation": "Resolved from deterministic spring-ts runtime output.", "copyrightNote": "No third-party prose copied.", "authorityTruthEligible": false }
+          "sourceTier": {
+            "tier": "T3_INTERNAL_ENGINE",
+            "sourceType": "internal_scoring_policy",
+            "sourceUrl": null,
+            "accessedAt": "2026-05-03",
+            "quoteShort": null,
+            "humanInterpretation": "Resolved from deterministic spring-ts runtime output.",
+            "copyrightNote": "No third-party prose copied.",
+            "authorityTruthEligible": false
+          }
         },
         {
           "label": "신강도 순번",
           "valueExpression": "feature.dayMasterStrengthOrdinal",
           "unit": "단계",
-          "sourceTier": { "tier": "T3_INTERNAL_ENGINE", "sourceType": "internal_scoring_policy", "sourceUrl": null, "accessedAt": "2026-05-03", "quoteShort": null, "humanInterpretation": "Resolved from deterministic spring-ts runtime output.", "copyrightNote": "No third-party prose copied.", "authorityTruthEligible": false }
+          "sourceTier": {
+            "tier": "T3_INTERNAL_ENGINE",
+            "sourceType": "internal_scoring_policy",
+            "sourceUrl": null,
+            "accessedAt": "2026-05-03",
+            "quoteShort": null,
+            "humanInterpretation": "Resolved from deterministic spring-ts runtime output.",
+            "copyrightNote": "No third-party prose copied.",
+            "authorityTruthEligible": false
+          }
         },
         {
           "label": "출생 계절 순번",
           "valueExpression": "feature.birthSeasonOrdinal",
           "unit": "단계",
-          "sourceTier": { "tier": "T3_INTERNAL_ENGINE", "sourceType": "internal_scoring_policy", "sourceUrl": null, "accessedAt": "2026-05-03", "quoteShort": null, "humanInterpretation": "Resolved from deterministic spring-ts runtime output.", "copyrightNote": "No third-party prose copied.", "authorityTruthEligible": false }
+          "sourceTier": {
+            "tier": "T3_INTERNAL_ENGINE",
+            "sourceType": "internal_scoring_policy",
+            "sourceUrl": null,
+            "accessedAt": "2026-05-03",
+            "quoteShort": null,
+            "humanInterpretation": "Resolved from deterministic spring-ts runtime output.",
+            "copyrightNote": "No third-party prose copied.",
+            "authorityTruthEligible": false
+          }
         },
         {
           "label": "현재 계절 순번",
           "valueExpression": "feature.currentSeasonOrdinal",
           "unit": "단계",
-          "sourceTier": { "tier": "T3_INTERNAL_ENGINE", "sourceType": "internal_scoring_policy", "sourceUrl": null, "accessedAt": "2026-05-03", "quoteShort": null, "humanInterpretation": "Resolved from deterministic spring-ts runtime output.", "copyrightNote": "No third-party prose copied.", "authorityTruthEligible": false }
+          "sourceTier": {
+            "tier": "T3_INTERNAL_ENGINE",
+            "sourceType": "internal_scoring_policy",
+            "sourceUrl": null,
+            "accessedAt": "2026-05-03",
+            "quoteShort": null,
+            "humanInterpretation": "Resolved from deterministic spring-ts runtime output.",
+            "copyrightNote": "No third-party prose copied.",
+            "authorityTruthEligible": false
+          }
         }
       ],
       "aiGenerated": true,
@@ -59,18 +177,102 @@
     {
       "schemaVersion": "spring-ts.narrative-fragment.v1",
       "fragmentId": "wealth.life.expert.currentseason.autumn_winter.301",
-      "axis": { "category": "wealth", "period": "life", "depth": "expert" },
-      "gating": { "currentSeason": ["autumn", "winter"], "yongshinAlignment": ["aligned", "neutral", "conflicting"] },
+      "axis": {
+        "category": "wealth",
+        "period": "life",
+        "depth": "expert"
+      },
+      "gating": {
+        "currentSeason": [
+          "autumn",
+          "winter"
+        ],
+        "yongshinAlignment": [
+          "aligned",
+          "neutral",
+          "conflicting"
+        ]
+      },
       "templateTokens": [
-        { "kind": "text", "value": "장기 재물 흐름에서 가을과 겨울의 현재 계절은 수익을 지키고 구조화하는 힘을 키웁니다. " },
-        { "kind": "tag", "tagId": "jeongjae", "label": "정재" },
-        { "kind": "text", "value": "가 안정적으로 작동하면 예산과 축적이 강해지고, " },
-        { "kind": "tag", "tagId": "pyeonjae", "label": "편재" },
-        { "kind": "text", "value": "가 과하면 큰 기회보다 큰 변동으로 느껴질 수 있습니다. " },
-        { "kind": "tag", "tagId": "yongshin", "label": "용신" },
-        { "kind": "text", "value": "방향의 보수적 관리가 핵심입니다." }
+        {
+          "kind": "text",
+          "value": "장기 재물 흐름에서 가을과 겨울의 현재 계절은 수익을 지키고 구조화하는 힘을 키웁니다.\n\n"
+        },
+        {
+          "kind": "tag",
+          "tagId": "jeongjae",
+          "label": "정재"
+        },
+        {
+          "kind": "text",
+          "value": "가 안정적으로 작동하면 예산과 축적이 강해지고, "
+        },
+        {
+          "kind": "tag",
+          "tagId": "pyeonjae",
+          "label": "편재"
+        },
+        {
+          "kind": "text",
+          "value": "가 과하면 큰 기회보다 큰 변동으로 느껴질 수 있습니다. "
+        },
+        {
+          "kind": "tag",
+          "tagId": "yongshin",
+          "label": "용신"
+        },
+        {
+          "kind": "text",
+          "value": "방향의 보수적 관리가 핵심입니다.\n\n"
+        },
+        {
+          "kind": "text",
+          "value": "돈의 흐름은 "
+        },
+        {
+          "kind": "tag",
+          "tagId": "jeongjae",
+          "label": "정재"
+        },
+        {
+          "kind": "text",
+          "value": "의 고정 흐름과 "
+        },
+        {
+          "kind": "tag",
+          "tagId": "pyeonjae",
+          "label": "편재"
+        },
+        {
+          "kind": "text",
+          "value": "의 변동 흐름을 함께 살펴 두는 자리에서 단단해지고, 큰 한 번보다 작은 결정 쌓기가 자기 페이스에 잘 맞아요.\n\n"
+        },
+        {
+          "kind": "tag",
+          "tagId": "jaebakgung",
+          "label": "재백궁"
+        },
+        {
+          "kind": "text",
+          "value": "의 결과 "
+        },
+        {
+          "kind": "tag",
+          "tagId": "cheonleulgwiin",
+          "label": "천을귀인"
+        },
+        {
+          "kind": "text",
+          "value": "의 자리가 함께 보이면 도움 받는 흐름이 자기 자산이 되는 사주이니, 작은 도움도 미루지 않는 호흡이 잘 어울려요."
+        }
       ],
-      "tags": ["jeongjae", "pyeonjae", "yongshin"],
+      "tags": [
+        "jeongjae",
+        "pyeonjae",
+        "yongshin",
+        "jaebakgung",
+        "cheonleulgwiin"
+      ],
       "aiGenerated": true,
       "sourceTier": {
         "tier": "T1_HYPOTHESIS",
@@ -86,18 +288,82 @@
     {
       "schemaVersion": "spring-ts.narrative-fragment.v1",
       "fragmentId": "wealth.today.expert.currentseason.spring_summer.301",
-      "axis": { "category": "wealth", "period": "today", "depth": "expert" },
-      "gating": { "currentSeason": ["spring", "summer"], "yongshinAlignment": ["aligned", "neutral", "conflicting"] },
+      "axis": {
+        "category": "wealth",
+        "period": "today",
+        "depth": "expert"
+      },
+      "gating": {
+        "currentSeason": [
+          "spring",
+          "summer"
+        ],
+        "yongshinAlignment": [
+          "aligned",
+          "neutral",
+          "conflicting"
+        ]
+      },
       "templateTokens": [
-        { "kind": "text", "value": "오늘 재물 흐름은 빠른 제안과 즉흥 소비가 함께 올라올 수 있습니다. " },
-        { "kind": "tag", "tagId": "pyeonjae", "label": "편재" },
-        { "kind": "text", "value": "가 만드는 기회성 선택은 열리지만, " },
-        { "kind": "tag", "tagId": "jeongjae", "label": "정재" },
-        { "kind": "text", "value": "의 확인 절차 없이 결정하면 지출 통제가 약해집니다. " },
-        { "kind": "tag", "tagId": "yongshin", "label": "용신" },
-        { "kind": "text", "value": "과 맞는 거래인지 하루 여유를 두고 확인해 보세요." }
+        {
+          "kind": "text",
+          "value": "오늘 재물 흐름은 빠른 제안과 즉흥 소비가 함께 올라올 수 있습니다.\n\n"
+        },
+        {
+          "kind": "tag",
+          "tagId": "pyeonjae",
+          "label": "편재"
+        },
+        {
+          "kind": "text",
+          "value": "가 만드는 기회성 선택은 열리지만, "
+        },
+        {
+          "kind": "tag",
+          "tagId": "jeongjae",
+          "label": "정재"
+        },
+        {
+          "kind": "text",
+          "value": "의 확인 절차 없이 결정하면 지출 통제가 약해집니다.\n\n"
+        },
+        {
+          "kind": "tag",
+          "tagId": "yongshin",
+          "label": "용신"
+        },
+        {
+          "kind": "text",
+          "value": "과 맞는 거래인지 하루 여유를 두고 확인해 보세요.\n\n"
+        },
+        {
+          "kind": "text",
+          "value": "돈의 흐름은 "
+        },
+        {
+          "kind": "tag",
+          "tagId": "jeongjae",
+          "label": "정재"
+        },
+        {
+          "kind": "text",
+          "value": "의 고정 흐름과 "
+        },
+        {
+          "kind": "tag",
+          "tagId": "pyeonjae",
+          "label": "편재"
+        },
+        {
+          "kind": "text",
+          "value": "의 변동 흐름을 함께 살펴 두는 자리에서 단단해지고, 큰 한 번보다 작은 결정 쌓기가 자기 페이스에 잘 맞아요."
+        }
       ],
-      "tags": ["pyeonjae", "jeongjae", "yongshin"],
+      "tags": [
+        "pyeonjae",
+        "jeongjae",
+        "yongshin"
+      ],
       "aiGenerated": true,
       "sourceTier": {
         "tier": "T1_HYPOTHESIS",
@@ -113,18 +379,100 @@
     {
       "schemaVersion": "spring-ts.narrative-fragment.v1",
       "fragmentId": "wealth.today.expert.currentseason.autumn_winter.301",
-      "axis": { "category": "wealth", "period": "today", "depth": "expert" },
-      "gating": { "currentSeason": ["autumn", "winter"], "yongshinAlignment": ["aligned", "neutral", "conflicting"] },
+      "axis": {
+        "category": "wealth",
+        "period": "today",
+        "depth": "expert"
+      },
+      "gating": {
+        "currentSeason": [
+          "autumn",
+          "winter"
+        ],
+        "yongshinAlignment": [
+          "aligned",
+          "neutral",
+          "conflicting"
+        ]
+      },
       "templateTokens": [
-        { "kind": "text", "value": "오늘 재물 흐름은 새 수익보다 기존 돈을 지키는 쪽이 중요합니다. " },
-        { "kind": "tag", "tagId": "jeongjae", "label": "정재" },
-        { "kind": "text", "value": "의 장부 감각을 우선하고, " },
-        { "kind": "tag", "tagId": "pyeonjae", "label": "편재" },
-        { "kind": "text", "value": "식 큰 선택은 근거가 충분한지 봐야 합니다. " },
-        { "kind": "tag", "tagId": "yongshin", "label": "용신" },
-        { "kind": "text", "value": "과 어긋나는 지출은 줄이는 편이 좋습니다." }
+        {
+          "kind": "text",
+          "value": "오늘 재물 흐름은 새 수익보다 기존 돈을 지키는 쪽이 중요합니다.\n\n"
+        },
+        {
+          "kind": "tag",
+          "tagId": "jeongjae",
+          "label": "정재"
+        },
+        {
+          "kind": "text",
+          "value": "의 장부 감각을 우선하고, "
+        },
+        {
+          "kind": "tag",
+          "tagId": "pyeonjae",
+          "label": "편재"
+        },
+        {
+          "kind": "text",
+          "value": "식 큰 선택은 근거가 충분한지 봐야 합니다. "
+        },
+        {
+          "kind": "tag",
+          "tagId": "yongshin",
+          "label": "용신"
+        },
+        {
+          "kind": "text",
+          "value": "과 어긋나는 지출은 줄이는 편이 좋습니다.\n\n"
+        },
+        {
+          "kind": "tag",
+          "tagId": "jaebakgung",
+          "label": "재백궁"
+        },
+        {
+          "kind": "text",
+          "value": "의 결과 "
+        },
+        {
+          "kind": "tag",
+          "tagId": "cheonleulgwiin",
+          "label": "천을귀인"
+        },
+        {
+          "kind": "text",
+          "value": "의 자리가 함께 보이면 도움 받는 흐름이 자기 자산이 되는 사주이니, 작은 도움도 미루지 않는 호흡이 잘 어울려요.\n\n"
+        },
+        {
+          "kind": "tag",
+          "tagId": "gyeokgukFit",
+          "label": "격국적합도"
+        },
+        {
+          "kind": "text",
+          "value": "의 평균이 또렷한 사주는 자기 격에 맞는 자산 자리가 한 결로 모이고, "
+        },
+        {
+          "kind": "tag",
+          "tagId": "stabilityIndex",
+          "label": "안정성지수"
+        },
+        {
+          "kind": "text",
+          "value": "가 받쳐 주는 시기엔 자산 결이 한 단계 깊어지는 자리가 보여요."
+        }
       ],
-      "tags": ["jeongjae", "pyeonjae", "yongshin"],
+      "tags": [
+        "jeongjae",
+        "pyeonjae",
+        "yongshin",
+        "jaebakgung",
+        "cheonleulgwiin",
+        "gyeokgukFit",
+        "stabilityIndex"
+      ],
       "aiGenerated": true,
       "sourceTier": {
         "tier": "T1_HYPOTHESIS",
@@ -140,18 +488,102 @@
     {
       "schemaVersion": "spring-ts.narrative-fragment.v1",
       "fragmentId": "wealth.thisWeek.expert.currentseason.spring_summer.301",
-      "axis": { "category": "wealth", "period": "thisWeek", "depth": "expert" },
-      "gating": { "currentSeason": ["spring", "summer"], "yongshinAlignment": ["aligned", "neutral", "conflicting"] },
+      "axis": {
+        "category": "wealth",
+        "period": "thisWeek",
+        "depth": "expert"
+      },
+      "gating": {
+        "currentSeason": [
+          "spring",
+          "summer"
+        ],
+        "yongshinAlignment": [
+          "aligned",
+          "neutral",
+          "conflicting"
+        ]
+      },
       "templateTokens": [
-        { "kind": "text", "value": "이번 주 재물 흐름은 거래와 지출 판단의 속도가 빨라질 수 있습니다. " },
-        { "kind": "tag", "tagId": "pyeonjae", "label": "편재" },
-        { "kind": "text", "value": "가 살아도 " },
-        { "kind": "tag", "tagId": "jeongjae", "label": "정재" },
-        { "kind": "text", "value": "의 한도선이 없으면 이익보다 새는 돈이 먼저 커질 수 있습니다. " },
-        { "kind": "tag", "tagId": "yongshin", "label": "용신" },
-        { "kind": "text", "value": "방향의 선택만 남기는 필터가 필요합니다." }
+        {
+          "kind": "text",
+          "value": "이번 주 재물 흐름은 거래와 지출 판단의 속도가 빨라질 수 있습니다.\n\n"
+        },
+        {
+          "kind": "tag",
+          "tagId": "pyeonjae",
+          "label": "편재"
+        },
+        {
+          "kind": "text",
+          "value": "가 살아도 "
+        },
+        {
+          "kind": "tag",
+          "tagId": "jeongjae",
+          "label": "정재"
+        },
+        {
+          "kind": "text",
+          "value": "의 한도선이 없으면 이익보다 새는 돈이 먼저 커질 수 있습니다. "
+        },
+        {
+          "kind": "tag",
+          "tagId": "yongshin",
+          "label": "용신"
+        },
+        {
+          "kind": "text",
+          "value": "방향의 선택만 남기는 필터가 필요합니다.\n\n"
+        },
+        {
+          "kind": "tag",
+          "tagId": "pyeonjaegyeok",
+          "label": "편재격"
+        },
+        {
+          "kind": "text",
+          "value": "의 결이나 "
+        },
+        {
+          "kind": "tag",
+          "tagId": "jeongjaegyeok",
+          "label": "정재격"
+        },
+        {
+          "kind": "text",
+          "value": "의 결이 또렷한 사주는 자기 격에 맞는 자산 운영 결이 자연스럽게 자리 잡아요.\n\n"
+        },
+        {
+          "kind": "text",
+          "value": "돈의 흐름은 "
+        },
+        {
+          "kind": "tag",
+          "tagId": "jeongjae",
+          "label": "정재"
+        },
+        {
+          "kind": "text",
+          "value": "의 고정 흐름과 "
+        },
+        {
+          "kind": "tag",
+          "tagId": "pyeonjae",
+          "label": "편재"
+        },
+        {
+          "kind": "text",
+          "value": "의 변동 흐름을 함께 살펴 두는 자리에서 단단해지고, 큰 한 번보다 작은 결정 쌓기가 자기 페이스에 잘 맞아요."
+        }
       ],
-      "tags": ["pyeonjae", "jeongjae", "yongshin"],
+      "tags": [
+        "pyeonjae",
+        "jeongjae",
+        "yongshin",
+        "pyeonjaegyeok",
+        "jeongjaegyeok"
+      ],
       "aiGenerated": true,
       "sourceTier": {
         "tier": "T1_HYPOTHESIS",
@@ -167,18 +599,100 @@
     {
       "schemaVersion": "spring-ts.narrative-fragment.v1",
       "fragmentId": "wealth.thisWeek.expert.currentseason.autumn_winter.301",
-      "axis": { "category": "wealth", "period": "thisWeek", "depth": "expert" },
-      "gating": { "currentSeason": ["autumn", "winter"], "yongshinAlignment": ["aligned", "neutral", "conflicting"] },
+      "axis": {
+        "category": "wealth",
+        "period": "thisWeek",
+        "depth": "expert"
+      },
+      "gating": {
+        "currentSeason": [
+          "autumn",
+          "winter"
+        ],
+        "yongshinAlignment": [
+          "aligned",
+          "neutral",
+          "conflicting"
+        ]
+      },
       "templateTokens": [
-        { "kind": "text", "value": "이번 주 재물 흐름은 계산, 정산, 고정비 점검에 맞습니다. " },
-        { "kind": "tag", "tagId": "jeongjae", "label": "정재" },
-        { "kind": "text", "value": "가 강하면 안정적 관리가 되고, " },
-        { "kind": "tag", "tagId": "pyeonjae", "label": "편재" },
-        { "kind": "text", "value": "가 과하면 큰 변동성에 끌릴 수 있습니다. " },
-        { "kind": "tag", "tagId": "yongshin", "label": "용신" },
-        { "kind": "text", "value": "과 맞지 않는 투자는 보류가 안전합니다." }
+        {
+          "kind": "text",
+          "value": "이번 주 재물 흐름은 계산, 정산, 고정비 점검에 맞습니다.\n\n"
+        },
+        {
+          "kind": "tag",
+          "tagId": "jeongjae",
+          "label": "정재"
+        },
+        {
+          "kind": "text",
+          "value": "가 강하면 안정적 관리가 되고, "
+        },
+        {
+          "kind": "tag",
+          "tagId": "pyeonjae",
+          "label": "편재"
+        },
+        {
+          "kind": "text",
+          "value": "가 과하면 큰 변동성에 끌릴 수 있습니다. "
+        },
+        {
+          "kind": "tag",
+          "tagId": "yongshin",
+          "label": "용신"
+        },
+        {
+          "kind": "text",
+          "value": "과 맞지 않는 투자는 보류가 안전합니다.\n\n"
+        },
+        {
+          "kind": "tag",
+          "tagId": "gyeokgukFit",
+          "label": "격국적합도"
+        },
+        {
+          "kind": "text",
+          "value": "의 평균이 또렷한 사주는 자기 격에 맞는 자산 자리가 한 결로 모이고, "
+        },
+        {
+          "kind": "tag",
+          "tagId": "stabilityIndex",
+          "label": "안정성지수"
+        },
+        {
+          "kind": "text",
+          "value": "가 받쳐 주는 시기엔 자산 결이 한 단계 깊어지는 자리가 보여요.\n\n"
+        },
+        {
+          "kind": "tag",
+          "tagId": "pyeonjaegyeok",
+          "label": "편재격"
+        },
+        {
+          "kind": "text",
+          "value": "의 결이나 "
+        },
+        {
+          "kind": "tag",
+          "tagId": "jeongjaegyeok",
+          "label": "정재격"
+        },
+        {
+          "kind": "text",
+          "value": "의 결이 또렷한 사주는 자기 격에 맞는 자산 운영 결이 자연스럽게 자리 잡아요."
+        }
       ],
-      "tags": ["jeongjae", "pyeonjae", "yongshin"],
+      "tags": [
+        "jeongjae",
+        "pyeonjae",
+        "yongshin",
+        "gyeokgukFit",
+        "stabilityIndex",
+        "pyeonjaegyeok",
+        "jeongjaegyeok"
+      ],
       "aiGenerated": true,
       "sourceTier": {
         "tier": "T1_HYPOTHESIS",
@@ -194,18 +708,100 @@
     {
       "schemaVersion": "spring-ts.narrative-fragment.v1",
       "fragmentId": "wealth.thisMonth.expert.currentseason.spring_summer.301",
-      "axis": { "category": "wealth", "period": "thisMonth", "depth": "expert" },
-      "gating": { "currentSeason": ["spring", "summer"], "yongshinAlignment": ["aligned", "neutral", "conflicting"] },
+      "axis": {
+        "category": "wealth",
+        "period": "thisMonth",
+        "depth": "expert"
+      },
+      "gating": {
+        "currentSeason": [
+          "spring",
+          "summer"
+        ],
+        "yongshinAlignment": [
+          "aligned",
+          "neutral",
+          "conflicting"
+        ]
+      },
       "templateTokens": [
-        { "kind": "text", "value": "이번 달 재물 흐름은 새로운 수입원 탐색과 소비 확대가 같이 나타날 수 있습니다. " },
-        { "kind": "tag", "tagId": "pyeonjae", "label": "편재" },
-        { "kind": "text", "value": "의 기회성은 보되, " },
-        { "kind": "tag", "tagId": "jeongjae", "label": "정재" },
-        { "kind": "text", "value": "의 예산 관리가 같이 있어야 남는 돈이 생깁니다. " },
-        { "kind": "tag", "tagId": "yongshin", "label": "용신" },
-        { "kind": "text", "value": "과 맞는 방향만 월간 계획에 남기세요." }
+        {
+          "kind": "text",
+          "value": "이번 달 재물 흐름은 새로운 수입원 탐색과 소비 확대가 같이 나타날 수 있습니다.\n\n"
+        },
+        {
+          "kind": "tag",
+          "tagId": "pyeonjae",
+          "label": "편재"
+        },
+        {
+          "kind": "text",
+          "value": "의 기회성은 보되, "
+        },
+        {
+          "kind": "tag",
+          "tagId": "jeongjae",
+          "label": "정재"
+        },
+        {
+          "kind": "text",
+          "value": "의 예산 관리가 같이 있어야 남는 돈이 생깁니다. "
+        },
+        {
+          "kind": "tag",
+          "tagId": "yongshin",
+          "label": "용신"
+        },
+        {
+          "kind": "text",
+          "value": "과 맞는 방향만 월간 계획에 남기세요.\n\n"
+        },
+        {
+          "kind": "tag",
+          "tagId": "jaebakgung",
+          "label": "재백궁"
+        },
+        {
+          "kind": "text",
+          "value": "의 결과 "
+        },
+        {
+          "kind": "tag",
+          "tagId": "cheonleulgwiin",
+          "label": "천을귀인"
+        },
+        {
+          "kind": "text",
+          "value": "의 자리가 함께 보이면 도움 받는 흐름이 자기 자산이 되는 사주이니, 작은 도움도 미루지 않는 호흡이 잘 어울려요.\n\n"
+        },
+        {
+          "kind": "tag",
+          "tagId": "gyeokgukFit",
+          "label": "격국적합도"
+        },
+        {
+          "kind": "text",
+          "value": "의 평균이 또렷한 사주는 자기 격에 맞는 자산 자리가 한 결로 모이고, "
+        },
+        {
+          "kind": "tag",
+          "tagId": "stabilityIndex",
+          "label": "안정성지수"
+        },
+        {
+          "kind": "text",
+          "value": "가 받쳐 주는 시기엔 자산 결이 한 단계 깊어지는 자리가 보여요."
+        }
       ],
-      "tags": ["pyeonjae", "jeongjae", "yongshin"],
+      "tags": [
+        "pyeonjae",
+        "jeongjae",
+        "yongshin",
+        "jaebakgung",
+        "cheonleulgwiin",
+        "gyeokgukFit",
+        "stabilityIndex"
+      ],
       "aiGenerated": true,
       "sourceTier": {
         "tier": "T1_HYPOTHESIS",
@@ -221,18 +817,102 @@
     {
       "schemaVersion": "spring-ts.narrative-fragment.v1",
       "fragmentId": "wealth.thisMonth.expert.currentseason.autumn_winter.301",
-      "axis": { "category": "wealth", "period": "thisMonth", "depth": "expert" },
-      "gating": { "currentSeason": ["autumn", "winter"], "yongshinAlignment": ["aligned", "neutral", "conflicting"] },
+      "axis": {
+        "category": "wealth",
+        "period": "thisMonth",
+        "depth": "expert"
+      },
+      "gating": {
+        "currentSeason": [
+          "autumn",
+          "winter"
+        ],
+        "yongshinAlignment": [
+          "aligned",
+          "neutral",
+          "conflicting"
+        ]
+      },
       "templateTokens": [
-        { "kind": "text", "value": "이번 달 재물 흐름은 지출 구조를 줄이고 보유 자원을 지키는 데 초점이 맞습니다. " },
-        { "kind": "tag", "tagId": "jeongjae", "label": "정재" },
-        { "kind": "text", "value": "가 예산과 저축의 중심이 되고, " },
-        { "kind": "tag", "tagId": "pyeonjae", "label": "편재" },
-        { "kind": "text", "value": "식 변동 수익은 검증 자료가 있어야 합니다. " },
-        { "kind": "tag", "tagId": "yongshin", "label": "용신" },
-        { "kind": "text", "value": "이 돕는 관리 루틴을 우선하세요." }
+        {
+          "kind": "text",
+          "value": "이번 달 재물 흐름은 지출 구조를 줄이고 보유 자원을 지키는 데 초점이 맞습니다.\n\n"
+        },
+        {
+          "kind": "tag",
+          "tagId": "jeongjae",
+          "label": "정재"
+        },
+        {
+          "kind": "text",
+          "value": "가 예산과 저축의 중심이 되고, "
+        },
+        {
+          "kind": "tag",
+          "tagId": "pyeonjae",
+          "label": "편재"
+        },
+        {
+          "kind": "text",
+          "value": "식 변동 수익은 검증 자료가 있어야 합니다. "
+        },
+        {
+          "kind": "tag",
+          "tagId": "yongshin",
+          "label": "용신"
+        },
+        {
+          "kind": "text",
+          "value": "이 돕는 관리 루틴을 우선하세요.\n\n"
+        },
+        {
+          "kind": "text",
+          "value": "돈의 흐름은 "
+        },
+        {
+          "kind": "tag",
+          "tagId": "jeongjae",
+          "label": "정재"
+        },
+        {
+          "kind": "text",
+          "value": "의 고정 흐름과 "
+        },
+        {
+          "kind": "tag",
+          "tagId": "pyeonjae",
+          "label": "편재"
+        },
+        {
+          "kind": "text",
+          "value": "의 변동 흐름을 함께 살펴 두는 자리에서 단단해지고, 큰 한 번보다 작은 결정 쌓기가 자기 페이스에 잘 맞아요.\n\n"
+        },
+        {
+          "kind": "tag",
+          "tagId": "jaebakgung",
+          "label": "재백궁"
+        },
+        {
+          "kind": "text",
+          "value": "의 결과 "
+        },
+        {
+          "kind": "tag",
+          "tagId": "cheonleulgwiin",
+          "label": "천을귀인"
+        },
+        {
+          "kind": "text",
+          "value": "의 자리가 함께 보이면 도움 받는 흐름이 자기 자산이 되는 사주이니, 작은 도움도 미루지 않는 호흡이 잘 어울려요."
+        }
       ],
-      "tags": ["jeongjae", "pyeonjae", "yongshin"],
+      "tags": [
+        "jeongjae",
+        "pyeonjae",
+        "yongshin",
+        "jaebakgung",
+        "cheonleulgwiin"
+      ],
       "aiGenerated": true,
       "sourceTier": {
         "tier": "T1_HYPOTHESIS",
@@ -248,18 +928,102 @@
     {
       "schemaVersion": "spring-ts.narrative-fragment.v1",
       "fragmentId": "wealth.thisYear.expert.currentseason.spring_summer.301",
-      "axis": { "category": "wealth", "period": "thisYear", "depth": "expert" },
-      "gating": { "currentSeason": ["spring", "summer"], "yongshinAlignment": ["aligned", "neutral", "conflicting"] },
+      "axis": {
+        "category": "wealth",
+        "period": "thisYear",
+        "depth": "expert"
+      },
+      "gating": {
+        "currentSeason": [
+          "spring",
+          "summer"
+        ],
+        "yongshinAlignment": [
+          "aligned",
+          "neutral",
+          "conflicting"
+        ]
+      },
       "templateTokens": [
-        { "kind": "text", "value": "올해 재물 흐름에서 봄과 여름의 현재 계절은 수입 기회와 활동 반경을 넓힙니다. " },
-        { "kind": "tag", "tagId": "pyeonjae", "label": "편재" },
-        { "kind": "text", "value": "가 확장을 만들 수 있으나, " },
-        { "kind": "tag", "tagId": "jeongjae", "label": "정재" },
-        { "kind": "text", "value": "의 축적 구조가 약하면 연말에 남는 것이 줄어듭니다. " },
-        { "kind": "tag", "tagId": "yongshin", "label": "용신" },
-        { "kind": "text", "value": "과 맞는 수입원만 장기화하세요." }
+        {
+          "kind": "text",
+          "value": "올해 재물 흐름에서 봄과 여름의 현재 계절은 수입 기회와 활동 반경을 넓힙니다.\n\n"
+        },
+        {
+          "kind": "tag",
+          "tagId": "pyeonjae",
+          "label": "편재"
+        },
+        {
+          "kind": "text",
+          "value": "가 확장을 만들 수 있으나, "
+        },
+        {
+          "kind": "tag",
+          "tagId": "jeongjae",
+          "label": "정재"
+        },
+        {
+          "kind": "text",
+          "value": "의 축적 구조가 약하면 연말에 남는 것이 줄어듭니다. "
+        },
+        {
+          "kind": "tag",
+          "tagId": "yongshin",
+          "label": "용신"
+        },
+        {
+          "kind": "text",
+          "value": "과 맞는 수입원만 장기화하세요.\n\n"
+        },
+        {
+          "kind": "text",
+          "value": "돈의 흐름은 "
+        },
+        {
+          "kind": "tag",
+          "tagId": "jeongjae",
+          "label": "정재"
+        },
+        {
+          "kind": "text",
+          "value": "의 고정 흐름과 "
+        },
+        {
+          "kind": "tag",
+          "tagId": "pyeonjae",
+          "label": "편재"
+        },
+        {
+          "kind": "text",
+          "value": "의 변동 흐름을 함께 살펴 두는 자리에서 단단해지고, 큰 한 번보다 작은 결정 쌓기가 자기 페이스에 잘 맞아요.\n\n"
+        },
+        {
+          "kind": "tag",
+          "tagId": "jaebakgung",
+          "label": "재백궁"
+        },
+        {
+          "kind": "text",
+          "value": "의 결과 "
+        },
+        {
+          "kind": "tag",
+          "tagId": "cheonleulgwiin",
+          "label": "천을귀인"
+        },
+        {
+          "kind": "text",
+          "value": "의 자리가 함께 보이면 도움 받는 흐름이 자기 자산이 되는 사주이니, 작은 도움도 미루지 않는 호흡이 잘 어울려요."
+        }
       ],
-      "tags": ["pyeonjae", "jeongjae", "yongshin"],
+      "tags": [
+        "pyeonjae",
+        "jeongjae",
+        "yongshin",
+        "jaebakgung",
+        "cheonleulgwiin"
+      ],
       "aiGenerated": true,
       "sourceTier": {
         "tier": "T1_HYPOTHESIS",
@@ -275,18 +1039,100 @@
     {
       "schemaVersion": "spring-ts.narrative-fragment.v1",
       "fragmentId": "wealth.thisYear.expert.currentseason.autumn_winter.301",
-      "axis": { "category": "wealth", "period": "thisYear", "depth": "expert" },
-      "gating": { "currentSeason": ["autumn", "winter"], "yongshinAlignment": ["aligned", "neutral", "conflicting"] },
+      "axis": {
+        "category": "wealth",
+        "period": "thisYear",
+        "depth": "expert"
+      },
+      "gating": {
+        "currentSeason": [
+          "autumn",
+          "winter"
+        ],
+        "yongshinAlignment": [
+          "aligned",
+          "neutral",
+          "conflicting"
+        ]
+      },
       "templateTokens": [
-        { "kind": "text", "value": "올해 재물 흐름에서 가을과 겨울의 현재 계절은 정산과 자산 방어를 강조합니다. " },
-        { "kind": "tag", "tagId": "jeongjae", "label": "정재" },
-        { "kind": "text", "value": "의 안정성이 우선이고, " },
-        { "kind": "tag", "tagId": "pyeonjae", "label": "편재" },
-        { "kind": "text", "value": "는 검증된 범위 안에서만 다루는 편이 좋습니다. " },
-        { "kind": "tag", "tagId": "yongshin", "label": "용신" },
-        { "kind": "text", "value": "과 맞는 보수적 선택이 연간 흐름을 지킵니다." }
+        {
+          "kind": "text",
+          "value": "올해 재물 흐름에서 가을과 겨울의 현재 계절은 정산과 자산 방어를 강조합니다.\n\n"
+        },
+        {
+          "kind": "tag",
+          "tagId": "jeongjae",
+          "label": "정재"
+        },
+        {
+          "kind": "text",
+          "value": "의 안정성이 우선이고, "
+        },
+        {
+          "kind": "tag",
+          "tagId": "pyeonjae",
+          "label": "편재"
+        },
+        {
+          "kind": "text",
+          "value": "는 검증된 범위 안에서만 다루는 편이 좋습니다. "
+        },
+        {
+          "kind": "tag",
+          "tagId": "yongshin",
+          "label": "용신"
+        },
+        {
+          "kind": "text",
+          "value": "과 맞는 보수적 선택이 연간 흐름을 지킵니다.\n\n"
+        },
+        {
+          "kind": "tag",
+          "tagId": "jaebakgung",
+          "label": "재백궁"
+        },
+        {
+          "kind": "text",
+          "value": "의 결과 "
+        },
+        {
+          "kind": "tag",
+          "tagId": "cheonleulgwiin",
+          "label": "천을귀인"
+        },
+        {
+          "kind": "text",
+          "value": "의 자리가 함께 보이면 도움 받는 흐름이 자기 자산이 되는 사주이니, 작은 도움도 미루지 않는 호흡이 잘 어울려요.\n\n"
+        },
+        {
+          "kind": "tag",
+          "tagId": "gyeokgukFit",
+          "label": "격국적합도"
+        },
+        {
+          "kind": "text",
+          "value": "의 평균이 또렷한 사주는 자기 격에 맞는 자산 자리가 한 결로 모이고, "
+        },
+        {
+          "kind": "tag",
+          "tagId": "stabilityIndex",
+          "label": "안정성지수"
+        },
+        {
+          "kind": "text",
+          "value": "가 받쳐 주는 시기엔 자산 결이 한 단계 깊어지는 자리가 보여요."
+        }
       ],
-      "tags": ["jeongjae", "pyeonjae", "yongshin"],
+      "tags": [
+        "jeongjae",
+        "pyeonjae",
+        "yongshin",
+        "jaebakgung",
+        "cheonleulgwiin",
+        "gyeokgukFit",
+        "stabilityIndex"
+      ],
       "aiGenerated": true,
       "sourceTier": {
         "tier": "T1_HYPOTHESIS",
@@ -302,10 +1148,22 @@
     {
       "schemaVersion": "spring-ts.narrative-fragment.v1",
       "fragmentId": "wealth.today.standard.currentseason.spring_summer.301",
-      "axis": { "category": "wealth", "period": "today", "depth": "standard" },
-      "gating": { "currentSeason": ["spring", "summer"] },
+      "axis": {
+        "category": "wealth",
+        "period": "today",
+        "depth": "standard"
+      },
+      "gating": {
+        "currentSeason": [
+          "spring",
+          "summer"
+        ]
+      },
       "templateTokens": [
-        { "kind": "text", "value": "오늘은 돈과 관련된 선택이 빠르게 생길 수 있어요. 좋은 제안처럼 보여도 바로 결제하거나 약속하지 말고, 오늘 쓸 수 있는 한도 안에 들어오는지 먼저 확인하세요." }
+        {
+          "kind": "text",
+          "value": "오늘은 돈과 관련된 선택이 빠르게 생길 수 있어요. 좋은 제안처럼 보여도 바로 결제하거나 약속하지 말고, 오늘 쓸 수 있는 한도 안에 들어오는지 먼저 확인하세요."
+        }
       ],
       "tags": [],
       "aiGenerated": true,
@@ -323,10 +1181,22 @@
     {
       "schemaVersion": "spring-ts.narrative-fragment.v1",
       "fragmentId": "wealth.today.standard.currentseason.autumn_winter.301",
-      "axis": { "category": "wealth", "period": "today", "depth": "standard" },
-      "gating": { "currentSeason": ["autumn", "winter"] },
+      "axis": {
+        "category": "wealth",
+        "period": "today",
+        "depth": "standard"
+      },
+      "gating": {
+        "currentSeason": [
+          "autumn",
+          "winter"
+        ]
+      },
       "templateTokens": [
-        { "kind": "text", "value": "오늘은 새로 벌 기회보다 새는 돈을 막는 것이 더 중요해요. 자동결제, 약속한 지출, 작은 추가 비용을 확인하면 불필요한 손해를 줄일 수 있습니다." }
+        {
+          "kind": "text",
+          "value": "오늘은 새로 벌 기회보다 새는 돈을 막는 것이 더 중요해요. 자동결제, 약속한 지출, 작은 추가 비용을 확인하면 불필요한 손해를 줄일 수 있습니다."
+        }
       ],
       "tags": [],
       "aiGenerated": true,
@@ -344,10 +1214,22 @@
     {
       "schemaVersion": "spring-ts.narrative-fragment.v1",
       "fragmentId": "wealth.thisWeek.standard.currentseason.spring_summer.301",
-      "axis": { "category": "wealth", "period": "thisWeek", "depth": "standard" },
-      "gating": { "currentSeason": ["spring", "summer"] },
+      "axis": {
+        "category": "wealth",
+        "period": "thisWeek",
+        "depth": "standard"
+      },
+      "gating": {
+        "currentSeason": [
+          "spring",
+          "summer"
+        ]
+      },
       "templateTokens": [
-        { "kind": "text", "value": "이번 주는 수입과 지출이 모두 빨라질 수 있어요. 사고 싶은 것과 꼭 필요한 것을 나누고, 큰 지출은 하루 정도 시간을 둔 뒤 결정하면 안정적입니다." }
+        {
+          "kind": "text",
+          "value": "이번 주는 수입과 지출이 모두 빨라질 수 있어요. 사고 싶은 것과 꼭 필요한 것을 나누고, 큰 지출은 하루 정도 시간을 둔 뒤 결정하면 안정적입니다."
+        }
       ],
       "tags": [],
       "aiGenerated": true,
@@ -365,10 +1247,22 @@
     {
       "schemaVersion": "spring-ts.narrative-fragment.v1",
       "fragmentId": "wealth.thisWeek.standard.currentseason.autumn_winter.301",
-      "axis": { "category": "wealth", "period": "thisWeek", "depth": "standard" },
-      "gating": { "currentSeason": ["autumn", "winter"] },
+      "axis": {
+        "category": "wealth",
+        "period": "thisWeek",
+        "depth": "standard"
+      },
+      "gating": {
+        "currentSeason": [
+          "autumn",
+          "winter"
+        ]
+      },
       "templateTokens": [
-        { "kind": "text", "value": "이번 주는 지출을 정리하고 남는 돈을 확인하기 좋아요. 영수증, 카드 내역, 고정비를 한 번에 살펴보면 다음 선택이 훨씬 가벼워집니다." }
+        {
+          "kind": "text",
+          "value": "이번 주는 지출을 정리하고 남는 돈을 확인하기 좋아요. 영수증, 카드 내역, 고정비를 한 번에 살펴보면 다음 선택이 훨씬 가벼워집니다."
+        }
       ],
       "tags": [],
       "aiGenerated": true,
@@ -386,10 +1280,22 @@
     {
       "schemaVersion": "spring-ts.narrative-fragment.v1",
       "fragmentId": "wealth.thisYear.standard.currentseason.spring_summer.301",
-      "axis": { "category": "wealth", "period": "thisYear", "depth": "standard" },
-      "gating": { "currentSeason": ["spring", "summer"] },
+      "axis": {
+        "category": "wealth",
+        "period": "thisYear",
+        "depth": "standard"
+      },
+      "gating": {
+        "currentSeason": [
+          "spring",
+          "summer"
+        ]
+      },
       "templateTokens": [
-        { "kind": "text", "value": "올해는 돈을 벌 기회를 넓히고 싶은 마음이 커질 수 있어요. 새 수입원을 찾는 것은 좋지만, 매달 남길 금액을 먼저 정해 두면 확장과 안정이 함께 갑니다." }
+        {
+          "kind": "text",
+          "value": "올해는 돈을 벌 기회를 넓히고 싶은 마음이 커질 수 있어요. 새 수입원을 찾는 것은 좋지만, 매달 남길 금액을 먼저 정해 두면 확장과 안정이 함께 갑니다."
+        }
       ],
       "tags": [],
       "aiGenerated": true,
@@ -407,10 +1313,22 @@
     {
       "schemaVersion": "spring-ts.narrative-fragment.v1",
       "fragmentId": "wealth.thisYear.standard.currentseason.autumn_winter.301",
-      "axis": { "category": "wealth", "period": "thisYear", "depth": "standard" },
-      "gating": { "currentSeason": ["autumn", "winter"] },
+      "axis": {
+        "category": "wealth",
+        "period": "thisYear",
+        "depth": "standard"
+      },
+      "gating": {
+        "currentSeason": [
+          "autumn",
+          "winter"
+        ]
+      },
       "templateTokens": [
-        { "kind": "text", "value": "올해는 돈을 크게 움직이기보다 지키고 정리하는 힘이 중요해요. 저축, 보험, 고정비, 빚처럼 오래 영향을 주는 항목을 차분히 점검하면 안정감이 커집니다." }
+        {
+          "kind": "text",
+          "value": "올해는 돈을 크게 움직이기보다 지키고 정리하는 힘이 중요해요. 저축, 보험, 고정비, 빚처럼 오래 영향을 주는 항목을 차분히 점검하면 안정감이 커집니다."
+        }
       ],
       "tags": [],
       "aiGenerated": true,

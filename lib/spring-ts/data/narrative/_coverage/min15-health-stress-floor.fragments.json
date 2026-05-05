@@ -355,7 +355,7 @@
         },
         {
           "kind": "text",
-          "value": "의 회복 기반을 함께 봅니다. "
+          "value": "의 회복 기반을 함께 봅니다.\n\n"
         },
         {
           "kind": "tag",
@@ -364,13 +364,56 @@
         },
         {
           "kind": "text",
-          "value": " 방향이 맞으면 긴장 신호를 루틴으로 낮추는 전략이 안정적입니다."
+          "value": " 방향이 맞으면 긴장 신호를 루틴으로 낮추는 전략이 안정적입니다.\n\n"
+        },
+        {
+          "kind": "text",
+          "value": "긴장과 회복의 흐름은 "
+        },
+        {
+          "kind": "tag",
+          "tagId": "pyeongwan",
+          "label": "편관"
+        },
+        {
+          "kind": "text",
+          "value": "의 압박을 "
+        },
+        {
+          "kind": "tag",
+          "tagId": "jeongin",
+          "label": "정인"
+        },
+        {
+          "kind": "text",
+          "value": "의 돌봄으로 풀어 두는 자리에서 한결 단단해지고, 자기 한계를 의식적으로 두는 호흡이 가장 큰 무기가 돼요.\n\n"
+        },
+        {
+          "kind": "tag",
+          "tagId": "cheonui",
+          "label": "천의"
+        },
+        {
+          "kind": "text",
+          "value": "의 자리와 "
+        },
+        {
+          "kind": "tag",
+          "tagId": "cheondeokgwiin",
+          "label": "천덕귀인"
+        },
+        {
+          "kind": "text",
+          "value": "의 결이 함께 보이면 회복의 흐름이 부드럽게 자리 잡는 사주이니, 자기 곁의 도움을 미루지 않는 호흡이 잘 어울려요."
         }
       ],
       "tags": [
         "pyeonin",
         "jeongin",
-        "yongshin"
+        "yongshin",
+        "pyeongwan",
+        "cheonui",
+        "cheondeokgwiin"
       ],
       "numericalEvidence": [
         {
@@ -452,7 +495,7 @@
         },
         {
           "kind": "text",
-          "value": "를 함께 봅니다. "
+          "value": "를 함께 봅니다.\n\n"
         },
         {
           "kind": "tag",
@@ -461,13 +504,55 @@
         },
         {
           "kind": "text",
-          "value": "이 약하게 작동하면 정보량을 줄이고 회복 시간을 먼저 배치해야 합니다."
+          "value": "이 약하게 작동하면 정보량을 줄이고 회복 시간을 먼저 배치해야 합니다.\n\n"
+        },
+        {
+          "kind": "tag",
+          "tagId": "gongmang",
+          "label": "공망"
+        },
+        {
+          "kind": "text",
+          "value": "의 결과 "
+        },
+        {
+          "kind": "tag",
+          "tagId": "stabilityIndex",
+          "label": "안정성지수"
+        },
+        {
+          "kind": "text",
+          "value": "를 함께 살펴 두면 비워 두는 자리와 채워 두는 자리의 결이 한층 또렷해져요.\n\n"
+        },
+        {
+          "kind": "text",
+          "value": "긴장과 회복의 흐름은 "
+        },
+        {
+          "kind": "tag",
+          "tagId": "pyeongwan",
+          "label": "편관"
+        },
+        {
+          "kind": "text",
+          "value": "의 압박을 "
+        },
+        {
+          "kind": "tag",
+          "tagId": "jeongin",
+          "label": "정인"
+        },
+        {
+          "kind": "text",
+          "value": "의 돌봄으로 풀어 두는 자리에서 한결 단단해지고, 자기 한계를 의식적으로 두는 호흡이 가장 큰 무기가 돼요."
         }
       ],
       "tags": [
         "pyeonin",
         "stabilityIndex",
-        "jeongin"
+        "jeongin",
+        "gongmang",
+        "pyeongwan"
       ],
       "numericalEvidence": [
         {
@@ -534,7 +619,7 @@
         },
         {
           "kind": "text",
-          "value": "의 진정력이 균형을 이루는지를 봅니다. "
+          "value": "의 진정력이 균형을 이루는지를 봅니다.\n\n"
         },
         {
           "kind": "tag",
@@ -543,13 +628,56 @@
         },
         {
           "kind": "text",
-          "value": "가 낮으면 일정 사이의 여백을 수치처럼 관리해야 합니다."
+          "value": "가 낮으면 일정 사이의 여백을 수치처럼 관리해야 합니다.\n\n"
+        },
+        {
+          "kind": "tag",
+          "tagId": "gongmang",
+          "label": "공망"
+        },
+        {
+          "kind": "text",
+          "value": "의 결과 "
+        },
+        {
+          "kind": "tag",
+          "tagId": "stabilityIndex",
+          "label": "안정성지수"
+        },
+        {
+          "kind": "text",
+          "value": "를 함께 살펴 두면 비워 두는 자리와 채워 두는 자리의 결이 한층 또렷해져요.\n\n"
+        },
+        {
+          "kind": "text",
+          "value": "긴장과 회복의 흐름은 "
+        },
+        {
+          "kind": "tag",
+          "tagId": "pyeongwan",
+          "label": "편관"
+        },
+        {
+          "kind": "text",
+          "value": "의 압박을 "
+        },
+        {
+          "kind": "tag",
+          "tagId": "jeongin",
+          "label": "정인"
+        },
+        {
+          "kind": "text",
+          "value": "의 돌봄으로 풀어 두는 자리에서 한결 단단해지고, 자기 한계를 의식적으로 두는 호흡이 가장 큰 무기가 돼요."
         }
       ],
       "tags": [
         "fire",
         "water",
-        "stabilityIndex"
+        "stabilityIndex",
+        "gongmang",
+        "pyeongwan",
+        "jeongin"
       ],
       "numericalEvidence": [
         {
@@ -616,7 +744,7 @@
         },
         {
           "kind": "text",
-          "value": "의 회복성이 맞물리는지를 봅니다. "
+          "value": "의 회복성이 맞물리는지를 봅니다.\n\n"
         },
         {
           "kind": "tag",
@@ -625,13 +753,53 @@
         },
         {
           "kind": "text",
-          "value": " 정합성이 낮으면 사람과 일정을 줄여 감정 부하를 먼저 낮춰야 합니다."
+          "value": " 정합성이 낮으면 사람과 일정을 줄여 감정 부하를 먼저 낮춰야 합니다.\n\n"
+        },
+        {
+          "kind": "tag",
+          "tagId": "cheonui",
+          "label": "천의"
+        },
+        {
+          "kind": "text",
+          "value": "의 자리와 "
+        },
+        {
+          "kind": "tag",
+          "tagId": "cheondeokgwiin",
+          "label": "천덕귀인"
+        },
+        {
+          "kind": "text",
+          "value": "의 결이 함께 보이면 회복의 흐름이 부드럽게 자리 잡는 사주이니, 자기 곁의 도움을 미루지 않는 호흡이 잘 어울려요.\n\n"
+        },
+        {
+          "kind": "tag",
+          "tagId": "baekho",
+          "label": "백호대살"
+        },
+        {
+          "kind": "text",
+          "value": "의 신호와 "
+        },
+        {
+          "kind": "tag",
+          "tagId": "goegang",
+          "label": "괴강살"
+        },
+        {
+          "kind": "text",
+          "value": "의 결이 함께 보이는 시기엔 자기 한계를 의식적으로 두는 호흡이 가장 든든한 회복 자리예요."
         }
       ],
       "tags": [
         "pyeonin",
         "jeongin",
-        "yongshin"
+        "yongshin",
+        "cheonui",
+        "cheondeokgwiin",
+        "baekho",
+        "goegang"
       ],
       "numericalEvidence": [
         {
@@ -706,13 +874,53 @@
         },
         {
           "kind": "text",
-          "value": "를 함께 봅니다. 점수가 낮으면 연간 목표보다 회복 가능한 경계를 먼저 세워야 합니다."
+          "value": "를 함께 봅니다.\n\n점수가 낮으면 연간 목표보다 회복 가능한 경계를 먼저 세워야 합니다.\n\n"
+        },
+        {
+          "kind": "tag",
+          "tagId": "cheonui",
+          "label": "천의"
+        },
+        {
+          "kind": "text",
+          "value": "의 자리와 "
+        },
+        {
+          "kind": "tag",
+          "tagId": "cheondeokgwiin",
+          "label": "천덕귀인"
+        },
+        {
+          "kind": "text",
+          "value": "의 결이 함께 보이면 회복의 흐름이 부드럽게 자리 잡는 사주이니, 자기 곁의 도움을 미루지 않는 호흡이 잘 어울려요.\n\n"
+        },
+        {
+          "kind": "tag",
+          "tagId": "baekho",
+          "label": "백호대살"
+        },
+        {
+          "kind": "text",
+          "value": "의 신호와 "
+        },
+        {
+          "kind": "tag",
+          "tagId": "goegang",
+          "label": "괴강살"
+        },
+        {
+          "kind": "text",
+          "value": "의 결이 함께 보이는 시기엔 자기 한계를 의식적으로 두는 호흡이 가장 든든한 회복 자리예요."
         }
       ],
       "tags": [
         "pyeonin",
         "jeongin",
-        "stabilityIndex"
+        "stabilityIndex",
+        "cheonui",
+        "cheondeokgwiin",
+        "baekho",
+        "goegang"
       ],
       "numericalEvidence": [
         {

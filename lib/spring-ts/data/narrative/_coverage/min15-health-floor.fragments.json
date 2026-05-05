@@ -274,7 +274,7 @@
         },
         {
           "kind": "text",
-          "value": "의 회복 기반을 함께 봅니다. "
+          "value": "의 회복 기반을 함께 봅니다.\n\n"
         },
         {
           "kind": "tag",
@@ -283,13 +283,53 @@
         },
         {
           "kind": "text",
-          "value": " 방향이 맞으면 큰 처방보다 생활 리듬을 안정시키는 방식이 오래 갑니다."
+          "value": " 방향이 맞으면 큰 처방보다 생활 리듬을 안정시키는 방식이 오래 갑니다.\n\n"
+        },
+        {
+          "kind": "tag",
+          "tagId": "jisal",
+          "label": "지살"
+        },
+        {
+          "kind": "text",
+          "value": "의 결이 보일 때는 잠깐의 환경 변화가 컨디션을 환기시키고, "
+        },
+        {
+          "kind": "tag",
+          "tagId": "cheonui",
+          "label": "천의"
+        },
+        {
+          "kind": "text",
+          "value": "의 자리는 의료·치유 흐름의 도움을 부드럽게 받게 해 줘요.\n\n"
+        },
+        {
+          "kind": "tag",
+          "tagId": "eumyangHarmony",
+          "label": "음양조화도"
+        },
+        {
+          "kind": "text",
+          "value": "의 평균이 또렷한 사주는 "
+        },
+        {
+          "kind": "tag",
+          "tagId": "stabilityIndex",
+          "label": "안정성지수"
+        },
+        {
+          "kind": "text",
+          "value": "도 함께 단단해지는 자리라, 큰 결정보다 작은 회복 습관이 평생의 무기가 돼요."
         }
       ],
       "tags": [
         "johu",
         "jeongin",
-        "yongshin"
+        "yongshin",
+        "jisal",
+        "cheonui",
+        "eumyangHarmony",
+        "stabilityIndex"
       ],
       "numericalEvidence": [
         {
@@ -371,7 +411,7 @@
         },
         {
           "kind": "text",
-          "value": "의 예민도가 균형을 이루는지를 봅니다. "
+          "value": "의 예민도가 균형을 이루는지를 봅니다.\n\n"
         },
         {
           "kind": "tag",
@@ -380,13 +420,55 @@
         },
         {
           "kind": "text",
-          "value": "가 낮으면 작은 통증이나 피로 신호를 먼저 줄여야 합니다."
+          "value": "가 낮으면 작은 통증이나 피로 신호를 먼저 줄여야 합니다.\n\n"
+        },
+        {
+          "kind": "text",
+          "value": "몸의 흐름은 "
+        },
+        {
+          "kind": "tag",
+          "tagId": "johu",
+          "label": "조후"
+        },
+        {
+          "kind": "text",
+          "value": "의 균형과 "
+        },
+        {
+          "kind": "tag",
+          "tagId": "jeongin",
+          "label": "정인"
+        },
+        {
+          "kind": "text",
+          "value": "의 돌봄 자산이 함께 챙겨질 때 한층 부드러워지고, 무리한 회복보다 작은 회복의 반복이 자기 페이스에 잘 맞아요.\n\n"
+        },
+        {
+          "kind": "tag",
+          "tagId": "johuYongshin",
+          "label": "조후용신"
+        },
+        {
+          "kind": "text",
+          "value": "의 결이 또렷한 사주는 "
+        },
+        {
+          "kind": "tag",
+          "tagId": "johu",
+          "label": "조후"
+        },
+        {
+          "kind": "text",
+          "value": "의 균형이 컨디션을 만드는 가장 큰 축이라, 계절의 결을 따라 자기 페이스를 맞춰 두는 호흡이 잘 어울려요."
         }
       ],
       "tags": [
         "jeongin",
         "pyeonin",
-        "stabilityIndex"
+        "stabilityIndex",
+        "johu",
+        "johuYongshin"
       ],
       "numericalEvidence": [
         {
@@ -453,7 +535,7 @@
         },
         {
           "kind": "text",
-          "value": "의 회복성이 맞물리는지를 봅니다. "
+          "value": "의 회복성이 맞물리는지를 봅니다.\n\n"
         },
         {
           "kind": "tag",
@@ -462,13 +544,53 @@
         },
         {
           "kind": "text",
-          "value": "가 흔들리면 강한 날과 쉬는 날을 분리하는 것이 핵심입니다."
+          "value": "가 흔들리면 강한 날과 쉬는 날을 분리하는 것이 핵심입니다.\n\n"
+        },
+        {
+          "kind": "tag",
+          "tagId": "johuYongshin",
+          "label": "조후용신"
+        },
+        {
+          "kind": "text",
+          "value": "의 결이 또렷한 사주는 "
+        },
+        {
+          "kind": "tag",
+          "tagId": "johu",
+          "label": "조후"
+        },
+        {
+          "kind": "text",
+          "value": "의 균형이 컨디션을 만드는 가장 큰 축이라, 계절의 결을 따라 자기 페이스를 맞춰 두는 호흡이 잘 어울려요.\n\n"
+        },
+        {
+          "kind": "tag",
+          "tagId": "jisal",
+          "label": "지살"
+        },
+        {
+          "kind": "text",
+          "value": "의 결이 보일 때는 잠깐의 환경 변화가 컨디션을 환기시키고, "
+        },
+        {
+          "kind": "tag",
+          "tagId": "cheonui",
+          "label": "천의"
+        },
+        {
+          "kind": "text",
+          "value": "의 자리는 의료·치유 흐름의 도움을 부드럽게 받게 해 줘요."
         }
       ],
       "tags": [
         "fire",
         "water",
-        "stabilityIndex"
+        "stabilityIndex",
+        "johuYongshin",
+        "johu",
+        "jisal",
+        "cheonui"
       ],
       "numericalEvidence": [
         {
@@ -535,7 +657,7 @@
         },
         {
           "kind": "text",
-          "value": "의 회복 기반을 함께 봅니다. "
+          "value": "의 회복 기반을 함께 봅니다.\n\n"
         },
         {
           "kind": "tag",
@@ -544,13 +666,55 @@
         },
         {
           "kind": "text",
-          "value": " 정합성이 낮으면 운동량보다 수면과 식사 리듬을 먼저 조정해야 합니다."
+          "value": " 정합성이 낮으면 운동량보다 수면과 식사 리듬을 먼저 조정해야 합니다.\n\n"
+        },
+        {
+          "kind": "tag",
+          "tagId": "eumyangHarmony",
+          "label": "음양조화도"
+        },
+        {
+          "kind": "text",
+          "value": "의 평균이 또렷한 사주는 "
+        },
+        {
+          "kind": "tag",
+          "tagId": "stabilityIndex",
+          "label": "안정성지수"
+        },
+        {
+          "kind": "text",
+          "value": "도 함께 단단해지는 자리라, 큰 결정보다 작은 회복 습관이 평생의 무기가 돼요.\n\n"
+        },
+        {
+          "kind": "text",
+          "value": "몸의 흐름은 "
+        },
+        {
+          "kind": "tag",
+          "tagId": "johu",
+          "label": "조후"
+        },
+        {
+          "kind": "text",
+          "value": "의 균형과 "
+        },
+        {
+          "kind": "tag",
+          "tagId": "jeongin",
+          "label": "정인"
+        },
+        {
+          "kind": "text",
+          "value": "의 돌봄 자산이 함께 챙겨질 때 한층 부드러워지고, 무리한 회복보다 작은 회복의 반복이 자기 페이스에 잘 맞아요."
         }
       ],
       "tags": [
         "johu",
         "jeongin",
-        "yongshin"
+        "yongshin",
+        "eumyangHarmony",
+        "stabilityIndex"
       ],
       "numericalEvidence": [
         {

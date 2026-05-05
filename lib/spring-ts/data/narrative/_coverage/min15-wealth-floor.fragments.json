@@ -322,7 +322,7 @@
         },
         {
           "kind": "text",
-          "value": "의 확장 기회를 함께 봅니다. "
+          "value": "의 확장 기회를 함께 봅니다.\n\n"
         },
         {
           "kind": "tag",
@@ -331,13 +331,55 @@
         },
         {
           "kind": "text",
-          "value": " 방향이 맞으면 투자보다 현금 흐름과 방어 기준을 먼저 세우는 전략이 좋습니다."
+          "value": " 방향이 맞으면 투자보다 현금 흐름과 방어 기준을 먼저 세우는 전략이 좋습니다.\n\n"
+        },
+        {
+          "kind": "text",
+          "value": "돈의 흐름은 "
+        },
+        {
+          "kind": "tag",
+          "tagId": "jeongjae",
+          "label": "정재"
+        },
+        {
+          "kind": "text",
+          "value": "의 고정 흐름과 "
+        },
+        {
+          "kind": "tag",
+          "tagId": "pyeonjae",
+          "label": "편재"
+        },
+        {
+          "kind": "text",
+          "value": "의 변동 흐름을 함께 살펴 두는 자리에서 단단해지고, 큰 한 번보다 작은 결정 쌓기가 자기 페이스에 잘 맞아요.\n\n"
+        },
+        {
+          "kind": "tag",
+          "tagId": "jaebakgung",
+          "label": "재백궁"
+        },
+        {
+          "kind": "text",
+          "value": "의 결과 "
+        },
+        {
+          "kind": "tag",
+          "tagId": "cheonleulgwiin",
+          "label": "천을귀인"
+        },
+        {
+          "kind": "text",
+          "value": "의 자리가 함께 보이면 도움 받는 흐름이 자기 자산이 되는 사주이니, 작은 도움도 미루지 않는 호흡이 잘 어울려요."
         }
       ],
       "tags": [
         "jeongjae",
         "pyeonjae",
-        "yongshin"
+        "yongshin",
+        "jaebakgung",
+        "cheonleulgwiin"
       ],
       "numericalEvidence": [
         {
@@ -419,7 +461,7 @@
         },
         {
           "kind": "text",
-          "value": "의 손실 변수를 함께 봅니다. "
+          "value": "의 손실 변수를 함께 봅니다.\n\n"
         },
         {
           "kind": "tag",
@@ -428,13 +470,52 @@
         },
         {
           "kind": "text",
-          "value": "가 낮으면 지출 승인 전 재확인이 우선입니다."
+          "value": "가 낮으면 지출 승인 전 재확인이 우선입니다.\n\n"
+        },
+        {
+          "kind": "tag",
+          "tagId": "jaebakgung",
+          "label": "재백궁"
+        },
+        {
+          "kind": "text",
+          "value": "의 결과 "
+        },
+        {
+          "kind": "tag",
+          "tagId": "cheonleulgwiin",
+          "label": "천을귀인"
+        },
+        {
+          "kind": "text",
+          "value": "의 자리가 함께 보이면 도움 받는 흐름이 자기 자산이 되는 사주이니, 작은 도움도 미루지 않는 호흡이 잘 어울려요.\n\n"
+        },
+        {
+          "kind": "tag",
+          "tagId": "gyeokgukFit",
+          "label": "격국적합도"
+        },
+        {
+          "kind": "text",
+          "value": "의 평균이 또렷한 사주는 자기 격에 맞는 자산 자리가 한 결로 모이고, "
+        },
+        {
+          "kind": "tag",
+          "tagId": "stabilityIndex",
+          "label": "안정성지수"
+        },
+        {
+          "kind": "text",
+          "value": "가 받쳐 주는 시기엔 자산 결이 한 단계 깊어지는 자리가 보여요."
         }
       ],
       "tags": [
         "jeongjae",
         "geobjae",
-        "stabilityIndex"
+        "stabilityIndex",
+        "jaebakgung",
+        "cheonleulgwiin",
+        "gyeokgukFit"
       ],
       "numericalEvidence": [
         {
@@ -501,7 +582,7 @@
         },
         {
           "kind": "text",
-          "value": "의 변동성을 함께 봅니다. "
+          "value": "의 변동성을 함께 봅니다.\n\n"
         },
         {
           "kind": "tag",
@@ -510,13 +591,53 @@
         },
         {
           "kind": "text",
-          "value": " 정합성이 낮으면 기회보다 현금 흐름 방어가 먼저입니다."
+          "value": " 정합성이 낮으면 기회보다 현금 흐름 방어가 먼저입니다.\n\n"
+        },
+        {
+          "kind": "tag",
+          "tagId": "jaebakgung",
+          "label": "재백궁"
+        },
+        {
+          "kind": "text",
+          "value": "의 결과 "
+        },
+        {
+          "kind": "tag",
+          "tagId": "cheonleulgwiin",
+          "label": "천을귀인"
+        },
+        {
+          "kind": "text",
+          "value": "의 자리가 함께 보이면 도움 받는 흐름이 자기 자산이 되는 사주이니, 작은 도움도 미루지 않는 호흡이 잘 어울려요.\n\n"
+        },
+        {
+          "kind": "tag",
+          "tagId": "gyeokgukFit",
+          "label": "격국적합도"
+        },
+        {
+          "kind": "text",
+          "value": "의 평균이 또렷한 사주는 자기 격에 맞는 자산 자리가 한 결로 모이고, "
+        },
+        {
+          "kind": "tag",
+          "tagId": "stabilityIndex",
+          "label": "안정성지수"
+        },
+        {
+          "kind": "text",
+          "value": "가 받쳐 주는 시기엔 자산 결이 한 단계 깊어지는 자리가 보여요."
         }
       ],
       "tags": [
         "jeongjae",
         "pyeonjae",
-        "yongshin"
+        "yongshin",
+        "jaebakgung",
+        "cheonleulgwiin",
+        "gyeokgukFit",
+        "stabilityIndex"
       ],
       "numericalEvidence": [
         {
@@ -591,13 +712,72 @@
         },
         {
           "kind": "text",
-          "value": "를 함께 봅니다. 점수가 낮으면 예산선을 먼저 고정해야 합니다."
+          "value": "를 함께 봅니다. 점수가 낮으면 예산선을 먼저 고정해야 합니다.\n\n"
+        },
+        {
+          "kind": "tag",
+          "tagId": "jaebakgung",
+          "label": "재백궁"
+        },
+        {
+          "kind": "text",
+          "value": "의 결과 "
+        },
+        {
+          "kind": "tag",
+          "tagId": "cheonleulgwiin",
+          "label": "천을귀인"
+        },
+        {
+          "kind": "text",
+          "value": "의 자리가 함께 보이면 도움 받는 흐름이 자기 자산이 되는 사주이니, 작은 도움도 미루지 않는 호흡이 잘 어울려요.\n\n"
+        },
+        {
+          "kind": "tag",
+          "tagId": "gyeokgukFit",
+          "label": "격국적합도"
+        },
+        {
+          "kind": "text",
+          "value": "의 평균이 또렷한 사주는 자기 격에 맞는 자산 자리가 한 결로 모이고, "
+        },
+        {
+          "kind": "tag",
+          "tagId": "stabilityIndex",
+          "label": "안정성지수"
+        },
+        {
+          "kind": "text",
+          "value": "가 받쳐 주는 시기엔 자산 결이 한 단계 깊어지는 자리가 보여요.\n\n"
+        },
+        {
+          "kind": "tag",
+          "tagId": "pyeonjaegyeok",
+          "label": "편재격"
+        },
+        {
+          "kind": "text",
+          "value": "의 결이나 "
+        },
+        {
+          "kind": "tag",
+          "tagId": "jeongjaegyeok",
+          "label": "정재격"
+        },
+        {
+          "kind": "text",
+          "value": "의 결이 또렷한 사주는 자기 격에 맞는 자산 운영 결이 자연스럽게 자리 잡아요."
         }
       ],
       "tags": [
         "jeongjae",
         "geobjae",
-        "stabilityIndex"
+        "stabilityIndex",
+        "jaebakgung",
+        "cheonleulgwiin",
+        "gyeokgukFit",
+        "pyeonjaegyeok",
+        "jeongjaegyeok"
       ],
       "numericalEvidence": [
         {
@@ -672,13 +852,73 @@
         },
         {
           "kind": "text",
-          "value": "의 손실 리스크를 함께 봅니다. 점수가 낮으면 비상금과 계약 검토가 먼저입니다."
+          "value": "의 손실 리스크를 함께 봅니다. 점수가 낮으면 비상금과 계약 검토가 먼저입니다.\n\n"
+        },
+        {
+          "kind": "tag",
+          "tagId": "jaebakgung",
+          "label": "재백궁"
+        },
+        {
+          "kind": "text",
+          "value": "의 결과 "
+        },
+        {
+          "kind": "tag",
+          "tagId": "cheonleulgwiin",
+          "label": "천을귀인"
+        },
+        {
+          "kind": "text",
+          "value": "의 자리가 함께 보이면 도움 받는 흐름이 자기 자산이 되는 사주이니, 작은 도움도 미루지 않는 호흡이 잘 어울려요.\n\n"
+        },
+        {
+          "kind": "tag",
+          "tagId": "gyeokgukFit",
+          "label": "격국적합도"
+        },
+        {
+          "kind": "text",
+          "value": "의 평균이 또렷한 사주는 자기 격에 맞는 자산 자리가 한 결로 모이고, "
+        },
+        {
+          "kind": "tag",
+          "tagId": "stabilityIndex",
+          "label": "안정성지수"
+        },
+        {
+          "kind": "text",
+          "value": "가 받쳐 주는 시기엔 자산 결이 한 단계 깊어지는 자리가 보여요.\n\n"
+        },
+        {
+          "kind": "tag",
+          "tagId": "pyeonjaegyeok",
+          "label": "편재격"
+        },
+        {
+          "kind": "text",
+          "value": "의 결이나 "
+        },
+        {
+          "kind": "tag",
+          "tagId": "jeongjaegyeok",
+          "label": "정재격"
+        },
+        {
+          "kind": "text",
+          "value": "의 결이 또렷한 사주는 자기 격에 맞는 자산 운영 결이 자연스럽게 자리 잡아요."
         }
       ],
       "tags": [
         "jeongjae",
         "pyeonjae",
-        "geobjae"
+        "geobjae",
+        "jaebakgung",
+        "cheonleulgwiin",
+        "gyeokgukFit",
+        "stabilityIndex",
+        "pyeonjaegyeok",
+        "jeongjaegyeok"
       ],
       "numericalEvidence": [
         {

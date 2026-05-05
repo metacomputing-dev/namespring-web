@@ -6,42 +6,140 @@
     {
       "schemaVersion": "spring-ts.narrative-fragment.v1",
       "fragmentId": "romance.thisYear.expert.currentseason.spring_summer.301",
-      "axis": { "category": "romance", "period": "thisYear", "depth": "expert" },
-      "gating": { "currentSeason": ["spring", "summer"], "yongshinAlignment": ["aligned", "neutral", "conflicting"] },
+      "axis": {
+        "category": "romance",
+        "period": "thisYear",
+        "depth": "expert"
+      },
+      "gating": {
+        "currentSeason": [
+          "spring",
+          "summer"
+        ],
+        "yongshinAlignment": [
+          "aligned",
+          "neutral",
+          "conflicting"
+        ]
+      },
       "templateTokens": [
-        { "kind": "text", "value": "연간 연애운에서 봄과 여름의 현재 계절은 관계 진입과 표현의 속도를 높입니다. " },
-        { "kind": "tag", "tagId": "baeujagung", "label": "배우자궁" },
-        { "kind": "text", "value": "의 안정도가 받쳐 주면 만남이 실제 관계로 이어지기 쉽고, " },
-        { "kind": "tag", "tagId": "sajuCompatibility", "label": "사주적합도" },
-        { "kind": "text", "value": "가 낮으면 빠른 호감 이후 조율 비용이 커질 수 있습니다. " },
-        { "kind": "tag", "tagId": "eumyangHarmony", "label": "음양조화도" },
-        { "kind": "text", "value": "를 함께 보아 올해의 관계 확장과 장기 안정성을 분리해 판단하세요." }
+        {
+          "kind": "text",
+          "value": "연간 연애운에서 봄과 여름의 현재 계절은 관계 진입과 표현의 속도를 높입니다.\n\n"
+        },
+        {
+          "kind": "tag",
+          "tagId": "baeujagung",
+          "label": "배우자궁"
+        },
+        {
+          "kind": "text",
+          "value": "의 안정도가 받쳐 주면 만남이 실제 관계로 이어지기 쉽고, "
+        },
+        {
+          "kind": "tag",
+          "tagId": "sajuCompatibility",
+          "label": "사주적합도"
+        },
+        {
+          "kind": "text",
+          "value": "가 낮으면 빠른 호감 이후 조율 비용이 커질 수 있습니다.\n\n"
+        },
+        {
+          "kind": "tag",
+          "tagId": "eumyangHarmony",
+          "label": "음양조화도"
+        },
+        {
+          "kind": "text",
+          "value": "를 함께 보아 올해의 관계 확장과 장기 안정성을 분리해 판단하세요.\n\n"
+        },
+        {
+          "kind": "tag",
+          "tagId": "cheogung",
+          "label": "처궁"
+        },
+        {
+          "kind": "text",
+          "value": "의 결과 "
+        },
+        {
+          "kind": "tag",
+          "tagId": "jasikgung",
+          "label": "자식궁"
+        },
+        {
+          "kind": "text",
+          "value": "의 자리가 함께 살아나는 시기엔 가까운 관계가 한 단계 깊어지는 흐름이 보여요."
+        }
       ],
-      "tags": ["baeujagung", "sajuCompatibility", "eumyangHarmony"],
+      "tags": [
+        "baeujagung",
+        "sajuCompatibility",
+        "eumyangHarmony",
+        "cheogung",
+        "jasikgung"
+      ],
       "numericalEvidence": [
         {
           "label": "연령 단계 순번",
           "valueExpression": "feature.agePhaseOrdinal",
           "unit": "단계",
-          "sourceTier": { "tier": "T3_INTERNAL_ENGINE", "sourceType": "internal_scoring_policy", "sourceUrl": null, "accessedAt": "2026-05-03", "quoteShort": null, "humanInterpretation": "Resolved from deterministic spring-ts runtime output.", "copyrightNote": "No third-party prose copied.", "authorityTruthEligible": false }
+          "sourceTier": {
+            "tier": "T3_INTERNAL_ENGINE",
+            "sourceType": "internal_scoring_policy",
+            "sourceUrl": null,
+            "accessedAt": "2026-05-03",
+            "quoteShort": null,
+            "humanInterpretation": "Resolved from deterministic spring-ts runtime output.",
+            "copyrightNote": "No third-party prose copied.",
+            "authorityTruthEligible": false
+          }
         },
         {
           "label": "신강도 순번",
           "valueExpression": "feature.dayMasterStrengthOrdinal",
           "unit": "단계",
-          "sourceTier": { "tier": "T3_INTERNAL_ENGINE", "sourceType": "internal_scoring_policy", "sourceUrl": null, "accessedAt": "2026-05-03", "quoteShort": null, "humanInterpretation": "Resolved from deterministic spring-ts runtime output.", "copyrightNote": "No third-party prose copied.", "authorityTruthEligible": false }
+          "sourceTier": {
+            "tier": "T3_INTERNAL_ENGINE",
+            "sourceType": "internal_scoring_policy",
+            "sourceUrl": null,
+            "accessedAt": "2026-05-03",
+            "quoteShort": null,
+            "humanInterpretation": "Resolved from deterministic spring-ts runtime output.",
+            "copyrightNote": "No third-party prose copied.",
+            "authorityTruthEligible": false
+          }
         },
         {
           "label": "출생 계절 순번",
           "valueExpression": "feature.birthSeasonOrdinal",
           "unit": "단계",
-          "sourceTier": { "tier": "T3_INTERNAL_ENGINE", "sourceType": "internal_scoring_policy", "sourceUrl": null, "accessedAt": "2026-05-03", "quoteShort": null, "humanInterpretation": "Resolved from deterministic spring-ts runtime output.", "copyrightNote": "No third-party prose copied.", "authorityTruthEligible": false }
+          "sourceTier": {
+            "tier": "T3_INTERNAL_ENGINE",
+            "sourceType": "internal_scoring_policy",
+            "sourceUrl": null,
+            "accessedAt": "2026-05-03",
+            "quoteShort": null,
+            "humanInterpretation": "Resolved from deterministic spring-ts runtime output.",
+            "copyrightNote": "No third-party prose copied.",
+            "authorityTruthEligible": false
+          }
         },
         {
           "label": "현재 계절 순번",
           "valueExpression": "feature.currentSeasonOrdinal",
           "unit": "단계",
-          "sourceTier": { "tier": "T3_INTERNAL_ENGINE", "sourceType": "internal_scoring_policy", "sourceUrl": null, "accessedAt": "2026-05-03", "quoteShort": null, "humanInterpretation": "Resolved from deterministic spring-ts runtime output.", "copyrightNote": "No third-party prose copied.", "authorityTruthEligible": false }
+          "sourceTier": {
+            "tier": "T3_INTERNAL_ENGINE",
+            "sourceType": "internal_scoring_policy",
+            "sourceUrl": null,
+            "accessedAt": "2026-05-03",
+            "quoteShort": null,
+            "humanInterpretation": "Resolved from deterministic spring-ts runtime output.",
+            "copyrightNote": "No third-party prose copied.",
+            "authorityTruthEligible": false
+          }
         }
       ],
       "aiGenerated": true,
@@ -59,18 +157,70 @@
     {
       "schemaVersion": "spring-ts.narrative-fragment.v1",
       "fragmentId": "romance.thisYear.expert.currentseason.autumn_winter.301",
-      "axis": { "category": "romance", "period": "thisYear", "depth": "expert" },
-      "gating": { "currentSeason": ["autumn", "winter"], "yongshinAlignment": ["aligned", "neutral", "conflicting"] },
+      "axis": {
+        "category": "romance",
+        "period": "thisYear",
+        "depth": "expert"
+      },
+      "gating": {
+        "currentSeason": [
+          "autumn",
+          "winter"
+        ],
+        "yongshinAlignment": [
+          "aligned",
+          "neutral",
+          "conflicting"
+        ]
+      },
       "templateTokens": [
-        { "kind": "text", "value": "연간 연애운에서 가을과 겨울의 현재 계절은 새 인연의 속도보다 관계 검증과 유지력을 중시합니다. " },
-        { "kind": "tag", "tagId": "baeujagung", "label": "배우자궁" },
-        { "kind": "text", "value": "의 흔들림은 장기 약속의 부담으로 나타날 수 있으므로, " },
-        { "kind": "tag", "tagId": "sajuCompatibility", "label": "사주적합도" },
-        { "kind": "text", "value": "와 생활 리듬의 충돌 여부를 먼저 보아야 합니다. " },
-        { "kind": "tag", "tagId": "eumyangHarmony", "label": "음양조화도" },
-        { "kind": "text", "value": "가 안정적이면 느린 관계도 올해 안에 신뢰로 굳어질 수 있습니다." }
+        {
+          "kind": "text",
+          "value": "연간 연애운에서 가을과 겨울의 현재 계절은 새 인연의 속도보다 관계 검증과 유지력을 중시합니다.\n\n"
+        },
+        {
+          "kind": "tag",
+          "tagId": "baeujagung",
+          "label": "배우자궁"
+        },
+        {
+          "kind": "text",
+          "value": "의 흔들림은 장기 약속의 부담으로 나타날 수 있으므로, "
+        },
+        {
+          "kind": "tag",
+          "tagId": "sajuCompatibility",
+          "label": "사주적합도"
+        },
+        {
+          "kind": "text",
+          "value": "와 생활 리듬의 충돌 여부를 먼저 보아야 합니다.\n\n"
+        },
+        {
+          "kind": "tag",
+          "tagId": "eumyangHarmony",
+          "label": "음양조화도"
+        },
+        {
+          "kind": "text",
+          "value": "가 안정적이면 느린 관계도 올해 안에 신뢰로 굳어질 수 있습니다.\n\n"
+        },
+        {
+          "kind": "tag",
+          "tagId": "cheonleulgwiin",
+          "label": "천을귀인"
+        },
+        {
+          "kind": "text",
+          "value": "의 결이 보이면 인연 자리에서도 부드러운 도움을 받는 흐름이 자기 자산이 되어 줘요."
+        }
       ],
-      "tags": ["baeujagung", "sajuCompatibility", "eumyangHarmony"],
+      "tags": [
+        "baeujagung",
+        "sajuCompatibility",
+        "eumyangHarmony",
+        "cheonleulgwiin"
+      ],
       "aiGenerated": true,
       "sourceTier": {
         "tier": "T1_HYPOTHESIS",

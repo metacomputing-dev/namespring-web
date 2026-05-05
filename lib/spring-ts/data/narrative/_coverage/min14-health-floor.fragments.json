@@ -382,7 +382,7 @@
         },
         {
           "kind": "text",
-          "value": " 균형과 회복 리듬을 먼저 봅니다. "
+          "value": " 균형과 회복 리듬을 먼저 봅니다.\n\n"
         },
         {
           "kind": "tag",
@@ -400,13 +400,55 @@
         },
         {
           "kind": "text",
-          "value": " 방향이 맞으면 생활 습관이 건강 기반으로 쌓입니다."
+          "value": " 방향이 맞으면 생활 습관이 건강 기반으로 쌓입니다.\n\n"
+        },
+        {
+          "kind": "tag",
+          "tagId": "eumyangHarmony",
+          "label": "음양조화도"
+        },
+        {
+          "kind": "text",
+          "value": "의 평균이 또렷한 사주는 "
+        },
+        {
+          "kind": "tag",
+          "tagId": "stabilityIndex",
+          "label": "안정성지수"
+        },
+        {
+          "kind": "text",
+          "value": "도 함께 단단해지는 자리라, 큰 결정보다 작은 회복 습관이 평생의 무기가 돼요.\n\n"
+        },
+        {
+          "kind": "text",
+          "value": "몸의 흐름은 "
+        },
+        {
+          "kind": "tag",
+          "tagId": "johu",
+          "label": "조후"
+        },
+        {
+          "kind": "text",
+          "value": "의 균형과 "
+        },
+        {
+          "kind": "tag",
+          "tagId": "jeongin",
+          "label": "정인"
+        },
+        {
+          "kind": "text",
+          "value": "의 돌봄 자산이 함께 챙겨질 때 한층 부드러워지고, 무리한 회복보다 작은 회복의 반복이 자기 페이스에 잘 맞아요."
         }
       ],
       "tags": [
         "johu",
         "jeongin",
-        "yongshin"
+        "yongshin",
+        "eumyangHarmony",
+        "stabilityIndex"
       ],
       "numericalEvidence": [
         {
@@ -454,7 +496,7 @@
       "templateTokens": [
         {
           "kind": "text",
-          "value": "장기 건강 흐름에서 일간이 강하면 에너지는 충분하지만 과사용을 봐야 합니다. "
+          "value": "장기 건강 흐름에서 일간이 강하면 에너지는 충분하지만 과사용을 봐야 합니다.\n\n"
         },
         {
           "kind": "tag",
@@ -481,13 +523,53 @@
         },
         {
           "kind": "text",
-          "value": "를 함께 보아 무리와 회복의 간격을 판단합니다."
+          "value": "를 함께 보아 무리와 회복의 간격을 판단합니다.\n\n"
+        },
+        {
+          "kind": "tag",
+          "tagId": "johuYongshin",
+          "label": "조후용신"
+        },
+        {
+          "kind": "text",
+          "value": "의 결이 또렷한 사주는 "
+        },
+        {
+          "kind": "tag",
+          "tagId": "johu",
+          "label": "조후"
+        },
+        {
+          "kind": "text",
+          "value": "의 균형이 컨디션을 만드는 가장 큰 축이라, 계절의 결을 따라 자기 페이스를 맞춰 두는 호흡이 잘 어울려요.\n\n"
+        },
+        {
+          "kind": "tag",
+          "tagId": "jisal",
+          "label": "지살"
+        },
+        {
+          "kind": "text",
+          "value": "의 결이 보일 때는 잠깐의 환경 변화가 컨디션을 환기시키고, "
+        },
+        {
+          "kind": "tag",
+          "tagId": "cheonui",
+          "label": "천의"
+        },
+        {
+          "kind": "text",
+          "value": "의 자리는 의료·치유 흐름의 도움을 부드럽게 받게 해 줘요."
         }
       ],
       "tags": [
         "fire",
         "water",
-        "stabilityIndex"
+        "stabilityIndex",
+        "johuYongshin",
+        "johu",
+        "jisal",
+        "cheonui"
       ],
       "numericalEvidence": [
         {
@@ -544,7 +626,7 @@
         },
         {
           "kind": "text",
-          "value": " 흐름이 받쳐줄 때 회복 루틴을 강화하는 쪽으로 봅니다. "
+          "value": " 흐름이 받쳐줄 때 회복 루틴을 강화하는 쪽으로 봅니다.\n\n"
         },
         {
           "kind": "tag",
@@ -562,13 +644,52 @@
         },
         {
           "kind": "text",
-          "value": "는 온도와 건조함의 치우침을 판단하는 축입니다."
+          "value": "는 온도와 건조함의 치우침을 판단하는 축입니다.\n\n"
+        },
+        {
+          "kind": "tag",
+          "tagId": "johuYongshin",
+          "label": "조후용신"
+        },
+        {
+          "kind": "text",
+          "value": "의 결이 또렷한 사주는 "
+        },
+        {
+          "kind": "tag",
+          "tagId": "johu",
+          "label": "조후"
+        },
+        {
+          "kind": "text",
+          "value": "의 균형이 컨디션을 만드는 가장 큰 축이라, 계절의 결을 따라 자기 페이스를 맞춰 두는 호흡이 잘 어울려요.\n\n"
+        },
+        {
+          "kind": "tag",
+          "tagId": "jisal",
+          "label": "지살"
+        },
+        {
+          "kind": "text",
+          "value": "의 결이 보일 때는 잠깐의 환경 변화가 컨디션을 환기시키고, "
+        },
+        {
+          "kind": "tag",
+          "tagId": "cheonui",
+          "label": "천의"
+        },
+        {
+          "kind": "text",
+          "value": "의 자리는 의료·치유 흐름의 도움을 부드럽게 받게 해 줘요."
         }
       ],
       "tags": [
         "yongshin",
         "jeongin",
-        "johu"
+        "johu",
+        "johuYongshin",
+        "jisal",
+        "cheonui"
       ],
       "numericalEvidence": [
         {
@@ -624,7 +745,7 @@
         },
         {
           "kind": "text",
-          "value": " 충돌이 보이면 과로와 회복 지연을 먼저 봅니다. "
+          "value": " 충돌이 보이면 과로와 회복 지연을 먼저 봅니다.\n\n"
         },
         {
           "kind": "tag",
@@ -642,13 +763,57 @@
         },
         {
           "kind": "text",
-          "value": "가 부족하면 진정과 휴식의 약화를 함께 점검합니다."
+          "value": "가 부족하면 진정과 휴식의 약화를 함께 점검합니다.\n\n"
+        },
+        {
+          "kind": "tag",
+          "tagId": "eumyangHarmony",
+          "label": "음양조화도"
+        },
+        {
+          "kind": "text",
+          "value": "의 평균이 또렷한 사주는 "
+        },
+        {
+          "kind": "tag",
+          "tagId": "stabilityIndex",
+          "label": "안정성지수"
+        },
+        {
+          "kind": "text",
+          "value": "도 함께 단단해지는 자리라, 큰 결정보다 작은 회복 습관이 평생의 무기가 돼요.\n\n"
+        },
+        {
+          "kind": "text",
+          "value": "몸의 흐름은 "
+        },
+        {
+          "kind": "tag",
+          "tagId": "johu",
+          "label": "조후"
+        },
+        {
+          "kind": "text",
+          "value": "의 균형과 "
+        },
+        {
+          "kind": "tag",
+          "tagId": "jeongin",
+          "label": "정인"
+        },
+        {
+          "kind": "text",
+          "value": "의 돌봄 자산이 함께 챙겨질 때 한층 부드러워지고, 무리한 회복보다 작은 회복의 반복이 자기 페이스에 잘 맞아요."
         }
       ],
       "tags": [
         "yongshin",
         "fire",
-        "water"
+        "water",
+        "eumyangHarmony",
+        "stabilityIndex",
+        "johu",
+        "jeongin"
       ],
       "numericalEvidence": [
         {
@@ -705,7 +870,7 @@
         },
         {
           "kind": "text",
-          "value": " 조절을 함께 봅니다. "
+          "value": " 조절을 함께 봅니다.\n\n"
         },
         {
           "kind": "tag",
@@ -723,13 +888,52 @@
         },
         {
           "kind": "text",
-          "value": "의 진정 리듬을 보강하는 해석이 맞습니다."
+          "value": "의 진정 리듬을 보강하는 해석이 맞습니다.\n\n"
+        },
+        {
+          "kind": "tag",
+          "tagId": "johuYongshin",
+          "label": "조후용신"
+        },
+        {
+          "kind": "text",
+          "value": "의 결이 또렷한 사주는 "
+        },
+        {
+          "kind": "tag",
+          "tagId": "johu",
+          "label": "조후"
+        },
+        {
+          "kind": "text",
+          "value": "의 균형이 컨디션을 만드는 가장 큰 축이라, 계절의 결을 따라 자기 페이스를 맞춰 두는 호흡이 잘 어울려요.\n\n"
+        },
+        {
+          "kind": "tag",
+          "tagId": "jisal",
+          "label": "지살"
+        },
+        {
+          "kind": "text",
+          "value": "의 결이 보일 때는 잠깐의 환경 변화가 컨디션을 환기시키고, "
+        },
+        {
+          "kind": "tag",
+          "tagId": "cheonui",
+          "label": "천의"
+        },
+        {
+          "kind": "text",
+          "value": "의 자리는 의료·치유 흐름의 도움을 부드럽게 받게 해 줘요."
         }
       ],
       "tags": [
         "johu",
         "fire",
-        "water"
+        "water",
+        "johuYongshin",
+        "jisal",
+        "cheonui"
       ],
       "numericalEvidence": [
         {
@@ -795,7 +999,7 @@
         },
         {
           "kind": "text",
-          "value": "이 살아나면 휴식과 도움을 받아들이는 힘이 커집니다. "
+          "value": "이 살아나면 휴식과 도움을 받아들이는 힘이 커집니다.\n\n"
         },
         {
           "kind": "tag",
@@ -804,13 +1008,52 @@
         },
         {
           "kind": "text",
-          "value": "가 낮을수록 무리한 일정은 줄여야 합니다."
+          "value": "가 낮을수록 무리한 일정은 줄여야 합니다.\n\n"
+        },
+        {
+          "kind": "tag",
+          "tagId": "jisal",
+          "label": "지살"
+        },
+        {
+          "kind": "text",
+          "value": "의 결이 보일 때는 잠깐의 환경 변화가 컨디션을 환기시키고, "
+        },
+        {
+          "kind": "tag",
+          "tagId": "cheonui",
+          "label": "천의"
+        },
+        {
+          "kind": "text",
+          "value": "의 자리는 의료·치유 흐름의 도움을 부드럽게 받게 해 줘요.\n\n"
+        },
+        {
+          "kind": "tag",
+          "tagId": "eumyangHarmony",
+          "label": "음양조화도"
+        },
+        {
+          "kind": "text",
+          "value": "의 평균이 또렷한 사주는 "
+        },
+        {
+          "kind": "tag",
+          "tagId": "stabilityIndex",
+          "label": "안정성지수"
+        },
+        {
+          "kind": "text",
+          "value": "도 함께 단단해지는 자리라, 큰 결정보다 작은 회복 습관이 평생의 무기가 돼요."
         }
       ],
       "tags": [
         "earth",
         "jeongin",
-        "stabilityIndex"
+        "stabilityIndex",
+        "jisal",
+        "cheonui",
+        "eumyangHarmony"
       ],
       "numericalEvidence": [
         {
@@ -867,7 +1110,7 @@
         },
         {
           "kind": "text",
-          "value": " 보강이 생활 습관으로 연결되는지 봅니다. "
+          "value": " 보강이 생활 습관으로 연결되는지 봅니다.\n\n"
         },
         {
           "kind": "tag",
@@ -885,13 +1128,55 @@
         },
         {
           "kind": "text",
-          "value": "은 정기 관리와 보호 루틴의 근거가 됩니다."
+          "value": "은 정기 관리와 보호 루틴의 근거가 됩니다.\n\n"
+        },
+        {
+          "kind": "tag",
+          "tagId": "eumyangHarmony",
+          "label": "음양조화도"
+        },
+        {
+          "kind": "text",
+          "value": "의 평균이 또렷한 사주는 "
+        },
+        {
+          "kind": "tag",
+          "tagId": "stabilityIndex",
+          "label": "안정성지수"
+        },
+        {
+          "kind": "text",
+          "value": "도 함께 단단해지는 자리라, 큰 결정보다 작은 회복 습관이 평생의 무기가 돼요.\n\n"
+        },
+        {
+          "kind": "text",
+          "value": "몸의 흐름은 "
+        },
+        {
+          "kind": "tag",
+          "tagId": "johu",
+          "label": "조후"
+        },
+        {
+          "kind": "text",
+          "value": "의 균형과 "
+        },
+        {
+          "kind": "tag",
+          "tagId": "jeongin",
+          "label": "정인"
+        },
+        {
+          "kind": "text",
+          "value": "의 돌봄 자산이 함께 챙겨질 때 한층 부드러워지고, 무리한 회복보다 작은 회복의 반복이 자기 페이스에 잘 맞아요."
         }
       ],
       "tags": [
         "yongshin",
         "johu",
-        "jeongin"
+        "jeongin",
+        "eumyangHarmony",
+        "stabilityIndex"
       ],
       "numericalEvidence": [
         {
@@ -962,7 +1247,7 @@
         },
         {
           "kind": "text",
-          "value": " 충돌이 있으면 체력 소모와 회복 지연을 같이 봅니다. "
+          "value": " 충돌이 있으면 체력 소모와 회복 지연을 같이 봅니다.\n\n"
         },
         {
           "kind": "tag",
@@ -989,14 +1274,53 @@
         },
         {
           "kind": "text",
-          "value": "를 보수적으로 해석합니다."
+          "value": "를 보수적으로 해석합니다.\n\n"
+        },
+        {
+          "kind": "tag",
+          "tagId": "jisal",
+          "label": "지살"
+        },
+        {
+          "kind": "text",
+          "value": "의 결이 보일 때는 잠깐의 환경 변화가 컨디션을 환기시키고, "
+        },
+        {
+          "kind": "tag",
+          "tagId": "cheonui",
+          "label": "천의"
+        },
+        {
+          "kind": "text",
+          "value": "의 자리는 의료·치유 흐름의 도움을 부드럽게 받게 해 줘요.\n\n"
+        },
+        {
+          "kind": "tag",
+          "tagId": "eumyangHarmony",
+          "label": "음양조화도"
+        },
+        {
+          "kind": "text",
+          "value": "의 평균이 또렷한 사주는 "
+        },
+        {
+          "kind": "tag",
+          "tagId": "stabilityIndex",
+          "label": "안정성지수"
+        },
+        {
+          "kind": "text",
+          "value": "도 함께 단단해지는 자리라, 큰 결정보다 작은 회복 습관이 평생의 무기가 돼요."
         }
       ],
       "tags": [
         "yongshin",
         "fire",
         "water",
-        "stabilityIndex"
+        "stabilityIndex",
+        "jisal",
+        "cheonui",
+        "eumyangHarmony"
       ],
       "numericalEvidence": [
         {
