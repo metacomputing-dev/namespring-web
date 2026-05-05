@@ -196,7 +196,7 @@ function buildSummary(saju: SajuSummary, stars: StarRating): string {
   if (hedgeYongshin) {
     parts.push(`${yongshinFriendly} 기운은 중요한 보완 후보지만, 다른 보조 기운과 함께 살펴보면 더 안전해요.`);
   } else {
-    parts.push(`${yongshinFriendly} 기운을 가까이하면 삶의 결이 한층 부드러워질 수 있어요.`);
+    parts.push(`${yongshinFriendly} 기운을 가까이하면 삶의 호흡이 한층 부드러워져요.`);
   }
 
   // Deficiency note
@@ -292,7 +292,7 @@ export function buildLifeFortuneOverviewCard(saju: SajuSummary): LifeFortuneOver
         ...(heeshinKorean ? [`희신: ${heeshinKorean}`] : []),
       ],
       weakness: isHedged
-        ? '용신 신뢰도가 낮은 편이라 차트에 따라 다른 보조 해석이 더 적합할 수 있어요.'
+        ? '용신 신뢰도가 낮은 편이라 조후·통관 같은 보조 해석을 함께 살펴보면 더 안전해요.'
         : undefined,
       strength: yongshinTier,
     });
