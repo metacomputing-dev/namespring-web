@@ -700,7 +700,7 @@
         {
           "kind": "tag",
           "tagId": "stabilityIndex",
-          "label": "안정 지표"
+          "label": "안정성지수"
         },
         {
           "kind": "text",
@@ -821,7 +821,7 @@
         {
           "kind": "tag",
           "tagId": "stabilityIndex",
-          "label": "안정 지표"
+          "label": "안정성지수"
         },
         {
           "kind": "text",
@@ -943,7 +943,7 @@
         {
           "kind": "tag",
           "tagId": "stabilityIndex",
-          "label": "안정 지표"
+          "label": "안정성지수"
         },
         {
           "kind": "text",

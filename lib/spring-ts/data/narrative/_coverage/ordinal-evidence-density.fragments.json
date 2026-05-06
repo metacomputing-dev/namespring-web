@@ -20,7 +20,7 @@
         {
           "kind": "tag",
           "tagId": "sajuCompatibility",
-          "label": "사주 적합도"
+          "label": "사주적합도"
         },
         {
           "kind": "text",
@@ -29,7 +29,7 @@
         {
           "kind": "tag",
           "tagId": "eumyangHarmony",
-          "label": "음양 조화"
+          "label": "음양조화도"
         },
         {
           "kind": "text",
@@ -148,7 +148,7 @@
         {
           "kind": "tag",
           "tagId": "sajuCompatibility",
-          "label": "사주 적합도"
+          "label": "사주적합도"
         },
         {
           "kind": "text",
@@ -157,7 +157,7 @@
         {
           "kind": "tag",
           "tagId": "eumyangHarmony",
-          "label": "음양 조화"
+          "label": "음양조화도"
         },
         {
           "kind": "text",
@@ -256,7 +256,7 @@
         {
           "kind": "tag",
           "tagId": "sajuCompatibility",
-          "label": "사주 적합도"
+          "label": "사주적합도"
         },
         {
           "kind": "text",
@@ -265,7 +265,7 @@
         {
           "kind": "tag",
           "tagId": "eumyangHarmony",
-          "label": "음양 조화"
+          "label": "음양조화도"
         },
         {
           "kind": "text",
@@ -397,7 +397,7 @@
         {
           "kind": "tag",
           "tagId": "ohaengBalance",
-          "label": "오행 균형"
+          "label": "오행균형도"
         },
         {
           "kind": "text",
@@ -509,7 +509,7 @@
         {
           "kind": "tag",
           "tagId": "ohaengBalance",
-          "label": "오행 균형"
+          "label": "오행균형도"
         },
         {
           "kind": "text",
@@ -625,7 +625,7 @@
         {
           "kind": "tag",
           "tagId": "ohaengBalance",
-          "label": "오행 균형"
+          "label": "오행균형도"
         },
         {
           "kind": "text",
@@ -741,7 +741,7 @@
         {
           "kind": "tag",
           "tagId": "ohaengBalance",
-          "label": "오행 균형"
+          "label": "오행균형도"
         },
         {
           "kind": "text",
@@ -857,7 +857,7 @@
         {
           "kind": "tag",
           "tagId": "ohaengBalance",
-          "label": "오행 균형"
+          "label": "오행균형도"
         },
         {
           "kind": "text",
@@ -973,7 +973,7 @@
         {
           "kind": "tag",
           "tagId": "yongshinFit",
-          "label": "용신 부합도"
+          "label": "용신부합도"
         },
         {
           "kind": "text",
@@ -1089,7 +1089,7 @@
         {
           "kind": "tag",
           "tagId": "yongshinFit",
-          "label": "용신 부합도"
+          "label": "용신부합도"
         },
         {
           "kind": "text",
@@ -1201,7 +1201,7 @@
         {
           "kind": "tag",
           "tagId": "yongshinFit",
-          "label": "용신 부합도"
+          "label": "용신부합도"
         },
         {
           "kind": "text",
@@ -1317,7 +1317,7 @@
         {
           "kind": "tag",
           "tagId": "yongshinFit",
-          "label": "용신 부합도"
+          "label": "용신부합도"
         },
         {
           "kind": "text",
@@ -1433,7 +1433,7 @@
         {
           "kind": "tag",
           "tagId": "yongshinFit",
-          "label": "용신 부합도"
+          "label": "용신부합도"
         },
         {
           "kind": "text",
@@ -1549,7 +1549,7 @@
         {
           "kind": "tag",
           "tagId": "gyeokgukFit",
-          "label": "격국 적합도"
+          "label": "격국적합도"
         },
         {
           "kind": "text",
@@ -1665,7 +1665,7 @@
         {
           "kind": "tag",
           "tagId": "gyeokgukFit",
-          "label": "격국 적합도"
+          "label": "격국적합도"
         },
         {
           "kind": "text",
@@ -1776,7 +1776,7 @@
         {
           "kind": "tag",
           "tagId": "gyeokgukFit",
-          "label": "격국 적합도"
+          "label": "격국적합도"
         },
         {
           "kind": "text",
@@ -1887,7 +1887,7 @@
         {
           "kind": "tag",
           "tagId": "gyeokgukFit",
-          "label": "격국 적합도"
+          "label": "격국적합도"
         },
         {
           "kind": "text",
@@ -1998,7 +1998,7 @@
         {
           "kind": "tag",
           "tagId": "gyeokgukFit",
-          "label": "격국 적합도"
+          "label": "격국적합도"
         },
         {
           "kind": "text",
@@ -2109,7 +2109,7 @@
         {
           "kind": "tag",
           "tagId": "gyeokgukFit",
-          "label": "격국 적합도"
+          "label": "격국적합도"
         },
         {
           "kind": "text",

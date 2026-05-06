@@ -848,7 +848,7 @@
         {
           "kind": "tag",
           "tagId": "yongshinFit",
-          "label": "용신적합도"
+          "label": "용신부합도"
         },
         {
           "kind": "text",
