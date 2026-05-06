@@ -309,7 +309,39 @@
         "humanInterpretation": "Phase 2 health expert life — extreme weak day master. Display-only narrative.",
         "copyrightNote": "No source prose copied; original interpretation.",
         "authorityTruthEligible": false
-      }
+      },
+      "numericalEvidence": [
+        {
+          "label": "흙 개수",
+          "valueExpression": "feature.earthCount",
+          "unit": "개",
+          "sourceTier": {
+            "tier": "T3_INTERNAL_ENGINE",
+            "sourceType": "internal_scoring_policy",
+            "sourceUrl": null,
+            "accessedAt": "2026-05-02",
+            "quoteShort": null,
+            "humanInterpretation": "Resolved from deterministic spring-ts runtime output.",
+            "copyrightNote": "No third-party prose copied.",
+            "authorityTruthEligible": false
+          }
+        },
+        {
+          "label": "부족 오행 수",
+          "valueExpression": "feature.deficientElementCount",
+          "unit": "개",
+          "sourceTier": {
+            "tier": "T3_INTERNAL_ENGINE",
+            "sourceType": "internal_scoring_policy",
+            "sourceUrl": null,
+            "accessedAt": "2026-05-02",
+            "quoteShort": null,
+            "humanInterpretation": "Resolved from deterministic spring-ts runtime output.",
+            "copyrightNote": "No third-party prose copied.",
+            "authorityTruthEligible": false
+          }
+        }
+      ]
     },
     {
       "schemaVersion": "spring-ts.narrative-fragment.v1",
@@ -508,7 +540,54 @@
         "humanInterpretation": "Phase 2 health expert life — fire day master, johu balance. Display-only narrative.",
         "copyrightNote": "No source prose copied; original interpretation.",
         "authorityTruthEligible": false
-      }
+      },
+      "numericalEvidence": [
+        {
+          "label": "불 개수",
+          "valueExpression": "feature.fireCount",
+          "unit": "개",
+          "sourceTier": {
+            "tier": "T3_INTERNAL_ENGINE",
+            "sourceType": "internal_scoring_policy",
+            "sourceUrl": null,
+            "accessedAt": "2026-05-02",
+            "quoteShort": null,
+            "humanInterpretation": "Resolved from deterministic spring-ts runtime output.",
+            "copyrightNote": "No third-party prose copied.",
+            "authorityTruthEligible": false
+          }
+        },
+        {
+          "label": "물 개수",
+          "valueExpression": "feature.waterCount",
+          "unit": "개",
+          "sourceTier": {
+            "tier": "T3_INTERNAL_ENGINE",
+            "sourceType": "internal_scoring_policy",
+            "sourceUrl": null,
+            "accessedAt": "2026-05-02",
+            "quoteShort": null,
+            "humanInterpretation": "Resolved from deterministic spring-ts runtime output.",
+            "copyrightNote": "No third-party prose copied.",
+            "authorityTruthEligible": false
+          }
+        },
+        {
+          "label": "과다 오행 수",
+          "valueExpression": "feature.excessiveElementCount",
+          "unit": "개",
+          "sourceTier": {
+            "tier": "T3_INTERNAL_ENGINE",
+            "sourceType": "internal_scoring_policy",
+            "sourceUrl": null,
+            "accessedAt": "2026-05-02",
+            "quoteShort": null,
+            "humanInterpretation": "Resolved from deterministic spring-ts runtime output.",
+            "copyrightNote": "No third-party prose copied.",
+            "authorityTruthEligible": false
+          }
+        }
+      ]
     },
     {
       "schemaVersion": "spring-ts.narrative-fragment.v1",
@@ -581,7 +660,54 @@
         "humanInterpretation": "Phase 2 health expert life — water day master, johu balance. Display-only narrative.",
         "copyrightNote": "No source prose copied; original interpretation.",
         "authorityTruthEligible": false
-      }
+      },
+      "numericalEvidence": [
+        {
+          "label": "물 개수",
+          "valueExpression": "feature.waterCount",
+          "unit": "개",
+          "sourceTier": {
+            "tier": "T3_INTERNAL_ENGINE",
+            "sourceType": "internal_scoring_policy",
+            "sourceUrl": null,
+            "accessedAt": "2026-05-02",
+            "quoteShort": null,
+            "humanInterpretation": "Resolved from deterministic spring-ts runtime output.",
+            "copyrightNote": "No third-party prose copied.",
+            "authorityTruthEligible": false
+          }
+        },
+        {
+          "label": "흙 개수",
+          "valueExpression": "feature.earthCount",
+          "unit": "개",
+          "sourceTier": {
+            "tier": "T3_INTERNAL_ENGINE",
+            "sourceType": "internal_scoring_policy",
+            "sourceUrl": null,
+            "accessedAt": "2026-05-02",
+            "quoteShort": null,
+            "humanInterpretation": "Resolved from deterministic spring-ts runtime output.",
+            "copyrightNote": "No third-party prose copied.",
+            "authorityTruthEligible": false
+          }
+        },
+        {
+          "label": "과다 오행 수",
+          "valueExpression": "feature.excessiveElementCount",
+          "unit": "개",
+          "sourceTier": {
+            "tier": "T3_INTERNAL_ENGINE",
+            "sourceType": "internal_scoring_policy",
+            "sourceUrl": null,
+            "accessedAt": "2026-05-02",
+            "quoteShort": null,
+            "humanInterpretation": "Resolved from deterministic spring-ts runtime output.",
+            "copyrightNote": "No third-party prose copied.",
+            "authorityTruthEligible": false
+          }
+        }
+      ]
     },
     {
       "schemaVersion": "spring-ts.narrative-fragment.v1",
@@ -644,7 +770,39 @@
         "humanInterpretation": "Phase 2 health expert life — balanced day master. Display-only narrative.",
         "copyrightNote": "No source prose copied; original interpretation.",
         "authorityTruthEligible": false
-      }
+      },
+      "numericalEvidence": [
+        {
+          "label": "나무 개수",
+          "valueExpression": "feature.woodCount",
+          "unit": "개",
+          "sourceTier": {
+            "tier": "T3_INTERNAL_ENGINE",
+            "sourceType": "internal_scoring_policy",
+            "sourceUrl": null,
+            "accessedAt": "2026-05-02",
+            "quoteShort": null,
+            "humanInterpretation": "Resolved from deterministic spring-ts runtime output.",
+            "copyrightNote": "No third-party prose copied.",
+            "authorityTruthEligible": false
+          }
+        },
+        {
+          "label": "쇠 개수",
+          "valueExpression": "feature.metalCount",
+          "unit": "개",
+          "sourceTier": {
+            "tier": "T3_INTERNAL_ENGINE",
+            "sourceType": "internal_scoring_policy",
+            "sourceUrl": null,
+            "accessedAt": "2026-05-02",
+            "quoteShort": null,
+            "humanInterpretation": "Resolved from deterministic spring-ts runtime output.",
+            "copyrightNote": "No third-party prose copied.",
+            "authorityTruthEligible": false
+          }
+        }
+      ]
     },
     {
       "schemaVersion": "spring-ts.narrative-fragment.v1",
