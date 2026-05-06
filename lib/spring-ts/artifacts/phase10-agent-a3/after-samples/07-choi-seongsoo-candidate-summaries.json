@@ -1,0 +1,598 @@
+{
+  "generatedAt": "2026-05-06T02:12:28.282Z",
+  "targetDate": "2026-05-05T00:00:00+09:00",
+  "sampleId": "choi-seongsoo-candidate-summaries",
+  "description": "UI 추천 목록 렌더링용 샘플: 점수 벡터와 공개 표시 안전 후보 필터를 함께 확인하는 케이스.",
+  "call": "getNameCandidateSummaries",
+  "request": {
+    "birth": {
+      "year": 1986,
+      "month": 4,
+      "day": 19,
+      "hour": 5,
+      "minute": 45,
+      "gender": "male",
+      "calendarType": "solar",
+      "region": "서울",
+      "birthPlace": "서울"
+    },
+    "surname": [
+      {
+        "hangul": "최",
+        "hanja": "崔"
+      }
+    ],
+    "givenNameLength": 2,
+    "mode": "recommend",
+    "options": {
+      "limit": 5,
+      "sajuTimePolicy": {
+        "yaza": "on",
+        "yazaMode": "23:00",
+        "trueSolarTime": "on",
+        "longitudeCorrection": "on"
+      },
+      "precisionConfig": {
+        "surfaceNamingScoreVector": true,
+        "surfaceNameTrend": true,
+        "surfacePhoneticEvidence": true
+      }
+    }
+  },
+  "payload": [
+    {
+      "finalScore": 81,
+      "scoreVector": {
+        "legal": 75,
+        "sajuFit": 84.6,
+        "yongshinFit": 55.3,
+        "elementBalance": 78.8,
+        "hanjaMeaning": 100,
+        "phonetic": 100,
+        "eraFit": null,
+        "familyFit": 100,
+        "risk": 25
+      },
+      "strengthProfile": {
+        "id": "phonetic_stability",
+        "label": "발음 안정형",
+        "primaryAxis": "phonetic",
+        "reasons": [
+          "발음 흐름 100점",
+          "성과 이름 연결 100점",
+          "주의 신호 안정도 75점"
+        ],
+        "displayReasons": [
+          "발음 흐름 100점",
+          "성과 이름 연결 100점",
+          "주의 신호 안정도 75점"
+        ],
+        "paretoFrontier": false
+      },
+      "fullHangul": "최이수",
+      "fullHanja": "崔理琇",
+      "givenHangul": "이수",
+      "givenName": [
+        {
+          "hangul": "이",
+          "hanja": "理",
+          "meaning": "다스릴 리, 성품 리",
+          "strokes": 12,
+          "element": "Metal",
+          "elementLabel": "쇠",
+          "legalStatus": "unknown"
+        },
+        {
+          "hangul": "수",
+          "hanja": "琇",
+          "meaning": "옥돌 수, 귀막이 수",
+          "strokes": 12,
+          "element": "Metal",
+          "elementLabel": "쇠",
+          "legalStatus": "unknown"
+        }
+      ],
+      "popularityRank": 139,
+      "maleRatio": 0.5126943005181347,
+      "nameGender": "male",
+      "nameTrend": {
+        "givenHangul": "이수",
+        "gender": "male",
+        "birthYear": 1986,
+        "matchedYear": null,
+        "latestYear": 2024,
+        "trendFit": null,
+        "trendRisk": null,
+        "eraFitScore": null,
+        "status": "unknown",
+        "evidence": [
+          "공식 표본이 2008년부터 시작되어 그 이전 출생연도는 분석 범위 밖이에요."
+        ],
+        "sourceTier": "T5_OFFICIAL",
+        "authorityTruthEligible": true
+      },
+      "phonetic": {
+        "fullHangul": "최이수",
+        "surnameHangul": "최",
+        "givenHangul": "이수",
+        "phoneticScore": 100,
+        "transitionScore": 100,
+        "familyNameFitScore": 100,
+        "status": "smooth",
+        "transitions": [
+          {
+            "from": "최",
+            "to": "이",
+            "boundary": "surname_given",
+            "score": 100,
+            "risk": "low",
+            "signals": []
+          },
+          {
+            "from": "이",
+            "to": "수",
+            "boundary": "given_internal",
+            "score": 100,
+            "risk": "low",
+            "signals": []
+          }
+        ],
+        "warnings": [],
+        "evidence": [
+          "음운 흐름 점수 100/100 (부드러움); 표시용 근거이며 총점이나 순위에는 반영되지 않아요.",
+          "성-이름 연결 점수 100/100 (최이).",
+          "받침 충돌이나 반복 발음 경고는 감지되지 않았어요."
+        ],
+        "sourceTier": "T3_AUTHORED_INTERPRETATION",
+        "authorityTruthEligible": false
+      },
+      "rank": 1
+    },
+    {
+      "finalScore": 79.3,
+      "scoreVector": {
+        "legal": 75,
+        "sajuFit": 84.6,
+        "yongshinFit": 55.3,
+        "elementBalance": 77.5,
+        "hanjaMeaning": 100,
+        "phonetic": 100,
+        "eraFit": null,
+        "familyFit": 100,
+        "risk": 25
+      },
+      "strengthProfile": {
+        "id": "phonetic_stability",
+        "label": "발음 안정형",
+        "primaryAxis": "phonetic",
+        "reasons": [
+          "발음 흐름 100점",
+          "성과 이름 연결 100점",
+          "주의 신호 안정도 75점"
+        ],
+        "displayReasons": [
+          "발음 흐름 100점",
+          "성과 이름 연결 100점",
+          "주의 신호 안정도 75점"
+        ],
+        "paretoFrontier": false
+      },
+      "fullHangul": "최유단",
+      "fullHanja": "崔攸端",
+      "givenHangul": "유단",
+      "givenName": [
+        {
+          "hangul": "유",
+          "hanja": "攸",
+          "meaning": "바 유, 다스릴 유",
+          "strokes": 7,
+          "element": "Metal",
+          "elementLabel": "쇠",
+          "legalStatus": "unknown"
+        },
+        {
+          "hangul": "단",
+          "hanja": "端",
+          "meaning": "바를 단, 곧을 단",
+          "strokes": 14,
+          "element": "Metal",
+          "elementLabel": "쇠",
+          "legalStatus": "unknown"
+        }
+      ],
+      "popularityRank": 2486,
+      "maleRatio": 0.6732673267326733,
+      "nameGender": "male",
+      "nameTrend": {
+        "givenHangul": "유단",
+        "gender": "male",
+        "birthYear": 1986,
+        "matchedYear": null,
+        "latestYear": 2024,
+        "trendFit": null,
+        "trendRisk": null,
+        "eraFitScore": null,
+        "status": "unknown",
+        "evidence": [
+          "공식 표본이 2008년부터 시작되어 그 이전 출생연도는 분석 범위 밖이에요."
+        ],
+        "sourceTier": "T5_OFFICIAL",
+        "authorityTruthEligible": true
+      },
+      "phonetic": {
+        "fullHangul": "최유단",
+        "surnameHangul": "최",
+        "givenHangul": "유단",
+        "phoneticScore": 100,
+        "transitionScore": 100,
+        "familyNameFitScore": 100,
+        "status": "smooth",
+        "transitions": [
+          {
+            "from": "최",
+            "to": "유",
+            "boundary": "surname_given",
+            "score": 100,
+            "risk": "low",
+            "signals": []
+          },
+          {
+            "from": "유",
+            "to": "단",
+            "boundary": "given_internal",
+            "score": 100,
+            "risk": "low",
+            "signals": []
+          }
+        ],
+        "warnings": [],
+        "evidence": [
+          "음운 흐름 점수 100/100 (부드러움); 표시용 근거이며 총점이나 순위에는 반영되지 않아요.",
+          "성-이름 연결 점수 100/100 (최유).",
+          "받침 충돌이나 반복 발음 경고는 감지되지 않았어요."
+        ],
+        "sourceTier": "T3_AUTHORED_INTERPRETATION",
+        "authorityTruthEligible": false
+      },
+      "rank": 2
+    },
+    {
+      "finalScore": 79.3,
+      "scoreVector": {
+        "legal": 75,
+        "sajuFit": 84.6,
+        "yongshinFit": 55.3,
+        "elementBalance": 81.9,
+        "hanjaMeaning": 100,
+        "phonetic": 100,
+        "eraFit": null,
+        "familyFit": 100,
+        "risk": 25
+      },
+      "strengthProfile": {
+        "id": "phonetic_stability",
+        "label": "발음 안정형",
+        "primaryAxis": "phonetic",
+        "reasons": [
+          "발음 흐름 100점",
+          "성과 이름 연결 100점",
+          "주의 신호 안정도 75점"
+        ],
+        "displayReasons": [
+          "발음 흐름 100점",
+          "성과 이름 연결 100점",
+          "주의 신호 안정도 75점"
+        ],
+        "paretoFrontier": false
+      },
+      "fullHangul": "최영정",
+      "fullHanja": "崔瑛玎",
+      "givenHangul": "영정",
+      "givenName": [
+        {
+          "hangul": "영",
+          "hanja": "瑛",
+          "meaning": "옥빛 영, 수정 영",
+          "strokes": 14,
+          "element": "Metal",
+          "elementLabel": "쇠",
+          "legalStatus": "unknown"
+        },
+        {
+          "hangul": "정",
+          "hanja": "玎",
+          "meaning": "옥소리 정",
+          "strokes": 7,
+          "element": "Metal",
+          "elementLabel": "쇠",
+          "legalStatus": "unknown"
+        }
+      ],
+      "popularityRank": 4932,
+      "maleRatio": 0.5714285714285714,
+      "nameGender": "male",
+      "nameTrend": {
+        "givenHangul": "영정",
+        "gender": "male",
+        "birthYear": 1986,
+        "matchedYear": null,
+        "latestYear": 2024,
+        "trendFit": null,
+        "trendRisk": null,
+        "eraFitScore": null,
+        "status": "unknown",
+        "evidence": [
+          "공식 표본이 2008년부터 시작되어 그 이전 출생연도는 분석 범위 밖이에요."
+        ],
+        "sourceTier": "T5_OFFICIAL",
+        "authorityTruthEligible": true
+      },
+      "phonetic": {
+        "fullHangul": "최영정",
+        "surnameHangul": "최",
+        "givenHangul": "영정",
+        "phoneticScore": 100,
+        "transitionScore": 100,
+        "familyNameFitScore": 100,
+        "status": "smooth",
+        "transitions": [
+          {
+            "from": "최",
+            "to": "영",
+            "boundary": "surname_given",
+            "score": 100,
+            "risk": "low",
+            "signals": []
+          },
+          {
+            "from": "영",
+            "to": "정",
+            "boundary": "given_internal",
+            "score": 100,
+            "risk": "low",
+            "signals": []
+          }
+        ],
+        "warnings": [],
+        "evidence": [
+          "음운 흐름 점수 100/100 (부드러움); 표시용 근거이며 총점이나 순위에는 반영되지 않아요.",
+          "성-이름 연결 점수 100/100 (최영).",
+          "받침 충돌이나 반복 발음 경고는 감지되지 않았어요."
+        ],
+        "sourceTier": "T3_AUTHORED_INTERPRETATION",
+        "authorityTruthEligible": false
+      },
+      "rank": 3
+    },
+    {
+      "finalScore": 79.3,
+      "scoreVector": {
+        "legal": 75,
+        "sajuFit": 84.6,
+        "yongshinFit": 55.3,
+        "elementBalance": 81.9,
+        "hanjaMeaning": 100,
+        "phonetic": 100,
+        "eraFit": null,
+        "familyFit": 100,
+        "risk": 25
+      },
+      "strengthProfile": {
+        "id": "phonetic_stability",
+        "label": "발음 안정형",
+        "primaryAxis": "phonetic",
+        "reasons": [
+          "발음 흐름 100점",
+          "성과 이름 연결 100점",
+          "주의 신호 안정도 75점"
+        ],
+        "displayReasons": [
+          "발음 흐름 100점",
+          "성과 이름 연결 100점",
+          "주의 신호 안정도 75점"
+        ],
+        "paretoFrontier": false
+      },
+      "fullHangul": "최영진",
+      "fullHanja": "崔瑛珍",
+      "givenHangul": "영진",
+      "givenName": [
+        {
+          "hangul": "영",
+          "hanja": "瑛",
+          "meaning": "옥빛 영, 수정 영",
+          "strokes": 14,
+          "element": "Metal",
+          "elementLabel": "쇠",
+          "legalStatus": "unknown"
+        },
+        {
+          "hangul": "진",
+          "hanja": "珍",
+          "meaning": "보배 진, 진귀할 진",
+          "strokes": 10,
+          "element": "Metal",
+          "elementLabel": "쇠",
+          "legalStatus": "unknown"
+        }
+      ],
+      "popularityRank": 1446,
+      "maleRatio": 0.9048200122025626,
+      "nameGender": "male",
+      "nameTrend": {
+        "givenHangul": "영진",
+        "gender": "male",
+        "birthYear": 1986,
+        "matchedYear": null,
+        "latestYear": 2024,
+        "trendFit": null,
+        "trendRisk": null,
+        "eraFitScore": null,
+        "status": "unknown",
+        "evidence": [
+          "공식 표본이 2008년부터 시작되어 그 이전 출생연도는 분석 범위 밖이에요."
+        ],
+        "sourceTier": "T5_OFFICIAL",
+        "authorityTruthEligible": true
+      },
+      "phonetic": {
+        "fullHangul": "최영진",
+        "surnameHangul": "최",
+        "givenHangul": "영진",
+        "phoneticScore": 100,
+        "transitionScore": 100,
+        "familyNameFitScore": 100,
+        "status": "smooth",
+        "transitions": [
+          {
+            "from": "최",
+            "to": "영",
+            "boundary": "surname_given",
+            "score": 100,
+            "risk": "low",
+            "signals": []
+          },
+          {
+            "from": "영",
+            "to": "진",
+            "boundary": "given_internal",
+            "score": 100,
+            "risk": "low",
+            "signals": []
+          }
+        ],
+        "warnings": [],
+        "evidence": [
+          "음운 흐름 점수 100/100 (부드러움); 표시용 근거이며 총점이나 순위에는 반영되지 않아요.",
+          "성-이름 연결 점수 100/100 (최영).",
+          "받침 충돌이나 반복 발음 경고는 감지되지 않았어요."
+        ],
+        "sourceTier": "T3_AUTHORED_INTERPRETATION",
+        "authorityTruthEligible": false
+      },
+      "rank": 4
+    },
+    {
+      "finalScore": 79,
+      "scoreVector": {
+        "legal": 75,
+        "sajuFit": 84.6,
+        "yongshinFit": 55.3,
+        "elementBalance": 76.9,
+        "hanjaMeaning": 100,
+        "phonetic": 97.9,
+        "eraFit": null,
+        "familyFit": 100,
+        "risk": 25
+      },
+      "strengthProfile": {
+        "id": "phonetic_stability",
+        "label": "발음 안정형",
+        "primaryAxis": "phonetic",
+        "reasons": [
+          "발음 흐름 97.9점",
+          "성과 이름 연결 100점",
+          "주의 신호 안정도 75점"
+        ],
+        "displayReasons": [
+          "발음 흐름 97.9점",
+          "성과 이름 연결 100점",
+          "주의 신호 안정도 75점"
+        ],
+        "paretoFrontier": false
+      },
+      "fullHangul": "최정영",
+      "fullHanja": "崔玎瑛",
+      "givenHangul": "정영",
+      "givenName": [
+        {
+          "hangul": "정",
+          "hanja": "玎",
+          "meaning": "옥소리 정",
+          "strokes": 7,
+          "element": "Metal",
+          "elementLabel": "쇠",
+          "legalStatus": "unknown"
+        },
+        {
+          "hangul": "영",
+          "hanja": "瑛",
+          "meaning": "옥빛 영, 수정 영",
+          "strokes": 14,
+          "element": "Metal",
+          "elementLabel": "쇠",
+          "legalStatus": "unknown"
+        }
+      ],
+      "popularityRank": 3527,
+      "maleRatio": 0.6140350877192983,
+      "nameGender": "male",
+      "nameTrend": {
+        "givenHangul": "정영",
+        "gender": "male",
+        "birthYear": 1986,
+        "matchedYear": null,
+        "latestYear": 2024,
+        "trendFit": null,
+        "trendRisk": null,
+        "eraFitScore": null,
+        "status": "unknown",
+        "evidence": [
+          "공식 표본이 2008년부터 시작되어 그 이전 출생연도는 분석 범위 밖이에요."
+        ],
+        "sourceTier": "T5_OFFICIAL",
+        "authorityTruthEligible": true
+      },
+      "phonetic": {
+        "fullHangul": "최정영",
+        "surnameHangul": "최",
+        "givenHangul": "정영",
+        "phoneticScore": 97.9,
+        "transitionScore": 96.5,
+        "familyNameFitScore": 100,
+        "status": "smooth",
+        "transitions": [
+          {
+            "from": "최",
+            "to": "정",
+            "boundary": "surname_given",
+            "score": 100,
+            "risk": "low",
+            "signals": []
+          },
+          {
+            "from": "정",
+            "to": "영",
+            "boundary": "given_internal",
+            "score": 93,
+            "risk": "low",
+            "signals": [
+              {
+                "code": "same_coda_onset_repeat",
+                "severity": "medium",
+                "penalty": 7,
+                "message": "정영 연결은 앞 글자 받침과 뒤 글자 첫소리가 반복돼요."
+              }
+            ]
+          }
+        ],
+        "warnings": [
+          {
+            "code": "same_coda_onset_repeat",
+            "severity": "medium",
+            "penalty": 7,
+            "message": "정영 연결은 앞 글자 받침과 뒤 글자 첫소리가 반복돼요."
+          }
+        ],
+        "evidence": [
+          "음운 흐름 점수 97.9/100 (부드러움); 표시용 근거이며 총점이나 순위에는 반영되지 않아요.",
+          "성-이름 연결 점수 100/100 (최정).",
+          "정영 연결은 앞 글자 받침과 뒤 글자 첫소리가 반복돼요."
+        ],
+        "sourceTier": "T3_AUTHORED_INTERPRETATION",
+        "authorityTruthEligible": false
+      },
+      "rank": 5
+    }
+  ]
+}
