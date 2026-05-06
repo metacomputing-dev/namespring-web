@@ -39,7 +39,7 @@
         {
           "kind": "tag",
           "tagId": "gyeokgukFit",
-          "label": "격국 적합도"
+          "label": "격국적합도"
         },
         {
           "kind": "text",
@@ -206,7 +206,7 @@
         {
           "kind": "tag",
           "tagId": "stabilityIndex",
-          "label": "안정 지표"
+          "label": "안정성지수"
         },
         {
           "kind": "text",
@@ -383,7 +383,7 @@
         {
           "kind": "tag",
           "tagId": "stabilityIndex",
-          "label": "안정 지표"
+          "label": "안정성지수"
         },
         {
           "kind": "text",
@@ -482,7 +482,7 @@
         {
           "kind": "tag",
           "tagId": "stabilityIndex",
-          "label": "안정 지표"
+          "label": "안정성지수"
         },
         {
           "kind": "text",
@@ -642,7 +642,7 @@
         {
           "kind": "tag",
           "tagId": "gyeokgukFit",
-          "label": "격국 적합도"
+          "label": "격국적합도"
         },
         {
           "kind": "text",
@@ -744,7 +744,7 @@
         {
           "kind": "tag",
           "tagId": "stabilityIndex",
-          "label": "안정 지표"
+          "label": "안정성지수"
         },
         {
           "kind": "text",
@@ -989,7 +989,7 @@
         {
           "kind": "tag",
           "tagId": "gyeokgukFit",
-          "label": "격국 적합도"
+          "label": "격국적합도"
         },
         {
           "kind": "text",
@@ -1088,7 +1088,7 @@
         {
           "kind": "tag",
           "tagId": "stabilityIndex",
-          "label": "안정 지표"
+          "label": "안정성지수"
         },
         {
           "kind": "text",
