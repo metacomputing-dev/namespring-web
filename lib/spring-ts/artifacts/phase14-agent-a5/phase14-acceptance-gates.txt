@@ -1,0 +1,29 @@
+Phase 14 Agent A5 acceptance gate snapshot
+Captured AFTER P14-A5 fixes (sample regen + _coverage 결로 grammar fix).
+
+Date: 2026-05-06
+Branch: worktree-agent-a327b607281f3297f
+HEAD: post-P14-A5
+
+CI gates (11 narrative-relevant):
+  npm run typecheck                              -> PASS
+  npm run ci:no-ai-policy                        -> PASS (4077 fragments, 7095 sourceTier records)
+  npm run ci:narrative-density                   -> 0 thin / 0 missing / 0 deficit
+  npm run ci:narrative-tuple-density             -> 0 thin / 0 missing / 0 deficit
+  npm run ci:narrative-daymaster-tuple-density   -> 0 thin / 0 missing / 0 deficit
+  npm run ci:narrative-cell-axis                 -> 0 missing audience/sajuCore/seasonContext
+  npm run ci:narrative-voice                     -> 0 / 0 / 0
+  npm run ci:narrative-truncated-endings         -> 0
+  npm run ci:narrative-tag-label-alignment       -> 0
+  npm run ci:narrative-orphan-tags               -> 0
+  npm run ci:acceptance-completeness             -> 0 (12 ci scripts, 11 accepted, 1 exempt)
+  npm run ci:samples-stale                       -> 0 (was 33 at session start; sampleFiles=37)
+
+Tests:
+  npm run test:namespring-compat                 -> 202 / 202 PASS
+  npm run test:tiered-determinism                -> 4 / 4 PASS
+  npm run test:narrative-schema:summary          -> 102879 / 0 PASS
+
+Note:
+  ci:release-checklist requires --body <path> or GITHUB_EVENT_PATH; not part of local
+  acceptance per P12-A5/P13-A5 doctrine. Exercised at PR creation by CI only.
