@@ -1,0 +1,113 @@
+{
+  "phase": "P13-A4",
+  "agent": "A4",
+  "task": "standard tier 3-7 paragraphs contract: insert \\n\\n paragraph breaks at sentence boundaries in standard.fragments.json templateTokens",
+  "scope": [
+    "data/narrative/<cat>/<period>/standard.fragments.json (all 11 categories)",
+    "data/narrative/_coverage/*.fragments.json (depth='standard' only)",
+    "data/narrative/overall/life/branching.fragments.json (depth='standard')"
+  ],
+  "constraints": [
+    "의미 보존 (preserve meaning) — only insert \\n\\n at existing sentence boundaries; no content authored, no sentences split mid-clause",
+    "Forbidden: brief, expert fragments; src/, _glossary/, _metaphor/, _modifier_*/, _seed/, _contract/; ../../namespring/"
+  ],
+  "before": {
+    "fixtureCount": 15,
+    "cellCount": 825,
+    "standard": {
+      "distribution": {
+        "1": 677,
+        "3": 87,
+        "4": 29,
+        "5": 32
+      },
+      "ge3Cells": 148,
+      "ge3Percent": 17.94
+    },
+    "expert": {
+      "distribution": {
+        "4": 806,
+        "5": 17,
+        "6": 2
+      }
+    }
+  },
+  "after": {
+    "fixtureCount": 15,
+    "cellCount": 825,
+    "standard": {
+      "distribution": {
+        "1": 42,
+        "2": 281,
+        "3": 387,
+        "4": 30,
+        "5": 85
+      },
+      "ge3Cells": 502,
+      "ge3Percent": 60.85
+    },
+    "expert": {
+      "distribution": {
+        "4": 806,
+        "5": 17,
+        "6": 2
+      }
+    }
+  },
+  "delta": {
+    "ge3CellsAdded": 354,
+    "ge3PercentDelta": 42.91,
+    "fragmentsModified": {
+      "main_categories": 363,
+      "_coverage": 581,
+      "overall_branching": 6,
+      "total": 950
+    }
+  },
+  "structuralCap": {
+    "below3CellsRemaining": 323,
+    "twoSentenceFragmentsCount": 384,
+    "explanation": "323 cells select coverage fragments composed of exactly 2 sentences each (typical floor coverage: floors, season-context, age-band, currentseason etc.). With \\n\\n inserted at the single sentence boundary they reach 2 paragraphs. Reaching 3 paragraphs would require either splitting mid-sentence (violates ci:narrative-truncated-endings ban on bare 요. endings) or authoring a third sentence (violates 의미 보존 constraint and the broader 'no content authored' guard). Result is the structural cap: 60.85% ge3, target was 80%."
+  },
+  "approach": {
+    "tool": "artifacts/phase13-agent-a4/split_paragraphs.py",
+    "strategy": "String-replace surgery on JSON-encoded value strings — preserves original file formatting (no full JSON reformat). Sentence-end regex: `(?<=[가-힣])\\.(?:\\s+|(?=[가-힣·]))` (require preceding hangul to avoid abbreviations).",
+    "distributions": {
+      "4_sentences": "[2,1,1] — 3 paragraphs",
+      "5_sentences": "[2,2,1] — 3 paragraphs",
+      "6_sentences": "[2,2,2] — 3 paragraphs",
+      "7_sentences": "[3,2,2] — 3 paragraphs",
+      "8_sentences": "[3,3,2] — 3 paragraphs",
+      "9plus_sentences": "[per+rem distributed across 3 paragraphs]"
+    },
+    "multiTokenStrategy": "For health_stress (and other multi-text-token fragments), append \\n\\n suffix to all but the last text token, making each token its own paragraph (no content change)."
+  },
+  "commits": [
+    "data(narrative): P13-A4 standard 3-7 paragraphs (career)",
+    "data(narrative): P13-A4 standard 3-7 paragraphs (academic)",
+    "data(narrative): P13-A4 standard 3-7 paragraphs (expression_children)",
+    "data(narrative): P13-A4 standard 3-7 paragraphs (family)",
+    "data(narrative): P13-A4 standard 3-7 paragraphs (overall)",
+    "data(narrative): P13-A4 standard 3-7 paragraphs (romance)",
+    "data(narrative): P13-A4 standard 3-7 paragraphs (health_stress)",
+    "data(narrative): P13-A4 standard 3-7 paragraphs (_coverage age)",
+    "data(narrative): P13-A4 standard 3-7 paragraphs (_coverage season-context)",
+    "data(narrative): P13-A4 standard 3-7 paragraphs (_coverage day-master+yongshin)",
+    "data(narrative): P13-A4 standard 3-7 paragraphs (_coverage min-floors)",
+    "data(narrative): P13-A4 standard 3-7 paragraphs (_coverage misc)",
+    "data(narrative): P13-A4 standard 3-7 paragraphs (overall branching)"
+  ],
+  "verification": {
+    "typecheck": "PASS (npx tsc --noEmit, silent)",
+    "ci:no-ai-policy": "PASS (14 check, 0 fail)",
+    "ci:narrative-voice": "PASS (Plain term=0, Plain tag=0, Untagged expert=0)",
+    "ci:narrative-truncated-endings": "PASS (0 violations)",
+    "ci:narrative-tag-label-alignment": "PASS (0 violations)",
+    "ci:narrative-orphan-tags": "PASS (0 violations)",
+    "test:tiered-isolation": "PASS (37/37)",
+    "test:tiered-shape": "PASS (915/915)",
+    "test:narrative-schema": "PASS (102879/102879)",
+    "test:namespring-compat": "PASS (202/202)",
+    "test:tiered-progressive-disclosure": "INTERMITTENT — 3/8 runs fail on PRE-EXISTING phrase '공부와 서류 일이' in min15-study-document-floor.fragments.json line 187. Verified pre-existing: stash + checkout 81695d2 base reproduces same intermittent rate. P13-A4 unrelated."
+  }
+}
