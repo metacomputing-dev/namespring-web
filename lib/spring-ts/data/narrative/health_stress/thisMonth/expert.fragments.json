@@ -988,7 +988,16 @@
         },
         {
           "kind": "text",
-          "value": "의 따뜻한 돌봄과 함께 일어나요.\n\n천의의 자리와 "
+          "value": "의 따뜻한 돌봄과 함께 일어나요.\n\n"
+        },
+        {
+          "kind": "tag",
+          "tagId": "cheonui",
+          "label": "천의"
+        },
+        {
+          "kind": "text",
+          "value": "의 자리와 "
         },
         {
           "kind": "tag",
@@ -1024,7 +1033,8 @@
         "jeongin",
         "cheondeokgwiin",
         "baekho",
-        "goegang"
+        "goegang",
+        "cheonui"
       ],
       "aiGenerated": true,
       "sourceTier": {

@@ -52,7 +52,16 @@
         },
         {
           "kind": "text",
-          "value": "를 낮추는 선택은 피하세요.\n\n조후용신의 결이 또렷한 사주는 "
+          "value": "를 낮추는 선택은 피하세요.\n\n"
+        },
+        {
+          "kind": "tag",
+          "tagId": "johuYongshin",
+          "label": "조후용신"
+        },
+        {
+          "kind": "text",
+          "value": "의 결이 또렷한 사주는 "
         },
         {
           "kind": "tag",
@@ -88,7 +97,8 @@
         "stabilityIndex",
         "johu",
         "jisal",
-        "cheonui"
+        "cheonui",
+        "johuYongshin"
       ],
       "numericalEvidence": [
         {

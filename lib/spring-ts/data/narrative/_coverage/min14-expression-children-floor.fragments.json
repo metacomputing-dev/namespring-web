@@ -1041,7 +1041,16 @@
         },
         {
           "kind": "text",
-          "value": " 관계에서는 속도보다 수용감을 먼저 봅니다.\n\n화개의 결과 "
+          "value": " 관계에서는 속도보다 수용감을 먼저 봅니다.\n\n"
+        },
+        {
+          "kind": "tag",
+          "tagId": "hwagae",
+          "label": "화개"
+        },
+        {
+          "kind": "text",
+          "value": "의 결과 "
         },
         {
           "kind": "tag",
@@ -1077,7 +1086,8 @@
         "jasikgung",
         "munchanggwiin",
         "daewoonGungsil",
-        "wolun"
+        "wolun",
+        "hwagae"
       ],
       "numericalEvidence": [
         {

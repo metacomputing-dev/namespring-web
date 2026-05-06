@@ -788,7 +788,16 @@
         },
         {
           "kind": "text",
-          "value": " 빛과 그늘을 같은 무게로 두는 감각이 오늘 잘 맞아요.\n\n백호대살의 신호와 "
+          "value": " 빛과 그늘을 같은 무게로 두는 감각이 오늘 잘 맞아요.\n\n"
+        },
+        {
+          "kind": "tag",
+          "tagId": "baekho",
+          "label": "백호대살"
+        },
+        {
+          "kind": "text",
+          "value": "의 신호와 "
         },
         {
           "kind": "tag",
@@ -824,7 +833,8 @@
         "water",
         "goegang",
         "gongmang",
-        "stabilityIndex"
+        "stabilityIndex",
+        "baekho"
       ],
       "aiGenerated": true,
       "sourceTier": {

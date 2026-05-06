@@ -52,7 +52,16 @@
         },
         {
           "kind": "text",
-          "value": "과 맞는 확장인지 먼저 구분해야 합니다.\n\n재백궁의 결과 "
+          "value": "과 맞는 확장인지 먼저 구분해야 합니다.\n\n"
+        },
+        {
+          "kind": "tag",
+          "tagId": "jaebakgung",
+          "label": "재백궁"
+        },
+        {
+          "kind": "text",
+          "value": "의 결과 "
         },
         {
           "kind": "tag",
@@ -88,7 +97,8 @@
         "yongshin",
         "cheonleulgwiin",
         "gyeokgukFit",
-        "stabilityIndex"
+        "stabilityIndex",
+        "jaebakgung"
       ],
       "numericalEvidence": [
         {
@@ -731,7 +741,16 @@
         },
         {
           "kind": "text",
-          "value": "과 맞는 방향만 월간 계획에 남기세요.\n\n재백궁의 결과 "
+          "value": "과 맞는 방향만 월간 계획에 남기세요.\n\n"
+        },
+        {
+          "kind": "tag",
+          "tagId": "jaebakgung",
+          "label": "재백궁"
+        },
+        {
+          "kind": "text",
+          "value": "의 결과 "
         },
         {
           "kind": "tag",
@@ -767,7 +786,8 @@
         "yongshin",
         "cheonleulgwiin",
         "gyeokgukFit",
-        "stabilityIndex"
+        "stabilityIndex",
+        "jaebakgung"
       ],
       "aiGenerated": true,
       "sourceTier": {

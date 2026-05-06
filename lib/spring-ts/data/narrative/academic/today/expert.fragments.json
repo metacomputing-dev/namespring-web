@@ -18,7 +18,16 @@
       "templateTokens": [
         {
           "kind": "text",
-          "value": "오늘의 학업 결은 일진의 자리가 "
+          "value": "오늘의 학업 결은 "
+        },
+        {
+          "kind": "tag",
+          "tagId": "iljin",
+          "label": "일진"
+        },
+        {
+          "kind": "text",
+          "value": "의 자리가 "
         },
         {
           "kind": "tag",
@@ -79,7 +88,8 @@
         "pyeonin",
         "sikshin",
         "munchanggwiin",
-        "hakdang"
+        "hakdang",
+        "iljin"
       ],
       "numericalEvidence": [
         {
@@ -781,7 +791,16 @@
         },
         {
           "kind": "text",
-          "value": " 결이 일진의 자리와 어떻게 맞물리느냐가 결을 가르는 자리예요.\n\n"
+          "value": " 결이 "
+        },
+        {
+          "kind": "tag",
+          "tagId": "iljin",
+          "label": "일진"
+        },
+        {
+          "kind": "text",
+          "value": "의 자리와 어떻게 맞물리느냐가 결을 가르는 자리예요.\n\n"
         },
         {
           "kind": "text",
@@ -814,7 +833,8 @@
         "sikshin",
         "sanggwan",
         "tonggwanYongshin",
-        "byeongyakYongshin"
+        "byeongyakYongshin",
+        "iljin"
       ],
       "aiGenerated": true,
       "sourceTier": {
