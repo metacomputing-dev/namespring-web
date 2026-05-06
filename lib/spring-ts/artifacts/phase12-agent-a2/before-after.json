@@ -1,0 +1,75 @@
+{
+  "phase": "P12-A2",
+  "agent": "A2",
+  "task": "period-aware 아이의 흐름이에요 normalize at template-engine.ts:133",
+  "scope": "src/report/tiered/template-engine.ts only",
+  "discoveredFromAudit": "phase11-agent-a2/before-after.json (outOfScopeNote.line133) — P11-A2 noted that template-engine.ts:133 has the structurally identical unconditional rewrite '아이의 흐름이에요 → 아이의 하루예요' which could leak across periods, and recommended a separate audit/fix in a future phase.",
+  "rootCause": {
+    "file": "lib/spring-ts/src/report/tiered/template-engine.ts",
+    "line": 133,
+    "before": "out = out.replace(/아이의 흐름이에요/g, '아이의 하루예요');",
+    "issue": "Unconditional rewrite. The rule rewrites every occurrence of '아이의 흐름이에요' to '아이의 하루예요' (one day). When the surrounding period prefix is anything other than '오늘' (e.g. '이번 주', '이번 달', '올해', '인생/평생'), the result becomes a logical contradiction — for example '이번 달 ... 아이의 하루예요' (this month ... the child's day) mixes a month-period claim with a day-unit conclusion. Identical pattern to P11-A2 (line 407). Latent (no current data fragment produces '아이의 흐름이에요' directly), so the bug is preventive, not currently observable in 35-fixture samples."
+  },
+  "fix": {
+    "approach": "Add prefix-anchored rewrites for the five period prefixes that data/narrative/ uses ('오늘', '이번 주', '이번 달', '올해', '인생|평생') so each period maps to a coherent unit, and KEEP the unanchored fallback after the anchored rules. Unlike P11-A2 (which removed the unanchored fallback), this site has dependent rules immediately below at lines 155-159 (/아이의 흐름이/g, /아이의 흐름을/g, /아이의 흐름과/g, /아이의 흐름에/g, /아이의 흐름/g). Without the unanchored fallback, the substring '아이의 흐름이' inside an unmatched '아이의 흐름이에요' would be partially matched by line 155 and produce the grammar regression '아이의 하루가에요'. The fallback closes that hole.",
+    "before": [
+      "out = out.replace(/아이의 흐름이에요/g, '아이의 하루예요');"
+    ],
+    "after": [
+      "out = out.replace(/오늘 아이의 흐름이에요/g, '오늘 아이의 하루예요');",
+      "out = out.replace(/이번 주 아이의 흐름이에요/g, '이번 주 아이의 한 주예요');",
+      "out = out.replace(/이번 달 아이의 흐름이에요/g, '이번 달 아이의 한 달 흐름이에요');",
+      "out = out.replace(/올해 아이의 흐름이에요/g, '올해 아이의 한 해 흐름이에요');",
+      "out = out.replace(/(인생|평생) 아이의 흐름이에요/g, '$1 아이의 시기예요');",
+      "out = out.replace(/아이의 흐름이에요/g, '아이의 하루예요');"
+    ],
+    "designNotes": [
+      "Mirrors P11-A2 (line 407) prefix-anchored design: each period × phrase pair maps to exactly one period-coherent unit.",
+      "today → 하루예요 preserves the single-day semantic.",
+      "thisWeek → 한 주예요 matches the week-period semantic.",
+      "thisMonth → 한 달 흐름이에요 — preserves the '흐름' concept (per task spec '원본 또는 적절 어휘') with the period qualifier '한 달' disambiguating from a single day. Reads more naturally in Korean than '한 달이에요' (which would be perceived as redundant since '이번 달' and '한 달' refer to the same unit).",
+      "thisYear → 한 해 흐름이에요 — same rationale as thisMonth. Preserves '흐름' with year qualifier.",
+      "life (인생/평생) → 시기예요 (vague period unit) — '시기' is the lifetime-scoped vocabulary used elsewhere in normalizeRenderedText (e.g. lines 271-273, 284, 419 etc.).",
+      "Unanchored fallback is KEPT — necessary because lines 155-159 form a chain of rewrites that depend on the longer '아이의 흐름이에요' having been consumed first; without the fallback, line 155 (/아이의 흐름이/g → /아이의 하루가/g) would partially match '아이의 흐름이에요' and produce '아이의 하루가에요' (broken grammar).",
+      "P11-A2 removed its unanchored fallback because no dependent rules followed at that site; this site has dependent rules, so the fallback must remain.",
+      "Verification that the disambiguated outputs ('한 달 흐름이에요', '한 해 흐름이에요') don't retrigger downstream rules: after rewrite, the substring '아이의' is followed by '한 달 ' or '한 해 ', NOT by '흐름이에요' / '흐름이' / '흐름을' / '흐름과' / '흐름에' / '흐름' directly — so lines 154-159 do not partial-match. Cross-checked against all '한 달' and '한 해' patterns in the file; no conflicts.",
+      "Mathematical invariant: with the new rule set, every period-prefixed input maps injectively to a period-coherent unit, and every non-period-prefixed input falls through to the fallback (no grammar break). Domain partition: {today, thisWeek, thisMonth, thisYear, life} ∪ {other} → {하루예요, 한 주예요, 한 달 흐름이에요, 한 해 흐름이에요, 시기예요} ∪ {하루예요-fallback}.",
+      "Pre-existing fail in tiered-progressive-disclosure (#대운궁실의 결과 phrase) is unrelated and exists before this change (verified by git stash test)."
+    ]
+  },
+  "dataScopeProof": {
+    "command": "grep -rn '아이의 흐름이에요' data/narrative/",
+    "matches": [],
+    "conclusion": "No fragment in data/narrative/ currently produces the exact phrase '아이의 흐름이에요' before normalization. The fix is purely preventive: it closes the latent cross-period leak at line 133 so future fragments (or unforeseen composition chains through earlier normalize rules) will receive a period-coherent rewrite."
+  },
+  "verification": {
+    "crossPeriodMismatchScan": {
+      "pattern": "(이번 주|이번 달|올해|평생|한평생|인생)[^.\"]{0,200}아이의 하루[예이][요라]",
+      "before": {
+        "count": 0,
+        "examples": [],
+        "scanScope": "in-tree samples at HEAD before fix (line 133 unconditional rule never fired in 35-fixture set because no fragment produces '아이의 흐름이에요' directly). The mismatches visible in samples come from line 132 (/아이의 흐름은/g → /아이의 하루는/g), which is OUT of P12-A2 scope."
+      },
+      "after": {
+        "count": 0,
+        "examples": [],
+        "scanScope": "byte-stable on the 35-fixture set because line 133 had no actual matches before; the new prefix-anchored rules will redirect future matches to period-coherent units"
+      }
+    },
+    "tests": {
+      "typecheck": "PASS",
+      "ci:no-ai-policy": "PASS (14 PASS / 0 FAIL)",
+      "test:tiered-isolation": "37/37 PASS",
+      "test:tiered-shape": "923/923 PASS",
+      "test:tiered-determinism": "4/4 PASS",
+      "test:tiered-progressive-disclosure": "11/12 (1 unrelated pre-existing FAIL on '#대운궁실의 결과' phrase, verified pre-existing via git stash)",
+      "test:namespring-compat": "202/202 PASS",
+      "test:snapshot": "15/15 PASS"
+    }
+  },
+  "scopeNote": {
+    "line132Out": "template-engine.ts:132 has structurally similar unconditional rewrite '아이의 흐름은 → 아이의 하루는' which IS observed firing in current samples (e.g. '이번 주 아이의 하루는', '이번 달 아이의 하루는', '올해 아이의 하루는'). This is OUT of P12-A2 scope (line 133 only). Recommend separate audit/fix in a future Phase 12 or later agent for line 132 and the line 134-138 chain.",
+    "line134_138Out": "Lines 134-138 (/아이의 흐름이/, /아이의 흐름을/, /아이의 흐름과/, /아이의 흐름에/, /아이의 흐름/) have the same latent cross-period leak structure. They are also OUT of P12-A2 scope.",
+    "rationale": "Strict scope adherence per Phase 12 policy. Single-purpose commit — this commit fixes ONLY line 133 mirroring P11-A2's pattern."
+  }
+}
