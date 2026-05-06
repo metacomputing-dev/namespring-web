@@ -917,7 +917,24 @@
         "humanInterpretation": "Phase 5 P5-A4 wealth tag-diversity expansion.",
         "copyrightNote": "No source prose copied; original.",
         "authorityTruthEligible": false
-      }
+      },
+      "numericalEvidence": [
+        {
+          "label": "지지 관계 수",
+          "valueExpression": "feature.jijiRelationCount",
+          "unit": "개",
+          "sourceTier": {
+            "tier": "T3_INTERNAL_ENGINE",
+            "sourceType": "internal_scoring_policy",
+            "sourceUrl": null,
+            "accessedAt": "2026-05-02",
+            "quoteShort": null,
+            "humanInterpretation": "Resolved from deterministic spring-ts runtime output.",
+            "copyrightNote": "No third-party prose copied.",
+            "authorityTruthEligible": false
+          }
+        }
+      ]
     }
   ]
 }

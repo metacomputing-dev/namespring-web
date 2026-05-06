@@ -1666,7 +1666,39 @@
         "humanInterpretation": "Phase 3 Agent A15 expansion. New 7-axis combo (WEAK × summer birthSeason × conflicting) anchored on byeongyakYongshin + johuYongshin + stabilityIndex.",
         "copyrightNote": "No source prose copied; original phrasing.",
         "authorityTruthEligible": false
-      }
+      },
+      "numericalEvidence": [
+        {
+          "label": "출생 월",
+          "valueExpression": "feature.birthMonth",
+          "unit": "월",
+          "sourceTier": {
+            "tier": "T3_INTERNAL_ENGINE",
+            "sourceType": "internal_scoring_policy",
+            "sourceUrl": null,
+            "accessedAt": "2026-05-02",
+            "quoteShort": null,
+            "humanInterpretation": "Resolved from deterministic spring-ts runtime output.",
+            "copyrightNote": "No third-party prose copied.",
+            "authorityTruthEligible": false
+          }
+        },
+        {
+          "label": "현재 월",
+          "valueExpression": "feature.currentMonth",
+          "unit": "월",
+          "sourceTier": {
+            "tier": "T3_INTERNAL_ENGINE",
+            "sourceType": "internal_scoring_policy",
+            "sourceUrl": null,
+            "accessedAt": "2026-05-02",
+            "quoteShort": null,
+            "humanInterpretation": "Resolved from deterministic spring-ts runtime output.",
+            "copyrightNote": "No third-party prose copied.",
+            "authorityTruthEligible": false
+          }
+        }
+      ]
     },
     {
       "schemaVersion": "spring-ts.narrative-fragment.v1",
