@@ -1,0 +1,639 @@
+{
+  "count": {
+    "도움이 돼요": 97,
+    "잘 어울려요": 36,
+    "줘요": 90,
+    "어울려요": 36,
+    "지키는 힘": 11,
+    "자연스럽게 좋아져요": 11,
+    "인연운이 높아져": 12,
+    "대인 매력": 12,
+    "매력이 자연스럽게 올라": 12,
+    "잘 흐르고 있어서": 5,
+    "확률이 높아요": 1,
+    "우수해요": 1
+  },
+  "detail": {
+    "도움이 돼요": [
+      {
+        "path": "01-choi-seongsoo-current-fortune.json/nameCompatibility/evidence/1/weakness",
+        "text": "기신 겹침이 용신 일치보다 많은 구성이라 한자 후보 추가 검토가 도움이 돼요."
+      },
+      {
+        "path": "01-choi-seongsoo-current-fortune.json/dailyFortune/goodActions/1/text",
+        "text": "흰색 계열 옷이나 소품을 활용하고, 서쪽 방향을 의식하면 도움이 돼요."
+      },
+      {
+        "path": "01-choi-seongsoo-current-fortune.json/dailyFortune/goodActions/2/reason",
+        "text": "쇠 기운과 어울리는 음식은 생활 리듬을 차분히 챙기는 데 도움이 돼요."
+      },
+      {
+        "path": "01-choi-seongsoo-current-fortune.json/yearlyFortune/warning/response",
+        "text": "무리한 계획을 줄이고 안정적인 루틴을 유지하세요. 용신 기운을 의식적으로 보충하면 도움이 돼요."
+      },
+      {
+        "path": "01-choi-seongsoo-current-fortune.json/categoryFortunes/wealth/advice/1/reason",
+        "text": "재물 기운이 약할 때 아끼는 습관이 나중에 큰 도움이 돼요."
+      },
+      {
+        "path": "01-choi-seongsoo-current-fortune.json/categoryFortunes/health/advice/2/reason",
+        "text": "인성(쇠) 기운과 어울리는 활동이 생활 리듬과 마음의 여유를 함께 챙기는 데 도움이 돼요."
+      },
+      {
+        "path": "02-choi-seongsoo-tiered-fortune.json/nameCompatibility/evidence/1/weakness",
+        "text": "기신 겹침이 용신 일치보다 많은 구성이라 한자 후보 추가 검토가 도움이 돼요."
+      },
+      {
+        "path": "02-choi-seongsoo-tiered-fortune.json/dailyFortune/goodActions/1/text",
+        "text": "흰색 계열 옷이나 소품을 활용하고, 서쪽 방향을 의식하면 도움이 돼요."
+      },
+      {
+        "path": "02-choi-seongsoo-tiered-fortune.json/dailyFortune/goodActions/2/reason",
+        "text": "쇠 기운과 어울리는 음식은 생활 리듬을 차분히 챙기는 데 도움이 돼요."
+      },
+      {
+        "path": "02-choi-seongsoo-tiered-fortune.json/yearlyFortune/warning/response",
+        "text": "무리한 계획을 줄이고 안정적인 루틴을 유지하세요. 용신 기운을 의식적으로 보충하면 도움이 돼요."
+      },
+      {
+        "path": "02-choi-seongsoo-tiered-fortune.json/categoryFortunes/wealth/advice/1/reason",
+        "text": "재물 기운이 약할 때 아끼는 습관이 나중에 큰 도움이 돼요."
+      },
+      {
+        "path": "02-choi-seongsoo-tiered-fortune.json/categoryFortunes/health/advice/2/reason",
+        "text": "인성(쇠) 기운과 어울리는 활동이 생활 리듬과 마음의 여유를 함께 챙기는 데 도움이 돼요."
+      }
+    ],
+    "잘 어울려요": [
+      {
+        "path": "01-choi-seongsoo-current-fortune.json/weeklyFortune/summary",
+        "text": "이번 주는 나무 기운이 든든하게 받쳐 줘요. 계획한 일을 실행에 옮기기에도 잘 어울려요."
+      },
+      {
+        "path": "01-choi-seongsoo-current-fortune.json/monthlyFortune/summary",
+        "text": "이번 달은 물과 흙 기운이 든든하게 받쳐 줘요. 계획한 일을 실행에 옮기기에도 잘 어울려요."
+      },
+      {
+        "path": "01-choi-seongsoo-current-fortune.json/monthlyFortune/goodActions/0/text",
+        "text": "이번 달은 새로운 습관이나 루틴을 시작하기에 잘 어울려요."
+      },
+      {
+        "path": "02-choi-seongsoo-tiered-fortune.json/weeklyFortune/summary",
+        "text": "이번 주는 나무 기운이 든든하게 받쳐 줘요. 계획한 일을 실행에 옮기기에도 잘 어울려요."
+      },
+      {
+        "path": "02-choi-seongsoo-tiered-fortune.json/monthlyFortune/summary",
+        "text": "이번 달은 물과 흙 기운이 든든하게 받쳐 줘요. 계획한 일을 실행에 옮기기에도 잘 어울려요."
+      },
+      {
+        "path": "02-choi-seongsoo-tiered-fortune.json/monthlyFortune/goodActions/0/text",
+        "text": "이번 달은 새로운 습관이나 루틴을 시작하기에 잘 어울려요."
+      },
+      {
+        "path": "04-kim-seoyun-young-female-tiered.json/weeklyFortune/summary",
+        "text": "이번 주는 나무 기운이 든든하게 받쳐 줘요. 계획한 일을 실행에 옮기기에도 잘 어울려요."
+      },
+      {
+        "path": "05-park-minji-late-night-female-tiered.json/yearlyFortune/summary",
+        "text": "올해는 불 기운이 든든하게 받쳐 줘요. 계획한 일을 실행에 옮기기에도 잘 어울려요."
+      },
+      {
+        "path": "06-lee-hajun-unknown-hour-neutral-tiered.json/weeklyFortune/summary",
+        "text": "이번 주는 나무 기운이 든든하게 받쳐 줘요. 계획한 일을 실행에 옮기기에도 잘 어울려요."
+      },
+      {
+        "path": "06-lee-hajun-unknown-hour-neutral-tiered.json/monthlyFortune/summary",
+        "text": "이번 달은 물과 흙 기운이 든든하게 받쳐 줘요. 계획한 일을 실행에 옮기기에도 잘 어울려요."
+      },
+      {
+        "path": "06-lee-hajun-unknown-hour-neutral-tiered.json/monthlyFortune/goodActions/0/text",
+        "text": "이번 달은 새로운 습관이나 루틴을 시작하기에 잘 어울려요."
+      },
+      {
+        "path": "08-kim-jiwon-strong-jeonggwan-gyeokguk-tiered.json/weeklyFortune/summary",
+        "text": "이번 주는 나무 기운이 든든하게 받쳐 줘요. 계획한 일을 실행에 옮기기에도 잘 어울려요."
+      }
+    ],
+    "줘요": [
+      {
+        "path": "01-choi-seongsoo-current-fortune.json/weeklyFortune/summary",
+        "text": "이번 주는 나무 기운이 든든하게 받쳐 줘요. 계획한 일을 실행에 옮기기에도 잘 어울려요."
+      },
+      {
+        "path": "01-choi-seongsoo-current-fortune.json/weeklyFortune/goodActions/2/reason",
+        "text": "쇠 기운에 맞는 음식은 한 주의 에너지를 안정시켜 줘요."
+      },
+      {
+        "path": "01-choi-seongsoo-current-fortune.json/monthlyFortune/summary",
+        "text": "이번 달은 물과 흙 기운이 든든하게 받쳐 줘요. 계획한 일을 실행에 옮기기에도 잘 어울려요."
+      },
+      {
+        "path": "01-choi-seongsoo-current-fortune.json/monthlyFortune/goodActions/0/reason",
+        "text": "월간 기운이 안정적이라 꾸준히 이어갈 동력이 받쳐 줘요."
+      },
+      {
+        "path": "01-choi-seongsoo-current-fortune.json/categoryFortunes/academic/advice/1/reason",
+        "text": "쇠 기운(인성)이 약할 때 외부 도움이 학습 속도를 높여줘요."
+      },
+      {
+        "path": "02-choi-seongsoo-tiered-fortune.json/weeklyFortune/summary",
+        "text": "이번 주는 나무 기운이 든든하게 받쳐 줘요. 계획한 일을 실행에 옮기기에도 잘 어울려요."
+      },
+      {
+        "path": "02-choi-seongsoo-tiered-fortune.json/weeklyFortune/goodActions/2/reason",
+        "text": "쇠 기운에 맞는 음식은 한 주의 에너지를 안정시켜 줘요."
+      },
+      {
+        "path": "02-choi-seongsoo-tiered-fortune.json/monthlyFortune/summary",
+        "text": "이번 달은 물과 흙 기운이 든든하게 받쳐 줘요. 계획한 일을 실행에 옮기기에도 잘 어울려요."
+      },
+      {
+        "path": "02-choi-seongsoo-tiered-fortune.json/monthlyFortune/goodActions/0/reason",
+        "text": "월간 기운이 안정적이라 꾸준히 이어갈 동력이 받쳐 줘요."
+      },
+      {
+        "path": "02-choi-seongsoo-tiered-fortune.json/categoryFortunes/academic/advice/1/reason",
+        "text": "쇠 기운(인성)이 약할 때 외부 도움이 학습 속도를 높여줘요."
+      },
+      {
+        "path": "04-kim-seoyun-young-female-tiered.json/weeklyFortune/summary",
+        "text": "이번 주는 나무 기운이 든든하게 받쳐 줘요. 계획한 일을 실행에 옮기기에도 잘 어울려요."
+      },
+      {
+        "path": "04-kim-seoyun-young-female-tiered.json/weeklyFortune/goodActions/2/reason",
+        "text": "쇠 기운에 맞는 음식은 한 주의 에너지를 안정시켜 줘요."
+      }
+    ],
+    "어울려요": [
+      {
+        "path": "01-choi-seongsoo-current-fortune.json/weeklyFortune/summary",
+        "text": "이번 주는 나무 기운이 든든하게 받쳐 줘요. 계획한 일을 실행에 옮기기에도 잘 어울려요."
+      },
+      {
+        "path": "01-choi-seongsoo-current-fortune.json/monthlyFortune/summary",
+        "text": "이번 달은 물과 흙 기운이 든든하게 받쳐 줘요. 계획한 일을 실행에 옮기기에도 잘 어울려요."
+      },
+      {
+        "path": "01-choi-seongsoo-current-fortune.json/monthlyFortune/goodActions/0/text",
+        "text": "이번 달은 새로운 습관이나 루틴을 시작하기에 잘 어울려요."
+      },
+      {
+        "path": "02-choi-seongsoo-tiered-fortune.json/weeklyFortune/summary",
+        "text": "이번 주는 나무 기운이 든든하게 받쳐 줘요. 계획한 일을 실행에 옮기기에도 잘 어울려요."
+      },
+      {
+        "path": "02-choi-seongsoo-tiered-fortune.json/monthlyFortune/summary",
+        "text": "이번 달은 물과 흙 기운이 든든하게 받쳐 줘요. 계획한 일을 실행에 옮기기에도 잘 어울려요."
+      },
+      {
+        "path": "02-choi-seongsoo-tiered-fortune.json/monthlyFortune/goodActions/0/text",
+        "text": "이번 달은 새로운 습관이나 루틴을 시작하기에 잘 어울려요."
+      },
+      {
+        "path": "04-kim-seoyun-young-female-tiered.json/weeklyFortune/summary",
+        "text": "이번 주는 나무 기운이 든든하게 받쳐 줘요. 계획한 일을 실행에 옮기기에도 잘 어울려요."
+      },
+      {
+        "path": "05-park-minji-late-night-female-tiered.json/yearlyFortune/summary",
+        "text": "올해는 불 기운이 든든하게 받쳐 줘요. 계획한 일을 실행에 옮기기에도 잘 어울려요."
+      },
+      {
+        "path": "06-lee-hajun-unknown-hour-neutral-tiered.json/weeklyFortune/summary",
+        "text": "이번 주는 나무 기운이 든든하게 받쳐 줘요. 계획한 일을 실행에 옮기기에도 잘 어울려요."
+      },
+      {
+        "path": "06-lee-hajun-unknown-hour-neutral-tiered.json/monthlyFortune/summary",
+        "text": "이번 달은 물과 흙 기운이 든든하게 받쳐 줘요. 계획한 일을 실행에 옮기기에도 잘 어울려요."
+      },
+      {
+        "path": "06-lee-hajun-unknown-hour-neutral-tiered.json/monthlyFortune/goodActions/0/text",
+        "text": "이번 달은 새로운 습관이나 루틴을 시작하기에 잘 어울려요."
+      },
+      {
+        "path": "08-kim-jiwon-strong-jeonggwan-gyeokguk-tiered.json/weeklyFortune/summary",
+        "text": "이번 주는 나무 기운이 든든하게 받쳐 줘요. 계획한 일을 실행에 옮기기에도 잘 어울려요."
+      }
+    ],
+    "지키는 힘": [
+      {
+        "path": "01-choi-seongsoo-current-fortune.json/categoryFortunes/health/advice/0/reason",
+        "text": "인성 기운이 잘 흐르면 생활 리듬을 지키는 힘이 자연스럽게 좋아져요."
+      },
+      {
+        "path": "02-choi-seongsoo-tiered-fortune.json/categoryFortunes/health/advice/0/reason",
+        "text": "인성 기운이 잘 흐르면 생활 리듬을 지키는 힘이 자연스럽게 좋아져요."
+      },
+      {
+        "path": "04-kim-seoyun-young-female-tiered.json/categoryFortunes/health/advice/0/reason",
+        "text": "인성 기운이 잘 흐르면 생활 리듬을 지키는 힘이 자연스럽게 좋아져요."
+      },
+      {
+        "path": "05-park-minji-late-night-female-tiered.json/categoryFortunes/health/advice/0/reason",
+        "text": "인성 기운이 잘 흐르면 생활 리듬을 지키는 힘이 자연스럽게 좋아져요."
+      },
+      {
+        "path": "06-lee-hajun-unknown-hour-neutral-tiered.json/categoryFortunes/health/advice/0/reason",
+        "text": "인성 기운이 잘 흐르면 생활 리듬을 지키는 힘이 자연스럽게 좋아져요."
+      },
+      {
+        "path": "08-kim-jiwon-strong-jeonggwan-gyeokguk-tiered.json/categoryFortunes/health/advice/0/reason",
+        "text": "인성 기운이 잘 흐르면 생활 리듬을 지키는 힘이 자연스럽게 좋아져요."
+      },
+      {
+        "path": "10-choi-yaza-boundary-male-tiered.json/categoryFortunes/health/advice/0/reason",
+        "text": "인성 기운이 잘 흐르면 생활 리듬을 지키는 힘이 자연스럽게 좋아져요."
+      },
+      {
+        "path": "13-oh-extreme-weak-continuous-tiered.json/categoryFortunes/health/advice/0/reason",
+        "text": "인성 기운이 잘 흐르면 생활 리듬을 지키는 힘이 자연스럽게 좋아져요."
+      },
+      {
+        "path": "14-choi-palace-naeum-surface-tiered.json/categoryFortunes/health/advice/0/reason",
+        "text": "인성 기운이 잘 흐르면 생활 리듬을 지키는 힘이 자연스럽게 좋아져요."
+      },
+      {
+        "path": "15-choi-consensus-aware-yongshin-tiered.json/categoryFortunes/health/advice/0/reason",
+        "text": "인성 기운이 잘 흐르면 생활 리듬을 지키는 힘이 자연스럽게 좋아져요."
+      },
+      {
+        "path": "21-multi-axis-evaluator-enabled-tiered.json/categoryFortunes/health/advice/0/reason",
+        "text": "인성 기운이 잘 흐르면 생활 리듬을 지키는 힘이 자연스럽게 좋아져요."
+      }
+    ],
+    "자연스럽게 좋아져요": [
+      {
+        "path": "01-choi-seongsoo-current-fortune.json/categoryFortunes/health/advice/0/reason",
+        "text": "인성 기운이 잘 흐르면 생활 리듬을 지키는 힘이 자연스럽게 좋아져요."
+      },
+      {
+        "path": "02-choi-seongsoo-tiered-fortune.json/categoryFortunes/health/advice/0/reason",
+        "text": "인성 기운이 잘 흐르면 생활 리듬을 지키는 힘이 자연스럽게 좋아져요."
+      },
+      {
+        "path": "04-kim-seoyun-young-female-tiered.json/categoryFortunes/health/advice/0/reason",
+        "text": "인성 기운이 잘 흐르면 생활 리듬을 지키는 힘이 자연스럽게 좋아져요."
+      },
+      {
+        "path": "05-park-minji-late-night-female-tiered.json/categoryFortunes/health/advice/0/reason",
+        "text": "인성 기운이 잘 흐르면 생활 리듬을 지키는 힘이 자연스럽게 좋아져요."
+      },
+      {
+        "path": "06-lee-hajun-unknown-hour-neutral-tiered.json/categoryFortunes/health/advice/0/reason",
+        "text": "인성 기운이 잘 흐르면 생활 리듬을 지키는 힘이 자연스럽게 좋아져요."
+      },
+      {
+        "path": "08-kim-jiwon-strong-jeonggwan-gyeokguk-tiered.json/categoryFortunes/health/advice/0/reason",
+        "text": "인성 기운이 잘 흐르면 생활 리듬을 지키는 힘이 자연스럽게 좋아져요."
+      },
+      {
+        "path": "10-choi-yaza-boundary-male-tiered.json/categoryFortunes/health/advice/0/reason",
+        "text": "인성 기운이 잘 흐르면 생활 리듬을 지키는 힘이 자연스럽게 좋아져요."
+      },
+      {
+        "path": "13-oh-extreme-weak-continuous-tiered.json/categoryFortunes/health/advice/0/reason",
+        "text": "인성 기운이 잘 흐르면 생활 리듬을 지키는 힘이 자연스럽게 좋아져요."
+      },
+      {
+        "path": "14-choi-palace-naeum-surface-tiered.json/categoryFortunes/health/advice/0/reason",
+        "text": "인성 기운이 잘 흐르면 생활 리듬을 지키는 힘이 자연스럽게 좋아져요."
+      },
+      {
+        "path": "15-choi-consensus-aware-yongshin-tiered.json/categoryFortunes/health/advice/0/reason",
+        "text": "인성 기운이 잘 흐르면 생활 리듬을 지키는 힘이 자연스럽게 좋아져요."
+      },
+      {
+        "path": "21-multi-axis-evaluator-enabled-tiered.json/categoryFortunes/health/advice/0/reason",
+        "text": "인성 기운이 잘 흐르면 생활 리듬을 지키는 힘이 자연스럽게 좋아져요."
+      }
+    ],
+    "인연운이 높아져": [
+      {
+        "path": "01-choi-seongsoo-current-fortune.json/categoryFortunes/romance/advice/0/reason",
+        "text": "재성/관성 기운이 잘 흘러 대인 매력과 인연운이 높아져 있어요."
+      },
+      {
+        "path": "02-choi-seongsoo-tiered-fortune.json/categoryFortunes/romance/advice/0/reason",
+        "text": "재성/관성 기운이 잘 흘러 대인 매력과 인연운이 높아져 있어요."
+      },
+      {
+        "path": "05-park-minji-late-night-female-tiered.json/categoryFortunes/romance/advice/0/reason",
+        "text": "재성/관성 기운이 잘 흘러 대인 매력과 인연운이 높아져 있어요."
+      },
+      {
+        "path": "08-kim-jiwon-strong-jeonggwan-gyeokguk-tiered.json/categoryFortunes/romance/advice/0/reason",
+        "text": "재성/관성 기운이 잘 흘러 대인 매력과 인연운이 높아져 있어요."
+      },
+      {
+        "path": "10-choi-yaza-boundary-male-tiered.json/categoryFortunes/romance/advice/0/reason",
+        "text": "재성/관성 기운이 잘 흘러 대인 매력과 인연운이 높아져 있어요."
+      },
+      {
+        "path": "11-park-jeolgi-boundary-female-tiered.json/categoryFortunes/romance/advice/0/reason",
+        "text": "재성/관성 기운이 잘 흘러 대인 매력과 인연운이 높아져 있어요."
+      },
+      {
+        "path": "12-jeong-extreme-strong-continuous-tiered.json/categoryFortunes/romance/advice/0/reason",
+        "text": "재성/관성 기운이 잘 흘러 대인 매력과 인연운이 높아져 있어요."
+      },
+      {
+        "path": "13-oh-extreme-weak-continuous-tiered.json/categoryFortunes/romance/advice/0/reason",
+        "text": "재성/관성 기운이 잘 흘러 대인 매력과 인연운이 높아져 있어요."
+      },
+      {
+        "path": "15-choi-consensus-aware-yongshin-tiered.json/categoryFortunes/romance/advice/0/reason",
+        "text": "재성/관성 기운이 잘 흘러 대인 매력과 인연운이 높아져 있어요."
+      },
+      {
+        "path": "17-kim-senior-female-tiered.json/categoryFortunes/romance/advice/0/reason",
+        "text": "재성/관성 기운이 잘 흘러 대인 매력과 인연운이 높아져 있어요."
+      },
+      {
+        "path": "21-multi-axis-evaluator-enabled-tiered.json/categoryFortunes/romance/advice/0/reason",
+        "text": "재성/관성 기운이 잘 흘러 대인 매력과 인연운이 높아져 있어요."
+      },
+      {
+        "path": "22-low-confidence-yongshin-tiered.json/categoryFortunes/romance/advice/0/reason",
+        "text": "재성/관성 기운이 잘 흘러 대인 매력과 인연운이 높아져 있어요."
+      }
+    ],
+    "대인 매력": [
+      {
+        "path": "01-choi-seongsoo-current-fortune.json/categoryFortunes/romance/advice/0/reason",
+        "text": "재성/관성 기운이 잘 흘러 대인 매력과 인연운이 높아져 있어요."
+      },
+      {
+        "path": "02-choi-seongsoo-tiered-fortune.json/categoryFortunes/romance/advice/0/reason",
+        "text": "재성/관성 기운이 잘 흘러 대인 매력과 인연운이 높아져 있어요."
+      },
+      {
+        "path": "05-park-minji-late-night-female-tiered.json/categoryFortunes/romance/advice/0/reason",
+        "text": "재성/관성 기운이 잘 흘러 대인 매력과 인연운이 높아져 있어요."
+      },
+      {
+        "path": "08-kim-jiwon-strong-jeonggwan-gyeokguk-tiered.json/categoryFortunes/romance/advice/0/reason",
+        "text": "재성/관성 기운이 잘 흘러 대인 매력과 인연운이 높아져 있어요."
+      },
+      {
+        "path": "10-choi-yaza-boundary-male-tiered.json/categoryFortunes/romance/advice/0/reason",
+        "text": "재성/관성 기운이 잘 흘러 대인 매력과 인연운이 높아져 있어요."
+      },
+      {
+        "path": "11-park-jeolgi-boundary-female-tiered.json/categoryFortunes/romance/advice/0/reason",
+        "text": "재성/관성 기운이 잘 흘러 대인 매력과 인연운이 높아져 있어요."
+      },
+      {
+        "path": "12-jeong-extreme-strong-continuous-tiered.json/categoryFortunes/romance/advice/0/reason",
+        "text": "재성/관성 기운이 잘 흘러 대인 매력과 인연운이 높아져 있어요."
+      },
+      {
+        "path": "13-oh-extreme-weak-continuous-tiered.json/categoryFortunes/romance/advice/0/reason",
+        "text": "재성/관성 기운이 잘 흘러 대인 매력과 인연운이 높아져 있어요."
+      },
+      {
+        "path": "15-choi-consensus-aware-yongshin-tiered.json/categoryFortunes/romance/advice/0/reason",
+        "text": "재성/관성 기운이 잘 흘러 대인 매력과 인연운이 높아져 있어요."
+      },
+      {
+        "path": "17-kim-senior-female-tiered.json/categoryFortunes/romance/advice/0/reason",
+        "text": "재성/관성 기운이 잘 흘러 대인 매력과 인연운이 높아져 있어요."
+      },
+      {
+        "path": "21-multi-axis-evaluator-enabled-tiered.json/categoryFortunes/romance/advice/0/reason",
+        "text": "재성/관성 기운이 잘 흘러 대인 매력과 인연운이 높아져 있어요."
+      },
+      {
+        "path": "22-low-confidence-yongshin-tiered.json/categoryFortunes/romance/advice/0/reason",
+        "text": "재성/관성 기운이 잘 흘러 대인 매력과 인연운이 높아져 있어요."
+      }
+    ],
+    "매력이 자연스럽게 올라": [
+      {
+        "path": "01-choi-seongsoo-current-fortune.json/categoryFortunes/romance/advice/1/reason",
+        "text": "인연과 관련된 오행(불)의 색을 활용하면 매력이 자연스럽게 올라가요."
+      },
+      {
+        "path": "02-choi-seongsoo-tiered-fortune.json/categoryFortunes/romance/advice/1/reason",
+        "text": "인연과 관련된 오행(불)의 색을 활용하면 매력이 자연스럽게 올라가요."
+      },
+      {
+        "path": "05-park-minji-late-night-female-tiered.json/categoryFortunes/romance/advice/1/reason",
+        "text": "인연과 관련된 오행(불)의 색을 활용하면 매력이 자연스럽게 올라가요."
+      },
+      {
+        "path": "08-kim-jiwon-strong-jeonggwan-gyeokguk-tiered.json/categoryFortunes/romance/advice/1/reason",
+        "text": "인연과 관련된 오행(불)의 색을 활용하면 매력이 자연스럽게 올라가요."
+      },
+      {
+        "path": "10-choi-yaza-boundary-male-tiered.json/categoryFortunes/romance/advice/1/reason",
+        "text": "인연과 관련된 오행(불)의 색을 활용하면 매력이 자연스럽게 올라가요."
+      },
+      {
+        "path": "11-park-jeolgi-boundary-female-tiered.json/categoryFortunes/romance/advice/1/reason",
+        "text": "인연과 관련된 오행(흙)의 색을 활용하면 매력이 자연스럽게 올라가요."
+      },
+      {
+        "path": "12-jeong-extreme-strong-continuous-tiered.json/categoryFortunes/romance/advice/1/reason",
+        "text": "인연과 관련된 오행(흙)의 색을 활용하면 매력이 자연스럽게 올라가요."
+      },
+      {
+        "path": "13-oh-extreme-weak-continuous-tiered.json/categoryFortunes/romance/advice/1/reason",
+        "text": "인연과 관련된 오행(불)의 색을 활용하면 매력이 자연스럽게 올라가요."
+      },
+      {
+        "path": "15-choi-consensus-aware-yongshin-tiered.json/categoryFortunes/romance/advice/1/reason",
+        "text": "인연과 관련된 오행(불)의 색을 활용하면 매력이 자연스럽게 올라가요."
+      },
+      {
+        "path": "17-kim-senior-female-tiered.json/categoryFortunes/romance/advice/1/reason",
+        "text": "인연과 관련된 오행(쇠)의 색을 활용하면 매력이 자연스럽게 올라가요."
+      },
+      {
+        "path": "21-multi-axis-evaluator-enabled-tiered.json/categoryFortunes/romance/advice/1/reason",
+        "text": "인연과 관련된 오행(불)의 색을 활용하면 매력이 자연스럽게 올라가요."
+      },
+      {
+        "path": "22-low-confidence-yongshin-tiered.json/categoryFortunes/romance/advice/1/reason",
+        "text": "인연과 관련된 오행(흙)의 색을 활용하면 매력이 자연스럽게 올라가요."
+      }
+    ],
+    "잘 흐르고 있어서": [
+      {
+        "path": "11-park-jeolgi-boundary-female-tiered.json/categoryFortunes/wealth/advice/0/reason",
+        "text": "재성 기운이 잘 흐르고 있어서 재물 관련 행동이 좋은 결과로 이어지기 쉬워요."
+      },
+      {
+        "path": "12-jeong-extreme-strong-continuous-tiered.json/categoryFortunes/wealth/advice/0/reason",
+        "text": "재성 기운이 잘 흐르고 있어서 재물 관련 행동이 좋은 결과로 이어지기 쉬워요."
+      },
+      {
+        "path": "17-kim-senior-female-tiered.json/categoryFortunes/wealth/advice/0/reason",
+        "text": "재성 기운이 잘 흐르고 있어서 재물 관련 행동이 좋은 결과로 이어지기 쉬워요."
+      },
+      {
+        "path": "20-gyeokguk-conflict-consensus-aware-tiered.json/categoryFortunes/wealth/advice/0/reason",
+        "text": "재성 기운이 잘 흐르고 있어서 재물 관련 행동이 좋은 결과로 이어지기 쉬워요."
+      },
+      {
+        "path": "22-low-confidence-yongshin-tiered.json/categoryFortunes/wealth/advice/0/reason",
+        "text": "재성 기운이 잘 흐르고 있어서 재물 관련 행동이 좋은 결과로 이어지기 쉬워요."
+      }
+    ],
+    "확률이 높아요": [
+      {
+        "path": "17-kim-senior-female-tiered.json/dailyFortune/goodActions/0/reason",
+        "text": "용신 기운이 활성화된 날이라 하는 일마다 순조로울 확률이 높아요."
+      }
+    ],
+    "우수해요": [
+      {
+        "path": "18-lee-child-male-tiered.json/nameCompatibility/details/2",
+        "text": "이름 분석 점수는 81점이에요. 한글과 한자의 구성이 우수해요."
+      }
+    ]
+  },
+  "cat_reasons_unique": {
+    "wealth": {
+      "재성 기운이 약한 시기에는 보수적인 재무 전략이 안전해요.": 13,
+      "재물 기운이 약할 때 아끼는 습관이 나중에 큰 도움이 돼요.": 14,
+      "돈 관리 기운이 약한 시기에는 속도를 늦추고 도움을 받는 편이 안전해요.": 1,
+      "재성 기운이 잘 흐르고 있어서 재물 관련 행동이 좋은 결과로 이어지기 쉬워요.": 5,
+      "재성 오행(흙)의 색을 활용하면 기운이 자연스럽게 강화돼요.": 4,
+      "재성 오행(쇠)의 색을 활용하면 기운이 자연스럽게 강화돼요.": 2,
+      "돈 관리가 부드러울 때 작은 기록 습관을 만들면 생활 감각이 좋아져요.": 1
+    },
+    "health": {
+      "인성 기운이 잘 흐르면 생활 리듬을 지키는 힘이 자연스럽게 좋아져요.": 11,
+      "부족한 쇠 기운을 일상에서 보완하면 컨디션 관리가 더 쉬워져요.": 6,
+      "인성(쇠) 기운과 어울리는 활동이 생활 리듬과 마음의 여유를 함께 챙기는 데 도움이 돼요.": 8,
+      "부족한 나무 기운을 일상에서 보완하면 컨디션 관리가 더 쉬워져요.": 3,
+      "인성(불) 기운과 어울리는 활동이 생활 리듬과 마음의 여유를 함께 챙기는 데 도움이 돼요.": 5,
+      "부족한 물 기운을 일상에서 보완하면 컨디션 관리가 더 쉬워져요.": 2,
+      "인성 기운이 약할 때는 몸을 몰아붙이기보다 기본 루틴을 지키는 쪽이 안정적이에요.": 9,
+      "부족한 불 기운을 일상에서 보완하면 컨디션 관리가 더 쉬워져요.": 5,
+      "인성(물) 기운과 어울리는 활동이 생활 리듬과 마음의 여유를 함께 챙기는 데 도움이 돼요.": 5,
+      "부족한 흙 기운을 일상에서 보완하면 컨디션 관리가 더 쉬워져요.": 1,
+      "인성(나무) 기운과 어울리는 활동이 생활 리듬과 마음의 여유를 함께 챙기는 데 도움이 돼요.": 2
+    },
+    "academic": {
+      "학업 기운이 약할 때는 욕심보다 기초 다지기가 더 효율적이에요.": 19,
+      "쇠 기운(인성)이 약할 때 외부 도움이 학습 속도를 높여줘요.": 8,
+      "불 기운(인성)이 약할 때 외부 도움이 학습 속도를 높여줘요.": 5,
+      "물 기운(인성)이 약할 때 외부 도움이 학습 속도를 높여줘요.": 5,
+      "식상과 인성 기운이 좋으면 이해력과 표현력이 함께 올라가요.": 1,
+      "흙 기운(식상)이 좋을 때 아웃풋 학습이 특히 효과적이에요.": 1,
+      "나무 기운(인성)이 약할 때 외부 도움이 학습 속도를 높여줘요.": 1
+    },
+    "romance": {
+      "재성/관성 기운이 잘 흘러 대인 매력과 인연운이 높아져 있어요.": 12,
+      "인연과 관련된 오행(불)의 색을 활용하면 매력이 자연스럽게 올라가요.": 8,
+      "관계 기운이 약할 때는 무리해서 가까워지려 하기보다 안정적인 거리감이 더 좋아요.": 2,
+      "관성 기운이 약할 때 소통 방식을 보완하면 관계 안정성이 높아져요.": 8,
+      "연애 기운이 약한 시기에 무리하면 오히려 관계가 꼬이기 쉬워요.": 6,
+      "인연과 관련된 오행(흙)의 색을 활용하면 매력이 자연스럽게 올라가요.": 3,
+      "인연과 관련된 오행(쇠)의 색을 활용하면 매력이 자연스럽게 올라가요.": 1
+    },
+    "family": {
+      "비겁 기운이 약하면 가까운 사이에서 마찰이 생기기 쉬워요.": 16,
+      "감정이 격해질 때 한 박자 쉬면 불필요한 충돌을 막을 수 있어요.": 16,
+      "인성과 비겁 기운이 좋으면 가족 간 유대와 지지가 강해져요.": 4,
+      "좋은 기운이 흐를 때 표현하면 효과가 배로 커져요.": 4
+    }
+  },
+  "period_bad_reasons_unique": {
+    "dailyFortune": {
+      "기신인 불 기운이 강해지면 전체 운세 흐름에 방해가 될 수 있어요.": 6,
+      "평소 약한 오행은 생활 리듬이 흔들릴 때 더 민감하게 드러날 수 있어요.": 17,
+      "기신인 흙 기운이 강해지면 전체 운세 흐름에 방해가 될 수 있어요.": 4,
+      "기운이 약한 시기에는 도움을 받아 차분히 확인하면 부담을 줄일 수 있어요.": 2,
+      "기신인 물 기운이 강해지면 전체 운세 흐름에 방해가 될 수 있어요.": 5,
+      "기운이 약한 시기에는 속도를 늦추면 후회를 줄일 수 있어요.": 6,
+      "기본 컨디션을 지키는 것이 어떤 시기에나 가장 중요해요.": 2,
+      "기신인 쇠 기운이 강해지면 전체 운세 흐름에 방해가 될 수 있어요.": 4
+    },
+    "weeklyFortune": {
+      "기신인 불 기운이 강해지면 전체 운세 흐름에 방해가 될 수 있어요.": 6,
+      "평소 약한 오행은 생활 리듬이 흔들릴 때 더 민감하게 드러날 수 있어요.": 17,
+      "기신인 흙 기운이 강해지면 전체 운세 흐름에 방해가 될 수 있어요.": 4,
+      "기신인 물 기운이 강해지면 전체 운세 흐름에 방해가 될 수 있어요.": 5,
+      "기본 컨디션을 지키는 것이 어떤 시기에나 가장 중요해요.": 3,
+      "기신인 쇠 기운이 강해지면 전체 운세 흐름에 방해가 될 수 있어요.": 4
+    },
+    "monthlyFortune": {
+      "기신인 불 기운이 강해지면 전체 운세 흐름에 방해가 될 수 있어요.": 6,
+      "평소 약한 오행은 생활 리듬이 흔들릴 때 더 민감하게 드러날 수 있어요.": 17,
+      "기신인 흙 기운이 강해지면 전체 운세 흐름에 방해가 될 수 있어요.": 4,
+      "기신인 물 기운이 강해지면 전체 운세 흐름에 방해가 될 수 있어요.": 5,
+      "기운이 약한 시기에는 속도를 늦추면 후회를 줄일 수 있어요.": 5,
+      "기본 컨디션을 지키는 것이 어떤 시기에나 가장 중요해요.": 3,
+      "기신인 쇠 기운이 강해지면 전체 운세 흐름에 방해가 될 수 있어요.": 4
+    },
+    "yearlyFortune": {
+      "기신인 불 기운이 강해지면 전체 운세 흐름에 방해가 될 수 있어요.": 6,
+      "기운이 약한 시기에는 속도를 늦추면 후회를 줄일 수 있어요.": 8,
+      "평소 약한 오행은 생활 리듬이 흔들릴 때 더 민감하게 드러날 수 있어요.": 17,
+      "기신인 흙 기운이 강해지면 전체 운세 흐름에 방해가 될 수 있어요.": 4,
+      "기운이 약한 시기에는 도움을 받아 차분히 확인하면 부담을 줄일 수 있어요.": 1,
+      "기신인 물 기운이 강해지면 전체 운세 흐름에 방해가 될 수 있어요.": 5,
+      "기신인 쇠 기운이 강해지면 전체 운세 흐름에 방해가 될 수 있어요.": 4,
+      "기본 컨디션을 지키는 것이 어떤 시기에나 가장 중요해요.": 2
+    }
+  },
+  "period_good_reasons_unique": {
+    "dailyFortune": {
+      "용신인 쇠 기운을 채우면 오늘 하루의 호흡이 잡혀요.": 8,
+      "쇠 기운의 색과 방위를 활용하면 자연스럽게 좋은 기운을 끌어올 수 있어요.": 8,
+      "쇠 기운과 어울리는 음식은 생활 리듬을 차분히 챙기는 데 도움이 돼요.": 8,
+      "용신인 나무 기운을 채우면 오늘 하루의 호흡이 잡혀요.": 5,
+      "나무 기운의 색과 방위를 활용하면 자연스럽게 좋은 기운을 끌어올 수 있어요.": 5,
+      "나무 기운과 어울리는 음식은 생활 리듬을 차분히 챙기는 데 도움이 돼요.": 5,
+      "용신인 물 기운을 채우면 오늘 하루의 호흡이 잡혀요.": 5,
+      "물 기운의 색과 방위를 활용하면 자연스럽게 좋은 기운을 끌어올 수 있어요.": 5,
+      "물 기운과 어울리는 음식은 생활 리듬을 차분히 챙기는 데 도움이 돼요.": 5,
+      "용신인 불 기운을 채우면 오늘 하루의 호흡이 잡혀요.": 1,
+      "불 기운의 색과 방위를 활용하면 자연스럽게 좋은 기운을 끌어올 수 있어요.": 1,
+      "불 기운과 어울리는 음식은 생활 리듬을 차분히 챙기는 데 도움이 돼요.": 1,
+      "용신 기운이 활성화된 날이라 하는 일마다 순조로울 확률이 높아요.": 1,
+      "흙 기운의 색과 방위를 활용하면 자연스럽게 좋은 기운을 끌어올 수 있어요.": 1,
+      "흙 기운과 어울리는 음식은 생활 리듬을 차분히 챙기는 데 도움이 돼요.": 1
+    },
+    "weeklyFortune": {
+      "기운이 좋은 주간에 행동하면 결과가 잘 따라와요.": 9,
+      "생활 공간에 용신의 색을 두면 지속적으로 좋은 기운을 받을 수 있어요.": 20,
+      "쇠 기운에 맞는 음식은 한 주의 에너지를 안정시켜 줘요.": 8,
+      "용신인 나무 기운을 채우면 한 주의 흐름이 좋아져요.": 4,
+      "나무 기운에 맞는 음식은 한 주의 에너지를 안정시켜 줘요.": 5,
+      "용신인 물 기운을 채우면 한 주의 흐름이 좋아져요.": 5,
+      "물 기운에 맞는 음식은 한 주의 에너지를 안정시켜 줘요.": 5,
+      "용신인 불 기운을 채우면 한 주의 흐름이 좋아져요.": 1,
+      "불 기운에 맞는 음식은 한 주의 에너지를 안정시켜 줘요.": 1,
+      "용신인 흙 기운을 채우면 한 주의 흐름이 좋아져요.": 1,
+      "흙 기운에 맞는 음식은 한 주의 에너지를 안정시켜 줘요.": 1
+    },
+    "monthlyFortune": {
+      "월간 기운이 안정적이라 꾸준히 이어갈 동력이 받쳐 줘요.": 13,
+      "한 달간 꾸준히 용신 기운에 노출되면 자연스럽게 좋은 흐름이 만들어져요.": 20,
+      "한 달 동안 꾸준히 챙기면 쇠 기운 보충 효과가 커져요.": 8,
+      "용신 기운을 꾸준히 채우는 루틴이 월간 운세의 핵심이에요.": 7,
+      "한 달 동안 꾸준히 챙기면 나무 기운 보충 효과가 커져요.": 5,
+      "한 달 동안 꾸준히 챙기면 물 기운 보충 효과가 커져요.": 5,
+      "한 달 동안 꾸준히 챙기면 불 기운 보충 효과가 커져요.": 1,
+      "한 달 동안 꾸준히 챙기면 흙 기운 보충 효과가 커져요.": 1
+    },
+    "yearlyFortune": {
+      "연간 기운의 균형을 잡으려면 용신 기운을 꾸준히 채우는 것이 중요해요.": 19,
+      "연간 전략으로 용신의 색과 방위를 활용하면 장기적인 좋은 기운을 끌어올 수 있어요.": 20,
+      "쇠 기운에 맞는 식습관이 연간 생활 리듬과 컨디션 관리의 기반이 돼요.": 8,
+      "나무 기운에 맞는 식습관이 연간 생활 리듬과 컨디션 관리의 기반이 돼요.": 5,
+      "물 기운에 맞는 식습관이 연간 생활 리듬과 컨디션 관리의 기반이 돼요.": 5,
+      "용신 기운이 활성화된 해라 도전과 확장에 유리해요.": 1,
+      "불 기운에 맞는 식습관이 연간 생활 리듬과 컨디션 관리의 기반이 돼요.": 1,
+      "흙 기운에 맞는 식습관이 연간 생활 리듬과 컨디션 관리의 기반이 돼요.": 1
+    }
+  },
+  "name_compat_term_count": {
+    "맞아요": 16,
+    "있어요": 44,
+    "아주 좋은": 3,
+    "우수해요": 1
+  }
+}

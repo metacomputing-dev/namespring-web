@@ -32,11 +32,11 @@ function scoreToStars(score: number): StarRating {
 // ---------------------------------------------------------------------------
 
 const STAR_DESCRIPTIONS: Record<StarRating, string> = {
-  5: '최고 수준의 조화를 이루고 있어요',
-  4: '아주 좋은 조화를 보여줘요',
+  5: '조화가 단단하게 잡혀 있어요',
+  4: '대체로 부드럽게 어울리는 편이에요',
   3: '무난한 수준의 궁합이에요',
-  2: '약간의 보완이 필요해요',
-  1: '보완할 부분이 있어요',
+  2: '약간의 보완을 더하면 좋아요',
+  1: '보완해 두면 좋은 부분이 있어요',
 };
 
 // ---------------------------------------------------------------------------
@@ -44,22 +44,22 @@ const STAR_DESCRIPTIONS: Record<StarRating, string> = {
 // ---------------------------------------------------------------------------
 
 function overallScoreDetail(score: number): string {
-  if (score >= 85) return `종합 점수는 ${Math.round(score)}점으로, 이름과 사주가 아주 훌륭하게 어울려요.`;
+  if (score >= 85) return `종합 점수는 ${Math.round(score)}점으로, 이름과 사주의 합이 단단하게 받쳐 줘요.`;
   if (score >= 70) return `종합 점수는 ${Math.round(score)}점으로, 이름과 사주의 조화가 좋은 편이에요.`;
-  if (score >= 55) return `종합 점수는 ${Math.round(score)}점으로, 이름과 사주가 무난하게 맞아요.`;
+  if (score >= 55) return `종합 점수는 ${Math.round(score)}점으로, 이름과 사주가 무난한 호흡을 이루고 있어요.`;
   if (score >= 40) return `종합 점수는 ${Math.round(score)}점으로, 조화를 높이기 위한 작은 보완이 도움이 돼요.`;
-  return `종합 점수는 ${Math.round(score)}점이에요. 이름의 에너지를 보완하면 더 좋은 흐름을 만들 수 있어요.`;
+  return `종합 점수는 ${Math.round(score)}점이에요. 이름의 에너지를 보완해 두면 흐름을 더 부드럽게 만들 수 있어요.`;
 }
 
 function sajuCompatibilityDetail(score: number): string {
-  if (score >= 80) return `사주 궁합 점수는 ${Math.round(score)}점이에요. 이름의 오행이 사주와 매우 잘 어울려요.`;
-  if (score >= 60) return `사주 궁합 점수는 ${Math.round(score)}점이에요. 이름이 사주의 흐름을 안정적으로 받쳐주고 있어요.`;
+  if (score >= 80) return `사주 궁합 점수는 ${Math.round(score)}점이에요. 이름의 오행이 사주의 흐름과 든든히 맞물려요.`;
+  if (score >= 60) return `사주 궁합 점수는 ${Math.round(score)}점이에요. 이름이 사주의 흐름을 안정적으로 받쳐 주고 있어요.`;
   if (score >= 40) return `사주 궁합 점수는 ${Math.round(score)}점이에요. 이름과 사주의 연결은 보통 수준이에요.`;
-  return `사주 궁합 점수는 ${Math.round(score)}점이에요. 이름의 오행이 사주와 약간 맞지 않는 부분이 있어요.`;
+  return `사주 궁합 점수는 ${Math.round(score)}점이에요. 이름의 오행이 사주와 살짝 어긋나는 부분이 있어요.`;
 }
 
 function nameAnalysisDetail(score: number): string {
-  if (score >= 80) return `이름 분석 점수는 ${Math.round(score)}점이에요. 한글과 한자의 구성이 우수해요.`;
+  if (score >= 80) return `이름 분석 점수는 ${Math.round(score)}점이에요. 한글과 한자의 구성이 단정하게 어울려요.`;
   if (score >= 60) return `이름 분석 점수는 ${Math.round(score)}점이에요. 이름 자체의 균형이 좋은 편이에요.`;
   if (score >= 40) return `이름 분석 점수는 ${Math.round(score)}점이에요. 이름 구성이 무난한 수준이에요.`;
   return `이름 분석 점수는 ${Math.round(score)}점이에요. 이름의 획수나 오행 구성에 보완 여지가 있어요.`;

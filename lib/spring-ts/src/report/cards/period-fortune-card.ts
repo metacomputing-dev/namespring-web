@@ -326,7 +326,7 @@ function makeGoodActions(
     if (isYongshinActive) {
       actions.push({
         text: `오늘은 ${elementKo(yongshinEl)} 기운이 자연스럽게 흐르는 날이에요. 이 기운을 적극 활용하세요.`,
-        reason: '용신 기운이 활성화된 날이라 하는 일마다 순조로울 확률이 높아요.',
+        reason: '용신 기운이 활성화된 날이라 평소보다 일이 술술 풀리기 쉬워요.',
       });
     } else {
       actions.push({
@@ -339,13 +339,13 @@ function makeGoodActions(
     if (color && direction) {
       actions.push({
         text: `${color} 계열 옷이나 소품을 활용하고, ${direction} 방향을 의식하면 도움이 돼요.`,
-        reason: `${elementKo(yongshinEl)} 기운의 색과 방위를 활용하면 자연스럽게 좋은 기운을 끌어올 수 있어요.`,
+        reason: `${elementKo(yongshinEl)} 기운의 색과 방위를 가까이 두면 그날의 흐름이 부드럽게 풀려요.`,
       });
     }
     if (foods.length > 0) {
       actions.push({
         text: `${foods.slice(0, 3).join(', ')} 같은 음식을 챙기면 기운 보충에 좋아요.`,
-        reason: `${elementKo(yongshinEl)} 기운과 어울리는 음식은 생활 리듬을 차분히 챙기는 데 도움이 돼요.`,
+        reason: `${elementKo(yongshinEl)} 기운과 어울리는 음식은 그날의 컨디션을 차분히 받쳐 줘요.`,
       });
     }
   } else if (periodKind === 'weekly') {
@@ -366,7 +366,7 @@ function makeGoodActions(
     if (color) {
       actions.push({
         text: `${color} 계열 소품이나 인테리어를 활용하면 주간 기운을 높일 수 있어요.`,
-        reason: '생활 공간에 용신의 색을 두면 지속적으로 좋은 기운을 받을 수 있어요.',
+        reason: `눈이 자주 닿는 공간에 ${elementKo(yongshinEl)} 색을 두면 한 주 내내 기운이 잔잔히 따라와요.`,
       });
     }
     if (foods.length > 0) {
@@ -393,7 +393,7 @@ function makeGoodActions(
     if (color && direction) {
       actions.push({
         text: `생활 공간에 ${color} 계열 소품을 배치하고, ${direction} 방향의 활동을 의식해 보세요.`,
-        reason: '한 달간 꾸준히 용신 기운에 노출되면 자연스럽게 좋은 흐름이 만들어져요.',
+        reason: `한 달 내내 ${elementKo(yongshinEl)} 색과 방위를 가까이 두면 그 기운이 차곡차곡 쌓여요.`,
       });
     }
     if (foods.length > 0) {
@@ -420,7 +420,7 @@ function makeGoodActions(
     if (color && direction) {
       actions.push({
         text: `${color} 계열을 올해의 테마 컬러로 삼고, 중요한 일은 ${direction} 방향을 의식하세요.`,
-        reason: '연간 전략으로 용신의 색과 방위를 활용하면 장기적인 좋은 기운을 끌어올 수 있어요.',
+        reason: `한 해를 ${elementKo(yongshinEl)} 색과 방위로 일관되게 두면 그 기운이 자연스럽게 일상에 스며들어요.`,
       });
     }
     if (foods.length > 0) {
@@ -491,12 +491,24 @@ function makeBadActions(
     });
   }
 
-  // Action 3: Health caution for deficient elements
+  // Action 3: Health caution for deficient elements -- reason rotates by
+  // periodKind so 22 fixtures × 4 periods don't collapse to one identical line.
   if (natal.deficientElements.length > 0) {
     const weakEl = natal.deficientElements[0];
+    const weakKo = elementKo(weakEl);
+    const deficientReason =
+      periodKind === 'daily'
+        ? `평소 ${weakKo} 기운이 약한 편이라 하루 사이에도 컨디션이 흔들리기 쉬워요.`
+        : periodKind === 'weekly'
+          ? `평소 ${weakKo} 기운이 약하면 한 주 동안 쌓인 피로가 더 도드라질 수 있어요.`
+          : periodKind === 'monthly'
+            ? `평소 ${weakKo} 기운이 약한 편이라 한 달 단위 리듬이 무너지면 회복이 더뎌져요.`
+            : periodKind === 'yearly'
+              ? `평소 ${weakKo} 기운이 약하면 한 해 동안의 누적 피로가 더 크게 다가올 수 있어요.`
+              : `평소 ${weakKo} 기운이 약할 때는 생활 리듬이 흔들리면 더 예민해질 수 있어요.`;
     actions.push({
-      text: `${elementKo(weakEl)} 기운이 부족하니 수면, 식사, 휴식 리듬이 무너지지 않도록 주의하세요.`,
-      reason: '평소 약한 오행은 생활 리듬이 흔들릴 때 더 민감하게 드러날 수 있어요.',
+      text: `${weakKo} 기운이 부족하니 수면, 식사, 휴식 리듬이 무너지지 않도록 주의하세요.`,
+      reason: deficientReason,
     });
   }
 
@@ -535,9 +547,40 @@ function makeWarning(
       relType === 'PA' ? '파' :
       relType === 'WONJIN' ? '원진' : relType;
 
+    // Per-relation phrasing so signal/response/reason don't collapse to a single
+    // monotone line across daily/weekly/monthly/yearly + 5 relation types.
+    const RELATION_VOICE: Record<string, { signal: string; response: string; reason: string }> = {
+      '충': {
+        signal: '원국 지지와 충이 걸려 흐름이 흔들리기 쉬워요.',
+        response: '큰 결정은 한 박자 미루고, 새 일을 시작하기 전 한 번 더 점검해 보세요.',
+        reason: '이 시기의 지지가 원국과 부딪쳐 자리를 흔드는 흐름이 생겨요.',
+      },
+      '형': {
+        signal: '원국 지지와 형이 만나 긴장과 마찰이 늘 수 있어요.',
+        response: '말 한마디를 더 다듬고, 다투는 자리는 잠시 거리를 두는 편이 좋아요.',
+        reason: '이 시기의 지지가 원국과 형 관계로 얽혀 신경전이 잦아질 수 있어요.',
+      },
+      '해': {
+        signal: '원국 지지와 해가 닿아 잔잔한 어긋남이 생기기 쉬워요.',
+        response: '약속과 일정은 한 번 더 확인하고, 사소한 오해는 바로 풀어 두세요.',
+        reason: '이 시기의 지지가 원국과 해 관계를 이뤄 작은 어긋남이 누적될 수 있어요.',
+      },
+      '파': {
+        signal: '원국 지지와 파가 걸려 자리나 분위기가 흔들리기 쉬워요.',
+        response: '갑작스러운 변동에 휘둘리지 않도록 우선순위를 미리 정해 두세요.',
+        reason: '이 시기의 지지가 원국과 파 관계를 만들어 안정감이 약해질 수 있어요.',
+      },
+      '원진': {
+        signal: '원국 지지와 원진이 닿아 사람 사이의 거리감이 어색해질 수 있어요.',
+        response: '감정적 반응은 한 박자 늦추고, 가까운 사이일수록 표현을 또렷이 해 보세요.',
+        reason: '이 시기의 지지가 원국과 원진 관계로 얽혀 미묘한 긴장이 흐를 수 있어요.',
+      },
+    };
+    const voice = RELATION_VOICE[typeKo];
+    if (voice) return voice;
     return {
-      signal: `원국 지지와 ${typeKo} 관계가 생겨 갈등이나 변동에 주의해야 해요.`,
-      response: '중요한 대화나 결정은 한 박자 쉬고 진행하고, 감정적인 반응을 줄여보세요.',
+      signal: `원국 지지와 ${typeKo} 관계가 생겨 흐름이 흔들리기 쉬워요.`,
+      response: '중요한 대화나 결정은 한 박자 쉬어 가고, 감정적인 반응은 잠시 가라앉혀 보세요.',
       reason: `이 시기의 지지가 원국과 ${typeKo} 관계를 만들어 긴장이 높아질 수 있어요.`,
     };
   }
