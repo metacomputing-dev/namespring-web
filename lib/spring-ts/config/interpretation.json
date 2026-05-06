@@ -7,13 +7,13 @@
     "FOURFRAME_ELEMENT": "사격 오행"
   },
   "overallMessages": {
-    "excellent": { "minScore": 80, "message": "종합적으로 매우 우수한 이름입니다." },
-    "good":      { "minScore": 65, "message": "종합적으로 좋은 이름입니다." },
-    "passing":   { "minScore": 0,  "message": "합격 기준을 충족하는 이름입니다." }
+    "excellent": { "minScore": 80, "message": "종합적으로 매우 우수한 이름이에요." },
+    "good":      { "minScore": 65, "message": "종합적으로 좋은 이름이에요." },
+    "passing":   { "minScore": 0,  "message": "합격 기준을 충족하는 이름이에요." }
   },
   "failedMessages": {
-    "average":   { "minScore": 55, "message": "보통 수준의 이름입니다." },
-    "needsWork": { "minScore": 0,  "message": "개선 여지가 있는 이름입니다." }
+    "average":   { "minScore": 55, "message": "보통 수준의 이름이에요." },
+    "needsWork": { "minScore": 0,  "message": "개선 여지가 있는 이름이에요." }
   },
   "warningThreshold": 50,
   "warningTemplate": "{label} 부분을 점검해 보세요."

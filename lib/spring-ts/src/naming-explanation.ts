@@ -18,7 +18,7 @@ const DERIVED_SCORE_TIER: SourceTierMetadata = {
   sourceUrl: null,
   accessedAt: '2026-05-01',
   quoteShort: null,
-  humanInterpretation: '점수 벡터에서 계산한 표시용 축입니다. 후보 정렬에는 쓸 수 있지만 단독 권위 근거로 보지 않습니다.',
+  humanInterpretation: '점수 벡터에서 계산한 표시용 축이에요. 후보 정렬에는 쓸 수 있지만 단독 권위 근거로 삼지는 않아요.',
   copyrightNote: '외부 원문을 복사하지 않았습니다.',
   authorityTruthEligible: false,
 };
@@ -29,7 +29,7 @@ const AUTHORED_RULE_TIER: SourceTierMetadata = {
   sourceUrl: null,
   accessedAt: '2026-05-01',
   quoteShort: null,
-  humanInterpretation: 'spring-ts 안에서 작성한 규칙 기반 이름 해석입니다. 사실 단정이 아니라 제안으로 표현해야 합니다.',
+  humanInterpretation: 'spring-ts 안에서 작성한 규칙 기반 이름 해석이에요. 사실로 단정하기보다 제안으로 표현하는 편이 좋아요.',
   copyrightNote: '외부 원문을 복사하지 않았습니다.',
   authorityTruthEligible: false,
 };
@@ -40,7 +40,7 @@ const OFFICIAL_DATA_TIER: SourceTierMetadata = {
   sourceUrl: null,
   accessedAt: '2026-05-01',
   quoteShort: null,
-  humanInterpretation: '법령 또는 공식 데이터에 근거한 제한 범위의 사실 확인입니다.',
+  humanInterpretation: '법령 또는 공식 데이터에 근거한, 제한된 범위의 사실 확인이에요.',
   copyrightNote: '외부 원문을 복사하지 않았습니다.',
   authorityTruthEligible: true,
 };
