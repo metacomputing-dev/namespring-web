@@ -13,6 +13,7 @@
       "templateTokens": [
         { "kind": "text", "value": "올해는 가까운 사람과의 인연이 따뜻하게 자라요." }
       ],
+      "hook": "작은 안부가 큰 다리가 되어 줘요.",
       "tags": [],
       "aiGenerated": true,
       "sourceTier": {

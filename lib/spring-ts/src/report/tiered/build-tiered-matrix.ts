@@ -135,9 +135,39 @@ const NAME_FRAME_STAGE: Record<NamingReportFrame['type'], { stage: TieredNameFra
   jung: { stage: 'lateAndTotal', label: '말년/총운' },
 };
 
-function deriveBrief(rendered: TaggedParagraph): BriefFortuneText {
+/**
+ * Maximum Korean code-point count for a brief-tier hook (P13-A1).
+ * Style-guide §2-1 frames the hook as a single 보조 sentence — keeping it
+ * tight prevents the brief tier from drifting into standard-tier prose.
+ * Aligned with the `livingTips ≤ 24` bound in NARRATIVE_STYLE_GUIDE.md and
+ * the contract example `큰 무리수만 피하면 든든히 모을 수 있어요.` (22 chars).
+ */
+const BRIEF_HOOK_MAX_LEN = 24;
+
+/**
+ * Sanitize and length-gate an authored hook string. Returns the
+ * normalized string if it survives both passes, otherwise undefined so
+ * callers can omit the optional `BriefFortuneText.hook` field cleanly.
+ *
+ * Length is measured in code points (`[...s].length`) for parity with
+ * `compressBriefHeadlineIfApplicable`, which uses the same convention.
+ */
+function deriveBriefHook(hook: string | undefined): string | undefined {
+  if (typeof hook !== 'string') return undefined;
+  const normalized = normalizeRenderedText(hook).trim();
+  if (normalized.length === 0) return undefined;
+  if ([...normalized].length > BRIEF_HOOK_MAX_LEN) return undefined;
+  return normalized;
+}
+
+function deriveBrief(
+  rendered: TaggedParagraph,
+  fragment: NarrativeFragment | null,
+): BriefFortuneText {
   const text = rendered.plainText.trim();
-  return text ? { headline: text } : PLACEHOLDER_BRIEF;
+  if (!text) return PLACEHOLDER_BRIEF;
+  const hook = deriveBriefHook(fragment?.hook);
+  return hook ? { headline: text, hook } : { headline: text };
 }
 
 function isMinorAgeBand(ageBand: FeatureVector['ageBand']): boolean {
@@ -318,7 +348,7 @@ function buildCell(
   const expertRender = expertFrag ? renderFragmentParagraphs(expertFrag, ctx) : EMPTY_PARAGRAPHS;
   const hasAnyFragment = Boolean(briefFrag || standardFrag || expertFrag);
 
-  const brief = briefRender ? deriveBrief(briefRender) : PLACEHOLDER_BRIEF;
+  const brief = briefRender ? deriveBrief(briefRender, briefFrag) : PLACEHOLDER_BRIEF;
   const standard = standardFrag
     ? buildStandardText(standardFrag, standardRender)
     : (hasAnyFragment ? (buildMinorStandardFallback(feature, category, periodLabel) ?? PLACEHOLDER_STANDARD) : PLACEHOLDER_STANDARD);

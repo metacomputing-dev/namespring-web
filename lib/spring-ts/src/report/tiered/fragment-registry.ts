@@ -64,6 +64,15 @@ export interface NarrativeFragment {
   }[];
   readonly headlineSlot?: string;
   readonly hookSlot?: string;
+  /**
+   * Brief-tier optional supporting sentence (P13-A1). Surfaces on
+   * `BriefFortuneText.hook` when present and ≤24 Korean code points after
+   * normalization. Distinct from `hookSlot`, which references a slot name
+   * inside `slots` (legacy, unused). `hook` is a literal string authored
+   * directly into the fragment bundle. Style-guide §2-1 frames it as the
+   * optional 보조 한 문장 of the brief tier.
+   */
+  readonly hook?: string;
   readonly aiGenerated: boolean;
   readonly sourceTier: unknown;
 }
