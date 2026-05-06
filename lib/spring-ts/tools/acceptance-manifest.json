@@ -1,0 +1,22 @@
+{
+  "_comment_purpose": "Source of truth for the set of ci:* gates that must be exercised at acceptance time. Consumed by tools/check_acceptance_completeness.mjs (wired as ci:acceptance-completeness in package.json). Phase 13 Agent A5 found that P12-A5 acceptance silently omitted ci:narrative-orphan-tags (a P12-A3-wired gate); this manifest exists so the check fails fast when a new ci:* script is added without being explicitly declared accepted or exempt.",
+  "_comment_policy": "Every ci:* script in package.json MUST appear in either accepted[] or exempt[]. accepted[] = gates run as part of P*-A* acceptance / local CI. exempt[] = gates that cannot run from a worktree-local npm run (e.g. require GITHUB_EVENT_PATH or PR body); each exemption MUST carry a justification.",
+  "accepted": [
+    "ci:no-ai-policy",
+    "ci:narrative-density",
+    "ci:narrative-tuple-density",
+    "ci:narrative-daymaster-tuple-density",
+    "ci:narrative-cell-axis",
+    "ci:narrative-voice",
+    "ci:narrative-truncated-endings",
+    "ci:narrative-tag-label-alignment",
+    "ci:narrative-orphan-tags",
+    "ci:acceptance-completeness"
+  ],
+  "exempt": [
+    {
+      "name": "ci:release-checklist",
+      "reason": "Requires --body <path> or GITHUB_EVENT_PATH. Exercised by GitHub Actions at PR-creation time only; cannot run from a worktree-local npm run invocation. Documented in artifacts/phase13-agent-a5/audit-2026-05-06-phase13.md §C5."
+    }
+  ]
+}
