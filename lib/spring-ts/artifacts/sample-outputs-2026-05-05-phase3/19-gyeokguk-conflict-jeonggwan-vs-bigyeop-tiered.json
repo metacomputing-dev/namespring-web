@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-05-06T12:36:16.146Z",
+  "generatedAt": "2026-05-06T12:42:20.862Z",
   "targetDate": "2026-05-05T00:00:00+09:00",
   "sampleId": "gyeokguk-conflict-jeonggwan-vs-bigyeop-tiered",
   "description": "격국 충돌 case 1: 정관 후보와 비견(겁재) 후보가 같이 잡히기 쉬운 입력. gyeokgukSelectionRule=jungki_transparent 로 월지 중기 투간 룰을 활성화하여 후보 ranking 의 elasticity 를 노출하는 케이스. 최종 격국 판정은 엔진이 결정한다.",
@@ -1303,7 +1303,7 @@
     },
     "meta": {
       "version": "1.0.0",
-      "generatedAt": "2026-05-06T12:36:24.577Z",
+      "generatedAt": "2026-05-06T12:42:29.220Z",
       "schoolPreset": {
         "selected": "korean",
         "source": "default",
@@ -8274,10 +8274,10 @@
                     },
                     {
                       "kind": "text",
-                      "value": "의 흐름이 곁에 들어오면 모자란 자리를 자연스레 받쳐 주는 흐름이 함께 흘러요."
+                      "value": "의 리듬이 곁에 들어오면 모자란 자리를 자연스레 받쳐 주는 호흡이 함께 흘러요."
                     }
                   ],
-                  "plainText": "#통관용신의 흐름이 자리하면 한쪽으로 막힌 흐름을 부드럽게 살려 주고, #병약용신의 흐름이 곁에 들어오면 모자란 자리를 자연스레 받쳐 주는 흐름이 함께 흘러요."
+                  "plainText": "#통관용신의 흐름이 자리하면 한쪽으로 막힌 흐름을 부드럽게 살려 주고, #병약용신의 리듬이 곁에 들어오면 모자란 자리를 자연스레 받쳐 주는 호흡이 함께 흘러요."
                 }
               ]
             },
@@ -10282,10 +10282,10 @@
                     },
                     {
                       "kind": "text",
-                      "value": "의 흐름이 곁에 들어오면 모자란 자리를 자연스레 받쳐 주는 흐름이 함께 흘러요."
+                      "value": "의 리듬이 곁에 들어오면 모자란 자리를 자연스레 받쳐 주는 호흡이 함께 흘러요."
                     }
                   ],
-                  "plainText": "#통관용신의 흐름이 자리하면 한쪽으로 막힌 흐름을 부드럽게 살려 주고, #병약용신의 흐름이 곁에 들어오면 모자란 자리를 자연스레 받쳐 주는 흐름이 함께 흘러요."
+                  "plainText": "#통관용신의 흐름이 자리하면 한쪽으로 막힌 흐름을 부드럽게 살려 주고, #병약용신의 리듬이 곁에 들어오면 모자란 자리를 자연스레 받쳐 주는 호흡이 함께 흘러요."
                 },
                 {
                   "tokens": [
@@ -13017,7 +13017,7 @@
       },
       "meta": {
         "schemaVersion": "spring-ts.tiered-matrix.v1",
-        "generatedAt": "2026-05-06T12:36:24.577Z",
+        "generatedAt": "2026-05-06T12:42:29.220Z",
         "selectionSeed": "1985|5|25|8|45|male|2026-05-04T15:00:00.000Z",
         "templateContractVersion": "1.0.0",
         "contentSource": "authored",

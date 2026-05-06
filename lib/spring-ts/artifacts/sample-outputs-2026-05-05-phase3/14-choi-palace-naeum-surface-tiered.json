@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-05-06T12:36:16.146Z",
+  "generatedAt": "2026-05-06T12:42:20.862Z",
   "targetDate": "2026-05-05T00:00:00+09:00",
   "sampleId": "choi-palace-naeum-surface-tiered",
   "description": "12궁 / 60갑자 surface ON 시나리오 (declared opt-in). saju-ts 측 데이터 포트 이전이면 surfacePalace/surfaceNaeum 이 추가 출력을 내지 않으며, 계약상 opt-in 시그니처만 노출한다. tieredMatrix 는 정상 출력.",
@@ -770,7 +770,7 @@
     },
     "meta": {
       "version": "1.0.0",
-      "generatedAt": "2026-05-06T12:36:23.088Z",
+      "generatedAt": "2026-05-06T12:42:27.675Z",
       "schoolPreset": {
         "selected": "korean",
         "source": "default",
@@ -5524,10 +5524,10 @@
                     },
                     {
                       "kind": "text",
-                      "value": "의 흐름이 곁에 들어오면 모자란 자리를 자연스레 받쳐 주는 흐름이 함께 흘러요."
+                      "value": "의 리듬이 곁에 들어오면 모자란 자리를 자연스레 받쳐 주는 호흡이 함께 흘러요."
                     }
                   ],
-                  "plainText": "#통관용신의 흐름이 자리하면 한쪽으로 막힌 흐름을 부드럽게 살려 주고, #병약용신의 흐름이 곁에 들어오면 모자란 자리를 자연스레 받쳐 주는 흐름이 함께 흘러요."
+                  "plainText": "#통관용신의 흐름이 자리하면 한쪽으로 막힌 흐름을 부드럽게 살려 주고, #병약용신의 리듬이 곁에 들어오면 모자란 자리를 자연스레 받쳐 주는 호흡이 함께 흘러요."
                 }
               ]
             },
@@ -9580,10 +9580,10 @@
                     },
                     {
                       "kind": "text",
-                      "value": "의 흐름이 곁에 들어오면 모자란 자리를 자연스레 받쳐 주는 흐름이 함께 흘러요."
+                      "value": "의 리듬이 곁에 들어오면 모자란 자리를 자연스레 받쳐 주는 호흡이 함께 흘러요."
                     }
                   ],
-                  "plainText": "#통관용신의 흐름이 자리하면 한쪽으로 막힌 흐름을 부드럽게 살려 주고, #병약용신의 흐름이 곁에 들어오면 모자란 자리를 자연스레 받쳐 주는 흐름이 함께 흘러요."
+                  "plainText": "#통관용신의 흐름이 자리하면 한쪽으로 막힌 흐름을 부드럽게 살려 주고, #병약용신의 리듬이 곁에 들어오면 모자란 자리를 자연스레 받쳐 주는 호흡이 함께 흘러요."
                 },
                 {
                   "tokens": [
@@ -12329,7 +12329,7 @@
       },
       "meta": {
         "schemaVersion": "spring-ts.tiered-matrix.v1",
-        "generatedAt": "2026-05-06T12:36:23.088Z",
+        "generatedAt": "2026-05-06T12:42:27.675Z",
         "selectionSeed": "1986|4|19|5|45|male|2026-05-04T15:00:00.000Z",
         "templateContractVersion": "1.0.0",
         "contentSource": "authored",
