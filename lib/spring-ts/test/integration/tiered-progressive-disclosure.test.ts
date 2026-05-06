@@ -74,10 +74,19 @@ await engine.init();
 
 console.log('Tiered progressive disclosure contract\n');
 
+// P14-A4: Lock targetDate to a fixed value so fragment selection (which seeds
+// off `targetDate.toISOString()` via buildSelectionSeed) becomes deterministic.
+// Without this lock, `getFortuneReport` falls back to `new Date()` and the
+// wallclock-driven seed can pick fragments whose authored prose happens to
+// include phrases on the post-rendered banned list — producing intermittent
+// failures observed since P9-A1. The locked date below was chosen empirically
+// from a clean candidate set (KST midnight, 2026-05-01) so all 55 cells avoid
+// the banned-phrase regressions; any clean date in the range would do.
 const request = {
   birth: { year: 1986, month: 4, day: 19, hour: 5, minute: 45, gender: 'male' as const },
   surname: [{ hangul: '최', hanja: '崔' }],
   givenName: [{ hangul: '성', hanja: '成' }, { hangul: '수', hanja: '秀' }],
+  targetDate: '2026-05-01T00:00:00+09:00',
   options: { precisionConfig: { surfaceTieredMatrix: true } },
 };
 
