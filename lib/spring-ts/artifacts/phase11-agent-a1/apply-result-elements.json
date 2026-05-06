@@ -1,0 +1,97 @@
+{
+  "dryRun": false,
+  "targetTagIds": [
+    "fire",
+    "earth",
+    "water"
+  ],
+  "totalFilesScanned": 213,
+  "filesTouched": 5,
+  "totalLabelChanges": 18,
+  "changes": [
+    {
+      "file": "_coverage/health-plain-expert-season-detail.fragments.json",
+      "tagId": "fire",
+      "fromLabel": "화",
+      "toLabel": "불",
+      "count": 1
+    },
+    {
+      "file": "_coverage/health-plain-expert-season-detail.fragments.json",
+      "tagId": "water",
+      "fromLabel": "수",
+      "toLabel": "물",
+      "count": 1
+    },
+    {
+      "file": "_coverage/min14-health-floor.fragments.json",
+      "tagId": "fire",
+      "fromLabel": "화",
+      "toLabel": "불",
+      "count": 4
+    },
+    {
+      "file": "_coverage/min14-health-floor.fragments.json",
+      "tagId": "water",
+      "fromLabel": "수",
+      "toLabel": "물",
+      "count": 4
+    },
+    {
+      "file": "_coverage/min14-health-floor.fragments.json",
+      "tagId": "earth",
+      "fromLabel": "토",
+      "toLabel": "흙",
+      "count": 1
+    },
+    {
+      "file": "_coverage/min14-health-stress-expert-floor.fragments.json",
+      "tagId": "fire",
+      "fromLabel": "화",
+      "toLabel": "불",
+      "count": 1
+    },
+    {
+      "file": "_coverage/min14-health-stress-expert-floor.fragments.json",
+      "tagId": "water",
+      "fromLabel": "수",
+      "toLabel": "물",
+      "count": 1
+    },
+    {
+      "file": "_coverage/min14-health-stress-expert-floor.fragments.json",
+      "tagId": "earth",
+      "fromLabel": "토",
+      "toLabel": "흙",
+      "count": 1
+    },
+    {
+      "file": "_coverage/min15-health-floor.fragments.json",
+      "tagId": "fire",
+      "fromLabel": "화",
+      "toLabel": "불",
+      "count": 1
+    },
+    {
+      "file": "_coverage/min15-health-floor.fragments.json",
+      "tagId": "water",
+      "fromLabel": "수",
+      "toLabel": "물",
+      "count": 1
+    },
+    {
+      "file": "_coverage/min15-health-stress-floor.fragments.json",
+      "tagId": "fire",
+      "fromLabel": "화",
+      "toLabel": "불",
+      "count": 1
+    },
+    {
+      "file": "_coverage/min15-health-stress-floor.fragments.json",
+      "tagId": "water",
+      "fromLabel": "수",
+      "toLabel": "물",
+      "count": 1
+    }
+  ]
+}

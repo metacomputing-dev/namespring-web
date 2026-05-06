@@ -1,0 +1,240 @@
+{
+  "dryRun": false,
+  "targetTagIds": [
+    "stabilityIndex",
+    "yongshinFit",
+    "gyeokgukFit",
+    "ohaengBalance",
+    "eumyangHarmony",
+    "sajuCompatibility"
+  ],
+  "totalFilesScanned": 213,
+  "filesTouched": 23,
+  "totalLabelChanges": 96,
+  "changes": [
+    {
+      "file": "overall/life/expert.fragments.json",
+      "tagId": "yongshinFit",
+      "fromLabel": "용신적합도",
+      "toLabel": "용신부합도",
+      "count": 1
+    },
+    {
+      "file": "overall/thisMonth/expert.fragments.json",
+      "tagId": "yongshinFit",
+      "fromLabel": "용신적합도",
+      "toLabel": "용신부합도",
+      "count": 1
+    },
+    {
+      "file": "overall/thisWeek/expert.fragments.json",
+      "tagId": "yongshinFit",
+      "fromLabel": "용신적합도",
+      "toLabel": "용신부합도",
+      "count": 1
+    },
+    {
+      "file": "overall/thisYear/expert.fragments.json",
+      "tagId": "yongshinFit",
+      "fromLabel": "용신적합도",
+      "toLabel": "용신부합도",
+      "count": 1
+    },
+    {
+      "file": "overall/today/expert.fragments.json",
+      "tagId": "yongshinFit",
+      "fromLabel": "용신적합도",
+      "toLabel": "용신부합도",
+      "count": 1
+    },
+    {
+      "file": "_coverage/academic-season-detail-context.fragments.json",
+      "tagId": "stabilityIndex",
+      "fromLabel": "안정 지표",
+      "toLabel": "안정성지수",
+      "count": 4
+    },
+    {
+      "file": "_coverage/career-expert-density-floor.fragments.json",
+      "tagId": "gyeokgukFit",
+      "fromLabel": "격국 적합도",
+      "toLabel": "격국적합도",
+      "count": 4
+    },
+    {
+      "file": "_coverage/career-season-expert-context.fragments.json",
+      "tagId": "gyeokgukFit",
+      "fromLabel": "격국 적합도",
+      "toLabel": "격국적합도",
+      "count": 5
+    },
+    {
+      "file": "_coverage/categorical-evidence-density-wave3.fragments.json",
+      "tagId": "sajuCompatibility",
+      "fromLabel": "사주 적합도",
+      "toLabel": "사주적합도",
+      "count": 4
+    },
+    {
+      "file": "_coverage/categorical-evidence-density-wave3.fragments.json",
+      "tagId": "eumyangHarmony",
+      "fromLabel": "음양 조화",
+      "toLabel": "음양조화도",
+      "count": 4
+    },
+    {
+      "file": "_coverage/family-expert-season-context.fragments.json",
+      "tagId": "stabilityIndex",
+      "fromLabel": "안정 지표",
+      "toLabel": "안정성지수",
+      "count": 2
+    },
+    {
+      "file": "_coverage/focused-season-gap-fill.fragments.json",
+      "tagId": "stabilityIndex",
+      "fromLabel": "안정 지표",
+      "toLabel": "안정성지수",
+      "count": 3
+    },
+    {
+      "file": "_coverage/health-long-season-context.fragments.json",
+      "tagId": "stabilityIndex",
+      "fromLabel": "안정 지수",
+      "toLabel": "안정성지수",
+      "count": 4
+    },
+    {
+      "file": "_coverage/health-plain-expert-season-detail.fragments.json",
+      "tagId": "stabilityIndex",
+      "fromLabel": "안정 지표",
+      "toLabel": "안정성지수",
+      "count": 1
+    },
+    {
+      "file": "_coverage/health-season-context.fragments.json",
+      "tagId": "stabilityIndex",
+      "fromLabel": "안정 지수",
+      "toLabel": "안정성지수",
+      "count": 3
+    },
+    {
+      "file": "_coverage/health-stress-short-season-context.fragments.json",
+      "tagId": "stabilityIndex",
+      "fromLabel": "안정 지수",
+      "toLabel": "안정성지수",
+      "count": 6
+    },
+    {
+      "file": "_coverage/min12-density-floor-complete.fragments.json",
+      "tagId": "stabilityIndex",
+      "fromLabel": "안정 지표",
+      "toLabel": "안정성지수",
+      "count": 3
+    },
+    {
+      "file": "_coverage/min14-career-floor.fragments.json",
+      "tagId": "gyeokgukFit",
+      "fromLabel": "격국 적합도",
+      "toLabel": "격국적합도",
+      "count": 1
+    },
+    {
+      "file": "_coverage/min14-romance-expert-floor.fragments.json",
+      "tagId": "sajuCompatibility",
+      "fromLabel": "사주궁합",
+      "toLabel": "사주적합도",
+      "count": 3
+    },
+    {
+      "file": "_coverage/min14-romance-expert-floor.fragments.json",
+      "tagId": "eumyangHarmony",
+      "fromLabel": "음양조화",
+      "toLabel": "음양조화도",
+      "count": 4
+    },
+    {
+      "file": "_coverage/min15-romance-floor.fragments.json",
+      "tagId": "sajuCompatibility",
+      "fromLabel": "사주궁합",
+      "toLabel": "사주적합도",
+      "count": 3
+    },
+    {
+      "file": "_coverage/min15-romance-floor.fragments.json",
+      "tagId": "eumyangHarmony",
+      "fromLabel": "음양조화",
+      "toLabel": "음양조화도",
+      "count": 2
+    },
+    {
+      "file": "_coverage/min15-study-document-floor.fragments.json",
+      "tagId": "gyeokgukFit",
+      "fromLabel": "격국 적합도",
+      "toLabel": "격국적합도",
+      "count": 1
+    },
+    {
+      "file": "_coverage/ordinal-evidence-density.fragments.json",
+      "tagId": "sajuCompatibility",
+      "fromLabel": "사주 적합도",
+      "toLabel": "사주적합도",
+      "count": 3
+    },
+    {
+      "file": "_coverage/ordinal-evidence-density.fragments.json",
+      "tagId": "eumyangHarmony",
+      "fromLabel": "음양 조화",
+      "toLabel": "음양조화도",
+      "count": 3
+    },
+    {
+      "file": "_coverage/ordinal-evidence-density.fragments.json",
+      "tagId": "ohaengBalance",
+      "fromLabel": "오행 균형",
+      "toLabel": "오행균형도",
+      "count": 5
+    },
+    {
+      "file": "_coverage/ordinal-evidence-density.fragments.json",
+      "tagId": "yongshinFit",
+      "fromLabel": "용신 부합도",
+      "toLabel": "용신부합도",
+      "count": 5
+    },
+    {
+      "file": "_coverage/ordinal-evidence-density.fragments.json",
+      "tagId": "gyeokgukFit",
+      "fromLabel": "격국 적합도",
+      "toLabel": "격국적합도",
+      "count": 6
+    },
+    {
+      "file": "_coverage/overall-season-complete.fragments.json",
+      "tagId": "gyeokgukFit",
+      "fromLabel": "격국 적합도",
+      "toLabel": "격국적합도",
+      "count": 3
+    },
+    {
+      "file": "_coverage/overall-season-complete.fragments.json",
+      "tagId": "stabilityIndex",
+      "fromLabel": "안정 지표",
+      "toLabel": "안정성지수",
+      "count": 5
+    },
+    {
+      "file": "_coverage/top-season-context.fragments.json",
+      "tagId": "sajuCompatibility",
+      "fromLabel": "사주 적합성",
+      "toLabel": "사주적합도",
+      "count": 2
+    },
+    {
+      "file": "_coverage/top-season-context.fragments.json",
+      "tagId": "eumyangHarmony",
+      "fromLabel": "음양 조화",
+      "toLabel": "음양조화도",
+      "count": 2
+    }
+  ]
+}
