@@ -501,7 +501,7 @@
         {
           "kind": "tag",
           "tagId": "fire",
-          "label": "화"
+          "label": "불"
         },
         {
           "kind": "text",
@@ -510,7 +510,7 @@
         {
           "kind": "tag",
           "tagId": "water",
-          "label": "수"
+          "label": "물"
         },
         {
           "kind": "text",
@@ -750,7 +750,7 @@
         {
           "kind": "tag",
           "tagId": "fire",
-          "label": "화"
+          "label": "불"
         },
         {
           "kind": "text",
@@ -759,7 +759,7 @@
         {
           "kind": "tag",
           "tagId": "water",
-          "label": "수"
+          "label": "물"
         },
         {
           "kind": "text",
@@ -875,7 +875,7 @@
         {
           "kind": "tag",
           "tagId": "fire",
-          "label": "화"
+          "label": "불"
         },
         {
           "kind": "text",
@@ -884,7 +884,7 @@
         {
           "kind": "tag",
           "tagId": "water",
-          "label": "수"
+          "label": "물"
         },
         {
           "kind": "text",
@@ -986,7 +986,7 @@
         {
           "kind": "tag",
           "tagId": "earth",
-          "label": "토"
+          "label": "흙"
         },
         {
           "kind": "text",
@@ -1252,7 +1252,7 @@
         {
           "kind": "tag",
           "tagId": "fire",
-          "label": "화"
+          "label": "불"
         },
         {
           "kind": "text",
@@ -1261,7 +1261,7 @@
         {
           "kind": "tag",
           "tagId": "water",
-          "label": "수"
+          "label": "물"
         },
         {
           "kind": "text",
