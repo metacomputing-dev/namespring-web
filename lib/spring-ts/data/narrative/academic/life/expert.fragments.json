@@ -547,7 +547,54 @@
         "humanInterpretation": "Phase 2 academic-category fragment authored by agent-3 under data/narrative/_contract/v1.json. Display-only narrative for the tiered-matrix academic axis.",
         "copyrightNote": "No source prose copied; original authored prose.",
         "authorityTruthEligible": false
-      }
+      },
+      "numericalEvidence": [
+        {
+          "label": "용신 신뢰도",
+          "valueExpression": "feature.yongshinConfidence",
+          "unit": "점",
+          "sourceTier": {
+            "tier": "T3_INTERNAL_ENGINE",
+            "sourceType": "internal_scoring_policy",
+            "sourceUrl": null,
+            "accessedAt": "2026-05-02",
+            "quoteShort": null,
+            "humanInterpretation": "Resolved from deterministic spring-ts runtime output.",
+            "copyrightNote": "No third-party prose copied.",
+            "authorityTruthEligible": false
+          }
+        },
+        {
+          "label": "희신 오행 순번",
+          "valueExpression": "feature.heeshinElementOrdinal",
+          "unit": "순번",
+          "sourceTier": {
+            "tier": "T3_INTERNAL_ENGINE",
+            "sourceType": "internal_scoring_policy",
+            "sourceUrl": null,
+            "accessedAt": "2026-05-02",
+            "quoteShort": null,
+            "humanInterpretation": "Resolved from deterministic spring-ts runtime output.",
+            "copyrightNote": "No third-party prose copied.",
+            "authorityTruthEligible": false
+          }
+        },
+        {
+          "label": "기신 오행 순번",
+          "valueExpression": "feature.gishinElementOrdinal",
+          "unit": "순번",
+          "sourceTier": {
+            "tier": "T3_INTERNAL_ENGINE",
+            "sourceType": "internal_scoring_policy",
+            "sourceUrl": null,
+            "accessedAt": "2026-05-02",
+            "quoteShort": null,
+            "humanInterpretation": "Resolved from deterministic spring-ts runtime output.",
+            "copyrightNote": "No third-party prose copied.",
+            "authorityTruthEligible": false
+          }
+        }
+      ]
     },
     {
       "schemaVersion": "spring-ts.narrative-fragment.v1",
@@ -627,7 +674,39 @@
         "humanInterpretation": "Phase 2 academic-category fragment authored by agent-3 under data/narrative/_contract/v1.json. Display-only narrative for the tiered-matrix academic axis.",
         "copyrightNote": "No source prose copied; original authored prose.",
         "authorityTruthEligible": false
-      }
+      },
+      "numericalEvidence": [
+        {
+          "label": "용신 신뢰도",
+          "valueExpression": "feature.yongshinConfidence",
+          "unit": "점",
+          "sourceTier": {
+            "tier": "T3_INTERNAL_ENGINE",
+            "sourceType": "internal_scoring_policy",
+            "sourceUrl": null,
+            "accessedAt": "2026-05-02",
+            "quoteShort": null,
+            "humanInterpretation": "Resolved from deterministic spring-ts runtime output.",
+            "copyrightNote": "No third-party prose copied.",
+            "authorityTruthEligible": false
+          }
+        },
+        {
+          "label": "희신 오행 순번",
+          "valueExpression": "feature.heeshinElementOrdinal",
+          "unit": "순번",
+          "sourceTier": {
+            "tier": "T3_INTERNAL_ENGINE",
+            "sourceType": "internal_scoring_policy",
+            "sourceUrl": null,
+            "accessedAt": "2026-05-02",
+            "quoteShort": null,
+            "humanInterpretation": "Resolved from deterministic spring-ts runtime output.",
+            "copyrightNote": "No third-party prose copied.",
+            "authorityTruthEligible": false
+          }
+        }
+      ]
     },
     {
       "schemaVersion": "spring-ts.narrative-fragment.v1",
