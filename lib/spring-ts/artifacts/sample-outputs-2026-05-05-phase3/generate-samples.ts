@@ -655,6 +655,433 @@ const samples: Sample[] = [
       },
     },
   },
+
+  // ── Phase 10 P10-A1 new fixtures (22 → 35) ───────────────────────────
+  // 외격 6종 (從旺/從財/從官/從殺/從兒/從強) — test/fixtures/jonggyeok_cases.json 의
+  // 9-way 종격 fixture 중 doctrinal 검증된 입력 좌표를 차용. 최종 판정은 엔진이
+  // 결정하며 default chengbai_strict 모드는 정격으로 분류한다 (jonggyeok-fixture.test.ts
+  // 의 disagreementReason 참조). 본 fixture 집합은 종격 doctrine signal fixture 이지
+  // 종격 판정 자체의 강제는 아니다.
+  {
+    id: 'jonggyeok-jongwang-yeomsang-tiered',
+    fileName: '23-jonggyeok-jongwang-yeomsang-tiered.json',
+    description: '입력 의도: 從旺격 (一氣格 / 炎上格 火) 계열. fix-jong-02 (1942-06-23 15:00) 좌표를 차용 — 火 일간이 寅午戌 부분 火局 + 丙午 月柱 로 단일 火氣 압도. 최종 외격 판정은 엔진이 결정한다.',
+    call: 'getFortuneReport',
+    request: {
+      targetDate: TARGET_DATE,
+      birth: {
+        year: 1942,
+        month: 6,
+        day: 23,
+        hour: 15,
+        minute: 0,
+        gender: 'male' as const,
+        calendarType: 'solar' as const,
+        region: '서울',
+        birthPlace: '서울',
+      },
+      surname: [{ hangul: '이', hanja: '李' }],
+      givenName: [
+        { hangul: '양', hanja: '陽' },
+        { hangul: '수', hanja: '洙' },
+      ],
+      options: {
+        ...fullTimePolicy,
+        precisionConfig: { ...tieredPrecision.precisionConfig },
+      },
+    },
+  },
+  {
+    id: 'jonggyeok-jongjae-tiered',
+    fileName: '24-jonggyeok-jongjae-tiered.json',
+    description: '입력 의도: 從財격 계열. fix-jong-04 (1978-07-11 09:00) 좌표 — 甲木 일간이 戊己己戊 4 천간 + 戌未辰 토 지지로 재성(土) 압도, 인성/비겁 미약한 從財 doctrine 입력. 최종 외격 판정은 엔진이 결정한다.',
+    call: 'getFortuneReport',
+    request: {
+      targetDate: TARGET_DATE,
+      birth: {
+        year: 1978,
+        month: 7,
+        day: 11,
+        hour: 9,
+        minute: 0,
+        gender: 'male' as const,
+        calendarType: 'solar' as const,
+        region: '서울',
+        birthPlace: '서울',
+      },
+      surname: [{ hangul: '최', hanja: '崔' }],
+      givenName: [
+        { hangul: '재', hanja: '在' },
+        { hangul: '민', hanja: '敏' },
+      ],
+      options: {
+        ...fullTimePolicy,
+        precisionConfig: { ...tieredPrecision.precisionConfig },
+      },
+    },
+  },
+  {
+    id: 'jonggyeok-jonggwan-tiered',
+    fileName: '25-jonggyeok-jonggwan-tiered.json',
+    description: '입력 의도: 從官격 계열. fix-jong-05 (1933-09-15 15:00) 좌표 — 甲木 일간이 가을 申酉 지지에 무근, 辛 정관(陰金) 천간 압도 + 申酉 통근. precisionConfig.gyeokgukSelectionRule=jungki_transparent 로 월지 중기 룰 surface. 최종 외격 판정은 엔진이 결정한다.',
+    call: 'getFortuneReport',
+    request: {
+      targetDate: TARGET_DATE,
+      birth: {
+        year: 1933,
+        month: 9,
+        day: 15,
+        hour: 15,
+        minute: 0,
+        gender: 'male' as const,
+        calendarType: 'solar' as const,
+        region: '서울',
+        birthPlace: '서울',
+      },
+      surname: [{ hangul: '강', hanja: '姜' }],
+      givenName: [
+        { hangul: '정', hanja: '正' },
+        { hangul: '관', hanja: '官' },
+      ],
+      options: {
+        ...fullTimePolicy,
+        precisionConfig: {
+          ...tieredPrecision.precisionConfig,
+          gyeokgukSelectionRule: 'jungki_transparent',
+        },
+      },
+    },
+  },
+  {
+    id: 'jonggyeok-jongsal-tiered',
+    fileName: '26-jonggyeok-jongsal-tiered.json',
+    description: '입력 의도: 從殺격 (七殺 dominant) 계열. fix-jong-06 (1972-12-11 09:00) 좌표 — 丙火 일간이 동지경 子月 절지 + 壬水 편관 3 천간 + 子 지지 3개 압도. 최종 외격 판정은 엔진이 결정한다.',
+    call: 'getFortuneReport',
+    request: {
+      targetDate: TARGET_DATE,
+      birth: {
+        year: 1972,
+        month: 12,
+        day: 11,
+        hour: 9,
+        minute: 0,
+        gender: 'male' as const,
+        calendarType: 'solar' as const,
+        region: '서울',
+        birthPlace: '서울',
+      },
+      surname: [{ hangul: '오', hanja: '吳' }],
+      givenName: [
+        { hangul: '철', hanja: '鐵' },
+        { hangul: '민', hanja: '敏' },
+      ],
+      options: {
+        ...fullTimePolicy,
+        precisionConfig: { ...tieredPrecision.precisionConfig },
+      },
+    },
+  },
+  {
+    id: 'jonggyeok-jongah-tiered',
+    fileName: '27-jonggyeok-jongah-tiered.json',
+    description: '입력 의도: 從兒격 (식상 dominant) 계열. fix-jong-07 (2018-07-23 03:00) 좌표 — 丙火 일간 + 戊己己戊 4 천간 식상 + 戌未辰丑 토 지지 67.5%. 從兒不論身強弱 doctrine 입력. 최종 외격 판정은 엔진이 결정한다.',
+    call: 'getFortuneReport',
+    request: {
+      targetDate: TARGET_DATE,
+      birth: {
+        year: 2018,
+        month: 7,
+        day: 23,
+        hour: 3,
+        minute: 0,
+        gender: 'male' as const,
+        calendarType: 'solar' as const,
+        region: '서울',
+        birthPlace: '서울',
+      },
+      surname: [{ hangul: '윤', hanja: '尹' }],
+      givenName: [
+        { hangul: '선', hanja: '善' },
+        { hangul: '재', hanja: '宰' },
+      ],
+      options: {
+        ...fullTimePolicy,
+        precisionConfig: { ...tieredPrecision.precisionConfig },
+      },
+    },
+  },
+  {
+    id: 'jonggyeok-jonggang-tiered',
+    fileName: '28-jonggyeok-jonggang-tiered.json',
+    description: '입력 의도: 從强격 (비겁+인성 강) 계열. fix-jong-09 (1938-08-05 03:00) 좌표 — 己土 일간 + 戊己 비겁 + 未巳丑 토화 지지 + 火 인성 보조. 從旺(비겁만) 과 從强(비겁+인성) 의 경계 입력. 최종 외격 판정은 엔진이 결정한다.',
+    call: 'getFortuneReport',
+    request: {
+      targetDate: TARGET_DATE,
+      birth: {
+        year: 1938,
+        month: 8,
+        day: 5,
+        hour: 3,
+        minute: 0,
+        gender: 'male' as const,
+        calendarType: 'solar' as const,
+        region: '서울',
+        birthPlace: '서울',
+      },
+      surname: [{ hangul: '임', hanja: '林' }],
+      givenName: [
+        { hangul: '강', hanja: '强' },
+        { hangul: '민', hanja: '敏' },
+      ],
+      options: {
+        ...fullTimePolicy,
+        precisionConfig: { ...tieredPrecision.precisionConfig },
+      },
+    },
+  },
+
+  // ── 한글-only 이름 (hanja 미입력) — pureHangulNameMode='on' ───────────
+  {
+    id: 'pure-hangul-name-tiered',
+    fileName: '29-pure-hangul-name-tiered.json',
+    description: '한글 전용 이름 (hanja 미입력) 입력 — pureHangulNameMode=on 으로 발음오행 기반 채점. 한글 작명 트렌드 (자음/모음 polarity, 모음 음양) 와 surfacePhoneticEvidence 가 함께 노출되는 케이스. 한자 강제 미적용 안전 fallback 점검.',
+    call: 'getFortuneReport',
+    request: {
+      targetDate: TARGET_DATE,
+      birth: {
+        year: 1996,
+        month: 4,
+        day: 12,
+        hour: 10,
+        minute: 30,
+        gender: 'female' as const,
+        calendarType: 'solar' as const,
+        region: '서울',
+        birthPlace: '서울',
+      },
+      surname: [{ hangul: '한' }],
+      givenName: [
+        { hangul: '나' },
+        { hangul: '래' },
+      ],
+      options: {
+        ...fullTimePolicy,
+        pureHangulNameMode: 'on',
+        precisionConfig: {
+          ...tieredPrecision.precisionConfig,
+          surfacePhoneticEvidence: true,
+          surfaceNameTrend: true,
+        },
+      },
+    },
+  },
+
+  // ── 절기 boundary — 입동 (LIDONG) ±0.5 day. 2026 입동 = 11/07 18:52 KST.
+  //    fortuneCascadeMode='jie_based' 로 jie 경계 정밀화 활성. 기존 11 (입추) 와
+  //    다른 절기 경계 조합. ────────────────────────────────────────────
+  {
+    id: 'jeolgi-lidong-boundary-tiered',
+    fileName: '30-jeolgi-lidong-boundary-tiered.json',
+    description: '입동(立冬) 절기 경계 직전 출생 (2026 입동 = 11/07 18:52 KST, 본 입력은 ±0.5 day 내). fortuneCascadeMode=jie_based 로 jie 경계 day-precision 활성, 月柱 戌→亥 분기 부근 elasticity 와 tieredMatrix 결합.',
+    call: 'getFortuneReport',
+    request: {
+      targetDate: TARGET_DATE,
+      birth: {
+        year: 2026,
+        month: 11,
+        day: 7,
+        hour: 18,
+        minute: 30,
+        gender: 'male' as const,
+        calendarType: 'solar' as const,
+        region: '서울',
+        birthPlace: '서울',
+      },
+      surname: [{ hangul: '신', hanja: '申' }],
+      givenName: [
+        { hangul: '동', hanja: '冬' },
+        { hangul: '주', hanja: '柱' },
+      ],
+      options: {
+        ...fullTimePolicy,
+        precisionConfig: {
+          ...tieredPrecision.precisionConfig,
+          fortuneCascadeMode: 'jie_based',
+        },
+      },
+    },
+  },
+
+  // ── 신생아 (현재 0세, 보호자 perspective) — 2026 출생 ──────────────
+  {
+    id: 'newborn-infant-male-tiered',
+    fileName: '31-newborn-infant-male-tiered.json',
+    description: '신생아 (2026 봄 출생, 현재 0세) — 보호자 perspective audience cell 활성화 fixture. life-stage 의 가장 이른 단계 narrative 가 fallback 되는지 확인. tieredMatrix 의 신생아 안전 어조 (성인 metaphor 회피) 점검 케이스.',
+    call: 'getFortuneReport',
+    request: {
+      targetDate: TARGET_DATE,
+      birth: {
+        year: 2026,
+        month: 3,
+        day: 15,
+        hour: 11,
+        minute: 0,
+        gender: 'male' as const,
+        calendarType: 'solar' as const,
+        region: '서울',
+        birthPlace: '서울',
+      },
+      surname: [{ hangul: '정', hanja: '鄭' }],
+      givenName: [
+        { hangul: '서', hanja: '瑞' },
+        { hangul: '준', hanja: '俊' },
+      ],
+      options: {
+        ...fullTimePolicy,
+        precisionConfig: { ...tieredPrecision.precisionConfig },
+      },
+    },
+  },
+
+  // ── 90+ 노년 + dayMaster 약 — 1933 겨울 출생 + 火 일간 (절지) ──────
+  {
+    id: 'nonagenarian-weak-daymaster-tiered',
+    fileName: '32-nonagenarian-weak-daymaster-tiered.json',
+    description: '90+ 노년 (1933 동지경 출생, 현재 92세) + dayMaster 약 (火 일간이 子月 水 절기에서 통근 失) — life-stage 후반 narrative + 약신 일간 fortune 곡선 결합. strengthMode=continuous 로 약신 graded intensity 노출.',
+    call: 'getFortuneReport',
+    request: {
+      targetDate: TARGET_DATE,
+      birth: {
+        year: 1933,
+        month: 12,
+        day: 25,
+        hour: 4,
+        minute: 30,
+        gender: 'male' as const,
+        calendarType: 'solar' as const,
+        region: '서울',
+        birthPlace: '서울',
+      },
+      surname: [{ hangul: '송', hanja: '宋' }],
+      givenName: [
+        { hangul: '학', hanja: '鶴' },
+        { hangul: '구', hanja: '九' },
+      ],
+      options: {
+        ...fullTimePolicy,
+        precisionConfig: {
+          ...tieredPrecision.precisionConfig,
+          strengthMode: 'continuous',
+        },
+      },
+    },
+  },
+
+  // ── consensus_aware + multi_axis 둘 다 활성 ────────────────────────
+  {
+    id: 'consensus-aware-multi-axis-combined-tiered',
+    fileName: '33-consensus-aware-multi-axis-combined-tiered.json',
+    description: 'yongshinMode=consensus_aware + evaluatorMode=multi_axis 동시 활성. 독립 명리 방법 (억부/조후/격국/통관/병약) 의 consensus scoreboard 와 axisStrength ≥2 축 다축 가중이 함께 sajuPriority 에 반영되는 PR-K-9 + consensus 결합 fixture.',
+    call: 'getFortuneReport',
+    request: {
+      targetDate: TARGET_DATE,
+      birth: {
+        year: 1987,
+        month: 10,
+        day: 5,
+        hour: 15,
+        minute: 30,
+        gender: 'female' as const,
+        calendarType: 'solar' as const,
+        region: '서울',
+        birthPlace: '서울',
+      },
+      surname: [{ hangul: '서', hanja: '徐' }],
+      givenName: [
+        { hangul: '하', hanja: '河' },
+        { hangul: '윤', hanja: '允' },
+      ],
+      options: {
+        ...fullTimePolicy,
+        precisionConfig: {
+          ...tieredPrecision.precisionConfig,
+          yongshinMode: 'consensus_aware',
+          evaluatorMode: 'multi_axis',
+        },
+      },
+    },
+  },
+
+  // ── gyeokguk 충돌 + multi-confidence (chengbai_strict 페널티 곡선) ──
+  {
+    id: 'gyeokguk-conflict-multi-confidence-tiered',
+    fileName: '34-gyeokguk-conflict-multi-confidence-tiered.json',
+    description: '격국 충돌 + 다중 confidence 시나리오 — gyeokgukSelectionRule=jungki_transparent + gyeokgukMode=chengbai_strict + yongshinMode=consensus_aware 결합. 월지 중기 투간 후보와 chengbai 페널티 smooth tanh 곡선이 동시에 ranking 에 작용하는 elasticity 노출 케이스.',
+    call: 'getFortuneReport',
+    request: {
+      targetDate: TARGET_DATE,
+      birth: {
+        year: 1976,
+        month: 6,
+        day: 22,
+        hour: 13,
+        minute: 15,
+        gender: 'male' as const,
+        calendarType: 'solar' as const,
+        region: '서울',
+        birthPlace: '서울',
+      },
+      surname: [{ hangul: '권', hanja: '權' }],
+      givenName: [
+        { hangul: '도', hanja: '道' },
+        { hangul: '훈', hanja: '勳' },
+      ],
+      options: {
+        ...fullTimePolicy,
+        precisionConfig: {
+          ...tieredPrecision.precisionConfig,
+          yongshinMode: 'consensus_aware',
+          gyeokgukMode: 'chengbai_strict',
+          gyeokgukSelectionRule: 'jungki_transparent',
+        },
+      },
+    },
+  },
+
+  // ── 12궁 + 60갑자 surface 모두 활성 (입력은 fixture 14 와 다른 chart) ─
+  {
+    id: 'palace-naeum-female-mid-tiered',
+    fileName: '35-palace-naeum-female-mid-tiered.json',
+    description: 'surfacePalace=true + surfaceNaeum=true 동시 opt-in (fixture 14 와 다른 chart 로 surface 시그니처 안정성 점검). saju-ts 측 데이터 포트 이전이면 추가 출력 없으며, opt-in 시그니처와 tieredMatrix 결합만 노출. 30 대 여성 chart 로 mid-life narrative cell 도 함께 점검.',
+    call: 'getFortuneReport',
+    request: {
+      targetDate: TARGET_DATE,
+      birth: {
+        year: 1992,
+        month: 5,
+        day: 28,
+        hour: 12,
+        minute: 0,
+        gender: 'female' as const,
+        calendarType: 'solar' as const,
+        region: '서울',
+        birthPlace: '서울',
+      },
+      surname: [{ hangul: '문', hanja: '文' }],
+      givenName: [
+        { hangul: '예', hanja: '藝' },
+        { hangul: '진', hanja: '眞' },
+      ],
+      options: {
+        ...fullTimePolicy,
+        precisionConfig: {
+          ...tieredPrecision.precisionConfig,
+          surfacePalace: true,
+          surfaceNaeum: true,
+        },
+      },
+    },
+  },
 ];
 
 function jsonStable(value: unknown): string {
