@@ -1,0 +1,24 @@
+{
+  "bundleCount": 344,
+  "fragmentCount": 3912,
+  "summary": {
+    "unbalanced_paren": 0,
+    "unbalanced_quote": 0,
+    "hashtag_in_plain": 0,
+    "english_in_plain": 0,
+    "trailing_only_token": 0,
+    "bare_terminal": 0,
+    "weird_token_seq": 0,
+    "english_unicode": 0
+  },
+  "records": {
+    "unbalanced_paren": [],
+    "unbalanced_quote": [],
+    "hashtag_in_plain": [],
+    "english_in_plain": [],
+    "trailing_only_token": [],
+    "bare_terminal": [],
+    "weird_token_seq": [],
+    "english_unicode": []
+  }
+}

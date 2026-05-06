@@ -1,0 +1,21 @@
+{
+  "scope": [
+    "_coverage",
+    "overall",
+    "career",
+    "wealth",
+    "health",
+    "health_stress",
+    "romance",
+    "family",
+    "academic",
+    "study_document",
+    "expression_children",
+    "movement"
+  ],
+  "fileCount": {
+    "total": 344
+  },
+  "summary": {},
+  "records": []
+}

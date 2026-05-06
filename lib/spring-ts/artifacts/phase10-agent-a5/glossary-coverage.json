@@ -1,0 +1,91 @@
+{
+  "totalGlossaryTags": 208,
+  "totalUsedTags": 110,
+  "missingFromGlossary": [],
+  "labelMismatches": [
+    {
+      "tagId": "stabilityIndex",
+      "glossaryLabel": "안정성지수",
+      "usedLabel": "안정 지표",
+      "count": 212
+    },
+    {
+      "tagId": "stabilityIndex",
+      "glossaryLabel": "안정성지수",
+      "usedLabel": "안정 지수",
+      "count": 212
+    },
+    {
+      "tagId": "yongshinFit",
+      "glossaryLabel": "용신부합도",
+      "usedLabel": "용신 부합도",
+      "count": 28
+    },
+    {
+      "tagId": "yongshinFit",
+      "glossaryLabel": "용신부합도",
+      "usedLabel": "용신적합도",
+      "count": 28
+    },
+    {
+      "tagId": "gyeokgukFit",
+      "glossaryLabel": "격국적합도",
+      "usedLabel": "격국 적합도",
+      "count": 151
+    },
+    {
+      "tagId": "fire",
+      "glossaryLabel": "불",
+      "usedLabel": "화",
+      "count": 37
+    },
+    {
+      "tagId": "earth",
+      "glossaryLabel": "흙",
+      "usedLabel": "토",
+      "count": 28
+    },
+    {
+      "tagId": "water",
+      "glossaryLabel": "물",
+      "usedLabel": "수",
+      "count": 43
+    },
+    {
+      "tagId": "eumyangHarmony",
+      "glossaryLabel": "음양조화도",
+      "usedLabel": "음양 조화",
+      "count": 52
+    },
+    {
+      "tagId": "eumyangHarmony",
+      "glossaryLabel": "음양조화도",
+      "usedLabel": "음양조화",
+      "count": 52
+    },
+    {
+      "tagId": "sajuCompatibility",
+      "glossaryLabel": "사주적합도",
+      "usedLabel": "사주 적합도",
+      "count": 57
+    },
+    {
+      "tagId": "sajuCompatibility",
+      "glossaryLabel": "사주적합도",
+      "usedLabel": "사주궁합",
+      "count": 57
+    },
+    {
+      "tagId": "sajuCompatibility",
+      "glossaryLabel": "사주적합도",
+      "usedLabel": "사주 적합성",
+      "count": 57
+    },
+    {
+      "tagId": "ohaengBalance",
+      "glossaryLabel": "오행균형도",
+      "usedLabel": "오행 균형",
+      "count": 6
+    }
+  ]
+}
