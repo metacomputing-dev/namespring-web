@@ -273,15 +273,19 @@
     },
     {
       "schemaVersion": "spring-ts.narrative-fragment.v1",
-      "fragmentId": "wealth.thisYear.brief.conflicting.006",
+      "fragmentId": "wealth.thisYear.brief.strong.neutral.006",
       "axis": {
         "category": "wealth",
         "period": "thisYear",
         "depth": "brief"
       },
       "gating": {
+        "dayMasterStrength": [
+          "STRONG",
+          "EXTREME_STRONG"
+        ],
         "yongshinAlignment": [
-          "conflicting"
+          "neutral"
         ]
       },
       "templateTokens": [
