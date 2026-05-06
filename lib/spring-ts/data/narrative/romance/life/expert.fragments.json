@@ -973,7 +973,24 @@
         "humanInterpretation": "Phase 3 A4 gating fan-out (합화 axis via templateTokens, ageBand 20-29/30-39/40-54). AI-derived; possibility framing only, no marriage/breakup determinism.",
         "copyrightNote": "No source prose copied; original phrasing.",
         "authorityTruthEligible": false
-      }
+      },
+      "numericalEvidence": [
+        {
+          "label": "천간 관계 수",
+          "valueExpression": "feature.cheonganRelationCount",
+          "unit": "개",
+          "sourceTier": {
+            "tier": "T3_INTERNAL_ENGINE",
+            "sourceType": "internal_scoring_policy",
+            "sourceUrl": null,
+            "accessedAt": "2026-05-02",
+            "quoteShort": null,
+            "humanInterpretation": "Resolved from deterministic spring-ts runtime output.",
+            "copyrightNote": "No third-party prose copied.",
+            "authorityTruthEligible": false
+          }
+        }
+      ]
     },
     {
       "schemaVersion": "spring-ts.narrative-fragment.v1",
