@@ -1,0 +1,23 @@
+{
+  "summary": {
+    "word_repeat": 0,
+    "awkward_phrase": 0,
+    "audience_leak": 0,
+    "korean_grammar": 0,
+    "depth_inversion": 0,
+    "bare_glossary_label": 0,
+    "totalRecords": 11585,
+    "fixtureCount": 32,
+    "glossaryLabelsLoaded": 124,
+    "glossaryLabelsSafe": 124,
+    "glossaryLabelsAmbiguous": 0
+  },
+  "detectorHits": {
+    "word_repeat": [],
+    "awkward_phrase": [],
+    "audience_leak": [],
+    "korean_grammar": [],
+    "depth_inversion": [],
+    "bare_glossary_label": []
+  }
+}
