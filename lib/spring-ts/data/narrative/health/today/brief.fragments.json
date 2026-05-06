@@ -6,13 +6,21 @@
   "fragments": [
     {
       "schemaVersion": "spring-ts.narrative-fragment.v1",
-      "fragmentId": "health.today.brief.wild.001",
+      "fragmentId": "health.today.brief.strong.elder.001",
       "axis": {
         "category": "health",
         "period": "today",
         "depth": "brief"
       },
-      "gating": {},
+      "gating": {
+        "ageBand": [
+          "70+"
+        ],
+        "dayMasterStrength": [
+          "STRONG",
+          "EXTREME_STRONG"
+        ]
+      },
       "templateTokens": [
         {
           "kind": "text",
