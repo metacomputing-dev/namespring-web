@@ -1,0 +1,5982 @@
+{
+  "generatedAt": "2026-05-06T03:32:16.143Z",
+  "needles": [
+    {
+      "needle": "신호가 보이는 시기엔 가족 안의 작은 부딪힘을 짧게 끊고",
+      "hitCount": 43,
+      "hits": [
+        {
+          "file": "data\\narrative\\family\\life\\expert.fragments.json",
+          "fragmentId": "family.life.expert.jeongin_strong.002",
+          "axis": {
+            "category": "family",
+            "period": "life",
+            "depth": "expert",
+            "tone": "expert"
+          },
+          "gating": {
+            "dayMasterStrength": [
+              "WEAK",
+              "BALANCED"
+            ]
+          }
+        },
+        {
+          "file": "data\\narrative\\family\\life\\expert.fragments.json",
+          "fragmentId": "family.life.expert.pyeonin_independent.003",
+          "axis": {
+            "category": "family",
+            "period": "life",
+            "depth": "expert",
+            "tone": "expert"
+          },
+          "gating": {
+            "dayMasterStrength": [
+              "STRONG",
+              "EXTREME_STRONG"
+            ]
+          }
+        },
+        {
+          "file": "data\\narrative\\family\\life\\expert.fragments.json",
+          "fragmentId": "family.life.expert.aligned_balanced.005",
+          "axis": {
+            "category": "family",
+            "period": "life",
+            "depth": "expert",
+            "tone": "expert"
+          },
+          "gating": {
+            "dayMasterStrength": [
+              "BALANCED"
+            ],
+            "yongshinAlignment": [
+              "aligned"
+            ]
+          }
+        },
+        {
+          "file": "data\\narrative\\family\\life\\expert.fragments.json",
+          "fragmentId": "family.life.expert.aligned_warm.011",
+          "axis": {
+            "category": "family",
+            "period": "life",
+            "depth": "expert",
+            "tone": "expert"
+          },
+          "gating": {
+            "yongshinAlignment": [
+              "aligned"
+            ]
+          }
+        },
+        {
+          "file": "data\\narrative\\family\\thisMonth\\expert.fragments.json",
+          "fragmentId": "family.thisMonth.expert.wildcard.001",
+          "axis": {
+            "category": "family",
+            "period": "thisMonth",
+            "depth": "expert",
+            "tone": "expert"
+          },
+          "gating": {}
+        },
+        {
+          "file": "data\\narrative\\family\\thisMonth\\expert.fragments.json",
+          "fragmentId": "family.thisMonth.expert.bumyong_focus.002",
+          "axis": {
+            "category": "family",
+            "period": "thisMonth",
+            "depth": "expert",
+            "tone": "expert"
+          },
+          "gating": {
+            "ageBand": [
+              "20-29",
+              "30-39",
+              "40-54"
+            ]
+          }
+        },
+        {
+          "file": "data\\narrative\\family\\thisMonth\\expert.fragments.json",
+          "fragmentId": "family.thisMonth.expert.aligned_open.007",
+          "axis": {
+            "category": "family",
+            "period": "thisMonth",
+            "depth": "expert",
+            "tone": "expert"
+          },
+          "gating": {
+            "yongshinAlignment": [
+              "aligned"
+            ]
+          }
+        },
+        {
+          "file": "data\\narrative\\family\\thisMonth\\expert.fragments.json",
+          "fragmentId": "family.thisMonth.expert.conflicting_pause.008",
+          "axis": {
+            "category": "family",
+            "period": "thisMonth",
+            "depth": "expert",
+            "tone": "expert"
+          },
+          "gating": {
+            "yongshinAlignment": [
+              "conflicting"
+            ]
+          }
+        },
+        {
+          "file": "data\\narrative\\family\\thisMonth\\expert.fragments.json",
+          "fragmentId": "family.thisMonth.expert.young_caregiver.009",
+          "axis": {
+            "category": "family",
+            "period": "thisMonth",
+            "depth": "expert",
+            "tone": "expert"
+          },
+          "gating": {
+            "ageBand": [
+              "0-9",
+              "10-19"
+            ]
+          }
+        },
+        {
+          "file": "data\\narrative\\family\\thisWeek\\expert.fragments.json",
+          "fragmentId": "family.thisWeek.expert.wildcard.001",
+          "axis": {
+            "category": "family",
+            "period": "thisWeek",
+            "depth": "expert",
+            "tone": "expert"
+          },
+          "gating": {}
+        },
+        {
+          "file": "data\\narrative\\family\\thisWeek\\expert.fragments.json",
+          "fragmentId": "family.thisWeek.expert.bumyong_focus.002",
+          "axis": {
+            "category": "family",
+            "period": "thisWeek",
+            "depth": "expert",
+            "tone": "expert"
+          },
+          "gating": {
+            "ageBand": [
+              "20-29",
+              "30-39",
+              "40-54"
+            ]
+          }
+        },
+        {
+          "file": "data\\narrative\\family\\thisWeek\\expert.fragments.json",
+          "fragmentId": "family.thisWeek.expert.aligned_open.007",
+          "axis": {
+            "category": "family",
+            "period": "thisWeek",
+            "depth": "expert",
+            "tone": "expert"
+          },
+          "gating": {
+            "yongshinAlignment": [
+              "aligned"
+            ]
+          }
+        },
+        {
+          "file": "data\\narrative\\family\\thisWeek\\expert.fragments.json",
+          "fragmentId": "family.thisWeek.expert.conflicting_pause.008",
+          "axis": {
+            "category": "family",
+            "period": "thisWeek",
+            "depth": "expert",
+            "tone": "expert"
+          },
+          "gating": {
+            "yongshinAlignment": [
+              "conflicting"
+            ]
+          }
+        },
+        {
+          "file": "data\\narrative\\family\\thisWeek\\expert.fragments.json",
+          "fragmentId": "family.thisWeek.expert.young_caregiver.009",
+          "axis": {
+            "category": "family",
+            "period": "thisWeek",
+            "depth": "expert",
+            "tone": "expert"
+          },
+          "gating": {
+            "ageBand": [
+              "0-9",
+              "10-19"
+            ]
+          }
+        },
+        {
+          "file": "data\\narrative\\family\\thisYear\\expert.fragments.json",
+          "fragmentId": "family.thisYear.expert.wildcard.001",
+          "axis": {
+            "category": "family",
+            "period": "thisYear",
+            "depth": "expert",
+            "tone": "expert"
+          },
+          "gating": {}
+        },
+        {
+          "file": "data\\narrative\\family\\thisYear\\expert.fragments.json",
+          "fragmentId": "family.thisYear.expert.jasik_focus.003",
+          "axis": {
+            "category": "family",
+            "period": "thisYear",
+            "depth": "expert",
+            "tone": "expert"
+          },
+          "gating": {
+            "ageBand": [
+              "30-39",
+              "40-54",
+              "55-69"
+            ]
+          }
+        },
+        {
+          "file": "data\\narrative\\family\\thisYear\\expert.fragments.json",
+          "fragmentId": "family.thisYear.expert.bigyeon_geobjae.004",
+          "axis": {
+            "category": "family",
+            "period": "thisYear",
+            "depth": "expert",
+            "tone": "expert"
+          },
+          "gating": {}
+        },
+        {
+          "file": "data\\narrative\\family\\thisYear\\expert.fragments.json",
+          "fragmentId": "family.thisYear.expert.strong_giving.006",
+          "axis": {
+            "category": "family",
+            "period": "thisYear",
+            "depth": "expert",
+            "tone": "expert"
+          },
+          "gating": {
+            "dayMasterStrength": [
+              "STRONG",
+              "EXTREME_STRONG"
+            ]
+          }
+        },
+        {
+          "file": "data\\narrative\\family\\thisYear\\expert.fragments.json",
+          "fragmentId": "family.thisYear.expert.aligned_open.007",
+          "axis": {
+            "category": "family",
+            "period": "thisYear",
+            "depth": "expert",
+            "tone": "expert"
+          },
+          "gating": {
+            "yongshinAlignment": [
+              "aligned"
+            ]
+          }
+        },
+        {
+          "file": "data\\narrative\\family\\thisYear\\expert.fragments.json",
+          "fragmentId": "family.thisYear.expert.balanced_aligned.011",
+          "axis": {
+            "category": "family",
+            "period": "thisYear",
+            "depth": "expert",
+            "tone": "expert"
+          },
+          "gating": {
+            "dayMasterStrength": [
+              "BALANCED"
+            ],
+            "yongshinAlignment": [
+              "aligned"
+            ]
+          }
+        },
+        {
+          "file": "data\\narrative\\family\\today\\expert.fragments.json",
+          "fragmentId": "family.today.expert.bumyong_focus.002",
+          "axis": {
+            "category": "family",
+            "period": "today",
+            "depth": "expert",
+            "tone": "expert"
+          },
+          "gating": {
+            "ageBand": [
+              "20-29",
+              "30-39",
+              "40-54"
+            ]
+          }
+        },
+        {
+          "file": "data\\narrative\\family\\today\\expert.fragments.json",
+          "fragmentId": "family.today.expert.weak_supported.005",
+          "axis": {
+            "category": "family",
+            "period": "today",
+            "depth": "expert",
+            "tone": "expert"
+          },
+          "gating": {
+            "dayMasterStrength": [
+              "WEAK",
+              "EXTREME_WEAK"
+            ]
+          }
+        },
+        {
+          "file": "data\\narrative\\family\\today\\expert.fragments.json",
+          "fragmentId": "family.today.expert.conflicting_pause.008",
+          "axis": {
+            "category": "family",
+            "period": "today",
+            "depth": "expert",
+            "tone": "expert"
+          },
+          "gating": {
+            "yongshinAlignment": [
+              "conflicting"
+            ]
+          }
+        },
+        {
+          "file": "data\\narrative\\family\\today\\expert.fragments.json",
+          "fragmentId": "family.today.expert.young_caregiver.009",
+          "axis": {
+            "category": "family",
+            "period": "today",
+            "depth": "expert",
+            "tone": "expert"
+          },
+          "gating": {
+            "ageBand": [
+              "0-9",
+              "10-19"
+            ]
+          }
+        },
+        {
+          "file": "data\\narrative\\family\\today\\expert.fragments.json",
+          "fragmentId": "family.today.expert.elder_legacy.010",
+          "axis": {
+            "category": "family",
+            "period": "today",
+            "depth": "expert",
+            "tone": "expert"
+          },
+          "gating": {
+            "ageBand": [
+              "55-69",
+              "70+"
+            ]
+          }
+        },
+        {
+          "file": "data\\narrative\\_coverage\\categorical-evidence-density-wave3.fragments.json",
+          "fragmentId": "family.today.expert.categorical_wave3.male_wood_yongshin_fire_sanggwangyeok.403",
+          "axis": {
+            "category": "family",
+            "period": "today",
+            "depth": "expert"
+          },
+          "gating": {
+            "gender": [
+              "male"
+            ],
+            "dayMasterElement": [
+              "WOOD"
+            ],
+            "yongshinElement": [
+              "FIRE"
+            ],
+            "gyeokguk": [
+              "sanggwangyeok"
+            ]
+          }
+        },
+        {
+          "file": "data\\narrative\\_coverage\\expert-90-plus-age-density.fragments.json",
+          "fragmentId": "family.thisWeek.expert.age.90_plus.501",
+          "axis": {
+            "category": "family",
+            "period": "thisWeek",
+            "depth": "expert"
+          },
+          "gating": {
+            "agePhase": [
+              "90_plus"
+            ]
+          }
+        },
+        {
+          "file": "data\\narrative\\_coverage\\expert-early-20s-age-density.fragments.json",
+          "fragmentId": "family.thisWeek.expert.age.early_20s.501",
+          "axis": {
+            "category": "family",
+            "period": "thisWeek",
+            "depth": "expert"
+          },
+          "gating": {
+            "agePhase": [
+              "early_20s"
+            ]
+          }
+        },
+        {
+          "file": "data\\narrative\\_coverage\\expert-early-50s-age-density.fragments.json",
+          "fragmentId": "family.today.expert.age.early_50s.501",
+          "axis": {
+            "category": "family",
+            "period": "today",
+            "depth": "expert"
+          },
+          "gating": {
+            "agePhase": [
+              "early_50s"
+            ]
+          }
+        },
+        {
+          "file": "data\\narrative\\_coverage\\expert-earth-water-density-wave.fragments.json",
+          "fragmentId": "family.thisYear.expert.daymaster.earth.yongshin.water.401",
+          "axis": {
+            "category": "family",
+            "period": "thisYear",
+            "depth": "expert"
+          },
+          "gating": {
+            "dayMasterElement": [
+              "EARTH"
+            ],
+            "yongshinElement": [
+              "WATER"
+            ]
+          }
+        },
+        {
+          "file": "data\\narrative\\_coverage\\expert-remaining-age-density.fragments.json",
+          "fragmentId": "family.thisWeek.expert.age.early_60s.601",
+          "axis": {
+            "category": "family",
+            "period": "thisWeek",
+            "depth": "expert"
+          },
+          "gating": {
+            "agePhase": [
+              "early_60s"
+            ]
+          }
+        },
+        {
+          "file": "data\\narrative\\_coverage\\expert-remaining-age-density.fragments.json",
+          "fragmentId": "family.thisWeek.expert.age.late_40s.601",
+          "axis": {
+            "category": "family",
+            "period": "thisWeek",
+            "depth": "expert"
+          },
+          "gating": {
+            "agePhase": [
+              "late_40s"
+            ]
+          }
+        },
+        {
+          "file": "data\\narrative\\_coverage\\expert-small-density-wave.fragments.json",
+          "fragmentId": "family.life.expert.gender.neutral.gyeokguk.pyeongwangyeok.401",
+          "axis": {
+            "category": "family",
+            "period": "life",
+            "depth": "expert"
+          },
+          "gating": {
+            "gender": [
+              "neutral"
+            ],
+            "gyeokguk": [
+              "pyeongwangyeok"
+            ]
+          }
+        },
+        {
+          "file": "data\\narrative\\_coverage\\expert-summer-winter-density.fragments.json",
+          "fragmentId": "family.thisMonth.expert.birthSeason.summer.age.late_50s.401",
+          "axis": {
+            "category": "family",
+            "period": "thisMonth",
+            "depth": "expert"
+          },
+          "gating": {
+            "agePhase": [
+              "late_50s"
+            ],
+            "birthSeason": [
+              "summer"
+            ]
+          }
+        },
+        {
+          "file": "data\\narrative\\_coverage\\expert-wood-yongshin-context-density.fragments.json",
+          "fragmentId": "family.thisYear.expert.yongshin.wood.age.late_60s.401",
+          "axis": {
+            "category": "family",
+            "period": "thisYear",
+            "depth": "expert"
+          },
+          "gating": {
+            "agePhase": [
+              "late_60s"
+            ],
+            "birthSeason": [
+              "winter"
+            ],
+            "dayMasterPolarity": [
+              "YIN"
+            ],
+            "yongshinElement": [
+              "WOOD"
+            ]
+          }
+        },
+        {
+          "file": "data\\narrative\\_coverage\\expert-yang-polarity-density.fragments.json",
+          "fragmentId": "family.thisYear.expert.polarity.yang.age.late_30s.401",
+          "axis": {
+            "category": "family",
+            "period": "thisYear",
+            "depth": "expert"
+          },
+          "gating": {
+            "agePhase": [
+              "late_30s"
+            ],
+            "birthSeason": [
+              "autumn"
+            ],
+            "dayMasterPolarity": [
+              "YANG"
+            ]
+          }
+        },
+        {
+          "file": "data\\narrative\\_coverage\\family-season-expert-context.fragments.json",
+          "fragmentId": "family.today.expert.currentseason.spring_summer.301",
+          "axis": {
+            "category": "family",
+            "period": "today",
+            "depth": "expert"
+          },
+          "gating": {
+            "currentSeason": [
+              "spring",
+              "summer"
+            ],
+            "yongshinAlignment": [
+              "aligned",
+              "neutral",
+              "conflicting"
+            ]
+          }
+        },
+        {
+          "file": "data\\narrative\\_coverage\\family-season-expert-context.fragments.json",
+          "fragmentId": "family.thisWeek.expert.currentseason.autumn_winter.301",
+          "axis": {
+            "category": "family",
+            "period": "thisWeek",
+            "depth": "expert"
+          },
+          "gating": {
+            "currentSeason": [
+              "autumn",
+              "winter"
+            ],
+            "yongshinAlignment": [
+              "aligned",
+              "neutral",
+              "conflicting"
+            ]
+          }
+        },
+        {
+          "file": "data\\narrative\\_coverage\\family-season-expert-context.fragments.json",
+          "fragmentId": "family.thisMonth.expert.currentseason.autumn_winter.301",
+          "axis": {
+            "category": "family",
+            "period": "thisMonth",
+            "depth": "expert"
+          },
+          "gating": {
+            "currentSeason": [
+              "autumn",
+              "winter"
+            ],
+            "yongshinAlignment": [
+              "aligned",
+              "neutral",
+              "conflicting"
+            ]
+          }
+        },
+        {
+          "file": "data\\narrative\\_coverage\\min14-family-floor.fragments.json",
+          "fragmentId": "family.thisWeek.expert.support.501",
+          "axis": {
+            "category": "family",
+            "period": "thisWeek",
+            "depth": "expert"
+          },
+          "gating": {
+            "yongshinAlignment": [
+              "aligned",
+              "neutral"
+            ]
+          }
+        },
+        {
+          "file": "data\\narrative\\_coverage\\min14-family-floor.fragments.json",
+          "fragmentId": "family.thisMonth.expert.rhythm.501",
+          "axis": {
+            "category": "family",
+            "period": "thisMonth",
+            "depth": "expert"
+          },
+          "gating": {
+            "currentSeason": [
+              "spring",
+              "summer"
+            ],
+            "ageBand": [
+              "30-39",
+              "40-54",
+              "55-69",
+              "70+"
+            ]
+          }
+        },
+        {
+          "file": "data\\narrative\\_coverage\\min15-family-floor.fragments.json",
+          "fragmentId": "family.today.expert.care_tone.504",
+          "axis": {
+            "category": "family",
+            "period": "today",
+            "depth": "expert"
+          },
+          "gating": {
+            "dayMasterStrength": [
+              "WEAK",
+              "BALANCED"
+            ]
+          }
+        },
+        {
+          "file": "data\\narrative\\_coverage\\min15-family-floor.fragments.json",
+          "fragmentId": "family.life.expert.root_support.504",
+          "axis": {
+            "category": "family",
+            "period": "life",
+            "depth": "expert"
+          },
+          "gating": {
+            "yongshinAlignment": [
+              "aligned",
+              "neutral"
+            ]
+          }
+        }
+      ]
+    },
+    {
+      "needle": "자리가 함께 보이는 사주는 가족 안에서 부드럽게",
+      "hitCount": 49,
+      "hits": [
+        {
+          "file": "data\\narrative\\family\\life\\expert.fragments.json",
+          "fragmentId": "family.life.expert.bigyeon_geobjae.004",
+          "axis": {
+            "category": "family",
+            "period": "life",
+            "depth": "expert",
+            "tone": "expert"
+          },
+          "gating": {}
+        },
+        {
+          "file": "data\\narrative\\family\\life\\expert.fragments.json",
+          "fragmentId": "family.life.expert.weak_supported.006",
+          "axis": {
+            "category": "family",
+            "period": "life",
+            "depth": "expert",
+            "tone": "expert"
+          },
+          "gating": {
+            "dayMasterStrength": [
+              "WEAK",
+              "EXTREME_WEAK"
+            ]
+          }
+        },
+        {
+          "file": "data\\narrative\\family\\life\\expert.fragments.json",
+          "fragmentId": "family.life.expert.young_caregiver.008",
+          "axis": {
+            "category": "family",
+            "period": "life",
+            "depth": "expert",
+            "tone": "expert"
+          },
+          "gating": {
+            "ageBand": [
+              "0-9",
+              "10-19"
+            ]
+          }
+        },
+        {
+          "file": "data\\narrative\\family\\life\\expert.fragments.json",
+          "fragmentId": "family.life.expert.elder_legacy.010",
+          "axis": {
+            "category": "family",
+            "period": "life",
+            "depth": "expert",
+            "tone": "expert"
+          },
+          "gating": {
+            "ageBand": [
+              "55-69",
+              "70+"
+            ]
+          }
+        },
+        {
+          "file": "data\\narrative\\family\\life\\expert.fragments.json",
+          "fragmentId": "family.life.expert.conflicting_navigate.012",
+          "axis": {
+            "category": "family",
+            "period": "life",
+            "depth": "expert",
+            "tone": "expert"
+          },
+          "gating": {
+            "yongshinAlignment": [
+              "conflicting"
+            ]
+          }
+        },
+        {
+          "file": "data\\narrative\\family\\thisMonth\\expert.fragments.json",
+          "fragmentId": "family.thisMonth.expert.wildcard.001",
+          "axis": {
+            "category": "family",
+            "period": "thisMonth",
+            "depth": "expert",
+            "tone": "expert"
+          },
+          "gating": {}
+        },
+        {
+          "file": "data\\narrative\\family\\thisMonth\\expert.fragments.json",
+          "fragmentId": "family.thisMonth.expert.jasik_focus.003",
+          "axis": {
+            "category": "family",
+            "period": "thisMonth",
+            "depth": "expert",
+            "tone": "expert"
+          },
+          "gating": {
+            "ageBand": [
+              "30-39",
+              "40-54",
+              "55-69"
+            ]
+          }
+        },
+        {
+          "file": "data\\narrative\\family\\thisMonth\\expert.fragments.json",
+          "fragmentId": "family.thisMonth.expert.weak_supported.005",
+          "axis": {
+            "category": "family",
+            "period": "thisMonth",
+            "depth": "expert",
+            "tone": "expert"
+          },
+          "gating": {
+            "dayMasterStrength": [
+              "WEAK",
+              "EXTREME_WEAK"
+            ]
+          }
+        },
+        {
+          "file": "data\\narrative\\family\\thisMonth\\expert.fragments.json",
+          "fragmentId": "family.thisMonth.expert.strong_giving.006",
+          "axis": {
+            "category": "family",
+            "period": "thisMonth",
+            "depth": "expert",
+            "tone": "expert"
+          },
+          "gating": {
+            "dayMasterStrength": [
+              "STRONG",
+              "EXTREME_STRONG"
+            ]
+          }
+        },
+        {
+          "file": "data\\narrative\\family\\thisMonth\\expert.fragments.json",
+          "fragmentId": "family.thisMonth.expert.conflicting_pause.008",
+          "axis": {
+            "category": "family",
+            "period": "thisMonth",
+            "depth": "expert",
+            "tone": "expert"
+          },
+          "gating": {
+            "yongshinAlignment": [
+              "conflicting"
+            ]
+          }
+        },
+        {
+          "file": "data\\narrative\\family\\thisWeek\\expert.fragments.json",
+          "fragmentId": "family.thisWeek.expert.wildcard.001",
+          "axis": {
+            "category": "family",
+            "period": "thisWeek",
+            "depth": "expert",
+            "tone": "expert"
+          },
+          "gating": {}
+        },
+        {
+          "file": "data\\narrative\\family\\thisWeek\\expert.fragments.json",
+          "fragmentId": "family.thisWeek.expert.jasik_focus.003",
+          "axis": {
+            "category": "family",
+            "period": "thisWeek",
+            "depth": "expert",
+            "tone": "expert"
+          },
+          "gating": {
+            "ageBand": [
+              "30-39",
+              "40-54",
+              "55-69"
+            ]
+          }
+        },
+        {
+          "file": "data\\narrative\\family\\thisWeek\\expert.fragments.json",
+          "fragmentId": "family.thisWeek.expert.weak_supported.005",
+          "axis": {
+            "category": "family",
+            "period": "thisWeek",
+            "depth": "expert",
+            "tone": "expert"
+          },
+          "gating": {
+            "dayMasterStrength": [
+              "WEAK",
+              "EXTREME_WEAK"
+            ]
+          }
+        },
+        {
+          "file": "data\\narrative\\family\\thisWeek\\expert.fragments.json",
+          "fragmentId": "family.thisWeek.expert.strong_giving.006",
+          "axis": {
+            "category": "family",
+            "period": "thisWeek",
+            "depth": "expert",
+            "tone": "expert"
+          },
+          "gating": {
+            "dayMasterStrength": [
+              "STRONG",
+              "EXTREME_STRONG"
+            ]
+          }
+        },
+        {
+          "file": "data\\narrative\\family\\thisWeek\\expert.fragments.json",
+          "fragmentId": "family.thisWeek.expert.conflicting_pause.008",
+          "axis": {
+            "category": "family",
+            "period": "thisWeek",
+            "depth": "expert",
+            "tone": "expert"
+          },
+          "gating": {
+            "yongshinAlignment": [
+              "conflicting"
+            ]
+          }
+        },
+        {
+          "file": "data\\narrative\\family\\thisYear\\expert.fragments.json",
+          "fragmentId": "family.thisYear.expert.jasik_focus.003",
+          "axis": {
+            "category": "family",
+            "period": "thisYear",
+            "depth": "expert",
+            "tone": "expert"
+          },
+          "gating": {
+            "ageBand": [
+              "30-39",
+              "40-54",
+              "55-69"
+            ]
+          }
+        },
+        {
+          "file": "data\\narrative\\family\\thisYear\\expert.fragments.json",
+          "fragmentId": "family.thisYear.expert.strong_giving.006",
+          "axis": {
+            "category": "family",
+            "period": "thisYear",
+            "depth": "expert",
+            "tone": "expert"
+          },
+          "gating": {
+            "dayMasterStrength": [
+              "STRONG",
+              "EXTREME_STRONG"
+            ]
+          }
+        },
+        {
+          "file": "data\\narrative\\family\\thisYear\\expert.fragments.json",
+          "fragmentId": "family.thisYear.expert.aligned_open.007",
+          "axis": {
+            "category": "family",
+            "period": "thisYear",
+            "depth": "expert",
+            "tone": "expert"
+          },
+          "gating": {
+            "yongshinAlignment": [
+              "aligned"
+            ]
+          }
+        },
+        {
+          "file": "data\\narrative\\family\\thisYear\\expert.fragments.json",
+          "fragmentId": "family.thisYear.expert.conflicting_pause.008",
+          "axis": {
+            "category": "family",
+            "period": "thisYear",
+            "depth": "expert",
+            "tone": "expert"
+          },
+          "gating": {
+            "yongshinAlignment": [
+              "conflicting"
+            ]
+          }
+        },
+        {
+          "file": "data\\narrative\\family\\thisYear\\expert.fragments.json",
+          "fragmentId": "family.thisYear.expert.elder_legacy.010",
+          "axis": {
+            "category": "family",
+            "period": "thisYear",
+            "depth": "expert",
+            "tone": "expert"
+          },
+          "gating": {
+            "ageBand": [
+              "55-69",
+              "70+"
+            ]
+          }
+        },
+        {
+          "file": "data\\narrative\\family\\today\\expert.fragments.json",
+          "fragmentId": "family.today.expert.wildcard.001",
+          "axis": {
+            "category": "family",
+            "period": "today",
+            "depth": "expert",
+            "tone": "expert"
+          },
+          "gating": {}
+        },
+        {
+          "file": "data\\narrative\\family\\today\\expert.fragments.json",
+          "fragmentId": "family.today.expert.bumyong_focus.002",
+          "axis": {
+            "category": "family",
+            "period": "today",
+            "depth": "expert",
+            "tone": "expert"
+          },
+          "gating": {
+            "ageBand": [
+              "20-29",
+              "30-39",
+              "40-54"
+            ]
+          }
+        },
+        {
+          "file": "data\\narrative\\family\\today\\expert.fragments.json",
+          "fragmentId": "family.today.expert.bigyeon_geobjae.004",
+          "axis": {
+            "category": "family",
+            "period": "today",
+            "depth": "expert",
+            "tone": "expert"
+          },
+          "gating": {}
+        },
+        {
+          "file": "data\\narrative\\family\\today\\expert.fragments.json",
+          "fragmentId": "family.today.expert.weak_supported.005",
+          "axis": {
+            "category": "family",
+            "period": "today",
+            "depth": "expert",
+            "tone": "expert"
+          },
+          "gating": {
+            "dayMasterStrength": [
+              "WEAK",
+              "EXTREME_WEAK"
+            ]
+          }
+        },
+        {
+          "file": "data\\narrative\\family\\today\\expert.fragments.json",
+          "fragmentId": "family.today.expert.young_caregiver.009",
+          "axis": {
+            "category": "family",
+            "period": "today",
+            "depth": "expert",
+            "tone": "expert"
+          },
+          "gating": {
+            "ageBand": [
+              "0-9",
+              "10-19"
+            ]
+          }
+        },
+        {
+          "file": "data\\narrative\\_coverage\\categorical-evidence-density-wave3.fragments.json",
+          "fragmentId": "family.today.expert.categorical_wave3.male_wood_yongshin_fire_sanggwangyeok.403",
+          "axis": {
+            "category": "family",
+            "period": "today",
+            "depth": "expert"
+          },
+          "gating": {
+            "gender": [
+              "male"
+            ],
+            "dayMasterElement": [
+              "WOOD"
+            ],
+            "yongshinElement": [
+              "FIRE"
+            ],
+            "gyeokguk": [
+              "sanggwangyeok"
+            ]
+          }
+        },
+        {
+          "file": "data\\narrative\\_coverage\\expert-80s-age-density.fragments.json",
+          "fragmentId": "family.thisWeek.expert.age.80s.501",
+          "axis": {
+            "category": "family",
+            "period": "thisWeek",
+            "depth": "expert"
+          },
+          "gating": {
+            "agePhase": [
+              "80s"
+            ]
+          }
+        },
+        {
+          "file": "data\\narrative\\_coverage\\expert-90-plus-age-density.fragments.json",
+          "fragmentId": "family.thisWeek.expert.age.90_plus.501",
+          "axis": {
+            "category": "family",
+            "period": "thisWeek",
+            "depth": "expert"
+          },
+          "gating": {
+            "agePhase": [
+              "90_plus"
+            ]
+          }
+        },
+        {
+          "file": "data\\narrative\\_coverage\\expert-child-0-9-age-density.fragments.json",
+          "fragmentId": "family.thisWeek.expert.age.child_0_9.501",
+          "axis": {
+            "category": "family",
+            "period": "thisWeek",
+            "depth": "expert"
+          },
+          "gating": {
+            "agePhase": [
+              "child_0_9"
+            ]
+          }
+        },
+        {
+          "file": "data\\narrative\\_coverage\\expert-fire-context-density.fragments.json",
+          "fragmentId": "family.today.expert.yongshin.fire.age.late_40s.401",
+          "axis": {
+            "category": "family",
+            "period": "today",
+            "depth": "expert"
+          },
+          "gating": {
+            "agePhase": [
+              "late_40s"
+            ],
+            "birthSeason": [
+              "autumn"
+            ],
+            "dayMasterPolarity": [
+              "neutral"
+            ],
+            "yongshinElement": [
+              "FIRE"
+            ]
+          }
+        },
+        {
+          "file": "data\\narrative\\_coverage\\expert-late-teen-age-density.fragments.json",
+          "fragmentId": "family.thisWeek.expert.age.late_teen.501",
+          "axis": {
+            "category": "family",
+            "period": "thisWeek",
+            "depth": "expert"
+          },
+          "gating": {
+            "agePhase": [
+              "late_teen"
+            ]
+          }
+        },
+        {
+          "file": "data\\narrative\\_coverage\\expert-remaining-age-density.fragments.json",
+          "fragmentId": "family.thisWeek.expert.age.early_60s.601",
+          "axis": {
+            "category": "family",
+            "period": "thisWeek",
+            "depth": "expert"
+          },
+          "gating": {
+            "agePhase": [
+              "early_60s"
+            ]
+          }
+        },
+        {
+          "file": "data\\narrative\\_coverage\\expert-remaining-age-density.fragments.json",
+          "fragmentId": "family.thisWeek.expert.age.early_teen.601",
+          "axis": {
+            "category": "family",
+            "period": "thisWeek",
+            "depth": "expert"
+          },
+          "gating": {
+            "agePhase": [
+              "early_teen"
+            ]
+          }
+        },
+        {
+          "file": "data\\narrative\\_coverage\\expert-remaining-age-density.fragments.json",
+          "fragmentId": "family.thisWeek.expert.age.late_20s.601",
+          "axis": {
+            "category": "family",
+            "period": "thisWeek",
+            "depth": "expert"
+          },
+          "gating": {
+            "agePhase": [
+              "late_20s"
+            ]
+          }
+        },
+        {
+          "file": "data\\narrative\\_coverage\\expert-remaining-age-density.fragments.json",
+          "fragmentId": "family.thisWeek.expert.age.late_60s.601",
+          "axis": {
+            "category": "family",
+            "period": "thisWeek",
+            "depth": "expert"
+          },
+          "gating": {
+            "agePhase": [
+              "late_60s"
+            ]
+          }
+        },
+        {
+          "file": "data\\narrative\\_coverage\\expert-wood-yongshin-context-density.fragments.json",
+          "fragmentId": "family.thisYear.expert.yongshin.wood.age.late_60s.401",
+          "axis": {
+            "category": "family",
+            "period": "thisYear",
+            "depth": "expert"
+          },
+          "gating": {
+            "agePhase": [
+              "late_60s"
+            ],
+            "birthSeason": [
+              "winter"
+            ],
+            "dayMasterPolarity": [
+              "YIN"
+            ],
+            "yongshinElement": [
+              "WOOD"
+            ]
+          }
+        },
+        {
+          "file": "data\\narrative\\_coverage\\expert-yang-polarity-density.fragments.json",
+          "fragmentId": "family.thisYear.expert.polarity.yang.age.late_30s.401",
+          "axis": {
+            "category": "family",
+            "period": "thisYear",
+            "depth": "expert"
+          },
+          "gating": {
+            "agePhase": [
+              "late_30s"
+            ],
+            "birthSeason": [
+              "autumn"
+            ],
+            "dayMasterPolarity": [
+              "YANG"
+            ]
+          }
+        },
+        {
+          "file": "data\\narrative\\_coverage\\expert-yin-polarity-density.fragments.json",
+          "fragmentId": "family.thisWeek.expert.polarity.yin.age.late_20s.401",
+          "axis": {
+            "category": "family",
+            "period": "thisWeek",
+            "depth": "expert"
+          },
+          "gating": {
+            "agePhase": [
+              "late_20s"
+            ],
+            "birthSeason": [
+              "summer"
+            ],
+            "dayMasterPolarity": [
+              "YIN"
+            ]
+          }
+        },
+        {
+          "file": "data\\narrative\\_coverage\\family-season-expert-context.fragments.json",
+          "fragmentId": "family.today.expert.currentseason.autumn_winter.301",
+          "axis": {
+            "category": "family",
+            "period": "today",
+            "depth": "expert"
+          },
+          "gating": {
+            "currentSeason": [
+              "autumn",
+              "winter"
+            ],
+            "yongshinAlignment": [
+              "aligned",
+              "neutral",
+              "conflicting"
+            ]
+          }
+        },
+        {
+          "file": "data\\narrative\\_coverage\\family-season-expert-context.fragments.json",
+          "fragmentId": "family.thisWeek.expert.currentseason.spring_summer.301",
+          "axis": {
+            "category": "family",
+            "period": "thisWeek",
+            "depth": "expert"
+          },
+          "gating": {
+            "currentSeason": [
+              "spring",
+              "summer"
+            ],
+            "yongshinAlignment": [
+              "aligned",
+              "neutral",
+              "conflicting"
+            ]
+          }
+        },
+        {
+          "file": "data\\narrative\\_coverage\\family-season-expert-context.fragments.json",
+          "fragmentId": "family.thisMonth.expert.currentseason.spring_summer.301",
+          "axis": {
+            "category": "family",
+            "period": "thisMonth",
+            "depth": "expert"
+          },
+          "gating": {
+            "currentSeason": [
+              "spring",
+              "summer"
+            ],
+            "yongshinAlignment": [
+              "aligned",
+              "neutral",
+              "conflicting"
+            ]
+          }
+        },
+        {
+          "file": "data\\narrative\\_coverage\\min14-family-floor.fragments.json",
+          "fragmentId": "family.today.expert.boundary.501",
+          "axis": {
+            "category": "family",
+            "period": "today",
+            "depth": "expert"
+          },
+          "gating": {
+            "ageBand": [
+              "20-29",
+              "30-39",
+              "40-54",
+              "55-69"
+            ]
+          }
+        },
+        {
+          "file": "data\\narrative\\_coverage\\min14-family-floor.fragments.json",
+          "fragmentId": "family.thisWeek.expert.support.501",
+          "axis": {
+            "category": "family",
+            "period": "thisWeek",
+            "depth": "expert"
+          },
+          "gating": {
+            "yongshinAlignment": [
+              "aligned",
+              "neutral"
+            ]
+          }
+        },
+        {
+          "file": "data\\narrative\\_coverage\\min14-family-floor.fragments.json",
+          "fragmentId": "family.thisWeek.expert.boundary.501",
+          "axis": {
+            "category": "family",
+            "period": "thisWeek",
+            "depth": "expert"
+          },
+          "gating": {
+            "yongshinAlignment": [
+              "conflicting"
+            ],
+            "dayMasterStrength": [
+              "STRONG",
+              "EXTREME_STRONG",
+              "BALANCED"
+            ]
+          }
+        },
+        {
+          "file": "data\\narrative\\_coverage\\min14-family-floor.fragments.json",
+          "fragmentId": "family.thisMonth.expert.reset.501",
+          "axis": {
+            "category": "family",
+            "period": "thisMonth",
+            "depth": "expert"
+          },
+          "gating": {
+            "currentSeason": [
+              "autumn",
+              "winter"
+            ],
+            "ageBand": [
+              "20-29",
+              "30-39",
+              "40-54",
+              "55-69",
+              "70+"
+            ]
+          }
+        },
+        {
+          "file": "data\\narrative\\_coverage\\min14-final-floor.fragments.json",
+          "fragmentId": "family.thisYear.expert.support_boundary.502",
+          "axis": {
+            "category": "family",
+            "period": "thisYear",
+            "depth": "expert"
+          },
+          "gating": {
+            "yongshinAlignment": [
+              "aligned",
+              "neutral"
+            ]
+          }
+        },
+        {
+          "file": "data\\narrative\\_coverage\\min15-family-floor.fragments.json",
+          "fragmentId": "family.today.expert.care_tone.504",
+          "axis": {
+            "category": "family",
+            "period": "today",
+            "depth": "expert"
+          },
+          "gating": {
+            "dayMasterStrength": [
+              "WEAK",
+              "BALANCED"
+            ]
+          }
+        },
+        {
+          "file": "data\\narrative\\_coverage\\min15-family-floor.fragments.json",
+          "fragmentId": "family.life.expert.root_support.504",
+          "axis": {
+            "category": "family",
+            "period": "life",
+            "depth": "expert"
+          },
+          "gating": {
+            "yongshinAlignment": [
+              "aligned",
+              "neutral"
+            ]
+          }
+        },
+        {
+          "file": "data\\narrative\\_coverage\\min15-family-floor.fragments.json",
+          "fragmentId": "family.thisWeek.expert.role_boundary.504",
+          "axis": {
+            "category": "family",
+            "period": "thisWeek",
+            "depth": "expert"
+          },
+          "gating": {
+            "dayMasterStrength": [
+              "BALANCED",
+              "STRONG",
+              "EXTREME_STRONG"
+            ]
+          }
+        }
+      ]
+    },
+    {
+      "needle": "자리가 함께 살아나는 시기엔 평소 미뤄 둔 학습",
+      "hitCount": 25,
+      "hits": [
+        {
+          "file": "data\\narrative\\academic\\thisMonth\\expert.fragments.json",
+          "fragmentId": "academic.thisMonth.expert.strong_aligned.005",
+          "axis": {
+            "category": "academic",
+            "period": "thisMonth",
+            "depth": "expert",
+            "tone": "expert"
+          },
+          "gating": {
+            "dayMasterStrength": [
+              "STRONG",
+              "EXTREME_STRONG"
+            ],
+            "yongshinAlignment": [
+              "aligned"
+            ]
+          }
+        },
+        {
+          "file": "data\\narrative\\academic\\thisWeek\\expert.fragments.json",
+          "fragmentId": "academic.thisWeek.expert.wildcard.001",
+          "axis": {
+            "category": "academic",
+            "period": "thisWeek",
+            "depth": "expert",
+            "tone": "expert"
+          },
+          "gating": {}
+        },
+        {
+          "file": "data\\narrative\\academic\\thisWeek\\expert.fragments.json",
+          "fragmentId": "academic.thisWeek.expert.jeongingyeok.006",
+          "axis": {
+            "category": "academic",
+            "period": "thisWeek",
+            "depth": "expert",
+            "tone": "expert"
+          },
+          "gating": {
+            "gyeokguk": [
+              "jeongingyeok"
+            ]
+          }
+        },
+        {
+          "file": "data\\narrative\\academic\\thisYear\\expert.fragments.json",
+          "fragmentId": "academic.thisYear.expert.aligned.002",
+          "axis": {
+            "category": "academic",
+            "period": "thisYear",
+            "depth": "expert",
+            "tone": "expert"
+          },
+          "gating": {
+            "yongshinAlignment": [
+              "aligned"
+            ]
+          }
+        },
+        {
+          "file": "data\\narrative\\academic\\thisYear\\expert.fragments.json",
+          "fragmentId": "academic.thisYear.expert.pyeoningyeok.007",
+          "axis": {
+            "category": "academic",
+            "period": "thisYear",
+            "depth": "expert",
+            "tone": "expert"
+          },
+          "gating": {
+            "gyeokguk": [
+              "pyeoningyeok"
+            ]
+          }
+        },
+        {
+          "file": "data\\narrative\\academic\\today\\expert.fragments.json",
+          "fragmentId": "academic.today.expert.aligned.002",
+          "axis": {
+            "category": "academic",
+            "period": "today",
+            "depth": "expert",
+            "tone": "expert"
+          },
+          "gating": {
+            "yongshinAlignment": [
+              "aligned"
+            ]
+          }
+        },
+        {
+          "file": "data\\narrative\\academic\\today\\expert.fragments.json",
+          "fragmentId": "academic.today.expert.pyeoningyeok.007",
+          "axis": {
+            "category": "academic",
+            "period": "today",
+            "depth": "expert",
+            "tone": "expert"
+          },
+          "gating": {
+            "gyeokguk": [
+              "pyeoningyeok"
+            ]
+          }
+        },
+        {
+          "file": "data\\narrative\\_coverage\\academic-season-detail-context.fragments.json",
+          "fragmentId": "academic.life.expert.currentseason.spring_summer.301",
+          "axis": {
+            "category": "academic",
+            "period": "life",
+            "depth": "expert"
+          },
+          "gating": {
+            "currentSeason": [
+              "spring",
+              "summer"
+            ],
+            "yongshinAlignment": [
+              "aligned",
+              "neutral",
+              "conflicting"
+            ]
+          }
+        },
+        {
+          "file": "data\\narrative\\_coverage\\academic-season-detail-context.fragments.json",
+          "fragmentId": "academic.thisMonth.expert.currentseason.spring_summer.301",
+          "axis": {
+            "category": "academic",
+            "period": "thisMonth",
+            "depth": "expert"
+          },
+          "gating": {
+            "currentSeason": [
+              "spring",
+              "summer"
+            ],
+            "yongshinAlignment": [
+              "aligned",
+              "neutral",
+              "conflicting"
+            ]
+          }
+        },
+        {
+          "file": "data\\narrative\\_coverage\\academic-season-detail-context.fragments.json",
+          "fragmentId": "academic.thisYear.expert.currentseason.autumn_winter.301",
+          "axis": {
+            "category": "academic",
+            "period": "thisYear",
+            "depth": "expert"
+          },
+          "gating": {
+            "currentSeason": [
+              "autumn",
+              "winter"
+            ],
+            "yongshinAlignment": [
+              "aligned",
+              "neutral",
+              "conflicting"
+            ]
+          }
+        },
+        {
+          "file": "data\\narrative\\_coverage\\academic-short-term-expert-audience.fragments.json",
+          "fragmentId": "academic.today.expert.ageband.senior.301",
+          "axis": {
+            "category": "academic",
+            "period": "today",
+            "depth": "expert"
+          },
+          "gating": {
+            "ageBand": [
+              "55-69",
+              "70+"
+            ],
+            "yongshinAlignment": [
+              "aligned",
+              "neutral",
+              "conflicting"
+            ]
+          }
+        },
+        {
+          "file": "data\\narrative\\_coverage\\academic-short-term-expert-audience.fragments.json",
+          "fragmentId": "academic.thisMonth.expert.ageband.child_teen.301",
+          "axis": {
+            "category": "academic",
+            "period": "thisMonth",
+            "depth": "expert"
+          },
+          "gating": {
+            "ageBand": [
+              "0-9",
+              "10-19"
+            ],
+            "yongshinAlignment": [
+              "aligned",
+              "neutral",
+              "conflicting"
+            ]
+          }
+        },
+        {
+          "file": "data\\narrative\\_coverage\\expert-90-plus-age-density.fragments.json",
+          "fragmentId": "academic.today.expert.age.90_plus.501",
+          "axis": {
+            "category": "academic",
+            "period": "today",
+            "depth": "expert"
+          },
+          "gating": {
+            "agePhase": [
+              "90_plus"
+            ]
+          }
+        },
+        {
+          "file": "data\\narrative\\_coverage\\expert-early-20s-age-density.fragments.json",
+          "fragmentId": "academic.today.expert.age.early_20s.501",
+          "axis": {
+            "category": "academic",
+            "period": "today",
+            "depth": "expert"
+          },
+          "gating": {
+            "agePhase": [
+              "early_20s"
+            ]
+          }
+        },
+        {
+          "file": "data\\narrative\\_coverage\\expert-fire-context-density.fragments.json",
+          "fragmentId": "academic.life.expert.yongshin.fire.age.early_40s.401",
+          "axis": {
+            "category": "academic",
+            "period": "life",
+            "depth": "expert"
+          },
+          "gating": {
+            "agePhase": [
+              "early_40s"
+            ],
+            "birthSeason": [
+              "summer"
+            ],
+            "dayMasterPolarity": [
+              "YIN"
+            ],
+            "yongshinElement": [
+              "FIRE"
+            ]
+          }
+        },
+        {
+          "file": "data\\narrative\\_coverage\\expert-late-teen-age-density.fragments.json",
+          "fragmentId": "academic.thisWeek.expert.age.late_teen.501",
+          "axis": {
+            "category": "academic",
+            "period": "thisWeek",
+            "depth": "expert"
+          },
+          "gating": {
+            "agePhase": [
+              "late_teen"
+            ]
+          }
+        },
+        {
+          "file": "data\\narrative\\_coverage\\expert-neutral-polarity-density.fragments.json",
+          "fragmentId": "academic.thisWeek.expert.polarity.neutral.age.late_teen.401",
+          "axis": {
+            "category": "academic",
+            "period": "thisWeek",
+            "depth": "expert"
+          },
+          "gating": {
+            "agePhase": [
+              "late_teen"
+            ],
+            "birthSeason": [
+              "winter"
+            ],
+            "dayMasterPolarity": [
+              "neutral"
+            ]
+          }
+        },
+        {
+          "file": "data\\narrative\\_coverage\\expert-remaining-age-density.fragments.json",
+          "fragmentId": "academic.today.expert.age.early_60s.601",
+          "axis": {
+            "category": "academic",
+            "period": "today",
+            "depth": "expert"
+          },
+          "gating": {
+            "agePhase": [
+              "early_60s"
+            ]
+          }
+        },
+        {
+          "file": "data\\narrative\\_coverage\\expert-remaining-age-density.fragments.json",
+          "fragmentId": "academic.today.expert.age.late_40s.601",
+          "axis": {
+            "category": "academic",
+            "period": "today",
+            "depth": "expert"
+          },
+          "gating": {
+            "agePhase": [
+              "late_40s"
+            ]
+          }
+        },
+        {
+          "file": "data\\narrative\\_coverage\\expert-summer-winter-density.fragments.json",
+          "fragmentId": "academic.today.expert.birthSeason.winter.age.90_plus.401",
+          "axis": {
+            "category": "academic",
+            "period": "today",
+            "depth": "expert"
+          },
+          "gating": {
+            "agePhase": [
+              "90_plus"
+            ],
+            "birthSeason": [
+              "winter"
+            ]
+          }
+        },
+        {
+          "file": "data\\narrative\\_coverage\\focused-season-gap-fill.fragments.json",
+          "fragmentId": "academic.today.expert.currentseason.autumn_winter.301",
+          "axis": {
+            "category": "academic",
+            "period": "today",
+            "depth": "expert"
+          },
+          "gating": {
+            "currentSeason": [
+              "autumn",
+              "winter"
+            ],
+            "yongshinAlignment": [
+              "aligned",
+              "neutral",
+              "conflicting"
+            ]
+          }
+        },
+        {
+          "file": "data\\narrative\\_coverage\\min14-academic-floor.fragments.json",
+          "fragmentId": "academic.thisWeek.expert.focus.501",
+          "axis": {
+            "category": "academic",
+            "period": "thisWeek",
+            "depth": "expert"
+          },
+          "gating": {
+            "dayMasterStrength": [
+              "WEAK",
+              "BALANCED"
+            ]
+          }
+        },
+        {
+          "file": "data\\narrative\\_coverage\\min14-academic-floor.fragments.json",
+          "fragmentId": "academic.thisYear.expert.year_strategy.501",
+          "axis": {
+            "category": "academic",
+            "period": "thisYear",
+            "depth": "expert"
+          },
+          "gating": {
+            "yongshinAlignment": [
+              "aligned",
+              "neutral"
+            ]
+          }
+        },
+        {
+          "file": "data\\narrative\\_coverage\\min15-academic-floor.fragments.json",
+          "fragmentId": "academic.life.expert.input_output.504",
+          "axis": {
+            "category": "academic",
+            "period": "life",
+            "depth": "expert"
+          },
+          "gating": {
+            "dayMasterStrength": [
+              "BALANCED",
+              "WEAK",
+              "EXTREME_WEAK"
+            ]
+          }
+        },
+        {
+          "file": "data\\narrative\\_coverage\\min15-academic-floor.fragments.json",
+          "fragmentId": "academic.thisMonth.expert.structure.504",
+          "axis": {
+            "category": "academic",
+            "period": "thisMonth",
+            "depth": "expert"
+          },
+          "gating": {
+            "dayMasterStrength": [
+              "STRONG",
+              "EXTREME_STRONG",
+              "BALANCED"
+            ]
+          }
+        }
+      ]
+    },
+    {
+      "needle": "받쳐 주느냐를 함께 살펴 두면 흐름의 결정이 더 단단해지고",
+      "hitCount": 44,
+      "hits": [
+        {
+          "file": "data\\narrative\\family\\life\\expert.fragments.json",
+          "fragmentId": "family.life.expert.wildcard.001",
+          "axis": {
+            "category": "family",
+            "period": "life",
+            "depth": "expert",
+            "tone": "expert"
+          },
+          "gating": {}
+        },
+        {
+          "file": "data\\narrative\\family\\life\\expert.fragments.json",
+          "fragmentId": "family.life.expert.pyeonin_independent.003",
+          "axis": {
+            "category": "family",
+            "period": "life",
+            "depth": "expert",
+            "tone": "expert"
+          },
+          "gating": {
+            "dayMasterStrength": [
+              "STRONG",
+              "EXTREME_STRONG"
+            ]
+          }
+        },
+        {
+          "file": "data\\narrative\\family\\life\\expert.fragments.json",
+          "fragmentId": "family.life.expert.hourpillar_focused.007",
+          "axis": {
+            "category": "family",
+            "period": "life",
+            "depth": "expert",
+            "tone": "expert"
+          },
+          "gating": {}
+        },
+        {
+          "file": "data\\narrative\\family\\life\\expert.fragments.json",
+          "fragmentId": "family.life.expert.midage_balance.009",
+          "axis": {
+            "category": "family",
+            "period": "life",
+            "depth": "expert",
+            "tone": "expert"
+          },
+          "gating": {
+            "ageBand": [
+              "30-39",
+              "40-54"
+            ]
+          }
+        },
+        {
+          "file": "data\\narrative\\family\\thisMonth\\expert.fragments.json",
+          "fragmentId": "family.thisMonth.expert.bumyong_focus.002",
+          "axis": {
+            "category": "family",
+            "period": "thisMonth",
+            "depth": "expert",
+            "tone": "expert"
+          },
+          "gating": {
+            "ageBand": [
+              "20-29",
+              "30-39",
+              "40-54"
+            ]
+          }
+        },
+        {
+          "file": "data\\narrative\\family\\thisMonth\\expert.fragments.json",
+          "fragmentId": "family.thisMonth.expert.bigyeon_geobjae.004",
+          "axis": {
+            "category": "family",
+            "period": "thisMonth",
+            "depth": "expert",
+            "tone": "expert"
+          },
+          "gating": {}
+        },
+        {
+          "file": "data\\narrative\\family\\thisMonth\\expert.fragments.json",
+          "fragmentId": "family.thisMonth.expert.aligned_open.007",
+          "axis": {
+            "category": "family",
+            "period": "thisMonth",
+            "depth": "expert",
+            "tone": "expert"
+          },
+          "gating": {
+            "yongshinAlignment": [
+              "aligned"
+            ]
+          }
+        },
+        {
+          "file": "data\\narrative\\family\\thisMonth\\expert.fragments.json",
+          "fragmentId": "family.thisMonth.expert.young_caregiver.009",
+          "axis": {
+            "category": "family",
+            "period": "thisMonth",
+            "depth": "expert",
+            "tone": "expert"
+          },
+          "gating": {
+            "ageBand": [
+              "0-9",
+              "10-19"
+            ]
+          }
+        },
+        {
+          "file": "data\\narrative\\family\\thisMonth\\expert.fragments.json",
+          "fragmentId": "family.thisMonth.expert.elder_legacy.010",
+          "axis": {
+            "category": "family",
+            "period": "thisMonth",
+            "depth": "expert",
+            "tone": "expert"
+          },
+          "gating": {
+            "ageBand": [
+              "55-69",
+              "70+"
+            ]
+          }
+        },
+        {
+          "file": "data\\narrative\\family\\thisWeek\\expert.fragments.json",
+          "fragmentId": "family.thisWeek.expert.bigyeon_geobjae.004",
+          "axis": {
+            "category": "family",
+            "period": "thisWeek",
+            "depth": "expert",
+            "tone": "expert"
+          },
+          "gating": {}
+        },
+        {
+          "file": "data\\narrative\\family\\thisWeek\\expert.fragments.json",
+          "fragmentId": "family.thisWeek.expert.aligned_open.007",
+          "axis": {
+            "category": "family",
+            "period": "thisWeek",
+            "depth": "expert",
+            "tone": "expert"
+          },
+          "gating": {
+            "yongshinAlignment": [
+              "aligned"
+            ]
+          }
+        },
+        {
+          "file": "data\\narrative\\family\\thisWeek\\expert.fragments.json",
+          "fragmentId": "family.thisWeek.expert.young_caregiver.009",
+          "axis": {
+            "category": "family",
+            "period": "thisWeek",
+            "depth": "expert",
+            "tone": "expert"
+          },
+          "gating": {
+            "ageBand": [
+              "0-9",
+              "10-19"
+            ]
+          }
+        },
+        {
+          "file": "data\\narrative\\family\\thisWeek\\expert.fragments.json",
+          "fragmentId": "family.thisWeek.expert.elder_legacy.010",
+          "axis": {
+            "category": "family",
+            "period": "thisWeek",
+            "depth": "expert",
+            "tone": "expert"
+          },
+          "gating": {
+            "ageBand": [
+              "55-69",
+              "70+"
+            ]
+          }
+        },
+        {
+          "file": "data\\narrative\\family\\thisYear\\expert.fragments.json",
+          "fragmentId": "family.thisYear.expert.wildcard.001",
+          "axis": {
+            "category": "family",
+            "period": "thisYear",
+            "depth": "expert",
+            "tone": "expert"
+          },
+          "gating": {}
+        },
+        {
+          "file": "data\\narrative\\family\\thisYear\\expert.fragments.json",
+          "fragmentId": "family.thisYear.expert.bumyong_focus.002",
+          "axis": {
+            "category": "family",
+            "period": "thisYear",
+            "depth": "expert",
+            "tone": "expert"
+          },
+          "gating": {
+            "ageBand": [
+              "20-29",
+              "30-39",
+              "40-54"
+            ]
+          }
+        },
+        {
+          "file": "data\\narrative\\family\\thisYear\\expert.fragments.json",
+          "fragmentId": "family.thisYear.expert.bigyeon_geobjae.004",
+          "axis": {
+            "category": "family",
+            "period": "thisYear",
+            "depth": "expert",
+            "tone": "expert"
+          },
+          "gating": {}
+        },
+        {
+          "file": "data\\narrative\\family\\thisYear\\expert.fragments.json",
+          "fragmentId": "family.thisYear.expert.weak_supported.005",
+          "axis": {
+            "category": "family",
+            "period": "thisYear",
+            "depth": "expert",
+            "tone": "expert"
+          },
+          "gating": {
+            "dayMasterStrength": [
+              "WEAK",
+              "EXTREME_WEAK"
+            ]
+          }
+        },
+        {
+          "file": "data\\narrative\\family\\thisYear\\expert.fragments.json",
+          "fragmentId": "family.thisYear.expert.young_caregiver.009",
+          "axis": {
+            "category": "family",
+            "period": "thisYear",
+            "depth": "expert",
+            "tone": "expert"
+          },
+          "gating": {
+            "ageBand": [
+              "0-9",
+              "10-19"
+            ]
+          }
+        },
+        {
+          "file": "data\\narrative\\family\\thisYear\\expert.fragments.json",
+          "fragmentId": "family.thisYear.expert.balanced_aligned.011",
+          "axis": {
+            "category": "family",
+            "period": "thisYear",
+            "depth": "expert",
+            "tone": "expert"
+          },
+          "gating": {
+            "dayMasterStrength": [
+              "BALANCED"
+            ],
+            "yongshinAlignment": [
+              "aligned"
+            ]
+          }
+        },
+        {
+          "file": "data\\narrative\\family\\today\\expert.fragments.json",
+          "fragmentId": "family.today.expert.jasik_focus.003",
+          "axis": {
+            "category": "family",
+            "period": "today",
+            "depth": "expert",
+            "tone": "expert"
+          },
+          "gating": {
+            "ageBand": [
+              "30-39",
+              "40-54",
+              "55-69"
+            ]
+          }
+        },
+        {
+          "file": "data\\narrative\\family\\today\\expert.fragments.json",
+          "fragmentId": "family.today.expert.strong_giving.006",
+          "axis": {
+            "category": "family",
+            "period": "today",
+            "depth": "expert",
+            "tone": "expert"
+          },
+          "gating": {
+            "dayMasterStrength": [
+              "STRONG",
+              "EXTREME_STRONG"
+            ]
+          }
+        },
+        {
+          "file": "data\\narrative\\family\\today\\expert.fragments.json",
+          "fragmentId": "family.today.expert.aligned_open.007",
+          "axis": {
+            "category": "family",
+            "period": "today",
+            "depth": "expert",
+            "tone": "expert"
+          },
+          "gating": {
+            "yongshinAlignment": [
+              "aligned"
+            ]
+          }
+        },
+        {
+          "file": "data\\narrative\\family\\today\\expert.fragments.json",
+          "fragmentId": "family.today.expert.conflicting_pause.008",
+          "axis": {
+            "category": "family",
+            "period": "today",
+            "depth": "expert",
+            "tone": "expert"
+          },
+          "gating": {
+            "yongshinAlignment": [
+              "conflicting"
+            ]
+          }
+        },
+        {
+          "file": "data\\narrative\\family\\today\\expert.fragments.json",
+          "fragmentId": "family.today.expert.elder_legacy.010",
+          "axis": {
+            "category": "family",
+            "period": "today",
+            "depth": "expert",
+            "tone": "expert"
+          },
+          "gating": {
+            "ageBand": [
+              "55-69",
+              "70+"
+            ]
+          }
+        },
+        {
+          "file": "data\\narrative\\_coverage\\categorical-evidence-density-wave2.fragments.json",
+          "fragmentId": "family.thisMonth.expert.categorical_wave2.neutral_wood_yongshin_water_pyeongwangyeok.402",
+          "axis": {
+            "category": "family",
+            "period": "thisMonth",
+            "depth": "expert"
+          },
+          "gating": {
+            "gender": [
+              "neutral"
+            ],
+            "dayMasterElement": [
+              "WOOD"
+            ],
+            "yongshinElement": [
+              "WATER"
+            ],
+            "gyeokguk": [
+              "pyeongwangyeok"
+            ]
+          }
+        },
+        {
+          "file": "data\\narrative\\_coverage\\expert-70s-age-density.fragments.json",
+          "fragmentId": "family.thisWeek.expert.age.70s.501",
+          "axis": {
+            "category": "family",
+            "period": "thisWeek",
+            "depth": "expert"
+          },
+          "gating": {
+            "agePhase": [
+              "70s"
+            ]
+          }
+        },
+        {
+          "file": "data\\narrative\\_coverage\\expert-early-20s-age-density.fragments.json",
+          "fragmentId": "family.thisWeek.expert.age.early_20s.501",
+          "axis": {
+            "category": "family",
+            "period": "thisWeek",
+            "depth": "expert"
+          },
+          "gating": {
+            "agePhase": [
+              "early_20s"
+            ]
+          }
+        },
+        {
+          "file": "data\\narrative\\_coverage\\expert-early-30s-age-density.fragments.json",
+          "fragmentId": "family.thisWeek.expert.age.early_30s.501",
+          "axis": {
+            "category": "family",
+            "period": "thisWeek",
+            "depth": "expert"
+          },
+          "gating": {
+            "agePhase": [
+              "early_30s"
+            ]
+          }
+        },
+        {
+          "file": "data\\narrative\\_coverage\\expert-early-50s-age-density.fragments.json",
+          "fragmentId": "family.today.expert.age.early_50s.501",
+          "axis": {
+            "category": "family",
+            "period": "today",
+            "depth": "expert"
+          },
+          "gating": {
+            "agePhase": [
+              "early_50s"
+            ]
+          }
+        },
+        {
+          "file": "data\\narrative\\_coverage\\expert-earth-water-density-wave.fragments.json",
+          "fragmentId": "family.thisYear.expert.daymaster.earth.yongshin.water.401",
+          "axis": {
+            "category": "family",
+            "period": "thisYear",
+            "depth": "expert"
+          },
+          "gating": {
+            "dayMasterElement": [
+              "EARTH"
+            ],
+            "yongshinElement": [
+              "WATER"
+            ]
+          }
+        },
+        {
+          "file": "data\\narrative\\_coverage\\expert-late-30s-age-density.fragments.json",
+          "fragmentId": "family.today.expert.age.late_30s.501",
+          "axis": {
+            "category": "family",
+            "period": "today",
+            "depth": "expert"
+          },
+          "gating": {
+            "agePhase": [
+              "late_30s"
+            ]
+          }
+        },
+        {
+          "file": "data\\narrative\\_coverage\\expert-neutral-polarity-density.fragments.json",
+          "fragmentId": "family.thisMonth.expert.polarity.neutral.age.early_teen.401",
+          "axis": {
+            "category": "family",
+            "period": "thisMonth",
+            "depth": "expert"
+          },
+          "gating": {
+            "agePhase": [
+              "early_teen"
+            ],
+            "birthSeason": [
+              "autumn"
+            ],
+            "dayMasterPolarity": [
+              "neutral"
+            ]
+          }
+        },
+        {
+          "file": "data\\narrative\\_coverage\\expert-remaining-age-density.fragments.json",
+          "fragmentId": "family.thisWeek.expert.age.early_40s.601",
+          "axis": {
+            "category": "family",
+            "period": "thisWeek",
+            "depth": "expert"
+          },
+          "gating": {
+            "agePhase": [
+              "early_40s"
+            ]
+          }
+        },
+        {
+          "file": "data\\narrative\\_coverage\\expert-remaining-age-density.fragments.json",
+          "fragmentId": "family.thisWeek.expert.age.late_40s.601",
+          "axis": {
+            "category": "family",
+            "period": "thisWeek",
+            "depth": "expert"
+          },
+          "gating": {
+            "agePhase": [
+              "late_40s"
+            ]
+          }
+        },
+        {
+          "file": "data\\narrative\\_coverage\\expert-remaining-age-density.fragments.json",
+          "fragmentId": "family.thisWeek.expert.age.late_50s.601",
+          "axis": {
+            "category": "family",
+            "period": "thisWeek",
+            "depth": "expert"
+          },
+          "gating": {
+            "agePhase": [
+              "late_50s"
+            ]
+          }
+        },
+        {
+          "file": "data\\narrative\\_coverage\\expert-small-density-wave.fragments.json",
+          "fragmentId": "family.life.expert.gender.neutral.gyeokguk.pyeongwangyeok.401",
+          "axis": {
+            "category": "family",
+            "period": "life",
+            "depth": "expert"
+          },
+          "gating": {
+            "gender": [
+              "neutral"
+            ],
+            "gyeokguk": [
+              "pyeongwangyeok"
+            ]
+          }
+        },
+        {
+          "file": "data\\narrative\\_coverage\\expert-summer-winter-density.fragments.json",
+          "fragmentId": "family.thisMonth.expert.birthSeason.summer.age.late_50s.401",
+          "axis": {
+            "category": "family",
+            "period": "thisMonth",
+            "depth": "expert"
+          },
+          "gating": {
+            "agePhase": [
+              "late_50s"
+            ],
+            "birthSeason": [
+              "summer"
+            ]
+          }
+        },
+        {
+          "file": "data\\narrative\\_coverage\\expert-wood-earth-density-wave.fragments.json",
+          "fragmentId": "family.thisMonth.expert.daymaster.wood.yongshin.earth.401",
+          "axis": {
+            "category": "family",
+            "period": "thisMonth",
+            "depth": "expert"
+          },
+          "gating": {
+            "dayMasterElement": [
+              "WOOD"
+            ],
+            "yongshinElement": [
+              "EARTH"
+            ]
+          }
+        },
+        {
+          "file": "data\\narrative\\_coverage\\family-expert-season-context.fragments.json",
+          "fragmentId": "family.life.expert.currentseason.spring_summer.301",
+          "axis": {
+            "category": "family",
+            "period": "life",
+            "depth": "expert"
+          },
+          "gating": {
+            "currentSeason": [
+              "spring",
+              "summer"
+            ],
+            "yongshinAlignment": [
+              "aligned",
+              "neutral",
+              "conflicting"
+            ]
+          }
+        },
+        {
+          "file": "data\\narrative\\_coverage\\family-expert-season-context.fragments.json",
+          "fragmentId": "family.thisYear.expert.currentseason.autumn_winter.301",
+          "axis": {
+            "category": "family",
+            "period": "thisYear",
+            "depth": "expert"
+          },
+          "gating": {
+            "currentSeason": [
+              "autumn",
+              "winter"
+            ],
+            "yongshinAlignment": [
+              "aligned",
+              "neutral",
+              "conflicting"
+            ]
+          }
+        },
+        {
+          "file": "data\\narrative\\_coverage\\family-season-expert-context.fragments.json",
+          "fragmentId": "family.thisWeek.expert.currentseason.autumn_winter.301",
+          "axis": {
+            "category": "family",
+            "period": "thisWeek",
+            "depth": "expert"
+          },
+          "gating": {
+            "currentSeason": [
+              "autumn",
+              "winter"
+            ],
+            "yongshinAlignment": [
+              "aligned",
+              "neutral",
+              "conflicting"
+            ]
+          }
+        },
+        {
+          "file": "data\\narrative\\_coverage\\min14-family-floor.fragments.json",
+          "fragmentId": "family.today.expert.role.501",
+          "axis": {
+            "category": "family",
+            "period": "today",
+            "depth": "expert"
+          },
+          "gating": {
+            "dayMasterStrength": [
+              "STRONG",
+              "EXTREME_STRONG",
+              "BALANCED"
+            ]
+          }
+        },
+        {
+          "file": "data\\narrative\\_coverage\\min15-family-floor.fragments.json",
+          "fragmentId": "family.thisMonth.expert.care_cycle.504",
+          "axis": {
+            "category": "family",
+            "period": "thisMonth",
+            "depth": "expert"
+          },
+          "gating": {
+            "yongshinAlignment": [
+              "aligned",
+              "neutral"
+            ]
+          }
+        },
+        {
+          "file": "data\\narrative\\_coverage\\min15-family-floor.fragments.json",
+          "fragmentId": "family.thisYear.expert.support_strategy.504",
+          "axis": {
+            "category": "family",
+            "period": "thisYear",
+            "depth": "expert"
+          },
+          "gating": {
+            "yongshinAlignment": [
+              "aligned",
+              "neutral"
+            ]
+          }
+        }
+      ]
+    },
+    {
+      "needle": "균형이 컨디션을 만드는 가장 큰 축이라",
+      "hitCount": 27,
+      "hits": [
+        {
+          "file": "data\\narrative\\health\\life\\expert.fragments.json",
+          "fragmentId": "health.life.expert.child.001",
+          "axis": {
+            "category": "health",
+            "period": "life",
+            "depth": "expert"
+          },
+          "gating": {
+            "ageBand": [
+              "0-9"
+            ]
+          }
+        },
+        {
+          "file": "data\\narrative\\health\\thisYear\\expert.fragments.json",
+          "fragmentId": "health.thisYear.expert.child.001",
+          "axis": {
+            "category": "health",
+            "period": "thisYear",
+            "depth": "expert"
+          },
+          "gating": {
+            "ageBand": [
+              "0-9"
+            ]
+          }
+        },
+        {
+          "file": "data\\narrative\\_coverage\\expert-90-plus-age-density.fragments.json",
+          "fragmentId": "health.today.expert.age.90_plus.501",
+          "axis": {
+            "category": "health",
+            "period": "today",
+            "depth": "expert"
+          },
+          "gating": {
+            "agePhase": [
+              "90_plus"
+            ]
+          }
+        },
+        {
+          "file": "data\\narrative\\_coverage\\expert-early-20s-age-density.fragments.json",
+          "fragmentId": "health.today.expert.age.early_20s.501",
+          "axis": {
+            "category": "health",
+            "period": "today",
+            "depth": "expert"
+          },
+          "gating": {
+            "agePhase": [
+              "early_20s"
+            ]
+          }
+        },
+        {
+          "file": "data\\narrative\\_coverage\\expert-fire-context-density.fragments.json",
+          "fragmentId": "health.thisWeek.expert.yongshin.fire.age.late_30s.401",
+          "axis": {
+            "category": "health",
+            "period": "thisWeek",
+            "depth": "expert"
+          },
+          "gating": {
+            "agePhase": [
+              "late_30s"
+            ],
+            "birthSeason": [
+              "winter"
+            ],
+            "dayMasterPolarity": [
+              "YANG"
+            ],
+            "yongshinElement": [
+              "FIRE"
+            ]
+          }
+        },
+        {
+          "file": "data\\narrative\\_coverage\\expert-late-30s-age-density.fragments.json",
+          "fragmentId": "health.thisYear.expert.age.late_30s.501",
+          "axis": {
+            "category": "health",
+            "period": "thisYear",
+            "depth": "expert"
+          },
+          "gating": {
+            "agePhase": [
+              "late_30s"
+            ]
+          }
+        },
+        {
+          "file": "data\\narrative\\_coverage\\expert-metal-density-wave.fragments.json",
+          "fragmentId": "health.thisYear.expert.daymaster.metal.yongshin.metal.401",
+          "axis": {
+            "category": "health",
+            "period": "thisYear",
+            "depth": "expert"
+          },
+          "gating": {
+            "dayMasterElement": [
+              "METAL"
+            ],
+            "yongshinElement": [
+              "METAL"
+            ]
+          }
+        },
+        {
+          "file": "data\\narrative\\_coverage\\expert-remaining-age-density.fragments.json",
+          "fragmentId": "health.today.expert.age.early_60s.601",
+          "axis": {
+            "category": "health",
+            "period": "today",
+            "depth": "expert"
+          },
+          "gating": {
+            "agePhase": [
+              "early_60s"
+            ]
+          }
+        },
+        {
+          "file": "data\\narrative\\_coverage\\expert-remaining-age-density.fragments.json",
+          "fragmentId": "health.today.expert.age.early_teen.601",
+          "axis": {
+            "category": "health",
+            "period": "today",
+            "depth": "expert"
+          },
+          "gating": {
+            "agePhase": [
+              "early_teen"
+            ]
+          }
+        },
+        {
+          "file": "data\\narrative\\_coverage\\expert-remaining-age-density.fragments.json",
+          "fragmentId": "health.today.expert.age.late_20s.601",
+          "axis": {
+            "category": "health",
+            "period": "today",
+            "depth": "expert"
+          },
+          "gating": {
+            "agePhase": [
+              "late_20s"
+            ]
+          }
+        },
+        {
+          "file": "data\\narrative\\_coverage\\expert-remaining-age-density.fragments.json",
+          "fragmentId": "health.today.expert.age.late_50s.601",
+          "axis": {
+            "category": "health",
+            "period": "today",
+            "depth": "expert"
+          },
+          "gating": {
+            "agePhase": [
+              "late_50s"
+            ]
+          }
+        },
+        {
+          "file": "data\\narrative\\_coverage\\expert-remaining-age-density.fragments.json",
+          "fragmentId": "health.today.expert.age.late_60s.601",
+          "axis": {
+            "category": "health",
+            "period": "today",
+            "depth": "expert"
+          },
+          "gating": {
+            "agePhase": [
+              "late_60s"
+            ]
+          }
+        },
+        {
+          "file": "data\\narrative\\_coverage\\expert-wood-yongshin-context-density.fragments.json",
+          "fragmentId": "health.today.expert.yongshin.wood.age.70s.401",
+          "axis": {
+            "category": "health",
+            "period": "today",
+            "depth": "expert"
+          },
+          "gating": {
+            "agePhase": [
+              "70s"
+            ],
+            "birthSeason": [
+              "spring"
+            ],
+            "dayMasterPolarity": [
+              "neutral"
+            ],
+            "yongshinElement": [
+              "WOOD"
+            ]
+          }
+        },
+        {
+          "file": "data\\narrative\\_coverage\\expert-yin-polarity-density.fragments.json",
+          "fragmentId": "health.today.expert.polarity.yin.age.late_40s.401",
+          "axis": {
+            "category": "health",
+            "period": "today",
+            "depth": "expert"
+          },
+          "gating": {
+            "agePhase": [
+              "late_40s"
+            ],
+            "birthSeason": [
+              "winter"
+            ],
+            "dayMasterPolarity": [
+              "YIN"
+            ]
+          }
+        },
+        {
+          "file": "data\\narrative\\_coverage\\health-season-context.fragments.json",
+          "fragmentId": "health.today.expert.currentseason.spring_summer.301",
+          "axis": {
+            "category": "health",
+            "period": "today",
+            "depth": "expert"
+          },
+          "gating": {
+            "currentSeason": [
+              "spring",
+              "summer"
+            ],
+            "yongshinAlignment": [
+              "aligned",
+              "neutral",
+              "conflicting"
+            ]
+          }
+        },
+        {
+          "file": "data\\narrative\\_coverage\\health-season-context.fragments.json",
+          "fragmentId": "health.today.expert.currentseason.autumn_winter.301",
+          "axis": {
+            "category": "health",
+            "period": "today",
+            "depth": "expert"
+          },
+          "gating": {
+            "currentSeason": [
+              "autumn",
+              "winter"
+            ],
+            "yongshinAlignment": [
+              "aligned",
+              "neutral",
+              "conflicting"
+            ]
+          }
+        },
+        {
+          "file": "data\\narrative\\_coverage\\health-season-context.fragments.json",
+          "fragmentId": "health.thisWeek.expert.currentseason.spring_summer.301",
+          "axis": {
+            "category": "health",
+            "period": "thisWeek",
+            "depth": "expert"
+          },
+          "gating": {
+            "currentSeason": [
+              "spring",
+              "summer"
+            ],
+            "yongshinAlignment": [
+              "aligned",
+              "neutral",
+              "conflicting"
+            ]
+          }
+        },
+        {
+          "file": "data\\narrative\\_coverage\\health-season-context.fragments.json",
+          "fragmentId": "health.thisWeek.expert.currentseason.autumn_winter.301",
+          "axis": {
+            "category": "health",
+            "period": "thisWeek",
+            "depth": "expert"
+          },
+          "gating": {
+            "currentSeason": [
+              "autumn",
+              "winter"
+            ],
+            "yongshinAlignment": [
+              "aligned",
+              "neutral",
+              "conflicting"
+            ]
+          }
+        },
+        {
+          "file": "data\\narrative\\_coverage\\health-season-context.fragments.json",
+          "fragmentId": "health.thisMonth.expert.currentseason.spring_summer.301",
+          "axis": {
+            "category": "health",
+            "period": "thisMonth",
+            "depth": "expert"
+          },
+          "gating": {
+            "currentSeason": [
+              "spring",
+              "summer"
+            ],
+            "yongshinAlignment": [
+              "aligned",
+              "neutral",
+              "conflicting"
+            ]
+          }
+        },
+        {
+          "file": "data\\narrative\\_coverage\\health-season-context.fragments.json",
+          "fragmentId": "health.thisMonth.expert.currentseason.autumn_winter.301",
+          "axis": {
+            "category": "health",
+            "period": "thisMonth",
+            "depth": "expert"
+          },
+          "gating": {
+            "currentSeason": [
+              "autumn",
+              "winter"
+            ],
+            "yongshinAlignment": [
+              "aligned",
+              "neutral",
+              "conflicting"
+            ]
+          }
+        },
+        {
+          "file": "data\\narrative\\_coverage\\min12-density-floor-complete.fragments.json",
+          "fragmentId": "health.thisWeek.expert.recovery.401",
+          "axis": {
+            "category": "health",
+            "period": "thisWeek",
+            "depth": "expert"
+          },
+          "gating": {
+            "yongshinAlignment": [
+              "aligned",
+              "neutral",
+              "conflicting"
+            ]
+          }
+        },
+        {
+          "file": "data\\narrative\\_coverage\\min12-density-floor-complete.fragments.json",
+          "fragmentId": "health.thisMonth.expert.recovery.401",
+          "axis": {
+            "category": "health",
+            "period": "thisMonth",
+            "depth": "expert"
+          },
+          "gating": {
+            "yongshinAlignment": [
+              "aligned",
+              "neutral",
+              "conflicting"
+            ]
+          }
+        },
+        {
+          "file": "data\\narrative\\_coverage\\min14-health-floor.fragments.json",
+          "fragmentId": "health.life.expert.balance.501",
+          "axis": {
+            "category": "health",
+            "period": "life",
+            "depth": "expert"
+          },
+          "gating": {
+            "dayMasterStrength": [
+              "STRONG",
+              "EXTREME_STRONG"
+            ]
+          }
+        },
+        {
+          "file": "data\\narrative\\_coverage\\min14-health-floor.fragments.json",
+          "fragmentId": "health.today.expert.recovery.501",
+          "axis": {
+            "category": "health",
+            "period": "today",
+            "depth": "expert"
+          },
+          "gating": {
+            "yongshinAlignment": [
+              "aligned",
+              "neutral"
+            ]
+          }
+        },
+        {
+          "file": "data\\narrative\\_coverage\\min14-health-floor.fragments.json",
+          "fragmentId": "health.thisWeek.expert.johu.501",
+          "axis": {
+            "category": "health",
+            "period": "thisWeek",
+            "depth": "expert"
+          },
+          "gating": {
+            "currentSeason": [
+              "spring",
+              "summer"
+            ]
+          }
+        },
+        {
+          "file": "data\\narrative\\_coverage\\min15-health-floor.fragments.json",
+          "fragmentId": "health.today.expert.signal_score.504",
+          "axis": {
+            "category": "health",
+            "period": "today",
+            "depth": "expert"
+          },
+          "gating": {
+            "dayMasterStrength": [
+              "WEAK",
+              "EXTREME_WEAK",
+              "BALANCED"
+            ]
+          }
+        },
+        {
+          "file": "data\\narrative\\_coverage\\min15-health-floor.fragments.json",
+          "fragmentId": "health.thisWeek.expert.pacing_index.504",
+          "axis": {
+            "category": "health",
+            "period": "thisWeek",
+            "depth": "expert"
+          },
+          "gating": {
+            "dayMasterStrength": [
+              "STRONG",
+              "EXTREME_STRONG",
+              "BALANCED"
+            ]
+          }
+        }
+      ]
+    },
+    {
+      "needle": "깊은 색이 더 또렷해지고",
+      "hitCount": 63,
+      "hits": [
+        {
+          "file": "data\\narrative\\overall\\life\\expert.fragments.json",
+          "fragmentId": "overall.life.expert.strong.aligned.male.age30_39.004",
+          "axis": {
+            "category": "overall",
+            "period": "life",
+            "depth": "expert"
+          },
+          "gating": {
+            "gender": [
+              "male"
+            ],
+            "ageBand": [
+              "30-39"
+            ],
+            "dayMasterStrength": [
+              "STRONG"
+            ],
+            "yongshinAlignment": [
+              "aligned"
+            ]
+          }
+        },
+        {
+          "file": "data\\narrative\\overall\\life\\expert.fragments.json",
+          "fragmentId": "overall.life.expert.balanced.conflicting.009",
+          "axis": {
+            "category": "overall",
+            "period": "life",
+            "depth": "expert"
+          },
+          "gating": {
+            "dayMasterStrength": [
+              "BALANCED"
+            ],
+            "yongshinAlignment": [
+              "conflicting"
+            ]
+          }
+        },
+        {
+          "file": "data\\narrative\\overall\\life\\expert.fragments.json",
+          "fragmentId": "overall.life.expert.weak.aligned.010",
+          "axis": {
+            "category": "overall",
+            "period": "life",
+            "depth": "expert"
+          },
+          "gating": {
+            "dayMasterStrength": [
+              "WEAK"
+            ],
+            "yongshinAlignment": [
+              "aligned"
+            ]
+          }
+        },
+        {
+          "file": "data\\narrative\\overall\\life\\expert.fragments.json",
+          "fragmentId": "overall.life.expert.weak_summer_byeongyak.502",
+          "axis": {
+            "category": "overall",
+            "period": "life",
+            "depth": "expert"
+          },
+          "gating": {
+            "dayMasterStrength": [
+              "WEAK"
+            ],
+            "birthSeason": [
+              "summer"
+            ],
+            "yongshinAlignment": [
+              "conflicting"
+            ]
+          }
+        },
+        {
+          "file": "data\\narrative\\overall\\life\\expert.fragments.json",
+          "fragmentId": "overall.life.expert.late50s_aligned_gyeokguk.503",
+          "axis": {
+            "category": "overall",
+            "period": "life",
+            "depth": "expert"
+          },
+          "gating": {
+            "agePhase": [
+              "late_50s"
+            ],
+            "yongshinAlignment": [
+              "aligned"
+            ]
+          }
+        },
+        {
+          "file": "data\\narrative\\overall\\life\\expert.fragments.json",
+          "fragmentId": "overall.life.expert.yin_late60s_johu.504",
+          "axis": {
+            "category": "overall",
+            "period": "life",
+            "depth": "expert"
+          },
+          "gating": {
+            "dayMasterPolarity": [
+              "YIN"
+            ],
+            "agePhase": [
+              "late_60s"
+            ],
+            "yongshinAlignment": [
+              "neutral"
+            ]
+          }
+        },
+        {
+          "file": "data\\narrative\\overall\\thisMonth\\expert.fragments.json",
+          "fragmentId": "overall.thisMonth.expert.extreme_strong.aligned.002",
+          "axis": {
+            "category": "overall",
+            "period": "thisMonth",
+            "depth": "expert"
+          },
+          "gating": {
+            "dayMasterStrength": [
+              "EXTREME_STRONG"
+            ],
+            "yongshinAlignment": [
+              "aligned"
+            ]
+          }
+        },
+        {
+          "file": "data\\narrative\\overall\\thisMonth\\expert.fragments.json",
+          "fragmentId": "overall.thisMonth.expert.strong.aligned.male.age30_39.004",
+          "axis": {
+            "category": "overall",
+            "period": "thisMonth",
+            "depth": "expert"
+          },
+          "gating": {
+            "gender": [
+              "male"
+            ],
+            "ageBand": [
+              "30-39"
+            ],
+            "dayMasterStrength": [
+              "STRONG"
+            ],
+            "yongshinAlignment": [
+              "aligned"
+            ]
+          }
+        },
+        {
+          "file": "data\\narrative\\overall\\thisMonth\\expert.fragments.json",
+          "fragmentId": "overall.thisMonth.expert.balanced.conflicting.009",
+          "axis": {
+            "category": "overall",
+            "period": "thisMonth",
+            "depth": "expert"
+          },
+          "gating": {
+            "dayMasterStrength": [
+              "BALANCED"
+            ],
+            "yongshinAlignment": [
+              "conflicting"
+            ]
+          }
+        },
+        {
+          "file": "data\\narrative\\overall\\thisMonth\\expert.fragments.json",
+          "fragmentId": "overall.thisMonth.expert.weak.aligned.010",
+          "axis": {
+            "category": "overall",
+            "period": "thisMonth",
+            "depth": "expert"
+          },
+          "gating": {
+            "dayMasterStrength": [
+              "WEAK"
+            ],
+            "yongshinAlignment": [
+              "aligned"
+            ]
+          }
+        },
+        {
+          "file": "data\\narrative\\overall\\thisMonth\\expert.fragments.json",
+          "fragmentId": "overall.thisMonth.expert.weak.neutral.age40_54.011",
+          "axis": {
+            "category": "overall",
+            "period": "thisMonth",
+            "depth": "expert"
+          },
+          "gating": {
+            "ageBand": [
+              "40-54"
+            ],
+            "dayMasterStrength": [
+              "WEAK"
+            ],
+            "yongshinAlignment": [
+              "neutral"
+            ]
+          }
+        },
+        {
+          "file": "data\\narrative\\overall\\thisMonth\\expert.fragments.json",
+          "fragmentId": "overall.thisMonth.expert.extreme_weak.conflicting.012",
+          "axis": {
+            "category": "overall",
+            "period": "thisMonth",
+            "depth": "expert"
+          },
+          "gating": {
+            "dayMasterStrength": [
+              "EXTREME_WEAK"
+            ],
+            "yongshinAlignment": [
+              "conflicting"
+            ]
+          }
+        },
+        {
+          "file": "data\\narrative\\overall\\thisWeek\\expert.fragments.json",
+          "fragmentId": "overall.thisWeek.expert.wildcard.001",
+          "axis": {
+            "category": "overall",
+            "period": "thisWeek",
+            "depth": "expert"
+          },
+          "gating": {}
+        },
+        {
+          "file": "data\\narrative\\overall\\thisWeek\\expert.fragments.json",
+          "fragmentId": "overall.thisWeek.expert.strong.aligned.003",
+          "axis": {
+            "category": "overall",
+            "period": "thisWeek",
+            "depth": "expert"
+          },
+          "gating": {
+            "dayMasterStrength": [
+              "STRONG"
+            ],
+            "yongshinAlignment": [
+              "aligned"
+            ]
+          }
+        },
+        {
+          "file": "data\\narrative\\overall\\thisWeek\\expert.fragments.json",
+          "fragmentId": "overall.thisWeek.expert.strong.neutral.005",
+          "axis": {
+            "category": "overall",
+            "period": "thisWeek",
+            "depth": "expert"
+          },
+          "gating": {
+            "dayMasterStrength": [
+              "STRONG"
+            ],
+            "yongshinAlignment": [
+              "neutral"
+            ]
+          }
+        },
+        {
+          "file": "data\\narrative\\overall\\thisWeek\\expert.fragments.json",
+          "fragmentId": "overall.thisWeek.expert.balanced.aligned.006",
+          "axis": {
+            "category": "overall",
+            "period": "thisWeek",
+            "depth": "expert"
+          },
+          "gating": {
+            "dayMasterStrength": [
+              "BALANCED"
+            ],
+            "yongshinAlignment": [
+              "aligned"
+            ]
+          }
+        },
+        {
+          "file": "data\\narrative\\overall\\thisWeek\\expert.fragments.json",
+          "fragmentId": "overall.thisWeek.expert.balanced.aligned.female.age20_29.007",
+          "axis": {
+            "category": "overall",
+            "period": "thisWeek",
+            "depth": "expert"
+          },
+          "gating": {
+            "gender": [
+              "female"
+            ],
+            "ageBand": [
+              "20-29"
+            ],
+            "dayMasterStrength": [
+              "BALANCED"
+            ],
+            "yongshinAlignment": [
+              "aligned"
+            ]
+          }
+        },
+        {
+          "file": "data\\narrative\\overall\\thisWeek\\expert.fragments.json",
+          "fragmentId": "overall.thisWeek.expert.balanced.neutral.008",
+          "axis": {
+            "category": "overall",
+            "period": "thisWeek",
+            "depth": "expert"
+          },
+          "gating": {
+            "dayMasterStrength": [
+              "BALANCED"
+            ],
+            "yongshinAlignment": [
+              "neutral"
+            ]
+          }
+        },
+        {
+          "file": "data\\narrative\\overall\\thisWeek\\expert.fragments.json",
+          "fragmentId": "overall.thisWeek.expert.child.001",
+          "axis": {
+            "category": "overall",
+            "period": "thisWeek",
+            "depth": "expert"
+          },
+          "gating": {
+            "ageBand": [
+              "0-9"
+            ]
+          }
+        },
+        {
+          "file": "data\\narrative\\overall\\thisYear\\expert.fragments.json",
+          "fragmentId": "overall.thisYear.expert.wildcard.001",
+          "axis": {
+            "category": "overall",
+            "period": "thisYear",
+            "depth": "expert"
+          },
+          "gating": {}
+        },
+        {
+          "file": "data\\narrative\\overall\\thisYear\\expert.fragments.json",
+          "fragmentId": "overall.thisYear.expert.strong.aligned.003",
+          "axis": {
+            "category": "overall",
+            "period": "thisYear",
+            "depth": "expert"
+          },
+          "gating": {
+            "dayMasterStrength": [
+              "STRONG"
+            ],
+            "yongshinAlignment": [
+              "aligned"
+            ]
+          }
+        },
+        {
+          "file": "data\\narrative\\overall\\thisYear\\expert.fragments.json",
+          "fragmentId": "overall.thisYear.expert.strong.neutral.005",
+          "axis": {
+            "category": "overall",
+            "period": "thisYear",
+            "depth": "expert"
+          },
+          "gating": {
+            "dayMasterStrength": [
+              "STRONG"
+            ],
+            "yongshinAlignment": [
+              "neutral"
+            ]
+          }
+        },
+        {
+          "file": "data\\narrative\\overall\\thisYear\\expert.fragments.json",
+          "fragmentId": "overall.thisYear.expert.balanced.aligned.006",
+          "axis": {
+            "category": "overall",
+            "period": "thisYear",
+            "depth": "expert"
+          },
+          "gating": {
+            "dayMasterStrength": [
+              "BALANCED"
+            ],
+            "yongshinAlignment": [
+              "aligned"
+            ]
+          }
+        },
+        {
+          "file": "data\\narrative\\overall\\thisYear\\expert.fragments.json",
+          "fragmentId": "overall.thisYear.expert.balanced.aligned.female.age20_29.007",
+          "axis": {
+            "category": "overall",
+            "period": "thisYear",
+            "depth": "expert"
+          },
+          "gating": {
+            "gender": [
+              "female"
+            ],
+            "ageBand": [
+              "20-29"
+            ],
+            "dayMasterStrength": [
+              "BALANCED"
+            ],
+            "yongshinAlignment": [
+              "aligned"
+            ]
+          }
+        },
+        {
+          "file": "data\\narrative\\overall\\thisYear\\expert.fragments.json",
+          "fragmentId": "overall.thisYear.expert.balanced.neutral.008",
+          "axis": {
+            "category": "overall",
+            "period": "thisYear",
+            "depth": "expert"
+          },
+          "gating": {
+            "dayMasterStrength": [
+              "BALANCED"
+            ],
+            "yongshinAlignment": [
+              "neutral"
+            ]
+          }
+        },
+        {
+          "file": "data\\narrative\\overall\\thisYear\\expert.fragments.json",
+          "fragmentId": "overall.thisYear.expert.weak.neutral.age40_54.011",
+          "axis": {
+            "category": "overall",
+            "period": "thisYear",
+            "depth": "expert"
+          },
+          "gating": {
+            "ageBand": [
+              "40-54"
+            ],
+            "dayMasterStrength": [
+              "WEAK"
+            ],
+            "yongshinAlignment": [
+              "neutral"
+            ]
+          }
+        },
+        {
+          "file": "data\\narrative\\overall\\today\\expert.fragments.json",
+          "fragmentId": "overall.today.expert.wildcard.001",
+          "axis": {
+            "category": "overall",
+            "period": "today",
+            "depth": "expert"
+          },
+          "gating": {}
+        },
+        {
+          "file": "data\\narrative\\overall\\today\\expert.fragments.json",
+          "fragmentId": "overall.today.expert.strong.aligned.003",
+          "axis": {
+            "category": "overall",
+            "period": "today",
+            "depth": "expert"
+          },
+          "gating": {
+            "dayMasterStrength": [
+              "STRONG"
+            ],
+            "yongshinAlignment": [
+              "aligned"
+            ]
+          }
+        },
+        {
+          "file": "data\\narrative\\overall\\today\\expert.fragments.json",
+          "fragmentId": "overall.today.expert.strong.neutral.005",
+          "axis": {
+            "category": "overall",
+            "period": "today",
+            "depth": "expert"
+          },
+          "gating": {
+            "dayMasterStrength": [
+              "STRONG"
+            ],
+            "yongshinAlignment": [
+              "neutral"
+            ]
+          }
+        },
+        {
+          "file": "data\\narrative\\overall\\today\\expert.fragments.json",
+          "fragmentId": "overall.today.expert.balanced.aligned.006",
+          "axis": {
+            "category": "overall",
+            "period": "today",
+            "depth": "expert"
+          },
+          "gating": {
+            "dayMasterStrength": [
+              "BALANCED"
+            ],
+            "yongshinAlignment": [
+              "aligned"
+            ]
+          }
+        },
+        {
+          "file": "data\\narrative\\overall\\today\\expert.fragments.json",
+          "fragmentId": "overall.today.expert.balanced.aligned.female.age20_29.007",
+          "axis": {
+            "category": "overall",
+            "period": "today",
+            "depth": "expert"
+          },
+          "gating": {
+            "gender": [
+              "female"
+            ],
+            "ageBand": [
+              "20-29"
+            ],
+            "dayMasterStrength": [
+              "BALANCED"
+            ],
+            "yongshinAlignment": [
+              "aligned"
+            ]
+          }
+        },
+        {
+          "file": "data\\narrative\\overall\\today\\expert.fragments.json",
+          "fragmentId": "overall.today.expert.balanced.neutral.008",
+          "axis": {
+            "category": "overall",
+            "period": "today",
+            "depth": "expert"
+          },
+          "gating": {
+            "dayMasterStrength": [
+              "BALANCED"
+            ],
+            "yongshinAlignment": [
+              "neutral"
+            ]
+          }
+        },
+        {
+          "file": "data\\narrative\\overall\\today\\expert.fragments.json",
+          "fragmentId": "overall.today.expert.weak.neutral.age40_54.011",
+          "axis": {
+            "category": "overall",
+            "period": "today",
+            "depth": "expert"
+          },
+          "gating": {
+            "ageBand": [
+              "40-54"
+            ],
+            "dayMasterStrength": [
+              "WEAK"
+            ],
+            "yongshinAlignment": [
+              "neutral"
+            ]
+          }
+        },
+        {
+          "file": "data\\narrative\\_coverage\\age-phase-expert-mature.fragments.json",
+          "fragmentId": "overall.life.expert.agephase.early_40s.301",
+          "axis": {
+            "category": "overall",
+            "period": "life",
+            "depth": "expert"
+          },
+          "gating": {
+            "agePhase": [
+              "early_40s"
+            ]
+          }
+        },
+        {
+          "file": "data\\narrative\\_coverage\\age-phase-expert-mature.fragments.json",
+          "fragmentId": "overall.life.expert.agephase.80s.301",
+          "axis": {
+            "category": "overall",
+            "period": "life",
+            "depth": "expert"
+          },
+          "gating": {
+            "agePhase": [
+              "80s"
+            ]
+          }
+        },
+        {
+          "file": "data\\narrative\\_coverage\\age-phase-expert-young.fragments.json",
+          "fragmentId": "overall.life.expert.agephase.child_0_9.301",
+          "axis": {
+            "category": "overall",
+            "period": "life",
+            "depth": "expert"
+          },
+          "gating": {
+            "agePhase": [
+              "child_0_9"
+            ]
+          }
+        },
+        {
+          "file": "data\\narrative\\_coverage\\age-phase-expert-young.fragments.json",
+          "fragmentId": "overall.life.expert.agephase.late_teen.301",
+          "axis": {
+            "category": "overall",
+            "period": "life",
+            "depth": "expert"
+          },
+          "gating": {
+            "agePhase": [
+              "late_teen"
+            ]
+          }
+        },
+        {
+          "file": "data\\narrative\\_coverage\\categorical-evidence-density-wave2.fragments.json",
+          "fragmentId": "overall.thisWeek.expert.categorical_wave2.male_wood_yongshin_metal_jeongingyeok.402",
+          "axis": {
+            "category": "overall",
+            "period": "thisWeek",
+            "depth": "expert"
+          },
+          "gating": {
+            "gender": [
+              "male"
+            ],
+            "dayMasterElement": [
+              "WOOD"
+            ],
+            "yongshinElement": [
+              "METAL"
+            ],
+            "gyeokguk": [
+              "jeongingyeok"
+            ]
+          }
+        },
+        {
+          "file": "data\\narrative\\_coverage\\categorical-evidence-density-wave2.fragments.json",
+          "fragmentId": "overall.thisYear.expert.categorical_wave2.neutral_fire_yongshin_water_jeonggwangyeok.402",
+          "axis": {
+            "category": "overall",
+            "period": "thisYear",
+            "depth": "expert"
+          },
+          "gating": {
+            "gender": [
+              "neutral"
+            ],
+            "dayMasterElement": [
+              "FIRE"
+            ],
+            "yongshinElement": [
+              "WATER"
+            ],
+            "gyeokguk": [
+              "jeonggwangyeok"
+            ]
+          }
+        },
+        {
+          "file": "data\\narrative\\_coverage\\categorical-evidence-density-wave3.fragments.json",
+          "fragmentId": "overall.today.expert.categorical_wave3.female_metal_yongshin_water_jeongingyeok.403",
+          "axis": {
+            "category": "overall",
+            "period": "today",
+            "depth": "expert"
+          },
+          "gating": {
+            "gender": [
+              "female"
+            ],
+            "dayMasterElement": [
+              "METAL"
+            ],
+            "yongshinElement": [
+              "WATER"
+            ],
+            "gyeokguk": [
+              "jeongingyeok"
+            ]
+          }
+        },
+        {
+          "file": "data\\narrative\\_coverage\\expert-90-plus-age-density.fragments.json",
+          "fragmentId": "overall.life.expert.age.90_plus.501",
+          "axis": {
+            "category": "overall",
+            "period": "life",
+            "depth": "expert"
+          },
+          "gating": {
+            "agePhase": [
+              "90_plus"
+            ]
+          }
+        },
+        {
+          "file": "data\\narrative\\_coverage\\expert-early-20s-age-density.fragments.json",
+          "fragmentId": "overall.life.expert.age.early_20s.501",
+          "axis": {
+            "category": "overall",
+            "period": "life",
+            "depth": "expert"
+          },
+          "gating": {
+            "agePhase": [
+              "early_20s"
+            ]
+          }
+        },
+        {
+          "file": "data\\narrative\\_coverage\\expert-early-50s-age-density.fragments.json",
+          "fragmentId": "overall.today.expert.age.early_50s.501",
+          "axis": {
+            "category": "overall",
+            "period": "today",
+            "depth": "expert"
+          },
+          "gating": {
+            "agePhase": [
+              "early_50s"
+            ]
+          }
+        },
+        {
+          "file": "data\\narrative\\_coverage\\expert-late-30s-age-density.fragments.json",
+          "fragmentId": "overall.today.expert.age.late_30s.501",
+          "axis": {
+            "category": "overall",
+            "period": "today",
+            "depth": "expert"
+          },
+          "gating": {
+            "agePhase": [
+              "late_30s"
+            ]
+          }
+        },
+        {
+          "file": "data\\narrative\\_coverage\\expert-remaining-age-density.fragments.json",
+          "fragmentId": "overall.life.expert.age.early_60s.601",
+          "axis": {
+            "category": "overall",
+            "period": "life",
+            "depth": "expert"
+          },
+          "gating": {
+            "agePhase": [
+              "early_60s"
+            ]
+          }
+        },
+        {
+          "file": "data\\narrative\\_coverage\\expert-remaining-age-density.fragments.json",
+          "fragmentId": "overall.life.expert.age.early_teen.601",
+          "axis": {
+            "category": "overall",
+            "period": "life",
+            "depth": "expert"
+          },
+          "gating": {
+            "agePhase": [
+              "early_teen"
+            ]
+          }
+        },
+        {
+          "file": "data\\narrative\\_coverage\\expert-remaining-age-density.fragments.json",
+          "fragmentId": "overall.life.expert.age.late_20s.601",
+          "axis": {
+            "category": "overall",
+            "period": "life",
+            "depth": "expert"
+          },
+          "gating": {
+            "agePhase": [
+              "late_20s"
+            ]
+          }
+        },
+        {
+          "file": "data\\narrative\\_coverage\\expert-remaining-age-density.fragments.json",
+          "fragmentId": "overall.life.expert.age.late_50s.601",
+          "axis": {
+            "category": "overall",
+            "period": "life",
+            "depth": "expert"
+          },
+          "gating": {
+            "agePhase": [
+              "late_50s"
+            ]
+          }
+        },
+        {
+          "file": "data\\narrative\\_coverage\\expert-remaining-age-density.fragments.json",
+          "fragmentId": "overall.life.expert.age.late_60s.601",
+          "axis": {
+            "category": "overall",
+            "period": "life",
+            "depth": "expert"
+          },
+          "gating": {
+            "agePhase": [
+              "late_60s"
+            ]
+          }
+        },
+        {
+          "file": "data\\narrative\\_coverage\\expert-season-polarity-gap-fill.fragments.json",
+          "fragmentId": "overall.life.expert.birthseason.autumn.401",
+          "axis": {
+            "category": "overall",
+            "period": "life",
+            "depth": "expert"
+          },
+          "gating": {
+            "birthSeason": [
+              "autumn"
+            ]
+          }
+        },
+        {
+          "file": "data\\narrative\\_coverage\\expert-season-polarity-gap-fill.fragments.json",
+          "fragmentId": "overall.life.expert.polarity.neutral.401",
+          "axis": {
+            "category": "overall",
+            "period": "life",
+            "depth": "expert"
+          },
+          "gating": {
+            "dayMasterPolarity": [
+              "neutral"
+            ]
+          }
+        },
+        {
+          "file": "data\\narrative\\_coverage\\expert-spring-autumn-density.fragments.json",
+          "fragmentId": "overall.life.expert.birthSeason.spring.age.child_0_9.401",
+          "axis": {
+            "category": "overall",
+            "period": "life",
+            "depth": "expert"
+          },
+          "gating": {
+            "agePhase": [
+              "child_0_9"
+            ],
+            "birthSeason": [
+              "spring"
+            ]
+          }
+        },
+        {
+          "file": "data\\narrative\\_coverage\\ordinal-evidence-density.fragments.json",
+          "fragmentId": "overall.today.expert.ordinal.gender_male.401",
+          "axis": {
+            "category": "overall",
+            "period": "today",
+            "depth": "expert"
+          },
+          "gating": {
+            "gender": [
+              "male"
+            ]
+          }
+        },
+        {
+          "file": "data\\narrative\\_coverage\\ordinal-evidence-density.fragments.json",
+          "fragmentId": "overall.today.expert.ordinal.gender_female.401",
+          "axis": {
+            "category": "overall",
+            "period": "today",
+            "depth": "expert"
+          },
+          "gating": {
+            "gender": [
+              "female"
+            ]
+          }
+        },
+        {
+          "file": "data\\narrative\\_coverage\\overall-season-complete.fragments.json",
+          "fragmentId": "overall.today.expert.currentseason.spring_summer.301",
+          "axis": {
+            "category": "overall",
+            "period": "today",
+            "depth": "expert"
+          },
+          "gating": {
+            "currentSeason": [
+              "spring",
+              "summer"
+            ],
+            "yongshinAlignment": [
+              "aligned",
+              "neutral",
+              "conflicting"
+            ]
+          }
+        },
+        {
+          "file": "data\\narrative\\_coverage\\overall-season-complete.fragments.json",
+          "fragmentId": "overall.today.expert.currentseason.autumn_winter.301",
+          "axis": {
+            "category": "overall",
+            "period": "today",
+            "depth": "expert"
+          },
+          "gating": {
+            "currentSeason": [
+              "autumn",
+              "winter"
+            ],
+            "yongshinAlignment": [
+              "aligned",
+              "neutral",
+              "conflicting"
+            ]
+          }
+        },
+        {
+          "file": "data\\narrative\\_coverage\\overall-season-complete.fragments.json",
+          "fragmentId": "overall.thisMonth.expert.currentseason.spring_summer.301",
+          "axis": {
+            "category": "overall",
+            "period": "thisMonth",
+            "depth": "expert"
+          },
+          "gating": {
+            "currentSeason": [
+              "spring",
+              "summer"
+            ],
+            "yongshinAlignment": [
+              "aligned",
+              "neutral",
+              "conflicting"
+            ]
+          }
+        },
+        {
+          "file": "data\\narrative\\_coverage\\overall-season-complete.fragments.json",
+          "fragmentId": "overall.thisMonth.expert.currentseason.autumn_winter.301",
+          "axis": {
+            "category": "overall",
+            "period": "thisMonth",
+            "depth": "expert"
+          },
+          "gating": {
+            "currentSeason": [
+              "autumn",
+              "winter"
+            ],
+            "yongshinAlignment": [
+              "aligned",
+              "neutral",
+              "conflicting"
+            ]
+          }
+        },
+        {
+          "file": "data\\narrative\\_coverage\\overall-season-complete.fragments.json",
+          "fragmentId": "overall.thisYear.expert.currentseason.spring_summer.301",
+          "axis": {
+            "category": "overall",
+            "period": "thisYear",
+            "depth": "expert"
+          },
+          "gating": {
+            "currentSeason": [
+              "spring",
+              "summer"
+            ],
+            "yongshinAlignment": [
+              "aligned",
+              "neutral",
+              "conflicting"
+            ]
+          }
+        },
+        {
+          "file": "data\\narrative\\_coverage\\overall-season-complete.fragments.json",
+          "fragmentId": "overall.thisYear.expert.currentseason.autumn_winter.301",
+          "axis": {
+            "category": "overall",
+            "period": "thisYear",
+            "depth": "expert"
+          },
+          "gating": {
+            "currentSeason": [
+              "autumn",
+              "winter"
+            ],
+            "yongshinAlignment": [
+              "aligned",
+              "neutral",
+              "conflicting"
+            ]
+          }
+        },
+        {
+          "file": "data\\narrative\\_coverage\\yongshin-element-expert-density.fragments.json",
+          "fragmentId": "overall.life.expert.yongshin.wood.201",
+          "axis": {
+            "category": "overall",
+            "period": "life",
+            "depth": "expert"
+          },
+          "gating": {
+            "yongshinElement": [
+              "WOOD"
+            ]
+          }
+        },
+        {
+          "file": "data\\narrative\\_coverage\\yongshin-element-expert-density.fragments.json",
+          "fragmentId": "overall.life.expert.yongshin.metal.201",
+          "axis": {
+            "category": "overall",
+            "period": "life",
+            "depth": "expert"
+          },
+          "gating": {
+            "yongshinElement": [
+              "METAL"
+            ]
+          }
+        },
+        {
+          "file": "data\\narrative\\_coverage\\yongshin-element-expert-density.fragments.json",
+          "fragmentId": "overall.life.expert.yongshin.water.201",
+          "axis": {
+            "category": "overall",
+            "period": "life",
+            "depth": "expert"
+          },
+          "gating": {
+            "yongshinElement": [
+              "WATER"
+            ]
+          }
+        }
+      ]
+    },
+    {
+      "needle": "흐름의 막힌 자리를 풀어 주는 자리가 보이고",
+      "hitCount": 55,
+      "hits": [
+        {
+          "file": "data\\narrative\\overall\\life\\expert.fragments.json",
+          "fragmentId": "overall.life.expert.wildcard.001",
+          "axis": {
+            "category": "overall",
+            "period": "life",
+            "depth": "expert"
+          },
+          "gating": {}
+        },
+        {
+          "file": "data\\narrative\\overall\\life\\expert.fragments.json",
+          "fragmentId": "overall.life.expert.extreme_strong.aligned.002",
+          "axis": {
+            "category": "overall",
+            "period": "life",
+            "depth": "expert"
+          },
+          "gating": {
+            "dayMasterStrength": [
+              "EXTREME_STRONG"
+            ],
+            "yongshinAlignment": [
+              "aligned"
+            ]
+          }
+        },
+        {
+          "file": "data\\narrative\\overall\\life\\expert.fragments.json",
+          "fragmentId": "overall.life.expert.weak.neutral.age40_54.011",
+          "axis": {
+            "category": "overall",
+            "period": "life",
+            "depth": "expert"
+          },
+          "gating": {
+            "ageBand": [
+              "40-54"
+            ],
+            "dayMasterStrength": [
+              "WEAK"
+            ],
+            "yongshinAlignment": [
+              "neutral"
+            ]
+          }
+        },
+        {
+          "file": "data\\narrative\\overall\\life\\expert.fragments.json",
+          "fragmentId": "overall.life.expert.child.001",
+          "axis": {
+            "category": "overall",
+            "period": "life",
+            "depth": "expert"
+          },
+          "gating": {
+            "ageBand": [
+              "0-9"
+            ]
+          }
+        },
+        {
+          "file": "data\\narrative\\overall\\life\\expert.fragments.json",
+          "fragmentId": "overall.life.expert.late50s_aligned_gyeokguk.503",
+          "axis": {
+            "category": "overall",
+            "period": "life",
+            "depth": "expert"
+          },
+          "gating": {
+            "agePhase": [
+              "late_50s"
+            ],
+            "yongshinAlignment": [
+              "aligned"
+            ]
+          }
+        },
+        {
+          "file": "data\\narrative\\overall\\life\\expert.fragments.json",
+          "fragmentId": "overall.life.expert.yin_late60s_johu.504",
+          "axis": {
+            "category": "overall",
+            "period": "life",
+            "depth": "expert"
+          },
+          "gating": {
+            "dayMasterPolarity": [
+              "YIN"
+            ],
+            "agePhase": [
+              "late_60s"
+            ],
+            "yongshinAlignment": [
+              "neutral"
+            ]
+          }
+        },
+        {
+          "file": "data\\narrative\\overall\\thisMonth\\expert.fragments.json",
+          "fragmentId": "overall.thisMonth.expert.wildcard.001",
+          "axis": {
+            "category": "overall",
+            "period": "thisMonth",
+            "depth": "expert"
+          },
+          "gating": {}
+        },
+        {
+          "file": "data\\narrative\\overall\\thisMonth\\expert.fragments.json",
+          "fragmentId": "overall.thisMonth.expert.extreme_strong.aligned.002",
+          "axis": {
+            "category": "overall",
+            "period": "thisMonth",
+            "depth": "expert"
+          },
+          "gating": {
+            "dayMasterStrength": [
+              "EXTREME_STRONG"
+            ],
+            "yongshinAlignment": [
+              "aligned"
+            ]
+          }
+        },
+        {
+          "file": "data\\narrative\\overall\\thisMonth\\expert.fragments.json",
+          "fragmentId": "overall.thisMonth.expert.strong.neutral.005",
+          "axis": {
+            "category": "overall",
+            "period": "thisMonth",
+            "depth": "expert"
+          },
+          "gating": {
+            "dayMasterStrength": [
+              "STRONG"
+            ],
+            "yongshinAlignment": [
+              "neutral"
+            ]
+          }
+        },
+        {
+          "file": "data\\narrative\\overall\\thisMonth\\expert.fragments.json",
+          "fragmentId": "overall.thisMonth.expert.balanced.neutral.008",
+          "axis": {
+            "category": "overall",
+            "period": "thisMonth",
+            "depth": "expert"
+          },
+          "gating": {
+            "dayMasterStrength": [
+              "BALANCED"
+            ],
+            "yongshinAlignment": [
+              "neutral"
+            ]
+          }
+        },
+        {
+          "file": "data\\narrative\\overall\\thisMonth\\expert.fragments.json",
+          "fragmentId": "overall.thisMonth.expert.weak.neutral.age40_54.011",
+          "axis": {
+            "category": "overall",
+            "period": "thisMonth",
+            "depth": "expert"
+          },
+          "gating": {
+            "ageBand": [
+              "40-54"
+            ],
+            "dayMasterStrength": [
+              "WEAK"
+            ],
+            "yongshinAlignment": [
+              "neutral"
+            ]
+          }
+        },
+        {
+          "file": "data\\narrative\\overall\\thisMonth\\expert.fragments.json",
+          "fragmentId": "overall.thisMonth.expert.extreme_weak.conflicting.012",
+          "axis": {
+            "category": "overall",
+            "period": "thisMonth",
+            "depth": "expert"
+          },
+          "gating": {
+            "dayMasterStrength": [
+              "EXTREME_WEAK"
+            ],
+            "yongshinAlignment": [
+              "conflicting"
+            ]
+          }
+        },
+        {
+          "file": "data\\narrative\\overall\\thisMonth\\expert.fragments.json",
+          "fragmentId": "overall.thisMonth.expert.child.001",
+          "axis": {
+            "category": "overall",
+            "period": "thisMonth",
+            "depth": "expert"
+          },
+          "gating": {
+            "ageBand": [
+              "0-9"
+            ]
+          }
+        },
+        {
+          "file": "data\\narrative\\overall\\thisWeek\\expert.fragments.json",
+          "fragmentId": "overall.thisWeek.expert.strong.aligned.003",
+          "axis": {
+            "category": "overall",
+            "period": "thisWeek",
+            "depth": "expert"
+          },
+          "gating": {
+            "dayMasterStrength": [
+              "STRONG"
+            ],
+            "yongshinAlignment": [
+              "aligned"
+            ]
+          }
+        },
+        {
+          "file": "data\\narrative\\overall\\thisWeek\\expert.fragments.json",
+          "fragmentId": "overall.thisWeek.expert.strong.aligned.male.age30_39.004",
+          "axis": {
+            "category": "overall",
+            "period": "thisWeek",
+            "depth": "expert"
+          },
+          "gating": {
+            "gender": [
+              "male"
+            ],
+            "ageBand": [
+              "30-39"
+            ],
+            "dayMasterStrength": [
+              "STRONG"
+            ],
+            "yongshinAlignment": [
+              "aligned"
+            ]
+          }
+        },
+        {
+          "file": "data\\narrative\\overall\\thisWeek\\expert.fragments.json",
+          "fragmentId": "overall.thisWeek.expert.balanced.aligned.006",
+          "axis": {
+            "category": "overall",
+            "period": "thisWeek",
+            "depth": "expert"
+          },
+          "gating": {
+            "dayMasterStrength": [
+              "BALANCED"
+            ],
+            "yongshinAlignment": [
+              "aligned"
+            ]
+          }
+        },
+        {
+          "file": "data\\narrative\\overall\\thisWeek\\expert.fragments.json",
+          "fragmentId": "overall.thisWeek.expert.balanced.aligned.female.age20_29.007",
+          "axis": {
+            "category": "overall",
+            "period": "thisWeek",
+            "depth": "expert"
+          },
+          "gating": {
+            "gender": [
+              "female"
+            ],
+            "ageBand": [
+              "20-29"
+            ],
+            "dayMasterStrength": [
+              "BALANCED"
+            ],
+            "yongshinAlignment": [
+              "aligned"
+            ]
+          }
+        },
+        {
+          "file": "data\\narrative\\overall\\thisWeek\\expert.fragments.json",
+          "fragmentId": "overall.thisWeek.expert.balanced.conflicting.009",
+          "axis": {
+            "category": "overall",
+            "period": "thisWeek",
+            "depth": "expert"
+          },
+          "gating": {
+            "dayMasterStrength": [
+              "BALANCED"
+            ],
+            "yongshinAlignment": [
+              "conflicting"
+            ]
+          }
+        },
+        {
+          "file": "data\\narrative\\overall\\thisWeek\\expert.fragments.json",
+          "fragmentId": "overall.thisWeek.expert.weak.aligned.010",
+          "axis": {
+            "category": "overall",
+            "period": "thisWeek",
+            "depth": "expert"
+          },
+          "gating": {
+            "dayMasterStrength": [
+              "WEAK"
+            ],
+            "yongshinAlignment": [
+              "aligned"
+            ]
+          }
+        },
+        {
+          "file": "data\\narrative\\overall\\thisYear\\expert.fragments.json",
+          "fragmentId": "overall.thisYear.expert.wildcard.001",
+          "axis": {
+            "category": "overall",
+            "period": "thisYear",
+            "depth": "expert"
+          },
+          "gating": {}
+        },
+        {
+          "file": "data\\narrative\\overall\\thisYear\\expert.fragments.json",
+          "fragmentId": "overall.thisYear.expert.extreme_strong.aligned.002",
+          "axis": {
+            "category": "overall",
+            "period": "thisYear",
+            "depth": "expert"
+          },
+          "gating": {
+            "dayMasterStrength": [
+              "EXTREME_STRONG"
+            ],
+            "yongshinAlignment": [
+              "aligned"
+            ]
+          }
+        },
+        {
+          "file": "data\\narrative\\overall\\thisYear\\expert.fragments.json",
+          "fragmentId": "overall.thisYear.expert.strong.neutral.005",
+          "axis": {
+            "category": "overall",
+            "period": "thisYear",
+            "depth": "expert"
+          },
+          "gating": {
+            "dayMasterStrength": [
+              "STRONG"
+            ],
+            "yongshinAlignment": [
+              "neutral"
+            ]
+          }
+        },
+        {
+          "file": "data\\narrative\\overall\\thisYear\\expert.fragments.json",
+          "fragmentId": "overall.thisYear.expert.balanced.neutral.008",
+          "axis": {
+            "category": "overall",
+            "period": "thisYear",
+            "depth": "expert"
+          },
+          "gating": {
+            "dayMasterStrength": [
+              "BALANCED"
+            ],
+            "yongshinAlignment": [
+              "neutral"
+            ]
+          }
+        },
+        {
+          "file": "data\\narrative\\overall\\thisYear\\expert.fragments.json",
+          "fragmentId": "overall.thisYear.expert.extreme_weak.conflicting.012",
+          "axis": {
+            "category": "overall",
+            "period": "thisYear",
+            "depth": "expert"
+          },
+          "gating": {
+            "dayMasterStrength": [
+              "EXTREME_WEAK"
+            ],
+            "yongshinAlignment": [
+              "conflicting"
+            ]
+          }
+        },
+        {
+          "file": "data\\narrative\\overall\\today\\expert.fragments.json",
+          "fragmentId": "overall.today.expert.wildcard.001",
+          "axis": {
+            "category": "overall",
+            "period": "today",
+            "depth": "expert"
+          },
+          "gating": {}
+        },
+        {
+          "file": "data\\narrative\\overall\\today\\expert.fragments.json",
+          "fragmentId": "overall.today.expert.extreme_strong.aligned.002",
+          "axis": {
+            "category": "overall",
+            "period": "today",
+            "depth": "expert"
+          },
+          "gating": {
+            "dayMasterStrength": [
+              "EXTREME_STRONG"
+            ],
+            "yongshinAlignment": [
+              "aligned"
+            ]
+          }
+        },
+        {
+          "file": "data\\narrative\\overall\\today\\expert.fragments.json",
+          "fragmentId": "overall.today.expert.strong.neutral.005",
+          "axis": {
+            "category": "overall",
+            "period": "today",
+            "depth": "expert"
+          },
+          "gating": {
+            "dayMasterStrength": [
+              "STRONG"
+            ],
+            "yongshinAlignment": [
+              "neutral"
+            ]
+          }
+        },
+        {
+          "file": "data\\narrative\\overall\\today\\expert.fragments.json",
+          "fragmentId": "overall.today.expert.balanced.neutral.008",
+          "axis": {
+            "category": "overall",
+            "period": "today",
+            "depth": "expert"
+          },
+          "gating": {
+            "dayMasterStrength": [
+              "BALANCED"
+            ],
+            "yongshinAlignment": [
+              "neutral"
+            ]
+          }
+        },
+        {
+          "file": "data\\narrative\\overall\\today\\expert.fragments.json",
+          "fragmentId": "overall.today.expert.extreme_weak.conflicting.012",
+          "axis": {
+            "category": "overall",
+            "period": "today",
+            "depth": "expert"
+          },
+          "gating": {
+            "dayMasterStrength": [
+              "EXTREME_WEAK"
+            ],
+            "yongshinAlignment": [
+              "conflicting"
+            ]
+          }
+        },
+        {
+          "file": "data\\narrative\\_coverage\\age-phase-expert-mature.fragments.json",
+          "fragmentId": "overall.life.expert.agephase.late_60s.301",
+          "axis": {
+            "category": "overall",
+            "period": "life",
+            "depth": "expert"
+          },
+          "gating": {
+            "agePhase": [
+              "late_60s"
+            ]
+          }
+        },
+        {
+          "file": "data\\narrative\\_coverage\\age-phase-expert-mature.fragments.json",
+          "fragmentId": "overall.life.expert.agephase.70s.301",
+          "axis": {
+            "category": "overall",
+            "period": "life",
+            "depth": "expert"
+          },
+          "gating": {
+            "agePhase": [
+              "70s"
+            ]
+          }
+        },
+        {
+          "file": "data\\narrative\\_coverage\\age-phase-expert-young.fragments.json",
+          "fragmentId": "overall.life.expert.agephase.early_teen.301",
+          "axis": {
+            "category": "overall",
+            "period": "life",
+            "depth": "expert"
+          },
+          "gating": {
+            "agePhase": [
+              "early_teen"
+            ]
+          }
+        },
+        {
+          "file": "data\\narrative\\_coverage\\age-phase-expert-young.fragments.json",
+          "fragmentId": "overall.life.expert.agephase.late_20s.301",
+          "axis": {
+            "category": "overall",
+            "period": "life",
+            "depth": "expert"
+          },
+          "gating": {
+            "agePhase": [
+              "late_20s"
+            ]
+          }
+        },
+        {
+          "file": "data\\narrative\\_coverage\\age-phase-expert-young.fragments.json",
+          "fragmentId": "overall.life.expert.agephase.early_30s.301",
+          "axis": {
+            "category": "overall",
+            "period": "life",
+            "depth": "expert"
+          },
+          "gating": {
+            "agePhase": [
+              "early_30s"
+            ]
+          }
+        },
+        {
+          "file": "data\\narrative\\_coverage\\categorical-evidence-density-wave3.fragments.json",
+          "fragmentId": "overall.life.expert.categorical_wave3.gender_context_male.403",
+          "axis": {
+            "category": "overall",
+            "period": "life",
+            "depth": "expert"
+          },
+          "gating": {
+            "gender": [
+              "male"
+            ]
+          }
+        },
+        {
+          "file": "data\\narrative\\_coverage\\categorical-evidence-density-wave3.fragments.json",
+          "fragmentId": "overall.life.expert.categorical_wave3.gender_context_neutral_a.403",
+          "axis": {
+            "category": "overall",
+            "period": "life",
+            "depth": "expert"
+          },
+          "gating": {
+            "gender": [
+              "neutral"
+            ]
+          }
+        },
+        {
+          "file": "data\\narrative\\_coverage\\expert-70s-age-density.fragments.json",
+          "fragmentId": "overall.life.expert.age.70s.501",
+          "axis": {
+            "category": "overall",
+            "period": "life",
+            "depth": "expert"
+          },
+          "gating": {
+            "agePhase": [
+              "70s"
+            ]
+          }
+        },
+        {
+          "file": "data\\narrative\\_coverage\\expert-early-20s-age-density.fragments.json",
+          "fragmentId": "overall.life.expert.age.early_20s.501",
+          "axis": {
+            "category": "overall",
+            "period": "life",
+            "depth": "expert"
+          },
+          "gating": {
+            "agePhase": [
+              "early_20s"
+            ]
+          }
+        },
+        {
+          "file": "data\\narrative\\_coverage\\expert-early-30s-age-density.fragments.json",
+          "fragmentId": "overall.life.expert.age.early_30s.501",
+          "axis": {
+            "category": "overall",
+            "period": "life",
+            "depth": "expert"
+          },
+          "gating": {
+            "agePhase": [
+              "early_30s"
+            ]
+          }
+        },
+        {
+          "file": "data\\narrative\\_coverage\\expert-early-50s-age-density.fragments.json",
+          "fragmentId": "overall.today.expert.age.early_50s.501",
+          "axis": {
+            "category": "overall",
+            "period": "today",
+            "depth": "expert"
+          },
+          "gating": {
+            "agePhase": [
+              "early_50s"
+            ]
+          }
+        },
+        {
+          "file": "data\\narrative\\_coverage\\expert-late-teen-age-density.fragments.json",
+          "fragmentId": "overall.today.expert.age.late_teen.501",
+          "axis": {
+            "category": "overall",
+            "period": "today",
+            "depth": "expert"
+          },
+          "gating": {
+            "agePhase": [
+              "late_teen"
+            ]
+          }
+        },
+        {
+          "file": "data\\narrative\\_coverage\\expert-remaining-age-density.fragments.json",
+          "fragmentId": "overall.life.expert.age.early_40s.601",
+          "axis": {
+            "category": "overall",
+            "period": "life",
+            "depth": "expert"
+          },
+          "gating": {
+            "agePhase": [
+              "early_40s"
+            ]
+          }
+        },
+        {
+          "file": "data\\narrative\\_coverage\\expert-remaining-age-density.fragments.json",
+          "fragmentId": "overall.life.expert.age.early_teen.601",
+          "axis": {
+            "category": "overall",
+            "period": "life",
+            "depth": "expert"
+          },
+          "gating": {
+            "agePhase": [
+              "early_teen"
+            ]
+          }
+        },
+        {
+          "file": "data\\narrative\\_coverage\\expert-remaining-age-density.fragments.json",
+          "fragmentId": "overall.life.expert.age.late_20s.601",
+          "axis": {
+            "category": "overall",
+            "period": "life",
+            "depth": "expert"
+          },
+          "gating": {
+            "agePhase": [
+              "late_20s"
+            ]
+          }
+        },
+        {
+          "file": "data\\narrative\\_coverage\\expert-remaining-age-density.fragments.json",
+          "fragmentId": "overall.life.expert.age.late_60s.601",
+          "axis": {
+            "category": "overall",
+            "period": "life",
+            "depth": "expert"
+          },
+          "gating": {
+            "agePhase": [
+              "late_60s"
+            ]
+          }
+        },
+        {
+          "file": "data\\narrative\\_coverage\\expert-season-polarity-gap-fill.fragments.json",
+          "fragmentId": "overall.life.expert.polarity.neutral.401",
+          "axis": {
+            "category": "overall",
+            "period": "life",
+            "depth": "expert"
+          },
+          "gating": {
+            "dayMasterPolarity": [
+              "neutral"
+            ]
+          }
+        },
+        {
+          "file": "data\\narrative\\_coverage\\expert-spring-autumn-density.fragments.json",
+          "fragmentId": "overall.life.expert.birthSeason.spring.age.child_0_9.401",
+          "axis": {
+            "category": "overall",
+            "period": "life",
+            "depth": "expert"
+          },
+          "gating": {
+            "agePhase": [
+              "child_0_9"
+            ],
+            "birthSeason": [
+              "spring"
+            ]
+          }
+        },
+        {
+          "file": "data\\narrative\\_coverage\\gender-neutral-density.fragments.json",
+          "fragmentId": "overall.life.expert.gender.neutral.201",
+          "axis": {
+            "category": "overall",
+            "period": "life",
+            "depth": "expert"
+          },
+          "gating": {
+            "gender": [
+              "neutral"
+            ]
+          }
+        },
+        {
+          "file": "data\\narrative\\_coverage\\gyeokguk-career-density.fragments.json",
+          "fragmentId": "overall.life.expert.gyeokguk.pyeongwangyeok.201",
+          "axis": {
+            "category": "overall",
+            "period": "life",
+            "depth": "expert"
+          },
+          "gating": {
+            "gyeokguk": [
+              "pyeongwangyeok"
+            ]
+          }
+        },
+        {
+          "file": "data\\narrative\\_coverage\\ordinal-evidence-density.fragments.json",
+          "fragmentId": "overall.today.expert.ordinal.gender_male.401",
+          "axis": {
+            "category": "overall",
+            "period": "today",
+            "depth": "expert"
+          },
+          "gating": {
+            "gender": [
+              "male"
+            ]
+          }
+        },
+        {
+          "file": "data\\narrative\\_coverage\\overall-season-complete.fragments.json",
+          "fragmentId": "overall.today.expert.currentseason.spring_summer.301",
+          "axis": {
+            "category": "overall",
+            "period": "today",
+            "depth": "expert"
+          },
+          "gating": {
+            "currentSeason": [
+              "spring",
+              "summer"
+            ],
+            "yongshinAlignment": [
+              "aligned",
+              "neutral",
+              "conflicting"
+            ]
+          }
+        },
+        {
+          "file": "data\\narrative\\_coverage\\overall-season-complete.fragments.json",
+          "fragmentId": "overall.thisWeek.expert.currentseason.spring_summer.301",
+          "axis": {
+            "category": "overall",
+            "period": "thisWeek",
+            "depth": "expert"
+          },
+          "gating": {
+            "currentSeason": [
+              "spring",
+              "summer"
+            ],
+            "yongshinAlignment": [
+              "aligned",
+              "neutral",
+              "conflicting"
+            ]
+          }
+        },
+        {
+          "file": "data\\narrative\\_coverage\\overall-season-complete.fragments.json",
+          "fragmentId": "overall.thisMonth.expert.currentseason.autumn_winter.301",
+          "axis": {
+            "category": "overall",
+            "period": "thisMonth",
+            "depth": "expert"
+          },
+          "gating": {
+            "currentSeason": [
+              "autumn",
+              "winter"
+            ],
+            "yongshinAlignment": [
+              "aligned",
+              "neutral",
+              "conflicting"
+            ]
+          }
+        },
+        {
+          "file": "data\\narrative\\_coverage\\overall-season-complete.fragments.json",
+          "fragmentId": "overall.thisYear.expert.currentseason.spring_summer.301",
+          "axis": {
+            "category": "overall",
+            "period": "thisYear",
+            "depth": "expert"
+          },
+          "gating": {
+            "currentSeason": [
+              "spring",
+              "summer"
+            ],
+            "yongshinAlignment": [
+              "aligned",
+              "neutral",
+              "conflicting"
+            ]
+          }
+        },
+        {
+          "file": "data\\narrative\\_coverage\\yongshin-element-expert-density.fragments.json",
+          "fragmentId": "overall.life.expert.yongshin.fire.201",
+          "axis": {
+            "category": "overall",
+            "period": "life",
+            "depth": "expert"
+          },
+          "gating": {
+            "yongshinElement": [
+              "FIRE"
+            ]
+          }
+        }
+      ]
+    },
+    {
+      "needle": "이동의 결이 어디로 이어질지 한층 또렷해져요",
+      "hitCount": 31,
+      "hits": [
+        {
+          "file": "data\\narrative\\movement\\life\\expert.fragments.json",
+          "fragmentId": "movement.life.expert.70plus.008",
+          "axis": {
+            "category": "movement",
+            "period": "life",
+            "depth": "expert"
+          },
+          "gating": {
+            "ageBand": [
+              "70+"
+            ]
+          }
+        },
+        {
+          "file": "data\\narrative\\movement\\thisMonth\\expert.fragments.json",
+          "fragmentId": "movement.thisMonth.expert.55_69.007",
+          "axis": {
+            "category": "movement",
+            "period": "thisMonth",
+            "depth": "expert"
+          },
+          "gating": {
+            "ageBand": [
+              "55-69"
+            ]
+          }
+        },
+        {
+          "file": "data\\narrative\\movement\\thisMonth\\expert.fragments.json",
+          "fragmentId": "movement.thisMonth.expert.70plus.008",
+          "axis": {
+            "category": "movement",
+            "period": "thisMonth",
+            "depth": "expert"
+          },
+          "gating": {
+            "ageBand": [
+              "70+"
+            ]
+          }
+        },
+        {
+          "file": "data\\narrative\\movement\\thisWeek\\expert.fragments.json",
+          "fragmentId": "movement.thisWeek.expert.weak_neutral.010",
+          "axis": {
+            "category": "movement",
+            "period": "thisWeek",
+            "depth": "expert"
+          },
+          "gating": {
+            "dayMasterStrength": [
+              "WEAK"
+            ],
+            "yongshinAlignment": [
+              "neutral"
+            ]
+          }
+        },
+        {
+          "file": "data\\narrative\\movement\\today\\expert.fragments.json",
+          "fragmentId": "movement.today.expert.0_9.002",
+          "axis": {
+            "category": "movement",
+            "period": "today",
+            "depth": "expert"
+          },
+          "gating": {
+            "ageBand": [
+              "0-9"
+            ]
+          }
+        },
+        {
+          "file": "data\\narrative\\_coverage\\categorical-evidence-density-wave2.fragments.json",
+          "fragmentId": "movement.today.expert.categorical_wave2.female_wood_yongshin_metal_pyeongwangyeok.402",
+          "axis": {
+            "category": "movement",
+            "period": "today",
+            "depth": "expert"
+          },
+          "gating": {
+            "gender": [
+              "female"
+            ],
+            "dayMasterElement": [
+              "WOOD"
+            ],
+            "yongshinElement": [
+              "METAL"
+            ],
+            "gyeokguk": [
+              "pyeongwangyeok"
+            ]
+          }
+        },
+        {
+          "file": "data\\narrative\\_coverage\\categorical-evidence-density-wave3.fragments.json",
+          "fragmentId": "movement.thisWeek.expert.categorical_wave3.neutral_metal_yongshin_earth_pyeongwangyeok.403",
+          "axis": {
+            "category": "movement",
+            "period": "thisWeek",
+            "depth": "expert"
+          },
+          "gating": {
+            "gender": [
+              "neutral"
+            ],
+            "dayMasterElement": [
+              "METAL"
+            ],
+            "yongshinElement": [
+              "EARTH"
+            ],
+            "gyeokguk": [
+              "pyeongwangyeok"
+            ]
+          }
+        },
+        {
+          "file": "data\\narrative\\_coverage\\expert-70s-age-density.fragments.json",
+          "fragmentId": "movement.thisWeek.expert.age.70s.501",
+          "axis": {
+            "category": "movement",
+            "period": "thisWeek",
+            "depth": "expert"
+          },
+          "gating": {
+            "agePhase": [
+              "70s"
+            ]
+          }
+        },
+        {
+          "file": "data\\narrative\\_coverage\\expert-80s-age-density.fragments.json",
+          "fragmentId": "movement.thisWeek.expert.age.80s.501",
+          "axis": {
+            "category": "movement",
+            "period": "thisWeek",
+            "depth": "expert"
+          },
+          "gating": {
+            "agePhase": [
+              "80s"
+            ]
+          }
+        },
+        {
+          "file": "data\\narrative\\_coverage\\expert-child-0-9-age-density.fragments.json",
+          "fragmentId": "movement.thisWeek.expert.age.child_0_9.501",
+          "axis": {
+            "category": "movement",
+            "period": "thisWeek",
+            "depth": "expert"
+          },
+          "gating": {
+            "agePhase": [
+              "child_0_9"
+            ]
+          }
+        },
+        {
+          "file": "data\\narrative\\_coverage\\expert-early-30s-age-density.fragments.json",
+          "fragmentId": "movement.thisWeek.expert.age.early_30s.501",
+          "axis": {
+            "category": "movement",
+            "period": "thisWeek",
+            "depth": "expert"
+          },
+          "gating": {
+            "agePhase": [
+              "early_30s"
+            ]
+          }
+        },
+        {
+          "file": "data\\narrative\\_coverage\\expert-early-50s-age-density.fragments.json",
+          "fragmentId": "movement.thisMonth.expert.age.early_50s.501",
+          "axis": {
+            "category": "movement",
+            "period": "thisMonth",
+            "depth": "expert"
+          },
+          "gating": {
+            "agePhase": [
+              "early_50s"
+            ]
+          }
+        },
+        {
+          "file": "data\\narrative\\_coverage\\expert-metal-density-wave.fragments.json",
+          "fragmentId": "movement.today.expert.daymaster.metal.yongshin.metal.401",
+          "axis": {
+            "category": "movement",
+            "period": "today",
+            "depth": "expert"
+          },
+          "gating": {
+            "dayMasterElement": [
+              "METAL"
+            ],
+            "yongshinElement": [
+              "METAL"
+            ]
+          }
+        },
+        {
+          "file": "data\\narrative\\_coverage\\expert-remaining-age-density.fragments.json",
+          "fragmentId": "movement.thisWeek.expert.age.early_40s.601",
+          "axis": {
+            "category": "movement",
+            "period": "thisWeek",
+            "depth": "expert"
+          },
+          "gating": {
+            "agePhase": [
+              "early_40s"
+            ]
+          }
+        },
+        {
+          "file": "data\\narrative\\_coverage\\expert-remaining-age-density.fragments.json",
+          "fragmentId": "movement.thisWeek.expert.age.late_40s.601",
+          "axis": {
+            "category": "movement",
+            "period": "thisWeek",
+            "depth": "expert"
+          },
+          "gating": {
+            "agePhase": [
+              "late_40s"
+            ]
+          }
+        },
+        {
+          "file": "data\\narrative\\_coverage\\expert-summer-winter-density.fragments.json",
+          "fragmentId": "movement.life.expert.birthSeason.winter.age.late_60s.401",
+          "axis": {
+            "category": "movement",
+            "period": "life",
+            "depth": "expert"
+          },
+          "gating": {
+            "agePhase": [
+              "late_60s"
+            ],
+            "birthSeason": [
+              "winter"
+            ]
+          }
+        },
+        {
+          "file": "data\\narrative\\_coverage\\expert-wood-earth-density-wave.fragments.json",
+          "fragmentId": "movement.thisWeek.expert.daymaster.wood.yongshin.earth.401",
+          "axis": {
+            "category": "movement",
+            "period": "thisWeek",
+            "depth": "expert"
+          },
+          "gating": {
+            "dayMasterElement": [
+              "WOOD"
+            ],
+            "yongshinElement": [
+              "EARTH"
+            ]
+          }
+        },
+        {
+          "file": "data\\narrative\\_coverage\\expert-wood-yongshin-context-density.fragments.json",
+          "fragmentId": "movement.thisMonth.expert.yongshin.wood.age.80s.401",
+          "axis": {
+            "category": "movement",
+            "period": "thisMonth",
+            "depth": "expert"
+          },
+          "gating": {
+            "agePhase": [
+              "80s"
+            ],
+            "birthSeason": [
+              "summer"
+            ],
+            "dayMasterPolarity": [
+              "YANG"
+            ],
+            "yongshinElement": [
+              "WOOD"
+            ]
+          }
+        },
+        {
+          "file": "data\\narrative\\_coverage\\min14-movement-expert-floor.fragments.json",
+          "fragmentId": "movement.life.expert.yeokma.501",
+          "axis": {
+            "category": "movement",
+            "period": "life",
+            "depth": "expert"
+          },
+          "gating": {
+            "yongshinAlignment": [
+              "aligned",
+              "neutral"
+            ]
+          }
+        },
+        {
+          "file": "data\\narrative\\_coverage\\min14-movement-expert-floor.fragments.json",
+          "fragmentId": "movement.thisWeek.expert.expansion.501",
+          "axis": {
+            "category": "movement",
+            "period": "thisWeek",
+            "depth": "expert"
+          },
+          "gating": {
+            "currentSeason": [
+              "spring",
+              "summer"
+            ]
+          }
+        },
+        {
+          "file": "data\\narrative\\_coverage\\min14-movement-expert-floor.fragments.json",
+          "fragmentId": "movement.thisWeek.expert.reset.501",
+          "axis": {
+            "category": "movement",
+            "period": "thisWeek",
+            "depth": "expert"
+          },
+          "gating": {
+            "currentSeason": [
+              "autumn",
+              "winter"
+            ]
+          }
+        },
+        {
+          "file": "data\\narrative\\_coverage\\min14-movement-expert-floor.fragments.json",
+          "fragmentId": "movement.thisYear.expert.year.501",
+          "axis": {
+            "category": "movement",
+            "period": "thisYear",
+            "depth": "expert"
+          },
+          "gating": {
+            "yongshinAlignment": [
+              "aligned",
+              "neutral"
+            ]
+          }
+        },
+        {
+          "file": "data\\narrative\\_coverage\\min15-movement-floor.fragments.json",
+          "fragmentId": "movement.today.expert.route_score.504",
+          "axis": {
+            "category": "movement",
+            "period": "today",
+            "depth": "expert"
+          },
+          "gating": {
+            "dayMasterStrength": [
+              "WEAK",
+              "BALANCED",
+              "STRONG"
+            ]
+          }
+        },
+        {
+          "file": "data\\narrative\\_coverage\\min15-movement-floor.fragments.json",
+          "fragmentId": "movement.thisWeek.expert.step_score.504",
+          "axis": {
+            "category": "movement",
+            "period": "thisWeek",
+            "depth": "expert"
+          },
+          "gating": {
+            "yongshinAlignment": [
+              "aligned",
+              "neutral",
+              "conflicting"
+            ]
+          }
+        },
+        {
+          "file": "data\\narrative\\_coverage\\min15-movement-floor.fragments.json",
+          "fragmentId": "movement.thisYear.expert.direction_score.504",
+          "axis": {
+            "category": "movement",
+            "period": "thisYear",
+            "depth": "expert"
+          },
+          "gating": {
+            "yongshinAlignment": [
+              "aligned",
+              "neutral"
+            ]
+          }
+        },
+        {
+          "file": "data\\narrative\\_coverage\\movement-long-season-context.fragments.json",
+          "fragmentId": "movement.life.expert.currentseason.spring_summer.301",
+          "axis": {
+            "category": "movement",
+            "period": "life",
+            "depth": "expert"
+          },
+          "gating": {
+            "currentSeason": [
+              "spring",
+              "summer"
+            ],
+            "yongshinAlignment": [
+              "aligned",
+              "neutral",
+              "conflicting"
+            ]
+          }
+        },
+        {
+          "file": "data\\narrative\\_coverage\\movement-long-season-context.fragments.json",
+          "fragmentId": "movement.thisYear.expert.currentseason.spring_summer.301",
+          "axis": {
+            "category": "movement",
+            "period": "thisYear",
+            "depth": "expert"
+          },
+          "gating": {
+            "currentSeason": [
+              "spring",
+              "summer"
+            ],
+            "yongshinAlignment": [
+              "aligned",
+              "neutral",
+              "conflicting"
+            ]
+          }
+        },
+        {
+          "file": "data\\narrative\\_coverage\\movement-long-season-context.fragments.json",
+          "fragmentId": "movement.thisYear.expert.currentseason.autumn_winter.301",
+          "axis": {
+            "category": "movement",
+            "period": "thisYear",
+            "depth": "expert"
+          },
+          "gating": {
+            "currentSeason": [
+              "autumn",
+              "winter"
+            ],
+            "yongshinAlignment": [
+              "aligned",
+              "neutral",
+              "conflicting"
+            ]
+          }
+        },
+        {
+          "file": "data\\narrative\\_coverage\\movement-short-season-context.fragments.json",
+          "fragmentId": "movement.today.expert.currentseason.autumn_winter.301",
+          "axis": {
+            "category": "movement",
+            "period": "today",
+            "depth": "expert"
+          },
+          "gating": {
+            "currentSeason": [
+              "autumn",
+              "winter"
+            ],
+            "yongshinAlignment": [
+              "aligned",
+              "neutral",
+              "conflicting"
+            ]
+          }
+        },
+        {
+          "file": "data\\narrative\\_coverage\\movement-short-season-context.fragments.json",
+          "fragmentId": "movement.thisMonth.expert.currentseason.spring_summer.301",
+          "axis": {
+            "category": "movement",
+            "period": "thisMonth",
+            "depth": "expert"
+          },
+          "gating": {
+            "currentSeason": [
+              "spring",
+              "summer"
+            ],
+            "yongshinAlignment": [
+              "aligned",
+              "neutral",
+              "conflicting"
+            ]
+          }
+        },
+        {
+          "file": "data\\narrative\\_coverage\\ordinal-evidence-density.fragments.json",
+          "fragmentId": "movement.thisMonth.expert.ordinal.yongshin_earth.401",
+          "axis": {
+            "category": "movement",
+            "period": "thisMonth",
+            "depth": "expert"
+          },
+          "gating": {
+            "yongshinElement": [
+              "EARTH"
+            ]
+          }
+        }
+      ]
+    },
+    {
+      "needle": "잠깐의 환경 변화가 컨디션을 환기시키고",
+      "hitCount": 27,
+      "hits": [
+        {
+          "file": "data\\narrative\\health\\thisMonth\\expert.fragments.json",
+          "fragmentId": "health.thisMonth.expert.child.001",
+          "axis": {
+            "category": "health",
+            "period": "thisMonth",
+            "depth": "expert"
+          },
+          "gating": {
+            "ageBand": [
+              "0-9"
+            ]
+          }
+        },
+        {
+          "file": "data\\narrative\\health\\thisWeek\\expert.fragments.json",
+          "fragmentId": "health.thisWeek.expert.child.001",
+          "axis": {
+            "category": "health",
+            "period": "thisWeek",
+            "depth": "expert"
+          },
+          "gating": {
+            "ageBand": [
+              "0-9"
+            ]
+          }
+        },
+        {
+          "file": "data\\narrative\\health\\thisYear\\expert.fragments.json",
+          "fragmentId": "health.thisYear.expert.child.001",
+          "axis": {
+            "category": "health",
+            "period": "thisYear",
+            "depth": "expert"
+          },
+          "gating": {
+            "ageBand": [
+              "0-9"
+            ]
+          }
+        },
+        {
+          "file": "data\\narrative\\_coverage\\expert-80s-age-density.fragments.json",
+          "fragmentId": "health.today.expert.age.80s.501",
+          "axis": {
+            "category": "health",
+            "period": "today",
+            "depth": "expert"
+          },
+          "gating": {
+            "agePhase": [
+              "80s"
+            ]
+          }
+        },
+        {
+          "file": "data\\narrative\\_coverage\\expert-90-plus-age-density.fragments.json",
+          "fragmentId": "health.today.expert.age.90_plus.501",
+          "axis": {
+            "category": "health",
+            "period": "today",
+            "depth": "expert"
+          },
+          "gating": {
+            "agePhase": [
+              "90_plus"
+            ]
+          }
+        },
+        {
+          "file": "data\\narrative\\_coverage\\expert-child-0-9-age-density.fragments.json",
+          "fragmentId": "health.today.expert.age.child_0_9.501",
+          "axis": {
+            "category": "health",
+            "period": "today",
+            "depth": "expert"
+          },
+          "gating": {
+            "agePhase": [
+              "child_0_9"
+            ]
+          }
+        },
+        {
+          "file": "data\\narrative\\_coverage\\expert-fire-context-density.fragments.json",
+          "fragmentId": "health.thisWeek.expert.yongshin.fire.age.late_30s.401",
+          "axis": {
+            "category": "health",
+            "period": "thisWeek",
+            "depth": "expert"
+          },
+          "gating": {
+            "agePhase": [
+              "late_30s"
+            ],
+            "birthSeason": [
+              "winter"
+            ],
+            "dayMasterPolarity": [
+              "YANG"
+            ],
+            "yongshinElement": [
+              "FIRE"
+            ]
+          }
+        },
+        {
+          "file": "data\\narrative\\_coverage\\expert-remaining-age-density.fragments.json",
+          "fragmentId": "health.today.expert.age.early_60s.601",
+          "axis": {
+            "category": "health",
+            "period": "today",
+            "depth": "expert"
+          },
+          "gating": {
+            "agePhase": [
+              "early_60s"
+            ]
+          }
+        },
+        {
+          "file": "data\\narrative\\_coverage\\expert-remaining-age-density.fragments.json",
+          "fragmentId": "health.today.expert.age.late_40s.601",
+          "axis": {
+            "category": "health",
+            "period": "today",
+            "depth": "expert"
+          },
+          "gating": {
+            "agePhase": [
+              "late_40s"
+            ]
+          }
+        },
+        {
+          "file": "data\\narrative\\_coverage\\expert-remaining-age-density.fragments.json",
+          "fragmentId": "health.today.expert.age.late_50s.601",
+          "axis": {
+            "category": "health",
+            "period": "today",
+            "depth": "expert"
+          },
+          "gating": {
+            "agePhase": [
+              "late_50s"
+            ]
+          }
+        },
+        {
+          "file": "data\\narrative\\_coverage\\expert-summer-winter-density.fragments.json",
+          "fragmentId": "health.today.expert.birthSeason.summer.age.early_60s.401",
+          "axis": {
+            "category": "health",
+            "period": "today",
+            "depth": "expert"
+          },
+          "gating": {
+            "agePhase": [
+              "early_60s"
+            ],
+            "birthSeason": [
+              "summer"
+            ]
+          }
+        },
+        {
+          "file": "data\\narrative\\_coverage\\expert-wood-earth-density-wave.fragments.json",
+          "fragmentId": "health.thisMonth.expert.daymaster.wood.yongshin.earth.401",
+          "axis": {
+            "category": "health",
+            "period": "thisMonth",
+            "depth": "expert"
+          },
+          "gating": {
+            "dayMasterElement": [
+              "WOOD"
+            ],
+            "yongshinElement": [
+              "EARTH"
+            ]
+          }
+        },
+        {
+          "file": "data\\narrative\\_coverage\\health-long-season-context.fragments.json",
+          "fragmentId": "health.life.expert.currentseason.spring_summer.301",
+          "axis": {
+            "category": "health",
+            "period": "life",
+            "depth": "expert"
+          },
+          "gating": {
+            "currentSeason": [
+              "spring",
+              "summer"
+            ],
+            "yongshinAlignment": [
+              "aligned",
+              "neutral",
+              "conflicting"
+            ]
+          }
+        },
+        {
+          "file": "data\\narrative\\_coverage\\health-plain-expert-season-detail.fragments.json",
+          "fragmentId": "health.thisYear.expert.currentseason.autumn_winter.301",
+          "axis": {
+            "category": "health",
+            "period": "thisYear",
+            "depth": "expert"
+          },
+          "gating": {
+            "currentSeason": [
+              "autumn",
+              "winter"
+            ],
+            "yongshinAlignment": [
+              "aligned",
+              "neutral",
+              "conflicting"
+            ]
+          }
+        },
+        {
+          "file": "data\\narrative\\_coverage\\health-season-context.fragments.json",
+          "fragmentId": "health.today.expert.currentseason.spring_summer.301",
+          "axis": {
+            "category": "health",
+            "period": "today",
+            "depth": "expert"
+          },
+          "gating": {
+            "currentSeason": [
+              "spring",
+              "summer"
+            ],
+            "yongshinAlignment": [
+              "aligned",
+              "neutral",
+              "conflicting"
+            ]
+          }
+        },
+        {
+          "file": "data\\narrative\\_coverage\\health-season-context.fragments.json",
+          "fragmentId": "health.thisWeek.expert.currentseason.autumn_winter.301",
+          "axis": {
+            "category": "health",
+            "period": "thisWeek",
+            "depth": "expert"
+          },
+          "gating": {
+            "currentSeason": [
+              "autumn",
+              "winter"
+            ],
+            "yongshinAlignment": [
+              "aligned",
+              "neutral",
+              "conflicting"
+            ]
+          }
+        },
+        {
+          "file": "data\\narrative\\_coverage\\health-season-context.fragments.json",
+          "fragmentId": "health.thisMonth.expert.currentseason.autumn_winter.301",
+          "axis": {
+            "category": "health",
+            "period": "thisMonth",
+            "depth": "expert"
+          },
+          "gating": {
+            "currentSeason": [
+              "autumn",
+              "winter"
+            ],
+            "yongshinAlignment": [
+              "aligned",
+              "neutral",
+              "conflicting"
+            ]
+          }
+        },
+        {
+          "file": "data\\narrative\\_coverage\\min12-density-floor-complete.fragments.json",
+          "fragmentId": "health.today.expert.recovery.401",
+          "axis": {
+            "category": "health",
+            "period": "today",
+            "depth": "expert"
+          },
+          "gating": {
+            "yongshinAlignment": [
+              "aligned",
+              "neutral",
+              "conflicting"
+            ]
+          }
+        },
+        {
+          "file": "data\\narrative\\_coverage\\min12-density-floor-complete.fragments.json",
+          "fragmentId": "health.thisWeek.expert.recovery.401",
+          "axis": {
+            "category": "health",
+            "period": "thisWeek",
+            "depth": "expert"
+          },
+          "gating": {
+            "yongshinAlignment": [
+              "aligned",
+              "neutral",
+              "conflicting"
+            ]
+          }
+        },
+        {
+          "file": "data\\narrative\\_coverage\\min12-density-floor-complete.fragments.json",
+          "fragmentId": "health.thisMonth.expert.recovery.401",
+          "axis": {
+            "category": "health",
+            "period": "thisMonth",
+            "depth": "expert"
+          },
+          "gating": {
+            "yongshinAlignment": [
+              "aligned",
+              "neutral",
+              "conflicting"
+            ]
+          }
+        },
+        {
+          "file": "data\\narrative\\_coverage\\min14-health-floor.fragments.json",
+          "fragmentId": "health.life.expert.balance.501",
+          "axis": {
+            "category": "health",
+            "period": "life",
+            "depth": "expert"
+          },
+          "gating": {
+            "dayMasterStrength": [
+              "STRONG",
+              "EXTREME_STRONG"
+            ]
+          }
+        },
+        {
+          "file": "data\\narrative\\_coverage\\min14-health-floor.fragments.json",
+          "fragmentId": "health.today.expert.recovery.501",
+          "axis": {
+            "category": "health",
+            "period": "today",
+            "depth": "expert"
+          },
+          "gating": {
+            "yongshinAlignment": [
+              "aligned",
+              "neutral"
+            ]
+          }
+        },
+        {
+          "file": "data\\narrative\\_coverage\\min14-health-floor.fragments.json",
+          "fragmentId": "health.thisWeek.expert.johu.501",
+          "axis": {
+            "category": "health",
+            "period": "thisWeek",
+            "depth": "expert"
+          },
+          "gating": {
+            "currentSeason": [
+              "spring",
+              "summer"
+            ]
+          }
+        },
+        {
+          "file": "data\\narrative\\_coverage\\min14-health-floor.fragments.json",
+          "fragmentId": "health.thisWeek.expert.recovery.501",
+          "axis": {
+            "category": "health",
+            "period": "thisWeek",
+            "depth": "expert"
+          },
+          "gating": {
+            "currentSeason": [
+              "autumn",
+              "winter"
+            ]
+          }
+        },
+        {
+          "file": "data\\narrative\\_coverage\\min14-health-floor.fragments.json",
+          "fragmentId": "health.thisMonth.expert.caution.501",
+          "axis": {
+            "category": "health",
+            "period": "thisMonth",
+            "depth": "expert"
+          },
+          "gating": {
+            "yongshinAlignment": [
+              "conflicting"
+            ]
+          }
+        },
+        {
+          "file": "data\\narrative\\_coverage\\min15-health-floor.fragments.json",
+          "fragmentId": "health.life.expert.recovery_root.504",
+          "axis": {
+            "category": "health",
+            "period": "life",
+            "depth": "expert"
+          },
+          "gating": {
+            "yongshinAlignment": [
+              "aligned",
+              "neutral"
+            ]
+          }
+        },
+        {
+          "file": "data\\narrative\\_coverage\\min15-health-floor.fragments.json",
+          "fragmentId": "health.thisWeek.expert.pacing_index.504",
+          "axis": {
+            "category": "health",
+            "period": "thisWeek",
+            "depth": "expert"
+          },
+          "gating": {
+            "dayMasterStrength": [
+              "STRONG",
+              "EXTREME_STRONG",
+              "BALANCED"
+            ]
+          }
+        }
+      ]
+    }
+  ]
+}
