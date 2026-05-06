@@ -404,7 +404,17 @@ export function normalizeRenderedText(value: string): string {
   out = out.replace(/그 자리를 놓치지 않으면/g, '그 시기를 놓치지 않으면');
   out = out.replace(/일찍 잠드는 자리를 챙겨요/g, '일찍 잠드는 시간을 챙겨요');
   out = out.replace(/일찍 잠드는 자리가 좋아요/g, '일찍 잠드는 시간이 좋아요');
-  out = out.replace(/잠을 충분히 챙기는 자리예요/g, '잠을 충분히 챙기는 하루예요');
+  // P11-A2: period-aware normalize. Source fragments live in
+  // `data/narrative/health_stress/{today,thisWeek}/brief.fragments.json` and
+  // both originally end with `잠을 충분히 챙기는 자리예요`. An earlier
+  // unconditional rewrite mapped both to `하루예요`, which produced the
+  // logical contradiction `이번 주는 ... 하루예요` (P10-A5 audit C2). The
+  // fix anchors on the period prefix so each period maps to a coherent
+  // unit: today→하루예요, thisWeek→한 주예요. No 이번 달/올해/평생
+  // variants exist for this phrase in data/, so we don't add handlers for
+  // periods that won't fire.
+  out = out.replace(/오늘은 잠을 충분히 챙기는 자리예요/g, '오늘은 잠을 충분히 챙기는 하루예요');
+  out = out.replace(/이번 주는 잠을 충분히 챙기는 자리예요/g, '이번 주는 잠을 충분히 챙기는 한 주예요');
   out = out.replace(/한 박자 늦추는 자리가 잘 어울려요/g, '한 박자 늦추는 태도가 잘 어울려요');
   out = out.replace(/시기를 지나는 자리이니/g, '시기이니');
   out = out.replace(/자기 자리를 위한 시간/g, '나를 위한 시간');
