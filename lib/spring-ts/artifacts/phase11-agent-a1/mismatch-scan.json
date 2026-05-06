@@ -1,0 +1,13 @@
+{
+  "scope": {
+    "categoryExpertFiles": 55,
+    "coverageFiles": 158,
+    "inspectedFragments": 1107,
+    "inspectedTagTokens": 6073
+  },
+  "glossaryTagsKnown": 208,
+  "uniqueMismatches": 0,
+  "totalMismatchTokens": 0,
+  "mismatches": [],
+  "byTagId": {}
+}
