@@ -1,0 +1,2679 @@
+{
+  "fixtureCount": 15,
+  "cellCount": 825,
+  "standard": {
+    "distribution": {
+      "1": 42,
+      "2": 280,
+      "3": 388,
+      "4": 30,
+      "5": 85
+    }
+  },
+  "cellsBelow3": 322,
+  "cellsAtOrAbove3": 503,
+  "percentAtOrAbove3": 60.97,
+  "fragmentLowParagraphCounts": {
+    "health.life.standard.birthseason.spring.204": 2,
+    "study_document.life.standard.currentseason.spring_summer.301": 5,
+    "health.today.standard.body_signal.504": 3,
+    "family.today.standard.currentseason.spring_summer.301": 7,
+    "academic.thisWeek.standard.ageband.mature.402": 1,
+    "family.thisWeek.standard.currentseason.spring_summer.301": 3,
+    "study_document.thisWeek.standard.ageband.adult.501": 3,
+    "academic.thisMonth.standard.ageband.mature.402": 5,
+    "academic.thisYear.standard.currentseason.spring_summer.301": 3,
+    "family.thisYear.standard.currentseason.spring_summer.301": 5,
+    "study_document.thisYear.standard.currentseason.spring_summer.301": 2,
+    "overall.life.standard.gyeokguk_jeonggwangyeok_strength_weak.201": 1,
+    "study_document.life.standard.ageband.adult.501": 1,
+    "academic.today.standard.review.501": 3,
+    "study_document.today.standard.check_first.504": 1,
+    "overall.thisWeek.standard.currentseason.summer.203": 2,
+    "study_document.thisWeek.standard.currentseason.spring_summer.301": 1,
+    "overall.thisMonth.standard.birth_autumn_current_summer.201": 3,
+    "overall.thisYear.standard.currentseason.spring_summer.301": 2,
+    "health.thisYear.standard.currentseason.spring_summer.301": 6,
+    "study_document.thisYear.standard.ageband.adult.501": 4,
+    "wealth.life.standard.ageband.young.501": 1,
+    "academic.life.standard.currentseason.spring_summer.301": 3,
+    "romance.life.standard.trust_base.504": 1,
+    "expression_children.life.standard.currentseason.spring_summer.301": 3,
+    "health_stress.life.standard.recovery_rule.504": 3,
+    "movement.life.standard.currentseason.spring_summer.301": 5,
+    "wealth.today.standard.currentseason.spring_summer.301": 3,
+    "study_document.today.standard.currentseason.spring_summer.301": 1,
+    "expression_children.today.standard.note_first.504": 3,
+    "health_stress.today.standard.rest.501": 1,
+    "movement.today.standard.buffer.504": 5,
+    "wealth.thisWeek.standard.cashflow.504": 5,
+    "health.thisWeek.standard.rest.501": 2,
+    "expression_children.thisWeek.standard.ageband.young.501": 1,
+    "health_stress.thisWeek.standard.support.501": 3,
+    "movement.thisWeek.standard.explore.501": 3,
+    "study_document.thisMonth.standard.audit.504": 1,
+    "expression_children.thisMonth.standard.ageband.young.501": 1,
+    "health_stress.thisMonth.standard.energy_budget.504": 2,
+    "movement.thisMonth.standard.currentseason.spring_summer.301": 5,
+    "wealth.thisYear.standard.safe_growth.504": 1,
+    "study_document.thisYear.standard.ageband.student.501": 1,
+    "health_stress.thisYear.standard.foundation.501": 3,
+    "movement.thisYear.standard.direction.504": 5,
+    "overall.life.standard.gyeokguk_pyeongwangyeok_strength_strong.201": 2,
+    "career.life.standard.daymasterelement.wood.204": 1,
+    "career.today.standard.priority.504": 2,
+    "movement.today.standard.currentseason.spring_summer.301": 2,
+    "expression_children.thisWeek.standard.feedback.504": 2,
+    "movement.thisWeek.standard.two_step.504": 2,
+    "wealth.thisMonth.standard.plan.501": 1,
+    "health.thisMonth.standard.currentseason.spring_summer.301": 2,
+    "family.thisMonth.standard.agephase.early_60s.204": 1,
+    "career.thisMonth.standard.record.504": 3,
+    "study_document.thisMonth.standard.ageband.adult.501": 5,
+    "expression_children.thisMonth.standard.currentseason.spring_summer.301": 1,
+    "health_stress.thisMonth.standard.rhythm.501": 1,
+    "movement.thisMonth.standard.priority.504": 2,
+    "wealth.thisYear.standard.currentseason.spring_summer.301": 2,
+    "academic.thisYear.standard.plan.501": 2,
+    "career.thisYear.standard.currentseason.spring_summer.301": 2,
+    "expression_children.thisYear.standard.currentseason.spring_summer.301": 5,
+    "movement.thisYear.standard.recovery.501": 1,
+    "overall.life.standard.yongshin_metal_alignment.neutral.201": 1,
+    "career.life.standard.currentseason.spring_summer.301": 1,
+    "study_document.life.standard.learning_base.504": 2,
+    "overall.thisWeek.standard.daymasterpolarity.yin.203": 1,
+    "academic.thisWeek.standard.ageband.young.401": 1,
+    "study_document.thisMonth.standard.ageband.student.501": 1,
+    "overall.thisYear.standard.agephase.early_20s.203": 1,
+    "study_document.thisYear.standard.system.504": 3,
+    "health.today.standard.currentseason.spring_summer.301": 5,
+    "study_document.today.standard.ageband.adult.501": 5,
+    "health.thisWeek.standard.pacing.501": 1,
+    "academic.thisWeek.standard.repeat.504": 5,
+    "expression_children.thisWeek.standard.ageband.mature.501": 3,
+    "health_stress.thisWeek.standard.currentseason.summer.204": 1,
+    "movement.thisWeek.standard.recovery.501": 3,
+    "expression_children.thisMonth.standard.ageband.mature.501": 3,
+    "romance.thisYear.standard.ageband.adult.501": 4,
+    "family.thisYear.standard.care_boundary.504": 4,
+    "health_stress.thisYear.standard.recovery.501": 1,
+    "overall.life.standard.agephase_gender.late_60s.male.206": 1,
+    "wealth.life.standard.currentseason.spring_summer.301": 4,
+    "expression_children.life.standard.creation_relation.502": 2,
+    "movement.life.standard.ageband.mature.501": 1,
+    "wealth.today.standard.planning.501": 1,
+    "career.today.standard.ageband.mature.501": 2,
+    "expression_children.today.standard.currentseason.spring_summer.301": 4,
+    "wealth.thisWeek.standard.currentseason.spring_summer.301": 1,
+    "career.thisWeek.standard.scope.502": 1,
+    "movement.thisWeek.standard.currentseason.spring_summer.301": 2,
+    "overall.thisMonth.standard.birth_spring_current_summer.201": 2,
+    "family.thisMonth.standard.agephase.late_60s.204": 1,
+    "movement.thisMonth.standard.rhythm.501": 2,
+    "health.thisYear.standard.long_pace.504": 3,
+    "career.thisYear.standard.yongshin.earth.204": 1,
+    "overall.life.standard.age_0_9_gender_female.201": 2,
+    "health_stress.life.standard.foundation.501": 2,
+    "movement.life.standard.ageband.young.501": 2,
+    "expression_children.thisYear.standard.record.502": 1,
+    "overall.life.standard.agephase_gender.late_30s.male.203": 1,
+    "family.today.standard.listen.502": 3,
+    "health.thisWeek.standard.recovery_spacing.504": 2,
+    "study_document.thisWeek.standard.divide_task.504": 4,
+    "expression_children.thisWeek.standard.currentseason.spring_summer.301": 1,
+    "expression_children.thisMonth.standard.share.504": 2,
+    "romance.thisYear.standard.ageband.mature.401": 1,
+    "expression_children.thisYear.standard.project.504": 1,
+    "expression_children.life.standard.steady_voice.504": 1,
+    "movement.thisYear.standard.foundation.501": 2,
+    "wealth.today.standard.spend_check.504": 2,
+    "wealth.thisMonth.standard.budget_line.504": 3,
+    "wealth.thisYear.standard.ageband.mature.401": 2,
+    "romance.life.standard.ageband.adult.501": 1,
+    "academic.today.standard.currentseason.spring_summer.301": 1,
+    "academic.thisYear.standard.main_subject.504": 1,
+    "romance.thisYear.standard.relationship_pace.504": 1,
+    "romance.life.standard.ageband.mature.401": 1,
+    "overall.life.standard.yongshin_wood_alignment.neutral.201": 1,
+    "family.thisMonth.standard.agephase.late_40s.204": 1,
+    "study_document.thisMonth.standard.currentseason.spring_summer.301": 1,
+    "overall.life.standard.agephase_gender.early_40s.male.204": 1,
+    "family.thisMonth.standard.agephase.early_40s.204": 1
+  },
+  "offendingCells": [
+    {
+      "fixture": "fix-01",
+      "period": "life",
+      "category": "health",
+      "paragraphCount": 2,
+      "fragmentId": "health.life.standard.birthseason.spring.204",
+      "plainTextSample": "봄에 태어난 사람은 몸과 마음이 새 자극에 민감하게 반응하기 쉬워요."
+    },
+    {
+      "fixture": "fix-01",
+      "period": "life",
+      "category": "study_document",
+      "paragraphCount": 2,
+      "fragmentId": "study_document.life.standard.currentseason.spring_summer.301",
+      "plainTextSample": "긴 흐름에서는 배우고 정리한 내용을 밖으로 써먹을 때 길이 잘 열리는 편이에요."
+    },
+    {
+      "fixture": "fix-01",
+      "period": "today",
+      "category": "health",
+      "paragraphCount": 2,
+      "fragmentId": "health.today.standard.body_signal.504",
+      "plainTextSample": "오늘은 몸이 보내는 작은 신호를 무시하지 않는 것이 중요해요."
+    },
+    {
+      "fixture": "fix-01",
+      "period": "today",
+      "category": "family",
+      "paragraphCount": 2,
+      "fragmentId": "family.today.standard.currentseason.spring_summer.301",
+      "plainTextSample": "오늘은 가족 사이에서 말문을 열기 좋은 날이에요."
+    },
+    {
+      "fixture": "fix-01",
+      "period": "thisWeek",
+      "category": "academic",
+      "paragraphCount": 2,
+      "fragmentId": "academic.thisWeek.standard.ageband.mature.402",
+      "plainTextSample": "이번 주 학습은 많은 양보다 중요한 부분을 정확히 잡는 것이 먼저예요."
+    },
+    {
+      "fixture": "fix-01",
+      "period": "thisWeek",
+      "category": "family",
+      "paragraphCount": 2,
+      "fragmentId": "family.thisWeek.standard.currentseason.spring_summer.301",
+      "plainTextSample": "이번 주는 가족과 함께 움직이거나 새 이야기를 시작하기 좋은 흐름이에요."
+    },
+    {
+      "fixture": "fix-01",
+      "period": "thisWeek",
+      "category": "study_document",
+      "paragraphCount": 2,
+      "fragmentId": "study_document.thisWeek.standard.ageband.adult.501",
+      "plainTextSample": "이번 주는 문서 관리와 지식 정리에 집중하기 좋은 흐름이에요."
+    },
+    {
+      "fixture": "fix-01",
+      "period": "thisMonth",
+      "category": "academic",
+      "paragraphCount": 2,
+      "fragmentId": "academic.thisMonth.standard.ageband.mature.402",
+      "plainTextSample": "이번 달 학습은 큰 계획보다 현실적으로 반복할 수 있는 시간이 중요해요."
+    },
+    {
+      "fixture": "fix-01",
+      "period": "thisYear",
+      "category": "academic",
+      "paragraphCount": 2,
+      "fragmentId": "academic.thisYear.standard.currentseason.spring_summer.301",
+      "plainTextSample": "올해는 새 과목, 시험, 자격 준비처럼 공부의 폭을 넓히기 좋은 흐름이에요."
+    },
+    {
+      "fixture": "fix-01",
+      "period": "thisYear",
+      "category": "family",
+      "paragraphCount": 2,
+      "fragmentId": "family.thisYear.standard.currentseason.spring_summer.301",
+      "plainTextSample": "올해는 가족과 함께 움직이거나 새로운 계획을 세울 일이 늘 수 있어요."
+    },
+    {
+      "fixture": "fix-01",
+      "period": "thisYear",
+      "category": "study_document",
+      "paragraphCount": 2,
+      "fragmentId": "study_document.thisYear.standard.currentseason.spring_summer.301",
+      "plainTextSample": "올해는 공부, 자격, 문서 작업을 새롭게 확장하기 좋은 흐름이에요."
+    },
+    {
+      "fixture": "fix-02",
+      "period": "life",
+      "category": "overall",
+      "paragraphCount": 2,
+      "fragmentId": "overall.life.standard.gyeokguk_jeonggwangyeok_strength_weak.201",
+      "plainTextSample": "책임과 질서 흐름격에 기운이 약하면 책임과 규칙을 중요하게 느끼지만, 실제로 감당할 힘은 상황에 따라 흔들릴 수 있어요."
+    },
+    {
+      "fixture": "fix-02",
+      "period": "life",
+      "category": "study_document",
+      "paragraphCount": 2,
+      "fragmentId": "study_document.life.standard.ageband.adult.501",
+      "plainTextSample": "문서와 지식은 꼼꼼함이 결과를 크게 바꾸는 영역이에요."
+    },
+    {
+      "fixture": "fix-02",
+      "period": "today",
+      "category": "academic",
+      "paragraphCount": 2,
+      "fragmentId": "academic.today.standard.review.501",
+      "plainTextSample": "오늘 공부는 새 내용을 많이 넣기보다 이미 배운 것을 다시 확인하는 쪽이 좋아요."
+    },
+    {
+      "fixture": "fix-02",
+      "period": "today",
+      "category": "family",
+      "paragraphCount": 2,
+      "fragmentId": "family.today.standard.currentseason.spring_summer.301",
+      "plainTextSample": "오늘은 가족 사이에서 말문을 열기 좋은 날이에요."
+    },
+    {
+      "fixture": "fix-02",
+      "period": "today",
+      "category": "study_document",
+      "paragraphCount": 2,
+      "fragmentId": "study_document.today.standard.check_first.504",
+      "plainTextSample": "오늘은 공부나 서류 작업을 시작하기 전에 필요한 자료를 먼저 확인하세요."
+    },
+    {
+      "fixture": "fix-02",
+      "period": "thisWeek",
+      "category": "overall",
+      "paragraphCount": 2,
+      "fragmentId": "overall.thisWeek.standard.currentseason.summer.203",
+      "plainTextSample": "이번 주의 여름 기운은 표현과 활동량이 늘어나는 흐름으로 볼 수 있어요."
+    },
+    {
+      "fixture": "fix-02",
+      "period": "thisWeek",
+      "category": "study_document",
+      "paragraphCount": 2,
+      "fragmentId": "study_document.thisWeek.standard.currentseason.spring_summer.301",
+      "plainTextSample": "이번 주는 자료를 모으고 바로 써먹는 결이 좋아요."
+    },
+    {
+      "fixture": "fix-02",
+      "period": "thisMonth",
+      "category": "overall",
+      "paragraphCount": 2,
+      "fragmentId": "overall.thisMonth.standard.birth_autumn_current_summer.201",
+      "plainTextSample": "가을에 태어난 사람은 현재 여름 기운을 만나면 명확한 기준과 적극적인 표현이 함께 올라올 수 있어요."
+    },
+    {
+      "fixture": "fix-02",
+      "period": "thisYear",
+      "category": "overall",
+      "paragraphCount": 2,
+      "fragmentId": "overall.thisYear.standard.currentseason.spring_summer.301",
+      "plainTextSample": "올해는 새 목표, 새 만남, 새 활동이 늘기 쉬운 흐름이에요."
+    },
+    {
+      "fixture": "fix-02",
+      "period": "thisYear",
+      "category": "health",
+      "paragraphCount": 2,
+      "fragmentId": "health.thisYear.standard.currentseason.spring_summer.301",
+      "plainTextSample": "올해는 활동성을 살리며 몸을 관리하기 좋은 결이에요."
+    },
+    {
+      "fixture": "fix-02",
+      "period": "thisYear",
+      "category": "academic",
+      "paragraphCount": 2,
+      "fragmentId": "academic.thisYear.standard.currentseason.spring_summer.301",
+      "plainTextSample": "올해는 새 과목, 시험, 자격 준비처럼 공부의 폭을 넓히기 좋은 흐름이에요."
+    },
+    {
+      "fixture": "fix-02",
+      "period": "thisYear",
+      "category": "family",
+      "paragraphCount": 2,
+      "fragmentId": "family.thisYear.standard.currentseason.spring_summer.301",
+      "plainTextSample": "올해는 가족과 함께 움직이거나 새로운 계획을 세울 일이 늘 수 있어요."
+    },
+    {
+      "fixture": "fix-02",
+      "period": "thisYear",
+      "category": "study_document",
+      "paragraphCount": 2,
+      "fragmentId": "study_document.thisYear.standard.ageband.adult.501",
+      "plainTextSample": "올해는 중요한 문서, 자격, 보고, 계약을 한 번에 처리하기보다 시기별로 나누는 편이 좋아요."
+    },
+    {
+      "fixture": "fix-03",
+      "period": "life",
+      "category": "wealth",
+      "paragraphCount": 2,
+      "fragmentId": "wealth.life.standard.ageband.young.501",
+      "plainTextSample": "돈의 흐름은 빨리 크게 잡기보다 작은 수입과 지출을 정확히 보는 습관에서 안정돼요."
+    },
+    {
+      "fixture": "fix-03",
+      "period": "life",
+      "category": "academic",
+      "paragraphCount": 2,
+      "fragmentId": "academic.life.standard.currentseason.spring_summer.301",
+      "plainTextSample": "긴 흐름에서는 배우고 익힌 것을 밖으로 꺼내 쓰기 좋아요."
+    },
+    {
+      "fixture": "fix-03",
+      "period": "life",
+      "category": "romance",
+      "paragraphCount": 2,
+      "fragmentId": "romance.life.standard.trust_base.504",
+      "plainTextSample": "긴 흐름에서는 좋은 인연을 만나는 것만큼 관계를 유지하는 기본기가 중요해요."
+    },
+    {
+      "fixture": "fix-03",
+      "period": "life",
+      "category": "expression_children",
+      "paragraphCount": 2,
+      "fragmentId": "expression_children.life.standard.currentseason.spring_summer.301",
+      "plainTextSample": "긴 흐름에서는 생각을 밖으로 꺼내 보이고, 말이나 글, 만들기로 사람들과 연결되기 쉬워요."
+    },
+    {
+      "fixture": "fix-03",
+      "period": "life",
+      "category": "health_stress",
+      "paragraphCount": 2,
+      "fragmentId": "health_stress.life.standard.recovery_rule.504",
+      "plainTextSample": "긴 흐름에서는 마음이 지치기 전에 회복 규칙을 만들어두는 것이 중요해요."
+    },
+    {
+      "fixture": "fix-03",
+      "period": "life",
+      "category": "movement",
+      "paragraphCount": 2,
+      "fragmentId": "movement.life.standard.currentseason.spring_summer.301",
+      "plainTextSample": "긴 흐름에서는 낯선 곳을 경험하고 활동 반경을 넓힐수록 배움과 기회가 늘어나는 구조예요."
+    },
+    {
+      "fixture": "fix-03",
+      "period": "today",
+      "category": "wealth",
+      "paragraphCount": 2,
+      "fragmentId": "wealth.today.standard.currentseason.spring_summer.301",
+      "plainTextSample": "오늘은 돈과 관련된 선택이 빠르게 생길 수 있어요."
+    },
+    {
+      "fixture": "fix-03",
+      "period": "today",
+      "category": "health",
+      "paragraphCount": 2,
+      "fragmentId": "health.today.standard.body_signal.504",
+      "plainTextSample": "오늘은 몸이 보내는 작은 신호를 무시하지 않는 것이 중요해요."
+    },
+    {
+      "fixture": "fix-03",
+      "period": "today",
+      "category": "family",
+      "paragraphCount": 2,
+      "fragmentId": "family.today.standard.currentseason.spring_summer.301",
+      "plainTextSample": "오늘은 가족 사이에서 말문을 열기 좋은 날이에요."
+    },
+    {
+      "fixture": "fix-03",
+      "period": "today",
+      "category": "study_document",
+      "paragraphCount": 2,
+      "fragmentId": "study_document.today.standard.currentseason.spring_summer.301",
+      "plainTextSample": "오늘은 공부나 서류 일을 빠르게 시작하기 좋은 결이에요."
+    },
+    {
+      "fixture": "fix-03",
+      "period": "today",
+      "category": "expression_children",
+      "paragraphCount": 2,
+      "fragmentId": "expression_children.today.standard.note_first.504",
+      "plainTextSample": "오늘은 생각을 바로 평가하기보다 먼저 적어두는 쪽이 좋아요."
+    },
+    {
+      "fixture": "fix-03",
+      "period": "today",
+      "category": "health_stress",
+      "paragraphCount": 2,
+      "fragmentId": "health_stress.today.standard.rest.501",
+      "plainTextSample": "오늘은 감정이 쌓이기 전에 작은 휴식을 넣는 것이 좋아요."
+    },
+    {
+      "fixture": "fix-03",
+      "period": "today",
+      "category": "movement",
+      "paragraphCount": 2,
+      "fragmentId": "movement.today.standard.buffer.504",
+      "plainTextSample": "오늘은 이동이나 약속 사이에 여유 시간을 두는 편이 좋아요."
+    },
+    {
+      "fixture": "fix-03",
+      "period": "thisWeek",
+      "category": "wealth",
+      "paragraphCount": 2,
+      "fragmentId": "wealth.thisWeek.standard.cashflow.504",
+      "plainTextSample": "이번 주는 들어올 돈과 나갈 돈의 날짜를 맞춰보는 것이 중요해요."
+    },
+    {
+      "fixture": "fix-03",
+      "period": "thisWeek",
+      "category": "health",
+      "paragraphCount": 2,
+      "fragmentId": "health.thisWeek.standard.rest.501",
+      "plainTextSample": "이번 주 건강운은 꾸준한 회복 루틴이 핵심이에요."
+    },
+    {
+      "fixture": "fix-03",
+      "period": "thisWeek",
+      "category": "expression_children",
+      "paragraphCount": 2,
+      "fragmentId": "expression_children.thisWeek.standard.ageband.young.501",
+      "plainTextSample": "이번 주는 내 생각을 밖으로 꺼내는 연습이 도움이 돼요."
+    },
+    {
+      "fixture": "fix-03",
+      "period": "thisWeek",
+      "category": "health_stress",
+      "paragraphCount": 2,
+      "fragmentId": "health_stress.thisWeek.standard.support.501",
+      "plainTextSample": "이번 주는 마음이 복잡할 때 빨리 말로 풀어내는 연습이 도움이 돼요."
+    },
+    {
+      "fixture": "fix-03",
+      "period": "thisWeek",
+      "category": "movement",
+      "paragraphCount": 2,
+      "fragmentId": "movement.thisWeek.standard.explore.501",
+      "plainTextSample": "이번 주는 작은 이동과 새로운 경험이 기분 전환에 도움이 돼요."
+    },
+    {
+      "fixture": "fix-03",
+      "period": "thisMonth",
+      "category": "study_document",
+      "paragraphCount": 2,
+      "fragmentId": "study_document.thisMonth.standard.audit.504",
+      "plainTextSample": "이번 달은 공부 계획이나 서류 목록을 한 번 점검하면 좋아요."
+    },
+    {
+      "fixture": "fix-03",
+      "period": "thisMonth",
+      "category": "expression_children",
+      "paragraphCount": 2,
+      "fragmentId": "expression_children.thisMonth.standard.ageband.young.501",
+      "plainTextSample": "이번 달은 아이디어를 모으는 것과 실제로 보여주는 것을 나누면 좋아요."
+    },
+    {
+      "fixture": "fix-03",
+      "period": "thisMonth",
+      "category": "health_stress",
+      "paragraphCount": 2,
+      "fragmentId": "health_stress.thisMonth.standard.energy_budget.504",
+      "plainTextSample": "이번 달은 마음 에너지를 어디에 쓸지 먼저 정하면 좋아요."
+    },
+    {
+      "fixture": "fix-03",
+      "period": "thisMonth",
+      "category": "movement",
+      "paragraphCount": 2,
+      "fragmentId": "movement.thisMonth.standard.currentseason.spring_summer.301",
+      "plainTextSample": "이번 달은 환경을 바꾸거나 활동 반경을 넓히면서 새로운 단서를 얻기 쉬운 흐름이에요."
+    },
+    {
+      "fixture": "fix-03",
+      "period": "thisYear",
+      "category": "wealth",
+      "paragraphCount": 2,
+      "fragmentId": "wealth.thisYear.standard.safe_growth.504",
+      "plainTextSample": "올해 돈 관리는 빠른 확장보다 안전한 성장에 맞추는 편이 좋아요."
+    },
+    {
+      "fixture": "fix-03",
+      "period": "thisYear",
+      "category": "health",
+      "paragraphCount": 2,
+      "fragmentId": "health.thisYear.standard.currentseason.spring_summer.301",
+      "plainTextSample": "올해는 활동성을 살리며 몸을 관리하기 좋은 결이에요."
+    },
+    {
+      "fixture": "fix-03",
+      "period": "thisYear",
+      "category": "family",
+      "paragraphCount": 2,
+      "fragmentId": "family.thisYear.standard.currentseason.spring_summer.301",
+      "plainTextSample": "올해는 가족과 함께 움직이거나 새로운 계획을 세울 일이 늘 수 있어요."
+    },
+    {
+      "fixture": "fix-03",
+      "period": "thisYear",
+      "category": "study_document",
+      "paragraphCount": 2,
+      "fragmentId": "study_document.thisYear.standard.ageband.student.501",
+      "plainTextSample": "올해 공부운은 큰 목표를 잘게 나눌수록 좋아집니다."
+    },
+    {
+      "fixture": "fix-03",
+      "period": "thisYear",
+      "category": "health_stress",
+      "paragraphCount": 2,
+      "fragmentId": "health_stress.thisYear.standard.foundation.501",
+      "plainTextSample": "올해는 마음이 흔들릴 때 바로 돌아갈 수 있는 기본 루틴을 만드는 것이 중요해요."
+    },
+    {
+      "fixture": "fix-03",
+      "period": "thisYear",
+      "category": "movement",
+      "paragraphCount": 2,
+      "fragmentId": "movement.thisYear.standard.direction.504",
+      "plainTextSample": "올해는 어디로 움직일지보다 왜 움직이는지가 더 중요해요."
+    },
+    {
+      "fixture": "fix-04",
+      "period": "life",
+      "category": "overall",
+      "paragraphCount": 2,
+      "fragmentId": "overall.life.standard.gyeokguk_pyeongwangyeok_strength_strong.201",
+      "plainTextSample": "도전과 압박 흐름격에 기운이 강하면 위기 대응, 결단, 돌파력이 뚜렷하게 살아납니다."
+    },
+    {
+      "fixture": "fix-04",
+      "period": "life",
+      "category": "career",
+      "paragraphCount": 2,
+      "fragmentId": "career.life.standard.daymasterelement.wood.204",
+      "plainTextSample": "나무 기운을 타고난 사람의 일 처리 방식은 배우고 키우고 연결하는 데 강점이 있습니다."
+    },
+    {
+      "fixture": "fix-04",
+      "period": "life",
+      "category": "study_document",
+      "paragraphCount": 2,
+      "fragmentId": "study_document.life.standard.currentseason.spring_summer.301",
+      "plainTextSample": "긴 흐름에서는 배우고 정리한 내용을 밖으로 써먹을 때 길이 잘 열리는 편이에요."
+    },
+    {
+      "fixture": "fix-04",
+      "period": "life",
+      "category": "expression_children",
+      "paragraphCount": 2,
+      "fragmentId": "expression_children.life.standard.currentseason.spring_summer.301",
+      "plainTextSample": "긴 흐름에서는 생각을 밖으로 꺼내 보이고, 말이나 글, 만들기로 사람들과 연결되기 쉬워요."
+    },
+    {
+      "fixture": "fix-04",
+      "period": "life",
+      "category": "health_stress",
+      "paragraphCount": 2,
+      "fragmentId": "health_stress.life.standard.recovery_rule.504",
+      "plainTextSample": "긴 흐름에서는 마음이 지치기 전에 회복 규칙을 만들어두는 것이 중요해요."
+    },
+    {
+      "fixture": "fix-04",
+      "period": "today",
+      "category": "wealth",
+      "paragraphCount": 2,
+      "fragmentId": "wealth.today.standard.currentseason.spring_summer.301",
+      "plainTextSample": "오늘은 돈과 관련된 선택이 빠르게 생길 수 있어요."
+    },
+    {
+      "fixture": "fix-04",
+      "period": "today",
+      "category": "academic",
+      "paragraphCount": 2,
+      "fragmentId": "academic.today.standard.review.501",
+      "plainTextSample": "오늘 공부는 새 내용을 많이 넣기보다 이미 배운 것을 다시 확인하는 쪽이 좋아요."
+    },
+    {
+      "fixture": "fix-04",
+      "period": "today",
+      "category": "career",
+      "paragraphCount": 2,
+      "fragmentId": "career.today.standard.priority.504",
+      "plainTextSample": "오늘 일은 먼저 해야 할 것과 나중에 해도 되는 것을 나누면 좋아요."
+    },
+    {
+      "fixture": "fix-04",
+      "period": "today",
+      "category": "movement",
+      "paragraphCount": 2,
+      "fragmentId": "movement.today.standard.currentseason.spring_summer.301",
+      "plainTextSample": "오늘은 바깥 일정이나 이동이 생기면 생각보다 빨리 진행될 수 있어요."
+    },
+    {
+      "fixture": "fix-04",
+      "period": "thisWeek",
+      "category": "wealth",
+      "paragraphCount": 2,
+      "fragmentId": "wealth.thisWeek.standard.cashflow.504",
+      "plainTextSample": "이번 주는 들어올 돈과 나갈 돈의 날짜를 맞춰보는 것이 중요해요."
+    },
+    {
+      "fixture": "fix-04",
+      "period": "thisWeek",
+      "category": "family",
+      "paragraphCount": 2,
+      "fragmentId": "family.thisWeek.standard.currentseason.spring_summer.301",
+      "plainTextSample": "이번 주는 가족과 함께 움직이거나 새 이야기를 시작하기 좋은 흐름이에요."
+    },
+    {
+      "fixture": "fix-04",
+      "period": "thisWeek",
+      "category": "study_document",
+      "paragraphCount": 2,
+      "fragmentId": "study_document.thisWeek.standard.ageband.adult.501",
+      "plainTextSample": "이번 주는 문서 관리와 지식 정리에 집중하기 좋은 흐름이에요."
+    },
+    {
+      "fixture": "fix-04",
+      "period": "thisWeek",
+      "category": "expression_children",
+      "paragraphCount": 2,
+      "fragmentId": "expression_children.thisWeek.standard.feedback.504",
+      "plainTextSample": "이번 주에는 생각을 밖으로 꺼낸 뒤 반응을 보며 고치는 과정이 중요해요."
+    },
+    {
+      "fixture": "fix-04",
+      "period": "thisWeek",
+      "category": "movement",
+      "paragraphCount": 2,
+      "fragmentId": "movement.thisWeek.standard.two_step.504",
+      "plainTextSample": "이번 주 이동과 변화는 한 번에 크게 바꾸기보다 두 단계로 나누면 좋아요."
+    },
+    {
+      "fixture": "fix-04",
+      "period": "thisMonth",
+      "category": "wealth",
+      "paragraphCount": 2,
+      "fragmentId": "wealth.thisMonth.standard.plan.501",
+      "plainTextSample": "이번 달은 수입, 지출, 저축, 투자성 지출을 따로 나누면 돈의 흐름이 선명해져요."
+    },
+    {
+      "fixture": "fix-04",
+      "period": "thisMonth",
+      "category": "health",
+      "paragraphCount": 2,
+      "fragmentId": "health.thisMonth.standard.currentseason.spring_summer.301",
+      "plainTextSample": "이번 달은 활동량을 조금 늘리며 몸의 활력을 살리기 좋은 흐름이에요."
+    },
+    {
+      "fixture": "fix-04",
+      "period": "thisMonth",
+      "category": "academic",
+      "paragraphCount": 2,
+      "fragmentId": "academic.thisMonth.standard.ageband.mature.402",
+      "plainTextSample": "이번 달 학습은 큰 계획보다 현실적으로 반복할 수 있는 시간이 중요해요."
+    },
+    {
+      "fixture": "fix-04",
+      "period": "thisMonth",
+      "category": "family",
+      "paragraphCount": 2,
+      "fragmentId": "family.thisMonth.standard.agephase.early_60s.204",
+      "plainTextSample": "이번 달 가족운은 새 생활 리듬을 가족과 함께 맞추는 데 의미가 있습니다."
+    },
+    {
+      "fixture": "fix-04",
+      "period": "thisMonth",
+      "category": "career",
+      "paragraphCount": 2,
+      "fragmentId": "career.thisMonth.standard.record.504",
+      "plainTextSample": "이번 달 일의 흐름은 기록을 남길수록 좋아져요."
+    },
+    {
+      "fixture": "fix-04",
+      "period": "thisMonth",
+      "category": "study_document",
+      "paragraphCount": 2,
+      "fragmentId": "study_document.thisMonth.standard.ageband.adult.501",
+      "plainTextSample": "이번 달은 서류와 지식의 기반을 정리하기 좋은 시기예요."
+    },
+    {
+      "fixture": "fix-04",
+      "period": "thisMonth",
+      "category": "expression_children",
+      "paragraphCount": 2,
+      "fragmentId": "expression_children.thisMonth.standard.currentseason.spring_summer.301",
+      "plainTextSample": "이번 달은 표현과 창작의 결이 활발해질 수 있어요."
+    },
+    {
+      "fixture": "fix-04",
+      "period": "thisMonth",
+      "category": "health_stress",
+      "paragraphCount": 2,
+      "fragmentId": "health_stress.thisMonth.standard.rhythm.501",
+      "plainTextSample": "이번 달은 바깥 활동과 사람 만남이 늘수록 혼자 회복하는 시간이 필요해요."
+    },
+    {
+      "fixture": "fix-04",
+      "period": "thisMonth",
+      "category": "movement",
+      "paragraphCount": 2,
+      "fragmentId": "movement.thisMonth.standard.priority.504",
+      "plainTextSample": "이번 달은 이동할 일과 그대로 둘 일을 구분하는 것이 중요해요."
+    },
+    {
+      "fixture": "fix-04",
+      "period": "thisYear",
+      "category": "wealth",
+      "paragraphCount": 2,
+      "fragmentId": "wealth.thisYear.standard.currentseason.spring_summer.301",
+      "plainTextSample": "올해는 돈을 벌 기회를 넓히고 싶은 마음이 커질 수 있어요."
+    },
+    {
+      "fixture": "fix-04",
+      "period": "thisYear",
+      "category": "health",
+      "paragraphCount": 2,
+      "fragmentId": "health.thisYear.standard.currentseason.spring_summer.301",
+      "plainTextSample": "올해는 활동성을 살리며 몸을 관리하기 좋은 결이에요."
+    },
+    {
+      "fixture": "fix-04",
+      "period": "thisYear",
+      "category": "academic",
+      "paragraphCount": 2,
+      "fragmentId": "academic.thisYear.standard.plan.501",
+      "plainTextSample": "올해 배움은 필요한 지식부터 순서를 정하는 것이 중요해요."
+    },
+    {
+      "fixture": "fix-04",
+      "period": "thisYear",
+      "category": "career",
+      "paragraphCount": 2,
+      "fragmentId": "career.thisYear.standard.currentseason.spring_summer.301",
+      "plainTextSample": "올해는 새 역할, 새 프로젝트, 새 만남으로 일의 무대가 넓어질 수 있어요."
+    },
+    {
+      "fixture": "fix-04",
+      "period": "thisYear",
+      "category": "expression_children",
+      "paragraphCount": 2,
+      "fragmentId": "expression_children.thisYear.standard.currentseason.spring_summer.301",
+      "plainTextSample": "올해는 말, 글, 만들기처럼 나를 보여주는 일이 조금 더 활발해질 수 있어요."
+    },
+    {
+      "fixture": "fix-04",
+      "period": "thisYear",
+      "category": "movement",
+      "paragraphCount": 2,
+      "fragmentId": "movement.thisYear.standard.recovery.501",
+      "plainTextSample": "올해는 이동과 변화의 양을 조절하는 것이 중요해요."
+    },
+    {
+      "fixture": "fix-05",
+      "period": "life",
+      "category": "overall",
+      "paragraphCount": 2,
+      "fragmentId": "overall.life.standard.yongshin_metal_alignment.neutral.201",
+      "plainTextSample": "쇠 기운이 필요하지만 현재 흐름은 결단을 강하게 밀어주지는 않는 중간 상태예요."
+    },
+    {
+      "fixture": "fix-05",
+      "period": "life",
+      "category": "career",
+      "paragraphCount": 2,
+      "fragmentId": "career.life.standard.currentseason.spring_summer.301",
+      "plainTextSample": "긴 흐름에서는 새 역할과 사람을 만나며 일의 폭이 넓어지기 쉬워요."
+    },
+    {
+      "fixture": "fix-05",
+      "period": "life",
+      "category": "study_document",
+      "paragraphCount": 2,
+      "fragmentId": "study_document.life.standard.learning_base.504",
+      "plainTextSample": "긴 흐름에서는 공부를 잘하는 힘보다 배운 것을 다시 꺼내 쓰는 힘이 중요해요."
+    },
+    {
+      "fixture": "fix-05",
+      "period": "today",
+      "category": "health",
+      "paragraphCount": 2,
+      "fragmentId": "health.today.standard.body_signal.504",
+      "plainTextSample": "오늘은 몸이 보내는 작은 신호를 무시하지 않는 것이 중요해요."
+    },
+    {
+      "fixture": "fix-05",
+      "period": "thisWeek",
+      "category": "overall",
+      "paragraphCount": 2,
+      "fragmentId": "overall.thisWeek.standard.daymasterpolarity.yin.203",
+      "plainTextSample": "이번 주에는 안쪽에서 다듬는 타고난 흐름처럼 안쪽에서 충분히 살피고 다듬는 힘이 중요해질 수 있어요."
+    },
+    {
+      "fixture": "fix-05",
+      "period": "thisWeek",
+      "category": "health",
+      "paragraphCount": 2,
+      "fragmentId": "health.thisWeek.standard.rest.501",
+      "plainTextSample": "이번 주 건강운은 꾸준한 회복 루틴이 핵심이에요."
+    },
+    {
+      "fixture": "fix-05",
+      "period": "thisWeek",
+      "category": "academic",
+      "paragraphCount": 2,
+      "fragmentId": "academic.thisWeek.standard.ageband.young.401",
+      "plainTextSample": "이번 주 공부는 많은 양을 한 번에 끝내려 하기보다, 어려운 부분을 짧은 단위로 나누는 편이 좋아요."
+    },
+    {
+      "fixture": "fix-05",
+      "period": "thisMonth",
+      "category": "study_document",
+      "paragraphCount": 2,
+      "fragmentId": "study_document.thisMonth.standard.ageband.student.501",
+      "plainTextSample": "이번 달 공부는 약한 부분을 정확히 찾는 것이 핵심이에요."
+    },
+    {
+      "fixture": "fix-05",
+      "period": "thisYear",
+      "category": "overall",
+      "paragraphCount": 2,
+      "fragmentId": "overall.thisYear.standard.agephase.early_20s.203",
+      "plainTextSample": "올해는 여러 가능성을 시험해 보며 나에게 맞는 방향을 찾는 데 의미가 있습니다."
+    },
+    {
+      "fixture": "fix-05",
+      "period": "thisYear",
+      "category": "health",
+      "paragraphCount": 2,
+      "fragmentId": "health.thisYear.standard.currentseason.spring_summer.301",
+      "plainTextSample": "올해는 활동성을 살리며 몸을 관리하기 좋은 결이에요."
+    },
+    {
+      "fixture": "fix-05",
+      "period": "thisYear",
+      "category": "family",
+      "paragraphCount": 2,
+      "fragmentId": "family.thisYear.standard.currentseason.spring_summer.301",
+      "plainTextSample": "올해는 가족과 함께 움직이거나 새로운 계획을 세울 일이 늘 수 있어요."
+    },
+    {
+      "fixture": "fix-05",
+      "period": "thisYear",
+      "category": "career",
+      "paragraphCount": 2,
+      "fragmentId": "career.thisYear.standard.currentseason.spring_summer.301",
+      "plainTextSample": "올해는 새 역할, 새 프로젝트, 새 만남으로 일의 무대가 넓어질 수 있어요."
+    },
+    {
+      "fixture": "fix-05",
+      "period": "thisYear",
+      "category": "study_document",
+      "paragraphCount": 2,
+      "fragmentId": "study_document.thisYear.standard.system.504",
+      "plainTextSample": "올해 공부와 문서 일은 오래 쓸 수 있는 정리 방식이 중요해요."
+    },
+    {
+      "fixture": "fix-06",
+      "period": "life",
+      "category": "health_stress",
+      "paragraphCount": 2,
+      "fragmentId": "health_stress.life.standard.recovery_rule.504",
+      "plainTextSample": "긴 흐름에서는 마음이 지치기 전에 회복 규칙을 만들어두는 것이 중요해요."
+    },
+    {
+      "fixture": "fix-06",
+      "period": "life",
+      "category": "movement",
+      "paragraphCount": 2,
+      "fragmentId": "movement.life.standard.currentseason.spring_summer.301",
+      "plainTextSample": "긴 흐름에서는 낯선 곳을 경험하고 활동 반경을 넓힐수록 배움과 기회가 늘어나는 구조예요."
+    },
+    {
+      "fixture": "fix-06",
+      "period": "today",
+      "category": "health",
+      "paragraphCount": 2,
+      "fragmentId": "health.today.standard.currentseason.spring_summer.301",
+      "plainTextSample": "오늘은 몸을 깨우고 가볍게 움직이기 좋은 결이에요."
+    },
+    {
+      "fixture": "fix-06",
+      "period": "today",
+      "category": "family",
+      "paragraphCount": 2,
+      "fragmentId": "family.today.standard.currentseason.spring_summer.301",
+      "plainTextSample": "오늘은 가족 사이에서 말문을 열기 좋은 날이에요."
+    },
+    {
+      "fixture": "fix-06",
+      "period": "today",
+      "category": "study_document",
+      "paragraphCount": 2,
+      "fragmentId": "study_document.today.standard.ageband.adult.501",
+      "plainTextSample": "오늘 문서운은 확인과 정리에 초점이 있습니다."
+    },
+    {
+      "fixture": "fix-06",
+      "period": "today",
+      "category": "expression_children",
+      "paragraphCount": 2,
+      "fragmentId": "expression_children.today.standard.note_first.504",
+      "plainTextSample": "오늘은 생각을 바로 평가하기보다 먼저 적어두는 쪽이 좋아요."
+    },
+    {
+      "fixture": "fix-06",
+      "period": "today",
+      "category": "movement",
+      "paragraphCount": 2,
+      "fragmentId": "movement.today.standard.buffer.504",
+      "plainTextSample": "오늘은 이동이나 약속 사이에 여유 시간을 두는 편이 좋아요."
+    },
+    {
+      "fixture": "fix-06",
+      "period": "thisWeek",
+      "category": "health",
+      "paragraphCount": 2,
+      "fragmentId": "health.thisWeek.standard.pacing.501",
+      "plainTextSample": "이번 주는 할 수 있는 일이 많아 보여도 체력 배분을 먼저 정해야 해요."
+    },
+    {
+      "fixture": "fix-06",
+      "period": "thisWeek",
+      "category": "academic",
+      "paragraphCount": 2,
+      "fragmentId": "academic.thisWeek.standard.repeat.504",
+      "plainTextSample": "이번 주는 새 내용을 많이 넣기보다 반복할 시간을 먼저 확보하는 것이 좋아요."
+    },
+    {
+      "fixture": "fix-06",
+      "period": "thisWeek",
+      "category": "study_document",
+      "paragraphCount": 2,
+      "fragmentId": "study_document.thisWeek.standard.ageband.adult.501",
+      "plainTextSample": "이번 주는 문서 관리와 지식 정리에 집중하기 좋은 흐름이에요."
+    },
+    {
+      "fixture": "fix-06",
+      "period": "thisWeek",
+      "category": "expression_children",
+      "paragraphCount": 2,
+      "fragmentId": "expression_children.thisWeek.standard.ageband.mature.501",
+      "plainTextSample": "이번 주는 경험을 말로 풀어내거나 누군가에게 알려주는 일이 잘 맞아요."
+    },
+    {
+      "fixture": "fix-06",
+      "period": "thisWeek",
+      "category": "health_stress",
+      "paragraphCount": 2,
+      "fragmentId": "health_stress.thisWeek.standard.currentseason.summer.204",
+      "plainTextSample": "이번 주의 여름 흐름은 활동량과 감정 반응이 함께 커지기 쉬운 시기예요."
+    },
+    {
+      "fixture": "fix-06",
+      "period": "thisWeek",
+      "category": "movement",
+      "paragraphCount": 2,
+      "fragmentId": "movement.thisWeek.standard.recovery.501",
+      "plainTextSample": "이번 주는 움직임을 줄이는 날과 필요한 외출을 하는 날을 구분하면 안정적이에요."
+    },
+    {
+      "fixture": "fix-06",
+      "period": "thisMonth",
+      "category": "health",
+      "paragraphCount": 2,
+      "fragmentId": "health.thisMonth.standard.currentseason.spring_summer.301",
+      "plainTextSample": "이번 달은 활동량을 조금 늘리며 몸의 활력을 살리기 좋은 흐름이에요."
+    },
+    {
+      "fixture": "fix-06",
+      "period": "thisMonth",
+      "category": "expression_children",
+      "paragraphCount": 2,
+      "fragmentId": "expression_children.thisMonth.standard.ageband.mature.501",
+      "plainTextSample": "이번 달은 쌓아온 생각과 경험을 정리해 다른 사람에게 전하기 좋은 흐름이에요."
+    },
+    {
+      "fixture": "fix-06",
+      "period": "thisMonth",
+      "category": "health_stress",
+      "paragraphCount": 2,
+      "fragmentId": "health_stress.thisMonth.standard.energy_budget.504",
+      "plainTextSample": "이번 달은 마음 에너지를 어디에 쓸지 먼저 정하면 좋아요."
+    },
+    {
+      "fixture": "fix-06",
+      "period": "thisMonth",
+      "category": "movement",
+      "paragraphCount": 2,
+      "fragmentId": "movement.thisMonth.standard.currentseason.spring_summer.301",
+      "plainTextSample": "이번 달은 환경을 바꾸거나 활동 반경을 넓히면서 새로운 단서를 얻기 쉬운 흐름이에요."
+    },
+    {
+      "fixture": "fix-06",
+      "period": "thisYear",
+      "category": "romance",
+      "paragraphCount": 2,
+      "fragmentId": "romance.thisYear.standard.ageband.adult.501",
+      "plainTextSample": "올해는 감정의 깊이와 생활의 안정성을 함께 보는 것이 중요해요."
+    },
+    {
+      "fixture": "fix-06",
+      "period": "thisYear",
+      "category": "family",
+      "paragraphCount": 2,
+      "fragmentId": "family.thisYear.standard.care_boundary.504",
+      "plainTextSample": "올해 가족운은 돌봄과 거리 조절을 함께 챙기는 것이 중요해요."
+    },
+    {
+      "fixture": "fix-06",
+      "period": "thisYear",
+      "category": "expression_children",
+      "paragraphCount": 2,
+      "fragmentId": "expression_children.thisYear.standard.currentseason.spring_summer.301",
+      "plainTextSample": "올해는 말, 글, 만들기처럼 나를 보여주는 일이 조금 더 활발해질 수 있어요."
+    },
+    {
+      "fixture": "fix-06",
+      "period": "thisYear",
+      "category": "health_stress",
+      "paragraphCount": 2,
+      "fragmentId": "health_stress.thisYear.standard.recovery.501",
+      "plainTextSample": "올해는 마음과 몸을 오래 쓰기 위해 책임의 양을 조절해야 해요."
+    },
+    {
+      "fixture": "fix-06",
+      "period": "thisYear",
+      "category": "movement",
+      "paragraphCount": 2,
+      "fragmentId": "movement.thisYear.standard.direction.504",
+      "plainTextSample": "올해는 어디로 움직일지보다 왜 움직이는지가 더 중요해요."
+    },
+    {
+      "fixture": "fix-07",
+      "period": "life",
+      "category": "overall",
+      "paragraphCount": 2,
+      "fragmentId": "overall.life.standard.agephase_gender.late_60s.male.206",
+      "plainTextSample": "60대 후반 남성으로 입력된 경우에는 경험을 삶의 지혜로 정리하고 안정적인 관계 안에서 나누는 흐름이 좋아요."
+    },
+    {
+      "fixture": "fix-07",
+      "period": "life",
+      "category": "wealth",
+      "paragraphCount": 2,
+      "fragmentId": "wealth.life.standard.currentseason.spring_summer.301",
+      "plainTextSample": "긴 흐름에서는 돈을 움직이며 기회를 찾는 힘이 살아나요."
+    },
+    {
+      "fixture": "fix-07",
+      "period": "life",
+      "category": "academic",
+      "paragraphCount": 2,
+      "fragmentId": "academic.life.standard.currentseason.spring_summer.301",
+      "plainTextSample": "긴 흐름에서는 배우고 익힌 것을 밖으로 꺼내 쓰기 좋아요."
+    },
+    {
+      "fixture": "fix-07",
+      "period": "life",
+      "category": "expression_children",
+      "paragraphCount": 2,
+      "fragmentId": "expression_children.life.standard.creation_relation.502",
+      "plainTextSample": "표현과 돌봄의 흐름은 오래 쌓을수록 힘이 납니다."
+    },
+    {
+      "fixture": "fix-07",
+      "period": "life",
+      "category": "movement",
+      "paragraphCount": 2,
+      "fragmentId": "movement.life.standard.ageband.mature.501",
+      "plainTextSample": "장기 이동운은 무조건 많이 움직이는 것보다 필요한 변화만 고르는 쪽이 안정적이에요."
+    },
+    {
+      "fixture": "fix-07",
+      "period": "today",
+      "category": "wealth",
+      "paragraphCount": 2,
+      "fragmentId": "wealth.today.standard.planning.501",
+      "plainTextSample": "오늘은 돈을 크게 움직이기보다 정리하고 계획하기 좋은 흐름이에요."
+    },
+    {
+      "fixture": "fix-07",
+      "period": "today",
+      "category": "health",
+      "paragraphCount": 2,
+      "fragmentId": "health.today.standard.currentseason.spring_summer.301",
+      "plainTextSample": "오늘은 몸을 깨우고 가볍게 움직이기 좋은 결이에요."
+    },
+    {
+      "fixture": "fix-07",
+      "period": "today",
+      "category": "career",
+      "paragraphCount": 2,
+      "fragmentId": "career.today.standard.ageband.mature.501",
+      "plainTextSample": "오늘의 일 흐름은 새 일을 더하기보다 이미 맡은 일을 정리할 때 안정적이에요."
+    },
+    {
+      "fixture": "fix-07",
+      "period": "today",
+      "category": "study_document",
+      "paragraphCount": 2,
+      "fragmentId": "study_document.today.standard.ageband.adult.501",
+      "plainTextSample": "오늘 문서운은 확인과 정리에 초점이 있습니다."
+    },
+    {
+      "fixture": "fix-07",
+      "period": "today",
+      "category": "expression_children",
+      "paragraphCount": 2,
+      "fragmentId": "expression_children.today.standard.currentseason.spring_summer.301",
+      "plainTextSample": "오늘은 생각을 말이나 글로 꺼내기 쉬운 날이에요."
+    },
+    {
+      "fixture": "fix-07",
+      "period": "thisWeek",
+      "category": "wealth",
+      "paragraphCount": 2,
+      "fragmentId": "wealth.thisWeek.standard.currentseason.spring_summer.301",
+      "plainTextSample": "이번 주는 수입과 지출이 모두 빨라질 수 있어요."
+    },
+    {
+      "fixture": "fix-07",
+      "period": "thisWeek",
+      "category": "career",
+      "paragraphCount": 2,
+      "fragmentId": "career.thisWeek.standard.scope.502",
+      "plainTextSample": "이번 주에는 책임 범위를 먼저 확인하는 것이 중요해요."
+    },
+    {
+      "fixture": "fix-07",
+      "period": "thisWeek",
+      "category": "movement",
+      "paragraphCount": 2,
+      "fragmentId": "movement.thisWeek.standard.currentseason.spring_summer.301",
+      "plainTextSample": "이번 주는 사람을 만나거나 장소를 바꾸면서 실마리를 얻기 쉬워요."
+    },
+    {
+      "fixture": "fix-07",
+      "period": "thisMonth",
+      "category": "overall",
+      "paragraphCount": 2,
+      "fragmentId": "overall.thisMonth.standard.birth_spring_current_summer.201",
+      "plainTextSample": "봄에 태어난 사람은 현재 여름 기운을 만나면 시작한 일이 밖으로 드러나고 표현력이 커지기 쉬워요."
+    },
+    {
+      "fixture": "fix-07",
+      "period": "thisMonth",
+      "category": "academic",
+      "paragraphCount": 2,
+      "fragmentId": "academic.thisMonth.standard.ageband.mature.402",
+      "plainTextSample": "이번 달 학습은 큰 계획보다 현실적으로 반복할 수 있는 시간이 중요해요."
+    },
+    {
+      "fixture": "fix-07",
+      "period": "thisMonth",
+      "category": "family",
+      "paragraphCount": 2,
+      "fragmentId": "family.thisMonth.standard.agephase.late_60s.204",
+      "plainTextSample": "이번 달 가족운은 도움을 주는 일과 받는 일을 편안하게 조율하는 것이 좋아요."
+    },
+    {
+      "fixture": "fix-07",
+      "period": "thisMonth",
+      "category": "movement",
+      "paragraphCount": 2,
+      "fragmentId": "movement.thisMonth.standard.rhythm.501",
+      "plainTextSample": "이번 달은 활동과 만남이 늘어날 수 있어 이동 계획을 미리 정리하는 것이 좋아요."
+    },
+    {
+      "fixture": "fix-07",
+      "period": "thisYear",
+      "category": "health",
+      "paragraphCount": 2,
+      "fragmentId": "health.thisYear.standard.long_pace.504",
+      "plainTextSample": "올해 몸 관리는 속도보다 오래 이어지는 방식이 중요해요."
+    },
+    {
+      "fixture": "fix-07",
+      "period": "thisYear",
+      "category": "romance",
+      "paragraphCount": 2,
+      "fragmentId": "romance.thisYear.standard.ageband.adult.501",
+      "plainTextSample": "올해는 감정의 깊이와 생활의 안정성을 함께 보는 것이 중요해요."
+    },
+    {
+      "fixture": "fix-07",
+      "period": "thisYear",
+      "category": "career",
+      "paragraphCount": 2,
+      "fragmentId": "career.thisYear.standard.yongshin.earth.204",
+      "plainTextSample": "올해 일의 방향에서 흙 기운을 보충하는 흐름이 좋다면, 기반을 만들고 책임을 안정적으로 관리하는 선택이 힘이 돼요."
+    },
+    {
+      "fixture": "fix-07",
+      "period": "thisYear",
+      "category": "study_document",
+      "paragraphCount": 2,
+      "fragmentId": "study_document.thisYear.standard.currentseason.spring_summer.301",
+      "plainTextSample": "올해는 공부, 자격, 문서 작업을 새롭게 확장하기 좋은 흐름이에요."
+    },
+    {
+      "fixture": "fix-08",
+      "period": "life",
+      "category": "overall",
+      "paragraphCount": 2,
+      "fragmentId": "overall.life.standard.age_0_9_gender_female.201",
+      "plainTextSample": "어린 여자아이의 하루는 재능을 단정하기보다 안정감, 감정 표현, 생활 리듬을 함께 보며 읽는 것이 좋아요."
+    },
+    {
+      "fixture": "fix-08",
+      "period": "life",
+      "category": "wealth",
+      "paragraphCount": 1,
+      "plainTextSample": "인생 전체의 돈과 물건 관리는 아직 결과를 단정하기보다 작은 습관을 살피는 게 좋아요. 해야 할 일을 짧게 나누고, 힘들 때는 바로 도움을 요청"
+    },
+    {
+      "fixture": "fix-08",
+      "period": "life",
+      "category": "romance",
+      "paragraphCount": 1,
+      "plainTextSample": "인생 전체의 관계와 마음은 아직 결과를 단정하기보다 작은 습관을 살피는 게 좋아요. 해야 할 일을 짧게 나누고, 힘들 때는 바로 도움을 요청하면"
+    },
+    {
+      "fixture": "fix-08",
+      "period": "life",
+      "category": "career",
+      "paragraphCount": 1,
+      "plainTextSample": "인생 전체의 진로 감각은 아직 결과를 단정하기보다 작은 습관을 살피는 게 좋아요. 해야 할 일을 짧게 나누고, 힘들 때는 바로 도움을 요청하면 "
+    },
+    {
+      "fixture": "fix-08",
+      "period": "life",
+      "category": "study_document",
+      "paragraphCount": 1,
+      "plainTextSample": "인생 전체의 기록과 준비는 아직 결과를 단정하기보다 작은 습관을 살피는 게 좋아요. 해야 할 일을 짧게 나누고, 힘들 때는 바로 도움을 요청하면"
+    },
+    {
+      "fixture": "fix-08",
+      "period": "life",
+      "category": "health_stress",
+      "paragraphCount": 2,
+      "fragmentId": "health_stress.life.standard.foundation.501",
+      "plainTextSample": "삶 전체의 마음 건강은 큰 결심보다 매일 반복되는 작은 습관에서 안정돼요."
+    },
+    {
+      "fixture": "fix-08",
+      "period": "life",
+      "category": "movement",
+      "paragraphCount": 2,
+      "fragmentId": "movement.life.standard.ageband.young.501",
+      "plainTextSample": "장기 이동운은 새로운 경험을 통해 배우는 힘과 연결돼요."
+    },
+    {
+      "fixture": "fix-08",
+      "period": "today",
+      "category": "wealth",
+      "paragraphCount": 1,
+      "plainTextSample": "오늘 (5월 5일)의 돈과 물건 관리는 아직 결과를 단정하기보다 작은 습관을 살피는 게 좋아요. 해야 할 일을 짧게 나누고, 힘들 때는 바로 도"
+    },
+    {
+      "fixture": "fix-08",
+      "period": "today",
+      "category": "romance",
+      "paragraphCount": 1,
+      "plainTextSample": "오늘 (5월 5일)의 관계와 마음은 아직 결과를 단정하기보다 작은 습관을 살피는 게 좋아요. 해야 할 일을 짧게 나누고, 힘들 때는 바로 도움을"
+    },
+    {
+      "fixture": "fix-08",
+      "period": "today",
+      "category": "career",
+      "paragraphCount": 1,
+      "plainTextSample": "오늘 (5월 5일)의 진로 감각은 아직 결과를 단정하기보다 작은 습관을 살피는 게 좋아요. 해야 할 일을 짧게 나누고, 힘들 때는 바로 도움을 "
+    },
+    {
+      "fixture": "fix-08",
+      "period": "today",
+      "category": "study_document",
+      "paragraphCount": 1,
+      "plainTextSample": "오늘 (5월 5일)의 기록과 준비는 아직 결과를 단정하기보다 작은 습관을 살피는 게 좋아요. 해야 할 일을 짧게 나누고, 힘들 때는 바로 도움을"
+    },
+    {
+      "fixture": "fix-08",
+      "period": "today",
+      "category": "health_stress",
+      "paragraphCount": 1,
+      "plainTextSample": "오늘 (5월 5일)의 긴장과 회복은 아직 결과를 단정하기보다 작은 습관을 살피는 게 좋아요. 해야 할 일을 짧게 나누고, 힘들 때는 바로 도움을"
+    },
+    {
+      "fixture": "fix-08",
+      "period": "thisWeek",
+      "category": "wealth",
+      "paragraphCount": 1,
+      "plainTextSample": "이번 주의 돈과 물건 관리는 아직 결과를 단정하기보다 작은 습관을 살피는 게 좋아요. 해야 할 일을 짧게 나누고, 힘들 때는 바로 도움을 요청하"
+    },
+    {
+      "fixture": "fix-08",
+      "period": "thisWeek",
+      "category": "romance",
+      "paragraphCount": 1,
+      "plainTextSample": "이번 주의 관계와 마음은 아직 결과를 단정하기보다 작은 습관을 살피는 게 좋아요. 해야 할 일을 짧게 나누고, 힘들 때는 바로 도움을 요청하면 "
+    },
+    {
+      "fixture": "fix-08",
+      "period": "thisWeek",
+      "category": "career",
+      "paragraphCount": 1,
+      "plainTextSample": "이번 주의 진로 감각은 아직 결과를 단정하기보다 작은 습관을 살피는 게 좋아요. 해야 할 일을 짧게 나누고, 힘들 때는 바로 도움을 요청하면 흐"
+    },
+    {
+      "fixture": "fix-08",
+      "period": "thisWeek",
+      "category": "study_document",
+      "paragraphCount": 1,
+      "plainTextSample": "이번 주의 기록과 준비는 아직 결과를 단정하기보다 작은 습관을 살피는 게 좋아요. 해야 할 일을 짧게 나누고, 힘들 때는 바로 도움을 요청하면 "
+    },
+    {
+      "fixture": "fix-08",
+      "period": "thisWeek",
+      "category": "health_stress",
+      "paragraphCount": 2,
+      "fragmentId": "health_stress.thisWeek.standard.support.501",
+      "plainTextSample": "이번 주는 마음이 복잡할 때 빨리 말로 풀어내는 연습이 도움이 돼요."
+    },
+    {
+      "fixture": "fix-08",
+      "period": "thisWeek",
+      "category": "movement",
+      "paragraphCount": 2,
+      "fragmentId": "movement.thisWeek.standard.explore.501",
+      "plainTextSample": "이번 주는 작은 이동과 새로운 경험이 기분 전환에 도움이 돼요."
+    },
+    {
+      "fixture": "fix-08",
+      "period": "thisMonth",
+      "category": "wealth",
+      "paragraphCount": 1,
+      "plainTextSample": "이번 달 (5월)의 돈과 물건 관리는 아직 결과를 단정하기보다 작은 습관을 살피는 게 좋아요. 해야 할 일을 짧게 나누고, 힘들 때는 바로 도움"
+    },
+    {
+      "fixture": "fix-08",
+      "period": "thisMonth",
+      "category": "romance",
+      "paragraphCount": 1,
+      "plainTextSample": "이번 달 (5월)의 관계와 마음은 아직 결과를 단정하기보다 작은 습관을 살피는 게 좋아요. 해야 할 일을 짧게 나누고, 힘들 때는 바로 도움을 "
+    },
+    {
+      "fixture": "fix-08",
+      "period": "thisMonth",
+      "category": "career",
+      "paragraphCount": 2,
+      "fragmentId": "career.thisMonth.standard.record.504",
+      "plainTextSample": "이번 달 일의 흐름은 기록을 남길수록 좋아져요."
+    },
+    {
+      "fixture": "fix-08",
+      "period": "thisMonth",
+      "category": "study_document",
+      "paragraphCount": 1,
+      "plainTextSample": "이번 달 (5월)의 기록과 준비는 아직 결과를 단정하기보다 작은 습관을 살피는 게 좋아요. 해야 할 일을 짧게 나누고, 힘들 때는 바로 도움을 "
+    },
+    {
+      "fixture": "fix-08",
+      "period": "thisMonth",
+      "category": "health_stress",
+      "paragraphCount": 1,
+      "plainTextSample": "이번 달 (5월)의 긴장과 회복은 아직 결과를 단정하기보다 작은 습관을 살피는 게 좋아요. 해야 할 일을 짧게 나누고, 힘들 때는 바로 도움을 "
+    },
+    {
+      "fixture": "fix-08",
+      "period": "thisYear",
+      "category": "wealth",
+      "paragraphCount": 1,
+      "plainTextSample": "올해 (2026년)의 돈과 물건 관리는 아직 결과를 단정하기보다 작은 습관을 살피는 게 좋아요. 해야 할 일을 짧게 나누고, 힘들 때는 바로 도"
+    },
+    {
+      "fixture": "fix-08",
+      "period": "thisYear",
+      "category": "romance",
+      "paragraphCount": 1,
+      "plainTextSample": "올해 (2026년)의 관계와 마음은 아직 결과를 단정하기보다 작은 습관을 살피는 게 좋아요. 해야 할 일을 짧게 나누고, 힘들 때는 바로 도움을"
+    },
+    {
+      "fixture": "fix-08",
+      "period": "thisYear",
+      "category": "career",
+      "paragraphCount": 1,
+      "plainTextSample": "올해 (2026년)의 진로 감각은 아직 결과를 단정하기보다 작은 습관을 살피는 게 좋아요. 해야 할 일을 짧게 나누고, 힘들 때는 바로 도움을 "
+    },
+    {
+      "fixture": "fix-08",
+      "period": "thisYear",
+      "category": "study_document",
+      "paragraphCount": 1,
+      "plainTextSample": "올해 (2026년)의 기록과 준비는 아직 결과를 단정하기보다 작은 습관을 살피는 게 좋아요. 해야 할 일을 짧게 나누고, 힘들 때는 바로 도움을"
+    },
+    {
+      "fixture": "fix-08",
+      "period": "thisYear",
+      "category": "expression_children",
+      "paragraphCount": 2,
+      "fragmentId": "expression_children.thisYear.standard.record.502",
+      "plainTextSample": "올해는 표현하고 남기는 일이 중요해요."
+    },
+    {
+      "fixture": "fix-08",
+      "period": "thisYear",
+      "category": "health_stress",
+      "paragraphCount": 2,
+      "fragmentId": "health_stress.thisYear.standard.foundation.501",
+      "plainTextSample": "올해는 마음이 흔들릴 때 바로 돌아갈 수 있는 기본 루틴을 만드는 것이 중요해요."
+    },
+    {
+      "fixture": "fix-09",
+      "period": "life",
+      "category": "overall",
+      "paragraphCount": 2,
+      "fragmentId": "overall.life.standard.agephase_gender.late_30s.male.203",
+      "plainTextSample": "30대 후반 남성으로 입력된 경우에는 지금까지 쌓은 책임과 앞으로 바꾸고 싶은 방향을 함께 점검하는 흐름이 강해져요."
+    },
+    {
+      "fixture": "fix-09",
+      "period": "life",
+      "category": "study_document",
+      "paragraphCount": 2,
+      "fragmentId": "study_document.life.standard.currentseason.spring_summer.301",
+      "plainTextSample": "긴 흐름에서는 배우고 정리한 내용을 밖으로 써먹을 때 길이 잘 열리는 편이에요."
+    },
+    {
+      "fixture": "fix-09",
+      "period": "life",
+      "category": "expression_children",
+      "paragraphCount": 2,
+      "fragmentId": "expression_children.life.standard.creation_relation.502",
+      "plainTextSample": "표현과 돌봄의 흐름은 오래 쌓을수록 힘이 납니다."
+    },
+    {
+      "fixture": "fix-09",
+      "period": "life",
+      "category": "movement",
+      "paragraphCount": 2,
+      "fragmentId": "movement.life.standard.ageband.young.501",
+      "plainTextSample": "장기 이동운은 새로운 경험을 통해 배우는 힘과 연결돼요."
+    },
+    {
+      "fixture": "fix-09",
+      "period": "today",
+      "category": "health",
+      "paragraphCount": 2,
+      "fragmentId": "health.today.standard.currentseason.spring_summer.301",
+      "plainTextSample": "오늘은 몸을 깨우고 가볍게 움직이기 좋은 결이에요."
+    },
+    {
+      "fixture": "fix-09",
+      "period": "today",
+      "category": "academic",
+      "paragraphCount": 2,
+      "fragmentId": "academic.today.standard.review.501",
+      "plainTextSample": "오늘 공부는 새 내용을 많이 넣기보다 이미 배운 것을 다시 확인하는 쪽이 좋아요."
+    },
+    {
+      "fixture": "fix-09",
+      "period": "today",
+      "category": "family",
+      "paragraphCount": 2,
+      "fragmentId": "family.today.standard.listen.502",
+      "plainTextSample": "오늘 가족 대화는 해결책을 바로 말하기보다 먼저 들어주는 쪽이 좋아요."
+    },
+    {
+      "fixture": "fix-09",
+      "period": "today",
+      "category": "study_document",
+      "paragraphCount": 2,
+      "fragmentId": "study_document.today.standard.ageband.adult.501",
+      "plainTextSample": "오늘 문서운은 확인과 정리에 초점이 있습니다."
+    },
+    {
+      "fixture": "fix-09",
+      "period": "today",
+      "category": "expression_children",
+      "paragraphCount": 2,
+      "fragmentId": "expression_children.today.standard.currentseason.spring_summer.301",
+      "plainTextSample": "오늘은 생각을 말이나 글로 꺼내기 쉬운 날이에요."
+    },
+    {
+      "fixture": "fix-09",
+      "period": "thisWeek",
+      "category": "health",
+      "paragraphCount": 2,
+      "fragmentId": "health.thisWeek.standard.recovery_spacing.504",
+      "plainTextSample": "이번 주는 활동 사이에 회복 시간을 끼워 넣어야 몸이 덜 지칩니다."
+    },
+    {
+      "fixture": "fix-09",
+      "period": "thisWeek",
+      "category": "study_document",
+      "paragraphCount": 2,
+      "fragmentId": "study_document.thisWeek.standard.divide_task.504",
+      "plainTextSample": "이번 주 공부와 문서 일은 큰 덩어리를 작게 나누면 훨씬 수월해요."
+    },
+    {
+      "fixture": "fix-09",
+      "period": "thisWeek",
+      "category": "expression_children",
+      "paragraphCount": 2,
+      "fragmentId": "expression_children.thisWeek.standard.currentseason.spring_summer.301",
+      "plainTextSample": "이번 주는 생각을 밖으로 꺼내고 결과물을 만들기 좋아요."
+    },
+    {
+      "fixture": "fix-09",
+      "period": "thisWeek",
+      "category": "movement",
+      "paragraphCount": 2,
+      "fragmentId": "movement.thisWeek.standard.currentseason.spring_summer.301",
+      "plainTextSample": "이번 주는 사람을 만나거나 장소를 바꾸면서 실마리를 얻기 쉬워요."
+    },
+    {
+      "fixture": "fix-09",
+      "period": "thisMonth",
+      "category": "study_document",
+      "paragraphCount": 2,
+      "fragmentId": "study_document.thisMonth.standard.ageband.adult.501",
+      "plainTextSample": "이번 달은 서류와 지식의 기반을 정리하기 좋은 시기예요."
+    },
+    {
+      "fixture": "fix-09",
+      "period": "thisMonth",
+      "category": "expression_children",
+      "paragraphCount": 2,
+      "fragmentId": "expression_children.thisMonth.standard.share.504",
+      "plainTextSample": "이번 달에는 내가 알고 있는 것과 느낀 것을 누군가에게 전하는 일이 중요해요."
+    },
+    {
+      "fixture": "fix-09",
+      "period": "thisMonth",
+      "category": "movement",
+      "paragraphCount": 2,
+      "fragmentId": "movement.thisMonth.standard.rhythm.501",
+      "plainTextSample": "이번 달은 활동과 만남이 늘어날 수 있어 이동 계획을 미리 정리하는 것이 좋아요."
+    },
+    {
+      "fixture": "fix-09",
+      "period": "thisYear",
+      "category": "health",
+      "paragraphCount": 2,
+      "fragmentId": "health.thisYear.standard.long_pace.504",
+      "plainTextSample": "올해 몸 관리는 속도보다 오래 이어지는 방식이 중요해요."
+    },
+    {
+      "fixture": "fix-09",
+      "period": "thisYear",
+      "category": "academic",
+      "paragraphCount": 2,
+      "fragmentId": "academic.thisYear.standard.plan.501",
+      "plainTextSample": "올해 배움은 필요한 지식부터 순서를 정하는 것이 중요해요."
+    },
+    {
+      "fixture": "fix-09",
+      "period": "thisYear",
+      "category": "romance",
+      "paragraphCount": 2,
+      "fragmentId": "romance.thisYear.standard.ageband.mature.401",
+      "plainTextSample": "올해는 관계에서 현실적인 안정감이 중요한 기준이 돼요."
+    },
+    {
+      "fixture": "fix-09",
+      "period": "thisYear",
+      "category": "study_document",
+      "paragraphCount": 2,
+      "fragmentId": "study_document.thisYear.standard.ageband.adult.501",
+      "plainTextSample": "올해는 중요한 문서, 자격, 보고, 계약을 한 번에 처리하기보다 시기별로 나누는 편이 좋아요."
+    },
+    {
+      "fixture": "fix-09",
+      "period": "thisYear",
+      "category": "expression_children",
+      "paragraphCount": 2,
+      "fragmentId": "expression_children.thisYear.standard.project.504",
+      "plainTextSample": "올해는 표현하고 남기는 일을 하나의 프로젝트처럼 다루면 좋아요."
+    },
+    {
+      "fixture": "fix-10",
+      "period": "life",
+      "category": "overall",
+      "paragraphCount": 2,
+      "fragmentId": "overall.life.standard.age_0_9_gender_female.201",
+      "plainTextSample": "어린 여자아이의 하루는 재능을 단정하기보다 안정감, 감정 표현, 생활 리듬을 함께 보며 읽는 것이 좋아요."
+    },
+    {
+      "fixture": "fix-10",
+      "period": "life",
+      "category": "wealth",
+      "paragraphCount": 1,
+      "plainTextSample": "인생 전체의 돈과 물건 관리는 아직 결과를 단정하기보다 작은 습관을 살피는 게 좋아요. 해야 할 일을 짧게 나누고, 힘들 때는 바로 도움을 요청"
+    },
+    {
+      "fixture": "fix-10",
+      "period": "life",
+      "category": "romance",
+      "paragraphCount": 1,
+      "plainTextSample": "인생 전체의 관계와 마음은 아직 결과를 단정하기보다 작은 습관을 살피는 게 좋아요. 해야 할 일을 짧게 나누고, 힘들 때는 바로 도움을 요청하면"
+    },
+    {
+      "fixture": "fix-10",
+      "period": "life",
+      "category": "career",
+      "paragraphCount": 1,
+      "plainTextSample": "인생 전체의 진로 감각은 아직 결과를 단정하기보다 작은 습관을 살피는 게 좋아요. 해야 할 일을 짧게 나누고, 힘들 때는 바로 도움을 요청하면 "
+    },
+    {
+      "fixture": "fix-10",
+      "period": "life",
+      "category": "study_document",
+      "paragraphCount": 1,
+      "plainTextSample": "인생 전체의 기록과 준비는 아직 결과를 단정하기보다 작은 습관을 살피는 게 좋아요. 해야 할 일을 짧게 나누고, 힘들 때는 바로 도움을 요청하면"
+    },
+    {
+      "fixture": "fix-10",
+      "period": "life",
+      "category": "expression_children",
+      "paragraphCount": 2,
+      "fragmentId": "expression_children.life.standard.steady_voice.504",
+      "plainTextSample": "표현과 돌봄의 흐름은 한 번에 드러나기보다 꾸준히 쌓이면서 힘이 납니다."
+    },
+    {
+      "fixture": "fix-10",
+      "period": "life",
+      "category": "health_stress",
+      "paragraphCount": 2,
+      "fragmentId": "health_stress.life.standard.foundation.501",
+      "plainTextSample": "삶 전체의 마음 건강은 큰 결심보다 매일 반복되는 작은 습관에서 안정돼요."
+    },
+    {
+      "fixture": "fix-10",
+      "period": "today",
+      "category": "wealth",
+      "paragraphCount": 1,
+      "plainTextSample": "오늘 (5월 5일)의 돈과 물건 관리는 아직 결과를 단정하기보다 작은 습관을 살피는 게 좋아요. 해야 할 일을 짧게 나누고, 힘들 때는 바로 도"
+    },
+    {
+      "fixture": "fix-10",
+      "period": "today",
+      "category": "romance",
+      "paragraphCount": 1,
+      "plainTextSample": "오늘 (5월 5일)의 관계와 마음은 아직 결과를 단정하기보다 작은 습관을 살피는 게 좋아요. 해야 할 일을 짧게 나누고, 힘들 때는 바로 도움을"
+    },
+    {
+      "fixture": "fix-10",
+      "period": "today",
+      "category": "career",
+      "paragraphCount": 1,
+      "plainTextSample": "오늘 (5월 5일)의 진로 감각은 아직 결과를 단정하기보다 작은 습관을 살피는 게 좋아요. 해야 할 일을 짧게 나누고, 힘들 때는 바로 도움을 "
+    },
+    {
+      "fixture": "fix-10",
+      "period": "today",
+      "category": "study_document",
+      "paragraphCount": 1,
+      "plainTextSample": "오늘 (5월 5일)의 기록과 준비는 아직 결과를 단정하기보다 작은 습관을 살피는 게 좋아요. 해야 할 일을 짧게 나누고, 힘들 때는 바로 도움을"
+    },
+    {
+      "fixture": "fix-10",
+      "period": "today",
+      "category": "health_stress",
+      "paragraphCount": 1,
+      "plainTextSample": "오늘 (5월 5일)의 긴장과 회복은 아직 결과를 단정하기보다 작은 습관을 살피는 게 좋아요. 해야 할 일을 짧게 나누고, 힘들 때는 바로 도움을"
+    },
+    {
+      "fixture": "fix-10",
+      "period": "thisWeek",
+      "category": "wealth",
+      "paragraphCount": 1,
+      "plainTextSample": "이번 주의 돈과 물건 관리는 아직 결과를 단정하기보다 작은 습관을 살피는 게 좋아요. 해야 할 일을 짧게 나누고, 힘들 때는 바로 도움을 요청하"
+    },
+    {
+      "fixture": "fix-10",
+      "period": "thisWeek",
+      "category": "romance",
+      "paragraphCount": 1,
+      "plainTextSample": "이번 주의 관계와 마음은 아직 결과를 단정하기보다 작은 습관을 살피는 게 좋아요. 해야 할 일을 짧게 나누고, 힘들 때는 바로 도움을 요청하면 "
+    },
+    {
+      "fixture": "fix-10",
+      "period": "thisWeek",
+      "category": "career",
+      "paragraphCount": 1,
+      "plainTextSample": "이번 주의 진로 감각은 아직 결과를 단정하기보다 작은 습관을 살피는 게 좋아요. 해야 할 일을 짧게 나누고, 힘들 때는 바로 도움을 요청하면 흐"
+    },
+    {
+      "fixture": "fix-10",
+      "period": "thisWeek",
+      "category": "study_document",
+      "paragraphCount": 1,
+      "plainTextSample": "이번 주의 기록과 준비는 아직 결과를 단정하기보다 작은 습관을 살피는 게 좋아요. 해야 할 일을 짧게 나누고, 힘들 때는 바로 도움을 요청하면 "
+    },
+    {
+      "fixture": "fix-10",
+      "period": "thisWeek",
+      "category": "health_stress",
+      "paragraphCount": 2,
+      "fragmentId": "health_stress.thisWeek.standard.support.501",
+      "plainTextSample": "이번 주는 마음이 복잡할 때 빨리 말로 풀어내는 연습이 도움이 돼요."
+    },
+    {
+      "fixture": "fix-10",
+      "period": "thisMonth",
+      "category": "wealth",
+      "paragraphCount": 1,
+      "plainTextSample": "이번 달 (5월)의 돈과 물건 관리는 아직 결과를 단정하기보다 작은 습관을 살피는 게 좋아요. 해야 할 일을 짧게 나누고, 힘들 때는 바로 도움"
+    },
+    {
+      "fixture": "fix-10",
+      "period": "thisMonth",
+      "category": "romance",
+      "paragraphCount": 1,
+      "plainTextSample": "이번 달 (5월)의 관계와 마음은 아직 결과를 단정하기보다 작은 습관을 살피는 게 좋아요. 해야 할 일을 짧게 나누고, 힘들 때는 바로 도움을 "
+    },
+    {
+      "fixture": "fix-10",
+      "period": "thisMonth",
+      "category": "career",
+      "paragraphCount": 2,
+      "fragmentId": "career.thisMonth.standard.record.504",
+      "plainTextSample": "이번 달 일의 흐름은 기록을 남길수록 좋아져요."
+    },
+    {
+      "fixture": "fix-10",
+      "period": "thisMonth",
+      "category": "study_document",
+      "paragraphCount": 1,
+      "plainTextSample": "이번 달 (5월)의 기록과 준비는 아직 결과를 단정하기보다 작은 습관을 살피는 게 좋아요. 해야 할 일을 짧게 나누고, 힘들 때는 바로 도움을 "
+    },
+    {
+      "fixture": "fix-10",
+      "period": "thisMonth",
+      "category": "health_stress",
+      "paragraphCount": 1,
+      "plainTextSample": "이번 달 (5월)의 긴장과 회복은 아직 결과를 단정하기보다 작은 습관을 살피는 게 좋아요. 해야 할 일을 짧게 나누고, 힘들 때는 바로 도움을 "
+    },
+    {
+      "fixture": "fix-10",
+      "period": "thisYear",
+      "category": "wealth",
+      "paragraphCount": 1,
+      "plainTextSample": "올해 (2026년)의 돈과 물건 관리는 아직 결과를 단정하기보다 작은 습관을 살피는 게 좋아요. 해야 할 일을 짧게 나누고, 힘들 때는 바로 도"
+    },
+    {
+      "fixture": "fix-10",
+      "period": "thisYear",
+      "category": "romance",
+      "paragraphCount": 1,
+      "plainTextSample": "올해 (2026년)의 관계와 마음은 아직 결과를 단정하기보다 작은 습관을 살피는 게 좋아요. 해야 할 일을 짧게 나누고, 힘들 때는 바로 도움을"
+    },
+    {
+      "fixture": "fix-10",
+      "period": "thisYear",
+      "category": "career",
+      "paragraphCount": 1,
+      "plainTextSample": "올해 (2026년)의 진로 감각은 아직 결과를 단정하기보다 작은 습관을 살피는 게 좋아요. 해야 할 일을 짧게 나누고, 힘들 때는 바로 도움을 "
+    },
+    {
+      "fixture": "fix-10",
+      "period": "thisYear",
+      "category": "study_document",
+      "paragraphCount": 1,
+      "plainTextSample": "올해 (2026년)의 기록과 준비는 아직 결과를 단정하기보다 작은 습관을 살피는 게 좋아요. 해야 할 일을 짧게 나누고, 힘들 때는 바로 도움을"
+    },
+    {
+      "fixture": "fix-10",
+      "period": "thisYear",
+      "category": "health_stress",
+      "paragraphCount": 2,
+      "fragmentId": "health_stress.thisYear.standard.foundation.501",
+      "plainTextSample": "올해는 마음이 흔들릴 때 바로 돌아갈 수 있는 기본 루틴을 만드는 것이 중요해요."
+    },
+    {
+      "fixture": "fix-10",
+      "period": "thisYear",
+      "category": "movement",
+      "paragraphCount": 2,
+      "fragmentId": "movement.thisYear.standard.foundation.501",
+      "plainTextSample": "올해 이동운은 새로운 경험을 통해 길을 넓히는 쪽에 가깝습니다."
+    },
+    {
+      "fixture": "fix-11",
+      "period": "life",
+      "category": "wealth",
+      "paragraphCount": 2,
+      "fragmentId": "wealth.life.standard.currentseason.spring_summer.301",
+      "plainTextSample": "긴 흐름에서는 돈을 움직이며 기회를 찾는 힘이 살아나요."
+    },
+    {
+      "fixture": "fix-11",
+      "period": "life",
+      "category": "study_document",
+      "paragraphCount": 2,
+      "fragmentId": "study_document.life.standard.currentseason.spring_summer.301",
+      "plainTextSample": "긴 흐름에서는 배우고 정리한 내용을 밖으로 써먹을 때 길이 잘 열리는 편이에요."
+    },
+    {
+      "fixture": "fix-11",
+      "period": "life",
+      "category": "movement",
+      "paragraphCount": 2,
+      "fragmentId": "movement.life.standard.currentseason.spring_summer.301",
+      "plainTextSample": "긴 흐름에서는 낯선 곳을 경험하고 활동 반경을 넓힐수록 배움과 기회가 늘어나는 구조예요."
+    },
+    {
+      "fixture": "fix-11",
+      "period": "today",
+      "category": "wealth",
+      "paragraphCount": 2,
+      "fragmentId": "wealth.today.standard.spend_check.504",
+      "plainTextSample": "오늘은 필요한 지출과 미뤄도 되는 지출을 나누면 좋아요."
+    },
+    {
+      "fixture": "fix-11",
+      "period": "today",
+      "category": "family",
+      "paragraphCount": 2,
+      "fragmentId": "family.today.standard.listen.502",
+      "plainTextSample": "오늘 가족 대화는 해결책을 바로 말하기보다 먼저 들어주는 쪽이 좋아요."
+    },
+    {
+      "fixture": "fix-11",
+      "period": "today",
+      "category": "movement",
+      "paragraphCount": 2,
+      "fragmentId": "movement.today.standard.buffer.504",
+      "plainTextSample": "오늘은 이동이나 약속 사이에 여유 시간을 두는 편이 좋아요."
+    },
+    {
+      "fixture": "fix-11",
+      "period": "thisWeek",
+      "category": "wealth",
+      "paragraphCount": 2,
+      "fragmentId": "wealth.thisWeek.standard.cashflow.504",
+      "plainTextSample": "이번 주는 들어올 돈과 나갈 돈의 날짜를 맞춰보는 것이 중요해요."
+    },
+    {
+      "fixture": "fix-11",
+      "period": "thisWeek",
+      "category": "academic",
+      "paragraphCount": 2,
+      "fragmentId": "academic.thisWeek.standard.repeat.504",
+      "plainTextSample": "이번 주는 새 내용을 많이 넣기보다 반복할 시간을 먼저 확보하는 것이 좋아요."
+    },
+    {
+      "fixture": "fix-11",
+      "period": "thisWeek",
+      "category": "study_document",
+      "paragraphCount": 2,
+      "fragmentId": "study_document.thisWeek.standard.divide_task.504",
+      "plainTextSample": "이번 주 공부와 문서 일은 큰 덩어리를 작게 나누면 훨씬 수월해요."
+    },
+    {
+      "fixture": "fix-11",
+      "period": "thisWeek",
+      "category": "expression_children",
+      "paragraphCount": 2,
+      "fragmentId": "expression_children.thisWeek.standard.feedback.504",
+      "plainTextSample": "이번 주에는 생각을 밖으로 꺼낸 뒤 반응을 보며 고치는 과정이 중요해요."
+    },
+    {
+      "fixture": "fix-11",
+      "period": "thisWeek",
+      "category": "movement",
+      "paragraphCount": 2,
+      "fragmentId": "movement.thisWeek.standard.explore.501",
+      "plainTextSample": "이번 주는 작은 이동과 새로운 경험이 기분 전환에 도움이 돼요."
+    },
+    {
+      "fixture": "fix-11",
+      "period": "thisMonth",
+      "category": "overall",
+      "paragraphCount": 2,
+      "fragmentId": "overall.thisMonth.standard.birth_autumn_current_summer.201",
+      "plainTextSample": "가을에 태어난 사람은 현재 여름 기운을 만나면 명확한 기준과 적극적인 표현이 함께 올라올 수 있어요."
+    },
+    {
+      "fixture": "fix-11",
+      "period": "thisMonth",
+      "category": "wealth",
+      "paragraphCount": 2,
+      "fragmentId": "wealth.thisMonth.standard.budget_line.504",
+      "plainTextSample": "이번 달은 예산선을 먼저 정하면 돈의 결이 안정돼요."
+    },
+    {
+      "fixture": "fix-11",
+      "period": "thisMonth",
+      "category": "study_document",
+      "paragraphCount": 2,
+      "fragmentId": "study_document.thisMonth.standard.ageband.adult.501",
+      "plainTextSample": "이번 달은 서류와 지식의 기반을 정리하기 좋은 시기예요."
+    },
+    {
+      "fixture": "fix-11",
+      "period": "thisMonth",
+      "category": "movement",
+      "paragraphCount": 2,
+      "fragmentId": "movement.thisMonth.standard.currentseason.spring_summer.301",
+      "plainTextSample": "이번 달은 환경을 바꾸거나 활동 반경을 넓히면서 새로운 단서를 얻기 쉬운 흐름이에요."
+    },
+    {
+      "fixture": "fix-11",
+      "period": "thisYear",
+      "category": "wealth",
+      "paragraphCount": 2,
+      "fragmentId": "wealth.thisYear.standard.ageband.mature.401",
+      "plainTextSample": "올해는 돈을 크게 움직이기 전에 지켜야 할 기준을 먼저 세우는 것이 좋아요."
+    },
+    {
+      "fixture": "fix-11",
+      "period": "thisYear",
+      "category": "health",
+      "paragraphCount": 2,
+      "fragmentId": "health.thisYear.standard.currentseason.spring_summer.301",
+      "plainTextSample": "올해는 활동성을 살리며 몸을 관리하기 좋은 결이에요."
+    },
+    {
+      "fixture": "fix-11",
+      "period": "thisYear",
+      "category": "romance",
+      "paragraphCount": 2,
+      "fragmentId": "romance.thisYear.standard.ageband.adult.501",
+      "plainTextSample": "올해는 감정의 깊이와 생활의 안정성을 함께 보는 것이 중요해요."
+    },
+    {
+      "fixture": "fix-11",
+      "period": "thisYear",
+      "category": "family",
+      "paragraphCount": 2,
+      "fragmentId": "family.thisYear.standard.care_boundary.504",
+      "plainTextSample": "올해 가족운은 돌봄과 거리 조절을 함께 챙기는 것이 중요해요."
+    },
+    {
+      "fixture": "fix-11",
+      "period": "thisYear",
+      "category": "study_document",
+      "paragraphCount": 2,
+      "fragmentId": "study_document.thisYear.standard.system.504",
+      "plainTextSample": "올해 공부와 문서 일은 오래 쓸 수 있는 정리 방식이 중요해요."
+    },
+    {
+      "fixture": "fix-11",
+      "period": "thisYear",
+      "category": "expression_children",
+      "paragraphCount": 2,
+      "fragmentId": "expression_children.thisYear.standard.currentseason.spring_summer.301",
+      "plainTextSample": "올해는 말, 글, 만들기처럼 나를 보여주는 일이 조금 더 활발해질 수 있어요."
+    },
+    {
+      "fixture": "fix-11",
+      "period": "thisYear",
+      "category": "movement",
+      "paragraphCount": 2,
+      "fragmentId": "movement.thisYear.standard.direction.504",
+      "plainTextSample": "올해는 어디로 움직일지보다 왜 움직이는지가 더 중요해요."
+    },
+    {
+      "fixture": "fix-12",
+      "period": "life",
+      "category": "overall",
+      "paragraphCount": 2,
+      "fragmentId": "overall.life.standard.gyeokguk_pyeongwangyeok_strength_strong.201",
+      "plainTextSample": "도전과 압박 흐름격에 기운이 강하면 위기 대응, 결단, 돌파력이 뚜렷하게 살아납니다."
+    },
+    {
+      "fixture": "fix-12",
+      "period": "life",
+      "category": "health",
+      "paragraphCount": 2,
+      "fragmentId": "health.life.standard.birthseason.spring.204",
+      "plainTextSample": "봄에 태어난 사람은 몸과 마음이 새 자극에 민감하게 반응하기 쉬워요."
+    },
+    {
+      "fixture": "fix-12",
+      "period": "life",
+      "category": "romance",
+      "paragraphCount": 2,
+      "fragmentId": "romance.life.standard.ageband.adult.501",
+      "plainTextSample": "인연은 빠르게 불타오르는 순간보다 서로의 생활을 이해하는 과정에서 더 단단해져요."
+    },
+    {
+      "fixture": "fix-12",
+      "period": "life",
+      "category": "expression_children",
+      "paragraphCount": 2,
+      "fragmentId": "expression_children.life.standard.currentseason.spring_summer.301",
+      "plainTextSample": "긴 흐름에서는 생각을 밖으로 꺼내 보이고, 말이나 글, 만들기로 사람들과 연결되기 쉬워요."
+    },
+    {
+      "fixture": "fix-12",
+      "period": "today",
+      "category": "academic",
+      "paragraphCount": 2,
+      "fragmentId": "academic.today.standard.currentseason.spring_summer.301",
+      "plainTextSample": "오늘은 공부를 미루기보다 손을 움직이면 집중이 빨리 붙는 편이에요."
+    },
+    {
+      "fixture": "fix-12",
+      "period": "today",
+      "category": "family",
+      "paragraphCount": 2,
+      "fragmentId": "family.today.standard.listen.502",
+      "plainTextSample": "오늘 가족 대화는 해결책을 바로 말하기보다 먼저 들어주는 쪽이 좋아요."
+    },
+    {
+      "fixture": "fix-12",
+      "period": "today",
+      "category": "expression_children",
+      "paragraphCount": 2,
+      "fragmentId": "expression_children.today.standard.currentseason.spring_summer.301",
+      "plainTextSample": "오늘은 생각을 말이나 글로 꺼내기 쉬운 날이에요."
+    },
+    {
+      "fixture": "fix-12",
+      "period": "today",
+      "category": "movement",
+      "paragraphCount": 2,
+      "fragmentId": "movement.today.standard.currentseason.spring_summer.301",
+      "plainTextSample": "오늘은 바깥 일정이나 이동이 생기면 생각보다 빨리 진행될 수 있어요."
+    },
+    {
+      "fixture": "fix-12",
+      "period": "thisWeek",
+      "category": "academic",
+      "paragraphCount": 2,
+      "fragmentId": "academic.thisWeek.standard.repeat.504",
+      "plainTextSample": "이번 주는 새 내용을 많이 넣기보다 반복할 시간을 먼저 확보하는 것이 좋아요."
+    },
+    {
+      "fixture": "fix-12",
+      "period": "thisWeek",
+      "category": "family",
+      "paragraphCount": 2,
+      "fragmentId": "family.thisWeek.standard.currentseason.spring_summer.301",
+      "plainTextSample": "이번 주는 가족과 함께 움직이거나 새 이야기를 시작하기 좋은 흐름이에요."
+    },
+    {
+      "fixture": "fix-12",
+      "period": "thisWeek",
+      "category": "movement",
+      "paragraphCount": 2,
+      "fragmentId": "movement.thisWeek.standard.two_step.504",
+      "plainTextSample": "이번 주 이동과 변화는 한 번에 크게 바꾸기보다 두 단계로 나누면 좋아요."
+    },
+    {
+      "fixture": "fix-12",
+      "period": "thisMonth",
+      "category": "expression_children",
+      "paragraphCount": 2,
+      "fragmentId": "expression_children.thisMonth.standard.share.504",
+      "plainTextSample": "이번 달에는 내가 알고 있는 것과 느낀 것을 누군가에게 전하는 일이 중요해요."
+    },
+    {
+      "fixture": "fix-12",
+      "period": "thisMonth",
+      "category": "movement",
+      "paragraphCount": 2,
+      "fragmentId": "movement.thisMonth.standard.priority.504",
+      "plainTextSample": "이번 달은 이동할 일과 그대로 둘 일을 구분하는 것이 중요해요."
+    },
+    {
+      "fixture": "fix-12",
+      "period": "thisYear",
+      "category": "health",
+      "paragraphCount": 2,
+      "fragmentId": "health.thisYear.standard.long_pace.504",
+      "plainTextSample": "올해 몸 관리는 속도보다 오래 이어지는 방식이 중요해요."
+    },
+    {
+      "fixture": "fix-12",
+      "period": "thisYear",
+      "category": "academic",
+      "paragraphCount": 2,
+      "fragmentId": "academic.thisYear.standard.main_subject.504",
+      "plainTextSample": "올해는 가장 중요한 공부 주제를 먼저 정하는 것이 좋아요."
+    },
+    {
+      "fixture": "fix-12",
+      "period": "thisYear",
+      "category": "romance",
+      "paragraphCount": 2,
+      "fragmentId": "romance.thisYear.standard.relationship_pace.504",
+      "plainTextSample": "올해 관계는 속도를 맞추는 일이 중요해요."
+    },
+    {
+      "fixture": "fix-12",
+      "period": "thisYear",
+      "category": "study_document",
+      "paragraphCount": 2,
+      "fragmentId": "study_document.thisYear.standard.system.504",
+      "plainTextSample": "올해 공부와 문서 일은 오래 쓸 수 있는 정리 방식이 중요해요."
+    },
+    {
+      "fixture": "fix-12",
+      "period": "thisYear",
+      "category": "movement",
+      "paragraphCount": 2,
+      "fragmentId": "movement.thisYear.standard.foundation.501",
+      "plainTextSample": "올해 이동운은 새로운 경험을 통해 길을 넓히는 쪽에 가깝습니다."
+    },
+    {
+      "fixture": "fix-13",
+      "period": "life",
+      "category": "romance",
+      "paragraphCount": 2,
+      "fragmentId": "romance.life.standard.ageband.mature.401",
+      "plainTextSample": "관계에서는 순간의 감정보다 생활 속에서 반복되는 태도가 더 중요해져요."
+    },
+    {
+      "fixture": "fix-13",
+      "period": "life",
+      "category": "study_document",
+      "paragraphCount": 2,
+      "fragmentId": "study_document.life.standard.learning_base.504",
+      "plainTextSample": "긴 흐름에서는 공부를 잘하는 힘보다 배운 것을 다시 꺼내 쓰는 힘이 중요해요."
+    },
+    {
+      "fixture": "fix-13",
+      "period": "today",
+      "category": "family",
+      "paragraphCount": 2,
+      "fragmentId": "family.today.standard.currentseason.spring_summer.301",
+      "plainTextSample": "오늘은 가족 사이에서 말문을 열기 좋은 날이에요."
+    },
+    {
+      "fixture": "fix-13",
+      "period": "today",
+      "category": "career",
+      "paragraphCount": 2,
+      "fragmentId": "career.today.standard.priority.504",
+      "plainTextSample": "오늘 일은 먼저 해야 할 것과 나중에 해도 되는 것을 나누면 좋아요."
+    },
+    {
+      "fixture": "fix-13",
+      "period": "thisWeek",
+      "category": "overall",
+      "paragraphCount": 2,
+      "fragmentId": "overall.thisWeek.standard.currentseason.summer.203",
+      "plainTextSample": "이번 주의 여름 기운은 표현과 활동량이 늘어나는 흐름으로 볼 수 있어요."
+    },
+    {
+      "fixture": "fix-13",
+      "period": "thisWeek",
+      "category": "health",
+      "paragraphCount": 2,
+      "fragmentId": "health.thisWeek.standard.recovery_spacing.504",
+      "plainTextSample": "이번 주는 활동 사이에 회복 시간을 끼워 넣어야 몸이 덜 지칩니다."
+    },
+    {
+      "fixture": "fix-13",
+      "period": "thisWeek",
+      "category": "study_document",
+      "paragraphCount": 2,
+      "fragmentId": "study_document.thisWeek.standard.divide_task.504",
+      "plainTextSample": "이번 주 공부와 문서 일은 큰 덩어리를 작게 나누면 훨씬 수월해요."
+    },
+    {
+      "fixture": "fix-13",
+      "period": "thisMonth",
+      "category": "study_document",
+      "paragraphCount": 2,
+      "fragmentId": "study_document.thisMonth.standard.ageband.adult.501",
+      "plainTextSample": "이번 달은 서류와 지식의 기반을 정리하기 좋은 시기예요."
+    },
+    {
+      "fixture": "fix-13",
+      "period": "thisYear",
+      "category": "overall",
+      "paragraphCount": 2,
+      "fragmentId": "overall.thisYear.standard.currentseason.spring_summer.301",
+      "plainTextSample": "올해는 새 목표, 새 만남, 새 활동이 늘기 쉬운 흐름이에요."
+    },
+    {
+      "fixture": "fix-13",
+      "period": "thisYear",
+      "category": "health",
+      "paragraphCount": 2,
+      "fragmentId": "health.thisYear.standard.currentseason.spring_summer.301",
+      "plainTextSample": "올해는 활동성을 살리며 몸을 관리하기 좋은 결이에요."
+    },
+    {
+      "fixture": "fix-13",
+      "period": "thisYear",
+      "category": "academic",
+      "paragraphCount": 2,
+      "fragmentId": "academic.thisYear.standard.currentseason.spring_summer.301",
+      "plainTextSample": "올해는 새 과목, 시험, 자격 준비처럼 공부의 폭을 넓히기 좋은 흐름이에요."
+    },
+    {
+      "fixture": "fix-13",
+      "period": "thisYear",
+      "category": "family",
+      "paragraphCount": 2,
+      "fragmentId": "family.thisYear.standard.currentseason.spring_summer.301",
+      "plainTextSample": "올해는 가족과 함께 움직이거나 새로운 계획을 세울 일이 늘 수 있어요."
+    },
+    {
+      "fixture": "fix-13",
+      "period": "thisYear",
+      "category": "study_document",
+      "paragraphCount": 2,
+      "fragmentId": "study_document.thisYear.standard.ageband.adult.501",
+      "plainTextSample": "올해는 중요한 문서, 자격, 보고, 계약을 한 번에 처리하기보다 시기별로 나누는 편이 좋아요."
+    },
+    {
+      "fixture": "fix-14",
+      "period": "life",
+      "category": "overall",
+      "paragraphCount": 2,
+      "fragmentId": "overall.life.standard.yongshin_wood_alignment.neutral.201",
+      "plainTextSample": "나무 기운이 필요하지만 현재 흐름은 아주 강하게 밀어주지도, 막지도 않는 중간 상태예요."
+    },
+    {
+      "fixture": "fix-14",
+      "period": "life",
+      "category": "wealth",
+      "paragraphCount": 2,
+      "fragmentId": "wealth.life.standard.currentseason.spring_summer.301",
+      "plainTextSample": "긴 흐름에서는 돈을 움직이며 기회를 찾는 힘이 살아나요."
+    },
+    {
+      "fixture": "fix-14",
+      "period": "life",
+      "category": "academic",
+      "paragraphCount": 2,
+      "fragmentId": "academic.life.standard.currentseason.spring_summer.301",
+      "plainTextSample": "긴 흐름에서는 배우고 익힌 것을 밖으로 꺼내 쓰기 좋아요."
+    },
+    {
+      "fixture": "fix-14",
+      "period": "life",
+      "category": "study_document",
+      "paragraphCount": 2,
+      "fragmentId": "study_document.life.standard.currentseason.spring_summer.301",
+      "plainTextSample": "긴 흐름에서는 배우고 정리한 내용을 밖으로 써먹을 때 길이 잘 열리는 편이에요."
+    },
+    {
+      "fixture": "fix-14",
+      "period": "life",
+      "category": "movement",
+      "paragraphCount": 2,
+      "fragmentId": "movement.life.standard.currentseason.spring_summer.301",
+      "plainTextSample": "긴 흐름에서는 낯선 곳을 경험하고 활동 반경을 넓힐수록 배움과 기회가 늘어나는 구조예요."
+    },
+    {
+      "fixture": "fix-14",
+      "period": "today",
+      "category": "wealth",
+      "paragraphCount": 2,
+      "fragmentId": "wealth.today.standard.spend_check.504",
+      "plainTextSample": "오늘은 필요한 지출과 미뤄도 되는 지출을 나누면 좋아요."
+    },
+    {
+      "fixture": "fix-14",
+      "period": "today",
+      "category": "health",
+      "paragraphCount": 2,
+      "fragmentId": "health.today.standard.currentseason.spring_summer.301",
+      "plainTextSample": "오늘은 몸을 깨우고 가볍게 움직이기 좋은 결이에요."
+    },
+    {
+      "fixture": "fix-14",
+      "period": "today",
+      "category": "family",
+      "paragraphCount": 2,
+      "fragmentId": "family.today.standard.currentseason.spring_summer.301",
+      "plainTextSample": "오늘은 가족 사이에서 말문을 열기 좋은 날이에요."
+    },
+    {
+      "fixture": "fix-14",
+      "period": "today",
+      "category": "career",
+      "paragraphCount": 2,
+      "fragmentId": "career.today.standard.ageband.mature.501",
+      "plainTextSample": "오늘의 일 흐름은 새 일을 더하기보다 이미 맡은 일을 정리할 때 안정적이에요."
+    },
+    {
+      "fixture": "fix-14",
+      "period": "today",
+      "category": "study_document",
+      "paragraphCount": 2,
+      "fragmentId": "study_document.today.standard.ageband.adult.501",
+      "plainTextSample": "오늘 문서운은 확인과 정리에 초점이 있습니다."
+    },
+    {
+      "fixture": "fix-14",
+      "period": "today",
+      "category": "expression_children",
+      "paragraphCount": 2,
+      "fragmentId": "expression_children.today.standard.currentseason.spring_summer.301",
+      "plainTextSample": "오늘은 생각을 말이나 글로 꺼내기 쉬운 날이에요."
+    },
+    {
+      "fixture": "fix-14",
+      "period": "today",
+      "category": "movement",
+      "paragraphCount": 2,
+      "fragmentId": "movement.today.standard.buffer.504",
+      "plainTextSample": "오늘은 이동이나 약속 사이에 여유 시간을 두는 편이 좋아요."
+    },
+    {
+      "fixture": "fix-14",
+      "period": "thisWeek",
+      "category": "wealth",
+      "paragraphCount": 2,
+      "fragmentId": "wealth.thisWeek.standard.cashflow.504",
+      "plainTextSample": "이번 주는 들어올 돈과 나갈 돈의 날짜를 맞춰보는 것이 중요해요."
+    },
+    {
+      "fixture": "fix-14",
+      "period": "thisWeek",
+      "category": "academic",
+      "paragraphCount": 2,
+      "fragmentId": "academic.thisWeek.standard.repeat.504",
+      "plainTextSample": "이번 주는 새 내용을 많이 넣기보다 반복할 시간을 먼저 확보하는 것이 좋아요."
+    },
+    {
+      "fixture": "fix-14",
+      "period": "thisWeek",
+      "category": "expression_children",
+      "paragraphCount": 2,
+      "fragmentId": "expression_children.thisWeek.standard.ageband.mature.501",
+      "plainTextSample": "이번 주는 경험을 말로 풀어내거나 누군가에게 알려주는 일이 잘 맞아요."
+    },
+    {
+      "fixture": "fix-14",
+      "period": "thisWeek",
+      "category": "movement",
+      "paragraphCount": 2,
+      "fragmentId": "movement.thisWeek.standard.recovery.501",
+      "plainTextSample": "이번 주는 움직임을 줄이는 날과 필요한 외출을 하는 날을 구분하면 안정적이에요."
+    },
+    {
+      "fixture": "fix-14",
+      "period": "thisMonth",
+      "category": "overall",
+      "paragraphCount": 2,
+      "fragmentId": "overall.thisMonth.standard.birth_autumn_current_summer.201",
+      "plainTextSample": "가을에 태어난 사람은 현재 여름 기운을 만나면 명확한 기준과 적극적인 표현이 함께 올라올 수 있어요."
+    },
+    {
+      "fixture": "fix-14",
+      "period": "thisMonth",
+      "category": "wealth",
+      "paragraphCount": 2,
+      "fragmentId": "wealth.thisMonth.standard.budget_line.504",
+      "plainTextSample": "이번 달은 예산선을 먼저 정하면 돈의 결이 안정돼요."
+    },
+    {
+      "fixture": "fix-14",
+      "period": "thisMonth",
+      "category": "academic",
+      "paragraphCount": 2,
+      "fragmentId": "academic.thisMonth.standard.ageband.mature.402",
+      "plainTextSample": "이번 달 학습은 큰 계획보다 현실적으로 반복할 수 있는 시간이 중요해요."
+    },
+    {
+      "fixture": "fix-14",
+      "period": "thisMonth",
+      "category": "family",
+      "paragraphCount": 2,
+      "fragmentId": "family.thisMonth.standard.agephase.late_40s.204",
+      "plainTextSample": "이번 달 가족운은 오래된 방식과 새 필요 사이를 조정하는 데 초점을 두면 좋아요."
+    },
+    {
+      "fixture": "fix-14",
+      "period": "thisMonth",
+      "category": "study_document",
+      "paragraphCount": 2,
+      "fragmentId": "study_document.thisMonth.standard.currentseason.spring_summer.301",
+      "plainTextSample": "이번 달은 새 공부나 문서 프로젝트를 시작하기 좋은 흐름이에요."
+    },
+    {
+      "fixture": "fix-14",
+      "period": "thisMonth",
+      "category": "expression_children",
+      "paragraphCount": 2,
+      "fragmentId": "expression_children.thisMonth.standard.ageband.mature.501",
+      "plainTextSample": "이번 달은 쌓아온 생각과 경험을 정리해 다른 사람에게 전하기 좋은 흐름이에요."
+    },
+    {
+      "fixture": "fix-14",
+      "period": "thisMonth",
+      "category": "movement",
+      "paragraphCount": 2,
+      "fragmentId": "movement.thisMonth.standard.currentseason.spring_summer.301",
+      "plainTextSample": "이번 달은 환경을 바꾸거나 활동 반경을 넓히면서 새로운 단서를 얻기 쉬운 흐름이에요."
+    },
+    {
+      "fixture": "fix-14",
+      "period": "thisYear",
+      "category": "wealth",
+      "paragraphCount": 2,
+      "fragmentId": "wealth.thisYear.standard.currentseason.spring_summer.301",
+      "plainTextSample": "올해는 돈을 벌 기회를 넓히고 싶은 마음이 커질 수 있어요."
+    },
+    {
+      "fixture": "fix-14",
+      "period": "thisYear",
+      "category": "romance",
+      "paragraphCount": 2,
+      "fragmentId": "romance.thisYear.standard.ageband.adult.501",
+      "plainTextSample": "올해는 감정의 깊이와 생활의 안정성을 함께 보는 것이 중요해요."
+    },
+    {
+      "fixture": "fix-14",
+      "period": "thisYear",
+      "category": "family",
+      "paragraphCount": 2,
+      "fragmentId": "family.thisYear.standard.care_boundary.504",
+      "plainTextSample": "올해 가족운은 돌봄과 거리 조절을 함께 챙기는 것이 중요해요."
+    },
+    {
+      "fixture": "fix-14",
+      "period": "thisYear",
+      "category": "expression_children",
+      "paragraphCount": 2,
+      "fragmentId": "expression_children.thisYear.standard.currentseason.spring_summer.301",
+      "plainTextSample": "올해는 말, 글, 만들기처럼 나를 보여주는 일이 조금 더 활발해질 수 있어요."
+    },
+    {
+      "fixture": "fix-14",
+      "period": "thisYear",
+      "category": "movement",
+      "paragraphCount": 2,
+      "fragmentId": "movement.thisYear.standard.direction.504",
+      "plainTextSample": "올해는 어디로 움직일지보다 왜 움직이는지가 더 중요해요."
+    },
+    {
+      "fixture": "fix-15",
+      "period": "life",
+      "category": "overall",
+      "paragraphCount": 2,
+      "fragmentId": "overall.life.standard.agephase_gender.early_40s.male.204",
+      "plainTextSample": "40대 초반 남성으로 입력된 경우에는 지금까지 만든 기반을 다시 정리하고, 앞으로 오래 가져갈 방향을 고르는 흐름이 중요해요."
+    },
+    {
+      "fixture": "fix-15",
+      "period": "life",
+      "category": "wealth",
+      "paragraphCount": 2,
+      "fragmentId": "wealth.life.standard.currentseason.spring_summer.301",
+      "plainTextSample": "긴 흐름에서는 돈을 움직이며 기회를 찾는 힘이 살아나요."
+    },
+    {
+      "fixture": "fix-15",
+      "period": "life",
+      "category": "movement",
+      "paragraphCount": 2,
+      "fragmentId": "movement.life.standard.currentseason.spring_summer.301",
+      "plainTextSample": "긴 흐름에서는 낯선 곳을 경험하고 활동 반경을 넓힐수록 배움과 기회가 늘어나는 구조예요."
+    },
+    {
+      "fixture": "fix-15",
+      "period": "today",
+      "category": "wealth",
+      "paragraphCount": 2,
+      "fragmentId": "wealth.today.standard.currentseason.spring_summer.301",
+      "plainTextSample": "오늘은 돈과 관련된 선택이 빠르게 생길 수 있어요."
+    },
+    {
+      "fixture": "fix-15",
+      "period": "today",
+      "category": "health",
+      "paragraphCount": 2,
+      "fragmentId": "health.today.standard.currentseason.spring_summer.301",
+      "plainTextSample": "오늘은 몸을 깨우고 가볍게 움직이기 좋은 결이에요."
+    },
+    {
+      "fixture": "fix-15",
+      "period": "today",
+      "category": "family",
+      "paragraphCount": 2,
+      "fragmentId": "family.today.standard.currentseason.spring_summer.301",
+      "plainTextSample": "오늘은 가족 사이에서 말문을 열기 좋은 날이에요."
+    },
+    {
+      "fixture": "fix-15",
+      "period": "today",
+      "category": "study_document",
+      "paragraphCount": 2,
+      "fragmentId": "study_document.today.standard.ageband.adult.501",
+      "plainTextSample": "오늘 문서운은 확인과 정리에 초점이 있습니다."
+    },
+    {
+      "fixture": "fix-15",
+      "period": "today",
+      "category": "expression_children",
+      "paragraphCount": 2,
+      "fragmentId": "expression_children.today.standard.note_first.504",
+      "plainTextSample": "오늘은 생각을 바로 평가하기보다 먼저 적어두는 쪽이 좋아요."
+    },
+    {
+      "fixture": "fix-15",
+      "period": "today",
+      "category": "movement",
+      "paragraphCount": 2,
+      "fragmentId": "movement.today.standard.buffer.504",
+      "plainTextSample": "오늘은 이동이나 약속 사이에 여유 시간을 두는 편이 좋아요."
+    },
+    {
+      "fixture": "fix-15",
+      "period": "thisWeek",
+      "category": "wealth",
+      "paragraphCount": 2,
+      "fragmentId": "wealth.thisWeek.standard.cashflow.504",
+      "plainTextSample": "이번 주는 들어올 돈과 나갈 돈의 날짜를 맞춰보는 것이 중요해요."
+    },
+    {
+      "fixture": "fix-15",
+      "period": "thisWeek",
+      "category": "academic",
+      "paragraphCount": 2,
+      "fragmentId": "academic.thisWeek.standard.repeat.504",
+      "plainTextSample": "이번 주는 새 내용을 많이 넣기보다 반복할 시간을 먼저 확보하는 것이 좋아요."
+    },
+    {
+      "fixture": "fix-15",
+      "period": "thisWeek",
+      "category": "study_document",
+      "paragraphCount": 2,
+      "fragmentId": "study_document.thisWeek.standard.divide_task.504",
+      "plainTextSample": "이번 주 공부와 문서 일은 큰 덩어리를 작게 나누면 훨씬 수월해요."
+    },
+    {
+      "fixture": "fix-15",
+      "period": "thisWeek",
+      "category": "expression_children",
+      "paragraphCount": 2,
+      "fragmentId": "expression_children.thisWeek.standard.ageband.mature.501",
+      "plainTextSample": "이번 주는 경험을 말로 풀어내거나 누군가에게 알려주는 일이 잘 맞아요."
+    },
+    {
+      "fixture": "fix-15",
+      "period": "thisWeek",
+      "category": "movement",
+      "paragraphCount": 2,
+      "fragmentId": "movement.thisWeek.standard.recovery.501",
+      "plainTextSample": "이번 주는 움직임을 줄이는 날과 필요한 외출을 하는 날을 구분하면 안정적이에요."
+    },
+    {
+      "fixture": "fix-15",
+      "period": "thisMonth",
+      "category": "overall",
+      "paragraphCount": 2,
+      "fragmentId": "overall.thisMonth.standard.birth_spring_current_summer.201",
+      "plainTextSample": "봄에 태어난 사람은 현재 여름 기운을 만나면 시작한 일이 밖으로 드러나고 표현력이 커지기 쉬워요."
+    },
+    {
+      "fixture": "fix-15",
+      "period": "thisMonth",
+      "category": "wealth",
+      "paragraphCount": 2,
+      "fragmentId": "wealth.thisMonth.standard.budget_line.504",
+      "plainTextSample": "이번 달은 예산선을 먼저 정하면 돈의 결이 안정돼요."
+    },
+    {
+      "fixture": "fix-15",
+      "period": "thisMonth",
+      "category": "academic",
+      "paragraphCount": 2,
+      "fragmentId": "academic.thisMonth.standard.ageband.mature.402",
+      "plainTextSample": "이번 달 학습은 큰 계획보다 현실적으로 반복할 수 있는 시간이 중요해요."
+    },
+    {
+      "fixture": "fix-15",
+      "period": "thisMonth",
+      "category": "family",
+      "paragraphCount": 2,
+      "fragmentId": "family.thisMonth.standard.agephase.early_40s.204",
+      "plainTextSample": "이번 달 가족운은 책임과 회복의 균형을 잡는 것이 핵심입니다."
+    },
+    {
+      "fixture": "fix-15",
+      "period": "thisMonth",
+      "category": "study_document",
+      "paragraphCount": 2,
+      "fragmentId": "study_document.thisMonth.standard.ageband.adult.501",
+      "plainTextSample": "이번 달은 서류와 지식의 기반을 정리하기 좋은 시기예요."
+    },
+    {
+      "fixture": "fix-15",
+      "period": "thisMonth",
+      "category": "expression_children",
+      "paragraphCount": 2,
+      "fragmentId": "expression_children.thisMonth.standard.ageband.mature.501",
+      "plainTextSample": "이번 달은 쌓아온 생각과 경험을 정리해 다른 사람에게 전하기 좋은 흐름이에요."
+    },
+    {
+      "fixture": "fix-15",
+      "period": "thisMonth",
+      "category": "movement",
+      "paragraphCount": 2,
+      "fragmentId": "movement.thisMonth.standard.currentseason.spring_summer.301",
+      "plainTextSample": "이번 달은 환경을 바꾸거나 활동 반경을 넓히면서 새로운 단서를 얻기 쉬운 흐름이에요."
+    },
+    {
+      "fixture": "fix-15",
+      "period": "thisYear",
+      "category": "wealth",
+      "paragraphCount": 2,
+      "fragmentId": "wealth.thisYear.standard.ageband.mature.401",
+      "plainTextSample": "올해는 돈을 크게 움직이기 전에 지켜야 할 기준을 먼저 세우는 것이 좋아요."
+    },
+    {
+      "fixture": "fix-15",
+      "period": "thisYear",
+      "category": "family",
+      "paragraphCount": 2,
+      "fragmentId": "family.thisYear.standard.care_boundary.504",
+      "plainTextSample": "올해 가족운은 돌봄과 거리 조절을 함께 챙기는 것이 중요해요."
+    },
+    {
+      "fixture": "fix-15",
+      "period": "thisYear",
+      "category": "study_document",
+      "paragraphCount": 2,
+      "fragmentId": "study_document.thisYear.standard.ageband.adult.501",
+      "plainTextSample": "올해는 중요한 문서, 자격, 보고, 계약을 한 번에 처리하기보다 시기별로 나누는 편이 좋아요."
+    },
+    {
+      "fixture": "fix-15",
+      "period": "thisYear",
+      "category": "expression_children",
+      "paragraphCount": 2,
+      "fragmentId": "expression_children.thisYear.standard.currentseason.spring_summer.301",
+      "plainTextSample": "올해는 말, 글, 만들기처럼 나를 보여주는 일이 조금 더 활발해질 수 있어요."
+    },
+    {
+      "fixture": "fix-15",
+      "period": "thisYear",
+      "category": "movement",
+      "paragraphCount": 2,
+      "fragmentId": "movement.thisYear.standard.direction.504",
+      "plainTextSample": "올해는 어디로 움직일지보다 왜 움직이는지가 더 중요해요."
+    }
+  ]
+}

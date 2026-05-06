@@ -1,0 +1,535 @@
+{
+  "fixtureCount": 15,
+  "cellCount": 825,
+  "standard": {
+    "distribution": {
+      "1": 42,
+      "2": 25,
+      "3": 643,
+      "4": 30,
+      "5": 85
+    }
+  },
+  "cellsBelow3": 67,
+  "cellsAtOrAbove3": 758,
+  "percentAtOrAbove3": 91.88,
+  "fragmentLowParagraphCounts": {
+    "health.life.standard.birthseason.spring.204": 2,
+    "overall.life.standard.gyeokguk_jeonggwangyeok_strength_weak.201": 1,
+    "overall.life.standard.gyeokguk_pyeongwangyeok_strength_strong.201": 2,
+    "career.life.standard.daymasterelement.wood.204": 1,
+    "family.thisMonth.standard.agephase.early_60s.204": 1,
+    "overall.life.standard.yongshin_metal_alignment.neutral.201": 1,
+    "overall.thisWeek.standard.daymasterpolarity.yin.203": 1,
+    "academic.thisWeek.standard.ageband.young.401": 1,
+    "overall.thisYear.standard.agephase.early_20s.203": 1,
+    "overall.life.standard.agephase_gender.late_60s.male.206": 1,
+    "family.thisMonth.standard.agephase.late_60s.204": 1,
+    "career.thisYear.standard.yongshin.earth.204": 1,
+    "overall.life.standard.age_0_9_gender_female.201": 2,
+    "overall.life.standard.agephase_gender.late_30s.male.203": 1,
+    "romance.thisYear.standard.ageband.mature.401": 1,
+    "wealth.thisYear.standard.ageband.mature.401": 2,
+    "romance.life.standard.ageband.mature.401": 1,
+    "overall.life.standard.yongshin_wood_alignment.neutral.201": 1,
+    "family.thisMonth.standard.agephase.late_40s.204": 1,
+    "overall.life.standard.agephase_gender.early_40s.male.204": 1,
+    "family.thisMonth.standard.agephase.early_40s.204": 1
+  },
+  "offendingCells": [
+    {
+      "fixture": "fix-01",
+      "period": "life",
+      "category": "health",
+      "paragraphCount": 2,
+      "fragmentId": "health.life.standard.birthseason.spring.204",
+      "plainTextSample": "봄에 태어난 사람은 몸과 마음이 새 자극에 민감하게 반응하기 쉬워요."
+    },
+    {
+      "fixture": "fix-02",
+      "period": "life",
+      "category": "overall",
+      "paragraphCount": 2,
+      "fragmentId": "overall.life.standard.gyeokguk_jeonggwangyeok_strength_weak.201",
+      "plainTextSample": "책임과 질서 흐름격에 기운이 약하면 책임과 규칙을 중요하게 느끼지만, 실제로 감당할 힘은 상황에 따라 흔들릴 수 있어요."
+    },
+    {
+      "fixture": "fix-04",
+      "period": "life",
+      "category": "overall",
+      "paragraphCount": 2,
+      "fragmentId": "overall.life.standard.gyeokguk_pyeongwangyeok_strength_strong.201",
+      "plainTextSample": "도전과 압박 흐름격에 기운이 강하면 위기 대응, 결단, 돌파력이 뚜렷하게 살아납니다."
+    },
+    {
+      "fixture": "fix-04",
+      "period": "life",
+      "category": "career",
+      "paragraphCount": 2,
+      "fragmentId": "career.life.standard.daymasterelement.wood.204",
+      "plainTextSample": "나무 기운을 타고난 사람의 일 처리 방식은 배우고 키우고 연결하는 데 강점이 있습니다."
+    },
+    {
+      "fixture": "fix-04",
+      "period": "thisMonth",
+      "category": "family",
+      "paragraphCount": 2,
+      "fragmentId": "family.thisMonth.standard.agephase.early_60s.204",
+      "plainTextSample": "이번 달 가족운은 새 생활 리듬을 가족과 함께 맞추는 데 의미가 있습니다."
+    },
+    {
+      "fixture": "fix-05",
+      "period": "life",
+      "category": "overall",
+      "paragraphCount": 2,
+      "fragmentId": "overall.life.standard.yongshin_metal_alignment.neutral.201",
+      "plainTextSample": "쇠 기운이 필요하지만 현재 흐름은 결단을 강하게 밀어주지는 않는 중간 상태예요."
+    },
+    {
+      "fixture": "fix-05",
+      "period": "thisWeek",
+      "category": "overall",
+      "paragraphCount": 2,
+      "fragmentId": "overall.thisWeek.standard.daymasterpolarity.yin.203",
+      "plainTextSample": "이번 주에는 안쪽에서 다듬는 타고난 흐름처럼 안쪽에서 충분히 살피고 다듬는 힘이 중요해질 수 있어요."
+    },
+    {
+      "fixture": "fix-05",
+      "period": "thisWeek",
+      "category": "academic",
+      "paragraphCount": 2,
+      "fragmentId": "academic.thisWeek.standard.ageband.young.401",
+      "plainTextSample": "이번 주 공부는 많은 양을 한 번에 끝내려 하기보다, 어려운 부분을 짧은 단위로 나누는 편이 좋아요."
+    },
+    {
+      "fixture": "fix-05",
+      "period": "thisYear",
+      "category": "overall",
+      "paragraphCount": 2,
+      "fragmentId": "overall.thisYear.standard.agephase.early_20s.203",
+      "plainTextSample": "올해는 여러 가능성을 시험해 보며 나에게 맞는 방향을 찾는 데 의미가 있습니다."
+    },
+    {
+      "fixture": "fix-07",
+      "period": "life",
+      "category": "overall",
+      "paragraphCount": 2,
+      "fragmentId": "overall.life.standard.agephase_gender.late_60s.male.206",
+      "plainTextSample": "60대 후반 남성으로 입력된 경우에는 경험을 삶의 지혜로 정리하고 안정적인 관계 안에서 나누는 흐름이 좋아요."
+    },
+    {
+      "fixture": "fix-07",
+      "period": "thisMonth",
+      "category": "family",
+      "paragraphCount": 2,
+      "fragmentId": "family.thisMonth.standard.agephase.late_60s.204",
+      "plainTextSample": "이번 달 가족운은 도움을 주는 일과 받는 일을 편안하게 조율하는 것이 좋아요."
+    },
+    {
+      "fixture": "fix-07",
+      "period": "thisYear",
+      "category": "career",
+      "paragraphCount": 2,
+      "fragmentId": "career.thisYear.standard.yongshin.earth.204",
+      "plainTextSample": "올해 일의 방향에서 흙 기운을 보충하는 흐름이 좋다면, 기반을 만들고 책임을 안정적으로 관리하는 선택이 힘이 돼요."
+    },
+    {
+      "fixture": "fix-08",
+      "period": "life",
+      "category": "overall",
+      "paragraphCount": 2,
+      "fragmentId": "overall.life.standard.age_0_9_gender_female.201",
+      "plainTextSample": "어린 여자아이의 하루는 재능을 단정하기보다 안정감, 감정 표현, 생활 리듬을 함께 보며 읽는 것이 좋아요."
+    },
+    {
+      "fixture": "fix-08",
+      "period": "life",
+      "category": "wealth",
+      "paragraphCount": 1,
+      "plainTextSample": "인생 전체의 돈과 물건 관리는 아직 결과를 단정하기보다 작은 습관을 살피는 게 좋아요. 해야 할 일을 짧게 나누고, 힘들 때는 바로 도움을 요청"
+    },
+    {
+      "fixture": "fix-08",
+      "period": "life",
+      "category": "romance",
+      "paragraphCount": 1,
+      "plainTextSample": "인생 전체의 관계와 마음은 아직 결과를 단정하기보다 작은 습관을 살피는 게 좋아요. 해야 할 일을 짧게 나누고, 힘들 때는 바로 도움을 요청하면"
+    },
+    {
+      "fixture": "fix-08",
+      "period": "life",
+      "category": "career",
+      "paragraphCount": 1,
+      "plainTextSample": "인생 전체의 진로 감각은 아직 결과를 단정하기보다 작은 습관을 살피는 게 좋아요. 해야 할 일을 짧게 나누고, 힘들 때는 바로 도움을 요청하면 "
+    },
+    {
+      "fixture": "fix-08",
+      "period": "life",
+      "category": "study_document",
+      "paragraphCount": 1,
+      "plainTextSample": "인생 전체의 기록과 준비는 아직 결과를 단정하기보다 작은 습관을 살피는 게 좋아요. 해야 할 일을 짧게 나누고, 힘들 때는 바로 도움을 요청하면"
+    },
+    {
+      "fixture": "fix-08",
+      "period": "today",
+      "category": "wealth",
+      "paragraphCount": 1,
+      "plainTextSample": "오늘 (5월 5일)의 돈과 물건 관리는 아직 결과를 단정하기보다 작은 습관을 살피는 게 좋아요. 해야 할 일을 짧게 나누고, 힘들 때는 바로 도"
+    },
+    {
+      "fixture": "fix-08",
+      "period": "today",
+      "category": "romance",
+      "paragraphCount": 1,
+      "plainTextSample": "오늘 (5월 5일)의 관계와 마음은 아직 결과를 단정하기보다 작은 습관을 살피는 게 좋아요. 해야 할 일을 짧게 나누고, 힘들 때는 바로 도움을"
+    },
+    {
+      "fixture": "fix-08",
+      "period": "today",
+      "category": "career",
+      "paragraphCount": 1,
+      "plainTextSample": "오늘 (5월 5일)의 진로 감각은 아직 결과를 단정하기보다 작은 습관을 살피는 게 좋아요. 해야 할 일을 짧게 나누고, 힘들 때는 바로 도움을 "
+    },
+    {
+      "fixture": "fix-08",
+      "period": "today",
+      "category": "study_document",
+      "paragraphCount": 1,
+      "plainTextSample": "오늘 (5월 5일)의 기록과 준비는 아직 결과를 단정하기보다 작은 습관을 살피는 게 좋아요. 해야 할 일을 짧게 나누고, 힘들 때는 바로 도움을"
+    },
+    {
+      "fixture": "fix-08",
+      "period": "today",
+      "category": "health_stress",
+      "paragraphCount": 1,
+      "plainTextSample": "오늘 (5월 5일)의 긴장과 회복은 아직 결과를 단정하기보다 작은 습관을 살피는 게 좋아요. 해야 할 일을 짧게 나누고, 힘들 때는 바로 도움을"
+    },
+    {
+      "fixture": "fix-08",
+      "period": "thisWeek",
+      "category": "wealth",
+      "paragraphCount": 1,
+      "plainTextSample": "이번 주의 돈과 물건 관리는 아직 결과를 단정하기보다 작은 습관을 살피는 게 좋아요. 해야 할 일을 짧게 나누고, 힘들 때는 바로 도움을 요청하"
+    },
+    {
+      "fixture": "fix-08",
+      "period": "thisWeek",
+      "category": "romance",
+      "paragraphCount": 1,
+      "plainTextSample": "이번 주의 관계와 마음은 아직 결과를 단정하기보다 작은 습관을 살피는 게 좋아요. 해야 할 일을 짧게 나누고, 힘들 때는 바로 도움을 요청하면 "
+    },
+    {
+      "fixture": "fix-08",
+      "period": "thisWeek",
+      "category": "career",
+      "paragraphCount": 1,
+      "plainTextSample": "이번 주의 진로 감각은 아직 결과를 단정하기보다 작은 습관을 살피는 게 좋아요. 해야 할 일을 짧게 나누고, 힘들 때는 바로 도움을 요청하면 흐"
+    },
+    {
+      "fixture": "fix-08",
+      "period": "thisWeek",
+      "category": "study_document",
+      "paragraphCount": 1,
+      "plainTextSample": "이번 주의 기록과 준비는 아직 결과를 단정하기보다 작은 습관을 살피는 게 좋아요. 해야 할 일을 짧게 나누고, 힘들 때는 바로 도움을 요청하면 "
+    },
+    {
+      "fixture": "fix-08",
+      "period": "thisMonth",
+      "category": "wealth",
+      "paragraphCount": 1,
+      "plainTextSample": "이번 달 (5월)의 돈과 물건 관리는 아직 결과를 단정하기보다 작은 습관을 살피는 게 좋아요. 해야 할 일을 짧게 나누고, 힘들 때는 바로 도움"
+    },
+    {
+      "fixture": "fix-08",
+      "period": "thisMonth",
+      "category": "romance",
+      "paragraphCount": 1,
+      "plainTextSample": "이번 달 (5월)의 관계와 마음은 아직 결과를 단정하기보다 작은 습관을 살피는 게 좋아요. 해야 할 일을 짧게 나누고, 힘들 때는 바로 도움을 "
+    },
+    {
+      "fixture": "fix-08",
+      "period": "thisMonth",
+      "category": "study_document",
+      "paragraphCount": 1,
+      "plainTextSample": "이번 달 (5월)의 기록과 준비는 아직 결과를 단정하기보다 작은 습관을 살피는 게 좋아요. 해야 할 일을 짧게 나누고, 힘들 때는 바로 도움을 "
+    },
+    {
+      "fixture": "fix-08",
+      "period": "thisMonth",
+      "category": "health_stress",
+      "paragraphCount": 1,
+      "plainTextSample": "이번 달 (5월)의 긴장과 회복은 아직 결과를 단정하기보다 작은 습관을 살피는 게 좋아요. 해야 할 일을 짧게 나누고, 힘들 때는 바로 도움을 "
+    },
+    {
+      "fixture": "fix-08",
+      "period": "thisYear",
+      "category": "wealth",
+      "paragraphCount": 1,
+      "plainTextSample": "올해 (2026년)의 돈과 물건 관리는 아직 결과를 단정하기보다 작은 습관을 살피는 게 좋아요. 해야 할 일을 짧게 나누고, 힘들 때는 바로 도"
+    },
+    {
+      "fixture": "fix-08",
+      "period": "thisYear",
+      "category": "romance",
+      "paragraphCount": 1,
+      "plainTextSample": "올해 (2026년)의 관계와 마음은 아직 결과를 단정하기보다 작은 습관을 살피는 게 좋아요. 해야 할 일을 짧게 나누고, 힘들 때는 바로 도움을"
+    },
+    {
+      "fixture": "fix-08",
+      "period": "thisYear",
+      "category": "career",
+      "paragraphCount": 1,
+      "plainTextSample": "올해 (2026년)의 진로 감각은 아직 결과를 단정하기보다 작은 습관을 살피는 게 좋아요. 해야 할 일을 짧게 나누고, 힘들 때는 바로 도움을 "
+    },
+    {
+      "fixture": "fix-08",
+      "period": "thisYear",
+      "category": "study_document",
+      "paragraphCount": 1,
+      "plainTextSample": "올해 (2026년)의 기록과 준비는 아직 결과를 단정하기보다 작은 습관을 살피는 게 좋아요. 해야 할 일을 짧게 나누고, 힘들 때는 바로 도움을"
+    },
+    {
+      "fixture": "fix-09",
+      "period": "life",
+      "category": "overall",
+      "paragraphCount": 2,
+      "fragmentId": "overall.life.standard.agephase_gender.late_30s.male.203",
+      "plainTextSample": "30대 후반 남성으로 입력된 경우에는 지금까지 쌓은 책임과 앞으로 바꾸고 싶은 방향을 함께 점검하는 흐름이 강해져요."
+    },
+    {
+      "fixture": "fix-09",
+      "period": "thisYear",
+      "category": "romance",
+      "paragraphCount": 2,
+      "fragmentId": "romance.thisYear.standard.ageband.mature.401",
+      "plainTextSample": "올해는 관계에서 현실적인 안정감이 중요한 기준이 돼요."
+    },
+    {
+      "fixture": "fix-10",
+      "period": "life",
+      "category": "overall",
+      "paragraphCount": 2,
+      "fragmentId": "overall.life.standard.age_0_9_gender_female.201",
+      "plainTextSample": "어린 여자아이의 하루는 재능을 단정하기보다 안정감, 감정 표현, 생활 리듬을 함께 보며 읽는 것이 좋아요."
+    },
+    {
+      "fixture": "fix-10",
+      "period": "life",
+      "category": "wealth",
+      "paragraphCount": 1,
+      "plainTextSample": "인생 전체의 돈과 물건 관리는 아직 결과를 단정하기보다 작은 습관을 살피는 게 좋아요. 해야 할 일을 짧게 나누고, 힘들 때는 바로 도움을 요청"
+    },
+    {
+      "fixture": "fix-10",
+      "period": "life",
+      "category": "romance",
+      "paragraphCount": 1,
+      "plainTextSample": "인생 전체의 관계와 마음은 아직 결과를 단정하기보다 작은 습관을 살피는 게 좋아요. 해야 할 일을 짧게 나누고, 힘들 때는 바로 도움을 요청하면"
+    },
+    {
+      "fixture": "fix-10",
+      "period": "life",
+      "category": "career",
+      "paragraphCount": 1,
+      "plainTextSample": "인생 전체의 진로 감각은 아직 결과를 단정하기보다 작은 습관을 살피는 게 좋아요. 해야 할 일을 짧게 나누고, 힘들 때는 바로 도움을 요청하면 "
+    },
+    {
+      "fixture": "fix-10",
+      "period": "life",
+      "category": "study_document",
+      "paragraphCount": 1,
+      "plainTextSample": "인생 전체의 기록과 준비는 아직 결과를 단정하기보다 작은 습관을 살피는 게 좋아요. 해야 할 일을 짧게 나누고, 힘들 때는 바로 도움을 요청하면"
+    },
+    {
+      "fixture": "fix-10",
+      "period": "today",
+      "category": "wealth",
+      "paragraphCount": 1,
+      "plainTextSample": "오늘 (5월 5일)의 돈과 물건 관리는 아직 결과를 단정하기보다 작은 습관을 살피는 게 좋아요. 해야 할 일을 짧게 나누고, 힘들 때는 바로 도"
+    },
+    {
+      "fixture": "fix-10",
+      "period": "today",
+      "category": "romance",
+      "paragraphCount": 1,
+      "plainTextSample": "오늘 (5월 5일)의 관계와 마음은 아직 결과를 단정하기보다 작은 습관을 살피는 게 좋아요. 해야 할 일을 짧게 나누고, 힘들 때는 바로 도움을"
+    },
+    {
+      "fixture": "fix-10",
+      "period": "today",
+      "category": "career",
+      "paragraphCount": 1,
+      "plainTextSample": "오늘 (5월 5일)의 진로 감각은 아직 결과를 단정하기보다 작은 습관을 살피는 게 좋아요. 해야 할 일을 짧게 나누고, 힘들 때는 바로 도움을 "
+    },
+    {
+      "fixture": "fix-10",
+      "period": "today",
+      "category": "study_document",
+      "paragraphCount": 1,
+      "plainTextSample": "오늘 (5월 5일)의 기록과 준비는 아직 결과를 단정하기보다 작은 습관을 살피는 게 좋아요. 해야 할 일을 짧게 나누고, 힘들 때는 바로 도움을"
+    },
+    {
+      "fixture": "fix-10",
+      "period": "today",
+      "category": "health_stress",
+      "paragraphCount": 1,
+      "plainTextSample": "오늘 (5월 5일)의 긴장과 회복은 아직 결과를 단정하기보다 작은 습관을 살피는 게 좋아요. 해야 할 일을 짧게 나누고, 힘들 때는 바로 도움을"
+    },
+    {
+      "fixture": "fix-10",
+      "period": "thisWeek",
+      "category": "wealth",
+      "paragraphCount": 1,
+      "plainTextSample": "이번 주의 돈과 물건 관리는 아직 결과를 단정하기보다 작은 습관을 살피는 게 좋아요. 해야 할 일을 짧게 나누고, 힘들 때는 바로 도움을 요청하"
+    },
+    {
+      "fixture": "fix-10",
+      "period": "thisWeek",
+      "category": "romance",
+      "paragraphCount": 1,
+      "plainTextSample": "이번 주의 관계와 마음은 아직 결과를 단정하기보다 작은 습관을 살피는 게 좋아요. 해야 할 일을 짧게 나누고, 힘들 때는 바로 도움을 요청하면 "
+    },
+    {
+      "fixture": "fix-10",
+      "period": "thisWeek",
+      "category": "career",
+      "paragraphCount": 1,
+      "plainTextSample": "이번 주의 진로 감각은 아직 결과를 단정하기보다 작은 습관을 살피는 게 좋아요. 해야 할 일을 짧게 나누고, 힘들 때는 바로 도움을 요청하면 흐"
+    },
+    {
+      "fixture": "fix-10",
+      "period": "thisWeek",
+      "category": "study_document",
+      "paragraphCount": 1,
+      "plainTextSample": "이번 주의 기록과 준비는 아직 결과를 단정하기보다 작은 습관을 살피는 게 좋아요. 해야 할 일을 짧게 나누고, 힘들 때는 바로 도움을 요청하면 "
+    },
+    {
+      "fixture": "fix-10",
+      "period": "thisMonth",
+      "category": "wealth",
+      "paragraphCount": 1,
+      "plainTextSample": "이번 달 (5월)의 돈과 물건 관리는 아직 결과를 단정하기보다 작은 습관을 살피는 게 좋아요. 해야 할 일을 짧게 나누고, 힘들 때는 바로 도움"
+    },
+    {
+      "fixture": "fix-10",
+      "period": "thisMonth",
+      "category": "romance",
+      "paragraphCount": 1,
+      "plainTextSample": "이번 달 (5월)의 관계와 마음은 아직 결과를 단정하기보다 작은 습관을 살피는 게 좋아요. 해야 할 일을 짧게 나누고, 힘들 때는 바로 도움을 "
+    },
+    {
+      "fixture": "fix-10",
+      "period": "thisMonth",
+      "category": "study_document",
+      "paragraphCount": 1,
+      "plainTextSample": "이번 달 (5월)의 기록과 준비는 아직 결과를 단정하기보다 작은 습관을 살피는 게 좋아요. 해야 할 일을 짧게 나누고, 힘들 때는 바로 도움을 "
+    },
+    {
+      "fixture": "fix-10",
+      "period": "thisMonth",
+      "category": "health_stress",
+      "paragraphCount": 1,
+      "plainTextSample": "이번 달 (5월)의 긴장과 회복은 아직 결과를 단정하기보다 작은 습관을 살피는 게 좋아요. 해야 할 일을 짧게 나누고, 힘들 때는 바로 도움을 "
+    },
+    {
+      "fixture": "fix-10",
+      "period": "thisYear",
+      "category": "wealth",
+      "paragraphCount": 1,
+      "plainTextSample": "올해 (2026년)의 돈과 물건 관리는 아직 결과를 단정하기보다 작은 습관을 살피는 게 좋아요. 해야 할 일을 짧게 나누고, 힘들 때는 바로 도"
+    },
+    {
+      "fixture": "fix-10",
+      "period": "thisYear",
+      "category": "romance",
+      "paragraphCount": 1,
+      "plainTextSample": "올해 (2026년)의 관계와 마음은 아직 결과를 단정하기보다 작은 습관을 살피는 게 좋아요. 해야 할 일을 짧게 나누고, 힘들 때는 바로 도움을"
+    },
+    {
+      "fixture": "fix-10",
+      "period": "thisYear",
+      "category": "career",
+      "paragraphCount": 1,
+      "plainTextSample": "올해 (2026년)의 진로 감각은 아직 결과를 단정하기보다 작은 습관을 살피는 게 좋아요. 해야 할 일을 짧게 나누고, 힘들 때는 바로 도움을 "
+    },
+    {
+      "fixture": "fix-10",
+      "period": "thisYear",
+      "category": "study_document",
+      "paragraphCount": 1,
+      "plainTextSample": "올해 (2026년)의 기록과 준비는 아직 결과를 단정하기보다 작은 습관을 살피는 게 좋아요. 해야 할 일을 짧게 나누고, 힘들 때는 바로 도움을"
+    },
+    {
+      "fixture": "fix-11",
+      "period": "thisYear",
+      "category": "wealth",
+      "paragraphCount": 2,
+      "fragmentId": "wealth.thisYear.standard.ageband.mature.401",
+      "plainTextSample": "올해는 돈을 크게 움직이기 전에 지켜야 할 기준을 먼저 세우는 것이 좋아요."
+    },
+    {
+      "fixture": "fix-12",
+      "period": "life",
+      "category": "overall",
+      "paragraphCount": 2,
+      "fragmentId": "overall.life.standard.gyeokguk_pyeongwangyeok_strength_strong.201",
+      "plainTextSample": "도전과 압박 흐름격에 기운이 강하면 위기 대응, 결단, 돌파력이 뚜렷하게 살아납니다."
+    },
+    {
+      "fixture": "fix-12",
+      "period": "life",
+      "category": "health",
+      "paragraphCount": 2,
+      "fragmentId": "health.life.standard.birthseason.spring.204",
+      "plainTextSample": "봄에 태어난 사람은 몸과 마음이 새 자극에 민감하게 반응하기 쉬워요."
+    },
+    {
+      "fixture": "fix-13",
+      "period": "life",
+      "category": "romance",
+      "paragraphCount": 2,
+      "fragmentId": "romance.life.standard.ageband.mature.401",
+      "plainTextSample": "관계에서는 순간의 감정보다 생활 속에서 반복되는 태도가 더 중요해져요."
+    },
+    {
+      "fixture": "fix-14",
+      "period": "life",
+      "category": "overall",
+      "paragraphCount": 2,
+      "fragmentId": "overall.life.standard.yongshin_wood_alignment.neutral.201",
+      "plainTextSample": "나무 기운이 필요하지만 현재 흐름은 아주 강하게 밀어주지도, 막지도 않는 중간 상태예요."
+    },
+    {
+      "fixture": "fix-14",
+      "period": "thisMonth",
+      "category": "family",
+      "paragraphCount": 2,
+      "fragmentId": "family.thisMonth.standard.agephase.late_40s.204",
+      "plainTextSample": "이번 달 가족운은 오래된 방식과 새 필요 사이를 조정하는 데 초점을 두면 좋아요."
+    },
+    {
+      "fixture": "fix-15",
+      "period": "life",
+      "category": "overall",
+      "paragraphCount": 2,
+      "fragmentId": "overall.life.standard.agephase_gender.early_40s.male.204",
+      "plainTextSample": "40대 초반 남성으로 입력된 경우에는 지금까지 만든 기반을 다시 정리하고, 앞으로 오래 가져갈 방향을 고르는 흐름이 중요해요."
+    },
+    {
+      "fixture": "fix-15",
+      "period": "thisMonth",
+      "category": "family",
+      "paragraphCount": 2,
+      "fragmentId": "family.thisMonth.standard.agephase.early_40s.204",
+      "plainTextSample": "이번 달 가족운은 책임과 회복의 균형을 잡는 것이 핵심입니다."
+    },
+    {
+      "fixture": "fix-15",
+      "period": "thisYear",
+      "category": "wealth",
+      "paragraphCount": 2,
+      "fragmentId": "wealth.thisYear.standard.ageband.mature.401",
+      "plainTextSample": "올해는 돈을 크게 움직이기 전에 지켜야 할 기준을 먼저 세우는 것이 좋아요."
+    }
+  ]
+}
