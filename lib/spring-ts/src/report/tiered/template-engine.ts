@@ -734,42 +734,68 @@ function reduceOverusedGyeol(value: string): string {
   return paragraphs.map((p) => substituteGyeolInParagraph(p)).join('\n\n');
 }
 
+/**
+ * Substitution entry for `결X → 흐름X` / `결X → altX` rewrite.
+ *
+ * `flowForm` is the canonical 흐름-stem form (used while the paragraph still
+ * has the density budget). `altSuffix` is the post-batchim particle that
+ * gets appended to a no-batchim or batchim alternative once the 흐름
+ * budget is exhausted. `결` always carries ㄹ-batchim, so its surface
+ * suffixes assume the batchim form; the alt may not — see P15-A2.
+ */
+interface GyeolSub {
+  readonly pattern: RegExp;
+  readonly flowForm: string;
+  readonly altSuffix: { readonly batchim: string; readonly noBatchim: string };
+}
+
+/**
+ * Order matters — longer patterns first so `결이에요` matches before `결이`.
+ *
+ * Particle batchim/no-batchim pairs:
+ *   • subject: 이/가, topic: 은/는, object: 을/를
+ *   • copula: 이에요/예요, 이라/라, 이고/고
+ *   • directional: 으로/로 (none of the alts carry ㄹ-batchim, so the simple
+ *     binary works; if a ㄹ-batchim alt is ever added the no-batchim branch
+ *     applies for it as well)
+ *   • universal (no variant): 의, 도, 만, 처럼, 마다, 입니다
+ */
+const GYEOL_SUBS: readonly GyeolSub[] = [
+  { pattern: /결이에요/g, flowForm: '흐름이에요', altSuffix: { batchim: '이에요', noBatchim: '예요' } },
+  { pattern: /결입니다/g, flowForm: '흐름입니다', altSuffix: { batchim: '입니다', noBatchim: '입니다' } },
+  { pattern: /결이라/g, flowForm: '흐름이라', altSuffix: { batchim: '이라', noBatchim: '라' } },
+  { pattern: /결이고/g, flowForm: '흐름이고', altSuffix: { batchim: '이고', noBatchim: '고' } },
+  { pattern: /결이/g, flowForm: '흐름이', altSuffix: { batchim: '이', noBatchim: '가' } },
+  { pattern: /결은/g, flowForm: '흐름은', altSuffix: { batchim: '은', noBatchim: '는' } },
+  { pattern: /결을/g, flowForm: '흐름을', altSuffix: { batchim: '을', noBatchim: '를' } },
+  { pattern: /결로/g, flowForm: '흐름으로', altSuffix: { batchim: '으로', noBatchim: '로' } },
+  { pattern: /결의/g, flowForm: '흐름의', altSuffix: { batchim: '의', noBatchim: '의' } },
+  { pattern: /결도/g, flowForm: '흐름도', altSuffix: { batchim: '도', noBatchim: '도' } },
+  { pattern: /결만/g, flowForm: '흐름만', altSuffix: { batchim: '만', noBatchim: '만' } },
+  { pattern: /결처럼/g, flowForm: '흐름처럼', altSuffix: { batchim: '처럼', noBatchim: '처럼' } },
+  { pattern: /결마다/g, flowForm: '흐름마다', altSuffix: { batchim: '마다', noBatchim: '마다' } },
+];
+
+const GYEOL_ALTERNATIVES = ['리듬', '자리', '호흡', '걸음'] as const;
+
 function substituteGyeolInParagraph(paragraph: string): string {
   const initialFlow = (paragraph.match(/흐름/g) ?? []).length;
-  const alternatives = ['리듬', '자리', '호흡', '걸음'];
   let altIdx = 0;
-  const pickAlt = () => alternatives[altIdx++ % alternatives.length];
-
-  // Substitution table — order matters (longer patterns first).
-  const subs: Array<[RegExp, (alt: string) => string]> = [
-    [/결이에요/g, () => '흐름이에요'],
-    [/결입니다/g, () => '흐름입니다'],
-    [/결이라/g, () => '흐름이라'],
-    [/결이고/g, () => '흐름이고'],
-    [/결이/g, () => '흐름이'],
-    [/결은/g, () => '흐름은'],
-    [/결을/g, () => '흐름을'],
-    [/결로/g, () => '흐름으로'],
-    [/결의/g, () => '흐름의'],
-    [/결도/g, () => '흐름도'],
-    [/결만/g, () => '흐름만'],
-    [/결처럼/g, () => '흐름처럼'],
-    [/결마다/g, () => '흐름마다'],
-  ];
+  const pickAlt = (): string => GYEOL_ALTERNATIVES[altIdx++ % GYEOL_ALTERNATIVES.length];
 
   let out = paragraph;
   let appliedFlow = initialFlow;
-  for (const [pattern, replacementFn] of subs) {
-    out = out.replace(pattern, (match) => {
+  for (const { pattern, flowForm, altSuffix } of GYEOL_SUBS) {
+    out = out.replace(pattern, () => {
       appliedFlow += 1;
-      // After 2 '흐름' already in paragraph, substitute alternatives instead.
+      // After 2 흐름 already in paragraph, substitute an alternative instead
+      // — picking the suffix variant that agrees with the alt's batchim.
       if (appliedFlow > 2) {
         const alt = pickAlt();
-        const suffix = match.slice(1); // drop '결' prefix
-        // Map particle suffix to alternative — keep the same particle text.
+        const suffix = hasFinalConsonant(alt) ? altSuffix.batchim : altSuffix.noBatchim;
         return alt + suffix;
       }
-      return replacementFn(match);
+      return flowForm;
     });
   }
   return out;
