@@ -168,7 +168,7 @@
     },
     {
       "schemaVersion": "spring-ts.narrative-fragment.v1",
-      "fragmentId": "wealth.thisYear.brief.balanced.aligned.004",
+      "fragmentId": "wealth.thisYear.brief.balanced.neutral.004",
       "axis": {
         "category": "wealth",
         "period": "thisYear",
@@ -179,7 +179,7 @@
           "BALANCED"
         ],
         "yongshinAlignment": [
-          "aligned"
+          "neutral"
         ]
       },
       "templateTokens": [
