@@ -1,0 +1,12 @@
+{
+  "phase": "P15-A4",
+  "generatedAt": "2026-05-06T12:48:52.497Z",
+  "source": "artifacts\\sample-outputs-2026-05-05-phase3",
+  "threshold": 3,
+  "needle": "흐름이",
+  "totalCells": 1705,
+  "cellsWithClusterCount": 0,
+  "paragraphsWithCluster": 0,
+  "fragmentSourceCounts": {},
+  "cellsWithCluster": []
+}

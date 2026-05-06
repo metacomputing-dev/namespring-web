@@ -1,0 +1,480 @@
+{
+  "phase": "P15-A4",
+  "generatedAt": "2026-05-06T12:36:50.852Z",
+  "source": "artifacts\\sample-outputs-2026-05-05-phase3",
+  "threshold": 3,
+  "needle": "흐름이",
+  "totalCells": 1705,
+  "cellsWithClusterCount": 51,
+  "paragraphsWithCluster": 51,
+  "fragmentSourceCounts": {
+    "overall.thisWeek.expert.currentseason.spring_summer.301": 16,
+    "overall.thisYear.expert.currentseason.spring_summer.301": 11,
+    "overall.today.expert.strong.neutral.005": 8,
+    "overall.thisYear.expert.strong.neutral.005": 8,
+    "overall.life.expert.weak.neutral.age40_54.011": 6,
+    "overall.thisMonth.expert.balanced.neutral.008": 1,
+    "overall.life.expert.diversity.anchor.507": 1
+  },
+  "cellsWithCluster": [
+    {
+      "fixture": "05-park-minji-late-night-female-tiered",
+      "period": "thisYear",
+      "category": "overall",
+      "tier": "expert",
+      "count": 3,
+      "fragmentId": "overall.thisYear.expert.currentseason.spring_summer.301",
+      "excerpt": "#통관용신의 흐름이 자리하면 한쪽으로 막힌 흐름을 부드럽게 살려 주고, #병약용신의 흐름이 곁에 들어오면 모자란 자리를 자연스레 받쳐 주는 흐름이 함께 흘러요."
+    },
+    {
+      "fixture": "06-lee-hajun-unknown-hour-neutral-tiered",
+      "period": "thisYear",
+      "category": "overall",
+      "tier": "expert",
+      "count": 3,
+      "fragmentId": "overall.thisYear.expert.currentseason.spring_summer.301",
+      "excerpt": "#통관용신의 흐름이 자리하면 한쪽으로 막힌 흐름을 부드럽게 살려 주고, #병약용신의 흐름이 곁에 들어오면 모자란 자리를 자연스레 받쳐 주는 흐름이 함께 흘러요."
+    },
+    {
+      "fixture": "08-kim-jiwon-strong-jeonggwan-gyeokguk-tiered",
+      "period": "thisWeek",
+      "category": "overall",
+      "tier": "expert",
+      "count": 3,
+      "fragmentId": "overall.thisWeek.expert.currentseason.spring_summer.301",
+      "excerpt": "#통관용신의 흐름이 자리하면 한쪽으로 막힌 흐름을 부드럽게 살려 주고, #병약용신의 흐름이 곁에 들어오면 모자란 자리를 자연스레 받쳐 주는 흐름이 함께 흘러요."
+    },
+    {
+      "fixture": "08-kim-jiwon-strong-jeonggwan-gyeokguk-tiered",
+      "period": "thisYear",
+      "category": "overall",
+      "tier": "expert",
+      "count": 3,
+      "fragmentId": "overall.thisYear.expert.currentseason.spring_summer.301",
+      "excerpt": "#통관용신의 흐름이 자리하면 한쪽으로 막힌 흐름을 부드럽게 살려 주고, #병약용신의 흐름이 곁에 들어오면 모자란 자리를 자연스레 받쳐 주는 흐름이 함께 흘러요."
+    },
+    {
+      "fixture": "09-kim-seongsu-special-format-candidate-tiered",
+      "period": "thisYear",
+      "category": "overall",
+      "tier": "expert",
+      "count": 3,
+      "fragmentId": "overall.thisYear.expert.currentseason.spring_summer.301",
+      "excerpt": "#통관용신의 흐름이 자리하면 한쪽으로 막힌 흐름을 부드럽게 살려 주고, #병약용신의 흐름이 곁에 들어오면 모자란 자리를 자연스레 받쳐 주는 흐름이 함께 흘러요."
+    },
+    {
+      "fixture": "10-choi-yaza-boundary-male-tiered",
+      "period": "today",
+      "category": "overall",
+      "tier": "expert",
+      "count": 3,
+      "fragmentId": "overall.today.expert.strong.neutral.005",
+      "excerpt": "#통관용신의 흐름이 자리하면 한쪽으로 막힌 흐름을 부드럽게 살려 주고, #병약용신의 흐름이 곁에 들어오면 모자란 자리를 자연스레 받쳐 주는 흐름이 함께 흘러요."
+    },
+    {
+      "fixture": "10-choi-yaza-boundary-male-tiered",
+      "period": "thisWeek",
+      "category": "overall",
+      "tier": "expert",
+      "count": 3,
+      "fragmentId": "overall.thisWeek.expert.currentseason.spring_summer.301",
+      "excerpt": "#통관용신의 흐름이 자리하면 한쪽으로 막힌 흐름을 부드럽게 살려 주고, #병약용신의 흐름이 곁에 들어오면 모자란 자리를 자연스레 받쳐 주는 흐름이 함께 흘러요."
+    },
+    {
+      "fixture": "10-choi-yaza-boundary-male-tiered",
+      "period": "thisYear",
+      "category": "overall",
+      "tier": "expert",
+      "count": 3,
+      "fragmentId": "overall.thisYear.expert.strong.neutral.005",
+      "excerpt": "#통관용신의 흐름이 자리하면 한쪽으로 막힌 흐름을 부드럽게 살려 주고, #병약용신의 흐름이 곁에 들어오면 모자란 자리를 자연스레 받쳐 주는 흐름이 함께 흘러요."
+    },
+    {
+      "fixture": "11-park-jeolgi-boundary-female-tiered",
+      "period": "thisWeek",
+      "category": "overall",
+      "tier": "expert",
+      "count": 3,
+      "fragmentId": "overall.thisWeek.expert.currentseason.spring_summer.301",
+      "excerpt": "#통관용신의 흐름이 자리하면 한쪽으로 막힌 흐름을 부드럽게 살려 주고, #병약용신의 흐름이 곁에 들어오면 모자란 자리를 자연스레 받쳐 주는 흐름이 함께 흘러요."
+    },
+    {
+      "fixture": "11-park-jeolgi-boundary-female-tiered",
+      "period": "thisYear",
+      "category": "overall",
+      "tier": "expert",
+      "count": 3,
+      "fragmentId": "overall.thisYear.expert.currentseason.spring_summer.301",
+      "excerpt": "#통관용신의 흐름이 자리하면 한쪽으로 막힌 흐름을 부드럽게 살려 주고, #병약용신의 흐름이 곁에 들어오면 모자란 자리를 자연스레 받쳐 주는 흐름이 함께 흘러요."
+    },
+    {
+      "fixture": "12-jeong-extreme-strong-continuous-tiered",
+      "period": "life",
+      "category": "overall",
+      "tier": "expert",
+      "count": 3,
+      "fragmentId": "overall.life.expert.weak.neutral.age40_54.011",
+      "excerpt": "#통관용신의 흐름이 자리하면 한쪽으로 막힌 흐름을 부드럽게 살려 주고, #병약용신의 흐름이 곁에 들어오면 모자란 자리를 자연스레 받쳐 주는 흐름이 함께 흘러요."
+    },
+    {
+      "fixture": "13-oh-extreme-weak-continuous-tiered",
+      "period": "today",
+      "category": "overall",
+      "tier": "expert",
+      "count": 3,
+      "fragmentId": "overall.today.expert.strong.neutral.005",
+      "excerpt": "#통관용신의 흐름이 자리하면 한쪽으로 막힌 흐름을 부드럽게 살려 주고, #병약용신의 흐름이 곁에 들어오면 모자란 자리를 자연스레 받쳐 주는 흐름이 함께 흘러요."
+    },
+    {
+      "fixture": "13-oh-extreme-weak-continuous-tiered",
+      "period": "thisWeek",
+      "category": "overall",
+      "tier": "expert",
+      "count": 3,
+      "fragmentId": "overall.thisWeek.expert.currentseason.spring_summer.301",
+      "excerpt": "#통관용신의 흐름이 자리하면 한쪽으로 막힌 흐름을 부드럽게 살려 주고, #병약용신의 흐름이 곁에 들어오면 모자란 자리를 자연스레 받쳐 주는 흐름이 함께 흘러요."
+    },
+    {
+      "fixture": "13-oh-extreme-weak-continuous-tiered",
+      "period": "thisYear",
+      "category": "overall",
+      "tier": "expert",
+      "count": 3,
+      "fragmentId": "overall.thisYear.expert.strong.neutral.005",
+      "excerpt": "#통관용신의 흐름이 자리하면 한쪽으로 막힌 흐름을 부드럽게 살려 주고, #병약용신의 흐름이 곁에 들어오면 모자란 자리를 자연스레 받쳐 주는 흐름이 함께 흘러요."
+    },
+    {
+      "fixture": "14-choi-palace-naeum-surface-tiered",
+      "period": "thisWeek",
+      "category": "overall",
+      "tier": "expert",
+      "count": 3,
+      "fragmentId": "overall.thisWeek.expert.currentseason.spring_summer.301",
+      "excerpt": "#통관용신의 흐름이 자리하면 한쪽으로 막힌 흐름을 부드럽게 살려 주고, #병약용신의 흐름이 곁에 들어오면 모자란 자리를 자연스레 받쳐 주는 흐름이 함께 흘러요."
+    },
+    {
+      "fixture": "14-choi-palace-naeum-surface-tiered",
+      "period": "thisYear",
+      "category": "overall",
+      "tier": "expert",
+      "count": 3,
+      "fragmentId": "overall.thisYear.expert.currentseason.spring_summer.301",
+      "excerpt": "#통관용신의 흐름이 자리하면 한쪽으로 막힌 흐름을 부드럽게 살려 주고, #병약용신의 흐름이 곁에 들어오면 모자란 자리를 자연스레 받쳐 주는 흐름이 함께 흘러요."
+    },
+    {
+      "fixture": "15-choi-consensus-aware-yongshin-tiered",
+      "period": "life",
+      "category": "overall",
+      "tier": "expert",
+      "count": 3,
+      "fragmentId": "overall.life.expert.weak.neutral.age40_54.011",
+      "excerpt": "#통관용신의 흐름이 자리하면 한쪽으로 막힌 흐름을 부드럽게 살려 주고, #병약용신의 흐름이 곁에 들어오면 모자란 자리를 자연스레 받쳐 주는 흐름이 함께 흘러요."
+    },
+    {
+      "fixture": "16-choi-senior-male-tiered",
+      "period": "thisWeek",
+      "category": "overall",
+      "tier": "expert",
+      "count": 3,
+      "fragmentId": "overall.thisWeek.expert.currentseason.spring_summer.301",
+      "excerpt": "#통관용신의 흐름이 자리하면 한쪽으로 막힌 흐름을 부드럽게 살려 주고, #병약용신의 흐름이 곁에 들어오면 모자란 자리를 자연스레 받쳐 주는 흐름이 함께 흘러요."
+    },
+    {
+      "fixture": "16-choi-senior-male-tiered",
+      "period": "thisYear",
+      "category": "overall",
+      "tier": "expert",
+      "count": 3,
+      "fragmentId": "overall.thisYear.expert.currentseason.spring_summer.301",
+      "excerpt": "#통관용신의 흐름이 자리하면 한쪽으로 막힌 흐름을 부드럽게 살려 주고, #병약용신의 흐름이 곁에 들어오면 모자란 자리를 자연스레 받쳐 주는 흐름이 함께 흘러요."
+    },
+    {
+      "fixture": "17-kim-senior-female-tiered",
+      "period": "today",
+      "category": "overall",
+      "tier": "expert",
+      "count": 3,
+      "fragmentId": "overall.today.expert.strong.neutral.005",
+      "excerpt": "#통관용신의 흐름이 자리하면 한쪽으로 막힌 흐름을 부드럽게 살려 주고, #병약용신의 흐름이 곁에 들어오면 모자란 자리를 자연스레 받쳐 주는 흐름이 함께 흘러요."
+    },
+    {
+      "fixture": "17-kim-senior-female-tiered",
+      "period": "thisWeek",
+      "category": "overall",
+      "tier": "expert",
+      "count": 3,
+      "fragmentId": "overall.thisWeek.expert.currentseason.spring_summer.301",
+      "excerpt": "#통관용신의 흐름이 자리하면 한쪽으로 막힌 흐름을 부드럽게 살려 주고, #병약용신의 흐름이 곁에 들어오면 모자란 자리를 자연스레 받쳐 주는 흐름이 함께 흘러요."
+    },
+    {
+      "fixture": "17-kim-senior-female-tiered",
+      "period": "thisYear",
+      "category": "overall",
+      "tier": "expert",
+      "count": 3,
+      "fragmentId": "overall.thisYear.expert.strong.neutral.005",
+      "excerpt": "#통관용신의 흐름이 자리하면 한쪽으로 막힌 흐름을 부드럽게 살려 주고, #병약용신의 흐름이 곁에 들어오면 모자란 자리를 자연스레 받쳐 주는 흐름이 함께 흘러요."
+    },
+    {
+      "fixture": "19-gyeokguk-conflict-jeonggwan-vs-bigyeop-tiered",
+      "period": "thisMonth",
+      "category": "overall",
+      "tier": "expert",
+      "count": 3,
+      "fragmentId": "overall.thisMonth.expert.balanced.neutral.008",
+      "excerpt": "#통관용신의 흐름이 자리하면 한쪽으로 막힌 흐름을 부드럽게 살려 주고, #병약용신의 흐름이 곁에 들어오면 모자란 자리를 자연스레 받쳐 주는 흐름이 함께 흘러요."
+    },
+    {
+      "fixture": "19-gyeokguk-conflict-jeonggwan-vs-bigyeop-tiered",
+      "period": "thisYear",
+      "category": "overall",
+      "tier": "expert",
+      "count": 3,
+      "fragmentId": "overall.thisYear.expert.currentseason.spring_summer.301",
+      "excerpt": "#통관용신의 흐름이 자리하면 한쪽으로 막힌 흐름을 부드럽게 살려 주고, #병약용신의 흐름이 곁에 들어오면 모자란 자리를 자연스레 받쳐 주는 흐름이 함께 흘러요."
+    },
+    {
+      "fixture": "20-gyeokguk-conflict-consensus-aware-tiered",
+      "period": "life",
+      "category": "overall",
+      "tier": "expert",
+      "count": 3,
+      "fragmentId": "overall.life.expert.weak.neutral.age40_54.011",
+      "excerpt": "#통관용신의 흐름이 자리하면 한쪽으로 막힌 흐름을 부드럽게 살려 주고, #병약용신의 흐름이 곁에 들어오면 모자란 자리를 자연스레 받쳐 주는 흐름이 함께 흘러요."
+    },
+    {
+      "fixture": "21-multi-axis-evaluator-enabled-tiered",
+      "period": "life",
+      "category": "overall",
+      "tier": "expert",
+      "count": 3,
+      "fragmentId": "overall.life.expert.weak.neutral.age40_54.011",
+      "excerpt": "#통관용신의 흐름이 자리하면 한쪽으로 막힌 흐름을 부드럽게 살려 주고, #병약용신의 흐름이 곁에 들어오면 모자란 자리를 자연스레 받쳐 주는 흐름이 함께 흘러요."
+    },
+    {
+      "fixture": "22-low-confidence-yongshin-tiered",
+      "period": "life",
+      "category": "overall",
+      "tier": "expert",
+      "count": 3,
+      "fragmentId": "overall.life.expert.diversity.anchor.507",
+      "excerpt": "#관록궁 에 또렷한 흐름이 모이는 사주는 평생의 자리·책임의 무게가 한 리듬로 이어지는 흐름이고, #복덕궁의 결까지 함께 자리 잡으면 자기 흐름의 평온함이 자산이 되는 흐름이에요."
+    },
+    {
+      "fixture": "22-low-confidence-yongshin-tiered",
+      "period": "thisWeek",
+      "category": "overall",
+      "tier": "expert",
+      "count": 3,
+      "fragmentId": "overall.thisWeek.expert.currentseason.spring_summer.301",
+      "excerpt": "#통관용신의 흐름이 자리하면 한쪽으로 막힌 흐름을 부드럽게 살려 주고, #병약용신의 흐름이 곁에 들어오면 모자란 자리를 자연스레 받쳐 주는 흐름이 함께 흘러요."
+    },
+    {
+      "fixture": "22-low-confidence-yongshin-tiered",
+      "period": "thisYear",
+      "category": "overall",
+      "tier": "expert",
+      "count": 3,
+      "fragmentId": "overall.thisYear.expert.currentseason.spring_summer.301",
+      "excerpt": "#통관용신의 흐름이 자리하면 한쪽으로 막힌 흐름을 부드럽게 살려 주고, #병약용신의 흐름이 곁에 들어오면 모자란 자리를 자연스레 받쳐 주는 흐름이 함께 흘러요."
+    },
+    {
+      "fixture": "23-jonggyeok-jongwang-yeomsang-tiered",
+      "period": "today",
+      "category": "overall",
+      "tier": "expert",
+      "count": 3,
+      "fragmentId": "overall.today.expert.strong.neutral.005",
+      "excerpt": "#통관용신의 흐름이 자리하면 한쪽으로 막힌 흐름을 부드럽게 살려 주고, #병약용신의 흐름이 곁에 들어오면 모자란 자리를 자연스레 받쳐 주는 흐름이 함께 흘러요."
+    },
+    {
+      "fixture": "23-jonggyeok-jongwang-yeomsang-tiered",
+      "period": "thisWeek",
+      "category": "overall",
+      "tier": "expert",
+      "count": 3,
+      "fragmentId": "overall.thisWeek.expert.currentseason.spring_summer.301",
+      "excerpt": "#통관용신의 흐름이 자리하면 한쪽으로 막힌 흐름을 부드럽게 살려 주고, #병약용신의 흐름이 곁에 들어오면 모자란 자리를 자연스레 받쳐 주는 흐름이 함께 흘러요."
+    },
+    {
+      "fixture": "23-jonggyeok-jongwang-yeomsang-tiered",
+      "period": "thisYear",
+      "category": "overall",
+      "tier": "expert",
+      "count": 3,
+      "fragmentId": "overall.thisYear.expert.strong.neutral.005",
+      "excerpt": "#통관용신의 흐름이 자리하면 한쪽으로 막힌 흐름을 부드럽게 살려 주고, #병약용신의 흐름이 곁에 들어오면 모자란 자리를 자연스레 받쳐 주는 흐름이 함께 흘러요."
+    },
+    {
+      "fixture": "24-jonggyeok-jongjae-tiered",
+      "period": "life",
+      "category": "overall",
+      "tier": "expert",
+      "count": 3,
+      "fragmentId": "overall.life.expert.weak.neutral.age40_54.011",
+      "excerpt": "#통관용신의 흐름이 자리하면 한쪽으로 막힌 흐름을 부드럽게 살려 주고, #병약용신의 흐름이 곁에 들어오면 모자란 자리를 자연스레 받쳐 주는 흐름이 함께 흘러요."
+    },
+    {
+      "fixture": "25-jonggyeok-jonggwan-tiered",
+      "period": "thisWeek",
+      "category": "overall",
+      "tier": "expert",
+      "count": 3,
+      "fragmentId": "overall.thisWeek.expert.currentseason.spring_summer.301",
+      "excerpt": "#통관용신의 흐름이 자리하면 한쪽으로 막힌 흐름을 부드럽게 살려 주고, #병약용신의 흐름이 곁에 들어오면 모자란 자리를 자연스레 받쳐 주는 흐름이 함께 흘러요."
+    },
+    {
+      "fixture": "25-jonggyeok-jonggwan-tiered",
+      "period": "thisYear",
+      "category": "overall",
+      "tier": "expert",
+      "count": 3,
+      "fragmentId": "overall.thisYear.expert.currentseason.spring_summer.301",
+      "excerpt": "#통관용신의 흐름이 자리하면 한쪽으로 막힌 흐름을 부드럽게 살려 주고, #병약용신의 흐름이 곁에 들어오면 모자란 자리를 자연스레 받쳐 주는 흐름이 함께 흘러요."
+    },
+    {
+      "fixture": "26-jonggyeok-jongsal-tiered",
+      "period": "life",
+      "category": "overall",
+      "tier": "expert",
+      "count": 3,
+      "fragmentId": "overall.life.expert.weak.neutral.age40_54.011",
+      "excerpt": "#통관용신의 흐름이 자리하면 한쪽으로 막힌 흐름을 부드럽게 살려 주고, #병약용신의 흐름이 곁에 들어오면 모자란 자리를 자연스레 받쳐 주는 흐름이 함께 흘러요."
+    },
+    {
+      "fixture": "28-jonggyeok-jonggang-tiered",
+      "period": "today",
+      "category": "overall",
+      "tier": "expert",
+      "count": 3,
+      "fragmentId": "overall.today.expert.strong.neutral.005",
+      "excerpt": "#통관용신의 흐름이 자리하면 한쪽으로 막힌 흐름을 부드럽게 살려 주고, #병약용신의 흐름이 곁에 들어오면 모자란 자리를 자연스레 받쳐 주는 흐름이 함께 흘러요."
+    },
+    {
+      "fixture": "28-jonggyeok-jonggang-tiered",
+      "period": "thisWeek",
+      "category": "overall",
+      "tier": "expert",
+      "count": 3,
+      "fragmentId": "overall.thisWeek.expert.currentseason.spring_summer.301",
+      "excerpt": "#통관용신의 흐름이 자리하면 한쪽으로 막힌 흐름을 부드럽게 살려 주고, #병약용신의 흐름이 곁에 들어오면 모자란 자리를 자연스레 받쳐 주는 흐름이 함께 흘러요."
+    },
+    {
+      "fixture": "28-jonggyeok-jonggang-tiered",
+      "period": "thisYear",
+      "category": "overall",
+      "tier": "expert",
+      "count": 3,
+      "fragmentId": "overall.thisYear.expert.strong.neutral.005",
+      "excerpt": "#통관용신의 흐름이 자리하면 한쪽으로 막힌 흐름을 부드럽게 살려 주고, #병약용신의 흐름이 곁에 들어오면 모자란 자리를 자연스레 받쳐 주는 흐름이 함께 흘러요."
+    },
+    {
+      "fixture": "29-pure-hangul-name-tiered",
+      "period": "today",
+      "category": "overall",
+      "tier": "expert",
+      "count": 3,
+      "fragmentId": "overall.today.expert.strong.neutral.005",
+      "excerpt": "#통관용신의 흐름이 자리하면 한쪽으로 막힌 흐름을 부드럽게 살려 주고, #병약용신의 흐름이 곁에 들어오면 모자란 자리를 자연스레 받쳐 주는 흐름이 함께 흘러요."
+    },
+    {
+      "fixture": "29-pure-hangul-name-tiered",
+      "period": "thisWeek",
+      "category": "overall",
+      "tier": "expert",
+      "count": 3,
+      "fragmentId": "overall.thisWeek.expert.currentseason.spring_summer.301",
+      "excerpt": "#통관용신의 흐름이 자리하면 한쪽으로 막힌 흐름을 부드럽게 살려 주고, #병약용신의 흐름이 곁에 들어오면 모자란 자리를 자연스레 받쳐 주는 흐름이 함께 흘러요."
+    },
+    {
+      "fixture": "29-pure-hangul-name-tiered",
+      "period": "thisYear",
+      "category": "overall",
+      "tier": "expert",
+      "count": 3,
+      "fragmentId": "overall.thisYear.expert.strong.neutral.005",
+      "excerpt": "#통관용신의 흐름이 자리하면 한쪽으로 막힌 흐름을 부드럽게 살려 주고, #병약용신의 흐름이 곁에 들어오면 모자란 자리를 자연스레 받쳐 주는 흐름이 함께 흘러요."
+    },
+    {
+      "fixture": "32-nonagenarian-weak-daymaster-tiered",
+      "period": "today",
+      "category": "overall",
+      "tier": "expert",
+      "count": 3,
+      "fragmentId": "overall.today.expert.strong.neutral.005",
+      "excerpt": "#통관용신의 흐름이 자리하면 한쪽으로 막힌 흐름을 부드럽게 살려 주고, #병약용신의 흐름이 곁에 들어오면 모자란 자리를 자연스레 받쳐 주는 흐름이 함께 흘러요."
+    },
+    {
+      "fixture": "32-nonagenarian-weak-daymaster-tiered",
+      "period": "thisWeek",
+      "category": "overall",
+      "tier": "expert",
+      "count": 3,
+      "fragmentId": "overall.thisWeek.expert.currentseason.spring_summer.301",
+      "excerpt": "#통관용신의 흐름이 자리하면 한쪽으로 막힌 흐름을 부드럽게 살려 주고, #병약용신의 흐름이 곁에 들어오면 모자란 자리를 자연스레 받쳐 주는 흐름이 함께 흘러요."
+    },
+    {
+      "fixture": "32-nonagenarian-weak-daymaster-tiered",
+      "period": "thisYear",
+      "category": "overall",
+      "tier": "expert",
+      "count": 3,
+      "fragmentId": "overall.thisYear.expert.strong.neutral.005",
+      "excerpt": "#통관용신의 흐름이 자리하면 한쪽으로 막힌 흐름을 부드럽게 살려 주고, #병약용신의 흐름이 곁에 들어오면 모자란 자리를 자연스레 받쳐 주는 흐름이 함께 흘러요."
+    },
+    {
+      "fixture": "33-consensus-aware-multi-axis-combined-tiered",
+      "period": "today",
+      "category": "overall",
+      "tier": "expert",
+      "count": 3,
+      "fragmentId": "overall.today.expert.strong.neutral.005",
+      "excerpt": "#통관용신의 흐름이 자리하면 한쪽으로 막힌 흐름을 부드럽게 살려 주고, #병약용신의 흐름이 곁에 들어오면 모자란 자리를 자연스레 받쳐 주는 흐름이 함께 흘러요."
+    },
+    {
+      "fixture": "33-consensus-aware-multi-axis-combined-tiered",
+      "period": "thisWeek",
+      "category": "overall",
+      "tier": "expert",
+      "count": 3,
+      "fragmentId": "overall.thisWeek.expert.currentseason.spring_summer.301",
+      "excerpt": "#통관용신의 흐름이 자리하면 한쪽으로 막힌 흐름을 부드럽게 살려 주고, #병약용신의 흐름이 곁에 들어오면 모자란 자리를 자연스레 받쳐 주는 흐름이 함께 흘러요."
+    },
+    {
+      "fixture": "33-consensus-aware-multi-axis-combined-tiered",
+      "period": "thisYear",
+      "category": "overall",
+      "tier": "expert",
+      "count": 3,
+      "fragmentId": "overall.thisYear.expert.strong.neutral.005",
+      "excerpt": "#통관용신의 흐름이 자리하면 한쪽으로 막힌 흐름을 부드럽게 살려 주고, #병약용신의 흐름이 곁에 들어오면 모자란 자리를 자연스레 받쳐 주는 흐름이 함께 흘러요."
+    },
+    {
+      "fixture": "34-gyeokguk-conflict-multi-confidence-tiered",
+      "period": "thisWeek",
+      "category": "overall",
+      "tier": "expert",
+      "count": 3,
+      "fragmentId": "overall.thisWeek.expert.currentseason.spring_summer.301",
+      "excerpt": "#통관용신의 흐름이 자리하면 한쪽으로 막힌 흐름을 부드럽게 살려 주고, #병약용신의 흐름이 곁에 들어오면 모자란 자리를 자연스레 받쳐 주는 흐름이 함께 흘러요."
+    },
+    {
+      "fixture": "35-palace-naeum-female-mid-tiered",
+      "period": "thisWeek",
+      "category": "overall",
+      "tier": "expert",
+      "count": 3,
+      "fragmentId": "overall.thisWeek.expert.currentseason.spring_summer.301",
+      "excerpt": "#통관용신의 흐름이 자리하면 한쪽으로 막힌 흐름을 부드럽게 살려 주고, #병약용신의 흐름이 곁에 들어오면 모자란 자리를 자연스레 받쳐 주는 흐름이 함께 흘러요."
+    },
+    {
+      "fixture": "35-palace-naeum-female-mid-tiered",
+      "period": "thisYear",
+      "category": "overall",
+      "tier": "expert",
+      "count": 3,
+      "fragmentId": "overall.thisYear.expert.currentseason.spring_summer.301",
+      "excerpt": "#통관용신의 흐름이 자리하면 한쪽으로 막힌 흐름을 부드럽게 살려 주고, #병약용신의 흐름이 곁에 들어오면 모자란 자리를 자연스레 받쳐 주는 흐름이 함께 흘러요."
+    }
+  ]
+}
