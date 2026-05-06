@@ -852,7 +852,34 @@
         },
         {
           "kind": "text",
-          "value": "의 결을 가까이 두는 자리에서 마음이 가장 가벼워져요.\n\n백호대살의 신호와 괴강살의 결이 함께 보이는 시기엔 자기 한계를 의식적으로 두는 호흡이 가장 든든한 회복 자리예요.\n\n공망의 결과 "
+          "value": "의 결을 가까이 두는 자리에서 마음이 가장 가벼워져요.\n\n"
+        },
+        {
+          "kind": "tag",
+          "tagId": "baekho",
+          "label": "백호대살"
+        },
+        {
+          "kind": "text",
+          "value": "의 신호와 "
+        },
+        {
+          "kind": "tag",
+          "tagId": "goegang",
+          "label": "괴강살"
+        },
+        {
+          "kind": "text",
+          "value": "의 결이 함께 보이는 시기엔 자기 한계를 의식적으로 두는 호흡이 가장 든든한 회복 자리예요.\n\n"
+        },
+        {
+          "kind": "tag",
+          "tagId": "gongmang",
+          "label": "공망"
+        },
+        {
+          "kind": "text",
+          "value": "의 결과 "
         },
         {
           "kind": "tag",
@@ -888,7 +915,10 @@
         "water",
         "stabilityIndex",
         "pyeongwan",
-        "jeongin"
+        "jeongin",
+        "gongmang",
+        "baekho",
+        "goegang"
       ],
       "aiGenerated": true,
       "sourceTier": {

@@ -292,7 +292,25 @@
         },
         {
           "kind": "text",
-          "value": "과 맞는 표현인지 확인하세요.\n\n자녀궁의 결이 따뜻한 사주는 가까운 자녀·후배·작품과 함께 식신의 결이 단단하게 자라는 자리예요.\n\n화개의 결과 "
+          "value": "과 맞는 표현인지 확인하세요.\n\n"
+        },
+        {
+          "kind": "tag",
+          "tagId": "janyeogung",
+          "label": "자녀궁"
+        },
+        {
+          "kind": "text",
+          "value": "의 결이 따뜻한 사주는 가까운 자녀·후배·작품과 함께 식신의 결이 단단하게 자라는 자리예요.\n\n"
+        },
+        {
+          "kind": "tag",
+          "tagId": "hwagae",
+          "label": "화개"
+        },
+        {
+          "kind": "text",
+          "value": "의 결과 "
         },
         {
           "kind": "tag",
@@ -328,7 +346,9 @@
         "yongshin",
         "munchanggwiin",
         "daewoonGungsil",
-        "wolun"
+        "wolun",
+        "hwagae",
+        "janyeogung"
       ],
       "aiGenerated": true,
       "sourceTier": {

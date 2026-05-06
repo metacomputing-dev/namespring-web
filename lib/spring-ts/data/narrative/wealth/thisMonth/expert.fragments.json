@@ -382,7 +382,16 @@
         },
         {
           "kind": "text",
-          "value": "가 들어오는 시기엔 한 박자 늦추는 방식이 좋아요.\n\n편재격의 결이나 "
+          "value": "가 들어오는 시기엔 한 박자 늦추는 방식이 좋아요.\n\n"
+        },
+        {
+          "kind": "tag",
+          "tagId": "pyeonjaegyeok",
+          "label": "편재격"
+        },
+        {
+          "kind": "text",
+          "value": "의 결이나 "
         },
         {
           "kind": "tag",
@@ -408,7 +417,8 @@
         "yongshin",
         "jeongjae",
         "pyeonjae",
-        "jeongjaegyeok"
+        "jeongjaegyeok",
+        "pyeonjaegyeok"
       ],
       "aiGenerated": true,
       "sourceTier": {
