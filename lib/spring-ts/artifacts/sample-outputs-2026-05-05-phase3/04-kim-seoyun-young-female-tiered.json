@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-05-06T12:08:13.786Z",
+  "generatedAt": "2026-05-06T12:36:16.146Z",
   "targetDate": "2026-05-05T00:00:00+09:00",
   "sampleId": "kim-seoyun-young-female-tiered",
   "description": "어린 여성 입력에서 tiered 운세 매트릭스를 켠 케이스.",
@@ -1306,7 +1306,7 @@
     },
     "meta": {
       "version": "1.0.0",
-      "generatedAt": "2026-05-06T12:08:16.383Z",
+      "generatedAt": "2026-05-06T12:36:18.862Z",
       "schoolPreset": {
         "selected": "korean",
         "source": "default",
@@ -2440,6 +2440,15 @@
                       }
                     ],
                     "plainText": "피곤할 때 바로 알아차리고, 말할 사람과 쉴 공간을 미리 정해 두면 어려운 시기에도 버티는 힘이 생겨요."
+                  },
+                  {
+                    "tokens": [
+                      {
+                        "kind": "text",
+                        "value": "오래 갈 회복은 한 번의 결심보다 꾸준한 작은 습관에서 만들어집니다."
+                      }
+                    ],
+                    "plainText": "오래 갈 회복은 한 번의 결심보다 꾸준한 작은 습관에서 만들어집니다."
                   }
                 ],
                 "livingTips": [
@@ -2593,6 +2602,15 @@
                       }
                     ],
                     "plainText": "낯선 장소, 다른 사람, 새로운 일정을 겪을수록 선택지가 넓어지지만, 너무 자주 바꾸면 중심을 잃을 수 있어요."
+                  },
+                  {
+                    "tokens": [
+                      {
+                        "kind": "text",
+                        "value": "자기 페이스를 잃지 않는 이동이 가장 안전한 변화입니다."
+                      }
+                    ],
+                    "plainText": "자기 페이스를 잃지 않는 이동이 가장 안전한 변화입니다."
                   }
                 ],
                 "livingTips": [
@@ -5259,6 +5277,15 @@
                       }
                     ],
                     "plainText": "혼자 정답을 찾으려 하기보다 믿을 수 있는 사람에게 상황을 짧게 설명하면 생각이 정리돼요."
+                  },
+                  {
+                    "tokens": [
+                      {
+                        "kind": "text",
+                        "value": "한 주 동안 짧게라도 혼자 있는 시간을 미리 잡아 두세요."
+                      }
+                    ],
+                    "plainText": "한 주 동안 짧게라도 혼자 있는 시간을 미리 잡아 두세요."
                   }
                 ],
                 "livingTips": [
@@ -5421,6 +5448,15 @@
                       }
                     ],
                     "plainText": "먼저 짧게 확인하고, 괜찮으면 범위를 넓히는 식으로 움직이면 부담이 줄고 선택도 더 선명해져요."
+                  },
+                  {
+                    "tokens": [
+                      {
+                        "kind": "text",
+                        "value": "예상치 못한 변경은 대안을 하나 더 두면 마음이 가벼워집니다."
+                      }
+                    ],
+                    "plainText": "예상치 못한 변경은 대안을 하나 더 두면 마음이 가벼워집니다."
                   }
                 ],
                 "livingTips": [
@@ -7957,6 +7993,15 @@
                       }
                     ],
                     "plainText": "말로만 지나가는 생각을 글, 그림, 발표, 기록처럼 확인할 수 있는 형태로 바꾸면 성장 흐름을 보기 쉬워집니다."
+                  },
+                  {
+                    "tokens": [
+                      {
+                        "kind": "text",
+                        "value": "한 해 동안의 작은 성장은 자주 기록해 두면 의미가 더 커져요."
+                      }
+                    ],
+                    "plainText": "한 해 동안의 작은 성장은 자주 기록해 두면 의미가 더 커져요."
                   }
                 ],
                 "livingTips": [
@@ -8814,7 +8859,7 @@
       },
       "meta": {
         "schemaVersion": "spring-ts.tiered-matrix.v1",
-        "generatedAt": "2026-05-06T12:08:16.383Z",
+        "generatedAt": "2026-05-06T12:36:18.862Z",
         "selectionSeed": "2013|7|21|14|20|female|2026-05-04T15:00:00.000Z",
         "templateContractVersion": "1.0.0",
         "contentSource": "authored",
