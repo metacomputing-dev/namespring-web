@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-05-06T12:08:13.786Z",
+  "generatedAt": "2026-05-06T12:36:16.146Z",
   "targetDate": "2026-05-05T00:00:00+09:00",
   "sampleId": "jeolgi-lidong-boundary-tiered",
   "description": "입동(立冬) 절기 경계 직전 출생 (2026 입동 = 11/07 18:52 KST, 본 입력은 ±0.5 day 내). fortuneCascadeMode=jie_based 로 jie 경계 day-precision 활성, 月柱 戌→亥 분기 부근 elasticity 와 tieredMatrix 결합.",
@@ -1307,7 +1307,7 @@
     },
     "meta": {
       "version": "1.0.0",
-      "generatedAt": "2026-05-06T12:08:24.943Z",
+      "generatedAt": "2026-05-06T12:36:27.513Z",
       "schoolPreset": {
         "selected": "korean",
         "source": "default",
@@ -2341,6 +2341,15 @@
                       }
                     ],
                     "plainText": "말, 글, 창작, 자녀나 후배와의 관계에서 완벽한 답을 찾기보다 자주 확인하고 다듬는 태도가 중요해요."
+                  },
+                  {
+                    "tokens": [
+                      {
+                        "kind": "text",
+                        "value": "오래 갈 관계일수록 작은 일상의 따뜻함이 큰 힘이 돼요."
+                      }
+                    ],
+                    "plainText": "오래 갈 관계일수록 작은 일상의 따뜻함이 큰 힘이 돼요."
                   }
                 ],
                 "livingTips": [
@@ -2470,6 +2479,15 @@
                       }
                     ],
                     "plainText": "피곤할 때 바로 알아차리고, 말할 사람과 쉴 공간을 미리 정해 두면 어려운 시기에도 버티는 힘이 생겨요."
+                  },
+                  {
+                    "tokens": [
+                      {
+                        "kind": "text",
+                        "value": "오래 갈 회복은 한 번의 결심보다 꾸준한 작은 습관에서 만들어집니다."
+                      }
+                    ],
+                    "plainText": "오래 갈 회복은 한 번의 결심보다 꾸준한 작은 습관에서 만들어집니다."
                   }
                 ],
                 "livingTips": [
@@ -5429,6 +5447,15 @@
                       }
                     ],
                     "plainText": "혼자 정답을 찾으려 하기보다 믿을 수 있는 사람에게 상황을 짧게 설명하면 생각이 정리돼요."
+                  },
+                  {
+                    "tokens": [
+                      {
+                        "kind": "text",
+                        "value": "한 주 동안 짧게라도 혼자 있는 시간을 미리 잡아 두세요."
+                      }
+                    ],
+                    "plainText": "한 주 동안 짧게라도 혼자 있는 시간을 미리 잡아 두세요."
                   }
                 ],
                 "livingTips": [
@@ -6616,6 +6643,15 @@
                       }
                     ],
                     "plainText": "어떤 일을 했고 무엇이 남았는지 정리해 두면 다음 선택이 쉬워지고, 주변과 이야기할 때도 근거가 분명해집니다."
+                  },
+                  {
+                    "tokens": [
+                      {
+                        "kind": "text",
+                        "value": "확장과 정리의 균형을 맞추는 데 시간을 들이세요."
+                      }
+                    ],
+                    "plainText": "확장과 정리의 균형을 맞추는 데 시간을 들이세요."
                   }
                 ],
                 "livingTips": [
@@ -8396,6 +8432,15 @@
                       }
                     ],
                     "plainText": "운동, 수면, 대화, 기록 중 자신에게 맞는 방법을 하나 정해 꾸준히 반복하면 안정감이 쌓여요."
+                  },
+                  {
+                    "tokens": [
+                      {
+                        "kind": "text",
+                        "value": "한 해 동안 자기 회복을 위한 작은 약속을 정해 두세요."
+                      }
+                    ],
+                    "plainText": "한 해 동안 자기 회복을 위한 작은 약속을 정해 두세요."
                   }
                 ],
                 "livingTips": [
@@ -8525,6 +8570,15 @@
                       }
                     ],
                     "plainText": "배우고 싶은 일, 만나고 싶은 사람, 가보고 싶은 장소를 현실적인 순서로 정하면 변화가 부담보다 성장으로 느껴질 수 있어요."
+                  },
+                  {
+                    "tokens": [
+                      {
+                        "kind": "text",
+                        "value": "환경 변화에 맞춰 일정을 단계적으로 조정하세요."
+                      }
+                    ],
+                    "plainText": "환경 변화에 맞춰 일정을 단계적으로 조정하세요."
                   }
                 ],
                 "livingTips": [
@@ -9125,7 +9179,7 @@
       },
       "meta": {
         "schemaVersion": "spring-ts.tiered-matrix.v1",
-        "generatedAt": "2026-05-06T12:08:24.943Z",
+        "generatedAt": "2026-05-06T12:36:27.513Z",
         "selectionSeed": "2026|11|7|18|30|male|2026-05-04T15:00:00.000Z",
         "templateContractVersion": "1.0.0",
         "contentSource": "authored",

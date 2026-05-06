@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-05-06T12:08:13.786Z",
+  "generatedAt": "2026-05-06T12:36:16.146Z",
   "targetDate": "2026-05-05T00:00:00+09:00",
   "sampleId": "low-confidence-yongshin-tiered",
   "description": "용신 신뢰도 낮은 case (consensus 충돌 + 다중 후보). yongshinMode=consensus_aware + chengbai_strict 결합으로 conflict 가 격국 페널티 곡선까지 영향을 주는 elasticity 를 노출. tieredMatrix 의 명시적 신호 fixture 로 활용한다.",
@@ -1337,7 +1337,7 @@
     },
     "meta": {
       "version": "1.0.0",
-      "generatedAt": "2026-05-06T12:08:22.718Z",
+      "generatedAt": "2026-05-06T12:36:25.316Z",
       "schoolPreset": {
         "selected": "korean",
         "source": "default",
@@ -4212,6 +4212,15 @@
                       }
                     ],
                     "plainText": "큰 목표보다 짧은 문제 풀이, 요약, 과제 초안처럼 바로 끝낼 수 있는 단위를 먼저 잡아보세요."
+                  },
+                  {
+                    "tokens": [
+                      {
+                        "kind": "text",
+                        "value": "오늘 끝낸 만큼만 기록해 두면 부담이 덜해요."
+                      }
+                    ],
+                    "plainText": "오늘 끝낸 만큼만 기록해 두면 부담이 덜해요."
                   }
                 ],
                 "livingTips": [
@@ -5046,6 +5055,15 @@
                       }
                     ],
                     "plainText": "빠르게 쓰기보다 빠진 부분을 줄이는 것이 더 중요하니, 마감과 제출 조건을 한 번 더 보는 편이 안전해요."
+                  },
+                  {
+                    "tokens": [
+                      {
+                        "kind": "text",
+                        "value": "한 번에 모든 분량을 보려 하지 말고 단원을 나눠 진행하세요."
+                      }
+                    ],
+                    "plainText": "한 번에 모든 분량을 보려 하지 말고 단원을 나눠 진행하세요."
                   }
                 ],
                 "livingTips": [
@@ -7166,6 +7184,15 @@
                       }
                     ],
                     "plainText": "흩어진 메일, 계약서, 신청 서류, 참고 자료를 묶어두면 다음 결정이 훨씬 가벼워집니다."
+                  },
+                  {
+                    "tokens": [
+                      {
+                        "kind": "text",
+                        "value": "한 주 동안 끝낼 단원의 양을 미리 정해 두세요."
+                      }
+                    ],
+                    "plainText": "한 주 동안 끝낼 단원의 양을 미리 정해 두세요."
                   }
                 ],
                 "livingTips": [
@@ -7884,6 +7911,15 @@
                     }
                   ],
                   "plainText": "발표, 홍보, 관계 확장에는 도움이 되지만, 너무 많은 일을 동시에 키우면 에너지가 빨리 소모될 수 있어요."
+                },
+                {
+                  "tokens": [
+                    {
+                      "kind": "text",
+                      "value": "한 달의 끝에 짧게 돌아보는 시간이 다음 달의 시작을 안정시켜요."
+                    }
+                  ],
+                  "plainText": "한 달의 끝에 짧게 돌아보는 시간이 다음 달의 시작을 안정시켜요."
                 }
               ],
               "livingTips": [
@@ -10558,6 +10594,15 @@
                       }
                     ],
                     "plainText": "좋은 인연은 설렘만 주는 사람이 아니라, 서로의 일상과 선택을 존중하게 만드는 사람에게서 더 또렷해집니다."
+                  },
+                  {
+                    "tokens": [
+                      {
+                        "kind": "text",
+                        "value": "서로의 일상과 미래에 대한 생각을 자주 나누세요."
+                      }
+                    ],
+                    "plainText": "서로의 일상과 미래에 대한 생각을 자주 나누세요."
                   }
                 ],
                 "livingTips": [
@@ -10775,6 +10820,15 @@
                       }
                     ],
                     "plainText": "가까운 사이일수록 더 많이 해주려는 마음이 커질 수 있지만, 서로의 생활 리듬을 인정해야 관계가 오래 편안해요."
+                  },
+                  {
+                    "tokens": [
+                      {
+                        "kind": "text",
+                        "value": "돌봄과 책임을 한 사람에게 몰지 않도록 미리 나누어 두세요."
+                      }
+                    ],
+                    "plainText": "돌봄과 책임을 한 사람에게 몰지 않도록 미리 나누어 두세요."
                   }
                 ],
                 "livingTips": [
@@ -12651,7 +12705,7 @@
       },
       "meta": {
         "schemaVersion": "spring-ts.tiered-matrix.v1",
-        "generatedAt": "2026-05-06T12:08:22.718Z",
+        "generatedAt": "2026-05-06T12:36:25.316Z",
         "selectionSeed": "1991|2|4|18|0|female|2026-05-04T15:00:00.000Z",
         "templateContractVersion": "1.0.0",
         "contentSource": "authored",
