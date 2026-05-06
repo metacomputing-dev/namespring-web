@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-05-06T12:36:16.146Z",
+  "generatedAt": "2026-05-06T12:42:20.862Z",
   "targetDate": "2026-05-05T00:00:00+09:00",
   "sampleId": "jeong-extreme-strong-continuous-tiered",
   "description": "입력 의도: 지지에서 일간이 강하게 받쳐지는 신강 지향 입력. strengthMode=continuous 로 4-tier 강도 곡선과 결합한 tiered 샘플. 최종 강도 분류는 엔진이 결정한다.",
@@ -1294,7 +1294,7 @@
     },
     "meta": {
       "version": "1.0.0",
-      "generatedAt": "2026-05-06T12:36:22.545Z",
+      "generatedAt": "2026-05-06T12:42:27.102Z",
       "schoolPreset": {
         "selected": "korean",
         "source": "default",
@@ -1431,10 +1431,10 @@
                     },
                     {
                       "kind": "text",
-                      "value": "의 흐름이 곁에 들어오면 모자란 자리를 자연스레 받쳐 주는 흐름이 함께 흘러요."
+                      "value": "의 리듬이 곁에 들어오면 모자란 자리를 자연스레 받쳐 주는 호흡이 함께 흘러요."
                     }
                   ],
-                  "plainText": "#통관용신의 흐름이 자리하면 한쪽으로 막힌 흐름을 부드럽게 살려 주고, #병약용신의 흐름이 곁에 들어오면 모자란 자리를 자연스레 받쳐 주는 흐름이 함께 흘러요."
+                  "plainText": "#통관용신의 흐름이 자리하면 한쪽으로 막힌 흐름을 부드럽게 살려 주고, #병약용신의 리듬이 곁에 들어오면 모자란 자리를 자연스레 받쳐 주는 호흡이 함께 흘러요."
                 }
               ],
               "numericalEvidence": [
@@ -12898,7 +12898,7 @@
       },
       "meta": {
         "schemaVersion": "spring-ts.tiered-matrix.v1",
-        "generatedAt": "2026-05-06T12:36:22.545Z",
+        "generatedAt": "2026-05-06T12:42:27.102Z",
         "selectionSeed": "1980|3|12|9|0|male|2026-05-04T15:00:00.000Z",
         "templateContractVersion": "1.0.0",
         "contentSource": "authored",

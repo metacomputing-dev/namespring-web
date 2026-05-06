@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-05-06T12:36:16.146Z",
+  "generatedAt": "2026-05-06T12:42:20.862Z",
   "targetDate": "2026-05-05T00:00:00+09:00",
   "sampleId": "gyeokguk-conflict-multi-confidence-tiered",
   "description": "격국 충돌 + 다중 confidence 시나리오 — gyeokgukSelectionRule=jungki_transparent + gyeokgukMode=chengbai_strict + yongshinMode=consensus_aware 결합. 월지 중기 투간 후보와 chengbai 페널티 smooth tanh 곡선이 동시에 ranking 에 작용하는 elasticity 노출 케이스.",
@@ -1309,7 +1309,7 @@
     },
     "meta": {
       "version": "1.0.0",
-      "generatedAt": "2026-05-06T12:36:28.483Z",
+      "generatedAt": "2026-05-06T12:42:33.219Z",
       "schoolPreset": {
         "selected": "korean",
         "source": "default",
@@ -6083,10 +6083,10 @@
                     },
                     {
                       "kind": "text",
-                      "value": "의 흐름이 곁에 들어오면 모자란 자리를 자연스레 받쳐 주는 흐름이 함께 흘러요."
+                      "value": "의 리듬이 곁에 들어오면 모자란 자리를 자연스레 받쳐 주는 호흡이 함께 흘러요."
                     }
                   ],
-                  "plainText": "#통관용신의 흐름이 자리하면 한쪽으로 막힌 흐름을 부드럽게 살려 주고, #병약용신의 흐름이 곁에 들어오면 모자란 자리를 자연스레 받쳐 주는 흐름이 함께 흘러요."
+                  "plainText": "#통관용신의 흐름이 자리하면 한쪽으로 막힌 흐름을 부드럽게 살려 주고, #병약용신의 리듬이 곁에 들어오면 모자란 자리를 자연스레 받쳐 주는 호흡이 함께 흘러요."
                 }
               ]
             },
@@ -12857,7 +12857,7 @@
       },
       "meta": {
         "schemaVersion": "spring-ts.tiered-matrix.v1",
-        "generatedAt": "2026-05-06T12:36:28.483Z",
+        "generatedAt": "2026-05-06T12:42:33.219Z",
         "selectionSeed": "1976|6|22|13|15|male|2026-05-04T15:00:00.000Z",
         "templateContractVersion": "1.0.0",
         "contentSource": "authored",
