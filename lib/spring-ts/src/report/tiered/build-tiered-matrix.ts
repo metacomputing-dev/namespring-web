@@ -80,19 +80,53 @@ const MINOR_STANDARD_LIMITED_PARAGRAPH: TaggedParagraph = Object.freeze({
   plainText: '지금은 결과를 단정하기보다 학교, 친구, 가족, 컨디션처럼 가까운 생활을 안정시키는 해석이 먼저예요. 작은 약속을 지키고, 큰 결정은 가까운 어른과 함께 확인해 주세요.',
 });
 
-const MINOR_EXPERT_LIMITED_PARAGRAPH: TaggedParagraph = Object.freeze({
-  tokens: [
-    { kind: 'text', value: '이 항목은 나이가 어린 독자에게 단정적으로 풀이하지 않아요. ' },
-    { kind: 'tag', tagId: 'dayPillar', label: '일주' },
-    { kind: 'text', value: '와 ' },
-    { kind: 'tag', tagId: 'yongshin', label: '용신' },
-    {
-      kind: 'text',
-      value: ' 같은 전문 지표는 성장 과정, 보호자 관찰, 실제 생활 환경을 함께 보며 참고해야 해요.',
-    },
-  ] as const,
-  plainText: '이 항목은 나이가 어린 독자에게 단정적으로 풀이하지 않아요. #일주와 #용신 같은 전문 지표는 성장 과정, 보호자 관찰, 실제 생활 환경을 함께 보며 참고해야 해요.',
-});
+const MINOR_EXPERT_LIMITED_PARAGRAPHS: readonly TaggedParagraph[] = Object.freeze([
+  Object.freeze({
+    tokens: [
+      {
+        kind: 'text',
+        value: '이 항목은 나이가 어린 독자에게 결과를 단정적으로 풀이하지 않아요. 같은 흐름이라도 아이가 자라는 속도, 가정과 학교의 환경, 그날그날의 컨디션에 따라 의미가 크게 달라지기 때문이에요.',
+      },
+    ] as const,
+    plainText: '이 항목은 나이가 어린 독자에게 결과를 단정적으로 풀이하지 않아요. 같은 흐름이라도 아이가 자라는 속도, 가정과 학교의 환경, 그날그날의 컨디션에 따라 의미가 크게 달라지기 때문이에요.',
+  }),
+  Object.freeze({
+    tokens: [
+      { kind: 'text', value: '전문 해석에서 자주 쓰는 ' },
+      { kind: 'tag', tagId: 'dayPillar', label: '일주' },
+      { kind: 'text', value: '와 ' },
+      { kind: 'tag', tagId: 'yongshin', label: '용신' },
+      {
+        kind: 'text',
+        value: ' 같은 지표는 성격과 흐름을 가늠하는 참고선일 뿐, 어린 시기의 결과를 못 박는 단서로 쓰면 안 돼요.',
+      },
+    ] as const,
+    plainText: '전문 해석에서 자주 쓰는 #일주와 #용신 같은 지표는 성격과 흐름을 가늠하는 참고선일 뿐, 어린 시기의 결과를 못 박는 단서로 쓰면 안 돼요.',
+  }),
+  Object.freeze({
+    tokens: [
+      {
+        kind: 'text',
+        value: '그래서 같은 ',
+      },
+      { kind: 'tag', tagId: 'dayPillar', label: '일주' },
+      {
+        kind: 'text',
+        value: '라도 성장 과정, 보호자 관찰, 실제 생활 환경을 함께 살피는 자료로 받아 주세요. 아이의 표정, 말투, 잠과 식사 같은 일상 신호가 사주 지표보다 더 정확한 단서가 되는 시기예요.',
+      },
+    ] as const,
+    plainText: '그래서 같은 #일주라도 성장 과정, 보호자 관찰, 실제 생활 환경을 함께 살피는 자료로 받아 주세요. 아이의 표정, 말투, 잠과 식사 같은 일상 신호가 사주 지표보다 더 정확한 단서가 되는 시기예요.',
+  }),
+  Object.freeze({
+    tokens: [
+      {
+        kind: 'text',
+        value: '큰 결정은 보호자가 시간을 두고 가까운 어른과 함께 확인해 주세요. 사주 해석은 한쪽 참고 자료로만 두고, 학교·의료·상담 같은 실제 지원 경로를 우선 활용하면 흐름을 더 안전하게 끌어갈 수 있어요.',
+      },
+    ] as const,
+    plainText: '큰 결정은 보호자가 시간을 두고 가까운 어른과 함께 확인해 주세요. 사주 해석은 한쪽 참고 자료로만 두고, 학교·의료·상담 같은 실제 지원 경로를 우선 활용하면 흐름을 더 안전하게 끌어갈 수 있어요.',
+  }),
+]);
 
 const NAME_FRAME_STAGE: Record<NamingReportFrame['type'], { stage: TieredNameFrameEvidence['stage']; label: string }> = {
   won: { stage: 'earlyLife', label: '초년운' },
@@ -164,7 +198,7 @@ function buildMinorStandardFallback(
 
 function buildMinorExpertFallback(feature: FeatureVector): ExpertFortuneText | null {
   if (!isMinorAgeBand(feature.ageBand)) return null;
-  return { paragraphs: [MINOR_EXPERT_LIMITED_PARAGRAPH] };
+  return { paragraphs: MINOR_EXPERT_LIMITED_PARAGRAPHS };
 }
 
 function buildMinorFallbackCell(
