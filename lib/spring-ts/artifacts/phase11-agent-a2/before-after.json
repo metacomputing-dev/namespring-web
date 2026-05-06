@@ -1,0 +1,80 @@
+{
+  "phase": "P11-A2",
+  "agent": "A2",
+  "task": "period-aware 자리예요 normalize at template-engine.ts:407",
+  "scope": "src/report/tiered/template-engine.ts only",
+  "discoveredFromAudit": "phase10-agent-a5/audit-2026-05-06.md C2 (cross-period leak from template-engine.ts)",
+  "rootCause": {
+    "file": "lib/spring-ts/src/report/tiered/template-engine.ts",
+    "line": 407,
+    "before": "out = out.replace(/잠을 충분히 챙기는 자리예요/g, '잠을 충분히 챙기는 하루예요');",
+    "issue": "Unconditional rewrite. Source fragments live in both data/narrative/health_stress/today/brief.fragments.json and data/narrative/health_stress/thisWeek/brief.fragments.json (gating ageBand 10-19, fragmentIds *.youth_10_19.001). Both end with '자리예요'. The unconditional regex rewrites both to '하루예요' (one day), which is a logical contradiction when the period prefix is '이번 주는' (this week)."
+  },
+  "fix": {
+    "approach": "Replace the single unconditional rewrite with two prefix-anchored rewrites — one per actual data prefix. No 이번 달/올해/평생 handlers added because grep over data/narrative/ confirms those period prefixes do not contain this phrase.",
+    "before": [
+      "out = out.replace(/잠을 충분히 챙기는 자리예요/g, '잠을 충분히 챙기는 하루예요');"
+    ],
+    "after": [
+      "out = out.replace(/오늘은 잠을 충분히 챙기는 자리예요/g, '오늘은 잠을 충분히 챙기는 하루예요');",
+      "out = out.replace(/이번 주는 잠을 충분히 챙기는 자리예요/g, '이번 주는 잠을 충분히 챙기는 한 주예요');"
+    ],
+    "designNotes": [
+      "Prefix anchoring eliminates ordering hazards with other rules in normalizeRenderedText.",
+      "today → 하루예요 preserves the single-day semantic (a day's rest).",
+      "thisWeek → 한 주예요 matches the week-period semantic (a week of rest).",
+      "Mathematical invariant: each period × phrase pair maps to exactly one period-coherent unit. The mapping is now total and injective on the data-confirmed domain {today, thisWeek}.",
+      "Pre-existing fail in tiered-progressive-disclosure (한자/대운궁실 결과 issue) is unrelated and exists before this change."
+    ]
+  },
+  "dataScopeProof": {
+    "command": "grep -rn '잠을 충분히 챙기는 자리예요' lib/spring-ts/data/narrative/",
+    "matches": [
+      "data/narrative/health_stress/today/brief.fragments.json:303:'오늘은 잠을 충분히 챙기는 자리예요.'",
+      "data/narrative/health_stress/thisWeek/brief.fragments.json:303:'이번 주는 잠을 충분히 챙기는 자리예요.'"
+    ],
+    "conclusion": "Only today and thisWeek prefixes exist for this phrase. No 이번 달/올해/평생 fragments require handlers."
+  },
+  "verification": {
+    "samplesRegenerated": 35,
+    "samplesPath": "artifacts/sample-outputs-2026-05-05-phase3/",
+    "regenDiscardedReason": "Sample regen on this branch produced unrelated drift (P10-A3 name-compatibility-card.ts prose rewrites, daily-fortune reason text, warning text). To honor the policy '1 commit = 1 intent' (per memory feedback_change_policy), the regen output was checked out to HEAD; only the template-engine.ts fix and this artifact are committed in P11-A2. A future dedicated sample-regen commit will incorporate this fix together with other accumulated source drift.",
+    "crossPeriodMismatchScan": {
+      "pattern": "(이번 주|이번 달|올해|평생|한평생|인생)[^.\"]{0,200}하루[예이][요라]",
+      "before": {
+        "count": 1,
+        "examples": [
+          "04-kim-seoyun-young-female-tiered.json:4269: '이번 주는 잠을 충분히 챙기는 하루예요. 햇빛 아래 짧은 산책이 좋아요.'"
+        ],
+        "scanScope": "in-tree samples at HEAD before fix"
+      },
+      "after": {
+        "count": 0,
+        "examples": [],
+        "scanScope": "regen run on 2026-05-06 with the template-engine.ts fix applied (regen output discarded; verification ran live, the in-tree HEAD state still has the pre-fix headline until the next sample-regen commit)"
+      }
+    },
+    "positiveCheck": {
+      "pattern": "잠을 충분히 챙기는",
+      "afterRegenLive": [
+        "04-kim-seoyun-young-female-tiered.json:4269 (during regen): '이번 주는 잠을 충분히 챙기는 한 주예요. 햇빛 아래 짧은 산책이 좋아요.'"
+      ],
+      "note": "today fragment (youth_10_19.001) was not selected by any fixture's selector in the current 35-fixture set; the rewrite remains preventive for future fixtures.",
+      "todayRewriteCovered": "preventive (no fixture currently selects today.brief.youth_10_19.001)"
+    },
+    "tests": {
+      "typecheck": "PASS",
+      "ci:no-ai-policy": "PASS",
+      "test:tiered-isolation": "37/37 PASS",
+      "test:tiered-shape": "908/908 PASS",
+      "test:tiered-determinism": "4/4 PASS",
+      "test:namespring-compat": "202/202 PASS",
+      "test:snapshot": "15/15 PASS",
+      "test:tiered-progressive-disclosure": "11/12 (1 unrelated pre-existing FAIL on '#대운궁실의 결과' phrase, exists before this change)"
+    }
+  },
+  "outOfScopeNote": {
+    "line133": "template-engine.ts:133 has structurally similar unconditional rewrite '아이의 흐름이에요 → 아이의 하루예요' which could leak across periods. Out of P11-A2 scope (line 407 only). Recommend separate audit/fix in a future Phase 11 agent.",
+    "rationale": "Strict scope adherence per Phase 11 policy. Single-purpose commit."
+  }
+}
