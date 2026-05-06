@@ -113,6 +113,7 @@
     "ci:narrative-cell-axis": "node tools/narrative_cell_axis_report.mjs --max-missing-audience-cells=0 --max-missing-saju-core-cells=0 --max-missing-season-context-cells=0",
     "ci:narrative-voice": "node tools/narrative_voice_audit.mjs --max-plain-term-violations=0 --max-plain-tag-violations=0 --max-expert-untagged=0",
     "ci:narrative-truncated-endings": "node tools/check_narrative_truncated_endings.mjs --max-violations=0",
+    "ci:narrative-tag-label-alignment": "node tools/check_glossary_coverage.mjs --max-violations=0",
     "ingest:unihan": "npx tsx scripts/ingest-unihan.ts",
     "capture:oracles": "node tools/capture_saju_master_runs.mjs",
     "validate:lecture": "npx tsx tools/validate_lecture_cases.ts",
