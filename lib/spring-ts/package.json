@@ -116,6 +116,7 @@
     "ci:narrative-tag-label-alignment": "node tools/check_glossary_coverage.mjs --max-violations=0",
     "ci:narrative-orphan-tags": "node tools/check_orphan_tag_text.mjs --max-violations=0",
     "ci:acceptance-completeness": "node tools/check_acceptance_completeness.mjs --max-violations=0",
+    "ci:samples-stale": "npm --prefix ../saju-ts run build && node tools/check_samples_stale.mjs --max-violations=0",
     "ingest:unihan": "npx tsx scripts/ingest-unihan.ts",
     "capture:oracles": "node tools/capture_saju_master_runs.mjs",
     "validate:lecture": "npx tsx tools/validate_lecture_cases.ts",

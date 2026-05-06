@@ -11,7 +11,8 @@
     "ci:narrative-truncated-endings",
     "ci:narrative-tag-label-alignment",
     "ci:narrative-orphan-tags",
-    "ci:acceptance-completeness"
+    "ci:acceptance-completeness",
+    "ci:samples-stale"
   ],
   "exempt": [
     {
