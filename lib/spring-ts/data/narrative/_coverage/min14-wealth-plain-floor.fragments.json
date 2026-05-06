@@ -9,7 +9,7 @@
       "axis": { "category": "wealth", "period": "life", "depth": "standard" },
       "gating": { "ageBand": ["10-19", "20-29", "30-39"] },
       "templateTokens": [
-        { "kind": "text", "value": "돈의 흐름은 빨리 크게 잡기보다 작은 수입과 지출을 정확히 보는 습관에서 안정됩니다.\n\n아직 기반을 만드는 시기라면 저축, 공부, 경험을 함께 쌓는 방식이 더 잘 맞아요." }
+        { "kind": "text", "value": "돈의 흐름은 빨리 크게 잡기보다 작은 수입과 지출을 정확히 보는 습관에서 안정됩니다.\n\n아직 기반을 만드는 시기라면 저축, 공부, 경험을 함께 쌓는 방식이 더 잘 맞아요.\n\n계획이 분명할수록 작은 변화에도 흔들리지 않습니다." }
       ],
       "livingTips": [
         "매달 고정 지출과 자유 지출을 나눠 적어보세요.",
@@ -65,7 +65,7 @@
       "axis": { "category": "wealth", "period": "today", "depth": "standard" },
       "gating": { "yongshinAlignment": ["aligned", "neutral"] },
       "templateTokens": [
-        { "kind": "text", "value": "오늘은 돈을 크게 움직이기보다 정리하고 계획하기 좋은 흐름이에요.\n\n꼭 써야 할 돈과 미룰 수 있는 돈을 나누면 하루의 선택이 훨씬 단순해집니다." }
+        { "kind": "text", "value": "오늘은 돈을 크게 움직이기보다 정리하고 계획하기 좋은 흐름이에요.\n\n꼭 써야 할 돈과 미룰 수 있는 돈을 나누면 하루의 선택이 훨씬 단순해집니다.\n\n결제 전 한 번 더 검토하는 습관이 부담을 줄여 줍니다." }
       ],
       "livingTips": [
         "오늘 결제할 항목을 세 가지 안으로 줄여보세요.",
@@ -219,7 +219,7 @@
       "axis": { "category": "wealth", "period": "thisMonth", "depth": "standard" },
       "gating": { "yongshinAlignment": ["aligned", "neutral"] },
       "templateTokens": [
-        { "kind": "text", "value": "이번 달은 수입, 지출, 저축, 투자성 지출을 따로 나누면 돈의 흐름이 선명해집니다.\n\n새로운 기회를 보더라도 생활비와 예비 자금을 먼저 남겨두는 편이 안전합니다." }
+        { "kind": "text", "value": "이번 달은 수입, 지출, 저축, 투자성 지출을 따로 나누면 돈의 흐름이 선명해집니다.\n\n새로운 기회를 보더라도 생활비와 예비 자금을 먼저 남겨두는 편이 안전합니다.\n\n실험 예산을 작게 정하고 결과를 확인하면 흐름을 안정적으로 살릴 수 있습니다." }
       ],
       "livingTips": [
         "월초에 고정비와 변동비를 먼저 분리하세요.",
