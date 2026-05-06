@@ -1545,7 +1545,39 @@
         "humanInterpretation": "Phase 3 Agent A15 expansion. New 7-axis combo (YANG dayMasterPolarity × BALANCED × aligned) anchored on tonggwanYongshin + ohaengBalance.",
         "copyrightNote": "No source prose copied; original phrasing.",
         "authorityTruthEligible": false
-      }
+      },
+      "numericalEvidence": [
+        {
+          "label": "일간 음양 순번",
+          "valueExpression": "feature.dayMasterPolarityOrdinal",
+          "unit": "순번",
+          "sourceTier": {
+            "tier": "T3_INTERNAL_ENGINE",
+            "sourceType": "internal_scoring_policy",
+            "sourceUrl": null,
+            "accessedAt": "2026-05-02",
+            "quoteShort": null,
+            "humanInterpretation": "Resolved from deterministic spring-ts runtime output.",
+            "copyrightNote": "No third-party prose copied.",
+            "authorityTruthEligible": false
+          }
+        },
+        {
+          "label": "생조 합",
+          "valueExpression": "feature.strengthTotalSupport",
+          "unit": "점",
+          "sourceTier": {
+            "tier": "T3_INTERNAL_ENGINE",
+            "sourceType": "internal_scoring_policy",
+            "sourceUrl": null,
+            "accessedAt": "2026-05-02",
+            "quoteShort": null,
+            "humanInterpretation": "Resolved from deterministic spring-ts runtime output.",
+            "copyrightNote": "No third-party prose copied.",
+            "authorityTruthEligible": false
+          }
+        }
+      ]
     },
     {
       "schemaVersion": "spring-ts.narrative-fragment.v1",
@@ -1849,7 +1881,24 @@
         "humanInterpretation": "Phase 3 Agent A15 expansion. New 7-axis combo (YIN × late_60s × neutral) anchored on johuYongshin + eumyangHarmony + myeonggung.",
         "copyrightNote": "No source prose copied; original phrasing.",
         "authorityTruthEligible": false
-      }
+      },
+      "numericalEvidence": [
+        {
+          "label": "일간 음양 순번",
+          "valueExpression": "feature.dayMasterPolarityOrdinal",
+          "unit": "순번",
+          "sourceTier": {
+            "tier": "T3_INTERNAL_ENGINE",
+            "sourceType": "internal_scoring_policy",
+            "sourceUrl": null,
+            "accessedAt": "2026-05-02",
+            "quoteShort": null,
+            "humanInterpretation": "Resolved from deterministic spring-ts runtime output.",
+            "copyrightNote": "No third-party prose copied.",
+            "authorityTruthEligible": false
+          }
+        }
+      ]
     },
     {
       "schemaVersion": "spring-ts.narrative-fragment.v1",
