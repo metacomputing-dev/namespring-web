@@ -130,6 +130,28 @@ export function normalizeRenderedText(value: string): string {
   out = out.replace(/따뜻한 거래/g, '따뜻한 주고받음');
   out = out.replace(/자녀의 흐름/g, '자녀와의 관계');
   out = out.replace(/아이의 흐름은/g, '아이의 하루는');
+  // P12-A2: period-aware normalize. The unconditional rewrite
+  // `아이의 흐름이에요 → 아이의 하루예요` is a structurally identical
+  // latent cross-period leak to the one P11-A2 fixed at the
+  // `잠을 충분히 챙기는 자리예요 → ... 하루예요` rule. When the
+  // surrounding period is anything other than `오늘`, mapping to
+  // `하루예요` (one day) creates a logical contradiction with prefixes
+  // like `이번 주`, `이번 달`, `올해`, `인생/평생`. Per the P11-A2
+  // pattern, prefix-anchored rewrites map each period to its own
+  // coherent unit. The unanchored fallback is preserved AFTER the
+  // anchored rules so that mid-sentence occurrences without a period
+  // prefix still receive a grammatically valid rewrite (otherwise
+  // the next rule below (`/아이의 흐름이/g → /아이의 하루가/g`) would
+  // partially match `아이의 흐름이` inside `아이의 흐름이에요` and
+  // produce `아이의 하루가에요` — a grammar regression). A grep over
+  // data/narrative/ confirms no fragment currently produces
+  // `아이의 흐름이에요` directly, so this fix is preventive and
+  // byte-stable on the current 35-fixture set.
+  out = out.replace(/오늘 아이의 흐름이에요/g, '오늘 아이의 하루예요');
+  out = out.replace(/이번 주 아이의 흐름이에요/g, '이번 주 아이의 한 주예요');
+  out = out.replace(/이번 달 아이의 흐름이에요/g, '이번 달 아이의 한 달 흐름이에요');
+  out = out.replace(/올해 아이의 흐름이에요/g, '올해 아이의 한 해 흐름이에요');
+  out = out.replace(/(인생|평생) 아이의 흐름이에요/g, '$1 아이의 시기예요');
   out = out.replace(/아이의 흐름이에요/g, '아이의 하루예요');
   out = out.replace(/아이의 흐름이/g, '아이의 하루가');
   out = out.replace(/아이의 흐름을/g, '아이의 하루를');
