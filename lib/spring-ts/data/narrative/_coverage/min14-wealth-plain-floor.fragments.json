@@ -9,7 +9,7 @@
       "axis": { "category": "wealth", "period": "life", "depth": "standard" },
       "gating": { "ageBand": ["10-19", "20-29", "30-39"] },
       "templateTokens": [
-        { "kind": "text", "value": "돈의 흐름은 빨리 크게 잡기보다 작은 수입과 지출을 정확히 보는 습관에서 안정됩니다. 아직 기반을 만드는 시기라면 저축, 공부, 경험을 함께 쌓는 방식이 더 잘 맞아요." }
+        { "kind": "text", "value": "돈의 흐름은 빨리 크게 잡기보다 작은 수입과 지출을 정확히 보는 습관에서 안정됩니다.\n\n아직 기반을 만드는 시기라면 저축, 공부, 경험을 함께 쌓는 방식이 더 잘 맞아요." }
       ],
       "livingTips": [
         "매달 고정 지출과 자유 지출을 나눠 적어보세요.",
@@ -37,7 +37,7 @@
       "axis": { "category": "wealth", "period": "life", "depth": "standard" },
       "gating": { "ageBand": ["40-54", "55-69", "70+"] },
       "templateTokens": [
-        { "kind": "text", "value": "재물 흐름은 크게 벌기보다 지키고 정리하는 힘이 중요해지는 편이에요. 수입원, 생활비, 예비 자금, 가족과의 돈 문제를 따로 보아야 오래 안정됩니다." }
+        { "kind": "text", "value": "재물 흐름은 크게 벌기보다 지키고 정리하는 힘이 중요해지는 편이에요.\n\n수입원, 생활비, 예비 자금, 가족과의 돈 문제를 따로 보아야 오래 안정됩니다." }
       ],
       "livingTips": [
         "큰 결정 전에는 현금 흐름과 비상금을 먼저 확인하세요.",
@@ -65,7 +65,7 @@
       "axis": { "category": "wealth", "period": "today", "depth": "standard" },
       "gating": { "yongshinAlignment": ["aligned", "neutral"] },
       "templateTokens": [
-        { "kind": "text", "value": "오늘은 돈을 크게 움직이기보다 정리하고 계획하기 좋은 흐름이에요. 꼭 써야 할 돈과 미룰 수 있는 돈을 나누면 하루의 선택이 훨씬 단순해집니다." }
+        { "kind": "text", "value": "오늘은 돈을 크게 움직이기보다 정리하고 계획하기 좋은 흐름이에요.\n\n꼭 써야 할 돈과 미룰 수 있는 돈을 나누면 하루의 선택이 훨씬 단순해집니다." }
       ],
       "livingTips": [
         "오늘 결제할 항목을 세 가지 안으로 줄여보세요.",
@@ -93,7 +93,7 @@
       "axis": { "category": "wealth", "period": "today", "depth": "standard" },
       "gating": { "yongshinAlignment": ["conflicting"] },
       "templateTokens": [
-        { "kind": "text", "value": "오늘은 충동적인 지출과 급한 제안을 조심하는 편이 좋아요. 돈을 쓰기 전 하루만 더 생각해도 필요하지 않은 선택을 꽤 줄일 수 있습니다." }
+        { "kind": "text", "value": "오늘은 충동적인 지출과 급한 제안을 조심하는 편이 좋아요.\n\n돈을 쓰기 전 하루만 더 생각해도 필요하지 않은 선택을 꽤 줄일 수 있습니다." }
       ],
       "livingTips": [
         "큰 결제는 장바구니에 넣어두고 잠시 미루세요.",
@@ -121,7 +121,7 @@
       "axis": { "category": "wealth", "period": "thisWeek", "depth": "standard" },
       "gating": { "dayMasterStrength": ["BALANCED", "STRONG", "EXTREME_STRONG"] },
       "templateTokens": [
-        { "kind": "text", "value": "이번 주는 수입과 지출을 한눈에 보이게 정리하면 판단이 쉬워져요. 새 기회가 들어오더라도 필요한 시간과 비용을 함께 계산해야 실제 이익을 알 수 있습니다." }
+        { "kind": "text", "value": "이번 주는 수입과 지출을 한눈에 보이게 정리하면 판단이 쉬워져요.\n\n새 기회가 들어오더라도 필요한 시간과 비용을 함께 계산해야 실제 이익을 알 수 있습니다." }
       ],
       "livingTips": [
         "이번 주 들어올 돈과 나갈 돈을 날짜순으로 적으세요.",
@@ -149,7 +149,7 @@
       "axis": { "category": "wealth", "period": "thisWeek", "depth": "standard" },
       "gating": { "dayMasterStrength": ["WEAK", "EXTREME_WEAK"] },
       "templateTokens": [
-        { "kind": "text", "value": "이번 주는 돈을 늘리는 일보다 새는 돈을 막는 일이 더 중요할 수 있어요. 작은 자동 결제, 미뤄둔 청구, 약속한 비용을 확인하면 부담을 줄일 수 있습니다." }
+        { "kind": "text", "value": "이번 주는 돈을 늘리는 일보다 새는 돈을 막는 일이 더 중요할 수 있어요.\n\n작은 자동 결제, 미뤄둔 청구, 약속한 비용을 확인하면 부담을 줄일 수 있습니다." }
       ],
       "livingTips": [
         "자동 결제 목록을 열어 사용하지 않는 항목을 지우세요.",
@@ -219,7 +219,7 @@
       "axis": { "category": "wealth", "period": "thisMonth", "depth": "standard" },
       "gating": { "yongshinAlignment": ["aligned", "neutral"] },
       "templateTokens": [
-        { "kind": "text", "value": "이번 달은 수입, 지출, 저축, 투자성 지출을 따로 나누면 돈의 흐름이 선명해집니다. 새로운 기회를 보더라도 생활비와 예비 자금을 먼저 남겨두는 편이 안전합니다." }
+        { "kind": "text", "value": "이번 달은 수입, 지출, 저축, 투자성 지출을 따로 나누면 돈의 흐름이 선명해집니다.\n\n새로운 기회를 보더라도 생활비와 예비 자금을 먼저 남겨두는 편이 안전합니다." }
       ],
       "livingTips": [
         "월초에 고정비와 변동비를 먼저 분리하세요.",
@@ -247,7 +247,7 @@
       "axis": { "category": "wealth", "period": "thisMonth", "depth": "standard" },
       "gating": { "yongshinAlignment": ["conflicting"] },
       "templateTokens": [
-        { "kind": "text", "value": "이번 달은 돈이 들어오는 길보다 빠져나가는 길을 먼저 보아야 해요. 예상보다 큰 지출이 생길 수 있으니 계약, 구독, 약속 비용을 다시 확인하는 편이 좋습니다." }
+        { "kind": "text", "value": "이번 달은 돈이 들어오는 길보다 빠져나가는 길을 먼저 보아야 해요.\n\n예상보다 큰 지출이 생길 수 있으니 계약, 구독, 약속 비용을 다시 확인하는 편이 좋습니다." }
       ],
       "livingTips": [
         "이번 달 꼭 필요한 지출과 줄일 수 있는 지출을 표시하세요.",
@@ -275,7 +275,7 @@
       "axis": { "category": "wealth", "period": "thisYear", "depth": "standard" },
       "gating": { "yongshinAlignment": ["aligned", "neutral"] },
       "templateTokens": [
-        { "kind": "text", "value": "올해 재물운은 무리한 한 번의 선택보다 꾸준히 구조를 만드는 쪽에서 힘이 납니다. 수입을 늘리는 계획과 지출을 줄이는 계획을 같이 세우면 결과가 더 안정됩니다." }
+        { "kind": "text", "value": "올해 재물운은 무리한 한 번의 선택보다 꾸준히 구조를 만드는 쪽에서 힘이 납니다.\n\n수입을 늘리는 계획과 지출을 줄이는 계획을 같이 세우면 결과가 더 안정됩니다." }
       ],
       "livingTips": [
         "올해 돈 목표를 저축, 배움, 투자, 예비비로 나눠보세요.",
@@ -303,7 +303,7 @@
       "axis": { "category": "wealth", "period": "thisYear", "depth": "standard" },
       "gating": { "yongshinAlignment": ["conflicting"] },
       "templateTokens": [
-        { "kind": "text", "value": "올해는 돈을 크게 움직이기 전에 지켜야 할 기반을 먼저 확인하는 편이 좋습니다. 빚, 보증, 공동 지출, 장기 계약은 조건을 천천히 보고 결정해야 안정됩니다." }
+        { "kind": "text", "value": "올해는 돈을 크게 움직이기 전에 지켜야 할 기반을 먼저 확인하는 편이 좋습니다.\n\n빚, 보증, 공동 지출, 장기 계약은 조건을 천천히 보고 결정해야 안정됩니다." }
       ],
       "livingTips": [
         "큰 계약 전에는 해지 조건과 숨은 비용을 확인하세요.",
