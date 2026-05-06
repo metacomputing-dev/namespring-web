@@ -40,7 +40,35 @@ function pickFromPool(pool: readonly string[], seed: number): string {
   return pool[seed % pool.length];
 }
 
+/**
+ * Public wrapper -- paragraph-aware normalization.
+ *
+ * P15-A2: All normalize rules are inherently paragraph-scoped (regex pipeline
+ * + `reduceOverusedGyeol` density budget). Splitting on `\n\n+` BEFORE the
+ * pipeline runs ensures every rule sees only one paragraph at a time, so:
+ *   • density-based budgets (`reduceOverusedGyeol`) count per paragraph
+ *     even when the value flows in pre-joined,
+ *   • cross-paragraph false positives in long-prefix regex (e.g. season + 결)
+ *     are impossible by construction,
+ *   • each paragraph round-trips byte-stable when the input is single-paragraph
+ *     (the wrapper degenerates to a direct call).
+ *
+ * The internal pipeline lives in `normalizeRenderedParagraph` so callers
+ * cannot accidentally bypass the split (mirrors the `reduceOverusedGyeol`
+ * pattern from P13-A2).
+ */
 export function normalizeRenderedText(value: string): string {
+  if (!value.includes('\n\n')) return normalizeRenderedParagraph(value);
+  // Preserve the EXACT separator run (\n\n vs \n\n\n) by capturing in split.
+  const parts = value.split(/(\n\n+)/);
+  let out = '';
+  for (let i = 0; i < parts.length; i += 1) {
+    out += i % 2 === 0 ? normalizeRenderedParagraph(parts[i]) : parts[i];
+  }
+  return out;
+}
+
+function normalizeRenderedParagraph(value: string): string {
   let out = value;
   out = out.replace(/(나무|불|흙|쇠|물) 타고난 중심 기운에/g, '$1 기운을 타고난 사람에게');
   out = out.replace(/(나무|불|흙|쇠|물) 타고난 중심 기운의/g, '$1 기운을 타고난 사람의');
