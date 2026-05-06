@@ -202,7 +202,16 @@
       "templateTokens": [
         {
           "kind": "text",
-          "value": "이번 주는 일진의 흐름이 "
+          "value": "이번 주는 "
+        },
+        {
+          "kind": "tag",
+          "tagId": "iljin",
+          "label": "일진"
+        },
+        {
+          "kind": "text",
+          "value": "의 흐름이 "
         },
         {
           "kind": "tag",
@@ -263,6 +272,7 @@
         }
       ],
       "tags": [
+        "iljin",
         "yongshin",
         "heeshin",
         "sikshin",
@@ -297,7 +307,16 @@
       "templateTokens": [
         {
           "kind": "text",
-          "value": "이번 주는 일진의 흐름이 "
+          "value": "이번 주는 "
+        },
+        {
+          "kind": "tag",
+          "tagId": "iljin",
+          "label": "일진"
+        },
+        {
+          "kind": "text",
+          "value": "의 흐름이 "
         },
         {
           "kind": "tag",
@@ -349,6 +368,7 @@
         }
       ],
       "tags": [
+        "iljin",
         "gishin",
         "jeongin",
         "tonggwanYongshin",
