@@ -1,0 +1,20 @@
+{
+  "generatedAt": "2026-05-06T03:12:04.522Z",
+  "summaries": [
+    {
+      "targetDate": "2026-05-05T00:00:00+09:00",
+      "seed": "1986|4|19|5|45|male|2026-05-04T15:00:00.000Z",
+      "fileName": "multi-target-2026-05-05.json"
+    },
+    {
+      "targetDate": "2026-08-15T00:00:00+09:00",
+      "seed": "1986|4|19|5|45|male|2026-08-14T15:00:00.000Z",
+      "fileName": "multi-target-2026-08-15.json"
+    },
+    {
+      "targetDate": "2027-02-04T00:00:00+09:00",
+      "seed": "1986|4|19|5|45|male|2027-02-03T15:00:00.000Z",
+      "fileName": "multi-target-2027-02-04.json"
+    }
+  ]
+}

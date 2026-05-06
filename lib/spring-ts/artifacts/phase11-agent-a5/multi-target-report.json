@@ -1,0 +1,602 @@
+{
+  "generatedAt": "2026-05-06T03:12:08.133Z",
+  "summary": {
+    "corpora": [
+      {
+        "tag": "2026-05-05",
+        "seed": "1986|4|19|5|45|male|2026-05-04T15:00:00.000Z",
+        "cellCount": 377
+      },
+      {
+        "tag": "2026-08-15",
+        "seed": "1986|4|19|5|45|male|2026-08-14T15:00:00.000Z",
+        "cellCount": 377
+      },
+      {
+        "tag": "2027-02-04",
+        "seed": "1986|4|19|5|45|male|2027-02-03T15:00:00.000Z",
+        "cellCount": 367
+      }
+    ],
+    "totalSharedCells": 377,
+    "cellsAllSame": 97,
+    "cellsPartialDiff": 185,
+    "cellsFullyDistinct": 76
+  },
+  "byPeriod": {
+    "life": {
+      "cells": 81,
+      "meanDistinctRatio": 0.6275720164609052,
+      "cellsAllSame": 17,
+      "cellsAllDifferent": 10
+    },
+    "today": {
+      "cells": 71,
+      "meanDistinctRatio": 0.6713615023474175,
+      "cellsAllSame": 18,
+      "cellsAllDifferent": 19
+    },
+    "thisWeek": {
+      "cells": 77,
+      "meanDistinctRatio": 0.6103896103896103,
+      "cellsAllSame": 22,
+      "cellsAllDifferent": 11
+    },
+    "thisMonth": {
+      "cells": 73,
+      "meanDistinctRatio": 0.6757990867579907,
+      "cellsAllSame": 22,
+      "cellsAllDifferent": 24
+    },
+    "thisYear": {
+      "cells": 75,
+      "meanDistinctRatio": 0.6844444444444443,
+      "cellsAllSame": 18,
+      "cellsAllDifferent": 22
+    }
+  },
+  "cellsAllIdenticalAcross3": [
+    {
+      "cellKey": "life/wealth/standard/para0",
+      "period": "life",
+      "category": "wealth",
+      "depth": "standard",
+      "presentIn": 3,
+      "distinct": 1,
+      "ratio": 0.3333333333333333
+    },
+    {
+      "cellKey": "life/wealth/standard/para1",
+      "period": "life",
+      "category": "wealth",
+      "depth": "standard",
+      "presentIn": 3,
+      "distinct": 1,
+      "ratio": 0.3333333333333333
+    },
+    {
+      "cellKey": "life/wealth/standard/para2",
+      "period": "life",
+      "category": "wealth",
+      "depth": "standard",
+      "presentIn": 3,
+      "distinct": 1,
+      "ratio": 0.3333333333333333
+    },
+    {
+      "cellKey": "life/wealth/standard/para3",
+      "period": "life",
+      "category": "wealth",
+      "depth": "standard",
+      "presentIn": 3,
+      "distinct": 1,
+      "ratio": 0.3333333333333333
+    },
+    {
+      "cellKey": "life/wealth/standard/para4",
+      "period": "life",
+      "category": "wealth",
+      "depth": "standard",
+      "presentIn": 3,
+      "distinct": 1,
+      "ratio": 0.3333333333333333
+    },
+    {
+      "cellKey": "life/health/expert/para3",
+      "period": "life",
+      "category": "health",
+      "depth": "expert",
+      "presentIn": 3,
+      "distinct": 1,
+      "ratio": 0.3333333333333333
+    },
+    {
+      "cellKey": "life/academic/brief/headline",
+      "period": "life",
+      "category": "academic",
+      "depth": "brief",
+      "presentIn": 3,
+      "distinct": 1,
+      "ratio": 0.3333333333333333
+    },
+    {
+      "cellKey": "life/academic/standard/para0",
+      "period": "life",
+      "category": "academic",
+      "depth": "standard",
+      "presentIn": 3,
+      "distinct": 1,
+      "ratio": 0.3333333333333333
+    },
+    {
+      "cellKey": "life/romance/brief/headline",
+      "period": "life",
+      "category": "romance",
+      "depth": "brief",
+      "presentIn": 3,
+      "distinct": 1,
+      "ratio": 0.3333333333333333
+    },
+    {
+      "cellKey": "life/romance/standard/para0",
+      "period": "life",
+      "category": "romance",
+      "depth": "standard",
+      "presentIn": 3,
+      "distinct": 1,
+      "ratio": 0.3333333333333333
+    },
+    {
+      "cellKey": "life/career/standard/para0",
+      "period": "life",
+      "category": "career",
+      "depth": "standard",
+      "presentIn": 3,
+      "distinct": 1,
+      "ratio": 0.3333333333333333
+    },
+    {
+      "cellKey": "life/expression_children/brief/headline",
+      "period": "life",
+      "category": "expression_children",
+      "depth": "brief",
+      "presentIn": 3,
+      "distinct": 1,
+      "ratio": 0.3333333333333333
+    },
+    {
+      "cellKey": "life/expression_children/standard/para0",
+      "period": "life",
+      "category": "expression_children",
+      "depth": "standard",
+      "presentIn": 3,
+      "distinct": 1,
+      "ratio": 0.3333333333333333
+    },
+    {
+      "cellKey": "life/movement/brief/headline",
+      "period": "life",
+      "category": "movement",
+      "depth": "brief",
+      "presentIn": 3,
+      "distinct": 1,
+      "ratio": 0.3333333333333333
+    },
+    {
+      "cellKey": "life/movement/standard/para0",
+      "period": "life",
+      "category": "movement",
+      "depth": "standard",
+      "presentIn": 3,
+      "distinct": 1,
+      "ratio": 0.3333333333333333
+    },
+    {
+      "cellKey": "life/movement/standard/para1",
+      "period": "life",
+      "category": "movement",
+      "depth": "standard",
+      "presentIn": 3,
+      "distinct": 1,
+      "ratio": 0.3333333333333333
+    },
+    {
+      "cellKey": "life/movement/standard/para2",
+      "period": "life",
+      "category": "movement",
+      "depth": "standard",
+      "presentIn": 3,
+      "distinct": 1,
+      "ratio": 0.3333333333333333
+    },
+    {
+      "cellKey": "today/overall/brief/headline",
+      "period": "today",
+      "category": "overall",
+      "depth": "brief",
+      "presentIn": 3,
+      "distinct": 1,
+      "ratio": 0.3333333333333333
+    },
+    {
+      "cellKey": "today/overall/standard/para0",
+      "period": "today",
+      "category": "overall",
+      "depth": "standard",
+      "presentIn": 3,
+      "distinct": 1,
+      "ratio": 0.3333333333333333
+    },
+    {
+      "cellKey": "today/overall/expert/para0",
+      "period": "today",
+      "category": "overall",
+      "depth": "expert",
+      "presentIn": 3,
+      "distinct": 1,
+      "ratio": 0.3333333333333333
+    },
+    {
+      "cellKey": "today/overall/expert/para1",
+      "period": "today",
+      "category": "overall",
+      "depth": "expert",
+      "presentIn": 3,
+      "distinct": 1,
+      "ratio": 0.3333333333333333
+    },
+    {
+      "cellKey": "today/overall/expert/para2",
+      "period": "today",
+      "category": "overall",
+      "depth": "expert",
+      "presentIn": 3,
+      "distinct": 1,
+      "ratio": 0.3333333333333333
+    },
+    {
+      "cellKey": "today/overall/expert/para3",
+      "period": "today",
+      "category": "overall",
+      "depth": "expert",
+      "presentIn": 3,
+      "distinct": 1,
+      "ratio": 0.3333333333333333
+    },
+    {
+      "cellKey": "today/wealth/standard/para0",
+      "period": "today",
+      "category": "wealth",
+      "depth": "standard",
+      "presentIn": 3,
+      "distinct": 1,
+      "ratio": 0.3333333333333333
+    },
+    {
+      "cellKey": "today/wealth/standard/para1",
+      "period": "today",
+      "category": "wealth",
+      "depth": "standard",
+      "presentIn": 3,
+      "distinct": 1,
+      "ratio": 0.3333333333333333
+    },
+    {
+      "cellKey": "today/wealth/standard/para2",
+      "period": "today",
+      "category": "wealth",
+      "depth": "standard",
+      "presentIn": 3,
+      "distinct": 1,
+      "ratio": 0.3333333333333333
+    },
+    {
+      "cellKey": "today/wealth/standard/para3",
+      "period": "today",
+      "category": "wealth",
+      "depth": "standard",
+      "presentIn": 3,
+      "distinct": 1,
+      "ratio": 0.3333333333333333
+    },
+    {
+      "cellKey": "today/romance/brief/headline",
+      "period": "today",
+      "category": "romance",
+      "depth": "brief",
+      "presentIn": 3,
+      "distinct": 1,
+      "ratio": 0.3333333333333333
+    },
+    {
+      "cellKey": "today/romance/standard/para0",
+      "period": "today",
+      "category": "romance",
+      "depth": "standard",
+      "presentIn": 3,
+      "distinct": 1,
+      "ratio": 0.3333333333333333
+    },
+    {
+      "cellKey": "today/expression_children/brief/headline",
+      "period": "today",
+      "category": "expression_children",
+      "depth": "brief",
+      "presentIn": 3,
+      "distinct": 1,
+      "ratio": 0.3333333333333333
+    }
+  ],
+  "cellsFullyDistinctAcross3": [
+    {
+      "cellKey": "life/overall/brief/headline",
+      "period": "life",
+      "category": "overall",
+      "depth": "brief",
+      "presentIn": 3,
+      "distinct": 3,
+      "ratio": 1
+    },
+    {
+      "cellKey": "life/health/standard/para0",
+      "period": "life",
+      "category": "health",
+      "depth": "standard",
+      "presentIn": 3,
+      "distinct": 3,
+      "ratio": 1
+    },
+    {
+      "cellKey": "life/career/brief/headline",
+      "period": "life",
+      "category": "career",
+      "depth": "brief",
+      "presentIn": 3,
+      "distinct": 3,
+      "ratio": 1
+    },
+    {
+      "cellKey": "life/study_document/standard/para0",
+      "period": "life",
+      "category": "study_document",
+      "depth": "standard",
+      "presentIn": 3,
+      "distinct": 3,
+      "ratio": 1
+    },
+    {
+      "cellKey": "today/wealth/brief/headline",
+      "period": "today",
+      "category": "wealth",
+      "depth": "brief",
+      "presentIn": 3,
+      "distinct": 3,
+      "ratio": 1
+    },
+    {
+      "cellKey": "today/wealth/expert/para0",
+      "period": "today",
+      "category": "wealth",
+      "depth": "expert",
+      "presentIn": 3,
+      "distinct": 3,
+      "ratio": 1
+    },
+    {
+      "cellKey": "today/wealth/expert/para1",
+      "period": "today",
+      "category": "wealth",
+      "depth": "expert",
+      "presentIn": 3,
+      "distinct": 3,
+      "ratio": 1
+    },
+    {
+      "cellKey": "today/wealth/expert/para2",
+      "period": "today",
+      "category": "wealth",
+      "depth": "expert",
+      "presentIn": 3,
+      "distinct": 3,
+      "ratio": 1
+    },
+    {
+      "cellKey": "today/wealth/expert/para3",
+      "period": "today",
+      "category": "wealth",
+      "depth": "expert",
+      "presentIn": 3,
+      "distinct": 3,
+      "ratio": 1
+    },
+    {
+      "cellKey": "today/health/standard/para0",
+      "period": "today",
+      "category": "health",
+      "depth": "standard",
+      "presentIn": 3,
+      "distinct": 3,
+      "ratio": 1
+    },
+    {
+      "cellKey": "today/academic/expert/para0",
+      "period": "today",
+      "category": "academic",
+      "depth": "expert",
+      "presentIn": 3,
+      "distinct": 3,
+      "ratio": 1
+    },
+    {
+      "cellKey": "today/academic/expert/para1",
+      "period": "today",
+      "category": "academic",
+      "depth": "expert",
+      "presentIn": 3,
+      "distinct": 3,
+      "ratio": 1
+    },
+    {
+      "cellKey": "today/academic/expert/para2",
+      "period": "today",
+      "category": "academic",
+      "depth": "expert",
+      "presentIn": 3,
+      "distinct": 3,
+      "ratio": 1
+    },
+    {
+      "cellKey": "today/academic/expert/para3",
+      "period": "today",
+      "category": "academic",
+      "depth": "expert",
+      "presentIn": 3,
+      "distinct": 3,
+      "ratio": 1
+    },
+    {
+      "cellKey": "today/romance/expert/para0",
+      "period": "today",
+      "category": "romance",
+      "depth": "expert",
+      "presentIn": 3,
+      "distinct": 3,
+      "ratio": 1
+    },
+    {
+      "cellKey": "today/romance/expert/para1",
+      "period": "today",
+      "category": "romance",
+      "depth": "expert",
+      "presentIn": 3,
+      "distinct": 3,
+      "ratio": 1
+    },
+    {
+      "cellKey": "today/romance/expert/para2",
+      "period": "today",
+      "category": "romance",
+      "depth": "expert",
+      "presentIn": 3,
+      "distinct": 3,
+      "ratio": 1
+    },
+    {
+      "cellKey": "today/romance/expert/para3",
+      "period": "today",
+      "category": "romance",
+      "depth": "expert",
+      "presentIn": 3,
+      "distinct": 3,
+      "ratio": 1
+    },
+    {
+      "cellKey": "today/family/brief/headline",
+      "period": "today",
+      "category": "family",
+      "depth": "brief",
+      "presentIn": 3,
+      "distinct": 3,
+      "ratio": 1
+    },
+    {
+      "cellKey": "today/study_document/brief/headline",
+      "period": "today",
+      "category": "study_document",
+      "depth": "brief",
+      "presentIn": 3,
+      "distinct": 3,
+      "ratio": 1
+    },
+    {
+      "cellKey": "today/movement/expert/para0",
+      "period": "today",
+      "category": "movement",
+      "depth": "expert",
+      "presentIn": 3,
+      "distinct": 3,
+      "ratio": 1
+    },
+    {
+      "cellKey": "today/movement/expert/para1",
+      "period": "today",
+      "category": "movement",
+      "depth": "expert",
+      "presentIn": 3,
+      "distinct": 3,
+      "ratio": 1
+    },
+    {
+      "cellKey": "today/movement/expert/para2",
+      "period": "today",
+      "category": "movement",
+      "depth": "expert",
+      "presentIn": 3,
+      "distinct": 3,
+      "ratio": 1
+    },
+    {
+      "cellKey": "thisWeek/wealth/brief/headline",
+      "period": "thisWeek",
+      "category": "wealth",
+      "depth": "brief",
+      "presentIn": 3,
+      "distinct": 3,
+      "ratio": 1
+    },
+    {
+      "cellKey": "thisWeek/academic/brief/headline",
+      "period": "thisWeek",
+      "category": "academic",
+      "depth": "brief",
+      "presentIn": 3,
+      "distinct": 3,
+      "ratio": 1
+    },
+    {
+      "cellKey": "thisWeek/academic/standard/para0",
+      "period": "thisWeek",
+      "category": "academic",
+      "depth": "standard",
+      "presentIn": 3,
+      "distinct": 3,
+      "ratio": 1
+    },
+    {
+      "cellKey": "thisWeek/academic/expert/para0",
+      "period": "thisWeek",
+      "category": "academic",
+      "depth": "expert",
+      "presentIn": 3,
+      "distinct": 3,
+      "ratio": 1
+    },
+    {
+      "cellKey": "thisWeek/academic/expert/para1",
+      "period": "thisWeek",
+      "category": "academic",
+      "depth": "expert",
+      "presentIn": 3,
+      "distinct": 3,
+      "ratio": 1
+    },
+    {
+      "cellKey": "thisWeek/academic/expert/para2",
+      "period": "thisWeek",
+      "category": "academic",
+      "depth": "expert",
+      "presentIn": 3,
+      "distinct": 3,
+      "ratio": 1
+    },
+    {
+      "cellKey": "thisWeek/academic/expert/para3",
+      "period": "thisWeek",
+      "category": "academic",
+      "depth": "expert",
+      "presentIn": 3,
+      "distinct": 3,
+      "ratio": 1
+    }
+  ]
+}
