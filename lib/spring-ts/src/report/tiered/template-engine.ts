@@ -700,20 +700,50 @@ function reduceOverusedGyeol(value: string): string {
   const count = (value.match(/결/g) ?? []).length;
   if (count === 0) return value;
 
-  let out = value;
-  out = out.replace(/결이에요/g, '흐름이에요');
-  out = out.replace(/결입니다/g, '흐름입니다');
-  out = out.replace(/결이라/g, '흐름이라');
-  out = out.replace(/결이고/g, '흐름이고');
-  out = out.replace(/결이/g, '흐름이');
-  out = out.replace(/결은/g, '흐름은');
-  out = out.replace(/결을/g, '흐름을');
-  out = out.replace(/결로/g, '흐름으로');
-  out = out.replace(/결의/g, '흐름의');
-  out = out.replace(/결도/g, '흐름도');
-  out = out.replace(/결만/g, '흐름만');
-  out = out.replace(/결처럼/g, '흐름처럼');
-  out = out.replace(/결마다/g, '흐름마다');
+  // Paragraph-aware: avoid creating 3+ '흐름' clusters in single paragraph.
+  // Pre-count existing '흐름' to budget substitutions.
+  const paragraphs = value.split(/\n\n+/);
+  return paragraphs.map((p) => substituteGyeolInParagraph(p)).join('\n\n');
+}
+
+function substituteGyeolInParagraph(paragraph: string): string {
+  const initialFlow = (paragraph.match(/흐름/g) ?? []).length;
+  const alternatives = ['리듬', '자리', '호흡', '걸음'];
+  let altIdx = 0;
+  const pickAlt = () => alternatives[altIdx++ % alternatives.length];
+
+  // Substitution table — order matters (longer patterns first).
+  const subs: Array<[RegExp, (alt: string) => string]> = [
+    [/결이에요/g, () => '흐름이에요'],
+    [/결입니다/g, () => '흐름입니다'],
+    [/결이라/g, () => '흐름이라'],
+    [/결이고/g, () => '흐름이고'],
+    [/결이/g, () => '흐름이'],
+    [/결은/g, () => '흐름은'],
+    [/결을/g, () => '흐름을'],
+    [/결로/g, () => '흐름으로'],
+    [/결의/g, () => '흐름의'],
+    [/결도/g, () => '흐름도'],
+    [/결만/g, () => '흐름만'],
+    [/결처럼/g, () => '흐름처럼'],
+    [/결마다/g, () => '흐름마다'],
+  ];
+
+  let out = paragraph;
+  let appliedFlow = initialFlow;
+  for (const [pattern, replacementFn] of subs) {
+    out = out.replace(pattern, (match) => {
+      appliedFlow += 1;
+      // After 2 '흐름' already in paragraph, substitute alternatives instead.
+      if (appliedFlow > 2) {
+        const alt = pickAlt();
+        const suffix = match.slice(1); // drop '결' prefix
+        // Map particle suffix to alternative — keep the same particle text.
+        return alt + suffix;
+      }
+      return replacementFn(match);
+    });
+  }
   return out;
 }
 
