@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-05-06T03:04:25.275Z",
+  "generatedAt": "2026-05-06T03:47:21.639Z",
   "targetDate": "2026-05-05T00:00:00+09:00",
   "sampleId": "choi-seongsoo-tiered-fortune",
   "description": "같은 입력에 precisionConfig.surfaceTieredMatrix=true 를 켠 점진 공개 출력 케이스. Phase 3 wording polish 반영.",
@@ -1312,7 +1312,7 @@
     },
     "meta": {
       "version": "1.0.0",
-      "generatedAt": "2026-05-06T03:04:27.476Z",
+      "generatedAt": "2026-05-06T03:47:23.135Z",
       "schoolPreset": {
         "selected": "korean",
         "source": "default",
@@ -3858,14 +3858,14 @@
                       {
                         "kind": "tag",
                         "tagId": "stabilityIndex",
-                        "label": "안정 지수"
+                        "label": "안정성지수"
                       },
                       {
                         "kind": "text",
                         "value": "를 낮추는 선택은 피하세요."
                       }
                     ],
-                    "plainText": "#정인의 회복 루틴이 받쳐 주면 움직임이 득이 되지만, #편인이 과하면 예민함과 수면 흔들림이 커질 수 있습니다. #안정 지수를 낮추는 선택은 피하세요."
+                    "plainText": "#정인의 회복 루틴이 받쳐 주면 움직임이 득이 되지만, #편인이 과하면 예민함과 수면 흔들림이 커질 수 있습니다. #안정성지수를 낮추는 선택은 피하세요."
                   },
                   {
                     "tokens": [
@@ -4675,14 +4675,14 @@
                       {
                         "kind": "tag",
                         "tagId": "gyeokgukFit",
-                        "label": "격국 적합도"
+                        "label": "격국적합도"
                       },
                       {
                         "kind": "text",
                         "value": "가 오늘 맡은 역할과 맞는지 함께 보세요."
                       }
                     ],
-                    "plainText": "#식신이 산출물로 이어지는지, #격국 적합도가 오늘 맡은 역할과 맞는지 함께 보세요."
+                    "plainText": "#식신이 산출물로 이어지는지, #격국적합도가 오늘 맡은 역할과 맞는지 함께 보세요."
                   },
                   {
                     "tokens": [
@@ -6053,14 +6053,14 @@
                       {
                         "kind": "tag",
                         "tagId": "stabilityIndex",
-                        "label": "안정 지수"
+                        "label": "안정성지수"
                       },
                       {
                         "kind": "text",
                         "value": "를 유지하는 수면 계획이 필요해요."
                       }
                     ],
-                    "plainText": "#정인이 충분하면 루틴이 몸을 받치지만, #편인이 과하면 생각과 감각이 예민해질 수 있습니다. #안정 지수를 유지하는 수면 계획이 필요해요."
+                    "plainText": "#정인이 충분하면 루틴이 몸을 받치지만, #편인이 과하면 생각과 감각이 예민해질 수 있습니다. #안정성지수를 유지하는 수면 계획이 필요해요."
                   },
                   {
                     "tokens": [
@@ -6633,14 +6633,14 @@
                       {
                         "kind": "tag",
                         "tagId": "gyeokgukFit",
-                        "label": "격국 적합도"
+                        "label": "격국적합도"
                       },
                       {
                         "kind": "text",
                         "value": "가 팀 안 역할과 맞는지 점검해야 해요."
                       }
                     ],
-                    "plainText": "#식신의 결과물이 실제 일정 안에 들어오는지, #격국 적합도가 팀 안 역할과 맞는지 점검해야 해요."
+                    "plainText": "#식신의 결과물이 실제 일정 안에 들어오는지, #격국적합도가 팀 안 역할과 맞는지 점검해야 해요."
                   },
                   {
                     "tokens": [
@@ -7895,14 +7895,14 @@
                       {
                         "kind": "tag",
                         "tagId": "stabilityIndex",
-                        "label": "안정 지수"
+                        "label": "안정성지수"
                       },
                       {
                         "kind": "text",
                         "value": "를 낮추는 과로는 줄이세요."
                       }
                     ],
-                    "plainText": "#정인이 충분하면 체력 회복이 빠르지만, #편인이 강하면 신경성 피로가 누적될 수 있어요. #안정 지수를 낮추는 과로는 줄이세요."
+                    "plainText": "#정인이 충분하면 체력 회복이 빠르지만, #편인이 강하면 신경성 피로가 누적될 수 있어요. #안정성지수를 낮추는 과로는 줄이세요."
                   },
                   {
                     "tokens": [
@@ -9752,23 +9752,23 @@
                       {
                         "kind": "tag",
                         "tagId": "fire",
-                        "label": "화"
+                        "label": "불"
                       },
                       {
                         "kind": "text",
-                        "value": "가 과하면 과속과 피로 누적을, "
+                        "value": "이 과하면 과속과 피로 누적을, "
                       },
                       {
                         "kind": "tag",
                         "tagId": "water",
-                        "label": "수"
+                        "label": "물"
                       },
                       {
                         "kind": "text",
-                        "value": "는 회복과 진정 리듬을 보완해요."
+                        "value": "은 회복과 진정 리듬을 보완해요."
                       }
                     ],
-                    "plainText": "#화가 과하면 과속과 피로 누적을, #수는 회복과 진정 리듬을 보완해요."
+                    "plainText": "#불이 과하면 과속과 피로 누적을, #물은 회복과 진정 리듬을 보완해요."
                   },
                   {
                     "tokens": [
@@ -10464,14 +10464,14 @@
                       {
                         "kind": "tag",
                         "tagId": "gyeokgukFit",
-                        "label": "격국 적합도"
+                        "label": "격국적합도"
                       },
                       {
                         "kind": "text",
                         "value": "가 맞으면 역할 상승으로 이어질 수 있어요."
                       }
                     ],
-                    "plainText": "#식신이 성과물로 쌓이면 확장성이 생기고, #격국 적합도가 맞으면 역할 상승으로 이어질 수 있어요."
+                    "plainText": "#식신이 성과물로 쌓이면 확장성이 생기고, #격국적합도가 맞으면 역할 상승으로 이어질 수 있어요."
                   },
                   {
                     "tokens": [
@@ -12007,7 +12007,7 @@
       },
       "meta": {
         "schemaVersion": "spring-ts.tiered-matrix.v1",
-        "generatedAt": "2026-05-06T03:04:27.476Z",
+        "generatedAt": "2026-05-06T03:47:23.135Z",
         "selectionSeed": "1986|4|19|5|45|male|2026-05-04T15:00:00.000Z",
         "templateContractVersion": "1.0.0",
         "contentSource": "authored",
