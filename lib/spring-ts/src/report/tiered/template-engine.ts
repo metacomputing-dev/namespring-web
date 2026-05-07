@@ -759,21 +759,30 @@ interface GyeolSub {
  *     binary works; if a ㄹ-batchim alt is ever added the no-batchim branch
  *     applies for it as well)
  *   • universal (no variant): 의, 도, 만, 처럼, 마다, 입니다
+ *
+ * P19-A3: every pattern is prefixed with `(?<![가-힣])` so a Hangul morpheme
+ * boundary precedes `결`. Without the lookbehind, compounds whose final
+ * morpheme is `결` — `연결`, `종결`, `직결`, `타결`, `해결`, `귀결`,
+ * `완결`, etc. — would have their tails (e.g., `연결을`, `해결의`)
+ * mis-rewritten as `연흐름을` / `해흐름의`. The lookbehind only fires when
+ * the character immediately before `결` is itself Hangul; particle-form
+ * `결X` at the start of a sentence or after whitespace/punctuation is
+ * unaffected.
  */
 const GYEOL_SUBS: readonly GyeolSub[] = [
-  { pattern: /결이에요/g, flowForm: '흐름이에요', altSuffix: { batchim: '이에요', noBatchim: '예요' } },
-  { pattern: /결입니다/g, flowForm: '흐름입니다', altSuffix: { batchim: '입니다', noBatchim: '입니다' } },
-  { pattern: /결이라/g, flowForm: '흐름이라', altSuffix: { batchim: '이라', noBatchim: '라' } },
-  { pattern: /결이고/g, flowForm: '흐름이고', altSuffix: { batchim: '이고', noBatchim: '고' } },
-  { pattern: /결이/g, flowForm: '흐름이', altSuffix: { batchim: '이', noBatchim: '가' } },
-  { pattern: /결은/g, flowForm: '흐름은', altSuffix: { batchim: '은', noBatchim: '는' } },
-  { pattern: /결을/g, flowForm: '흐름을', altSuffix: { batchim: '을', noBatchim: '를' } },
-  { pattern: /결로/g, flowForm: '흐름으로', altSuffix: { batchim: '으로', noBatchim: '로' } },
-  { pattern: /결의/g, flowForm: '흐름의', altSuffix: { batchim: '의', noBatchim: '의' } },
-  { pattern: /결도/g, flowForm: '흐름도', altSuffix: { batchim: '도', noBatchim: '도' } },
-  { pattern: /결만/g, flowForm: '흐름만', altSuffix: { batchim: '만', noBatchim: '만' } },
-  { pattern: /결처럼/g, flowForm: '흐름처럼', altSuffix: { batchim: '처럼', noBatchim: '처럼' } },
-  { pattern: /결마다/g, flowForm: '흐름마다', altSuffix: { batchim: '마다', noBatchim: '마다' } },
+  { pattern: /(?<![가-힣])결이에요/g, flowForm: '흐름이에요', altSuffix: { batchim: '이에요', noBatchim: '예요' } },
+  { pattern: /(?<![가-힣])결입니다/g, flowForm: '흐름입니다', altSuffix: { batchim: '입니다', noBatchim: '입니다' } },
+  { pattern: /(?<![가-힣])결이라/g, flowForm: '흐름이라', altSuffix: { batchim: '이라', noBatchim: '라' } },
+  { pattern: /(?<![가-힣])결이고/g, flowForm: '흐름이고', altSuffix: { batchim: '이고', noBatchim: '고' } },
+  { pattern: /(?<![가-힣])결이/g, flowForm: '흐름이', altSuffix: { batchim: '이', noBatchim: '가' } },
+  { pattern: /(?<![가-힣])결은/g, flowForm: '흐름은', altSuffix: { batchim: '은', noBatchim: '는' } },
+  { pattern: /(?<![가-힣])결을/g, flowForm: '흐름을', altSuffix: { batchim: '을', noBatchim: '를' } },
+  { pattern: /(?<![가-힣])결로/g, flowForm: '흐름으로', altSuffix: { batchim: '으로', noBatchim: '로' } },
+  { pattern: /(?<![가-힣])결의/g, flowForm: '흐름의', altSuffix: { batchim: '의', noBatchim: '의' } },
+  { pattern: /(?<![가-힣])결도/g, flowForm: '흐름도', altSuffix: { batchim: '도', noBatchim: '도' } },
+  { pattern: /(?<![가-힣])결만/g, flowForm: '흐름만', altSuffix: { batchim: '만', noBatchim: '만' } },
+  { pattern: /(?<![가-힣])결처럼/g, flowForm: '흐름처럼', altSuffix: { batchim: '처럼', noBatchim: '처럼' } },
+  { pattern: /(?<![가-힣])결마다/g, flowForm: '흐름마다', altSuffix: { batchim: '마다', noBatchim: '마다' } },
 ];
 
 const GYEOL_ALTERNATIVES = ['리듬', '자리', '호흡', '걸음'] as const;
