@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-05-07T16:01:38.529Z",
+  "generatedAt": "2026-05-07T16:04:59.250Z",
   "targetDate": "2026-05-05T00:00:00+09:00",
   "sampleId": "jonggyeok-jongwang-yeomsang-tiered",
   "description": "입력 의도: 從旺격 (一氣格 / 炎上格 火) 계열. fix-jong-02 (1942-06-23 15:00) 좌표를 차용 — 火 일간이 寅午戌 부분 火局 + 丙午 月柱 로 단일 火氣 압도. 최종 외격 판정은 엔진이 결정한다.",
@@ -1277,7 +1277,7 @@
     },
     "meta": {
       "version": "1.0.0",
-      "generatedAt": "2026-05-07T16:01:49.371Z",
+      "generatedAt": "2026-05-07T16:05:08.976Z",
       "schoolPreset": {
         "selected": "korean",
         "source": "default",
@@ -10052,15 +10052,6 @@
                     "tokens": [
                       {
                         "kind": "text",
-                        "value": "비유하자면 이번 달은 마당에 잔잔한 등잔 하나를 켜 두는 자리예요. 멀리 가지 않아도 가까운 골목·정자·동네 어귀의 등잔 같은 자리가 한 달 안에 마음을 따뜻하게 데워 줘요."
-                      }
-                    ],
-                    "plainText": "비유하자면 이번 달은 마당에 잔잔한 등잔 하나를 켜 두는 자리예요. 멀리 가지 않아도 가까운 골목·정자·동네 어귀의 등잔 같은 자리가 한 달 안에 마음을 따뜻하게 데워 줘요."
-                  },
-                  {
-                    "tokens": [
-                      {
-                        "kind": "text",
                         "value": "다만 날씨가 맞지 않는 날엔 무리하지 마시고 집에서 가벼운 움직임으로 충분해요."
                       }
                     ],
@@ -13158,7 +13149,7 @@
       },
       "meta": {
         "schemaVersion": "spring-ts.tiered-matrix.v1",
-        "generatedAt": "2026-05-07T16:01:49.371Z",
+        "generatedAt": "2026-05-07T16:05:08.976Z",
         "selectionSeed": "1942|6|23|15|0|male|2026-05-04T15:00:00.000Z",
         "templateContractVersion": "1.0.0",
         "contentSource": "authored",

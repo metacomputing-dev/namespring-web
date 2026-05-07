@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-05-07T16:01:38.529Z",
+  "generatedAt": "2026-05-07T16:04:59.250Z",
   "targetDate": "2026-05-05T00:00:00+09:00",
   "sampleId": "gyeokguk-conflict-consensus-aware-tiered",
   "description": "격국 충돌 case 2: 신강/신약 경계 + 격국 후보 다중 + yongshinMode=consensus_aware 활성. 독립 명리 방법(억부/조후/격국/통관/병약/식상유통) 이 엇갈리는 chart 에서 consensus 보드와 격국 흔들림이 함께 노출되는 케이스.",
@@ -1301,7 +1301,7 @@
     },
     "meta": {
       "version": "1.0.0",
-      "generatedAt": "2026-05-07T16:01:48.357Z",
+      "generatedAt": "2026-05-07T16:05:08.026Z",
       "schoolPreset": {
         "selected": "korean",
         "source": "default",
@@ -6540,6 +6540,15 @@
                       }
                     ],
                     "plainText": "수면 시작 전 따뜻한 차 한 잔과 짧은 스트레칭 한 가지를 한 주 동안 같은 시각에 반복해 두면 컨디션의 진폭이 한결 작아져요. 찬 기운이 오래 닿지 않게 목·발끝을 따뜻하게 챙기는 자리도 챙겨 두세요."
+                  },
+                  {
+                    "tokens": [
+                      {
+                        "kind": "text",
+                        "value": "한 달 자리에서 보면 한 주의 작은 차 한 잔, 짧은 스트레칭 한 가지가 컨디션의 출발선을 자기에게 맞춰 잡아 줘요. 한 주의 짧은 반복이 한 달 단위로 모이면 자기 자리에서 또렷한 회복의 폭이 자연스럽게 넓어져요."
+                      }
+                    ],
+                    "plainText": "한 달 자리에서 보면 한 주의 작은 차 한 잔, 짧은 스트레칭 한 가지가 컨디션의 출발선을 자기에게 맞춰 잡아 줘요. 한 주의 짧은 반복이 한 달 단위로 모이면 자기 자리에서 또렷한 회복의 폭이 자연스럽게 넓어져요."
                   }
                 ],
                 "livingTips": [
@@ -13156,7 +13165,7 @@
       },
       "meta": {
         "schemaVersion": "spring-ts.tiered-matrix.v1",
-        "generatedAt": "2026-05-07T16:01:48.357Z",
+        "generatedAt": "2026-05-07T16:05:08.026Z",
         "selectionSeed": "1973|12|17|16|30|female|2026-05-04T15:00:00.000Z",
         "templateContractVersion": "1.0.0",
         "contentSource": "authored",
