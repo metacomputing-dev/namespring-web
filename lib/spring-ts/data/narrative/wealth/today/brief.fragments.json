@@ -567,6 +567,55 @@
         "copyrightNote": "No source prose copied; original.",
         "authorityTruthEligible": false
       }
+    },
+    {
+      "schemaVersion": "spring-ts.narrative-fragment.v1",
+      "fragmentId": "wealth.today.brief.child_teen.012",
+      "axis": {
+        "category": "wealth",
+        "period": "today",
+        "depth": "brief"
+      },
+      "gating": {
+        "ageBand": [
+          "0-9",
+          "10-19"
+        ]
+      },
+      "templateTokens": [
+        {
+          "kind": "text",
+          "value": "오늘은 "
+        },
+        {
+          "kind": "slot",
+          "name": "phrase",
+          "type": "phrase"
+        },
+        {
+          "kind": "text",
+          "value": "."
+        }
+      ],
+      "slots": {
+        "phrase": [
+          "용돈을 아끼는 마음이 자라는 하루예요",
+          "갖고 싶은 것을 잠깐 미루면 좋은 하루예요",
+          "저금통에 한 번 더 넣어 보는 하루예요"
+        ]
+      },
+      "tags": [],
+      "aiGenerated": true,
+      "sourceTier": {
+        "tier": "T1_HYPOTHESIS",
+        "sourceType": "training_derived",
+        "sourceUrl": null,
+        "accessedAt": "2026-05-07",
+        "quoteShort": null,
+        "humanInterpretation": "P22-A1 child/teen-band brief to prevent PLACEHOLDER_BRIEF regression after MINOR_LIMITED_CATEGORIES lift.",
+        "copyrightNote": "No source prose copied; original.",
+        "authorityTruthEligible": false
+      }
     }
   ]
 }
