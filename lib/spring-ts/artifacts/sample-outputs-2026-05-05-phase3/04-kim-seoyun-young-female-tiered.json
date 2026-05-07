@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-05-07T09:32:49.208Z",
+  "generatedAt": "2026-05-07T09:49:17.080Z",
   "targetDate": "2026-05-05T00:00:00+09:00",
   "sampleId": "kim-seoyun-young-female-tiered",
   "description": "어린 여성 입력에서 tiered 운세 매트릭스를 켠 케이스.",
@@ -1306,7 +1306,7 @@
     },
     "meta": {
       "version": "1.0.0",
-      "generatedAt": "2026-05-07T09:32:52.847Z",
+      "generatedAt": "2026-05-07T09:49:20.756Z",
       "schoolPreset": {
         "selected": "korean",
         "source": "default",
@@ -1781,6 +1781,15 @@
                       }
                     ],
                     "plainText": "비유하자면 매일 한 줌씩 모래를 더하는 그릇과 같아요. 한 줌은 작아 보여도 한 학기가 지나면 그릇이 묵직해지고, 그 무게가 자기 학습의 뼈대가 되어 줘요."
+                  },
+                  {
+                    "tokens": [
+                      {
+                        "kind": "text",
+                        "value": "공부가 손에 잡히지 않는 시기가 와도 자책할 필요는 없어요. 잠을 충분히 자고 가벼운 산책 한 번 다녀온 뒤 다시 책상 앞에 앉아 보면, 막혀 있던 단원이 한결 부드러워져요."
+                      }
+                    ],
+                    "plainText": "공부가 손에 잡히지 않는 시기가 와도 자책할 필요는 없어요. 잠을 충분히 자고 가벼운 산책 한 번 다녀온 뒤 다시 책상 앞에 앉아 보면, 막혀 있던 단원이 한결 부드러워져요."
                   },
                   {
                     "tokens": [
@@ -10341,7 +10350,7 @@
       },
       "meta": {
         "schemaVersion": "spring-ts.tiered-matrix.v1",
-        "generatedAt": "2026-05-07T09:32:52.847Z",
+        "generatedAt": "2026-05-07T09:49:20.756Z",
         "selectionSeed": "2013|7|21|14|20|female|2026-05-04T15:00:00.000Z",
         "templateContractVersion": "1.0.0",
         "contentSource": "authored",

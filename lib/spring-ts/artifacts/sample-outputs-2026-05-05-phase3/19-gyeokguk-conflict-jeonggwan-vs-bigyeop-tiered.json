@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-05-07T09:32:49.208Z",
+  "generatedAt": "2026-05-07T09:49:17.080Z",
   "targetDate": "2026-05-05T00:00:00+09:00",
   "sampleId": "gyeokguk-conflict-jeonggwan-vs-bigyeop-tiered",
   "description": "격국 충돌 case 1: 정관 후보와 비견(겁재) 후보가 같이 잡히기 쉬운 입력. gyeokgukSelectionRule=jungki_transparent 로 월지 중기 투간 룰을 활성화하여 후보 ranking 의 elasticity 를 노출하는 케이스. 최종 격국 판정은 엔진이 결정한다.",
@@ -1303,7 +1303,7 @@
     },
     "meta": {
       "version": "1.0.0",
-      "generatedAt": "2026-05-07T09:32:59.128Z",
+      "generatedAt": "2026-05-07T09:49:27.297Z",
       "schoolPreset": {
         "selected": "korean",
         "source": "default",
@@ -2411,6 +2411,15 @@
                       }
                     ],
                     "plainText": "비유하자면 작은 강물이 굽이굽이 흐르는 그림이에요. 한쪽으로 너무 쏟아져도 마르고, 한쪽에만 고여 있어도 흐릿해지는데, 받고 흘리는 양이 비슷할 때 강줄기가 깊어져요."
+                  },
+                  {
+                    "tokens": [
+                      {
+                        "kind": "text",
+                        "value": "다만 받는 자리가 길게 이어지는 한 시기에는 미안함이 슬며시 올라올 수 있어요. 그럴 땐 한 가지 작은 안부라도 먼저 건네 두면, 받고 흘리는 흐름이 다시 자기 페이스로 돌아와요."
+                      }
+                    ],
+                    "plainText": "다만 받는 자리가 길게 이어지는 한 시기에는 미안함이 슬며시 올라올 수 있어요. 그럴 땐 한 가지 작은 안부라도 먼저 건네 두면, 받고 흘리는 흐름이 다시 자기 페이스로 돌아와요."
                   },
                   {
                     "tokens": [
@@ -13040,7 +13049,7 @@
       },
       "meta": {
         "schemaVersion": "spring-ts.tiered-matrix.v1",
-        "generatedAt": "2026-05-07T09:32:59.128Z",
+        "generatedAt": "2026-05-07T09:49:27.297Z",
         "selectionSeed": "1985|5|25|8|45|male|2026-05-04T15:00:00.000Z",
         "templateContractVersion": "1.0.0",
         "contentSource": "authored",

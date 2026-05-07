@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-05-07T09:32:49.208Z",
+  "generatedAt": "2026-05-07T09:49:17.080Z",
   "targetDate": "2026-05-05T00:00:00+09:00",
   "sampleId": "oh-extreme-weak-continuous-tiered",
   "description": "입력 의도: 지지가 일간을 극도로 소모하는 신약 지향 입력. strengthMode=continuous 로 4-tier 강도 곡선과 결합한 tiered 샘플. 최종 강도 분류는 엔진이 결정한다.",
@@ -1293,7 +1293,7 @@
     },
     "meta": {
       "version": "1.0.0",
-      "generatedAt": "2026-05-07T09:32:57.084Z",
+      "generatedAt": "2026-05-07T09:49:25.270Z",
       "schoolPreset": {
         "selected": "korean",
         "source": "default",
@@ -10402,6 +10402,15 @@
                       }
                     ],
                     "plainText": "주의할 점은 책임이 한쪽에 몰릴 때예요. 가족과 한 번 나누는 대화가 흐름을 다시 균형 있게 만들어 줘요."
+                  },
+                  {
+                    "tokens": [
+                      {
+                        "kind": "text",
+                        "value": "중년의 흐름은 깊이가 빛을 내는 흐름이에요. 자기 페이스를 지키는 것 자체가 큰 자산이 돼요."
+                      }
+                    ],
+                    "plainText": "중년의 흐름은 깊이가 빛을 내는 흐름이에요. 자기 페이스를 지키는 것 자체가 큰 자산이 돼요."
                   }
                 ],
                 "livingTips": [
@@ -12918,7 +12927,7 @@
       },
       "meta": {
         "schemaVersion": "spring-ts.tiered-matrix.v1",
-        "generatedAt": "2026-05-07T09:32:57.084Z",
+        "generatedAt": "2026-05-07T09:49:25.270Z",
         "selectionSeed": "1972|11|28|4|30|female|2026-05-04T15:00:00.000Z",
         "templateContractVersion": "1.0.0",
         "contentSource": "authored",
