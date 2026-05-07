@@ -1,0 +1,540 @@
+{
+  "phase": "P18-A2",
+  "generatedAt": "2026-05-07T05:02:16.844Z",
+  "source": {
+    "narrative": "data\\narrative",
+    "samples": "artifacts\\sample-outputs-2026-05-05-phase3"
+  },
+  "authored": {
+    "totalFragmentsWithHook": 34,
+    "totalDistinctHookStrings": 34,
+    "perCategoryPeriod": {
+      "academic|thisWeek": 1,
+      "career|today": 1,
+      "career|thisWeek": 1,
+      "career|thisMonth": 1,
+      "career|thisYear": 1,
+      "career|life": 2,
+      "expression_children|today": 1,
+      "expression_children|thisWeek": 1,
+      "expression_children|thisMonth": 1,
+      "expression_children|thisYear": 1,
+      "family|today": 1,
+      "family|thisMonth": 1,
+      "family|thisYear": 2,
+      "family|life": 1,
+      "health|today": 2,
+      "health|thisWeek": 1,
+      "health|thisYear": 1,
+      "health_stress|thisMonth": 1,
+      "movement|today": 2,
+      "movement|thisWeek": 1,
+      "overall|today": 1,
+      "overall|thisWeek": 1,
+      "romance|thisMonth": 1,
+      "romance|thisYear": 1,
+      "study_document|today": 1,
+      "study_document|thisWeek": 1,
+      "study_document|life": 1,
+      "wealth|thisYear": 3
+    }
+  },
+  "emitted": {
+    "totalEmitCells": 128,
+    "distinctSelectedFragmentIds": 15,
+    "distinctHookStrings": 15,
+    "perFragmentEmitCount": {
+      "expression_children.today.brief.weak_neutral.010": 13,
+      "expression_children.thisWeek.brief.weak_neutral.010": 13,
+      "expression_children.thisMonth.brief.weak_neutral.010": 13,
+      "expression_children.thisYear.brief.weak_neutral.010": 13,
+      "wealth.thisYear.brief.weak.neutral.005": 12,
+      "overall.today.brief.strong.neutral.005": 11,
+      "overall.thisWeek.brief.strong.neutral.005": 11,
+      "wealth.thisYear.brief.strong.neutral.006": 11,
+      "health.today.brief.neutral.001": 6,
+      "health_stress.thisMonth.brief.male_30_39.001": 6,
+      "health.thisWeek.brief.strong.001": 5,
+      "study_document.thisWeek.brief.strong.006": 4,
+      "health.thisYear.brief.strong.001": 4,
+      "health.today.brief.strong.elder.001": 4,
+      "wealth.thisYear.brief.balanced.neutral.004": 2
+    },
+    "perHookEmitCount": {
+      "한 줄 끄적임이 마음을 가볍게 해요.": 13,
+      "한 가지를 끝까지 마무리해 봐요.": 13,
+      "모은 것들을 짧게 정리해 봐요.": 13,
+      "결과 하나를 누군가에게 보여 줘요.": 13,
+      "작게 자주 모으면 흐름이 단단해져요.": 12,
+      "작게 한 호흡 끊어 가요.": 11,
+      "일정 사이에 쉼 한 칸을 비워요.": 11,
+      "큰 무리수만 피하면 든든히 모을 수 있어요.": 11,
+      "무리한 약속은 한 박자 미루는 게 좋아요.": 6,
+      "어깨 풀기 한 번을 챙겨요.": 6,
+      "같은 시간에 자고 일어나요.": 5,
+      "마지막 한 주 정리가 자산이에요.": 4,
+      "정기 점검 일정을 미리 잡아요.": 4,
+      "물 한 잔과 가벼운 산책이 도움돼요.": 4,
+      "기준 한 줄을 적어 두면 좋아요.": 2
+    }
+  },
+  "dormancy": {
+    "byFragmentSlot": {
+      "count": 22,
+      "entries": [
+        {
+          "cat": "academic",
+          "period": "thisWeek",
+          "fragmentId": "academic.thisWeek.brief.strong.neutral.001",
+          "gating": {
+            "dayMasterStrength": [
+              "STRONG",
+              "EXTREME_STRONG"
+            ],
+            "yongshinAlignment": [
+              "neutral"
+            ]
+          },
+          "hook": "짧게 매일 보면 효과가 더 커요."
+        },
+        {
+          "cat": "career",
+          "period": "today",
+          "fragmentId": "career.today.brief.age30plus.008",
+          "gating": {
+            "ageBand": [
+              "30-39",
+              "40-54",
+              "55-69",
+              "70+"
+            ]
+          },
+          "hook": "한 가지 일을 끝까지 마무리해요."
+        },
+        {
+          "cat": "career",
+          "period": "thisWeek",
+          "fragmentId": "career.thisWeek.brief.age40plus.009",
+          "gating": {
+            "ageBand": [
+              "40-54",
+              "55-69",
+              "70+"
+            ]
+          },
+          "hook": "쌓아 온 결이 자리를 받쳐 줘요."
+        },
+        {
+          "cat": "career",
+          "period": "thisMonth",
+          "fragmentId": "career.thisMonth.brief.age55plus.010",
+          "gating": {
+            "ageBand": [
+              "55-69",
+              "70+"
+            ]
+          },
+          "hook": "후배에게 한마디를 건네 봐요."
+        },
+        {
+          "cat": "career",
+          "period": "thisYear",
+          "fragmentId": "career.thisYear.brief.female.age30plus.011",
+          "gating": {
+            "gender": [
+              "female"
+            ],
+            "ageBand": [
+              "30-39",
+              "40-54"
+            ]
+          },
+          "hook": "자기 색을 한 줄 더 또렷이 해요."
+        },
+        {
+          "cat": "career",
+          "period": "life",
+          "fragmentId": "career.life.brief.strong.neutral.001",
+          "gating": {
+            "dayMasterStrength": [
+              "STRONG",
+              "EXTREME_STRONG"
+            ],
+            "yongshinAlignment": [
+              "neutral"
+            ]
+          },
+          "hook": "꾸준함이 가장 큰 자산이에요."
+        },
+        {
+          "cat": "career",
+          "period": "life",
+          "fragmentId": "career.life.brief.age0_19.006",
+          "gating": {
+            "ageBand": [
+              "0-9",
+              "10-19"
+            ]
+          },
+          "hook": "좋아하는 일을 한 줄 적어 봐요."
+        },
+        {
+          "cat": "family",
+          "period": "today",
+          "fragmentId": "family.today.brief.young.003",
+          "gating": {
+            "ageBand": [
+              "0-9"
+            ]
+          },
+          "hook": "보호자와 한 번 더 웃어 봐요."
+        },
+        {
+          "cat": "family",
+          "period": "thisMonth",
+          "fragmentId": "family.thisMonth.brief.middle.007",
+          "gating": {
+            "ageBand": [
+              "40-54"
+            ]
+          },
+          "hook": "부모님 댁에 짧게 들러요."
+        },
+        {
+          "cat": "family",
+          "period": "thisYear",
+          "fragmentId": "family.thisYear.brief.strong.neutral.001",
+          "gating": {
+            "dayMasterStrength": [
+              "STRONG",
+              "EXTREME_STRONG"
+            ],
+            "yongshinAlignment": [
+              "neutral"
+            ]
+          },
+          "hook": "작은 안부가 큰 다리가 되어 줘요."
+        },
+        {
+          "cat": "family",
+          "period": "thisYear",
+          "fragmentId": "family.thisYear.brief.young.003",
+          "gating": {
+            "ageBand": [
+              "0-9"
+            ]
+          },
+          "hook": "함께 보낸 시간을 늘려 봐요."
+        },
+        {
+          "cat": "family",
+          "period": "life",
+          "fragmentId": "family.life.brief.middle.007",
+          "gating": {
+            "ageBand": [
+              "40-54"
+            ]
+          },
+          "hook": "양쪽 곁을 같은 무게로 챙겨요."
+        },
+        {
+          "cat": "health",
+          "period": "thisWeek",
+          "fragmentId": "health.thisWeek.brief.strong.neutral.001",
+          "gating": {
+            "dayMasterStrength": [
+              "STRONG",
+              "EXTREME_STRONG"
+            ],
+            "yongshinAlignment": [
+              "neutral"
+            ]
+          },
+          "hook": "같은 시간에 자고 일어나요."
+        },
+        {
+          "cat": "health",
+          "period": "thisYear",
+          "fragmentId": "health.thisYear.brief.strong.neutral.001",
+          "gating": {
+            "dayMasterStrength": [
+              "STRONG",
+              "EXTREME_STRONG"
+            ],
+            "yongshinAlignment": [
+              "neutral"
+            ]
+          },
+          "hook": "정기 점검 일정을 미리 잡아요."
+        },
+        {
+          "cat": "movement",
+          "period": "today",
+          "fragmentId": "movement.today.brief.strong.neutral.001",
+          "gating": {
+            "dayMasterStrength": [
+              "STRONG",
+              "EXTREME_STRONG"
+            ],
+            "yongshinAlignment": [
+              "neutral"
+            ]
+          },
+          "hook": "익숙한 길도 짧게 새로 보여요."
+        },
+        {
+          "cat": "movement",
+          "period": "today",
+          "fragmentId": "movement.today.brief.weak_neutral.010",
+          "gating": {
+            "dayMasterStrength": [
+              "WEAK"
+            ],
+            "yongshinAlignment": [
+              "neutral"
+            ]
+          },
+          "hook": "가까운 길로 한 바퀴 걸어요."
+        },
+        {
+          "cat": "movement",
+          "period": "thisWeek",
+          "fragmentId": "movement.thisWeek.brief.weak_neutral.010",
+          "gating": {
+            "dayMasterStrength": [
+              "WEAK"
+            ],
+            "yongshinAlignment": [
+              "neutral"
+            ]
+          },
+          "hook": "동선을 미리 한 줄로 적어요."
+        },
+        {
+          "cat": "romance",
+          "period": "thisMonth",
+          "fragmentId": "romance.thisMonth.brief.strong.neutral.adult.001",
+          "gating": {
+            "ageBand": [
+              "20-29",
+              "30-39",
+              "40-54",
+              "55-69",
+              "70+"
+            ],
+            "dayMasterStrength": [
+              "STRONG",
+              "EXTREME_STRONG"
+            ],
+            "yongshinAlignment": [
+              "neutral"
+            ]
+          },
+          "hook": "조급함을 줄이면 관계가 따뜻해져요."
+        },
+        {
+          "cat": "romance",
+          "period": "thisYear",
+          "fragmentId": "romance.thisYear.brief.midlife.001",
+          "gating": {
+            "ageBand": [
+              "30-39",
+              "40-54"
+            ]
+          },
+          "hook": "곁의 사람에게 안부를 건네요."
+        },
+        {
+          "cat": "study_document",
+          "period": "today",
+          "fragmentId": "study_document.today.brief.adult.005",
+          "gating": {
+            "ageBand": [
+              "30-39",
+              "40-54",
+              "55-69"
+            ]
+          },
+          "hook": "큰 서명은 하루 미뤄요."
+        },
+        {
+          "cat": "study_document",
+          "period": "thisWeek",
+          "fragmentId": "study_document.thisWeek.brief.strong.neutral.006",
+          "gating": {
+            "dayMasterStrength": [
+              "STRONG",
+              "EXTREME_STRONG"
+            ],
+            "yongshinAlignment": [
+              "neutral"
+            ]
+          },
+          "hook": "마지막 한 주 정리가 자산이에요."
+        },
+        {
+          "cat": "study_document",
+          "period": "life",
+          "fragmentId": "study_document.life.brief.adult.005",
+          "gating": {
+            "ageBand": [
+              "30-39",
+              "40-54",
+              "55-69"
+            ]
+          },
+          "hook": "자격과 계약을 차곡차곡 모아요."
+        }
+      ]
+    },
+    "byHookText": {
+      "count": 19,
+      "entries": [
+        {
+          "hook": "짧게 매일 보면 효과가 더 커요.",
+          "postProcessedForm": null,
+          "cat": "academic",
+          "period": "thisWeek",
+          "fragmentId": "academic.thisWeek.brief.strong.neutral.001"
+        },
+        {
+          "hook": "한 가지 일을 끝까지 마무리해요.",
+          "postProcessedForm": null,
+          "cat": "career",
+          "period": "today",
+          "fragmentId": "career.today.brief.age30plus.008"
+        },
+        {
+          "hook": "쌓아 온 결이 자리를 받쳐 줘요.",
+          "postProcessedForm": "쌓아 온 흐름이 자리를 받쳐 줘요.",
+          "cat": "career",
+          "period": "thisWeek",
+          "fragmentId": "career.thisWeek.brief.age40plus.009"
+        },
+        {
+          "hook": "후배에게 한마디를 건네 봐요.",
+          "postProcessedForm": null,
+          "cat": "career",
+          "period": "thisMonth",
+          "fragmentId": "career.thisMonth.brief.age55plus.010"
+        },
+        {
+          "hook": "자기 색을 한 줄 더 또렷이 해요.",
+          "postProcessedForm": null,
+          "cat": "career",
+          "period": "thisYear",
+          "fragmentId": "career.thisYear.brief.female.age30plus.011"
+        },
+        {
+          "hook": "꾸준함이 가장 큰 자산이에요.",
+          "postProcessedForm": null,
+          "cat": "career",
+          "period": "life",
+          "fragmentId": "career.life.brief.strong.neutral.001"
+        },
+        {
+          "hook": "좋아하는 일을 한 줄 적어 봐요.",
+          "postProcessedForm": null,
+          "cat": "career",
+          "period": "life",
+          "fragmentId": "career.life.brief.age0_19.006"
+        },
+        {
+          "hook": "보호자와 한 번 더 웃어 봐요.",
+          "postProcessedForm": null,
+          "cat": "family",
+          "period": "today",
+          "fragmentId": "family.today.brief.young.003"
+        },
+        {
+          "hook": "부모님 댁에 짧게 들러요.",
+          "postProcessedForm": null,
+          "cat": "family",
+          "period": "thisMonth",
+          "fragmentId": "family.thisMonth.brief.middle.007"
+        },
+        {
+          "hook": "작은 안부가 큰 다리가 되어 줘요.",
+          "postProcessedForm": null,
+          "cat": "family",
+          "period": "thisYear",
+          "fragmentId": "family.thisYear.brief.strong.neutral.001"
+        },
+        {
+          "hook": "함께 보낸 시간을 늘려 봐요.",
+          "postProcessedForm": null,
+          "cat": "family",
+          "period": "thisYear",
+          "fragmentId": "family.thisYear.brief.young.003"
+        },
+        {
+          "hook": "양쪽 곁을 같은 무게로 챙겨요.",
+          "postProcessedForm": null,
+          "cat": "family",
+          "period": "life",
+          "fragmentId": "family.life.brief.middle.007"
+        },
+        {
+          "hook": "익숙한 길도 짧게 새로 보여요.",
+          "postProcessedForm": null,
+          "cat": "movement",
+          "period": "today",
+          "fragmentId": "movement.today.brief.strong.neutral.001"
+        },
+        {
+          "hook": "가까운 길로 한 바퀴 걸어요.",
+          "postProcessedForm": null,
+          "cat": "movement",
+          "period": "today",
+          "fragmentId": "movement.today.brief.weak_neutral.010"
+        },
+        {
+          "hook": "동선을 미리 한 줄로 적어요.",
+          "postProcessedForm": null,
+          "cat": "movement",
+          "period": "thisWeek",
+          "fragmentId": "movement.thisWeek.brief.weak_neutral.010"
+        },
+        {
+          "hook": "조급함을 줄이면 관계가 따뜻해져요.",
+          "postProcessedForm": null,
+          "cat": "romance",
+          "period": "thisMonth",
+          "fragmentId": "romance.thisMonth.brief.strong.neutral.adult.001"
+        },
+        {
+          "hook": "곁의 사람에게 안부를 건네요.",
+          "postProcessedForm": null,
+          "cat": "romance",
+          "period": "thisYear",
+          "fragmentId": "romance.thisYear.brief.midlife.001"
+        },
+        {
+          "hook": "큰 서명은 하루 미뤄요.",
+          "postProcessedForm": null,
+          "cat": "study_document",
+          "period": "today",
+          "fragmentId": "study_document.today.brief.adult.005"
+        },
+        {
+          "hook": "자격과 계약을 차곡차곡 모아요.",
+          "postProcessedForm": null,
+          "cat": "study_document",
+          "period": "life",
+          "fragmentId": "study_document.life.brief.adult.005"
+        }
+      ]
+    }
+  },
+  "postProcessor": {
+    "hooksAffectedByGyeolSub": [
+      {
+        "cat": "career",
+        "period": "thisWeek",
+        "fragmentId": "career.thisWeek.brief.age40plus.009",
+        "sourceHook": "쌓아 온 결이 자리를 받쳐 줘요.",
+        "emittedHook": "쌓아 온 흐름이 자리를 받쳐 줘요."
+      }
+    ]
+  }
+}
