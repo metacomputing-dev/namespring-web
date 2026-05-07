@@ -215,6 +215,7 @@
           "value": "부모님 자리에 분기보다 자주 들러 봐요."
         }
       ],
+      "hook": "부모님 댁에 짧게 들러요.",
       "tags": [],
       "aiGenerated": true,
       "sourceTier": {

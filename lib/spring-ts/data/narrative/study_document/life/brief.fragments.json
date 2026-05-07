@@ -60,6 +60,7 @@
       "templateTokens": [
         { "kind": "text", "value": "자격과 계약이 든든히 자리 잡는 인생이에요." }
       ],
+      "hook": "자격과 계약을 차곡차곡 모아요.",
       "tags": [],
       "aiGenerated": true,
       "sourceTier": { "tier": "T1_HYPOTHESIS", "sourceType": "training_derived", "sourceUrl": null, "accessedAt": "2026-05-02", "quoteShort": null, "humanInterpretation": "AI-derived brief fragment for study_document.life adult. Display-only narrative.", "copyrightNote": "No source prose copied; original.", "authorityTruthEligible": false }

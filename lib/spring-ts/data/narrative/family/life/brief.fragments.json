@@ -139,6 +139,7 @@
       "templateTokens": [
         { "kind": "text", "value": "양쪽 세대 곁을 함께 챙기는 든든한 시기예요." }
       ],
+      "hook": "양쪽 곁을 같은 무게로 챙겨요.",
       "tags": [],
       "aiGenerated": true,
       "sourceTier": {

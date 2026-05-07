@@ -96,6 +96,7 @@
       "templateTokens": [
         { "kind": "text", "value": "맡은 자리에서 한 가지 책임을 매듭짓는 하루예요." }
       ],
+      "hook": "한 가지 일을 끝까지 마무리해요.",
       "tags": [],
       "aiGenerated": true,
       "sourceTier": { "tier": "T1_HYPOTHESIS", "sourceType": "training_derived", "sourceUrl": null, "accessedAt": "2026-05-02", "quoteShort": null, "humanInterpretation": "Phase 2 agent-6 (career) brief today: 30+ adult. Display-only narrative.", "copyrightNote": "No source prose copied; original.", "authorityTruthEligible": false }
