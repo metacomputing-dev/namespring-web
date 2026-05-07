@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-05-07T15:20:54.062Z",
+  "generatedAt": "2026-05-07T15:24:46.924Z",
   "targetDate": "2026-05-05T00:00:00+09:00",
   "sampleId": "nonagenarian-weak-daymaster-tiered",
   "description": "90+ 노년 (1933 동지경 출생, 현재 92세) + dayMaster 약 (火 일간이 子月 水 절기에서 통근 失) — life-stage 후반 narrative + 약신 일간 fortune 곡선 결합. strengthMode=continuous 로 약신 graded intensity 노출.",
@@ -1283,7 +1283,7 @@
     },
     "meta": {
       "version": "1.0.0",
-      "generatedAt": "2026-05-07T15:21:07.584Z",
+      "generatedAt": "2026-05-07T15:24:57.677Z",
       "schoolPreset": {
         "selected": "korean",
         "source": "default",
@@ -7952,7 +7952,8 @@
               "meaningfulness": "meaningful",
               "stars": 5,
               "brief": {
-                "headline": "이번 주는 움직일수록 새 기회가 보일 수 있어요."
+                "headline": "이번 주는 실내에서 가볍게 발끝을 움직이는 자리를 챙겨요.",
+                "hook": "실내에서 가볍게 발끝을 움직여요."
               },
               "standard": {
                 "paragraphs": [
@@ -8090,11 +8091,16 @@
               },
               "selectedFragments": {
                 "brief": {
-                  "fragmentId": "movement.thisWeek.brief.currentseason.spring_summer.301",
+                  "fragmentId": "movement.thisWeek.brief.male.elder.winter.011",
                   "gating": {
-                    "currentSeason": [
-                      "spring",
-                      "summer"
+                    "gender": [
+                      "male"
+                    ],
+                    "ageBand": [
+                      "70+"
+                    ],
+                    "birthSeason": [
+                      "winter"
                     ]
                   },
                   "tags": []
@@ -13073,12 +13079,12 @@
       },
       "meta": {
         "schemaVersion": "spring-ts.tiered-matrix.v1",
-        "generatedAt": "2026-05-07T15:21:07.584Z",
+        "generatedAt": "2026-05-07T15:24:57.676Z",
         "selectionSeed": "1933|12|25|4|30|male|2026-05-04T15:00:00.000Z",
         "templateContractVersion": "1.0.0",
         "contentSource": "authored",
-        "fragmentCount": 4155,
-        "aiGeneratedFragmentCount": 4155
+        "fragmentCount": 4165,
+        "aiGeneratedFragmentCount": 4165
       }
     }
   }

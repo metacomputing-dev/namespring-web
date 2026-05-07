@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-05-07T15:20:54.062Z",
+  "generatedAt": "2026-05-07T15:24:46.924Z",
   "targetDate": "2026-05-05T00:00:00+09:00",
   "sampleId": "kim-jiwon-strong-jeonggwan-gyeokguk-tiered",
   "description": "입력 의도: 정관격 계열의 강한 격국이 또렷이 잡히기 쉬운 입력. 최종 gyeokguk 판정은 엔진이 결정한다.",
@@ -1249,7 +1249,7 @@
     },
     "meta": {
       "version": "1.0.0",
-      "generatedAt": "2026-05-07T15:20:59.563Z",
+      "generatedAt": "2026-05-07T15:24:51.165Z",
       "schoolPreset": {
         "selected": "korean",
         "source": "default",
@@ -11102,8 +11102,8 @@
               "meaningfulness": "meaningful",
               "stars": 1,
               "brief": {
-                "headline": "올해는 한 자리에서 자기 색이 깊어지는 한 해예요.",
-                "hook": "자기 색을 한 줄 더 또렷이 해요."
+                "headline": "올해는 작은 결과를 차곡차곡 모으면 길이 단단해져요.",
+                "hook": "올해는 작은 흐름을 차곡 모아요."
               },
               "standard": {
                 "paragraphs": [
@@ -11250,14 +11250,20 @@
               },
               "selectedFragments": {
                 "brief": {
-                  "fragmentId": "career.thisYear.brief.female.age30plus.011",
+                  "fragmentId": "career.thisYear.brief.female.thirties.autumn.weak.013",
                   "gating": {
                     "gender": [
                       "female"
                     ],
                     "ageBand": [
-                      "30-39",
-                      "40-54"
+                      "30-39"
+                    ],
+                    "birthSeason": [
+                      "autumn"
+                    ],
+                    "dayMasterStrength": [
+                      "WEAK",
+                      "EXTREME_WEAK"
                     ]
                   },
                   "tags": []
@@ -12870,12 +12876,12 @@
       },
       "meta": {
         "schemaVersion": "spring-ts.tiered-matrix.v1",
-        "generatedAt": "2026-05-07T15:20:59.563Z",
+        "generatedAt": "2026-05-07T15:24:51.165Z",
         "selectionSeed": "1990|9|15|11|30|female|2026-05-04T15:00:00.000Z",
         "templateContractVersion": "1.0.0",
         "contentSource": "authored",
-        "fragmentCount": 4155,
-        "aiGeneratedFragmentCount": 4155
+        "fragmentCount": 4165,
+        "aiGeneratedFragmentCount": 4165
       }
     }
   }

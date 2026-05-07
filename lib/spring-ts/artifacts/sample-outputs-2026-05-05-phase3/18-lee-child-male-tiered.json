@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-05-07T15:20:54.062Z",
+  "generatedAt": "2026-05-07T15:24:46.924Z",
   "targetDate": "2026-05-05T00:00:00+09:00",
   "sampleId": "lee-child-male-tiered",
   "description": "0-9 세 어린 남아 (2020 출생) — child fallback narrative 활성화 케이스. 어린 audience 안전 보장 (성인 metaphor 회피) 과 tieredMatrix 의 가벼운 톤을 점검하는 fixture.",
@@ -1294,7 +1294,7 @@
     },
     "meta": {
       "version": "1.0.0",
-      "generatedAt": "2026-05-07T15:21:03.267Z",
+      "generatedAt": "2026-05-07T15:24:54.295Z",
       "schoolPreset": {
         "selected": "korean",
         "source": "default",
@@ -7649,7 +7649,8 @@
               "meaningfulness": "meaningful",
               "stars": 5,
               "brief": {
-                "headline": "이번 달은 작은 성과를 남기는 쪽이 좋아요."
+                "headline": "이번 달은 좋아하는 놀이로 새 자리를 즐겨 봐요.",
+                "hook": "좋아하는 놀이를 이번 달도 골라요."
               },
               "standard": {
                 "paragraphs": [
@@ -7758,13 +7759,16 @@
               },
               "selectedFragments": {
                 "brief": {
-                  "fragmentId": "career.thisMonth.brief.step.502",
+                  "fragmentId": "career.thisMonth.brief.male.young.summer.012",
                   "gating": {
+                    "gender": [
+                      "male"
+                    ],
                     "ageBand": [
-                      "0-9",
-                      "10-19",
-                      "20-29",
-                      "30-39"
+                      "0-9"
+                    ],
+                    "birthSeason": [
+                      "summer"
                     ]
                   },
                   "tags": []
@@ -10586,12 +10590,12 @@
       },
       "meta": {
         "schemaVersion": "spring-ts.tiered-matrix.v1",
-        "generatedAt": "2026-05-07T15:21:03.267Z",
+        "generatedAt": "2026-05-07T15:24:54.295Z",
         "selectionSeed": "2020|6|10|10|15|male|2026-05-04T15:00:00.000Z",
         "templateContractVersion": "1.0.0",
         "contentSource": "authored",
-        "fragmentCount": 4155,
-        "aiGeneratedFragmentCount": 4155
+        "fragmentCount": 4165,
+        "aiGeneratedFragmentCount": 4165
       }
     }
   }

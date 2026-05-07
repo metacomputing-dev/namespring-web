@@ -374,6 +374,40 @@
         "copyrightNote": "No source prose copied; original.",
         "authorityTruthEligible": false
       }
+    },
+    {
+      "schemaVersion": "spring-ts.narrative-fragment.v1",
+      "fragmentId": "career.life.brief.male.midlife.spring.early40s.012",
+      "axis": {
+        "category": "career",
+        "period": "life",
+        "depth": "brief"
+      },
+      "gating": {
+        "gender": ["male"],
+        "ageBand": ["40-54"],
+        "birthSeason": ["spring"],
+        "agePhase": ["early_40s"]
+      },
+      "templateTokens": [
+        {
+          "kind": "text",
+          "value": "중장기 계획을 한 줄로 정리하면 결정이 또렷해져요."
+        }
+      ],
+      "hook": "중장기 계획을 한 줄로 잡아요.",
+      "tags": [],
+      "aiGenerated": true,
+      "sourceTier": {
+        "tier": "T1_HYPOTHESIS",
+        "sourceType": "training_derived",
+        "sourceUrl": null,
+        "accessedAt": "2026-05-07",
+        "quoteShort": null,
+        "humanInterpretation": "P33-A4 distinct-hook expansion: career/life brief for male × 40-54 × spring × early_40s. Display-only narrative.",
+        "copyrightNote": "No source prose copied; original authored prose.",
+        "authorityTruthEligible": false
+      }
     }
   ]
 }

@@ -257,6 +257,32 @@
         "copyrightNote": "No source prose copied; original prose.",
         "authorityTruthEligible": false
       }
+    },
+    {
+      "schemaVersion": "spring-ts.narrative-fragment.v1",
+      "fragmentId": "family.life.brief.male.young.spring.013",
+      "axis": { "category": "family", "period": "life", "depth": "brief", "tone": "plain" },
+      "gating": {
+        "gender": ["male"],
+        "ageBand": ["0-9"],
+        "birthSeason": ["spring"]
+      },
+      "templateTokens": [
+        { "kind": "text", "value": "봄 햇살 아래에서 함께 풀잎을 만지며 시간을 보내요." }
+      ],
+      "hook": "밖에서 함께 풀잎을 만져 봐요.",
+      "tags": [],
+      "aiGenerated": true,
+      "sourceTier": {
+        "tier": "T1_HYPOTHESIS",
+        "sourceType": "training_derived",
+        "sourceUrl": null,
+        "accessedAt": "2026-05-07",
+        "quoteShort": null,
+        "humanInterpretation": "P33-A4 distinct-hook expansion: family/life brief for male × 0-9 × spring-born. Display-only narrative.",
+        "copyrightNote": "No source prose copied; original authored prose.",
+        "authorityTruthEligible": false
+      }
     }
   ]
 }

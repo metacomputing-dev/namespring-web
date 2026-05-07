@@ -327,6 +327,39 @@
         "copyrightNote": "No source prose copied; original authored prose.",
         "authorityTruthEligible": false
       }
+    },
+    {
+      "schemaVersion": "spring-ts.narrative-fragment.v1",
+      "fragmentId": "movement.thisWeek.brief.male.elder.winter.011",
+      "axis": {
+        "category": "movement",
+        "period": "thisWeek",
+        "depth": "brief"
+      },
+      "gating": {
+        "gender": ["male"],
+        "ageBand": ["70+"],
+        "birthSeason": ["winter"]
+      },
+      "templateTokens": [
+        {
+          "kind": "text",
+          "value": "이번 주는 실내에서 가볍게 발끝을 움직이는 자리를 챙겨요."
+        }
+      ],
+      "hook": "실내에서 가볍게 발끝을 움직여요.",
+      "tags": [],
+      "aiGenerated": true,
+      "sourceTier": {
+        "tier": "T1_HYPOTHESIS",
+        "sourceType": "training_derived",
+        "sourceUrl": null,
+        "accessedAt": "2026-05-07",
+        "quoteShort": null,
+        "humanInterpretation": "P33-A4 distinct-hook expansion: movement/thisWeek brief for male × 70+ × winter-born. Display-only narrative.",
+        "copyrightNote": "No source prose copied; original authored prose.",
+        "authorityTruthEligible": false
+      }
     }
   ]
 }
