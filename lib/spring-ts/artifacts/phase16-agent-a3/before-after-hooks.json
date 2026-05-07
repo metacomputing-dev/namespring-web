@@ -1,0 +1,136 @@
+{
+  "phase": "P16-A3",
+  "summary": "Add 5-10 brief.hook fragments across underserved categories and periods",
+  "before": {
+    "fixturesWithAtLeastOneHook": 17,
+    "totalFixtures": 32,
+    "fixtureCoveragePercent": 53.13,
+    "totalHookOccurrences": 19,
+    "distinctHookStrings": 2,
+    "perHookOccurrence": {
+      "작게 자주 모으면 흐름이 단단해져요.": 12,
+      "무리한 약속은 한 박자 미루는 게 좋아요.": 7
+    },
+    "perCategoryPeriodCount": {
+      "wealth|thisYear": 12,
+      "health|today": 7
+    }
+  },
+  "after": {
+    "fixturesWithAtLeastOneHook": 26,
+    "totalFixtures": 32,
+    "fixtureCoveragePercent": 81.25,
+    "totalHookOccurrences": 128,
+    "distinctHookStrings": 15,
+    "perHookOccurrence": {
+      "한 줄 끄적임이 마음을 가볍게 해요.": 13,
+      "한 가지를 끝까지 마무리해 봐요.": 13,
+      "모은 것들을 짧게 정리해 봐요.": 13,
+      "결과 하나를 누군가에게 보여 줘요.": 13,
+      "작게 자주 모으면 흐름이 단단해져요.": 12,
+      "작게 한 호흡 끊어 가요.": 11,
+      "일정 사이에 쉼 한 칸을 비워요.": 11,
+      "큰 무리수만 피하면 든든히 모을 수 있어요.": 11,
+      "무리한 약속은 한 박자 미루는 게 좋아요.": 6,
+      "어깨 풀기 한 번을 챙겨요.": 6,
+      "같은 시간에 자고 일어나요.": 5,
+      "마지막 한 주 정리가 자산이에요.": 4,
+      "정기 점검 일정을 미리 잡아요.": 4,
+      "물 한 잔과 가벼운 산책이 도움돼요.": 4,
+      "기준 한 줄을 적어 두면 좋아요.": 2
+    },
+    "perCategoryPeriodCount": {
+      "wealth|thisYear": 25,
+      "expression_children|today": 13,
+      "expression_children|thisWeek": 13,
+      "expression_children|thisMonth": 13,
+      "expression_children|thisYear": 13,
+      "overall|today": 11,
+      "overall|thisWeek": 11,
+      "health|today": 10,
+      "health_stress|thisMonth": 6,
+      "health|thisWeek": 5,
+      "study_document|thisWeek": 4,
+      "health|thisYear": 4
+    }
+  },
+  "delta": {
+    "totalHookOccurrencesDelta": 109,
+    "fixturesWithHookDelta": 9,
+    "distinctHookStringsDelta": 13,
+    "newCategoryPeriodCount": [
+      "expression_children|today",
+      "expression_children|thisWeek",
+      "expression_children|thisMonth",
+      "expression_children|thisYear",
+      "overall|today",
+      "overall|thisWeek",
+      "health_stress|thisMonth",
+      "health|thisWeek",
+      "study_document|thisWeek",
+      "health|thisYear"
+    ]
+  },
+  "addedHooks": [
+    {
+      "fragmentId": "expression_children.today.brief.weak_neutral.010",
+      "hook": "한 줄 끄적임이 마음을 가볍게 해요.",
+      "hookCodepoints": 20,
+      "gating": { "dayMasterStrength": ["WEAK"], "yongshinAlignment": ["neutral"] }
+    },
+    {
+      "fragmentId": "expression_children.thisWeek.brief.weak_neutral.010",
+      "hook": "한 가지를 끝까지 마무리해 봐요.",
+      "hookCodepoints": 18,
+      "gating": { "dayMasterStrength": ["WEAK"], "yongshinAlignment": ["neutral"] }
+    },
+    {
+      "fragmentId": "expression_children.thisMonth.brief.weak_neutral.010",
+      "hook": "모은 것들을 짧게 정리해 봐요.",
+      "hookCodepoints": 17,
+      "gating": { "dayMasterStrength": ["WEAK"], "yongshinAlignment": ["neutral"] }
+    },
+    {
+      "fragmentId": "expression_children.thisYear.brief.weak_neutral.010",
+      "hook": "결과 하나를 누군가에게 보여 줘요.",
+      "hookCodepoints": 19,
+      "gating": { "dayMasterStrength": ["WEAK"], "yongshinAlignment": ["neutral"] }
+    },
+    {
+      "fragmentId": "overall.today.brief.strong.neutral.005",
+      "hook": "작게 한 호흡 끊어 가요.",
+      "hookCodepoints": 14,
+      "gating": { "dayMasterStrength": ["STRONG"], "yongshinAlignment": ["neutral"] }
+    },
+    {
+      "fragmentId": "overall.thisWeek.brief.strong.neutral.005",
+      "hook": "일정 사이에 쉼 한 칸을 비워요.",
+      "hookCodepoints": 18,
+      "gating": { "dayMasterStrength": ["STRONG"], "yongshinAlignment": ["neutral"] }
+    },
+    {
+      "fragmentId": "health.thisWeek.brief.strong.001",
+      "hook": "같은 시간에 자고 일어나요.",
+      "hookCodepoints": 15,
+      "gating": { "dayMasterStrength": ["STRONG", "EXTREME_STRONG"] }
+    },
+    {
+      "fragmentId": "health.thisYear.brief.strong.001",
+      "hook": "정기 점검 일정을 미리 잡아요.",
+      "hookCodepoints": 17,
+      "gating": { "dayMasterStrength": ["STRONG", "EXTREME_STRONG"] }
+    },
+    {
+      "fragmentId": "health_stress.thisMonth.brief.male_30_39.001",
+      "hook": "어깨 풀기 한 번을 챙겨요.",
+      "hookCodepoints": 15,
+      "gating": { "gender": ["male"], "ageBand": ["30-39", "40-54"] }
+    },
+    {
+      "fragmentId": "study_document.thisWeek.brief.strong.006",
+      "hook": "마지막 한 주 정리가 자산이에요.",
+      "hookCodepoints": 18,
+      "gating": { "dayMasterStrength": ["STRONG", "EXTREME_STRONG"] }
+    }
+  ]
+}
