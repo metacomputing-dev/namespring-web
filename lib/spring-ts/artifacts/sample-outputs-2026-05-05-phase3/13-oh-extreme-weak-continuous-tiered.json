@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-05-07T12:35:42.188Z",
+  "generatedAt": "2026-05-07T12:41:14.853Z",
   "targetDate": "2026-05-05T00:00:00+09:00",
   "sampleId": "oh-extreme-weak-continuous-tiered",
   "description": "입력 의도: 지지가 일간을 극도로 소모하는 신약 지향 입력. strengthMode=continuous 로 4-tier 강도 곡선과 결합한 tiered 샘플. 최종 강도 분류는 엔진이 결정한다.",
@@ -1293,7 +1293,7 @@
     },
     "meta": {
       "version": "1.0.0",
-      "generatedAt": "2026-05-07T12:35:49.394Z",
+      "generatedAt": "2026-05-07T12:41:22.973Z",
       "schoolPreset": {
         "selected": "korean",
         "source": "default",
@@ -2698,8 +2698,8 @@
                   }
                 ],
                 "livingTips": [
-                  "인연 한 줄을 길게 쥐기",
-                  "1년에 한 가지 결정 기록 남기기"
+                  "평생 인연 한 줄을 길게 쥐기",
+                  "5년 단위로 자기 흐름을 돌아보기"
                 ],
                 "cautions": [
                   "타인의 자리와 비교만으로 흔들리지 않기"
@@ -8762,7 +8762,7 @@
                 ],
                 "livingTips": [
                   "출퇴근 길의 한 챕터",
-                  "한 마디로 누군가에게 설명",
+                  "이달 익힌 결 한 권 정리",
                   "월말의 한 줄 정리"
                 ],
                 "cautions": [
@@ -12996,7 +12996,7 @@
       },
       "meta": {
         "schemaVersion": "spring-ts.tiered-matrix.v1",
-        "generatedAt": "2026-05-07T12:35:49.394Z",
+        "generatedAt": "2026-05-07T12:41:22.973Z",
         "selectionSeed": "1972|11|28|4|30|female|2026-05-04T15:00:00.000Z",
         "templateContractVersion": "1.0.0",
         "contentSource": "authored",

@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-05-07T12:35:42.188Z",
+  "generatedAt": "2026-05-07T12:41:14.853Z",
   "targetDate": "2026-05-05T00:00:00+09:00",
   "sampleId": "jeong-extreme-strong-continuous-tiered",
   "description": "입력 의도: 지지에서 일간이 강하게 받쳐지는 신강 지향 입력. strengthMode=continuous 로 4-tier 강도 곡선과 결합한 tiered 샘플. 최종 강도 분류는 엔진이 결정한다.",
@@ -1294,7 +1294,7 @@
     },
     "meta": {
       "version": "1.0.0",
-      "generatedAt": "2026-05-07T12:35:49.066Z",
+      "generatedAt": "2026-05-07T12:41:22.621Z",
       "schoolPreset": {
         "selected": "korean",
         "source": "default",
@@ -2761,8 +2761,8 @@
                   }
                 ],
                 "livingTips": [
-                  "함께 결정할 사람 한 명 정해 두기",
-                  "한 자리에서의 마무리를 챙기기"
+                  "평생 동행할 한 사람 곁에 두기",
+                  "한 역할의 마무리를 자기 자산으로"
                 ],
                 "cautions": [
                   "가족과 일 한쪽만 무너뜨리지 않기"
@@ -12975,7 +12975,7 @@
       },
       "meta": {
         "schemaVersion": "spring-ts.tiered-matrix.v1",
-        "generatedAt": "2026-05-07T12:35:49.066Z",
+        "generatedAt": "2026-05-07T12:41:22.621Z",
         "selectionSeed": "1980|3|12|9|0|male|2026-05-04T15:00:00.000Z",
         "templateContractVersion": "1.0.0",
         "contentSource": "authored",
