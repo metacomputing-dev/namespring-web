@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-05-07T13:26:28.299Z",
+  "generatedAt": "2026-05-07T13:27:32.352Z",
   "targetDate": "2026-05-05T00:00:00+09:00",
   "sampleId": "kim-seongsu-special-format-candidate-tiered",
   "description": "입력 의도: 외격 후보(화기격 계열) 고전 사례. precisionConfig 로 tieredMatrix 만 결합. 외격 판정은 엔진이 결정한다.",
@@ -1338,7 +1338,7 @@
     },
     "meta": {
       "version": "1.0.0",
-      "generatedAt": "2026-05-07T13:26:35.125Z",
+      "generatedAt": "2026-05-07T13:27:38.360Z",
       "schoolPreset": {
         "selected": "korean",
         "source": "default",
@@ -2026,15 +2026,6 @@
                       }
                     ],
                     "plainText": "새로 배우는 흐름도 좋고, 익힌 것을 정리해 글이나 강의로 남기는 리듬도 좋아요. 빠른 학습보다 천천히 음미하는 학습이 더 잘 어울리는 시기라, 한 권의 고전을 다시 읽는 흐름이 의외로 큰 깊이를 만들어요."
-                  },
-                  {
-                    "tokens": [
-                      {
-                        "kind": "text",
-                        "value": "손에 잡힌 책 한 권을 천천히 처음부터 다시 읽어 보고 떠오른 생각을 짧은 메모로 남겨 보세요. 비슷한 길을 걷는 동료와 한 줄을 주고받는 자리도 한 호흡 더 깊은 풍경을 만들어 줘요."
-                      }
-                    ],
-                    "plainText": "손에 잡힌 책 한 권을 천천히 처음부터 다시 읽어 보고 떠오른 생각을 짧은 메모로 남겨 보세요. 비슷한 길을 걷는 동료와 한 줄을 주고받는 자리도 한 호흡 더 깊은 풍경을 만들어 줘요."
                   },
                   {
                     "tokens": [
@@ -13221,7 +13212,7 @@
       },
       "meta": {
         "schemaVersion": "spring-ts.tiered-matrix.v1",
-        "generatedAt": "2026-05-07T13:26:35.125Z",
+        "generatedAt": "2026-05-07T13:27:38.359Z",
         "selectionSeed": "1958|7|11|13|0|male|2026-05-04T15:00:00.000Z",
         "templateContractVersion": "1.0.0",
         "contentSource": "authored",
