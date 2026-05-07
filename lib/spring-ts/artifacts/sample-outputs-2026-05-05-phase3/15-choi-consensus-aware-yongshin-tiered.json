@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-05-07T07:43:12.699Z",
+  "generatedAt": "2026-05-07T07:53:55.988Z",
   "targetDate": "2026-05-05T00:00:00+09:00",
   "sampleId": "choi-consensus-aware-yongshin-tiered",
   "description": "yongshinMode=consensus_aware 활성 시나리오. 독립 명리 방법이 엇갈리는 사주에서 consensus scoreboard 를 블렌딩한 posture 및 per-axis 근거를 tieredMatrix 와 함께 노출하는 케이스.",
@@ -1319,7 +1319,7 @@
     },
     "meta": {
       "version": "1.0.0",
-      "generatedAt": "2026-05-07T07:43:21.870Z",
+      "generatedAt": "2026-05-07T07:54:03.749Z",
       "schoolPreset": {
         "selected": "korean",
         "source": "default",
@@ -9813,10 +9813,10 @@
                     "tokens": [
                       {
                         "kind": "text",
-                        "value": "이번 달 이동운은 익숙한 동선에서 한 발짝씩 넓혀 가기 좋은 모습이에요. 갑작스러운 큰 변화보다 천천히 활동 범위를 늘려 가는 호흡이 잘 맞아요."
+                        "value": "이번 달 이동운은 갑작스러운 한 번의 큰 변화보다 활동 범위를 천천히 넓혀 가는 호흡이 잘 맞는 모습이에요. 익숙한 동선을 한 축으로 두고 흐름을 한 걸음씩 키워 가면 한 달의 흐름이 단단해져요."
                       }
                     ],
-                    "plainText": "이번 달 이동운은 익숙한 동선에서 한 발짝씩 넓혀 가기 좋은 모습이에요. 갑작스러운 큰 변화보다 천천히 활동 범위를 늘려 가는 호흡이 잘 맞아요."
+                    "plainText": "이번 달 이동운은 갑작스러운 한 번의 큰 변화보다 활동 범위를 천천히 넓혀 가는 호흡이 잘 맞는 모습이에요. 익숙한 동선을 한 축으로 두고 흐름을 한 걸음씩 키워 가면 한 달의 흐름이 단단해져요."
                   },
                   {
                     "tokens": [
@@ -12834,12 +12834,12 @@
       },
       "meta": {
         "schemaVersion": "spring-ts.tiered-matrix.v1",
-        "generatedAt": "2026-05-07T07:43:21.869Z",
+        "generatedAt": "2026-05-07T07:54:03.749Z",
         "selectionSeed": "1986|4|19|5|45|male|2026-05-04T15:00:00.000Z",
         "templateContractVersion": "1.0.0",
         "contentSource": "authored",
-        "fragmentCount": 4091,
-        "aiGeneratedFragmentCount": 4091
+        "fragmentCount": 4101,
+        "aiGeneratedFragmentCount": 4101
       }
     }
   }
