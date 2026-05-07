@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-05-07T13:27:32.352Z",
+  "generatedAt": "2026-05-07T13:30:09.027Z",
   "targetDate": "2026-05-05T00:00:00+09:00",
   "sampleId": "gyeokguk-conflict-consensus-aware-tiered",
   "description": "격국 충돌 case 2: 신강/신약 경계 + 격국 후보 다중 + yongshinMode=consensus_aware 활성. 독립 명리 방법(억부/조후/격국/통관/병약/식상유통) 이 엇갈리는 chart 에서 consensus 보드와 격국 흔들림이 함께 노출되는 케이스.",
@@ -1301,7 +1301,7 @@
     },
     "meta": {
       "version": "1.0.0",
-      "generatedAt": "2026-05-07T13:27:42.206Z",
+      "generatedAt": "2026-05-07T13:30:19.741Z",
       "schoolPreset": {
         "selected": "korean",
         "source": "default",
@@ -11791,10 +11791,10 @@
                     "tokens": [
                       {
                         "kind": "text",
-                        "value": "분기마다 짚어 두는 한 매듭 한 매듭이 모여 자기 표현의 색을 한 뼘씩 진하게 만들어 주는 한 해예요. 큰 무대를 욕심내기보다, 가까운 사람 앞에서 한 매듭·한 줄을 다듬어 두면 한 해의 방향이 또렷해져요."
+                        "value": "분기마다 짚어 두는 한 매듭 한 매듭이 모여 자기 표현의 색을 한 뼘씩 진하게 만들어 주는 한 해예요. 큰 무대보다 가까운 사람 앞에서 한 매듭·한 줄을 다듬어 두면 한 해의 방향이 또렷해져요."
                       }
                     ],
-                    "plainText": "분기마다 짚어 두는 한 매듭 한 매듭이 모여 자기 표현의 색을 한 뼘씩 진하게 만들어 주는 한 해예요. 큰 무대를 욕심내기보다, 가까운 사람 앞에서 한 매듭·한 줄을 다듬어 두면 한 해의 방향이 또렷해져요."
+                    "plainText": "분기마다 짚어 두는 한 매듭 한 매듭이 모여 자기 표현의 색을 한 뼘씩 진하게 만들어 주는 한 해예요. 큰 무대보다 가까운 사람 앞에서 한 매듭·한 줄을 다듬어 두면 한 해의 방향이 또렷해져요."
                   },
                   {
                     "tokens": [
@@ -13138,7 +13138,7 @@
       },
       "meta": {
         "schemaVersion": "spring-ts.tiered-matrix.v1",
-        "generatedAt": "2026-05-07T13:27:42.206Z",
+        "generatedAt": "2026-05-07T13:30:19.741Z",
         "selectionSeed": "1973|12|17|16|30|female|2026-05-04T15:00:00.000Z",
         "templateContractVersion": "1.0.0",
         "contentSource": "authored",
