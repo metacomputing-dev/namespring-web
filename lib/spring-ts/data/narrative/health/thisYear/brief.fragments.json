@@ -62,7 +62,7 @@
     },
     {
       "schemaVersion": "spring-ts.narrative-fragment.v1",
-      "fragmentId": "health.thisYear.brief.strong.001",
+      "fragmentId": "health.thisYear.brief.strong.neutral.001",
       "axis": {
         "category": "health",
         "period": "thisYear",
@@ -72,6 +72,9 @@
         "dayMasterStrength": [
           "STRONG",
           "EXTREME_STRONG"
+        ],
+        "yongshinAlignment": [
+          "neutral"
         ]
       },
       "templateTokens": [
