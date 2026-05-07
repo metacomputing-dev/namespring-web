@@ -919,7 +919,25 @@
         },
         {
           "kind": "text",
-          "value": "의 결이 어떻게 받쳐 주느냐를 함께 살펴 두면 흐름의 결정이 더 단단해지고, 작은 인사 한 마디가 평생의 자산이 되는 자리예요."
+          "value": "의 결이 어떻게 받쳐 주느냐를 함께 살펴 두면 흐름의 결정이 더 단단해지고, 작은 인사 한 마디가 평생의 자산이 되는 자리예요.\n\n"
+        },
+        {
+          "kind": "tag",
+          "tagId": "cheondeokgwiin",
+          "label": "천덕귀인"
+        },
+        {
+          "kind": "text",
+          "value": "의 자리가 "
+        },
+        {
+          "kind": "tag",
+          "tagId": "bumyong",
+          "label": "부모궁"
+        },
+        {
+          "kind": "text",
+          "value": "의 호흡과 함께 보이는 어린 시기의 사주는 한 달 안의 작은 다툼도 부드럽게 풀어 주는 자리가 자주 등장해요. 이 시기에 받은 따뜻한 호흡 한 번이 청소년기의 안정감으로 자라는 사주이니, 보호자의 작은 칭찬과 짧은 산책 한 번이 평생의 큰 자산으로 쌓여요."
         }
       ],
       "tags": [
@@ -927,7 +945,8 @@
         "jeongin",
         "samhyeong",
         "hyeongsal",
-        "jojangung"
+        "jojangung",
+        "cheondeokgwiin"
       ],
       "aiGenerated": true,
       "sourceTier": {

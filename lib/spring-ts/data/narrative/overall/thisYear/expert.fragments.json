@@ -1395,7 +1395,25 @@
         },
         {
           "kind": "text",
-          "value": "의 평균이 또렷한 사주는 자기 격에 맞는 길로 큰 흐름이 모이는 자리가 자주 등장해요."
+          "value": "의 평균이 또렷한 사주는 자기 격에 맞는 길로 큰 흐름이 모이는 자리가 자주 등장해요.\n\n"
+        },
+        {
+          "kind": "tag",
+          "tagId": "siGungsil",
+          "label": "시궁실"
+        },
+        {
+          "kind": "text",
+          "value": "의 자리가 "
+        },
+        {
+          "kind": "tag",
+          "tagId": "heeshin",
+          "label": "희신"
+        },
+        {
+          "kind": "text",
+          "value": "의 기운과 가까이 만나는 시기에는 어린 시기의 안정감이 한층 또렷해지는 자리가 자주 보여요. 한 해 안의 작은 챙김 한 번 한 번이 청소년기의 단단한 자기 색으로 자라는 사주이니, 보호자의 부드러운 손길과 짧은 칭찬 한마디가 평생의 가장 큰 자산으로 쌓여요."
         }
       ],
       "tags": [
@@ -1404,7 +1422,8 @@
         "yongshin",
         "heeshin",
         "gyeokgukYongshin",
-        "gyeokgukFit"
+        "gyeokgukFit",
+        "siGungsil"
       ],
       "aiGenerated": true,
       "sourceTier": {

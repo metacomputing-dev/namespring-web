@@ -662,13 +662,32 @@
         },
         {
           "kind": "text",
-          "value": " 자기 마음을 너무 묵혀 두지 않고 짧은 한마디라도 한 주에 한두 번 자주 표현하면, 관계의 방향이 한층 또렷해져요."
+          "value": " 자기 마음을 너무 묵혀 두지 않고 짧은 한마디라도 한 주에 한두 번 자주 표현하면, 관계의 방향이 한층 또렷해져요.\n\n"
+        },
+        {
+          "kind": "tag",
+          "tagId": "hongyeom",
+          "label": "홍염"
+        },
+        {
+          "kind": "text",
+          "value": "의 기운이 "
+        },
+        {
+          "kind": "tag",
+          "tagId": "baeujagung",
+          "label": "배우자궁"
+        },
+        {
+          "kind": "text",
+          "value": "의 자리와 함께 보이는 사주는 약한 일간이 천천히 익는 한 주가 평생의 인연 자리로 이어지는 사주이니, 한 번에 마음을 다 보여 주기보다 익숙한 호흡으로 작은 다정함을 쌓아 두면 한 달·한 해의 더 깊은 신뢰로 자라요."
         }
       ],
       "tags": [
         "baeujagung",
         "sikshin",
-        "jeonggwan"
+        "jeonggwan",
+        "hongyeom"
       ],
       "aiGenerated": true,
       "sourceTier": {

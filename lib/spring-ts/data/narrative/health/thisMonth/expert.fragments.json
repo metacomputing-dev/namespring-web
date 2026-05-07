@@ -573,7 +573,25 @@
         },
         {
           "kind": "text",
-          "value": "도 함께 단단해지는 자리라, 큰 결정보다 작은 회복 습관이 평생의 무기가 돼요."
+          "value": "도 함께 단단해지는 자리라, 큰 결정보다 작은 회복 습관이 평생의 무기가 돼요.\n\n"
+        },
+        {
+          "kind": "tag",
+          "tagId": "siGungsil",
+          "label": "시궁실"
+        },
+        {
+          "kind": "text",
+          "value": "의 자리가 "
+        },
+        {
+          "kind": "tag",
+          "tagId": "sikshin",
+          "label": "식신"
+        },
+        {
+          "kind": "text",
+          "value": "의 기운과 함께 보이는 어린 시기의 사주는 한 달 안의 잔잔한 컨디션 변화도 자연스레 풀리는 자리가 자주 등장해요. 이 시기에 잘 다진 식습관과 보호자의 따뜻한 손길 한 번이 청소년기의 안정감으로 자라는 사주이니, 작은 챙김이 평생의 가장 큰 자산이 돼요."
         }
       ],
       "tags": [
@@ -582,7 +600,8 @@
         "jisal",
         "cheonui",
         "eumyangHarmony",
-        "stabilityIndex"
+        "stabilityIndex",
+        "siGungsil"
       ],
       "aiGenerated": true,
       "sourceTier": {

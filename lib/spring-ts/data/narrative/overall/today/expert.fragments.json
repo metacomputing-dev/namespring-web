@@ -547,7 +547,25 @@
         },
         {
           "kind": "text",
-          "value": "의 흐름이 자기 결을 보완하는 자리가 자주 등장해요."
+          "value": "의 흐름이 자기 결을 보완하는 자리가 자주 등장해요.\n\n"
+        },
+        {
+          "kind": "tag",
+          "tagId": "siGungsil",
+          "label": "시궁실"
+        },
+        {
+          "kind": "text",
+          "value": "의 작은 자리가 "
+        },
+        {
+          "kind": "tag",
+          "tagId": "heeshin",
+          "label": "희신"
+        },
+        {
+          "kind": "text",
+          "value": "의 기운과 가까이 만나는 시간대에는 단단한 일간이 한 박자 부드러워지는 자리가 자주 보여요. 하루의 작은 결정 한 번 한 번을 자기 페이스로 다듬어 두면, 큰 그림 위에서 또렷한 자기 색이 모이는 사주이니 무리한 속도보다 깊은 호흡 한 번이 더 큰 자산이 돼요."
         }
       ],
       "tags": [
@@ -557,7 +575,8 @@
         "tonggwanYongshin",
         "byeongyakYongshin",
         "naeum",
-        "naeumElement"
+        "naeumElement",
+        "siGungsil"
       ],
       "aiGenerated": true,
       "sourceTier": {
