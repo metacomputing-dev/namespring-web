@@ -1,0 +1,145 @@
+{
+  "policy": "spring-ts.standard-paragraph-floor.v1",
+  "samplesDir": "artifacts/sample-outputs-2026-05-05-phase3",
+  "sampleFilesScanned": 32,
+  "fixturesWithMatrix": 32,
+  "totalCells": 1705,
+  "minParagraphs": 3,
+  "paragraphCountStats": {
+    "count": 1705,
+    "min": 3,
+    "max": 5,
+    "median": 3,
+    "mode": 3,
+    "mean": 3.33
+  },
+  "paragraphCountHistogram": {
+    "3": 1385,
+    "4": 83,
+    "5": 237
+  },
+  "shortestCells": [
+    {
+      "fixture": "04-kim-seoyun-young-female-tiered",
+      "period": "life",
+      "category": "academic",
+      "count": 3
+    },
+    {
+      "fixture": "04-kim-seoyun-young-female-tiered",
+      "period": "life",
+      "category": "career",
+      "count": 3
+    },
+    {
+      "fixture": "04-kim-seoyun-young-female-tiered",
+      "period": "life",
+      "category": "expression_children",
+      "count": 3
+    },
+    {
+      "fixture": "04-kim-seoyun-young-female-tiered",
+      "period": "life",
+      "category": "family",
+      "count": 3
+    },
+    {
+      "fixture": "04-kim-seoyun-young-female-tiered",
+      "period": "life",
+      "category": "health",
+      "count": 3
+    },
+    {
+      "fixture": "04-kim-seoyun-young-female-tiered",
+      "period": "life",
+      "category": "health_stress",
+      "count": 3
+    },
+    {
+      "fixture": "04-kim-seoyun-young-female-tiered",
+      "period": "life",
+      "category": "movement",
+      "count": 3
+    },
+    {
+      "fixture": "04-kim-seoyun-young-female-tiered",
+      "period": "life",
+      "category": "overall",
+      "count": 3
+    },
+    {
+      "fixture": "04-kim-seoyun-young-female-tiered",
+      "period": "life",
+      "category": "romance",
+      "count": 3
+    },
+    {
+      "fixture": "04-kim-seoyun-young-female-tiered",
+      "period": "life",
+      "category": "wealth",
+      "count": 3
+    },
+    {
+      "fixture": "04-kim-seoyun-young-female-tiered",
+      "period": "thisMonth",
+      "category": "academic",
+      "count": 3
+    },
+    {
+      "fixture": "04-kim-seoyun-young-female-tiered",
+      "period": "thisMonth",
+      "category": "career",
+      "count": 3
+    },
+    {
+      "fixture": "04-kim-seoyun-young-female-tiered",
+      "period": "thisMonth",
+      "category": "expression_children",
+      "count": 3
+    },
+    {
+      "fixture": "04-kim-seoyun-young-female-tiered",
+      "period": "thisMonth",
+      "category": "family",
+      "count": 3
+    },
+    {
+      "fixture": "04-kim-seoyun-young-female-tiered",
+      "period": "thisMonth",
+      "category": "health",
+      "count": 3
+    },
+    {
+      "fixture": "04-kim-seoyun-young-female-tiered",
+      "period": "thisMonth",
+      "category": "movement",
+      "count": 3
+    },
+    {
+      "fixture": "04-kim-seoyun-young-female-tiered",
+      "period": "thisMonth",
+      "category": "overall",
+      "count": 3
+    },
+    {
+      "fixture": "04-kim-seoyun-young-female-tiered",
+      "period": "thisMonth",
+      "category": "romance",
+      "count": 3
+    },
+    {
+      "fixture": "04-kim-seoyun-young-female-tiered",
+      "period": "thisMonth",
+      "category": "study_document",
+      "count": 3
+    },
+    {
+      "fixture": "04-kim-seoyun-young-female-tiered",
+      "period": "thisWeek",
+      "category": "academic",
+      "count": 3
+    }
+  ],
+  "violationCount": 0,
+  "violations": []
+}

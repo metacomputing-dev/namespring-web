@@ -500,7 +500,7 @@ fixture	period	category	depth	slot	cellKey	plainText
 04-kim-seoyun-young-female-tiered.json	life	academic	expert	para3	life/academic/expert/para3	격국이 또렷하지 않은 시기엔 자기 호흡을 지키며 한 단원씩 마무리해 가는 방식이 가장 잘 어울려요.
 04-kim-seoyun-young-female-tiered.json	life	romance	brief	headline	life/romance/brief/headline	관계운은 친구와 가족에게 마음을 잘 전하는 힘으로 먼저 나타나요.
 04-kim-seoyun-young-female-tiered.json	life	romance	standard	para0	life/romance/standard/para0	10대의 인연은 짝을 정하는 큰 결정의 시기가 아니라, 또래·친구와의 사이에서 자기 마음을 알아 가는 흐름이 가장 또렷하게 자라는 시간이에요. 새 친구를 만나거나 함께 무언가를 만드는 자리에서 자기다움이 천천히 또렷해져요.
-04-kim-seoyun-young-female-tiered.json	life	romance	standard	para1	life/romance/standard/para1	사주에서 매력 신호가 강하게 보이는 시기일 수도 있어요. 그 신호는 무대 위 표현·발표·창작처럼 사람들이 모이는 곳에서 가장 먼저 빛이 나는 흐름으로 풀려요. 마음이 가는 사람이 생기더라도 결혼이나 큰 약속 같은 단정은 한참 뒤의 이야기로 두고, 지금은 좋아하는 사람과 함께 보내는 시간 안에서 서로의 흐름을 알아 가면 충분해요.
+04-kim-seoyun-young-female-tiered.json	life	romance	standard	para1	life/romance/standard/para1	사주에서 매력 신호가 강하게 보이는 시기일 수도 있어요. 그 신호는 무대 위 표현·발표·창작처럼 사람들이 모이는 곳에서 가장 먼저 빛이 나는 흐름으로 풀려요. 마음이 가는 사람이 생기더라도 큰 약속 같은 단정은 한참 뒤의 이야기로 두고, 지금은 좋아하는 사람과 함께 보내는 시간 안에서 서로의 흐름을 알아 가면 충분해요.
 04-kim-seoyun-young-female-tiered.json	life	romance	standard	para2	life/romance/standard/para2	좋아하는 마음을 표현할 땐 한 박자 천천히 골라 보세요. 짧은 안부, 함께 즐기는 활동, 작은 응원이 흐름을 가장 부드럽게 만들어 줘요. 기다리는 시간이 어색하게 느껴질 수도 있지만, 그 시간 안에서 자기 페이스를 지키는 연습이 다음 시기의 가장 큰 자산이 돼요.
 04-kim-seoyun-young-female-tiered.json	life	romance	expert	para0	life/romance/expert/para0	10대의 인연운은 본격적인 짝의 자리보다 또래·집단의 사이를 먼저 풀어요.
 04-kim-seoyun-young-female-tiered.json	life	romance	expert	para1	life/romance/expert/para1	이 시기엔 #식신과 #상관이 만들어 내는 표현의 색이 친구와의 신뢰를 잇는 다리예요.
@@ -1040,7 +1040,7 @@ fixture	period	category	depth	slot	cellKey	plainText
 05-park-minji-late-night-female-tiered.json	today	wealth	standard	para0	today/wealth/standard/para0	오늘의 재물운은 큰 무리수 없이 흘러가는 흐름이에요. 어제까지 이어 오던 페이스를 지키면 자연스럽게 자리 잡는 흐름이에요.
 05-park-minji-late-night-female-tiered.json	today	wealth	standard	para1	today/wealth/standard/para1	비유하자면 잔잔한 호수에 작은 돌 하나를 던져요. 큰 파동을 만들기보다, 작은 흐름의 무늬를 지켜보는 하루예요.
 05-park-minji-late-night-female-tiered.json	today	wealth	standard	para2	today/wealth/standard/para2	잘 풀리는 방향은 작은 기록이에요. 오늘 어디에 썼는지 한 줄 적어 두면 한 달 뒤 방향이 또렷이 보여요.
-05-park-minji-late-night-female-tiered.json	today	wealth	standard	para3	today/wealth/standard/para3	주의할 점은 즉흥적 결정이에요. 권유받은 큰 결정은 하루 자고 결정해도 늦지 않아요.
+05-park-minji-late-night-female-tiered.json	today	wealth	standard	para3	today/wealth/standard/para3	주의할 점은 즉흥적 결정이에요. 권유받은 큰 거래는 하루 자고 정해도 늦지 않아요.
 05-park-minji-late-night-female-tiered.json	today	wealth	expert	para0	today/wealth/expert/para0	오늘 재물운은 빠른 제안과 즉흥 소비가 함께 올라올 수 있습니다.
 05-park-minji-late-night-female-tiered.json	today	wealth	expert	para1	today/wealth/expert/para1	#편재가 만드는 기회성 선택은 열리지만, #정재의 확인 절차 없이 결정하면 지출 통제가 약해집니다.
 05-park-minji-late-night-female-tiered.json	today	wealth	expert	para2	today/wealth/expert/para2	#용신과 맞는 거래인지 하루 여유를 두고 확인해 보세요.
@@ -6026,7 +6026,7 @@ fixture	period	category	depth	slot	cellKey	plainText
 17-kim-senior-female-tiered.json	life	romance	expert	para2	life/romance/expert/para2	#음양조화도가 과열되면 설렘이 빠르게 커지지만 관계의 합의는 늦어질 수 있습니다.
 17-kim-senior-female-tiered.json	life	romance	expert	para3	life/romance/expert/para3	#처궁의 흐름과 #자식궁의 자리가 함께 살아나는 시기엔 가까운 관계가 한 단계 깊어지는 흐름이 보여요.
 17-kim-senior-female-tiered.json	life	family	brief	headline	life/family/brief/headline	오래 가꾼 가풍이 든든한 결실로 모여 있어요.
-17-kim-senior-female-tiered.json	life	family	standard	para0	life/family/standard/para0	이 시기는 인생 전체에서 가꾸어 온 가풍이 든든한 결실로 모여 있는 자리예요. 곁에 있어 주는 사람들의 결, 멀리서 안부를 보내는 결, 다음 세대로 이어지는 흐름이 한 흙 위에 같이 자리해요.
+17-kim-senior-female-tiered.json	life	family	standard	para0	life/family/standard/para0	이 시기는 인생 전체에서 가꾸어 온 가풍이 든든한 결실로 모여 있는 자리예요. 곁에 있어 주는 사람들의 손길, 멀리서 안부를 보내는 마음, 다음 세대로 이어지는 흐름이 한 흙 위에 같이 자리해요.
 17-kim-senior-female-tiered.json	life	family	standard	para1	life/family/standard/para1	큰 일을 새로 시작하는 자리이기보다는, 매일의 작은 리듬을 따뜻하게 누리는 흐름이 잘 맞아요. 자녀 세대·손주 세대와의 흐름은 무언가를 가르쳐 주려 하기보다, 같이 시간을 보내는 자리만으로도 충분한 자산이 돼요.
 17-kim-senior-female-tiered.json	life	family	standard	para2	life/family/standard/para2	평생의 따뜻함이 이어지는 시기이니, 흐름을 천천히 누리면 좋아요.
 17-kim-senior-female-tiered.json	life	family	expert	para0	life/family/expert/para0	가족 장기 흐름에서 봄과 여름의 현재 계절은 관계 안의 활동성과 역할 노출을 키워요.
@@ -13440,7 +13440,7 @@ fixture	period	category	depth	slot	cellKey	plainText
 33-consensus-aware-multi-axis-combined-tiered.json	today	wealth	standard	para0	today/wealth/standard/para0	오늘의 재물운은 큰 무리수 없이 흘러가는 흐름이에요. 어제까지 이어 오던 페이스를 지키면 자연스럽게 자리 잡는 흐름이에요.
 33-consensus-aware-multi-axis-combined-tiered.json	today	wealth	standard	para1	today/wealth/standard/para1	비유하자면 잔잔한 호수에 작은 돌 하나를 던져요. 큰 파동을 만들기보다, 작은 흐름의 무늬를 지켜보는 하루예요.
 33-consensus-aware-multi-axis-combined-tiered.json	today	wealth	standard	para2	today/wealth/standard/para2	잘 풀리는 방향은 작은 기록이에요. 오늘 어디에 썼는지 한 줄 적어 두면 한 달 뒤 방향이 또렷이 보여요.
-33-consensus-aware-multi-axis-combined-tiered.json	today	wealth	standard	para3	today/wealth/standard/para3	주의할 점은 즉흥적 결정이에요. 권유받은 큰 결정은 하루 자고 결정해도 늦지 않아요.
+33-consensus-aware-multi-axis-combined-tiered.json	today	wealth	standard	para3	today/wealth/standard/para3	주의할 점은 즉흥적 결정이에요. 권유받은 큰 거래는 하루 자고 정해도 늦지 않아요.
 33-consensus-aware-multi-axis-combined-tiered.json	today	wealth	expert	para0	today/wealth/expert/para0	오늘 재물운은 빠른 제안과 즉흥 소비가 함께 올라올 수 있습니다.
 33-consensus-aware-multi-axis-combined-tiered.json	today	wealth	expert	para1	today/wealth/expert/para1	#편재가 만드는 기회성 선택은 열리지만, #정재의 확인 절차 없이 결정하면 지출 통제가 약해집니다.
 33-consensus-aware-multi-axis-combined-tiered.json	today	wealth	expert	para2	today/wealth/expert/para2	#용신과 맞는 거래인지 하루 여유를 두고 확인해 보세요.
