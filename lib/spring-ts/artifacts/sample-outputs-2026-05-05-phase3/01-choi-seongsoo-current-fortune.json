@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-05-07T13:32:53.042Z",
+  "generatedAt": "2026-05-07T13:46:12.184Z",
   "targetDate": "2026-05-05T00:00:00+09:00",
   "sampleId": "choi-seongsoo-current-fortune",
   "description": "NameSpring 호환 getFortuneReport 요청: precisionConfig 없이 야자시, 진태양시, 경도 보정을 모두 적용한 케이스.",
@@ -1309,7 +1309,7 @@
     },
     "meta": {
       "version": "1.0.0",
-      "generatedAt": "2026-05-07T13:32:55.172Z",
+      "generatedAt": "2026-05-07T13:46:14.263Z",
       "schoolPreset": {
         "selected": "korean",
         "source": "default",

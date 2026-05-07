@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-05-07T13:32:53.042Z",
+  "generatedAt": "2026-05-07T13:46:12.184Z",
   "targetDate": "2026-05-05T00:00:00+09:00",
   "sampleId": "multi-axis-evaluator-enabled-tiered",
   "description": "precisionConfig.evaluatorMode=multi_axis 활성 시나리오. axisStrength 가 ≥2 축을 공급할 때 다축 가중 (yongshin/gyeokguk/strength/chengbai/johu/fortuneHierarchy/rectification) 으로 sajuPriority 를 계산하는 PR-K-9 경계. 단일축 default 와의 비교 base 로 사용한다.",
@@ -1313,7 +1313,7 @@
     },
     "meta": {
       "version": "1.0.0",
-      "generatedAt": "2026-05-07T13:33:03.963Z",
+      "generatedAt": "2026-05-07T13:46:23.457Z",
       "schoolPreset": {
         "selected": "korean",
         "source": "default",
@@ -7354,8 +7354,8 @@
                   }
                 ],
                 "livingTips": [
-                  "도움 청할 한 명을 떠올려요",
-                  "조언은 두 명까지만 모아요"
+                  "이번 주 도움 청할 한 명을 정해요",
+                  "조언은 주중 두 명까지만 모아요"
                 ],
                 "cautions": [
                   "여러 의견에 결정을 미루지 않아요"
@@ -9397,8 +9397,8 @@
                   }
                 ],
                 "livingTips": [
-                  "기존 계약을 한 건 점검해요",
-                  "기한·날짜는 따로 메모해요"
+                  "월말에 계약 한 건을 점검해요",
+                  "이달 기한·날짜는 따로 모아 둬요"
                 ],
                 "cautions": [
                   "가까운 사이일수록 서류로 정돈해요"
@@ -11712,10 +11712,10 @@
                     "tokens": [
                       {
                         "kind": "text",
-                        "value": "분기마다 짚어 두는 한 매듭 한 매듭이 모여 자기 표현의 색을 한 뼘씩 진하게 만들어 주는 한 해예요. 큰 무대보다 가까운 사람 앞에서 한 매듭·한 줄을 다듬어 두면 한 해의 방향이 또렷해져요."
+                        "value": "분기마다 짚어 두는 한 매듭 한 매듭이 모여 자기 표현의 색을 한 뼘씩 진하게 만들어 주는 한 해예요. 큰 무대를 욕심내기보다, 가까운 사람 앞에서 한 매듭·한 줄을 다듬어 두면 한 해의 방향이 또렷해져요."
                       }
                     ],
-                    "plainText": "분기마다 짚어 두는 한 매듭 한 매듭이 모여 자기 표현의 색을 한 뼘씩 진하게 만들어 주는 한 해예요. 큰 무대보다 가까운 사람 앞에서 한 매듭·한 줄을 다듬어 두면 한 해의 방향이 또렷해져요."
+                    "plainText": "분기마다 짚어 두는 한 매듭 한 매듭이 모여 자기 표현의 색을 한 뼘씩 진하게 만들어 주는 한 해예요. 큰 무대를 욕심내기보다, 가까운 사람 앞에서 한 매듭·한 줄을 다듬어 두면 한 해의 방향이 또렷해져요."
                   },
                   {
                     "tokens": [
@@ -13036,7 +13036,7 @@
       },
       "meta": {
         "schemaVersion": "spring-ts.tiered-matrix.v1",
-        "generatedAt": "2026-05-07T13:33:03.963Z",
+        "generatedAt": "2026-05-07T13:46:23.457Z",
         "selectionSeed": "1986|4|19|5|45|male|2026-05-04T15:00:00.000Z",
         "templateContractVersion": "1.0.0",
         "contentSource": "authored",
