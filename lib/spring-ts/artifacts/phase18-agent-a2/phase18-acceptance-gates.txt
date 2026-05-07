@@ -1,0 +1,143 @@
+# Phase 18 Agent A2 Acceptance Gates - 2026-05-07T05:04:39Z
+
+## typecheck
+
+
+
+## ci:no-ai-policy
+
+
+No-AI policy: PASS
+  fixtureFiles=429
+  sourceRegistryFiles=7
+  sourceTierRecords=7095
+  packageDependencies=179
+  runtimeSourceFiles=54
+
+## ci:narrative-density
+dayMasterElement:yongshinElement: 25/25 covered (1)
+  authored pair hits: 316; thin=0; deficit=0
+dayMasterStrength:yongshinAlignment: 15/15 covered (1)
+  authored pair hits: 597; thin=0; deficit=0
+gyeokguk:dayMasterStrength: 30/30 covered (1)
+  authored pair hits: 353; thin=0; deficit=0
+yongshinElement:yongshinAlignment: 15/15 covered (1)
+  authored pair hits: 30; thin=0; deficit=0
+
+## ci:narrative-tuple-density
+Tuples: 3
+Missing tuple combinations: 0
+Thin tuple combinations (<2 authored): 0, deficit=0
+
+birthSeason:currentSeason:yongshinAlignment: 48/48 covered (1)
+  authored tuple hits: 96; missing=0; thin=0; deficit=0
+dayMasterElement:yongshinElement:dayMasterStrength: 125/125 covered (1)
+  authored tuple hits: 250; missing=0; thin=0; deficit=0
+gyeokguk:dayMasterStrength:dayMasterElement: 150/150 covered (1)
+  authored tuple hits: 300; missing=0; thin=0; deficit=0
+
+## ci:narrative-daymaster-tuple-density
+
+Narrative Axis Tuple Report
+Bundles: 345
+Fragments: 4077 total, 3912 authored
+Tuples: 1
+Missing tuple combinations: 0
+Thin tuple combinations (<2 authored): 0, deficit=0
+
+dayMasterElement:yongshinElement:dayMasterStrength: 125/125 covered (1)
+  authored tuple hits: 250; missing=0; thin=0; deficit=0
+
+## ci:narrative-cell-axis
+
+Narrative Cell Axis Report
+Bundles: 345
+Fragments: 4077 total, 3912 authored
+Cells: 165
+Missing audience cells: 0
+Missing sajuCore cells: 0
+Missing seasonContext cells: 0
+
+## ci:narrative-voice
+
+
+Narrative Voice Audit
+Bundles: 345
+Fragments: 4077 total, 2914 plain, 1163 expert
+Plain term violations: 0
+Plain tag violations: 0
+Untagged expert fragments: 0
+
+## ci:narrative-truncated-endings
+
+
+Narrative truncated endings: filesScanned=344, violations=0
+  noun_bare_yo: 0
+  verb_stem_bare_yo: 0
+
+## ci:narrative-tag-label-alignment
+
+
+Narrative glossary coverage: glossaryTags=208, usedTags=110
+  missingFromGlossary: 0
+  labelMismatches: 0
+  totalViolations: 0
+
+## ci:narrative-orphan-tags
+
+
+Narrative orphan-tag-text: glossaryLabels=194, filesScanned=344, fragmentsScanned=3912
+  totalViolations: 0
+
+## ci:acceptance-completeness
+
+Acceptance completeness: PASS
+  ciScripts=13
+  accepted=12
+  exempt=1
+  violations=0
+
+## ci:samples-stale
+
+
+
+Samples stale: PASS
+  sampleFiles=37
+  violations=0
+
+## ci:post-processor-grammar
+
+
+Post-processor grammar: filesScanned=32, violations=0 (max=0)
+  리듬로: 0
+  호흡로: 0
+  걸음로: 0
+  자리을: 0
+
+## test:tiered-isolation
+
+Tiered isolation guard: 37 PASS / 0 FAIL
+
+## test:tiered-shape
+
+Tiered matrix shape: 913 PASS / 0 FAIL
+
+## test:tiered-determinism
+Tiered matrix determinism — same input → same fragments
+
+  PASS both calls produced a tieredMatrix
+  PASS selectionSeed equal across calls
+  PASS all 55 cells deterministic across calls (55 cells matched)
+  PASS different targetDate yields different selectionSeed
+
+Tiered matrix determinism: 4 PASS / 0 FAIL
+
+## test:narrative-schema:summary
+
+
+Narrative schema: 102957 PASS / 0 FAIL
+
+## test:namespring-compat
+  PASS tieredMatrix.glossary.entries covers used report tags (56/56)
+
+NameSpring compat: 202 PASS / 0 FAIL
