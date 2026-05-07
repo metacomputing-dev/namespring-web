@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-05-07T12:41:14.853Z",
+  "generatedAt": "2026-05-07T12:47:08.203Z",
   "targetDate": "2026-05-05T00:00:00+09:00",
   "sampleId": "jeolgi-lidong-boundary-tiered",
   "description": "입동(立冬) 절기 경계 직전 출생 (2026 입동 = 11/07 18:52 KST, 본 입력은 ±0.5 day 내). fortuneCascadeMode=jie_based 로 jie 경계 day-precision 활성, 月柱 戌→亥 분기 부근 elasticity 와 tieredMatrix 결합.",
@@ -1307,7 +1307,7 @@
     },
     "meta": {
       "version": "1.0.0",
-      "generatedAt": "2026-05-07T12:41:29.324Z",
+      "generatedAt": "2026-05-07T12:47:22.076Z",
       "schoolPreset": {
         "selected": "korean",
         "source": "default",
@@ -3040,6 +3040,29 @@
                       }
                     ],
                     "plainText": "#용신의 결에 맞추어 여행·체험학습·전학 같은 부드러운 자극을 주면, 평생 가는 호기심의 큰 흐름이 만들어져요."
+                  },
+                  {
+                    "tokens": [
+                      {
+                        "kind": "tag",
+                        "tagId": "cheondeokgwiin",
+                        "label": "천덕귀인"
+                      },
+                      {
+                        "kind": "text",
+                        "value": "의 기운이 "
+                      },
+                      {
+                        "kind": "tag",
+                        "tagId": "yeokma",
+                        "label": "역마"
+                      },
+                      {
+                        "kind": "text",
+                        "value": "의 자극과 함께 보이는 어린 시기의 사주는 새 환경에서 만나는 작은 도움 한 번 한 번이 평생의 든든한 안전망으로 쌓이는 자리가 자주 등장해요. 짧은 가족 여행, 친구와의 첫 외출 같은 작은 발걸음이 청소년기·청년기 큰 이동 결정의 단단한 토대가 되는 사주예요."
+                      }
+                    ],
+                    "plainText": "#천덕귀인의 기운이 #역마의 자극과 함께 보이는 어린 시기의 사주는 새 환경에서 만나는 작은 도움 한 번 한 번이 평생의 든든한 안전망으로 쌓이는 자리가 자주 등장해요. 짧은 가족 여행, 친구와의 첫 외출 같은 작은 발걸음이 청소년기·청년기 큰 이동 결정의 단단한 토대가 되는 사주예요."
                   }
                 ]
               },
@@ -3075,7 +3098,8 @@
                   "tags": [
                     "yeokma",
                     "jojangung",
-                    "yongshin"
+                    "yongshin",
+                    "cheondeokgwiin"
                   ]
                 }
               }
@@ -7016,6 +7040,29 @@
                       }
                     ],
                     "plainText": "#음양조화도의 평균이 또렷한 사주는 #안정성지수도 함께 단단해지는 자리라, 큰 결정보다 작은 회복 습관이 평생의 무기가 돼요."
+                  },
+                  {
+                    "tokens": [
+                      {
+                        "kind": "tag",
+                        "tagId": "siGungsil",
+                        "label": "시궁실"
+                      },
+                      {
+                        "kind": "text",
+                        "value": "의 자리가 "
+                      },
+                      {
+                        "kind": "tag",
+                        "tagId": "sikshin",
+                        "label": "식신"
+                      },
+                      {
+                        "kind": "text",
+                        "value": "의 기운과 함께 보이는 어린 시기의 사주는 한 달 안의 잔잔한 컨디션 변화도 자연스레 풀리는 자리가 자주 등장해요. 이 시기에 잘 다진 식습관과 보호자의 따뜻한 손길 한 번이 청소년기의 안정감으로 자라는 사주이니, 작은 챙김이 평생의 가장 큰 자산이 돼요."
+                      }
+                    ],
+                    "plainText": "#시궁실의 자리가 #식신의 기운과 함께 보이는 어린 시기의 사주는 한 달 안의 잔잔한 컨디션 변화도 자연스레 풀리는 자리가 자주 등장해요. 이 시기에 잘 다진 식습관과 보호자의 따뜻한 손길 한 번이 청소년기의 안정감으로 자라는 사주이니, 작은 챙김이 평생의 가장 큰 자산이 돼요."
                   }
                 ]
               },
@@ -7051,7 +7098,8 @@
                     "jisal",
                     "cheonui",
                     "eumyangHarmony",
-                    "stabilityIndex"
+                    "stabilityIndex",
+                    "siGungsil"
                   ]
                 }
               }
@@ -7527,6 +7575,29 @@
                       }
                     ],
                     "plainText": "가족 자리는 #부모궁과 #조상궁의 흐름이 어떻게 받쳐 주느냐를 함께 살펴 두면 흐름의 결정이 더 단단해지고, 작은 인사 한 마디가 평생의 자산이 되는 자리예요."
+                  },
+                  {
+                    "tokens": [
+                      {
+                        "kind": "tag",
+                        "tagId": "cheondeokgwiin",
+                        "label": "천덕귀인"
+                      },
+                      {
+                        "kind": "text",
+                        "value": "의 자리가 "
+                      },
+                      {
+                        "kind": "tag",
+                        "tagId": "bumyong",
+                        "label": "부모궁"
+                      },
+                      {
+                        "kind": "text",
+                        "value": "의 호흡과 함께 보이는 어린 시기의 사주는 한 달 안의 작은 다툼도 부드럽게 풀어 주는 자리가 자주 등장해요. 이 시기에 받은 따뜻한 호흡 한 번이 청소년기의 안정감으로 자라는 사주이니, 보호자의 작은 칭찬과 짧은 산책 한 번이 평생의 큰 자산으로 쌓여요."
+                      }
+                    ],
+                    "plainText": "#천덕귀인의 자리가 #부모궁의 호흡과 함께 보이는 어린 시기의 사주는 한 달 안의 작은 다툼도 부드럽게 풀어 주는 자리가 자주 등장해요. 이 시기에 받은 따뜻한 호흡 한 번이 청소년기의 안정감으로 자라는 사주이니, 보호자의 작은 칭찬과 짧은 산책 한 번이 평생의 큰 자산으로 쌓여요."
                   }
                 ]
               },
@@ -7562,7 +7633,8 @@
                     "jeongin",
                     "samhyeong",
                     "hyeongsal",
-                    "jojangung"
+                    "jojangung",
+                    "cheondeokgwiin"
                   ]
                 }
               }
@@ -8443,6 +8515,29 @@
                     }
                   ],
                   "plainText": "#격국용신의 흐름과 #격국적합도의 평균이 또렷한 사주는 자기 격에 맞는 길로 큰 흐름이 모이는 자리가 자주 등장해요."
+                },
+                {
+                  "tokens": [
+                    {
+                      "kind": "tag",
+                      "tagId": "siGungsil",
+                      "label": "시궁실"
+                    },
+                    {
+                      "kind": "text",
+                      "value": "의 자리가 "
+                    },
+                    {
+                      "kind": "tag",
+                      "tagId": "heeshin",
+                      "label": "희신"
+                    },
+                    {
+                      "kind": "text",
+                      "value": "의 기운과 가까이 만나는 시기에는 어린 시기의 안정감이 한층 또렷해지는 자리가 자주 보여요. 한 해 안의 작은 챙김 한 번 한 번이 청소년기의 단단한 자기 색으로 자라는 사주이니, 보호자의 부드러운 손길과 짧은 칭찬 한마디가 평생의 가장 큰 자산으로 쌓여요."
+                    }
+                  ],
+                  "plainText": "#시궁실의 자리가 #희신의 기운과 가까이 만나는 시기에는 어린 시기의 안정감이 한층 또렷해지는 자리가 자주 보여요. 한 해 안의 작은 챙김 한 번 한 번이 청소년기의 단단한 자기 색으로 자라는 사주이니, 보호자의 부드러운 손길과 짧은 칭찬 한마디가 평생의 가장 큰 자산으로 쌓여요."
                 }
               ]
             },
@@ -8478,7 +8573,8 @@
                   "yongshin",
                   "heeshin",
                   "gyeokgukYongshin",
-                  "gyeokgukFit"
+                  "gyeokgukFit",
+                  "siGungsil"
                 ]
               }
             }
@@ -10272,6 +10368,17 @@
               "sikshin"
             ]
           },
+          "siGungsil": {
+            "id": "siGungsil",
+            "label": "시궁실",
+            "hashLabel": "#시궁실",
+            "category": "gungsil",
+            "brief": "특정 시기의 '운세 자리'를 살피는 단위예요.",
+            "detailed": "시궁실은 특정 짧은 기간(일·주·월)이 어떤 자리에서 들어오는지를 보는 단위예요. 그 시기의 흐름이 길/흉 어느 쪽으로 기울어 있는지 빠르게 가늠할 수 있어요. 자세한 해석은 사주 전체 모양과 함께 봐야 정확해요.",
+            "related": [
+              "daewoonGungsil"
+            ]
+          },
           "sikshin": {
             "id": "sikshin",
             "label": "식신",
@@ -10400,6 +10507,7 @@
           "pyeonin",
           "samhyeong",
           "sanggwan",
+          "siGungsil",
           "sikshin",
           "stabilityIndex",
           "tonggwanYongshin",
@@ -10475,7 +10583,7 @@
       },
       "meta": {
         "schemaVersion": "spring-ts.tiered-matrix.v1",
-        "generatedAt": "2026-05-07T12:41:29.324Z",
+        "generatedAt": "2026-05-07T12:47:22.076Z",
         "selectionSeed": "2026|11|7|18|30|male|2026-05-04T15:00:00.000Z",
         "templateContractVersion": "1.0.0",
         "contentSource": "authored",
