@@ -3,7 +3,7 @@
   "bundleId": "health_stress.today.brief",
   "contractVersion": "1.0.0",
   "generatedBy": "phase2/agent-9-health_stress",
-  "fragmentCount": 10,
+  "fragmentCount": 11,
   "fragments": [
     {
       "schemaVersion": "spring-ts.narrative-fragment.v1",
@@ -394,6 +394,42 @@
         "quoteShort": null,
         "humanInterpretation": "Phase 2 brief, FIRE strong.",
         "copyrightNote": "No source prose copied; original interpretation.",
+        "authorityTruthEligible": false
+      }
+    },
+    {
+      "schemaVersion": "spring-ts.narrative-fragment.v1",
+      "fragmentId": "health_stress.today.brief.child.001",
+      "axis": {
+        "category": "health_stress",
+        "period": "today",
+        "depth": "brief"
+      },
+      "gating": {
+        "ageBand": [
+          "0-9"
+        ]
+      },
+      "templateTokens": [
+        {
+          "kind": "text",
+          "value": "아이는 오늘 푹 자고 잘 노는 자리예요."
+        },
+        {
+          "kind": "text",
+          "value": ""
+        }
+      ],
+      "tags": [],
+      "aiGenerated": true,
+      "sourceTier": {
+        "tier": "T1_HYPOTHESIS",
+        "sourceType": "training_derived",
+        "sourceUrl": null,
+        "accessedAt": "2026-05-07",
+        "quoteShort": null,
+        "humanInterpretation": "P23-A1 brief health_stress today (ageBand 0-9). Caregiver-shared tone; sleep/play frame; no career/romance. Closes brief PLACEHOLDER for fixtures 18/27/30/31.",
+        "copyrightNote": "No source prose copied; original phrasing.",
         "authorityTruthEligible": false
       }
     }
