@@ -1,0 +1,182 @@
+
+> spring-ts@1.0.0 typecheck
+> tsc --noEmit
+
+===typecheck===
+=== 1. typecheck ===
+
+> spring-ts@1.0.0 typecheck
+> tsc --noEmit
+
+=== 2. ci:no-ai-policy ===
+  fixtureFiles=429
+  sourceRegistryFiles=7
+  sourceTierRecords=7173
+  packageDependencies=179
+  runtimeSourceFiles=54
+=== 3. ci:narrative-voice ===
+Bundles: 345
+Fragments: 4155 total, 2992 plain, 1163 expert
+Plain term violations: 0
+Plain tag violations: 0
+Untagged expert fragments: 0
+=== 4. ci:narrative-truncated-endings ===
+> node tools/check_narrative_truncated_endings.mjs --max-violations=0
+
+Narrative truncated endings: filesScanned=344, violations=0
+  noun_bare_yo: 0
+  verb_stem_bare_yo: 0
+=== 5. ci:narrative-tag-label-alignment ===
+
+Narrative glossary coverage: glossaryTags=208, usedTags=111
+  missingFromGlossary: 0
+  labelMismatches: 0
+  totalViolations: 0
+=== 6. ci:narrative-orphan-tags ===
+> spring-ts@1.0.0 ci:narrative-orphan-tags
+> node tools/check_orphan_tag_text.mjs --max-violations=0
+
+Narrative orphan-tag-text: glossaryLabels=194, filesScanned=344, fragmentsScanned=3990
+  totalViolations: 0
+=== 7. ci:narrative-cell-axis ===
+Fragments: 4155 total, 3990 authored
+Cells: 165
+Missing audience cells: 0
+Missing sajuCore cells: 0
+Missing seasonContext cells: 0
+=== 8. ci:narrative-density ===
+  authored pair hits: 597; thin=0; deficit=0
+gyeokguk:dayMasterStrength: 30/30 covered (1)
+  authored pair hits: 353; thin=0; deficit=0
+yongshinElement:yongshinAlignment: 15/15 covered (1)
+  authored pair hits: 30; thin=0; deficit=0
+=== 9. ci:narrative-tuple-density ===
+  authored tuple hits: 96; missing=0; thin=0; deficit=0
+dayMasterElement:yongshinElement:dayMasterStrength: 125/125 covered (1)
+  authored tuple hits: 250; missing=0; thin=0; deficit=0
+gyeokguk:dayMasterStrength:dayMasterElement: 150/150 covered (1)
+  authored tuple hits: 300; missing=0; thin=0; deficit=0
+=== 10. ci:narrative-daymaster-tuple-density ===
+Missing tuple combinations: 0
+Thin tuple combinations (<2 authored): 0, deficit=0
+
+dayMasterElement:yongshinElement:dayMasterStrength: 125/125 covered (1)
+  authored tuple hits: 250; missing=0; thin=0; deficit=0
+=== 11. ci:post-processor-grammar ===
+  (?<![가-힣])연흐름: 0
+  (?<![가-힣])연리듬: 0
+  (?<![가-힣])연자리: 0
+  (?<![가-힣])연호흡: 0
+  (?<![가-힣])연걸음: 0
+=== 12. ci:hook-coverage ===
+  emitted:  378 cells / 70 selected fragmentIds / 70 distinct hook strings
+  dormant by fragmentId slot: 0
+  dormant by hook text:        0 (diagnostic only)
+
+Lowest emit-count tail (fragility — first to fall on regression):
+  1  romance.thisYear.brief.neutral.young.009
+  1  romance.today.brief.male.70plus.autumn.012
+  1  study_document.thisMonth.brief.male.midlife.winter.009
+  1  wealth.thisMonth.brief.neutral.young.winter.012
+  1  wealth.thisWeek.brief.female.teen.013
+=== 13. ci:hook-concentration ===
+    16  28-jonggyeok-jonggang-tiered.json  (cellsScanned=55)
+    16  32-nonagenarian-weak-daymaster-tiered.json  (cellsScanned=55)
+    16  33-consensus-aware-multi-axis-combined-tiered.json  (cellsScanned=55)
+    15  12-jeong-extreme-strong-continuous-tiered.json  (cellsScanned=55)
+    15  23-jonggyeok-jongwang-yeomsang-tiered.json  (cellsScanned=55)
+=== 14. ci:standard-paragraph-floor ===
+    5: 267
+  shortest cells (count=3, sample of 20):
+    3  04-kim-seoyun-young-female-tiered  life.expression_children
+    3  04-kim-seoyun-young-female-tiered  life.health
+    3  04-kim-seoyun-young-female-tiered  life.health_stress
+    3  04-kim-seoyun-young-female-tiered  life.movement
+    3  04-kim-seoyun-young-female-tiered  life.overall
+  violationCount: 0
+=== 15. ci:brief-tier-placeholder ===
+  fixturesSkipped: 4
+    - 01-choi-seongsoo-current-fortune.json (no payload.tieredMatrix.periods)
+    - 03-choi-seongsoo-spring-report-vector.json (no payload.tieredMatrix.periods)
+    - 07-choi-seongsoo-candidate-summaries.json (no payload.tieredMatrix.periods)
+    - diff-legacy-vs-tiered.json (no payload.tieredMatrix.periods)
+=== 16. ci:flow-cluster ===
+
+> spring-ts@1.0.0 ci:flow-cluster
+> node tools/check_flow_cluster.mjs --max-violations=0
+
+flow-cluster: samples=32, fixtures=32, totalCells=1705, samplesDir=artifacts/sample-outputs-2026-05-05-phase3
+  policy: needle="흐름이" threshold=3 --max-violations=0
+  paragraphsWithCluster=0  violationCount=0
+=== 17. ci:acceptance-completeness ===
+Acceptance completeness: PASS
+  ciScripts=18
+  accepted=17
+  exempt=1
+  violations=0
+=== 18. ci:samples-stale ===
+> tsc -p tsconfig.build.json
+
+Samples stale: PASS
+  sampleFiles=37
+  violations=0
+=== 19. test:namespring-compat ===
+  PASS tieredMatrix.periods.today.byCategory has 10 keys (10)
+  PASS tieredMatrix.periods.thisWeek present
+  PASS tieredMatrix.periods.thisWeek.byCategory has 10 keys (10)
+  PASS tieredMatrix.periods.thisMonth present
+  PASS tieredMatrix.periods.thisMonth.byCategory has 10 keys (10)
+  PASS tieredMatrix.periods.thisYear present
+  PASS tieredMatrix.periods.thisYear.byCategory has 10 keys (10)
+  PASS tieredMatrix.glossary.entries covers used report tags (56/56)
+
+NameSpring compat: 202 PASS / 0 FAIL
+=== EXTRA: ci:hook-concentration full ===
+    17  05-park-minji-late-night-female-tiered.json  (cellsScanned=55)
+    17  13-oh-extreme-weak-continuous-tiered.json  (cellsScanned=55)
+    16  09-kim-seongsu-special-format-candidate-tiered.json  (cellsScanned=55)
+    16  10-choi-yaza-boundary-male-tiered.json  (cellsScanned=55)
+    16  17-kim-senior-female-tiered.json  (cellsScanned=55)
+    16  28-jonggyeok-jonggang-tiered.json  (cellsScanned=55)
+    16  32-nonagenarian-weak-daymaster-tiered.json  (cellsScanned=55)
+    16  33-consensus-aware-multi-axis-combined-tiered.json  (cellsScanned=55)
+    15  12-jeong-extreme-strong-continuous-tiered.json  (cellsScanned=55)
+    15  23-jonggyeok-jongwang-yeomsang-tiered.json  (cellsScanned=55)
+=== EXTRA: ci:standard-paragraph-floor histogram ===
+
+standard.paragraphs floor: samples=32, fixtures=32, totalCells=1705, samplesDir=artifacts/sample-outputs-2026-05-05-phase3
+  paragraph counts per cell: min=3 median=3 max=5 mode=3 mean=3.38 (n=1705)
+  policy: --min-paragraphs=3 --max-violations=0
+  histogram (paragraphCount: cellCount):
+    3: 1318
+    4: 120
+    5: 267
+  shortest cells (count=3, sample of 20):
+    3  04-kim-seoyun-young-female-tiered  life.expression_children
+    3  04-kim-seoyun-young-female-tiered  life.health
+    3  04-kim-seoyun-young-female-tiered  life.health_stress
+    3  04-kim-seoyun-young-female-tiered  life.movement
+    3  04-kim-seoyun-young-female-tiered  life.overall
+  violationCount: 0
+=== EXTRA: ci:brief-tier-placeholder full ===
+> node tools/check_brief_tier_placeholder.mjs --max-violations=0
+
+Brief tier PLACEHOLDER: fixturesScanned=32, cellsScanned=1760, violations=0
+  samplesDir: artifacts/sample-outputs-2026-05-05-phase3
+  placeholder: "준비 중인 흐름이에요."
+  fixturesSkipped: 4
+    - 01-choi-seongsoo-current-fortune.json (no payload.tieredMatrix.periods)
+    - 03-choi-seongsoo-spring-report-vector.json (no payload.tieredMatrix.periods)
+    - 07-choi-seongsoo-candidate-summaries.json (no payload.tieredMatrix.periods)
+    - diff-legacy-vs-tiered.json (no payload.tieredMatrix.periods)
+=== EXTRA: ci:post-processor-grammar full ===
+  (?<![가-힣])연결의: 0
+  (?<![가-힣])연결에: 0
+  (?<![가-힣])연결과: 0
+  (?<![가-힣])연결도: 0
+  (?<![가-힣])연결만: 0
+  (?<![가-힣])연흐름: 0
+  (?<![가-힣])연리듬: 0
+  (?<![가-힣])연자리: 0
+  (?<![가-힣])연호흡: 0
+  (?<![가-힣])연걸음: 0
