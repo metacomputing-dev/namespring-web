@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-05-07T11:21:34.470Z",
+  "generatedAt": "2026-05-07T11:19:30.704Z",
   "targetDate": "2026-05-05T00:00:00+09:00",
   "sampleId": "palace-naeum-female-mid-tiered",
   "description": "surfacePalace=true + surfaceNaeum=true 동시 opt-in (fixture 14 와 다른 chart 로 surface 시그니처 안정성 점검). saju-ts 측 데이터 포트 이전이면 추가 출력 없으며, opt-in 시그니처와 tieredMatrix 결합만 노출. 30 대 여성 chart 로 mid-life narrative cell 도 함께 점검.",
@@ -770,7 +770,7 @@
     },
     "meta": {
       "version": "1.0.0",
-      "generatedAt": "2026-05-07T11:21:48.384Z",
+      "generatedAt": "2026-05-07T11:19:45.625Z",
       "schoolPreset": {
         "selected": "korean",
         "source": "default",
@@ -3288,7 +3288,7 @@
                 ],
                 "livingTips": [
                   "오늘 자동이체 점검",
-                  "큰 권유는 한 주 살피기"
+                  "큰 권유는 하루 자고 살피기"
                 ],
                 "cautions": [
                   "큰 한 방 권유는 한 박자 늦추기"
@@ -8087,10 +8087,10 @@
                     "tokens": [
                       {
                         "kind": "text",
-                        "value": "이번 달의 학업 리듬은 좋아하던 분야를 다시 한 권 펼치기 좋은 흐름이에요. 굳이 빠른 학습을 좇기보다, 한 달을 두고 한 권을 천천히 음미하는 흐름이 한결 잘 어울려요."
+                        "value": "이번 달의 학업 리듬은 좋아하던 분야를 다시 한 권 펼치기 좋은 흐름이에요. 빠른 학습보다 한 달을 두고 한 권을 천천히 음미하는 흐름이 더 잘 어울려요."
                       }
                     ],
-                    "plainText": "이번 달의 학업 리듬은 좋아하던 분야를 다시 한 권 펼치기 좋은 흐름이에요. 굳이 빠른 학습을 좇기보다, 한 달을 두고 한 권을 천천히 음미하는 흐름이 한결 잘 어울려요."
+                    "plainText": "이번 달의 학업 리듬은 좋아하던 분야를 다시 한 권 펼치기 좋은 흐름이에요. 빠른 학습보다 한 달을 두고 한 권을 천천히 음미하는 흐름이 더 잘 어울려요."
                   },
                   {
                     "tokens": [
@@ -8105,10 +8105,10 @@
                     "tokens": [
                       {
                         "kind": "text",
-                        "value": "무엇을 끝내야 한다는 마음 대신, 호기심이 이끄는 한 페이지의 행복을 챙겨 보면 좋아요."
+                        "value": "결과를 위한 공부보다 호기심이 이끄는 한 페이지의 행복을 챙겨 보면 좋아요."
                       }
                     ],
-                    "plainText": "무엇을 끝내야 한다는 마음 대신, 호기심이 이끄는 한 페이지의 행복을 챙겨 보면 좋아요."
+                    "plainText": "결과를 위한 공부보다 호기심이 이끄는 한 페이지의 행복을 챙겨 보면 좋아요."
                   }
                 ],
                 "livingTips": [
@@ -9794,8 +9794,8 @@
                   }
                 ],
                 "livingTips": [
-                  "월별 자동이체 점검",
-                  "큰 권유는 한 달 살피기"
+                  "분기마다 자동이체 점검",
+                  "큰 권유는 분기 두고 살피기"
                 ],
                 "cautions": [
                   "큰 한 방 권유는 한 박자 늦추기"
@@ -12458,7 +12458,7 @@
       },
       "meta": {
         "schemaVersion": "spring-ts.tiered-matrix.v1",
-        "generatedAt": "2026-05-07T11:21:48.384Z",
+        "generatedAt": "2026-05-07T11:19:45.625Z",
         "selectionSeed": "1992|5|28|12|0|female|2026-05-04T15:00:00.000Z",
         "templateContractVersion": "1.0.0",
         "contentSource": "authored",

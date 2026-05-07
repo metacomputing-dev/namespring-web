@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-05-07T11:21:34.470Z",
+  "generatedAt": "2026-05-07T11:19:30.704Z",
   "targetDate": "2026-05-05T00:00:00+09:00",
   "sampleId": "gyeokguk-conflict-consensus-aware-tiered",
   "description": "격국 충돌 case 2: 신강/신약 경계 + 격국 후보 다중 + yongshinMode=consensus_aware 활성. 독립 명리 방법(억부/조후/격국/통관/병약/식상유통) 이 엇갈리는 chart 에서 consensus 보드와 격국 흔들림이 함께 노출되는 케이스.",
@@ -1301,7 +1301,7 @@
     },
     "meta": {
       "version": "1.0.0",
-      "generatedAt": "2026-05-07T11:21:43.774Z",
+      "generatedAt": "2026-05-07T11:19:40.834Z",
       "schoolPreset": {
         "selected": "korean",
         "source": "default",
@@ -3787,7 +3787,7 @@
                 ],
                 "livingTips": [
                   "오늘 자동이체 점검",
-                  "큰 권유는 한 주 살피기"
+                  "큰 권유는 하루 자고 살피기"
                 ],
                 "cautions": [
                   "큰 한 방 권유는 한 박자 늦추기"
@@ -5997,10 +5997,10 @@
                   "tokens": [
                     {
                       "kind": "text",
-                      "value": "새 변화를 무리해서 만들지 않고, 익숙한 페이스를 한 주 동안 지키는 흐름이 잘 맞아요."
+                      "value": "무리해서 새 변화를 만들기보다 익숙한 페이스를 지키는 게 잘 맞아요."
                     }
                   ],
-                  "plainText": "새 변화를 무리해서 만들지 않고, 익숙한 페이스를 한 주 동안 지키는 흐름이 잘 맞아요."
+                  "plainText": "무리해서 새 변화를 만들기보다 익숙한 페이스를 지키는 게 잘 맞아요."
                 },
                 {
                   "tokens": [
@@ -10287,8 +10287,8 @@
                   }
                 ],
                 "livingTips": [
-                  "월별 자동이체 점검",
-                  "큰 권유는 한 달 살피기"
+                  "분기마다 자동이체 점검",
+                  "큰 권유는 분기 두고 살피기"
                 ],
                 "cautions": [
                   "큰 한 방 권유는 한 박자 늦추기"
@@ -12924,7 +12924,7 @@
       },
       "meta": {
         "schemaVersion": "spring-ts.tiered-matrix.v1",
-        "generatedAt": "2026-05-07T11:21:43.774Z",
+        "generatedAt": "2026-05-07T11:19:40.834Z",
         "selectionSeed": "1973|12|17|16|30|female|2026-05-04T15:00:00.000Z",
         "templateContractVersion": "1.0.0",
         "contentSource": "authored",
