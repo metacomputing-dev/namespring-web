@@ -181,6 +181,68 @@
         "copyrightNote": "No source prose copied; original phrasing.",
         "authorityTruthEligible": false
       }
+    },
+    {
+      "schemaVersion": "spring-ts.narrative-fragment.v1",
+      "fragmentId": "romance.thisMonth.standard.minor.child.001",
+      "axis": { "category": "romance", "period": "thisMonth", "depth": "standard" },
+      "gating": { "agePhase": ["child_0_9"], "ageBand": ["0-9"] },
+      "templateTokens": [
+        { "kind": "text", "value": "이번 달 아이의 사이는 친구·가족과 함께하는 자리에서 가장 또렷이 살아나요. 단체 활동·학원·가족 모임처럼 함께하는 시간이 늘어나는 시기라, 사람을 좋아하는 마음이 자연스럽게 자라는 한 달이에요.\n\n" },
+        { "kind": "text", "value": " 새 친구를 사귀는 자리가 생기면 자기 페이스대로 어울릴 수 있도록 충분한 여유를 두세요. 좋아하는 친구에게 작은 칭찬이나 고마운 마음을 한 줄로 건네면, 사이의 결이 한층 부드러워져요. 다툼이 잠깐 생기면 부모·선생님이 옆에서 조용히 사이를 다듬어 주는 것만으로도 회복이 빨라져요.\n\n" },
+        { "kind": "text", "value": " 한 달 동안 좋아하는 사람들과 함께 웃는 시간이 자주 있으면, 마음의 호흡이 한층 부드러워져요. 기다리는 마음이 조급하게 느껴질 땐, 곁에서 어른들이 한 박자 천천히 들어 주는 자리만으로도 결이 차분해져요. 너무 어려운 어른의 어휘를 들이밀지 않고 나이에 맞는 자리를 즐기는 모양으로 한 달을 보내면 잘 어울려요." }
+      ],
+      "tags": [],
+      "livingTips": [
+        "가족과 함께하는 자리를 자주 만들어요",
+        "친구와의 자리를 따뜻하게 챙겨요",
+        "기다리는 마음을 한 박자 천천히 받아 줘요"
+      ],
+      "cautions": [
+        "어른의 큰 약속 어휘를 너무 빨리 끌어오지 않아요"
+      ],
+      "aiGenerated": true,
+      "sourceTier": {
+        "tier": "T1_HYPOTHESIS",
+        "sourceType": "training_derived",
+        "sourceUrl": null,
+        "accessedAt": "2026-05-07",
+        "quoteShort": null,
+        "humanInterpretation": "Phase 23 A2 minor-band romance fragment (thisMonth/standard, agePhase child_0_9). Friendship/family framing. Authored to close P22-A6 R1 sub-3 residue.",
+        "copyrightNote": "No source prose copied; original phrasing.",
+        "authorityTruthEligible": false
+      }
+    },
+    {
+      "schemaVersion": "spring-ts.narrative-fragment.v1",
+      "fragmentId": "romance.thisMonth.standard.minor.teen.001",
+      "axis": { "category": "romance", "period": "thisMonth", "depth": "standard" },
+      "gating": { "agePhase": ["early_teen", "late_teen"], "ageBand": ["10-19"] },
+      "templateTokens": [
+        { "kind": "text", "value": "이번 달은 또래·친구와의 관계가 한 단계 깊어지기 좋은 시기예요. 학교·학원·동아리에서 자기 색이 또렷해지고, 마음 맞는 친구와의 신뢰가 한 단계 단단해지는 한 달이에요.\n\n" },
+        { "kind": "text", "value": " 마음이 가는 친구가 있으면 짧은 안부나 함께하는 활동으로 자연스럽게 가까워지면 좋아요. 너무 빠르게 결정짓지 말고 한 달 동안 다양한 자리에서 상대를 알아 가는 방식이 잘 맞아요. 좋아하는 마음을 표현할 땐 한 박자 천천히 골라 보면, 오해가 줄고 신뢰가 단단해져요.\n\n" },
+        { "kind": "text", "value": " 사람들이 모이는 자리가 늘어나면 살짝 들뜨기 쉬워요. 자기 페이스를 지키면서 자기다움을 챙기는 일이, 결국 가장 단단한 친구 관계의 자산이 돼요. 짝과 관련한 큰 결정은 한참 뒤의 이야기로 두고, 친구와의 시간을 충분히 누리는 시기로 한 달을 보내면 잘 어울려요." }
+      ],
+      "tags": [],
+      "livingTips": [
+        "함께하는 활동으로 결을 잡아요",
+        "자기 페이스를 지켜요",
+        "표현은 한 박자 천천히 골라요"
+      ],
+      "cautions": [
+        "성급한 결심은 한 박자 미뤄도 충분해요"
+      ],
+      "aiGenerated": true,
+      "sourceTier": {
+        "tier": "T1_HYPOTHESIS",
+        "sourceType": "training_derived",
+        "sourceUrl": null,
+        "accessedAt": "2026-05-07",
+        "quoteShort": null,
+        "humanInterpretation": "Phase 23 A2 minor-band romance fragment (thisMonth/standard, agePhase early_teen/late_teen). Peer/expression framing. Authored to close P22-A6 R1 sub-3 residue.",
+        "copyrightNote": "No source prose copied; original phrasing.",
+        "authorityTruthEligible": false
+      }
     }
   ]
 }
