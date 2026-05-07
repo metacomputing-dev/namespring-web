@@ -390,6 +390,40 @@
         "copyrightNote": "No source prose copied; original authored prose.",
         "authorityTruthEligible": false
       }
+    },
+    {
+      "schemaVersion": "spring-ts.narrative-fragment.v1",
+      "fragmentId": "academic.thisYear.brief.female.midlife.winter.weak.013",
+      "axis": {
+        "category": "academic",
+        "period": "thisYear",
+        "depth": "brief"
+      },
+      "gating": {
+        "gender": ["female"],
+        "ageBand": ["40-54"],
+        "birthSeason": ["winter"],
+        "dayMasterStrength": ["WEAK"]
+      },
+      "templateTokens": [
+        {
+          "kind": "text",
+          "value": "올겨울에는 자격증 한 줄을 차곡 늘려 가는 흐름이에요."
+        }
+      ],
+      "hook": "올겨울 자격증 한 줄을 늘려 봐요.",
+      "tags": [],
+      "aiGenerated": true,
+      "sourceTier": {
+        "tier": "T1_HYPOTHESIS",
+        "sourceType": "training_derived",
+        "sourceUrl": null,
+        "accessedAt": "2026-05-08",
+        "quoteShort": null,
+        "humanInterpretation": "P35-A4 distinct-hook expansion: academic/thisYear brief for female × 40-54 × winter × WEAK (not EXTREME_WEAK). Avoids #13 (EXTREME_WEAK STRONG-fired); targets #20 (WEAK F 40-54 winter). Display-only narrative.",
+        "copyrightNote": "No source prose copied; original authored prose.",
+        "authorityTruthEligible": false
+      }
     }
   ]
 }

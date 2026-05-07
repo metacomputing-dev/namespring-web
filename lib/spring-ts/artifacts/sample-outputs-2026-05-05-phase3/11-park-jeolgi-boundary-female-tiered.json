@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-05-07T16:44:04.387Z",
+  "generatedAt": "2026-05-07T17:10:59.982Z",
   "targetDate": "2026-05-05T00:00:00+09:00",
   "sampleId": "park-jeolgi-boundary-female-tiered",
   "description": "입추(立秋) 절기 경계 직후 출생. fortuneCascadeMode=jie_based 로 경계 정밀 계산을 활성화하고 tieredMatrix 와 결합한 케이스.",
@@ -1321,7 +1321,7 @@
     },
     "meta": {
       "version": "1.0.0",
-      "generatedAt": "2026-05-07T16:44:11.483Z",
+      "generatedAt": "2026-05-07T17:11:07.446Z",
       "schoolPreset": {
         "selected": "korean",
         "source": "default",
@@ -8797,7 +8797,8 @@
               "meaningfulness": "meaningful",
               "stars": 5,
               "brief": {
-                "headline": "이번 달은 관계의 속도를 맞추는 감각이 중요해요."
+                "headline": "이번 달은 가을빛처럼 마음을 천천히 모으는 결이에요.",
+                "hook": "올가을 천천히 마음을 모아요."
               },
               "standard": {
                 "paragraphs": [
@@ -8935,17 +8936,20 @@
               },
               "selectedFragments": {
                 "brief": {
-                  "fragmentId": "romance.thisMonth.brief.neutral.002",
+                  "fragmentId": "romance.thisMonth.brief.female.thirties.autumn.weak.002",
                   "gating": {
-                    "yongshinAlignment": [
-                      "neutral"
+                    "gender": [
+                      "female"
                     ],
                     "ageBand": [
-                      "20-29",
-                      "30-39",
-                      "40-54",
-                      "55-69",
-                      "70+"
+                      "30-39"
+                    ],
+                    "birthSeason": [
+                      "autumn"
+                    ],
+                    "dayMasterStrength": [
+                      "WEAK",
+                      "EXTREME_WEAK"
                     ]
                   },
                   "tags": []
@@ -12921,12 +12925,12 @@
       },
       "meta": {
         "schemaVersion": "spring-ts.tiered-matrix.v1",
-        "generatedAt": "2026-05-07T16:44:11.483Z",
+        "generatedAt": "2026-05-07T17:11:07.446Z",
         "selectionSeed": "1988|8|8|6|0|female|2026-05-04T15:00:00.000Z",
         "templateContractVersion": "1.0.0",
         "contentSource": "authored",
-        "fragmentCount": 4175,
-        "aiGeneratedFragmentCount": 4175
+        "fragmentCount": 4185,
+        "aiGeneratedFragmentCount": 4185
       }
     }
   }

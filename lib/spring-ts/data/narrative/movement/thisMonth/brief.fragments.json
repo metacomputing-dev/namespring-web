@@ -359,6 +359,40 @@
         "copyrightNote": "No source prose copied; original authored prose.",
         "authorityTruthEligible": false
       }
+    },
+    {
+      "schemaVersion": "spring-ts.narrative-fragment.v1",
+      "fragmentId": "movement.thisMonth.brief.female.thirties.spring.weak.012",
+      "axis": {
+        "category": "movement",
+        "period": "thisMonth",
+        "depth": "brief"
+      },
+      "gating": {
+        "gender": ["female"],
+        "ageBand": ["30-39"],
+        "birthSeason": ["spring"],
+        "dayMasterStrength": ["WEAK", "EXTREME_WEAK"]
+      },
+      "templateTokens": [
+        {
+          "kind": "text",
+          "value": "이번 달은 봄길에서 한 정거장씩 천천히 걸어 가는 흐름이에요."
+        }
+      ],
+      "hook": "이번 달 봄길 한 정거장 걸어요.",
+      "tags": [],
+      "aiGenerated": true,
+      "sourceTier": {
+        "tier": "T1_HYPOTHESIS",
+        "sourceType": "training_derived",
+        "sourceUrl": null,
+        "accessedAt": "2026-05-08",
+        "quoteShort": null,
+        "humanInterpretation": "P35-A4 distinct-hook expansion: movement/thisMonth brief for female × 30-39 × spring × WEAK. 4-dim split avoids #29 (STRONG); targets #22 (WEAK F 30-39 spring). Display-only narrative.",
+        "copyrightNote": "No source prose copied; original authored prose.",
+        "authorityTruthEligible": false
+      }
     }
   ]
 }

@@ -649,6 +649,40 @@
         "copyrightNote": "No source prose copied; original authored prose.",
         "authorityTruthEligible": false
       }
+    },
+    {
+      "schemaVersion": "spring-ts.narrative-fragment.v1",
+      "fragmentId": "wealth.today.brief.male.elder.autumn.weak.014",
+      "axis": {
+        "category": "wealth",
+        "period": "today",
+        "depth": "brief"
+      },
+      "gating": {
+        "gender": ["male"],
+        "ageBand": ["70+"],
+        "birthSeason": ["autumn"],
+        "dayMasterStrength": ["WEAK", "EXTREME_WEAK"]
+      },
+      "templateTokens": [
+        {
+          "kind": "text",
+          "value": "오늘은 장부 한 칸을 단풍 사이로 차분히 살펴보는 흐름이에요."
+        }
+      ],
+      "hook": "장부 한 칸을 단풍 사이 살펴요.",
+      "tags": [],
+      "aiGenerated": true,
+      "sourceTier": {
+        "tier": "T1_HYPOTHESIS",
+        "sourceType": "training_derived",
+        "sourceUrl": null,
+        "accessedAt": "2026-05-08",
+        "quoteShort": null,
+        "humanInterpretation": "P35-A4 distinct-hook expansion: wealth/today brief for male × 70+ × autumn × WEAK. 4-dim split avoids #28 (STRONG); targets #25 (WEAK). Display-only narrative.",
+        "copyrightNote": "No source prose copied; original authored prose.",
+        "authorityTruthEligible": false
+      }
     }
   ]
 }

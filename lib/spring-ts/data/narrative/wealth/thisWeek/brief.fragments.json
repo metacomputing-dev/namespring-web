@@ -647,6 +647,40 @@
         "copyrightNote": "No source prose copied; original authored prose.",
         "authorityTruthEligible": false
       }
+    },
+    {
+      "schemaVersion": "spring-ts.narrative-fragment.v1",
+      "fragmentId": "wealth.thisWeek.brief.female.elder.winter.weak.014",
+      "axis": {
+        "category": "wealth",
+        "period": "thisWeek",
+        "depth": "brief"
+      },
+      "gating": {
+        "gender": ["female"],
+        "ageBand": ["70+"],
+        "birthSeason": ["winter"],
+        "dayMasterStrength": ["WEAK", "EXTREME_WEAK"]
+      },
+      "templateTokens": [
+        {
+          "kind": "text",
+          "value": "이번 주는 살림 한 칸을 정성껏 묶어 두는 흐름이에요."
+        }
+      ],
+      "hook": "올겨울도 살림 한 칸 묶어요.",
+      "tags": [],
+      "aiGenerated": true,
+      "sourceTier": {
+        "tier": "T1_HYPOTHESIS",
+        "sourceType": "training_derived",
+        "sourceUrl": null,
+        "accessedAt": "2026-05-08",
+        "quoteShort": null,
+        "humanInterpretation": "P35-A4 distinct-hook expansion: wealth/thisWeek brief for female × 70+ × winter × WEAK. 4-dim split avoids #32 (M STRONG); targets #35 (WEAK F 70+ winter via engine feature vector). Display-only narrative.",
+        "copyrightNote": "No source prose copied; original authored prose.",
+        "authorityTruthEligible": false
+      }
     }
   ]
 }

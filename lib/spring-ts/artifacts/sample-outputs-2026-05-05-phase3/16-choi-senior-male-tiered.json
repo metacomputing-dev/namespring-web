@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-05-07T16:44:04.387Z",
+  "generatedAt": "2026-05-07T17:10:59.982Z",
   "targetDate": "2026-05-05T00:00:00+09:00",
   "sampleId": "choi-senior-male-tiered",
   "description": "70+ 시니어 남성 (1948 출생) — life-stage 후반 narrative 가 활성화되는 fallback 경계. 노년 audience 의 prose 적합도와 tieredMatrix 후반기 흐름을 함께 노출하는 케이스.",
@@ -1293,7 +1293,7 @@
     },
     "meta": {
       "version": "1.0.0",
-      "generatedAt": "2026-05-07T16:44:13.278Z",
+      "generatedAt": "2026-05-07T17:11:09.165Z",
       "schoolPreset": {
         "selected": "korean",
         "source": "default",
@@ -5650,7 +5650,8 @@
               "meaningfulness": "limited",
               "stars": 3,
               "brief": {
-                "headline": "오늘은 무리하지 않는 흐름이 가장 좋아요. 일찍 잠드는 시간을 챙겨요."
+                "headline": "오늘은 봄볕 아래에서 어깨를 천천히 펴는 결이에요.",
+                "hook": "봄볕 아래 어깨를 천천히 펴요."
               },
               "standard": {
                 "paragraphs": [
@@ -5779,14 +5780,20 @@
               },
               "selectedFragments": {
                 "brief": {
-                  "fragmentId": "health_stress.today.brief.weak_neutral.001",
+                  "fragmentId": "health_stress.today.brief.male.elder.spring.weak.013",
                   "gating": {
+                    "gender": [
+                      "male"
+                    ],
+                    "ageBand": [
+                      "70+"
+                    ],
+                    "birthSeason": [
+                      "spring"
+                    ],
                     "dayMasterStrength": [
                       "WEAK",
                       "EXTREME_WEAK"
-                    ],
-                    "yongshinAlignment": [
-                      "neutral"
                     ]
                   },
                   "tags": []
@@ -12969,12 +12976,12 @@
       },
       "meta": {
         "schemaVersion": "spring-ts.tiered-matrix.v1",
-        "generatedAt": "2026-05-07T16:44:13.278Z",
+        "generatedAt": "2026-05-07T17:11:09.165Z",
         "selectionSeed": "1948|3|15|7|30|male|2026-05-04T15:00:00.000Z",
         "templateContractVersion": "1.0.0",
         "contentSource": "authored",
-        "fragmentCount": 4175,
-        "aiGeneratedFragmentCount": 4175
+        "fragmentCount": 4185,
+        "aiGeneratedFragmentCount": 4185
       }
     }
   }

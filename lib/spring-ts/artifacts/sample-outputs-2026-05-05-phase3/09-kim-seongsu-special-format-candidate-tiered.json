@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-05-07T16:44:04.387Z",
+  "generatedAt": "2026-05-07T17:10:59.982Z",
   "targetDate": "2026-05-05T00:00:00+09:00",
   "sampleId": "kim-seongsu-special-format-candidate-tiered",
   "description": "입력 의도: 외격 후보(화기격 계열) 고전 사례. precisionConfig 로 tieredMatrix 만 결합. 외격 판정은 엔진이 결정한다.",
@@ -1338,7 +1338,7 @@
     },
     "meta": {
       "version": "1.0.0",
-      "generatedAt": "2026-05-07T16:44:10.802Z",
+      "generatedAt": "2026-05-07T17:11:06.773Z",
       "schoolPreset": {
         "selected": "korean",
         "source": "default",
@@ -6017,15 +6017,6 @@
                       }
                     ],
                     "plainText": "다만 무리한 장거리 일정은 다음 날 호흡까지 깎아요. 가까운 자리 위주로 권해 드려요."
-                  },
-                  {
-                    "tokens": [
-                      {
-                        "kind": "text",
-                        "value": "비유하자면 오늘은 익숙한 동네 골목을 한 바퀴 천천히 돌아보는 자리예요. 멀리 가지 않아도 같은 길의 모서리 빛이 어제와 다르게 보이듯, 가까운 자리의 짧은 외출이 자기 자리를 한결 가볍게 데워 줘요."
-                      }
-                    ],
-                    "plainText": "비유하자면 오늘은 익숙한 동네 골목을 한 바퀴 천천히 돌아보는 자리예요. 멀리 가지 않아도 같은 길의 모서리 빛이 어제와 다르게 보이듯, 가까운 자리의 짧은 외출이 자기 자리를 한결 가볍게 데워 줘요."
                   }
                 ],
                 "livingTips": [
@@ -12312,15 +12303,6 @@
                       }
                     ],
                     "plainText": "다만 모든 것을 한 번에 바꾸려 하면 호흡이 가빠져요. 한 가지씩 천천히 정리하고 옮기면, 한 해의 자리가 더 편안해져요."
-                  },
-                  {
-                    "tokens": [
-                      {
-                        "kind": "text",
-                        "value": "한 해 자리에서 보면 새 자리로 옮기는 자체보다 옮기는 호흡이 더 큰 자산이에요. 익숙한 자리의 한 가지를 함께 챙겨 새 자리로 옮긴 첫 분기가 다음 분기의 안정감을 자연스럽게 받쳐 줘요."
-                      }
-                    ],
-                    "plainText": "한 해 자리에서 보면 새 자리로 옮기는 자체보다 옮기는 호흡이 더 큰 자산이에요. 익숙한 자리의 한 가지를 함께 챙겨 새 자리로 옮긴 첫 분기가 다음 분기의 안정감을 자연스럽게 받쳐 줘요."
                   }
                 ],
                 "livingTips": [
@@ -13239,12 +13221,12 @@
       },
       "meta": {
         "schemaVersion": "spring-ts.tiered-matrix.v1",
-        "generatedAt": "2026-05-07T16:44:10.802Z",
+        "generatedAt": "2026-05-07T17:11:06.773Z",
         "selectionSeed": "1958|7|11|13|0|male|2026-05-04T15:00:00.000Z",
         "templateContractVersion": "1.0.0",
         "contentSource": "authored",
-        "fragmentCount": 4175,
-        "aiGeneratedFragmentCount": 4175
+        "fragmentCount": 4185,
+        "aiGeneratedFragmentCount": 4185
       }
     }
   }

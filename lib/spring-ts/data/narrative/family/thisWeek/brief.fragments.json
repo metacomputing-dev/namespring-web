@@ -257,6 +257,32 @@
         "copyrightNote": "No source prose copied; original prose.",
         "authorityTruthEligible": false
       }
+    },
+    {
+      "schemaVersion": "spring-ts.narrative-fragment.v1",
+      "fragmentId": "family.thisWeek.brief.male.young.winter.013",
+      "axis": { "category": "family", "period": "thisWeek", "depth": "brief", "tone": "plain" },
+      "gating": {
+        "gender": ["male"],
+        "ageBand": ["0-9"],
+        "birthSeason": ["winter"]
+      },
+      "templateTokens": [
+        { "kind": "text", "value": "이번 주는 겨울 이불 속에서 손잡고 잠드는 시간이에요." }
+      ],
+      "hook": "겨울 이불 속 손잡고 잠들어요.",
+      "tags": [],
+      "aiGenerated": true,
+      "sourceTier": {
+        "tier": "T1_HYPOTHESIS",
+        "sourceType": "training_derived",
+        "sourceUrl": null,
+        "accessedAt": "2026-05-08",
+        "quoteShort": null,
+        "humanInterpretation": "P35-A4 distinct-hook expansion: family/thisWeek brief for male × 0-9 × winter. Caregiver-shared tone; targets #30 (M 0-9 winter). Display-only narrative.",
+        "copyrightNote": "No source prose copied; original authored prose.",
+        "authorityTruthEligible": false
+      }
     }
   ]
 }

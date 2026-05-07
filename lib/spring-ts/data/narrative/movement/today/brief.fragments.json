@@ -336,6 +336,39 @@
         "copyrightNote": "No source prose copied; original authored prose.",
         "authorityTruthEligible": false
       }
+    },
+    {
+      "schemaVersion": "spring-ts.narrative-fragment.v1",
+      "fragmentId": "movement.today.brief.male.young.spring.011",
+      "axis": {
+        "category": "movement",
+        "period": "today",
+        "depth": "brief"
+      },
+      "gating": {
+        "gender": ["male"],
+        "ageBand": ["0-9"],
+        "birthSeason": ["spring"]
+      },
+      "templateTokens": [
+        {
+          "kind": "text",
+          "value": "오늘은 봄볕 아래에서 한 걸음씩 뛰며 자라는 흐름이에요."
+        }
+      ],
+      "hook": "봄볕에서 한 걸음씩 뛰어 봐요.",
+      "tags": [],
+      "aiGenerated": true,
+      "sourceTier": {
+        "tier": "T1_HYPOTHESIS",
+        "sourceType": "training_derived",
+        "sourceUrl": null,
+        "accessedAt": "2026-05-08",
+        "quoteShort": null,
+        "humanInterpretation": "P35-A4 distinct-hook expansion: movement/today brief for male × 0-9 × spring. Caregiver-shared tone; spring-born child; targets #31 (BALANCED M 0-9 spring). Display-only narrative.",
+        "copyrightNote": "No source prose copied; original authored prose.",
+        "authorityTruthEligible": false
+      }
     }
   ]
 }

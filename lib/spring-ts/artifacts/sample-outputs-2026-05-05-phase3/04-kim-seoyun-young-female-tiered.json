@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-05-07T16:44:04.387Z",
+  "generatedAt": "2026-05-07T17:10:59.982Z",
   "targetDate": "2026-05-05T00:00:00+09:00",
   "sampleId": "kim-seoyun-young-female-tiered",
   "description": "어린 여성 입력에서 tiered 운세 매트릭스를 켠 케이스.",
@@ -1306,7 +1306,7 @@
     },
     "meta": {
       "version": "1.0.0",
-      "generatedAt": "2026-05-07T16:44:07.748Z",
+      "generatedAt": "2026-05-07T17:11:03.742Z",
       "schoolPreset": {
         "selected": "korean",
         "source": "default",
@@ -4945,7 +4945,8 @@
             "meaningfulness": "meaningful",
             "stars": 2,
             "brief": {
-              "headline": "이번 주는 학교·동아리 리듬이 잘 잡혀요."
+              "headline": "이번 주는 여름밤에 짧은 일기를 차곡 적어 가는 흐름이에요.",
+              "hook": "여름밤 짧은 일기를 적어요."
             },
             "standard": {
               "paragraphs": [
@@ -5064,10 +5065,16 @@
             },
             "selectedFragments": {
               "brief": {
-                "fragmentId": "overall.thisWeek.brief.teen.001",
+                "fragmentId": "overall.thisWeek.brief.female.teen.summer.013",
                 "gating": {
+                  "gender": [
+                    "female"
+                  ],
                   "ageBand": [
                     "10-19"
+                  ],
+                  "birthSeason": [
+                    "summer"
                   ]
                 },
                 "tags": []
@@ -5979,15 +5986,6 @@
                       }
                     ],
                     "plainText": "작은 호기심이 길게 자라는 한 주예요."
-                  },
-                  {
-                    "tokens": [
-                      {
-                        "kind": "text",
-                        "value": "한 주가 끝날 때 가장 마음에 오래 남은 한 가지 활동을 한 줄로 적어 두세요. 짧은 메모 한 줄이 다음 주의 자리를 또렷하게 잡아 주고, 한 달 단위로 모이면 자기에게 맞는 길의 단서가 자연스럽게 보여요."
-                      }
-                    ],
-                    "plainText": "한 주가 끝날 때 가장 마음에 오래 남은 한 가지 활동을 한 줄로 적어 두세요. 짧은 메모 한 줄이 다음 주의 자리를 또렷하게 잡아 주고, 한 달 단위로 모이면 자기에게 맞는 길의 단서가 자연스럽게 보여요."
                   }
                 ],
                 "livingTips": [
@@ -6783,15 +6781,6 @@
                     }
                   ],
                   "plainText": "마음의 작은 신호 — 짜증·답답함·뿌듯함·외로움 — 가 있다면 가족이나 가까운 어른과 한 줄로 나눠 두면 좋아요. 한 달 동안 좋아하는 활동을 한두 가지 길게 이어 가는 자리, 자기 감정을 표현하는 자리가 자기 색을 키우는 큰 자산이 돼요."
-                },
-                {
-                  "tokens": [
-                    {
-                      "kind": "text",
-                      "value": "비유하자면 이번 달은 한 권의 노트 같은 자리예요. 매일 한 줄씩 짧게 채워 두면 한 달 끝에는 자기 색의 표지가 자연스럽게 만들어지고, 또래의 빠른 페이지 수와 비교하지 않아도 자기 노트의 두께가 한 뼘씩 단단해져요."
-                    }
-                  ],
-                  "plainText": "비유하자면 이번 달은 한 권의 노트 같은 자리예요. 매일 한 줄씩 짧게 채워 두면 한 달 끝에는 자기 색의 표지가 자연스럽게 만들어지고, 또래의 빠른 페이지 수와 비교하지 않아도 자기 노트의 두께가 한 뼘씩 단단해져요."
                 }
               ],
               "livingTips": [
@@ -8125,15 +8114,6 @@
                       }
                     ],
                     "plainText": "이번 달의 한 매듭이 한 학기 색의 뼈대로 쌓여요."
-                  },
-                  {
-                    "tokens": [
-                      {
-                        "kind": "text",
-                        "value": "비유하자면 한 달의 표현은 작은 연못에 매일 조약돌을 한 알씩 던져 두는 자리예요. 한 알의 파문이 작아 보여도 한 달 단위로 겹쳐 보면 자기만의 무늬가 또렷해져, 다음 달의 표현이 한층 자연스럽게 풀려요."
-                      }
-                    ],
-                    "plainText": "비유하자면 한 달의 표현은 작은 연못에 매일 조약돌을 한 알씩 던져 두는 자리예요. 한 알의 파문이 작아 보여도 한 달 단위로 겹쳐 보면 자기만의 무늬가 또렷해져, 다음 달의 표현이 한층 자연스럽게 풀려요."
                   }
                 ],
                 "livingTips": [
@@ -10837,12 +10817,12 @@
       },
       "meta": {
         "schemaVersion": "spring-ts.tiered-matrix.v1",
-        "generatedAt": "2026-05-07T16:44:07.748Z",
+        "generatedAt": "2026-05-07T17:11:03.742Z",
         "selectionSeed": "2013|7|21|14|20|female|2026-05-04T15:00:00.000Z",
         "templateContractVersion": "1.0.0",
         "contentSource": "authored",
-        "fragmentCount": 4175,
-        "aiGeneratedFragmentCount": 4175
+        "fragmentCount": 4185,
+        "aiGeneratedFragmentCount": 4185
       }
     }
   }
