@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-05-07T15:12:02.704Z",
+  "generatedAt": "2026-05-07T15:20:54.062Z",
   "targetDate": "2026-05-05T00:00:00+09:00",
   "sampleId": "oh-extreme-weak-continuous-tiered",
   "description": "입력 의도: 지지가 일간을 극도로 소모하는 신약 지향 입력. strengthMode=continuous 로 4-tier 강도 곡선과 결합한 tiered 샘플. 최종 강도 분류는 엔진이 결정한다.",
@@ -1293,7 +1293,7 @@
     },
     "meta": {
       "version": "1.0.0",
-      "generatedAt": "2026-05-07T15:12:11.065Z",
+      "generatedAt": "2026-05-07T15:21:01.549Z",
       "schoolPreset": {
         "selected": "korean",
         "source": "default",
@@ -11184,6 +11184,15 @@
                       }
                     ],
                     "plainText": "한 해 동안 듣는 시간을 한 박자 더 두면, 다음 해의 관계가 한결 부드러워져요."
+                  },
+                  {
+                    "tokens": [
+                      {
+                        "kind": "text",
+                        "value": "분기마다 자기 호흡을 짧게 정리해 두는 자리도 큰 자산이 돼요. 봄·여름의 첫 만남 자리, 가을의 정돈 자리, 겨울의 다음 해 약속 자리가 한 해 안에서 자연스럽게 이어져요. 강한 일간일수록 듣는 자리를 분기마다 한 번씩 길게 두면, 한 해의 인연이 다음 해까지 부드럽게 자라요."
+                      }
+                    ],
+                    "plainText": "분기마다 자기 호흡을 짧게 정리해 두는 자리도 큰 자산이 돼요. 봄·여름의 첫 만남 자리, 가을의 정돈 자리, 겨울의 다음 해 약속 자리가 한 해 안에서 자연스럽게 이어져요. 강한 일간일수록 듣는 자리를 분기마다 한 번씩 길게 두면, 한 해의 인연이 다음 해까지 부드럽게 자라요."
                   }
                 ]
               },
@@ -13068,7 +13077,7 @@
       },
       "meta": {
         "schemaVersion": "spring-ts.tiered-matrix.v1",
-        "generatedAt": "2026-05-07T15:12:11.065Z",
+        "generatedAt": "2026-05-07T15:21:01.549Z",
         "selectionSeed": "1972|11|28|4|30|female|2026-05-04T15:00:00.000Z",
         "templateContractVersion": "1.0.0",
         "contentSource": "authored",

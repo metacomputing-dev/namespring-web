@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-05-07T15:12:02.704Z",
+  "generatedAt": "2026-05-07T15:20:54.062Z",
   "targetDate": "2026-05-05T00:00:00+09:00",
   "sampleId": "choi-seongsoo-tiered-fortune",
   "description": "같은 입력에 precisionConfig.surfaceTieredMatrix=true 를 켠 점진 공개 출력 케이스. Phase 3 wording polish 반영.",
@@ -1312,7 +1312,7 @@
     },
     "meta": {
       "version": "1.0.0",
-      "generatedAt": "2026-05-07T15:12:06.140Z",
+      "generatedAt": "2026-05-07T15:20:56.683Z",
       "schoolPreset": {
         "selected": "korean",
         "source": "default",
@@ -3420,6 +3420,15 @@
                       }
                     ],
                     "plainText": "천천히 익는 자리이니 인내·기록을 평생의 자산으로 두면 마음의 짐이 가벼워져요."
+                  },
+                  {
+                    "tokens": [
+                      {
+                        "kind": "text",
+                        "value": "잔잔한 일간이 평생을 흘러갈 때는 5년 단위의 작은 점검 자리가 큰 도움이 돼요. 짐이 모이는 시기와 풀어내는 시기를 미리 나눠 두면, 한 번에 무너지는 자리가 평생 잘 만들어지지 않아요. 가까운 회복 기반에서 쉼표를 자주 두는 호흡이 잔잔한 일간의 평생 자산으로 자라요. 매년 한 번씩 자기 짐의 무게를 짧게 적어 두면, 다음 해의 마디가 한층 또렷해져요."
+                      }
+                    ],
+                    "plainText": "잔잔한 일간이 평생을 흘러갈 때는 5년 단위의 작은 점검 자리가 큰 도움이 돼요. 짐이 모이는 시기와 풀어내는 시기를 미리 나눠 두면, 한 번에 무너지는 자리가 평생 잘 만들어지지 않아요. 가까운 회복 기반에서 쉼표를 자주 두는 호흡이 잔잔한 일간의 평생 자산으로 자라요. 매년 한 번씩 자기 짐의 무게를 짧게 적어 두면, 다음 해의 마디가 한층 또렷해져요."
                   }
                 ]
               },
@@ -13035,7 +13044,7 @@
       },
       "meta": {
         "schemaVersion": "spring-ts.tiered-matrix.v1",
-        "generatedAt": "2026-05-07T15:12:06.140Z",
+        "generatedAt": "2026-05-07T15:20:56.683Z",
         "selectionSeed": "1986|4|19|5|45|male|2026-05-04T15:00:00.000Z",
         "templateContractVersion": "1.0.0",
         "contentSource": "authored",
