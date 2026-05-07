@@ -3,7 +3,7 @@
   "bundleId": "family.thisWeek.brief",
   "contractVersion": "1.0.0",
   "ownerAgent": "agent-5",
-  "fragmentCount": 11,
+  "fragmentCount": 12,
   "fragments": [
     {
       "schemaVersion": "spring-ts.narrative-fragment.v1",
@@ -232,6 +232,28 @@
         "accessedAt": "2026-05-02",
         "quoteShort": null,
         "humanInterpretation": "AI-derived thisWeek-period family brief fragment authored by agent-5 (Phase 2 fan-out). Display-only narrative.",
+        "copyrightNote": "No source prose copied; original prose.",
+        "authorityTruthEligible": false
+      }
+    },
+    {
+      "schemaVersion": "spring-ts.narrative-fragment.v1",
+      "fragmentId": "family.thisWeek.brief.female.thirties.012",
+      "axis": { "category": "family", "period": "thisWeek", "depth": "brief", "tone": "plain" },
+      "gating": { "gender": ["female"], "ageBand": ["30-39"] },
+      "templateTokens": [
+        { "kind": "text", "value": "이번 주는 가까운 사람과 짧게 안부를 나누면 좋아요." }
+      ],
+      "hook": "가족 단톡에 한마디 남겨요.",
+      "tags": [],
+      "aiGenerated": true,
+      "sourceTier": {
+        "tier": "T1_HYPOTHESIS",
+        "sourceType": "training_derived",
+        "sourceUrl": null,
+        "accessedAt": "2026-05-07",
+        "quoteShort": null,
+        "humanInterpretation": "P26-A4 hook expansion: family/thisWeek brief for female × 30-39. Display-only narrative.",
         "copyrightNote": "No source prose copied; original prose.",
         "authorityTruthEligible": false
       }

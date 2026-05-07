@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-05-07T09:59:05.399Z",
+  "generatedAt": "2026-05-07T10:03:51.711Z",
   "targetDate": "2026-05-05T00:00:00+09:00",
   "sampleId": "gyeokguk-conflict-jeonggwan-vs-bigyeop-tiered",
   "description": "격국 충돌 case 1: 정관 후보와 비견(겁재) 후보가 같이 잡히기 쉬운 입력. gyeokgukSelectionRule=jungki_transparent 로 월지 중기 투간 룰을 활성화하여 후보 ranking 의 elasticity 를 노출하는 케이스. 최종 격국 판정은 엔진이 결정한다.",
@@ -1303,7 +1303,7 @@
     },
     "meta": {
       "version": "1.0.0",
-      "generatedAt": "2026-05-07T09:59:14.643Z",
+      "generatedAt": "2026-05-07T10:04:01.495Z",
       "schoolPreset": {
         "selected": "korean",
         "source": "default",
@@ -1951,15 +1951,6 @@
                       }
                     ],
                     "plainText": "좋아하는 분야와 잘하는 분야가 비슷한 흐름으로 만나는 자리가 종종 보여, 자기 호흡대로 가도 길을 잃지 않는 편이에요. 새로운 자극이 필요할 때엔 익숙한 길에서 한 걸음만 옆으로 나가 보면 좋고, 그 작은 변화가 다음 흐름의 씨앗이 되어 줘요."
-                  },
-                  {
-                    "tokens": [
-                      {
-                        "kind": "text",
-                        "value": "분기마다 작은 변주를 한 가지씩 더해 보는 호흡도 잘 맞아요. 한 분기엔 새 책 한 권, 다음 분기엔 짧은 강의 하나처럼 흐름을 다르게 두면 익숙함과 새로움 사이의 균형이 더 단단해져요."
-                      }
-                    ],
-                    "plainText": "분기마다 작은 변주를 한 가지씩 더해 보는 호흡도 잘 맞아요. 한 분기엔 새 책 한 권, 다음 분기엔 짧은 강의 하나처럼 흐름을 다르게 두면 익숙함과 새로움 사이의 균형이 더 단단해져요."
                   },
                   {
                     "tokens": [
@@ -4288,7 +4279,8 @@
               "meaningfulness": "meaningful",
               "stars": 1,
               "brief": {
-                "headline": "오늘 공부는 오래 준비하기보다 바로 펼쳐서 첫 문제를 푸는 쪽이요."
+                "headline": "오늘은 책상 앞 한 시간을 또렷이 지켜요.",
+                "hook": "오늘 분량을 정해서 끝내요."
               },
               "standard": {
                 "paragraphs": [
@@ -4466,11 +4458,14 @@
               },
               "selectedFragments": {
                 "brief": {
-                  "fragmentId": "academic.today.brief.start.504",
+                  "fragmentId": "academic.today.brief.male.age30plus.013",
                   "gating": {
-                    "dayMasterElement": [
-                      "WOOD",
-                      "FIRE"
+                    "gender": [
+                      "male"
+                    ],
+                    "ageBand": [
+                      "30-39",
+                      "40-54"
                     ]
                   },
                   "tags": []
@@ -9277,15 +9272,6 @@
                     "tokens": [
                       {
                         "kind": "text",
-                        "value": "익숙한 페이스가 만든 한 달의 정돈은 분기 단위에서 더 또렷이 보여요. 세 달치 메모를 한 자리에 모아 두면 자기 흐름의 강·약 자리가 자연스럽게 드러나고, 다음 분기의 한 가지 결정이 가벼워져요."
-                      }
-                    ],
-                    "plainText": "익숙한 페이스가 만든 한 달의 정돈은 분기 단위에서 더 또렷이 보여요. 세 달치 메모를 한 자리에 모아 두면 자기 흐름의 강·약 자리가 자연스럽게 드러나고, 다음 분기의 한 가지 결정이 가벼워져요."
-                  },
-                  {
-                    "tokens": [
-                      {
-                        "kind": "text",
                         "value": "이번 달의 정돈이 한 분기의 결정 한 가지를 가볍게 만들어 줘요."
                       }
                     ],
@@ -10249,15 +10235,6 @@
                     }
                   ],
                   "plainText": "일상의 작은 흐름을 정리해 두면 다음 해가 한결 가벼워져요."
-                },
-                {
-                  "tokens": [
-                    {
-                      "kind": "text",
-                      "value": "작은 실천 흐름으로는 매달 말일에 한 줄로 그달의 흐름을 적어 두면 좋아요. 열두 줄이 모이면 올해가 흘려보낸 시간이 아닌, 자기 페이스를 다듬은 한 해의 기록으로 남아요."
-                    }
-                  ],
-                  "plainText": "작은 실천 흐름으로는 매달 말일에 한 줄로 그달의 흐름을 적어 두면 좋아요. 열두 줄이 모이면 올해가 흘려보낸 시간이 아닌, 자기 페이스를 다듬은 한 해의 기록으로 남아요."
                 },
                 {
                   "tokens": [
@@ -11573,7 +11550,8 @@
               "meaningfulness": "meaningful",
               "stars": 4,
               "brief": {
-                "headline": "올해는 어려운 것부터 잡기보다 기본 자료와 반복 학습을 탄탄히요."
+                "headline": "올해는 모은 자료를 천천히 엮어 두기 좋은 한 해예요.",
+                "hook": "자료 한 묶음을 깔끔히 정리해요."
               },
               "standard": {
                 "paragraphs": [
@@ -11688,12 +11666,12 @@
               },
               "selectedFragments": {
                 "brief": {
-                  "fragmentId": "study_document.thisYear.brief.basics.504",
+                  "fragmentId": "study_document.thisYear.brief.male.midlife_senior.010",
                   "gating": {
+                    "gender": [
+                      "male"
+                    ],
                     "ageBand": [
-                      "10-19",
-                      "20-29",
-                      "30-39",
                       "40-54",
                       "55-69",
                       "70+"
@@ -12114,7 +12092,8 @@
               "meaningfulness": "meaningful",
               "stars": 4,
               "brief": {
-                "headline": "올해는 무리한 변화보다 필요한 이동만 고르는 태도가 안정적이에요."
+                "headline": "올해는 익숙한 동선에 작은 변화가 활력을 보태요.",
+                "hook": "출퇴근 동선을 한 번 바꿔요."
               },
               "standard": {
                 "paragraphs": [
@@ -12242,12 +12221,14 @@
               },
               "selectedFragments": {
                 "brief": {
-                  "fragmentId": "movement.thisYear.brief.recovery.501",
+                  "fragmentId": "movement.thisYear.brief.male.midlife.011",
                   "gating": {
+                    "gender": [
+                      "male"
+                    ],
                     "ageBand": [
-                      "40-54",
-                      "55-69",
-                      "70+"
+                      "30-39",
+                      "40-54"
                     ]
                   },
                   "tags": []
@@ -13067,12 +13048,12 @@
       },
       "meta": {
         "schemaVersion": "spring-ts.tiered-matrix.v1",
-        "generatedAt": "2026-05-07T09:59:14.643Z",
+        "generatedAt": "2026-05-07T10:04:01.495Z",
         "selectionSeed": "1985|5|25|8|45|male|2026-05-04T15:00:00.000Z",
         "templateContractVersion": "1.0.0",
         "contentSource": "authored",
-        "fragmentCount": 4119,
-        "aiGeneratedFragmentCount": 4119
+        "fragmentCount": 4127,
+        "aiGeneratedFragmentCount": 4127
       }
     }
   }

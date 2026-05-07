@@ -666,6 +666,39 @@
         "copyrightNote": "No source prose copied; original.",
         "authorityTruthEligible": false
       }
+    },
+    {
+      "schemaVersion": "spring-ts.narrative-fragment.v1",
+      "fragmentId": "wealth.life.brief.male.senior.strong.014",
+      "axis": {
+        "category": "wealth",
+        "period": "life",
+        "depth": "brief"
+      },
+      "gating": {
+        "gender": ["male"],
+        "ageBand": ["55-69", "70+"],
+        "dayMasterStrength": ["STRONG", "EXTREME_STRONG"]
+      },
+      "templateTokens": [
+        {
+          "kind": "text",
+          "value": "오랜 인연과의 거래가 큰 자산으로 이어지는 시간이에요."
+        }
+      ],
+      "hook": "오랜 거래처와 안부를 나눠요.",
+      "tags": [],
+      "aiGenerated": true,
+      "sourceTier": {
+        "tier": "T1_HYPOTHESIS",
+        "sourceType": "training_derived",
+        "sourceUrl": null,
+        "accessedAt": "2026-05-07",
+        "quoteShort": null,
+        "humanInterpretation": "P26-A4 hook expansion: wealth/life brief for male × 55-69,70+ × STRONG. Display-only.",
+        "copyrightNote": "No source prose copied; original.",
+        "authorityTruthEligible": false
+      }
     }
   ]
 }

@@ -292,6 +292,38 @@
         "copyrightNote": "No source prose copied; original.",
         "authorityTruthEligible": false
       }
+    },
+    {
+      "schemaVersion": "spring-ts.narrative-fragment.v1",
+      "fragmentId": "study_document.thisYear.brief.male.midlife_senior.010",
+      "axis": {
+        "category": "study_document",
+        "period": "thisYear",
+        "depth": "brief"
+      },
+      "gating": {
+        "gender": ["male"],
+        "ageBand": ["40-54", "55-69", "70+"]
+      },
+      "templateTokens": [
+        {
+          "kind": "text",
+          "value": "올해는 모은 자료를 천천히 엮어 두기 좋은 한 해예요."
+        }
+      ],
+      "hook": "자료 한 묶음을 깔끔히 정리해요.",
+      "tags": [],
+      "aiGenerated": true,
+      "sourceTier": {
+        "tier": "T1_HYPOTHESIS",
+        "sourceType": "training_derived",
+        "sourceUrl": null,
+        "accessedAt": "2026-05-07",
+        "quoteShort": null,
+        "humanInterpretation": "P26-A4 hook expansion: study_document/thisYear brief for male × 40-54,55-69,70+. Display-only.",
+        "copyrightNote": "No source prose copied; original.",
+        "authorityTruthEligible": false
+      }
     }
   ]
 }

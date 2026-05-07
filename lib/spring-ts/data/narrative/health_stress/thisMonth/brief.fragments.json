@@ -3,7 +3,7 @@
   "bundleId": "health_stress.thisMonth.brief",
   "contractVersion": "1.0.0",
   "generatedBy": "phase2/agent-9-health_stress",
-  "fragmentCount": 10,
+  "fragmentCount": 11,
   "fragments": [
     {
       "schemaVersion": "spring-ts.narrative-fragment.v1",
@@ -394,6 +394,39 @@
         "accessedAt": "2026-05-02",
         "quoteShort": null,
         "humanInterpretation": "Phase 2 brief, FIRE strong, thisMonth.",
+        "copyrightNote": "No source prose copied; original interpretation.",
+        "authorityTruthEligible": false
+      }
+    },
+    {
+      "schemaVersion": "spring-ts.narrative-fragment.v1",
+      "fragmentId": "health_stress.thisMonth.brief.female_midlife_weak.011",
+      "axis": {
+        "category": "health_stress",
+        "period": "thisMonth",
+        "depth": "brief"
+      },
+      "gating": {
+        "gender": ["female"],
+        "ageBand": ["40-54"],
+        "dayMasterStrength": ["WEAK", "EXTREME_WEAK"]
+      },
+      "templateTokens": [
+        {
+          "kind": "text",
+          "value": "이번 달은 마음을 비우는 시간이 회복의 열쇠가 되어요."
+        }
+      ],
+      "hook": "잠깐의 침묵으로 마음을 비워요.",
+      "tags": [],
+      "aiGenerated": true,
+      "sourceTier": {
+        "tier": "T1_HYPOTHESIS",
+        "sourceType": "training_derived",
+        "sourceUrl": null,
+        "accessedAt": "2026-05-07",
+        "quoteShort": null,
+        "humanInterpretation": "P26-A4 hook expansion: health_stress/thisMonth brief for female × 40-54 × WEAK. Display-only.",
         "copyrightNote": "No source prose copied; original interpretation.",
         "authorityTruthEligible": false
       }

@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-05-07T09:59:05.399Z",
+  "generatedAt": "2026-05-07T10:03:51.711Z",
   "targetDate": "2026-05-05T00:00:00+09:00",
   "sampleId": "kim-seongsu-special-format-candidate-tiered",
   "description": "입력 의도: 외격 후보(화기격 계열) 고전 사례. precisionConfig 로 tieredMatrix 만 결합. 외격 판정은 엔진이 결정한다.",
@@ -1338,7 +1338,7 @@
     },
     "meta": {
       "version": "1.0.0",
-      "generatedAt": "2026-05-07T09:59:11.433Z",
+      "generatedAt": "2026-05-07T10:03:58.232Z",
       "schoolPreset": {
         "selected": "korean",
         "source": "default",
@@ -1571,7 +1571,8 @@
               "meaningfulness": "meaningful",
               "stars": 1,
               "brief": {
-                "headline": "평생의 재물운은 단단하게 자리 잡는 흐름이에요."
+                "headline": "오랜 인연과의 거래가 큰 자산으로 이어지는 시간이에요.",
+                "hook": "오랜 거래처와 안부를 나눠요."
               },
               "standard": {
                 "paragraphs": [
@@ -1766,14 +1767,18 @@
               },
               "selectedFragments": {
                 "brief": {
-                  "fragmentId": "wealth.life.brief.wildcard.001",
+                  "fragmentId": "wealth.life.brief.male.senior.strong.014",
                   "gating": {
+                    "gender": [
+                      "male"
+                    ],
                     "ageBand": [
-                      "20-29",
-                      "30-39",
-                      "40-54",
                       "55-69",
                       "70+"
+                    ],
+                    "dayMasterStrength": [
+                      "STRONG",
+                      "EXTREME_STRONG"
                     ]
                   },
                   "tags": []
@@ -5985,15 +5990,6 @@
                     "tokens": [
                       {
                         "kind": "text",
-                        "value": "비유하자면 호숫가 둘레길을 천천히 한 바퀴 도는 흐름의 하루예요. 한 바퀴는 짧아 보여도 같은 풍경이 빛에 따라 다르게 보이는 자리가 있고, 그 미세한 변화가 잔잔한 즐거움으로 마음에 남아요."
-                      }
-                    ],
-                    "plainText": "비유하자면 호숫가 둘레길을 천천히 한 바퀴 도는 흐름의 하루예요. 한 바퀴는 짧아 보여도 같은 풍경이 빛에 따라 다르게 보이는 자리가 있고, 그 미세한 변화가 잔잔한 즐거움으로 마음에 남아요."
-                  },
-                  {
-                    "tokens": [
-                      {
-                        "kind": "text",
                         "value": "다만 무리한 장거리 일정은 다음 날 호흡까지 깎아요. 가까운 자리 위주로 권해 드려요."
                       }
                     ],
@@ -7776,15 +7772,6 @@
                       }
                     ],
                     "plainText": "잘 익은 들판이 다음 해의 씨앗을 남기는 그림 같은 시간이에요. 가르치려 하지 않고 나란히 앉아 있어 주는 자세가 가장 큰 선물이에요."
-                  },
-                  {
-                    "tokens": [
-                      {
-                        "kind": "text",
-                        "value": "비유하자면 처마 아래 켜 둔 작은 등불 같은 한 주예요. 등불이 큰 빛을 내려 애쓰지 않아도, 길을 찾던 사람이 잠시 발걸음을 멈추는 자리가 되어 주고, 그 잠깐의 머묾이 다음 길로 이어지는 흐름을 부드럽게 만들어요."
-                      }
-                    ],
-                    "plainText": "비유하자면 처마 아래 켜 둔 작은 등불 같은 한 주예요. 등불이 큰 빛을 내려 애쓰지 않아도, 길을 찾던 사람이 잠시 발걸음을 멈추는 자리가 되어 주고, 그 잠깐의 머묾이 다음 길로 이어지는 흐름을 부드럽게 만들어요."
                   },
                   {
                     "tokens": [
@@ -11701,7 +11688,8 @@
               "meaningfulness": "meaningful",
               "stars": 2,
               "brief": {
-                "headline": "올해는 어려운 것부터 잡기보다 기본 자료와 반복 학습을 탄탄히요."
+                "headline": "올해는 모은 자료를 천천히 엮어 두기 좋은 한 해예요.",
+                "hook": "자료 한 묶음을 깔끔히 정리해요."
               },
               "standard": {
                 "paragraphs": [
@@ -11816,12 +11804,12 @@
               },
               "selectedFragments": {
                 "brief": {
-                  "fragmentId": "study_document.thisYear.brief.basics.504",
+                  "fragmentId": "study_document.thisYear.brief.male.midlife_senior.010",
                   "gating": {
+                    "gender": [
+                      "male"
+                    ],
                     "ageBand": [
-                      "10-19",
-                      "20-29",
-                      "30-39",
                       "40-54",
                       "55-69",
                       "70+"
@@ -13174,12 +13162,12 @@
       },
       "meta": {
         "schemaVersion": "spring-ts.tiered-matrix.v1",
-        "generatedAt": "2026-05-07T09:59:11.433Z",
+        "generatedAt": "2026-05-07T10:03:58.232Z",
         "selectionSeed": "1958|7|11|13|0|male|2026-05-04T15:00:00.000Z",
         "templateContractVersion": "1.0.0",
         "contentSource": "authored",
-        "fragmentCount": 4119,
-        "aiGeneratedFragmentCount": 4119
+        "fragmentCount": 4127,
+        "aiGeneratedFragmentCount": 4127
       }
     }
   }

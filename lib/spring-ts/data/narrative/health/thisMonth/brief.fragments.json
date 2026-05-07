@@ -215,6 +215,31 @@
         "copyrightNote": "No source prose copied; original phrasing.",
         "authorityTruthEligible": false
       }
+    },
+    {
+      "schemaVersion": "spring-ts.narrative-fragment.v1",
+      "fragmentId": "health.thisMonth.brief.female.midlife.010",
+      "axis": { "category": "health", "period": "thisMonth", "depth": "brief" },
+      "gating": {
+        "gender": ["female"],
+        "ageBand": ["40-54"]
+      },
+      "templateTokens": [
+        { "kind": "text", "value": "이번 달은 작은 회복 루틴 한 가지가 든든해져요." }
+      ],
+      "hook": "가벼운 스트레칭을 챙겨요.",
+      "tags": [],
+      "aiGenerated": true,
+      "sourceTier": {
+        "tier": "T1_HYPOTHESIS",
+        "sourceType": "training_derived",
+        "sourceUrl": null,
+        "accessedAt": "2026-05-07",
+        "quoteShort": null,
+        "humanInterpretation": "P26-A4 hook expansion: health/thisMonth brief for female × 40-54. Display-only narrative.",
+        "copyrightNote": "No source prose copied; original interpretation.",
+        "authorityTruthEligible": false
+      }
     }
   ]
 }
