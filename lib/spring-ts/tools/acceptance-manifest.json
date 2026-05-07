@@ -18,7 +18,8 @@
     "ci:hook-concentration",
     "ci:brief-tier-placeholder",
     "ci:standard-paragraph-floor",
-    "ci:flow-cluster"
+    "ci:flow-cluster",
+    "ci:livingtips-period-consistency"
   ],
   "exempt": [
     {
