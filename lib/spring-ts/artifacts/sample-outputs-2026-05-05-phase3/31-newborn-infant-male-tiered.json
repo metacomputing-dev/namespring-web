@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-05-07T10:35:34.516Z",
+  "generatedAt": "2026-05-07T10:39:00.989Z",
   "targetDate": "2026-05-05T00:00:00+09:00",
   "sampleId": "newborn-infant-male-tiered",
   "description": "신생아 (2026 봄 출생, 현재 0세) — 보호자 perspective audience cell 활성화 fixture. life-stage 의 가장 이른 단계 narrative 가 fallback 되는지 확인. tieredMatrix 의 신생아 안전 어조 (성인 metaphor 회피) 점검 케이스.",
@@ -1273,7 +1273,7 @@
     },
     "meta": {
       "version": "1.0.0",
-      "generatedAt": "2026-05-07T10:35:46.635Z",
+      "generatedAt": "2026-05-07T10:39:14.516Z",
       "schoolPreset": {
         "selected": "korean",
         "source": "default",
@@ -6049,10 +6049,10 @@
                     "tokens": [
                       {
                         "kind": "text",
-                        "value": "이번 주는 좋아하는 놀이로 즐거움이 가득한 흐름이에요. 그림·노래·이야기처럼 자기 색이 풀려 나오는 시간이 한 주 곳곳에 있어요."
+                        "value": "그림·노래·이야기처럼 자기 색이 풀려 나오는 시간이 한 주 곳곳에 자리 잡는 흐름이에요. 좋아하는 놀이가 한 주 동안 즐거움의 중심이 되어 줘요."
                       }
                     ],
-                    "plainText": "이번 주는 좋아하는 놀이로 즐거움이 가득한 흐름이에요. 그림·노래·이야기처럼 자기 색이 풀려 나오는 시간이 한 주 곳곳에 있어요."
+                    "plainText": "그림·노래·이야기처럼 자기 색이 풀려 나오는 시간이 한 주 곳곳에 자리 잡는 흐름이에요. 좋아하는 놀이가 한 주 동안 즐거움의 중심이 되어 줘요."
                   },
                   {
                     "tokens": [
@@ -8239,10 +8239,10 @@
                   "tokens": [
                     {
                       "kind": "text",
-                      "value": "아이는 한 해 동안 새 친구·새 놀이·새 발견을 만나는 자리가 많은 흐름이에요. 가족 안의 따뜻한 분위기가 한 해 내내 흐름의 토대가 돼요."
+                      "value": "올 한 해는 친구·놀이·새로운 발견 같은 작은 자극이 한꺼번에 쏟아지는 시기예요. 가족 안의 따뜻한 분위기가 한 해 내내 흐름의 토대가 돼요."
                     }
                   ],
-                  "plainText": "아이는 한 해 동안 새 친구·새 놀이·새 발견을 만나는 자리가 많은 흐름이에요. 가족 안의 따뜻한 분위기가 한 해 내내 흐름의 토대가 돼요."
+                  "plainText": "올 한 해는 친구·놀이·새로운 발견 같은 작은 자극이 한꺼번에 쏟아지는 시기예요. 가족 안의 따뜻한 분위기가 한 해 내내 흐름의 토대가 돼요."
                 },
                 {
                   "tokens": [
@@ -10388,7 +10388,7 @@
       },
       "meta": {
         "schemaVersion": "spring-ts.tiered-matrix.v1",
-        "generatedAt": "2026-05-07T10:35:46.635Z",
+        "generatedAt": "2026-05-07T10:39:14.516Z",
         "selectionSeed": "2026|3|15|11|0|male|2026-05-04T15:00:00.000Z",
         "templateContractVersion": "1.0.0",
         "contentSource": "authored",
