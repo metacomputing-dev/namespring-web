@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-05-07T07:37:36.023Z",
+  "generatedAt": "2026-05-07T07:43:12.699Z",
   "targetDate": "2026-05-05T00:00:00+09:00",
   "sampleId": "low-confidence-yongshin-tiered",
   "description": "용신 신뢰도 낮은 case (consensus 충돌 + 다중 후보). yongshinMode=consensus_aware + chengbai_strict 결합으로 conflict 가 격국 페널티 곡선까지 영향을 주는 elasticity 를 노출. tieredMatrix 의 명시적 신호 fixture 로 활용한다.",
@@ -1337,7 +1337,7 @@
     },
     "meta": {
       "version": "1.0.0",
-      "generatedAt": "2026-05-07T07:37:47.991Z",
+      "generatedAt": "2026-05-07T07:43:24.298Z",
       "schoolPreset": {
         "selected": "korean",
         "source": "default",
@@ -3544,28 +3544,28 @@
                   "tokens": [
                     {
                       "kind": "text",
-                      "value": "오늘은 살피는 시간과 움직이는 시간을 짧게 번갈아 두면 하루 흐름이 부드럽게 이어지는 흐름이에요. 준비만 길어지지 않게 작은 실행 한 가지를 함께 두면 살핀 만큼 결과가 또렷해져요."
+                      "value": "오늘은 바로 밀어붙이기보다 상황을 살피고 다듬는 힘이 좋아요."
                     }
                   ],
-                  "plainText": "오늘은 살피는 시간과 움직이는 시간을 짧게 번갈아 두면 하루 흐름이 부드럽게 이어지는 흐름이에요. 준비만 길어지지 않게 작은 실행 한 가지를 함께 두면 살핀 만큼 결과가 또렷해져요."
+                  "plainText": "오늘은 바로 밀어붙이기보다 상황을 살피고 다듬는 힘이 좋아요."
                 },
                 {
                   "tokens": [
                     {
                       "kind": "text",
-                      "value": "작은 결정 하나를 끝까지 다듬어 두면 하루의 무게중심이 잡혀요."
+                      "value": "준비가 길어지지 않게 작은 실행 하나를 함께 두세요."
                     }
                   ],
-                  "plainText": "작은 결정 하나를 끝까지 다듬어 두면 하루의 무게중심이 잡혀요."
+                  "plainText": "준비가 길어지지 않게 작은 실행 하나를 함께 두세요."
                 },
                 {
                   "tokens": [
                     {
                       "kind": "text",
-                      "value": "급한 결정만 한 박자 늦추면 호흡이 흐트러지지 않아요."
+                      "value": "살피는 시간과 움직이는 시간을 짧게 번갈아 두면 하루 흐름이 부드럽게 이어져요."
                     }
                   ],
-                  "plainText": "급한 결정만 한 박자 늦추면 호흡이 흐트러지지 않아요."
+                  "plainText": "살피는 시간과 움직이는 시간을 짧게 번갈아 두면 하루 흐름이 부드럽게 이어져요."
                 }
               ]
             },
@@ -9755,10 +9755,10 @@
                     "tokens": [
                       {
                         "kind": "text",
-                        "value": "이번 달 이동운은 갑작스러운 한 번의 큰 변화보다 활동 범위를 천천히 넓혀 가는 호흡이 잘 맞는 모습이에요. 익숙한 동선을 한 축으로 두고 흐름을 한 걸음씩 키워 가면 한 달의 흐름이 단단해져요."
+                        "value": "이번 달 이동운은 익숙한 동선에서 한 발짝씩 넓혀 가기 좋은 모습이에요. 갑작스러운 큰 변화보다 천천히 활동 범위를 늘려 가는 호흡이 잘 맞아요."
                       }
                     ],
-                    "plainText": "이번 달 이동운은 갑작스러운 한 번의 큰 변화보다 활동 범위를 천천히 넓혀 가는 호흡이 잘 맞는 모습이에요. 익숙한 동선을 한 축으로 두고 흐름을 한 걸음씩 키워 가면 한 달의 흐름이 단단해져요."
+                    "plainText": "이번 달 이동운은 익숙한 동선에서 한 발짝씩 넓혀 가기 좋은 모습이에요. 갑작스러운 큰 변화보다 천천히 활동 범위를 늘려 가는 호흡이 잘 맞아요."
                   },
                   {
                     "tokens": [
@@ -12741,12 +12741,12 @@
       },
       "meta": {
         "schemaVersion": "spring-ts.tiered-matrix.v1",
-        "generatedAt": "2026-05-07T07:37:47.991Z",
+        "generatedAt": "2026-05-07T07:43:24.298Z",
         "selectionSeed": "1991|2|4|18|0|female|2026-05-04T15:00:00.000Z",
         "templateContractVersion": "1.0.0",
         "contentSource": "authored",
-        "fragmentCount": 4077,
-        "aiGeneratedFragmentCount": 4077
+        "fragmentCount": 4091,
+        "aiGeneratedFragmentCount": 4091
       }
     }
   }
