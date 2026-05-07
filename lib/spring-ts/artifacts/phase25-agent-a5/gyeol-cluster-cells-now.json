@@ -1,0 +1,172 @@
+{
+  "totalCells": 12,
+  "cells": [
+    {
+      "fixture": "04-kim-seoyun-young-female-tiered",
+      "period": "thisMonth",
+      "category": "wealth",
+      "tier": "standard",
+      "paragraphIdx": 4,
+      "gyeolCount": 3,
+      "distinctTokens": [
+        "결산은",
+        "결정이",
+        "한결"
+      ],
+      "text": "한 달의 작은 결산은 큰 자산이 돼요. 마지막 날 어디에 썼는지 한 줄로 정리하면, 다음 달의 결정이 한결 가벼워져요."
+    },
+    {
+      "fixture": "05-park-minji-late-night-female-tiered",
+      "period": "today",
+      "category": "wealth",
+      "tier": "standard",
+      "paragraphIdx": 3,
+      "gyeolCount": 3,
+      "distinctTokens": [
+        "결정이에요",
+        "결정은",
+        "결정해도"
+      ],
+      "text": "주의할 점은 즉흥적 결정이에요. 권유받은 큰 결정은 하루 자고 결정해도 늦지 않아요."
+    },
+    {
+      "fixture": "10-choi-yaza-boundary-male-tiered",
+      "period": "today",
+      "category": "career",
+      "tier": "standard",
+      "paragraphIdx": 1,
+      "gyeolCount": 3,
+      "distinctTokens": [
+        "한결",
+        "결재로",
+        "결정의"
+      ],
+      "text": "후배·동료의 작은 질문에 짧게라도 답을 주면 자기 역할의 방향이 한결 단단해져요. 회의·결재로 마음이 분산될 수 있으니, 오전 한 시간만이라도 자기 결정의 시간으로 잡아 두면 좋아요."
+    },
+    {
+      "fixture": "11-park-jeolgi-boundary-female-tiered",
+      "period": "today",
+      "category": "career",
+      "tier": "standard",
+      "paragraphIdx": 1,
+      "gyeolCount": 3,
+      "distinctTokens": [
+        "한결",
+        "결재로",
+        "결정의"
+      ],
+      "text": "후배·동료의 작은 질문에 짧게라도 답을 주면 자기 역할의 방향이 한결 단단해져요. 회의·결재로 마음이 분산될 수 있으니, 오전 한 시간만이라도 자기 결정의 시간으로 잡아 두면 좋아요."
+    },
+    {
+      "fixture": "13-oh-extreme-weak-continuous-tiered",
+      "period": "today",
+      "category": "career",
+      "tier": "standard",
+      "paragraphIdx": 1,
+      "gyeolCount": 3,
+      "distinctTokens": [
+        "한결",
+        "결재로",
+        "결정의"
+      ],
+      "text": "후배·동료의 작은 질문에 짧게라도 답을 주면 자기 역할의 방향이 한결 단단해져요. 회의·결재로 마음이 분산될 수 있으니, 오전 한 시간만이라도 자기 결정의 시간으로 잡아 두면 좋아요."
+    },
+    {
+      "fixture": "17-kim-senior-female-tiered",
+      "period": "life",
+      "category": "family",
+      "tier": "standard",
+      "paragraphIdx": 0,
+      "gyeolCount": 3,
+      "distinctTokens": [
+        "결실로",
+        "결"
+      ],
+      "text": "이 시기는 인생 전체에서 가꾸어 온 가풍이 든든한 결실로 모여 있는 자리예요. 곁에 있어 주는 사람들의 결, 멀리서 안부를 보내는 결, 다음 세대로 이어지는 흐름이 한 흙 위에 같이 자리해요."
+    },
+    {
+      "fixture": "18-lee-child-male-tiered",
+      "period": "thisMonth",
+      "category": "wealth",
+      "tier": "standard",
+      "paragraphIdx": 4,
+      "gyeolCount": 3,
+      "distinctTokens": [
+        "결산은",
+        "결정이",
+        "한결"
+      ],
+      "text": "한 달의 작은 결산은 큰 자산이 돼요. 마지막 날 어디에 썼는지 한 줄로 정리하면, 다음 달의 결정이 한결 가벼워져요."
+    },
+    {
+      "fixture": "27-jonggyeok-jongah-tiered",
+      "period": "thisMonth",
+      "category": "wealth",
+      "tier": "standard",
+      "paragraphIdx": 4,
+      "gyeolCount": 3,
+      "distinctTokens": [
+        "결산은",
+        "결정이",
+        "한결"
+      ],
+      "text": "한 달의 작은 결산은 큰 자산이 돼요. 마지막 날 어디에 썼는지 한 줄로 정리하면, 다음 달의 결정이 한결 가벼워져요."
+    },
+    {
+      "fixture": "30-jeolgi-lidong-boundary-tiered",
+      "period": "thisMonth",
+      "category": "wealth",
+      "tier": "standard",
+      "paragraphIdx": 4,
+      "gyeolCount": 3,
+      "distinctTokens": [
+        "결산은",
+        "결정이",
+        "한결"
+      ],
+      "text": "한 달의 작은 결산은 큰 자산이 돼요. 마지막 날 어디에 썼는지 한 줄로 정리하면, 다음 달의 결정이 한결 가벼워져요."
+    },
+    {
+      "fixture": "31-newborn-infant-male-tiered",
+      "period": "thisMonth",
+      "category": "wealth",
+      "tier": "standard",
+      "paragraphIdx": 4,
+      "gyeolCount": 3,
+      "distinctTokens": [
+        "결산은",
+        "결정이",
+        "한결"
+      ],
+      "text": "한 달의 작은 결산은 큰 자산이 돼요. 마지막 날 어디에 썼는지 한 줄로 정리하면, 다음 달의 결정이 한결 가벼워져요."
+    },
+    {
+      "fixture": "33-consensus-aware-multi-axis-combined-tiered",
+      "period": "today",
+      "category": "wealth",
+      "tier": "standard",
+      "paragraphIdx": 3,
+      "gyeolCount": 3,
+      "distinctTokens": [
+        "결정이에요",
+        "결정은",
+        "결정해도"
+      ],
+      "text": "주의할 점은 즉흥적 결정이에요. 권유받은 큰 결정은 하루 자고 결정해도 늦지 않아요."
+    },
+    {
+      "fixture": "33-consensus-aware-multi-axis-combined-tiered",
+      "period": "today",
+      "category": "career",
+      "tier": "standard",
+      "paragraphIdx": 1,
+      "gyeolCount": 3,
+      "distinctTokens": [
+        "한결",
+        "결재로",
+        "결정의"
+      ],
+      "text": "후배·동료의 작은 질문에 짧게라도 답을 주면 자기 역할의 방향이 한결 단단해져요. 회의·결재로 마음이 분산될 수 있으니, 오전 한 시간만이라도 자기 결정의 시간으로 잡아 두면 좋아요."
+    }
+  ]
+}
