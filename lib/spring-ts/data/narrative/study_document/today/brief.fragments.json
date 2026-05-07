@@ -67,6 +67,32 @@
     },
     {
       "schemaVersion": "spring-ts.narrative-fragment.v1",
+      "fragmentId": "study_document.today.brief.adult.006",
+      "axis": { "category": "study_document", "period": "today", "depth": "brief" },
+      "gating": { "ageBand": ["30-39", "40-54", "55-69"], "birthSeason": ["autumn"] },
+      "templateTokens": [
+        { "kind": "text", "value": "묶어 둔 서류를 한 장씩 다시 정리해 보세요." }
+      ],
+      "hook": "쌓인 서류를 한 장씩 살펴 봐요.",
+      "tags": [],
+      "aiGenerated": true,
+      "sourceTier": { "tier": "T1_HYPOTHESIS", "sourceType": "training_derived", "sourceUrl": null, "accessedAt": "2026-05-07", "quoteShort": null, "humanInterpretation": "P26-A1 sibling brief.hook fragment for study_document.today adult (30-69, autumn-born). Document-archive angle, 2D-gated subset of adult.005 cohort.", "copyrightNote": "No source prose copied; original.", "authorityTruthEligible": false }
+    },
+    {
+      "schemaVersion": "spring-ts.narrative-fragment.v1",
+      "fragmentId": "study_document.today.brief.adult.007",
+      "axis": { "category": "study_document", "period": "today", "depth": "brief" },
+      "gating": { "ageBand": ["30-39", "40-54", "55-69"], "birthSeason": ["summer"] },
+      "templateTokens": [
+        { "kind": "text", "value": "오늘은 연락처와 주소를 한번 정리하기 좋아요." }
+      ],
+      "hook": "연락처 한 줄을 다시 정리해요.",
+      "tags": [],
+      "aiGenerated": true,
+      "sourceTier": { "tier": "T1_HYPOTHESIS", "sourceType": "training_derived", "sourceUrl": null, "accessedAt": "2026-05-07", "quoteShort": null, "humanInterpretation": "P26-A1 sibling brief.hook fragment for study_document.today adult (30-69, summer-born). Contact/address-update angle, 2D-gated subset of adult.005 cohort.", "copyrightNote": "No source prose copied; original.", "authorityTruthEligible": false }
+    },
+    {
+      "schemaVersion": "spring-ts.narrative-fragment.v1",
       "fragmentId": "study_document.today.brief.strong.006",
       "axis": { "category": "study_document", "period": "today", "depth": "brief" },
       "gating": { "dayMasterStrength": ["STRONG", "EXTREME_STRONG"] },

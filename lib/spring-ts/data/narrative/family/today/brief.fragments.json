@@ -3,7 +3,7 @@
   "bundleId": "family.today.brief",
   "contractVersion": "1.0.0",
   "ownerAgent": "agent-5",
-  "fragmentCount": 12,
+  "fragmentCount": 14,
   "fragments": [
     {
       "schemaVersion": "spring-ts.narrative-fragment.v1",
@@ -65,6 +65,50 @@
         "accessedAt": "2026-05-02",
         "quoteShort": null,
         "humanInterpretation": "AI-derived today-period family brief fragment authored by agent-5 (Phase 2 fan-out). Display-only narrative.",
+        "copyrightNote": "No source prose copied; original prose.",
+        "authorityTruthEligible": false
+      }
+    },
+    {
+      "schemaVersion": "spring-ts.narrative-fragment.v1",
+      "fragmentId": "family.today.brief.young.004",
+      "axis": { "category": "family", "period": "today", "depth": "brief", "tone": "plain" },
+      "gating": { "ageBand": ["0-9"], "birthSeason": ["spring"] },
+      "templateTokens": [
+        { "kind": "text", "value": "오늘은 함께 그림을 그리며 시간 보내요." }
+      ],
+      "hook": "마음에 드는 그림을 같이 그려 봐요.",
+      "tags": [],
+      "aiGenerated": true,
+      "sourceTier": {
+        "tier": "T1_HYPOTHESIS",
+        "sourceType": "training_derived",
+        "sourceUrl": null,
+        "accessedAt": "2026-05-07",
+        "quoteShort": null,
+        "humanInterpretation": "P26-A1 sibling brief.hook fragment for family.today young (0-9, spring-born). Play/drawing angle, 2D-gated subset of young.003 cohort.",
+        "copyrightNote": "No source prose copied; original prose.",
+        "authorityTruthEligible": false
+      }
+    },
+    {
+      "schemaVersion": "spring-ts.narrative-fragment.v1",
+      "fragmentId": "family.today.brief.young.005",
+      "axis": { "category": "family", "period": "today", "depth": "brief", "tone": "plain" },
+      "gating": { "ageBand": ["0-9"], "birthSeason": ["winter"] },
+      "templateTokens": [
+        { "kind": "text", "value": "잠들기 전 짧은 이야기 한 편을 들려 줘요." }
+      ],
+      "hook": "자기 전 이야기 한 편을 나눠요.",
+      "tags": [],
+      "aiGenerated": true,
+      "sourceTier": {
+        "tier": "T1_HYPOTHESIS",
+        "sourceType": "training_derived",
+        "sourceUrl": null,
+        "accessedAt": "2026-05-07",
+        "quoteShort": null,
+        "humanInterpretation": "P26-A1 sibling brief.hook fragment for family.today young (0-9, winter-born). Bedtime story angle, 2D-gated subset of young.003 cohort.",
         "copyrightNote": "No source prose copied; original prose.",
         "authorityTruthEligible": false
       }
