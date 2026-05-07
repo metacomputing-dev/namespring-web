@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-05-07T07:43:12.699Z",
+  "generatedAt": "2026-05-07T07:53:55.988Z",
   "targetDate": "2026-05-05T00:00:00+09:00",
   "sampleId": "pure-hangul-name-tiered",
   "description": "한글 전용 이름 (hanja 미입력) 입력 — pureHangulNameMode=on 으로 발음오행 기반 채점. 한글 작명 트렌드 (자음/모음 polarity, 모음 음양) 와 surfacePhoneticEvidence 가 함께 노출되는 케이스. 한자 강제 미적용 안전 fallback 점검.",
@@ -1380,7 +1380,7 @@
     },
     "meta": {
       "version": "1.0.0",
-      "generatedAt": "2026-05-07T07:43:26.746Z",
+      "generatedAt": "2026-05-07T07:54:08.243Z",
       "schoolPreset": {
         "selected": "korean",
         "source": "default",
@@ -9592,10 +9592,10 @@
                     "tokens": [
                       {
                         "kind": "text",
-                        "value": "이번 달은 가까운 사람과의 협업이 표현을 한 단계 넓혀 줘요. 한 달 동안 두세 명과 함께 만들 수 있는 작은 작업이 표현을 단단히 해 줘요."
+                        "value": "이번 달은 두세 명과 함께 만들 수 있는 작은 협업이 자기 표현의 흐름을 한 단계 단단히 다져 주는 흐름이에요. 가까운 사람의 짧은 의견이 혼자였다면 좁아질 수 있는 시야를 한 뼘 넓혀 줘요."
                       }
                     ],
-                    "plainText": "이번 달은 가까운 사람과의 협업이 표현을 한 단계 넓혀 줘요. 한 달 동안 두세 명과 함께 만들 수 있는 작은 작업이 표현을 단단히 해 줘요."
+                    "plainText": "이번 달은 두세 명과 함께 만들 수 있는 작은 협업이 자기 표현의 흐름을 한 단계 단단히 다져 주는 흐름이에요. 가까운 사람의 짧은 의견이 혼자였다면 좁아질 수 있는 시야를 한 뼘 넓혀 줘요."
                   },
                   {
                     "tokens": [
@@ -12922,12 +12922,12 @@
       },
       "meta": {
         "schemaVersion": "spring-ts.tiered-matrix.v1",
-        "generatedAt": "2026-05-07T07:43:26.746Z",
+        "generatedAt": "2026-05-07T07:54:08.243Z",
         "selectionSeed": "1996|4|12|10|30|female|2026-05-04T15:00:00.000Z",
         "templateContractVersion": "1.0.0",
         "contentSource": "authored",
-        "fragmentCount": 4091,
-        "aiGeneratedFragmentCount": 4091
+        "fragmentCount": 4101,
+        "aiGeneratedFragmentCount": 4101
       }
     }
   }
