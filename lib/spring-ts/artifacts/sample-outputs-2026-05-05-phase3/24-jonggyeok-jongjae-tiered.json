@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-05-07T13:30:09.027Z",
+  "generatedAt": "2026-05-07T13:32:53.042Z",
   "targetDate": "2026-05-05T00:00:00+09:00",
   "sampleId": "jonggyeok-jongjae-tiered",
   "description": "입력 의도: 從財격 계열. fix-jong-04 (1978-07-11 09:00) 좌표 — 甲木 일간이 戊己己戊 4 천간 + 戌未辰 토 지지로 재성(土) 압도, 인성/비겁 미약한 從財 doctrine 입력. 최종 외격 판정은 엔진이 결정한다.",
@@ -1317,7 +1317,7 @@
     },
     "meta": {
       "version": "1.0.0",
-      "generatedAt": "2026-05-07T13:30:21.134Z",
+      "generatedAt": "2026-05-07T13:33:05.007Z",
       "schoolPreset": {
         "selected": "korean",
         "source": "default",
@@ -3582,8 +3582,8 @@
                 ],
                 "livingTips": [
                   "짧은 여행을 정기적으로 가요",
-                  "큰 결정은 단계로 나눠요",
-                  "익숙한 자리도 가끔 새로 봐요"
+                  "큰 변화는 5년 단위로 단계를 그려요",
+                  "평생 한 자리에 머물지 않고 새 길을 두어요"
                 ],
                 "cautions": [
                   "너무 오래 한 자리에만 있으면 무거워져요"
@@ -11919,8 +11919,8 @@
                 ],
                 "livingTips": [
                   "연말 몸 움직이기",
-                  "나를 위한 한 시간",
-                  "가벼운 대화"
+                  "분기마다 나를 위한 반나절",
+                  "감정은 그날 짧게 꺼내기"
                 ],
                 "cautions": [
                   "감정 미루지 않기"
@@ -13035,7 +13035,7 @@
       },
       "meta": {
         "schemaVersion": "spring-ts.tiered-matrix.v1",
-        "generatedAt": "2026-05-07T13:30:21.134Z",
+        "generatedAt": "2026-05-07T13:33:05.007Z",
         "selectionSeed": "1978|7|11|9|0|male|2026-05-04T15:00:00.000Z",
         "templateContractVersion": "1.0.0",
         "contentSource": "authored",

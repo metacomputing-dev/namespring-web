@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-05-07T13:30:09.027Z",
+  "generatedAt": "2026-05-07T13:32:53.042Z",
   "targetDate": "2026-05-05T00:00:00+09:00",
   "sampleId": "choi-yaza-boundary-male-tiered",
   "description": "야자시 경계 23:30 출생. yaza=on, yazaMode=23:00 으로 다음 날로 이월하는 경계 케이스.",
@@ -1299,7 +1299,7 @@
     },
     "meta": {
       "version": "1.0.0",
-      "generatedAt": "2026-05-07T13:30:16.306Z",
+      "generatedAt": "2026-05-07T13:32:59.945Z",
       "schoolPreset": {
         "selected": "korean",
         "source": "default",
@@ -11865,8 +11865,8 @@
                 ],
                 "livingTips": [
                   "연말 몸 움직이기",
-                  "나를 위한 한 시간",
-                  "가벼운 대화"
+                  "분기마다 나를 위한 반나절",
+                  "감정은 그날 짧게 꺼내기"
                 ],
                 "cautions": [
                   "감정 미루지 않기"
@@ -12983,7 +12983,7 @@
       },
       "meta": {
         "schemaVersion": "spring-ts.tiered-matrix.v1",
-        "generatedAt": "2026-05-07T13:30:16.306Z",
+        "generatedAt": "2026-05-07T13:32:59.945Z",
         "selectionSeed": "1995|6|10|23|30|male|2026-05-04T15:00:00.000Z",
         "templateContractVersion": "1.0.0",
         "contentSource": "authored",
