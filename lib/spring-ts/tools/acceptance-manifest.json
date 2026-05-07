@@ -14,7 +14,8 @@
     "ci:acceptance-completeness",
     "ci:samples-stale",
     "ci:post-processor-grammar",
-    "ci:hook-coverage"
+    "ci:hook-coverage",
+    "ci:hook-concentration"
   ],
   "exempt": [
     {
