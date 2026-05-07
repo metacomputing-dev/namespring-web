@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-05-07T10:44:46.504Z",
+  "generatedAt": "2026-05-07T10:56:45.397Z",
   "targetDate": "2026-05-05T00:00:00+09:00",
   "sampleId": "jonggyeok-jongwang-yeomsang-tiered",
   "description": "입력 의도: 從旺격 (一氣格 / 炎上格 火) 계열. fix-jong-02 (1942-06-23 15:00) 좌표를 차용 — 火 일간이 寅午戌 부분 火局 + 丙午 月柱 로 단일 火氣 압도. 최종 외격 판정은 엔진이 결정한다.",
@@ -1277,7 +1277,7 @@
     },
     "meta": {
       "version": "1.0.0",
-      "generatedAt": "2026-05-07T10:44:56.759Z",
+      "generatedAt": "2026-05-07T10:56:56.879Z",
       "schoolPreset": {
         "selected": "korean",
         "source": "default",
@@ -8499,6 +8499,15 @@
                       }
                     ],
                     "plainText": "월말 무렵엔 컨디션 점검이나 충분한 휴식 자리를 한 번 잡아 두면, 다음 달의 결까지 자연스럽게 단단해져요."
+                  },
+                  {
+                    "tokens": [
+                      {
+                        "kind": "text",
+                        "value": "참는 자리는 강함이 아니라 누적이에요. 미리 쉬는 한 자리가 한 달의 방향을 가장 길게 받쳐 줘요."
+                      }
+                    ],
+                    "plainText": "참는 자리는 강함이 아니라 누적이에요. 미리 쉬는 한 자리가 한 달의 방향을 가장 길게 받쳐 줘요."
                   }
                 ],
                 "livingTips": [
@@ -13024,7 +13033,7 @@
       },
       "meta": {
         "schemaVersion": "spring-ts.tiered-matrix.v1",
-        "generatedAt": "2026-05-07T10:44:56.759Z",
+        "generatedAt": "2026-05-07T10:56:56.879Z",
         "selectionSeed": "1942|6|23|15|0|male|2026-05-04T15:00:00.000Z",
         "templateContractVersion": "1.0.0",
         "contentSource": "authored",
