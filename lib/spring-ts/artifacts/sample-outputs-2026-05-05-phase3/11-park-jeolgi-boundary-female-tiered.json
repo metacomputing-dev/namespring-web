@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-05-07T09:49:17.080Z",
+  "generatedAt": "2026-05-07T09:59:05.399Z",
   "targetDate": "2026-05-05T00:00:00+09:00",
   "sampleId": "park-jeolgi-boundary-female-tiered",
   "description": "입추(立秋) 절기 경계 직후 출생. fortuneCascadeMode=jie_based 로 경계 정밀 계산을 활성화하고 tieredMatrix 와 결합한 케이스.",
@@ -1321,7 +1321,7 @@
     },
     "meta": {
       "version": "1.0.0",
-      "generatedAt": "2026-05-07T09:49:24.604Z",
+      "generatedAt": "2026-05-07T09:59:12.068Z",
       "schoolPreset": {
         "selected": "korean",
         "source": "default",
@@ -12831,7 +12831,7 @@
       },
       "meta": {
         "schemaVersion": "spring-ts.tiered-matrix.v1",
-        "generatedAt": "2026-05-07T09:49:24.604Z",
+        "generatedAt": "2026-05-07T09:59:12.068Z",
         "selectionSeed": "1988|8|8|6|0|female|2026-05-04T15:00:00.000Z",
         "templateContractVersion": "1.0.0",
         "contentSource": "authored",

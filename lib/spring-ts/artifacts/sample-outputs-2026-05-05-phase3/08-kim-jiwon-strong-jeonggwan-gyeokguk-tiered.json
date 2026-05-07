@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-05-07T09:49:17.080Z",
+  "generatedAt": "2026-05-07T09:59:05.399Z",
   "targetDate": "2026-05-05T00:00:00+09:00",
   "sampleId": "kim-jiwon-strong-jeonggwan-gyeokguk-tiered",
   "description": "입력 의도: 정관격 계열의 강한 격국이 또렷이 잡히기 쉬운 입력. 최종 gyeokguk 판정은 엔진이 결정한다.",
@@ -1249,7 +1249,7 @@
     },
     "meta": {
       "version": "1.0.0",
-      "generatedAt": "2026-05-07T09:49:23.248Z",
+      "generatedAt": "2026-05-07T09:59:10.767Z",
       "schoolPreset": {
         "selected": "korean",
         "source": "default",
@@ -6794,6 +6794,15 @@
                       }
                     ],
                     "plainText": "혼자 무리하게 끌고 가지 않아도, 가까운 사람이 함께 균형을 잡아 주는 한 주예요. 친구·동료도 가족처럼 든든한 역할을 할 수 있으니 관계의 폭을 넓게 두세요."
+                  },
+                  {
+                    "tokens": [
+                      {
+                        "kind": "text",
+                        "value": "비유하자면 둘이 함께 걷는 길과 같아요. 두 사람의 보폭이 다를 때 한쪽이 잠시 천천히 가 주면 옆 사람의 호흡이 가지런해지고, 다음 자리에서 다시 나란히 걸을 힘이 자연스럽게 차올라요."
+                      }
+                    ],
+                    "plainText": "비유하자면 둘이 함께 걷는 길과 같아요. 두 사람의 보폭이 다를 때 한쪽이 잠시 천천히 가 주면 옆 사람의 호흡이 가지런해지고, 다음 자리에서 다시 나란히 걸을 힘이 자연스럽게 차올라요."
                   },
                   {
                     "tokens": [
@@ -12736,7 +12745,7 @@
       },
       "meta": {
         "schemaVersion": "spring-ts.tiered-matrix.v1",
-        "generatedAt": "2026-05-07T09:49:23.248Z",
+        "generatedAt": "2026-05-07T09:59:10.767Z",
         "selectionSeed": "1990|9|15|11|30|female|2026-05-04T15:00:00.000Z",
         "templateContractVersion": "1.0.0",
         "contentSource": "authored",
