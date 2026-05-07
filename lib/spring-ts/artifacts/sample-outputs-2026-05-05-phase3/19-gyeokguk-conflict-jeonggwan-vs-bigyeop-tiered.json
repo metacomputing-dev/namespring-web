@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-05-06T12:42:20.862Z",
+  "generatedAt": "2026-05-07T01:50:18.479Z",
   "targetDate": "2026-05-05T00:00:00+09:00",
   "sampleId": "gyeokguk-conflict-jeonggwan-vs-bigyeop-tiered",
   "description": "격국 충돌 case 1: 정관 후보와 비견(겁재) 후보가 같이 잡히기 쉬운 입력. gyeokgukSelectionRule=jungki_transparent 로 월지 중기 투간 룰을 활성화하여 후보 ranking 의 elasticity 를 노출하는 케이스. 최종 격국 판정은 엔진이 결정한다.",
@@ -1303,7 +1303,7 @@
     },
     "meta": {
       "version": "1.0.0",
-      "generatedAt": "2026-05-06T12:42:29.220Z",
+      "generatedAt": "2026-05-07T01:50:28.648Z",
       "schoolPreset": {
         "selected": "korean",
         "source": "default",
@@ -6672,10 +6672,10 @@
                     "tokens": [
                       {
                         "kind": "text",
-                        "value": "이번 주의 학업운은 일과 사이의 짧은 학습 자리를 한 리듬로 엮어 두기 좋은 흐름이에요. 출퇴근 길의 한 챕터, 점심 후 10분의 정리, 잠들기 전의 한 페이지 같은 자리가 일주일을 묶어 줘요."
+                        "value": "이번 주의 학업운은 일과 사이의 짧은 학습 자리를 하나로 엮어 두기 좋은 흐름이에요. 출퇴근 길의 한 챕터, 점심 후 10분의 정리, 잠들기 전의 한 페이지 같은 자리가 일주일을 묶어 줘요."
                       }
                     ],
-                    "plainText": "이번 주의 학업운은 일과 사이의 짧은 학습 자리를 한 리듬로 엮어 두기 좋은 흐름이에요. 출퇴근 길의 한 챕터, 점심 후 10분의 정리, 잠들기 전의 한 페이지 같은 자리가 일주일을 묶어 줘요."
+                    "plainText": "이번 주의 학업운은 일과 사이의 짧은 학습 자리를 하나로 엮어 두기 좋은 흐름이에요. 출퇴근 길의 한 챕터, 점심 후 10분의 정리, 잠들기 전의 한 페이지 같은 자리가 일주일을 묶어 줘요."
                   },
                   {
                     "tokens": [
@@ -10366,7 +10366,8 @@
               "meaningfulness": "meaningful",
               "stars": 4,
               "brief": {
-                "headline": "올해는 새 수입이나 일의 기회를 찾아보기 좋은 결이에요."
+                "headline": "올해는 안정과 기회가 함께 들어오는 해예요.",
+                "hook": "기준 한 줄을 적어 두면 좋아요."
               },
               "standard": {
                 "paragraphs": [
@@ -10487,11 +10488,13 @@
               },
               "selectedFragments": {
                 "brief": {
-                  "fragmentId": "wealth.thisYear.brief.currentseason.spring_summer.301",
+                  "fragmentId": "wealth.thisYear.brief.balanced.neutral.004",
                   "gating": {
-                    "currentSeason": [
-                      "spring",
-                      "summer"
+                    "dayMasterStrength": [
+                      "BALANCED"
+                    ],
+                    "yongshinAlignment": [
+                      "neutral"
                     ]
                   },
                   "tags": []
@@ -13017,7 +13020,7 @@
       },
       "meta": {
         "schemaVersion": "spring-ts.tiered-matrix.v1",
-        "generatedAt": "2026-05-06T12:42:29.220Z",
+        "generatedAt": "2026-05-07T01:50:28.648Z",
         "selectionSeed": "1985|5|25|8|45|male|2026-05-04T15:00:00.000Z",
         "templateContractVersion": "1.0.0",
         "contentSource": "authored",

@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-05-06T12:42:20.862Z",
+  "generatedAt": "2026-05-07T01:50:18.479Z",
   "targetDate": "2026-05-05T00:00:00+09:00",
   "sampleId": "gyeokguk-conflict-multi-confidence-tiered",
   "description": "격국 충돌 + 다중 confidence 시나리오 — gyeokgukSelectionRule=jungki_transparent + gyeokgukMode=chengbai_strict + yongshinMode=consensus_aware 결합. 월지 중기 투간 후보와 chengbai 페널티 smooth tanh 곡선이 동시에 ranking 에 작용하는 elasticity 노출 케이스.",
@@ -1309,7 +1309,7 @@
     },
     "meta": {
       "version": "1.0.0",
-      "generatedAt": "2026-05-06T12:42:33.219Z",
+      "generatedAt": "2026-05-07T01:50:33.109Z",
       "schoolPreset": {
         "selected": "korean",
         "source": "default",
@@ -10201,7 +10201,8 @@
               "meaningfulness": "meaningful",
               "stars": 2,
               "brief": {
-                "headline": "올해는 새 수입이나 일의 기회를 찾아보기 좋은 결이에요."
+                "headline": "올해는 관리의 기준이 빛을 내는 한 해예요.",
+                "hook": "기준 한 줄을 적어 두면 좋아요."
               },
               "standard": {
                 "paragraphs": [
@@ -10320,11 +10321,13 @@
               },
               "selectedFragments": {
                 "brief": {
-                  "fragmentId": "wealth.thisYear.brief.currentseason.spring_summer.301",
+                  "fragmentId": "wealth.thisYear.brief.balanced.neutral.004",
                   "gating": {
-                    "currentSeason": [
-                      "spring",
-                      "summer"
+                    "dayMasterStrength": [
+                      "BALANCED"
+                    ],
+                    "yongshinAlignment": [
+                      "neutral"
                     ]
                   },
                   "tags": []
@@ -11150,10 +11153,10 @@
                     "tokens": [
                       {
                         "kind": "text",
-                        "value": "올해의 직업 자리은 익숙한 페이스로 자리를 깊이 자라게 하는 흐름이에요. 큰 무리수보다 한 분야에서 결과를 한 줄 더 쌓아 두는 흐름이 잘 맞고, 한 해 동안의 결정 호흡을 분기마다 짧게 정리해 두면 다음 해의 리듬이 흔들림 없이 이어져요."
+                        "value": "올해의 직업 자리는 익숙한 페이스로 자리를 깊이 자라게 하는 흐름이에요. 큰 무리수보다 한 분야에서 결과를 한 줄 더 쌓아 두는 흐름이 잘 맞고, 한 해 동안의 결정 호흡을 분기마다 짧게 정리해 두면 다음 해의 리듬이 흔들림 없이 이어져요."
                       }
                     ],
-                    "plainText": "올해의 직업 자리은 익숙한 페이스로 자리를 깊이 자라게 하는 흐름이에요. 큰 무리수보다 한 분야에서 결과를 한 줄 더 쌓아 두는 흐름이 잘 맞고, 한 해 동안의 결정 호흡을 분기마다 짧게 정리해 두면 다음 해의 리듬이 흔들림 없이 이어져요."
+                    "plainText": "올해의 직업 자리는 익숙한 페이스로 자리를 깊이 자라게 하는 흐름이에요. 큰 무리수보다 한 분야에서 결과를 한 줄 더 쌓아 두는 흐름이 잘 맞고, 한 해 동안의 결정 호흡을 분기마다 짧게 정리해 두면 다음 해의 리듬이 흔들림 없이 이어져요."
                   },
                   {
                     "tokens": [
@@ -12857,7 +12860,7 @@
       },
       "meta": {
         "schemaVersion": "spring-ts.tiered-matrix.v1",
-        "generatedAt": "2026-05-06T12:42:33.219Z",
+        "generatedAt": "2026-05-07T01:50:33.109Z",
         "selectionSeed": "1976|6|22|13|15|male|2026-05-04T15:00:00.000Z",
         "templateContractVersion": "1.0.0",
         "contentSource": "authored",

@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-05-06T12:42:20.862Z",
+  "generatedAt": "2026-05-07T01:50:18.479Z",
   "targetDate": "2026-05-05T00:00:00+09:00",
   "sampleId": "nonagenarian-weak-daymaster-tiered",
   "description": "90+ 노년 (1933 동지경 출생, 현재 92세) + dayMaster 약 (火 일간이 子月 水 절기에서 통근 失) — life-stage 후반 narrative + 약신 일간 fortune 곡선 결합. strengthMode=continuous 로 약신 graded intensity 노출.",
@@ -1283,7 +1283,7 @@
     },
     "meta": {
       "version": "1.0.0",
-      "generatedAt": "2026-05-06T12:42:32.676Z",
+      "generatedAt": "2026-05-07T01:50:32.533Z",
       "schoolPreset": {
         "selected": "korean",
         "source": "default",
@@ -4006,7 +4006,8 @@
               "meaningfulness": "limited",
               "stars": 3,
               "brief": {
-                "headline": "오늘은 에너지가 있어도 속도를 조금 낮추면 좋아요."
+                "headline": "오늘은 한 박자 천천히 가는 흐름이 잘 맞아요.",
+                "hook": "물 한 잔과 가벼운 산책이 도움돼요."
               },
               "standard": {
                 "paragraphs": [
@@ -4203,8 +4204,11 @@
               },
               "selectedFragments": {
                 "brief": {
-                  "fragmentId": "health.today.brief.routine.501",
+                  "fragmentId": "health.today.brief.strong.elder.001",
                   "gating": {
+                    "ageBand": [
+                      "70+"
+                    ],
                     "dayMasterStrength": [
                       "STRONG",
                       "EXTREME_STRONG"
@@ -10211,7 +10215,8 @@
               "meaningfulness": "meaningful",
               "stars": 5,
               "brief": {
-                "headline": "올해는 새 수입이나 일의 기회를 찾아보기 좋은 결이에요."
+                "headline": "올해는 기준 한 줄을 다시 적어 두면 좋은 해예요.",
+                "hook": "큰 무리수만 피하면 든든히 모을 수 있어요."
               },
               "standard": {
                 "paragraphs": [
@@ -10339,11 +10344,14 @@
               },
               "selectedFragments": {
                 "brief": {
-                  "fragmentId": "wealth.thisYear.brief.currentseason.spring_summer.301",
+                  "fragmentId": "wealth.thisYear.brief.strong.neutral.006",
                   "gating": {
-                    "currentSeason": [
-                      "spring",
-                      "summer"
+                    "dayMasterStrength": [
+                      "STRONG",
+                      "EXTREME_STRONG"
+                    ],
+                    "yongshinAlignment": [
+                      "neutral"
                     ]
                   },
                   "tags": []
@@ -12840,7 +12848,7 @@
       },
       "meta": {
         "schemaVersion": "spring-ts.tiered-matrix.v1",
-        "generatedAt": "2026-05-06T12:42:32.676Z",
+        "generatedAt": "2026-05-07T01:50:32.533Z",
         "selectionSeed": "1933|12|25|4|30|male|2026-05-04T15:00:00.000Z",
         "templateContractVersion": "1.0.0",
         "contentSource": "authored",

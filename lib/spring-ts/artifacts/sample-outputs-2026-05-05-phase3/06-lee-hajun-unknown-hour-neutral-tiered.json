@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-05-06T12:42:20.862Z",
+  "generatedAt": "2026-05-07T01:50:18.479Z",
   "targetDate": "2026-05-05T00:00:00+09:00",
   "sampleId": "lee-hajun-unknown-hour-neutral-tiered",
   "description": "출생 시각 미상, 중립 성별 입력에서 불확실성 안내와 tiered 매트릭스를 확인하는 케이스.",
@@ -1302,7 +1302,7 @@
     },
     "meta": {
       "version": "1.0.0",
-      "generatedAt": "2026-05-06T12:42:24.192Z",
+      "generatedAt": "2026-05-07T01:50:23.128Z",
       "schoolPreset": {
         "selected": "korean",
         "source": "default",
@@ -1532,10 +1532,10 @@
                     "tokens": [
                       {
                         "kind": "text",
-                        "value": "이십 대의 재물운은 리듬을 잡아 가는 시작점이에요. 큰 자리을 한 번에 만드는 시기가 아니라, 평생 갈 리듬을 다듬는 흐름이에요."
+                        "value": "이십 대의 재물운은 리듬을 잡아 가는 시작점이에요. 큰 자산을 한 번에 만드는 시기가 아니라, 평생 갈 리듬을 다듬는 흐름이에요."
                       }
                     ],
-                    "plainText": "이십 대의 재물운은 리듬을 잡아 가는 시작점이에요. 큰 자리을 한 번에 만드는 시기가 아니라, 평생 갈 리듬을 다듬는 흐름이에요."
+                    "plainText": "이십 대의 재물운은 리듬을 잡아 가는 시작점이에요. 큰 자산을 한 번에 만드는 시기가 아니라, 평생 갈 리듬을 다듬는 흐름이에요."
                   },
                   {
                     "tokens": [
@@ -8959,10 +8959,10 @@
                     "tokens": [
                       {
                         "kind": "text",
-                        "value": "자기 살림의 작은 흐름을 정리하면서 부모님 안부도 같이 챙기는 흐름이 잘 맞고, 형제와의 모임 한 번이 한 달의 따뜻한 리듬로 모여요. 친구·연인의 자리가 큰 비중이지만, 가족 자리도 한 자리는 비워 두면 평생의 자산이 돼요."
+                        "value": "자기 살림의 작은 흐름을 정리하면서 부모님 안부도 같이 챙기는 흐름이 잘 맞고, 형제와의 모임 한 번이 한 달의 따뜻한 자리에 모여요. 친구·연인의 자리가 큰 비중이지만, 가족 리듬도 한 자리는 비워 두면 평생의 자산이 돼요."
                       }
                     ],
-                    "plainText": "자기 살림의 작은 흐름을 정리하면서 부모님 안부도 같이 챙기는 흐름이 잘 맞고, 형제와의 모임 한 번이 한 달의 따뜻한 리듬로 모여요. 친구·연인의 자리가 큰 비중이지만, 가족 자리도 한 자리는 비워 두면 평생의 자산이 돼요."
+                    "plainText": "자기 살림의 작은 흐름을 정리하면서 부모님 안부도 같이 챙기는 흐름이 잘 맞고, 형제와의 모임 한 번이 한 달의 따뜻한 자리에 모여요. 친구·연인의 자리가 큰 비중이지만, 가족 리듬도 한 자리는 비워 두면 평생의 자산이 돼요."
                   },
                   {
                     "tokens": [
@@ -10224,7 +10224,8 @@
               "meaningfulness": "meaningful",
               "stars": 2,
               "brief": {
-                "headline": "올해는 큰 수익보다 비상금을 지키는 습관이 돈 흐름을 더 안정시켜요."
+                "headline": "올해는 기준 한 줄을 다시 적어 두면 좋은 해예요.",
+                "hook": "큰 무리수만 피하면 든든히 모을 수 있어요."
               },
               "standard": {
                 "paragraphs": [
@@ -10352,14 +10353,14 @@
               },
               "selectedFragments": {
                 "brief": {
-                  "fragmentId": "wealth.thisYear.brief.reserve.504",
+                  "fragmentId": "wealth.thisYear.brief.strong.neutral.006",
                   "gating": {
-                    "ageBand": [
-                      "20-29",
-                      "30-39",
-                      "40-54",
-                      "55-69",
-                      "70+"
+                    "dayMasterStrength": [
+                      "STRONG",
+                      "EXTREME_STRONG"
+                    ],
+                    "yongshinAlignment": [
+                      "neutral"
                     ]
                   },
                   "tags": []
@@ -12849,7 +12850,7 @@
       },
       "meta": {
         "schemaVersion": "spring-ts.tiered-matrix.v1",
-        "generatedAt": "2026-05-06T12:42:24.192Z",
+        "generatedAt": "2026-05-07T01:50:23.128Z",
         "selectionSeed": "2001|1|15|0|0|neutral|2026-05-04T15:00:00.000Z",
         "templateContractVersion": "1.0.0",
         "contentSource": "authored",
