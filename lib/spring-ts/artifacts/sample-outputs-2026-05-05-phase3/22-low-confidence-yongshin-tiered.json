@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-05-07T05:29:52.204Z",
+  "generatedAt": "2026-05-07T05:35:56.239Z",
   "targetDate": "2026-05-05T00:00:00+09:00",
   "sampleId": "low-confidence-yongshin-tiered",
   "description": "용신 신뢰도 낮은 case (consensus 충돌 + 다중 후보). yongshinMode=consensus_aware + chengbai_strict 결합으로 conflict 가 격국 페널티 곡선까지 영향을 주는 elasticity 를 노출. tieredMatrix 의 명시적 신호 fixture 로 활용한다.",
@@ -1337,7 +1337,7 @@
     },
     "meta": {
       "version": "1.0.0",
-      "generatedAt": "2026-05-07T05:30:02.381Z",
+      "generatedAt": "2026-05-07T05:36:07.834Z",
       "schoolPreset": {
         "selected": "korean",
         "source": "default",
@@ -3557,6 +3557,15 @@
                     }
                   ],
                   "plainText": "준비가 길어지지 않게 작은 실행 하나를 함께 두세요."
+                },
+                {
+                  "tokens": [
+                    {
+                      "kind": "text",
+                      "value": "살피는 시간과 움직이는 시간을 짧게 번갈아 두면 하루 흐름이 부드럽게 이어져요."
+                    }
+                  ],
+                  "plainText": "살피는 시간과 움직이는 시간을 짧게 번갈아 두면 하루 흐름이 부드럽게 이어져요."
                 }
               ]
             },
@@ -5915,6 +5924,15 @@
                     }
                   ],
                   "plainText": "세심하게 준비하는 장점은 살리되, 결정과 표현이 너무 늦어지지 않도록 작은 공개 지점을 정해 두면 좋아요."
+                },
+                {
+                  "tokens": [
+                    {
+                      "kind": "text",
+                      "value": "안쪽의 깊이를 그대로 두면서 한 번씩 짧게 드러내 두면 한 주의 결과가 한결 또렷해집니다."
+                    }
+                  ],
+                  "plainText": "안쪽의 깊이를 그대로 두면서 한 번씩 짧게 드러내 두면 한 주의 결과가 한결 또렷해집니다."
                 }
               ],
               "livingTips": [
@@ -9929,6 +9947,15 @@
                     }
                   ],
                   "plainText": "책임과 기대가 동시에 커질 수 있으니, 직접 다 하는 방식에서 벗어나 역할을 나누고 기준을 공유하는 흐름을 만들어 보세요."
+                },
+                {
+                  "tokens": [
+                    {
+                      "kind": "text",
+                      "value": "나누어 둔 자리가 한 해의 끝에서 자기 영역을 더 단단하게 받쳐 주는 자산이 돼요."
+                    }
+                  ],
+                  "plainText": "나누어 둔 자리가 한 해의 끝에서 자기 영역을 더 단단하게 받쳐 주는 자산이 돼요."
                 }
               ],
               "livingTips": [
@@ -12714,7 +12741,7 @@
       },
       "meta": {
         "schemaVersion": "spring-ts.tiered-matrix.v1",
-        "generatedAt": "2026-05-07T05:30:02.381Z",
+        "generatedAt": "2026-05-07T05:36:07.834Z",
         "selectionSeed": "1991|2|4|18|0|female|2026-05-04T15:00:00.000Z",
         "templateContractVersion": "1.0.0",
         "contentSource": "authored",

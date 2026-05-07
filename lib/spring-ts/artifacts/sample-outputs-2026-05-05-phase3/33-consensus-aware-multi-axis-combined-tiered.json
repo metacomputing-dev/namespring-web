@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-05-07T05:29:52.204Z",
+  "generatedAt": "2026-05-07T05:35:56.239Z",
   "targetDate": "2026-05-05T00:00:00+09:00",
   "sampleId": "consensus-aware-multi-axis-combined-tiered",
   "description": "yongshinMode=consensus_aware + evaluatorMode=multi_axis 동시 활성. 독립 명리 방법 (억부/조후/격국/통관/병약) 의 consensus scoreboard 와 axisStrength ≥2 축 다축 가중이 함께 sajuPriority 에 반영되는 PR-K-9 + consensus 결합 fixture.",
@@ -1266,7 +1266,7 @@
     },
     "meta": {
       "version": "1.0.0",
-      "generatedAt": "2026-05-07T05:30:05.521Z",
+      "generatedAt": "2026-05-07T05:36:11.085Z",
       "schoolPreset": {
         "selected": "korean",
         "source": "default",
@@ -1747,6 +1747,15 @@
                       }
                     ],
                     "plainText": "건강 관리는 정리와 반복이 잘 맞으므로, 컨디션 기록과 규칙적인 운동처럼 상태를 확인할 수 있는 루틴을 두면 안정감이 커져요."
+                  },
+                  {
+                    "tokens": [
+                      {
+                        "kind": "text",
+                        "value": "작은 변화도 빨리 알아차리는 감각을 살리면 큰 무리 없이 자기 페이스를 길게 유지할 수 있습니다."
+                      }
+                    ],
+                    "plainText": "작은 변화도 빨리 알아차리는 감각을 살리면 큰 무리 없이 자기 페이스를 길게 유지할 수 있습니다."
                   }
                 ],
                 "livingTips": [
@@ -8775,7 +8784,7 @@
               "meaningfulness": "limited",
               "stars": 3,
               "brief": {
-                "headline": "이번 달은 사람과의 흐름이 차분히 정돈되는 결이에요.",
+                "headline": "이번 달은 사람과의 결이 차분히 정돈되는 결이에요.",
                 "hook": "조급함을 줄이면 관계가 따뜻해져요."
               },
               "standard": {
@@ -12870,7 +12879,7 @@
       },
       "meta": {
         "schemaVersion": "spring-ts.tiered-matrix.v1",
-        "generatedAt": "2026-05-07T05:30:05.521Z",
+        "generatedAt": "2026-05-07T05:36:11.085Z",
         "selectionSeed": "1987|10|5|15|30|female|2026-05-04T15:00:00.000Z",
         "templateContractVersion": "1.0.0",
         "contentSource": "authored",

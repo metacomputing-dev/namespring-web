@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-05-07T05:29:52.204Z",
+  "generatedAt": "2026-05-07T05:35:56.239Z",
   "targetDate": "2026-05-05T00:00:00+09:00",
   "sampleId": "kim-seongsu-special-format-candidate-tiered",
   "description": "입력 의도: 외격 후보(화기격 계열) 고전 사례. precisionConfig 로 tieredMatrix 만 결합. 외격 판정은 엔진이 결정한다.",
@@ -1338,7 +1338,7 @@
     },
     "meta": {
       "version": "1.0.0",
-      "generatedAt": "2026-05-07T05:29:58.449Z",
+      "generatedAt": "2026-05-07T05:36:03.603Z",
       "schoolPreset": {
         "selected": "korean",
         "source": "default",
@@ -1386,6 +1386,15 @@
                     }
                   ],
                   "plainText": "그래서 기준을 밖에서 기다리기보다 내가 정리할 규칙과 우선순위를 직접 세우는 편이 좋아요."
+                },
+                {
+                  "tokens": [
+                    {
+                      "kind": "text",
+                      "value": "작은 결정을 한 번 두 번 쌓아 두면 큰 결단이 와도 흔들림 없이 끌어갈 수 있는 자기 색이 분명해집니다."
+                    }
+                  ],
+                  "plainText": "작은 결정을 한 번 두 번 쌓아 두면 큰 결단이 와도 흔들림 없이 끌어갈 수 있는 자기 색이 분명해집니다."
                 }
               ],
               "livingTips": [
@@ -1583,6 +1592,15 @@
                       }
                     ],
                     "plainText": "수입원, 생활비, 예비 자금, 가족과의 돈 문제를 따로 보아야 오래 안정돼요."
+                  },
+                  {
+                    "tokens": [
+                      {
+                        "kind": "text",
+                        "value": "지키는 자리를 분명히 두면 새 기회가 와도 흔들리지 않고 판단할 수 있습니다."
+                      }
+                    ],
+                    "plainText": "지키는 자리를 분명히 두면 새 기회가 와도 흔들리지 않고 판단할 수 있습니다."
                   }
                 ],
                 "livingTips": [
@@ -7923,6 +7941,15 @@
                       }
                     ],
                     "plainText": "할 수 있는 일과 미뤄야 할 일을 구분하면 마음의 압박이 줄고, 가까운 사람과의 대화도 덜 날카로워집니다."
+                  },
+                  {
+                    "tokens": [
+                      {
+                        "kind": "text",
+                        "value": "경계를 짧게라도 말해 두면 한 주의 부담이 자연스럽게 가벼워지는 흐름이 만들어집니다."
+                      }
+                    ],
+                    "plainText": "경계를 짧게라도 말해 두면 한 주의 부담이 자연스럽게 가벼워지는 흐름이 만들어집니다."
                   }
                 ],
                 "livingTips": [
@@ -8954,7 +8981,7 @@
               "meaningfulness": "limited",
               "stars": 3,
               "brief": {
-                "headline": "이번 달은 사람과의 흐름이 차분히 정돈되는 결이에요.",
+                "headline": "이번 달은 사람과의 결이 차분히 정돈되는 결이에요.",
                 "hook": "조급함을 줄이면 관계가 따뜻해져요."
               },
               "standard": {
@@ -9175,6 +9202,15 @@
                       }
                     ],
                     "plainText": "경험을 나누되 가족의 방식도 존중하면 관계가 더 부드럽게 이어져요."
+                  },
+                  {
+                    "tokens": [
+                      {
+                        "kind": "text",
+                        "value": "안부를 짧게 묻는 일이 쌓이면 멀리 있는 가족과의 거리도 자연스럽게 가까워집니다."
+                      }
+                    ],
+                    "plainText": "안부를 짧게 묻는 일이 쌓이면 멀리 있는 가족과의 거리도 자연스럽게 가까워집니다."
                   }
                 ],
                 "livingTips": [
@@ -10480,6 +10516,15 @@
                       }
                     ],
                     "plainText": "수입을 늘리는 계획과 지출을 줄이는 계획을 같이 세우면 결과가 더 안정돼요."
+                  },
+                  {
+                    "tokens": [
+                      {
+                        "kind": "text",
+                        "value": "분기마다 한 번 짧게 점검해 두면 한 해의 끝에서 자산이 단단해진 모습을 확인할 수 있습니다."
+                      }
+                    ],
+                    "plainText": "분기마다 한 번 짧게 점검해 두면 한 해의 끝에서 자산이 단단해진 모습을 확인할 수 있습니다."
                   }
                 ],
                 "livingTips": [
@@ -13084,7 +13129,7 @@
       },
       "meta": {
         "schemaVersion": "spring-ts.tiered-matrix.v1",
-        "generatedAt": "2026-05-07T05:29:58.449Z",
+        "generatedAt": "2026-05-07T05:36:03.603Z",
         "selectionSeed": "1958|7|11|13|0|male|2026-05-04T15:00:00.000Z",
         "templateContractVersion": "1.0.0",
         "contentSource": "authored",

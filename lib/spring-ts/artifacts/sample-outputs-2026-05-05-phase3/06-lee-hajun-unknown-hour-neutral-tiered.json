@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-05-07T05:29:52.204Z",
+  "generatedAt": "2026-05-07T05:35:56.239Z",
   "targetDate": "2026-05-05T00:00:00+09:00",
   "sampleId": "lee-hajun-unknown-hour-neutral-tiered",
   "description": "출생 시각 미상, 중립 성별 입력에서 불확실성 안내와 tiered 매트릭스를 확인하는 케이스.",
@@ -1302,7 +1302,7 @@
     },
     "meta": {
       "version": "1.0.0",
-      "generatedAt": "2026-05-07T05:29:56.357Z",
+      "generatedAt": "2026-05-07T05:36:01.251Z",
       "schoolPreset": {
         "selected": "korean",
         "source": "default",
@@ -1378,6 +1378,15 @@
                     }
                   ],
                   "plainText": "그래서 기준을 밖에서 기다리기보다 내가 정리할 규칙과 우선순위를 직접 세우는 편이 좋아요."
+                },
+                {
+                  "tokens": [
+                    {
+                      "kind": "text",
+                      "value": "작은 결정을 한 번 두 번 쌓아 두면 큰 결단이 와도 흔들림 없이 끌어갈 수 있는 자기 색이 분명해집니다."
+                    }
+                  ],
+                  "plainText": "작은 결정을 한 번 두 번 쌓아 두면 큰 결단이 와도 흔들림 없이 끌어갈 수 있는 자기 색이 분명해집니다."
                 }
               ],
               "livingTips": [
@@ -5608,6 +5617,15 @@
                       }
                     ],
                     "plainText": "빠르게 결정하기 전 물을 마시거나 짧게 걷는 시간을 두면, 같은 말도 훨씬 부드럽게 전할 수 있어요."
+                  },
+                  {
+                    "tokens": [
+                      {
+                        "kind": "text",
+                        "value": "속도를 한 호흡 늦추는 짧은 사이가 오늘 하루의 흐름을 더 단단하게 만들어 줍니다."
+                      }
+                    ],
+                    "plainText": "속도를 한 호흡 늦추는 짧은 사이가 오늘 하루의 흐름을 더 단단하게 만들어 줍니다."
                   }
                 ],
                 "livingTips": [
@@ -8796,7 +8814,7 @@
               "meaningfulness": "meaningful",
               "stars": 4,
               "brief": {
-                "headline": "이번 달은 사람과의 흐름이 차분히 정돈되는 결이에요.",
+                "headline": "이번 달은 사람과의 결이 차분히 정돈되는 결이에요.",
                 "hook": "조급함을 줄이면 관계가 따뜻해져요."
               },
               "standard": {
@@ -12887,7 +12905,7 @@
       },
       "meta": {
         "schemaVersion": "spring-ts.tiered-matrix.v1",
-        "generatedAt": "2026-05-07T05:29:56.357Z",
+        "generatedAt": "2026-05-07T05:36:01.251Z",
         "selectionSeed": "2001|1|15|0|0|neutral|2026-05-04T15:00:00.000Z",
         "templateContractVersion": "1.0.0",
         "contentSource": "authored",

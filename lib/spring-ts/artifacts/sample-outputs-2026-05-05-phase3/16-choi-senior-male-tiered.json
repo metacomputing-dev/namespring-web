@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-05-07T05:29:52.204Z",
+  "generatedAt": "2026-05-07T05:35:56.239Z",
   "targetDate": "2026-05-05T00:00:00+09:00",
   "sampleId": "choi-senior-male-tiered",
   "description": "70+ 시니어 남성 (1948 출생) — life-stage 후반 narrative 가 활성화되는 fallback 경계. 노년 audience 의 prose 적합도와 tieredMatrix 후반기 흐름을 함께 노출하는 케이스.",
@@ -1293,7 +1293,7 @@
     },
     "meta": {
       "version": "1.0.0",
-      "generatedAt": "2026-05-07T05:30:00.638Z",
+      "generatedAt": "2026-05-07T05:36:06.024Z",
       "schoolPreset": {
         "selected": "korean",
         "source": "default",
@@ -1341,6 +1341,15 @@
                     }
                   ],
                   "plainText": "익숙한 방식이 강점이지만, 몸의 속도와 관계의 변화를 받아들이면 더 부드러운 흐름을 만들 수 있어요."
+                },
+                {
+                  "tokens": [
+                    {
+                      "kind": "text",
+                      "value": "경험을 작은 이야기로 나누어 두면 가까운 사람에게도 자연스러운 따뜻함이 전해집니다."
+                    }
+                  ],
+                  "plainText": "경험을 작은 이야기로 나누어 두면 가까운 사람에게도 자연스러운 따뜻함이 전해집니다."
                 }
               ],
               "livingTips": [
@@ -1747,6 +1756,15 @@
                       }
                     ],
                     "plainText": "건강 관리는 크게 몰아서 바꾸기보다 가벼운 운동, 규칙적인 수면, 소화에 부담 없는 식사를 꾸준히 이어가는 방식이 잘 맞아요."
+                  },
+                  {
+                    "tokens": [
+                      {
+                        "kind": "text",
+                        "value": "계절이 바뀔 때마다 몸의 신호를 짧게 점검해 두면 큰 변화를 미리 부드럽게 받아들일 수 있습니다."
+                      }
+                    ],
+                    "plainText": "계절이 바뀔 때마다 몸의 신호를 짧게 점검해 두면 큰 변화를 미리 부드럽게 받아들일 수 있습니다."
                   }
                 ],
                 "livingTips": [
@@ -12875,7 +12893,7 @@
       },
       "meta": {
         "schemaVersion": "spring-ts.tiered-matrix.v1",
-        "generatedAt": "2026-05-07T05:30:00.638Z",
+        "generatedAt": "2026-05-07T05:36:06.024Z",
         "selectionSeed": "1948|3|15|7|30|male|2026-05-04T15:00:00.000Z",
         "templateContractVersion": "1.0.0",
         "contentSource": "authored",

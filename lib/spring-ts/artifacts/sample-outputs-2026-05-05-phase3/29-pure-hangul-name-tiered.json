@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-05-07T05:29:52.204Z",
+  "generatedAt": "2026-05-07T05:35:56.239Z",
   "targetDate": "2026-05-05T00:00:00+09:00",
   "sampleId": "pure-hangul-name-tiered",
   "description": "한글 전용 이름 (hanja 미입력) 입력 — pureHangulNameMode=on 으로 발음오행 기반 채점. 한글 작명 트렌드 (자음/모음 polarity, 모음 음양) 와 surfacePhoneticEvidence 가 함께 노출되는 케이스. 한자 강제 미적용 안전 fallback 점검.",
@@ -1380,7 +1380,7 @@
     },
     "meta": {
       "version": "1.0.0",
-      "generatedAt": "2026-05-07T05:30:04.546Z",
+      "generatedAt": "2026-05-07T05:36:10.121Z",
       "schoolPreset": {
         "selected": "korean",
         "source": "default",
@@ -1604,6 +1604,15 @@
                       }
                     ],
                     "plainText": "수입이 늘어나는 시기에도 고정 지출, 비상금, 큰 결정을 확인하는 기준이 있으면 흔들림이 줄어요."
+                  },
+                  {
+                    "tokens": [
+                      {
+                        "kind": "text",
+                        "value": "버는 자리와 지키는 자리를 함께 두는 흐름이 긴 시간 동안 자기 자산을 단단하게 만들어 줍니다."
+                      }
+                    ],
+                    "plainText": "버는 자리와 지키는 자리를 함께 두는 흐름이 긴 시간 동안 자기 자산을 단단하게 만들어 줍니다."
                   }
                 ],
                 "livingTips": [
@@ -3549,6 +3558,15 @@
                       }
                     ],
                     "plainText": "변화가 잦은 시기일수록 생활의 기준점이 있어야 선택이 흔들리지 않아요."
+                  },
+                  {
+                    "tokens": [
+                      {
+                        "kind": "text",
+                        "value": "돌아올 자리를 분명히 두면 새 곳을 향한 움직임도 더 가벼운 발걸음으로 이어져요."
+                      }
+                    ],
+                    "plainText": "돌아올 자리를 분명히 두면 새 곳을 향한 움직임도 더 가벼운 발걸음으로 이어져요."
                   }
                 ],
                 "livingTips": [
@@ -5802,6 +5820,15 @@
                       }
                     ],
                     "plainText": "다만 즉흥적으로 너무 멀리 가기보다, 짧은 외출이나 가까운 장소에서 기분을 바꾸는 정도가 적당해요."
+                  },
+                  {
+                    "tokens": [
+                      {
+                        "kind": "text",
+                        "value": "가벼운 움직임 한 번이 하루의 무거운 흐름을 부드럽게 풀어 주는 작은 변화가 돼요."
+                      }
+                    ],
+                    "plainText": "가벼운 움직임 한 번이 하루의 무거운 흐름을 부드럽게 풀어 주는 작은 변화가 돼요."
                   }
                 ],
                 "livingTips": [
@@ -6221,6 +6248,15 @@
                       }
                     ],
                     "plainText": "새 기회가 들어오더라도 필요한 시간과 비용을 함께 계산해야 실제 이익을 알 수 있습니다."
+                  },
+                  {
+                    "tokens": [
+                      {
+                        "kind": "text",
+                        "value": "수치를 짧게라도 적어 두면 다음 주의 결정이 한결 가벼워집니다."
+                      }
+                    ],
+                    "plainText": "수치를 짧게라도 적어 두면 다음 주의 결정이 한결 가벼워집니다."
                   }
                 ],
                 "livingTips": [
@@ -8815,7 +8851,7 @@
               "meaningfulness": "meaningful",
               "stars": 1,
               "brief": {
-                "headline": "이번 달은 사람과의 흐름이 차분히 정돈되는 결이에요.",
+                "headline": "이번 달은 사람과의 결이 차분히 정돈되는 결이에요.",
                 "hook": "조급함을 줄이면 관계가 따뜻해져요."
               },
               "standard": {
@@ -11944,6 +11980,15 @@
                       }
                     ],
                     "plainText": "다만 움직임이 많아지면 몸과 마음이 늦게 지칠 수 있으니, 큰 이동 계획에는 쉬는 달이나 정리 기간을 함께 넣어야 해요."
+                  },
+                  {
+                    "tokens": [
+                      {
+                        "kind": "text",
+                        "value": "움직임과 머무름의 비율을 의식적으로 두면 한 해의 끝에 자기 자리가 자연스럽게 더 넓어집니다."
+                      }
+                    ],
+                    "plainText": "움직임과 머무름의 비율을 의식적으로 두면 한 해의 끝에 자기 자리가 자연스럽게 더 넓어집니다."
                   }
                 ],
                 "livingTips": [
@@ -12877,7 +12922,7 @@
       },
       "meta": {
         "schemaVersion": "spring-ts.tiered-matrix.v1",
-        "generatedAt": "2026-05-07T05:30:04.546Z",
+        "generatedAt": "2026-05-07T05:36:10.121Z",
         "selectionSeed": "1996|4|12|10|30|female|2026-05-04T15:00:00.000Z",
         "templateContractVersion": "1.0.0",
         "contentSource": "authored",

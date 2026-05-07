@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-05-07T05:29:52.204Z",
+  "generatedAt": "2026-05-07T05:35:56.239Z",
   "targetDate": "2026-05-05T00:00:00+09:00",
   "sampleId": "gyeokguk-conflict-multi-confidence-tiered",
   "description": "격국 충돌 + 다중 confidence 시나리오 — gyeokgukSelectionRule=jungki_transparent + gyeokgukMode=chengbai_strict + yongshinMode=consensus_aware 결합. 월지 중기 투간 후보와 chengbai 페널티 smooth tanh 곡선이 동시에 ranking 에 작용하는 elasticity 노출 케이스.",
@@ -1309,7 +1309,7 @@
     },
     "meta": {
       "version": "1.0.0",
-      "generatedAt": "2026-05-07T05:30:05.810Z",
+      "generatedAt": "2026-05-07T05:36:11.401Z",
       "schoolPreset": {
         "selected": "korean",
         "source": "default",
@@ -1357,6 +1357,15 @@
                     }
                   ],
                   "plainText": "꾸준히 만들고 나누는 힘이 장점이니, 결과물을 작게 완성하는 리듬을 지키면 안정감이 커져요."
+                },
+                {
+                  "tokens": [
+                    {
+                      "kind": "text",
+                      "value": "작은 완성이 한 번 두 번 쌓이면 다음 단계의 표현 자리가 자연스럽게 마련돼요."
+                    }
+                  ],
+                  "plainText": "작은 완성이 한 번 두 번 쌓이면 다음 단계의 표현 자리가 자연스럽게 마련돼요."
                 }
               ],
               "livingTips": [
@@ -1776,6 +1785,15 @@
                       }
                     ],
                     "plainText": "건강 관리는 에너지를 잘 쓰는 것만큼 식히고 회복하는 시간이 중요하니, 강한 활동 뒤에는 수분, 수면, 조용한 휴식을 함께 배치하는 것이 좋아요."
+                  },
+                  {
+                    "tokens": [
+                      {
+                        "kind": "text",
+                        "value": "무더운 시기에는 활동과 회복의 비율을 의식적으로 맞춰 두면 한 해의 컨디션이 안정적으로 유지돼요."
+                      }
+                    ],
+                    "plainText": "무더운 시기에는 활동과 회복의 비율을 의식적으로 맞춰 두면 한 해의 컨디션이 안정적으로 유지돼요."
                   }
                 ],
                 "livingTips": [
@@ -6167,6 +6185,15 @@
                       }
                     ],
                     "plainText": "새 기회가 들어오더라도 필요한 시간과 비용을 함께 계산해야 실제 이익을 알 수 있습니다."
+                  },
+                  {
+                    "tokens": [
+                      {
+                        "kind": "text",
+                        "value": "수치를 짧게라도 적어 두면 다음 주의 결정이 한결 가벼워집니다."
+                      }
+                    ],
+                    "plainText": "수치를 짧게라도 적어 두면 다음 주의 결정이 한결 가벼워집니다."
                   }
                 ],
                 "livingTips": [
@@ -8980,6 +9007,15 @@
                       }
                     ],
                     "plainText": "도와주고 싶은 마음은 살리되, 상대가 원하는 도움인지 먼저 확인하면 관계가 편안해집니다."
+                  },
+                  {
+                    "tokens": [
+                      {
+                        "kind": "text",
+                        "value": "오래 쌓인 마음은 한 번에 풀기 어려우니 작은 대화로 천천히 정리해 가는 흐름이 좋아요."
+                      }
+                    ],
+                    "plainText": "오래 쌓인 마음은 한 번에 풀기 어려우니 작은 대화로 천천히 정리해 가는 흐름이 좋아요."
                   }
                 ],
                 "livingTips": [
@@ -10227,6 +10263,15 @@
                       }
                     ],
                     "plainText": "수입을 늘리는 계획과 지출을 줄이는 계획을 같이 세우면 결과가 더 안정돼요."
+                  },
+                  {
+                    "tokens": [
+                      {
+                        "kind": "text",
+                        "value": "분기마다 한 번 짧게 점검해 두면 한 해의 끝에서 자산이 단단해진 모습을 확인할 수 있습니다."
+                      }
+                    ],
+                    "plainText": "분기마다 한 번 짧게 점검해 두면 한 해의 끝에서 자산이 단단해진 모습을 확인할 수 있습니다."
                   }
                 ],
                 "livingTips": [
@@ -12864,7 +12909,7 @@
       },
       "meta": {
         "schemaVersion": "spring-ts.tiered-matrix.v1",
-        "generatedAt": "2026-05-07T05:30:05.810Z",
+        "generatedAt": "2026-05-07T05:36:11.401Z",
         "selectionSeed": "1976|6|22|13|15|male|2026-05-04T15:00:00.000Z",
         "templateContractVersion": "1.0.0",
         "contentSource": "authored",
