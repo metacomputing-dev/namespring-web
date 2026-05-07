@@ -380,7 +380,16 @@
         },
         {
           "kind": "text",
-          "value": "의 자리가 함께 보이면 도움 받는 흐름이 자기 자산이 되는 사주이니, 작은 도움도 미루지 않는 호흡이 잘 어울려요."
+          "value": "의 자리가 함께 보이면 도움 받는 흐름이 자기 자산이 되는 사주이니, 작은 도움도 미루지 않는 호흡이 잘 어울려요.\n\n"
+        },
+        {
+          "kind": "tag",
+          "tagId": "jeongjae_yongshin",
+          "label": "정재용신"
+        },
+        {
+          "kind": "text",
+          "value": "의 기운이 곁에 보이는 사주는 하루 단위의 작은 자산 관리가 평생의 토대로 쌓이는 자리예요. 신약한 일간이 큰 거래보다 익숙한 기준을 따르는 시간을 들여 두면, 오늘의 작은 절제 한 번이 한 달·한 해의 든든한 바탕이 되는 호흡이 자연스레 잡혀요."
         }
       ],
       "tags": [
@@ -389,7 +398,8 @@
         "jeongjae",
         "pyeonjae",
         "jaebakgung",
-        "cheonleulgwiin"
+        "cheonleulgwiin",
+        "jeongjae_yongshin"
       ],
       "aiGenerated": true,
       "sourceTier": {

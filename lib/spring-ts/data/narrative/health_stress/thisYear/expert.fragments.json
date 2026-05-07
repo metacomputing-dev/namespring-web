@@ -374,7 +374,16 @@
         },
         {
           "kind": "text",
-          "value": "의 결이 함께 보이는 시기엔 자기 한계를 의식적으로 두는 호흡이 가장 든든한 회복 자리예요."
+          "value": "의 결이 함께 보이는 시기엔 자기 한계를 의식적으로 두는 호흡이 가장 든든한 회복 자리예요.\n\n"
+        },
+        {
+          "kind": "tag",
+          "tagId": "cheonleulgwiin",
+          "label": "천을귀인"
+        },
+        {
+          "kind": "text",
+          "value": "의 기운이 곁에 보이는 사주는 한 해의 회복이 한 사람의 따뜻한 도움 한 번에서 크게 풀리는 자리가 자주 등장해요. 신약한 일간이 무리하지 않는 한 해를 보내면, 다음 해의 토대가 단단해지는 사주이니 작은 휴식 한 번도 늦지 않은 자기 자산이 돼요."
         }
       ],
       "tags": [
@@ -382,7 +391,8 @@
         "pyeongwan",
         "gongmang",
         "baekho",
-        "goegang"
+        "goegang",
+        "cheonleulgwiin"
       ],
       "aiGenerated": true,
       "sourceTier": {
