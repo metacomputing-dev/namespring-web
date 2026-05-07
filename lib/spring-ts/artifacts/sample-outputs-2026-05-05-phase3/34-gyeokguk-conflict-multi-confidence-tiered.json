@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-05-07T10:04:48.684Z",
+  "generatedAt": "2026-05-07T10:15:51.133Z",
   "targetDate": "2026-05-05T00:00:00+09:00",
   "sampleId": "gyeokguk-conflict-multi-confidence-tiered",
   "description": "격국 충돌 + 다중 confidence 시나리오 — gyeokgukSelectionRule=jungki_transparent + gyeokgukMode=chengbai_strict + yongshinMode=consensus_aware 결합. 월지 중기 투간 후보와 chengbai 페널티 smooth tanh 곡선이 동시에 ranking 에 작용하는 elasticity 노출 케이스.",
@@ -1309,7 +1309,7 @@
     },
     "meta": {
       "version": "1.0.0",
-      "generatedAt": "2026-05-07T10:05:03.925Z",
+      "generatedAt": "2026-05-07T10:16:06.414Z",
       "schoolPreset": {
         "selected": "korean",
         "source": "default",
@@ -4082,6 +4082,15 @@
                     "tokens": [
                       {
                         "kind": "text",
+                        "value": "흐름이 고른 하루라고 해서 무리한 강행군까지 무탈한 것은 아니에요. 평소보다 두 배 빠른 일정을 한꺼번에 끼워 넣으면 호수의 흐름도 흔들리니, 새로 더하는 일은 한 가지로 두면 좋아요."
+                      }
+                    ],
+                    "plainText": "흐름이 고른 하루라고 해서 무리한 강행군까지 무탈한 것은 아니에요. 평소보다 두 배 빠른 일정을 한꺼번에 끼워 넣으면 호수의 흐름도 흔들리니, 새로 더하는 일은 한 가지로 두면 좋아요."
+                  },
+                  {
+                    "tokens": [
+                      {
+                        "kind": "text",
                         "value": "저녁엔 잠자리를 평소처럼 챙기면, 내일 흐름까지 자연스럽게 부드러워져요."
                       }
                     ],
@@ -4299,7 +4308,8 @@
               "meaningfulness": "meaningful",
               "stars": 1,
               "brief": {
-                "headline": "오늘은 자기계발 한 챕터를 챙기기 좋은 흐름이에요."
+                "headline": "오늘은 책상 앞 한 시간을 또렷이 지켜요.",
+                "hook": "오늘 분량을 정해서 끝내요."
               },
               "standard": {
                 "paragraphs": [
@@ -4456,8 +4466,11 @@
               },
               "selectedFragments": {
                 "brief": {
-                  "fragmentId": "academic.today.brief.30plus.005",
+                  "fragmentId": "academic.today.brief.male.age30plus.013",
                   "gating": {
+                    "gender": [
+                      "male"
+                    ],
                     "ageBand": [
                       "30-39",
                       "40-54"
@@ -8091,6 +8104,15 @@
                   "tokens": [
                     {
                       "kind": "text",
+                      "value": "잔잔한 자리에 지루함이 올라올 때 자책으로 흘러가지 않으면 좋아요. 잔잔함은 큰 결정의 자리가 아니라 회복의 자리라는 점만 떠올리면, 한 달의 방향이 다시 자기 호흡을 찾아가요."
+                    }
+                  ],
+                  "plainText": "잔잔한 자리에 지루함이 올라올 때 자책으로 흘러가지 않으면 좋아요. 잔잔함은 큰 결정의 자리가 아니라 회복의 자리라는 점만 떠올리면, 한 달의 방향이 다시 자기 호흡을 찾아가요."
+                },
+                {
+                  "tokens": [
+                    {
+                      "kind": "text",
                       "value": "변화가 적다고 느낄 때, 작은 호기심 한 가지를 살짝 더해 봐요."
                     }
                   ],
@@ -9192,6 +9214,15 @@
                     "tokens": [
                       {
                         "kind": "text",
+                        "value": "익숙한 페이스가 만든 한 달의 정돈은 분기 단위에서 더 또렷이 보여요. 세 달치 메모를 한 자리에 모아 두면 자기 흐름의 강·약 자리가 자연스럽게 드러나고, 다음 분기의 한 가지 결정이 가벼워져요."
+                      }
+                    ],
+                    "plainText": "익숙한 페이스가 만든 한 달의 정돈은 분기 단위에서 더 또렷이 보여요. 세 달치 메모를 한 자리에 모아 두면 자기 흐름의 강·약 자리가 자연스럽게 드러나고, 다음 분기의 한 가지 결정이 가벼워져요."
+                  },
+                  {
+                    "tokens": [
+                      {
+                        "kind": "text",
                         "value": "이번 달의 정돈이 한 분기의 결정 한 가지를 가볍게 만들어 줘요."
                       }
                     ],
@@ -10106,6 +10137,15 @@
                     }
                   ],
                   "plainText": "일상의 작은 흐름을 정리해 두면 다음 해가 한결 가벼워져요."
+                },
+                {
+                  "tokens": [
+                    {
+                      "kind": "text",
+                      "value": "작은 실천 흐름으로는 매달 말일에 한 줄로 그달의 흐름을 적어 두면 좋아요. 열두 줄이 모이면 올해가 흘려보낸 시간이 아닌, 자기 페이스를 다듬은 한 해의 기록으로 남아요."
+                    }
+                  ],
+                  "plainText": "작은 실천 흐름으로는 매달 말일에 한 줄로 그달의 흐름을 적어 두면 좋아요. 열두 줄이 모이면 올해가 흘려보낸 시간이 아닌, 자기 페이스를 다듬은 한 해의 기록으로 남아요."
                 },
                 {
                   "tokens": [
@@ -11413,7 +11453,8 @@
               "meaningfulness": "meaningful",
               "stars": 2,
               "brief": {
-                "headline": "자격 갱신·계약 점검에 든든한 해예요."
+                "headline": "올해는 모은 자료를 천천히 엮어 두기 좋은 한 해예요.",
+                "hook": "자료 한 묶음을 깔끔히 정리해요."
               },
               "standard": {
                 "paragraphs": [
@@ -11546,12 +11587,15 @@
               },
               "selectedFragments": {
                 "brief": {
-                  "fragmentId": "study_document.thisYear.brief.adult.006",
+                  "fragmentId": "study_document.thisYear.brief.male.midlife_senior.010",
                   "gating": {
+                    "gender": [
+                      "male"
+                    ],
                     "ageBand": [
-                      "30-39",
                       "40-54",
-                      "55-69"
+                      "55-69",
+                      "70+"
                     ]
                   },
                   "tags": []
@@ -11969,7 +12013,8 @@
               "meaningfulness": "meaningful",
               "stars": 2,
               "brief": {
-                "headline": "올해는 출장·해외 자리가 자주 만들어지는 한 해예요."
+                "headline": "올해는 익숙한 동선에 작은 변화가 활력을 보태요.",
+                "hook": "출퇴근 동선을 한 번 바꿔요."
               },
               "standard": {
                 "paragraphs": [
@@ -12097,9 +12142,13 @@
               },
               "selectedFragments": {
                 "brief": {
-                  "fragmentId": "movement.thisYear.brief.40_54.006",
+                  "fragmentId": "movement.thisYear.brief.male.midlife.011",
                   "gating": {
+                    "gender": [
+                      "male"
+                    ],
                     "ageBand": [
+                      "30-39",
                       "40-54"
                     ]
                   },
@@ -12930,12 +12979,12 @@
       },
       "meta": {
         "schemaVersion": "spring-ts.tiered-matrix.v1",
-        "generatedAt": "2026-05-07T10:05:03.925Z",
+        "generatedAt": "2026-05-07T10:16:06.414Z",
         "selectionSeed": "1976|6|22|13|15|male|2026-05-04T15:00:00.000Z",
         "templateContractVersion": "1.0.0",
         "contentSource": "authored",
-        "fragmentCount": 4125,
-        "aiGeneratedFragmentCount": 4125
+        "fragmentCount": 4133,
+        "aiGeneratedFragmentCount": 4133
       }
     }
   }

@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-05-07T10:04:48.684Z",
+  "generatedAt": "2026-05-07T10:15:51.133Z",
   "targetDate": "2026-05-05T00:00:00+09:00",
   "sampleId": "park-minji-late-night-female-tiered",
   "description": "성인 여성 늦은 밤 출생 입력에 야자시, 진태양시, 경도 보정과 tiered 매트릭스를 적용한 케이스.",
@@ -1313,7 +1313,7 @@
     },
     "meta": {
       "version": "1.0.0",
-      "generatedAt": "2026-05-07T10:04:52.993Z",
+      "generatedAt": "2026-05-07T10:15:56.117Z",
       "schoolPreset": {
         "selected": "korean",
         "source": "default",
@@ -2951,6 +2951,15 @@
                       }
                     ],
                     "plainText": "봄에서 여름으로 넘어가는 잎처럼 색이 진해지고 그늘이 넓어지는 시기예요. 가까운 사람과 함께 만들 수 있는 작은 작업이 큰 자산이 돼요."
+                  },
+                  {
+                    "tokens": [
+                      {
+                        "kind": "text",
+                        "value": "일과 가족의 자리가 함께 자라는 시기라 한쪽으로 무게가 쏠리지 않게 자기 호흡을 두면 좋아요. 표현력이 단단해지는 만큼 옆 사람과 나누는 자리도 자연스럽게 넓어지고, 그 흐름이 다음 세대에 닿는 리듬의 토대가 돼요."
+                      }
+                    ],
+                    "plainText": "일과 가족의 자리가 함께 자라는 시기라 한쪽으로 무게가 쏠리지 않게 자기 호흡을 두면 좋아요. 표현력이 단단해지는 만큼 옆 사람과 나누는 자리도 자연스럽게 넓어지고, 그 흐름이 다음 세대에 닿는 리듬의 토대가 돼요."
                   },
                   {
                     "tokens": [
@@ -6965,7 +6974,8 @@
               "meaningfulness": "meaningful",
               "stars": 4,
               "brief": {
-                "headline": "이번 주 가족 관계는 큰 말보다 지킬 수 있는 작은 약속이 더 힘이 돼요."
+                "headline": "이번 주는 가까운 사람과 짧게 안부를 나누면 좋아요.",
+                "hook": "가족 단톡에 한마디 남겨요."
               },
               "standard": {
                 "paragraphs": [
@@ -7081,11 +7091,13 @@
               },
               "selectedFragments": {
                 "brief": {
-                  "fragmentId": "family.thisWeek.brief.promise.504",
+                  "fragmentId": "family.thisWeek.brief.female.thirties.012",
                   "gating": {
-                    "currentSeason": [
-                      "spring",
-                      "summer"
+                    "gender": [
+                      "female"
+                    ],
+                    "ageBand": [
+                      "30-39"
                     ]
                   },
                   "tags": []
@@ -12902,12 +12914,12 @@
       },
       "meta": {
         "schemaVersion": "spring-ts.tiered-matrix.v1",
-        "generatedAt": "2026-05-07T10:04:52.992Z",
+        "generatedAt": "2026-05-07T10:15:56.117Z",
         "selectionSeed": "1992|11|3|23|20|female|2026-05-04T15:00:00.000Z",
         "templateContractVersion": "1.0.0",
         "contentSource": "authored",
-        "fragmentCount": 4125,
-        "aiGeneratedFragmentCount": 4125
+        "fragmentCount": 4133,
+        "aiGeneratedFragmentCount": 4133
       }
     }
   }

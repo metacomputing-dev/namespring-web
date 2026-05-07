@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-05-07T10:04:48.684Z",
+  "generatedAt": "2026-05-07T10:15:51.133Z",
   "targetDate": "2026-05-05T00:00:00+09:00",
   "sampleId": "choi-consensus-aware-yongshin-tiered",
   "description": "yongshinMode=consensus_aware 활성 시나리오. 독립 명리 방법이 엇갈리는 사주에서 consensus scoreboard 를 블렌딩한 posture 및 per-axis 근거를 tieredMatrix 와 함께 노출하는 케이스.",
@@ -1319,7 +1319,7 @@
     },
     "meta": {
       "version": "1.0.0",
-      "generatedAt": "2026-05-07T10:04:57.578Z",
+      "generatedAt": "2026-05-07T10:16:00.462Z",
       "schoolPreset": {
         "selected": "korean",
         "source": "default",
@@ -4215,7 +4215,8 @@
               "meaningfulness": "limited",
               "stars": 3,
               "brief": {
-                "headline": "오늘은 자기계발 한 챕터를 챙기기 좋은 흐름이에요."
+                "headline": "오늘은 책상 앞 한 시간을 또렷이 지켜요.",
+                "hook": "오늘 분량을 정해서 끝내요."
               },
               "standard": {
                 "paragraphs": [
@@ -4392,8 +4393,11 @@
               },
               "selectedFragments": {
                 "brief": {
-                  "fragmentId": "academic.today.brief.30plus.005",
+                  "fragmentId": "academic.today.brief.male.age30plus.013",
                   "gating": {
+                    "gender": [
+                      "male"
+                    ],
                     "ageBand": [
                       "30-39",
                       "40-54"
@@ -11358,7 +11362,8 @@
               "meaningfulness": "meaningful",
               "stars": 1,
               "brief": {
-                "headline": "올해는 새 공부나 문서 프로젝트를 열어 보기 좋아요."
+                "headline": "올해는 모은 자료를 천천히 엮어 두기 좋은 한 해예요.",
+                "hook": "자료 한 묶음을 깔끔히 정리해요."
               },
               "standard": {
                 "paragraphs": [
@@ -11473,11 +11478,15 @@
               },
               "selectedFragments": {
                 "brief": {
-                  "fragmentId": "study_document.thisYear.brief.currentseason.spring_summer.301",
+                  "fragmentId": "study_document.thisYear.brief.male.midlife_senior.010",
                   "gating": {
-                    "currentSeason": [
-                      "spring",
-                      "summer"
+                    "gender": [
+                      "male"
+                    ],
+                    "ageBand": [
+                      "40-54",
+                      "55-69",
+                      "70+"
                     ]
                   },
                   "tags": []
@@ -11901,7 +11910,8 @@
               "meaningfulness": "meaningful",
               "stars": 1,
               "brief": {
-                "headline": "올해는 익숙한 동선에서 한 발짝씩 넓혀 가기 좋아요."
+                "headline": "올해는 익숙한 동선에 작은 변화가 활력을 보태요.",
+                "hook": "출퇴근 동선을 한 번 바꿔요."
               },
               "standard": {
                 "paragraphs": [
@@ -12030,13 +12040,14 @@
               },
               "selectedFragments": {
                 "brief": {
-                  "fragmentId": "movement.thisYear.brief.weak_neutral.010",
+                  "fragmentId": "movement.thisYear.brief.male.midlife.011",
                   "gating": {
-                    "dayMasterStrength": [
-                      "WEAK"
+                    "gender": [
+                      "male"
                     ],
-                    "yongshinAlignment": [
-                      "neutral"
+                    "ageBand": [
+                      "30-39",
+                      "40-54"
                     ]
                   },
                   "tags": []
@@ -12840,12 +12851,12 @@
       },
       "meta": {
         "schemaVersion": "spring-ts.tiered-matrix.v1",
-        "generatedAt": "2026-05-07T10:04:57.578Z",
+        "generatedAt": "2026-05-07T10:16:00.462Z",
         "selectionSeed": "1986|4|19|5|45|male|2026-05-04T15:00:00.000Z",
         "templateContractVersion": "1.0.0",
         "contentSource": "authored",
-        "fragmentCount": 4125,
-        "aiGeneratedFragmentCount": 4125
+        "fragmentCount": 4133,
+        "aiGeneratedFragmentCount": 4133
       }
     }
   }
