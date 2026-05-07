@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-05-06T12:42:20.862Z",
+  "generatedAt": "2026-05-07T01:50:18.479Z",
   "targetDate": "2026-05-05T00:00:00+09:00",
   "sampleId": "choi-yaza-boundary-male-tiered",
   "description": "야자시 경계 23:30 출생. yaza=on, yazaMode=23:00 으로 다음 날로 이월하는 경계 케이스.",
@@ -1299,7 +1299,7 @@
     },
     "meta": {
       "version": "1.0.0",
-      "generatedAt": "2026-05-06T12:42:26.513Z",
+      "generatedAt": "2026-05-07T01:50:25.854Z",
       "schoolPreset": {
         "selected": "korean",
         "source": "default",
@@ -3909,10 +3909,10 @@
                     "tokens": [
                       {
                         "kind": "text",
-                        "value": "잘 풀리는 리듬은 5년 단위 그림을 다시 살피는 흐름이에요. 짧은 결과보다 긴 자리을 그리는 결정이 흐름을 키워요."
+                        "value": "잘 풀리는 리듬은 5년 단위 그림을 다시 살피는 흐름이에요. 짧은 결과보다 긴 안목을 그리는 결정이 흐름을 키워요."
                       }
                     ],
-                    "plainText": "잘 풀리는 리듬은 5년 단위 그림을 다시 살피는 흐름이에요. 짧은 결과보다 긴 자리을 그리는 결정이 흐름을 키워요."
+                    "plainText": "잘 풀리는 리듬은 5년 단위 그림을 다시 살피는 흐름이에요. 짧은 결과보다 긴 안목을 그리는 결정이 흐름을 키워요."
                   },
                   {
                     "tokens": [
@@ -6152,10 +6152,10 @@
                     "tokens": [
                       {
                         "kind": "text",
-                        "value": "잘 풀리는 리듬은 5년 단위 그림을 다시 살피는 흐름이에요. 짧은 결과보다 긴 자리을 그리는 결정이 흐름을 키워요."
+                        "value": "잘 풀리는 리듬은 5년 단위 그림을 다시 살피는 흐름이에요. 짧은 결과보다 긴 안목을 그리는 결정이 흐름을 키워요."
                       }
                     ],
-                    "plainText": "잘 풀리는 리듬은 5년 단위 그림을 다시 살피는 흐름이에요. 짧은 결과보다 긴 자리을 그리는 결정이 흐름을 키워요."
+                    "plainText": "잘 풀리는 리듬은 5년 단위 그림을 다시 살피는 흐름이에요. 짧은 결과보다 긴 안목을 그리는 결정이 흐름을 키워요."
                   },
                   {
                     "tokens": [
@@ -8197,10 +8197,10 @@
                     "tokens": [
                       {
                         "kind": "text",
-                        "value": "잘 풀리는 리듬은 5년 단위 그림을 다시 살피는 흐름이에요. 짧은 결과보다 긴 자리을 그리는 결정이 흐름을 키워요."
+                        "value": "잘 풀리는 리듬은 5년 단위 그림을 다시 살피는 흐름이에요. 짧은 결과보다 긴 안목을 그리는 결정이 흐름을 키워요."
                       }
                     ],
-                    "plainText": "잘 풀리는 리듬은 5년 단위 그림을 다시 살피는 흐름이에요. 짧은 결과보다 긴 자리을 그리는 결정이 흐름을 키워요."
+                    "plainText": "잘 풀리는 리듬은 5년 단위 그림을 다시 살피는 흐름이에요. 짧은 결과보다 긴 안목을 그리는 결정이 흐름을 키워요."
                   },
                   {
                     "tokens": [
@@ -10177,7 +10177,8 @@
               "meaningfulness": "limited",
               "stars": 3,
               "brief": {
-                "headline": "올해는 새 수입이나 일의 기회를 찾아보기 좋은 결이에요."
+                "headline": "올해는 큰 무리수만 피하면 든든한 한 해예요.",
+                "hook": "큰 무리수만 피하면 든든히 모을 수 있어요."
               },
               "standard": {
                 "paragraphs": [
@@ -10203,10 +10204,10 @@
                     "tokens": [
                       {
                         "kind": "text",
-                        "value": "잘 풀리는 리듬은 5년 단위 그림을 다시 살피는 흐름이에요. 짧은 결과보다 긴 자리을 그리는 결정이 흐름을 키워요."
+                        "value": "잘 풀리는 리듬은 5년 단위 그림을 다시 살피는 흐름이에요. 짧은 결과보다 긴 안목을 그리는 결정이 흐름을 키워요."
                       }
                     ],
-                    "plainText": "잘 풀리는 리듬은 5년 단위 그림을 다시 살피는 흐름이에요. 짧은 결과보다 긴 자리을 그리는 결정이 흐름을 키워요."
+                    "plainText": "잘 풀리는 리듬은 5년 단위 그림을 다시 살피는 흐름이에요. 짧은 결과보다 긴 안목을 그리는 결정이 흐름을 키워요."
                   },
                   {
                     "tokens": [
@@ -10314,11 +10315,14 @@
               },
               "selectedFragments": {
                 "brief": {
-                  "fragmentId": "wealth.thisYear.brief.currentseason.spring_summer.301",
+                  "fragmentId": "wealth.thisYear.brief.strong.neutral.006",
                   "gating": {
-                    "currentSeason": [
-                      "spring",
-                      "summer"
+                    "dayMasterStrength": [
+                      "STRONG",
+                      "EXTREME_STRONG"
+                    ],
+                    "yongshinAlignment": [
+                      "neutral"
                     ]
                   },
                   "tags": []
@@ -12762,7 +12766,7 @@
       },
       "meta": {
         "schemaVersion": "spring-ts.tiered-matrix.v1",
-        "generatedAt": "2026-05-06T12:42:26.513Z",
+        "generatedAt": "2026-05-07T01:50:25.854Z",
         "selectionSeed": "1995|6|10|23|30|male|2026-05-04T15:00:00.000Z",
         "templateContractVersion": "1.0.0",
         "contentSource": "authored",

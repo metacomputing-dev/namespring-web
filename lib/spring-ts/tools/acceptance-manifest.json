@@ -12,7 +12,8 @@
     "ci:narrative-tag-label-alignment",
     "ci:narrative-orphan-tags",
     "ci:acceptance-completeness",
-    "ci:samples-stale"
+    "ci:samples-stale",
+    "ci:post-processor-grammar"
   ],
   "exempt": [
     {

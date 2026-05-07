@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-05-06T12:42:20.862Z",
+  "generatedAt": "2026-05-07T01:50:18.479Z",
   "targetDate": "2026-05-05T00:00:00+09:00",
   "sampleId": "oh-extreme-weak-continuous-tiered",
   "description": "입력 의도: 지지가 일간을 극도로 소모하는 신약 지향 입력. strengthMode=continuous 로 4-tier 강도 곡선과 결합한 tiered 샘플. 최종 강도 분류는 엔진이 결정한다.",
@@ -1293,7 +1293,7 @@
     },
     "meta": {
       "version": "1.0.0",
-      "generatedAt": "2026-05-06T12:42:27.405Z",
+      "generatedAt": "2026-05-07T01:50:26.778Z",
       "schoolPreset": {
         "selected": "korean",
         "source": "default",
@@ -6601,10 +6601,10 @@
                     "tokens": [
                       {
                         "kind": "text",
-                        "value": "이번 주의 학업운은 일과 사이의 짧은 학습 자리를 한 리듬로 엮어 두기 좋은 흐름이에요. 출퇴근 길의 한 챕터, 점심 후 10분의 정리, 잠들기 전의 한 페이지 같은 자리가 일주일을 묶어 줘요."
+                        "value": "이번 주의 학업운은 일과 사이의 짧은 학습 자리를 하나로 엮어 두기 좋은 흐름이에요. 출퇴근 길의 한 챕터, 점심 후 10분의 정리, 잠들기 전의 한 페이지 같은 자리가 일주일을 묶어 줘요."
                       }
                     ],
-                    "plainText": "이번 주의 학업운은 일과 사이의 짧은 학습 자리를 한 리듬로 엮어 두기 좋은 흐름이에요. 출퇴근 길의 한 챕터, 점심 후 10분의 정리, 잠들기 전의 한 페이지 같은 자리가 일주일을 묶어 줘요."
+                    "plainText": "이번 주의 학업운은 일과 사이의 짧은 학습 자리를 하나로 엮어 두기 좋은 흐름이에요. 출퇴근 길의 한 챕터, 점심 후 10분의 정리, 잠들기 전의 한 페이지 같은 자리가 일주일을 묶어 줘요."
                   },
                   {
                     "tokens": [
@@ -10302,7 +10302,8 @@
               "meaningfulness": "limited",
               "stars": 3,
               "brief": {
-                "headline": "올해는 다져 온 흐름이 결실을 보이는 해예요."
+                "headline": "올해는 욕심을 한 박자 줄이면 흐름이 또렷해져요.",
+                "hook": "큰 무리수만 피하면 든든히 모을 수 있어요."
               },
               "standard": {
                 "paragraphs": [
@@ -10435,13 +10436,14 @@
               },
               "selectedFragments": {
                 "brief": {
-                  "fragmentId": "wealth.thisYear.brief.female.40_54.007",
+                  "fragmentId": "wealth.thisYear.brief.strong.neutral.006",
                   "gating": {
-                    "gender": [
-                      "female"
+                    "dayMasterStrength": [
+                      "STRONG",
+                      "EXTREME_STRONG"
                     ],
-                    "ageBand": [
-                      "40-54"
+                    "yongshinAlignment": [
+                      "neutral"
                     ]
                   },
                   "tags": []
@@ -12844,7 +12846,7 @@
       },
       "meta": {
         "schemaVersion": "spring-ts.tiered-matrix.v1",
-        "generatedAt": "2026-05-06T12:42:27.405Z",
+        "generatedAt": "2026-05-07T01:50:26.778Z",
         "selectionSeed": "1972|11|28|4|30|female|2026-05-04T15:00:00.000Z",
         "templateContractVersion": "1.0.0",
         "contentSource": "authored",

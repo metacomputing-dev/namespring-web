@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-05-06T12:42:20.862Z",
+  "generatedAt": "2026-05-07T01:50:18.479Z",
   "targetDate": "2026-05-05T00:00:00+09:00",
   "sampleId": "park-jeolgi-boundary-female-tiered",
   "description": "입추(立秋) 절기 경계 직후 출생. fortuneCascadeMode=jie_based 로 경계 정밀 계산을 활성화하고 tieredMatrix 와 결합한 케이스.",
@@ -1321,7 +1321,7 @@
     },
     "meta": {
       "version": "1.0.0",
-      "generatedAt": "2026-05-06T12:42:26.793Z",
+      "generatedAt": "2026-05-07T01:50:26.153Z",
       "schoolPreset": {
         "selected": "korean",
         "source": "default",
@@ -6499,10 +6499,10 @@
                     "tokens": [
                       {
                         "kind": "text",
-                        "value": "이번 주의 학업운은 일과 사이의 짧은 학습 자리를 한 리듬로 엮어 두기 좋은 흐름이에요. 출퇴근 길의 한 챕터, 점심 후 10분의 정리, 잠들기 전의 한 페이지 같은 자리가 일주일을 묶어 줘요."
+                        "value": "이번 주의 학업운은 일과 사이의 짧은 학습 자리를 하나로 엮어 두기 좋은 흐름이에요. 출퇴근 길의 한 챕터, 점심 후 10분의 정리, 잠들기 전의 한 페이지 같은 자리가 일주일을 묶어 줘요."
                       }
                     ],
-                    "plainText": "이번 주의 학업운은 일과 사이의 짧은 학습 자리를 한 리듬로 엮어 두기 좋은 흐름이에요. 출퇴근 길의 한 챕터, 점심 후 10분의 정리, 잠들기 전의 한 페이지 같은 자리가 일주일을 묶어 줘요."
+                    "plainText": "이번 주의 학업운은 일과 사이의 짧은 학습 자리를 하나로 엮어 두기 좋은 흐름이에요. 출퇴근 길의 한 챕터, 점심 후 10분의 정리, 잠들기 전의 한 페이지 같은 자리가 일주일을 묶어 줘요."
                   },
                   {
                     "tokens": [
@@ -12823,7 +12823,7 @@
       },
       "meta": {
         "schemaVersion": "spring-ts.tiered-matrix.v1",
-        "generatedAt": "2026-05-06T12:42:26.793Z",
+        "generatedAt": "2026-05-07T01:50:26.153Z",
         "selectionSeed": "1988|8|8|6|0|female|2026-05-04T15:00:00.000Z",
         "templateContractVersion": "1.0.0",
         "contentSource": "authored",

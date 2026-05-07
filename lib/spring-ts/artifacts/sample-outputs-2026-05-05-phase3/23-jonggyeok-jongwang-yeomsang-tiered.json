@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-05-06T12:42:20.862Z",
+  "generatedAt": "2026-05-07T01:50:18.479Z",
   "targetDate": "2026-05-05T00:00:00+09:00",
   "sampleId": "jonggyeok-jongwang-yeomsang-tiered",
   "description": "입력 의도: 從旺격 (一氣格 / 炎上格 火) 계열. fix-jong-02 (1942-06-23 15:00) 좌표를 차용 — 火 일간이 寅午戌 부분 火局 + 丙午 月柱 로 단일 火氣 압도. 최종 외격 판정은 엔진이 결정한다.",
@@ -1277,7 +1277,7 @@
     },
     "meta": {
       "version": "1.0.0",
-      "generatedAt": "2026-05-06T12:42:30.359Z",
+      "generatedAt": "2026-05-07T01:50:29.946Z",
       "schoolPreset": {
         "selected": "korean",
         "source": "default",
@@ -4021,8 +4021,8 @@
               "meaningfulness": "meaningful",
               "stars": 5,
               "brief": {
-                "headline": "오늘은 평소 페이스로 가도 충분해요.",
-                "hook": "무리한 약속은 한 박자 미루는 게 좋아요."
+                "headline": "오늘은 한 박자 천천히 가는 흐름이 잘 맞아요.",
+                "hook": "물 한 잔과 가벼운 산책이 도움돼요."
               },
               "standard": {
                 "paragraphs": [
@@ -4219,10 +4219,14 @@
               },
               "selectedFragments": {
                 "brief": {
-                  "fragmentId": "health.today.brief.neutral.001",
+                  "fragmentId": "health.today.brief.strong.elder.001",
                   "gating": {
-                    "yongshinAlignment": [
-                      "neutral"
+                    "ageBand": [
+                      "70+"
+                    ],
+                    "dayMasterStrength": [
+                      "STRONG",
+                      "EXTREME_STRONG"
                     ]
                   },
                   "tags": []
@@ -10227,7 +10231,8 @@
               "meaningfulness": "meaningful",
               "stars": 1,
               "brief": {
-                "headline": "올해는 새 수입이나 일의 기회를 찾아보기 좋은 결이에요."
+                "headline": "올해는 기준 한 줄을 다시 적어 두면 좋은 해예요.",
+                "hook": "큰 무리수만 피하면 든든히 모을 수 있어요."
               },
               "standard": {
                 "paragraphs": [
@@ -10348,11 +10353,14 @@
               },
               "selectedFragments": {
                 "brief": {
-                  "fragmentId": "wealth.thisYear.brief.currentseason.spring_summer.301",
+                  "fragmentId": "wealth.thisYear.brief.strong.neutral.006",
                   "gating": {
-                    "currentSeason": [
-                      "spring",
-                      "summer"
+                    "dayMasterStrength": [
+                      "STRONG",
+                      "EXTREME_STRONG"
+                    ],
+                    "yongshinAlignment": [
+                      "neutral"
                     ]
                   },
                   "tags": []
@@ -12895,7 +12903,7 @@
       },
       "meta": {
         "schemaVersion": "spring-ts.tiered-matrix.v1",
-        "generatedAt": "2026-05-06T12:42:30.359Z",
+        "generatedAt": "2026-05-07T01:50:29.946Z",
         "selectionSeed": "1942|6|23|15|0|male|2026-05-04T15:00:00.000Z",
         "templateContractVersion": "1.0.0",
         "contentSource": "authored",
