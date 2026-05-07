@@ -125,6 +125,7 @@
     "ci:brief-tier-placeholder": "node tools/check_brief_tier_placeholder.mjs --max-violations=0",
     "ci:standard-paragraph-floor": "node tools/check_standard_paragraph_floor.mjs --min-paragraphs=3 --max-violations=0",
     "ci:flow-cluster": "node tools/check_flow_cluster.mjs --max-violations=0",
+    "ci:gyeol-cluster": "node tools/check_gyeol_cluster.mjs --max-violations=10",
     "ci:livingtips-period-consistency": "node tools/check_livingtips_period_consistency.mjs --max-violations=0",
     "ingest:unihan": "npx tsx scripts/ingest-unihan.ts",
     "capture:oracles": "node tools/capture_saju_master_runs.mjs",
