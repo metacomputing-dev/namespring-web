@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-05-07T10:03:51.711Z",
+  "generatedAt": "2026-05-07T10:04:48.684Z",
   "targetDate": "2026-05-05T00:00:00+09:00",
   "sampleId": "lee-hajun-unknown-hour-neutral-tiered",
   "description": "출생 시각 미상, 중립 성별 입력에서 불확실성 안내와 tiered 매트릭스를 확인하는 케이스.",
@@ -1302,7 +1302,7 @@
     },
     "meta": {
       "version": "1.0.0",
-      "generatedAt": "2026-05-07T10:03:56.016Z",
+      "generatedAt": "2026-05-07T10:04:53.365Z",
       "schoolPreset": {
         "selected": "korean",
         "source": "default",
@@ -10850,8 +10850,7 @@
               "meaningfulness": "meaningful",
               "stars": 2,
               "brief": {
-                "headline": "올해는 가벼운 모임에서 새로운 인연이 늘어요.",
-                "hook": "동아리 모임에서 한 번 웃어요."
+                "headline": "올해는 순간적인 설렘보다 꾸준히 챙기는 태도가 관계를 더 단단요."
               },
               "standard": {
                 "paragraphs": [
@@ -11028,13 +11027,15 @@
               },
               "selectedFragments": {
                 "brief": {
-                  "fragmentId": "romance.thisYear.brief.neutral.young.009",
+                  "fragmentId": "romance.thisYear.brief.steady_care.504",
                   "gating": {
-                    "gender": [
-                      "neutral"
-                    ],
                     "ageBand": [
-                      "20-29"
+                      "10-19",
+                      "20-29",
+                      "30-39",
+                      "40-54",
+                      "55-69",
+                      "70+"
                     ]
                   },
                   "tags": []
@@ -12913,12 +12914,12 @@
       },
       "meta": {
         "schemaVersion": "spring-ts.tiered-matrix.v1",
-        "generatedAt": "2026-05-07T10:03:56.016Z",
+        "generatedAt": "2026-05-07T10:04:53.365Z",
         "selectionSeed": "2001|1|15|0|0|neutral|2026-05-04T15:00:00.000Z",
         "templateContractVersion": "1.0.0",
         "contentSource": "authored",
-        "fragmentCount": 4127,
-        "aiGeneratedFragmentCount": 4127
+        "fragmentCount": 4125,
+        "aiGeneratedFragmentCount": 4125
       }
     }
   }

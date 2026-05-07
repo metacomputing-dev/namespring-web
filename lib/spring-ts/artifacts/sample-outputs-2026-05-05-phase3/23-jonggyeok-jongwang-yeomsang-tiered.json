@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-05-07T10:03:51.711Z",
+  "generatedAt": "2026-05-07T10:04:48.684Z",
   "targetDate": "2026-05-05T00:00:00+09:00",
   "sampleId": "jonggyeok-jongwang-yeomsang-tiered",
   "description": "입력 의도: 從旺격 (一氣格 / 炎上格 火) 계열. fix-jong-02 (1942-06-23 15:00) 좌표를 차용 — 火 일간이 寅午戌 부분 火局 + 丙午 月柱 로 단일 火氣 압도. 최종 외격 판정은 엔진이 결정한다.",
@@ -1277,7 +1277,7 @@
     },
     "meta": {
       "version": "1.0.0",
-      "generatedAt": "2026-05-07T10:04:02.790Z",
+      "generatedAt": "2026-05-07T10:05:00.451Z",
       "schoolPreset": {
         "selected": "korean",
         "source": "default",
@@ -1480,8 +1480,7 @@
               "meaningfulness": "meaningful",
               "stars": 1,
               "brief": {
-                "headline": "오랜 인연과의 거래가 큰 자산으로 이어지는 시간이에요.",
-                "hook": "오랜 거래처와 안부를 나눠요."
+                "headline": "후반기의 재물은 주변과 나누는 리듬이 자연스러워져요."
               },
               "standard": {
                 "paragraphs": [
@@ -1676,18 +1675,11 @@
               },
               "selectedFragments": {
                 "brief": {
-                  "fragmentId": "wealth.life.brief.male.senior.strong.014",
+                  "fragmentId": "wealth.life.brief.55_69.009",
                   "gating": {
-                    "gender": [
-                      "male"
-                    ],
                     "ageBand": [
                       "55-69",
                       "70+"
-                    ],
-                    "dayMasterStrength": [
-                      "STRONG",
-                      "EXTREME_STRONG"
                     ]
                   },
                   "tags": []
@@ -11450,8 +11442,7 @@
               "meaningfulness": "meaningful",
               "stars": 1,
               "brief": {
-                "headline": "올해는 모은 자료를 천천히 엮어 두기 좋은 한 해예요.",
-                "hook": "자료 한 묶음을 깔끔히 정리해요."
+                "headline": "올해는 새 공부나 문서 프로젝트를 열어 보기 좋아요."
               },
               "standard": {
                 "paragraphs": [
@@ -11566,15 +11557,11 @@
               },
               "selectedFragments": {
                 "brief": {
-                  "fragmentId": "study_document.thisYear.brief.male.midlife_senior.010",
+                  "fragmentId": "study_document.thisYear.brief.currentseason.spring_summer.301",
                   "gating": {
-                    "gender": [
-                      "male"
-                    ],
-                    "ageBand": [
-                      "40-54",
-                      "55-69",
-                      "70+"
+                    "currentSeason": [
+                      "spring",
+                      "summer"
                     ]
                   },
                   "tags": []
@@ -13006,12 +12993,12 @@
       },
       "meta": {
         "schemaVersion": "spring-ts.tiered-matrix.v1",
-        "generatedAt": "2026-05-07T10:04:02.790Z",
+        "generatedAt": "2026-05-07T10:05:00.451Z",
         "selectionSeed": "1942|6|23|15|0|male|2026-05-04T15:00:00.000Z",
         "templateContractVersion": "1.0.0",
         "contentSource": "authored",
-        "fragmentCount": 4127,
-        "aiGeneratedFragmentCount": 4127
+        "fragmentCount": 4125,
+        "aiGeneratedFragmentCount": 4125
       }
     }
   }

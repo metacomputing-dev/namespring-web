@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-05-07T10:03:51.711Z",
+  "generatedAt": "2026-05-07T10:04:48.684Z",
   "targetDate": "2026-05-05T00:00:00+09:00",
   "sampleId": "newborn-infant-male-tiered",
   "description": "신생아 (2026 봄 출생, 현재 0세) — 보호자 perspective audience cell 활성화 fixture. life-stage 의 가장 이른 단계 narrative 가 fallback 되는지 확인. tieredMatrix 의 신생아 안전 어조 (성인 metaphor 회피) 점검 케이스.",
@@ -1273,7 +1273,7 @@
     },
     "meta": {
       "version": "1.0.0",
-      "generatedAt": "2026-05-07T10:04:05.291Z",
+      "generatedAt": "2026-05-07T10:05:03.006Z",
       "schoolPreset": {
         "selected": "korean",
         "source": "default",
@@ -3846,8 +3846,8 @@
               "meaningfulness": "meaningful",
               "stars": 1,
               "brief": {
-                "headline": "보호자와 마주 보고 웃기 좋은 하루예요.",
-                "hook": "보호자와 한 번 더 웃어 봐요."
+                "headline": "오늘은 함께 그림을 그리며 시간 보내요.",
+                "hook": "마음에 드는 그림을 같이 그려 봐요."
               },
               "standard": {
                 "paragraphs": [
@@ -3976,10 +3976,13 @@
               },
               "selectedFragments": {
                 "brief": {
-                  "fragmentId": "family.today.brief.young.003",
+                  "fragmentId": "family.today.brief.young.004",
                   "gating": {
                     "ageBand": [
                       "0-9"
+                    ],
+                    "birthSeason": [
+                      "spring"
                     ]
                   },
                   "tags": []
@@ -10385,12 +10388,12 @@
       },
       "meta": {
         "schemaVersion": "spring-ts.tiered-matrix.v1",
-        "generatedAt": "2026-05-07T10:04:05.291Z",
+        "generatedAt": "2026-05-07T10:05:03.006Z",
         "selectionSeed": "2026|3|15|11|0|male|2026-05-04T15:00:00.000Z",
         "templateContractVersion": "1.0.0",
         "contentSource": "authored",
-        "fragmentCount": 4127,
-        "aiGeneratedFragmentCount": 4127
+        "fragmentCount": 4125,
+        "aiGeneratedFragmentCount": 4125
       }
     }
   }

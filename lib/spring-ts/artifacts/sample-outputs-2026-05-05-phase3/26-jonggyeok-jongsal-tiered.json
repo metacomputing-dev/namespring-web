@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-05-07T10:03:51.711Z",
+  "generatedAt": "2026-05-07T10:04:48.684Z",
   "targetDate": "2026-05-05T00:00:00+09:00",
   "sampleId": "jonggyeok-jongsal-tiered",
   "description": "입력 의도: 從殺격 (七殺 dominant) 계열. fix-jong-06 (1972-12-11 09:00) 좌표 — 丙火 일간이 동지경 子月 절지 + 壬水 편관 3 천간 + 子 지지 3개 압도. 최종 외격 판정은 엔진이 결정한다.",
@@ -1266,7 +1266,7 @@
     },
     "meta": {
       "version": "1.0.0",
-      "generatedAt": "2026-05-07T10:04:03.855Z",
+      "generatedAt": "2026-05-07T10:05:01.540Z",
       "schoolPreset": {
         "selected": "korean",
         "source": "default",
@@ -4332,8 +4332,7 @@
               "meaningfulness": "limited",
               "stars": 3,
               "brief": {
-                "headline": "오늘은 책상 앞 한 시간을 또렷이 지켜요.",
-                "hook": "오늘 분량을 정해서 끝내요."
+                "headline": "오늘은 자기계발 한 챕터를 챙기기 좋은 흐름이에요."
               },
               "standard": {
                 "paragraphs": [
@@ -4489,11 +4488,8 @@
               },
               "selectedFragments": {
                 "brief": {
-                  "fragmentId": "academic.today.brief.male.age30plus.013",
+                  "fragmentId": "academic.today.brief.30plus.005",
                   "gating": {
-                    "gender": [
-                      "male"
-                    ],
                     "ageBand": [
                       "30-39",
                       "40-54"
@@ -10910,7 +10906,8 @@
               "meaningfulness": "meaningful",
               "stars": 4,
               "brief": {
-                "headline": "올해는 사람과의 흐름이 한 단계 깊어지는 결이에요."
+                "headline": "올해는 곁의 사람과 한 끼를 천천히 나눠요.",
+                "hook": "한 끼를 함께 천천히 나눠요."
               },
               "standard": {
                 "paragraphs": [
@@ -11024,14 +11021,14 @@
               },
               "selectedFragments": {
                 "brief": {
-                  "fragmentId": "romance.thisYear.brief.adult.001",
+                  "fragmentId": "romance.thisYear.brief.midlife.002",
                   "gating": {
                     "ageBand": [
-                      "20-29",
                       "30-39",
-                      "40-54",
-                      "55-69",
-                      "70+"
+                      "40-54"
+                    ],
+                    "birthSeason": [
+                      "winter"
                     ]
                   },
                   "tags": []
@@ -11434,8 +11431,7 @@
               "meaningfulness": "meaningful",
               "stars": 4,
               "brief": {
-                "headline": "올해는 모은 자료를 천천히 엮어 두기 좋은 한 해예요.",
-                "hook": "자료 한 묶음을 깔끔히 정리해요."
+                "headline": "올해는 자격, 계약, 기록을 체계적으로 관리할수록 중요한 기회를요."
               },
               "standard": {
                 "paragraphs": [
@@ -11568,12 +11564,10 @@
               },
               "selectedFragments": {
                 "brief": {
-                  "fragmentId": "study_document.thisYear.brief.male.midlife_senior.010",
+                  "fragmentId": "study_document.thisYear.brief.ageband.mature.401",
                   "gating": {
-                    "gender": [
-                      "male"
-                    ],
                     "ageBand": [
+                      "30-39",
                       "40-54",
                       "55-69",
                       "70+"
@@ -12938,12 +12932,12 @@
       },
       "meta": {
         "schemaVersion": "spring-ts.tiered-matrix.v1",
-        "generatedAt": "2026-05-07T10:04:03.855Z",
+        "generatedAt": "2026-05-07T10:05:01.540Z",
         "selectionSeed": "1972|12|11|9|0|male|2026-05-04T15:00:00.000Z",
         "templateContractVersion": "1.0.0",
         "contentSource": "authored",
-        "fragmentCount": 4127,
-        "aiGeneratedFragmentCount": 4127
+        "fragmentCount": 4125,
+        "aiGeneratedFragmentCount": 4125
       }
     }
   }

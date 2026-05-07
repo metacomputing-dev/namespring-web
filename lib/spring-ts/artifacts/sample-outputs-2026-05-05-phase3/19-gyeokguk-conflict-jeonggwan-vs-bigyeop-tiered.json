@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-05-07T10:03:51.711Z",
+  "generatedAt": "2026-05-07T10:04:48.684Z",
   "targetDate": "2026-05-05T00:00:00+09:00",
   "sampleId": "gyeokguk-conflict-jeonggwan-vs-bigyeop-tiered",
   "description": "격국 충돌 case 1: 정관 후보와 비견(겁재) 후보가 같이 잡히기 쉬운 입력. gyeokgukSelectionRule=jungki_transparent 로 월지 중기 투간 룰을 활성화하여 후보 ranking 의 elasticity 를 노출하는 케이스. 최종 격국 판정은 엔진이 결정한다.",
@@ -1303,7 +1303,7 @@
     },
     "meta": {
       "version": "1.0.0",
-      "generatedAt": "2026-05-07T10:04:01.495Z",
+      "generatedAt": "2026-05-07T10:04:59.035Z",
       "schoolPreset": {
         "selected": "korean",
         "source": "default",
@@ -4279,8 +4279,7 @@
               "meaningfulness": "meaningful",
               "stars": 1,
               "brief": {
-                "headline": "오늘은 책상 앞 한 시간을 또렷이 지켜요.",
-                "hook": "오늘 분량을 정해서 끝내요."
+                "headline": "오늘 공부는 오래 준비하기보다 바로 펼쳐서 첫 문제를 푸는 쪽이요."
               },
               "standard": {
                 "paragraphs": [
@@ -4458,14 +4457,11 @@
               },
               "selectedFragments": {
                 "brief": {
-                  "fragmentId": "academic.today.brief.male.age30plus.013",
+                  "fragmentId": "academic.today.brief.start.504",
                   "gating": {
-                    "gender": [
-                      "male"
-                    ],
-                    "ageBand": [
-                      "30-39",
-                      "40-54"
+                    "dayMasterElement": [
+                      "WOOD",
+                      "FIRE"
                     ]
                   },
                   "tags": []
@@ -5135,7 +5131,8 @@
               "meaningfulness": "meaningful",
               "stars": 1,
               "brief": {
-                "headline": "오늘은 공부나 문서 작업을 시작하기 좋은 날이에요."
+                "headline": "오늘은 연락처와 주소를 한번 정리하기 좋아요.",
+                "hook": "연락처 한 줄을 다시 정리해요."
               },
               "standard": {
                 "paragraphs": [
@@ -5312,10 +5309,14 @@
               },
               "selectedFragments": {
                 "brief": {
-                  "fragmentId": "study_document.today.brief.currentseason.spring_summer.301",
+                  "fragmentId": "study_document.today.brief.adult.007",
                   "gating": {
-                    "currentSeason": [
-                      "spring",
+                    "ageBand": [
+                      "30-39",
+                      "40-54",
+                      "55-69"
+                    ],
+                    "birthSeason": [
                       "summer"
                     ]
                   },
@@ -11550,8 +11551,7 @@
               "meaningfulness": "meaningful",
               "stars": 4,
               "brief": {
-                "headline": "올해는 모은 자료를 천천히 엮어 두기 좋은 한 해예요.",
-                "hook": "자료 한 묶음을 깔끔히 정리해요."
+                "headline": "올해는 어려운 것부터 잡기보다 기본 자료와 반복 학습을 탄탄히요."
               },
               "standard": {
                 "paragraphs": [
@@ -11666,12 +11666,12 @@
               },
               "selectedFragments": {
                 "brief": {
-                  "fragmentId": "study_document.thisYear.brief.male.midlife_senior.010",
+                  "fragmentId": "study_document.thisYear.brief.basics.504",
                   "gating": {
-                    "gender": [
-                      "male"
-                    ],
                     "ageBand": [
+                      "10-19",
+                      "20-29",
+                      "30-39",
                       "40-54",
                       "55-69",
                       "70+"
@@ -12092,8 +12092,7 @@
               "meaningfulness": "meaningful",
               "stars": 4,
               "brief": {
-                "headline": "올해는 익숙한 동선에 작은 변화가 활력을 보태요.",
-                "hook": "출퇴근 동선을 한 번 바꿔요."
+                "headline": "올해는 무리한 변화보다 필요한 이동만 고르는 태도가 안정적이에요."
               },
               "standard": {
                 "paragraphs": [
@@ -12221,14 +12220,12 @@
               },
               "selectedFragments": {
                 "brief": {
-                  "fragmentId": "movement.thisYear.brief.male.midlife.011",
+                  "fragmentId": "movement.thisYear.brief.recovery.501",
                   "gating": {
-                    "gender": [
-                      "male"
-                    ],
                     "ageBand": [
-                      "30-39",
-                      "40-54"
+                      "40-54",
+                      "55-69",
+                      "70+"
                     ]
                   },
                   "tags": []
@@ -13048,12 +13045,12 @@
       },
       "meta": {
         "schemaVersion": "spring-ts.tiered-matrix.v1",
-        "generatedAt": "2026-05-07T10:04:01.495Z",
+        "generatedAt": "2026-05-07T10:04:59.035Z",
         "selectionSeed": "1985|5|25|8|45|male|2026-05-04T15:00:00.000Z",
         "templateContractVersion": "1.0.0",
         "contentSource": "authored",
-        "fragmentCount": 4127,
-        "aiGeneratedFragmentCount": 4127
+        "fragmentCount": 4125,
+        "aiGeneratedFragmentCount": 4125
       }
     }
   }

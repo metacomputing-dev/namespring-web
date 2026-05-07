@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-05-07T10:03:51.711Z",
+  "generatedAt": "2026-05-07T10:04:48.684Z",
   "targetDate": "2026-05-05T00:00:00+09:00",
   "sampleId": "park-jeolgi-boundary-female-tiered",
   "description": "입추(立秋) 절기 경계 직후 출생. fortuneCascadeMode=jie_based 로 경계 정밀 계산을 활성화하고 tieredMatrix 와 결합한 케이스.",
@@ -1321,7 +1321,7 @@
     },
     "meta": {
       "version": "1.0.0",
-      "generatedAt": "2026-05-07T10:03:58.872Z",
+      "generatedAt": "2026-05-07T10:04:56.257Z",
       "schoolPreset": {
         "selected": "korean",
         "source": "default",
@@ -5168,8 +5168,8 @@
               "meaningfulness": "meaningful",
               "stars": 2,
               "brief": {
-                "headline": "큰 서명은 하루 묵힌 뒤에 결정해도 좋아요.",
-                "hook": "큰 서명은 하루 미뤄요."
+                "headline": "묶어 둔 서류를 한 장씩 다시 정리해 보세요.",
+                "hook": "쌓인 서류를 한 장씩 살펴 봐요."
               },
               "standard": {
                 "paragraphs": [
@@ -5346,12 +5346,15 @@
               },
               "selectedFragments": {
                 "brief": {
-                  "fragmentId": "study_document.today.brief.adult.005",
+                  "fragmentId": "study_document.today.brief.adult.006",
                   "gating": {
                     "ageBand": [
                       "30-39",
                       "40-54",
                       "55-69"
+                    ],
+                    "birthSeason": [
+                      "autumn"
                     ]
                   },
                   "tags": []
@@ -6904,8 +6907,7 @@
               "meaningfulness": "limited",
               "stars": 3,
               "brief": {
-                "headline": "이번 주는 가까운 사람과 짧게 안부를 나누면 좋아요.",
-                "hook": "가족 단톡에 한마디 남겨요."
+                "headline": "이번 주는 가족에게 먼저 안부를 묻는 작은 행동이 관계를 편하게요."
               },
               "standard": {
                 "paragraphs": [
@@ -7020,13 +7022,14 @@
               },
               "selectedFragments": {
                 "brief": {
-                  "fragmentId": "family.thisWeek.brief.female.thirties.012",
+                  "fragmentId": "family.thisWeek.brief.checkin.502",
                   "gating": {
-                    "gender": [
-                      "female"
-                    ],
                     "ageBand": [
-                      "30-39"
+                      "0-9",
+                      "10-19",
+                      "20-29",
+                      "30-39",
+                      "40-54"
                     ]
                   },
                   "tags": []
@@ -12831,12 +12834,12 @@
       },
       "meta": {
         "schemaVersion": "spring-ts.tiered-matrix.v1",
-        "generatedAt": "2026-05-07T10:03:58.872Z",
+        "generatedAt": "2026-05-07T10:04:56.257Z",
         "selectionSeed": "1988|8|8|6|0|female|2026-05-04T15:00:00.000Z",
         "templateContractVersion": "1.0.0",
         "contentSource": "authored",
-        "fragmentCount": 4127,
-        "aiGeneratedFragmentCount": 4127
+        "fragmentCount": 4125,
+        "aiGeneratedFragmentCount": 4125
       }
     }
   }
