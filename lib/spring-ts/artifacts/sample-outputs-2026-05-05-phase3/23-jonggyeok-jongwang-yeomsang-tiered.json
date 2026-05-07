@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-05-07T09:02:58.157Z",
+  "generatedAt": "2026-05-07T09:11:14.261Z",
   "targetDate": "2026-05-05T00:00:00+09:00",
   "sampleId": "jonggyeok-jongwang-yeomsang-tiered",
   "description": "입력 의도: 從旺격 (一氣格 / 炎上格 火) 계열. fix-jong-02 (1942-06-23 15:00) 좌표를 차용 — 火 일간이 寅午戌 부분 火局 + 丙午 月柱 로 단일 火氣 압도. 최종 외격 판정은 엔진이 결정한다.",
@@ -1277,7 +1277,7 @@
     },
     "meta": {
       "version": "1.0.0",
-      "generatedAt": "2026-05-07T09:03:08.728Z",
+      "generatedAt": "2026-05-07T09:11:24.220Z",
       "schoolPreset": {
         "selected": "korean",
         "source": "default",
@@ -12993,7 +12993,7 @@
       },
       "meta": {
         "schemaVersion": "spring-ts.tiered-matrix.v1",
-        "generatedAt": "2026-05-07T09:03:08.728Z",
+        "generatedAt": "2026-05-07T09:11:24.220Z",
         "selectionSeed": "1942|6|23|15|0|male|2026-05-04T15:00:00.000Z",
         "templateContractVersion": "1.0.0",
         "contentSource": "authored",
