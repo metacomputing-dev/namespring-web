@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-05-07T09:32:49.208Z",
+  "generatedAt": "2026-05-07T09:49:17.080Z",
   "targetDate": "2026-05-05T00:00:00+09:00",
   "sampleId": "choi-yaza-boundary-male-tiered",
   "description": "야자시 경계 23:30 출생. yaza=on, yazaMode=23:00 으로 다음 날로 이월하는 경계 케이스.",
@@ -1299,7 +1299,7 @@
     },
     "meta": {
       "version": "1.0.0",
-      "generatedAt": "2026-05-07T09:32:56.100Z",
+      "generatedAt": "2026-05-07T09:49:24.282Z",
       "schoolPreset": {
         "selected": "korean",
         "source": "default",
@@ -10268,6 +10268,15 @@
                       }
                     ],
                     "plainText": "주의할 점은 가족·일 한쪽에 무게가 몰리는 흐름이에요. 작은 메모로 무게를 분산해 두면 좋아요."
+                  },
+                  {
+                    "tokens": [
+                      {
+                        "kind": "text",
+                        "value": "어깨에 자리가 많은 시기지만, 한 자리씩 차분히 다듬으면 한 해의 흐름이 단단해져요."
+                      }
+                    ],
+                    "plainText": "어깨에 자리가 많은 시기지만, 한 자리씩 차분히 다듬으면 한 해의 흐름이 단단해져요."
                   }
                 ],
                 "livingTips": [
@@ -12820,7 +12829,7 @@
       },
       "meta": {
         "schemaVersion": "spring-ts.tiered-matrix.v1",
-        "generatedAt": "2026-05-07T09:32:56.100Z",
+        "generatedAt": "2026-05-07T09:49:24.282Z",
         "selectionSeed": "1995|6|10|23|30|male|2026-05-04T15:00:00.000Z",
         "templateContractVersion": "1.0.0",
         "contentSource": "authored",

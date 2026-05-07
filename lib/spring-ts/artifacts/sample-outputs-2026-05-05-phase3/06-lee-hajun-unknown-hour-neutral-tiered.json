@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-05-07T09:32:49.208Z",
+  "generatedAt": "2026-05-07T09:49:17.080Z",
   "targetDate": "2026-05-05T00:00:00+09:00",
   "sampleId": "lee-hajun-unknown-hour-neutral-tiered",
   "description": "출생 시각 미상, 중립 성별 입력에서 불확실성 안내와 tiered 매트릭스를 확인하는 케이스.",
@@ -1302,7 +1302,7 @@
     },
     "meta": {
       "version": "1.0.0",
-      "generatedAt": "2026-05-07T09:32:53.580Z",
+      "generatedAt": "2026-05-07T09:49:21.557Z",
       "schoolPreset": {
         "selected": "korean",
         "source": "default",
@@ -9188,6 +9188,15 @@
                     "tokens": [
                       {
                         "kind": "text",
+                        "value": "다른 친구의 빠른 이동 소식이 들려와도 비교만 길게 가져가지 않으면 좋아요. 한 달 안에 마무리한 작은 결과물 한 가지를 메모로 남겨 두면, 그 한 줄이 다음 자리를 고를 때의 또렷한 기준이 되어 줘요."
+                      }
+                    ],
+                    "plainText": "다른 친구의 빠른 이동 소식이 들려와도 비교만 길게 가져가지 않으면 좋아요. 한 달 안에 마무리한 작은 결과물 한 가지를 메모로 남겨 두면, 그 한 줄이 다음 자리를 고를 때의 또렷한 기준이 되어 줘요."
+                  },
+                  {
+                    "tokens": [
+                      {
+                        "kind": "text",
                         "value": "시작의 중심이 한 달 단위로 단단해져요."
                       }
                     ],
@@ -12914,7 +12923,7 @@
       },
       "meta": {
         "schemaVersion": "spring-ts.tiered-matrix.v1",
-        "generatedAt": "2026-05-07T09:32:53.579Z",
+        "generatedAt": "2026-05-07T09:49:21.557Z",
         "selectionSeed": "2001|1|15|0|0|neutral|2026-05-04T15:00:00.000Z",
         "templateContractVersion": "1.0.0",
         "contentSource": "authored",
