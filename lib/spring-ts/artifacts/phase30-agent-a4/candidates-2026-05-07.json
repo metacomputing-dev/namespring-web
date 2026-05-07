@@ -1,0 +1,3980 @@
+{
+  "generatedAt": "2026-05-07T12:37:28.247Z",
+  "totalFourPFragments": 445,
+  "excludedByP28A2": [
+    "overall.life.expert.strong.neutral.005",
+    "movement.life.expert.weak_neutral.010",
+    "wealth.life.expert.weak.neutral.004",
+    "wealth.thisYear.expert.weak.neutral.004",
+    "health_stress.thisMonth.expert.weak_neutral.001",
+    "health_stress.today.expert.male_30_39.001",
+    "romance.thisMonth.expert.adult.weak.001",
+    "family.life.expert.young_caregiver.008",
+    "health.life.expert.child.001",
+    "overall.thisYear.expert.strong.neutral.005"
+  ],
+  "topCandidates": [
+    {
+      "fragmentId": "overall.today.expert.strong.neutral.005",
+      "cat": "overall",
+      "period": "today",
+      "paragraphCount": 4,
+      "file": "C:\\Projects\\metaintelligence\\p30-a4-iso\\lib\\spring-ts\\data\\narrative\\overall\\today\\expert.fragments.json",
+      "fireCount": 8
+    },
+    {
+      "fragmentId": "movement.thisWeek.expert.weak_neutral.010",
+      "cat": "movement",
+      "period": "thisWeek",
+      "paragraphCount": 4,
+      "file": "C:\\Projects\\metaintelligence\\p30-a4-iso\\lib\\spring-ts\\data\\narrative\\movement\\thisWeek\\expert.fragments.json",
+      "fireCount": 7
+    },
+    {
+      "fragmentId": "movement.thisMonth.expert.weak_neutral.010",
+      "cat": "movement",
+      "period": "thisMonth",
+      "paragraphCount": 4,
+      "file": "C:\\Projects\\metaintelligence\\p30-a4-iso\\lib\\spring-ts\\data\\narrative\\movement\\thisMonth\\expert.fragments.json",
+      "fireCount": 7
+    },
+    {
+      "fragmentId": "wealth.today.expert.weak.neutral.004",
+      "cat": "wealth",
+      "period": "today",
+      "paragraphCount": 4,
+      "file": "C:\\Projects\\metaintelligence\\p30-a4-iso\\lib\\spring-ts\\data\\narrative\\wealth\\today\\expert.fragments.json",
+      "fireCount": 7
+    },
+    {
+      "fragmentId": "movement.today.expert.weak_neutral.010",
+      "cat": "movement",
+      "period": "today",
+      "paragraphCount": 4,
+      "file": "C:\\Projects\\metaintelligence\\p30-a4-iso\\lib\\spring-ts\\data\\narrative\\movement\\today\\expert.fragments.json",
+      "fireCount": 6
+    },
+    {
+      "fragmentId": "movement.thisYear.expert.weak_neutral.010",
+      "cat": "movement",
+      "period": "thisYear",
+      "paragraphCount": 4,
+      "file": "C:\\Projects\\metaintelligence\\p30-a4-iso\\lib\\spring-ts\\data\\narrative\\movement\\thisYear\\expert.fragments.json",
+      "fireCount": 6
+    },
+    {
+      "fragmentId": "overall.today.expert.weak.neutral.age40_54.011",
+      "cat": "overall",
+      "period": "today",
+      "paragraphCount": 4,
+      "file": "C:\\Projects\\metaintelligence\\p30-a4-iso\\lib\\spring-ts\\data\\narrative\\overall\\today\\expert.fragments.json",
+      "fireCount": 6
+    },
+    {
+      "fragmentId": "overall.thisWeek.expert.weak.neutral.age40_54.011",
+      "cat": "overall",
+      "period": "thisWeek",
+      "paragraphCount": 4,
+      "file": "C:\\Projects\\metaintelligence\\p30-a4-iso\\lib\\spring-ts\\data\\narrative\\overall\\thisWeek\\expert.fragments.json",
+      "fireCount": 6
+    },
+    {
+      "fragmentId": "overall.thisMonth.expert.weak.neutral.age40_54.011",
+      "cat": "overall",
+      "period": "thisMonth",
+      "paragraphCount": 4,
+      "file": "C:\\Projects\\metaintelligence\\p30-a4-iso\\lib\\spring-ts\\data\\narrative\\overall\\thisMonth\\expert.fragments.json",
+      "fireCount": 6
+    },
+    {
+      "fragmentId": "overall.thisYear.expert.weak.neutral.age40_54.011",
+      "cat": "overall",
+      "period": "thisYear",
+      "paragraphCount": 4,
+      "file": "C:\\Projects\\metaintelligence\\p30-a4-iso\\lib\\spring-ts\\data\\narrative\\overall\\thisYear\\expert.fragments.json",
+      "fireCount": 6
+    },
+    {
+      "fragmentId": "overall.life.expert.weak.neutral.age40_54.011",
+      "cat": "overall",
+      "period": "life",
+      "paragraphCount": 4,
+      "file": "C:\\Projects\\metaintelligence\\p30-a4-iso\\lib\\spring-ts\\data\\narrative\\overall\\life\\expert.fragments.json",
+      "fireCount": 6
+    },
+    {
+      "fragmentId": "family.today.expert.young_caregiver.009",
+      "cat": "family",
+      "period": "today",
+      "paragraphCount": 4,
+      "file": "C:\\Projects\\metaintelligence\\p30-a4-iso\\lib\\spring-ts\\data\\narrative\\family\\today\\expert.fragments.json",
+      "fireCount": 5
+    },
+    {
+      "fragmentId": "family.thisWeek.expert.young_caregiver.009",
+      "cat": "family",
+      "period": "thisWeek",
+      "paragraphCount": 4,
+      "file": "C:\\Projects\\metaintelligence\\p30-a4-iso\\lib\\spring-ts\\data\\narrative\\family\\thisWeek\\expert.fragments.json",
+      "fireCount": 5
+    },
+    {
+      "fragmentId": "family.thisMonth.expert.young_caregiver.009",
+      "cat": "family",
+      "period": "thisMonth",
+      "paragraphCount": 4,
+      "file": "C:\\Projects\\metaintelligence\\p30-a4-iso\\lib\\spring-ts\\data\\narrative\\family\\thisMonth\\expert.fragments.json",
+      "fireCount": 5
+    },
+    {
+      "fragmentId": "family.thisYear.expert.young_caregiver.009",
+      "cat": "family",
+      "period": "thisYear",
+      "paragraphCount": 4,
+      "file": "C:\\Projects\\metaintelligence\\p30-a4-iso\\lib\\spring-ts\\data\\narrative\\family\\thisYear\\expert.fragments.json",
+      "fireCount": 5
+    },
+    {
+      "fragmentId": "health_stress.today.expert.weak_neutral.001",
+      "cat": "health_stress",
+      "period": "today",
+      "paragraphCount": 4,
+      "file": "C:\\Projects\\metaintelligence\\p30-a4-iso\\lib\\spring-ts\\data\\narrative\\health_stress\\today\\expert.fragments.json",
+      "fireCount": 5
+    },
+    {
+      "fragmentId": "health_stress.thisWeek.expert.weak_neutral.001",
+      "cat": "health_stress",
+      "period": "thisWeek",
+      "paragraphCount": 4,
+      "file": "C:\\Projects\\metaintelligence\\p30-a4-iso\\lib\\spring-ts\\data\\narrative\\health_stress\\thisWeek\\expert.fragments.json",
+      "fireCount": 5
+    },
+    {
+      "fragmentId": "health_stress.thisYear.expert.weak_neutral.001",
+      "cat": "health_stress",
+      "period": "thisYear",
+      "paragraphCount": 4,
+      "file": "C:\\Projects\\metaintelligence\\p30-a4-iso\\lib\\spring-ts\\data\\narrative\\health_stress\\thisYear\\expert.fragments.json",
+      "fireCount": 5
+    },
+    {
+      "fragmentId": "romance.thisWeek.expert.adult.weak.001",
+      "cat": "romance",
+      "period": "thisWeek",
+      "paragraphCount": 4,
+      "file": "C:\\Projects\\metaintelligence\\p30-a4-iso\\lib\\spring-ts\\data\\narrative\\romance\\thisWeek\\expert.fragments.json",
+      "fireCount": 5
+    },
+    {
+      "fragmentId": "health.today.expert.child.001",
+      "cat": "health",
+      "period": "today",
+      "paragraphCount": 4,
+      "file": "C:\\Projects\\metaintelligence\\p30-a4-iso\\lib\\spring-ts\\data\\narrative\\health\\today\\expert.fragments.json",
+      "fireCount": 4
+    },
+    {
+      "fragmentId": "health.thisWeek.expert.child.001",
+      "cat": "health",
+      "period": "thisWeek",
+      "paragraphCount": 4,
+      "file": "C:\\Projects\\metaintelligence\\p30-a4-iso\\lib\\spring-ts\\data\\narrative\\health\\thisWeek\\expert.fragments.json",
+      "fireCount": 4
+    },
+    {
+      "fragmentId": "health.thisMonth.expert.child.001",
+      "cat": "health",
+      "period": "thisMonth",
+      "paragraphCount": 4,
+      "file": "C:\\Projects\\metaintelligence\\p30-a4-iso\\lib\\spring-ts\\data\\narrative\\health\\thisMonth\\expert.fragments.json",
+      "fireCount": 4
+    },
+    {
+      "fragmentId": "health.thisYear.expert.child.001",
+      "cat": "health",
+      "period": "thisYear",
+      "paragraphCount": 4,
+      "file": "C:\\Projects\\metaintelligence\\p30-a4-iso\\lib\\spring-ts\\data\\narrative\\health\\thisYear\\expert.fragments.json",
+      "fireCount": 4
+    },
+    {
+      "fragmentId": "health_stress.thisWeek.expert.female_20_29.001",
+      "cat": "health_stress",
+      "period": "thisWeek",
+      "paragraphCount": 4,
+      "file": "C:\\Projects\\metaintelligence\\p30-a4-iso\\lib\\spring-ts\\data\\narrative\\health_stress\\thisWeek\\expert.fragments.json",
+      "fireCount": 4
+    },
+    {
+      "fragmentId": "health_stress.thisYear.expert.male_30_39.001",
+      "cat": "health_stress",
+      "period": "thisYear",
+      "paragraphCount": 4,
+      "file": "C:\\Projects\\metaintelligence\\p30-a4-iso\\lib\\spring-ts\\data\\narrative\\health_stress\\thisYear\\expert.fragments.json",
+      "fireCount": 4
+    },
+    {
+      "fragmentId": "movement.today.expert.0_9.002",
+      "cat": "movement",
+      "period": "today",
+      "paragraphCount": 4,
+      "file": "C:\\Projects\\metaintelligence\\p30-a4-iso\\lib\\spring-ts\\data\\narrative\\movement\\today\\expert.fragments.json",
+      "fireCount": 4
+    },
+    {
+      "fragmentId": "movement.thisWeek.expert.0_9.002",
+      "cat": "movement",
+      "period": "thisWeek",
+      "paragraphCount": 4,
+      "file": "C:\\Projects\\metaintelligence\\p30-a4-iso\\lib\\spring-ts\\data\\narrative\\movement\\thisWeek\\expert.fragments.json",
+      "fireCount": 4
+    },
+    {
+      "fragmentId": "movement.thisMonth.expert.0_9.002",
+      "cat": "movement",
+      "period": "thisMonth",
+      "paragraphCount": 4,
+      "file": "C:\\Projects\\metaintelligence\\p30-a4-iso\\lib\\spring-ts\\data\\narrative\\movement\\thisMonth\\expert.fragments.json",
+      "fireCount": 4
+    },
+    {
+      "fragmentId": "movement.thisYear.expert.0_9.002",
+      "cat": "movement",
+      "period": "thisYear",
+      "paragraphCount": 4,
+      "file": "C:\\Projects\\metaintelligence\\p30-a4-iso\\lib\\spring-ts\\data\\narrative\\movement\\thisYear\\expert.fragments.json",
+      "fireCount": 4
+    },
+    {
+      "fragmentId": "movement.life.expert.0_9.002",
+      "cat": "movement",
+      "period": "life",
+      "paragraphCount": 4,
+      "file": "C:\\Projects\\metaintelligence\\p30-a4-iso\\lib\\spring-ts\\data\\narrative\\movement\\life\\expert.fragments.json",
+      "fireCount": 4
+    },
+    {
+      "fragmentId": "overall.today.expert.child.001",
+      "cat": "overall",
+      "period": "today",
+      "paragraphCount": 4,
+      "file": "C:\\Projects\\metaintelligence\\p30-a4-iso\\lib\\spring-ts\\data\\narrative\\overall\\today\\expert.fragments.json",
+      "fireCount": 4
+    },
+    {
+      "fragmentId": "overall.thisWeek.expert.child.001",
+      "cat": "overall",
+      "period": "thisWeek",
+      "paragraphCount": 4,
+      "file": "C:\\Projects\\metaintelligence\\p30-a4-iso\\lib\\spring-ts\\data\\narrative\\overall\\thisWeek\\expert.fragments.json",
+      "fireCount": 4
+    },
+    {
+      "fragmentId": "overall.thisMonth.expert.child.001",
+      "cat": "overall",
+      "period": "thisMonth",
+      "paragraphCount": 4,
+      "file": "C:\\Projects\\metaintelligence\\p30-a4-iso\\lib\\spring-ts\\data\\narrative\\overall\\thisMonth\\expert.fragments.json",
+      "fireCount": 4
+    },
+    {
+      "fragmentId": "overall.thisYear.expert.child.001",
+      "cat": "overall",
+      "period": "thisYear",
+      "paragraphCount": 4,
+      "file": "C:\\Projects\\metaintelligence\\p30-a4-iso\\lib\\spring-ts\\data\\narrative\\overall\\thisYear\\expert.fragments.json",
+      "fireCount": 4
+    },
+    {
+      "fragmentId": "overall.life.expert.child.001",
+      "cat": "overall",
+      "period": "life",
+      "paragraphCount": 4,
+      "file": "C:\\Projects\\metaintelligence\\p30-a4-iso\\lib\\spring-ts\\data\\narrative\\overall\\life\\expert.fragments.json",
+      "fireCount": 4
+    },
+    {
+      "fragmentId": "romance.today.expert.adult.strong.001",
+      "cat": "romance",
+      "period": "today",
+      "paragraphCount": 4,
+      "file": "C:\\Projects\\metaintelligence\\p30-a4-iso\\lib\\spring-ts\\data\\narrative\\romance\\today\\expert.fragments.json",
+      "fireCount": 4
+    },
+    {
+      "fragmentId": "romance.today.expert.adult.weak.001",
+      "cat": "romance",
+      "period": "today",
+      "paragraphCount": 4,
+      "file": "C:\\Projects\\metaintelligence\\p30-a4-iso\\lib\\spring-ts\\data\\narrative\\romance\\today\\expert.fragments.json",
+      "fireCount": 4
+    },
+    {
+      "fragmentId": "health_stress.today.expert.fire_strong.001",
+      "cat": "health_stress",
+      "period": "today",
+      "paragraphCount": 4,
+      "file": "C:\\Projects\\metaintelligence\\p30-a4-iso\\lib\\spring-ts\\data\\narrative\\health_stress\\today\\expert.fragments.json",
+      "fireCount": 3
+    },
+    {
+      "fragmentId": "health_stress.thisMonth.expert.female_20_29.001",
+      "cat": "health_stress",
+      "period": "thisMonth",
+      "paragraphCount": 4,
+      "file": "C:\\Projects\\metaintelligence\\p30-a4-iso\\lib\\spring-ts\\data\\narrative\\health_stress\\thisMonth\\expert.fragments.json",
+      "fireCount": 3
+    },
+    {
+      "fragmentId": "overall.thisWeek.expert.strong.neutral.005",
+      "cat": "overall",
+      "period": "thisWeek",
+      "paragraphCount": 4,
+      "file": "C:\\Projects\\metaintelligence\\p30-a4-iso\\lib\\spring-ts\\data\\narrative\\overall\\thisWeek\\expert.fragments.json",
+      "fireCount": 3
+    },
+    {
+      "fragmentId": "overall.thisMonth.expert.strong.neutral.005",
+      "cat": "overall",
+      "period": "thisMonth",
+      "paragraphCount": 4,
+      "file": "C:\\Projects\\metaintelligence\\p30-a4-iso\\lib\\spring-ts\\data\\narrative\\overall\\thisMonth\\expert.fragments.json",
+      "fireCount": 3
+    },
+    {
+      "fragmentId": "wealth.thisWeek.expert.weak.neutral.004",
+      "cat": "wealth",
+      "period": "thisWeek",
+      "paragraphCount": 4,
+      "file": "C:\\Projects\\metaintelligence\\p30-a4-iso\\lib\\spring-ts\\data\\narrative\\wealth\\thisWeek\\expert.fragments.json",
+      "fireCount": 3
+    },
+    {
+      "fragmentId": "wealth.thisMonth.expert.weak.neutral.004",
+      "cat": "wealth",
+      "period": "thisMonth",
+      "paragraphCount": 4,
+      "file": "C:\\Projects\\metaintelligence\\p30-a4-iso\\lib\\spring-ts\\data\\narrative\\wealth\\thisMonth\\expert.fragments.json",
+      "fireCount": 3
+    },
+    {
+      "fragmentId": "health_stress.thisWeek.expert.water_weak.001",
+      "cat": "health_stress",
+      "period": "thisWeek",
+      "paragraphCount": 4,
+      "file": "C:\\Projects\\metaintelligence\\p30-a4-iso\\lib\\spring-ts\\data\\narrative\\health_stress\\thisWeek\\expert.fragments.json",
+      "fireCount": 2
+    },
+    {
+      "fragmentId": "health_stress.thisYear.expert.female_20_29.001",
+      "cat": "health_stress",
+      "period": "thisYear",
+      "paragraphCount": 4,
+      "file": "C:\\Projects\\metaintelligence\\p30-a4-iso\\lib\\spring-ts\\data\\narrative\\health_stress\\thisYear\\expert.fragments.json",
+      "fireCount": 2
+    },
+    {
+      "fragmentId": "health_stress.thisYear.expert.fire_strong.001",
+      "cat": "health_stress",
+      "period": "thisYear",
+      "paragraphCount": 4,
+      "file": "C:\\Projects\\metaintelligence\\p30-a4-iso\\lib\\spring-ts\\data\\narrative\\health_stress\\thisYear\\expert.fragments.json",
+      "fireCount": 2
+    },
+    {
+      "fragmentId": "overall.life.expert.balanced.neutral.008",
+      "cat": "overall",
+      "period": "life",
+      "paragraphCount": 4,
+      "file": "C:\\Projects\\metaintelligence\\p30-a4-iso\\lib\\spring-ts\\data\\narrative\\overall\\life\\expert.fragments.json",
+      "fireCount": 2
+    },
+    {
+      "fragmentId": "romance.thisWeek.expert.adult.strong.001",
+      "cat": "romance",
+      "period": "thisWeek",
+      "paragraphCount": 4,
+      "file": "C:\\Projects\\metaintelligence\\p30-a4-iso\\lib\\spring-ts\\data\\narrative\\romance\\thisWeek\\expert.fragments.json",
+      "fireCount": 2
+    },
+    {
+      "fragmentId": "academic.thisYear.expert.10_19.011",
+      "cat": "academic",
+      "period": "thisYear",
+      "paragraphCount": 4,
+      "file": "C:\\Projects\\metaintelligence\\p30-a4-iso\\lib\\spring-ts\\data\\narrative\\academic\\thisYear\\expert.fragments.json",
+      "fireCount": 1
+    },
+    {
+      "fragmentId": "academic.life.expert.10_19.010",
+      "cat": "academic",
+      "period": "life",
+      "paragraphCount": 4,
+      "file": "C:\\Projects\\metaintelligence\\p30-a4-iso\\lib\\spring-ts\\data\\narrative\\academic\\life\\expert.fragments.json",
+      "fireCount": 1
+    }
+  ],
+  "allRanked": [
+    {
+      "fragmentId": "overall.today.expert.strong.neutral.005",
+      "cat": "overall",
+      "period": "today",
+      "paragraphCount": 4,
+      "file": "C:\\Projects\\metaintelligence\\p30-a4-iso\\lib\\spring-ts\\data\\narrative\\overall\\today\\expert.fragments.json",
+      "fireCount": 8
+    },
+    {
+      "fragmentId": "movement.thisWeek.expert.weak_neutral.010",
+      "cat": "movement",
+      "period": "thisWeek",
+      "paragraphCount": 4,
+      "file": "C:\\Projects\\metaintelligence\\p30-a4-iso\\lib\\spring-ts\\data\\narrative\\movement\\thisWeek\\expert.fragments.json",
+      "fireCount": 7
+    },
+    {
+      "fragmentId": "movement.thisMonth.expert.weak_neutral.010",
+      "cat": "movement",
+      "period": "thisMonth",
+      "paragraphCount": 4,
+      "file": "C:\\Projects\\metaintelligence\\p30-a4-iso\\lib\\spring-ts\\data\\narrative\\movement\\thisMonth\\expert.fragments.json",
+      "fireCount": 7
+    },
+    {
+      "fragmentId": "wealth.today.expert.weak.neutral.004",
+      "cat": "wealth",
+      "period": "today",
+      "paragraphCount": 4,
+      "file": "C:\\Projects\\metaintelligence\\p30-a4-iso\\lib\\spring-ts\\data\\narrative\\wealth\\today\\expert.fragments.json",
+      "fireCount": 7
+    },
+    {
+      "fragmentId": "movement.today.expert.weak_neutral.010",
+      "cat": "movement",
+      "period": "today",
+      "paragraphCount": 4,
+      "file": "C:\\Projects\\metaintelligence\\p30-a4-iso\\lib\\spring-ts\\data\\narrative\\movement\\today\\expert.fragments.json",
+      "fireCount": 6
+    },
+    {
+      "fragmentId": "movement.thisYear.expert.weak_neutral.010",
+      "cat": "movement",
+      "period": "thisYear",
+      "paragraphCount": 4,
+      "file": "C:\\Projects\\metaintelligence\\p30-a4-iso\\lib\\spring-ts\\data\\narrative\\movement\\thisYear\\expert.fragments.json",
+      "fireCount": 6
+    },
+    {
+      "fragmentId": "overall.today.expert.weak.neutral.age40_54.011",
+      "cat": "overall",
+      "period": "today",
+      "paragraphCount": 4,
+      "file": "C:\\Projects\\metaintelligence\\p30-a4-iso\\lib\\spring-ts\\data\\narrative\\overall\\today\\expert.fragments.json",
+      "fireCount": 6
+    },
+    {
+      "fragmentId": "overall.thisWeek.expert.weak.neutral.age40_54.011",
+      "cat": "overall",
+      "period": "thisWeek",
+      "paragraphCount": 4,
+      "file": "C:\\Projects\\metaintelligence\\p30-a4-iso\\lib\\spring-ts\\data\\narrative\\overall\\thisWeek\\expert.fragments.json",
+      "fireCount": 6
+    },
+    {
+      "fragmentId": "overall.thisMonth.expert.weak.neutral.age40_54.011",
+      "cat": "overall",
+      "period": "thisMonth",
+      "paragraphCount": 4,
+      "file": "C:\\Projects\\metaintelligence\\p30-a4-iso\\lib\\spring-ts\\data\\narrative\\overall\\thisMonth\\expert.fragments.json",
+      "fireCount": 6
+    },
+    {
+      "fragmentId": "overall.thisYear.expert.weak.neutral.age40_54.011",
+      "cat": "overall",
+      "period": "thisYear",
+      "paragraphCount": 4,
+      "file": "C:\\Projects\\metaintelligence\\p30-a4-iso\\lib\\spring-ts\\data\\narrative\\overall\\thisYear\\expert.fragments.json",
+      "fireCount": 6
+    },
+    {
+      "fragmentId": "overall.life.expert.weak.neutral.age40_54.011",
+      "cat": "overall",
+      "period": "life",
+      "paragraphCount": 4,
+      "file": "C:\\Projects\\metaintelligence\\p30-a4-iso\\lib\\spring-ts\\data\\narrative\\overall\\life\\expert.fragments.json",
+      "fireCount": 6
+    },
+    {
+      "fragmentId": "family.today.expert.young_caregiver.009",
+      "cat": "family",
+      "period": "today",
+      "paragraphCount": 4,
+      "file": "C:\\Projects\\metaintelligence\\p30-a4-iso\\lib\\spring-ts\\data\\narrative\\family\\today\\expert.fragments.json",
+      "fireCount": 5
+    },
+    {
+      "fragmentId": "family.thisWeek.expert.young_caregiver.009",
+      "cat": "family",
+      "period": "thisWeek",
+      "paragraphCount": 4,
+      "file": "C:\\Projects\\metaintelligence\\p30-a4-iso\\lib\\spring-ts\\data\\narrative\\family\\thisWeek\\expert.fragments.json",
+      "fireCount": 5
+    },
+    {
+      "fragmentId": "family.thisMonth.expert.young_caregiver.009",
+      "cat": "family",
+      "period": "thisMonth",
+      "paragraphCount": 4,
+      "file": "C:\\Projects\\metaintelligence\\p30-a4-iso\\lib\\spring-ts\\data\\narrative\\family\\thisMonth\\expert.fragments.json",
+      "fireCount": 5
+    },
+    {
+      "fragmentId": "family.thisYear.expert.young_caregiver.009",
+      "cat": "family",
+      "period": "thisYear",
+      "paragraphCount": 4,
+      "file": "C:\\Projects\\metaintelligence\\p30-a4-iso\\lib\\spring-ts\\data\\narrative\\family\\thisYear\\expert.fragments.json",
+      "fireCount": 5
+    },
+    {
+      "fragmentId": "health_stress.today.expert.weak_neutral.001",
+      "cat": "health_stress",
+      "period": "today",
+      "paragraphCount": 4,
+      "file": "C:\\Projects\\metaintelligence\\p30-a4-iso\\lib\\spring-ts\\data\\narrative\\health_stress\\today\\expert.fragments.json",
+      "fireCount": 5
+    },
+    {
+      "fragmentId": "health_stress.thisWeek.expert.weak_neutral.001",
+      "cat": "health_stress",
+      "period": "thisWeek",
+      "paragraphCount": 4,
+      "file": "C:\\Projects\\metaintelligence\\p30-a4-iso\\lib\\spring-ts\\data\\narrative\\health_stress\\thisWeek\\expert.fragments.json",
+      "fireCount": 5
+    },
+    {
+      "fragmentId": "health_stress.thisYear.expert.weak_neutral.001",
+      "cat": "health_stress",
+      "period": "thisYear",
+      "paragraphCount": 4,
+      "file": "C:\\Projects\\metaintelligence\\p30-a4-iso\\lib\\spring-ts\\data\\narrative\\health_stress\\thisYear\\expert.fragments.json",
+      "fireCount": 5
+    },
+    {
+      "fragmentId": "romance.thisWeek.expert.adult.weak.001",
+      "cat": "romance",
+      "period": "thisWeek",
+      "paragraphCount": 4,
+      "file": "C:\\Projects\\metaintelligence\\p30-a4-iso\\lib\\spring-ts\\data\\narrative\\romance\\thisWeek\\expert.fragments.json",
+      "fireCount": 5
+    },
+    {
+      "fragmentId": "health.today.expert.child.001",
+      "cat": "health",
+      "period": "today",
+      "paragraphCount": 4,
+      "file": "C:\\Projects\\metaintelligence\\p30-a4-iso\\lib\\spring-ts\\data\\narrative\\health\\today\\expert.fragments.json",
+      "fireCount": 4
+    },
+    {
+      "fragmentId": "health.thisWeek.expert.child.001",
+      "cat": "health",
+      "period": "thisWeek",
+      "paragraphCount": 4,
+      "file": "C:\\Projects\\metaintelligence\\p30-a4-iso\\lib\\spring-ts\\data\\narrative\\health\\thisWeek\\expert.fragments.json",
+      "fireCount": 4
+    },
+    {
+      "fragmentId": "health.thisMonth.expert.child.001",
+      "cat": "health",
+      "period": "thisMonth",
+      "paragraphCount": 4,
+      "file": "C:\\Projects\\metaintelligence\\p30-a4-iso\\lib\\spring-ts\\data\\narrative\\health\\thisMonth\\expert.fragments.json",
+      "fireCount": 4
+    },
+    {
+      "fragmentId": "health.thisYear.expert.child.001",
+      "cat": "health",
+      "period": "thisYear",
+      "paragraphCount": 4,
+      "file": "C:\\Projects\\metaintelligence\\p30-a4-iso\\lib\\spring-ts\\data\\narrative\\health\\thisYear\\expert.fragments.json",
+      "fireCount": 4
+    },
+    {
+      "fragmentId": "health_stress.thisWeek.expert.female_20_29.001",
+      "cat": "health_stress",
+      "period": "thisWeek",
+      "paragraphCount": 4,
+      "file": "C:\\Projects\\metaintelligence\\p30-a4-iso\\lib\\spring-ts\\data\\narrative\\health_stress\\thisWeek\\expert.fragments.json",
+      "fireCount": 4
+    },
+    {
+      "fragmentId": "health_stress.thisYear.expert.male_30_39.001",
+      "cat": "health_stress",
+      "period": "thisYear",
+      "paragraphCount": 4,
+      "file": "C:\\Projects\\metaintelligence\\p30-a4-iso\\lib\\spring-ts\\data\\narrative\\health_stress\\thisYear\\expert.fragments.json",
+      "fireCount": 4
+    },
+    {
+      "fragmentId": "movement.today.expert.0_9.002",
+      "cat": "movement",
+      "period": "today",
+      "paragraphCount": 4,
+      "file": "C:\\Projects\\metaintelligence\\p30-a4-iso\\lib\\spring-ts\\data\\narrative\\movement\\today\\expert.fragments.json",
+      "fireCount": 4
+    },
+    {
+      "fragmentId": "movement.thisWeek.expert.0_9.002",
+      "cat": "movement",
+      "period": "thisWeek",
+      "paragraphCount": 4,
+      "file": "C:\\Projects\\metaintelligence\\p30-a4-iso\\lib\\spring-ts\\data\\narrative\\movement\\thisWeek\\expert.fragments.json",
+      "fireCount": 4
+    },
+    {
+      "fragmentId": "movement.thisMonth.expert.0_9.002",
+      "cat": "movement",
+      "period": "thisMonth",
+      "paragraphCount": 4,
+      "file": "C:\\Projects\\metaintelligence\\p30-a4-iso\\lib\\spring-ts\\data\\narrative\\movement\\thisMonth\\expert.fragments.json",
+      "fireCount": 4
+    },
+    {
+      "fragmentId": "movement.thisYear.expert.0_9.002",
+      "cat": "movement",
+      "period": "thisYear",
+      "paragraphCount": 4,
+      "file": "C:\\Projects\\metaintelligence\\p30-a4-iso\\lib\\spring-ts\\data\\narrative\\movement\\thisYear\\expert.fragments.json",
+      "fireCount": 4
+    },
+    {
+      "fragmentId": "movement.life.expert.0_9.002",
+      "cat": "movement",
+      "period": "life",
+      "paragraphCount": 4,
+      "file": "C:\\Projects\\metaintelligence\\p30-a4-iso\\lib\\spring-ts\\data\\narrative\\movement\\life\\expert.fragments.json",
+      "fireCount": 4
+    },
+    {
+      "fragmentId": "overall.today.expert.child.001",
+      "cat": "overall",
+      "period": "today",
+      "paragraphCount": 4,
+      "file": "C:\\Projects\\metaintelligence\\p30-a4-iso\\lib\\spring-ts\\data\\narrative\\overall\\today\\expert.fragments.json",
+      "fireCount": 4
+    },
+    {
+      "fragmentId": "overall.thisWeek.expert.child.001",
+      "cat": "overall",
+      "period": "thisWeek",
+      "paragraphCount": 4,
+      "file": "C:\\Projects\\metaintelligence\\p30-a4-iso\\lib\\spring-ts\\data\\narrative\\overall\\thisWeek\\expert.fragments.json",
+      "fireCount": 4
+    },
+    {
+      "fragmentId": "overall.thisMonth.expert.child.001",
+      "cat": "overall",
+      "period": "thisMonth",
+      "paragraphCount": 4,
+      "file": "C:\\Projects\\metaintelligence\\p30-a4-iso\\lib\\spring-ts\\data\\narrative\\overall\\thisMonth\\expert.fragments.json",
+      "fireCount": 4
+    },
+    {
+      "fragmentId": "overall.thisYear.expert.child.001",
+      "cat": "overall",
+      "period": "thisYear",
+      "paragraphCount": 4,
+      "file": "C:\\Projects\\metaintelligence\\p30-a4-iso\\lib\\spring-ts\\data\\narrative\\overall\\thisYear\\expert.fragments.json",
+      "fireCount": 4
+    },
+    {
+      "fragmentId": "overall.life.expert.child.001",
+      "cat": "overall",
+      "period": "life",
+      "paragraphCount": 4,
+      "file": "C:\\Projects\\metaintelligence\\p30-a4-iso\\lib\\spring-ts\\data\\narrative\\overall\\life\\expert.fragments.json",
+      "fireCount": 4
+    },
+    {
+      "fragmentId": "romance.today.expert.adult.strong.001",
+      "cat": "romance",
+      "period": "today",
+      "paragraphCount": 4,
+      "file": "C:\\Projects\\metaintelligence\\p30-a4-iso\\lib\\spring-ts\\data\\narrative\\romance\\today\\expert.fragments.json",
+      "fireCount": 4
+    },
+    {
+      "fragmentId": "romance.today.expert.adult.weak.001",
+      "cat": "romance",
+      "period": "today",
+      "paragraphCount": 4,
+      "file": "C:\\Projects\\metaintelligence\\p30-a4-iso\\lib\\spring-ts\\data\\narrative\\romance\\today\\expert.fragments.json",
+      "fireCount": 4
+    },
+    {
+      "fragmentId": "health_stress.today.expert.fire_strong.001",
+      "cat": "health_stress",
+      "period": "today",
+      "paragraphCount": 4,
+      "file": "C:\\Projects\\metaintelligence\\p30-a4-iso\\lib\\spring-ts\\data\\narrative\\health_stress\\today\\expert.fragments.json",
+      "fireCount": 3
+    },
+    {
+      "fragmentId": "health_stress.thisMonth.expert.female_20_29.001",
+      "cat": "health_stress",
+      "period": "thisMonth",
+      "paragraphCount": 4,
+      "file": "C:\\Projects\\metaintelligence\\p30-a4-iso\\lib\\spring-ts\\data\\narrative\\health_stress\\thisMonth\\expert.fragments.json",
+      "fireCount": 3
+    },
+    {
+      "fragmentId": "overall.thisWeek.expert.strong.neutral.005",
+      "cat": "overall",
+      "period": "thisWeek",
+      "paragraphCount": 4,
+      "file": "C:\\Projects\\metaintelligence\\p30-a4-iso\\lib\\spring-ts\\data\\narrative\\overall\\thisWeek\\expert.fragments.json",
+      "fireCount": 3
+    },
+    {
+      "fragmentId": "overall.thisMonth.expert.strong.neutral.005",
+      "cat": "overall",
+      "period": "thisMonth",
+      "paragraphCount": 4,
+      "file": "C:\\Projects\\metaintelligence\\p30-a4-iso\\lib\\spring-ts\\data\\narrative\\overall\\thisMonth\\expert.fragments.json",
+      "fireCount": 3
+    },
+    {
+      "fragmentId": "wealth.thisWeek.expert.weak.neutral.004",
+      "cat": "wealth",
+      "period": "thisWeek",
+      "paragraphCount": 4,
+      "file": "C:\\Projects\\metaintelligence\\p30-a4-iso\\lib\\spring-ts\\data\\narrative\\wealth\\thisWeek\\expert.fragments.json",
+      "fireCount": 3
+    },
+    {
+      "fragmentId": "wealth.thisMonth.expert.weak.neutral.004",
+      "cat": "wealth",
+      "period": "thisMonth",
+      "paragraphCount": 4,
+      "file": "C:\\Projects\\metaintelligence\\p30-a4-iso\\lib\\spring-ts\\data\\narrative\\wealth\\thisMonth\\expert.fragments.json",
+      "fireCount": 3
+    },
+    {
+      "fragmentId": "health_stress.thisWeek.expert.water_weak.001",
+      "cat": "health_stress",
+      "period": "thisWeek",
+      "paragraphCount": 4,
+      "file": "C:\\Projects\\metaintelligence\\p30-a4-iso\\lib\\spring-ts\\data\\narrative\\health_stress\\thisWeek\\expert.fragments.json",
+      "fireCount": 2
+    },
+    {
+      "fragmentId": "health_stress.thisYear.expert.female_20_29.001",
+      "cat": "health_stress",
+      "period": "thisYear",
+      "paragraphCount": 4,
+      "file": "C:\\Projects\\metaintelligence\\p30-a4-iso\\lib\\spring-ts\\data\\narrative\\health_stress\\thisYear\\expert.fragments.json",
+      "fireCount": 2
+    },
+    {
+      "fragmentId": "health_stress.thisYear.expert.fire_strong.001",
+      "cat": "health_stress",
+      "period": "thisYear",
+      "paragraphCount": 4,
+      "file": "C:\\Projects\\metaintelligence\\p30-a4-iso\\lib\\spring-ts\\data\\narrative\\health_stress\\thisYear\\expert.fragments.json",
+      "fireCount": 2
+    },
+    {
+      "fragmentId": "overall.life.expert.balanced.neutral.008",
+      "cat": "overall",
+      "period": "life",
+      "paragraphCount": 4,
+      "file": "C:\\Projects\\metaintelligence\\p30-a4-iso\\lib\\spring-ts\\data\\narrative\\overall\\life\\expert.fragments.json",
+      "fireCount": 2
+    },
+    {
+      "fragmentId": "romance.thisWeek.expert.adult.strong.001",
+      "cat": "romance",
+      "period": "thisWeek",
+      "paragraphCount": 4,
+      "file": "C:\\Projects\\metaintelligence\\p30-a4-iso\\lib\\spring-ts\\data\\narrative\\romance\\thisWeek\\expert.fragments.json",
+      "fireCount": 2
+    },
+    {
+      "fragmentId": "academic.thisYear.expert.10_19.011",
+      "cat": "academic",
+      "period": "thisYear",
+      "paragraphCount": 4,
+      "file": "C:\\Projects\\metaintelligence\\p30-a4-iso\\lib\\spring-ts\\data\\narrative\\academic\\thisYear\\expert.fragments.json",
+      "fireCount": 1
+    },
+    {
+      "fragmentId": "academic.life.expert.10_19.010",
+      "cat": "academic",
+      "period": "life",
+      "paragraphCount": 4,
+      "file": "C:\\Projects\\metaintelligence\\p30-a4-iso\\lib\\spring-ts\\data\\narrative\\academic\\life\\expert.fragments.json",
+      "fireCount": 1
+    },
+    {
+      "fragmentId": "expression_children.life.expert.10_19.006",
+      "cat": "expression_children",
+      "period": "life",
+      "paragraphCount": 4,
+      "file": "C:\\Projects\\metaintelligence\\p30-a4-iso\\lib\\spring-ts\\data\\narrative\\expression_children\\life\\expert.fragments.json",
+      "fireCount": 1
+    },
+    {
+      "fragmentId": "health_stress.today.expert.female_20_29.001",
+      "cat": "health_stress",
+      "period": "today",
+      "paragraphCount": 4,
+      "file": "C:\\Projects\\metaintelligence\\p30-a4-iso\\lib\\spring-ts\\data\\narrative\\health_stress\\today\\expert.fragments.json",
+      "fireCount": 1
+    },
+    {
+      "fragmentId": "health_stress.today.expert.youth_10_19.001",
+      "cat": "health_stress",
+      "period": "today",
+      "paragraphCount": 4,
+      "file": "C:\\Projects\\metaintelligence\\p30-a4-iso\\lib\\spring-ts\\data\\narrative\\health_stress\\today\\expert.fragments.json",
+      "fireCount": 1
+    },
+    {
+      "fragmentId": "health_stress.thisWeek.expert.male_30_39.001",
+      "cat": "health_stress",
+      "period": "thisWeek",
+      "paragraphCount": 4,
+      "file": "C:\\Projects\\metaintelligence\\p30-a4-iso\\lib\\spring-ts\\data\\narrative\\health_stress\\thisWeek\\expert.fragments.json",
+      "fireCount": 1
+    },
+    {
+      "fragmentId": "health_stress.thisWeek.expert.youth_10_19.001",
+      "cat": "health_stress",
+      "period": "thisWeek",
+      "paragraphCount": 4,
+      "file": "C:\\Projects\\metaintelligence\\p30-a4-iso\\lib\\spring-ts\\data\\narrative\\health_stress\\thisWeek\\expert.fragments.json",
+      "fireCount": 1
+    },
+    {
+      "fragmentId": "health_stress.thisMonth.expert.male_30_39.001",
+      "cat": "health_stress",
+      "period": "thisMonth",
+      "paragraphCount": 4,
+      "file": "C:\\Projects\\metaintelligence\\p30-a4-iso\\lib\\spring-ts\\data\\narrative\\health_stress\\thisMonth\\expert.fragments.json",
+      "fireCount": 1
+    },
+    {
+      "fragmentId": "health_stress.thisMonth.expert.youth_10_19.001",
+      "cat": "health_stress",
+      "period": "thisMonth",
+      "paragraphCount": 4,
+      "file": "C:\\Projects\\metaintelligence\\p30-a4-iso\\lib\\spring-ts\\data\\narrative\\health_stress\\thisMonth\\expert.fragments.json",
+      "fireCount": 1
+    },
+    {
+      "fragmentId": "health_stress.thisMonth.expert.water_weak.001",
+      "cat": "health_stress",
+      "period": "thisMonth",
+      "paragraphCount": 4,
+      "file": "C:\\Projects\\metaintelligence\\p30-a4-iso\\lib\\spring-ts\\data\\narrative\\health_stress\\thisMonth\\expert.fragments.json",
+      "fireCount": 1
+    },
+    {
+      "fragmentId": "health_stress.thisYear.expert.youth_10_19.001",
+      "cat": "health_stress",
+      "period": "thisYear",
+      "paragraphCount": 4,
+      "file": "C:\\Projects\\metaintelligence\\p30-a4-iso\\lib\\spring-ts\\data\\narrative\\health_stress\\thisYear\\expert.fragments.json",
+      "fireCount": 1
+    },
+    {
+      "fragmentId": "health_stress.life.expert.water_weak.001",
+      "cat": "health_stress",
+      "period": "life",
+      "paragraphCount": 4,
+      "file": "C:\\Projects\\metaintelligence\\p30-a4-iso\\lib\\spring-ts\\data\\narrative\\health_stress\\life\\expert.fragments.json",
+      "fireCount": 1
+    },
+    {
+      "fragmentId": "movement.today.expert.10_19.003",
+      "cat": "movement",
+      "period": "today",
+      "paragraphCount": 4,
+      "file": "C:\\Projects\\metaintelligence\\p30-a4-iso\\lib\\spring-ts\\data\\narrative\\movement\\today\\expert.fragments.json",
+      "fireCount": 1
+    },
+    {
+      "fragmentId": "movement.thisWeek.expert.10_19.003",
+      "cat": "movement",
+      "period": "thisWeek",
+      "paragraphCount": 4,
+      "file": "C:\\Projects\\metaintelligence\\p30-a4-iso\\lib\\spring-ts\\data\\narrative\\movement\\thisWeek\\expert.fragments.json",
+      "fireCount": 1
+    },
+    {
+      "fragmentId": "movement.thisMonth.expert.10_19.003",
+      "cat": "movement",
+      "period": "thisMonth",
+      "paragraphCount": 4,
+      "file": "C:\\Projects\\metaintelligence\\p30-a4-iso\\lib\\spring-ts\\data\\narrative\\movement\\thisMonth\\expert.fragments.json",
+      "fireCount": 1
+    },
+    {
+      "fragmentId": "overall.today.expert.balanced.neutral.008",
+      "cat": "overall",
+      "period": "today",
+      "paragraphCount": 4,
+      "file": "C:\\Projects\\metaintelligence\\p30-a4-iso\\lib\\spring-ts\\data\\narrative\\overall\\today\\expert.fragments.json",
+      "fireCount": 1
+    },
+    {
+      "fragmentId": "overall.thisWeek.expert.balanced.neutral.008",
+      "cat": "overall",
+      "period": "thisWeek",
+      "paragraphCount": 4,
+      "file": "C:\\Projects\\metaintelligence\\p30-a4-iso\\lib\\spring-ts\\data\\narrative\\overall\\thisWeek\\expert.fragments.json",
+      "fireCount": 1
+    },
+    {
+      "fragmentId": "overall.thisMonth.expert.balanced.neutral.008",
+      "cat": "overall",
+      "period": "thisMonth",
+      "paragraphCount": 4,
+      "file": "C:\\Projects\\metaintelligence\\p30-a4-iso\\lib\\spring-ts\\data\\narrative\\overall\\thisMonth\\expert.fragments.json",
+      "fireCount": 1
+    },
+    {
+      "fragmentId": "overall.thisYear.expert.balanced.neutral.008",
+      "cat": "overall",
+      "period": "thisYear",
+      "paragraphCount": 4,
+      "file": "C:\\Projects\\metaintelligence\\p30-a4-iso\\lib\\spring-ts\\data\\narrative\\overall\\thisYear\\expert.fragments.json",
+      "fireCount": 1
+    },
+    {
+      "fragmentId": "overall.life.expert.yin_late60s_johu.504",
+      "cat": "overall",
+      "period": "life",
+      "paragraphCount": 4,
+      "file": "C:\\Projects\\metaintelligence\\p30-a4-iso\\lib\\spring-ts\\data\\narrative\\overall\\life\\expert.fragments.json",
+      "fireCount": 1
+    },
+    {
+      "fragmentId": "study_document.today.expert.young.006",
+      "cat": "study_document",
+      "period": "today",
+      "paragraphCount": 4,
+      "file": "C:\\Projects\\metaintelligence\\p30-a4-iso\\lib\\spring-ts\\data\\narrative\\study_document\\today\\expert.fragments.json",
+      "fireCount": 1
+    },
+    {
+      "fragmentId": "study_document.thisWeek.expert.young.006",
+      "cat": "study_document",
+      "period": "thisWeek",
+      "paragraphCount": 4,
+      "file": "C:\\Projects\\metaintelligence\\p30-a4-iso\\lib\\spring-ts\\data\\narrative\\study_document\\thisWeek\\expert.fragments.json",
+      "fireCount": 1
+    },
+    {
+      "fragmentId": "study_document.thisMonth.expert.young.006",
+      "cat": "study_document",
+      "period": "thisMonth",
+      "paragraphCount": 4,
+      "file": "C:\\Projects\\metaintelligence\\p30-a4-iso\\lib\\spring-ts\\data\\narrative\\study_document\\thisMonth\\expert.fragments.json",
+      "fireCount": 1
+    },
+    {
+      "fragmentId": "study_document.thisYear.expert.young.006",
+      "cat": "study_document",
+      "period": "thisYear",
+      "paragraphCount": 4,
+      "file": "C:\\Projects\\metaintelligence\\p30-a4-iso\\lib\\spring-ts\\data\\narrative\\study_document\\thisYear\\expert.fragments.json",
+      "fireCount": 1
+    },
+    {
+      "fragmentId": "study_document.life.expert.young.006",
+      "cat": "study_document",
+      "period": "life",
+      "paragraphCount": 4,
+      "file": "C:\\Projects\\metaintelligence\\p30-a4-iso\\lib\\spring-ts\\data\\narrative\\study_document\\life\\expert.fragments.json",
+      "fireCount": 1
+    },
+    {
+      "fragmentId": "wealth.today.expert.male.30_39.006",
+      "cat": "wealth",
+      "period": "today",
+      "paragraphCount": 4,
+      "file": "C:\\Projects\\metaintelligence\\p30-a4-iso\\lib\\spring-ts\\data\\narrative\\wealth\\today\\expert.fragments.json",
+      "fireCount": 1
+    },
+    {
+      "fragmentId": "wealth.today.expert.female.40_54.007",
+      "cat": "wealth",
+      "period": "today",
+      "paragraphCount": 4,
+      "file": "C:\\Projects\\metaintelligence\\p30-a4-iso\\lib\\spring-ts\\data\\narrative\\wealth\\today\\expert.fragments.json",
+      "fireCount": 1
+    },
+    {
+      "fragmentId": "wealth.thisWeek.expert.male.30_39.006",
+      "cat": "wealth",
+      "period": "thisWeek",
+      "paragraphCount": 4,
+      "file": "C:\\Projects\\metaintelligence\\p30-a4-iso\\lib\\spring-ts\\data\\narrative\\wealth\\thisWeek\\expert.fragments.json",
+      "fireCount": 1
+    },
+    {
+      "fragmentId": "wealth.life.expert.female.40_54.007",
+      "cat": "wealth",
+      "period": "life",
+      "paragraphCount": 4,
+      "file": "C:\\Projects\\metaintelligence\\p30-a4-iso\\lib\\spring-ts\\data\\narrative\\wealth\\life\\expert.fragments.json",
+      "fireCount": 1
+    },
+    {
+      "fragmentId": "academic.today.expert.wildcard.001",
+      "cat": "academic",
+      "period": "today",
+      "paragraphCount": 4,
+      "file": "C:\\Projects\\metaintelligence\\p30-a4-iso\\lib\\spring-ts\\data\\narrative\\academic\\today\\expert.fragments.json",
+      "fireCount": 0
+    },
+    {
+      "fragmentId": "academic.today.expert.aligned.002",
+      "cat": "academic",
+      "period": "today",
+      "paragraphCount": 4,
+      "file": "C:\\Projects\\metaintelligence\\p30-a4-iso\\lib\\spring-ts\\data\\narrative\\academic\\today\\expert.fragments.json",
+      "fireCount": 0
+    },
+    {
+      "fragmentId": "academic.today.expert.conflicting.003",
+      "cat": "academic",
+      "period": "today",
+      "paragraphCount": 4,
+      "file": "C:\\Projects\\metaintelligence\\p30-a4-iso\\lib\\spring-ts\\data\\narrative\\academic\\today\\expert.fragments.json",
+      "fireCount": 0
+    },
+    {
+      "fragmentId": "academic.today.expert.weak_aligned.004",
+      "cat": "academic",
+      "period": "today",
+      "paragraphCount": 4,
+      "file": "C:\\Projects\\metaintelligence\\p30-a4-iso\\lib\\spring-ts\\data\\narrative\\academic\\today\\expert.fragments.json",
+      "fireCount": 0
+    },
+    {
+      "fragmentId": "academic.today.expert.strong_aligned.005",
+      "cat": "academic",
+      "period": "today",
+      "paragraphCount": 4,
+      "file": "C:\\Projects\\metaintelligence\\p30-a4-iso\\lib\\spring-ts\\data\\narrative\\academic\\today\\expert.fragments.json",
+      "fireCount": 0
+    },
+    {
+      "fragmentId": "academic.today.expert.jeongingyeok.006",
+      "cat": "academic",
+      "period": "today",
+      "paragraphCount": 4,
+      "file": "C:\\Projects\\metaintelligence\\p30-a4-iso\\lib\\spring-ts\\data\\narrative\\academic\\today\\expert.fragments.json",
+      "fireCount": 0
+    },
+    {
+      "fragmentId": "academic.today.expert.pyeoningyeok.007",
+      "cat": "academic",
+      "period": "today",
+      "paragraphCount": 4,
+      "file": "C:\\Projects\\metaintelligence\\p30-a4-iso\\lib\\spring-ts\\data\\narrative\\academic\\today\\expert.fragments.json",
+      "fireCount": 0
+    },
+    {
+      "fragmentId": "academic.today.expert.sikshingyeok.008",
+      "cat": "academic",
+      "period": "today",
+      "paragraphCount": 4,
+      "file": "C:\\Projects\\metaintelligence\\p30-a4-iso\\lib\\spring-ts\\data\\narrative\\academic\\today\\expert.fragments.json",
+      "fireCount": 0
+    },
+    {
+      "fragmentId": "academic.today.expert.balanced.009",
+      "cat": "academic",
+      "period": "today",
+      "paragraphCount": 4,
+      "file": "C:\\Projects\\metaintelligence\\p30-a4-iso\\lib\\spring-ts\\data\\narrative\\academic\\today\\expert.fragments.json",
+      "fireCount": 0
+    },
+    {
+      "fragmentId": "academic.today.expert.hwagae.010",
+      "cat": "academic",
+      "period": "today",
+      "paragraphCount": 4,
+      "file": "C:\\Projects\\metaintelligence\\p30-a4-iso\\lib\\spring-ts\\data\\narrative\\academic\\today\\expert.fragments.json",
+      "fireCount": 0
+    },
+    {
+      "fragmentId": "academic.thisWeek.expert.wildcard.001",
+      "cat": "academic",
+      "period": "thisWeek",
+      "paragraphCount": 4,
+      "file": "C:\\Projects\\metaintelligence\\p30-a4-iso\\lib\\spring-ts\\data\\narrative\\academic\\thisWeek\\expert.fragments.json",
+      "fireCount": 0
+    },
+    {
+      "fragmentId": "academic.thisWeek.expert.aligned.002",
+      "cat": "academic",
+      "period": "thisWeek",
+      "paragraphCount": 4,
+      "file": "C:\\Projects\\metaintelligence\\p30-a4-iso\\lib\\spring-ts\\data\\narrative\\academic\\thisWeek\\expert.fragments.json",
+      "fireCount": 0
+    },
+    {
+      "fragmentId": "academic.thisWeek.expert.conflicting.003",
+      "cat": "academic",
+      "period": "thisWeek",
+      "paragraphCount": 4,
+      "file": "C:\\Projects\\metaintelligence\\p30-a4-iso\\lib\\spring-ts\\data\\narrative\\academic\\thisWeek\\expert.fragments.json",
+      "fireCount": 0
+    },
+    {
+      "fragmentId": "academic.thisWeek.expert.weak_aligned.004",
+      "cat": "academic",
+      "period": "thisWeek",
+      "paragraphCount": 4,
+      "file": "C:\\Projects\\metaintelligence\\p30-a4-iso\\lib\\spring-ts\\data\\narrative\\academic\\thisWeek\\expert.fragments.json",
+      "fireCount": 0
+    },
+    {
+      "fragmentId": "academic.thisWeek.expert.strong_aligned.005",
+      "cat": "academic",
+      "period": "thisWeek",
+      "paragraphCount": 4,
+      "file": "C:\\Projects\\metaintelligence\\p30-a4-iso\\lib\\spring-ts\\data\\narrative\\academic\\thisWeek\\expert.fragments.json",
+      "fireCount": 0
+    },
+    {
+      "fragmentId": "academic.thisWeek.expert.jeongingyeok.006",
+      "cat": "academic",
+      "period": "thisWeek",
+      "paragraphCount": 4,
+      "file": "C:\\Projects\\metaintelligence\\p30-a4-iso\\lib\\spring-ts\\data\\narrative\\academic\\thisWeek\\expert.fragments.json",
+      "fireCount": 0
+    },
+    {
+      "fragmentId": "academic.thisWeek.expert.pyeoningyeok.007",
+      "cat": "academic",
+      "period": "thisWeek",
+      "paragraphCount": 4,
+      "file": "C:\\Projects\\metaintelligence\\p30-a4-iso\\lib\\spring-ts\\data\\narrative\\academic\\thisWeek\\expert.fragments.json",
+      "fireCount": 0
+    },
+    {
+      "fragmentId": "academic.thisWeek.expert.balanced.008",
+      "cat": "academic",
+      "period": "thisWeek",
+      "paragraphCount": 4,
+      "file": "C:\\Projects\\metaintelligence\\p30-a4-iso\\lib\\spring-ts\\data\\narrative\\academic\\thisWeek\\expert.fragments.json",
+      "fireCount": 0
+    },
+    {
+      "fragmentId": "academic.thisMonth.expert.wildcard.001",
+      "cat": "academic",
+      "period": "thisMonth",
+      "paragraphCount": 4,
+      "file": "C:\\Projects\\metaintelligence\\p30-a4-iso\\lib\\spring-ts\\data\\narrative\\academic\\thisMonth\\expert.fragments.json",
+      "fireCount": 0
+    },
+    {
+      "fragmentId": "academic.thisMonth.expert.aligned.002",
+      "cat": "academic",
+      "period": "thisMonth",
+      "paragraphCount": 4,
+      "file": "C:\\Projects\\metaintelligence\\p30-a4-iso\\lib\\spring-ts\\data\\narrative\\academic\\thisMonth\\expert.fragments.json",
+      "fireCount": 0
+    },
+    {
+      "fragmentId": "academic.thisMonth.expert.conflicting.003",
+      "cat": "academic",
+      "period": "thisMonth",
+      "paragraphCount": 4,
+      "file": "C:\\Projects\\metaintelligence\\p30-a4-iso\\lib\\spring-ts\\data\\narrative\\academic\\thisMonth\\expert.fragments.json",
+      "fireCount": 0
+    },
+    {
+      "fragmentId": "academic.thisMonth.expert.weak_aligned.004",
+      "cat": "academic",
+      "period": "thisMonth",
+      "paragraphCount": 4,
+      "file": "C:\\Projects\\metaintelligence\\p30-a4-iso\\lib\\spring-ts\\data\\narrative\\academic\\thisMonth\\expert.fragments.json",
+      "fireCount": 0
+    },
+    {
+      "fragmentId": "academic.thisMonth.expert.strong_aligned.005",
+      "cat": "academic",
+      "period": "thisMonth",
+      "paragraphCount": 4,
+      "file": "C:\\Projects\\metaintelligence\\p30-a4-iso\\lib\\spring-ts\\data\\narrative\\academic\\thisMonth\\expert.fragments.json",
+      "fireCount": 0
+    },
+    {
+      "fragmentId": "academic.thisMonth.expert.jeongingyeok.006",
+      "cat": "academic",
+      "period": "thisMonth",
+      "paragraphCount": 4,
+      "file": "C:\\Projects\\metaintelligence\\p30-a4-iso\\lib\\spring-ts\\data\\narrative\\academic\\thisMonth\\expert.fragments.json",
+      "fireCount": 0
+    },
+    {
+      "fragmentId": "academic.thisMonth.expert.pyeoningyeok.007",
+      "cat": "academic",
+      "period": "thisMonth",
+      "paragraphCount": 4,
+      "file": "C:\\Projects\\metaintelligence\\p30-a4-iso\\lib\\spring-ts\\data\\narrative\\academic\\thisMonth\\expert.fragments.json",
+      "fireCount": 0
+    },
+    {
+      "fragmentId": "academic.thisMonth.expert.balanced.008",
+      "cat": "academic",
+      "period": "thisMonth",
+      "paragraphCount": 4,
+      "file": "C:\\Projects\\metaintelligence\\p30-a4-iso\\lib\\spring-ts\\data\\narrative\\academic\\thisMonth\\expert.fragments.json",
+      "fireCount": 0
+    },
+    {
+      "fragmentId": "academic.thisYear.expert.wildcard.001",
+      "cat": "academic",
+      "period": "thisYear",
+      "paragraphCount": 4,
+      "file": "C:\\Projects\\metaintelligence\\p30-a4-iso\\lib\\spring-ts\\data\\narrative\\academic\\thisYear\\expert.fragments.json",
+      "fireCount": 0
+    },
+    {
+      "fragmentId": "academic.thisYear.expert.aligned.002",
+      "cat": "academic",
+      "period": "thisYear",
+      "paragraphCount": 4,
+      "file": "C:\\Projects\\metaintelligence\\p30-a4-iso\\lib\\spring-ts\\data\\narrative\\academic\\thisYear\\expert.fragments.json",
+      "fireCount": 0
+    },
+    {
+      "fragmentId": "academic.thisYear.expert.conflicting.003",
+      "cat": "academic",
+      "period": "thisYear",
+      "paragraphCount": 4,
+      "file": "C:\\Projects\\metaintelligence\\p30-a4-iso\\lib\\spring-ts\\data\\narrative\\academic\\thisYear\\expert.fragments.json",
+      "fireCount": 0
+    },
+    {
+      "fragmentId": "academic.thisYear.expert.weak_aligned.004",
+      "cat": "academic",
+      "period": "thisYear",
+      "paragraphCount": 4,
+      "file": "C:\\Projects\\metaintelligence\\p30-a4-iso\\lib\\spring-ts\\data\\narrative\\academic\\thisYear\\expert.fragments.json",
+      "fireCount": 0
+    },
+    {
+      "fragmentId": "academic.thisYear.expert.strong_aligned.005",
+      "cat": "academic",
+      "period": "thisYear",
+      "paragraphCount": 4,
+      "file": "C:\\Projects\\metaintelligence\\p30-a4-iso\\lib\\spring-ts\\data\\narrative\\academic\\thisYear\\expert.fragments.json",
+      "fireCount": 0
+    },
+    {
+      "fragmentId": "academic.thisYear.expert.jeongingyeok.006",
+      "cat": "academic",
+      "period": "thisYear",
+      "paragraphCount": 4,
+      "file": "C:\\Projects\\metaintelligence\\p30-a4-iso\\lib\\spring-ts\\data\\narrative\\academic\\thisYear\\expert.fragments.json",
+      "fireCount": 0
+    },
+    {
+      "fragmentId": "academic.thisYear.expert.pyeoningyeok.007",
+      "cat": "academic",
+      "period": "thisYear",
+      "paragraphCount": 4,
+      "file": "C:\\Projects\\metaintelligence\\p30-a4-iso\\lib\\spring-ts\\data\\narrative\\academic\\thisYear\\expert.fragments.json",
+      "fireCount": 0
+    },
+    {
+      "fragmentId": "academic.thisYear.expert.sikshingyeok.008",
+      "cat": "academic",
+      "period": "thisYear",
+      "paragraphCount": 4,
+      "file": "C:\\Projects\\metaintelligence\\p30-a4-iso\\lib\\spring-ts\\data\\narrative\\academic\\thisYear\\expert.fragments.json",
+      "fireCount": 0
+    },
+    {
+      "fragmentId": "academic.thisYear.expert.balanced.009",
+      "cat": "academic",
+      "period": "thisYear",
+      "paragraphCount": 4,
+      "file": "C:\\Projects\\metaintelligence\\p30-a4-iso\\lib\\spring-ts\\data\\narrative\\academic\\thisYear\\expert.fragments.json",
+      "fireCount": 0
+    },
+    {
+      "fragmentId": "academic.thisYear.expert.hwagae.010",
+      "cat": "academic",
+      "period": "thisYear",
+      "paragraphCount": 4,
+      "file": "C:\\Projects\\metaintelligence\\p30-a4-iso\\lib\\spring-ts\\data\\narrative\\academic\\thisYear\\expert.fragments.json",
+      "fireCount": 0
+    },
+    {
+      "fragmentId": "academic.life.expert.wildcard.001",
+      "cat": "academic",
+      "period": "life",
+      "paragraphCount": 4,
+      "file": "C:\\Projects\\metaintelligence\\p30-a4-iso\\lib\\spring-ts\\data\\narrative\\academic\\life\\expert.fragments.json",
+      "fireCount": 0
+    },
+    {
+      "fragmentId": "academic.life.expert.jeongingyeok.002",
+      "cat": "academic",
+      "period": "life",
+      "paragraphCount": 4,
+      "file": "C:\\Projects\\metaintelligence\\p30-a4-iso\\lib\\spring-ts\\data\\narrative\\academic\\life\\expert.fragments.json",
+      "fireCount": 0
+    },
+    {
+      "fragmentId": "academic.life.expert.pyeoningyeok.003",
+      "cat": "academic",
+      "period": "life",
+      "paragraphCount": 4,
+      "file": "C:\\Projects\\metaintelligence\\p30-a4-iso\\lib\\spring-ts\\data\\narrative\\academic\\life\\expert.fragments.json",
+      "fireCount": 0
+    },
+    {
+      "fragmentId": "academic.life.expert.sikshingyeok.004",
+      "cat": "academic",
+      "period": "life",
+      "paragraphCount": 4,
+      "file": "C:\\Projects\\metaintelligence\\p30-a4-iso\\lib\\spring-ts\\data\\narrative\\academic\\life\\expert.fragments.json",
+      "fireCount": 0
+    },
+    {
+      "fragmentId": "academic.life.expert.sanggwangyeok.005",
+      "cat": "academic",
+      "period": "life",
+      "paragraphCount": 4,
+      "file": "C:\\Projects\\metaintelligence\\p30-a4-iso\\lib\\spring-ts\\data\\narrative\\academic\\life\\expert.fragments.json",
+      "fireCount": 0
+    },
+    {
+      "fragmentId": "academic.life.expert.weak_aligned.006",
+      "cat": "academic",
+      "period": "life",
+      "paragraphCount": 4,
+      "file": "C:\\Projects\\metaintelligence\\p30-a4-iso\\lib\\spring-ts\\data\\narrative\\academic\\life\\expert.fragments.json",
+      "fireCount": 0
+    },
+    {
+      "fragmentId": "academic.life.expert.strong_aligned.007",
+      "cat": "academic",
+      "period": "life",
+      "paragraphCount": 4,
+      "file": "C:\\Projects\\metaintelligence\\p30-a4-iso\\lib\\spring-ts\\data\\narrative\\academic\\life\\expert.fragments.json",
+      "fireCount": 0
+    },
+    {
+      "fragmentId": "academic.life.expert.balanced.008",
+      "cat": "academic",
+      "period": "life",
+      "paragraphCount": 4,
+      "file": "C:\\Projects\\metaintelligence\\p30-a4-iso\\lib\\spring-ts\\data\\narrative\\academic\\life\\expert.fragments.json",
+      "fireCount": 0
+    },
+    {
+      "fragmentId": "academic.life.expert.hwagae.009",
+      "cat": "academic",
+      "period": "life",
+      "paragraphCount": 4,
+      "file": "C:\\Projects\\metaintelligence\\p30-a4-iso\\lib\\spring-ts\\data\\narrative\\academic\\life\\expert.fragments.json",
+      "fireCount": 0
+    },
+    {
+      "fragmentId": "academic.life.expert.30plus.011",
+      "cat": "academic",
+      "period": "life",
+      "paragraphCount": 4,
+      "file": "C:\\Projects\\metaintelligence\\p30-a4-iso\\lib\\spring-ts\\data\\narrative\\academic\\life\\expert.fragments.json",
+      "fireCount": 0
+    },
+    {
+      "fragmentId": "career.today.expert.wildcard.001",
+      "cat": "career",
+      "period": "today",
+      "paragraphCount": 4,
+      "file": "C:\\Projects\\metaintelligence\\p30-a4-iso\\lib\\spring-ts\\data\\narrative\\career\\today\\expert.fragments.json",
+      "fireCount": 0
+    },
+    {
+      "fragmentId": "career.today.expert.strong.aligned.002",
+      "cat": "career",
+      "period": "today",
+      "paragraphCount": 4,
+      "file": "C:\\Projects\\metaintelligence\\p30-a4-iso\\lib\\spring-ts\\data\\narrative\\career\\today\\expert.fragments.json",
+      "fireCount": 0
+    },
+    {
+      "fragmentId": "career.today.expert.weak.aligned.003",
+      "cat": "career",
+      "period": "today",
+      "paragraphCount": 4,
+      "file": "C:\\Projects\\metaintelligence\\p30-a4-iso\\lib\\spring-ts\\data\\narrative\\career\\today\\expert.fragments.json",
+      "fireCount": 0
+    },
+    {
+      "fragmentId": "career.today.expert.balanced.aligned.004",
+      "cat": "career",
+      "period": "today",
+      "paragraphCount": 4,
+      "file": "C:\\Projects\\metaintelligence\\p30-a4-iso\\lib\\spring-ts\\data\\narrative\\career\\today\\expert.fragments.json",
+      "fireCount": 0
+    },
+    {
+      "fragmentId": "career.today.expert.conflicting.005",
+      "cat": "career",
+      "period": "today",
+      "paragraphCount": 4,
+      "file": "C:\\Projects\\metaintelligence\\p30-a4-iso\\lib\\spring-ts\\data\\narrative\\career\\today\\expert.fragments.json",
+      "fireCount": 0
+    },
+    {
+      "fragmentId": "career.today.expert.jeonggwangyeok.006",
+      "cat": "career",
+      "period": "today",
+      "paragraphCount": 4,
+      "file": "C:\\Projects\\metaintelligence\\p30-a4-iso\\lib\\spring-ts\\data\\narrative\\career\\today\\expert.fragments.json",
+      "fireCount": 0
+    },
+    {
+      "fragmentId": "career.today.expert.pyeongwangyeok.007",
+      "cat": "career",
+      "period": "today",
+      "paragraphCount": 4,
+      "file": "C:\\Projects\\metaintelligence\\p30-a4-iso\\lib\\spring-ts\\data\\narrative\\career\\today\\expert.fragments.json",
+      "fireCount": 0
+    },
+    {
+      "fragmentId": "career.today.expert.age30plus.008",
+      "cat": "career",
+      "period": "today",
+      "paragraphCount": 4,
+      "file": "C:\\Projects\\metaintelligence\\p30-a4-iso\\lib\\spring-ts\\data\\narrative\\career\\today\\expert.fragments.json",
+      "fireCount": 0
+    },
+    {
+      "fragmentId": "career.thisWeek.expert.wildcard.001",
+      "cat": "career",
+      "period": "thisWeek",
+      "paragraphCount": 4,
+      "file": "C:\\Projects\\metaintelligence\\p30-a4-iso\\lib\\spring-ts\\data\\narrative\\career\\thisWeek\\expert.fragments.json",
+      "fireCount": 0
+    },
+    {
+      "fragmentId": "career.thisWeek.expert.strong.aligned.002",
+      "cat": "career",
+      "period": "thisWeek",
+      "paragraphCount": 4,
+      "file": "C:\\Projects\\metaintelligence\\p30-a4-iso\\lib\\spring-ts\\data\\narrative\\career\\thisWeek\\expert.fragments.json",
+      "fireCount": 0
+    },
+    {
+      "fragmentId": "career.thisWeek.expert.weak.aligned.003",
+      "cat": "career",
+      "period": "thisWeek",
+      "paragraphCount": 4,
+      "file": "C:\\Projects\\metaintelligence\\p30-a4-iso\\lib\\spring-ts\\data\\narrative\\career\\thisWeek\\expert.fragments.json",
+      "fireCount": 0
+    },
+    {
+      "fragmentId": "career.thisWeek.expert.balanced.aligned.004",
+      "cat": "career",
+      "period": "thisWeek",
+      "paragraphCount": 4,
+      "file": "C:\\Projects\\metaintelligence\\p30-a4-iso\\lib\\spring-ts\\data\\narrative\\career\\thisWeek\\expert.fragments.json",
+      "fireCount": 0
+    },
+    {
+      "fragmentId": "career.thisWeek.expert.conflicting.005",
+      "cat": "career",
+      "period": "thisWeek",
+      "paragraphCount": 4,
+      "file": "C:\\Projects\\metaintelligence\\p30-a4-iso\\lib\\spring-ts\\data\\narrative\\career\\thisWeek\\expert.fragments.json",
+      "fireCount": 0
+    },
+    {
+      "fragmentId": "career.thisWeek.expert.jeonggwangyeok.006",
+      "cat": "career",
+      "period": "thisWeek",
+      "paragraphCount": 4,
+      "file": "C:\\Projects\\metaintelligence\\p30-a4-iso\\lib\\spring-ts\\data\\narrative\\career\\thisWeek\\expert.fragments.json",
+      "fireCount": 0
+    },
+    {
+      "fragmentId": "career.thisWeek.expert.pyeongwangyeok.007",
+      "cat": "career",
+      "period": "thisWeek",
+      "paragraphCount": 4,
+      "file": "C:\\Projects\\metaintelligence\\p30-a4-iso\\lib\\spring-ts\\data\\narrative\\career\\thisWeek\\expert.fragments.json",
+      "fireCount": 0
+    },
+    {
+      "fragmentId": "career.thisWeek.expert.age30plus.008",
+      "cat": "career",
+      "period": "thisWeek",
+      "paragraphCount": 4,
+      "file": "C:\\Projects\\metaintelligence\\p30-a4-iso\\lib\\spring-ts\\data\\narrative\\career\\thisWeek\\expert.fragments.json",
+      "fireCount": 0
+    },
+    {
+      "fragmentId": "career.thisMonth.expert.wildcard.001",
+      "cat": "career",
+      "period": "thisMonth",
+      "paragraphCount": 4,
+      "file": "C:\\Projects\\metaintelligence\\p30-a4-iso\\lib\\spring-ts\\data\\narrative\\career\\thisMonth\\expert.fragments.json",
+      "fireCount": 0
+    },
+    {
+      "fragmentId": "career.thisMonth.expert.strong.aligned.002",
+      "cat": "career",
+      "period": "thisMonth",
+      "paragraphCount": 4,
+      "file": "C:\\Projects\\metaintelligence\\p30-a4-iso\\lib\\spring-ts\\data\\narrative\\career\\thisMonth\\expert.fragments.json",
+      "fireCount": 0
+    },
+    {
+      "fragmentId": "career.thisMonth.expert.weak.aligned.003",
+      "cat": "career",
+      "period": "thisMonth",
+      "paragraphCount": 4,
+      "file": "C:\\Projects\\metaintelligence\\p30-a4-iso\\lib\\spring-ts\\data\\narrative\\career\\thisMonth\\expert.fragments.json",
+      "fireCount": 0
+    },
+    {
+      "fragmentId": "career.thisMonth.expert.balanced.aligned.004",
+      "cat": "career",
+      "period": "thisMonth",
+      "paragraphCount": 4,
+      "file": "C:\\Projects\\metaintelligence\\p30-a4-iso\\lib\\spring-ts\\data\\narrative\\career\\thisMonth\\expert.fragments.json",
+      "fireCount": 0
+    },
+    {
+      "fragmentId": "career.thisMonth.expert.conflicting.005",
+      "cat": "career",
+      "period": "thisMonth",
+      "paragraphCount": 4,
+      "file": "C:\\Projects\\metaintelligence\\p30-a4-iso\\lib\\spring-ts\\data\\narrative\\career\\thisMonth\\expert.fragments.json",
+      "fireCount": 0
+    },
+    {
+      "fragmentId": "career.thisMonth.expert.jeonggwangyeok.006",
+      "cat": "career",
+      "period": "thisMonth",
+      "paragraphCount": 4,
+      "file": "C:\\Projects\\metaintelligence\\p30-a4-iso\\lib\\spring-ts\\data\\narrative\\career\\thisMonth\\expert.fragments.json",
+      "fireCount": 0
+    },
+    {
+      "fragmentId": "career.thisMonth.expert.pyeongwangyeok.007",
+      "cat": "career",
+      "period": "thisMonth",
+      "paragraphCount": 4,
+      "file": "C:\\Projects\\metaintelligence\\p30-a4-iso\\lib\\spring-ts\\data\\narrative\\career\\thisMonth\\expert.fragments.json",
+      "fireCount": 0
+    },
+    {
+      "fragmentId": "career.thisMonth.expert.age30plus.008",
+      "cat": "career",
+      "period": "thisMonth",
+      "paragraphCount": 4,
+      "file": "C:\\Projects\\metaintelligence\\p30-a4-iso\\lib\\spring-ts\\data\\narrative\\career\\thisMonth\\expert.fragments.json",
+      "fireCount": 0
+    },
+    {
+      "fragmentId": "career.thisYear.expert.wildcard.001",
+      "cat": "career",
+      "period": "thisYear",
+      "paragraphCount": 4,
+      "file": "C:\\Projects\\metaintelligence\\p30-a4-iso\\lib\\spring-ts\\data\\narrative\\career\\thisYear\\expert.fragments.json",
+      "fireCount": 0
+    },
+    {
+      "fragmentId": "career.thisYear.expert.strong.aligned.002",
+      "cat": "career",
+      "period": "thisYear",
+      "paragraphCount": 4,
+      "file": "C:\\Projects\\metaintelligence\\p30-a4-iso\\lib\\spring-ts\\data\\narrative\\career\\thisYear\\expert.fragments.json",
+      "fireCount": 0
+    },
+    {
+      "fragmentId": "career.thisYear.expert.weak.aligned.003",
+      "cat": "career",
+      "period": "thisYear",
+      "paragraphCount": 4,
+      "file": "C:\\Projects\\metaintelligence\\p30-a4-iso\\lib\\spring-ts\\data\\narrative\\career\\thisYear\\expert.fragments.json",
+      "fireCount": 0
+    },
+    {
+      "fragmentId": "career.thisYear.expert.balanced.aligned.004",
+      "cat": "career",
+      "period": "thisYear",
+      "paragraphCount": 4,
+      "file": "C:\\Projects\\metaintelligence\\p30-a4-iso\\lib\\spring-ts\\data\\narrative\\career\\thisYear\\expert.fragments.json",
+      "fireCount": 0
+    },
+    {
+      "fragmentId": "career.thisYear.expert.conflicting.005",
+      "cat": "career",
+      "period": "thisYear",
+      "paragraphCount": 4,
+      "file": "C:\\Projects\\metaintelligence\\p30-a4-iso\\lib\\spring-ts\\data\\narrative\\career\\thisYear\\expert.fragments.json",
+      "fireCount": 0
+    },
+    {
+      "fragmentId": "career.thisYear.expert.jeonggwangyeok.006",
+      "cat": "career",
+      "period": "thisYear",
+      "paragraphCount": 4,
+      "file": "C:\\Projects\\metaintelligence\\p30-a4-iso\\lib\\spring-ts\\data\\narrative\\career\\thisYear\\expert.fragments.json",
+      "fireCount": 0
+    },
+    {
+      "fragmentId": "career.thisYear.expert.pyeongwangyeok.007",
+      "cat": "career",
+      "period": "thisYear",
+      "paragraphCount": 4,
+      "file": "C:\\Projects\\metaintelligence\\p30-a4-iso\\lib\\spring-ts\\data\\narrative\\career\\thisYear\\expert.fragments.json",
+      "fireCount": 0
+    },
+    {
+      "fragmentId": "career.thisYear.expert.age30plus.008",
+      "cat": "career",
+      "period": "thisYear",
+      "paragraphCount": 4,
+      "file": "C:\\Projects\\metaintelligence\\p30-a4-iso\\lib\\spring-ts\\data\\narrative\\career\\thisYear\\expert.fragments.json",
+      "fireCount": 0
+    },
+    {
+      "fragmentId": "career.life.expert.wildcard.001",
+      "cat": "career",
+      "period": "life",
+      "paragraphCount": 4,
+      "file": "C:\\Projects\\metaintelligence\\p30-a4-iso\\lib\\spring-ts\\data\\narrative\\career\\life\\expert.fragments.json",
+      "fireCount": 0
+    },
+    {
+      "fragmentId": "career.life.expert.jeonggwangyeok.002",
+      "cat": "career",
+      "period": "life",
+      "paragraphCount": 4,
+      "file": "C:\\Projects\\metaintelligence\\p30-a4-iso\\lib\\spring-ts\\data\\narrative\\career\\life\\expert.fragments.json",
+      "fireCount": 0
+    },
+    {
+      "fragmentId": "career.life.expert.pyeongwangyeok.003",
+      "cat": "career",
+      "period": "life",
+      "paragraphCount": 4,
+      "file": "C:\\Projects\\metaintelligence\\p30-a4-iso\\lib\\spring-ts\\data\\narrative\\career\\life\\expert.fragments.json",
+      "fireCount": 0
+    },
+    {
+      "fragmentId": "career.life.expert.strong.aligned.004",
+      "cat": "career",
+      "period": "life",
+      "paragraphCount": 4,
+      "file": "C:\\Projects\\metaintelligence\\p30-a4-iso\\lib\\spring-ts\\data\\narrative\\career\\life\\expert.fragments.json",
+      "fireCount": 0
+    },
+    {
+      "fragmentId": "career.life.expert.weak.aligned.005",
+      "cat": "career",
+      "period": "life",
+      "paragraphCount": 4,
+      "file": "C:\\Projects\\metaintelligence\\p30-a4-iso\\lib\\spring-ts\\data\\narrative\\career\\life\\expert.fragments.json",
+      "fireCount": 0
+    },
+    {
+      "fragmentId": "career.life.expert.balanced.aligned.006",
+      "cat": "career",
+      "period": "life",
+      "paragraphCount": 4,
+      "file": "C:\\Projects\\metaintelligence\\p30-a4-iso\\lib\\spring-ts\\data\\narrative\\career\\life\\expert.fragments.json",
+      "fireCount": 0
+    },
+    {
+      "fragmentId": "career.life.expert.conflicting.007",
+      "cat": "career",
+      "period": "life",
+      "paragraphCount": 4,
+      "file": "C:\\Projects\\metaintelligence\\p30-a4-iso\\lib\\spring-ts\\data\\narrative\\career\\life\\expert.fragments.json",
+      "fireCount": 0
+    },
+    {
+      "fragmentId": "career.life.expert.age30plus.008",
+      "cat": "career",
+      "period": "life",
+      "paragraphCount": 4,
+      "file": "C:\\Projects\\metaintelligence\\p30-a4-iso\\lib\\spring-ts\\data\\narrative\\career\\life\\expert.fragments.json",
+      "fireCount": 0
+    },
+    {
+      "fragmentId": "career.life.expert.diversity.anchor.009",
+      "cat": "career",
+      "period": "life",
+      "paragraphCount": 4,
+      "file": "C:\\Projects\\metaintelligence\\p30-a4-iso\\lib\\spring-ts\\data\\narrative\\career\\life\\expert.fragments.json",
+      "fireCount": 0
+    },
+    {
+      "fragmentId": "expression_children.today.expert.wildcard.001",
+      "cat": "expression_children",
+      "period": "today",
+      "paragraphCount": 4,
+      "file": "C:\\Projects\\metaintelligence\\p30-a4-iso\\lib\\spring-ts\\data\\narrative\\expression_children\\today\\expert.fragments.json",
+      "fireCount": 0
+    },
+    {
+      "fragmentId": "expression_children.today.expert.sikshingyeok.002",
+      "cat": "expression_children",
+      "period": "today",
+      "paragraphCount": 4,
+      "file": "C:\\Projects\\metaintelligence\\p30-a4-iso\\lib\\spring-ts\\data\\narrative\\expression_children\\today\\expert.fragments.json",
+      "fireCount": 0
+    },
+    {
+      "fragmentId": "expression_children.today.expert.sanggwangyeok.003",
+      "cat": "expression_children",
+      "period": "today",
+      "paragraphCount": 4,
+      "file": "C:\\Projects\\metaintelligence\\p30-a4-iso\\lib\\spring-ts\\data\\narrative\\expression_children\\today\\expert.fragments.json",
+      "fireCount": 0
+    },
+    {
+      "fragmentId": "expression_children.today.expert.dohwa_strong.004",
+      "cat": "expression_children",
+      "period": "today",
+      "paragraphCount": 4,
+      "file": "C:\\Projects\\metaintelligence\\p30-a4-iso\\lib\\spring-ts\\data\\narrative\\expression_children\\today\\expert.fragments.json",
+      "fireCount": 0
+    },
+    {
+      "fragmentId": "expression_children.today.expert.weak_aligned.005",
+      "cat": "expression_children",
+      "period": "today",
+      "paragraphCount": 4,
+      "file": "C:\\Projects\\metaintelligence\\p30-a4-iso\\lib\\spring-ts\\data\\narrative\\expression_children\\today\\expert.fragments.json",
+      "fireCount": 0
+    },
+    {
+      "fragmentId": "expression_children.today.expert.30_39.006",
+      "cat": "expression_children",
+      "period": "today",
+      "paragraphCount": 4,
+      "file": "C:\\Projects\\metaintelligence\\p30-a4-iso\\lib\\spring-ts\\data\\narrative\\expression_children\\today\\expert.fragments.json",
+      "fireCount": 0
+    },
+    {
+      "fragmentId": "expression_children.today.expert.40_54.007",
+      "cat": "expression_children",
+      "period": "today",
+      "paragraphCount": 4,
+      "file": "C:\\Projects\\metaintelligence\\p30-a4-iso\\lib\\spring-ts\\data\\narrative\\expression_children\\today\\expert.fragments.json",
+      "fireCount": 0
+    },
+    {
+      "fragmentId": "expression_children.today.expert.55_69.008",
+      "cat": "expression_children",
+      "period": "today",
+      "paragraphCount": 4,
+      "file": "C:\\Projects\\metaintelligence\\p30-a4-iso\\lib\\spring-ts\\data\\narrative\\expression_children\\today\\expert.fragments.json",
+      "fireCount": 0
+    },
+    {
+      "fragmentId": "expression_children.today.expert.70plus.009",
+      "cat": "expression_children",
+      "period": "today",
+      "paragraphCount": 4,
+      "file": "C:\\Projects\\metaintelligence\\p30-a4-iso\\lib\\spring-ts\\data\\narrative\\expression_children\\today\\expert.fragments.json",
+      "fireCount": 0
+    },
+    {
+      "fragmentId": "expression_children.thisWeek.expert.wildcard.001",
+      "cat": "expression_children",
+      "period": "thisWeek",
+      "paragraphCount": 4,
+      "file": "C:\\Projects\\metaintelligence\\p30-a4-iso\\lib\\spring-ts\\data\\narrative\\expression_children\\thisWeek\\expert.fragments.json",
+      "fireCount": 0
+    },
+    {
+      "fragmentId": "expression_children.thisWeek.expert.sikshingyeok.002",
+      "cat": "expression_children",
+      "period": "thisWeek",
+      "paragraphCount": 4,
+      "file": "C:\\Projects\\metaintelligence\\p30-a4-iso\\lib\\spring-ts\\data\\narrative\\expression_children\\thisWeek\\expert.fragments.json",
+      "fireCount": 0
+    },
+    {
+      "fragmentId": "expression_children.thisWeek.expert.sanggwangyeok.003",
+      "cat": "expression_children",
+      "period": "thisWeek",
+      "paragraphCount": 4,
+      "file": "C:\\Projects\\metaintelligence\\p30-a4-iso\\lib\\spring-ts\\data\\narrative\\expression_children\\thisWeek\\expert.fragments.json",
+      "fireCount": 0
+    },
+    {
+      "fragmentId": "expression_children.thisWeek.expert.dohwa_strong.004",
+      "cat": "expression_children",
+      "period": "thisWeek",
+      "paragraphCount": 4,
+      "file": "C:\\Projects\\metaintelligence\\p30-a4-iso\\lib\\spring-ts\\data\\narrative\\expression_children\\thisWeek\\expert.fragments.json",
+      "fireCount": 0
+    },
+    {
+      "fragmentId": "expression_children.thisWeek.expert.weak_aligned.005",
+      "cat": "expression_children",
+      "period": "thisWeek",
+      "paragraphCount": 4,
+      "file": "C:\\Projects\\metaintelligence\\p30-a4-iso\\lib\\spring-ts\\data\\narrative\\expression_children\\thisWeek\\expert.fragments.json",
+      "fireCount": 0
+    },
+    {
+      "fragmentId": "expression_children.thisWeek.expert.30_39.006",
+      "cat": "expression_children",
+      "period": "thisWeek",
+      "paragraphCount": 4,
+      "file": "C:\\Projects\\metaintelligence\\p30-a4-iso\\lib\\spring-ts\\data\\narrative\\expression_children\\thisWeek\\expert.fragments.json",
+      "fireCount": 0
+    },
+    {
+      "fragmentId": "expression_children.thisWeek.expert.40_54.007",
+      "cat": "expression_children",
+      "period": "thisWeek",
+      "paragraphCount": 4,
+      "file": "C:\\Projects\\metaintelligence\\p30-a4-iso\\lib\\spring-ts\\data\\narrative\\expression_children\\thisWeek\\expert.fragments.json",
+      "fireCount": 0
+    },
+    {
+      "fragmentId": "expression_children.thisWeek.expert.55_69.008",
+      "cat": "expression_children",
+      "period": "thisWeek",
+      "paragraphCount": 4,
+      "file": "C:\\Projects\\metaintelligence\\p30-a4-iso\\lib\\spring-ts\\data\\narrative\\expression_children\\thisWeek\\expert.fragments.json",
+      "fireCount": 0
+    },
+    {
+      "fragmentId": "expression_children.thisWeek.expert.70plus.009",
+      "cat": "expression_children",
+      "period": "thisWeek",
+      "paragraphCount": 4,
+      "file": "C:\\Projects\\metaintelligence\\p30-a4-iso\\lib\\spring-ts\\data\\narrative\\expression_children\\thisWeek\\expert.fragments.json",
+      "fireCount": 0
+    },
+    {
+      "fragmentId": "expression_children.thisMonth.expert.wildcard.001",
+      "cat": "expression_children",
+      "period": "thisMonth",
+      "paragraphCount": 4,
+      "file": "C:\\Projects\\metaintelligence\\p30-a4-iso\\lib\\spring-ts\\data\\narrative\\expression_children\\thisMonth\\expert.fragments.json",
+      "fireCount": 0
+    },
+    {
+      "fragmentId": "expression_children.thisMonth.expert.sikshingyeok.002",
+      "cat": "expression_children",
+      "period": "thisMonth",
+      "paragraphCount": 4,
+      "file": "C:\\Projects\\metaintelligence\\p30-a4-iso\\lib\\spring-ts\\data\\narrative\\expression_children\\thisMonth\\expert.fragments.json",
+      "fireCount": 0
+    },
+    {
+      "fragmentId": "expression_children.thisMonth.expert.sanggwangyeok.003",
+      "cat": "expression_children",
+      "period": "thisMonth",
+      "paragraphCount": 4,
+      "file": "C:\\Projects\\metaintelligence\\p30-a4-iso\\lib\\spring-ts\\data\\narrative\\expression_children\\thisMonth\\expert.fragments.json",
+      "fireCount": 0
+    },
+    {
+      "fragmentId": "expression_children.thisMonth.expert.dohwa_strong.004",
+      "cat": "expression_children",
+      "period": "thisMonth",
+      "paragraphCount": 4,
+      "file": "C:\\Projects\\metaintelligence\\p30-a4-iso\\lib\\spring-ts\\data\\narrative\\expression_children\\thisMonth\\expert.fragments.json",
+      "fireCount": 0
+    },
+    {
+      "fragmentId": "expression_children.thisMonth.expert.weak_aligned.005",
+      "cat": "expression_children",
+      "period": "thisMonth",
+      "paragraphCount": 4,
+      "file": "C:\\Projects\\metaintelligence\\p30-a4-iso\\lib\\spring-ts\\data\\narrative\\expression_children\\thisMonth\\expert.fragments.json",
+      "fireCount": 0
+    },
+    {
+      "fragmentId": "expression_children.thisMonth.expert.30_39.006",
+      "cat": "expression_children",
+      "period": "thisMonth",
+      "paragraphCount": 4,
+      "file": "C:\\Projects\\metaintelligence\\p30-a4-iso\\lib\\spring-ts\\data\\narrative\\expression_children\\thisMonth\\expert.fragments.json",
+      "fireCount": 0
+    },
+    {
+      "fragmentId": "expression_children.thisMonth.expert.40_54.007",
+      "cat": "expression_children",
+      "period": "thisMonth",
+      "paragraphCount": 4,
+      "file": "C:\\Projects\\metaintelligence\\p30-a4-iso\\lib\\spring-ts\\data\\narrative\\expression_children\\thisMonth\\expert.fragments.json",
+      "fireCount": 0
+    },
+    {
+      "fragmentId": "expression_children.thisMonth.expert.55_69.008",
+      "cat": "expression_children",
+      "period": "thisMonth",
+      "paragraphCount": 4,
+      "file": "C:\\Projects\\metaintelligence\\p30-a4-iso\\lib\\spring-ts\\data\\narrative\\expression_children\\thisMonth\\expert.fragments.json",
+      "fireCount": 0
+    },
+    {
+      "fragmentId": "expression_children.thisMonth.expert.70plus.009",
+      "cat": "expression_children",
+      "period": "thisMonth",
+      "paragraphCount": 4,
+      "file": "C:\\Projects\\metaintelligence\\p30-a4-iso\\lib\\spring-ts\\data\\narrative\\expression_children\\thisMonth\\expert.fragments.json",
+      "fireCount": 0
+    },
+    {
+      "fragmentId": "expression_children.thisYear.expert.wildcard.001",
+      "cat": "expression_children",
+      "period": "thisYear",
+      "paragraphCount": 4,
+      "file": "C:\\Projects\\metaintelligence\\p30-a4-iso\\lib\\spring-ts\\data\\narrative\\expression_children\\thisYear\\expert.fragments.json",
+      "fireCount": 0
+    },
+    {
+      "fragmentId": "expression_children.thisYear.expert.sikshingyeok.002",
+      "cat": "expression_children",
+      "period": "thisYear",
+      "paragraphCount": 4,
+      "file": "C:\\Projects\\metaintelligence\\p30-a4-iso\\lib\\spring-ts\\data\\narrative\\expression_children\\thisYear\\expert.fragments.json",
+      "fireCount": 0
+    },
+    {
+      "fragmentId": "expression_children.thisYear.expert.sanggwangyeok.003",
+      "cat": "expression_children",
+      "period": "thisYear",
+      "paragraphCount": 4,
+      "file": "C:\\Projects\\metaintelligence\\p30-a4-iso\\lib\\spring-ts\\data\\narrative\\expression_children\\thisYear\\expert.fragments.json",
+      "fireCount": 0
+    },
+    {
+      "fragmentId": "expression_children.thisYear.expert.dohwa_strong.004",
+      "cat": "expression_children",
+      "period": "thisYear",
+      "paragraphCount": 4,
+      "file": "C:\\Projects\\metaintelligence\\p30-a4-iso\\lib\\spring-ts\\data\\narrative\\expression_children\\thisYear\\expert.fragments.json",
+      "fireCount": 0
+    },
+    {
+      "fragmentId": "expression_children.thisYear.expert.weak_aligned.005",
+      "cat": "expression_children",
+      "period": "thisYear",
+      "paragraphCount": 4,
+      "file": "C:\\Projects\\metaintelligence\\p30-a4-iso\\lib\\spring-ts\\data\\narrative\\expression_children\\thisYear\\expert.fragments.json",
+      "fireCount": 0
+    },
+    {
+      "fragmentId": "expression_children.thisYear.expert.20_29.006",
+      "cat": "expression_children",
+      "period": "thisYear",
+      "paragraphCount": 4,
+      "file": "C:\\Projects\\metaintelligence\\p30-a4-iso\\lib\\spring-ts\\data\\narrative\\expression_children\\thisYear\\expert.fragments.json",
+      "fireCount": 0
+    },
+    {
+      "fragmentId": "expression_children.thisYear.expert.30_39.007",
+      "cat": "expression_children",
+      "period": "thisYear",
+      "paragraphCount": 4,
+      "file": "C:\\Projects\\metaintelligence\\p30-a4-iso\\lib\\spring-ts\\data\\narrative\\expression_children\\thisYear\\expert.fragments.json",
+      "fireCount": 0
+    },
+    {
+      "fragmentId": "expression_children.thisYear.expert.40_54.008",
+      "cat": "expression_children",
+      "period": "thisYear",
+      "paragraphCount": 4,
+      "file": "C:\\Projects\\metaintelligence\\p30-a4-iso\\lib\\spring-ts\\data\\narrative\\expression_children\\thisYear\\expert.fragments.json",
+      "fireCount": 0
+    },
+    {
+      "fragmentId": "expression_children.thisYear.expert.55_69.009",
+      "cat": "expression_children",
+      "period": "thisYear",
+      "paragraphCount": 4,
+      "file": "C:\\Projects\\metaintelligence\\p30-a4-iso\\lib\\spring-ts\\data\\narrative\\expression_children\\thisYear\\expert.fragments.json",
+      "fireCount": 0
+    },
+    {
+      "fragmentId": "expression_children.thisYear.expert.70plus.010",
+      "cat": "expression_children",
+      "period": "thisYear",
+      "paragraphCount": 4,
+      "file": "C:\\Projects\\metaintelligence\\p30-a4-iso\\lib\\spring-ts\\data\\narrative\\expression_children\\thisYear\\expert.fragments.json",
+      "fireCount": 0
+    },
+    {
+      "fragmentId": "expression_children.life.expert.wildcard.001",
+      "cat": "expression_children",
+      "period": "life",
+      "paragraphCount": 4,
+      "file": "C:\\Projects\\metaintelligence\\p30-a4-iso\\lib\\spring-ts\\data\\narrative\\expression_children\\life\\expert.fragments.json",
+      "fireCount": 0
+    },
+    {
+      "fragmentId": "expression_children.life.expert.sikshingyeok.002",
+      "cat": "expression_children",
+      "period": "life",
+      "paragraphCount": 4,
+      "file": "C:\\Projects\\metaintelligence\\p30-a4-iso\\lib\\spring-ts\\data\\narrative\\expression_children\\life\\expert.fragments.json",
+      "fireCount": 0
+    },
+    {
+      "fragmentId": "expression_children.life.expert.sanggwangyeok.003",
+      "cat": "expression_children",
+      "period": "life",
+      "paragraphCount": 4,
+      "file": "C:\\Projects\\metaintelligence\\p30-a4-iso\\lib\\spring-ts\\data\\narrative\\expression_children\\life\\expert.fragments.json",
+      "fireCount": 0
+    },
+    {
+      "fragmentId": "expression_children.life.expert.dohwa_strong.004",
+      "cat": "expression_children",
+      "period": "life",
+      "paragraphCount": 4,
+      "file": "C:\\Projects\\metaintelligence\\p30-a4-iso\\lib\\spring-ts\\data\\narrative\\expression_children\\life\\expert.fragments.json",
+      "fireCount": 0
+    },
+    {
+      "fragmentId": "expression_children.life.expert.weak_supported.005",
+      "cat": "expression_children",
+      "period": "life",
+      "paragraphCount": 4,
+      "file": "C:\\Projects\\metaintelligence\\p30-a4-iso\\lib\\spring-ts\\data\\narrative\\expression_children\\life\\expert.fragments.json",
+      "fireCount": 0
+    },
+    {
+      "fragmentId": "expression_children.life.expert.30_39.007",
+      "cat": "expression_children",
+      "period": "life",
+      "paragraphCount": 4,
+      "file": "C:\\Projects\\metaintelligence\\p30-a4-iso\\lib\\spring-ts\\data\\narrative\\expression_children\\life\\expert.fragments.json",
+      "fireCount": 0
+    },
+    {
+      "fragmentId": "expression_children.life.expert.40_54.008",
+      "cat": "expression_children",
+      "period": "life",
+      "paragraphCount": 4,
+      "file": "C:\\Projects\\metaintelligence\\p30-a4-iso\\lib\\spring-ts\\data\\narrative\\expression_children\\life\\expert.fragments.json",
+      "fireCount": 0
+    },
+    {
+      "fragmentId": "expression_children.life.expert.55_69.009",
+      "cat": "expression_children",
+      "period": "life",
+      "paragraphCount": 4,
+      "file": "C:\\Projects\\metaintelligence\\p30-a4-iso\\lib\\spring-ts\\data\\narrative\\expression_children\\life\\expert.fragments.json",
+      "fireCount": 0
+    },
+    {
+      "fragmentId": "expression_children.life.expert.70plus.010",
+      "cat": "expression_children",
+      "period": "life",
+      "paragraphCount": 4,
+      "file": "C:\\Projects\\metaintelligence\\p30-a4-iso\\lib\\spring-ts\\data\\narrative\\expression_children\\life\\expert.fragments.json",
+      "fireCount": 0
+    },
+    {
+      "fragmentId": "expression_children.life.expert.diversity.anchor.011",
+      "cat": "expression_children",
+      "period": "life",
+      "paragraphCount": 4,
+      "file": "C:\\Projects\\metaintelligence\\p30-a4-iso\\lib\\spring-ts\\data\\narrative\\expression_children\\life\\expert.fragments.json",
+      "fireCount": 0
+    },
+    {
+      "fragmentId": "family.today.expert.wildcard.001",
+      "cat": "family",
+      "period": "today",
+      "paragraphCount": 4,
+      "file": "C:\\Projects\\metaintelligence\\p30-a4-iso\\lib\\spring-ts\\data\\narrative\\family\\today\\expert.fragments.json",
+      "fireCount": 0
+    },
+    {
+      "fragmentId": "family.today.expert.bumyong_focus.002",
+      "cat": "family",
+      "period": "today",
+      "paragraphCount": 4,
+      "file": "C:\\Projects\\metaintelligence\\p30-a4-iso\\lib\\spring-ts\\data\\narrative\\family\\today\\expert.fragments.json",
+      "fireCount": 0
+    },
+    {
+      "fragmentId": "family.today.expert.jasik_focus.003",
+      "cat": "family",
+      "period": "today",
+      "paragraphCount": 4,
+      "file": "C:\\Projects\\metaintelligence\\p30-a4-iso\\lib\\spring-ts\\data\\narrative\\family\\today\\expert.fragments.json",
+      "fireCount": 0
+    },
+    {
+      "fragmentId": "family.today.expert.bigyeon_geobjae.004",
+      "cat": "family",
+      "period": "today",
+      "paragraphCount": 4,
+      "file": "C:\\Projects\\metaintelligence\\p30-a4-iso\\lib\\spring-ts\\data\\narrative\\family\\today\\expert.fragments.json",
+      "fireCount": 0
+    },
+    {
+      "fragmentId": "family.today.expert.weak_supported.005",
+      "cat": "family",
+      "period": "today",
+      "paragraphCount": 4,
+      "file": "C:\\Projects\\metaintelligence\\p30-a4-iso\\lib\\spring-ts\\data\\narrative\\family\\today\\expert.fragments.json",
+      "fireCount": 0
+    },
+    {
+      "fragmentId": "family.today.expert.strong_giving.006",
+      "cat": "family",
+      "period": "today",
+      "paragraphCount": 4,
+      "file": "C:\\Projects\\metaintelligence\\p30-a4-iso\\lib\\spring-ts\\data\\narrative\\family\\today\\expert.fragments.json",
+      "fireCount": 0
+    },
+    {
+      "fragmentId": "family.today.expert.aligned_open.007",
+      "cat": "family",
+      "period": "today",
+      "paragraphCount": 4,
+      "file": "C:\\Projects\\metaintelligence\\p30-a4-iso\\lib\\spring-ts\\data\\narrative\\family\\today\\expert.fragments.json",
+      "fireCount": 0
+    },
+    {
+      "fragmentId": "family.today.expert.conflicting_pause.008",
+      "cat": "family",
+      "period": "today",
+      "paragraphCount": 4,
+      "file": "C:\\Projects\\metaintelligence\\p30-a4-iso\\lib\\spring-ts\\data\\narrative\\family\\today\\expert.fragments.json",
+      "fireCount": 0
+    },
+    {
+      "fragmentId": "family.today.expert.elder_legacy.010",
+      "cat": "family",
+      "period": "today",
+      "paragraphCount": 4,
+      "file": "C:\\Projects\\metaintelligence\\p30-a4-iso\\lib\\spring-ts\\data\\narrative\\family\\today\\expert.fragments.json",
+      "fireCount": 0
+    },
+    {
+      "fragmentId": "family.thisWeek.expert.wildcard.001",
+      "cat": "family",
+      "period": "thisWeek",
+      "paragraphCount": 4,
+      "file": "C:\\Projects\\metaintelligence\\p30-a4-iso\\lib\\spring-ts\\data\\narrative\\family\\thisWeek\\expert.fragments.json",
+      "fireCount": 0
+    },
+    {
+      "fragmentId": "family.thisWeek.expert.bumyong_focus.002",
+      "cat": "family",
+      "period": "thisWeek",
+      "paragraphCount": 4,
+      "file": "C:\\Projects\\metaintelligence\\p30-a4-iso\\lib\\spring-ts\\data\\narrative\\family\\thisWeek\\expert.fragments.json",
+      "fireCount": 0
+    },
+    {
+      "fragmentId": "family.thisWeek.expert.jasik_focus.003",
+      "cat": "family",
+      "period": "thisWeek",
+      "paragraphCount": 4,
+      "file": "C:\\Projects\\metaintelligence\\p30-a4-iso\\lib\\spring-ts\\data\\narrative\\family\\thisWeek\\expert.fragments.json",
+      "fireCount": 0
+    },
+    {
+      "fragmentId": "family.thisWeek.expert.bigyeon_geobjae.004",
+      "cat": "family",
+      "period": "thisWeek",
+      "paragraphCount": 4,
+      "file": "C:\\Projects\\metaintelligence\\p30-a4-iso\\lib\\spring-ts\\data\\narrative\\family\\thisWeek\\expert.fragments.json",
+      "fireCount": 0
+    },
+    {
+      "fragmentId": "family.thisWeek.expert.weak_supported.005",
+      "cat": "family",
+      "period": "thisWeek",
+      "paragraphCount": 4,
+      "file": "C:\\Projects\\metaintelligence\\p30-a4-iso\\lib\\spring-ts\\data\\narrative\\family\\thisWeek\\expert.fragments.json",
+      "fireCount": 0
+    },
+    {
+      "fragmentId": "family.thisWeek.expert.strong_giving.006",
+      "cat": "family",
+      "period": "thisWeek",
+      "paragraphCount": 4,
+      "file": "C:\\Projects\\metaintelligence\\p30-a4-iso\\lib\\spring-ts\\data\\narrative\\family\\thisWeek\\expert.fragments.json",
+      "fireCount": 0
+    },
+    {
+      "fragmentId": "family.thisWeek.expert.aligned_open.007",
+      "cat": "family",
+      "period": "thisWeek",
+      "paragraphCount": 4,
+      "file": "C:\\Projects\\metaintelligence\\p30-a4-iso\\lib\\spring-ts\\data\\narrative\\family\\thisWeek\\expert.fragments.json",
+      "fireCount": 0
+    },
+    {
+      "fragmentId": "family.thisWeek.expert.conflicting_pause.008",
+      "cat": "family",
+      "period": "thisWeek",
+      "paragraphCount": 4,
+      "file": "C:\\Projects\\metaintelligence\\p30-a4-iso\\lib\\spring-ts\\data\\narrative\\family\\thisWeek\\expert.fragments.json",
+      "fireCount": 0
+    },
+    {
+      "fragmentId": "family.thisWeek.expert.elder_legacy.010",
+      "cat": "family",
+      "period": "thisWeek",
+      "paragraphCount": 4,
+      "file": "C:\\Projects\\metaintelligence\\p30-a4-iso\\lib\\spring-ts\\data\\narrative\\family\\thisWeek\\expert.fragments.json",
+      "fireCount": 0
+    },
+    {
+      "fragmentId": "family.thisMonth.expert.wildcard.001",
+      "cat": "family",
+      "period": "thisMonth",
+      "paragraphCount": 4,
+      "file": "C:\\Projects\\metaintelligence\\p30-a4-iso\\lib\\spring-ts\\data\\narrative\\family\\thisMonth\\expert.fragments.json",
+      "fireCount": 0
+    },
+    {
+      "fragmentId": "family.thisMonth.expert.bumyong_focus.002",
+      "cat": "family",
+      "period": "thisMonth",
+      "paragraphCount": 4,
+      "file": "C:\\Projects\\metaintelligence\\p30-a4-iso\\lib\\spring-ts\\data\\narrative\\family\\thisMonth\\expert.fragments.json",
+      "fireCount": 0
+    },
+    {
+      "fragmentId": "family.thisMonth.expert.jasik_focus.003",
+      "cat": "family",
+      "period": "thisMonth",
+      "paragraphCount": 4,
+      "file": "C:\\Projects\\metaintelligence\\p30-a4-iso\\lib\\spring-ts\\data\\narrative\\family\\thisMonth\\expert.fragments.json",
+      "fireCount": 0
+    },
+    {
+      "fragmentId": "family.thisMonth.expert.bigyeon_geobjae.004",
+      "cat": "family",
+      "period": "thisMonth",
+      "paragraphCount": 4,
+      "file": "C:\\Projects\\metaintelligence\\p30-a4-iso\\lib\\spring-ts\\data\\narrative\\family\\thisMonth\\expert.fragments.json",
+      "fireCount": 0
+    },
+    {
+      "fragmentId": "family.thisMonth.expert.weak_supported.005",
+      "cat": "family",
+      "period": "thisMonth",
+      "paragraphCount": 4,
+      "file": "C:\\Projects\\metaintelligence\\p30-a4-iso\\lib\\spring-ts\\data\\narrative\\family\\thisMonth\\expert.fragments.json",
+      "fireCount": 0
+    },
+    {
+      "fragmentId": "family.thisMonth.expert.strong_giving.006",
+      "cat": "family",
+      "period": "thisMonth",
+      "paragraphCount": 4,
+      "file": "C:\\Projects\\metaintelligence\\p30-a4-iso\\lib\\spring-ts\\data\\narrative\\family\\thisMonth\\expert.fragments.json",
+      "fireCount": 0
+    },
+    {
+      "fragmentId": "family.thisMonth.expert.aligned_open.007",
+      "cat": "family",
+      "period": "thisMonth",
+      "paragraphCount": 4,
+      "file": "C:\\Projects\\metaintelligence\\p30-a4-iso\\lib\\spring-ts\\data\\narrative\\family\\thisMonth\\expert.fragments.json",
+      "fireCount": 0
+    },
+    {
+      "fragmentId": "family.thisMonth.expert.conflicting_pause.008",
+      "cat": "family",
+      "period": "thisMonth",
+      "paragraphCount": 4,
+      "file": "C:\\Projects\\metaintelligence\\p30-a4-iso\\lib\\spring-ts\\data\\narrative\\family\\thisMonth\\expert.fragments.json",
+      "fireCount": 0
+    },
+    {
+      "fragmentId": "family.thisMonth.expert.elder_legacy.010",
+      "cat": "family",
+      "period": "thisMonth",
+      "paragraphCount": 4,
+      "file": "C:\\Projects\\metaintelligence\\p30-a4-iso\\lib\\spring-ts\\data\\narrative\\family\\thisMonth\\expert.fragments.json",
+      "fireCount": 0
+    },
+    {
+      "fragmentId": "family.thisYear.expert.wildcard.001",
+      "cat": "family",
+      "period": "thisYear",
+      "paragraphCount": 4,
+      "file": "C:\\Projects\\metaintelligence\\p30-a4-iso\\lib\\spring-ts\\data\\narrative\\family\\thisYear\\expert.fragments.json",
+      "fireCount": 0
+    },
+    {
+      "fragmentId": "family.thisYear.expert.bumyong_focus.002",
+      "cat": "family",
+      "period": "thisYear",
+      "paragraphCount": 4,
+      "file": "C:\\Projects\\metaintelligence\\p30-a4-iso\\lib\\spring-ts\\data\\narrative\\family\\thisYear\\expert.fragments.json",
+      "fireCount": 0
+    },
+    {
+      "fragmentId": "family.thisYear.expert.jasik_focus.003",
+      "cat": "family",
+      "period": "thisYear",
+      "paragraphCount": 4,
+      "file": "C:\\Projects\\metaintelligence\\p30-a4-iso\\lib\\spring-ts\\data\\narrative\\family\\thisYear\\expert.fragments.json",
+      "fireCount": 0
+    },
+    {
+      "fragmentId": "family.thisYear.expert.bigyeon_geobjae.004",
+      "cat": "family",
+      "period": "thisYear",
+      "paragraphCount": 4,
+      "file": "C:\\Projects\\metaintelligence\\p30-a4-iso\\lib\\spring-ts\\data\\narrative\\family\\thisYear\\expert.fragments.json",
+      "fireCount": 0
+    },
+    {
+      "fragmentId": "family.thisYear.expert.weak_supported.005",
+      "cat": "family",
+      "period": "thisYear",
+      "paragraphCount": 4,
+      "file": "C:\\Projects\\metaintelligence\\p30-a4-iso\\lib\\spring-ts\\data\\narrative\\family\\thisYear\\expert.fragments.json",
+      "fireCount": 0
+    },
+    {
+      "fragmentId": "family.thisYear.expert.strong_giving.006",
+      "cat": "family",
+      "period": "thisYear",
+      "paragraphCount": 4,
+      "file": "C:\\Projects\\metaintelligence\\p30-a4-iso\\lib\\spring-ts\\data\\narrative\\family\\thisYear\\expert.fragments.json",
+      "fireCount": 0
+    },
+    {
+      "fragmentId": "family.thisYear.expert.aligned_open.007",
+      "cat": "family",
+      "period": "thisYear",
+      "paragraphCount": 4,
+      "file": "C:\\Projects\\metaintelligence\\p30-a4-iso\\lib\\spring-ts\\data\\narrative\\family\\thisYear\\expert.fragments.json",
+      "fireCount": 0
+    },
+    {
+      "fragmentId": "family.thisYear.expert.conflicting_pause.008",
+      "cat": "family",
+      "period": "thisYear",
+      "paragraphCount": 4,
+      "file": "C:\\Projects\\metaintelligence\\p30-a4-iso\\lib\\spring-ts\\data\\narrative\\family\\thisYear\\expert.fragments.json",
+      "fireCount": 0
+    },
+    {
+      "fragmentId": "family.thisYear.expert.elder_legacy.010",
+      "cat": "family",
+      "period": "thisYear",
+      "paragraphCount": 4,
+      "file": "C:\\Projects\\metaintelligence\\p30-a4-iso\\lib\\spring-ts\\data\\narrative\\family\\thisYear\\expert.fragments.json",
+      "fireCount": 0
+    },
+    {
+      "fragmentId": "family.thisYear.expert.balanced_aligned.011",
+      "cat": "family",
+      "period": "thisYear",
+      "paragraphCount": 4,
+      "file": "C:\\Projects\\metaintelligence\\p30-a4-iso\\lib\\spring-ts\\data\\narrative\\family\\thisYear\\expert.fragments.json",
+      "fireCount": 0
+    },
+    {
+      "fragmentId": "family.life.expert.wildcard.001",
+      "cat": "family",
+      "period": "life",
+      "paragraphCount": 4,
+      "file": "C:\\Projects\\metaintelligence\\p30-a4-iso\\lib\\spring-ts\\data\\narrative\\family\\life\\expert.fragments.json",
+      "fireCount": 0
+    },
+    {
+      "fragmentId": "family.life.expert.jeongin_strong.002",
+      "cat": "family",
+      "period": "life",
+      "paragraphCount": 4,
+      "file": "C:\\Projects\\metaintelligence\\p30-a4-iso\\lib\\spring-ts\\data\\narrative\\family\\life\\expert.fragments.json",
+      "fireCount": 0
+    },
+    {
+      "fragmentId": "family.life.expert.pyeonin_independent.003",
+      "cat": "family",
+      "period": "life",
+      "paragraphCount": 4,
+      "file": "C:\\Projects\\metaintelligence\\p30-a4-iso\\lib\\spring-ts\\data\\narrative\\family\\life\\expert.fragments.json",
+      "fireCount": 0
+    },
+    {
+      "fragmentId": "family.life.expert.bigyeon_geobjae.004",
+      "cat": "family",
+      "period": "life",
+      "paragraphCount": 4,
+      "file": "C:\\Projects\\metaintelligence\\p30-a4-iso\\lib\\spring-ts\\data\\narrative\\family\\life\\expert.fragments.json",
+      "fireCount": 0
+    },
+    {
+      "fragmentId": "family.life.expert.aligned_balanced.005",
+      "cat": "family",
+      "period": "life",
+      "paragraphCount": 4,
+      "file": "C:\\Projects\\metaintelligence\\p30-a4-iso\\lib\\spring-ts\\data\\narrative\\family\\life\\expert.fragments.json",
+      "fireCount": 0
+    },
+    {
+      "fragmentId": "family.life.expert.weak_supported.006",
+      "cat": "family",
+      "period": "life",
+      "paragraphCount": 4,
+      "file": "C:\\Projects\\metaintelligence\\p30-a4-iso\\lib\\spring-ts\\data\\narrative\\family\\life\\expert.fragments.json",
+      "fireCount": 0
+    },
+    {
+      "fragmentId": "family.life.expert.hourpillar_focused.007",
+      "cat": "family",
+      "period": "life",
+      "paragraphCount": 4,
+      "file": "C:\\Projects\\metaintelligence\\p30-a4-iso\\lib\\spring-ts\\data\\narrative\\family\\life\\expert.fragments.json",
+      "fireCount": 0
+    },
+    {
+      "fragmentId": "family.life.expert.midage_balance.009",
+      "cat": "family",
+      "period": "life",
+      "paragraphCount": 4,
+      "file": "C:\\Projects\\metaintelligence\\p30-a4-iso\\lib\\spring-ts\\data\\narrative\\family\\life\\expert.fragments.json",
+      "fireCount": 0
+    },
+    {
+      "fragmentId": "family.life.expert.elder_legacy.010",
+      "cat": "family",
+      "period": "life",
+      "paragraphCount": 4,
+      "file": "C:\\Projects\\metaintelligence\\p30-a4-iso\\lib\\spring-ts\\data\\narrative\\family\\life\\expert.fragments.json",
+      "fireCount": 0
+    },
+    {
+      "fragmentId": "family.life.expert.aligned_warm.011",
+      "cat": "family",
+      "period": "life",
+      "paragraphCount": 4,
+      "file": "C:\\Projects\\metaintelligence\\p30-a4-iso\\lib\\spring-ts\\data\\narrative\\family\\life\\expert.fragments.json",
+      "fireCount": 0
+    },
+    {
+      "fragmentId": "family.life.expert.conflicting_navigate.012",
+      "cat": "family",
+      "period": "life",
+      "paragraphCount": 4,
+      "file": "C:\\Projects\\metaintelligence\\p30-a4-iso\\lib\\spring-ts\\data\\narrative\\family\\life\\expert.fragments.json",
+      "fireCount": 0
+    },
+    {
+      "fragmentId": "health.thisWeek.expert.fire_excess.001",
+      "cat": "health",
+      "period": "thisWeek",
+      "paragraphCount": 4,
+      "file": "C:\\Projects\\metaintelligence\\p30-a4-iso\\lib\\spring-ts\\data\\narrative\\health\\thisWeek\\expert.fragments.json",
+      "fireCount": 0
+    },
+    {
+      "fragmentId": "health.thisWeek.expert.water_excess.001",
+      "cat": "health",
+      "period": "thisWeek",
+      "paragraphCount": 4,
+      "file": "C:\\Projects\\metaintelligence\\p30-a4-iso\\lib\\spring-ts\\data\\narrative\\health\\thisWeek\\expert.fragments.json",
+      "fireCount": 0
+    },
+    {
+      "fragmentId": "health.thisYear.expert.fire_year.001",
+      "cat": "health",
+      "period": "thisYear",
+      "paragraphCount": 4,
+      "file": "C:\\Projects\\metaintelligence\\p30-a4-iso\\lib\\spring-ts\\data\\narrative\\health\\thisYear\\expert.fragments.json",
+      "fireCount": 0
+    },
+    {
+      "fragmentId": "health.life.expert.diversity.anchor.001",
+      "cat": "health",
+      "period": "life",
+      "paragraphCount": 4,
+      "file": "C:\\Projects\\metaintelligence\\p30-a4-iso\\lib\\spring-ts\\data\\narrative\\health\\life\\expert.fragments.json",
+      "fireCount": 0
+    },
+    {
+      "fragmentId": "health_stress.today.expert.strong_aligned.001",
+      "cat": "health_stress",
+      "period": "today",
+      "paragraphCount": 4,
+      "file": "C:\\Projects\\metaintelligence\\p30-a4-iso\\lib\\spring-ts\\data\\narrative\\health_stress\\today\\expert.fragments.json",
+      "fireCount": 0
+    },
+    {
+      "fragmentId": "health_stress.today.expert.balanced_aligned.001",
+      "cat": "health_stress",
+      "period": "today",
+      "paragraphCount": 4,
+      "file": "C:\\Projects\\metaintelligence\\p30-a4-iso\\lib\\spring-ts\\data\\narrative\\health_stress\\today\\expert.fragments.json",
+      "fireCount": 0
+    },
+    {
+      "fragmentId": "health_stress.today.expert.weak_conflicting.001",
+      "cat": "health_stress",
+      "period": "today",
+      "paragraphCount": 4,
+      "file": "C:\\Projects\\metaintelligence\\p30-a4-iso\\lib\\spring-ts\\data\\narrative\\health_stress\\today\\expert.fragments.json",
+      "fireCount": 0
+    },
+    {
+      "fragmentId": "health_stress.today.expert.water_weak.001",
+      "cat": "health_stress",
+      "period": "today",
+      "paragraphCount": 4,
+      "file": "C:\\Projects\\metaintelligence\\p30-a4-iso\\lib\\spring-ts\\data\\narrative\\health_stress\\today\\expert.fragments.json",
+      "fireCount": 0
+    },
+    {
+      "fragmentId": "health_stress.thisWeek.expert.wildcard.001",
+      "cat": "health_stress",
+      "period": "thisWeek",
+      "paragraphCount": 4,
+      "file": "C:\\Projects\\metaintelligence\\p30-a4-iso\\lib\\spring-ts\\data\\narrative\\health_stress\\thisWeek\\expert.fragments.json",
+      "fireCount": 0
+    },
+    {
+      "fragmentId": "health_stress.thisWeek.expert.strong_aligned.001",
+      "cat": "health_stress",
+      "period": "thisWeek",
+      "paragraphCount": 4,
+      "file": "C:\\Projects\\metaintelligence\\p30-a4-iso\\lib\\spring-ts\\data\\narrative\\health_stress\\thisWeek\\expert.fragments.json",
+      "fireCount": 0
+    },
+    {
+      "fragmentId": "health_stress.thisWeek.expert.balanced_aligned.001",
+      "cat": "health_stress",
+      "period": "thisWeek",
+      "paragraphCount": 4,
+      "file": "C:\\Projects\\metaintelligence\\p30-a4-iso\\lib\\spring-ts\\data\\narrative\\health_stress\\thisWeek\\expert.fragments.json",
+      "fireCount": 0
+    },
+    {
+      "fragmentId": "health_stress.thisWeek.expert.weak_conflicting.001",
+      "cat": "health_stress",
+      "period": "thisWeek",
+      "paragraphCount": 4,
+      "file": "C:\\Projects\\metaintelligence\\p30-a4-iso\\lib\\spring-ts\\data\\narrative\\health_stress\\thisWeek\\expert.fragments.json",
+      "fireCount": 0
+    },
+    {
+      "fragmentId": "health_stress.thisWeek.expert.fire_strong.001",
+      "cat": "health_stress",
+      "period": "thisWeek",
+      "paragraphCount": 4,
+      "file": "C:\\Projects\\metaintelligence\\p30-a4-iso\\lib\\spring-ts\\data\\narrative\\health_stress\\thisWeek\\expert.fragments.json",
+      "fireCount": 0
+    },
+    {
+      "fragmentId": "health_stress.thisMonth.expert.wildcard.001",
+      "cat": "health_stress",
+      "period": "thisMonth",
+      "paragraphCount": 4,
+      "file": "C:\\Projects\\metaintelligence\\p30-a4-iso\\lib\\spring-ts\\data\\narrative\\health_stress\\thisMonth\\expert.fragments.json",
+      "fireCount": 0
+    },
+    {
+      "fragmentId": "health_stress.thisMonth.expert.strong_aligned.001",
+      "cat": "health_stress",
+      "period": "thisMonth",
+      "paragraphCount": 4,
+      "file": "C:\\Projects\\metaintelligence\\p30-a4-iso\\lib\\spring-ts\\data\\narrative\\health_stress\\thisMonth\\expert.fragments.json",
+      "fireCount": 0
+    },
+    {
+      "fragmentId": "health_stress.thisMonth.expert.balanced_aligned.001",
+      "cat": "health_stress",
+      "period": "thisMonth",
+      "paragraphCount": 4,
+      "file": "C:\\Projects\\metaintelligence\\p30-a4-iso\\lib\\spring-ts\\data\\narrative\\health_stress\\thisMonth\\expert.fragments.json",
+      "fireCount": 0
+    },
+    {
+      "fragmentId": "health_stress.thisMonth.expert.weak_conflicting.001",
+      "cat": "health_stress",
+      "period": "thisMonth",
+      "paragraphCount": 4,
+      "file": "C:\\Projects\\metaintelligence\\p30-a4-iso\\lib\\spring-ts\\data\\narrative\\health_stress\\thisMonth\\expert.fragments.json",
+      "fireCount": 0
+    },
+    {
+      "fragmentId": "health_stress.thisMonth.expert.fire_strong.001",
+      "cat": "health_stress",
+      "period": "thisMonth",
+      "paragraphCount": 4,
+      "file": "C:\\Projects\\metaintelligence\\p30-a4-iso\\lib\\spring-ts\\data\\narrative\\health_stress\\thisMonth\\expert.fragments.json",
+      "fireCount": 0
+    },
+    {
+      "fragmentId": "health_stress.thisYear.expert.wildcard.001",
+      "cat": "health_stress",
+      "period": "thisYear",
+      "paragraphCount": 4,
+      "file": "C:\\Projects\\metaintelligence\\p30-a4-iso\\lib\\spring-ts\\data\\narrative\\health_stress\\thisYear\\expert.fragments.json",
+      "fireCount": 0
+    },
+    {
+      "fragmentId": "health_stress.thisYear.expert.strong_aligned.001",
+      "cat": "health_stress",
+      "period": "thisYear",
+      "paragraphCount": 4,
+      "file": "C:\\Projects\\metaintelligence\\p30-a4-iso\\lib\\spring-ts\\data\\narrative\\health_stress\\thisYear\\expert.fragments.json",
+      "fireCount": 0
+    },
+    {
+      "fragmentId": "health_stress.thisYear.expert.balanced_aligned.001",
+      "cat": "health_stress",
+      "period": "thisYear",
+      "paragraphCount": 4,
+      "file": "C:\\Projects\\metaintelligence\\p30-a4-iso\\lib\\spring-ts\\data\\narrative\\health_stress\\thisYear\\expert.fragments.json",
+      "fireCount": 0
+    },
+    {
+      "fragmentId": "health_stress.thisYear.expert.weak_conflicting.001",
+      "cat": "health_stress",
+      "period": "thisYear",
+      "paragraphCount": 4,
+      "file": "C:\\Projects\\metaintelligence\\p30-a4-iso\\lib\\spring-ts\\data\\narrative\\health_stress\\thisYear\\expert.fragments.json",
+      "fireCount": 0
+    },
+    {
+      "fragmentId": "health_stress.thisYear.expert.water_weak.001",
+      "cat": "health_stress",
+      "period": "thisYear",
+      "paragraphCount": 4,
+      "file": "C:\\Projects\\metaintelligence\\p30-a4-iso\\lib\\spring-ts\\data\\narrative\\health_stress\\thisYear\\expert.fragments.json",
+      "fireCount": 0
+    },
+    {
+      "fragmentId": "health_stress.life.expert.strong_aligned.001",
+      "cat": "health_stress",
+      "period": "life",
+      "paragraphCount": 4,
+      "file": "C:\\Projects\\metaintelligence\\p30-a4-iso\\lib\\spring-ts\\data\\narrative\\health_stress\\life\\expert.fragments.json",
+      "fireCount": 0
+    },
+    {
+      "fragmentId": "health_stress.life.expert.balanced_aligned.001",
+      "cat": "health_stress",
+      "period": "life",
+      "paragraphCount": 4,
+      "file": "C:\\Projects\\metaintelligence\\p30-a4-iso\\lib\\spring-ts\\data\\narrative\\health_stress\\life\\expert.fragments.json",
+      "fireCount": 0
+    },
+    {
+      "fragmentId": "health_stress.life.expert.fire_strong.001",
+      "cat": "health_stress",
+      "period": "life",
+      "paragraphCount": 4,
+      "file": "C:\\Projects\\metaintelligence\\p30-a4-iso\\lib\\spring-ts\\data\\narrative\\health_stress\\life\\expert.fragments.json",
+      "fireCount": 0
+    },
+    {
+      "fragmentId": "movement.today.expert.wildcard.001",
+      "cat": "movement",
+      "period": "today",
+      "paragraphCount": 4,
+      "file": "C:\\Projects\\metaintelligence\\p30-a4-iso\\lib\\spring-ts\\data\\narrative\\movement\\today\\expert.fragments.json",
+      "fireCount": 0
+    },
+    {
+      "fragmentId": "movement.today.expert.20_29.004",
+      "cat": "movement",
+      "period": "today",
+      "paragraphCount": 4,
+      "file": "C:\\Projects\\metaintelligence\\p30-a4-iso\\lib\\spring-ts\\data\\narrative\\movement\\today\\expert.fragments.json",
+      "fireCount": 0
+    },
+    {
+      "fragmentId": "movement.today.expert.30_39.005",
+      "cat": "movement",
+      "period": "today",
+      "paragraphCount": 4,
+      "file": "C:\\Projects\\metaintelligence\\p30-a4-iso\\lib\\spring-ts\\data\\narrative\\movement\\today\\expert.fragments.json",
+      "fireCount": 0
+    },
+    {
+      "fragmentId": "movement.today.expert.40_54.006",
+      "cat": "movement",
+      "period": "today",
+      "paragraphCount": 4,
+      "file": "C:\\Projects\\metaintelligence\\p30-a4-iso\\lib\\spring-ts\\data\\narrative\\movement\\today\\expert.fragments.json",
+      "fireCount": 0
+    },
+    {
+      "fragmentId": "movement.today.expert.55_69.007",
+      "cat": "movement",
+      "period": "today",
+      "paragraphCount": 4,
+      "file": "C:\\Projects\\metaintelligence\\p30-a4-iso\\lib\\spring-ts\\data\\narrative\\movement\\today\\expert.fragments.json",
+      "fireCount": 0
+    },
+    {
+      "fragmentId": "movement.today.expert.70plus.008",
+      "cat": "movement",
+      "period": "today",
+      "paragraphCount": 4,
+      "file": "C:\\Projects\\metaintelligence\\p30-a4-iso\\lib\\spring-ts\\data\\narrative\\movement\\today\\expert.fragments.json",
+      "fireCount": 0
+    },
+    {
+      "fragmentId": "movement.today.expert.strong_aligned.009",
+      "cat": "movement",
+      "period": "today",
+      "paragraphCount": 4,
+      "file": "C:\\Projects\\metaintelligence\\p30-a4-iso\\lib\\spring-ts\\data\\narrative\\movement\\today\\expert.fragments.json",
+      "fireCount": 0
+    },
+    {
+      "fragmentId": "movement.thisWeek.expert.wildcard.001",
+      "cat": "movement",
+      "period": "thisWeek",
+      "paragraphCount": 4,
+      "file": "C:\\Projects\\metaintelligence\\p30-a4-iso\\lib\\spring-ts\\data\\narrative\\movement\\thisWeek\\expert.fragments.json",
+      "fireCount": 0
+    },
+    {
+      "fragmentId": "movement.thisWeek.expert.20_29.004",
+      "cat": "movement",
+      "period": "thisWeek",
+      "paragraphCount": 4,
+      "file": "C:\\Projects\\metaintelligence\\p30-a4-iso\\lib\\spring-ts\\data\\narrative\\movement\\thisWeek\\expert.fragments.json",
+      "fireCount": 0
+    },
+    {
+      "fragmentId": "movement.thisWeek.expert.30_39.005",
+      "cat": "movement",
+      "period": "thisWeek",
+      "paragraphCount": 4,
+      "file": "C:\\Projects\\metaintelligence\\p30-a4-iso\\lib\\spring-ts\\data\\narrative\\movement\\thisWeek\\expert.fragments.json",
+      "fireCount": 0
+    },
+    {
+      "fragmentId": "movement.thisWeek.expert.40_54.006",
+      "cat": "movement",
+      "period": "thisWeek",
+      "paragraphCount": 4,
+      "file": "C:\\Projects\\metaintelligence\\p30-a4-iso\\lib\\spring-ts\\data\\narrative\\movement\\thisWeek\\expert.fragments.json",
+      "fireCount": 0
+    },
+    {
+      "fragmentId": "movement.thisWeek.expert.55_69.007",
+      "cat": "movement",
+      "period": "thisWeek",
+      "paragraphCount": 4,
+      "file": "C:\\Projects\\metaintelligence\\p30-a4-iso\\lib\\spring-ts\\data\\narrative\\movement\\thisWeek\\expert.fragments.json",
+      "fireCount": 0
+    },
+    {
+      "fragmentId": "movement.thisWeek.expert.70plus.008",
+      "cat": "movement",
+      "period": "thisWeek",
+      "paragraphCount": 4,
+      "file": "C:\\Projects\\metaintelligence\\p30-a4-iso\\lib\\spring-ts\\data\\narrative\\movement\\thisWeek\\expert.fragments.json",
+      "fireCount": 0
+    },
+    {
+      "fragmentId": "movement.thisWeek.expert.strong_aligned.009",
+      "cat": "movement",
+      "period": "thisWeek",
+      "paragraphCount": 4,
+      "file": "C:\\Projects\\metaintelligence\\p30-a4-iso\\lib\\spring-ts\\data\\narrative\\movement\\thisWeek\\expert.fragments.json",
+      "fireCount": 0
+    },
+    {
+      "fragmentId": "movement.thisMonth.expert.wildcard.001",
+      "cat": "movement",
+      "period": "thisMonth",
+      "paragraphCount": 4,
+      "file": "C:\\Projects\\metaintelligence\\p30-a4-iso\\lib\\spring-ts\\data\\narrative\\movement\\thisMonth\\expert.fragments.json",
+      "fireCount": 0
+    },
+    {
+      "fragmentId": "movement.thisMonth.expert.20_29.004",
+      "cat": "movement",
+      "period": "thisMonth",
+      "paragraphCount": 4,
+      "file": "C:\\Projects\\metaintelligence\\p30-a4-iso\\lib\\spring-ts\\data\\narrative\\movement\\thisMonth\\expert.fragments.json",
+      "fireCount": 0
+    },
+    {
+      "fragmentId": "movement.thisMonth.expert.30_39.005",
+      "cat": "movement",
+      "period": "thisMonth",
+      "paragraphCount": 4,
+      "file": "C:\\Projects\\metaintelligence\\p30-a4-iso\\lib\\spring-ts\\data\\narrative\\movement\\thisMonth\\expert.fragments.json",
+      "fireCount": 0
+    },
+    {
+      "fragmentId": "movement.thisMonth.expert.40_54.006",
+      "cat": "movement",
+      "period": "thisMonth",
+      "paragraphCount": 4,
+      "file": "C:\\Projects\\metaintelligence\\p30-a4-iso\\lib\\spring-ts\\data\\narrative\\movement\\thisMonth\\expert.fragments.json",
+      "fireCount": 0
+    },
+    {
+      "fragmentId": "movement.thisMonth.expert.55_69.007",
+      "cat": "movement",
+      "period": "thisMonth",
+      "paragraphCount": 4,
+      "file": "C:\\Projects\\metaintelligence\\p30-a4-iso\\lib\\spring-ts\\data\\narrative\\movement\\thisMonth\\expert.fragments.json",
+      "fireCount": 0
+    },
+    {
+      "fragmentId": "movement.thisMonth.expert.70plus.008",
+      "cat": "movement",
+      "period": "thisMonth",
+      "paragraphCount": 4,
+      "file": "C:\\Projects\\metaintelligence\\p30-a4-iso\\lib\\spring-ts\\data\\narrative\\movement\\thisMonth\\expert.fragments.json",
+      "fireCount": 0
+    },
+    {
+      "fragmentId": "movement.thisMonth.expert.strong_aligned.009",
+      "cat": "movement",
+      "period": "thisMonth",
+      "paragraphCount": 4,
+      "file": "C:\\Projects\\metaintelligence\\p30-a4-iso\\lib\\spring-ts\\data\\narrative\\movement\\thisMonth\\expert.fragments.json",
+      "fireCount": 0
+    },
+    {
+      "fragmentId": "movement.thisYear.expert.wildcard.001",
+      "cat": "movement",
+      "period": "thisYear",
+      "paragraphCount": 4,
+      "file": "C:\\Projects\\metaintelligence\\p30-a4-iso\\lib\\spring-ts\\data\\narrative\\movement\\thisYear\\expert.fragments.json",
+      "fireCount": 0
+    },
+    {
+      "fragmentId": "movement.thisYear.expert.20_29.004",
+      "cat": "movement",
+      "period": "thisYear",
+      "paragraphCount": 4,
+      "file": "C:\\Projects\\metaintelligence\\p30-a4-iso\\lib\\spring-ts\\data\\narrative\\movement\\thisYear\\expert.fragments.json",
+      "fireCount": 0
+    },
+    {
+      "fragmentId": "movement.thisYear.expert.40_54.006",
+      "cat": "movement",
+      "period": "thisYear",
+      "paragraphCount": 4,
+      "file": "C:\\Projects\\metaintelligence\\p30-a4-iso\\lib\\spring-ts\\data\\narrative\\movement\\thisYear\\expert.fragments.json",
+      "fireCount": 0
+    },
+    {
+      "fragmentId": "movement.thisYear.expert.55_69.007",
+      "cat": "movement",
+      "period": "thisYear",
+      "paragraphCount": 4,
+      "file": "C:\\Projects\\metaintelligence\\p30-a4-iso\\lib\\spring-ts\\data\\narrative\\movement\\thisYear\\expert.fragments.json",
+      "fireCount": 0
+    },
+    {
+      "fragmentId": "movement.thisYear.expert.70plus.008",
+      "cat": "movement",
+      "period": "thisYear",
+      "paragraphCount": 4,
+      "file": "C:\\Projects\\metaintelligence\\p30-a4-iso\\lib\\spring-ts\\data\\narrative\\movement\\thisYear\\expert.fragments.json",
+      "fireCount": 0
+    },
+    {
+      "fragmentId": "movement.thisYear.expert.strong_aligned.009",
+      "cat": "movement",
+      "period": "thisYear",
+      "paragraphCount": 4,
+      "file": "C:\\Projects\\metaintelligence\\p30-a4-iso\\lib\\spring-ts\\data\\narrative\\movement\\thisYear\\expert.fragments.json",
+      "fireCount": 0
+    },
+    {
+      "fragmentId": "movement.life.expert.20_29.004",
+      "cat": "movement",
+      "period": "life",
+      "paragraphCount": 4,
+      "file": "C:\\Projects\\metaintelligence\\p30-a4-iso\\lib\\spring-ts\\data\\narrative\\movement\\life\\expert.fragments.json",
+      "fireCount": 0
+    },
+    {
+      "fragmentId": "movement.life.expert.40_54.006",
+      "cat": "movement",
+      "period": "life",
+      "paragraphCount": 4,
+      "file": "C:\\Projects\\metaintelligence\\p30-a4-iso\\lib\\spring-ts\\data\\narrative\\movement\\life\\expert.fragments.json",
+      "fireCount": 0
+    },
+    {
+      "fragmentId": "movement.life.expert.55_69.007",
+      "cat": "movement",
+      "period": "life",
+      "paragraphCount": 4,
+      "file": "C:\\Projects\\metaintelligence\\p30-a4-iso\\lib\\spring-ts\\data\\narrative\\movement\\life\\expert.fragments.json",
+      "fireCount": 0
+    },
+    {
+      "fragmentId": "movement.life.expert.70plus.008",
+      "cat": "movement",
+      "period": "life",
+      "paragraphCount": 4,
+      "file": "C:\\Projects\\metaintelligence\\p30-a4-iso\\lib\\spring-ts\\data\\narrative\\movement\\life\\expert.fragments.json",
+      "fireCount": 0
+    },
+    {
+      "fragmentId": "movement.life.expert.strong_aligned.009",
+      "cat": "movement",
+      "period": "life",
+      "paragraphCount": 4,
+      "file": "C:\\Projects\\metaintelligence\\p30-a4-iso\\lib\\spring-ts\\data\\narrative\\movement\\life\\expert.fragments.json",
+      "fireCount": 0
+    },
+    {
+      "fragmentId": "movement.life.expert.diversity.anchor.011",
+      "cat": "movement",
+      "period": "life",
+      "paragraphCount": 4,
+      "file": "C:\\Projects\\metaintelligence\\p30-a4-iso\\lib\\spring-ts\\data\\narrative\\movement\\life\\expert.fragments.json",
+      "fireCount": 0
+    },
+    {
+      "fragmentId": "overall.today.expert.wildcard.001",
+      "cat": "overall",
+      "period": "today",
+      "paragraphCount": 4,
+      "file": "C:\\Projects\\metaintelligence\\p30-a4-iso\\lib\\spring-ts\\data\\narrative\\overall\\today\\expert.fragments.json",
+      "fireCount": 0
+    },
+    {
+      "fragmentId": "overall.today.expert.extreme_strong.aligned.002",
+      "cat": "overall",
+      "period": "today",
+      "paragraphCount": 4,
+      "file": "C:\\Projects\\metaintelligence\\p30-a4-iso\\lib\\spring-ts\\data\\narrative\\overall\\today\\expert.fragments.json",
+      "fireCount": 0
+    },
+    {
+      "fragmentId": "overall.today.expert.strong.aligned.003",
+      "cat": "overall",
+      "period": "today",
+      "paragraphCount": 4,
+      "file": "C:\\Projects\\metaintelligence\\p30-a4-iso\\lib\\spring-ts\\data\\narrative\\overall\\today\\expert.fragments.json",
+      "fireCount": 0
+    },
+    {
+      "fragmentId": "overall.today.expert.strong.aligned.male.age30_39.004",
+      "cat": "overall",
+      "period": "today",
+      "paragraphCount": 4,
+      "file": "C:\\Projects\\metaintelligence\\p30-a4-iso\\lib\\spring-ts\\data\\narrative\\overall\\today\\expert.fragments.json",
+      "fireCount": 0
+    },
+    {
+      "fragmentId": "overall.today.expert.balanced.aligned.006",
+      "cat": "overall",
+      "period": "today",
+      "paragraphCount": 4,
+      "file": "C:\\Projects\\metaintelligence\\p30-a4-iso\\lib\\spring-ts\\data\\narrative\\overall\\today\\expert.fragments.json",
+      "fireCount": 0
+    },
+    {
+      "fragmentId": "overall.today.expert.balanced.aligned.female.age20_29.007",
+      "cat": "overall",
+      "period": "today",
+      "paragraphCount": 4,
+      "file": "C:\\Projects\\metaintelligence\\p30-a4-iso\\lib\\spring-ts\\data\\narrative\\overall\\today\\expert.fragments.json",
+      "fireCount": 0
+    },
+    {
+      "fragmentId": "overall.today.expert.balanced.conflicting.009",
+      "cat": "overall",
+      "period": "today",
+      "paragraphCount": 4,
+      "file": "C:\\Projects\\metaintelligence\\p30-a4-iso\\lib\\spring-ts\\data\\narrative\\overall\\today\\expert.fragments.json",
+      "fireCount": 0
+    },
+    {
+      "fragmentId": "overall.today.expert.weak.aligned.010",
+      "cat": "overall",
+      "period": "today",
+      "paragraphCount": 4,
+      "file": "C:\\Projects\\metaintelligence\\p30-a4-iso\\lib\\spring-ts\\data\\narrative\\overall\\today\\expert.fragments.json",
+      "fireCount": 0
+    },
+    {
+      "fragmentId": "overall.today.expert.extreme_weak.conflicting.012",
+      "cat": "overall",
+      "period": "today",
+      "paragraphCount": 4,
+      "file": "C:\\Projects\\metaintelligence\\p30-a4-iso\\lib\\spring-ts\\data\\narrative\\overall\\today\\expert.fragments.json",
+      "fireCount": 0
+    },
+    {
+      "fragmentId": "overall.thisWeek.expert.wildcard.001",
+      "cat": "overall",
+      "period": "thisWeek",
+      "paragraphCount": 4,
+      "file": "C:\\Projects\\metaintelligence\\p30-a4-iso\\lib\\spring-ts\\data\\narrative\\overall\\thisWeek\\expert.fragments.json",
+      "fireCount": 0
+    },
+    {
+      "fragmentId": "overall.thisWeek.expert.extreme_strong.aligned.002",
+      "cat": "overall",
+      "period": "thisWeek",
+      "paragraphCount": 4,
+      "file": "C:\\Projects\\metaintelligence\\p30-a4-iso\\lib\\spring-ts\\data\\narrative\\overall\\thisWeek\\expert.fragments.json",
+      "fireCount": 0
+    },
+    {
+      "fragmentId": "overall.thisWeek.expert.strong.aligned.003",
+      "cat": "overall",
+      "period": "thisWeek",
+      "paragraphCount": 4,
+      "file": "C:\\Projects\\metaintelligence\\p30-a4-iso\\lib\\spring-ts\\data\\narrative\\overall\\thisWeek\\expert.fragments.json",
+      "fireCount": 0
+    },
+    {
+      "fragmentId": "overall.thisWeek.expert.strong.aligned.male.age30_39.004",
+      "cat": "overall",
+      "period": "thisWeek",
+      "paragraphCount": 4,
+      "file": "C:\\Projects\\metaintelligence\\p30-a4-iso\\lib\\spring-ts\\data\\narrative\\overall\\thisWeek\\expert.fragments.json",
+      "fireCount": 0
+    },
+    {
+      "fragmentId": "overall.thisWeek.expert.balanced.aligned.006",
+      "cat": "overall",
+      "period": "thisWeek",
+      "paragraphCount": 4,
+      "file": "C:\\Projects\\metaintelligence\\p30-a4-iso\\lib\\spring-ts\\data\\narrative\\overall\\thisWeek\\expert.fragments.json",
+      "fireCount": 0
+    },
+    {
+      "fragmentId": "overall.thisWeek.expert.balanced.aligned.female.age20_29.007",
+      "cat": "overall",
+      "period": "thisWeek",
+      "paragraphCount": 4,
+      "file": "C:\\Projects\\metaintelligence\\p30-a4-iso\\lib\\spring-ts\\data\\narrative\\overall\\thisWeek\\expert.fragments.json",
+      "fireCount": 0
+    },
+    {
+      "fragmentId": "overall.thisWeek.expert.balanced.conflicting.009",
+      "cat": "overall",
+      "period": "thisWeek",
+      "paragraphCount": 4,
+      "file": "C:\\Projects\\metaintelligence\\p30-a4-iso\\lib\\spring-ts\\data\\narrative\\overall\\thisWeek\\expert.fragments.json",
+      "fireCount": 0
+    },
+    {
+      "fragmentId": "overall.thisWeek.expert.weak.aligned.010",
+      "cat": "overall",
+      "period": "thisWeek",
+      "paragraphCount": 4,
+      "file": "C:\\Projects\\metaintelligence\\p30-a4-iso\\lib\\spring-ts\\data\\narrative\\overall\\thisWeek\\expert.fragments.json",
+      "fireCount": 0
+    },
+    {
+      "fragmentId": "overall.thisWeek.expert.extreme_weak.conflicting.012",
+      "cat": "overall",
+      "period": "thisWeek",
+      "paragraphCount": 4,
+      "file": "C:\\Projects\\metaintelligence\\p30-a4-iso\\lib\\spring-ts\\data\\narrative\\overall\\thisWeek\\expert.fragments.json",
+      "fireCount": 0
+    },
+    {
+      "fragmentId": "overall.thisMonth.expert.wildcard.001",
+      "cat": "overall",
+      "period": "thisMonth",
+      "paragraphCount": 4,
+      "file": "C:\\Projects\\metaintelligence\\p30-a4-iso\\lib\\spring-ts\\data\\narrative\\overall\\thisMonth\\expert.fragments.json",
+      "fireCount": 0
+    },
+    {
+      "fragmentId": "overall.thisMonth.expert.extreme_strong.aligned.002",
+      "cat": "overall",
+      "period": "thisMonth",
+      "paragraphCount": 4,
+      "file": "C:\\Projects\\metaintelligence\\p30-a4-iso\\lib\\spring-ts\\data\\narrative\\overall\\thisMonth\\expert.fragments.json",
+      "fireCount": 0
+    },
+    {
+      "fragmentId": "overall.thisMonth.expert.strong.aligned.003",
+      "cat": "overall",
+      "period": "thisMonth",
+      "paragraphCount": 4,
+      "file": "C:\\Projects\\metaintelligence\\p30-a4-iso\\lib\\spring-ts\\data\\narrative\\overall\\thisMonth\\expert.fragments.json",
+      "fireCount": 0
+    },
+    {
+      "fragmentId": "overall.thisMonth.expert.strong.aligned.male.age30_39.004",
+      "cat": "overall",
+      "period": "thisMonth",
+      "paragraphCount": 4,
+      "file": "C:\\Projects\\metaintelligence\\p30-a4-iso\\lib\\spring-ts\\data\\narrative\\overall\\thisMonth\\expert.fragments.json",
+      "fireCount": 0
+    },
+    {
+      "fragmentId": "overall.thisMonth.expert.balanced.aligned.006",
+      "cat": "overall",
+      "period": "thisMonth",
+      "paragraphCount": 4,
+      "file": "C:\\Projects\\metaintelligence\\p30-a4-iso\\lib\\spring-ts\\data\\narrative\\overall\\thisMonth\\expert.fragments.json",
+      "fireCount": 0
+    },
+    {
+      "fragmentId": "overall.thisMonth.expert.balanced.aligned.female.age20_29.007",
+      "cat": "overall",
+      "period": "thisMonth",
+      "paragraphCount": 4,
+      "file": "C:\\Projects\\metaintelligence\\p30-a4-iso\\lib\\spring-ts\\data\\narrative\\overall\\thisMonth\\expert.fragments.json",
+      "fireCount": 0
+    },
+    {
+      "fragmentId": "overall.thisMonth.expert.balanced.conflicting.009",
+      "cat": "overall",
+      "period": "thisMonth",
+      "paragraphCount": 4,
+      "file": "C:\\Projects\\metaintelligence\\p30-a4-iso\\lib\\spring-ts\\data\\narrative\\overall\\thisMonth\\expert.fragments.json",
+      "fireCount": 0
+    },
+    {
+      "fragmentId": "overall.thisMonth.expert.weak.aligned.010",
+      "cat": "overall",
+      "period": "thisMonth",
+      "paragraphCount": 4,
+      "file": "C:\\Projects\\metaintelligence\\p30-a4-iso\\lib\\spring-ts\\data\\narrative\\overall\\thisMonth\\expert.fragments.json",
+      "fireCount": 0
+    },
+    {
+      "fragmentId": "overall.thisMonth.expert.extreme_weak.conflicting.012",
+      "cat": "overall",
+      "period": "thisMonth",
+      "paragraphCount": 4,
+      "file": "C:\\Projects\\metaintelligence\\p30-a4-iso\\lib\\spring-ts\\data\\narrative\\overall\\thisMonth\\expert.fragments.json",
+      "fireCount": 0
+    },
+    {
+      "fragmentId": "overall.thisYear.expert.wildcard.001",
+      "cat": "overall",
+      "period": "thisYear",
+      "paragraphCount": 4,
+      "file": "C:\\Projects\\metaintelligence\\p30-a4-iso\\lib\\spring-ts\\data\\narrative\\overall\\thisYear\\expert.fragments.json",
+      "fireCount": 0
+    },
+    {
+      "fragmentId": "overall.thisYear.expert.extreme_strong.aligned.002",
+      "cat": "overall",
+      "period": "thisYear",
+      "paragraphCount": 4,
+      "file": "C:\\Projects\\metaintelligence\\p30-a4-iso\\lib\\spring-ts\\data\\narrative\\overall\\thisYear\\expert.fragments.json",
+      "fireCount": 0
+    },
+    {
+      "fragmentId": "overall.thisYear.expert.strong.aligned.003",
+      "cat": "overall",
+      "period": "thisYear",
+      "paragraphCount": 4,
+      "file": "C:\\Projects\\metaintelligence\\p30-a4-iso\\lib\\spring-ts\\data\\narrative\\overall\\thisYear\\expert.fragments.json",
+      "fireCount": 0
+    },
+    {
+      "fragmentId": "overall.thisYear.expert.strong.aligned.male.age30_39.004",
+      "cat": "overall",
+      "period": "thisYear",
+      "paragraphCount": 4,
+      "file": "C:\\Projects\\metaintelligence\\p30-a4-iso\\lib\\spring-ts\\data\\narrative\\overall\\thisYear\\expert.fragments.json",
+      "fireCount": 0
+    },
+    {
+      "fragmentId": "overall.thisYear.expert.balanced.aligned.006",
+      "cat": "overall",
+      "period": "thisYear",
+      "paragraphCount": 4,
+      "file": "C:\\Projects\\metaintelligence\\p30-a4-iso\\lib\\spring-ts\\data\\narrative\\overall\\thisYear\\expert.fragments.json",
+      "fireCount": 0
+    },
+    {
+      "fragmentId": "overall.thisYear.expert.balanced.aligned.female.age20_29.007",
+      "cat": "overall",
+      "period": "thisYear",
+      "paragraphCount": 4,
+      "file": "C:\\Projects\\metaintelligence\\p30-a4-iso\\lib\\spring-ts\\data\\narrative\\overall\\thisYear\\expert.fragments.json",
+      "fireCount": 0
+    },
+    {
+      "fragmentId": "overall.thisYear.expert.balanced.conflicting.009",
+      "cat": "overall",
+      "period": "thisYear",
+      "paragraphCount": 4,
+      "file": "C:\\Projects\\metaintelligence\\p30-a4-iso\\lib\\spring-ts\\data\\narrative\\overall\\thisYear\\expert.fragments.json",
+      "fireCount": 0
+    },
+    {
+      "fragmentId": "overall.thisYear.expert.weak.aligned.010",
+      "cat": "overall",
+      "period": "thisYear",
+      "paragraphCount": 4,
+      "file": "C:\\Projects\\metaintelligence\\p30-a4-iso\\lib\\spring-ts\\data\\narrative\\overall\\thisYear\\expert.fragments.json",
+      "fireCount": 0
+    },
+    {
+      "fragmentId": "overall.thisYear.expert.extreme_weak.conflicting.012",
+      "cat": "overall",
+      "period": "thisYear",
+      "paragraphCount": 4,
+      "file": "C:\\Projects\\metaintelligence\\p30-a4-iso\\lib\\spring-ts\\data\\narrative\\overall\\thisYear\\expert.fragments.json",
+      "fireCount": 0
+    },
+    {
+      "fragmentId": "overall.life.expert.wildcard.001",
+      "cat": "overall",
+      "period": "life",
+      "paragraphCount": 4,
+      "file": "C:\\Projects\\metaintelligence\\p30-a4-iso\\lib\\spring-ts\\data\\narrative\\overall\\life\\expert.fragments.json",
+      "fireCount": 0
+    },
+    {
+      "fragmentId": "overall.life.expert.extreme_strong.aligned.002",
+      "cat": "overall",
+      "period": "life",
+      "paragraphCount": 4,
+      "file": "C:\\Projects\\metaintelligence\\p30-a4-iso\\lib\\spring-ts\\data\\narrative\\overall\\life\\expert.fragments.json",
+      "fireCount": 0
+    },
+    {
+      "fragmentId": "overall.life.expert.strong.aligned.003",
+      "cat": "overall",
+      "period": "life",
+      "paragraphCount": 4,
+      "file": "C:\\Projects\\metaintelligence\\p30-a4-iso\\lib\\spring-ts\\data\\narrative\\overall\\life\\expert.fragments.json",
+      "fireCount": 0
+    },
+    {
+      "fragmentId": "overall.life.expert.strong.aligned.male.age30_39.004",
+      "cat": "overall",
+      "period": "life",
+      "paragraphCount": 4,
+      "file": "C:\\Projects\\metaintelligence\\p30-a4-iso\\lib\\spring-ts\\data\\narrative\\overall\\life\\expert.fragments.json",
+      "fireCount": 0
+    },
+    {
+      "fragmentId": "overall.life.expert.balanced.aligned.006",
+      "cat": "overall",
+      "period": "life",
+      "paragraphCount": 4,
+      "file": "C:\\Projects\\metaintelligence\\p30-a4-iso\\lib\\spring-ts\\data\\narrative\\overall\\life\\expert.fragments.json",
+      "fireCount": 0
+    },
+    {
+      "fragmentId": "overall.life.expert.balanced.aligned.female.age20_29.007",
+      "cat": "overall",
+      "period": "life",
+      "paragraphCount": 4,
+      "file": "C:\\Projects\\metaintelligence\\p30-a4-iso\\lib\\spring-ts\\data\\narrative\\overall\\life\\expert.fragments.json",
+      "fireCount": 0
+    },
+    {
+      "fragmentId": "overall.life.expert.balanced.conflicting.009",
+      "cat": "overall",
+      "period": "life",
+      "paragraphCount": 4,
+      "file": "C:\\Projects\\metaintelligence\\p30-a4-iso\\lib\\spring-ts\\data\\narrative\\overall\\life\\expert.fragments.json",
+      "fireCount": 0
+    },
+    {
+      "fragmentId": "overall.life.expert.weak.aligned.010",
+      "cat": "overall",
+      "period": "life",
+      "paragraphCount": 4,
+      "file": "C:\\Projects\\metaintelligence\\p30-a4-iso\\lib\\spring-ts\\data\\narrative\\overall\\life\\expert.fragments.json",
+      "fireCount": 0
+    },
+    {
+      "fragmentId": "overall.life.expert.extreme_weak.conflicting.012",
+      "cat": "overall",
+      "period": "life",
+      "paragraphCount": 4,
+      "file": "C:\\Projects\\metaintelligence\\p30-a4-iso\\lib\\spring-ts\\data\\narrative\\overall\\life\\expert.fragments.json",
+      "fireCount": 0
+    },
+    {
+      "fragmentId": "overall.life.expert.yang_balanced_tonggwan.501",
+      "cat": "overall",
+      "period": "life",
+      "paragraphCount": 4,
+      "file": "C:\\Projects\\metaintelligence\\p30-a4-iso\\lib\\spring-ts\\data\\narrative\\overall\\life\\expert.fragments.json",
+      "fireCount": 0
+    },
+    {
+      "fragmentId": "overall.life.expert.weak_summer_byeongyak.502",
+      "cat": "overall",
+      "period": "life",
+      "paragraphCount": 4,
+      "file": "C:\\Projects\\metaintelligence\\p30-a4-iso\\lib\\spring-ts\\data\\narrative\\overall\\life\\expert.fragments.json",
+      "fireCount": 0
+    },
+    {
+      "fragmentId": "overall.life.expert.late50s_aligned_gyeokguk.503",
+      "cat": "overall",
+      "period": "life",
+      "paragraphCount": 4,
+      "file": "C:\\Projects\\metaintelligence\\p30-a4-iso\\lib\\spring-ts\\data\\narrative\\overall\\life\\expert.fragments.json",
+      "fireCount": 0
+    },
+    {
+      "fragmentId": "overall.life.expert.early30s_male_buaek.505",
+      "cat": "overall",
+      "period": "life",
+      "paragraphCount": 4,
+      "file": "C:\\Projects\\metaintelligence\\p30-a4-iso\\lib\\spring-ts\\data\\narrative\\overall\\life\\expert.fragments.json",
+      "fireCount": 0
+    },
+    {
+      "fragmentId": "overall.life.expert.late40s_female_cheoni.506",
+      "cat": "overall",
+      "period": "life",
+      "paragraphCount": 4,
+      "file": "C:\\Projects\\metaintelligence\\p30-a4-iso\\lib\\spring-ts\\data\\narrative\\overall\\life\\expert.fragments.json",
+      "fireCount": 0
+    },
+    {
+      "fragmentId": "romance.today.expert.late_life.001",
+      "cat": "romance",
+      "period": "today",
+      "paragraphCount": 4,
+      "file": "C:\\Projects\\metaintelligence\\p30-a4-iso\\lib\\spring-ts\\data\\narrative\\romance\\today\\expert.fragments.json",
+      "fireCount": 0
+    },
+    {
+      "fragmentId": "romance.life.expert.dohwa_strong.001",
+      "cat": "romance",
+      "period": "life",
+      "paragraphCount": 4,
+      "file": "C:\\Projects\\metaintelligence\\p30-a4-iso\\lib\\spring-ts\\data\\narrative\\romance\\life\\expert.fragments.json",
+      "fireCount": 0
+    },
+    {
+      "fragmentId": "study_document.today.expert.wildcard.001",
+      "cat": "study_document",
+      "period": "today",
+      "paragraphCount": 4,
+      "file": "C:\\Projects\\metaintelligence\\p30-a4-iso\\lib\\spring-ts\\data\\narrative\\study_document\\today\\expert.fragments.json",
+      "fireCount": 0
+    },
+    {
+      "fragmentId": "study_document.today.expert.aligned.002",
+      "cat": "study_document",
+      "period": "today",
+      "paragraphCount": 4,
+      "file": "C:\\Projects\\metaintelligence\\p30-a4-iso\\lib\\spring-ts\\data\\narrative\\study_document\\today\\expert.fragments.json",
+      "fireCount": 0
+    },
+    {
+      "fragmentId": "study_document.today.expert.conflicting.003",
+      "cat": "study_document",
+      "period": "today",
+      "paragraphCount": 4,
+      "file": "C:\\Projects\\metaintelligence\\p30-a4-iso\\lib\\spring-ts\\data\\narrative\\study_document\\today\\expert.fragments.json",
+      "fireCount": 0
+    },
+    {
+      "fragmentId": "study_document.today.expert.jeongingyeok.004",
+      "cat": "study_document",
+      "period": "today",
+      "paragraphCount": 4,
+      "file": "C:\\Projects\\metaintelligence\\p30-a4-iso\\lib\\spring-ts\\data\\narrative\\study_document\\today\\expert.fragments.json",
+      "fireCount": 0
+    },
+    {
+      "fragmentId": "study_document.today.expert.pyeoningyeok.005",
+      "cat": "study_document",
+      "period": "today",
+      "paragraphCount": 4,
+      "file": "C:\\Projects\\metaintelligence\\p30-a4-iso\\lib\\spring-ts\\data\\narrative\\study_document\\today\\expert.fragments.json",
+      "fireCount": 0
+    },
+    {
+      "fragmentId": "study_document.today.expert.adult.007",
+      "cat": "study_document",
+      "period": "today",
+      "paragraphCount": 4,
+      "file": "C:\\Projects\\metaintelligence\\p30-a4-iso\\lib\\spring-ts\\data\\narrative\\study_document\\today\\expert.fragments.json",
+      "fireCount": 0
+    },
+    {
+      "fragmentId": "study_document.today.expert.strong.008",
+      "cat": "study_document",
+      "period": "today",
+      "paragraphCount": 4,
+      "file": "C:\\Projects\\metaintelligence\\p30-a4-iso\\lib\\spring-ts\\data\\narrative\\study_document\\today\\expert.fragments.json",
+      "fireCount": 0
+    },
+    {
+      "fragmentId": "study_document.today.expert.weak.009",
+      "cat": "study_document",
+      "period": "today",
+      "paragraphCount": 4,
+      "file": "C:\\Projects\\metaintelligence\\p30-a4-iso\\lib\\spring-ts\\data\\narrative\\study_document\\today\\expert.fragments.json",
+      "fireCount": 0
+    },
+    {
+      "fragmentId": "study_document.today.expert.balanced.010",
+      "cat": "study_document",
+      "period": "today",
+      "paragraphCount": 4,
+      "file": "C:\\Projects\\metaintelligence\\p30-a4-iso\\lib\\spring-ts\\data\\narrative\\study_document\\today\\expert.fragments.json",
+      "fireCount": 0
+    },
+    {
+      "fragmentId": "study_document.thisWeek.expert.wildcard.001",
+      "cat": "study_document",
+      "period": "thisWeek",
+      "paragraphCount": 4,
+      "file": "C:\\Projects\\metaintelligence\\p30-a4-iso\\lib\\spring-ts\\data\\narrative\\study_document\\thisWeek\\expert.fragments.json",
+      "fireCount": 0
+    },
+    {
+      "fragmentId": "study_document.thisWeek.expert.aligned.002",
+      "cat": "study_document",
+      "period": "thisWeek",
+      "paragraphCount": 4,
+      "file": "C:\\Projects\\metaintelligence\\p30-a4-iso\\lib\\spring-ts\\data\\narrative\\study_document\\thisWeek\\expert.fragments.json",
+      "fireCount": 0
+    },
+    {
+      "fragmentId": "study_document.thisWeek.expert.conflicting.003",
+      "cat": "study_document",
+      "period": "thisWeek",
+      "paragraphCount": 4,
+      "file": "C:\\Projects\\metaintelligence\\p30-a4-iso\\lib\\spring-ts\\data\\narrative\\study_document\\thisWeek\\expert.fragments.json",
+      "fireCount": 0
+    },
+    {
+      "fragmentId": "study_document.thisWeek.expert.jeongingyeok.004",
+      "cat": "study_document",
+      "period": "thisWeek",
+      "paragraphCount": 4,
+      "file": "C:\\Projects\\metaintelligence\\p30-a4-iso\\lib\\spring-ts\\data\\narrative\\study_document\\thisWeek\\expert.fragments.json",
+      "fireCount": 0
+    },
+    {
+      "fragmentId": "study_document.thisWeek.expert.pyeoningyeok.005",
+      "cat": "study_document",
+      "period": "thisWeek",
+      "paragraphCount": 4,
+      "file": "C:\\Projects\\metaintelligence\\p30-a4-iso\\lib\\spring-ts\\data\\narrative\\study_document\\thisWeek\\expert.fragments.json",
+      "fireCount": 0
+    },
+    {
+      "fragmentId": "study_document.thisWeek.expert.adult.007",
+      "cat": "study_document",
+      "period": "thisWeek",
+      "paragraphCount": 4,
+      "file": "C:\\Projects\\metaintelligence\\p30-a4-iso\\lib\\spring-ts\\data\\narrative\\study_document\\thisWeek\\expert.fragments.json",
+      "fireCount": 0
+    },
+    {
+      "fragmentId": "study_document.thisWeek.expert.strong.008",
+      "cat": "study_document",
+      "period": "thisWeek",
+      "paragraphCount": 4,
+      "file": "C:\\Projects\\metaintelligence\\p30-a4-iso\\lib\\spring-ts\\data\\narrative\\study_document\\thisWeek\\expert.fragments.json",
+      "fireCount": 0
+    },
+    {
+      "fragmentId": "study_document.thisWeek.expert.weak.009",
+      "cat": "study_document",
+      "period": "thisWeek",
+      "paragraphCount": 4,
+      "file": "C:\\Projects\\metaintelligence\\p30-a4-iso\\lib\\spring-ts\\data\\narrative\\study_document\\thisWeek\\expert.fragments.json",
+      "fireCount": 0
+    },
+    {
+      "fragmentId": "study_document.thisWeek.expert.balanced.010",
+      "cat": "study_document",
+      "period": "thisWeek",
+      "paragraphCount": 4,
+      "file": "C:\\Projects\\metaintelligence\\p30-a4-iso\\lib\\spring-ts\\data\\narrative\\study_document\\thisWeek\\expert.fragments.json",
+      "fireCount": 0
+    },
+    {
+      "fragmentId": "study_document.thisMonth.expert.wildcard.001",
+      "cat": "study_document",
+      "period": "thisMonth",
+      "paragraphCount": 4,
+      "file": "C:\\Projects\\metaintelligence\\p30-a4-iso\\lib\\spring-ts\\data\\narrative\\study_document\\thisMonth\\expert.fragments.json",
+      "fireCount": 0
+    },
+    {
+      "fragmentId": "study_document.thisMonth.expert.aligned.002",
+      "cat": "study_document",
+      "period": "thisMonth",
+      "paragraphCount": 4,
+      "file": "C:\\Projects\\metaintelligence\\p30-a4-iso\\lib\\spring-ts\\data\\narrative\\study_document\\thisMonth\\expert.fragments.json",
+      "fireCount": 0
+    },
+    {
+      "fragmentId": "study_document.thisMonth.expert.conflicting.003",
+      "cat": "study_document",
+      "period": "thisMonth",
+      "paragraphCount": 4,
+      "file": "C:\\Projects\\metaintelligence\\p30-a4-iso\\lib\\spring-ts\\data\\narrative\\study_document\\thisMonth\\expert.fragments.json",
+      "fireCount": 0
+    },
+    {
+      "fragmentId": "study_document.thisMonth.expert.jeongingyeok.004",
+      "cat": "study_document",
+      "period": "thisMonth",
+      "paragraphCount": 4,
+      "file": "C:\\Projects\\metaintelligence\\p30-a4-iso\\lib\\spring-ts\\data\\narrative\\study_document\\thisMonth\\expert.fragments.json",
+      "fireCount": 0
+    },
+    {
+      "fragmentId": "study_document.thisMonth.expert.pyeoningyeok.005",
+      "cat": "study_document",
+      "period": "thisMonth",
+      "paragraphCount": 4,
+      "file": "C:\\Projects\\metaintelligence\\p30-a4-iso\\lib\\spring-ts\\data\\narrative\\study_document\\thisMonth\\expert.fragments.json",
+      "fireCount": 0
+    },
+    {
+      "fragmentId": "study_document.thisMonth.expert.adult.007",
+      "cat": "study_document",
+      "period": "thisMonth",
+      "paragraphCount": 4,
+      "file": "C:\\Projects\\metaintelligence\\p30-a4-iso\\lib\\spring-ts\\data\\narrative\\study_document\\thisMonth\\expert.fragments.json",
+      "fireCount": 0
+    },
+    {
+      "fragmentId": "study_document.thisMonth.expert.strong.008",
+      "cat": "study_document",
+      "period": "thisMonth",
+      "paragraphCount": 4,
+      "file": "C:\\Projects\\metaintelligence\\p30-a4-iso\\lib\\spring-ts\\data\\narrative\\study_document\\thisMonth\\expert.fragments.json",
+      "fireCount": 0
+    },
+    {
+      "fragmentId": "study_document.thisMonth.expert.weak.009",
+      "cat": "study_document",
+      "period": "thisMonth",
+      "paragraphCount": 4,
+      "file": "C:\\Projects\\metaintelligence\\p30-a4-iso\\lib\\spring-ts\\data\\narrative\\study_document\\thisMonth\\expert.fragments.json",
+      "fireCount": 0
+    },
+    {
+      "fragmentId": "study_document.thisMonth.expert.balanced.010",
+      "cat": "study_document",
+      "period": "thisMonth",
+      "paragraphCount": 4,
+      "file": "C:\\Projects\\metaintelligence\\p30-a4-iso\\lib\\spring-ts\\data\\narrative\\study_document\\thisMonth\\expert.fragments.json",
+      "fireCount": 0
+    },
+    {
+      "fragmentId": "study_document.thisYear.expert.wildcard.001",
+      "cat": "study_document",
+      "period": "thisYear",
+      "paragraphCount": 4,
+      "file": "C:\\Projects\\metaintelligence\\p30-a4-iso\\lib\\spring-ts\\data\\narrative\\study_document\\thisYear\\expert.fragments.json",
+      "fireCount": 0
+    },
+    {
+      "fragmentId": "study_document.thisYear.expert.aligned.002",
+      "cat": "study_document",
+      "period": "thisYear",
+      "paragraphCount": 4,
+      "file": "C:\\Projects\\metaintelligence\\p30-a4-iso\\lib\\spring-ts\\data\\narrative\\study_document\\thisYear\\expert.fragments.json",
+      "fireCount": 0
+    },
+    {
+      "fragmentId": "study_document.thisYear.expert.conflicting.003",
+      "cat": "study_document",
+      "period": "thisYear",
+      "paragraphCount": 4,
+      "file": "C:\\Projects\\metaintelligence\\p30-a4-iso\\lib\\spring-ts\\data\\narrative\\study_document\\thisYear\\expert.fragments.json",
+      "fireCount": 0
+    },
+    {
+      "fragmentId": "study_document.thisYear.expert.jeongingyeok.004",
+      "cat": "study_document",
+      "period": "thisYear",
+      "paragraphCount": 4,
+      "file": "C:\\Projects\\metaintelligence\\p30-a4-iso\\lib\\spring-ts\\data\\narrative\\study_document\\thisYear\\expert.fragments.json",
+      "fireCount": 0
+    },
+    {
+      "fragmentId": "study_document.thisYear.expert.pyeoningyeok.005",
+      "cat": "study_document",
+      "period": "thisYear",
+      "paragraphCount": 4,
+      "file": "C:\\Projects\\metaintelligence\\p30-a4-iso\\lib\\spring-ts\\data\\narrative\\study_document\\thisYear\\expert.fragments.json",
+      "fireCount": 0
+    },
+    {
+      "fragmentId": "study_document.thisYear.expert.adult.007",
+      "cat": "study_document",
+      "period": "thisYear",
+      "paragraphCount": 4,
+      "file": "C:\\Projects\\metaintelligence\\p30-a4-iso\\lib\\spring-ts\\data\\narrative\\study_document\\thisYear\\expert.fragments.json",
+      "fireCount": 0
+    },
+    {
+      "fragmentId": "study_document.thisYear.expert.strong.008",
+      "cat": "study_document",
+      "period": "thisYear",
+      "paragraphCount": 4,
+      "file": "C:\\Projects\\metaintelligence\\p30-a4-iso\\lib\\spring-ts\\data\\narrative\\study_document\\thisYear\\expert.fragments.json",
+      "fireCount": 0
+    },
+    {
+      "fragmentId": "study_document.thisYear.expert.weak.009",
+      "cat": "study_document",
+      "period": "thisYear",
+      "paragraphCount": 4,
+      "file": "C:\\Projects\\metaintelligence\\p30-a4-iso\\lib\\spring-ts\\data\\narrative\\study_document\\thisYear\\expert.fragments.json",
+      "fireCount": 0
+    },
+    {
+      "fragmentId": "study_document.thisYear.expert.balanced.010",
+      "cat": "study_document",
+      "period": "thisYear",
+      "paragraphCount": 4,
+      "file": "C:\\Projects\\metaintelligence\\p30-a4-iso\\lib\\spring-ts\\data\\narrative\\study_document\\thisYear\\expert.fragments.json",
+      "fireCount": 0
+    },
+    {
+      "fragmentId": "study_document.thisYear.expert.metal.011",
+      "cat": "study_document",
+      "period": "thisYear",
+      "paragraphCount": 4,
+      "file": "C:\\Projects\\metaintelligence\\p30-a4-iso\\lib\\spring-ts\\data\\narrative\\study_document\\thisYear\\expert.fragments.json",
+      "fireCount": 0
+    },
+    {
+      "fragmentId": "study_document.thisYear.expert.earth.012",
+      "cat": "study_document",
+      "period": "thisYear",
+      "paragraphCount": 4,
+      "file": "C:\\Projects\\metaintelligence\\p30-a4-iso\\lib\\spring-ts\\data\\narrative\\study_document\\thisYear\\expert.fragments.json",
+      "fireCount": 0
+    },
+    {
+      "fragmentId": "study_document.life.expert.wildcard.001",
+      "cat": "study_document",
+      "period": "life",
+      "paragraphCount": 4,
+      "file": "C:\\Projects\\metaintelligence\\p30-a4-iso\\lib\\spring-ts\\data\\narrative\\study_document\\life\\expert.fragments.json",
+      "fireCount": 0
+    },
+    {
+      "fragmentId": "study_document.life.expert.aligned.002",
+      "cat": "study_document",
+      "period": "life",
+      "paragraphCount": 4,
+      "file": "C:\\Projects\\metaintelligence\\p30-a4-iso\\lib\\spring-ts\\data\\narrative\\study_document\\life\\expert.fragments.json",
+      "fireCount": 0
+    },
+    {
+      "fragmentId": "study_document.life.expert.conflicting.003",
+      "cat": "study_document",
+      "period": "life",
+      "paragraphCount": 4,
+      "file": "C:\\Projects\\metaintelligence\\p30-a4-iso\\lib\\spring-ts\\data\\narrative\\study_document\\life\\expert.fragments.json",
+      "fireCount": 0
+    },
+    {
+      "fragmentId": "study_document.life.expert.jeongingyeok.004",
+      "cat": "study_document",
+      "period": "life",
+      "paragraphCount": 4,
+      "file": "C:\\Projects\\metaintelligence\\p30-a4-iso\\lib\\spring-ts\\data\\narrative\\study_document\\life\\expert.fragments.json",
+      "fireCount": 0
+    },
+    {
+      "fragmentId": "study_document.life.expert.pyeoningyeok.005",
+      "cat": "study_document",
+      "period": "life",
+      "paragraphCount": 4,
+      "file": "C:\\Projects\\metaintelligence\\p30-a4-iso\\lib\\spring-ts\\data\\narrative\\study_document\\life\\expert.fragments.json",
+      "fireCount": 0
+    },
+    {
+      "fragmentId": "study_document.life.expert.midage.007",
+      "cat": "study_document",
+      "period": "life",
+      "paragraphCount": 4,
+      "file": "C:\\Projects\\metaintelligence\\p30-a4-iso\\lib\\spring-ts\\data\\narrative\\study_document\\life\\expert.fragments.json",
+      "fireCount": 0
+    },
+    {
+      "fragmentId": "study_document.life.expert.senior.008",
+      "cat": "study_document",
+      "period": "life",
+      "paragraphCount": 4,
+      "file": "C:\\Projects\\metaintelligence\\p30-a4-iso\\lib\\spring-ts\\data\\narrative\\study_document\\life\\expert.fragments.json",
+      "fireCount": 0
+    },
+    {
+      "fragmentId": "study_document.life.expert.strong.009",
+      "cat": "study_document",
+      "period": "life",
+      "paragraphCount": 4,
+      "file": "C:\\Projects\\metaintelligence\\p30-a4-iso\\lib\\spring-ts\\data\\narrative\\study_document\\life\\expert.fragments.json",
+      "fireCount": 0
+    },
+    {
+      "fragmentId": "study_document.life.expert.weak.010",
+      "cat": "study_document",
+      "period": "life",
+      "paragraphCount": 4,
+      "file": "C:\\Projects\\metaintelligence\\p30-a4-iso\\lib\\spring-ts\\data\\narrative\\study_document\\life\\expert.fragments.json",
+      "fireCount": 0
+    },
+    {
+      "fragmentId": "study_document.life.expert.balanced.011",
+      "cat": "study_document",
+      "period": "life",
+      "paragraphCount": 4,
+      "file": "C:\\Projects\\metaintelligence\\p30-a4-iso\\lib\\spring-ts\\data\\narrative\\study_document\\life\\expert.fragments.json",
+      "fireCount": 0
+    },
+    {
+      "fragmentId": "study_document.life.expert.metal.012",
+      "cat": "study_document",
+      "period": "life",
+      "paragraphCount": 4,
+      "file": "C:\\Projects\\metaintelligence\\p30-a4-iso\\lib\\spring-ts\\data\\narrative\\study_document\\life\\expert.fragments.json",
+      "fireCount": 0
+    },
+    {
+      "fragmentId": "wealth.today.expert.strong.aligned.002",
+      "cat": "wealth",
+      "period": "today",
+      "paragraphCount": 4,
+      "file": "C:\\Projects\\metaintelligence\\p30-a4-iso\\lib\\spring-ts\\data\\narrative\\wealth\\today\\expert.fragments.json",
+      "fireCount": 0
+    },
+    {
+      "fragmentId": "wealth.today.expert.balanced.aligned.003",
+      "cat": "wealth",
+      "period": "today",
+      "paragraphCount": 4,
+      "file": "C:\\Projects\\metaintelligence\\p30-a4-iso\\lib\\spring-ts\\data\\narrative\\wealth\\today\\expert.fragments.json",
+      "fireCount": 0
+    },
+    {
+      "fragmentId": "wealth.today.expert.conflicting.005",
+      "cat": "wealth",
+      "period": "today",
+      "paragraphCount": 4,
+      "file": "C:\\Projects\\metaintelligence\\p30-a4-iso\\lib\\spring-ts\\data\\narrative\\wealth\\today\\expert.fragments.json",
+      "fireCount": 0
+    },
+    {
+      "fragmentId": "wealth.today.expert.20_29.008",
+      "cat": "wealth",
+      "period": "today",
+      "paragraphCount": 4,
+      "file": "C:\\Projects\\metaintelligence\\p30-a4-iso\\lib\\spring-ts\\data\\narrative\\wealth\\today\\expert.fragments.json",
+      "fireCount": 0
+    },
+    {
+      "fragmentId": "wealth.thisWeek.expert.wildcard.001",
+      "cat": "wealth",
+      "period": "thisWeek",
+      "paragraphCount": 4,
+      "file": "C:\\Projects\\metaintelligence\\p30-a4-iso\\lib\\spring-ts\\data\\narrative\\wealth\\thisWeek\\expert.fragments.json",
+      "fireCount": 0
+    },
+    {
+      "fragmentId": "wealth.thisWeek.expert.strong.aligned.002",
+      "cat": "wealth",
+      "period": "thisWeek",
+      "paragraphCount": 4,
+      "file": "C:\\Projects\\metaintelligence\\p30-a4-iso\\lib\\spring-ts\\data\\narrative\\wealth\\thisWeek\\expert.fragments.json",
+      "fireCount": 0
+    },
+    {
+      "fragmentId": "wealth.thisWeek.expert.balanced.aligned.003",
+      "cat": "wealth",
+      "period": "thisWeek",
+      "paragraphCount": 4,
+      "file": "C:\\Projects\\metaintelligence\\p30-a4-iso\\lib\\spring-ts\\data\\narrative\\wealth\\thisWeek\\expert.fragments.json",
+      "fireCount": 0
+    },
+    {
+      "fragmentId": "wealth.thisWeek.expert.conflicting.005",
+      "cat": "wealth",
+      "period": "thisWeek",
+      "paragraphCount": 4,
+      "file": "C:\\Projects\\metaintelligence\\p30-a4-iso\\lib\\spring-ts\\data\\narrative\\wealth\\thisWeek\\expert.fragments.json",
+      "fireCount": 0
+    },
+    {
+      "fragmentId": "wealth.thisWeek.expert.female.40_54.007",
+      "cat": "wealth",
+      "period": "thisWeek",
+      "paragraphCount": 4,
+      "file": "C:\\Projects\\metaintelligence\\p30-a4-iso\\lib\\spring-ts\\data\\narrative\\wealth\\thisWeek\\expert.fragments.json",
+      "fireCount": 0
+    },
+    {
+      "fragmentId": "wealth.thisMonth.expert.wildcard.001",
+      "cat": "wealth",
+      "period": "thisMonth",
+      "paragraphCount": 4,
+      "file": "C:\\Projects\\metaintelligence\\p30-a4-iso\\lib\\spring-ts\\data\\narrative\\wealth\\thisMonth\\expert.fragments.json",
+      "fireCount": 0
+    },
+    {
+      "fragmentId": "wealth.thisMonth.expert.strong.aligned.002",
+      "cat": "wealth",
+      "period": "thisMonth",
+      "paragraphCount": 4,
+      "file": "C:\\Projects\\metaintelligence\\p30-a4-iso\\lib\\spring-ts\\data\\narrative\\wealth\\thisMonth\\expert.fragments.json",
+      "fireCount": 0
+    },
+    {
+      "fragmentId": "wealth.thisMonth.expert.balanced.aligned.003",
+      "cat": "wealth",
+      "period": "thisMonth",
+      "paragraphCount": 4,
+      "file": "C:\\Projects\\metaintelligence\\p30-a4-iso\\lib\\spring-ts\\data\\narrative\\wealth\\thisMonth\\expert.fragments.json",
+      "fireCount": 0
+    },
+    {
+      "fragmentId": "wealth.thisMonth.expert.conflicting.005",
+      "cat": "wealth",
+      "period": "thisMonth",
+      "paragraphCount": 4,
+      "file": "C:\\Projects\\metaintelligence\\p30-a4-iso\\lib\\spring-ts\\data\\narrative\\wealth\\thisMonth\\expert.fragments.json",
+      "fireCount": 0
+    },
+    {
+      "fragmentId": "wealth.thisMonth.expert.male.30_39.006",
+      "cat": "wealth",
+      "period": "thisMonth",
+      "paragraphCount": 4,
+      "file": "C:\\Projects\\metaintelligence\\p30-a4-iso\\lib\\spring-ts\\data\\narrative\\wealth\\thisMonth\\expert.fragments.json",
+      "fireCount": 0
+    },
+    {
+      "fragmentId": "wealth.thisMonth.expert.female.40_54.007",
+      "cat": "wealth",
+      "period": "thisMonth",
+      "paragraphCount": 4,
+      "file": "C:\\Projects\\metaintelligence\\p30-a4-iso\\lib\\spring-ts\\data\\narrative\\wealth\\thisMonth\\expert.fragments.json",
+      "fireCount": 0
+    },
+    {
+      "fragmentId": "wealth.thisYear.expert.strong.aligned.30_39.male.002",
+      "cat": "wealth",
+      "period": "thisYear",
+      "paragraphCount": 4,
+      "file": "C:\\Projects\\metaintelligence\\p30-a4-iso\\lib\\spring-ts\\data\\narrative\\wealth\\thisYear\\expert.fragments.json",
+      "fireCount": 0
+    },
+    {
+      "fragmentId": "wealth.thisYear.expert.balanced.aligned.003",
+      "cat": "wealth",
+      "period": "thisYear",
+      "paragraphCount": 4,
+      "file": "C:\\Projects\\metaintelligence\\p30-a4-iso\\lib\\spring-ts\\data\\narrative\\wealth\\thisYear\\expert.fragments.json",
+      "fireCount": 0
+    },
+    {
+      "fragmentId": "wealth.thisYear.expert.conflicting.005",
+      "cat": "wealth",
+      "period": "thisYear",
+      "paragraphCount": 4,
+      "file": "C:\\Projects\\metaintelligence\\p30-a4-iso\\lib\\spring-ts\\data\\narrative\\wealth\\thisYear\\expert.fragments.json",
+      "fireCount": 0
+    },
+    {
+      "fragmentId": "wealth.thisYear.expert.20_29.007",
+      "cat": "wealth",
+      "period": "thisYear",
+      "paragraphCount": 4,
+      "file": "C:\\Projects\\metaintelligence\\p30-a4-iso\\lib\\spring-ts\\data\\narrative\\wealth\\thisYear\\expert.fragments.json",
+      "fireCount": 0
+    },
+    {
+      "fragmentId": "wealth.life.expert.wildcard.001",
+      "cat": "wealth",
+      "period": "life",
+      "paragraphCount": 4,
+      "file": "C:\\Projects\\metaintelligence\\p30-a4-iso\\lib\\spring-ts\\data\\narrative\\wealth\\life\\expert.fragments.json",
+      "fireCount": 0
+    },
+    {
+      "fragmentId": "wealth.life.expert.strong.aligned.002",
+      "cat": "wealth",
+      "period": "life",
+      "paragraphCount": 4,
+      "file": "C:\\Projects\\metaintelligence\\p30-a4-iso\\lib\\spring-ts\\data\\narrative\\wealth\\life\\expert.fragments.json",
+      "fireCount": 0
+    },
+    {
+      "fragmentId": "wealth.life.expert.balanced.aligned.003",
+      "cat": "wealth",
+      "period": "life",
+      "paragraphCount": 4,
+      "file": "C:\\Projects\\metaintelligence\\p30-a4-iso\\lib\\spring-ts\\data\\narrative\\wealth\\life\\expert.fragments.json",
+      "fireCount": 0
+    },
+    {
+      "fragmentId": "wealth.life.expert.conflicting.005",
+      "cat": "wealth",
+      "period": "life",
+      "paragraphCount": 4,
+      "file": "C:\\Projects\\metaintelligence\\p30-a4-iso\\lib\\spring-ts\\data\\narrative\\wealth\\life\\expert.fragments.json",
+      "fireCount": 0
+    },
+    {
+      "fragmentId": "wealth.life.expert.male.30_39.006",
+      "cat": "wealth",
+      "period": "life",
+      "paragraphCount": 4,
+      "file": "C:\\Projects\\metaintelligence\\p30-a4-iso\\lib\\spring-ts\\data\\narrative\\wealth\\life\\expert.fragments.json",
+      "fireCount": 0
+    },
+    {
+      "fragmentId": "wealth.life.expert.55_69.008",
+      "cat": "wealth",
+      "period": "life",
+      "paragraphCount": 4,
+      "file": "C:\\Projects\\metaintelligence\\p30-a4-iso\\lib\\spring-ts\\data\\narrative\\wealth\\life\\expert.fragments.json",
+      "fireCount": 0
+    },
+    {
+      "fragmentId": "wealth.life.expert.diversity.anchor.009",
+      "cat": "wealth",
+      "period": "life",
+      "paragraphCount": 4,
+      "file": "C:\\Projects\\metaintelligence\\p30-a4-iso\\lib\\spring-ts\\data\\narrative\\wealth\\life\\expert.fragments.json",
+      "fireCount": 0
+    }
+  ]
+}
