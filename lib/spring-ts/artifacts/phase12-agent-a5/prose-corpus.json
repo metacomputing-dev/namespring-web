@@ -1,6 +1,6 @@
 {
   "fixtureCount": 32,
-  "recordCount": 14678,
+  "recordCount": 14715,
   "fixtures": [
     {
       "fixture": "02-choi-seongsoo-tiered-fortune.json",
@@ -5684,7 +5684,7 @@
       "depth": "standard",
       "slot": "para0",
       "cellKey": "life/romance/standard/para0",
-      "plainText": "아직은 사랑을 큰 약속으로 보기보다, 친구와 가족 사이에서 존중을 배우는 시기로 보는 것이 좋아요."
+      "plainText": "10대의 인연은 짝을 정하는 큰 결정의 시기가 아니라, 또래·친구와의 사이에서 자기 마음을 알아 가는 흐름이 가장 또렷하게 자라는 시간이에요. 새 친구를 만나거나 함께 무언가를 만드는 자리에서 자기다움이 천천히 또렷해져요."
     },
     {
       "fixture": "04-kim-seoyun-young-female-tiered.json",
@@ -5693,7 +5693,16 @@
       "depth": "standard",
       "slot": "para1",
       "cellKey": "life/romance/standard/para1",
-      "plainText": "좋아하는 마음을 표현하되 상대의 속도도 함께 살피면 관계가 편해져요."
+      "plainText": "사주에서 매력 신호가 강하게 보이는 시기일 수도 있어요. 그 신호는 무대 위 표현·발표·창작처럼 사람들이 모이는 곳에서 가장 먼저 빛이 나는 흐름으로 풀려요. 마음이 가는 사람이 생기더라도 결혼이나 큰 약속 같은 단정은 한참 뒤의 이야기로 두고, 지금은 좋아하는 사람과 함께 보내는 시간 안에서 서로의 흐름을 알아 가면 충분해요."
+    },
+    {
+      "fixture": "04-kim-seoyun-young-female-tiered.json",
+      "period": "life",
+      "category": "romance",
+      "depth": "standard",
+      "slot": "para2",
+      "cellKey": "life/romance/standard/para2",
+      "plainText": "좋아하는 마음을 표현할 땐 한 박자 천천히 골라 보세요. 짧은 안부, 함께 즐기는 활동, 작은 응원이 흐름을 가장 부드럽게 만들어 줘요. 기다리는 시간이 어색하게 느껴질 수도 있지만, 그 시간 안에서 자기 페이스를 지키는 연습이 다음 시기의 가장 큰 자산이 돼요."
     },
     {
       "fixture": "04-kim-seoyun-young-female-tiered.json",
@@ -5900,7 +5909,7 @@
       "depth": "standard",
       "slot": "para0",
       "cellKey": "life/study_document/standard/para0",
-      "plainText": "공부와 기록은 한 번에 많이 하는 것보다 작은 단계를 매일 이어갈 때 더 잘 맞아요."
+      "plainText": "어린 시기와 학창 시절의 공부·서류 흐름은 시험 한 번의 점수를 두고 다투는 자리가 아니라, 좋아하는 것을 한 가지씩 알아 가는 시간이에요. 책 한 권을 천천히 펼쳐 자기에게 맞는 속도를 익히는 흐름이 평생 갈 학습 자산의 시작이 돼요."
     },
     {
       "fixture": "04-kim-seoyun-young-female-tiered.json",
@@ -5909,7 +5918,34 @@
       "depth": "standard",
       "slot": "para1",
       "cellKey": "life/study_document/standard/para1",
-      "plainText": "모르는 부분을 표시하고 다시 보는 습관이 실력을 안정적으로 키워줍니다."
+      "plainText": "비유하자면 작은 노트 한 권을 처음 펼치는 그림이에요. 첫 줄은 또박또박, 두 줄째는 어제보다 한 글자 더, 이렇게 차곡차곡 채워 가면 한 학기·한 학년 뒤에는 자기만의 책이 한 권 자라 있어요."
+    },
+    {
+      "fixture": "04-kim-seoyun-young-female-tiered.json",
+      "period": "life",
+      "category": "study_document",
+      "depth": "standard",
+      "slot": "para2",
+      "cellKey": "life/study_document/standard/para2",
+      "plainText": "잘 풀리는 면은, 모르는 것을 솔직하게 적어 두는 자리예요. 헷갈린 문장, 못 푼 문제, 어려운 단어를 작은 노트에 한 줄씩 모아 두면 그 자체가 다음 주의 학습 지도가 돼요. 그림이나 색연필로 정리해도 충분해요."
+    },
+    {
+      "fixture": "04-kim-seoyun-young-female-tiered.json",
+      "period": "life",
+      "category": "study_document",
+      "depth": "standard",
+      "slot": "para3",
+      "cellKey": "life/study_document/standard/para3",
+      "plainText": "살짝 살피면 좋은 점은, 옆 친구의 결과만 보고 자기 페이스를 잃는 면이에요. 비교는 짧게, 자기 기록 갱신은 꾸준히로 충분해요. 친구와는 함께 풀어 보는 시간을 만드는 쪽이 더 많은 것을 남겨 줘요."
+    },
+    {
+      "fixture": "04-kim-seoyun-young-female-tiered.json",
+      "period": "life",
+      "category": "study_document",
+      "depth": "standard",
+      "slot": "para4",
+      "cellKey": "life/study_document/standard/para4",
+      "plainText": "학교에서 받은 작은 칭찬 한마디, 친구와 함께 풀어 본 한 문제, 모르는 단어를 노트에 적어 둔 한 줄이 큰 자산이 되는 시기예요. 어른의 큰 자격 어휘를 미리 끌어오지 않아도 충분해요."
     },
     {
       "fixture": "04-kim-seoyun-young-female-tiered.json",
@@ -6512,7 +6548,7 @@
       "depth": "standard",
       "slot": "para0",
       "cellKey": "today/romance/standard/para0",
-      "plainText": "오늘은 마음을 표현하되 상대가 받아들일 시간을 함께 보는 것이 좋아요."
+      "plainText": "오늘은 또래·친구와의 자리가 평소보다 또렷하게 살아나는 하루예요. 학교·동아리·모임에서 자기 색이 자연스럽게 도드라지는 시간이라, 무리해서 분위기를 끌고 가지 않아도 평소의 자기다움이 친구들 사이에서 잘 빛나요."
     },
     {
       "fixture": "04-kim-seoyun-young-female-tiered.json",
@@ -6521,7 +6557,16 @@
       "depth": "standard",
       "slot": "para1",
       "cellKey": "today/romance/standard/para1",
-      "plainText": "급하게 확인받으려 하기보다 편안한 말투로 안부를 묻고, 대화가 이어지면 천천히 깊이를 더해보세요."
+      "plainText": "마음이 가는 친구가 있으면 짧은 안부나 가벼운 한마디를 건네면 좋아요. 너무 큰 결심을 내세우는 대신 일상의 시간을 함께 즐기는 정도로 두면, 사이가 자연스럽게 가까워져요. 좋아하는 마음을 표현하더라도 한 박자 천천히 골라 보면, 오해가 줄고 신뢰가 단단해져요."
+    },
+    {
+      "fixture": "04-kim-seoyun-young-female-tiered.json",
+      "period": "today",
+      "category": "romance",
+      "depth": "standard",
+      "slot": "para2",
+      "cellKey": "today/romance/standard/para2",
+      "plainText": "하루의 호흡이 살짝 들뜨는 시간이라, 오늘은 단정적인 약속·결심보다 친구와의 일상적인 자리를 즐기는 모양으로 두면 잘 어울려요. 기다리는 시간도 어색해하지 말고 자기 페이스를 지키는 연습으로 두세요. 그 자체가 가장 단단한 매력이에요."
     },
     {
       "fixture": "04-kim-seoyun-young-female-tiered.json",
@@ -6728,7 +6773,7 @@
       "depth": "standard",
       "slot": "para0",
       "cellKey": "today/study_document/standard/para0",
-      "plainText": "오늘은 학교 시험·읽기쓰기에서 한 단원만 또렷이 마무리하면 충분한 날이에요. 한꺼번에 많은 분량보다, 깊게 한 자리가 잘 맞아요."
+      "plainText": "오늘은 책 한 권을 끝까지 읽기보다, 한 단원만 또렷이 챙기면 충분한 흐름이에요. 한꺼번에 많은 분량을 잡기보다 한 자리에 깊게 머무는 호흡이 잘 맞아요."
     },
     {
       "fixture": "04-kim-seoyun-young-female-tiered.json",
@@ -6737,7 +6782,7 @@
       "depth": "standard",
       "slot": "para1",
       "cellKey": "today/study_document/standard/para1",
-      "plainText": "새 노트 첫 장을 또박또박 써 내려가는 그림을 떠올려 보면 좋아요. 오늘의 한 페이지가 다음 주 시험을 가볍게 해 줘요."
+      "plainText": "비유하자면 작은 노트 첫 줄을 또박또박 적는 그림이에요. 오늘 적은 한 줄이 다음 주 시험에서 길잡이가 돼요. 그림으로 정리해도 좋고, 색연필로 표시해도 충분해요."
     },
     {
       "fixture": "04-kim-seoyun-young-female-tiered.json",
@@ -6746,7 +6791,7 @@
       "depth": "standard",
       "slot": "para2",
       "cellKey": "today/study_document/standard/para2",
-      "plainText": "잘 풀리는 면은, 좋아하는 과목 한 가지에 집중할 때 결과가 또렷한 자리예요. 모든 과목을 한 번에 잡지 않아도 돼요."
+      "plainText": "잘 풀리는 면은, 모르는 것을 그냥 넘기지 않는 자리예요. 헷갈린 문장이나 못 푼 문제를 작은 노트에 한 줄씩 옮겨 두면 오늘의 공부가 자기만의 자료가 돼요. 친구와 함께 풀어 보는 시간이 있으면 더 잘 남아요."
     },
     {
       "fixture": "04-kim-seoyun-young-female-tiered.json",
@@ -6755,7 +6800,7 @@
       "depth": "standard",
       "slot": "para3",
       "cellKey": "today/study_document/standard/para3",
-      "plainText": "살짝 주의할 점은, 친구와 비교하다 자기 페이스를 잃는 면이에요. 어제 자기와만 비교해도 충분해요."
+      "plainText": "살짝 주의할 점은, 오늘 모든 과목을 한꺼번에 잡으려는 마음이에요. 좋아하는 한 과목부터 차분히 끝내고, 어려운 과목은 한 박자 미뤄 둬도 충분해요. 짧게 쉬고 다시 시작해도 괜찮아요."
     },
     {
       "fixture": "04-kim-seoyun-young-female-tiered.json",
@@ -6764,7 +6809,7 @@
       "depth": "standard",
       "slot": "para4",
       "cellKey": "today/study_document/standard/para4",
-      "plainText": "오늘 받은 작은 칭찬 한마디가 큰 자산이 되는 시기예요."
+      "plainText": "학교에서 받은 작은 메모 한 장, 오늘 적어 둔 모르는 단어 한 줄이 다음 주의 작은 무기가 돼요. 비교는 어제 자기와만 짧게로 충분해요."
     },
     {
       "fixture": "04-kim-seoyun-young-female-tiered.json",
@@ -7340,7 +7385,7 @@
       "depth": "standard",
       "slot": "para0",
       "cellKey": "thisWeek/romance/standard/para0",
-      "plainText": "이번 주는 친구 사이에서 신뢰를 쌓기 좋은 결이에요."
+      "plainText": "이번 주는 또래·친구와의 관계가 한 단계 도드라지는 시기예요. 학교·학원·동아리에서 자기 색이 또렷해지고, 마음 맞는 친구와의 신뢰가 한 단계 단단해지기 좋은 한 주예요."
     },
     {
       "fixture": "04-kim-seoyun-young-female-tiered.json",
@@ -7349,7 +7394,16 @@
       "depth": "standard",
       "slot": "para1",
       "cellKey": "thisWeek/romance/standard/para1",
-      "plainText": "약속 시간을 지키고, 함께 정한 규칙을 잘 지키면 가까운 사람이 더 편안함을 느낍니다."
+      "plainText": "마음이 가는 친구가 있으면 짧은 안부나 함께하는 활동으로 자연스럽게 가까워지면 좋아요. 너무 큰 결심을 내세우는 대신 일주일이라는 길이 안에서 일상의 시간을 함께 즐기는 정도로 두면 사이가 부드러워져요. 좋아하는 마음을 표현할 땐 한 박자 천천히 골라 보면, 오해가 줄고 신뢰가 단단해져요."
+    },
+    {
+      "fixture": "04-kim-seoyun-young-female-tiered.json",
+      "period": "thisWeek",
+      "category": "romance",
+      "depth": "standard",
+      "slot": "para2",
+      "cellKey": "thisWeek/romance/standard/para2",
+      "plainText": "한 주 동안 사람들과 만나는 일이 늘어나면 살짝 들뜨기 쉬워요. 자기 페이스를 지키면서 자연스럽게 따라가는 방식이 잘 맞고, 기다리는 시간도 자기 자리를 가꾸는 흐름으로 받아들이면 그 자체가 가장 단단한 친구 관계의 자산이 돼요."
     },
     {
       "fixture": "04-kim-seoyun-young-female-tiered.json",
@@ -7556,7 +7610,7 @@
       "depth": "standard",
       "slot": "para0",
       "cellKey": "thisWeek/study_document/standard/para0",
-      "plainText": "이번 주 공부와 문서 일은 큰 덩어리를 작게 나누면 훨씬 수월해요."
+      "plainText": "이번 주는 새 책을 한꺼번에 끝내려는 무리보다, 좋아하는 책 한 권을 천천히 펼쳐 보는 흐름이 잘 맞아요. 한 주의 학습은 분량을 늘리는 자리가 아니라 자기 페이스를 또렷이 잡는 시간이에요."
     },
     {
       "fixture": "04-kim-seoyun-young-female-tiered.json",
@@ -7565,7 +7619,7 @@
       "depth": "standard",
       "slot": "para1",
       "cellKey": "thisWeek/study_document/standard/para1",
-      "plainText": "읽기, 정리, 작성, 확인을 따로 두고 진행하면 막히는 부분을 찾기 쉽고 마감 전 부담도 줄어요."
+      "plainText": "비유하자면 작은 노트에 한 주의 시간표를 그리는 그림이에요. 매일 같은 시간에 보는 한 과목을 정해 두면 한 주가 끝날 즈음에는 자기만의 학습 흐름이 또렷이 보여요. 그림이나 색연필로 일정을 정리해도 충분해요."
     },
     {
       "fixture": "04-kim-seoyun-young-female-tiered.json",
@@ -7574,7 +7628,25 @@
       "depth": "standard",
       "slot": "para2",
       "cellKey": "thisWeek/study_document/standard/para2",
-      "plainText": "주 단위로 결과물을 정리해 두면 시험 준비가 흔들리지 않아요."
+      "plainText": "잘 풀리는 면은, 모르는 것을 솔직하게 모아 두는 자리예요. 한 주 동안 헷갈린 문장이나 못 푼 문제를 작은 노트에 한 줄씩 옮겨 두면, 주말의 30분이 그 한 주의 학습을 단단하게 마무리해 줘요."
+    },
+    {
+      "fixture": "04-kim-seoyun-young-female-tiered.json",
+      "period": "thisWeek",
+      "category": "study_document",
+      "depth": "standard",
+      "slot": "para3",
+      "cellKey": "thisWeek/study_document/standard/para3",
+      "plainText": "살짝 주의할 점은, 시간표를 너무 빽빽하게 짜는 면이에요. 매일 30분의 짧은 자리, 친구와 함께 한 문제 풀어 보는 자리, 좋아하는 책 한 페이지를 천천히 읽는 자리를 한 칸씩 비워 두면 한 주가 가벼워져요."
+    },
+    {
+      "fixture": "04-kim-seoyun-young-female-tiered.json",
+      "period": "thisWeek",
+      "category": "study_document",
+      "depth": "standard",
+      "slot": "para4",
+      "cellKey": "thisWeek/study_document/standard/para4",
+      "plainText": "학교에서 받은 작은 과제, 친구와 같이 본 한 페이지, 모르는 단어를 적어 둔 한 줄이 다음 주를 든든하게 만드는 자산이 돼요. 비교는 지난주 자기와만 짧게로 충분해요."
     },
     {
       "fixture": "04-kim-seoyun-young-female-tiered.json",
@@ -8150,7 +8222,7 @@
       "depth": "standard",
       "slot": "para0",
       "cellKey": "thisMonth/romance/standard/para0",
-      "plainText": "이번 달은 가까운 친구와 더 자주 웃을 수 있는 흐름이에요."
+      "plainText": "이번 달은 또래·친구와의 관계가 한 단계 깊어지기 좋은 시기예요. 학교·학원·동아리에서 자기 색이 또렷해지고, 마음 맞는 친구와의 신뢰가 한 단계 단단해지는 한 달이에요."
     },
     {
       "fixture": "04-kim-seoyun-young-female-tiered.json",
@@ -8159,7 +8231,16 @@
       "depth": "standard",
       "slot": "para1",
       "cellKey": "thisMonth/romance/standard/para1",
-      "plainText": "다만 친해지고 싶은 마음이 커도 상대의 시간을 존중해야 관계가 오래 편안해요."
+      "plainText": "마음이 가는 친구가 있으면 짧은 안부나 함께하는 활동으로 자연스럽게 가까워지면 좋아요. 너무 빠르게 결정짓지 말고 한 달 동안 다양한 활동에서 상대를 알아 가는 방식이 잘 맞아요. 좋아하는 마음을 표현할 땐 한 박자 천천히 골라 보면, 오해가 줄고 신뢰가 단단해져요."
+    },
+    {
+      "fixture": "04-kim-seoyun-young-female-tiered.json",
+      "period": "thisMonth",
+      "category": "romance",
+      "depth": "standard",
+      "slot": "para2",
+      "cellKey": "thisMonth/romance/standard/para2",
+      "plainText": "사람들이 모이는 기회가 늘어나면 살짝 들뜨기 쉬워요. 자기 페이스를 지키면서 자기다움을 챙기는 일이, 결국 가장 단단한 친구 관계의 자산이 돼요. 짝과 관련한 큰 결정은 한참 뒤의 이야기로 두고, 친구와의 시간을 충분히 누리는 시기로 한 달을 보내면 잘 어울려요."
     },
     {
       "fixture": "04-kim-seoyun-young-female-tiered.json",
@@ -8978,7 +9059,7 @@
       "depth": "standard",
       "slot": "para0",
       "cellKey": "thisYear/romance/standard/para0",
-      "plainText": "올해의 관계 흐름은 빨리 가까워지는 것보다 서로 편하게 말할 수 있는 관계를 만드는 데 초점이 있어요."
+      "plainText": "올해는 또래·친구와의 관계가 한 해 내내 한 단계 깊어지기 좋은 시기예요. 학교·학원·동아리에서 자기 색이 또렷해지고, 마음 맞는 친구와의 신뢰가 한 단계 단단해지는 한 해예요."
     },
     {
       "fixture": "04-kim-seoyun-young-female-tiered.json",
@@ -8987,7 +9068,7 @@
       "depth": "standard",
       "slot": "para1",
       "cellKey": "thisYear/romance/standard/para1",
-      "plainText": "새로운 인연이든 기존 관계든, 약속을 지키고 감정을 솔직하게 말하는 습관이 중요해요."
+      "plainText": "마음이 가는 친구가 있으면 짧은 안부나 함께하는 활동으로 사이를 잡으면 좋아요. 너무 빠르게 결정짓는 대신 한 해라는 길이를 활용해 호흡을 봐 가는 흐름이 잘 맞아요. 좋아하는 마음을 표현할 땐 한 박자 천천히 골라 보면, 오해가 줄고 신뢰가 단단해져요."
     },
     {
       "fixture": "04-kim-seoyun-young-female-tiered.json",
@@ -8996,7 +9077,7 @@
       "depth": "standard",
       "slot": "para2",
       "cellKey": "thisYear/romance/standard/para2",
-      "plainText": "급한 결론보다 꾸준한 신뢰가 더 큰 힘이 돼요."
+      "plainText": "사람들이 모이는 기회가 늘어나면 살짝 들뜨기 쉬워요. 자기 페이스를 지키면서 자기다움을 챙기는 일이, 결국 가장 단단한 친구 관계의 자산이 돼요. 기다리는 시간도 자기 자리를 가꾸는 흐름으로 받아들이면, 한 해의 끝에 한층 깊어진 친구 관계가 남아요. 짝과 관련한 큰 결정은 한참 뒤의 이야기로 두고, 한 해 동안 다양한 친구 관계를 경험해 두는 자리로 보내면 잘 어울려요."
     },
     {
       "fixture": "04-kim-seoyun-young-female-tiered.json",
@@ -59387,7 +59468,7 @@
       "depth": "standard",
       "slot": "para0",
       "cellKey": "life/romance/standard/para0",
-      "plainText": "아직은 사랑을 큰 약속으로 보기보다, 친구와 가족 사이에서 존중을 배우는 시기로 보는 것이 좋아요."
+      "plainText": "어린 시절의 인연은 짝을 미리 정하는 그림이 아니라, 가족과 친구 사이에서 마음을 주고받는 흐름을 차곡차곡 익히는 시간이에요. 이 시기엔 좋아하는 사람이 생겨도 큰 약속의 모양으로 풀리기보다, 함께 노는 시간 안에서 자기 마음과 상대의 마음을 알아 가는 자연스러운 흐름으로 자라요."
     },
     {
       "fixture": "18-lee-child-male-tiered.json",
@@ -59396,7 +59477,16 @@
       "depth": "standard",
       "slot": "para1",
       "cellKey": "life/romance/standard/para1",
-      "plainText": "좋아하는 마음을 표현하되 상대의 속도도 함께 살피면 관계가 편해져요."
+      "plainText": "사주에서 인연 자리가 넓다는 신호가 보이면, 어린 시절엔 보통 사람을 좋아하고 친구와 잘 어울리는 흐름으로 풀려요. 아이는 가족 안에서 충분히 사랑받는 경험과 단체 활동에서 자기 자리를 찾는 작은 연습이 가장 큰 자산이 돼요. 좋아하는 친구에게는 작은 칭찬이나 고마운 말을 천천히 건네는 습관이 흐름을 부드럽게 만들어 줘요."
+    },
+    {
+      "fixture": "18-lee-child-male-tiered.json",
+      "period": "life",
+      "category": "romance",
+      "depth": "standard",
+      "slot": "para2",
+      "cellKey": "life/romance/standard/para2",
+      "plainText": "너무 어려운 어른의 어휘를 미리 들이밀지 않아도 돼요. 나이에 맞는 우정·돌봄의 흐름을 충분히 누리며 자라는 것만으로 인생 전체의 인연 자산이 단단히 쌓여요. 서운한 일이 생기면 단정하지 말고 왜 그랬는지 한 번 더 물어보는 흐름을, 곁에서 어른들이 함께 보여 주면 도움이 돼요."
     },
     {
       "fixture": "18-lee-child-male-tiered.json",
@@ -59594,7 +59684,7 @@
       "depth": "standard",
       "slot": "para0",
       "cellKey": "life/study_document/standard/para0",
-      "plainText": "공부와 기록은 한 번에 많이 하는 것보다 작은 단계를 매일 이어갈 때 더 잘 맞아요."
+      "plainText": "어린 시기와 학창 시절의 공부·서류 흐름은 시험 한 번의 점수를 두고 다투는 자리가 아니라, 좋아하는 것을 한 가지씩 알아 가는 시간이에요. 책 한 권을 천천히 펼쳐 자기에게 맞는 속도를 익히는 흐름이 평생 갈 학습 자산의 시작이 돼요."
     },
     {
       "fixture": "18-lee-child-male-tiered.json",
@@ -59603,7 +59693,34 @@
       "depth": "standard",
       "slot": "para1",
       "cellKey": "life/study_document/standard/para1",
-      "plainText": "모르는 부분을 표시하고 다시 보는 습관이 실력을 안정적으로 키워줍니다."
+      "plainText": "비유하자면 작은 노트 한 권을 처음 펼치는 그림이에요. 첫 줄은 또박또박, 두 줄째는 어제보다 한 글자 더, 이렇게 차곡차곡 채워 가면 한 학기·한 학년 뒤에는 자기만의 책이 한 권 자라 있어요."
+    },
+    {
+      "fixture": "18-lee-child-male-tiered.json",
+      "period": "life",
+      "category": "study_document",
+      "depth": "standard",
+      "slot": "para2",
+      "cellKey": "life/study_document/standard/para2",
+      "plainText": "잘 풀리는 면은, 모르는 것을 솔직하게 적어 두는 자리예요. 헷갈린 문장, 못 푼 문제, 어려운 단어를 작은 노트에 한 줄씩 모아 두면 그 자체가 다음 주의 학습 지도가 돼요. 그림이나 색연필로 정리해도 충분해요."
+    },
+    {
+      "fixture": "18-lee-child-male-tiered.json",
+      "period": "life",
+      "category": "study_document",
+      "depth": "standard",
+      "slot": "para3",
+      "cellKey": "life/study_document/standard/para3",
+      "plainText": "살짝 살피면 좋은 점은, 옆 친구의 결과만 보고 자기 페이스를 잃는 면이에요. 비교는 짧게, 자기 기록 갱신은 꾸준히로 충분해요. 친구와는 함께 풀어 보는 시간을 만드는 쪽이 더 많은 것을 남겨 줘요."
+    },
+    {
+      "fixture": "18-lee-child-male-tiered.json",
+      "period": "life",
+      "category": "study_document",
+      "depth": "standard",
+      "slot": "para4",
+      "cellKey": "life/study_document/standard/para4",
+      "plainText": "학교에서 받은 작은 칭찬 한마디, 친구와 함께 풀어 본 한 문제, 모르는 단어를 노트에 적어 둔 한 줄이 큰 자산이 되는 시기예요. 어른의 큰 자격 어휘를 미리 끌어오지 않아도 충분해요."
     },
     {
       "fixture": "18-lee-child-male-tiered.json",
@@ -60179,7 +60296,7 @@
       "depth": "standard",
       "slot": "para0",
       "cellKey": "today/romance/standard/para0",
-      "plainText": "오늘 아이는 가족·친구와 마음을 주고받는 색이 또렷한 하루를 보내요. 작은 칭찬·다정한 말이 평소보다 더 마음에 닿는 시간이라, 옆에서 따뜻하게 챙겨 주는 자리가 큰 자산이 돼요."
+      "plainText": "오늘은 가족·친구와 마음을 주고받는 흐름이 또렷한 하루예요. 작은 칭찬·다정한 말이 평소보다 더 길게 마음에 닿는 시간이라, 옆에서 따뜻하게 챙겨 주는 자리만으로도 큰 자산이 돼요."
     },
     {
       "fixture": "18-lee-child-male-tiered.json",
@@ -60188,7 +60305,7 @@
       "depth": "standard",
       "slot": "para1",
       "cellKey": "today/romance/standard/para1",
-      "plainText": "새 친구를 만나는 자리나 단체 활동이 있으면, 자기 페이스대로 어울릴 수 있도록 충분한 여유를 두세요. 하루의 끝에 좋아하는 사람들과 잠깐이라도 함께 웃는 시간이 있으면 마음의 호흡이 한결 부드러워져요."
+      "plainText": "새 친구를 만나는 자리나 단체 활동이 있으면 자기 페이스대로 어울릴 수 있도록 충분한 여유를 두세요. 좋아하는 친구에게 짧은 인사나 함께 놀자는 한마디를 건네면, 그 자리에서 사이가 한층 부드러워져요. 잠깐의 다툼이 생기면 부모·선생님이 옆에서 조용히 흐름을 다듬어 주는 것만으로도 회복이 빨라져요."
     },
     {
       "fixture": "18-lee-child-male-tiered.json",
@@ -60197,7 +60314,7 @@
       "depth": "standard",
       "slot": "para2",
       "cellKey": "today/romance/standard/para2",
-      "plainText": "너무 어려운 어른의 어휘를 들이밀지 않아도 돼요. 나이에 맞는 친구·가족의 자리를 즐기는 것만으로 충분해요."
+      "plainText": "하루의 끝에 좋아하는 사람들과 잠깐이라도 함께 웃는 시간이 있으면, 마음의 호흡이 한결 부드러워져요. 너무 어려운 어른의 어휘를 들이밀지 않아도 돼요. 나이에 맞는 친구·가족의 자리를 즐기는 것만으로 오늘이 충분히 따뜻해져요."
     },
     {
       "fixture": "18-lee-child-male-tiered.json",
@@ -60395,7 +60512,7 @@
       "depth": "standard",
       "slot": "para0",
       "cellKey": "today/study_document/standard/para0",
-      "plainText": "오늘은 학교 시험·읽기쓰기에서 한 단원만 또렷이 마무리하면 충분한 날이에요. 한꺼번에 많은 분량보다, 깊게 한 자리가 잘 맞아요."
+      "plainText": "오늘은 책 한 권을 끝까지 읽기보다, 한 단원만 또렷이 챙기면 충분한 흐름이에요. 한꺼번에 많은 분량을 잡기보다 한 자리에 깊게 머무는 호흡이 잘 맞아요."
     },
     {
       "fixture": "18-lee-child-male-tiered.json",
@@ -60404,7 +60521,7 @@
       "depth": "standard",
       "slot": "para1",
       "cellKey": "today/study_document/standard/para1",
-      "plainText": "새 노트 첫 장을 또박또박 써 내려가는 그림을 떠올려 보면 좋아요. 오늘의 한 페이지가 다음 주 시험을 가볍게 해 줘요."
+      "plainText": "비유하자면 작은 노트 첫 줄을 또박또박 적는 그림이에요. 오늘 적은 한 줄이 다음 주 시험에서 길잡이가 돼요. 그림으로 정리해도 좋고, 색연필로 표시해도 충분해요."
     },
     {
       "fixture": "18-lee-child-male-tiered.json",
@@ -60413,7 +60530,7 @@
       "depth": "standard",
       "slot": "para2",
       "cellKey": "today/study_document/standard/para2",
-      "plainText": "잘 풀리는 면은, 좋아하는 과목 한 가지에 집중할 때 결과가 또렷한 자리예요. 모든 과목을 한 번에 잡지 않아도 돼요."
+      "plainText": "잘 풀리는 면은, 모르는 것을 그냥 넘기지 않는 자리예요. 헷갈린 문장이나 못 푼 문제를 작은 노트에 한 줄씩 옮겨 두면 오늘의 공부가 자기만의 자료가 돼요. 친구와 함께 풀어 보는 시간이 있으면 더 잘 남아요."
     },
     {
       "fixture": "18-lee-child-male-tiered.json",
@@ -60422,7 +60539,7 @@
       "depth": "standard",
       "slot": "para3",
       "cellKey": "today/study_document/standard/para3",
-      "plainText": "살짝 주의할 점은, 친구와 비교하다 자기 페이스를 잃는 면이에요. 어제 자기와만 비교해도 충분해요."
+      "plainText": "살짝 주의할 점은, 오늘 모든 과목을 한꺼번에 잡으려는 마음이에요. 좋아하는 한 과목부터 차분히 끝내고, 어려운 과목은 한 박자 미뤄 둬도 충분해요. 짧게 쉬고 다시 시작해도 괜찮아요."
     },
     {
       "fixture": "18-lee-child-male-tiered.json",
@@ -60431,7 +60548,7 @@
       "depth": "standard",
       "slot": "para4",
       "cellKey": "today/study_document/standard/para4",
-      "plainText": "오늘 받은 작은 칭찬 한마디가 큰 자산이 되는 시기예요."
+      "plainText": "학교에서 받은 작은 메모 한 장, 오늘 적어 둔 모르는 단어 한 줄이 다음 주의 작은 무기가 돼요. 비교는 어제 자기와만 짧게로 충분해요."
     },
     {
       "fixture": "18-lee-child-male-tiered.json",
@@ -61007,7 +61124,7 @@
       "depth": "standard",
       "slot": "para0",
       "cellKey": "thisWeek/romance/standard/para0",
-      "plainText": "이번 주는 친구 사이에서 신뢰를 쌓기 좋은 결이에요."
+      "plainText": "이번 주 아이의 하루는 친구·가족과의 자리에서 가장 또렷하게 살아나요. 단체 활동·놀이 자리에서 서로의 마음을 알아 가는 흐름이 평소보다 잘 자라는 시기라, 함께 보내는 시간 자체가 큰 자산이 돼요."
     },
     {
       "fixture": "18-lee-child-male-tiered.json",
@@ -61016,7 +61133,16 @@
       "depth": "standard",
       "slot": "para1",
       "cellKey": "thisWeek/romance/standard/para1",
-      "plainText": "약속 시간을 지키고, 함께 정한 규칙을 잘 지키면 가까운 사람이 더 편안함을 느낍니다."
+      "plainText": "새 친구를 사귀는 자리가 생기면 자기 페이스대로 어울릴 수 있도록 충분한 여유를 두세요. 좋아하는 친구에게 작은 칭찬이나 고마운 마음을 한 줄로 건네면, 사이의 흐름이 한층 부드러워져요. 잠깐의 다툼이 생기면 부모·선생님이 옆에서 조용히 흐름을 다듬어 주는 것만으로도 회복이 빨라져요."
+    },
+    {
+      "fixture": "18-lee-child-male-tiered.json",
+      "period": "thisWeek",
+      "category": "romance",
+      "depth": "standard",
+      "slot": "para2",
+      "cellKey": "thisWeek/romance/standard/para2",
+      "plainText": "한 주 동안 좋아하는 사람들과 함께 웃는 시간이 자주 있으면, 마음의 흐름이 한층 부드러워져요. 기다리는 마음이 조급하게 느껴지더라도 오늘 내일 안에 다 풀리지 않아도 괜찮다는 믿음을 곁에서 함께 보여 주면, 한 주의 흐름이 차분하게 익어요."
     },
     {
       "fixture": "18-lee-child-male-tiered.json",
@@ -61214,7 +61340,7 @@
       "depth": "standard",
       "slot": "para0",
       "cellKey": "thisWeek/study_document/standard/para0",
-      "plainText": "이번 주는 공부량을 늘리기보다 반복할 시간을 일정에 넣는 것이 좋아요."
+      "plainText": "이번 주는 새 책을 한꺼번에 끝내려는 무리보다, 좋아하는 책 한 권을 천천히 펼쳐 보는 흐름이 잘 맞아요. 한 주의 학습은 분량을 늘리는 자리가 아니라 자기 페이스를 또렷이 잡는 시간이에요."
     },
     {
       "fixture": "18-lee-child-male-tiered.json",
@@ -61223,7 +61349,34 @@
       "depth": "standard",
       "slot": "para1",
       "cellKey": "thisWeek/study_document/standard/para1",
-      "plainText": "매일 조금씩 같은 시간에 보는 과목을 정하면 기억이 더 오래 남습니다."
+      "plainText": "비유하자면 작은 노트에 한 주의 시간표를 그리는 그림이에요. 매일 같은 시간에 보는 한 과목을 정해 두면 한 주가 끝날 즈음에는 자기만의 학습 흐름이 또렷이 보여요. 그림이나 색연필로 일정을 정리해도 충분해요."
+    },
+    {
+      "fixture": "18-lee-child-male-tiered.json",
+      "period": "thisWeek",
+      "category": "study_document",
+      "depth": "standard",
+      "slot": "para2",
+      "cellKey": "thisWeek/study_document/standard/para2",
+      "plainText": "잘 풀리는 면은, 모르는 것을 솔직하게 모아 두는 자리예요. 한 주 동안 헷갈린 문장이나 못 푼 문제를 작은 노트에 한 줄씩 옮겨 두면, 주말의 30분이 그 한 주의 학습을 단단하게 마무리해 줘요."
+    },
+    {
+      "fixture": "18-lee-child-male-tiered.json",
+      "period": "thisWeek",
+      "category": "study_document",
+      "depth": "standard",
+      "slot": "para3",
+      "cellKey": "thisWeek/study_document/standard/para3",
+      "plainText": "살짝 주의할 점은, 시간표를 너무 빽빽하게 짜는 면이에요. 매일 30분의 짧은 자리, 친구와 함께 한 문제 풀어 보는 자리, 좋아하는 책 한 페이지를 천천히 읽는 자리를 한 칸씩 비워 두면 한 주가 가벼워져요."
+    },
+    {
+      "fixture": "18-lee-child-male-tiered.json",
+      "period": "thisWeek",
+      "category": "study_document",
+      "depth": "standard",
+      "slot": "para4",
+      "cellKey": "thisWeek/study_document/standard/para4",
+      "plainText": "학교에서 받은 작은 과제, 친구와 같이 본 한 페이지, 모르는 단어를 적어 둔 한 줄이 다음 주를 든든하게 만드는 자산이 돼요. 비교는 지난주 자기와만 짧게로 충분해요."
     },
     {
       "fixture": "18-lee-child-male-tiered.json",
@@ -61799,7 +61952,7 @@
       "depth": "standard",
       "slot": "para0",
       "cellKey": "thisMonth/romance/standard/para0",
-      "plainText": "이번 달은 가까운 친구와 더 자주 웃을 수 있는 흐름이에요."
+      "plainText": "이번 달 아이의 사이는 친구·가족과 함께하는 자리에서 가장 또렷이 살아나요. 단체 활동·학원·가족 모임처럼 함께하는 시간이 늘어나는 시기라, 사람을 좋아하는 마음이 자연스럽게 자라는 한 달이에요."
     },
     {
       "fixture": "18-lee-child-male-tiered.json",
@@ -61808,7 +61961,16 @@
       "depth": "standard",
       "slot": "para1",
       "cellKey": "thisMonth/romance/standard/para1",
-      "plainText": "다만 친해지고 싶은 마음이 커도 상대의 시간을 존중해야 관계가 오래 편안해요."
+      "plainText": "새 친구를 사귀는 자리가 생기면 자기 페이스대로 어울릴 수 있도록 충분한 여유를 두세요. 좋아하는 친구에게 작은 칭찬이나 고마운 마음을 한 줄로 건네면, 사이의 흐름이 한층 부드러워져요. 다툼이 잠깐 생기면 부모·선생님이 옆에서 조용히 사이를 다듬어 주는 것만으로도 회복이 빨라져요."
+    },
+    {
+      "fixture": "18-lee-child-male-tiered.json",
+      "period": "thisMonth",
+      "category": "romance",
+      "depth": "standard",
+      "slot": "para2",
+      "cellKey": "thisMonth/romance/standard/para2",
+      "plainText": "한 달 동안 좋아하는 사람들과 함께 웃는 시간이 자주 있으면, 마음의 호흡이 한층 부드러워져요. 기다리는 마음이 조급하게 느껴질 땐, 곁에서 어른들이 한 박자 천천히 들어 주는 자리만으로도 흐름이 차분해져요. 너무 어려운 어른의 어휘를 들이밀지 않고 나이에 맞는 자리를 즐기는 모양으로 한 달을 보내면 잘 어울려요."
     },
     {
       "fixture": "18-lee-child-male-tiered.json",
@@ -62600,7 +62762,7 @@
       "depth": "standard",
       "slot": "para0",
       "cellKey": "thisYear/romance/standard/para0",
-      "plainText": "올해 아이의 사이는 친구·가족과 함께하는 자리에서 한 해 내내 자라요. 학교·학원·가족 모임처럼 사람을 만나는 자리가 늘어나는 시기라, 사람을 좋아하는 마음이 자연스럽게 자라는 흐름이에요."
+      "plainText": "올해 아이의 사이는 친구·가족과 함께하는 자리에서 한 해 내내 자라요. 학교·학원·가족 모임처럼 사람을 만나는 자리가 늘어나는 시기라, 사람을 좋아하는 마음이 자연스럽게 자라는 한 해예요."
     },
     {
       "fixture": "18-lee-child-male-tiered.json",
@@ -62609,7 +62771,7 @@
       "depth": "standard",
       "slot": "para1",
       "cellKey": "thisYear/romance/standard/para1",
-      "plainText": "새 친구를 사귀는 자리가 생기면 자기 페이스대로 어울릴 수 있도록 충분한 여유를 두세요. 다툼이 잠깐 생기면 부모·선생님이 옆에서 조용히 사이를 다듬어 주는 것만으로도 회복이 빨라져요."
+      "plainText": "새 친구를 사귀는 자리가 생기면 자기 페이스대로 어울릴 수 있도록 충분한 여유를 두세요. 좋아하는 친구에게 작은 칭찬이나 고마운 마음을 한 줄로 자주 건네면, 한 해 동안 사이의 흐름이 차곡차곡 단단해져요. 다툼이 잠깐 생기면 부모·선생님이 옆에서 조용히 사이를 다듬어 주는 것만으로도 회복이 빨라져요."
     },
     {
       "fixture": "18-lee-child-male-tiered.json",
@@ -62618,7 +62780,7 @@
       "depth": "standard",
       "slot": "para2",
       "cellKey": "thisYear/romance/standard/para2",
-      "plainText": "한 해 동안 좋아하는 사람들과 함께 웃는 시간이 자주 있으면, 마음의 호흡이 한층 부드러워져요. 너무 어려운 어른의 어휘를 들이밀지 않고 나이에 맞는 자리를 즐기는 모양으로 한 해를 보내면 잘 어울려요."
+      "plainText": "한 해 동안 좋아하는 사람들과 함께 웃는 시간이 자주 있으면, 마음의 호흡이 한층 부드러워져요. 기다리는 마음이 조급하게 느껴지더라도 한 해라는 길이 안에서 차분히 익어 가는 흐름으로 받아들이면, 자라면서 인연 자산이 든든히 쌓여요. 너무 어려운 어른의 어휘를 들이밀지 않고 나이에 맞는 자리를 즐기는 모양으로 한 해를 보내면 잘 어울려요."
     },
     {
       "fixture": "18-lee-child-male-tiered.json",
@@ -96719,7 +96881,7 @@
       "depth": "standard",
       "slot": "para0",
       "cellKey": "life/romance/standard/para0",
-      "plainText": "아직은 사랑을 큰 약속으로 보기보다, 친구와 가족 사이에서 존중을 배우는 시기로 보는 것이 좋아요."
+      "plainText": "어린 시절의 인연은 짝을 미리 정하는 그림이 아니라, 가족과 친구 사이에서 마음을 주고받는 흐름을 차곡차곡 익히는 시간이에요. 이 시기엔 좋아하는 사람이 생겨도 큰 약속의 모양으로 풀리기보다, 함께 노는 시간 안에서 자기 마음과 상대의 마음을 알아 가는 자연스러운 흐름으로 자라요."
     },
     {
       "fixture": "27-jonggyeok-jongah-tiered.json",
@@ -96728,7 +96890,16 @@
       "depth": "standard",
       "slot": "para1",
       "cellKey": "life/romance/standard/para1",
-      "plainText": "좋아하는 마음을 표현하되 상대의 속도도 함께 살피면 관계가 편해져요."
+      "plainText": "사주에서 인연 자리가 넓다는 신호가 보이면, 어린 시절엔 보통 사람을 좋아하고 친구와 잘 어울리는 흐름으로 풀려요. 아이는 가족 안에서 충분히 사랑받는 경험과 단체 활동에서 자기 자리를 찾는 작은 연습이 가장 큰 자산이 돼요. 좋아하는 친구에게는 작은 칭찬이나 고마운 말을 천천히 건네는 습관이 흐름을 부드럽게 만들어 줘요."
+    },
+    {
+      "fixture": "27-jonggyeok-jongah-tiered.json",
+      "period": "life",
+      "category": "romance",
+      "depth": "standard",
+      "slot": "para2",
+      "cellKey": "life/romance/standard/para2",
+      "plainText": "너무 어려운 어른의 어휘를 미리 들이밀지 않아도 돼요. 나이에 맞는 우정·돌봄의 흐름을 충분히 누리며 자라는 것만으로 인생 전체의 인연 자산이 단단히 쌓여요. 서운한 일이 생기면 단정하지 말고 왜 그랬는지 한 번 더 물어보는 흐름을, 곁에서 어른들이 함께 보여 주면 도움이 돼요."
     },
     {
       "fixture": "27-jonggyeok-jongah-tiered.json",
@@ -96926,7 +97097,7 @@
       "depth": "standard",
       "slot": "para0",
       "cellKey": "life/study_document/standard/para0",
-      "plainText": "공부와 기록은 한 번에 많이 하는 것보다 작은 단계를 매일 이어갈 때 더 잘 맞아요."
+      "plainText": "어린 시기와 학창 시절의 공부·서류 흐름은 시험 한 번의 점수를 두고 다투는 자리가 아니라, 좋아하는 것을 한 가지씩 알아 가는 시간이에요. 책 한 권을 천천히 펼쳐 자기에게 맞는 속도를 익히는 흐름이 평생 갈 학습 자산의 시작이 돼요."
     },
     {
       "fixture": "27-jonggyeok-jongah-tiered.json",
@@ -96935,7 +97106,34 @@
       "depth": "standard",
       "slot": "para1",
       "cellKey": "life/study_document/standard/para1",
-      "plainText": "모르는 부분을 표시하고 다시 보는 습관이 실력을 안정적으로 키워줍니다."
+      "plainText": "비유하자면 작은 노트 한 권을 처음 펼치는 그림이에요. 첫 줄은 또박또박, 두 줄째는 어제보다 한 글자 더, 이렇게 차곡차곡 채워 가면 한 학기·한 학년 뒤에는 자기만의 책이 한 권 자라 있어요."
+    },
+    {
+      "fixture": "27-jonggyeok-jongah-tiered.json",
+      "period": "life",
+      "category": "study_document",
+      "depth": "standard",
+      "slot": "para2",
+      "cellKey": "life/study_document/standard/para2",
+      "plainText": "잘 풀리는 면은, 모르는 것을 솔직하게 적어 두는 자리예요. 헷갈린 문장, 못 푼 문제, 어려운 단어를 작은 노트에 한 줄씩 모아 두면 그 자체가 다음 주의 학습 지도가 돼요. 그림이나 색연필로 정리해도 충분해요."
+    },
+    {
+      "fixture": "27-jonggyeok-jongah-tiered.json",
+      "period": "life",
+      "category": "study_document",
+      "depth": "standard",
+      "slot": "para3",
+      "cellKey": "life/study_document/standard/para3",
+      "plainText": "살짝 살피면 좋은 점은, 옆 친구의 결과만 보고 자기 페이스를 잃는 면이에요. 비교는 짧게, 자기 기록 갱신은 꾸준히로 충분해요. 친구와는 함께 풀어 보는 시간을 만드는 쪽이 더 많은 것을 남겨 줘요."
+    },
+    {
+      "fixture": "27-jonggyeok-jongah-tiered.json",
+      "period": "life",
+      "category": "study_document",
+      "depth": "standard",
+      "slot": "para4",
+      "cellKey": "life/study_document/standard/para4",
+      "plainText": "학교에서 받은 작은 칭찬 한마디, 친구와 함께 풀어 본 한 문제, 모르는 단어를 노트에 적어 둔 한 줄이 큰 자산이 되는 시기예요. 어른의 큰 자격 어휘를 미리 끌어오지 않아도 충분해요."
     },
     {
       "fixture": "27-jonggyeok-jongah-tiered.json",
@@ -97511,7 +97709,7 @@
       "depth": "standard",
       "slot": "para0",
       "cellKey": "today/romance/standard/para0",
-      "plainText": "오늘 아이는 가족·친구와 마음을 주고받는 색이 또렷한 하루를 보내요. 작은 칭찬·다정한 말이 평소보다 더 마음에 닿는 시간이라, 옆에서 따뜻하게 챙겨 주는 자리가 큰 자산이 돼요."
+      "plainText": "오늘은 가족·친구와 마음을 주고받는 흐름이 또렷한 하루예요. 작은 칭찬·다정한 말이 평소보다 더 길게 마음에 닿는 시간이라, 옆에서 따뜻하게 챙겨 주는 자리만으로도 큰 자산이 돼요."
     },
     {
       "fixture": "27-jonggyeok-jongah-tiered.json",
@@ -97520,7 +97718,7 @@
       "depth": "standard",
       "slot": "para1",
       "cellKey": "today/romance/standard/para1",
-      "plainText": "새 친구를 만나는 자리나 단체 활동이 있으면, 자기 페이스대로 어울릴 수 있도록 충분한 여유를 두세요. 하루의 끝에 좋아하는 사람들과 잠깐이라도 함께 웃는 시간이 있으면 마음의 호흡이 한결 부드러워져요."
+      "plainText": "새 친구를 만나는 자리나 단체 활동이 있으면 자기 페이스대로 어울릴 수 있도록 충분한 여유를 두세요. 좋아하는 친구에게 짧은 인사나 함께 놀자는 한마디를 건네면, 그 자리에서 사이가 한층 부드러워져요. 잠깐의 다툼이 생기면 부모·선생님이 옆에서 조용히 흐름을 다듬어 주는 것만으로도 회복이 빨라져요."
     },
     {
       "fixture": "27-jonggyeok-jongah-tiered.json",
@@ -97529,7 +97727,7 @@
       "depth": "standard",
       "slot": "para2",
       "cellKey": "today/romance/standard/para2",
-      "plainText": "너무 어려운 어른의 어휘를 들이밀지 않아도 돼요. 나이에 맞는 친구·가족의 자리를 즐기는 것만으로 충분해요."
+      "plainText": "하루의 끝에 좋아하는 사람들과 잠깐이라도 함께 웃는 시간이 있으면, 마음의 호흡이 한결 부드러워져요. 너무 어려운 어른의 어휘를 들이밀지 않아도 돼요. 나이에 맞는 친구·가족의 자리를 즐기는 것만으로 오늘이 충분히 따뜻해져요."
     },
     {
       "fixture": "27-jonggyeok-jongah-tiered.json",
@@ -97727,7 +97925,7 @@
       "depth": "standard",
       "slot": "para0",
       "cellKey": "today/study_document/standard/para0",
-      "plainText": "오늘은 학교 시험·읽기쓰기에서 한 단원만 또렷이 마무리하면 충분한 날이에요. 한꺼번에 많은 분량보다, 깊게 한 자리가 잘 맞아요."
+      "plainText": "오늘은 책 한 권을 끝까지 읽기보다, 한 단원만 또렷이 챙기면 충분한 흐름이에요. 한꺼번에 많은 분량을 잡기보다 한 자리에 깊게 머무는 호흡이 잘 맞아요."
     },
     {
       "fixture": "27-jonggyeok-jongah-tiered.json",
@@ -97736,7 +97934,7 @@
       "depth": "standard",
       "slot": "para1",
       "cellKey": "today/study_document/standard/para1",
-      "plainText": "새 노트 첫 장을 또박또박 써 내려가는 그림을 떠올려 보면 좋아요. 오늘의 한 페이지가 다음 주 시험을 가볍게 해 줘요."
+      "plainText": "비유하자면 작은 노트 첫 줄을 또박또박 적는 그림이에요. 오늘 적은 한 줄이 다음 주 시험에서 길잡이가 돼요. 그림으로 정리해도 좋고, 색연필로 표시해도 충분해요."
     },
     {
       "fixture": "27-jonggyeok-jongah-tiered.json",
@@ -97745,7 +97943,7 @@
       "depth": "standard",
       "slot": "para2",
       "cellKey": "today/study_document/standard/para2",
-      "plainText": "잘 풀리는 면은, 좋아하는 과목 한 가지에 집중할 때 결과가 또렷한 자리예요. 모든 과목을 한 번에 잡지 않아도 돼요."
+      "plainText": "잘 풀리는 면은, 모르는 것을 그냥 넘기지 않는 자리예요. 헷갈린 문장이나 못 푼 문제를 작은 노트에 한 줄씩 옮겨 두면 오늘의 공부가 자기만의 자료가 돼요. 친구와 함께 풀어 보는 시간이 있으면 더 잘 남아요."
     },
     {
       "fixture": "27-jonggyeok-jongah-tiered.json",
@@ -97754,7 +97952,7 @@
       "depth": "standard",
       "slot": "para3",
       "cellKey": "today/study_document/standard/para3",
-      "plainText": "살짝 주의할 점은, 친구와 비교하다 자기 페이스를 잃는 면이에요. 어제 자기와만 비교해도 충분해요."
+      "plainText": "살짝 주의할 점은, 오늘 모든 과목을 한꺼번에 잡으려는 마음이에요. 좋아하는 한 과목부터 차분히 끝내고, 어려운 과목은 한 박자 미뤄 둬도 충분해요. 짧게 쉬고 다시 시작해도 괜찮아요."
     },
     {
       "fixture": "27-jonggyeok-jongah-tiered.json",
@@ -97763,7 +97961,7 @@
       "depth": "standard",
       "slot": "para4",
       "cellKey": "today/study_document/standard/para4",
-      "plainText": "오늘 받은 작은 칭찬 한마디가 큰 자산이 되는 시기예요."
+      "plainText": "학교에서 받은 작은 메모 한 장, 오늘 적어 둔 모르는 단어 한 줄이 다음 주의 작은 무기가 돼요. 비교는 어제 자기와만 짧게로 충분해요."
     },
     {
       "fixture": "27-jonggyeok-jongah-tiered.json",
@@ -98339,7 +98537,7 @@
       "depth": "standard",
       "slot": "para0",
       "cellKey": "thisWeek/romance/standard/para0",
-      "plainText": "이번 주는 친구 사이에서 신뢰를 쌓기 좋은 결이에요."
+      "plainText": "이번 주 아이의 하루는 친구·가족과의 자리에서 가장 또렷하게 살아나요. 단체 활동·놀이 자리에서 서로의 마음을 알아 가는 흐름이 평소보다 잘 자라는 시기라, 함께 보내는 시간 자체가 큰 자산이 돼요."
     },
     {
       "fixture": "27-jonggyeok-jongah-tiered.json",
@@ -98348,7 +98546,16 @@
       "depth": "standard",
       "slot": "para1",
       "cellKey": "thisWeek/romance/standard/para1",
-      "plainText": "약속 시간을 지키고, 함께 정한 규칙을 잘 지키면 가까운 사람이 더 편안함을 느낍니다."
+      "plainText": "새 친구를 사귀는 자리가 생기면 자기 페이스대로 어울릴 수 있도록 충분한 여유를 두세요. 좋아하는 친구에게 작은 칭찬이나 고마운 마음을 한 줄로 건네면, 사이의 흐름이 한층 부드러워져요. 잠깐의 다툼이 생기면 부모·선생님이 옆에서 조용히 흐름을 다듬어 주는 것만으로도 회복이 빨라져요."
+    },
+    {
+      "fixture": "27-jonggyeok-jongah-tiered.json",
+      "period": "thisWeek",
+      "category": "romance",
+      "depth": "standard",
+      "slot": "para2",
+      "cellKey": "thisWeek/romance/standard/para2",
+      "plainText": "한 주 동안 좋아하는 사람들과 함께 웃는 시간이 자주 있으면, 마음의 흐름이 한층 부드러워져요. 기다리는 마음이 조급하게 느껴지더라도 오늘 내일 안에 다 풀리지 않아도 괜찮다는 믿음을 곁에서 함께 보여 주면, 한 주의 흐름이 차분하게 익어요."
     },
     {
       "fixture": "27-jonggyeok-jongah-tiered.json",
@@ -98546,7 +98753,7 @@
       "depth": "standard",
       "slot": "para0",
       "cellKey": "thisWeek/study_document/standard/para0",
-      "plainText": "이번 주는 공부량을 늘리기보다 반복할 시간을 일정에 넣는 것이 좋아요."
+      "plainText": "이번 주는 새 책을 한꺼번에 끝내려는 무리보다, 좋아하는 책 한 권을 천천히 펼쳐 보는 흐름이 잘 맞아요. 한 주의 학습은 분량을 늘리는 자리가 아니라 자기 페이스를 또렷이 잡는 시간이에요."
     },
     {
       "fixture": "27-jonggyeok-jongah-tiered.json",
@@ -98555,7 +98762,34 @@
       "depth": "standard",
       "slot": "para1",
       "cellKey": "thisWeek/study_document/standard/para1",
-      "plainText": "매일 조금씩 같은 시간에 보는 과목을 정하면 기억이 더 오래 남습니다."
+      "plainText": "비유하자면 작은 노트에 한 주의 시간표를 그리는 그림이에요. 매일 같은 시간에 보는 한 과목을 정해 두면 한 주가 끝날 즈음에는 자기만의 학습 흐름이 또렷이 보여요. 그림이나 색연필로 일정을 정리해도 충분해요."
+    },
+    {
+      "fixture": "27-jonggyeok-jongah-tiered.json",
+      "period": "thisWeek",
+      "category": "study_document",
+      "depth": "standard",
+      "slot": "para2",
+      "cellKey": "thisWeek/study_document/standard/para2",
+      "plainText": "잘 풀리는 면은, 모르는 것을 솔직하게 모아 두는 자리예요. 한 주 동안 헷갈린 문장이나 못 푼 문제를 작은 노트에 한 줄씩 옮겨 두면, 주말의 30분이 그 한 주의 학습을 단단하게 마무리해 줘요."
+    },
+    {
+      "fixture": "27-jonggyeok-jongah-tiered.json",
+      "period": "thisWeek",
+      "category": "study_document",
+      "depth": "standard",
+      "slot": "para3",
+      "cellKey": "thisWeek/study_document/standard/para3",
+      "plainText": "살짝 주의할 점은, 시간표를 너무 빽빽하게 짜는 면이에요. 매일 30분의 짧은 자리, 친구와 함께 한 문제 풀어 보는 자리, 좋아하는 책 한 페이지를 천천히 읽는 자리를 한 칸씩 비워 두면 한 주가 가벼워져요."
+    },
+    {
+      "fixture": "27-jonggyeok-jongah-tiered.json",
+      "period": "thisWeek",
+      "category": "study_document",
+      "depth": "standard",
+      "slot": "para4",
+      "cellKey": "thisWeek/study_document/standard/para4",
+      "plainText": "학교에서 받은 작은 과제, 친구와 같이 본 한 페이지, 모르는 단어를 적어 둔 한 줄이 다음 주를 든든하게 만드는 자산이 돼요. 비교는 지난주 자기와만 짧게로 충분해요."
     },
     {
       "fixture": "27-jonggyeok-jongah-tiered.json",
@@ -99131,7 +99365,7 @@
       "depth": "standard",
       "slot": "para0",
       "cellKey": "thisMonth/romance/standard/para0",
-      "plainText": "이번 달은 가까운 친구와 더 자주 웃을 수 있는 흐름이에요."
+      "plainText": "이번 달 아이의 사이는 친구·가족과 함께하는 자리에서 가장 또렷이 살아나요. 단체 활동·학원·가족 모임처럼 함께하는 시간이 늘어나는 시기라, 사람을 좋아하는 마음이 자연스럽게 자라는 한 달이에요."
     },
     {
       "fixture": "27-jonggyeok-jongah-tiered.json",
@@ -99140,7 +99374,16 @@
       "depth": "standard",
       "slot": "para1",
       "cellKey": "thisMonth/romance/standard/para1",
-      "plainText": "다만 친해지고 싶은 마음이 커도 상대의 시간을 존중해야 관계가 오래 편안해요."
+      "plainText": "새 친구를 사귀는 자리가 생기면 자기 페이스대로 어울릴 수 있도록 충분한 여유를 두세요. 좋아하는 친구에게 작은 칭찬이나 고마운 마음을 한 줄로 건네면, 사이의 흐름이 한층 부드러워져요. 다툼이 잠깐 생기면 부모·선생님이 옆에서 조용히 사이를 다듬어 주는 것만으로도 회복이 빨라져요."
+    },
+    {
+      "fixture": "27-jonggyeok-jongah-tiered.json",
+      "period": "thisMonth",
+      "category": "romance",
+      "depth": "standard",
+      "slot": "para2",
+      "cellKey": "thisMonth/romance/standard/para2",
+      "plainText": "한 달 동안 좋아하는 사람들과 함께 웃는 시간이 자주 있으면, 마음의 호흡이 한층 부드러워져요. 기다리는 마음이 조급하게 느껴질 땐, 곁에서 어른들이 한 박자 천천히 들어 주는 자리만으로도 흐름이 차분해져요. 너무 어려운 어른의 어휘를 들이밀지 않고 나이에 맞는 자리를 즐기는 모양으로 한 달을 보내면 잘 어울려요."
     },
     {
       "fixture": "27-jonggyeok-jongah-tiered.json",
@@ -99932,7 +100175,7 @@
       "depth": "standard",
       "slot": "para0",
       "cellKey": "thisYear/romance/standard/para0",
-      "plainText": "올해 아이의 사이는 친구·가족과 함께하는 자리에서 한 해 내내 자라요. 학교·학원·가족 모임처럼 사람을 만나는 자리가 늘어나는 시기라, 사람을 좋아하는 마음이 자연스럽게 자라는 흐름이에요."
+      "plainText": "올해 아이의 사이는 친구·가족과 함께하는 자리에서 한 해 내내 자라요. 학교·학원·가족 모임처럼 사람을 만나는 자리가 늘어나는 시기라, 사람을 좋아하는 마음이 자연스럽게 자라는 한 해예요."
     },
     {
       "fixture": "27-jonggyeok-jongah-tiered.json",
@@ -99941,7 +100184,7 @@
       "depth": "standard",
       "slot": "para1",
       "cellKey": "thisYear/romance/standard/para1",
-      "plainText": "새 친구를 사귀는 자리가 생기면 자기 페이스대로 어울릴 수 있도록 충분한 여유를 두세요. 다툼이 잠깐 생기면 부모·선생님이 옆에서 조용히 사이를 다듬어 주는 것만으로도 회복이 빨라져요."
+      "plainText": "새 친구를 사귀는 자리가 생기면 자기 페이스대로 어울릴 수 있도록 충분한 여유를 두세요. 좋아하는 친구에게 작은 칭찬이나 고마운 마음을 한 줄로 자주 건네면, 한 해 동안 사이의 흐름이 차곡차곡 단단해져요. 다툼이 잠깐 생기면 부모·선생님이 옆에서 조용히 사이를 다듬어 주는 것만으로도 회복이 빨라져요."
     },
     {
       "fixture": "27-jonggyeok-jongah-tiered.json",
@@ -99950,7 +100193,7 @@
       "depth": "standard",
       "slot": "para2",
       "cellKey": "thisYear/romance/standard/para2",
-      "plainText": "한 해 동안 좋아하는 사람들과 함께 웃는 시간이 자주 있으면, 마음의 호흡이 한층 부드러워져요. 너무 어려운 어른의 어휘를 들이밀지 않고 나이에 맞는 자리를 즐기는 모양으로 한 해를 보내면 잘 어울려요."
+      "plainText": "한 해 동안 좋아하는 사람들과 함께 웃는 시간이 자주 있으면, 마음의 호흡이 한층 부드러워져요. 기다리는 마음이 조급하게 느껴지더라도 한 해라는 길이 안에서 차분히 익어 가는 흐름으로 받아들이면, 자라면서 인연 자산이 든든히 쌓여요. 너무 어려운 어른의 어휘를 들이밀지 않고 나이에 맞는 자리를 즐기는 모양으로 한 해를 보내면 잘 어울려요."
     },
     {
       "fixture": "27-jonggyeok-jongah-tiered.json",
@@ -108959,7 +109202,7 @@
       "depth": "standard",
       "slot": "para0",
       "cellKey": "life/romance/standard/para0",
-      "plainText": "어린 시절엔 아직 짝의 결보다 친구·가족과 마음을 주고받는 흐름이 가장 또렷해요. 사주에서 인연 자리가 넓다는 신호가 보이면, 그건 보통 사람을 좋아하고 잘 어울리는 흐름으로 풀려요."
+      "plainText": "어린 시절의 인연은 짝을 미리 정하는 그림이 아니라, 가족과 친구 사이에서 마음을 주고받는 흐름을 차곡차곡 익히는 시간이에요. 이 시기엔 좋아하는 사람이 생겨도 큰 약속의 모양으로 풀리기보다, 함께 노는 시간 안에서 자기 마음과 상대의 마음을 알아 가는 자연스러운 흐름으로 자라요."
     },
     {
       "fixture": "30-jeolgi-lidong-boundary-tiered.json",
@@ -108968,7 +109211,7 @@
       "depth": "standard",
       "slot": "para1",
       "cellKey": "life/romance/standard/para1",
-      "plainText": "아이는 이 시기에 가족과의 안전한 자리에서 충분히 사랑받는 경험이 가장 큰 자산이 돼요. 새로운 친구를 사귀거나 단체 활동에서 자기 자리를 찾는 연습을 자연스럽게 하면, 자라면서 관계의 흐름이 한층 부드러워져요."
+      "plainText": "사주에서 인연 자리가 넓다는 신호가 보이면, 어린 시절엔 보통 사람을 좋아하고 친구와 잘 어울리는 흐름으로 풀려요. 아이는 가족 안에서 충분히 사랑받는 경험과 단체 활동에서 자기 자리를 찾는 작은 연습이 가장 큰 자산이 돼요. 좋아하는 친구에게는 작은 칭찬이나 고마운 말을 천천히 건네는 습관이 흐름을 부드럽게 만들어 줘요."
     },
     {
       "fixture": "30-jeolgi-lidong-boundary-tiered.json",
@@ -108977,7 +109220,7 @@
       "depth": "standard",
       "slot": "para2",
       "cellKey": "life/romance/standard/para2",
-      "plainText": "너무 빨리 어른의 관계 어휘를 끌어오기보다, 나이에 맞는 우정·돌봄의 흐름을 충분히 누리게 두는 편이 좋아요."
+      "plainText": "너무 어려운 어른의 어휘를 미리 들이밀지 않아도 돼요. 나이에 맞는 우정·돌봄의 흐름을 충분히 누리며 자라는 것만으로 인생 전체의 인연 자산이 단단히 쌓여요. 서운한 일이 생기면 단정하지 말고 왜 그랬는지 한 번 더 물어보는 흐름을, 곁에서 어른들이 함께 보여 주면 도움이 돼요."
     },
     {
       "fixture": "30-jeolgi-lidong-boundary-tiered.json",
@@ -109175,7 +109418,7 @@
       "depth": "standard",
       "slot": "para0",
       "cellKey": "life/study_document/standard/para0",
-      "plainText": "학교 시험·읽기쓰기에서 자기 색이 천천히 또렷해지는 흐름이에요. 한 학기보다는 한 학년, 한 학년보다는 몇 년을 두고 살펴보면 자라는 모양이 보여요."
+      "plainText": "어린 시기와 학창 시절의 공부·서류 흐름은 시험 한 번의 점수를 두고 다투는 자리가 아니라, 좋아하는 것을 한 가지씩 알아 가는 시간이에요. 책 한 권을 천천히 펼쳐 자기에게 맞는 속도를 익히는 흐름이 평생 갈 학습 자산의 시작이 돼요."
     },
     {
       "fixture": "30-jeolgi-lidong-boundary-tiered.json",
@@ -109184,7 +109427,7 @@
       "depth": "standard",
       "slot": "para1",
       "cellKey": "life/study_document/standard/para1",
-      "plainText": "어린 새싹이 봄비를 받으며 마디를 늘려가는 그림을 떠올려 보면 좋아요. 빠르게 보이지는 않지만, 한 해를 지나면 키가 달라져 있어요."
+      "plainText": "비유하자면 작은 노트 한 권을 처음 펼치는 그림이에요. 첫 줄은 또박또박, 두 줄째는 어제보다 한 글자 더, 이렇게 차곡차곡 채워 가면 한 학기·한 학년 뒤에는 자기만의 책이 한 권 자라 있어요."
     },
     {
       "fixture": "30-jeolgi-lidong-boundary-tiered.json",
@@ -109193,7 +109436,7 @@
       "depth": "standard",
       "slot": "para2",
       "cellKey": "life/study_document/standard/para2",
-      "plainText": "잘 풀리는 면은, 좋아하는 한 가지를 깊게 파고드는 시간이에요. 그림이든 글이든 숫자든, 손에 익는 분야가 한 번 자리 잡으면 오래 가요."
+      "plainText": "잘 풀리는 면은, 모르는 것을 솔직하게 적어 두는 자리예요. 헷갈린 문장, 못 푼 문제, 어려운 단어를 작은 노트에 한 줄씩 모아 두면 그 자체가 다음 주의 학습 지도가 돼요. 그림이나 색연필로 정리해도 충분해요."
     },
     {
       "fixture": "30-jeolgi-lidong-boundary-tiered.json",
@@ -109202,7 +109445,7 @@
       "depth": "standard",
       "slot": "para3",
       "cellKey": "life/study_document/standard/para3",
-      "plainText": "살짝 주의할 점은, 옆 친구와 비교하다 자기 페이스를 잃는 면이에요. 비교는 짧게, 자기 기록 갱신은 꾸준히로 충분해요."
+      "plainText": "살짝 살피면 좋은 점은, 옆 친구의 결과만 보고 자기 페이스를 잃는 면이에요. 비교는 짧게, 자기 기록 갱신은 꾸준히로 충분해요. 친구와는 함께 풀어 보는 시간을 만드는 쪽이 더 많은 것을 남겨 줘요."
     },
     {
       "fixture": "30-jeolgi-lidong-boundary-tiered.json",
@@ -109211,7 +109454,7 @@
       "depth": "standard",
       "slot": "para4",
       "cellKey": "life/study_document/standard/para4",
-      "plainText": "작은 칭찬이 큰 자산이 되는 시기예요."
+      "plainText": "학교에서 받은 작은 칭찬 한마디, 친구와 함께 풀어 본 한 문제, 모르는 단어를 노트에 적어 둔 한 줄이 큰 자산이 되는 시기예요. 어른의 큰 자격 어휘를 미리 끌어오지 않아도 충분해요."
     },
     {
       "fixture": "30-jeolgi-lidong-boundary-tiered.json",
@@ -109787,7 +110030,7 @@
       "depth": "standard",
       "slot": "para0",
       "cellKey": "today/romance/standard/para0",
-      "plainText": "오늘은 장난보다 친절한 말이 더 잘 통하는 날이에요."
+      "plainText": "오늘은 가족·친구와 마음을 주고받는 흐름이 또렷한 하루예요. 작은 칭찬·다정한 말이 평소보다 더 길게 마음에 닿는 시간이라, 옆에서 따뜻하게 챙겨 주는 자리만으로도 큰 자산이 돼요."
     },
     {
       "fixture": "30-jeolgi-lidong-boundary-tiered.json",
@@ -109796,7 +110039,16 @@
       "depth": "standard",
       "slot": "para1",
       "cellKey": "today/romance/standard/para1",
-      "plainText": "친구가 힘들어 보이면 해결해 주려고 하기보다 먼저 들어주는 태도가 관계를 편하게 만듭니다."
+      "plainText": "새 친구를 만나는 자리나 단체 활동이 있으면 자기 페이스대로 어울릴 수 있도록 충분한 여유를 두세요. 좋아하는 친구에게 짧은 인사나 함께 놀자는 한마디를 건네면, 그 자리에서 사이가 한층 부드러워져요. 잠깐의 다툼이 생기면 부모·선생님이 옆에서 조용히 흐름을 다듬어 주는 것만으로도 회복이 빨라져요."
+    },
+    {
+      "fixture": "30-jeolgi-lidong-boundary-tiered.json",
+      "period": "today",
+      "category": "romance",
+      "depth": "standard",
+      "slot": "para2",
+      "cellKey": "today/romance/standard/para2",
+      "plainText": "하루의 끝에 좋아하는 사람들과 잠깐이라도 함께 웃는 시간이 있으면, 마음의 호흡이 한결 부드러워져요. 너무 어려운 어른의 어휘를 들이밀지 않아도 돼요. 나이에 맞는 친구·가족의 자리를 즐기는 것만으로 오늘이 충분히 따뜻해져요."
     },
     {
       "fixture": "30-jeolgi-lidong-boundary-tiered.json",
@@ -109994,7 +110246,7 @@
       "depth": "standard",
       "slot": "para0",
       "cellKey": "today/study_document/standard/para0",
-      "plainText": "오늘 공부는 깊게 파고들기보다 핵심을 정리하는 쪽이 잘 맞아요."
+      "plainText": "오늘은 책 한 권을 끝까지 읽기보다, 한 단원만 또렷이 챙기면 충분한 흐름이에요. 한꺼번에 많은 분량을 잡기보다 한 자리에 깊게 머무는 호흡이 잘 맞아요."
     },
     {
       "fixture": "30-jeolgi-lidong-boundary-tiered.json",
@@ -110003,7 +110255,34 @@
       "depth": "standard",
       "slot": "para1",
       "cellKey": "today/study_document/standard/para1",
-      "plainText": "어려운 문제는 오래 붙잡기보다 표시해 두고, 쉬운 부분부터 정확히 끝내면 흐름이 좋아집니다."
+      "plainText": "비유하자면 작은 노트 첫 줄을 또박또박 적는 그림이에요. 오늘 적은 한 줄이 다음 주 시험에서 길잡이가 돼요. 그림으로 정리해도 좋고, 색연필로 표시해도 충분해요."
+    },
+    {
+      "fixture": "30-jeolgi-lidong-boundary-tiered.json",
+      "period": "today",
+      "category": "study_document",
+      "depth": "standard",
+      "slot": "para2",
+      "cellKey": "today/study_document/standard/para2",
+      "plainText": "잘 풀리는 면은, 모르는 것을 그냥 넘기지 않는 자리예요. 헷갈린 문장이나 못 푼 문제를 작은 노트에 한 줄씩 옮겨 두면 오늘의 공부가 자기만의 자료가 돼요. 친구와 함께 풀어 보는 시간이 있으면 더 잘 남아요."
+    },
+    {
+      "fixture": "30-jeolgi-lidong-boundary-tiered.json",
+      "period": "today",
+      "category": "study_document",
+      "depth": "standard",
+      "slot": "para3",
+      "cellKey": "today/study_document/standard/para3",
+      "plainText": "살짝 주의할 점은, 오늘 모든 과목을 한꺼번에 잡으려는 마음이에요. 좋아하는 한 과목부터 차분히 끝내고, 어려운 과목은 한 박자 미뤄 둬도 충분해요. 짧게 쉬고 다시 시작해도 괜찮아요."
+    },
+    {
+      "fixture": "30-jeolgi-lidong-boundary-tiered.json",
+      "period": "today",
+      "category": "study_document",
+      "depth": "standard",
+      "slot": "para4",
+      "cellKey": "today/study_document/standard/para4",
+      "plainText": "학교에서 받은 작은 메모 한 장, 오늘 적어 둔 모르는 단어 한 줄이 다음 주의 작은 무기가 돼요. 비교는 어제 자기와만 짧게로 충분해요."
     },
     {
       "fixture": "30-jeolgi-lidong-boundary-tiered.json",
@@ -110579,7 +110858,7 @@
       "depth": "standard",
       "slot": "para0",
       "cellKey": "thisWeek/romance/standard/para0",
-      "plainText": "이번 주 아이의 하루는 친구·가족과의 자리에서 가장 또렷하게 살아나요. 단체 활동·놀이 자리에서 서로의 마음을 알아 가는 흐름이 평소보다 잘 자라는 시기예요."
+      "plainText": "이번 주 아이의 하루는 친구·가족과의 자리에서 가장 또렷하게 살아나요. 단체 활동·놀이 자리에서 서로의 마음을 알아 가는 흐름이 평소보다 잘 자라는 시기라, 함께 보내는 시간 자체가 큰 자산이 돼요."
     },
     {
       "fixture": "30-jeolgi-lidong-boundary-tiered.json",
@@ -110588,7 +110867,7 @@
       "depth": "standard",
       "slot": "para1",
       "cellKey": "thisWeek/romance/standard/para1",
-      "plainText": "새 친구를 사귀는 자리가 생기면, 자기 페이스대로 어울릴 수 있도록 충분한 여유를 두세요. 잠깐의 다툼이 생기면 부모·선생님이 옆에서 조용히 흐름을 다듬어 주는 것만으로도 회복이 빨라져요."
+      "plainText": "새 친구를 사귀는 자리가 생기면 자기 페이스대로 어울릴 수 있도록 충분한 여유를 두세요. 좋아하는 친구에게 작은 칭찬이나 고마운 마음을 한 줄로 건네면, 사이의 흐름이 한층 부드러워져요. 잠깐의 다툼이 생기면 부모·선생님이 옆에서 조용히 흐름을 다듬어 주는 것만으로도 회복이 빨라져요."
     },
     {
       "fixture": "30-jeolgi-lidong-boundary-tiered.json",
@@ -110597,7 +110876,7 @@
       "depth": "standard",
       "slot": "para2",
       "cellKey": "thisWeek/romance/standard/para2",
-      "plainText": "한 주 동안 좋아하는 사람들과 함께 웃는 시간이 자주 있으면, 마음의 흐름이 한층 부드러워져요."
+      "plainText": "한 주 동안 좋아하는 사람들과 함께 웃는 시간이 자주 있으면, 마음의 흐름이 한층 부드러워져요. 기다리는 마음이 조급하게 느껴지더라도 오늘 내일 안에 다 풀리지 않아도 괜찮다는 믿음을 곁에서 함께 보여 주면, 한 주의 흐름이 차분하게 익어요."
     },
     {
       "fixture": "30-jeolgi-lidong-boundary-tiered.json",
@@ -110795,7 +111074,7 @@
       "depth": "standard",
       "slot": "para0",
       "cellKey": "thisWeek/study_document/standard/para0",
-      "plainText": "이번 주는 학교 시험·읽기쓰기에서 한 단원만 또렷이 챙기면 충분한 흐름이에요. 한꺼번에 많은 분량보다 깊게 한 자리가 잘 맞아요."
+      "plainText": "이번 주는 새 책을 한꺼번에 끝내려는 무리보다, 좋아하는 책 한 권을 천천히 펼쳐 보는 흐름이 잘 맞아요. 한 주의 학습은 분량을 늘리는 자리가 아니라 자기 페이스를 또렷이 잡는 시간이에요."
     },
     {
       "fixture": "30-jeolgi-lidong-boundary-tiered.json",
@@ -110804,7 +111083,7 @@
       "depth": "standard",
       "slot": "para1",
       "cellKey": "thisWeek/study_document/standard/para1",
-      "plainText": "새 노트 한 칸을 또박또박 채워 가는 그림을 떠올려 보면 좋아요. 이번 주의 한 페이지가 다음 시험을 가볍게 해 줘요."
+      "plainText": "비유하자면 작은 노트에 한 주의 시간표를 그리는 그림이에요. 매일 같은 시간에 보는 한 과목을 정해 두면 한 주가 끝날 즈음에는 자기만의 학습 흐름이 또렷이 보여요. 그림이나 색연필로 일정을 정리해도 충분해요."
     },
     {
       "fixture": "30-jeolgi-lidong-boundary-tiered.json",
@@ -110813,7 +111092,7 @@
       "depth": "standard",
       "slot": "para2",
       "cellKey": "thisWeek/study_document/standard/para2",
-      "plainText": "잘 풀리는 면은, 좋아하는 한 과목에서 한 단계 더 깊이 들어가는 일이에요. 모든 과목을 한 번에 잡지 않아도 돼요."
+      "plainText": "잘 풀리는 면은, 모르는 것을 솔직하게 모아 두는 자리예요. 한 주 동안 헷갈린 문장이나 못 푼 문제를 작은 노트에 한 줄씩 옮겨 두면, 주말의 30분이 그 한 주의 학습을 단단하게 마무리해 줘요."
     },
     {
       "fixture": "30-jeolgi-lidong-boundary-tiered.json",
@@ -110822,7 +111101,7 @@
       "depth": "standard",
       "slot": "para3",
       "cellKey": "thisWeek/study_document/standard/para3",
-      "plainText": "살짝 주의할 점은, 친구와 비교하다 자기 페이스를 놓치는 면이에요. 지난주 자기와만 비교해도 충분해요."
+      "plainText": "살짝 주의할 점은, 시간표를 너무 빽빽하게 짜는 면이에요. 매일 30분의 짧은 자리, 친구와 함께 한 문제 풀어 보는 자리, 좋아하는 책 한 페이지를 천천히 읽는 자리를 한 칸씩 비워 두면 한 주가 가벼워져요."
     },
     {
       "fixture": "30-jeolgi-lidong-boundary-tiered.json",
@@ -110831,7 +111110,7 @@
       "depth": "standard",
       "slot": "para4",
       "cellKey": "thisWeek/study_document/standard/para4",
-      "plainText": "주말의 30분 복습이 다음 주를 든든하게 만들어요."
+      "plainText": "학교에서 받은 작은 과제, 친구와 같이 본 한 페이지, 모르는 단어를 적어 둔 한 줄이 다음 주를 든든하게 만드는 자산이 돼요. 비교는 지난주 자기와만 짧게로 충분해요."
     },
     {
       "fixture": "30-jeolgi-lidong-boundary-tiered.json",
@@ -111407,7 +111686,7 @@
       "depth": "standard",
       "slot": "para0",
       "cellKey": "thisMonth/romance/standard/para0",
-      "plainText": "이번 달 아이의 사이는 친구·가족과 함께하는 자리에서 가장 또렷이 살아나요. 단체 활동·학원·가족 모임처럼 함께하는 시간이 늘어나는 시기라, 사람을 좋아하는 마음이 자연스럽게 자라요."
+      "plainText": "이번 달 아이의 사이는 친구·가족과 함께하는 자리에서 가장 또렷이 살아나요. 단체 활동·학원·가족 모임처럼 함께하는 시간이 늘어나는 시기라, 사람을 좋아하는 마음이 자연스럽게 자라는 한 달이에요."
     },
     {
       "fixture": "30-jeolgi-lidong-boundary-tiered.json",
@@ -111416,7 +111695,7 @@
       "depth": "standard",
       "slot": "para1",
       "cellKey": "thisMonth/romance/standard/para1",
-      "plainText": "새 친구를 사귀는 자리가 생기면 자기 페이스대로 어울릴 수 있도록 충분한 여유를 두세요. 다툼이 잠깐 생기면 부모·선생님이 옆에서 조용히 사이를 다듬어 주는 것만으로도 회복이 빨라져요."
+      "plainText": "새 친구를 사귀는 자리가 생기면 자기 페이스대로 어울릴 수 있도록 충분한 여유를 두세요. 좋아하는 친구에게 작은 칭찬이나 고마운 마음을 한 줄로 건네면, 사이의 흐름이 한층 부드러워져요. 다툼이 잠깐 생기면 부모·선생님이 옆에서 조용히 사이를 다듬어 주는 것만으로도 회복이 빨라져요."
     },
     {
       "fixture": "30-jeolgi-lidong-boundary-tiered.json",
@@ -111425,7 +111704,7 @@
       "depth": "standard",
       "slot": "para2",
       "cellKey": "thisMonth/romance/standard/para2",
-      "plainText": "한 달 동안 좋아하는 사람들과 함께 웃는 시간이 자주 있으면, 마음의 호흡이 한층 부드러워져요. 너무 어려운 어른의 어휘를 들이밀지 않고 나이에 맞는 자리를 즐기는 모양으로 보내면 잘 어울려요."
+      "plainText": "한 달 동안 좋아하는 사람들과 함께 웃는 시간이 자주 있으면, 마음의 호흡이 한층 부드러워져요. 기다리는 마음이 조급하게 느껴질 땐, 곁에서 어른들이 한 박자 천천히 들어 주는 자리만으로도 흐름이 차분해져요. 너무 어려운 어른의 어휘를 들이밀지 않고 나이에 맞는 자리를 즐기는 모양으로 한 달을 보내면 잘 어울려요."
     },
     {
       "fixture": "30-jeolgi-lidong-boundary-tiered.json",
@@ -112235,7 +112514,7 @@
       "depth": "standard",
       "slot": "para0",
       "cellKey": "thisYear/romance/standard/para0",
-      "plainText": "올해는 어떤 사람이 나를 편하게 해 주는지 배우는 시간이 될 수 있어요."
+      "plainText": "올해 아이의 사이는 친구·가족과 함께하는 자리에서 한 해 내내 자라요. 학교·학원·가족 모임처럼 사람을 만나는 자리가 늘어나는 시기라, 사람을 좋아하는 마음이 자연스럽게 자라는 한 해예요."
     },
     {
       "fixture": "30-jeolgi-lidong-boundary-tiered.json",
@@ -112244,7 +112523,16 @@
       "depth": "standard",
       "slot": "para1",
       "cellKey": "thisYear/romance/standard/para1",
-      "plainText": "잘 맞는 친구와는 더 가까워지고, 불편한 관계에서는 건강한 거리를 두는 연습이 필요해요."
+      "plainText": "새 친구를 사귀는 자리가 생기면 자기 페이스대로 어울릴 수 있도록 충분한 여유를 두세요. 좋아하는 친구에게 작은 칭찬이나 고마운 마음을 한 줄로 자주 건네면, 한 해 동안 사이의 흐름이 차곡차곡 단단해져요. 다툼이 잠깐 생기면 부모·선생님이 옆에서 조용히 사이를 다듬어 주는 것만으로도 회복이 빨라져요."
+    },
+    {
+      "fixture": "30-jeolgi-lidong-boundary-tiered.json",
+      "period": "thisYear",
+      "category": "romance",
+      "depth": "standard",
+      "slot": "para2",
+      "cellKey": "thisYear/romance/standard/para2",
+      "plainText": "한 해 동안 좋아하는 사람들과 함께 웃는 시간이 자주 있으면, 마음의 호흡이 한층 부드러워져요. 기다리는 마음이 조급하게 느껴지더라도 한 해라는 길이 안에서 차분히 익어 가는 흐름으로 받아들이면, 자라면서 인연 자산이 든든히 쌓여요. 너무 어려운 어른의 어휘를 들이밀지 않고 나이에 맞는 자리를 즐기는 모양으로 한 해를 보내면 잘 어울려요."
     },
     {
       "fixture": "30-jeolgi-lidong-boundary-tiered.json",
@@ -113036,7 +113324,7 @@
       "depth": "standard",
       "slot": "para0",
       "cellKey": "life/romance/standard/para0",
-      "plainText": "어린 시절엔 아직 짝의 결보다 친구·가족과 마음을 주고받는 흐름이 가장 또렷해요. 사주에서 인연 자리가 넓다는 신호가 보이면, 그건 보통 사람을 좋아하고 잘 어울리는 흐름으로 풀려요."
+      "plainText": "어린 시절의 인연은 짝을 미리 정하는 그림이 아니라, 가족과 친구 사이에서 마음을 주고받는 흐름을 차곡차곡 익히는 시간이에요. 이 시기엔 좋아하는 사람이 생겨도 큰 약속의 모양으로 풀리기보다, 함께 노는 시간 안에서 자기 마음과 상대의 마음을 알아 가는 자연스러운 흐름으로 자라요."
     },
     {
       "fixture": "31-newborn-infant-male-tiered.json",
@@ -113045,7 +113333,7 @@
       "depth": "standard",
       "slot": "para1",
       "cellKey": "life/romance/standard/para1",
-      "plainText": "아이는 이 시기에 가족과의 안전한 자리에서 충분히 사랑받는 경험이 가장 큰 자산이 돼요. 새로운 친구를 사귀거나 단체 활동에서 자기 자리를 찾는 연습을 자연스럽게 하면, 자라면서 관계의 흐름이 한층 부드러워져요."
+      "plainText": "사주에서 인연 자리가 넓다는 신호가 보이면, 어린 시절엔 보통 사람을 좋아하고 친구와 잘 어울리는 흐름으로 풀려요. 아이는 가족 안에서 충분히 사랑받는 경험과 단체 활동에서 자기 자리를 찾는 작은 연습이 가장 큰 자산이 돼요. 좋아하는 친구에게는 작은 칭찬이나 고마운 말을 천천히 건네는 습관이 흐름을 부드럽게 만들어 줘요."
     },
     {
       "fixture": "31-newborn-infant-male-tiered.json",
@@ -113054,7 +113342,7 @@
       "depth": "standard",
       "slot": "para2",
       "cellKey": "life/romance/standard/para2",
-      "plainText": "너무 빨리 어른의 관계 어휘를 끌어오기보다, 나이에 맞는 우정·돌봄의 흐름을 충분히 누리게 두는 편이 좋아요."
+      "plainText": "너무 어려운 어른의 어휘를 미리 들이밀지 않아도 돼요. 나이에 맞는 우정·돌봄의 흐름을 충분히 누리며 자라는 것만으로 인생 전체의 인연 자산이 단단히 쌓여요. 서운한 일이 생기면 단정하지 말고 왜 그랬는지 한 번 더 물어보는 흐름을, 곁에서 어른들이 함께 보여 주면 도움이 돼요."
     },
     {
       "fixture": "31-newborn-infant-male-tiered.json",
@@ -113252,7 +113540,7 @@
       "depth": "standard",
       "slot": "para0",
       "cellKey": "life/study_document/standard/para0",
-      "plainText": "학교 시험·읽기쓰기에서 자기 색이 천천히 또렷해지는 흐름이에요. 한 학기보다는 한 학년, 한 학년보다는 몇 년을 두고 살펴보면 자라는 모양이 보여요."
+      "plainText": "어린 시기와 학창 시절의 공부·서류 흐름은 시험 한 번의 점수를 두고 다투는 자리가 아니라, 좋아하는 것을 한 가지씩 알아 가는 시간이에요. 책 한 권을 천천히 펼쳐 자기에게 맞는 속도를 익히는 흐름이 평생 갈 학습 자산의 시작이 돼요."
     },
     {
       "fixture": "31-newborn-infant-male-tiered.json",
@@ -113261,7 +113549,7 @@
       "depth": "standard",
       "slot": "para1",
       "cellKey": "life/study_document/standard/para1",
-      "plainText": "어린 새싹이 봄비를 받으며 마디를 늘려가는 그림을 떠올려 보면 좋아요. 빠르게 보이지는 않지만, 한 해를 지나면 키가 달라져 있어요."
+      "plainText": "비유하자면 작은 노트 한 권을 처음 펼치는 그림이에요. 첫 줄은 또박또박, 두 줄째는 어제보다 한 글자 더, 이렇게 차곡차곡 채워 가면 한 학기·한 학년 뒤에는 자기만의 책이 한 권 자라 있어요."
     },
     {
       "fixture": "31-newborn-infant-male-tiered.json",
@@ -113270,7 +113558,7 @@
       "depth": "standard",
       "slot": "para2",
       "cellKey": "life/study_document/standard/para2",
-      "plainText": "잘 풀리는 면은, 좋아하는 한 가지를 깊게 파고드는 시간이에요. 그림이든 글이든 숫자든, 손에 익는 분야가 한 번 자리 잡으면 오래 가요."
+      "plainText": "잘 풀리는 면은, 모르는 것을 솔직하게 적어 두는 자리예요. 헷갈린 문장, 못 푼 문제, 어려운 단어를 작은 노트에 한 줄씩 모아 두면 그 자체가 다음 주의 학습 지도가 돼요. 그림이나 색연필로 정리해도 충분해요."
     },
     {
       "fixture": "31-newborn-infant-male-tiered.json",
@@ -113279,7 +113567,7 @@
       "depth": "standard",
       "slot": "para3",
       "cellKey": "life/study_document/standard/para3",
-      "plainText": "살짝 주의할 점은, 옆 친구와 비교하다 자기 페이스를 잃는 면이에요. 비교는 짧게, 자기 기록 갱신은 꾸준히로 충분해요."
+      "plainText": "살짝 살피면 좋은 점은, 옆 친구의 결과만 보고 자기 페이스를 잃는 면이에요. 비교는 짧게, 자기 기록 갱신은 꾸준히로 충분해요. 친구와는 함께 풀어 보는 시간을 만드는 쪽이 더 많은 것을 남겨 줘요."
     },
     {
       "fixture": "31-newborn-infant-male-tiered.json",
@@ -113288,7 +113576,7 @@
       "depth": "standard",
       "slot": "para4",
       "cellKey": "life/study_document/standard/para4",
-      "plainText": "작은 칭찬이 큰 자산이 되는 시기예요."
+      "plainText": "학교에서 받은 작은 칭찬 한마디, 친구와 함께 풀어 본 한 문제, 모르는 단어를 노트에 적어 둔 한 줄이 큰 자산이 되는 시기예요. 어른의 큰 자격 어휘를 미리 끌어오지 않아도 충분해요."
     },
     {
       "fixture": "31-newborn-infant-male-tiered.json",
@@ -113864,7 +114152,7 @@
       "depth": "standard",
       "slot": "para0",
       "cellKey": "today/romance/standard/para0",
-      "plainText": "오늘은 장난보다 친절한 말이 더 잘 통하는 날이에요."
+      "plainText": "오늘은 가족·친구와 마음을 주고받는 흐름이 또렷한 하루예요. 작은 칭찬·다정한 말이 평소보다 더 길게 마음에 닿는 시간이라, 옆에서 따뜻하게 챙겨 주는 자리만으로도 큰 자산이 돼요."
     },
     {
       "fixture": "31-newborn-infant-male-tiered.json",
@@ -113873,7 +114161,16 @@
       "depth": "standard",
       "slot": "para1",
       "cellKey": "today/romance/standard/para1",
-      "plainText": "친구가 힘들어 보이면 해결해 주려고 하기보다 먼저 들어주는 태도가 관계를 편하게 만듭니다."
+      "plainText": "새 친구를 만나는 자리나 단체 활동이 있으면 자기 페이스대로 어울릴 수 있도록 충분한 여유를 두세요. 좋아하는 친구에게 짧은 인사나 함께 놀자는 한마디를 건네면, 그 자리에서 사이가 한층 부드러워져요. 잠깐의 다툼이 생기면 부모·선생님이 옆에서 조용히 흐름을 다듬어 주는 것만으로도 회복이 빨라져요."
+    },
+    {
+      "fixture": "31-newborn-infant-male-tiered.json",
+      "period": "today",
+      "category": "romance",
+      "depth": "standard",
+      "slot": "para2",
+      "cellKey": "today/romance/standard/para2",
+      "plainText": "하루의 끝에 좋아하는 사람들과 잠깐이라도 함께 웃는 시간이 있으면, 마음의 호흡이 한결 부드러워져요. 너무 어려운 어른의 어휘를 들이밀지 않아도 돼요. 나이에 맞는 친구·가족의 자리를 즐기는 것만으로 오늘이 충분히 따뜻해져요."
     },
     {
       "fixture": "31-newborn-infant-male-tiered.json",
@@ -114071,7 +114368,7 @@
       "depth": "standard",
       "slot": "para0",
       "cellKey": "today/study_document/standard/para0",
-      "plainText": "오늘 공부는 깊게 파고들기보다 핵심을 정리하는 쪽이 잘 맞아요."
+      "plainText": "오늘은 책 한 권을 끝까지 읽기보다, 한 단원만 또렷이 챙기면 충분한 흐름이에요. 한꺼번에 많은 분량을 잡기보다 한 자리에 깊게 머무는 호흡이 잘 맞아요."
     },
     {
       "fixture": "31-newborn-infant-male-tiered.json",
@@ -114080,7 +114377,34 @@
       "depth": "standard",
       "slot": "para1",
       "cellKey": "today/study_document/standard/para1",
-      "plainText": "어려운 문제는 오래 붙잡기보다 표시해 두고, 쉬운 부분부터 정확히 끝내면 흐름이 좋아집니다."
+      "plainText": "비유하자면 작은 노트 첫 줄을 또박또박 적는 그림이에요. 오늘 적은 한 줄이 다음 주 시험에서 길잡이가 돼요. 그림으로 정리해도 좋고, 색연필로 표시해도 충분해요."
+    },
+    {
+      "fixture": "31-newborn-infant-male-tiered.json",
+      "period": "today",
+      "category": "study_document",
+      "depth": "standard",
+      "slot": "para2",
+      "cellKey": "today/study_document/standard/para2",
+      "plainText": "잘 풀리는 면은, 모르는 것을 그냥 넘기지 않는 자리예요. 헷갈린 문장이나 못 푼 문제를 작은 노트에 한 줄씩 옮겨 두면 오늘의 공부가 자기만의 자료가 돼요. 친구와 함께 풀어 보는 시간이 있으면 더 잘 남아요."
+    },
+    {
+      "fixture": "31-newborn-infant-male-tiered.json",
+      "period": "today",
+      "category": "study_document",
+      "depth": "standard",
+      "slot": "para3",
+      "cellKey": "today/study_document/standard/para3",
+      "plainText": "살짝 주의할 점은, 오늘 모든 과목을 한꺼번에 잡으려는 마음이에요. 좋아하는 한 과목부터 차분히 끝내고, 어려운 과목은 한 박자 미뤄 둬도 충분해요. 짧게 쉬고 다시 시작해도 괜찮아요."
+    },
+    {
+      "fixture": "31-newborn-infant-male-tiered.json",
+      "period": "today",
+      "category": "study_document",
+      "depth": "standard",
+      "slot": "para4",
+      "cellKey": "today/study_document/standard/para4",
+      "plainText": "학교에서 받은 작은 메모 한 장, 오늘 적어 둔 모르는 단어 한 줄이 다음 주의 작은 무기가 돼요. 비교는 어제 자기와만 짧게로 충분해요."
     },
     {
       "fixture": "31-newborn-infant-male-tiered.json",
@@ -114656,7 +114980,7 @@
       "depth": "standard",
       "slot": "para0",
       "cellKey": "thisWeek/romance/standard/para0",
-      "plainText": "이번 주 아이의 하루는 친구·가족과의 자리에서 가장 또렷하게 살아나요. 단체 활동·놀이 자리에서 서로의 마음을 알아 가는 흐름이 평소보다 잘 자라는 시기예요."
+      "plainText": "이번 주 아이의 하루는 친구·가족과의 자리에서 가장 또렷하게 살아나요. 단체 활동·놀이 자리에서 서로의 마음을 알아 가는 흐름이 평소보다 잘 자라는 시기라, 함께 보내는 시간 자체가 큰 자산이 돼요."
     },
     {
       "fixture": "31-newborn-infant-male-tiered.json",
@@ -114665,7 +114989,7 @@
       "depth": "standard",
       "slot": "para1",
       "cellKey": "thisWeek/romance/standard/para1",
-      "plainText": "새 친구를 사귀는 자리가 생기면, 자기 페이스대로 어울릴 수 있도록 충분한 여유를 두세요. 잠깐의 다툼이 생기면 부모·선생님이 옆에서 조용히 흐름을 다듬어 주는 것만으로도 회복이 빨라져요."
+      "plainText": "새 친구를 사귀는 자리가 생기면 자기 페이스대로 어울릴 수 있도록 충분한 여유를 두세요. 좋아하는 친구에게 작은 칭찬이나 고마운 마음을 한 줄로 건네면, 사이의 흐름이 한층 부드러워져요. 잠깐의 다툼이 생기면 부모·선생님이 옆에서 조용히 흐름을 다듬어 주는 것만으로도 회복이 빨라져요."
     },
     {
       "fixture": "31-newborn-infant-male-tiered.json",
@@ -114674,7 +114998,7 @@
       "depth": "standard",
       "slot": "para2",
       "cellKey": "thisWeek/romance/standard/para2",
-      "plainText": "한 주 동안 좋아하는 사람들과 함께 웃는 시간이 자주 있으면, 마음의 흐름이 한층 부드러워져요."
+      "plainText": "한 주 동안 좋아하는 사람들과 함께 웃는 시간이 자주 있으면, 마음의 흐름이 한층 부드러워져요. 기다리는 마음이 조급하게 느껴지더라도 오늘 내일 안에 다 풀리지 않아도 괜찮다는 믿음을 곁에서 함께 보여 주면, 한 주의 흐름이 차분하게 익어요."
     },
     {
       "fixture": "31-newborn-infant-male-tiered.json",
@@ -114872,7 +115196,7 @@
       "depth": "standard",
       "slot": "para0",
       "cellKey": "thisWeek/study_document/standard/para0",
-      "plainText": "이번 주는 학교 시험·읽기쓰기에서 한 단원만 또렷이 챙기면 충분한 흐름이에요. 한꺼번에 많은 분량보다 깊게 한 자리가 잘 맞아요."
+      "plainText": "이번 주는 새 책을 한꺼번에 끝내려는 무리보다, 좋아하는 책 한 권을 천천히 펼쳐 보는 흐름이 잘 맞아요. 한 주의 학습은 분량을 늘리는 자리가 아니라 자기 페이스를 또렷이 잡는 시간이에요."
     },
     {
       "fixture": "31-newborn-infant-male-tiered.json",
@@ -114881,7 +115205,7 @@
       "depth": "standard",
       "slot": "para1",
       "cellKey": "thisWeek/study_document/standard/para1",
-      "plainText": "새 노트 한 칸을 또박또박 채워 가는 그림을 떠올려 보면 좋아요. 이번 주의 한 페이지가 다음 시험을 가볍게 해 줘요."
+      "plainText": "비유하자면 작은 노트에 한 주의 시간표를 그리는 그림이에요. 매일 같은 시간에 보는 한 과목을 정해 두면 한 주가 끝날 즈음에는 자기만의 학습 흐름이 또렷이 보여요. 그림이나 색연필로 일정을 정리해도 충분해요."
     },
     {
       "fixture": "31-newborn-infant-male-tiered.json",
@@ -114890,7 +115214,7 @@
       "depth": "standard",
       "slot": "para2",
       "cellKey": "thisWeek/study_document/standard/para2",
-      "plainText": "잘 풀리는 면은, 좋아하는 한 과목에서 한 단계 더 깊이 들어가는 일이에요. 모든 과목을 한 번에 잡지 않아도 돼요."
+      "plainText": "잘 풀리는 면은, 모르는 것을 솔직하게 모아 두는 자리예요. 한 주 동안 헷갈린 문장이나 못 푼 문제를 작은 노트에 한 줄씩 옮겨 두면, 주말의 30분이 그 한 주의 학습을 단단하게 마무리해 줘요."
     },
     {
       "fixture": "31-newborn-infant-male-tiered.json",
@@ -114899,7 +115223,7 @@
       "depth": "standard",
       "slot": "para3",
       "cellKey": "thisWeek/study_document/standard/para3",
-      "plainText": "살짝 주의할 점은, 친구와 비교하다 자기 페이스를 놓치는 면이에요. 지난주 자기와만 비교해도 충분해요."
+      "plainText": "살짝 주의할 점은, 시간표를 너무 빽빽하게 짜는 면이에요. 매일 30분의 짧은 자리, 친구와 함께 한 문제 풀어 보는 자리, 좋아하는 책 한 페이지를 천천히 읽는 자리를 한 칸씩 비워 두면 한 주가 가벼워져요."
     },
     {
       "fixture": "31-newborn-infant-male-tiered.json",
@@ -114908,7 +115232,7 @@
       "depth": "standard",
       "slot": "para4",
       "cellKey": "thisWeek/study_document/standard/para4",
-      "plainText": "주말의 30분 복습이 다음 주를 든든하게 만들어요."
+      "plainText": "학교에서 받은 작은 과제, 친구와 같이 본 한 페이지, 모르는 단어를 적어 둔 한 줄이 다음 주를 든든하게 만드는 자산이 돼요. 비교는 지난주 자기와만 짧게로 충분해요."
     },
     {
       "fixture": "31-newborn-infant-male-tiered.json",
@@ -115484,7 +115808,7 @@
       "depth": "standard",
       "slot": "para0",
       "cellKey": "thisMonth/romance/standard/para0",
-      "plainText": "이번 달 아이의 사이는 친구·가족과 함께하는 자리에서 가장 또렷이 살아나요. 단체 활동·학원·가족 모임처럼 함께하는 시간이 늘어나는 시기라, 사람을 좋아하는 마음이 자연스럽게 자라요."
+      "plainText": "이번 달 아이의 사이는 친구·가족과 함께하는 자리에서 가장 또렷이 살아나요. 단체 활동·학원·가족 모임처럼 함께하는 시간이 늘어나는 시기라, 사람을 좋아하는 마음이 자연스럽게 자라는 한 달이에요."
     },
     {
       "fixture": "31-newborn-infant-male-tiered.json",
@@ -115493,7 +115817,7 @@
       "depth": "standard",
       "slot": "para1",
       "cellKey": "thisMonth/romance/standard/para1",
-      "plainText": "새 친구를 사귀는 자리가 생기면 자기 페이스대로 어울릴 수 있도록 충분한 여유를 두세요. 다툼이 잠깐 생기면 부모·선생님이 옆에서 조용히 사이를 다듬어 주는 것만으로도 회복이 빨라져요."
+      "plainText": "새 친구를 사귀는 자리가 생기면 자기 페이스대로 어울릴 수 있도록 충분한 여유를 두세요. 좋아하는 친구에게 작은 칭찬이나 고마운 마음을 한 줄로 건네면, 사이의 흐름이 한층 부드러워져요. 다툼이 잠깐 생기면 부모·선생님이 옆에서 조용히 사이를 다듬어 주는 것만으로도 회복이 빨라져요."
     },
     {
       "fixture": "31-newborn-infant-male-tiered.json",
@@ -115502,7 +115826,7 @@
       "depth": "standard",
       "slot": "para2",
       "cellKey": "thisMonth/romance/standard/para2",
-      "plainText": "한 달 동안 좋아하는 사람들과 함께 웃는 시간이 자주 있으면, 마음의 호흡이 한층 부드러워져요. 너무 어려운 어른의 어휘를 들이밀지 않고 나이에 맞는 자리를 즐기는 모양으로 보내면 잘 어울려요."
+      "plainText": "한 달 동안 좋아하는 사람들과 함께 웃는 시간이 자주 있으면, 마음의 호흡이 한층 부드러워져요. 기다리는 마음이 조급하게 느껴질 땐, 곁에서 어른들이 한 박자 천천히 들어 주는 자리만으로도 흐름이 차분해져요. 너무 어려운 어른의 어휘를 들이밀지 않고 나이에 맞는 자리를 즐기는 모양으로 한 달을 보내면 잘 어울려요."
     },
     {
       "fixture": "31-newborn-infant-male-tiered.json",
@@ -116312,7 +116636,7 @@
       "depth": "standard",
       "slot": "para0",
       "cellKey": "thisYear/romance/standard/para0",
-      "plainText": "올해는 어떤 사람이 나를 편하게 해 주는지 배우는 시간이 될 수 있어요."
+      "plainText": "올해 아이의 사이는 친구·가족과 함께하는 자리에서 한 해 내내 자라요. 학교·학원·가족 모임처럼 사람을 만나는 자리가 늘어나는 시기라, 사람을 좋아하는 마음이 자연스럽게 자라는 한 해예요."
     },
     {
       "fixture": "31-newborn-infant-male-tiered.json",
@@ -116321,7 +116645,16 @@
       "depth": "standard",
       "slot": "para1",
       "cellKey": "thisYear/romance/standard/para1",
-      "plainText": "잘 맞는 친구와는 더 가까워지고, 불편한 관계에서는 건강한 거리를 두는 연습이 필요해요."
+      "plainText": "새 친구를 사귀는 자리가 생기면 자기 페이스대로 어울릴 수 있도록 충분한 여유를 두세요. 좋아하는 친구에게 작은 칭찬이나 고마운 마음을 한 줄로 자주 건네면, 한 해 동안 사이의 흐름이 차곡차곡 단단해져요. 다툼이 잠깐 생기면 부모·선생님이 옆에서 조용히 사이를 다듬어 주는 것만으로도 회복이 빨라져요."
+    },
+    {
+      "fixture": "31-newborn-infant-male-tiered.json",
+      "period": "thisYear",
+      "category": "romance",
+      "depth": "standard",
+      "slot": "para2",
+      "cellKey": "thisYear/romance/standard/para2",
+      "plainText": "한 해 동안 좋아하는 사람들과 함께 웃는 시간이 자주 있으면, 마음의 호흡이 한층 부드러워져요. 기다리는 마음이 조급하게 느껴지더라도 한 해라는 길이 안에서 차분히 익어 가는 흐름으로 받아들이면, 자라면서 인연 자산이 든든히 쌓여요. 너무 어려운 어른의 어휘를 들이밀지 않고 나이에 맞는 자리를 즐기는 모양으로 한 해를 보내면 잘 어울려요."
     },
     {
       "fixture": "31-newborn-infant-male-tiered.json",

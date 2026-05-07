@@ -2,11 +2,11 @@
   "summary": {
     "word_repeat": 0,
     "awkward_phrase": 0,
-    "audience_leak": 0,
+    "audience_leak": 1,
     "korean_grammar": 0,
     "depth_inversion": 0,
     "bare_glossary_label": 0,
-    "totalRecords": 14678,
+    "totalRecords": 14715,
     "fixtureCount": 32,
     "glossaryLabelsLoaded": 124,
     "glossaryLabelsSafe": 124,
@@ -15,7 +15,18 @@
   "detectorHits": {
     "word_repeat": [],
     "awkward_phrase": [],
-    "audience_leak": [],
+    "audience_leak": [
+      {
+        "fixture": "04-kim-seoyun-young-female-tiered.json",
+        "period": "life",
+        "category": "romance",
+        "depth": "standard",
+        "slot": "para1",
+        "word": "결혼",
+        "audience": "preteen",
+        "excerpt": "요. 마음이 가는 사람이 생기더라도 결혼이나 큰 약속 같은 단정은 한참 뒤의 이야기로 두고"
+      }
+    ],
     "korean_grammar": [],
     "depth_inversion": [],
     "bare_glossary_label": []
