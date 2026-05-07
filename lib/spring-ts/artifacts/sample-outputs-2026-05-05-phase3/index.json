@@ -1,7 +1,7 @@
 {
-  "generatedAt": "2026-05-07T11:21:34.470Z",
+  "generatedAt": "2026-05-07T11:19:30.704Z",
   "targetDate": "2026-05-05T00:00:00+09:00",
-  "outputDirectory": "C:\\Projects\\metaintelligence\\p28-a1-iso\\lib\\spring-ts\\artifacts\\sample-outputs-2026-05-05-phase3",
+  "outputDirectory": "C:\\Projects\\metaintelligence\\p28-a3-iso\\lib\\spring-ts\\artifacts\\sample-outputs-2026-05-05-phase3",
   "sampleCount": 35,
   "samples": [
     {
@@ -67,7 +67,7 @@
         "tieredMatrix": null,
         "meta": {
           "version": "1.0.0",
-          "generatedAt": "2026-05-07T11:21:36.188Z",
+          "generatedAt": "2026-05-07T11:19:32.548Z",
           "schoolPreset": {
             "selected": "korean",
             "source": "default",
@@ -129,7 +129,7 @@
           }
         }
       },
-      "outputBytes": 570606,
+      "outputBytes": 570514,
       "payloadSummary": {
         "topLevelKeys": [
           "nameCompatibility",
@@ -161,7 +161,7 @@
         },
         "meta": {
           "version": "1.0.0",
-          "generatedAt": "2026-05-07T11:21:36.803Z",
+          "generatedAt": "2026-05-07T11:19:33.209Z",
           "schoolPreset": {
             "selected": "korean",
             "source": "default",
@@ -318,7 +318,7 @@
         },
         "meta": {
           "version": "1.0.0",
-          "generatedAt": "2026-05-07T11:21:37.457Z",
+          "generatedAt": "2026-05-07T11:19:33.903Z",
           "schoolPreset": {
             "selected": "korean",
             "source": "default",
@@ -412,7 +412,7 @@
         },
         "meta": {
           "version": "1.0.0",
-          "generatedAt": "2026-05-07T11:21:37.812Z",
+          "generatedAt": "2026-05-07T11:19:34.314Z",
           "schoolPreset": {
             "selected": "korean",
             "source": "default",
@@ -468,7 +468,7 @@
           }
         }
       },
-      "outputBytes": 571630,
+      "outputBytes": 571642,
       "payloadSummary": {
         "topLevelKeys": [
           "nameCompatibility",
@@ -500,7 +500,7 @@
         },
         "meta": {
           "version": "1.0.0",
-          "generatedAt": "2026-05-07T11:21:38.163Z",
+          "generatedAt": "2026-05-07T11:19:34.733Z",
           "schoolPreset": {
             "selected": "korean",
             "source": "default",
@@ -658,7 +658,7 @@
           }
         }
       },
-      "outputBytes": 570930,
+      "outputBytes": 570948,
       "payloadSummary": {
         "topLevelKeys": [
           "nameCompatibility",
@@ -690,7 +690,7 @@
         },
         "meta": {
           "version": "1.0.0",
-          "generatedAt": "2026-05-07T11:21:39.563Z",
+          "generatedAt": "2026-05-07T11:19:36.335Z",
           "schoolPreset": {
             "selected": "korean",
             "source": "default",
@@ -784,7 +784,7 @@
         },
         "meta": {
           "version": "1.0.0",
-          "generatedAt": "2026-05-07T11:21:40.207Z",
+          "generatedAt": "2026-05-07T11:19:37.044Z",
           "schoolPreset": {
             "selected": "korean",
             "source": "default",
@@ -846,7 +846,7 @@
           }
         }
       },
-      "outputBytes": 569777,
+      "outputBytes": 569673,
       "payloadSummary": {
         "topLevelKeys": [
           "nameCompatibility",
@@ -878,7 +878,7 @@
         },
         "meta": {
           "version": "1.0.0",
-          "generatedAt": "2026-05-07T11:21:40.541Z",
+          "generatedAt": "2026-05-07T11:19:37.376Z",
           "schoolPreset": {
             "selected": "korean",
             "source": "default",
@@ -941,7 +941,7 @@
           }
         }
       },
-      "outputBytes": 578097,
+      "outputBytes": 578051,
       "payloadSummary": {
         "topLevelKeys": [
           "nameCompatibility",
@@ -973,7 +973,7 @@
         },
         "meta": {
           "version": "1.0.0",
-          "generatedAt": "2026-05-07T11:21:40.847Z",
+          "generatedAt": "2026-05-07T11:19:37.696Z",
           "schoolPreset": {
             "selected": "korean",
             "source": "default",
@@ -1036,7 +1036,7 @@
           }
         }
       },
-      "outputBytes": 576626,
+      "outputBytes": 576598,
       "payloadSummary": {
         "topLevelKeys": [
           "nameCompatibility",
@@ -1068,7 +1068,7 @@
         },
         "meta": {
           "version": "1.0.0",
-          "generatedAt": "2026-05-07T11:21:41.186Z",
+          "generatedAt": "2026-05-07T11:19:38.041Z",
           "schoolPreset": {
             "selected": "korean",
             "source": "default",
@@ -1163,7 +1163,7 @@
         },
         "meta": {
           "version": "1.0.0",
-          "generatedAt": "2026-05-07T11:21:41.508Z",
+          "generatedAt": "2026-05-07T11:19:38.385Z",
           "schoolPreset": {
             "selected": "korean",
             "source": "default",
@@ -1227,7 +1227,7 @@
           }
         }
       },
-      "outputBytes": 551306,
+      "outputBytes": 551124,
       "payloadSummary": {
         "topLevelKeys": [
           "nameCompatibility",
@@ -1259,7 +1259,7 @@
         },
         "meta": {
           "version": "1.0.0",
-          "generatedAt": "2026-05-07T11:21:41.809Z",
+          "generatedAt": "2026-05-07T11:19:38.700Z",
           "schoolPreset": {
             "selected": "korean",
             "source": "default",
@@ -1322,7 +1322,7 @@
           }
         }
       },
-      "outputBytes": 571414,
+      "outputBytes": 571322,
       "payloadSummary": {
         "topLevelKeys": [
           "nameCompatibility",
@@ -1354,7 +1354,7 @@
         },
         "meta": {
           "version": "1.0.0",
-          "generatedAt": "2026-05-07T11:21:42.080Z",
+          "generatedAt": "2026-05-07T11:19:39.004Z",
           "schoolPreset": {
             "selected": "korean",
             "source": "default",
@@ -1416,7 +1416,7 @@
           }
         }
       },
-      "outputBytes": 576376,
+      "outputBytes": 576262,
       "payloadSummary": {
         "topLevelKeys": [
           "nameCompatibility",
@@ -1448,7 +1448,7 @@
         },
         "meta": {
           "version": "1.0.0",
-          "generatedAt": "2026-05-07T11:21:42.522Z",
+          "generatedAt": "2026-05-07T11:19:39.505Z",
           "schoolPreset": {
             "selected": "korean",
             "source": "default",
@@ -1510,7 +1510,7 @@
           }
         }
       },
-      "outputBytes": 578416,
+      "outputBytes": 578235,
       "payloadSummary": {
         "topLevelKeys": [
           "nameCompatibility",
@@ -1542,7 +1542,7 @@
         },
         "meta": {
           "version": "1.0.0",
-          "generatedAt": "2026-05-07T11:21:42.835Z",
+          "generatedAt": "2026-05-07T11:19:39.852Z",
           "schoolPreset": {
             "selected": "korean",
             "source": "default",
@@ -1636,7 +1636,7 @@
         },
         "meta": {
           "version": "1.0.0",
-          "generatedAt": "2026-05-07T11:21:43.159Z",
+          "generatedAt": "2026-05-07T11:19:40.206Z",
           "schoolPreset": {
             "selected": "korean",
             "source": "default",
@@ -1699,7 +1699,7 @@
           }
         }
       },
-      "outputBytes": 585079,
+      "outputBytes": 584857,
       "payloadSummary": {
         "topLevelKeys": [
           "nameCompatibility",
@@ -1731,7 +1731,7 @@
         },
         "meta": {
           "version": "1.0.0",
-          "generatedAt": "2026-05-07T11:21:43.466Z",
+          "generatedAt": "2026-05-07T11:19:40.519Z",
           "schoolPreset": {
             "selected": "korean",
             "source": "default",
@@ -1795,7 +1795,7 @@
           }
         }
       },
-      "outputBytes": 577995,
+      "outputBytes": 577967,
       "payloadSummary": {
         "topLevelKeys": [
           "nameCompatibility",
@@ -1827,7 +1827,7 @@
         },
         "meta": {
           "version": "1.0.0",
-          "generatedAt": "2026-05-07T11:21:43.774Z",
+          "generatedAt": "2026-05-07T11:19:40.834Z",
           "schoolPreset": {
             "selected": "korean",
             "source": "default",
@@ -1890,7 +1890,7 @@
           }
         }
       },
-      "outputBytes": 570823,
+      "outputBytes": 570731,
       "payloadSummary": {
         "topLevelKeys": [
           "nameCompatibility",
@@ -1922,7 +1922,7 @@
         },
         "meta": {
           "version": "1.0.0",
-          "generatedAt": "2026-05-07T11:21:44.095Z",
+          "generatedAt": "2026-05-07T11:19:41.140Z",
           "schoolPreset": {
             "selected": "korean",
             "source": "default",
@@ -1986,7 +1986,7 @@
           }
         }
       },
-      "outputBytes": 574605,
+      "outputBytes": 574623,
       "payloadSummary": {
         "topLevelKeys": [
           "nameCompatibility",
@@ -2018,7 +2018,7 @@
         },
         "meta": {
           "version": "1.0.0",
-          "generatedAt": "2026-05-07T11:21:44.397Z",
+          "generatedAt": "2026-05-07T11:19:41.445Z",
           "schoolPreset": {
             "selected": "korean",
             "source": "default",
@@ -2080,7 +2080,7 @@
           }
         }
       },
-      "outputBytes": 579720,
+      "outputBytes": 579574,
       "payloadSummary": {
         "topLevelKeys": [
           "nameCompatibility",
@@ -2112,7 +2112,7 @@
         },
         "meta": {
           "version": "1.0.0",
-          "generatedAt": "2026-05-07T11:21:44.810Z",
+          "generatedAt": "2026-05-07T11:19:41.830Z",
           "schoolPreset": {
             "selected": "korean",
             "source": "default",
@@ -2174,7 +2174,7 @@
           }
         }
       },
-      "outputBytes": 577228,
+      "outputBytes": 577200,
       "payloadSummary": {
         "topLevelKeys": [
           "nameCompatibility",
@@ -2206,7 +2206,7 @@
         },
         "meta": {
           "version": "1.0.0",
-          "generatedAt": "2026-05-07T11:21:45.124Z",
+          "generatedAt": "2026-05-07T11:19:42.146Z",
           "schoolPreset": {
             "selected": "korean",
             "source": "default",
@@ -2269,7 +2269,7 @@
           }
         }
       },
-      "outputBytes": 580598,
+      "outputBytes": 580562,
       "payloadSummary": {
         "topLevelKeys": [
           "nameCompatibility",
@@ -2301,7 +2301,7 @@
         },
         "meta": {
           "version": "1.0.0",
-          "generatedAt": "2026-05-07T11:21:45.579Z",
+          "generatedAt": "2026-05-07T11:19:42.586Z",
           "schoolPreset": {
             "selected": "korean",
             "source": "default",
@@ -2363,7 +2363,7 @@
           }
         }
       },
-      "outputBytes": 580311,
+      "outputBytes": 580219,
       "payloadSummary": {
         "topLevelKeys": [
           "nameCompatibility",
@@ -2395,7 +2395,7 @@
         },
         "meta": {
           "version": "1.0.0",
-          "generatedAt": "2026-05-07T11:21:45.878Z",
+          "generatedAt": "2026-05-07T11:19:42.887Z",
           "schoolPreset": {
             "selected": "korean",
             "source": "default",
@@ -2489,7 +2489,7 @@
         },
         "meta": {
           "version": "1.0.0",
-          "generatedAt": "2026-05-07T11:21:46.114Z",
+          "generatedAt": "2026-05-07T11:19:43.113Z",
           "schoolPreset": {
             "selected": "korean",
             "source": "default",
@@ -2551,7 +2551,7 @@
           }
         }
       },
-      "outputBytes": 578884,
+      "outputBytes": 578789,
       "payloadSummary": {
         "topLevelKeys": [
           "nameCompatibility",
@@ -2583,7 +2583,7 @@
         },
         "meta": {
           "version": "1.0.0",
-          "generatedAt": "2026-05-07T11:21:46.438Z",
+          "generatedAt": "2026-05-07T11:19:43.447Z",
           "schoolPreset": {
             "selected": "korean",
             "source": "default",
@@ -2677,7 +2677,7 @@
         },
         "meta": {
           "version": "1.0.0",
-          "generatedAt": "2026-05-07T11:21:46.726Z",
+          "generatedAt": "2026-05-07T11:19:43.764Z",
           "schoolPreset": {
             "selected": "korean",
             "source": "default",
@@ -2772,7 +2772,7 @@
         },
         "meta": {
           "version": "1.0.0",
-          "generatedAt": "2026-05-07T11:21:47.028Z",
+          "generatedAt": "2026-05-07T11:19:44.095Z",
           "schoolPreset": {
             "selected": "korean",
             "source": "default",
@@ -2866,7 +2866,7 @@
         },
         "meta": {
           "version": "1.0.0",
-          "generatedAt": "2026-05-07T11:21:47.247Z",
+          "generatedAt": "2026-05-07T11:19:44.327Z",
           "schoolPreset": {
             "selected": "korean",
             "source": "default",
@@ -2929,7 +2929,7 @@
           }
         }
       },
-      "outputBytes": 578217,
+      "outputBytes": 577931,
       "payloadSummary": {
         "topLevelKeys": [
           "nameCompatibility",
@@ -2961,7 +2961,7 @@
         },
         "meta": {
           "version": "1.0.0",
-          "generatedAt": "2026-05-07T11:21:47.528Z",
+          "generatedAt": "2026-05-07T11:19:44.627Z",
           "schoolPreset": {
             "selected": "korean",
             "source": "default",
@@ -3025,7 +3025,7 @@
           }
         }
       },
-      "outputBytes": 573718,
+      "outputBytes": 573723,
       "payloadSummary": {
         "topLevelKeys": [
           "nameCompatibility",
@@ -3057,7 +3057,7 @@
         },
         "meta": {
           "version": "1.0.0",
-          "generatedAt": "2026-05-07T11:21:47.811Z",
+          "generatedAt": "2026-05-07T11:19:44.941Z",
           "schoolPreset": {
             "selected": "korean",
             "source": "default",
@@ -3122,7 +3122,7 @@
           }
         }
       },
-      "outputBytes": 579986,
+      "outputBytes": 579793,
       "payloadSummary": {
         "topLevelKeys": [
           "nameCompatibility",
@@ -3154,7 +3154,7 @@
         },
         "meta": {
           "version": "1.0.0",
-          "generatedAt": "2026-05-07T11:21:48.099Z",
+          "generatedAt": "2026-05-07T11:19:45.288Z",
           "schoolPreset": {
             "selected": "korean",
             "source": "default",
@@ -3218,7 +3218,7 @@
           }
         }
       },
-      "outputBytes": 556922,
+      "outputBytes": 556868,
       "payloadSummary": {
         "topLevelKeys": [
           "nameCompatibility",
@@ -3250,7 +3250,7 @@
         },
         "meta": {
           "version": "1.0.0",
-          "generatedAt": "2026-05-07T11:21:48.384Z",
+          "generatedAt": "2026-05-07T11:19:45.625Z",
           "schoolPreset": {
             "selected": "korean",
             "source": "default",

@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-05-07T11:21:34.470Z",
+  "generatedAt": "2026-05-07T11:19:30.704Z",
   "targetDate": "2026-05-05T00:00:00+09:00",
   "sampleId": "multi-axis-evaluator-enabled-tiered",
   "description": "precisionConfig.evaluatorMode=multi_axis 활성 시나리오. axisStrength 가 ≥2 축을 공급할 때 다축 가중 (yongshin/gyeokguk/strength/chengbai/johu/fortuneHierarchy/rectification) 으로 sajuPriority 를 계산하는 PR-K-9 경계. 단일축 default 와의 비교 base 로 사용한다.",
@@ -1313,7 +1313,7 @@
     },
     "meta": {
       "version": "1.0.0",
-      "generatedAt": "2026-05-07T11:21:44.095Z",
+      "generatedAt": "2026-05-07T11:19:41.140Z",
       "schoolPreset": {
         "selected": "korean",
         "source": "default",
@@ -3830,7 +3830,7 @@
                 ],
                 "livingTips": [
                   "오늘 자동이체 점검",
-                  "큰 권유는 한 주 살피기"
+                  "큰 권유는 하루 자고 살피기"
                 ],
                 "cautions": [
                   "큰 한 방 권유는 한 박자 늦추기"
@@ -5955,10 +5955,10 @@
                   "tokens": [
                     {
                       "kind": "text",
-                      "value": "새 변화를 무리해서 만들지 않고, 익숙한 페이스를 한 주 동안 지키는 흐름이 잘 맞아요."
+                      "value": "무리해서 새 변화를 만들기보다 익숙한 페이스를 지키는 게 잘 맞아요."
                     }
                   ],
-                  "plainText": "새 변화를 무리해서 만들지 않고, 익숙한 페이스를 한 주 동안 지키는 흐름이 잘 맞아요."
+                  "plainText": "무리해서 새 변화를 만들기보다 익숙한 페이스를 지키는 게 잘 맞아요."
                 },
                 {
                   "tokens": [
@@ -7193,10 +7193,10 @@
                     "tokens": [
                       {
                         "kind": "text",
-                        "value": "이번 주는 도와줄 사람·기관·자료를 떠올려 한 가지를 풀어 가기 좋은 시기예요. 무거운 짐을 혼자 떠안는 흐름이 아니라, 한 번 도움을 청하는 페이스가 한결 잘 맞아요."
+                        "value": "이번 주는 도와줄 사람·기관·자료를 떠올려 한 가지를 풀어 가기 좋은 시기예요. 혼자 다 짊어지기보다 한 번 도움을 청하는 페이스가 잘 맞아요."
                       }
                     ],
-                    "plainText": "이번 주는 도와줄 사람·기관·자료를 떠올려 한 가지를 풀어 가기 좋은 시기예요. 무거운 짐을 혼자 떠안는 흐름이 아니라, 한 번 도움을 청하는 페이스가 한결 잘 맞아요."
+                    "plainText": "이번 주는 도와줄 사람·기관·자료를 떠올려 한 가지를 풀어 가기 좋은 시기예요. 혼자 다 짊어지기보다 한 번 도움을 청하는 페이스가 잘 맞아요."
                   },
                   {
                     "tokens": [
@@ -10210,8 +10210,8 @@
                   }
                 ],
                 "livingTips": [
-                  "월별 자동이체 점검",
-                  "큰 권유는 한 달 살피기"
+                  "분기마다 자동이체 점검",
+                  "큰 권유는 분기 두고 살피기"
                 ],
                 "cautions": [
                   "큰 한 방 권유는 한 박자 늦추기"
@@ -12845,7 +12845,7 @@
       },
       "meta": {
         "schemaVersion": "spring-ts.tiered-matrix.v1",
-        "generatedAt": "2026-05-07T11:21:44.095Z",
+        "generatedAt": "2026-05-07T11:19:41.140Z",
         "selectionSeed": "1986|4|19|5|45|male|2026-05-04T15:00:00.000Z",
         "templateContractVersion": "1.0.0",
         "contentSource": "authored",
