@@ -1,0 +1,199 @@
+=== P20-A5 acceptance gate snapshot ===
+generatedAt: 2026-05-07T06:24:46.722Z
+branch: p20-a5-comprehensive-audit
+head: c4e65aa
+captureMode: per-gate-identity-tag (worktree contention defensive)
+
+=== ci:no-ai-policy [branch=p20-a5-comprehensive-audit head=c4e65aa] ===
+No-AI policy: PASS
+  fixtureFiles=429
+  sourceRegistryFiles=7
+  sourceTierRecords=7095
+  packageDependencies=179
+  runtimeSourceFiles=54
+
+=== ci:narrative-voice [branch=p20-a5-comprehensive-audit head=c4e65aa] ===
+Narrative Voice Audit
+Bundles: 345
+Fragments: 4077 total, 2914 plain, 1163 expert
+Plain term violations: 0
+Plain tag violations: 0
+Untagged expert fragments: 0
+
+=== ci:narrative-truncated-endings [branch=p20-a5-comprehensive-audit head=c4e65aa] ===
+Narrative truncated endings: filesScanned=344, violations=0
+  noun_bare_yo: 0
+  verb_stem_bare_yo: 0
+
+=== ci:narrative-tag-label-alignment [branch=p20-a5-comprehensive-audit head=c4e65aa] ===
+Narrative glossary coverage: glossaryTags=208, usedTags=110
+  missingFromGlossary: 0
+  labelMismatches: 0
+  totalViolations: 0
+
+=== ci:narrative-orphan-tags [branch=p20-a5-comprehensive-audit head=c4e65aa] ===
+Narrative orphan-tag-text: glossaryLabels=194, filesScanned=344, fragmentsScanned=3912
+  totalViolations: 0
+
+=== ci:acceptance-completeness [branch=p20-a5-comprehensive-audit head=c4e65aa] ===
+Acceptance completeness: FAIL
+  ciScripts=14
+  accepted=12
+  exempt=1
+  violations=1
+  FAIL ci_gate_undeclared (ci:hook-coverage): ci script "ci:hook-coverage" is in package.json but missing from acceptance manifest (must be in accepted[] or exempt[])
+
+=== ci:post-processor-grammar [branch=p20-a5-comprehensive-audit head=c4e65aa] ===
+Post-processor grammar: filesScanned=32, violations=2 (max=2)
+  리듬로: 0
+  호흡로: 0
+  걸음로: 0
+  자리을: 0
+  (?<![가-힣])연결을: 0
+  (?<![가-힣])연결이: 0
+  (?<![가-힣])연결로: 0
+  (?<![가-힣])연결의: 0
+  (?<![가-힣])연결에: 0
+  (?<![가-힣])연결과: 0
+  (?<![가-힣])연결도: 0
+  (?<![가-힣])연결만: 0
+  (?<![가-힣])연흐름: 2
+  (?<![가-힣])연리듬: 0
+  (?<![가-힣])연자리: 0
+  (?<![가-힣])연호흡: 0
+  (?<![가-힣])연걸음: 0
+
+Samples (up to maxSamples):
+- [compound_yeongyeol_post_processor_leak] 25-jonggyeok-jonggwan-tiered.json
+    trail=payload.tieredMatrix.periods.life.overall.expert.paragraphs.0.plainText
+    match="연흐름" expected="연결고리 (rephrase source 연결)" (GYEOL_SUBS leak: 연결+조사 mutated to 연흐름 — broken Korean)
+    text="90세 이후는 변화의 크기보다 안정, 존중, 기억의 정리, 편안한 연흐름을 중심으로 보는 것이 적절해요."
+- [compound_yeongyeol_post_processor_leak] 35-palace-naeum-female-mid-tiered.json
+    trail=payload.tieredMatrix.periods.today.overall.standard.paragraphs.0.plainText
+    match="연흐름" expected="연결고리 (rephrase source 연결)" (GYEOL_SUBS leak: 연결+조사 mutated to 연흐름 — broken Korean)
+    text="도움이 되는 기운이 나무 기운일 때 오늘은 작은 성장과 연흐름을 의식하면 흐름을 잡기 쉬워요."
+
+=== ci:narrative-density [branch=p20-a5-comprehensive-audit head=c4e65aa] ===
+Narrative Axis Pair Report
+Bundles: 345
+Fragments: 4077 total, 3912 authored
+Pairs: 8
+Missing pair combinations: 0
+Thin pair combinations (<2 authored): 0, deficit=0
+
+ageBand:gender: 21/21 covered (1)
+  authored pair hits: 208; thin=0; deficit=0
+agePhase:gender: 48/48 covered (1)
+  authored pair hits: 101; thin=0; deficit=0
+birthSeason:currentSeason: 16/16 covered (1)
+  authored pair hits: 128; thin=0; deficit=0
+dayMasterElement:dayMasterStrength: 25/25 covered (1)
+  authored pair hits: 603; thin=0; deficit=0
+dayMasterElement:yongshinElement: 25/25 covered (1)
+  authored pair hits: 316; thin=0; deficit=0
+dayMasterStrength:yongshinAlignment: 15/15 covered (1)
+  authored pair hits: 597; thin=0; deficit=0
+gyeokguk:dayMasterStrength: 30/30 covered (1)
+  authored pair hits: 353; thin=0; deficit=0
+yongshinElement:yongshinAlignment: 15/15 covered (1)
+  authored pair hits: 30; thin=0; deficit=0
+
+=== ci:narrative-tuple-density [branch=p20-a5-comprehensive-audit head=c4e65aa] ===
+Narrative Axis Tuple Report
+Bundles: 345
+Fragments: 4077 total, 3912 authored
+Tuples: 3
+Missing tuple combinations: 0
+Thin tuple combinations (<2 authored): 0, deficit=0
+
+birthSeason:currentSeason:yongshinAlignment: 48/48 covered (1)
+  authored tuple hits: 96; missing=0; thin=0; deficit=0
+dayMasterElement:yongshinElement:dayMasterStrength: 125/125 covered (1)
+  authored tuple hits: 250; missing=0; thin=0; deficit=0
+gyeokguk:dayMasterStrength:dayMasterElement: 150/150 covered (1)
+  authored tuple hits: 300; missing=0; thin=0; deficit=0
+
+=== ci:narrative-daymaster-tuple-density [branch=p20-a5-comprehensive-audit head=c4e65aa] ===
+Narrative Axis Tuple Report
+Bundles: 345
+Fragments: 4077 total, 3912 authored
+Tuples: 1
+Missing tuple combinations: 0
+Thin tuple combinations (<2 authored): 0, deficit=0
+
+dayMasterElement:yongshinElement:dayMasterStrength: 125/125 covered (1)
+  authored tuple hits: 250; missing=0; thin=0; deficit=0
+
+=== ci:narrative-cell-axis [branch=p20-a5-comprehensive-audit head=c4e65aa] ===
+Narrative Cell Axis Report
+Bundles: 345
+Fragments: 4077 total, 3912 authored
+Cells: 165
+Missing audience cells: 0
+Missing sajuCore cells: 0
+Missing seasonContext cells: 0
+
+=== ci:hook-coverage [branch=p20-a5-comprehensive-audit head=c4e65aa] ===
+brief.hook coverage: samples=32, samplesDir=artifacts/sample-outputs-2026-05-05-phase3
+  authored: 34 fragments / 34 distinct hook strings
+  emitted:  294 cells / 34 selected fragmentIds / 34 distinct hook strings
+  dormant by fragmentId slot: 0
+  dormant by hook text:        0 (diagnostic only)
+
+Lowest emit-count tail (fragility — first to fall on regression):
+  4  family.today.brief.young.003
+  4  health.today.brief.strong.elder.001
+  4  romance.thisYear.brief.midlife.001
+  4  study_document.today.brief.adult.005
+  2  wealth.thisYear.brief.balanced.neutral.004
+
+=== ci:samples-stale [branch=p20-a5-comprehensive-audit head=c4e65aa] ===
+Samples stale: FAIL
+  sampleFiles=37
+  violations=15
+  FAIL artifacts/sample-outputs-2026-05-05-phase3/05-park-minji-late-night-female-tiered.json: regenerated sample differs from committed sample after masking generatedAt/outputDirectory
+    firstDivergenceOffset=306451
+  FAIL artifacts/sample-outputs-2026-05-05-phase3/06-lee-hajun-unknown-hour-neutral-tiered.json: regenerated sample differs from committed sample after masking generatedAt/outputDirectory
+    firstDivergenceOffset=308345
+  FAIL artifacts/sample-outputs-2026-05-05-phase3/09-kim-seongsu-special-format-candidate-tiered.json: regenerated sample differs from committed sample after masking generatedAt/outputDirectory
+    firstDivergenceOffset=316796
+  FAIL artifacts/sample-outputs-2026-05-05-phase3/10-choi-yaza-boundary-male-tiered.json: regenerated sample differs from committed sample after masking generatedAt/outputDirectory
+    firstDivergenceOffset=307605
+  FAIL artifacts/sample-outputs-2026-05-05-phase3/13-oh-extreme-weak-continuous-tiered.json: regenerated sample differs from committed sample after masking generatedAt/outputDirectory
+    firstDivergenceOffset=313446
+  FAIL artifacts/sample-outputs-2026-05-05-phase3/14-choi-palace-naeum-surface-tiered.json: regenerated sample differs from committed sample after masking generatedAt/outputDirectory
+    firstDivergenceOffset=22484
+  FAIL artifacts/sample-outputs-2026-05-05-phase3/17-kim-senior-female-tiered.json: regenerated sample differs from committed sample after masking generatedAt/outputDirectory
+    firstDivergenceOffset=309141
+  FAIL artifacts/sample-outputs-2026-05-05-phase3/23-jonggyeok-jongwang-yeomsang-tiered.json: regenerated sample differs from committed sample after masking generatedAt/outputDirectory
+    firstDivergenceOffset=309555
+  FAIL artifacts/sample-outputs-2026-05-05-phase3/25-jonggyeok-jonggwan-tiered.json: regenerated sample differs from committed sample after masking generatedAt/outputDirectory
+    firstDivergenceOffset=39271
+  FAIL artifacts/sample-outputs-2026-05-05-phase3/28-jonggyeok-jonggang-tiered.json: regenerated sample differs from committed sample after masking generatedAt/outputDirectory
+    firstDivergenceOffset=312953
+  FAIL artifacts/sample-outputs-2026-05-05-phase3/29-pure-hangul-name-tiered.json: regenerated sample differs from committed sample after masking generatedAt/outputDirectory
+    firstDivergenceOffset=309424
+  FAIL artifacts/sample-outputs-2026-05-05-phase3/32-nonagenarian-weak-daymaster-tiered.json: regenerated sample differs from committed sample after masking generatedAt/outputDirectory
+    firstDivergenceOffset=310881
+  FAIL artifacts/sample-outputs-2026-05-05-phase3/33-consensus-aware-multi-axis-combined-tiered.json: regenerated sample differs from committed sample after masking generatedAt/outputDirectory
+    firstDivergenceOffset=308519
+  FAIL artifacts/sample-outputs-2026-05-05-phase3/35-palace-naeum-female-mid-tiered.json: regenerated sample differs from committed sample after masking generatedAt/outputDirectory
+    firstDivergenceOffset=102067
+  FAIL artifacts/sample-outputs-2026-05-05-phase3/index.json: regenerated sample differs from committed sample after masking generatedAt/outputDirectory
+    firstDivergenceOffset=10126
+
+=== test:namespring-compat [branch=p20-a5-comprehensive-audit head=c4e65aa] ===
+  PASS tieredMatrix.periods.today.byCategory has 10 keys (10)
+  PASS tieredMatrix.periods.thisWeek present
+  PASS tieredMatrix.periods.thisWeek.byCategory has 10 keys (10)
+  PASS tieredMatrix.periods.thisMonth present
+  PASS tieredMatrix.periods.thisMonth.byCategory has 10 keys (10)
+  PASS tieredMatrix.periods.thisYear present
+  PASS tieredMatrix.periods.thisYear.byCategory has 10 keys (10)
+  PASS tieredMatrix.glossary.entries covers used report tags (54/54)
+
+NameSpring compat: 202 PASS / 0 FAIL
+
+=== final identity check ===
+branch: p20-a5-comprehensive-audit
+head: c4e65aa
