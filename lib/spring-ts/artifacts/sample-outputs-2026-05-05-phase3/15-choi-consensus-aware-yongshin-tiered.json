@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-05-07T11:15:32.274Z",
+  "generatedAt": "2026-05-07T11:21:34.470Z",
   "targetDate": "2026-05-05T00:00:00+09:00",
   "sampleId": "choi-consensus-aware-yongshin-tiered",
   "description": "yongshinMode=consensus_aware 활성 시나리오. 독립 명리 방법이 엇갈리는 사주에서 consensus scoreboard 를 블렌딩한 posture 및 per-axis 근거를 tieredMatrix 와 함께 노출하는 케이스.",
@@ -1319,7 +1319,7 @@
     },
     "meta": {
       "version": "1.0.0",
-      "generatedAt": "2026-05-07T11:15:41.240Z",
+      "generatedAt": "2026-05-07T11:21:42.080Z",
       "schoolPreset": {
         "selected": "korean",
         "source": "default",
@@ -5961,10 +5961,10 @@
                   "tokens": [
                     {
                       "kind": "text",
-                      "value": "무리해서 새 변화를 만들기보다 익숙한 페이스를 지키는 게 잘 맞아요."
+                      "value": "새 변화를 무리해서 만들지 않고, 익숙한 페이스를 한 주 동안 지키는 흐름이 잘 맞아요."
                     }
                   ],
-                  "plainText": "무리해서 새 변화를 만들기보다 익숙한 페이스를 지키는 게 잘 맞아요."
+                  "plainText": "새 변화를 무리해서 만들지 않고, 익숙한 페이스를 한 주 동안 지키는 흐름이 잘 맞아요."
                 },
                 {
                   "tokens": [
@@ -7199,10 +7199,10 @@
                     "tokens": [
                       {
                         "kind": "text",
-                        "value": "이번 주는 도와줄 사람·기관·자료를 떠올려 한 가지를 풀어 가기 좋은 시기예요. 혼자 다 짊어지기보다 한 번 도움을 청하는 페이스가 잘 맞아요."
+                        "value": "이번 주는 도와줄 사람·기관·자료를 떠올려 한 가지를 풀어 가기 좋은 시기예요. 무거운 짐을 혼자 떠안는 흐름이 아니라, 한 번 도움을 청하는 페이스가 한결 잘 맞아요."
                       }
                     ],
-                    "plainText": "이번 주는 도와줄 사람·기관·자료를 떠올려 한 가지를 풀어 가기 좋은 시기예요. 혼자 다 짊어지기보다 한 번 도움을 청하는 페이스가 잘 맞아요."
+                    "plainText": "이번 주는 도와줄 사람·기관·자료를 떠올려 한 가지를 풀어 가기 좋은 시기예요. 무거운 짐을 혼자 떠안는 흐름이 아니라, 한 번 도움을 청하는 페이스가 한결 잘 맞아요."
                   },
                   {
                     "tokens": [
@@ -12851,7 +12851,7 @@
       },
       "meta": {
         "schemaVersion": "spring-ts.tiered-matrix.v1",
-        "generatedAt": "2026-05-07T11:15:41.240Z",
+        "generatedAt": "2026-05-07T11:21:42.080Z",
         "selectionSeed": "1986|4|19|5|45|male|2026-05-04T15:00:00.000Z",
         "templateContractVersion": "1.0.0",
         "contentSource": "authored",
