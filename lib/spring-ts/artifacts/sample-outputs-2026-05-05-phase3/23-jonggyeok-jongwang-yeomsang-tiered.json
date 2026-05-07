@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-05-07T12:51:23.988Z",
+  "generatedAt": "2026-05-07T12:50:51.880Z",
   "targetDate": "2026-05-05T00:00:00+09:00",
   "sampleId": "jonggyeok-jongwang-yeomsang-tiered",
   "description": "입력 의도: 從旺격 (一氣格 / 炎上格 火) 계열. fix-jong-02 (1942-06-23 15:00) 좌표를 차용 — 火 일간이 寅午戌 부분 火局 + 丙午 月柱 로 단일 火氣 압도. 최종 외격 판정은 엔진이 결정한다.",
@@ -1277,7 +1277,7 @@
     },
     "meta": {
       "version": "1.0.0",
-      "generatedAt": "2026-05-07T12:51:35.398Z",
+      "generatedAt": "2026-05-07T12:51:02.573Z",
       "schoolPreset": {
         "selected": "korean",
         "source": "default",
@@ -3949,6 +3949,15 @@
                       }
                     ],
                     "plainText": "주의할 점은 갑작스런 큰 권유예요. 익숙하지 않은 흐름은 한 달 두고 살피면 좋아요."
+                  },
+                  {
+                    "tokens": [
+                      {
+                        "kind": "text",
+                        "value": "권유받은 자리를 한 박자 미루었다고 해서 기회를 놓친 것은 아니에요. 충분히 다져 온 시기엔 한 번 더 살펴보는 시간이 자기 자산을 가장 단단하게 지켜 주는 결정이 되고, 자기 자리에서 누리는 일이 가장 자연스러운 호흡이 돼요."
+                      }
+                    ],
+                    "plainText": "권유받은 자리를 한 박자 미루었다고 해서 기회를 놓친 것은 아니에요. 충분히 다져 온 시기엔 한 번 더 살펴보는 시간이 자기 자산을 가장 단단하게 지켜 주는 결정이 되고, 자기 자리에서 누리는 일이 가장 자연스러운 호흡이 돼요."
                   }
                 ],
                 "livingTips": [
@@ -13080,7 +13089,7 @@
       },
       "meta": {
         "schemaVersion": "spring-ts.tiered-matrix.v1",
-        "generatedAt": "2026-05-07T12:51:35.398Z",
+        "generatedAt": "2026-05-07T12:51:02.573Z",
         "selectionSeed": "1942|6|23|15|0|male|2026-05-04T15:00:00.000Z",
         "templateContractVersion": "1.0.0",
         "contentSource": "authored",
