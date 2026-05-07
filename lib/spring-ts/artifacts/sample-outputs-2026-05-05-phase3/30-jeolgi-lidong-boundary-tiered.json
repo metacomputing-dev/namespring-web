@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-05-07T15:37:28.370Z",
+  "generatedAt": "2026-05-07T15:57:33.193Z",
   "targetDate": "2026-05-05T00:00:00+09:00",
   "sampleId": "jeolgi-lidong-boundary-tiered",
   "description": "입동(立冬) 절기 경계 직전 출생 (2026 입동 = 11/07 18:52 KST, 본 입력은 ±0.5 day 내). fortuneCascadeMode=jie_based 로 jie 경계 day-precision 활성, 月柱 戌→亥 분기 부근 elasticity 와 tieredMatrix 결합.",
@@ -1307,7 +1307,7 @@
     },
     "meta": {
       "version": "1.0.0",
-      "generatedAt": "2026-05-07T15:37:43.070Z",
+      "generatedAt": "2026-05-07T15:57:46.436Z",
       "schoolPreset": {
         "selected": "korean",
         "source": "default",
@@ -10596,7 +10596,7 @@
       },
       "meta": {
         "schemaVersion": "spring-ts.tiered-matrix.v1",
-        "generatedAt": "2026-05-07T15:37:43.070Z",
+        "generatedAt": "2026-05-07T15:57:46.435Z",
         "selectionSeed": "2026|11|7|18|30|male|2026-05-04T15:00:00.000Z",
         "templateContractVersion": "1.0.0",
         "contentSource": "authored",
