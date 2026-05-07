@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-05-07T16:39:26.851Z",
+  "generatedAt": "2026-05-07T16:45:27.551Z",
   "targetDate": "2026-05-05T00:00:00+09:00",
   "sampleId": "gyeokguk-conflict-jeonggwan-vs-bigyeop-tiered",
   "description": "격국 충돌 case 1: 정관 후보와 비견(겁재) 후보가 같이 잡히기 쉬운 입력. gyeokgukSelectionRule=jungki_transparent 로 월지 중기 투간 룰을 활성화하여 후보 ranking 의 elasticity 를 노출하는 케이스. 최종 격국 판정은 엔진이 결정한다.",
@@ -1303,7 +1303,7 @@
     },
     "meta": {
       "version": "1.0.0",
-      "generatedAt": "2026-05-07T16:39:36.568Z",
+      "generatedAt": "2026-05-07T16:45:37.455Z",
       "schoolPreset": {
         "selected": "korean",
         "source": "default",
@@ -3703,6 +3703,15 @@
                     }
                   ],
                   "plainText": "일상의 작은 흐름을 정리해 두면, 다음 며칠이 한결 가벼워져요."
+                },
+                {
+                  "tokens": [
+                    {
+                      "kind": "text",
+                      "value": "비유하자면 오늘은 잔잔한 호숫가에 작은 조약돌 하나를 살며시 놓아 두는 자리예요. 큰 파동을 만들지 않아도 한 점의 자취가 천천히 퍼져 자기 페이스의 자리를 부드럽게 받쳐 줘요."
+                    }
+                  ],
+                  "plainText": "비유하자면 오늘은 잔잔한 호숫가에 작은 조약돌 하나를 살며시 놓아 두는 자리예요. 큰 파동을 만들지 않아도 한 점의 자취가 천천히 퍼져 자기 페이스의 자리를 부드럽게 받쳐 줘요."
                 },
                 {
                   "tokens": [
@@ -7295,6 +7304,15 @@
                       }
                     ],
                     "plainText": "주 초반에 한 주의 흐름을 짧게 적어 두고, 주말에 다시 한 번 점검해 두면 자리의 중심이 한결 깔끔해져요. 새 자극이 들어와도 일단 메모해 두고 다음 주로 넘기는 흐름이 잘 맞아요."
+                  },
+                  {
+                    "tokens": [
+                      {
+                        "kind": "text",
+                        "value": "비유하자면 이번 주는 자기 책상 위 서랍 한 칸을 가지런히 다듬어 두는 자리예요. 굳이 큰 가구를 옮기지 않아도 작은 서랍의 정돈이 다음 주 자기 손길의 속도를 한 뼘 빠르게 만들어 줘요."
+                      }
+                    ],
+                    "plainText": "비유하자면 이번 주는 자기 책상 위 서랍 한 칸을 가지런히 다듬어 두는 자리예요. 굳이 큰 가구를 옮기지 않아도 작은 서랍의 정돈이 다음 주 자기 손길의 속도를 한 뼘 빠르게 만들어 줘요."
                   },
                   {
                     "tokens": [
@@ -13161,7 +13179,7 @@
       },
       "meta": {
         "schemaVersion": "spring-ts.tiered-matrix.v1",
-        "generatedAt": "2026-05-07T16:39:36.568Z",
+        "generatedAt": "2026-05-07T16:45:37.455Z",
         "selectionSeed": "1985|5|25|8|45|male|2026-05-04T15:00:00.000Z",
         "templateContractVersion": "1.0.0",
         "contentSource": "authored",

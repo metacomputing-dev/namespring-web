@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-05-07T16:39:26.851Z",
+  "generatedAt": "2026-05-07T16:45:27.551Z",
   "targetDate": "2026-05-05T00:00:00+09:00",
   "sampleId": "gyeokguk-conflict-multi-confidence-tiered",
   "description": "격국 충돌 + 다중 confidence 시나리오 — gyeokgukSelectionRule=jungki_transparent + gyeokgukMode=chengbai_strict + yongshinMode=consensus_aware 결합. 월지 중기 투간 후보와 chengbai 페널티 smooth tanh 곡선이 동시에 ranking 에 작용하는 elasticity 노출 케이스.",
@@ -1309,7 +1309,7 @@
     },
     "meta": {
       "version": "1.0.0",
-      "generatedAt": "2026-05-07T16:39:41.449Z",
+      "generatedAt": "2026-05-07T16:45:42.317Z",
       "schoolPreset": {
         "selected": "korean",
         "source": "default",
@@ -3722,6 +3722,15 @@
                     }
                   ],
                   "plainText": "일상의 작은 흐름을 정리해 두면, 다음 며칠이 한결 가벼워져요."
+                },
+                {
+                  "tokens": [
+                    {
+                      "kind": "text",
+                      "value": "비유하자면 오늘은 잔잔한 호숫가에 작은 조약돌 하나를 살며시 놓아 두는 자리예요. 큰 파동을 만들지 않아도 한 점의 자취가 천천히 퍼져 자기 페이스의 자리를 부드럽게 받쳐 줘요."
+                    }
+                  ],
+                  "plainText": "비유하자면 오늘은 잔잔한 호숫가에 작은 조약돌 하나를 살며시 놓아 두는 자리예요. 큰 파동을 만들지 않아도 한 점의 자취가 천천히 퍼져 자기 페이스의 자리를 부드럽게 받쳐 줘요."
                 },
                 {
                   "tokens": [
@@ -7189,6 +7198,15 @@
                       }
                     ],
                     "plainText": "주 초반에 한 주의 흐름을 짧게 적어 두고, 주말에 다시 한 번 점검해 두면 자리의 중심이 한결 깔끔해져요. 새 자극이 들어와도 일단 메모해 두고 다음 주로 넘기는 흐름이 잘 맞아요."
+                  },
+                  {
+                    "tokens": [
+                      {
+                        "kind": "text",
+                        "value": "비유하자면 이번 주는 자기 책상 위 서랍 한 칸을 가지런히 다듬어 두는 자리예요. 굳이 큰 가구를 옮기지 않아도 작은 서랍의 정돈이 다음 주 자기 손길의 속도를 한 뼘 빠르게 만들어 줘요."
+                      }
+                    ],
+                    "plainText": "비유하자면 이번 주는 자기 책상 위 서랍 한 칸을 가지런히 다듬어 두는 자리예요. 굳이 큰 가구를 옮기지 않아도 작은 서랍의 정돈이 다음 주 자기 손길의 속도를 한 뼘 빠르게 만들어 줘요."
                   },
                   {
                     "tokens": [
@@ -13056,7 +13074,7 @@
       },
       "meta": {
         "schemaVersion": "spring-ts.tiered-matrix.v1",
-        "generatedAt": "2026-05-07T16:39:41.449Z",
+        "generatedAt": "2026-05-07T16:45:42.317Z",
         "selectionSeed": "1976|6|22|13|15|male|2026-05-04T15:00:00.000Z",
         "templateContractVersion": "1.0.0",
         "contentSource": "authored",
