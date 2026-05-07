@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-05-07T11:32:06.502Z",
+  "generatedAt": "2026-05-07T11:50:31.536Z",
   "targetDate": "2026-05-05T00:00:00+09:00",
   "sampleId": "jonggyeok-jonggang-tiered",
   "description": "입력 의도: 從强격 (비겁+인성 강) 계열. fix-jong-09 (1938-08-05 03:00) 좌표 — 己土 일간 + 戊己 비겁 + 未巳丑 토화 지지 + 火 인성 보조. 從旺(비겁만) 과 從强(비겁+인성) 의 경계 입력. 최종 외격 판정은 엔진이 결정한다.",
@@ -1337,7 +1337,7 @@
     },
     "meta": {
       "version": "1.0.0",
-      "generatedAt": "2026-05-07T11:32:19.483Z",
+      "generatedAt": "2026-05-07T11:50:44.420Z",
       "schoolPreset": {
         "selected": "korean",
         "source": "default",
@@ -13042,7 +13042,7 @@
       },
       "meta": {
         "schemaVersion": "spring-ts.tiered-matrix.v1",
-        "generatedAt": "2026-05-07T11:32:19.483Z",
+        "generatedAt": "2026-05-07T11:50:44.420Z",
         "selectionSeed": "1938|8|5|3|0|male|2026-05-04T15:00:00.000Z",
         "templateContractVersion": "1.0.0",
         "contentSource": "authored",
