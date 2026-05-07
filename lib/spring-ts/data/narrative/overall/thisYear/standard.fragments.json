@@ -555,6 +555,46 @@
         "copyrightNote": "No source prose copied; original phrasing.",
         "authorityTruthEligible": false
       }
+    },
+    {
+      "schemaVersion": "spring-ts.narrative-fragment.v1",
+      "fragmentId": "overall.thisYear.standard.teen.001",
+      "axis": {
+        "category": "overall",
+        "period": "thisYear",
+        "depth": "standard"
+      },
+      "gating": {
+        "ageBand": [
+          "10-19"
+        ]
+      },
+      "templateTokens": [
+        {
+          "kind": "text",
+          "value": "올해는 학교·관심사·관계 사이에서 자기 색이 또렷이 자라는 한 해예요. 한 해라는 단위는 한두 가지 좋아하는 활동을 깊이 익히기 좋은 시간이라, 하나의 관심사를 길게 이어 가면 자기 자리가 단단해져요.\n\n비유하자면 한 해라는 시간을 사계절로 나누어 화분을 살피는 흐름이에요. 봄·여름·가을·겨울마다 자기 마음의 결이 살짝씩 다른데, 그 결의 변화를 작은 글이나 사진으로 남겨 두면 한 해 끝의 자기 자리가 또렷해져요.\n\n친구 관계, 학업, 집안의 변화로 마음의 결이 들썩일 때, 자기 감정을 가족이나 가까운 어른과 한 줄로 나눠 두는 자리가 큰 도움이 돼요. 한 해 동안 좋아하는 활동을 한두 가지 깊게 이어 가는 자리가 평생 갈 자기 색의 토대가 돼요."
+        }
+      ],
+      "tags": [],
+      "livingTips": [
+        "좋아하는 활동 한두 가지를 한 해 이어 가기",
+        "계절마다 마음 결을 짧은 글로 남기기",
+        "마음 신호는 가까운 어른과 나누기"
+      ],
+      "cautions": [
+        "친구 페이스에 자기를 끌려가지 않기"
+      ],
+      "aiGenerated": true,
+      "sourceTier": {
+        "tier": "T1_HYPOTHESIS",
+        "sourceType": "training_derived",
+        "sourceUrl": null,
+        "accessedAt": "2026-05-07",
+        "quoteShort": null,
+        "humanInterpretation": "Phase 22 agent-A2 (overall) standard thisYear: teen 10-19. School/interest/feeling frame for minor floor closure. Display-only narrative.",
+        "copyrightNote": "No source prose copied; original phrasing.",
+        "authorityTruthEligible": false
+      }
     }
   ]
 }
