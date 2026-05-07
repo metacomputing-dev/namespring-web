@@ -1,0 +1,570 @@
+{
+  "generatedAt": "2026-05-07T11:13:08.074Z",
+  "scope": "expert.fragments.json templateTokens paragraph distribution per category x period (P28-A5 baseline for P28-A2 target)",
+  "totals": {
+    "expertFragments": 558,
+    "paragraphsTotal": 4075
+  },
+  "paragraphsPerFragmentHistogram": {
+    "4": 8,
+    "5": 70,
+    "6": 100,
+    "7": 129,
+    "8": 124,
+    "9": 95,
+    "10": 16,
+    "11": 9,
+    "12": 7
+  },
+  "perCategoryPeriodExpert": {
+    "academic.today": {
+      "fragments": 10,
+      "paragraphSum": 75,
+      "histLocal": {
+        "6": 2,
+        "7": 2,
+        "8": 5,
+        "9": 1
+      }
+    },
+    "academic.thisWeek": {
+      "fragments": 8,
+      "paragraphSum": 60,
+      "histLocal": {
+        "6": 1,
+        "7": 4,
+        "8": 2,
+        "10": 1
+      }
+    },
+    "academic.thisMonth": {
+      "fragments": 8,
+      "paragraphSum": 56,
+      "histLocal": {
+        "5": 1,
+        "6": 1,
+        "7": 3,
+        "8": 3
+      }
+    },
+    "academic.thisYear": {
+      "fragments": 11,
+      "paragraphSum": 74,
+      "histLocal": {
+        "5": 2,
+        "6": 3,
+        "7": 2,
+        "8": 4
+      }
+    },
+    "academic.life": {
+      "fragments": 12,
+      "paragraphSum": 77,
+      "histLocal": {
+        "5": 4,
+        "6": 4,
+        "7": 3,
+        "12": 1
+      }
+    },
+    "career.today": {
+      "fragments": 8,
+      "paragraphSum": 61,
+      "histLocal": {
+        "7": 4,
+        "8": 3,
+        "9": 1
+      }
+    },
+    "career.thisWeek": {
+      "fragments": 8,
+      "paragraphSum": 61,
+      "histLocal": {
+        "7": 5,
+        "8": 1,
+        "9": 2
+      }
+    },
+    "career.thisMonth": {
+      "fragments": 8,
+      "paragraphSum": 61,
+      "histLocal": {
+        "7": 5,
+        "8": 1,
+        "9": 2
+      }
+    },
+    "career.thisYear": {
+      "fragments": 8,
+      "paragraphSum": 59,
+      "histLocal": {
+        "6": 1,
+        "7": 4,
+        "8": 2,
+        "9": 1
+      }
+    },
+    "career.life": {
+      "fragments": 9,
+      "paragraphSum": 56,
+      "histLocal": {
+        "5": 1,
+        "6": 7,
+        "9": 1
+      }
+    },
+    "expression_children.today": {
+      "fragments": 9,
+      "paragraphSum": 75,
+      "histLocal": {
+        "7": 2,
+        "8": 3,
+        "9": 3,
+        "10": 1
+      }
+    },
+    "expression_children.thisWeek": {
+      "fragments": 9,
+      "paragraphSum": 70,
+      "histLocal": {
+        "7": 4,
+        "8": 3,
+        "9": 2
+      }
+    },
+    "expression_children.thisMonth": {
+      "fragments": 9,
+      "paragraphSum": 70,
+      "histLocal": {
+        "7": 4,
+        "8": 3,
+        "9": 2
+      }
+    },
+    "expression_children.thisYear": {
+      "fragments": 10,
+      "paragraphSum": 82,
+      "histLocal": {
+        "7": 4,
+        "8": 2,
+        "9": 3,
+        "11": 1
+      }
+    },
+    "expression_children.life": {
+      "fragments": 11,
+      "paragraphSum": 87,
+      "histLocal": {
+        "6": 2,
+        "7": 2,
+        "8": 3,
+        "9": 3,
+        "10": 1
+      }
+    },
+    "family.today": {
+      "fragments": 10,
+      "paragraphSum": 83,
+      "histLocal": {
+        "7": 1,
+        "8": 5,
+        "9": 4
+      }
+    },
+    "family.thisWeek": {
+      "fragments": 10,
+      "paragraphSum": 82,
+      "histLocal": {
+        "6": 1,
+        "7": 1,
+        "8": 4,
+        "9": 3,
+        "10": 1
+      }
+    },
+    "family.thisMonth": {
+      "fragments": 10,
+      "paragraphSum": 84,
+      "histLocal": {
+        "7": 1,
+        "8": 5,
+        "9": 3,
+        "10": 1
+      }
+    },
+    "family.thisYear": {
+      "fragments": 11,
+      "paragraphSum": 94,
+      "histLocal": {
+        "7": 1,
+        "8": 4,
+        "9": 5,
+        "10": 1
+      }
+    },
+    "family.life": {
+      "fragments": 13,
+      "paragraphSum": 97,
+      "histLocal": {
+        "6": 4,
+        "7": 4,
+        "8": 2,
+        "9": 2,
+        "11": 1
+      }
+    },
+    "health.today": {
+      "fragments": 9,
+      "paragraphSum": 63,
+      "histLocal": {
+        "6": 4,
+        "7": 3,
+        "8": 1,
+        "10": 1
+      }
+    },
+    "health.thisWeek": {
+      "fragments": 9,
+      "paragraphSum": 60,
+      "histLocal": {
+        "5": 1,
+        "6": 4,
+        "7": 3,
+        "10": 1
+      }
+    },
+    "health.thisMonth": {
+      "fragments": 9,
+      "paragraphSum": 58,
+      "histLocal": {
+        "5": 2,
+        "6": 3,
+        "7": 3,
+        "9": 1
+      }
+    },
+    "health.thisYear": {
+      "fragments": 13,
+      "paragraphSum": 90,
+      "histLocal": {
+        "5": 2,
+        "6": 5,
+        "7": 2,
+        "8": 3,
+        "12": 1
+      }
+    },
+    "health.life": {
+      "fragments": 11,
+      "paragraphSum": 82,
+      "histLocal": {
+        "5": 1,
+        "6": 4,
+        "8": 4,
+        "9": 1,
+        "12": 1
+      }
+    },
+    "health_stress.today": {
+      "fragments": 10,
+      "paragraphSum": 80,
+      "histLocal": {
+        "6": 2,
+        "7": 1,
+        "8": 3,
+        "9": 3,
+        "10": 1
+      }
+    },
+    "health_stress.thisWeek": {
+      "fragments": 10,
+      "paragraphSum": 82,
+      "histLocal": {
+        "6": 1,
+        "7": 2,
+        "8": 2,
+        "9": 4,
+        "10": 1
+      }
+    },
+    "health_stress.thisMonth": {
+      "fragments": 10,
+      "paragraphSum": 85,
+      "histLocal": {
+        "7": 3,
+        "8": 3,
+        "9": 2,
+        "11": 2
+      }
+    },
+    "health_stress.thisYear": {
+      "fragments": 10,
+      "paragraphSum": 86,
+      "histLocal": {
+        "6": 1,
+        "7": 1,
+        "8": 1,
+        "9": 6,
+        "11": 1
+      }
+    },
+    "health_stress.life": {
+      "fragments": 11,
+      "paragraphSum": 88,
+      "histLocal": {
+        "7": 6,
+        "8": 2,
+        "9": 2,
+        "12": 1
+      }
+    },
+    "movement.today": {
+      "fragments": 10,
+      "paragraphSum": 59,
+      "histLocal": {
+        "5": 5,
+        "6": 2,
+        "7": 2,
+        "8": 1
+      }
+    },
+    "movement.thisWeek": {
+      "fragments": 10,
+      "paragraphSum": 57,
+      "histLocal": {
+        "5": 5,
+        "6": 3,
+        "7": 2
+      }
+    },
+    "movement.thisMonth": {
+      "fragments": 10,
+      "paragraphSum": 58,
+      "histLocal": {
+        "5": 5,
+        "6": 3,
+        "7": 1,
+        "8": 1
+      }
+    },
+    "movement.thisYear": {
+      "fragments": 10,
+      "paragraphSum": 57,
+      "histLocal": {
+        "5": 5,
+        "6": 3,
+        "7": 2
+      }
+    },
+    "movement.life": {
+      "fragments": 11,
+      "paragraphSum": 66,
+      "histLocal": {
+        "5": 5,
+        "6": 4,
+        "7": 1,
+        "10": 1
+      }
+    },
+    "overall.today": {
+      "fragments": 13,
+      "paragraphSum": 108,
+      "histLocal": {
+        "7": 1,
+        "8": 7,
+        "9": 5
+      }
+    },
+    "overall.thisWeek": {
+      "fragments": 13,
+      "paragraphSum": 107,
+      "histLocal": {
+        "7": 2,
+        "8": 7,
+        "9": 3,
+        "10": 1
+      }
+    },
+    "overall.thisMonth": {
+      "fragments": 13,
+      "paragraphSum": 107,
+      "histLocal": {
+        "7": 3,
+        "8": 4,
+        "9": 6
+      }
+    },
+    "overall.thisYear": {
+      "fragments": 13,
+      "paragraphSum": 108,
+      "histLocal": {
+        "6": 1,
+        "7": 2,
+        "8": 5,
+        "9": 3,
+        "10": 1,
+        "11": 1
+      }
+    },
+    "overall.life": {
+      "fragments": 20,
+      "paragraphSum": 157,
+      "histLocal": {
+        "5": 1,
+        "6": 1,
+        "7": 7,
+        "8": 4,
+        "9": 6,
+        "11": 1
+      }
+    },
+    "romance.today": {
+      "fragments": 8,
+      "paragraphSum": 60,
+      "histLocal": {
+        "6": 3,
+        "7": 1,
+        "8": 1,
+        "9": 3
+      }
+    },
+    "romance.thisWeek": {
+      "fragments": 8,
+      "paragraphSum": 63,
+      "histLocal": {
+        "6": 2,
+        "7": 2,
+        "8": 2,
+        "9": 1,
+        "12": 1
+      }
+    },
+    "romance.thisMonth": {
+      "fragments": 8,
+      "paragraphSum": 64,
+      "histLocal": {
+        "6": 1,
+        "7": 3,
+        "8": 2,
+        "10": 1,
+        "11": 1
+      }
+    },
+    "romance.thisYear": {
+      "fragments": 12,
+      "paragraphSum": 101,
+      "histLocal": {
+        "6": 1,
+        "7": 2,
+        "8": 3,
+        "9": 5,
+        "12": 1
+      }
+    },
+    "romance.life": {
+      "fragments": 11,
+      "paragraphSum": 94,
+      "histLocal": {
+        "7": 5,
+        "8": 1,
+        "9": 2,
+        "10": 1,
+        "11": 1,
+        "12": 1
+      }
+    },
+    "study_document.today": {
+      "fragments": 10,
+      "paragraphSum": 50,
+      "histLocal": {
+        "4": 2,
+        "5": 6,
+        "6": 2
+      }
+    },
+    "study_document.thisWeek": {
+      "fragments": 10,
+      "paragraphSum": 50,
+      "histLocal": {
+        "4": 2,
+        "5": 6,
+        "6": 2
+      }
+    },
+    "study_document.thisMonth": {
+      "fragments": 10,
+      "paragraphSum": 50,
+      "histLocal": {
+        "4": 2,
+        "5": 6,
+        "6": 2
+      }
+    },
+    "study_document.thisYear": {
+      "fragments": 12,
+      "paragraphSum": 61,
+      "histLocal": {
+        "4": 2,
+        "5": 7,
+        "6": 3
+      }
+    },
+    "study_document.life": {
+      "fragments": 13,
+      "paragraphSum": 76,
+      "histLocal": {
+        "5": 5,
+        "6": 5,
+        "7": 3
+      }
+    },
+    "wealth.today": {
+      "fragments": 8,
+      "paragraphSum": 58,
+      "histLocal": {
+        "6": 2,
+        "7": 2,
+        "8": 4
+      }
+    },
+    "wealth.thisWeek": {
+      "fragments": 7,
+      "paragraphSum": 52,
+      "histLocal": {
+        "6": 2,
+        "7": 2,
+        "8": 1,
+        "9": 2
+      }
+    },
+    "wealth.thisMonth": {
+      "fragments": 7,
+      "paragraphSum": 52,
+      "histLocal": {
+        "6": 2,
+        "7": 2,
+        "8": 1,
+        "9": 2
+      }
+    },
+    "wealth.thisYear": {
+      "fragments": 8,
+      "paragraphSum": 58,
+      "histLocal": {
+        "6": 2,
+        "7": 2,
+        "8": 4
+      }
+    },
+    "wealth.life": {
+      "fragments": 9,
+      "paragraphSum": 64,
+      "histLocal": {
+        "6": 4,
+        "7": 2,
+        "8": 2,
+        "10": 1
+      }
+    }
+  }
+}
