@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-05-07T09:59:05.399Z",
+  "generatedAt": "2026-05-07T10:03:51.711Z",
   "targetDate": "2026-05-05T00:00:00+09:00",
   "sampleId": "jonggyeok-jongwang-yeomsang-tiered",
   "description": "입력 의도: 從旺격 (一氣格 / 炎上格 火) 계열. fix-jong-02 (1942-06-23 15:00) 좌표를 차용 — 火 일간이 寅午戌 부분 火局 + 丙午 月柱 로 단일 火氣 압도. 최종 외격 판정은 엔진이 결정한다.",
@@ -1277,7 +1277,7 @@
     },
     "meta": {
       "version": "1.0.0",
-      "generatedAt": "2026-05-07T09:59:15.939Z",
+      "generatedAt": "2026-05-07T10:04:02.790Z",
       "schoolPreset": {
         "selected": "korean",
         "source": "default",
@@ -1480,7 +1480,8 @@
               "meaningfulness": "meaningful",
               "stars": 1,
               "brief": {
-                "headline": "후반기의 재물은 주변과 나누는 리듬이 자연스러워져요."
+                "headline": "오랜 인연과의 거래가 큰 자산으로 이어지는 시간이에요.",
+                "hook": "오랜 거래처와 안부를 나눠요."
               },
               "standard": {
                 "paragraphs": [
@@ -1675,11 +1676,18 @@
               },
               "selectedFragments": {
                 "brief": {
-                  "fragmentId": "wealth.life.brief.55_69.009",
+                  "fragmentId": "wealth.life.brief.male.senior.strong.014",
                   "gating": {
+                    "gender": [
+                      "male"
+                    ],
                     "ageBand": [
                       "55-69",
                       "70+"
+                    ],
+                    "dayMasterStrength": [
+                      "STRONG",
+                      "EXTREME_STRONG"
                     ]
                   },
                   "tags": []
@@ -1926,15 +1934,6 @@
                       }
                     ],
                     "plainText": "자녀·손주와 함께 읽고, 동네 모임에서 한 줄씩 나누는 흐름이 의외로 큰 만족을 만들어요. 한 분야를 너무 빠르게 끝내려 하기보다, 좋아하는 책 한 권을 한 달에 걸쳐 천천히 읽는 식이 가장 잘 어울려요."
-                  },
-                  {
-                    "tokens": [
-                      {
-                        "kind": "text",
-                        "value": "작은 실천 흐름으로는 매일 같은 시각에 짧게 읽는 자리를 만들어 두면 좋아요. 한 페이지를 손주에게 소리 내어 읽어 주거나, 한 문장을 옮겨 적어 두는 흐름이 그날의 즐거움으로 남아요."
-                      }
-                    ],
-                    "plainText": "작은 실천 흐름으로는 매일 같은 시각에 짧게 읽는 자리를 만들어 두면 좋아요. 한 페이지를 손주에게 소리 내어 읽어 주거나, 한 문장을 옮겨 적어 두는 흐름이 그날의 즐거움으로 남아요."
                   },
                   {
                     "tokens": [
@@ -8478,15 +8477,6 @@
                     "tokens": [
                       {
                         "kind": "text",
-                        "value": "작은 실천 흐름으로는 매주 일요일 저녁에 그 주의 컨디션을 짧게 적어 두면 좋아요. 잠·수분·식사 세 가지를 한 줄씩 점검해 두면, 한 달의 흐름이 한눈에 보이고 무리한 자리를 미리 알아채기 쉬워져요."
-                      }
-                    ],
-                    "plainText": "작은 실천 흐름으로는 매주 일요일 저녁에 그 주의 컨디션을 짧게 적어 두면 좋아요. 잠·수분·식사 세 가지를 한 줄씩 점검해 두면, 한 달의 흐름이 한눈에 보이고 무리한 자리를 미리 알아채기 쉬워져요."
-                  },
-                  {
-                    "tokens": [
-                      {
-                        "kind": "text",
                         "value": "월말 무렵엔 컨디션 점검이나 충분한 휴식 자리를 한 번 잡아 두면, 다음 달의 결까지 자연스럽게 단단해져요."
                       }
                     ],
@@ -11460,7 +11450,8 @@
               "meaningfulness": "meaningful",
               "stars": 1,
               "brief": {
-                "headline": "올해는 새 공부나 문서 프로젝트를 열어 보기 좋아요."
+                "headline": "올해는 모은 자료를 천천히 엮어 두기 좋은 한 해예요.",
+                "hook": "자료 한 묶음을 깔끔히 정리해요."
               },
               "standard": {
                 "paragraphs": [
@@ -11575,11 +11566,15 @@
               },
               "selectedFragments": {
                 "brief": {
-                  "fragmentId": "study_document.thisYear.brief.currentseason.spring_summer.301",
+                  "fragmentId": "study_document.thisYear.brief.male.midlife_senior.010",
                   "gating": {
-                    "currentSeason": [
-                      "spring",
-                      "summer"
+                    "gender": [
+                      "male"
+                    ],
+                    "ageBand": [
+                      "40-54",
+                      "55-69",
+                      "70+"
                     ]
                   },
                   "tags": []
@@ -13011,12 +13006,12 @@
       },
       "meta": {
         "schemaVersion": "spring-ts.tiered-matrix.v1",
-        "generatedAt": "2026-05-07T09:59:15.939Z",
+        "generatedAt": "2026-05-07T10:04:02.790Z",
         "selectionSeed": "1942|6|23|15|0|male|2026-05-04T15:00:00.000Z",
         "templateContractVersion": "1.0.0",
         "contentSource": "authored",
-        "fragmentCount": 4119,
-        "aiGeneratedFragmentCount": 4119
+        "fragmentCount": 4127,
+        "aiGeneratedFragmentCount": 4127
       }
     }
   }

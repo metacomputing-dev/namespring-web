@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-05-07T09:59:05.399Z",
+  "generatedAt": "2026-05-07T10:03:51.711Z",
   "targetDate": "2026-05-05T00:00:00+09:00",
   "sampleId": "kim-senior-female-tiered",
   "description": "70+ 시니어 여성 (1950 출생) — 노년 여성 audience 흐름. life-stage 후반 narrative 와 tieredMatrix 의 conservative tone 매칭을 점검하는 케이스.",
@@ -1317,7 +1317,7 @@
     },
     "meta": {
       "version": "1.0.0",
-      "generatedAt": "2026-05-07T09:59:14.048Z",
+      "generatedAt": "2026-05-07T10:04:00.856Z",
       "schoolPreset": {
         "selected": "korean",
         "source": "default",
@@ -1979,15 +1979,6 @@
                       }
                     ],
                     "plainText": "자녀·손주와 함께 읽고, 동네 모임에서 한 줄씩 나누는 흐름이 의외로 큰 만족을 만들어요. 한 분야를 너무 빠르게 끝내려 하기보다, 좋아하는 책 한 권을 한 달에 걸쳐 천천히 읽는 식이 가장 잘 어울려요."
-                  },
-                  {
-                    "tokens": [
-                      {
-                        "kind": "text",
-                        "value": "작은 실천 흐름으로는 매일 같은 시각에 짧게 읽는 자리를 만들어 두면 좋아요. 한 페이지를 손주에게 소리 내어 읽어 주거나, 한 문장을 옮겨 적어 두는 흐름이 그날의 즐거움으로 남아요."
-                      }
-                    ],
-                    "plainText": "작은 실천 흐름으로는 매일 같은 시각에 짧게 읽는 자리를 만들어 두면 좋아요. 한 페이지를 손주에게 소리 내어 읽어 주거나, 한 문장을 옮겨 적어 두는 흐름이 그날의 즐거움으로 남아요."
                   },
                   {
                     "tokens": [
@@ -13016,12 +13007,12 @@
       },
       "meta": {
         "schemaVersion": "spring-ts.tiered-matrix.v1",
-        "generatedAt": "2026-05-07T09:59:14.048Z",
+        "generatedAt": "2026-05-07T10:04:00.856Z",
         "selectionSeed": "1950|8|20|14|0|female|2026-05-04T15:00:00.000Z",
         "templateContractVersion": "1.0.0",
         "contentSource": "authored",
-        "fragmentCount": 4119,
-        "aiGeneratedFragmentCount": 4119
+        "fragmentCount": 4127,
+        "aiGeneratedFragmentCount": 4127
       }
     }
   }

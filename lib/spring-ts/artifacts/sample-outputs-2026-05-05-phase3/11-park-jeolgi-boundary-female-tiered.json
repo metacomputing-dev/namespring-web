@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-05-07T09:59:05.399Z",
+  "generatedAt": "2026-05-07T10:03:51.711Z",
   "targetDate": "2026-05-05T00:00:00+09:00",
   "sampleId": "park-jeolgi-boundary-female-tiered",
   "description": "입추(立秋) 절기 경계 직후 출생. fortuneCascadeMode=jie_based 로 경계 정밀 계산을 활성화하고 tieredMatrix 와 결합한 케이스.",
@@ -1321,7 +1321,7 @@
     },
     "meta": {
       "version": "1.0.0",
-      "generatedAt": "2026-05-07T09:59:12.068Z",
+      "generatedAt": "2026-05-07T10:03:58.872Z",
       "schoolPreset": {
         "selected": "korean",
         "source": "default",
@@ -6904,7 +6904,8 @@
               "meaningfulness": "limited",
               "stars": 3,
               "brief": {
-                "headline": "이번 주는 가족에게 먼저 안부를 묻는 작은 행동이 관계를 편하게요."
+                "headline": "이번 주는 가까운 사람과 짧게 안부를 나누면 좋아요.",
+                "hook": "가족 단톡에 한마디 남겨요."
               },
               "standard": {
                 "paragraphs": [
@@ -7019,14 +7020,13 @@
               },
               "selectedFragments": {
                 "brief": {
-                  "fragmentId": "family.thisWeek.brief.checkin.502",
+                  "fragmentId": "family.thisWeek.brief.female.thirties.012",
                   "gating": {
+                    "gender": [
+                      "female"
+                    ],
                     "ageBand": [
-                      "0-9",
-                      "10-19",
-                      "20-29",
-                      "30-39",
-                      "40-54"
+                      "30-39"
                     ]
                   },
                   "tags": []
@@ -12831,12 +12831,12 @@
       },
       "meta": {
         "schemaVersion": "spring-ts.tiered-matrix.v1",
-        "generatedAt": "2026-05-07T09:59:12.068Z",
+        "generatedAt": "2026-05-07T10:03:58.872Z",
         "selectionSeed": "1988|8|8|6|0|female|2026-05-04T15:00:00.000Z",
         "templateContractVersion": "1.0.0",
         "contentSource": "authored",
-        "fragmentCount": 4119,
-        "aiGeneratedFragmentCount": 4119
+        "fragmentCount": 4127,
+        "aiGeneratedFragmentCount": 4127
       }
     }
   }

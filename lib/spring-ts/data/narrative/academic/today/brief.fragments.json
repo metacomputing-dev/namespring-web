@@ -3,7 +3,7 @@
   "bundleId": "academic-today-brief",
   "contractVersion": "1.0.0",
   "generatedBy": "phase2-agent-3-academic",
-  "fragmentCount": 12,
+  "fragmentCount": 13,
   "fragments": [
     {
       "schemaVersion": "spring-ts.narrative-fragment.v1",
@@ -391,6 +391,38 @@
         "accessedAt": "2026-05-02",
         "quoteShort": null,
         "humanInterpretation": "Phase 2 academic-category fragment authored by agent-3 under data/narrative/_contract/v1.json. Display-only narrative for the tiered-matrix academic axis.",
+        "copyrightNote": "No source prose copied; original authored prose.",
+        "authorityTruthEligible": false
+      }
+    },
+    {
+      "schemaVersion": "spring-ts.narrative-fragment.v1",
+      "fragmentId": "academic.today.brief.male.age30plus.013",
+      "axis": {
+        "category": "academic",
+        "period": "today",
+        "depth": "brief"
+      },
+      "gating": {
+        "gender": ["male"],
+        "ageBand": ["30-39", "40-54"]
+      },
+      "templateTokens": [
+        {
+          "kind": "text",
+          "value": "오늘은 책상 앞 한 시간을 또렷이 지켜요."
+        }
+      ],
+      "hook": "오늘 분량을 정해서 끝내요.",
+      "tags": [],
+      "aiGenerated": true,
+      "sourceTier": {
+        "tier": "T1_HYPOTHESIS",
+        "sourceType": "training_derived",
+        "sourceUrl": null,
+        "accessedAt": "2026-05-07",
+        "quoteShort": null,
+        "humanInterpretation": "P26-A4 hook expansion: academic/today brief for male × 30-39,40-54. Display-only narrative.",
         "copyrightNote": "No source prose copied; original authored prose.",
         "authorityTruthEligible": false
       }

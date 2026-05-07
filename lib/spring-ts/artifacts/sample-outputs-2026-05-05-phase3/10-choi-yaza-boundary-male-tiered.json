@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-05-07T09:59:05.399Z",
+  "generatedAt": "2026-05-07T10:03:51.711Z",
   "targetDate": "2026-05-05T00:00:00+09:00",
   "sampleId": "choi-yaza-boundary-male-tiered",
   "description": "야자시 경계 23:30 출생. yaza=on, yazaMode=23:00 으로 다음 날로 이월하는 경계 케이스.",
@@ -1299,7 +1299,7 @@
     },
     "meta": {
       "version": "1.0.0",
-      "generatedAt": "2026-05-07T09:59:11.759Z",
+      "generatedAt": "2026-05-07T10:03:58.564Z",
       "schoolPreset": {
         "selected": "korean",
         "source": "default",
@@ -4319,7 +4319,8 @@
               "meaningfulness": "meaningful",
               "stars": 4,
               "brief": {
-                "headline": "오늘은 공부를 바로 시작하기 좋은 날이에요."
+                "headline": "오늘은 책상 앞 한 시간을 또렷이 지켜요.",
+                "hook": "오늘 분량을 정해서 끝내요."
               },
               "standard": {
                 "paragraphs": [
@@ -4475,11 +4476,14 @@
               },
               "selectedFragments": {
                 "brief": {
-                  "fragmentId": "academic.today.brief.currentseason.spring_summer.301",
+                  "fragmentId": "academic.today.brief.male.age30plus.013",
                   "gating": {
-                    "currentSeason": [
-                      "spring",
-                      "summer"
+                    "gender": [
+                      "male"
+                    ],
+                    "ageBand": [
+                      "30-39",
+                      "40-54"
                     ]
                   },
                   "tags": []
@@ -11868,7 +11872,8 @@
               "meaningfulness": "limited",
               "stars": 3,
               "brief": {
-                "headline": "올해는 이사·이직 기회가 한 번 크게 열리는 해예요."
+                "headline": "올해는 익숙한 동선에 작은 변화가 활력을 보태요.",
+                "hook": "출퇴근 동선을 한 번 바꿔요."
               },
               "standard": {
                 "paragraphs": [
@@ -11996,10 +12001,14 @@
               },
               "selectedFragments": {
                 "brief": {
-                  "fragmentId": "movement.thisYear.brief.30_39.005",
+                  "fragmentId": "movement.thisYear.brief.male.midlife.011",
                   "gating": {
+                    "gender": [
+                      "male"
+                    ],
                     "ageBand": [
-                      "30-39"
+                      "30-39",
+                      "40-54"
                     ]
                   },
                   "tags": []
@@ -12820,12 +12829,12 @@
       },
       "meta": {
         "schemaVersion": "spring-ts.tiered-matrix.v1",
-        "generatedAt": "2026-05-07T09:59:11.759Z",
+        "generatedAt": "2026-05-07T10:03:58.564Z",
         "selectionSeed": "1995|6|10|23|30|male|2026-05-04T15:00:00.000Z",
         "templateContractVersion": "1.0.0",
         "contentSource": "authored",
-        "fragmentCount": 4119,
-        "aiGeneratedFragmentCount": 4119
+        "fragmentCount": 4127,
+        "aiGeneratedFragmentCount": 4127
       }
     }
   }

@@ -171,6 +171,28 @@
         "copyrightNote": "No source prose copied; original phrasing.",
         "authorityTruthEligible": false
       }
+    },
+    {
+      "schemaVersion": "spring-ts.narrative-fragment.v1",
+      "fragmentId": "romance.thisYear.brief.neutral.young.009",
+      "axis": { "category": "romance", "period": "thisYear", "depth": "brief" },
+      "gating": { "gender": ["neutral"], "ageBand": ["20-29"] },
+      "templateTokens": [
+        { "kind": "text", "value": "올해는 가벼운 모임에서 새로운 인연이 늘어요." }
+      ],
+      "hook": "동아리 모임에서 한 번 웃어요.",
+      "tags": [],
+      "aiGenerated": true,
+      "sourceTier": {
+        "tier": "T1_HYPOTHESIS",
+        "sourceType": "training_derived",
+        "sourceUrl": null,
+        "accessedAt": "2026-05-07",
+        "quoteShort": null,
+        "humanInterpretation": "P26-A4 hook expansion: romance/thisYear brief for neutral × 20-29. Display-only.",
+        "copyrightNote": "No source prose copied; original phrasing.",
+        "authorityTruthEligible": false
+      }
     }
   ]
 }
