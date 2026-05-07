@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-05-07T11:57:12.107Z",
+  "generatedAt": "2026-05-07T12:23:28.591Z",
   "targetDate": "2026-05-05T00:00:00+09:00",
   "sampleId": "jonggyeok-jongsal-tiered",
   "description": "입력 의도: 從殺격 (七殺 dominant) 계열. fix-jong-06 (1972-12-11 09:00) 좌표 — 丙火 일간이 동지경 子月 절지 + 壬水 편관 3 천간 + 子 지지 3개 압도. 최종 외격 판정은 엔진이 결정한다.",
@@ -1266,7 +1266,7 @@
     },
     "meta": {
       "version": "1.0.0",
-      "generatedAt": "2026-05-07T11:57:23.214Z",
+      "generatedAt": "2026-05-07T12:23:40.807Z",
       "schoolPreset": {
         "selected": "korean",
         "source": "default",
@@ -6979,6 +6979,15 @@
                       }
                     ],
                     "plainText": "형제와의 안부도 한 주에 한 번 짧게 챙기면 평생의 따뜻한 기억이 모여요."
+                  },
+                  {
+                    "tokens": [
+                      {
+                        "kind": "text",
+                        "value": "중간 세대에 서 있는 시기라 모두에게 마음을 똑같이 나누기 어려운 주가 자연스러워요. 한쪽이 비어 보여도 자책으로 길게 가져가지 않으면, 다음 주에 그 자리를 메우는 흐름이 자연스럽게 돌아와요."
+                      }
+                    ],
+                    "plainText": "중간 세대에 서 있는 시기라 모두에게 마음을 똑같이 나누기 어려운 주가 자연스러워요. 한쪽이 비어 보여도 자책으로 길게 가져가지 않으면, 다음 주에 그 자리를 메우는 흐름이 자연스럽게 돌아와요."
                   },
                   {
                     "tokens": [
@@ -12971,7 +12980,7 @@
       },
       "meta": {
         "schemaVersion": "spring-ts.tiered-matrix.v1",
-        "generatedAt": "2026-05-07T11:57:23.214Z",
+        "generatedAt": "2026-05-07T12:23:40.807Z",
         "selectionSeed": "1972|12|11|9|0|male|2026-05-04T15:00:00.000Z",
         "templateContractVersion": "1.0.0",
         "contentSource": "authored",

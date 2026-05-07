@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-05-07T11:57:12.107Z",
+  "generatedAt": "2026-05-07T12:23:28.591Z",
   "targetDate": "2026-05-05T00:00:00+09:00",
   "sampleId": "gyeokguk-conflict-multi-confidence-tiered",
   "description": "격국 충돌 + 다중 confidence 시나리오 — gyeokgukSelectionRule=jungki_transparent + gyeokgukMode=chengbai_strict + yongshinMode=consensus_aware 결합. 월지 중기 투간 후보와 chengbai 페널티 smooth tanh 곡선이 동시에 ranking 에 작용하는 elasticity 노출 케이스.",
@@ -1309,7 +1309,7 @@
     },
     "meta": {
       "version": "1.0.0",
-      "generatedAt": "2026-05-07T11:57:25.276Z",
+      "generatedAt": "2026-05-07T12:23:43.065Z",
       "schoolPreset": {
         "selected": "korean",
         "source": "default",
@@ -4335,6 +4335,15 @@
                     "tokens": [
                       {
                         "kind": "text",
+                        "value": "비유하자면 오늘은 익숙한 길의 한 굽이를 마저 다지는 산책 같아요. 새 길로 빠르게 뛰어 들기보다 한 굽이씩 또렷하게 다져 두는 발걸음이, 다음 길을 만나도 헷갈리지 않게 받쳐 줘요."
+                      }
+                    ],
+                    "plainText": "비유하자면 오늘은 익숙한 길의 한 굽이를 마저 다지는 산책 같아요. 새 길로 빠르게 뛰어 들기보다 한 굽이씩 또렷하게 다져 두는 발걸음이, 다음 길을 만나도 헷갈리지 않게 받쳐 줘요."
+                  },
+                  {
+                    "tokens": [
+                      {
+                        "kind": "text",
                         "value": "결과보다 그 자리를 만들어 가는 자기 호흡이 가장 좋은 무기예요."
                       }
                     ],
@@ -6588,6 +6597,15 @@
                       }
                     ],
                     "plainText": "새로운 자극이 필요하면 익숙한 분야 곁의 한 걸음만 옆으로 나가 보세요. 그 한 걸음이 다음 흐름의 씨앗이 되어 주는 일주일이에요."
+                  },
+                  {
+                    "tokens": [
+                      {
+                        "kind": "text",
+                        "value": "주변에서 빠른 진도 소식이 들려와도 비교만 길게 가져가지 않으면 좋아요. 익숙한 페이스는 한 주 안의 작은 매듭들을 차분히 모아 주는 흐름이라, 한 학기 단위에서 그 흐름이 더 또렷해져요."
+                      }
+                    ],
+                    "plainText": "주변에서 빠른 진도 소식이 들려와도 비교만 길게 가져가지 않으면 좋아요. 익숙한 페이스는 한 주 안의 작은 매듭들을 차분히 모아 주는 흐름이라, 한 학기 단위에서 그 흐름이 더 또렷해져요."
                   },
                   {
                     "tokens": [
@@ -11304,6 +11322,15 @@
                     "tokens": [
                       {
                         "kind": "text",
+                        "value": "주변 동료의 빠른 이동 소식이 들려와도 비교만 길게 가져가지 않으면 좋아요. 한 분야에서 한 해 동안 쌓아 둔 결과 한 줄이 다음 해에 새 자리를 고를 때의 또렷한 기준이 되어 줘요."
+                      }
+                    ],
+                    "plainText": "주변 동료의 빠른 이동 소식이 들려와도 비교만 길게 가져가지 않으면 좋아요. 한 분야에서 한 해 동안 쌓아 둔 결과 한 줄이 다음 해에 새 자리를 고를 때의 또렷한 기준이 되어 줘요."
+                  },
+                  {
+                    "tokens": [
+                      {
+                        "kind": "text",
                         "value": "작은 일책임과 규칙 흐름이 한 해 단위로 큰 자산이 되는 흐름이에요."
                       }
                     ],
@@ -13002,7 +13029,7 @@
       },
       "meta": {
         "schemaVersion": "spring-ts.tiered-matrix.v1",
-        "generatedAt": "2026-05-07T11:57:25.276Z",
+        "generatedAt": "2026-05-07T12:23:43.065Z",
         "selectionSeed": "1976|6|22|13|15|male|2026-05-04T15:00:00.000Z",
         "templateContractVersion": "1.0.0",
         "contentSource": "authored",
