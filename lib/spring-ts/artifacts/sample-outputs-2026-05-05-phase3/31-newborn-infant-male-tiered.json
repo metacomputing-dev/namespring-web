@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-05-07T14:17:24.130Z",
+  "generatedAt": "2026-05-07T14:38:41.382Z",
   "targetDate": "2026-05-05T00:00:00+09:00",
   "sampleId": "newborn-infant-male-tiered",
   "description": "신생아 (2026 봄 출생, 현재 0세) — 보호자 perspective audience cell 활성화 fixture. life-stage 의 가장 이른 단계 narrative 가 fallback 되는지 확인. tieredMatrix 의 신생아 안전 어조 (성인 metaphor 회피) 점검 케이스.",
@@ -1273,7 +1273,7 @@
     },
     "meta": {
       "version": "1.0.0",
-      "generatedAt": "2026-05-07T14:17:36.782Z",
+      "generatedAt": "2026-05-07T14:38:53.403Z",
       "schoolPreset": {
         "selected": "korean",
         "source": "default",
@@ -8357,7 +8357,8 @@
             "meaningfulness": "meaningful",
             "stars": 4,
             "brief": {
-              "headline": "아이는 한 해 동안 새 친구·새 놀이를 만나는 자리가 많아요."
+              "headline": "올해는 새싹처럼 호기심이 자라는 시기예요.",
+              "hook": "올해는 새싹처럼 키가 자라요."
             },
             "standard": {
               "paragraphs": [
@@ -8509,10 +8510,16 @@
             },
             "selectedFragments": {
               "brief": {
-                "fragmentId": "overall.thisYear.brief.child.001",
+                "fragmentId": "overall.thisYear.brief.male.child.spring.013",
                 "gating": {
+                  "gender": [
+                    "male"
+                  ],
                   "ageBand": [
                     "0-9"
+                  ],
+                  "birthSeason": [
+                    "spring"
                   ]
                 },
                 "tags": []
@@ -10550,12 +10557,12 @@
       },
       "meta": {
         "schemaVersion": "spring-ts.tiered-matrix.v1",
-        "generatedAt": "2026-05-07T14:17:36.782Z",
+        "generatedAt": "2026-05-07T14:38:53.403Z",
         "selectionSeed": "2026|3|15|11|0|male|2026-05-04T15:00:00.000Z",
         "templateContractVersion": "1.0.0",
         "contentSource": "authored",
-        "fragmentCount": 4145,
-        "aiGeneratedFragmentCount": 4145
+        "fragmentCount": 4155,
+        "aiGeneratedFragmentCount": 4155
       }
     }
   }

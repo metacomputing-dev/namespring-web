@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-05-07T14:17:24.130Z",
+  "generatedAt": "2026-05-07T14:38:41.382Z",
   "targetDate": "2026-05-05T00:00:00+09:00",
   "sampleId": "palace-naeum-female-mid-tiered",
   "description": "surfacePalace=true + surfaceNaeum=true 동시 opt-in (fixture 14 와 다른 chart 로 surface 시그니처 안정성 점검). saju-ts 측 데이터 포트 이전이면 추가 출력 없으며, opt-in 시그니처와 tieredMatrix 결합만 노출. 30 대 여성 chart 로 mid-life narrative cell 도 함께 점검.",
@@ -770,7 +770,7 @@
     },
     "meta": {
       "version": "1.0.0",
-      "generatedAt": "2026-05-07T14:17:37.967Z",
+      "generatedAt": "2026-05-07T14:38:54.425Z",
       "schoolPreset": {
         "selected": "korean",
         "source": "default",
@@ -3045,7 +3045,8 @@
             "meaningfulness": "limited",
             "stars": 3,
             "brief": {
-              "headline": "오늘은 한쪽으로 치우치기보다 상황에 맞춰 속도를 조절하기 좋아요."
+              "headline": "오늘은 따뜻한 차 한 잔으로 마음을 녹여 봐요.",
+              "hook": "따뜻한 차 한 잔으로 쉬어 가요."
             },
             "standard": {
               "paragraphs": [
@@ -3246,10 +3247,16 @@
             },
             "selectedFragments": {
               "brief": {
-                "fragmentId": "overall.today.brief.polarity.neutral.302",
+                "fragmentId": "overall.today.brief.female.elder.winter.013",
                 "gating": {
-                  "dayMasterPolarity": [
-                    "neutral"
+                  "gender": [
+                    "female"
+                  ],
+                  "ageBand": [
+                    "70+"
+                  ],
+                  "birthSeason": [
+                    "winter"
                   ]
                 },
                 "tags": []
@@ -12552,12 +12559,12 @@
       },
       "meta": {
         "schemaVersion": "spring-ts.tiered-matrix.v1",
-        "generatedAt": "2026-05-07T14:17:37.966Z",
+        "generatedAt": "2026-05-07T14:38:54.425Z",
         "selectionSeed": "1992|5|28|12|0|female|2026-05-04T15:00:00.000Z",
         "templateContractVersion": "1.0.0",
         "contentSource": "authored",
-        "fragmentCount": 4145,
-        "aiGeneratedFragmentCount": 4145
+        "fragmentCount": 4155,
+        "aiGeneratedFragmentCount": 4155
       }
     }
   }

@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-05-07T14:17:24.130Z",
+  "generatedAt": "2026-05-07T14:38:41.382Z",
   "targetDate": "2026-05-05T00:00:00+09:00",
   "sampleId": "jonggyeok-jongah-tiered",
   "description": "입력 의도: 從兒격 (식상 dominant) 계열. fix-jong-07 (2018-07-23 03:00) 좌표 — 丙火 일간 + 戊己己戊 4 천간 식상 + 戌未辰丑 토 지지 67.5%. 從兒不論身強弱 doctrine 입력. 최종 외격 판정은 엔진이 결정한다.",
@@ -1330,7 +1330,7 @@
     },
     "meta": {
       "version": "1.0.0",
-      "generatedAt": "2026-05-07T14:17:35.640Z",
+      "generatedAt": "2026-05-07T14:38:52.347Z",
       "schoolPreset": {
         "selected": "korean",
         "source": "default",
@@ -2958,7 +2958,8 @@
               "meaningfulness": "meaningful",
               "stars": 4,
               "brief": {
-                "headline": "아이는 새 자리에서 한 뼘씩 자라는 모습이에요."
+                "headline": "어린 시절 새 자리에서 호기심이 키처럼 자라요.",
+                "hook": "새 자리에서 호기심이 자라요."
               },
               "standard": {
                 "paragraphs": [
@@ -3082,10 +3083,16 @@
               },
               "selectedFragments": {
                 "brief": {
-                  "fragmentId": "movement.life.brief.0_9.002",
+                  "fragmentId": "movement.life.brief.male.child.summer.011",
                   "gating": {
+                    "gender": [
+                      "male"
+                    ],
                     "ageBand": [
                       "0-9"
+                    ],
+                    "birthSeason": [
+                      "summer"
                     ]
                   },
                   "tags": []
@@ -6623,7 +6630,8 @@
             "meaningfulness": "meaningful",
             "stars": 1,
             "brief": {
-              "headline": "아이는 이번 달 한 가지에 푹 빠져 보기 좋은 결이에요."
+              "headline": "이번 달은 바깥놀이로 기운이 자라는 시기예요.",
+              "hook": "이번 달은 마음껏 뛰며 자라요."
             },
             "standard": {
               "paragraphs": [
@@ -6748,10 +6756,16 @@
             },
             "selectedFragments": {
               "brief": {
-                "fragmentId": "overall.thisMonth.brief.child.001",
+                "fragmentId": "overall.thisMonth.brief.male.child.summer.013",
                 "gating": {
+                  "gender": [
+                    "male"
+                  ],
                   "ageBand": [
                     "0-9"
+                  ],
+                  "birthSeason": [
+                    "summer"
                   ]
                 },
                 "tags": []
@@ -10609,12 +10623,12 @@
       },
       "meta": {
         "schemaVersion": "spring-ts.tiered-matrix.v1",
-        "generatedAt": "2026-05-07T14:17:35.640Z",
+        "generatedAt": "2026-05-07T14:38:52.347Z",
         "selectionSeed": "2018|7|23|3|0|male|2026-05-04T15:00:00.000Z",
         "templateContractVersion": "1.0.0",
         "contentSource": "authored",
-        "fragmentCount": 4145,
-        "aiGeneratedFragmentCount": 4145
+        "fragmentCount": 4155,
+        "aiGeneratedFragmentCount": 4155
       }
     }
   }

@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-05-07T14:17:24.130Z",
+  "generatedAt": "2026-05-07T14:38:41.382Z",
   "targetDate": "2026-05-05T00:00:00+09:00",
   "sampleId": "jeolgi-lidong-boundary-tiered",
   "description": "입동(立冬) 절기 경계 직전 출생 (2026 입동 = 11/07 18:52 KST, 본 입력은 ±0.5 day 내). fortuneCascadeMode=jie_based 로 jie 경계 day-precision 활성, 月柱 戌→亥 분기 부근 elasticity 와 tieredMatrix 결합.",
@@ -1307,7 +1307,7 @@
     },
     "meta": {
       "version": "1.0.0",
-      "generatedAt": "2026-05-07T14:17:36.562Z",
+      "generatedAt": "2026-05-07T14:38:53.213Z",
       "schoolPreset": {
         "selected": "korean",
         "source": "default",
@@ -1987,7 +1987,8 @@
               "meaningfulness": "meaningful",
               "stars": 4,
               "brief": {
-                "headline": "관계운은 친구와 가족에게 마음을 잘 전하는 힘으로 먼저 나타나요."
+                "headline": "어릴 적 가족과 따뜻한 추억이 마음의 바탕이 돼요.",
+                "hook": "가족과 따뜻한 시간을 쌓아 가요."
               },
               "standard": {
                 "paragraphs": [
@@ -2144,11 +2145,16 @@
               },
               "selectedFragments": {
                 "brief": {
-                  "fragmentId": "romance.life.brief.ageband.child_teen.501",
+                  "fragmentId": "romance.life.brief.male.child.winter.008",
                   "gating": {
+                    "gender": [
+                      "male"
+                    ],
                     "ageBand": [
-                      "0-9",
-                      "10-19"
+                      "0-9"
+                    ],
+                    "birthSeason": [
+                      "winter"
                     ]
                   },
                   "tags": []
@@ -10583,12 +10589,12 @@
       },
       "meta": {
         "schemaVersion": "spring-ts.tiered-matrix.v1",
-        "generatedAt": "2026-05-07T14:17:36.562Z",
+        "generatedAt": "2026-05-07T14:38:53.213Z",
         "selectionSeed": "2026|11|7|18|30|male|2026-05-04T15:00:00.000Z",
         "templateContractVersion": "1.0.0",
         "contentSource": "authored",
-        "fragmentCount": 4145,
-        "aiGeneratedFragmentCount": 4145
+        "fragmentCount": 4155,
+        "aiGeneratedFragmentCount": 4155
       }
     }
   }

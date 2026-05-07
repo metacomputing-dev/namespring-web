@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-05-07T14:17:24.130Z",
+  "generatedAt": "2026-05-07T14:38:41.382Z",
   "targetDate": "2026-05-05T00:00:00+09:00",
   "sampleId": "jonggyeok-jongjae-tiered",
   "description": "입력 의도: 從財격 계열. fix-jong-04 (1978-07-11 09:00) 좌표 — 甲木 일간이 戊己己戊 4 천간 + 戌未辰 토 지지로 재성(土) 압도, 인성/비겁 미약한 從財 doctrine 입력. 최종 외격 판정은 엔진이 결정한다.",
@@ -1317,7 +1317,7 @@
     },
     "meta": {
       "version": "1.0.0",
-      "generatedAt": "2026-05-07T14:17:34.675Z",
+      "generatedAt": "2026-05-07T14:38:51.431Z",
       "schoolPreset": {
         "selected": "korean",
         "source": "default",
@@ -7754,7 +7754,8 @@
               "meaningfulness": "meaningful",
               "stars": 2,
               "brief": {
-                "headline": "이번 주는 어깨를 풀어 주는 시기예요. 몸을 움직이는 휴식이 잘 맞아요."
+                "headline": "이번 주는 어깨 힘을 슬며시 풀어 두기 좋아요.",
+                "hook": "어깨를 잠깐 풀고 숨 한 번 쉬어요."
               },
               "standard": {
                 "paragraphs": [
@@ -7905,14 +7906,16 @@
               },
               "selectedFragments": {
                 "brief": {
-                  "fragmentId": "health_stress.thisWeek.brief.male_30_39.001",
+                  "fragmentId": "health_stress.thisWeek.brief.male.midlife.summer.011",
                   "gating": {
                     "gender": [
                       "male"
                     ],
                     "ageBand": [
-                      "30-39",
                       "40-54"
+                    ],
+                    "birthSeason": [
+                      "summer"
                     ]
                   },
                   "tags": []
@@ -13035,12 +13038,12 @@
       },
       "meta": {
         "schemaVersion": "spring-ts.tiered-matrix.v1",
-        "generatedAt": "2026-05-07T14:17:34.675Z",
+        "generatedAt": "2026-05-07T14:38:51.431Z",
         "selectionSeed": "1978|7|11|9|0|male|2026-05-04T15:00:00.000Z",
         "templateContractVersion": "1.0.0",
         "contentSource": "authored",
-        "fragmentCount": 4145,
-        "aiGeneratedFragmentCount": 4145
+        "fragmentCount": 4155,
+        "aiGeneratedFragmentCount": 4155
       }
     }
   }

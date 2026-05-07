@@ -357,6 +357,39 @@
         "copyrightNote": "No source prose copied; original authored prose.",
         "authorityTruthEligible": false
       }
+    },
+    {
+      "schemaVersion": "spring-ts.narrative-fragment.v1",
+      "fragmentId": "academic.thisYear.brief.female.elder.autumn.012",
+      "axis": {
+        "category": "academic",
+        "period": "thisYear",
+        "depth": "brief"
+      },
+      "gating": {
+        "gender": ["female"],
+        "ageBand": ["70+"],
+        "birthSeason": ["autumn"]
+      },
+      "templateTokens": [
+        {
+          "kind": "text",
+          "value": "올해는 새 책 한 권을 천천히 읽어 두기 좋아요."
+        }
+      ],
+      "hook": "새 책 한 권을 천천히 읽어요.",
+      "tags": [],
+      "aiGenerated": true,
+      "sourceTier": {
+        "tier": "T1_HYPOTHESIS",
+        "sourceType": "training_derived",
+        "sourceUrl": null,
+        "accessedAt": "2026-05-07",
+        "quoteShort": null,
+        "humanInterpretation": "P32-A4 distinct-hook expansion: academic/thisYear brief for female × 70+ × autumn-born. Display-only narrative.",
+        "copyrightNote": "No source prose copied; original authored prose.",
+        "authorityTruthEligible": false
+      }
     }
   ]
 }

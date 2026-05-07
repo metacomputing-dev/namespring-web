@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-05-07T14:17:24.130Z",
+  "generatedAt": "2026-05-07T14:38:41.382Z",
   "targetDate": "2026-05-05T00:00:00+09:00",
   "sampleId": "choi-senior-male-tiered",
   "description": "70+ 시니어 남성 (1948 출생) — life-stage 후반 narrative 가 활성화되는 fallback 경계. 노년 audience 의 prose 적합도와 tieredMatrix 후반기 흐름을 함께 노출하는 케이스.",
@@ -1293,7 +1293,7 @@
     },
     "meta": {
       "version": "1.0.0",
-      "generatedAt": "2026-05-07T14:17:31.999Z",
+      "generatedAt": "2026-05-07T14:38:49.014Z",
       "schoolPreset": {
         "selected": "korean",
         "source": "default",
@@ -9907,7 +9907,8 @@
               "meaningfulness": "meaningful",
               "stars": 1,
               "brief": {
-                "headline": "이번 달은 익숙한 동선에서 한 발짝씩 넓혀 가기 좋아요."
+                "headline": "이번 달은 동네 한 바퀴 산책으로 기운이 살아나요.",
+                "hook": "동네 한 바퀴 천천히 걸어 봐요."
               },
               "standard": {
                 "paragraphs": [
@@ -10023,13 +10024,16 @@
               },
               "selectedFragments": {
                 "brief": {
-                  "fragmentId": "movement.thisMonth.brief.weak_neutral.010",
+                  "fragmentId": "movement.thisMonth.brief.male.elder.spring.011",
                   "gating": {
-                    "dayMasterStrength": [
-                      "WEAK"
+                    "gender": [
+                      "male"
                     ],
-                    "yongshinAlignment": [
-                      "neutral"
+                    "ageBand": [
+                      "70+"
+                    ],
+                    "birthSeason": [
+                      "spring"
                     ]
                   },
                   "tags": []
@@ -12962,12 +12966,12 @@
       },
       "meta": {
         "schemaVersion": "spring-ts.tiered-matrix.v1",
-        "generatedAt": "2026-05-07T14:17:31.999Z",
+        "generatedAt": "2026-05-07T14:38:49.014Z",
         "selectionSeed": "1948|3|15|7|30|male|2026-05-04T15:00:00.000Z",
         "templateContractVersion": "1.0.0",
         "contentSource": "authored",
-        "fragmentCount": 4145,
-        "aiGeneratedFragmentCount": 4145
+        "fragmentCount": 4155,
+        "aiGeneratedFragmentCount": 4155
       }
     }
   }

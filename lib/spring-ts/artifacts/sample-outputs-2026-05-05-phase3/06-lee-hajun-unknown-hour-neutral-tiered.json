@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-05-07T14:17:24.130Z",
+  "generatedAt": "2026-05-07T14:38:41.382Z",
   "targetDate": "2026-05-05T00:00:00+09:00",
   "sampleId": "lee-hajun-unknown-hour-neutral-tiered",
   "description": "출생 시각 미상, 중립 성별 입력에서 불확실성 안내와 tiered 매트릭스를 확인하는 케이스.",
@@ -1302,7 +1302,7 @@
     },
     "meta": {
       "version": "1.0.0",
-      "generatedAt": "2026-05-07T14:17:27.616Z",
+      "generatedAt": "2026-05-07T14:38:44.713Z",
       "schoolPreset": {
         "selected": "korean",
         "source": "default",
@@ -8362,7 +8362,8 @@
               "meaningfulness": "meaningful",
               "stars": 4,
               "brief": {
-                "headline": "이번 달은 돈의 결을 계획표로 만들면 안정감이 커져요."
+                "headline": "이번 달은 가계부 한 줄을 매일 채워 보기 좋아요.",
+                "hook": "지출 한 줄을 매일 적어 봐요."
               },
               "standard": {
                 "paragraphs": [
@@ -8485,11 +8486,16 @@
               },
               "selectedFragments": {
                 "brief": {
-                  "fragmentId": "wealth.thisMonth.brief.plan.501",
+                  "fragmentId": "wealth.thisMonth.brief.neutral.young.winter.012",
                   "gating": {
-                    "yongshinAlignment": [
-                      "aligned",
+                    "gender": [
                       "neutral"
+                    ],
+                    "ageBand": [
+                      "20-29"
+                    ],
+                    "birthSeason": [
+                      "winter"
                     ]
                   },
                   "tags": []
@@ -12991,12 +12997,12 @@
       },
       "meta": {
         "schemaVersion": "spring-ts.tiered-matrix.v1",
-        "generatedAt": "2026-05-07T14:17:27.616Z",
+        "generatedAt": "2026-05-07T14:38:44.713Z",
         "selectionSeed": "2001|1|15|0|0|neutral|2026-05-04T15:00:00.000Z",
         "templateContractVersion": "1.0.0",
         "contentSource": "authored",
-        "fragmentCount": 4145,
-        "aiGeneratedFragmentCount": 4145
+        "fragmentCount": 4155,
+        "aiGeneratedFragmentCount": 4155
       }
     }
   }

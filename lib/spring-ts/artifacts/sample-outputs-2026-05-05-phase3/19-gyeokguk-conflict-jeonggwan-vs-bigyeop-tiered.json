@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-05-07T14:17:24.130Z",
+  "generatedAt": "2026-05-07T14:38:41.382Z",
   "targetDate": "2026-05-05T00:00:00+09:00",
   "sampleId": "gyeokguk-conflict-jeonggwan-vs-bigyeop-tiered",
   "description": "격국 충돌 case 1: 정관 후보와 비견(겁재) 후보가 같이 잡히기 쉬운 입력. gyeokgukSelectionRule=jungki_transparent 로 월지 중기 투간 룰을 활성화하여 후보 ranking 의 elasticity 를 노출하는 케이스. 최종 격국 판정은 엔진이 결정한다.",
@@ -1303,7 +1303,7 @@
     },
     "meta": {
       "version": "1.0.0",
-      "generatedAt": "2026-05-07T14:17:32.981Z",
+      "generatedAt": "2026-05-07T14:38:49.938Z",
       "schoolPreset": {
         "selected": "korean",
         "source": "default",
@@ -3357,15 +3357,6 @@
                       }
                     ],
                     "plainText": "몸을 움직이는 휴식이 잘 어울리는 구조라, 산행·자전거·가벼운 등산 같은 활동이 마음의 짐을 가장 잘 풀어 줘요."
-                  },
-                  {
-                    "tokens": [
-                      {
-                        "kind": "text",
-                        "value": "30대·40대의 책임이 켜켜이 모이는 자리는 한 번에 다 풀어내려 하지 않고 5년 단위로 작게 나눠 풀어 두면 마음의 짐이 가벼워져요. 50대 이후 후반기 호흡으로 넘어갈 즈음, 지금 두는 휴식·회복 자리가 평생의 자산으로 자라요. 산행·자전거 같은 활동을 분기마다 한 번씩 챙겨 두면 책임 자리의 무게가 자연스럽게 분산돼요."
-                      }
-                    ],
-                    "plainText": "30대·40대의 책임이 켜켜이 모이는 자리는 한 번에 다 풀어내려 하지 않고 5년 단위로 작게 나눠 풀어 두면 마음의 짐이 가벼워져요. 50대 이후 후반기 호흡으로 넘어갈 즈음, 지금 두는 휴식·회복 자리가 평생의 자산으로 자라요. 산행·자전거 같은 활동을 분기마다 한 번씩 챙겨 두면 책임 자리의 무게가 자연스럽게 분산돼요."
                   }
                 ]
               },
@@ -7832,7 +7823,8 @@
               "meaningfulness": "meaningful",
               "stars": 4,
               "brief": {
-                "headline": "이번 주는 어깨를 풀어 주는 시기예요. 몸을 움직이는 휴식이 잘 맞아요."
+                "headline": "이번 주는 어깨 힘을 슬며시 풀어 두기 좋아요.",
+                "hook": "어깨를 잠깐 풀고 숨 한 번 쉬어요."
               },
               "standard": {
                 "paragraphs": [
@@ -7965,14 +7957,16 @@
               },
               "selectedFragments": {
                 "brief": {
-                  "fragmentId": "health_stress.thisWeek.brief.male_30_39.001",
+                  "fragmentId": "health_stress.thisWeek.brief.male.midlife.summer.011",
                   "gating": {
                     "gender": [
                       "male"
                     ],
                     "ageBand": [
-                      "30-39",
                       "40-54"
+                    ],
+                    "birthSeason": [
+                      "summer"
                     ]
                   },
                   "tags": []
@@ -13134,12 +13128,12 @@
       },
       "meta": {
         "schemaVersion": "spring-ts.tiered-matrix.v1",
-        "generatedAt": "2026-05-07T14:17:32.981Z",
+        "generatedAt": "2026-05-07T14:38:49.938Z",
         "selectionSeed": "1985|5|25|8|45|male|2026-05-04T15:00:00.000Z",
         "templateContractVersion": "1.0.0",
         "contentSource": "authored",
-        "fragmentCount": 4145,
-        "aiGeneratedFragmentCount": 4145
+        "fragmentCount": 4155,
+        "aiGeneratedFragmentCount": 4155
       }
     }
   }
