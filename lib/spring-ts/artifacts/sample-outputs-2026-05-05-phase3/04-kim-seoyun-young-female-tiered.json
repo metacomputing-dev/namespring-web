@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-05-07T07:07:19.019Z",
+  "generatedAt": "2026-05-07T07:37:36.023Z",
   "targetDate": "2026-05-05T00:00:00+09:00",
   "sampleId": "kim-seoyun-young-female-tiered",
   "description": "어린 여성 입력에서 tiered 운세 매트릭스를 켠 케이스.",
@@ -1306,7 +1306,7 @@
     },
     "meta": {
       "version": "1.0.0",
-      "generatedAt": "2026-05-07T07:07:21.906Z",
+      "generatedAt": "2026-05-07T07:37:41.052Z",
       "schoolPreset": {
         "selected": "korean",
         "source": "default",
@@ -7806,10 +7806,10 @@
                     "tokens": [
                       {
                         "kind": "text",
-                        "value": "올해는 마음을 흔드는 관심사 한 가지를 길게 살펴보기 좋은 해예요. 한 해 동안 한 분야에 대해 자료·책·짧은 시도들을 모아 두면, 미래의 선택지가 자기에게 맞춰져 와요."
+                        "value": "올해는 한 분야의 자료·책·짧은 시도를 한 줄씩 모아 두면 미래의 선택지가 자기에게 맞춰져 오는 한 해예요. 한 가지 관심사를 깊이 따라가는 시간이 어른의 직업 단어에 갇히지 않은 자기 흐름을 만들어 줘요."
                       }
                     ],
-                    "plainText": "올해는 마음을 흔드는 관심사 한 가지를 길게 살펴보기 좋은 해예요. 한 해 동안 한 분야에 대해 자료·책·짧은 시도들을 모아 두면, 미래의 선택지가 자기에게 맞춰져 와요."
+                    "plainText": "올해는 한 분야의 자료·책·짧은 시도를 한 줄씩 모아 두면 미래의 선택지가 자기에게 맞춰져 오는 한 해예요. 한 가지 관심사를 깊이 따라가는 시간이 어른의 직업 단어에 갇히지 않은 자기 흐름을 만들어 줘요."
                   },
                   {
                     "tokens": [
@@ -8905,7 +8905,7 @@
       },
       "meta": {
         "schemaVersion": "spring-ts.tiered-matrix.v1",
-        "generatedAt": "2026-05-07T07:07:21.906Z",
+        "generatedAt": "2026-05-07T07:37:41.052Z",
         "selectionSeed": "2013|7|21|14|20|female|2026-05-04T15:00:00.000Z",
         "templateContractVersion": "1.0.0",
         "contentSource": "authored",

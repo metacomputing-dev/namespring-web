@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-05-07T07:07:19.019Z",
+  "generatedAt": "2026-05-07T07:37:36.023Z",
   "targetDate": "2026-05-05T00:00:00+09:00",
   "sampleId": "consensus-aware-multi-axis-combined-tiered",
   "description": "yongshinMode=consensus_aware + evaluatorMode=multi_axis 동시 활성. 독립 명리 방법 (억부/조후/격국/통관/병약) 의 consensus scoreboard 와 axisStrength ≥2 축 다축 가중이 함께 sajuPriority 에 반영되는 PR-K-9 + consensus 결합 fixture.",
@@ -1266,7 +1266,7 @@
     },
     "meta": {
       "version": "1.0.0",
-      "generatedAt": "2026-05-07T07:07:29.807Z",
+      "generatedAt": "2026-05-07T07:37:51.216Z",
       "schoolPreset": {
         "selected": "korean",
         "source": "default",
@@ -9539,10 +9539,10 @@
                     "tokens": [
                       {
                         "kind": "text",
-                        "value": "이번 달은 가까운 사람과의 협업이 표현을 한 단계 넓혀 줘요. 한 달 동안 두세 명과 함께 만들 수 있는 작은 작업이 표현을 단단히 해 줘요."
+                        "value": "이번 달은 두세 명과 함께 만들 수 있는 작은 협업이 자기 표현의 흐름을 한 단계 단단히 다져 주는 흐름이에요. 가까운 사람의 짧은 의견이 혼자였다면 좁아질 수 있는 시야를 한 뼘 넓혀 줘요."
                       }
                     ],
-                    "plainText": "이번 달은 가까운 사람과의 협업이 표현을 한 단계 넓혀 줘요. 한 달 동안 두세 명과 함께 만들 수 있는 작은 작업이 표현을 단단히 해 줘요."
+                    "plainText": "이번 달은 두세 명과 함께 만들 수 있는 작은 협업이 자기 표현의 흐름을 한 단계 단단히 다져 주는 흐름이에요. 가까운 사람의 짧은 의견이 혼자였다면 좁아질 수 있는 시야를 한 뼘 넓혀 줘요."
                   },
                   {
                     "tokens": [
@@ -12879,7 +12879,7 @@
       },
       "meta": {
         "schemaVersion": "spring-ts.tiered-matrix.v1",
-        "generatedAt": "2026-05-07T07:07:29.807Z",
+        "generatedAt": "2026-05-07T07:37:51.216Z",
         "selectionSeed": "1987|10|5|15|30|female|2026-05-04T15:00:00.000Z",
         "templateContractVersion": "1.0.0",
         "contentSource": "authored",
