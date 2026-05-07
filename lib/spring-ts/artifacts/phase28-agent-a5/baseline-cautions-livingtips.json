@@ -1,0 +1,584 @@
+{
+  "generatedAt": "2026-05-07T11:12:55.142Z",
+  "scope": "standard.fragments.json cautions + livingTips per category x period (P28-A5 baseline)",
+  "totals": {
+    "standardFragments": 602,
+    "fragmentsWithCautions": 592,
+    "cautionsTotalCount": 660,
+    "fragmentsWithLivingTips": 602,
+    "livingTipsTotalCount": 1507,
+    "cautionsContaining_보다": 0,
+    "cautionsContaining_않": 319,
+    "cautionsContaining_말고": 0
+  },
+  "cautionsPerFragmentHistogram": {
+    "0": 10,
+    "1": 524,
+    "2": 68
+  },
+  "livingTipsPerFragmentHistogram": {
+    "2": 299,
+    "3": 303
+  },
+  "perCategoryPeriodCautions": {
+    "academic.today": {
+      "fragments": 11,
+      "withCautions": 11,
+      "totalCautions": 11
+    },
+    "academic.thisWeek": {
+      "fragments": 9,
+      "withCautions": 9,
+      "totalCautions": 9
+    },
+    "academic.thisMonth": {
+      "fragments": 9,
+      "withCautions": 9,
+      "totalCautions": 9
+    },
+    "academic.thisYear": {
+      "fragments": 11,
+      "withCautions": 11,
+      "totalCautions": 11
+    },
+    "academic.life": {
+      "fragments": 11,
+      "withCautions": 11,
+      "totalCautions": 11
+    },
+    "career.today": {
+      "fragments": 11,
+      "withCautions": 11,
+      "totalCautions": 11
+    },
+    "career.thisWeek": {
+      "fragments": 11,
+      "withCautions": 11,
+      "totalCautions": 11
+    },
+    "career.thisMonth": {
+      "fragments": 10,
+      "withCautions": 10,
+      "totalCautions": 10
+    },
+    "career.thisYear": {
+      "fragments": 13,
+      "withCautions": 13,
+      "totalCautions": 13
+    },
+    "career.life": {
+      "fragments": 13,
+      "withCautions": 13,
+      "totalCautions": 13
+    },
+    "expression_children.today": {
+      "fragments": 10,
+      "withCautions": 10,
+      "totalCautions": 10
+    },
+    "expression_children.thisWeek": {
+      "fragments": 10,
+      "withCautions": 10,
+      "totalCautions": 10
+    },
+    "expression_children.thisMonth": {
+      "fragments": 10,
+      "withCautions": 10,
+      "totalCautions": 10
+    },
+    "expression_children.thisYear": {
+      "fragments": 11,
+      "withCautions": 11,
+      "totalCautions": 11
+    },
+    "expression_children.life": {
+      "fragments": 11,
+      "withCautions": 11,
+      "totalCautions": 11
+    },
+    "family.today": {
+      "fragments": 11,
+      "withCautions": 11,
+      "totalCautions": 11
+    },
+    "family.thisWeek": {
+      "fragments": 11,
+      "withCautions": 11,
+      "totalCautions": 11
+    },
+    "family.thisMonth": {
+      "fragments": 11,
+      "withCautions": 11,
+      "totalCautions": 11
+    },
+    "family.thisYear": {
+      "fragments": 12,
+      "withCautions": 12,
+      "totalCautions": 12
+    },
+    "family.life": {
+      "fragments": 12,
+      "withCautions": 12,
+      "totalCautions": 12
+    },
+    "health.today": {
+      "fragments": 13,
+      "withCautions": 13,
+      "totalCautions": 24
+    },
+    "health.thisWeek": {
+      "fragments": 11,
+      "withCautions": 11,
+      "totalCautions": 20
+    },
+    "health.thisMonth": {
+      "fragments": 12,
+      "withCautions": 12,
+      "totalCautions": 22
+    },
+    "health.thisYear": {
+      "fragments": 12,
+      "withCautions": 12,
+      "totalCautions": 23
+    },
+    "health.life": {
+      "fragments": 14,
+      "withCautions": 14,
+      "totalCautions": 26
+    },
+    "health_stress.today": {
+      "fragments": 11,
+      "withCautions": 11,
+      "totalCautions": 12
+    },
+    "health_stress.thisWeek": {
+      "fragments": 10,
+      "withCautions": 10,
+      "totalCautions": 11
+    },
+    "health_stress.thisMonth": {
+      "fragments": 11,
+      "withCautions": 11,
+      "totalCautions": 12
+    },
+    "health_stress.thisYear": {
+      "fragments": 10,
+      "withCautions": 10,
+      "totalCautions": 11
+    },
+    "health_stress.life": {
+      "fragments": 10,
+      "withCautions": 10,
+      "totalCautions": 13
+    },
+    "movement.today": {
+      "fragments": 10,
+      "withCautions": 10,
+      "totalCautions": 10
+    },
+    "movement.thisWeek": {
+      "fragments": 10,
+      "withCautions": 10,
+      "totalCautions": 10
+    },
+    "movement.thisMonth": {
+      "fragments": 10,
+      "withCautions": 10,
+      "totalCautions": 10
+    },
+    "movement.thisYear": {
+      "fragments": 10,
+      "withCautions": 10,
+      "totalCautions": 10
+    },
+    "movement.life": {
+      "fragments": 10,
+      "withCautions": 10,
+      "totalCautions": 10
+    },
+    "overall.today": {
+      "fragments": 14,
+      "withCautions": 14,
+      "totalCautions": 14
+    },
+    "overall.thisWeek": {
+      "fragments": 14,
+      "withCautions": 14,
+      "totalCautions": 14
+    },
+    "overall.thisMonth": {
+      "fragments": 14,
+      "withCautions": 14,
+      "totalCautions": 14
+    },
+    "overall.thisYear": {
+      "fragments": 14,
+      "withCautions": 14,
+      "totalCautions": 14
+    },
+    "overall.life": {
+      "fragments": 13,
+      "withCautions": 13,
+      "totalCautions": 13
+    },
+    "romance.today": {
+      "fragments": 9,
+      "withCautions": 7,
+      "totalCautions": 7
+    },
+    "romance.thisWeek": {
+      "fragments": 9,
+      "withCautions": 7,
+      "totalCautions": 7
+    },
+    "romance.thisMonth": {
+      "fragments": 9,
+      "withCautions": 7,
+      "totalCautions": 7
+    },
+    "romance.thisYear": {
+      "fragments": 10,
+      "withCautions": 8,
+      "totalCautions": 8
+    },
+    "romance.life": {
+      "fragments": 12,
+      "withCautions": 10,
+      "totalCautions": 10
+    },
+    "study_document.today": {
+      "fragments": 11,
+      "withCautions": 11,
+      "totalCautions": 11
+    },
+    "study_document.thisWeek": {
+      "fragments": 11,
+      "withCautions": 11,
+      "totalCautions": 11
+    },
+    "study_document.thisMonth": {
+      "fragments": 10,
+      "withCautions": 10,
+      "totalCautions": 10
+    },
+    "study_document.thisYear": {
+      "fragments": 10,
+      "withCautions": 10,
+      "totalCautions": 10
+    },
+    "study_document.life": {
+      "fragments": 11,
+      "withCautions": 11,
+      "totalCautions": 11
+    },
+    "wealth.today": {
+      "fragments": 10,
+      "withCautions": 10,
+      "totalCautions": 11
+    },
+    "wealth.thisWeek": {
+      "fragments": 9,
+      "withCautions": 9,
+      "totalCautions": 10
+    },
+    "wealth.thisMonth": {
+      "fragments": 9,
+      "withCautions": 9,
+      "totalCautions": 10
+    },
+    "wealth.thisYear": {
+      "fragments": 10,
+      "withCautions": 10,
+      "totalCautions": 11
+    },
+    "wealth.life": {
+      "fragments": 11,
+      "withCautions": 11,
+      "totalCautions": 15
+    }
+  },
+  "perCategoryPeriodLivingTips": {
+    "academic.today": {
+      "fragments": 11,
+      "withLT": 11,
+      "totalLT": 33
+    },
+    "academic.thisWeek": {
+      "fragments": 9,
+      "withLT": 9,
+      "totalLT": 27
+    },
+    "academic.thisMonth": {
+      "fragments": 9,
+      "withLT": 9,
+      "totalLT": 27
+    },
+    "academic.thisYear": {
+      "fragments": 11,
+      "withLT": 11,
+      "totalLT": 33
+    },
+    "academic.life": {
+      "fragments": 11,
+      "withLT": 11,
+      "totalLT": 33
+    },
+    "career.today": {
+      "fragments": 11,
+      "withLT": 11,
+      "totalLT": 22
+    },
+    "career.thisWeek": {
+      "fragments": 11,
+      "withLT": 11,
+      "totalLT": 22
+    },
+    "career.thisMonth": {
+      "fragments": 10,
+      "withLT": 10,
+      "totalLT": 20
+    },
+    "career.thisYear": {
+      "fragments": 13,
+      "withLT": 13,
+      "totalLT": 26
+    },
+    "career.life": {
+      "fragments": 13,
+      "withLT": 13,
+      "totalLT": 26
+    },
+    "expression_children.today": {
+      "fragments": 10,
+      "withLT": 10,
+      "totalLT": 20
+    },
+    "expression_children.thisWeek": {
+      "fragments": 10,
+      "withLT": 10,
+      "totalLT": 20
+    },
+    "expression_children.thisMonth": {
+      "fragments": 10,
+      "withLT": 10,
+      "totalLT": 20
+    },
+    "expression_children.thisYear": {
+      "fragments": 11,
+      "withLT": 11,
+      "totalLT": 22
+    },
+    "expression_children.life": {
+      "fragments": 11,
+      "withLT": 11,
+      "totalLT": 22
+    },
+    "family.today": {
+      "fragments": 11,
+      "withLT": 11,
+      "totalLT": 33
+    },
+    "family.thisWeek": {
+      "fragments": 11,
+      "withLT": 11,
+      "totalLT": 33
+    },
+    "family.thisMonth": {
+      "fragments": 11,
+      "withLT": 11,
+      "totalLT": 33
+    },
+    "family.thisYear": {
+      "fragments": 12,
+      "withLT": 12,
+      "totalLT": 36
+    },
+    "family.life": {
+      "fragments": 12,
+      "withLT": 12,
+      "totalLT": 36
+    },
+    "health.today": {
+      "fragments": 13,
+      "withLT": 13,
+      "totalLT": 39
+    },
+    "health.thisWeek": {
+      "fragments": 11,
+      "withLT": 11,
+      "totalLT": 33
+    },
+    "health.thisMonth": {
+      "fragments": 12,
+      "withLT": 12,
+      "totalLT": 36
+    },
+    "health.thisYear": {
+      "fragments": 12,
+      "withLT": 12,
+      "totalLT": 36
+    },
+    "health.life": {
+      "fragments": 14,
+      "withLT": 14,
+      "totalLT": 42
+    },
+    "health_stress.today": {
+      "fragments": 11,
+      "withLT": 11,
+      "totalLT": 33
+    },
+    "health_stress.thisWeek": {
+      "fragments": 10,
+      "withLT": 10,
+      "totalLT": 30
+    },
+    "health_stress.thisMonth": {
+      "fragments": 11,
+      "withLT": 11,
+      "totalLT": 33
+    },
+    "health_stress.thisYear": {
+      "fragments": 10,
+      "withLT": 10,
+      "totalLT": 30
+    },
+    "health_stress.life": {
+      "fragments": 10,
+      "withLT": 10,
+      "totalLT": 30
+    },
+    "movement.today": {
+      "fragments": 10,
+      "withLT": 10,
+      "totalLT": 30
+    },
+    "movement.thisWeek": {
+      "fragments": 10,
+      "withLT": 10,
+      "totalLT": 30
+    },
+    "movement.thisMonth": {
+      "fragments": 10,
+      "withLT": 10,
+      "totalLT": 30
+    },
+    "movement.thisYear": {
+      "fragments": 10,
+      "withLT": 10,
+      "totalLT": 30
+    },
+    "movement.life": {
+      "fragments": 10,
+      "withLT": 10,
+      "totalLT": 30
+    },
+    "overall.today": {
+      "fragments": 14,
+      "withLT": 14,
+      "totalLT": 30
+    },
+    "overall.thisWeek": {
+      "fragments": 14,
+      "withLT": 14,
+      "totalLT": 30
+    },
+    "overall.thisMonth": {
+      "fragments": 14,
+      "withLT": 14,
+      "totalLT": 30
+    },
+    "overall.thisYear": {
+      "fragments": 14,
+      "withLT": 14,
+      "totalLT": 30
+    },
+    "overall.life": {
+      "fragments": 13,
+      "withLT": 13,
+      "totalLT": 27
+    },
+    "romance.today": {
+      "fragments": 9,
+      "withLT": 9,
+      "totalLT": 20
+    },
+    "romance.thisWeek": {
+      "fragments": 9,
+      "withLT": 9,
+      "totalLT": 20
+    },
+    "romance.thisMonth": {
+      "fragments": 9,
+      "withLT": 9,
+      "totalLT": 20
+    },
+    "romance.thisYear": {
+      "fragments": 10,
+      "withLT": 10,
+      "totalLT": 22
+    },
+    "romance.life": {
+      "fragments": 12,
+      "withLT": 12,
+      "totalLT": 26
+    },
+    "study_document.today": {
+      "fragments": 11,
+      "withLT": 11,
+      "totalLT": 23
+    },
+    "study_document.thisWeek": {
+      "fragments": 11,
+      "withLT": 11,
+      "totalLT": 23
+    },
+    "study_document.thisMonth": {
+      "fragments": 10,
+      "withLT": 10,
+      "totalLT": 20
+    },
+    "study_document.thisYear": {
+      "fragments": 10,
+      "withLT": 10,
+      "totalLT": 20
+    },
+    "study_document.life": {
+      "fragments": 11,
+      "withLT": 11,
+      "totalLT": 24
+    },
+    "wealth.today": {
+      "fragments": 10,
+      "withLT": 10,
+      "totalLT": 20
+    },
+    "wealth.thisWeek": {
+      "fragments": 9,
+      "withLT": 9,
+      "totalLT": 19
+    },
+    "wealth.thisMonth": {
+      "fragments": 9,
+      "withLT": 9,
+      "totalLT": 19
+    },
+    "wealth.thisYear": {
+      "fragments": 10,
+      "withLT": 10,
+      "totalLT": 21
+    },
+    "wealth.life": {
+      "fragments": 11,
+      "withLT": 11,
+      "totalLT": 27
+    }
+  },
+  "livingTipsLengthDistribution": {
+    "min": 5,
+    "max": 24,
+    "sum": 21364,
+    "count": 1507,
+    "mean": 14.18
+  }
+}
