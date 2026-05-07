@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-05-07T10:39:00.989Z",
+  "generatedAt": "2026-05-07T10:44:46.504Z",
   "targetDate": "2026-05-05T00:00:00+09:00",
   "sampleId": "jonggyeok-jonggang-tiered",
   "description": "입력 의도: 從强격 (비겁+인성 강) 계열. fix-jong-09 (1938-08-05 03:00) 좌표 — 己土 일간 + 戊己 비겁 + 未巳丑 토화 지지 + 火 인성 보조. 從旺(비겁만) 과 從强(비겁+인성) 의 경계 입력. 최종 외격 판정은 엔진이 결정한다.",
@@ -1337,7 +1337,7 @@
     },
     "meta": {
       "version": "1.0.0",
-      "generatedAt": "2026-05-07T10:39:13.631Z",
+      "generatedAt": "2026-05-07T10:44:58.256Z",
       "schoolPreset": {
         "selected": "korean",
         "source": "default",
@@ -4542,7 +4542,8 @@
               "meaningfulness": "meaningful",
               "stars": 1,
               "brief": {
-                "headline": "오늘은 마음을 급히 확인하려 하기보다 편안한 대화가 더 좋아요."
+                "headline": "오늘은 오래 본 사람에게 가벼운 차 한 잔을 권해요.",
+                "hook": "오랜 인연에게 차 한 잔 권해요."
               },
               "standard": {
                 "paragraphs": [
@@ -4689,17 +4690,16 @@
               },
               "selectedFragments": {
                 "brief": {
-                  "fragmentId": "romance.today.brief.neutral.002",
+                  "fragmentId": "romance.today.brief.male.70plus.autumn.012",
                   "gating": {
-                    "yongshinAlignment": [
-                      "neutral"
+                    "gender": [
+                      "male"
                     ],
                     "ageBand": [
-                      "20-29",
-                      "30-39",
-                      "40-54",
-                      "55-69",
                       "70+"
+                    ],
+                    "birthSeason": [
+                      "autumn"
                     ]
                   },
                   "tags": []
@@ -8692,7 +8692,8 @@
               "meaningfulness": "meaningful",
               "stars": 4,
               "brief": {
-                "headline": "이번 달 공부는 중간 점검일을 미리 정하면 끝까지 이어가기 쉽습니다."
+                "headline": "이번 달은 좋아하는 분야 한 권을 차분히 읽어요.",
+                "hook": "한 분야를 깊이 들여다봐요."
               },
               "standard": {
                 "paragraphs": [
@@ -8852,11 +8853,16 @@
               },
               "selectedFragments": {
                 "brief": {
-                  "fragmentId": "academic.thisMonth.brief.checkpoint.504",
+                  "fragmentId": "academic.thisMonth.brief.male.70plus.autumn.010",
                   "gating": {
-                    "currentSeason": [
-                      "spring",
-                      "summer"
+                    "gender": [
+                      "male"
+                    ],
+                    "ageBand": [
+                      "70+"
+                    ],
+                    "birthSeason": [
+                      "autumn"
                     ]
                   },
                   "tags": []
@@ -12995,12 +13001,12 @@
       },
       "meta": {
         "schemaVersion": "spring-ts.tiered-matrix.v1",
-        "generatedAt": "2026-05-07T10:39:13.631Z",
+        "generatedAt": "2026-05-07T10:44:58.256Z",
         "selectionSeed": "1938|8|5|3|0|male|2026-05-04T15:00:00.000Z",
         "templateContractVersion": "1.0.0",
         "contentSource": "authored",
-        "fragmentCount": 4133,
-        "aiGeneratedFragmentCount": 4133
+        "fragmentCount": 4145,
+        "aiGeneratedFragmentCount": 4145
       }
     }
   }

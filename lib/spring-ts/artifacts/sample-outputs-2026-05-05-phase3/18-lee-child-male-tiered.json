@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-05-07T10:39:00.989Z",
+  "generatedAt": "2026-05-07T10:44:46.504Z",
   "targetDate": "2026-05-05T00:00:00+09:00",
   "sampleId": "lee-child-male-tiered",
   "description": "0-9 세 어린 남아 (2020 출생) — child fallback narrative 활성화 케이스. 어린 audience 안전 보장 (성인 metaphor 회피) 과 tieredMatrix 의 가벼운 톤을 점검하는 fixture.",
@@ -1294,7 +1294,7 @@
     },
     "meta": {
       "version": "1.0.0",
-      "generatedAt": "2026-05-07T10:39:10.456Z",
+      "generatedAt": "2026-05-07T10:44:55.315Z",
       "schoolPreset": {
         "selected": "korean",
         "source": "default",
@@ -1644,7 +1644,8 @@
               "meaningfulness": "meaningful",
               "stars": 4,
               "brief": {
-                "headline": "건강은 특별한 비법보다 잠, 식사, 움직임을 꾸준히 지키는 힘이 가요."
+                "headline": "오랜 결은 일찍 자고 일찍 일어나는 습관에서 자라요.",
+                "hook": "매일 같은 시간에 잠들어요."
               },
               "standard": {
                 "paragraphs": [
@@ -1777,16 +1778,13 @@
               },
               "selectedFragments": {
                 "brief": {
-                  "fragmentId": "health.life.brief.basics.502",
+                  "fragmentId": "health.life.brief.male.young.003",
                   "gating": {
+                    "gender": [
+                      "male"
+                    ],
                     "ageBand": [
-                      "0-9",
-                      "10-19",
-                      "20-29",
-                      "30-39",
-                      "40-54",
-                      "55-69",
-                      "70+"
+                      "0-9"
                     ]
                   },
                   "tags": []
@@ -2604,7 +2602,8 @@
               "meaningfulness": "meaningful",
               "stars": 4,
               "brief": {
-                "headline": "좋아하는 놀이로 자기 색이 풀려 나오는 시기예요."
+                "headline": "오랜 흐름은 작은 선택을 스스로 짚는 데서 자라요.",
+                "hook": "좋아하는 색을 매일 골라요."
               },
               "standard": {
                 "paragraphs": [
@@ -2713,8 +2712,11 @@
               },
               "selectedFragments": {
                 "brief": {
-                  "fragmentId": "expression_children.life.brief.0_9.002",
+                  "fragmentId": "expression_children.life.brief.male.young.013",
                   "gating": {
+                    "gender": [
+                      "male"
+                    ],
                     "ageBand": [
                       "0-9"
                     ]
@@ -6070,10 +6072,10 @@
                     "tokens": [
                       {
                         "kind": "text",
-                        "value": "그림·노래·이야기처럼 자기 색이 풀려 나오는 시간이 한 주 곳곳에 자리 잡는 흐름이에요. 좋아하는 놀이가 한 주 동안 즐거움의 중심이 되어 줘요."
+                        "value": "이번 주는 좋아하는 놀이로 즐거움이 가득한 흐름이에요. 그림·노래·이야기처럼 자기 색이 풀려 나오는 시간이 한 주 곳곳에 있어요."
                       }
                     ],
-                    "plainText": "그림·노래·이야기처럼 자기 색이 풀려 나오는 시간이 한 주 곳곳에 자리 잡는 흐름이에요. 좋아하는 놀이가 한 주 동안 즐거움의 중심이 되어 줘요."
+                    "plainText": "이번 주는 좋아하는 놀이로 즐거움이 가득한 흐름이에요. 그림·노래·이야기처럼 자기 색이 풀려 나오는 시간이 한 주 곳곳에 있어요."
                   },
                   {
                     "tokens": [
@@ -8249,10 +8251,10 @@
                   "tokens": [
                     {
                       "kind": "text",
-                      "value": "올 한 해는 친구·놀이·새로운 발견 같은 작은 자극이 한꺼번에 쏟아지는 시기예요. 가족 안의 따뜻한 분위기가 한 해 내내 흐름의 토대가 돼요."
+                      "value": "아이는 한 해 동안 새 친구·새 놀이·새 발견을 만나는 자리가 많은 흐름이에요. 가족 안의 따뜻한 분위기가 한 해 내내 흐름의 토대가 돼요."
                     }
                   ],
-                  "plainText": "올 한 해는 친구·놀이·새로운 발견 같은 작은 자극이 한꺼번에 쏟아지는 시기예요. 가족 안의 따뜻한 분위기가 한 해 내내 흐름의 토대가 돼요."
+                  "plainText": "아이는 한 해 동안 새 친구·새 놀이·새 발견을 만나는 자리가 많은 흐름이에요. 가족 안의 따뜻한 분위기가 한 해 내내 흐름의 토대가 돼요."
                 },
                 {
                   "tokens": [
@@ -10416,12 +10418,12 @@
       },
       "meta": {
         "schemaVersion": "spring-ts.tiered-matrix.v1",
-        "generatedAt": "2026-05-07T10:39:10.456Z",
+        "generatedAt": "2026-05-07T10:44:55.315Z",
         "selectionSeed": "2020|6|10|10|15|male|2026-05-04T15:00:00.000Z",
         "templateContractVersion": "1.0.0",
         "contentSource": "authored",
-        "fragmentCount": 4133,
-        "aiGeneratedFragmentCount": 4133
+        "fragmentCount": 4145,
+        "aiGeneratedFragmentCount": 4145
       }
     }
   }
