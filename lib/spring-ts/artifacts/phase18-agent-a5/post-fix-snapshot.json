@@ -1,0 +1,105 @@
+{
+  "phase": "P18-A5",
+  "generatedAt": "2026-05-07T05:24:57.967Z",
+  "source": "artifacts\\sample-outputs-2026-05-05-phase3",
+  "totalFixtures": 32,
+  "totalFixturesWithMatrix": 32,
+  "totalCells": 1705,
+  "paragraphHistograms": {
+    "brief": {
+      "1": 1705
+    },
+    "standard": {
+      "1": 107,
+      "2": 84,
+      "3": 1237,
+      "4": 83,
+      "5": 194
+    },
+    "expert": {
+      "4": 1670,
+      "5": 24,
+      "6": 11
+    }
+  },
+  "paragraphRollups": {
+    "standardGe3Cells": 1514,
+    "standardGe3Percent": 88.8
+  },
+  "briefHookSurface": {
+    "fixturesWithAtLeastOneHook": 31,
+    "fixtureCoveragePercent": 96.88,
+    "totalHookOccurrences": 294,
+    "distinctHookStrings": 34,
+    "authoredHookStrings": 34,
+    "dormantHookStrings": 1,
+    "perHookOccurrence": {
+      "한 줄 끄적임이 마음을 가볍게 해요.": 13,
+      "가까운 길로 한 바퀴 걸어요.": 13,
+      "한 가지를 끝까지 마무리해 봐요.": 13,
+      "동선을 미리 한 줄로 적어요.": 13,
+      "모은 것들을 짧게 정리해 봐요.": 13,
+      "결과 하나를 누군가에게 보여 줘요.": 13,
+      "작게 자주 모으면 흐름이 단단해져요.": 12,
+      "꾸준함이 가장 큰 자산이에요.": 11,
+      "작게 한 호흡 끊어 가요.": 11,
+      "익숙한 길도 짧게 새로 보여요.": 11,
+      "일정 사이에 쉼 한 칸을 비워요.": 11,
+      "같은 시간에 자고 일어나요.": 11,
+      "짧게 매일 보면 효과가 더 커요.": 11,
+      "마지막 한 주 정리가 자산이에요.": 11,
+      "조급함을 줄이면 관계가 따뜻해져요.": 11,
+      "큰 무리수만 피하면 든든히 모을 수 있어요.": 11,
+      "정기 점검 일정을 미리 잡아요.": 11,
+      "작은 안부가 큰 다리가 되어 줘요.": 11,
+      "한 가지 일을 끝까지 마무리해요.": 10,
+      "자기 색을 한 줄 더 또렷이 해요.": 8,
+      "쌓아 온 흐름이 자리를 받쳐 줘요.": 7,
+      "무리한 약속은 한 박자 미루는 게 좋아요.": 6,
+      "어깨 풀기 한 번을 챙겨요.": 6,
+      "후배에게 한마디를 건네 봐요.": 6,
+      "좋아하는 일을 한 줄 적어 봐요.": 5,
+      "자격과 계약을 차곡차곡 모아요.": 5,
+      "큰 서명은 하루 미뤄요.": 4,
+      "양쪽 곁을 같은 무게로 챙겨요.": 4,
+      "부모님 댁에 짧게 들러요.": 4,
+      "곁의 사람에게 안부를 건네요.": 4,
+      "물 한 잔과 가벼운 산책이 도움돼요.": 4,
+      "보호자와 한 번 더 웃어 봐요.": 4,
+      "함께 보낸 시간을 늘려 봐요.": 4,
+      "기준 한 줄을 적어 두면 좋아요.": 2
+    },
+    "perFixtureHookCountHistogram": {
+      "0": 1,
+      "1": 1,
+      "3": 5,
+      "6": 1,
+      "8": 3,
+      "9": 3,
+      "10": 4,
+      "11": 2,
+      "12": 2,
+      "13": 6,
+      "14": 3,
+      "15": 1
+    },
+    "maxHookOnSingleFixture": 15,
+    "maxHookOnSingleFixtureFixture": "13-oh-extreme-weak-continuous-tiered"
+  },
+  "postProcessorLeaks": {
+    "totalOccurrences": 0,
+    "uniqueLeakCells": 0,
+    "perPattern": {},
+    "sampleCells": []
+  },
+  "flowCluster": {
+    "totalCells": 0
+  },
+  "gyeolCluster": {
+    "totalCells": 7
+  },
+  "coverageYeongyeol": {
+    "totalCount": 0,
+    "perFile": {}
+  }
+}
