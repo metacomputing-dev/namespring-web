@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-05-07T16:45:27.551Z",
+  "generatedAt": "2026-05-07T16:44:04.387Z",
   "targetDate": "2026-05-05T00:00:00+09:00",
   "sampleId": "consensus-aware-multi-axis-combined-tiered",
   "description": "yongshinMode=consensus_aware + evaluatorMode=multi_axis 동시 활성. 독립 명리 방법 (억부/조후/격국/통관/병약) 의 consensus scoreboard 와 axisStrength ≥2 축 다축 가중이 함께 sajuPriority 에 반영되는 PR-K-9 + consensus 결합 fixture.",
@@ -1266,7 +1266,7 @@
     },
     "meta": {
       "version": "1.0.0",
-      "generatedAt": "2026-05-07T16:45:41.987Z",
+      "generatedAt": "2026-05-07T16:44:18.648Z",
       "schoolPreset": {
         "selected": "korean",
         "source": "default",
@@ -1951,15 +1951,6 @@
                       }
                     ],
                     "plainText": "한꺼번에 큰 학위를 바라보기보다, 한 분기에 한 주제를 정해 마무리하는 식이 잘 어울려요. 깊게 파고드는 흐름이 좋은 시기에는 강의 한 편보다 책 한 권을 천천히 읽는 것이 더 큰 힘이 되어 줘요."
-                  },
-                  {
-                    "tokens": [
-                      {
-                        "kind": "text",
-                        "value": "한 분기마다 책 한 권을 펼친 자리와 덮은 자리를 한 줄씩 적어 두세요. 30대 한 해 동안 그 자취가 모이면, 자기 분야의 작은 지도가 되어 다음 분기의 첫 자리를 가볍게 만들어 줘요."
-                      }
-                    ],
-                    "plainText": "한 분기마다 책 한 권을 펼친 자리와 덮은 자리를 한 줄씩 적어 두세요. 30대 한 해 동안 그 자취가 모이면, 자기 분야의 작은 지도가 되어 다음 분기의 첫 자리를 가볍게 만들어 줘요."
                   },
                   {
                     "tokens": [
@@ -13011,7 +13002,7 @@
       },
       "meta": {
         "schemaVersion": "spring-ts.tiered-matrix.v1",
-        "generatedAt": "2026-05-07T16:45:41.987Z",
+        "generatedAt": "2026-05-07T16:44:18.648Z",
         "selectionSeed": "1987|10|5|15|30|female|2026-05-04T15:00:00.000Z",
         "templateContractVersion": "1.0.0",
         "contentSource": "authored",
