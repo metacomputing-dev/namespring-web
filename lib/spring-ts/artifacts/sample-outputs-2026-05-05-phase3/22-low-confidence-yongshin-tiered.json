@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-05-07T11:15:32.274Z",
+  "generatedAt": "2026-05-07T11:21:34.470Z",
   "targetDate": "2026-05-05T00:00:00+09:00",
   "sampleId": "low-confidence-yongshin-tiered",
   "description": "용신 신뢰도 낮은 case (consensus 충돌 + 다중 후보). yongshinMode=consensus_aware + chengbai_strict 결합으로 conflict 가 격국 페널티 곡선까지 영향을 주는 elasticity 를 노출. tieredMatrix 의 명시적 신호 fixture 로 활용한다.",
@@ -1337,7 +1337,7 @@
     },
     "meta": {
       "version": "1.0.0",
-      "generatedAt": "2026-05-07T11:15:43.517Z",
+      "generatedAt": "2026-05-07T11:21:44.397Z",
       "schoolPreset": {
         "selected": "korean",
         "source": "default",
@@ -12744,7 +12744,7 @@
       },
       "meta": {
         "schemaVersion": "spring-ts.tiered-matrix.v1",
-        "generatedAt": "2026-05-07T11:15:43.517Z",
+        "generatedAt": "2026-05-07T11:21:44.397Z",
         "selectionSeed": "1991|2|4|18|0|female|2026-05-04T15:00:00.000Z",
         "templateContractVersion": "1.0.0",
         "contentSource": "authored",
