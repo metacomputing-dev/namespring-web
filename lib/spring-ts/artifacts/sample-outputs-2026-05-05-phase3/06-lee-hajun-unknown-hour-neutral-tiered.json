@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-05-07T10:56:45.397Z",
+  "generatedAt": "2026-05-07T11:15:32.274Z",
   "targetDate": "2026-05-05T00:00:00+09:00",
   "sampleId": "lee-hajun-unknown-hour-neutral-tiered",
   "description": "출생 시각 미상, 중립 성별 입력에서 불확실성 안내와 tiered 매트릭스를 확인하는 케이스.",
@@ -1302,7 +1302,7 @@
     },
     "meta": {
       "version": "1.0.0",
-      "generatedAt": "2026-05-07T10:56:50.381Z",
+      "generatedAt": "2026-05-07T11:15:37.297Z",
       "schoolPreset": {
         "selected": "korean",
         "source": "default",
@@ -12958,7 +12958,7 @@
       },
       "meta": {
         "schemaVersion": "spring-ts.tiered-matrix.v1",
-        "generatedAt": "2026-05-07T10:56:50.381Z",
+        "generatedAt": "2026-05-07T11:15:37.297Z",
         "selectionSeed": "2001|1|15|0|0|neutral|2026-05-04T15:00:00.000Z",
         "templateContractVersion": "1.0.0",
         "contentSource": "authored",
