@@ -1,0 +1,186 @@
+{
+  "phase": "P17-A1",
+  "summary": "Strengthen gating on the 5 remaining P13-A1 brief.hook fragments and the 3 spec=1 P16-A3 brief.hook fragments so each becomes a unique strict-spec winner for its target audience.",
+  "before": {
+    "totalHookOccurrences": 128,
+    "distinctHookStrings": 15,
+    "fixturesWithAtLeastOneHook": 26,
+    "fixtureCoveragePercent": 81.25,
+    "perHookOccurrence": {
+      "한 줄 끄적임이 마음을 가볍게 해요.": 13,
+      "한 가지를 끝까지 마무리해 봐요.": 13,
+      "모은 것들을 짧게 정리해 봐요.": 13,
+      "결과 하나를 누군가에게 보여 줘요.": 13,
+      "작게 자주 모으면 흐름이 단단해져요.": 12,
+      "작게 한 호흡 끊어 가요.": 11,
+      "일정 사이에 쉼 한 칸을 비워요.": 11,
+      "큰 무리수만 피하면 든든히 모을 수 있어요.": 11,
+      "무리한 약속은 한 박자 미루는 게 좋아요.": 6,
+      "어깨 풀기 한 번을 챙겨요.": 6,
+      "같은 시간에 자고 일어나요.": 5,
+      "마지막 한 주 정리가 자산이에요.": 4,
+      "정기 점검 일정을 미리 잡아요.": 4,
+      "물 한 잔과 가벼운 산책이 도움돼요.": 4,
+      "기준 한 줄을 적어 두면 좋아요.": 2
+    },
+    "perCategoryPeriodCount": {
+      "wealth|thisYear": 25,
+      "expression_children|today": 13,
+      "expression_children|thisWeek": 13,
+      "expression_children|thisMonth": 13,
+      "expression_children|thisYear": 13,
+      "overall|today": 11,
+      "overall|thisWeek": 11,
+      "health|today": 10,
+      "health_stress|thisMonth": 6,
+      "health|thisWeek": 5,
+      "study_document|thisWeek": 4,
+      "health|thisYear": 4
+    }
+  },
+  "after": {
+    "totalHookOccurrences": 203,
+    "distinctHookStrings": 20,
+    "fixturesWithAtLeastOneHook": 26,
+    "fixtureCoveragePercent": 81.25,
+    "perHookOccurrence": {
+      "한 줄 끄적임이 마음을 가볍게 해요.": 13,
+      "한 가지를 끝까지 마무리해 봐요.": 13,
+      "모은 것들을 짧게 정리해 봐요.": 13,
+      "결과 하나를 누군가에게 보여 줘요.": 13,
+      "작게 자주 모으면 흐름이 단단해져요.": 12,
+      "꾸준함이 가장 큰 자산이에요.": 11,
+      "작게 한 호흡 끊어 가요.": 11,
+      "익숙한 길도 짧게 새로 보여요.": 11,
+      "일정 사이에 쉼 한 칸을 비워요.": 11,
+      "같은 시간에 자고 일어나요.": 11,
+      "짧게 매일 보면 효과가 더 커요.": 11,
+      "마지막 한 주 정리가 자산이에요.": 11,
+      "조급함을 줄이면 관계가 따뜻해져요.": 11,
+      "큰 무리수만 피하면 든든히 모을 수 있어요.": 11,
+      "정기 점검 일정을 미리 잡아요.": 11,
+      "작은 안부가 큰 다리가 되어 줘요.": 11,
+      "무리한 약속은 한 박자 미루는 게 좋아요.": 6,
+      "어깨 풀기 한 번을 챙겨요.": 6,
+      "물 한 잔과 가벼운 산책이 도움돼요.": 4,
+      "기준 한 줄을 적어 두면 좋아요.": 2
+    },
+    "perCategoryPeriodCount": {
+      "wealth|thisYear": 25,
+      "expression_children|today": 13,
+      "expression_children|thisWeek": 13,
+      "expression_children|thisMonth": 13,
+      "expression_children|thisYear": 13,
+      "career|life": 11,
+      "overall|today": 11,
+      "movement|today": 11,
+      "overall|thisWeek": 11,
+      "health|thisWeek": 11,
+      "academic|thisWeek": 11,
+      "study_document|thisWeek": 11,
+      "romance|thisMonth": 11,
+      "health|thisYear": 11,
+      "family|thisYear": 11,
+      "health|today": 10,
+      "health_stress|thisMonth": 6
+    }
+  },
+  "delta": {
+    "totalHookOccurrencesDelta": 75,
+    "distinctHookStringsDelta": 5,
+    "newCategoryPeriods": [
+      "career|life",
+      "movement|today",
+      "academic|thisWeek",
+      "romance|thisMonth",
+      "family|thisYear"
+    ],
+    "boostedCategoryPeriods": [
+      { "key": "health|thisWeek", "from": 5, "to": 11, "delta": 6 },
+      { "key": "study_document|thisWeek", "from": 4, "to": 11, "delta": 7 },
+      { "key": "health|thisYear", "from": 4, "to": 11, "delta": 7 }
+    ]
+  },
+  "edits": [
+    {
+      "fragmentId": "academic.thisWeek.brief.wildcard.001 -> academic.thisWeek.brief.strong.neutral.001",
+      "category": "P13-A1 wildcard repurpose",
+      "before": { "gating": {}, "spec": 0 },
+      "after": { "gating": { "dayMasterStrength": ["STRONG", "EXTREME_STRONG"], "yongshinAlignment": ["neutral"] }, "spec": 2 },
+      "winsForFixtures": "13 STRONG+neutral fixtures (11 emit hook; 2 are minors)"
+    },
+    {
+      "fragmentId": "career.life.brief.wildcard.001 -> career.life.brief.strong.neutral.001",
+      "category": "P13-A1 wildcard repurpose",
+      "before": { "gating": {}, "spec": 0 },
+      "after": { "gating": { "dayMasterStrength": ["STRONG", "EXTREME_STRONG"], "yongshinAlignment": ["neutral"] }, "spec": 2 },
+      "winsForFixtures": "13 STRONG+neutral fixtures (11 emit hook; 2 are minors)"
+    },
+    {
+      "fragmentId": "family.thisYear.brief.wildcard.001 -> family.thisYear.brief.strong.neutral.001",
+      "category": "P13-A1 wildcard repurpose",
+      "before": { "gating": {}, "spec": 0 },
+      "after": { "gating": { "dayMasterStrength": ["STRONG", "EXTREME_STRONG"], "yongshinAlignment": ["neutral"] }, "spec": 2 },
+      "winsForFixtures": "13 STRONG+neutral fixtures (11 emit hook; 2 are minors). Note: displaces strong.012 (gating: STRONG only) from 3 cells to the wildcard text 'Note: gating overlap; new spec=2 outranks spec=1 strong.012 deterministically'.",
+      "displacementNote": "family.thisYear.brief.strong.012 (gating: STRONG only, no hook) previously won 3 cells via tiebreak among spec=1 STRONG+ageBand siblings. New spec=2 STRONG+neutral fragment wins those cells; semantic shift from '내가 가까운 자리를 받쳐 주는 한 해예요.' to '올해는 가까운 사람과의 인연이 따뜻하게 자라요.' Both fit STRONG+neutral audience."
+    },
+    {
+      "fragmentId": "movement.today.brief.wildcard.001 -> movement.today.brief.strong.neutral.001",
+      "category": "P13-A1 wildcard repurpose",
+      "before": { "gating": {}, "spec": 0 },
+      "after": { "gating": { "dayMasterStrength": ["STRONG", "EXTREME_STRONG"], "yongshinAlignment": ["neutral"] }, "spec": 2 },
+      "winsForFixtures": "13 STRONG+neutral fixtures (11 emit hook; 2 are minors)"
+    },
+    {
+      "fragmentId": "romance.thisMonth.brief.adult.001 -> romance.thisMonth.brief.strong.neutral.adult.001",
+      "category": "P13-A1 spec=1 -> spec=3 (beat _coverage spec=2)",
+      "before": { "gating": { "ageBand": ["20-29", "30-39", "40-54", "55-69", "70+"] }, "spec": 1 },
+      "after": { "gating": { "ageBand": ["20-29", "30-39", "40-54", "55-69", "70+"], "dayMasterStrength": ["STRONG", "EXTREME_STRONG"], "yongshinAlignment": ["neutral"] }, "spec": 3 },
+      "winsForFixtures": "11 STRONG+neutral adult fixtures. The other 15 adult fixtures still win _coverage/underfilled-min8.fragments.json::romance.thisMonth.brief.neutral.002 (no hook) -- no regression because adult.001 was previously dead (lost to spec=2)."
+    },
+    {
+      "fragmentId": "health.thisWeek.brief.strong.001 -> health.thisWeek.brief.strong.neutral.001",
+      "category": "P16-A3 spec=1 -> spec=2 (resolve tiebreak)",
+      "before": { "gating": { "dayMasterStrength": ["STRONG", "EXTREME_STRONG"] }, "spec": 1 },
+      "after": { "gating": { "dayMasterStrength": ["STRONG", "EXTREME_STRONG"], "yongshinAlignment": ["neutral"] }, "spec": 2 },
+      "winsForFixtures": "11 STRONG+neutral fixtures (was 5 via random tiebreak among ~7 spec=1 siblings)"
+    },
+    {
+      "fragmentId": "health.thisYear.brief.strong.001 -> health.thisYear.brief.strong.neutral.001",
+      "category": "P16-A3 spec=1 -> spec=2 (resolve tiebreak)",
+      "before": { "gating": { "dayMasterStrength": ["STRONG", "EXTREME_STRONG"] }, "spec": 1 },
+      "after": { "gating": { "dayMasterStrength": ["STRONG", "EXTREME_STRONG"], "yongshinAlignment": ["neutral"] }, "spec": 2 },
+      "winsForFixtures": "11 STRONG+neutral fixtures (was 4 via random tiebreak)"
+    },
+    {
+      "fragmentId": "study_document.thisWeek.brief.strong.006 -> study_document.thisWeek.brief.strong.neutral.006",
+      "category": "P16-A3 spec=1 -> spec=2 (resolve tiebreak)",
+      "before": { "gating": { "dayMasterStrength": ["STRONG", "EXTREME_STRONG"] }, "spec": 1 },
+      "after": { "gating": { "dayMasterStrength": ["STRONG", "EXTREME_STRONG"], "yongshinAlignment": ["neutral"] }, "spec": 2 },
+      "winsForFixtures": "11 STRONG+neutral fixtures (was 4 via random tiebreak)"
+    }
+  ],
+  "fixtureProfileBackground": {
+    "comment": "All 13 STRONG fixtures in the sample matrix are also yongshinAlignment=neutral (no STRONG+aligned exists). So '+neutral' simultaneously narrows gating to be strict-determinism friendly without dropping any addressed audience.",
+    "ageBandTotals": { "0-9": 4, "10-19": 1, "20-29": 1, "30-39": 8, "40-54": 10, "55-69": 1, "70+": 6 },
+    "strengthTotals": { "STRONG": 13, "WEAK": 16, "BALANCED": 2 },
+    "alignmentTotals": { "neutral": 24, "aligned": 7 },
+    "minorFixtureIds": ["04 (10-19)", "18 (0-9)", "27 (0-9)", "30 (0-9)", "31 (0-9)"]
+  },
+  "acceptanceGates": {
+    "typecheck": "PASS",
+    "ci:no-ai-policy": "PASS (4077 fragments / 7095 sourceTier records)",
+    "ci:narrative-voice": "0 plain term / 0 plain tag / 0 expert untagged",
+    "ci:narrative-truncated-endings": 0,
+    "ci:narrative-tag-label-alignment": 0,
+    "ci:narrative-orphan-tags": 0,
+    "ci:acceptance-completeness": 0,
+    "ci:samples-stale": 0,
+    "ci:post-processor-grammar": 0,
+    "test:tiered-isolation": "37 PASS / 0 FAIL",
+    "test:tiered-shape": "916 PASS / 0 FAIL",
+    "test:tiered-determinism": "4 PASS / 0 FAIL",
+    "test:narrative-schema": "102957 PASS / 0 FAIL",
+    "test:namespring-compat": "202 PASS / 0 FAIL"
+  }
+}
