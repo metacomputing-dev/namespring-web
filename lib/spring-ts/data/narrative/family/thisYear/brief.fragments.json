@@ -56,6 +56,7 @@
       "templateTokens": [
         { "kind": "text", "value": "보호자와 함께 자라는 따뜻한 한 해예요." }
       ],
+      "hook": "함께 보낸 시간을 늘려 봐요.",
       "tags": [],
       "aiGenerated": true,
       "sourceTier": {

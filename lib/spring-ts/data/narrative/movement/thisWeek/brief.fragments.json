@@ -314,6 +314,7 @@
           "value": "이번 주는 익숙한 동선을 지키면 호흡이 편안해져요."
         }
       ],
+      "hook": "동선을 미리 한 줄로 적어요.",
       "tags": [],
       "aiGenerated": true,
       "sourceTier": {

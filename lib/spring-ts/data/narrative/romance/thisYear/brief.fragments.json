@@ -95,6 +95,7 @@
       "templateTokens": [
         { "kind": "text", "value": "올해는 곁의 인연을 단단히 가꾸어 가는 해예요." }
       ],
+      "hook": "곁의 사람에게 안부를 건네요.",
       "tags": [],
       "aiGenerated": true,
       "sourceTier": {

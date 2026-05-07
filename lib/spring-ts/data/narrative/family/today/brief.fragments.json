@@ -55,6 +55,7 @@
       "templateTokens": [
         { "kind": "text", "value": "보호자와 마주 보고 웃기 좋은 하루예요." }
       ],
+      "hook": "보호자와 한 번 더 웃어 봐요.",
       "tags": [],
       "aiGenerated": true,
       "sourceTier": {

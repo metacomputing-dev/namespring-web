@@ -60,6 +60,7 @@
       "templateTokens": [
         { "kind": "text", "value": "큰 서명은 하루 묵힌 뒤에 결정해도 좋아요." }
       ],
+      "hook": "큰 서명은 하루 미뤄요.",
       "tags": [],
       "aiGenerated": true,
       "sourceTier": { "tier": "T1_HYPOTHESIS", "sourceType": "training_derived", "sourceUrl": null, "accessedAt": "2026-05-02", "quoteShort": null, "humanInterpretation": "AI-derived brief fragment for study_document.today adult. Display-only.", "copyrightNote": "No source prose copied; original.", "authorityTruthEligible": false }
