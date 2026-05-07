@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-05-07T16:05:59.811Z",
+  "generatedAt": "2026-05-07T16:09:40.507Z",
   "targetDate": "2026-05-05T00:00:00+09:00",
   "sampleId": "park-jeolgi-boundary-female-tiered",
   "description": "입추(立秋) 절기 경계 직후 출생. fortuneCascadeMode=jie_based 로 경계 정밀 계산을 활성화하고 tieredMatrix 와 결합한 케이스.",
@@ -1321,7 +1321,7 @@
     },
     "meta": {
       "version": "1.0.0",
-      "generatedAt": "2026-05-07T16:06:06.054Z",
+      "generatedAt": "2026-05-07T16:09:47.032Z",
       "schoolPreset": {
         "selected": "korean",
         "source": "default",
@@ -10251,8 +10251,8 @@
               "meaningfulness": "limited",
               "stars": 3,
               "brief": {
-                "headline": "올해는 한 박자 천천히 모여요.",
-                "hook": "작게 자주 모으면 흐름이 단단해져요."
+                "headline": "올해는 잔잔한 모음을 차곡 늘리는 흐름이에요.",
+                "hook": "올해는 잔잔한 모음을 늘려요."
               },
               "standard": {
                 "paragraphs": [
@@ -10412,14 +10412,20 @@
               },
               "selectedFragments": {
                 "brief": {
-                  "fragmentId": "wealth.thisYear.brief.weak.neutral.005",
+                  "fragmentId": "wealth.thisYear.brief.female.thirties.autumn.weak.014",
                   "gating": {
+                    "gender": [
+                      "female"
+                    ],
+                    "ageBand": [
+                      "30-39"
+                    ],
+                    "birthSeason": [
+                      "autumn"
+                    ],
                     "dayMasterStrength": [
                       "WEAK",
                       "EXTREME_WEAK"
-                    ],
-                    "yongshinAlignment": [
-                      "neutral"
                     ]
                   },
                   "tags": []
@@ -10961,15 +10967,6 @@
                       }
                     ],
                     "plainText": "들어오는 관심을 의심하지 않고 자연스럽게 받아들이는 태도가 가장 큰 자산이 돼요."
-                  },
-                  {
-                    "tokens": [
-                      {
-                        "kind": "text",
-                        "value": "분기마다 한 번씩 자기 마음을 짧게 적어 두는 자리도 큰 도움이 돼요. 봄·여름의 첫 신호 자리, 가을의 받아들임 자리, 겨울의 다음 해 약속 자리가 한 해 안에서 자연스럽게 이어져요. 부드러운 일간일수록 분기 자리마다 한마디씩 정성껏 남기면, 한 해의 신뢰가 다음 해까지 또렷하게 자라요."
-                      }
-                    ],
-                    "plainText": "분기마다 한 번씩 자기 마음을 짧게 적어 두는 자리도 큰 도움이 돼요. 봄·여름의 첫 신호 자리, 가을의 받아들임 자리, 겨울의 다음 해 약속 자리가 한 해 안에서 자연스럽게 이어져요. 부드러운 일간일수록 분기 자리마다 한마디씩 정성껏 남기면, 한 해의 신뢰가 다음 해까지 또렷하게 자라요."
                   }
                 ]
               },
@@ -12915,12 +12912,12 @@
       },
       "meta": {
         "schemaVersion": "spring-ts.tiered-matrix.v1",
-        "generatedAt": "2026-05-07T16:06:06.054Z",
+        "generatedAt": "2026-05-07T16:09:47.032Z",
         "selectionSeed": "1988|8|8|6|0|female|2026-05-04T15:00:00.000Z",
         "templateContractVersion": "1.0.0",
         "contentSource": "authored",
-        "fragmentCount": 4165,
-        "aiGeneratedFragmentCount": 4165
+        "fragmentCount": 4175,
+        "aiGeneratedFragmentCount": 4175
       }
     }
   }

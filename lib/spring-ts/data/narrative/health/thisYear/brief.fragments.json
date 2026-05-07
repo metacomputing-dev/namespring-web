@@ -289,6 +289,39 @@
         "copyrightNote": "No source prose copied; original phrasing.",
         "authorityTruthEligible": false
       }
+    },
+    {
+      "schemaVersion": "spring-ts.narrative-fragment.v1",
+      "fragmentId": "health.thisYear.brief.male.young.winter.011",
+      "axis": {
+        "category": "health",
+        "period": "thisYear",
+        "depth": "brief"
+      },
+      "gating": {
+        "gender": ["male"],
+        "ageBand": ["0-9"],
+        "birthSeason": ["winter"]
+      },
+      "templateTokens": [
+        {
+          "kind": "text",
+          "value": "올해는 따뜻한 옷을 든든히 챙기는 흐름이에요."
+        }
+      ],
+      "hook": "따뜻한 옷을 든든히 챙겨요.",
+      "tags": [],
+      "aiGenerated": true,
+      "sourceTier": {
+        "tier": "T1_HYPOTHESIS",
+        "sourceType": "training_derived",
+        "sourceUrl": null,
+        "accessedAt": "2026-05-08",
+        "quoteShort": null,
+        "humanInterpretation": "P34-A4 distinct-hook expansion: health/thisYear brief for male × 0-9 × winter. Caregiver-shared tone, winter-born child. Display-only narrative.",
+        "copyrightNote": "No source prose copied; original authored prose.",
+        "authorityTruthEligible": false
+      }
     }
   ]
 }

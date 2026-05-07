@@ -362,6 +362,40 @@
         "copyrightNote": "No source prose copied; original authored prose.",
         "authorityTruthEligible": false
       }
+    },
+    {
+      "schemaVersion": "spring-ts.narrative-fragment.v1",
+      "fragmentId": "expression_children.thisMonth.brief.male.elder.winter.weak.012",
+      "axis": {
+        "category": "expression_children",
+        "period": "thisMonth",
+        "depth": "brief"
+      },
+      "gating": {
+        "gender": ["male"],
+        "ageBand": ["70+"],
+        "birthSeason": ["winter"],
+        "dayMasterStrength": ["WEAK", "EXTREME_WEAK"]
+      },
+      "templateTokens": [
+        {
+          "kind": "text",
+          "value": "이번 달은 손주 사진을 천천히 들여다보는 흐름이에요."
+        }
+      ],
+      "hook": "손주 사진을 천천히 들여다봐요.",
+      "tags": [],
+      "aiGenerated": true,
+      "sourceTier": {
+        "tier": "T1_HYPOTHESIS",
+        "sourceType": "training_derived",
+        "sourceUrl": null,
+        "accessedAt": "2026-05-08",
+        "quoteShort": null,
+        "humanInterpretation": "P34-A4 distinct-hook expansion: expression_children/thisMonth brief for male × 70+ × winter × WEAK day master. 4-dim split avoids #32 (STRONG) double-fire; targets #14 effective (WEAK). Display-only narrative.",
+        "copyrightNote": "No source prose copied; original authored prose.",
+        "authorityTruthEligible": false
+      }
     }
   ]
 }

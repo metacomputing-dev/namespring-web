@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-05-07T16:05:59.811Z",
+  "generatedAt": "2026-05-07T16:09:40.507Z",
   "targetDate": "2026-05-05T00:00:00+09:00",
   "sampleId": "gyeokguk-conflict-jeonggwan-vs-bigyeop-tiered",
   "description": "격국 충돌 case 1: 정관 후보와 비견(겁재) 후보가 같이 잡히기 쉬운 입력. gyeokgukSelectionRule=jungki_transparent 로 월지 중기 투간 룰을 활성화하여 후보 ranking 의 elasticity 를 노출하는 케이스. 최종 격국 판정은 엔진이 결정한다.",
@@ -1303,7 +1303,7 @@
     },
     "meta": {
       "version": "1.0.0",
-      "generatedAt": "2026-05-07T16:06:08.712Z",
+      "generatedAt": "2026-05-07T16:09:49.656Z",
       "schoolPreset": {
         "selected": "korean",
         "source": "default",
@@ -11287,7 +11287,8 @@
               "meaningfulness": "meaningful",
               "stars": 4,
               "brief": {
-                "headline": "올해는 가족과 함께 움직이고 새 계획을 세우기 쉬워요."
+                "headline": "올해는 여름 저녁상을 가족과 함께 차리는 결이에요.",
+                "hook": "여름 저녁상을 함께 차려요."
               },
               "standard": {
                 "paragraphs": [
@@ -11402,10 +11403,15 @@
               },
               "selectedFragments": {
                 "brief": {
-                  "fragmentId": "family.thisYear.brief.currentseason.spring_summer.301",
+                  "fragmentId": "family.thisYear.brief.male.midlife.summer.013",
                   "gating": {
-                    "currentSeason": [
-                      "spring",
+                    "gender": [
+                      "male"
+                    ],
+                    "ageBand": [
+                      "40-54"
+                    ],
+                    "birthSeason": [
                       "summer"
                     ]
                   },
@@ -13146,12 +13152,12 @@
       },
       "meta": {
         "schemaVersion": "spring-ts.tiered-matrix.v1",
-        "generatedAt": "2026-05-07T16:06:08.712Z",
+        "generatedAt": "2026-05-07T16:09:49.656Z",
         "selectionSeed": "1985|5|25|8|45|male|2026-05-04T15:00:00.000Z",
         "templateContractVersion": "1.0.0",
         "contentSource": "authored",
-        "fragmentCount": 4165,
-        "aiGeneratedFragmentCount": 4165
+        "fragmentCount": 4175,
+        "aiGeneratedFragmentCount": 4175
       }
     }
   }

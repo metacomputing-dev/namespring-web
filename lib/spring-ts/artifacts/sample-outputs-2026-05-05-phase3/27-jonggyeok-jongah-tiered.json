@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-05-07T16:05:59.811Z",
+  "generatedAt": "2026-05-07T16:09:40.507Z",
   "targetDate": "2026-05-05T00:00:00+09:00",
   "sampleId": "jonggyeok-jongah-tiered",
   "description": "입력 의도: 從兒격 (식상 dominant) 계열. fix-jong-07 (2018-07-23 03:00) 좌표 — 丙火 일간 + 戊己己戊 4 천간 식상 + 戌未辰丑 토 지지 67.5%. 從兒不論身強弱 doctrine 입력. 최종 외격 판정은 엔진이 결정한다.",
@@ -1330,7 +1330,7 @@
     },
     "meta": {
       "version": "1.0.0",
-      "generatedAt": "2026-05-07T16:06:11.378Z",
+      "generatedAt": "2026-05-07T16:09:52.260Z",
       "schoolPreset": {
         "selected": "korean",
         "source": "default",
@@ -5206,7 +5206,8 @@
               "meaningfulness": "meaningful",
               "stars": 4,
               "brief": {
-                "headline": "이번 주는 오래 앉아 있기보다 짧게라도 자주 움직이면 몸이 한결요."
+                "headline": "이번 주는 시원한 물놀이를 짧게 챙겨요.",
+                "hook": "시원한 물놀이를 짧게 즐겨요."
               },
               "standard": {
                 "paragraphs": [
@@ -5331,12 +5332,16 @@
               },
               "selectedFragments": {
                 "brief": {
-                  "fragmentId": "health.thisWeek.brief.activity.501",
+                  "fragmentId": "health.thisWeek.brief.male.young.summer.011",
                   "gating": {
+                    "gender": [
+                      "male"
+                    ],
                     "ageBand": [
-                      "0-9",
-                      "10-19",
-                      "20-29"
+                      "0-9"
+                    ],
+                    "birthSeason": [
+                      "summer"
                     ]
                   },
                   "tags": []
@@ -10627,12 +10632,12 @@
       },
       "meta": {
         "schemaVersion": "spring-ts.tiered-matrix.v1",
-        "generatedAt": "2026-05-07T16:06:11.378Z",
+        "generatedAt": "2026-05-07T16:09:52.260Z",
         "selectionSeed": "2018|7|23|3|0|male|2026-05-04T15:00:00.000Z",
         "templateContractVersion": "1.0.0",
         "contentSource": "authored",
-        "fragmentCount": 4165,
-        "aiGeneratedFragmentCount": 4165
+        "fragmentCount": 4175,
+        "aiGeneratedFragmentCount": 4175
       }
     }
   }

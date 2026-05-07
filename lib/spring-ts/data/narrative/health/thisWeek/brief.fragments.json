@@ -289,6 +289,39 @@
         "copyrightNote": "No source prose copied; original phrasing.",
         "authorityTruthEligible": false
       }
+    },
+    {
+      "schemaVersion": "spring-ts.narrative-fragment.v1",
+      "fragmentId": "health.thisWeek.brief.male.young.summer.011",
+      "axis": {
+        "category": "health",
+        "period": "thisWeek",
+        "depth": "brief"
+      },
+      "gating": {
+        "gender": ["male"],
+        "ageBand": ["0-9"],
+        "birthSeason": ["summer"]
+      },
+      "templateTokens": [
+        {
+          "kind": "text",
+          "value": "이번 주는 시원한 물놀이를 짧게 챙겨요."
+        }
+      ],
+      "hook": "시원한 물놀이를 짧게 즐겨요.",
+      "tags": [],
+      "aiGenerated": true,
+      "sourceTier": {
+        "tier": "T1_HYPOTHESIS",
+        "sourceType": "training_derived",
+        "sourceUrl": null,
+        "accessedAt": "2026-05-08",
+        "quoteShort": null,
+        "humanInterpretation": "P34-A4 distinct-hook expansion: health/thisWeek brief for male × 0-9 × summer. Caregiver-shared tone, summer-born child. Display-only narrative.",
+        "copyrightNote": "No source prose copied; original authored prose.",
+        "authorityTruthEligible": false
+      }
     }
   ]
 }

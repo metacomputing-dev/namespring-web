@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-05-07T16:05:59.811Z",
+  "generatedAt": "2026-05-07T16:09:40.507Z",
   "targetDate": "2026-05-05T00:00:00+09:00",
   "sampleId": "jeolgi-lidong-boundary-tiered",
   "description": "입동(立冬) 절기 경계 직전 출생 (2026 입동 = 11/07 18:52 KST, 본 입력은 ±0.5 day 내). fortuneCascadeMode=jie_based 로 jie 경계 day-precision 활성, 月柱 戌→亥 분기 부근 elasticity 와 tieredMatrix 결합.",
@@ -1307,7 +1307,7 @@
     },
     "meta": {
       "version": "1.0.0",
-      "generatedAt": "2026-05-07T16:06:12.273Z",
+      "generatedAt": "2026-05-07T16:09:53.198Z",
       "schoolPreset": {
         "selected": "korean",
         "source": "default",
@@ -8748,7 +8748,8 @@
               "meaningfulness": "limited",
               "stars": 3,
               "brief": {
-                "headline": "올해는 큰 변화보다 기본 체력을 쌓는 습관이 중요해요."
+                "headline": "올해는 따뜻한 옷을 든든히 챙기는 흐름이에요.",
+                "hook": "따뜻한 옷을 든든히 챙겨요."
               },
               "standard": {
                 "paragraphs": [
@@ -8873,13 +8874,16 @@
               },
               "selectedFragments": {
                 "brief": {
-                  "fragmentId": "health.thisYear.brief.foundation.501",
+                  "fragmentId": "health.thisYear.brief.male.young.winter.011",
                   "gating": {
+                    "gender": [
+                      "male"
+                    ],
                     "ageBand": [
-                      "0-9",
-                      "10-19",
-                      "20-29",
-                      "30-39"
+                      "0-9"
+                    ],
+                    "birthSeason": [
+                      "winter"
                     ]
                   },
                   "tags": []
@@ -10596,12 +10600,12 @@
       },
       "meta": {
         "schemaVersion": "spring-ts.tiered-matrix.v1",
-        "generatedAt": "2026-05-07T16:06:12.273Z",
+        "generatedAt": "2026-05-07T16:09:53.198Z",
         "selectionSeed": "2026|11|7|18|30|male|2026-05-04T15:00:00.000Z",
         "templateContractVersion": "1.0.0",
         "contentSource": "authored",
-        "fragmentCount": 4165,
-        "aiGeneratedFragmentCount": 4165
+        "fragmentCount": 4175,
+        "aiGeneratedFragmentCount": 4175
       }
     }
   }

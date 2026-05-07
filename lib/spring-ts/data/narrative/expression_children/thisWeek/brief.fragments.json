@@ -362,6 +362,39 @@
         "copyrightNote": "No source prose copied; original authored prose.",
         "authorityTruthEligible": false
       }
+    },
+    {
+      "schemaVersion": "spring-ts.narrative-fragment.v1",
+      "fragmentId": "expression_children.thisWeek.brief.female.elder.winter.012",
+      "axis": {
+        "category": "expression_children",
+        "period": "thisWeek",
+        "depth": "brief"
+      },
+      "gating": {
+        "gender": ["female"],
+        "ageBand": ["70+"],
+        "birthSeason": ["winter"]
+      },
+      "templateTokens": [
+        {
+          "kind": "text",
+          "value": "이번 주는 화로에 손을 녹이며 이야기를 나누는 흐름이에요."
+        }
+      ],
+      "hook": "화로에 손을 녹이며 이야기해요.",
+      "tags": [],
+      "aiGenerated": true,
+      "sourceTier": {
+        "tier": "T1_HYPOTHESIS",
+        "sourceType": "training_derived",
+        "sourceUrl": null,
+        "accessedAt": "2026-05-08",
+        "quoteShort": null,
+        "humanInterpretation": "P34-A4 distinct-hook expansion: expression_children/thisWeek brief for female × 70+ × winter. Winter-born elder female warm-conversation frame. Display-only narrative.",
+        "copyrightNote": "No source prose copied; original authored prose.",
+        "authorityTruthEligible": false
+      }
     }
   ]
 }

@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-05-07T16:05:59.811Z",
+  "generatedAt": "2026-05-07T16:09:40.507Z",
   "targetDate": "2026-05-05T00:00:00+09:00",
   "sampleId": "jonggyeok-jonggwan-tiered",
   "description": "입력 의도: 從官격 계열. fix-jong-05 (1933-09-15 15:00) 좌표 — 甲木 일간이 가을 申酉 지지에 무근, 辛 정관(陰金) 천간 압도 + 申酉 통근. precisionConfig.gyeokgukSelectionRule=jungki_transparent 로 월지 중기 룰 surface. 최종 외격 판정은 엔진이 결정한다.",
@@ -1283,7 +1283,7 @@
     },
     "meta": {
       "version": "1.0.0",
-      "generatedAt": "2026-05-07T16:06:10.839Z",
+      "generatedAt": "2026-05-07T16:09:51.713Z",
       "schoolPreset": {
         "selected": "korean",
         "source": "default",
@@ -7374,7 +7374,8 @@
               "meaningfulness": "limited",
               "stars": 3,
               "brief": {
-                "headline": "도움 받기를 부끄러워하지 않으면 좋은 주예요."
+                "headline": "이번 주는 손때 묻은 노트를 다시 펼쳐 봐요.",
+                "hook": "손때 묻은 노트를 다시 펼쳐요."
               },
               "standard": {
                 "paragraphs": [
@@ -7507,8 +7508,17 @@
               },
               "selectedFragments": {
                 "brief": {
-                  "fragmentId": "study_document.thisWeek.brief.weak.007",
+                  "fragmentId": "study_document.thisWeek.brief.male.elder.autumn.weak.009",
                   "gating": {
+                    "gender": [
+                      "male"
+                    ],
+                    "ageBand": [
+                      "70+"
+                    ],
+                    "birthSeason": [
+                      "autumn"
+                    ],
                     "dayMasterStrength": [
                       "WEAK",
                       "EXTREME_WEAK"
@@ -13075,12 +13085,12 @@
       },
       "meta": {
         "schemaVersion": "spring-ts.tiered-matrix.v1",
-        "generatedAt": "2026-05-07T16:06:10.839Z",
+        "generatedAt": "2026-05-07T16:09:51.713Z",
         "selectionSeed": "1933|9|15|15|0|male|2026-05-04T15:00:00.000Z",
         "templateContractVersion": "1.0.0",
         "contentSource": "authored",
-        "fragmentCount": 4165,
-        "aiGeneratedFragmentCount": 4165
+        "fragmentCount": 4175,
+        "aiGeneratedFragmentCount": 4175
       }
     }
   }
