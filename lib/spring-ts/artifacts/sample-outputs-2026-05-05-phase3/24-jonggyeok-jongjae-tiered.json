@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-05-07T05:29:52.204Z",
+  "generatedAt": "2026-05-07T05:35:56.239Z",
   "targetDate": "2026-05-05T00:00:00+09:00",
   "sampleId": "jonggyeok-jongjae-tiered",
   "description": "입력 의도: 從財격 계열. fix-jong-04 (1978-07-11 09:00) 좌표 — 甲木 일간이 戊己己戊 4 천간 + 戌未辰 토 지지로 재성(土) 압도, 인성/비겁 미약한 從財 doctrine 입력. 최종 외격 판정은 엔진이 결정한다.",
@@ -1317,7 +1317,7 @@
     },
     "meta": {
       "version": "1.0.0",
-      "generatedAt": "2026-05-07T05:30:03.077Z",
+      "generatedAt": "2026-05-07T05:36:08.558Z",
       "schoolPreset": {
         "selected": "korean",
         "source": "default",
@@ -2313,6 +2313,15 @@
                       }
                     ],
                     "plainText": "편안하게 연락할 수 있는지, 서로의 시간을 존중하는지, 힘든 날에도 말투가 지나치게 날카로워지지 않는지를 보면 관계의 안정감을 알 수 있습니다."
+                  },
+                  {
+                    "tokens": [
+                      {
+                        "kind": "text",
+                        "value": "작은 약속이 흔들림 없이 지켜지는 모습이 오래 가는 관계의 가장 단단한 기반이 돼요."
+                      }
+                    ],
+                    "plainText": "작은 약속이 흔들림 없이 지켜지는 모습이 오래 가는 관계의 가장 단단한 기반이 돼요."
                   }
                 ],
                 "livingTips": [
@@ -12903,7 +12912,7 @@
       },
       "meta": {
         "schemaVersion": "spring-ts.tiered-matrix.v1",
-        "generatedAt": "2026-05-07T05:30:03.077Z",
+        "generatedAt": "2026-05-07T05:36:08.558Z",
         "selectionSeed": "1978|7|11|9|0|male|2026-05-04T15:00:00.000Z",
         "templateContractVersion": "1.0.0",
         "contentSource": "authored",

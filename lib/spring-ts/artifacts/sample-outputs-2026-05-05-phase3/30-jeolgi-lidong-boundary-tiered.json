@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-05-07T05:29:52.204Z",
+  "generatedAt": "2026-05-07T05:35:56.239Z",
   "targetDate": "2026-05-05T00:00:00+09:00",
   "sampleId": "jeolgi-lidong-boundary-tiered",
   "description": "입동(立冬) 절기 경계 직전 출생 (2026 입동 = 11/07 18:52 KST, 본 입력은 ±0.5 day 내). fortuneCascadeMode=jie_based 로 jie 경계 day-precision 활성, 月柱 戌→亥 분기 부근 elasticity 와 tieredMatrix 결합.",
@@ -1307,7 +1307,7 @@
     },
     "meta": {
       "version": "1.0.0",
-      "generatedAt": "2026-05-07T05:30:04.808Z",
+      "generatedAt": "2026-05-07T05:36:10.385Z",
       "schoolPreset": {
         "selected": "korean",
         "source": "default",
@@ -1355,6 +1355,15 @@
                     }
                   ],
                   "plainText": "몸으로 배우는 경험과 조용히 정리하는 시간이 균형을 이룰 때 아이가 자기 속도를 더 잘 찾습니다."
+                },
+                {
+                  "tokens": [
+                    {
+                      "kind": "text",
+                      "value": "잘한 결과보다 시도한 과정을 자주 짚어 주면 아이가 다음 도전을 편안하게 받아들이게 돼요."
+                    }
+                  ],
+                  "plainText": "잘한 결과보다 시도한 과정을 자주 짚어 주면 아이가 다음 도전을 편안하게 받아들이게 돼요."
                 }
               ],
               "livingTips": [
@@ -9182,7 +9191,7 @@
       },
       "meta": {
         "schemaVersion": "spring-ts.tiered-matrix.v1",
-        "generatedAt": "2026-05-07T05:30:04.808Z",
+        "generatedAt": "2026-05-07T05:36:10.385Z",
         "selectionSeed": "2026|11|7|18|30|male|2026-05-04T15:00:00.000Z",
         "templateContractVersion": "1.0.0",
         "contentSource": "authored",

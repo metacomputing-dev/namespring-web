@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-05-07T05:29:52.204Z",
+  "generatedAt": "2026-05-07T05:35:56.239Z",
   "targetDate": "2026-05-05T00:00:00+09:00",
   "sampleId": "choi-yaza-boundary-male-tiered",
   "description": "야자시 경계 23:30 출생. yaza=on, yazaMode=23:00 으로 다음 날로 이월하는 경계 케이스.",
@@ -1299,7 +1299,7 @@
     },
     "meta": {
       "version": "1.0.0",
-      "generatedAt": "2026-05-07T05:29:58.739Z",
+      "generatedAt": "2026-05-07T05:36:03.926Z",
       "schoolPreset": {
         "selected": "korean",
         "source": "default",
@@ -1787,6 +1787,15 @@
                       }
                     ],
                     "plainText": "건강 관리는 에너지를 잘 쓰는 것만큼 식히고 회복하는 시간이 중요하니, 강한 활동 뒤에는 수분, 수면, 조용한 휴식을 함께 배치하는 것이 좋아요."
+                  },
+                  {
+                    "tokens": [
+                      {
+                        "kind": "text",
+                        "value": "무더운 시기에는 활동과 회복의 비율을 의식적으로 맞춰 두면 한 해의 컨디션이 안정적으로 유지돼요."
+                      }
+                    ],
+                    "plainText": "무더운 시기에는 활동과 회복의 비율을 의식적으로 맞춰 두면 한 해의 컨디션이 안정적으로 유지돼요."
                   }
                 ],
                 "livingTips": [
@@ -2181,6 +2190,15 @@
                       }
                     ],
                     "plainText": "편안하게 연락할 수 있는지, 서로의 시간을 존중하는지, 힘든 날에도 말투가 지나치게 날카로워지지 않는지를 보면 관계의 안정감을 알 수 있습니다."
+                  },
+                  {
+                    "tokens": [
+                      {
+                        "kind": "text",
+                        "value": "작은 약속이 흔들림 없이 지켜지는 모습이 오래 가는 관계의 가장 단단한 기반이 돼요."
+                      }
+                    ],
+                    "plainText": "작은 약속이 흔들림 없이 지켜지는 모습이 오래 가는 관계의 가장 단단한 기반이 돼요."
                   }
                 ],
                 "livingTips": [
@@ -8764,7 +8782,7 @@
               "meaningfulness": "meaningful",
               "stars": 1,
               "brief": {
-                "headline": "이번 달은 사람과의 흐름이 차분히 정돈되는 결이에요.",
+                "headline": "이번 달은 사람과의 결이 차분히 정돈되는 결이에요.",
                 "hook": "조급함을 줄이면 관계가 따뜻해져요."
               },
               "standard": {
@@ -8985,6 +9003,15 @@
                       }
                     ],
                     "plainText": "바쁜 시기일수록 가까운 사람에게 내 일정과 한계를 미리 알려야 오해가 줄어요."
+                  },
+                  {
+                    "tokens": [
+                      {
+                        "kind": "text",
+                        "value": "짧게라도 같은 정보를 공유해 두면 다음 달 컨디션이 한결 단단해집니다."
+                      }
+                    ],
+                    "plainText": "짧게라도 같은 정보를 공유해 두면 다음 달 컨디션이 한결 단단해집니다."
                   }
                 ],
                 "livingTips": [
@@ -12793,7 +12820,7 @@
       },
       "meta": {
         "schemaVersion": "spring-ts.tiered-matrix.v1",
-        "generatedAt": "2026-05-07T05:29:58.739Z",
+        "generatedAt": "2026-05-07T05:36:03.926Z",
         "selectionSeed": "1995|6|10|23|30|male|2026-05-04T15:00:00.000Z",
         "templateContractVersion": "1.0.0",
         "contentSource": "authored",

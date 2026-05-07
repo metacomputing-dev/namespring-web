@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-05-07T05:29:52.204Z",
+  "generatedAt": "2026-05-07T05:35:56.239Z",
   "targetDate": "2026-05-05T00:00:00+09:00",
   "sampleId": "choi-seongsoo-tiered-fortune",
   "description": "같은 입력에 precisionConfig.surfaceTieredMatrix=true 를 켠 점진 공개 출력 케이스. Phase 3 wording polish 반영.",
@@ -1312,7 +1312,7 @@
     },
     "meta": {
       "version": "1.0.0",
-      "generatedAt": "2026-05-07T05:29:55.121Z",
+      "generatedAt": "2026-05-07T05:35:59.843Z",
       "schoolPreset": {
         "selected": "korean",
         "source": "default",
@@ -8840,6 +8840,15 @@
                       }
                     ],
                     "plainText": "부모, 자녀, 파트너 사이에서 여러 역할을 맡을 수 있으니, 내가 가능한 범위를 솔직하게 말해야 해요."
+                  },
+                  {
+                    "tokens": [
+                      {
+                        "kind": "text",
+                        "value": "짧게라도 쉬는 시간을 따로 표시해 두면 마음의 균형을 되찾는 데 도움이 돼요."
+                      }
+                    ],
+                    "plainText": "짧게라도 쉬는 시간을 따로 표시해 두면 마음의 균형을 되찾는 데 도움이 돼요."
                   }
                 ],
                 "livingTips": [
@@ -12818,7 +12827,7 @@
       },
       "meta": {
         "schemaVersion": "spring-ts.tiered-matrix.v1",
-        "generatedAt": "2026-05-07T05:29:55.121Z",
+        "generatedAt": "2026-05-07T05:35:59.843Z",
         "selectionSeed": "1986|4|19|5|45|male|2026-05-04T15:00:00.000Z",
         "templateContractVersion": "1.0.0",
         "contentSource": "authored",

@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-05-07T05:29:52.204Z",
+  "generatedAt": "2026-05-07T05:35:56.239Z",
   "targetDate": "2026-05-05T00:00:00+09:00",
   "sampleId": "kim-senior-female-tiered",
   "description": "70+ 시니어 여성 (1950 출생) — 노년 여성 audience 흐름. life-stage 후반 narrative 와 tieredMatrix 의 conservative tone 매칭을 점검하는 케이스.",
@@ -1317,7 +1317,7 @@
     },
     "meta": {
       "version": "1.0.0",
-      "generatedAt": "2026-05-07T05:30:00.946Z",
+      "generatedAt": "2026-05-07T05:36:06.345Z",
       "schoolPreset": {
         "selected": "korean",
         "source": "default",
@@ -1365,6 +1365,15 @@
                     }
                   ],
                   "plainText": "불안할수록 더 많은 일을 벌리기보다, 생활의 기본 질서와 반복 가능한 루틴을 직접 세우는 것이 도움이 돼요."
+                },
+                {
+                  "tokens": [
+                    {
+                      "kind": "text",
+                      "value": "작은 루틴이 한 번 두 번 자리 잡으면 보이지 않던 안정감이 자연스럽게 흐름의 바탕이 돼요."
+                    }
+                  ],
+                  "plainText": "작은 루틴이 한 번 두 번 자리 잡으면 보이지 않던 안정감이 자연스럽게 흐름의 바탕이 돼요."
                 }
               ],
               "livingTips": [
@@ -1790,6 +1799,15 @@
                       }
                     ],
                     "plainText": "건강 관리는 정리와 반복이 잘 맞으므로, 컨디션 기록과 규칙적인 운동처럼 상태를 확인할 수 있는 루틴을 두면 안정감이 커져요."
+                  },
+                  {
+                    "tokens": [
+                      {
+                        "kind": "text",
+                        "value": "작은 변화도 빨리 알아차리는 감각을 살리면 큰 무리 없이 자기 페이스를 길게 유지할 수 있습니다."
+                      }
+                    ],
+                    "plainText": "작은 변화도 빨리 알아차리는 감각을 살리면 큰 무리 없이 자기 페이스를 길게 유지할 수 있습니다."
                   }
                 ],
                 "livingTips": [
@@ -8813,7 +8831,7 @@
               "meaningfulness": "meaningful",
               "stars": 4,
               "brief": {
-                "headline": "이번 달은 사람과의 흐름이 차분히 정돈되는 결이에요.",
+                "headline": "이번 달은 사람과의 결이 차분히 정돈되는 결이에요.",
                 "hook": "조급함을 줄이면 관계가 따뜻해져요."
               },
               "standard": {
@@ -12980,7 +12998,7 @@
       },
       "meta": {
         "schemaVersion": "spring-ts.tiered-matrix.v1",
-        "generatedAt": "2026-05-07T05:30:00.946Z",
+        "generatedAt": "2026-05-07T05:36:06.345Z",
         "selectionSeed": "1950|8|20|14|0|female|2026-05-04T15:00:00.000Z",
         "templateContractVersion": "1.0.0",
         "contentSource": "authored",
