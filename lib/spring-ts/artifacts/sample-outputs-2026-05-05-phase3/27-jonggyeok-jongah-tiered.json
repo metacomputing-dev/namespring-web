@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-05-07T01:53:17.108Z",
+  "generatedAt": "2026-05-07T04:08:36.197Z",
   "targetDate": "2026-05-05T00:00:00+09:00",
   "sampleId": "jonggyeok-jongah-tiered",
   "description": "입력 의도: 從兒격 (식상 dominant) 계열. fix-jong-07 (2018-07-23 03:00) 좌표 — 丙火 일간 + 戊己己戊 4 천간 식상 + 戌未辰丑 토 지지 67.5%. 從兒不論身強弱 doctrine 입력. 최종 외격 판정은 엔진이 결정한다.",
@@ -1330,7 +1330,7 @@
     },
     "meta": {
       "version": "1.0.0",
-      "generatedAt": "2026-05-07T01:53:28.496Z",
+      "generatedAt": "2026-05-07T04:08:44.971Z",
       "schoolPreset": {
         "selected": "korean",
         "source": "default",
@@ -9216,7 +9216,7 @@
       },
       "meta": {
         "schemaVersion": "spring-ts.tiered-matrix.v1",
-        "generatedAt": "2026-05-07T01:53:28.496Z",
+        "generatedAt": "2026-05-07T04:08:44.971Z",
         "selectionSeed": "2018|7|23|3|0|male|2026-05-04T15:00:00.000Z",
         "templateContractVersion": "1.0.0",
         "contentSource": "authored",
