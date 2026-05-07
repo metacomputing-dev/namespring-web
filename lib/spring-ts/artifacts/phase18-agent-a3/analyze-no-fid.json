@@ -1,0 +1,1628 @@
+{
+  "phase": "P18-A3",
+  "noFidCells": [
+    {
+      "fixture": "04-kim-seoyun-young-female-tiered",
+      "period": "life",
+      "category": "wealth",
+      "paragraphs": 1,
+      "fragmentId": null,
+      "sample": "인생 전체의 돈과 물건 관리는 아직 결과를 단정하기보다 작은 습관을 살피는 게 좋아요. 해야 할 일을 짧게 나누고, 힘들 때는 바로 도움을 요청하면 흐름이 안정돼요."
+    },
+    {
+      "fixture": "04-kim-seoyun-young-female-tiered",
+      "period": "life",
+      "category": "health",
+      "paragraphs": 1,
+      "fragmentId": null,
+      "sample": "인생 전체의 몸과 마음은 아직 결과를 단정하기보다 작은 습관을 살피는 게 좋아요. 해야 할 일을 짧게 나누고, 힘들 때는 바로 도움을 요청하면 흐름이 안정돼요."
+    },
+    {
+      "fixture": "04-kim-seoyun-young-female-tiered",
+      "period": "life",
+      "category": "romance",
+      "paragraphs": 1,
+      "fragmentId": null,
+      "sample": "인생 전체의 관계와 마음은 아직 결과를 단정하기보다 작은 습관을 살피는 게 좋아요. 해야 할 일을 짧게 나누고, 힘들 때는 바로 도움을 요청하면 흐름이 안정돼요."
+    },
+    {
+      "fixture": "04-kim-seoyun-young-female-tiered",
+      "period": "life",
+      "category": "study_document",
+      "paragraphs": 1,
+      "fragmentId": null,
+      "sample": "인생 전체의 기록과 준비는 아직 결과를 단정하기보다 작은 습관을 살피는 게 좋아요. 해야 할 일을 짧게 나누고, 힘들 때는 바로 도움을 요청하면 흐름이 안정돼요."
+    },
+    {
+      "fixture": "04-kim-seoyun-young-female-tiered",
+      "period": "today",
+      "category": "overall",
+      "paragraphs": 1,
+      "fragmentId": null,
+      "sample": "오늘 (5월 5일)은 아직 방향을 단정하기보다 생활 리듬을 잘 잡는 해석이 먼저예요. 학교, 친구, 가족, 컨디션처럼 가까운 일들을 차분히 챙기면 오늘 (5월 5일)의 흐름이 안정"
+    },
+    {
+      "fixture": "04-kim-seoyun-young-female-tiered",
+      "period": "today",
+      "category": "wealth",
+      "paragraphs": 1,
+      "fragmentId": null,
+      "sample": "오늘 (5월 5일)의 돈과 물건 관리는 아직 결과를 단정하기보다 작은 습관을 살피는 게 좋아요. 해야 할 일을 짧게 나누고, 힘들 때는 바로 도움을 요청하면 흐름이 안정돼요."
+    },
+    {
+      "fixture": "04-kim-seoyun-young-female-tiered",
+      "period": "today",
+      "category": "health",
+      "paragraphs": 1,
+      "fragmentId": null,
+      "sample": "오늘 (5월 5일)의 몸과 마음은 아직 결과를 단정하기보다 작은 습관을 살피는 게 좋아요. 해야 할 일을 짧게 나누고, 힘들 때는 바로 도움을 요청하면 흐름이 안정돼요."
+    },
+    {
+      "fixture": "04-kim-seoyun-young-female-tiered",
+      "period": "today",
+      "category": "romance",
+      "paragraphs": 1,
+      "fragmentId": null,
+      "sample": "오늘 (5월 5일)의 관계와 마음은 아직 결과를 단정하기보다 작은 습관을 살피는 게 좋아요. 해야 할 일을 짧게 나누고, 힘들 때는 바로 도움을 요청하면 흐름이 안정돼요."
+    },
+    {
+      "fixture": "04-kim-seoyun-young-female-tiered",
+      "period": "today",
+      "category": "study_document",
+      "paragraphs": 1,
+      "fragmentId": null,
+      "sample": "오늘 (5월 5일)의 기록과 준비는 아직 결과를 단정하기보다 작은 습관을 살피는 게 좋아요. 해야 할 일을 짧게 나누고, 힘들 때는 바로 도움을 요청하면 흐름이 안정돼요."
+    },
+    {
+      "fixture": "04-kim-seoyun-young-female-tiered",
+      "period": "thisWeek",
+      "category": "overall",
+      "paragraphs": 1,
+      "fragmentId": null,
+      "sample": "이번 주는 아직 방향을 단정하기보다 생활 리듬을 잘 잡는 해석이 먼저예요. 학교, 친구, 가족, 컨디션처럼 가까운 일들을 차분히 챙기면 이번 주의 흐름이 안정돼요. 큰 결정은 혼자"
+    },
+    {
+      "fixture": "04-kim-seoyun-young-female-tiered",
+      "period": "thisWeek",
+      "category": "wealth",
+      "paragraphs": 1,
+      "fragmentId": null,
+      "sample": "이번 주의 돈과 물건 관리는 아직 결과를 단정하기보다 작은 습관을 살피는 게 좋아요. 해야 할 일을 짧게 나누고, 힘들 때는 바로 도움을 요청하면 흐름이 안정돼요."
+    },
+    {
+      "fixture": "04-kim-seoyun-young-female-tiered",
+      "period": "thisWeek",
+      "category": "health",
+      "paragraphs": 1,
+      "fragmentId": null,
+      "sample": "이번 주의 몸과 마음은 아직 결과를 단정하기보다 작은 습관을 살피는 게 좋아요. 해야 할 일을 짧게 나누고, 힘들 때는 바로 도움을 요청하면 흐름이 안정돼요."
+    },
+    {
+      "fixture": "04-kim-seoyun-young-female-tiered",
+      "period": "thisWeek",
+      "category": "romance",
+      "paragraphs": 1,
+      "fragmentId": null,
+      "sample": "이번 주의 관계와 마음은 아직 결과를 단정하기보다 작은 습관을 살피는 게 좋아요. 해야 할 일을 짧게 나누고, 힘들 때는 바로 도움을 요청하면 흐름이 안정돼요."
+    },
+    {
+      "fixture": "04-kim-seoyun-young-female-tiered",
+      "period": "thisWeek",
+      "category": "study_document",
+      "paragraphs": 1,
+      "fragmentId": null,
+      "sample": "이번 주의 기록과 준비는 아직 결과를 단정하기보다 작은 습관을 살피는 게 좋아요. 해야 할 일을 짧게 나누고, 힘들 때는 바로 도움을 요청하면 흐름이 안정돼요."
+    },
+    {
+      "fixture": "04-kim-seoyun-young-female-tiered",
+      "period": "thisMonth",
+      "category": "overall",
+      "paragraphs": 1,
+      "fragmentId": null,
+      "sample": "이번 달 (5월)은 아직 방향을 단정하기보다 생활 리듬을 잘 잡는 해석이 먼저예요. 학교, 친구, 가족, 컨디션처럼 가까운 일들을 차분히 챙기면 이번 달 (5월)의 흐름이 안정돼요"
+    },
+    {
+      "fixture": "04-kim-seoyun-young-female-tiered",
+      "period": "thisMonth",
+      "category": "wealth",
+      "paragraphs": 1,
+      "fragmentId": null,
+      "sample": "이번 달 (5월)의 돈과 물건 관리는 아직 결과를 단정하기보다 작은 습관을 살피는 게 좋아요. 해야 할 일을 짧게 나누고, 힘들 때는 바로 도움을 요청하면 흐름이 안정돼요."
+    },
+    {
+      "fixture": "04-kim-seoyun-young-female-tiered",
+      "period": "thisMonth",
+      "category": "health",
+      "paragraphs": 1,
+      "fragmentId": null,
+      "sample": "이번 달 (5월)의 몸과 마음은 아직 결과를 단정하기보다 작은 습관을 살피는 게 좋아요. 해야 할 일을 짧게 나누고, 힘들 때는 바로 도움을 요청하면 흐름이 안정돼요."
+    },
+    {
+      "fixture": "04-kim-seoyun-young-female-tiered",
+      "period": "thisMonth",
+      "category": "romance",
+      "paragraphs": 1,
+      "fragmentId": null,
+      "sample": "이번 달 (5월)의 관계와 마음은 아직 결과를 단정하기보다 작은 습관을 살피는 게 좋아요. 해야 할 일을 짧게 나누고, 힘들 때는 바로 도움을 요청하면 흐름이 안정돼요."
+    },
+    {
+      "fixture": "04-kim-seoyun-young-female-tiered",
+      "period": "thisMonth",
+      "category": "study_document",
+      "paragraphs": 1,
+      "fragmentId": null,
+      "sample": "이번 달 (5월)의 기록과 준비는 아직 결과를 단정하기보다 작은 습관을 살피는 게 좋아요. 해야 할 일을 짧게 나누고, 힘들 때는 바로 도움을 요청하면 흐름이 안정돼요."
+    },
+    {
+      "fixture": "04-kim-seoyun-young-female-tiered",
+      "period": "thisYear",
+      "category": "overall",
+      "paragraphs": 1,
+      "fragmentId": null,
+      "sample": "올해 (2026년)는 아직 방향을 단정하기보다 생활 리듬을 잘 잡는 해석이 먼저예요. 학교, 친구, 가족, 컨디션처럼 가까운 일들을 차분히 챙기면 올해 (2026년)의 흐름이 안정"
+    },
+    {
+      "fixture": "04-kim-seoyun-young-female-tiered",
+      "period": "thisYear",
+      "category": "wealth",
+      "paragraphs": 1,
+      "fragmentId": null,
+      "sample": "올해 (2026년)의 돈과 물건 관리는 아직 결과를 단정하기보다 작은 습관을 살피는 게 좋아요. 해야 할 일을 짧게 나누고, 힘들 때는 바로 도움을 요청하면 흐름이 안정돼요."
+    },
+    {
+      "fixture": "04-kim-seoyun-young-female-tiered",
+      "period": "thisYear",
+      "category": "romance",
+      "paragraphs": 1,
+      "fragmentId": null,
+      "sample": "올해 (2026년)의 관계와 마음은 아직 결과를 단정하기보다 작은 습관을 살피는 게 좋아요. 해야 할 일을 짧게 나누고, 힘들 때는 바로 도움을 요청하면 흐름이 안정돼요."
+    },
+    {
+      "fixture": "04-kim-seoyun-young-female-tiered",
+      "period": "thisYear",
+      "category": "study_document",
+      "paragraphs": 1,
+      "fragmentId": null,
+      "sample": "올해 (2026년)의 기록과 준비는 아직 결과를 단정하기보다 작은 습관을 살피는 게 좋아요. 해야 할 일을 짧게 나누고, 힘들 때는 바로 도움을 요청하면 흐름이 안정돼요."
+    },
+    {
+      "fixture": "18-lee-child-male-tiered",
+      "period": "life",
+      "category": "wealth",
+      "paragraphs": 1,
+      "fragmentId": null,
+      "sample": "인생 전체의 돈과 물건 관리는 아직 결과를 단정하기보다 작은 습관을 살피는 게 좋아요. 해야 할 일을 짧게 나누고, 힘들 때는 바로 도움을 요청하면 흐름이 안정돼요."
+    },
+    {
+      "fixture": "18-lee-child-male-tiered",
+      "period": "life",
+      "category": "romance",
+      "paragraphs": 1,
+      "fragmentId": null,
+      "sample": "인생 전체의 관계와 마음은 아직 결과를 단정하기보다 작은 습관을 살피는 게 좋아요. 해야 할 일을 짧게 나누고, 힘들 때는 바로 도움을 요청하면 흐름이 안정돼요."
+    },
+    {
+      "fixture": "18-lee-child-male-tiered",
+      "period": "life",
+      "category": "career",
+      "paragraphs": 1,
+      "fragmentId": null,
+      "sample": "인생 전체의 진로 감각은 아직 결과를 단정하기보다 작은 습관을 살피는 게 좋아요. 해야 할 일을 짧게 나누고, 힘들 때는 바로 도움을 요청하면 흐름이 안정돼요."
+    },
+    {
+      "fixture": "18-lee-child-male-tiered",
+      "period": "life",
+      "category": "study_document",
+      "paragraphs": 1,
+      "fragmentId": null,
+      "sample": "인생 전체의 기록과 준비는 아직 결과를 단정하기보다 작은 습관을 살피는 게 좋아요. 해야 할 일을 짧게 나누고, 힘들 때는 바로 도움을 요청하면 흐름이 안정돼요."
+    },
+    {
+      "fixture": "18-lee-child-male-tiered",
+      "period": "today",
+      "category": "wealth",
+      "paragraphs": 1,
+      "fragmentId": null,
+      "sample": "오늘 (5월 5일)의 돈과 물건 관리는 아직 결과를 단정하기보다 작은 습관을 살피는 게 좋아요. 해야 할 일을 짧게 나누고, 힘들 때는 바로 도움을 요청하면 흐름이 안정돼요."
+    },
+    {
+      "fixture": "18-lee-child-male-tiered",
+      "period": "today",
+      "category": "romance",
+      "paragraphs": 1,
+      "fragmentId": null,
+      "sample": "오늘 (5월 5일)의 관계와 마음은 아직 결과를 단정하기보다 작은 습관을 살피는 게 좋아요. 해야 할 일을 짧게 나누고, 힘들 때는 바로 도움을 요청하면 흐름이 안정돼요."
+    },
+    {
+      "fixture": "18-lee-child-male-tiered",
+      "period": "today",
+      "category": "career",
+      "paragraphs": 1,
+      "fragmentId": null,
+      "sample": "오늘 (5월 5일)의 진로 감각은 아직 결과를 단정하기보다 작은 습관을 살피는 게 좋아요. 해야 할 일을 짧게 나누고, 힘들 때는 바로 도움을 요청하면 흐름이 안정돼요."
+    },
+    {
+      "fixture": "18-lee-child-male-tiered",
+      "period": "today",
+      "category": "study_document",
+      "paragraphs": 1,
+      "fragmentId": null,
+      "sample": "오늘 (5월 5일)의 기록과 준비는 아직 결과를 단정하기보다 작은 습관을 살피는 게 좋아요. 해야 할 일을 짧게 나누고, 힘들 때는 바로 도움을 요청하면 흐름이 안정돼요."
+    },
+    {
+      "fixture": "18-lee-child-male-tiered",
+      "period": "today",
+      "category": "health_stress",
+      "paragraphs": 1,
+      "fragmentId": null,
+      "sample": "오늘 (5월 5일)의 긴장과 회복은 아직 결과를 단정하기보다 작은 습관을 살피는 게 좋아요. 해야 할 일을 짧게 나누고, 힘들 때는 바로 도움을 요청하면 흐름이 안정돼요."
+    },
+    {
+      "fixture": "18-lee-child-male-tiered",
+      "period": "thisWeek",
+      "category": "wealth",
+      "paragraphs": 1,
+      "fragmentId": null,
+      "sample": "이번 주의 돈과 물건 관리는 아직 결과를 단정하기보다 작은 습관을 살피는 게 좋아요. 해야 할 일을 짧게 나누고, 힘들 때는 바로 도움을 요청하면 흐름이 안정돼요."
+    },
+    {
+      "fixture": "18-lee-child-male-tiered",
+      "period": "thisWeek",
+      "category": "romance",
+      "paragraphs": 1,
+      "fragmentId": null,
+      "sample": "이번 주의 관계와 마음은 아직 결과를 단정하기보다 작은 습관을 살피는 게 좋아요. 해야 할 일을 짧게 나누고, 힘들 때는 바로 도움을 요청하면 흐름이 안정돼요."
+    },
+    {
+      "fixture": "18-lee-child-male-tiered",
+      "period": "thisWeek",
+      "category": "career",
+      "paragraphs": 1,
+      "fragmentId": null,
+      "sample": "이번 주의 진로 감각은 아직 결과를 단정하기보다 작은 습관을 살피는 게 좋아요. 해야 할 일을 짧게 나누고, 힘들 때는 바로 도움을 요청하면 흐름이 안정돼요."
+    },
+    {
+      "fixture": "18-lee-child-male-tiered",
+      "period": "thisWeek",
+      "category": "study_document",
+      "paragraphs": 1,
+      "fragmentId": null,
+      "sample": "이번 주의 기록과 준비는 아직 결과를 단정하기보다 작은 습관을 살피는 게 좋아요. 해야 할 일을 짧게 나누고, 힘들 때는 바로 도움을 요청하면 흐름이 안정돼요."
+    },
+    {
+      "fixture": "18-lee-child-male-tiered",
+      "period": "thisMonth",
+      "category": "wealth",
+      "paragraphs": 1,
+      "fragmentId": null,
+      "sample": "이번 달 (5월)의 돈과 물건 관리는 아직 결과를 단정하기보다 작은 습관을 살피는 게 좋아요. 해야 할 일을 짧게 나누고, 힘들 때는 바로 도움을 요청하면 흐름이 안정돼요."
+    },
+    {
+      "fixture": "18-lee-child-male-tiered",
+      "period": "thisMonth",
+      "category": "romance",
+      "paragraphs": 1,
+      "fragmentId": null,
+      "sample": "이번 달 (5월)의 관계와 마음은 아직 결과를 단정하기보다 작은 습관을 살피는 게 좋아요. 해야 할 일을 짧게 나누고, 힘들 때는 바로 도움을 요청하면 흐름이 안정돼요."
+    },
+    {
+      "fixture": "18-lee-child-male-tiered",
+      "period": "thisMonth",
+      "category": "study_document",
+      "paragraphs": 1,
+      "fragmentId": null,
+      "sample": "이번 달 (5월)의 기록과 준비는 아직 결과를 단정하기보다 작은 습관을 살피는 게 좋아요. 해야 할 일을 짧게 나누고, 힘들 때는 바로 도움을 요청하면 흐름이 안정돼요."
+    },
+    {
+      "fixture": "18-lee-child-male-tiered",
+      "period": "thisMonth",
+      "category": "health_stress",
+      "paragraphs": 1,
+      "fragmentId": null,
+      "sample": "이번 달 (5월)의 긴장과 회복은 아직 결과를 단정하기보다 작은 습관을 살피는 게 좋아요. 해야 할 일을 짧게 나누고, 힘들 때는 바로 도움을 요청하면 흐름이 안정돼요."
+    },
+    {
+      "fixture": "18-lee-child-male-tiered",
+      "period": "thisYear",
+      "category": "wealth",
+      "paragraphs": 1,
+      "fragmentId": null,
+      "sample": "올해 (2026년)의 돈과 물건 관리는 아직 결과를 단정하기보다 작은 습관을 살피는 게 좋아요. 해야 할 일을 짧게 나누고, 힘들 때는 바로 도움을 요청하면 흐름이 안정돼요."
+    },
+    {
+      "fixture": "18-lee-child-male-tiered",
+      "period": "thisYear",
+      "category": "romance",
+      "paragraphs": 1,
+      "fragmentId": null,
+      "sample": "올해 (2026년)의 관계와 마음은 아직 결과를 단정하기보다 작은 습관을 살피는 게 좋아요. 해야 할 일을 짧게 나누고, 힘들 때는 바로 도움을 요청하면 흐름이 안정돼요."
+    },
+    {
+      "fixture": "18-lee-child-male-tiered",
+      "period": "thisYear",
+      "category": "career",
+      "paragraphs": 1,
+      "fragmentId": null,
+      "sample": "올해 (2026년)의 진로 감각은 아직 결과를 단정하기보다 작은 습관을 살피는 게 좋아요. 해야 할 일을 짧게 나누고, 힘들 때는 바로 도움을 요청하면 흐름이 안정돼요."
+    },
+    {
+      "fixture": "18-lee-child-male-tiered",
+      "period": "thisYear",
+      "category": "study_document",
+      "paragraphs": 1,
+      "fragmentId": null,
+      "sample": "올해 (2026년)의 기록과 준비는 아직 결과를 단정하기보다 작은 습관을 살피는 게 좋아요. 해야 할 일을 짧게 나누고, 힘들 때는 바로 도움을 요청하면 흐름이 안정돼요."
+    },
+    {
+      "fixture": "27-jonggyeok-jongah-tiered",
+      "period": "life",
+      "category": "wealth",
+      "paragraphs": 1,
+      "fragmentId": null,
+      "sample": "인생 전체의 돈과 물건 관리는 아직 결과를 단정하기보다 작은 습관을 살피는 게 좋아요. 해야 할 일을 짧게 나누고, 힘들 때는 바로 도움을 요청하면 흐름이 안정돼요."
+    },
+    {
+      "fixture": "27-jonggyeok-jongah-tiered",
+      "period": "life",
+      "category": "romance",
+      "paragraphs": 1,
+      "fragmentId": null,
+      "sample": "인생 전체의 관계와 마음은 아직 결과를 단정하기보다 작은 습관을 살피는 게 좋아요. 해야 할 일을 짧게 나누고, 힘들 때는 바로 도움을 요청하면 흐름이 안정돼요."
+    },
+    {
+      "fixture": "27-jonggyeok-jongah-tiered",
+      "period": "life",
+      "category": "career",
+      "paragraphs": 1,
+      "fragmentId": null,
+      "sample": "인생 전체의 진로 감각은 아직 결과를 단정하기보다 작은 습관을 살피는 게 좋아요. 해야 할 일을 짧게 나누고, 힘들 때는 바로 도움을 요청하면 흐름이 안정돼요."
+    },
+    {
+      "fixture": "27-jonggyeok-jongah-tiered",
+      "period": "life",
+      "category": "study_document",
+      "paragraphs": 1,
+      "fragmentId": null,
+      "sample": "인생 전체의 기록과 준비는 아직 결과를 단정하기보다 작은 습관을 살피는 게 좋아요. 해야 할 일을 짧게 나누고, 힘들 때는 바로 도움을 요청하면 흐름이 안정돼요."
+    },
+    {
+      "fixture": "27-jonggyeok-jongah-tiered",
+      "period": "today",
+      "category": "wealth",
+      "paragraphs": 1,
+      "fragmentId": null,
+      "sample": "오늘 (5월 5일)의 돈과 물건 관리는 아직 결과를 단정하기보다 작은 습관을 살피는 게 좋아요. 해야 할 일을 짧게 나누고, 힘들 때는 바로 도움을 요청하면 흐름이 안정돼요."
+    },
+    {
+      "fixture": "27-jonggyeok-jongah-tiered",
+      "period": "today",
+      "category": "romance",
+      "paragraphs": 1,
+      "fragmentId": null,
+      "sample": "오늘 (5월 5일)의 관계와 마음은 아직 결과를 단정하기보다 작은 습관을 살피는 게 좋아요. 해야 할 일을 짧게 나누고, 힘들 때는 바로 도움을 요청하면 흐름이 안정돼요."
+    },
+    {
+      "fixture": "27-jonggyeok-jongah-tiered",
+      "period": "today",
+      "category": "career",
+      "paragraphs": 1,
+      "fragmentId": null,
+      "sample": "오늘 (5월 5일)의 진로 감각은 아직 결과를 단정하기보다 작은 습관을 살피는 게 좋아요. 해야 할 일을 짧게 나누고, 힘들 때는 바로 도움을 요청하면 흐름이 안정돼요."
+    },
+    {
+      "fixture": "27-jonggyeok-jongah-tiered",
+      "period": "today",
+      "category": "study_document",
+      "paragraphs": 1,
+      "fragmentId": null,
+      "sample": "오늘 (5월 5일)의 기록과 준비는 아직 결과를 단정하기보다 작은 습관을 살피는 게 좋아요. 해야 할 일을 짧게 나누고, 힘들 때는 바로 도움을 요청하면 흐름이 안정돼요."
+    },
+    {
+      "fixture": "27-jonggyeok-jongah-tiered",
+      "period": "today",
+      "category": "health_stress",
+      "paragraphs": 1,
+      "fragmentId": null,
+      "sample": "오늘 (5월 5일)의 긴장과 회복은 아직 결과를 단정하기보다 작은 습관을 살피는 게 좋아요. 해야 할 일을 짧게 나누고, 힘들 때는 바로 도움을 요청하면 흐름이 안정돼요."
+    },
+    {
+      "fixture": "27-jonggyeok-jongah-tiered",
+      "period": "thisWeek",
+      "category": "wealth",
+      "paragraphs": 1,
+      "fragmentId": null,
+      "sample": "이번 주의 돈과 물건 관리는 아직 결과를 단정하기보다 작은 습관을 살피는 게 좋아요. 해야 할 일을 짧게 나누고, 힘들 때는 바로 도움을 요청하면 흐름이 안정돼요."
+    },
+    {
+      "fixture": "27-jonggyeok-jongah-tiered",
+      "period": "thisWeek",
+      "category": "romance",
+      "paragraphs": 1,
+      "fragmentId": null,
+      "sample": "이번 주의 관계와 마음은 아직 결과를 단정하기보다 작은 습관을 살피는 게 좋아요. 해야 할 일을 짧게 나누고, 힘들 때는 바로 도움을 요청하면 흐름이 안정돼요."
+    },
+    {
+      "fixture": "27-jonggyeok-jongah-tiered",
+      "period": "thisWeek",
+      "category": "career",
+      "paragraphs": 1,
+      "fragmentId": null,
+      "sample": "이번 주의 진로 감각은 아직 결과를 단정하기보다 작은 습관을 살피는 게 좋아요. 해야 할 일을 짧게 나누고, 힘들 때는 바로 도움을 요청하면 흐름이 안정돼요."
+    },
+    {
+      "fixture": "27-jonggyeok-jongah-tiered",
+      "period": "thisWeek",
+      "category": "study_document",
+      "paragraphs": 1,
+      "fragmentId": null,
+      "sample": "이번 주의 기록과 준비는 아직 결과를 단정하기보다 작은 습관을 살피는 게 좋아요. 해야 할 일을 짧게 나누고, 힘들 때는 바로 도움을 요청하면 흐름이 안정돼요."
+    },
+    {
+      "fixture": "27-jonggyeok-jongah-tiered",
+      "period": "thisMonth",
+      "category": "wealth",
+      "paragraphs": 1,
+      "fragmentId": null,
+      "sample": "이번 달 (5월)의 돈과 물건 관리는 아직 결과를 단정하기보다 작은 습관을 살피는 게 좋아요. 해야 할 일을 짧게 나누고, 힘들 때는 바로 도움을 요청하면 흐름이 안정돼요."
+    },
+    {
+      "fixture": "27-jonggyeok-jongah-tiered",
+      "period": "thisMonth",
+      "category": "romance",
+      "paragraphs": 1,
+      "fragmentId": null,
+      "sample": "이번 달 (5월)의 관계와 마음은 아직 결과를 단정하기보다 작은 습관을 살피는 게 좋아요. 해야 할 일을 짧게 나누고, 힘들 때는 바로 도움을 요청하면 흐름이 안정돼요."
+    },
+    {
+      "fixture": "27-jonggyeok-jongah-tiered",
+      "period": "thisMonth",
+      "category": "study_document",
+      "paragraphs": 1,
+      "fragmentId": null,
+      "sample": "이번 달 (5월)의 기록과 준비는 아직 결과를 단정하기보다 작은 습관을 살피는 게 좋아요. 해야 할 일을 짧게 나누고, 힘들 때는 바로 도움을 요청하면 흐름이 안정돼요."
+    },
+    {
+      "fixture": "27-jonggyeok-jongah-tiered",
+      "period": "thisMonth",
+      "category": "health_stress",
+      "paragraphs": 1,
+      "fragmentId": null,
+      "sample": "이번 달 (5월)의 긴장과 회복은 아직 결과를 단정하기보다 작은 습관을 살피는 게 좋아요. 해야 할 일을 짧게 나누고, 힘들 때는 바로 도움을 요청하면 흐름이 안정돼요."
+    },
+    {
+      "fixture": "27-jonggyeok-jongah-tiered",
+      "period": "thisYear",
+      "category": "wealth",
+      "paragraphs": 1,
+      "fragmentId": null,
+      "sample": "올해 (2026년)의 돈과 물건 관리는 아직 결과를 단정하기보다 작은 습관을 살피는 게 좋아요. 해야 할 일을 짧게 나누고, 힘들 때는 바로 도움을 요청하면 흐름이 안정돼요."
+    },
+    {
+      "fixture": "27-jonggyeok-jongah-tiered",
+      "period": "thisYear",
+      "category": "romance",
+      "paragraphs": 1,
+      "fragmentId": null,
+      "sample": "올해 (2026년)의 관계와 마음은 아직 결과를 단정하기보다 작은 습관을 살피는 게 좋아요. 해야 할 일을 짧게 나누고, 힘들 때는 바로 도움을 요청하면 흐름이 안정돼요."
+    },
+    {
+      "fixture": "27-jonggyeok-jongah-tiered",
+      "period": "thisYear",
+      "category": "career",
+      "paragraphs": 1,
+      "fragmentId": null,
+      "sample": "올해 (2026년)의 진로 감각은 아직 결과를 단정하기보다 작은 습관을 살피는 게 좋아요. 해야 할 일을 짧게 나누고, 힘들 때는 바로 도움을 요청하면 흐름이 안정돼요."
+    },
+    {
+      "fixture": "27-jonggyeok-jongah-tiered",
+      "period": "thisYear",
+      "category": "study_document",
+      "paragraphs": 1,
+      "fragmentId": null,
+      "sample": "올해 (2026년)의 기록과 준비는 아직 결과를 단정하기보다 작은 습관을 살피는 게 좋아요. 해야 할 일을 짧게 나누고, 힘들 때는 바로 도움을 요청하면 흐름이 안정돼요."
+    },
+    {
+      "fixture": "30-jeolgi-lidong-boundary-tiered",
+      "period": "life",
+      "category": "wealth",
+      "paragraphs": 1,
+      "fragmentId": null,
+      "sample": "인생 전체의 돈과 물건 관리는 아직 결과를 단정하기보다 작은 습관을 살피는 게 좋아요. 해야 할 일을 짧게 나누고, 힘들 때는 바로 도움을 요청하면 흐름이 안정돼요."
+    },
+    {
+      "fixture": "30-jeolgi-lidong-boundary-tiered",
+      "period": "life",
+      "category": "romance",
+      "paragraphs": 1,
+      "fragmentId": null,
+      "sample": "인생 전체의 관계와 마음은 아직 결과를 단정하기보다 작은 습관을 살피는 게 좋아요. 해야 할 일을 짧게 나누고, 힘들 때는 바로 도움을 요청하면 흐름이 안정돼요."
+    },
+    {
+      "fixture": "30-jeolgi-lidong-boundary-tiered",
+      "period": "life",
+      "category": "career",
+      "paragraphs": 1,
+      "fragmentId": null,
+      "sample": "인생 전체의 진로 감각은 아직 결과를 단정하기보다 작은 습관을 살피는 게 좋아요. 해야 할 일을 짧게 나누고, 힘들 때는 바로 도움을 요청하면 흐름이 안정돼요."
+    },
+    {
+      "fixture": "30-jeolgi-lidong-boundary-tiered",
+      "period": "life",
+      "category": "study_document",
+      "paragraphs": 1,
+      "fragmentId": null,
+      "sample": "인생 전체의 기록과 준비는 아직 결과를 단정하기보다 작은 습관을 살피는 게 좋아요. 해야 할 일을 짧게 나누고, 힘들 때는 바로 도움을 요청하면 흐름이 안정돼요."
+    },
+    {
+      "fixture": "30-jeolgi-lidong-boundary-tiered",
+      "period": "today",
+      "category": "wealth",
+      "paragraphs": 1,
+      "fragmentId": null,
+      "sample": "오늘 (5월 5일)의 돈과 물건 관리는 아직 결과를 단정하기보다 작은 습관을 살피는 게 좋아요. 해야 할 일을 짧게 나누고, 힘들 때는 바로 도움을 요청하면 흐름이 안정돼요."
+    },
+    {
+      "fixture": "30-jeolgi-lidong-boundary-tiered",
+      "period": "today",
+      "category": "romance",
+      "paragraphs": 1,
+      "fragmentId": null,
+      "sample": "오늘 (5월 5일)의 관계와 마음은 아직 결과를 단정하기보다 작은 습관을 살피는 게 좋아요. 해야 할 일을 짧게 나누고, 힘들 때는 바로 도움을 요청하면 흐름이 안정돼요."
+    },
+    {
+      "fixture": "30-jeolgi-lidong-boundary-tiered",
+      "period": "today",
+      "category": "career",
+      "paragraphs": 1,
+      "fragmentId": null,
+      "sample": "오늘 (5월 5일)의 진로 감각은 아직 결과를 단정하기보다 작은 습관을 살피는 게 좋아요. 해야 할 일을 짧게 나누고, 힘들 때는 바로 도움을 요청하면 흐름이 안정돼요."
+    },
+    {
+      "fixture": "30-jeolgi-lidong-boundary-tiered",
+      "period": "today",
+      "category": "study_document",
+      "paragraphs": 1,
+      "fragmentId": null,
+      "sample": "오늘 (5월 5일)의 기록과 준비는 아직 결과를 단정하기보다 작은 습관을 살피는 게 좋아요. 해야 할 일을 짧게 나누고, 힘들 때는 바로 도움을 요청하면 흐름이 안정돼요."
+    },
+    {
+      "fixture": "30-jeolgi-lidong-boundary-tiered",
+      "period": "today",
+      "category": "health_stress",
+      "paragraphs": 1,
+      "fragmentId": null,
+      "sample": "오늘 (5월 5일)의 긴장과 회복은 아직 결과를 단정하기보다 작은 습관을 살피는 게 좋아요. 해야 할 일을 짧게 나누고, 힘들 때는 바로 도움을 요청하면 흐름이 안정돼요."
+    },
+    {
+      "fixture": "30-jeolgi-lidong-boundary-tiered",
+      "period": "thisWeek",
+      "category": "wealth",
+      "paragraphs": 1,
+      "fragmentId": null,
+      "sample": "이번 주의 돈과 물건 관리는 아직 결과를 단정하기보다 작은 습관을 살피는 게 좋아요. 해야 할 일을 짧게 나누고, 힘들 때는 바로 도움을 요청하면 흐름이 안정돼요."
+    },
+    {
+      "fixture": "30-jeolgi-lidong-boundary-tiered",
+      "period": "thisWeek",
+      "category": "romance",
+      "paragraphs": 1,
+      "fragmentId": null,
+      "sample": "이번 주의 관계와 마음은 아직 결과를 단정하기보다 작은 습관을 살피는 게 좋아요. 해야 할 일을 짧게 나누고, 힘들 때는 바로 도움을 요청하면 흐름이 안정돼요."
+    },
+    {
+      "fixture": "30-jeolgi-lidong-boundary-tiered",
+      "period": "thisWeek",
+      "category": "career",
+      "paragraphs": 1,
+      "fragmentId": null,
+      "sample": "이번 주의 진로 감각은 아직 결과를 단정하기보다 작은 습관을 살피는 게 좋아요. 해야 할 일을 짧게 나누고, 힘들 때는 바로 도움을 요청하면 흐름이 안정돼요."
+    },
+    {
+      "fixture": "30-jeolgi-lidong-boundary-tiered",
+      "period": "thisWeek",
+      "category": "study_document",
+      "paragraphs": 1,
+      "fragmentId": null,
+      "sample": "이번 주의 기록과 준비는 아직 결과를 단정하기보다 작은 습관을 살피는 게 좋아요. 해야 할 일을 짧게 나누고, 힘들 때는 바로 도움을 요청하면 흐름이 안정돼요."
+    },
+    {
+      "fixture": "30-jeolgi-lidong-boundary-tiered",
+      "period": "thisMonth",
+      "category": "wealth",
+      "paragraphs": 1,
+      "fragmentId": null,
+      "sample": "이번 달 (5월)의 돈과 물건 관리는 아직 결과를 단정하기보다 작은 습관을 살피는 게 좋아요. 해야 할 일을 짧게 나누고, 힘들 때는 바로 도움을 요청하면 흐름이 안정돼요."
+    },
+    {
+      "fixture": "30-jeolgi-lidong-boundary-tiered",
+      "period": "thisMonth",
+      "category": "romance",
+      "paragraphs": 1,
+      "fragmentId": null,
+      "sample": "이번 달 (5월)의 관계와 마음은 아직 결과를 단정하기보다 작은 습관을 살피는 게 좋아요. 해야 할 일을 짧게 나누고, 힘들 때는 바로 도움을 요청하면 흐름이 안정돼요."
+    },
+    {
+      "fixture": "30-jeolgi-lidong-boundary-tiered",
+      "period": "thisMonth",
+      "category": "study_document",
+      "paragraphs": 1,
+      "fragmentId": null,
+      "sample": "이번 달 (5월)의 기록과 준비는 아직 결과를 단정하기보다 작은 습관을 살피는 게 좋아요. 해야 할 일을 짧게 나누고, 힘들 때는 바로 도움을 요청하면 흐름이 안정돼요."
+    },
+    {
+      "fixture": "30-jeolgi-lidong-boundary-tiered",
+      "period": "thisMonth",
+      "category": "health_stress",
+      "paragraphs": 1,
+      "fragmentId": null,
+      "sample": "이번 달 (5월)의 긴장과 회복은 아직 결과를 단정하기보다 작은 습관을 살피는 게 좋아요. 해야 할 일을 짧게 나누고, 힘들 때는 바로 도움을 요청하면 흐름이 안정돼요."
+    },
+    {
+      "fixture": "30-jeolgi-lidong-boundary-tiered",
+      "period": "thisYear",
+      "category": "wealth",
+      "paragraphs": 1,
+      "fragmentId": null,
+      "sample": "올해 (2026년)의 돈과 물건 관리는 아직 결과를 단정하기보다 작은 습관을 살피는 게 좋아요. 해야 할 일을 짧게 나누고, 힘들 때는 바로 도움을 요청하면 흐름이 안정돼요."
+    },
+    {
+      "fixture": "30-jeolgi-lidong-boundary-tiered",
+      "period": "thisYear",
+      "category": "romance",
+      "paragraphs": 1,
+      "fragmentId": null,
+      "sample": "올해 (2026년)의 관계와 마음은 아직 결과를 단정하기보다 작은 습관을 살피는 게 좋아요. 해야 할 일을 짧게 나누고, 힘들 때는 바로 도움을 요청하면 흐름이 안정돼요."
+    },
+    {
+      "fixture": "30-jeolgi-lidong-boundary-tiered",
+      "period": "thisYear",
+      "category": "career",
+      "paragraphs": 1,
+      "fragmentId": null,
+      "sample": "올해 (2026년)의 진로 감각은 아직 결과를 단정하기보다 작은 습관을 살피는 게 좋아요. 해야 할 일을 짧게 나누고, 힘들 때는 바로 도움을 요청하면 흐름이 안정돼요."
+    },
+    {
+      "fixture": "30-jeolgi-lidong-boundary-tiered",
+      "period": "thisYear",
+      "category": "study_document",
+      "paragraphs": 1,
+      "fragmentId": null,
+      "sample": "올해 (2026년)의 기록과 준비는 아직 결과를 단정하기보다 작은 습관을 살피는 게 좋아요. 해야 할 일을 짧게 나누고, 힘들 때는 바로 도움을 요청하면 흐름이 안정돼요."
+    },
+    {
+      "fixture": "31-newborn-infant-male-tiered",
+      "period": "life",
+      "category": "wealth",
+      "paragraphs": 1,
+      "fragmentId": null,
+      "sample": "인생 전체의 돈과 물건 관리는 아직 결과를 단정하기보다 작은 습관을 살피는 게 좋아요. 해야 할 일을 짧게 나누고, 힘들 때는 바로 도움을 요청하면 흐름이 안정돼요."
+    },
+    {
+      "fixture": "31-newborn-infant-male-tiered",
+      "period": "life",
+      "category": "romance",
+      "paragraphs": 1,
+      "fragmentId": null,
+      "sample": "인생 전체의 관계와 마음은 아직 결과를 단정하기보다 작은 습관을 살피는 게 좋아요. 해야 할 일을 짧게 나누고, 힘들 때는 바로 도움을 요청하면 흐름이 안정돼요."
+    },
+    {
+      "fixture": "31-newborn-infant-male-tiered",
+      "period": "life",
+      "category": "career",
+      "paragraphs": 1,
+      "fragmentId": null,
+      "sample": "인생 전체의 진로 감각은 아직 결과를 단정하기보다 작은 습관을 살피는 게 좋아요. 해야 할 일을 짧게 나누고, 힘들 때는 바로 도움을 요청하면 흐름이 안정돼요."
+    },
+    {
+      "fixture": "31-newborn-infant-male-tiered",
+      "period": "life",
+      "category": "study_document",
+      "paragraphs": 1,
+      "fragmentId": null,
+      "sample": "인생 전체의 기록과 준비는 아직 결과를 단정하기보다 작은 습관을 살피는 게 좋아요. 해야 할 일을 짧게 나누고, 힘들 때는 바로 도움을 요청하면 흐름이 안정돼요."
+    },
+    {
+      "fixture": "31-newborn-infant-male-tiered",
+      "period": "today",
+      "category": "wealth",
+      "paragraphs": 1,
+      "fragmentId": null,
+      "sample": "오늘 (5월 5일)의 돈과 물건 관리는 아직 결과를 단정하기보다 작은 습관을 살피는 게 좋아요. 해야 할 일을 짧게 나누고, 힘들 때는 바로 도움을 요청하면 흐름이 안정돼요."
+    },
+    {
+      "fixture": "31-newborn-infant-male-tiered",
+      "period": "today",
+      "category": "romance",
+      "paragraphs": 1,
+      "fragmentId": null,
+      "sample": "오늘 (5월 5일)의 관계와 마음은 아직 결과를 단정하기보다 작은 습관을 살피는 게 좋아요. 해야 할 일을 짧게 나누고, 힘들 때는 바로 도움을 요청하면 흐름이 안정돼요."
+    },
+    {
+      "fixture": "31-newborn-infant-male-tiered",
+      "period": "today",
+      "category": "career",
+      "paragraphs": 1,
+      "fragmentId": null,
+      "sample": "오늘 (5월 5일)의 진로 감각은 아직 결과를 단정하기보다 작은 습관을 살피는 게 좋아요. 해야 할 일을 짧게 나누고, 힘들 때는 바로 도움을 요청하면 흐름이 안정돼요."
+    },
+    {
+      "fixture": "31-newborn-infant-male-tiered",
+      "period": "today",
+      "category": "study_document",
+      "paragraphs": 1,
+      "fragmentId": null,
+      "sample": "오늘 (5월 5일)의 기록과 준비는 아직 결과를 단정하기보다 작은 습관을 살피는 게 좋아요. 해야 할 일을 짧게 나누고, 힘들 때는 바로 도움을 요청하면 흐름이 안정돼요."
+    },
+    {
+      "fixture": "31-newborn-infant-male-tiered",
+      "period": "today",
+      "category": "health_stress",
+      "paragraphs": 1,
+      "fragmentId": null,
+      "sample": "오늘 (5월 5일)의 긴장과 회복은 아직 결과를 단정하기보다 작은 습관을 살피는 게 좋아요. 해야 할 일을 짧게 나누고, 힘들 때는 바로 도움을 요청하면 흐름이 안정돼요."
+    },
+    {
+      "fixture": "31-newborn-infant-male-tiered",
+      "period": "thisWeek",
+      "category": "wealth",
+      "paragraphs": 1,
+      "fragmentId": null,
+      "sample": "이번 주의 돈과 물건 관리는 아직 결과를 단정하기보다 작은 습관을 살피는 게 좋아요. 해야 할 일을 짧게 나누고, 힘들 때는 바로 도움을 요청하면 흐름이 안정돼요."
+    },
+    {
+      "fixture": "31-newborn-infant-male-tiered",
+      "period": "thisWeek",
+      "category": "romance",
+      "paragraphs": 1,
+      "fragmentId": null,
+      "sample": "이번 주의 관계와 마음은 아직 결과를 단정하기보다 작은 습관을 살피는 게 좋아요. 해야 할 일을 짧게 나누고, 힘들 때는 바로 도움을 요청하면 흐름이 안정돼요."
+    },
+    {
+      "fixture": "31-newborn-infant-male-tiered",
+      "period": "thisWeek",
+      "category": "career",
+      "paragraphs": 1,
+      "fragmentId": null,
+      "sample": "이번 주의 진로 감각은 아직 결과를 단정하기보다 작은 습관을 살피는 게 좋아요. 해야 할 일을 짧게 나누고, 힘들 때는 바로 도움을 요청하면 흐름이 안정돼요."
+    },
+    {
+      "fixture": "31-newborn-infant-male-tiered",
+      "period": "thisWeek",
+      "category": "study_document",
+      "paragraphs": 1,
+      "fragmentId": null,
+      "sample": "이번 주의 기록과 준비는 아직 결과를 단정하기보다 작은 습관을 살피는 게 좋아요. 해야 할 일을 짧게 나누고, 힘들 때는 바로 도움을 요청하면 흐름이 안정돼요."
+    },
+    {
+      "fixture": "31-newborn-infant-male-tiered",
+      "period": "thisMonth",
+      "category": "wealth",
+      "paragraphs": 1,
+      "fragmentId": null,
+      "sample": "이번 달 (5월)의 돈과 물건 관리는 아직 결과를 단정하기보다 작은 습관을 살피는 게 좋아요. 해야 할 일을 짧게 나누고, 힘들 때는 바로 도움을 요청하면 흐름이 안정돼요."
+    },
+    {
+      "fixture": "31-newborn-infant-male-tiered",
+      "period": "thisMonth",
+      "category": "romance",
+      "paragraphs": 1,
+      "fragmentId": null,
+      "sample": "이번 달 (5월)의 관계와 마음은 아직 결과를 단정하기보다 작은 습관을 살피는 게 좋아요. 해야 할 일을 짧게 나누고, 힘들 때는 바로 도움을 요청하면 흐름이 안정돼요."
+    },
+    {
+      "fixture": "31-newborn-infant-male-tiered",
+      "period": "thisMonth",
+      "category": "study_document",
+      "paragraphs": 1,
+      "fragmentId": null,
+      "sample": "이번 달 (5월)의 기록과 준비는 아직 결과를 단정하기보다 작은 습관을 살피는 게 좋아요. 해야 할 일을 짧게 나누고, 힘들 때는 바로 도움을 요청하면 흐름이 안정돼요."
+    },
+    {
+      "fixture": "31-newborn-infant-male-tiered",
+      "period": "thisMonth",
+      "category": "health_stress",
+      "paragraphs": 1,
+      "fragmentId": null,
+      "sample": "이번 달 (5월)의 긴장과 회복은 아직 결과를 단정하기보다 작은 습관을 살피는 게 좋아요. 해야 할 일을 짧게 나누고, 힘들 때는 바로 도움을 요청하면 흐름이 안정돼요."
+    },
+    {
+      "fixture": "31-newborn-infant-male-tiered",
+      "period": "thisYear",
+      "category": "wealth",
+      "paragraphs": 1,
+      "fragmentId": null,
+      "sample": "올해 (2026년)의 돈과 물건 관리는 아직 결과를 단정하기보다 작은 습관을 살피는 게 좋아요. 해야 할 일을 짧게 나누고, 힘들 때는 바로 도움을 요청하면 흐름이 안정돼요."
+    },
+    {
+      "fixture": "31-newborn-infant-male-tiered",
+      "period": "thisYear",
+      "category": "romance",
+      "paragraphs": 1,
+      "fragmentId": null,
+      "sample": "올해 (2026년)의 관계와 마음은 아직 결과를 단정하기보다 작은 습관을 살피는 게 좋아요. 해야 할 일을 짧게 나누고, 힘들 때는 바로 도움을 요청하면 흐름이 안정돼요."
+    },
+    {
+      "fixture": "31-newborn-infant-male-tiered",
+      "period": "thisYear",
+      "category": "career",
+      "paragraphs": 1,
+      "fragmentId": null,
+      "sample": "올해 (2026년)의 진로 감각은 아직 결과를 단정하기보다 작은 습관을 살피는 게 좋아요. 해야 할 일을 짧게 나누고, 힘들 때는 바로 도움을 요청하면 흐름이 안정돼요."
+    },
+    {
+      "fixture": "31-newborn-infant-male-tiered",
+      "period": "thisYear",
+      "category": "study_document",
+      "paragraphs": 1,
+      "fragmentId": null,
+      "sample": "올해 (2026년)의 기록과 준비는 아직 결과를 단정하기보다 작은 습관을 살피는 게 좋아요. 해야 할 일을 짧게 나누고, 힘들 때는 바로 도움을 요청하면 흐름이 안정돼요."
+    }
+  ],
+  "sub3CellsWithFid": [
+    {
+      "fixture": "04-kim-seoyun-young-female-tiered",
+      "period": "life",
+      "category": "overall",
+      "paragraphs": 2,
+      "fragmentId": "overall.life.standard.age_10_19_gender_female.201",
+      "sample": "10대 여성의 흐름은 자기 기준을 만들고 관계 속에서 나를 확인하는 과정이 중요해요."
+    },
+    {
+      "fixture": "04-kim-seoyun-young-female-tiered",
+      "period": "today",
+      "category": "career",
+      "paragraphs": 2,
+      "fragmentId": "career.today.standard.ageband.young.501",
+      "sample": "오늘의 진로운은 한 번에 정답을 찾기보다 직접 확인해 보는 쪽에 가까워요."
+    },
+    {
+      "fixture": "04-kim-seoyun-young-female-tiered",
+      "period": "today",
+      "category": "expression_children",
+      "paragraphs": 2,
+      "fragmentId": "expression_children.today.standard.ageband.young.501",
+      "sample": "오늘은 떠오른 생각을 말이나 글로 작게 꺼내보면 좋아요."
+    },
+    {
+      "fixture": "04-kim-seoyun-young-female-tiered",
+      "period": "thisWeek",
+      "category": "academic",
+      "paragraphs": 2,
+      "fragmentId": "academic.thisWeek.standard.ageband.young.402",
+      "sample": "이번 주는 문제를 많이 푸는 것만큼 틀린 이유를 정리하는 것이 중요해요."
+    },
+    {
+      "fixture": "04-kim-seoyun-young-female-tiered",
+      "period": "thisMonth",
+      "category": "academic",
+      "paragraphs": 2,
+      "fragmentId": "academic.thisMonth.standard.ageband.young.402",
+      "sample": "이번 달은 시험이나 과제를 미리 나눠 준비하면 마음이 훨씬 가벼워져요."
+    },
+    {
+      "fixture": "05-park-minji-late-night-female-tiered",
+      "period": "thisYear",
+      "category": "wealth",
+      "paragraphs": 2,
+      "fragmentId": "wealth.thisYear.standard.ageband.mature.401",
+      "sample": "올해는 돈을 크게 움직이기 전에 지켜야 할 기준을 먼저 세우는 것이 좋아요."
+    },
+    {
+      "fixture": "06-lee-hajun-unknown-hour-neutral-tiered",
+      "period": "life",
+      "category": "overall",
+      "paragraphs": 2,
+      "fragmentId": "overall.life.standard.yongshin_metal_alignment.neutral.201",
+      "sample": "쇠 기운이 필요하지만 현재 흐름은 결단을 강하게 밀어주지는 않는 중간 상태예요."
+    },
+    {
+      "fixture": "06-lee-hajun-unknown-hour-neutral-tiered",
+      "period": "today",
+      "category": "health_stress",
+      "paragraphs": 2,
+      "fragmentId": "health_stress.today.standard.pacing.501",
+      "sample": "오늘은 추진력이 높아도 감정의 속도를 조절해야 해요."
+    },
+    {
+      "fixture": "08-kim-jiwon-strong-jeonggwan-gyeokguk-tiered",
+      "period": "thisWeek",
+      "category": "overall",
+      "paragraphs": 2,
+      "fragmentId": "overall.thisWeek.standard.daymasterpolarity.yin.203",
+      "sample": "이번 주에는 안쪽에서 다듬는 타고난 흐름처럼 안쪽에서 충분히 살피고 다듬는 힘이 중요해질 수 있어요."
+    },
+    {
+      "fixture": "08-kim-jiwon-strong-jeonggwan-gyeokguk-tiered",
+      "period": "thisYear",
+      "category": "overall",
+      "paragraphs": 2,
+      "fragmentId": "overall.thisYear.standard.agephase.late_30s.203",
+      "sample": "올해는 쌓아온 경험을 더 효율적으로 쓰는 것이 중요해요."
+    },
+    {
+      "fixture": "08-kim-jiwon-strong-jeonggwan-gyeokguk-tiered",
+      "period": "thisYear",
+      "category": "romance",
+      "paragraphs": 2,
+      "fragmentId": "romance.thisYear.standard.ageband.mature.401",
+      "sample": "올해는 관계에서 현실적인 안정감이 중요한 기준이 돼요."
+    },
+    {
+      "fixture": "09-kim-seongsu-special-format-candidate-tiered",
+      "period": "life",
+      "category": "overall",
+      "paragraphs": 2,
+      "fragmentId": "overall.life.standard.yongshin_metal_alignment.neutral.201",
+      "sample": "쇠 기운이 필요하지만 현재 흐름은 결단을 강하게 밀어주지는 않는 중간 상태예요."
+    },
+    {
+      "fixture": "09-kim-seongsu-special-format-candidate-tiered",
+      "period": "life",
+      "category": "wealth",
+      "paragraphs": 2,
+      "fragmentId": "wealth.life.standard.ageband.mature.501",
+      "sample": "재물운은 크게 벌기보다 지키고 정리하는 힘이 중요해지는 편이에요."
+    },
+    {
+      "fixture": "09-kim-seongsu-special-format-candidate-tiered",
+      "period": "thisWeek",
+      "category": "health_stress",
+      "paragraphs": 2,
+      "fragmentId": "health_stress.thisWeek.standard.boundary.501",
+      "sample": "이번 주는 부탁을 모두 받아들이기보다 가능한 범위를 먼저 정해야 해요."
+    },
+    {
+      "fixture": "09-kim-seongsu-special-format-candidate-tiered",
+      "period": "thisMonth",
+      "category": "family",
+      "paragraphs": 2,
+      "fragmentId": "family.thisMonth.standard.agephase.late_60s.204",
+      "sample": "이번 달 가족운은 도움을 주는 일과 받는 일을 편안하게 조율하는 것이 좋아요."
+    },
+    {
+      "fixture": "09-kim-seongsu-special-format-candidate-tiered",
+      "period": "thisYear",
+      "category": "wealth",
+      "paragraphs": 2,
+      "fragmentId": "wealth.thisYear.standard.growth.501",
+      "sample": "올해 재물운은 무리한 한 번의 선택보다 꾸준히 구조를 만드는 쪽에서 힘이 납니다."
+    },
+    {
+      "fixture": "10-choi-yaza-boundary-male-tiered",
+      "period": "life",
+      "category": "health",
+      "paragraphs": 2,
+      "fragmentId": "health.life.standard.birthseason.summer.204",
+      "sample": "여름에 태어난 사람은 활동량과 표현 에너지가 쉽게 올라오는 쪽으로 읽을 수 있습니다."
+    },
+    {
+      "fixture": "10-choi-yaza-boundary-male-tiered",
+      "period": "life",
+      "category": "romance",
+      "paragraphs": 2,
+      "fragmentId": "romance.life.standard.ageband.mature.401",
+      "sample": "관계에서는 순간의 감정보다 생활 속에서 반복되는 태도가 더 중요해져요."
+    },
+    {
+      "fixture": "10-choi-yaza-boundary-male-tiered",
+      "period": "thisMonth",
+      "category": "family",
+      "paragraphs": 2,
+      "fragmentId": "family.thisMonth.standard.agephase.early_30s.204",
+      "sample": "이번 달 가족운은 일과 생활 기반을 함께 세우는 대화가 중요해요."
+    },
+    {
+      "fixture": "12-jeong-extreme-strong-continuous-tiered",
+      "period": "life",
+      "category": "romance",
+      "paragraphs": 2,
+      "fragmentId": "romance.life.standard.ageband.mature.401",
+      "sample": "관계에서는 순간의 감정보다 생활 속에서 반복되는 태도가 더 중요해져요."
+    },
+    {
+      "fixture": "13-oh-extreme-weak-continuous-tiered",
+      "period": "life",
+      "category": "health",
+      "paragraphs": 2,
+      "fragmentId": "health.life.standard.birthseason.winter.204",
+      "sample": "겨울에 태어난 사람은 에너지를 안쪽에 모으고 천천히 회복하는 방식과 잘 맞아요."
+    },
+    {
+      "fixture": "13-oh-extreme-weak-continuous-tiered",
+      "period": "life",
+      "category": "health_stress",
+      "paragraphs": 2,
+      "fragmentId": "health_stress.life.standard.recovery.501",
+      "sample": "오래 갈수록 마음과 몸은 속도보다 회복의 질이 중요해집니다."
+    },
+    {
+      "fixture": "13-oh-extreme-weak-continuous-tiered",
+      "period": "thisWeek",
+      "category": "health_stress",
+      "paragraphs": 2,
+      "fragmentId": "health_stress.thisWeek.standard.boundary.501",
+      "sample": "이번 주는 부탁을 모두 받아들이기보다 가능한 범위를 먼저 정해야 해요."
+    },
+    {
+      "fixture": "13-oh-extreme-weak-continuous-tiered",
+      "period": "thisYear",
+      "category": "health_stress",
+      "paragraphs": 2,
+      "fragmentId": "health_stress.thisYear.standard.boundary_plan.504",
+      "sample": "올해는 마음의 한계를 미리 알아차리고 경계를 세우는 연습이 필요해요."
+    },
+    {
+      "fixture": "14-choi-palace-naeum-surface-tiered",
+      "period": "life",
+      "category": "overall",
+      "paragraphs": 2,
+      "fragmentId": "overall.life.standard.agephase_gender.90_plus.male.207",
+      "sample": "90대 이상 남성으로 입력된 경우에는 삶의 경험 자체가 주변에 안정감을 주는 흐름으로 볼 수 있어요."
+    },
+    {
+      "fixture": "14-choi-palace-naeum-surface-tiered",
+      "period": "today",
+      "category": "overall",
+      "paragraphs": 2,
+      "fragmentId": "overall.today.standard.polarity.neutral.404",
+      "sample": "오늘은 한쪽 방식만 고집하기보다 상황에 맞춰 속도를 바꾸면 좋아요."
+    },
+    {
+      "fixture": "14-choi-palace-naeum-surface-tiered",
+      "period": "thisWeek",
+      "category": "overall",
+      "paragraphs": 2,
+      "fragmentId": "overall.thisWeek.standard.daymasterpolarity.neutral.203",
+      "sample": "이번 주에는 상황에 따라 빠르게 움직일 때와 조용히 살필 때가 번갈아 나타날 수 있어요."
+    },
+    {
+      "fixture": "14-choi-palace-naeum-surface-tiered",
+      "period": "thisMonth",
+      "category": "family",
+      "paragraphs": 2,
+      "fragmentId": "family.thisMonth.standard.agephase.90_plus.204",
+      "sample": "이번 달 가족운은 익숙한 사람들의 안정적인 돌봄과 부드러운 대화가 가장 중요해요."
+    },
+    {
+      "fixture": "14-choi-palace-naeum-surface-tiered",
+      "period": "thisYear",
+      "category": "overall",
+      "paragraphs": 2,
+      "fragmentId": "overall.thisYear.standard.agephase.90_plus.203",
+      "sample": "올해는 편안함, 안전, 존중받는 일상이 가장 중요한 흐름이에요."
+    },
+    {
+      "fixture": "14-choi-palace-naeum-surface-tiered",
+      "period": "thisYear",
+      "category": "career",
+      "paragraphs": 2,
+      "fragmentId": "career.thisYear.standard.yongshin.wood.204",
+      "sample": "올해 일의 방향에서 나무 기운을 보충하는 흐름이 좋다면, 배우고 키우고 연결하는 선택이 힘이 돼요."
+    },
+    {
+      "fixture": "15-choi-consensus-aware-yongshin-tiered",
+      "period": "thisMonth",
+      "category": "family",
+      "paragraphs": 2,
+      "fragmentId": "family.thisMonth.standard.agephase.early_40s.204",
+      "sample": "이번 달 가족운은 책임과 회복의 균형을 잡는 것이 핵심입니다."
+    },
+    {
+      "fixture": "16-choi-senior-male-tiered",
+      "period": "life",
+      "category": "overall",
+      "paragraphs": 2,
+      "fragmentId": "overall.life.standard.age_70_plus_gender_male.201",
+      "sample": "70세 이상 남성의 흐름은 지나온 성취를 증명하기보다 경험을 편안하게 나누고 생활의 안정감을 지키는 쪽이 중요해요."
+    },
+    {
+      "fixture": "16-choi-senior-male-tiered",
+      "period": "life",
+      "category": "health",
+      "paragraphs": 2,
+      "fragmentId": "health.life.standard.birthseason.spring.204",
+      "sample": "봄에 태어난 사람은 몸과 마음이 새 자극에 민감하게 반응하기 쉬워요."
+    },
+    {
+      "fixture": "17-kim-senior-female-tiered",
+      "period": "life",
+      "category": "overall",
+      "paragraphs": 2,
+      "fragmentId": "overall.life.standard.yongshin_earth_alignment.neutral.201",
+      "sample": "흙 기운이 필요하지만 현재 흐름은 안정감을 저절로 만들어 주지는 않는 중간 상태예요."
+    },
+    {
+      "fixture": "17-kim-senior-female-tiered",
+      "period": "life",
+      "category": "health",
+      "paragraphs": 2,
+      "fragmentId": "health.life.standard.birthseason.autumn.204",
+      "sample": "가을에 태어난 사람은 몸의 기준과 리듬을 세밀하게 느끼는 쪽으로 볼 수 있습니다."
+    },
+    {
+      "fixture": "18-lee-child-male-tiered",
+      "period": "life",
+      "category": "overall",
+      "paragraphs": 2,
+      "fragmentId": "overall.life.standard.age_0_9_gender_male.201",
+      "sample": "어린 남자아이의 하루는 활동성만으로 단정하지 말고 감정, 안정감, 집중 리듬을 함께 살피는 것이 좋아요."
+    },
+    {
+      "fixture": "19-gyeokguk-conflict-jeonggwan-vs-bigyeop-tiered",
+      "period": "thisMonth",
+      "category": "family",
+      "paragraphs": 2,
+      "fragmentId": "family.thisMonth.standard.agephase.early_40s.204",
+      "sample": "이번 달 가족운은 책임과 회복의 균형을 잡는 것이 핵심입니다."
+    },
+    {
+      "fixture": "20-gyeokguk-conflict-consensus-aware-tiered",
+      "period": "life",
+      "category": "health",
+      "paragraphs": 2,
+      "fragmentId": "health.life.standard.birthseason.winter.204",
+      "sample": "겨울에 태어난 사람은 에너지를 안쪽에 모으고 천천히 회복하는 방식과 잘 맞아요."
+    },
+    {
+      "fixture": "20-gyeokguk-conflict-consensus-aware-tiered",
+      "period": "thisMonth",
+      "category": "family",
+      "paragraphs": 2,
+      "fragmentId": "family.thisMonth.standard.agephase.early_50s.204",
+      "sample": "이번 달 가족운은 경험 많은 조언자 역할과 나의 회복 사이를 조율하는 것이 좋아요."
+    },
+    {
+      "fixture": "21-multi-axis-evaluator-enabled-tiered",
+      "period": "thisMonth",
+      "category": "family",
+      "paragraphs": 2,
+      "fragmentId": "family.thisMonth.standard.agephase.early_40s.204",
+      "sample": "이번 달 가족운은 책임과 회복의 균형을 잡는 것이 핵심입니다."
+    },
+    {
+      "fixture": "22-low-confidence-yongshin-tiered",
+      "period": "today",
+      "category": "overall",
+      "paragraphs": 2,
+      "fragmentId": "overall.today.standard.polarity.yin.404",
+      "sample": "오늘은 바로 밀어붙이기보다 상황을 살피고 다듬는 힘이 좋아요."
+    },
+    {
+      "fixture": "22-low-confidence-yongshin-tiered",
+      "period": "thisWeek",
+      "category": "overall",
+      "paragraphs": 2,
+      "fragmentId": "overall.thisWeek.standard.daymasterpolarity.yin.203",
+      "sample": "이번 주에는 안쪽에서 다듬는 타고난 흐름처럼 안쪽에서 충분히 살피고 다듬는 힘이 중요해질 수 있어요."
+    },
+    {
+      "fixture": "22-low-confidence-yongshin-tiered",
+      "period": "thisYear",
+      "category": "overall",
+      "paragraphs": 2,
+      "fragmentId": "overall.thisYear.standard.agephase.late_30s.203",
+      "sample": "올해는 쌓아온 경험을 더 효율적으로 쓰는 것이 중요해요."
+    },
+    {
+      "fixture": "23-jonggyeok-jongwang-yeomsang-tiered",
+      "period": "life",
+      "category": "career",
+      "paragraphs": 2,
+      "fragmentId": "career.life.standard.daymasterelement.fire.204",
+      "sample": "불 기운을 타고난 사람의 일 처리 방식은 드러내고 설득하고 분위기를 만드는 데 강점이 있습니다."
+    },
+    {
+      "fixture": "23-jonggyeok-jongwang-yeomsang-tiered",
+      "period": "life",
+      "category": "movement",
+      "paragraphs": 2,
+      "fragmentId": "movement.life.standard.home_base.504",
+      "sample": "긴 흐름에서는 많이 움직이는 힘과 돌아와 쉴 기반을 함께 갖추는 것이 중요해요."
+    },
+    {
+      "fixture": "23-jonggyeok-jongwang-yeomsang-tiered",
+      "period": "today",
+      "category": "expression_children",
+      "paragraphs": 2,
+      "fragmentId": "expression_children.today.standard.ageband.mature.501",
+      "sample": "오늘은 생각을 바로 밀어붙이기보다 듣는 사람이 받아들이기 쉬운 순서로 정리하면 좋아요."
+    },
+    {
+      "fixture": "23-jonggyeok-jongwang-yeomsang-tiered",
+      "period": "today",
+      "category": "movement",
+      "paragraphs": 2,
+      "fragmentId": "movement.today.standard.activity.501",
+      "sample": "오늘은 가만히 있기보다 몸을 조금 움직일 때 답답함이 풀릴 수 있어요."
+    },
+    {
+      "fixture": "23-jonggyeok-jongwang-yeomsang-tiered",
+      "period": "thisYear",
+      "category": "career",
+      "paragraphs": 2,
+      "fragmentId": "career.thisYear.standard.yongshin.earth.204",
+      "sample": "올해 일의 방향에서 흙 기운을 보충하는 흐름이 좋다면, 기반을 만들고 책임을 안정적으로 관리하는 선택이 힘이 돼요."
+    },
+    {
+      "fixture": "23-jonggyeok-jongwang-yeomsang-tiered",
+      "period": "thisYear",
+      "category": "movement",
+      "paragraphs": 2,
+      "fragmentId": "movement.thisYear.standard.currentseason.spring_summer.301",
+      "sample": "올해는 새 지역, 새 모임, 새 일터와 연결될수록 선택지가 넓어질 수 있어요."
+    },
+    {
+      "fixture": "24-jonggyeok-jongjae-tiered",
+      "period": "life",
+      "category": "romance",
+      "paragraphs": 2,
+      "fragmentId": "romance.life.standard.ageband.mature.401",
+      "sample": "관계에서는 순간의 감정보다 생활 속에서 반복되는 태도가 더 중요해져요."
+    },
+    {
+      "fixture": "25-jonggyeok-jonggwan-tiered",
+      "period": "life",
+      "category": "overall",
+      "paragraphs": 2,
+      "fragmentId": "overall.life.standard.gyeokguk_jeonggwangyeok_strength_weak.201",
+      "sample": "책임과 질서 흐름격에 기운이 약하면 책임과 규칙을 중요하게 느끼지만, 실제로 감당할 힘은 상황에 따라 흔들릴 수 있어요."
+    },
+    {
+      "fixture": "25-jonggyeok-jonggwan-tiered",
+      "period": "life",
+      "category": "career",
+      "paragraphs": 2,
+      "fragmentId": "career.life.standard.daymasterelement.wood.204",
+      "sample": "나무 기운을 타고난 사람의 일 처리 방식은 배우고 키우고 연결하는 데 강점이 있습니다."
+    },
+    {
+      "fixture": "25-jonggyeok-jonggwan-tiered",
+      "period": "thisYear",
+      "category": "career",
+      "paragraphs": 2,
+      "fragmentId": "career.thisYear.standard.yongshin.water.204",
+      "sample": "올해 일의 방향에서 물 기운을 보충하는 흐름이 좋다면, 정보를 모으고 흐름을 읽고 유연하게 움직이는 선택이 힘이 돼요."
+    },
+    {
+      "fixture": "26-jonggyeok-jongsal-tiered",
+      "period": "life",
+      "category": "romance",
+      "paragraphs": 2,
+      "fragmentId": "romance.life.standard.ageband.mature.401",
+      "sample": "관계에서는 순간의 감정보다 생활 속에서 반복되는 태도가 더 중요해져요."
+    },
+    {
+      "fixture": "27-jonggyeok-jongah-tiered",
+      "period": "life",
+      "category": "overall",
+      "paragraphs": 2,
+      "fragmentId": "overall.life.standard.age_0_9_gender_male.201",
+      "sample": "어린 남자아이의 하루는 활동성만으로 단정하지 말고 감정, 안정감, 집중 리듬을 함께 살피는 것이 좋아요."
+    },
+    {
+      "fixture": "28-jonggyeok-jonggang-tiered",
+      "period": "life",
+      "category": "health",
+      "paragraphs": 2,
+      "fragmentId": "health.life.standard.birthseason.autumn.204",
+      "sample": "가을에 태어난 사람은 몸의 기준과 리듬을 세밀하게 느끼는 쪽으로 볼 수 있습니다."
+    },
+    {
+      "fixture": "28-jonggyeok-jonggang-tiered",
+      "period": "life",
+      "category": "career",
+      "paragraphs": 2,
+      "fragmentId": "career.life.standard.daymasterelement.earth.204",
+      "sample": "흙 기운을 타고난 사람의 일 처리 방식은 현실을 붙잡고 안정적인 기반을 만드는 데 강점이 있습니다."
+    },
+    {
+      "fixture": "28-jonggyeok-jonggang-tiered",
+      "period": "thisYear",
+      "category": "career",
+      "paragraphs": 2,
+      "fragmentId": "career.thisYear.standard.yongshin.metal.204",
+      "sample": "올해 일의 방향에서 쇠 기운을 보충하는 흐름이 좋다면, 기준을 세우고 중요한 것을 골라내는 선택이 힘이 돼요."
+    },
+    {
+      "fixture": "28-jonggyeok-jonggang-tiered",
+      "period": "thisYear",
+      "category": "health_stress",
+      "paragraphs": 2,
+      "fragmentId": "health_stress.thisYear.standard.boundary_plan.504",
+      "sample": "올해는 마음의 한계를 미리 알아차리고 경계를 세우는 연습이 필요해요."
+    },
+    {
+      "fixture": "29-pure-hangul-name-tiered",
+      "period": "life",
+      "category": "wealth",
+      "paragraphs": 2,
+      "fragmentId": "wealth.life.standard.money_rule.504",
+      "sample": "긴 흐름에서는 돈을 어떻게 벌지와 어떻게 새지 않게 지킬지를 함께 봐야 해요."
+    },
+    {
+      "fixture": "29-pure-hangul-name-tiered",
+      "period": "life",
+      "category": "movement",
+      "paragraphs": 2,
+      "fragmentId": "movement.life.standard.home_base.504",
+      "sample": "긴 흐름에서는 많이 움직이는 힘과 돌아와 쉴 기반을 함께 갖추는 것이 중요해요."
+    },
+    {
+      "fixture": "29-pure-hangul-name-tiered",
+      "period": "today",
+      "category": "movement",
+      "paragraphs": 2,
+      "fragmentId": "movement.today.standard.activity.501",
+      "sample": "오늘은 가만히 있기보다 몸을 조금 움직일 때 답답함이 풀릴 수 있어요."
+    },
+    {
+      "fixture": "29-pure-hangul-name-tiered",
+      "period": "thisWeek",
+      "category": "wealth",
+      "paragraphs": 2,
+      "fragmentId": "wealth.thisWeek.standard.income.501",
+      "sample": "이번 주는 수입과 지출을 한눈에 보이게 정리하면 판단이 쉬워져요."
+    },
+    {
+      "fixture": "29-pure-hangul-name-tiered",
+      "period": "thisYear",
+      "category": "movement",
+      "paragraphs": 2,
+      "fragmentId": "movement.thisYear.standard.currentseason.spring_summer.301",
+      "sample": "올해는 새 지역, 새 모임, 새 일터와 연결될수록 선택지가 넓어질 수 있어요."
+    },
+    {
+      "fixture": "30-jeolgi-lidong-boundary-tiered",
+      "period": "life",
+      "category": "overall",
+      "paragraphs": 2,
+      "fragmentId": "overall.life.standard.age_0_9_gender_male.201",
+      "sample": "어린 남자아이의 하루는 활동성만으로 단정하지 말고 감정, 안정감, 집중 리듬을 함께 살피는 것이 좋아요."
+    },
+    {
+      "fixture": "31-newborn-infant-male-tiered",
+      "period": "life",
+      "category": "overall",
+      "paragraphs": 2,
+      "fragmentId": "overall.life.standard.age_0_9_gender_male.201",
+      "sample": "어린 남자아이의 하루는 활동성만으로 단정하지 말고 감정, 안정감, 집중 리듬을 함께 살피는 것이 좋아요."
+    },
+    {
+      "fixture": "32-nonagenarian-weak-daymaster-tiered",
+      "period": "life",
+      "category": "wealth",
+      "paragraphs": 2,
+      "fragmentId": "wealth.life.standard.ageband.mature.501",
+      "sample": "재물운은 크게 벌기보다 지키고 정리하는 힘이 중요해지는 편이에요."
+    },
+    {
+      "fixture": "32-nonagenarian-weak-daymaster-tiered",
+      "period": "life",
+      "category": "movement",
+      "paragraphs": 2,
+      "fragmentId": "movement.life.standard.home_base.504",
+      "sample": "긴 흐름에서는 많이 움직이는 힘과 돌아와 쉴 기반을 함께 갖추는 것이 중요해요."
+    },
+    {
+      "fixture": "32-nonagenarian-weak-daymaster-tiered",
+      "period": "today",
+      "category": "expression_children",
+      "paragraphs": 2,
+      "fragmentId": "expression_children.today.standard.ageband.mature.501",
+      "sample": "오늘은 생각을 바로 밀어붙이기보다 듣는 사람이 받아들이기 쉬운 순서로 정리하면 좋아요."
+    },
+    {
+      "fixture": "32-nonagenarian-weak-daymaster-tiered",
+      "period": "today",
+      "category": "health_stress",
+      "paragraphs": 2,
+      "fragmentId": "health_stress.today.standard.pacing.501",
+      "sample": "오늘은 추진력이 높아도 감정의 속도를 조절해야 해요."
+    },
+    {
+      "fixture": "32-nonagenarian-weak-daymaster-tiered",
+      "period": "today",
+      "category": "movement",
+      "paragraphs": 2,
+      "fragmentId": "movement.today.standard.activity.501",
+      "sample": "오늘은 가만히 있기보다 몸을 조금 움직일 때 답답함이 풀릴 수 있어요."
+    },
+    {
+      "fixture": "32-nonagenarian-weak-daymaster-tiered",
+      "period": "thisYear",
+      "category": "career",
+      "paragraphs": 2,
+      "fragmentId": "career.thisYear.standard.yongshin.fire.204",
+      "sample": "올해 일의 방향에서 불 기운을 보충하는 흐름이 좋다면, 표현하고 알리고 설득하는 선택이 힘이 돼요."
+    },
+    {
+      "fixture": "32-nonagenarian-weak-daymaster-tiered",
+      "period": "thisYear",
+      "category": "movement",
+      "paragraphs": 2,
+      "fragmentId": "movement.thisYear.standard.currentseason.spring_summer.301",
+      "sample": "올해는 새 지역, 새 모임, 새 일터와 연결될수록 선택지가 넓어질 수 있어요."
+    },
+    {
+      "fixture": "33-consensus-aware-multi-axis-combined-tiered",
+      "period": "life",
+      "category": "health",
+      "paragraphs": 2,
+      "fragmentId": "health.life.standard.birthseason.autumn.204",
+      "sample": "가을에 태어난 사람은 몸의 기준과 리듬을 세밀하게 느끼는 쪽으로 볼 수 있습니다."
+    },
+    {
+      "fixture": "34-gyeokguk-conflict-multi-confidence-tiered",
+      "period": "life",
+      "category": "overall",
+      "paragraphs": 2,
+      "fragmentId": "overall.life.standard.gyeokguk_sikshingyeok_strength_balanced.201",
+      "sample": "꾸준한 표현력격에 기운이 중화되어 있으면 표현, 생산, 돌봄의 흐름이 비교적 편안하게 이어져요."
+    },
+    {
+      "fixture": "34-gyeokguk-conflict-multi-confidence-tiered",
+      "period": "life",
+      "category": "health",
+      "paragraphs": 2,
+      "fragmentId": "health.life.standard.birthseason.summer.204",
+      "sample": "여름에 태어난 사람은 활동량과 표현 에너지가 쉽게 올라오는 쪽으로 읽을 수 있습니다."
+    },
+    {
+      "fixture": "34-gyeokguk-conflict-multi-confidence-tiered",
+      "period": "thisWeek",
+      "category": "wealth",
+      "paragraphs": 2,
+      "fragmentId": "wealth.thisWeek.standard.income.501",
+      "sample": "이번 주는 수입과 지출을 한눈에 보이게 정리하면 판단이 쉬워져요."
+    },
+    {
+      "fixture": "34-gyeokguk-conflict-multi-confidence-tiered",
+      "period": "thisMonth",
+      "category": "family",
+      "paragraphs": 2,
+      "fragmentId": "family.thisMonth.standard.agephase.early_50s.204",
+      "sample": "이번 달 가족운은 경험 많은 조언자 역할과 나의 회복 사이를 조율하는 것이 좋아요."
+    },
+    {
+      "fixture": "34-gyeokguk-conflict-multi-confidence-tiered",
+      "period": "thisYear",
+      "category": "wealth",
+      "paragraphs": 2,
+      "fragmentId": "wealth.thisYear.standard.growth.501",
+      "sample": "올해 재물운은 무리한 한 번의 선택보다 꾸준히 구조를 만드는 쪽에서 힘이 납니다."
+    },
+    {
+      "fixture": "35-palace-naeum-female-mid-tiered",
+      "period": "life",
+      "category": "overall",
+      "paragraphs": 2,
+      "fragmentId": "overall.life.standard.age_70_plus_gender_female.201",
+      "sample": "70세 이상 여성의 흐름은 지나온 경험을 존중하면서 몸과 마음이 편안한 리듬을 지키는 일이 중요해요."
+    },
+    {
+      "fixture": "35-palace-naeum-female-mid-tiered",
+      "period": "thisWeek",
+      "category": "overall",
+      "paragraphs": 2,
+      "fragmentId": "overall.thisWeek.standard.daymasterpolarity.neutral.203",
+      "sample": "이번 주에는 상황에 따라 빠르게 움직일 때와 조용히 살필 때가 번갈아 나타날 수 있어요."
+    },
+    {
+      "fixture": "35-palace-naeum-female-mid-tiered",
+      "period": "thisMonth",
+      "category": "family",
+      "paragraphs": 2,
+      "fragmentId": "family.thisMonth.standard.agephase.90_plus.204",
+      "sample": "이번 달 가족운은 익숙한 사람들의 안정적인 돌봄과 부드러운 대화가 가장 중요해요."
+    },
+    {
+      "fixture": "35-palace-naeum-female-mid-tiered",
+      "period": "thisYear",
+      "category": "overall",
+      "paragraphs": 2,
+      "fragmentId": "overall.thisYear.standard.agephase.90_plus.203",
+      "sample": "올해는 편안함, 안전, 존중받는 일상이 가장 중요한 흐름이에요."
+    },
+    {
+      "fixture": "35-palace-naeum-female-mid-tiered",
+      "period": "thisYear",
+      "category": "romance",
+      "paragraphs": 2,
+      "fragmentId": "romance.thisYear.standard.ageband.mature.401",
+      "sample": "올해는 관계에서 현실적인 안정감이 중요한 기준이 돼요."
+    }
+  ],
+  "byCatPeriod": {
+    "wealth|life": 5,
+    "health|life": 1,
+    "romance|life": 5,
+    "study_document|life": 5,
+    "overall|today": 1,
+    "wealth|today": 5,
+    "health|today": 1,
+    "romance|today": 5,
+    "study_document|today": 5,
+    "overall|thisWeek": 1,
+    "wealth|thisWeek": 5,
+    "health|thisWeek": 1,
+    "romance|thisWeek": 5,
+    "study_document|thisWeek": 5,
+    "overall|thisMonth": 1,
+    "wealth|thisMonth": 5,
+    "health|thisMonth": 1,
+    "romance|thisMonth": 5,
+    "study_document|thisMonth": 5,
+    "overall|thisYear": 1,
+    "wealth|thisYear": 5,
+    "romance|thisYear": 5,
+    "study_document|thisYear": 5,
+    "career|life": 4,
+    "career|today": 4,
+    "health_stress|today": 4,
+    "career|thisWeek": 4,
+    "health_stress|thisMonth": 4,
+    "career|thisYear": 4
+  },
+  "byCat": {
+    "wealth": 25,
+    "health": 4,
+    "romance": 25,
+    "study_document": 25,
+    "overall": 4,
+    "career": 16,
+    "health_stress": 8
+  },
+  "distinctFragmentIds": [
+    "academic.thisMonth.standard.ageband.young.402",
+    "academic.thisWeek.standard.ageband.young.402",
+    "career.life.standard.daymasterelement.earth.204",
+    "career.life.standard.daymasterelement.fire.204",
+    "career.life.standard.daymasterelement.wood.204",
+    "career.thisYear.standard.yongshin.earth.204",
+    "career.thisYear.standard.yongshin.fire.204",
+    "career.thisYear.standard.yongshin.metal.204",
+    "career.thisYear.standard.yongshin.water.204",
+    "career.thisYear.standard.yongshin.wood.204",
+    "career.today.standard.ageband.young.501",
+    "expression_children.today.standard.ageband.mature.501",
+    "expression_children.today.standard.ageband.young.501",
+    "family.thisMonth.standard.agephase.90_plus.204",
+    "family.thisMonth.standard.agephase.early_30s.204",
+    "family.thisMonth.standard.agephase.early_40s.204",
+    "family.thisMonth.standard.agephase.early_50s.204",
+    "family.thisMonth.standard.agephase.late_60s.204",
+    "health.life.standard.birthseason.autumn.204",
+    "health.life.standard.birthseason.spring.204",
+    "health.life.standard.birthseason.summer.204",
+    "health.life.standard.birthseason.winter.204",
+    "health_stress.life.standard.recovery.501",
+    "health_stress.thisWeek.standard.boundary.501",
+    "health_stress.thisYear.standard.boundary_plan.504",
+    "health_stress.today.standard.pacing.501",
+    "movement.life.standard.home_base.504",
+    "movement.thisYear.standard.currentseason.spring_summer.301",
+    "movement.today.standard.activity.501",
+    "overall.life.standard.age_0_9_gender_male.201",
+    "overall.life.standard.age_10_19_gender_female.201",
+    "overall.life.standard.age_70_plus_gender_female.201",
+    "overall.life.standard.age_70_plus_gender_male.201",
+    "overall.life.standard.agephase_gender.90_plus.male.207",
+    "overall.life.standard.gyeokguk_jeonggwangyeok_strength_weak.201",
+    "overall.life.standard.gyeokguk_sikshingyeok_strength_balanced.201",
+    "overall.life.standard.yongshin_earth_alignment.neutral.201",
+    "overall.life.standard.yongshin_metal_alignment.neutral.201",
+    "overall.thisWeek.standard.daymasterpolarity.neutral.203",
+    "overall.thisWeek.standard.daymasterpolarity.yin.203",
+    "overall.thisYear.standard.agephase.90_plus.203",
+    "overall.thisYear.standard.agephase.late_30s.203",
+    "overall.today.standard.polarity.neutral.404",
+    "overall.today.standard.polarity.yin.404",
+    "romance.life.standard.ageband.mature.401",
+    "romance.thisYear.standard.ageband.mature.401",
+    "wealth.life.standard.ageband.mature.501",
+    "wealth.life.standard.money_rule.504",
+    "wealth.thisWeek.standard.income.501",
+    "wealth.thisYear.standard.ageband.mature.401",
+    "wealth.thisYear.standard.growth.501"
+  ]
+}
