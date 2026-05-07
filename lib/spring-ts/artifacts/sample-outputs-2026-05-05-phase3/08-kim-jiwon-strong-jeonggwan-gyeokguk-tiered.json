@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-05-07T04:08:36.197Z",
+  "generatedAt": "2026-05-07T04:23:07.876Z",
   "targetDate": "2026-05-05T00:00:00+09:00",
   "sampleId": "kim-jiwon-strong-jeonggwan-gyeokguk-tiered",
   "description": "입력 의도: 정관격 계열의 강한 격국이 또렷이 잡히기 쉬운 입력. 최종 gyeokguk 판정은 엔진이 결정한다.",
@@ -1249,7 +1249,7 @@
     },
     "meta": {
       "version": "1.0.0",
-      "generatedAt": "2026-05-07T04:08:40.238Z",
+      "generatedAt": "2026-05-07T04:23:12.975Z",
       "schoolPreset": {
         "selected": "korean",
         "source": "default",
@@ -12706,7 +12706,7 @@
       },
       "meta": {
         "schemaVersion": "spring-ts.tiered-matrix.v1",
-        "generatedAt": "2026-05-07T04:08:40.238Z",
+        "generatedAt": "2026-05-07T04:23:12.975Z",
         "selectionSeed": "1990|9|15|11|30|female|2026-05-04T15:00:00.000Z",
         "templateContractVersion": "1.0.0",
         "contentSource": "authored",
