@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-05-07T09:49:17.080Z",
+  "generatedAt": "2026-05-07T09:59:05.399Z",
   "targetDate": "2026-05-05T00:00:00+09:00",
   "sampleId": "consensus-aware-multi-axis-combined-tiered",
   "description": "yongshinMode=consensus_aware + evaluatorMode=multi_axis 동시 활성. 독립 명리 방법 (억부/조후/격국/통관/병약) 의 consensus scoreboard 와 axisStrength ≥2 축 다축 가중이 함께 sajuPriority 에 반영되는 PR-K-9 + consensus 결합 fixture.",
@@ -1266,7 +1266,7 @@
     },
     "meta": {
       "version": "1.0.0",
-      "generatedAt": "2026-05-07T09:49:31.650Z",
+      "generatedAt": "2026-05-07T09:59:18.913Z",
       "schoolPreset": {
         "selected": "korean",
         "source": "default",
@@ -10285,15 +10285,6 @@
                       }
                     ],
                     "plainText": "주의할 점은 한 분기에 결정이 몰릴 때예요. 결정의 시기를 분산해 두면 한 해가 한층 부드러워져요."
-                  },
-                  {
-                    "tokens": [
-                      {
-                        "kind": "text",
-                        "value": "사계절 모두 자기 자리를 가진 한 해예요. 한 분기 한 분기를 천천히 누리면 한 해의 흐름이 자연스럽게 모여요."
-                      }
-                    ],
-                    "plainText": "사계절 모두 자기 자리를 가진 한 해예요. 한 분기 한 분기를 천천히 누리면 한 해의 흐름이 자연스럽게 모여요."
                   }
                 ],
                 "livingTips": [
@@ -12888,7 +12879,7 @@
       },
       "meta": {
         "schemaVersion": "spring-ts.tiered-matrix.v1",
-        "generatedAt": "2026-05-07T09:49:31.650Z",
+        "generatedAt": "2026-05-07T09:59:18.913Z",
         "selectionSeed": "1987|10|5|15|30|female|2026-05-04T15:00:00.000Z",
         "templateContractVersion": "1.0.0",
         "contentSource": "authored",
