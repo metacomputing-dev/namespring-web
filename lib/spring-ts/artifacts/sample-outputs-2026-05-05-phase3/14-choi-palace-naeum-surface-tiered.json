@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-05-07T14:02:33.057Z",
+  "generatedAt": "2026-05-07T14:11:50.458Z",
   "targetDate": "2026-05-05T00:00:00+09:00",
   "sampleId": "choi-palace-naeum-surface-tiered",
   "description": "12궁 / 60갑자 surface ON 시나리오 (declared opt-in). saju-ts 측 데이터 포트 이전이면 surfacePalace/surfaceNaeum 이 추가 출력을 내지 않으며, 계약상 opt-in 시그니처만 노출한다. tieredMatrix 는 정상 출력.",
@@ -770,7 +770,7 @@
     },
     "meta": {
       "version": "1.0.0",
-      "generatedAt": "2026-05-07T14:02:40.595Z",
+      "generatedAt": "2026-05-07T14:11:56.210Z",
       "schoolPreset": {
         "selected": "korean",
         "source": "default",
@@ -12492,7 +12492,7 @@
       },
       "meta": {
         "schemaVersion": "spring-ts.tiered-matrix.v1",
-        "generatedAt": "2026-05-07T14:02:40.595Z",
+        "generatedAt": "2026-05-07T14:11:56.210Z",
         "selectionSeed": "1986|4|19|5|45|male|2026-05-04T15:00:00.000Z",
         "templateContractVersion": "1.0.0",
         "contentSource": "authored",
