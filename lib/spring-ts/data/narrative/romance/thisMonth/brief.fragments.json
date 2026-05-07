@@ -5,9 +5,13 @@
   "fragments": [
     {
       "schemaVersion": "spring-ts.narrative-fragment.v1",
-      "fragmentId": "romance.thisMonth.brief.adult.001",
+      "fragmentId": "romance.thisMonth.brief.strong.neutral.adult.001",
       "axis": { "category": "romance", "period": "thisMonth", "depth": "brief" },
-      "gating": { "ageBand": ["20-29", "30-39", "40-54", "55-69", "70+"] },
+      "gating": {
+        "ageBand": ["20-29", "30-39", "40-54", "55-69", "70+"],
+        "dayMasterStrength": ["STRONG", "EXTREME_STRONG"],
+        "yongshinAlignment": ["neutral"]
+      },
       "templateTokens": [
         { "kind": "text", "value": "이번 달은 사람과의 결이 차분히 정돈되는 흐름이에요." }
       ],
