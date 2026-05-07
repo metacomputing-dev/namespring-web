@@ -464,6 +464,38 @@
         "copyrightNote": "No source prose copied; original phrasing.",
         "authorityTruthEligible": false
       }
+    },
+    {
+      "schemaVersion": "spring-ts.narrative-fragment.v1",
+      "fragmentId": "overall.today.brief.teen.001",
+      "axis": {
+        "category": "overall",
+        "period": "today",
+        "depth": "brief"
+      },
+      "gating": {
+        "ageBand": [
+          "10-19"
+        ]
+      },
+      "templateTokens": [
+        {
+          "kind": "text",
+          "value": "오늘은 학교·친구 사이 결이 가볍게 흘러요."
+        }
+      ],
+      "tags": [],
+      "aiGenerated": true,
+      "sourceTier": {
+        "tier": "T1_HYPOTHESIS",
+        "sourceType": "training_derived",
+        "sourceUrl": null,
+        "accessedAt": "2026-05-07",
+        "quoteShort": null,
+        "humanInterpretation": "P23-A1 overall brief today (ageBand 10-19). Friend-tone; school/friends/study-rest rhythm; no career/marriage. Closes brief PLACEHOLDER for fixture 04.",
+        "copyrightNote": "No source prose copied; original phrasing.",
+        "authorityTruthEligible": false
+      }
     }
   ]
 }
