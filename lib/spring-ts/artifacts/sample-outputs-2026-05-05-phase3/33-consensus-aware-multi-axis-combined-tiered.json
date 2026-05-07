@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-05-07T12:35:42.188Z",
+  "generatedAt": "2026-05-07T12:41:14.853Z",
   "targetDate": "2026-05-05T00:00:00+09:00",
   "sampleId": "consensus-aware-multi-axis-combined-tiered",
   "description": "yongshinMode=consensus_aware + evaluatorMode=multi_axis 동시 활성. 독립 명리 방법 (억부/조후/격국/통관/병약) 의 consensus scoreboard 와 axisStrength ≥2 축 다축 가중이 함께 sajuPriority 에 반영되는 PR-K-9 + consensus 결합 fixture.",
@@ -1266,7 +1266,7 @@
     },
     "meta": {
       "version": "1.0.0",
-      "generatedAt": "2026-05-07T12:35:55.862Z",
+      "generatedAt": "2026-05-07T12:41:30.203Z",
       "schoolPreset": {
         "selected": "korean",
         "source": "default",
@@ -2646,8 +2646,8 @@
                   }
                 ],
                 "livingTips": [
-                  "인연 한 줄을 길게 쥐기",
-                  "1년에 한 가지 결정 기록 남기기"
+                  "평생 인연 한 줄을 길게 쥐기",
+                  "5년 단위로 자기 흐름을 돌아보기"
                 ],
                 "cautions": [
                   "타인의 자리와 비교만으로 흔들리지 않기"
@@ -8638,7 +8638,7 @@
                 ],
                 "livingTips": [
                   "출퇴근 길의 한 챕터",
-                  "한 마디로 누군가에게 설명",
+                  "이달 익힌 결 한 권 정리",
                   "월말의 한 줄 정리"
                 ],
                 "cautions": [
@@ -12938,7 +12938,7 @@
       },
       "meta": {
         "schemaVersion": "spring-ts.tiered-matrix.v1",
-        "generatedAt": "2026-05-07T12:35:55.862Z",
+        "generatedAt": "2026-05-07T12:41:30.203Z",
         "selectionSeed": "1987|10|5|15|30|female|2026-05-04T15:00:00.000Z",
         "templateContractVersion": "1.0.0",
         "contentSource": "authored",

@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-05-07T12:35:42.188Z",
+  "generatedAt": "2026-05-07T12:41:14.853Z",
   "targetDate": "2026-05-05T00:00:00+09:00",
   "sampleId": "gyeokguk-conflict-consensus-aware-tiered",
   "description": "격국 충돌 case 2: 신강/신약 경계 + 격국 후보 다중 + yongshinMode=consensus_aware 활성. 독립 명리 방법(억부/조후/격국/통관/병약/식상유통) 이 엇갈리는 chart 에서 consensus 보드와 격국 흔들림이 함께 노출되는 케이스.",
@@ -1301,7 +1301,7 @@
     },
     "meta": {
       "version": "1.0.0",
-      "generatedAt": "2026-05-07T12:35:51.741Z",
+      "generatedAt": "2026-05-07T12:41:25.620Z",
       "schoolPreset": {
         "selected": "korean",
         "source": "default",
@@ -2638,8 +2638,8 @@
                   }
                 ],
                 "livingTips": [
-                  "인연 한 줄을 길게 쥐기",
-                  "1년에 한 가지 결정 기록 남기기"
+                  "평생 인연 한 줄을 길게 쥐기",
+                  "5년 단위로 자기 흐름을 돌아보기"
                 ],
                 "cautions": [
                   "타인의 자리와 비교만으로 흔들리지 않기"
@@ -9177,8 +9177,8 @@
                   }
                 ],
                 "livingTips": [
-                  "중요한 결정은 한 박자 늦추기",
-                  "후배에게 길 한 번 알려 주기"
+                  "이달 큰 결정은 한 주 묵히기",
+                  "후배에게 한 달 한 번 길잡이"
                 ],
                 "cautions": [
                   "자기 분야에만 갇히지 않기"
@@ -13008,7 +13008,7 @@
       },
       "meta": {
         "schemaVersion": "spring-ts.tiered-matrix.v1",
-        "generatedAt": "2026-05-07T12:35:51.741Z",
+        "generatedAt": "2026-05-07T12:41:25.620Z",
         "selectionSeed": "1973|12|17|16|30|female|2026-05-04T15:00:00.000Z",
         "templateContractVersion": "1.0.0",
         "contentSource": "authored",

@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-05-07T12:35:42.188Z",
+  "generatedAt": "2026-05-07T12:41:14.853Z",
   "targetDate": "2026-05-05T00:00:00+09:00",
   "sampleId": "kim-senior-female-tiered",
   "description": "70+ 시니어 여성 (1950 출생) — 노년 여성 audience 흐름. life-stage 후반 narrative 와 tieredMatrix 의 conservative tone 매칭을 점검하는 케이스.",
@@ -1317,7 +1317,7 @@
     },
     "meta": {
       "version": "1.0.0",
-      "generatedAt": "2026-05-07T12:35:50.784Z",
+      "generatedAt": "2026-05-07T12:41:24.505Z",
       "schoolPreset": {
         "selected": "korean",
         "source": "default",
@@ -11365,8 +11365,8 @@
                   }
                 ],
                 "livingTips": [
-                  "주1회 후배 질문에 답하기",
-                  "노하우 짧은 글로 정리"
+                  "분기마다 후배 질문에 답하기",
+                  "올해 노하우 한 글 정리"
                 ],
                 "cautions": [
                   "전 자리의 무게에 너무 오래 머물지 않기"
@@ -13082,7 +13082,7 @@
       },
       "meta": {
         "schemaVersion": "spring-ts.tiered-matrix.v1",
-        "generatedAt": "2026-05-07T12:35:50.784Z",
+        "generatedAt": "2026-05-07T12:41:24.505Z",
         "selectionSeed": "1950|8|20|14|0|female|2026-05-04T15:00:00.000Z",
         "templateContractVersion": "1.0.0",
         "contentSource": "authored",

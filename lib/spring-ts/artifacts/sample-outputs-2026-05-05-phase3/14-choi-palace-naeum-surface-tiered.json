@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-05-07T12:35:42.188Z",
+  "generatedAt": "2026-05-07T12:41:14.853Z",
   "targetDate": "2026-05-05T00:00:00+09:00",
   "sampleId": "choi-palace-naeum-surface-tiered",
   "description": "12궁 / 60갑자 surface ON 시나리오 (declared opt-in). saju-ts 측 데이터 포트 이전이면 surfacePalace/surfaceNaeum 이 추가 출력을 내지 않으며, 계약상 opt-in 시그니처만 노출한다. tieredMatrix 는 정상 출력.",
@@ -770,7 +770,7 @@
     },
     "meta": {
       "version": "1.0.0",
-      "generatedAt": "2026-05-07T12:35:49.703Z",
+      "generatedAt": "2026-05-07T12:41:23.301Z",
       "schoolPreset": {
         "selected": "korean",
         "source": "default",
@@ -2117,8 +2117,8 @@
                   }
                 ],
                 "livingTips": [
-                  "주1회 후배의 질문에 답해 주기",
-                  "노하우를 짧은 글로 정리해 두기"
+                  "후배의 질문에 길게 답해 주기",
+                  "평생 노하우를 한 권으로 묶기"
                 ],
                 "cautions": [
                   "전 자리의 무게에 너무 오래 머물지 않기"
@@ -8658,8 +8658,8 @@
                   }
                 ],
                 "livingTips": [
-                  "주 1회 노하우 한 줄 정리",
-                  "후배 결정에 짧은 의견 주기"
+                  "월 초반 노하우 한 결 정리",
+                  "월말 후배 결정에 짧은 의견"
                 ],
                 "cautions": [
                   "무리한 일정 늘리지 않기"
@@ -12468,7 +12468,7 @@
       },
       "meta": {
         "schemaVersion": "spring-ts.tiered-matrix.v1",
-        "generatedAt": "2026-05-07T12:35:49.703Z",
+        "generatedAt": "2026-05-07T12:41:23.301Z",
         "selectionSeed": "1986|4|19|5|45|male|2026-05-04T15:00:00.000Z",
         "templateContractVersion": "1.0.0",
         "contentSource": "authored",
