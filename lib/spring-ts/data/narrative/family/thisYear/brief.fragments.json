@@ -7,9 +7,12 @@
   "fragments": [
     {
       "schemaVersion": "spring-ts.narrative-fragment.v1",
-      "fragmentId": "family.thisYear.brief.wildcard.001",
+      "fragmentId": "family.thisYear.brief.strong.neutral.001",
       "axis": { "category": "family", "period": "thisYear", "depth": "brief", "tone": "plain" },
-      "gating": {},
+      "gating": {
+        "dayMasterStrength": ["STRONG", "EXTREME_STRONG"],
+        "yongshinAlignment": ["neutral"]
+      },
       "templateTokens": [
         { "kind": "text", "value": "올해는 가까운 사람과의 인연이 따뜻하게 자라요." }
       ],
