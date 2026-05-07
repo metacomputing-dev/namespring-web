@@ -432,6 +432,39 @@
         "copyrightNote": "No source prose copied; original phrasing.",
         "authorityTruthEligible": false
       }
+    },
+    {
+      "schemaVersion": "spring-ts.narrative-fragment.v1",
+      "fragmentId": "health_stress.today.brief.female.70plus.autumn.012",
+      "axis": {
+        "category": "health_stress",
+        "period": "today",
+        "depth": "brief"
+      },
+      "gating": {
+        "gender": ["female"],
+        "ageBand": ["70+"],
+        "birthSeason": ["autumn"]
+      },
+      "templateTokens": [
+        {
+          "kind": "text",
+          "value": "오늘은 햇살 좋은 자리에서 잠깐 숨을 내쉬어요."
+        }
+      ],
+      "hook": "오후 햇살 한 자리를 쉬어요.",
+      "tags": [],
+      "aiGenerated": true,
+      "sourceTier": {
+        "tier": "T1_HYPOTHESIS",
+        "sourceType": "training_derived",
+        "sourceUrl": null,
+        "accessedAt": "2026-05-07",
+        "quoteShort": null,
+        "humanInterpretation": "P27-A1 distinct-hook expansion: health_stress/today brief for female × 70+ × autumn-born. Display-only narrative.",
+        "copyrightNote": "No source prose copied; original authored prose.",
+        "authorityTruthEligible": false
+      }
     }
   ]
 }

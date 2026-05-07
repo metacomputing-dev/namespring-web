@@ -326,6 +326,39 @@
         "copyrightNote": "No source prose copied; original authored prose.",
         "authorityTruthEligible": false
       }
+    },
+    {
+      "schemaVersion": "spring-ts.narrative-fragment.v1",
+      "fragmentId": "academic.life.brief.female.70plus.autumn.011",
+      "axis": {
+        "category": "academic",
+        "period": "life",
+        "depth": "brief"
+      },
+      "gating": {
+        "gender": ["female"],
+        "ageBand": ["70+"],
+        "birthSeason": ["autumn"]
+      },
+      "templateTokens": [
+        {
+          "kind": "text",
+          "value": "오랜 흐름은 매일 한 줄의 메모로 자라요."
+        }
+      ],
+      "hook": "매일 한 줄을 적어 둬요.",
+      "tags": [],
+      "aiGenerated": true,
+      "sourceTier": {
+        "tier": "T1_HYPOTHESIS",
+        "sourceType": "training_derived",
+        "sourceUrl": null,
+        "accessedAt": "2026-05-07",
+        "quoteShort": null,
+        "humanInterpretation": "P27-A1 distinct-hook expansion: academic/life brief for female × 70+ × autumn-born. Display-only narrative.",
+        "copyrightNote": "No source prose copied; original authored prose.",
+        "authorityTruthEligible": false
+      }
     }
   ]
 }

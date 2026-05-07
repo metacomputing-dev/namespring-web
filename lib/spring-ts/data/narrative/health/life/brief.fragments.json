@@ -360,6 +360,38 @@
         "copyrightNote": "No source prose copied; original phrasing.",
         "authorityTruthEligible": false
       }
+    },
+    {
+      "schemaVersion": "spring-ts.narrative-fragment.v1",
+      "fragmentId": "health.life.brief.male.young.003",
+      "axis": {
+        "category": "health",
+        "period": "life",
+        "depth": "brief"
+      },
+      "gating": {
+        "gender": ["male"],
+        "ageBand": ["0-9"]
+      },
+      "templateTokens": [
+        {
+          "kind": "text",
+          "value": "오랜 흐름은 일찍 자고 일찍 일어나는 습관에서 자라요."
+        }
+      ],
+      "hook": "매일 같은 시간에 잠들어요.",
+      "tags": [],
+      "aiGenerated": true,
+      "sourceTier": {
+        "tier": "T1_HYPOTHESIS",
+        "sourceType": "training_derived",
+        "sourceUrl": null,
+        "accessedAt": "2026-05-07",
+        "quoteShort": null,
+        "humanInterpretation": "P27-A1 distinct-hook expansion: health/life brief for male × 0-9 children. Display-only narrative.",
+        "copyrightNote": "No source prose copied; original authored prose.",
+        "authorityTruthEligible": false
+      }
     }
   ]
 }

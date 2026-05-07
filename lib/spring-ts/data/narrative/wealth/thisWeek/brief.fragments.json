@@ -615,6 +615,38 @@
         "copyrightNote": "No source prose copied; original.",
         "authorityTruthEligible": false
       }
+    },
+    {
+      "schemaVersion": "spring-ts.narrative-fragment.v1",
+      "fragmentId": "wealth.thisWeek.brief.female.teen.013",
+      "axis": {
+        "category": "wealth",
+        "period": "thisWeek",
+        "depth": "brief"
+      },
+      "gating": {
+        "gender": ["female"],
+        "ageBand": ["10-19"]
+      },
+      "templateTokens": [
+        {
+          "kind": "text",
+          "value": "이번 주는 모은 돈을 작은 항목으로 나눠 봐요."
+        }
+      ],
+      "hook": "용돈을 작은 칸에 나눠 모아요.",
+      "tags": [],
+      "aiGenerated": true,
+      "sourceTier": {
+        "tier": "T1_HYPOTHESIS",
+        "sourceType": "training_derived",
+        "sourceUrl": null,
+        "accessedAt": "2026-05-07",
+        "quoteShort": null,
+        "humanInterpretation": "P27-A1 distinct-hook expansion: wealth/thisWeek brief for female × 10-19. Display-only narrative.",
+        "copyrightNote": "No source prose copied; original authored prose.",
+        "authorityTruthEligible": false
+      }
     }
   ]
 }
