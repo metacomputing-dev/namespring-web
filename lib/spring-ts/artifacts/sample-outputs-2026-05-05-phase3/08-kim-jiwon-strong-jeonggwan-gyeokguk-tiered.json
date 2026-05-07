@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-05-07T13:26:28.299Z",
+  "generatedAt": "2026-05-07T13:27:32.352Z",
   "targetDate": "2026-05-05T00:00:00+09:00",
   "sampleId": "kim-jiwon-strong-jeonggwan-gyeokguk-tiered",
   "description": "입력 의도: 정관격 계열의 강한 격국이 또렷이 잡히기 쉬운 입력. 최종 gyeokguk 판정은 엔진이 결정한다.",
@@ -1249,7 +1249,7 @@
     },
     "meta": {
       "version": "1.0.0",
-      "generatedAt": "2026-05-07T13:26:34.383Z",
+      "generatedAt": "2026-05-07T13:27:37.611Z",
       "schoolPreset": {
         "selected": "korean",
         "source": "default",
@@ -11475,10 +11475,10 @@
                     "tokens": [
                       {
                         "kind": "text",
-                        "value": "분기마다 짚어 두는 한 매듭 한 매듭이 모여 자기 표현의 색을 한 뼘씩 진하게 만들어 주는 한 해예요. 큰 무대보다 가까운 사람 앞에서 한 매듭·한 줄을 다듬어 두면 한 해의 방향이 또렷해져요."
+                        "value": "분기마다 짚어 두는 한 매듭 한 매듭이 모여 자기 표현의 색을 한 뼘씩 진하게 만들어 주는 한 해예요. 큰 무대를 욕심내기보다, 가까운 사람 앞에서 한 매듭·한 줄을 다듬어 두면 한 해의 방향이 또렷해져요."
                       }
                     ],
-                    "plainText": "분기마다 짚어 두는 한 매듭 한 매듭이 모여 자기 표현의 색을 한 뼘씩 진하게 만들어 주는 한 해예요. 큰 무대보다 가까운 사람 앞에서 한 매듭·한 줄을 다듬어 두면 한 해의 방향이 또렷해져요."
+                    "plainText": "분기마다 짚어 두는 한 매듭 한 매듭이 모여 자기 표현의 색을 한 뼘씩 진하게 만들어 주는 한 해예요. 큰 무대를 욕심내기보다, 가까운 사람 앞에서 한 매듭·한 줄을 다듬어 두면 한 해의 방향이 또렷해져요."
                   },
                   {
                     "tokens": [
@@ -12870,7 +12870,7 @@
       },
       "meta": {
         "schemaVersion": "spring-ts.tiered-matrix.v1",
-        "generatedAt": "2026-05-07T13:26:34.383Z",
+        "generatedAt": "2026-05-07T13:27:37.610Z",
         "selectionSeed": "1990|9|15|11|30|female|2026-05-04T15:00:00.000Z",
         "templateContractVersion": "1.0.0",
         "contentSource": "authored",
