@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-05-07T09:11:14.261Z",
+  "generatedAt": "2026-05-07T09:31:02.592Z",
   "targetDate": "2026-05-05T00:00:00+09:00",
   "sampleId": "kim-senior-female-tiered",
   "description": "70+ 시니어 여성 (1950 출생) — 노년 여성 audience 흐름. life-stage 후반 narrative 와 tieredMatrix 의 conservative tone 매칭을 점검하는 케이스.",
@@ -1317,7 +1317,7 @@
     },
     "meta": {
       "version": "1.0.0",
-      "generatedAt": "2026-05-07T09:11:22.507Z",
+      "generatedAt": "2026-05-07T09:31:11.964Z",
       "schoolPreset": {
         "selected": "korean",
         "source": "default",
@@ -2420,10 +2420,10 @@
                     "tokens": [
                       {
                         "kind": "text",
-                        "value": "이 시기는 인생 전체에서 가꾸어 온 가풍이 든든한 결실로 모여 있는 자리예요. 곁에 있어 주는 사람들의 결, 멀리서 안부를 보내는 결, 다음 세대로 이어지는 흐름이 한 흙 위에 같이 자리해요."
+                        "value": "이 시기는 인생 전체에서 가꾸어 온 가풍이 든든한 결실로 모여 있는 자리예요. 곁에 있어 주는 사람들의 손길, 멀리서 안부를 보내는 마음, 다음 세대로 이어지는 흐름이 한 흙 위에 같이 자리해요."
                       }
                     ],
-                    "plainText": "이 시기는 인생 전체에서 가꾸어 온 가풍이 든든한 결실로 모여 있는 자리예요. 곁에 있어 주는 사람들의 결, 멀리서 안부를 보내는 결, 다음 세대로 이어지는 흐름이 한 흙 위에 같이 자리해요."
+                    "plainText": "이 시기는 인생 전체에서 가꾸어 온 가풍이 든든한 결실로 모여 있는 자리예요. 곁에 있어 주는 사람들의 손길, 멀리서 안부를 보내는 마음, 다음 세대로 이어지는 흐름이 한 흙 위에 같이 자리해요."
                   },
                   {
                     "tokens": [
@@ -12998,7 +12998,7 @@
       },
       "meta": {
         "schemaVersion": "spring-ts.tiered-matrix.v1",
-        "generatedAt": "2026-05-07T09:11:22.507Z",
+        "generatedAt": "2026-05-07T09:31:11.964Z",
         "selectionSeed": "1950|8|20|14|0|female|2026-05-04T15:00:00.000Z",
         "templateContractVersion": "1.0.0",
         "contentSource": "authored",
