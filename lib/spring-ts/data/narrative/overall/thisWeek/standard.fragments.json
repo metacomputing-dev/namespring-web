@@ -555,6 +555,46 @@
         "copyrightNote": "No source prose copied; original phrasing.",
         "authorityTruthEligible": false
       }
+    },
+    {
+      "schemaVersion": "spring-ts.narrative-fragment.v1",
+      "fragmentId": "overall.thisWeek.standard.teen.001",
+      "axis": {
+        "category": "overall",
+        "period": "thisWeek",
+        "depth": "standard"
+      },
+      "gating": {
+        "ageBand": [
+          "10-19"
+        ]
+      },
+      "templateTokens": [
+        {
+          "kind": "text",
+          "value": "이번 주는 학교·동아리·취미 일정이 한 번에 몰리기 쉬운 흐름이에요. 한 주 단위로 자기에게 잘 맞는 시간 분배를 한 번 살펴 두면, 마음의 결이 한결 가벼워져요.\n\n비유하자면 일주일이라는 시간을 세 칸 — 해야 하는 일·좋아하는 일·쉬는 일 — 으로 나누는 흐름이에요. 한 칸이 너무 비어 있거나 한 칸이 너무 가득 차 있으면 마음의 균형이 흔들리니, 한 주 시작에 짧게 적어 두는 자리가 잘 맞아요.\n\n친구의 페이스에 자기를 끌려가지 않게, 좋아하는 활동 한 가지를 한 주 동안 길게 이어 가는 자리가 자기 색을 단단하게 만들어요. 한 주 끝에 마음에 남은 신호를 한 줄로 적어 두면 다음 주의 결이 또렷해져요."
+        }
+      ],
+      "tags": [],
+      "livingTips": [
+        "한 주 시작에 시간 분배 짧게 적기",
+        "좋아하는 활동 한 가지 길게 이어 가기",
+        "한 주 끝에 마음 신호 한 줄 적기"
+      ],
+      "cautions": [
+        "친구 페이스에 자기를 끌려가지 않기"
+      ],
+      "aiGenerated": true,
+      "sourceTier": {
+        "tier": "T1_HYPOTHESIS",
+        "sourceType": "training_derived",
+        "sourceUrl": null,
+        "accessedAt": "2026-05-07",
+        "quoteShort": null,
+        "humanInterpretation": "Phase 22 agent-A2 (overall) standard thisWeek: teen 10-19. School/interest/feeling frame for minor floor closure. Display-only narrative.",
+        "copyrightNote": "No source prose copied; original phrasing.",
+        "authorityTruthEligible": false
+      }
     }
   ]
 }
