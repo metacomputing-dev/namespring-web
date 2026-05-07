@@ -16,7 +16,8 @@
     "ci:post-processor-grammar",
     "ci:hook-coverage",
     "ci:hook-concentration",
-    "ci:brief-tier-placeholder"
+    "ci:brief-tier-placeholder",
+    "ci:standard-paragraph-floor"
   ],
   "exempt": [
     {

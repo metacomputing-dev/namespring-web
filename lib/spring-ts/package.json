@@ -123,6 +123,7 @@
     "ci:hook-coverage": "node tools/check_hook_coverage.mjs --max-violations=0",
     "ci:hook-concentration": "node tools/check_hook_concentration.mjs --max-hooks=20",
     "ci:brief-tier-placeholder": "node tools/check_brief_tier_placeholder.mjs --max-violations=0",
+    "ci:standard-paragraph-floor": "node tools/check_standard_paragraph_floor.mjs --min-paragraphs=3 --max-violations=0",
     "ingest:unihan": "npx tsx scripts/ingest-unihan.ts",
     "capture:oracles": "node tools/capture_saju_master_runs.mjs",
     "validate:lecture": "npx tsx tools/validate_lecture_cases.ts",
