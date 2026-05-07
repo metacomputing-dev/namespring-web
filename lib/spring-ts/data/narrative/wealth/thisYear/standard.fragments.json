@@ -378,6 +378,46 @@
         "copyrightNote": "No source prose copied; original.",
         "authorityTruthEligible": false
       }
+    },
+    {
+      "schemaVersion": "spring-ts.narrative-fragment.v1",
+      "fragmentId": "wealth.thisYear.standard.child_teen.001",
+      "axis": {
+        "category": "wealth",
+        "period": "thisYear",
+        "depth": "standard"
+      },
+      "gating": {
+        "ageBand": [
+          "0-9",
+          "10-19"
+        ]
+      },
+      "templateTokens": [
+        {
+          "kind": "text",
+          "value": "올해는 한 해 동안 어떤 작은 모음을 만들어 갈지 그려 보기 좋은 시기예요. 큰돈을 다루는 자리가 아니라, 한 해의 호흡으로 용돈의 흐름을 살피는 시간이에요.\n\n비유하자면 작은 정원에 한 해 동안 한 그루씩 나무를 심어 가는 그림이에요. 한 번에 큰 숲을 만드는 게 아니라, 봄·여름·가을·겨울에 한 그루씩 자리 잡으면 한 해가 끝났을 때 보이는 결이 또렷해져요.\n\n올해 잘 어울리는 흐름은 한 해의 작은 목표를 한 가지만 정해 두는 거예요. 좋아하는 책 열 권 사기, 친구 생일에 작은 선물 준비하기, 한 달에 한 번 가족과 함께 작은 외식 — 한 가지가 자리 잡으면 다른 것도 자연스럽게 따라와요.\n\n주의하면 좋은 점은 한꺼번에 다 이루려는 흐름이에요. 한 해는 길어요. 한두 달 늦어져도 결은 흐트러지지 않아요.\n\n한 해의 작은 모음이 자라요. 분기마다 한 줄 정리해 두면, 다음 해의 그림이 한층 또렷해져요."
+        }
+      ],
+      "tags": [],
+      "livingTips": [
+        "올해 작은 목표 한 가지 적어 두기",
+        "분기마다 어디에 썼는지 한 줄 정리"
+      ],
+      "cautions": [
+        "한꺼번에 다 이루려 무리하지 않기"
+      ],
+      "aiGenerated": true,
+      "sourceTier": {
+        "tier": "T1_HYPOTHESIS",
+        "sourceType": "training_derived",
+        "sourceUrl": null,
+        "accessedAt": "2026-05-07",
+        "quoteShort": null,
+        "humanInterpretation": "Phase 22 wealth gap fragment for child/teen ageBand. AI-derived display text; not authority truth.",
+        "copyrightNote": "No source prose copied; original phrasing.",
+        "authorityTruthEligible": false
+      }
     }
   ]
 }

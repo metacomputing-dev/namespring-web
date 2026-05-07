@@ -338,6 +338,46 @@
         "copyrightNote": "No source prose copied; original.",
         "authorityTruthEligible": false
       }
+    },
+    {
+      "schemaVersion": "spring-ts.narrative-fragment.v1",
+      "fragmentId": "wealth.thisMonth.standard.child_teen.001",
+      "axis": {
+        "category": "wealth",
+        "period": "thisMonth",
+        "depth": "standard"
+      },
+      "gating": {
+        "ageBand": [
+          "0-9",
+          "10-19"
+        ]
+      },
+      "templateTokens": [
+        {
+          "kind": "text",
+          "value": "이번 달은 한 달 단위의 작은 계획을 세워 보기 좋은 시기예요. 큰돈을 다루는 자리가 아니라, 한 달이라는 호흡으로 용돈의 결을 잡아 가는 흐름이에요.\n\n비유하자면 작은 화분에 새싹을 한 달 동안 키우는 그림이에요. 매일 한 모금씩 물을 주는 작은 습관이 모여 한 달 뒤에 키가 자라 있는 모습을 보게 돼요.\n\n이번 달에 잘 어울리는 흐름은 한 달의 즐거움 목록을 적어 두는 거예요. 사고 싶은 책, 친구에게 줄 작은 선물, 가족과 함께 쓸 작은 비용 — 이렇게 적어 두면 자기 우선순위가 또렷해져요.\n\n주의하면 좋은 점은 즉흥적인 큰 소비예요. 갑자기 사고 싶은 게 생기면 한 박자 미루고, 적어 둔 목록과 비교해 보면 좋아요.\n\n한 달의 작은 결산은 큰 자산이 돼요. 마지막 날 어디에 썼는지 한 줄로 정리하면, 다음 달의 결정이 한결 가벼워져요."
+        }
+      ],
+      "tags": [],
+      "livingTips": [
+        "한 달 즐거움 목록 한 줄 적어 두기",
+        "월말에 어디에 썼는지 한 줄 정리"
+      ],
+      "cautions": [
+        "갑자기 사고 싶은 큰 소비는 한 박자 미루기"
+      ],
+      "aiGenerated": true,
+      "sourceTier": {
+        "tier": "T1_HYPOTHESIS",
+        "sourceType": "training_derived",
+        "sourceUrl": null,
+        "accessedAt": "2026-05-07",
+        "quoteShort": null,
+        "humanInterpretation": "Phase 22 wealth gap fragment for child/teen ageBand. AI-derived display text; not authority truth.",
+        "copyrightNote": "No source prose copied; original phrasing.",
+        "authorityTruthEligible": false
+      }
     }
   ]
 }
