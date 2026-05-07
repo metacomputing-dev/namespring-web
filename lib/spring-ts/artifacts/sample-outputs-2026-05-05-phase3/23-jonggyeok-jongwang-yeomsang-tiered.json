@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-05-07T14:09:50.906Z",
+  "generatedAt": "2026-05-07T14:17:24.130Z",
   "targetDate": "2026-05-05T00:00:00+09:00",
   "sampleId": "jonggyeok-jongwang-yeomsang-tiered",
   "description": "입력 의도: 從旺격 (一氣格 / 炎上格 火) 계열. fix-jong-02 (1942-06-23 15:00) 좌표를 차용 — 火 일간이 寅午戌 부분 火局 + 丙午 月柱 로 단일 火氣 압도. 최종 외격 판정은 엔진이 결정한다.",
@@ -1277,7 +1277,7 @@
     },
     "meta": {
       "version": "1.0.0",
-      "generatedAt": "2026-05-07T14:10:01.514Z",
+      "generatedAt": "2026-05-07T14:17:34.350Z",
       "schoolPreset": {
         "selected": "korean",
         "source": "default",
@@ -10611,15 +10611,6 @@
                       }
                     ],
                     "plainText": "환절기엔 자기 신호를 가볍게 넘기지 말아요. 컨디션 점검을 일정에 미리 넣어 두면 한 해의 컨디션이 한층 든든해져요."
-                  },
-                  {
-                    "tokens": [
-                      {
-                        "kind": "text",
-                        "value": "한 해 자리에서 보면 강한 체력은 무리한 자리에서 자기 신호를 둔하게 만들기도 해요. 분기마다 한 번 점검 시간을 잡고, 잠·식사·근력의 균형을 한 해 단위로 살펴 두면 다음 한 해가 더 단단해져요."
-                      }
-                    ],
-                    "plainText": "한 해 자리에서 보면 강한 체력은 무리한 자리에서 자기 신호를 둔하게 만들기도 해요. 분기마다 한 번 점검 시간을 잡고, 잠·식사·근력의 균형을 한 해 단위로 살펴 두면 다음 한 해가 더 단단해져요."
                   }
                 ],
                 "livingTips": [
@@ -13143,7 +13134,7 @@
       },
       "meta": {
         "schemaVersion": "spring-ts.tiered-matrix.v1",
-        "generatedAt": "2026-05-07T14:10:01.514Z",
+        "generatedAt": "2026-05-07T14:17:34.350Z",
         "selectionSeed": "1942|6|23|15|0|male|2026-05-04T15:00:00.000Z",
         "templateContractVersion": "1.0.0",
         "contentSource": "authored",
