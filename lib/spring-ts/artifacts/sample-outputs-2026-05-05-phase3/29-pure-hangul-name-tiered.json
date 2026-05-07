@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-05-07T15:24:46.924Z",
+  "generatedAt": "2026-05-07T15:37:28.370Z",
   "targetDate": "2026-05-05T00:00:00+09:00",
   "sampleId": "pure-hangul-name-tiered",
   "description": "한글 전용 이름 (hanja 미입력) 입력 — pureHangulNameMode=on 으로 발음오행 기반 채점. 한글 작명 트렌드 (자음/모음 polarity, 모음 음양) 와 surfacePhoneticEvidence 가 함께 노출되는 케이스. 한자 강제 미적용 안전 fallback 점검.",
@@ -1380,7 +1380,7 @@
     },
     "meta": {
       "version": "1.0.0",
-      "generatedAt": "2026-05-07T15:24:56.971Z",
+      "generatedAt": "2026-05-07T15:37:42.748Z",
       "schoolPreset": {
         "selected": "korean",
         "source": "default",
@@ -11077,6 +11077,15 @@
                       }
                     ],
                     "plainText": "한 해 동안 듣는 시간을 한 박자 더 두면, 다음 해의 관계가 한결 부드러워져요."
+                  },
+                  {
+                    "tokens": [
+                      {
+                        "kind": "text",
+                        "value": "분기마다 자기 호흡을 짧게 정리해 두는 자리도 큰 자산이 돼요. 봄·여름의 첫 만남 자리, 가을의 정돈 자리, 겨울의 다음 해 약속 자리가 한 해 안에서 자연스럽게 이어져요. 강한 일간일수록 듣는 자리를 분기마다 한 번씩 길게 두면, 한 해의 인연이 다음 해까지 부드럽게 자라요."
+                      }
+                    ],
+                    "plainText": "분기마다 자기 호흡을 짧게 정리해 두는 자리도 큰 자산이 돼요. 봄·여름의 첫 만남 자리, 가을의 정돈 자리, 겨울의 다음 해 약속 자리가 한 해 안에서 자연스럽게 이어져요. 강한 일간일수록 듣는 자리를 분기마다 한 번씩 길게 두면, 한 해의 인연이 다음 해까지 부드럽게 자라요."
                   }
                 ]
               },
@@ -13027,7 +13036,7 @@
       },
       "meta": {
         "schemaVersion": "spring-ts.tiered-matrix.v1",
-        "generatedAt": "2026-05-07T15:24:56.971Z",
+        "generatedAt": "2026-05-07T15:37:42.748Z",
         "selectionSeed": "1996|4|12|10|30|female|2026-05-04T15:00:00.000Z",
         "templateContractVersion": "1.0.0",
         "contentSource": "authored",

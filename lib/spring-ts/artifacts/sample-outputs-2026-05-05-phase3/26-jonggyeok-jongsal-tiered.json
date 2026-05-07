@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-05-07T15:24:46.924Z",
+  "generatedAt": "2026-05-07T15:37:28.370Z",
   "targetDate": "2026-05-05T00:00:00+09:00",
   "sampleId": "jonggyeok-jongsal-tiered",
   "description": "입력 의도: 從殺격 (七殺 dominant) 계열. fix-jong-06 (1972-12-11 09:00) 좌표 — 丙火 일간이 동지경 子月 절지 + 壬水 편관 3 천간 + 子 지지 3개 압도. 최종 외격 판정은 엔진이 결정한다.",
@@ -1266,7 +1266,7 @@
     },
     "meta": {
       "version": "1.0.0",
-      "generatedAt": "2026-05-07T15:24:56.294Z",
+      "generatedAt": "2026-05-07T15:37:41.885Z",
       "schoolPreset": {
         "selected": "korean",
         "source": "default",
@@ -13063,7 +13063,7 @@
       },
       "meta": {
         "schemaVersion": "spring-ts.tiered-matrix.v1",
-        "generatedAt": "2026-05-07T15:24:56.294Z",
+        "generatedAt": "2026-05-07T15:37:41.885Z",
         "selectionSeed": "1972|12|11|9|0|male|2026-05-04T15:00:00.000Z",
         "templateContractVersion": "1.0.0",
         "contentSource": "authored",

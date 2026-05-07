@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-05-07T15:24:46.924Z",
+  "generatedAt": "2026-05-07T15:37:28.370Z",
   "targetDate": "2026-05-05T00:00:00+09:00",
   "sampleId": "choi-yaza-boundary-male-tiered",
   "description": "야자시 경계 23:30 출생. yaza=on, yazaMode=23:00 으로 다음 날로 이월하는 경계 케이스.",
@@ -1299,7 +1299,7 @@
     },
     "meta": {
       "version": "1.0.0",
-      "generatedAt": "2026-05-07T15:24:52.083Z",
+      "generatedAt": "2026-05-07T15:37:36.611Z",
       "schoolPreset": {
         "selected": "korean",
         "source": "default",
@@ -11063,6 +11063,15 @@
                       }
                     ],
                     "plainText": "한 해 동안 듣는 시간을 한 박자 더 두면, 다음 해의 관계가 한결 부드러워져요."
+                  },
+                  {
+                    "tokens": [
+                      {
+                        "kind": "text",
+                        "value": "분기마다 자기 호흡을 짧게 정리해 두는 자리도 큰 자산이 돼요. 봄·여름의 첫 만남 자리, 가을의 정돈 자리, 겨울의 다음 해 약속 자리가 한 해 안에서 자연스럽게 이어져요. 강한 일간일수록 듣는 자리를 분기마다 한 번씩 길게 두면, 한 해의 인연이 다음 해까지 부드럽게 자라요."
+                      }
+                    ],
+                    "plainText": "분기마다 자기 호흡을 짧게 정리해 두는 자리도 큰 자산이 돼요. 봄·여름의 첫 만남 자리, 가을의 정돈 자리, 겨울의 다음 해 약속 자리가 한 해 안에서 자연스럽게 이어져요. 강한 일간일수록 듣는 자리를 분기마다 한 번씩 길게 두면, 한 해의 인연이 다음 해까지 부드럽게 자라요."
                   }
                 ]
               },
@@ -12983,7 +12992,7 @@
       },
       "meta": {
         "schemaVersion": "spring-ts.tiered-matrix.v1",
-        "generatedAt": "2026-05-07T15:24:52.083Z",
+        "generatedAt": "2026-05-07T15:37:36.611Z",
         "selectionSeed": "1995|6|10|23|30|male|2026-05-04T15:00:00.000Z",
         "templateContractVersion": "1.0.0",
         "contentSource": "authored",
