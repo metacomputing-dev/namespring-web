@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-05-07T04:15:04.371Z",
+  "generatedAt": "2026-05-07T04:51:33.939Z",
   "targetDate": "2026-05-05T00:00:00+09:00",
   "sampleId": "jeolgi-lidong-boundary-tiered",
   "description": "입동(立冬) 절기 경계 직전 출생 (2026 입동 = 11/07 18:52 KST, 본 입력은 ±0.5 day 내). fortuneCascadeMode=jie_based 로 jie 경계 day-precision 활성, 月柱 戌→亥 분기 부근 elasticity 와 tieredMatrix 결합.",
@@ -1307,7 +1307,7 @@
     },
     "meta": {
       "version": "1.0.0",
-      "generatedAt": "2026-05-07T04:15:14.343Z",
+      "generatedAt": "2026-05-07T04:51:45.044Z",
       "schoolPreset": {
         "selected": "korean",
         "source": "default",
@@ -2134,7 +2134,8 @@
               "meaningfulness": "meaningful",
               "stars": 4,
               "brief": {
-                "headline": "마음에 닿는 관심사가 미래의 길로 이어져요."
+                "headline": "마음에 닿는 관심사가 미래의 길로 이어져요.",
+                "hook": "좋아하는 일을 한 줄 적어 봐요."
               },
               "standard": {
                 "paragraphs": [
@@ -3473,7 +3474,8 @@
               "meaningfulness": "meaningful",
               "stars": 2,
               "brief": {
-                "headline": "보호자와 마주 보고 웃기 좋은 하루예요."
+                "headline": "보호자와 마주 보고 웃기 좋은 하루예요.",
+                "hook": "보호자와 한 번 더 웃어 봐요."
               },
               "standard": {
                 "paragraphs": [
@@ -7912,7 +7914,8 @@
               "meaningfulness": "limited",
               "stars": 3,
               "brief": {
-                "headline": "보호자와 함께 자라는 따뜻한 한 해예요."
+                "headline": "보호자와 함께 자라는 따뜻한 한 해예요.",
+                "hook": "함께 보낸 시간을 늘려 봐요."
               },
               "standard": {
                 "paragraphs": [
@@ -9179,7 +9182,7 @@
       },
       "meta": {
         "schemaVersion": "spring-ts.tiered-matrix.v1",
-        "generatedAt": "2026-05-07T04:15:14.343Z",
+        "generatedAt": "2026-05-07T04:51:45.043Z",
         "selectionSeed": "2026|11|7|18|30|male|2026-05-04T15:00:00.000Z",
         "templateContractVersion": "1.0.0",
         "contentSource": "authored",

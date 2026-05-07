@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-05-07T04:15:04.371Z",
+  "generatedAt": "2026-05-07T04:51:33.939Z",
   "targetDate": "2026-05-05T00:00:00+09:00",
   "sampleId": "kim-jiwon-strong-jeonggwan-gyeokguk-tiered",
   "description": "입력 의도: 정관격 계열의 강한 격국이 또렷이 잡히기 쉬운 입력. 최종 gyeokguk 판정은 엔진이 결정한다.",
@@ -1161,11 +1161,11 @@
         "summary": "올해 연애/결혼운은 좋은 흐름도 있으나 속도 조절이 필요해요. 흙 기운이 불 기운을 움직이지만 과하게 서두르지 않으면 안정적으로 관리할 수 있어요.",
         "advice": [
           {
-            "text": "새로운 만남이나 인연이 자연스럽게 들어오기 좋은 흐름이에요. 모임에 적극 참여해 보세요.",
+            "text": "새로운 인연이 자연스럽게 닿아 오기 쉬워요. 모임에 가볍게 발을 들여 보세요.",
             "reason": "재성·관성 기운이 받쳐 주는 시기에는 사람과 닿는 자리가 부드럽게 풀려 가기 쉬워요."
           },
           {
-            "text": "빨간색 계열의 옷이나 액세서리가 만남 운을 도와줄 수 있어요.",
+            "text": "빨간색 계열의 옷이나 액세서리가 인연의 호흡을 한층 가다듬어 줘요.",
             "reason": "인연과 닿아 있는 오행(불)의 색을 곁들이면 자연스러운 인상을 더하기 쉬워요."
           }
         ],
@@ -1249,7 +1249,7 @@
     },
     "meta": {
       "version": "1.0.0",
-      "generatedAt": "2026-05-07T04:15:08.405Z",
+      "generatedAt": "2026-05-07T04:51:38.931Z",
       "schoolPreset": {
         "selected": "korean",
         "source": "default",
@@ -5660,7 +5660,8 @@
               "meaningfulness": "limited",
               "stars": 3,
               "brief": {
-                "headline": "오늘은 익숙한 동선을 지키면 호흡이 편안해요."
+                "headline": "오늘은 익숙한 동선을 지키면 호흡이 편안해요.",
+                "hook": "가까운 길로 한 바퀴 걸어요."
               },
               "standard": {
                 "paragraphs": [
@@ -7685,7 +7686,8 @@
               "meaningfulness": "meaningful",
               "stars": 1,
               "brief": {
-                "headline": "이번 주는 익숙한 동선을 지키면 호흡이 편안해져요."
+                "headline": "이번 주는 익숙한 동선을 지키면 호흡이 편안해져요.",
+                "hook": "동선을 미리 한 줄로 적어요."
               },
               "standard": {
                 "paragraphs": [
@@ -10951,7 +10953,8 @@
               "meaningfulness": "meaningful",
               "stars": 1,
               "brief": {
-                "headline": "올해는 한 자리에서 자기 색이 깊어지는 한 해예요."
+                "headline": "올해는 한 자리에서 자기 색이 깊어지는 한 해예요.",
+                "hook": "자기 색을 한 줄 더 또렷이 해요."
               },
               "standard": {
                 "paragraphs": [
@@ -12706,7 +12709,7 @@
       },
       "meta": {
         "schemaVersion": "spring-ts.tiered-matrix.v1",
-        "generatedAt": "2026-05-07T04:15:08.405Z",
+        "generatedAt": "2026-05-07T04:51:38.931Z",
         "selectionSeed": "1990|9|15|11|30|female|2026-05-04T15:00:00.000Z",
         "templateContractVersion": "1.0.0",
         "contentSource": "authored",

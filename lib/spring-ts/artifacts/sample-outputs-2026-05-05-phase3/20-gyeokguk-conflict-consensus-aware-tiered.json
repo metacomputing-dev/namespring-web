@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-05-07T04:15:04.371Z",
+  "generatedAt": "2026-05-07T04:51:33.939Z",
   "targetDate": "2026-05-05T00:00:00+09:00",
   "sampleId": "gyeokguk-conflict-consensus-aware-tiered",
   "description": "격국 충돌 case 2: 신강/신약 경계 + 격국 후보 다중 + yongshinMode=consensus_aware 활성. 독립 명리 방법(억부/조후/격국/통관/병약/식상유통) 이 엇갈리는 chart 에서 consensus 보드와 격국 흔들림이 함께 노출되는 케이스.",
@@ -1051,7 +1051,7 @@
         "summary": "올해 재물/커리어운은 좋은 편이에요. 흙 기운이 쇠 기운을 받쳐줘서 재물 흐름이 원활해져요.",
         "advice": [
           {
-            "text": "새로운 투자나 사업 기회를 검토해 보기 좋은 흐름이에요.",
+            "text": "새로운 투자나 사업 기회를 차분히 검토해 두기 좋아요.",
             "reason": "재성 기운이 받쳐 주는 시기에는 재무 판단을 차분히 굴려 보기도 자연스럽게 풀려요."
           },
           {
@@ -1301,7 +1301,7 @@
     },
     "meta": {
       "version": "1.0.0",
-      "generatedAt": "2026-05-07T04:15:11.785Z",
+      "generatedAt": "2026-05-07T04:51:42.485Z",
       "schoolPreset": {
         "selected": "korean",
         "source": "default",
@@ -4821,7 +4821,8 @@
               "meaningfulness": "limited",
               "stars": 3,
               "brief": {
-                "headline": "맡은 자리에서 한 가지 책임을 매듭짓는 하루예요."
+                "headline": "맡은 자리에서 한 가지 책임을 매듭짓는 하루예요.",
+                "hook": "한 가지 일을 끝까지 마무리해요."
               },
               "standard": {
                 "paragraphs": [
@@ -5716,7 +5717,8 @@
               "meaningfulness": "limited",
               "stars": 3,
               "brief": {
-                "headline": "오늘은 익숙한 동선을 지키면 호흡이 편안해요."
+                "headline": "오늘은 익숙한 동선을 지키면 호흡이 편안해요.",
+                "hook": "가까운 길로 한 바퀴 걸어요."
               },
               "standard": {
                 "paragraphs": [
@@ -7830,7 +7832,8 @@
               "meaningfulness": "meaningful",
               "stars": 4,
               "brief": {
-                "headline": "이번 주는 익숙한 동선을 지키면 호흡이 편안해져요."
+                "headline": "이번 주는 익숙한 동선을 지키면 호흡이 편안해져요.",
+                "hook": "동선을 미리 한 줄로 적어요."
               },
               "standard": {
                 "paragraphs": [
@@ -10793,7 +10796,8 @@
               "meaningfulness": "meaningful",
               "stars": 4,
               "brief": {
-                "headline": "올해는 곁의 인연을 단단히 가꾸어 가는 해예요."
+                "headline": "올해는 곁의 인연을 단단히 가꾸어 가는 해예요.",
+                "hook": "곁의 사람에게 안부를 건네요."
               },
               "standard": {
                 "paragraphs": [
@@ -11198,7 +11202,8 @@
               "meaningfulness": "meaningful",
               "stars": 4,
               "brief": {
-                "headline": "올해는 한 자리에서 자기 색이 깊어지는 한 해예요."
+                "headline": "올해는 한 자리에서 자기 색이 깊어지는 한 해예요.",
+                "hook": "자기 색을 한 줄 더 또렷이 해요."
               },
               "standard": {
                 "paragraphs": [
@@ -12891,7 +12896,7 @@
       },
       "meta": {
         "schemaVersion": "spring-ts.tiered-matrix.v1",
-        "generatedAt": "2026-05-07T04:15:11.785Z",
+        "generatedAt": "2026-05-07T04:51:42.485Z",
         "selectionSeed": "1973|12|17|16|30|female|2026-05-04T15:00:00.000Z",
         "templateContractVersion": "1.0.0",
         "contentSource": "authored",
