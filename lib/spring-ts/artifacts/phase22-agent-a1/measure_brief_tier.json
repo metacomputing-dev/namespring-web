@@ -1,0 +1,904 @@
+{
+  "phase": "P22-A1",
+  "generatedAt": "2026-05-07T07:49:51.036Z",
+  "summary": {
+    "total": 75,
+    "fragmentFound": 75,
+    "wouldRegressToPlaceholderBrief": 0,
+    "fragmentsNeededToClose": 0
+  },
+  "noBriefDistribution": {},
+  "fragmentsToAuthor": [],
+  "briefResults": [
+    {
+      "fx": "04-kim-seoyun-young-female",
+      "cat": "wealth",
+      "per": "life",
+      "ab": "10-19",
+      "candidates": 1,
+      "candidateIds": [
+        "wealth.life.brief.neutral.10_19.012"
+      ],
+      "outcome": "fragment-found"
+    },
+    {
+      "fx": "04-kim-seoyun-young-female",
+      "cat": "wealth",
+      "per": "today",
+      "ab": "10-19",
+      "candidates": 1,
+      "candidateIds": [
+        "wealth.today.brief.child_teen.012"
+      ],
+      "outcome": "fragment-found"
+    },
+    {
+      "fx": "04-kim-seoyun-young-female",
+      "cat": "wealth",
+      "per": "thisWeek",
+      "ab": "10-19",
+      "candidates": 1,
+      "candidateIds": [
+        "wealth.thisWeek.brief.limit.502"
+      ],
+      "outcome": "fragment-found"
+    },
+    {
+      "fx": "04-kim-seoyun-young-female",
+      "cat": "wealth",
+      "per": "thisMonth",
+      "ab": "10-19",
+      "candidates": 1,
+      "candidateIds": [
+        "wealth.thisMonth.brief.10_19.010"
+      ],
+      "outcome": "fragment-found"
+    },
+    {
+      "fx": "04-kim-seoyun-young-female",
+      "cat": "wealth",
+      "per": "thisYear",
+      "ab": "10-19",
+      "candidates": 1,
+      "candidateIds": [
+        "wealth.thisYear.brief.10_19.011"
+      ],
+      "outcome": "fragment-found"
+    },
+    {
+      "fx": "04-kim-seoyun-young-female",
+      "cat": "romance",
+      "per": "life",
+      "ab": "10-19",
+      "candidates": 3,
+      "candidateIds": [
+        "romance.life.brief.teen.001",
+        "romance.life.brief.ageband.child_teen.501",
+        "romance.life.brief.ageband.young.401"
+      ],
+      "outcome": "fragment-found"
+    },
+    {
+      "fx": "04-kim-seoyun-young-female",
+      "cat": "romance",
+      "per": "today",
+      "ab": "10-19",
+      "candidates": 4,
+      "candidateIds": [
+        "romance.today.brief.teen.001",
+        "romance.today.brief.ageband.child_teen.501",
+        "romance.today.brief.kind_word.504",
+        "romance.today.brief.ageband.young.401"
+      ],
+      "outcome": "fragment-found"
+    },
+    {
+      "fx": "04-kim-seoyun-young-female",
+      "cat": "romance",
+      "per": "thisWeek",
+      "ab": "10-19",
+      "candidates": 3,
+      "candidateIds": [
+        "romance.thisWeek.brief.teen.001",
+        "romance.thisWeek.brief.ageband.child_teen.501",
+        "romance.thisWeek.brief.ageband.young.401"
+      ],
+      "outcome": "fragment-found"
+    },
+    {
+      "fx": "04-kim-seoyun-young-female",
+      "cat": "romance",
+      "per": "thisMonth",
+      "ab": "10-19",
+      "candidates": 4,
+      "candidateIds": [
+        "romance.thisMonth.brief.teen.001",
+        "romance.thisMonth.brief.ageband.child_teen.501",
+        "romance.thisMonth.brief.rhythm.504",
+        "romance.thisMonth.brief.ageband.young.401"
+      ],
+      "outcome": "fragment-found"
+    },
+    {
+      "fx": "04-kim-seoyun-young-female",
+      "cat": "romance",
+      "per": "thisYear",
+      "ab": "10-19",
+      "candidates": 4,
+      "candidateIds": [
+        "romance.thisYear.brief.teen.001",
+        "romance.thisYear.brief.ageband.child_teen.501",
+        "romance.thisYear.brief.steady_care.504",
+        "romance.thisYear.brief.ageband.young.401"
+      ],
+      "outcome": "fragment-found"
+    },
+    {
+      "fx": "04-kim-seoyun-young-female",
+      "cat": "study_document",
+      "per": "life",
+      "ab": "10-19",
+      "candidates": 3,
+      "candidateIds": [
+        "study_document.life.brief.young.004",
+        "study_document.life.brief.ageband.student.501",
+        "study_document.life.brief.ageband.young.401"
+      ],
+      "outcome": "fragment-found"
+    },
+    {
+      "fx": "04-kim-seoyun-young-female",
+      "cat": "study_document",
+      "per": "today",
+      "ab": "10-19",
+      "candidates": 4,
+      "candidateIds": [
+        "study_document.today.brief.young.004",
+        "study_document.today.brief.ageband.student.501",
+        "study_document.today.brief.one_page.504",
+        "study_document.today.brief.ageband.young.401"
+      ],
+      "outcome": "fragment-found"
+    },
+    {
+      "fx": "04-kim-seoyun-young-female",
+      "cat": "study_document",
+      "per": "thisWeek",
+      "ab": "10-19",
+      "candidates": 3,
+      "candidateIds": [
+        "study_document.thisWeek.brief.young.004",
+        "study_document.thisWeek.brief.ageband.student.501",
+        "study_document.thisWeek.brief.ageband.young.401"
+      ],
+      "outcome": "fragment-found"
+    },
+    {
+      "fx": "04-kim-seoyun-young-female",
+      "cat": "study_document",
+      "per": "thisMonth",
+      "ab": "10-19",
+      "candidates": 4,
+      "candidateIds": [
+        "study_document.thisMonth.brief.young.004",
+        "study_document.thisMonth.brief.ageband.student.501",
+        "study_document.thisMonth.brief.folder.504",
+        "study_document.thisMonth.brief.ageband.young.401"
+      ],
+      "outcome": "fragment-found"
+    },
+    {
+      "fx": "04-kim-seoyun-young-female",
+      "cat": "study_document",
+      "per": "thisYear",
+      "ab": "10-19",
+      "candidates": 3,
+      "candidateIds": [
+        "study_document.thisYear.brief.young.004",
+        "study_document.thisYear.brief.ageband.student.501",
+        "study_document.thisYear.brief.basics.504"
+      ],
+      "outcome": "fragment-found"
+    },
+    {
+      "fx": "18-lee-child-male",
+      "cat": "wealth",
+      "per": "life",
+      "ab": "0-9",
+      "candidates": 1,
+      "candidateIds": [
+        "wealth.life.brief.child.0_9.013"
+      ],
+      "outcome": "fragment-found"
+    },
+    {
+      "fx": "18-lee-child-male",
+      "cat": "wealth",
+      "per": "today",
+      "ab": "0-9",
+      "candidates": 1,
+      "candidateIds": [
+        "wealth.today.brief.child_teen.012"
+      ],
+      "outcome": "fragment-found"
+    },
+    {
+      "fx": "18-lee-child-male",
+      "cat": "wealth",
+      "per": "thisWeek",
+      "ab": "0-9",
+      "candidates": 1,
+      "candidateIds": [
+        "wealth.thisWeek.brief.child.0_9.012"
+      ],
+      "outcome": "fragment-found"
+    },
+    {
+      "fx": "18-lee-child-male",
+      "cat": "wealth",
+      "per": "thisMonth",
+      "ab": "0-9",
+      "candidates": 1,
+      "candidateIds": [
+        "wealth.thisMonth.brief.child.0_9.011"
+      ],
+      "outcome": "fragment-found"
+    },
+    {
+      "fx": "18-lee-child-male",
+      "cat": "wealth",
+      "per": "thisYear",
+      "ab": "0-9",
+      "candidates": 1,
+      "candidateIds": [
+        "wealth.thisYear.brief.child.0_9.013"
+      ],
+      "outcome": "fragment-found"
+    },
+    {
+      "fx": "18-lee-child-male",
+      "cat": "romance",
+      "per": "life",
+      "ab": "0-9",
+      "candidates": 2,
+      "candidateIds": [
+        "romance.life.brief.child.001",
+        "romance.life.brief.ageband.child_teen.501"
+      ],
+      "outcome": "fragment-found"
+    },
+    {
+      "fx": "18-lee-child-male",
+      "cat": "romance",
+      "per": "today",
+      "ab": "0-9",
+      "candidates": 2,
+      "candidateIds": [
+        "romance.today.brief.child.001",
+        "romance.today.brief.ageband.child_teen.501"
+      ],
+      "outcome": "fragment-found"
+    },
+    {
+      "fx": "18-lee-child-male",
+      "cat": "romance",
+      "per": "thisWeek",
+      "ab": "0-9",
+      "candidates": 2,
+      "candidateIds": [
+        "romance.thisWeek.brief.child.001",
+        "romance.thisWeek.brief.ageband.child_teen.501"
+      ],
+      "outcome": "fragment-found"
+    },
+    {
+      "fx": "18-lee-child-male",
+      "cat": "romance",
+      "per": "thisMonth",
+      "ab": "0-9",
+      "candidates": 2,
+      "candidateIds": [
+        "romance.thisMonth.brief.child.001",
+        "romance.thisMonth.brief.ageband.child_teen.501"
+      ],
+      "outcome": "fragment-found"
+    },
+    {
+      "fx": "18-lee-child-male",
+      "cat": "romance",
+      "per": "thisYear",
+      "ab": "0-9",
+      "candidates": 2,
+      "candidateIds": [
+        "romance.thisYear.brief.child.001",
+        "romance.thisYear.brief.ageband.child_teen.501"
+      ],
+      "outcome": "fragment-found"
+    },
+    {
+      "fx": "18-lee-child-male",
+      "cat": "study_document",
+      "per": "life",
+      "ab": "0-9",
+      "candidates": 2,
+      "candidateIds": [
+        "study_document.life.brief.young.004",
+        "study_document.life.brief.ageband.student.501"
+      ],
+      "outcome": "fragment-found"
+    },
+    {
+      "fx": "18-lee-child-male",
+      "cat": "study_document",
+      "per": "today",
+      "ab": "0-9",
+      "candidates": 2,
+      "candidateIds": [
+        "study_document.today.brief.young.004",
+        "study_document.today.brief.ageband.student.501"
+      ],
+      "outcome": "fragment-found"
+    },
+    {
+      "fx": "18-lee-child-male",
+      "cat": "study_document",
+      "per": "thisWeek",
+      "ab": "0-9",
+      "candidates": 2,
+      "candidateIds": [
+        "study_document.thisWeek.brief.young.004",
+        "study_document.thisWeek.brief.ageband.student.501"
+      ],
+      "outcome": "fragment-found"
+    },
+    {
+      "fx": "18-lee-child-male",
+      "cat": "study_document",
+      "per": "thisMonth",
+      "ab": "0-9",
+      "candidates": 2,
+      "candidateIds": [
+        "study_document.thisMonth.brief.young.004",
+        "study_document.thisMonth.brief.ageband.student.501"
+      ],
+      "outcome": "fragment-found"
+    },
+    {
+      "fx": "18-lee-child-male",
+      "cat": "study_document",
+      "per": "thisYear",
+      "ab": "0-9",
+      "candidates": 2,
+      "candidateIds": [
+        "study_document.thisYear.brief.young.004",
+        "study_document.thisYear.brief.ageband.student.501"
+      ],
+      "outcome": "fragment-found"
+    },
+    {
+      "fx": "27-jonggyeok-jongah",
+      "cat": "wealth",
+      "per": "life",
+      "ab": "0-9",
+      "candidates": 1,
+      "candidateIds": [
+        "wealth.life.brief.child.0_9.013"
+      ],
+      "outcome": "fragment-found"
+    },
+    {
+      "fx": "27-jonggyeok-jongah",
+      "cat": "wealth",
+      "per": "today",
+      "ab": "0-9",
+      "candidates": 1,
+      "candidateIds": [
+        "wealth.today.brief.child_teen.012"
+      ],
+      "outcome": "fragment-found"
+    },
+    {
+      "fx": "27-jonggyeok-jongah",
+      "cat": "wealth",
+      "per": "thisWeek",
+      "ab": "0-9",
+      "candidates": 1,
+      "candidateIds": [
+        "wealth.thisWeek.brief.child.0_9.012"
+      ],
+      "outcome": "fragment-found"
+    },
+    {
+      "fx": "27-jonggyeok-jongah",
+      "cat": "wealth",
+      "per": "thisMonth",
+      "ab": "0-9",
+      "candidates": 1,
+      "candidateIds": [
+        "wealth.thisMonth.brief.child.0_9.011"
+      ],
+      "outcome": "fragment-found"
+    },
+    {
+      "fx": "27-jonggyeok-jongah",
+      "cat": "wealth",
+      "per": "thisYear",
+      "ab": "0-9",
+      "candidates": 1,
+      "candidateIds": [
+        "wealth.thisYear.brief.child.0_9.013"
+      ],
+      "outcome": "fragment-found"
+    },
+    {
+      "fx": "27-jonggyeok-jongah",
+      "cat": "romance",
+      "per": "life",
+      "ab": "0-9",
+      "candidates": 2,
+      "candidateIds": [
+        "romance.life.brief.child.001",
+        "romance.life.brief.ageband.child_teen.501"
+      ],
+      "outcome": "fragment-found"
+    },
+    {
+      "fx": "27-jonggyeok-jongah",
+      "cat": "romance",
+      "per": "today",
+      "ab": "0-9",
+      "candidates": 2,
+      "candidateIds": [
+        "romance.today.brief.child.001",
+        "romance.today.brief.ageband.child_teen.501"
+      ],
+      "outcome": "fragment-found"
+    },
+    {
+      "fx": "27-jonggyeok-jongah",
+      "cat": "romance",
+      "per": "thisWeek",
+      "ab": "0-9",
+      "candidates": 2,
+      "candidateIds": [
+        "romance.thisWeek.brief.child.001",
+        "romance.thisWeek.brief.ageband.child_teen.501"
+      ],
+      "outcome": "fragment-found"
+    },
+    {
+      "fx": "27-jonggyeok-jongah",
+      "cat": "romance",
+      "per": "thisMonth",
+      "ab": "0-9",
+      "candidates": 2,
+      "candidateIds": [
+        "romance.thisMonth.brief.child.001",
+        "romance.thisMonth.brief.ageband.child_teen.501"
+      ],
+      "outcome": "fragment-found"
+    },
+    {
+      "fx": "27-jonggyeok-jongah",
+      "cat": "romance",
+      "per": "thisYear",
+      "ab": "0-9",
+      "candidates": 2,
+      "candidateIds": [
+        "romance.thisYear.brief.child.001",
+        "romance.thisYear.brief.ageband.child_teen.501"
+      ],
+      "outcome": "fragment-found"
+    },
+    {
+      "fx": "27-jonggyeok-jongah",
+      "cat": "study_document",
+      "per": "life",
+      "ab": "0-9",
+      "candidates": 2,
+      "candidateIds": [
+        "study_document.life.brief.young.004",
+        "study_document.life.brief.ageband.student.501"
+      ],
+      "outcome": "fragment-found"
+    },
+    {
+      "fx": "27-jonggyeok-jongah",
+      "cat": "study_document",
+      "per": "today",
+      "ab": "0-9",
+      "candidates": 2,
+      "candidateIds": [
+        "study_document.today.brief.young.004",
+        "study_document.today.brief.ageband.student.501"
+      ],
+      "outcome": "fragment-found"
+    },
+    {
+      "fx": "27-jonggyeok-jongah",
+      "cat": "study_document",
+      "per": "thisWeek",
+      "ab": "0-9",
+      "candidates": 2,
+      "candidateIds": [
+        "study_document.thisWeek.brief.young.004",
+        "study_document.thisWeek.brief.ageband.student.501"
+      ],
+      "outcome": "fragment-found"
+    },
+    {
+      "fx": "27-jonggyeok-jongah",
+      "cat": "study_document",
+      "per": "thisMonth",
+      "ab": "0-9",
+      "candidates": 2,
+      "candidateIds": [
+        "study_document.thisMonth.brief.young.004",
+        "study_document.thisMonth.brief.ageband.student.501"
+      ],
+      "outcome": "fragment-found"
+    },
+    {
+      "fx": "27-jonggyeok-jongah",
+      "cat": "study_document",
+      "per": "thisYear",
+      "ab": "0-9",
+      "candidates": 2,
+      "candidateIds": [
+        "study_document.thisYear.brief.young.004",
+        "study_document.thisYear.brief.ageband.student.501"
+      ],
+      "outcome": "fragment-found"
+    },
+    {
+      "fx": "30-jeolgi-lidong-boundary",
+      "cat": "wealth",
+      "per": "life",
+      "ab": "0-9",
+      "candidates": 1,
+      "candidateIds": [
+        "wealth.life.brief.child.0_9.013"
+      ],
+      "outcome": "fragment-found"
+    },
+    {
+      "fx": "30-jeolgi-lidong-boundary",
+      "cat": "wealth",
+      "per": "today",
+      "ab": "0-9",
+      "candidates": 1,
+      "candidateIds": [
+        "wealth.today.brief.child_teen.012"
+      ],
+      "outcome": "fragment-found"
+    },
+    {
+      "fx": "30-jeolgi-lidong-boundary",
+      "cat": "wealth",
+      "per": "thisWeek",
+      "ab": "0-9",
+      "candidates": 1,
+      "candidateIds": [
+        "wealth.thisWeek.brief.child.0_9.012"
+      ],
+      "outcome": "fragment-found"
+    },
+    {
+      "fx": "30-jeolgi-lidong-boundary",
+      "cat": "wealth",
+      "per": "thisMonth",
+      "ab": "0-9",
+      "candidates": 1,
+      "candidateIds": [
+        "wealth.thisMonth.brief.child.0_9.011"
+      ],
+      "outcome": "fragment-found"
+    },
+    {
+      "fx": "30-jeolgi-lidong-boundary",
+      "cat": "wealth",
+      "per": "thisYear",
+      "ab": "0-9",
+      "candidates": 1,
+      "candidateIds": [
+        "wealth.thisYear.brief.child.0_9.013"
+      ],
+      "outcome": "fragment-found"
+    },
+    {
+      "fx": "30-jeolgi-lidong-boundary",
+      "cat": "romance",
+      "per": "life",
+      "ab": "0-9",
+      "candidates": 2,
+      "candidateIds": [
+        "romance.life.brief.child.001",
+        "romance.life.brief.ageband.child_teen.501"
+      ],
+      "outcome": "fragment-found"
+    },
+    {
+      "fx": "30-jeolgi-lidong-boundary",
+      "cat": "romance",
+      "per": "today",
+      "ab": "0-9",
+      "candidates": 2,
+      "candidateIds": [
+        "romance.today.brief.child.001",
+        "romance.today.brief.ageband.child_teen.501"
+      ],
+      "outcome": "fragment-found"
+    },
+    {
+      "fx": "30-jeolgi-lidong-boundary",
+      "cat": "romance",
+      "per": "thisWeek",
+      "ab": "0-9",
+      "candidates": 2,
+      "candidateIds": [
+        "romance.thisWeek.brief.child.001",
+        "romance.thisWeek.brief.ageband.child_teen.501"
+      ],
+      "outcome": "fragment-found"
+    },
+    {
+      "fx": "30-jeolgi-lidong-boundary",
+      "cat": "romance",
+      "per": "thisMonth",
+      "ab": "0-9",
+      "candidates": 2,
+      "candidateIds": [
+        "romance.thisMonth.brief.child.001",
+        "romance.thisMonth.brief.ageband.child_teen.501"
+      ],
+      "outcome": "fragment-found"
+    },
+    {
+      "fx": "30-jeolgi-lidong-boundary",
+      "cat": "romance",
+      "per": "thisYear",
+      "ab": "0-9",
+      "candidates": 2,
+      "candidateIds": [
+        "romance.thisYear.brief.child.001",
+        "romance.thisYear.brief.ageband.child_teen.501"
+      ],
+      "outcome": "fragment-found"
+    },
+    {
+      "fx": "30-jeolgi-lidong-boundary",
+      "cat": "study_document",
+      "per": "life",
+      "ab": "0-9",
+      "candidates": 2,
+      "candidateIds": [
+        "study_document.life.brief.young.004",
+        "study_document.life.brief.ageband.student.501"
+      ],
+      "outcome": "fragment-found"
+    },
+    {
+      "fx": "30-jeolgi-lidong-boundary",
+      "cat": "study_document",
+      "per": "today",
+      "ab": "0-9",
+      "candidates": 2,
+      "candidateIds": [
+        "study_document.today.brief.young.004",
+        "study_document.today.brief.ageband.student.501"
+      ],
+      "outcome": "fragment-found"
+    },
+    {
+      "fx": "30-jeolgi-lidong-boundary",
+      "cat": "study_document",
+      "per": "thisWeek",
+      "ab": "0-9",
+      "candidates": 2,
+      "candidateIds": [
+        "study_document.thisWeek.brief.young.004",
+        "study_document.thisWeek.brief.ageband.student.501"
+      ],
+      "outcome": "fragment-found"
+    },
+    {
+      "fx": "30-jeolgi-lidong-boundary",
+      "cat": "study_document",
+      "per": "thisMonth",
+      "ab": "0-9",
+      "candidates": 2,
+      "candidateIds": [
+        "study_document.thisMonth.brief.young.004",
+        "study_document.thisMonth.brief.ageband.student.501"
+      ],
+      "outcome": "fragment-found"
+    },
+    {
+      "fx": "30-jeolgi-lidong-boundary",
+      "cat": "study_document",
+      "per": "thisYear",
+      "ab": "0-9",
+      "candidates": 2,
+      "candidateIds": [
+        "study_document.thisYear.brief.young.004",
+        "study_document.thisYear.brief.ageband.student.501"
+      ],
+      "outcome": "fragment-found"
+    },
+    {
+      "fx": "31-newborn-infant-male",
+      "cat": "wealth",
+      "per": "life",
+      "ab": "0-9",
+      "candidates": 1,
+      "candidateIds": [
+        "wealth.life.brief.child.0_9.013"
+      ],
+      "outcome": "fragment-found"
+    },
+    {
+      "fx": "31-newborn-infant-male",
+      "cat": "wealth",
+      "per": "today",
+      "ab": "0-9",
+      "candidates": 1,
+      "candidateIds": [
+        "wealth.today.brief.child_teen.012"
+      ],
+      "outcome": "fragment-found"
+    },
+    {
+      "fx": "31-newborn-infant-male",
+      "cat": "wealth",
+      "per": "thisWeek",
+      "ab": "0-9",
+      "candidates": 1,
+      "candidateIds": [
+        "wealth.thisWeek.brief.child.0_9.012"
+      ],
+      "outcome": "fragment-found"
+    },
+    {
+      "fx": "31-newborn-infant-male",
+      "cat": "wealth",
+      "per": "thisMonth",
+      "ab": "0-9",
+      "candidates": 1,
+      "candidateIds": [
+        "wealth.thisMonth.brief.child.0_9.011"
+      ],
+      "outcome": "fragment-found"
+    },
+    {
+      "fx": "31-newborn-infant-male",
+      "cat": "wealth",
+      "per": "thisYear",
+      "ab": "0-9",
+      "candidates": 1,
+      "candidateIds": [
+        "wealth.thisYear.brief.child.0_9.013"
+      ],
+      "outcome": "fragment-found"
+    },
+    {
+      "fx": "31-newborn-infant-male",
+      "cat": "romance",
+      "per": "life",
+      "ab": "0-9",
+      "candidates": 2,
+      "candidateIds": [
+        "romance.life.brief.child.001",
+        "romance.life.brief.ageband.child_teen.501"
+      ],
+      "outcome": "fragment-found"
+    },
+    {
+      "fx": "31-newborn-infant-male",
+      "cat": "romance",
+      "per": "today",
+      "ab": "0-9",
+      "candidates": 2,
+      "candidateIds": [
+        "romance.today.brief.child.001",
+        "romance.today.brief.ageband.child_teen.501"
+      ],
+      "outcome": "fragment-found"
+    },
+    {
+      "fx": "31-newborn-infant-male",
+      "cat": "romance",
+      "per": "thisWeek",
+      "ab": "0-9",
+      "candidates": 2,
+      "candidateIds": [
+        "romance.thisWeek.brief.child.001",
+        "romance.thisWeek.brief.ageband.child_teen.501"
+      ],
+      "outcome": "fragment-found"
+    },
+    {
+      "fx": "31-newborn-infant-male",
+      "cat": "romance",
+      "per": "thisMonth",
+      "ab": "0-9",
+      "candidates": 2,
+      "candidateIds": [
+        "romance.thisMonth.brief.child.001",
+        "romance.thisMonth.brief.ageband.child_teen.501"
+      ],
+      "outcome": "fragment-found"
+    },
+    {
+      "fx": "31-newborn-infant-male",
+      "cat": "romance",
+      "per": "thisYear",
+      "ab": "0-9",
+      "candidates": 2,
+      "candidateIds": [
+        "romance.thisYear.brief.child.001",
+        "romance.thisYear.brief.ageband.child_teen.501"
+      ],
+      "outcome": "fragment-found"
+    },
+    {
+      "fx": "31-newborn-infant-male",
+      "cat": "study_document",
+      "per": "life",
+      "ab": "0-9",
+      "candidates": 2,
+      "candidateIds": [
+        "study_document.life.brief.young.004",
+        "study_document.life.brief.ageband.student.501"
+      ],
+      "outcome": "fragment-found"
+    },
+    {
+      "fx": "31-newborn-infant-male",
+      "cat": "study_document",
+      "per": "today",
+      "ab": "0-9",
+      "candidates": 2,
+      "candidateIds": [
+        "study_document.today.brief.young.004",
+        "study_document.today.brief.ageband.student.501"
+      ],
+      "outcome": "fragment-found"
+    },
+    {
+      "fx": "31-newborn-infant-male",
+      "cat": "study_document",
+      "per": "thisWeek",
+      "ab": "0-9",
+      "candidates": 2,
+      "candidateIds": [
+        "study_document.thisWeek.brief.young.004",
+        "study_document.thisWeek.brief.ageband.student.501"
+      ],
+      "outcome": "fragment-found"
+    },
+    {
+      "fx": "31-newborn-infant-male",
+      "cat": "study_document",
+      "per": "thisMonth",
+      "ab": "0-9",
+      "candidates": 2,
+      "candidateIds": [
+        "study_document.thisMonth.brief.young.004",
+        "study_document.thisMonth.brief.ageband.student.501"
+      ],
+      "outcome": "fragment-found"
+    },
+    {
+      "fx": "31-newborn-infant-male",
+      "cat": "study_document",
+      "per": "thisYear",
+      "ab": "0-9",
+      "candidates": 2,
+      "candidateIds": [
+        "study_document.thisYear.brief.young.004",
+        "study_document.thisYear.brief.ageband.student.501"
+      ],
+      "outcome": "fragment-found"
+    }
+  ]
+}
