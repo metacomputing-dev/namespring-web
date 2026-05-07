@@ -1,6 +1,6 @@
 {
   "fixtureCount": 32,
-  "recordCount": 14715,
+  "recordCount": 14757,
   "fixtures": [
     {
       "fixture": "02-choi-seongsoo-tiered-fortune.json",
@@ -1994,7 +1994,7 @@
       "depth": "standard",
       "slot": "para0",
       "cellKey": "life/movement/standard/para0",
-      "plainText": "익숙한 동선에서 한 발짝씩 넓혀 가는 평생 이동운이에요. 갑작스러운 큰 변화보다 천천히 활동 범위를 늘려 가는 호흡이 잘 맞아요."
+      "plainText": "평소 다니던 길을 한 축으로 두고 활동 반경을 천천히 키워 가는 평생 이동운이에요. 갑작스러운 큰 변화보다 자기 호흡에 맞춰 자리를 조금씩 늘려 가는 페이스가 잘 맞아요."
     },
     {
       "fixture": "02-choi-seongsoo-tiered-fortune.json",
@@ -2282,7 +2282,7 @@
       "depth": "brief",
       "slot": "headline",
       "cellKey": "today/academic/brief/headline",
-      "plainText": "오늘은 자기계발 한 챕터를 챙기기 좋은 흐름이에요."
+      "plainText": "오늘은 책상 앞 한 시간을 또렷이 지켜요."
     },
     {
       "fixture": "02-choi-seongsoo-tiered-fortune.json",
@@ -3488,7 +3488,7 @@
       "depth": "standard",
       "slot": "para0",
       "cellKey": "thisWeek/expression_children/standard/para0",
-      "plainText": "이번 주는 작은 한 매듭으로 표현이 단단해지는 시기예요. 큰 무대보다 가까운 사람 앞에서 한 마디·한 줄을 다듬어 두면 방향이 또렷해져요."
+      "plainText": "주중에 마무리하는 짧은 한 매듭이 자기 표현을 한 단계 또렷하게 만들어 주는 흐름이에요. 큰 무대보다 가까운 사람 앞에서 한 마디·한 줄을 다듬어 두면 방향이 또렷해져요."
     },
     {
       "fixture": "02-choi-seongsoo-tiered-fortune.json",
@@ -4325,7 +4325,7 @@
       "depth": "standard",
       "slot": "para0",
       "cellKey": "thisMonth/expression_children/standard/para0",
-      "plainText": "이번 달은 작은 매듭들이 모여 표현이 단단해지는 시기예요. 큰 무대보다 가까운 사람 앞에서 한 매듭·한 줄을 다듬어 두면 한 달의 방향이 또렷해져요."
+      "plainText": "한 달 동안 짚어 두는 작업 하나하나가 자기 표현의 색을 한 뼘씩 진하게 만들어 주는 흐름이에요. 큰 무대보다 가까운 사람 앞에서 한 매듭·한 줄을 다듬어 두면 한 달의 방향이 또렷해져요."
     },
     {
       "fixture": "02-choi-seongsoo-tiered-fortune.json",
@@ -4847,7 +4847,7 @@
       "depth": "brief",
       "slot": "headline",
       "cellKey": "thisYear/romance/brief/headline",
-      "plainText": "올해는 곁의 인연을 단단히 가꾸어 가는 해예요."
+      "plainText": "올해는 짧은 메시지 한 줄이 관계를 데워요."
     },
     {
       "fixture": "02-choi-seongsoo-tiered-fortune.json",
@@ -5081,7 +5081,7 @@
       "depth": "brief",
       "slot": "headline",
       "cellKey": "thisYear/study_document/brief/headline",
-      "plainText": "올해는 새 공부나 문서 프로젝트를 열어 보기 좋아요."
+      "plainText": "올해는 모은 자료를 천천히 엮어 두기 좋은 한 해예요."
     },
     {
       "fixture": "02-choi-seongsoo-tiered-fortune.json",
@@ -5162,7 +5162,7 @@
       "depth": "standard",
       "slot": "para0",
       "cellKey": "thisYear/expression_children/standard/para0",
-      "plainText": "올해는 매듭들이 모여 자기 표현이 단단해지는 한 해예요. 큰 무대보다 가까운 사람 앞에서 한 매듭·한 줄을 다듬어 두면 한 해의 방향이 또렷해져요."
+      "plainText": "분기마다 짚어 두는 한 매듭 한 매듭이 모여 자기 표현의 색을 한 뼘씩 진하게 만들어 주는 한 해예요. 큰 무대보다 가까운 사람 앞에서 한 매듭·한 줄을 다듬어 두면 한 해의 방향이 또렷해져요."
     },
     {
       "fixture": "02-choi-seongsoo-tiered-fortune.json",
@@ -5315,7 +5315,7 @@
       "depth": "brief",
       "slot": "headline",
       "cellKey": "thisYear/movement/brief/headline",
-      "plainText": "올해는 익숙한 동선에서 한 발짝씩 넓혀 가기 좋아요."
+      "plainText": "올해는 익숙한 동선에 작은 변화가 활력을 보태요."
     },
     {
       "fixture": "02-choi-seongsoo-tiered-fortune.json",
@@ -5324,7 +5324,7 @@
       "depth": "standard",
       "slot": "para0",
       "cellKey": "thisYear/movement/standard/para0",
-      "plainText": "올해 이동운은 익숙한 동선에서 한 발짝씩 넓혀 가기 좋은 모습이에요. 갑작스러운 큰 변화보다 천천히 활동 범위를 늘려 가는 호흡이 잘 맞아요."
+      "plainText": "갑작스러운 큰 변화보다 평소 다니던 길을 한 축으로 두고 활동 반경을 천천히 키워 가는 한 해 이동운이에요. 자기 자리를 무리해서 옮기지 않고 호흡 가능한 폭으로 늘려 가는 페이스가 잘 맞아요."
     },
     {
       "fixture": "02-choi-seongsoo-tiered-fortune.json",
@@ -5630,6 +5630,24 @@
       "depth": "standard",
       "slot": "para2",
       "cellKey": "life/academic/standard/para2",
+      "plainText": "비유하자면 매일 한 줌씩 모래를 더하는 그릇과 같아요. 한 줌은 작아 보여도 한 학기가 지나면 그릇이 묵직해지고, 그 무게가 자기 학습의 뼈대가 되어 줘요."
+    },
+    {
+      "fixture": "04-kim-seoyun-young-female-tiered.json",
+      "period": "life",
+      "category": "academic",
+      "depth": "standard",
+      "slot": "para3",
+      "cellKey": "life/academic/standard/para3",
+      "plainText": "공부가 손에 잡히지 않는 시기가 와도 자책할 필요는 없어요. 잠을 충분히 자고 가벼운 산책 한 번 다녀온 뒤 다시 책상 앞에 앉아 보면, 막혀 있던 단원이 한결 부드러워져요."
+    },
+    {
+      "fixture": "04-kim-seoyun-young-female-tiered.json",
+      "period": "life",
+      "category": "academic",
+      "depth": "standard",
+      "slot": "para4",
+      "cellKey": "life/academic/standard/para4",
       "plainText": "오늘의 한 줄이 1년 뒤의 한 권이 된다는 감각으로 가면 충분해요."
     },
     {
@@ -5783,6 +5801,15 @@
       "depth": "standard",
       "slot": "para2",
       "cellKey": "life/family/standard/para2",
+      "plainText": "작은 실천 흐름으로는 일주일에 한 번 짧은 대화 자리를 정해 두면 좋아요. 길게 이야기하지 않아도 한 끼 식사 동안 그날 있었던 한 가지 일을 가족에게 짧게 들려주는 흐름만으로도 거리감이 부드럽게 풀려요."
+    },
+    {
+      "fixture": "04-kim-seoyun-young-female-tiered.json",
+      "period": "life",
+      "category": "family",
+      "depth": "standard",
+      "slot": "para3",
+      "cellKey": "life/family/standard/para3",
       "plainText": "인생 전체로 보면 이 시기의 자기 기준을 천천히 인정해 가는 것이, 나중에 가족에게 더 단단하게 다가갈 수 있는 뿌리예요. 부딪히는 일이 있어도, 그 경험이 관계의 모양을 만들어 가는 과정이에요."
     },
     {
@@ -6476,7 +6503,7 @@
       "depth": "standard",
       "slot": "para0",
       "cellKey": "today/academic/standard/para0",
-      "plainText": "오늘은 한 단원을 자기 말로 풀어 보기 좋은 하루예요. 그냥 읽고 지나치는 것보다, 짧은 노트에 한 줄씩 정리해 두는 방식이 깊이를 만들어요."
+      "plainText": "그냥 읽고 지나치기보다, 짧은 노트에 한 줄씩 자기 언어로 풀어 두는 방식이 오늘 공부의 깊이를 만들어 주는 흐름이에요. 한 단원을 자기 말로 정리해 두면 다음 단계가 한결 가벼워져요."
     },
     {
       "fixture": "04-kim-seoyun-young-female-tiered.json",
@@ -7043,6 +7070,15 @@
       "depth": "standard",
       "slot": "para2",
       "cellKey": "today/movement/standard/para2",
+      "plainText": "오늘 한 번의 환기는 그날 하루로 끝나지 않고 다음 며칠의 결까지 이어져요. 새로 본 풍경 한 컷이 책상에 앉았을 때 한 줄의 글이 되거나, 친구와의 대화 자리에서 떠올라 자연스레 이야깃거리가 되어 줘요."
+    },
+    {
+      "fixture": "04-kim-seoyun-young-female-tiered.json",
+      "period": "today",
+      "category": "movement",
+      "depth": "standard",
+      "slot": "para3",
+      "cellKey": "today/movement/standard/para3",
       "plainText": "다만 시험·과제 시기와 겹친다면 너무 멀리 가지 않고 가까운 곳에서 가벼운 환기를 권해요."
     },
     {
@@ -8393,6 +8429,15 @@
       "depth": "standard",
       "slot": "para2",
       "cellKey": "thisMonth/career/standard/para2",
+      "plainText": "비유하자면 한 달은 호기심이라는 씨앗을 흙에 살짝 묻어 두는 시간이에요. 당장 싹이 보이지 않아도 흙 아래에서 뿌리가 자라고 있고, 나중에 줄기가 올라올 때 어떤 흐름으로 자랄지 그 씨앗이 미리 정해 두는 자리가 돼요."
+    },
+    {
+      "fixture": "04-kim-seoyun-young-female-tiered.json",
+      "period": "thisMonth",
+      "category": "career",
+      "depth": "standard",
+      "slot": "para3",
+      "cellKey": "thisMonth/career/standard/para3",
       "plainText": "작은 호기심이 길게 자라는 한 달이에요."
     },
     {
@@ -8933,6 +8978,15 @@
       "depth": "standard",
       "slot": "para2",
       "cellKey": "thisYear/health/standard/para2",
+      "plainText": "비유하자면 한 해는 자라나는 어린 나무에 잔뿌리가 깊어지는 시간이에요. 큰 가지를 한 번에 키우려 하기보다, 매일의 잠과 끼니라는 잔뿌리를 단단히 두면 어른이 된 뒤의 줄기까지 흔들림 없이 이어져요."
+    },
+    {
+      "fixture": "04-kim-seoyun-young-female-tiered.json",
+      "period": "thisYear",
+      "category": "health",
+      "depth": "standard",
+      "slot": "para3",
+      "cellKey": "thisYear/health/standard/para3",
       "plainText": "친구와 보내는 시간도 회복에 도움이 돼요. 너무 늦은 약속은 주말로 미루고, 평일엔 잠자리를 챙기는 페이스가 잘 맞아요."
     },
     {
@@ -10220,6 +10274,15 @@
       "depth": "standard",
       "slot": "para2",
       "cellKey": "life/expression_children/standard/para2",
+      "plainText": "일과 가족의 자리가 함께 자라는 시기라 한쪽으로 무게가 쏠리지 않게 자기 호흡을 두면 좋아요. 표현력이 단단해지는 만큼 옆 사람과 나누는 자리도 자연스럽게 넓어지고, 그 흐름이 다음 세대에 닿는 리듬의 토대가 돼요."
+    },
+    {
+      "fixture": "05-park-minji-late-night-female-tiered.json",
+      "period": "life",
+      "category": "expression_children",
+      "depth": "standard",
+      "slot": "para3",
+      "cellKey": "life/expression_children/standard/para3",
       "plainText": "자녀와 관련된 리듬도 함께 보이지만 어떤 모양이든 단정 없이 흘러가는 흐름이 좋아요. 자기 흐름을 단단히 잡는 것이 곧 다음 세대로의 다리예요."
     },
     {
@@ -10553,7 +10616,7 @@
       "depth": "standard",
       "slot": "para3",
       "cellKey": "today/wealth/standard/para3",
-      "plainText": "주의할 점은 즉흥적 결정이에요. 권유받은 큰 결정은 하루 자고 결정해도 늦지 않아요."
+      "plainText": "주의할 점은 즉흥적 결정이에요. 권유받은 큰 거래는 하루 자고 정해도 늦지 않아요."
     },
     {
       "fixture": "05-park-minji-late-night-female-tiered.json",
@@ -11624,7 +11687,7 @@
       "depth": "brief",
       "slot": "headline",
       "cellKey": "thisWeek/family/brief/headline",
-      "plainText": "이번 주 가족 관계는 큰 말보다 지킬 수 있는 작은 약속이 더 힘이 돼요."
+      "plainText": "이번 주는 가까운 사람과 짧게 안부를 나누면 좋아요."
     },
     {
       "fixture": "05-park-minji-late-night-female-tiered.json",
@@ -13181,7 +13244,7 @@
       "depth": "brief",
       "slot": "headline",
       "cellKey": "thisYear/romance/brief/headline",
-      "plainText": "올해는 인연을 넓히고 마음을 표현할 기회가 늘 수 있어요."
+      "plainText": "올해는 곁의 사람과 한 끼를 천천히 나눠요."
     },
     {
       "fixture": "05-park-minji-late-night-female-tiered.json",
@@ -14765,7 +14828,7 @@
       "depth": "standard",
       "slot": "para0",
       "cellKey": "today/academic/standard/para0",
-      "plainText": "오늘은 짧은 글이나 발표 한 장을 마무리해 두기 좋은 흐름이에요. 큰 프로젝트 전체를 한 번에 끝내려 하기보다, 다음 단계로 넘어갈 한 줄을 또렷하게 마무리해 두는 식이 잘 어울려요."
+      "plainText": "큰 프로젝트 전체를 한 번에 끝내려 하기보다, 발표 한 장이나 짧은 글 한 편처럼 한 단계만 또렷하게 마무리해 두는 흐름이에요. 다음 단계로 넘어갈 한 줄을 분명히 두는 식이 오늘 잘 어울려요."
     },
     {
       "fixture": "06-lee-hajun-unknown-hour-neutral-tiered.json",
@@ -15791,6 +15854,15 @@
       "depth": "standard",
       "slot": "para2",
       "cellKey": "thisWeek/career/standard/para2",
+      "plainText": "작은 실천 흐름으로는 주 초에 한 가지 시도 거리를 또렷이 정해 두면 좋아요. 주 중에 짧게 실행해 보고 주말에 받은 반응을 한 줄로 옮겨 두면, 다음 주의 첫 결정이 훨씬 가벼워져요."
+    },
+    {
+      "fixture": "06-lee-hajun-unknown-hour-neutral-tiered.json",
+      "period": "thisWeek",
+      "category": "career",
+      "depth": "standard",
+      "slot": "para3",
+      "cellKey": "thisWeek/career/standard/para3",
       "plainText": "시작의 방향이 또렷해지는 한 주예요."
     },
     {
@@ -16538,6 +16610,15 @@
       "depth": "standard",
       "slot": "para2",
       "cellKey": "thisMonth/family/standard/para2",
+      "plainText": "자기 살림의 결과 본가의 흐름이 따로 흐르는 것처럼 보여도 사실 한 강의 두 줄기예요. 한쪽이 단단해질수록 다른 쪽도 가벼워지는 자리라, 자기 페이스를 또렷이 챙기는 한 달이 곧 가족과의 거리를 좁히는 흐름이 돼요."
+    },
+    {
+      "fixture": "06-lee-hajun-unknown-hour-neutral-tiered.json",
+      "period": "thisMonth",
+      "category": "family",
+      "depth": "standard",
+      "slot": "para3",
+      "cellKey": "thisMonth/family/standard/para3",
       "plainText": "매달의 작은 리듬이 단단한 뿌리예요."
     },
     {
@@ -16610,6 +16691,24 @@
       "depth": "standard",
       "slot": "para2",
       "cellKey": "thisMonth/career/standard/para2",
+      "plainText": "비유하자면 한 달은 첫 직장이라는 화분에 잔뿌리가 내리는 시간이에요. 굵은 가지를 빨리 키우려 하기보다 잔뿌리가 깊어질수록 다음 해의 줄기가 흔들리지 않게 자리 잡아요."
+    },
+    {
+      "fixture": "06-lee-hajun-unknown-hour-neutral-tiered.json",
+      "period": "thisMonth",
+      "category": "career",
+      "depth": "standard",
+      "slot": "para3",
+      "cellKey": "thisMonth/career/standard/para3",
+      "plainText": "다른 친구의 빠른 이동 소식이 들려와도 비교만 길게 가져가지 않으면 좋아요. 한 달 안에 마무리한 작은 결과물 한 가지를 메모로 남겨 두면, 그 한 줄이 다음 자리를 고를 때의 또렷한 기준이 되어 줘요."
+    },
+    {
+      "fixture": "06-lee-hajun-unknown-hour-neutral-tiered.json",
+      "period": "thisMonth",
+      "category": "career",
+      "depth": "standard",
+      "slot": "para4",
+      "cellKey": "thisMonth/career/standard/para4",
       "plainText": "시작의 중심이 한 달 단위로 단단해져요."
     },
     {
@@ -17249,7 +17348,7 @@
       "depth": "brief",
       "slot": "headline",
       "cellKey": "thisYear/romance/brief/headline",
-      "plainText": "올해는 순간적인 설렘보다 꾸준히 챙기는 태도가 관계를 더 단단요."
+      "plainText": "올해는 가벼운 모임에서 새로운 인연이 늘어요."
     },
     {
       "fixture": "06-lee-hajun-unknown-hour-neutral-tiered.json",
@@ -18572,7 +18671,7 @@
       "depth": "standard",
       "slot": "para0",
       "cellKey": "life/movement/standard/para0",
-      "plainText": "익숙한 동선에서 한 발짝씩 넓혀 가는 평생 이동운이에요. 갑작스러운 큰 변화보다 천천히 활동 범위를 늘려 가는 호흡이 잘 맞아요."
+      "plainText": "평소 다니던 길을 한 축으로 두고 활동 반경을 천천히 키워 가는 평생 이동운이에요. 갑작스러운 큰 변화보다 자기 호흡에 맞춰 자리를 조금씩 늘려 가는 페이스가 잘 맞아요."
     },
     {
       "fixture": "08-kim-jiwon-strong-jeonggwan-gyeokguk-tiered.json",
@@ -19148,7 +19247,7 @@
       "depth": "brief",
       "slot": "headline",
       "cellKey": "today/study_document/brief/headline",
-      "plainText": "오늘은 많이 하려 하기보다 꼭 읽거나 정리할 것 한 가지만 먼저 끝요."
+      "plainText": "묶어 둔 서류를 한 장씩 다시 정리해 보세요."
     },
     {
       "fixture": "08-kim-jiwon-strong-jeonggwan-gyeokguk-tiered.json",
@@ -19823,7 +19922,7 @@
       "depth": "brief",
       "slot": "headline",
       "cellKey": "thisWeek/family/brief/headline",
-      "plainText": "이번 주 가족 관계는 큰 말보다 지킬 수 있는 작은 약속이 더 힘이 돼요."
+      "plainText": "이번 주는 가까운 사람과 짧게 안부를 나누면 좋아요."
     },
     {
       "fixture": "08-kim-jiwon-strong-jeonggwan-gyeokguk-tiered.json",
@@ -19850,6 +19949,15 @@
       "depth": "standard",
       "slot": "para2",
       "cellKey": "thisWeek/family/standard/para2",
+      "plainText": "비유하자면 둘이 함께 걷는 길과 같아요. 두 사람의 보폭이 다를 때 한쪽이 잠시 천천히 가 주면 옆 사람의 호흡이 가지런해지고, 다음 자리에서 다시 나란히 걸을 힘이 자연스럽게 차올라요."
+    },
+    {
+      "fixture": "08-kim-jiwon-strong-jeonggwan-gyeokguk-tiered.json",
+      "period": "thisWeek",
+      "category": "family",
+      "depth": "standard",
+      "slot": "para3",
+      "cellKey": "thisWeek/family/standard/para3",
       "plainText": "도움을 받는 일을 부끄러워하지 않는 태도가 곧 자기의 강점이에요."
     },
     {
@@ -20048,7 +20156,7 @@
       "depth": "standard",
       "slot": "para0",
       "cellKey": "thisWeek/expression_children/standard/para0",
-      "plainText": "이번 주는 작은 한 매듭으로 표현이 단단해지는 시기예요. 큰 무대보다 가까운 사람 앞에서 한 마디·한 줄을 다듬어 두면 방향이 또렷해져요."
+      "plainText": "주중에 마무리하는 짧은 한 매듭이 자기 표현을 한 단계 또렷하게 만들어 주는 흐름이에요. 큰 무대보다 가까운 사람 앞에서 한 마디·한 줄을 다듬어 두면 방향이 또렷해져요."
     },
     {
       "fixture": "08-kim-jiwon-strong-jeonggwan-gyeokguk-tiered.json",
@@ -20867,7 +20975,7 @@
       "depth": "standard",
       "slot": "para0",
       "cellKey": "thisMonth/expression_children/standard/para0",
-      "plainText": "이번 달은 작은 매듭들이 모여 표현이 단단해지는 시기예요. 큰 무대보다 가까운 사람 앞에서 한 매듭·한 줄을 다듬어 두면 한 달의 방향이 또렷해져요."
+      "plainText": "한 달 동안 짚어 두는 작업 하나하나가 자기 표현의 색을 한 뼘씩 진하게 만들어 주는 흐름이에요. 큰 무대보다 가까운 사람 앞에서 한 매듭·한 줄을 다듬어 두면 한 달의 방향이 또렷해져요."
     },
     {
       "fixture": "08-kim-jiwon-strong-jeonggwan-gyeokguk-tiered.json",
@@ -21704,7 +21812,7 @@
       "depth": "standard",
       "slot": "para0",
       "cellKey": "thisYear/expression_children/standard/para0",
-      "plainText": "올해는 매듭들이 모여 자기 표현이 단단해지는 한 해예요. 큰 무대보다 가까운 사람 앞에서 한 매듭·한 줄을 다듬어 두면 한 해의 방향이 또렷해져요."
+      "plainText": "분기마다 짚어 두는 한 매듭 한 매듭이 모여 자기 표현의 색을 한 뼘씩 진하게 만들어 주는 한 해예요. 큰 무대보다 가까운 사람 앞에서 한 매듭·한 줄을 다듬어 두면 한 해의 방향이 또렷해져요."
     },
     {
       "fixture": "08-kim-jiwon-strong-jeonggwan-gyeokguk-tiered.json",
@@ -21866,7 +21974,7 @@
       "depth": "standard",
       "slot": "para0",
       "cellKey": "thisYear/movement/standard/para0",
-      "plainText": "올해 이동운은 익숙한 동선에서 한 발짝씩 넓혀 가기 좋은 모습이에요. 갑작스러운 큰 변화보다 천천히 활동 범위를 늘려 가는 호흡이 잘 맞아요."
+      "plainText": "갑작스러운 큰 변화보다 평소 다니던 길을 한 축으로 두고 활동 반경을 천천히 키워 가는 한 해 이동운이에요. 자기 자리를 무리해서 옮기지 않고 호흡 가능한 폭으로 늘려 가는 페이스가 잘 맞아요."
     },
     {
       "fixture": "08-kim-jiwon-strong-jeonggwan-gyeokguk-tiered.json",
@@ -22001,7 +22109,7 @@
       "depth": "brief",
       "slot": "headline",
       "cellKey": "life/wealth/brief/headline",
-      "plainText": "평생의 재물운은 단단하게 자리 잡는 흐름이에요."
+      "plainText": "오랜 인연과의 거래가 큰 자산으로 이어지는 시간이에요."
     },
     {
       "fixture": "09-kim-seongsu-special-format-candidate-tiered.json",
@@ -23243,7 +23351,7 @@
       "depth": "brief",
       "slot": "headline",
       "cellKey": "today/study_document/brief/headline",
-      "plainText": "오늘은 공부나 문서 작업을 시작하기 좋은 날이에요."
+      "plainText": "오늘은 연락처와 주소를 한번 정리하기 좋아요."
     },
     {
       "fixture": "09-kim-seongsu-special-format-candidate-tiered.json",
@@ -23522,6 +23630,15 @@
       "depth": "standard",
       "slot": "para2",
       "cellKey": "today/movement/standard/para2",
+      "plainText": "비유하자면 호숫가 둘레길을 천천히 한 바퀴 도는 흐름의 하루예요. 한 바퀴는 짧아 보여도 같은 풍경이 빛에 따라 다르게 보이는 자리가 있고, 그 미세한 변화가 잔잔한 즐거움으로 마음에 남아요."
+    },
+    {
+      "fixture": "09-kim-seongsu-special-format-candidate-tiered.json",
+      "period": "today",
+      "category": "movement",
+      "depth": "standard",
+      "slot": "para3",
+      "cellKey": "today/movement/standard/para3",
       "plainText": "다만 무리한 장거리 일정은 다음 날 호흡까지 깎아요. 가까운 자리 위주로 권해 드려요."
     },
     {
@@ -24179,6 +24296,15 @@
       "depth": "standard",
       "slot": "para2",
       "cellKey": "thisWeek/expression_children/standard/para2",
+      "plainText": "비유하자면 처마 아래 켜 둔 작은 등불 같은 한 주예요. 등불이 큰 빛을 내려 애쓰지 않아도, 길을 찾던 사람이 잠시 발걸음을 멈추는 자리가 되어 주고, 그 잠깐의 머묾이 다음 길로 이어지는 흐름을 부드럽게 만들어요."
+    },
+    {
+      "fixture": "09-kim-seongsu-special-format-candidate-tiered.json",
+      "period": "thisWeek",
+      "category": "expression_children",
+      "depth": "standard",
+      "slot": "para3",
+      "cellKey": "thisWeek/expression_children/standard/para3",
       "plainText": "자녀와의 관계 가능성도 함께 비치지만 단정 없이 흐르는 게 좋아요. 이번 주의 한 자리가 길게 남는 흐름이에요."
     },
     {
@@ -24971,6 +25097,15 @@
       "depth": "standard",
       "slot": "para2",
       "cellKey": "thisMonth/expression_children/standard/para2",
+      "plainText": "이번 달은 오랜 추억이 담긴 사진 한 장을 같이 펼쳐 보거나, 좋아하는 옛 노래 한 곡을 함께 나누는 자리를 한 번 마련해 보면 좋아요. 말로 다 옮기지 못한 흐름이 그 자리에서 자연스럽게 따뜻해져요."
+    },
+    {
+      "fixture": "09-kim-seongsu-special-format-candidate-tiered.json",
+      "period": "thisMonth",
+      "category": "expression_children",
+      "depth": "standard",
+      "slot": "para3",
+      "cellKey": "thisMonth/expression_children/standard/para3",
       "plainText": "자녀와의 관계 가능성도 함께 비치지만 단정 없이 흐르는 게 좋아요. 이번 달의 한 자리가 길게 남는 흐름이에요."
     },
     {
@@ -25583,6 +25718,15 @@
       "depth": "standard",
       "slot": "para2",
       "cellKey": "thisYear/family/standard/para2",
+      "plainText": "비유하자면 받침대 역할을 오래 해 온 나무가지와 같아요. 다른 가지를 받쳐 주려면 자기 뿌리 아래의 흙도 함께 단단해야 하고, 그 뿌리에 햇볕을 들이는 한 자리가 곧 자기 휴식이에요."
+    },
+    {
+      "fixture": "09-kim-seongsu-special-format-candidate-tiered.json",
+      "period": "thisYear",
+      "category": "family",
+      "depth": "standard",
+      "slot": "para3",
+      "cellKey": "thisYear/family/standard/para3",
       "plainText": "받쳐 준 마음이 다른 사람을 통해 다시 돌아오는 장면도 자연스럽게 들어오니, 따뜻한 주고받음이 올해의 그림으로 모여요."
     },
     {
@@ -25700,7 +25844,7 @@
       "depth": "brief",
       "slot": "headline",
       "cellKey": "thisYear/study_document/brief/headline",
-      "plainText": "올해는 어려운 것부터 잡기보다 기본 자료와 반복 학습을 탄탄히요."
+      "plainText": "올해는 모은 자료를 천천히 엮어 두기 좋은 한 해예요."
     },
     {
       "fixture": "09-kim-seongsu-special-format-candidate-tiered.json",
@@ -25943,6 +26087,15 @@
       "depth": "standard",
       "slot": "para2",
       "cellKey": "thisYear/movement/standard/para2",
+      "plainText": "비유하자면 오래 자란 화분을 한 번 옮겨 심는 시기예요. 뿌리째 한 번에 뽑으면 잎이 시들기 쉽지만, 흙을 함께 옮겨 두면 새 자리에서도 익숙한 향이 자리 잡아 줘요."
+    },
+    {
+      "fixture": "09-kim-seongsu-special-format-candidate-tiered.json",
+      "period": "thisYear",
+      "category": "movement",
+      "depth": "standard",
+      "slot": "para3",
+      "cellKey": "thisYear/movement/standard/para3",
       "plainText": "다만 모든 것을 한 번에 바꾸려 하면 호흡이 가빠져요. 한 가지씩 천천히 정리하고 옮기면, 한 해의 자리가 더 편안해져요."
     },
     {
@@ -27059,7 +27212,7 @@
       "depth": "brief",
       "slot": "headline",
       "cellKey": "today/academic/brief/headline",
-      "plainText": "오늘은 공부를 바로 시작하기 좋은 날이에요."
+      "plainText": "오늘은 책상 앞 한 시간을 또렷이 지켜요."
     },
     {
       "fixture": "10-choi-yaza-boundary-male-tiered.json",
@@ -27347,7 +27500,7 @@
       "depth": "brief",
       "slot": "headline",
       "cellKey": "today/study_document/brief/headline",
-      "plainText": "오늘은 문서의 숫자와 조건을 한 번 더 확인하면 실수를 줄일 수 있어요."
+      "plainText": "오늘은 연락처와 주소를 한번 정리하기 좋아요."
     },
     {
       "fixture": "10-choi-yaza-boundary-male-tiered.json",
@@ -29405,6 +29558,15 @@
       "fixture": "10-choi-yaza-boundary-male-tiered.json",
       "period": "thisYear",
       "category": "wealth",
+      "depth": "standard",
+      "slot": "para4",
+      "cellKey": "thisYear/wealth/standard/para4",
+      "plainText": "어깨에 자리가 많은 시기지만, 한 자리씩 차분히 다듬으면 한 해의 흐름이 단단해져요."
+    },
+    {
+      "fixture": "10-choi-yaza-boundary-male-tiered.json",
+      "period": "thisYear",
+      "category": "wealth",
       "depth": "expert",
       "slot": "para0",
       "cellKey": "thisYear/wealth/expert/para0",
@@ -30047,7 +30209,7 @@
       "depth": "brief",
       "slot": "headline",
       "cellKey": "thisYear/movement/brief/headline",
-      "plainText": "올해는 이사·이직 기회가 한 번 크게 열리는 해예요."
+      "plainText": "올해는 익숙한 동선에 작은 변화가 활력을 보태요."
     },
     {
       "fixture": "10-choi-yaza-boundary-male-tiered.json",
@@ -30902,7 +31064,7 @@
       "depth": "standard",
       "slot": "para0",
       "cellKey": "life/movement/standard/para0",
-      "plainText": "익숙한 동선에서 한 발짝씩 넓혀 가는 평생 이동운이에요. 갑작스러운 큰 변화보다 천천히 활동 범위를 늘려 가는 호흡이 잘 맞아요."
+      "plainText": "평소 다니던 길을 한 축으로 두고 활동 반경을 천천히 키워 가는 평생 이동운이에요. 갑작스러운 큰 변화보다 자기 호흡에 맞춰 자리를 조금씩 늘려 가는 페이스가 잘 맞아요."
     },
     {
       "fixture": "11-park-jeolgi-boundary-female-tiered.json",
@@ -31478,7 +31640,7 @@
       "depth": "brief",
       "slot": "headline",
       "cellKey": "today/study_document/brief/headline",
-      "plainText": "큰 서명은 하루 묵힌 뒤에 결정해도 좋아요."
+      "plainText": "묶어 둔 서류를 한 장씩 다시 정리해 보세요."
     },
     {
       "fixture": "11-park-jeolgi-boundary-female-tiered.json",
@@ -32153,7 +32315,7 @@
       "depth": "brief",
       "slot": "headline",
       "cellKey": "thisWeek/family/brief/headline",
-      "plainText": "이번 주는 가족에게 먼저 안부를 묻는 작은 행동이 관계를 편하게요."
+      "plainText": "이번 주는 가까운 사람과 짧게 안부를 나누면 좋아요."
     },
     {
       "fixture": "11-park-jeolgi-boundary-female-tiered.json",
@@ -32396,7 +32558,7 @@
       "depth": "standard",
       "slot": "para0",
       "cellKey": "thisWeek/expression_children/standard/para0",
-      "plainText": "이번 주는 작은 한 매듭으로 표현이 단단해지는 시기예요. 큰 무대보다 가까운 사람 앞에서 한 마디·한 줄을 다듬어 두면 방향이 또렷해져요."
+      "plainText": "주중에 마무리하는 짧은 한 매듭이 자기 표현을 한 단계 또렷하게 만들어 주는 흐름이에요. 큰 무대보다 가까운 사람 앞에서 한 마디·한 줄을 다듬어 두면 방향이 또렷해져요."
     },
     {
       "fixture": "11-park-jeolgi-boundary-female-tiered.json",
@@ -33233,7 +33395,7 @@
       "depth": "standard",
       "slot": "para0",
       "cellKey": "thisMonth/expression_children/standard/para0",
-      "plainText": "이번 달은 작은 매듭들이 모여 표현이 단단해지는 시기예요. 큰 무대보다 가까운 사람 앞에서 한 매듭·한 줄을 다듬어 두면 한 달의 방향이 또렷해져요."
+      "plainText": "한 달 동안 짚어 두는 작업 하나하나가 자기 표현의 색을 한 뼘씩 진하게 만들어 주는 흐름이에요. 큰 무대보다 가까운 사람 앞에서 한 매듭·한 줄을 다듬어 두면 한 달의 방향이 또렷해져요."
     },
     {
       "fixture": "11-park-jeolgi-boundary-female-tiered.json",
@@ -34061,7 +34223,7 @@
       "depth": "standard",
       "slot": "para0",
       "cellKey": "thisYear/expression_children/standard/para0",
-      "plainText": "올해는 매듭들이 모여 자기 표현이 단단해지는 한 해예요. 큰 무대보다 가까운 사람 앞에서 한 매듭·한 줄을 다듬어 두면 한 해의 방향이 또렷해져요."
+      "plainText": "분기마다 짚어 두는 한 매듭 한 매듭이 모여 자기 표현의 색을 한 뼘씩 진하게 만들어 주는 한 해예요. 큰 무대보다 가까운 사람 앞에서 한 매듭·한 줄을 다듬어 두면 한 해의 방향이 또렷해져요."
     },
     {
       "fixture": "11-park-jeolgi-boundary-female-tiered.json",
@@ -34223,7 +34385,7 @@
       "depth": "standard",
       "slot": "para0",
       "cellKey": "thisYear/movement/standard/para0",
-      "plainText": "올해 이동운은 익숙한 동선에서 한 발짝씩 넓혀 가기 좋은 모습이에요. 갑작스러운 큰 변화보다 천천히 활동 범위를 늘려 가는 호흡이 잘 맞아요."
+      "plainText": "갑작스러운 큰 변화보다 평소 다니던 길을 한 축으로 두고 활동 반경을 천천히 키워 가는 한 해 이동운이에요. 자기 자리를 무리해서 옮기지 않고 호흡 가능한 폭으로 늘려 가는 페이스가 잘 맞아요."
     },
     {
       "fixture": "11-park-jeolgi-boundary-female-tiered.json",
@@ -35051,7 +35213,7 @@
       "depth": "standard",
       "slot": "para0",
       "cellKey": "life/movement/standard/para0",
-      "plainText": "익숙한 동선에서 한 발짝씩 넓혀 가는 평생 이동운이에요. 갑작스러운 큰 변화보다 천천히 활동 범위를 늘려 가는 호흡이 잘 맞아요."
+      "plainText": "평소 다니던 길을 한 축으로 두고 활동 반경을 천천히 키워 가는 평생 이동운이에요. 갑작스러운 큰 변화보다 자기 호흡에 맞춰 자리를 조금씩 늘려 가는 페이스가 잘 맞아요."
     },
     {
       "fixture": "12-jeong-extreme-strong-continuous-tiered.json",
@@ -35339,7 +35501,7 @@
       "depth": "brief",
       "slot": "headline",
       "cellKey": "today/academic/brief/headline",
-      "plainText": "오늘은 자기계발 한 챕터를 챙기기 좋은 흐름이에요."
+      "plainText": "오늘은 책상 앞 한 시간을 또렷이 지켜요."
     },
     {
       "fixture": "12-jeong-extreme-strong-continuous-tiered.json",
@@ -36545,7 +36707,7 @@
       "depth": "standard",
       "slot": "para0",
       "cellKey": "thisWeek/expression_children/standard/para0",
-      "plainText": "이번 주는 작은 한 매듭으로 표현이 단단해지는 시기예요. 큰 무대보다 가까운 사람 앞에서 한 마디·한 줄을 다듬어 두면 방향이 또렷해져요."
+      "plainText": "주중에 마무리하는 짧은 한 매듭이 자기 표현을 한 단계 또렷하게 만들어 주는 흐름이에요. 큰 무대보다 가까운 사람 앞에서 한 마디·한 줄을 다듬어 두면 방향이 또렷해져요."
     },
     {
       "fixture": "12-jeong-extreme-strong-continuous-tiered.json",
@@ -37364,7 +37526,7 @@
       "depth": "standard",
       "slot": "para0",
       "cellKey": "thisMonth/expression_children/standard/para0",
-      "plainText": "이번 달은 작은 매듭들이 모여 표현이 단단해지는 시기예요. 큰 무대보다 가까운 사람 앞에서 한 매듭·한 줄을 다듬어 두면 한 달의 방향이 또렷해져요."
+      "plainText": "한 달 동안 짚어 두는 작업 하나하나가 자기 표현의 색을 한 뼘씩 진하게 만들어 주는 흐름이에요. 큰 무대보다 가까운 사람 앞에서 한 매듭·한 줄을 다듬어 두면 한 달의 방향이 또렷해져요."
     },
     {
       "fixture": "12-jeong-extreme-strong-continuous-tiered.json",
@@ -37886,7 +38048,7 @@
       "depth": "brief",
       "slot": "headline",
       "cellKey": "thisYear/romance/brief/headline",
-      "plainText": "올해 관계운은 설렘과 현실감을 함께 맞출수록 더 오래 안정돼요."
+      "plainText": "올해는 짧은 메시지 한 줄이 관계를 데워요."
     },
     {
       "fixture": "12-jeong-extreme-strong-continuous-tiered.json",
@@ -38111,7 +38273,7 @@
       "depth": "brief",
       "slot": "headline",
       "cellKey": "thisYear/study_document/brief/headline",
-      "plainText": "올해는 자격, 계약, 기록을 체계적으로 관리할수록 중요한 기회를요."
+      "plainText": "올해는 모은 자료를 천천히 엮어 두기 좋은 한 해예요."
     },
     {
       "fixture": "12-jeong-extreme-strong-continuous-tiered.json",
@@ -38192,7 +38354,7 @@
       "depth": "standard",
       "slot": "para0",
       "cellKey": "thisYear/expression_children/standard/para0",
-      "plainText": "올해는 매듭들이 모여 자기 표현이 단단해지는 한 해예요. 큰 무대보다 가까운 사람 앞에서 한 매듭·한 줄을 다듬어 두면 한 해의 방향이 또렷해져요."
+      "plainText": "분기마다 짚어 두는 한 매듭 한 매듭이 모여 자기 표현의 색을 한 뼘씩 진하게 만들어 주는 한 해예요. 큰 무대보다 가까운 사람 앞에서 한 매듭·한 줄을 다듬어 두면 한 해의 방향이 또렷해져요."
     },
     {
       "fixture": "12-jeong-extreme-strong-continuous-tiered.json",
@@ -38354,7 +38516,7 @@
       "depth": "standard",
       "slot": "para0",
       "cellKey": "thisYear/movement/standard/para0",
-      "plainText": "올해 이동운은 익숙한 동선에서 한 발짝씩 넓혀 가기 좋은 모습이에요. 갑작스러운 큰 변화보다 천천히 활동 범위를 늘려 가는 호흡이 잘 맞아요."
+      "plainText": "갑작스러운 큰 변화보다 평소 다니던 길을 한 축으로 두고 활동 반경을 천천히 키워 가는 한 해 이동운이에요. 자기 자리를 무리해서 옮기지 않고 호흡 가능한 폭으로 늘려 가는 페이스가 잘 맞아요."
     },
     {
       "fixture": "12-jeong-extreme-strong-continuous-tiered.json",
@@ -38678,6 +38840,15 @@
       "depth": "standard",
       "slot": "para2",
       "cellKey": "life/academic/standard/para2",
+      "plainText": "작은 실천 흐름으로는 평일 저녁 한 시간을 학습 자리로 잡아 두면 좋아요. 주말엔 그 주에 익힌 내용을 한두 줄로 정리해 두면, 6개월 뒤에 자기만의 노트가 한 권으로 묶여요."
+    },
+    {
+      "fixture": "13-oh-extreme-weak-continuous-tiered.json",
+      "period": "life",
+      "category": "academic",
+      "depth": "standard",
+      "slot": "para3",
+      "cellKey": "life/academic/standard/para3",
       "plainText": "가르치며 배우는 자리도 좋은 흐름으로 작용해요."
     },
     {
@@ -41036,7 +41207,7 @@
       "depth": "brief",
       "slot": "headline",
       "cellKey": "thisMonth/health/brief/headline",
-      "plainText": "이번 달은 강도 조절이 가장 큰 보약이에요."
+      "plainText": "이번 달은 작은 회복 루틴 한 가지가 든든해져요."
     },
     {
       "fixture": "13-oh-extreme-weak-continuous-tiered.json",
@@ -41279,6 +41450,15 @@
       "depth": "standard",
       "slot": "para2",
       "cellKey": "thisMonth/family/standard/para2",
+      "plainText": "비유하자면 한 달은 양손에 작은 등불을 나란히 들고 가는 시간이에요. 한쪽 등불에만 기름을 다 부으면 다른 쪽이 흔들리고, 두 개를 비슷하게 나누어 두면 두 자리 모두 부드럽게 밝아져요."
+    },
+    {
+      "fixture": "13-oh-extreme-weak-continuous-tiered.json",
+      "period": "thisMonth",
+      "category": "family",
+      "depth": "standard",
+      "slot": "para3",
+      "cellKey": "thisMonth/family/standard/para3",
       "plainText": "챙길 사람이 많은 달이니, 한 사람에게 부담이 몰리지 않도록 골고루 나누고 자기 휴식도 한 칸 챙기면서 한 달을 만들어 가요."
     },
     {
@@ -41834,6 +42014,15 @@
       "fixture": "13-oh-extreme-weak-continuous-tiered.json",
       "period": "thisYear",
       "category": "wealth",
+      "depth": "standard",
+      "slot": "para4",
+      "cellKey": "thisYear/wealth/standard/para4",
+      "plainText": "중년의 흐름은 깊이가 빛을 내는 흐름이에요. 자기 페이스를 지키는 것 자체가 큰 자산이 돼요."
+    },
+    {
+      "fixture": "13-oh-extreme-weak-continuous-tiered.json",
+      "period": "thisYear",
+      "category": "wealth",
       "depth": "expert",
       "slot": "para0",
       "cellKey": "thisYear/wealth/expert/para0",
@@ -42026,7 +42215,7 @@
       "depth": "brief",
       "slot": "headline",
       "cellKey": "thisYear/romance/brief/headline",
-      "plainText": "올해 관계운은 설렘과 현실감을 함께 맞출수록 더 오래 안정돼요."
+      "plainText": "올해는 곁의 사람과 한 끼를 천천히 나눠요."
     },
     {
       "fixture": "13-oh-extreme-weak-continuous-tiered.json",
@@ -43331,7 +43520,7 @@
       "depth": "standard",
       "slot": "para0",
       "cellKey": "life/movement/standard/para0",
-      "plainText": "익숙한 동선에서 한 발짝씩 넓혀 가는 평생 이동운이에요. 갑작스러운 큰 변화보다 천천히 활동 범위를 늘려 가는 호흡이 잘 맞아요."
+      "plainText": "평소 다니던 길을 한 축으로 두고 활동 반경을 천천히 키워 가는 평생 이동운이에요. 갑작스러운 큰 변화보다 자기 호흡에 맞춰 자리를 조금씩 늘려 가는 페이스가 잘 맞아요."
     },
     {
       "fixture": "14-choi-palace-naeum-surface-tiered.json",
@@ -44825,7 +45014,7 @@
       "depth": "standard",
       "slot": "para0",
       "cellKey": "thisWeek/expression_children/standard/para0",
-      "plainText": "이번 주는 작은 한 매듭으로 표현이 단단해지는 시기예요. 큰 무대보다 가까운 사람 앞에서 한 마디·한 줄을 다듬어 두면 방향이 또렷해져요."
+      "plainText": "주중에 마무리하는 짧은 한 매듭이 자기 표현을 한 단계 또렷하게 만들어 주는 흐름이에요. 큰 무대보다 가까운 사람 앞에서 한 마디·한 줄을 다듬어 두면 방향이 또렷해져요."
     },
     {
       "fixture": "14-choi-palace-naeum-surface-tiered.json",
@@ -45662,7 +45851,7 @@
       "depth": "standard",
       "slot": "para0",
       "cellKey": "thisMonth/expression_children/standard/para0",
-      "plainText": "이번 달은 작은 매듭들이 모여 표현이 단단해지는 시기예요. 큰 무대보다 가까운 사람 앞에서 한 매듭·한 줄을 다듬어 두면 한 달의 방향이 또렷해져요."
+      "plainText": "한 달 동안 짚어 두는 작업 하나하나가 자기 표현의 색을 한 뼘씩 진하게 만들어 주는 흐름이에요. 큰 무대보다 가까운 사람 앞에서 한 매듭·한 줄을 다듬어 두면 한 달의 방향이 또렷해져요."
     },
     {
       "fixture": "14-choi-palace-naeum-surface-tiered.json",
@@ -46418,7 +46607,7 @@
       "depth": "brief",
       "slot": "headline",
       "cellKey": "thisYear/study_document/brief/headline",
-      "plainText": "스승·기관의 도움이 깊은 해예요."
+      "plainText": "올해는 모은 자료를 천천히 엮어 두기 좋은 한 해예요."
     },
     {
       "fixture": "14-choi-palace-naeum-surface-tiered.json",
@@ -46499,7 +46688,7 @@
       "depth": "standard",
       "slot": "para0",
       "cellKey": "thisYear/expression_children/standard/para0",
-      "plainText": "올해는 매듭들이 모여 자기 표현이 단단해지는 한 해예요. 큰 무대보다 가까운 사람 앞에서 한 매듭·한 줄을 다듬어 두면 한 해의 방향이 또렷해져요."
+      "plainText": "분기마다 짚어 두는 한 매듭 한 매듭이 모여 자기 표현의 색을 한 뼘씩 진하게 만들어 주는 한 해예요. 큰 무대보다 가까운 사람 앞에서 한 매듭·한 줄을 다듬어 두면 한 해의 방향이 또렷해져요."
     },
     {
       "fixture": "14-choi-palace-naeum-surface-tiered.json",
@@ -46661,7 +46850,7 @@
       "depth": "standard",
       "slot": "para0",
       "cellKey": "thisYear/movement/standard/para0",
-      "plainText": "올해 이동운은 익숙한 동선에서 한 발짝씩 넓혀 가기 좋은 모습이에요. 갑작스러운 큰 변화보다 천천히 활동 범위를 늘려 가는 호흡이 잘 맞아요."
+      "plainText": "갑작스러운 큰 변화보다 평소 다니던 길을 한 축으로 두고 활동 반경을 천천히 키워 가는 한 해 이동운이에요. 자기 자리를 무리해서 옮기지 않고 호흡 가능한 폭으로 늘려 가는 페이스가 잘 맞아요."
     },
     {
       "fixture": "14-choi-palace-naeum-surface-tiered.json",
@@ -47534,7 +47723,7 @@
       "depth": "standard",
       "slot": "para0",
       "cellKey": "life/movement/standard/para0",
-      "plainText": "익숙한 동선에서 한 발짝씩 넓혀 가는 평생 이동운이에요. 갑작스러운 큰 변화보다 천천히 활동 범위를 늘려 가는 호흡이 잘 맞아요."
+      "plainText": "평소 다니던 길을 한 축으로 두고 활동 반경을 천천히 키워 가는 평생 이동운이에요. 갑작스러운 큰 변화보다 자기 호흡에 맞춰 자리를 조금씩 늘려 가는 페이스가 잘 맞아요."
     },
     {
       "fixture": "15-choi-consensus-aware-yongshin-tiered.json",
@@ -47822,7 +48011,7 @@
       "depth": "brief",
       "slot": "headline",
       "cellKey": "today/academic/brief/headline",
-      "plainText": "오늘은 자기계발 한 챕터를 챙기기 좋은 흐름이에요."
+      "plainText": "오늘은 책상 앞 한 시간을 또렷이 지켜요."
     },
     {
       "fixture": "15-choi-consensus-aware-yongshin-tiered.json",
@@ -49028,7 +49217,7 @@
       "depth": "standard",
       "slot": "para0",
       "cellKey": "thisWeek/expression_children/standard/para0",
-      "plainText": "이번 주는 작은 한 매듭으로 표현이 단단해지는 시기예요. 큰 무대보다 가까운 사람 앞에서 한 마디·한 줄을 다듬어 두면 방향이 또렷해져요."
+      "plainText": "주중에 마무리하는 짧은 한 매듭이 자기 표현을 한 단계 또렷하게 만들어 주는 흐름이에요. 큰 무대보다 가까운 사람 앞에서 한 마디·한 줄을 다듬어 두면 방향이 또렷해져요."
     },
     {
       "fixture": "15-choi-consensus-aware-yongshin-tiered.json",
@@ -49865,7 +50054,7 @@
       "depth": "standard",
       "slot": "para0",
       "cellKey": "thisMonth/expression_children/standard/para0",
-      "plainText": "이번 달은 작은 매듭들이 모여 표현이 단단해지는 시기예요. 큰 무대보다 가까운 사람 앞에서 한 매듭·한 줄을 다듬어 두면 한 달의 방향이 또렷해져요."
+      "plainText": "한 달 동안 짚어 두는 작업 하나하나가 자기 표현의 색을 한 뼘씩 진하게 만들어 주는 흐름이에요. 큰 무대보다 가까운 사람 앞에서 한 매듭·한 줄을 다듬어 두면 한 달의 방향이 또렷해져요."
     },
     {
       "fixture": "15-choi-consensus-aware-yongshin-tiered.json",
@@ -50387,7 +50576,7 @@
       "depth": "brief",
       "slot": "headline",
       "cellKey": "thisYear/romance/brief/headline",
-      "plainText": "올해는 곁의 인연을 단단히 가꾸어 가는 해예요."
+      "plainText": "올해는 짧은 메시지 한 줄이 관계를 데워요."
     },
     {
       "fixture": "15-choi-consensus-aware-yongshin-tiered.json",
@@ -50621,7 +50810,7 @@
       "depth": "brief",
       "slot": "headline",
       "cellKey": "thisYear/study_document/brief/headline",
-      "plainText": "올해는 새 공부나 문서 프로젝트를 열어 보기 좋아요."
+      "plainText": "올해는 모은 자료를 천천히 엮어 두기 좋은 한 해예요."
     },
     {
       "fixture": "15-choi-consensus-aware-yongshin-tiered.json",
@@ -50702,7 +50891,7 @@
       "depth": "standard",
       "slot": "para0",
       "cellKey": "thisYear/expression_children/standard/para0",
-      "plainText": "올해는 매듭들이 모여 자기 표현이 단단해지는 한 해예요. 큰 무대보다 가까운 사람 앞에서 한 매듭·한 줄을 다듬어 두면 한 해의 방향이 또렷해져요."
+      "plainText": "분기마다 짚어 두는 한 매듭 한 매듭이 모여 자기 표현의 색을 한 뼘씩 진하게 만들어 주는 한 해예요. 큰 무대보다 가까운 사람 앞에서 한 매듭·한 줄을 다듬어 두면 한 해의 방향이 또렷해져요."
     },
     {
       "fixture": "15-choi-consensus-aware-yongshin-tiered.json",
@@ -50855,7 +51044,7 @@
       "depth": "brief",
       "slot": "headline",
       "cellKey": "thisYear/movement/brief/headline",
-      "plainText": "올해는 익숙한 동선에서 한 발짝씩 넓혀 가기 좋아요."
+      "plainText": "올해는 익숙한 동선에 작은 변화가 활력을 보태요."
     },
     {
       "fixture": "15-choi-consensus-aware-yongshin-tiered.json",
@@ -50864,7 +51053,7 @@
       "depth": "standard",
       "slot": "para0",
       "cellKey": "thisYear/movement/standard/para0",
-      "plainText": "올해 이동운은 익숙한 동선에서 한 발짝씩 넓혀 가기 좋은 모습이에요. 갑작스러운 큰 변화보다 천천히 활동 범위를 늘려 가는 호흡이 잘 맞아요."
+      "plainText": "갑작스러운 큰 변화보다 평소 다니던 길을 한 축으로 두고 활동 반경을 천천히 키워 가는 한 해 이동운이에요. 자기 자리를 무리해서 옮기지 않고 호흡 가능한 폭으로 늘려 가는 페이스가 잘 맞아요."
     },
     {
       "fixture": "15-choi-consensus-aware-yongshin-tiered.json",
@@ -51710,7 +51899,7 @@
       "depth": "standard",
       "slot": "para0",
       "cellKey": "life/movement/standard/para0",
-      "plainText": "익숙한 동선에서 한 발짝씩 넓혀 가는 평생 이동운이에요. 갑작스러운 큰 변화보다 천천히 활동 범위를 늘려 가는 호흡이 잘 맞아요."
+      "plainText": "평소 다니던 길을 한 축으로 두고 활동 반경을 천천히 키워 가는 평생 이동운이에요. 갑작스러운 큰 변화보다 자기 호흡에 맞춰 자리를 조금씩 늘려 가는 페이스가 잘 맞아요."
     },
     {
       "fixture": "16-choi-senior-male-tiered.json",
@@ -53186,7 +53375,7 @@
       "depth": "standard",
       "slot": "para0",
       "cellKey": "thisWeek/expression_children/standard/para0",
-      "plainText": "이번 주는 작은 한 매듭으로 표현이 단단해지는 시기예요. 큰 무대보다 가까운 사람 앞에서 한 마디·한 줄을 다듬어 두면 방향이 또렷해져요."
+      "plainText": "주중에 마무리하는 짧은 한 매듭이 자기 표현을 한 단계 또렷하게 만들어 주는 흐름이에요. 큰 무대보다 가까운 사람 앞에서 한 마디·한 줄을 다듬어 두면 방향이 또렷해져요."
     },
     {
       "fixture": "16-choi-senior-male-tiered.json",
@@ -54005,7 +54194,7 @@
       "depth": "standard",
       "slot": "para0",
       "cellKey": "thisMonth/expression_children/standard/para0",
-      "plainText": "이번 달은 작은 매듭들이 모여 표현이 단단해지는 시기예요. 큰 무대보다 가까운 사람 앞에서 한 매듭·한 줄을 다듬어 두면 한 달의 방향이 또렷해져요."
+      "plainText": "한 달 동안 짚어 두는 작업 하나하나가 자기 표현의 색을 한 뼘씩 진하게 만들어 주는 흐름이에요. 큰 무대보다 가까운 사람 앞에서 한 매듭·한 줄을 다듬어 두면 한 달의 방향이 또렷해져요."
     },
     {
       "fixture": "16-choi-senior-male-tiered.json",
@@ -54743,7 +54932,7 @@
       "depth": "brief",
       "slot": "headline",
       "cellKey": "thisYear/study_document/brief/headline",
-      "plainText": "올해는 문서와 지식을 체계적으로 관리할수록 중요한 결정이 쉬워져요."
+      "plainText": "올해는 모은 자료를 천천히 엮어 두기 좋은 한 해예요."
     },
     {
       "fixture": "16-choi-senior-male-tiered.json",
@@ -54824,7 +55013,7 @@
       "depth": "standard",
       "slot": "para0",
       "cellKey": "thisYear/expression_children/standard/para0",
-      "plainText": "올해는 매듭들이 모여 자기 표현이 단단해지는 한 해예요. 큰 무대보다 가까운 사람 앞에서 한 매듭·한 줄을 다듬어 두면 한 해의 방향이 또렷해져요."
+      "plainText": "분기마다 짚어 두는 한 매듭 한 매듭이 모여 자기 표현의 색을 한 뼘씩 진하게 만들어 주는 한 해예요. 큰 무대보다 가까운 사람 앞에서 한 매듭·한 줄을 다듬어 두면 한 해의 방향이 또렷해져요."
     },
     {
       "fixture": "16-choi-senior-male-tiered.json",
@@ -54986,7 +55175,7 @@
       "depth": "standard",
       "slot": "para0",
       "cellKey": "thisYear/movement/standard/para0",
-      "plainText": "올해 이동운은 익숙한 동선에서 한 발짝씩 넓혀 가기 좋은 모습이에요. 갑작스러운 큰 변화보다 천천히 활동 범위를 늘려 가는 호흡이 잘 맞아요."
+      "plainText": "갑작스러운 큰 변화보다 평소 다니던 길을 한 축으로 두고 활동 반경을 천천히 키워 가는 한 해 이동운이에요. 자기 자리를 무리해서 옮기지 않고 호흡 가능한 폭으로 늘려 가는 페이스가 잘 맞아요."
     },
     {
       "fixture": "16-choi-senior-male-tiered.json",
@@ -55301,6 +55490,15 @@
       "depth": "standard",
       "slot": "para2",
       "cellKey": "life/academic/standard/para2",
+      "plainText": "작은 실천 흐름으로는 매일 같은 시각에 짧게 읽는 자리를 만들어 두면 좋아요. 한 페이지를 손주에게 소리 내어 읽어 주거나, 한 문장을 옮겨 적어 두는 흐름이 그날의 즐거움으로 남아요."
+    },
+    {
+      "fixture": "17-kim-senior-female-tiered.json",
+      "period": "life",
+      "category": "academic",
+      "depth": "standard",
+      "slot": "para3",
+      "cellKey": "life/academic/standard/para3",
       "plainText": "평생 모은 지혜가 자연스럽게 다음 사람에게 전해져요."
     },
     {
@@ -55427,7 +55625,7 @@
       "depth": "standard",
       "slot": "para0",
       "cellKey": "life/family/standard/para0",
-      "plainText": "이 시기는 인생 전체에서 가꾸어 온 가풍이 든든한 결실로 모여 있는 자리예요. 곁에 있어 주는 사람들의 결, 멀리서 안부를 보내는 결, 다음 세대로 이어지는 흐름이 한 흙 위에 같이 자리해요."
+      "plainText": "이 시기는 인생 전체에서 가꾸어 온 가풍이 든든한 결실로 모여 있는 자리예요. 곁에 있어 주는 사람들의 손길, 멀리서 안부를 보내는 마음, 다음 세대로 이어지는 흐름이 한 흙 위에 같이 자리해요."
     },
     {
       "fixture": "17-kim-senior-female-tiered.json",
@@ -55445,6 +55643,24 @@
       "depth": "standard",
       "slot": "para2",
       "cellKey": "life/family/standard/para2",
+      "plainText": "비유하자면 잘 익은 가을 들판을 천천히 걷는 시간이에요. 새로 씨를 뿌리지 않아도 쌓인 흐름이 따뜻한 빛으로 가족 자리를 비춰 주고, 그 빛이 다음 세대의 발걸음을 받쳐 줘요."
+    },
+    {
+      "fixture": "17-kim-senior-female-tiered.json",
+      "period": "life",
+      "category": "family",
+      "depth": "standard",
+      "slot": "para3",
+      "cellKey": "life/family/standard/para3",
+      "plainText": "반대로 도움을 받는 자리가 늘어나며 미안함이 올라오는 시기도 함께 와요. 받는 손길도 흐름을 만들어 가는 자리라는 점을 떠올리면, 다음 세대도 받는 자리에서 자기 흐름을 배워 가요."
+    },
+    {
+      "fixture": "17-kim-senior-female-tiered.json",
+      "period": "life",
+      "category": "family",
+      "depth": "standard",
+      "slot": "para4",
+      "cellKey": "life/family/standard/para4",
       "plainText": "평생의 따뜻함이 이어지는 시기이니, 흐름을 천천히 누리면 좋아요."
     },
     {
@@ -61430,7 +61646,7 @@
       "depth": "standard",
       "slot": "para0",
       "cellKey": "thisWeek/expression_children/standard/para0",
-      "plainText": "이번 주는 좋아하는 놀이로 즐거움이 가득한 흐름이에요. 그림·노래·이야기처럼 자기 색이 풀려 나오는 시간이 한 주 곳곳에 있어요."
+      "plainText": "그림·노래·이야기처럼 자기 색이 풀려 나오는 시간이 한 주 곳곳에 자리 잡는 흐름이에요. 좋아하는 놀이가 한 주 동안 즐거움의 중심이 되어 줘요."
     },
     {
       "fixture": "18-lee-child-male-tiered.json",
@@ -62456,7 +62672,7 @@
       "depth": "standard",
       "slot": "para0",
       "cellKey": "thisYear/overall/standard/para0",
-      "plainText": "아이는 한 해 동안 새 친구·새 놀이·새 발견을 만나는 자리가 많은 흐름이에요. 가족 안의 따뜻한 분위기가 한 해 내내 흐름의 토대가 돼요."
+      "plainText": "올 한 해는 친구·놀이·새로운 발견 같은 작은 자극이 한꺼번에 쏟아지는 시기예요. 가족 안의 따뜻한 분위기가 한 해 내내 흐름의 토대가 돼요."
     },
     {
       "fixture": "18-lee-child-male-tiered.json",
@@ -63518,6 +63734,15 @@
       "depth": "standard",
       "slot": "para2",
       "cellKey": "life/academic/standard/para2",
+      "plainText": "분기마다 작은 변주를 한 가지씩 더해 보는 호흡도 잘 맞아요. 한 분기엔 새 책 한 권, 다음 분기엔 짧은 강의 하나처럼 흐름을 다르게 두면 익숙함과 새로움 사이의 균형이 더 단단해져요."
+    },
+    {
+      "fixture": "19-gyeokguk-conflict-jeonggwan-vs-bigyeop-tiered.json",
+      "period": "life",
+      "category": "academic",
+      "depth": "standard",
+      "slot": "para3",
+      "cellKey": "life/academic/standard/para3",
       "plainText": "큰 결단보다 꾸준한 한 줄이 결국 멀리 가요."
     },
     {
@@ -63662,6 +63887,24 @@
       "depth": "standard",
       "slot": "para2",
       "cellKey": "life/family/standard/para2",
+      "plainText": "비유하자면 작은 강물이 굽이굽이 흐르는 그림이에요. 한쪽으로 너무 쏟아져도 마르고, 한쪽에만 고여 있어도 흐릿해지는데, 받고 흘리는 양이 비슷할 때 강줄기가 깊어져요."
+    },
+    {
+      "fixture": "19-gyeokguk-conflict-jeonggwan-vs-bigyeop-tiered.json",
+      "period": "life",
+      "category": "family",
+      "depth": "standard",
+      "slot": "para3",
+      "cellKey": "life/family/standard/para3",
+      "plainText": "다만 받는 자리가 길게 이어지는 한 시기에는 미안함이 슬며시 올라올 수 있어요. 그럴 땐 한 가지 작은 안부라도 먼저 건네 두면, 받고 흘리는 흐름이 다시 자기 페이스로 돌아와요."
+    },
+    {
+      "fixture": "19-gyeokguk-conflict-jeonggwan-vs-bigyeop-tiered.json",
+      "period": "life",
+      "category": "family",
+      "depth": "standard",
+      "slot": "para4",
+      "cellKey": "life/family/standard/para4",
       "plainText": "큰 무리수 없이 흐름을 따라가면, 평생의 그림이 든든하게 모여요."
     },
     {
@@ -64310,7 +64553,7 @@
       "depth": "brief",
       "slot": "headline",
       "cellKey": "today/academic/brief/headline",
-      "plainText": "오늘 공부는 오래 준비하기보다 바로 펼쳐서 첫 문제를 푸는 쪽이요."
+      "plainText": "오늘은 책상 앞 한 시간을 또렷이 지켜요."
     },
     {
       "fixture": "19-gyeokguk-conflict-jeonggwan-vs-bigyeop-tiered.json",
@@ -64598,7 +64841,7 @@
       "depth": "brief",
       "slot": "headline",
       "cellKey": "today/study_document/brief/headline",
-      "plainText": "오늘은 공부나 문서 작업을 시작하기 좋은 날이에요."
+      "plainText": "오늘은 연락처와 주소를 한번 정리하기 좋아요."
     },
     {
       "fixture": "19-gyeokguk-conflict-jeonggwan-vs-bigyeop-tiered.json",
@@ -66200,6 +66443,15 @@
       "depth": "standard",
       "slot": "para2",
       "cellKey": "thisMonth/career/standard/para2",
+      "plainText": "익숙한 페이스가 만든 한 달의 정돈은 분기 단위에서 더 또렷이 보여요. 세 달치 메모를 한 자리에 모아 두면 자기 흐름의 강·약 자리가 자연스럽게 드러나고, 다음 분기의 한 가지 결정이 가벼워져요."
+    },
+    {
+      "fixture": "19-gyeokguk-conflict-jeonggwan-vs-bigyeop-tiered.json",
+      "period": "thisMonth",
+      "category": "career",
+      "depth": "standard",
+      "slot": "para3",
+      "cellKey": "thisMonth/career/standard/para3",
       "plainText": "이번 달의 정돈이 한 분기의 결정 한 가지를 가볍게 만들어 줘요."
     },
     {
@@ -66578,6 +66830,15 @@
       "depth": "standard",
       "slot": "para2",
       "cellKey": "thisYear/overall/standard/para2",
+      "plainText": "작은 실천 흐름으로는 매달 말일에 한 줄로 그달의 흐름을 적어 두면 좋아요. 열두 줄이 모이면 올해가 흘려보낸 시간이 아닌, 자기 페이스를 다듬은 한 해의 기록으로 남아요."
+    },
+    {
+      "fixture": "19-gyeokguk-conflict-jeonggwan-vs-bigyeop-tiered.json",
+      "period": "thisYear",
+      "category": "overall",
+      "depth": "standard",
+      "slot": "para3",
+      "cellKey": "thisYear/overall/standard/para3",
       "plainText": "변화가 적다고 느낄 때, 작은 호기심 한 가지를 살짝 더해 봐요."
     },
     {
@@ -67073,7 +67334,7 @@
       "depth": "brief",
       "slot": "headline",
       "cellKey": "thisYear/study_document/brief/headline",
-      "plainText": "올해는 어려운 것부터 잡기보다 기본 자료와 반복 학습을 탄탄히요."
+      "plainText": "올해는 모은 자료를 천천히 엮어 두기 좋은 한 해예요."
     },
     {
       "fixture": "19-gyeokguk-conflict-jeonggwan-vs-bigyeop-tiered.json",
@@ -67307,7 +67568,7 @@
       "depth": "brief",
       "slot": "headline",
       "cellKey": "thisYear/movement/brief/headline",
-      "plainText": "올해는 무리한 변화보다 필요한 이동만 고르는 태도가 안정적이에요."
+      "plainText": "올해는 익숙한 동선에 작은 변화가 활력을 보태요."
     },
     {
       "fixture": "19-gyeokguk-conflict-jeonggwan-vs-bigyeop-tiered.json",
@@ -68171,7 +68432,7 @@
       "depth": "standard",
       "slot": "para0",
       "cellKey": "life/movement/standard/para0",
-      "plainText": "익숙한 동선에서 한 발짝씩 넓혀 가는 평생 이동운이에요. 갑작스러운 큰 변화보다 천천히 활동 범위를 늘려 가는 호흡이 잘 맞아요."
+      "plainText": "평소 다니던 길을 한 축으로 두고 활동 반경을 천천히 키워 가는 평생 이동운이에요. 갑작스러운 큰 변화보다 자기 호흡에 맞춰 자리를 조금씩 늘려 가는 페이스가 잘 맞아요."
     },
     {
       "fixture": "20-gyeokguk-conflict-consensus-aware-tiered.json",
@@ -69665,7 +69926,7 @@
       "depth": "standard",
       "slot": "para0",
       "cellKey": "thisWeek/expression_children/standard/para0",
-      "plainText": "이번 주는 작은 한 매듭으로 표현이 단단해지는 시기예요. 큰 무대보다 가까운 사람 앞에서 한 마디·한 줄을 다듬어 두면 방향이 또렷해져요."
+      "plainText": "주중에 마무리하는 짧은 한 매듭이 자기 표현을 한 단계 또렷하게 만들어 주는 흐름이에요. 큰 무대보다 가까운 사람 앞에서 한 마디·한 줄을 다듬어 두면 방향이 또렷해져요."
     },
     {
       "fixture": "20-gyeokguk-conflict-consensus-aware-tiered.json",
@@ -70043,7 +70304,7 @@
       "depth": "brief",
       "slot": "headline",
       "cellKey": "thisMonth/health/brief/headline",
-      "plainText": "이번 달은 잠자리를 든든히 챙기는 편이 좋아요."
+      "plainText": "이번 달은 작은 회복 루틴 한 가지가 든든해져요."
     },
     {
       "fixture": "20-gyeokguk-conflict-consensus-aware-tiered.json",
@@ -70484,7 +70745,7 @@
       "depth": "standard",
       "slot": "para0",
       "cellKey": "thisMonth/expression_children/standard/para0",
-      "plainText": "이번 달은 작은 매듭들이 모여 표현이 단단해지는 시기예요. 큰 무대보다 가까운 사람 앞에서 한 매듭·한 줄을 다듬어 두면 한 달의 방향이 또렷해져요."
+      "plainText": "한 달 동안 짚어 두는 작업 하나하나가 자기 표현의 색을 한 뼘씩 진하게 만들어 주는 흐름이에요. 큰 무대보다 가까운 사람 앞에서 한 매듭·한 줄을 다듬어 두면 한 달의 방향이 또렷해져요."
     },
     {
       "fixture": "20-gyeokguk-conflict-consensus-aware-tiered.json",
@@ -70547,7 +70808,7 @@
       "depth": "brief",
       "slot": "headline",
       "cellKey": "thisMonth/health_stress/brief/headline",
-      "plainText": "이번 달은 무리하지 않는 흐름이 약이에요."
+      "plainText": "이번 달은 마음을 비우는 시간이 회복의 열쇠가 되어요."
     },
     {
       "fixture": "20-gyeokguk-conflict-consensus-aware-tiered.json",
@@ -71006,7 +71267,7 @@
       "depth": "brief",
       "slot": "headline",
       "cellKey": "thisYear/romance/brief/headline",
-      "plainText": "올해는 곁의 인연을 단단히 가꾸어 가는 해예요."
+      "plainText": "올해는 곁의 사람과 한 끼를 천천히 나눠요."
     },
     {
       "fixture": "20-gyeokguk-conflict-consensus-aware-tiered.json",
@@ -71321,7 +71582,7 @@
       "depth": "standard",
       "slot": "para0",
       "cellKey": "thisYear/expression_children/standard/para0",
-      "plainText": "올해는 매듭들이 모여 자기 표현이 단단해지는 한 해예요. 큰 무대보다 가까운 사람 앞에서 한 매듭·한 줄을 다듬어 두면 한 해의 방향이 또렷해져요."
+      "plainText": "분기마다 짚어 두는 한 매듭 한 매듭이 모여 자기 표현의 색을 한 뼘씩 진하게 만들어 주는 한 해예요. 큰 무대보다 가까운 사람 앞에서 한 매듭·한 줄을 다듬어 두면 한 해의 방향이 또렷해져요."
     },
     {
       "fixture": "20-gyeokguk-conflict-consensus-aware-tiered.json",
@@ -71483,7 +71744,7 @@
       "depth": "standard",
       "slot": "para0",
       "cellKey": "thisYear/movement/standard/para0",
-      "plainText": "올해 이동운은 익숙한 동선에서 한 발짝씩 넓혀 가기 좋은 모습이에요. 갑작스러운 큰 변화보다 천천히 활동 범위를 늘려 가는 호흡이 잘 맞아요."
+      "plainText": "갑작스러운 큰 변화보다 평소 다니던 길을 한 축으로 두고 활동 반경을 천천히 키워 가는 한 해 이동운이에요. 자기 자리를 무리해서 옮기지 않고 호흡 가능한 폭으로 늘려 가는 페이스가 잘 맞아요."
     },
     {
       "fixture": "20-gyeokguk-conflict-consensus-aware-tiered.json",
@@ -72356,7 +72617,7 @@
       "depth": "standard",
       "slot": "para0",
       "cellKey": "life/movement/standard/para0",
-      "plainText": "익숙한 동선에서 한 발짝씩 넓혀 가는 평생 이동운이에요. 갑작스러운 큰 변화보다 천천히 활동 범위를 늘려 가는 호흡이 잘 맞아요."
+      "plainText": "평소 다니던 길을 한 축으로 두고 활동 반경을 천천히 키워 가는 평생 이동운이에요. 갑작스러운 큰 변화보다 자기 호흡에 맞춰 자리를 조금씩 늘려 가는 페이스가 잘 맞아요."
     },
     {
       "fixture": "21-multi-axis-evaluator-enabled-tiered.json",
@@ -72644,7 +72905,7 @@
       "depth": "brief",
       "slot": "headline",
       "cellKey": "today/academic/brief/headline",
-      "plainText": "오늘은 자기계발 한 챕터를 챙기기 좋은 흐름이에요."
+      "plainText": "오늘은 책상 앞 한 시간을 또렷이 지켜요."
     },
     {
       "fixture": "21-multi-axis-evaluator-enabled-tiered.json",
@@ -73850,7 +74111,7 @@
       "depth": "standard",
       "slot": "para0",
       "cellKey": "thisWeek/expression_children/standard/para0",
-      "plainText": "이번 주는 작은 한 매듭으로 표현이 단단해지는 시기예요. 큰 무대보다 가까운 사람 앞에서 한 마디·한 줄을 다듬어 두면 방향이 또렷해져요."
+      "plainText": "주중에 마무리하는 짧은 한 매듭이 자기 표현을 한 단계 또렷하게 만들어 주는 흐름이에요. 큰 무대보다 가까운 사람 앞에서 한 마디·한 줄을 다듬어 두면 방향이 또렷해져요."
     },
     {
       "fixture": "21-multi-axis-evaluator-enabled-tiered.json",
@@ -74687,7 +74948,7 @@
       "depth": "standard",
       "slot": "para0",
       "cellKey": "thisMonth/expression_children/standard/para0",
-      "plainText": "이번 달은 작은 매듭들이 모여 표현이 단단해지는 시기예요. 큰 무대보다 가까운 사람 앞에서 한 매듭·한 줄을 다듬어 두면 한 달의 방향이 또렷해져요."
+      "plainText": "한 달 동안 짚어 두는 작업 하나하나가 자기 표현의 색을 한 뼘씩 진하게 만들어 주는 흐름이에요. 큰 무대보다 가까운 사람 앞에서 한 매듭·한 줄을 다듬어 두면 한 달의 방향이 또렷해져요."
     },
     {
       "fixture": "21-multi-axis-evaluator-enabled-tiered.json",
@@ -75209,7 +75470,7 @@
       "depth": "brief",
       "slot": "headline",
       "cellKey": "thisYear/romance/brief/headline",
-      "plainText": "올해는 곁의 인연을 단단히 가꾸어 가는 해예요."
+      "plainText": "올해는 짧은 메시지 한 줄이 관계를 데워요."
     },
     {
       "fixture": "21-multi-axis-evaluator-enabled-tiered.json",
@@ -75443,7 +75704,7 @@
       "depth": "brief",
       "slot": "headline",
       "cellKey": "thisYear/study_document/brief/headline",
-      "plainText": "올해는 새 공부나 문서 프로젝트를 열어 보기 좋아요."
+      "plainText": "올해는 모은 자료를 천천히 엮어 두기 좋은 한 해예요."
     },
     {
       "fixture": "21-multi-axis-evaluator-enabled-tiered.json",
@@ -75524,7 +75785,7 @@
       "depth": "standard",
       "slot": "para0",
       "cellKey": "thisYear/expression_children/standard/para0",
-      "plainText": "올해는 매듭들이 모여 자기 표현이 단단해지는 한 해예요. 큰 무대보다 가까운 사람 앞에서 한 매듭·한 줄을 다듬어 두면 한 해의 방향이 또렷해져요."
+      "plainText": "분기마다 짚어 두는 한 매듭 한 매듭이 모여 자기 표현의 색을 한 뼘씩 진하게 만들어 주는 한 해예요. 큰 무대보다 가까운 사람 앞에서 한 매듭·한 줄을 다듬어 두면 한 해의 방향이 또렷해져요."
     },
     {
       "fixture": "21-multi-axis-evaluator-enabled-tiered.json",
@@ -75677,7 +75938,7 @@
       "depth": "brief",
       "slot": "headline",
       "cellKey": "thisYear/movement/brief/headline",
-      "plainText": "올해는 익숙한 동선에서 한 발짝씩 넓혀 가기 좋아요."
+      "plainText": "올해는 익숙한 동선에 작은 변화가 활력을 보태요."
     },
     {
       "fixture": "21-multi-axis-evaluator-enabled-tiered.json",
@@ -75686,7 +75947,7 @@
       "depth": "standard",
       "slot": "para0",
       "cellKey": "thisYear/movement/standard/para0",
-      "plainText": "올해 이동운은 익숙한 동선에서 한 발짝씩 넓혀 가기 좋은 모습이에요. 갑작스러운 큰 변화보다 천천히 활동 범위를 늘려 가는 호흡이 잘 맞아요."
+      "plainText": "갑작스러운 큰 변화보다 평소 다니던 길을 한 축으로 두고 활동 반경을 천천히 키워 가는 한 해 이동운이에요. 자기 자리를 무리해서 옮기지 않고 호흡 가능한 폭으로 늘려 가는 페이스가 잘 맞아요."
     },
     {
       "fixture": "21-multi-axis-evaluator-enabled-tiered.json",
@@ -76577,7 +76838,7 @@
       "depth": "standard",
       "slot": "para0",
       "cellKey": "life/movement/standard/para0",
-      "plainText": "익숙한 동선에서 한 발짝씩 넓혀 가는 평생 이동운이에요. 갑작스러운 큰 변화보다 천천히 활동 범위를 늘려 가는 호흡이 잘 맞아요."
+      "plainText": "평소 다니던 길을 한 축으로 두고 활동 반경을 천천히 키워 가는 평생 이동운이에요. 갑작스러운 큰 변화보다 자기 호흡에 맞춰 자리를 조금씩 늘려 가는 페이스가 잘 맞아요."
     },
     {
       "fixture": "22-low-confidence-yongshin-tiered.json",
@@ -77828,7 +78089,7 @@
       "depth": "brief",
       "slot": "headline",
       "cellKey": "thisWeek/family/brief/headline",
-      "plainText": "이번 주 가족 관계는 큰 말보다 지킬 수 있는 작은 약속이 더 힘이 돼요."
+      "plainText": "이번 주는 가까운 사람과 짧게 안부를 나누면 좋아요."
     },
     {
       "fixture": "22-low-confidence-yongshin-tiered.json",
@@ -78053,7 +78314,7 @@
       "depth": "standard",
       "slot": "para0",
       "cellKey": "thisWeek/expression_children/standard/para0",
-      "plainText": "이번 주는 작은 한 매듭으로 표현이 단단해지는 시기예요. 큰 무대보다 가까운 사람 앞에서 한 마디·한 줄을 다듬어 두면 방향이 또렷해져요."
+      "plainText": "주중에 마무리하는 짧은 한 매듭이 자기 표현을 한 단계 또렷하게 만들어 주는 흐름이에요. 큰 무대보다 가까운 사람 앞에서 한 마디·한 줄을 다듬어 두면 방향이 또렷해져요."
     },
     {
       "fixture": "22-low-confidence-yongshin-tiered.json",
@@ -78890,7 +79151,7 @@
       "depth": "standard",
       "slot": "para0",
       "cellKey": "thisMonth/expression_children/standard/para0",
-      "plainText": "이번 달은 작은 매듭들이 모여 표현이 단단해지는 시기예요. 큰 무대보다 가까운 사람 앞에서 한 매듭·한 줄을 다듬어 두면 한 달의 방향이 또렷해져요."
+      "plainText": "한 달 동안 짚어 두는 작업 하나하나가 자기 표현의 색을 한 뼘씩 진하게 만들어 주는 흐름이에요. 큰 무대보다 가까운 사람 앞에서 한 매듭·한 줄을 다듬어 두면 한 달의 방향이 또렷해져요."
     },
     {
       "fixture": "22-low-confidence-yongshin-tiered.json",
@@ -79745,7 +80006,7 @@
       "depth": "standard",
       "slot": "para0",
       "cellKey": "thisYear/expression_children/standard/para0",
-      "plainText": "올해는 매듭들이 모여 자기 표현이 단단해지는 한 해예요. 큰 무대보다 가까운 사람 앞에서 한 매듭·한 줄을 다듬어 두면 한 해의 방향이 또렷해져요."
+      "plainText": "분기마다 짚어 두는 한 매듭 한 매듭이 모여 자기 표현의 색을 한 뼘씩 진하게 만들어 주는 한 해예요. 큰 무대보다 가까운 사람 앞에서 한 매듭·한 줄을 다듬어 두면 한 해의 방향이 또렷해져요."
     },
     {
       "fixture": "22-low-confidence-yongshin-tiered.json",
@@ -79907,7 +80168,7 @@
       "depth": "standard",
       "slot": "para0",
       "cellKey": "thisYear/movement/standard/para0",
-      "plainText": "올해 이동운은 익숙한 동선에서 한 발짝씩 넓혀 가기 좋은 모습이에요. 갑작스러운 큰 변화보다 천천히 활동 범위를 늘려 가는 호흡이 잘 맞아요."
+      "plainText": "갑작스러운 큰 변화보다 평소 다니던 길을 한 축으로 두고 활동 반경을 천천히 키워 가는 한 해 이동운이에요. 자기 자리를 무리해서 옮기지 않고 호흡 가능한 폭으로 늘려 가는 페이스가 잘 맞아요."
     },
     {
       "fixture": "22-low-confidence-yongshin-tiered.json",
@@ -80042,7 +80303,7 @@
       "depth": "brief",
       "slot": "headline",
       "cellKey": "life/wealth/brief/headline",
-      "plainText": "후반기의 재물은 주변과 나누는 리듬이 자연스러워져요."
+      "plainText": "오랜 인연과의 거래가 큰 자산으로 이어지는 시간이에요."
     },
     {
       "fixture": "23-jonggyeok-jongwang-yeomsang-tiered.json",
@@ -80213,6 +80474,15 @@
       "depth": "standard",
       "slot": "para2",
       "cellKey": "life/academic/standard/para2",
+      "plainText": "작은 실천 흐름으로는 매일 같은 시각에 짧게 읽는 자리를 만들어 두면 좋아요. 한 페이지를 손주에게 소리 내어 읽어 주거나, 한 문장을 옮겨 적어 두는 흐름이 그날의 즐거움으로 남아요."
+    },
+    {
+      "fixture": "23-jonggyeok-jongwang-yeomsang-tiered.json",
+      "period": "life",
+      "category": "academic",
+      "depth": "standard",
+      "slot": "para3",
+      "cellKey": "life/academic/standard/para3",
       "plainText": "평생 모은 지혜가 자연스럽게 다음 사람에게 전해져요."
     },
     {
@@ -82643,6 +82913,15 @@
       "depth": "standard",
       "slot": "para2",
       "cellKey": "thisMonth/health/standard/para2",
+      "plainText": "작은 실천 흐름으로는 매주 일요일 저녁에 그 주의 컨디션을 짧게 적어 두면 좋아요. 잠·수분·식사 세 가지를 한 줄씩 점검해 두면, 한 달의 흐름이 한눈에 보이고 무리한 자리를 미리 알아채기 쉬워져요."
+    },
+    {
+      "fixture": "23-jonggyeok-jongwang-yeomsang-tiered.json",
+      "period": "thisMonth",
+      "category": "health",
+      "depth": "standard",
+      "slot": "para3",
+      "cellKey": "thisMonth/health/standard/para3",
       "plainText": "월말 무렵엔 컨디션 점검이나 충분한 휴식 자리를 한 번 잡아 두면, 다음 달의 결까지 자연스럽게 단단해져요."
     },
     {
@@ -83804,7 +84083,7 @@
       "depth": "brief",
       "slot": "headline",
       "cellKey": "thisYear/study_document/brief/headline",
-      "plainText": "올해는 새 공부나 문서 프로젝트를 열어 보기 좋아요."
+      "plainText": "올해는 모은 자료를 천천히 엮어 두기 좋은 한 해예요."
     },
     {
       "fixture": "23-jonggyeok-jongwang-yeomsang-tiered.json",
@@ -84884,7 +85163,7 @@
       "depth": "standard",
       "slot": "para0",
       "cellKey": "life/movement/standard/para0",
-      "plainText": "익숙한 동선에서 한 발짝씩 넓혀 가는 평생 이동운이에요. 갑작스러운 큰 변화보다 천천히 활동 범위를 늘려 가는 호흡이 잘 맞아요."
+      "plainText": "평소 다니던 길을 한 축으로 두고 활동 반경을 천천히 키워 가는 평생 이동운이에요. 갑작스러운 큰 변화보다 자기 호흡에 맞춰 자리를 조금씩 늘려 가는 페이스가 잘 맞아요."
     },
     {
       "fixture": "24-jonggyeok-jongjae-tiered.json",
@@ -85172,7 +85451,7 @@
       "depth": "brief",
       "slot": "headline",
       "cellKey": "today/academic/brief/headline",
-      "plainText": "오늘은 자기계발 한 챕터를 챙기기 좋은 흐름이에요."
+      "plainText": "오늘은 책상 앞 한 시간을 또렷이 지켜요."
     },
     {
       "fixture": "24-jonggyeok-jongjae-tiered.json",
@@ -85460,7 +85739,7 @@
       "depth": "brief",
       "slot": "headline",
       "cellKey": "today/study_document/brief/headline",
-      "plainText": "오늘은 계약, 신청서, 증빙 자료의 날짜와 금액을 다시 보는 편이 좋아요."
+      "plainText": "오늘은 연락처와 주소를 한번 정리하기 좋아요."
     },
     {
       "fixture": "24-jonggyeok-jongjae-tiered.json",
@@ -86360,7 +86639,7 @@
       "depth": "standard",
       "slot": "para0",
       "cellKey": "thisWeek/expression_children/standard/para0",
-      "plainText": "이번 주는 작은 한 매듭으로 표현이 단단해지는 시기예요. 큰 무대보다 가까운 사람 앞에서 한 마디·한 줄을 다듬어 두면 방향이 또렷해져요."
+      "plainText": "주중에 마무리하는 짧은 한 매듭이 자기 표현을 한 단계 또렷하게 만들어 주는 흐름이에요. 큰 무대보다 가까운 사람 앞에서 한 마디·한 줄을 다듬어 두면 방향이 또렷해져요."
     },
     {
       "fixture": "24-jonggyeok-jongjae-tiered.json",
@@ -87197,7 +87476,7 @@
       "depth": "standard",
       "slot": "para0",
       "cellKey": "thisMonth/expression_children/standard/para0",
-      "plainText": "이번 달은 작은 매듭들이 모여 표현이 단단해지는 시기예요. 큰 무대보다 가까운 사람 앞에서 한 매듭·한 줄을 다듬어 두면 한 달의 방향이 또렷해져요."
+      "plainText": "한 달 동안 짚어 두는 작업 하나하나가 자기 표현의 색을 한 뼘씩 진하게 만들어 주는 흐름이에요. 큰 무대보다 가까운 사람 앞에서 한 매듭·한 줄을 다듬어 두면 한 달의 방향이 또렷해져요."
     },
     {
       "fixture": "24-jonggyeok-jongjae-tiered.json",
@@ -87953,7 +88232,7 @@
       "depth": "brief",
       "slot": "headline",
       "cellKey": "thisYear/study_document/brief/headline",
-      "plainText": "올해는 자격, 계약, 기록을 체계적으로 관리할수록 중요한 기회를요."
+      "plainText": "올해는 모은 자료를 천천히 엮어 두기 좋은 한 해예요."
     },
     {
       "fixture": "24-jonggyeok-jongjae-tiered.json",
@@ -88034,7 +88313,7 @@
       "depth": "standard",
       "slot": "para0",
       "cellKey": "thisYear/expression_children/standard/para0",
-      "plainText": "올해는 매듭들이 모여 자기 표현이 단단해지는 한 해예요. 큰 무대보다 가까운 사람 앞에서 한 매듭·한 줄을 다듬어 두면 한 해의 방향이 또렷해져요."
+      "plainText": "분기마다 짚어 두는 한 매듭 한 매듭이 모여 자기 표현의 색을 한 뼘씩 진하게 만들어 주는 한 해예요. 큰 무대보다 가까운 사람 앞에서 한 매듭·한 줄을 다듬어 두면 한 해의 방향이 또렷해져요."
     },
     {
       "fixture": "24-jonggyeok-jongjae-tiered.json",
@@ -88196,7 +88475,7 @@
       "depth": "standard",
       "slot": "para0",
       "cellKey": "thisYear/movement/standard/para0",
-      "plainText": "올해 이동운은 익숙한 동선에서 한 발짝씩 넓혀 가기 좋은 모습이에요. 갑작스러운 큰 변화보다 천천히 활동 범위를 늘려 가는 호흡이 잘 맞아요."
+      "plainText": "갑작스러운 큰 변화보다 평소 다니던 길을 한 축으로 두고 활동 반경을 천천히 키워 가는 한 해 이동운이에요. 자기 자리를 무리해서 옮기지 않고 호흡 가능한 폭으로 늘려 가는 페이스가 잘 맞아요."
     },
     {
       "fixture": "24-jonggyeok-jongjae-tiered.json",
@@ -89024,7 +89303,7 @@
       "depth": "standard",
       "slot": "para0",
       "cellKey": "life/movement/standard/para0",
-      "plainText": "익숙한 동선에서 한 발짝씩 넓혀 가는 평생 이동운이에요. 갑작스러운 큰 변화보다 천천히 활동 범위를 늘려 가는 호흡이 잘 맞아요."
+      "plainText": "평소 다니던 길을 한 축으로 두고 활동 반경을 천천히 키워 가는 평생 이동운이에요. 갑작스러운 큰 변화보다 자기 호흡에 맞춰 자리를 조금씩 늘려 가는 페이스가 잘 맞아요."
     },
     {
       "fixture": "25-jonggyeok-jonggwan-tiered.json",
@@ -90518,7 +90797,7 @@
       "depth": "standard",
       "slot": "para0",
       "cellKey": "thisWeek/expression_children/standard/para0",
-      "plainText": "이번 주는 작은 한 매듭으로 표현이 단단해지는 시기예요. 큰 무대보다 가까운 사람 앞에서 한 마디·한 줄을 다듬어 두면 방향이 또렷해져요."
+      "plainText": "주중에 마무리하는 짧은 한 매듭이 자기 표현을 한 단계 또렷하게 만들어 주는 흐름이에요. 큰 무대보다 가까운 사람 앞에서 한 마디·한 줄을 다듬어 두면 방향이 또렷해져요."
     },
     {
       "fixture": "25-jonggyeok-jonggwan-tiered.json",
@@ -91337,7 +91616,7 @@
       "depth": "standard",
       "slot": "para0",
       "cellKey": "thisMonth/expression_children/standard/para0",
-      "plainText": "이번 달은 작은 매듭들이 모여 표현이 단단해지는 시기예요. 큰 무대보다 가까운 사람 앞에서 한 매듭·한 줄을 다듬어 두면 한 달의 방향이 또렷해져요."
+      "plainText": "한 달 동안 짚어 두는 작업 하나하나가 자기 표현의 색을 한 뼘씩 진하게 만들어 주는 흐름이에요. 큰 무대보다 가까운 사람 앞에서 한 매듭·한 줄을 다듬어 두면 한 달의 방향이 또렷해져요."
     },
     {
       "fixture": "25-jonggyeok-jonggwan-tiered.json",
@@ -92084,7 +92363,7 @@
       "depth": "brief",
       "slot": "headline",
       "cellKey": "thisYear/study_document/brief/headline",
-      "plainText": "스승·기관의 도움이 깊은 해예요."
+      "plainText": "올해는 모은 자료를 천천히 엮어 두기 좋은 한 해예요."
     },
     {
       "fixture": "25-jonggyeok-jonggwan-tiered.json",
@@ -92165,7 +92444,7 @@
       "depth": "standard",
       "slot": "para0",
       "cellKey": "thisYear/expression_children/standard/para0",
-      "plainText": "올해는 매듭들이 모여 자기 표현이 단단해지는 한 해예요. 큰 무대보다 가까운 사람 앞에서 한 매듭·한 줄을 다듬어 두면 한 해의 방향이 또렷해져요."
+      "plainText": "분기마다 짚어 두는 한 매듭 한 매듭이 모여 자기 표현의 색을 한 뼘씩 진하게 만들어 주는 한 해예요. 큰 무대보다 가까운 사람 앞에서 한 매듭·한 줄을 다듬어 두면 한 해의 방향이 또렷해져요."
     },
     {
       "fixture": "25-jonggyeok-jonggwan-tiered.json",
@@ -92327,7 +92606,7 @@
       "depth": "standard",
       "slot": "para0",
       "cellKey": "thisYear/movement/standard/para0",
-      "plainText": "올해 이동운은 익숙한 동선에서 한 발짝씩 넓혀 가기 좋은 모습이에요. 갑작스러운 큰 변화보다 천천히 활동 범위를 늘려 가는 호흡이 잘 맞아요."
+      "plainText": "갑작스러운 큰 변화보다 평소 다니던 길을 한 축으로 두고 활동 반경을 천천히 키워 가는 한 해 이동운이에요. 자기 자리를 무리해서 옮기지 않고 호흡 가능한 폭으로 늘려 가는 페이스가 잘 맞아요."
     },
     {
       "fixture": "25-jonggyeok-jonggwan-tiered.json",
@@ -93164,7 +93443,7 @@
       "depth": "standard",
       "slot": "para0",
       "cellKey": "life/movement/standard/para0",
-      "plainText": "익숙한 동선에서 한 발짝씩 넓혀 가는 평생 이동운이에요. 갑작스러운 큰 변화보다 천천히 활동 범위를 늘려 가는 호흡이 잘 맞아요."
+      "plainText": "평소 다니던 길을 한 축으로 두고 활동 반경을 천천히 키워 가는 평생 이동운이에요. 갑작스러운 큰 변화보다 자기 호흡에 맞춰 자리를 조금씩 늘려 가는 페이스가 잘 맞아요."
     },
     {
       "fixture": "26-jonggyeok-jongsal-tiered.json",
@@ -93452,7 +93731,7 @@
       "depth": "brief",
       "slot": "headline",
       "cellKey": "today/academic/brief/headline",
-      "plainText": "오늘은 자기계발 한 챕터를 챙기기 좋은 흐름이에요."
+      "plainText": "오늘은 책상 앞 한 시간을 또렷이 지켜요."
     },
     {
       "fixture": "26-jonggyeok-jongsal-tiered.json",
@@ -94658,7 +94937,7 @@
       "depth": "standard",
       "slot": "para0",
       "cellKey": "thisWeek/expression_children/standard/para0",
-      "plainText": "이번 주는 작은 한 매듭으로 표현이 단단해지는 시기예요. 큰 무대보다 가까운 사람 앞에서 한 마디·한 줄을 다듬어 두면 방향이 또렷해져요."
+      "plainText": "주중에 마무리하는 짧은 한 매듭이 자기 표현을 한 단계 또렷하게 만들어 주는 흐름이에요. 큰 무대보다 가까운 사람 앞에서 한 마디·한 줄을 다듬어 두면 방향이 또렷해져요."
     },
     {
       "fixture": "26-jonggyeok-jongsal-tiered.json",
@@ -95495,7 +95774,7 @@
       "depth": "standard",
       "slot": "para0",
       "cellKey": "thisMonth/expression_children/standard/para0",
-      "plainText": "이번 달은 작은 매듭들이 모여 표현이 단단해지는 시기예요. 큰 무대보다 가까운 사람 앞에서 한 매듭·한 줄을 다듬어 두면 한 달의 방향이 또렷해져요."
+      "plainText": "한 달 동안 짚어 두는 작업 하나하나가 자기 표현의 색을 한 뼘씩 진하게 만들어 주는 흐름이에요. 큰 무대보다 가까운 사람 앞에서 한 매듭·한 줄을 다듬어 두면 한 달의 방향이 또렷해져요."
     },
     {
       "fixture": "26-jonggyeok-jongsal-tiered.json",
@@ -96017,7 +96296,7 @@
       "depth": "brief",
       "slot": "headline",
       "cellKey": "thisYear/romance/brief/headline",
-      "plainText": "올해는 사람과의 흐름이 한 단계 깊어지는 결이에요."
+      "plainText": "올해는 곁의 사람과 한 끼를 천천히 나눠요."
     },
     {
       "fixture": "26-jonggyeok-jongsal-tiered.json",
@@ -96242,7 +96521,7 @@
       "depth": "brief",
       "slot": "headline",
       "cellKey": "thisYear/study_document/brief/headline",
-      "plainText": "올해는 자격, 계약, 기록을 체계적으로 관리할수록 중요한 기회를요."
+      "plainText": "올해는 모은 자료를 천천히 엮어 두기 좋은 한 해예요."
     },
     {
       "fixture": "26-jonggyeok-jongsal-tiered.json",
@@ -96341,7 +96620,7 @@
       "depth": "standard",
       "slot": "para0",
       "cellKey": "thisYear/expression_children/standard/para0",
-      "plainText": "올해는 매듭들이 모여 자기 표현이 단단해지는 한 해예요. 큰 무대보다 가까운 사람 앞에서 한 매듭·한 줄을 다듬어 두면 한 해의 방향이 또렷해져요."
+      "plainText": "분기마다 짚어 두는 한 매듭 한 매듭이 모여 자기 표현의 색을 한 뼘씩 진하게 만들어 주는 한 해예요. 큰 무대보다 가까운 사람 앞에서 한 매듭·한 줄을 다듬어 두면 한 해의 방향이 또렷해져요."
     },
     {
       "fixture": "26-jonggyeok-jongsal-tiered.json",
@@ -96503,7 +96782,7 @@
       "depth": "standard",
       "slot": "para0",
       "cellKey": "thisYear/movement/standard/para0",
-      "plainText": "올해 이동운은 익숙한 동선에서 한 발짝씩 넓혀 가기 좋은 모습이에요. 갑작스러운 큰 변화보다 천천히 활동 범위를 늘려 가는 호흡이 잘 맞아요."
+      "plainText": "갑작스러운 큰 변화보다 평소 다니던 길을 한 축으로 두고 활동 반경을 천천히 키워 가는 한 해 이동운이에요. 자기 자리를 무리해서 옮기지 않고 호흡 가능한 폭으로 늘려 가는 페이스가 잘 맞아요."
     },
     {
       "fixture": "26-jonggyeok-jongsal-tiered.json",
@@ -98843,7 +99122,7 @@
       "depth": "standard",
       "slot": "para0",
       "cellKey": "thisWeek/expression_children/standard/para0",
-      "plainText": "이번 주는 좋아하는 놀이로 즐거움이 가득한 흐름이에요. 그림·노래·이야기처럼 자기 색이 풀려 나오는 시간이 한 주 곳곳에 있어요."
+      "plainText": "그림·노래·이야기처럼 자기 색이 풀려 나오는 시간이 한 주 곳곳에 자리 잡는 흐름이에요. 좋아하는 놀이가 한 주 동안 즐거움의 중심이 되어 줘요."
     },
     {
       "fixture": "27-jonggyeok-jongah-tiered.json",
@@ -99869,7 +100148,7 @@
       "depth": "standard",
       "slot": "para0",
       "cellKey": "thisYear/overall/standard/para0",
-      "plainText": "아이는 한 해 동안 새 친구·새 놀이·새 발견을 만나는 자리가 많은 흐름이에요. 가족 안의 따뜻한 분위기가 한 해 내내 흐름의 토대가 돼요."
+      "plainText": "올 한 해는 친구·놀이·새로운 발견 같은 작은 자극이 한꺼번에 쏟아지는 시기예요. 가족 안의 따뜻한 분위기가 한 해 내내 흐름의 토대가 돼요."
     },
     {
       "fixture": "27-jonggyeok-jongah-tiered.json",
@@ -100760,7 +101039,7 @@
       "depth": "brief",
       "slot": "headline",
       "cellKey": "life/wealth/brief/headline",
-      "plainText": "돈 관리는 크게 벌기보다 오래 지킬 수 있는 기준을 만드는 것이 중요."
+      "plainText": "오랜 인연과의 거래가 큰 자산으로 이어지는 시간이에요."
     },
     {
       "fixture": "28-jonggyeok-jonggang-tiered.json",
@@ -104060,6 +104339,15 @@
       "fixture": "28-jonggyeok-jonggang-tiered.json",
       "period": "thisYear",
       "category": "wealth",
+      "depth": "standard",
+      "slot": "para4",
+      "cellKey": "thisYear/wealth/standard/para4",
+      "plainText": "쌓아 온 흐름은 이미 충분해요. 정리와 나눔의 호흡이 가장 자연스러운 자리예요."
+    },
+    {
+      "fixture": "28-jonggyeok-jonggang-tiered.json",
+      "period": "thisYear",
+      "category": "wealth",
       "depth": "expert",
       "slot": "para0",
       "cellKey": "thisYear/wealth/expert/para0",
@@ -104468,7 +104756,7 @@
       "depth": "brief",
       "slot": "headline",
       "cellKey": "thisYear/study_document/brief/headline",
-      "plainText": "올해는 자격, 계약, 기록을 체계적으로 관리할수록 중요한 기회를요."
+      "plainText": "올해는 모은 자료를 천천히 엮어 두기 좋은 한 해예요."
     },
     {
       "fixture": "28-jonggyeok-jonggang-tiered.json",
@@ -106772,7 +107060,7 @@
       "depth": "brief",
       "slot": "headline",
       "cellKey": "thisWeek/family/brief/headline",
-      "plainText": "양가 안부를 비슷한 폭으로 챙겨 보세요."
+      "plainText": "이번 주는 가까운 사람과 짧게 안부를 나누면 좋아요."
     },
     {
       "fixture": "29-pure-hangul-name-tiered.json",
@@ -107996,6 +108284,15 @@
       "depth": "standard",
       "slot": "para2",
       "cellKey": "thisMonth/movement/standard/para2",
+      "plainText": "비유하자면 강이 굽이를 도는 자리에 잠시 머물러 보는 시간이에요. 곧장 가로지르려 하면 흙이 일어 흐려지지만, 한 굽이를 천천히 따라가면 다음 자리의 방향이 또렷이 보여요."
+    },
+    {
+      "fixture": "29-pure-hangul-name-tiered.json",
+      "period": "thisMonth",
+      "category": "movement",
+      "depth": "standard",
+      "slot": "para3",
+      "cellKey": "thisMonth/movement/standard/para3",
       "plainText": "다만 분주함 속에서 급한 결정은 호흡을 끊어요. 한 박자 쉬어 가는 여백이 결정의 흐름을 단단하게 해 줘요."
     },
     {
@@ -110093,7 +110390,7 @@
       "depth": "brief",
       "slot": "headline",
       "cellKey": "today/family/brief/headline",
-      "plainText": "보호자와 마주 보고 웃기 좋은 하루예요."
+      "plainText": "잠들기 전 짧은 이야기 한 편을 들려 줘요."
     },
     {
       "fixture": "30-jeolgi-lidong-boundary-tiered.json",
@@ -111164,7 +111461,7 @@
       "depth": "standard",
       "slot": "para0",
       "cellKey": "thisWeek/expression_children/standard/para0",
-      "plainText": "이번 주는 좋아하는 놀이로 즐거움이 가득한 흐름이에요. 그림·노래·이야기처럼 자기 색이 풀려 나오는 시간이 한 주 곳곳에 있어요."
+      "plainText": "그림·노래·이야기처럼 자기 색이 풀려 나오는 시간이 한 주 곳곳에 자리 잡는 흐름이에요. 좋아하는 놀이가 한 주 동안 즐거움의 중심이 되어 줘요."
     },
     {
       "fixture": "30-jeolgi-lidong-boundary-tiered.json",
@@ -112208,7 +112505,7 @@
       "depth": "standard",
       "slot": "para0",
       "cellKey": "thisYear/overall/standard/para0",
-      "plainText": "아이는 한 해 동안 새 친구·새 놀이·새 발견을 만나는 자리가 많은 흐름이에요. 가족 안의 따뜻한 분위기가 한 해 내내 흐름의 토대가 돼요."
+      "plainText": "올 한 해는 친구·놀이·새로운 발견 같은 작은 자극이 한꺼번에 쏟아지는 시기예요. 가족 안의 따뜻한 분위기가 한 해 내내 흐름의 토대가 돼요."
     },
     {
       "fixture": "30-jeolgi-lidong-boundary-tiered.json",
@@ -114215,7 +114512,7 @@
       "depth": "brief",
       "slot": "headline",
       "cellKey": "today/family/brief/headline",
-      "plainText": "보호자와 마주 보고 웃기 좋은 하루예요."
+      "plainText": "오늘은 함께 그림을 그리며 시간 보내요."
     },
     {
       "fixture": "31-newborn-infant-male-tiered.json",
@@ -115286,7 +115583,7 @@
       "depth": "standard",
       "slot": "para0",
       "cellKey": "thisWeek/expression_children/standard/para0",
-      "plainText": "이번 주는 좋아하는 놀이로 즐거움이 가득한 흐름이에요. 그림·노래·이야기처럼 자기 색이 풀려 나오는 시간이 한 주 곳곳에 있어요."
+      "plainText": "그림·노래·이야기처럼 자기 색이 풀려 나오는 시간이 한 주 곳곳에 자리 잡는 흐름이에요. 좋아하는 놀이가 한 주 동안 즐거움의 중심이 되어 줘요."
     },
     {
       "fixture": "31-newborn-infant-male-tiered.json",
@@ -116330,7 +116627,7 @@
       "depth": "standard",
       "slot": "para0",
       "cellKey": "thisYear/overall/standard/para0",
-      "plainText": "아이는 한 해 동안 새 친구·새 놀이·새 발견을 만나는 자리가 많은 흐름이에요. 가족 안의 따뜻한 분위기가 한 해 내내 흐름의 토대가 돼요."
+      "plainText": "올 한 해는 친구·놀이·새로운 발견 같은 작은 자극이 한꺼번에 쏟아지는 시기예요. 가족 안의 따뜻한 분위기가 한 해 내내 흐름의 토대가 돼요."
     },
     {
       "fixture": "31-newborn-infant-male-tiered.json",
@@ -117203,7 +117500,7 @@
       "depth": "brief",
       "slot": "headline",
       "cellKey": "life/wealth/brief/headline",
-      "plainText": "후반기의 재물은 주변과 나누는 리듬이 자연스러워져요."
+      "plainText": "오랜 인연과의 거래가 큰 자산으로 이어지는 시간이에요."
     },
     {
       "fixture": "32-nonagenarian-weak-daymaster-tiered.json",
@@ -119750,6 +120047,15 @@
       "depth": "standard",
       "slot": "para2",
       "cellKey": "thisMonth/health/standard/para2",
+      "plainText": "비유하자면 매일 같은 시각에 우려내는 따뜻한 차 한 잔과 같아요. 한 잔의 온기는 작아 보여도 한 달이 모이면 몸과 마음의 자리가 한결 부드러워지고, 그 잔잔한 흐름이 다음 달까지 따뜻하게 이어져요."
+    },
+    {
+      "fixture": "32-nonagenarian-weak-daymaster-tiered.json",
+      "period": "thisMonth",
+      "category": "health",
+      "depth": "standard",
+      "slot": "para3",
+      "cellKey": "thisMonth/health/standard/para3",
       "plainText": "주말이나 월 중간엔 가까운 가족·친구와 함께 보내는 자리가 마음의 흐름을 따뜻하게 만들어 줘요. 잠자리는 평소대로 챙기는 편이 잘 맞아요."
     },
     {
@@ -120902,7 +121208,7 @@
       "depth": "brief",
       "slot": "headline",
       "cellKey": "thisYear/study_document/brief/headline",
-      "plainText": "추진력으로 자격을 손에 쥐기 좋은 해예요."
+      "plainText": "올해는 모은 자료를 천천히 엮어 두기 좋은 한 해예요."
     },
     {
       "fixture": "32-nonagenarian-weak-daymaster-tiered.json",
@@ -122153,7 +122459,7 @@
       "depth": "standard",
       "slot": "para3",
       "cellKey": "today/wealth/standard/para3",
-      "plainText": "주의할 점은 즉흥적 결정이에요. 권유받은 큰 결정은 하루 자고 결정해도 늦지 않아요."
+      "plainText": "주의할 점은 즉흥적 결정이에요. 권유받은 큰 거래는 하루 자고 정해도 늦지 않아요."
     },
     {
       "fixture": "33-consensus-aware-multi-axis-combined-tiered.json",
@@ -122558,7 +122864,7 @@
       "depth": "brief",
       "slot": "headline",
       "cellKey": "today/study_document/brief/headline",
-      "plainText": "오늘은 계약, 신청서, 증빙 자료의 날짜와 금액을 다시 보는 편이 좋아요."
+      "plainText": "묶어 둔 서류를 한 장씩 다시 정리해 보세요."
     },
     {
       "fixture": "33-consensus-aware-multi-axis-combined-tiered.json",
@@ -123233,7 +123539,7 @@
       "depth": "brief",
       "slot": "headline",
       "cellKey": "thisWeek/family/brief/headline",
-      "plainText": "이번 주는 가족에게 먼저 안부를 묻는 작은 행동이 관계를 편하게요."
+      "plainText": "이번 주는 가까운 사람과 짧게 안부를 나누면 좋아요."
     },
     {
       "fixture": "33-consensus-aware-multi-axis-combined-tiered.json",
@@ -124638,6 +124944,15 @@
       "slot": "para3",
       "cellKey": "thisYear/wealth/standard/para3",
       "plainText": "주의할 점은 한 분기에 결정이 몰릴 때예요. 결정의 시기를 분산해 두면 한 해가 한층 부드러워져요."
+    },
+    {
+      "fixture": "33-consensus-aware-multi-axis-combined-tiered.json",
+      "period": "thisYear",
+      "category": "wealth",
+      "depth": "standard",
+      "slot": "para4",
+      "cellKey": "thisYear/wealth/standard/para4",
+      "plainText": "사계절 모두 자기 자리를 가진 한 해예요. 한 분기 한 분기를 천천히 누리면 한 해의 흐름이 자연스럽게 모여요."
     },
     {
       "fixture": "33-consensus-aware-multi-axis-combined-tiered.json",
@@ -126347,6 +126662,24 @@
       "depth": "standard",
       "slot": "para2",
       "cellKey": "today/health/standard/para2",
+      "plainText": "비유하자면 잔잔한 호수의 하루예요. 큰 파도가 일지 않는 만큼, 작은 흐름을 알아채기 좋은 자리이고, 자기에게 맞는 한 가지 챙김이 자연스럽게 떠올라요."
+    },
+    {
+      "fixture": "34-gyeokguk-conflict-multi-confidence-tiered.json",
+      "period": "today",
+      "category": "health",
+      "depth": "standard",
+      "slot": "para3",
+      "cellKey": "today/health/standard/para3",
+      "plainText": "흐름이 고른 하루라고 해서 무리한 강행군까지 무탈한 것은 아니에요. 평소보다 두 배 빠른 일정을 한꺼번에 끼워 넣으면 호수의 흐름도 흔들리니, 새로 더하는 일은 한 가지로 두면 좋아요."
+    },
+    {
+      "fixture": "34-gyeokguk-conflict-multi-confidence-tiered.json",
+      "period": "today",
+      "category": "health",
+      "depth": "standard",
+      "slot": "para4",
+      "cellKey": "today/health/standard/para4",
       "plainText": "저녁엔 잠자리를 평소처럼 챙기면, 내일 흐름까지 자연스럽게 부드러워져요."
     },
     {
@@ -126392,7 +126725,7 @@
       "depth": "brief",
       "slot": "headline",
       "cellKey": "today/academic/brief/headline",
-      "plainText": "오늘은 자기계발 한 챕터를 챙기기 좋은 흐름이에요."
+      "plainText": "오늘은 책상 앞 한 시간을 또렷이 지켜요."
     },
     {
       "fixture": "34-gyeokguk-conflict-multi-confidence-tiered.json",
@@ -126680,7 +127013,7 @@
       "depth": "brief",
       "slot": "headline",
       "cellKey": "today/study_document/brief/headline",
-      "plainText": "큰 서명은 하루 묵힌 뒤에 결정해도 좋아요."
+      "plainText": "오늘은 연락처와 주소를 한번 정리하기 좋아요."
     },
     {
       "fixture": "34-gyeokguk-conflict-multi-confidence-tiered.json",
@@ -127823,6 +128156,24 @@
       "depth": "standard",
       "slot": "para2",
       "cellKey": "thisMonth/overall/standard/para2",
+      "plainText": "비유하자면 한 달은 잔잔한 수면 위에 자기 모양을 한 번 비춰 보는 거울 같은 시간이에요. 큰 물결이 없는 만큼 작은 결까지 또렷하게 보이고, 그 흐름이 다음 달의 길잡이가 되어 줘요."
+    },
+    {
+      "fixture": "34-gyeokguk-conflict-multi-confidence-tiered.json",
+      "period": "thisMonth",
+      "category": "overall",
+      "depth": "standard",
+      "slot": "para3",
+      "cellKey": "thisMonth/overall/standard/para3",
+      "plainText": "잔잔한 자리에 지루함이 올라올 때 자책으로 흘러가지 않으면 좋아요. 잔잔함은 큰 결정의 자리가 아니라 회복의 자리라는 점만 떠올리면, 한 달의 방향이 다시 자기 호흡을 찾아가요."
+    },
+    {
+      "fixture": "34-gyeokguk-conflict-multi-confidence-tiered.json",
+      "period": "thisMonth",
+      "category": "overall",
+      "depth": "standard",
+      "slot": "para4",
+      "cellKey": "thisMonth/overall/standard/para4",
       "plainText": "변화가 적다고 느낄 때, 작은 호기심 한 가지를 살짝 더해 봐요."
     },
     {
@@ -128255,6 +128606,15 @@
       "depth": "standard",
       "slot": "para2",
       "cellKey": "thisMonth/career/standard/para2",
+      "plainText": "익숙한 페이스가 만든 한 달의 정돈은 분기 단위에서 더 또렷이 보여요. 세 달치 메모를 한 자리에 모아 두면 자기 흐름의 강·약 자리가 자연스럽게 드러나고, 다음 분기의 한 가지 결정이 가벼워져요."
+    },
+    {
+      "fixture": "34-gyeokguk-conflict-multi-confidence-tiered.json",
+      "period": "thisMonth",
+      "category": "career",
+      "depth": "standard",
+      "slot": "para3",
+      "cellKey": "thisMonth/career/standard/para3",
       "plainText": "이번 달의 정돈이 한 분기의 결정 한 가지를 가볍게 만들어 줘요."
     },
     {
@@ -128651,6 +129011,15 @@
       "depth": "standard",
       "slot": "para2",
       "cellKey": "thisYear/overall/standard/para2",
+      "plainText": "작은 실천 흐름으로는 매달 말일에 한 줄로 그달의 흐름을 적어 두면 좋아요. 열두 줄이 모이면 올해가 흘려보낸 시간이 아닌, 자기 페이스를 다듬은 한 해의 기록으로 남아요."
+    },
+    {
+      "fixture": "34-gyeokguk-conflict-multi-confidence-tiered.json",
+      "period": "thisYear",
+      "category": "overall",
+      "depth": "standard",
+      "slot": "para3",
+      "cellKey": "thisYear/overall/standard/para3",
       "plainText": "변화가 적다고 느낄 때, 작은 호기심 한 가지를 살짝 더해 봐요."
     },
     {
@@ -129128,7 +129497,7 @@
       "depth": "brief",
       "slot": "headline",
       "cellKey": "thisYear/study_document/brief/headline",
-      "plainText": "자격 갱신·계약 점검에 든든한 해예요."
+      "plainText": "올해는 모은 자료를 천천히 엮어 두기 좋은 한 해예요."
     },
     {
       "fixture": "34-gyeokguk-conflict-multi-confidence-tiered.json",
@@ -129380,7 +129749,7 @@
       "depth": "brief",
       "slot": "headline",
       "cellKey": "thisYear/movement/brief/headline",
-      "plainText": "올해는 출장·해외 자리가 자주 만들어지는 한 해예요."
+      "plainText": "올해는 익숙한 동선에 작은 변화가 활력을 보태요."
     },
     {
       "fixture": "34-gyeokguk-conflict-multi-confidence-tiered.json",
@@ -130244,7 +130613,7 @@
       "depth": "standard",
       "slot": "para0",
       "cellKey": "life/movement/standard/para0",
-      "plainText": "익숙한 동선에서 한 발짝씩 넓혀 가는 평생 이동운이에요. 갑작스러운 큰 변화보다 천천히 활동 범위를 늘려 가는 호흡이 잘 맞아요."
+      "plainText": "평소 다니던 길을 한 축으로 두고 활동 반경을 천천히 키워 가는 평생 이동운이에요. 갑작스러운 큰 변화보다 자기 호흡에 맞춰 자리를 조금씩 늘려 가는 페이스가 잘 맞아요."
     },
     {
       "fixture": "35-palace-naeum-female-mid-tiered.json",
@@ -131540,6 +131909,15 @@
       "depth": "standard",
       "slot": "para2",
       "cellKey": "thisWeek/family/standard/para2",
+      "plainText": "비유하자면 둘이 함께 걷는 길과 같아요. 두 사람의 보폭이 다를 때 한쪽이 잠시 천천히 가 주면 옆 사람의 호흡이 가지런해지고, 다음 자리에서 다시 나란히 걸을 힘이 자연스럽게 차올라요."
+    },
+    {
+      "fixture": "35-palace-naeum-female-mid-tiered.json",
+      "period": "thisWeek",
+      "category": "family",
+      "depth": "standard",
+      "slot": "para3",
+      "cellKey": "thisWeek/family/standard/para3",
       "plainText": "도움을 받는 일을 부끄러워하지 않는 태도가 곧 자기의 강점이에요."
     },
     {
@@ -131738,7 +132116,7 @@
       "depth": "standard",
       "slot": "para0",
       "cellKey": "thisWeek/expression_children/standard/para0",
-      "plainText": "이번 주는 작은 한 매듭으로 표현이 단단해지는 시기예요. 큰 무대보다 가까운 사람 앞에서 한 마디·한 줄을 다듬어 두면 방향이 또렷해져요."
+      "plainText": "주중에 마무리하는 짧은 한 매듭이 자기 표현을 한 단계 또렷하게 만들어 주는 흐름이에요. 큰 무대보다 가까운 사람 앞에서 한 마디·한 줄을 다듬어 두면 방향이 또렷해져요."
     },
     {
       "fixture": "35-palace-naeum-female-mid-tiered.json",
@@ -132557,7 +132935,7 @@
       "depth": "standard",
       "slot": "para0",
       "cellKey": "thisMonth/expression_children/standard/para0",
-      "plainText": "이번 달은 작은 매듭들이 모여 표현이 단단해지는 시기예요. 큰 무대보다 가까운 사람 앞에서 한 매듭·한 줄을 다듬어 두면 한 달의 방향이 또렷해져요."
+      "plainText": "한 달 동안 짚어 두는 작업 하나하나가 자기 표현의 색을 한 뼘씩 진하게 만들어 주는 흐름이에요. 큰 무대보다 가까운 사람 앞에서 한 매듭·한 줄을 다듬어 두면 한 달의 방향이 또렷해져요."
     },
     {
       "fixture": "35-palace-naeum-female-mid-tiered.json",
@@ -133394,7 +133772,7 @@
       "depth": "standard",
       "slot": "para0",
       "cellKey": "thisYear/expression_children/standard/para0",
-      "plainText": "올해는 매듭들이 모여 자기 표현이 단단해지는 한 해예요. 큰 무대보다 가까운 사람 앞에서 한 매듭·한 줄을 다듬어 두면 한 해의 방향이 또렷해져요."
+      "plainText": "분기마다 짚어 두는 한 매듭 한 매듭이 모여 자기 표현의 색을 한 뼘씩 진하게 만들어 주는 한 해예요. 큰 무대보다 가까운 사람 앞에서 한 매듭·한 줄을 다듬어 두면 한 해의 방향이 또렷해져요."
     },
     {
       "fixture": "35-palace-naeum-female-mid-tiered.json",
@@ -133556,7 +133934,7 @@
       "depth": "standard",
       "slot": "para0",
       "cellKey": "thisYear/movement/standard/para0",
-      "plainText": "올해 이동운은 익숙한 동선에서 한 발짝씩 넓혀 가기 좋은 모습이에요. 갑작스러운 큰 변화보다 천천히 활동 범위를 늘려 가는 호흡이 잘 맞아요."
+      "plainText": "갑작스러운 큰 변화보다 평소 다니던 길을 한 축으로 두고 활동 반경을 천천히 키워 가는 한 해 이동운이에요. 자기 자리를 무리해서 옮기지 않고 호흡 가능한 폭으로 늘려 가는 페이스가 잘 맞아요."
     },
     {
       "fixture": "35-palace-naeum-female-mid-tiered.json",
