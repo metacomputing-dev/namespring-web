@@ -302,7 +302,8 @@
       "gating": {
         "gender": ["male"],
         "ageBand": ["70+"],
-        "birthSeason": ["autumn"]
+        "birthSeason": ["autumn"],
+        "dayMasterStrength": ["WEAK", "EXTREME_WEAK"]
       },
       "templateTokens": [
         {
@@ -319,7 +320,7 @@
         "sourceUrl": null,
         "accessedAt": "2026-05-07",
         "quoteShort": null,
-        "humanInterpretation": "P27-A1 distinct-hook expansion: academic/thisMonth brief for male × 70+ × autumn-born. Display-only narrative.",
+        "humanInterpretation": "P27-A1 distinct-hook expansion: academic/thisMonth brief for male × 70+ × autumn-born. P28-A4 added dayMasterStrength=WEAK/EXTREME_WEAK to redirect this hook away from the strong-pole 28-jonggyeok-jonggang fixture (concentration cap), keeping the 25-jonggyeok-jonggwan match. Display-only narrative.",
         "copyrightNote": "No source prose copied; original authored prose.",
         "authorityTruthEligible": false
       }

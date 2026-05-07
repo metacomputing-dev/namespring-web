@@ -157,7 +157,8 @@
       "gating": {
         "gender": ["male"],
         "ageBand": ["70+"],
-        "birthSeason": ["autumn"]
+        "birthSeason": ["autumn"],
+        "dayMasterStrength": ["WEAK", "EXTREME_WEAK"]
       },
       "templateTokens": [
         { "kind": "text", "value": "오늘은 오래 본 사람에게 가벼운 차 한 잔을 권해요." }
@@ -171,7 +172,7 @@
         "sourceUrl": null,
         "accessedAt": "2026-05-07",
         "quoteShort": null,
-        "humanInterpretation": "P27-A1 distinct-hook expansion: romance/today brief for male × 70+ × autumn-born. Display-only narrative.",
+        "humanInterpretation": "P27-A1 distinct-hook expansion: romance/today brief for male × 70+ × autumn-born. P28-A4 added dayMasterStrength=WEAK/EXTREME_WEAK to redirect this hook away from the strong-pole 28-jonggyeok-jonggang fixture (concentration cap), keeping the 25-jonggyeok-jonggwan match. Display-only narrative.",
         "copyrightNote": "No source prose copied; original authored prose.",
         "authorityTruthEligible": false
       }
