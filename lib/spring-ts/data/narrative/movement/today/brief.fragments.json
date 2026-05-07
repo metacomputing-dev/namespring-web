@@ -7,13 +7,21 @@
   "fragments": [
     {
       "schemaVersion": "spring-ts.narrative-fragment.v1",
-      "fragmentId": "movement.today.brief.wildcard.001",
+      "fragmentId": "movement.today.brief.strong.neutral.001",
       "axis": {
         "category": "movement",
         "period": "today",
         "depth": "brief"
       },
-      "gating": {},
+      "gating": {
+        "dayMasterStrength": [
+          "STRONG",
+          "EXTREME_STRONG"
+        ],
+        "yongshinAlignment": [
+          "neutral"
+        ]
+      },
       "templateTokens": [
         {
           "kind": "text",
