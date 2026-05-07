@@ -499,8 +499,9 @@ fixture	period	category	depth	slot	cellKey	plainText
 04-kim-seoyun-young-female-tiered.json	life	academic	expert	para2	life/academic/expert/para2	#식신 · #상관이 함께 보인다면 익힌 것을 자기 말로 풀어 보는 시간이 깊이를 만들고, 학교 안의 발표·토론이 좋은 무대가 되어요.
 04-kim-seoyun-young-female-tiered.json	life	academic	expert	para3	life/academic/expert/para3	격국이 또렷하지 않은 시기엔 자기 호흡을 지키며 한 단원씩 마무리해 가는 방식이 가장 잘 어울려요.
 04-kim-seoyun-young-female-tiered.json	life	romance	brief	headline	life/romance/brief/headline	관계운은 친구와 가족에게 마음을 잘 전하는 힘으로 먼저 나타나요.
-04-kim-seoyun-young-female-tiered.json	life	romance	standard	para0	life/romance/standard/para0	아직은 사랑을 큰 약속으로 보기보다, 친구와 가족 사이에서 존중을 배우는 시기로 보는 것이 좋아요.
-04-kim-seoyun-young-female-tiered.json	life	romance	standard	para1	life/romance/standard/para1	좋아하는 마음을 표현하되 상대의 속도도 함께 살피면 관계가 편해져요.
+04-kim-seoyun-young-female-tiered.json	life	romance	standard	para0	life/romance/standard/para0	10대의 인연은 짝을 정하는 큰 결정의 시기가 아니라, 또래·친구와의 사이에서 자기 마음을 알아 가는 흐름이 가장 또렷하게 자라는 시간이에요. 새 친구를 만나거나 함께 무언가를 만드는 자리에서 자기다움이 천천히 또렷해져요.
+04-kim-seoyun-young-female-tiered.json	life	romance	standard	para1	life/romance/standard/para1	사주에서 매력 신호가 강하게 보이는 시기일 수도 있어요. 그 신호는 무대 위 표현·발표·창작처럼 사람들이 모이는 곳에서 가장 먼저 빛이 나는 흐름으로 풀려요. 마음이 가는 사람이 생기더라도 결혼이나 큰 약속 같은 단정은 한참 뒤의 이야기로 두고, 지금은 좋아하는 사람과 함께 보내는 시간 안에서 서로의 흐름을 알아 가면 충분해요.
+04-kim-seoyun-young-female-tiered.json	life	romance	standard	para2	life/romance/standard/para2	좋아하는 마음을 표현할 땐 한 박자 천천히 골라 보세요. 짧은 안부, 함께 즐기는 활동, 작은 응원이 흐름을 가장 부드럽게 만들어 줘요. 기다리는 시간이 어색하게 느껴질 수도 있지만, 그 시간 안에서 자기 페이스를 지키는 연습이 다음 시기의 가장 큰 자산이 돼요.
 04-kim-seoyun-young-female-tiered.json	life	romance	expert	para0	life/romance/expert/para0	10대의 인연운은 본격적인 짝의 자리보다 또래·집단의 사이를 먼저 풀어요.
 04-kim-seoyun-young-female-tiered.json	life	romance	expert	para1	life/romance/expert/para1	이 시기엔 #식신과 #상관이 만들어 내는 표현의 색이 친구와의 신뢰를 잇는 다리예요.
 04-kim-seoyun-young-female-tiered.json	life	romance	expert	para2	life/romance/expert/para2	매력 신호인 #도화와 #홍염이 또렷하면 무대·발표·창작 같은 활동에서 자기 색이 또렷해져요.
@@ -523,8 +524,11 @@ fixture	period	category	depth	slot	cellKey	plainText
 04-kim-seoyun-young-female-tiered.json	life	career	expert	para2	life/career/expert/para2	그래서 같은 #일주라도 성장 과정, 보호자 관찰, 실제 생활 환경을 함께 살피는 자료로 받아 주세요. 아이의 표정, 말투, 잠과 식사 같은 일상 신호가 사주 지표보다 더 정확한 단서가 되는 시기예요.
 04-kim-seoyun-young-female-tiered.json	life	career	expert	para3	life/career/expert/para3	큰 결정은 보호자가 시간을 두고 가까운 어른과 함께 확인해 주세요. 사주 해석은 한쪽 참고 자료로만 두고, 학교·의료·상담 같은 실제 지원 경로를 우선 활용하면 흐름을 더 안전하게 끌어갈 수 있어요.
 04-kim-seoyun-young-female-tiered.json	life	study_document	brief	headline	life/study_document/brief/headline	글과 시험을 차곡차곡 쌓아 가는 시기예요.
-04-kim-seoyun-young-female-tiered.json	life	study_document	standard	para0	life/study_document/standard/para0	공부와 기록은 한 번에 많이 하는 것보다 작은 단계를 매일 이어갈 때 더 잘 맞아요.
-04-kim-seoyun-young-female-tiered.json	life	study_document	standard	para1	life/study_document/standard/para1	모르는 부분을 표시하고 다시 보는 습관이 실력을 안정적으로 키워줍니다.
+04-kim-seoyun-young-female-tiered.json	life	study_document	standard	para0	life/study_document/standard/para0	어린 시기와 학창 시절의 공부·서류 흐름은 시험 한 번의 점수를 두고 다투는 자리가 아니라, 좋아하는 것을 한 가지씩 알아 가는 시간이에요. 책 한 권을 천천히 펼쳐 자기에게 맞는 속도를 익히는 흐름이 평생 갈 학습 자산의 시작이 돼요.
+04-kim-seoyun-young-female-tiered.json	life	study_document	standard	para1	life/study_document/standard/para1	비유하자면 작은 노트 한 권을 처음 펼치는 그림이에요. 첫 줄은 또박또박, 두 줄째는 어제보다 한 글자 더, 이렇게 차곡차곡 채워 가면 한 학기·한 학년 뒤에는 자기만의 책이 한 권 자라 있어요.
+04-kim-seoyun-young-female-tiered.json	life	study_document	standard	para2	life/study_document/standard/para2	잘 풀리는 면은, 모르는 것을 솔직하게 적어 두는 자리예요. 헷갈린 문장, 못 푼 문제, 어려운 단어를 작은 노트에 한 줄씩 모아 두면 그 자체가 다음 주의 학습 지도가 돼요. 그림이나 색연필로 정리해도 충분해요.
+04-kim-seoyun-young-female-tiered.json	life	study_document	standard	para3	life/study_document/standard/para3	살짝 살피면 좋은 점은, 옆 친구의 결과만 보고 자기 페이스를 잃는 면이에요. 비교는 짧게, 자기 기록 갱신은 꾸준히로 충분해요. 친구와는 함께 풀어 보는 시간을 만드는 쪽이 더 많은 것을 남겨 줘요.
+04-kim-seoyun-young-female-tiered.json	life	study_document	standard	para4	life/study_document/standard/para4	학교에서 받은 작은 칭찬 한마디, 친구와 함께 풀어 본 한 문제, 모르는 단어를 노트에 적어 둔 한 줄이 큰 자산이 되는 시기예요. 어른의 큰 자격 어휘를 미리 끌어오지 않아도 충분해요.
 04-kim-seoyun-young-female-tiered.json	life	study_document	expert	para0	life/study_document/expert/para0	젊은 시기의 학업·시험에서는 #부모궁과 #정인의 기운을 함께 살펴봐요. 두 지표가 길하면 환경과 도구가 잘 맞춰져 있어, 한 분야에 집중할 여유가 생기는 시기예요.
 04-kim-seoyun-young-female-tiered.json	life	study_document	expert	para1	life/study_document/expert/para1	#편인이 강할 때는 학교 과정보다 자기 호기심이 끄는 분야에서 더 깊이 들어가는 흐름이에요.
 04-kim-seoyun-young-female-tiered.json	life	study_document	expert	para2	life/study_document/expert/para2	#식신이 보조해 주면 글·발표·기록으로 자기 학습이 또렷해지는 기회가 자주 등장해요.
@@ -591,8 +595,9 @@ fixture	period	category	depth	slot	cellKey	plainText
 04-kim-seoyun-young-female-tiered.json	today	academic	expert	para2	today/academic/expert/para2	#식신은 이해한 것을 말로 설명하게 하는 축이고, #용신부합도는 오늘 공부 방식이 아이의 회복 리듬과 맞는지 확인하는 보조 지표예요.
 04-kim-seoyun-young-female-tiered.json	today	academic	expert	para3	today/academic/expert/para3	평소엔 #정인의 토대를 단단히 두고, #식신이 받쳐 주는 시기에는 익힌 것을 자기 말로 풀어 두는 자리를 챙기면 학업의 흐름이 더 또렷해져요.
 04-kim-seoyun-young-female-tiered.json	today	romance	brief	headline	today/romance/brief/headline	오늘은 먼저 웃으며 인사하면 친구 관계가 한결 부드러워져요.
-04-kim-seoyun-young-female-tiered.json	today	romance	standard	para0	today/romance/standard/para0	오늘은 마음을 표현하되 상대가 받아들일 시간을 함께 보는 것이 좋아요.
-04-kim-seoyun-young-female-tiered.json	today	romance	standard	para1	today/romance/standard/para1	급하게 확인받으려 하기보다 편안한 말투로 안부를 묻고, 대화가 이어지면 천천히 깊이를 더해보세요.
+04-kim-seoyun-young-female-tiered.json	today	romance	standard	para0	today/romance/standard/para0	오늘은 또래·친구와의 자리가 평소보다 또렷하게 살아나는 하루예요. 학교·동아리·모임에서 자기 색이 자연스럽게 도드라지는 시간이라, 무리해서 분위기를 끌고 가지 않아도 평소의 자기다움이 친구들 사이에서 잘 빛나요.
+04-kim-seoyun-young-female-tiered.json	today	romance	standard	para1	today/romance/standard/para1	마음이 가는 친구가 있으면 짧은 안부나 가벼운 한마디를 건네면 좋아요. 너무 큰 결심을 내세우는 대신 일상의 시간을 함께 즐기는 정도로 두면, 사이가 자연스럽게 가까워져요. 좋아하는 마음을 표현하더라도 한 박자 천천히 골라 보면, 오해가 줄고 신뢰가 단단해져요.
+04-kim-seoyun-young-female-tiered.json	today	romance	standard	para2	today/romance/standard/para2	하루의 호흡이 살짝 들뜨는 시간이라, 오늘은 단정적인 약속·결심보다 친구와의 일상적인 자리를 즐기는 모양으로 두면 잘 어울려요. 기다리는 시간도 어색해하지 말고 자기 페이스를 지키는 연습으로 두세요. 그 자체가 가장 단단한 매력이에요.
 04-kim-seoyun-young-female-tiered.json	today	romance	expert	para0	today/romance/expert/para0	오늘 또래·친구 관계는 표현의 자리에서 가장 또렷하게 살아나요.
 04-kim-seoyun-young-female-tiered.json	today	romance	expert	para1	today/romance/expert/para1	#식신의 기운이 비치면 부드러운 한마디가 친구의 신뢰를 잇는 다리 역할을 해 주고, #상관의 기운이 강하면 발표·창작 같은 활동에서 자기 색이 또렷해져요.
 04-kim-seoyun-young-female-tiered.json	today	romance	expert	para2	today/romance/expert/para2	사람들이 모이는 곳에 #도화의 신호가 함께 비치면 시선이 잠깐 한 곳에 모일 수 있어요.
@@ -615,11 +620,11 @@ fixture	period	category	depth	slot	cellKey	plainText
 04-kim-seoyun-young-female-tiered.json	today	career	expert	para2	today/career/expert/para2	그래서 같은 #일주라도 성장 과정, 보호자 관찰, 실제 생활 환경을 함께 살피는 자료로 받아 주세요. 아이의 표정, 말투, 잠과 식사 같은 일상 신호가 사주 지표보다 더 정확한 단서가 되는 시기예요.
 04-kim-seoyun-young-female-tiered.json	today	career	expert	para3	today/career/expert/para3	큰 결정은 보호자가 시간을 두고 가까운 어른과 함께 확인해 주세요. 사주 해석은 한쪽 참고 자료로만 두고, 학교·의료·상담 같은 실제 지원 경로를 우선 활용하면 흐름을 더 안전하게 끌어갈 수 있어요.
 04-kim-seoyun-young-female-tiered.json	today	study_document	brief	headline	today/study_document/brief/headline	오늘은 새 내용을 늘리기보다 헷갈린 부분을 다시 보는 편이 좋아요.
-04-kim-seoyun-young-female-tiered.json	today	study_document	standard	para0	today/study_document/standard/para0	오늘은 학교 시험·읽기쓰기에서 한 단원만 또렷이 마무리하면 충분한 날이에요. 한꺼번에 많은 분량보다, 깊게 한 자리가 잘 맞아요.
-04-kim-seoyun-young-female-tiered.json	today	study_document	standard	para1	today/study_document/standard/para1	새 노트 첫 장을 또박또박 써 내려가는 그림을 떠올려 보면 좋아요. 오늘의 한 페이지가 다음 주 시험을 가볍게 해 줘요.
-04-kim-seoyun-young-female-tiered.json	today	study_document	standard	para2	today/study_document/standard/para2	잘 풀리는 면은, 좋아하는 과목 한 가지에 집중할 때 결과가 또렷한 자리예요. 모든 과목을 한 번에 잡지 않아도 돼요.
-04-kim-seoyun-young-female-tiered.json	today	study_document	standard	para3	today/study_document/standard/para3	살짝 주의할 점은, 친구와 비교하다 자기 페이스를 잃는 면이에요. 어제 자기와만 비교해도 충분해요.
-04-kim-seoyun-young-female-tiered.json	today	study_document	standard	para4	today/study_document/standard/para4	오늘 받은 작은 칭찬 한마디가 큰 자산이 되는 시기예요.
+04-kim-seoyun-young-female-tiered.json	today	study_document	standard	para0	today/study_document/standard/para0	오늘은 책 한 권을 끝까지 읽기보다, 한 단원만 또렷이 챙기면 충분한 흐름이에요. 한꺼번에 많은 분량을 잡기보다 한 자리에 깊게 머무는 호흡이 잘 맞아요.
+04-kim-seoyun-young-female-tiered.json	today	study_document	standard	para1	today/study_document/standard/para1	비유하자면 작은 노트 첫 줄을 또박또박 적는 그림이에요. 오늘 적은 한 줄이 다음 주 시험에서 길잡이가 돼요. 그림으로 정리해도 좋고, 색연필로 표시해도 충분해요.
+04-kim-seoyun-young-female-tiered.json	today	study_document	standard	para2	today/study_document/standard/para2	잘 풀리는 면은, 모르는 것을 그냥 넘기지 않는 자리예요. 헷갈린 문장이나 못 푼 문제를 작은 노트에 한 줄씩 옮겨 두면 오늘의 공부가 자기만의 자료가 돼요. 친구와 함께 풀어 보는 시간이 있으면 더 잘 남아요.
+04-kim-seoyun-young-female-tiered.json	today	study_document	standard	para3	today/study_document/standard/para3	살짝 주의할 점은, 오늘 모든 과목을 한꺼번에 잡으려는 마음이에요. 좋아하는 한 과목부터 차분히 끝내고, 어려운 과목은 한 박자 미뤄 둬도 충분해요. 짧게 쉬고 다시 시작해도 괜찮아요.
+04-kim-seoyun-young-female-tiered.json	today	study_document	standard	para4	today/study_document/standard/para4	학교에서 받은 작은 메모 한 장, 오늘 적어 둔 모르는 단어 한 줄이 다음 주의 작은 무기가 돼요. 비교는 어제 자기와만 짧게로 충분해요.
 04-kim-seoyun-young-female-tiered.json	today	study_document	expert	para0	today/study_document/expert/para0	젊은 시기의 일진은 #정인의 기운이 학습으로 또렷이 풀리는 시기예요. 오늘 한 단원의 깊이가 다음 시험의 키가 돼요.
 04-kim-seoyun-young-female-tiered.json	today	study_document	expert	para1	today/study_document/expert/para1	#부모궁의 흐름이 함께 받쳐 주면 도움 청하기 좋은 날이고, 흉할 때는 자기 자료에 더 깊이 들어가는 시간이에요.
 04-kim-seoyun-young-female-tiered.json	today	study_document	expert	para2	today/study_document/expert/para2	#식신이 보조해 주면 학습이 글·메모로 자연스럽게 남는 흐름이에요.
@@ -683,8 +688,9 @@ fixture	period	category	depth	slot	cellKey	plainText
 04-kim-seoyun-young-female-tiered.json	thisWeek	academic	expert	para2	thisWeek/academic/expert/para2	#식신이 드러나는 주에는 말하기, 쓰기, 풀이 설명을 넣어야 하고, #용신부합도가 낮으면 학습량보다 회복과 반복 간격을 조정하는 것이 먼저예요.
 04-kim-seoyun-young-female-tiered.json	thisWeek	academic	expert	para3	thisWeek/academic/expert/para3	#통관용신의 흐름과 #병약용신의 자리가 함께 또렷해지는 사주는 학습의 깊이가 자기 흐름의 균형을 따라가는 자리예요.
 04-kim-seoyun-young-female-tiered.json	thisWeek	romance	brief	headline	thisWeek/romance/brief/headline	이번 주는 친구와 새로운 자리를 함께하기 좋은 결이에요.
-04-kim-seoyun-young-female-tiered.json	thisWeek	romance	standard	para0	thisWeek/romance/standard/para0	이번 주는 친구 사이에서 신뢰를 쌓기 좋은 결이에요.
-04-kim-seoyun-young-female-tiered.json	thisWeek	romance	standard	para1	thisWeek/romance/standard/para1	약속 시간을 지키고, 함께 정한 규칙을 잘 지키면 가까운 사람이 더 편안함을 느낍니다.
+04-kim-seoyun-young-female-tiered.json	thisWeek	romance	standard	para0	thisWeek/romance/standard/para0	이번 주는 또래·친구와의 관계가 한 단계 도드라지는 시기예요. 학교·학원·동아리에서 자기 색이 또렷해지고, 마음 맞는 친구와의 신뢰가 한 단계 단단해지기 좋은 한 주예요.
+04-kim-seoyun-young-female-tiered.json	thisWeek	romance	standard	para1	thisWeek/romance/standard/para1	마음이 가는 친구가 있으면 짧은 안부나 함께하는 활동으로 자연스럽게 가까워지면 좋아요. 너무 큰 결심을 내세우는 대신 일주일이라는 길이 안에서 일상의 시간을 함께 즐기는 정도로 두면 사이가 부드러워져요. 좋아하는 마음을 표현할 땐 한 박자 천천히 골라 보면, 오해가 줄고 신뢰가 단단해져요.
+04-kim-seoyun-young-female-tiered.json	thisWeek	romance	standard	para2	thisWeek/romance/standard/para2	한 주 동안 사람들과 만나는 일이 늘어나면 살짝 들뜨기 쉬워요. 자기 페이스를 지키면서 자연스럽게 따라가는 방식이 잘 맞고, 기다리는 시간도 자기 자리를 가꾸는 흐름으로 받아들이면 그 자체가 가장 단단한 친구 관계의 자산이 돼요.
 04-kim-seoyun-young-female-tiered.json	thisWeek	romance	expert	para0	thisWeek/romance/expert/para0	이번 주 또래·친구 관계는 #식신과 #상관의 기운으로 가장 또렷이 살아나요.
 04-kim-seoyun-young-female-tiered.json	thisWeek	romance	expert	para1	thisWeek/romance/expert/para1	발표·창작·동아리 같은 활동에서 자기 색이 또렷해지고, 친구 사이의 신뢰가 한 단계 단단해지는 모습이에요.
 04-kim-seoyun-young-female-tiered.json	thisWeek	romance	expert	para2	thisWeek/romance/expert/para2	매력 신호인 #도화가 살짝 비치면 사람들이 모이는 곳에 시선이 한 번씩 모이지만, 그 빛에 들떠 큰 결심을 내리지 않아도 좋아요.
@@ -707,9 +713,11 @@ fixture	period	category	depth	slot	cellKey	plainText
 04-kim-seoyun-young-female-tiered.json	thisWeek	career	expert	para2	thisWeek/career/expert/para2	그래서 같은 #일주라도 성장 과정, 보호자 관찰, 실제 생활 환경을 함께 살피는 자료로 받아 주세요. 아이의 표정, 말투, 잠과 식사 같은 일상 신호가 사주 지표보다 더 정확한 단서가 되는 시기예요.
 04-kim-seoyun-young-female-tiered.json	thisWeek	career	expert	para3	thisWeek/career/expert/para3	큰 결정은 보호자가 시간을 두고 가까운 어른과 함께 확인해 주세요. 사주 해석은 한쪽 참고 자료로만 두고, 학교·의료·상담 같은 실제 지원 경로를 우선 활용하면 흐름을 더 안전하게 끌어갈 수 있어요.
 04-kim-seoyun-young-female-tiered.json	thisWeek	study_document	brief	headline	thisWeek/study_document/brief/headline	이번 주는 공부 자료를 정리해 두면 다음 단계가 훨씬 수월해져요.
-04-kim-seoyun-young-female-tiered.json	thisWeek	study_document	standard	para0	thisWeek/study_document/standard/para0	이번 주 공부와 문서 일은 큰 덩어리를 작게 나누면 훨씬 수월해요.
-04-kim-seoyun-young-female-tiered.json	thisWeek	study_document	standard	para1	thisWeek/study_document/standard/para1	읽기, 정리, 작성, 확인을 따로 두고 진행하면 막히는 부분을 찾기 쉽고 마감 전 부담도 줄어요.
-04-kim-seoyun-young-female-tiered.json	thisWeek	study_document	standard	para2	thisWeek/study_document/standard/para2	주 단위로 결과물을 정리해 두면 시험 준비가 흔들리지 않아요.
+04-kim-seoyun-young-female-tiered.json	thisWeek	study_document	standard	para0	thisWeek/study_document/standard/para0	이번 주는 새 책을 한꺼번에 끝내려는 무리보다, 좋아하는 책 한 권을 천천히 펼쳐 보는 흐름이 잘 맞아요. 한 주의 학습은 분량을 늘리는 자리가 아니라 자기 페이스를 또렷이 잡는 시간이에요.
+04-kim-seoyun-young-female-tiered.json	thisWeek	study_document	standard	para1	thisWeek/study_document/standard/para1	비유하자면 작은 노트에 한 주의 시간표를 그리는 그림이에요. 매일 같은 시간에 보는 한 과목을 정해 두면 한 주가 끝날 즈음에는 자기만의 학습 흐름이 또렷이 보여요. 그림이나 색연필로 일정을 정리해도 충분해요.
+04-kim-seoyun-young-female-tiered.json	thisWeek	study_document	standard	para2	thisWeek/study_document/standard/para2	잘 풀리는 면은, 모르는 것을 솔직하게 모아 두는 자리예요. 한 주 동안 헷갈린 문장이나 못 푼 문제를 작은 노트에 한 줄씩 옮겨 두면, 주말의 30분이 그 한 주의 학습을 단단하게 마무리해 줘요.
+04-kim-seoyun-young-female-tiered.json	thisWeek	study_document	standard	para3	thisWeek/study_document/standard/para3	살짝 주의할 점은, 시간표를 너무 빽빽하게 짜는 면이에요. 매일 30분의 짧은 자리, 친구와 함께 한 문제 풀어 보는 자리, 좋아하는 책 한 페이지를 천천히 읽는 자리를 한 칸씩 비워 두면 한 주가 가벼워져요.
+04-kim-seoyun-young-female-tiered.json	thisWeek	study_document	standard	para4	thisWeek/study_document/standard/para4	학교에서 받은 작은 과제, 친구와 같이 본 한 페이지, 모르는 단어를 적어 둔 한 줄이 다음 주를 든든하게 만드는 자산이 돼요. 비교는 지난주 자기와만 짧게로 충분해요.
 04-kim-seoyun-young-female-tiered.json	thisWeek	study_document	expert	para0	thisWeek/study_document/expert/para0	젊은 시기의 한 주는 #정인의 기운이 학습으로 또렷이 풀리는 시기예요. 이번 주 한 단원의 깊이가 다음 시험의 키가 돼요.
 04-kim-seoyun-young-female-tiered.json	thisWeek	study_document	expert	para1	thisWeek/study_document/expert/para1	#부모궁의 흐름이 함께 받쳐 주면 도움 청하기 좋은 한 주이고, 흉할 때는 자기 자료에 더 깊이 들어가는 시간이에요.
 04-kim-seoyun-young-female-tiered.json	thisWeek	study_document	expert	para2	thisWeek/study_document/expert/para2	#식신이 보조해 주면 학습이 글·메모로 자연스럽게 남는 흐름이에요.
@@ -773,8 +781,9 @@ fixture	period	category	depth	slot	cellKey	plainText
 04-kim-seoyun-young-female-tiered.json	thisMonth	academic	expert	para2	thisMonth/academic/expert/para2	#식신은 말하고 쓰는 과정에서 이해를 확인하는 축이고, #용신부합도가 낮은 달에는 성취 목표보다 루틴을 유지하는 보조 환경이 더 중요해요.
 04-kim-seoyun-young-female-tiered.json	thisMonth	academic	expert	para3	thisMonth/academic/expert/para3	#대운궁실의 흐름과 #일진의 흐름이 함께 살아날 때는 한 단원씩 차분히 매듭짓기 좋은 페이스가 자리 잡아요.
 04-kim-seoyun-young-female-tiered.json	thisMonth	romance	brief	headline	thisMonth/romance/brief/headline	이번 달은 만남과 혼자 쉬는 시간을 균형 있게 두면 관계가 더 편안요.
-04-kim-seoyun-young-female-tiered.json	thisMonth	romance	standard	para0	thisMonth/romance/standard/para0	이번 달은 가까운 친구와 더 자주 웃을 수 있는 흐름이에요.
-04-kim-seoyun-young-female-tiered.json	thisMonth	romance	standard	para1	thisMonth/romance/standard/para1	다만 친해지고 싶은 마음이 커도 상대의 시간을 존중해야 관계가 오래 편안해요.
+04-kim-seoyun-young-female-tiered.json	thisMonth	romance	standard	para0	thisMonth/romance/standard/para0	이번 달은 또래·친구와의 관계가 한 단계 깊어지기 좋은 시기예요. 학교·학원·동아리에서 자기 색이 또렷해지고, 마음 맞는 친구와의 신뢰가 한 단계 단단해지는 한 달이에요.
+04-kim-seoyun-young-female-tiered.json	thisMonth	romance	standard	para1	thisMonth/romance/standard/para1	마음이 가는 친구가 있으면 짧은 안부나 함께하는 활동으로 자연스럽게 가까워지면 좋아요. 너무 빠르게 결정짓지 말고 한 달 동안 다양한 활동에서 상대를 알아 가는 방식이 잘 맞아요. 좋아하는 마음을 표현할 땐 한 박자 천천히 골라 보면, 오해가 줄고 신뢰가 단단해져요.
+04-kim-seoyun-young-female-tiered.json	thisMonth	romance	standard	para2	thisMonth/romance/standard/para2	사람들이 모이는 기회가 늘어나면 살짝 들뜨기 쉬워요. 자기 페이스를 지키면서 자기다움을 챙기는 일이, 결국 가장 단단한 친구 관계의 자산이 돼요. 짝과 관련한 큰 결정은 한참 뒤의 이야기로 두고, 친구와의 시간을 충분히 누리는 시기로 한 달을 보내면 잘 어울려요.
 04-kim-seoyun-young-female-tiered.json	thisMonth	romance	expert	para0	thisMonth/romance/expert/para0	이번 달 또래·친구 관계는 #식신과 #상관의 기운으로 한 달 내내 자라요.
 04-kim-seoyun-young-female-tiered.json	thisMonth	romance	expert	para1	thisMonth/romance/expert/para1	발표·창작·동아리·시험 같은 활동에서 자기 색이 또렷해지고, 친구 사이의 신뢰가 한 단계 단단해지는 모습이에요.
 04-kim-seoyun-young-female-tiered.json	thisMonth	romance	expert	para2	thisMonth/romance/expert/para2	매력 신호인 #도화가 살짝 비치면 사람들이 모이는 곳에 시선이 한 번씩 모이지만, 그 빛에 들떠 큰 결심을 내리지 않아도 좋아요.
@@ -865,9 +874,9 @@ fixture	period	category	depth	slot	cellKey	plainText
 04-kim-seoyun-young-female-tiered.json	thisYear	academic	expert	para2	thisYear/academic/expert/para2	#식신 · #상관이 함께 보인다면 익힌 것을 자기 말로 풀어 보는 시간이 깊이를 만들고, 학교 안의 발표·토론·노트 정리가 좋은 무대가 되어 줘요.
 04-kim-seoyun-young-female-tiered.json	thisYear	academic	expert	para3	thisYear/academic/expert/para3	#용신이 들어오는 학기에서는 어려워하던 한 단원도 한 번에 풀려 나가는 순간이 올 수 있어요.
 04-kim-seoyun-young-female-tiered.json	thisYear	romance	brief	headline	thisYear/romance/brief/headline	올해는 좋은 친구를 고르고 오래 지키는 법을 배우기 좋아요.
-04-kim-seoyun-young-female-tiered.json	thisYear	romance	standard	para0	thisYear/romance/standard/para0	올해의 관계 흐름은 빨리 가까워지는 것보다 서로 편하게 말할 수 있는 관계를 만드는 데 초점이 있어요.
-04-kim-seoyun-young-female-tiered.json	thisYear	romance	standard	para1	thisYear/romance/standard/para1	새로운 인연이든 기존 관계든, 약속을 지키고 감정을 솔직하게 말하는 습관이 중요해요.
-04-kim-seoyun-young-female-tiered.json	thisYear	romance	standard	para2	thisYear/romance/standard/para2	급한 결론보다 꾸준한 신뢰가 더 큰 힘이 돼요.
+04-kim-seoyun-young-female-tiered.json	thisYear	romance	standard	para0	thisYear/romance/standard/para0	올해는 또래·친구와의 관계가 한 해 내내 한 단계 깊어지기 좋은 시기예요. 학교·학원·동아리에서 자기 색이 또렷해지고, 마음 맞는 친구와의 신뢰가 한 단계 단단해지는 한 해예요.
+04-kim-seoyun-young-female-tiered.json	thisYear	romance	standard	para1	thisYear/romance/standard/para1	마음이 가는 친구가 있으면 짧은 안부나 함께하는 활동으로 사이를 잡으면 좋아요. 너무 빠르게 결정짓는 대신 한 해라는 길이를 활용해 호흡을 봐 가는 흐름이 잘 맞아요. 좋아하는 마음을 표현할 땐 한 박자 천천히 골라 보면, 오해가 줄고 신뢰가 단단해져요.
+04-kim-seoyun-young-female-tiered.json	thisYear	romance	standard	para2	thisYear/romance/standard/para2	사람들이 모이는 기회가 늘어나면 살짝 들뜨기 쉬워요. 자기 페이스를 지키면서 자기다움을 챙기는 일이, 결국 가장 단단한 친구 관계의 자산이 돼요. 기다리는 시간도 자기 자리를 가꾸는 흐름으로 받아들이면, 한 해의 끝에 한층 깊어진 친구 관계가 남아요. 짝과 관련한 큰 결정은 한참 뒤의 이야기로 두고, 한 해 동안 다양한 친구 관계를 경험해 두는 자리로 보내면 잘 어울려요.
 04-kim-seoyun-young-female-tiered.json	thisYear	romance	expert	para0	thisYear/romance/expert/para0	올해 또래·친구 관계는 #식신과 #상관의 기운으로 한 해 내내 자라요.
 04-kim-seoyun-young-female-tiered.json	thisYear	romance	expert	para1	thisYear/romance/expert/para1	발표·창작·동아리·시험 같은 활동에서 자기 색이 또렷해지고, 친구 사이의 신뢰가 한 단계 단단해지는 모습이에요.
 04-kim-seoyun-young-female-tiered.json	thisYear	romance	expert	para2	thisYear/romance/expert/para2	매력 신호인 #도화가 살짝 비치면 사람들이 모이는 곳에 시선이 한 번씩 모이지만, 그 빛에 들떠 큰 결심을 내리지 않아도 좋아요.
@@ -6466,8 +6475,9 @@ fixture	period	category	depth	slot	cellKey	plainText
 18-lee-child-male-tiered.json	life	academic	expert	para2	life/academic/expert/para2	그래서 같은 #일주라도 성장 과정, 보호자 관찰, 실제 생활 환경을 함께 살피는 자료로 받아 주세요. 아이의 표정, 말투, 잠과 식사 같은 일상 신호가 사주 지표보다 더 정확한 단서가 되는 시기예요.
 18-lee-child-male-tiered.json	life	academic	expert	para3	life/academic/expert/para3	큰 결정은 보호자가 시간을 두고 가까운 어른과 함께 확인해 주세요. 사주 해석은 한쪽 참고 자료로만 두고, 학교·의료·상담 같은 실제 지원 경로를 우선 활용하면 흐름을 더 안전하게 끌어갈 수 있어요.
 18-lee-child-male-tiered.json	life	romance	brief	headline	life/romance/brief/headline	어린 시절엔 친구·가족과 마음을 나누는 결이 도드라져요.
-18-lee-child-male-tiered.json	life	romance	standard	para0	life/romance/standard/para0	아직은 사랑을 큰 약속으로 보기보다, 친구와 가족 사이에서 존중을 배우는 시기로 보는 것이 좋아요.
-18-lee-child-male-tiered.json	life	romance	standard	para1	life/romance/standard/para1	좋아하는 마음을 표현하되 상대의 속도도 함께 살피면 관계가 편해져요.
+18-lee-child-male-tiered.json	life	romance	standard	para0	life/romance/standard/para0	어린 시절의 인연은 짝을 미리 정하는 그림이 아니라, 가족과 친구 사이에서 마음을 주고받는 흐름을 차곡차곡 익히는 시간이에요. 이 시기엔 좋아하는 사람이 생겨도 큰 약속의 모양으로 풀리기보다, 함께 노는 시간 안에서 자기 마음과 상대의 마음을 알아 가는 자연스러운 흐름으로 자라요.
+18-lee-child-male-tiered.json	life	romance	standard	para1	life/romance/standard/para1	사주에서 인연 자리가 넓다는 신호가 보이면, 어린 시절엔 보통 사람을 좋아하고 친구와 잘 어울리는 흐름으로 풀려요. 아이는 가족 안에서 충분히 사랑받는 경험과 단체 활동에서 자기 자리를 찾는 작은 연습이 가장 큰 자산이 돼요. 좋아하는 친구에게는 작은 칭찬이나 고마운 말을 천천히 건네는 습관이 흐름을 부드럽게 만들어 줘요.
+18-lee-child-male-tiered.json	life	romance	standard	para2	life/romance/standard/para2	너무 어려운 어른의 어휘를 미리 들이밀지 않아도 돼요. 나이에 맞는 우정·돌봄의 흐름을 충분히 누리며 자라는 것만으로 인생 전체의 인연 자산이 단단히 쌓여요. 서운한 일이 생기면 단정하지 말고 왜 그랬는지 한 번 더 물어보는 흐름을, 곁에서 어른들이 함께 보여 주면 도움이 돼요.
 18-lee-child-male-tiered.json	life	romance	expert	para0	life/romance/expert/para0	어린 연령대의 관계 해석은 결혼성보다 #식신과 #상관이 만드는 표현 방식을 먼저 봐요.
 18-lee-child-male-tiered.json	life	romance	expert	para1	life/romance/expert/para1	#음양조화도는 친구 관계에서 주고받는 속도와 경계감을 읽는 보조 지표예요.
 18-lee-child-male-tiered.json	life	romance	expert	para2	life/romance/expert/para2	#처궁의 흐름과 #자식궁의 자리가 함께 살아나는 시기엔 가까운 관계가 한 단계 깊어지는 흐름이 보여요.
@@ -6489,8 +6499,11 @@ fixture	period	category	depth	slot	cellKey	plainText
 18-lee-child-male-tiered.json	life	career	expert	para2	life/career/expert/para2	그래서 같은 #일주라도 성장 과정, 보호자 관찰, 실제 생활 환경을 함께 살피는 자료로 받아 주세요. 아이의 표정, 말투, 잠과 식사 같은 일상 신호가 사주 지표보다 더 정확한 단서가 되는 시기예요.
 18-lee-child-male-tiered.json	life	career	expert	para3	life/career/expert/para3	큰 결정은 보호자가 시간을 두고 가까운 어른과 함께 확인해 주세요. 사주 해석은 한쪽 참고 자료로만 두고, 학교·의료·상담 같은 실제 지원 경로를 우선 활용하면 흐름을 더 안전하게 끌어갈 수 있어요.
 18-lee-child-male-tiered.json	life	study_document	brief	headline	life/study_document/brief/headline	글과 시험을 차곡차곡 쌓아 가는 시기예요.
-18-lee-child-male-tiered.json	life	study_document	standard	para0	life/study_document/standard/para0	공부와 기록은 한 번에 많이 하는 것보다 작은 단계를 매일 이어갈 때 더 잘 맞아요.
-18-lee-child-male-tiered.json	life	study_document	standard	para1	life/study_document/standard/para1	모르는 부분을 표시하고 다시 보는 습관이 실력을 안정적으로 키워줍니다.
+18-lee-child-male-tiered.json	life	study_document	standard	para0	life/study_document/standard/para0	어린 시기와 학창 시절의 공부·서류 흐름은 시험 한 번의 점수를 두고 다투는 자리가 아니라, 좋아하는 것을 한 가지씩 알아 가는 시간이에요. 책 한 권을 천천히 펼쳐 자기에게 맞는 속도를 익히는 흐름이 평생 갈 학습 자산의 시작이 돼요.
+18-lee-child-male-tiered.json	life	study_document	standard	para1	life/study_document/standard/para1	비유하자면 작은 노트 한 권을 처음 펼치는 그림이에요. 첫 줄은 또박또박, 두 줄째는 어제보다 한 글자 더, 이렇게 차곡차곡 채워 가면 한 학기·한 학년 뒤에는 자기만의 책이 한 권 자라 있어요.
+18-lee-child-male-tiered.json	life	study_document	standard	para2	life/study_document/standard/para2	잘 풀리는 면은, 모르는 것을 솔직하게 적어 두는 자리예요. 헷갈린 문장, 못 푼 문제, 어려운 단어를 작은 노트에 한 줄씩 모아 두면 그 자체가 다음 주의 학습 지도가 돼요. 그림이나 색연필로 정리해도 충분해요.
+18-lee-child-male-tiered.json	life	study_document	standard	para3	life/study_document/standard/para3	살짝 살피면 좋은 점은, 옆 친구의 결과만 보고 자기 페이스를 잃는 면이에요. 비교는 짧게, 자기 기록 갱신은 꾸준히로 충분해요. 친구와는 함께 풀어 보는 시간을 만드는 쪽이 더 많은 것을 남겨 줘요.
+18-lee-child-male-tiered.json	life	study_document	standard	para4	life/study_document/standard/para4	학교에서 받은 작은 칭찬 한마디, 친구와 함께 풀어 본 한 문제, 모르는 단어를 노트에 적어 둔 한 줄이 큰 자산이 되는 시기예요. 어른의 큰 자격 어휘를 미리 끌어오지 않아도 충분해요.
 18-lee-child-male-tiered.json	life	study_document	expert	para0	life/study_document/expert/para0	이 항목은 나이가 어린 독자에게 결과를 단정적으로 풀이하지 않아요. 같은 흐름이라도 아이가 자라는 속도, 가정과 학교의 환경, 그날그날의 컨디션에 따라 의미가 크게 달라지기 때문이에요.
 18-lee-child-male-tiered.json	life	study_document	expert	para1	life/study_document/expert/para1	전문 해석에서 자주 쓰는 #일주와 #용신 같은 지표는 성격과 흐름을 가늠하는 참고선일 뿐, 어린 시기의 결과를 못 박는 단서로 쓰면 안 돼요.
 18-lee-child-male-tiered.json	life	study_document	expert	para2	life/study_document/expert/para2	그래서 같은 #일주라도 성장 과정, 보호자 관찰, 실제 생활 환경을 함께 살피는 자료로 받아 주세요. 아이의 표정, 말투, 잠과 식사 같은 일상 신호가 사주 지표보다 더 정확한 단서가 되는 시기예요.
@@ -6554,9 +6567,9 @@ fixture	period	category	depth	slot	cellKey	plainText
 18-lee-child-male-tiered.json	today	academic	expert	para2	today/academic/expert/para2	#식신은 이해한 것을 말로 설명하게 하는 축이고, #용신부합도는 오늘 공부 방식이 아이의 회복 리듬과 맞는지 확인하는 보조 지표예요.
 18-lee-child-male-tiered.json	today	academic	expert	para3	today/academic/expert/para3	평소엔 #정인의 토대를 단단히 두고, #식신이 받쳐 주는 시기에는 익힌 것을 자기 말로 풀어 두는 자리를 챙기면 학업의 흐름이 더 또렷해져요.
 18-lee-child-male-tiered.json	today	romance	brief	headline	today/romance/brief/headline	오늘은 먼저 웃으며 인사하면 친구 관계가 한결 부드러워져요.
-18-lee-child-male-tiered.json	today	romance	standard	para0	today/romance/standard/para0	오늘 아이는 가족·친구와 마음을 주고받는 색이 또렷한 하루를 보내요. 작은 칭찬·다정한 말이 평소보다 더 마음에 닿는 시간이라, 옆에서 따뜻하게 챙겨 주는 자리가 큰 자산이 돼요.
-18-lee-child-male-tiered.json	today	romance	standard	para1	today/romance/standard/para1	새 친구를 만나는 자리나 단체 활동이 있으면, 자기 페이스대로 어울릴 수 있도록 충분한 여유를 두세요. 하루의 끝에 좋아하는 사람들과 잠깐이라도 함께 웃는 시간이 있으면 마음의 호흡이 한결 부드러워져요.
-18-lee-child-male-tiered.json	today	romance	standard	para2	today/romance/standard/para2	너무 어려운 어른의 어휘를 들이밀지 않아도 돼요. 나이에 맞는 친구·가족의 자리를 즐기는 것만으로 충분해요.
+18-lee-child-male-tiered.json	today	romance	standard	para0	today/romance/standard/para0	오늘은 가족·친구와 마음을 주고받는 흐름이 또렷한 하루예요. 작은 칭찬·다정한 말이 평소보다 더 길게 마음에 닿는 시간이라, 옆에서 따뜻하게 챙겨 주는 자리만으로도 큰 자산이 돼요.
+18-lee-child-male-tiered.json	today	romance	standard	para1	today/romance/standard/para1	새 친구를 만나는 자리나 단체 활동이 있으면 자기 페이스대로 어울릴 수 있도록 충분한 여유를 두세요. 좋아하는 친구에게 짧은 인사나 함께 놀자는 한마디를 건네면, 그 자리에서 사이가 한층 부드러워져요. 잠깐의 다툼이 생기면 부모·선생님이 옆에서 조용히 흐름을 다듬어 주는 것만으로도 회복이 빨라져요.
+18-lee-child-male-tiered.json	today	romance	standard	para2	today/romance/standard/para2	하루의 끝에 좋아하는 사람들과 잠깐이라도 함께 웃는 시간이 있으면, 마음의 호흡이 한결 부드러워져요. 너무 어려운 어른의 어휘를 들이밀지 않아도 돼요. 나이에 맞는 친구·가족의 자리를 즐기는 것만으로 오늘이 충분히 따뜻해져요.
 18-lee-child-male-tiered.json	today	romance	expert	para0	today/romance/expert/para0	이 항목은 나이가 어린 독자에게 결과를 단정적으로 풀이하지 않아요. 같은 흐름이라도 아이가 자라는 속도, 가정과 학교의 환경, 그날그날의 컨디션에 따라 의미가 크게 달라지기 때문이에요.
 18-lee-child-male-tiered.json	today	romance	expert	para1	today/romance/expert/para1	전문 해석에서 자주 쓰는 #일주와 #용신 같은 지표는 성격과 흐름을 가늠하는 참고선일 뿐, 어린 시기의 결과를 못 박는 단서로 쓰면 안 돼요.
 18-lee-child-male-tiered.json	today	romance	expert	para2	today/romance/expert/para2	그래서 같은 #일주라도 성장 과정, 보호자 관찰, 실제 생활 환경을 함께 살피는 자료로 받아 주세요. 아이의 표정, 말투, 잠과 식사 같은 일상 신호가 사주 지표보다 더 정확한 단서가 되는 시기예요.
@@ -6578,11 +6591,11 @@ fixture	period	category	depth	slot	cellKey	plainText
 18-lee-child-male-tiered.json	today	career	expert	para2	today/career/expert/para2	그래서 같은 #일주라도 성장 과정, 보호자 관찰, 실제 생활 환경을 함께 살피는 자료로 받아 주세요. 아이의 표정, 말투, 잠과 식사 같은 일상 신호가 사주 지표보다 더 정확한 단서가 되는 시기예요.
 18-lee-child-male-tiered.json	today	career	expert	para3	today/career/expert/para3	큰 결정은 보호자가 시간을 두고 가까운 어른과 함께 확인해 주세요. 사주 해석은 한쪽 참고 자료로만 두고, 학교·의료·상담 같은 실제 지원 경로를 우선 활용하면 흐름을 더 안전하게 끌어갈 수 있어요.
 18-lee-child-male-tiered.json	today	study_document	brief	headline	today/study_document/brief/headline	오늘은 새 내용을 늘리기보다 헷갈린 부분을 다시 보는 편이 좋아요.
-18-lee-child-male-tiered.json	today	study_document	standard	para0	today/study_document/standard/para0	오늘은 학교 시험·읽기쓰기에서 한 단원만 또렷이 마무리하면 충분한 날이에요. 한꺼번에 많은 분량보다, 깊게 한 자리가 잘 맞아요.
-18-lee-child-male-tiered.json	today	study_document	standard	para1	today/study_document/standard/para1	새 노트 첫 장을 또박또박 써 내려가는 그림을 떠올려 보면 좋아요. 오늘의 한 페이지가 다음 주 시험을 가볍게 해 줘요.
-18-lee-child-male-tiered.json	today	study_document	standard	para2	today/study_document/standard/para2	잘 풀리는 면은, 좋아하는 과목 한 가지에 집중할 때 결과가 또렷한 자리예요. 모든 과목을 한 번에 잡지 않아도 돼요.
-18-lee-child-male-tiered.json	today	study_document	standard	para3	today/study_document/standard/para3	살짝 주의할 점은, 친구와 비교하다 자기 페이스를 잃는 면이에요. 어제 자기와만 비교해도 충분해요.
-18-lee-child-male-tiered.json	today	study_document	standard	para4	today/study_document/standard/para4	오늘 받은 작은 칭찬 한마디가 큰 자산이 되는 시기예요.
+18-lee-child-male-tiered.json	today	study_document	standard	para0	today/study_document/standard/para0	오늘은 책 한 권을 끝까지 읽기보다, 한 단원만 또렷이 챙기면 충분한 흐름이에요. 한꺼번에 많은 분량을 잡기보다 한 자리에 깊게 머무는 호흡이 잘 맞아요.
+18-lee-child-male-tiered.json	today	study_document	standard	para1	today/study_document/standard/para1	비유하자면 작은 노트 첫 줄을 또박또박 적는 그림이에요. 오늘 적은 한 줄이 다음 주 시험에서 길잡이가 돼요. 그림으로 정리해도 좋고, 색연필로 표시해도 충분해요.
+18-lee-child-male-tiered.json	today	study_document	standard	para2	today/study_document/standard/para2	잘 풀리는 면은, 모르는 것을 그냥 넘기지 않는 자리예요. 헷갈린 문장이나 못 푼 문제를 작은 노트에 한 줄씩 옮겨 두면 오늘의 공부가 자기만의 자료가 돼요. 친구와 함께 풀어 보는 시간이 있으면 더 잘 남아요.
+18-lee-child-male-tiered.json	today	study_document	standard	para3	today/study_document/standard/para3	살짝 주의할 점은, 오늘 모든 과목을 한꺼번에 잡으려는 마음이에요. 좋아하는 한 과목부터 차분히 끝내고, 어려운 과목은 한 박자 미뤄 둬도 충분해요. 짧게 쉬고 다시 시작해도 괜찮아요.
+18-lee-child-male-tiered.json	today	study_document	standard	para4	today/study_document/standard/para4	학교에서 받은 작은 메모 한 장, 오늘 적어 둔 모르는 단어 한 줄이 다음 주의 작은 무기가 돼요. 비교는 어제 자기와만 짧게로 충분해요.
 18-lee-child-male-tiered.json	today	study_document	expert	para0	today/study_document/expert/para0	이 항목은 나이가 어린 독자에게 결과를 단정적으로 풀이하지 않아요. 같은 흐름이라도 아이가 자라는 속도, 가정과 학교의 환경, 그날그날의 컨디션에 따라 의미가 크게 달라지기 때문이에요.
 18-lee-child-male-tiered.json	today	study_document	expert	para1	today/study_document/expert/para1	전문 해석에서 자주 쓰는 #일주와 #용신 같은 지표는 성격과 흐름을 가늠하는 참고선일 뿐, 어린 시기의 결과를 못 박는 단서로 쓰면 안 돼요.
 18-lee-child-male-tiered.json	today	study_document	expert	para2	today/study_document/expert/para2	그래서 같은 #일주라도 성장 과정, 보호자 관찰, 실제 생활 환경을 함께 살피는 자료로 받아 주세요. 아이의 표정, 말투, 잠과 식사 같은 일상 신호가 사주 지표보다 더 정확한 단서가 되는 시기예요.
@@ -6646,8 +6659,9 @@ fixture	period	category	depth	slot	cellKey	plainText
 18-lee-child-male-tiered.json	thisWeek	academic	expert	para2	thisWeek/academic/expert/para2	#식신이 드러나는 주에는 말하기, 쓰기, 풀이 설명을 넣어야 하고, #용신부합도가 낮으면 학습량보다 회복과 반복 간격을 조정하는 것이 먼저예요.
 18-lee-child-male-tiered.json	thisWeek	academic	expert	para3	thisWeek/academic/expert/para3	#통관용신의 흐름과 #병약용신의 자리가 함께 또렷해지는 사주는 학습의 깊이가 자기 흐름의 균형을 따라가는 자리예요.
 18-lee-child-male-tiered.json	thisWeek	romance	brief	headline	thisWeek/romance/brief/headline	이번 주는 친구와 신나게 어울릴 자리가 자주 보여요.
-18-lee-child-male-tiered.json	thisWeek	romance	standard	para0	thisWeek/romance/standard/para0	이번 주는 친구 사이에서 신뢰를 쌓기 좋은 결이에요.
-18-lee-child-male-tiered.json	thisWeek	romance	standard	para1	thisWeek/romance/standard/para1	약속 시간을 지키고, 함께 정한 규칙을 잘 지키면 가까운 사람이 더 편안함을 느낍니다.
+18-lee-child-male-tiered.json	thisWeek	romance	standard	para0	thisWeek/romance/standard/para0	이번 주 아이의 하루는 친구·가족과의 자리에서 가장 또렷하게 살아나요. 단체 활동·놀이 자리에서 서로의 마음을 알아 가는 흐름이 평소보다 잘 자라는 시기라, 함께 보내는 시간 자체가 큰 자산이 돼요.
+18-lee-child-male-tiered.json	thisWeek	romance	standard	para1	thisWeek/romance/standard/para1	새 친구를 사귀는 자리가 생기면 자기 페이스대로 어울릴 수 있도록 충분한 여유를 두세요. 좋아하는 친구에게 작은 칭찬이나 고마운 마음을 한 줄로 건네면, 사이의 흐름이 한층 부드러워져요. 잠깐의 다툼이 생기면 부모·선생님이 옆에서 조용히 흐름을 다듬어 주는 것만으로도 회복이 빨라져요.
+18-lee-child-male-tiered.json	thisWeek	romance	standard	para2	thisWeek/romance/standard/para2	한 주 동안 좋아하는 사람들과 함께 웃는 시간이 자주 있으면, 마음의 흐름이 한층 부드러워져요. 기다리는 마음이 조급하게 느껴지더라도 오늘 내일 안에 다 풀리지 않아도 괜찮다는 믿음을 곁에서 함께 보여 주면, 한 주의 흐름이 차분하게 익어요.
 18-lee-child-male-tiered.json	thisWeek	romance	expert	para0	thisWeek/romance/expert/para0	이 항목은 나이가 어린 독자에게 결과를 단정적으로 풀이하지 않아요. 같은 흐름이라도 아이가 자라는 속도, 가정과 학교의 환경, 그날그날의 컨디션에 따라 의미가 크게 달라지기 때문이에요.
 18-lee-child-male-tiered.json	thisWeek	romance	expert	para1	thisWeek/romance/expert/para1	전문 해석에서 자주 쓰는 #일주와 #용신 같은 지표는 성격과 흐름을 가늠하는 참고선일 뿐, 어린 시기의 결과를 못 박는 단서로 쓰면 안 돼요.
 18-lee-child-male-tiered.json	thisWeek	romance	expert	para2	thisWeek/romance/expert/para2	그래서 같은 #일주라도 성장 과정, 보호자 관찰, 실제 생활 환경을 함께 살피는 자료로 받아 주세요. 아이의 표정, 말투, 잠과 식사 같은 일상 신호가 사주 지표보다 더 정확한 단서가 되는 시기예요.
@@ -6669,8 +6683,11 @@ fixture	period	category	depth	slot	cellKey	plainText
 18-lee-child-male-tiered.json	thisWeek	career	expert	para2	thisWeek/career/expert/para2	그래서 같은 #일주라도 성장 과정, 보호자 관찰, 실제 생활 환경을 함께 살피는 자료로 받아 주세요. 아이의 표정, 말투, 잠과 식사 같은 일상 신호가 사주 지표보다 더 정확한 단서가 되는 시기예요.
 18-lee-child-male-tiered.json	thisWeek	career	expert	para3	thisWeek/career/expert/para3	큰 결정은 보호자가 시간을 두고 가까운 어른과 함께 확인해 주세요. 사주 해석은 한쪽 참고 자료로만 두고, 학교·의료·상담 같은 실제 지원 경로를 우선 활용하면 흐름을 더 안전하게 끌어갈 수 있어요.
 18-lee-child-male-tiered.json	thisWeek	study_document	brief	headline	thisWeek/study_document/brief/headline	한 단원만 또렷이 챙기면 좋은 한 주예요.
-18-lee-child-male-tiered.json	thisWeek	study_document	standard	para0	thisWeek/study_document/standard/para0	이번 주는 공부량을 늘리기보다 반복할 시간을 일정에 넣는 것이 좋아요.
-18-lee-child-male-tiered.json	thisWeek	study_document	standard	para1	thisWeek/study_document/standard/para1	매일 조금씩 같은 시간에 보는 과목을 정하면 기억이 더 오래 남습니다.
+18-lee-child-male-tiered.json	thisWeek	study_document	standard	para0	thisWeek/study_document/standard/para0	이번 주는 새 책을 한꺼번에 끝내려는 무리보다, 좋아하는 책 한 권을 천천히 펼쳐 보는 흐름이 잘 맞아요. 한 주의 학습은 분량을 늘리는 자리가 아니라 자기 페이스를 또렷이 잡는 시간이에요.
+18-lee-child-male-tiered.json	thisWeek	study_document	standard	para1	thisWeek/study_document/standard/para1	비유하자면 작은 노트에 한 주의 시간표를 그리는 그림이에요. 매일 같은 시간에 보는 한 과목을 정해 두면 한 주가 끝날 즈음에는 자기만의 학습 흐름이 또렷이 보여요. 그림이나 색연필로 일정을 정리해도 충분해요.
+18-lee-child-male-tiered.json	thisWeek	study_document	standard	para2	thisWeek/study_document/standard/para2	잘 풀리는 면은, 모르는 것을 솔직하게 모아 두는 자리예요. 한 주 동안 헷갈린 문장이나 못 푼 문제를 작은 노트에 한 줄씩 옮겨 두면, 주말의 30분이 그 한 주의 학습을 단단하게 마무리해 줘요.
+18-lee-child-male-tiered.json	thisWeek	study_document	standard	para3	thisWeek/study_document/standard/para3	살짝 주의할 점은, 시간표를 너무 빽빽하게 짜는 면이에요. 매일 30분의 짧은 자리, 친구와 함께 한 문제 풀어 보는 자리, 좋아하는 책 한 페이지를 천천히 읽는 자리를 한 칸씩 비워 두면 한 주가 가벼워져요.
+18-lee-child-male-tiered.json	thisWeek	study_document	standard	para4	thisWeek/study_document/standard/para4	학교에서 받은 작은 과제, 친구와 같이 본 한 페이지, 모르는 단어를 적어 둔 한 줄이 다음 주를 든든하게 만드는 자산이 돼요. 비교는 지난주 자기와만 짧게로 충분해요.
 18-lee-child-male-tiered.json	thisWeek	study_document	expert	para0	thisWeek/study_document/expert/para0	이 항목은 나이가 어린 독자에게 결과를 단정적으로 풀이하지 않아요. 같은 흐름이라도 아이가 자라는 속도, 가정과 학교의 환경, 그날그날의 컨디션에 따라 의미가 크게 달라지기 때문이에요.
 18-lee-child-male-tiered.json	thisWeek	study_document	expert	para1	thisWeek/study_document/expert/para1	전문 해석에서 자주 쓰는 #일주와 #용신 같은 지표는 성격과 흐름을 가늠하는 참고선일 뿐, 어린 시기의 결과를 못 박는 단서로 쓰면 안 돼요.
 18-lee-child-male-tiered.json	thisWeek	study_document	expert	para2	thisWeek/study_document/expert/para2	그래서 같은 #일주라도 성장 과정, 보호자 관찰, 실제 생활 환경을 함께 살피는 자료로 받아 주세요. 아이의 표정, 말투, 잠과 식사 같은 일상 신호가 사주 지표보다 더 정확한 단서가 되는 시기예요.
@@ -6734,8 +6751,9 @@ fixture	period	category	depth	slot	cellKey	plainText
 18-lee-child-male-tiered.json	thisMonth	academic	expert	para2	thisMonth/academic/expert/para2	#식신은 말하고 쓰는 과정에서 이해를 확인하는 축이고, #용신부합도가 낮은 달에는 성취 목표보다 루틴을 유지하는 보조 환경이 더 중요해요.
 18-lee-child-male-tiered.json	thisMonth	academic	expert	para3	thisMonth/academic/expert/para3	#대운궁실의 흐름과 #일진의 흐름이 함께 살아날 때는 한 단원씩 차분히 매듭짓기 좋은 페이스가 자리 잡아요.
 18-lee-child-male-tiered.json	thisMonth	romance	brief	headline	thisMonth/romance/brief/headline	이번 달은 친구·가족과 함께 웃는 자리가 많아요.
-18-lee-child-male-tiered.json	thisMonth	romance	standard	para0	thisMonth/romance/standard/para0	이번 달은 가까운 친구와 더 자주 웃을 수 있는 흐름이에요.
-18-lee-child-male-tiered.json	thisMonth	romance	standard	para1	thisMonth/romance/standard/para1	다만 친해지고 싶은 마음이 커도 상대의 시간을 존중해야 관계가 오래 편안해요.
+18-lee-child-male-tiered.json	thisMonth	romance	standard	para0	thisMonth/romance/standard/para0	이번 달 아이의 사이는 친구·가족과 함께하는 자리에서 가장 또렷이 살아나요. 단체 활동·학원·가족 모임처럼 함께하는 시간이 늘어나는 시기라, 사람을 좋아하는 마음이 자연스럽게 자라는 한 달이에요.
+18-lee-child-male-tiered.json	thisMonth	romance	standard	para1	thisMonth/romance/standard/para1	새 친구를 사귀는 자리가 생기면 자기 페이스대로 어울릴 수 있도록 충분한 여유를 두세요. 좋아하는 친구에게 작은 칭찬이나 고마운 마음을 한 줄로 건네면, 사이의 흐름이 한층 부드러워져요. 다툼이 잠깐 생기면 부모·선생님이 옆에서 조용히 사이를 다듬어 주는 것만으로도 회복이 빨라져요.
+18-lee-child-male-tiered.json	thisMonth	romance	standard	para2	thisMonth/romance/standard/para2	한 달 동안 좋아하는 사람들과 함께 웃는 시간이 자주 있으면, 마음의 호흡이 한층 부드러워져요. 기다리는 마음이 조급하게 느껴질 땐, 곁에서 어른들이 한 박자 천천히 들어 주는 자리만으로도 흐름이 차분해져요. 너무 어려운 어른의 어휘를 들이밀지 않고 나이에 맞는 자리를 즐기는 모양으로 한 달을 보내면 잘 어울려요.
 18-lee-child-male-tiered.json	thisMonth	romance	expert	para0	thisMonth/romance/expert/para0	이 항목은 나이가 어린 독자에게 결과를 단정적으로 풀이하지 않아요. 같은 흐름이라도 아이가 자라는 속도, 가정과 학교의 환경, 그날그날의 컨디션에 따라 의미가 크게 달라지기 때문이에요.
 18-lee-child-male-tiered.json	thisMonth	romance	expert	para1	thisMonth/romance/expert/para1	전문 해석에서 자주 쓰는 #일주와 #용신 같은 지표는 성격과 흐름을 가늠하는 참고선일 뿐, 어린 시기의 결과를 못 박는 단서로 쓰면 안 돼요.
 18-lee-child-male-tiered.json	thisMonth	romance	expert	para2	thisMonth/romance/expert/para2	그래서 같은 #일주라도 성장 과정, 보호자 관찰, 실제 생활 환경을 함께 살피는 자료로 받아 주세요. 아이의 표정, 말투, 잠과 식사 같은 일상 신호가 사주 지표보다 더 정확한 단서가 되는 시기예요.
@@ -6823,9 +6841,9 @@ fixture	period	category	depth	slot	cellKey	plainText
 18-lee-child-male-tiered.json	thisYear	academic	expert	para2	thisYear/academic/expert/para2	그래서 같은 #일주라도 성장 과정, 보호자 관찰, 실제 생활 환경을 함께 살피는 자료로 받아 주세요. 아이의 표정, 말투, 잠과 식사 같은 일상 신호가 사주 지표보다 더 정확한 단서가 되는 시기예요.
 18-lee-child-male-tiered.json	thisYear	academic	expert	para3	thisYear/academic/expert/para3	큰 결정은 보호자가 시간을 두고 가까운 어른과 함께 확인해 주세요. 사주 해석은 한쪽 참고 자료로만 두고, 학교·의료·상담 같은 실제 지원 경로를 우선 활용하면 흐름을 더 안전하게 끌어갈 수 있어요.
 18-lee-child-male-tiered.json	thisYear	romance	brief	headline	thisYear/romance/brief/headline	올해는 좋은 친구를 고르고 오래 지키는 법을 배우기 좋아요.
-18-lee-child-male-tiered.json	thisYear	romance	standard	para0	thisYear/romance/standard/para0	올해 아이의 사이는 친구·가족과 함께하는 자리에서 한 해 내내 자라요. 학교·학원·가족 모임처럼 사람을 만나는 자리가 늘어나는 시기라, 사람을 좋아하는 마음이 자연스럽게 자라는 흐름이에요.
-18-lee-child-male-tiered.json	thisYear	romance	standard	para1	thisYear/romance/standard/para1	새 친구를 사귀는 자리가 생기면 자기 페이스대로 어울릴 수 있도록 충분한 여유를 두세요. 다툼이 잠깐 생기면 부모·선생님이 옆에서 조용히 사이를 다듬어 주는 것만으로도 회복이 빨라져요.
-18-lee-child-male-tiered.json	thisYear	romance	standard	para2	thisYear/romance/standard/para2	한 해 동안 좋아하는 사람들과 함께 웃는 시간이 자주 있으면, 마음의 호흡이 한층 부드러워져요. 너무 어려운 어른의 어휘를 들이밀지 않고 나이에 맞는 자리를 즐기는 모양으로 한 해를 보내면 잘 어울려요.
+18-lee-child-male-tiered.json	thisYear	romance	standard	para0	thisYear/romance/standard/para0	올해 아이의 사이는 친구·가족과 함께하는 자리에서 한 해 내내 자라요. 학교·학원·가족 모임처럼 사람을 만나는 자리가 늘어나는 시기라, 사람을 좋아하는 마음이 자연스럽게 자라는 한 해예요.
+18-lee-child-male-tiered.json	thisYear	romance	standard	para1	thisYear/romance/standard/para1	새 친구를 사귀는 자리가 생기면 자기 페이스대로 어울릴 수 있도록 충분한 여유를 두세요. 좋아하는 친구에게 작은 칭찬이나 고마운 마음을 한 줄로 자주 건네면, 한 해 동안 사이의 흐름이 차곡차곡 단단해져요. 다툼이 잠깐 생기면 부모·선생님이 옆에서 조용히 사이를 다듬어 주는 것만으로도 회복이 빨라져요.
+18-lee-child-male-tiered.json	thisYear	romance	standard	para2	thisYear/romance/standard/para2	한 해 동안 좋아하는 사람들과 함께 웃는 시간이 자주 있으면, 마음의 호흡이 한층 부드러워져요. 기다리는 마음이 조급하게 느껴지더라도 한 해라는 길이 안에서 차분히 익어 가는 흐름으로 받아들이면, 자라면서 인연 자산이 든든히 쌓여요. 너무 어려운 어른의 어휘를 들이밀지 않고 나이에 맞는 자리를 즐기는 모양으로 한 해를 보내면 잘 어울려요.
 18-lee-child-male-tiered.json	thisYear	romance	expert	para0	thisYear/romance/expert/para0	이 항목은 나이가 어린 독자에게 결과를 단정적으로 풀이하지 않아요. 같은 흐름이라도 아이가 자라는 속도, 가정과 학교의 환경, 그날그날의 컨디션에 따라 의미가 크게 달라지기 때문이에요.
 18-lee-child-male-tiered.json	thisYear	romance	expert	para1	thisYear/romance/expert/para1	전문 해석에서 자주 쓰는 #일주와 #용신 같은 지표는 성격과 흐름을 가늠하는 참고선일 뿐, 어린 시기의 결과를 못 박는 단서로 쓰면 안 돼요.
 18-lee-child-male-tiered.json	thisYear	romance	expert	para2	thisYear/romance/expert/para2	그래서 같은 #일주라도 성장 과정, 보호자 관찰, 실제 생활 환경을 함께 살피는 자료로 받아 주세요. 아이의 표정, 말투, 잠과 식사 같은 일상 신호가 사주 지표보다 더 정확한 단서가 되는 시기예요.
@@ -10614,8 +10632,9 @@ fixture	period	category	depth	slot	cellKey	plainText
 27-jonggyeok-jongah-tiered.json	life	academic	expert	para2	life/academic/expert/para2	그래서 같은 #일주라도 성장 과정, 보호자 관찰, 실제 생활 환경을 함께 살피는 자료로 받아 주세요. 아이의 표정, 말투, 잠과 식사 같은 일상 신호가 사주 지표보다 더 정확한 단서가 되는 시기예요.
 27-jonggyeok-jongah-tiered.json	life	academic	expert	para3	life/academic/expert/para3	큰 결정은 보호자가 시간을 두고 가까운 어른과 함께 확인해 주세요. 사주 해석은 한쪽 참고 자료로만 두고, 학교·의료·상담 같은 실제 지원 경로를 우선 활용하면 흐름을 더 안전하게 끌어갈 수 있어요.
 27-jonggyeok-jongah-tiered.json	life	romance	brief	headline	life/romance/brief/headline	어린 시절엔 친구·가족과 마음을 나누는 결이 도드라져요.
-27-jonggyeok-jongah-tiered.json	life	romance	standard	para0	life/romance/standard/para0	아직은 사랑을 큰 약속으로 보기보다, 친구와 가족 사이에서 존중을 배우는 시기로 보는 것이 좋아요.
-27-jonggyeok-jongah-tiered.json	life	romance	standard	para1	life/romance/standard/para1	좋아하는 마음을 표현하되 상대의 속도도 함께 살피면 관계가 편해져요.
+27-jonggyeok-jongah-tiered.json	life	romance	standard	para0	life/romance/standard/para0	어린 시절의 인연은 짝을 미리 정하는 그림이 아니라, 가족과 친구 사이에서 마음을 주고받는 흐름을 차곡차곡 익히는 시간이에요. 이 시기엔 좋아하는 사람이 생겨도 큰 약속의 모양으로 풀리기보다, 함께 노는 시간 안에서 자기 마음과 상대의 마음을 알아 가는 자연스러운 흐름으로 자라요.
+27-jonggyeok-jongah-tiered.json	life	romance	standard	para1	life/romance/standard/para1	사주에서 인연 자리가 넓다는 신호가 보이면, 어린 시절엔 보통 사람을 좋아하고 친구와 잘 어울리는 흐름으로 풀려요. 아이는 가족 안에서 충분히 사랑받는 경험과 단체 활동에서 자기 자리를 찾는 작은 연습이 가장 큰 자산이 돼요. 좋아하는 친구에게는 작은 칭찬이나 고마운 말을 천천히 건네는 습관이 흐름을 부드럽게 만들어 줘요.
+27-jonggyeok-jongah-tiered.json	life	romance	standard	para2	life/romance/standard/para2	너무 어려운 어른의 어휘를 미리 들이밀지 않아도 돼요. 나이에 맞는 우정·돌봄의 흐름을 충분히 누리며 자라는 것만으로 인생 전체의 인연 자산이 단단히 쌓여요. 서운한 일이 생기면 단정하지 말고 왜 그랬는지 한 번 더 물어보는 흐름을, 곁에서 어른들이 함께 보여 주면 도움이 돼요.
 27-jonggyeok-jongah-tiered.json	life	romance	expert	para0	life/romance/expert/para0	어린 연령대의 관계 해석은 결혼성보다 #식신과 #상관이 만드는 표현 방식을 먼저 봐요.
 27-jonggyeok-jongah-tiered.json	life	romance	expert	para1	life/romance/expert/para1	#음양조화도는 친구 관계에서 주고받는 속도와 경계감을 읽는 보조 지표예요.
 27-jonggyeok-jongah-tiered.json	life	romance	expert	para2	life/romance/expert/para2	#처궁의 흐름과 #자식궁의 자리가 함께 살아나는 시기엔 가까운 관계가 한 단계 깊어지는 흐름이 보여요.
@@ -10637,8 +10656,11 @@ fixture	period	category	depth	slot	cellKey	plainText
 27-jonggyeok-jongah-tiered.json	life	career	expert	para2	life/career/expert/para2	그래서 같은 #일주라도 성장 과정, 보호자 관찰, 실제 생활 환경을 함께 살피는 자료로 받아 주세요. 아이의 표정, 말투, 잠과 식사 같은 일상 신호가 사주 지표보다 더 정확한 단서가 되는 시기예요.
 27-jonggyeok-jongah-tiered.json	life	career	expert	para3	life/career/expert/para3	큰 결정은 보호자가 시간을 두고 가까운 어른과 함께 확인해 주세요. 사주 해석은 한쪽 참고 자료로만 두고, 학교·의료·상담 같은 실제 지원 경로를 우선 활용하면 흐름을 더 안전하게 끌어갈 수 있어요.
 27-jonggyeok-jongah-tiered.json	life	study_document	brief	headline	life/study_document/brief/headline	글과 시험을 차곡차곡 쌓아 가는 시기예요.
-27-jonggyeok-jongah-tiered.json	life	study_document	standard	para0	life/study_document/standard/para0	공부와 기록은 한 번에 많이 하는 것보다 작은 단계를 매일 이어갈 때 더 잘 맞아요.
-27-jonggyeok-jongah-tiered.json	life	study_document	standard	para1	life/study_document/standard/para1	모르는 부분을 표시하고 다시 보는 습관이 실력을 안정적으로 키워줍니다.
+27-jonggyeok-jongah-tiered.json	life	study_document	standard	para0	life/study_document/standard/para0	어린 시기와 학창 시절의 공부·서류 흐름은 시험 한 번의 점수를 두고 다투는 자리가 아니라, 좋아하는 것을 한 가지씩 알아 가는 시간이에요. 책 한 권을 천천히 펼쳐 자기에게 맞는 속도를 익히는 흐름이 평생 갈 학습 자산의 시작이 돼요.
+27-jonggyeok-jongah-tiered.json	life	study_document	standard	para1	life/study_document/standard/para1	비유하자면 작은 노트 한 권을 처음 펼치는 그림이에요. 첫 줄은 또박또박, 두 줄째는 어제보다 한 글자 더, 이렇게 차곡차곡 채워 가면 한 학기·한 학년 뒤에는 자기만의 책이 한 권 자라 있어요.
+27-jonggyeok-jongah-tiered.json	life	study_document	standard	para2	life/study_document/standard/para2	잘 풀리는 면은, 모르는 것을 솔직하게 적어 두는 자리예요. 헷갈린 문장, 못 푼 문제, 어려운 단어를 작은 노트에 한 줄씩 모아 두면 그 자체가 다음 주의 학습 지도가 돼요. 그림이나 색연필로 정리해도 충분해요.
+27-jonggyeok-jongah-tiered.json	life	study_document	standard	para3	life/study_document/standard/para3	살짝 살피면 좋은 점은, 옆 친구의 결과만 보고 자기 페이스를 잃는 면이에요. 비교는 짧게, 자기 기록 갱신은 꾸준히로 충분해요. 친구와는 함께 풀어 보는 시간을 만드는 쪽이 더 많은 것을 남겨 줘요.
+27-jonggyeok-jongah-tiered.json	life	study_document	standard	para4	life/study_document/standard/para4	학교에서 받은 작은 칭찬 한마디, 친구와 함께 풀어 본 한 문제, 모르는 단어를 노트에 적어 둔 한 줄이 큰 자산이 되는 시기예요. 어른의 큰 자격 어휘를 미리 끌어오지 않아도 충분해요.
 27-jonggyeok-jongah-tiered.json	life	study_document	expert	para0	life/study_document/expert/para0	이 항목은 나이가 어린 독자에게 결과를 단정적으로 풀이하지 않아요. 같은 흐름이라도 아이가 자라는 속도, 가정과 학교의 환경, 그날그날의 컨디션에 따라 의미가 크게 달라지기 때문이에요.
 27-jonggyeok-jongah-tiered.json	life	study_document	expert	para1	life/study_document/expert/para1	전문 해석에서 자주 쓰는 #일주와 #용신 같은 지표는 성격과 흐름을 가늠하는 참고선일 뿐, 어린 시기의 결과를 못 박는 단서로 쓰면 안 돼요.
 27-jonggyeok-jongah-tiered.json	life	study_document	expert	para2	life/study_document/expert/para2	그래서 같은 #일주라도 성장 과정, 보호자 관찰, 실제 생활 환경을 함께 살피는 자료로 받아 주세요. 아이의 표정, 말투, 잠과 식사 같은 일상 신호가 사주 지표보다 더 정확한 단서가 되는 시기예요.
@@ -10702,9 +10724,9 @@ fixture	period	category	depth	slot	cellKey	plainText
 27-jonggyeok-jongah-tiered.json	today	academic	expert	para2	today/academic/expert/para2	#식신은 이해한 것을 말로 설명하게 하는 축이고, #용신부합도는 오늘 공부 방식이 아이의 회복 리듬과 맞는지 확인하는 보조 지표예요.
 27-jonggyeok-jongah-tiered.json	today	academic	expert	para3	today/academic/expert/para3	평소엔 #정인의 토대를 단단히 두고, #식신이 받쳐 주는 시기에는 익힌 것을 자기 말로 풀어 두는 자리를 챙기면 학업의 흐름이 더 또렷해져요.
 27-jonggyeok-jongah-tiered.json	today	romance	brief	headline	today/romance/brief/headline	오늘은 먼저 웃으며 인사하면 친구 관계가 한결 부드러워져요.
-27-jonggyeok-jongah-tiered.json	today	romance	standard	para0	today/romance/standard/para0	오늘 아이는 가족·친구와 마음을 주고받는 색이 또렷한 하루를 보내요. 작은 칭찬·다정한 말이 평소보다 더 마음에 닿는 시간이라, 옆에서 따뜻하게 챙겨 주는 자리가 큰 자산이 돼요.
-27-jonggyeok-jongah-tiered.json	today	romance	standard	para1	today/romance/standard/para1	새 친구를 만나는 자리나 단체 활동이 있으면, 자기 페이스대로 어울릴 수 있도록 충분한 여유를 두세요. 하루의 끝에 좋아하는 사람들과 잠깐이라도 함께 웃는 시간이 있으면 마음의 호흡이 한결 부드러워져요.
-27-jonggyeok-jongah-tiered.json	today	romance	standard	para2	today/romance/standard/para2	너무 어려운 어른의 어휘를 들이밀지 않아도 돼요. 나이에 맞는 친구·가족의 자리를 즐기는 것만으로 충분해요.
+27-jonggyeok-jongah-tiered.json	today	romance	standard	para0	today/romance/standard/para0	오늘은 가족·친구와 마음을 주고받는 흐름이 또렷한 하루예요. 작은 칭찬·다정한 말이 평소보다 더 길게 마음에 닿는 시간이라, 옆에서 따뜻하게 챙겨 주는 자리만으로도 큰 자산이 돼요.
+27-jonggyeok-jongah-tiered.json	today	romance	standard	para1	today/romance/standard/para1	새 친구를 만나는 자리나 단체 활동이 있으면 자기 페이스대로 어울릴 수 있도록 충분한 여유를 두세요. 좋아하는 친구에게 짧은 인사나 함께 놀자는 한마디를 건네면, 그 자리에서 사이가 한층 부드러워져요. 잠깐의 다툼이 생기면 부모·선생님이 옆에서 조용히 흐름을 다듬어 주는 것만으로도 회복이 빨라져요.
+27-jonggyeok-jongah-tiered.json	today	romance	standard	para2	today/romance/standard/para2	하루의 끝에 좋아하는 사람들과 잠깐이라도 함께 웃는 시간이 있으면, 마음의 호흡이 한결 부드러워져요. 너무 어려운 어른의 어휘를 들이밀지 않아도 돼요. 나이에 맞는 친구·가족의 자리를 즐기는 것만으로 오늘이 충분히 따뜻해져요.
 27-jonggyeok-jongah-tiered.json	today	romance	expert	para0	today/romance/expert/para0	이 항목은 나이가 어린 독자에게 결과를 단정적으로 풀이하지 않아요. 같은 흐름이라도 아이가 자라는 속도, 가정과 학교의 환경, 그날그날의 컨디션에 따라 의미가 크게 달라지기 때문이에요.
 27-jonggyeok-jongah-tiered.json	today	romance	expert	para1	today/romance/expert/para1	전문 해석에서 자주 쓰는 #일주와 #용신 같은 지표는 성격과 흐름을 가늠하는 참고선일 뿐, 어린 시기의 결과를 못 박는 단서로 쓰면 안 돼요.
 27-jonggyeok-jongah-tiered.json	today	romance	expert	para2	today/romance/expert/para2	그래서 같은 #일주라도 성장 과정, 보호자 관찰, 실제 생활 환경을 함께 살피는 자료로 받아 주세요. 아이의 표정, 말투, 잠과 식사 같은 일상 신호가 사주 지표보다 더 정확한 단서가 되는 시기예요.
@@ -10726,11 +10748,11 @@ fixture	period	category	depth	slot	cellKey	plainText
 27-jonggyeok-jongah-tiered.json	today	career	expert	para2	today/career/expert/para2	그래서 같은 #일주라도 성장 과정, 보호자 관찰, 실제 생활 환경을 함께 살피는 자료로 받아 주세요. 아이의 표정, 말투, 잠과 식사 같은 일상 신호가 사주 지표보다 더 정확한 단서가 되는 시기예요.
 27-jonggyeok-jongah-tiered.json	today	career	expert	para3	today/career/expert/para3	큰 결정은 보호자가 시간을 두고 가까운 어른과 함께 확인해 주세요. 사주 해석은 한쪽 참고 자료로만 두고, 학교·의료·상담 같은 실제 지원 경로를 우선 활용하면 흐름을 더 안전하게 끌어갈 수 있어요.
 27-jonggyeok-jongah-tiered.json	today	study_document	brief	headline	today/study_document/brief/headline	오늘은 새 내용을 늘리기보다 헷갈린 부분을 다시 보는 편이 좋아요.
-27-jonggyeok-jongah-tiered.json	today	study_document	standard	para0	today/study_document/standard/para0	오늘은 학교 시험·읽기쓰기에서 한 단원만 또렷이 마무리하면 충분한 날이에요. 한꺼번에 많은 분량보다, 깊게 한 자리가 잘 맞아요.
-27-jonggyeok-jongah-tiered.json	today	study_document	standard	para1	today/study_document/standard/para1	새 노트 첫 장을 또박또박 써 내려가는 그림을 떠올려 보면 좋아요. 오늘의 한 페이지가 다음 주 시험을 가볍게 해 줘요.
-27-jonggyeok-jongah-tiered.json	today	study_document	standard	para2	today/study_document/standard/para2	잘 풀리는 면은, 좋아하는 과목 한 가지에 집중할 때 결과가 또렷한 자리예요. 모든 과목을 한 번에 잡지 않아도 돼요.
-27-jonggyeok-jongah-tiered.json	today	study_document	standard	para3	today/study_document/standard/para3	살짝 주의할 점은, 친구와 비교하다 자기 페이스를 잃는 면이에요. 어제 자기와만 비교해도 충분해요.
-27-jonggyeok-jongah-tiered.json	today	study_document	standard	para4	today/study_document/standard/para4	오늘 받은 작은 칭찬 한마디가 큰 자산이 되는 시기예요.
+27-jonggyeok-jongah-tiered.json	today	study_document	standard	para0	today/study_document/standard/para0	오늘은 책 한 권을 끝까지 읽기보다, 한 단원만 또렷이 챙기면 충분한 흐름이에요. 한꺼번에 많은 분량을 잡기보다 한 자리에 깊게 머무는 호흡이 잘 맞아요.
+27-jonggyeok-jongah-tiered.json	today	study_document	standard	para1	today/study_document/standard/para1	비유하자면 작은 노트 첫 줄을 또박또박 적는 그림이에요. 오늘 적은 한 줄이 다음 주 시험에서 길잡이가 돼요. 그림으로 정리해도 좋고, 색연필로 표시해도 충분해요.
+27-jonggyeok-jongah-tiered.json	today	study_document	standard	para2	today/study_document/standard/para2	잘 풀리는 면은, 모르는 것을 그냥 넘기지 않는 자리예요. 헷갈린 문장이나 못 푼 문제를 작은 노트에 한 줄씩 옮겨 두면 오늘의 공부가 자기만의 자료가 돼요. 친구와 함께 풀어 보는 시간이 있으면 더 잘 남아요.
+27-jonggyeok-jongah-tiered.json	today	study_document	standard	para3	today/study_document/standard/para3	살짝 주의할 점은, 오늘 모든 과목을 한꺼번에 잡으려는 마음이에요. 좋아하는 한 과목부터 차분히 끝내고, 어려운 과목은 한 박자 미뤄 둬도 충분해요. 짧게 쉬고 다시 시작해도 괜찮아요.
+27-jonggyeok-jongah-tiered.json	today	study_document	standard	para4	today/study_document/standard/para4	학교에서 받은 작은 메모 한 장, 오늘 적어 둔 모르는 단어 한 줄이 다음 주의 작은 무기가 돼요. 비교는 어제 자기와만 짧게로 충분해요.
 27-jonggyeok-jongah-tiered.json	today	study_document	expert	para0	today/study_document/expert/para0	이 항목은 나이가 어린 독자에게 결과를 단정적으로 풀이하지 않아요. 같은 흐름이라도 아이가 자라는 속도, 가정과 학교의 환경, 그날그날의 컨디션에 따라 의미가 크게 달라지기 때문이에요.
 27-jonggyeok-jongah-tiered.json	today	study_document	expert	para1	today/study_document/expert/para1	전문 해석에서 자주 쓰는 #일주와 #용신 같은 지표는 성격과 흐름을 가늠하는 참고선일 뿐, 어린 시기의 결과를 못 박는 단서로 쓰면 안 돼요.
 27-jonggyeok-jongah-tiered.json	today	study_document	expert	para2	today/study_document/expert/para2	그래서 같은 #일주라도 성장 과정, 보호자 관찰, 실제 생활 환경을 함께 살피는 자료로 받아 주세요. 아이의 표정, 말투, 잠과 식사 같은 일상 신호가 사주 지표보다 더 정확한 단서가 되는 시기예요.
@@ -10794,8 +10816,9 @@ fixture	period	category	depth	slot	cellKey	plainText
 27-jonggyeok-jongah-tiered.json	thisWeek	academic	expert	para2	thisWeek/academic/expert/para2	#식신이 드러나는 주에는 말하기, 쓰기, 풀이 설명을 넣어야 하고, #용신부합도가 낮으면 학습량보다 회복과 반복 간격을 조정하는 것이 먼저예요.
 27-jonggyeok-jongah-tiered.json	thisWeek	academic	expert	para3	thisWeek/academic/expert/para3	#통관용신의 흐름과 #병약용신의 자리가 함께 또렷해지는 사주는 학습의 깊이가 자기 흐름의 균형을 따라가는 자리예요.
 27-jonggyeok-jongah-tiered.json	thisWeek	romance	brief	headline	thisWeek/romance/brief/headline	이번 주는 친구와 신나게 어울릴 자리가 자주 보여요.
-27-jonggyeok-jongah-tiered.json	thisWeek	romance	standard	para0	thisWeek/romance/standard/para0	이번 주는 친구 사이에서 신뢰를 쌓기 좋은 결이에요.
-27-jonggyeok-jongah-tiered.json	thisWeek	romance	standard	para1	thisWeek/romance/standard/para1	약속 시간을 지키고, 함께 정한 규칙을 잘 지키면 가까운 사람이 더 편안함을 느낍니다.
+27-jonggyeok-jongah-tiered.json	thisWeek	romance	standard	para0	thisWeek/romance/standard/para0	이번 주 아이의 하루는 친구·가족과의 자리에서 가장 또렷하게 살아나요. 단체 활동·놀이 자리에서 서로의 마음을 알아 가는 흐름이 평소보다 잘 자라는 시기라, 함께 보내는 시간 자체가 큰 자산이 돼요.
+27-jonggyeok-jongah-tiered.json	thisWeek	romance	standard	para1	thisWeek/romance/standard/para1	새 친구를 사귀는 자리가 생기면 자기 페이스대로 어울릴 수 있도록 충분한 여유를 두세요. 좋아하는 친구에게 작은 칭찬이나 고마운 마음을 한 줄로 건네면, 사이의 흐름이 한층 부드러워져요. 잠깐의 다툼이 생기면 부모·선생님이 옆에서 조용히 흐름을 다듬어 주는 것만으로도 회복이 빨라져요.
+27-jonggyeok-jongah-tiered.json	thisWeek	romance	standard	para2	thisWeek/romance/standard/para2	한 주 동안 좋아하는 사람들과 함께 웃는 시간이 자주 있으면, 마음의 흐름이 한층 부드러워져요. 기다리는 마음이 조급하게 느껴지더라도 오늘 내일 안에 다 풀리지 않아도 괜찮다는 믿음을 곁에서 함께 보여 주면, 한 주의 흐름이 차분하게 익어요.
 27-jonggyeok-jongah-tiered.json	thisWeek	romance	expert	para0	thisWeek/romance/expert/para0	이 항목은 나이가 어린 독자에게 결과를 단정적으로 풀이하지 않아요. 같은 흐름이라도 아이가 자라는 속도, 가정과 학교의 환경, 그날그날의 컨디션에 따라 의미가 크게 달라지기 때문이에요.
 27-jonggyeok-jongah-tiered.json	thisWeek	romance	expert	para1	thisWeek/romance/expert/para1	전문 해석에서 자주 쓰는 #일주와 #용신 같은 지표는 성격과 흐름을 가늠하는 참고선일 뿐, 어린 시기의 결과를 못 박는 단서로 쓰면 안 돼요.
 27-jonggyeok-jongah-tiered.json	thisWeek	romance	expert	para2	thisWeek/romance/expert/para2	그래서 같은 #일주라도 성장 과정, 보호자 관찰, 실제 생활 환경을 함께 살피는 자료로 받아 주세요. 아이의 표정, 말투, 잠과 식사 같은 일상 신호가 사주 지표보다 더 정확한 단서가 되는 시기예요.
@@ -10817,8 +10840,11 @@ fixture	period	category	depth	slot	cellKey	plainText
 27-jonggyeok-jongah-tiered.json	thisWeek	career	expert	para2	thisWeek/career/expert/para2	그래서 같은 #일주라도 성장 과정, 보호자 관찰, 실제 생활 환경을 함께 살피는 자료로 받아 주세요. 아이의 표정, 말투, 잠과 식사 같은 일상 신호가 사주 지표보다 더 정확한 단서가 되는 시기예요.
 27-jonggyeok-jongah-tiered.json	thisWeek	career	expert	para3	thisWeek/career/expert/para3	큰 결정은 보호자가 시간을 두고 가까운 어른과 함께 확인해 주세요. 사주 해석은 한쪽 참고 자료로만 두고, 학교·의료·상담 같은 실제 지원 경로를 우선 활용하면 흐름을 더 안전하게 끌어갈 수 있어요.
 27-jonggyeok-jongah-tiered.json	thisWeek	study_document	brief	headline	thisWeek/study_document/brief/headline	한 단원만 또렷이 챙기면 좋은 한 주예요.
-27-jonggyeok-jongah-tiered.json	thisWeek	study_document	standard	para0	thisWeek/study_document/standard/para0	이번 주는 공부량을 늘리기보다 반복할 시간을 일정에 넣는 것이 좋아요.
-27-jonggyeok-jongah-tiered.json	thisWeek	study_document	standard	para1	thisWeek/study_document/standard/para1	매일 조금씩 같은 시간에 보는 과목을 정하면 기억이 더 오래 남습니다.
+27-jonggyeok-jongah-tiered.json	thisWeek	study_document	standard	para0	thisWeek/study_document/standard/para0	이번 주는 새 책을 한꺼번에 끝내려는 무리보다, 좋아하는 책 한 권을 천천히 펼쳐 보는 흐름이 잘 맞아요. 한 주의 학습은 분량을 늘리는 자리가 아니라 자기 페이스를 또렷이 잡는 시간이에요.
+27-jonggyeok-jongah-tiered.json	thisWeek	study_document	standard	para1	thisWeek/study_document/standard/para1	비유하자면 작은 노트에 한 주의 시간표를 그리는 그림이에요. 매일 같은 시간에 보는 한 과목을 정해 두면 한 주가 끝날 즈음에는 자기만의 학습 흐름이 또렷이 보여요. 그림이나 색연필로 일정을 정리해도 충분해요.
+27-jonggyeok-jongah-tiered.json	thisWeek	study_document	standard	para2	thisWeek/study_document/standard/para2	잘 풀리는 면은, 모르는 것을 솔직하게 모아 두는 자리예요. 한 주 동안 헷갈린 문장이나 못 푼 문제를 작은 노트에 한 줄씩 옮겨 두면, 주말의 30분이 그 한 주의 학습을 단단하게 마무리해 줘요.
+27-jonggyeok-jongah-tiered.json	thisWeek	study_document	standard	para3	thisWeek/study_document/standard/para3	살짝 주의할 점은, 시간표를 너무 빽빽하게 짜는 면이에요. 매일 30분의 짧은 자리, 친구와 함께 한 문제 풀어 보는 자리, 좋아하는 책 한 페이지를 천천히 읽는 자리를 한 칸씩 비워 두면 한 주가 가벼워져요.
+27-jonggyeok-jongah-tiered.json	thisWeek	study_document	standard	para4	thisWeek/study_document/standard/para4	학교에서 받은 작은 과제, 친구와 같이 본 한 페이지, 모르는 단어를 적어 둔 한 줄이 다음 주를 든든하게 만드는 자산이 돼요. 비교는 지난주 자기와만 짧게로 충분해요.
 27-jonggyeok-jongah-tiered.json	thisWeek	study_document	expert	para0	thisWeek/study_document/expert/para0	이 항목은 나이가 어린 독자에게 결과를 단정적으로 풀이하지 않아요. 같은 흐름이라도 아이가 자라는 속도, 가정과 학교의 환경, 그날그날의 컨디션에 따라 의미가 크게 달라지기 때문이에요.
 27-jonggyeok-jongah-tiered.json	thisWeek	study_document	expert	para1	thisWeek/study_document/expert/para1	전문 해석에서 자주 쓰는 #일주와 #용신 같은 지표는 성격과 흐름을 가늠하는 참고선일 뿐, 어린 시기의 결과를 못 박는 단서로 쓰면 안 돼요.
 27-jonggyeok-jongah-tiered.json	thisWeek	study_document	expert	para2	thisWeek/study_document/expert/para2	그래서 같은 #일주라도 성장 과정, 보호자 관찰, 실제 생활 환경을 함께 살피는 자료로 받아 주세요. 아이의 표정, 말투, 잠과 식사 같은 일상 신호가 사주 지표보다 더 정확한 단서가 되는 시기예요.
@@ -10882,8 +10908,9 @@ fixture	period	category	depth	slot	cellKey	plainText
 27-jonggyeok-jongah-tiered.json	thisMonth	academic	expert	para2	thisMonth/academic/expert/para2	#식신은 말하고 쓰는 과정에서 이해를 확인하는 축이고, #용신부합도가 낮은 달에는 성취 목표보다 루틴을 유지하는 보조 환경이 더 중요해요.
 27-jonggyeok-jongah-tiered.json	thisMonth	academic	expert	para3	thisMonth/academic/expert/para3	#대운궁실의 흐름과 #일진의 흐름이 함께 살아날 때는 한 단원씩 차분히 매듭짓기 좋은 페이스가 자리 잡아요.
 27-jonggyeok-jongah-tiered.json	thisMonth	romance	brief	headline	thisMonth/romance/brief/headline	이번 달은 친구·가족과 함께 웃는 자리가 많아요.
-27-jonggyeok-jongah-tiered.json	thisMonth	romance	standard	para0	thisMonth/romance/standard/para0	이번 달은 가까운 친구와 더 자주 웃을 수 있는 흐름이에요.
-27-jonggyeok-jongah-tiered.json	thisMonth	romance	standard	para1	thisMonth/romance/standard/para1	다만 친해지고 싶은 마음이 커도 상대의 시간을 존중해야 관계가 오래 편안해요.
+27-jonggyeok-jongah-tiered.json	thisMonth	romance	standard	para0	thisMonth/romance/standard/para0	이번 달 아이의 사이는 친구·가족과 함께하는 자리에서 가장 또렷이 살아나요. 단체 활동·학원·가족 모임처럼 함께하는 시간이 늘어나는 시기라, 사람을 좋아하는 마음이 자연스럽게 자라는 한 달이에요.
+27-jonggyeok-jongah-tiered.json	thisMonth	romance	standard	para1	thisMonth/romance/standard/para1	새 친구를 사귀는 자리가 생기면 자기 페이스대로 어울릴 수 있도록 충분한 여유를 두세요. 좋아하는 친구에게 작은 칭찬이나 고마운 마음을 한 줄로 건네면, 사이의 흐름이 한층 부드러워져요. 다툼이 잠깐 생기면 부모·선생님이 옆에서 조용히 사이를 다듬어 주는 것만으로도 회복이 빨라져요.
+27-jonggyeok-jongah-tiered.json	thisMonth	romance	standard	para2	thisMonth/romance/standard/para2	한 달 동안 좋아하는 사람들과 함께 웃는 시간이 자주 있으면, 마음의 호흡이 한층 부드러워져요. 기다리는 마음이 조급하게 느껴질 땐, 곁에서 어른들이 한 박자 천천히 들어 주는 자리만으로도 흐름이 차분해져요. 너무 어려운 어른의 어휘를 들이밀지 않고 나이에 맞는 자리를 즐기는 모양으로 한 달을 보내면 잘 어울려요.
 27-jonggyeok-jongah-tiered.json	thisMonth	romance	expert	para0	thisMonth/romance/expert/para0	이 항목은 나이가 어린 독자에게 결과를 단정적으로 풀이하지 않아요. 같은 흐름이라도 아이가 자라는 속도, 가정과 학교의 환경, 그날그날의 컨디션에 따라 의미가 크게 달라지기 때문이에요.
 27-jonggyeok-jongah-tiered.json	thisMonth	romance	expert	para1	thisMonth/romance/expert/para1	전문 해석에서 자주 쓰는 #일주와 #용신 같은 지표는 성격과 흐름을 가늠하는 참고선일 뿐, 어린 시기의 결과를 못 박는 단서로 쓰면 안 돼요.
 27-jonggyeok-jongah-tiered.json	thisMonth	romance	expert	para2	thisMonth/romance/expert/para2	그래서 같은 #일주라도 성장 과정, 보호자 관찰, 실제 생활 환경을 함께 살피는 자료로 받아 주세요. 아이의 표정, 말투, 잠과 식사 같은 일상 신호가 사주 지표보다 더 정확한 단서가 되는 시기예요.
@@ -10971,9 +10998,9 @@ fixture	period	category	depth	slot	cellKey	plainText
 27-jonggyeok-jongah-tiered.json	thisYear	academic	expert	para2	thisYear/academic/expert/para2	그래서 같은 #일주라도 성장 과정, 보호자 관찰, 실제 생활 환경을 함께 살피는 자료로 받아 주세요. 아이의 표정, 말투, 잠과 식사 같은 일상 신호가 사주 지표보다 더 정확한 단서가 되는 시기예요.
 27-jonggyeok-jongah-tiered.json	thisYear	academic	expert	para3	thisYear/academic/expert/para3	큰 결정은 보호자가 시간을 두고 가까운 어른과 함께 확인해 주세요. 사주 해석은 한쪽 참고 자료로만 두고, 학교·의료·상담 같은 실제 지원 경로를 우선 활용하면 흐름을 더 안전하게 끌어갈 수 있어요.
 27-jonggyeok-jongah-tiered.json	thisYear	romance	brief	headline	thisYear/romance/brief/headline	올해는 좋은 친구를 고르고 오래 지키는 법을 배우기 좋아요.
-27-jonggyeok-jongah-tiered.json	thisYear	romance	standard	para0	thisYear/romance/standard/para0	올해 아이의 사이는 친구·가족과 함께하는 자리에서 한 해 내내 자라요. 학교·학원·가족 모임처럼 사람을 만나는 자리가 늘어나는 시기라, 사람을 좋아하는 마음이 자연스럽게 자라는 흐름이에요.
-27-jonggyeok-jongah-tiered.json	thisYear	romance	standard	para1	thisYear/romance/standard/para1	새 친구를 사귀는 자리가 생기면 자기 페이스대로 어울릴 수 있도록 충분한 여유를 두세요. 다툼이 잠깐 생기면 부모·선생님이 옆에서 조용히 사이를 다듬어 주는 것만으로도 회복이 빨라져요.
-27-jonggyeok-jongah-tiered.json	thisYear	romance	standard	para2	thisYear/romance/standard/para2	한 해 동안 좋아하는 사람들과 함께 웃는 시간이 자주 있으면, 마음의 호흡이 한층 부드러워져요. 너무 어려운 어른의 어휘를 들이밀지 않고 나이에 맞는 자리를 즐기는 모양으로 한 해를 보내면 잘 어울려요.
+27-jonggyeok-jongah-tiered.json	thisYear	romance	standard	para0	thisYear/romance/standard/para0	올해 아이의 사이는 친구·가족과 함께하는 자리에서 한 해 내내 자라요. 학교·학원·가족 모임처럼 사람을 만나는 자리가 늘어나는 시기라, 사람을 좋아하는 마음이 자연스럽게 자라는 한 해예요.
+27-jonggyeok-jongah-tiered.json	thisYear	romance	standard	para1	thisYear/romance/standard/para1	새 친구를 사귀는 자리가 생기면 자기 페이스대로 어울릴 수 있도록 충분한 여유를 두세요. 좋아하는 친구에게 작은 칭찬이나 고마운 마음을 한 줄로 자주 건네면, 한 해 동안 사이의 흐름이 차곡차곡 단단해져요. 다툼이 잠깐 생기면 부모·선생님이 옆에서 조용히 사이를 다듬어 주는 것만으로도 회복이 빨라져요.
+27-jonggyeok-jongah-tiered.json	thisYear	romance	standard	para2	thisYear/romance/standard/para2	한 해 동안 좋아하는 사람들과 함께 웃는 시간이 자주 있으면, 마음의 호흡이 한층 부드러워져요. 기다리는 마음이 조급하게 느껴지더라도 한 해라는 길이 안에서 차분히 익어 가는 흐름으로 받아들이면, 자라면서 인연 자산이 든든히 쌓여요. 너무 어려운 어른의 어휘를 들이밀지 않고 나이에 맞는 자리를 즐기는 모양으로 한 해를 보내면 잘 어울려요.
 27-jonggyeok-jongah-tiered.json	thisYear	romance	expert	para0	thisYear/romance/expert/para0	이 항목은 나이가 어린 독자에게 결과를 단정적으로 풀이하지 않아요. 같은 흐름이라도 아이가 자라는 속도, 가정과 학교의 환경, 그날그날의 컨디션에 따라 의미가 크게 달라지기 때문이에요.
 27-jonggyeok-jongah-tiered.json	thisYear	romance	expert	para1	thisYear/romance/expert/para1	전문 해석에서 자주 쓰는 #일주와 #용신 같은 지표는 성격과 흐름을 가늠하는 참고선일 뿐, 어린 시기의 결과를 못 박는 단서로 쓰면 안 돼요.
 27-jonggyeok-jongah-tiered.json	thisYear	romance	expert	para2	thisYear/romance/expert/para2	그래서 같은 #일주라도 성장 과정, 보호자 관찰, 실제 생활 환경을 함께 살피는 자료로 받아 주세요. 아이의 표정, 말투, 잠과 식사 같은 일상 신호가 사주 지표보다 더 정확한 단서가 되는 시기예요.
@@ -11974,9 +12001,9 @@ fixture	period	category	depth	slot	cellKey	plainText
 30-jeolgi-lidong-boundary-tiered.json	life	academic	expert	para2	life/academic/expert/para2	그래서 같은 #일주라도 성장 과정, 보호자 관찰, 실제 생활 환경을 함께 살피는 자료로 받아 주세요. 아이의 표정, 말투, 잠과 식사 같은 일상 신호가 사주 지표보다 더 정확한 단서가 되는 시기예요.
 30-jeolgi-lidong-boundary-tiered.json	life	academic	expert	para3	life/academic/expert/para3	큰 결정은 보호자가 시간을 두고 가까운 어른과 함께 확인해 주세요. 사주 해석은 한쪽 참고 자료로만 두고, 학교·의료·상담 같은 실제 지원 경로를 우선 활용하면 흐름을 더 안전하게 끌어갈 수 있어요.
 30-jeolgi-lidong-boundary-tiered.json	life	romance	brief	headline	life/romance/brief/headline	관계운은 친구와 가족에게 마음을 잘 전하는 힘으로 먼저 나타나요.
-30-jeolgi-lidong-boundary-tiered.json	life	romance	standard	para0	life/romance/standard/para0	어린 시절엔 아직 짝의 결보다 친구·가족과 마음을 주고받는 흐름이 가장 또렷해요. 사주에서 인연 자리가 넓다는 신호가 보이면, 그건 보통 사람을 좋아하고 잘 어울리는 흐름으로 풀려요.
-30-jeolgi-lidong-boundary-tiered.json	life	romance	standard	para1	life/romance/standard/para1	아이는 이 시기에 가족과의 안전한 자리에서 충분히 사랑받는 경험이 가장 큰 자산이 돼요. 새로운 친구를 사귀거나 단체 활동에서 자기 자리를 찾는 연습을 자연스럽게 하면, 자라면서 관계의 흐름이 한층 부드러워져요.
-30-jeolgi-lidong-boundary-tiered.json	life	romance	standard	para2	life/romance/standard/para2	너무 빨리 어른의 관계 어휘를 끌어오기보다, 나이에 맞는 우정·돌봄의 흐름을 충분히 누리게 두는 편이 좋아요.
+30-jeolgi-lidong-boundary-tiered.json	life	romance	standard	para0	life/romance/standard/para0	어린 시절의 인연은 짝을 미리 정하는 그림이 아니라, 가족과 친구 사이에서 마음을 주고받는 흐름을 차곡차곡 익히는 시간이에요. 이 시기엔 좋아하는 사람이 생겨도 큰 약속의 모양으로 풀리기보다, 함께 노는 시간 안에서 자기 마음과 상대의 마음을 알아 가는 자연스러운 흐름으로 자라요.
+30-jeolgi-lidong-boundary-tiered.json	life	romance	standard	para1	life/romance/standard/para1	사주에서 인연 자리가 넓다는 신호가 보이면, 어린 시절엔 보통 사람을 좋아하고 친구와 잘 어울리는 흐름으로 풀려요. 아이는 가족 안에서 충분히 사랑받는 경험과 단체 활동에서 자기 자리를 찾는 작은 연습이 가장 큰 자산이 돼요. 좋아하는 친구에게는 작은 칭찬이나 고마운 말을 천천히 건네는 습관이 흐름을 부드럽게 만들어 줘요.
+30-jeolgi-lidong-boundary-tiered.json	life	romance	standard	para2	life/romance/standard/para2	너무 어려운 어른의 어휘를 미리 들이밀지 않아도 돼요. 나이에 맞는 우정·돌봄의 흐름을 충분히 누리며 자라는 것만으로 인생 전체의 인연 자산이 단단히 쌓여요. 서운한 일이 생기면 단정하지 말고 왜 그랬는지 한 번 더 물어보는 흐름을, 곁에서 어른들이 함께 보여 주면 도움이 돼요.
 30-jeolgi-lidong-boundary-tiered.json	life	romance	expert	para0	life/romance/expert/para0	어린 연령대의 관계 해석은 결혼성보다 #식신과 #상관이 만드는 표현 방식을 먼저 봐요.
 30-jeolgi-lidong-boundary-tiered.json	life	romance	expert	para1	life/romance/expert/para1	#음양조화도는 친구 관계에서 주고받는 속도와 경계감을 읽는 보조 지표예요.
 30-jeolgi-lidong-boundary-tiered.json	life	romance	expert	para2	life/romance/expert/para2	#처궁의 흐름과 #자식궁의 자리가 함께 살아나는 시기엔 가까운 관계가 한 단계 깊어지는 흐름이 보여요.
@@ -11998,11 +12025,11 @@ fixture	period	category	depth	slot	cellKey	plainText
 30-jeolgi-lidong-boundary-tiered.json	life	career	expert	para2	life/career/expert/para2	그래서 같은 #일주라도 성장 과정, 보호자 관찰, 실제 생활 환경을 함께 살피는 자료로 받아 주세요. 아이의 표정, 말투, 잠과 식사 같은 일상 신호가 사주 지표보다 더 정확한 단서가 되는 시기예요.
 30-jeolgi-lidong-boundary-tiered.json	life	career	expert	para3	life/career/expert/para3	큰 결정은 보호자가 시간을 두고 가까운 어른과 함께 확인해 주세요. 사주 해석은 한쪽 참고 자료로만 두고, 학교·의료·상담 같은 실제 지원 경로를 우선 활용하면 흐름을 더 안전하게 끌어갈 수 있어요.
 30-jeolgi-lidong-boundary-tiered.json	life	study_document	brief	headline	life/study_document/brief/headline	배움과 기록은 꾸준히 쌓을수록 힘이 커지는 분야예요.
-30-jeolgi-lidong-boundary-tiered.json	life	study_document	standard	para0	life/study_document/standard/para0	학교 시험·읽기쓰기에서 자기 색이 천천히 또렷해지는 흐름이에요. 한 학기보다는 한 학년, 한 학년보다는 몇 년을 두고 살펴보면 자라는 모양이 보여요.
-30-jeolgi-lidong-boundary-tiered.json	life	study_document	standard	para1	life/study_document/standard/para1	어린 새싹이 봄비를 받으며 마디를 늘려가는 그림을 떠올려 보면 좋아요. 빠르게 보이지는 않지만, 한 해를 지나면 키가 달라져 있어요.
-30-jeolgi-lidong-boundary-tiered.json	life	study_document	standard	para2	life/study_document/standard/para2	잘 풀리는 면은, 좋아하는 한 가지를 깊게 파고드는 시간이에요. 그림이든 글이든 숫자든, 손에 익는 분야가 한 번 자리 잡으면 오래 가요.
-30-jeolgi-lidong-boundary-tiered.json	life	study_document	standard	para3	life/study_document/standard/para3	살짝 주의할 점은, 옆 친구와 비교하다 자기 페이스를 잃는 면이에요. 비교는 짧게, 자기 기록 갱신은 꾸준히로 충분해요.
-30-jeolgi-lidong-boundary-tiered.json	life	study_document	standard	para4	life/study_document/standard/para4	작은 칭찬이 큰 자산이 되는 시기예요.
+30-jeolgi-lidong-boundary-tiered.json	life	study_document	standard	para0	life/study_document/standard/para0	어린 시기와 학창 시절의 공부·서류 흐름은 시험 한 번의 점수를 두고 다투는 자리가 아니라, 좋아하는 것을 한 가지씩 알아 가는 시간이에요. 책 한 권을 천천히 펼쳐 자기에게 맞는 속도를 익히는 흐름이 평생 갈 학습 자산의 시작이 돼요.
+30-jeolgi-lidong-boundary-tiered.json	life	study_document	standard	para1	life/study_document/standard/para1	비유하자면 작은 노트 한 권을 처음 펼치는 그림이에요. 첫 줄은 또박또박, 두 줄째는 어제보다 한 글자 더, 이렇게 차곡차곡 채워 가면 한 학기·한 학년 뒤에는 자기만의 책이 한 권 자라 있어요.
+30-jeolgi-lidong-boundary-tiered.json	life	study_document	standard	para2	life/study_document/standard/para2	잘 풀리는 면은, 모르는 것을 솔직하게 적어 두는 자리예요. 헷갈린 문장, 못 푼 문제, 어려운 단어를 작은 노트에 한 줄씩 모아 두면 그 자체가 다음 주의 학습 지도가 돼요. 그림이나 색연필로 정리해도 충분해요.
+30-jeolgi-lidong-boundary-tiered.json	life	study_document	standard	para3	life/study_document/standard/para3	살짝 살피면 좋은 점은, 옆 친구의 결과만 보고 자기 페이스를 잃는 면이에요. 비교는 짧게, 자기 기록 갱신은 꾸준히로 충분해요. 친구와는 함께 풀어 보는 시간을 만드는 쪽이 더 많은 것을 남겨 줘요.
+30-jeolgi-lidong-boundary-tiered.json	life	study_document	standard	para4	life/study_document/standard/para4	학교에서 받은 작은 칭찬 한마디, 친구와 함께 풀어 본 한 문제, 모르는 단어를 노트에 적어 둔 한 줄이 큰 자산이 되는 시기예요. 어른의 큰 자격 어휘를 미리 끌어오지 않아도 충분해요.
 30-jeolgi-lidong-boundary-tiered.json	life	study_document	expert	para0	life/study_document/expert/para0	이 항목은 나이가 어린 독자에게 결과를 단정적으로 풀이하지 않아요. 같은 흐름이라도 아이가 자라는 속도, 가정과 학교의 환경, 그날그날의 컨디션에 따라 의미가 크게 달라지기 때문이에요.
 30-jeolgi-lidong-boundary-tiered.json	life	study_document	expert	para1	life/study_document/expert/para1	전문 해석에서 자주 쓰는 #일주와 #용신 같은 지표는 성격과 흐름을 가늠하는 참고선일 뿐, 어린 시기의 결과를 못 박는 단서로 쓰면 안 돼요.
 30-jeolgi-lidong-boundary-tiered.json	life	study_document	expert	para2	life/study_document/expert/para2	그래서 같은 #일주라도 성장 과정, 보호자 관찰, 실제 생활 환경을 함께 살피는 자료로 받아 주세요. 아이의 표정, 말투, 잠과 식사 같은 일상 신호가 사주 지표보다 더 정확한 단서가 되는 시기예요.
@@ -12066,8 +12093,9 @@ fixture	period	category	depth	slot	cellKey	plainText
 30-jeolgi-lidong-boundary-tiered.json	today	academic	expert	para2	today/academic/expert/para2	#식신은 이해한 것을 말로 설명하게 하는 축이고, #용신부합도는 오늘 공부 방식이 아이의 회복 리듬과 맞는지 확인하는 보조 지표예요.
 30-jeolgi-lidong-boundary-tiered.json	today	academic	expert	para3	today/academic/expert/para3	평소엔 #정인의 토대를 단단히 두고, #식신이 받쳐 주는 시기에는 익힌 것을 자기 말로 풀어 두는 자리를 챙기면 학업의 흐름이 더 또렷해져요.
 30-jeolgi-lidong-boundary-tiered.json	today	romance	brief	headline	today/romance/brief/headline	오늘은 친구·가족과 즐겁게 어울리기 좋은 하루예요.
-30-jeolgi-lidong-boundary-tiered.json	today	romance	standard	para0	today/romance/standard/para0	오늘은 장난보다 친절한 말이 더 잘 통하는 날이에요.
-30-jeolgi-lidong-boundary-tiered.json	today	romance	standard	para1	today/romance/standard/para1	친구가 힘들어 보이면 해결해 주려고 하기보다 먼저 들어주는 태도가 관계를 편하게 만듭니다.
+30-jeolgi-lidong-boundary-tiered.json	today	romance	standard	para0	today/romance/standard/para0	오늘은 가족·친구와 마음을 주고받는 흐름이 또렷한 하루예요. 작은 칭찬·다정한 말이 평소보다 더 길게 마음에 닿는 시간이라, 옆에서 따뜻하게 챙겨 주는 자리만으로도 큰 자산이 돼요.
+30-jeolgi-lidong-boundary-tiered.json	today	romance	standard	para1	today/romance/standard/para1	새 친구를 만나는 자리나 단체 활동이 있으면 자기 페이스대로 어울릴 수 있도록 충분한 여유를 두세요. 좋아하는 친구에게 짧은 인사나 함께 놀자는 한마디를 건네면, 그 자리에서 사이가 한층 부드러워져요. 잠깐의 다툼이 생기면 부모·선생님이 옆에서 조용히 흐름을 다듬어 주는 것만으로도 회복이 빨라져요.
+30-jeolgi-lidong-boundary-tiered.json	today	romance	standard	para2	today/romance/standard/para2	하루의 끝에 좋아하는 사람들과 잠깐이라도 함께 웃는 시간이 있으면, 마음의 호흡이 한결 부드러워져요. 너무 어려운 어른의 어휘를 들이밀지 않아도 돼요. 나이에 맞는 친구·가족의 자리를 즐기는 것만으로 오늘이 충분히 따뜻해져요.
 30-jeolgi-lidong-boundary-tiered.json	today	romance	expert	para0	today/romance/expert/para0	이 항목은 나이가 어린 독자에게 결과를 단정적으로 풀이하지 않아요. 같은 흐름이라도 아이가 자라는 속도, 가정과 학교의 환경, 그날그날의 컨디션에 따라 의미가 크게 달라지기 때문이에요.
 30-jeolgi-lidong-boundary-tiered.json	today	romance	expert	para1	today/romance/expert/para1	전문 해석에서 자주 쓰는 #일주와 #용신 같은 지표는 성격과 흐름을 가늠하는 참고선일 뿐, 어린 시기의 결과를 못 박는 단서로 쓰면 안 돼요.
 30-jeolgi-lidong-boundary-tiered.json	today	romance	expert	para2	today/romance/expert/para2	그래서 같은 #일주라도 성장 과정, 보호자 관찰, 실제 생활 환경을 함께 살피는 자료로 받아 주세요. 아이의 표정, 말투, 잠과 식사 같은 일상 신호가 사주 지표보다 더 정확한 단서가 되는 시기예요.
@@ -12089,8 +12117,11 @@ fixture	period	category	depth	slot	cellKey	plainText
 30-jeolgi-lidong-boundary-tiered.json	today	career	expert	para2	today/career/expert/para2	그래서 같은 #일주라도 성장 과정, 보호자 관찰, 실제 생활 환경을 함께 살피는 자료로 받아 주세요. 아이의 표정, 말투, 잠과 식사 같은 일상 신호가 사주 지표보다 더 정확한 단서가 되는 시기예요.
 30-jeolgi-lidong-boundary-tiered.json	today	career	expert	para3	today/career/expert/para3	큰 결정은 보호자가 시간을 두고 가까운 어른과 함께 확인해 주세요. 사주 해석은 한쪽 참고 자료로만 두고, 학교·의료·상담 같은 실제 지원 경로를 우선 활용하면 흐름을 더 안전하게 끌어갈 수 있어요.
 30-jeolgi-lidong-boundary-tiered.json	today	study_document	brief	headline	today/study_document/brief/headline	오늘 한 줄 더 적어 두면 든든해지는 날이에요.
-30-jeolgi-lidong-boundary-tiered.json	today	study_document	standard	para0	today/study_document/standard/para0	오늘 공부는 깊게 파고들기보다 핵심을 정리하는 쪽이 잘 맞아요.
-30-jeolgi-lidong-boundary-tiered.json	today	study_document	standard	para1	today/study_document/standard/para1	어려운 문제는 오래 붙잡기보다 표시해 두고, 쉬운 부분부터 정확히 끝내면 흐름이 좋아집니다.
+30-jeolgi-lidong-boundary-tiered.json	today	study_document	standard	para0	today/study_document/standard/para0	오늘은 책 한 권을 끝까지 읽기보다, 한 단원만 또렷이 챙기면 충분한 흐름이에요. 한꺼번에 많은 분량을 잡기보다 한 자리에 깊게 머무는 호흡이 잘 맞아요.
+30-jeolgi-lidong-boundary-tiered.json	today	study_document	standard	para1	today/study_document/standard/para1	비유하자면 작은 노트 첫 줄을 또박또박 적는 그림이에요. 오늘 적은 한 줄이 다음 주 시험에서 길잡이가 돼요. 그림으로 정리해도 좋고, 색연필로 표시해도 충분해요.
+30-jeolgi-lidong-boundary-tiered.json	today	study_document	standard	para2	today/study_document/standard/para2	잘 풀리는 면은, 모르는 것을 그냥 넘기지 않는 자리예요. 헷갈린 문장이나 못 푼 문제를 작은 노트에 한 줄씩 옮겨 두면 오늘의 공부가 자기만의 자료가 돼요. 친구와 함께 풀어 보는 시간이 있으면 더 잘 남아요.
+30-jeolgi-lidong-boundary-tiered.json	today	study_document	standard	para3	today/study_document/standard/para3	살짝 주의할 점은, 오늘 모든 과목을 한꺼번에 잡으려는 마음이에요. 좋아하는 한 과목부터 차분히 끝내고, 어려운 과목은 한 박자 미뤄 둬도 충분해요. 짧게 쉬고 다시 시작해도 괜찮아요.
+30-jeolgi-lidong-boundary-tiered.json	today	study_document	standard	para4	today/study_document/standard/para4	학교에서 받은 작은 메모 한 장, 오늘 적어 둔 모르는 단어 한 줄이 다음 주의 작은 무기가 돼요. 비교는 어제 자기와만 짧게로 충분해요.
 30-jeolgi-lidong-boundary-tiered.json	today	study_document	expert	para0	today/study_document/expert/para0	이 항목은 나이가 어린 독자에게 결과를 단정적으로 풀이하지 않아요. 같은 흐름이라도 아이가 자라는 속도, 가정과 학교의 환경, 그날그날의 컨디션에 따라 의미가 크게 달라지기 때문이에요.
 30-jeolgi-lidong-boundary-tiered.json	today	study_document	expert	para1	today/study_document/expert/para1	전문 해석에서 자주 쓰는 #일주와 #용신 같은 지표는 성격과 흐름을 가늠하는 참고선일 뿐, 어린 시기의 결과를 못 박는 단서로 쓰면 안 돼요.
 30-jeolgi-lidong-boundary-tiered.json	today	study_document	expert	para2	today/study_document/expert/para2	그래서 같은 #일주라도 성장 과정, 보호자 관찰, 실제 생활 환경을 함께 살피는 자료로 받아 주세요. 아이의 표정, 말투, 잠과 식사 같은 일상 신호가 사주 지표보다 더 정확한 단서가 되는 시기예요.
@@ -12154,9 +12185,9 @@ fixture	period	category	depth	slot	cellKey	plainText
 30-jeolgi-lidong-boundary-tiered.json	thisWeek	academic	expert	para2	thisWeek/academic/expert/para2	#식신이 드러나는 주에는 말하기, 쓰기, 풀이 설명을 넣어야 하고, #용신부합도가 낮으면 학습량보다 회복과 반복 간격을 조정하는 것이 먼저예요.
 30-jeolgi-lidong-boundary-tiered.json	thisWeek	academic	expert	para3	thisWeek/academic/expert/para3	#통관용신의 흐름과 #병약용신의 자리가 함께 또렷해지는 사주는 학습의 깊이가 자기 흐름의 균형을 따라가는 자리예요.
 30-jeolgi-lidong-boundary-tiered.json	thisWeek	romance	brief	headline	thisWeek/romance/brief/headline	이번 주는 친구와 약속을 잘 지키는 모습이 호감을 키워줘요.
-30-jeolgi-lidong-boundary-tiered.json	thisWeek	romance	standard	para0	thisWeek/romance/standard/para0	이번 주 아이의 하루는 친구·가족과의 자리에서 가장 또렷하게 살아나요. 단체 활동·놀이 자리에서 서로의 마음을 알아 가는 흐름이 평소보다 잘 자라는 시기예요.
-30-jeolgi-lidong-boundary-tiered.json	thisWeek	romance	standard	para1	thisWeek/romance/standard/para1	새 친구를 사귀는 자리가 생기면, 자기 페이스대로 어울릴 수 있도록 충분한 여유를 두세요. 잠깐의 다툼이 생기면 부모·선생님이 옆에서 조용히 흐름을 다듬어 주는 것만으로도 회복이 빨라져요.
-30-jeolgi-lidong-boundary-tiered.json	thisWeek	romance	standard	para2	thisWeek/romance/standard/para2	한 주 동안 좋아하는 사람들과 함께 웃는 시간이 자주 있으면, 마음의 흐름이 한층 부드러워져요.
+30-jeolgi-lidong-boundary-tiered.json	thisWeek	romance	standard	para0	thisWeek/romance/standard/para0	이번 주 아이의 하루는 친구·가족과의 자리에서 가장 또렷하게 살아나요. 단체 활동·놀이 자리에서 서로의 마음을 알아 가는 흐름이 평소보다 잘 자라는 시기라, 함께 보내는 시간 자체가 큰 자산이 돼요.
+30-jeolgi-lidong-boundary-tiered.json	thisWeek	romance	standard	para1	thisWeek/romance/standard/para1	새 친구를 사귀는 자리가 생기면 자기 페이스대로 어울릴 수 있도록 충분한 여유를 두세요. 좋아하는 친구에게 작은 칭찬이나 고마운 마음을 한 줄로 건네면, 사이의 흐름이 한층 부드러워져요. 잠깐의 다툼이 생기면 부모·선생님이 옆에서 조용히 흐름을 다듬어 주는 것만으로도 회복이 빨라져요.
+30-jeolgi-lidong-boundary-tiered.json	thisWeek	romance	standard	para2	thisWeek/romance/standard/para2	한 주 동안 좋아하는 사람들과 함께 웃는 시간이 자주 있으면, 마음의 흐름이 한층 부드러워져요. 기다리는 마음이 조급하게 느껴지더라도 오늘 내일 안에 다 풀리지 않아도 괜찮다는 믿음을 곁에서 함께 보여 주면, 한 주의 흐름이 차분하게 익어요.
 30-jeolgi-lidong-boundary-tiered.json	thisWeek	romance	expert	para0	thisWeek/romance/expert/para0	이 항목은 나이가 어린 독자에게 결과를 단정적으로 풀이하지 않아요. 같은 흐름이라도 아이가 자라는 속도, 가정과 학교의 환경, 그날그날의 컨디션에 따라 의미가 크게 달라지기 때문이에요.
 30-jeolgi-lidong-boundary-tiered.json	thisWeek	romance	expert	para1	thisWeek/romance/expert/para1	전문 해석에서 자주 쓰는 #일주와 #용신 같은 지표는 성격과 흐름을 가늠하는 참고선일 뿐, 어린 시기의 결과를 못 박는 단서로 쓰면 안 돼요.
 30-jeolgi-lidong-boundary-tiered.json	thisWeek	romance	expert	para2	thisWeek/romance/expert/para2	그래서 같은 #일주라도 성장 과정, 보호자 관찰, 실제 생활 환경을 함께 살피는 자료로 받아 주세요. 아이의 표정, 말투, 잠과 식사 같은 일상 신호가 사주 지표보다 더 정확한 단서가 되는 시기예요.
@@ -12178,11 +12209,11 @@ fixture	period	category	depth	slot	cellKey	plainText
 30-jeolgi-lidong-boundary-tiered.json	thisWeek	career	expert	para2	thisWeek/career/expert/para2	그래서 같은 #일주라도 성장 과정, 보호자 관찰, 실제 생활 환경을 함께 살피는 자료로 받아 주세요. 아이의 표정, 말투, 잠과 식사 같은 일상 신호가 사주 지표보다 더 정확한 단서가 되는 시기예요.
 30-jeolgi-lidong-boundary-tiered.json	thisWeek	career	expert	para3	thisWeek/career/expert/para3	큰 결정은 보호자가 시간을 두고 가까운 어른과 함께 확인해 주세요. 사주 해석은 한쪽 참고 자료로만 두고, 학교·의료·상담 같은 실제 지원 경로를 우선 활용하면 흐름을 더 안전하게 끌어갈 수 있어요.
 30-jeolgi-lidong-boundary-tiered.json	thisWeek	study_document	brief	headline	thisWeek/study_document/brief/headline	이번 주는 복습 시간을 먼저 잡으면 공부 결이 안정돼요.
-30-jeolgi-lidong-boundary-tiered.json	thisWeek	study_document	standard	para0	thisWeek/study_document/standard/para0	이번 주는 학교 시험·읽기쓰기에서 한 단원만 또렷이 챙기면 충분한 흐름이에요. 한꺼번에 많은 분량보다 깊게 한 자리가 잘 맞아요.
-30-jeolgi-lidong-boundary-tiered.json	thisWeek	study_document	standard	para1	thisWeek/study_document/standard/para1	새 노트 한 칸을 또박또박 채워 가는 그림을 떠올려 보면 좋아요. 이번 주의 한 페이지가 다음 시험을 가볍게 해 줘요.
-30-jeolgi-lidong-boundary-tiered.json	thisWeek	study_document	standard	para2	thisWeek/study_document/standard/para2	잘 풀리는 면은, 좋아하는 한 과목에서 한 단계 더 깊이 들어가는 일이에요. 모든 과목을 한 번에 잡지 않아도 돼요.
-30-jeolgi-lidong-boundary-tiered.json	thisWeek	study_document	standard	para3	thisWeek/study_document/standard/para3	살짝 주의할 점은, 친구와 비교하다 자기 페이스를 놓치는 면이에요. 지난주 자기와만 비교해도 충분해요.
-30-jeolgi-lidong-boundary-tiered.json	thisWeek	study_document	standard	para4	thisWeek/study_document/standard/para4	주말의 30분 복습이 다음 주를 든든하게 만들어요.
+30-jeolgi-lidong-boundary-tiered.json	thisWeek	study_document	standard	para0	thisWeek/study_document/standard/para0	이번 주는 새 책을 한꺼번에 끝내려는 무리보다, 좋아하는 책 한 권을 천천히 펼쳐 보는 흐름이 잘 맞아요. 한 주의 학습은 분량을 늘리는 자리가 아니라 자기 페이스를 또렷이 잡는 시간이에요.
+30-jeolgi-lidong-boundary-tiered.json	thisWeek	study_document	standard	para1	thisWeek/study_document/standard/para1	비유하자면 작은 노트에 한 주의 시간표를 그리는 그림이에요. 매일 같은 시간에 보는 한 과목을 정해 두면 한 주가 끝날 즈음에는 자기만의 학습 흐름이 또렷이 보여요. 그림이나 색연필로 일정을 정리해도 충분해요.
+30-jeolgi-lidong-boundary-tiered.json	thisWeek	study_document	standard	para2	thisWeek/study_document/standard/para2	잘 풀리는 면은, 모르는 것을 솔직하게 모아 두는 자리예요. 한 주 동안 헷갈린 문장이나 못 푼 문제를 작은 노트에 한 줄씩 옮겨 두면, 주말의 30분이 그 한 주의 학습을 단단하게 마무리해 줘요.
+30-jeolgi-lidong-boundary-tiered.json	thisWeek	study_document	standard	para3	thisWeek/study_document/standard/para3	살짝 주의할 점은, 시간표를 너무 빽빽하게 짜는 면이에요. 매일 30분의 짧은 자리, 친구와 함께 한 문제 풀어 보는 자리, 좋아하는 책 한 페이지를 천천히 읽는 자리를 한 칸씩 비워 두면 한 주가 가벼워져요.
+30-jeolgi-lidong-boundary-tiered.json	thisWeek	study_document	standard	para4	thisWeek/study_document/standard/para4	학교에서 받은 작은 과제, 친구와 같이 본 한 페이지, 모르는 단어를 적어 둔 한 줄이 다음 주를 든든하게 만드는 자산이 돼요. 비교는 지난주 자기와만 짧게로 충분해요.
 30-jeolgi-lidong-boundary-tiered.json	thisWeek	study_document	expert	para0	thisWeek/study_document/expert/para0	이 항목은 나이가 어린 독자에게 결과를 단정적으로 풀이하지 않아요. 같은 흐름이라도 아이가 자라는 속도, 가정과 학교의 환경, 그날그날의 컨디션에 따라 의미가 크게 달라지기 때문이에요.
 30-jeolgi-lidong-boundary-tiered.json	thisWeek	study_document	expert	para1	thisWeek/study_document/expert/para1	전문 해석에서 자주 쓰는 #일주와 #용신 같은 지표는 성격과 흐름을 가늠하는 참고선일 뿐, 어린 시기의 결과를 못 박는 단서로 쓰면 안 돼요.
 30-jeolgi-lidong-boundary-tiered.json	thisWeek	study_document	expert	para2	thisWeek/study_document/expert/para2	그래서 같은 #일주라도 성장 과정, 보호자 관찰, 실제 생활 환경을 함께 살피는 자료로 받아 주세요. 아이의 표정, 말투, 잠과 식사 같은 일상 신호가 사주 지표보다 더 정확한 단서가 되는 시기예요.
@@ -12246,9 +12277,9 @@ fixture	period	category	depth	slot	cellKey	plainText
 30-jeolgi-lidong-boundary-tiered.json	thisMonth	academic	expert	para2	thisMonth/academic/expert/para2	#식신은 말하고 쓰는 과정에서 이해를 확인하는 축이고, #용신부합도가 낮은 달에는 성취 목표보다 루틴을 유지하는 보조 환경이 더 중요해요.
 30-jeolgi-lidong-boundary-tiered.json	thisMonth	academic	expert	para3	thisMonth/academic/expert/para3	#대운궁실의 흐름과 #일진의 흐름이 함께 살아날 때는 한 단원씩 차분히 매듭짓기 좋은 페이스가 자리 잡아요.
 30-jeolgi-lidong-boundary-tiered.json	thisMonth	romance	brief	headline	thisMonth/romance/brief/headline	이번 달은 편한 친구들과 천천히 마음을 나누기 좋아요.
-30-jeolgi-lidong-boundary-tiered.json	thisMonth	romance	standard	para0	thisMonth/romance/standard/para0	이번 달 아이의 사이는 친구·가족과 함께하는 자리에서 가장 또렷이 살아나요. 단체 활동·학원·가족 모임처럼 함께하는 시간이 늘어나는 시기라, 사람을 좋아하는 마음이 자연스럽게 자라요.
-30-jeolgi-lidong-boundary-tiered.json	thisMonth	romance	standard	para1	thisMonth/romance/standard/para1	새 친구를 사귀는 자리가 생기면 자기 페이스대로 어울릴 수 있도록 충분한 여유를 두세요. 다툼이 잠깐 생기면 부모·선생님이 옆에서 조용히 사이를 다듬어 주는 것만으로도 회복이 빨라져요.
-30-jeolgi-lidong-boundary-tiered.json	thisMonth	romance	standard	para2	thisMonth/romance/standard/para2	한 달 동안 좋아하는 사람들과 함께 웃는 시간이 자주 있으면, 마음의 호흡이 한층 부드러워져요. 너무 어려운 어른의 어휘를 들이밀지 않고 나이에 맞는 자리를 즐기는 모양으로 보내면 잘 어울려요.
+30-jeolgi-lidong-boundary-tiered.json	thisMonth	romance	standard	para0	thisMonth/romance/standard/para0	이번 달 아이의 사이는 친구·가족과 함께하는 자리에서 가장 또렷이 살아나요. 단체 활동·학원·가족 모임처럼 함께하는 시간이 늘어나는 시기라, 사람을 좋아하는 마음이 자연스럽게 자라는 한 달이에요.
+30-jeolgi-lidong-boundary-tiered.json	thisMonth	romance	standard	para1	thisMonth/romance/standard/para1	새 친구를 사귀는 자리가 생기면 자기 페이스대로 어울릴 수 있도록 충분한 여유를 두세요. 좋아하는 친구에게 작은 칭찬이나 고마운 마음을 한 줄로 건네면, 사이의 흐름이 한층 부드러워져요. 다툼이 잠깐 생기면 부모·선생님이 옆에서 조용히 사이를 다듬어 주는 것만으로도 회복이 빨라져요.
+30-jeolgi-lidong-boundary-tiered.json	thisMonth	romance	standard	para2	thisMonth/romance/standard/para2	한 달 동안 좋아하는 사람들과 함께 웃는 시간이 자주 있으면, 마음의 호흡이 한층 부드러워져요. 기다리는 마음이 조급하게 느껴질 땐, 곁에서 어른들이 한 박자 천천히 들어 주는 자리만으로도 흐름이 차분해져요. 너무 어려운 어른의 어휘를 들이밀지 않고 나이에 맞는 자리를 즐기는 모양으로 한 달을 보내면 잘 어울려요.
 30-jeolgi-lidong-boundary-tiered.json	thisMonth	romance	expert	para0	thisMonth/romance/expert/para0	이 항목은 나이가 어린 독자에게 결과를 단정적으로 풀이하지 않아요. 같은 흐름이라도 아이가 자라는 속도, 가정과 학교의 환경, 그날그날의 컨디션에 따라 의미가 크게 달라지기 때문이에요.
 30-jeolgi-lidong-boundary-tiered.json	thisMonth	romance	expert	para1	thisMonth/romance/expert/para1	전문 해석에서 자주 쓰는 #일주와 #용신 같은 지표는 성격과 흐름을 가늠하는 참고선일 뿐, 어린 시기의 결과를 못 박는 단서로 쓰면 안 돼요.
 30-jeolgi-lidong-boundary-tiered.json	thisMonth	romance	expert	para2	thisMonth/romance/expert/para2	그래서 같은 #일주라도 성장 과정, 보호자 관찰, 실제 생활 환경을 함께 살피는 자료로 받아 주세요. 아이의 표정, 말투, 잠과 식사 같은 일상 신호가 사주 지표보다 더 정확한 단서가 되는 시기예요.
@@ -12338,8 +12369,9 @@ fixture	period	category	depth	slot	cellKey	plainText
 30-jeolgi-lidong-boundary-tiered.json	thisYear	academic	expert	para2	thisYear/academic/expert/para2	그래서 같은 #일주라도 성장 과정, 보호자 관찰, 실제 생활 환경을 함께 살피는 자료로 받아 주세요. 아이의 표정, 말투, 잠과 식사 같은 일상 신호가 사주 지표보다 더 정확한 단서가 되는 시기예요.
 30-jeolgi-lidong-boundary-tiered.json	thisYear	academic	expert	para3	thisYear/academic/expert/para3	큰 결정은 보호자가 시간을 두고 가까운 어른과 함께 확인해 주세요. 사주 해석은 한쪽 참고 자료로만 두고, 학교·의료·상담 같은 실제 지원 경로를 우선 활용하면 흐름을 더 안전하게 끌어갈 수 있어요.
 30-jeolgi-lidong-boundary-tiered.json	thisYear	romance	brief	headline	thisYear/romance/brief/headline	올해는 친구·가족과 즐거운 자리가 자주 생겨요.
-30-jeolgi-lidong-boundary-tiered.json	thisYear	romance	standard	para0	thisYear/romance/standard/para0	올해는 어떤 사람이 나를 편하게 해 주는지 배우는 시간이 될 수 있어요.
-30-jeolgi-lidong-boundary-tiered.json	thisYear	romance	standard	para1	thisYear/romance/standard/para1	잘 맞는 친구와는 더 가까워지고, 불편한 관계에서는 건강한 거리를 두는 연습이 필요해요.
+30-jeolgi-lidong-boundary-tiered.json	thisYear	romance	standard	para0	thisYear/romance/standard/para0	올해 아이의 사이는 친구·가족과 함께하는 자리에서 한 해 내내 자라요. 학교·학원·가족 모임처럼 사람을 만나는 자리가 늘어나는 시기라, 사람을 좋아하는 마음이 자연스럽게 자라는 한 해예요.
+30-jeolgi-lidong-boundary-tiered.json	thisYear	romance	standard	para1	thisYear/romance/standard/para1	새 친구를 사귀는 자리가 생기면 자기 페이스대로 어울릴 수 있도록 충분한 여유를 두세요. 좋아하는 친구에게 작은 칭찬이나 고마운 마음을 한 줄로 자주 건네면, 한 해 동안 사이의 흐름이 차곡차곡 단단해져요. 다툼이 잠깐 생기면 부모·선생님이 옆에서 조용히 사이를 다듬어 주는 것만으로도 회복이 빨라져요.
+30-jeolgi-lidong-boundary-tiered.json	thisYear	romance	standard	para2	thisYear/romance/standard/para2	한 해 동안 좋아하는 사람들과 함께 웃는 시간이 자주 있으면, 마음의 호흡이 한층 부드러워져요. 기다리는 마음이 조급하게 느껴지더라도 한 해라는 길이 안에서 차분히 익어 가는 흐름으로 받아들이면, 자라면서 인연 자산이 든든히 쌓여요. 너무 어려운 어른의 어휘를 들이밀지 않고 나이에 맞는 자리를 즐기는 모양으로 한 해를 보내면 잘 어울려요.
 30-jeolgi-lidong-boundary-tiered.json	thisYear	romance	expert	para0	thisYear/romance/expert/para0	이 항목은 나이가 어린 독자에게 결과를 단정적으로 풀이하지 않아요. 같은 흐름이라도 아이가 자라는 속도, 가정과 학교의 환경, 그날그날의 컨디션에 따라 의미가 크게 달라지기 때문이에요.
 30-jeolgi-lidong-boundary-tiered.json	thisYear	romance	expert	para1	thisYear/romance/expert/para1	전문 해석에서 자주 쓰는 #일주와 #용신 같은 지표는 성격과 흐름을 가늠하는 참고선일 뿐, 어린 시기의 결과를 못 박는 단서로 쓰면 안 돼요.
 30-jeolgi-lidong-boundary-tiered.json	thisYear	romance	expert	para2	thisYear/romance/expert/para2	그래서 같은 #일주라도 성장 과정, 보호자 관찰, 실제 생활 환경을 함께 살피는 자료로 받아 주세요. 아이의 표정, 말투, 잠과 식사 같은 일상 신호가 사주 지표보다 더 정확한 단서가 되는 시기예요.
@@ -12427,9 +12459,9 @@ fixture	period	category	depth	slot	cellKey	plainText
 31-newborn-infant-male-tiered.json	life	academic	expert	para2	life/academic/expert/para2	그래서 같은 #일주라도 성장 과정, 보호자 관찰, 실제 생활 환경을 함께 살피는 자료로 받아 주세요. 아이의 표정, 말투, 잠과 식사 같은 일상 신호가 사주 지표보다 더 정확한 단서가 되는 시기예요.
 31-newborn-infant-male-tiered.json	life	academic	expert	para3	life/academic/expert/para3	큰 결정은 보호자가 시간을 두고 가까운 어른과 함께 확인해 주세요. 사주 해석은 한쪽 참고 자료로만 두고, 학교·의료·상담 같은 실제 지원 경로를 우선 활용하면 흐름을 더 안전하게 끌어갈 수 있어요.
 31-newborn-infant-male-tiered.json	life	romance	brief	headline	life/romance/brief/headline	관계운은 친구와 가족에게 마음을 잘 전하는 힘으로 먼저 나타나요.
-31-newborn-infant-male-tiered.json	life	romance	standard	para0	life/romance/standard/para0	어린 시절엔 아직 짝의 결보다 친구·가족과 마음을 주고받는 흐름이 가장 또렷해요. 사주에서 인연 자리가 넓다는 신호가 보이면, 그건 보통 사람을 좋아하고 잘 어울리는 흐름으로 풀려요.
-31-newborn-infant-male-tiered.json	life	romance	standard	para1	life/romance/standard/para1	아이는 이 시기에 가족과의 안전한 자리에서 충분히 사랑받는 경험이 가장 큰 자산이 돼요. 새로운 친구를 사귀거나 단체 활동에서 자기 자리를 찾는 연습을 자연스럽게 하면, 자라면서 관계의 흐름이 한층 부드러워져요.
-31-newborn-infant-male-tiered.json	life	romance	standard	para2	life/romance/standard/para2	너무 빨리 어른의 관계 어휘를 끌어오기보다, 나이에 맞는 우정·돌봄의 흐름을 충분히 누리게 두는 편이 좋아요.
+31-newborn-infant-male-tiered.json	life	romance	standard	para0	life/romance/standard/para0	어린 시절의 인연은 짝을 미리 정하는 그림이 아니라, 가족과 친구 사이에서 마음을 주고받는 흐름을 차곡차곡 익히는 시간이에요. 이 시기엔 좋아하는 사람이 생겨도 큰 약속의 모양으로 풀리기보다, 함께 노는 시간 안에서 자기 마음과 상대의 마음을 알아 가는 자연스러운 흐름으로 자라요.
+31-newborn-infant-male-tiered.json	life	romance	standard	para1	life/romance/standard/para1	사주에서 인연 자리가 넓다는 신호가 보이면, 어린 시절엔 보통 사람을 좋아하고 친구와 잘 어울리는 흐름으로 풀려요. 아이는 가족 안에서 충분히 사랑받는 경험과 단체 활동에서 자기 자리를 찾는 작은 연습이 가장 큰 자산이 돼요. 좋아하는 친구에게는 작은 칭찬이나 고마운 말을 천천히 건네는 습관이 흐름을 부드럽게 만들어 줘요.
+31-newborn-infant-male-tiered.json	life	romance	standard	para2	life/romance/standard/para2	너무 어려운 어른의 어휘를 미리 들이밀지 않아도 돼요. 나이에 맞는 우정·돌봄의 흐름을 충분히 누리며 자라는 것만으로 인생 전체의 인연 자산이 단단히 쌓여요. 서운한 일이 생기면 단정하지 말고 왜 그랬는지 한 번 더 물어보는 흐름을, 곁에서 어른들이 함께 보여 주면 도움이 돼요.
 31-newborn-infant-male-tiered.json	life	romance	expert	para0	life/romance/expert/para0	어린 연령대의 관계 해석은 결혼성보다 #식신과 #상관이 만드는 표현 방식을 먼저 봐요.
 31-newborn-infant-male-tiered.json	life	romance	expert	para1	life/romance/expert/para1	#음양조화도는 친구 관계에서 주고받는 속도와 경계감을 읽는 보조 지표예요.
 31-newborn-infant-male-tiered.json	life	romance	expert	para2	life/romance/expert/para2	#처궁의 흐름과 #자식궁의 자리가 함께 살아나는 시기엔 가까운 관계가 한 단계 깊어지는 흐름이 보여요.
@@ -12451,11 +12483,11 @@ fixture	period	category	depth	slot	cellKey	plainText
 31-newborn-infant-male-tiered.json	life	career	expert	para2	life/career/expert/para2	그래서 같은 #일주라도 성장 과정, 보호자 관찰, 실제 생활 환경을 함께 살피는 자료로 받아 주세요. 아이의 표정, 말투, 잠과 식사 같은 일상 신호가 사주 지표보다 더 정확한 단서가 되는 시기예요.
 31-newborn-infant-male-tiered.json	life	career	expert	para3	life/career/expert/para3	큰 결정은 보호자가 시간을 두고 가까운 어른과 함께 확인해 주세요. 사주 해석은 한쪽 참고 자료로만 두고, 학교·의료·상담 같은 실제 지원 경로를 우선 활용하면 흐름을 더 안전하게 끌어갈 수 있어요.
 31-newborn-infant-male-tiered.json	life	study_document	brief	headline	life/study_document/brief/headline	배움과 기록은 꾸준히 쌓을수록 힘이 커지는 분야예요.
-31-newborn-infant-male-tiered.json	life	study_document	standard	para0	life/study_document/standard/para0	학교 시험·읽기쓰기에서 자기 색이 천천히 또렷해지는 흐름이에요. 한 학기보다는 한 학년, 한 학년보다는 몇 년을 두고 살펴보면 자라는 모양이 보여요.
-31-newborn-infant-male-tiered.json	life	study_document	standard	para1	life/study_document/standard/para1	어린 새싹이 봄비를 받으며 마디를 늘려가는 그림을 떠올려 보면 좋아요. 빠르게 보이지는 않지만, 한 해를 지나면 키가 달라져 있어요.
-31-newborn-infant-male-tiered.json	life	study_document	standard	para2	life/study_document/standard/para2	잘 풀리는 면은, 좋아하는 한 가지를 깊게 파고드는 시간이에요. 그림이든 글이든 숫자든, 손에 익는 분야가 한 번 자리 잡으면 오래 가요.
-31-newborn-infant-male-tiered.json	life	study_document	standard	para3	life/study_document/standard/para3	살짝 주의할 점은, 옆 친구와 비교하다 자기 페이스를 잃는 면이에요. 비교는 짧게, 자기 기록 갱신은 꾸준히로 충분해요.
-31-newborn-infant-male-tiered.json	life	study_document	standard	para4	life/study_document/standard/para4	작은 칭찬이 큰 자산이 되는 시기예요.
+31-newborn-infant-male-tiered.json	life	study_document	standard	para0	life/study_document/standard/para0	어린 시기와 학창 시절의 공부·서류 흐름은 시험 한 번의 점수를 두고 다투는 자리가 아니라, 좋아하는 것을 한 가지씩 알아 가는 시간이에요. 책 한 권을 천천히 펼쳐 자기에게 맞는 속도를 익히는 흐름이 평생 갈 학습 자산의 시작이 돼요.
+31-newborn-infant-male-tiered.json	life	study_document	standard	para1	life/study_document/standard/para1	비유하자면 작은 노트 한 권을 처음 펼치는 그림이에요. 첫 줄은 또박또박, 두 줄째는 어제보다 한 글자 더, 이렇게 차곡차곡 채워 가면 한 학기·한 학년 뒤에는 자기만의 책이 한 권 자라 있어요.
+31-newborn-infant-male-tiered.json	life	study_document	standard	para2	life/study_document/standard/para2	잘 풀리는 면은, 모르는 것을 솔직하게 적어 두는 자리예요. 헷갈린 문장, 못 푼 문제, 어려운 단어를 작은 노트에 한 줄씩 모아 두면 그 자체가 다음 주의 학습 지도가 돼요. 그림이나 색연필로 정리해도 충분해요.
+31-newborn-infant-male-tiered.json	life	study_document	standard	para3	life/study_document/standard/para3	살짝 살피면 좋은 점은, 옆 친구의 결과만 보고 자기 페이스를 잃는 면이에요. 비교는 짧게, 자기 기록 갱신은 꾸준히로 충분해요. 친구와는 함께 풀어 보는 시간을 만드는 쪽이 더 많은 것을 남겨 줘요.
+31-newborn-infant-male-tiered.json	life	study_document	standard	para4	life/study_document/standard/para4	학교에서 받은 작은 칭찬 한마디, 친구와 함께 풀어 본 한 문제, 모르는 단어를 노트에 적어 둔 한 줄이 큰 자산이 되는 시기예요. 어른의 큰 자격 어휘를 미리 끌어오지 않아도 충분해요.
 31-newborn-infant-male-tiered.json	life	study_document	expert	para0	life/study_document/expert/para0	이 항목은 나이가 어린 독자에게 결과를 단정적으로 풀이하지 않아요. 같은 흐름이라도 아이가 자라는 속도, 가정과 학교의 환경, 그날그날의 컨디션에 따라 의미가 크게 달라지기 때문이에요.
 31-newborn-infant-male-tiered.json	life	study_document	expert	para1	life/study_document/expert/para1	전문 해석에서 자주 쓰는 #일주와 #용신 같은 지표는 성격과 흐름을 가늠하는 참고선일 뿐, 어린 시기의 결과를 못 박는 단서로 쓰면 안 돼요.
 31-newborn-infant-male-tiered.json	life	study_document	expert	para2	life/study_document/expert/para2	그래서 같은 #일주라도 성장 과정, 보호자 관찰, 실제 생활 환경을 함께 살피는 자료로 받아 주세요. 아이의 표정, 말투, 잠과 식사 같은 일상 신호가 사주 지표보다 더 정확한 단서가 되는 시기예요.
@@ -12519,8 +12551,9 @@ fixture	period	category	depth	slot	cellKey	plainText
 31-newborn-infant-male-tiered.json	today	academic	expert	para2	today/academic/expert/para2	#식신은 이해한 것을 말로 설명하게 하는 축이고, #용신부합도는 오늘 공부 방식이 아이의 회복 리듬과 맞는지 확인하는 보조 지표예요.
 31-newborn-infant-male-tiered.json	today	academic	expert	para3	today/academic/expert/para3	평소엔 #정인의 토대를 단단히 두고, #식신이 받쳐 주는 시기에는 익힌 것을 자기 말로 풀어 두는 자리를 챙기면 학업의 흐름이 더 또렷해져요.
 31-newborn-infant-male-tiered.json	today	romance	brief	headline	today/romance/brief/headline	오늘은 친구·가족과 즐겁게 어울리기 좋은 하루예요.
-31-newborn-infant-male-tiered.json	today	romance	standard	para0	today/romance/standard/para0	오늘은 장난보다 친절한 말이 더 잘 통하는 날이에요.
-31-newborn-infant-male-tiered.json	today	romance	standard	para1	today/romance/standard/para1	친구가 힘들어 보이면 해결해 주려고 하기보다 먼저 들어주는 태도가 관계를 편하게 만듭니다.
+31-newborn-infant-male-tiered.json	today	romance	standard	para0	today/romance/standard/para0	오늘은 가족·친구와 마음을 주고받는 흐름이 또렷한 하루예요. 작은 칭찬·다정한 말이 평소보다 더 길게 마음에 닿는 시간이라, 옆에서 따뜻하게 챙겨 주는 자리만으로도 큰 자산이 돼요.
+31-newborn-infant-male-tiered.json	today	romance	standard	para1	today/romance/standard/para1	새 친구를 만나는 자리나 단체 활동이 있으면 자기 페이스대로 어울릴 수 있도록 충분한 여유를 두세요. 좋아하는 친구에게 짧은 인사나 함께 놀자는 한마디를 건네면, 그 자리에서 사이가 한층 부드러워져요. 잠깐의 다툼이 생기면 부모·선생님이 옆에서 조용히 흐름을 다듬어 주는 것만으로도 회복이 빨라져요.
+31-newborn-infant-male-tiered.json	today	romance	standard	para2	today/romance/standard/para2	하루의 끝에 좋아하는 사람들과 잠깐이라도 함께 웃는 시간이 있으면, 마음의 호흡이 한결 부드러워져요. 너무 어려운 어른의 어휘를 들이밀지 않아도 돼요. 나이에 맞는 친구·가족의 자리를 즐기는 것만으로 오늘이 충분히 따뜻해져요.
 31-newborn-infant-male-tiered.json	today	romance	expert	para0	today/romance/expert/para0	이 항목은 나이가 어린 독자에게 결과를 단정적으로 풀이하지 않아요. 같은 흐름이라도 아이가 자라는 속도, 가정과 학교의 환경, 그날그날의 컨디션에 따라 의미가 크게 달라지기 때문이에요.
 31-newborn-infant-male-tiered.json	today	romance	expert	para1	today/romance/expert/para1	전문 해석에서 자주 쓰는 #일주와 #용신 같은 지표는 성격과 흐름을 가늠하는 참고선일 뿐, 어린 시기의 결과를 못 박는 단서로 쓰면 안 돼요.
 31-newborn-infant-male-tiered.json	today	romance	expert	para2	today/romance/expert/para2	그래서 같은 #일주라도 성장 과정, 보호자 관찰, 실제 생활 환경을 함께 살피는 자료로 받아 주세요. 아이의 표정, 말투, 잠과 식사 같은 일상 신호가 사주 지표보다 더 정확한 단서가 되는 시기예요.
@@ -12542,8 +12575,11 @@ fixture	period	category	depth	slot	cellKey	plainText
 31-newborn-infant-male-tiered.json	today	career	expert	para2	today/career/expert/para2	그래서 같은 #일주라도 성장 과정, 보호자 관찰, 실제 생활 환경을 함께 살피는 자료로 받아 주세요. 아이의 표정, 말투, 잠과 식사 같은 일상 신호가 사주 지표보다 더 정확한 단서가 되는 시기예요.
 31-newborn-infant-male-tiered.json	today	career	expert	para3	today/career/expert/para3	큰 결정은 보호자가 시간을 두고 가까운 어른과 함께 확인해 주세요. 사주 해석은 한쪽 참고 자료로만 두고, 학교·의료·상담 같은 실제 지원 경로를 우선 활용하면 흐름을 더 안전하게 끌어갈 수 있어요.
 31-newborn-infant-male-tiered.json	today	study_document	brief	headline	today/study_document/brief/headline	오늘 한 줄 더 적어 두면 든든해지는 날이에요.
-31-newborn-infant-male-tiered.json	today	study_document	standard	para0	today/study_document/standard/para0	오늘 공부는 깊게 파고들기보다 핵심을 정리하는 쪽이 잘 맞아요.
-31-newborn-infant-male-tiered.json	today	study_document	standard	para1	today/study_document/standard/para1	어려운 문제는 오래 붙잡기보다 표시해 두고, 쉬운 부분부터 정확히 끝내면 흐름이 좋아집니다.
+31-newborn-infant-male-tiered.json	today	study_document	standard	para0	today/study_document/standard/para0	오늘은 책 한 권을 끝까지 읽기보다, 한 단원만 또렷이 챙기면 충분한 흐름이에요. 한꺼번에 많은 분량을 잡기보다 한 자리에 깊게 머무는 호흡이 잘 맞아요.
+31-newborn-infant-male-tiered.json	today	study_document	standard	para1	today/study_document/standard/para1	비유하자면 작은 노트 첫 줄을 또박또박 적는 그림이에요. 오늘 적은 한 줄이 다음 주 시험에서 길잡이가 돼요. 그림으로 정리해도 좋고, 색연필로 표시해도 충분해요.
+31-newborn-infant-male-tiered.json	today	study_document	standard	para2	today/study_document/standard/para2	잘 풀리는 면은, 모르는 것을 그냥 넘기지 않는 자리예요. 헷갈린 문장이나 못 푼 문제를 작은 노트에 한 줄씩 옮겨 두면 오늘의 공부가 자기만의 자료가 돼요. 친구와 함께 풀어 보는 시간이 있으면 더 잘 남아요.
+31-newborn-infant-male-tiered.json	today	study_document	standard	para3	today/study_document/standard/para3	살짝 주의할 점은, 오늘 모든 과목을 한꺼번에 잡으려는 마음이에요. 좋아하는 한 과목부터 차분히 끝내고, 어려운 과목은 한 박자 미뤄 둬도 충분해요. 짧게 쉬고 다시 시작해도 괜찮아요.
+31-newborn-infant-male-tiered.json	today	study_document	standard	para4	today/study_document/standard/para4	학교에서 받은 작은 메모 한 장, 오늘 적어 둔 모르는 단어 한 줄이 다음 주의 작은 무기가 돼요. 비교는 어제 자기와만 짧게로 충분해요.
 31-newborn-infant-male-tiered.json	today	study_document	expert	para0	today/study_document/expert/para0	이 항목은 나이가 어린 독자에게 결과를 단정적으로 풀이하지 않아요. 같은 흐름이라도 아이가 자라는 속도, 가정과 학교의 환경, 그날그날의 컨디션에 따라 의미가 크게 달라지기 때문이에요.
 31-newborn-infant-male-tiered.json	today	study_document	expert	para1	today/study_document/expert/para1	전문 해석에서 자주 쓰는 #일주와 #용신 같은 지표는 성격과 흐름을 가늠하는 참고선일 뿐, 어린 시기의 결과를 못 박는 단서로 쓰면 안 돼요.
 31-newborn-infant-male-tiered.json	today	study_document	expert	para2	today/study_document/expert/para2	그래서 같은 #일주라도 성장 과정, 보호자 관찰, 실제 생활 환경을 함께 살피는 자료로 받아 주세요. 아이의 표정, 말투, 잠과 식사 같은 일상 신호가 사주 지표보다 더 정확한 단서가 되는 시기예요.
@@ -12607,9 +12643,9 @@ fixture	period	category	depth	slot	cellKey	plainText
 31-newborn-infant-male-tiered.json	thisWeek	academic	expert	para2	thisWeek/academic/expert/para2	#식신이 드러나는 주에는 말하기, 쓰기, 풀이 설명을 넣어야 하고, #용신부합도가 낮으면 학습량보다 회복과 반복 간격을 조정하는 것이 먼저예요.
 31-newborn-infant-male-tiered.json	thisWeek	academic	expert	para3	thisWeek/academic/expert/para3	#통관용신의 흐름과 #병약용신의 자리가 함께 또렷해지는 사주는 학습의 깊이가 자기 흐름의 균형을 따라가는 자리예요.
 31-newborn-infant-male-tiered.json	thisWeek	romance	brief	headline	thisWeek/romance/brief/headline	이번 주는 친구와 약속을 잘 지키는 모습이 호감을 키워줘요.
-31-newborn-infant-male-tiered.json	thisWeek	romance	standard	para0	thisWeek/romance/standard/para0	이번 주 아이의 하루는 친구·가족과의 자리에서 가장 또렷하게 살아나요. 단체 활동·놀이 자리에서 서로의 마음을 알아 가는 흐름이 평소보다 잘 자라는 시기예요.
-31-newborn-infant-male-tiered.json	thisWeek	romance	standard	para1	thisWeek/romance/standard/para1	새 친구를 사귀는 자리가 생기면, 자기 페이스대로 어울릴 수 있도록 충분한 여유를 두세요. 잠깐의 다툼이 생기면 부모·선생님이 옆에서 조용히 흐름을 다듬어 주는 것만으로도 회복이 빨라져요.
-31-newborn-infant-male-tiered.json	thisWeek	romance	standard	para2	thisWeek/romance/standard/para2	한 주 동안 좋아하는 사람들과 함께 웃는 시간이 자주 있으면, 마음의 흐름이 한층 부드러워져요.
+31-newborn-infant-male-tiered.json	thisWeek	romance	standard	para0	thisWeek/romance/standard/para0	이번 주 아이의 하루는 친구·가족과의 자리에서 가장 또렷하게 살아나요. 단체 활동·놀이 자리에서 서로의 마음을 알아 가는 흐름이 평소보다 잘 자라는 시기라, 함께 보내는 시간 자체가 큰 자산이 돼요.
+31-newborn-infant-male-tiered.json	thisWeek	romance	standard	para1	thisWeek/romance/standard/para1	새 친구를 사귀는 자리가 생기면 자기 페이스대로 어울릴 수 있도록 충분한 여유를 두세요. 좋아하는 친구에게 작은 칭찬이나 고마운 마음을 한 줄로 건네면, 사이의 흐름이 한층 부드러워져요. 잠깐의 다툼이 생기면 부모·선생님이 옆에서 조용히 흐름을 다듬어 주는 것만으로도 회복이 빨라져요.
+31-newborn-infant-male-tiered.json	thisWeek	romance	standard	para2	thisWeek/romance/standard/para2	한 주 동안 좋아하는 사람들과 함께 웃는 시간이 자주 있으면, 마음의 흐름이 한층 부드러워져요. 기다리는 마음이 조급하게 느껴지더라도 오늘 내일 안에 다 풀리지 않아도 괜찮다는 믿음을 곁에서 함께 보여 주면, 한 주의 흐름이 차분하게 익어요.
 31-newborn-infant-male-tiered.json	thisWeek	romance	expert	para0	thisWeek/romance/expert/para0	이 항목은 나이가 어린 독자에게 결과를 단정적으로 풀이하지 않아요. 같은 흐름이라도 아이가 자라는 속도, 가정과 학교의 환경, 그날그날의 컨디션에 따라 의미가 크게 달라지기 때문이에요.
 31-newborn-infant-male-tiered.json	thisWeek	romance	expert	para1	thisWeek/romance/expert/para1	전문 해석에서 자주 쓰는 #일주와 #용신 같은 지표는 성격과 흐름을 가늠하는 참고선일 뿐, 어린 시기의 결과를 못 박는 단서로 쓰면 안 돼요.
 31-newborn-infant-male-tiered.json	thisWeek	romance	expert	para2	thisWeek/romance/expert/para2	그래서 같은 #일주라도 성장 과정, 보호자 관찰, 실제 생활 환경을 함께 살피는 자료로 받아 주세요. 아이의 표정, 말투, 잠과 식사 같은 일상 신호가 사주 지표보다 더 정확한 단서가 되는 시기예요.
@@ -12631,11 +12667,11 @@ fixture	period	category	depth	slot	cellKey	plainText
 31-newborn-infant-male-tiered.json	thisWeek	career	expert	para2	thisWeek/career/expert/para2	그래서 같은 #일주라도 성장 과정, 보호자 관찰, 실제 생활 환경을 함께 살피는 자료로 받아 주세요. 아이의 표정, 말투, 잠과 식사 같은 일상 신호가 사주 지표보다 더 정확한 단서가 되는 시기예요.
 31-newborn-infant-male-tiered.json	thisWeek	career	expert	para3	thisWeek/career/expert/para3	큰 결정은 보호자가 시간을 두고 가까운 어른과 함께 확인해 주세요. 사주 해석은 한쪽 참고 자료로만 두고, 학교·의료·상담 같은 실제 지원 경로를 우선 활용하면 흐름을 더 안전하게 끌어갈 수 있어요.
 31-newborn-infant-male-tiered.json	thisWeek	study_document	brief	headline	thisWeek/study_document/brief/headline	이번 주는 복습 시간을 먼저 잡으면 공부 결이 안정돼요.
-31-newborn-infant-male-tiered.json	thisWeek	study_document	standard	para0	thisWeek/study_document/standard/para0	이번 주는 학교 시험·읽기쓰기에서 한 단원만 또렷이 챙기면 충분한 흐름이에요. 한꺼번에 많은 분량보다 깊게 한 자리가 잘 맞아요.
-31-newborn-infant-male-tiered.json	thisWeek	study_document	standard	para1	thisWeek/study_document/standard/para1	새 노트 한 칸을 또박또박 채워 가는 그림을 떠올려 보면 좋아요. 이번 주의 한 페이지가 다음 시험을 가볍게 해 줘요.
-31-newborn-infant-male-tiered.json	thisWeek	study_document	standard	para2	thisWeek/study_document/standard/para2	잘 풀리는 면은, 좋아하는 한 과목에서 한 단계 더 깊이 들어가는 일이에요. 모든 과목을 한 번에 잡지 않아도 돼요.
-31-newborn-infant-male-tiered.json	thisWeek	study_document	standard	para3	thisWeek/study_document/standard/para3	살짝 주의할 점은, 친구와 비교하다 자기 페이스를 놓치는 면이에요. 지난주 자기와만 비교해도 충분해요.
-31-newborn-infant-male-tiered.json	thisWeek	study_document	standard	para4	thisWeek/study_document/standard/para4	주말의 30분 복습이 다음 주를 든든하게 만들어요.
+31-newborn-infant-male-tiered.json	thisWeek	study_document	standard	para0	thisWeek/study_document/standard/para0	이번 주는 새 책을 한꺼번에 끝내려는 무리보다, 좋아하는 책 한 권을 천천히 펼쳐 보는 흐름이 잘 맞아요. 한 주의 학습은 분량을 늘리는 자리가 아니라 자기 페이스를 또렷이 잡는 시간이에요.
+31-newborn-infant-male-tiered.json	thisWeek	study_document	standard	para1	thisWeek/study_document/standard/para1	비유하자면 작은 노트에 한 주의 시간표를 그리는 그림이에요. 매일 같은 시간에 보는 한 과목을 정해 두면 한 주가 끝날 즈음에는 자기만의 학습 흐름이 또렷이 보여요. 그림이나 색연필로 일정을 정리해도 충분해요.
+31-newborn-infant-male-tiered.json	thisWeek	study_document	standard	para2	thisWeek/study_document/standard/para2	잘 풀리는 면은, 모르는 것을 솔직하게 모아 두는 자리예요. 한 주 동안 헷갈린 문장이나 못 푼 문제를 작은 노트에 한 줄씩 옮겨 두면, 주말의 30분이 그 한 주의 학습을 단단하게 마무리해 줘요.
+31-newborn-infant-male-tiered.json	thisWeek	study_document	standard	para3	thisWeek/study_document/standard/para3	살짝 주의할 점은, 시간표를 너무 빽빽하게 짜는 면이에요. 매일 30분의 짧은 자리, 친구와 함께 한 문제 풀어 보는 자리, 좋아하는 책 한 페이지를 천천히 읽는 자리를 한 칸씩 비워 두면 한 주가 가벼워져요.
+31-newborn-infant-male-tiered.json	thisWeek	study_document	standard	para4	thisWeek/study_document/standard/para4	학교에서 받은 작은 과제, 친구와 같이 본 한 페이지, 모르는 단어를 적어 둔 한 줄이 다음 주를 든든하게 만드는 자산이 돼요. 비교는 지난주 자기와만 짧게로 충분해요.
 31-newborn-infant-male-tiered.json	thisWeek	study_document	expert	para0	thisWeek/study_document/expert/para0	이 항목은 나이가 어린 독자에게 결과를 단정적으로 풀이하지 않아요. 같은 흐름이라도 아이가 자라는 속도, 가정과 학교의 환경, 그날그날의 컨디션에 따라 의미가 크게 달라지기 때문이에요.
 31-newborn-infant-male-tiered.json	thisWeek	study_document	expert	para1	thisWeek/study_document/expert/para1	전문 해석에서 자주 쓰는 #일주와 #용신 같은 지표는 성격과 흐름을 가늠하는 참고선일 뿐, 어린 시기의 결과를 못 박는 단서로 쓰면 안 돼요.
 31-newborn-infant-male-tiered.json	thisWeek	study_document	expert	para2	thisWeek/study_document/expert/para2	그래서 같은 #일주라도 성장 과정, 보호자 관찰, 실제 생활 환경을 함께 살피는 자료로 받아 주세요. 아이의 표정, 말투, 잠과 식사 같은 일상 신호가 사주 지표보다 더 정확한 단서가 되는 시기예요.
@@ -12699,9 +12735,9 @@ fixture	period	category	depth	slot	cellKey	plainText
 31-newborn-infant-male-tiered.json	thisMonth	academic	expert	para2	thisMonth/academic/expert/para2	#식신은 말하고 쓰는 과정에서 이해를 확인하는 축이고, #용신부합도가 낮은 달에는 성취 목표보다 루틴을 유지하는 보조 환경이 더 중요해요.
 31-newborn-infant-male-tiered.json	thisMonth	academic	expert	para3	thisMonth/academic/expert/para3	#대운궁실의 흐름과 #일진의 흐름이 함께 살아날 때는 한 단원씩 차분히 매듭짓기 좋은 페이스가 자리 잡아요.
 31-newborn-infant-male-tiered.json	thisMonth	romance	brief	headline	thisMonth/romance/brief/headline	이번 달은 편한 친구들과 천천히 마음을 나누기 좋아요.
-31-newborn-infant-male-tiered.json	thisMonth	romance	standard	para0	thisMonth/romance/standard/para0	이번 달 아이의 사이는 친구·가족과 함께하는 자리에서 가장 또렷이 살아나요. 단체 활동·학원·가족 모임처럼 함께하는 시간이 늘어나는 시기라, 사람을 좋아하는 마음이 자연스럽게 자라요.
-31-newborn-infant-male-tiered.json	thisMonth	romance	standard	para1	thisMonth/romance/standard/para1	새 친구를 사귀는 자리가 생기면 자기 페이스대로 어울릴 수 있도록 충분한 여유를 두세요. 다툼이 잠깐 생기면 부모·선생님이 옆에서 조용히 사이를 다듬어 주는 것만으로도 회복이 빨라져요.
-31-newborn-infant-male-tiered.json	thisMonth	romance	standard	para2	thisMonth/romance/standard/para2	한 달 동안 좋아하는 사람들과 함께 웃는 시간이 자주 있으면, 마음의 호흡이 한층 부드러워져요. 너무 어려운 어른의 어휘를 들이밀지 않고 나이에 맞는 자리를 즐기는 모양으로 보내면 잘 어울려요.
+31-newborn-infant-male-tiered.json	thisMonth	romance	standard	para0	thisMonth/romance/standard/para0	이번 달 아이의 사이는 친구·가족과 함께하는 자리에서 가장 또렷이 살아나요. 단체 활동·학원·가족 모임처럼 함께하는 시간이 늘어나는 시기라, 사람을 좋아하는 마음이 자연스럽게 자라는 한 달이에요.
+31-newborn-infant-male-tiered.json	thisMonth	romance	standard	para1	thisMonth/romance/standard/para1	새 친구를 사귀는 자리가 생기면 자기 페이스대로 어울릴 수 있도록 충분한 여유를 두세요. 좋아하는 친구에게 작은 칭찬이나 고마운 마음을 한 줄로 건네면, 사이의 흐름이 한층 부드러워져요. 다툼이 잠깐 생기면 부모·선생님이 옆에서 조용히 사이를 다듬어 주는 것만으로도 회복이 빨라져요.
+31-newborn-infant-male-tiered.json	thisMonth	romance	standard	para2	thisMonth/romance/standard/para2	한 달 동안 좋아하는 사람들과 함께 웃는 시간이 자주 있으면, 마음의 호흡이 한층 부드러워져요. 기다리는 마음이 조급하게 느껴질 땐, 곁에서 어른들이 한 박자 천천히 들어 주는 자리만으로도 흐름이 차분해져요. 너무 어려운 어른의 어휘를 들이밀지 않고 나이에 맞는 자리를 즐기는 모양으로 한 달을 보내면 잘 어울려요.
 31-newborn-infant-male-tiered.json	thisMonth	romance	expert	para0	thisMonth/romance/expert/para0	이 항목은 나이가 어린 독자에게 결과를 단정적으로 풀이하지 않아요. 같은 흐름이라도 아이가 자라는 속도, 가정과 학교의 환경, 그날그날의 컨디션에 따라 의미가 크게 달라지기 때문이에요.
 31-newborn-infant-male-tiered.json	thisMonth	romance	expert	para1	thisMonth/romance/expert/para1	전문 해석에서 자주 쓰는 #일주와 #용신 같은 지표는 성격과 흐름을 가늠하는 참고선일 뿐, 어린 시기의 결과를 못 박는 단서로 쓰면 안 돼요.
 31-newborn-infant-male-tiered.json	thisMonth	romance	expert	para2	thisMonth/romance/expert/para2	그래서 같은 #일주라도 성장 과정, 보호자 관찰, 실제 생활 환경을 함께 살피는 자료로 받아 주세요. 아이의 표정, 말투, 잠과 식사 같은 일상 신호가 사주 지표보다 더 정확한 단서가 되는 시기예요.
@@ -12791,8 +12827,9 @@ fixture	period	category	depth	slot	cellKey	plainText
 31-newborn-infant-male-tiered.json	thisYear	academic	expert	para2	thisYear/academic/expert/para2	그래서 같은 #일주라도 성장 과정, 보호자 관찰, 실제 생활 환경을 함께 살피는 자료로 받아 주세요. 아이의 표정, 말투, 잠과 식사 같은 일상 신호가 사주 지표보다 더 정확한 단서가 되는 시기예요.
 31-newborn-infant-male-tiered.json	thisYear	academic	expert	para3	thisYear/academic/expert/para3	큰 결정은 보호자가 시간을 두고 가까운 어른과 함께 확인해 주세요. 사주 해석은 한쪽 참고 자료로만 두고, 학교·의료·상담 같은 실제 지원 경로를 우선 활용하면 흐름을 더 안전하게 끌어갈 수 있어요.
 31-newborn-infant-male-tiered.json	thisYear	romance	brief	headline	thisYear/romance/brief/headline	올해는 친구·가족과 즐거운 자리가 자주 생겨요.
-31-newborn-infant-male-tiered.json	thisYear	romance	standard	para0	thisYear/romance/standard/para0	올해는 어떤 사람이 나를 편하게 해 주는지 배우는 시간이 될 수 있어요.
-31-newborn-infant-male-tiered.json	thisYear	romance	standard	para1	thisYear/romance/standard/para1	잘 맞는 친구와는 더 가까워지고, 불편한 관계에서는 건강한 거리를 두는 연습이 필요해요.
+31-newborn-infant-male-tiered.json	thisYear	romance	standard	para0	thisYear/romance/standard/para0	올해 아이의 사이는 친구·가족과 함께하는 자리에서 한 해 내내 자라요. 학교·학원·가족 모임처럼 사람을 만나는 자리가 늘어나는 시기라, 사람을 좋아하는 마음이 자연스럽게 자라는 한 해예요.
+31-newborn-infant-male-tiered.json	thisYear	romance	standard	para1	thisYear/romance/standard/para1	새 친구를 사귀는 자리가 생기면 자기 페이스대로 어울릴 수 있도록 충분한 여유를 두세요. 좋아하는 친구에게 작은 칭찬이나 고마운 마음을 한 줄로 자주 건네면, 한 해 동안 사이의 흐름이 차곡차곡 단단해져요. 다툼이 잠깐 생기면 부모·선생님이 옆에서 조용히 사이를 다듬어 주는 것만으로도 회복이 빨라져요.
+31-newborn-infant-male-tiered.json	thisYear	romance	standard	para2	thisYear/romance/standard/para2	한 해 동안 좋아하는 사람들과 함께 웃는 시간이 자주 있으면, 마음의 호흡이 한층 부드러워져요. 기다리는 마음이 조급하게 느껴지더라도 한 해라는 길이 안에서 차분히 익어 가는 흐름으로 받아들이면, 자라면서 인연 자산이 든든히 쌓여요. 너무 어려운 어른의 어휘를 들이밀지 않고 나이에 맞는 자리를 즐기는 모양으로 한 해를 보내면 잘 어울려요.
 31-newborn-infant-male-tiered.json	thisYear	romance	expert	para0	thisYear/romance/expert/para0	이 항목은 나이가 어린 독자에게 결과를 단정적으로 풀이하지 않아요. 같은 흐름이라도 아이가 자라는 속도, 가정과 학교의 환경, 그날그날의 컨디션에 따라 의미가 크게 달라지기 때문이에요.
 31-newborn-infant-male-tiered.json	thisYear	romance	expert	para1	thisYear/romance/expert/para1	전문 해석에서 자주 쓰는 #일주와 #용신 같은 지표는 성격과 흐름을 가늠하는 참고선일 뿐, 어린 시기의 결과를 못 박는 단서로 쓰면 안 돼요.
 31-newborn-infant-male-tiered.json	thisYear	romance	expert	para2	thisYear/romance/expert/para2	그래서 같은 #일주라도 성장 과정, 보호자 관찰, 실제 생활 환경을 함께 살피는 자료로 받아 주세요. 아이의 표정, 말투, 잠과 식사 같은 일상 신호가 사주 지표보다 더 정확한 단서가 되는 시기예요.
