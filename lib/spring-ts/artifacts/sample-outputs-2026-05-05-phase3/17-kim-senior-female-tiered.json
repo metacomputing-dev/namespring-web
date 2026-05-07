@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-05-07T04:23:07.876Z",
+  "generatedAt": "2026-05-07T04:15:04.371Z",
   "targetDate": "2026-05-05T00:00:00+09:00",
   "sampleId": "kim-senior-female-tiered",
   "description": "70+ 시니어 여성 (1950 출생) — 노년 여성 audience 흐름. life-stage 후반 narrative 와 tieredMatrix 의 conservative tone 매칭을 점검하는 케이스.",
@@ -1317,7 +1317,7 @@
     },
     "meta": {
       "version": "1.0.0",
-      "generatedAt": "2026-05-07T04:23:15.953Z",
+      "generatedAt": "2026-05-07T04:15:11.068Z",
       "schoolPreset": {
         "selected": "korean",
         "source": "default",
@@ -2620,8 +2620,7 @@
               "meaningfulness": "meaningful",
               "stars": 1,
               "brief": {
-                "headline": "맡은 자리에서 신뢰가 차곡차곡 쌓여요.",
-                "hook": "꾸준함이 가장 큰 자산이에요."
+                "headline": "긴 흐름에서는 새 역할과 기회를 직접 만나며 일이 넓어지는 편이에요."
               },
               "standard": {
                 "paragraphs": [
@@ -2768,14 +2767,11 @@
               },
               "selectedFragments": {
                 "brief": {
-                  "fragmentId": "career.life.brief.strong.neutral.001",
+                  "fragmentId": "career.life.brief.currentseason.spring_summer.301",
                   "gating": {
-                    "dayMasterStrength": [
-                      "STRONG",
-                      "EXTREME_STRONG"
-                    ],
-                    "yongshinAlignment": [
-                      "neutral"
+                    "currentSeason": [
+                      "spring",
+                      "summer"
                     ]
                   },
                   "tags": []
@@ -5735,8 +5731,7 @@
               "meaningfulness": "meaningful",
               "stars": 5,
               "brief": {
-                "headline": "오늘은 한 발짝 움직여 볼 자리가 가벼워요.",
-                "hook": "익숙한 길도 짧게 새로 보여요."
+                "headline": "오늘은 이동 전 동선을 한 번 더 확인하면 시간을 아끼고 실수를 줄요."
               },
               "standard": {
                 "paragraphs": [
@@ -5917,14 +5912,15 @@
               },
               "selectedFragments": {
                 "brief": {
-                  "fragmentId": "movement.today.brief.strong.neutral.001",
+                  "fragmentId": "movement.today.brief.route.504",
                   "gating": {
-                    "dayMasterStrength": [
-                      "STRONG",
-                      "EXTREME_STRONG"
-                    ],
-                    "yongshinAlignment": [
-                      "neutral"
+                    "ageBand": [
+                      "10-19",
+                      "20-29",
+                      "30-39",
+                      "40-54",
+                      "55-69",
+                      "70+"
                     ]
                   },
                   "tags": []
@@ -6479,14 +6475,11 @@
               },
               "selectedFragments": {
                 "brief": {
-                  "fragmentId": "health.thisWeek.brief.strong.neutral.001",
+                  "fragmentId": "health.thisWeek.brief.strong.001",
                   "gating": {
                     "dayMasterStrength": [
                       "STRONG",
                       "EXTREME_STRONG"
-                    ],
-                    "yongshinAlignment": [
-                      "neutral"
                     ]
                   },
                   "tags": []
@@ -6528,8 +6521,7 @@
               "meaningfulness": "meaningful",
               "stars": 1,
               "brief": {
-                "headline": "이번 주는 한 단원을 매듭짓기 좋은 흐름이에요.",
-                "hook": "짧게 매일 보면 효과가 더 커요."
+                "headline": "이번 주는 익숙한 책을 다시 펼치기 좋은 결이에요."
               },
               "standard": {
                 "paragraphs": [
@@ -6686,14 +6678,11 @@
               },
               "selectedFragments": {
                 "brief": {
-                  "fragmentId": "academic.thisWeek.brief.strong.neutral.001",
+                  "fragmentId": "academic.thisWeek.brief.55plus.006",
                   "gating": {
-                    "dayMasterStrength": [
-                      "STRONG",
-                      "EXTREME_STRONG"
-                    ],
-                    "yongshinAlignment": [
-                      "neutral"
+                    "ageBand": [
+                      "55-69",
+                      "70+"
                     ]
                   },
                   "tags": []
@@ -7300,8 +7289,7 @@
               "meaningfulness": "meaningful",
               "stars": 1,
               "brief": {
-                "headline": "추진력으로 한 트랙을 마무리할 만한 주예요.",
-                "hook": "마지막 한 주 정리가 자산이에요."
+                "headline": "이번 주는 서류와 일정 마감일을 한곳에 모아두면 놓치는 일이 줄어요."
               },
               "standard": {
                 "paragraphs": [
@@ -7452,14 +7440,13 @@
               },
               "selectedFragments": {
                 "brief": {
-                  "fragmentId": "study_document.thisWeek.brief.strong.neutral.006",
+                  "fragmentId": "study_document.thisWeek.brief.ageband.adult.501",
                   "gating": {
-                    "dayMasterStrength": [
-                      "STRONG",
-                      "EXTREME_STRONG"
-                    ],
-                    "yongshinAlignment": [
-                      "neutral"
+                    "ageBand": [
+                      "30-39",
+                      "40-54",
+                      "55-69",
+                      "70+"
                     ]
                   },
                   "tags": []
@@ -8812,8 +8799,7 @@
               "meaningfulness": "meaningful",
               "stars": 4,
               "brief": {
-                "headline": "이번 달은 사람과의 결이 차분히 정돈되는 결이에요.",
-                "hook": "조급함을 줄이면 관계가 따뜻해져요."
+                "headline": "이번 달은 관계의 속도를 맞추는 감각이 중요해요."
               },
               "standard": {
                 "paragraphs": [
@@ -8951,21 +8937,17 @@
               },
               "selectedFragments": {
                 "brief": {
-                  "fragmentId": "romance.thisMonth.brief.strong.neutral.adult.001",
+                  "fragmentId": "romance.thisMonth.brief.neutral.002",
                   "gating": {
+                    "yongshinAlignment": [
+                      "neutral"
+                    ],
                     "ageBand": [
                       "20-29",
                       "30-39",
                       "40-54",
                       "55-69",
                       "70+"
-                    ],
-                    "dayMasterStrength": [
-                      "STRONG",
-                      "EXTREME_STRONG"
-                    ],
-                    "yongshinAlignment": [
-                      "neutral"
                     ]
                   },
                   "tags": []
@@ -10622,14 +10604,11 @@
               },
               "selectedFragments": {
                 "brief": {
-                  "fragmentId": "health.thisYear.brief.strong.neutral.001",
+                  "fragmentId": "health.thisYear.brief.strong.001",
                   "gating": {
                     "dayMasterStrength": [
                       "STRONG",
                       "EXTREME_STRONG"
-                    ],
-                    "yongshinAlignment": [
-                      "neutral"
                     ]
                   },
                   "tags": []
@@ -11064,8 +11043,7 @@
               "meaningfulness": "meaningful",
               "stars": 1,
               "brief": {
-                "headline": "올해는 가까운 사람과의 인연이 따뜻하게 자라요.",
-                "hook": "작은 안부가 큰 다리가 되어 줘요."
+                "headline": "올해 가족 관계는 조언보다 먼저 들어주는 태도가 안정감을 만듭니다."
               },
               "standard": {
                 "paragraphs": [
@@ -11181,14 +11159,14 @@
               },
               "selectedFragments": {
                 "brief": {
-                  "fragmentId": "family.thisYear.brief.strong.neutral.001",
+                  "fragmentId": "family.thisYear.brief.listen.504",
                   "gating": {
-                    "dayMasterStrength": [
-                      "STRONG",
-                      "EXTREME_STRONG"
-                    ],
-                    "yongshinAlignment": [
-                      "neutral"
+                    "ageBand": [
+                      "20-29",
+                      "30-39",
+                      "40-54",
+                      "55-69",
+                      "70+"
                     ]
                   },
                   "tags": []
@@ -12979,7 +12957,7 @@
       },
       "meta": {
         "schemaVersion": "spring-ts.tiered-matrix.v1",
-        "generatedAt": "2026-05-07T04:23:15.953Z",
+        "generatedAt": "2026-05-07T04:15:11.068Z",
         "selectionSeed": "1950|8|20|14|0|female|2026-05-04T15:00:00.000Z",
         "templateContractVersion": "1.0.0",
         "contentSource": "authored",

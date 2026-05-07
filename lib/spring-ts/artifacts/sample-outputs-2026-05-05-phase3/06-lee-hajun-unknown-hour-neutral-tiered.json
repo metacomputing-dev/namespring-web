@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-05-07T04:23:07.876Z",
+  "generatedAt": "2026-05-07T04:15:04.371Z",
   "targetDate": "2026-05-05T00:00:00+09:00",
   "sampleId": "lee-hajun-unknown-hour-neutral-tiered",
   "description": "출생 시각 미상, 중립 성별 입력에서 불확실성 안내와 tiered 매트릭스를 확인하는 케이스.",
@@ -1302,7 +1302,7 @@
     },
     "meta": {
       "version": "1.0.0",
-      "generatedAt": "2026-05-07T04:23:11.672Z",
+      "generatedAt": "2026-05-07T04:15:07.268Z",
       "schoolPreset": {
         "selected": "korean",
         "source": "default",
@@ -2592,8 +2592,7 @@
               "meaningfulness": "meaningful",
               "stars": 1,
               "brief": {
-                "headline": "맡은 자리에서 신뢰가 차곡차곡 쌓여요.",
-                "hook": "꾸준함이 가장 큰 자산이에요."
+                "headline": "커리어 시기엔 경험을 흩어두지 않는 게 좋아요."
               },
               "standard": {
                 "paragraphs": [
@@ -2743,14 +2742,10 @@
               },
               "selectedFragments": {
                 "brief": {
-                  "fragmentId": "career.life.brief.strong.neutral.001",
+                  "fragmentId": "career.life.brief.agephase.late_20s.503",
                   "gating": {
-                    "dayMasterStrength": [
-                      "STRONG",
-                      "EXTREME_STRONG"
-                    ],
-                    "yongshinAlignment": [
-                      "neutral"
+                    "agePhase": [
+                      "late_20s"
                     ]
                   },
                   "tags": []
@@ -5815,8 +5810,7 @@
               "meaningfulness": "meaningful",
               "stars": 1,
               "brief": {
-                "headline": "오늘은 한 발짝 움직여 볼 자리가 가벼워요.",
-                "hook": "익숙한 길도 짧게 새로 보여요."
+                "headline": "오늘은 짧은 외출이나 가벼운 움직임이 생각 정리에 도움이 돼요."
               },
               "standard": {
                 "paragraphs": [
@@ -5997,14 +5991,11 @@
               },
               "selectedFragments": {
                 "brief": {
-                  "fragmentId": "movement.today.brief.strong.neutral.001",
+                  "fragmentId": "movement.today.brief.activity.501",
                   "gating": {
                     "dayMasterStrength": [
                       "STRONG",
                       "EXTREME_STRONG"
-                    ],
-                    "yongshinAlignment": [
-                      "neutral"
                     ]
                   },
                   "tags": []
@@ -6500,8 +6491,7 @@
               "meaningfulness": "meaningful",
               "stars": 2,
               "brief": {
-                "headline": "이번 주는 활동량 누적만 한 번 점검해요.",
-                "hook": "같은 시간에 자고 일어나요."
+                "headline": "이번 주는 잠 6시간을 꼭 챙기는 편이 좋아요."
               },
               "standard": {
                 "paragraphs": [
@@ -6629,14 +6619,10 @@
               },
               "selectedFragments": {
                 "brief": {
-                  "fragmentId": "health.thisWeek.brief.strong.neutral.001",
+                  "fragmentId": "health.thisWeek.brief.20_29.001",
                   "gating": {
-                    "dayMasterStrength": [
-                      "STRONG",
-                      "EXTREME_STRONG"
-                    ],
-                    "yongshinAlignment": [
-                      "neutral"
+                    "ageBand": [
+                      "20-29"
                     ]
                   },
                   "tags": []
@@ -6678,8 +6664,7 @@
               "meaningfulness": "meaningful",
               "stars": 2,
               "brief": {
-                "headline": "이번 주는 한 단원을 매듭짓기 좋은 흐름이에요.",
-                "hook": "짧게 매일 보면 효과가 더 커요."
+                "headline": "이번 주는 어려운 부분을 작게 나누면 공부 흐름이 훨씬 편해져요."
               },
               "standard": {
                 "paragraphs": [
@@ -6794,14 +6779,11 @@
               },
               "selectedFragments": {
                 "brief": {
-                  "fragmentId": "academic.thisWeek.brief.strong.neutral.001",
+                  "fragmentId": "academic.thisWeek.brief.ageband.young.401",
                   "gating": {
-                    "dayMasterStrength": [
-                      "STRONG",
-                      "EXTREME_STRONG"
-                    ],
-                    "yongshinAlignment": [
-                      "neutral"
+                    "ageBand": [
+                      "10-19",
+                      "20-29"
                     ]
                   },
                   "tags": []
@@ -7494,14 +7476,11 @@
               },
               "selectedFragments": {
                 "brief": {
-                  "fragmentId": "study_document.thisWeek.brief.strong.neutral.006",
+                  "fragmentId": "study_document.thisWeek.brief.strong.006",
                   "gating": {
                     "dayMasterStrength": [
                       "STRONG",
                       "EXTREME_STRONG"
-                    ],
-                    "yongshinAlignment": [
-                      "neutral"
                     ]
                   },
                   "tags": []
@@ -8796,8 +8775,7 @@
               "meaningfulness": "meaningful",
               "stars": 4,
               "brief": {
-                "headline": "이번 달은 사람과의 결이 차분히 정돈되는 결이에요.",
-                "hook": "조급함을 줄이면 관계가 따뜻해져요."
+                "headline": "이번 달은 관계의 속도를 맞추는 감각이 중요해요."
               },
               "standard": {
                 "paragraphs": [
@@ -8911,21 +8889,17 @@
               },
               "selectedFragments": {
                 "brief": {
-                  "fragmentId": "romance.thisMonth.brief.strong.neutral.adult.001",
+                  "fragmentId": "romance.thisMonth.brief.neutral.002",
                   "gating": {
+                    "yongshinAlignment": [
+                      "neutral"
+                    ],
                     "ageBand": [
                       "20-29",
                       "30-39",
                       "40-54",
                       "55-69",
                       "70+"
-                    ],
-                    "dayMasterStrength": [
-                      "STRONG",
-                      "EXTREME_STRONG"
-                    ],
-                    "yongshinAlignment": [
-                      "neutral"
                     ]
                   },
                   "tags": []
@@ -10612,14 +10586,11 @@
               },
               "selectedFragments": {
                 "brief": {
-                  "fragmentId": "health.thisYear.brief.strong.neutral.001",
+                  "fragmentId": "health.thisYear.brief.strong.001",
                   "gating": {
                     "dayMasterStrength": [
                       "STRONG",
                       "EXTREME_STRONG"
-                    ],
-                    "yongshinAlignment": [
-                      "neutral"
                     ]
                   },
                   "tags": []
@@ -11053,8 +11024,7 @@
               "meaningfulness": "meaningful",
               "stars": 2,
               "brief": {
-                "headline": "올해는 가까운 사람과의 인연이 따뜻하게 자라요.",
-                "hook": "작은 안부가 큰 다리가 되어 줘요."
+                "headline": "올해는 가족과 함께 움직이고 새 계획을 세우기 쉬워요."
               },
               "standard": {
                 "paragraphs": [
@@ -11170,14 +11140,11 @@
               },
               "selectedFragments": {
                 "brief": {
-                  "fragmentId": "family.thisYear.brief.strong.neutral.001",
+                  "fragmentId": "family.thisYear.brief.currentseason.spring_summer.301",
                   "gating": {
-                    "dayMasterStrength": [
-                      "STRONG",
-                      "EXTREME_STRONG"
-                    ],
-                    "yongshinAlignment": [
-                      "neutral"
+                    "currentSeason": [
+                      "spring",
+                      "summer"
                     ]
                   },
                   "tags": []
@@ -12887,7 +12854,7 @@
       },
       "meta": {
         "schemaVersion": "spring-ts.tiered-matrix.v1",
-        "generatedAt": "2026-05-07T04:23:11.672Z",
+        "generatedAt": "2026-05-07T04:15:07.268Z",
         "selectionSeed": "2001|1|15|0|0|neutral|2026-05-04T15:00:00.000Z",
         "templateContractVersion": "1.0.0",
         "contentSource": "authored",
