@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-05-07T10:04:48.684Z",
+  "generatedAt": "2026-05-07T10:15:51.133Z",
   "targetDate": "2026-05-05T00:00:00+09:00",
   "sampleId": "jonggyeok-jonggang-tiered",
   "description": "입력 의도: 從强격 (비겁+인성 강) 계열. fix-jong-09 (1938-08-05 03:00) 좌표 — 己土 일간 + 戊己 비겁 + 未巳丑 토화 지지 + 火 인성 보조. 從旺(비겁만) 과 從强(비겁+인성) 의 경계 입력. 최종 외격 판정은 엔진이 결정한다.",
@@ -1337,7 +1337,7 @@
     },
     "meta": {
       "version": "1.0.0",
-      "generatedAt": "2026-05-07T10:05:02.125Z",
+      "generatedAt": "2026-05-07T10:16:04.652Z",
       "schoolPreset": {
         "selected": "korean",
         "source": "default",
@@ -1540,7 +1540,8 @@
               "meaningfulness": "meaningful",
               "stars": 1,
               "brief": {
-                "headline": "돈 관리는 크게 벌기보다 오래 지킬 수 있는 기준을 만드는 것이 중요."
+                "headline": "오랜 인연과의 거래가 큰 자산으로 이어지는 시간이에요.",
+                "hook": "오랜 거래처와 안부를 나눠요."
               },
               "standard": {
                 "paragraphs": [
@@ -1744,14 +1745,18 @@
               },
               "selectedFragments": {
                 "brief": {
-                  "fragmentId": "wealth.life.brief.steady_base.504",
+                  "fragmentId": "wealth.life.brief.male.senior.strong.014",
                   "gating": {
+                    "gender": [
+                      "male"
+                    ],
                     "ageBand": [
-                      "20-29",
-                      "30-39",
-                      "40-54",
                       "55-69",
                       "70+"
+                    ],
+                    "dayMasterStrength": [
+                      "STRONG",
+                      "EXTREME_STRONG"
                     ]
                   },
                   "tags": []
@@ -10349,6 +10354,15 @@
                       }
                     ],
                     "plainText": "주의할 점은 갑작스런 큰 권유예요. 익숙하지 않은 흐름은 한 달 두고 살피면 좋아요."
+                  },
+                  {
+                    "tokens": [
+                      {
+                        "kind": "text",
+                        "value": "쌓아 온 흐름은 이미 충분해요. 정리와 나눔의 호흡이 가장 자연스러운 자리예요."
+                      }
+                    ],
+                    "plainText": "쌓아 온 흐름은 이미 충분해요. 정리와 나눔의 호흡이 가장 자연스러운 자리예요."
                   }
                 ],
                 "livingTips": [
@@ -11477,7 +11491,8 @@
               "meaningfulness": "meaningful",
               "stars": 2,
               "brief": {
-                "headline": "올해는 자격, 계약, 기록을 체계적으로 관리할수록 중요한 기회를요."
+                "headline": "올해는 모은 자료를 천천히 엮어 두기 좋은 한 해예요.",
+                "hook": "자료 한 묶음을 깔끔히 정리해요."
               },
               "standard": {
                 "paragraphs": [
@@ -11610,10 +11625,12 @@
               },
               "selectedFragments": {
                 "brief": {
-                  "fragmentId": "study_document.thisYear.brief.ageband.mature.401",
+                  "fragmentId": "study_document.thisYear.brief.male.midlife_senior.010",
                   "gating": {
+                    "gender": [
+                      "male"
+                    ],
                     "ageBand": [
-                      "30-39",
                       "40-54",
                       "55-69",
                       "70+"
@@ -12978,12 +12995,12 @@
       },
       "meta": {
         "schemaVersion": "spring-ts.tiered-matrix.v1",
-        "generatedAt": "2026-05-07T10:05:02.125Z",
+        "generatedAt": "2026-05-07T10:16:04.652Z",
         "selectionSeed": "1938|8|5|3|0|male|2026-05-04T15:00:00.000Z",
         "templateContractVersion": "1.0.0",
         "contentSource": "authored",
-        "fragmentCount": 4125,
-        "aiGeneratedFragmentCount": 4125
+        "fragmentCount": 4133,
+        "aiGeneratedFragmentCount": 4133
       }
     }
   }
