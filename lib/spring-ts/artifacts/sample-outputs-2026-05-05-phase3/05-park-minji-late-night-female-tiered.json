@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-05-07T10:35:34.516Z",
+  "generatedAt": "2026-05-07T10:39:00.989Z",
   "targetDate": "2026-05-05T00:00:00+09:00",
   "sampleId": "park-minji-late-night-female-tiered",
   "description": "성인 여성 늦은 밤 출생 입력에 야자시, 진태양시, 경도 보정과 tiered 매트릭스를 적용한 케이스.",
@@ -1313,7 +1313,7 @@
     },
     "meta": {
       "version": "1.0.0",
-      "generatedAt": "2026-05-07T10:35:38.235Z",
+      "generatedAt": "2026-05-07T10:39:04.963Z",
       "schoolPreset": {
         "selected": "korean",
         "source": "default",
@@ -2969,15 +2969,6 @@
                       }
                     ],
                     "plainText": "자녀와 관련된 리듬도 함께 보이지만 어떤 모양이든 단정 없이 흘러가는 흐름이 좋아요. 자기 흐름을 단단히 잡는 것이 곧 다음 세대로의 다리예요."
-                  },
-                  {
-                    "tokens": [
-                      {
-                        "kind": "text",
-                        "value": "오늘 자기 색을 단단히 두면, 그 흐름이 자연스럽게 다음 사람에게 이어져요."
-                      }
-                    ],
-                    "plainText": "오늘 자기 색을 단단히 두면, 그 흐름이 자연스럽게 다음 사람에게 이어져요."
                   }
                 ],
                 "livingTips": [
@@ -12923,7 +12914,7 @@
       },
       "meta": {
         "schemaVersion": "spring-ts.tiered-matrix.v1",
-        "generatedAt": "2026-05-07T10:35:38.235Z",
+        "generatedAt": "2026-05-07T10:39:04.963Z",
         "selectionSeed": "1992|11|3|23|20|female|2026-05-04T15:00:00.000Z",
         "templateContractVersion": "1.0.0",
         "contentSource": "authored",

@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-05-07T10:35:34.516Z",
+  "generatedAt": "2026-05-07T10:39:00.989Z",
   "targetDate": "2026-05-05T00:00:00+09:00",
   "sampleId": "kim-seongsu-special-format-candidate-tiered",
   "description": "입력 의도: 외격 후보(화기격 계열) 고전 사례. precisionConfig 로 tieredMatrix 만 결합. 외격 판정은 엔진이 결정한다.",
@@ -1338,7 +1338,7 @@
     },
     "meta": {
       "version": "1.0.0",
-      "generatedAt": "2026-05-07T10:35:40.513Z",
+      "generatedAt": "2026-05-07T10:39:07.477Z",
       "schoolPreset": {
         "selected": "korean",
         "source": "default",
@@ -13185,7 +13185,7 @@
       },
       "meta": {
         "schemaVersion": "spring-ts.tiered-matrix.v1",
-        "generatedAt": "2026-05-07T10:35:40.513Z",
+        "generatedAt": "2026-05-07T10:39:07.477Z",
         "selectionSeed": "1958|7|11|13|0|male|2026-05-04T15:00:00.000Z",
         "templateContractVersion": "1.0.0",
         "contentSource": "authored",
