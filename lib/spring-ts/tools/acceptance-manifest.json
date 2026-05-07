@@ -19,6 +19,7 @@
     "ci:brief-tier-placeholder",
     "ci:standard-paragraph-floor",
     "ci:flow-cluster",
+    "ci:gyeol-cluster",
     "ci:livingtips-period-consistency"
   ],
   "exempt": [
