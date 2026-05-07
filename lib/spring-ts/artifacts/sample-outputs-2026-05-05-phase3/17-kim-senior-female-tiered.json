@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-05-07T01:50:18.479Z",
+  "generatedAt": "2026-05-07T01:53:17.108Z",
   "targetDate": "2026-05-05T00:00:00+09:00",
   "sampleId": "kim-senior-female-tiered",
   "description": "70+ 시니어 여성 (1950 출생) — 노년 여성 audience 흐름. life-stage 후반 narrative 와 tieredMatrix 의 conservative tone 매칭을 점검하는 케이스.",
@@ -1317,7 +1317,7 @@
     },
     "meta": {
       "version": "1.0.0",
-      "generatedAt": "2026-05-07T01:50:28.083Z",
+      "generatedAt": "2026-05-07T01:53:25.683Z",
       "schoolPreset": {
         "selected": "korean",
         "source": "default",
@@ -3689,7 +3689,8 @@
             "meaningfulness": "meaningful",
             "stars": 5,
             "brief": {
-              "headline": "기운은 충분해도, 한 박자 늦추면 더 또렷해져요."
+              "headline": "기운은 충분해도, 한 박자 늦추면 더 또렷해져요.",
+              "hook": "작게 한 호흡 끊어 가요."
             },
             "standard": {
               "paragraphs": [
@@ -5982,7 +5983,8 @@
             "meaningfulness": "meaningful",
             "stars": 1,
             "brief": {
-              "headline": "기운은 충분해도, 한 박자 늦추면 호흡이 더 또렷해져요."
+              "headline": "기운은 충분해도, 한 박자 늦추면 호흡이 더 또렷해져요.",
+              "hook": "일정 사이에 쉼 한 칸을 비워요."
             },
             "standard": {
               "paragraphs": [
@@ -6344,7 +6346,8 @@
               "meaningfulness": "meaningful",
               "stars": 1,
               "brief": {
-                "headline": "이번 주는 활동량 누적만 한 번 점검해요."
+                "headline": "이번 주는 활동량 누적만 한 번 점검해요.",
+                "hook": "같은 시간에 자고 일어나요."
               },
               "standard": {
                 "paragraphs": [
@@ -10423,7 +10426,8 @@
               "meaningfulness": "meaningful",
               "stars": 1,
               "brief": {
-                "headline": "올해는 강도 조절이 가장 큰 보약이 돼요."
+                "headline": "올해는 강도 조절이 가장 큰 보약이 돼요.",
+                "hook": "정기 점검 일정을 미리 잡아요."
               },
               "standard": {
                 "paragraphs": [
@@ -12953,7 +12957,7 @@
       },
       "meta": {
         "schemaVersion": "spring-ts.tiered-matrix.v1",
-        "generatedAt": "2026-05-07T01:50:28.083Z",
+        "generatedAt": "2026-05-07T01:53:25.683Z",
         "selectionSeed": "1950|8|20|14|0|female|2026-05-04T15:00:00.000Z",
         "templateContractVersion": "1.0.0",
         "contentSource": "authored",

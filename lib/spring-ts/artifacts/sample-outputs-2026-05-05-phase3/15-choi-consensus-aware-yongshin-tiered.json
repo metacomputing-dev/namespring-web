@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-05-07T01:50:18.479Z",
+  "generatedAt": "2026-05-07T01:53:17.108Z",
   "targetDate": "2026-05-05T00:00:00+09:00",
   "sampleId": "choi-consensus-aware-yongshin-tiered",
   "description": "yongshinMode=consensus_aware 활성 시나리오. 독립 명리 방법이 엇갈리는 사주에서 consensus scoreboard 를 블렌딩한 posture 및 per-axis 근거를 tieredMatrix 와 함께 노출하는 케이스.",
@@ -1319,7 +1319,7 @@
     },
     "meta": {
       "version": "1.0.0",
-      "generatedAt": "2026-05-07T01:50:27.344Z",
+      "generatedAt": "2026-05-07T01:53:25.035Z",
       "schoolPreset": {
         "selected": "korean",
         "source": "default",
@@ -5288,7 +5288,8 @@
               "meaningfulness": "limited",
               "stars": 3,
               "brief": {
-                "headline": "오늘은 작은 한 걸음이 표현을 단단히 해요."
+                "headline": "오늘은 작은 한 걸음이 표현을 단단히 해요.",
+                "hook": "한 줄 끄적임이 마음을 가볍게 해요."
               },
               "standard": {
                 "paragraphs": [
@@ -7384,7 +7385,8 @@
               "meaningfulness": "meaningful",
               "stars": 1,
               "brief": {
-                "headline": "이번 주는 작은 한 매듭으로 중심이 단단해져요."
+                "headline": "이번 주는 작은 한 매듭으로 중심이 단단해져요.",
+                "hook": "한 가지를 끝까지 마무리해 봐요."
               },
               "standard": {
                 "paragraphs": [
@@ -9395,7 +9397,8 @@
               "meaningfulness": "meaningful",
               "stars": 4,
               "brief": {
-                "headline": "이번 달은 작은 매듭들이 모여 중심이 단단해져요."
+                "headline": "이번 달은 작은 매듭들이 모여 중심이 단단해져요.",
+                "hook": "모은 것들을 짧게 정리해 봐요."
               },
               "standard": {
                 "paragraphs": [
@@ -11498,7 +11501,8 @@
               "meaningfulness": "meaningful",
               "stars": 1,
               "brief": {
-                "headline": "올해는 매듭들이 모여 자기 중심이 단단해져요."
+                "headline": "올해는 매듭들이 모여 자기 중심이 단단해져요.",
+                "hook": "결과 하나를 누군가에게 보여 줘요."
               },
               "standard": {
                 "paragraphs": [
@@ -12816,7 +12820,7 @@
       },
       "meta": {
         "schemaVersion": "spring-ts.tiered-matrix.v1",
-        "generatedAt": "2026-05-07T01:50:27.344Z",
+        "generatedAt": "2026-05-07T01:53:25.035Z",
         "selectionSeed": "1986|4|19|5|45|male|2026-05-04T15:00:00.000Z",
         "templateContractVersion": "1.0.0",
         "contentSource": "authored",

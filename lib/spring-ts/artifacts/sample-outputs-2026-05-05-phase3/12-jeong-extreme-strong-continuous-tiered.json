@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-05-07T01:50:18.479Z",
+  "generatedAt": "2026-05-07T01:53:17.108Z",
   "targetDate": "2026-05-05T00:00:00+09:00",
   "sampleId": "jeong-extreme-strong-continuous-tiered",
   "description": "입력 의도: 지지에서 일간이 강하게 받쳐지는 신강 지향 입력. strengthMode=continuous 로 4-tier 강도 곡선과 결합한 tiered 샘플. 최종 강도 분류는 엔진이 결정한다.",
@@ -1294,7 +1294,7 @@
     },
     "meta": {
       "version": "1.0.0",
-      "generatedAt": "2026-05-07T01:50:26.464Z",
+      "generatedAt": "2026-05-07T01:53:24.206Z",
       "schoolPreset": {
         "selected": "korean",
         "source": "default",
@@ -5450,7 +5450,8 @@
               "meaningfulness": "meaningful",
               "stars": 2,
               "brief": {
-                "headline": "오늘은 작은 한 걸음이 표현을 단단히 해요."
+                "headline": "오늘은 작은 한 걸음이 표현을 단단히 해요.",
+                "hook": "한 줄 끄적임이 마음을 가볍게 해요."
               },
               "standard": {
                 "paragraphs": [
@@ -6570,10 +6571,10 @@
                     "tokens": [
                       {
                         "kind": "text",
-                        "value": "이번 주의 학업운은 일과 사이의 짧은 학습 자리를 하나로 엮어 두기 좋은 흐름이에요. 출퇴근 길의 한 챕터, 점심 후 10분의 정리, 잠들기 전의 한 페이지 같은 자리가 일주일을 묶어 줘요."
+                        "value": "이번 주의 학업운은 일과 사이의 짧은 학습 자리를 한 리듬으로 엮어 두기 좋은 흐름이에요. 출퇴근 길의 한 챕터, 점심 후 10분의 정리, 잠들기 전의 한 페이지 같은 자리가 일주일을 묶어 줘요."
                       }
                     ],
-                    "plainText": "이번 주의 학업운은 일과 사이의 짧은 학습 자리를 하나로 엮어 두기 좋은 흐름이에요. 출퇴근 길의 한 챕터, 점심 후 10분의 정리, 잠들기 전의 한 페이지 같은 자리가 일주일을 묶어 줘요."
+                    "plainText": "이번 주의 학업운은 일과 사이의 짧은 학습 자리를 한 리듬으로 엮어 두기 좋은 흐름이에요. 출퇴근 길의 한 챕터, 점심 후 10분의 정리, 잠들기 전의 한 페이지 같은 자리가 일주일을 묶어 줘요."
                   },
                   {
                     "tokens": [
@@ -7513,7 +7514,8 @@
               "meaningfulness": "meaningful",
               "stars": 4,
               "brief": {
-                "headline": "이번 주는 작은 한 매듭으로 중심이 단단해져요."
+                "headline": "이번 주는 작은 한 매듭으로 중심이 단단해져요.",
+                "hook": "한 가지를 끝까지 마무리해 봐요."
               },
               "standard": {
                 "paragraphs": [
@@ -9572,7 +9574,8 @@
               "meaningfulness": "meaningful",
               "stars": 5,
               "brief": {
-                "headline": "이번 달은 작은 매듭들이 모여 중심이 단단해져요."
+                "headline": "이번 달은 작은 매듭들이 모여 중심이 단단해져요.",
+                "hook": "모은 것들을 짧게 정리해 봐요."
               },
               "standard": {
                 "paragraphs": [
@@ -9740,7 +9743,8 @@
               "meaningfulness": "meaningful",
               "stars": 5,
               "brief": {
-                "headline": "이번 달은 어깨를 자주 풀어 주는 시기예요."
+                "headline": "이번 달은 어깨를 자주 풀어 주는 시기예요.",
+                "hook": "어깨 풀기 한 번을 챙겨요."
               },
               "standard": {
                 "paragraphs": [
@@ -11571,7 +11575,8 @@
               "meaningfulness": "meaningful",
               "stars": 4,
               "brief": {
-                "headline": "올해는 매듭들이 모여 자기 중심이 단단해져요."
+                "headline": "올해는 매듭들이 모여 자기 중심이 단단해져요.",
+                "hook": "결과 하나를 누군가에게 보여 줘요."
               },
               "standard": {
                 "paragraphs": [
@@ -12898,7 +12903,7 @@
       },
       "meta": {
         "schemaVersion": "spring-ts.tiered-matrix.v1",
-        "generatedAt": "2026-05-07T01:50:26.464Z",
+        "generatedAt": "2026-05-07T01:53:24.206Z",
         "selectionSeed": "1980|3|12|9|0|male|2026-05-04T15:00:00.000Z",
         "templateContractVersion": "1.0.0",
         "contentSource": "authored",

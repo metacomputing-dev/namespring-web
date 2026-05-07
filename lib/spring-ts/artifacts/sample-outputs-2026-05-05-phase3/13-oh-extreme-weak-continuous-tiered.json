@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-05-07T01:50:18.479Z",
+  "generatedAt": "2026-05-07T01:53:17.108Z",
   "targetDate": "2026-05-05T00:00:00+09:00",
   "sampleId": "oh-extreme-weak-continuous-tiered",
   "description": "입력 의도: 지지가 일간을 극도로 소모하는 신약 지향 입력. strengthMode=continuous 로 4-tier 강도 곡선과 결합한 tiered 샘플. 최종 강도 분류는 엔진이 결정한다.",
@@ -1293,7 +1293,7 @@
     },
     "meta": {
       "version": "1.0.0",
-      "generatedAt": "2026-05-07T01:50:26.778Z",
+      "generatedAt": "2026-05-07T01:53:24.502Z",
       "schoolPreset": {
         "selected": "korean",
         "source": "default",
@@ -3656,7 +3656,8 @@
             "meaningfulness": "meaningful",
             "stars": 4,
             "brief": {
-              "headline": "기운은 충분해도, 한 박자 늦추면 더 또렷해져요."
+              "headline": "기운은 충분해도, 한 박자 늦추면 더 또렷해져요.",
+              "hook": "작게 한 호흡 끊어 가요."
             },
             "standard": {
               "paragraphs": [
@@ -5989,7 +5990,8 @@
             "meaningfulness": "limited",
             "stars": 3,
             "brief": {
-              "headline": "기운은 충분해도, 한 박자 늦추면 호흡이 더 또렷해져요."
+              "headline": "기운은 충분해도, 한 박자 늦추면 호흡이 더 또렷해져요.",
+              "hook": "일정 사이에 쉼 한 칸을 비워요."
             },
             "standard": {
               "paragraphs": [
@@ -6419,7 +6421,8 @@
               "meaningfulness": "limited",
               "stars": 3,
               "brief": {
-                "headline": "이번 주는 활동량 누적만 한 번 점검해요."
+                "headline": "이번 주는 활동량 누적만 한 번 점검해요.",
+                "hook": "같은 시간에 자고 일어나요."
               },
               "standard": {
                 "paragraphs": [
@@ -6601,10 +6604,10 @@
                     "tokens": [
                       {
                         "kind": "text",
-                        "value": "이번 주의 학업운은 일과 사이의 짧은 학습 자리를 하나로 엮어 두기 좋은 흐름이에요. 출퇴근 길의 한 챕터, 점심 후 10분의 정리, 잠들기 전의 한 페이지 같은 자리가 일주일을 묶어 줘요."
+                        "value": "이번 주의 학업운은 일과 사이의 짧은 학습 자리를 한 리듬으로 엮어 두기 좋은 흐름이에요. 출퇴근 길의 한 챕터, 점심 후 10분의 정리, 잠들기 전의 한 페이지 같은 자리가 일주일을 묶어 줘요."
                       }
                     ],
-                    "plainText": "이번 주의 학업운은 일과 사이의 짧은 학습 자리를 하나로 엮어 두기 좋은 흐름이에요. 출퇴근 길의 한 챕터, 점심 후 10분의 정리, 잠들기 전의 한 페이지 같은 자리가 일주일을 묶어 줘요."
+                    "plainText": "이번 주의 학업운은 일과 사이의 짧은 학습 자리를 한 리듬으로 엮어 두기 좋은 흐름이에요. 출퇴근 길의 한 챕터, 점심 후 10분의 정리, 잠들기 전의 한 페이지 같은 자리가 일주일을 묶어 줘요."
                   },
                   {
                     "tokens": [
@@ -12846,7 +12849,7 @@
       },
       "meta": {
         "schemaVersion": "spring-ts.tiered-matrix.v1",
-        "generatedAt": "2026-05-07T01:50:26.778Z",
+        "generatedAt": "2026-05-07T01:53:24.502Z",
         "selectionSeed": "1972|11|28|4|30|female|2026-05-04T15:00:00.000Z",
         "templateContractVersion": "1.0.0",
         "contentSource": "authored",
