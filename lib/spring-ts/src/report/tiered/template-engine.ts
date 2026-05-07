@@ -869,6 +869,32 @@ const BRIEF_HEADLINE_REVERSALS: ReadonlyArray<readonly [RegExp, string]> = [
   [/흐름만/, '결만'],
 ];
 
+/**
+ * P18-A4: doubled-`결X` cluster detector for brief reversal guard.
+ *
+ * The reversal cycle in `compressBriefHeadline` chains multiple
+ * `흐름X → 결X` substitutions; when the source already contains a `결X`
+ * particle form (e.g., `결이` from `reduceOverusedGyeol`'s budget being
+ * unused) and a later reversal introduces a second `결X` in the same
+ * sentence, the result reads as a stylistic doubled-결 cluster
+ * (e.g., `결이 ... 결이에요`). We block any reversal whose result
+ * would contain two such surface forms.
+ *
+ * The detector is intentionally scoped to the exact surface forms
+ * `BRIEF_HEADLINE_REVERSALS` can produce. Noun compounds whose first
+ * morpheme happens to be `결` — `결과`, `결정`, `결심`, `결실`, `결국`,
+ * `결합`, `결성`, `결말`, `결재`, `결판`, etc. — never appear in the
+ * reversal table, so excluding them from the regex avoids false
+ * positives when `결과 ... 결이에요` (legitimate prose) would otherwise
+ * trip the guard.
+ */
+const GYEOL_PARTICLE_FORMS = /결(?:입니다|이에요|이라|이고|로|처럼|마다|이|은|을|도|만)(?![가-힣])/g;
+
+function hasDoubledGyeolCluster(text: string): boolean {
+  const matches = text.match(GYEOL_PARTICLE_FORMS);
+  return matches !== null && matches.length >= 2;
+}
+
 function compressBriefHeadline(text: string): string {
   let out = text;
   let outLen = [...out].length;
@@ -879,12 +905,15 @@ function compressBriefHeadline(text: string): string {
     changed = false;
     for (const [re, replacement] of BRIEF_HEADLINE_REVERSALS) {
       const next = out.replace(re, replacement);
-      if (next !== out) {
-        out = next;
-        outLen = [...out].length;
-        changed = true;
-        if (outLen <= 28) return out;
-      }
+      if (next === out) continue;
+      // P18-A4: skip any reversal whose result would form a doubled-`결X`
+      // cluster (e.g., `결이 ... 결이에요`). Stylistic guard — the brief
+      // length invariant yields to cluster avoidance when the two conflict.
+      if (hasDoubledGyeolCluster(next)) continue;
+      out = next;
+      outLen = [...out].length;
+      changed = true;
+      if (outLen <= 28) return out;
     }
   }
   return out;
