@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-05-07T16:44:04.387Z",
+  "generatedAt": "2026-05-07T17:10:59.982Z",
   "targetDate": "2026-05-05T00:00:00+09:00",
   "sampleId": "jeong-extreme-strong-continuous-tiered",
   "description": "입력 의도: 지지에서 일간이 강하게 받쳐지는 신강 지향 입력. strengthMode=continuous 로 4-tier 강도 곡선과 결합한 tiered 샘플. 최종 강도 분류는 엔진이 결정한다.",
@@ -1294,7 +1294,7 @@
     },
     "meta": {
       "version": "1.0.0",
-      "generatedAt": "2026-05-07T16:44:11.829Z",
+      "generatedAt": "2026-05-07T17:11:07.774Z",
       "schoolPreset": {
         "selected": "korean",
         "source": "default",
@@ -4843,7 +4843,8 @@
               "meaningfulness": "meaningful",
               "stars": 2,
               "brief": {
-                "headline": "오늘은 가족에게 먼저 짧게 안부를 묻는 것만으로도 분위기가 부요."
+                "headline": "오늘은 봄볕 산책길에 가족과 짧게 통화하는 결이에요.",
+                "hook": "봄볕 산책길에 가족과 통화해요."
               },
               "standard": {
                 "paragraphs": [
@@ -5021,14 +5022,20 @@
               },
               "selectedFragments": {
                 "brief": {
-                  "fragmentId": "family.today.brief.first_contact.504",
+                  "fragmentId": "family.today.brief.male.midlife.spring.weak.013",
                   "gating": {
+                    "gender": [
+                      "male"
+                    ],
                     "ageBand": [
-                      "20-29",
-                      "30-39",
-                      "40-54",
-                      "55-69",
-                      "70+"
+                      "40-54"
+                    ],
+                    "birthSeason": [
+                      "spring"
+                    ],
+                    "dayMasterStrength": [
+                      "WEAK",
+                      "EXTREME_WEAK"
                     ]
                   },
                   "tags": []
@@ -13036,12 +13043,12 @@
       },
       "meta": {
         "schemaVersion": "spring-ts.tiered-matrix.v1",
-        "generatedAt": "2026-05-07T16:44:11.829Z",
+        "generatedAt": "2026-05-07T17:11:07.774Z",
         "selectionSeed": "1980|3|12|9|0|male|2026-05-04T15:00:00.000Z",
         "templateContractVersion": "1.0.0",
         "contentSource": "authored",
-        "fragmentCount": 4175,
-        "aiGeneratedFragmentCount": 4175
+        "fragmentCount": 4185,
+        "aiGeneratedFragmentCount": 4185
       }
     }
   }

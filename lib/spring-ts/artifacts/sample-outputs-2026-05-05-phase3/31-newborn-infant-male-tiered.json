@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-05-07T16:44:04.387Z",
+  "generatedAt": "2026-05-07T17:10:59.982Z",
   "targetDate": "2026-05-05T00:00:00+09:00",
   "sampleId": "newborn-infant-male-tiered",
   "description": "신생아 (2026 봄 출생, 현재 0세) — 보호자 perspective audience cell 활성화 fixture. life-stage 의 가장 이른 단계 narrative 가 fallback 되는지 확인. tieredMatrix 의 신생아 안전 어조 (성인 metaphor 회피) 점검 케이스.",
@@ -1273,7 +1273,7 @@
     },
     "meta": {
       "version": "1.0.0",
-      "generatedAt": "2026-05-07T16:44:18.058Z",
+      "generatedAt": "2026-05-07T17:11:13.807Z",
       "schoolPreset": {
         "selected": "korean",
         "source": "default",
@@ -4660,7 +4660,8 @@
               "meaningfulness": "meaningful",
               "stars": 1,
               "brief": {
-                "headline": "아이는 오늘 새 자리에서 더 즐거워요. 짧은 외출이 좋아요."
+                "headline": "오늘은 봄볕 아래에서 한 걸음씩 뛰며 자라는 결이에요.",
+                "hook": "봄볕에서 한 걸음씩 뛰어 봐요."
               },
               "standard": {
                 "paragraphs": [
@@ -4780,10 +4781,16 @@
               },
               "selectedFragments": {
                 "brief": {
-                  "fragmentId": "movement.today.brief.0_9.002",
+                  "fragmentId": "movement.today.brief.male.young.spring.011",
                   "gating": {
+                    "gender": [
+                      "male"
+                    ],
                     "ageBand": [
                       "0-9"
+                    ],
+                    "birthSeason": [
+                      "spring"
                     ]
                   },
                   "tags": []
@@ -10564,12 +10571,12 @@
       },
       "meta": {
         "schemaVersion": "spring-ts.tiered-matrix.v1",
-        "generatedAt": "2026-05-07T16:44:18.058Z",
+        "generatedAt": "2026-05-07T17:11:13.807Z",
         "selectionSeed": "2026|3|15|11|0|male|2026-05-04T15:00:00.000Z",
         "templateContractVersion": "1.0.0",
         "contentSource": "authored",
-        "fragmentCount": 4175,
-        "aiGeneratedFragmentCount": 4175
+        "fragmentCount": 4185,
+        "aiGeneratedFragmentCount": 4185
       }
     }
   }

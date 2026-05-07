@@ -301,6 +301,33 @@
         "copyrightNote": "No source prose copied; original prose.",
         "authorityTruthEligible": false
       }
+    },
+    {
+      "schemaVersion": "spring-ts.narrative-fragment.v1",
+      "fragmentId": "family.today.brief.male.midlife.spring.weak.013",
+      "axis": { "category": "family", "period": "today", "depth": "brief", "tone": "plain" },
+      "gating": {
+        "gender": ["male"],
+        "ageBand": ["40-54"],
+        "birthSeason": ["spring"],
+        "dayMasterStrength": ["WEAK", "EXTREME_WEAK"]
+      },
+      "templateTokens": [
+        { "kind": "text", "value": "오늘은 봄볕 산책길에 가족과 짧게 통화하는 흐름이에요." }
+      ],
+      "hook": "봄볕 산책길에 가족과 통화해요.",
+      "tags": [],
+      "aiGenerated": true,
+      "sourceTier": {
+        "tier": "T1_HYPOTHESIS",
+        "sourceType": "training_derived",
+        "sourceUrl": null,
+        "accessedAt": "2026-05-08",
+        "quoteShort": null,
+        "humanInterpretation": "P35-A4 distinct-hook expansion: family/today brief for male × 40-54 × spring × WEAK. 4-dim split avoids #12/#21 (STRONG/BALANCED conflicts) and lifts #14/#15 (WEAK). Display-only narrative.",
+        "copyrightNote": "No source prose copied; original authored prose.",
+        "authorityTruthEligible": false
+      }
     }
   ]
 }

@@ -496,6 +496,39 @@
         "copyrightNote": "No source prose copied; original phrasing.",
         "authorityTruthEligible": false
       }
+    },
+    {
+      "schemaVersion": "spring-ts.narrative-fragment.v1",
+      "fragmentId": "overall.thisWeek.brief.female.teen.summer.013",
+      "axis": {
+        "category": "overall",
+        "period": "thisWeek",
+        "depth": "brief"
+      },
+      "gating": {
+        "gender": ["female"],
+        "ageBand": ["10-19"],
+        "birthSeason": ["summer"]
+      },
+      "templateTokens": [
+        {
+          "kind": "text",
+          "value": "이번 주는 여름밤에 짧은 일기를 차곡 적어 가는 흐름이에요."
+        }
+      ],
+      "hook": "여름밤 짧은 일기를 적어요.",
+      "tags": [],
+      "aiGenerated": true,
+      "sourceTier": {
+        "tier": "T1_HYPOTHESIS",
+        "sourceType": "training_derived",
+        "sourceUrl": null,
+        "accessedAt": "2026-05-08",
+        "quoteShort": null,
+        "humanInterpretation": "P35-A4 distinct-hook expansion: overall/thisWeek brief for female × 10-19 × summer. Friend-tone teen; summer-born; targets #04. Display-only narrative.",
+        "copyrightNote": "No source prose copied; original authored prose.",
+        "authorityTruthEligible": false
+      }
     }
   ]
 }
