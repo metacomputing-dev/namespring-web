@@ -143,6 +143,20 @@
       "cautions": ["빠른 인정만 좇지 않기"],
       "aiGenerated": true,
       "sourceTier": { "tier": "T1_HYPOTHESIS", "sourceType": "training_derived", "sourceUrl": null, "accessedAt": "2026-05-02", "quoteShort": null, "humanInterpretation": "Phase 2 agent-6 (career) standard today: male 20s. Display-only narrative.", "copyrightNote": "No source prose copied; original.", "authorityTruthEligible": false }
+    },
+    {
+      "schemaVersion": "spring-ts.narrative-fragment.v1",
+      "fragmentId": "career.today.standard.child.001",
+      "axis": { "category": "career", "period": "today", "depth": "standard" },
+      "gating": { "ageBand": ["0-9"] },
+      "templateTokens": [
+        { "kind": "text", "value": "오늘은 아이의 손에 잡히는 놀이·도구가 한 번 더 또렷해지는 하루예요. 어떤 놀이에서 시간 가는 줄 모르고 빠져드는지를 옆에서 살피며 함께 즐겨 주는 자리가 큰 도움이 돼요.\n\n어른의 직업 단어로 아이의 미래를 미리 좁혀 두지 않아도 괜찮아요. 오늘 손에 닿은 놀잇감·그림책·블록 한 가지를 충분히 가지고 놀게 두는 자리가 자기 색을 자라게 해요.\n\n좋아하는 놀이를 한 줄 그림으로 남겨 두거나, 작은 자랑거리를 가족과 짧게 나누는 시간이 있으면 자기 자리가 더 단단해져요." }
+      ],
+      "tags": [],
+      "livingTips": ["좋아하는 놀이를 함께 즐기기", "오늘의 자랑거리 한 줄 나누기"],
+      "cautions": ["어른의 직업명에 미리 끼워 맞추지 않기"],
+      "aiGenerated": true,
+      "sourceTier": { "tier": "T1_HYPOTHESIS", "sourceType": "training_derived", "sourceUrl": null, "accessedAt": "2026-05-07", "quoteShort": null, "humanInterpretation": "Phase 22 agent-A2 (career) standard today: child 0-9. Play/dream framing for minor floor closure. Display-only narrative.", "copyrightNote": "No source prose copied; original phrasing.", "authorityTruthEligible": false }
     }
   ]
 }

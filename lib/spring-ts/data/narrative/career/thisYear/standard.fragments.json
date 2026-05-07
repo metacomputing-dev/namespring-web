@@ -487,6 +487,45 @@
         "copyrightNote": "No source prose copied; original.",
         "authorityTruthEligible": false
       }
+    },
+    {
+      "schemaVersion": "spring-ts.narrative-fragment.v1",
+      "fragmentId": "career.thisYear.standard.child.001",
+      "axis": {
+        "category": "career",
+        "period": "thisYear",
+        "depth": "standard"
+      },
+      "gating": {
+        "ageBand": [
+          "0-9"
+        ]
+      },
+      "templateTokens": [
+        {
+          "kind": "text",
+          "value": "올해는 아이가 좋아하는 놀이·관심사가 한 해 동안 천천히 자리를 잡는 흐름이에요. 어떤 그림책을 자주 꺼내 보는지, 어떤 만들기·역할 놀이에서 푹 빠져드는지를 옆에서 살펴 두는 자리가 자기 색을 키우는 큰 도움이 돼요.\n\n어른의 직업 단어로 한 해의 자리를 미리 정해 두지 않아도 괜찮아요. 한두 달마다 좋아하는 놀이가 살짝 바뀌어도 자연스러운 흐름이라, 그 변화를 가족이 함께 즐겨 주는 자리가 큰 자산이 돼요.\n\n한 해의 끝에 좋아했던 놀이·꿈을 한 줄 그림으로 남기거나, 사진 한 장으로 모아 두면 다음 해의 자리가 한결 단단해져요."
+        }
+      ],
+      "tags": [],
+      "livingTips": [
+        "좋아하는 그림책·놀이를 함께 꺼내 보기",
+        "계절마다 한 줄 그림으로 남기기"
+      ],
+      "cautions": [
+        "어른의 직업명에 미리 끼워 맞추지 않기"
+      ],
+      "aiGenerated": true,
+      "sourceTier": {
+        "tier": "T1_HYPOTHESIS",
+        "sourceType": "training_derived",
+        "sourceUrl": null,
+        "accessedAt": "2026-05-07",
+        "quoteShort": null,
+        "humanInterpretation": "Phase 22 agent-A2 (career) standard thisYear: child 0-9. Play/dream framing for minor floor closure. Display-only narrative.",
+        "copyrightNote": "No source prose copied; original phrasing.",
+        "authorityTruthEligible": false
+      }
     }
   ]
 }

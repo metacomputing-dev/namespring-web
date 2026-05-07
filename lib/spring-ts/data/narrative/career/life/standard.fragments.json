@@ -487,6 +487,45 @@
         "copyrightNote": "No source prose copied; original.",
         "authorityTruthEligible": false
       }
+    },
+    {
+      "schemaVersion": "spring-ts.narrative-fragment.v1",
+      "fragmentId": "career.life.standard.child.001",
+      "axis": {
+        "category": "career",
+        "period": "life",
+        "depth": "standard"
+      },
+      "gating": {
+        "ageBand": [
+          "0-9"
+        ]
+      },
+      "templateTokens": [
+        {
+          "kind": "text",
+          "value": "지금 시기는 직업이라는 자리보다, 좋아하는 놀이·꿈을 마음껏 키워 두는 흐름이에요. 어떤 그림책·도구·친구와 함께할 때 시간 가는 줄 모르고 빠져드는지를 옆에서 살펴 두는 자리가 큰 자산이 돼요.\n\n어른의 직업 단어로 미래를 미리 좁혀 두지 않아도 괜찮아요. 비유하자면 작은 화분에 여러 씨앗을 함께 뿌려 두는 흐름이라, 어떤 씨앗이 자기에게 맞춰 자라는지를 천천히 살피며 함께 응원해 주면 그게 다음 자리의 단단한 뿌리가 돼요.\n\n좋아하는 놀이를 가족과 짧게 나누는 시간, 작은 자랑거리를 칭찬해 주는 자리가 자기 색을 자라게 해요. 평생 갈 길의 첫 디딤돌이 자라나는 시기예요."
+        }
+      ],
+      "tags": [],
+      "livingTips": [
+        "좋아하는 놀이를 가족과 함께 즐기기",
+        "작은 자랑거리를 칭찬해 주기"
+      ],
+      "cautions": [
+        "어른의 직업명에 미리 끼워 맞추지 않기"
+      ],
+      "aiGenerated": true,
+      "sourceTier": {
+        "tier": "T1_HYPOTHESIS",
+        "sourceType": "training_derived",
+        "sourceUrl": null,
+        "accessedAt": "2026-05-07",
+        "quoteShort": null,
+        "humanInterpretation": "Phase 22 agent-A2 (career) standard life: child 0-9. Play/dream framing for minor floor closure. Display-only narrative.",
+        "copyrightNote": "No source prose copied; original phrasing.",
+        "authorityTruthEligible": false
+      }
     }
   ]
 }
