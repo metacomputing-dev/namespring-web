@@ -13,7 +13,8 @@
     "ci:narrative-orphan-tags",
     "ci:acceptance-completeness",
     "ci:samples-stale",
-    "ci:post-processor-grammar"
+    "ci:post-processor-grammar",
+    "ci:hook-coverage"
   ],
   "exempt": [
     {
