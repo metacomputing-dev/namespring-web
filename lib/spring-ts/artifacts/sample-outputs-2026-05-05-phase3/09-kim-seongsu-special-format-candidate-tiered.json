@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-05-07T01:50:18.479Z",
+  "generatedAt": "2026-05-07T01:53:17.108Z",
   "targetDate": "2026-05-05T00:00:00+09:00",
   "sampleId": "kim-seongsu-special-format-candidate-tiered",
   "description": "입력 의도: 외격 후보(화기격 계열) 고전 사례. precisionConfig 로 tieredMatrix 만 결합. 외격 판정은 엔진이 결정한다.",
@@ -1338,7 +1338,7 @@
     },
     "meta": {
       "version": "1.0.0",
-      "generatedAt": "2026-05-07T01:50:25.516Z",
+      "generatedAt": "2026-05-07T01:53:23.300Z",
       "schoolPreset": {
         "selected": "korean",
         "source": "default",
@@ -1990,10 +1990,10 @@
                     "tokens": [
                       {
                         "kind": "text",
-                        "value": "50대 후반에서 60대의 학업운은 '정리하며 깊어지는' 흐름이에요. 그동안 흩어져 있던 경험과 지식이 하나로 모이고, 자기 색깔이 또렷한 분야가 보이기 시작해요."
+                        "value": "50대 후반에서 60대의 학업운은 '정리하며 깊어지는' 흐름이에요. 그동안 흩어져 있던 경험과 지식이 한 리듬으로 모이고, 자기 색깔이 또렷한 분야가 보이기 시작해요."
                       }
                     ],
-                    "plainText": "50대 후반에서 60대의 학업운은 '정리하며 깊어지는' 흐름이에요. 그동안 흩어져 있던 경험과 지식이 하나로 모이고, 자기 색깔이 또렷한 분야가 보이기 시작해요."
+                    "plainText": "50대 후반에서 60대의 학업운은 '정리하며 깊어지는' 흐름이에요. 그동안 흩어져 있던 경험과 지식이 한 리듬으로 모이고, 자기 색깔이 또렷한 분야가 보이기 시작해요."
                   },
                   {
                     "tokens": [
@@ -3740,7 +3740,8 @@
             "meaningfulness": "meaningful",
             "stars": 1,
             "brief": {
-              "headline": "기운은 충분해도, 한 박자 늦추면 더 또렷해져요."
+              "headline": "기운은 충분해도, 한 박자 늦추면 더 또렷해져요.",
+              "hook": "작게 한 호흡 끊어 가요."
             },
             "standard": {
               "paragraphs": [
@@ -6182,7 +6183,8 @@
             "meaningfulness": "meaningful",
             "stars": 2,
             "brief": {
-              "headline": "기운은 충분해도, 한 박자 늦추면 호흡이 더 또렷해져요."
+              "headline": "기운은 충분해도, 한 박자 늦추면 호흡이 더 또렷해져요.",
+              "hook": "일정 사이에 쉼 한 칸을 비워요."
             },
             "standard": {
               "paragraphs": [
@@ -10604,7 +10606,8 @@
               "meaningfulness": "meaningful",
               "stars": 2,
               "brief": {
-                "headline": "올해는 강도 조절이 가장 큰 보약이 돼요."
+                "headline": "올해는 강도 조절이 가장 큰 보약이 돼요.",
+                "hook": "정기 점검 일정을 미리 잡아요."
               },
               "standard": {
                 "paragraphs": [
@@ -13052,7 +13055,7 @@
       },
       "meta": {
         "schemaVersion": "spring-ts.tiered-matrix.v1",
-        "generatedAt": "2026-05-07T01:50:25.516Z",
+        "generatedAt": "2026-05-07T01:53:23.300Z",
         "selectionSeed": "1958|7|11|13|0|male|2026-05-04T15:00:00.000Z",
         "templateContractVersion": "1.0.0",
         "contentSource": "authored",
