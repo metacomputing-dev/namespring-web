@@ -1,0 +1,1591 @@
+{
+  "phase": "P21-A4",
+  "generatedAt": "2026-05-07T07:09:05.858Z",
+  "summary": {
+    "pathA_locked_total": 75,
+    "pathA_locked_3plus": 52,
+    "pathA_locked_sub3": 23,
+    "fallback_total": 100,
+    "fallback_sub3": 32,
+    "pathA_alone_residual_sub3": 55
+  },
+  "lockedResults": [
+    {
+      "fx": "04-kim-seoyun-young-female",
+      "cat": "wealth",
+      "per": "life",
+      "ab": "10-19",
+      "outcome": "fragment-found",
+      "paragraphs": 5,
+      "best": "wealth.life.standard.10_19.010"
+    },
+    {
+      "fx": "04-kim-seoyun-young-female",
+      "cat": "wealth",
+      "per": "today",
+      "ab": "10-19",
+      "outcome": "no-minor-fragment",
+      "paragraphs": 1,
+      "best": null
+    },
+    {
+      "fx": "04-kim-seoyun-young-female",
+      "cat": "wealth",
+      "per": "thisWeek",
+      "ab": "10-19",
+      "outcome": "fragment-found",
+      "paragraphs": 3,
+      "best": "wealth.thisWeek.standard.ageband.young.401"
+    },
+    {
+      "fx": "04-kim-seoyun-young-female",
+      "cat": "wealth",
+      "per": "thisMonth",
+      "ab": "10-19",
+      "outcome": "no-minor-fragment",
+      "paragraphs": 1,
+      "best": null
+    },
+    {
+      "fx": "04-kim-seoyun-young-female",
+      "cat": "wealth",
+      "per": "thisYear",
+      "ab": "10-19",
+      "outcome": "no-minor-fragment",
+      "paragraphs": 1,
+      "best": null
+    },
+    {
+      "fx": "04-kim-seoyun-young-female",
+      "cat": "romance",
+      "per": "life",
+      "ab": "10-19",
+      "outcome": "fragment-found",
+      "paragraphs": 3,
+      "best": "romance.life.standard.teen.001"
+    },
+    {
+      "fx": "04-kim-seoyun-young-female",
+      "cat": "romance",
+      "per": "today",
+      "ab": "10-19",
+      "outcome": "fragment-found",
+      "paragraphs": 3,
+      "best": "romance.today.standard.teen.001"
+    },
+    {
+      "fx": "04-kim-seoyun-young-female",
+      "cat": "romance",
+      "per": "thisWeek",
+      "ab": "10-19",
+      "outcome": "fragment-found",
+      "paragraphs": 3,
+      "best": "romance.thisWeek.standard.teen.001"
+    },
+    {
+      "fx": "04-kim-seoyun-young-female",
+      "cat": "romance",
+      "per": "thisMonth",
+      "ab": "10-19",
+      "outcome": "fragment-found",
+      "paragraphs": 4,
+      "best": "romance.thisMonth.standard.teen.001"
+    },
+    {
+      "fx": "04-kim-seoyun-young-female",
+      "cat": "romance",
+      "per": "thisYear",
+      "ab": "10-19",
+      "outcome": "fragment-found",
+      "paragraphs": 4,
+      "best": "romance.thisYear.standard.teen.001"
+    },
+    {
+      "fx": "04-kim-seoyun-young-female",
+      "cat": "study_document",
+      "per": "life",
+      "ab": "10-19",
+      "outcome": "fragment-found",
+      "paragraphs": 5,
+      "best": "study_document.life.standard.young.004"
+    },
+    {
+      "fx": "04-kim-seoyun-young-female",
+      "cat": "study_document",
+      "per": "today",
+      "ab": "10-19",
+      "outcome": "fragment-found",
+      "paragraphs": 5,
+      "best": "study_document.today.standard.young.004"
+    },
+    {
+      "fx": "04-kim-seoyun-young-female",
+      "cat": "study_document",
+      "per": "thisWeek",
+      "ab": "10-19",
+      "outcome": "fragment-found",
+      "paragraphs": 5,
+      "best": "study_document.thisWeek.standard.young.004"
+    },
+    {
+      "fx": "04-kim-seoyun-young-female",
+      "cat": "study_document",
+      "per": "thisMonth",
+      "ab": "10-19",
+      "outcome": "fragment-found",
+      "paragraphs": 5,
+      "best": "study_document.thisMonth.standard.young.004"
+    },
+    {
+      "fx": "04-kim-seoyun-young-female",
+      "cat": "study_document",
+      "per": "thisYear",
+      "ab": "10-19",
+      "outcome": "fragment-found",
+      "paragraphs": 5,
+      "best": "study_document.thisYear.standard.young.004"
+    },
+    {
+      "fx": "18-lee-child-male",
+      "cat": "wealth",
+      "per": "life",
+      "ab": "0-9",
+      "outcome": "no-minor-fragment",
+      "paragraphs": 1,
+      "best": null
+    },
+    {
+      "fx": "18-lee-child-male",
+      "cat": "wealth",
+      "per": "today",
+      "ab": "0-9",
+      "outcome": "no-minor-fragment",
+      "paragraphs": 1,
+      "best": null
+    },
+    {
+      "fx": "18-lee-child-male",
+      "cat": "wealth",
+      "per": "thisWeek",
+      "ab": "0-9",
+      "outcome": "no-minor-fragment",
+      "paragraphs": 1,
+      "best": null
+    },
+    {
+      "fx": "18-lee-child-male",
+      "cat": "wealth",
+      "per": "thisMonth",
+      "ab": "0-9",
+      "outcome": "no-minor-fragment",
+      "paragraphs": 1,
+      "best": null
+    },
+    {
+      "fx": "18-lee-child-male",
+      "cat": "wealth",
+      "per": "thisYear",
+      "ab": "0-9",
+      "outcome": "no-minor-fragment",
+      "paragraphs": 1,
+      "best": null
+    },
+    {
+      "fx": "18-lee-child-male",
+      "cat": "romance",
+      "per": "life",
+      "ab": "0-9",
+      "outcome": "fragment-found",
+      "paragraphs": 3,
+      "best": "romance.life.standard.child.001"
+    },
+    {
+      "fx": "18-lee-child-male",
+      "cat": "romance",
+      "per": "today",
+      "ab": "0-9",
+      "outcome": "fragment-found",
+      "paragraphs": 3,
+      "best": "romance.today.standard.child.001"
+    },
+    {
+      "fx": "18-lee-child-male",
+      "cat": "romance",
+      "per": "thisWeek",
+      "ab": "0-9",
+      "outcome": "fragment-found",
+      "paragraphs": 3,
+      "best": "romance.thisWeek.standard.child.001"
+    },
+    {
+      "fx": "18-lee-child-male",
+      "cat": "romance",
+      "per": "thisMonth",
+      "ab": "0-9",
+      "outcome": "fragment-found",
+      "paragraphs": 3,
+      "best": "romance.thisMonth.standard.child.001"
+    },
+    {
+      "fx": "18-lee-child-male",
+      "cat": "romance",
+      "per": "thisYear",
+      "ab": "0-9",
+      "outcome": "fragment-found",
+      "paragraphs": 3,
+      "best": "romance.thisYear.standard.child.001"
+    },
+    {
+      "fx": "18-lee-child-male",
+      "cat": "study_document",
+      "per": "life",
+      "ab": "0-9",
+      "outcome": "fragment-found",
+      "paragraphs": 5,
+      "best": "study_document.life.standard.young.004"
+    },
+    {
+      "fx": "18-lee-child-male",
+      "cat": "study_document",
+      "per": "today",
+      "ab": "0-9",
+      "outcome": "fragment-found",
+      "paragraphs": 5,
+      "best": "study_document.today.standard.young.004"
+    },
+    {
+      "fx": "18-lee-child-male",
+      "cat": "study_document",
+      "per": "thisWeek",
+      "ab": "0-9",
+      "outcome": "fragment-found",
+      "paragraphs": 5,
+      "best": "study_document.thisWeek.standard.young.004"
+    },
+    {
+      "fx": "18-lee-child-male",
+      "cat": "study_document",
+      "per": "thisMonth",
+      "ab": "0-9",
+      "outcome": "fragment-found",
+      "paragraphs": 5,
+      "best": "study_document.thisMonth.standard.young.004"
+    },
+    {
+      "fx": "18-lee-child-male",
+      "cat": "study_document",
+      "per": "thisYear",
+      "ab": "0-9",
+      "outcome": "fragment-found",
+      "paragraphs": 5,
+      "best": "study_document.thisYear.standard.young.004"
+    },
+    {
+      "fx": "27-jonggyeok-jongah",
+      "cat": "wealth",
+      "per": "life",
+      "ab": "0-9",
+      "outcome": "no-minor-fragment",
+      "paragraphs": 1,
+      "best": null
+    },
+    {
+      "fx": "27-jonggyeok-jongah",
+      "cat": "wealth",
+      "per": "today",
+      "ab": "0-9",
+      "outcome": "no-minor-fragment",
+      "paragraphs": 1,
+      "best": null
+    },
+    {
+      "fx": "27-jonggyeok-jongah",
+      "cat": "wealth",
+      "per": "thisWeek",
+      "ab": "0-9",
+      "outcome": "no-minor-fragment",
+      "paragraphs": 1,
+      "best": null
+    },
+    {
+      "fx": "27-jonggyeok-jongah",
+      "cat": "wealth",
+      "per": "thisMonth",
+      "ab": "0-9",
+      "outcome": "no-minor-fragment",
+      "paragraphs": 1,
+      "best": null
+    },
+    {
+      "fx": "27-jonggyeok-jongah",
+      "cat": "wealth",
+      "per": "thisYear",
+      "ab": "0-9",
+      "outcome": "no-minor-fragment",
+      "paragraphs": 1,
+      "best": null
+    },
+    {
+      "fx": "27-jonggyeok-jongah",
+      "cat": "romance",
+      "per": "life",
+      "ab": "0-9",
+      "outcome": "fragment-found",
+      "paragraphs": 3,
+      "best": "romance.life.standard.child.001"
+    },
+    {
+      "fx": "27-jonggyeok-jongah",
+      "cat": "romance",
+      "per": "today",
+      "ab": "0-9",
+      "outcome": "fragment-found",
+      "paragraphs": 3,
+      "best": "romance.today.standard.child.001"
+    },
+    {
+      "fx": "27-jonggyeok-jongah",
+      "cat": "romance",
+      "per": "thisWeek",
+      "ab": "0-9",
+      "outcome": "fragment-found",
+      "paragraphs": 3,
+      "best": "romance.thisWeek.standard.child.001"
+    },
+    {
+      "fx": "27-jonggyeok-jongah",
+      "cat": "romance",
+      "per": "thisMonth",
+      "ab": "0-9",
+      "outcome": "fragment-found",
+      "paragraphs": 3,
+      "best": "romance.thisMonth.standard.child.001"
+    },
+    {
+      "fx": "27-jonggyeok-jongah",
+      "cat": "romance",
+      "per": "thisYear",
+      "ab": "0-9",
+      "outcome": "fragment-found",
+      "paragraphs": 3,
+      "best": "romance.thisYear.standard.child.001"
+    },
+    {
+      "fx": "27-jonggyeok-jongah",
+      "cat": "study_document",
+      "per": "life",
+      "ab": "0-9",
+      "outcome": "fragment-found",
+      "paragraphs": 5,
+      "best": "study_document.life.standard.young.004"
+    },
+    {
+      "fx": "27-jonggyeok-jongah",
+      "cat": "study_document",
+      "per": "today",
+      "ab": "0-9",
+      "outcome": "fragment-found",
+      "paragraphs": 5,
+      "best": "study_document.today.standard.young.004"
+    },
+    {
+      "fx": "27-jonggyeok-jongah",
+      "cat": "study_document",
+      "per": "thisWeek",
+      "ab": "0-9",
+      "outcome": "fragment-found",
+      "paragraphs": 5,
+      "best": "study_document.thisWeek.standard.young.004"
+    },
+    {
+      "fx": "27-jonggyeok-jongah",
+      "cat": "study_document",
+      "per": "thisMonth",
+      "ab": "0-9",
+      "outcome": "fragment-found",
+      "paragraphs": 5,
+      "best": "study_document.thisMonth.standard.young.004"
+    },
+    {
+      "fx": "27-jonggyeok-jongah",
+      "cat": "study_document",
+      "per": "thisYear",
+      "ab": "0-9",
+      "outcome": "fragment-found",
+      "paragraphs": 5,
+      "best": "study_document.thisYear.standard.young.004"
+    },
+    {
+      "fx": "30-jeolgi-lidong-boundary",
+      "cat": "wealth",
+      "per": "life",
+      "ab": "0-9",
+      "outcome": "no-minor-fragment",
+      "paragraphs": 1,
+      "best": null
+    },
+    {
+      "fx": "30-jeolgi-lidong-boundary",
+      "cat": "wealth",
+      "per": "today",
+      "ab": "0-9",
+      "outcome": "no-minor-fragment",
+      "paragraphs": 1,
+      "best": null
+    },
+    {
+      "fx": "30-jeolgi-lidong-boundary",
+      "cat": "wealth",
+      "per": "thisWeek",
+      "ab": "0-9",
+      "outcome": "no-minor-fragment",
+      "paragraphs": 1,
+      "best": null
+    },
+    {
+      "fx": "30-jeolgi-lidong-boundary",
+      "cat": "wealth",
+      "per": "thisMonth",
+      "ab": "0-9",
+      "outcome": "no-minor-fragment",
+      "paragraphs": 1,
+      "best": null
+    },
+    {
+      "fx": "30-jeolgi-lidong-boundary",
+      "cat": "wealth",
+      "per": "thisYear",
+      "ab": "0-9",
+      "outcome": "no-minor-fragment",
+      "paragraphs": 1,
+      "best": null
+    },
+    {
+      "fx": "30-jeolgi-lidong-boundary",
+      "cat": "romance",
+      "per": "life",
+      "ab": "0-9",
+      "outcome": "fragment-found",
+      "paragraphs": 3,
+      "best": "romance.life.standard.child.001"
+    },
+    {
+      "fx": "30-jeolgi-lidong-boundary",
+      "cat": "romance",
+      "per": "today",
+      "ab": "0-9",
+      "outcome": "fragment-found",
+      "paragraphs": 3,
+      "best": "romance.today.standard.child.001"
+    },
+    {
+      "fx": "30-jeolgi-lidong-boundary",
+      "cat": "romance",
+      "per": "thisWeek",
+      "ab": "0-9",
+      "outcome": "fragment-found",
+      "paragraphs": 3,
+      "best": "romance.thisWeek.standard.child.001"
+    },
+    {
+      "fx": "30-jeolgi-lidong-boundary",
+      "cat": "romance",
+      "per": "thisMonth",
+      "ab": "0-9",
+      "outcome": "fragment-found",
+      "paragraphs": 3,
+      "best": "romance.thisMonth.standard.child.001"
+    },
+    {
+      "fx": "30-jeolgi-lidong-boundary",
+      "cat": "romance",
+      "per": "thisYear",
+      "ab": "0-9",
+      "outcome": "fragment-found",
+      "paragraphs": 3,
+      "best": "romance.thisYear.standard.child.001"
+    },
+    {
+      "fx": "30-jeolgi-lidong-boundary",
+      "cat": "study_document",
+      "per": "life",
+      "ab": "0-9",
+      "outcome": "fragment-found",
+      "paragraphs": 5,
+      "best": "study_document.life.standard.young.004"
+    },
+    {
+      "fx": "30-jeolgi-lidong-boundary",
+      "cat": "study_document",
+      "per": "today",
+      "ab": "0-9",
+      "outcome": "fragment-found",
+      "paragraphs": 5,
+      "best": "study_document.today.standard.young.004"
+    },
+    {
+      "fx": "30-jeolgi-lidong-boundary",
+      "cat": "study_document",
+      "per": "thisWeek",
+      "ab": "0-9",
+      "outcome": "fragment-found",
+      "paragraphs": 5,
+      "best": "study_document.thisWeek.standard.young.004"
+    },
+    {
+      "fx": "30-jeolgi-lidong-boundary",
+      "cat": "study_document",
+      "per": "thisMonth",
+      "ab": "0-9",
+      "outcome": "fragment-found",
+      "paragraphs": 5,
+      "best": "study_document.thisMonth.standard.young.004"
+    },
+    {
+      "fx": "30-jeolgi-lidong-boundary",
+      "cat": "study_document",
+      "per": "thisYear",
+      "ab": "0-9",
+      "outcome": "fragment-found",
+      "paragraphs": 5,
+      "best": "study_document.thisYear.standard.young.004"
+    },
+    {
+      "fx": "31-newborn-infant-male",
+      "cat": "wealth",
+      "per": "life",
+      "ab": "0-9",
+      "outcome": "no-minor-fragment",
+      "paragraphs": 1,
+      "best": null
+    },
+    {
+      "fx": "31-newborn-infant-male",
+      "cat": "wealth",
+      "per": "today",
+      "ab": "0-9",
+      "outcome": "no-minor-fragment",
+      "paragraphs": 1,
+      "best": null
+    },
+    {
+      "fx": "31-newborn-infant-male",
+      "cat": "wealth",
+      "per": "thisWeek",
+      "ab": "0-9",
+      "outcome": "no-minor-fragment",
+      "paragraphs": 1,
+      "best": null
+    },
+    {
+      "fx": "31-newborn-infant-male",
+      "cat": "wealth",
+      "per": "thisMonth",
+      "ab": "0-9",
+      "outcome": "no-minor-fragment",
+      "paragraphs": 1,
+      "best": null
+    },
+    {
+      "fx": "31-newborn-infant-male",
+      "cat": "wealth",
+      "per": "thisYear",
+      "ab": "0-9",
+      "outcome": "no-minor-fragment",
+      "paragraphs": 1,
+      "best": null
+    },
+    {
+      "fx": "31-newborn-infant-male",
+      "cat": "romance",
+      "per": "life",
+      "ab": "0-9",
+      "outcome": "fragment-found",
+      "paragraphs": 3,
+      "best": "romance.life.standard.child.001"
+    },
+    {
+      "fx": "31-newborn-infant-male",
+      "cat": "romance",
+      "per": "today",
+      "ab": "0-9",
+      "outcome": "fragment-found",
+      "paragraphs": 3,
+      "best": "romance.today.standard.child.001"
+    },
+    {
+      "fx": "31-newborn-infant-male",
+      "cat": "romance",
+      "per": "thisWeek",
+      "ab": "0-9",
+      "outcome": "fragment-found",
+      "paragraphs": 3,
+      "best": "romance.thisWeek.standard.child.001"
+    },
+    {
+      "fx": "31-newborn-infant-male",
+      "cat": "romance",
+      "per": "thisMonth",
+      "ab": "0-9",
+      "outcome": "fragment-found",
+      "paragraphs": 3,
+      "best": "romance.thisMonth.standard.child.001"
+    },
+    {
+      "fx": "31-newborn-infant-male",
+      "cat": "romance",
+      "per": "thisYear",
+      "ab": "0-9",
+      "outcome": "fragment-found",
+      "paragraphs": 3,
+      "best": "romance.thisYear.standard.child.001"
+    },
+    {
+      "fx": "31-newborn-infant-male",
+      "cat": "study_document",
+      "per": "life",
+      "ab": "0-9",
+      "outcome": "fragment-found",
+      "paragraphs": 5,
+      "best": "study_document.life.standard.young.004"
+    },
+    {
+      "fx": "31-newborn-infant-male",
+      "cat": "study_document",
+      "per": "today",
+      "ab": "0-9",
+      "outcome": "fragment-found",
+      "paragraphs": 5,
+      "best": "study_document.today.standard.young.004"
+    },
+    {
+      "fx": "31-newborn-infant-male",
+      "cat": "study_document",
+      "per": "thisWeek",
+      "ab": "0-9",
+      "outcome": "fragment-found",
+      "paragraphs": 5,
+      "best": "study_document.thisWeek.standard.young.004"
+    },
+    {
+      "fx": "31-newborn-infant-male",
+      "cat": "study_document",
+      "per": "thisMonth",
+      "ab": "0-9",
+      "outcome": "fragment-found",
+      "paragraphs": 5,
+      "best": "study_document.thisMonth.standard.young.004"
+    },
+    {
+      "fx": "31-newborn-infant-male",
+      "cat": "study_document",
+      "per": "thisYear",
+      "ab": "0-9",
+      "outcome": "fragment-found",
+      "paragraphs": 5,
+      "best": "study_document.thisYear.standard.young.004"
+    }
+  ],
+  "fallbackResults": [
+    {
+      "fx": "04-kim-seoyun-young-female",
+      "cat": "career",
+      "per": "life",
+      "ab": "10-19",
+      "outcome": "fragment-found",
+      "paragraphs": 3,
+      "best": "career.life.standard.age10_19.006"
+    },
+    {
+      "fx": "04-kim-seoyun-young-female",
+      "cat": "career",
+      "per": "today",
+      "ab": "10-19",
+      "outcome": "fragment-found",
+      "paragraphs": 3,
+      "best": "career.today.standard.age10_19.006"
+    },
+    {
+      "fx": "04-kim-seoyun-young-female",
+      "cat": "career",
+      "per": "thisWeek",
+      "ab": "10-19",
+      "outcome": "fragment-found",
+      "paragraphs": 3,
+      "best": "career.thisWeek.standard.age10_19.006"
+    },
+    {
+      "fx": "04-kim-seoyun-young-female",
+      "cat": "career",
+      "per": "thisMonth",
+      "ab": "10-19",
+      "outcome": "fragment-found",
+      "paragraphs": 3,
+      "best": "career.thisMonth.standard.age10_19.006"
+    },
+    {
+      "fx": "04-kim-seoyun-young-female",
+      "cat": "career",
+      "per": "thisYear",
+      "ab": "10-19",
+      "outcome": "fragment-found",
+      "paragraphs": 3,
+      "best": "career.thisYear.standard.age10_19.006"
+    },
+    {
+      "fx": "04-kim-seoyun-young-female",
+      "cat": "health",
+      "per": "life",
+      "ab": "10-19",
+      "outcome": "no-minor-fragment",
+      "paragraphs": 1,
+      "best": null
+    },
+    {
+      "fx": "04-kim-seoyun-young-female",
+      "cat": "health",
+      "per": "today",
+      "ab": "10-19",
+      "outcome": "no-minor-fragment",
+      "paragraphs": 1,
+      "best": null
+    },
+    {
+      "fx": "04-kim-seoyun-young-female",
+      "cat": "health",
+      "per": "thisWeek",
+      "ab": "10-19",
+      "outcome": "no-minor-fragment",
+      "paragraphs": 1,
+      "best": null
+    },
+    {
+      "fx": "04-kim-seoyun-young-female",
+      "cat": "health",
+      "per": "thisMonth",
+      "ab": "10-19",
+      "outcome": "no-minor-fragment",
+      "paragraphs": 1,
+      "best": null
+    },
+    {
+      "fx": "04-kim-seoyun-young-female",
+      "cat": "health",
+      "per": "thisYear",
+      "ab": "10-19",
+      "outcome": "fragment-found",
+      "paragraphs": 3,
+      "best": "health.thisYear.standard.10_19.001"
+    },
+    {
+      "fx": "04-kim-seoyun-young-female",
+      "cat": "health_stress",
+      "per": "life",
+      "ab": "10-19",
+      "outcome": "fragment-found",
+      "paragraphs": 5,
+      "best": "health_stress.life.standard.youth_10_19.001"
+    },
+    {
+      "fx": "04-kim-seoyun-young-female",
+      "cat": "health_stress",
+      "per": "today",
+      "ab": "10-19",
+      "outcome": "fragment-found",
+      "paragraphs": 5,
+      "best": "health_stress.today.standard.youth_10_19.001"
+    },
+    {
+      "fx": "04-kim-seoyun-young-female",
+      "cat": "health_stress",
+      "per": "thisWeek",
+      "ab": "10-19",
+      "outcome": "fragment-found",
+      "paragraphs": 5,
+      "best": "health_stress.thisWeek.standard.youth_10_19.001"
+    },
+    {
+      "fx": "04-kim-seoyun-young-female",
+      "cat": "health_stress",
+      "per": "thisMonth",
+      "ab": "10-19",
+      "outcome": "fragment-found",
+      "paragraphs": 5,
+      "best": "health_stress.thisMonth.standard.youth_10_19.001"
+    },
+    {
+      "fx": "04-kim-seoyun-young-female",
+      "cat": "health_stress",
+      "per": "thisYear",
+      "ab": "10-19",
+      "outcome": "fragment-found",
+      "paragraphs": 5,
+      "best": "health_stress.thisYear.standard.youth_10_19.001"
+    },
+    {
+      "fx": "04-kim-seoyun-young-female",
+      "cat": "overall",
+      "per": "life",
+      "ab": "10-19",
+      "outcome": "fragment-found",
+      "paragraphs": 3,
+      "best": "overall.life.standard.age_10_19_gender_female.201"
+    },
+    {
+      "fx": "04-kim-seoyun-young-female",
+      "cat": "overall",
+      "per": "today",
+      "ab": "10-19",
+      "outcome": "no-minor-fragment",
+      "paragraphs": 1,
+      "best": null
+    },
+    {
+      "fx": "04-kim-seoyun-young-female",
+      "cat": "overall",
+      "per": "thisWeek",
+      "ab": "10-19",
+      "outcome": "no-minor-fragment",
+      "paragraphs": 1,
+      "best": null
+    },
+    {
+      "fx": "04-kim-seoyun-young-female",
+      "cat": "overall",
+      "per": "thisMonth",
+      "ab": "10-19",
+      "outcome": "no-minor-fragment",
+      "paragraphs": 1,
+      "best": null
+    },
+    {
+      "fx": "04-kim-seoyun-young-female",
+      "cat": "overall",
+      "per": "thisYear",
+      "ab": "10-19",
+      "outcome": "no-minor-fragment",
+      "paragraphs": 1,
+      "best": null
+    },
+    {
+      "fx": "18-lee-child-male",
+      "cat": "career",
+      "per": "life",
+      "ab": "0-9",
+      "outcome": "no-minor-fragment",
+      "paragraphs": 1,
+      "best": null
+    },
+    {
+      "fx": "18-lee-child-male",
+      "cat": "career",
+      "per": "today",
+      "ab": "0-9",
+      "outcome": "no-minor-fragment",
+      "paragraphs": 1,
+      "best": null
+    },
+    {
+      "fx": "18-lee-child-male",
+      "cat": "career",
+      "per": "thisWeek",
+      "ab": "0-9",
+      "outcome": "no-minor-fragment",
+      "paragraphs": 1,
+      "best": null
+    },
+    {
+      "fx": "18-lee-child-male",
+      "cat": "career",
+      "per": "thisMonth",
+      "ab": "0-9",
+      "outcome": "fragment-found",
+      "paragraphs": 3,
+      "best": "career.thisMonth.standard.record.504"
+    },
+    {
+      "fx": "18-lee-child-male",
+      "cat": "career",
+      "per": "thisYear",
+      "ab": "0-9",
+      "outcome": "no-minor-fragment",
+      "paragraphs": 1,
+      "best": null
+    },
+    {
+      "fx": "18-lee-child-male",
+      "cat": "health",
+      "per": "life",
+      "ab": "0-9",
+      "outcome": "fragment-found",
+      "paragraphs": 3,
+      "best": "health.life.standard.child.001"
+    },
+    {
+      "fx": "18-lee-child-male",
+      "cat": "health",
+      "per": "today",
+      "ab": "0-9",
+      "outcome": "fragment-found",
+      "paragraphs": 3,
+      "best": "health.today.standard.child.001"
+    },
+    {
+      "fx": "18-lee-child-male",
+      "cat": "health",
+      "per": "thisWeek",
+      "ab": "0-9",
+      "outcome": "fragment-found",
+      "paragraphs": 3,
+      "best": "health.thisWeek.standard.child.001"
+    },
+    {
+      "fx": "18-lee-child-male",
+      "cat": "health",
+      "per": "thisMonth",
+      "ab": "0-9",
+      "outcome": "fragment-found",
+      "paragraphs": 3,
+      "best": "health.thisMonth.standard.child.001"
+    },
+    {
+      "fx": "18-lee-child-male",
+      "cat": "health",
+      "per": "thisYear",
+      "ab": "0-9",
+      "outcome": "fragment-found",
+      "paragraphs": 3,
+      "best": "health.thisYear.standard.child.001"
+    },
+    {
+      "fx": "18-lee-child-male",
+      "cat": "health_stress",
+      "per": "life",
+      "ab": "0-9",
+      "outcome": "fragment-found",
+      "paragraphs": 3,
+      "best": "health_stress.life.standard.foundation.501"
+    },
+    {
+      "fx": "18-lee-child-male",
+      "cat": "health_stress",
+      "per": "today",
+      "ab": "0-9",
+      "outcome": "no-minor-fragment",
+      "paragraphs": 1,
+      "best": null
+    },
+    {
+      "fx": "18-lee-child-male",
+      "cat": "health_stress",
+      "per": "thisWeek",
+      "ab": "0-9",
+      "outcome": "fragment-found",
+      "paragraphs": 3,
+      "best": "health_stress.thisWeek.standard.support.501"
+    },
+    {
+      "fx": "18-lee-child-male",
+      "cat": "health_stress",
+      "per": "thisMonth",
+      "ab": "0-9",
+      "outcome": "no-minor-fragment",
+      "paragraphs": 1,
+      "best": null
+    },
+    {
+      "fx": "18-lee-child-male",
+      "cat": "health_stress",
+      "per": "thisYear",
+      "ab": "0-9",
+      "outcome": "fragment-found",
+      "paragraphs": 3,
+      "best": "health_stress.thisYear.standard.foundation.501"
+    },
+    {
+      "fx": "18-lee-child-male",
+      "cat": "overall",
+      "per": "life",
+      "ab": "0-9",
+      "outcome": "fragment-found",
+      "paragraphs": 3,
+      "best": "overall.life.standard.child.001"
+    },
+    {
+      "fx": "18-lee-child-male",
+      "cat": "overall",
+      "per": "today",
+      "ab": "0-9",
+      "outcome": "fragment-found",
+      "paragraphs": 3,
+      "best": "overall.today.standard.child.001"
+    },
+    {
+      "fx": "18-lee-child-male",
+      "cat": "overall",
+      "per": "thisWeek",
+      "ab": "0-9",
+      "outcome": "fragment-found",
+      "paragraphs": 3,
+      "best": "overall.thisWeek.standard.child.001"
+    },
+    {
+      "fx": "18-lee-child-male",
+      "cat": "overall",
+      "per": "thisMonth",
+      "ab": "0-9",
+      "outcome": "fragment-found",
+      "paragraphs": 3,
+      "best": "overall.thisMonth.standard.child.001"
+    },
+    {
+      "fx": "18-lee-child-male",
+      "cat": "overall",
+      "per": "thisYear",
+      "ab": "0-9",
+      "outcome": "fragment-found",
+      "paragraphs": 3,
+      "best": "overall.thisYear.standard.child.001"
+    },
+    {
+      "fx": "27-jonggyeok-jongah",
+      "cat": "career",
+      "per": "life",
+      "ab": "0-9",
+      "outcome": "no-minor-fragment",
+      "paragraphs": 1,
+      "best": null
+    },
+    {
+      "fx": "27-jonggyeok-jongah",
+      "cat": "career",
+      "per": "today",
+      "ab": "0-9",
+      "outcome": "no-minor-fragment",
+      "paragraphs": 1,
+      "best": null
+    },
+    {
+      "fx": "27-jonggyeok-jongah",
+      "cat": "career",
+      "per": "thisWeek",
+      "ab": "0-9",
+      "outcome": "no-minor-fragment",
+      "paragraphs": 1,
+      "best": null
+    },
+    {
+      "fx": "27-jonggyeok-jongah",
+      "cat": "career",
+      "per": "thisMonth",
+      "ab": "0-9",
+      "outcome": "fragment-found",
+      "paragraphs": 3,
+      "best": "career.thisMonth.standard.record.504"
+    },
+    {
+      "fx": "27-jonggyeok-jongah",
+      "cat": "career",
+      "per": "thisYear",
+      "ab": "0-9",
+      "outcome": "no-minor-fragment",
+      "paragraphs": 1,
+      "best": null
+    },
+    {
+      "fx": "27-jonggyeok-jongah",
+      "cat": "health",
+      "per": "life",
+      "ab": "0-9",
+      "outcome": "fragment-found",
+      "paragraphs": 3,
+      "best": "health.life.standard.child.001"
+    },
+    {
+      "fx": "27-jonggyeok-jongah",
+      "cat": "health",
+      "per": "today",
+      "ab": "0-9",
+      "outcome": "fragment-found",
+      "paragraphs": 3,
+      "best": "health.today.standard.child.001"
+    },
+    {
+      "fx": "27-jonggyeok-jongah",
+      "cat": "health",
+      "per": "thisWeek",
+      "ab": "0-9",
+      "outcome": "fragment-found",
+      "paragraphs": 3,
+      "best": "health.thisWeek.standard.child.001"
+    },
+    {
+      "fx": "27-jonggyeok-jongah",
+      "cat": "health",
+      "per": "thisMonth",
+      "ab": "0-9",
+      "outcome": "fragment-found",
+      "paragraphs": 3,
+      "best": "health.thisMonth.standard.child.001"
+    },
+    {
+      "fx": "27-jonggyeok-jongah",
+      "cat": "health",
+      "per": "thisYear",
+      "ab": "0-9",
+      "outcome": "fragment-found",
+      "paragraphs": 3,
+      "best": "health.thisYear.standard.child.001"
+    },
+    {
+      "fx": "27-jonggyeok-jongah",
+      "cat": "health_stress",
+      "per": "life",
+      "ab": "0-9",
+      "outcome": "fragment-found",
+      "paragraphs": 3,
+      "best": "health_stress.life.standard.foundation.501"
+    },
+    {
+      "fx": "27-jonggyeok-jongah",
+      "cat": "health_stress",
+      "per": "today",
+      "ab": "0-9",
+      "outcome": "no-minor-fragment",
+      "paragraphs": 1,
+      "best": null
+    },
+    {
+      "fx": "27-jonggyeok-jongah",
+      "cat": "health_stress",
+      "per": "thisWeek",
+      "ab": "0-9",
+      "outcome": "fragment-found",
+      "paragraphs": 3,
+      "best": "health_stress.thisWeek.standard.support.501"
+    },
+    {
+      "fx": "27-jonggyeok-jongah",
+      "cat": "health_stress",
+      "per": "thisMonth",
+      "ab": "0-9",
+      "outcome": "no-minor-fragment",
+      "paragraphs": 1,
+      "best": null
+    },
+    {
+      "fx": "27-jonggyeok-jongah",
+      "cat": "health_stress",
+      "per": "thisYear",
+      "ab": "0-9",
+      "outcome": "fragment-found",
+      "paragraphs": 3,
+      "best": "health_stress.thisYear.standard.foundation.501"
+    },
+    {
+      "fx": "27-jonggyeok-jongah",
+      "cat": "overall",
+      "per": "life",
+      "ab": "0-9",
+      "outcome": "fragment-found",
+      "paragraphs": 3,
+      "best": "overall.life.standard.child.001"
+    },
+    {
+      "fx": "27-jonggyeok-jongah",
+      "cat": "overall",
+      "per": "today",
+      "ab": "0-9",
+      "outcome": "fragment-found",
+      "paragraphs": 3,
+      "best": "overall.today.standard.child.001"
+    },
+    {
+      "fx": "27-jonggyeok-jongah",
+      "cat": "overall",
+      "per": "thisWeek",
+      "ab": "0-9",
+      "outcome": "fragment-found",
+      "paragraphs": 3,
+      "best": "overall.thisWeek.standard.child.001"
+    },
+    {
+      "fx": "27-jonggyeok-jongah",
+      "cat": "overall",
+      "per": "thisMonth",
+      "ab": "0-9",
+      "outcome": "fragment-found",
+      "paragraphs": 3,
+      "best": "overall.thisMonth.standard.child.001"
+    },
+    {
+      "fx": "27-jonggyeok-jongah",
+      "cat": "overall",
+      "per": "thisYear",
+      "ab": "0-9",
+      "outcome": "fragment-found",
+      "paragraphs": 3,
+      "best": "overall.thisYear.standard.child.001"
+    },
+    {
+      "fx": "30-jeolgi-lidong-boundary",
+      "cat": "career",
+      "per": "life",
+      "ab": "0-9",
+      "outcome": "no-minor-fragment",
+      "paragraphs": 1,
+      "best": null
+    },
+    {
+      "fx": "30-jeolgi-lidong-boundary",
+      "cat": "career",
+      "per": "today",
+      "ab": "0-9",
+      "outcome": "no-minor-fragment",
+      "paragraphs": 1,
+      "best": null
+    },
+    {
+      "fx": "30-jeolgi-lidong-boundary",
+      "cat": "career",
+      "per": "thisWeek",
+      "ab": "0-9",
+      "outcome": "no-minor-fragment",
+      "paragraphs": 1,
+      "best": null
+    },
+    {
+      "fx": "30-jeolgi-lidong-boundary",
+      "cat": "career",
+      "per": "thisMonth",
+      "ab": "0-9",
+      "outcome": "fragment-found",
+      "paragraphs": 3,
+      "best": "career.thisMonth.standard.record.504"
+    },
+    {
+      "fx": "30-jeolgi-lidong-boundary",
+      "cat": "career",
+      "per": "thisYear",
+      "ab": "0-9",
+      "outcome": "no-minor-fragment",
+      "paragraphs": 1,
+      "best": null
+    },
+    {
+      "fx": "30-jeolgi-lidong-boundary",
+      "cat": "health",
+      "per": "life",
+      "ab": "0-9",
+      "outcome": "fragment-found",
+      "paragraphs": 3,
+      "best": "health.life.standard.child.001"
+    },
+    {
+      "fx": "30-jeolgi-lidong-boundary",
+      "cat": "health",
+      "per": "today",
+      "ab": "0-9",
+      "outcome": "fragment-found",
+      "paragraphs": 3,
+      "best": "health.today.standard.child.001"
+    },
+    {
+      "fx": "30-jeolgi-lidong-boundary",
+      "cat": "health",
+      "per": "thisWeek",
+      "ab": "0-9",
+      "outcome": "fragment-found",
+      "paragraphs": 3,
+      "best": "health.thisWeek.standard.child.001"
+    },
+    {
+      "fx": "30-jeolgi-lidong-boundary",
+      "cat": "health",
+      "per": "thisMonth",
+      "ab": "0-9",
+      "outcome": "fragment-found",
+      "paragraphs": 3,
+      "best": "health.thisMonth.standard.child.001"
+    },
+    {
+      "fx": "30-jeolgi-lidong-boundary",
+      "cat": "health",
+      "per": "thisYear",
+      "ab": "0-9",
+      "outcome": "fragment-found",
+      "paragraphs": 3,
+      "best": "health.thisYear.standard.child.001"
+    },
+    {
+      "fx": "30-jeolgi-lidong-boundary",
+      "cat": "health_stress",
+      "per": "life",
+      "ab": "0-9",
+      "outcome": "fragment-found",
+      "paragraphs": 3,
+      "best": "health_stress.life.standard.foundation.501"
+    },
+    {
+      "fx": "30-jeolgi-lidong-boundary",
+      "cat": "health_stress",
+      "per": "today",
+      "ab": "0-9",
+      "outcome": "no-minor-fragment",
+      "paragraphs": 1,
+      "best": null
+    },
+    {
+      "fx": "30-jeolgi-lidong-boundary",
+      "cat": "health_stress",
+      "per": "thisWeek",
+      "ab": "0-9",
+      "outcome": "fragment-found",
+      "paragraphs": 3,
+      "best": "health_stress.thisWeek.standard.support.501"
+    },
+    {
+      "fx": "30-jeolgi-lidong-boundary",
+      "cat": "health_stress",
+      "per": "thisMonth",
+      "ab": "0-9",
+      "outcome": "no-minor-fragment",
+      "paragraphs": 1,
+      "best": null
+    },
+    {
+      "fx": "30-jeolgi-lidong-boundary",
+      "cat": "health_stress",
+      "per": "thisYear",
+      "ab": "0-9",
+      "outcome": "fragment-found",
+      "paragraphs": 3,
+      "best": "health_stress.thisYear.standard.foundation.501"
+    },
+    {
+      "fx": "30-jeolgi-lidong-boundary",
+      "cat": "overall",
+      "per": "life",
+      "ab": "0-9",
+      "outcome": "fragment-found",
+      "paragraphs": 3,
+      "best": "overall.life.standard.child.001"
+    },
+    {
+      "fx": "30-jeolgi-lidong-boundary",
+      "cat": "overall",
+      "per": "today",
+      "ab": "0-9",
+      "outcome": "fragment-found",
+      "paragraphs": 3,
+      "best": "overall.today.standard.child.001"
+    },
+    {
+      "fx": "30-jeolgi-lidong-boundary",
+      "cat": "overall",
+      "per": "thisWeek",
+      "ab": "0-9",
+      "outcome": "fragment-found",
+      "paragraphs": 3,
+      "best": "overall.thisWeek.standard.child.001"
+    },
+    {
+      "fx": "30-jeolgi-lidong-boundary",
+      "cat": "overall",
+      "per": "thisMonth",
+      "ab": "0-9",
+      "outcome": "fragment-found",
+      "paragraphs": 3,
+      "best": "overall.thisMonth.standard.child.001"
+    },
+    {
+      "fx": "30-jeolgi-lidong-boundary",
+      "cat": "overall",
+      "per": "thisYear",
+      "ab": "0-9",
+      "outcome": "fragment-found",
+      "paragraphs": 3,
+      "best": "overall.thisYear.standard.child.001"
+    },
+    {
+      "fx": "31-newborn-infant-male",
+      "cat": "career",
+      "per": "life",
+      "ab": "0-9",
+      "outcome": "no-minor-fragment",
+      "paragraphs": 1,
+      "best": null
+    },
+    {
+      "fx": "31-newborn-infant-male",
+      "cat": "career",
+      "per": "today",
+      "ab": "0-9",
+      "outcome": "no-minor-fragment",
+      "paragraphs": 1,
+      "best": null
+    },
+    {
+      "fx": "31-newborn-infant-male",
+      "cat": "career",
+      "per": "thisWeek",
+      "ab": "0-9",
+      "outcome": "no-minor-fragment",
+      "paragraphs": 1,
+      "best": null
+    },
+    {
+      "fx": "31-newborn-infant-male",
+      "cat": "career",
+      "per": "thisMonth",
+      "ab": "0-9",
+      "outcome": "fragment-found",
+      "paragraphs": 3,
+      "best": "career.thisMonth.standard.record.504"
+    },
+    {
+      "fx": "31-newborn-infant-male",
+      "cat": "career",
+      "per": "thisYear",
+      "ab": "0-9",
+      "outcome": "no-minor-fragment",
+      "paragraphs": 1,
+      "best": null
+    },
+    {
+      "fx": "31-newborn-infant-male",
+      "cat": "health",
+      "per": "life",
+      "ab": "0-9",
+      "outcome": "fragment-found",
+      "paragraphs": 3,
+      "best": "health.life.standard.child.001"
+    },
+    {
+      "fx": "31-newborn-infant-male",
+      "cat": "health",
+      "per": "today",
+      "ab": "0-9",
+      "outcome": "fragment-found",
+      "paragraphs": 3,
+      "best": "health.today.standard.child.001"
+    },
+    {
+      "fx": "31-newborn-infant-male",
+      "cat": "health",
+      "per": "thisWeek",
+      "ab": "0-9",
+      "outcome": "fragment-found",
+      "paragraphs": 3,
+      "best": "health.thisWeek.standard.child.001"
+    },
+    {
+      "fx": "31-newborn-infant-male",
+      "cat": "health",
+      "per": "thisMonth",
+      "ab": "0-9",
+      "outcome": "fragment-found",
+      "paragraphs": 3,
+      "best": "health.thisMonth.standard.child.001"
+    },
+    {
+      "fx": "31-newborn-infant-male",
+      "cat": "health",
+      "per": "thisYear",
+      "ab": "0-9",
+      "outcome": "fragment-found",
+      "paragraphs": 3,
+      "best": "health.thisYear.standard.child.001"
+    },
+    {
+      "fx": "31-newborn-infant-male",
+      "cat": "health_stress",
+      "per": "life",
+      "ab": "0-9",
+      "outcome": "fragment-found",
+      "paragraphs": 3,
+      "best": "health_stress.life.standard.foundation.501"
+    },
+    {
+      "fx": "31-newborn-infant-male",
+      "cat": "health_stress",
+      "per": "today",
+      "ab": "0-9",
+      "outcome": "no-minor-fragment",
+      "paragraphs": 1,
+      "best": null
+    },
+    {
+      "fx": "31-newborn-infant-male",
+      "cat": "health_stress",
+      "per": "thisWeek",
+      "ab": "0-9",
+      "outcome": "fragment-found",
+      "paragraphs": 3,
+      "best": "health_stress.thisWeek.standard.support.501"
+    },
+    {
+      "fx": "31-newborn-infant-male",
+      "cat": "health_stress",
+      "per": "thisMonth",
+      "ab": "0-9",
+      "outcome": "no-minor-fragment",
+      "paragraphs": 1,
+      "best": null
+    },
+    {
+      "fx": "31-newborn-infant-male",
+      "cat": "health_stress",
+      "per": "thisYear",
+      "ab": "0-9",
+      "outcome": "fragment-found",
+      "paragraphs": 3,
+      "best": "health_stress.thisYear.standard.foundation.501"
+    },
+    {
+      "fx": "31-newborn-infant-male",
+      "cat": "overall",
+      "per": "life",
+      "ab": "0-9",
+      "outcome": "fragment-found",
+      "paragraphs": 3,
+      "best": "overall.life.standard.child.001"
+    },
+    {
+      "fx": "31-newborn-infant-male",
+      "cat": "overall",
+      "per": "today",
+      "ab": "0-9",
+      "outcome": "fragment-found",
+      "paragraphs": 3,
+      "best": "overall.today.standard.child.001"
+    },
+    {
+      "fx": "31-newborn-infant-male",
+      "cat": "overall",
+      "per": "thisWeek",
+      "ab": "0-9",
+      "outcome": "fragment-found",
+      "paragraphs": 3,
+      "best": "overall.thisWeek.standard.child.001"
+    },
+    {
+      "fx": "31-newborn-infant-male",
+      "cat": "overall",
+      "per": "thisMonth",
+      "ab": "0-9",
+      "outcome": "fragment-found",
+      "paragraphs": 3,
+      "best": "overall.thisMonth.standard.child.001"
+    },
+    {
+      "fx": "31-newborn-infant-male",
+      "cat": "overall",
+      "per": "thisYear",
+      "ab": "0-9",
+      "outcome": "fragment-found",
+      "paragraphs": 3,
+      "best": "overall.thisYear.standard.child.001"
+    }
+  ]
+}
