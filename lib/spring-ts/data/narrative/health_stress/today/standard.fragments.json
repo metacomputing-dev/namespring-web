@@ -597,6 +597,46 @@
         "copyrightNote": "No source prose copied; original interpretation.",
         "authorityTruthEligible": false
       }
+    },
+    {
+      "schemaVersion": "spring-ts.narrative-fragment.v1",
+      "fragmentId": "health_stress.today.standard.child.001",
+      "axis": {
+        "category": "health_stress",
+        "period": "today",
+        "depth": "standard"
+      },
+      "gating": {
+        "ageBand": [
+          "0-9"
+        ]
+      },
+      "templateTokens": [
+        {
+          "kind": "text",
+          "value": "오늘은 아이의 마음과 몸이 잔잔히 흐르는 하루예요. 평소 페이스대로 잘 놀고 잘 먹는 자리가 잘 어울리고, 작은 칭얼거림이 있어도 함께 호흡을 맞춰 주면 자연스럽게 가라앉아요.\n\n비유하자면 작은 새싹이 햇볕 아래서 천천히 자라는 모습이에요. 갑작스럽게 큰 자극을 주기보다, 익숙한 놀이·익숙한 먹거리·익숙한 자리 안에서 마음이 부드럽게 풀려요.\n\n잠자리에 들기 전에는 다정한 인사 한마디나 짧은 그림책 한 권이 잘 맞아요. 곁에서 함께 웃어 주는 자리만으로도 아이의 마음이 차분히 정돈돼요."
+        }
+      ],
+      "livingTips": [
+        "익숙한 놀이를 푹 즐기게 두기",
+        "잠자기 전 다정한 인사 한마디",
+        "함께 웃는 시간 짧게 챙기기"
+      ],
+      "cautions": [
+        "비교하는 말은 한 발 물러 두기"
+      ],
+      "tags": [],
+      "aiGenerated": true,
+      "sourceTier": {
+        "tier": "T1_HYPOTHESIS",
+        "sourceType": "training_derived",
+        "sourceUrl": null,
+        "accessedAt": "2026-05-07",
+        "quoteShort": null,
+        "humanInterpretation": "Phase 22 agent-A2 (health_stress) standard today: child 0-9. Caregiver-shared tone, play/sleep/companionship frame. Display-only narrative.",
+        "copyrightNote": "No source prose copied; original phrasing.",
+        "authorityTruthEligible": false
+      }
     }
   ]
 }
