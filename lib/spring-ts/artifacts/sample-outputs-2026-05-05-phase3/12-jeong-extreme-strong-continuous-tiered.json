@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-05-07T16:04:59.250Z",
+  "generatedAt": "2026-05-07T16:05:59.811Z",
   "targetDate": "2026-05-05T00:00:00+09:00",
   "sampleId": "jeong-extreme-strong-continuous-tiered",
   "description": "입력 의도: 지지에서 일간이 강하게 받쳐지는 신강 지향 입력. strengthMode=continuous 로 4-tier 강도 곡선과 결합한 tiered 샘플. 최종 강도 분류는 엔진이 결정한다.",
@@ -1294,7 +1294,7 @@
     },
     "meta": {
       "version": "1.0.0",
-      "generatedAt": "2026-05-07T16:05:05.617Z",
+      "generatedAt": "2026-05-07T16:06:06.378Z",
       "schoolPreset": {
         "selected": "korean",
         "source": "default",
@@ -11099,6 +11099,15 @@
                       }
                     ],
                     "plainText": "들어오는 관심을 의심하지 않고 자연스럽게 받아들이는 태도가 가장 큰 자산이 돼요."
+                  },
+                  {
+                    "tokens": [
+                      {
+                        "kind": "text",
+                        "value": "분기마다 한 번씩 자기 마음을 짧게 적어 두는 자리도 큰 도움이 돼요. 봄·여름의 첫 신호 자리, 가을의 받아들임 자리, 겨울의 다음 해 약속 자리가 한 해 안에서 자연스럽게 이어져요. 부드러운 일간일수록 분기 자리마다 한마디씩 정성껏 남기면, 한 해의 신뢰가 다음 해까지 또렷하게 자라요."
+                      }
+                    ],
+                    "plainText": "분기마다 한 번씩 자기 마음을 짧게 적어 두는 자리도 큰 도움이 돼요. 봄·여름의 첫 신호 자리, 가을의 받아들임 자리, 겨울의 다음 해 약속 자리가 한 해 안에서 자연스럽게 이어져요. 부드러운 일간일수록 분기 자리마다 한마디씩 정성껏 남기면, 한 해의 신뢰가 다음 해까지 또렷하게 자라요."
                   }
                 ]
               },
@@ -13027,7 +13036,7 @@
       },
       "meta": {
         "schemaVersion": "spring-ts.tiered-matrix.v1",
-        "generatedAt": "2026-05-07T16:05:05.617Z",
+        "generatedAt": "2026-05-07T16:06:06.378Z",
         "selectionSeed": "1980|3|12|9|0|male|2026-05-04T15:00:00.000Z",
         "templateContractVersion": "1.0.0",
         "contentSource": "authored",
