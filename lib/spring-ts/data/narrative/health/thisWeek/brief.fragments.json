@@ -113,6 +113,7 @@
           "value": "이번 주는 활동량 누적만 한 번 점검해요."
         }
       ],
+      "hook": "같은 시간에 자고 일어나요.",
       "tags": [],
       "aiGenerated": true,
       "sourceTier": {

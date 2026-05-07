@@ -72,6 +72,7 @@
       "templateTokens": [
         { "kind": "text", "value": "추진력으로 한 트랙을 마무리할 만한 주예요." }
       ],
+      "hook": "마지막 한 주 정리가 자산이에요.",
       "tags": [],
       "aiGenerated": true,
       "sourceTier": { "tier": "T1_HYPOTHESIS", "sourceType": "training_derived", "sourceUrl": null, "accessedAt": "2026-05-02", "quoteShort": null, "humanInterpretation": "AI-derived brief fragment for study_document.thisWeek strong. Display-only.", "copyrightNote": "No source prose copied; original.", "authorityTruthEligible": false }
