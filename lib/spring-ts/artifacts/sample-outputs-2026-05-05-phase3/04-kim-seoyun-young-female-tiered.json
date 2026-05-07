@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-05-07T12:50:51.880Z",
+  "generatedAt": "2026-05-07T13:02:55.542Z",
   "targetDate": "2026-05-05T00:00:00+09:00",
   "sampleId": "kim-seoyun-young-female-tiered",
   "description": "어린 여성 입력에서 tiered 운세 매트릭스를 켠 케이스.",
@@ -1306,7 +1306,7 @@
     },
     "meta": {
       "version": "1.0.0",
-      "generatedAt": "2026-05-07T12:50:55.144Z",
+      "generatedAt": "2026-05-07T13:02:59.143Z",
       "schoolPreset": {
         "selected": "korean",
         "source": "default",
@@ -7470,6 +7470,29 @@
                       }
                     ],
                     "plainText": "가족 자리는 #부모궁과 #조상궁의 흐름이 어떻게 받쳐 주느냐를 함께 살펴 두면 흐름의 결정이 더 단단해지고, 작은 인사 한 마디가 평생의 자산이 되는 자리예요."
+                  },
+                  {
+                    "tokens": [
+                      {
+                        "kind": "tag",
+                        "tagId": "cheondeokgwiin",
+                        "label": "천덕귀인"
+                      },
+                      {
+                        "kind": "text",
+                        "value": "의 자리가 "
+                      },
+                      {
+                        "kind": "tag",
+                        "tagId": "bumyong",
+                        "label": "부모궁"
+                      },
+                      {
+                        "kind": "text",
+                        "value": "의 호흡과 함께 보이는 어린 시기의 사주는 한 달 안의 작은 다툼도 부드럽게 풀어 주는 자리가 자주 등장해요. 이 시기에 받은 따뜻한 호흡 한 번이 청소년기의 안정감으로 자라는 사주이니, 보호자의 작은 칭찬과 짧은 산책 한 번이 평생의 큰 자산으로 쌓여요."
+                      }
+                    ],
+                    "plainText": "#천덕귀인의 자리가 #부모궁의 호흡과 함께 보이는 어린 시기의 사주는 한 달 안의 작은 다툼도 부드럽게 풀어 주는 자리가 자주 등장해요. 이 시기에 받은 따뜻한 호흡 한 번이 청소년기의 안정감으로 자라는 사주이니, 보호자의 작은 칭찬과 짧은 산책 한 번이 평생의 큰 자산으로 쌓여요."
                   }
                 ]
               },
@@ -7509,7 +7532,8 @@
                     "jeongin",
                     "samhyeong",
                     "hyeongsal",
-                    "jojangung"
+                    "jojangung",
+                    "cheondeokgwiin"
                   ]
                 }
               }
@@ -10455,7 +10479,7 @@
       },
       "meta": {
         "schemaVersion": "spring-ts.tiered-matrix.v1",
-        "generatedAt": "2026-05-07T12:50:55.144Z",
+        "generatedAt": "2026-05-07T13:02:59.143Z",
         "selectionSeed": "2013|7|21|14|20|female|2026-05-04T15:00:00.000Z",
         "templateContractVersion": "1.0.0",
         "contentSource": "authored",

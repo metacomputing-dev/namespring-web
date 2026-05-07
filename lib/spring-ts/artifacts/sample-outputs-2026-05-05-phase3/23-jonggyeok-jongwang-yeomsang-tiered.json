@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-05-07T12:50:51.880Z",
+  "generatedAt": "2026-05-07T13:02:55.542Z",
   "targetDate": "2026-05-05T00:00:00+09:00",
   "sampleId": "jonggyeok-jongwang-yeomsang-tiered",
   "description": "입력 의도: 從旺격 (一氣格 / 炎上格 火) 계열. fix-jong-02 (1942-06-23 15:00) 좌표를 차용 — 火 일간이 寅午戌 부분 火局 + 丙午 月柱 로 단일 火氣 압도. 최종 외격 판정은 엔진이 결정한다.",
@@ -1277,7 +1277,7 @@
     },
     "meta": {
       "version": "1.0.0",
-      "generatedAt": "2026-05-07T12:51:02.573Z",
+      "generatedAt": "2026-05-07T13:03:06.602Z",
       "schoolPreset": {
         "selected": "korean",
         "source": "default",
@@ -3855,6 +3855,29 @@
                     }
                   ],
                   "plainText": "#납음의 흐름을 함께 살펴 두면 사주 모양의 깊은 색이 더 또렷해지고, #납음오행의 흐름이 자기 흐름을 보완하는 자리가 자주 등장해요."
+                },
+                {
+                  "tokens": [
+                    {
+                      "kind": "tag",
+                      "tagId": "siGungsil",
+                      "label": "시궁실"
+                    },
+                    {
+                      "kind": "text",
+                      "value": "의 작은 자리가 "
+                    },
+                    {
+                      "kind": "tag",
+                      "tagId": "heeshin",
+                      "label": "희신"
+                    },
+                    {
+                      "kind": "text",
+                      "value": "의 기운과 가까이 만나는 시간대에는 단단한 일간이 한 박자 부드러워지는 자리가 자주 보여요. 하루의 작은 결정 한 번 한 번을 자기 페이스로 다듬어 두면, 큰 그림 위에서 또렷한 자기 색이 모이는 사주이니 무리한 속도보다 깊은 호흡 한 번이 더 큰 자산이 돼요."
+                    }
+                  ],
+                  "plainText": "#시궁실의 작은 자리가 #희신의 기운과 가까이 만나는 시간대에는 단단한 일간이 한 박자 부드러워지는 자리가 자주 보여요. 하루의 작은 결정 한 번 한 번을 자기 페이스로 다듬어 두면, 큰 그림 위에서 또렷한 자기 색이 모이는 사주이니 무리한 속도보다 깊은 호흡 한 번이 더 큰 자산이 돼요."
                 }
               ]
             },
@@ -3900,7 +3923,8 @@
                   "tonggwanYongshin",
                   "byeongyakYongshin",
                   "naeum",
-                  "naeumElement"
+                  "naeumElement",
+                  "siGungsil"
                 ]
               }
             }
@@ -12859,6 +12883,17 @@
               "sikshin"
             ]
           },
+          "siGungsil": {
+            "id": "siGungsil",
+            "label": "시궁실",
+            "hashLabel": "#시궁실",
+            "category": "gungsil",
+            "brief": "특정 시기의 '운세 자리'를 살피는 단위예요.",
+            "detailed": "시궁실은 특정 짧은 기간(일·주·월)이 어떤 자리에서 들어오는지를 보는 단위예요. 그 시기의 흐름이 길/흉 어느 쪽으로 기울어 있는지 빠르게 가늠할 수 있어요. 자세한 해석은 사주 전체 모양과 함께 봐야 정확해요.",
+            "related": [
+              "daewoonGungsil"
+            ]
+          },
           "sikshin": {
             "id": "sikshin",
             "label": "식신",
@@ -13013,6 +13048,7 @@
           "sajuCompatibility",
           "samhyeong",
           "sanggwan",
+          "siGungsil",
           "sikshin",
           "stabilityIndex",
           "tonggwanYongshin",
@@ -13089,7 +13125,7 @@
       },
       "meta": {
         "schemaVersion": "spring-ts.tiered-matrix.v1",
-        "generatedAt": "2026-05-07T12:51:02.573Z",
+        "generatedAt": "2026-05-07T13:03:06.602Z",
         "selectionSeed": "1942|6|23|15|0|male|2026-05-04T15:00:00.000Z",
         "templateContractVersion": "1.0.0",
         "contentSource": "authored",
