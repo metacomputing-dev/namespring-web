@@ -670,6 +670,40 @@
         "copyrightNote": "No source prose copied; original.",
         "authorityTruthEligible": false
       }
+    },
+    {
+      "schemaVersion": "spring-ts.narrative-fragment.v1",
+      "fragmentId": "wealth.thisYear.brief.female.thirties.autumn.weak.014",
+      "axis": {
+        "category": "wealth",
+        "period": "thisYear",
+        "depth": "brief"
+      },
+      "gating": {
+        "gender": ["female"],
+        "ageBand": ["30-39"],
+        "birthSeason": ["autumn"],
+        "dayMasterStrength": ["WEAK", "EXTREME_WEAK"]
+      },
+      "templateTokens": [
+        {
+          "kind": "text",
+          "value": "올해는 잔잔한 모음을 차곡 늘리는 흐름이에요."
+        }
+      ],
+      "hook": "올해는 잔잔한 모음을 늘려요.",
+      "tags": [],
+      "aiGenerated": true,
+      "sourceTier": {
+        "tier": "T1_HYPOTHESIS",
+        "sourceType": "training_derived",
+        "sourceUrl": null,
+        "accessedAt": "2026-05-08",
+        "quoteShort": null,
+        "humanInterpretation": "P34-A4 distinct-hook expansion: wealth/thisYear brief for female × 30-39 × autumn × WEAK day master. 4-dim split avoids #33 (STRONG) double-fire; targets #8/#11 (WEAK). Display-only narrative.",
+        "copyrightNote": "No source prose copied; original authored prose.",
+        "authorityTruthEligible": false
+      }
     }
   ]
 }

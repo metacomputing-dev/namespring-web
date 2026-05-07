@@ -295,6 +295,39 @@
         "copyrightNote": "No source prose copied; original phrasing.",
         "authorityTruthEligible": false
       }
+    },
+    {
+      "schemaVersion": "spring-ts.narrative-fragment.v1",
+      "fragmentId": "health.today.brief.female.thirties.spring.011",
+      "axis": {
+        "category": "health",
+        "period": "today",
+        "depth": "brief"
+      },
+      "gating": {
+        "gender": ["female"],
+        "ageBand": ["30-39"],
+        "birthSeason": ["spring"]
+      },
+      "templateTokens": [
+        {
+          "kind": "text",
+          "value": "오늘은 봄바람을 한 모금 마시며 숨을 골라요."
+        }
+      ],
+      "hook": "봄바람 한 모금을 마셔요.",
+      "tags": [],
+      "aiGenerated": true,
+      "sourceTier": {
+        "tier": "T1_HYPOTHESIS",
+        "sourceType": "training_derived",
+        "sourceUrl": null,
+        "accessedAt": "2026-05-08",
+        "quoteShort": null,
+        "humanInterpretation": "P34-A4 distinct-hook expansion: health/today brief for female × 30-39 × spring. Spring-born midlife self-care. Display-only narrative.",
+        "copyrightNote": "No source prose copied; original authored prose.",
+        "authorityTruthEligible": false
+      }
     }
   ]
 }

@@ -362,6 +362,39 @@
         "copyrightNote": "No source prose copied; original authored prose.",
         "authorityTruthEligible": false
       }
+    },
+    {
+      "schemaVersion": "spring-ts.narrative-fragment.v1",
+      "fragmentId": "expression_children.today.brief.male.elder.spring.012",
+      "axis": {
+        "category": "expression_children",
+        "period": "today",
+        "depth": "brief"
+      },
+      "gating": {
+        "gender": ["male"],
+        "ageBand": ["70+"],
+        "birthSeason": ["spring"]
+      },
+      "templateTokens": [
+        {
+          "kind": "text",
+          "value": "오늘은 봄꽃 한 송이를 천천히 그려 보는 흐름이에요."
+        }
+      ],
+      "hook": "봄꽃 한 송이를 그려 봐요.",
+      "tags": [],
+      "aiGenerated": true,
+      "sourceTier": {
+        "tier": "T1_HYPOTHESIS",
+        "sourceType": "training_derived",
+        "sourceUrl": null,
+        "accessedAt": "2026-05-08",
+        "quoteShort": null,
+        "humanInterpretation": "P34-A4 distinct-hook expansion: expression_children/today brief for male × 70+ × spring. Spring-born elder gentle expression frame. Display-only narrative.",
+        "copyrightNote": "No source prose copied; original authored prose.",
+        "authorityTruthEligible": false
+      }
     }
   ]
 }

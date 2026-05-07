@@ -299,6 +299,39 @@
         "copyrightNote": "No source prose copied; original authored prose.",
         "authorityTruthEligible": false
       }
+    },
+    {
+      "schemaVersion": "spring-ts.narrative-fragment.v1",
+      "fragmentId": "academic.thisWeek.brief.female.teen.summer.010",
+      "axis": {
+        "category": "academic",
+        "period": "thisWeek",
+        "depth": "brief"
+      },
+      "gating": {
+        "gender": ["female"],
+        "ageBand": ["10-19"],
+        "birthSeason": ["summer"]
+      },
+      "templateTokens": [
+        {
+          "kind": "text",
+          "value": "이번 주는 여름 방학 한 권을 다 마치는 흐름이에요."
+        }
+      ],
+      "hook": "여름 방학 한 권을 마쳐요.",
+      "tags": [],
+      "aiGenerated": true,
+      "sourceTier": {
+        "tier": "T1_HYPOTHESIS",
+        "sourceType": "training_derived",
+        "sourceUrl": null,
+        "accessedAt": "2026-05-08",
+        "quoteShort": null,
+        "humanInterpretation": "P34-A4 distinct-hook expansion: academic/thisWeek brief for female × 10-19 × summer. Summer-born teen study frame. Display-only narrative.",
+        "copyrightNote": "No source prose copied; original authored prose.",
+        "authorityTruthEligible": false
+      }
     }
   ]
 }

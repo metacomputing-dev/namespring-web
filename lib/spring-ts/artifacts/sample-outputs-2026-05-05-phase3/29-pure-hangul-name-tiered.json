@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-05-07T16:05:59.811Z",
+  "generatedAt": "2026-05-07T16:09:40.507Z",
   "targetDate": "2026-05-05T00:00:00+09:00",
   "sampleId": "pure-hangul-name-tiered",
   "description": "한글 전용 이름 (hanja 미입력) 입력 — pureHangulNameMode=on 으로 발음오행 기반 채점. 한글 작명 트렌드 (자음/모음 polarity, 모음 음양) 와 surfacePhoneticEvidence 가 함께 노출되는 케이스. 한자 강제 미적용 안전 fallback 점검.",
@@ -1380,7 +1380,7 @@
     },
     "meta": {
       "version": "1.0.0",
-      "generatedAt": "2026-05-07T16:06:11.988Z",
+      "generatedAt": "2026-05-07T16:09:52.886Z",
       "schoolPreset": {
         "selected": "korean",
         "source": "default",
@@ -4185,7 +4185,8 @@
               "meaningfulness": "limited",
               "stars": 3,
               "brief": {
-                "headline": "오늘은 무리한 운동보다 식사, 물, 휴식 시간을 먼저 챙기면 몸이 편요."
+                "headline": "오늘은 봄바람을 한 모금 마시며 숨을 골라요.",
+                "hook": "봄바람 한 모금을 마셔요."
               },
               "standard": {
                 "paragraphs": [
@@ -4382,13 +4383,16 @@
               },
               "selectedFragments": {
                 "brief": {
-                  "fragmentId": "health.today.brief.ageband.mature.401",
+                  "fragmentId": "health.today.brief.female.thirties.spring.011",
                   "gating": {
+                    "gender": [
+                      "female"
+                    ],
                     "ageBand": [
-                      "30-39",
-                      "40-54",
-                      "55-69",
-                      "70+"
+                      "30-39"
+                    ],
+                    "birthSeason": [
+                      "spring"
                     ]
                   },
                   "tags": []
@@ -13036,12 +13040,12 @@
       },
       "meta": {
         "schemaVersion": "spring-ts.tiered-matrix.v1",
-        "generatedAt": "2026-05-07T16:06:11.988Z",
+        "generatedAt": "2026-05-07T16:09:52.886Z",
         "selectionSeed": "1996|4|12|10|30|female|2026-05-04T15:00:00.000Z",
         "templateContractVersion": "1.0.0",
         "contentSource": "authored",
-        "fragmentCount": 4165,
-        "aiGeneratedFragmentCount": 4165
+        "fragmentCount": 4175,
+        "aiGeneratedFragmentCount": 4175
       }
     }
   }

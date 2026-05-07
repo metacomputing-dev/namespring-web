@@ -261,6 +261,32 @@
         "copyrightNote": "No source prose copied; original prose.",
         "authorityTruthEligible": false
       }
+    },
+    {
+      "schemaVersion": "spring-ts.narrative-fragment.v1",
+      "fragmentId": "family.thisYear.brief.male.midlife.summer.013",
+      "axis": { "category": "family", "period": "thisYear", "depth": "brief", "tone": "plain" },
+      "gating": {
+        "gender": ["male"],
+        "ageBand": ["40-54"],
+        "birthSeason": ["summer"]
+      },
+      "templateTokens": [
+        { "kind": "text", "value": "올해는 여름 저녁상을 가족과 함께 차리는 흐름이에요." }
+      ],
+      "hook": "여름 저녁상을 함께 차려요.",
+      "tags": [],
+      "aiGenerated": true,
+      "sourceTier": {
+        "tier": "T1_HYPOTHESIS",
+        "sourceType": "training_derived",
+        "sourceUrl": null,
+        "accessedAt": "2026-05-08",
+        "quoteShort": null,
+        "humanInterpretation": "P34-A4 distinct-hook expansion: family/thisYear brief for male × 40-54 × summer. Summer-born midlife household frame. Display-only narrative.",
+        "copyrightNote": "No source prose copied; original authored prose.",
+        "authorityTruthEligible": false
+      }
     }
   ]
 }

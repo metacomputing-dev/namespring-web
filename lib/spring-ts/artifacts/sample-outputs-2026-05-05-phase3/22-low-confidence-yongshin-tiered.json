@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-05-07T16:05:59.811Z",
+  "generatedAt": "2026-05-07T16:09:40.507Z",
   "targetDate": "2026-05-05T00:00:00+09:00",
   "sampleId": "low-confidence-yongshin-tiered",
   "description": "용신 신뢰도 낮은 case (consensus 충돌 + 다중 후보). yongshinMode=consensus_aware + chengbai_strict 결합으로 conflict 가 격국 페널티 곡선까지 영향을 주는 elasticity 를 노출. tieredMatrix 의 명시적 신호 fixture 로 활용한다.",
@@ -1337,7 +1337,7 @@
     },
     "meta": {
       "version": "1.0.0",
-      "generatedAt": "2026-05-07T16:06:09.638Z",
+      "generatedAt": "2026-05-07T16:09:50.570Z",
       "schoolPreset": {
         "selected": "korean",
         "source": "default",
@@ -1483,15 +1483,6 @@
                     }
                   ],
                   "plainText": "단정보다 자기 흐름을 정성껏 살피는 일이 가장 큰 자산이에요."
-                },
-                {
-                  "tokens": [
-                    {
-                      "kind": "text",
-                      "value": "10년 단위 큰 자리도 함께 짚어 두면 도움이 돼요. 20대엔 자기 색을 처음 다듬는 자리, 40대엔 자기 무늬가 또렷이 자라는 자리, 60대엔 평생 다져 온 흐름을 다음 세대에 넘기는 자리가 차례로 들어와요. 매 10년 자리마다 짧게라도 자기 호흡을 정성껏 적어 두면, 평생의 큰 그림이 자기다운 모양으로 단단히 자리 잡아요."
-                    }
-                  ],
-                  "plainText": "10년 단위 큰 자리도 함께 짚어 두면 도움이 돼요. 20대엔 자기 색을 처음 다듬는 자리, 40대엔 자기 무늬가 또렷이 자라는 자리, 60대엔 평생 다져 온 흐름을 다음 세대에 넘기는 자리가 차례로 들어와요. 매 10년 자리마다 짧게라도 자기 호흡을 정성껏 적어 두면, 평생의 큰 그림이 자기다운 모양으로 단단히 자리 잡아요."
                 }
               ]
             },
@@ -4010,8 +4001,8 @@
               "meaningfulness": "meaningful",
               "stars": 2,
               "brief": {
-                "headline": "오늘은 평소 페이스로 가도 충분해요.",
-                "hook": "무리한 약속은 한 박자 미루는 게 좋아요."
+                "headline": "오늘은 봄바람을 한 모금 마시며 숨을 골라요.",
+                "hook": "봄바람 한 모금을 마셔요."
               },
               "standard": {
                 "paragraphs": [
@@ -4208,10 +4199,16 @@
               },
               "selectedFragments": {
                 "brief": {
-                  "fragmentId": "health.today.brief.neutral.001",
+                  "fragmentId": "health.today.brief.female.thirties.spring.011",
                   "gating": {
-                    "yongshinAlignment": [
-                      "neutral"
+                    "gender": [
+                      "female"
+                    ],
+                    "ageBand": [
+                      "30-39"
+                    ],
+                    "birthSeason": [
+                      "spring"
                     ]
                   },
                   "tags": []
@@ -12874,12 +12871,12 @@
       },
       "meta": {
         "schemaVersion": "spring-ts.tiered-matrix.v1",
-        "generatedAt": "2026-05-07T16:06:09.638Z",
+        "generatedAt": "2026-05-07T16:09:50.570Z",
         "selectionSeed": "1991|2|4|18|0|female|2026-05-04T15:00:00.000Z",
         "templateContractVersion": "1.0.0",
         "contentSource": "authored",
-        "fragmentCount": 4165,
-        "aiGeneratedFragmentCount": 4165
+        "fragmentCount": 4175,
+        "aiGeneratedFragmentCount": 4175
       }
     }
   }

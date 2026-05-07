@@ -103,6 +103,24 @@
       "tags": [],
       "aiGenerated": true,
       "sourceTier": { "tier": "T1_HYPOTHESIS", "sourceType": "training_derived", "sourceUrl": null, "accessedAt": "2026-05-02", "quoteShort": null, "humanInterpretation": "AI-derived brief fragment for study_document.thisWeek balanced. Display-only.", "copyrightNote": "No source prose copied; original.", "authorityTruthEligible": false }
+    },
+    {
+      "schemaVersion": "spring-ts.narrative-fragment.v1",
+      "fragmentId": "study_document.thisWeek.brief.male.elder.autumn.weak.009",
+      "axis": { "category": "study_document", "period": "thisWeek", "depth": "brief" },
+      "gating": {
+        "gender": ["male"],
+        "ageBand": ["70+"],
+        "birthSeason": ["autumn"],
+        "dayMasterStrength": ["WEAK", "EXTREME_WEAK"]
+      },
+      "templateTokens": [
+        { "kind": "text", "value": "이번 주는 손때 묻은 노트를 다시 펼쳐 봐요." }
+      ],
+      "hook": "손때 묻은 노트를 다시 펼쳐요.",
+      "tags": [],
+      "aiGenerated": true,
+      "sourceTier": { "tier": "T1_HYPOTHESIS", "sourceType": "training_derived", "sourceUrl": null, "accessedAt": "2026-05-08", "quoteShort": null, "humanInterpretation": "P34-A4 distinct-hook expansion: study_document/thisWeek brief for male × 70+ × autumn × WEAK day master. 4-dim split avoids #28 (STRONG) double-fire; targets #25 jonggwan (WEAK). Display-only narrative.", "copyrightNote": "No source prose copied; original authored prose.", "authorityTruthEligible": false }
     }
   ]
 }
