@@ -17,7 +17,8 @@
     "ci:hook-coverage",
     "ci:hook-concentration",
     "ci:brief-tier-placeholder",
-    "ci:standard-paragraph-floor"
+    "ci:standard-paragraph-floor",
+    "ci:flow-cluster"
   ],
   "exempt": [
     {
