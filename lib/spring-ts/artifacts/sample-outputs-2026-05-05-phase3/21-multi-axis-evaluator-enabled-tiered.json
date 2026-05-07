@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-05-07T04:08:36.197Z",
+  "generatedAt": "2026-05-07T04:23:07.876Z",
   "targetDate": "2026-05-05T00:00:00+09:00",
   "sampleId": "multi-axis-evaluator-enabled-tiered",
   "description": "precisionConfig.evaluatorMode=multi_axis 활성 시나리오. axisStrength 가 ≥2 축을 공급할 때 다축 가중 (yongshin/gyeokguk/strength/chengbai/johu/fortuneHierarchy/rectification) 으로 sajuPriority 를 계산하는 PR-K-9 경계. 단일축 default 와의 비교 base 로 사용한다.",
@@ -1313,7 +1313,7 @@
     },
     "meta": {
       "version": "1.0.0",
-      "generatedAt": "2026-05-07T04:08:43.528Z",
+      "generatedAt": "2026-05-07T04:23:17.087Z",
       "schoolPreset": {
         "selected": "korean",
         "source": "default",
@@ -12814,7 +12814,7 @@
       },
       "meta": {
         "schemaVersion": "spring-ts.tiered-matrix.v1",
-        "generatedAt": "2026-05-07T04:08:43.528Z",
+        "generatedAt": "2026-05-07T04:23:17.087Z",
         "selectionSeed": "1986|4|19|5|45|male|2026-05-04T15:00:00.000Z",
         "templateContractVersion": "1.0.0",
         "contentSource": "authored",
