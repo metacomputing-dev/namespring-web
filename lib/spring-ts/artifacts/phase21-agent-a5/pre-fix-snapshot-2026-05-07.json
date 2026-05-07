@@ -1,0 +1,185 @@
+{
+  "phase": "P21-A5",
+  "generatedAt": "2026-05-07T07:08:27.630Z",
+  "source": "artifacts\\sample-outputs-2026-05-05-phase3",
+  "totalFixtures": 32,
+  "totalFixturesWithMatrix": 32,
+  "totalCells": 1705,
+  "paragraphHistograms": {
+    "brief": {
+      "1": 1705
+    },
+    "standard": {
+      "1": 107,
+      "3": 1321,
+      "4": 83,
+      "5": 194
+    },
+    "expert": {
+      "4": 1670,
+      "5": 24,
+      "6": 11
+    }
+  },
+  "paragraphRollups": {
+    "standardGe3Cells": 1598,
+    "standardGe3Percent": 93.72,
+    "standardSub3Cells": 107
+  },
+  "briefHookSurface": {
+    "fixturesWithAtLeastOneHook": 31,
+    "fixtureCoveragePercent": 96.88,
+    "totalHookOccurrences": 294,
+    "distinctHookStrings": 34,
+    "authoredHookStrings": 34,
+    "dormantHookStringsByText": 1,
+    "perFixtureHookCountHistogram": {
+      "0": 1,
+      "1": 1,
+      "3": 5,
+      "6": 1,
+      "8": 3,
+      "9": 3,
+      "10": 4,
+      "11": 2,
+      "12": 2,
+      "13": 6,
+      "14": 3,
+      "15": 1
+    },
+    "maxHookOnSingleFixture": 15,
+    "maxHookOnSingleFixtureFixture": "13-oh-extreme-weak-continuous-tiered",
+    "concentrationStats": {
+      "min": 0,
+      "p10": 3,
+      "median": 10,
+      "mean": 9.19,
+      "p90": 13.9,
+      "max": 15,
+      "fixtures": 32,
+      "notes": "Distribution of distinct hook count per fixture-with-matrix. Fixtures without ANY emitted brief.hook contribute 0 to the vector. P21-A3 ratchet input — current planned threshold --max-hooks=20."
+    }
+  },
+  "postProcessorLeaks": {
+    "totalOccurrences": 0,
+    "uniqueLeakCells": 0,
+    "perPattern": {},
+    "sampleCells": []
+  },
+  "flowCluster": {
+    "totalCells": 0
+  },
+  "gyeolCluster": {
+    "totalCells": 7
+  },
+  "doubledGyeoli": {
+    "totalCells": 0,
+    "sampleCells": []
+  },
+  "yeongyeolCompound": {
+    "coverage": {
+      "total": 2,
+      "perFile": {
+        "age-phase-focus-density.fragments.json": 1,
+        "birth-winter-current-season-pairs.fragments.json": 1
+      },
+      "vulnTotal": 0,
+      "vulnPerFile": {},
+      "verbTotal": 21,
+      "verbPerFile": {
+        "age-phase-month-practice-density.fragments.json": 1,
+        "age-phase-transition-density.fragments.json": 1,
+        "age-phase-year-focus-density.fragments.json": 1,
+        "categorical-evidence-density-wave3.fragments.json": 1,
+        "current-season-money-relationship.fragments.json": 1,
+        "day-master-fire-yongshin-pairs.fragments.json": 1,
+        "day-master-water-yongshin-pairs.fragments.json": 1,
+        "expert-remaining-age-density.fragments.json": 1,
+        "expression-children-plain-season-context.fragments.json": 1,
+        "expression-children-season-context.fragments.json": 2,
+        "min14-health-floor.fragments.json": 1,
+        "min14-wealth-plain-floor.fragments.json": 2,
+        "movement-long-season-context.fragments.json": 2,
+        "movement-short-season-context.fragments.json": 3,
+        "ordinal-evidence-density.fragments.json": 2
+      }
+    },
+    "narrativeNonCoverage": {
+      "total": 0,
+      "perFile": {},
+      "vulnTotal": 0,
+      "vulnPerFile": {},
+      "verbTotal": 4,
+      "verbPerFile": {
+        "academic/thisYear/standard.fragments.json": 1,
+        "academic/life/standard.fragments.json": 1,
+        "expression_children/thisYear/standard.fragments.json": 1,
+        "expression_children/life/standard.fragments.json": 1
+      }
+    },
+    "metaphor": {
+      "total": 0,
+      "perFile": {},
+      "vulnTotal": 0,
+      "vulnPerFile": {},
+      "verbTotal": 0,
+      "verbPerFile": {}
+    },
+    "glossary": {
+      "total": 0,
+      "perFile": {},
+      "vulnTotal": 0,
+      "vulnPerFile": {},
+      "verbTotal": 4,
+      "verbPerFile": {
+        "palace.json": 4
+      }
+    },
+    "grandTotal": 2,
+    "grandTotalVulnerable": 0,
+    "notes": "grandTotal = conservative 8-particle scan (을/이/로/의/에/과/도/만); grandTotalVulnerable = GYEOL_SUBS-vulnerable subset (이/을/로/은/의/도/만/처럼/마다/이에요/입니다/이라/이고). Particles 과/에 are grammatical Korean and NOT in GYEOL_SUBS."
+  },
+  "yeongyeolVerb": {
+    "coverage": {
+      "verbTotal": 21,
+      "verbPerFile": {
+        "age-phase-month-practice-density.fragments.json": 1,
+        "age-phase-transition-density.fragments.json": 1,
+        "age-phase-year-focus-density.fragments.json": 1,
+        "categorical-evidence-density-wave3.fragments.json": 1,
+        "current-season-money-relationship.fragments.json": 1,
+        "day-master-fire-yongshin-pairs.fragments.json": 1,
+        "day-master-water-yongshin-pairs.fragments.json": 1,
+        "expert-remaining-age-density.fragments.json": 1,
+        "expression-children-plain-season-context.fragments.json": 1,
+        "expression-children-season-context.fragments.json": 2,
+        "min14-health-floor.fragments.json": 1,
+        "min14-wealth-plain-floor.fragments.json": 2,
+        "movement-long-season-context.fragments.json": 2,
+        "movement-short-season-context.fragments.json": 3,
+        "ordinal-evidence-density.fragments.json": 2
+      }
+    },
+    "narrativeNonCoverage": {
+      "verbTotal": 4,
+      "verbPerFile": {
+        "academic/thisYear/standard.fragments.json": 1,
+        "academic/life/standard.fragments.json": 1,
+        "expression_children/thisYear/standard.fragments.json": 1,
+        "expression_children/life/standard.fragments.json": 1
+      }
+    },
+    "metaphor": {
+      "verbTotal": 0,
+      "verbPerFile": {}
+    },
+    "glossary": {
+      "verbTotal": 4,
+      "verbPerFile": {
+        "palace.json": 4
+      }
+    },
+    "grandTotalVerb": 29,
+    "notes": "Verb-form 연결 (연결돼/연결되/연결된/연결될/연결됐/연결됨/연결해/연결한/연결할/연결했/연결함). P20-A5 measured grandTotalVerb=29 (informational); P21-A1 owns rephrase to 이어지는 / 이어진다 / 이어져 / 이어짐 / 이어줍니다 / 잇닿다. Forms NOT vulnerable to GYEOL_SUBS — vocabulary-consistency only."
+  }
+}
