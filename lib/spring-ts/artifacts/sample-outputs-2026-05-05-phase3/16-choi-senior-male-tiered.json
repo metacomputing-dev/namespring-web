@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-05-07T12:51:23.988Z",
+  "generatedAt": "2026-05-07T12:50:51.880Z",
   "targetDate": "2026-05-05T00:00:00+09:00",
   "sampleId": "choi-senior-male-tiered",
   "description": "70+ 시니어 남성 (1948 출생) — life-stage 후반 narrative 가 활성화되는 fallback 경계. 노년 audience 의 prose 적합도와 tieredMatrix 후반기 흐름을 함께 노출하는 케이스.",
@@ -1293,7 +1293,7 @@
     },
     "meta": {
       "version": "1.0.0",
-      "generatedAt": "2026-05-07T12:51:33.114Z",
+      "generatedAt": "2026-05-07T12:51:00.419Z",
       "schoolPreset": {
         "selected": "korean",
         "source": "default",
@@ -9900,10 +9900,10 @@
                     "tokens": [
                       {
                         "kind": "text",
-                        "value": "이번 달 이동운은 갑작스러운 한 번의 큰 변화가 아니라, 활동 범위를 천천히 넓혀 가는 호흡이 잘 맞는 모습이에요. 익숙한 동선을 한 축으로 두고 흐름을 한 걸음씩 키워 가면 한 달의 흐름이 단단해져요."
+                        "value": "이번 달 이동운은 갑작스러운 한 번의 큰 변화보다 활동 범위를 천천히 넓혀 가는 호흡이 잘 맞는 모습이에요. 익숙한 동선을 한 축으로 두고 흐름을 한 걸음씩 키워 가면 한 달의 흐름이 단단해져요."
                       }
                     ],
-                    "plainText": "이번 달 이동운은 갑작스러운 한 번의 큰 변화가 아니라, 활동 범위를 천천히 넓혀 가는 호흡이 잘 맞는 모습이에요. 익숙한 동선을 한 축으로 두고 흐름을 한 걸음씩 키워 가면 한 달의 흐름이 단단해져요."
+                    "plainText": "이번 달 이동운은 갑작스러운 한 번의 큰 변화보다 활동 범위를 천천히 넓혀 가는 호흡이 잘 맞는 모습이에요. 익숙한 동선을 한 축으로 두고 흐름을 한 걸음씩 키워 가면 한 달의 흐름이 단단해져요."
                   },
                   {
                     "tokens": [
@@ -12919,7 +12919,7 @@
       },
       "meta": {
         "schemaVersion": "spring-ts.tiered-matrix.v1",
-        "generatedAt": "2026-05-07T12:51:33.114Z",
+        "generatedAt": "2026-05-07T12:51:00.419Z",
         "selectionSeed": "1948|3|15|7|30|male|2026-05-04T15:00:00.000Z",
         "templateContractVersion": "1.0.0",
         "contentSource": "authored",

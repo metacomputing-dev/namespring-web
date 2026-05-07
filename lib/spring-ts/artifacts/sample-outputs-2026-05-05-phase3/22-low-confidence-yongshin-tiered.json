@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-05-07T12:51:23.988Z",
+  "generatedAt": "2026-05-07T12:50:51.880Z",
   "targetDate": "2026-05-05T00:00:00+09:00",
   "sampleId": "low-confidence-yongshin-tiered",
   "description": "용신 신뢰도 낮은 case (consensus 충돌 + 다중 후보). yongshinMode=consensus_aware + chengbai_strict 결합으로 conflict 가 격국 페널티 곡선까지 영향을 주는 elasticity 를 노출. tieredMatrix 의 명시적 신호 fixture 로 활용한다.",
@@ -1337,7 +1337,7 @@
     },
     "meta": {
       "version": "1.0.0",
-      "generatedAt": "2026-05-07T12:51:34.977Z",
+      "generatedAt": "2026-05-07T12:51:02.172Z",
       "schoolPreset": {
         "selected": "korean",
         "source": "default",
@@ -9819,10 +9819,10 @@
                     "tokens": [
                       {
                         "kind": "text",
-                        "value": "이번 달 이동운은 갑작스러운 한 번의 큰 변화가 아니라, 활동 범위를 천천히 넓혀 가는 호흡이 잘 맞는 모습이에요. 익숙한 동선을 한 축으로 두고 흐름을 한 걸음씩 키워 가면 한 달의 흐름이 단단해져요."
+                        "value": "이번 달 이동운은 갑작스러운 한 번의 큰 변화보다 활동 범위를 천천히 넓혀 가는 호흡이 잘 맞는 모습이에요. 익숙한 동선을 한 축으로 두고 흐름을 한 걸음씩 키워 가면 한 달의 흐름이 단단해져요."
                       }
                     ],
-                    "plainText": "이번 달 이동운은 갑작스러운 한 번의 큰 변화가 아니라, 활동 범위를 천천히 넓혀 가는 호흡이 잘 맞는 모습이에요. 익숙한 동선을 한 축으로 두고 흐름을 한 걸음씩 키워 가면 한 달의 흐름이 단단해져요."
+                    "plainText": "이번 달 이동운은 갑작스러운 한 번의 큰 변화보다 활동 범위를 천천히 넓혀 가는 호흡이 잘 맞는 모습이에요. 익숙한 동선을 한 축으로 두고 흐름을 한 걸음씩 키워 가면 한 달의 흐름이 단단해져요."
                   },
                   {
                     "tokens": [
@@ -12805,7 +12805,7 @@
       },
       "meta": {
         "schemaVersion": "spring-ts.tiered-matrix.v1",
-        "generatedAt": "2026-05-07T12:51:34.977Z",
+        "generatedAt": "2026-05-07T12:51:02.172Z",
         "selectionSeed": "1991|2|4|18|0|female|2026-05-04T15:00:00.000Z",
         "templateContractVersion": "1.0.0",
         "contentSource": "authored",
