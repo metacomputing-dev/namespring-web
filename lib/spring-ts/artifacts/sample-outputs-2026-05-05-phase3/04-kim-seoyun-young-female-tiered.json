@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-05-07T11:24:07.823Z",
+  "generatedAt": "2026-05-07T11:25:11.648Z",
   "targetDate": "2026-05-05T00:00:00+09:00",
   "sampleId": "kim-seoyun-young-female-tiered",
   "description": "어린 여성 입력에서 tiered 운세 매트릭스를 켠 케이스.",
@@ -1306,7 +1306,7 @@
     },
     "meta": {
       "version": "1.0.0",
-      "generatedAt": "2026-05-07T11:24:10.896Z",
+      "generatedAt": "2026-05-07T11:25:14.625Z",
       "schoolPreset": {
         "selected": "korean",
         "source": "default",
@@ -2224,6 +2224,29 @@
                       }
                     ],
                     "plainText": "#천덕귀인의 흐름과 #월덕귀인의 자리가 함께 보이는 사주는 가족 안에서 부드럽게 도움 주고받는 흐름이 자기 자산이 되는 모양이에요."
+                  },
+                  {
+                    "tokens": [
+                      {
+                        "kind": "tag",
+                        "tagId": "bumyong",
+                        "label": "부모궁"
+                      },
+                      {
+                        "kind": "text",
+                        "value": "에 따뜻한 흐름이 도는 어린 시기엔 보호자의 호흡과 "
+                      },
+                      {
+                        "kind": "tag",
+                        "tagId": "jeongin",
+                        "label": "정인"
+                      },
+                      {
+                        "kind": "text",
+                        "value": "의 돌봄이 평생의 안전한 바탕을 만드는 시기예요. 이 시기의 작은 신뢰의 흐름이 청년기·중년기로 이어지면서 자기 정체성의 뿌리가 되는 흐름이라, 지금 받은 따뜻한 자산이 평생의 가장 큰 자기 응원으로 자리 잡는 사주의 모양이에요."
+                      }
+                    ],
+                    "plainText": "#부모궁 에 따뜻한 흐름이 도는 어린 시기엔 보호자의 호흡과 #정인의 돌봄이 평생의 안전한 바탕을 만드는 시기예요. 이 시기의 작은 신뢰의 흐름이 청년기·중년기로 이어지면서 자기 정체성의 뿌리가 되는 흐름이라, 지금 받은 따뜻한 자산이 평생의 가장 큰 자기 응원으로 자리 잡는 사주의 모양이에요."
                   }
                 ]
               },
@@ -10405,7 +10428,7 @@
       },
       "meta": {
         "schemaVersion": "spring-ts.tiered-matrix.v1",
-        "generatedAt": "2026-05-07T11:24:10.896Z",
+        "generatedAt": "2026-05-07T11:25:14.625Z",
         "selectionSeed": "2013|7|21|14|20|female|2026-05-04T15:00:00.000Z",
         "templateContractVersion": "1.0.0",
         "contentSource": "authored",

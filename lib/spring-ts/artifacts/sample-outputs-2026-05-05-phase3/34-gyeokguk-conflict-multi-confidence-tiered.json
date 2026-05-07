@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-05-07T11:24:07.823Z",
+  "generatedAt": "2026-05-07T11:25:11.648Z",
   "targetDate": "2026-05-05T00:00:00+09:00",
   "sampleId": "gyeokguk-conflict-multi-confidence-tiered",
   "description": "격국 충돌 + 다중 confidence 시나리오 — gyeokgukSelectionRule=jungki_transparent + gyeokgukMode=chengbai_strict + yongshinMode=consensus_aware 결합. 월지 중기 투간 후보와 chengbai 페널티 smooth tanh 곡선이 동시에 ranking 에 작용하는 elasticity 노출 케이스.",
@@ -1309,7 +1309,7 @@
     },
     "meta": {
       "version": "1.0.0",
-      "generatedAt": "2026-05-07T11:24:21.459Z",
+      "generatedAt": "2026-05-07T11:25:25.526Z",
       "schoolPreset": {
         "selected": "korean",
         "source": "default",
@@ -1548,7 +1548,7 @@
                   }
                 ],
                 "livingTips": [
-                  "내 페이스를 평생 기준으로 두기",
+                  "월말에 한 줄 요약 메모 적기",
                   "큰 결정은 하루 자고 결정하기"
                 ],
                 "cautions": [
@@ -5706,6 +5706,29 @@
                       }
                     ],
                     "plainText": "#천의의 자리와 #천덕귀인의 흐름이 함께 보이면 회복의 흐름이 부드럽게 자리 잡는 사주이니, 자기 곁의 도움을 미루지 않는 호흡이 잘 어울려요."
+                  },
+                  {
+                    "tokens": [
+                      {
+                        "kind": "tag",
+                        "tagId": "yongshin",
+                        "label": "용신"
+                      },
+                      {
+                        "kind": "text",
+                        "value": "의 흐름을 가까이 두는 자리와 "
+                      },
+                      {
+                        "kind": "tag",
+                        "tagId": "jeongin",
+                        "label": "정인"
+                      },
+                      {
+                        "kind": "text",
+                        "value": "의 돌봄이 자기 페이스를 받쳐 주는 시기에는 책임의 흐름을 한 박자 늦추는 호흡이 가장 큰 무기가 돼요. 30-50대 자리에서 자기 한계를 의식적으로 두는 자세가 다음 시기의 컨디션 결까지 부드럽게 이어 주는 자산이라, 작은 회복이 쌓이는 호흡이 자리를 든든히 만들어 줘요."
+                      }
+                    ],
+                    "plainText": "#용신의 흐름을 가까이 두는 자리와 #정인의 돌봄이 자기 페이스를 받쳐 주는 시기에는 책임의 흐름을 한 박자 늦추는 호흡이 가장 큰 무기가 돼요. 30-50대 자리에서 자기 한계를 의식적으로 두는 자세가 다음 시기의 컨디션 결까지 부드럽게 이어 주는 자산이라, 작은 회복이 쌓이는 호흡이 자리를 든든히 만들어 줘요."
                   }
                 ]
               },
@@ -12979,7 +13002,7 @@
       },
       "meta": {
         "schemaVersion": "spring-ts.tiered-matrix.v1",
-        "generatedAt": "2026-05-07T11:24:21.459Z",
+        "generatedAt": "2026-05-07T11:25:25.526Z",
         "selectionSeed": "1976|6|22|13|15|male|2026-05-04T15:00:00.000Z",
         "templateContractVersion": "1.0.0",
         "contentSource": "authored",

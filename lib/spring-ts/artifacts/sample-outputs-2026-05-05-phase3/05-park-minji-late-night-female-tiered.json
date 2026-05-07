@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-05-07T11:24:07.823Z",
+  "generatedAt": "2026-05-07T11:25:11.648Z",
   "targetDate": "2026-05-05T00:00:00+09:00",
   "sampleId": "park-minji-late-night-female-tiered",
   "description": "성인 여성 늦은 밤 출생 입력에 야자시, 진태양시, 경도 보정과 tiered 매트릭스를 적용한 케이스.",
@@ -1313,7 +1313,7 @@
     },
     "meta": {
       "version": "1.0.0",
-      "generatedAt": "2026-05-07T11:24:11.246Z",
+      "generatedAt": "2026-05-07T11:25:15.013Z",
       "schoolPreset": {
         "selected": "korean",
         "source": "default",
@@ -1459,6 +1459,29 @@
                     }
                   ],
                   "plainText": "#격국용신의 흐름과 #격국적합도의 평균이 또렷한 사주는 자기 격에 맞는 길로 큰 흐름이 모이는 자리가 자주 등장해요."
+                },
+                {
+                  "tokens": [
+                    {
+                      "kind": "tag",
+                      "tagId": "daewoonGungsil",
+                      "label": "대운궁실"
+                    },
+                    {
+                      "kind": "text",
+                      "value": "의 큰 흐름이 "
+                    },
+                    {
+                      "kind": "tag",
+                      "tagId": "heeshin",
+                      "label": "희신"
+                    },
+                    {
+                      "kind": "text",
+                      "value": "의 자리와 함께 들어오는 시기엔 단단한 일간이 부드러운 호흡을 받아들이는 흐름이 자라고, 한 발짝 더 멀리 보는 결정을 천천히 내려 두는 자리가 평생의 든든한 자산이 돼요. 자기 페이스로 깊이 익히는 시간이 큰 그림 위에서 더 또렷한 리듬으로 모이는 흐름이에요."
+                    }
+                  ],
+                  "plainText": "#대운궁실의 큰 흐름이 #희신의 자리와 함께 들어오는 시기엔 단단한 일간이 부드러운 호흡을 받아들이는 흐름이 자라고, 한 발짝 더 멀리 보는 결정을 천천히 내려 두는 자리가 평생의 든든한 자산이 돼요. 자기 페이스로 깊이 익히는 시간이 큰 그림 위에서 더 또렷한 리듬으로 모이는 흐름이에요."
                 }
               ]
             },
@@ -1506,7 +1529,8 @@
                   "heeshin",
                   "monthPillar",
                   "gyeokgukYongshin",
-                  "gyeokgukFit"
+                  "gyeokgukFit",
+                  "daewoonGungsil"
                 ]
               }
             }
@@ -12926,7 +12950,7 @@
       },
       "meta": {
         "schemaVersion": "spring-ts.tiered-matrix.v1",
-        "generatedAt": "2026-05-07T11:24:11.246Z",
+        "generatedAt": "2026-05-07T11:25:15.013Z",
         "selectionSeed": "1992|11|3|23|20|female|2026-05-04T15:00:00.000Z",
         "templateContractVersion": "1.0.0",
         "contentSource": "authored",
