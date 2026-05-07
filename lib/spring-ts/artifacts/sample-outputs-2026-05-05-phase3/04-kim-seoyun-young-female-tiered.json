@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-05-07T06:31:17.319Z",
+  "generatedAt": "2026-05-07T07:07:19.019Z",
   "targetDate": "2026-05-05T00:00:00+09:00",
   "sampleId": "kim-seoyun-young-female-tiered",
   "description": "어린 여성 입력에서 tiered 운세 매트릭스를 켠 케이스.",
@@ -1306,7 +1306,7 @@
     },
     "meta": {
       "version": "1.0.0",
-      "generatedAt": "2026-05-07T06:31:20.140Z",
+      "generatedAt": "2026-05-07T07:07:21.906Z",
       "schoolPreset": {
         "selected": "korean",
         "source": "default",
@@ -8512,7 +8512,7 @@
             "hashLabel": "#부모궁",
             "category": "palace",
             "brief": "부모·청년기 출발의 흐름을 보는 자리예요.",
-            "detailed": "12궁 중 부모·교육·청년기 출발을 비추는 자리예요. 보통 월주(두 번째 기둥)와 연결돼요. 부모궁이 길하면 어린 시절의 교육·돌봄 자산이 든든하고, 흉하면 일찍 자립하는 흐름으로 풀어요.",
+            "detailed": "12궁 중 부모·교육·청년기 출발을 비추는 자리예요. 보통 월주(두 번째 기둥)와 짝을 이뤄요. 부모궁이 길하면 어린 시절의 교육·돌봄 자산이 든든하고, 흉하면 일찍 자립하는 흐름으로 풀어요.",
             "related": [
               "monthPillar",
               "jeongin"
@@ -8659,7 +8659,7 @@
             "hashLabel": "#조상궁",
             "category": "palace",
             "brief": "조상·뿌리·집안의 흐름을 보는 자리예요.",
-            "detailed": "사주의 12궁 자리 중 가족·조상·뿌리의 흐름을 비추는 자리예요. 보통 연주(첫 번째 기둥)와 연결돼요. 조상궁이 길하면 집안의 도움·가풍의 자산이 어린 시절부터 든든하게 작용해요.",
+            "detailed": "사주의 12궁 자리 중 가족·조상·뿌리의 흐름을 비추는 자리예요. 보통 연주(첫 번째 기둥)와 짝을 이뤄요. 조상궁이 길하면 집안의 도움·가풍의 자산이 어린 시절부터 든든하게 작용해요.",
             "related": [
               "yearPillar",
               "bumyong"
@@ -8905,7 +8905,7 @@
       },
       "meta": {
         "schemaVersion": "spring-ts.tiered-matrix.v1",
-        "generatedAt": "2026-05-07T06:31:20.140Z",
+        "generatedAt": "2026-05-07T07:07:21.906Z",
         "selectionSeed": "2013|7|21|14|20|female|2026-05-04T15:00:00.000Z",
         "templateContractVersion": "1.0.0",
         "contentSource": "authored",
