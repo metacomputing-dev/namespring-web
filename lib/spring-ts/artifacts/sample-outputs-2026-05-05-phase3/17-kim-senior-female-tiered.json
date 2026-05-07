@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-05-07T11:24:07.823Z",
+  "generatedAt": "2026-05-07T11:25:11.648Z",
   "targetDate": "2026-05-05T00:00:00+09:00",
   "sampleId": "kim-senior-female-tiered",
   "description": "70+ 시니어 여성 (1950 출생) — 노년 여성 audience 흐름. life-stage 후반 narrative 와 tieredMatrix 의 conservative tone 매칭을 점검하는 케이스.",
@@ -1317,7 +1317,7 @@
     },
     "meta": {
       "version": "1.0.0",
-      "generatedAt": "2026-05-07T11:24:16.128Z",
+      "generatedAt": "2026-05-07T11:25:20.190Z",
       "schoolPreset": {
         "selected": "korean",
         "source": "default",
@@ -1463,6 +1463,29 @@
                     }
                   ],
                   "plainText": "#격국용신의 흐름과 #격국적합도의 평균이 또렷한 사주는 자기 격에 맞는 길로 큰 흐름이 모이는 자리가 자주 등장해요."
+                },
+                {
+                  "tokens": [
+                    {
+                      "kind": "tag",
+                      "tagId": "daewoonGungsil",
+                      "label": "대운궁실"
+                    },
+                    {
+                      "kind": "text",
+                      "value": "의 큰 흐름이 "
+                    },
+                    {
+                      "kind": "tag",
+                      "tagId": "heeshin",
+                      "label": "희신"
+                    },
+                    {
+                      "kind": "text",
+                      "value": "의 자리와 함께 들어오는 시기엔 단단한 일간이 부드러운 호흡을 받아들이는 흐름이 자라고, 한 발짝 더 멀리 보는 결정을 천천히 내려 두는 자리가 평생의 든든한 자산이 돼요. 자기 페이스로 깊이 익히는 시간이 큰 그림 위에서 더 또렷한 리듬으로 모이는 흐름이에요."
+                    }
+                  ],
+                  "plainText": "#대운궁실의 큰 흐름이 #희신의 자리와 함께 들어오는 시기엔 단단한 일간이 부드러운 호흡을 받아들이는 흐름이 자라고, 한 발짝 더 멀리 보는 결정을 천천히 내려 두는 자리가 평생의 든든한 자산이 돼요. 자기 페이스로 깊이 익히는 시간이 큰 그림 위에서 더 또렷한 리듬으로 모이는 흐름이에요."
                 }
               ]
             },
@@ -1510,7 +1533,8 @@
                   "heeshin",
                   "monthPillar",
                   "gyeokgukYongshin",
-                  "gyeokgukFit"
+                  "gyeokgukFit",
+                  "daewoonGungsil"
                 ]
               }
             }
@@ -1562,7 +1586,7 @@
                   }
                 ],
                 "livingTips": [
-                  "내 페이스를 평생 기준으로 두기",
+                  "월말에 한 줄 요약 메모 적기",
                   "큰 결정은 하루 자고 결정하기"
                 ],
                 "cautions": [
@@ -10274,6 +10298,29 @@
                     }
                   ],
                   "plainText": "#납음의 흐름을 함께 살펴 두면 사주 모양의 깊은 색이 더 또렷해지고, #납음오행의 흐름이 자기 흐름을 보완하는 자리가 자주 등장해요."
+                },
+                {
+                  "tokens": [
+                    {
+                      "kind": "tag",
+                      "tagId": "heeshin",
+                      "label": "희신"
+                    },
+                    {
+                      "kind": "text",
+                      "value": "의 자리가 들어오는 시기를 한 분기씩 짚어 두면, 단단한 일간이 부드러운 호흡을 받아들이는 흐름이 또렷해져요. "
+                    },
+                    {
+                      "kind": "tag",
+                      "tagId": "johu",
+                      "label": "조후"
+                    },
+                    {
+                      "kind": "text",
+                      "value": "의 균형이 한 해의 흐름을 받쳐 주는 자리에서 무리한 결정보다 천천히 익는 시간을 자기 편으로 두는 자세가 한 해의 큰 그림을 부드럽게 다져 주는 자산이 돼요."
+                    }
+                  ],
+                  "plainText": "#희신의 자리가 들어오는 시기를 한 분기씩 짚어 두면, 단단한 일간이 부드러운 호흡을 받아들이는 흐름이 또렷해져요. #조후의 균형이 한 해의 흐름을 받쳐 주는 자리에서 무리한 결정보다 천천히 익는 시간을 자기 편으로 두는 자세가 한 해의 큰 그림을 부드럽게 다져 주는 자산이 돼요."
                 }
               ]
             },
@@ -13035,7 +13082,7 @@
       },
       "meta": {
         "schemaVersion": "spring-ts.tiered-matrix.v1",
-        "generatedAt": "2026-05-07T11:24:16.128Z",
+        "generatedAt": "2026-05-07T11:25:20.190Z",
         "selectionSeed": "1950|8|20|14|0|female|2026-05-04T15:00:00.000Z",
         "templateContractVersion": "1.0.0",
         "contentSource": "authored",

@@ -766,14 +766,33 @@
         },
         {
           "kind": "text",
-          "value": "의 흐름이 강해지는 시기엔 한 발짝 더 내디뎌 봐도 좋아요."
+          "value": "의 흐름이 강해지는 시기엔 한 발짝 더 내디뎌 봐도 좋아요.\n\n"
+        },
+        {
+          "kind": "tag",
+          "tagId": "cheondeokgwiin",
+          "label": "천덕귀인"
+        },
+        {
+          "kind": "text",
+          "value": "의 결이 "
+        },
+        {
+          "kind": "tag",
+          "tagId": "yeokma",
+          "label": "역마"
+        },
+        {
+          "kind": "text",
+          "value": "의 자리와 함께 보이는 사주는 새로운 환경의 결을 부드럽게 풀어 주는 자리가 평생을 통해 자주 등장해요. 거리감 있는 이동도 곁의 작은 도움 한 번 한 번이 자리를 받쳐 주는 흐름이라, 한 번에 멀리 가기보다 작은 발걸음이 쌓이는 호흡이 자기 결에 잘 맞아요."
         }
       ],
       "tags": [
         "yeokma",
         "jojangung",
         "yongshin",
-        "daewoonGungsil"
+        "daewoonGungsil",
+        "cheondeokgwiin"
       ],
       "aiGenerated": true,
       "sourceTier": {
