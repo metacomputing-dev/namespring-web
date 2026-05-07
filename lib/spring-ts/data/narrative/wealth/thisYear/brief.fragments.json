@@ -622,6 +622,54 @@
         "copyrightNote": "No source prose copied; original.",
         "authorityTruthEligible": false
       }
+    },
+    {
+      "schemaVersion": "spring-ts.narrative-fragment.v1",
+      "fragmentId": "wealth.thisYear.brief.child.0_9.013",
+      "axis": {
+        "category": "wealth",
+        "period": "thisYear",
+        "depth": "brief"
+      },
+      "gating": {
+        "ageBand": [
+          "0-9"
+        ]
+      },
+      "templateTokens": [
+        {
+          "kind": "text",
+          "value": "올해는 "
+        },
+        {
+          "kind": "slot",
+          "name": "phrase",
+          "type": "phrase"
+        },
+        {
+          "kind": "text",
+          "value": "."
+        }
+      ],
+      "slots": {
+        "phrase": [
+          "용돈을 차곡차곡 쌓아 가는 해예요",
+          "아끼는 즐거움이 자라는 한 해예요",
+          "저금통 모으기를 시작하는 해예요"
+        ]
+      },
+      "tags": [],
+      "aiGenerated": true,
+      "sourceTier": {
+        "tier": "T1_HYPOTHESIS",
+        "sourceType": "training_derived",
+        "sourceUrl": null,
+        "accessedAt": "2026-05-07",
+        "quoteShort": null,
+        "humanInterpretation": "P22-A1 child-band brief to prevent PLACEHOLDER_BRIEF regression after MINOR_LIMITED_CATEGORIES lift.",
+        "copyrightNote": "No source prose copied; original.",
+        "authorityTruthEligible": false
+      }
     }
   ]
 }

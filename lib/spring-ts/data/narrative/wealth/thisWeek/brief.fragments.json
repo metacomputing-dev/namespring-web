@@ -567,6 +567,54 @@
         "copyrightNote": "No source prose copied; original.",
         "authorityTruthEligible": false
       }
+    },
+    {
+      "schemaVersion": "spring-ts.narrative-fragment.v1",
+      "fragmentId": "wealth.thisWeek.brief.child.0_9.012",
+      "axis": {
+        "category": "wealth",
+        "period": "thisWeek",
+        "depth": "brief"
+      },
+      "gating": {
+        "ageBand": [
+          "0-9"
+        ]
+      },
+      "templateTokens": [
+        {
+          "kind": "text",
+          "value": "이번 주는 "
+        },
+        {
+          "kind": "slot",
+          "name": "phrase",
+          "type": "phrase"
+        },
+        {
+          "kind": "text",
+          "value": "."
+        }
+      ],
+      "slots": {
+        "phrase": [
+          "저금통을 살피기 좋은 한 주예요",
+          "용돈 메모를 적어 보는 한 주예요",
+          "갖고 싶은 것을 한 번 미뤄 보아요"
+        ]
+      },
+      "tags": [],
+      "aiGenerated": true,
+      "sourceTier": {
+        "tier": "T1_HYPOTHESIS",
+        "sourceType": "training_derived",
+        "sourceUrl": null,
+        "accessedAt": "2026-05-07",
+        "quoteShort": null,
+        "humanInterpretation": "P22-A1 child-band brief to prevent PLACEHOLDER_BRIEF regression after MINOR_LIMITED_CATEGORIES lift.",
+        "copyrightNote": "No source prose copied; original.",
+        "authorityTruthEligible": false
+      }
     }
   ]
 }

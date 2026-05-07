@@ -618,6 +618,54 @@
         "copyrightNote": "No source prose copied; original.",
         "authorityTruthEligible": false
       }
+    },
+    {
+      "schemaVersion": "spring-ts.narrative-fragment.v1",
+      "fragmentId": "wealth.life.brief.child.0_9.013",
+      "axis": {
+        "category": "wealth",
+        "period": "life",
+        "depth": "brief"
+      },
+      "gating": {
+        "ageBand": [
+          "0-9"
+        ]
+      },
+      "templateTokens": [
+        {
+          "kind": "text",
+          "value": "평생의 재물 흐름은 "
+        },
+        {
+          "kind": "slot",
+          "name": "phrase",
+          "type": "phrase"
+        },
+        {
+          "kind": "text",
+          "value": "."
+        }
+      ],
+      "slots": {
+        "phrase": [
+          "용돈을 모으는 즐거움이 자라요",
+          "아끼는 마음이 자라는 시기예요",
+          "저금통 모으기가 즐거워요"
+        ]
+      },
+      "tags": [],
+      "aiGenerated": true,
+      "sourceTier": {
+        "tier": "T1_HYPOTHESIS",
+        "sourceType": "training_derived",
+        "sourceUrl": null,
+        "accessedAt": "2026-05-07",
+        "quoteShort": null,
+        "humanInterpretation": "P22-A1 child-band brief to prevent PLACEHOLDER_BRIEF regression after MINOR_LIMITED_CATEGORIES lift.",
+        "copyrightNote": "No source prose copied; original.",
+        "authorityTruthEligible": false
+      }
     }
   ]
 }
