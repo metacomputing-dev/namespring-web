@@ -495,6 +495,39 @@
         "copyrightNote": "No source prose copied; original phrasing.",
         "authorityTruthEligible": false
       }
+    },
+    {
+      "schemaVersion": "spring-ts.narrative-fragment.v1",
+      "fragmentId": "overall.thisMonth.brief.male.child.summer.013",
+      "axis": {
+        "category": "overall",
+        "period": "thisMonth",
+        "depth": "brief"
+      },
+      "gating": {
+        "gender": ["male"],
+        "ageBand": ["0-9"],
+        "birthSeason": ["summer"]
+      },
+      "templateTokens": [
+        {
+          "kind": "text",
+          "value": "이번 달은 바깥놀이로 기운이 자라는 시기예요."
+        }
+      ],
+      "hook": "이번 달은 마음껏 뛰며 자라요.",
+      "tags": [],
+      "aiGenerated": true,
+      "sourceTier": {
+        "tier": "T1_HYPOTHESIS",
+        "sourceType": "training_derived",
+        "sourceUrl": null,
+        "accessedAt": "2026-05-07",
+        "quoteShort": null,
+        "humanInterpretation": "P32-A4 distinct-hook expansion: overall/thisMonth brief for male × 0-9 × summer-born. Display-only narrative.",
+        "copyrightNote": "No source prose copied; original authored prose.",
+        "authorityTruthEligible": false
+      }
     }
   ]
 }

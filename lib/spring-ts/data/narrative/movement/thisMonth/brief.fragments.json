@@ -3,7 +3,7 @@
   "bundleId": "movement-thisMonth-brief",
   "contractVersion": "1.0.0",
   "generatedBy": "phase2-agent-10-movement",
-  "fragmentCount": 10,
+  "fragmentCount": 11,
   "fragments": [
     {
       "schemaVersion": "spring-ts.narrative-fragment.v1",
@@ -323,6 +323,39 @@
         "accessedAt": "2026-05-02",
         "quoteShort": null,
         "humanInterpretation": "Phase 2 movement-category fragment authored by agent-10 under data/narrative/_contract/v1.json. Display-only narrative for the tiered-matrix movement axis.",
+        "copyrightNote": "No source prose copied; original authored prose.",
+        "authorityTruthEligible": false
+      }
+    },
+    {
+      "schemaVersion": "spring-ts.narrative-fragment.v1",
+      "fragmentId": "movement.thisMonth.brief.male.elder.spring.011",
+      "axis": {
+        "category": "movement",
+        "period": "thisMonth",
+        "depth": "brief"
+      },
+      "gating": {
+        "gender": ["male"],
+        "ageBand": ["70+"],
+        "birthSeason": ["spring"]
+      },
+      "templateTokens": [
+        {
+          "kind": "text",
+          "value": "이번 달은 동네 한 바퀴 산책으로 기운이 살아나요."
+        }
+      ],
+      "hook": "동네 한 바퀴 천천히 걸어 봐요.",
+      "tags": [],
+      "aiGenerated": true,
+      "sourceTier": {
+        "tier": "T1_HYPOTHESIS",
+        "sourceType": "training_derived",
+        "sourceUrl": null,
+        "accessedAt": "2026-05-07",
+        "quoteShort": null,
+        "humanInterpretation": "P32-A4 distinct-hook expansion: movement/thisMonth brief for male × 70+ × spring-born. Display-only narrative.",
         "copyrightNote": "No source prose copied; original authored prose.",
         "authorityTruthEligible": false
       }

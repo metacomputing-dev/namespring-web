@@ -3,7 +3,7 @@
   "bundleId": "health_stress.thisWeek.brief",
   "contractVersion": "1.0.0",
   "generatedBy": "phase2/agent-9-health_stress",
-  "fragmentCount": 10,
+  "fragmentCount": 11,
   "fragments": [
     {
       "schemaVersion": "spring-ts.narrative-fragment.v1",
@@ -394,6 +394,39 @@
         "quoteShort": null,
         "humanInterpretation": "Phase 2 brief, FIRE strong, thisWeek.",
         "copyrightNote": "No source prose copied; original interpretation.",
+        "authorityTruthEligible": false
+      }
+    },
+    {
+      "schemaVersion": "spring-ts.narrative-fragment.v1",
+      "fragmentId": "health_stress.thisWeek.brief.male.midlife.summer.011",
+      "axis": {
+        "category": "health_stress",
+        "period": "thisWeek",
+        "depth": "brief"
+      },
+      "gating": {
+        "gender": ["male"],
+        "ageBand": ["40-54"],
+        "birthSeason": ["summer"]
+      },
+      "templateTokens": [
+        {
+          "kind": "text",
+          "value": "이번 주는 어깨 힘을 슬며시 풀어 두기 좋아요."
+        }
+      ],
+      "hook": "어깨를 잠깐 풀고 숨 한 번 쉬어요.",
+      "tags": [],
+      "aiGenerated": true,
+      "sourceTier": {
+        "tier": "T1_HYPOTHESIS",
+        "sourceType": "training_derived",
+        "sourceUrl": null,
+        "accessedAt": "2026-05-07",
+        "quoteShort": null,
+        "humanInterpretation": "P32-A4 distinct-hook expansion: health_stress/thisWeek brief for male × 40-54 × summer-born. Display-only narrative.",
+        "copyrightNote": "No source prose copied; original authored prose.",
         "authorityTruthEligible": false
       }
     }

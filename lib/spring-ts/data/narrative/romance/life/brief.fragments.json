@@ -149,6 +149,32 @@
         "copyrightNote": "No source prose copied; original phrasing.",
         "authorityTruthEligible": false
       }
+    },
+    {
+      "schemaVersion": "spring-ts.narrative-fragment.v1",
+      "fragmentId": "romance.life.brief.male.child.winter.008",
+      "axis": { "category": "romance", "period": "life", "depth": "brief" },
+      "gating": {
+        "gender": ["male"],
+        "ageBand": ["0-9"],
+        "birthSeason": ["winter"]
+      },
+      "templateTokens": [
+        { "kind": "text", "value": "어릴 적 가족과 따뜻한 추억이 마음의 바탕이 돼요." }
+      ],
+      "hook": "가족과 따뜻한 시간을 쌓아 가요.",
+      "tags": [],
+      "aiGenerated": true,
+      "sourceTier": {
+        "tier": "T1_HYPOTHESIS",
+        "sourceType": "training_derived",
+        "sourceUrl": null,
+        "accessedAt": "2026-05-07",
+        "quoteShort": null,
+        "humanInterpretation": "P32-A4 distinct-hook expansion: romance/life brief for male × 0-9 × winter-born. Family-bond framing for under-10; no romance language. Display-only narrative.",
+        "copyrightNote": "No source prose copied; original authored prose.",
+        "authorityTruthEligible": false
+      }
     }
   ]
 }
