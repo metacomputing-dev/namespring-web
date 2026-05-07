@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-05-07T10:39:00.989Z",
+  "generatedAt": "2026-05-07T10:44:46.504Z",
   "targetDate": "2026-05-05T00:00:00+09:00",
   "sampleId": "lee-hajun-unknown-hour-neutral-tiered",
   "description": "출생 시각 미상, 중립 성별 입력에서 불확실성 안내와 tiered 매트릭스를 확인하는 케이스.",
@@ -1302,7 +1302,7 @@
     },
     "meta": {
       "version": "1.0.0",
-      "generatedAt": "2026-05-07T10:39:05.333Z",
+      "generatedAt": "2026-05-07T10:44:50.488Z",
       "schoolPreset": {
         "selected": "korean",
         "source": "default",
@@ -4343,10 +4343,10 @@
                     "tokens": [
                       {
                         "kind": "text",
-                        "value": "큰 프로젝트 전체를 한 번에 끝내려 하기보다, 발표 한 장이나 짧은 글 한 편처럼 한 단계만 또렷하게 마무리해 두는 흐름이에요. 다음 단계로 넘어갈 한 줄을 분명히 두는 식이 오늘 잘 어울려요."
+                        "value": "오늘은 짧은 글이나 발표 한 장을 마무리해 두기 좋은 흐름이에요. 큰 프로젝트 전체를 한 번에 끝내려 하기보다, 다음 단계로 넘어갈 한 줄을 또렷하게 마무리해 두는 식이 잘 어울려요."
                       }
                     ],
-                    "plainText": "큰 프로젝트 전체를 한 번에 끝내려 하기보다, 발표 한 장이나 짧은 글 한 편처럼 한 단계만 또렷하게 마무리해 두는 흐름이에요. 다음 단계로 넘어갈 한 줄을 분명히 두는 식이 오늘 잘 어울려요."
+                    "plainText": "오늘은 짧은 글이나 발표 한 장을 마무리해 두기 좋은 흐름이에요. 큰 프로젝트 전체를 한 번에 끝내려 하기보다, 다음 단계로 넘어갈 한 줄을 또렷하게 마무리해 두는 식이 잘 어울려요."
                   },
                   {
                     "tokens": [
@@ -12940,12 +12940,12 @@
       },
       "meta": {
         "schemaVersion": "spring-ts.tiered-matrix.v1",
-        "generatedAt": "2026-05-07T10:39:05.333Z",
+        "generatedAt": "2026-05-07T10:44:50.488Z",
         "selectionSeed": "2001|1|15|0|0|neutral|2026-05-04T15:00:00.000Z",
         "templateContractVersion": "1.0.0",
         "contentSource": "authored",
-        "fragmentCount": 4133,
-        "aiGeneratedFragmentCount": 4133
+        "fragmentCount": 4145,
+        "aiGeneratedFragmentCount": 4145
       }
     }
   }

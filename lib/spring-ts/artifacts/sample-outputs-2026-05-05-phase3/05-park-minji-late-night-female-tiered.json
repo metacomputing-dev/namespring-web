@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-05-07T10:39:00.989Z",
+  "generatedAt": "2026-05-07T10:44:46.504Z",
   "targetDate": "2026-05-05T00:00:00+09:00",
   "sampleId": "park-minji-late-night-female-tiered",
   "description": "성인 여성 늦은 밤 출생 입력에 야자시, 진태양시, 경도 보정과 tiered 매트릭스를 적용한 케이스.",
@@ -1313,7 +1313,7 @@
     },
     "meta": {
       "version": "1.0.0",
-      "generatedAt": "2026-05-07T10:39:04.963Z",
+      "generatedAt": "2026-05-07T10:44:50.090Z",
       "schoolPreset": {
         "selected": "korean",
         "source": "default",
@@ -6813,7 +6813,8 @@
               "meaningfulness": "meaningful",
               "stars": 4,
               "brief": {
-                "headline": "이번 주는 인연을 서두르기보다 자연스럽게 이어가는 흐름이 좋아요."
+                "headline": "이번 주는 미루던 약속 한 자리를 시간까지 정해요.",
+                "hook": "가까운 약속을 또렷하게 잡아요."
               },
               "standard": {
                 "paragraphs": [
@@ -6918,17 +6919,16 @@
               },
               "selectedFragments": {
                 "brief": {
-                  "fragmentId": "romance.thisWeek.brief.neutral.002",
+                  "fragmentId": "romance.thisWeek.brief.female.thirties.winter.013",
                   "gating": {
-                    "yongshinAlignment": [
-                      "neutral"
+                    "gender": [
+                      "female"
                     ],
                     "ageBand": [
-                      "20-29",
-                      "30-39",
-                      "40-54",
-                      "55-69",
-                      "70+"
+                      "30-39"
+                    ],
+                    "birthSeason": [
+                      "winter"
                     ]
                   },
                   "tags": []
@@ -11758,7 +11758,8 @@
               "meaningfulness": "meaningful",
               "stars": 4,
               "brief": {
-                "headline": "올해는 마음을 자주 비우는 시간이 필요해요."
+                "headline": "올해는 한 달에 한 번 짧게 혼자 시간을 가져 봐요.",
+                "hook": "한 달에 한 번 마음을 비워요."
               },
               "standard": {
                 "paragraphs": [
@@ -11905,14 +11906,16 @@
               },
               "selectedFragments": {
                 "brief": {
-                  "fragmentId": "health_stress.thisYear.brief.female_20_29.001",
+                  "fragmentId": "health_stress.thisYear.brief.female.thirties.winter.013",
                   "gating": {
                     "gender": [
                       "female"
                     ],
                     "ageBand": [
-                      "20-29",
                       "30-39"
+                    ],
+                    "birthSeason": [
+                      "winter"
                     ]
                   },
                   "tags": []
@@ -12914,12 +12917,12 @@
       },
       "meta": {
         "schemaVersion": "spring-ts.tiered-matrix.v1",
-        "generatedAt": "2026-05-07T10:39:04.963Z",
+        "generatedAt": "2026-05-07T10:44:50.090Z",
         "selectionSeed": "1992|11|3|23|20|female|2026-05-04T15:00:00.000Z",
         "templateContractVersion": "1.0.0",
         "contentSource": "authored",
-        "fragmentCount": 4133,
-        "aiGeneratedFragmentCount": 4133
+        "fragmentCount": 4145,
+        "aiGeneratedFragmentCount": 4145
       }
     }
   }

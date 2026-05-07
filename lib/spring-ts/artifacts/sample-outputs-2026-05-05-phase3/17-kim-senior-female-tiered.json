@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-05-07T10:39:00.989Z",
+  "generatedAt": "2026-05-07T10:44:46.504Z",
   "targetDate": "2026-05-05T00:00:00+09:00",
   "sampleId": "kim-senior-female-tiered",
   "description": "70+ 시니어 여성 (1950 출생) — 노년 여성 audience 흐름. life-stage 후반 narrative 와 tieredMatrix 의 conservative tone 매칭을 점검하는 케이스.",
@@ -1317,7 +1317,7 @@
     },
     "meta": {
       "version": "1.0.0",
-      "generatedAt": "2026-05-07T10:39:10.127Z",
+      "generatedAt": "2026-05-07T10:44:54.992Z",
       "schoolPreset": {
         "selected": "korean",
         "source": "default",
@@ -1958,7 +1958,8 @@
               "meaningfulness": "meaningful",
               "stars": 1,
               "brief": {
-                "headline": "배움을 즐기는 흐름이 평생 함께해요."
+                "headline": "오랜 흐름은 매일 한 줄의 메모로 자라요.",
+                "hook": "매일 한 줄을 적어 둬요."
               },
               "standard": {
                 "paragraphs": [
@@ -2145,10 +2146,16 @@
               },
               "selectedFragments": {
                 "brief": {
-                  "fragmentId": "academic.life.brief.70plus.008",
+                  "fragmentId": "academic.life.brief.female.70plus.autumn.011",
                   "gating": {
+                    "gender": [
+                      "female"
+                    ],
                     "ageBand": [
                       "70+"
+                    ],
+                    "birthSeason": [
+                      "autumn"
                     ]
                   },
                   "tags": []
@@ -5572,7 +5579,8 @@
               "meaningfulness": "meaningful",
               "stars": 5,
               "brief": {
-                "headline": "오늘은 시원한 자리에서 쉼이 잘 와요."
+                "headline": "오늘은 햇살 좋은 자리에서 잠깐 숨을 내쉬어요.",
+                "hook": "오후 햇살 한 자리를 쉬어요."
               },
               "standard": {
                 "paragraphs": [
@@ -5728,14 +5736,16 @@
               },
               "selectedFragments": {
                 "brief": {
-                  "fragmentId": "health_stress.today.brief.fire_strong.001",
+                  "fragmentId": "health_stress.today.brief.female.70plus.autumn.012",
                   "gating": {
-                    "dayMasterElement": [
-                      "FIRE"
+                    "gender": [
+                      "female"
                     ],
-                    "dayMasterStrength": [
-                      "STRONG",
-                      "EXTREME_STRONG"
+                    "ageBand": [
+                      "70+"
+                    ],
+                    "birthSeason": [
+                      "autumn"
                     ]
                   },
                   "tags": []
@@ -13025,12 +13035,12 @@
       },
       "meta": {
         "schemaVersion": "spring-ts.tiered-matrix.v1",
-        "generatedAt": "2026-05-07T10:39:10.127Z",
+        "generatedAt": "2026-05-07T10:44:54.992Z",
         "selectionSeed": "1950|8|20|14|0|female|2026-05-04T15:00:00.000Z",
         "templateContractVersion": "1.0.0",
         "contentSource": "authored",
-        "fragmentCount": 4133,
-        "aiGeneratedFragmentCount": 4133
+        "fragmentCount": 4145,
+        "aiGeneratedFragmentCount": 4145
       }
     }
   }

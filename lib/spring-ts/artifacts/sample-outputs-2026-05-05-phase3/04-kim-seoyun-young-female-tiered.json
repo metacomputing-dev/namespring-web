@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-05-07T10:39:00.989Z",
+  "generatedAt": "2026-05-07T10:44:46.504Z",
   "targetDate": "2026-05-05T00:00:00+09:00",
   "sampleId": "kim-seoyun-young-female-tiered",
   "description": "어린 여성 입력에서 tiered 운세 매트릭스를 켠 케이스.",
@@ -1306,7 +1306,7 @@
     },
     "meta": {
       "version": "1.0.0",
-      "generatedAt": "2026-05-07T10:39:04.614Z",
+      "generatedAt": "2026-05-07T10:44:49.721Z",
       "schoolPreset": {
         "selected": "korean",
         "source": "default",
@@ -3486,10 +3486,10 @@
                     "tokens": [
                       {
                         "kind": "text",
-                        "value": "그냥 읽고 지나치기보다, 짧은 노트에 한 줄씩 자기 언어로 풀어 두는 방식이 오늘 공부의 깊이를 만들어 주는 흐름이에요. 한 단원을 자기 말로 정리해 두면 다음 단계가 한결 가벼워져요."
+                        "value": "오늘은 한 단원을 자기 말로 풀어 보기 좋은 하루예요. 그냥 읽고 지나치는 것보다, 짧은 노트에 한 줄씩 정리해 두는 방식이 깊이를 만들어요."
                       }
                     ],
-                    "plainText": "그냥 읽고 지나치기보다, 짧은 노트에 한 줄씩 자기 언어로 풀어 두는 방식이 오늘 공부의 깊이를 만들어 주는 흐름이에요. 한 단원을 자기 말로 정리해 두면 다음 단계가 한결 가벼워져요."
+                    "plainText": "오늘은 한 단원을 자기 말로 풀어 보기 좋은 하루예요. 그냥 읽고 지나치는 것보다, 짧은 노트에 한 줄씩 정리해 두는 방식이 깊이를 만들어요."
                   },
                   {
                     "tokens": [
@@ -4925,7 +4925,8 @@
               "meaningfulness": "meaningful",
               "stars": 2,
               "brief": {
-                "headline": "이번 주 재물운은 지출 한도를 먼저 정하면 흔들림이 줄어요."
+                "headline": "이번 주는 모은 돈을 작은 항목으로 나눠 봐요.",
+                "hook": "용돈을 작은 칸에 나눠 모아요."
               },
               "standard": {
                 "paragraphs": [
@@ -5034,13 +5035,13 @@
               },
               "selectedFragments": {
                 "brief": {
-                  "fragmentId": "wealth.thisWeek.brief.limit.502",
+                  "fragmentId": "wealth.thisWeek.brief.female.teen.013",
                   "gating": {
+                    "gender": [
+                      "female"
+                    ],
                     "ageBand": [
-                      "10-19",
-                      "20-29",
-                      "30-39",
-                      "40-54"
+                      "10-19"
                     ]
                   },
                   "tags": []
@@ -10377,12 +10378,12 @@
       },
       "meta": {
         "schemaVersion": "spring-ts.tiered-matrix.v1",
-        "generatedAt": "2026-05-07T10:39:04.614Z",
+        "generatedAt": "2026-05-07T10:44:49.721Z",
         "selectionSeed": "2013|7|21|14|20|female|2026-05-04T15:00:00.000Z",
         "templateContractVersion": "1.0.0",
         "contentSource": "authored",
-        "fragmentCount": 4133,
-        "aiGeneratedFragmentCount": 4133
+        "fragmentCount": 4145,
+        "aiGeneratedFragmentCount": 4145
       }
     }
   }
