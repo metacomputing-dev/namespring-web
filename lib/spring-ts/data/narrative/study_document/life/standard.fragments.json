@@ -174,6 +174,52 @@
       "cautions": ["익숙함에만 머무르지 않아요"],
       "aiGenerated": true,
       "sourceTier": { "tier": "T1_HYPOTHESIS", "sourceType": "training_derived", "sourceUrl": null, "accessedAt": "2026-05-02", "quoteShort": null, "humanInterpretation": "AI-derived standard fragment for study_document.life balanced. Display-only.", "copyrightNote": "No source prose copied; original.", "authorityTruthEligible": false }
+    },
+    {
+      "schemaVersion": "spring-ts.narrative-fragment.v1",
+      "fragmentId": "study_document.life.standard.minor.001",
+      "axis": {
+        "category": "study_document",
+        "period": "life",
+        "depth": "standard"
+      },
+      "gating": {
+        "agePhase": [
+          "child_0_9",
+          "early_teen",
+          "late_teen"
+        ],
+        "ageBand": [
+          "0-9",
+          "10-19"
+        ]
+      },
+      "templateTokens": [
+        {
+          "kind": "text",
+          "value": "어린 시기와 학창 시절의 공부·서류 흐름은 시험 한 번의 점수를 두고 다투는 자리가 아니라, 좋아하는 것을 한 가지씩 알아 가는 시간이에요. 책 한 권을 천천히 펼쳐 자기에게 맞는 속도를 익히는 결이 평생 갈 학습 자산의 시작이 돼요.\n\n비유하자면 작은 노트 한 권을 처음 펼치는 그림이에요. 첫 줄은 또박또박, 두 줄째는 어제보다 한 글자 더, 이렇게 차곡차곡 채워 가면 한 학기·한 학년 뒤에는 자기만의 책이 한 권 자라 있어요.\n\n잘 풀리는 면은, 모르는 것을 솔직하게 적어 두는 자리예요. 헷갈린 문장, 못 푼 문제, 어려운 단어를 작은 노트에 한 줄씩 모아 두면 그 자체가 다음 주의 학습 지도가 돼요. 그림이나 색연필로 정리해도 충분해요.\n\n살짝 살피면 좋은 점은, 옆 친구의 결과만 보고 자기 페이스를 잃는 면이에요. 비교는 짧게, 자기 기록 갱신은 꾸준히로 충분해요. 친구와는 함께 풀어 보는 시간을 만드는 쪽이 더 많은 것을 남겨 줘요.\n\n학교에서 받은 작은 칭찬 한마디, 친구와 함께 풀어 본 한 문제, 모르는 단어를 노트에 적어 둔 한 줄이 큰 자산이 되는 시기예요. 어른의 큰 자격 어휘를 미리 끌어오지 않아도 충분해요."
+        }
+      ],
+      "tags": [],
+      "livingTips": [
+        "모르는 것은 작은 노트에 한 줄씩 적어 둬요",
+        "친구와 함께 풀어 보는 시간을 자주 만들어요",
+        "그림이나 색연필로 정리해도 충분해요"
+      ],
+      "cautions": [
+        "친구와 점수만 비교하지 않아요"
+      ],
+      "aiGenerated": true,
+      "sourceTier": {
+        "tier": "T1_HYPOTHESIS",
+        "sourceType": "training_derived",
+        "sourceUrl": null,
+        "accessedAt": "2026-05-07",
+        "quoteShort": null,
+        "humanInterpretation": "Phase 23 A3 minor-band study_document fragment (life/standard, agePhase child_0_9/early_teen/late_teen). School/book/notebook framing for ages 0-9 and 10-19. Authored to close P22-A6 R1 sub-3 residue for fixtures 04 (10-19 female), 18, 27 (0-9 male).",
+        "copyrightNote": "No source prose copied; original phrasing.",
+        "authorityTruthEligible": false
+      }
     }
   ]
 }
