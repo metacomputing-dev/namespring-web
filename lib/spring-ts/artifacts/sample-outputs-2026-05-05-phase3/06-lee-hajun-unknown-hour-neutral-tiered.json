@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-05-07T13:32:53.042Z",
+  "generatedAt": "2026-05-07T13:46:12.184Z",
   "targetDate": "2026-05-05T00:00:00+09:00",
   "sampleId": "lee-hajun-unknown-hour-neutral-tiered",
   "description": "출생 시각 미상, 중립 성별 입력에서 불확실성 안내와 tiered 매트릭스를 확인하는 케이스.",
@@ -1302,7 +1302,7 @@
     },
     "meta": {
       "version": "1.0.0",
-      "generatedAt": "2026-05-07T13:32:57.283Z",
+      "generatedAt": "2026-05-07T13:46:17.207Z",
       "schoolPreset": {
         "selected": "korean",
         "source": "default",
@@ -4807,6 +4807,15 @@
                       }
                     ],
                     "plainText": "자기 살림의 작은 흐름을 정리하면서, 부모님 안부도 같이 챙기는 흐름이 잘 맞아요. 친구·연인과의 자리가 큰 비중을 차지하는 시기이지만, 가까운 가족의 리듬도 한 자리는 비워 두면 평생의 자산이 돼요."
+                  },
+                  {
+                    "tokens": [
+                      {
+                        "kind": "text",
+                        "value": "오늘 짧은 안부 한 통을 보낸 뒤 이번 주에 한 사람을 골라 가족 자리를 한 번 잡아 두고, 받은 도움에는 짧은 한 줄로 답을 적어 두세요. 작은 손길이 자기 살림에 단단한 디딤돌이 돼요."
+                      }
+                    ],
+                    "plainText": "오늘 짧은 안부 한 통을 보낸 뒤 이번 주에 한 사람을 골라 가족 자리를 한 번 잡아 두고, 받은 도움에는 짧은 한 줄로 답을 적어 두세요. 작은 손길이 자기 살림에 단단한 디딤돌이 돼요."
                   },
                   {
                     "tokens": [
@@ -12982,7 +12991,7 @@
       },
       "meta": {
         "schemaVersion": "spring-ts.tiered-matrix.v1",
-        "generatedAt": "2026-05-07T13:32:57.283Z",
+        "generatedAt": "2026-05-07T13:46:17.207Z",
         "selectionSeed": "2001|1|15|0|0|neutral|2026-05-04T15:00:00.000Z",
         "templateContractVersion": "1.0.0",
         "contentSource": "authored",
