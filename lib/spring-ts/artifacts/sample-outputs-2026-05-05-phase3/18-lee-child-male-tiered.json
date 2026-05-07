@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-05-07T09:31:02.592Z",
+  "generatedAt": "2026-05-07T09:32:49.208Z",
   "targetDate": "2026-05-05T00:00:00+09:00",
   "sampleId": "lee-child-male-tiered",
   "description": "0-9 세 어린 남아 (2020 출생) — child fallback narrative 활성화 케이스. 어린 audience 안전 보장 (성인 metaphor 회피) 과 tieredMatrix 의 가벼운 톤을 점검하는 fixture.",
@@ -1294,7 +1294,7 @@
     },
     "meta": {
       "version": "1.0.0",
-      "generatedAt": "2026-05-07T09:31:12.314Z",
+      "generatedAt": "2026-05-07T09:32:58.821Z",
       "schoolPreset": {
         "selected": "korean",
         "source": "default",
@@ -10416,7 +10416,7 @@
       },
       "meta": {
         "schemaVersion": "spring-ts.tiered-matrix.v1",
-        "generatedAt": "2026-05-07T09:31:12.314Z",
+        "generatedAt": "2026-05-07T09:32:58.821Z",
         "selectionSeed": "2020|6|10|10|15|male|2026-05-04T15:00:00.000Z",
         "templateContractVersion": "1.0.0",
         "contentSource": "authored",
