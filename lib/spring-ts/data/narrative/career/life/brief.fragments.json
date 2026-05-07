@@ -6,13 +6,21 @@
   "fragments": [
     {
       "schemaVersion": "spring-ts.narrative-fragment.v1",
-      "fragmentId": "career.life.brief.wildcard.001",
+      "fragmentId": "career.life.brief.strong.neutral.001",
       "axis": {
         "category": "career",
         "period": "life",
         "depth": "brief"
       },
-      "gating": {},
+      "gating": {
+        "dayMasterStrength": [
+          "STRONG",
+          "EXTREME_STRONG"
+        ],
+        "yongshinAlignment": [
+          "neutral"
+        ]
+      },
       "templateTokens": [
         {
           "kind": "text",
