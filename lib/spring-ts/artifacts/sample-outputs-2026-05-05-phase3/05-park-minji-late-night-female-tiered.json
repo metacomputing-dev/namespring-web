@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-05-07T10:03:51.711Z",
+  "generatedAt": "2026-05-07T10:04:48.684Z",
   "targetDate": "2026-05-05T00:00:00+09:00",
   "sampleId": "park-minji-late-night-female-tiered",
   "description": "성인 여성 늦은 밤 출생 입력에 야자시, 진태양시, 경도 보정과 tiered 매트릭스를 적용한 케이스.",
@@ -1313,7 +1313,7 @@
     },
     "meta": {
       "version": "1.0.0",
-      "generatedAt": "2026-05-07T10:03:55.651Z",
+      "generatedAt": "2026-05-07T10:04:52.993Z",
       "schoolPreset": {
         "selected": "korean",
         "source": "default",
@@ -6965,8 +6965,7 @@
               "meaningfulness": "meaningful",
               "stars": 4,
               "brief": {
-                "headline": "이번 주는 가까운 사람과 짧게 안부를 나누면 좋아요.",
-                "hook": "가족 단톡에 한마디 남겨요."
+                "headline": "이번 주 가족 관계는 큰 말보다 지킬 수 있는 작은 약속이 더 힘이 돼요."
               },
               "standard": {
                 "paragraphs": [
@@ -7082,13 +7081,11 @@
               },
               "selectedFragments": {
                 "brief": {
-                  "fragmentId": "family.thisWeek.brief.female.thirties.012",
+                  "fragmentId": "family.thisWeek.brief.promise.504",
                   "gating": {
-                    "gender": [
-                      "female"
-                    ],
-                    "ageBand": [
-                      "30-39"
+                    "currentSeason": [
+                      "spring",
+                      "summer"
                     ]
                   },
                   "tags": []
@@ -10815,7 +10812,8 @@
               "meaningfulness": "meaningful",
               "stars": 4,
               "brief": {
-                "headline": "올해는 인연을 넓히고 마음을 표현할 기회가 늘 수 있어요."
+                "headline": "올해는 곁의 사람과 한 끼를 천천히 나눠요.",
+                "hook": "한 끼를 함께 천천히 나눠요."
               },
               "standard": {
                 "paragraphs": [
@@ -10992,11 +10990,14 @@
               },
               "selectedFragments": {
                 "brief": {
-                  "fragmentId": "romance.thisYear.brief.currentseason.spring_summer.301",
+                  "fragmentId": "romance.thisYear.brief.midlife.002",
                   "gating": {
-                    "currentSeason": [
-                      "spring",
-                      "summer"
+                    "ageBand": [
+                      "30-39",
+                      "40-54"
+                    ],
+                    "birthSeason": [
+                      "winter"
                     ]
                   },
                   "tags": []
@@ -12901,12 +12902,12 @@
       },
       "meta": {
         "schemaVersion": "spring-ts.tiered-matrix.v1",
-        "generatedAt": "2026-05-07T10:03:55.651Z",
+        "generatedAt": "2026-05-07T10:04:52.992Z",
         "selectionSeed": "1992|11|3|23|20|female|2026-05-04T15:00:00.000Z",
         "templateContractVersion": "1.0.0",
         "contentSource": "authored",
-        "fragmentCount": 4127,
-        "aiGeneratedFragmentCount": 4127
+        "fragmentCount": 4125,
+        "aiGeneratedFragmentCount": 4125
       }
     }
   }

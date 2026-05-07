@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-05-07T10:03:51.711Z",
+  "generatedAt": "2026-05-07T10:04:48.684Z",
   "targetDate": "2026-05-05T00:00:00+09:00",
   "sampleId": "kim-jiwon-strong-jeonggwan-gyeokguk-tiered",
   "description": "입력 의도: 정관격 계열의 강한 격국이 또렷이 잡히기 쉬운 입력. 최종 gyeokguk 판정은 엔진이 결정한다.",
@@ -1249,7 +1249,7 @@
     },
     "meta": {
       "version": "1.0.0",
-      "generatedAt": "2026-05-07T10:03:57.530Z",
+      "generatedAt": "2026-05-07T10:04:54.880Z",
       "schoolPreset": {
         "selected": "korean",
         "source": "default",
@@ -4975,7 +4975,8 @@
               "meaningfulness": "limited",
               "stars": 3,
               "brief": {
-                "headline": "오늘은 많이 하려 하기보다 꼭 읽거나 정리할 것 한 가지만 먼저 끝요."
+                "headline": "묶어 둔 서류를 한 장씩 다시 정리해 보세요.",
+                "hook": "쌓인 서류를 한 장씩 살펴 봐요."
               },
               "standard": {
                 "paragraphs": [
@@ -5152,15 +5153,15 @@
               },
               "selectedFragments": {
                 "brief": {
-                  "fragmentId": "study_document.today.brief.one_page.504",
+                  "fragmentId": "study_document.today.brief.adult.006",
                   "gating": {
                     "ageBand": [
-                      "10-19",
-                      "20-29",
                       "30-39",
                       "40-54",
-                      "55-69",
-                      "70+"
+                      "55-69"
+                    ],
+                    "birthSeason": [
+                      "autumn"
                     ]
                   },
                   "tags": []
@@ -6773,8 +6774,7 @@
               "meaningfulness": "meaningful",
               "stars": 1,
               "brief": {
-                "headline": "이번 주는 가까운 사람과 짧게 안부를 나누면 좋아요.",
-                "hook": "가족 단톡에 한마디 남겨요."
+                "headline": "이번 주 가족 관계는 큰 말보다 지킬 수 있는 작은 약속이 더 힘이 돼요."
               },
               "standard": {
                 "paragraphs": [
@@ -6890,13 +6890,11 @@
               },
               "selectedFragments": {
                 "brief": {
-                  "fragmentId": "family.thisWeek.brief.female.thirties.012",
+                  "fragmentId": "family.thisWeek.brief.promise.504",
                   "gating": {
-                    "gender": [
-                      "female"
-                    ],
-                    "ageBand": [
-                      "30-39"
+                    "currentSeason": [
+                      "spring",
+                      "summer"
                     ]
                   },
                   "tags": []
@@ -12739,12 +12737,12 @@
       },
       "meta": {
         "schemaVersion": "spring-ts.tiered-matrix.v1",
-        "generatedAt": "2026-05-07T10:03:57.530Z",
+        "generatedAt": "2026-05-07T10:04:54.880Z",
         "selectionSeed": "1990|9|15|11|30|female|2026-05-04T15:00:00.000Z",
         "templateContractVersion": "1.0.0",
         "contentSource": "authored",
-        "fragmentCount": 4127,
-        "aiGeneratedFragmentCount": 4127
+        "fragmentCount": 4125,
+        "aiGeneratedFragmentCount": 4125
       }
     }
   }

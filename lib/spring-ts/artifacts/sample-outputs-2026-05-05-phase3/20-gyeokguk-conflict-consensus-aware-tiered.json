@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-05-07T10:03:51.711Z",
+  "generatedAt": "2026-05-07T10:04:48.684Z",
   "targetDate": "2026-05-05T00:00:00+09:00",
   "sampleId": "gyeokguk-conflict-consensus-aware-tiered",
   "description": "격국 충돌 case 2: 신강/신약 경계 + 격국 후보 다중 + yongshinMode=consensus_aware 활성. 독립 명리 방법(억부/조후/격국/통관/병약/식상유통) 이 엇갈리는 chart 에서 consensus 보드와 격국 흔들림이 함께 노출되는 케이스.",
@@ -1301,7 +1301,7 @@
     },
     "meta": {
       "version": "1.0.0",
-      "generatedAt": "2026-05-07T10:04:01.807Z",
+      "generatedAt": "2026-05-07T10:04:59.358Z",
       "schoolPreset": {
         "selected": "korean",
         "source": "default",
@@ -8405,8 +8405,7 @@
               "meaningfulness": "meaningful",
               "stars": 1,
               "brief": {
-                "headline": "이번 달은 작은 회복 루틴 한 가지가 든든해져요.",
-                "hook": "가벼운 스트레칭을 챙겨요."
+                "headline": "이번 달은 잠자리를 든든히 챙기는 편이 좋아요."
               },
               "standard": {
                 "paragraphs": [
@@ -8536,13 +8535,11 @@
               },
               "selectedFragments": {
                 "brief": {
-                  "fragmentId": "health.thisMonth.brief.female.midlife.010",
+                  "fragmentId": "health.thisMonth.brief.weak.001",
                   "gating": {
-                    "gender": [
-                      "female"
-                    ],
-                    "ageBand": [
-                      "40-54"
+                    "dayMasterStrength": [
+                      "WEAK",
+                      "EXTREME_WEAK"
                     ]
                   },
                   "tags": []
@@ -9685,8 +9682,7 @@
               "meaningfulness": "meaningful",
               "stars": 1,
               "brief": {
-                "headline": "이번 달은 마음을 비우는 시간이 회복의 열쇠가 되어요.",
-                "hook": "잠깐의 침묵으로 마음을 비워요."
+                "headline": "이번 달은 무리하지 않는 흐름이 약이에요."
               },
               "standard": {
                 "paragraphs": [
@@ -9828,17 +9824,14 @@
               },
               "selectedFragments": {
                 "brief": {
-                  "fragmentId": "health_stress.thisMonth.brief.female_midlife_weak.011",
+                  "fragmentId": "health_stress.thisMonth.brief.weak_neutral.001",
                   "gating": {
-                    "gender": [
-                      "female"
-                    ],
-                    "ageBand": [
-                      "40-54"
-                    ],
                     "dayMasterStrength": [
                       "WEAK",
                       "EXTREME_WEAK"
+                    ],
+                    "yongshinAlignment": [
+                      "neutral"
                     ]
                   },
                   "tags": []
@@ -10821,8 +10814,8 @@
               "meaningfulness": "meaningful",
               "stars": 4,
               "brief": {
-                "headline": "올해는 곁의 인연을 단단히 가꾸어 가는 해예요.",
-                "hook": "곁의 사람에게 안부를 건네요."
+                "headline": "올해는 곁의 사람과 한 끼를 천천히 나눠요.",
+                "hook": "한 끼를 함께 천천히 나눠요."
               },
               "standard": {
                 "paragraphs": [
@@ -11017,11 +11010,14 @@
               },
               "selectedFragments": {
                 "brief": {
-                  "fragmentId": "romance.thisYear.brief.midlife.001",
+                  "fragmentId": "romance.thisYear.brief.midlife.002",
                   "gating": {
                     "ageBand": [
                       "30-39",
                       "40-54"
+                    ],
+                    "birthSeason": [
+                      "winter"
                     ]
                   },
                   "tags": []
@@ -12921,12 +12917,12 @@
       },
       "meta": {
         "schemaVersion": "spring-ts.tiered-matrix.v1",
-        "generatedAt": "2026-05-07T10:04:01.807Z",
+        "generatedAt": "2026-05-07T10:04:59.358Z",
         "selectionSeed": "1973|12|17|16|30|female|2026-05-04T15:00:00.000Z",
         "templateContractVersion": "1.0.0",
         "contentSource": "authored",
-        "fragmentCount": 4127,
-        "aiGeneratedFragmentCount": 4127
+        "fragmentCount": 4125,
+        "aiGeneratedFragmentCount": 4125
       }
     }
   }

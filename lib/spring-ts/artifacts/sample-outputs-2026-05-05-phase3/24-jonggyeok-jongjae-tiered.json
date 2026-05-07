@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-05-07T10:03:51.711Z",
+  "generatedAt": "2026-05-07T10:04:48.684Z",
   "targetDate": "2026-05-05T00:00:00+09:00",
   "sampleId": "jonggyeok-jongjae-tiered",
   "description": "입력 의도: 從財격 계열. fix-jong-04 (1978-07-11 09:00) 좌표 — 甲木 일간이 戊己己戊 4 천간 + 戌未辰 토 지지로 재성(土) 압도, 인성/비겁 미약한 從財 doctrine 입력. 최종 외격 판정은 엔진이 결정한다.",
@@ -1317,7 +1317,7 @@
     },
     "meta": {
       "version": "1.0.0",
-      "generatedAt": "2026-05-07T10:04:03.104Z",
+      "generatedAt": "2026-05-07T10:05:00.783Z",
       "schoolPreset": {
         "selected": "korean",
         "source": "default",
@@ -4395,8 +4395,7 @@
               "meaningfulness": "meaningful",
               "stars": 1,
               "brief": {
-                "headline": "오늘은 책상 앞 한 시간을 또렷이 지켜요.",
-                "hook": "오늘 분량을 정해서 끝내요."
+                "headline": "오늘은 자기계발 한 챕터를 챙기기 좋은 흐름이에요."
               },
               "standard": {
                 "paragraphs": [
@@ -4553,11 +4552,8 @@
               },
               "selectedFragments": {
                 "brief": {
-                  "fragmentId": "academic.today.brief.male.age30plus.013",
+                  "fragmentId": "academic.today.brief.30plus.005",
                   "gating": {
-                    "gender": [
-                      "male"
-                    ],
                     "ageBand": [
                       "30-39",
                       "40-54"
@@ -5187,7 +5183,8 @@
               "meaningfulness": "meaningful",
               "stars": 1,
               "brief": {
-                "headline": "오늘은 계약, 신청서, 증빙 자료의 날짜와 금액을 다시 보는 편이 좋아요."
+                "headline": "오늘은 연락처와 주소를 한번 정리하기 좋아요.",
+                "hook": "연락처 한 줄을 다시 정리해요."
               },
               "standard": {
                 "paragraphs": [
@@ -5364,13 +5361,15 @@
               },
               "selectedFragments": {
                 "brief": {
-                  "fragmentId": "study_document.today.brief.ageband.mature.401",
+                  "fragmentId": "study_document.today.brief.adult.007",
                   "gating": {
                     "ageBand": [
                       "30-39",
                       "40-54",
-                      "55-69",
-                      "70+"
+                      "55-69"
+                    ],
+                    "birthSeason": [
+                      "summer"
                     ]
                   },
                   "tags": []
@@ -11434,8 +11433,7 @@
               "meaningfulness": "meaningful",
               "stars": 2,
               "brief": {
-                "headline": "올해는 모은 자료를 천천히 엮어 두기 좋은 한 해예요.",
-                "hook": "자료 한 묶음을 깔끔히 정리해요."
+                "headline": "올해는 자격, 계약, 기록을 체계적으로 관리할수록 중요한 기회를요."
               },
               "standard": {
                 "paragraphs": [
@@ -11550,12 +11548,10 @@
               },
               "selectedFragments": {
                 "brief": {
-                  "fragmentId": "study_document.thisYear.brief.male.midlife_senior.010",
+                  "fragmentId": "study_document.thisYear.brief.ageband.mature.401",
                   "gating": {
-                    "gender": [
-                      "male"
-                    ],
                     "ageBand": [
+                      "30-39",
                       "40-54",
                       "55-69",
                       "70+"
@@ -12919,12 +12915,12 @@
       },
       "meta": {
         "schemaVersion": "spring-ts.tiered-matrix.v1",
-        "generatedAt": "2026-05-07T10:04:03.104Z",
+        "generatedAt": "2026-05-07T10:05:00.783Z",
         "selectionSeed": "1978|7|11|9|0|male|2026-05-04T15:00:00.000Z",
         "templateContractVersion": "1.0.0",
         "contentSource": "authored",
-        "fragmentCount": 4127,
-        "aiGeneratedFragmentCount": 4127
+        "fragmentCount": 4125,
+        "aiGeneratedFragmentCount": 4125
       }
     }
   }

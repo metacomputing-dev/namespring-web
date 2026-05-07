@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-05-07T10:03:51.711Z",
+  "generatedAt": "2026-05-07T10:04:48.684Z",
   "targetDate": "2026-05-05T00:00:00+09:00",
   "sampleId": "choi-yaza-boundary-male-tiered",
   "description": "야자시 경계 23:30 출생. yaza=on, yazaMode=23:00 으로 다음 날로 이월하는 경계 케이스.",
@@ -1299,7 +1299,7 @@
     },
     "meta": {
       "version": "1.0.0",
-      "generatedAt": "2026-05-07T10:03:58.564Z",
+      "generatedAt": "2026-05-07T10:04:55.939Z",
       "schoolPreset": {
         "selected": "korean",
         "source": "default",
@@ -4319,8 +4319,7 @@
               "meaningfulness": "meaningful",
               "stars": 4,
               "brief": {
-                "headline": "오늘은 책상 앞 한 시간을 또렷이 지켜요.",
-                "hook": "오늘 분량을 정해서 끝내요."
+                "headline": "오늘은 공부를 바로 시작하기 좋은 날이에요."
               },
               "standard": {
                 "paragraphs": [
@@ -4476,14 +4475,11 @@
               },
               "selectedFragments": {
                 "brief": {
-                  "fragmentId": "academic.today.brief.male.age30plus.013",
+                  "fragmentId": "academic.today.brief.currentseason.spring_summer.301",
                   "gating": {
-                    "gender": [
-                      "male"
-                    ],
-                    "ageBand": [
-                      "30-39",
-                      "40-54"
+                    "currentSeason": [
+                      "spring",
+                      "summer"
                     ]
                   },
                   "tags": []
@@ -5110,7 +5106,8 @@
               "meaningfulness": "meaningful",
               "stars": 4,
               "brief": {
-                "headline": "오늘은 문서의 숫자와 조건을 한 번 더 확인하면 실수를 줄일 수 있어요."
+                "headline": "오늘은 연락처와 주소를 한번 정리하기 좋아요.",
+                "hook": "연락처 한 줄을 다시 정리해요."
               },
               "standard": {
                 "paragraphs": [
@@ -5287,13 +5284,15 @@
               },
               "selectedFragments": {
                 "brief": {
-                  "fragmentId": "study_document.today.brief.ageband.adult.501",
+                  "fragmentId": "study_document.today.brief.adult.007",
                   "gating": {
                     "ageBand": [
                       "30-39",
                       "40-54",
-                      "55-69",
-                      "70+"
+                      "55-69"
+                    ],
+                    "birthSeason": [
+                      "summer"
                     ]
                   },
                   "tags": []
@@ -11872,8 +11871,7 @@
               "meaningfulness": "limited",
               "stars": 3,
               "brief": {
-                "headline": "올해는 익숙한 동선에 작은 변화가 활력을 보태요.",
-                "hook": "출퇴근 동선을 한 번 바꿔요."
+                "headline": "올해는 이사·이직 기회가 한 번 크게 열리는 해예요."
               },
               "standard": {
                 "paragraphs": [
@@ -12001,14 +11999,10 @@
               },
               "selectedFragments": {
                 "brief": {
-                  "fragmentId": "movement.thisYear.brief.male.midlife.011",
+                  "fragmentId": "movement.thisYear.brief.30_39.005",
                   "gating": {
-                    "gender": [
-                      "male"
-                    ],
                     "ageBand": [
-                      "30-39",
-                      "40-54"
+                      "30-39"
                     ]
                   },
                   "tags": []
@@ -12829,12 +12823,12 @@
       },
       "meta": {
         "schemaVersion": "spring-ts.tiered-matrix.v1",
-        "generatedAt": "2026-05-07T10:03:58.564Z",
+        "generatedAt": "2026-05-07T10:04:55.939Z",
         "selectionSeed": "1995|6|10|23|30|male|2026-05-04T15:00:00.000Z",
         "templateContractVersion": "1.0.0",
         "contentSource": "authored",
-        "fragmentCount": 4127,
-        "aiGeneratedFragmentCount": 4127
+        "fragmentCount": 4125,
+        "aiGeneratedFragmentCount": 4125
       }
     }
   }

@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-05-07T10:03:51.711Z",
+  "generatedAt": "2026-05-07T10:04:48.684Z",
   "targetDate": "2026-05-05T00:00:00+09:00",
   "sampleId": "pure-hangul-name-tiered",
   "description": "한글 전용 이름 (hanja 미입력) 입력 — pureHangulNameMode=on 으로 발음오행 기반 채점. 한글 작명 트렌드 (자음/모음 polarity, 모음 음양) 와 surfacePhoneticEvidence 가 함께 노출되는 케이스. 한자 강제 미적용 안전 fallback 점검.",
@@ -1380,7 +1380,7 @@
     },
     "meta": {
       "version": "1.0.0",
-      "generatedAt": "2026-05-07T10:04:04.737Z",
+      "generatedAt": "2026-05-07T10:05:02.449Z",
       "schoolPreset": {
         "selected": "korean",
         "source": "default",
@@ -6996,8 +6996,7 @@
               "meaningfulness": "meaningful",
               "stars": 4,
               "brief": {
-                "headline": "이번 주는 가까운 사람과 짧게 안부를 나누면 좋아요.",
-                "hook": "가족 단톡에 한마디 남겨요."
+                "headline": "양가 안부를 비슷한 폭으로 챙겨 보세요."
               },
               "standard": {
                 "paragraphs": [
@@ -7112,11 +7111,8 @@
               },
               "selectedFragments": {
                 "brief": {
-                  "fragmentId": "family.thisWeek.brief.female.thirties.012",
+                  "fragmentId": "family.thisWeek.brief.thirties.006",
                   "gating": {
-                    "gender": [
-                      "female"
-                    ],
                     "ageBand": [
                       "30-39"
                     ]
@@ -12935,12 +12931,12 @@
       },
       "meta": {
         "schemaVersion": "spring-ts.tiered-matrix.v1",
-        "generatedAt": "2026-05-07T10:04:04.737Z",
+        "generatedAt": "2026-05-07T10:05:02.449Z",
         "selectionSeed": "1996|4|12|10|30|female|2026-05-04T15:00:00.000Z",
         "templateContractVersion": "1.0.0",
         "contentSource": "authored",
-        "fragmentCount": 4127,
-        "aiGeneratedFragmentCount": 4127
+        "fragmentCount": 4125,
+        "aiGeneratedFragmentCount": 4125
       }
     }
   }

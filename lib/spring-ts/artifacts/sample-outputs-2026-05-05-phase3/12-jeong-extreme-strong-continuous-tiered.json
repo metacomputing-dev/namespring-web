@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-05-07T10:03:51.711Z",
+  "generatedAt": "2026-05-07T10:04:48.684Z",
   "targetDate": "2026-05-05T00:00:00+09:00",
   "sampleId": "jeong-extreme-strong-continuous-tiered",
   "description": "입력 의도: 지지에서 일간이 강하게 받쳐지는 신강 지향 입력. strengthMode=continuous 로 4-tier 강도 곡선과 결합한 tiered 샘플. 최종 강도 분류는 엔진이 결정한다.",
@@ -1294,7 +1294,7 @@
     },
     "meta": {
       "version": "1.0.0",
-      "generatedAt": "2026-05-07T10:03:59.204Z",
+      "generatedAt": "2026-05-07T10:04:56.599Z",
       "schoolPreset": {
         "selected": "korean",
         "source": "default",
@@ -4435,8 +4435,7 @@
               "meaningfulness": "meaningful",
               "stars": 2,
               "brief": {
-                "headline": "오늘은 책상 앞 한 시간을 또렷이 지켜요.",
-                "hook": "오늘 분량을 정해서 끝내요."
+                "headline": "오늘은 자기계발 한 챕터를 챙기기 좋은 흐름이에요."
               },
               "standard": {
                 "paragraphs": [
@@ -4592,11 +4591,8 @@
               },
               "selectedFragments": {
                 "brief": {
-                  "fragmentId": "academic.today.brief.male.age30plus.013",
+                  "fragmentId": "academic.today.brief.30plus.005",
                   "gating": {
-                    "gender": [
-                      "male"
-                    ],
                     "ageBand": [
                       "30-39",
                       "40-54"
@@ -10904,7 +10900,8 @@
               "meaningfulness": "meaningful",
               "stars": 4,
               "brief": {
-                "headline": "올해 관계운은 설렘과 현실감을 함께 맞출수록 더 오래 안정돼요."
+                "headline": "올해는 짧은 메시지 한 줄이 관계를 데워요.",
+                "hook": "짧은 메시지 한 줄을 보내 봐요."
               },
               "standard": {
                 "paragraphs": [
@@ -11018,14 +11015,17 @@
               },
               "selectedFragments": {
                 "brief": {
-                  "fragmentId": "romance.thisYear.brief.ageband.adult.501",
+                  "fragmentId": "romance.thisYear.brief.midlife.003",
                   "gating": {
                     "ageBand": [
-                      "20-29",
                       "30-39",
-                      "40-54",
-                      "55-69",
-                      "70+"
+                      "40-54"
+                    ],
+                    "birthSeason": [
+                      "spring"
+                    ],
+                    "gender": [
+                      "male"
                     ]
                   },
                   "tags": []
@@ -11431,8 +11431,7 @@
               "meaningfulness": "meaningful",
               "stars": 4,
               "brief": {
-                "headline": "올해는 모은 자료를 천천히 엮어 두기 좋은 한 해예요.",
-                "hook": "자료 한 묶음을 깔끔히 정리해요."
+                "headline": "올해는 자격, 계약, 기록을 체계적으로 관리할수록 중요한 기회를요."
               },
               "standard": {
                 "paragraphs": [
@@ -11547,12 +11546,10 @@
               },
               "selectedFragments": {
                 "brief": {
-                  "fragmentId": "study_document.thisYear.brief.male.midlife_senior.010",
+                  "fragmentId": "study_document.thisYear.brief.ageband.mature.401",
                   "gating": {
-                    "gender": [
-                      "male"
-                    ],
                     "ageBand": [
+                      "30-39",
                       "40-54",
                       "55-69",
                       "70+"
@@ -12925,12 +12922,12 @@
       },
       "meta": {
         "schemaVersion": "spring-ts.tiered-matrix.v1",
-        "generatedAt": "2026-05-07T10:03:59.204Z",
+        "generatedAt": "2026-05-07T10:04:56.599Z",
         "selectionSeed": "1980|3|12|9|0|male|2026-05-04T15:00:00.000Z",
         "templateContractVersion": "1.0.0",
         "contentSource": "authored",
-        "fragmentCount": 4127,
-        "aiGeneratedFragmentCount": 4127
+        "fragmentCount": 4125,
+        "aiGeneratedFragmentCount": 4125
       }
     }
   }

@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-05-07T10:03:51.711Z",
+  "generatedAt": "2026-05-07T10:04:48.684Z",
   "targetDate": "2026-05-05T00:00:00+09:00",
   "sampleId": "choi-senior-male-tiered",
   "description": "70+ 시니어 남성 (1948 출생) — life-stage 후반 narrative 가 활성화되는 fallback 경계. 노년 audience 의 prose 적합도와 tieredMatrix 후반기 흐름을 함께 노출하는 케이스.",
@@ -1293,7 +1293,7 @@
     },
     "meta": {
       "version": "1.0.0",
-      "generatedAt": "2026-05-07T10:04:00.546Z",
+      "generatedAt": "2026-05-07T10:04:58.043Z",
       "schoolPreset": {
         "selected": "korean",
         "source": "default",
@@ -11409,8 +11409,7 @@
               "meaningfulness": "meaningful",
               "stars": 5,
               "brief": {
-                "headline": "올해는 모은 자료를 천천히 엮어 두기 좋은 한 해예요.",
-                "hook": "자료 한 묶음을 깔끔히 정리해요."
+                "headline": "올해는 문서와 지식을 체계적으로 관리할수록 중요한 결정이 쉬워져요."
               },
               "standard": {
                 "paragraphs": [
@@ -11525,12 +11524,10 @@
               },
               "selectedFragments": {
                 "brief": {
-                  "fragmentId": "study_document.thisYear.brief.male.midlife_senior.010",
+                  "fragmentId": "study_document.thisYear.brief.ageband.adult.501",
                   "gating": {
-                    "gender": [
-                      "male"
-                    ],
                     "ageBand": [
+                      "30-39",
                       "40-54",
                       "55-69",
                       "70+"
@@ -12896,12 +12893,12 @@
       },
       "meta": {
         "schemaVersion": "spring-ts.tiered-matrix.v1",
-        "generatedAt": "2026-05-07T10:04:00.546Z",
+        "generatedAt": "2026-05-07T10:04:58.043Z",
         "selectionSeed": "1948|3|15|7|30|male|2026-05-04T15:00:00.000Z",
         "templateContractVersion": "1.0.0",
         "contentSource": "authored",
-        "fragmentCount": 4127,
-        "aiGeneratedFragmentCount": 4127
+        "fragmentCount": 4125,
+        "aiGeneratedFragmentCount": 4125
       }
     }
   }
