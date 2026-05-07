@@ -1,0 +1,49 @@
+{
+  "phase": "P32-A3",
+  "generatedAt": "2026-05-07",
+  "branch": "p32-a3",
+  "expertSourceHistogram": {
+    "4p": 435,
+    "5p": 77,
+    "6p": 43,
+    "7p": 2,
+    "8p": 1
+  },
+  "expertRenderedHistogram": {
+    "4p": 1547,
+    "5p": 137,
+    "6p": 21
+  },
+  "delta": {
+    "source5pTo6pFragments": 10,
+    "renderedCellDelta6p": 10,
+    "renderedCellDelta5p": -10,
+    "renderedTotal6pBefore": 11,
+    "renderedTotal6pAfter": 21,
+    "renderedTotal5pBefore": 147,
+    "renderedTotal5pAfter": 137
+  },
+  "ciGates": {
+    "typecheck": "PASS",
+    "ci:no-ai-policy": "PASS",
+    "ci:narrative-voice": "PASS (0 / 0 / 0; 4145 fragments, 2982 plain, 1163 expert)",
+    "ci:narrative-truncated-endings": "PASS (0 violations, 344 files)",
+    "ci:narrative-tag-label-alignment": "PASS (0 missing, 0 label mismatches)",
+    "ci:narrative-orphan-tags": "PASS (0 violations)",
+    "ci:narrative-cell-axis": "PASS (0 missing)",
+    "ci:narrative-density": "PASS",
+    "ci:narrative-tuple-density": "PASS",
+    "ci:narrative-daymaster-tuple-density": "PASS",
+    "ci:post-processor-grammar": "PASS",
+    "ci:hook-coverage": "PASS",
+    "ci:hook-concentration": "PASS (max=17)",
+    "ci:standard-paragraph-floor": "PASS",
+    "ci:brief-tier-placeholder": "PASS",
+    "ci:flow-cluster": "PASS (paragraphsWithCluster=0, violationCount=0)",
+    "ci:acceptance-completeness": "PASS",
+    "ci:samples-stale": "PASS (0 violations, 37 sample files)",
+    "test:namespring-compat": "PASS (202 / 0)",
+    "test:tiered-shape": "PASS (929 / 0)",
+    "test:narrative-schema:summary": "PASS (104400 / 0)"
+  }
+}
