@@ -338,6 +338,45 @@
         "copyrightNote": "No source prose copied; original.",
         "authorityTruthEligible": false
       }
+    },
+    {
+      "schemaVersion": "spring-ts.narrative-fragment.v1",
+      "fragmentId": "wealth.thisWeek.standard.child.001",
+      "axis": {
+        "category": "wealth",
+        "period": "thisWeek",
+        "depth": "standard"
+      },
+      "gating": {
+        "ageBand": [
+          "0-9"
+        ]
+      },
+      "templateTokens": [
+        {
+          "kind": "text",
+          "value": "이번 주 용돈은 한꺼번에 쓰기보다, 며칠로 나눠 살펴보기 좋은 한 주예요. 작은 동전을 차곡차곡 모으는 연습이 어울리는 시기예요.\n\n비유하자면 작은 저금통이 한 주 동안 조금씩 무거워지는 그림이에요. 매일 동전 한두 개를 넣으면 주말이 됐을 때 흔들어 보는 즐거움이 자라요.\n\n이번 주에 잘 어울리는 흐름은 좋아하는 것을 한두 가지만 골라 두는 거예요. 좋아하는 책 한 권, 좋아하는 간식 하나, 친구에게 줄 작은 선물 — 한두 가지를 정해 두면 다른 데 쓰고 싶은 마음이 자연스럽게 줄어요.\n\n주의하면 좋은 점은 한 번에 다 써 버리는 흐름이에요. 가지고 싶은 게 보이면 잠깐 멈추고, 정말 갖고 싶은지 다음 날 다시 봐도 충분해요.\n\n작은 모음의 즐거움이 자라는 한 주예요. 한 줄 기록과 한두 가지 결정만 곁에 두면 한 주가 가지런해져요."
+        }
+      ],
+      "tags": [],
+      "livingTips": [
+        "용돈을 며칠로 나눠 두기",
+        "좋아하는 것 한두 가지만 골라 두기"
+      ],
+      "cautions": [
+        "한 번에 다 써 버리고 싶을 땐 다음 날까지 기다리기"
+      ],
+      "aiGenerated": true,
+      "sourceTier": {
+        "tier": "T1_HYPOTHESIS",
+        "sourceType": "training_derived",
+        "sourceUrl": null,
+        "accessedAt": "2026-05-07",
+        "quoteShort": null,
+        "humanInterpretation": "Phase 22 wealth gap fragment for child ageBand. AI-derived display text; not authority truth.",
+        "copyrightNote": "No source prose copied; original phrasing.",
+        "authorityTruthEligible": false
+      }
     }
   ]
 }
