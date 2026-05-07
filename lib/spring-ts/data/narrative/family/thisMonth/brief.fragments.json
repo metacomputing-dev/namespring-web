@@ -361,6 +361,40 @@
         "copyrightNote": "No source prose copied; original prose.",
         "authorityTruthEligible": false
       }
+    },
+    {
+      "schemaVersion": "spring-ts.narrative-fragment.v1",
+      "fragmentId": "family.thisMonth.brief.male.young.winter.012",
+      "axis": {
+        "category": "family",
+        "period": "thisMonth",
+        "depth": "brief",
+        "tone": "plain"
+      },
+      "gating": {
+        "gender": ["male"],
+        "ageBand": ["0-9"],
+        "birthSeason": ["winter"]
+      },
+      "templateTokens": [
+        {
+          "kind": "text",
+          "value": "이번 달은 따뜻한 이불 속에서 이야기 시간을 자주 가져요."
+        }
+      ],
+      "hook": "따뜻한 이불 속 이야기 시간이에요.",
+      "tags": [],
+      "aiGenerated": true,
+      "sourceTier": {
+        "tier": "T1_HYPOTHESIS",
+        "sourceType": "training_derived",
+        "sourceUrl": null,
+        "accessedAt": "2026-05-07",
+        "quoteShort": null,
+        "humanInterpretation": "P33-A4 distinct-hook expansion: family/thisMonth brief for male × 0-9 × winter-born. Display-only narrative.",
+        "copyrightNote": "No source prose copied; original authored prose.",
+        "authorityTruthEligible": false
+      }
     }
   ]
 }

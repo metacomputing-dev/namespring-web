@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-05-07T15:20:54.062Z",
+  "generatedAt": "2026-05-07T15:24:46.924Z",
   "targetDate": "2026-05-05T00:00:00+09:00",
   "sampleId": "choi-consensus-aware-yongshin-tiered",
   "description": "yongshinMode=consensus_aware 활성 시나리오. 독립 명리 방법이 엇갈리는 사주에서 consensus scoreboard 를 블렌딩한 posture 및 per-axis 근거를 tieredMatrix 와 함께 노출하는 케이스.",
@@ -1319,7 +1319,7 @@
     },
     "meta": {
       "version": "1.0.0",
-      "generatedAt": "2026-05-07T15:21:02.177Z",
+      "generatedAt": "2026-05-07T15:24:53.451Z",
       "schoolPreset": {
         "selected": "korean",
         "source": "default",
@@ -2685,7 +2685,8 @@
               "meaningfulness": "meaningful",
               "stars": 4,
               "brief": {
-                "headline": "긴 흐름에서는 새 역할과 기회를 직접 만나며 일이 넓어지는 편이에요."
+                "headline": "중장기 계획을 한 줄로 정리하면 결정이 또렷해져요.",
+                "hook": "중장기 계획을 한 줄로 잡아요."
               },
               "standard": {
                 "paragraphs": [
@@ -2839,11 +2840,19 @@
               },
               "selectedFragments": {
                 "brief": {
-                  "fragmentId": "career.life.brief.currentseason.spring_summer.301",
+                  "fragmentId": "career.life.brief.male.midlife.spring.early40s.012",
                   "gating": {
-                    "currentSeason": [
-                      "spring",
-                      "summer"
+                    "gender": [
+                      "male"
+                    ],
+                    "ageBand": [
+                      "40-54"
+                    ],
+                    "birthSeason": [
+                      "spring"
+                    ],
+                    "agePhase": [
+                      "early_40s"
                     ]
                   },
                   "tags": []
@@ -3427,15 +3436,6 @@
                       }
                     ],
                     "plainText": "천천히 익는 자리이니 인내·기록을 평생의 자산으로 두면 마음의 짐이 가벼워져요."
-                  },
-                  {
-                    "tokens": [
-                      {
-                        "kind": "text",
-                        "value": "잔잔한 일간이 평생을 흘러갈 때는 5년 단위의 작은 점검 자리가 큰 도움이 돼요. 짐이 모이는 시기와 풀어내는 시기를 미리 나눠 두면, 한 번에 무너지는 자리가 평생 잘 만들어지지 않아요. 가까운 회복 기반에서 쉼표를 자주 두는 호흡이 잔잔한 일간의 평생 자산으로 자라요. 매년 한 번씩 자기 짐의 무게를 짧게 적어 두면, 다음 해의 마디가 한층 또렷해져요."
-                      }
-                    ],
-                    "plainText": "잔잔한 일간이 평생을 흘러갈 때는 5년 단위의 작은 점검 자리가 큰 도움이 돼요. 짐이 모이는 시기와 풀어내는 시기를 미리 나눠 두면, 한 번에 무너지는 자리가 평생 잘 만들어지지 않아요. 가까운 회복 기반에서 쉼표를 자주 두는 호흡이 잔잔한 일간의 평생 자산으로 자라요. 매년 한 번씩 자기 짐의 무게를 짧게 적어 두면, 다음 해의 마디가 한층 또렷해져요."
                   }
                 ]
               },
@@ -13051,12 +13051,12 @@
       },
       "meta": {
         "schemaVersion": "spring-ts.tiered-matrix.v1",
-        "generatedAt": "2026-05-07T15:21:02.177Z",
+        "generatedAt": "2026-05-07T15:24:53.451Z",
         "selectionSeed": "1986|4|19|5|45|male|2026-05-04T15:00:00.000Z",
         "templateContractVersion": "1.0.0",
         "contentSource": "authored",
-        "fragmentCount": 4155,
-        "aiGeneratedFragmentCount": 4155
+        "fragmentCount": 4165,
+        "aiGeneratedFragmentCount": 4165
       }
     }
   }

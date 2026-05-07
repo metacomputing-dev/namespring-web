@@ -124,6 +124,23 @@
       "tags": [],
       "aiGenerated": true,
       "sourceTier": { "tier": "T1_HYPOTHESIS", "sourceType": "training_derived", "sourceUrl": null, "accessedAt": "2026-05-02", "quoteShort": null, "humanInterpretation": "Phase 2 agent-6 (career) brief today: male. Display-only narrative.", "copyrightNote": "No source prose copied; original.", "authorityTruthEligible": false }
+    },
+    {
+      "schemaVersion": "spring-ts.narrative-fragment.v1",
+      "fragmentId": "career.today.brief.male.midlife.winter.011",
+      "axis": { "category": "career", "period": "today", "depth": "brief" },
+      "gating": {
+        "gender": ["male"],
+        "ageBand": ["40-54"],
+        "birthSeason": ["winter"]
+      },
+      "templateTokens": [
+        { "kind": "text", "value": "오늘은 한 줄 보고로 정리해 두면 흐름이 단단해져요." }
+      ],
+      "hook": "오늘은 한 줄 보고를 정리해 둬요.",
+      "tags": [],
+      "aiGenerated": true,
+      "sourceTier": { "tier": "T1_HYPOTHESIS", "sourceType": "training_derived", "sourceUrl": null, "accessedAt": "2026-05-07", "quoteShort": null, "humanInterpretation": "P33-A4 distinct-hook expansion: career/today brief for male × 40-54 × winter-born. Display-only narrative.", "copyrightNote": "No source prose copied; original authored prose.", "authorityTruthEligible": false }
     }
   ]
 }

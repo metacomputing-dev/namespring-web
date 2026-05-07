@@ -100,6 +100,24 @@
       "tags": [],
       "aiGenerated": true,
       "sourceTier": { "tier": "T1_HYPOTHESIS", "sourceType": "training_derived", "sourceUrl": null, "accessedAt": "2026-05-02", "quoteShort": null, "humanInterpretation": "AI-derived brief fragment for study_document.life balanced. Display-only narrative.", "copyrightNote": "No source prose copied; original.", "authorityTruthEligible": false }
+    },
+    {
+      "schemaVersion": "spring-ts.narrative-fragment.v1",
+      "fragmentId": "study_document.life.brief.female.thirties.autumn.strong.009",
+      "axis": { "category": "study_document", "period": "life", "depth": "brief" },
+      "gating": {
+        "gender": ["female"],
+        "ageBand": ["30-39"],
+        "birthSeason": ["autumn"],
+        "dayMasterStrength": ["STRONG", "EXTREME_STRONG"]
+      },
+      "templateTokens": [
+        { "kind": "text", "value": "중요한 자료는 백업본을 함께 챙겨 두면 든든해져요." }
+      ],
+      "hook": "중요 자료는 백업본을 챙겨요.",
+      "tags": [],
+      "aiGenerated": true,
+      "sourceTier": { "tier": "T1_HYPOTHESIS", "sourceType": "training_derived", "sourceUrl": null, "accessedAt": "2026-05-07", "quoteShort": null, "humanInterpretation": "P33-A4 distinct-hook expansion: study_document/life brief for female × 30-39 × autumn × STRONG day-master. Display-only narrative.", "copyrightNote": "No source prose copied; original authored prose.", "authorityTruthEligible": false }
     }
   ]
 }
