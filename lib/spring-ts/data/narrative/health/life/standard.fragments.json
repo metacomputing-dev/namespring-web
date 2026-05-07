@@ -543,6 +543,46 @@
         "copyrightNote": "No source prose copied; original phrasing.",
         "authorityTruthEligible": false
       }
+    },
+    {
+      "schemaVersion": "spring-ts.narrative-fragment.v1",
+      "fragmentId": "health.life.standard.teen.001",
+      "axis": {
+        "category": "health",
+        "period": "life",
+        "depth": "standard"
+      },
+      "gating": {
+        "ageBand": [
+          "10-19"
+        ]
+      },
+      "templateTokens": [
+        {
+          "kind": "text",
+          "value": "지금 시기는 학업·관계·취미 사이에서 평생 갈 컨디션의 결을 다듬는 흐름이에요. 잠과 식사·움직임의 리듬이 이 시기에 단단해지면, 어른이 된 뒤에도 자기 페이스가 쉽게 흔들리지 않아요.\n\n비유하자면 자라는 나무에 잔뿌리가 깊어지는 시기예요. 큰 가지를 한 번에 키우려 하기보다, 매일의 잠·식사·짧은 움직임 같은 잔뿌리를 단단히 챙겨 두는 자리가 평생 갈 자산이 돼요.\n\n친구의 페이스나 학교의 분위기에 자기를 무리해서 끼워 맞추지 않아도 괜찮아요. 마음의 작은 신호 — 짜증·답답함·잠 부족 — 가 있다면 가족이나 가까운 어른에게 짧게라도 나눠 두는 자리, 좋아하는 활동을 한 가지 길게 이어 가는 자리가 자기 색을 단단하게 만들어요."
+        }
+      ],
+      "tags": [],
+      "livingTips": [
+        "잠 시각을 매일 단단히 챙기기",
+        "좋아하는 활동 한 가지 길게 이어 가기",
+        "마음 신호는 가까운 어른과 한 줄로 나누기"
+      ],
+      "cautions": [
+        "친구 페이스에 자기를 끌려가지 않기"
+      ],
+      "aiGenerated": true,
+      "sourceTier": {
+        "tier": "T1_HYPOTHESIS",
+        "sourceType": "training_derived",
+        "sourceUrl": null,
+        "accessedAt": "2026-05-07",
+        "quoteShort": null,
+        "humanInterpretation": "Phase 22 agent-A2 (health) standard life: teen 10-19. School/interest/feeling frame for minor floor closure. Display-only narrative.",
+        "copyrightNote": "No source prose copied; original phrasing.",
+        "authorityTruthEligible": false
+      }
     }
   ]
 }
