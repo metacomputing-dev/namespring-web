@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-05-07T13:02:55.542Z",
+  "generatedAt": "2026-05-07T13:24:28.067Z",
   "targetDate": "2026-05-05T00:00:00+09:00",
   "sampleId": "palace-naeum-female-mid-tiered",
   "description": "surfacePalace=true + surfaceNaeum=true 동시 opt-in (fixture 14 와 다른 chart 로 surface 시그니처 안정성 점검). saju-ts 측 데이터 포트 이전이면 추가 출력 없으며, opt-in 시그니처와 tieredMatrix 결합만 노출. 30 대 여성 chart 로 mid-life narrative cell 도 함께 점검.",
@@ -770,7 +770,7 @@
     },
     "meta": {
       "version": "1.0.0",
-      "generatedAt": "2026-05-07T13:03:10.347Z",
+      "generatedAt": "2026-05-07T13:24:41.378Z",
       "schoolPreset": {
         "selected": "korean",
         "source": "default",
@@ -11054,8 +11054,8 @@
                   }
                 ],
                 "livingTips": [
-                  "주요 서류 사진본을 두 곳에 둬요",
-                  "한 줄 노하우를 글로 남겨요"
+                  "분기마다 책장 한 칸씩 정돈해요",
+                  "올해 한 줄 노하우를 묶어 둬요"
                 ],
                 "cautions": [
                   "한 곳에만 보관하지 않아요"
@@ -12552,7 +12552,7 @@
       },
       "meta": {
         "schemaVersion": "spring-ts.tiered-matrix.v1",
-        "generatedAt": "2026-05-07T13:03:10.347Z",
+        "generatedAt": "2026-05-07T13:24:41.378Z",
         "selectionSeed": "1992|5|28|12|0|female|2026-05-04T15:00:00.000Z",
         "templateContractVersion": "1.0.0",
         "contentSource": "authored",
