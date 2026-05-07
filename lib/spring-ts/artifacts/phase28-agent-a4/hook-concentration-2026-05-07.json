@@ -1,0 +1,84 @@
+{
+  "policy": "spring-ts.brief-hook-concentration.v1",
+  "samplesDir": "artifacts/sample-outputs-2026-05-05-phase3",
+  "sampleFilesScanned": 32,
+  "fixturesWithMatrix": 32,
+  "perFixtureDistinctHooks": {
+    "count": 32,
+    "min": 0,
+    "max": 17,
+    "median": 12.5,
+    "mode": 15,
+    "mean": 11.38
+  },
+  "histogram": {
+    "0": 1,
+    "2": 1,
+    "5": 4,
+    "7": 1,
+    "9": 3,
+    "10": 2,
+    "11": 2,
+    "12": 2,
+    "13": 3,
+    "14": 1,
+    "15": 5,
+    "16": 5,
+    "17": 2
+  },
+  "topFixtures": [
+    {
+      "file": "05-park-minji-late-night-female-tiered.json",
+      "distinctHooks": 17,
+      "cellsScanned": 55
+    },
+    {
+      "file": "13-oh-extreme-weak-continuous-tiered.json",
+      "distinctHooks": 17,
+      "cellsScanned": 55
+    },
+    {
+      "file": "09-kim-seongsu-special-format-candidate-tiered.json",
+      "distinctHooks": 16,
+      "cellsScanned": 55
+    },
+    {
+      "file": "10-choi-yaza-boundary-male-tiered.json",
+      "distinctHooks": 16,
+      "cellsScanned": 55
+    },
+    {
+      "file": "28-jonggyeok-jonggang-tiered.json",
+      "distinctHooks": 16,
+      "cellsScanned": 55
+    },
+    {
+      "file": "32-nonagenarian-weak-daymaster-tiered.json",
+      "distinctHooks": 16,
+      "cellsScanned": 55
+    },
+    {
+      "file": "33-consensus-aware-multi-axis-combined-tiered.json",
+      "distinctHooks": 16,
+      "cellsScanned": 55
+    },
+    {
+      "file": "12-jeong-extreme-strong-continuous-tiered.json",
+      "distinctHooks": 15,
+      "cellsScanned": 55
+    },
+    {
+      "file": "17-kim-senior-female-tiered.json",
+      "distinctHooks": 15,
+      "cellsScanned": 55
+    },
+    {
+      "file": "23-jonggyeok-jongwang-yeomsang-tiered.json",
+      "distinctHooks": 15,
+      "cellsScanned": 55
+    }
+  ],
+  "maxHooks": 20,
+  "violationCount": 0,
+  "violatingFixtures": []
+}
