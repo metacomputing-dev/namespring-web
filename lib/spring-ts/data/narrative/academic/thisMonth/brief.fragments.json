@@ -290,6 +290,39 @@
         "copyrightNote": "No source prose copied; original authored prose.",
         "authorityTruthEligible": false
       }
+    },
+    {
+      "schemaVersion": "spring-ts.narrative-fragment.v1",
+      "fragmentId": "academic.thisMonth.brief.male.70plus.autumn.010",
+      "axis": {
+        "category": "academic",
+        "period": "thisMonth",
+        "depth": "brief"
+      },
+      "gating": {
+        "gender": ["male"],
+        "ageBand": ["70+"],
+        "birthSeason": ["autumn"]
+      },
+      "templateTokens": [
+        {
+          "kind": "text",
+          "value": "이번 달은 좋아하는 분야 한 권을 차분히 읽어요."
+        }
+      ],
+      "hook": "한 분야를 깊이 들여다봐요.",
+      "tags": [],
+      "aiGenerated": true,
+      "sourceTier": {
+        "tier": "T1_HYPOTHESIS",
+        "sourceType": "training_derived",
+        "sourceUrl": null,
+        "accessedAt": "2026-05-07",
+        "quoteShort": null,
+        "humanInterpretation": "P27-A1 distinct-hook expansion: academic/thisMonth brief for male × 70+ × autumn-born. Display-only narrative.",
+        "copyrightNote": "No source prose copied; original authored prose.",
+        "authorityTruthEligible": false
+      }
     }
   ]
 }

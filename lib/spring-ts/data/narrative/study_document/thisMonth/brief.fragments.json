@@ -260,6 +260,39 @@
         "copyrightNote": "No source prose copied; original.",
         "authorityTruthEligible": false
       }
+    },
+    {
+      "schemaVersion": "spring-ts.narrative-fragment.v1",
+      "fragmentId": "study_document.thisMonth.brief.male.midlife.winter.009",
+      "axis": {
+        "category": "study_document",
+        "period": "thisMonth",
+        "depth": "brief"
+      },
+      "gating": {
+        "gender": ["male"],
+        "ageBand": ["40-54"],
+        "birthSeason": ["winter"]
+      },
+      "templateTokens": [
+        {
+          "kind": "text",
+          "value": "이번 달은 큰 자료 한 묶음을 작은 단위로 쪼개요."
+        }
+      ],
+      "hook": "큰 서류는 부분으로 나눠요.",
+      "tags": [],
+      "aiGenerated": true,
+      "sourceTier": {
+        "tier": "T1_HYPOTHESIS",
+        "sourceType": "training_derived",
+        "sourceUrl": null,
+        "accessedAt": "2026-05-07",
+        "quoteShort": null,
+        "humanInterpretation": "P27-A1 distinct-hook expansion: study_document/thisMonth brief for male × 40-54 × winter-born. Display-only narrative.",
+        "copyrightNote": "No source prose copied; original authored prose.",
+        "authorityTruthEligible": false
+      }
     }
   ]
 }

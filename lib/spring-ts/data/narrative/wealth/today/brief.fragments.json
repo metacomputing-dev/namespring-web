@@ -616,6 +616,39 @@
         "copyrightNote": "No source prose copied; original.",
         "authorityTruthEligible": false
       }
+    },
+    {
+      "schemaVersion": "spring-ts.narrative-fragment.v1",
+      "fragmentId": "wealth.today.brief.male.70plus.winter.013",
+      "axis": {
+        "category": "wealth",
+        "period": "today",
+        "depth": "brief"
+      },
+      "gating": {
+        "gender": ["male"],
+        "ageBand": ["70+"],
+        "birthSeason": ["winter"]
+      },
+      "templateTokens": [
+        {
+          "kind": "text",
+          "value": "오늘은 익숙한 거래 한 자리를 또렷하게 들여다봐요."
+        }
+      ],
+      "hook": "오늘은 오래된 장부를 한 칸 정리해요.",
+      "tags": [],
+      "aiGenerated": true,
+      "sourceTier": {
+        "tier": "T1_HYPOTHESIS",
+        "sourceType": "training_derived",
+        "sourceUrl": null,
+        "accessedAt": "2026-05-07",
+        "quoteShort": null,
+        "humanInterpretation": "P27-A1 distinct-hook expansion: wealth/today brief for male × 70+ × winter-born. Display-only narrative.",
+        "copyrightNote": "No source prose copied; original authored prose.",
+        "authorityTruthEligible": false
+      }
     }
   ]
 }

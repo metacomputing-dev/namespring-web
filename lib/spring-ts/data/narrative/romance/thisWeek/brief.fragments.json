@@ -149,6 +149,32 @@
         "copyrightNote": "No source prose copied; original phrasing.",
         "authorityTruthEligible": false
       }
+    },
+    {
+      "schemaVersion": "spring-ts.narrative-fragment.v1",
+      "fragmentId": "romance.thisWeek.brief.female.thirties.winter.013",
+      "axis": { "category": "romance", "period": "thisWeek", "depth": "brief" },
+      "gating": {
+        "gender": ["female"],
+        "ageBand": ["30-39"],
+        "birthSeason": ["winter"]
+      },
+      "templateTokens": [
+        { "kind": "text", "value": "이번 주는 미루던 약속 한 자리를 시간까지 정해요." }
+      ],
+      "hook": "가까운 약속을 또렷하게 잡아요.",
+      "tags": [],
+      "aiGenerated": true,
+      "sourceTier": {
+        "tier": "T1_HYPOTHESIS",
+        "sourceType": "training_derived",
+        "sourceUrl": null,
+        "accessedAt": "2026-05-07",
+        "quoteShort": null,
+        "humanInterpretation": "P27-A1 distinct-hook expansion: romance/thisWeek brief for female × 30-39 × winter-born. Display-only narrative.",
+        "copyrightNote": "No source prose copied; original authored prose.",
+        "authorityTruthEligible": false
+      }
     }
   ]
 }
