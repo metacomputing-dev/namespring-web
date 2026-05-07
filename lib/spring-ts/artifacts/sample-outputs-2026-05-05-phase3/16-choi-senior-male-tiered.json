@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-05-07T04:15:04.371Z",
+  "generatedAt": "2026-05-07T04:51:33.939Z",
   "targetDate": "2026-05-05T00:00:00+09:00",
   "sampleId": "choi-senior-male-tiered",
   "description": "70+ 시니어 남성 (1948 출생) — life-stage 후반 narrative 가 활성화되는 fallback 경계. 노년 audience 의 prose 적합도와 tieredMatrix 후반기 흐름을 함께 노출하는 케이스.",
@@ -1293,7 +1293,7 @@
     },
     "meta": {
       "version": "1.0.0",
-      "generatedAt": "2026-05-07T04:15:10.844Z",
+      "generatedAt": "2026-05-07T04:51:41.496Z",
       "schoolPreset": {
         "selected": "korean",
         "source": "default",
@@ -5792,7 +5792,8 @@
               "meaningfulness": "limited",
               "stars": 3,
               "brief": {
-                "headline": "오늘은 익숙한 동선을 지키면 호흡이 편안해요."
+                "headline": "오늘은 익숙한 동선을 지키면 호흡이 편안해요.",
+                "hook": "가까운 길로 한 바퀴 걸어요."
               },
               "standard": {
                 "paragraphs": [
@@ -7833,7 +7834,8 @@
               "meaningfulness": "meaningful",
               "stars": 5,
               "brief": {
-                "headline": "이번 주는 익숙한 동선을 지키면 호흡이 편안해져요."
+                "headline": "이번 주는 익숙한 동선을 지키면 호흡이 편안해져요.",
+                "hook": "동선을 미리 한 줄로 적어요."
               },
               "standard": {
                 "paragraphs": [
@@ -9143,7 +9145,8 @@
               "meaningfulness": "meaningful",
               "stars": 1,
               "brief": {
-                "headline": "오래 쌓아 온 결이 후배의 길을 비춰 주는 달이에요."
+                "headline": "오래 쌓아 온 결이 후배의 길을 비춰 주는 달이에요.",
+                "hook": "후배에게 한마디를 건네 봐요."
               },
               "standard": {
                 "paragraphs": [
@@ -12872,7 +12875,7 @@
       },
       "meta": {
         "schemaVersion": "spring-ts.tiered-matrix.v1",
-        "generatedAt": "2026-05-07T04:15:10.844Z",
+        "generatedAt": "2026-05-07T04:51:41.496Z",
         "selectionSeed": "1948|3|15|7|30|male|2026-05-04T15:00:00.000Z",
         "templateContractVersion": "1.0.0",
         "contentSource": "authored",

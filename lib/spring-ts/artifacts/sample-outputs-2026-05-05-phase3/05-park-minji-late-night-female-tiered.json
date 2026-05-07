@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-05-07T04:15:04.371Z",
+  "generatedAt": "2026-05-07T04:51:33.939Z",
   "targetDate": "2026-05-05T00:00:00+09:00",
   "sampleId": "park-minji-late-night-female-tiered",
   "description": "성인 여성 늦은 밤 출생 입력에 야자시, 진태양시, 경도 보정과 tiered 매트릭스를 적용한 케이스.",
@@ -1225,11 +1225,11 @@
         "summary": "올해 연애/결혼운은 좋은 편이에요. 흙 기운이 불 기운을 받쳐줘서 인연의 호흡이 부드러워져요.",
         "advice": [
           {
-            "text": "새로운 만남이나 인연이 자연스럽게 들어오기 좋은 흐름이에요. 모임에 적극 참여해 보세요.",
+            "text": "새로운 인연이 자연스럽게 닿아 오기 쉬워요. 모임에 가볍게 발을 들여 보세요.",
             "reason": "재성·관성 기운이 받쳐 주는 시기에는 사람과 닿는 자리가 부드럽게 풀려 가기 쉬워요."
           },
           {
-            "text": "빨간색 계열의 옷이나 액세서리가 만남 운을 도와줄 수 있어요.",
+            "text": "빨간색 계열의 옷이나 액세서리가 인연의 호흡을 한층 가다듬어 줘요.",
             "reason": "인연과 닿아 있는 오행(불)의 색을 곁들이면 자연스러운 인상을 더하기 쉬워요."
           }
         ],
@@ -1313,7 +1313,7 @@
     },
     "meta": {
       "version": "1.0.0",
-      "generatedAt": "2026-05-07T04:15:06.984Z",
+      "generatedAt": "2026-05-07T04:51:37.364Z",
       "schoolPreset": {
         "selected": "korean",
         "source": "default",
@@ -2562,7 +2562,8 @@
               "meaningfulness": "meaningful",
               "stars": 1,
               "brief": {
-                "headline": "커리어는 잘하는 일을 꾸준히 쌓는 게 좋아요."
+                "headline": "맡은 자리에서 신뢰가 차곡차곡 쌓여요.",
+                "hook": "꾸준함이 가장 큰 자산이에요."
               },
               "standard": {
                 "paragraphs": [
@@ -2712,12 +2713,14 @@
               },
               "selectedFragments": {
                 "brief": {
-                  "fragmentId": "career.life.brief.strategy.502",
+                  "fragmentId": "career.life.brief.strong.neutral.001",
                   "gating": {
-                    "ageBand": [
-                      "20-29",
-                      "30-39",
-                      "40-54"
+                    "dayMasterStrength": [
+                      "STRONG",
+                      "EXTREME_STRONG"
+                    ],
+                    "yongshinAlignment": [
+                      "neutral"
                     ]
                   },
                   "tags": []
@@ -4910,7 +4913,8 @@
               "meaningfulness": "limited",
               "stars": 3,
               "brief": {
-                "headline": "맡은 자리에서 한 가지 책임을 매듭짓는 하루예요."
+                "headline": "맡은 자리에서 한 가지 책임을 매듭짓는 하루예요.",
+                "hook": "한 가지 일을 끝까지 마무리해요."
               },
               "standard": {
                 "paragraphs": [
@@ -5783,7 +5787,8 @@
               "meaningfulness": "limited",
               "stars": 3,
               "brief": {
-                "headline": "오늘은 짧은 외출이나 가벼운 움직임이 생각 정리에 도움이 돼요."
+                "headline": "오늘은 한 발짝 움직여 볼 자리가 가벼워요.",
+                "hook": "익숙한 길도 짧게 새로 보여요."
               },
               "standard": {
                 "paragraphs": [
@@ -5964,11 +5969,14 @@
               },
               "selectedFragments": {
                 "brief": {
-                  "fragmentId": "movement.today.brief.activity.501",
+                  "fragmentId": "movement.today.brief.strong.neutral.001",
                   "gating": {
                     "dayMasterStrength": [
                       "STRONG",
                       "EXTREME_STRONG"
+                    ],
+                    "yongshinAlignment": [
+                      "neutral"
                     ]
                   },
                   "tags": []
@@ -6453,7 +6461,8 @@
               "meaningfulness": "meaningful",
               "stars": 4,
               "brief": {
-                "headline": "이번 주는 움직임이 늘기 쉬워요."
+                "headline": "이번 주는 활동량 누적만 한 번 점검해요.",
+                "hook": "같은 시간에 자고 일어나요."
               },
               "standard": {
                 "paragraphs": [
@@ -6581,11 +6590,14 @@
               },
               "selectedFragments": {
                 "brief": {
-                  "fragmentId": "health.thisWeek.brief.currentseason.spring_summer.301",
+                  "fragmentId": "health.thisWeek.brief.strong.neutral.001",
                   "gating": {
-                    "currentSeason": [
-                      "spring",
-                      "summer"
+                    "dayMasterStrength": [
+                      "STRONG",
+                      "EXTREME_STRONG"
+                    ],
+                    "yongshinAlignment": [
+                      "neutral"
                     ]
                   },
                   "tags": []
@@ -6627,7 +6639,8 @@
               "meaningfulness": "meaningful",
               "stars": 4,
               "brief": {
-                "headline": "이번 주는 자기계발 책 한 챕터를 챙기기 좋은 결이에요."
+                "headline": "이번 주는 한 단원을 매듭짓기 좋은 흐름이에요.",
+                "hook": "짧게 매일 보면 효과가 더 커요."
               },
               "standard": {
                 "paragraphs": [
@@ -6742,11 +6755,14 @@
               },
               "selectedFragments": {
                 "brief": {
-                  "fragmentId": "academic.thisWeek.brief.30plus.005",
+                  "fragmentId": "academic.thisWeek.brief.strong.neutral.001",
                   "gating": {
-                    "ageBand": [
-                      "30-39",
-                      "40-54"
+                    "dayMasterStrength": [
+                      "STRONG",
+                      "EXTREME_STRONG"
+                    ],
+                    "yongshinAlignment": [
+                      "neutral"
                     ]
                   },
                   "tags": []
@@ -7306,7 +7322,8 @@
               "meaningfulness": "meaningful",
               "stars": 4,
               "brief": {
-                "headline": "이번 주는 서류와 일정 마감일을 한곳에 모아두면 놓치는 일이 줄어요."
+                "headline": "추진력으로 한 트랙을 마무리할 만한 주예요.",
+                "hook": "마지막 한 주 정리가 자산이에요."
               },
               "standard": {
                 "paragraphs": [
@@ -7439,13 +7456,14 @@
               },
               "selectedFragments": {
                 "brief": {
-                  "fragmentId": "study_document.thisWeek.brief.ageband.adult.501",
+                  "fragmentId": "study_document.thisWeek.brief.strong.neutral.006",
                   "gating": {
-                    "ageBand": [
-                      "30-39",
-                      "40-54",
-                      "55-69",
-                      "70+"
+                    "dayMasterStrength": [
+                      "STRONG",
+                      "EXTREME_STRONG"
+                    ],
+                    "yongshinAlignment": [
+                      "neutral"
                     ]
                   },
                   "tags": []
@@ -8733,7 +8751,8 @@
               "meaningfulness": "meaningful",
               "stars": 1,
               "brief": {
-                "headline": "이번 달은 관계의 속도를 맞추는 감각이 중요해요."
+                "headline": "이번 달은 사람과의 결이 차분히 정돈되는 결이에요.",
+                "hook": "조급함을 줄이면 관계가 따뜻해져요."
               },
               "standard": {
                 "paragraphs": [
@@ -8847,17 +8866,21 @@
               },
               "selectedFragments": {
                 "brief": {
-                  "fragmentId": "romance.thisMonth.brief.neutral.002",
+                  "fragmentId": "romance.thisMonth.brief.strong.neutral.adult.001",
                   "gating": {
-                    "yongshinAlignment": [
-                      "neutral"
-                    ],
                     "ageBand": [
                       "20-29",
                       "30-39",
                       "40-54",
                       "55-69",
                       "70+"
+                    ],
+                    "dayMasterStrength": [
+                      "STRONG",
+                      "EXTREME_STRONG"
+                    ],
+                    "yongshinAlignment": [
+                      "neutral"
                     ]
                   },
                   "tags": []
@@ -10390,7 +10413,8 @@
               "meaningfulness": "meaningful",
               "stars": 4,
               "brief": {
-                "headline": "올해는 큰 변화보다 기본 체력을 쌓는 습관이 중요해요."
+                "headline": "올해는 강도 조절이 가장 큰 보약이 돼요.",
+                "hook": "정기 점검 일정을 미리 잡아요."
               },
               "standard": {
                 "paragraphs": [
@@ -10567,13 +10591,14 @@
               },
               "selectedFragments": {
                 "brief": {
-                  "fragmentId": "health.thisYear.brief.foundation.501",
+                  "fragmentId": "health.thisYear.brief.strong.neutral.001",
                   "gating": {
-                    "ageBand": [
-                      "0-9",
-                      "10-19",
-                      "20-29",
-                      "30-39"
+                    "dayMasterStrength": [
+                      "STRONG",
+                      "EXTREME_STRONG"
+                    ],
+                    "yongshinAlignment": [
+                      "neutral"
                     ]
                   },
                   "tags": []
@@ -11004,7 +11029,8 @@
               "meaningfulness": "meaningful",
               "stars": 4,
               "brief": {
-                "headline": "올해는 가족과 함께 움직이고 새 계획을 세우기 쉬워요."
+                "headline": "올해는 가까운 사람과의 인연이 따뜻하게 자라요.",
+                "hook": "작은 안부가 큰 다리가 되어 줘요."
               },
               "standard": {
                 "paragraphs": [
@@ -11119,11 +11145,14 @@
               },
               "selectedFragments": {
                 "brief": {
-                  "fragmentId": "family.thisYear.brief.currentseason.spring_summer.301",
+                  "fragmentId": "family.thisYear.brief.strong.neutral.001",
                   "gating": {
-                    "currentSeason": [
-                      "spring",
-                      "summer"
+                    "dayMasterStrength": [
+                      "STRONG",
+                      "EXTREME_STRONG"
+                    ],
+                    "yongshinAlignment": [
+                      "neutral"
                     ]
                   },
                   "tags": []
@@ -11167,7 +11196,8 @@
               "meaningfulness": "meaningful",
               "stars": 4,
               "brief": {
-                "headline": "올해는 한 자리에서 자기 색이 깊어지는 한 해예요."
+                "headline": "올해는 한 자리에서 자기 색이 깊어지는 한 해예요.",
+                "hook": "자기 색을 한 줄 더 또렷이 해요."
               },
               "standard": {
                 "paragraphs": [
@@ -12859,7 +12889,7 @@
       },
       "meta": {
         "schemaVersion": "spring-ts.tiered-matrix.v1",
-        "generatedAt": "2026-05-07T04:15:06.984Z",
+        "generatedAt": "2026-05-07T04:51:37.364Z",
         "selectionSeed": "1992|11|3|23|20|female|2026-05-04T15:00:00.000Z",
         "templateContractVersion": "1.0.0",
         "contentSource": "authored",

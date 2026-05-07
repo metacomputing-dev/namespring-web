@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-05-07T04:15:04.371Z",
+  "generatedAt": "2026-05-07T04:51:33.939Z",
   "targetDate": "2026-05-05T00:00:00+09:00",
   "sampleId": "choi-palace-naeum-surface-tiered",
   "description": "12궁 / 60갑자 surface ON 시나리오 (declared opt-in). saju-ts 측 데이터 포트 이전이면 surfacePalace/surfaceNaeum 이 추가 출력을 내지 않으며, 계약상 opt-in 시그니처만 노출한다. tieredMatrix 는 정상 출력.",
@@ -770,7 +770,7 @@
     },
     "meta": {
       "version": "1.0.0",
-      "generatedAt": "2026-05-07T04:15:10.286Z",
+      "generatedAt": "2026-05-07T04:51:40.886Z",
       "schoolPreset": {
         "selected": "korean",
         "source": "default",
@@ -4287,7 +4287,8 @@
               "meaningfulness": "limited",
               "stars": 3,
               "brief": {
-                "headline": "맡은 자리에서 한 가지 책임을 매듭짓는 하루예요."
+                "headline": "맡은 자리에서 한 가지 책임을 매듭짓는 하루예요.",
+                "hook": "한 가지 일을 끝까지 마무리해요."
               },
               "standard": {
                 "paragraphs": [
@@ -5166,7 +5167,8 @@
               "meaningfulness": "limited",
               "stars": 3,
               "brief": {
-                "headline": "오늘은 익숙한 동선을 지키면 호흡이 편안해요."
+                "headline": "오늘은 익숙한 동선을 지키면 호흡이 편안해요.",
+                "hook": "가까운 길로 한 바퀴 걸어요."
               },
               "standard": {
                 "paragraphs": [
@@ -7265,7 +7267,8 @@
               "meaningfulness": "limited",
               "stars": 3,
               "brief": {
-                "headline": "이번 주는 익숙한 동선을 지키면 호흡이 편안해져요."
+                "headline": "이번 주는 익숙한 동선을 지키면 호흡이 편안해져요.",
+                "hook": "동선을 미리 한 줄로 적어요."
               },
               "standard": {
                 "paragraphs": [
@@ -12333,7 +12336,7 @@
       },
       "meta": {
         "schemaVersion": "spring-ts.tiered-matrix.v1",
-        "generatedAt": "2026-05-07T04:15:10.286Z",
+        "generatedAt": "2026-05-07T04:51:40.886Z",
         "selectionSeed": "1986|4|19|5|45|male|2026-05-04T15:00:00.000Z",
         "templateContractVersion": "1.0.0",
         "contentSource": "authored",
