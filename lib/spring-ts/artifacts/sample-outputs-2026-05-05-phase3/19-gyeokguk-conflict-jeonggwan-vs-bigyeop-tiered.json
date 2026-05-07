@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-05-07T12:41:14.853Z",
+  "generatedAt": "2026-05-07T12:47:08.203Z",
   "targetDate": "2026-05-05T00:00:00+09:00",
   "sampleId": "gyeokguk-conflict-jeonggwan-vs-bigyeop-tiered",
   "description": "격국 충돌 case 1: 정관 후보와 비견(겁재) 후보가 같이 잡히기 쉬운 입력. gyeokgukSelectionRule=jungki_transparent 로 월지 중기 투간 룰을 활성화하여 후보 ranking 의 elasticity 를 노출하는 케이스. 최종 격국 판정은 엔진이 결정한다.",
@@ -1303,7 +1303,7 @@
     },
     "meta": {
       "version": "1.0.0",
-      "generatedAt": "2026-05-07T12:41:25.262Z",
+      "generatedAt": "2026-05-07T12:47:18.169Z",
       "schoolPreset": {
         "selected": "korean",
         "source": "default",
@@ -8777,9 +8777,9 @@
                   }
                 ],
                 "livingTips": [
-                  "월말에 한 권을 매듭짓기",
-                  "이달 곁 분야 한 걸음",
-                  "이달 자기 호흡 지키기"
+                  "익숙한 자리에서 매듭짓기",
+                  "곁 분야 한 걸음",
+                  "자기 호흡을 지키기"
                 ],
                 "cautions": [
                   "편한 자리에 머물기만 하지 않기"
@@ -13125,7 +13125,7 @@
       },
       "meta": {
         "schemaVersion": "spring-ts.tiered-matrix.v1",
-        "generatedAt": "2026-05-07T12:41:25.262Z",
+        "generatedAt": "2026-05-07T12:47:18.169Z",
         "selectionSeed": "1985|5|25|8|45|male|2026-05-04T15:00:00.000Z",
         "templateContractVersion": "1.0.0",
         "contentSource": "authored",

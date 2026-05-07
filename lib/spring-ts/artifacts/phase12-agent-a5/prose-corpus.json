@@ -1,6 +1,6 @@
 {
   "fixtureCount": 32,
-  "recordCount": 14757,
+  "recordCount": 14908,
   "fixtures": [
     {
       "fixture": "02-choi-seongsoo-tiered-fortune.json",
@@ -1252,6 +1252,15 @@
     {
       "fixture": "02-choi-seongsoo-tiered-fortune.json",
       "period": "life",
+      "category": "overall",
+      "depth": "expert",
+      "slot": "para4",
+      "cellKey": "life/overall/expert/para4",
+      "plainText": "#월덕귀인의 기운이 #조상궁의 뿌리와 함께 보이는 사주는 장년기의 작은 무리도 부드럽게 풀어 주는 자리가 자주 등장해요. 한 번 큰 분기 뒤에는 천천히 다지는 시간이 평생의 가장 큰 자산이 되는 사주이니, 후반기로 갈수록 자기 페이스를 지켜 두는 호흡이 깊어져요."
+    },
+    {
+      "fixture": "02-choi-seongsoo-tiered-fortune.json",
+      "period": "life",
       "category": "wealth",
       "depth": "brief",
       "slot": "headline",
@@ -1338,6 +1347,15 @@
       "slot": "para3",
       "cellKey": "life/wealth/expert/para3",
       "plainText": "#겁재가 들어오는 시기엔 동업·돈거래는 평소보다 한 번 더 살피면 좋아요."
+    },
+    {
+      "fixture": "02-choi-seongsoo-tiered-fortune.json",
+      "period": "life",
+      "category": "wealth",
+      "depth": "expert",
+      "slot": "para4",
+      "cellKey": "life/wealth/expert/para4",
+      "plainText": "#용신의 흐름이 평생 자산을 만드는 가장 큰 축이라, 한 번에 큰 자리를 잡기보다 작은 호흡 위에 호흡을 얹어 두는 방식이 가장 단단해요. #정인의 받침이 든든해지는 시기엔 자기 페이스의 기준이 또렷해지면서 흔들림이 줄어드는 흐름이라, 시간을 자기 편으로 두는 자세가 평생의 자산을 부드럽게 받쳐 줘요."
     },
     {
       "fixture": "02-choi-seongsoo-tiered-fortune.json",
@@ -2049,6 +2067,15 @@
       "slot": "para3",
       "cellKey": "life/movement/expert/para3",
       "plainText": "#대운궁실의 흐름이 강해지는 시기엔 한 발짝 더 내디뎌 봐도 좋아요."
+    },
+    {
+      "fixture": "02-choi-seongsoo-tiered-fortune.json",
+      "period": "life",
+      "category": "movement",
+      "depth": "expert",
+      "slot": "para4",
+      "cellKey": "life/movement/expert/para4",
+      "plainText": "#천덕귀인의 흐름이 #역마의 자리와 함께 보이는 사주는 새로운 환경의 리듬을 부드럽게 풀어 주는 자리가 평생을 통해 자주 등장해요. 거리감 있는 이동도 곁의 작은 도움 한 번 한 번이 자리를 받쳐 주는 흐름이라, 한 번에 멀리 가기보다 작은 발걸음이 쌓이는 호흡이 자기 흐름에 잘 맞아요."
     },
     {
       "fixture": "02-choi-seongsoo-tiered-fortune.json",
@@ -2800,6 +2827,15 @@
     {
       "fixture": "02-choi-seongsoo-tiered-fortune.json",
       "period": "today",
+      "category": "health_stress",
+      "depth": "expert",
+      "slot": "para4",
+      "cellKey": "today/health_stress/expert/para4",
+      "plainText": "#용신의 흐름을 가까이 두는 자리와 #정인의 돌봄이 자기 페이스를 받쳐 주는 시기에는 책임의 흐름을 한 박자 늦추는 호흡이 가장 큰 무기가 돼요. 30-50대 자리에서 자기 한계를 의식적으로 두는 자세가 다음 시기의 컨디션 결까지 부드럽게 이어 주는 자산이라, 작은 회복이 쌓이는 호흡이 자리를 든든히 만들어 줘요."
+    },
+    {
+      "fixture": "02-choi-seongsoo-tiered-fortune.json",
+      "period": "today",
       "category": "movement",
       "depth": "brief",
       "slot": "headline",
@@ -2894,7 +2930,7 @@
       "depth": "standard",
       "slot": "para1",
       "cellKey": "thisWeek/overall/standard/para1",
-      "plainText": "무리해서 새 변화를 만들기보다 익숙한 페이스를 지키는 게 잘 맞아요."
+      "plainText": "새 변화를 무리해서 만들지 않고, 익숙한 페이스를 한 주 동안 지키는 흐름이 잘 맞아요."
     },
     {
       "fixture": "02-choi-seongsoo-tiered-fortune.json",
@@ -3241,6 +3277,15 @@
     {
       "fixture": "02-choi-seongsoo-tiered-fortune.json",
       "period": "thisWeek",
+      "category": "romance",
+      "depth": "expert",
+      "slot": "para4",
+      "cellKey": "thisWeek/romance/expert/para4",
+      "plainText": "#홍염살의 기운이 #배우자궁의 자리와 함께 보이는 사주는 약한 일간이 천천히 익는 한 주가 평생의 인연 자리로 이어지는 사주이니, 한 번에 마음을 다 보여 주기보다 익숙한 호흡으로 작은 다정함을 쌓아 두면 한 달·한 해의 더 깊은 신뢰로 자라요."
+    },
+    {
+      "fixture": "02-choi-seongsoo-tiered-fortune.json",
+      "period": "thisWeek",
       "category": "family",
       "depth": "brief",
       "slot": "headline",
@@ -3398,7 +3443,7 @@
       "depth": "standard",
       "slot": "para0",
       "cellKey": "thisWeek/study_document/standard/para0",
-      "plainText": "이번 주는 도와줄 사람·기관·자료를 떠올려 한 가지를 풀어 가기 좋은 시기예요. 혼자 다 짊어지기보다 한 번 도움을 청하는 페이스가 잘 맞아요."
+      "plainText": "이번 주는 도와줄 사람·기관·자료를 떠올려 한 가지를 풀어 가기 좋은 시기예요. 무거운 짐을 혼자 떠안는 흐름이 아니라, 한 번 도움을 청하는 페이스가 한결 잘 맞아요."
     },
     {
       "fixture": "02-choi-seongsoo-tiered-fortune.json",
@@ -4078,6 +4123,15 @@
     {
       "fixture": "02-choi-seongsoo-tiered-fortune.json",
       "period": "thisMonth",
+      "category": "romance",
+      "depth": "expert",
+      "slot": "para4",
+      "cellKey": "thisMonth/romance/expert/para4",
+      "plainText": "#배우자궁의 리듬이 부드럽게 받쳐 주는 시기에는 곁의 호흡을 한 박자 늦게 받아들여도 신뢰가 자리 잡는 흐름이라, 한 달 동안 자기 페이스를 지키며 함께 만드는 작은 약속들이 다음 시기의 인연을 단단하게 다져 줘요. 약한 일간 특성상 무리한 추진보다 천천히 익는 자리가 자기 흐름에 잘 맞고, 그 자리에서 만난 인연일수록 깊은 신뢰로 자라는 흐름이에요."
+    },
+    {
+      "fixture": "02-choi-seongsoo-tiered-fortune.json",
+      "period": "thisMonth",
       "category": "family",
       "depth": "brief",
       "slot": "headline",
@@ -4474,6 +4528,15 @@
     {
       "fixture": "02-choi-seongsoo-tiered-fortune.json",
       "period": "thisMonth",
+      "category": "health_stress",
+      "depth": "expert",
+      "slot": "para4",
+      "cellKey": "thisMonth/health_stress/expert/para4",
+      "plainText": "#정인의 돌봄이 한 달의 끝자락까지 자기 곁을 받쳐 주면, #편관의 압박이 강한 시기에도 흔들림이 줄어드는 흐름이에요. 한 주의 끝마다 자기 페이스를 한 번씩 점검하는 자리가 다음 달의 컨디션 결까지 부드럽게 이어 주는 자산이라, 무리한 회복보다 천천히 익는 시간을 자기 편으로 두는 자세가 자리를 단단히 받쳐 줘요."
+    },
+    {
+      "fixture": "02-choi-seongsoo-tiered-fortune.json",
+      "period": "thisMonth",
       "category": "movement",
       "depth": "brief",
       "slot": "headline",
@@ -4542,6 +4605,15 @@
       "slot": "para3",
       "cellKey": "thisMonth/movement/expert/para3",
       "plainText": "#대운궁실의 흐름이 강해지는 시기엔 한 발짝 더 내디뎌 봐도 좋아요."
+    },
+    {
+      "fixture": "02-choi-seongsoo-tiered-fortune.json",
+      "period": "thisMonth",
+      "category": "movement",
+      "depth": "expert",
+      "slot": "para4",
+      "cellKey": "thisMonth/movement/expert/para4",
+      "plainText": "#천덕귀인의 자리가 #역마의 자극과 함께 보이는 사주는 새로운 환경의 호흡을 부드럽게 풀어 주는 자리가 이번 달 안에 한두 번 등장해요. 거리감 있는 일정도 곁의 작은 도움 한 번 한 번이 자리를 받쳐 주는 흐름이라, 한 번에 멀리 가기보다 작은 발걸음이 쌓이는 호흡이 자기 페이스에 잘 맞아요."
     },
     {
       "fixture": "02-choi-seongsoo-tiered-fortune.json",
@@ -5816,6 +5888,15 @@
       "fixture": "04-kim-seoyun-young-female-tiered.json",
       "period": "life",
       "category": "family",
+      "depth": "standard",
+      "slot": "para4",
+      "cellKey": "life/family/standard/para4",
+      "plainText": "자기 색이 자라는 시기일수록 가족과의 한 끼가 길게 남아요."
+    },
+    {
+      "fixture": "04-kim-seoyun-young-female-tiered.json",
+      "period": "life",
+      "category": "family",
       "depth": "expert",
       "slot": "para0",
       "cellKey": "life/family/expert/para0",
@@ -5847,6 +5928,15 @@
       "slot": "para3",
       "cellKey": "life/family/expert/para3",
       "plainText": "#천덕귀인의 흐름과 #월덕귀인의 자리가 함께 보이는 사주는 가족 안에서 부드럽게 도움 주고받는 흐름이 자기 자산이 되는 모양이에요."
+    },
+    {
+      "fixture": "04-kim-seoyun-young-female-tiered.json",
+      "period": "life",
+      "category": "family",
+      "depth": "expert",
+      "slot": "para4",
+      "cellKey": "life/family/expert/para4",
+      "plainText": "#부모궁 에 따뜻한 기운이 도는 어린 시기엔 보호자의 호흡과 #정인의 돌봄이 평생의 안전한 바탕을 만드는 시기예요. 이 시기의 작은 신뢰의 흐름이 청년기·중년기로 이어지면서 자기 정체성의 뿌리가 되는 흐름이라, 지금 받은 따뜻한 자산이 평생의 가장 큰 자기 응원으로 자리 잡는 사주의 모양이에요."
     },
     {
       "fixture": "04-kim-seoyun-young-female-tiered.json",
@@ -7085,6 +7175,15 @@
       "fixture": "04-kim-seoyun-young-female-tiered.json",
       "period": "today",
       "category": "movement",
+      "depth": "standard",
+      "slot": "para4",
+      "cellKey": "today/movement/standard/para4",
+      "plainText": "작은 한 걸음의 환기가 오늘의 흐름을 가장 가볍게 만들어 줘요."
+    },
+    {
+      "fixture": "04-kim-seoyun-young-female-tiered.json",
+      "period": "today",
+      "category": "movement",
       "depth": "expert",
       "slot": "para0",
       "cellKey": "today/movement/expert/para0",
@@ -7196,7 +7295,7 @@
       "depth": "brief",
       "slot": "headline",
       "cellKey": "thisWeek/wealth/brief/headline",
-      "plainText": "이번 주 재물운은 지출 한도를 먼저 정하면 흔들림이 줄어요."
+      "plainText": "이번 주는 모은 돈을 작은 항목으로 나눠 봐요."
     },
     {
       "fixture": "04-kim-seoyun-young-female-tiered.json",
@@ -7970,6 +8069,15 @@
       "depth": "standard",
       "slot": "para2",
       "cellKey": "thisMonth/overall/standard/para2",
+      "plainText": "또래의 빠른 모습이나 SNS 속 또렷한 색이 마음에 들어와도 비교만 길게 가져가지 않으면 좋아요. 자기 색은 한 달 단위로 천천히 진해지는 흐름이라, 그 호흡을 알아봐 주는 자리가 곁에 한두 자리만 있어도 단단해져요."
+    },
+    {
+      "fixture": "04-kim-seoyun-young-female-tiered.json",
+      "period": "thisMonth",
+      "category": "overall",
+      "depth": "standard",
+      "slot": "para3",
+      "cellKey": "thisMonth/overall/standard/para3",
       "plainText": "마음의 작은 신호 — 짜증·답답함·뿌듯함·외로움 — 가 있다면 가족이나 가까운 어른과 한 줄로 나눠 두면 좋아요. 한 달 동안 좋아하는 활동을 한두 가지 길게 이어 가는 자리, 자기 감정을 표현하는 자리가 자기 색을 키우는 큰 자산이 돼요."
     },
     {
@@ -8398,6 +8506,15 @@
     {
       "fixture": "04-kim-seoyun-young-female-tiered.json",
       "period": "thisMonth",
+      "category": "family",
+      "depth": "expert",
+      "slot": "para4",
+      "cellKey": "thisMonth/family/expert/para4",
+      "plainText": "#천덕귀인의 자리가 #부모궁의 호흡과 함께 보이는 어린 시기의 사주는 한 달 안의 작은 다툼도 부드럽게 풀어 주는 자리가 자주 등장해요. 이 시기에 받은 따뜻한 호흡 한 번이 청소년기의 안정감으로 자라는 사주이니, 보호자의 작은 칭찬과 짧은 산책 한 번이 평생의 큰 자산으로 쌓여요."
+    },
+    {
+      "fixture": "04-kim-seoyun-young-female-tiered.json",
+      "period": "thisMonth",
       "category": "career",
       "depth": "brief",
       "slot": "headline",
@@ -8438,6 +8555,15 @@
       "depth": "standard",
       "slot": "para3",
       "cellKey": "thisMonth/career/standard/para3",
+      "plainText": "중간에 그 관심이 시들해 보일 때도 자책할 필요는 없어요. 호기심은 한 달 안에 모양을 바꾸기도 하고, 옆자리로 잠깐 옮겨 갔다가 더 큰 흐름으로 돌아오는 경우도 자주 있어요."
+    },
+    {
+      "fixture": "04-kim-seoyun-young-female-tiered.json",
+      "period": "thisMonth",
+      "category": "career",
+      "depth": "standard",
+      "slot": "para4",
+      "cellKey": "thisMonth/career/standard/para4",
       "plainText": "작은 호기심이 길게 자라는 한 달이에요."
     },
     {
@@ -8582,6 +8708,15 @@
       "depth": "standard",
       "slot": "para2",
       "cellKey": "thisMonth/expression_children/standard/para2",
+      "plainText": "비유하자면 한 달은 색을 묻혀 두는 작은 팔레트 같아요. 매일 한 가지씩 묻혀 둔 색이 한 달 끝에서는 자기만의 색의 묶음으로 보여, 다음 달의 작품에 그대로 쓸 수 있어요."
+    },
+    {
+      "fixture": "04-kim-seoyun-young-female-tiered.json",
+      "period": "thisMonth",
+      "category": "expression_children",
+      "depth": "standard",
+      "slot": "para3",
+      "cellKey": "thisMonth/expression_children/standard/para3",
       "plainText": "이번 달의 한 매듭이 한 학기 색의 뼈대로 쌓여요."
     },
     {
@@ -8744,6 +8879,15 @@
       "depth": "standard",
       "slot": "para2",
       "cellKey": "thisMonth/movement/standard/para2",
+      "plainText": "실천 흐름으로는 짧은 여행 자리에서 본 한 장면을 메모장 한 칸에 적어 두면 좋아요. 한 달 끝에서 그 메모를 모아 보면 자기만의 시야 지도가 한 장으로 모여, 다음 자리에 그대로 이어져요."
+    },
+    {
+      "fixture": "04-kim-seoyun-young-female-tiered.json",
+      "period": "thisMonth",
+      "category": "movement",
+      "depth": "standard",
+      "slot": "para3",
+      "cellKey": "thisMonth/movement/standard/para3",
       "plainText": "다만 시험 시기와 겹친다면 멀리 가지 않고 가까운 곳에서 가볍게 환기해 보세요. 무리하지 않는 방식이 좋아요."
     },
     {
@@ -9730,6 +9874,15 @@
     {
       "fixture": "05-park-minji-late-night-female-tiered.json",
       "period": "life",
+      "category": "overall",
+      "depth": "expert",
+      "slot": "para4",
+      "cellKey": "life/overall/expert/para4",
+      "plainText": "#대운궁실의 큰 기운이 #희신의 자리와 함께 들어오는 시기엔 단단한 일간이 부드러운 호흡을 받아들이는 흐름이 자라고, 한 발짝 더 멀리 보는 결정을 천천히 내려 두는 자리가 평생의 든든한 자산이 돼요. 자기 페이스로 깊이 익히는 시간이 큰 그림 위에서 더 또렷한 리듬으로 모이는 흐름이에요."
+    },
+    {
+      "fixture": "05-park-minji-late-night-female-tiered.json",
+      "period": "life",
       "category": "wealth",
       "depth": "brief",
       "slot": "headline",
@@ -10284,6 +10437,15 @@
       "slot": "para3",
       "cellKey": "life/expression_children/standard/para3",
       "plainText": "자녀와 관련된 리듬도 함께 보이지만 어떤 모양이든 단정 없이 흘러가는 흐름이 좋아요. 자기 흐름을 단단히 잡는 것이 곧 다음 세대로의 다리예요."
+    },
+    {
+      "fixture": "05-park-minji-late-night-female-tiered.json",
+      "period": "life",
+      "category": "expression_children",
+      "depth": "standard",
+      "slot": "para4",
+      "cellKey": "life/expression_children/standard/para4",
+      "plainText": "오늘 자기 색을 단단히 두면, 그 흐름이 자연스럽게 다음 사람에게 이어져요."
     },
     {
       "fixture": "05-park-minji-late-night-female-tiered.json",
@@ -11615,7 +11777,7 @@
       "depth": "brief",
       "slot": "headline",
       "cellKey": "thisWeek/romance/brief/headline",
-      "plainText": "이번 주는 인연을 서두르기보다 자연스럽게 이어가는 흐름이 좋아요."
+      "plainText": "이번 주는 미루던 약속 한 자리를 시간까지 정해요."
     },
     {
       "fixture": "05-park-minji-late-night-female-tiered.json",
@@ -13604,7 +13766,7 @@
       "depth": "brief",
       "slot": "headline",
       "cellKey": "thisYear/health_stress/brief/headline",
-      "plainText": "올해는 마음을 자주 비우는 시간이 필요해요."
+      "plainText": "올해는 한 달에 한 번 짧게 혼자 시간을 가져 봐요."
     },
     {
       "fixture": "05-park-minji-late-night-female-tiered.json",
@@ -13830,6 +13992,15 @@
       "slot": "para3",
       "cellKey": "life/overall/expert/para3",
       "plainText": "#격국용신의 흐름과 #격국적합도의 평균이 또렷한 사주는 자기 격에 맞는 길로 큰 흐름이 모이는 자리가 자주 등장해요."
+    },
+    {
+      "fixture": "06-lee-hajun-unknown-hour-neutral-tiered.json",
+      "period": "life",
+      "category": "overall",
+      "depth": "expert",
+      "slot": "para4",
+      "cellKey": "life/overall/expert/para4",
+      "plainText": "#대운궁실의 큰 기운이 #희신의 자리와 함께 들어오는 시기엔 단단한 일간이 부드러운 호흡을 받아들이는 흐름이 자라고, 한 발짝 더 멀리 보는 결정을 천천히 내려 두는 자리가 평생의 든든한 자산이 돼요. 자기 페이스로 깊이 익히는 시간이 큰 그림 위에서 더 또렷한 리듬으로 모이는 흐름이에요."
     },
     {
       "fixture": "06-lee-hajun-unknown-hour-neutral-tiered.json",
@@ -15863,6 +16034,15 @@
       "depth": "standard",
       "slot": "para3",
       "cellKey": "thisWeek/career/standard/para3",
+      "plainText": "또래의 빠른 인정에 마음이 흔들리는 자리도 자주 와요. 그럴 땐 비교 대신 자기 한 주의 한 줄을 다시 들춰 보면, 자기 흐름의 속도가 더 또렷이 보여요."
+    },
+    {
+      "fixture": "06-lee-hajun-unknown-hour-neutral-tiered.json",
+      "period": "thisWeek",
+      "category": "career",
+      "depth": "standard",
+      "slot": "para4",
+      "cellKey": "thisWeek/career/standard/para4",
       "plainText": "시작의 방향이 또렷해지는 한 주예요."
     },
     {
@@ -16619,6 +16799,15 @@
       "depth": "standard",
       "slot": "para3",
       "cellKey": "thisMonth/family/standard/para3",
+      "plainText": "다만 본가와의 큰 재정 결합은 한두 달 미뤄 두는 편이 좋아요. 자기 살림의 자리가 또렷이 잡힌 뒤에 함께 의논하면, 가족 결과 자기 흐름이 부딪히지 않고 같이 자라요."
+    },
+    {
+      "fixture": "06-lee-hajun-unknown-hour-neutral-tiered.json",
+      "period": "thisMonth",
+      "category": "family",
+      "depth": "standard",
+      "slot": "para4",
+      "cellKey": "thisMonth/family/standard/para4",
       "plainText": "매달의 작은 리듬이 단단한 뿌리예요."
     },
     {
@@ -18028,6 +18217,15 @@
     {
       "fixture": "08-kim-jiwon-strong-jeonggwan-gyeokguk-tiered.json",
       "period": "life",
+      "category": "wealth",
+      "depth": "expert",
+      "slot": "para4",
+      "cellKey": "life/wealth/expert/para4",
+      "plainText": "#용신의 흐름이 평생 자산을 만드는 가장 큰 축이라, 한 번에 큰 자리를 잡기보다 작은 호흡 위에 호흡을 얹어 두는 방식이 가장 단단해요. #정인의 받침이 든든해지는 시기엔 자기 페이스의 기준이 또렷해지면서 흔들림이 줄어드는 흐름이라, 시간을 자기 편으로 두는 자세가 평생의 자산을 부드럽게 받쳐 줘요."
+    },
+    {
+      "fixture": "08-kim-jiwon-strong-jeonggwan-gyeokguk-tiered.json",
+      "period": "life",
       "category": "health",
       "depth": "brief",
       "slot": "headline",
@@ -18726,6 +18924,15 @@
       "slot": "para3",
       "cellKey": "life/movement/expert/para3",
       "plainText": "#대운궁실의 흐름이 강해지는 시기엔 한 발짝 더 내디뎌 봐도 좋아요."
+    },
+    {
+      "fixture": "08-kim-jiwon-strong-jeonggwan-gyeokguk-tiered.json",
+      "period": "life",
+      "category": "movement",
+      "depth": "expert",
+      "slot": "para4",
+      "cellKey": "life/movement/expert/para4",
+      "plainText": "#천덕귀인의 흐름이 #역마의 자리와 함께 보이는 사주는 새로운 환경의 리듬을 부드럽게 풀어 주는 자리가 평생을 통해 자주 등장해요. 거리감 있는 이동도 곁의 작은 도움 한 번 한 번이 자리를 받쳐 주는 흐름이라, 한 번에 멀리 가기보다 작은 발걸음이 쌓이는 호흡이 자기 흐름에 잘 맞아요."
     },
     {
       "fixture": "08-kim-jiwon-strong-jeonggwan-gyeokguk-tiered.json",
@@ -19918,6 +20125,15 @@
     {
       "fixture": "08-kim-jiwon-strong-jeonggwan-gyeokguk-tiered.json",
       "period": "thisWeek",
+      "category": "romance",
+      "depth": "expert",
+      "slot": "para4",
+      "cellKey": "thisWeek/romance/expert/para4",
+      "plainText": "#홍염살의 기운이 #배우자궁의 자리와 함께 보이는 사주는 약한 일간이 천천히 익는 한 주가 평생의 인연 자리로 이어지는 사주이니, 한 번에 마음을 다 보여 주기보다 익숙한 호흡으로 작은 다정함을 쌓아 두면 한 달·한 해의 더 깊은 신뢰로 자라요."
+    },
+    {
+      "fixture": "08-kim-jiwon-strong-jeonggwan-gyeokguk-tiered.json",
+      "period": "thisWeek",
       "category": "family",
       "depth": "brief",
       "slot": "headline",
@@ -20746,6 +20962,15 @@
     {
       "fixture": "08-kim-jiwon-strong-jeonggwan-gyeokguk-tiered.json",
       "period": "thisMonth",
+      "category": "romance",
+      "depth": "expert",
+      "slot": "para4",
+      "cellKey": "thisMonth/romance/expert/para4",
+      "plainText": "#배우자궁의 리듬이 부드럽게 받쳐 주는 시기에는 곁의 호흡을 한 박자 늦게 받아들여도 신뢰가 자리 잡는 흐름이라, 한 달 동안 자기 페이스를 지키며 함께 만드는 작은 약속들이 다음 시기의 인연을 단단하게 다져 줘요. 약한 일간 특성상 무리한 추진보다 천천히 익는 자리가 자기 흐름에 잘 맞고, 그 자리에서 만난 인연일수록 깊은 신뢰로 자라는 흐름이에요."
+    },
+    {
+      "fixture": "08-kim-jiwon-strong-jeonggwan-gyeokguk-tiered.json",
+      "period": "thisMonth",
       "category": "family",
       "depth": "brief",
       "slot": "headline",
@@ -21192,6 +21417,15 @@
       "slot": "para3",
       "cellKey": "thisMonth/movement/expert/para3",
       "plainText": "#대운궁실의 흐름이 강해지는 시기엔 한 발짝 더 내디뎌 봐도 좋아요."
+    },
+    {
+      "fixture": "08-kim-jiwon-strong-jeonggwan-gyeokguk-tiered.json",
+      "period": "thisMonth",
+      "category": "movement",
+      "depth": "expert",
+      "slot": "para4",
+      "cellKey": "thisMonth/movement/expert/para4",
+      "plainText": "#천덕귀인의 자리가 #역마의 자극과 함께 보이는 사주는 새로운 환경의 호흡을 부드럽게 풀어 주는 자리가 이번 달 안에 한두 번 등장해요. 거리감 있는 일정도 곁의 작은 도움 한 번 한 번이 자리를 받쳐 주는 흐름이라, 한 번에 멀리 가기보다 작은 발걸음이 쌓이는 호흡이 자기 페이스에 잘 맞아요."
     },
     {
       "fixture": "08-kim-jiwon-strong-jeonggwan-gyeokguk-tiered.json",
@@ -23864,6 +24098,15 @@
       "depth": "standard",
       "slot": "para2",
       "cellKey": "thisWeek/health/standard/para2",
+      "plainText": "비유하자면 이번 주는 잘 익은 가을 햇살 곁에 자기 흐름을 두는 자리예요. 큰 빛 한 번보다 부드러운 빛이 길게 머무는 한 주가 몸의 흐름을 한결 가볍게 데워 줘요."
+    },
+    {
+      "fixture": "09-kim-seongsu-special-format-candidate-tiered.json",
+      "period": "thisWeek",
+      "category": "health",
+      "depth": "standard",
+      "slot": "para3",
+      "cellKey": "thisWeek/health/standard/para3",
       "plainText": "주말엔 가까운 가족·친구와의 짧은 자리가 마음 흐름을 한층 따뜻하게 만들어 줘요. 잠자리를 평소대로 챙기면 다음 주 흐름이 자연스럽게 부드러워져요."
     },
     {
@@ -24080,6 +24323,15 @@
       "depth": "standard",
       "slot": "para2",
       "cellKey": "thisWeek/family/standard/para2",
+      "plainText": "비유하자면 이번 주는 잘 지핀 화로 곁에 손을 모으는 자리예요. 큰 장작을 새로 던져 넣지 않아도 남은 숯불의 따뜻함이 한 주 동안 가족 자리를 충분히 데워 줘요."
+    },
+    {
+      "fixture": "09-kim-seongsu-special-format-candidate-tiered.json",
+      "period": "thisWeek",
+      "category": "family",
+      "depth": "standard",
+      "slot": "para3",
+      "cellKey": "thisWeek/family/standard/para3",
       "plainText": "큰 자산 정리는 한 주 안에 결정하지 말고, 다음 시기로 한 박자 미뤄 두는 흐름이 잘 맞아요."
     },
     {
@@ -24665,6 +24917,15 @@
       "depth": "standard",
       "slot": "para2",
       "cellKey": "thisMonth/health/standard/para2",
+      "plainText": "실천 흐름으로는 점검 자리 한 번에 잠 시간·식사 양·근육통 한 줄을 같이 적어 두면 좋아요. 한 달 끝에서 그 세 줄을 모아 보면 자기 강도의 또렷한 기준이 자연스럽게 보여요."
+    },
+    {
+      "fixture": "09-kim-seongsu-special-format-candidate-tiered.json",
+      "period": "thisMonth",
+      "category": "health",
+      "depth": "standard",
+      "slot": "para3",
+      "cellKey": "thisMonth/health/standard/para3",
       "plainText": "월말 무렵엔 컨디션 점검이나 충분한 휴식 자리를 한 번 챙기면, 다음 달 흐름까지 가볍게 시작돼요."
     },
     {
@@ -26209,6 +26470,15 @@
     {
       "fixture": "10-choi-yaza-boundary-male-tiered.json",
       "period": "life",
+      "category": "overall",
+      "depth": "expert",
+      "slot": "para4",
+      "cellKey": "life/overall/expert/para4",
+      "plainText": "#대운궁실의 큰 기운이 #희신의 자리와 함께 들어오는 시기엔 단단한 일간이 부드러운 호흡을 받아들이는 흐름이 자라고, 한 발짝 더 멀리 보는 결정을 천천히 내려 두는 자리가 평생의 든든한 자산이 돼요. 자기 페이스로 깊이 익히는 시간이 큰 그림 위에서 더 또렷한 리듬으로 모이는 흐름이에요."
+    },
+    {
+      "fixture": "10-choi-yaza-boundary-male-tiered.json",
+      "period": "life",
       "category": "wealth",
       "depth": "brief",
       "slot": "headline",
@@ -27055,6 +27325,15 @@
     {
       "fixture": "10-choi-yaza-boundary-male-tiered.json",
       "period": "today",
+      "category": "overall",
+      "depth": "expert",
+      "slot": "para4",
+      "cellKey": "today/overall/expert/para4",
+      "plainText": "#시궁실의 작은 자리가 #희신의 기운과 가까이 만나는 시간대에는 단단한 일간이 한 박자 부드러워지는 자리가 자주 보여요. 하루의 작은 결정 한 번 한 번을 자기 페이스로 다듬어 두면, 큰 그림 위에서 또렷한 자기 색이 모이는 사주이니 무리한 속도보다 깊은 호흡 한 번이 더 큰 자산이 돼요."
+    },
+    {
+      "fixture": "10-choi-yaza-boundary-male-tiered.json",
+      "period": "today",
       "category": "wealth",
       "depth": "brief",
       "slot": "headline",
@@ -27599,6 +27878,15 @@
       "depth": "standard",
       "slot": "para2",
       "cellKey": "today/expression_children/standard/para2",
+      "plainText": "실천 흐름으로는 오늘 떠오른 한 줄을 그대로 잠들기 전에 메모장 한 칸에 적어 두면 좋아요. 한 주가 지나면 그 메모들이 다음 작업의 출발선이 되어 주고, 작업의 호흡이 한결 또렷해져요."
+    },
+    {
+      "fixture": "10-choi-yaza-boundary-male-tiered.json",
+      "period": "today",
+      "category": "expression_children",
+      "depth": "standard",
+      "slot": "para3",
+      "cellKey": "today/expression_children/standard/para3",
       "plainText": "자녀와의 관계 가능성도 함께 비치지만 단정 없이 흐르는 게 좋아요. 오늘의 한 마디가 다음 분기의 작업으로 이어지는 다리예요."
     },
     {
@@ -27726,6 +28014,15 @@
       "slot": "para3",
       "cellKey": "today/health_stress/expert/para3",
       "plainText": "#천의의 자리와 #천덕귀인의 흐름이 함께 보이면 회복의 흐름이 부드럽게 자리 잡는 사주이니, 자기 곁의 도움을 미루지 않는 호흡이 잘 어울려요."
+    },
+    {
+      "fixture": "10-choi-yaza-boundary-male-tiered.json",
+      "period": "today",
+      "category": "health_stress",
+      "depth": "expert",
+      "slot": "para4",
+      "cellKey": "today/health_stress/expert/para4",
+      "plainText": "#용신의 흐름을 가까이 두는 자리와 #정인의 돌봄이 자기 페이스를 받쳐 주는 시기에는 책임의 흐름을 한 박자 늦추는 호흡이 가장 큰 무기가 돼요. 30-50대 자리에서 자기 한계를 의식적으로 두는 자세가 다음 시기의 컨디션 결까지 부드럽게 이어 주는 자산이라, 작은 회복이 쌓이는 호흡이 자리를 든든히 만들어 줘요."
     },
     {
       "fixture": "10-choi-yaza-boundary-male-tiered.json",
@@ -27905,7 +28202,7 @@
       "depth": "standard",
       "slot": "para2",
       "cellKey": "thisWeek/wealth/standard/para2",
-      "plainText": "잘 풀리는 리듬은 5년 단위 그림을 다시 살피는 흐름이에요. 짧은 결과보다 긴 안목을 그리는 결정이 흐름을 키워요."
+      "plainText": "잘 풀리는 리듬은 5년 단위 그림을 다시 살피는 흐름이에요. 한 주의 짧은 결과를 좇기보다, 긴 안목을 그리는 결정이 흐름을 키워요."
     },
     {
       "fixture": "10-choi-yaza-boundary-male-tiered.json",
@@ -28724,7 +29021,7 @@
       "depth": "standard",
       "slot": "para2",
       "cellKey": "thisMonth/wealth/standard/para2",
-      "plainText": "잘 풀리는 리듬은 5년 단위 그림을 다시 살피는 흐름이에요. 짧은 결과보다 긴 안목을 그리는 결정이 흐름을 키워요."
+      "plainText": "잘 풀리는 리듬은 5년 단위 그림을 다시 살피는 흐름이에요. 한 달의 짧은 결과에 마음을 묶지 말고, 긴 안목을 그리는 결정이 흐름을 키워요."
     },
     {
       "fixture": "10-choi-yaza-boundary-male-tiered.json",
@@ -29508,6 +29805,15 @@
       "slot": "para3",
       "cellKey": "thisYear/overall/expert/para3",
       "plainText": "#납음의 흐름을 함께 살펴 두면 사주 모양의 깊은 색이 더 또렷해지고, #납음오행의 흐름이 자기 흐름을 보완하는 자리가 자주 등장해요."
+    },
+    {
+      "fixture": "10-choi-yaza-boundary-male-tiered.json",
+      "period": "thisYear",
+      "category": "overall",
+      "depth": "expert",
+      "slot": "para4",
+      "cellKey": "thisYear/overall/expert/para4",
+      "plainText": "#희신의 자리가 들어오는 시기를 한 분기씩 짚어 두면, 단단한 일간이 부드러운 호흡을 받아들이는 흐름이 또렷해져요. #조후의 균형이 한 해의 흐름을 받쳐 주는 자리에서 무리한 결정보다 천천히 익는 시간을 자기 편으로 두는 자세가 한 해의 큰 그림을 부드럽게 다져 주는 자산이 돼요."
     },
     {
       "fixture": "10-choi-yaza-boundary-male-tiered.json",
@@ -31276,6 +31582,15 @@
     {
       "fixture": "11-park-jeolgi-boundary-female-tiered.json",
       "period": "today",
+      "category": "wealth",
+      "depth": "expert",
+      "slot": "para4",
+      "cellKey": "today/wealth/expert/para4",
+      "plainText": "#정재용신의 기운이 곁에 보이는 사주는 하루 단위의 작은 자산 관리가 평생의 토대로 쌓이는 자리예요. 신약한 일간이 큰 거래보다 익숙한 기준을 따르는 시간을 들여 두면, 오늘의 작은 절제 한 번이 한 달·한 해의 든든한 바탕이 되는 호흡이 자연스레 잡혀요."
+    },
+    {
+      "fixture": "11-park-jeolgi-boundary-female-tiered.json",
+      "period": "today",
       "category": "health",
       "depth": "brief",
       "slot": "headline",
@@ -32468,7 +32783,7 @@
       "depth": "standard",
       "slot": "para0",
       "cellKey": "thisWeek/study_document/standard/para0",
-      "plainText": "이번 주는 도와줄 사람·기관·자료를 떠올려 한 가지를 풀어 가기 좋은 시기예요. 혼자 다 짊어지기보다 한 번 도움을 청하는 페이스가 잘 맞아요."
+      "plainText": "이번 주는 도와줄 사람·기관·자료를 떠올려 한 가지를 풀어 가기 좋은 시기예요. 무거운 짐을 혼자 떠안는 흐름이 아니라, 한 번 도움을 청하는 페이스가 한결 잘 맞아요."
     },
     {
       "fixture": "11-park-jeolgi-boundary-female-tiered.json",
@@ -33769,6 +34084,15 @@
     {
       "fixture": "11-park-jeolgi-boundary-female-tiered.json",
       "period": "thisYear",
+      "category": "wealth",
+      "depth": "expert",
+      "slot": "para4",
+      "cellKey": "thisYear/wealth/expert/para4",
+      "plainText": "#용신의 결과 #비견의 도움이 함께 보이는 한 해의 사주는 익숙한 자리에서 신뢰가 자라는 흐름이라, 분기마다 한 번씩 자기 기준을 다듬어 두는 자세가 한 해의 자산을 부드럽게 다져 줘요. 무리한 확장보다 자기 흐름을 한 호흡씩 따라가는 방식이 다음 해의 컨디션까지 든든히 이어지는 호흡이에요."
+    },
+    {
+      "fixture": "11-park-jeolgi-boundary-female-tiered.json",
+      "period": "thisYear",
       "category": "health",
       "depth": "brief",
       "slot": "headline",
@@ -34372,6 +34696,15 @@
     {
       "fixture": "11-park-jeolgi-boundary-female-tiered.json",
       "period": "thisYear",
+      "category": "health_stress",
+      "depth": "expert",
+      "slot": "para4",
+      "cellKey": "thisYear/health_stress/expert/para4",
+      "plainText": "#천을귀인의 기운이 곁에 보이는 사주는 한 해의 회복이 한 사람의 따뜻한 도움 한 번에서 크게 풀리는 자리가 자주 등장해요. 신약한 일간이 무리하지 않는 한 해를 보내면, 다음 해의 토대가 단단해지는 사주이니 작은 휴식 한 번도 늦지 않은 자기 자산이 돼요."
+    },
+    {
+      "fixture": "11-park-jeolgi-boundary-female-tiered.json",
+      "period": "thisYear",
       "category": "movement",
       "depth": "brief",
       "slot": "headline",
@@ -34512,6 +34845,15 @@
       "slot": "para3",
       "cellKey": "life/overall/expert/para3",
       "plainText": "#통관용신의 흐름이 자리하면 한쪽으로 막힌 흐름을 부드럽게 살려 주고, #병약용신의 리듬이 곁에 들어오면 모자란 자리를 자연스레 받쳐 주는 호흡이 함께 흘러요."
+    },
+    {
+      "fixture": "12-jeong-extreme-strong-continuous-tiered.json",
+      "period": "life",
+      "category": "overall",
+      "depth": "expert",
+      "slot": "para4",
+      "cellKey": "life/overall/expert/para4",
+      "plainText": "#월덕귀인의 기운이 #조상궁의 뿌리와 함께 보이는 사주는 장년기의 작은 무리도 부드럽게 풀어 주는 자리가 자주 등장해요. 한 번 큰 분기 뒤에는 천천히 다지는 시간이 평생의 가장 큰 자산이 되는 사주이니, 후반기로 갈수록 자기 페이스를 지켜 두는 호흡이 깊어져요."
     },
     {
       "fixture": "12-jeong-extreme-strong-continuous-tiered.json",
@@ -35425,6 +35767,15 @@
     {
       "fixture": "12-jeong-extreme-strong-continuous-tiered.json",
       "period": "today",
+      "category": "wealth",
+      "depth": "expert",
+      "slot": "para4",
+      "cellKey": "today/wealth/expert/para4",
+      "plainText": "#정재용신의 기운이 곁에 보이는 사주는 하루 단위의 작은 자산 관리가 평생의 토대로 쌓이는 자리예요. 신약한 일간이 큰 거래보다 익숙한 기준을 따르는 시간을 들여 두면, 오늘의 작은 절제 한 번이 한 달·한 해의 든든한 바탕이 되는 호흡이 자연스레 잡혀요."
+    },
+    {
+      "fixture": "12-jeong-extreme-strong-continuous-tiered.json",
+      "period": "today",
       "category": "health",
       "depth": "brief",
       "slot": "headline",
@@ -36131,7 +36482,7 @@
       "depth": "standard",
       "slot": "para1",
       "cellKey": "thisWeek/overall/standard/para1",
-      "plainText": "무리해서 새 변화를 만들기보다 익숙한 페이스를 지키는 게 잘 맞아요."
+      "plainText": "새 변화를 무리해서 만들지 않고, 익숙한 페이스를 한 주 동안 지키는 흐름이 잘 맞아요."
     },
     {
       "fixture": "12-jeong-extreme-strong-continuous-tiered.json",
@@ -37675,6 +38026,15 @@
     {
       "fixture": "12-jeong-extreme-strong-continuous-tiered.json",
       "period": "thisMonth",
+      "category": "health_stress",
+      "depth": "expert",
+      "slot": "para4",
+      "cellKey": "thisMonth/health_stress/expert/para4",
+      "plainText": "#정인의 돌봄이 한 달의 끝자락까지 자기 곁을 받쳐 주면, #편관의 압박이 강한 시기에도 흔들림이 줄어드는 흐름이에요. 한 주의 끝마다 자기 페이스를 한 번씩 점검하는 자리가 다음 달의 컨디션 결까지 부드럽게 이어 주는 자산이라, 무리한 회복보다 천천히 익는 시간을 자기 편으로 두는 자세가 자리를 단단히 받쳐 줘요."
+    },
+    {
+      "fixture": "12-jeong-extreme-strong-continuous-tiered.json",
+      "period": "thisMonth",
       "category": "movement",
       "depth": "brief",
       "slot": "headline",
@@ -37896,6 +38256,15 @@
       "slot": "para3",
       "cellKey": "thisYear/wealth/expert/para3",
       "plainText": "돈의 흐름은 정재의 고정 흐름과 #편재의 변동 흐름을 함께 살펴 두는 자리에서 단단해지고, 큰 한 번보다 작은 결정 쌓기가 자기 페이스에 잘 맞아요."
+    },
+    {
+      "fixture": "12-jeong-extreme-strong-continuous-tiered.json",
+      "period": "thisYear",
+      "category": "wealth",
+      "depth": "expert",
+      "slot": "para4",
+      "cellKey": "thisYear/wealth/expert/para4",
+      "plainText": "#용신의 결과 #비견의 도움이 함께 보이는 한 해의 사주는 익숙한 자리에서 신뢰가 자라는 흐름이라, 분기마다 한 번씩 자기 기준을 다듬어 두는 자세가 한 해의 자산을 부드럽게 다져 줘요. 무리한 확장보다 자기 흐름을 한 호흡씩 따라가는 방식이 다음 해의 컨디션까지 든든히 이어지는 호흡이에요."
     },
     {
       "fixture": "12-jeong-extreme-strong-continuous-tiered.json",
@@ -38647,6 +39016,15 @@
     {
       "fixture": "13-oh-extreme-weak-continuous-tiered.json",
       "period": "life",
+      "category": "overall",
+      "depth": "expert",
+      "slot": "para4",
+      "cellKey": "life/overall/expert/para4",
+      "plainText": "#대운궁실의 큰 기운이 #희신의 자리와 함께 들어오는 시기엔 단단한 일간이 부드러운 호흡을 받아들이는 흐름이 자라고, 한 발짝 더 멀리 보는 결정을 천천히 내려 두는 자리가 평생의 든든한 자산이 돼요. 자기 페이스로 깊이 익히는 시간이 큰 그림 위에서 더 또렷한 리듬으로 모이는 흐름이에요."
+    },
+    {
+      "fixture": "13-oh-extreme-weak-continuous-tiered.json",
+      "period": "life",
       "category": "wealth",
       "depth": "brief",
       "slot": "headline",
@@ -38849,6 +39227,15 @@
       "depth": "standard",
       "slot": "para3",
       "cellKey": "life/academic/standard/para3",
+      "plainText": "속도가 느려진다고 느낄 때엔 젊을 때 페이스와 비교하지 않아도 괜찮아요. 한 번에 외우던 자리가 두세 번에 나뉘어도, 경험과 같이 묶인 흐름은 더 깊이 남아요."
+    },
+    {
+      "fixture": "13-oh-extreme-weak-continuous-tiered.json",
+      "period": "life",
+      "category": "academic",
+      "depth": "standard",
+      "slot": "para4",
+      "cellKey": "life/academic/standard/para4",
       "plainText": "가르치며 배우는 자리도 좋은 흐름으로 작용해요."
     },
     {
@@ -39462,6 +39849,15 @@
       "slot": "para3",
       "cellKey": "today/overall/expert/para3",
       "plainText": "#납음의 흐름을 함께 살펴 두면 사주 모양의 깊은 색이 더 또렷해지고, #납음오행의 흐름이 자기 흐름을 보완하는 자리가 자주 등장해요."
+    },
+    {
+      "fixture": "13-oh-extreme-weak-continuous-tiered.json",
+      "period": "today",
+      "category": "overall",
+      "depth": "expert",
+      "slot": "para4",
+      "cellKey": "today/overall/expert/para4",
+      "plainText": "#시궁실의 작은 자리가 #희신의 기운과 가까이 만나는 시간대에는 단단한 일간이 한 박자 부드러워지는 자리가 자주 보여요. 하루의 작은 결정 한 번 한 번을 자기 페이스로 다듬어 두면, 큰 그림 위에서 또렷한 자기 색이 모이는 사주이니 무리한 속도보다 깊은 호흡 한 번이 더 큰 자산이 돼요."
     },
     {
       "fixture": "13-oh-extreme-weak-continuous-tiered.json",
@@ -41968,6 +42364,15 @@
     {
       "fixture": "13-oh-extreme-weak-continuous-tiered.json",
       "period": "thisYear",
+      "category": "overall",
+      "depth": "expert",
+      "slot": "para4",
+      "cellKey": "thisYear/overall/expert/para4",
+      "plainText": "#희신의 자리가 들어오는 시기를 한 분기씩 짚어 두면, 단단한 일간이 부드러운 호흡을 받아들이는 흐름이 또렷해져요. #조후의 균형이 한 해의 흐름을 받쳐 주는 자리에서 무리한 결정보다 천천히 익는 시간을 자기 편으로 두는 자세가 한 해의 큰 그림을 부드럽게 다져 주는 자산이 돼요."
+    },
+    {
+      "fixture": "13-oh-extreme-weak-continuous-tiered.json",
+      "period": "thisYear",
       "category": "wealth",
       "depth": "brief",
       "slot": "headline",
@@ -42886,6 +43291,15 @@
     {
       "fixture": "14-choi-palace-naeum-surface-tiered.json",
       "period": "life",
+      "category": "wealth",
+      "depth": "expert",
+      "slot": "para4",
+      "cellKey": "life/wealth/expert/para4",
+      "plainText": "#용신의 흐름이 평생 자산을 만드는 가장 큰 축이라, 한 번에 큰 자리를 잡기보다 작은 호흡 위에 호흡을 얹어 두는 방식이 가장 단단해요. #정인의 받침이 든든해지는 시기엔 자기 페이스의 기준이 또렷해지면서 흔들림이 줄어드는 흐름이라, 시간을 자기 편으로 두는 자세가 평생의 자산을 부드럽게 받쳐 줘요."
+    },
+    {
+      "fixture": "14-choi-palace-naeum-surface-tiered.json",
+      "period": "life",
       "category": "health",
       "depth": "brief",
       "slot": "headline",
@@ -43578,6 +43992,15 @@
     },
     {
       "fixture": "14-choi-palace-naeum-surface-tiered.json",
+      "period": "life",
+      "category": "movement",
+      "depth": "expert",
+      "slot": "para4",
+      "cellKey": "life/movement/expert/para4",
+      "plainText": "#천덕귀인의 흐름이 #역마의 자리와 함께 보이는 사주는 새로운 환경의 리듬을 부드럽게 풀어 주는 자리가 평생을 통해 자주 등장해요. 거리감 있는 이동도 곁의 작은 도움 한 번 한 번이 자리를 받쳐 주는 흐름이라, 한 번에 멀리 가기보다 작은 발걸음이 쌓이는 호흡이 자기 흐름에 잘 맞아요."
+    },
+    {
+      "fixture": "14-choi-palace-naeum-surface-tiered.json",
       "period": "today",
       "category": "overall",
       "depth": "brief",
@@ -43655,7 +44078,7 @@
       "depth": "brief",
       "slot": "headline",
       "cellKey": "today/wealth/brief/headline",
-      "plainText": "오늘은 꾸준함이 빛을 내는 하루예요."
+      "plainText": "오늘은 익숙한 거래 한 자리를 또렷하게 들여다봐요."
     },
     {
       "fixture": "14-choi-palace-naeum-surface-tiered.json",
@@ -44924,7 +45347,7 @@
       "depth": "standard",
       "slot": "para0",
       "cellKey": "thisWeek/study_document/standard/para0",
-      "plainText": "이번 주는 도와줄 사람·기관·자료를 떠올려 한 가지를 풀어 가기 좋은 시기예요. 혼자 다 짊어지기보다 한 번 도움을 청하는 페이스가 잘 맞아요."
+      "plainText": "이번 주는 도와줄 사람·기관·자료를 떠올려 한 가지를 풀어 가기 좋은 시기예요. 무거운 짐을 혼자 떠안는 흐름이 아니라, 한 번 도움을 청하는 페이스가 한결 잘 맞아요."
     },
     {
       "fixture": "14-choi-palace-naeum-surface-tiered.json",
@@ -45473,7 +45896,7 @@
       "depth": "standard",
       "slot": "para0",
       "cellKey": "thisMonth/academic/standard/para0",
-      "plainText": "이번 달의 학업 리듬은 좋아하던 분야를 다시 한 권 펼치기 좋은 흐름이에요. 빠른 학습보다 한 달을 두고 한 권을 천천히 음미하는 흐름이 더 잘 어울려요."
+      "plainText": "이번 달의 학업 리듬은 좋아하던 분야를 다시 한 권 펼치기 좋은 흐름이에요. 굳이 빠른 학습을 좇기보다, 한 달을 두고 한 권을 천천히 음미하는 흐름이 한결 잘 어울려요."
     },
     {
       "fixture": "14-choi-palace-naeum-surface-tiered.json",
@@ -45491,7 +45914,7 @@
       "depth": "standard",
       "slot": "para2",
       "cellKey": "thisMonth/academic/standard/para2",
-      "plainText": "결과를 위한 공부보다 호기심이 이끄는 한 페이지의 행복을 챙겨 보면 좋아요."
+      "plainText": "무엇을 끝내야 한다는 마음 대신, 호기심이 이끄는 한 페이지의 행복을 챙겨 보면 좋아요."
     },
     {
       "fixture": "14-choi-palace-naeum-surface-tiered.json",
@@ -45761,7 +46184,7 @@
       "depth": "standard",
       "slot": "para0",
       "cellKey": "thisMonth/study_document/standard/para0",
-      "plainText": "이번 달은 그동안의 자격·서류를 한 자리에 정리하기 좋은 흐름이에요. 새 시작보다는 정돈·전수의 흐름이 잘 맞아요."
+      "plainText": "이번 달은 그동안의 자격·서류를 한 자리에 정리하기 좋은 흐름이에요. 새 시작을 욕심내는 자리가 아니라, 정돈·전수의 한 달이 잘 어울려요."
     },
     {
       "fixture": "14-choi-palace-naeum-surface-tiered.json",
@@ -46000,6 +46423,15 @@
     {
       "fixture": "14-choi-palace-naeum-surface-tiered.json",
       "period": "thisMonth",
+      "category": "health_stress",
+      "depth": "expert",
+      "slot": "para4",
+      "cellKey": "thisMonth/health_stress/expert/para4",
+      "plainText": "#정인의 돌봄이 한 달의 끝자락까지 자기 곁을 받쳐 주면, #편관의 압박이 강한 시기에도 흔들림이 줄어드는 흐름이에요. 한 주의 끝마다 자기 페이스를 한 번씩 점검하는 자리가 다음 달의 컨디션 결까지 부드럽게 이어 주는 자산이라, 무리한 회복보다 천천히 익는 시간을 자기 편으로 두는 자세가 자리를 단단히 받쳐 줘요."
+    },
+    {
+      "fixture": "14-choi-palace-naeum-surface-tiered.json",
+      "period": "thisMonth",
       "category": "movement",
       "depth": "brief",
       "slot": "headline",
@@ -46068,6 +46500,15 @@
       "slot": "para3",
       "cellKey": "thisMonth/movement/expert/para3",
       "plainText": "#대운궁실의 흐름이 강해지는 시기엔 한 발짝 더 내디뎌 봐도 좋아요."
+    },
+    {
+      "fixture": "14-choi-palace-naeum-surface-tiered.json",
+      "period": "thisMonth",
+      "category": "movement",
+      "depth": "expert",
+      "slot": "para4",
+      "cellKey": "thisMonth/movement/expert/para4",
+      "plainText": "#천덕귀인의 자리가 #역마의 자극과 함께 보이는 사주는 새로운 환경의 호흡을 부드럽게 풀어 주는 자리가 이번 달 안에 한두 번 등장해요. 거리감 있는 일정도 곁의 작은 도움 한 번 한 번이 자리를 받쳐 주는 흐름이라, 한 번에 멀리 가기보다 작은 발걸음이 쌓이는 호흡이 자기 페이스에 잘 맞아요."
     },
     {
       "fixture": "14-choi-palace-naeum-surface-tiered.json",
@@ -46981,6 +47422,15 @@
     {
       "fixture": "15-choi-consensus-aware-yongshin-tiered.json",
       "period": "life",
+      "category": "overall",
+      "depth": "expert",
+      "slot": "para4",
+      "cellKey": "life/overall/expert/para4",
+      "plainText": "#월덕귀인의 기운이 #조상궁의 뿌리와 함께 보이는 사주는 장년기의 작은 무리도 부드럽게 풀어 주는 자리가 자주 등장해요. 한 번 큰 분기 뒤에는 천천히 다지는 시간이 평생의 가장 큰 자산이 되는 사주이니, 후반기로 갈수록 자기 페이스를 지켜 두는 호흡이 깊어져요."
+    },
+    {
+      "fixture": "15-choi-consensus-aware-yongshin-tiered.json",
+      "period": "life",
       "category": "wealth",
       "depth": "brief",
       "slot": "headline",
@@ -47067,6 +47517,15 @@
       "slot": "para3",
       "cellKey": "life/wealth/expert/para3",
       "plainText": "#겁재가 들어오는 시기엔 동업·돈거래는 평소보다 한 번 더 살피면 좋아요."
+    },
+    {
+      "fixture": "15-choi-consensus-aware-yongshin-tiered.json",
+      "period": "life",
+      "category": "wealth",
+      "depth": "expert",
+      "slot": "para4",
+      "cellKey": "life/wealth/expert/para4",
+      "plainText": "#용신의 흐름이 평생 자산을 만드는 가장 큰 축이라, 한 번에 큰 자리를 잡기보다 작은 호흡 위에 호흡을 얹어 두는 방식이 가장 단단해요. #정인의 받침이 든든해지는 시기엔 자기 페이스의 기준이 또렷해지면서 흔들림이 줄어드는 흐름이라, 시간을 자기 편으로 두는 자세가 평생의 자산을 부드럽게 받쳐 줘요."
     },
     {
       "fixture": "15-choi-consensus-aware-yongshin-tiered.json",
@@ -47778,6 +48237,15 @@
       "slot": "para3",
       "cellKey": "life/movement/expert/para3",
       "plainText": "#대운궁실의 흐름이 강해지는 시기엔 한 발짝 더 내디뎌 봐도 좋아요."
+    },
+    {
+      "fixture": "15-choi-consensus-aware-yongshin-tiered.json",
+      "period": "life",
+      "category": "movement",
+      "depth": "expert",
+      "slot": "para4",
+      "cellKey": "life/movement/expert/para4",
+      "plainText": "#천덕귀인의 흐름이 #역마의 자리와 함께 보이는 사주는 새로운 환경의 리듬을 부드럽게 풀어 주는 자리가 평생을 통해 자주 등장해요. 거리감 있는 이동도 곁의 작은 도움 한 번 한 번이 자리를 받쳐 주는 흐름이라, 한 번에 멀리 가기보다 작은 발걸음이 쌓이는 호흡이 자기 흐름에 잘 맞아요."
     },
     {
       "fixture": "15-choi-consensus-aware-yongshin-tiered.json",
@@ -48529,6 +48997,15 @@
     {
       "fixture": "15-choi-consensus-aware-yongshin-tiered.json",
       "period": "today",
+      "category": "health_stress",
+      "depth": "expert",
+      "slot": "para4",
+      "cellKey": "today/health_stress/expert/para4",
+      "plainText": "#용신의 흐름을 가까이 두는 자리와 #정인의 돌봄이 자기 페이스를 받쳐 주는 시기에는 책임의 흐름을 한 박자 늦추는 호흡이 가장 큰 무기가 돼요. 30-50대 자리에서 자기 한계를 의식적으로 두는 자세가 다음 시기의 컨디션 결까지 부드럽게 이어 주는 자산이라, 작은 회복이 쌓이는 호흡이 자리를 든든히 만들어 줘요."
+    },
+    {
+      "fixture": "15-choi-consensus-aware-yongshin-tiered.json",
+      "period": "today",
       "category": "movement",
       "depth": "brief",
       "slot": "headline",
@@ -48623,7 +49100,7 @@
       "depth": "standard",
       "slot": "para1",
       "cellKey": "thisWeek/overall/standard/para1",
-      "plainText": "무리해서 새 변화를 만들기보다 익숙한 페이스를 지키는 게 잘 맞아요."
+      "plainText": "새 변화를 무리해서 만들지 않고, 익숙한 페이스를 한 주 동안 지키는 흐름이 잘 맞아요."
     },
     {
       "fixture": "15-choi-consensus-aware-yongshin-tiered.json",
@@ -48970,6 +49447,15 @@
     {
       "fixture": "15-choi-consensus-aware-yongshin-tiered.json",
       "period": "thisWeek",
+      "category": "romance",
+      "depth": "expert",
+      "slot": "para4",
+      "cellKey": "thisWeek/romance/expert/para4",
+      "plainText": "#홍염살의 기운이 #배우자궁의 자리와 함께 보이는 사주는 약한 일간이 천천히 익는 한 주가 평생의 인연 자리로 이어지는 사주이니, 한 번에 마음을 다 보여 주기보다 익숙한 호흡으로 작은 다정함을 쌓아 두면 한 달·한 해의 더 깊은 신뢰로 자라요."
+    },
+    {
+      "fixture": "15-choi-consensus-aware-yongshin-tiered.json",
+      "period": "thisWeek",
       "category": "family",
       "depth": "brief",
       "slot": "headline",
@@ -49127,7 +49613,7 @@
       "depth": "standard",
       "slot": "para0",
       "cellKey": "thisWeek/study_document/standard/para0",
-      "plainText": "이번 주는 도와줄 사람·기관·자료를 떠올려 한 가지를 풀어 가기 좋은 시기예요. 혼자 다 짊어지기보다 한 번 도움을 청하는 페이스가 잘 맞아요."
+      "plainText": "이번 주는 도와줄 사람·기관·자료를 떠올려 한 가지를 풀어 가기 좋은 시기예요. 무거운 짐을 혼자 떠안는 흐름이 아니라, 한 번 도움을 청하는 페이스가 한결 잘 맞아요."
     },
     {
       "fixture": "15-choi-consensus-aware-yongshin-tiered.json",
@@ -49807,6 +50293,15 @@
     {
       "fixture": "15-choi-consensus-aware-yongshin-tiered.json",
       "period": "thisMonth",
+      "category": "romance",
+      "depth": "expert",
+      "slot": "para4",
+      "cellKey": "thisMonth/romance/expert/para4",
+      "plainText": "#배우자궁의 리듬이 부드럽게 받쳐 주는 시기에는 곁의 호흡을 한 박자 늦게 받아들여도 신뢰가 자리 잡는 흐름이라, 한 달 동안 자기 페이스를 지키며 함께 만드는 작은 약속들이 다음 시기의 인연을 단단하게 다져 줘요. 약한 일간 특성상 무리한 추진보다 천천히 익는 자리가 자기 흐름에 잘 맞고, 그 자리에서 만난 인연일수록 깊은 신뢰로 자라는 흐름이에요."
+    },
+    {
+      "fixture": "15-choi-consensus-aware-yongshin-tiered.json",
+      "period": "thisMonth",
       "category": "family",
       "depth": "brief",
       "slot": "headline",
@@ -50203,6 +50698,15 @@
     {
       "fixture": "15-choi-consensus-aware-yongshin-tiered.json",
       "period": "thisMonth",
+      "category": "health_stress",
+      "depth": "expert",
+      "slot": "para4",
+      "cellKey": "thisMonth/health_stress/expert/para4",
+      "plainText": "#정인의 돌봄이 한 달의 끝자락까지 자기 곁을 받쳐 주면, #편관의 압박이 강한 시기에도 흔들림이 줄어드는 흐름이에요. 한 주의 끝마다 자기 페이스를 한 번씩 점검하는 자리가 다음 달의 컨디션 결까지 부드럽게 이어 주는 자산이라, 무리한 회복보다 천천히 익는 시간을 자기 편으로 두는 자세가 자리를 단단히 받쳐 줘요."
+    },
+    {
+      "fixture": "15-choi-consensus-aware-yongshin-tiered.json",
+      "period": "thisMonth",
       "category": "movement",
       "depth": "brief",
       "slot": "headline",
@@ -50271,6 +50775,15 @@
       "slot": "para3",
       "cellKey": "thisMonth/movement/expert/para3",
       "plainText": "#대운궁실의 흐름이 강해지는 시기엔 한 발짝 더 내디뎌 봐도 좋아요."
+    },
+    {
+      "fixture": "15-choi-consensus-aware-yongshin-tiered.json",
+      "period": "thisMonth",
+      "category": "movement",
+      "depth": "expert",
+      "slot": "para4",
+      "cellKey": "thisMonth/movement/expert/para4",
+      "plainText": "#천덕귀인의 자리가 #역마의 자극과 함께 보이는 사주는 새로운 환경의 호흡을 부드럽게 풀어 주는 자리가 이번 달 안에 한두 번 등장해요. 거리감 있는 일정도 곁의 작은 도움 한 번 한 번이 자리를 받쳐 주는 흐름이라, 한 번에 멀리 가기보다 작은 발걸음이 쌓이는 호흡이 자기 페이스에 잘 맞아요."
     },
     {
       "fixture": "15-choi-consensus-aware-yongshin-tiered.json",
@@ -52107,6 +52620,15 @@
       "slot": "para3",
       "cellKey": "today/wealth/expert/para3",
       "plainText": "#재백궁의 흐름과 #천을귀인의 자리가 함께 보이면 도움 받는 흐름이 자기 자산이 되는 사주이니, 작은 도움도 미루지 않는 호흡이 잘 어울려요."
+    },
+    {
+      "fixture": "16-choi-senior-male-tiered.json",
+      "period": "today",
+      "category": "wealth",
+      "depth": "expert",
+      "slot": "para4",
+      "cellKey": "today/wealth/expert/para4",
+      "plainText": "#정재용신의 기운이 곁에 보이는 사주는 하루 단위의 작은 자산 관리가 평생의 토대로 쌓이는 자리예요. 신약한 일간이 큰 거래보다 익숙한 기준을 따르는 시간을 들여 두면, 오늘의 작은 절제 한 번이 한 달·한 해의 든든한 바탕이 되는 호흡이 자연스레 잡혀요."
     },
     {
       "fixture": "16-choi-senior-male-tiered.json",
@@ -54568,6 +55090,15 @@
     {
       "fixture": "16-choi-senior-male-tiered.json",
       "period": "thisYear",
+      "category": "wealth",
+      "depth": "expert",
+      "slot": "para4",
+      "cellKey": "thisYear/wealth/expert/para4",
+      "plainText": "#용신의 결과 #비견의 도움이 함께 보이는 한 해의 사주는 익숙한 자리에서 신뢰가 자라는 흐름이라, 분기마다 한 번씩 자기 기준을 다듬어 두는 자세가 한 해의 자산을 부드럽게 다져 줘요. 무리한 확장보다 자기 흐름을 한 호흡씩 따라가는 방식이 다음 해의 컨디션까지 든든히 이어지는 호흡이에요."
+    },
+    {
+      "fixture": "16-choi-senior-male-tiered.json",
+      "period": "thisYear",
       "category": "health",
       "depth": "brief",
       "slot": "headline",
@@ -54653,7 +55184,7 @@
       "depth": "standard",
       "slot": "para0",
       "cellKey": "thisYear/academic/standard/para0",
-      "plainText": "올해의 학업운은 좋아하던 분야를 한 번 더 음미하기 좋은 한 해예요. 빠른 학습보다 한 해를 두고 한 분야를 천천히 곱씹어 보는 흐름이 더 잘 어울려요."
+      "plainText": "올해의 학업 리듬은 좋아하던 분야를 한 번 더 음미하기 좋은 한 해예요. 빠르게 새 분야를 익히는 흐름이라기보다, 한 해를 두고 한 분야를 천천히 곱씹어 보는 흐름이 한결 잘 어울려요."
     },
     {
       "fixture": "16-choi-senior-male-tiered.json",
@@ -54671,7 +55202,7 @@
       "depth": "standard",
       "slot": "para2",
       "cellKey": "thisYear/academic/standard/para2",
-      "plainText": "결과를 위한 공부보다 호기심이 이끄는 한 페이지의 행복을 챙겨 보면 좋아요."
+      "plainText": "학업의 결실에 마음을 묶기보다, 호기심이 이끄는 한 페이지의 행복을 한 해 곁에 두면 좋아요."
     },
     {
       "fixture": "16-choi-senior-male-tiered.json",
@@ -55162,6 +55693,15 @@
     {
       "fixture": "16-choi-senior-male-tiered.json",
       "period": "thisYear",
+      "category": "health_stress",
+      "depth": "expert",
+      "slot": "para4",
+      "cellKey": "thisYear/health_stress/expert/para4",
+      "plainText": "#천을귀인의 기운이 곁에 보이는 사주는 한 해의 회복이 한 사람의 따뜻한 도움 한 번에서 크게 풀리는 자리가 자주 등장해요. 신약한 일간이 무리하지 않는 한 해를 보내면, 다음 해의 토대가 단단해지는 사주이니 작은 휴식 한 번도 늦지 않은 자기 자산이 돼요."
+    },
+    {
+      "fixture": "16-choi-senior-male-tiered.json",
+      "period": "thisYear",
       "category": "movement",
       "depth": "brief",
       "slot": "headline",
@@ -55302,6 +55842,15 @@
       "slot": "para3",
       "cellKey": "life/overall/expert/para3",
       "plainText": "#격국용신의 흐름과 #격국적합도의 평균이 또렷한 사주는 자기 격에 맞는 길로 큰 흐름이 모이는 자리가 자주 등장해요."
+    },
+    {
+      "fixture": "17-kim-senior-female-tiered.json",
+      "period": "life",
+      "category": "overall",
+      "depth": "expert",
+      "slot": "para4",
+      "cellKey": "life/overall/expert/para4",
+      "plainText": "#대운궁실의 큰 기운이 #희신의 자리와 함께 들어오는 시기엔 단단한 일간이 부드러운 호흡을 받아들이는 흐름이 자라고, 한 발짝 더 멀리 보는 결정을 천천히 내려 두는 자리가 평생의 든든한 자산이 돼요. 자기 페이스로 깊이 익히는 시간이 큰 그림 위에서 더 또렷한 리듬으로 모이는 흐름이에요."
     },
     {
       "fixture": "17-kim-senior-female-tiered.json",
@@ -55463,7 +56012,7 @@
       "depth": "brief",
       "slot": "headline",
       "cellKey": "life/academic/brief/headline",
-      "plainText": "배움을 즐기는 흐름이 평생 함께해요."
+      "plainText": "오랜 흐름은 매일 한 줄의 메모로 자라요."
     },
     {
       "fixture": "17-kim-senior-female-tiered.json",
@@ -56152,6 +56701,15 @@
     {
       "fixture": "17-kim-senior-female-tiered.json",
       "period": "today",
+      "category": "overall",
+      "depth": "expert",
+      "slot": "para4",
+      "cellKey": "today/overall/expert/para4",
+      "plainText": "#시궁실의 작은 자리가 #희신의 기운과 가까이 만나는 시간대에는 단단한 일간이 한 박자 부드러워지는 자리가 자주 보여요. 하루의 작은 결정 한 번 한 번을 자기 페이스로 다듬어 두면, 큰 그림 위에서 또렷한 자기 색이 모이는 사주이니 무리한 속도보다 깊은 호흡 한 번이 더 큰 자산이 돼요."
+    },
+    {
+      "fixture": "17-kim-senior-female-tiered.json",
+      "period": "today",
       "category": "wealth",
       "depth": "brief",
       "slot": "headline",
@@ -56732,7 +57290,7 @@
       "depth": "brief",
       "slot": "headline",
       "cellKey": "today/health_stress/brief/headline",
-      "plainText": "오늘은 시원한 자리에서 쉼이 잘 와요."
+      "plainText": "오늘은 햇살 좋은 자리에서 잠깐 숨을 내쉬어요."
     },
     {
       "fixture": "17-kim-senior-female-tiered.json",
@@ -57128,7 +57686,7 @@
       "depth": "standard",
       "slot": "para0",
       "cellKey": "thisWeek/academic/standard/para0",
-      "plainText": "이번 주의 학업운은 익숙한 책 한 권을 다시 음미하기 좋은 흐름이에요. 빠른 학습보다 일주일에 걸쳐 한 챕터를 천천히 곱씹어 보는 식이 더 잘 어울려요."
+      "plainText": "이번 주의 학업운은 익숙한 책 한 권을 다시 음미하기 좋은 흐름이에요. 빠른 학습이 아니라, 일주일에 걸쳐 한 챕터를 천천히 곱씹어 보는 식이 한결 잘 어울려요."
     },
     {
       "fixture": "17-kim-senior-female-tiered.json",
@@ -57146,7 +57704,7 @@
       "depth": "standard",
       "slot": "para2",
       "cellKey": "thisWeek/academic/standard/para2",
-      "plainText": "결과를 위한 공부보다 호기심이 이끄는 한 페이지의 행복을 챙겨 보면 좋아요."
+      "plainText": "결과를 향한 공부라기보다 호기심이 이끄는 한 페이지를 따라가 보면 한 주가 풍성해져요."
     },
     {
       "fixture": "17-kim-senior-female-tiered.json",
@@ -58627,6 +59185,15 @@
     {
       "fixture": "17-kim-senior-female-tiered.json",
       "period": "thisYear",
+      "category": "overall",
+      "depth": "expert",
+      "slot": "para4",
+      "cellKey": "thisYear/overall/expert/para4",
+      "plainText": "#희신의 자리가 들어오는 시기를 한 분기씩 짚어 두면, 단단한 일간이 부드러운 호흡을 받아들이는 흐름이 또렷해져요. #조후의 균형이 한 해의 흐름을 받쳐 주는 자리에서 무리한 결정보다 천천히 익는 시간을 자기 편으로 두는 자세가 한 해의 큰 그림을 부드럽게 다져 주는 자산이 돼요."
+    },
+    {
+      "fixture": "17-kim-senior-female-tiered.json",
+      "period": "thisYear",
       "category": "wealth",
       "depth": "brief",
       "slot": "headline",
@@ -58784,7 +59351,7 @@
       "depth": "standard",
       "slot": "para0",
       "cellKey": "thisYear/academic/standard/para0",
-      "plainText": "올해의 학업운은 좋아하던 분야를 한 번 더 음미하기 좋은 한 해예요. 빠른 학습보다 한 해를 두고 한 분야를 천천히 곱씹어 보는 흐름이 더 잘 어울려요."
+      "plainText": "올해의 학업 리듬은 좋아하던 분야를 한 번 더 음미하기 좋은 한 해예요. 빠르게 새 분야를 익히는 흐름이라기보다, 한 해를 두고 한 분야를 천천히 곱씹어 보는 흐름이 한결 잘 어울려요."
     },
     {
       "fixture": "17-kim-senior-female-tiered.json",
@@ -58802,7 +59369,7 @@
       "depth": "standard",
       "slot": "para2",
       "cellKey": "thisYear/academic/standard/para2",
-      "plainText": "결과를 위한 공부보다 호기심이 이끄는 한 페이지의 행복을 챙겨 보면 좋아요."
+      "plainText": "학업의 결실에 마음을 묶기보다, 호기심이 이끄는 한 페이지의 행복을 한 해 곁에 두면 좋아요."
     },
     {
       "fixture": "17-kim-senior-female-tiered.json",
@@ -59531,7 +60098,7 @@
       "depth": "brief",
       "slot": "headline",
       "cellKey": "life/health/brief/headline",
-      "plainText": "건강은 특별한 비법보다 잠, 식사, 움직임을 꾸준히 지키는 힘이 가요."
+      "plainText": "오랜 결은 일찍 자고 일찍 일어나는 습관에서 자라요."
     },
     {
       "fixture": "18-lee-child-male-tiered.json",
@@ -59595,6 +60162,15 @@
       "slot": "para3",
       "cellKey": "life/health/expert/para3",
       "plainText": "#조후용신의 흐름이 또렷한 사주는 #조후의 균형이 컨디션을 만드는 가장 큰 축이라, 계절의 흐름을 따라 자기 페이스를 맞춰 두는 호흡이 잘 어울려요."
+    },
+    {
+      "fixture": "18-lee-child-male-tiered.json",
+      "period": "life",
+      "category": "health",
+      "depth": "expert",
+      "slot": "para4",
+      "cellKey": "life/health/expert/para4",
+      "plainText": "#정인의 따뜻한 자산이 어린 시기에 단단해지면 #식신의 리듬이 평생을 통해 부드럽게 풀리는 흐름이에요. 잘 자고 잘 먹는 일상의 작은 자리가 청년기·중년기 컨디션의 가장 큰 뿌리가 되는 사주라, 지금의 따뜻한 보살핌이 인생 전체로 보아도 가장 큰 평생 자산으로 자리 잡는 흐름이에요."
     },
     {
       "fixture": "18-lee-child-male-tiered.json",
@@ -59815,6 +60391,15 @@
     {
       "fixture": "18-lee-child-male-tiered.json",
       "period": "life",
+      "category": "family",
+      "depth": "expert",
+      "slot": "para4",
+      "cellKey": "life/family/expert/para4",
+      "plainText": "#부모궁 에 따뜻한 기운이 도는 어린 시기엔 보호자의 호흡과 #정인의 돌봄이 평생의 안전한 바탕을 만드는 시기예요. 이 시기의 작은 신뢰의 흐름이 청년기·중년기로 이어지면서 자기 정체성의 뿌리가 되는 흐름이라, 지금 받은 따뜻한 자산이 평생의 가장 큰 자기 응원으로 자리 잡는 사주의 모양이에요."
+    },
+    {
+      "fixture": "18-lee-child-male-tiered.json",
+      "period": "life",
       "category": "career",
       "depth": "brief",
       "slot": "headline",
@@ -59981,7 +60566,7 @@
       "depth": "brief",
       "slot": "headline",
       "cellKey": "life/expression_children/brief/headline",
-      "plainText": "좋아하는 놀이로 자기 색이 풀려 나오는 시기예요."
+      "plainText": "오랜 흐름은 작은 선택을 스스로 짚는 데서 자라요."
     },
     {
       "fixture": "18-lee-child-male-tiered.json",
@@ -60189,6 +60774,15 @@
       "slot": "para3",
       "cellKey": "life/movement/expert/para3",
       "plainText": "#용신의 결에 맞추어 여행·체험학습·전학 같은 부드러운 자극을 주면, 평생 가는 호기심의 큰 흐름이 만들어져요."
+    },
+    {
+      "fixture": "18-lee-child-male-tiered.json",
+      "period": "life",
+      "category": "movement",
+      "depth": "expert",
+      "slot": "para4",
+      "cellKey": "life/movement/expert/para4",
+      "plainText": "#천덕귀인의 기운이 #역마의 자극과 함께 보이는 어린 시기의 사주는 새 환경에서 만나는 작은 도움 한 번 한 번이 평생의 든든한 안전망으로 쌓이는 자리가 자주 등장해요. 짧은 가족 여행, 친구와의 첫 외출 같은 작은 발걸음이 청소년기·청년기 큰 이동 결정의 단단한 토대가 되는 사주예요."
     },
     {
       "fixture": "18-lee-child-male-tiered.json",
@@ -62083,6 +62677,15 @@
     {
       "fixture": "18-lee-child-male-tiered.json",
       "period": "thisMonth",
+      "category": "health",
+      "depth": "expert",
+      "slot": "para4",
+      "cellKey": "thisMonth/health/expert/para4",
+      "plainText": "#시궁실의 자리가 #식신의 기운과 함께 보이는 어린 시기의 사주는 한 달 안의 잔잔한 컨디션 변화도 자연스레 풀리는 자리가 자주 등장해요. 이 시기에 잘 다진 식습관과 보호자의 따뜻한 손길 한 번이 청소년기의 안정감으로 자라는 사주이니, 작은 챙김이 평생의 가장 큰 자산이 돼요."
+    },
+    {
+      "fixture": "18-lee-child-male-tiered.json",
+      "period": "thisMonth",
       "category": "academic",
       "depth": "brief",
       "slot": "headline",
@@ -62295,6 +62898,15 @@
       "slot": "para3",
       "cellKey": "thisMonth/family/expert/para3",
       "plainText": "가족 자리는 #부모궁과 #조상궁의 흐름이 어떻게 받쳐 주느냐를 함께 살펴 두면 흐름의 결정이 더 단단해지고, 작은 인사 한 마디가 평생의 자산이 되는 자리예요."
+    },
+    {
+      "fixture": "18-lee-child-male-tiered.json",
+      "period": "thisMonth",
+      "category": "family",
+      "depth": "expert",
+      "slot": "para4",
+      "cellKey": "thisMonth/family/expert/para4",
+      "plainText": "#천덕귀인의 자리가 #부모궁의 호흡과 함께 보이는 어린 시기의 사주는 한 달 안의 작은 다툼도 부드럽게 풀어 주는 자리가 자주 등장해요. 이 시기에 받은 따뜻한 호흡 한 번이 청소년기의 안정감으로 자라는 사주이니, 보호자의 작은 칭찬과 짧은 산책 한 번이 평생의 큰 자산으로 쌓여요."
     },
     {
       "fixture": "18-lee-child-male-tiered.json",
@@ -62727,6 +63339,15 @@
       "slot": "para3",
       "cellKey": "thisYear/overall/expert/para3",
       "plainText": "#격국용신의 흐름과 #격국적합도의 평균이 또렷한 사주는 자기 격에 맞는 길로 큰 흐름이 모이는 자리가 자주 등장해요."
+    },
+    {
+      "fixture": "18-lee-child-male-tiered.json",
+      "period": "thisYear",
+      "category": "overall",
+      "depth": "expert",
+      "slot": "para4",
+      "cellKey": "thisYear/overall/expert/para4",
+      "plainText": "#시궁실의 자리가 #희신의 기운과 가까이 만나는 시기에는 어린 시기의 안정감이 한층 또렷해지는 자리가 자주 보여요. 한 해 안의 작은 챙김 한 번 한 번이 청소년기의 단단한 자기 색으로 자라는 사주이니, 보호자의 부드러운 손길과 짧은 칭찬 한마디가 평생의 가장 큰 자산으로 쌓여요."
     },
     {
       "fixture": "18-lee-child-male-tiered.json",
@@ -63743,6 +64364,15 @@
       "depth": "standard",
       "slot": "para3",
       "cellKey": "life/academic/standard/para3",
+      "plainText": "다만 같은 자리만 오래 머물면 흐름이 가라앉기도 해요. 한두 해에 한 번은 분야의 가장자리로 한 걸음 옮겨 두면, 익숙함이 다시 신선한 흐름으로 살아나요."
+    },
+    {
+      "fixture": "19-gyeokguk-conflict-jeonggwan-vs-bigyeop-tiered.json",
+      "period": "life",
+      "category": "academic",
+      "depth": "standard",
+      "slot": "para4",
+      "cellKey": "life/academic/standard/para4",
       "plainText": "큰 결단보다 꾸준한 한 줄이 결국 멀리 가요."
     },
     {
@@ -63977,6 +64607,15 @@
       "depth": "standard",
       "slot": "para2",
       "cellKey": "life/career/standard/para2",
+      "plainText": "실천 리듬으로는 1년에 한 번 자기 길의 큰 그림을 한 페이지로 정리해 두면 좋아요. 그해의 한 가지 마무리·다음 해의 한 가지 가지치기를 미리 적어 두면, 큰 흐름이 들어와도 자기 흐름로 받아 내요."
+    },
+    {
+      "fixture": "19-gyeokguk-conflict-jeonggwan-vs-bigyeop-tiered.json",
+      "period": "life",
+      "category": "career",
+      "depth": "standard",
+      "slot": "para3",
+      "cellKey": "life/career/standard/para3",
       "plainText": "자기 페이스를 지킨 사람이 가장 멀리 가는 결이에요."
     },
     {
@@ -65597,7 +66236,7 @@
       "depth": "standard",
       "slot": "para0",
       "cellKey": "thisWeek/career/standard/para0",
-      "plainText": "이번 주의 직업운은 익숙한 페이스로 작은 일을 빈틈없이 챙기는 흐름이에요. 큰 결정보다 평소 미뤄 두었던 정리·점검에 무게를 두면 다음 주가 가벼워져요."
+      "plainText": "이번 주의 직업운은 익숙한 페이스로 작은 일을 빈틈없이 챙기는 흐름이에요. 굳이 큰 결정을 매듭짓기보다, 평소 미뤄 두었던 정리·점검에 무게를 두면 다음 주가 가벼워져요."
     },
     {
       "fixture": "19-gyeokguk-conflict-jeonggwan-vs-bigyeop-tiered.json",
@@ -66227,7 +66866,16 @@
       "depth": "standard",
       "slot": "para2",
       "cellKey": "thisMonth/academic/standard/para2",
-      "plainText": "결과보다 그 자리를 만들어 가는 자기 호흡이 가장 좋은 무기예요."
+      "plainText": "실천 흐름으로는 매주 같은 요일 저녁 30분을 정리 자리로 잡아 두면 좋아요. 한 주에 한 번 다음 주 한 가지를 메모해 두면 한 달 끝에서 자기 진도표가 또렷하게 모여요."
+    },
+    {
+      "fixture": "19-gyeokguk-conflict-jeonggwan-vs-bigyeop-tiered.json",
+      "period": "thisMonth",
+      "category": "academic",
+      "depth": "standard",
+      "slot": "para3",
+      "cellKey": "thisMonth/academic/standard/para3",
+      "plainText": "눈에 보이는 결과를 욕심내지 않고, 그 자리를 만들어 가는 자기 호흡을 지키면 한 달의 방향이 단단해져요."
     },
     {
       "fixture": "19-gyeokguk-conflict-jeonggwan-vs-bigyeop-tiered.json",
@@ -66425,7 +67073,7 @@
       "depth": "standard",
       "slot": "para0",
       "cellKey": "thisMonth/career/standard/para0",
-      "plainText": "이번 달의 직업운은 익숙한 페이스로 자리를 키워 가는 흐름이에요. 큰 결정보다 평소 미뤄 두었던 정리·점검에 무게를 두면 다음 달이 가벼워져요."
+      "plainText": "이번 달의 직업운은 익숙한 페이스로 자리를 키워 가는 흐름이에요. 큰 결정을 한 번에 내리려 하기보다, 평소 미뤄 두었던 정리·점검에 무게를 두면 다음 달이 가벼워져요."
     },
     {
       "fixture": "19-gyeokguk-conflict-jeonggwan-vs-bigyeop-tiered.json",
@@ -66983,6 +67631,15 @@
       "depth": "standard",
       "slot": "para2",
       "cellKey": "thisYear/health/standard/para2",
+      "plainText": "고른 흐름은 큰 신호가 잘 보이지 않는 흐름이기도 해요. 작은 피곤이나 잠의 변화도 한 줄로 적어 두면, 한 분기 단위로 모인 그 줄들이 다음 시기의 또렷한 결 점검표가 되어 줘요."
+    },
+    {
+      "fixture": "19-gyeokguk-conflict-jeonggwan-vs-bigyeop-tiered.json",
+      "period": "thisYear",
+      "category": "health",
+      "depth": "standard",
+      "slot": "para3",
+      "cellKey": "thisYear/health/standard/para3",
       "plainText": "분기마다 한 번씩 푹 쉬는 자리도 만들어 두는 편이 좋아요. 균형이 좋아 보일수록 작은 신호 챙김이 더 큰 자산이 돼요."
     },
     {
@@ -67704,6 +68361,15 @@
       "slot": "para3",
       "cellKey": "life/overall/expert/para3",
       "plainText": "#통관용신의 흐름이 자리하면 한쪽으로 막힌 흐름을 부드럽게 살려 주고, #병약용신의 리듬이 곁에 들어오면 모자란 자리를 자연스레 받쳐 주는 호흡이 함께 흘러요."
+    },
+    {
+      "fixture": "20-gyeokguk-conflict-consensus-aware-tiered.json",
+      "period": "life",
+      "category": "overall",
+      "depth": "expert",
+      "slot": "para4",
+      "cellKey": "life/overall/expert/para4",
+      "plainText": "#월덕귀인의 기운이 #조상궁의 뿌리와 함께 보이는 사주는 장년기의 작은 무리도 부드럽게 풀어 주는 자리가 자주 등장해요. 한 번 큰 분기 뒤에는 천천히 다지는 시간이 평생의 가장 큰 자산이 되는 사주이니, 후반기로 갈수록 자기 페이스를 지켜 두는 호흡이 깊어져요."
     },
     {
       "fixture": "20-gyeokguk-conflict-consensus-aware-tiered.json",
@@ -68490,6 +69156,15 @@
     },
     {
       "fixture": "20-gyeokguk-conflict-consensus-aware-tiered.json",
+      "period": "life",
+      "category": "movement",
+      "depth": "expert",
+      "slot": "para4",
+      "cellKey": "life/movement/expert/para4",
+      "plainText": "#천덕귀인의 흐름이 #역마의 자리와 함께 보이는 사주는 새로운 환경의 리듬을 부드럽게 풀어 주는 자리가 평생을 통해 자주 등장해요. 거리감 있는 이동도 곁의 작은 도움 한 번 한 번이 자리를 받쳐 주는 흐름이라, 한 번에 멀리 가기보다 작은 발걸음이 쌓이는 호흡이 자기 흐름에 잘 맞아요."
+    },
+    {
+      "fixture": "20-gyeokguk-conflict-consensus-aware-tiered.json",
       "period": "today",
       "category": "overall",
       "depth": "brief",
@@ -68640,6 +69315,15 @@
       "slot": "para3",
       "cellKey": "today/wealth/expert/para3",
       "plainText": "#재백궁의 흐름과 #천을귀인의 자리가 함께 보이면 도움 받는 흐름이 자기 자산이 되는 사주이니, 작은 도움도 미루지 않는 호흡이 잘 어울려요."
+    },
+    {
+      "fixture": "20-gyeokguk-conflict-consensus-aware-tiered.json",
+      "period": "today",
+      "category": "wealth",
+      "depth": "expert",
+      "slot": "para4",
+      "cellKey": "today/wealth/expert/para4",
+      "plainText": "#정재용신의 기운이 곁에 보이는 사주는 하루 단위의 작은 자산 관리가 평생의 토대로 쌓이는 자리예요. 신약한 일간이 큰 거래보다 익숙한 기준을 따르는 시간을 들여 두면, 오늘의 작은 절제 한 번이 한 달·한 해의 든든한 바탕이 되는 호흡이 자연스레 잡혀요."
     },
     {
       "fixture": "20-gyeokguk-conflict-consensus-aware-tiered.json",
@@ -69350,7 +70034,7 @@
       "depth": "standard",
       "slot": "para1",
       "cellKey": "thisWeek/overall/standard/para1",
-      "plainText": "무리해서 새 변화를 만들기보다 익숙한 페이스를 지키는 게 잘 맞아요."
+      "plainText": "새 변화를 무리해서 만들지 않고, 익숙한 페이스를 한 주 동안 지키는 흐름이 잘 맞아요."
     },
     {
       "fixture": "20-gyeokguk-conflict-consensus-aware-tiered.json",
@@ -69693,6 +70377,15 @@
       "slot": "para3",
       "cellKey": "thisWeek/romance/expert/para3",
       "plainText": "자기 마음을 너무 묵혀 두지 않고 짧은 한마디라도 한 주에 한두 번 자주 표현하면, 관계의 방향이 한층 또렷해져요."
+    },
+    {
+      "fixture": "20-gyeokguk-conflict-consensus-aware-tiered.json",
+      "period": "thisWeek",
+      "category": "romance",
+      "depth": "expert",
+      "slot": "para4",
+      "cellKey": "thisWeek/romance/expert/para4",
+      "plainText": "#홍염살의 기운이 #배우자궁의 자리와 함께 보이는 사주는 약한 일간이 천천히 익는 한 주가 평생의 인연 자리로 이어지는 사주이니, 한 번에 마음을 다 보여 주기보다 익숙한 호흡으로 작은 다정함을 쌓아 두면 한 달·한 해의 더 깊은 신뢰로 자라요."
     },
     {
       "fixture": "20-gyeokguk-conflict-consensus-aware-tiered.json",
@@ -70516,6 +71209,15 @@
     {
       "fixture": "20-gyeokguk-conflict-consensus-aware-tiered.json",
       "period": "thisMonth",
+      "category": "romance",
+      "depth": "expert",
+      "slot": "para4",
+      "cellKey": "thisMonth/romance/expert/para4",
+      "plainText": "#배우자궁의 리듬이 부드럽게 받쳐 주는 시기에는 곁의 호흡을 한 박자 늦게 받아들여도 신뢰가 자리 잡는 흐름이라, 한 달 동안 자기 페이스를 지키며 함께 만드는 작은 약속들이 다음 시기의 인연을 단단하게 다져 줘요. 약한 일간 특성상 무리한 추진보다 천천히 익는 자리가 자기 흐름에 잘 맞고, 그 자리에서 만난 인연일수록 깊은 신뢰로 자라는 흐름이에요."
+    },
+    {
+      "fixture": "20-gyeokguk-conflict-consensus-aware-tiered.json",
+      "period": "thisMonth",
       "category": "family",
       "depth": "brief",
       "slot": "headline",
@@ -70894,6 +71596,15 @@
     {
       "fixture": "20-gyeokguk-conflict-consensus-aware-tiered.json",
       "period": "thisMonth",
+      "category": "health_stress",
+      "depth": "expert",
+      "slot": "para4",
+      "cellKey": "thisMonth/health_stress/expert/para4",
+      "plainText": "#정인의 돌봄이 한 달의 끝자락까지 자기 곁을 받쳐 주면, #편관의 압박이 강한 시기에도 흔들림이 줄어드는 흐름이에요. 한 주의 끝마다 자기 페이스를 한 번씩 점검하는 자리가 다음 달의 컨디션 결까지 부드럽게 이어 주는 자산이라, 무리한 회복보다 천천히 익는 시간을 자기 편으로 두는 자세가 자리를 단단히 받쳐 줘요."
+    },
+    {
+      "fixture": "20-gyeokguk-conflict-consensus-aware-tiered.json",
+      "period": "thisMonth",
       "category": "movement",
       "depth": "brief",
       "slot": "headline",
@@ -70962,6 +71673,15 @@
       "slot": "para3",
       "cellKey": "thisMonth/movement/expert/para3",
       "plainText": "#대운궁실의 흐름이 강해지는 시기엔 한 발짝 더 내디뎌 봐도 좋아요."
+    },
+    {
+      "fixture": "20-gyeokguk-conflict-consensus-aware-tiered.json",
+      "period": "thisMonth",
+      "category": "movement",
+      "depth": "expert",
+      "slot": "para4",
+      "cellKey": "thisMonth/movement/expert/para4",
+      "plainText": "#천덕귀인의 자리가 #역마의 자극과 함께 보이는 사주는 새로운 환경의 호흡을 부드럽게 풀어 주는 자리가 이번 달 안에 한두 번 등장해요. 거리감 있는 일정도 곁의 작은 도움 한 번 한 번이 자리를 받쳐 주는 흐름이라, 한 번에 멀리 가기보다 작은 발걸음이 쌓이는 호흡이 자기 페이스에 잘 맞아요."
     },
     {
       "fixture": "20-gyeokguk-conflict-consensus-aware-tiered.json",
@@ -71115,6 +71835,15 @@
       "slot": "para3",
       "cellKey": "thisYear/wealth/expert/para3",
       "plainText": "돈의 흐름은 정재의 고정 흐름과 #편재의 변동 흐름을 함께 살펴 두는 자리에서 단단해지고, 큰 한 번보다 작은 결정 쌓기가 자기 페이스에 잘 맞아요."
+    },
+    {
+      "fixture": "20-gyeokguk-conflict-consensus-aware-tiered.json",
+      "period": "thisYear",
+      "category": "wealth",
+      "depth": "expert",
+      "slot": "para4",
+      "cellKey": "thisYear/wealth/expert/para4",
+      "plainText": "#용신의 결과 #비견의 도움이 함께 보이는 한 해의 사주는 익숙한 자리에서 신뢰가 자라는 흐름이라, 분기마다 한 번씩 자기 기준을 다듬어 두는 자세가 한 해의 자산을 부드럽게 다져 줘요. 무리한 확장보다 자기 흐름을 한 호흡씩 따라가는 방식이 다음 해의 컨디션까지 든든히 이어지는 호흡이에요."
     },
     {
       "fixture": "20-gyeokguk-conflict-consensus-aware-tiered.json",
@@ -71875,6 +72604,15 @@
     {
       "fixture": "21-multi-axis-evaluator-enabled-tiered.json",
       "period": "life",
+      "category": "overall",
+      "depth": "expert",
+      "slot": "para4",
+      "cellKey": "life/overall/expert/para4",
+      "plainText": "#월덕귀인의 기운이 #조상궁의 뿌리와 함께 보이는 사주는 장년기의 작은 무리도 부드럽게 풀어 주는 자리가 자주 등장해요. 한 번 큰 분기 뒤에는 천천히 다지는 시간이 평생의 가장 큰 자산이 되는 사주이니, 후반기로 갈수록 자기 페이스를 지켜 두는 호흡이 깊어져요."
+    },
+    {
+      "fixture": "21-multi-axis-evaluator-enabled-tiered.json",
+      "period": "life",
       "category": "wealth",
       "depth": "brief",
       "slot": "headline",
@@ -71961,6 +72699,15 @@
       "slot": "para3",
       "cellKey": "life/wealth/expert/para3",
       "plainText": "#겁재가 들어오는 시기엔 동업·돈거래는 평소보다 한 번 더 살피면 좋아요."
+    },
+    {
+      "fixture": "21-multi-axis-evaluator-enabled-tiered.json",
+      "period": "life",
+      "category": "wealth",
+      "depth": "expert",
+      "slot": "para4",
+      "cellKey": "life/wealth/expert/para4",
+      "plainText": "#용신의 흐름이 평생 자산을 만드는 가장 큰 축이라, 한 번에 큰 자리를 잡기보다 작은 호흡 위에 호흡을 얹어 두는 방식이 가장 단단해요. #정인의 받침이 든든해지는 시기엔 자기 페이스의 기준이 또렷해지면서 흔들림이 줄어드는 흐름이라, 시간을 자기 편으로 두는 자세가 평생의 자산을 부드럽게 받쳐 줘요."
     },
     {
       "fixture": "21-multi-axis-evaluator-enabled-tiered.json",
@@ -72672,6 +73419,15 @@
       "slot": "para3",
       "cellKey": "life/movement/expert/para3",
       "plainText": "#대운궁실의 흐름이 강해지는 시기엔 한 발짝 더 내디뎌 봐도 좋아요."
+    },
+    {
+      "fixture": "21-multi-axis-evaluator-enabled-tiered.json",
+      "period": "life",
+      "category": "movement",
+      "depth": "expert",
+      "slot": "para4",
+      "cellKey": "life/movement/expert/para4",
+      "plainText": "#천덕귀인의 흐름이 #역마의 자리와 함께 보이는 사주는 새로운 환경의 리듬을 부드럽게 풀어 주는 자리가 평생을 통해 자주 등장해요. 거리감 있는 이동도 곁의 작은 도움 한 번 한 번이 자리를 받쳐 주는 흐름이라, 한 번에 멀리 가기보다 작은 발걸음이 쌓이는 호흡이 자기 흐름에 잘 맞아요."
     },
     {
       "fixture": "21-multi-axis-evaluator-enabled-tiered.json",
@@ -73423,6 +74179,15 @@
     {
       "fixture": "21-multi-axis-evaluator-enabled-tiered.json",
       "period": "today",
+      "category": "health_stress",
+      "depth": "expert",
+      "slot": "para4",
+      "cellKey": "today/health_stress/expert/para4",
+      "plainText": "#용신의 흐름을 가까이 두는 자리와 #정인의 돌봄이 자기 페이스를 받쳐 주는 시기에는 책임의 흐름을 한 박자 늦추는 호흡이 가장 큰 무기가 돼요. 30-50대 자리에서 자기 한계를 의식적으로 두는 자세가 다음 시기의 컨디션 결까지 부드럽게 이어 주는 자산이라, 작은 회복이 쌓이는 호흡이 자리를 든든히 만들어 줘요."
+    },
+    {
+      "fixture": "21-multi-axis-evaluator-enabled-tiered.json",
+      "period": "today",
       "category": "movement",
       "depth": "brief",
       "slot": "headline",
@@ -73517,7 +74282,7 @@
       "depth": "standard",
       "slot": "para1",
       "cellKey": "thisWeek/overall/standard/para1",
-      "plainText": "무리해서 새 변화를 만들기보다 익숙한 페이스를 지키는 게 잘 맞아요."
+      "plainText": "새 변화를 무리해서 만들지 않고, 익숙한 페이스를 한 주 동안 지키는 흐름이 잘 맞아요."
     },
     {
       "fixture": "21-multi-axis-evaluator-enabled-tiered.json",
@@ -73864,6 +74629,15 @@
     {
       "fixture": "21-multi-axis-evaluator-enabled-tiered.json",
       "period": "thisWeek",
+      "category": "romance",
+      "depth": "expert",
+      "slot": "para4",
+      "cellKey": "thisWeek/romance/expert/para4",
+      "plainText": "#홍염살의 기운이 #배우자궁의 자리와 함께 보이는 사주는 약한 일간이 천천히 익는 한 주가 평생의 인연 자리로 이어지는 사주이니, 한 번에 마음을 다 보여 주기보다 익숙한 호흡으로 작은 다정함을 쌓아 두면 한 달·한 해의 더 깊은 신뢰로 자라요."
+    },
+    {
+      "fixture": "21-multi-axis-evaluator-enabled-tiered.json",
+      "period": "thisWeek",
       "category": "family",
       "depth": "brief",
       "slot": "headline",
@@ -74021,7 +74795,7 @@
       "depth": "standard",
       "slot": "para0",
       "cellKey": "thisWeek/study_document/standard/para0",
-      "plainText": "이번 주는 도와줄 사람·기관·자료를 떠올려 한 가지를 풀어 가기 좋은 시기예요. 혼자 다 짊어지기보다 한 번 도움을 청하는 페이스가 잘 맞아요."
+      "plainText": "이번 주는 도와줄 사람·기관·자료를 떠올려 한 가지를 풀어 가기 좋은 시기예요. 무거운 짐을 혼자 떠안는 흐름이 아니라, 한 번 도움을 청하는 페이스가 한결 잘 맞아요."
     },
     {
       "fixture": "21-multi-axis-evaluator-enabled-tiered.json",
@@ -74701,6 +75475,15 @@
     {
       "fixture": "21-multi-axis-evaluator-enabled-tiered.json",
       "period": "thisMonth",
+      "category": "romance",
+      "depth": "expert",
+      "slot": "para4",
+      "cellKey": "thisMonth/romance/expert/para4",
+      "plainText": "#배우자궁의 리듬이 부드럽게 받쳐 주는 시기에는 곁의 호흡을 한 박자 늦게 받아들여도 신뢰가 자리 잡는 흐름이라, 한 달 동안 자기 페이스를 지키며 함께 만드는 작은 약속들이 다음 시기의 인연을 단단하게 다져 줘요. 약한 일간 특성상 무리한 추진보다 천천히 익는 자리가 자기 흐름에 잘 맞고, 그 자리에서 만난 인연일수록 깊은 신뢰로 자라는 흐름이에요."
+    },
+    {
+      "fixture": "21-multi-axis-evaluator-enabled-tiered.json",
+      "period": "thisMonth",
       "category": "family",
       "depth": "brief",
       "slot": "headline",
@@ -75097,6 +75880,15 @@
     {
       "fixture": "21-multi-axis-evaluator-enabled-tiered.json",
       "period": "thisMonth",
+      "category": "health_stress",
+      "depth": "expert",
+      "slot": "para4",
+      "cellKey": "thisMonth/health_stress/expert/para4",
+      "plainText": "#정인의 돌봄이 한 달의 끝자락까지 자기 곁을 받쳐 주면, #편관의 압박이 강한 시기에도 흔들림이 줄어드는 흐름이에요. 한 주의 끝마다 자기 페이스를 한 번씩 점검하는 자리가 다음 달의 컨디션 결까지 부드럽게 이어 주는 자산이라, 무리한 회복보다 천천히 익는 시간을 자기 편으로 두는 자세가 자리를 단단히 받쳐 줘요."
+    },
+    {
+      "fixture": "21-multi-axis-evaluator-enabled-tiered.json",
+      "period": "thisMonth",
       "category": "movement",
       "depth": "brief",
       "slot": "headline",
@@ -75165,6 +75957,15 @@
       "slot": "para3",
       "cellKey": "thisMonth/movement/expert/para3",
       "plainText": "#대운궁실의 흐름이 강해지는 시기엔 한 발짝 더 내디뎌 봐도 좋아요."
+    },
+    {
+      "fixture": "21-multi-axis-evaluator-enabled-tiered.json",
+      "period": "thisMonth",
+      "category": "movement",
+      "depth": "expert",
+      "slot": "para4",
+      "cellKey": "thisMonth/movement/expert/para4",
+      "plainText": "#천덕귀인의 자리가 #역마의 자극과 함께 보이는 사주는 새로운 환경의 호흡을 부드럽게 풀어 주는 자리가 이번 달 안에 한두 번 등장해요. 거리감 있는 일정도 곁의 작은 도움 한 번 한 번이 자리를 받쳐 주는 흐름이라, 한 번에 멀리 가기보다 작은 발걸음이 쌓이는 호흡이 자기 페이스에 잘 맞아요."
     },
     {
       "fixture": "21-multi-axis-evaluator-enabled-tiered.json",
@@ -76177,6 +76978,15 @@
     {
       "fixture": "22-low-confidence-yongshin-tiered.json",
       "period": "life",
+      "category": "wealth",
+      "depth": "expert",
+      "slot": "para4",
+      "cellKey": "life/wealth/expert/para4",
+      "plainText": "#용신의 흐름이 평생 자산을 만드는 가장 큰 축이라, 한 번에 큰 자리를 잡기보다 작은 호흡 위에 호흡을 얹어 두는 방식이 가장 단단해요. #정인의 받침이 든든해지는 시기엔 자기 페이스의 기준이 또렷해지면서 흔들림이 줄어드는 흐름이라, 시간을 자기 편으로 두는 자세가 평생의 자산을 부드럽게 받쳐 줘요."
+    },
+    {
+      "fixture": "22-low-confidence-yongshin-tiered.json",
+      "period": "life",
       "category": "health",
       "depth": "brief",
       "slot": "headline",
@@ -76893,6 +77703,15 @@
       "slot": "para3",
       "cellKey": "life/movement/expert/para3",
       "plainText": "#대운궁실의 흐름이 강해지는 시기엔 한 발짝 더 내디뎌 봐도 좋아요."
+    },
+    {
+      "fixture": "22-low-confidence-yongshin-tiered.json",
+      "period": "life",
+      "category": "movement",
+      "depth": "expert",
+      "slot": "para4",
+      "cellKey": "life/movement/expert/para4",
+      "plainText": "#천덕귀인의 흐름이 #역마의 자리와 함께 보이는 사주는 새로운 환경의 리듬을 부드럽게 풀어 주는 자리가 평생을 통해 자주 등장해요. 거리감 있는 이동도 곁의 작은 도움 한 번 한 번이 자리를 받쳐 주는 흐름이라, 한 번에 멀리 가기보다 작은 발걸음이 쌓이는 호흡이 자기 흐름에 잘 맞아요."
     },
     {
       "fixture": "22-low-confidence-yongshin-tiered.json",
@@ -78085,6 +78904,15 @@
     {
       "fixture": "22-low-confidence-yongshin-tiered.json",
       "period": "thisWeek",
+      "category": "romance",
+      "depth": "expert",
+      "slot": "para4",
+      "cellKey": "thisWeek/romance/expert/para4",
+      "plainText": "#홍염살의 기운이 #배우자궁의 자리와 함께 보이는 사주는 약한 일간이 천천히 익는 한 주가 평생의 인연 자리로 이어지는 사주이니, 한 번에 마음을 다 보여 주기보다 익숙한 호흡으로 작은 다정함을 쌓아 두면 한 달·한 해의 더 깊은 신뢰로 자라요."
+    },
+    {
+      "fixture": "22-low-confidence-yongshin-tiered.json",
+      "period": "thisWeek",
       "category": "family",
       "depth": "brief",
       "slot": "headline",
@@ -78904,6 +79732,15 @@
     {
       "fixture": "22-low-confidence-yongshin-tiered.json",
       "period": "thisMonth",
+      "category": "romance",
+      "depth": "expert",
+      "slot": "para4",
+      "cellKey": "thisMonth/romance/expert/para4",
+      "plainText": "#배우자궁의 리듬이 부드럽게 받쳐 주는 시기에는 곁의 호흡을 한 박자 늦게 받아들여도 신뢰가 자리 잡는 흐름이라, 한 달 동안 자기 페이스를 지키며 함께 만드는 작은 약속들이 다음 시기의 인연을 단단하게 다져 줘요. 약한 일간 특성상 무리한 추진보다 천천히 익는 자리가 자기 흐름에 잘 맞고, 그 자리에서 만난 인연일수록 깊은 신뢰로 자라는 흐름이에요."
+    },
+    {
+      "fixture": "22-low-confidence-yongshin-tiered.json",
+      "period": "thisMonth",
       "category": "family",
       "depth": "brief",
       "slot": "headline",
@@ -79368,6 +80205,15 @@
       "slot": "para3",
       "cellKey": "thisMonth/movement/expert/para3",
       "plainText": "#대운궁실의 흐름이 강해지는 시기엔 한 발짝 더 내디뎌 봐도 좋아요."
+    },
+    {
+      "fixture": "22-low-confidence-yongshin-tiered.json",
+      "period": "thisMonth",
+      "category": "movement",
+      "depth": "expert",
+      "slot": "para4",
+      "cellKey": "thisMonth/movement/expert/para4",
+      "plainText": "#천덕귀인의 자리가 #역마의 자극과 함께 보이는 사주는 새로운 환경의 호흡을 부드럽게 풀어 주는 자리가 이번 달 안에 한두 번 등장해요. 거리감 있는 일정도 곁의 작은 도움 한 번 한 번이 자리를 받쳐 주는 흐름이라, 한 번에 멀리 가기보다 작은 발걸음이 쌓이는 호흡이 자기 페이스에 잘 맞아요."
     },
     {
       "fixture": "22-low-confidence-yongshin-tiered.json",
@@ -80299,6 +81145,15 @@
     {
       "fixture": "23-jonggyeok-jongwang-yeomsang-tiered.json",
       "period": "life",
+      "category": "overall",
+      "depth": "expert",
+      "slot": "para4",
+      "cellKey": "life/overall/expert/para4",
+      "plainText": "#대운궁실의 큰 기운이 #희신의 자리와 함께 들어오는 시기엔 단단한 일간이 부드러운 호흡을 받아들이는 흐름이 자라고, 한 발짝 더 멀리 보는 결정을 천천히 내려 두는 자리가 평생의 든든한 자산이 돼요. 자기 페이스로 깊이 익히는 시간이 큰 그림 위에서 더 또렷한 리듬으로 모이는 흐름이에요."
+    },
+    {
+      "fixture": "23-jonggyeok-jongwang-yeomsang-tiered.json",
+      "period": "life",
       "category": "wealth",
       "depth": "brief",
       "slot": "headline",
@@ -81132,6 +81987,15 @@
       "slot": "para3",
       "cellKey": "today/overall/expert/para3",
       "plainText": "#납음의 흐름을 함께 살펴 두면 사주 모양의 깊은 색이 더 또렷해지고, #납음오행의 흐름이 자기 흐름을 보완하는 자리가 자주 등장해요."
+    },
+    {
+      "fixture": "23-jonggyeok-jongwang-yeomsang-tiered.json",
+      "period": "today",
+      "category": "overall",
+      "depth": "expert",
+      "slot": "para4",
+      "cellKey": "today/overall/expert/para4",
+      "plainText": "#시궁실의 작은 자리가 #희신의 기운과 가까이 만나는 시간대에는 단단한 일간이 한 박자 부드러워지는 자리가 자주 보여요. 하루의 작은 결정 한 번 한 번을 자기 페이스로 다듬어 두면, 큰 그림 위에서 또렷한 자기 색이 모이는 사주이니 무리한 속도보다 깊은 호흡 한 번이 더 큰 자산이 돼요."
     },
     {
       "fixture": "23-jonggyeok-jongwang-yeomsang-tiered.json",
@@ -82418,7 +83282,7 @@
       "depth": "standard",
       "slot": "para0",
       "cellKey": "thisWeek/study_document/standard/para0",
-      "plainText": "이번 주는 그동안의 자격·서류를 한 자리에 정리하기 좋은 흐름이에요. 새 시작보다는 정돈·전수의 흐름이 잘 맞아요."
+      "plainText": "이번 주는 그동안의 자격·서류를 한 자리에 정리하기 좋은 흐름이에요. 새 시작을 서두르기보다, 정돈·전수의 흐름에 무게를 두는 리듬이 잘 맞아요."
     },
     {
       "fixture": "23-jonggyeok-jongwang-yeomsang-tiered.json",
@@ -82928,6 +83792,15 @@
       "fixture": "23-jonggyeok-jongwang-yeomsang-tiered.json",
       "period": "thisMonth",
       "category": "health",
+      "depth": "standard",
+      "slot": "para4",
+      "cellKey": "thisMonth/health/standard/para4",
+      "plainText": "참는 자리는 강함이 아니라 누적이에요. 미리 쉬는 한 자리가 한 달의 방향을 가장 길게 받쳐 줘요."
+    },
+    {
+      "fixture": "23-jonggyeok-jongwang-yeomsang-tiered.json",
+      "period": "thisMonth",
+      "category": "health",
       "depth": "expert",
       "slot": "para0",
       "cellKey": "thisMonth/health/expert/para0",
@@ -83264,7 +84137,7 @@
       "depth": "standard",
       "slot": "para0",
       "cellKey": "thisMonth/study_document/standard/para0",
-      "plainText": "이번 달은 그동안의 자격·서류를 한 자리에 정리하기 좋은 흐름이에요. 새 시작보다는 정돈·전수의 흐름이 잘 맞아요."
+      "plainText": "이번 달은 그동안의 자격·서류를 한 자리에 정리하기 좋은 흐름이에요. 새 시작을 욕심내는 자리가 아니라, 정돈·전수의 한 달이 잘 어울려요."
     },
     {
       "fixture": "23-jonggyeok-jongwang-yeomsang-tiered.json",
@@ -83643,6 +84516,15 @@
       "slot": "para3",
       "cellKey": "thisYear/overall/expert/para3",
       "plainText": "#납음의 흐름을 함께 살펴 두면 사주 모양의 깊은 색이 더 또렷해지고, #납음오행의 흐름이 자기 흐름을 보완하는 자리가 자주 등장해요."
+    },
+    {
+      "fixture": "23-jonggyeok-jongwang-yeomsang-tiered.json",
+      "period": "thisYear",
+      "category": "overall",
+      "depth": "expert",
+      "slot": "para4",
+      "cellKey": "thisYear/overall/expert/para4",
+      "plainText": "#희신의 자리가 들어오는 시기를 한 분기씩 짚어 두면, 단단한 일간이 부드러운 호흡을 받아들이는 흐름이 또렷해져요. #조후의 균형이 한 해의 흐름을 받쳐 주는 자리에서 무리한 결정보다 천천히 익는 시간을 자기 편으로 두는 자세가 한 해의 큰 그림을 부드럽게 다져 주는 자산이 돼요."
     },
     {
       "fixture": "23-jonggyeok-jongwang-yeomsang-tiered.json",
@@ -84453,6 +85335,15 @@
       "slot": "para3",
       "cellKey": "life/overall/expert/para3",
       "plainText": "#통관용신의 흐름이 자리하면 한쪽으로 막힌 흐름을 부드럽게 살려 주고, #병약용신의 리듬이 곁에 들어오면 모자란 자리를 자연스레 받쳐 주는 호흡이 함께 흘러요."
+    },
+    {
+      "fixture": "24-jonggyeok-jongjae-tiered.json",
+      "period": "life",
+      "category": "overall",
+      "depth": "expert",
+      "slot": "para4",
+      "cellKey": "life/overall/expert/para4",
+      "plainText": "#월덕귀인의 기운이 #조상궁의 뿌리와 함께 보이는 사주는 장년기의 작은 무리도 부드럽게 풀어 주는 자리가 자주 등장해요. 한 번 큰 분기 뒤에는 천천히 다지는 시간이 평생의 가장 큰 자산이 되는 사주이니, 후반기로 갈수록 자기 페이스를 지켜 두는 호흡이 깊어져요."
     },
     {
       "fixture": "24-jonggyeok-jongjae-tiered.json",
@@ -85375,6 +86266,15 @@
     {
       "fixture": "24-jonggyeok-jongjae-tiered.json",
       "period": "today",
+      "category": "wealth",
+      "depth": "expert",
+      "slot": "para4",
+      "cellKey": "today/wealth/expert/para4",
+      "plainText": "#정재용신의 기운이 곁에 보이는 사주는 하루 단위의 작은 자산 관리가 평생의 토대로 쌓이는 자리예요. 신약한 일간이 큰 거래보다 익숙한 기준을 따르는 시간을 들여 두면, 오늘의 작은 절제 한 번이 한 달·한 해의 든든한 바탕이 되는 호흡이 자연스레 잡혀요."
+    },
+    {
+      "fixture": "24-jonggyeok-jongjae-tiered.json",
+      "period": "today",
       "category": "health",
       "depth": "brief",
       "slot": "headline",
@@ -85969,6 +86869,15 @@
     {
       "fixture": "24-jonggyeok-jongjae-tiered.json",
       "period": "today",
+      "category": "health_stress",
+      "depth": "expert",
+      "slot": "para4",
+      "cellKey": "today/health_stress/expert/para4",
+      "plainText": "#용신의 흐름을 가까이 두는 자리와 #정인의 돌봄이 자기 페이스를 받쳐 주는 시기에는 책임의 흐름을 한 박자 늦추는 호흡이 가장 큰 무기가 돼요. 30-50대 자리에서 자기 한계를 의식적으로 두는 자세가 다음 시기의 컨디션 결까지 부드럽게 이어 주는 자산이라, 작은 회복이 쌓이는 호흡이 자리를 든든히 만들어 줘요."
+    },
+    {
+      "fixture": "24-jonggyeok-jongjae-tiered.json",
+      "period": "today",
       "category": "movement",
       "depth": "brief",
       "slot": "headline",
@@ -86063,7 +86972,7 @@
       "depth": "standard",
       "slot": "para1",
       "cellKey": "thisWeek/overall/standard/para1",
-      "plainText": "무리해서 새 변화를 만들기보다 익숙한 페이스를 지키는 게 잘 맞아요."
+      "plainText": "새 변화를 무리해서 만들지 않고, 익숙한 페이스를 한 주 동안 지키는 흐름이 잘 맞아요."
     },
     {
       "fixture": "24-jonggyeok-jongjae-tiered.json",
@@ -87850,6 +88759,15 @@
     {
       "fixture": "24-jonggyeok-jongjae-tiered.json",
       "period": "thisYear",
+      "category": "wealth",
+      "depth": "expert",
+      "slot": "para4",
+      "cellKey": "thisYear/wealth/expert/para4",
+      "plainText": "#용신의 결과 #비견의 도움이 함께 보이는 한 해의 사주는 익숙한 자리에서 신뢰가 자라는 흐름이라, 분기마다 한 번씩 자기 기준을 다듬어 두는 자세가 한 해의 자산을 부드럽게 다져 줘요. 무리한 확장보다 자기 흐름을 한 호흡씩 따라가는 방식이 다음 해의 컨디션까지 든든히 이어지는 호흡이에요."
+    },
+    {
+      "fixture": "24-jonggyeok-jongjae-tiered.json",
+      "period": "thisYear",
       "category": "health",
       "depth": "brief",
       "slot": "headline",
@@ -88458,6 +89376,15 @@
       "slot": "para3",
       "cellKey": "thisYear/health_stress/expert/para3",
       "plainText": "#백호대살의 신호와 #괴강살의 흐름이 함께 보이는 시기엔 자기 한계를 의식적으로 두는 호흡이 가장 든든한 회복 자리예요."
+    },
+    {
+      "fixture": "24-jonggyeok-jongjae-tiered.json",
+      "period": "thisYear",
+      "category": "health_stress",
+      "depth": "expert",
+      "slot": "para4",
+      "cellKey": "thisYear/health_stress/expert/para4",
+      "plainText": "#천을귀인의 기운이 곁에 보이는 사주는 한 해의 회복이 한 사람의 따뜻한 도움 한 번에서 크게 풀리는 자리가 자주 등장해요. 신약한 일간이 무리하지 않는 한 해를 보내면, 다음 해의 토대가 단단해지는 사주이니 작은 휴식 한 번도 늦지 않은 자기 자산이 돼요."
     },
     {
       "fixture": "24-jonggyeok-jongjae-tiered.json",
@@ -89515,6 +90442,15 @@
     {
       "fixture": "25-jonggyeok-jonggwan-tiered.json",
       "period": "today",
+      "category": "wealth",
+      "depth": "expert",
+      "slot": "para4",
+      "cellKey": "today/wealth/expert/para4",
+      "plainText": "#정재용신의 기운이 곁에 보이는 사주는 하루 단위의 작은 자산 관리가 평생의 토대로 쌓이는 자리예요. 신약한 일간이 큰 거래보다 익숙한 기준을 따르는 시간을 들여 두면, 오늘의 작은 절제 한 번이 한 달·한 해의 든든한 바탕이 되는 호흡이 자연스레 잡혀요."
+    },
+    {
+      "fixture": "25-jonggyeok-jonggwan-tiered.json",
+      "period": "today",
       "category": "health",
       "depth": "brief",
       "slot": "headline",
@@ -89663,7 +90599,7 @@
       "depth": "brief",
       "slot": "headline",
       "cellKey": "today/romance/brief/headline",
-      "plainText": "오늘은 마음을 급히 확인하려 하기보다 편안한 대화가 더 좋아요."
+      "plainText": "오늘은 오래 본 사람에게 가벼운 차 한 잔을 권해요."
     },
     {
       "fixture": "25-jonggyeok-jonggwan-tiered.json",
@@ -90437,7 +91373,7 @@
       "depth": "standard",
       "slot": "para0",
       "cellKey": "thisWeek/academic/standard/para0",
-      "plainText": "이번 주의 학업운은 익숙한 책 한 권을 다시 음미하기 좋은 흐름이에요. 빠른 학습보다 일주일에 걸쳐 한 챕터를 천천히 곱씹어 보는 식이 더 잘 어울려요."
+      "plainText": "이번 주의 학업운은 익숙한 책 한 권을 다시 음미하기 좋은 흐름이에요. 빠른 학습이 아니라, 일주일에 걸쳐 한 챕터를 천천히 곱씹어 보는 식이 한결 잘 어울려요."
     },
     {
       "fixture": "25-jonggyeok-jonggwan-tiered.json",
@@ -90455,7 +91391,7 @@
       "depth": "standard",
       "slot": "para2",
       "cellKey": "thisWeek/academic/standard/para2",
-      "plainText": "결과를 위한 공부보다 호기심이 이끄는 한 페이지의 행복을 챙겨 보면 좋아요."
+      "plainText": "결과를 향한 공부라기보다 호기심이 이끄는 한 페이지를 따라가 보면 한 주가 풍성해져요."
     },
     {
       "fixture": "25-jonggyeok-jonggwan-tiered.json",
@@ -91247,7 +92183,7 @@
       "depth": "brief",
       "slot": "headline",
       "cellKey": "thisMonth/academic/brief/headline",
-      "plainText": "이번 달 공부는 중간 점검일을 미리 정하면 끝까지 이어가기 쉽습니다."
+      "plainText": "이번 달은 좋아하는 분야 한 권을 차분히 읽어요."
     },
     {
       "fixture": "25-jonggyeok-jonggwan-tiered.json",
@@ -91990,6 +92926,15 @@
     {
       "fixture": "25-jonggyeok-jonggwan-tiered.json",
       "period": "thisYear",
+      "category": "wealth",
+      "depth": "expert",
+      "slot": "para4",
+      "cellKey": "thisYear/wealth/expert/para4",
+      "plainText": "#용신의 결과 #비견의 도움이 함께 보이는 한 해의 사주는 익숙한 자리에서 신뢰가 자라는 흐름이라, 분기마다 한 번씩 자기 기준을 다듬어 두는 자세가 한 해의 자산을 부드럽게 다져 줘요. 무리한 확장보다 자기 흐름을 한 호흡씩 따라가는 방식이 다음 해의 컨디션까지 든든히 이어지는 호흡이에요."
+    },
+    {
+      "fixture": "25-jonggyeok-jonggwan-tiered.json",
+      "period": "thisYear",
       "category": "health",
       "depth": "brief",
       "slot": "headline",
@@ -92593,6 +93538,15 @@
     {
       "fixture": "25-jonggyeok-jonggwan-tiered.json",
       "period": "thisYear",
+      "category": "health_stress",
+      "depth": "expert",
+      "slot": "para4",
+      "cellKey": "thisYear/health_stress/expert/para4",
+      "plainText": "#천을귀인의 기운이 곁에 보이는 사주는 한 해의 회복이 한 사람의 따뜻한 도움 한 번에서 크게 풀리는 자리가 자주 등장해요. 신약한 일간이 무리하지 않는 한 해를 보내면, 다음 해의 토대가 단단해지는 사주이니 작은 휴식 한 번도 늦지 않은 자기 자산이 돼요."
+    },
+    {
+      "fixture": "25-jonggyeok-jonggwan-tiered.json",
+      "period": "thisYear",
       "category": "movement",
       "depth": "brief",
       "slot": "headline",
@@ -92733,6 +93687,15 @@
       "slot": "para3",
       "cellKey": "life/overall/expert/para3",
       "plainText": "#통관용신의 흐름이 자리하면 한쪽으로 막힌 흐름을 부드럽게 살려 주고, #병약용신의 리듬이 곁에 들어오면 모자란 자리를 자연스레 받쳐 주는 호흡이 함께 흘러요."
+    },
+    {
+      "fixture": "26-jonggyeok-jongsal-tiered.json",
+      "period": "life",
+      "category": "overall",
+      "depth": "expert",
+      "slot": "para4",
+      "cellKey": "life/overall/expert/para4",
+      "plainText": "#월덕귀인의 기운이 #조상궁의 뿌리와 함께 보이는 사주는 장년기의 작은 무리도 부드럽게 풀어 주는 자리가 자주 등장해요. 한 번 큰 분기 뒤에는 천천히 다지는 시간이 평생의 가장 큰 자산이 되는 사주이니, 후반기로 갈수록 자기 페이스를 지켜 두는 호흡이 깊어져요."
     },
     {
       "fixture": "26-jonggyeok-jongsal-tiered.json",
@@ -93335,7 +94298,7 @@
       "depth": "brief",
       "slot": "headline",
       "cellKey": "life/health_stress/brief/headline",
-      "plainText": "어깨에 얹힌 무게를 가끔 풀어 줘요."
+      "plainText": "오래 짊어진 무게는 한 줄씩 적어 두면 가벼워져요."
     },
     {
       "fixture": "26-jonggyeok-jongsal-tiered.json",
@@ -93651,6 +94614,15 @@
       "slot": "para3",
       "cellKey": "today/wealth/expert/para3",
       "plainText": "#재백궁의 흐름과 #천을귀인의 자리가 함께 보이면 도움 받는 흐름이 자기 자산이 되는 사주이니, 작은 도움도 미루지 않는 호흡이 잘 어울려요."
+    },
+    {
+      "fixture": "26-jonggyeok-jongsal-tiered.json",
+      "period": "today",
+      "category": "wealth",
+      "depth": "expert",
+      "slot": "para4",
+      "cellKey": "today/wealth/expert/para4",
+      "plainText": "#정재용신의 기운이 곁에 보이는 사주는 하루 단위의 작은 자산 관리가 평생의 토대로 쌓이는 자리예요. 신약한 일간이 큰 거래보다 익숙한 기준을 따르는 시간을 들여 두면, 오늘의 작은 절제 한 번이 한 달·한 해의 든든한 바탕이 되는 호흡이 자연스레 잡혀요."
     },
     {
       "fixture": "26-jonggyeok-jongsal-tiered.json",
@@ -94343,7 +95315,7 @@
       "depth": "standard",
       "slot": "para1",
       "cellKey": "thisWeek/overall/standard/para1",
-      "plainText": "무리해서 새 변화를 만들기보다 익숙한 페이스를 지키는 게 잘 맞아요."
+      "plainText": "새 변화를 무리해서 만들지 않고, 익숙한 페이스를 한 주 동안 지키는 흐름이 잘 맞아요."
     },
     {
       "fixture": "26-jonggyeok-jongsal-tiered.json",
@@ -94721,6 +95693,15 @@
       "depth": "standard",
       "slot": "para2",
       "cellKey": "thisWeek/family/standard/para2",
+      "plainText": "중간 세대에 서 있는 시기라 모두에게 마음을 똑같이 나누기 어려운 주가 자연스러워요. 한쪽이 비어 보여도 자책으로 길게 가져가지 않으면, 다음 주에 그 자리를 메우는 흐름이 자연스럽게 돌아와요."
+    },
+    {
+      "fixture": "26-jonggyeok-jongsal-tiered.json",
+      "period": "thisWeek",
+      "category": "family",
+      "depth": "standard",
+      "slot": "para3",
+      "cellKey": "thisWeek/family/standard/para3",
       "plainText": "챙길 사람이 많은 주이니, 한 사람에게 부담이 몰리지 않도록 골고루 나누고 자기 휴식도 한 칸 챙겨 두세요."
     },
     {
@@ -94847,7 +95828,7 @@
       "depth": "standard",
       "slot": "para0",
       "cellKey": "thisWeek/study_document/standard/para0",
-      "plainText": "이번 주는 도와줄 사람·기관·자료를 떠올려 한 가지를 풀어 가기 좋은 시기예요. 혼자 다 짊어지기보다 한 번 도움을 청하는 페이스가 잘 맞아요."
+      "plainText": "이번 주는 도와줄 사람·기관·자료를 떠올려 한 가지를 풀어 가기 좋은 시기예요. 무거운 짐을 혼자 떠안는 흐름이 아니라, 한 번 도움을 청하는 페이스가 한결 잘 맞아요."
     },
     {
       "fixture": "26-jonggyeok-jongsal-tiered.json",
@@ -95675,7 +96656,7 @@
       "depth": "brief",
       "slot": "headline",
       "cellKey": "thisMonth/study_document/brief/headline",
-      "plainText": "스승·책의 도움이 든든한 달이에요."
+      "plainText": "이번 달은 큰 자료 한 묶음을 작은 단위로 쪼개요."
     },
     {
       "fixture": "26-jonggyeok-jongsal-tiered.json",
@@ -96144,6 +97125,15 @@
       "slot": "para3",
       "cellKey": "thisYear/wealth/expert/para3",
       "plainText": "돈의 흐름은 정재의 고정 흐름과 #편재의 변동 흐름을 함께 살펴 두는 자리에서 단단해지고, 큰 한 번보다 작은 결정 쌓기가 자기 페이스에 잘 맞아요."
+    },
+    {
+      "fixture": "26-jonggyeok-jongsal-tiered.json",
+      "period": "thisYear",
+      "category": "wealth",
+      "depth": "expert",
+      "slot": "para4",
+      "cellKey": "thisYear/wealth/expert/para4",
+      "plainText": "#용신의 결과 #비견의 도움이 함께 보이는 한 해의 사주는 익숙한 자리에서 신뢰가 자라는 흐름이라, 분기마다 한 번씩 자기 기준을 다듬어 두는 자세가 한 해의 자산을 부드럽게 다져 줘요. 무리한 확장보다 자기 흐름을 한 호흡씩 따라가는 방식이 다음 해의 컨디션까지 든든히 이어지는 호흡이에요."
     },
     {
       "fixture": "26-jonggyeok-jongsal-tiered.json",
@@ -96769,6 +97759,15 @@
     {
       "fixture": "26-jonggyeok-jongsal-tiered.json",
       "period": "thisYear",
+      "category": "health_stress",
+      "depth": "expert",
+      "slot": "para4",
+      "cellKey": "thisYear/health_stress/expert/para4",
+      "plainText": "#천을귀인의 기운이 곁에 보이는 사주는 한 해의 회복이 한 사람의 따뜻한 도움 한 번에서 크게 풀리는 자리가 자주 등장해요. 신약한 일간이 무리하지 않는 한 해를 보내면, 다음 해의 토대가 단단해지는 사주이니 작은 휴식 한 번도 늦지 않은 자기 자산이 돼요."
+    },
+    {
+      "fixture": "26-jonggyeok-jongsal-tiered.json",
+      "period": "thisYear",
       "category": "movement",
       "depth": "brief",
       "slot": "headline",
@@ -97007,7 +98006,7 @@
       "depth": "brief",
       "slot": "headline",
       "cellKey": "life/health/brief/headline",
-      "plainText": "건강은 특별한 비법보다 잠, 식사, 움직임을 꾸준히 지키는 힘이 가요."
+      "plainText": "오랜 결은 일찍 자고 일찍 일어나는 습관에서 자라요."
     },
     {
       "fixture": "27-jonggyeok-jongah-tiered.json",
@@ -97071,6 +98070,15 @@
       "slot": "para3",
       "cellKey": "life/health/expert/para3",
       "plainText": "#조후용신의 흐름이 또렷한 사주는 #조후의 균형이 컨디션을 만드는 가장 큰 축이라, 계절의 흐름을 따라 자기 페이스를 맞춰 두는 호흡이 잘 어울려요."
+    },
+    {
+      "fixture": "27-jonggyeok-jongah-tiered.json",
+      "period": "life",
+      "category": "health",
+      "depth": "expert",
+      "slot": "para4",
+      "cellKey": "life/health/expert/para4",
+      "plainText": "#정인의 따뜻한 자산이 어린 시기에 단단해지면 #식신의 리듬이 평생을 통해 부드럽게 풀리는 흐름이에요. 잘 자고 잘 먹는 일상의 작은 자리가 청년기·중년기 컨디션의 가장 큰 뿌리가 되는 사주라, 지금의 따뜻한 보살핌이 인생 전체로 보아도 가장 큰 평생 자산으로 자리 잡는 흐름이에요."
     },
     {
       "fixture": "27-jonggyeok-jongah-tiered.json",
@@ -97291,6 +98299,15 @@
     {
       "fixture": "27-jonggyeok-jongah-tiered.json",
       "period": "life",
+      "category": "family",
+      "depth": "expert",
+      "slot": "para4",
+      "cellKey": "life/family/expert/para4",
+      "plainText": "#부모궁 에 따뜻한 기운이 도는 어린 시기엔 보호자의 호흡과 #정인의 돌봄이 평생의 안전한 바탕을 만드는 시기예요. 이 시기의 작은 신뢰의 흐름이 청년기·중년기로 이어지면서 자기 정체성의 뿌리가 되는 흐름이라, 지금 받은 따뜻한 자산이 평생의 가장 큰 자기 응원으로 자리 잡는 사주의 모양이에요."
+    },
+    {
+      "fixture": "27-jonggyeok-jongah-tiered.json",
+      "period": "life",
       "category": "career",
       "depth": "brief",
       "slot": "headline",
@@ -97457,7 +98474,7 @@
       "depth": "brief",
       "slot": "headline",
       "cellKey": "life/expression_children/brief/headline",
-      "plainText": "좋아하는 놀이로 자기 색이 풀려 나오는 시기예요."
+      "plainText": "오랜 흐름은 작은 선택을 스스로 짚는 데서 자라요."
     },
     {
       "fixture": "27-jonggyeok-jongah-tiered.json",
@@ -97665,6 +98682,15 @@
       "slot": "para3",
       "cellKey": "life/movement/expert/para3",
       "plainText": "#용신의 결에 맞추어 여행·체험학습·전학 같은 부드러운 자극을 주면, 평생 가는 호기심의 큰 흐름이 만들어져요."
+    },
+    {
+      "fixture": "27-jonggyeok-jongah-tiered.json",
+      "period": "life",
+      "category": "movement",
+      "depth": "expert",
+      "slot": "para4",
+      "cellKey": "life/movement/expert/para4",
+      "plainText": "#천덕귀인의 기운이 #역마의 자극과 함께 보이는 어린 시기의 사주는 새 환경에서 만나는 작은 도움 한 번 한 번이 평생의 든든한 안전망으로 쌓이는 자리가 자주 등장해요. 짧은 가족 여행, 친구와의 첫 외출 같은 작은 발걸음이 청소년기·청년기 큰 이동 결정의 단단한 토대가 되는 사주예요."
     },
     {
       "fixture": "27-jonggyeok-jongah-tiered.json",
@@ -99559,6 +100585,15 @@
     {
       "fixture": "27-jonggyeok-jongah-tiered.json",
       "period": "thisMonth",
+      "category": "health",
+      "depth": "expert",
+      "slot": "para4",
+      "cellKey": "thisMonth/health/expert/para4",
+      "plainText": "#시궁실의 자리가 #식신의 기운과 함께 보이는 어린 시기의 사주는 한 달 안의 잔잔한 컨디션 변화도 자연스레 풀리는 자리가 자주 등장해요. 이 시기에 잘 다진 식습관과 보호자의 따뜻한 손길 한 번이 청소년기의 안정감으로 자라는 사주이니, 작은 챙김이 평생의 가장 큰 자산이 돼요."
+    },
+    {
+      "fixture": "27-jonggyeok-jongah-tiered.json",
+      "period": "thisMonth",
       "category": "academic",
       "depth": "brief",
       "slot": "headline",
@@ -99771,6 +100806,15 @@
       "slot": "para3",
       "cellKey": "thisMonth/family/expert/para3",
       "plainText": "가족 자리는 #부모궁과 #조상궁의 흐름이 어떻게 받쳐 주느냐를 함께 살펴 두면 흐름의 결정이 더 단단해지고, 작은 인사 한 마디가 평생의 자산이 되는 자리예요."
+    },
+    {
+      "fixture": "27-jonggyeok-jongah-tiered.json",
+      "period": "thisMonth",
+      "category": "family",
+      "depth": "expert",
+      "slot": "para4",
+      "cellKey": "thisMonth/family/expert/para4",
+      "plainText": "#천덕귀인의 자리가 #부모궁의 호흡과 함께 보이는 어린 시기의 사주는 한 달 안의 작은 다툼도 부드럽게 풀어 주는 자리가 자주 등장해요. 이 시기에 받은 따뜻한 호흡 한 번이 청소년기의 안정감으로 자라는 사주이니, 보호자의 작은 칭찬과 짧은 산책 한 번이 평생의 큰 자산으로 쌓여요."
     },
     {
       "fixture": "27-jonggyeok-jongah-tiered.json",
@@ -100203,6 +101247,15 @@
       "slot": "para3",
       "cellKey": "thisYear/overall/expert/para3",
       "plainText": "#격국용신의 흐름과 #격국적합도의 평균이 또렷한 사주는 자기 격에 맞는 길로 큰 흐름이 모이는 자리가 자주 등장해요."
+    },
+    {
+      "fixture": "27-jonggyeok-jongah-tiered.json",
+      "period": "thisYear",
+      "category": "overall",
+      "depth": "expert",
+      "slot": "para4",
+      "cellKey": "thisYear/overall/expert/para4",
+      "plainText": "#시궁실의 자리가 #희신의 기운과 가까이 만나는 시기에는 어린 시기의 안정감이 한층 또렷해지는 자리가 자주 보여요. 한 해 안의 작은 챙김 한 번 한 번이 청소년기의 단단한 자기 색으로 자라는 사주이니, 보호자의 부드러운 손길과 짧은 칭찬 한마디가 평생의 가장 큰 자산으로 쌓여요."
     },
     {
       "fixture": "27-jonggyeok-jongah-tiered.json",
@@ -101031,6 +102084,15 @@
       "slot": "para3",
       "cellKey": "life/overall/expert/para3",
       "plainText": "#격국용신의 흐름과 #격국적합도의 평균이 또렷한 사주는 자기 격에 맞는 길로 큰 흐름이 모이는 자리가 자주 등장해요."
+    },
+    {
+      "fixture": "28-jonggyeok-jonggang-tiered.json",
+      "period": "life",
+      "category": "overall",
+      "depth": "expert",
+      "slot": "para4",
+      "cellKey": "life/overall/expert/para4",
+      "plainText": "#대운궁실의 큰 기운이 #희신의 자리와 함께 들어오는 시기엔 단단한 일간이 부드러운 호흡을 받아들이는 흐름이 자라고, 한 발짝 더 멀리 보는 결정을 천천히 내려 두는 자리가 평생의 든든한 자산이 돼요. 자기 페이스로 깊이 익히는 시간이 큰 그림 위에서 더 또렷한 리듬으로 모이는 흐름이에요."
     },
     {
       "fixture": "28-jonggyeok-jonggang-tiered.json",
@@ -101868,6 +102930,15 @@
       "slot": "para3",
       "cellKey": "today/overall/expert/para3",
       "plainText": "#납음의 흐름을 함께 살펴 두면 사주 모양의 깊은 색이 더 또렷해지고, #납음오행의 흐름이 자기 흐름을 보완하는 자리가 자주 등장해요."
+    },
+    {
+      "fixture": "28-jonggyeok-jonggang-tiered.json",
+      "period": "today",
+      "category": "overall",
+      "depth": "expert",
+      "slot": "para4",
+      "cellKey": "today/overall/expert/para4",
+      "plainText": "#시궁실의 작은 자리가 #희신의 기운과 가까이 만나는 시간대에는 단단한 일간이 한 박자 부드러워지는 자리가 자주 보여요. 하루의 작은 결정 한 번 한 번을 자기 페이스로 다듬어 두면, 큰 그림 위에서 또렷한 자기 색이 모이는 사주이니 무리한 속도보다 깊은 호흡 한 번이 더 큰 자산이 돼요."
     },
     {
       "fixture": "28-jonggyeok-jonggang-tiered.json",
@@ -102848,7 +103919,7 @@
       "depth": "standard",
       "slot": "para0",
       "cellKey": "thisWeek/academic/standard/para0",
-      "plainText": "이번 주의 학업운은 익숙한 책 한 권을 다시 음미하기 좋은 흐름이에요. 빠른 학습보다 일주일에 걸쳐 한 챕터를 천천히 곱씹어 보는 식이 더 잘 어울려요."
+      "plainText": "이번 주의 학업운은 익숙한 책 한 권을 다시 음미하기 좋은 흐름이에요. 빠른 학습이 아니라, 일주일에 걸쳐 한 챕터를 천천히 곱씹어 보는 식이 한결 잘 어울려요."
     },
     {
       "fixture": "28-jonggyeok-jonggang-tiered.json",
@@ -102866,7 +103937,7 @@
       "depth": "standard",
       "slot": "para2",
       "cellKey": "thisWeek/academic/standard/para2",
-      "plainText": "결과를 위한 공부보다 호기심이 이끄는 한 페이지의 행복을 챙겨 보면 좋아요."
+      "plainText": "결과를 향한 공부라기보다 호기심이 이끄는 한 페이지를 따라가 보면 한 주가 풍성해져요."
     },
     {
       "fixture": "28-jonggyeok-jonggang-tiered.json",
@@ -103064,7 +104135,7 @@
       "depth": "standard",
       "slot": "para0",
       "cellKey": "thisWeek/career/standard/para0",
-      "plainText": "이번 주의 직업운은 오래 쌓아 온 리듬을 후배에게 한 줄 나누기 좋은 흐름이에요. 큰 결정·새 도전보다 후배·동료의 결정을 옆에서 비춰 주는 자리에 무게를 두면 호흡이 부드러워져요."
+      "plainText": "이번 주의 직업운은 오래 쌓아 온 리듬을 후배에게 한 줄 나누기 좋은 흐름이에요. 새 도전을 욕심내기보다, 후배·동료의 결정을 옆에서 비춰 주는 자리에 무게를 두면 호흡이 부드러워져요."
     },
     {
       "fixture": "28-jonggyeok-jonggang-tiered.json",
@@ -103073,7 +104144,7 @@
       "depth": "standard",
       "slot": "para1",
       "cellKey": "thisWeek/career/standard/para1",
-      "plainText": "자기 노하우 한 가지를 짧은 글이나 대화로 풀어 두면, 그게 누군가의 자리의 디딤돌이 돼요. 무리한 일정보다 자기 페이스의 흐름을 우선 두는 게 좋아요."
+      "plainText": "자기 노하우 한 가지를 짧은 글이나 대화로 풀어 두면, 그게 누군가의 자리의 디딤돌이 돼요. 일정을 무리해서 채우는 대신, 자기 페이스의 흐름을 우선 두는 게 좋아요."
     },
     {
       "fixture": "28-jonggyeok-jonggang-tiered.json",
@@ -104293,6 +105364,15 @@
     {
       "fixture": "28-jonggyeok-jonggang-tiered.json",
       "period": "thisYear",
+      "category": "overall",
+      "depth": "expert",
+      "slot": "para4",
+      "cellKey": "thisYear/overall/expert/para4",
+      "plainText": "#희신의 자리가 들어오는 시기를 한 분기씩 짚어 두면, 단단한 일간이 부드러운 호흡을 받아들이는 흐름이 또렷해져요. #조후의 균형이 한 해의 흐름을 받쳐 주는 자리에서 무리한 결정보다 천천히 익는 시간을 자기 편으로 두는 자세가 한 해의 큰 그림을 부드럽게 다져 주는 자산이 돼요."
+    },
+    {
+      "fixture": "28-jonggyeok-jonggang-tiered.json",
+      "period": "thisYear",
       "category": "wealth",
       "depth": "brief",
       "slot": "headline",
@@ -105130,6 +106210,15 @@
     {
       "fixture": "29-pure-hangul-name-tiered.json",
       "period": "life",
+      "category": "overall",
+      "depth": "expert",
+      "slot": "para4",
+      "cellKey": "life/overall/expert/para4",
+      "plainText": "#대운궁실의 큰 기운이 #희신의 자리와 함께 들어오는 시기엔 단단한 일간이 부드러운 호흡을 받아들이는 흐름이 자라고, 한 발짝 더 멀리 보는 결정을 천천히 내려 두는 자리가 평생의 든든한 자산이 돼요. 자기 페이스로 깊이 익히는 시간이 큰 그림 위에서 더 또렷한 리듬으로 모이는 흐름이에요."
+    },
+    {
+      "fixture": "29-pure-hangul-name-tiered.json",
+      "period": "life",
       "category": "wealth",
       "depth": "brief",
       "slot": "headline",
@@ -105936,6 +107025,15 @@
       "slot": "para3",
       "cellKey": "today/overall/expert/para3",
       "plainText": "#납음의 흐름을 함께 살펴 두면 사주 모양의 깊은 색이 더 또렷해지고, #납음오행의 흐름이 자기 흐름을 보완하는 자리가 자주 등장해요."
+    },
+    {
+      "fixture": "29-pure-hangul-name-tiered.json",
+      "period": "today",
+      "category": "overall",
+      "depth": "expert",
+      "slot": "para4",
+      "cellKey": "today/overall/expert/para4",
+      "plainText": "#시궁실의 작은 자리가 #희신의 기운과 가까이 만나는 시간대에는 단단한 일간이 한 박자 부드러워지는 자리가 자주 보여요. 하루의 작은 결정 한 번 한 번을 자기 페이스로 다듬어 두면, 큰 그림 위에서 또렷한 자기 색이 모이는 사주이니 무리한 속도보다 깊은 호흡 한 번이 더 큰 자산이 돼요."
     },
     {
       "fixture": "29-pure-hangul-name-tiered.json",
@@ -107465,6 +108563,15 @@
       "depth": "standard",
       "slot": "para2",
       "cellKey": "thisWeek/movement/standard/para2",
+      "plainText": "동선이 빠른 한 주이지만 자기 흐름을 잃지 않는 한 줄을 곁에 두면 좋아요. 분주함 속에서도 매일 자기 자리에서 물 한 잔·짧은 호흡 한 번을 챙겨 두면, 한 주 끝의 흐름이 단단하게 모여요."
+    },
+    {
+      "fixture": "29-pure-hangul-name-tiered.json",
+      "period": "thisWeek",
+      "category": "movement",
+      "depth": "standard",
+      "slot": "para3",
+      "cellKey": "thisWeek/movement/standard/para3",
       "plainText": "다만 큰 이직·이사 결정은 이번 주의 분주함 속에서 정하지 말고, 가족과 한 번 더 호흡을 맞춘 뒤 정해도 늦지 않아요."
     },
     {
@@ -108402,6 +109509,15 @@
       "slot": "para3",
       "cellKey": "thisYear/overall/expert/para3",
       "plainText": "#납음의 흐름을 함께 살펴 두면 사주 모양의 깊은 색이 더 또렷해지고, #납음오행의 흐름이 자기 흐름을 보완하는 자리가 자주 등장해요."
+    },
+    {
+      "fixture": "29-pure-hangul-name-tiered.json",
+      "period": "thisYear",
+      "category": "overall",
+      "depth": "expert",
+      "slot": "para4",
+      "cellKey": "thisYear/overall/expert/para4",
+      "plainText": "#희신의 자리가 들어오는 시기를 한 분기씩 짚어 두면, 단단한 일간이 부드러운 호흡을 받아들이는 흐름이 또렷해져요. #조후의 균형이 한 해의 흐름을 받쳐 주는 자리에서 무리한 결정보다 천천히 익는 시간을 자기 편으로 두는 자세가 한 해의 큰 그림을 부드럽게 다져 주는 자산이 돼요."
     },
     {
       "fixture": "29-pure-hangul-name-tiered.json",
@@ -109346,7 +110462,7 @@
       "depth": "brief",
       "slot": "headline",
       "cellKey": "life/health/brief/headline",
-      "plainText": "아이는 지금 잘 자라는 흐름이에요."
+      "plainText": "오랜 결은 일찍 자고 일찍 일어나는 습관에서 자라요."
     },
     {
       "fixture": "30-jeolgi-lidong-boundary-tiered.json",
@@ -109410,6 +110526,15 @@
       "slot": "para3",
       "cellKey": "life/health/expert/para3",
       "plainText": "#조후용신의 흐름이 또렷한 사주는 #조후의 균형이 컨디션을 만드는 가장 큰 축이라, 계절의 흐름을 따라 자기 페이스를 맞춰 두는 호흡이 잘 어울려요."
+    },
+    {
+      "fixture": "30-jeolgi-lidong-boundary-tiered.json",
+      "period": "life",
+      "category": "health",
+      "depth": "expert",
+      "slot": "para4",
+      "cellKey": "life/health/expert/para4",
+      "plainText": "#정인의 따뜻한 자산이 어린 시기에 단단해지면 #식신의 리듬이 평생을 통해 부드럽게 풀리는 흐름이에요. 잘 자고 잘 먹는 일상의 작은 자리가 청년기·중년기 컨디션의 가장 큰 뿌리가 되는 사주라, 지금의 따뜻한 보살핌이 인생 전체로 보아도 가장 큰 평생 자산으로 자리 잡는 흐름이에요."
     },
     {
       "fixture": "30-jeolgi-lidong-boundary-tiered.json",
@@ -109630,6 +110755,15 @@
     {
       "fixture": "30-jeolgi-lidong-boundary-tiered.json",
       "period": "life",
+      "category": "family",
+      "depth": "expert",
+      "slot": "para4",
+      "cellKey": "life/family/expert/para4",
+      "plainText": "#부모궁 에 따뜻한 기운이 도는 어린 시기엔 보호자의 호흡과 #정인의 돌봄이 평생의 안전한 바탕을 만드는 시기예요. 이 시기의 작은 신뢰의 흐름이 청년기·중년기로 이어지면서 자기 정체성의 뿌리가 되는 흐름이라, 지금 받은 따뜻한 자산이 평생의 가장 큰 자기 응원으로 자리 잡는 사주의 모양이에요."
+    },
+    {
+      "fixture": "30-jeolgi-lidong-boundary-tiered.json",
+      "period": "life",
       "category": "career",
       "depth": "brief",
       "slot": "headline",
@@ -109796,7 +110930,7 @@
       "depth": "brief",
       "slot": "headline",
       "cellKey": "life/expression_children/brief/headline",
-      "plainText": "좋아하는 놀이로 자기 색이 풀려 나오는 시기예요."
+      "plainText": "오랜 흐름은 작은 선택을 스스로 짚는 데서 자라요."
     },
     {
       "fixture": "30-jeolgi-lidong-boundary-tiered.json",
@@ -110004,6 +111138,15 @@
       "slot": "para3",
       "cellKey": "life/movement/expert/para3",
       "plainText": "#용신의 결에 맞추어 여행·체험학습·전학 같은 부드러운 자극을 주면, 평생 가는 호기심의 큰 흐름이 만들어져요."
+    },
+    {
+      "fixture": "30-jeolgi-lidong-boundary-tiered.json",
+      "period": "life",
+      "category": "movement",
+      "depth": "expert",
+      "slot": "para4",
+      "cellKey": "life/movement/expert/para4",
+      "plainText": "#천덕귀인의 기운이 #역마의 자극과 함께 보이는 어린 시기의 사주는 새 환경에서 만나는 작은 도움 한 번 한 번이 평생의 든든한 안전망으로 쌓이는 자리가 자주 등장해요. 짧은 가족 여행, 친구와의 첫 외출 같은 작은 발걸음이 청소년기·청년기 큰 이동 결정의 단단한 토대가 되는 사주예요."
     },
     {
       "fixture": "30-jeolgi-lidong-boundary-tiered.json",
@@ -111898,6 +113041,15 @@
     {
       "fixture": "30-jeolgi-lidong-boundary-tiered.json",
       "period": "thisMonth",
+      "category": "health",
+      "depth": "expert",
+      "slot": "para4",
+      "cellKey": "thisMonth/health/expert/para4",
+      "plainText": "#시궁실의 자리가 #식신의 기운과 함께 보이는 어린 시기의 사주는 한 달 안의 잔잔한 컨디션 변화도 자연스레 풀리는 자리가 자주 등장해요. 이 시기에 잘 다진 식습관과 보호자의 따뜻한 손길 한 번이 청소년기의 안정감으로 자라는 사주이니, 작은 챙김이 평생의 가장 큰 자산이 돼요."
+    },
+    {
+      "fixture": "30-jeolgi-lidong-boundary-tiered.json",
+      "period": "thisMonth",
       "category": "academic",
       "depth": "brief",
       "slot": "headline",
@@ -112110,6 +113262,15 @@
       "slot": "para3",
       "cellKey": "thisMonth/family/expert/para3",
       "plainText": "가족 자리는 #부모궁과 #조상궁의 흐름이 어떻게 받쳐 주느냐를 함께 살펴 두면 흐름의 결정이 더 단단해지고, 작은 인사 한 마디가 평생의 자산이 되는 자리예요."
+    },
+    {
+      "fixture": "30-jeolgi-lidong-boundary-tiered.json",
+      "period": "thisMonth",
+      "category": "family",
+      "depth": "expert",
+      "slot": "para4",
+      "cellKey": "thisMonth/family/expert/para4",
+      "plainText": "#천덕귀인의 자리가 #부모궁의 호흡과 함께 보이는 어린 시기의 사주는 한 달 안의 작은 다툼도 부드럽게 풀어 주는 자리가 자주 등장해요. 이 시기에 받은 따뜻한 호흡 한 번이 청소년기의 안정감으로 자라는 사주이니, 보호자의 작은 칭찬과 짧은 산책 한 번이 평생의 큰 자산으로 쌓여요."
     },
     {
       "fixture": "30-jeolgi-lidong-boundary-tiered.json",
@@ -112560,6 +113721,15 @@
       "slot": "para3",
       "cellKey": "thisYear/overall/expert/para3",
       "plainText": "#격국용신의 흐름과 #격국적합도의 평균이 또렷한 사주는 자기 격에 맞는 길로 큰 흐름이 모이는 자리가 자주 등장해요."
+    },
+    {
+      "fixture": "30-jeolgi-lidong-boundary-tiered.json",
+      "period": "thisYear",
+      "category": "overall",
+      "depth": "expert",
+      "slot": "para4",
+      "cellKey": "thisYear/overall/expert/para4",
+      "plainText": "#시궁실의 자리가 #희신의 기운과 가까이 만나는 시기에는 어린 시기의 안정감이 한층 또렷해지는 자리가 자주 보여요. 한 해 안의 작은 챙김 한 번 한 번이 청소년기의 단단한 자기 색으로 자라는 사주이니, 보호자의 부드러운 손길과 짧은 칭찬 한마디가 평생의 가장 큰 자산으로 쌓여요."
     },
     {
       "fixture": "30-jeolgi-lidong-boundary-tiered.json",
@@ -113468,7 +114638,7 @@
       "depth": "brief",
       "slot": "headline",
       "cellKey": "life/health/brief/headline",
-      "plainText": "아이는 지금 잘 자라는 흐름이에요."
+      "plainText": "오랜 결은 일찍 자고 일찍 일어나는 습관에서 자라요."
     },
     {
       "fixture": "31-newborn-infant-male-tiered.json",
@@ -113532,6 +114702,15 @@
       "slot": "para3",
       "cellKey": "life/health/expert/para3",
       "plainText": "#조후용신의 흐름이 또렷한 사주는 #조후의 균형이 컨디션을 만드는 가장 큰 축이라, 계절의 흐름을 따라 자기 페이스를 맞춰 두는 호흡이 잘 어울려요."
+    },
+    {
+      "fixture": "31-newborn-infant-male-tiered.json",
+      "period": "life",
+      "category": "health",
+      "depth": "expert",
+      "slot": "para4",
+      "cellKey": "life/health/expert/para4",
+      "plainText": "#정인의 따뜻한 자산이 어린 시기에 단단해지면 #식신의 리듬이 평생을 통해 부드럽게 풀리는 흐름이에요. 잘 자고 잘 먹는 일상의 작은 자리가 청년기·중년기 컨디션의 가장 큰 뿌리가 되는 사주라, 지금의 따뜻한 보살핌이 인생 전체로 보아도 가장 큰 평생 자산으로 자리 잡는 흐름이에요."
     },
     {
       "fixture": "31-newborn-infant-male-tiered.json",
@@ -113752,6 +114931,15 @@
     {
       "fixture": "31-newborn-infant-male-tiered.json",
       "period": "life",
+      "category": "family",
+      "depth": "expert",
+      "slot": "para4",
+      "cellKey": "life/family/expert/para4",
+      "plainText": "#부모궁 에 따뜻한 기운이 도는 어린 시기엔 보호자의 호흡과 #정인의 돌봄이 평생의 안전한 바탕을 만드는 시기예요. 이 시기의 작은 신뢰의 흐름이 청년기·중년기로 이어지면서 자기 정체성의 뿌리가 되는 흐름이라, 지금 받은 따뜻한 자산이 평생의 가장 큰 자기 응원으로 자리 잡는 사주의 모양이에요."
+    },
+    {
+      "fixture": "31-newborn-infant-male-tiered.json",
+      "period": "life",
       "category": "career",
       "depth": "brief",
       "slot": "headline",
@@ -113918,7 +115106,7 @@
       "depth": "brief",
       "slot": "headline",
       "cellKey": "life/expression_children/brief/headline",
-      "plainText": "좋아하는 놀이로 자기 색이 풀려 나오는 시기예요."
+      "plainText": "오랜 흐름은 작은 선택을 스스로 짚는 데서 자라요."
     },
     {
       "fixture": "31-newborn-infant-male-tiered.json",
@@ -114126,6 +115314,15 @@
       "slot": "para3",
       "cellKey": "life/movement/expert/para3",
       "plainText": "#용신의 결에 맞추어 여행·체험학습·전학 같은 부드러운 자극을 주면, 평생 가는 호기심의 큰 흐름이 만들어져요."
+    },
+    {
+      "fixture": "31-newborn-infant-male-tiered.json",
+      "period": "life",
+      "category": "movement",
+      "depth": "expert",
+      "slot": "para4",
+      "cellKey": "life/movement/expert/para4",
+      "plainText": "#천덕귀인의 기운이 #역마의 자극과 함께 보이는 어린 시기의 사주는 새 환경에서 만나는 작은 도움 한 번 한 번이 평생의 든든한 안전망으로 쌓이는 자리가 자주 등장해요. 짧은 가족 여행, 친구와의 첫 외출 같은 작은 발걸음이 청소년기·청년기 큰 이동 결정의 단단한 토대가 되는 사주예요."
     },
     {
       "fixture": "31-newborn-infant-male-tiered.json",
@@ -116020,6 +117217,15 @@
     {
       "fixture": "31-newborn-infant-male-tiered.json",
       "period": "thisMonth",
+      "category": "health",
+      "depth": "expert",
+      "slot": "para4",
+      "cellKey": "thisMonth/health/expert/para4",
+      "plainText": "#시궁실의 자리가 #식신의 기운과 함께 보이는 어린 시기의 사주는 한 달 안의 잔잔한 컨디션 변화도 자연스레 풀리는 자리가 자주 등장해요. 이 시기에 잘 다진 식습관과 보호자의 따뜻한 손길 한 번이 청소년기의 안정감으로 자라는 사주이니, 작은 챙김이 평생의 가장 큰 자산이 돼요."
+    },
+    {
+      "fixture": "31-newborn-infant-male-tiered.json",
+      "period": "thisMonth",
       "category": "academic",
       "depth": "brief",
       "slot": "headline",
@@ -116232,6 +117438,15 @@
       "slot": "para3",
       "cellKey": "thisMonth/family/expert/para3",
       "plainText": "가족 자리는 #부모궁과 #조상궁의 흐름이 어떻게 받쳐 주느냐를 함께 살펴 두면 흐름의 결정이 더 단단해지고, 작은 인사 한 마디가 평생의 자산이 되는 자리예요."
+    },
+    {
+      "fixture": "31-newborn-infant-male-tiered.json",
+      "period": "thisMonth",
+      "category": "family",
+      "depth": "expert",
+      "slot": "para4",
+      "cellKey": "thisMonth/family/expert/para4",
+      "plainText": "#천덕귀인의 자리가 #부모궁의 호흡과 함께 보이는 어린 시기의 사주는 한 달 안의 작은 다툼도 부드럽게 풀어 주는 자리가 자주 등장해요. 이 시기에 받은 따뜻한 호흡 한 번이 청소년기의 안정감으로 자라는 사주이니, 보호자의 작은 칭찬과 짧은 산책 한 번이 평생의 큰 자산으로 쌓여요."
     },
     {
       "fixture": "31-newborn-infant-male-tiered.json",
@@ -116682,6 +117897,15 @@
       "slot": "para3",
       "cellKey": "thisYear/overall/expert/para3",
       "plainText": "#격국용신의 흐름과 #격국적합도의 평균이 또렷한 사주는 자기 격에 맞는 길로 큰 흐름이 모이는 자리가 자주 등장해요."
+    },
+    {
+      "fixture": "31-newborn-infant-male-tiered.json",
+      "period": "thisYear",
+      "category": "overall",
+      "depth": "expert",
+      "slot": "para4",
+      "cellKey": "thisYear/overall/expert/para4",
+      "plainText": "#시궁실의 자리가 #희신의 기운과 가까이 만나는 시기에는 어린 시기의 안정감이 한층 또렷해지는 자리가 자주 보여요. 한 해 안의 작은 챙김 한 번 한 번이 청소년기의 단단한 자기 색으로 자라는 사주이니, 보호자의 부드러운 손길과 짧은 칭찬 한마디가 평생의 가장 큰 자산으로 쌓여요."
     },
     {
       "fixture": "31-newborn-infant-male-tiered.json",
@@ -117496,6 +118720,15 @@
     {
       "fixture": "32-nonagenarian-weak-daymaster-tiered.json",
       "period": "life",
+      "category": "overall",
+      "depth": "expert",
+      "slot": "para4",
+      "cellKey": "life/overall/expert/para4",
+      "plainText": "#대운궁실의 큰 기운이 #희신의 자리와 함께 들어오는 시기엔 단단한 일간이 부드러운 호흡을 받아들이는 흐름이 자라고, 한 발짝 더 멀리 보는 결정을 천천히 내려 두는 자리가 평생의 든든한 자산이 돼요. 자기 페이스로 깊이 익히는 시간이 큰 그림 위에서 더 또렷한 리듬으로 모이는 흐름이에요."
+    },
+    {
+      "fixture": "32-nonagenarian-weak-daymaster-tiered.json",
+      "period": "life",
       "category": "wealth",
       "depth": "brief",
       "slot": "headline",
@@ -118306,11 +119539,20 @@
     {
       "fixture": "32-nonagenarian-weak-daymaster-tiered.json",
       "period": "today",
+      "category": "overall",
+      "depth": "expert",
+      "slot": "para4",
+      "cellKey": "today/overall/expert/para4",
+      "plainText": "#시궁실의 작은 자리가 #희신의 기운과 가까이 만나는 시간대에는 단단한 일간이 한 박자 부드러워지는 자리가 자주 보여요. 하루의 작은 결정 한 번 한 번을 자기 페이스로 다듬어 두면, 큰 그림 위에서 또렷한 자기 색이 모이는 사주이니 무리한 속도보다 깊은 호흡 한 번이 더 큰 자산이 돼요."
+    },
+    {
+      "fixture": "32-nonagenarian-weak-daymaster-tiered.json",
+      "period": "today",
       "category": "wealth",
       "depth": "brief",
       "slot": "headline",
       "cellKey": "today/wealth/brief/headline",
-      "plainText": "오늘은 돈이 움직이기 쉬운 날이에요."
+      "plainText": "오늘은 익숙한 거래 한 자리를 또렷하게 들여다봐요."
     },
     {
       "fixture": "32-nonagenarian-weak-daymaster-tiered.json",
@@ -119570,7 +120812,7 @@
       "depth": "standard",
       "slot": "para0",
       "cellKey": "thisWeek/study_document/standard/para0",
-      "plainText": "이번 주는 그동안의 자격·서류를 한 자리에 정리하기 좋은 흐름이에요. 새 시작보다는 정돈·전수의 흐름이 잘 맞아요."
+      "plainText": "이번 주는 그동안의 자격·서류를 한 자리에 정리하기 좋은 흐름이에요. 새 시작을 서두르기보다, 정돈·전수의 흐름에 무게를 두는 리듬이 잘 맞아요."
     },
     {
       "fixture": "32-nonagenarian-weak-daymaster-tiered.json",
@@ -120062,6 +121304,15 @@
       "fixture": "32-nonagenarian-weak-daymaster-tiered.json",
       "period": "thisMonth",
       "category": "health",
+      "depth": "standard",
+      "slot": "para4",
+      "cellKey": "thisMonth/health/standard/para4",
+      "plainText": "잔잔한 하루가 모이면 한 달의 방향이 가장 단단해져요."
+    },
+    {
+      "fixture": "32-nonagenarian-weak-daymaster-tiered.json",
+      "period": "thisMonth",
+      "category": "health",
       "depth": "expert",
       "slot": "para0",
       "cellKey": "thisMonth/health/expert/para0",
@@ -120110,7 +121361,7 @@
       "depth": "standard",
       "slot": "para0",
       "cellKey": "thisMonth/academic/standard/para0",
-      "plainText": "이번 달의 학업 리듬은 좋아하던 분야를 다시 한 권 펼치기 좋은 흐름이에요. 빠른 학습보다 한 달을 두고 한 권을 천천히 음미하는 흐름이 더 잘 어울려요."
+      "plainText": "이번 달의 학업 리듬은 좋아하던 분야를 다시 한 권 펼치기 좋은 흐름이에요. 굳이 빠른 학습을 좇기보다, 한 달을 두고 한 권을 천천히 음미하는 흐름이 한결 잘 어울려요."
     },
     {
       "fixture": "32-nonagenarian-weak-daymaster-tiered.json",
@@ -120128,7 +121379,7 @@
       "depth": "standard",
       "slot": "para2",
       "cellKey": "thisMonth/academic/standard/para2",
-      "plainText": "결과를 위한 공부보다 호기심이 이끄는 한 페이지의 행복을 챙겨 보면 좋아요."
+      "plainText": "무엇을 끝내야 한다는 마음 대신, 호기심이 이끄는 한 페이지의 행복을 챙겨 보면 좋아요."
     },
     {
       "fixture": "32-nonagenarian-weak-daymaster-tiered.json",
@@ -120763,6 +122014,15 @@
     {
       "fixture": "32-nonagenarian-weak-daymaster-tiered.json",
       "period": "thisYear",
+      "category": "overall",
+      "depth": "expert",
+      "slot": "para4",
+      "cellKey": "thisYear/overall/expert/para4",
+      "plainText": "#희신의 자리가 들어오는 시기를 한 분기씩 짚어 두면, 단단한 일간이 부드러운 호흡을 받아들이는 흐름이 또렷해져요. #조후의 균형이 한 해의 흐름을 받쳐 주는 자리에서 무리한 결정보다 천천히 익는 시간을 자기 편으로 두는 자세가 한 해의 큰 그림을 부드럽게 다져 주는 자산이 돼요."
+    },
+    {
+      "fixture": "32-nonagenarian-weak-daymaster-tiered.json",
+      "period": "thisYear",
       "category": "wealth",
       "depth": "brief",
       "slot": "headline",
@@ -120920,7 +122180,7 @@
       "depth": "standard",
       "slot": "para0",
       "cellKey": "thisYear/academic/standard/para0",
-      "plainText": "올해의 학업운은 좋아하던 분야를 한 번 더 음미하기 좋은 한 해예요. 빠른 학습보다 한 해를 두고 한 분야를 천천히 곱씹어 보는 흐름이 더 잘 어울려요."
+      "plainText": "올해의 학업 리듬은 좋아하던 분야를 한 번 더 음미하기 좋은 한 해예요. 빠르게 새 분야를 익히는 흐름이라기보다, 한 해를 두고 한 분야를 천천히 곱씹어 보는 흐름이 한결 잘 어울려요."
     },
     {
       "fixture": "32-nonagenarian-weak-daymaster-tiered.json",
@@ -120938,7 +122198,7 @@
       "depth": "standard",
       "slot": "para2",
       "cellKey": "thisYear/academic/standard/para2",
-      "plainText": "결과를 위한 공부보다 호기심이 이끄는 한 페이지의 행복을 챙겨 보면 좋아요."
+      "plainText": "학업의 결실에 마음을 묶기보다, 호기심이 이끄는 한 페이지의 행복을 한 해 곁에 두면 좋아요."
     },
     {
       "fixture": "32-nonagenarian-weak-daymaster-tiered.json",
@@ -121578,6 +122838,15 @@
       "slot": "para3",
       "cellKey": "life/overall/expert/para3",
       "plainText": "#격국용신의 흐름과 #격국적합도의 평균이 또렷한 사주는 자기 격에 맞는 길로 큰 흐름이 모이는 자리가 자주 등장해요."
+    },
+    {
+      "fixture": "33-consensus-aware-multi-axis-combined-tiered.json",
+      "period": "life",
+      "category": "overall",
+      "depth": "expert",
+      "slot": "para4",
+      "cellKey": "life/overall/expert/para4",
+      "plainText": "#대운궁실의 큰 기운이 #희신의 자리와 함께 들어오는 시기엔 단단한 일간이 부드러운 호흡을 받아들이는 흐름이 자라고, 한 발짝 더 멀리 보는 결정을 천천히 내려 두는 자리가 평생의 든든한 자산이 돼요. 자기 페이스로 깊이 익히는 시간이 큰 그림 위에서 더 또렷한 리듬으로 모이는 흐름이에요."
     },
     {
       "fixture": "33-consensus-aware-multi-axis-combined-tiered.json",
@@ -122415,6 +123684,15 @@
       "slot": "para3",
       "cellKey": "today/overall/expert/para3",
       "plainText": "#납음의 흐름을 함께 살펴 두면 사주 모양의 깊은 색이 더 또렷해지고, #납음오행의 흐름이 자기 흐름을 보완하는 자리가 자주 등장해요."
+    },
+    {
+      "fixture": "33-consensus-aware-multi-axis-combined-tiered.json",
+      "period": "today",
+      "category": "overall",
+      "depth": "expert",
+      "slot": "para4",
+      "cellKey": "today/overall/expert/para4",
+      "plainText": "#시궁실의 작은 자리가 #희신의 기운과 가까이 만나는 시간대에는 단단한 일간이 한 박자 부드러워지는 자리가 자주 보여요. 하루의 작은 결정 한 번 한 번을 자기 페이스로 다듬어 두면, 큰 그림 위에서 또렷한 자기 색이 모이는 사주이니 무리한 속도보다 깊은 호흡 한 번이 더 큰 자산이 돼요."
     },
     {
       "fixture": "33-consensus-aware-multi-axis-combined-tiered.json",
@@ -124903,6 +126181,15 @@
     {
       "fixture": "33-consensus-aware-multi-axis-combined-tiered.json",
       "period": "thisYear",
+      "category": "overall",
+      "depth": "expert",
+      "slot": "para4",
+      "cellKey": "thisYear/overall/expert/para4",
+      "plainText": "#희신의 자리가 들어오는 시기를 한 분기씩 짚어 두면, 단단한 일간이 부드러운 호흡을 받아들이는 흐름이 또렷해져요. #조후의 균형이 한 해의 흐름을 받쳐 주는 자리에서 무리한 결정보다 천천히 익는 시간을 자기 편으로 두는 자세가 한 해의 큰 그림을 부드럽게 다져 주는 자산이 돼요."
+    },
+    {
+      "fixture": "33-consensus-aware-multi-axis-combined-tiered.json",
+      "period": "thisYear",
       "category": "wealth",
       "depth": "brief",
       "slot": "headline",
@@ -126752,6 +128039,15 @@
       "depth": "standard",
       "slot": "para2",
       "cellKey": "today/academic/standard/para2",
+      "plainText": "비유하자면 오늘은 익숙한 길의 한 굽이를 마저 다지는 산책 같아요. 새 길로 빠르게 뛰어 들기보다 한 굽이씩 또렷하게 다져 두는 발걸음이, 다음 길을 만나도 헷갈리지 않게 받쳐 줘요."
+    },
+    {
+      "fixture": "34-gyeokguk-conflict-multi-confidence-tiered.json",
+      "period": "today",
+      "category": "academic",
+      "depth": "standard",
+      "slot": "para3",
+      "cellKey": "today/academic/standard/para3",
       "plainText": "결과보다 그 자리를 만들어 가는 자기 호흡이 가장 좋은 무기예요."
     },
     {
@@ -127243,6 +128539,15 @@
     {
       "fixture": "34-gyeokguk-conflict-multi-confidence-tiered.json",
       "period": "today",
+      "category": "health_stress",
+      "depth": "expert",
+      "slot": "para4",
+      "cellKey": "today/health_stress/expert/para4",
+      "plainText": "#용신의 흐름을 가까이 두는 자리와 #정인의 돌봄이 자기 페이스를 받쳐 주는 시기에는 책임의 흐름을 한 박자 늦추는 호흡이 가장 큰 무기가 돼요. 30-50대 자리에서 자기 한계를 의식적으로 두는 자세가 다음 시기의 컨디션 결까지 부드럽게 이어 주는 자산이라, 작은 회복이 쌓이는 호흡이 자리를 든든히 만들어 줘요."
+    },
+    {
+      "fixture": "34-gyeokguk-conflict-multi-confidence-tiered.json",
+      "period": "today",
       "category": "movement",
       "depth": "brief",
       "slot": "headline",
@@ -127562,7 +128867,16 @@
       "depth": "standard",
       "slot": "para2",
       "cellKey": "thisWeek/academic/standard/para2",
-      "plainText": "결과보다 그 자리를 만들어 가는 자기 호흡이 가장 좋은 무기예요."
+      "plainText": "주변에서 빠른 진도 소식이 들려와도 비교만 길게 가져가지 않으면 좋아요. 익숙한 페이스는 한 주 안의 작은 매듭들을 차분히 모아 주는 흐름이라, 한 학기 단위에서 그 흐름이 더 또렷해져요."
+    },
+    {
+      "fixture": "34-gyeokguk-conflict-multi-confidence-tiered.json",
+      "period": "thisWeek",
+      "category": "academic",
+      "depth": "standard",
+      "slot": "para3",
+      "cellKey": "thisWeek/academic/standard/para3",
+      "plainText": "결과를 빨리 손에 쥐려 하기보다, 그 자리를 만들어 가는 자기 호흡이 한 주의 가장 좋은 무기예요."
     },
     {
       "fixture": "34-gyeokguk-conflict-multi-confidence-tiered.json",
@@ -127760,7 +129074,7 @@
       "depth": "standard",
       "slot": "para0",
       "cellKey": "thisWeek/career/standard/para0",
-      "plainText": "이번 주의 직업운은 익숙한 페이스로 작은 일을 빈틈없이 챙기는 흐름이에요. 큰 결정보다 평소 미뤄 두었던 정리·점검에 무게를 두면 다음 주가 가벼워져요."
+      "plainText": "이번 주의 직업운은 익숙한 페이스로 작은 일을 빈틈없이 챙기는 흐름이에요. 굳이 큰 결정을 매듭짓기보다, 평소 미뤄 두었던 정리·점검에 무게를 두면 다음 주가 가벼워져요."
     },
     {
       "fixture": "34-gyeokguk-conflict-multi-confidence-tiered.json",
@@ -128588,7 +129902,7 @@
       "depth": "standard",
       "slot": "para0",
       "cellKey": "thisMonth/career/standard/para0",
-      "plainText": "이번 달의 직업운은 익숙한 페이스로 자리를 키워 가는 흐름이에요. 큰 결정보다 평소 미뤄 두었던 정리·점검에 무게를 두면 다음 달이 가벼워져요."
+      "plainText": "이번 달의 직업운은 익숙한 페이스로 자리를 키워 가는 흐름이에요. 큰 결정을 한 번에 내리려 하기보다, 평소 미뤄 두었던 정리·점검에 무게를 두면 다음 달이 가벼워져요."
     },
     {
       "fixture": "34-gyeokguk-conflict-multi-confidence-tiered.json",
@@ -129452,6 +130766,15 @@
       "depth": "standard",
       "slot": "para2",
       "cellKey": "thisYear/career/standard/para2",
+      "plainText": "주변 동료의 빠른 이동 소식이 들려와도 비교만 길게 가져가지 않으면 좋아요. 한 분야에서 한 해 동안 쌓아 둔 결과 한 줄이 다음 해에 새 자리를 고를 때의 또렷한 기준이 되어 줘요."
+    },
+    {
+      "fixture": "34-gyeokguk-conflict-multi-confidence-tiered.json",
+      "period": "thisYear",
+      "category": "career",
+      "depth": "standard",
+      "slot": "para3",
+      "cellKey": "thisYear/career/standard/para3",
       "plainText": "작은 일책임과 규칙 흐름이 한 해 단위로 큰 자산이 되는 흐름이에요."
     },
     {
@@ -129975,6 +131298,15 @@
       "slot": "para3",
       "cellKey": "life/wealth/expert/para3",
       "plainText": "#겁재가 들어오는 시기엔 동업·돈거래는 평소보다 한 번 더 살피면 좋아요."
+    },
+    {
+      "fixture": "35-palace-naeum-female-mid-tiered.json",
+      "period": "life",
+      "category": "wealth",
+      "depth": "expert",
+      "slot": "para4",
+      "cellKey": "life/wealth/expert/para4",
+      "plainText": "#용신의 흐름이 평생 자산을 만드는 가장 큰 축이라, 한 번에 큰 자리를 잡기보다 작은 호흡 위에 호흡을 얹어 두는 방식이 가장 단단해요. #정인의 받침이 든든해지는 시기엔 자기 페이스의 기준이 또렷해지면서 흔들림이 줄어드는 흐름이라, 시간을 자기 편으로 두는 자세가 평생의 자산을 부드럽게 받쳐 줘요."
     },
     {
       "fixture": "35-palace-naeum-female-mid-tiered.json",
@@ -130668,6 +132000,15 @@
       "slot": "para3",
       "cellKey": "life/movement/expert/para3",
       "plainText": "#대운궁실의 흐름이 강해지는 시기엔 한 발짝 더 내디뎌 봐도 좋아요."
+    },
+    {
+      "fixture": "35-palace-naeum-female-mid-tiered.json",
+      "period": "life",
+      "category": "movement",
+      "depth": "expert",
+      "slot": "para4",
+      "cellKey": "life/movement/expert/para4",
+      "plainText": "#천덕귀인의 흐름이 #역마의 자리와 함께 보이는 사주는 새로운 환경의 리듬을 부드럽게 풀어 주는 자리가 평생을 통해 자주 등장해요. 거리감 있는 이동도 곁의 작은 도움 한 번 한 번이 자리를 받쳐 주는 흐름이라, 한 번에 멀리 가기보다 작은 발걸음이 쌓이는 호흡이 자기 흐름에 잘 맞아요."
     },
     {
       "fixture": "35-palace-naeum-female-mid-tiered.json",
@@ -132575,7 +133916,7 @@
       "depth": "standard",
       "slot": "para0",
       "cellKey": "thisMonth/academic/standard/para0",
-      "plainText": "이번 달의 학업 리듬은 좋아하던 분야를 다시 한 권 펼치기 좋은 흐름이에요. 빠른 학습보다 한 달을 두고 한 권을 천천히 음미하는 흐름이 더 잘 어울려요."
+      "plainText": "이번 달의 학업 리듬은 좋아하던 분야를 다시 한 권 펼치기 좋은 흐름이에요. 굳이 빠른 학습을 좇기보다, 한 달을 두고 한 권을 천천히 음미하는 흐름이 한결 잘 어울려요."
     },
     {
       "fixture": "35-palace-naeum-female-mid-tiered.json",
@@ -132593,7 +133934,7 @@
       "depth": "standard",
       "slot": "para2",
       "cellKey": "thisMonth/academic/standard/para2",
-      "plainText": "결과를 위한 공부보다 호기심이 이끄는 한 페이지의 행복을 챙겨 보면 좋아요."
+      "plainText": "무엇을 끝내야 한다는 마음 대신, 호기심이 이끄는 한 페이지의 행복을 챙겨 보면 좋아요."
     },
     {
       "fixture": "35-palace-naeum-female-mid-tiered.json",
@@ -133084,6 +134425,15 @@
     {
       "fixture": "35-palace-naeum-female-mid-tiered.json",
       "period": "thisMonth",
+      "category": "health_stress",
+      "depth": "expert",
+      "slot": "para4",
+      "cellKey": "thisMonth/health_stress/expert/para4",
+      "plainText": "#정인의 돌봄이 한 달의 끝자락까지 자기 곁을 받쳐 주면, #편관의 압박이 강한 시기에도 흔들림이 줄어드는 흐름이에요. 한 주의 끝마다 자기 페이스를 한 번씩 점검하는 자리가 다음 달의 컨디션 결까지 부드럽게 이어 주는 자산이라, 무리한 회복보다 천천히 익는 시간을 자기 편으로 두는 자세가 자리를 단단히 받쳐 줘요."
+    },
+    {
+      "fixture": "35-palace-naeum-female-mid-tiered.json",
+      "period": "thisMonth",
       "category": "movement",
       "depth": "brief",
       "slot": "headline",
@@ -133152,6 +134502,15 @@
       "slot": "para3",
       "cellKey": "thisMonth/movement/expert/para3",
       "plainText": "#대운궁실의 흐름이 강해지는 시기엔 한 발짝 더 내디뎌 봐도 좋아요."
+    },
+    {
+      "fixture": "35-palace-naeum-female-mid-tiered.json",
+      "period": "thisMonth",
+      "category": "movement",
+      "depth": "expert",
+      "slot": "para4",
+      "cellKey": "thisMonth/movement/expert/para4",
+      "plainText": "#천덕귀인의 자리가 #역마의 자극과 함께 보이는 사주는 새로운 환경의 호흡을 부드럽게 풀어 주는 자리가 이번 달 안에 한두 번 등장해요. 거리감 있는 일정도 곁의 작은 도움 한 번 한 번이 자리를 받쳐 주는 흐름이라, 한 번에 멀리 가기보다 작은 발걸음이 쌓이는 호흡이 자기 페이스에 잘 맞아요."
     },
     {
       "fixture": "35-palace-naeum-female-mid-tiered.json",

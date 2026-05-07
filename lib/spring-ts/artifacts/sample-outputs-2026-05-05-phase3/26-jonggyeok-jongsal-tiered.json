@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-05-07T12:41:14.853Z",
+  "generatedAt": "2026-05-07T12:47:08.203Z",
   "targetDate": "2026-05-05T00:00:00+09:00",
   "sampleId": "jonggyeok-jongsal-tiered",
   "description": "입력 의도: 從殺격 (七殺 dominant) 계열. fix-jong-06 (1972-12-11 09:00) 좌표 — 丙火 일간이 동지경 子月 절지 + 壬水 편관 3 천간 + 子 지지 3개 압도. 최종 외격 판정은 엔진이 결정한다.",
@@ -1266,7 +1266,7 @@
     },
     "meta": {
       "version": "1.0.0",
-      "generatedAt": "2026-05-07T12:41:28.009Z",
+      "generatedAt": "2026-05-07T12:47:20.811Z",
       "schoolPreset": {
         "selected": "korean",
         "source": "default",
@@ -1407,6 +1407,29 @@
                     }
                   ],
                   "plainText": "#통관용신의 흐름이 자리하면 한쪽으로 막힌 흐름을 부드럽게 살려 주고, #병약용신의 리듬이 곁에 들어오면 모자란 자리를 자연스레 받쳐 주는 호흡이 함께 흘러요."
+                },
+                {
+                  "tokens": [
+                    {
+                      "kind": "tag",
+                      "tagId": "woldeokgwiin",
+                      "label": "월덕귀인"
+                    },
+                    {
+                      "kind": "text",
+                      "value": "의 기운이 "
+                    },
+                    {
+                      "kind": "tag",
+                      "tagId": "jojangung",
+                      "label": "조상궁"
+                    },
+                    {
+                      "kind": "text",
+                      "value": "의 뿌리와 함께 보이는 사주는 장년기의 작은 무리도 부드럽게 풀어 주는 자리가 자주 등장해요. 한 번 큰 분기 뒤에는 천천히 다지는 시간이 평생의 가장 큰 자산이 되는 사주이니, 후반기로 갈수록 자기 페이스를 지켜 두는 호흡이 깊어져요."
+                    }
+                  ],
+                  "plainText": "#월덕귀인의 기운이 #조상궁의 뿌리와 함께 보이는 사주는 장년기의 작은 무리도 부드럽게 풀어 주는 자리가 자주 등장해요. 한 번 큰 분기 뒤에는 천천히 다지는 시간이 평생의 가장 큰 자산이 되는 사주이니, 후반기로 갈수록 자기 페이스를 지켜 두는 호흡이 깊어져요."
                 }
               ],
               "numericalEvidence": [
@@ -1551,7 +1574,8 @@
                   "daewoonGungsil",
                   "jojangung",
                   "tonggwanYongshin",
-                  "byeongyakYongshin"
+                  "byeongyakYongshin",
+                  "woldeokgwiin"
                 ]
               }
             }
@@ -2733,8 +2757,8 @@
                   }
                 ],
                 "livingTips": [
-                  "평생 동행할 한 사람 곁에 두기",
-                  "한 역할의 마무리를 자기 자산으로"
+                  "함께 결정할 사람 한 명 정해 두기",
+                  "한 자리에서의 마무리를 챙기기"
                 ],
                 "cautions": [
                   "가족과 일 한쪽만 무너뜨리지 않기"
@@ -4030,6 +4054,20 @@
                       }
                     ],
                     "plainText": "#재백궁의 흐름과 #천을귀인의 자리가 함께 보이면 도움 받는 흐름이 자기 자산이 되는 사주이니, 작은 도움도 미루지 않는 호흡이 잘 어울려요."
+                  },
+                  {
+                    "tokens": [
+                      {
+                        "kind": "tag",
+                        "tagId": "jeongjae_yongshin",
+                        "label": "정재용신"
+                      },
+                      {
+                        "kind": "text",
+                        "value": "의 기운이 곁에 보이는 사주는 하루 단위의 작은 자산 관리가 평생의 토대로 쌓이는 자리예요. 신약한 일간이 큰 거래보다 익숙한 기준을 따르는 시간을 들여 두면, 오늘의 작은 절제 한 번이 한 달·한 해의 든든한 바탕이 되는 호흡이 자연스레 잡혀요."
+                      }
+                    ],
+                    "plainText": "#정재용신의 기운이 곁에 보이는 사주는 하루 단위의 작은 자산 관리가 평생의 토대로 쌓이는 자리예요. 신약한 일간이 큰 거래보다 익숙한 기준을 따르는 시간을 들여 두면, 오늘의 작은 절제 한 번이 한 달·한 해의 든든한 바탕이 되는 호흡이 자연스레 잡혀요."
                   }
                 ]
               },
@@ -4077,7 +4115,8 @@
                     "jeongjae",
                     "pyeonjae",
                     "jaebakgung",
-                    "cheonleulgwiin"
+                    "cheonleulgwiin",
+                    "jeongjae_yongshin"
                   ]
                 }
               }
@@ -11976,6 +12015,20 @@
                       }
                     ],
                     "plainText": "#백호대살의 신호와 #괴강살의 흐름이 함께 보이는 시기엔 자기 한계를 의식적으로 두는 호흡이 가장 든든한 회복 자리예요."
+                  },
+                  {
+                    "tokens": [
+                      {
+                        "kind": "tag",
+                        "tagId": "cheonleulgwiin",
+                        "label": "천을귀인"
+                      },
+                      {
+                        "kind": "text",
+                        "value": "의 기운이 곁에 보이는 사주는 한 해의 회복이 한 사람의 따뜻한 도움 한 번에서 크게 풀리는 자리가 자주 등장해요. 신약한 일간이 무리하지 않는 한 해를 보내면, 다음 해의 토대가 단단해지는 사주이니 작은 휴식 한 번도 늦지 않은 자기 자산이 돼요."
+                      }
+                    ],
+                    "plainText": "#천을귀인의 기운이 곁에 보이는 사주는 한 해의 회복이 한 사람의 따뜻한 도움 한 번에서 크게 풀리는 자리가 자주 등장해요. 신약한 일간이 무리하지 않는 한 해를 보내면, 다음 해의 토대가 단단해지는 사주이니 작은 휴식 한 번도 늦지 않은 자기 자산이 돼요."
                   }
                 ]
               },
@@ -12022,7 +12075,8 @@
                     "pyeongwan",
                     "gongmang",
                     "baekho",
-                    "goegang"
+                    "goegang",
+                    "cheonleulgwiin"
                   ]
                 }
               }
@@ -12579,6 +12633,18 @@
               "pyeonjae"
             ]
           },
+          "jeongjae_yongshin": {
+            "id": "jeongjae_yongshin",
+            "label": "정재용신",
+            "hashLabel": "#정재용신",
+            "category": "tenGod",
+            "brief": "꾸준히 모이는 안정 자원이 인생의 키 역할을 할 때예요.",
+            "detailed": "내 기운이 강해 다스릴 자리가 필요할 때, 차곡차곡 리듬의 정재가 용신 자리에 와요. 월급·적금·자영업 같은 꾸준한 흐름에서 결과가 도드라지고, 가정·생활의 안정도 함께 자라요. 큰 한 방보다 매일 쌓는 자리가 잘 맞는 흐름이에요.",
+            "related": [
+              "jeongjae",
+              "yongshin"
+            ]
+          },
           "jeongjaegyeok": {
             "id": "jeongjaegyeok",
             "label": "정재격",
@@ -12889,6 +12955,7 @@
           "jeonggwan",
           "jeongin",
           "jeongjae",
+          "jeongjae_yongshin",
           "jeongjaegyeok",
           "jisal",
           "johu",
@@ -12980,7 +13047,7 @@
       },
       "meta": {
         "schemaVersion": "spring-ts.tiered-matrix.v1",
-        "generatedAt": "2026-05-07T12:41:28.009Z",
+        "generatedAt": "2026-05-07T12:47:20.811Z",
         "selectionSeed": "1972|12|11|9|0|male|2026-05-04T15:00:00.000Z",
         "templateContractVersion": "1.0.0",
         "contentSource": "authored",
