@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-05-07T09:31:02.592Z",
+  "generatedAt": "2026-05-07T09:32:49.208Z",
   "targetDate": "2026-05-05T00:00:00+09:00",
   "sampleId": "kim-senior-female-tiered",
   "description": "70+ 시니어 여성 (1950 출생) — 노년 여성 audience 흐름. life-stage 후반 narrative 와 tieredMatrix 의 conservative tone 매칭을 점검하는 케이스.",
@@ -1317,7 +1317,7 @@
     },
     "meta": {
       "version": "1.0.0",
-      "generatedAt": "2026-05-07T09:31:11.964Z",
+      "generatedAt": "2026-05-07T09:32:58.468Z",
       "schoolPreset": {
         "selected": "korean",
         "source": "default",
@@ -2433,6 +2433,15 @@
                       }
                     ],
                     "plainText": "큰 일을 새로 시작하는 자리이기보다는, 매일의 작은 리듬을 따뜻하게 누리는 흐름이 잘 맞아요. 자녀 세대·손주 세대와의 흐름은 무언가를 가르쳐 주려 하기보다, 같이 시간을 보내는 자리만으로도 충분한 자산이 돼요."
+                  },
+                  {
+                    "tokens": [
+                      {
+                        "kind": "text",
+                        "value": "비유하자면 잘 익은 가을 들판을 천천히 걷는 시간이에요. 새로 씨를 뿌리지 않아도 쌓인 흐름이 따뜻한 빛으로 가족 자리를 비춰 주고, 그 빛이 다음 세대의 발걸음을 받쳐 줘요."
+                      }
+                    ],
+                    "plainText": "비유하자면 잘 익은 가을 들판을 천천히 걷는 시간이에요. 새로 씨를 뿌리지 않아도 쌓인 흐름이 따뜻한 빛으로 가족 자리를 비춰 주고, 그 빛이 다음 세대의 발걸음을 받쳐 줘요."
                   },
                   {
                     "tokens": [
@@ -12998,7 +13007,7 @@
       },
       "meta": {
         "schemaVersion": "spring-ts.tiered-matrix.v1",
-        "generatedAt": "2026-05-07T09:31:11.964Z",
+        "generatedAt": "2026-05-07T09:32:58.468Z",
         "selectionSeed": "1950|8|20|14|0|female|2026-05-04T15:00:00.000Z",
         "templateContractVersion": "1.0.0",
         "contentSource": "authored",

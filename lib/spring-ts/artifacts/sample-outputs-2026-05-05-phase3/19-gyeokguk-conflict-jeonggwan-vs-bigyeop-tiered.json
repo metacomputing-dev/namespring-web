@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-05-07T09:31:02.592Z",
+  "generatedAt": "2026-05-07T09:32:49.208Z",
   "targetDate": "2026-05-05T00:00:00+09:00",
   "sampleId": "gyeokguk-conflict-jeonggwan-vs-bigyeop-tiered",
   "description": "격국 충돌 case 1: 정관 후보와 비견(겁재) 후보가 같이 잡히기 쉬운 입력. gyeokgukSelectionRule=jungki_transparent 로 월지 중기 투간 룰을 활성화하여 후보 ranking 의 elasticity 를 노출하는 케이스. 최종 격국 판정은 엔진이 결정한다.",
@@ -1303,7 +1303,7 @@
     },
     "meta": {
       "version": "1.0.0",
-      "generatedAt": "2026-05-07T09:31:12.644Z",
+      "generatedAt": "2026-05-07T09:32:59.128Z",
       "schoolPreset": {
         "selected": "korean",
         "source": "default",
@@ -2402,6 +2402,15 @@
                       }
                     ],
                     "plainText": "어린 시절에는 보호자의 자산을 받고, 자라면서는 친구·동료의 결과 호흡을 맞추고, 새 가정을 만들면 자기 자리에서 흐름을 만들어 가요. 후반으로 갈수록 받은 흐름을 다음 세대로 풀어 두는 자리가 자연스럽게 생겨요."
+                  },
+                  {
+                    "tokens": [
+                      {
+                        "kind": "text",
+                        "value": "비유하자면 작은 강물이 굽이굽이 흐르는 그림이에요. 한쪽으로 너무 쏟아져도 마르고, 한쪽에만 고여 있어도 흐릿해지는데, 받고 흘리는 양이 비슷할 때 강줄기가 깊어져요."
+                      }
+                    ],
+                    "plainText": "비유하자면 작은 강물이 굽이굽이 흐르는 그림이에요. 한쪽으로 너무 쏟아져도 마르고, 한쪽에만 고여 있어도 흐릿해지는데, 받고 흘리는 양이 비슷할 때 강줄기가 깊어져요."
                   },
                   {
                     "tokens": [
@@ -13031,7 +13040,7 @@
       },
       "meta": {
         "schemaVersion": "spring-ts.tiered-matrix.v1",
-        "generatedAt": "2026-05-07T09:31:12.644Z",
+        "generatedAt": "2026-05-07T09:32:59.128Z",
         "selectionSeed": "1985|5|25|8|45|male|2026-05-04T15:00:00.000Z",
         "templateContractVersion": "1.0.0",
         "contentSource": "authored",
