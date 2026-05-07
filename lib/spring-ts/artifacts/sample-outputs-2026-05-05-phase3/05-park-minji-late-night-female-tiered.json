@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-05-07T05:23:20.255Z",
+  "generatedAt": "2026-05-07T05:29:52.204Z",
   "targetDate": "2026-05-05T00:00:00+09:00",
   "sampleId": "park-minji-late-night-female-tiered",
   "description": "성인 여성 늦은 밤 출생 입력에 야자시, 진태양시, 경도 보정과 tiered 매트릭스를 적용한 케이스.",
@@ -1313,7 +1313,7 @@
     },
     "meta": {
       "version": "1.0.0",
-      "generatedAt": "2026-05-07T05:23:24.304Z",
+      "generatedAt": "2026-05-07T05:29:55.998Z",
       "schoolPreset": {
         "selected": "korean",
         "source": "default",
@@ -8751,7 +8751,7 @@
               "meaningfulness": "meaningful",
               "stars": 1,
               "brief": {
-                "headline": "이번 달은 사람과의 결이 차분히 정돈되는 결이에요.",
+                "headline": "이번 달은 사람과의 흐름이 차분히 정돈되는 결이에요.",
                 "hook": "조급함을 줄이면 관계가 따뜻해져요."
               },
               "standard": {
@@ -12889,7 +12889,7 @@
       },
       "meta": {
         "schemaVersion": "spring-ts.tiered-matrix.v1",
-        "generatedAt": "2026-05-07T05:23:24.304Z",
+        "generatedAt": "2026-05-07T05:29:55.998Z",
         "selectionSeed": "1992|11|3|23|20|female|2026-05-04T15:00:00.000Z",
         "templateContractVersion": "1.0.0",
         "contentSource": "authored",
