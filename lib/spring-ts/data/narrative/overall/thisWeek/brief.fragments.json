@@ -165,6 +165,7 @@
           "value": "기운은 충분해도, 한 박자 늦추면 호흡이 더 또렷해져요."
         }
       ],
+      "hook": "일정 사이에 쉼 한 칸을 비워요.",
       "tags": [],
       "aiGenerated": true,
       "sourceTier": {
