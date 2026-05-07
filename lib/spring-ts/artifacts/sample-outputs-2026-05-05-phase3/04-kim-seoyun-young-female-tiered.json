@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-05-07T13:30:09.027Z",
+  "generatedAt": "2026-05-07T13:32:53.042Z",
   "targetDate": "2026-05-05T00:00:00+09:00",
   "sampleId": "kim-seoyun-young-female-tiered",
   "description": "어린 여성 입력에서 tiered 운세 매트릭스를 켠 케이스.",
@@ -1306,7 +1306,7 @@
     },
     "meta": {
       "version": "1.0.0",
-      "generatedAt": "2026-05-07T13:30:13.055Z",
+      "generatedAt": "2026-05-07T13:32:56.532Z",
       "schoolPreset": {
         "selected": "korean",
         "source": "default",
@@ -10479,7 +10479,7 @@
       },
       "meta": {
         "schemaVersion": "spring-ts.tiered-matrix.v1",
-        "generatedAt": "2026-05-07T13:30:13.054Z",
+        "generatedAt": "2026-05-07T13:32:56.532Z",
         "selectionSeed": "2013|7|21|14|20|female|2026-05-04T15:00:00.000Z",
         "templateContractVersion": "1.0.0",
         "contentSource": "authored",
