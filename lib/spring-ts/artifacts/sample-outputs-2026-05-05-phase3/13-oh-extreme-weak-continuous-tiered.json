@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-05-07T10:44:46.504Z",
+  "generatedAt": "2026-05-07T10:56:45.397Z",
   "targetDate": "2026-05-05T00:00:00+09:00",
   "sampleId": "oh-extreme-weak-continuous-tiered",
   "description": "입력 의도: 지지가 일간을 극도로 소모하는 신약 지향 입력. strengthMode=continuous 로 4-tier 강도 곡선과 결합한 tiered 샘플. 최종 강도 분류는 엔진이 결정한다.",
@@ -1293,7 +1293,7 @@
     },
     "meta": {
       "version": "1.0.0",
-      "generatedAt": "2026-05-07T10:44:53.731Z",
+      "generatedAt": "2026-05-07T10:56:53.799Z",
       "schoolPreset": {
         "selected": "korean",
         "source": "default",
@@ -1971,6 +1971,15 @@
                       }
                     ],
                     "plainText": "작은 실천 흐름으로는 평일 저녁 한 시간을 학습 자리로 잡아 두면 좋아요. 주말엔 그 주에 익힌 내용을 한두 줄로 정리해 두면, 6개월 뒤에 자기만의 노트가 한 권으로 묶여요."
+                  },
+                  {
+                    "tokens": [
+                      {
+                        "kind": "text",
+                        "value": "속도가 느려진다고 느낄 때엔 젊을 때 페이스와 비교하지 않아도 괜찮아요. 한 번에 외우던 자리가 두세 번에 나뉘어도, 경험과 같이 묶인 흐름은 더 깊이 남아요."
+                      }
+                    ],
+                    "plainText": "속도가 느려진다고 느낄 때엔 젊을 때 페이스와 비교하지 않아도 괜찮아요. 한 번에 외우던 자리가 두세 번에 나뉘어도, 경험과 같이 묶인 흐름은 더 깊이 남아요."
                   },
                   {
                     "tokens": [
@@ -12940,7 +12949,7 @@
       },
       "meta": {
         "schemaVersion": "spring-ts.tiered-matrix.v1",
-        "generatedAt": "2026-05-07T10:44:53.731Z",
+        "generatedAt": "2026-05-07T10:56:53.799Z",
         "selectionSeed": "1972|11|28|4|30|female|2026-05-04T15:00:00.000Z",
         "templateContractVersion": "1.0.0",
         "contentSource": "authored",
