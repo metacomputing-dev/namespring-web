@@ -47,7 +47,8 @@ export function getExtendedCategoryElements(
 }
 
 /** spec §3.3 — sub-domain narrative table. high (≥4) / mid (3) / low (≤2).
- *  Voice (NARRATIVE_STYLE_GUIDE §6): 카테고리 voice 일관, 시기예요 종결 반복 회피. */
+ *  Voice (NARRATIVE_STYLE_GUIDE §6): 카테고리 voice 일관, 시기예요·흐름이에요
+ *  종결 반복 회피 (P17-A4). */
 export const SUB_DOMAIN_NARRATIVES: Record<
   FortuneCategoryExtended,
   Record<'high' | 'mid' | 'low', string>
@@ -64,11 +65,11 @@ export const SUB_DOMAIN_NARRATIVES: Record<
   },
   academic: {
     high: '학습 효율과 집중도가 올라가 시험·문서 관련 일이 잘 풀려요.',
-    mid: '학업은 평이한 흐름이에요. 정기 점검과 복습 위주의 운영이 좋아요.',
+    mid: '학업은 평이한 페이스로 이어져요. 정기 점검과 복습 위주의 운영이 좋아요.',
     low: '학업 영역은 욕심을 줄이고 기본 정리에 집중하면 결과가 안정돼요.',
   },
   romance: {
-    high: '인연의 호흡이 부드러워지고 감정 표현이 자연스럽게 나오는 흐름이에요.',
+    high: '인연의 호흡이 부드러워지고 감정 표현이 자연스럽게 풀려 나와요.',
     mid: '관계는 무리 없는 거리감을 유지하면 큰 굴곡 없이 지나가요.',
     low: '관계 영역은 충돌을 최소화하고 본인 페이스를 지키는 편이 안전해요.',
   },
