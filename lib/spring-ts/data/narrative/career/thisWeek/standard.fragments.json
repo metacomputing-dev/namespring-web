@@ -401,6 +401,45 @@
         "copyrightNote": "No source prose copied; original.",
         "authorityTruthEligible": false
       }
+    },
+    {
+      "schemaVersion": "spring-ts.narrative-fragment.v1",
+      "fragmentId": "career.thisWeek.standard.child.001",
+      "axis": {
+        "category": "career",
+        "period": "thisWeek",
+        "depth": "standard"
+      },
+      "gating": {
+        "ageBand": [
+          "0-9"
+        ]
+      },
+      "templateTokens": [
+        {
+          "kind": "text",
+          "value": "이번 주는 아이가 푹 빠져드는 놀이·도구가 한 번 더 또렷해지는 흐름이에요. 같은 놀잇감을 며칠 이어 가지고 놀거나, 새로 손에 닿은 책·블록 한 가지에 시간이 길게 머무르는 자리가 자기 색을 키우는 시간이에요.\n\n어른의 직업 단어로 미래를 미리 정해 두지 않아도 괜찮아요. 좋아하는 그림·노래·만들기처럼 손에 잡히는 활동 한 가지를 옆에서 함께 즐겨 주는 자리가 가장 큰 자산이 돼요.\n\n주말에는 좋아한 놀이를 한 줄 그림으로 남기거나, 가족과 짧게 이야기 나누는 시간을 만들어 두면 자기 자리가 한결 단단해져요."
+        }
+      ],
+      "tags": [],
+      "livingTips": [
+        "좋아하는 놀이 한 가지를 며칠 이어 즐기기",
+        "주말에 한 줄 그림으로 남기기"
+      ],
+      "cautions": [
+        "어른의 직업명에 미리 끼워 맞추지 않기"
+      ],
+      "aiGenerated": true,
+      "sourceTier": {
+        "tier": "T1_HYPOTHESIS",
+        "sourceType": "training_derived",
+        "sourceUrl": null,
+        "accessedAt": "2026-05-07",
+        "quoteShort": null,
+        "humanInterpretation": "Phase 22 agent-A2 (career) standard thisWeek: child 0-9. Play/dream framing for minor floor closure. Display-only narrative.",
+        "copyrightNote": "No source prose copied; original phrasing.",
+        "authorityTruthEligible": false
+      }
     }
   ]
 }
