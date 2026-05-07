@@ -15,7 +15,8 @@
     "ci:samples-stale",
     "ci:post-processor-grammar",
     "ci:hook-coverage",
-    "ci:hook-concentration"
+    "ci:hook-concentration",
+    "ci:brief-tier-placeholder"
   ],
   "exempt": [
     {
