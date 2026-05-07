@@ -1,0 +1,32 @@
+Phase 18 Agent A5 — Acceptance Gates Snapshot
+Date: 2026-05-07
+
+CI gates (all 0 violations / max=0):
+  npm run typecheck                                  PASS
+  npm run ci:no-ai-policy                            PASS (4077 fragments, 7095 sourceTier records)
+  npm run ci:narrative-density                       0 thin / 0 deficit (across 5 axes)
+  npm run ci:narrative-tuple-density                 0 / 0 / 0 / 0 (across 4 tuple axes)
+  npm run ci:narrative-daymaster-tuple-density       0 / 0
+  npm run ci:narrative-cell-axis                     0 / 0 / 0 (165 cells)
+  npm run ci:narrative-voice                         0 / 0 / 0 (4077 fragments, 345 bundles)
+  npm run ci:narrative-truncated-endings             0 (344 files)
+  npm run ci:narrative-tag-label-alignment           0 (194 glossary labels)
+  npm run ci:narrative-orphan-tags                   0 (3912 fragments)
+  npm run ci:acceptance-completeness                 0 (13 scripts, 12 accepted, 1 exempt)
+  npm run ci:samples-stale                           0 (37 sample files)
+  npm run ci:post-processor-grammar                  0 (32 files, 0 leak across 4 patterns)
+
+Tests (all pass):
+  npm run test:namespring-compat                     202 / 202 PASS
+  npm run test:tiered-determinism                    4 / 4 PASS
+  npm run test:tiered-isolation                      37 / 37 PASS
+  npm run test:tiered-shape                          923 / 923 PASS
+  npm run test:narrative-schema:summary              102957 / 0 PASS
+
+Notes:
+- ci:release-checklist requires --body or GITHUB_EVENT_PATH; documented
+  exception in tools/acceptance-manifest.json (per P12-A5 / P13-A5 /
+  P14-A5 / P15-A5 / P16-A5 / P17-A5 doctrine).
+- After P18-A5 _coverage 연결X → 연결고리Y rephrasing (24 files, 31
+  occurrences) and sample regen, the latent compound-particle leak
+  (연결을 → 연흐름을 via post-processor /결을/g) is eliminated.
