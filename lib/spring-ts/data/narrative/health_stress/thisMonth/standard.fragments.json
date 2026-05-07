@@ -597,6 +597,46 @@
         "copyrightNote": "No source prose copied; original interpretation.",
         "authorityTruthEligible": false
       }
+    },
+    {
+      "schemaVersion": "spring-ts.narrative-fragment.v1",
+      "fragmentId": "health_stress.thisMonth.standard.child.001",
+      "axis": {
+        "category": "health_stress",
+        "period": "thisMonth",
+        "depth": "standard"
+      },
+      "gating": {
+        "ageBand": [
+          "0-9"
+        ]
+      },
+      "templateTokens": [
+        {
+          "kind": "text",
+          "value": "이번 달은 아이의 마음과 몸이 큰 흔들림 없이 자라는 흐름이에요. 잠과 식사·놀이의 리듬이 한 달 단위로 잘 맞춰지면, 작은 칭얼거림이 와도 금방 가라앉는 자리예요.\n\n비유하자면 새싹이 매일 조금씩 키를 키우는 모습이에요. 한 달 사이에 변화가 한 번에 크게 보이지 않아도, 곁에서 함께 호흡을 맞춰 주는 자리가 그대로 자기 색의 뿌리가 돼요.\n\n새 자극이 들어오는 자리에서는 익숙한 놀잇감이나 좋아하는 그림책을 곁에 두면 마음이 한결 편해져요. 가족과 짧게 웃는 시간을 매일 한 번씩 챙겨 두면, 한 달 끝의 아이 표정이 한결 밝아져요."
+        }
+      ],
+      "livingTips": [
+        "잠과 식사 리듬을 한 달 단위로 살피기",
+        "익숙한 놀잇감을 곁에 두기",
+        "매일 짧게 함께 웃는 시간 챙기기"
+      ],
+      "cautions": [
+        "비교하는 말은 한 발 물러 두기"
+      ],
+      "tags": [],
+      "aiGenerated": true,
+      "sourceTier": {
+        "tier": "T1_HYPOTHESIS",
+        "sourceType": "training_derived",
+        "sourceUrl": null,
+        "accessedAt": "2026-05-07",
+        "quoteShort": null,
+        "humanInterpretation": "Phase 22 agent-A2 (health_stress) standard thisMonth: child 0-9. Caregiver-shared tone, play/sleep/companionship frame. Display-only narrative.",
+        "copyrightNote": "No source prose copied; original phrasing.",
+        "authorityTruthEligible": false
+      }
     }
   ]
 }
