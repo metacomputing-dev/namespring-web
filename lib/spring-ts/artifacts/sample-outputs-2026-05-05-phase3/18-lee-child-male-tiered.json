@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-05-07T17:10:59.982Z",
+  "generatedAt": "2026-05-07T17:24:38.590Z",
   "targetDate": "2026-05-05T00:00:00+09:00",
   "sampleId": "lee-child-male-tiered",
   "description": "0-9 세 어린 남아 (2020 출생) — child fallback narrative 활성화 케이스. 어린 audience 안전 보장 (성인 metaphor 회피) 과 tieredMatrix 의 가벼운 톤을 점검하는 fixture.",
@@ -1294,7 +1294,7 @@
     },
     "meta": {
       "version": "1.0.0",
-      "generatedAt": "2026-05-07T17:11:09.791Z",
+      "generatedAt": "2026-05-07T17:24:48.330Z",
       "schoolPreset": {
         "selected": "korean",
         "source": "default",
@@ -2679,6 +2679,15 @@
                       }
                     ],
                     "plainText": "결과물의 잘잘못보다 '하고 싶다'는 마음을 지켜 주는 시기예요. 작은 칭찬과 안전한 무대만 있으면 자기 색이 또렷해져요."
+                  },
+                  {
+                    "tokens": [
+                      {
+                        "kind": "text",
+                        "value": "평생 자리에서 보면 어린 시절의 자유로운 표현이 10대·20대 자기 색의 뿌리로 자라요. 지금 한 줄의 동요, 한 장의 그림이 평생 자기를 또렷하게 받쳐 주는 작은 씨앗으로 남아 있어요."
+                      }
+                    ],
+                    "plainText": "평생 자리에서 보면 어린 시절의 자유로운 표현이 10대·20대 자기 색의 뿌리로 자라요. 지금 한 줄의 동요, 한 장의 그림이 평생 자기를 또렷하게 받쳐 주는 작은 씨앗으로 남아 있어요."
                   }
                 ],
                 "livingTips": [
@@ -9932,6 +9941,15 @@
                       }
                     ],
                     "plainText": "다만 잦은 변화는 어린 마음에 부담이에요. 안정된 자리와 새 자극을 번갈아 주는 리듬이 가장 잘 어울려요."
+                  },
+                  {
+                    "tokens": [
+                      {
+                        "kind": "text",
+                        "value": "비유하자면 올해의 이동은 어린 새가 마당에서 작은 나뭇가지로 옮겨 앉아 보는 자리예요. 한 번의 작은 옮겨 앉음이 자기 날개에 자기 무게를 익히게 도와주어 다음 한 해의 첫 비행을 가볍게 만들어 줘요."
+                      }
+                    ],
+                    "plainText": "비유하자면 올해의 이동은 어린 새가 마당에서 작은 나뭇가지로 옮겨 앉아 보는 자리예요. 한 번의 작은 옮겨 앉음이 자기 날개에 자기 무게를 익히게 도와주어 다음 한 해의 첫 비행을 가볍게 만들어 줘요."
                   }
                 ],
                 "livingTips": [
@@ -10595,7 +10613,7 @@
       },
       "meta": {
         "schemaVersion": "spring-ts.tiered-matrix.v1",
-        "generatedAt": "2026-05-07T17:11:09.791Z",
+        "generatedAt": "2026-05-07T17:24:48.330Z",
         "selectionSeed": "2020|6|10|10|15|male|2026-05-04T15:00:00.000Z",
         "templateContractVersion": "1.0.0",
         "contentSource": "authored",
