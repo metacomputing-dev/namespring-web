@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-05-07T17:10:59.982Z",
+  "generatedAt": "2026-05-07T17:24:38.590Z",
   "targetDate": "2026-05-05T00:00:00+09:00",
   "sampleId": "oh-extreme-weak-continuous-tiered",
   "description": "입력 의도: 지지가 일간을 극도로 소모하는 신약 지향 입력. strengthMode=continuous 로 4-tier 강도 곡선과 결합한 tiered 샘플. 최종 강도 분류는 엔진이 결정한다.",
@@ -1293,7 +1293,7 @@
     },
     "meta": {
       "version": "1.0.0",
-      "generatedAt": "2026-05-07T17:11:08.092Z",
+      "generatedAt": "2026-05-07T17:24:46.566Z",
       "schoolPreset": {
         "selected": "korean",
         "source": "default",
@@ -9226,6 +9226,15 @@
                       }
                     ],
                     "plainText": "챙길 사람이 많은 달이니, 한 사람에게 부담이 몰리지 않도록 골고루 나누고 자기 휴식도 한 칸 챙기면서 한 달을 만들어 가요."
+                  },
+                  {
+                    "tokens": [
+                      {
+                        "kind": "text",
+                        "value": "한 분기 자리에서 보면 이번 달의 작은 안부 한 통이 부모님과 자녀 사이의 거리를 조용히 좁혀 주는 자리예요. 한 달의 짧은 균형이 모이면 한 해 단위로도 자기 자리가 부드러워지는 모습이에요."
+                      }
+                    ],
+                    "plainText": "한 분기 자리에서 보면 이번 달의 작은 안부 한 통이 부모님과 자녀 사이의 거리를 조용히 좁혀 주는 자리예요. 한 달의 짧은 균형이 모이면 한 해 단위로도 자기 자리가 부드러워지는 모습이에요."
                   }
                 ],
                 "livingTips": [
@@ -13077,7 +13086,7 @@
       },
       "meta": {
         "schemaVersion": "spring-ts.tiered-matrix.v1",
-        "generatedAt": "2026-05-07T17:11:08.092Z",
+        "generatedAt": "2026-05-07T17:24:46.566Z",
         "selectionSeed": "1972|11|28|4|30|female|2026-05-04T15:00:00.000Z",
         "templateContractVersion": "1.0.0",
         "contentSource": "authored",
