@@ -1,0 +1,261 @@
+{
+  "found": {
+    "overall.life.standard.age_0_9_gender_male.201": [
+      "data/narrative/_coverage/age-band-child-teen-gender-pairs.fragments.json"
+    ],
+    "overall.life.standard.age_10_19_gender_female.201": [
+      "data/narrative/_coverage/age-band-child-teen-gender-pairs.fragments.json"
+    ],
+    "overall.life.standard.age_70_plus_gender_female.201": [
+      "data/narrative/_coverage/age-band-mature-senior-gender-pairs.fragments.json"
+    ],
+    "overall.life.standard.age_70_plus_gender_male.201": [
+      "data/narrative/_coverage/age-band-mature-senior-gender-pairs.fragments.json"
+    ],
+    "family.thisMonth.standard.agephase.early_30s.204": [
+      "data/narrative/_coverage/age-phase-family-support-density.fragments.json"
+    ],
+    "family.thisMonth.standard.agephase.early_40s.204": [
+      "data/narrative/_coverage/age-phase-family-support-density.fragments.json"
+    ],
+    "family.thisMonth.standard.agephase.early_50s.204": [
+      "data/narrative/_coverage/age-phase-family-support-density.fragments.json"
+    ],
+    "family.thisMonth.standard.agephase.late_60s.204": [
+      "data/narrative/_coverage/age-phase-family-support-density.fragments.json"
+    ],
+    "family.thisMonth.standard.agephase.90_plus.204": [
+      "data/narrative/_coverage/age-phase-family-support-density.fragments.json"
+    ],
+    "overall.life.standard.agephase_gender.90_plus.male.207": [
+      "data/narrative/_coverage/age-phase-gender-senior-pairs.fragments.json"
+    ],
+    "overall.thisYear.standard.agephase.late_30s.203": [
+      "data/narrative/_coverage/age-phase-year-focus-density.fragments.json"
+    ],
+    "overall.thisYear.standard.agephase.90_plus.203": [
+      "data/narrative/_coverage/age-phase-year-focus-density.fragments.json"
+    ],
+    "health.life.standard.birthseason.spring.204": [
+      "data/narrative/_coverage/birth-season-health-rhythm.fragments.json"
+    ],
+    "health.life.standard.birthseason.summer.204": [
+      "data/narrative/_coverage/birth-season-health-rhythm.fragments.json"
+    ],
+    "health.life.standard.birthseason.autumn.204": [
+      "data/narrative/_coverage/birth-season-health-rhythm.fragments.json"
+    ],
+    "health.life.standard.birthseason.winter.204": [
+      "data/narrative/_coverage/birth-season-health-rhythm.fragments.json"
+    ],
+    "career.life.standard.daymasterelement.wood.204": [
+      "data/narrative/_coverage/day-master-career-style.fragments.json"
+    ],
+    "career.life.standard.daymasterelement.fire.204": [
+      "data/narrative/_coverage/day-master-career-style.fragments.json"
+    ],
+    "career.life.standard.daymasterelement.earth.204": [
+      "data/narrative/_coverage/day-master-career-style.fragments.json"
+    ],
+    "overall.thisWeek.standard.daymasterpolarity.yin.203": [
+      "data/narrative/_coverage/day-master-polarity-pacing-density.fragments.json"
+    ],
+    "overall.thisWeek.standard.daymasterpolarity.neutral.203": [
+      "data/narrative/_coverage/day-master-polarity-pacing-density.fragments.json"
+    ],
+    "overall.life.standard.gyeokguk_sikshingyeok_strength_balanced.201": [
+      "data/narrative/_coverage/gyeokguk-expression-strength-pairs.fragments.json"
+    ],
+    "overall.life.standard.gyeokguk_jeonggwangyeok_strength_weak.201": [
+      "data/narrative/_coverage/gyeokguk-gwan-strength-pairs.fragments.json"
+    ],
+    "career.today.standard.ageband.young.501": [
+      "data/narrative/_coverage/min14-career-floor.fragments.json"
+    ],
+    "expression_children.today.standard.ageband.young.501": [
+      "data/narrative/_coverage/min14-expression-children-floor.fragments.json"
+    ],
+    "expression_children.today.standard.ageband.mature.501": [
+      "data/narrative/_coverage/min14-expression-children-floor.fragments.json"
+    ],
+    "overall.today.standard.polarity.yin.404": [
+      "data/narrative/_coverage/min14-foundation-floor.fragments.json"
+    ],
+    "overall.today.standard.polarity.neutral.404": [
+      "data/narrative/_coverage/min14-foundation-floor.fragments.json"
+    ],
+    "academic.thisWeek.standard.ageband.young.402": [
+      "data/narrative/_coverage/min14-foundation-floor.fragments.json"
+    ],
+    "academic.thisMonth.standard.ageband.young.402": [
+      "data/narrative/_coverage/min14-foundation-floor.fragments.json"
+    ],
+    "health_stress.life.standard.recovery.501": [
+      "data/narrative/_coverage/min14-health-stress-plain-floor.fragments.json"
+    ],
+    "health_stress.today.standard.pacing.501": [
+      "data/narrative/_coverage/min14-health-stress-plain-floor.fragments.json"
+    ],
+    "health_stress.thisWeek.standard.boundary.501": [
+      "data/narrative/_coverage/min14-health-stress-plain-floor.fragments.json"
+    ],
+    "movement.today.standard.activity.501": [
+      "data/narrative/_coverage/min14-movement-plain-floor.fragments.json"
+    ],
+    "wealth.life.standard.ageband.mature.501": [
+      "data/narrative/_coverage/min14-wealth-plain-floor.fragments.json"
+    ],
+    "wealth.thisWeek.standard.income.501": [
+      "data/narrative/_coverage/min14-wealth-plain-floor.fragments.json"
+    ],
+    "wealth.thisYear.standard.growth.501": [
+      "data/narrative/_coverage/min14-wealth-plain-floor.fragments.json"
+    ],
+    "health_stress.thisYear.standard.boundary_plan.504": [
+      "data/narrative/_coverage/min15-health-stress-floor.fragments.json"
+    ],
+    "movement.life.standard.home_base.504": [
+      "data/narrative/_coverage/min15-movement-floor.fragments.json"
+    ],
+    "wealth.life.standard.money_rule.504": [
+      "data/narrative/_coverage/min15-wealth-floor.fragments.json"
+    ],
+    "movement.thisYear.standard.currentseason.spring_summer.301": [
+      "data/narrative/_coverage/movement-long-season-context.fragments.json"
+    ],
+    "romance.life.standard.ageband.mature.401": [
+      "data/narrative/_coverage/romance-depth-density-floor.fragments.json"
+    ],
+    "romance.thisYear.standard.ageband.mature.401": [
+      "data/narrative/_coverage/romance-depth-density-floor.fragments.json"
+    ],
+    "wealth.thisYear.standard.ageband.mature.401": [
+      "data/narrative/_coverage/wealth-depth-density-floor.fragments.json"
+    ],
+    "career.thisYear.standard.yongshin.wood.204": [
+      "data/narrative/_coverage/yongshin-career-direction.fragments.json"
+    ],
+    "career.thisYear.standard.yongshin.fire.204": [
+      "data/narrative/_coverage/yongshin-career-direction.fragments.json"
+    ],
+    "career.thisYear.standard.yongshin.earth.204": [
+      "data/narrative/_coverage/yongshin-career-direction.fragments.json"
+    ],
+    "career.thisYear.standard.yongshin.metal.204": [
+      "data/narrative/_coverage/yongshin-career-direction.fragments.json"
+    ],
+    "career.thisYear.standard.yongshin.water.204": [
+      "data/narrative/_coverage/yongshin-career-direction.fragments.json"
+    ],
+    "overall.life.standard.yongshin_earth_alignment.neutral.201": [
+      "data/narrative/_coverage/yongshin-earth-alignment-pairs.fragments.json"
+    ],
+    "overall.life.standard.yongshin_metal_alignment.neutral.201": [
+      "data/narrative/_coverage/yongshin-metal-alignment-pairs.fragments.json"
+    ]
+  },
+  "fileGroups": {
+    "data/narrative/_coverage/age-band-child-teen-gender-pairs.fragments.json": [
+      "overall.life.standard.age_0_9_gender_male.201",
+      "overall.life.standard.age_10_19_gender_female.201"
+    ],
+    "data/narrative/_coverage/age-band-mature-senior-gender-pairs.fragments.json": [
+      "overall.life.standard.age_70_plus_gender_female.201",
+      "overall.life.standard.age_70_plus_gender_male.201"
+    ],
+    "data/narrative/_coverage/age-phase-family-support-density.fragments.json": [
+      "family.thisMonth.standard.agephase.90_plus.204",
+      "family.thisMonth.standard.agephase.early_30s.204",
+      "family.thisMonth.standard.agephase.early_40s.204",
+      "family.thisMonth.standard.agephase.early_50s.204",
+      "family.thisMonth.standard.agephase.late_60s.204"
+    ],
+    "data/narrative/_coverage/age-phase-gender-senior-pairs.fragments.json": [
+      "overall.life.standard.agephase_gender.90_plus.male.207"
+    ],
+    "data/narrative/_coverage/age-phase-year-focus-density.fragments.json": [
+      "overall.thisYear.standard.agephase.90_plus.203",
+      "overall.thisYear.standard.agephase.late_30s.203"
+    ],
+    "data/narrative/_coverage/birth-season-health-rhythm.fragments.json": [
+      "health.life.standard.birthseason.autumn.204",
+      "health.life.standard.birthseason.spring.204",
+      "health.life.standard.birthseason.summer.204",
+      "health.life.standard.birthseason.winter.204"
+    ],
+    "data/narrative/_coverage/day-master-career-style.fragments.json": [
+      "career.life.standard.daymasterelement.earth.204",
+      "career.life.standard.daymasterelement.fire.204",
+      "career.life.standard.daymasterelement.wood.204"
+    ],
+    "data/narrative/_coverage/day-master-polarity-pacing-density.fragments.json": [
+      "overall.thisWeek.standard.daymasterpolarity.neutral.203",
+      "overall.thisWeek.standard.daymasterpolarity.yin.203"
+    ],
+    "data/narrative/_coverage/gyeokguk-expression-strength-pairs.fragments.json": [
+      "overall.life.standard.gyeokguk_sikshingyeok_strength_balanced.201"
+    ],
+    "data/narrative/_coverage/gyeokguk-gwan-strength-pairs.fragments.json": [
+      "overall.life.standard.gyeokguk_jeonggwangyeok_strength_weak.201"
+    ],
+    "data/narrative/_coverage/min14-career-floor.fragments.json": [
+      "career.today.standard.ageband.young.501"
+    ],
+    "data/narrative/_coverage/min14-expression-children-floor.fragments.json": [
+      "expression_children.today.standard.ageband.mature.501",
+      "expression_children.today.standard.ageband.young.501"
+    ],
+    "data/narrative/_coverage/min14-foundation-floor.fragments.json": [
+      "academic.thisMonth.standard.ageband.young.402",
+      "academic.thisWeek.standard.ageband.young.402",
+      "overall.today.standard.polarity.neutral.404",
+      "overall.today.standard.polarity.yin.404"
+    ],
+    "data/narrative/_coverage/min14-health-stress-plain-floor.fragments.json": [
+      "health_stress.life.standard.recovery.501",
+      "health_stress.thisWeek.standard.boundary.501",
+      "health_stress.today.standard.pacing.501"
+    ],
+    "data/narrative/_coverage/min14-movement-plain-floor.fragments.json": [
+      "movement.today.standard.activity.501"
+    ],
+    "data/narrative/_coverage/min14-wealth-plain-floor.fragments.json": [
+      "wealth.life.standard.ageband.mature.501",
+      "wealth.thisWeek.standard.income.501",
+      "wealth.thisYear.standard.growth.501"
+    ],
+    "data/narrative/_coverage/min15-health-stress-floor.fragments.json": [
+      "health_stress.thisYear.standard.boundary_plan.504"
+    ],
+    "data/narrative/_coverage/min15-movement-floor.fragments.json": [
+      "movement.life.standard.home_base.504"
+    ],
+    "data/narrative/_coverage/min15-wealth-floor.fragments.json": [
+      "wealth.life.standard.money_rule.504"
+    ],
+    "data/narrative/_coverage/movement-long-season-context.fragments.json": [
+      "movement.thisYear.standard.currentseason.spring_summer.301"
+    ],
+    "data/narrative/_coverage/romance-depth-density-floor.fragments.json": [
+      "romance.life.standard.ageband.mature.401",
+      "romance.thisYear.standard.ageband.mature.401"
+    ],
+    "data/narrative/_coverage/wealth-depth-density-floor.fragments.json": [
+      "wealth.thisYear.standard.ageband.mature.401"
+    ],
+    "data/narrative/_coverage/yongshin-career-direction.fragments.json": [
+      "career.thisYear.standard.yongshin.earth.204",
+      "career.thisYear.standard.yongshin.fire.204",
+      "career.thisYear.standard.yongshin.metal.204",
+      "career.thisYear.standard.yongshin.water.204",
+      "career.thisYear.standard.yongshin.wood.204"
+    ],
+    "data/narrative/_coverage/yongshin-earth-alignment-pairs.fragments.json": [
+      "overall.life.standard.yongshin_earth_alignment.neutral.201"
+    ],
+    "data/narrative/_coverage/yongshin-metal-alignment-pairs.fragments.json": [
+      "overall.life.standard.yongshin_metal_alignment.neutral.201"
+    ]
+  },
+  "missing": []
+}

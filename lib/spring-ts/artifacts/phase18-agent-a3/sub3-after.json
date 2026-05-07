@@ -1,0 +1,906 @@
+{
+  "phase": "P18-A3",
+  "generatedAt": "2026-05-07T05:36:17.887Z",
+  "totalCells": 1705,
+  "standardHist": {
+    "1": 107,
+    "2": 0,
+    "3": 1321,
+    "4": 83,
+    "5": 194,
+    "6": 0
+  },
+  "sub3Total": 107,
+  "sub3ByParagraphCount": {
+    "1": 107,
+    "2": 0
+  },
+  "noFragmentIdCount": {
+    "1": 107,
+    "2": 0,
+    "total": 107
+  },
+  "fragmentBreakdown": [
+    {
+      "fragmentId": "__no_fragmentId__",
+      "paragraphCount": 1,
+      "count": 107,
+      "firstSample": "인생 전체의 돈과 물건 관리는 아직 결과를 단정하기보다 작은 습관을 살피는 게 좋아요. 해야 할 일을 짧게 나누고, 힘들 때는 바로 도움을 요청하면 흐름이 안정돼요.",
+      "exampleCells": [
+        {
+          "fixture": "04-kim-seoyun-young-female-tiered",
+          "period": "life",
+          "category": "wealth"
+        },
+        {
+          "fixture": "04-kim-seoyun-young-female-tiered",
+          "period": "life",
+          "category": "health"
+        },
+        {
+          "fixture": "04-kim-seoyun-young-female-tiered",
+          "period": "life",
+          "category": "romance"
+        }
+      ]
+    }
+  ],
+  "allSub3Cells": [
+    {
+      "fixture": "04-kim-seoyun-young-female-tiered",
+      "period": "life",
+      "category": "wealth",
+      "paragraphs": 1,
+      "fragmentId": null,
+      "firstParagraphSample": "인생 전체의 돈과 물건 관리는 아직 결과를 단정하기보다 작은 습관을 살피는 게 좋아요. 해야 할 일을 짧게 나누고, 힘들 때는 바로 도움을 요청하면 흐름이 안정돼요."
+    },
+    {
+      "fixture": "04-kim-seoyun-young-female-tiered",
+      "period": "life",
+      "category": "health",
+      "paragraphs": 1,
+      "fragmentId": null,
+      "firstParagraphSample": "인생 전체의 몸과 마음은 아직 결과를 단정하기보다 작은 습관을 살피는 게 좋아요. 해야 할 일을 짧게 나누고, 힘들 때는 바로 도움을 요청하면 흐름이 안정돼요."
+    },
+    {
+      "fixture": "04-kim-seoyun-young-female-tiered",
+      "period": "life",
+      "category": "romance",
+      "paragraphs": 1,
+      "fragmentId": null,
+      "firstParagraphSample": "인생 전체의 관계와 마음은 아직 결과를 단정하기보다 작은 습관을 살피는 게 좋아요. 해야 할 일을 짧게 나누고, 힘들 때는 바로 도움을 요청하면 흐름이 안정돼요."
+    },
+    {
+      "fixture": "04-kim-seoyun-young-female-tiered",
+      "period": "life",
+      "category": "study_document",
+      "paragraphs": 1,
+      "fragmentId": null,
+      "firstParagraphSample": "인생 전체의 기록과 준비는 아직 결과를 단정하기보다 작은 습관을 살피는 게 좋아요. 해야 할 일을 짧게 나누고, 힘들 때는 바로 도움을 요청하면 흐름이 안정돼요."
+    },
+    {
+      "fixture": "04-kim-seoyun-young-female-tiered",
+      "period": "today",
+      "category": "overall",
+      "paragraphs": 1,
+      "fragmentId": null,
+      "firstParagraphSample": "오늘 (5월 5일)은 아직 방향을 단정하기보다 생활 리듬을 잘 잡는 해석이 먼저예요. 학교, 친구, 가족, 컨디션처럼 가까운 일들을 차분히 챙기면 오늘 (5월 5일)의 흐름이 안정"
+    },
+    {
+      "fixture": "04-kim-seoyun-young-female-tiered",
+      "period": "today",
+      "category": "wealth",
+      "paragraphs": 1,
+      "fragmentId": null,
+      "firstParagraphSample": "오늘 (5월 5일)의 돈과 물건 관리는 아직 결과를 단정하기보다 작은 습관을 살피는 게 좋아요. 해야 할 일을 짧게 나누고, 힘들 때는 바로 도움을 요청하면 흐름이 안정돼요."
+    },
+    {
+      "fixture": "04-kim-seoyun-young-female-tiered",
+      "period": "today",
+      "category": "health",
+      "paragraphs": 1,
+      "fragmentId": null,
+      "firstParagraphSample": "오늘 (5월 5일)의 몸과 마음은 아직 결과를 단정하기보다 작은 습관을 살피는 게 좋아요. 해야 할 일을 짧게 나누고, 힘들 때는 바로 도움을 요청하면 흐름이 안정돼요."
+    },
+    {
+      "fixture": "04-kim-seoyun-young-female-tiered",
+      "period": "today",
+      "category": "romance",
+      "paragraphs": 1,
+      "fragmentId": null,
+      "firstParagraphSample": "오늘 (5월 5일)의 관계와 마음은 아직 결과를 단정하기보다 작은 습관을 살피는 게 좋아요. 해야 할 일을 짧게 나누고, 힘들 때는 바로 도움을 요청하면 흐름이 안정돼요."
+    },
+    {
+      "fixture": "04-kim-seoyun-young-female-tiered",
+      "period": "today",
+      "category": "study_document",
+      "paragraphs": 1,
+      "fragmentId": null,
+      "firstParagraphSample": "오늘 (5월 5일)의 기록과 준비는 아직 결과를 단정하기보다 작은 습관을 살피는 게 좋아요. 해야 할 일을 짧게 나누고, 힘들 때는 바로 도움을 요청하면 흐름이 안정돼요."
+    },
+    {
+      "fixture": "04-kim-seoyun-young-female-tiered",
+      "period": "thisWeek",
+      "category": "overall",
+      "paragraphs": 1,
+      "fragmentId": null,
+      "firstParagraphSample": "이번 주는 아직 방향을 단정하기보다 생활 리듬을 잘 잡는 해석이 먼저예요. 학교, 친구, 가족, 컨디션처럼 가까운 일들을 차분히 챙기면 이번 주의 흐름이 안정돼요. 큰 결정은 혼자"
+    },
+    {
+      "fixture": "04-kim-seoyun-young-female-tiered",
+      "period": "thisWeek",
+      "category": "wealth",
+      "paragraphs": 1,
+      "fragmentId": null,
+      "firstParagraphSample": "이번 주의 돈과 물건 관리는 아직 결과를 단정하기보다 작은 습관을 살피는 게 좋아요. 해야 할 일을 짧게 나누고, 힘들 때는 바로 도움을 요청하면 흐름이 안정돼요."
+    },
+    {
+      "fixture": "04-kim-seoyun-young-female-tiered",
+      "period": "thisWeek",
+      "category": "health",
+      "paragraphs": 1,
+      "fragmentId": null,
+      "firstParagraphSample": "이번 주의 몸과 마음은 아직 결과를 단정하기보다 작은 습관을 살피는 게 좋아요. 해야 할 일을 짧게 나누고, 힘들 때는 바로 도움을 요청하면 흐름이 안정돼요."
+    },
+    {
+      "fixture": "04-kim-seoyun-young-female-tiered",
+      "period": "thisWeek",
+      "category": "romance",
+      "paragraphs": 1,
+      "fragmentId": null,
+      "firstParagraphSample": "이번 주의 관계와 마음은 아직 결과를 단정하기보다 작은 습관을 살피는 게 좋아요. 해야 할 일을 짧게 나누고, 힘들 때는 바로 도움을 요청하면 흐름이 안정돼요."
+    },
+    {
+      "fixture": "04-kim-seoyun-young-female-tiered",
+      "period": "thisWeek",
+      "category": "study_document",
+      "paragraphs": 1,
+      "fragmentId": null,
+      "firstParagraphSample": "이번 주의 기록과 준비는 아직 결과를 단정하기보다 작은 습관을 살피는 게 좋아요. 해야 할 일을 짧게 나누고, 힘들 때는 바로 도움을 요청하면 흐름이 안정돼요."
+    },
+    {
+      "fixture": "04-kim-seoyun-young-female-tiered",
+      "period": "thisMonth",
+      "category": "overall",
+      "paragraphs": 1,
+      "fragmentId": null,
+      "firstParagraphSample": "이번 달 (5월)은 아직 방향을 단정하기보다 생활 리듬을 잘 잡는 해석이 먼저예요. 학교, 친구, 가족, 컨디션처럼 가까운 일들을 차분히 챙기면 이번 달 (5월)의 흐름이 안정돼요"
+    },
+    {
+      "fixture": "04-kim-seoyun-young-female-tiered",
+      "period": "thisMonth",
+      "category": "wealth",
+      "paragraphs": 1,
+      "fragmentId": null,
+      "firstParagraphSample": "이번 달 (5월)의 돈과 물건 관리는 아직 결과를 단정하기보다 작은 습관을 살피는 게 좋아요. 해야 할 일을 짧게 나누고, 힘들 때는 바로 도움을 요청하면 흐름이 안정돼요."
+    },
+    {
+      "fixture": "04-kim-seoyun-young-female-tiered",
+      "period": "thisMonth",
+      "category": "health",
+      "paragraphs": 1,
+      "fragmentId": null,
+      "firstParagraphSample": "이번 달 (5월)의 몸과 마음은 아직 결과를 단정하기보다 작은 습관을 살피는 게 좋아요. 해야 할 일을 짧게 나누고, 힘들 때는 바로 도움을 요청하면 흐름이 안정돼요."
+    },
+    {
+      "fixture": "04-kim-seoyun-young-female-tiered",
+      "period": "thisMonth",
+      "category": "romance",
+      "paragraphs": 1,
+      "fragmentId": null,
+      "firstParagraphSample": "이번 달 (5월)의 관계와 마음은 아직 결과를 단정하기보다 작은 습관을 살피는 게 좋아요. 해야 할 일을 짧게 나누고, 힘들 때는 바로 도움을 요청하면 흐름이 안정돼요."
+    },
+    {
+      "fixture": "04-kim-seoyun-young-female-tiered",
+      "period": "thisMonth",
+      "category": "study_document",
+      "paragraphs": 1,
+      "fragmentId": null,
+      "firstParagraphSample": "이번 달 (5월)의 기록과 준비는 아직 결과를 단정하기보다 작은 습관을 살피는 게 좋아요. 해야 할 일을 짧게 나누고, 힘들 때는 바로 도움을 요청하면 흐름이 안정돼요."
+    },
+    {
+      "fixture": "04-kim-seoyun-young-female-tiered",
+      "period": "thisYear",
+      "category": "overall",
+      "paragraphs": 1,
+      "fragmentId": null,
+      "firstParagraphSample": "올해 (2026년)는 아직 방향을 단정하기보다 생활 리듬을 잘 잡는 해석이 먼저예요. 학교, 친구, 가족, 컨디션처럼 가까운 일들을 차분히 챙기면 올해 (2026년)의 흐름이 안정"
+    },
+    {
+      "fixture": "04-kim-seoyun-young-female-tiered",
+      "period": "thisYear",
+      "category": "wealth",
+      "paragraphs": 1,
+      "fragmentId": null,
+      "firstParagraphSample": "올해 (2026년)의 돈과 물건 관리는 아직 결과를 단정하기보다 작은 습관을 살피는 게 좋아요. 해야 할 일을 짧게 나누고, 힘들 때는 바로 도움을 요청하면 흐름이 안정돼요."
+    },
+    {
+      "fixture": "04-kim-seoyun-young-female-tiered",
+      "period": "thisYear",
+      "category": "romance",
+      "paragraphs": 1,
+      "fragmentId": null,
+      "firstParagraphSample": "올해 (2026년)의 관계와 마음은 아직 결과를 단정하기보다 작은 습관을 살피는 게 좋아요. 해야 할 일을 짧게 나누고, 힘들 때는 바로 도움을 요청하면 흐름이 안정돼요."
+    },
+    {
+      "fixture": "04-kim-seoyun-young-female-tiered",
+      "period": "thisYear",
+      "category": "study_document",
+      "paragraphs": 1,
+      "fragmentId": null,
+      "firstParagraphSample": "올해 (2026년)의 기록과 준비는 아직 결과를 단정하기보다 작은 습관을 살피는 게 좋아요. 해야 할 일을 짧게 나누고, 힘들 때는 바로 도움을 요청하면 흐름이 안정돼요."
+    },
+    {
+      "fixture": "18-lee-child-male-tiered",
+      "period": "life",
+      "category": "wealth",
+      "paragraphs": 1,
+      "fragmentId": null,
+      "firstParagraphSample": "인생 전체의 돈과 물건 관리는 아직 결과를 단정하기보다 작은 습관을 살피는 게 좋아요. 해야 할 일을 짧게 나누고, 힘들 때는 바로 도움을 요청하면 흐름이 안정돼요."
+    },
+    {
+      "fixture": "18-lee-child-male-tiered",
+      "period": "life",
+      "category": "romance",
+      "paragraphs": 1,
+      "fragmentId": null,
+      "firstParagraphSample": "인생 전체의 관계와 마음은 아직 결과를 단정하기보다 작은 습관을 살피는 게 좋아요. 해야 할 일을 짧게 나누고, 힘들 때는 바로 도움을 요청하면 흐름이 안정돼요."
+    },
+    {
+      "fixture": "18-lee-child-male-tiered",
+      "period": "life",
+      "category": "career",
+      "paragraphs": 1,
+      "fragmentId": null,
+      "firstParagraphSample": "인생 전체의 진로 감각은 아직 결과를 단정하기보다 작은 습관을 살피는 게 좋아요. 해야 할 일을 짧게 나누고, 힘들 때는 바로 도움을 요청하면 흐름이 안정돼요."
+    },
+    {
+      "fixture": "18-lee-child-male-tiered",
+      "period": "life",
+      "category": "study_document",
+      "paragraphs": 1,
+      "fragmentId": null,
+      "firstParagraphSample": "인생 전체의 기록과 준비는 아직 결과를 단정하기보다 작은 습관을 살피는 게 좋아요. 해야 할 일을 짧게 나누고, 힘들 때는 바로 도움을 요청하면 흐름이 안정돼요."
+    },
+    {
+      "fixture": "18-lee-child-male-tiered",
+      "period": "today",
+      "category": "wealth",
+      "paragraphs": 1,
+      "fragmentId": null,
+      "firstParagraphSample": "오늘 (5월 5일)의 돈과 물건 관리는 아직 결과를 단정하기보다 작은 습관을 살피는 게 좋아요. 해야 할 일을 짧게 나누고, 힘들 때는 바로 도움을 요청하면 흐름이 안정돼요."
+    },
+    {
+      "fixture": "18-lee-child-male-tiered",
+      "period": "today",
+      "category": "romance",
+      "paragraphs": 1,
+      "fragmentId": null,
+      "firstParagraphSample": "오늘 (5월 5일)의 관계와 마음은 아직 결과를 단정하기보다 작은 습관을 살피는 게 좋아요. 해야 할 일을 짧게 나누고, 힘들 때는 바로 도움을 요청하면 흐름이 안정돼요."
+    },
+    {
+      "fixture": "18-lee-child-male-tiered",
+      "period": "today",
+      "category": "career",
+      "paragraphs": 1,
+      "fragmentId": null,
+      "firstParagraphSample": "오늘 (5월 5일)의 진로 감각은 아직 결과를 단정하기보다 작은 습관을 살피는 게 좋아요. 해야 할 일을 짧게 나누고, 힘들 때는 바로 도움을 요청하면 흐름이 안정돼요."
+    },
+    {
+      "fixture": "18-lee-child-male-tiered",
+      "period": "today",
+      "category": "study_document",
+      "paragraphs": 1,
+      "fragmentId": null,
+      "firstParagraphSample": "오늘 (5월 5일)의 기록과 준비는 아직 결과를 단정하기보다 작은 습관을 살피는 게 좋아요. 해야 할 일을 짧게 나누고, 힘들 때는 바로 도움을 요청하면 흐름이 안정돼요."
+    },
+    {
+      "fixture": "18-lee-child-male-tiered",
+      "period": "today",
+      "category": "health_stress",
+      "paragraphs": 1,
+      "fragmentId": null,
+      "firstParagraphSample": "오늘 (5월 5일)의 긴장과 회복은 아직 결과를 단정하기보다 작은 습관을 살피는 게 좋아요. 해야 할 일을 짧게 나누고, 힘들 때는 바로 도움을 요청하면 흐름이 안정돼요."
+    },
+    {
+      "fixture": "18-lee-child-male-tiered",
+      "period": "thisWeek",
+      "category": "wealth",
+      "paragraphs": 1,
+      "fragmentId": null,
+      "firstParagraphSample": "이번 주의 돈과 물건 관리는 아직 결과를 단정하기보다 작은 습관을 살피는 게 좋아요. 해야 할 일을 짧게 나누고, 힘들 때는 바로 도움을 요청하면 흐름이 안정돼요."
+    },
+    {
+      "fixture": "18-lee-child-male-tiered",
+      "period": "thisWeek",
+      "category": "romance",
+      "paragraphs": 1,
+      "fragmentId": null,
+      "firstParagraphSample": "이번 주의 관계와 마음은 아직 결과를 단정하기보다 작은 습관을 살피는 게 좋아요. 해야 할 일을 짧게 나누고, 힘들 때는 바로 도움을 요청하면 흐름이 안정돼요."
+    },
+    {
+      "fixture": "18-lee-child-male-tiered",
+      "period": "thisWeek",
+      "category": "career",
+      "paragraphs": 1,
+      "fragmentId": null,
+      "firstParagraphSample": "이번 주의 진로 감각은 아직 결과를 단정하기보다 작은 습관을 살피는 게 좋아요. 해야 할 일을 짧게 나누고, 힘들 때는 바로 도움을 요청하면 흐름이 안정돼요."
+    },
+    {
+      "fixture": "18-lee-child-male-tiered",
+      "period": "thisWeek",
+      "category": "study_document",
+      "paragraphs": 1,
+      "fragmentId": null,
+      "firstParagraphSample": "이번 주의 기록과 준비는 아직 결과를 단정하기보다 작은 습관을 살피는 게 좋아요. 해야 할 일을 짧게 나누고, 힘들 때는 바로 도움을 요청하면 흐름이 안정돼요."
+    },
+    {
+      "fixture": "18-lee-child-male-tiered",
+      "period": "thisMonth",
+      "category": "wealth",
+      "paragraphs": 1,
+      "fragmentId": null,
+      "firstParagraphSample": "이번 달 (5월)의 돈과 물건 관리는 아직 결과를 단정하기보다 작은 습관을 살피는 게 좋아요. 해야 할 일을 짧게 나누고, 힘들 때는 바로 도움을 요청하면 흐름이 안정돼요."
+    },
+    {
+      "fixture": "18-lee-child-male-tiered",
+      "period": "thisMonth",
+      "category": "romance",
+      "paragraphs": 1,
+      "fragmentId": null,
+      "firstParagraphSample": "이번 달 (5월)의 관계와 마음은 아직 결과를 단정하기보다 작은 습관을 살피는 게 좋아요. 해야 할 일을 짧게 나누고, 힘들 때는 바로 도움을 요청하면 흐름이 안정돼요."
+    },
+    {
+      "fixture": "18-lee-child-male-tiered",
+      "period": "thisMonth",
+      "category": "study_document",
+      "paragraphs": 1,
+      "fragmentId": null,
+      "firstParagraphSample": "이번 달 (5월)의 기록과 준비는 아직 결과를 단정하기보다 작은 습관을 살피는 게 좋아요. 해야 할 일을 짧게 나누고, 힘들 때는 바로 도움을 요청하면 흐름이 안정돼요."
+    },
+    {
+      "fixture": "18-lee-child-male-tiered",
+      "period": "thisMonth",
+      "category": "health_stress",
+      "paragraphs": 1,
+      "fragmentId": null,
+      "firstParagraphSample": "이번 달 (5월)의 긴장과 회복은 아직 결과를 단정하기보다 작은 습관을 살피는 게 좋아요. 해야 할 일을 짧게 나누고, 힘들 때는 바로 도움을 요청하면 흐름이 안정돼요."
+    },
+    {
+      "fixture": "18-lee-child-male-tiered",
+      "period": "thisYear",
+      "category": "wealth",
+      "paragraphs": 1,
+      "fragmentId": null,
+      "firstParagraphSample": "올해 (2026년)의 돈과 물건 관리는 아직 결과를 단정하기보다 작은 습관을 살피는 게 좋아요. 해야 할 일을 짧게 나누고, 힘들 때는 바로 도움을 요청하면 흐름이 안정돼요."
+    },
+    {
+      "fixture": "18-lee-child-male-tiered",
+      "period": "thisYear",
+      "category": "romance",
+      "paragraphs": 1,
+      "fragmentId": null,
+      "firstParagraphSample": "올해 (2026년)의 관계와 마음은 아직 결과를 단정하기보다 작은 습관을 살피는 게 좋아요. 해야 할 일을 짧게 나누고, 힘들 때는 바로 도움을 요청하면 흐름이 안정돼요."
+    },
+    {
+      "fixture": "18-lee-child-male-tiered",
+      "period": "thisYear",
+      "category": "career",
+      "paragraphs": 1,
+      "fragmentId": null,
+      "firstParagraphSample": "올해 (2026년)의 진로 감각은 아직 결과를 단정하기보다 작은 습관을 살피는 게 좋아요. 해야 할 일을 짧게 나누고, 힘들 때는 바로 도움을 요청하면 흐름이 안정돼요."
+    },
+    {
+      "fixture": "18-lee-child-male-tiered",
+      "period": "thisYear",
+      "category": "study_document",
+      "paragraphs": 1,
+      "fragmentId": null,
+      "firstParagraphSample": "올해 (2026년)의 기록과 준비는 아직 결과를 단정하기보다 작은 습관을 살피는 게 좋아요. 해야 할 일을 짧게 나누고, 힘들 때는 바로 도움을 요청하면 흐름이 안정돼요."
+    },
+    {
+      "fixture": "27-jonggyeok-jongah-tiered",
+      "period": "life",
+      "category": "wealth",
+      "paragraphs": 1,
+      "fragmentId": null,
+      "firstParagraphSample": "인생 전체의 돈과 물건 관리는 아직 결과를 단정하기보다 작은 습관을 살피는 게 좋아요. 해야 할 일을 짧게 나누고, 힘들 때는 바로 도움을 요청하면 흐름이 안정돼요."
+    },
+    {
+      "fixture": "27-jonggyeok-jongah-tiered",
+      "period": "life",
+      "category": "romance",
+      "paragraphs": 1,
+      "fragmentId": null,
+      "firstParagraphSample": "인생 전체의 관계와 마음은 아직 결과를 단정하기보다 작은 습관을 살피는 게 좋아요. 해야 할 일을 짧게 나누고, 힘들 때는 바로 도움을 요청하면 흐름이 안정돼요."
+    },
+    {
+      "fixture": "27-jonggyeok-jongah-tiered",
+      "period": "life",
+      "category": "career",
+      "paragraphs": 1,
+      "fragmentId": null,
+      "firstParagraphSample": "인생 전체의 진로 감각은 아직 결과를 단정하기보다 작은 습관을 살피는 게 좋아요. 해야 할 일을 짧게 나누고, 힘들 때는 바로 도움을 요청하면 흐름이 안정돼요."
+    },
+    {
+      "fixture": "27-jonggyeok-jongah-tiered",
+      "period": "life",
+      "category": "study_document",
+      "paragraphs": 1,
+      "fragmentId": null,
+      "firstParagraphSample": "인생 전체의 기록과 준비는 아직 결과를 단정하기보다 작은 습관을 살피는 게 좋아요. 해야 할 일을 짧게 나누고, 힘들 때는 바로 도움을 요청하면 흐름이 안정돼요."
+    },
+    {
+      "fixture": "27-jonggyeok-jongah-tiered",
+      "period": "today",
+      "category": "wealth",
+      "paragraphs": 1,
+      "fragmentId": null,
+      "firstParagraphSample": "오늘 (5월 5일)의 돈과 물건 관리는 아직 결과를 단정하기보다 작은 습관을 살피는 게 좋아요. 해야 할 일을 짧게 나누고, 힘들 때는 바로 도움을 요청하면 흐름이 안정돼요."
+    },
+    {
+      "fixture": "27-jonggyeok-jongah-tiered",
+      "period": "today",
+      "category": "romance",
+      "paragraphs": 1,
+      "fragmentId": null,
+      "firstParagraphSample": "오늘 (5월 5일)의 관계와 마음은 아직 결과를 단정하기보다 작은 습관을 살피는 게 좋아요. 해야 할 일을 짧게 나누고, 힘들 때는 바로 도움을 요청하면 흐름이 안정돼요."
+    },
+    {
+      "fixture": "27-jonggyeok-jongah-tiered",
+      "period": "today",
+      "category": "career",
+      "paragraphs": 1,
+      "fragmentId": null,
+      "firstParagraphSample": "오늘 (5월 5일)의 진로 감각은 아직 결과를 단정하기보다 작은 습관을 살피는 게 좋아요. 해야 할 일을 짧게 나누고, 힘들 때는 바로 도움을 요청하면 흐름이 안정돼요."
+    },
+    {
+      "fixture": "27-jonggyeok-jongah-tiered",
+      "period": "today",
+      "category": "study_document",
+      "paragraphs": 1,
+      "fragmentId": null,
+      "firstParagraphSample": "오늘 (5월 5일)의 기록과 준비는 아직 결과를 단정하기보다 작은 습관을 살피는 게 좋아요. 해야 할 일을 짧게 나누고, 힘들 때는 바로 도움을 요청하면 흐름이 안정돼요."
+    },
+    {
+      "fixture": "27-jonggyeok-jongah-tiered",
+      "period": "today",
+      "category": "health_stress",
+      "paragraphs": 1,
+      "fragmentId": null,
+      "firstParagraphSample": "오늘 (5월 5일)의 긴장과 회복은 아직 결과를 단정하기보다 작은 습관을 살피는 게 좋아요. 해야 할 일을 짧게 나누고, 힘들 때는 바로 도움을 요청하면 흐름이 안정돼요."
+    },
+    {
+      "fixture": "27-jonggyeok-jongah-tiered",
+      "period": "thisWeek",
+      "category": "wealth",
+      "paragraphs": 1,
+      "fragmentId": null,
+      "firstParagraphSample": "이번 주의 돈과 물건 관리는 아직 결과를 단정하기보다 작은 습관을 살피는 게 좋아요. 해야 할 일을 짧게 나누고, 힘들 때는 바로 도움을 요청하면 흐름이 안정돼요."
+    },
+    {
+      "fixture": "27-jonggyeok-jongah-tiered",
+      "period": "thisWeek",
+      "category": "romance",
+      "paragraphs": 1,
+      "fragmentId": null,
+      "firstParagraphSample": "이번 주의 관계와 마음은 아직 결과를 단정하기보다 작은 습관을 살피는 게 좋아요. 해야 할 일을 짧게 나누고, 힘들 때는 바로 도움을 요청하면 흐름이 안정돼요."
+    },
+    {
+      "fixture": "27-jonggyeok-jongah-tiered",
+      "period": "thisWeek",
+      "category": "career",
+      "paragraphs": 1,
+      "fragmentId": null,
+      "firstParagraphSample": "이번 주의 진로 감각은 아직 결과를 단정하기보다 작은 습관을 살피는 게 좋아요. 해야 할 일을 짧게 나누고, 힘들 때는 바로 도움을 요청하면 흐름이 안정돼요."
+    },
+    {
+      "fixture": "27-jonggyeok-jongah-tiered",
+      "period": "thisWeek",
+      "category": "study_document",
+      "paragraphs": 1,
+      "fragmentId": null,
+      "firstParagraphSample": "이번 주의 기록과 준비는 아직 결과를 단정하기보다 작은 습관을 살피는 게 좋아요. 해야 할 일을 짧게 나누고, 힘들 때는 바로 도움을 요청하면 흐름이 안정돼요."
+    },
+    {
+      "fixture": "27-jonggyeok-jongah-tiered",
+      "period": "thisMonth",
+      "category": "wealth",
+      "paragraphs": 1,
+      "fragmentId": null,
+      "firstParagraphSample": "이번 달 (5월)의 돈과 물건 관리는 아직 결과를 단정하기보다 작은 습관을 살피는 게 좋아요. 해야 할 일을 짧게 나누고, 힘들 때는 바로 도움을 요청하면 흐름이 안정돼요."
+    },
+    {
+      "fixture": "27-jonggyeok-jongah-tiered",
+      "period": "thisMonth",
+      "category": "romance",
+      "paragraphs": 1,
+      "fragmentId": null,
+      "firstParagraphSample": "이번 달 (5월)의 관계와 마음은 아직 결과를 단정하기보다 작은 습관을 살피는 게 좋아요. 해야 할 일을 짧게 나누고, 힘들 때는 바로 도움을 요청하면 흐름이 안정돼요."
+    },
+    {
+      "fixture": "27-jonggyeok-jongah-tiered",
+      "period": "thisMonth",
+      "category": "study_document",
+      "paragraphs": 1,
+      "fragmentId": null,
+      "firstParagraphSample": "이번 달 (5월)의 기록과 준비는 아직 결과를 단정하기보다 작은 습관을 살피는 게 좋아요. 해야 할 일을 짧게 나누고, 힘들 때는 바로 도움을 요청하면 흐름이 안정돼요."
+    },
+    {
+      "fixture": "27-jonggyeok-jongah-tiered",
+      "period": "thisMonth",
+      "category": "health_stress",
+      "paragraphs": 1,
+      "fragmentId": null,
+      "firstParagraphSample": "이번 달 (5월)의 긴장과 회복은 아직 결과를 단정하기보다 작은 습관을 살피는 게 좋아요. 해야 할 일을 짧게 나누고, 힘들 때는 바로 도움을 요청하면 흐름이 안정돼요."
+    },
+    {
+      "fixture": "27-jonggyeok-jongah-tiered",
+      "period": "thisYear",
+      "category": "wealth",
+      "paragraphs": 1,
+      "fragmentId": null,
+      "firstParagraphSample": "올해 (2026년)의 돈과 물건 관리는 아직 결과를 단정하기보다 작은 습관을 살피는 게 좋아요. 해야 할 일을 짧게 나누고, 힘들 때는 바로 도움을 요청하면 흐름이 안정돼요."
+    },
+    {
+      "fixture": "27-jonggyeok-jongah-tiered",
+      "period": "thisYear",
+      "category": "romance",
+      "paragraphs": 1,
+      "fragmentId": null,
+      "firstParagraphSample": "올해 (2026년)의 관계와 마음은 아직 결과를 단정하기보다 작은 습관을 살피는 게 좋아요. 해야 할 일을 짧게 나누고, 힘들 때는 바로 도움을 요청하면 흐름이 안정돼요."
+    },
+    {
+      "fixture": "27-jonggyeok-jongah-tiered",
+      "period": "thisYear",
+      "category": "career",
+      "paragraphs": 1,
+      "fragmentId": null,
+      "firstParagraphSample": "올해 (2026년)의 진로 감각은 아직 결과를 단정하기보다 작은 습관을 살피는 게 좋아요. 해야 할 일을 짧게 나누고, 힘들 때는 바로 도움을 요청하면 흐름이 안정돼요."
+    },
+    {
+      "fixture": "27-jonggyeok-jongah-tiered",
+      "period": "thisYear",
+      "category": "study_document",
+      "paragraphs": 1,
+      "fragmentId": null,
+      "firstParagraphSample": "올해 (2026년)의 기록과 준비는 아직 결과를 단정하기보다 작은 습관을 살피는 게 좋아요. 해야 할 일을 짧게 나누고, 힘들 때는 바로 도움을 요청하면 흐름이 안정돼요."
+    },
+    {
+      "fixture": "30-jeolgi-lidong-boundary-tiered",
+      "period": "life",
+      "category": "wealth",
+      "paragraphs": 1,
+      "fragmentId": null,
+      "firstParagraphSample": "인생 전체의 돈과 물건 관리는 아직 결과를 단정하기보다 작은 습관을 살피는 게 좋아요. 해야 할 일을 짧게 나누고, 힘들 때는 바로 도움을 요청하면 흐름이 안정돼요."
+    },
+    {
+      "fixture": "30-jeolgi-lidong-boundary-tiered",
+      "period": "life",
+      "category": "romance",
+      "paragraphs": 1,
+      "fragmentId": null,
+      "firstParagraphSample": "인생 전체의 관계와 마음은 아직 결과를 단정하기보다 작은 습관을 살피는 게 좋아요. 해야 할 일을 짧게 나누고, 힘들 때는 바로 도움을 요청하면 흐름이 안정돼요."
+    },
+    {
+      "fixture": "30-jeolgi-lidong-boundary-tiered",
+      "period": "life",
+      "category": "career",
+      "paragraphs": 1,
+      "fragmentId": null,
+      "firstParagraphSample": "인생 전체의 진로 감각은 아직 결과를 단정하기보다 작은 습관을 살피는 게 좋아요. 해야 할 일을 짧게 나누고, 힘들 때는 바로 도움을 요청하면 흐름이 안정돼요."
+    },
+    {
+      "fixture": "30-jeolgi-lidong-boundary-tiered",
+      "period": "life",
+      "category": "study_document",
+      "paragraphs": 1,
+      "fragmentId": null,
+      "firstParagraphSample": "인생 전체의 기록과 준비는 아직 결과를 단정하기보다 작은 습관을 살피는 게 좋아요. 해야 할 일을 짧게 나누고, 힘들 때는 바로 도움을 요청하면 흐름이 안정돼요."
+    },
+    {
+      "fixture": "30-jeolgi-lidong-boundary-tiered",
+      "period": "today",
+      "category": "wealth",
+      "paragraphs": 1,
+      "fragmentId": null,
+      "firstParagraphSample": "오늘 (5월 5일)의 돈과 물건 관리는 아직 결과를 단정하기보다 작은 습관을 살피는 게 좋아요. 해야 할 일을 짧게 나누고, 힘들 때는 바로 도움을 요청하면 흐름이 안정돼요."
+    },
+    {
+      "fixture": "30-jeolgi-lidong-boundary-tiered",
+      "period": "today",
+      "category": "romance",
+      "paragraphs": 1,
+      "fragmentId": null,
+      "firstParagraphSample": "오늘 (5월 5일)의 관계와 마음은 아직 결과를 단정하기보다 작은 습관을 살피는 게 좋아요. 해야 할 일을 짧게 나누고, 힘들 때는 바로 도움을 요청하면 흐름이 안정돼요."
+    },
+    {
+      "fixture": "30-jeolgi-lidong-boundary-tiered",
+      "period": "today",
+      "category": "career",
+      "paragraphs": 1,
+      "fragmentId": null,
+      "firstParagraphSample": "오늘 (5월 5일)의 진로 감각은 아직 결과를 단정하기보다 작은 습관을 살피는 게 좋아요. 해야 할 일을 짧게 나누고, 힘들 때는 바로 도움을 요청하면 흐름이 안정돼요."
+    },
+    {
+      "fixture": "30-jeolgi-lidong-boundary-tiered",
+      "period": "today",
+      "category": "study_document",
+      "paragraphs": 1,
+      "fragmentId": null,
+      "firstParagraphSample": "오늘 (5월 5일)의 기록과 준비는 아직 결과를 단정하기보다 작은 습관을 살피는 게 좋아요. 해야 할 일을 짧게 나누고, 힘들 때는 바로 도움을 요청하면 흐름이 안정돼요."
+    },
+    {
+      "fixture": "30-jeolgi-lidong-boundary-tiered",
+      "period": "today",
+      "category": "health_stress",
+      "paragraphs": 1,
+      "fragmentId": null,
+      "firstParagraphSample": "오늘 (5월 5일)의 긴장과 회복은 아직 결과를 단정하기보다 작은 습관을 살피는 게 좋아요. 해야 할 일을 짧게 나누고, 힘들 때는 바로 도움을 요청하면 흐름이 안정돼요."
+    },
+    {
+      "fixture": "30-jeolgi-lidong-boundary-tiered",
+      "period": "thisWeek",
+      "category": "wealth",
+      "paragraphs": 1,
+      "fragmentId": null,
+      "firstParagraphSample": "이번 주의 돈과 물건 관리는 아직 결과를 단정하기보다 작은 습관을 살피는 게 좋아요. 해야 할 일을 짧게 나누고, 힘들 때는 바로 도움을 요청하면 흐름이 안정돼요."
+    },
+    {
+      "fixture": "30-jeolgi-lidong-boundary-tiered",
+      "period": "thisWeek",
+      "category": "romance",
+      "paragraphs": 1,
+      "fragmentId": null,
+      "firstParagraphSample": "이번 주의 관계와 마음은 아직 결과를 단정하기보다 작은 습관을 살피는 게 좋아요. 해야 할 일을 짧게 나누고, 힘들 때는 바로 도움을 요청하면 흐름이 안정돼요."
+    },
+    {
+      "fixture": "30-jeolgi-lidong-boundary-tiered",
+      "period": "thisWeek",
+      "category": "career",
+      "paragraphs": 1,
+      "fragmentId": null,
+      "firstParagraphSample": "이번 주의 진로 감각은 아직 결과를 단정하기보다 작은 습관을 살피는 게 좋아요. 해야 할 일을 짧게 나누고, 힘들 때는 바로 도움을 요청하면 흐름이 안정돼요."
+    },
+    {
+      "fixture": "30-jeolgi-lidong-boundary-tiered",
+      "period": "thisWeek",
+      "category": "study_document",
+      "paragraphs": 1,
+      "fragmentId": null,
+      "firstParagraphSample": "이번 주의 기록과 준비는 아직 결과를 단정하기보다 작은 습관을 살피는 게 좋아요. 해야 할 일을 짧게 나누고, 힘들 때는 바로 도움을 요청하면 흐름이 안정돼요."
+    },
+    {
+      "fixture": "30-jeolgi-lidong-boundary-tiered",
+      "period": "thisMonth",
+      "category": "wealth",
+      "paragraphs": 1,
+      "fragmentId": null,
+      "firstParagraphSample": "이번 달 (5월)의 돈과 물건 관리는 아직 결과를 단정하기보다 작은 습관을 살피는 게 좋아요. 해야 할 일을 짧게 나누고, 힘들 때는 바로 도움을 요청하면 흐름이 안정돼요."
+    },
+    {
+      "fixture": "30-jeolgi-lidong-boundary-tiered",
+      "period": "thisMonth",
+      "category": "romance",
+      "paragraphs": 1,
+      "fragmentId": null,
+      "firstParagraphSample": "이번 달 (5월)의 관계와 마음은 아직 결과를 단정하기보다 작은 습관을 살피는 게 좋아요. 해야 할 일을 짧게 나누고, 힘들 때는 바로 도움을 요청하면 흐름이 안정돼요."
+    },
+    {
+      "fixture": "30-jeolgi-lidong-boundary-tiered",
+      "period": "thisMonth",
+      "category": "study_document",
+      "paragraphs": 1,
+      "fragmentId": null,
+      "firstParagraphSample": "이번 달 (5월)의 기록과 준비는 아직 결과를 단정하기보다 작은 습관을 살피는 게 좋아요. 해야 할 일을 짧게 나누고, 힘들 때는 바로 도움을 요청하면 흐름이 안정돼요."
+    },
+    {
+      "fixture": "30-jeolgi-lidong-boundary-tiered",
+      "period": "thisMonth",
+      "category": "health_stress",
+      "paragraphs": 1,
+      "fragmentId": null,
+      "firstParagraphSample": "이번 달 (5월)의 긴장과 회복은 아직 결과를 단정하기보다 작은 습관을 살피는 게 좋아요. 해야 할 일을 짧게 나누고, 힘들 때는 바로 도움을 요청하면 흐름이 안정돼요."
+    },
+    {
+      "fixture": "30-jeolgi-lidong-boundary-tiered",
+      "period": "thisYear",
+      "category": "wealth",
+      "paragraphs": 1,
+      "fragmentId": null,
+      "firstParagraphSample": "올해 (2026년)의 돈과 물건 관리는 아직 결과를 단정하기보다 작은 습관을 살피는 게 좋아요. 해야 할 일을 짧게 나누고, 힘들 때는 바로 도움을 요청하면 흐름이 안정돼요."
+    },
+    {
+      "fixture": "30-jeolgi-lidong-boundary-tiered",
+      "period": "thisYear",
+      "category": "romance",
+      "paragraphs": 1,
+      "fragmentId": null,
+      "firstParagraphSample": "올해 (2026년)의 관계와 마음은 아직 결과를 단정하기보다 작은 습관을 살피는 게 좋아요. 해야 할 일을 짧게 나누고, 힘들 때는 바로 도움을 요청하면 흐름이 안정돼요."
+    },
+    {
+      "fixture": "30-jeolgi-lidong-boundary-tiered",
+      "period": "thisYear",
+      "category": "career",
+      "paragraphs": 1,
+      "fragmentId": null,
+      "firstParagraphSample": "올해 (2026년)의 진로 감각은 아직 결과를 단정하기보다 작은 습관을 살피는 게 좋아요. 해야 할 일을 짧게 나누고, 힘들 때는 바로 도움을 요청하면 흐름이 안정돼요."
+    },
+    {
+      "fixture": "30-jeolgi-lidong-boundary-tiered",
+      "period": "thisYear",
+      "category": "study_document",
+      "paragraphs": 1,
+      "fragmentId": null,
+      "firstParagraphSample": "올해 (2026년)의 기록과 준비는 아직 결과를 단정하기보다 작은 습관을 살피는 게 좋아요. 해야 할 일을 짧게 나누고, 힘들 때는 바로 도움을 요청하면 흐름이 안정돼요."
+    },
+    {
+      "fixture": "31-newborn-infant-male-tiered",
+      "period": "life",
+      "category": "wealth",
+      "paragraphs": 1,
+      "fragmentId": null,
+      "firstParagraphSample": "인생 전체의 돈과 물건 관리는 아직 결과를 단정하기보다 작은 습관을 살피는 게 좋아요. 해야 할 일을 짧게 나누고, 힘들 때는 바로 도움을 요청하면 흐름이 안정돼요."
+    },
+    {
+      "fixture": "31-newborn-infant-male-tiered",
+      "period": "life",
+      "category": "romance",
+      "paragraphs": 1,
+      "fragmentId": null,
+      "firstParagraphSample": "인생 전체의 관계와 마음은 아직 결과를 단정하기보다 작은 습관을 살피는 게 좋아요. 해야 할 일을 짧게 나누고, 힘들 때는 바로 도움을 요청하면 흐름이 안정돼요."
+    },
+    {
+      "fixture": "31-newborn-infant-male-tiered",
+      "period": "life",
+      "category": "career",
+      "paragraphs": 1,
+      "fragmentId": null,
+      "firstParagraphSample": "인생 전체의 진로 감각은 아직 결과를 단정하기보다 작은 습관을 살피는 게 좋아요. 해야 할 일을 짧게 나누고, 힘들 때는 바로 도움을 요청하면 흐름이 안정돼요."
+    },
+    {
+      "fixture": "31-newborn-infant-male-tiered",
+      "period": "life",
+      "category": "study_document",
+      "paragraphs": 1,
+      "fragmentId": null,
+      "firstParagraphSample": "인생 전체의 기록과 준비는 아직 결과를 단정하기보다 작은 습관을 살피는 게 좋아요. 해야 할 일을 짧게 나누고, 힘들 때는 바로 도움을 요청하면 흐름이 안정돼요."
+    },
+    {
+      "fixture": "31-newborn-infant-male-tiered",
+      "period": "today",
+      "category": "wealth",
+      "paragraphs": 1,
+      "fragmentId": null,
+      "firstParagraphSample": "오늘 (5월 5일)의 돈과 물건 관리는 아직 결과를 단정하기보다 작은 습관을 살피는 게 좋아요. 해야 할 일을 짧게 나누고, 힘들 때는 바로 도움을 요청하면 흐름이 안정돼요."
+    },
+    {
+      "fixture": "31-newborn-infant-male-tiered",
+      "period": "today",
+      "category": "romance",
+      "paragraphs": 1,
+      "fragmentId": null,
+      "firstParagraphSample": "오늘 (5월 5일)의 관계와 마음은 아직 결과를 단정하기보다 작은 습관을 살피는 게 좋아요. 해야 할 일을 짧게 나누고, 힘들 때는 바로 도움을 요청하면 흐름이 안정돼요."
+    },
+    {
+      "fixture": "31-newborn-infant-male-tiered",
+      "period": "today",
+      "category": "career",
+      "paragraphs": 1,
+      "fragmentId": null,
+      "firstParagraphSample": "오늘 (5월 5일)의 진로 감각은 아직 결과를 단정하기보다 작은 습관을 살피는 게 좋아요. 해야 할 일을 짧게 나누고, 힘들 때는 바로 도움을 요청하면 흐름이 안정돼요."
+    },
+    {
+      "fixture": "31-newborn-infant-male-tiered",
+      "period": "today",
+      "category": "study_document",
+      "paragraphs": 1,
+      "fragmentId": null,
+      "firstParagraphSample": "오늘 (5월 5일)의 기록과 준비는 아직 결과를 단정하기보다 작은 습관을 살피는 게 좋아요. 해야 할 일을 짧게 나누고, 힘들 때는 바로 도움을 요청하면 흐름이 안정돼요."
+    },
+    {
+      "fixture": "31-newborn-infant-male-tiered",
+      "period": "today",
+      "category": "health_stress",
+      "paragraphs": 1,
+      "fragmentId": null,
+      "firstParagraphSample": "오늘 (5월 5일)의 긴장과 회복은 아직 결과를 단정하기보다 작은 습관을 살피는 게 좋아요. 해야 할 일을 짧게 나누고, 힘들 때는 바로 도움을 요청하면 흐름이 안정돼요."
+    },
+    {
+      "fixture": "31-newborn-infant-male-tiered",
+      "period": "thisWeek",
+      "category": "wealth",
+      "paragraphs": 1,
+      "fragmentId": null,
+      "firstParagraphSample": "이번 주의 돈과 물건 관리는 아직 결과를 단정하기보다 작은 습관을 살피는 게 좋아요. 해야 할 일을 짧게 나누고, 힘들 때는 바로 도움을 요청하면 흐름이 안정돼요."
+    },
+    {
+      "fixture": "31-newborn-infant-male-tiered",
+      "period": "thisWeek",
+      "category": "romance",
+      "paragraphs": 1,
+      "fragmentId": null,
+      "firstParagraphSample": "이번 주의 관계와 마음은 아직 결과를 단정하기보다 작은 습관을 살피는 게 좋아요. 해야 할 일을 짧게 나누고, 힘들 때는 바로 도움을 요청하면 흐름이 안정돼요."
+    },
+    {
+      "fixture": "31-newborn-infant-male-tiered",
+      "period": "thisWeek",
+      "category": "career",
+      "paragraphs": 1,
+      "fragmentId": null,
+      "firstParagraphSample": "이번 주의 진로 감각은 아직 결과를 단정하기보다 작은 습관을 살피는 게 좋아요. 해야 할 일을 짧게 나누고, 힘들 때는 바로 도움을 요청하면 흐름이 안정돼요."
+    },
+    {
+      "fixture": "31-newborn-infant-male-tiered",
+      "period": "thisWeek",
+      "category": "study_document",
+      "paragraphs": 1,
+      "fragmentId": null,
+      "firstParagraphSample": "이번 주의 기록과 준비는 아직 결과를 단정하기보다 작은 습관을 살피는 게 좋아요. 해야 할 일을 짧게 나누고, 힘들 때는 바로 도움을 요청하면 흐름이 안정돼요."
+    },
+    {
+      "fixture": "31-newborn-infant-male-tiered",
+      "period": "thisMonth",
+      "category": "wealth",
+      "paragraphs": 1,
+      "fragmentId": null,
+      "firstParagraphSample": "이번 달 (5월)의 돈과 물건 관리는 아직 결과를 단정하기보다 작은 습관을 살피는 게 좋아요. 해야 할 일을 짧게 나누고, 힘들 때는 바로 도움을 요청하면 흐름이 안정돼요."
+    },
+    {
+      "fixture": "31-newborn-infant-male-tiered",
+      "period": "thisMonth",
+      "category": "romance",
+      "paragraphs": 1,
+      "fragmentId": null,
+      "firstParagraphSample": "이번 달 (5월)의 관계와 마음은 아직 결과를 단정하기보다 작은 습관을 살피는 게 좋아요. 해야 할 일을 짧게 나누고, 힘들 때는 바로 도움을 요청하면 흐름이 안정돼요."
+    },
+    {
+      "fixture": "31-newborn-infant-male-tiered",
+      "period": "thisMonth",
+      "category": "study_document",
+      "paragraphs": 1,
+      "fragmentId": null,
+      "firstParagraphSample": "이번 달 (5월)의 기록과 준비는 아직 결과를 단정하기보다 작은 습관을 살피는 게 좋아요. 해야 할 일을 짧게 나누고, 힘들 때는 바로 도움을 요청하면 흐름이 안정돼요."
+    },
+    {
+      "fixture": "31-newborn-infant-male-tiered",
+      "period": "thisMonth",
+      "category": "health_stress",
+      "paragraphs": 1,
+      "fragmentId": null,
+      "firstParagraphSample": "이번 달 (5월)의 긴장과 회복은 아직 결과를 단정하기보다 작은 습관을 살피는 게 좋아요. 해야 할 일을 짧게 나누고, 힘들 때는 바로 도움을 요청하면 흐름이 안정돼요."
+    },
+    {
+      "fixture": "31-newborn-infant-male-tiered",
+      "period": "thisYear",
+      "category": "wealth",
+      "paragraphs": 1,
+      "fragmentId": null,
+      "firstParagraphSample": "올해 (2026년)의 돈과 물건 관리는 아직 결과를 단정하기보다 작은 습관을 살피는 게 좋아요. 해야 할 일을 짧게 나누고, 힘들 때는 바로 도움을 요청하면 흐름이 안정돼요."
+    },
+    {
+      "fixture": "31-newborn-infant-male-tiered",
+      "period": "thisYear",
+      "category": "romance",
+      "paragraphs": 1,
+      "fragmentId": null,
+      "firstParagraphSample": "올해 (2026년)의 관계와 마음은 아직 결과를 단정하기보다 작은 습관을 살피는 게 좋아요. 해야 할 일을 짧게 나누고, 힘들 때는 바로 도움을 요청하면 흐름이 안정돼요."
+    },
+    {
+      "fixture": "31-newborn-infant-male-tiered",
+      "period": "thisYear",
+      "category": "career",
+      "paragraphs": 1,
+      "fragmentId": null,
+      "firstParagraphSample": "올해 (2026년)의 진로 감각은 아직 결과를 단정하기보다 작은 습관을 살피는 게 좋아요. 해야 할 일을 짧게 나누고, 힘들 때는 바로 도움을 요청하면 흐름이 안정돼요."
+    },
+    {
+      "fixture": "31-newborn-infant-male-tiered",
+      "period": "thisYear",
+      "category": "study_document",
+      "paragraphs": 1,
+      "fragmentId": null,
+      "firstParagraphSample": "올해 (2026년)의 기록과 준비는 아직 결과를 단정하기보다 작은 습관을 살피는 게 좋아요. 해야 할 일을 짧게 나누고, 힘들 때는 바로 도움을 요청하면 흐름이 안정돼요."
+    }
+  ]
+}
