@@ -66,9 +66,12 @@
     },
     {
       "schemaVersion": "spring-ts.narrative-fragment.v1",
-      "fragmentId": "study_document.thisWeek.brief.strong.006",
+      "fragmentId": "study_document.thisWeek.brief.strong.neutral.006",
       "axis": { "category": "study_document", "period": "thisWeek", "depth": "brief" },
-      "gating": { "dayMasterStrength": ["STRONG", "EXTREME_STRONG"] },
+      "gating": {
+        "dayMasterStrength": ["STRONG", "EXTREME_STRONG"],
+        "yongshinAlignment": ["neutral"]
+      },
       "templateTokens": [
         { "kind": "text", "value": "추진력으로 한 트랙을 마무리할 만한 주예요." }
       ],
