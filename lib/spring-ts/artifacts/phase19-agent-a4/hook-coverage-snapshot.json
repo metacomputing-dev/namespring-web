@@ -1,0 +1,79 @@
+{
+  "policy": "spring-ts.brief-hook-coverage.v1",
+  "samplesDir": "artifacts/sample-outputs-2026-05-05-phase3",
+  "sampleFilesScanned": 32,
+  "authored": {
+    "totalFragmentsWithHook": 34,
+    "distinctHookStrings": 34,
+    "perCategoryPeriod": {
+      "overall|today": 1,
+      "overall|thisWeek": 1,
+      "career|today": 1,
+      "career|thisWeek": 1,
+      "career|thisMonth": 1,
+      "career|thisYear": 1,
+      "career|life": 2,
+      "wealth|thisYear": 3,
+      "health|today": 2,
+      "health|thisWeek": 1,
+      "health|thisYear": 1,
+      "health_stress|thisMonth": 1,
+      "romance|thisMonth": 1,
+      "romance|thisYear": 1,
+      "family|today": 1,
+      "family|thisMonth": 1,
+      "family|thisYear": 2,
+      "family|life": 1,
+      "academic|thisWeek": 1,
+      "study_document|today": 1,
+      "study_document|thisWeek": 1,
+      "study_document|life": 1,
+      "expression_children|today": 1,
+      "expression_children|thisWeek": 1,
+      "expression_children|thisMonth": 1,
+      "expression_children|thisYear": 1,
+      "movement|today": 2,
+      "movement|thisWeek": 1
+    }
+  },
+  "emitted": {
+    "totalEmitCells": 294,
+    "distinctSelectedFragmentIds": 34,
+    "distinctHookStrings": 34
+  },
+  "dormancy": {
+    "byFragmentSlot": {
+      "count": 0,
+      "entries": []
+    },
+    "byHookText": {
+      "count": 0,
+      "entries": []
+    }
+  },
+  "fragility": {
+    "lowestEmitTail": [
+      {
+        "fragmentId": "family.today.brief.young.003",
+        "count": 4
+      },
+      {
+        "fragmentId": "health.today.brief.strong.elder.001",
+        "count": 4
+      },
+      {
+        "fragmentId": "romance.thisYear.brief.midlife.001",
+        "count": 4
+      },
+      {
+        "fragmentId": "study_document.today.brief.adult.005",
+        "count": 4
+      },
+      {
+        "fragmentId": "wealth.thisYear.brief.balanced.neutral.004",
+        "count": 2
+      }
+    ]
+  },
+  "totalViolations": 0
+}
