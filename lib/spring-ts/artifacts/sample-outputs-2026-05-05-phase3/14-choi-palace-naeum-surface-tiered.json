@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-05-07T12:47:08.203Z",
+  "generatedAt": "2026-05-07T12:51:23.988Z",
   "targetDate": "2026-05-05T00:00:00+09:00",
   "sampleId": "choi-palace-naeum-surface-tiered",
   "description": "12궁 / 60갑자 surface ON 시나리오 (declared opt-in). saju-ts 측 데이터 포트 이전이면 surfacePalace/surfaceNaeum 이 추가 출력을 내지 않으며, 계약상 opt-in 시그니처만 노출한다. tieredMatrix 는 정상 출력.",
@@ -770,7 +770,7 @@
     },
     "meta": {
       "version": "1.0.0",
-      "generatedAt": "2026-05-07T12:47:16.413Z",
+      "generatedAt": "2026-05-07T12:51:32.326Z",
       "schoolPreset": {
         "selected": "korean",
         "source": "default",
@@ -9441,10 +9441,10 @@
                     "tokens": [
                       {
                         "kind": "text",
-                        "value": "이번 달 이동운은 갑작스러운 한 번의 큰 변화보다 활동 범위를 천천히 넓혀 가는 호흡이 잘 맞는 모습이에요. 익숙한 동선을 한 축으로 두고 흐름을 한 걸음씩 키워 가면 한 달의 흐름이 단단해져요."
+                        "value": "이번 달 이동운은 갑작스러운 한 번의 큰 변화가 아니라, 활동 범위를 천천히 넓혀 가는 호흡이 잘 맞는 모습이에요. 익숙한 동선을 한 축으로 두고 흐름을 한 걸음씩 키워 가면 한 달의 흐름이 단단해져요."
                       }
                     ],
-                    "plainText": "이번 달 이동운은 갑작스러운 한 번의 큰 변화보다 활동 범위를 천천히 넓혀 가는 호흡이 잘 맞는 모습이에요. 익숙한 동선을 한 축으로 두고 흐름을 한 걸음씩 키워 가면 한 달의 흐름이 단단해져요."
+                    "plainText": "이번 달 이동운은 갑작스러운 한 번의 큰 변화가 아니라, 활동 범위를 천천히 넓혀 가는 호흡이 잘 맞는 모습이에요. 익숙한 동선을 한 축으로 두고 흐름을 한 걸음씩 키워 가면 한 달의 흐름이 단단해져요."
                   },
                   {
                     "tokens": [
@@ -9539,29 +9539,6 @@
                       }
                     ],
                     "plainText": "#대운궁실의 흐름이 강해지는 시기엔 한 발짝 더 내디뎌 봐도 좋아요."
-                  },
-                  {
-                    "tokens": [
-                      {
-                        "kind": "tag",
-                        "tagId": "cheondeokgwiin",
-                        "label": "천덕귀인"
-                      },
-                      {
-                        "kind": "text",
-                        "value": "의 자리가 "
-                      },
-                      {
-                        "kind": "tag",
-                        "tagId": "yeokma",
-                        "label": "역마"
-                      },
-                      {
-                        "kind": "text",
-                        "value": "의 자극과 함께 보이는 사주는 새로운 환경의 호흡을 부드럽게 풀어 주는 자리가 이번 달 안에 한두 번 등장해요. 거리감 있는 일정도 곁의 작은 도움 한 번 한 번이 자리를 받쳐 주는 흐름이라, 한 번에 멀리 가기보다 작은 발걸음이 쌓이는 호흡이 자기 페이스에 잘 맞아요."
-                      }
-                    ],
-                    "plainText": "#천덕귀인의 자리가 #역마의 자극과 함께 보이는 사주는 새로운 환경의 호흡을 부드럽게 풀어 주는 자리가 이번 달 안에 한두 번 등장해요. 거리감 있는 일정도 곁의 작은 도움 한 번 한 번이 자리를 받쳐 주는 흐름이라, 한 번에 멀리 가기보다 작은 발걸음이 쌓이는 호흡이 자기 페이스에 잘 맞아요."
                   }
                 ]
               },
@@ -9604,8 +9581,7 @@
                     "yeokma",
                     "jojangung",
                     "yongshin",
-                    "daewoonGungsil",
-                    "cheondeokgwiin"
+                    "daewoonGungsil"
                   ]
                 }
               }
@@ -12492,7 +12468,7 @@
       },
       "meta": {
         "schemaVersion": "spring-ts.tiered-matrix.v1",
-        "generatedAt": "2026-05-07T12:47:16.413Z",
+        "generatedAt": "2026-05-07T12:51:32.326Z",
         "selectionSeed": "1986|4|19|5|45|male|2026-05-04T15:00:00.000Z",
         "templateContractVersion": "1.0.0",
         "contentSource": "authored",
