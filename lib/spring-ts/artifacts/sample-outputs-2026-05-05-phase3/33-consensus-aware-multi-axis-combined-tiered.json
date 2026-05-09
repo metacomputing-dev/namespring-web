@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-05-09T06:57:05.502Z",
+  "generatedAt": "2026-05-09T07:07:05.891Z",
   "targetDate": "2026-05-05T00:00:00+09:00",
   "sampleId": "consensus-aware-multi-axis-combined-tiered",
   "description": "yongshinMode=consensus_aware + evaluatorMode=multi_axis 동시 활성. 독립 명리 방법 (억부/조후/격국/통관/병약) 의 consensus scoreboard 와 axisStrength ≥2 축 다축 가중이 함께 sajuPriority 에 반영되는 PR-K-9 + consensus 결합 fixture.",
@@ -1266,7 +1266,7 @@
     },
     "meta": {
       "version": "1.0.0",
-      "generatedAt": "2026-05-09T06:57:21.340Z",
+      "generatedAt": "2026-05-09T07:07:23.128Z",
       "schoolPreset": {
         "selected": "korean",
         "source": "default",
@@ -9631,6 +9631,15 @@
                       }
                     ],
                     "plainText": "자녀와의 관계 가능성도 함께 비치지만 단정 없이 흐르는 게 좋아요. 이번 달의 한 협업이 다음 분기 작업의 다리예요."
+                  },
+                  {
+                    "tokens": [
+                      {
+                        "kind": "text",
+                        "value": "한 분기 자리에서 보면 이번 달의 작은 협업 한 자리가 다음 분기 자기 표현의 단단한 디딤판으로 남아요. 가까운 사람과 함께 놓아 둔 한 줄이 자기 작업의 자취를 또렷하게 받쳐 줘요."
+                      }
+                    ],
+                    "plainText": "한 분기 자리에서 보면 이번 달의 작은 협업 한 자리가 다음 분기 자기 표현의 단단한 디딤판으로 남아요. 가까운 사람과 함께 놓아 둔 한 줄이 자기 작업의 자취를 또렷하게 받쳐 줘요."
                   }
                 ],
                 "livingTips": [
@@ -13011,7 +13020,7 @@
       },
       "meta": {
         "schemaVersion": "spring-ts.tiered-matrix.v1",
-        "generatedAt": "2026-05-09T06:57:21.340Z",
+        "generatedAt": "2026-05-09T07:07:23.128Z",
         "selectionSeed": "1987|10|5|15|30|female|2026-05-04T15:00:00.000Z",
         "templateContractVersion": "1.0.0",
         "contentSource": "authored",
