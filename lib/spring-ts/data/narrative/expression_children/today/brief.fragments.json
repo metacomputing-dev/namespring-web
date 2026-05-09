@@ -395,6 +395,39 @@
         "copyrightNote": "No source prose copied; original authored prose.",
         "authorityTruthEligible": false
       }
+    },
+    {
+      "schemaVersion": "spring-ts.narrative-fragment.v1",
+      "fragmentId": "expression_children.today.brief.female.teen.summer.013",
+      "axis": {
+        "category": "expression_children",
+        "period": "today",
+        "depth": "brief"
+      },
+      "gating": {
+        "gender": ["female"],
+        "ageBand": ["10-19"],
+        "birthSeason": ["summer"]
+      },
+      "templateTokens": [
+        {
+          "kind": "text",
+          "value": "오늘은 여름방학 노트에 한 줄 또렷이 적으며 마음을 정돈하는 흐름이에요."
+        }
+      ],
+      "hook": "여름방학 노트 한 줄 또렷이 적어요.",
+      "tags": [],
+      "aiGenerated": true,
+      "sourceTier": {
+        "tier": "T1_HYPOTHESIS",
+        "sourceType": "training_derived",
+        "sourceUrl": null,
+        "accessedAt": "2026-05-09",
+        "quoteShort": null,
+        "humanInterpretation": "P36-A4 distinct-hook expansion: expression_children/today brief for female × 10-19 × summer-born teen. Targets #04 (low-tier, 5 hooks). 3-dim gating disjoint from prior P##-A# slots. Display-only narrative.",
+        "copyrightNote": "No source prose copied; original authored prose.",
+        "authorityTruthEligible": false
+      }
     }
   ]
 }

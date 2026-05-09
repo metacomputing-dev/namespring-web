@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-05-09T07:04:12.090Z",
+  "generatedAt": "2026-05-09T07:17:49.336Z",
   "targetDate": "2026-05-05T00:00:00+09:00",
   "sampleId": "kim-seongsu-special-format-candidate-tiered",
   "description": "입력 의도: 외격 후보(화기격 계열) 고전 사례. precisionConfig 로 tieredMatrix 만 결합. 외격 판정은 엔진이 결정한다.",
@@ -1338,7 +1338,7 @@
     },
     "meta": {
       "version": "1.0.0",
-      "generatedAt": "2026-05-09T07:04:21.592Z",
+      "generatedAt": "2026-05-09T07:17:58.180Z",
       "schoolPreset": {
         "selected": "korean",
         "source": "default",
@@ -8746,15 +8746,6 @@
                       }
                     ],
                     "plainText": "월말 무렵엔 컨디션 점검이나 충분한 휴식 자리를 한 번 챙기면, 다음 달 흐름까지 가볍게 시작돼요."
-                  },
-                  {
-                    "tokens": [
-                      {
-                        "kind": "text",
-                        "value": "비유하자면 이번 달의 강한 체력은 잘 달군 가마솥 같은 자리예요. 불을 한껏 올린 가마솥도 식는 시간이 필요하듯, 한 달 안에 푹 쉬는 자리를 한두 번 챙겨 두면 다음 달에도 자기 자리가 단단해져요."
-                      }
-                    ],
-                    "plainText": "비유하자면 이번 달의 강한 체력은 잘 달군 가마솥 같은 자리예요. 불을 한껏 올린 가마솥도 식는 시간이 필요하듯, 한 달 안에 푹 쉬는 자리를 한두 번 챙겨 두면 다음 달에도 자기 자리가 단단해져요."
                   }
                 ],
                 "livingTips": [
@@ -13248,12 +13239,12 @@
       },
       "meta": {
         "schemaVersion": "spring-ts.tiered-matrix.v1",
-        "generatedAt": "2026-05-09T07:04:21.592Z",
+        "generatedAt": "2026-05-09T07:17:58.180Z",
         "selectionSeed": "1958|7|11|13|0|male|2026-05-04T15:00:00.000Z",
         "templateContractVersion": "1.0.0",
         "contentSource": "authored",
-        "fragmentCount": 4185,
-        "aiGeneratedFragmentCount": 4185
+        "fragmentCount": 4195,
+        "aiGeneratedFragmentCount": 4195
       }
     }
   }

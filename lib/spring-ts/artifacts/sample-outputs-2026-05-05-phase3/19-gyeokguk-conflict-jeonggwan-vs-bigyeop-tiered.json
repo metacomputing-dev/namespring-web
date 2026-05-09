@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-05-09T07:04:12.090Z",
+  "generatedAt": "2026-05-09T07:17:49.336Z",
   "targetDate": "2026-05-05T00:00:00+09:00",
   "sampleId": "gyeokguk-conflict-jeonggwan-vs-bigyeop-tiered",
   "description": "격국 충돌 case 1: 정관 후보와 비견(겁재) 후보가 같이 잡히기 쉬운 입력. gyeokgukSelectionRule=jungki_transparent 로 월지 중기 투간 룰을 활성화하여 후보 ranking 의 elasticity 를 노출하는 케이스. 최종 격국 판정은 엔진이 결정한다.",
@@ -1303,7 +1303,7 @@
     },
     "meta": {
       "version": "1.0.0",
-      "generatedAt": "2026-05-09T07:04:25.966Z",
+      "generatedAt": "2026-05-09T07:18:02.364Z",
       "schoolPreset": {
         "selected": "korean",
         "source": "default",
@@ -2703,15 +2703,6 @@
                       }
                     ],
                     "plainText": "자기 페이스를 지킨 사람이 가장 멀리 가는 결이에요."
-                  },
-                  {
-                    "tokens": [
-                      {
-                        "kind": "text",
-                        "value": "비유하자면 평생의 일자리는 천천히 자라는 한 그루 나무 같은 자리예요. 매일 한 뼘씩의 변화는 보이지 않아도, 십 년의 자리에서 펼쳐 보면 자기만의 가지와 그늘이 또렷한 한 풍경으로 모여 있어요."
-                      }
-                    ],
-                    "plainText": "비유하자면 평생의 일자리는 천천히 자라는 한 그루 나무 같은 자리예요. 매일 한 뼘씩의 변화는 보이지 않아도, 십 년의 자리에서 펼쳐 보면 자기만의 가지와 그늘이 또렷한 한 풍경으로 모여 있어요."
                   }
                 ],
                 "livingTips": [
@@ -3700,7 +3691,8 @@
             "meaningfulness": "meaningful",
             "stars": 1,
             "brief": {
-              "headline": "특별한 일 없이 잔잔하게 마무리되는 하루예요."
+              "headline": "오늘은 여름 한낮의 열기 속에서도 한 호흡 고르게 쉬며 균형을 잡는 흐름이에요.",
+              "hook": "여름 한낮에 한 호흡 고르게 쉬어요."
             },
             "standard": {
               "paragraphs": [
@@ -3910,13 +3902,19 @@
             },
             "selectedFragments": {
               "brief": {
-                "fragmentId": "overall.today.brief.balanced.neutral.008",
+                "fragmentId": "overall.today.brief.male.midlife.summer.balanced.014",
                 "gating": {
+                  "gender": [
+                    "male"
+                  ],
+                  "ageBand": [
+                    "40-54"
+                  ],
+                  "birthSeason": [
+                    "summer"
+                  ],
                   "dayMasterStrength": [
                     "BALANCED"
-                  ],
-                  "yongshinAlignment": [
-                    "neutral"
                   ]
                 },
                 "tags": []
@@ -13206,12 +13204,12 @@
       },
       "meta": {
         "schemaVersion": "spring-ts.tiered-matrix.v1",
-        "generatedAt": "2026-05-09T07:04:25.966Z",
+        "generatedAt": "2026-05-09T07:18:02.364Z",
         "selectionSeed": "1985|5|25|8|45|male|2026-05-04T15:00:00.000Z",
         "templateContractVersion": "1.0.0",
         "contentSource": "authored",
-        "fragmentCount": 4185,
-        "aiGeneratedFragmentCount": 4185
+        "fragmentCount": 4195,
+        "aiGeneratedFragmentCount": 4195
       }
     }
   }

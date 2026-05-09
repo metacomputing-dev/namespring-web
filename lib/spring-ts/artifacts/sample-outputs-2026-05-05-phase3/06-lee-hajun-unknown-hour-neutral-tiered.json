@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-05-09T07:04:12.090Z",
+  "generatedAt": "2026-05-09T07:17:49.336Z",
   "targetDate": "2026-05-05T00:00:00+09:00",
   "sampleId": "lee-hajun-unknown-hour-neutral-tiered",
   "description": "출생 시각 미상, 중립 성별 입력에서 불확실성 안내와 tiered 매트릭스를 확인하는 케이스.",
@@ -1302,7 +1302,7 @@
     },
     "meta": {
       "version": "1.0.0",
-      "generatedAt": "2026-05-09T07:04:18.782Z",
+      "generatedAt": "2026-05-09T07:17:55.577Z",
       "schoolPreset": {
         "selected": "korean",
         "source": "default",
@@ -7157,15 +7157,6 @@
                       }
                     ],
                     "plainText": "형제와의 짧은 모임 한 번도 한 주의 따뜻한 흐름으로 모여요."
-                  },
-                  {
-                    "tokens": [
-                      {
-                        "kind": "text",
-                        "value": "한 주 안에 본가에 짧은 안부 한 통, 형제에게 메시지 한 줄을 정해진 요일에 보내 두세요. 같은 요일의 짧은 호흡이 한 달 단위로 모이면, 자기 살림과 본가 자리 사이의 간격이 따뜻한 자리로 메워져요."
-                      }
-                    ],
-                    "plainText": "한 주 안에 본가에 짧은 안부 한 통, 형제에게 메시지 한 줄을 정해진 요일에 보내 두세요. 같은 요일의 짧은 호흡이 한 달 단위로 모이면, 자기 살림과 본가 자리 사이의 간격이 따뜻한 자리로 메워져요."
                   }
                 ],
                 "livingTips": [
@@ -10901,15 +10892,6 @@
                       }
                     ],
                     "plainText": "12월에 자기만의 노트가 한 권으로 남아 있다면 충분히 잘 보낸 한 해예요."
-                  },
-                  {
-                    "tokens": [
-                      {
-                        "kind": "text",
-                        "value": "비유하자면 한 해의 학업은 빈 노트 한 권에 분기마다 한 챕터를 천천히 채워 가는 자리예요. 한 챕터의 두께가 옆자리 또래의 속도와 달라도 12월에 펼쳐 보면 자기 손자취가 또렷한 한 권의 색을 띠고 있어요."
-                      }
-                    ],
-                    "plainText": "비유하자면 한 해의 학업은 빈 노트 한 권에 분기마다 한 챕터를 천천히 채워 가는 자리예요. 한 챕터의 두께가 옆자리 또래의 속도와 달라도 12월에 펼쳐 보면 자기 손자취가 또렷한 한 권의 색을 띠고 있어요."
                   }
                 ],
                 "livingTips": [
@@ -13141,12 +13123,12 @@
       },
       "meta": {
         "schemaVersion": "spring-ts.tiered-matrix.v1",
-        "generatedAt": "2026-05-09T07:04:18.782Z",
+        "generatedAt": "2026-05-09T07:17:55.577Z",
         "selectionSeed": "2001|1|15|0|0|neutral|2026-05-04T15:00:00.000Z",
         "templateContractVersion": "1.0.0",
         "contentSource": "authored",
-        "fragmentCount": 4185,
-        "aiGeneratedFragmentCount": 4185
+        "fragmentCount": 4195,
+        "aiGeneratedFragmentCount": 4195
       }
     }
   }

@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-05-09T07:04:12.090Z",
+  "generatedAt": "2026-05-09T07:17:49.336Z",
   "targetDate": "2026-05-05T00:00:00+09:00",
   "sampleId": "newborn-infant-male-tiered",
   "description": "신생아 (2026 봄 출생, 현재 0세) — 보호자 perspective audience cell 활성화 fixture. life-stage 의 가장 이른 단계 narrative 가 fallback 되는지 확인. tieredMatrix 의 신생아 안전 어조 (성인 metaphor 회피) 점검 케이스.",
@@ -1273,7 +1273,7 @@
     },
     "meta": {
       "version": "1.0.0",
-      "generatedAt": "2026-05-09T07:04:30.893Z",
+      "generatedAt": "2026-05-09T07:18:07.511Z",
       "schoolPreset": {
         "selected": "korean",
         "source": "default",
@@ -4237,7 +4237,8 @@
               "meaningfulness": "meaningful",
               "stars": 1,
               "brief": {
-                "headline": "오늘 한 줄 더 적어 두면 든든해지는 날이에요."
+                "headline": "오늘은 봄볕이 드는 책상 앞에 또박또박 앉아 한 글자씩 짚는 흐름이에요.",
+                "hook": "봄볕 책상 앞에 또박또박 앉아요."
               },
               "standard": {
                 "paragraphs": [
@@ -4365,11 +4366,16 @@
               },
               "selectedFragments": {
                 "brief": {
-                  "fragmentId": "study_document.today.brief.young.004",
+                  "fragmentId": "study_document.today.brief.male.child.spring.009",
                   "gating": {
+                    "gender": [
+                      "male"
+                    ],
                     "ageBand": [
-                      "0-9",
-                      "10-19"
+                      "0-9"
+                    ],
+                    "birthSeason": [
+                      "spring"
                     ]
                   },
                   "tags": []
@@ -10571,12 +10577,12 @@
       },
       "meta": {
         "schemaVersion": "spring-ts.tiered-matrix.v1",
-        "generatedAt": "2026-05-09T07:04:30.893Z",
+        "generatedAt": "2026-05-09T07:18:07.511Z",
         "selectionSeed": "2026|3|15|11|0|male|2026-05-04T15:00:00.000Z",
         "templateContractVersion": "1.0.0",
         "contentSource": "authored",
-        "fragmentCount": 4185,
-        "aiGeneratedFragmentCount": 4185
+        "fragmentCount": 4195,
+        "aiGeneratedFragmentCount": 4195
       }
     }
   }

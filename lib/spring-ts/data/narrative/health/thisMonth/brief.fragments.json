@@ -240,6 +240,32 @@
         "copyrightNote": "No source prose copied; original interpretation.",
         "authorityTruthEligible": false
       }
+    },
+    {
+      "schemaVersion": "spring-ts.narrative-fragment.v1",
+      "fragmentId": "health.thisMonth.brief.male.child.winter.011",
+      "axis": { "category": "health", "period": "thisMonth", "depth": "brief" },
+      "gating": {
+        "gender": ["male"],
+        "ageBand": ["0-9"],
+        "birthSeason": ["winter"]
+      },
+      "templateTokens": [
+        { "kind": "text", "value": "이번 달은 겨울 모자를 따숩게 챙겨 외출 컨디션을 가꾸는 흐름이에요." }
+      ],
+      "hook": "이번 달 겨울 모자 따숩게 챙겨요.",
+      "tags": [],
+      "aiGenerated": true,
+      "sourceTier": {
+        "tier": "T1_HYPOTHESIS",
+        "sourceType": "training_derived",
+        "sourceUrl": null,
+        "accessedAt": "2026-05-09",
+        "quoteShort": null,
+        "humanInterpretation": "P36-A4 distinct-hook expansion: health/thisMonth brief for male × 0-9 × winter-born infant/child. Targets #30 (newborn winter, current 9 hooks). 3-dim gating disjoint from prior P##-A# slots. Caregiver-shared tone. Display-only narrative.",
+        "copyrightNote": "No source prose copied; original authored prose.",
+        "authorityTruthEligible": false
+      }
     }
   ]
 }

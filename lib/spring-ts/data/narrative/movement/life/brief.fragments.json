@@ -359,6 +359,39 @@
         "copyrightNote": "No source prose copied; original authored prose.",
         "authorityTruthEligible": false
       }
+    },
+    {
+      "schemaVersion": "spring-ts.narrative-fragment.v1",
+      "fragmentId": "movement.life.brief.female.teen.summer.012",
+      "axis": {
+        "category": "movement",
+        "period": "life",
+        "depth": "brief"
+      },
+      "gating": {
+        "gender": ["female"],
+        "ageBand": ["10-19"],
+        "birthSeason": ["summer"]
+      },
+      "templateTokens": [
+        {
+          "kind": "text",
+          "value": "성장 시기 여름밤 자전거 한 바퀴 돌며 새 동선이 또렷이 다듬어지는 흐름이에요."
+        }
+      ],
+      "hook": "여름밤 자전거 한 바퀴 돌아 봐요.",
+      "tags": [],
+      "aiGenerated": true,
+      "sourceTier": {
+        "tier": "T1_HYPOTHESIS",
+        "sourceType": "training_derived",
+        "sourceUrl": null,
+        "accessedAt": "2026-05-09",
+        "quoteShort": null,
+        "humanInterpretation": "P36-A4 distinct-hook expansion: movement/life brief for female × 10-19 × summer-born teen. Targets #04 (low-tier, 5 hooks). 3-dim gating disjoint from prior P##-A# slots. Teen-friendly summer mobility imagery. Display-only narrative.",
+        "copyrightNote": "No source prose copied; original authored prose.",
+        "authorityTruthEligible": false
+      }
     }
   ]
 }
