@@ -1,0 +1,502 @@
+=== Gate 1: typecheck ===
+
+> spring-ts@1.0.0 typecheck
+> tsc --noEmit
+
+=== Gate 2: ci:no-ai-policy ===
+
+> spring-ts@1.0.0 ci:no-ai-policy
+> node tools/check_no_ai_policy.mjs
+
+No-AI policy: PASS
+  fixtureFiles=429
+  sourceRegistryFiles=7
+  sourceTierRecords=7233
+  packageDependencies=179
+  runtimeSourceFiles=54
+=== Gate 3: ci:narrative-voice ===
+
+> spring-ts@1.0.0 ci:narrative-voice
+> node tools/narrative_voice_audit.mjs --max-plain-term-violations=0 --max-plain-tag-violations=0 --max-expert-untagged=0
+
+Narrative Voice Audit
+Bundles: 345
+Fragments: 4215 total, 3052 plain, 1163 expert
+Plain term violations: 0
+Plain tag violations: 0
+Untagged expert fragments: 0
+=== Gate 4: ci:narrative-truncated-endings ===
+
+> spring-ts@1.0.0 ci:narrative-truncated-endings
+> node tools/check_narrative_truncated_endings.mjs --max-violations=0
+
+Narrative truncated endings: filesScanned=344, violations=0
+  noun_bare_yo: 0
+  verb_stem_bare_yo: 0
+=== Gate 5: ci:narrative-tag-label-alignment ===
+
+> spring-ts@1.0.0 ci:narrative-tag-label-alignment
+> node tools/check_glossary_coverage.mjs --max-violations=0
+
+Narrative glossary coverage: glossaryTags=208, usedTags=111
+  missingFromGlossary: 0
+  labelMismatches: 0
+  totalViolations: 0
+=== Gate 6: ci:narrative-orphan-tags ===
+
+> spring-ts@1.0.0 ci:narrative-orphan-tags
+> node tools/check_orphan_tag_text.mjs --max-violations=0
+
+Narrative orphan-tag-text: glossaryLabels=194, filesScanned=344, fragmentsScanned=4050
+  totalViolations: 0
+=== Gate 7: ci:narrative-cell-axis ===
+
+> spring-ts@1.0.0 ci:narrative-cell-axis
+> node tools/narrative_cell_axis_report.mjs --max-missing-audience-cells=0 --max-missing-saju-core-cells=0 --max-missing-season-context-cells=0
+
+Narrative Cell Axis Report
+Bundles: 345
+Fragments: 4215 total, 4050 authored
+Cells: 165
+Missing audience cells: 0
+Missing sajuCore cells: 0
+Missing seasonContext cells: 0
+=== Gate 8: ci:narrative-density ===
+
+> spring-ts@1.0.0 ci:narrative-density
+> node tools/narrative_axis_pair_report.mjs --min-authored=2 --max-thin-combinations=0 --max-missing-combinations=0
+
+Narrative Axis Pair Report
+Bundles: 345
+Fragments: 4215 total, 4050 authored
+Pairs: 8
+Missing pair combinations: 0
+Thin pair combinations (<2 authored): 0, deficit=0
+
+ageBand:gender: 21/21 covered (1)
+  authored pair hits: 305; thin=0; deficit=0
+agePhase:gender: 48/48 covered (1)
+  authored pair hits: 103; thin=0; deficit=0
+birthSeason:currentSeason: 16/16 covered (1)
+  authored pair hits: 128; thin=0; deficit=0
+dayMasterElement:dayMasterStrength: 25/25 covered (1)
+  authored pair hits: 603; thin=0; deficit=0
+dayMasterElement:yongshinElement: 25/25 covered (1)
+  authored pair hits: 316; thin=0; deficit=0
+dayMasterStrength:yongshinAlignment: 15/15 covered (1)
+  authored pair hits: 597; thin=0; deficit=0
+gyeokguk:dayMasterStrength: 30/30 covered (1)
+  authored pair hits: 357; thin=0; deficit=0
+yongshinElement:yongshinAlignment: 15/15 covered (1)
+  authored pair hits: 30; thin=0; deficit=0
+=== Gate 9: ci:narrative-tuple-density ===
+
+> spring-ts@1.0.0 ci:narrative-tuple-density
+> node tools/narrative_axis_tuple_report.mjs --min-authored=2 --max-thin-combinations=0 --max-missing-combinations=0
+
+Narrative Axis Tuple Report
+Bundles: 345
+Fragments: 4215 total, 4050 authored
+Tuples: 3
+Missing tuple combinations: 0
+Thin tuple combinations (<2 authored): 0, deficit=0
+
+birthSeason:currentSeason:yongshinAlignment: 48/48 covered (1)
+  authored tuple hits: 96; missing=0; thin=0; deficit=0
+dayMasterElement:yongshinElement:dayMasterStrength: 125/125 covered (1)
+  authored tuple hits: 250; missing=0; thin=0; deficit=0
+gyeokguk:dayMasterStrength:dayMasterElement: 150/150 covered (1)
+  authored tuple hits: 300; missing=0; thin=0; deficit=0
+=== Gate 10: ci:narrative-daymaster-tuple-density ===
+
+> spring-ts@1.0.0 ci:narrative-daymaster-tuple-density
+> node tools/narrative_axis_tuple_report.mjs --tuples=dayMasterElement:yongshinElement:dayMasterStrength --min-authored=2 --max-thin-combinations=0 --max-missing-combinations=0
+
+Narrative Axis Tuple Report
+Bundles: 345
+Fragments: 4215 total, 4050 authored
+Tuples: 1
+Missing tuple combinations: 0
+Thin tuple combinations (<2 authored): 0, deficit=0
+
+dayMasterElement:yongshinElement:dayMasterStrength: 125/125 covered (1)
+  authored tuple hits: 250; missing=0; thin=0; deficit=0
+=== Gate 11: ci:post-processor-grammar ===
+
+> spring-ts@1.0.0 ci:post-processor-grammar
+> node tools/check_post_processor_grammar.mjs --max-violations=0
+
+Post-processor grammar: filesScanned=32, violations=0 (max=0)
+  리듬로: 0
+  호흡로: 0
+  걸음로: 0
+  자리을: 0
+  (?<![가-힣])연결을: 0
+  (?<![가-힣])연결이: 0
+  (?<![가-힣])연결로: 0
+  (?<![가-힣])연결의: 0
+  (?<![가-힣])연결에: 0
+  (?<![가-힣])연결과: 0
+  (?<![가-힣])연결도: 0
+  (?<![가-힣])연결만: 0
+  (?<![가-힣])연흐름: 0
+  (?<![가-힣])연리듬: 0
+  (?<![가-힣])연자리: 0
+  (?<![가-힣])연호흡: 0
+  (?<![가-힣])연걸음: 0
+=== Gate 12: ci:hook-coverage ===
+
+> spring-ts@1.0.0 ci:hook-coverage
+> node tools/check_hook_coverage.mjs --max-violations=0
+
+brief.hook coverage: samples=32, samplesDir=artifacts/sample-outputs-2026-05-05-phase3
+  authored: 130 fragments / 130 distinct hook strings
+  emitted:  446 cells / 130 selected fragmentIds / 130 distinct hook strings
+  dormant by fragmentId slot: 0
+  dormant by hook text:        0 (diagnostic only)
+
+Lowest emit-count tail (fragility — first to fall on regression):
+  1  wealth.thisWeek.brief.female.elder.winter.weak.014
+  1  wealth.thisWeek.brief.female.teen.013
+  1  wealth.thisYear.brief.male.child.winter.015
+  1  wealth.today.brief.female.teen.summer.016
+  1  wealth.today.brief.male.elder.autumn.weak.014
+=== Gate 13: ci:hook-concentration ===
+
+> spring-ts@1.0.0 ci:hook-concentration
+> node tools/check_hook_concentration.mjs --max-hooks=20
+
+brief.hook concentration: samples=32, fixtures=32, samplesDir=artifacts/sample-outputs-2026-05-05-phase3
+  distinct hooks per fixture: min=0 median=15 max=17 mode=16 mean=13.94 (n=32)
+  threshold: --max-hooks=20
+  histogram (distinctHooks: fixtureCount):
+    0: 1
+    10: 1
+    11: 4
+    12: 3
+    13: 3
+    14: 4
+    16: 11
+    17: 5
+  top fixtures (highest concentration):
+    17  05-park-minji-late-night-female-tiered.json  (cellsScanned=55)
+    17  12-jeong-extreme-strong-continuous-tiered.json  (cellsScanned=55)
+    17  13-oh-extreme-weak-continuous-tiered.json  (cellsScanned=55)
+    17  32-nonagenarian-weak-daymaster-tiered.json  (cellsScanned=55)
+    17  33-consensus-aware-multi-axis-combined-tiered.json  (cellsScanned=55)
+    16  09-kim-seongsu-special-format-candidate-tiered.json  (cellsScanned=55)
+    16  10-choi-yaza-boundary-male-tiered.json  (cellsScanned=55)
+    16  15-choi-consensus-aware-yongshin-tiered.json  (cellsScanned=55)
+    16  17-kim-senior-female-tiered.json  (cellsScanned=55)
+    16  21-multi-axis-evaluator-enabled-tiered.json  (cellsScanned=55)
+=== Gate 14: ci:standard-paragraph-floor ===
+
+> spring-ts@1.0.0 ci:standard-paragraph-floor
+> node tools/check_standard_paragraph_floor.mjs --min-paragraphs=3 --max-violations=0
+
+standard.paragraphs floor: samples=32, fixtures=32, totalCells=1705, samplesDir=artifacts/sample-outputs-2026-05-05-phase3
+  paragraph counts per cell: min=3 median=3 max=5 mode=3 mean=3.45 (n=1705)
+  policy: --min-paragraphs=3 --max-violations=0
+  histogram (paragraphCount: cellCount):
+    3: 1255
+    4: 130
+    5: 320
+  shortest cells (count=3, sample of 20):
+    3  04-kim-seoyun-young-female-tiered  life.health_stress
+    3  04-kim-seoyun-young-female-tiered  life.movement
+    3  04-kim-seoyun-young-female-tiered  life.overall
+    3  04-kim-seoyun-young-female-tiered  life.romance
+    3  04-kim-seoyun-young-female-tiered  life.wealth
+  violationCount: 0
+=== Gate 15: ci:brief-tier-placeholder ===
+
+> spring-ts@1.0.0 ci:brief-tier-placeholder
+> node tools/check_brief_tier_placeholder.mjs --max-violations=0
+
+Brief tier PLACEHOLDER: fixturesScanned=32, cellsScanned=1760, violations=0
+  samplesDir: artifacts/sample-outputs-2026-05-05-phase3
+  placeholder: "준비 중인 흐름이에요."
+  fixturesSkipped: 4
+    - 01-choi-seongsoo-current-fortune.json (no payload.tieredMatrix.periods)
+    - 03-choi-seongsoo-spring-report-vector.json (no payload.tieredMatrix.periods)
+    - 07-choi-seongsoo-candidate-summaries.json (no payload.tieredMatrix.periods)
+    - diff-legacy-vs-tiered.json (no payload.tieredMatrix.periods)
+=== Gate 16: ci:flow-cluster ===
+
+> spring-ts@1.0.0 ci:flow-cluster
+> node tools/check_flow_cluster.mjs --max-violations=0
+
+flow-cluster: samples=32, fixtures=32, totalCells=1705, samplesDir=artifacts/sample-outputs-2026-05-05-phase3
+  policy: needle="흐름이" threshold=3 --max-violations=0
+  paragraphsWithCluster=0  violationCount=0
+=== Gate 17: ci:gyeol-cluster ===
+
+> spring-ts@1.0.0 ci:gyeol-cluster
+> node tools/check_gyeol_cluster.mjs --max-violations=10
+
+gyeol-cluster: samples=32, fixtures=32, totalCells=1705, totalParagraphs=12903, samplesDir=artifacts/sample-outputs-2026-05-05-phase3
+  policy: needle="결" threshold=3 --max-violations=10
+  tierCounts: standard=9 expert=1  violationCount=10
+  Violations (paragraphs containing 결 >= threshold):
+    3  04-kim-seoyun-young-female-tiered  thisMonth.wealth.standard
+      한 달의 작은 결산은 큰 자산이 돼요. 마지막 날 어디에 썼는지 한 줄로 정리하면, 다음 달의 결정이 한결 가벼워져요.
+    3  10-choi-yaza-boundary-male-tiered  today.career.standard
+      후배·동료의 작은 질문에 짧게라도 답을 주면 자기 역할의 방향이 한결 단단해져요. 회의·결재로 마음이 분산될 수 있으니, 오전 한 시간만이라도 자기 결정의 시간으로 잡아 두면 좋아요.
+    3  11-park-jeolgi-boundary-female-tiered  today.career.standard
+      후배·동료의 작은 질문에 짧게라도 답을 주면 자기 역할의 방향이 한결 단단해져요. 회의·결재로 마음이 분산될 수 있으니, 오전 한 시간만이라도 자기 결정의 시간으로 잡아 두면 좋아요.
+    3  13-oh-extreme-weak-continuous-tiered  thisYear.wealth.expert
+      분기마다 한 번씩 자산·지출의 자리를 짧게 정리해 두면, 한 해의 큰 그림이 단단히 자리 잡아요. 그동안 다져 온 자산이 빛을 내는 시기이니, 새 결정은 한 박자 더 신중히 두고 익숙한 자리의 자세를 단단히 챙기는 호흡이 잘 어울려요. 분기 끝마다 짧
+    3  13-oh-extreme-weak-continuous-tiered  today.career.standard
+      후배·동료의 작은 질문에 짧게라도 답을 주면 자기 역할의 방향이 한결 단단해져요. 회의·결재로 마음이 분산될 수 있으니, 오전 한 시간만이라도 자기 결정의 시간으로 잡아 두면 좋아요.
+    3  18-lee-child-male-tiered  thisMonth.wealth.standard
+      한 달의 작은 결산은 큰 자산이 돼요. 마지막 날 어디에 썼는지 한 줄로 정리하면, 다음 달의 결정이 한결 가벼워져요.
+    3  27-jonggyeok-jongah-tiered  thisMonth.wealth.standard
+      한 달의 작은 결산은 큰 자산이 돼요. 마지막 날 어디에 썼는지 한 줄로 정리하면, 다음 달의 결정이 한결 가벼워져요.
+    3  30-jeolgi-lidong-boundary-tiered  thisMonth.wealth.standard
+      한 달의 작은 결산은 큰 자산이 돼요. 마지막 날 어디에 썼는지 한 줄로 정리하면, 다음 달의 결정이 한결 가벼워져요.
+    3  31-newborn-infant-male-tiered  thisMonth.wealth.standard
+      한 달의 작은 결산은 큰 자산이 돼요. 마지막 날 어디에 썼는지 한 줄로 정리하면, 다음 달의 결정이 한결 가벼워져요.
+    3  33-consensus-aware-multi-axis-combined-tiered  today.career.standard
+      후배·동료의 작은 질문에 짧게라도 답을 주면 자기 역할의 방향이 한결 단단해져요. 회의·결재로 마음이 분산될 수 있으니, 오전 한 시간만이라도 자기 결정의 시간으로 잡아 두면 좋아요.
+=== Gate 18: ci:livingtips-period-consistency ===
+
+> spring-ts@1.0.0 ci:livingtips-period-consistency
+> node tools/check_livingtips_period_consistency.mjs --max-violations=0
+
+livingtips-period-consistency: categories=11, files=55, fragments=602, livingTips=1507, dataDir=data/narrative
+  policy: minPeriods=4 minCohortStems=2 --max-violations=0
+  violationCount=0
+=== Gate 19: ci:acceptance-completeness ===
+
+> spring-ts@1.0.0 ci:acceptance-completeness
+> node tools/check_acceptance_completeness.mjs --max-violations=0
+
+Acceptance completeness: PASS
+  ciScripts=20
+  accepted=19
+  exempt=1
+  violations=0
+=== Gate 20: ci:samples-stale ===
+
+> spring-ts@1.0.0 ci:samples-stale
+> npm --prefix ../saju-ts run build && node tools/check_samples_stale.mjs --max-violations=0
+
+
+> saju-math-engine@0.34.3 build
+> tsc -p tsconfig.build.json
+
+Samples stale: PASS
+  sampleFiles=37
+  violations=0
+=== Gate 21: test:namespring-compat ===
+
+> spring-ts@1.0.0 test:namespring-compat
+> npx tsx test/integration/namespring-compat.test.ts
+
+HanjaRepository: Database loaded successfully via WASM.
+PR-Q-27 NameSpring backward-compat contract
+
+  PASS SpringReport.namingReport defined
+  PASS SpringReport.namingReport.name.fullHangul is string
+  PASS SpringReport.namingReport.name.fullHanja is string
+  PASS SpringReport.schoolPreset is additive default metadata
+  PASS FortuneReport.overviewSummary present
+  PASS FortuneReport.lifeFortuneOverview present
+  PASS FortuneReport.personality present
+  PASS FortuneReport.strengthsWeaknesses present
+  PASS FortuneReport.cautions present
+  PASS FortuneReport.dailyFortune present
+  PASS FortuneReport.weeklyFortune present
+  PASS FortuneReport.monthlyFortune present
+  PASS FortuneReport.yearlyFortune present
+  PASS FortuneReport.categoryFortunes present
+  PASS FortuneReport.nameCompatibility present
+  PASS FortuneReport.lifeStageFortune present
+  PASS FortuneReport.overviewSummary pillar elements expose stem/branch pairs (불/나무, 물/흙, 물/불, 나무/나무)
+  PASS FortuneReport.lifeStageFortune has no mixed Korean/romanized branch display
+  PASS FortuneReport.meta.schoolPreset is additive default metadata
+  PASS FortuneReport does not leak object stringification into user text
+  PASS NameSpring-visible text avoids stale service phrase '정해두'
+  PASS NameSpring-visible text avoids stale service phrase '쌓아가는'
+  PASS NameSpring-visible text avoids stale service phrase '다져두시면'
+  PASS NameSpring-visible text avoids stale service phrase '집중하시면'
+  PASS NameSpring-visible text avoids stale service phrase '준비하셔서'
+  PASS NameSpring-visible text avoids stale service phrase '된답니다'
+  PASS NameSpring-visible text avoids stale service phrase '님께서는'
+  PASS NameSpring-visible text avoids stale service phrase '님께서'
+  PASS NameSpring-visible text avoids stale service phrase '님은도'
+  PASS NameSpring-visible text avoids stale service phrase '님은 각'
+  PASS NameSpring-visible text avoids stale service phrase '님 한평생'
+  PASS NameSpring-visible text avoids stale service phrase '받으시'
+  PASS NameSpring-visible text avoids stale service phrase '하실 수 있어요'
+  PASS NameSpring-visible text avoids stale service phrase '하시고'
+  PASS NameSpring-visible text avoids stale service phrase '하시면'
+  PASS NameSpring-visible text avoids stale service phrase '하시되'
+  PASS NameSpring-visible text avoids stale service phrase '쌓으시는'
+  PASS NameSpring-visible text avoids stale service phrase '다지시는'
+  PASS NameSpring-visible text avoids stale service phrase '출발하시더라도'
+  PASS NameSpring-visible text avoids stale service phrase '키워두시면'
+  PASS NameSpring-visible text avoids stale service phrase '느끼실 수 있어요'
+  PASS NameSpring-visible text avoids stale service phrase '가꾸어 가시길 권해 드려요'
+  PASS NameSpring-visible text avoids stale service phrase '후배나 후진'
+  PASS NameSpring-visible text avoids stale service phrase '다음 세대을'
+  PASS NameSpring-visible text avoids stale service phrase '부귀와 명예'
+  PASS NameSpring-visible text avoids stale service phrase '자녀분들이'
+  PASS NameSpring-visible text avoids stale service phrase '놓지 않으신다면'
+  PASS NameSpring-visible text avoids stale service phrase '좋은 흐름을 만들어 주는 좋은 운이에요'
+  PASS NameSpring-visible text avoids stale service phrase '건강하고 번창한다는 이름 그대로'
+  PASS NameSpring-visible text avoids stale service phrase '오래오래 건강한 기운 그대로'
+  PASS NameSpring-visible text avoids stale service phrase '보내시며'
+  PASS NameSpring-visible text avoids stale service phrase '부자의 복이'
+  PASS NameSpring-visible text avoids stale service phrase '꽃을 피우는 성과'
+  PASS NameSpring-visible text avoids stale service phrase '똑똑한 머리'
+  PASS NameSpring-visible text avoids stale service phrase '남다른 똑똑함'
+  PASS NameSpring-visible text avoids stale service phrase '빠른 이해력와'
+  PASS NameSpring-visible text avoids stale service phrase '특유의 추진력과 머리'
+  PASS NameSpring-visible text avoids stale service phrase '쌓아온 명성과 풍요'
+  PASS NameSpring-visible text avoids stale service phrase '명성이 가장 높은 곳'
+  PASS NameSpring-visible text avoids stale service phrase '보내실 수'
+  PASS NameSpring-visible text avoids stale service phrase '재물 모으는 운'
+  PASS NameSpring-visible text avoids stale service phrase '큰 재물과 사회적 명성'
+  PASS NameSpring-visible text avoids stale service phrase '자녀가 잘 되고 번창하며'
+  PASS NameSpring-visible text avoids stale service phrase '용감하게 나아가는 기운'
+  PASS NameSpring-visible text avoids stale service phrase '빠른 성공'
+  PASS NameSpring-visible text avoids stale service phrase '큰일을 이루고 많은 사람의 존경'
+  PASS NameSpring-visible text avoids stale service phrase '복된 삶이 기다리고'
+  PASS NameSpring-visible text avoids stale service phrase '건강과 재물, 평판이 고루 갖추어진'
+  PASS NameSpring-visible text avoids stale service phrase '사람 복'
+  PASS NameSpring-visible text avoids stale service phrase '성공의 열매'
+  PASS NameSpring-visible text avoids stale service phrase '복과 오래 사는 기운'
+  PASS NameSpring-visible text avoids stale service phrase '풍요로운 생활을 누리게'
+  PASS NameSpring-visible text avoids stale service phrase '주변 사람들한테'
+  PASS NameSpring-visible text avoids stale service phrase '이름값'
+  PASS NameSpring-visible text avoids stale service phrase '성과을'
+  PASS NameSpring-visible text avoids stale service phrase '뒷받침해주지'
+  PASS NameSpring-visible text avoids stale service phrase '신살입니다.'
+  PASS NameSpring-visible text avoids stale service phrase '흉살이나'
+  PASS NameSpring-visible text avoids stale service phrase '해석해야 합니다'
+  PASS categoryFortunes.wealth.title is string
+  PASS categoryFortunes.wealth.category === 'wealth'
+  PASS categoryFortunes.wealth.stars is number 1-5
+  PASS categoryFortunes.wealth.summary is string
+  PASS categoryFortunes.wealth.advice is array
+  PASS categoryFortunes.wealth.advice[].text is string
+  PASS categoryFortunes.wealth.advice[].reason is string
+  PASS categoryFortunes.wealth.advice[].text is string
+  PASS categoryFortunes.wealth.advice[].reason is string
+  PASS categoryFortunes.wealth.caution.signal is string
+  PASS categoryFortunes.wealth.caution.response is string
+  PASS categoryFortunes.wealth.caution.reason is string
+  PASS categoryFortunes.health.title is string
+  PASS categoryFortunes.health.category === 'health'
+  PASS categoryFortunes.health.stars is number 1-5
+  PASS categoryFortunes.health.summary is string
+  PASS categoryFortunes.health.advice is array
+  PASS categoryFortunes.health.advice[].text is string
+  PASS categoryFortunes.health.advice[].reason is string
+  PASS categoryFortunes.health.advice[].text is string
+  PASS categoryFortunes.health.advice[].reason is string
+  PASS categoryFortunes.health.advice[].text is string
+  PASS categoryFortunes.health.advice[].reason is string
+  PASS categoryFortunes.academic.title is string
+  PASS categoryFortunes.academic.category === 'academic'
+  PASS categoryFortunes.academic.stars is number 1-5
+  PASS categoryFortunes.academic.summary is string
+  PASS categoryFortunes.academic.advice is array
+  PASS categoryFortunes.academic.advice[].text is string
+  PASS categoryFortunes.academic.advice[].reason is string
+  PASS categoryFortunes.academic.advice[].text is string
+  PASS categoryFortunes.academic.advice[].reason is string
+  PASS categoryFortunes.academic.caution.signal is string
+  PASS categoryFortunes.academic.caution.response is string
+  PASS categoryFortunes.academic.caution.reason is string
+  PASS categoryFortunes.romance.title is string
+  PASS categoryFortunes.romance.category === 'romance'
+  PASS categoryFortunes.romance.stars is number 1-5
+  PASS categoryFortunes.romance.summary is string
+  PASS categoryFortunes.romance.advice is array
+  PASS categoryFortunes.romance.advice[].text is string
+  PASS categoryFortunes.romance.advice[].reason is string
+  PASS categoryFortunes.romance.advice[].text is string
+  PASS categoryFortunes.romance.advice[].reason is string
+  PASS categoryFortunes.family.title is string
+  PASS categoryFortunes.family.category === 'family'
+  PASS categoryFortunes.family.stars is number 1-5
+  PASS categoryFortunes.family.summary is string
+  PASS categoryFortunes.family.advice is array
+  PASS categoryFortunes.family.advice[].text is string
+  PASS categoryFortunes.family.advice[].reason is string
+  PASS categoryFortunes.family.advice[].text is string
+  PASS categoryFortunes.family.advice[].reason is string
+  PASS categoryFortunes.family.caution.signal is string
+  PASS categoryFortunes.family.caution.response is string
+  PASS categoryFortunes.family.caution.reason is string
+  PASS categoryFortunes.wealth.subDomains (PR-K-1) is array
+  PASS subDomains[].name is string
+  PASS subDomains[].title is string
+  PASS subDomains[].stars is number
+  PASS subDomains[].narrative is string
+  PASS subDomains[].name is string
+  PASS subDomains[].title is string
+  PASS subDomains[].stars is number
+  PASS subDomains[].narrative is string
+  PASS categoryFortunes.wealth.axisStrength is non-array record
+  PASS categoryFortunes.wealth.evidence is array
+  PASS categoryFortunes.health.subDomains (PR-K-1) is array
+  PASS subDomains[].name is string
+  PASS subDomains[].title is string
+  PASS subDomains[].stars is number
+  PASS subDomains[].narrative is string
+  PASS subDomains[].name is string
+  PASS subDomains[].title is string
+  PASS subDomains[].stars is number
+  PASS subDomains[].narrative is string
+  PASS categoryFortunes.health.axisStrength is non-array record
+  PASS categoryFortunes.health.evidence is array
+  PASS categoryFortunes.academic.subDomains (PR-K-1) is array
+  PASS subDomains[].name is string
+  PASS subDomains[].title is string
+  PASS subDomains[].stars is number
+  PASS subDomains[].narrative is string
+  PASS subDomains[].name is string
+  PASS subDomains[].title is string
+  PASS subDomains[].stars is number
+  PASS subDomains[].narrative is string
+  PASS categoryFortunes.academic.axisStrength is non-array record
+  PASS categoryFortunes.academic.evidence is array
+  PASS categoryFortunes.romance.subDomains (PR-K-1) is array
+  PASS subDomains[].name is string
+  PASS subDomains[].title is string
+  PASS subDomains[].stars is number
+  PASS subDomains[].narrative is string
+  PASS categoryFortunes.romance.axisStrength is non-array record
+  PASS categoryFortunes.romance.evidence is array
+  PASS categoryFortunes.family.subDomains (PR-K-1) is array
+  PASS subDomains[].name is string
+  PASS subDomains[].title is string
+  PASS subDomains[].stars is number
+  PASS subDomains[].narrative is string
+  PASS categoryFortunes.family.axisStrength is non-array record
+  PASS categoryFortunes.family.evidence is array
+  PASS SajuReport.pillars defined
+  PASS SajuReport.pillars.year exists
+  PASS SajuReport.dayMaster defined
+  PASS SajuReport.dayMaster.polarity is string
+  PASS sajuTimePolicy.trueSolarTime='on' produces a saju report
+  PASS FortuneReport.tieredMatrix is undefined when surface flag absent (undefined)
+  PASS opt-in tieredMatrix is present
+  PASS tieredMatrix.schemaVersion === 'spring-ts.tiered-matrix.v1'
+  PASS tieredMatrix.periods has 5 keys (5)
+  PASS tieredMatrix.periods.life present
+  PASS tieredMatrix.periods.life.byCategory has 10 keys (10)
+  PASS tieredMatrix.periods.today present
+  PASS tieredMatrix.periods.today.byCategory has 10 keys (10)
+  PASS tieredMatrix.periods.thisWeek present
+  PASS tieredMatrix.periods.thisWeek.byCategory has 10 keys (10)
+  PASS tieredMatrix.periods.thisMonth present
+  PASS tieredMatrix.periods.thisMonth.byCategory has 10 keys (10)
+  PASS tieredMatrix.periods.thisYear present
+  PASS tieredMatrix.periods.thisYear.byCategory has 10 keys (10)
+  PASS tieredMatrix.glossary.entries covers used report tags (55/55)
+
+NameSpring compat: 202 PASS / 0 FAIL
