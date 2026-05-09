@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-05-09T11:21:31.878Z",
+  "generatedAt": "2026-05-09T11:30:48.785Z",
   "targetDate": "2026-05-05T00:00:00+09:00",
   "sampleId": "consensus-aware-multi-axis-combined-tiered",
   "description": "yongshinMode=consensus_aware + evaluatorMode=multi_axis 동시 활성. 독립 명리 방법 (억부/조후/격국/통관/병약) 의 consensus scoreboard 와 axisStrength ≥2 축 다축 가중이 함께 sajuPriority 에 반영되는 PR-K-9 + consensus 결합 fixture.",
@@ -1266,7 +1266,7 @@
     },
     "meta": {
       "version": "1.0.0",
-      "generatedAt": "2026-05-09T11:21:52.908Z",
+      "generatedAt": "2026-05-09T11:31:05.579Z",
       "schoolPreset": {
         "selected": "korean",
         "source": "default",
@@ -3521,6 +3521,15 @@
                       }
                     ],
                     "plainText": "비유하자면 30대의 큰 이동은 산길에서 고갯마루 한 자리를 넘어 두는 자리예요. 한 번에 정상까지 오르지 않아도, 한 고개씩 천천히 넘어 두는 자리가 30대 후반의 든든한 시야를 만들어 줘요."
+                  },
+                  {
+                    "tokens": [
+                      {
+                        "kind": "text",
+                        "value": "30대의 큰 이동은 자기 한 사람만의 자리가 아닌 가까운 사람의 자리도 함께 움직이는 시간이에요. 자기 페이스만 빠르지 않게 가족·동료의 호흡과 한 박자 맞추는 자리가, 30대의 변화를 자기 자리에서 단단하게 받쳐 줘요."
+                      }
+                    ],
+                    "plainText": "30대의 큰 이동은 자기 한 사람만의 자리가 아닌 가까운 사람의 자리도 함께 움직이는 시간이에요. 자기 페이스만 빠르지 않게 가족·동료의 호흡과 한 박자 맞추는 자리가, 30대의 변화를 자기 자리에서 단단하게 받쳐 줘요."
                   }
                 ],
                 "livingTips": [
@@ -13029,7 +13038,7 @@
       },
       "meta": {
         "schemaVersion": "spring-ts.tiered-matrix.v1",
-        "generatedAt": "2026-05-09T11:21:52.908Z",
+        "generatedAt": "2026-05-09T11:31:05.579Z",
         "selectionSeed": "1987|10|5|15|30|female|2026-05-04T15:00:00.000Z",
         "templateContractVersion": "1.0.0",
         "contentSource": "authored",
