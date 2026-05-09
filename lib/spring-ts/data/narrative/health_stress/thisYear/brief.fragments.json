@@ -3,7 +3,7 @@
   "bundleId": "health_stress.thisYear.brief",
   "contractVersion": "1.0.0",
   "generatedBy": "phase2/agent-9-health_stress",
-  "fragmentCount": 10,
+  "fragmentCount": 13,
   "fragments": [
     {
       "schemaVersion": "spring-ts.narrative-fragment.v1",
@@ -459,6 +459,39 @@
         "accessedAt": "2026-05-09",
         "quoteShort": null,
         "humanInterpretation": "P36-A4 distinct-hook expansion: health_stress/thisYear brief for male × 0-9 × winter-born infant/child. Targets #30 (newborn winter, current 9 hooks). 3-dim gating disjoint from prior P##-A# slots. Caregiver-shared tone. Display-only narrative.",
+        "copyrightNote": "No source prose copied; original authored prose.",
+        "authorityTruthEligible": false
+      }
+    },
+    {
+      "schemaVersion": "spring-ts.narrative-fragment.v1",
+      "fragmentId": "health_stress.thisYear.brief.male.child.spring.015",
+      "axis": {
+        "category": "health_stress",
+        "period": "thisYear",
+        "depth": "brief"
+      },
+      "gating": {
+        "gender": ["male"],
+        "ageBand": ["0-9"],
+        "birthSeason": ["spring"]
+      },
+      "templateTokens": [
+        {
+          "kind": "text",
+          "value": "올해는 봄볕 잔디에서 보호자와 함께 호흡을 하나씩 길게 골라 두는 흐름이에요."
+        }
+      ],
+      "hook": "봄볕 잔디에 호흡 하나 길게 골라요.",
+      "tags": [],
+      "aiGenerated": true,
+      "sourceTier": {
+        "tier": "T1_HYPOTHESIS",
+        "sourceType": "training_derived",
+        "sourceUrl": null,
+        "accessedAt": "2026-05-09",
+        "quoteShort": null,
+        "humanInterpretation": "P39-A4 distinct-hook expansion: health_stress/thisYear brief for male × 0-9 × spring-born child. 3-dim split targets #31 without lifting #5/#13/#32/#33 or any 16-tier fixture. Caregiver-shared tone. Display-only narrative.",
         "copyrightNote": "No source prose copied; original authored prose.",
         "authorityTruthEligible": false
       }

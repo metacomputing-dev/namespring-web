@@ -354,6 +354,33 @@
         "copyrightNote": "No source prose copied; original authored prose.",
         "authorityTruthEligible": false
       }
+    },
+    {
+      "schemaVersion": "spring-ts.narrative-fragment.v1",
+      "fragmentId": "family.today.brief.female.thirties.autumn.weak.015",
+      "axis": { "category": "family", "period": "today", "depth": "brief", "tone": "plain" },
+      "gating": {
+        "gender": ["female"],
+        "ageBand": ["30-39"],
+        "birthSeason": ["autumn"],
+        "dayMasterStrength": ["WEAK", "EXTREME_WEAK"]
+      },
+      "templateTokens": [
+        { "kind": "text", "value": "오늘은 가을 식탁에서 가까운 사람과 따뜻한 차 한 모금을 나누는 흐름이에요." }
+      ],
+      "hook": "가을 식탁에 따뜻한 차 한 모금 나눠요.",
+      "tags": [],
+      "aiGenerated": true,
+      "sourceTier": {
+        "tier": "T1_HYPOTHESIS",
+        "sourceType": "training_derived",
+        "sourceUrl": null,
+        "accessedAt": "2026-05-09",
+        "quoteShort": null,
+        "humanInterpretation": "P39-A4 distinct-hook expansion: family/today brief for female × 30-39 × autumn × WEAK day master. 4-dim split targets #08, #11 without lifting #5/#13/#32/#33 (17-tier) or any 16-tier fixture. Display-only narrative.",
+        "copyrightNote": "No source prose copied; original authored prose.",
+        "authorityTruthEligible": false
+      }
     }
   ]
 }

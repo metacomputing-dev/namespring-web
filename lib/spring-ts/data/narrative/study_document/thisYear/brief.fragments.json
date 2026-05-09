@@ -324,6 +324,39 @@
         "copyrightNote": "No source prose copied; original.",
         "authorityTruthEligible": false
       }
+    },
+    {
+      "schemaVersion": "spring-ts.narrative-fragment.v1",
+      "fragmentId": "study_document.thisYear.brief.male.child.winter.011",
+      "axis": {
+        "category": "study_document",
+        "period": "thisYear",
+        "depth": "brief"
+      },
+      "gating": {
+        "gender": ["male"],
+        "ageBand": ["0-9"],
+        "birthSeason": ["winter"]
+      },
+      "templateTokens": [
+        {
+          "kind": "text",
+          "value": "올해는 겨울 책상에서 그림책 한 권을 함께 펼쳐 두기 좋은 한 해예요."
+        }
+      ],
+      "hook": "겨울 책상에 그림책 한 권 펼쳐요.",
+      "tags": [],
+      "aiGenerated": true,
+      "sourceTier": {
+        "tier": "T1_HYPOTHESIS",
+        "sourceType": "training_derived",
+        "sourceUrl": null,
+        "accessedAt": "2026-05-09",
+        "quoteShort": null,
+        "humanInterpretation": "P39-A4 distinct-hook expansion: study_document/thisYear brief for male × 0-9 × winter-born child. 3-dim split targets #30 without lifting #5/#13/#32/#33 or any 16-tier fixture. Display-only narrative.",
+        "copyrightNote": "No source prose copied; original authored prose.",
+        "authorityTruthEligible": false
+      }
     }
   ]
 }

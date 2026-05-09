@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-05-09T11:30:48.785Z",
+  "generatedAt": "2026-05-09T11:33:57.161Z",
   "targetDate": "2026-05-05T00:00:00+09:00",
   "sampleId": "newborn-infant-male-tiered",
   "description": "신생아 (2026 봄 출생, 현재 0세) — 보호자 perspective audience cell 활성화 fixture. life-stage 의 가장 이른 단계 narrative 가 fallback 되는지 확인. tieredMatrix 의 신생아 안전 어조 (성인 metaphor 회피) 점검 케이스.",
@@ -1273,7 +1273,7 @@
     },
     "meta": {
       "version": "1.0.0",
-      "generatedAt": "2026-05-09T11:31:04.935Z",
+      "generatedAt": "2026-05-09T11:34:15.961Z",
       "schoolPreset": {
         "selected": "korean",
         "source": "default",
@@ -9787,7 +9787,8 @@
               "meaningfulness": "meaningful",
               "stars": 4,
               "brief": {
-                "headline": "올해는 마음을 지키는 기본 습관을 만드는 것이 중요해요."
+                "headline": "올해는 봄볕 잔디에서 보호자와 함께 호흡을 하나씩 길게 골라 두는 흐름이에요.",
+                "hook": "봄볕 잔디에 호흡 하나 길게 골라요."
               },
               "standard": {
                 "paragraphs": [
@@ -9896,13 +9897,16 @@
               },
               "selectedFragments": {
                 "brief": {
-                  "fragmentId": "health_stress.thisYear.brief.foundation.501",
+                  "fragmentId": "health_stress.thisYear.brief.male.child.spring.015",
                   "gating": {
+                    "gender": [
+                      "male"
+                    ],
                     "ageBand": [
-                      "0-9",
-                      "10-19",
-                      "20-29",
-                      "30-39"
+                      "0-9"
+                    ],
+                    "birthSeason": [
+                      "spring"
                     ]
                   },
                   "tags": []
@@ -10618,12 +10622,12 @@
       },
       "meta": {
         "schemaVersion": "spring-ts.tiered-matrix.v1",
-        "generatedAt": "2026-05-09T11:31:04.935Z",
+        "generatedAt": "2026-05-09T11:34:15.961Z",
         "selectionSeed": "2026|3|15|11|0|male|2026-05-04T15:00:00.000Z",
         "templateContractVersion": "1.0.0",
         "contentSource": "authored",
-        "fragmentCount": 4215,
-        "aiGeneratedFragmentCount": 4215
+        "fragmentCount": 4225,
+        "aiGeneratedFragmentCount": 4225
       }
     }
   }

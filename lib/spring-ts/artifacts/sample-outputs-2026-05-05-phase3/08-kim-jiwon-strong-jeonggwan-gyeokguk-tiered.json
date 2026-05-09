@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-05-09T11:30:48.785Z",
+  "generatedAt": "2026-05-09T11:33:57.161Z",
   "targetDate": "2026-05-05T00:00:00+09:00",
   "sampleId": "kim-jiwon-strong-jeonggwan-gyeokguk-tiered",
   "description": "입력 의도: 정관격 계열의 강한 격국이 또렷이 잡히기 쉬운 입력. 최종 gyeokguk 판정은 엔진이 결정한다.",
@@ -1249,7 +1249,7 @@
     },
     "meta": {
       "version": "1.0.0",
-      "generatedAt": "2026-05-09T11:30:55.917Z",
+      "generatedAt": "2026-05-09T11:34:05.481Z",
       "schoolPreset": {
         "selected": "korean",
         "source": "default",
@@ -4618,7 +4618,8 @@
               "meaningfulness": "limited",
               "stars": 3,
               "brief": {
-                "headline": "양가 흐름을 비슷한 폭으로 챙겨 보세요."
+                "headline": "오늘은 가을 식탁에서 가까운 사람과 따뜻한 차 한 모금을 나누는 흐름이에요.",
+                "hook": "가을 식탁에 따뜻한 차 한 모금 나눠요."
               },
               "standard": {
                 "paragraphs": [
@@ -4805,10 +4806,20 @@
               },
               "selectedFragments": {
                 "brief": {
-                  "fragmentId": "family.today.brief.thirties.006",
+                  "fragmentId": "family.today.brief.female.thirties.autumn.weak.015",
                   "gating": {
+                    "gender": [
+                      "female"
+                    ],
                     "ageBand": [
                       "30-39"
+                    ],
+                    "birthSeason": [
+                      "autumn"
+                    ],
+                    "dayMasterStrength": [
+                      "WEAK",
+                      "EXTREME_WEAK"
                     ]
                   },
                   "tags": []
@@ -12916,12 +12927,12 @@
       },
       "meta": {
         "schemaVersion": "spring-ts.tiered-matrix.v1",
-        "generatedAt": "2026-05-09T11:30:55.917Z",
+        "generatedAt": "2026-05-09T11:34:05.481Z",
         "selectionSeed": "1990|9|15|11|30|female|2026-05-04T15:00:00.000Z",
         "templateContractVersion": "1.0.0",
         "contentSource": "authored",
-        "fragmentCount": 4215,
-        "aiGeneratedFragmentCount": 4215
+        "fragmentCount": 4225,
+        "aiGeneratedFragmentCount": 4225
       }
     }
   }
