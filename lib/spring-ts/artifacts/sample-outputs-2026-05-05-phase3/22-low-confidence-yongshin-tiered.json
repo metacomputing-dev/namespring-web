@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-05-09T06:57:05.502Z",
+  "generatedAt": "2026-05-09T07:07:05.891Z",
   "targetDate": "2026-05-05T00:00:00+09:00",
   "sampleId": "low-confidence-yongshin-tiered",
   "description": "용신 신뢰도 낮은 case (consensus 충돌 + 다중 후보). yongshinMode=consensus_aware + chengbai_strict 결합으로 conflict 가 격국 페널티 곡선까지 영향을 주는 elasticity 를 노출. tieredMatrix 의 명시적 신호 fixture 로 활용한다.",
@@ -1337,7 +1337,7 @@
     },
     "meta": {
       "version": "1.0.0",
-      "generatedAt": "2026-05-09T06:57:17.729Z",
+      "generatedAt": "2026-05-09T07:07:18.940Z",
       "schoolPreset": {
         "selected": "korean",
         "source": "default",
@@ -1796,6 +1796,15 @@
                       }
                     ],
                     "plainText": "주변과 함께 챙기는 흐름을 자연스럽게 받아들이는 사주예요. 마음 편한 자리에서 회복이 빨라지니, 그런 자리를 자주 만들어 두면 후반까지 가볍게 흘러가요."
+                  },
+                  {
+                    "tokens": [
+                      {
+                        "kind": "text",
+                        "value": "비유하자면 평생의 컨디션은 마당 한쪽 우물물처럼 천천히 차오르는 자리예요. 한 번에 길어 올리지 않아도 매일 두 손으로 가만히 떠 두는 작은 자리가 평생을 든든하게 받쳐 줘요."
+                      }
+                    ],
+                    "plainText": "비유하자면 평생의 컨디션은 마당 한쪽 우물물처럼 천천히 차오르는 자리예요. 한 번에 길어 올리지 않아도 매일 두 손으로 가만히 떠 두는 작은 자리가 평생을 든든하게 받쳐 줘요."
                   }
                 ],
                 "livingTips": [
@@ -6937,6 +6946,15 @@
                       }
                     ],
                     "plainText": "자녀가 있다면 잠들기 전 다정한 한마디가 한 주의 분위기를 따뜻하게 데워 줘요. 양가 안부는 비슷한 폭으로 챙기는 게 관계를 단단하게 만들고, 큰 결정은 다음 주로 한 박자 미뤄 두는 것도 좋아요."
+                  },
+                  {
+                    "tokens": [
+                      {
+                        "kind": "text",
+                        "value": "주말 저녁에는 가족 한 사람과 짧은 산책 한 자리를 정해 두세요. 다섯 분 남짓의 그 자리가 한 주 동안 쌓인 마음의 자취를 가볍게 풀어 주어 다음 주의 첫 자리를 따뜻하게 만들어 줘요."
+                      }
+                    ],
+                    "plainText": "주말 저녁에는 가족 한 사람과 짧은 산책 한 자리를 정해 두세요. 다섯 분 남짓의 그 자리가 한 주 동안 쌓인 마음의 자취를 가볍게 풀어 주어 다음 주의 첫 자리를 따뜻하게 만들어 줘요."
                   },
                   {
                     "tokens": [
@@ -12888,7 +12906,7 @@
       },
       "meta": {
         "schemaVersion": "spring-ts.tiered-matrix.v1",
-        "generatedAt": "2026-05-09T06:57:17.729Z",
+        "generatedAt": "2026-05-09T07:07:18.940Z",
         "selectionSeed": "1991|2|4|18|0|female|2026-05-04T15:00:00.000Z",
         "templateContractVersion": "1.0.0",
         "contentSource": "authored",

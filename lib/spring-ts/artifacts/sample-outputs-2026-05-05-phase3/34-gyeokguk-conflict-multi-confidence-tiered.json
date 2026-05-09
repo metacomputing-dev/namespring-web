@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-05-09T06:57:05.502Z",
+  "generatedAt": "2026-05-09T07:07:05.891Z",
   "targetDate": "2026-05-05T00:00:00+09:00",
   "sampleId": "gyeokguk-conflict-multi-confidence-tiered",
   "description": "격국 충돌 + 다중 confidence 시나리오 — gyeokgukSelectionRule=jungki_transparent + gyeokgukMode=chengbai_strict + yongshinMode=consensus_aware 결합. 월지 중기 투간 후보와 chengbai 페널티 smooth tanh 곡선이 동시에 ranking 에 작용하는 elasticity 노출 케이스.",
@@ -1309,7 +1309,7 @@
     },
     "meta": {
       "version": "1.0.0",
-      "generatedAt": "2026-05-09T06:57:21.669Z",
+      "generatedAt": "2026-05-09T07:07:23.501Z",
       "schoolPreset": {
         "selected": "korean",
         "source": "default",
@@ -4982,6 +4982,15 @@
                       }
                     ],
                     "plainText": "하루의 시작과 끝에 5분씩만 자기 점검 시간을 두면 자리의 호흡이 한결 깔끔해져요. 새 자극이 들어와도 일단 메모해 두고 내일로 넘기는 방식이 잘 맞아요."
+                  },
+                  {
+                    "tokens": [
+                      {
+                        "kind": "text",
+                        "value": "비유하자면 오늘은 도예가가 손에 쥔 흙을 천천히 다듬어 두는 자리예요. 굳이 큰 모양을 잡지 않아도 손끝의 작은 매만짐이 다음 자리의 단단한 형태를 자연스럽게 만들어 줘요."
+                      }
+                    ],
+                    "plainText": "비유하자면 오늘은 도예가가 손에 쥔 흙을 천천히 다듬어 두는 자리예요. 굳이 큰 모양을 잡지 않아도 손끝의 작은 매만짐이 다음 자리의 단단한 형태를 자연스럽게 만들어 줘요."
                   },
                   {
                     "tokens": [
@@ -13083,7 +13092,7 @@
       },
       "meta": {
         "schemaVersion": "spring-ts.tiered-matrix.v1",
-        "generatedAt": "2026-05-09T06:57:21.669Z",
+        "generatedAt": "2026-05-09T07:07:23.501Z",
         "selectionSeed": "1976|6|22|13|15|male|2026-05-04T15:00:00.000Z",
         "templateContractVersion": "1.0.0",
         "contentSource": "authored",
