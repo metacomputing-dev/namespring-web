@@ -429,6 +429,39 @@
         "copyrightNote": "No source prose copied; original authored prose.",
         "authorityTruthEligible": false
       }
+    },
+    {
+      "schemaVersion": "spring-ts.narrative-fragment.v1",
+      "fragmentId": "health_stress.thisYear.brief.male.child.winter.014",
+      "axis": {
+        "category": "health_stress",
+        "period": "thisYear",
+        "depth": "brief"
+      },
+      "gating": {
+        "gender": ["male"],
+        "ageBand": ["0-9"],
+        "birthSeason": ["winter"]
+      },
+      "templateTokens": [
+        {
+          "kind": "text",
+          "value": "올해는 보호자와 손난로를 자주 챙겨 어깨를 따숩게 녹이며 보내는 흐름이에요."
+        }
+      ],
+      "hook": "올겨울 손난로로 어깨를 녹여요.",
+      "tags": [],
+      "aiGenerated": true,
+      "sourceTier": {
+        "tier": "T1_HYPOTHESIS",
+        "sourceType": "training_derived",
+        "sourceUrl": null,
+        "accessedAt": "2026-05-09",
+        "quoteShort": null,
+        "humanInterpretation": "P36-A4 distinct-hook expansion: health_stress/thisYear brief for male × 0-9 × winter-born infant/child. Targets #30 (newborn winter, current 9 hooks). 3-dim gating disjoint from prior P##-A# slots. Caregiver-shared tone. Display-only narrative.",
+        "copyrightNote": "No source prose copied; original authored prose.",
+        "authorityTruthEligible": false
+      }
     }
   ]
 }

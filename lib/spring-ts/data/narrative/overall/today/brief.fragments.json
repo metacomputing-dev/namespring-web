@@ -529,6 +529,40 @@
         "copyrightNote": "No source prose copied; original authored prose.",
         "authorityTruthEligible": false
       }
+    },
+    {
+      "schemaVersion": "spring-ts.narrative-fragment.v1",
+      "fragmentId": "overall.today.brief.male.midlife.summer.balanced.014",
+      "axis": {
+        "category": "overall",
+        "period": "today",
+        "depth": "brief"
+      },
+      "gating": {
+        "gender": ["male"],
+        "ageBand": ["40-54"],
+        "birthSeason": ["summer"],
+        "dayMasterStrength": ["BALANCED"]
+      },
+      "templateTokens": [
+        {
+          "kind": "text",
+          "value": "오늘은 여름 한낮의 열기 속에서도 한 호흡 고르게 쉬며 균형을 잡는 흐름이에요."
+        }
+      ],
+      "hook": "여름 한낮에 한 호흡 고르게 쉬어요.",
+      "tags": [],
+      "aiGenerated": true,
+      "sourceTier": {
+        "tier": "T1_HYPOTHESIS",
+        "sourceType": "training_derived",
+        "sourceUrl": null,
+        "accessedAt": "2026-05-09",
+        "quoteShort": null,
+        "humanInterpretation": "P36-A4 distinct-hook expansion: overall/today brief for male × 40-54 × summer × BALANCED. Targets #19 and #34 (both M/40-54/summer/BALANCED with sikshingyeok). 4-dim gating uses BALANCED dim (rare among existing hooks) for clean exclusion of WEAK #24 and STRONG #34-neighbors. Display-only narrative.",
+        "copyrightNote": "No source prose copied; original authored prose.",
+        "authorityTruthEligible": false
+      }
     }
   ]
 }

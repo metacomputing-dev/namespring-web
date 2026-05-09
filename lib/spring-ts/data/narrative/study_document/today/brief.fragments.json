@@ -126,6 +126,32 @@
       "tags": [],
       "aiGenerated": true,
       "sourceTier": { "tier": "T1_HYPOTHESIS", "sourceType": "training_derived", "sourceUrl": null, "accessedAt": "2026-05-02", "quoteShort": null, "humanInterpretation": "AI-derived brief fragment for study_document.today balanced. Display-only.", "copyrightNote": "No source prose copied; original.", "authorityTruthEligible": false }
+    },
+    {
+      "schemaVersion": "spring-ts.narrative-fragment.v1",
+      "fragmentId": "study_document.today.brief.male.child.spring.009",
+      "axis": { "category": "study_document", "period": "today", "depth": "brief" },
+      "gating": {
+        "gender": ["male"],
+        "ageBand": ["0-9"],
+        "birthSeason": ["spring"]
+      },
+      "templateTokens": [
+        { "kind": "text", "value": "오늘은 봄볕이 드는 책상 앞에 또박또박 앉아 한 글자씩 짚는 흐름이에요." }
+      ],
+      "hook": "봄볕 책상 앞에 또박또박 앉아요.",
+      "tags": [],
+      "aiGenerated": true,
+      "sourceTier": {
+        "tier": "T1_HYPOTHESIS",
+        "sourceType": "training_derived",
+        "sourceUrl": null,
+        "accessedAt": "2026-05-09",
+        "quoteShort": null,
+        "humanInterpretation": "P36-A4 distinct-hook expansion: study_document/today brief for male × 0-9 × spring-born infant/child. Targets #31 (newborn spring, current 8 hooks). 3-dim gating disjoint from prior P##-A# slots. Caregiver-shared tone. Display-only narrative.",
+        "copyrightNote": "No source prose copied; original authored prose.",
+        "authorityTruthEligible": false
+      }
     }
   ]
 }

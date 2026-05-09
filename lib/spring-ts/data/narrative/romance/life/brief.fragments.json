@@ -175,6 +175,34 @@
         "copyrightNote": "No source prose copied; original authored prose.",
         "authorityTruthEligible": false
       }
+    },
+    {
+      "schemaVersion": "spring-ts.narrative-fragment.v1",
+      "fragmentId": "romance.life.brief.male.elder.autumn.weak.jeonggwan.009",
+      "axis": { "category": "romance", "period": "life", "depth": "brief" },
+      "gating": {
+        "gender": ["male"],
+        "ageBand": ["70+"],
+        "birthSeason": ["autumn"],
+        "dayMasterStrength": ["WEAK", "EXTREME_WEAK"],
+        "gyeokguk": ["jeonggwangyeok"]
+      },
+      "templateTokens": [
+        { "kind": "text", "value": "지난날을 돌아보며 노을 아래 손편지 한 장을 정성껏 적어 두는 깊은 흐름이에요." }
+      ],
+      "hook": "노을 아래 손편지 한 장 적어요.",
+      "tags": [],
+      "aiGenerated": true,
+      "sourceTier": {
+        "tier": "T1_HYPOTHESIS",
+        "sourceType": "training_derived",
+        "sourceUrl": null,
+        "accessedAt": "2026-05-09",
+        "quoteShort": null,
+        "humanInterpretation": "P36-A4 distinct-hook expansion: romance/life brief for male × 70+ × autumn × WEAK × jeonggwangyeok. Targets #25 (M/70+/autumn/WEAK with jeonggwangyeok; current 14 hooks). 5-dim gating uses gyeokguk dim (zero existing hooks gate on it) for clean separation from #28 (M/70+/autumn/STRONG, no gyeokguk surfaced). Display-only narrative.",
+        "copyrightNote": "No source prose copied; original authored prose.",
+        "authorityTruthEligible": false
+      }
     }
   ]
 }

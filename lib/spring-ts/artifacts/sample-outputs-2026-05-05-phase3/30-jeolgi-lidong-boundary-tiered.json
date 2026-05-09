@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-05-09T07:04:12.090Z",
+  "generatedAt": "2026-05-09T07:17:49.336Z",
   "targetDate": "2026-05-05T00:00:00+09:00",
   "sampleId": "jeolgi-lidong-boundary-tiered",
   "description": "입동(立冬) 절기 경계 직전 출생 (2026 입동 = 11/07 18:52 KST, 본 입력은 ±0.5 day 내). fortuneCascadeMode=jie_based 로 jie 경계 day-precision 활성, 月柱 戌→亥 분기 부근 elasticity 와 tieredMatrix 결합.",
@@ -1307,7 +1307,7 @@
     },
     "meta": {
       "version": "1.0.0",
-      "generatedAt": "2026-05-09T07:04:30.609Z",
+      "generatedAt": "2026-05-09T07:18:07.215Z",
       "schoolPreset": {
         "selected": "korean",
         "source": "default",
@@ -6933,7 +6933,8 @@
               "meaningfulness": "meaningful",
               "stars": 5,
               "brief": {
-                "headline": "아이는 이번 달 잠과 식사 리듬이 잘 잡혀 가는 흐름이에요."
+                "headline": "이번 달은 겨울 모자를 따숩게 챙겨 외출 컨디션을 가꾸는 흐름이에요.",
+                "hook": "이번 달 겨울 모자 따숩게 챙겨요."
               },
               "standard": {
                 "paragraphs": [
@@ -7081,10 +7082,16 @@
               },
               "selectedFragments": {
                 "brief": {
-                  "fragmentId": "health.thisMonth.brief.child.001",
+                  "fragmentId": "health.thisMonth.brief.male.child.winter.011",
                   "gating": {
+                    "gender": [
+                      "male"
+                    ],
                     "ageBand": [
                       "0-9"
+                    ],
+                    "birthSeason": [
+                      "winter"
                     ]
                   },
                   "tags": []
@@ -9777,7 +9784,8 @@
               "meaningfulness": "limited",
               "stars": 3,
               "brief": {
-                "headline": "올해는 마음을 지키는 기본 습관을 만드는 것이 중요해요."
+                "headline": "올해는 보호자와 손난로를 자주 챙겨 어깨를 따숩게 녹이며 보내는 흐름이에요.",
+                "hook": "올겨울 손난로로 어깨를 녹여요."
               },
               "standard": {
                 "paragraphs": [
@@ -9886,13 +9894,16 @@
               },
               "selectedFragments": {
                 "brief": {
-                  "fragmentId": "health_stress.thisYear.brief.foundation.501",
+                  "fragmentId": "health_stress.thisYear.brief.male.child.winter.014",
                   "gating": {
+                    "gender": [
+                      "male"
+                    ],
                     "ageBand": [
-                      "0-9",
-                      "10-19",
-                      "20-29",
-                      "30-39"
+                      "0-9"
+                    ],
+                    "birthSeason": [
+                      "winter"
                     ]
                   },
                   "tags": []
@@ -10607,12 +10618,12 @@
       },
       "meta": {
         "schemaVersion": "spring-ts.tiered-matrix.v1",
-        "generatedAt": "2026-05-09T07:04:30.609Z",
+        "generatedAt": "2026-05-09T07:18:07.215Z",
         "selectionSeed": "2026|11|7|18|30|male|2026-05-04T15:00:00.000Z",
         "templateContractVersion": "1.0.0",
         "contentSource": "authored",
-        "fragmentCount": 4185,
-        "aiGeneratedFragmentCount": 4185
+        "fragmentCount": 4195,
+        "aiGeneratedFragmentCount": 4195
       }
     }
   }

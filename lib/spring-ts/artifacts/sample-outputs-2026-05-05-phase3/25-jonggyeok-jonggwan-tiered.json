@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-05-09T07:04:12.090Z",
+  "generatedAt": "2026-05-09T07:17:49.336Z",
   "targetDate": "2026-05-05T00:00:00+09:00",
   "sampleId": "jonggyeok-jonggwan-tiered",
   "description": "입력 의도: 從官격 계열. fix-jong-05 (1933-09-15 15:00) 좌표 — 甲木 일간이 가을 申酉 지지에 무근, 辛 정관(陰金) 천간 압도 + 申酉 통근. precisionConfig.gyeokgukSelectionRule=jungki_transparent 로 월지 중기 룰 surface. 최종 외격 판정은 엔진이 결정한다.",
@@ -1283,7 +1283,7 @@
     },
     "meta": {
       "version": "1.0.0",
-      "generatedAt": "2026-05-09T07:04:28.651Z",
+      "generatedAt": "2026-05-09T07:18:05.129Z",
       "schoolPreset": {
         "selected": "korean",
         "source": "default",
@@ -2189,7 +2189,8 @@
               "meaningfulness": "meaningful",
               "stars": 4,
               "brief": {
-                "headline": "인연의 흐름은 큰 사건보다 매일의 태도에서 천천히 만들어져요."
+                "headline": "지난날을 돌아보며 노을 아래 손편지 한 장을 정성껏 적어 두는 깊은 흐름이에요.",
+                "hook": "노을 아래 손편지 한 장 적어요."
               },
               "standard": {
                 "paragraphs": [
@@ -2366,17 +2367,23 @@
               },
               "selectedFragments": {
                 "brief": {
-                  "fragmentId": "romance.life.brief.neutral.002",
+                  "fragmentId": "romance.life.brief.male.elder.autumn.weak.jeonggwan.009",
                   "gating": {
-                    "yongshinAlignment": [
-                      "neutral"
+                    "gender": [
+                      "male"
                     ],
                     "ageBand": [
-                      "20-29",
-                      "30-39",
-                      "40-54",
-                      "55-69",
                       "70+"
+                    ],
+                    "birthSeason": [
+                      "autumn"
+                    ],
+                    "dayMasterStrength": [
+                      "WEAK",
+                      "EXTREME_WEAK"
+                    ],
+                    "gyeokguk": [
+                      "jeonggwangyeok"
                     ]
                   },
                   "tags": []
@@ -13092,12 +13099,12 @@
       },
       "meta": {
         "schemaVersion": "spring-ts.tiered-matrix.v1",
-        "generatedAt": "2026-05-09T07:04:28.651Z",
+        "generatedAt": "2026-05-09T07:18:05.129Z",
         "selectionSeed": "1933|9|15|15|0|male|2026-05-04T15:00:00.000Z",
         "templateContractVersion": "1.0.0",
         "contentSource": "authored",
-        "fragmentCount": 4185,
-        "aiGeneratedFragmentCount": 4185
+        "fragmentCount": 4195,
+        "aiGeneratedFragmentCount": 4195
       }
     }
   }

@@ -328,6 +328,32 @@
         "copyrightNote": "No source prose copied; original authored prose.",
         "authorityTruthEligible": false
       }
+    },
+    {
+      "schemaVersion": "spring-ts.narrative-fragment.v1",
+      "fragmentId": "family.today.brief.female.teen.summer.014",
+      "axis": { "category": "family", "period": "today", "depth": "brief", "tone": "plain" },
+      "gating": {
+        "gender": ["female"],
+        "ageBand": ["10-19"],
+        "birthSeason": ["summer"]
+      },
+      "templateTokens": [
+        { "kind": "text", "value": "오늘은 여름 저녁 식탁에서 가족과 한입 더 나누며 마음이 가까워지는 흐름이에요." }
+      ],
+      "hook": "여름 저녁 가족과 한입 더 나눠요.",
+      "tags": [],
+      "aiGenerated": true,
+      "sourceTier": {
+        "tier": "T1_HYPOTHESIS",
+        "sourceType": "training_derived",
+        "sourceUrl": null,
+        "accessedAt": "2026-05-09",
+        "quoteShort": null,
+        "humanInterpretation": "P36-A4 distinct-hook expansion: family/today brief for female × 10-19 × summer-born teen. Targets #04 (low-tier, current 5 hooks). 3-dim gating disjoint from prior P##-A# slots. Display-only narrative.",
+        "copyrightNote": "No source prose copied; original authored prose.",
+        "authorityTruthEligible": false
+      }
     }
   ]
 }

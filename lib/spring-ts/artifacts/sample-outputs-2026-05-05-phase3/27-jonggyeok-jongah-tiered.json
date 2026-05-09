@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-05-09T07:04:12.090Z",
+  "generatedAt": "2026-05-09T07:17:49.336Z",
   "targetDate": "2026-05-05T00:00:00+09:00",
   "sampleId": "jonggyeok-jongah-tiered",
   "description": "입력 의도: 從兒격 (식상 dominant) 계열. fix-jong-07 (2018-07-23 03:00) 좌표 — 丙火 일간 + 戊己己戊 4 천간 식상 + 戌未辰丑 토 지지 67.5%. 從兒不論身強弱 doctrine 입력. 최종 외격 판정은 엔진이 결정한다.",
@@ -1330,7 +1330,7 @@
     },
     "meta": {
       "version": "1.0.0",
-      "generatedAt": "2026-05-09T07:04:29.343Z",
+      "generatedAt": "2026-05-09T07:18:05.865Z",
       "schoolPreset": {
         "selected": "korean",
         "source": "default",
@@ -3329,7 +3329,8 @@
               "meaningfulness": "limited",
               "stars": 3,
               "brief": {
-                "headline": "오늘은 저금통에 한 번 더 넣어 보는 하루예요."
+                "headline": "오늘은 여름 저금통에 동전 한 닢을 차곡차곡 넣어 보는 작은 흐름이에요.",
+                "hook": "여름 저금통에 동전 한 닢 넣어요."
               },
               "standard": {
                 "paragraphs": [
@@ -3456,11 +3457,16 @@
               },
               "selectedFragments": {
                 "brief": {
-                  "fragmentId": "wealth.today.brief.child_teen.012",
+                  "fragmentId": "wealth.today.brief.male.child.summer.015",
                   "gating": {
+                    "gender": [
+                      "male"
+                    ],
                     "ageBand": [
-                      "0-9",
-                      "10-19"
+                      "0-9"
+                    ],
+                    "birthSeason": [
+                      "summer"
                     ]
                   },
                   "tags": []
@@ -10650,12 +10656,12 @@
       },
       "meta": {
         "schemaVersion": "spring-ts.tiered-matrix.v1",
-        "generatedAt": "2026-05-09T07:04:29.343Z",
+        "generatedAt": "2026-05-09T07:18:05.865Z",
         "selectionSeed": "2018|7|23|3|0|male|2026-05-04T15:00:00.000Z",
         "templateContractVersion": "1.0.0",
         "contentSource": "authored",
-        "fragmentCount": 4185,
-        "aiGeneratedFragmentCount": 4185
+        "fragmentCount": 4195,
+        "aiGeneratedFragmentCount": 4195
       }
     }
   }
