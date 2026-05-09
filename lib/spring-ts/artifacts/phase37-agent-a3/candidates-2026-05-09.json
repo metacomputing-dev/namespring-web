@@ -1,0 +1,506 @@
+{
+  "generatedAt": "2026-05-09T07:47:43.346Z",
+  "totalFragments": 558,
+  "sourceParagraphHistogram": {
+    "1": 0,
+    "2": 0,
+    "3": 0,
+    "4": 435,
+    "5": 47,
+    "6": 73,
+    "7": 2,
+    "8": 1
+  },
+  "excludedSetSize": 60,
+  "total5pEligible": 27,
+  "topCandidates": [
+    {
+      "fragmentId": "health.today.expert.wild.001",
+      "cat": "health",
+      "period": "today",
+      "paragraphCount": 5,
+      "file": "C:\\Projects\\metaintelligence\\p37-a3-iso\\lib\\spring-ts\\data\\narrative\\health\\today\\expert.fragments.json",
+      "totalFlowi": 2,
+      "fireCount": 0
+    },
+    {
+      "fragmentId": "health.today.expert.balanced.001",
+      "cat": "health",
+      "period": "today",
+      "paragraphCount": 5,
+      "file": "C:\\Projects\\metaintelligence\\p37-a3-iso\\lib\\spring-ts\\data\\narrative\\health\\today\\expert.fragments.json",
+      "totalFlowi": 1,
+      "fireCount": 0
+    },
+    {
+      "fragmentId": "health.today.expert.aligned.001",
+      "cat": "health",
+      "period": "today",
+      "paragraphCount": 5,
+      "file": "C:\\Projects\\metaintelligence\\p37-a3-iso\\lib\\spring-ts\\data\\narrative\\health\\today\\expert.fragments.json",
+      "totalFlowi": 2,
+      "fireCount": 0
+    },
+    {
+      "fragmentId": "health.thisWeek.expert.conflicting.001",
+      "cat": "health",
+      "period": "thisWeek",
+      "paragraphCount": 5,
+      "file": "C:\\Projects\\metaintelligence\\p37-a3-iso\\lib\\spring-ts\\data\\narrative\\health\\thisWeek\\expert.fragments.json",
+      "totalFlowi": 2,
+      "fireCount": 0
+    },
+    {
+      "fragmentId": "health.thisMonth.expert.extreme_weak.aligned.001",
+      "cat": "health",
+      "period": "thisMonth",
+      "paragraphCount": 5,
+      "file": "C:\\Projects\\metaintelligence\\p37-a3-iso\\lib\\spring-ts\\data\\narrative\\health\\thisMonth\\expert.fragments.json",
+      "totalFlowi": 4,
+      "fireCount": 0
+    },
+    {
+      "fragmentId": "health.thisMonth.expert.extreme_weak.001",
+      "cat": "health",
+      "period": "thisMonth",
+      "paragraphCount": 5,
+      "file": "C:\\Projects\\metaintelligence\\p37-a3-iso\\lib\\spring-ts\\data\\narrative\\health\\thisMonth\\expert.fragments.json",
+      "totalFlowi": 2,
+      "fireCount": 0
+    },
+    {
+      "fragmentId": "health.thisYear.expert.aligned.001",
+      "cat": "health",
+      "period": "thisYear",
+      "paragraphCount": 5,
+      "file": "C:\\Projects\\metaintelligence\\p37-a3-iso\\lib\\spring-ts\\data\\narrative\\health\\thisYear\\expert.fragments.json",
+      "totalFlowi": 2,
+      "fireCount": 0
+    },
+    {
+      "fragmentId": "health.thisYear.expert.weak.001",
+      "cat": "health",
+      "period": "thisYear",
+      "paragraphCount": 5,
+      "file": "C:\\Projects\\metaintelligence\\p37-a3-iso\\lib\\spring-ts\\data\\narrative\\health\\thisYear\\expert.fragments.json",
+      "totalFlowi": 2,
+      "fireCount": 0
+    },
+    {
+      "fragmentId": "health.life.expert.fire_excess.001",
+      "cat": "health",
+      "period": "life",
+      "paragraphCount": 5,
+      "file": "C:\\Projects\\metaintelligence\\p37-a3-iso\\lib\\spring-ts\\data\\narrative\\health\\life\\expert.fragments.json",
+      "totalFlowi": 2,
+      "fireCount": 0
+    },
+    {
+      "fragmentId": "movement.life.expert.30_39.005",
+      "cat": "movement",
+      "period": "life",
+      "paragraphCount": 5,
+      "file": "C:\\Projects\\metaintelligence\\p37-a3-iso\\lib\\spring-ts\\data\\narrative\\movement\\life\\expert.fragments.json",
+      "totalFlowi": 3,
+      "fireCount": 0
+    },
+    {
+      "fragmentId": "romance.today.expert.adult.001",
+      "cat": "romance",
+      "period": "today",
+      "paragraphCount": 5,
+      "file": "C:\\Projects\\metaintelligence\\p37-a3-iso\\lib\\spring-ts\\data\\narrative\\romance\\today\\expert.fragments.json",
+      "totalFlowi": 2,
+      "fireCount": 0
+    },
+    {
+      "fragmentId": "romance.today.expert.midlife.aligned.001",
+      "cat": "romance",
+      "period": "today",
+      "paragraphCount": 5,
+      "file": "C:\\Projects\\metaintelligence\\p37-a3-iso\\lib\\spring-ts\\data\\narrative\\romance\\today\\expert.fragments.json",
+      "totalFlowi": 2,
+      "fireCount": 0
+    },
+    {
+      "fragmentId": "romance.thisWeek.expert.midlife.conflicting.001",
+      "cat": "romance",
+      "period": "thisWeek",
+      "paragraphCount": 5,
+      "file": "C:\\Projects\\metaintelligence\\p37-a3-iso\\lib\\spring-ts\\data\\narrative\\romance\\thisWeek\\expert.fragments.json",
+      "totalFlowi": 1,
+      "fireCount": 0
+    },
+    {
+      "fragmentId": "romance.thisWeek.expert.late_life.001",
+      "cat": "romance",
+      "period": "thisWeek",
+      "paragraphCount": 5,
+      "file": "C:\\Projects\\metaintelligence\\p37-a3-iso\\lib\\spring-ts\\data\\narrative\\romance\\thisWeek\\expert.fragments.json",
+      "totalFlowi": 2,
+      "fireCount": 0
+    },
+    {
+      "fragmentId": "romance.thisMonth.expert.adult.001",
+      "cat": "romance",
+      "period": "thisMonth",
+      "paragraphCount": 5,
+      "file": "C:\\Projects\\metaintelligence\\p37-a3-iso\\lib\\spring-ts\\data\\narrative\\romance\\thisMonth\\expert.fragments.json",
+      "totalFlowi": 2,
+      "fireCount": 0
+    },
+    {
+      "fragmentId": "romance.thisMonth.expert.midlife.conflicting.001",
+      "cat": "romance",
+      "period": "thisMonth",
+      "paragraphCount": 5,
+      "file": "C:\\Projects\\metaintelligence\\p37-a3-iso\\lib\\spring-ts\\data\\narrative\\romance\\thisMonth\\expert.fragments.json",
+      "totalFlowi": 1,
+      "fireCount": 0
+    },
+    {
+      "fragmentId": "romance.thisMonth.expert.late_life.001",
+      "cat": "romance",
+      "period": "thisMonth",
+      "paragraphCount": 5,
+      "file": "C:\\Projects\\metaintelligence\\p37-a3-iso\\lib\\spring-ts\\data\\narrative\\romance\\thisMonth\\expert.fragments.json",
+      "totalFlowi": 2,
+      "fireCount": 0
+    },
+    {
+      "fragmentId": "romance.thisYear.expert.adult.001",
+      "cat": "romance",
+      "period": "thisYear",
+      "paragraphCount": 5,
+      "file": "C:\\Projects\\metaintelligence\\p37-a3-iso\\lib\\spring-ts\\data\\narrative\\romance\\thisYear\\expert.fragments.json",
+      "totalFlowi": 0,
+      "fireCount": 0
+    },
+    {
+      "fragmentId": "romance.thisYear.expert.young_adult.aligned.001",
+      "cat": "romance",
+      "period": "thisYear",
+      "paragraphCount": 5,
+      "file": "C:\\Projects\\metaintelligence\\p37-a3-iso\\lib\\spring-ts\\data\\narrative\\romance\\thisYear\\expert.fragments.json",
+      "totalFlowi": 2,
+      "fireCount": 0
+    },
+    {
+      "fragmentId": "romance.thisYear.expert.young_adult.conflicting.001",
+      "cat": "romance",
+      "period": "thisYear",
+      "paragraphCount": 5,
+      "file": "C:\\Projects\\metaintelligence\\p37-a3-iso\\lib\\spring-ts\\data\\narrative\\romance\\thisYear\\expert.fragments.json",
+      "totalFlowi": 1,
+      "fireCount": 0
+    },
+    {
+      "fragmentId": "romance.thisYear.expert.midlife.conflicting.001",
+      "cat": "romance",
+      "period": "thisYear",
+      "paragraphCount": 5,
+      "file": "C:\\Projects\\metaintelligence\\p37-a3-iso\\lib\\spring-ts\\data\\narrative\\romance\\thisYear\\expert.fragments.json",
+      "totalFlowi": 2,
+      "fireCount": 0
+    },
+    {
+      "fragmentId": "romance.thisYear.expert.dohwa_strong.001",
+      "cat": "romance",
+      "period": "thisYear",
+      "paragraphCount": 5,
+      "file": "C:\\Projects\\metaintelligence\\p37-a3-iso\\lib\\spring-ts\\data\\narrative\\romance\\thisYear\\expert.fragments.json",
+      "totalFlowi": 1,
+      "fireCount": 0
+    },
+    {
+      "fragmentId": "romance.life.expert.adult.001",
+      "cat": "romance",
+      "period": "life",
+      "paragraphCount": 5,
+      "file": "C:\\Projects\\metaintelligence\\p37-a3-iso\\lib\\spring-ts\\data\\narrative\\romance\\life\\expert.fragments.json",
+      "totalFlowi": 1,
+      "fireCount": 0
+    },
+    {
+      "fragmentId": "romance.life.expert.young_adult.aligned.001",
+      "cat": "romance",
+      "period": "life",
+      "paragraphCount": 5,
+      "file": "C:\\Projects\\metaintelligence\\p37-a3-iso\\lib\\spring-ts\\data\\narrative\\romance\\life\\expert.fragments.json",
+      "totalFlowi": 2,
+      "fireCount": 0
+    },
+    {
+      "fragmentId": "romance.life.expert.midlife.conflicting.001",
+      "cat": "romance",
+      "period": "life",
+      "paragraphCount": 5,
+      "file": "C:\\Projects\\metaintelligence\\p37-a3-iso\\lib\\spring-ts\\data\\narrative\\romance\\life\\expert.fragments.json",
+      "totalFlowi": 2,
+      "fireCount": 0
+    },
+    {
+      "fragmentId": "romance.life.expert.late_life.001",
+      "cat": "romance",
+      "period": "life",
+      "paragraphCount": 5,
+      "file": "C:\\Projects\\metaintelligence\\p37-a3-iso\\lib\\spring-ts\\data\\narrative\\romance\\life\\expert.fragments.json",
+      "totalFlowi": 0,
+      "fireCount": 0
+    },
+    {
+      "fragmentId": "wealth.today.expert.wildcard.001",
+      "cat": "wealth",
+      "period": "today",
+      "paragraphCount": 5,
+      "file": "C:\\Projects\\metaintelligence\\p37-a3-iso\\lib\\spring-ts\\data\\narrative\\wealth\\today\\expert.fragments.json",
+      "totalFlowi": 3,
+      "fireCount": 0
+    }
+  ],
+  "allRanked": [
+    {
+      "fragmentId": "health.today.expert.wild.001",
+      "cat": "health",
+      "period": "today",
+      "paragraphCount": 5,
+      "file": "C:\\Projects\\metaintelligence\\p37-a3-iso\\lib\\spring-ts\\data\\narrative\\health\\today\\expert.fragments.json",
+      "totalFlowi": 2,
+      "fireCount": 0
+    },
+    {
+      "fragmentId": "health.today.expert.balanced.001",
+      "cat": "health",
+      "period": "today",
+      "paragraphCount": 5,
+      "file": "C:\\Projects\\metaintelligence\\p37-a3-iso\\lib\\spring-ts\\data\\narrative\\health\\today\\expert.fragments.json",
+      "totalFlowi": 1,
+      "fireCount": 0
+    },
+    {
+      "fragmentId": "health.today.expert.aligned.001",
+      "cat": "health",
+      "period": "today",
+      "paragraphCount": 5,
+      "file": "C:\\Projects\\metaintelligence\\p37-a3-iso\\lib\\spring-ts\\data\\narrative\\health\\today\\expert.fragments.json",
+      "totalFlowi": 2,
+      "fireCount": 0
+    },
+    {
+      "fragmentId": "health.thisWeek.expert.conflicting.001",
+      "cat": "health",
+      "period": "thisWeek",
+      "paragraphCount": 5,
+      "file": "C:\\Projects\\metaintelligence\\p37-a3-iso\\lib\\spring-ts\\data\\narrative\\health\\thisWeek\\expert.fragments.json",
+      "totalFlowi": 2,
+      "fireCount": 0
+    },
+    {
+      "fragmentId": "health.thisMonth.expert.extreme_weak.aligned.001",
+      "cat": "health",
+      "period": "thisMonth",
+      "paragraphCount": 5,
+      "file": "C:\\Projects\\metaintelligence\\p37-a3-iso\\lib\\spring-ts\\data\\narrative\\health\\thisMonth\\expert.fragments.json",
+      "totalFlowi": 4,
+      "fireCount": 0
+    },
+    {
+      "fragmentId": "health.thisMonth.expert.extreme_weak.001",
+      "cat": "health",
+      "period": "thisMonth",
+      "paragraphCount": 5,
+      "file": "C:\\Projects\\metaintelligence\\p37-a3-iso\\lib\\spring-ts\\data\\narrative\\health\\thisMonth\\expert.fragments.json",
+      "totalFlowi": 2,
+      "fireCount": 0
+    },
+    {
+      "fragmentId": "health.thisYear.expert.aligned.001",
+      "cat": "health",
+      "period": "thisYear",
+      "paragraphCount": 5,
+      "file": "C:\\Projects\\metaintelligence\\p37-a3-iso\\lib\\spring-ts\\data\\narrative\\health\\thisYear\\expert.fragments.json",
+      "totalFlowi": 2,
+      "fireCount": 0
+    },
+    {
+      "fragmentId": "health.thisYear.expert.weak.001",
+      "cat": "health",
+      "period": "thisYear",
+      "paragraphCount": 5,
+      "file": "C:\\Projects\\metaintelligence\\p37-a3-iso\\lib\\spring-ts\\data\\narrative\\health\\thisYear\\expert.fragments.json",
+      "totalFlowi": 2,
+      "fireCount": 0
+    },
+    {
+      "fragmentId": "health.life.expert.fire_excess.001",
+      "cat": "health",
+      "period": "life",
+      "paragraphCount": 5,
+      "file": "C:\\Projects\\metaintelligence\\p37-a3-iso\\lib\\spring-ts\\data\\narrative\\health\\life\\expert.fragments.json",
+      "totalFlowi": 2,
+      "fireCount": 0
+    },
+    {
+      "fragmentId": "movement.life.expert.30_39.005",
+      "cat": "movement",
+      "period": "life",
+      "paragraphCount": 5,
+      "file": "C:\\Projects\\metaintelligence\\p37-a3-iso\\lib\\spring-ts\\data\\narrative\\movement\\life\\expert.fragments.json",
+      "totalFlowi": 3,
+      "fireCount": 0
+    },
+    {
+      "fragmentId": "romance.today.expert.adult.001",
+      "cat": "romance",
+      "period": "today",
+      "paragraphCount": 5,
+      "file": "C:\\Projects\\metaintelligence\\p37-a3-iso\\lib\\spring-ts\\data\\narrative\\romance\\today\\expert.fragments.json",
+      "totalFlowi": 2,
+      "fireCount": 0
+    },
+    {
+      "fragmentId": "romance.today.expert.midlife.aligned.001",
+      "cat": "romance",
+      "period": "today",
+      "paragraphCount": 5,
+      "file": "C:\\Projects\\metaintelligence\\p37-a3-iso\\lib\\spring-ts\\data\\narrative\\romance\\today\\expert.fragments.json",
+      "totalFlowi": 2,
+      "fireCount": 0
+    },
+    {
+      "fragmentId": "romance.thisWeek.expert.midlife.conflicting.001",
+      "cat": "romance",
+      "period": "thisWeek",
+      "paragraphCount": 5,
+      "file": "C:\\Projects\\metaintelligence\\p37-a3-iso\\lib\\spring-ts\\data\\narrative\\romance\\thisWeek\\expert.fragments.json",
+      "totalFlowi": 1,
+      "fireCount": 0
+    },
+    {
+      "fragmentId": "romance.thisWeek.expert.late_life.001",
+      "cat": "romance",
+      "period": "thisWeek",
+      "paragraphCount": 5,
+      "file": "C:\\Projects\\metaintelligence\\p37-a3-iso\\lib\\spring-ts\\data\\narrative\\romance\\thisWeek\\expert.fragments.json",
+      "totalFlowi": 2,
+      "fireCount": 0
+    },
+    {
+      "fragmentId": "romance.thisMonth.expert.adult.001",
+      "cat": "romance",
+      "period": "thisMonth",
+      "paragraphCount": 5,
+      "file": "C:\\Projects\\metaintelligence\\p37-a3-iso\\lib\\spring-ts\\data\\narrative\\romance\\thisMonth\\expert.fragments.json",
+      "totalFlowi": 2,
+      "fireCount": 0
+    },
+    {
+      "fragmentId": "romance.thisMonth.expert.midlife.conflicting.001",
+      "cat": "romance",
+      "period": "thisMonth",
+      "paragraphCount": 5,
+      "file": "C:\\Projects\\metaintelligence\\p37-a3-iso\\lib\\spring-ts\\data\\narrative\\romance\\thisMonth\\expert.fragments.json",
+      "totalFlowi": 1,
+      "fireCount": 0
+    },
+    {
+      "fragmentId": "romance.thisMonth.expert.late_life.001",
+      "cat": "romance",
+      "period": "thisMonth",
+      "paragraphCount": 5,
+      "file": "C:\\Projects\\metaintelligence\\p37-a3-iso\\lib\\spring-ts\\data\\narrative\\romance\\thisMonth\\expert.fragments.json",
+      "totalFlowi": 2,
+      "fireCount": 0
+    },
+    {
+      "fragmentId": "romance.thisYear.expert.adult.001",
+      "cat": "romance",
+      "period": "thisYear",
+      "paragraphCount": 5,
+      "file": "C:\\Projects\\metaintelligence\\p37-a3-iso\\lib\\spring-ts\\data\\narrative\\romance\\thisYear\\expert.fragments.json",
+      "totalFlowi": 0,
+      "fireCount": 0
+    },
+    {
+      "fragmentId": "romance.thisYear.expert.young_adult.aligned.001",
+      "cat": "romance",
+      "period": "thisYear",
+      "paragraphCount": 5,
+      "file": "C:\\Projects\\metaintelligence\\p37-a3-iso\\lib\\spring-ts\\data\\narrative\\romance\\thisYear\\expert.fragments.json",
+      "totalFlowi": 2,
+      "fireCount": 0
+    },
+    {
+      "fragmentId": "romance.thisYear.expert.young_adult.conflicting.001",
+      "cat": "romance",
+      "period": "thisYear",
+      "paragraphCount": 5,
+      "file": "C:\\Projects\\metaintelligence\\p37-a3-iso\\lib\\spring-ts\\data\\narrative\\romance\\thisYear\\expert.fragments.json",
+      "totalFlowi": 1,
+      "fireCount": 0
+    },
+    {
+      "fragmentId": "romance.thisYear.expert.midlife.conflicting.001",
+      "cat": "romance",
+      "period": "thisYear",
+      "paragraphCount": 5,
+      "file": "C:\\Projects\\metaintelligence\\p37-a3-iso\\lib\\spring-ts\\data\\narrative\\romance\\thisYear\\expert.fragments.json",
+      "totalFlowi": 2,
+      "fireCount": 0
+    },
+    {
+      "fragmentId": "romance.thisYear.expert.dohwa_strong.001",
+      "cat": "romance",
+      "period": "thisYear",
+      "paragraphCount": 5,
+      "file": "C:\\Projects\\metaintelligence\\p37-a3-iso\\lib\\spring-ts\\data\\narrative\\romance\\thisYear\\expert.fragments.json",
+      "totalFlowi": 1,
+      "fireCount": 0
+    },
+    {
+      "fragmentId": "romance.life.expert.adult.001",
+      "cat": "romance",
+      "period": "life",
+      "paragraphCount": 5,
+      "file": "C:\\Projects\\metaintelligence\\p37-a3-iso\\lib\\spring-ts\\data\\narrative\\romance\\life\\expert.fragments.json",
+      "totalFlowi": 1,
+      "fireCount": 0
+    },
+    {
+      "fragmentId": "romance.life.expert.young_adult.aligned.001",
+      "cat": "romance",
+      "period": "life",
+      "paragraphCount": 5,
+      "file": "C:\\Projects\\metaintelligence\\p37-a3-iso\\lib\\spring-ts\\data\\narrative\\romance\\life\\expert.fragments.json",
+      "totalFlowi": 2,
+      "fireCount": 0
+    },
+    {
+      "fragmentId": "romance.life.expert.midlife.conflicting.001",
+      "cat": "romance",
+      "period": "life",
+      "paragraphCount": 5,
+      "file": "C:\\Projects\\metaintelligence\\p37-a3-iso\\lib\\spring-ts\\data\\narrative\\romance\\life\\expert.fragments.json",
+      "totalFlowi": 2,
+      "fireCount": 0
+    },
+    {
+      "fragmentId": "romance.life.expert.late_life.001",
+      "cat": "romance",
+      "period": "life",
+      "paragraphCount": 5,
+      "file": "C:\\Projects\\metaintelligence\\p37-a3-iso\\lib\\spring-ts\\data\\narrative\\romance\\life\\expert.fragments.json",
+      "totalFlowi": 0,
+      "fireCount": 0
+    },
+    {
+      "fragmentId": "wealth.today.expert.wildcard.001",
+      "cat": "wealth",
+      "period": "today",
+      "paragraphCount": 5,
+      "file": "C:\\Projects\\metaintelligence\\p37-a3-iso\\lib\\spring-ts\\data\\narrative\\wealth\\today\\expert.fragments.json",
+      "totalFlowi": 3,
+      "fireCount": 0
+    }
+  ]
+}
