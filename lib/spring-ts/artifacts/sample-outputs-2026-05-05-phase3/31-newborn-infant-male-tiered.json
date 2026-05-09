@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-05-09T11:21:28.625Z",
+  "generatedAt": "2026-05-09T11:26:56.580Z",
   "targetDate": "2026-05-05T00:00:00+09:00",
   "sampleId": "newborn-infant-male-tiered",
   "description": "신생아 (2026 봄 출생, 현재 0세) — 보호자 perspective audience cell 활성화 fixture. life-stage 의 가장 이른 단계 narrative 가 fallback 되는지 확인. tieredMatrix 의 신생아 안전 어조 (성인 metaphor 회피) 점검 케이스.",
@@ -1273,7 +1273,7 @@
     },
     "meta": {
       "version": "1.0.0",
-      "generatedAt": "2026-05-09T11:21:47.262Z",
+      "generatedAt": "2026-05-09T11:27:14.683Z",
       "schoolPreset": {
         "selected": "korean",
         "source": "default",
@@ -2944,6 +2944,15 @@
                       }
                     ],
                     "plainText": "여행과 체험학습, 전학 같은 자리는 두려운 일이 아니라 좋은 자극이에요. 새로 만나는 풍경이 아이의 호기심을 깨우고, 그 호기심이 평생의 큰 자산이 돼요."
+                  },
+                  {
+                    "tokens": [
+                      {
+                        "kind": "text",
+                        "value": "새 자리에 들어설 때마다 아이의 마음 안에서는 호기심과 낯섦이 짧게 마주쳐 보여요. 그 작은 마주침이 오래 쌓이면 또래보다 한 뼘 더 너른 시야를 만들어 주는 든든한 자양분이 돼요."
+                      }
+                    ],
+                    "plainText": "새 자리에 들어설 때마다 아이의 마음 안에서는 호기심과 낯섦이 짧게 마주쳐 보여요. 그 작은 마주침이 오래 쌓이면 또래보다 한 뼘 더 너른 시야를 만들어 주는 든든한 자양분이 돼요."
                   },
                   {
                     "tokens": [
@@ -10618,7 +10627,7 @@
       },
       "meta": {
         "schemaVersion": "spring-ts.tiered-matrix.v1",
-        "generatedAt": "2026-05-09T11:21:47.262Z",
+        "generatedAt": "2026-05-09T11:27:14.683Z",
         "selectionSeed": "2026|3|15|11|0|male|2026-05-04T15:00:00.000Z",
         "templateContractVersion": "1.0.0",
         "contentSource": "authored",

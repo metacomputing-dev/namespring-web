@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-05-09T11:21:28.625Z",
+  "generatedAt": "2026-05-09T11:26:56.580Z",
   "targetDate": "2026-05-05T00:00:00+09:00",
   "sampleId": "kim-senior-female-tiered",
   "description": "70+ 시니어 여성 (1950 출생) — 노년 여성 audience 흐름. life-stage 후반 narrative 와 tieredMatrix 의 conservative tone 매칭을 점검하는 케이스.",
@@ -1317,7 +1317,7 @@
     },
     "meta": {
       "version": "1.0.0",
-      "generatedAt": "2026-05-09T11:21:41.281Z",
+      "generatedAt": "2026-05-09T11:27:08.582Z",
       "schoolPreset": {
         "selected": "korean",
         "source": "default",
@@ -10854,6 +10854,15 @@
                     "tokens": [
                       {
                         "kind": "text",
+                        "value": "한 주에 한 페이지를 골라 짧은 메모를 차분히 남겨 두는 작은 약속을 두면 좋아요. 큰 진도를 두지 않아도, 한 줄·한 단락의 기록이 한 해의 단단한 발걸음으로 천천히 모여 줘요."
+                      }
+                    ],
+                    "plainText": "한 주에 한 페이지를 골라 짧은 메모를 차분히 남겨 두는 작은 약속을 두면 좋아요. 큰 진도를 두지 않아도, 한 줄·한 단락의 기록이 한 해의 단단한 발걸음으로 천천히 모여 줘요."
+                  },
+                  {
+                    "tokens": [
+                      {
+                        "kind": "text",
                         "value": "학업의 결실에 마음을 묶기보다, 호기심이 이끄는 한 페이지의 행복을 한 해 곁에 두면 좋아요."
                       }
                     ],
@@ -13151,7 +13160,7 @@
       },
       "meta": {
         "schemaVersion": "spring-ts.tiered-matrix.v1",
-        "generatedAt": "2026-05-09T11:21:41.281Z",
+        "generatedAt": "2026-05-09T11:27:08.581Z",
         "selectionSeed": "1950|8|20|14|0|female|2026-05-04T15:00:00.000Z",
         "templateContractVersion": "1.0.0",
         "contentSource": "authored",
