@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-05-09T07:54:42.624Z",
+  "generatedAt": "2026-05-09T07:56:13.406Z",
   "targetDate": "2026-05-05T00:00:00+09:00",
   "sampleId": "gyeokguk-conflict-jeonggwan-vs-bigyeop-tiered",
   "description": "격국 충돌 case 1: 정관 후보와 비견(겁재) 후보가 같이 잡히기 쉬운 입력. gyeokgukSelectionRule=jungki_transparent 로 월지 중기 투간 룰을 활성화하여 후보 ranking 의 elasticity 를 노출하는 케이스. 최종 격국 판정은 엔진이 결정한다.",
@@ -1303,7 +1303,7 @@
     },
     "meta": {
       "version": "1.0.0",
-      "generatedAt": "2026-05-09T07:54:57.030Z",
+      "generatedAt": "2026-05-09T07:56:26.504Z",
       "schoolPreset": {
         "selected": "korean",
         "source": "default",
@@ -9767,7 +9767,8 @@
               "meaningfulness": "meaningful",
               "stars": 5,
               "brief": {
-                "headline": "이번 달은 작업 한 묶음을 정리해 두기 좋은 결이에요."
+                "headline": "이번 달은 여름 평상에서 자녀와 한 호흡 나란히 골라 보면 좋아요.",
+                "hook": "여름 평상에 한 호흡 나란히 골라요."
               },
               "standard": {
                 "paragraphs": [
@@ -9917,10 +9918,19 @@
               },
               "selectedFragments": {
                 "brief": {
-                  "fragmentId": "expression_children.thisMonth.brief.40_54.006",
+                  "fragmentId": "expression_children.thisMonth.brief.male.midlife.summer.balanced.013",
                   "gating": {
+                    "gender": [
+                      "male"
+                    ],
                     "ageBand": [
                       "40-54"
+                    ],
+                    "birthSeason": [
+                      "summer"
+                    ],
+                    "dayMasterStrength": [
+                      "BALANCED"
                     ]
                   },
                   "tags": []
@@ -13222,12 +13232,12 @@
       },
       "meta": {
         "schemaVersion": "spring-ts.tiered-matrix.v1",
-        "generatedAt": "2026-05-09T07:54:57.030Z",
+        "generatedAt": "2026-05-09T07:56:26.504Z",
         "selectionSeed": "1985|5|25|8|45|male|2026-05-04T15:00:00.000Z",
         "templateContractVersion": "1.0.0",
         "contentSource": "authored",
-        "fragmentCount": 4195,
-        "aiGeneratedFragmentCount": 4195
+        "fragmentCount": 4205,
+        "aiGeneratedFragmentCount": 4205
       }
     }
   }

@@ -322,6 +322,41 @@
         "copyrightNote": "No source prose copied; original authored prose.",
         "authorityTruthEligible": false
       }
+    },
+    {
+      "schemaVersion": "spring-ts.narrative-fragment.v1",
+      "fragmentId": "health.thisYear.brief.male.elder.autumn.weak.jeonggwan.012",
+      "axis": {
+        "category": "health",
+        "period": "thisYear",
+        "depth": "brief"
+      },
+      "gating": {
+        "gender": ["male"],
+        "ageBand": ["70+"],
+        "birthSeason": ["autumn"],
+        "dayMasterStrength": ["WEAK", "EXTREME_WEAK"],
+        "gyeokguk": ["jeonggwangyeok"]
+      },
+      "templateTokens": [
+        {
+          "kind": "text",
+          "value": "올해는 가을 햇살 아래 약상자를 한 번씩 살피는 흐름이 좋아요."
+        }
+      ],
+      "hook": "가을 햇살 아래 약상자 살펴요.",
+      "tags": [],
+      "aiGenerated": true,
+      "sourceTier": {
+        "tier": "T1_HYPOTHESIS",
+        "sourceType": "training_derived",
+        "sourceUrl": null,
+        "accessedAt": "2026-05-09",
+        "quoteShort": null,
+        "humanInterpretation": "P37-A4 distinct-hook expansion: health/thisYear brief for male × 70+ × autumn × WEAK × jeonggwangyeok. 5-dim split targets #25 (M 70+ autumn WEAK jeonggwangyeok) without lifting #5/#13/#32/#33. Display-only narrative.",
+        "copyrightNote": "No source prose copied; original authored prose.",
+        "authorityTruthEligible": false
+      }
     }
   ]
 }

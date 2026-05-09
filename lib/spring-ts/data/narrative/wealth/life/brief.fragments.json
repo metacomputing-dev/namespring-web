@@ -699,6 +699,39 @@
         "copyrightNote": "No source prose copied; original.",
         "authorityTruthEligible": false
       }
+    },
+    {
+      "schemaVersion": "spring-ts.narrative-fragment.v1",
+      "fragmentId": "wealth.life.brief.male.child.spring.015",
+      "axis": {
+        "category": "wealth",
+        "period": "life",
+        "depth": "brief"
+      },
+      "gating": {
+        "gender": ["male"],
+        "ageBand": ["0-9"],
+        "birthSeason": ["spring"]
+      },
+      "templateTokens": [
+        {
+          "kind": "text",
+          "value": "삶의 흐름은 봄볕 들녘에서 첫 동전을 작은 주머니에 넣어 두는 길이에요."
+        }
+      ],
+      "hook": "봄볕 주머니에 첫 동전 넣어요.",
+      "tags": [],
+      "aiGenerated": true,
+      "sourceTier": {
+        "tier": "T1_HYPOTHESIS",
+        "sourceType": "training_derived",
+        "sourceUrl": null,
+        "accessedAt": "2026-05-09",
+        "quoteShort": null,
+        "humanInterpretation": "P37-A4 distinct-hook expansion: wealth/life brief for male × 0-9 × spring. 3-dim split targets #31 (M 0-9 spring) without lifting #5/#13/#32/#33. Display-only narrative.",
+        "copyrightNote": "No source prose copied; original authored prose.",
+        "authorityTruthEligible": false
+      }
     }
   ]
 }

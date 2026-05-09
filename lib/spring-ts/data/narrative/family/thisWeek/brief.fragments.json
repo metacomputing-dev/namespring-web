@@ -3,7 +3,7 @@
   "bundleId": "family.thisWeek.brief",
   "contractVersion": "1.0.0",
   "ownerAgent": "agent-5",
-  "fragmentCount": 12,
+  "fragmentCount": 14,
   "fragments": [
     {
       "schemaVersion": "spring-ts.narrative-fragment.v1",
@@ -280,6 +280,33 @@
         "accessedAt": "2026-05-08",
         "quoteShort": null,
         "humanInterpretation": "P35-A4 distinct-hook expansion: family/thisWeek brief for male × 0-9 × winter. Caregiver-shared tone; targets #30 (M 0-9 winter). Display-only narrative.",
+        "copyrightNote": "No source prose copied; original authored prose.",
+        "authorityTruthEligible": false
+      }
+    },
+    {
+      "schemaVersion": "spring-ts.narrative-fragment.v1",
+      "fragmentId": "family.thisWeek.brief.female.thirties.spring.weak.014",
+      "axis": { "category": "family", "period": "thisWeek", "depth": "brief", "tone": "plain" },
+      "gating": {
+        "gender": ["female"],
+        "ageBand": ["30-39"],
+        "birthSeason": ["spring"],
+        "dayMasterStrength": ["WEAK", "EXTREME_WEAK"]
+      },
+      "templateTokens": [
+        { "kind": "text", "value": "이번 주는 봄볕 식탁에서 가까운 안부를 한 줄 적어 두면 좋아요." }
+      ],
+      "hook": "봄볕 식탁에 안부 한 줄 적어요.",
+      "tags": [],
+      "aiGenerated": true,
+      "sourceTier": {
+        "tier": "T1_HYPOTHESIS",
+        "sourceType": "training_derived",
+        "sourceUrl": null,
+        "accessedAt": "2026-05-09",
+        "quoteShort": null,
+        "humanInterpretation": "P37-A4 distinct-hook expansion: family/thisWeek brief for female × 30-39 × spring × WEAK day master. 4-dim split targets #22 (F 30-39 spring WEAK) without lifting #5/#13/#32/#33. Display-only narrative.",
         "copyrightNote": "No source prose copied; original authored prose.",
         "authorityTruthEligible": false
       }
