@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-05-09T10:12:52.045Z",
+  "generatedAt": "2026-05-09T10:14:50.307Z",
   "targetDate": "2026-05-05T00:00:00+09:00",
   "sampleId": "gyeokguk-conflict-multi-confidence-tiered",
   "description": "격국 충돌 + 다중 confidence 시나리오 — gyeokgukSelectionRule=jungki_transparent + gyeokgukMode=chengbai_strict + yongshinMode=consensus_aware 결합. 월지 중기 투간 후보와 chengbai 페널티 smooth tanh 곡선이 동시에 ranking 에 작용하는 elasticity 노출 케이스.",
@@ -1309,7 +1309,7 @@
     },
     "meta": {
       "version": "1.0.0",
-      "generatedAt": "2026-05-09T10:13:15.713Z",
+      "generatedAt": "2026-05-09T10:15:14.160Z",
       "schoolPreset": {
         "selected": "korean",
         "source": "default",
@@ -3485,6 +3485,15 @@
                       }
                     ],
                     "plainText": "다만 가족과 자기 자리 사이의 균형은 한 번 더 점검해도 좋아요. 자기 자리만 바라보지 않고 가까운 사람의 호흡도 함께 살피면, 이동의 중심이 단단해져요."
+                  },
+                  {
+                    "tokens": [
+                      {
+                        "kind": "text",
+                        "value": "한 자리를 옮길 때마다 짐 한 보따리를 정리해 보세요. 가져갈 것과 두고 갈 것을 한 번 더 가려 두면 새 자리에 닿았을 때 호흡이 가벼워지고, 다음 자리에서의 시야도 또렷해져요."
+                      }
+                    ],
+                    "plainText": "한 자리를 옮길 때마다 짐 한 보따리를 정리해 보세요. 가져갈 것과 두고 갈 것을 한 번 더 가려 두면 새 자리에 닿았을 때 호흡이 가벼워지고, 다음 자리에서의 시야도 또렷해져요."
                   }
                 ],
                 "livingTips": [
@@ -4364,15 +4373,6 @@
                       }
                     ],
                     "plainText": "결과보다 그 자리를 만들어 가는 자기 호흡이 가장 좋은 무기예요."
-                  },
-                  {
-                    "tokens": [
-                      {
-                        "kind": "text",
-                        "value": "오늘 한 단원의 마무리 자리에 짧은 한 줄 점검 노트를 두면 좋아요. 무엇을 또렷이 알았고 어디가 모호한지 한 줄씩만 적어 두면, 내일 첫 걸음을 어디서 시작할지 자기 손으로 또렷이 잡혀요."
-                      }
-                    ],
-                    "plainText": "오늘 한 단원의 마무리 자리에 짧은 한 줄 점검 노트를 두면 좋아요. 무엇을 또렷이 알았고 어디가 모호한지 한 줄씩만 적어 두면, 내일 첫 걸음을 어디서 시작할지 자기 손으로 또렷이 잡혀요."
                   }
                 ],
                 "livingTips": [
@@ -11828,6 +11828,15 @@
                     "tokens": [
                       {
                         "kind": "text",
+                        "value": "한 해의 마무리에 가까워지면 가족 중 한 사람에게 짧은 편지 한 장을 적어 보세요. 길지 않아도 좋고, 고마운 자리 한 줄을 또렷이 적어 두면 다음 해의 자리도 한층 가벼워져요."
+                      }
+                    ],
+                    "plainText": "한 해의 마무리에 가까워지면 가족 중 한 사람에게 짧은 편지 한 장을 적어 보세요. 길지 않아도 좋고, 고마운 자리 한 줄을 또렷이 적어 두면 다음 해의 자리도 한층 가벼워져요."
+                  },
+                  {
+                    "tokens": [
+                      {
+                        "kind": "text",
                         "value": "자녀와의 관계 가능성도 함께 비치지만 단정 없이 흐르는 게 좋아요. 올해의 정리가 다음 해의 흐름을 가볍게 해 줘요."
                       }
                     ],
@@ -13145,7 +13154,7 @@
       },
       "meta": {
         "schemaVersion": "spring-ts.tiered-matrix.v1",
-        "generatedAt": "2026-05-09T10:13:15.713Z",
+        "generatedAt": "2026-05-09T10:15:14.160Z",
         "selectionSeed": "1976|6|22|13|15|male|2026-05-04T15:00:00.000Z",
         "templateContractVersion": "1.0.0",
         "contentSource": "authored",
