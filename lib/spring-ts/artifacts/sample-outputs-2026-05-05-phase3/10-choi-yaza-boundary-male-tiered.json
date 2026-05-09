@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-05-09T07:52:33.070Z",
+  "generatedAt": "2026-05-09T07:49:23.136Z",
   "targetDate": "2026-05-05T00:00:00+09:00",
   "sampleId": "choi-yaza-boundary-male-tiered",
   "description": "야자시 경계 23:30 출생. yaza=on, yazaMode=23:00 으로 다음 날로 이월하는 경계 케이스.",
@@ -1299,7 +1299,7 @@
     },
     "meta": {
       "version": "1.0.0",
-      "generatedAt": "2026-05-09T07:52:42.016Z",
+      "generatedAt": "2026-05-09T07:49:32.180Z",
       "schoolPreset": {
         "selected": "korean",
         "source": "default",
@@ -3539,15 +3539,6 @@
                       }
                     ],
                     "plainText": "다만 일과 가족 사이의 변화는 가족과 충분히 호흡을 맞춘 뒤 결정해도 늦지 않아요. 큰 변화일수록 천천히, 단계적으로 접근하는 방식이 가장 잘 어울려요."
-                  },
-                  {
-                    "tokens": [
-                      {
-                        "kind": "text",
-                        "value": "비유하자면 30대의 큰 이동은 산길에서 고갯마루 한 자리를 넘어 두는 자리예요. 한 번에 정상까지 오르지 않아도, 한 고개씩 천천히 넘어 두는 자리가 30대 후반의 든든한 시야를 만들어 줘요."
-                      }
-                    ],
-                    "plainText": "비유하자면 30대의 큰 이동은 산길에서 고갯마루 한 자리를 넘어 두는 자리예요. 한 번에 정상까지 오르지 않아도, 한 고개씩 천천히 넘어 두는 자리가 30대 후반의 든든한 시야를 만들어 줘요."
                   }
                 ],
                 "livingTips": [
@@ -13019,7 +13010,7 @@
       },
       "meta": {
         "schemaVersion": "spring-ts.tiered-matrix.v1",
-        "generatedAt": "2026-05-09T07:52:42.016Z",
+        "generatedAt": "2026-05-09T07:49:32.180Z",
         "selectionSeed": "1995|6|10|23|30|male|2026-05-04T15:00:00.000Z",
         "templateContractVersion": "1.0.0",
         "contentSource": "authored",
