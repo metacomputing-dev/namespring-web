@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-05-09T11:26:56.580Z",
+  "generatedAt": "2026-05-09T11:21:31.878Z",
   "targetDate": "2026-05-05T00:00:00+09:00",
   "sampleId": "jeolgi-lidong-boundary-tiered",
   "description": "입동(立冬) 절기 경계 직전 출생 (2026 입동 = 11/07 18:52 KST, 본 입력은 ±0.5 day 내). fortuneCascadeMode=jie_based 로 jie 경계 day-precision 활성, 月柱 戌→亥 분기 부근 elasticity 와 tieredMatrix 결합.",
@@ -1307,7 +1307,7 @@
     },
     "meta": {
       "version": "1.0.0",
-      "generatedAt": "2026-05-09T11:27:14.409Z",
+      "generatedAt": "2026-05-09T11:21:51.838Z",
       "schoolPreset": {
         "selected": "korean",
         "source": "default",
@@ -2970,15 +2970,6 @@
                       }
                     ],
                     "plainText": "여행과 체험학습, 전학 같은 자리는 두려운 일이 아니라 좋은 자극이에요. 새로 만나는 풍경이 아이의 호기심을 깨우고, 그 호기심이 평생의 큰 자산이 돼요."
-                  },
-                  {
-                    "tokens": [
-                      {
-                        "kind": "text",
-                        "value": "새 자리에 들어설 때마다 아이의 마음 안에서는 호기심과 낯섦이 짧게 마주쳐 보여요. 그 작은 마주침이 오래 쌓이면 또래보다 한 뼘 더 너른 시야를 만들어 주는 든든한 자양분이 돼요."
-                      }
-                    ],
-                    "plainText": "새 자리에 들어설 때마다 아이의 마음 안에서는 호기심과 낯섦이 짧게 마주쳐 보여요. 그 작은 마주침이 오래 쌓이면 또래보다 한 뼘 더 너른 시야를 만들어 주는 든든한 자양분이 돼요."
                   },
                   {
                     "tokens": [
@@ -10668,7 +10659,7 @@
       },
       "meta": {
         "schemaVersion": "spring-ts.tiered-matrix.v1",
-        "generatedAt": "2026-05-09T11:27:14.409Z",
+        "generatedAt": "2026-05-09T11:21:51.838Z",
         "selectionSeed": "2026|11|7|18|30|male|2026-05-04T15:00:00.000Z",
         "templateContractVersion": "1.0.0",
         "contentSource": "authored",
