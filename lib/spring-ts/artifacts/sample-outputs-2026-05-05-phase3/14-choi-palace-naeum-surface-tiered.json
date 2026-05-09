@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-05-09T11:21:28.625Z",
+  "generatedAt": "2026-05-09T11:26:56.580Z",
   "targetDate": "2026-05-05T00:00:00+09:00",
   "sampleId": "choi-palace-naeum-surface-tiered",
   "description": "12궁 / 60갑자 surface ON 시나리오 (declared opt-in). saju-ts 측 데이터 포트 이전이면 surfacePalace/surfaceNaeum 이 추가 출력을 내지 않으며, 계약상 opt-in 시그니처만 노출한다. tieredMatrix 는 정상 출력.",
@@ -770,7 +770,7 @@
     },
     "meta": {
       "version": "1.0.0",
-      "generatedAt": "2026-05-09T11:21:39.877Z",
+      "generatedAt": "2026-05-09T11:27:07.191Z",
       "schoolPreset": {
         "selected": "korean",
         "source": "default",
@@ -5897,6 +5897,15 @@
                       }
                     ],
                     "plainText": "주중엔 무리한 약속·강행군은 한 번씩 줄이는 편이 좋아요. 점심엔 따뜻한 한 끼, 오후엔 짧은 환기 자리가 컨디션을 단단히 받쳐 줘요."
+                  },
+                  {
+                    "tokens": [
+                      {
+                        "kind": "text",
+                        "value": "작은 소반 위에 정갈한 반찬을 두어 가지 차분히 올려 두듯, 이번 주 회복도 한 끼·한 산책·한 잠을 가지런히 받쳐 두면 잘 맞아요. 한 번에 큰 변화를 두려 하지 않아도 돼요."
+                      }
+                    ],
+                    "plainText": "작은 소반 위에 정갈한 반찬을 두어 가지 차분히 올려 두듯, 이번 주 회복도 한 끼·한 산책·한 잠을 가지런히 받쳐 두면 잘 맞아요. 한 번에 큰 변화를 두려 하지 않아도 돼요."
                   },
                   {
                     "tokens": [
@@ -12515,7 +12524,7 @@
       },
       "meta": {
         "schemaVersion": "spring-ts.tiered-matrix.v1",
-        "generatedAt": "2026-05-09T11:21:39.877Z",
+        "generatedAt": "2026-05-09T11:27:07.191Z",
         "selectionSeed": "1986|4|19|5|45|male|2026-05-04T15:00:00.000Z",
         "templateContractVersion": "1.0.0",
         "contentSource": "authored",
