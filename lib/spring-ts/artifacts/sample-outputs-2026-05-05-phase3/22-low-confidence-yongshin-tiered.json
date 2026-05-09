@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-05-09T07:54:42.624Z",
+  "generatedAt": "2026-05-09T07:56:13.406Z",
   "targetDate": "2026-05-05T00:00:00+09:00",
   "sampleId": "low-confidence-yongshin-tiered",
   "description": "용신 신뢰도 낮은 case (consensus 충돌 + 다중 후보). yongshinMode=consensus_aware + chengbai_strict 결합으로 conflict 가 격국 페널티 곡선까지 영향을 주는 elasticity 를 노출. tieredMatrix 의 명시적 신호 fixture 로 활용한다.",
@@ -1337,7 +1337,7 @@
     },
     "meta": {
       "version": "1.0.0",
-      "generatedAt": "2026-05-09T07:54:58.399Z",
+      "generatedAt": "2026-05-09T07:56:27.769Z",
       "schoolPreset": {
         "selected": "korean",
         "source": "default",
@@ -6924,8 +6924,8 @@
               "meaningfulness": "limited",
               "stars": 3,
               "brief": {
-                "headline": "이번 주는 가까운 사람과 짧게 안부를 나누면 좋아요.",
-                "hook": "가족 단톡에 한마디 남겨요."
+                "headline": "이번 주는 봄볕 식탁에서 가까운 안부를 한 줄 적어 두면 좋아요.",
+                "hook": "봄볕 식탁에 안부 한 줄 적어요."
               },
               "standard": {
                 "paragraphs": [
@@ -7050,13 +7050,20 @@
               },
               "selectedFragments": {
                 "brief": {
-                  "fragmentId": "family.thisWeek.brief.female.thirties.012",
+                  "fragmentId": "family.thisWeek.brief.female.thirties.spring.weak.014",
                   "gating": {
                     "gender": [
                       "female"
                     ],
                     "ageBand": [
                       "30-39"
+                    ],
+                    "birthSeason": [
+                      "spring"
+                    ],
+                    "dayMasterStrength": [
+                      "WEAK",
+                      "EXTREME_WEAK"
                     ]
                   },
                   "tags": []
@@ -12906,12 +12913,12 @@
       },
       "meta": {
         "schemaVersion": "spring-ts.tiered-matrix.v1",
-        "generatedAt": "2026-05-09T07:54:58.399Z",
+        "generatedAt": "2026-05-09T07:56:27.769Z",
         "selectionSeed": "1991|2|4|18|0|female|2026-05-04T15:00:00.000Z",
         "templateContractVersion": "1.0.0",
         "contentSource": "authored",
-        "fragmentCount": 4195,
-        "aiGeneratedFragmentCount": 4195
+        "fragmentCount": 4205,
+        "aiGeneratedFragmentCount": 4205
       }
     }
   }

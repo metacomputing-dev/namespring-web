@@ -439,6 +439,39 @@
         "copyrightNote": "No source prose copied; original authored prose.",
         "authorityTruthEligible": false
       }
+    },
+    {
+      "schemaVersion": "spring-ts.narrative-fragment.v1",
+      "fragmentId": "career.thisYear.brief.male.child.summer.014",
+      "axis": {
+        "category": "career",
+        "period": "thisYear",
+        "depth": "brief"
+      },
+      "gating": {
+        "gender": ["male"],
+        "ageBand": ["0-9"],
+        "birthSeason": ["summer"]
+      },
+      "templateTokens": [
+        {
+          "kind": "text",
+          "value": "올해는 여름 마당에서 좋아하는 일감 한 가지를 매일 펼쳐 보면 좋아요."
+        }
+      ],
+      "hook": "여름 마당 일감 한 가지 펼쳐요.",
+      "tags": [],
+      "aiGenerated": true,
+      "sourceTier": {
+        "tier": "T1_HYPOTHESIS",
+        "sourceType": "training_derived",
+        "sourceUrl": null,
+        "accessedAt": "2026-05-09",
+        "quoteShort": null,
+        "humanInterpretation": "P37-A4 distinct-hook expansion: career/thisYear brief for male × 0-9 × summer. 3-dim split targets #18 #27 (M 0-9 summer); caregiver-shared tone. Display-only narrative.",
+        "copyrightNote": "No source prose copied; original authored prose.",
+        "authorityTruthEligible": false
+      }
     }
   ]
 }

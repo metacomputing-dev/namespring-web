@@ -398,6 +398,40 @@
         "copyrightNote": "No source prose copied; original authored prose.",
         "authorityTruthEligible": false
       }
+    },
+    {
+      "schemaVersion": "spring-ts.narrative-fragment.v1",
+      "fragmentId": "career.thisMonth.brief.male.elder.spring.weak.013",
+      "axis": {
+        "category": "career",
+        "period": "thisMonth",
+        "depth": "brief"
+      },
+      "gating": {
+        "gender": ["male"],
+        "ageBand": ["70+"],
+        "birthSeason": ["spring"],
+        "dayMasterStrength": ["WEAK", "EXTREME_WEAK"]
+      },
+      "templateTokens": [
+        {
+          "kind": "text",
+          "value": "이번 달은 봄볕 마당에서 익숙한 일감을 한 줌씩 풀어 두면 좋아요."
+        }
+      ],
+      "hook": "봄볕 마당 일감 한 줌 풀어요.",
+      "tags": [],
+      "aiGenerated": true,
+      "sourceTier": {
+        "tier": "T1_HYPOTHESIS",
+        "sourceType": "training_derived",
+        "sourceUrl": null,
+        "accessedAt": "2026-05-09",
+        "quoteShort": null,
+        "humanInterpretation": "P37-A4 distinct-hook expansion: career/thisMonth brief for male × 70+ × spring × WEAK day master. 4-dim split targets #16 (M 70+ spring WEAK) and excludes #32 (STRONG). Display-only narrative.",
+        "copyrightNote": "No source prose copied; original authored prose.",
+        "authorityTruthEligible": false
+      }
     }
   ]
 }

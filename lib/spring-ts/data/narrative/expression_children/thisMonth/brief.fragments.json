@@ -3,7 +3,7 @@
   "bundleId": "expression_children-thisMonth-brief",
   "contractVersion": "1.0.0",
   "generatedBy": "phase2-agent-8-expression_children",
-  "fragmentCount": 11,
+  "fragmentCount": 13,
   "fragments": [
     {
       "schemaVersion": "spring-ts.narrative-fragment.v1",
@@ -393,6 +393,40 @@
         "accessedAt": "2026-05-08",
         "quoteShort": null,
         "humanInterpretation": "P34-A4 distinct-hook expansion: expression_children/thisMonth brief for male × 70+ × winter × WEAK day master. 4-dim split avoids #32 (STRONG) double-fire; targets #14 effective (WEAK). Display-only narrative.",
+        "copyrightNote": "No source prose copied; original authored prose.",
+        "authorityTruthEligible": false
+      }
+    },
+    {
+      "schemaVersion": "spring-ts.narrative-fragment.v1",
+      "fragmentId": "expression_children.thisMonth.brief.male.midlife.summer.balanced.013",
+      "axis": {
+        "category": "expression_children",
+        "period": "thisMonth",
+        "depth": "brief"
+      },
+      "gating": {
+        "gender": ["male"],
+        "ageBand": ["40-54"],
+        "birthSeason": ["summer"],
+        "dayMasterStrength": ["BALANCED"]
+      },
+      "templateTokens": [
+        {
+          "kind": "text",
+          "value": "이번 달은 여름 평상에서 자녀와 한 호흡 나란히 골라 보면 좋아요."
+        }
+      ],
+      "hook": "여름 평상에 한 호흡 나란히 골라요.",
+      "tags": [],
+      "aiGenerated": true,
+      "sourceTier": {
+        "tier": "T1_HYPOTHESIS",
+        "sourceType": "training_derived",
+        "sourceUrl": null,
+        "accessedAt": "2026-05-09",
+        "quoteShort": null,
+        "humanInterpretation": "P37-A4 distinct-hook expansion: expression_children/thisMonth brief for male × 40-54 × summer × BALANCED day master. 4-dim split targets #19 #34 (M 40-54 summer BALANCED) and excludes #24 (WEAK). Display-only narrative.",
         "copyrightNote": "No source prose copied; original authored prose.",
         "authorityTruthEligible": false
       }

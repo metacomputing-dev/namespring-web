@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-05-09T07:54:42.624Z",
+  "generatedAt": "2026-05-09T07:56:13.406Z",
   "targetDate": "2026-05-05T00:00:00+09:00",
   "sampleId": "choi-seongsoo-tiered-fortune",
   "description": "같은 입력에 precisionConfig.surfaceTieredMatrix=true 를 켠 점진 공개 출력 케이스. Phase 3 wording polish 반영.",
@@ -1312,7 +1312,7 @@
     },
     "meta": {
       "version": "1.0.0",
-      "generatedAt": "2026-05-09T07:54:47.115Z",
+      "generatedAt": "2026-05-09T07:56:17.658Z",
       "schoolPreset": {
         "selected": "korean",
         "source": "default",
@@ -9373,7 +9373,8 @@
               "meaningfulness": "meaningful",
               "stars": 4,
               "brief": {
-                "headline": "이번 달은 중요한 문서의 보관 위치와 갱신 날짜를 정리하기 좋아요."
+                "headline": "이번 달은 봄볕 책상 위 자료를 한 묶음씩 차분히 정리해 두면 좋아요.",
+                "hook": "봄볕 책상 자료 한 묶음 정리해요."
               },
               "standard": {
                 "paragraphs": [
@@ -9519,13 +9520,20 @@
               },
               "selectedFragments": {
                 "brief": {
-                  "fragmentId": "study_document.thisMonth.brief.ageband.mature.401",
+                  "fragmentId": "study_document.thisMonth.brief.male.midlife.spring.weak.010",
                   "gating": {
+                    "gender": [
+                      "male"
+                    ],
                     "ageBand": [
-                      "30-39",
-                      "40-54",
-                      "55-69",
-                      "70+"
+                      "40-54"
+                    ],
+                    "birthSeason": [
+                      "spring"
+                    ],
+                    "dayMasterStrength": [
+                      "WEAK",
+                      "EXTREME_WEAK"
                     ]
                   },
                   "tags": []
@@ -13063,12 +13071,12 @@
       },
       "meta": {
         "schemaVersion": "spring-ts.tiered-matrix.v1",
-        "generatedAt": "2026-05-09T07:54:47.115Z",
+        "generatedAt": "2026-05-09T07:56:17.658Z",
         "selectionSeed": "1986|4|19|5|45|male|2026-05-04T15:00:00.000Z",
         "templateContractVersion": "1.0.0",
         "contentSource": "authored",
-        "fragmentCount": 4195,
-        "aiGeneratedFragmentCount": 4195
+        "fragmentCount": 4205,
+        "aiGeneratedFragmentCount": 4205
       }
     }
   }
