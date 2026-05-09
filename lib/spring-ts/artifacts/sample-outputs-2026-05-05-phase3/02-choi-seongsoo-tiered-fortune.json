@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-05-09T10:11:34.289Z",
+  "generatedAt": "2026-05-09T10:46:59.743Z",
   "targetDate": "2026-05-05T00:00:00+09:00",
   "sampleId": "choi-seongsoo-tiered-fortune",
   "description": "같은 입력에 precisionConfig.surfaceTieredMatrix=true 를 켠 점진 공개 출력 케이스. Phase 3 wording polish 반영.",
@@ -1312,7 +1312,7 @@
     },
     "meta": {
       "version": "1.0.0",
-      "generatedAt": "2026-05-09T10:11:37.491Z",
+      "generatedAt": "2026-05-09T10:47:03.753Z",
       "schoolPreset": {
         "selected": "korean",
         "source": "default",
@@ -13071,12 +13071,12 @@
       },
       "meta": {
         "schemaVersion": "spring-ts.tiered-matrix.v1",
-        "generatedAt": "2026-05-09T10:11:37.491Z",
+        "generatedAt": "2026-05-09T10:47:03.753Z",
         "selectionSeed": "1986|4|19|5|45|male|2026-05-04T15:00:00.000Z",
         "templateContractVersion": "1.0.0",
         "contentSource": "authored",
-        "fragmentCount": 4205,
-        "aiGeneratedFragmentCount": 4205
+        "fragmentCount": 4215,
+        "aiGeneratedFragmentCount": 4215
       }
     }
   }

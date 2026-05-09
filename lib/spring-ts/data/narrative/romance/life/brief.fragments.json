@@ -203,6 +203,33 @@
         "copyrightNote": "No source prose copied; original authored prose.",
         "authorityTruthEligible": false
       }
+    },
+    {
+      "schemaVersion": "spring-ts.narrative-fragment.v1",
+      "fragmentId": "romance.life.brief.male.elder.winter.weak.010",
+      "axis": { "category": "romance", "period": "life", "depth": "brief" },
+      "gating": {
+        "gender": ["male"],
+        "ageBand": ["70+"],
+        "birthSeason": ["winter"],
+        "dayMasterStrength": ["WEAK", "EXTREME_WEAK"]
+      },
+      "templateTokens": [
+        { "kind": "text", "value": "겨울 저녁 마음 따뜻한 안부 한 마디가 인연을 오래 잇는 결이에요." }
+      ],
+      "hook": "겨울 저녁 안부 한 마디 건네요.",
+      "tags": [],
+      "aiGenerated": true,
+      "sourceTier": {
+        "tier": "T1_HYPOTHESIS",
+        "sourceType": "training_derived",
+        "sourceUrl": null,
+        "accessedAt": "2026-05-09",
+        "quoteShort": null,
+        "humanInterpretation": "P38-A3 distinct-hook expansion: romance/life brief for male × 70+ × winter × WEAK. Targets #14 (M/70+/winter/WEAK). 4-dim gate excludes #32 (STRONG) so 17-tier {05,12,13,32,33} HOLD. Display-only narrative.",
+        "copyrightNote": "No source prose copied; original authored prose.",
+        "authorityTruthEligible": false
+      }
     }
   ]
 }

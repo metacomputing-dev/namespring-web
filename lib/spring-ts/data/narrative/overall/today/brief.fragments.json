@@ -563,6 +563,33 @@
         "copyrightNote": "No source prose copied; original authored prose.",
         "authorityTruthEligible": false
       }
+    },
+    {
+      "schemaVersion": "spring-ts.narrative-fragment.v1",
+      "fragmentId": "overall.today.brief.female.thirties.autumn.weak.015",
+      "axis": { "category": "overall", "period": "today", "depth": "brief" },
+      "gating": {
+        "gender": ["female"],
+        "ageBand": ["30-39"],
+        "birthSeason": ["autumn"],
+        "dayMasterStrength": ["WEAK", "EXTREME_WEAK"]
+      },
+      "templateTokens": [
+        { "kind": "text", "value": "오늘은 가을 햇살 아래 작은 일 한 가지만 골라 차분히 마무리해 봐요." }
+      ],
+      "hook": "가을 햇살 아래 한 가지 골라요.",
+      "tags": [],
+      "aiGenerated": true,
+      "sourceTier": {
+        "tier": "T1_HYPOTHESIS",
+        "sourceType": "training_derived",
+        "sourceUrl": null,
+        "accessedAt": "2026-05-09",
+        "quoteShort": null,
+        "humanInterpretation": "P38-A3 distinct-hook expansion: overall/today brief for female × 30-39 × autumn × WEAK. Targets #08, #11 (both F/30-39/autumn/WEAK). 4-dim gate excludes #33 (STRONG) so 17-tier {05,12,13,32,33} HOLD. Display-only narrative.",
+        "copyrightNote": "No source prose copied; original authored prose.",
+        "authorityTruthEligible": false
+      }
     }
   ]
 }

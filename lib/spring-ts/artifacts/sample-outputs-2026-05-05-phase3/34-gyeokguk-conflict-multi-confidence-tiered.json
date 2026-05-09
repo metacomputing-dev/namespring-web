@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-05-09T10:11:34.289Z",
+  "generatedAt": "2026-05-09T10:46:59.743Z",
   "targetDate": "2026-05-05T00:00:00+09:00",
   "sampleId": "gyeokguk-conflict-multi-confidence-tiered",
   "description": "격국 충돌 + 다중 confidence 시나리오 — gyeokgukSelectionRule=jungki_transparent + gyeokgukMode=chengbai_strict + yongshinMode=consensus_aware 결합. 월지 중기 투간 후보와 chengbai 페널티 smooth tanh 곡선이 동시에 ranking 에 작용하는 elasticity 노출 케이스.",
@@ -1309,7 +1309,7 @@
     },
     "meta": {
       "version": "1.0.0",
-      "generatedAt": "2026-05-09T10:11:53.789Z",
+      "generatedAt": "2026-05-09T10:47:16.711Z",
       "schoolPreset": {
         "selected": "korean",
         "source": "default",
@@ -12170,8 +12170,8 @@
               "meaningfulness": "meaningful",
               "stars": 2,
               "brief": {
-                "headline": "올해는 익숙한 동선에 작은 변화가 활력을 보태요.",
-                "hook": "출퇴근 동선을 한 번 바꿔요."
+                "headline": "올해는 여름 저녁 가벼운 걸음으로 한 코스를 정해 꾸준히 다녀 보면 좋아요.",
+                "hook": "여름 저녁 한 코스 걸어요."
               },
               "standard": {
                 "paragraphs": [
@@ -12299,14 +12299,19 @@
               },
               "selectedFragments": {
                 "brief": {
-                  "fragmentId": "movement.thisYear.brief.male.midlife.011",
+                  "fragmentId": "movement.thisYear.brief.male.midlife.summer.balanced.012",
                   "gating": {
                     "gender": [
                       "male"
                     ],
                     "ageBand": [
-                      "30-39",
                       "40-54"
+                    ],
+                    "birthSeason": [
+                      "summer"
+                    ],
+                    "dayMasterStrength": [
+                      "BALANCED"
                     ]
                   },
                   "tags": []
@@ -13136,12 +13141,12 @@
       },
       "meta": {
         "schemaVersion": "spring-ts.tiered-matrix.v1",
-        "generatedAt": "2026-05-09T10:11:53.789Z",
+        "generatedAt": "2026-05-09T10:47:16.711Z",
         "selectionSeed": "1976|6|22|13|15|male|2026-05-04T15:00:00.000Z",
         "templateContractVersion": "1.0.0",
         "contentSource": "authored",
-        "fragmentCount": 4205,
-        "aiGeneratedFragmentCount": 4205
+        "fragmentCount": 4215,
+        "aiGeneratedFragmentCount": 4215
       }
     }
   }

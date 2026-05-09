@@ -121,6 +121,32 @@
       "tags": [],
       "aiGenerated": true,
       "sourceTier": { "tier": "T1_HYPOTHESIS", "sourceType": "training_derived", "sourceUrl": null, "accessedAt": "2026-05-08", "quoteShort": null, "humanInterpretation": "P34-A4 distinct-hook expansion: study_document/thisWeek brief for male × 70+ × autumn × WEAK day master. 4-dim split avoids #28 (STRONG) double-fire; targets #25 jonggwan (WEAK). Display-only narrative.", "copyrightNote": "No source prose copied; original authored prose.", "authorityTruthEligible": false }
+    },
+    {
+      "schemaVersion": "spring-ts.narrative-fragment.v1",
+      "fragmentId": "study_document.thisWeek.brief.male.child.summer.010",
+      "axis": { "category": "study_document", "period": "thisWeek", "depth": "brief" },
+      "gating": {
+        "gender": ["male"],
+        "ageBand": ["0-9"],
+        "birthSeason": ["summer"]
+      },
+      "templateTokens": [
+        { "kind": "text", "value": "이번 주는 여름방학 책장 앞에서 아이가 좋아하는 그림책 한 권 같이 펼쳐 봐요." }
+      ],
+      "hook": "여름방학 그림책 한 권 펼쳐요.",
+      "tags": [],
+      "aiGenerated": true,
+      "sourceTier": {
+        "tier": "T1_HYPOTHESIS",
+        "sourceType": "training_derived",
+        "sourceUrl": null,
+        "accessedAt": "2026-05-09",
+        "quoteShort": null,
+        "humanInterpretation": "P38-A3 distinct-hook expansion: study_document/thisWeek brief for male × 0-9 × summer. Targets #18, #27 (both M/0-9/summer). 3-dim gate beats existing 1-dim young.004 (ageBand only). No forbidden M/0-9 fixtures so 17-tier {05,12,13,32,33} HOLD. Caregiver-shared tone; picturebook imagery. Display-only narrative.",
+        "copyrightNote": "No source prose copied; original authored prose.",
+        "authorityTruthEligible": false
+      }
     }
   ]
 }

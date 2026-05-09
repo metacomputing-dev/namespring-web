@@ -3,7 +3,7 @@
   "bundleId": "movement-thisYear-brief",
   "contractVersion": "1.0.0",
   "generatedBy": "phase2-agent-10-movement",
-  "fragmentCount": 11,
+  "fragmentCount": 12,
   "fragments": [
     {
       "schemaVersion": "spring-ts.narrative-fragment.v1",
@@ -355,6 +355,33 @@
         "accessedAt": "2026-05-07",
         "quoteShort": null,
         "humanInterpretation": "P26-A4 hook expansion: movement/thisYear brief for male × 30-39,40-54. Display-only.",
+        "copyrightNote": "No source prose copied; original authored prose.",
+        "authorityTruthEligible": false
+      }
+    },
+    {
+      "schemaVersion": "spring-ts.narrative-fragment.v1",
+      "fragmentId": "movement.thisYear.brief.male.midlife.summer.balanced.012",
+      "axis": { "category": "movement", "period": "thisYear", "depth": "brief" },
+      "gating": {
+        "gender": ["male"],
+        "ageBand": ["40-54"],
+        "birthSeason": ["summer"],
+        "dayMasterStrength": ["BALANCED"]
+      },
+      "templateTokens": [
+        { "kind": "text", "value": "올해는 여름 저녁 가벼운 걸음으로 한 코스를 정해 꾸준히 다녀 보면 좋아요." }
+      ],
+      "hook": "여름 저녁 한 코스 걸어요.",
+      "tags": [],
+      "aiGenerated": true,
+      "sourceTier": {
+        "tier": "T1_HYPOTHESIS",
+        "sourceType": "training_derived",
+        "sourceUrl": null,
+        "accessedAt": "2026-05-09",
+        "quoteShort": null,
+        "humanInterpretation": "P38-A3 distinct-hook expansion: movement/thisYear brief for male × 40-54 × summer × BALANCED. Targets #19, #34 (both M/40-54/summer/BALANCED). 4-dim gate excludes #24 (WEAK) so 17-tier {05,12,13,32,33} HOLD. Display-only narrative.",
         "copyrightNote": "No source prose copied; original authored prose.",
         "authorityTruthEligible": false
       }
