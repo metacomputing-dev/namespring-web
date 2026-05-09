@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-05-09T10:14:50.307Z",
+  "generatedAt": "2026-05-09T10:11:34.289Z",
   "targetDate": "2026-05-05T00:00:00+09:00",
   "sampleId": "kim-senior-female-tiered",
   "description": "70+ 시니어 여성 (1950 출생) — 노년 여성 audience 흐름. life-stage 후반 narrative 와 tieredMatrix 의 conservative tone 매칭을 점검하는 케이스.",
@@ -1317,7 +1317,7 @@
     },
     "meta": {
       "version": "1.0.0",
-      "generatedAt": "2026-05-09T10:15:06.290Z",
+      "generatedAt": "2026-05-09T10:11:46.271Z",
       "schoolPreset": {
         "selected": "korean",
         "source": "default",
@@ -5458,15 +5458,6 @@
                       }
                     ],
                     "plainText": "가을 햇살이 마루에 가만히 머무는 그림 같은 시간이에요. 다음 세대와의 자리는 그 자체로 따뜻한 표현이라, 굳이 무언가를 가르치려 하지 않아도 충분해요."
-                  },
-                  {
-                    "tokens": [
-                      {
-                        "kind": "text",
-                        "value": "오늘 하루의 표현은 다음 세대와 함께하는 호흡을 천천히 정돈하는 자리예요. 굳이 긴 대화가 아니어도 짧은 한마디나 따뜻한 눈맞춤 한 번이 오늘 하루의 마음을 또렷이 담아 주는 자산이 돼요."
-                      }
-                    ],
-                    "plainText": "오늘 하루의 표현은 다음 세대와 함께하는 호흡을 천천히 정돈하는 자리예요. 굳이 긴 대화가 아니어도 짧은 한마디나 따뜻한 눈맞춤 한 번이 오늘 하루의 마음을 또렷이 담아 주는 자산이 돼요."
                   },
                   {
                     "tokens": [
@@ -13142,7 +13133,7 @@
       },
       "meta": {
         "schemaVersion": "spring-ts.tiered-matrix.v1",
-        "generatedAt": "2026-05-09T10:15:06.290Z",
+        "generatedAt": "2026-05-09T10:11:46.271Z",
         "selectionSeed": "1950|8|20|14|0|female|2026-05-04T15:00:00.000Z",
         "templateContractVersion": "1.0.0",
         "contentSource": "authored",
