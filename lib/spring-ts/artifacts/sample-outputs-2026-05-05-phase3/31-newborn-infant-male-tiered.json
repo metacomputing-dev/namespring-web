@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-05-09T10:12:52.045Z",
+  "generatedAt": "2026-05-09T10:14:50.307Z",
   "targetDate": "2026-05-05T00:00:00+09:00",
   "sampleId": "newborn-infant-male-tiered",
   "description": "신생아 (2026 봄 출생, 현재 0세) — 보호자 perspective audience cell 활성화 fixture. life-stage 의 가장 이른 단계 narrative 가 fallback 되는지 확인. tieredMatrix 의 신생아 안전 어조 (성인 metaphor 회피) 점검 케이스.",
@@ -1273,7 +1273,7 @@
     },
     "meta": {
       "version": "1.0.0",
-      "generatedAt": "2026-05-09T10:13:14.405Z",
+      "generatedAt": "2026-05-09T10:15:12.836Z",
       "schoolPreset": {
         "selected": "korean",
         "source": "default",
@@ -9665,15 +9665,6 @@
                       }
                     ],
                     "plainText": "일 년의 작품을 한 곳에 모아 두면 자기 흐름의 자취가 또렷해져요. 자유롭게 풀어 주는 환경이 가장 좋은 거름이에요."
-                  },
-                  {
-                    "tokens": [
-                      {
-                        "kind": "text",
-                        "value": "한 해 동안 만든 그림·노래·놀이 자취를 분기마다 한 곳에 모아 두는 작은 상자를 만들어 두세요. 상자 한 칸씩 채워 두는 시간이 일 년의 끝에서 자기 색을 또렷하게 받쳐 주는 첫 자료집으로 남아 줘요."
-                      }
-                    ],
-                    "plainText": "한 해 동안 만든 그림·노래·놀이 자취를 분기마다 한 곳에 모아 두는 작은 상자를 만들어 두세요. 상자 한 칸씩 채워 두는 시간이 일 년의 끝에서 자기 색을 또렷하게 받쳐 주는 첫 자료집으로 남아 줘요."
                   }
                 ],
                 "livingTips": [
@@ -10611,7 +10602,7 @@
       },
       "meta": {
         "schemaVersion": "spring-ts.tiered-matrix.v1",
-        "generatedAt": "2026-05-09T10:13:14.405Z",
+        "generatedAt": "2026-05-09T10:15:12.836Z",
         "selectionSeed": "2026|3|15|11|0|male|2026-05-04T15:00:00.000Z",
         "templateContractVersion": "1.0.0",
         "contentSource": "authored",

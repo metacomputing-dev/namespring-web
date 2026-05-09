@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-05-09T10:12:52.045Z",
+  "generatedAt": "2026-05-09T10:14:50.307Z",
   "targetDate": "2026-05-05T00:00:00+09:00",
   "sampleId": "kim-seongsu-special-format-candidate-tiered",
   "description": "입력 의도: 외격 후보(화기격 계열) 고전 사례. precisionConfig 로 tieredMatrix 만 결합. 외격 판정은 엔진이 결정한다.",
@@ -1338,7 +1338,7 @@
     },
     "meta": {
       "version": "1.0.0",
-      "generatedAt": "2026-05-09T10:13:04.493Z",
+      "generatedAt": "2026-05-09T10:15:02.113Z",
       "schoolPreset": {
         "selected": "korean",
         "source": "default",
@@ -1853,6 +1853,15 @@
                       }
                     ],
                     "plainText": "흐트러지는 게 아니라 다듬는 자리를 만들어 가는 시기를 한 번씩 가지면, 평생 컨디션이 더 길게 이어져요. 한 가지 운동·취미를 꾸준히 갈고 닦는 모양이 가장 잘 맞아요."
+                  },
+                  {
+                    "tokens": [
+                      {
+                        "kind": "text",
+                        "value": "비유하자면 평생 컨디션은 가마솥 한 솥의 국물 같아요. 한 번에 끓여 두는 게 아니라 천천히 우러나는 온기를 곁에서 자주 챙겨 두면 한 번 데워 마실 때마다 든든한 한 사발이 돼요."
+                      }
+                    ],
+                    "plainText": "비유하자면 평생 컨디션은 가마솥 한 솥의 국물 같아요. 한 번에 끓여 두는 게 아니라 천천히 우러나는 온기를 곁에서 자주 챙겨 두면 한 번 데워 마실 때마다 든든한 한 사발이 돼요."
                   }
                 ],
                 "livingTips": [
@@ -13275,7 +13284,7 @@
       },
       "meta": {
         "schemaVersion": "spring-ts.tiered-matrix.v1",
-        "generatedAt": "2026-05-09T10:13:04.493Z",
+        "generatedAt": "2026-05-09T10:15:02.112Z",
         "selectionSeed": "1958|7|11|13|0|male|2026-05-04T15:00:00.000Z",
         "templateContractVersion": "1.0.0",
         "contentSource": "authored",
