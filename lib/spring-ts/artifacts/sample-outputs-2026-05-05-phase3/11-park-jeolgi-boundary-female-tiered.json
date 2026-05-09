@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-05-09T11:26:56.580Z",
+  "generatedAt": "2026-05-09T11:21:31.878Z",
   "targetDate": "2026-05-05T00:00:00+09:00",
   "sampleId": "park-jeolgi-boundary-female-tiered",
   "description": "입추(立秋) 절기 경계 직후 출생. fortuneCascadeMode=jie_based 로 경계 정밀 계산을 활성화하고 tieredMatrix 와 결합한 케이스.",
@@ -1321,7 +1321,7 @@
     },
     "meta": {
       "version": "1.0.0",
-      "generatedAt": "2026-05-09T11:27:05.933Z",
+      "generatedAt": "2026-05-09T11:21:43.115Z",
       "schoolPreset": {
         "selected": "korean",
         "source": "default",
@@ -4801,15 +4801,6 @@
                     "tokens": [
                       {
                         "kind": "text",
-                        "value": "두 가정을 정겹게 잇는 작은 다리는 한꺼번에 놓이지 않아요. 오늘 한 통의 다정한 안부 전화, 내일 한 잔의 따뜻한 차로 이어 가다 보면 든든한 다리가 자연스레 자리를 잡아 줘요."
-                      }
-                    ],
-                    "plainText": "두 가정을 정겹게 잇는 작은 다리는 한꺼번에 놓이지 않아요. 오늘 한 통의 다정한 안부 전화, 내일 한 잔의 따뜻한 차로 이어 가다 보면 든든한 다리가 자연스레 자리를 잡아 줘요."
-                  },
-                  {
-                    "tokens": [
-                      {
-                        "kind": "text",
                         "value": "모든 흐름을 한 번에 챙기려 하지 않아도, 오늘의 작은 자리가 다음 주의 든든한 흐름으로 이어져요."
                       }
                     ],
@@ -6377,15 +6368,6 @@
                       }
                     ],
                     "plainText": "주중엔 무리한 약속·강행군은 한 번씩 줄이는 편이 좋아요. 점심엔 따뜻한 한 끼, 오후엔 짧은 환기 자리가 컨디션을 단단히 받쳐 줘요."
-                  },
-                  {
-                    "tokens": [
-                      {
-                        "kind": "text",
-                        "value": "작은 소반 위에 정갈한 반찬을 두어 가지 차분히 올려 두듯, 이번 주 회복도 한 끼·한 산책·한 잠을 가지런히 받쳐 두면 잘 맞아요. 한 번에 큰 변화를 두려 하지 않아도 돼요."
-                      }
-                    ],
-                    "plainText": "작은 소반 위에 정갈한 반찬을 두어 가지 차분히 올려 두듯, 이번 주 회복도 한 끼·한 산책·한 잠을 가지런히 받쳐 두면 잘 맞아요. 한 번에 큰 변화를 두려 하지 않아도 돼요."
                   },
                   {
                     "tokens": [
@@ -12961,7 +12943,7 @@
       },
       "meta": {
         "schemaVersion": "spring-ts.tiered-matrix.v1",
-        "generatedAt": "2026-05-09T11:27:05.933Z",
+        "generatedAt": "2026-05-09T11:21:43.115Z",
         "selectionSeed": "1988|8|8|6|0|female|2026-05-04T15:00:00.000Z",
         "templateContractVersion": "1.0.0",
         "contentSource": "authored",
