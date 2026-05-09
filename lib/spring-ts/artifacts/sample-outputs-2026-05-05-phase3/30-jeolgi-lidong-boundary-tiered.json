@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-05-09T10:11:34.289Z",
+  "generatedAt": "2026-05-09T10:46:59.743Z",
   "targetDate": "2026-05-05T00:00:00+09:00",
   "sampleId": "jeolgi-lidong-boundary-tiered",
   "description": "입동(立冬) 절기 경계 직전 출생 (2026 입동 = 11/07 18:52 KST, 본 입력은 ±0.5 day 내). fortuneCascadeMode=jie_based 로 jie 경계 day-precision 활성, 月柱 戌→亥 분기 부근 elasticity 와 tieredMatrix 결합.",
@@ -1307,7 +1307,7 @@
     },
     "meta": {
       "version": "1.0.0",
-      "generatedAt": "2026-05-09T10:11:52.110Z",
+      "generatedAt": "2026-05-09T10:47:15.425Z",
       "schoolPreset": {
         "selected": "korean",
         "source": "default",
@@ -4693,7 +4693,8 @@
               "meaningfulness": "meaningful",
               "stars": 2,
               "brief": {
-                "headline": "아이는 오늘 새 자리에서 더 즐거워요. 짧은 외출이 좋아요."
+                "headline": "오늘은 겨울 마당에서 한 발씩 또박또박 걸으며 작은 운동 한 가지 같이 해요.",
+                "hook": "겨울 마당 한 발씩 걸어요."
               },
               "standard": {
                 "paragraphs": [
@@ -4813,10 +4814,16 @@
               },
               "selectedFragments": {
                 "brief": {
-                  "fragmentId": "movement.today.brief.0_9.002",
+                  "fragmentId": "movement.today.brief.male.child.winter.012",
                   "gating": {
+                    "gender": [
+                      "male"
+                    ],
                     "ageBand": [
                       "0-9"
+                    ],
+                    "birthSeason": [
+                      "winter"
                     ]
                   },
                   "tags": []
@@ -10643,12 +10650,12 @@
       },
       "meta": {
         "schemaVersion": "spring-ts.tiered-matrix.v1",
-        "generatedAt": "2026-05-09T10:11:52.110Z",
+        "generatedAt": "2026-05-09T10:47:15.425Z",
         "selectionSeed": "2026|11|7|18|30|male|2026-05-04T15:00:00.000Z",
         "templateContractVersion": "1.0.0",
         "contentSource": "authored",
-        "fragmentCount": 4205,
-        "aiGeneratedFragmentCount": 4205
+        "fragmentCount": 4215,
+        "aiGeneratedFragmentCount": 4215
       }
     }
   }

@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-05-09T10:11:34.289Z",
+  "generatedAt": "2026-05-09T10:46:59.743Z",
   "targetDate": "2026-05-05T00:00:00+09:00",
   "sampleId": "park-minji-late-night-female-tiered",
   "description": "성인 여성 늦은 밤 출생 입력에 야자시, 진태양시, 경도 보정과 tiered 매트릭스를 적용한 케이스.",
@@ -1313,7 +1313,7 @@
     },
     "meta": {
       "version": "1.0.0",
-      "generatedAt": "2026-05-09T10:11:38.975Z",
+      "generatedAt": "2026-05-09T10:47:05.042Z",
       "schoolPreset": {
         "selected": "korean",
         "source": "default",
@@ -12977,12 +12977,12 @@
       },
       "meta": {
         "schemaVersion": "spring-ts.tiered-matrix.v1",
-        "generatedAt": "2026-05-09T10:11:38.975Z",
+        "generatedAt": "2026-05-09T10:47:05.042Z",
         "selectionSeed": "1992|11|3|23|20|female|2026-05-04T15:00:00.000Z",
         "templateContractVersion": "1.0.0",
         "contentSource": "authored",
-        "fragmentCount": 4205,
-        "aiGeneratedFragmentCount": 4205
+        "fragmentCount": 4215,
+        "aiGeneratedFragmentCount": 4215
       }
     }
   }

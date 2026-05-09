@@ -716,6 +716,32 @@
         "copyrightNote": "No source prose copied; original authored prose.",
         "authorityTruthEligible": false
       }
+    },
+    {
+      "schemaVersion": "spring-ts.narrative-fragment.v1",
+      "fragmentId": "wealth.today.brief.female.teen.summer.016",
+      "axis": { "category": "wealth", "period": "today", "depth": "brief" },
+      "gating": {
+        "gender": ["female"],
+        "ageBand": ["10-19"],
+        "birthSeason": ["summer"]
+      },
+      "templateTokens": [
+        { "kind": "text", "value": "오늘은 여름방학 용돈 한 줄 적으며 작은 씀씀이를 또렷이 정리해 봐요." }
+      ],
+      "hook": "여름방학 용돈 한 줄 적어요.",
+      "tags": [],
+      "aiGenerated": true,
+      "sourceTier": {
+        "tier": "T1_HYPOTHESIS",
+        "sourceType": "training_derived",
+        "sourceUrl": null,
+        "accessedAt": "2026-05-09",
+        "quoteShort": null,
+        "humanInterpretation": "P38-A3 distinct-hook expansion: wealth/today brief for female × 10-19 × summer. Targets #04 (F/10-19/summer). 3-dim gate beats existing 1-dim child_teen.012 (ageBand only). No forbidden F/10-19 fixtures so 17-tier {05,12,13,32,33} HOLD. Display-only narrative.",
+        "copyrightNote": "No source prose copied; original authored prose.",
+        "authorityTruthEligible": false
+      }
     }
   ]
 }

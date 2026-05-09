@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-05-09T10:11:34.289Z",
+  "generatedAt": "2026-05-09T10:46:59.743Z",
   "targetDate": "2026-05-05T00:00:00+09:00",
   "sampleId": "kim-seoyun-young-female-tiered",
   "description": "어린 여성 입력에서 tiered 운세 매트릭스를 켠 케이스.",
@@ -1306,7 +1306,7 @@
     },
     "meta": {
       "version": "1.0.0",
-      "generatedAt": "2026-05-09T10:11:38.412Z",
+      "generatedAt": "2026-05-09T10:47:04.583Z",
       "schoolPreset": {
         "selected": "korean",
         "source": "default",
@@ -3313,7 +3313,8 @@
               "meaningfulness": "meaningful",
               "stars": 1,
               "brief": {
-                "headline": "오늘은 저금통에 한 번 더 넣어 보는 하루예요."
+                "headline": "오늘은 여름방학 용돈 한 줄 적으며 작은 씀씀이를 또렷이 정리해 봐요.",
+                "hook": "여름방학 용돈 한 줄 적어요."
               },
               "standard": {
                 "paragraphs": [
@@ -3440,11 +3441,16 @@
               },
               "selectedFragments": {
                 "brief": {
-                  "fragmentId": "wealth.today.brief.child_teen.012",
+                  "fragmentId": "wealth.today.brief.female.teen.summer.016",
                   "gating": {
+                    "gender": [
+                      "female"
+                    ],
                     "ageBand": [
-                      "0-9",
                       "10-19"
+                    ],
+                    "birthSeason": [
+                      "summer"
                     ]
                   },
                   "tags": []
@@ -10943,12 +10949,12 @@
       },
       "meta": {
         "schemaVersion": "spring-ts.tiered-matrix.v1",
-        "generatedAt": "2026-05-09T10:11:38.412Z",
+        "generatedAt": "2026-05-09T10:47:04.583Z",
         "selectionSeed": "2013|7|21|14|20|female|2026-05-04T15:00:00.000Z",
         "templateContractVersion": "1.0.0",
         "contentSource": "authored",
-        "fragmentCount": 4205,
-        "aiGeneratedFragmentCount": 4205
+        "fragmentCount": 4215,
+        "aiGeneratedFragmentCount": 4215
       }
     }
   }

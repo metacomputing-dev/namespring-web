@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-05-09T10:11:34.289Z",
+  "generatedAt": "2026-05-09T10:46:59.743Z",
   "targetDate": "2026-05-05T00:00:00+09:00",
   "sampleId": "palace-naeum-female-mid-tiered",
   "description": "surfacePalace=true + surfaceNaeum=true 동시 opt-in (fixture 14 와 다른 chart 로 surface 시그니처 안정성 점검). saju-ts 측 데이터 포트 이전이면 추가 출력 없으며, opt-in 시그니처와 tieredMatrix 결합만 노출. 30 대 여성 chart 로 mid-life narrative cell 도 함께 점검.",
@@ -770,7 +770,7 @@
     },
     "meta": {
       "version": "1.0.0",
-      "generatedAt": "2026-05-09T10:11:54.218Z",
+      "generatedAt": "2026-05-09T10:47:17.040Z",
       "schoolPreset": {
         "selected": "korean",
         "source": "default",
@@ -8315,7 +8315,8 @@
               "meaningfulness": "meaningful",
               "stars": 4,
               "brief": {
-                "headline": "이번 달은 관계의 속도를 맞추는 감각이 중요해요."
+                "headline": "이번 달은 겨울 창가 차 한 잔 곁에 가까운 인연을 떠올리며 흐름을 다듬는 흐름이에요.",
+                "hook": "겨울 창가에 인연 떠올려요."
               },
               "standard": {
                 "paragraphs": [
@@ -8453,17 +8454,20 @@
               },
               "selectedFragments": {
                 "brief": {
-                  "fragmentId": "romance.thisMonth.brief.neutral.002",
+                  "fragmentId": "romance.thisMonth.brief.female.elder.winter.weak.003",
                   "gating": {
-                    "yongshinAlignment": [
-                      "neutral"
+                    "gender": [
+                      "female"
                     ],
                     "ageBand": [
-                      "20-29",
-                      "30-39",
-                      "40-54",
-                      "55-69",
                       "70+"
+                    ],
+                    "birthSeason": [
+                      "winter"
+                    ],
+                    "dayMasterStrength": [
+                      "WEAK",
+                      "EXTREME_WEAK"
                     ]
                   },
                   "tags": []
@@ -12581,12 +12585,12 @@
       },
       "meta": {
         "schemaVersion": "spring-ts.tiered-matrix.v1",
-        "generatedAt": "2026-05-09T10:11:54.218Z",
+        "generatedAt": "2026-05-09T10:47:17.040Z",
         "selectionSeed": "1992|5|28|12|0|female|2026-05-04T15:00:00.000Z",
         "templateContractVersion": "1.0.0",
         "contentSource": "authored",
-        "fragmentCount": 4205,
-        "aiGeneratedFragmentCount": 4205
+        "fragmentCount": 4215,
+        "aiGeneratedFragmentCount": 4215
       }
     }
   }

@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-05-09T10:11:34.289Z",
+  "generatedAt": "2026-05-09T10:46:59.743Z",
   "targetDate": "2026-05-05T00:00:00+09:00",
   "sampleId": "choi-palace-naeum-surface-tiered",
   "description": "12궁 / 60갑자 surface ON 시나리오 (declared opt-in). saju-ts 측 데이터 포트 이전이면 surfacePalace/surfaceNaeum 이 추가 출력을 내지 않으며, 계약상 opt-in 시그니처만 노출한다. tieredMatrix 는 정상 출력.",
@@ -770,7 +770,7 @@
     },
     "meta": {
       "version": "1.0.0",
-      "generatedAt": "2026-05-09T10:11:44.809Z",
+      "generatedAt": "2026-05-09T10:47:09.636Z",
       "schoolPreset": {
         "selected": "korean",
         "source": "default",
@@ -1625,7 +1625,8 @@
               "meaningfulness": "na",
               "stars": null,
               "brief": {
-                "headline": "인연의 흐름은 큰 사건보다 매일의 태도에서 천천히 만들어져요."
+                "headline": "겨울 저녁 마음 따뜻한 안부 한 마디가 인연을 오래 잇는 흐름이에요.",
+                "hook": "겨울 저녁 안부 한 마디 건네요."
               },
               "standard": {
                 "paragraphs": [
@@ -1802,17 +1803,20 @@
               },
               "selectedFragments": {
                 "brief": {
-                  "fragmentId": "romance.life.brief.neutral.002",
+                  "fragmentId": "romance.life.brief.male.elder.winter.weak.010",
                   "gating": {
-                    "yongshinAlignment": [
-                      "neutral"
+                    "gender": [
+                      "male"
                     ],
                     "ageBand": [
-                      "20-29",
-                      "30-39",
-                      "40-54",
-                      "55-69",
                       "70+"
+                    ],
+                    "birthSeason": [
+                      "winter"
+                    ],
+                    "dayMasterStrength": [
+                      "WEAK",
+                      "EXTREME_WEAK"
                     ]
                   },
                   "tags": []
@@ -12511,12 +12515,12 @@
       },
       "meta": {
         "schemaVersion": "spring-ts.tiered-matrix.v1",
-        "generatedAt": "2026-05-09T10:11:44.808Z",
+        "generatedAt": "2026-05-09T10:47:09.636Z",
         "selectionSeed": "1986|4|19|5|45|male|2026-05-04T15:00:00.000Z",
         "templateContractVersion": "1.0.0",
         "contentSource": "authored",
-        "fragmentCount": 4205,
-        "aiGeneratedFragmentCount": 4205
+        "fragmentCount": 4215,
+        "aiGeneratedFragmentCount": 4215
       }
     }
   }

@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-05-09T10:11:34.289Z",
+  "generatedAt": "2026-05-09T10:46:59.743Z",
   "targetDate": "2026-05-05T00:00:00+09:00",
   "sampleId": "kim-jiwon-strong-jeonggwan-gyeokguk-tiered",
   "description": "입력 의도: 정관격 계열의 강한 격국이 또렷이 잡히기 쉬운 입력. 최종 gyeokguk 판정은 엔진이 결정한다.",
@@ -1249,7 +1249,7 @@
     },
     "meta": {
       "version": "1.0.0",
-      "generatedAt": "2026-05-09T10:11:41.583Z",
+      "generatedAt": "2026-05-09T10:47:07.011Z",
       "schoolPreset": {
         "selected": "korean",
         "source": "default",
@@ -3506,7 +3506,8 @@
             "meaningfulness": "limited",
             "stars": 3,
             "brief": {
-              "headline": "여름 흐름이라 추진력은 좋지만 과열은 조심해요."
+              "headline": "오늘은 가을 햇살 아래 작은 일 한 가지만 골라 차분히 마무리해 봐요.",
+              "hook": "가을 햇살 아래 한 가지 골라요."
             },
             "standard": {
               "paragraphs": [
@@ -3707,10 +3708,20 @@
             },
             "selectedFragments": {
               "brief": {
-                "fragmentId": "overall.today.brief.currentseason.summer.101",
+                "fragmentId": "overall.today.brief.female.thirties.autumn.weak.015",
                 "gating": {
-                  "currentSeason": [
-                    "summer"
+                  "gender": [
+                    "female"
+                  ],
+                  "ageBand": [
+                    "30-39"
+                  ],
+                  "birthSeason": [
+                    "autumn"
+                  ],
+                  "dayMasterStrength": [
+                    "WEAK",
+                    "EXTREME_WEAK"
                   ]
                 },
                 "tags": []
@@ -12905,12 +12916,12 @@
       },
       "meta": {
         "schemaVersion": "spring-ts.tiered-matrix.v1",
-        "generatedAt": "2026-05-09T10:11:41.582Z",
+        "generatedAt": "2026-05-09T10:47:07.011Z",
         "selectionSeed": "1990|9|15|11|30|female|2026-05-04T15:00:00.000Z",
         "templateContractVersion": "1.0.0",
         "contentSource": "authored",
-        "fragmentCount": 4205,
-        "aiGeneratedFragmentCount": 4205
+        "fragmentCount": 4215,
+        "aiGeneratedFragmentCount": 4215
       }
     }
   }

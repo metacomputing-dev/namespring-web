@@ -528,6 +528,33 @@
         "copyrightNote": "No source prose copied; original authored prose.",
         "authorityTruthEligible": false
       }
+    },
+    {
+      "schemaVersion": "spring-ts.narrative-fragment.v1",
+      "fragmentId": "overall.thisYear.brief.female.midlife.winter.weak.014",
+      "axis": { "category": "overall", "period": "thisYear", "depth": "brief" },
+      "gating": {
+        "gender": ["female"],
+        "ageBand": ["40-54"],
+        "birthSeason": ["winter"],
+        "dayMasterStrength": ["WEAK", "EXTREME_WEAK"]
+      },
+      "templateTokens": [
+        { "kind": "text", "value": "올해는 겨울 햇살 한 줌 챙기듯 마음을 천천히 따뜻하게 데우는 흐름이에요." }
+      ],
+      "hook": "겨울 햇살 한 줌 챙겨요.",
+      "tags": [],
+      "aiGenerated": true,
+      "sourceTier": {
+        "tier": "T1_HYPOTHESIS",
+        "sourceType": "training_derived",
+        "sourceUrl": null,
+        "accessedAt": "2026-05-09",
+        "quoteShort": null,
+        "humanInterpretation": "P38-A3 distinct-hook expansion: overall/thisYear brief for female × 40-54 × winter × WEAK. Targets #20 (F/40-54/winter/WEAK). 4-dim gate excludes #13 (STRONG) so 17-tier {05,12,13,32,33} HOLD. Display-only narrative.",
+        "copyrightNote": "No source prose copied; original authored prose.",
+        "authorityTruthEligible": false
+      }
     }
   ]
 }

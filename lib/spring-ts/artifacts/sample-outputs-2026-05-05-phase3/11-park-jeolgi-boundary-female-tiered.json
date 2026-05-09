@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-05-09T10:11:34.289Z",
+  "generatedAt": "2026-05-09T10:46:59.743Z",
   "targetDate": "2026-05-05T00:00:00+09:00",
   "sampleId": "park-jeolgi-boundary-female-tiered",
   "description": "입추(立秋) 절기 경계 직후 출생. fortuneCascadeMode=jie_based 로 경계 정밀 계산을 활성화하고 tieredMatrix 와 결합한 케이스.",
@@ -1321,7 +1321,7 @@
     },
     "meta": {
       "version": "1.0.0",
-      "generatedAt": "2026-05-09T10:11:43.423Z",
+      "generatedAt": "2026-05-09T10:47:08.519Z",
       "schoolPreset": {
         "selected": "korean",
         "source": "default",
@@ -3702,7 +3702,8 @@
             "meaningfulness": "meaningful",
             "stars": 2,
             "brief": {
-              "headline": "오늘은 바로 밀어붙이기보다 살펴보고 다듬는 힘이 좋아요."
+              "headline": "오늘은 가을 햇살 아래 작은 일 한 가지만 골라 차분히 마무리해 봐요.",
+              "hook": "가을 햇살 아래 한 가지 골라요."
             },
             "standard": {
               "paragraphs": [
@@ -3903,10 +3904,20 @@
             },
             "selectedFragments": {
               "brief": {
-                "fragmentId": "overall.today.brief.polarity.yin.302",
+                "fragmentId": "overall.today.brief.female.thirties.autumn.weak.015",
                 "gating": {
-                  "dayMasterPolarity": [
-                    "YIN"
+                  "gender": [
+                    "female"
+                  ],
+                  "ageBand": [
+                    "30-39"
+                  ],
+                  "birthSeason": [
+                    "autumn"
+                  ],
+                  "dayMasterStrength": [
+                    "WEAK",
+                    "EXTREME_WEAK"
                   ]
                 },
                 "tags": []
@@ -12932,12 +12943,12 @@
       },
       "meta": {
         "schemaVersion": "spring-ts.tiered-matrix.v1",
-        "generatedAt": "2026-05-09T10:11:43.423Z",
+        "generatedAt": "2026-05-09T10:47:08.519Z",
         "selectionSeed": "1988|8|8|6|0|female|2026-05-04T15:00:00.000Z",
         "templateContractVersion": "1.0.0",
         "contentSource": "authored",
-        "fragmentCount": 4205,
-        "aiGeneratedFragmentCount": 4205
+        "fragmentCount": 4215,
+        "aiGeneratedFragmentCount": 4215
       }
     }
   }

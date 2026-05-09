@@ -3,7 +3,7 @@
   "bundleId": "health_stress.thisWeek.brief",
   "contractVersion": "1.0.0",
   "generatedBy": "phase2/agent-9-health_stress",
-  "fragmentCount": 11,
+  "fragmentCount": 12,
   "fragments": [
     {
       "schemaVersion": "spring-ts.narrative-fragment.v1",
@@ -426,6 +426,33 @@
         "accessedAt": "2026-05-07",
         "quoteShort": null,
         "humanInterpretation": "P32-A4 distinct-hook expansion: health_stress/thisWeek brief for male × 40-54 × summer-born. Display-only narrative.",
+        "copyrightNote": "No source prose copied; original authored prose.",
+        "authorityTruthEligible": false
+      }
+    },
+    {
+      "schemaVersion": "spring-ts.narrative-fragment.v1",
+      "fragmentId": "health_stress.thisWeek.brief.female.thirties.spring.weak.012",
+      "axis": { "category": "health_stress", "period": "thisWeek", "depth": "brief" },
+      "gating": {
+        "gender": ["female"],
+        "ageBand": ["30-39"],
+        "birthSeason": ["spring"],
+        "dayMasterStrength": ["WEAK", "EXTREME_WEAK"]
+      },
+      "templateTokens": [
+        { "kind": "text", "value": "이번 주는 봄볕 산책 한 바퀴로 어깨 긴장을 천천히 풀어 주면 좋아요." }
+      ],
+      "hook": "봄볕 산책에 어깨 풀어요.",
+      "tags": [],
+      "aiGenerated": true,
+      "sourceTier": {
+        "tier": "T1_HYPOTHESIS",
+        "sourceType": "training_derived",
+        "sourceUrl": null,
+        "accessedAt": "2026-05-09",
+        "quoteShort": null,
+        "humanInterpretation": "P38-A3 distinct-hook expansion: health_stress/thisWeek brief for female × 30-39 × spring × WEAK. Targets #22 (F/30-39/spring/WEAK). 4-dim gate excludes #29 (STRONG) so 17-tier {05,12,13,32,33} HOLD. Display-only narrative.",
         "copyrightNote": "No source prose copied; original authored prose.",
         "authorityTruthEligible": false
       }

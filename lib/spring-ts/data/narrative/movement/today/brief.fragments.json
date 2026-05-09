@@ -3,7 +3,7 @@
   "bundleId": "movement-today-brief",
   "contractVersion": "1.0.0",
   "generatedBy": "phase2-agent-10-movement",
-  "fragmentCount": 10,
+  "fragmentCount": 12,
   "fragments": [
     {
       "schemaVersion": "spring-ts.narrative-fragment.v1",
@@ -366,6 +366,32 @@
         "accessedAt": "2026-05-08",
         "quoteShort": null,
         "humanInterpretation": "P35-A4 distinct-hook expansion: movement/today brief for male × 0-9 × spring. Caregiver-shared tone; spring-born child; targets #31 (BALANCED M 0-9 spring). Display-only narrative.",
+        "copyrightNote": "No source prose copied; original authored prose.",
+        "authorityTruthEligible": false
+      }
+    },
+    {
+      "schemaVersion": "spring-ts.narrative-fragment.v1",
+      "fragmentId": "movement.today.brief.male.child.winter.012",
+      "axis": { "category": "movement", "period": "today", "depth": "brief" },
+      "gating": {
+        "gender": ["male"],
+        "ageBand": ["0-9"],
+        "birthSeason": ["winter"]
+      },
+      "templateTokens": [
+        { "kind": "text", "value": "오늘은 겨울 마당에서 한 발씩 또박또박 걸으며 작은 운동 한 가지 같이 해요." }
+      ],
+      "hook": "겨울 마당 한 발씩 걸어요.",
+      "tags": [],
+      "aiGenerated": true,
+      "sourceTier": {
+        "tier": "T1_HYPOTHESIS",
+        "sourceType": "training_derived",
+        "sourceUrl": null,
+        "accessedAt": "2026-05-09",
+        "quoteShort": null,
+        "humanInterpretation": "P38-A3 distinct-hook expansion: movement/today brief for male × 0-9 × winter. Targets #30 (M/0-9/winter; movement/today gap). 3-dim gate disjoint from prior P##-A# slots. No forbidden M/0-9 fixtures so 17-tier {05,12,13,32,33} HOLD. Display-only narrative.",
         "copyrightNote": "No source prose copied; original authored prose.",
         "authorityTruthEligible": false
       }

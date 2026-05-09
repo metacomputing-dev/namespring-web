@@ -3,7 +3,7 @@
   "bundleId": "expression_children-today-brief",
   "contractVersion": "1.0.0",
   "generatedBy": "phase2-agent-8-expression_children",
-  "fragmentCount": 11,
+  "fragmentCount": 14,
   "fragments": [
     {
       "schemaVersion": "spring-ts.narrative-fragment.v1",
@@ -425,6 +425,32 @@
         "accessedAt": "2026-05-09",
         "quoteShort": null,
         "humanInterpretation": "P36-A4 distinct-hook expansion: expression_children/today brief for female × 10-19 × summer-born teen. Targets #04 (low-tier, 5 hooks). 3-dim gating disjoint from prior P##-A# slots. Display-only narrative.",
+        "copyrightNote": "No source prose copied; original authored prose.",
+        "authorityTruthEligible": false
+      }
+    },
+    {
+      "schemaVersion": "spring-ts.narrative-fragment.v1",
+      "fragmentId": "expression_children.today.brief.male.child.spring.014",
+      "axis": { "category": "expression_children", "period": "today", "depth": "brief" },
+      "gating": {
+        "gender": ["male"],
+        "ageBand": ["0-9"],
+        "birthSeason": ["spring"]
+      },
+      "templateTokens": [
+        { "kind": "text", "value": "오늘은 봄볕 마당에서 작은 손짓 하나로 마음을 나란히 표현해 봐요." }
+      ],
+      "hook": "봄볕 마당에 손짓 하나 보여요.",
+      "tags": [],
+      "aiGenerated": true,
+      "sourceTier": {
+        "tier": "T1_HYPOTHESIS",
+        "sourceType": "training_derived",
+        "sourceUrl": null,
+        "accessedAt": "2026-05-09",
+        "quoteShort": null,
+        "humanInterpretation": "P38-A3 distinct-hook expansion: expression_children/today brief for male × 0-9 × spring. Targets #31 (M/0-9/spring). 3-dim gate, no forbidden M/0-9 fixtures so 17-tier {05,12,13,32,33} HOLD. Display-only narrative.",
         "copyrightNote": "No source prose copied; original authored prose.",
         "authorityTruthEligible": false
       }
