@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-05-09T11:30:48.785Z",
+  "generatedAt": "2026-05-09T11:33:57.161Z",
   "targetDate": "2026-05-05T00:00:00+09:00",
   "sampleId": "kim-seongsu-special-format-candidate-tiered",
   "description": "입력 의도: 외격 후보(화기격 계열) 고전 사례. precisionConfig 로 tieredMatrix 만 결합. 외격 판정은 엔진이 결정한다.",
@@ -1338,7 +1338,7 @@
     },
     "meta": {
       "version": "1.0.0",
-      "generatedAt": "2026-05-09T11:30:56.844Z",
+      "generatedAt": "2026-05-09T11:34:06.400Z",
       "schoolPreset": {
         "selected": "korean",
         "source": "default",
@@ -7304,15 +7304,6 @@
                       }
                     ],
                     "plainText": "큰 자산 정리는 한 주 안에 결정하지 말고, 다음 시기로 한 박자 미뤄 두는 흐름이 잘 맞아요."
-                  },
-                  {
-                    "tokens": [
-                      {
-                        "kind": "text",
-                        "value": "자기 자리에서 큰 변화를 만들려 애쓰지 않아도 충분히 따뜻한 한 주예요. 가까운 사람에게 짧은 안부 한 줄, 같은 자리에서 한 끼 함께한 시간 한 자리, 그 작은 자취가 한 주의 가장 단단한 자취로 남아 줘요."
-                      }
-                    ],
-                    "plainText": "자기 자리에서 큰 변화를 만들려 애쓰지 않아도 충분히 따뜻한 한 주예요. 가까운 사람에게 짧은 안부 한 줄, 같은 자리에서 한 끼 함께한 시간 한 자리, 그 작은 자취가 한 주의 가장 단단한 자취로 남아 줘요."
                   }
                 ],
                 "livingTips": [
@@ -9908,15 +9899,6 @@
                       }
                     ],
                     "plainText": "자녀와의 관계 가능성도 함께 비치지만 단정 없이 흐르는 게 좋아요. 이번 달의 한 자리가 길게 남는 흐름이에요."
-                  },
-                  {
-                    "tokens": [
-                      {
-                        "kind": "text",
-                        "value": "이번 달의 자리에서 하나의 자취가 곁에 따뜻하게 남는다면 그것으로 충분해요. 다음 세대가 자기 자리에서 자라는 모습을 멀리서 또렷하게 받쳐 보는 시간이 자기에게도 좋은 한 달의 토양이 되어 줘요."
-                      }
-                    ],
-                    "plainText": "이번 달의 자리에서 하나의 자취가 곁에 따뜻하게 남는다면 그것으로 충분해요. 다음 세대가 자기 자리에서 자라는 모습을 멀리서 또렷하게 받쳐 보는 시간이 자기에게도 좋은 한 달의 토양이 되어 줘요."
                   }
                 ],
                 "livingTips": [
@@ -13302,12 +13284,12 @@
       },
       "meta": {
         "schemaVersion": "spring-ts.tiered-matrix.v1",
-        "generatedAt": "2026-05-09T11:30:56.844Z",
+        "generatedAt": "2026-05-09T11:34:06.400Z",
         "selectionSeed": "1958|7|11|13|0|male|2026-05-04T15:00:00.000Z",
         "templateContractVersion": "1.0.0",
         "contentSource": "authored",
-        "fragmentCount": 4215,
-        "aiGeneratedFragmentCount": 4215
+        "fragmentCount": 4225,
+        "aiGeneratedFragmentCount": 4225
       }
     }
   }

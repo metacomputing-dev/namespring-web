@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-05-09T11:30:48.785Z",
+  "generatedAt": "2026-05-09T11:33:57.161Z",
   "targetDate": "2026-05-05T00:00:00+09:00",
   "sampleId": "palace-naeum-female-mid-tiered",
   "description": "surfacePalace=true + surfaceNaeum=true 동시 opt-in (fixture 14 와 다른 chart 로 surface 시그니처 안정성 점검). saju-ts 측 데이터 포트 이전이면 추가 출력 없으며, opt-in 시그니처와 tieredMatrix 결합만 노출. 30 대 여성 chart 로 mid-life narrative cell 도 함께 점검.",
@@ -770,7 +770,7 @@
     },
     "meta": {
       "version": "1.0.0",
-      "generatedAt": "2026-05-09T11:31:06.247Z",
+      "generatedAt": "2026-05-09T11:34:17.428Z",
       "schoolPreset": {
         "selected": "korean",
         "source": "default",
@@ -3486,7 +3486,8 @@
               "meaningfulness": "limited",
               "stars": 3,
               "brief": {
-                "headline": "중립적인 리듬의 날에는 컨디션이 상황에 따라 빠르게 바뀔 수 있어요."
+                "headline": "오늘은 겨울 거실에서 약상자를 살피며 한 박자 천천히 쉬는 흐름이 좋아요.",
+                "hook": "겨울 거실에 약상자 살피며 쉬어요."
               },
               "standard": {
                 "paragraphs": [
@@ -3681,10 +3682,20 @@
               },
               "selectedFragments": {
                 "brief": {
-                  "fragmentId": "health.today.brief.daymasterpolarity.neutral.205",
+                  "fragmentId": "health.today.brief.female.elder.winter.weak.013",
                   "gating": {
-                    "dayMasterPolarity": [
-                      "neutral"
+                    "gender": [
+                      "female"
+                    ],
+                    "ageBand": [
+                      "70+"
+                    ],
+                    "birthSeason": [
+                      "winter"
+                    ],
+                    "dayMasterStrength": [
+                      "WEAK",
+                      "EXTREME_WEAK"
                     ]
                   },
                   "tags": []
@@ -12585,12 +12596,12 @@
       },
       "meta": {
         "schemaVersion": "spring-ts.tiered-matrix.v1",
-        "generatedAt": "2026-05-09T11:31:06.247Z",
+        "generatedAt": "2026-05-09T11:34:17.428Z",
         "selectionSeed": "1992|5|28|12|0|female|2026-05-04T15:00:00.000Z",
         "templateContractVersion": "1.0.0",
         "contentSource": "authored",
-        "fragmentCount": 4215,
-        "aiGeneratedFragmentCount": 4215
+        "fragmentCount": 4225,
+        "aiGeneratedFragmentCount": 4225
       }
     }
   }

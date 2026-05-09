@@ -528,6 +528,40 @@
         "copyrightNote": "No source prose copied; original authored prose.",
         "authorityTruthEligible": false
       }
+    },
+    {
+      "schemaVersion": "spring-ts.narrative-fragment.v1",
+      "fragmentId": "overall.thisMonth.brief.female.thirties.spring.weak.014",
+      "axis": {
+        "category": "overall",
+        "period": "thisMonth",
+        "depth": "brief"
+      },
+      "gating": {
+        "gender": ["female"],
+        "ageBand": ["30-39"],
+        "birthSeason": ["spring"],
+        "dayMasterStrength": ["WEAK", "EXTREME_WEAK"]
+      },
+      "templateTokens": [
+        {
+          "kind": "text",
+          "value": "이번 달은 봄볕 거실에서 한 호흡을 깊게 머물며 흐름을 정리해 두기 좋아요."
+        }
+      ],
+      "hook": "봄볕 거실에 한 호흡 깊게 머물러요.",
+      "tags": [],
+      "aiGenerated": true,
+      "sourceTier": {
+        "tier": "T1_HYPOTHESIS",
+        "sourceType": "training_derived",
+        "sourceUrl": null,
+        "accessedAt": "2026-05-09",
+        "quoteShort": null,
+        "humanInterpretation": "P39-A4 distinct-hook expansion: overall/thisMonth brief for female × 30-39 × spring × WEAK day master. 4-dim split targets #22 without lifting #5/#13/#32/#33 or any 16-tier fixture. Display-only narrative.",
+        "copyrightNote": "No source prose copied; original authored prose.",
+        "authorityTruthEligible": false
+      }
     }
   ]
 }

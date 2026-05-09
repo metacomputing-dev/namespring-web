@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-05-09T11:30:48.785Z",
+  "generatedAt": "2026-05-09T11:33:57.161Z",
   "targetDate": "2026-05-05T00:00:00+09:00",
   "sampleId": "jeolgi-lidong-boundary-tiered",
   "description": "입동(立冬) 절기 경계 직전 출생 (2026 입동 = 11/07 18:52 KST, 본 입력은 ±0.5 day 내). fortuneCascadeMode=jie_based 로 jie 경계 day-precision 활성, 月柱 戌→亥 분기 부근 elasticity 와 tieredMatrix 결합.",
@@ -1307,7 +1307,7 @@
     },
     "meta": {
       "version": "1.0.0",
-      "generatedAt": "2026-05-09T11:31:04.691Z",
+      "generatedAt": "2026-05-09T11:34:15.679Z",
       "schoolPreset": {
         "selected": "korean",
         "source": "default",
@@ -9536,7 +9536,8 @@
               "meaningfulness": "limited",
               "stars": 3,
               "brief": {
-                "headline": "한 분야를 깊게 다지는 한 해예요."
+                "headline": "올해는 겨울 책상에서 그림책 한 권을 함께 펼쳐 두기 좋은 한 해예요.",
+                "hook": "겨울 책상에 그림책 한 권 펼쳐요."
               },
               "standard": {
                 "paragraphs": [
@@ -9645,11 +9646,16 @@
               },
               "selectedFragments": {
                 "brief": {
-                  "fragmentId": "study_document.thisYear.brief.young.004",
+                  "fragmentId": "study_document.thisYear.brief.male.child.winter.011",
                   "gating": {
+                    "gender": [
+                      "male"
+                    ],
                     "ageBand": [
-                      "0-9",
-                      "10-19"
+                      "0-9"
+                    ],
+                    "birthSeason": [
+                      "winter"
                     ]
                   },
                   "tags": []
@@ -10659,12 +10665,12 @@
       },
       "meta": {
         "schemaVersion": "spring-ts.tiered-matrix.v1",
-        "generatedAt": "2026-05-09T11:31:04.691Z",
+        "generatedAt": "2026-05-09T11:34:15.679Z",
         "selectionSeed": "2026|11|7|18|30|male|2026-05-04T15:00:00.000Z",
         "templateContractVersion": "1.0.0",
         "contentSource": "authored",
-        "fragmentCount": 4215,
-        "aiGeneratedFragmentCount": 4215
+        "fragmentCount": 4225,
+        "aiGeneratedFragmentCount": 4225
       }
     }
   }

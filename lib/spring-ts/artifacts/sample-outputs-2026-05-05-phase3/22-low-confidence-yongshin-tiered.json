@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-05-09T11:30:48.785Z",
+  "generatedAt": "2026-05-09T11:33:57.161Z",
   "targetDate": "2026-05-05T00:00:00+09:00",
   "sampleId": "low-confidence-yongshin-tiered",
   "description": "용신 신뢰도 낮은 case (consensus 충돌 + 다중 후보). yongshinMode=consensus_aware + chengbai_strict 결합으로 conflict 가 격국 페널티 곡선까지 영향을 주는 elasticity 를 노출. tieredMatrix 의 명시적 신호 fixture 로 활용한다.",
@@ -1337,7 +1337,7 @@
     },
     "meta": {
       "version": "1.0.0",
-      "generatedAt": "2026-05-09T11:31:01.618Z",
+      "generatedAt": "2026-05-09T11:34:12.310Z",
       "schoolPreset": {
         "selected": "korean",
         "source": "default",
@@ -8043,7 +8043,8 @@
             "meaningfulness": "meaningful",
             "stars": 5,
             "brief": {
-              "headline": "이번 달은 차분히 쌓고 정리하는 흐름이 잘 맞아요."
+              "headline": "이번 달은 봄볕 거실에서 한 호흡을 깊게 머물며 흐름을 정리해 두기 좋아요.",
+              "hook": "봄볕 거실에 한 호흡 깊게 머물러요."
             },
             "standard": {
               "paragraphs": [
@@ -8171,10 +8172,20 @@
             },
             "selectedFragments": {
               "brief": {
-                "fragmentId": "overall.thisMonth.brief.polarity.yin.302",
+                "fragmentId": "overall.thisMonth.brief.female.thirties.spring.weak.014",
                 "gating": {
-                  "dayMasterPolarity": [
-                    "YIN"
+                  "gender": [
+                    "female"
+                  ],
+                  "ageBand": [
+                    "30-39"
+                  ],
+                  "birthSeason": [
+                    "spring"
+                  ],
+                  "dayMasterStrength": [
+                    "WEAK",
+                    "EXTREME_WEAK"
                   ]
                 },
                 "tags": []
@@ -12929,12 +12940,12 @@
       },
       "meta": {
         "schemaVersion": "spring-ts.tiered-matrix.v1",
-        "generatedAt": "2026-05-09T11:31:01.618Z",
+        "generatedAt": "2026-05-09T11:34:12.310Z",
         "selectionSeed": "1991|2|4|18|0|female|2026-05-04T15:00:00.000Z",
         "templateContractVersion": "1.0.0",
         "contentSource": "authored",
-        "fragmentCount": 4215,
-        "aiGeneratedFragmentCount": 4215
+        "fragmentCount": 4225,
+        "aiGeneratedFragmentCount": 4225
       }
     }
   }

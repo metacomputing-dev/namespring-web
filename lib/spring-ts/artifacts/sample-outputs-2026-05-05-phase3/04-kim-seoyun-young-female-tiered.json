@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-05-09T11:30:48.785Z",
+  "generatedAt": "2026-05-09T11:33:57.161Z",
   "targetDate": "2026-05-05T00:00:00+09:00",
   "sampleId": "kim-seoyun-young-female-tiered",
   "description": "어린 여성 입력에서 tiered 운세 매트릭스를 켠 케이스.",
@@ -1306,7 +1306,7 @@
     },
     "meta": {
       "version": "1.0.0",
-      "generatedAt": "2026-05-09T11:30:53.255Z",
+      "generatedAt": "2026-05-09T11:34:02.338Z",
       "schoolPreset": {
         "selected": "korean",
         "source": "default",
@@ -1655,15 +1655,6 @@
                       }
                     ],
                     "plainText": "한 학기 한 번은 자기 잠 시각·식사 시간을 한 줄로 적어 두세요. 그 한 줄을 다음 학기와 비교해 보는 자리가 평생 갈 컨디션의 자기 토대를 가벼운 손길로 단단하게 다듬어 줘요."
-                  },
-                  {
-                    "tokens": [
-                      {
-                        "kind": "text",
-                        "value": "비유하자면 평생의 컨디션은 매일 한 알씩 심어 두는 잔뿌리 씨앗 같아요. 한 학기 한 자리에서 큰 변화를 만들려 하지 않아도, 매일 잔뿌리 한 줄씩 자라난 자취가 자기 평생의 단단한 자리를 받쳐 주는 토양이 되어요."
-                      }
-                    ],
-                    "plainText": "비유하자면 평생의 컨디션은 매일 한 알씩 심어 두는 잔뿌리 씨앗 같아요. 한 학기 한 자리에서 큰 변화를 만들려 하지 않아도, 매일 잔뿌리 한 줄씩 자라난 자취가 자기 평생의 단단한 자리를 받쳐 주는 토양이 되어요."
                   }
                 ],
                 "livingTips": [
@@ -10985,12 +10976,12 @@
       },
       "meta": {
         "schemaVersion": "spring-ts.tiered-matrix.v1",
-        "generatedAt": "2026-05-09T11:30:53.255Z",
+        "generatedAt": "2026-05-09T11:34:02.338Z",
         "selectionSeed": "2013|7|21|14|20|female|2026-05-04T15:00:00.000Z",
         "templateContractVersion": "1.0.0",
         "contentSource": "authored",
-        "fragmentCount": 4215,
-        "aiGeneratedFragmentCount": 4215
+        "fragmentCount": 4225,
+        "aiGeneratedFragmentCount": 4225
       }
     }
   }

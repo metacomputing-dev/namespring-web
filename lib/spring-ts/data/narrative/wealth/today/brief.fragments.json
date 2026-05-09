@@ -742,6 +742,33 @@
         "copyrightNote": "No source prose copied; original authored prose.",
         "authorityTruthEligible": false
       }
+    },
+    {
+      "schemaVersion": "spring-ts.narrative-fragment.v1",
+      "fragmentId": "wealth.today.brief.male.elder.spring.weak.017",
+      "axis": { "category": "wealth", "period": "today", "depth": "brief" },
+      "gating": {
+        "gender": ["male"],
+        "ageBand": ["70+"],
+        "birthSeason": ["spring"],
+        "dayMasterStrength": ["WEAK", "EXTREME_WEAK"]
+      },
+      "templateTokens": [
+        { "kind": "text", "value": "오늘은 봄볕 마당에서 잔돈 한 닢을 손에 쥐어 두며 작은 흐름을 차분히 살피는 하루예요." }
+      ],
+      "hook": "봄볕 마당에 잔돈 한 닢 쥐어요.",
+      "tags": [],
+      "aiGenerated": true,
+      "sourceTier": {
+        "tier": "T1_HYPOTHESIS",
+        "sourceType": "training_derived",
+        "sourceUrl": null,
+        "accessedAt": "2026-05-09",
+        "quoteShort": null,
+        "humanInterpretation": "P39-A4 distinct-hook expansion: wealth/today brief for male × 70+ × spring × WEAK day master. 4-dim split targets #16 without lifting #5/#13/#32/#33 or any 16-tier fixture. Display-only narrative.",
+        "copyrightNote": "No source prose copied; original authored prose.",
+        "authorityTruthEligible": false
+      }
     }
   ]
 }

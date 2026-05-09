@@ -3,7 +3,7 @@
   "bundleId": "movement-thisMonth-brief",
   "contractVersion": "1.0.0",
   "generatedBy": "phase2-agent-10-movement",
-  "fragmentCount": 11,
+  "fragmentCount": 13,
   "fragments": [
     {
       "schemaVersion": "spring-ts.narrative-fragment.v1",
@@ -390,6 +390,41 @@
         "accessedAt": "2026-05-08",
         "quoteShort": null,
         "humanInterpretation": "P35-A4 distinct-hook expansion: movement/thisMonth brief for female × 30-39 × spring × WEAK. 4-dim split avoids #29 (STRONG); targets #22 (WEAK F 30-39 spring). Display-only narrative.",
+        "copyrightNote": "No source prose copied; original authored prose.",
+        "authorityTruthEligible": false
+      }
+    },
+    {
+      "schemaVersion": "spring-ts.narrative-fragment.v1",
+      "fragmentId": "movement.thisMonth.brief.male.midlife.summer.balanced.sikshin.013",
+      "axis": {
+        "category": "movement",
+        "period": "thisMonth",
+        "depth": "brief"
+      },
+      "gating": {
+        "gender": ["male"],
+        "ageBand": ["40-54"],
+        "birthSeason": ["summer"],
+        "dayMasterStrength": ["BALANCED"],
+        "gyeokguk": ["sikshingyeok"]
+      },
+      "templateTokens": [
+        {
+          "kind": "text",
+          "value": "이번 달은 여름 평상에서 가벼운 산책을 한 바퀴 도는 흐름이 좋아요."
+        }
+      ],
+      "hook": "여름 평상에 가벼운 산책 한 바퀴 돌아요.",
+      "tags": [],
+      "aiGenerated": true,
+      "sourceTier": {
+        "tier": "T1_HYPOTHESIS",
+        "sourceType": "training_derived",
+        "sourceUrl": null,
+        "accessedAt": "2026-05-09",
+        "quoteShort": null,
+        "humanInterpretation": "P39-A4 distinct-hook expansion: movement/thisMonth brief for male × 40-54 × summer × BALANCED day master × sikshingyeok. 5-dim split targets #19, #34 without lifting #5/#13/#32/#33 or any 16-tier fixture (excludes #24 WEAK via dayMasterStrength). Display-only narrative.",
         "copyrightNote": "No source prose copied; original authored prose.",
         "authorityTruthEligible": false
       }

@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-05-09T11:30:48.785Z",
+  "generatedAt": "2026-05-09T11:33:57.161Z",
   "targetDate": "2026-05-05T00:00:00+09:00",
   "sampleId": "gyeokguk-conflict-multi-confidence-tiered",
   "description": "격국 충돌 + 다중 confidence 시나리오 — gyeokgukSelectionRule=jungki_transparent + gyeokgukMode=chengbai_strict + yongshinMode=consensus_aware 결합. 월지 중기 투간 후보와 chengbai 페널티 smooth tanh 곡선이 동시에 ranking 에 작용하는 elasticity 노출 케이스.",
@@ -1309,7 +1309,7 @@
     },
     "meta": {
       "version": "1.0.0",
-      "generatedAt": "2026-05-09T11:31:05.921Z",
+      "generatedAt": "2026-05-09T11:34:17.096Z",
       "schoolPreset": {
         "selected": "korean",
         "source": "default",
@@ -3750,15 +3750,6 @@
                     }
                   ],
                   "plainText": "변화가 적다고 느낄 때, 작은 호기심 한 가지를 살짝 더해 봐요."
-                },
-                {
-                  "tokens": [
-                    {
-                      "kind": "text",
-                      "value": "오늘 하루의 끝에 한 줄로 좋았던 자취·아쉬웠던 자취를 짧게 적어 두면 좋아요. 한 줄씩 모인 며칠이 자기 페이스의 작은 지도가 되어, 다음 며칠의 자기 자리를 가벼운 손길로 받쳐 줘요."
-                    }
-                  ],
-                  "plainText": "오늘 하루의 끝에 한 줄로 좋았던 자취·아쉬웠던 자취를 짧게 적어 두면 좋아요. 한 줄씩 모인 며칠이 자기 페이스의 작은 지도가 되어, 다음 며칠의 자기 자리를 가벼운 손길로 받쳐 줘요."
                 }
               ],
               "livingTips": [
@@ -10081,7 +10072,8 @@
               "meaningfulness": "meaningful",
               "stars": 5,
               "brief": {
-                "headline": "이번 달은 활동 범위가 넓어지기 쉬우니 일정 사이의 여유가 중요."
+                "headline": "이번 달은 여름 평상에서 가벼운 산책을 한 바퀴 도는 흐름이 좋아요.",
+                "hook": "여름 평상에 가벼운 산책 한 바퀴 돌아요."
               },
               "standard": {
                 "paragraphs": [
@@ -10196,11 +10188,22 @@
               },
               "selectedFragments": {
                 "brief": {
-                  "fragmentId": "movement.thisMonth.brief.rhythm.501",
+                  "fragmentId": "movement.thisMonth.brief.male.midlife.summer.balanced.sikshin.013",
                   "gating": {
-                    "currentSeason": [
-                      "spring",
+                    "gender": [
+                      "male"
+                    ],
+                    "ageBand": [
+                      "40-54"
+                    ],
+                    "birthSeason": [
                       "summer"
+                    ],
+                    "dayMasterStrength": [
+                      "BALANCED"
+                    ],
+                    "gyeokguk": [
+                      "sikshingyeok"
                     ]
                   },
                   "tags": []
@@ -10306,15 +10309,6 @@
                     }
                   ],
                   "plainText": "변화가 적다고 느낄 때, 작은 호기심 한 가지를 살짝 더해 봐요."
-                },
-                {
-                  "tokens": [
-                    {
-                      "kind": "text",
-                      "value": "비유하자면 잔잔한 한 해는 호수의 깊이가 천천히 자라는 시간이에요. 큰 파동이 적은 한 해 동안 자기 페이스의 깊이가 한 자리에서 천천히 자라나, 다음 해의 큰 자극에도 자기를 또렷하게 받쳐 줄 토양이 되어요."
-                    }
-                  ],
-                  "plainText": "비유하자면 잔잔한 한 해는 호수의 깊이가 천천히 자라는 시간이에요. 큰 파동이 적은 한 해 동안 자기 페이스의 깊이가 한 자리에서 천천히 자라나, 다음 해의 큰 자극에도 자기를 또렷하게 받쳐 줄 토양이 되어요."
                 }
               ],
               "livingTips": [
@@ -13186,12 +13180,12 @@
       },
       "meta": {
         "schemaVersion": "spring-ts.tiered-matrix.v1",
-        "generatedAt": "2026-05-09T11:31:05.921Z",
+        "generatedAt": "2026-05-09T11:34:17.096Z",
         "selectionSeed": "1976|6|22|13|15|male|2026-05-04T15:00:00.000Z",
         "templateContractVersion": "1.0.0",
         "contentSource": "authored",
-        "fragmentCount": 4215,
-        "aiGeneratedFragmentCount": 4215
+        "fragmentCount": 4225,
+        "aiGeneratedFragmentCount": 4225
       }
     }
   }

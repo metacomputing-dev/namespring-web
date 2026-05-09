@@ -237,6 +237,32 @@
         "copyrightNote": "No source prose copied; original phrasing.",
         "authorityTruthEligible": false
       }
+    },
+    {
+      "schemaVersion": "spring-ts.narrative-fragment.v1",
+      "fragmentId": "romance.thisYear.brief.male.child.summer.010",
+      "axis": { "category": "romance", "period": "thisYear", "depth": "brief" },
+      "gating": {
+        "gender": ["male"],
+        "ageBand": ["0-9"],
+        "birthSeason": ["summer"]
+      },
+      "templateTokens": [
+        { "kind": "text", "value": "올해는 여름 마당에서 친한 친구에게 손짓을 보내며 새 인연이 늘어나는 흐름이에요." }
+      ],
+      "hook": "여름 마당에 친구 손짓 보내요.",
+      "tags": [],
+      "aiGenerated": true,
+      "sourceTier": {
+        "tier": "T1_HYPOTHESIS",
+        "sourceType": "training_derived",
+        "sourceUrl": null,
+        "accessedAt": "2026-05-09",
+        "quoteShort": null,
+        "humanInterpretation": "P39-A4 distinct-hook expansion: romance/thisYear brief for male × 0-9 × summer-born child. 3-dim split targets #18, #27 without lifting #5/#13/#32/#33 or any 16-tier fixture. Display-only narrative.",
+        "copyrightNote": "No source prose copied; original authored prose.",
+        "authorityTruthEligible": false
+      }
     }
   ]
 }
