@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-05-09T07:29:55.197Z",
+  "generatedAt": "2026-05-09T07:52:33.070Z",
   "targetDate": "2026-05-05T00:00:00+09:00",
   "sampleId": "gyeokguk-conflict-consensus-aware-tiered",
   "description": "격국 충돌 case 2: 신강/신약 경계 + 격국 후보 다중 + yongshinMode=consensus_aware 활성. 독립 명리 방법(억부/조후/격국/통관/병약/식상유통) 이 엇갈리는 chart 에서 consensus 보드와 격국 흔들림이 함께 노출되는 케이스.",
@@ -1301,7 +1301,7 @@
     },
     "meta": {
       "version": "1.0.0",
-      "generatedAt": "2026-05-09T07:30:10.225Z",
+      "generatedAt": "2026-05-09T07:52:46.730Z",
       "schoolPreset": {
         "selected": "korean",
         "source": "default",
@@ -10677,6 +10677,15 @@
                       }
                     ],
                     "plainText": "환절기엔 한 박자 늦추는 페이스가 잘 맞아요. 컨디션 점검과 충분한 휴식 시간을 미리 일정에 잡아 두면, 한 해가 부드럽게 마무리돼요."
+                  },
+                  {
+                    "tokens": [
+                      {
+                        "kind": "text",
+                        "value": "한 해의 어디쯤 와 있는지 천천히 돌아보면 다음 분기에 무엇을 더 챙길지 또렷해져요. 분기마다 짧은 점검 한 자리를 두면 한 해의 컨디션이 자연스럽게 자기 자리를 찾아 가요."
+                      }
+                    ],
+                    "plainText": "한 해의 어디쯤 와 있는지 천천히 돌아보면 다음 분기에 무엇을 더 챙길지 또렷해져요. 분기마다 짧은 점검 한 자리를 두면 한 해의 컨디션이 자연스럽게 자기 자리를 찾아 가요."
                   }
                 ],
                 "livingTips": [
@@ -13174,7 +13183,7 @@
       },
       "meta": {
         "schemaVersion": "spring-ts.tiered-matrix.v1",
-        "generatedAt": "2026-05-09T07:30:10.225Z",
+        "generatedAt": "2026-05-09T07:52:46.730Z",
         "selectionSeed": "1973|12|17|16|30|female|2026-05-04T15:00:00.000Z",
         "templateContractVersion": "1.0.0",
         "contentSource": "authored",
