@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-05-09T11:33:57.161Z",
+  "generatedAt": "2026-05-09T11:51:33.122Z",
   "targetDate": "2026-05-05T00:00:00+09:00",
   "sampleId": "consensus-aware-multi-axis-combined-tiered",
   "description": "yongshinMode=consensus_aware + evaluatorMode=multi_axis 동시 활성. 독립 명리 방법 (억부/조후/격국/통관/병약) 의 consensus scoreboard 와 axisStrength ≥2 축 다축 가중이 함께 sajuPriority 에 반영되는 PR-K-9 + consensus 결합 fixture.",
@@ -1266,7 +1266,7 @@
     },
     "meta": {
       "version": "1.0.0",
-      "generatedAt": "2026-05-09T11:34:16.701Z",
+      "generatedAt": "2026-05-09T11:51:50.370Z",
       "schoolPreset": {
         "selected": "korean",
         "source": "default",
@@ -3521,6 +3521,15 @@
                       }
                     ],
                     "plainText": "비유하자면 30대의 큰 이동은 산길에서 고갯마루 한 자리를 넘어 두는 자리예요. 한 번에 정상까지 오르지 않아도, 한 고개씩 천천히 넘어 두는 자리가 30대 후반의 든든한 시야를 만들어 줘요."
+                  },
+                  {
+                    "tokens": [
+                      {
+                        "kind": "text",
+                        "value": "30대의 큰 이동은 자기 한 사람만의 자리가 아닌 가까운 사람의 자리도 함께 움직이는 시간이에요. 자기 페이스만 빠르지 않게 가족·동료의 호흡과 한 박자 맞추는 자리가, 30대의 변화를 자기 자리에서 단단하게 받쳐 줘요."
+                      }
+                    ],
+                    "plainText": "30대의 큰 이동은 자기 한 사람만의 자리가 아닌 가까운 사람의 자리도 함께 움직이는 시간이에요. 자기 페이스만 빠르지 않게 가족·동료의 호흡과 한 박자 맞추는 자리가, 30대의 변화를 자기 자리에서 단단하게 받쳐 줘요."
                   }
                 ],
                 "livingTips": [
@@ -4760,6 +4769,15 @@
                       }
                     ],
                     "plainText": "자녀가 있다면 잠들기 전의 다정한 한마디가 그 흐름을 더 데워 줘요. 양가 어른과의 흐름은 한 박자 천천히, 한 사람씩 시간을 내는 게 잘 맞아요."
+                  },
+                  {
+                    "tokens": [
+                      {
+                        "kind": "text",
+                        "value": "두 가정을 정겹게 잇는 작은 다리는 한꺼번에 놓이지 않아요. 오늘 한 통의 다정한 안부 전화, 내일 한 잔의 따뜻한 차로 이어 가다 보면 든든한 다리가 자연스레 자리를 잡아 줘요."
+                      }
+                    ],
+                    "plainText": "두 가정을 정겹게 잇는 작은 다리는 한꺼번에 놓이지 않아요. 오늘 한 통의 다정한 안부 전화, 내일 한 잔의 따뜻한 차로 이어 가다 보면 든든한 다리가 자연스레 자리를 잡아 줘요."
                   },
                   {
                     "tokens": [
@@ -13029,7 +13047,7 @@
       },
       "meta": {
         "schemaVersion": "spring-ts.tiered-matrix.v1",
-        "generatedAt": "2026-05-09T11:34:16.701Z",
+        "generatedAt": "2026-05-09T11:51:50.370Z",
         "selectionSeed": "1987|10|5|15|30|female|2026-05-04T15:00:00.000Z",
         "templateContractVersion": "1.0.0",
         "contentSource": "authored",
