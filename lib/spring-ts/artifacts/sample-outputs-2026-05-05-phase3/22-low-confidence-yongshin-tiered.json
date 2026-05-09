@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-05-09T07:56:13.406Z",
+  "generatedAt": "2026-05-09T08:13:10.267Z",
   "targetDate": "2026-05-05T00:00:00+09:00",
   "sampleId": "low-confidence-yongshin-tiered",
   "description": "용신 신뢰도 낮은 case (consensus 충돌 + 다중 후보). yongshinMode=consensus_aware + chengbai_strict 결합으로 conflict 가 격국 페널티 곡선까지 영향을 주는 elasticity 를 노출. tieredMatrix 의 명시적 신호 fixture 로 활용한다.",
@@ -1337,7 +1337,7 @@
     },
     "meta": {
       "version": "1.0.0",
-      "generatedAt": "2026-05-09T07:56:27.769Z",
+      "generatedAt": "2026-05-09T08:13:23.736Z",
       "schoolPreset": {
         "selected": "korean",
         "source": "default",
@@ -4721,6 +4721,15 @@
                       }
                     ],
                     "plainText": "혼자 무리하게 끌고 가지 않아도, 가까운 사람이 함께 균형을 잡아 줄 수 있어요. 작은 부탁 한 가지를 자연스럽게 꺼내 두면 마음이 더 든든해져요."
+                  },
+                  {
+                    "tokens": [
+                      {
+                        "kind": "text",
+                        "value": "오늘 한 자리에서는 가족 중 한 사람에게 짧은 안부 한 줄을 먼저 건네 보세요. 답이 길지 않아도 그 한 자리가 오늘의 마음을 따뜻하게 풀어 주어 다음 자리로 자연스럽게 이어져요."
+                      }
+                    ],
+                    "plainText": "오늘 한 자리에서는 가족 중 한 사람에게 짧은 안부 한 줄을 먼저 건네 보세요. 답이 길지 않아도 그 한 자리가 오늘의 마음을 따뜻하게 풀어 주어 다음 자리로 자연스럽게 이어져요."
                   },
                   {
                     "tokens": [
@@ -12913,7 +12922,7 @@
       },
       "meta": {
         "schemaVersion": "spring-ts.tiered-matrix.v1",
-        "generatedAt": "2026-05-09T07:56:27.769Z",
+        "generatedAt": "2026-05-09T08:13:23.736Z",
         "selectionSeed": "1991|2|4|18|0|female|2026-05-04T15:00:00.000Z",
         "templateContractVersion": "1.0.0",
         "contentSource": "authored",
