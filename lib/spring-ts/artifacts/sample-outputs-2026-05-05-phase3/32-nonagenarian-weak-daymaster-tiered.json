@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-05-07T17:24:38.590Z",
+  "generatedAt": "2026-05-09T06:57:05.502Z",
   "targetDate": "2026-05-05T00:00:00+09:00",
   "sampleId": "nonagenarian-weak-daymaster-tiered",
   "description": "90+ 노년 (1933 동지경 출생, 현재 92세) + dayMaster 약 (火 일간이 子月 水 절기에서 통근 失) — life-stage 후반 narrative + 약신 일간 fortune 곡선 결합. strengthMode=continuous 로 약신 graded intensity 노출.",
@@ -1283,7 +1283,7 @@
     },
     "meta": {
       "version": "1.0.0",
-      "generatedAt": "2026-05-07T17:24:53.071Z",
+      "generatedAt": "2026-05-09T06:57:21.017Z",
       "schoolPreset": {
         "selected": "korean",
         "source": "default",
@@ -13097,7 +13097,7 @@
       },
       "meta": {
         "schemaVersion": "spring-ts.tiered-matrix.v1",
-        "generatedAt": "2026-05-07T17:24:53.071Z",
+        "generatedAt": "2026-05-09T06:57:21.017Z",
         "selectionSeed": "1933|12|25|4|30|male|2026-05-04T15:00:00.000Z",
         "templateContractVersion": "1.0.0",
         "contentSource": "authored",
