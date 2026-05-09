@@ -1,0 +1,177 @@
+{
+  "phase": "P23-A4",
+  "generatedAt": "2026-05-09T07:31:02.169Z",
+  "source": "artifacts\\sample-outputs-2026-05-05-phase3",
+  "totalFixtures": 32,
+  "totalFixturesWithMatrix": 32,
+  "totalCells": 1705,
+  "paragraphHistograms": {
+    "brief": {
+      "1": 1705
+    },
+    "standard": {
+      "3": 1275,
+      "4": 130,
+      "5": 300
+    },
+    "expert": {
+      "4": 1547,
+      "5": 118,
+      "6": 40
+    }
+  },
+  "paragraphRollups": {
+    "standardGe3Cells": 1705,
+    "standardGe3Percent": 100,
+    "standardSub3Cells": 0,
+    "sub3StandardCellsSample": []
+  },
+  "briefTierPlaceholder": {
+    "cells": 0,
+    "placeholderHeadline": "준비 중인 흐름이에요.",
+    "sampleCells": [],
+    "notes": "PLACEHOLDER_BRIEF emitted by build-tiered-matrix.ts:55. P22-A6 post-fix baseline 8 (regression). P23 target 0."
+  },
+  "corpusFreshness": {
+    "corpusExisted": true,
+    "corpusMtimeBefore": 1778311659798.4817,
+    "maxSampleMtime": 1778311852964.4192,
+    "maxSampleMtimeFile": "diff-legacy-vs-tiered.json",
+    "extractScriptMtime": 1778311659763.3994,
+    "refreshed": true,
+    "reason": "samples-newer-than-corpus",
+    "refreshError": null,
+    "corpusMtimeAfter": 1778311860072.7107,
+    "notes": "P22-A6 §Rec #5 carry-over. Pre-fix `measure_p22.mjs` only refreshed the corpus when missing, leaving stale post-`samples:regen` reads to the audit reader. This script refreshes when corpus mtime is older than max sample mtime or the extractor script mtime."
+  },
+  "depthInversion": {
+    "hits": 0,
+    "sampleHits": [],
+    "auditedSummary": {
+      "word_repeat": 0,
+      "awkward_phrase": 0,
+      "audience_leak": 0,
+      "korean_grammar": 0,
+      "depth_inversion": 0,
+      "bare_glossary_label": 0,
+      "totalRecords": 15044,
+      "fixtureCount": 32,
+      "glossaryLabelsLoaded": 124,
+      "glossaryLabelsSafe": 124,
+      "glossaryLabelsAmbiguous": 0
+    },
+    "notes": "depth_inversion = P21-A2 refreshed Levenshtein ≥ 0.75 detector. P22-A4 closed pre-fix 18 → 0. P23 hold target 0 (or ≤ 2). Corpus freshness ensured by corpusFreshness block above."
+  },
+  "briefHookSurface": {
+    "fixturesWithAtLeastOneHook": 31,
+    "fixtureCoveragePercent": 96.88,
+    "totalHookOccurrences": 422,
+    "distinctHookStrings": 110,
+    "authoredHookStrings": 110,
+    "dormantHookStringsByText": 1,
+    "perFixtureHookCountHistogram": {
+      "0": 1,
+      "9": 2,
+      "10": 4,
+      "11": 4,
+      "12": 3,
+      "13": 1,
+      "14": 1,
+      "15": 3,
+      "16": 9,
+      "17": 4
+    },
+    "maxHookOnSingleFixture": 17,
+    "maxHookOnSingleFixtureFixture": "05-park-minji-late-night-female-tiered",
+    "concentrationStats": {
+      "min": 0,
+      "p10": 10,
+      "median": 14.5,
+      "mean": 13.19,
+      "p90": 16.9,
+      "max": 17,
+      "fixtures": 32,
+      "notes": "Distribution of distinct hook count per fixture-with-matrix. Fixtures without ANY emitted brief.hook contribute 0 to the vector. P21-A3 ratchet `--max-hooks=20`."
+    }
+  },
+  "postProcessorLeaks": {
+    "totalOccurrences": 0,
+    "uniqueLeakCells": 0,
+    "perPattern": {},
+    "sampleCells": []
+  },
+  "flowCluster": {
+    "totalCells": 0
+  },
+  "gyeolCluster": {
+    "totalCells": 10
+  },
+  "doubledGyeoli": {
+    "totalCells": 0,
+    "sampleCells": []
+  },
+  "yeongyeolCompound": {
+    "coverage": {
+      "total": 2,
+      "perFile": {
+        "age-phase-focus-density.fragments.json": 1,
+        "birth-winter-current-season-pairs.fragments.json": 1
+      },
+      "vulnTotal": 0,
+      "vulnPerFile": {},
+      "verbTotal": 0,
+      "verbPerFile": {}
+    },
+    "narrativeNonCoverage": {
+      "total": 0,
+      "perFile": {},
+      "vulnTotal": 0,
+      "vulnPerFile": {},
+      "verbTotal": 1,
+      "verbPerFile": {
+        "health_stress/today/expert.fragments.json": 1
+      }
+    },
+    "metaphor": {
+      "total": 0,
+      "perFile": {},
+      "vulnTotal": 0,
+      "vulnPerFile": {},
+      "verbTotal": 0,
+      "verbPerFile": {}
+    },
+    "glossary": {
+      "total": 0,
+      "perFile": {},
+      "vulnTotal": 0,
+      "vulnPerFile": {},
+      "verbTotal": 0,
+      "verbPerFile": {}
+    },
+    "grandTotal": 2,
+    "grandTotalVulnerable": 0,
+    "notes": "grandTotal = conservative 8-particle scan (을/이/로/의/에/과/도/만); grandTotalVulnerable = GYEOL_SUBS-vulnerable subset."
+  },
+  "yeongyeolVerb": {
+    "coverage": {
+      "verbTotal": 0,
+      "verbPerFile": {}
+    },
+    "narrativeNonCoverage": {
+      "verbTotal": 1,
+      "verbPerFile": {
+        "health_stress/today/expert.fragments.json": 1
+      }
+    },
+    "metaphor": {
+      "verbTotal": 0,
+      "verbPerFile": {}
+    },
+    "glossary": {
+      "verbTotal": 0,
+      "verbPerFile": {}
+    },
+    "grandTotalVerb": 1,
+    "notes": "Verb-form 연결 (연결돼/연결되/연결된/연결될/연결됐/연결됨/연결해/연결한/연결할/연결했/연결함). P21-A1 target 0; P22 hold; P23 hold."
+  }
+}
