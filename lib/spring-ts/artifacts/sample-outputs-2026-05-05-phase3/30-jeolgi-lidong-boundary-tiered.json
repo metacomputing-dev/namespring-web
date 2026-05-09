@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-05-09T10:46:59.743Z",
+  "generatedAt": "2026-05-09T11:00:51.210Z",
   "targetDate": "2026-05-05T00:00:00+09:00",
   "sampleId": "jeolgi-lidong-boundary-tiered",
   "description": "입동(立冬) 절기 경계 직전 출생 (2026 입동 = 11/07 18:52 KST, 본 입력은 ±0.5 day 내). fortuneCascadeMode=jie_based 로 jie 경계 day-precision 활성, 月柱 戌→亥 분기 부근 elasticity 와 tieredMatrix 결합.",
@@ -1307,7 +1307,7 @@
     },
     "meta": {
       "version": "1.0.0",
-      "generatedAt": "2026-05-09T10:47:15.425Z",
+      "generatedAt": "2026-05-09T11:01:08.953Z",
       "schoolPreset": {
         "selected": "korean",
         "source": "default",
@@ -9710,6 +9710,15 @@
                       }
                     ],
                     "plainText": "일 년의 작품을 한 곳에 모아 두면 자기 흐름의 자취가 또렷해져요. 자유롭게 풀어 주는 환경이 가장 좋은 거름이에요."
+                  },
+                  {
+                    "tokens": [
+                      {
+                        "kind": "text",
+                        "value": "한 해 동안 만든 그림·노래·놀이 자취를 분기마다 한 곳에 모아 두는 작은 상자를 만들어 두세요. 상자 한 칸씩 채워 두는 시간이 일 년의 끝에서 자기 색을 또렷하게 받쳐 주는 첫 자료집으로 남아 줘요."
+                      }
+                    ],
+                    "plainText": "한 해 동안 만든 그림·노래·놀이 자취를 분기마다 한 곳에 모아 두는 작은 상자를 만들어 두세요. 상자 한 칸씩 채워 두는 시간이 일 년의 끝에서 자기 색을 또렷하게 받쳐 주는 첫 자료집으로 남아 줘요."
                   }
                 ],
                 "livingTips": [
@@ -10650,7 +10659,7 @@
       },
       "meta": {
         "schemaVersion": "spring-ts.tiered-matrix.v1",
-        "generatedAt": "2026-05-09T10:47:15.425Z",
+        "generatedAt": "2026-05-09T11:01:08.953Z",
         "selectionSeed": "2026|11|7|18|30|male|2026-05-04T15:00:00.000Z",
         "templateContractVersion": "1.0.0",
         "contentSource": "authored",

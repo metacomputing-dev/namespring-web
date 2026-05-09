@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-05-09T10:46:59.743Z",
+  "generatedAt": "2026-05-09T11:00:51.210Z",
   "targetDate": "2026-05-05T00:00:00+09:00",
   "sampleId": "kim-senior-female-tiered",
   "description": "70+ 시니어 여성 (1950 출생) — 노년 여성 audience 흐름. life-stage 후반 narrative 와 tieredMatrix 의 conservative tone 매칭을 점검하는 케이스.",
@@ -1317,7 +1317,7 @@
     },
     "meta": {
       "version": "1.0.0",
-      "generatedAt": "2026-05-09T10:47:10.807Z",
+      "generatedAt": "2026-05-09T11:01:03.879Z",
       "schoolPreset": {
         "selected": "korean",
         "source": "default",
@@ -5463,6 +5463,15 @@
                     "tokens": [
                       {
                         "kind": "text",
+                        "value": "오늘 하루의 표현은 다음 세대와 함께하는 호흡을 천천히 정돈하는 자리예요. 굳이 긴 대화가 아니어도 짧은 한마디나 따뜻한 눈맞춤 한 번이 오늘 하루의 마음을 또렷이 담아 주는 자산이 돼요."
+                      }
+                    ],
+                    "plainText": "오늘 하루의 표현은 다음 세대와 함께하는 호흡을 천천히 정돈하는 자리예요. 굳이 긴 대화가 아니어도 짧은 한마디나 따뜻한 눈맞춤 한 번이 오늘 하루의 마음을 또렷이 담아 주는 자산이 돼요."
+                  },
+                  {
+                    "tokens": [
+                      {
+                        "kind": "text",
                         "value": "자녀와의 관계 가능성도 함께 비치지만 단정 없이 흐르는 흐름이 가장 좋아요. 오늘의 짧은 즐거움이 가장 큰 자산이에요."
                       }
                     ],
@@ -9155,6 +9164,15 @@
                       }
                     ],
                     "plainText": "평생 가꾸어 온 가풍의 흐름이 이미 모여 있는 자리이니, 새로 무엇을 더하지 않아도 충분해요."
+                  },
+                  {
+                    "tokens": [
+                      {
+                        "kind": "text",
+                        "value": "비유하자면 이번 달의 자리는 오래 머문 정원의 햇볕 좋은 의자 한 자리예요. 굳이 새 꽃을 심지 않아도 한 자리에 앉아 천천히 둘러보는 시간이, 가까운 사람에게도 따뜻한 한 달의 자취로 함께 남아 줘요."
+                      }
+                    ],
+                    "plainText": "비유하자면 이번 달의 자리는 오래 머문 정원의 햇볕 좋은 의자 한 자리예요. 굳이 새 꽃을 심지 않아도 한 자리에 앉아 천천히 둘러보는 시간이, 가까운 사람에게도 따뜻한 한 달의 자취로 함께 남아 줘요."
                   }
                 ],
                 "livingTips": [
@@ -13133,7 +13151,7 @@
       },
       "meta": {
         "schemaVersion": "spring-ts.tiered-matrix.v1",
-        "generatedAt": "2026-05-09T10:47:10.807Z",
+        "generatedAt": "2026-05-09T11:01:03.878Z",
         "selectionSeed": "1950|8|20|14|0|female|2026-05-04T15:00:00.000Z",
         "templateContractVersion": "1.0.0",
         "contentSource": "authored",
