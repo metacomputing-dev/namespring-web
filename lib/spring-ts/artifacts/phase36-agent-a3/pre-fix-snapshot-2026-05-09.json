@@ -1,0 +1,747 @@
+{
+  "generatedAt": "2026-05-09T06:57:20.673Z",
+  "totalCells": 1705,
+  "renderedHistogram": {
+    "4": 1547,
+    "5": 118,
+    "6": 40
+  },
+  "perFragment": {
+    "academic.life.expert.10_19.010": {
+      "count": 1,
+      "paragraphs": 4
+    },
+    "romance.life.expert.teen.001": {
+      "count": 1,
+      "paragraphs": 6
+    },
+    "family.life.expert.young_caregiver.008": {
+      "count": 5,
+      "paragraphs": 5
+    },
+    "study_document.life.expert.young.006": {
+      "count": 1,
+      "paragraphs": 4
+    },
+    "expression_children.life.expert.10_19.006": {
+      "count": 1,
+      "paragraphs": 4
+    },
+    "health_stress.life.expert.youth_10_19.001": {
+      "count": 1,
+      "paragraphs": 6
+    },
+    "movement.life.expert.10_19.003": {
+      "count": 1,
+      "paragraphs": 6
+    },
+    "academic.today.expert.ageband.child_teen.301": {
+      "count": 5,
+      "paragraphs": 4
+    },
+    "romance.today.expert.teen.001": {
+      "count": 1,
+      "paragraphs": 6
+    },
+    "family.today.expert.young_caregiver.009": {
+      "count": 5,
+      "paragraphs": 4
+    },
+    "study_document.today.expert.young.006": {
+      "count": 1,
+      "paragraphs": 4
+    },
+    "health_stress.today.expert.youth_10_19.001": {
+      "count": 1,
+      "paragraphs": 4
+    },
+    "movement.today.expert.10_19.003": {
+      "count": 1,
+      "paragraphs": 4
+    },
+    "academic.thisWeek.expert.ageband.child_teen.301": {
+      "count": 5,
+      "paragraphs": 4
+    },
+    "romance.thisWeek.expert.teen.001": {
+      "count": 1,
+      "paragraphs": 6
+    },
+    "family.thisWeek.expert.young_caregiver.009": {
+      "count": 5,
+      "paragraphs": 4
+    },
+    "study_document.thisWeek.expert.young.006": {
+      "count": 1,
+      "paragraphs": 4
+    },
+    "health_stress.thisWeek.expert.youth_10_19.001": {
+      "count": 1,
+      "paragraphs": 4
+    },
+    "movement.thisWeek.expert.10_19.003": {
+      "count": 1,
+      "paragraphs": 4
+    },
+    "academic.thisMonth.expert.ageband.child_teen.301": {
+      "count": 5,
+      "paragraphs": 4
+    },
+    "romance.thisMonth.expert.teen.001": {
+      "count": 1,
+      "paragraphs": 6
+    },
+    "family.thisMonth.expert.young_caregiver.009": {
+      "count": 5,
+      "paragraphs": 5
+    },
+    "study_document.thisMonth.expert.young.006": {
+      "count": 1,
+      "paragraphs": 4
+    },
+    "health_stress.thisMonth.expert.youth_10_19.001": {
+      "count": 1,
+      "paragraphs": 4
+    },
+    "movement.thisMonth.expert.10_19.003": {
+      "count": 1,
+      "paragraphs": 4
+    },
+    "academic.thisYear.expert.10_19.011": {
+      "count": 1,
+      "paragraphs": 4
+    },
+    "romance.thisYear.expert.teen.001": {
+      "count": 1,
+      "paragraphs": 6
+    },
+    "family.thisYear.expert.young_caregiver.009": {
+      "count": 5,
+      "paragraphs": 4
+    },
+    "study_document.thisYear.expert.young.006": {
+      "count": 1,
+      "paragraphs": 4
+    },
+    "health_stress.thisYear.expert.youth_10_19.001": {
+      "count": 1,
+      "paragraphs": 4
+    },
+    "movement.thisYear.expert.10_19.003": {
+      "count": 1,
+      "paragraphs": 6
+    },
+    "overall.life.expert.strong.neutral.005": {
+      "count": 10,
+      "paragraphs": 5
+    },
+    "wealth.life.expert.currentseason.spring_summer.301": {
+      "count": 19,
+      "paragraphs": 4
+    },
+    "health.life.expert.currentseason.spring_summer.301": {
+      "count": 26,
+      "paragraphs": 4
+    },
+    "academic.life.expert.currentseason.spring_summer.301": {
+      "count": 26,
+      "paragraphs": 4
+    },
+    "romance.life.expert.adult.strong.001": {
+      "count": 2,
+      "paragraphs": 6
+    },
+    "family.life.expert.currentseason.spring_summer.301": {
+      "count": 26,
+      "paragraphs": 4
+    },
+    "career.life.expert.responsibility.strong.501": {
+      "count": 3,
+      "paragraphs": 4
+    },
+    "study_document.life.expert.currentseason.spring_summer.301": {
+      "count": 26,
+      "paragraphs": 4
+    },
+    "expression_children.life.expert.currentseason.spring_summer.301": {
+      "count": 26,
+      "paragraphs": 4
+    },
+    "health_stress.life.expert.female_20_29.001": {
+      "count": 3,
+      "paragraphs": 6
+    },
+    "movement.life.expert.currentseason.spring_summer.301": {
+      "count": 19,
+      "paragraphs": 4
+    },
+    "overall.today.expert.currentseason.spring_summer.301": {
+      "count": 11,
+      "paragraphs": 4
+    },
+    "wealth.today.expert.currentseason.spring_summer.301": {
+      "count": 17,
+      "paragraphs": 4
+    },
+    "health.today.expert.currentseason.spring_summer.301": {
+      "count": 26,
+      "paragraphs": 4
+    },
+    "academic.today.expert.currentseason.spring_summer.301": {
+      "count": 10,
+      "paragraphs": 4
+    },
+    "romance.today.expert.currentseason.spring_summer.301": {
+      "count": 18,
+      "paragraphs": 4
+    },
+    "family.today.expert.currentseason.spring_summer.301": {
+      "count": 26,
+      "paragraphs": 4
+    },
+    "career.today.expert.currentseason.spring_summer.301": {
+      "count": 26,
+      "paragraphs": 4
+    },
+    "study_document.today.expert.currentseason.spring_summer.301": {
+      "count": 26,
+      "paragraphs": 4
+    },
+    "expression_children.today.expert.currentseason.spring_summer.301": {
+      "count": 26,
+      "paragraphs": 4
+    },
+    "health_stress.today.expert.currentseason.spring_summer.301": {
+      "count": 12,
+      "paragraphs": 4
+    },
+    "movement.today.expert.currentseason.spring_summer.301": {
+      "count": 20,
+      "paragraphs": 4
+    },
+    "overall.thisWeek.expert.strong.neutral.005": {
+      "count": 3,
+      "paragraphs": 4
+    },
+    "wealth.thisWeek.expert.neutral.cashflow.008": {
+      "count": 8,
+      "paragraphs": 4
+    },
+    "health.thisWeek.expert.currentseason.spring_summer.301": {
+      "count": 26,
+      "paragraphs": 4
+    },
+    "academic.thisWeek.expert.currentseason.spring_summer.301": {
+      "count": 11,
+      "paragraphs": 4
+    },
+    "romance.thisWeek.expert.adult.strong.001": {
+      "count": 2,
+      "paragraphs": 4
+    },
+    "family.thisWeek.expert.currentseason.spring_summer.301": {
+      "count": 26,
+      "paragraphs": 4
+    },
+    "career.thisWeek.expert.currentseason.spring_summer.301": {
+      "count": 26,
+      "paragraphs": 4
+    },
+    "study_document.thisWeek.expert.currentseason.spring_summer.301": {
+      "count": 26,
+      "paragraphs": 4
+    },
+    "expression_children.thisWeek.expert.currentseason.spring_summer.301": {
+      "count": 26,
+      "paragraphs": 4
+    },
+    "health_stress.thisWeek.expert.female_20_29.001": {
+      "count": 4,
+      "paragraphs": 4
+    },
+    "movement.thisWeek.expert.currentseason.spring_summer.301": {
+      "count": 19,
+      "paragraphs": 4
+    },
+    "overall.thisMonth.expert.strong.neutral.005": {
+      "count": 3,
+      "paragraphs": 4
+    },
+    "wealth.thisMonth.expert.neutral.plan.008": {
+      "count": 13,
+      "paragraphs": 4
+    },
+    "health.thisMonth.expert.currentseason.spring_summer.301": {
+      "count": 26,
+      "paragraphs": 4
+    },
+    "academic.thisMonth.expert.currentseason.spring_summer.301": {
+      "count": 11,
+      "paragraphs": 4
+    },
+    "romance.thisMonth.expert.adult.strong.001": {
+      "count": 2,
+      "paragraphs": 6
+    },
+    "family.thisMonth.expert.rhythm.501": {
+      "count": 10,
+      "paragraphs": 4
+    },
+    "career.thisMonth.expert.season.spring_summer.501": {
+      "count": 11,
+      "paragraphs": 4
+    },
+    "study_document.thisMonth.expert.currentseason.spring_summer.301": {
+      "count": 26,
+      "paragraphs": 4
+    },
+    "expression_children.thisMonth.expert.output.season.spring_summer.501": {
+      "count": 11,
+      "paragraphs": 4
+    },
+    "health_stress.thisMonth.expert.female_20_29.001": {
+      "count": 3,
+      "paragraphs": 4
+    },
+    "movement.thisMonth.expert.currentseason.spring_summer.301": {
+      "count": 19,
+      "paragraphs": 4
+    },
+    "overall.thisYear.expert.currentseason.spring_summer.301": {
+      "count": 11,
+      "paragraphs": 4
+    },
+    "wealth.thisYear.expert.currentseason.spring_summer.301": {
+      "count": 18,
+      "paragraphs": 4
+    },
+    "health.thisYear.expert.currentseason.spring_summer.301": {
+      "count": 24,
+      "paragraphs": 4
+    },
+    "academic.thisYear.expert.currentseason.spring_summer.301": {
+      "count": 26,
+      "paragraphs": 4
+    },
+    "romance.thisYear.expert.currentseason.spring_summer.301": {
+      "count": 18,
+      "paragraphs": 4
+    },
+    "family.thisYear.expert.currentseason.spring_summer.301": {
+      "count": 26,
+      "paragraphs": 4
+    },
+    "career.thisYear.expert.currentseason.spring_summer.301": {
+      "count": 26,
+      "paragraphs": 4
+    },
+    "study_document.thisYear.expert.currentseason.spring_summer.301": {
+      "count": 26,
+      "paragraphs": 4
+    },
+    "expression_children.thisYear.expert.currentseason.spring_summer.301": {
+      "count": 26,
+      "paragraphs": 4
+    },
+    "health_stress.thisYear.expert.currentseason.spring_summer.301": {
+      "count": 13,
+      "paragraphs": 4
+    },
+    "movement.thisYear.expert.currentseason.spring_summer.301": {
+      "count": 20,
+      "paragraphs": 4
+    },
+    "health_stress.life.expert.currentseason.spring_summer.301": {
+      "count": 14,
+      "paragraphs": 4
+    },
+    "health_stress.thisWeek.expert.currentseason.spring_summer.301": {
+      "count": 14,
+      "paragraphs": 4
+    },
+    "family.thisMonth.expert.currentseason.spring_summer.301": {
+      "count": 16,
+      "paragraphs": 4
+    },
+    "health_stress.thisMonth.expert.currentseason.spring_summer.301": {
+      "count": 15,
+      "paragraphs": 4
+    },
+    "overall.life.expert.agephase.late_30s.301": {
+      "count": 1,
+      "paragraphs": 4
+    },
+    "wealth.life.expert.weak.neutral.004": {
+      "count": 6,
+      "paragraphs": 5
+    },
+    "romance.life.expert.adult.weak.001": {
+      "count": 5,
+      "paragraphs": 6
+    },
+    "career.life.expert.energy.weak.501": {
+      "count": 7,
+      "paragraphs": 4
+    },
+    "health_stress.life.expert.water_weak.001": {
+      "count": 1,
+      "paragraphs": 4
+    },
+    "movement.life.expert.weak_neutral.010": {
+      "count": 7,
+      "paragraphs": 5
+    },
+    "overall.thisWeek.expert.currentseason.spring_summer.301": {
+      "count": 16,
+      "paragraphs": 4
+    },
+    "wealth.thisWeek.expert.currentseason.spring_summer.301": {
+      "count": 14,
+      "paragraphs": 4
+    },
+    "romance.thisWeek.expert.adult.weak.001": {
+      "count": 5,
+      "paragraphs": 5
+    },
+    "health_stress.thisWeek.expert.weak_neutral.001": {
+      "count": 5,
+      "paragraphs": 4
+    },
+    "movement.thisWeek.expert.weak_neutral.010": {
+      "count": 7,
+      "paragraphs": 4
+    },
+    "overall.thisMonth.expert.currentseason.spring_summer.301": {
+      "count": 16,
+      "paragraphs": 4
+    },
+    "wealth.thisMonth.expert.currentseason.spring_summer.301": {
+      "count": 10,
+      "paragraphs": 4
+    },
+    "romance.thisMonth.expert.adult.weak.001": {
+      "count": 5,
+      "paragraphs": 5
+    },
+    "health_stress.thisMonth.expert.water_weak.001": {
+      "count": 1,
+      "paragraphs": 4
+    },
+    "movement.thisMonth.expert.weak_neutral.010": {
+      "count": 7,
+      "paragraphs": 5
+    },
+    "health.thisYear.expert.weak.30_39.001": {
+      "count": 2,
+      "paragraphs": 6
+    },
+    "overall.life.expert.yin_late60s_johu.504": {
+      "count": 1,
+      "paragraphs": 4
+    },
+    "romance.life.expert.currentseason.spring_summer.302": {
+      "count": 19,
+      "paragraphs": 4
+    },
+    "romance.thisWeek.expert.currentseason.spring_summer.301": {
+      "count": 19,
+      "paragraphs": 4
+    },
+    "romance.thisMonth.expert.currentseason.spring_summer.301": {
+      "count": 19,
+      "paragraphs": 4
+    },
+    "career.life.expert.currentseason.spring_summer.301": {
+      "count": 16,
+      "paragraphs": 4
+    },
+    "overall.today.expert.strong.neutral.005": {
+      "count": 8,
+      "paragraphs": 5
+    },
+    "wealth.today.expert.male.30_39.006": {
+      "count": 1,
+      "paragraphs": 4
+    },
+    "academic.today.expert.ageband.adult.301": {
+      "count": 9,
+      "paragraphs": 4
+    },
+    "romance.today.expert.adult.strong.001": {
+      "count": 4,
+      "paragraphs": 4
+    },
+    "health_stress.today.expert.male_30_39.001": {
+      "count": 5,
+      "paragraphs": 5
+    },
+    "wealth.thisWeek.expert.male.30_39.006": {
+      "count": 1,
+      "paragraphs": 4
+    },
+    "academic.thisWeek.expert.ageband.adult.301": {
+      "count": 9,
+      "paragraphs": 4
+    },
+    "academic.thisMonth.expert.ageband.adult.301": {
+      "count": 9,
+      "paragraphs": 4
+    },
+    "career.thisMonth.expert.currentseason.spring_summer.301": {
+      "count": 15,
+      "paragraphs": 4
+    },
+    "expression_children.thisMonth.expert.currentseason.spring_summer.301": {
+      "count": 15,
+      "paragraphs": 4
+    },
+    "overall.thisYear.expert.strong.neutral.005": {
+      "count": 8,
+      "paragraphs": 5
+    },
+    "romance.thisYear.expert.adult.strong.001": {
+      "count": 4,
+      "paragraphs": 6
+    },
+    "health_stress.thisYear.expert.male_30_39.001": {
+      "count": 4,
+      "paragraphs": 4
+    },
+    "overall.life.expert.birthseason.autumn.401": {
+      "count": 1,
+      "paragraphs": 4
+    },
+    "wealth.today.expert.weak.neutral.004": {
+      "count": 7,
+      "paragraphs": 5
+    },
+    "romance.today.expert.adult.weak.001": {
+      "count": 4,
+      "paragraphs": 4
+    },
+    "health_stress.today.expert.weak_neutral.001": {
+      "count": 5,
+      "paragraphs": 4
+    },
+    "movement.today.expert.weak_neutral.010": {
+      "count": 6,
+      "paragraphs": 4
+    },
+    "wealth.thisYear.expert.weak.neutral.004": {
+      "count": 7,
+      "paragraphs": 5
+    },
+    "romance.thisYear.expert.adult.weak.001": {
+      "count": 4,
+      "paragraphs": 6
+    },
+    "health_stress.thisYear.expert.weak_neutral.001": {
+      "count": 5,
+      "paragraphs": 5
+    },
+    "movement.thisYear.expert.weak_neutral.010": {
+      "count": 6,
+      "paragraphs": 4
+    },
+    "overall.life.expert.weak.neutral.age40_54.011": {
+      "count": 6,
+      "paragraphs": 5
+    },
+    "overall.today.expert.weak.neutral.age40_54.011": {
+      "count": 6,
+      "paragraphs": 4
+    },
+    "overall.thisWeek.expert.weak.neutral.age40_54.011": {
+      "count": 6,
+      "paragraphs": 4
+    },
+    "overall.thisMonth.expert.weak.neutral.age40_54.011": {
+      "count": 6,
+      "paragraphs": 4
+    },
+    "health_stress.thisMonth.expert.weak_neutral.001": {
+      "count": 6,
+      "paragraphs": 5
+    },
+    "overall.thisYear.expert.weak.neutral.age40_54.011": {
+      "count": 6,
+      "paragraphs": 4
+    },
+    "wealth.today.expert.female.40_54.007": {
+      "count": 1,
+      "paragraphs": 4
+    },
+    "wealth.thisYear.expert.female.40_54.006": {
+      "count": 1,
+      "paragraphs": 6
+    },
+    "overall.life.expert.polarity.neutral.401": {
+      "count": 1,
+      "paragraphs": 4
+    },
+    "health_stress.life.expert.weak_neutral.001": {
+      "count": 6,
+      "paragraphs": 6
+    },
+    "academic.today.expert.birthSeason.winter.age.90_plus.401": {
+      "count": 1,
+      "paragraphs": 4
+    },
+    "wealth.thisWeek.expert.weak.neutral.004": {
+      "count": 3,
+      "paragraphs": 4
+    },
+    "health_stress.thisWeek.expert.water_weak.001": {
+      "count": 2,
+      "paragraphs": 4
+    },
+    "overall.life.expert.yongshin.fire.201": {
+      "count": 1,
+      "paragraphs": 4
+    },
+    "academic.today.expert.ageband.senior.301": {
+      "count": 6,
+      "paragraphs": 4
+    },
+    "academic.thisWeek.expert.ageband.senior.301": {
+      "count": 6,
+      "paragraphs": 4
+    },
+    "academic.thisMonth.expert.ageband.senior.301": {
+      "count": 6,
+      "paragraphs": 4
+    },
+    "health_stress.today.expert.fire_strong.001": {
+      "count": 3,
+      "paragraphs": 4
+    },
+    "health_stress.thisYear.expert.fire_strong.001": {
+      "count": 2,
+      "paragraphs": 4
+    },
+    "overall.life.expert.child.001": {
+      "count": 4,
+      "paragraphs": 4
+    },
+    "health.life.expert.child.001": {
+      "count": 4,
+      "paragraphs": 5
+    },
+    "romance.life.expert.expression.501": {
+      "count": 4,
+      "paragraphs": 4
+    },
+    "movement.life.expert.0_9.002": {
+      "count": 4,
+      "paragraphs": 5
+    },
+    "overall.today.expert.child.001": {
+      "count": 4,
+      "paragraphs": 4
+    },
+    "health.today.expert.child.001": {
+      "count": 4,
+      "paragraphs": 4
+    },
+    "movement.today.expert.0_9.002": {
+      "count": 4,
+      "paragraphs": 4
+    },
+    "overall.thisWeek.expert.child.001": {
+      "count": 4,
+      "paragraphs": 4
+    },
+    "health.thisWeek.expert.child.001": {
+      "count": 4,
+      "paragraphs": 4
+    },
+    "movement.thisWeek.expert.0_9.002": {
+      "count": 4,
+      "paragraphs": 4
+    },
+    "overall.thisMonth.expert.child.001": {
+      "count": 4,
+      "paragraphs": 4
+    },
+    "health.thisMonth.expert.child.001": {
+      "count": 4,
+      "paragraphs": 5
+    },
+    "movement.thisMonth.expert.0_9.002": {
+      "count": 4,
+      "paragraphs": 4
+    },
+    "overall.thisYear.expert.child.001": {
+      "count": 4,
+      "paragraphs": 5
+    },
+    "health.thisYear.expert.child.001": {
+      "count": 4,
+      "paragraphs": 4
+    },
+    "movement.thisYear.expert.0_9.002": {
+      "count": 4,
+      "paragraphs": 4
+    },
+    "overall.life.expert.balanced.neutral.008": {
+      "count": 2,
+      "paragraphs": 4
+    },
+    "health_stress.life.expert.male_30_39.001": {
+      "count": 2,
+      "paragraphs": 6
+    },
+    "overall.thisWeek.expert.balanced.neutral.008": {
+      "count": 1,
+      "paragraphs": 4
+    },
+    "health_stress.thisWeek.expert.male_30_39.001": {
+      "count": 1,
+      "paragraphs": 4
+    },
+    "overall.thisMonth.expert.balanced.neutral.008": {
+      "count": 1,
+      "paragraphs": 4
+    },
+    "health_stress.thisMonth.expert.male_30_39.001": {
+      "count": 1,
+      "paragraphs": 4
+    },
+    "wealth.life.expert.female.40_54.007": {
+      "count": 1,
+      "paragraphs": 4
+    },
+    "wealth.thisMonth.expert.weak.neutral.004": {
+      "count": 3,
+      "paragraphs": 4
+    },
+    "overall.life.expert.diversity.anchor.507": {
+      "count": 1,
+      "paragraphs": 6
+    },
+    "health_stress.thisYear.expert.female_20_29.001": {
+      "count": 2,
+      "paragraphs": 4
+    },
+    "overall.life.expert.agephase.90_plus.301": {
+      "count": 1,
+      "paragraphs": 4
+    },
+    "health_stress.today.expert.female_20_29.001": {
+      "count": 1,
+      "paragraphs": 4
+    },
+    "overall.today.expert.balanced.neutral.008": {
+      "count": 1,
+      "paragraphs": 4
+    },
+    "overall.thisYear.expert.balanced.neutral.008": {
+      "count": 1,
+      "paragraphs": 4
+    },
+    "overall.life.expert.birthseason.winter.401": {
+      "count": 1,
+      "paragraphs": 4
+    }
+  }
+}
