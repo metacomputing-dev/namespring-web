@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-05-09T07:04:19.996Z",
+  "generatedAt": "2026-05-09T07:04:12.090Z",
   "targetDate": "2026-05-05T00:00:00+09:00",
   "sampleId": "jonggyeok-jongwang-yeomsang-tiered",
   "description": "입력 의도: 從旺격 (一氣格 / 炎上格 火) 계열. fix-jong-02 (1942-06-23 15:00) 좌표를 차용 — 火 일간이 寅午戌 부분 火局 + 丙午 月柱 로 단일 火氣 압도. 최종 외격 판정은 엔진이 결정한다.",
@@ -1277,7 +1277,7 @@
     },
     "meta": {
       "version": "1.0.0",
-      "generatedAt": "2026-05-09T07:04:34.603Z",
+      "generatedAt": "2026-05-09T07:04:27.734Z",
       "schoolPreset": {
         "selected": "korean",
         "source": "default",
@@ -11786,6 +11786,15 @@
                       }
                     ],
                     "plainText": "한 해의 표현은 햇살을 머금은 단풍 한 잎처럼 가만히 있어도 빛깔이 진해지는 자리예요. 무리해서 무엇을 새로 만드는 대신 어제의 한 줄을 다시 펴 보는 호흡이 더 풍요로워요."
+                  },
+                  {
+                    "tokens": [
+                      {
+                        "kind": "text",
+                        "value": "한 해 안에 자기 책상 한쪽에 묵은 글·그림·사진을 한 묶음으로 모아 두세요. 한 묶음을 분기마다 한 번 펼쳐 보고 한 줄씩 짧은 코멘트를 더해 두면 다음 세대에게 건넬 자기 자취가 자연스럽게 자라나요."
+                      }
+                    ],
+                    "plainText": "한 해 안에 자기 책상 한쪽에 묵은 글·그림·사진을 한 묶음으로 모아 두세요. 한 묶음을 분기마다 한 번 펼쳐 보고 한 줄씩 짧은 코멘트를 더해 두면 다음 세대에게 건넬 자기 자취가 자연스럽게 자라나요."
                   }
                 ],
                 "livingTips": [
@@ -13158,7 +13167,7 @@
       },
       "meta": {
         "schemaVersion": "spring-ts.tiered-matrix.v1",
-        "generatedAt": "2026-05-09T07:04:34.603Z",
+        "generatedAt": "2026-05-09T07:04:27.734Z",
         "selectionSeed": "1942|6|23|15|0|male|2026-05-04T15:00:00.000Z",
         "templateContractVersion": "1.0.0",
         "contentSource": "authored",
