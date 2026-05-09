@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-05-09T07:52:33.070Z",
+  "generatedAt": "2026-05-09T07:49:23.136Z",
   "targetDate": "2026-05-05T00:00:00+09:00",
   "sampleId": "jeolgi-lidong-boundary-tiered",
   "description": "입동(立冬) 절기 경계 직전 출생 (2026 입동 = 11/07 18:52 KST, 본 입력은 ±0.5 day 내). fortuneCascadeMode=jie_based 로 jie 경계 day-precision 활성, 月柱 戌→亥 분기 부근 elasticity 와 tieredMatrix 결합.",
@@ -1307,7 +1307,7 @@
     },
     "meta": {
       "version": "1.0.0",
-      "generatedAt": "2026-05-09T07:52:51.602Z",
+      "generatedAt": "2026-05-09T07:49:40.979Z",
       "schoolPreset": {
         "selected": "korean",
         "source": "default",
@@ -9683,15 +9683,6 @@
                     "tokens": [
                       {
                         "kind": "text",
-                        "value": "비유하자면 한 해의 자기 표현은 밤하늘에 별자리 한 점씩 그려 두는 자리예요. 한 점씩 더해 두는 작은 자리가 모여 일 년이 지나고 보면 또렷한 그림 한 장으로 남아 줘요."
-                      }
-                    ],
-                    "plainText": "비유하자면 한 해의 자기 표현은 밤하늘에 별자리 한 점씩 그려 두는 자리예요. 한 점씩 더해 두는 작은 자리가 모여 일 년이 지나고 보면 또렷한 그림 한 장으로 남아 줘요."
-                  },
-                  {
-                    "tokens": [
-                      {
-                        "kind": "text",
                         "value": "일 년의 작품을 한 곳에 모아 두면 자기 흐름의 자취가 또렷해져요. 자유롭게 풀어 주는 환경이 가장 좋은 거름이에요."
                       }
                     ],
@@ -10636,7 +10627,7 @@
       },
       "meta": {
         "schemaVersion": "spring-ts.tiered-matrix.v1",
-        "generatedAt": "2026-05-09T07:52:51.602Z",
+        "generatedAt": "2026-05-09T07:49:40.979Z",
         "selectionSeed": "2026|11|7|18|30|male|2026-05-04T15:00:00.000Z",
         "templateContractVersion": "1.0.0",
         "contentSource": "authored",
