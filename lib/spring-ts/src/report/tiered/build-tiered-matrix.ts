@@ -11,12 +11,14 @@
 
 import type { SajuSummary, BirthInfo, NamingReport, NamingReportFrame } from '../../types.js';
 import type {
+  AgeBandScopedFortunes,
   FortuneTieredMatrix,
   PeriodScopedFortunes,
   TieredCategoryId,
   TieredPeriodKind,
   TieredDepth,
   TieredFortune,
+  TieredLifeStageBand,
   BriefFortuneText,
   StandardFortuneText,
   ExpertFortuneText,
@@ -28,9 +30,9 @@ import type {
   TieredNamingEvidence,
 } from '../types.js';
 
-import { buildFeatureVector, type FeatureVector } from './feature-selector.js';
+import { buildFeatureVector, buildFeatureVectorForAge, type FeatureVector } from './feature-selector.js';
 import { loadFragmentRegistry, type FragmentRegistry, type NarrativeFragment } from './fragment-registry.js';
-import { selectFragment, buildSelectionSeed } from './fragment-selector.js';
+import { selectFragment, buildSelectionSeed, type SelectionContext } from './fragment-selector.js';
 import { normalizeRenderedText, renderFragment, renderFragmentParagraphs, type RenderContext } from './template-engine.js';
 import { gradeCell } from './cell-grader.js';
 import { buildPeriodMeta, periodFortuneElement } from './period-meta-builder.js';
@@ -43,6 +45,27 @@ const CATEGORY_ORDER: readonly TieredCategoryId[] = [
   'wealth', 'health', 'academic', 'romance', 'family',
   'career', 'study_document', 'expression_children', 'health_stress', 'movement',
 ];
+
+interface LifeStageBandSpec {
+  readonly key: TieredLifeStageBand;
+  readonly label: string;
+  readonly startAge: number;
+  readonly endAge: number;
+  readonly representativeAge: number;
+}
+
+const LIFE_STAGE_BANDS: readonly LifeStageBandSpec[] = Object.freeze([
+  { key: '10-19', label: '10~19세', startAge: 10, endAge: 19, representativeAge: 15 },
+  { key: '20-29', label: '20~29세', startAge: 20, endAge: 29, representativeAge: 25 },
+  { key: '30-39', label: '30~39세', startAge: 30, endAge: 39, representativeAge: 35 },
+  { key: '40-49', label: '40~49세', startAge: 40, endAge: 49, representativeAge: 45 },
+  { key: '50-59', label: '50~59세', startAge: 50, endAge: 59, representativeAge: 55 },
+  { key: '60-69', label: '60~69세', startAge: 60, endAge: 69, representativeAge: 65 },
+  { key: '70-79', label: '70~79세', startAge: 70, endAge: 79, representativeAge: 75 },
+  { key: '80-89', label: '80~89세', startAge: 80, endAge: 89, representativeAge: 85 },
+  { key: '90-99', label: '90~99세', startAge: 90, endAge: 99, representativeAge: 95 },
+  { key: '100-109', label: '100~109세', startAge: 100, endAge: 109, representativeAge: 105 },
+]);
 
 const EMPTY_PARAGRAPHS: readonly TaggedParagraph[] = Object.freeze([]);
 
@@ -319,8 +342,12 @@ function buildCell(
   heeshin: FeatureVector['heeshinElement'],
   gishin: FeatureVector['gishinElement'],
   fortuneElement: FeatureVector['dayMasterElement'],
+  fragmentSelection?: Pick<SelectionContext, 'preferGatingDimensions'>,
 ): TieredFortune {
   const ctx: RenderContext = { seedKey, periodLabel, feature };
+  const selectionCtx: SelectionContext = fragmentSelection?.preferGatingDimensions?.length
+    ? { seedKey, preferGatingDimensions: fragmentSelection.preferGatingDimensions }
+    : { seedKey };
   const grade = gradeCell(fortuneElement, yongshin, heeshin, gishin);
 
   // P22-A1: previously a `MINOR_LIMITED_CATEGORIES` early-return forced
@@ -331,9 +358,9 @@ function buildCell(
   // `buildMinor{Brief,Standard,Expert}Fallback` calls below still
   // provide age-appropriate fallbacks when no minor-gated fragment
   // matches.
-  const briefFrag = selectFragment(registry, category, period, 'brief', feature, { seedKey });
-  const standardFrag = selectFragment(registry, category, period, 'standard', feature, { seedKey });
-  const expertFrag = selectFragment(registry, category, period, 'expert', feature, { seedKey });
+  const briefFrag = selectFragment(registry, category, period, 'brief', feature, selectionCtx);
+  const standardFrag = selectFragment(registry, category, period, 'standard', feature, selectionCtx);
+  const expertFrag = selectFragment(registry, category, period, 'expert', feature, selectionCtx);
 
   // Brief stays a concise headline — collapse any (rare/absent) `\n\n`
   // splits via `renderFragment` into a single paragraph for headline use.
@@ -386,8 +413,11 @@ function buildPeriodScoped(
   feature: FeatureVector,
   seedKey: string,
   targetDate: Date,
+  periodLabelOverride?: string,
+  fragmentSelection?: Pick<SelectionContext, 'preferGatingDimensions'>,
 ): PeriodScopedFortunes {
   const meta = buildPeriodMeta(period, targetDate);
+  const periodLabel = periodLabelOverride ?? meta.label;
   const fortuneElement = period === 'life'
     ? feature.dayMasterElement
     : periodFortuneElement(period, targetDate);
@@ -398,11 +428,12 @@ function buildPeriodScoped(
     registry,
     feature,
     seedKey,
-    meta.label,
+    periodLabel,
     feature.yongshinElement,
     feature.heeshinElement,
     feature.gishinElement,
     fortuneElement,
+    fragmentSelection,
   );
 
   const byCategory = {} as Record<TieredCategoryId, TieredFortune>;
@@ -413,21 +444,64 @@ function buildPeriodScoped(
       registry,
       feature,
       seedKey,
-      meta.label,
+      periodLabel,
       feature.yongshinElement,
       feature.heeshinElement,
       feature.gishinElement,
       fortuneElement,
+      fragmentSelection,
     );
   }
 
   return {
     periodKind: period,
-    periodLabel: meta.label,
+    periodLabel,
     periodMeta: meta.meta,
     overall,
     byCategory,
   };
+}
+
+function buildAgeBandScoped(
+  band: LifeStageBandSpec,
+  registry: FragmentRegistry,
+  feature: FeatureVector,
+  seedKey: string,
+  targetDate: Date,
+): AgeBandScopedFortunes {
+  const scoped = buildPeriodScoped(
+    'life',
+    registry,
+    feature,
+    seedKey,
+    targetDate,
+    band.label,
+    { preferGatingDimensions: ['agePhase', 'ageBand'] },
+  );
+  return {
+    ...scoped,
+    periodKind: 'life',
+    ageBand: band.key,
+    selectorAgeBand: feature.ageBand,
+    startAge: band.startAge,
+    endAge: band.endAge,
+    representativeAge: band.representativeAge,
+  };
+}
+
+function buildLifeByAgeBand(
+  saju: SajuSummary,
+  birth: BirthInfo,
+  targetDate: Date,
+  registry: FragmentRegistry,
+  seedKey: string,
+): Record<TieredLifeStageBand, AgeBandScopedFortunes> {
+  const byAgeBand = {} as Record<TieredLifeStageBand, AgeBandScopedFortunes>;
+  for (const band of LIFE_STAGE_BANDS) {
+    const feature = buildFeatureVectorForAge(saju, birth, targetDate, band.representativeAge);
+    byAgeBand[band.key] = buildAgeBandScoped(band, registry, feature, seedKey, targetDate);
+  }
+  return byAgeBand;
 }
 
 export interface BuildTieredMatrixOptions {
@@ -489,7 +563,10 @@ export function buildTieredMatrix(
 
   const periods = {} as Record<TieredPeriodKind, PeriodScopedFortunes>;
   for (const period of PERIOD_ORDER) {
-    periods[period] = buildPeriodScoped(period, registry, feature, seedKey, targetDate);
+    const scoped = buildPeriodScoped(period, registry, feature, seedKey, targetDate);
+    periods[period] = period === 'life'
+      ? { ...scoped, byAgeBand: buildLifeByAgeBand(saju, birth, targetDate, registry, seedKey) }
+      : scoped;
   }
 
   const allEntries = loadGlossary();

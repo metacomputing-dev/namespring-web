@@ -45,6 +45,15 @@ export function buildTagGlossary(
       const cell = period.byCategory[cat];
       if (cell) collectFromCell(cell, used);
     }
+    for (const ageBand of Object.keys(period.byAgeBand ?? {}) as Array<keyof NonNullable<typeof period.byAgeBand>>) {
+      const scoped = period.byAgeBand?.[ageBand];
+      if (!scoped) continue;
+      collectFromCell(scoped.overall, used);
+      for (const cat of Object.keys(scoped.byCategory) as Array<keyof typeof scoped.byCategory>) {
+        const cell = scoped.byCategory[cat];
+        if (cell) collectFromCell(cell, used);
+      }
+    }
   }
   // Sort for deterministic output.
   const usedInThisReport = [...used].sort();

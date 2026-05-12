@@ -95,5 +95,25 @@ check('fallback chain can still relax a mismatched leftmost dimension',
   fallback?.fragmentId === 'overall.life.brief.gender_relaxed.001',
   fallback?.fragmentId);
 
+const preferredRegistry = registry([
+  fragment('overall.life.brief.strength_neutral.001', {
+    dayMasterStrength: ['WEAK'],
+    yongshinAlignment: ['neutral'],
+  }),
+  fragment('overall.life.brief.ageband.001', { ageBand: ['40-54'] }),
+]);
+const preferred = selectFragment(
+  preferredRegistry,
+  'overall',
+  'life',
+  'brief',
+  feature,
+  { seedKey: 'preferred', preferGatingDimensions: ['ageBand'] },
+);
+
+check('preferred gating dimensions can win over broader specificity',
+  preferred?.fragmentId === 'overall.life.brief.ageband.001',
+  preferred?.fragmentId);
+
 console.log(`\nTiered fragment selector: ${pass} PASS / ${fail} FAIL`);
 process.exit(fail > 0 ? 1 : 0);

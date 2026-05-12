@@ -259,6 +259,7 @@ export type {
   TieredNameFrameStage,
   TieredNameFrameType,
   PeriodScopedFortunes,
+  AgeBandScopedFortunes,
   TieredFortune,
   TieredPeriodMeta,
   BriefFortuneText,
@@ -275,4 +276,5 @@ export type {
   TieredCategoryId,
   TieredDepth,
   TieredAgeBand,
+  TieredLifeStageBand,
 } from './report/types.js';

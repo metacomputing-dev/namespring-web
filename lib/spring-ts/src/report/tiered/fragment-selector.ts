@@ -94,6 +94,22 @@ function fnv1a(input: string): number {
 
 export interface SelectionContext {
   readonly seedKey: string;
+  readonly preferGatingDimensions?: readonly Dim[];
+}
+
+function preferredDimensionScore(
+  frag: NarrativeFragment,
+  feature: FeatureVector,
+  dimensions: readonly Dim[],
+): number {
+  let score = 0;
+  for (const dim of dimensions) {
+    const allow = (frag.gating as Record<string, readonly string[] | undefined>)[dim];
+    if (!allow || allow.length === 0) continue;
+    const value = (feature as unknown as Record<string, unknown>)[dim];
+    if (typeof value === 'string' && allow.includes(value)) score += 1;
+  }
+  return score;
 }
 
 export function selectFragment(
@@ -111,8 +127,15 @@ export function selectFragment(
   for (let relaxBefore = 0; relaxBefore <= FALLBACK_DIMENSIONS.length; relaxBefore += 1) {
     const matched = candidates.filter((frag) => fragmentMatchesUntil(frag, feature, relaxBefore));
     if (matched.length === 0) continue;
-    const maxSpecificity = Math.max(...matched.map((frag) => specificityScore(frag, relaxBefore)));
-    const scoped = matched.filter((frag) => specificityScore(frag, relaxBefore) === maxSpecificity);
+    const preferredDimensions = ctx.preferGatingDimensions ?? [];
+    const maxPreferredScore = preferredDimensions.length
+      ? Math.max(...matched.map((frag) => preferredDimensionScore(frag, feature, preferredDimensions)))
+      : 0;
+    const preferred = maxPreferredScore > 0
+      ? matched.filter((frag) => preferredDimensionScore(frag, feature, preferredDimensions) === maxPreferredScore)
+      : matched;
+    const maxSpecificity = Math.max(...preferred.map((frag) => specificityScore(frag, relaxBefore)));
+    const scoped = preferred.filter((frag) => specificityScore(frag, relaxBefore) === maxSpecificity);
     const seed = fnv1a(`${ctx.seedKey}|${category}|${period}|${depth}`);
     return scoped[seed % scoped.length];
   }

@@ -38,12 +38,14 @@ const TIERED_PERIOD_OPTIONS = [
 ];
 
 const LIFE_STAGE_PERIOD_OPTIONS = Array.from({ length: 10 }, (_, index) => {
-  const startAge = 9 + index * 10;
-  const endAge = startAge + 10;
+  const startAge = 10 + index * 10;
+  const endAge = startAge + 9;
+  const ageBand = `${startAge}-${endAge}`;
   return {
-    key: `life-${startAge}-${endAge}`,
+    key: `life-${ageBand}`,
     periodKind: 'life',
     label: `${startAge}~${endAge}세`,
+    ageBand,
     startAge,
     endAge,
     isLifeStage: true,
@@ -274,12 +276,16 @@ function buildPeriodOptions(fortuneReport) {
       .filter(Boolean);
     const lifePeriod = matrixPeriods.life;
     const lifeStages = lifePeriod
-      ? LIFE_STAGE_PERIOD_OPTIONS.map((option) => ({
-        ...option,
-        period: lifePeriod,
-        periodLabel: option.label,
-        lifeStage: findLifeStage(fortuneReport?.lifeStageFortune, option.startAge, option.endAge),
-      }))
+      ? LIFE_STAGE_PERIOD_OPTIONS.map((option) => {
+        const ageBandPeriod = lifePeriod.byAgeBand?.[option.ageBand];
+        return {
+          ...option,
+          period: ageBandPeriod || lifePeriod,
+          periodLabel: ageBandPeriod?.periodLabel || option.label,
+          selectorAgeBand: ageBandPeriod?.selectorAgeBand || '',
+          lifeStage: findLifeStage(fortuneReport?.lifeStageFortune, option.startAge, option.endAge),
+        };
+      })
       : [];
     return [...basePeriods, ...lifeStages];
   }
@@ -500,6 +506,9 @@ function CombiedNamingReport({
     () => buildCategoryItems(selectedPeriod),
     [selectedPeriod],
   );
+  const selectedPeriodOverall = selectedPeriod?.period?.overall || null;
+  const selectedPeriodStars = selectedPeriod?.lifeStage?.stars || selectedPeriodOverall?.stars || null;
+  const selectedPeriodSummary = selectedPeriod?.lifeStage?.summary || cellSummary(selectedPeriodOverall, '');
 
   const allMiniKeys = useMemo(() => {
     const keys = [];
@@ -679,10 +688,10 @@ function CombiedNamingReport({
                       <p className="text-xs font-black text-[var(--ns-tone-warn-text)]">선택 기간</p>
                       <p className="text-base font-black text-[var(--ns-accent-text)]">{selectedPeriod.periodLabel || selectedPeriod.label}</p>
                     </div>
-                    {selectedPeriod.lifeStage?.stars ? <StarRating score={toStars(selectedPeriod.lifeStage.stars)} /> : null}
+                    {selectedPeriodStars ? <StarRating score={toStars(selectedPeriodStars)} /> : null}
                   </div>
-                  {selectedPeriod.lifeStage?.summary ? (
-                    <p className="mt-2 text-sm font-semibold text-[var(--ns-text)]">{selectedPeriod.lifeStage.summary}</p>
+                  {selectedPeriodSummary ? (
+                    <p className="mt-2 text-sm font-semibold text-[var(--ns-text)]">{selectedPeriodSummary}</p>
                   ) : null}
                 </div>
               ) : null}

@@ -428,6 +428,11 @@ export type TieredDepth = 'brief' | 'standard' | 'expert';
 /** Age band used for narrative gating. Korean conventional 7-band split. */
 export type TieredAgeBand = '0-9' | '10-19' | '20-29' | '30-39' | '40-54' | '55-69' | '70+';
 
+/** User-facing life-stage bands exposed for the period UI. */
+export type TieredLifeStageBand =
+  | '10-19' | '20-29' | '30-39' | '40-49' | '50-59'
+  | '60-69' | '70-79' | '80-89' | '90-99' | '100-109';
+
 /** Tag taxonomy for inline `#용신` / `#천을귀인` references. */
 export type TagCategory =
   | 'element' | 'tenGod' | 'gyeokguk' | 'shinsal' | 'pillar'
@@ -523,6 +528,22 @@ export interface TieredPeriodMeta {
   readonly relativeNote?: string;
 }
 
+/** A life-period cell group for one user-facing 10-year age band. */
+export interface AgeBandScopedFortunes {
+  readonly periodKind: 'life';
+  readonly ageBand: TieredLifeStageBand;
+  /** The authored narrative gating band used internally for fragment selection. */
+  readonly selectorAgeBand: TieredAgeBand;
+  readonly startAge: number;
+  readonly endAge: number;
+  readonly representativeAge: number;
+  readonly periodLabel: string;
+  readonly periodMeta: TieredPeriodMeta;
+  /** Total fortune for this life-stage band. */
+  readonly overall: TieredFortune;
+  readonly byCategory: Readonly<Record<TieredCategoryId, TieredFortune>>;
+}
+
 /** All cells for one period of the matrix: total + 10 categories. */
 export interface PeriodScopedFortunes {
   readonly periodKind: TieredPeriodKind;
@@ -532,6 +553,8 @@ export interface PeriodScopedFortunes {
   /** 총운 — period-level summary across all categories. */
   readonly overall: TieredFortune;
   readonly byCategory: Readonly<Record<TieredCategoryId, TieredFortune>>;
+  /** Life-only: precomputed 10-year bands so UI period selection can switch content. */
+  readonly byAgeBand?: Readonly<Record<TieredLifeStageBand, AgeBandScopedFortunes>>;
 }
 
 /** A single glossary entry behind an inline `#태그`.

@@ -43,6 +43,10 @@ const CATEGORIES = [
   'wealth', 'health', 'academic', 'romance', 'family',
   'career', 'study_document', 'expression_children', 'health_stress', 'movement',
 ] as const;
+const LIFE_STAGE_BANDS = [
+  '10-19', '20-29', '30-39', '40-49', '50-59',
+  '60-69', '70-79', '80-89', '90-99', '100-109',
+] as const;
 
 let pass = 0;
 let fail = 0;
@@ -138,6 +142,42 @@ if (tm) {
     }
   }
 
+  const lifeByAgeBand = tm.periods.life?.byAgeBand ?? {};
+  check('life.byAgeBand has 10 user-facing bands',
+    Object.keys(lifeByAgeBand).length === LIFE_STAGE_BANDS.length,
+    Object.keys(lifeByAgeBand).join(','));
+  for (const band of LIFE_STAGE_BANDS) {
+    const scoped = lifeByAgeBand[band];
+    check(`life.byAgeBand.${band} present`, scoped != null);
+    check(`life.byAgeBand.${band}.periodKind is life`, scoped?.periodKind === 'life');
+    check(`life.byAgeBand.${band}.ageBand echoes key`, scoped?.ageBand === band, scoped?.ageBand);
+    check(`life.byAgeBand.${band}.selectorAgeBand non-empty`,
+      typeof scoped?.selectorAgeBand === 'string' && scoped.selectorAgeBand.length > 0,
+      scoped?.selectorAgeBand);
+    check(`life.byAgeBand.${band}.periodLabel non-empty`,
+      typeof scoped?.periodLabel === 'string' && scoped.periodLabel.length > 0,
+      scoped?.periodLabel);
+    check(`life.byAgeBand.${band}.overall.brief.headline non-empty`,
+      typeof scoped?.overall?.brief?.headline === 'string' && scoped.overall.brief.headline.length > 0,
+      scoped?.overall?.brief?.headline);
+    check(`life.byAgeBand.${band}.overall.standard.paragraphs is array`,
+      Array.isArray(scoped?.overall?.standard?.paragraphs));
+    check(`life.byAgeBand.${band}.byCategory has 10 keys`,
+      Object.keys(scoped?.byCategory ?? {}).length === CATEGORIES.length,
+      String(Object.keys(scoped?.byCategory ?? {}).length));
+  }
+  const academic20s = lifeByAgeBand['20-29']?.byCategory?.academic;
+  check('life.byAgeBand.20-29.academic uses brief headline for card summary',
+    typeof academic20s?.brief?.headline === 'string' && academic20s.brief.headline.length > 0,
+    academic20s?.brief?.headline);
+  check('life.byAgeBand.20-29.academic carries standard paragraphs for detail',
+    Array.isArray(academic20s?.standard?.paragraphs) && academic20s.standard.paragraphs.length > 0,
+    String(academic20s?.standard?.paragraphs?.length ?? 0));
+  check('life.byAgeBand.20-29.academic standard fragment is life scoped',
+    typeof academic20s?.selectedFragments?.standard?.fragmentId === 'string' &&
+      academic20s.selectedFragments.standard.fragmentId.includes('.life.standard.20_29.'),
+    academic20s?.selectedFragments?.standard?.fragmentId);
+
   // Glossary integrity
   check('glossary.entries non-empty', Object.keys(tm.glossary?.entries ?? {}).length > 0);
   check('glossary.usedInThisReport is array',
@@ -154,7 +194,11 @@ if (tm) {
   const usedSet = new Set<string>(tm.glossary?.usedInThisReport ?? []);
   for (const period of PERIODS) {
     const p = tm.periods[period];
-    const cells: any[] = [p.overall, ...Object.values(p.byCategory ?? {})];
+    const ageBandCells = Object.values(p.byAgeBand ?? {}).flatMap((scoped: any) => [
+      scoped.overall,
+      ...Object.values(scoped.byCategory ?? {}),
+    ]);
+    const cells: any[] = [p.overall, ...Object.values(p.byCategory ?? {}), ...ageBandCells];
     for (const cell of cells) {
       for (const para of cell.expert?.paragraphs ?? []) {
         for (const tok of para.tokens ?? []) {

@@ -384,10 +384,11 @@ export interface FeatureVector {
   readonly waterCount: number;
 }
 
-export function buildFeatureVector(
+function buildFeatureVectorInternal(
   saju: SajuSummary,
   birth: BirthInfo,
   targetDate: Date,
+  ageYearsOverride?: number,
 ): FeatureVector {
   const dayMasterElement = toElement(saju.dayMaster?.element ?? null);
   const yongshinElement = toElement(saju.yongshin?.element ?? null);
@@ -395,7 +396,8 @@ export function buildFeatureVector(
   const gishinElement = toElement(saju.yongshin?.gishin ?? null);
   const birthYear = saju.timeCorrection?.standardYear ?? birth.year ?? targetDate.getFullYear();
   const birthMonth = saju.timeCorrection?.standardMonth ?? birth.month ?? null;
-  const age = Math.max(0, targetDate.getFullYear() - (birthYear ?? targetDate.getFullYear()));
+  const inferredAge = targetDate.getFullYear() - (birthYear ?? targetDate.getFullYear());
+  const age = Math.max(0, ageYearsOverride ?? inferredAge);
   const agePhase = toAgePhase(age);
   const birthSeason = toSeason(birthMonth);
   const currentSeason = toSeason(targetDate.getMonth() + 1);
@@ -450,4 +452,21 @@ export function buildFeatureVector(
     metalCount: elementDistributionCount(elementDistribution, 'METAL'),
     waterCount: elementDistributionCount(elementDistribution, 'WATER'),
   };
+}
+
+export function buildFeatureVector(
+  saju: SajuSummary,
+  birth: BirthInfo,
+  targetDate: Date,
+): FeatureVector {
+  return buildFeatureVectorInternal(saju, birth, targetDate);
+}
+
+export function buildFeatureVectorForAge(
+  saju: SajuSummary,
+  birth: BirthInfo,
+  targetDate: Date,
+  ageYears: number,
+): FeatureVector {
+  return buildFeatureVectorInternal(saju, birth, targetDate, ageYears);
 }
