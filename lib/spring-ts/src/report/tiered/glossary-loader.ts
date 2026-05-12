@@ -11,16 +11,19 @@
  * pattern for static `data/**` reads).
  */
 
-// node:fs / node:path / node:url are imported but NEVER touched at module-load
-// time. All `fs.*` and `path.*` calls live inside the `loadGlossary` function
-// body, which is reached only when `surfaceTieredMatrix === true`. Browser
-// callers (NameSpring vite bundle) that keep the flag at default-false never
-// trigger fs even though vite externalizes these imports.
-import fs from 'node:fs';
-import path from 'node:path';
-import { fileURLToPath } from 'node:url';
 import type { GlossaryEntry, TagId } from '../types.js';
 import { normalizeRenderedText } from './template-engine.js';
+
+declare global {
+  interface ImportMeta {
+    glob?: (pattern: string, options?: { eager?: boolean }) => Record<string, unknown>;
+  }
+}
+
+const browserGlossaryModules =
+  typeof import.meta.glob === 'function'
+    ? import.meta.glob('../../../data/narrative/_glossary/*.json', { eager: true })
+    : {};
 
 interface GlossaryBundle {
   schemaVersion: 'spring-ts.glossary-bundle.v1';
@@ -32,7 +35,29 @@ function isNodeRuntime(): boolean {
   return typeof process !== 'undefined' && Boolean(process.versions?.node);
 }
 
+const nodeBuiltins = isNodeRuntime()
+  ? await (async () => {
+    const [fsModule, pathModule, urlModule] = await Promise.all([
+      import('node:fs'),
+      import('node:path'),
+      import('node:url'),
+    ]);
+    return {
+      fs: fsModule,
+      path: pathModule,
+      fileURLToPath: urlModule.fileURLToPath,
+    };
+  })()
+  : null;
+
 let cached: Readonly<Record<TagId, GlossaryEntry>> | null = null;
+
+function unwrapJsonModule(moduleValue: unknown): unknown {
+  if (moduleValue && typeof moduleValue === 'object' && 'default' in moduleValue) {
+    return (moduleValue as { default?: unknown }).default;
+  }
+  return moduleValue;
+}
 
 function normalizeGlossaryEntry(entry: GlossaryEntry): GlossaryEntry | null {
   if (!entry?.id || !entry.label || !entry.hashLabel || !entry.category) return null;
@@ -52,23 +77,36 @@ export function loadGlossary(): Readonly<Record<TagId, GlossaryEntry>> {
   if (cached) return cached;
   const out: Record<TagId, GlossaryEntry> = {};
   if (!isNodeRuntime()) {
+    for (const moduleValue of Object.values(browserGlossaryModules)) {
+      const bundle = unwrapJsonModule(moduleValue) as GlossaryBundle;
+      if (!Array.isArray(bundle?.entries)) continue;
+      for (const entry of bundle.entries) {
+        const normalized = normalizeGlossaryEntry(entry);
+        if (!normalized) continue;
+        out[normalized.id] = normalized;
+      }
+    }
     cached = Object.freeze(out);
     return cached;
   }
   // All fs / path resolution deferred until first call so module evaluation
   // does not touch externalized node builtins on a browser bundle.
-  const here = path.dirname(fileURLToPath(import.meta.url));
-  const glossaryDir = path.resolve(here, '../../../data/narrative/_glossary');
-  if (!fs.existsSync(glossaryDir)) {
+  if (!nodeBuiltins) {
     cached = Object.freeze(out);
     return cached;
   }
-  const files = fs.readdirSync(glossaryDir).filter((f) => f.endsWith('.json'));
+  const here = nodeBuiltins.path.dirname(nodeBuiltins.fileURLToPath(import.meta.url));
+  const glossaryDir = nodeBuiltins.path.resolve(here, '../../../data/narrative/_glossary');
+  if (!nodeBuiltins.fs.existsSync(glossaryDir)) {
+    cached = Object.freeze(out);
+    return cached;
+  }
+  const files = nodeBuiltins.fs.readdirSync(glossaryDir).filter((f) => f.endsWith('.json'));
   for (const file of files) {
-    const full = path.join(glossaryDir, file);
+    const full = nodeBuiltins.path.join(glossaryDir, file);
     let bundle: GlossaryBundle;
     try {
-      bundle = JSON.parse(fs.readFileSync(full, 'utf-8')) as GlossaryBundle;
+      bundle = JSON.parse(nodeBuiltins.fs.readFileSync(full, 'utf-8')) as GlossaryBundle;
     } catch {
       continue;
     }

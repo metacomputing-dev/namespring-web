@@ -11,20 +11,15 @@ import {
   CollapsibleMiniCard,
   REPORT_HOME_CARD_TONE_MAP,
   StarRating,
-  TimeSeriesChart,
   getNestedGradientClass,
   getNestedMiniCardClass,
-  getNestedToneBgClass,
 } from './report-modules-ui';
 import { getElementToneClass } from './theme/report-ui-theme';
-
-const CATEGORY_ORDER = ['wealth', 'health', 'academic', 'romance', 'family'];
 
 const CARD_TONE = {
   fit: REPORT_HOME_CARD_TONE_MAP.report,
   summary: REPORT_HOME_CARD_TONE_MAP.info,
   periods: REPORT_HOME_CARD_TONE_MAP.gratitude,
-  domains: REPORT_HOME_CARD_TONE_MAP.naming,
 };
 
 const SUMMARY_MINI_CARD_CLASSES = [
@@ -35,16 +30,36 @@ const SUMMARY_MINI_CARD_CLASSES = [
   getNestedMiniCardClass('danger'),
 ];
 
-const PERIOD_MINI_CARD_CLASS =
-  getNestedMiniCardClass('warn');
+const TIERED_PERIOD_OPTIONS = [
+  { key: 'today', periodKind: 'today', label: '오늘' },
+  { key: 'thisWeek', periodKind: 'thisWeek', label: '이번주' },
+  { key: 'thisMonth', periodKind: 'thisMonth', label: '이번달' },
+  { key: 'thisYear', periodKind: 'thisYear', label: '올해' },
+];
 
-const DOMAIN_MINI_CARD_CLASS_BY_CATEGORY = {
-  wealth: getNestedMiniCardClass('success'),
-  health: getNestedMiniCardClass('danger'),
-  academic: getNestedMiniCardClass('info'),
-  romance: getNestedMiniCardClass('indigo'),
-  family: getNestedMiniCardClass('cyan'),
-};
+const LIFE_STAGE_PERIOD_OPTIONS = Array.from({ length: 10 }, (_, index) => {
+  const startAge = 9 + index * 10;
+  const endAge = startAge + 10;
+  return {
+    key: `life-${startAge}-${endAge}`,
+    periodKind: 'life',
+    label: `${startAge}~${endAge}세`,
+    startAge,
+    endAge,
+    isLifeStage: true,
+  };
+});
+
+const TIERED_CATEGORY_OPTIONS = [
+  { id: 'overall', title: '총 운', subtitle: '전체적인 운세', tone: 'warn' },
+  { id: 'wealth', title: '재물운', subtitle: '돈과 물건 관리', tone: 'success' },
+  { id: 'health', title: '건강운', subtitle: '몸과 마음의 리듬', tone: 'danger' },
+  { id: 'academic', title: '학업운', subtitle: '공부와 배움', tone: 'info' },
+  { id: 'romance', title: '연애/결혼운', subtitle: '관계와 마음', tone: 'indigo' },
+  { id: 'family', title: '가족운', subtitle: '가족 관계', tone: 'cyan' },
+];
+
+const DETAIL_TAG_LIMIT = 12;
 
 function clamp(value, min, max) {
   return Math.max(min, Math.min(max, value));
@@ -131,112 +146,216 @@ function buildEightPillarComponents(pillars) {
   return rows.slice(0, 8);
 }
 
-function periodTrendFromCard(card) {
-  const rawPoints = asArray(card?.timeSeries?.points);
-  return rawPoints
-    .map((point, index) => ({
-      label: String(point?.label || index + 1),
-      value: clamp(Math.round(Number(point?.value) || 0), 0, 100),
-    }))
-    .filter((item) => Number.isFinite(item.value));
+function normalizeText(value) {
+  return String(value ?? '').replace(/\s+/g, ' ').trim();
 }
 
-function lifeStageTrend(card) {
-  const stages = asArray(card?.stages);
-  if (!stages.length) return [];
-  return stages.map((stage, index) => ({
-    label: String(stage?.ageRange || `${index + 1}단계`),
-    value: clamp(Math.round(toStars(stage?.stars) * 20), 20, 100),
-  }));
+function paragraphToText(paragraph) {
+  const direct = normalizeText(paragraph?.plainText);
+  if (direct) return direct;
+  return normalizeText(asArray(paragraph?.tokens).map((token) => {
+    if (token?.kind === 'tag') return token.label ? `#${String(token.label).replace(/^#/u, '')}` : '';
+    return token?.value || '';
+  }).join(''));
 }
 
-function DomainRadarChart({ items }) {
-  const safe = asArray(items).slice(0, 5);
-  if (!safe.length) return null;
+function firstSentence(value) {
+  const text = normalizeText(value);
+  if (!text) return '';
+  const match = text.match(/^.+?[.!?。！？]|^.+?요\.|^.+?다\./u);
+  return match ? match[0].trim() : text;
+}
 
-  const center = 110;
-  const radius = 82;
-  const angleStep = (Math.PI * 2) / 5;
+function cellSummary(cell, fallback = '운세 정보를 준비 중입니다.') {
+  return firstSentence(
+    cell?.brief?.headline
+    || cell?.brief?.hook
+    || paragraphToText(asArray(cell?.standard?.paragraphs)[0])
+    || fallback,
+  ) || fallback;
+}
 
-  const points = safe.map((item, idx) => {
-    const score = toStars(item?.stars);
-    const ratio = score / 5;
-    const angle = -Math.PI / 2 + idx * angleStep;
-    const x = center + Math.cos(angle) * radius * ratio;
-    const y = center + Math.sin(angle) * radius * ratio;
-    return `${x.toFixed(1)},${y.toFixed(1)}`;
-  }).join(' ');
+function cellDetailParagraphs(cell) {
+  const paragraphs = asArray(cell?.standard?.paragraphs)
+    .map(paragraphToText)
+    .filter(Boolean);
+  if (paragraphs.length) return paragraphs;
+  const fallback = cellSummary(cell, '');
+  return fallback ? [fallback] : [];
+}
 
-  const ring = [0.25, 0.5, 0.75, 1].map((r) => {
-    const p = safe.map((_, idx) => {
-      const angle = -Math.PI / 2 + idx * angleStep;
-      const x = center + Math.cos(angle) * radius * r;
-      const y = center + Math.sin(angle) * radius * r;
-      return `${x.toFixed(1)},${y.toFixed(1)}`;
-    }).join(' ');
-    return p;
+function cellLivingTips(cell) {
+  return asArray(cell?.standard?.livingTips).map(normalizeText).filter(Boolean);
+}
+
+function cellCautions(cell) {
+  return asArray(cell?.standard?.cautions).map(normalizeText).filter(Boolean);
+}
+
+function getTieredCell(period, categoryId) {
+  if (!period) return null;
+  if (categoryId === 'overall') return period.overall || null;
+  return period.byCategory?.[categoryId] || null;
+}
+
+function findLifeStage(lifeStageFortune, startAge, endAge) {
+  const stages = asArray(lifeStageFortune?.stages);
+  return stages.find((stage) => {
+    const start = Number(stage?.startAge);
+    const end = Number(stage?.endAge);
+    return Number.isFinite(start) && Number.isFinite(end) && start <= endAge && end >= startAge;
+  }) || null;
+}
+
+function legacyPeriodToCell(card) {
+  if (!card) return null;
+  const good = asArray(card.goodActions).map((item) => normalizeText(item?.text)).filter(Boolean);
+  const bad = asArray(card.badActions).map((item) => normalizeText(item?.text)).filter(Boolean);
+  const warning = normalizeText(card.warning?.signal || card.warning?.response);
+  return {
+    meaningfulness: 'meaningful',
+    stars: card.stars || null,
+    brief: { headline: normalizeText(card.summary) || `${card.title || '기간'} 운세를 확인해 보세요.` },
+    standard: {
+      paragraphs: [
+        { plainText: normalizeText(card.summary) || `${card.title || '기간'} 운세를 확인해 보세요.` },
+      ],
+      livingTips: good,
+      cautions: [...bad, warning].filter(Boolean),
+    },
+    expert: { paragraphs: [] },
+  };
+}
+
+function legacyCategoryToCell(card) {
+  if (!card) return null;
+  return {
+    meaningfulness: 'meaningful',
+    stars: card.stars || null,
+    brief: { headline: normalizeText(card.summary) || `${card.title || '분야'} 운세를 확인해 보세요.` },
+    standard: {
+      paragraphs: [
+        { plainText: normalizeText(card.summary) || `${card.title || '분야'} 운세를 확인해 보세요.` },
+      ],
+      livingTips: asArray(card.advice).map((item) => normalizeText(item?.text)).filter(Boolean),
+      cautions: card.caution ? [normalizeText(card.caution.signal), normalizeText(card.caution.response)].filter(Boolean) : [],
+    },
+    expert: { paragraphs: [] },
+  };
+}
+
+function buildLegacyPeriod(periodKind, periodLabel, overallCard, categoryFortunes) {
+  const byCategory = {};
+  TIERED_CATEGORY_OPTIONS.forEach((category) => {
+    if (category.id !== 'overall') byCategory[category.id] = legacyCategoryToCell(categoryFortunes?.[category.id]);
   });
+  return {
+    periodKind,
+    periodLabel,
+    periodMeta: {},
+    overall: legacyPeriodToCell(overallCard),
+    byCategory,
+  };
+}
 
-  const labelPoints = safe.map((item, idx) => {
-    const angle = -Math.PI / 2 + idx * angleStep;
-    const lineEndX = center + Math.cos(angle) * radius;
-    const lineEndY = center + Math.sin(angle) * radius;
-    const labelRadius = radius + 18;
-    const labelX = center + Math.cos(angle) * labelRadius;
-    const labelY = center + Math.sin(angle) * labelRadius;
-    const normalized = ((angle % (Math.PI * 2)) + Math.PI * 2) % (Math.PI * 2);
-    const textAnchor =
-      normalized < Math.PI * 0.25 || normalized > Math.PI * 1.75
-        ? 'start'
-        : normalized > Math.PI * 0.75 && normalized < Math.PI * 1.25
-          ? 'end'
-          : 'middle';
+function buildPeriodOptions(fortuneReport) {
+  const matrixPeriods = fortuneReport?.tieredMatrix?.periods;
+  if (matrixPeriods) {
+    const basePeriods = TIERED_PERIOD_OPTIONS
+      .map((option) => {
+        const period = matrixPeriods[option.periodKind];
+        if (!period) return null;
+        return {
+          ...option,
+          period,
+          periodLabel: period.periodLabel || option.label,
+        };
+      })
+      .filter(Boolean);
+    const lifePeriod = matrixPeriods.life;
+    const lifeStages = lifePeriod
+      ? LIFE_STAGE_PERIOD_OPTIONS.map((option) => ({
+        ...option,
+        period: lifePeriod,
+        periodLabel: option.label,
+        lifeStage: findLifeStage(fortuneReport?.lifeStageFortune, option.startAge, option.endAge),
+      }))
+      : [];
+    return [...basePeriods, ...lifeStages];
+  }
+
+  const categoryFortunes = fortuneReport?.categoryFortunes || {};
+  const legacyCards = {
+    today: fortuneReport?.dailyFortune,
+    thisWeek: fortuneReport?.weeklyFortune,
+    thisMonth: fortuneReport?.monthlyFortune,
+    thisYear: fortuneReport?.yearlyFortune,
+  };
+  const basePeriods = TIERED_PERIOD_OPTIONS
+    .map((option) => {
+      const card = legacyCards[option.key];
+      if (!card) return null;
+      return {
+        ...option,
+        period: buildLegacyPeriod(option.periodKind, option.label, card, categoryFortunes),
+        periodLabel: option.label,
+      };
+    })
+    .filter(Boolean);
+  const lifePeriod = buildLegacyPeriod(
+    'life',
+    '생애시기',
+    fortuneReport?.lifeFortuneOverview,
+    categoryFortunes,
+  );
+  const lifeStages = LIFE_STAGE_PERIOD_OPTIONS.map((option) => ({
+    ...option,
+    period: lifePeriod,
+    periodLabel: option.label,
+    lifeStage: findLifeStage(fortuneReport?.lifeStageFortune, option.startAge, option.endAge),
+  }));
+  return [...basePeriods, ...lifeStages];
+}
+
+function buildCategoryItems(periodOption) {
+  return TIERED_CATEGORY_OPTIONS.map((category) => {
+    const cell = getTieredCell(periodOption?.period, category.id);
     return {
-      key: item?.category || `label-${idx}`,
-      title: String(item?.title || '').replace(/운$/u, ''),
-      lineEndX,
-      lineEndY,
-      labelX,
-      labelY,
-      textAnchor,
+      ...category,
+      cell,
+      key: `${periodOption?.key || 'period'}:${category.id}`,
+      summary: cellSummary(cell, `${category.title} 정보를 준비 중입니다.`),
     };
   });
+}
 
-  return (
-    <div className="rounded-xl border border-[var(--ns-border)] bg-[var(--ns-surface)]/20 p-2">
-      <svg viewBox="0 0 220 220" className="w-full h-56">
-        {ring.map((poly, idx) => (
-          <polygon key={`ring-${idx}`} points={poly} fill="none" stroke="var(--ns-border)" strokeWidth="1" />
-        ))}
-        {labelPoints.map((point) => (
-          <line
-            key={`axis-${point.key}`}
-            x1={center}
-            y1={center}
-            x2={point.lineEndX}
-            y2={point.lineEndY}
-            stroke="var(--ns-border)"
-            strokeWidth="1"
-            strokeOpacity="0.8"
-          />
-        ))}
-        <polygon points={points} fill="var(--ns-tone-info-bg)" fillOpacity="0.4" stroke="var(--ns-tone-info-text)" strokeWidth="2" />
-        {labelPoints.map((point) => (
-          <text
-            key={`text-${point.key}`}
-            x={point.labelX}
-            y={point.labelY}
-            textAnchor={point.textAnchor}
-            fontSize="10"
-            fill="var(--ns-accent-text)"
-            style={{ fontWeight: 800 }}
-          >
-            {point.title}
-          </text>
-        ))}
-      </svg>
-    </div>
-  );
+function tagLabelFromGlossary(tagId, tokenLabel, glossary) {
+  const entry = glossary?.entries?.[tagId];
+  const raw = normalizeText(entry?.hashLabel || tokenLabel || entry?.label || tagId);
+  if (!raw) return '';
+  return raw.startsWith('#') ? raw : `#${raw}`;
+}
+
+function collectExpertTags(cell, glossary) {
+  const seen = new Set();
+  const tags = [];
+  asArray(cell?.expert?.paragraphs).forEach((paragraph) => {
+    asArray(paragraph?.tokens).forEach((token) => {
+      if (token?.kind !== 'tag' || !token.tagId || seen.has(token.tagId)) return;
+      const label = tagLabelFromGlossary(token.tagId, token.label, glossary);
+      if (!label) return;
+      seen.add(token.tagId);
+      tags.push({ id: token.tagId, label });
+    });
+  });
+  asArray(cell?.selectedFragments?.expert?.tags).forEach((tagId) => {
+    if (!tagId || seen.has(tagId)) return;
+    const label = tagLabelFromGlossary(tagId, '', glossary);
+    if (!label) return;
+    seen.add(tagId);
+    tags.push({ id: tagId, label });
+  });
+  return tags.slice(0, DETAIL_TAG_LIMIT);
 }
 
 function CombiedNamingReport({
@@ -250,9 +369,12 @@ function CombiedNamingReport({
     fit: false,
     summary: false,
     periods: false,
-    domains: false,
   });
   const [openMini, setOpenMini] = useState({});
+  const [selectedPeriodKey, setSelectedPeriodKey] = useState('today');
+  const [activeDetail, setActiveDetail] = useState(null);
+  const [isDetailOpen, setIsDetailOpen] = useState(true);
+  const [activeExpertTags, setActiveExpertTags] = useState([]);
 
   const toggleSection = (key) => {
     setOpenSections((prev) => ({ ...prev, [key]: !prev[key] }));
@@ -372,32 +494,46 @@ function CombiedNamingReport({
     ];
   }, [fortuneReport]);
 
-  const periodCards = useMemo(() => {
-    const daily = fortuneReport?.dailyFortune;
-    const weekly = fortuneReport?.weeklyFortune;
-    const monthly = fortuneReport?.monthlyFortune;
-    const yearly = fortuneReport?.yearlyFortune;
-    return [daily, weekly, monthly, yearly].filter(Boolean);
-  }, [fortuneReport]);
-
-  const categoryCards = useMemo(() => {
-    const cards = fortuneReport?.categoryFortunes || {};
-    return CATEGORY_ORDER.map((key) => cards[key]).filter(Boolean);
-  }, [fortuneReport]);
+  const periodOptions = useMemo(() => buildPeriodOptions(fortuneReport), [fortuneReport]);
+  const selectedPeriod = periodOptions.find((item) => item.key === selectedPeriodKey) || periodOptions[0] || null;
+  const selectedCategoryItems = useMemo(
+    () => buildCategoryItems(selectedPeriod),
+    [selectedPeriod],
+  );
 
   const allMiniKeys = useMemo(() => {
     const keys = [];
     summaryCards.forEach((item) => keys.push(buildMiniKey('summary', item.key)));
-    periodCards.forEach((item, index) => keys.push(buildMiniKey('period', item?.periodKind || String(index))));
-    keys.push(buildMiniKey('period', 'life-stage'));
-    categoryCards.forEach((item, index) => keys.push(buildMiniKey('domain', item?.category || String(index))));
     return keys;
-  }, [summaryCards, periodCards, categoryCards]);
+  }, [summaryCards]);
+
+  const selectPeriod = (periodKey) => {
+    setSelectedPeriodKey(periodKey);
+    setActiveDetail(null);
+    setActiveExpertTags([]);
+    setIsDetailOpen(true);
+  };
+
+  const openCategoryDetail = (periodOption, categoryItem) => {
+    if (!periodOption || !categoryItem?.cell) return;
+    const key = `${periodOption.key}:${categoryItem.id}`;
+    setActiveDetail({
+      key,
+      periodLabel: periodOption.periodLabel || periodOption.label,
+      periodSubtitle: periodOption.period?.periodLabel || '',
+      categoryTitle: categoryItem.title,
+      categorySubtitle: categoryItem.subtitle,
+      cell: categoryItem.cell,
+      lifeStage: periodOption.lifeStage || null,
+    });
+    setActiveExpertTags(collectExpertTags(categoryItem.cell, fortuneReport?.tieredMatrix?.glossary));
+    setIsDetailOpen(true);
+  };
 
   const prepareBeforePrint = useCallback(() => {
     const previousOpenSections = { ...openSections };
     const previousOpenMini = { ...openMini };
-    setOpenSections({ fit: true, summary: true, periods: true, domains: true });
+    setOpenSections({ fit: true, summary: true, periods: true });
 
     const expandedMini = {};
     allMiniKeys.forEach((key) => {
@@ -410,7 +546,7 @@ function CombiedNamingReport({
 
   const restoreAfterPrint = useCallback((payload) => {
     if (!payload) return;
-    setOpenSections(payload.previousOpenSections || { fit: false, summary: false, periods: false, domains: false });
+    setOpenSections(payload.previousOpenSections || { fit: false, summary: false, periods: false });
     setOpenMini(payload.previousOpenMini || {});
   }, []);
 
@@ -433,7 +569,6 @@ function CombiedNamingReport({
   const nameLabel = useMemo(() => getNameLabelFromUserInfo(shareUserInfo), [shareUserInfo]);
 
   const nameCompatibility = fortuneReport?.nameCompatibility;
-  const lifeStageFortune = fortuneReport?.lifeStageFortune;
 
   return (
     <>
@@ -509,163 +644,155 @@ function CombiedNamingReport({
         </CollapsibleCard>
 
         <CollapsibleCard
-          title="기간 별 전체 운세"
-          subtitle="기간별 점수, 좋은 행동/피해야 할 행동, 주의 신호 대응을 함께 제공합니다."
+          title="기간 별 운세"
+          subtitle="기간을 고른 뒤, 해당 기간의 분야별 흐름을 확인하세요."
           open={openSections.periods}
           onToggle={() => toggleSection('periods')}
           tone="periods"
           toneMap={CARD_TONE}
         >
           <div className={`space-y-2.5 rounded-2xl border border-[var(--ns-tone-warn-border)] ${getNestedGradientClass('warn')} p-2`}>
-            {periodCards.map((item, index) => {
-              const miniKey = buildMiniKey('period', item?.periodKind || String(index));
-              const trend = periodTrendFromCard(item);
-              return (
-                <CollapsibleMiniCard
-                  key={miniKey}
-                  title={item?.title || '운세'}
-                  subtitle={item?.periodLabel || '기간 정보 없음'}
-                  open={Boolean(openMini[miniKey])}
-                  onToggle={() => toggleMini(miniKey)}
-                  className={PERIOD_MINI_CARD_CLASS}
-                >
-                  <div className="space-y-2.5">
-                    <StarRating score={toStars(item?.stars)} />
-                    <p className="text-sm font-semibold text-[var(--ns-text)]">{item?.summary || '-'}</p>
-                    {trend.length ? (
-                      <TimeSeriesChart
-                        points={trend}
-                        valueFormatter={(value) => `${Math.round(value)}`}
-                        stroke="var(--ns-tone-info-text)"
-                        showPointLabels
-                        smooth
-                      />
-                    ) : (
-                      <div className="rounded-xl border border-[var(--ns-border)] bg-[var(--ns-surface)]/20 px-3 py-2">
-                        <p className="text-xs font-semibold text-[var(--ns-muted)]">시계열 데이터가 준비되지 않았어요.</p>
-                      </div>
-                    )}
-                    <div className="grid grid-cols-1 md:grid-cols-2 gap-2 text-sm">
-                      <div className="rounded-xl border border-[var(--ns-tone-success-border)] bg-[var(--ns-tone-success-bg)]/20 px-3 py-2 space-y-1.5">
-                        <p className="text-[11px] font-black text-[var(--ns-tone-success-text)]">좋은 행동</p>
-                        {asArray(item?.goodActions).map((advice, adviceIndex) => (
-                          <div key={`good-${miniKey}-${adviceIndex}`}>
-                            <p className="font-semibold text-[var(--ns-text)]">{advice?.text || '-'}</p>
-                            <p className="text-[11px] text-[var(--ns-muted)]">이유: {advice?.reason || '-'}</p>
-                          </div>
-                        ))}
-                      </div>
-                      <div className="rounded-xl border border-[var(--ns-tone-danger-border)] bg-[var(--ns-tone-danger-bg)]/20 px-3 py-2 space-y-1.5">
-                        <p className="text-[11px] font-black text-[var(--ns-tone-danger-text)]">피해야 할 행동</p>
-                        {asArray(item?.badActions).map((advice, adviceIndex) => (
-                          <div key={`bad-${miniKey}-${adviceIndex}`}>
-                            <p className="font-semibold text-[var(--ns-text)]">{advice?.text || '-'}</p>
-                            <p className="text-[11px] text-[var(--ns-muted)]">이유: {advice?.reason || '-'}</p>
-                          </div>
-                        ))}
-                      </div>
-                      <div className="rounded-xl border border-[var(--ns-tone-warn-border)] bg-[var(--ns-tone-warn-bg)]/20 px-3 py-2 md:col-span-2">
-                        <p className="text-[11px] font-black text-[var(--ns-tone-warn-text)]">주의 신호 · 대응</p>
-                        <p className="font-semibold text-[var(--ns-text)]">신호: {item?.warning?.signal || '-'}</p>
-                        <p className="text-sm text-[var(--ns-text)]">대응: {item?.warning?.response || '-'}</p>
-                        <p className="text-xs text-[var(--ns-muted)]">이유: {item?.warning?.reason || '-'}</p>
-                      </div>
-                    </div>
-                  </div>
-                </CollapsibleMiniCard>
-              );
-            })}
-
-            <CollapsibleMiniCard
-              title={lifeStageFortune?.title || '생애 시기별 운세'}
-              subtitle="연령대별 운세 흐름"
-              open={Boolean(openMini[buildMiniKey('period', 'life-stage')])}
-              onToggle={() => toggleMini(buildMiniKey('period', 'life-stage'))}
-              className={PERIOD_MINI_CARD_CLASS}
-            >
-              <div className="space-y-2.5">
-                {lifeStageTrend(lifeStageFortune).length ? (
-                  <TimeSeriesChart
-                    points={lifeStageTrend(lifeStageFortune)}
-                    valueFormatter={(value) => `${Math.round(value)}`}
-                    stroke="var(--ns-tone-info-text)"
-                    showPointLabels
-                    smooth
-                  />
-                ) : (
-                  <div className="rounded-xl border border-[var(--ns-border)] bg-[var(--ns-surface)]/20 px-3 py-2">
-                    <p className="text-xs font-semibold text-[var(--ns-muted)]">시계열 데이터가 준비되지 않았어요.</p>
-                  </div>
-                )}
-                <div className="space-y-1.5">
-                  {asArray(lifeStageFortune?.stages).map((stage, stageIndex) => {
-                    const isCurrent = Number(lifeStageFortune?.currentStageIndex) === stageIndex;
-                    return (
-                      <div
-                        key={`stage-${stageIndex}`}
-                        className={`rounded-lg border px-2.5 py-2 ${isCurrent ? 'border-[var(--ns-tone-success-border)] bg-[var(--ns-tone-success-bg)]/20' : 'border-[var(--ns-border)] bg-[var(--ns-surface)]/20'}`}
-                      >
-                        <div className="flex items-center justify-between gap-2">
-                          <p className="text-sm font-black text-[var(--ns-accent-text)]">{`${stage?.ageRange || '-'} · ${stage?.pillarDisplay || '-'}`}</p>
-                          <StarRating score={toStars(stage?.stars)} />
-                        </div>
-                        <p className="mt-1 text-sm font-semibold text-[var(--ns-text)]">{stage?.summary || '-'}</p>
-                        {asArray(stage?.highlights).map((line, lineIndex) => (
-                          <p key={`stage-highlight-${stageIndex}-${lineIndex}`} className="text-xs text-[var(--ns-muted)]">{`- ${line}`}</p>
-                        ))}
-                      </div>
-                    );
-                  })}
-                </div>
+            <div className="space-y-2">
+              <div className="grid grid-cols-2 md:grid-cols-4 gap-2">
+                {periodOptions.map((periodOption) => {
+                  const isSelected = selectedPeriod?.key === periodOption.key;
+                  return (
+                    <button
+                      key={periodOption.key}
+                      type="button"
+                      onClick={() => selectPeriod(periodOption.key)}
+                      className={`rounded-xl border px-2.5 py-2 text-left transition-colors ${isSelected ? 'border-[var(--ns-tone-warn-border)] bg-[var(--ns-tone-warn-bg)]/40' : 'border-[var(--ns-border)] bg-[var(--ns-surface)]/20 hover:bg-[var(--ns-surface-soft)]/30'}`}
+                    >
+                      <span className="block text-sm font-black text-[var(--ns-accent-text)]">{periodOption.label}</span>
+                      <span className="mt-0.5 block text-[11px] leading-snug text-[var(--ns-muted)] break-keep whitespace-normal">
+                        {periodOption.isLifeStage ? '생애시기' : periodOption.periodLabel}
+                      </span>
+                    </button>
+                  );
+                })}
               </div>
-            </CollapsibleMiniCard>
-          </div>
-        </CollapsibleCard>
 
-        <CollapsibleCard
-          title="5대 분야별 운세"
-          subtitle="분야별 별점과 실행 조언을 함께 확인하세요."
-          open={openSections.domains}
-          onToggle={() => toggleSection('domains')}
-          tone="domains"
-          toneMap={CARD_TONE}
-        >
-          <div className={`grid grid-cols-1 md:grid-cols-[220px_1fr] gap-3 rounded-2xl border border-[var(--ns-tone-indigo-border)] ${getNestedGradientClass('indigo')} p-2`}>
-            <DomainRadarChart items={categoryCards} />
-            <div className="space-y-2.5">
-              {categoryCards.map((item, index) => {
-                const key = buildMiniKey('domain', item?.category || String(index));
-                return (
-                <CollapsibleMiniCard
-                  key={key}
-                  title={item?.title || '분야 운세'}
-                  subtitle="분야별 실행 조언"
-                  open={Boolean(openMini[key])}
-                  onToggle={() => toggleMini(key)}
-                  className={DOMAIN_MINI_CARD_CLASS_BY_CATEGORY[item?.category] || DOMAIN_MINI_CARD_CLASS_BY_CATEGORY.wealth}
-                >
-                    <div className="space-y-2">
-                      <StarRating score={toStars(item?.stars)} />
-                      <p className="text-sm font-semibold text-[var(--ns-text)]">{item?.summary || '-'}</p>
-                      <div className="space-y-1.5">
-                        {asArray(item?.advice).map((advice, adviceIndex) => (
-                          <div key={`domain-advice-${index}-${adviceIndex}`} className="rounded-lg border border-[var(--ns-border)] bg-[var(--ns-surface)]/20 px-2.5 py-2">
-                            <p className="text-sm font-semibold text-[var(--ns-text)]">{advice?.text || '-'}</p>
-                            <p className="text-[11px] text-[var(--ns-muted)]">이유: {advice?.reason || '-'}</p>
-                          </div>
+              {selectedPeriod ? (
+                <div className="rounded-xl border border-[var(--ns-border)] bg-[var(--ns-surface)]/20 px-3 py-2">
+                  <div className="flex flex-wrap items-center justify-between gap-2">
+                    <div>
+                      <p className="text-xs font-black text-[var(--ns-tone-warn-text)]">선택 기간</p>
+                      <p className="text-base font-black text-[var(--ns-accent-text)]">{selectedPeriod.periodLabel || selectedPeriod.label}</p>
+                    </div>
+                    {selectedPeriod.lifeStage?.stars ? <StarRating score={toStars(selectedPeriod.lifeStage.stars)} /> : null}
+                  </div>
+                  {selectedPeriod.lifeStage?.summary ? (
+                    <p className="mt-2 text-sm font-semibold text-[var(--ns-text)]">{selectedPeriod.lifeStage.summary}</p>
+                  ) : null}
+                </div>
+              ) : null}
+
+              <div className="grid grid-cols-1 md:grid-cols-2 gap-2">
+                {selectedCategoryItems.map((item) => {
+                  const isActive = activeDetail?.key === item.key;
+                  return (
+                    <button
+                      key={item.key}
+                      type="button"
+                      onClick={() => openCategoryDetail(selectedPeriod, item)}
+                      className={`rounded-xl border px-3 py-2.5 text-left transition-colors ${isActive ? 'border-[var(--ns-tone-warn-border)] bg-[var(--ns-tone-warn-bg)]/40' : `${getNestedMiniCardClass(item.tone)} hover:bg-[var(--ns-surface-soft)]/30`}`}
+                    >
+                      <span className="flex items-start justify-between gap-2">
+                        <span className="min-w-0">
+                          <span className="block text-sm font-black text-[var(--ns-accent-text)]">{item.title}</span>
+                          <span className="mt-0.5 block text-[11px] text-[var(--ns-muted)]">{item.subtitle}</span>
+                        </span>
+                        {item.cell?.stars ? <StarRating score={toStars(item.cell.stars)} /> : null}
+                      </span>
+                      <span className="mt-2 block text-sm font-semibold leading-relaxed text-[var(--ns-text)] break-keep whitespace-normal">{item.summary}</span>
+                      <span className="mt-2 inline-flex text-[11px] font-black text-[var(--ns-muted)]">상세 보기</span>
+                    </button>
+                  );
+                })}
+              </div>
+
+              {activeDetail ? (
+                <section className="rounded-xl border border-[var(--ns-tone-info-border)] bg-[var(--ns-tone-info-bg)]/20 overflow-hidden">
+                  <button
+                    type="button"
+                    onClick={() => setIsDetailOpen((prev) => !prev)}
+                    className="w-full flex items-center justify-between gap-3 px-3 py-2.5 text-left"
+                  >
+                    <span className="min-w-0">
+                      <span className="block text-xs font-black text-[var(--ns-tone-info-text)]">{activeDetail.periodLabel}</span>
+                      <span className="block text-base font-black text-[var(--ns-accent-text)]">{activeDetail.categoryTitle}</span>
+                      <span className="mt-0.5 block text-xs text-[var(--ns-muted)]">{activeDetail.categorySubtitle}</span>
+                    </span>
+                    <span className="shrink-0 inline-flex h-7 w-7 items-center justify-center rounded-full border border-[var(--ns-border)] bg-[var(--ns-surface)]">
+                      <svg
+                        viewBox="0 0 20 20"
+                        fill="none"
+                        className={`w-4 h-4 text-[var(--ns-muted)] transition-transform duration-200 ${isDetailOpen ? 'rotate-180' : ''}`}
+                        aria-hidden="true"
+                      >
+                        <path d="M5 8L10 13L15 8" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" />
+                      </svg>
+                    </span>
+                  </button>
+
+                  {isDetailOpen ? (
+                    <div className="px-3 pb-3 space-y-2.5">
+                      <div className="rounded-lg border border-[var(--ns-border)] bg-[var(--ns-surface)]/20 px-2.5 py-2 space-y-1.5">
+                        <p className="text-xs font-black text-[var(--ns-muted)]">상세 내용</p>
+                        {cellDetailParagraphs(activeDetail.cell).map((paragraph, index) => (
+                          <p key={`detail-paragraph-${activeDetail.key}-${index}`} className="text-sm leading-relaxed font-semibold text-[var(--ns-text)] break-keep whitespace-normal">{paragraph}</p>
                         ))}
                       </div>
-                      {item?.caution ? (
-                        <div className="rounded-lg border border-[var(--ns-tone-warn-border)] bg-[var(--ns-tone-warn-bg)]/20 px-2.5 py-2">
-                          <p className="text-sm font-semibold text-[var(--ns-text)]">주의: {item.caution.signal}</p>
-                          <p className="text-sm text-[var(--ns-text)]">대응: {item.caution.response}</p>
-                          <p className="text-[11px] text-[var(--ns-muted)]">이유: {item.caution.reason}</p>
+
+                      {cellLivingTips(activeDetail.cell).length ? (
+                        <div className="rounded-lg border border-[var(--ns-tone-success-border)] bg-[var(--ns-tone-success-bg)]/20 px-2.5 py-2">
+                          <p className="text-xs font-black text-[var(--ns-tone-success-text)]">도움 되는 행동</p>
+                          <div className="mt-1 space-y-1">
+                            {cellLivingTips(activeDetail.cell).map((tip, index) => (
+                              <p key={`living-tip-${activeDetail.key}-${index}`} className="text-sm font-semibold text-[var(--ns-text)]">{`- ${tip}`}</p>
+                            ))}
+                          </div>
                         </div>
                       ) : null}
+
+                      {cellCautions(activeDetail.cell).length ? (
+                        <div className="rounded-lg border border-[var(--ns-tone-warn-border)] bg-[var(--ns-tone-warn-bg)]/20 px-2.5 py-2">
+                          <p className="text-xs font-black text-[var(--ns-tone-warn-text)]">주의할 점</p>
+                          <div className="mt-1 space-y-1">
+                            {cellCautions(activeDetail.cell).map((caution, index) => (
+                              <p key={`caution-${activeDetail.key}-${index}`} className="text-sm font-semibold text-[var(--ns-text)]">{`- ${caution}`}</p>
+                            ))}
+                          </div>
+                        </div>
+                      ) : null}
+
+                      {activeDetail.lifeStage?.highlights?.length ? (
+                        <div className="rounded-lg border border-[var(--ns-border)] bg-[var(--ns-surface)]/20 px-2.5 py-2">
+                          <p className="text-xs font-black text-[var(--ns-muted)]">선택한 생애시기 참고</p>
+                          {asArray(activeDetail.lifeStage.highlights).map((line, index) => (
+                            <p key={`life-stage-highlight-${activeDetail.key}-${index}`} className="mt-1 text-sm font-semibold text-[var(--ns-text)]">{`- ${line}`}</p>
+                          ))}
+                        </div>
+                      ) : null}
+
+                      <div className="rounded-lg border border-[var(--ns-tone-indigo-border)] bg-[var(--ns-tone-indigo-bg)]/20 px-2.5 py-2">
+                        <p className="text-xs font-black text-[var(--ns-tone-indigo-text)]">전문태그</p>
+                        {activeExpertTags.length ? (
+                          <div className="mt-2 flex flex-wrap gap-1.5">
+                            {activeExpertTags.map((tag) => (
+                              <span key={`${activeDetail.key}-${tag.id}`} className="inline-flex items-center rounded-full border border-[var(--ns-tone-indigo-border)] bg-[var(--ns-surface)]/40 px-2 py-1 text-xs font-black text-[var(--ns-accent-text)]">
+                                {tag.label}
+                              </span>
+                            ))}
+                          </div>
+                        ) : (
+                          <p className="mt-1 text-sm font-semibold text-[var(--ns-muted)]">이 상세 항목에는 붙일 전문태그가 없어요.</p>
+                        )}
+                      </div>
                     </div>
-                  </CollapsibleMiniCard>
-                );
-              })}
+                  ) : null}
+                </section>
+              ) : null}
             </div>
           </div>
         </CollapsibleCard>

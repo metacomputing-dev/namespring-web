@@ -7,18 +7,22 @@
  * Subsequent calls hit the in-memory cache.
  */
 
-// node:fs / node:path / node:url are imported but NEVER touched at module-load
-// time. All filesystem walks live inside `loadFragmentRegistry`, which only
-// runs when `surfaceTieredMatrix === true`. The browser bundle (vite-externalized
-// node builtins) is safe as long as nothing here executes at module evaluation.
-import fs from 'node:fs';
-import path from 'node:path';
-import { fileURLToPath } from 'node:url';
 import type {
   TieredCategoryId,
   TieredPeriodKind,
   TieredDepth,
 } from '../types.js';
+
+declare global {
+  interface ImportMeta {
+    glob?: (pattern: string, options?: { eager?: boolean }) => Record<string, unknown>;
+  }
+}
+
+const browserFragmentModules =
+  typeof import.meta.glob === 'function'
+    ? import.meta.glob('../../../data/narrative/**/*.fragments.json', { eager: true })
+    : {};
 
 export interface FragmentToken {
   readonly kind: 'text' | 'slot' | 'tag';
@@ -91,13 +95,37 @@ function isNodeRuntime(): boolean {
   return typeof process !== 'undefined' && Boolean(process.versions?.node);
 }
 
+const nodeBuiltins = isNodeRuntime()
+  ? await (async () => {
+    const [fsModule, pathModule, urlModule] = await Promise.all([
+      import('node:fs'),
+      import('node:path'),
+      import('node:url'),
+    ]);
+    return {
+      fs: fsModule,
+      path: pathModule,
+      fileURLToPath: urlModule.fileURLToPath,
+    };
+  })()
+  : null;
+
+function unwrapJsonModule(moduleValue: unknown): unknown {
+  if (moduleValue && typeof moduleValue === 'object' && 'default' in moduleValue) {
+    return (moduleValue as { default?: unknown }).default;
+  }
+  return moduleValue;
+}
+
 function listFragmentBundles(rootDir: string): string[] {
   const out: string[] = [];
-  if (!fs.existsSync(rootDir)) return out;
+  const fsApi = nodeBuiltins?.fs;
+  const pathApi = nodeBuiltins?.path;
+  if (!fsApi || !pathApi || !fsApi.existsSync(rootDir)) return out;
   function walk(dir: string): void {
     const skipBase = ['_glossary', '_contract'];
-    for (const entry of fs.readdirSync(dir, { withFileTypes: true })) {
-      const full = path.join(dir, entry.name);
+    for (const entry of fsApi!.readdirSync(dir, { withFileTypes: true })) {
+      const full = pathApi!.join(dir, entry.name);
       if (entry.isDirectory()) {
         if (skipBase.includes(entry.name)) continue;
         walk(full);
@@ -126,19 +154,44 @@ export function loadFragmentRegistry(): FragmentRegistry {
   let authoredCount = 0;
 
   if (isNodeRuntime()) {
+    if (!nodeBuiltins) {
+      cachedRegistry = Object.freeze({
+        get() {
+          return [];
+        },
+        totalFragmentCount: 0,
+        contentSource: 'placeholder',
+      });
+      return cachedRegistry;
+    }
     // All fs / path resolution deferred until first call so module evaluation
     // does not touch externalized node builtins on a browser bundle.
-    const here = path.dirname(fileURLToPath(import.meta.url));
-    const narrativeDir = path.resolve(here, '../../../data/narrative');
+    const here = nodeBuiltins.path.dirname(nodeBuiltins.fileURLToPath(import.meta.url));
+    const narrativeDir = nodeBuiltins.path.resolve(here, '../../../data/narrative');
     for (const file of listFragmentBundles(narrativeDir)) {
       let bundle: FragmentBundle;
       try {
-        bundle = JSON.parse(fs.readFileSync(file, 'utf-8')) as FragmentBundle;
+        bundle = JSON.parse(nodeBuiltins.fs.readFileSync(file, 'utf-8')) as FragmentBundle;
       } catch {
         continue;
       }
       if (!Array.isArray(bundle?.fragments)) continue;
-      const isSeedBundle = file.includes(`${path.sep}_seed${path.sep}`);
+      const isSeedBundle = file.includes(`${nodeBuiltins.path.sep}_seed${nodeBuiltins.path.sep}`);
+      for (const frag of bundle.fragments) {
+        if (!frag?.axis) continue;
+        const key = cellKey(frag.axis.category, frag.axis.period, frag.axis.depth);
+        const list = map.get(key);
+        if (list) list.push(frag);
+        else map.set(key, [frag]);
+        count += 1;
+        if (!isSeedBundle) authoredCount += 1;
+      }
+    }
+  } else {
+    for (const [file, moduleValue] of Object.entries(browserFragmentModules)) {
+      const bundle = unwrapJsonModule(moduleValue) as FragmentBundle;
+      if (!Array.isArray(bundle?.fragments)) continue;
+      const isSeedBundle = file.includes('/_seed/');
       for (const frag of bundle.fragments) {
         if (!frag?.axis) continue;
         const key = cellKey(frag.axis.category, frag.axis.period, frag.axis.depth);

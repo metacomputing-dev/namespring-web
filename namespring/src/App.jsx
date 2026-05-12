@@ -274,7 +274,13 @@ function toFortuneReportRequest(userInfo, givenName) {
     birth: base.birth,
     surname: base.surname,
     givenName: normalizedGivenName,
-    options: base.options,
+    options: {
+      ...(base.options || {}),
+      precisionConfig: {
+        ...(base.options?.precisionConfig || {}),
+        surfaceTieredMatrix: true,
+      },
+    },
   };
 }
 
