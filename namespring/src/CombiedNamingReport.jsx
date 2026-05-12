@@ -269,6 +269,7 @@ function buildPeriodOptions(fortuneReport) {
         if (!period) return null;
         return {
           ...option,
+          isMatrixPeriod: true,
           period,
           periodLabel: period.periodLabel || option.label,
         };
@@ -280,6 +281,7 @@ function buildPeriodOptions(fortuneReport) {
         const ageBandPeriod = lifePeriod.byAgeBand?.[option.ageBand];
         return {
           ...option,
+          isMatrixPeriod: true,
           period: ageBandPeriod || lifePeriod,
           periodLabel: ageBandPeriod?.periodLabel || option.label,
           selectorAgeBand: ageBandPeriod?.selectorAgeBand || '',
@@ -303,6 +305,7 @@ function buildPeriodOptions(fortuneReport) {
       if (!card) return null;
       return {
         ...option,
+        isMatrixPeriod: false,
         period: buildLegacyPeriod(option.periodKind, option.label, card, categoryFortunes),
         periodLabel: option.label,
       };
@@ -316,6 +319,7 @@ function buildPeriodOptions(fortuneReport) {
   );
   const lifeStages = LIFE_STAGE_PERIOD_OPTIONS.map((option) => ({
     ...option,
+    isMatrixPeriod: false,
     period: lifePeriod,
     periodLabel: option.label,
     lifeStage: findLifeStage(fortuneReport?.lifeStageFortune, option.startAge, option.endAge),
@@ -345,6 +349,13 @@ function tagLabelFromGlossary(tagId, tokenLabel, glossary) {
 function collectExpertTags(cell, glossary) {
   const seen = new Set();
   const tags = [];
+  asArray(cell?.selectedFragments?.expert?.tags).forEach((tagId) => {
+    if (!tagId || seen.has(tagId)) return;
+    const label = tagLabelFromGlossary(tagId, '', glossary);
+    if (!label) return;
+    seen.add(tagId);
+    tags.push({ id: tagId, label });
+  });
   asArray(cell?.expert?.paragraphs).forEach((paragraph) => {
     asArray(paragraph?.tokens).forEach((token) => {
       if (token?.kind !== 'tag' || !token.tagId || seen.has(token.tagId)) return;
@@ -353,13 +364,6 @@ function collectExpertTags(cell, glossary) {
       seen.add(token.tagId);
       tags.push({ id: token.tagId, label });
     });
-  });
-  asArray(cell?.selectedFragments?.expert?.tags).forEach((tagId) => {
-    if (!tagId || seen.has(tagId)) return;
-    const label = tagLabelFromGlossary(tagId, '', glossary);
-    if (!label) return;
-    seen.add(tagId);
-    tags.push({ id: tagId, label });
   });
   return tags.slice(0, DETAIL_TAG_LIMIT);
 }
@@ -380,7 +384,8 @@ function CombiedNamingReport({
   const [selectedPeriodKey, setSelectedPeriodKey] = useState('today');
   const [activeDetail, setActiveDetail] = useState(null);
   const [isDetailOpen, setIsDetailOpen] = useState(true);
-  const [activeExpertTags, setActiveExpertTags] = useState([]);
+  const [expertTagState, setExpertTagState] = useState({ status: 'idle', tags: [] });
+  const expertTagRequestRef = useRef(0);
 
   const toggleSection = (key) => {
     setOpenSections((prev) => ({ ...prev, [key]: !prev[key] }));
@@ -507,8 +512,8 @@ function CombiedNamingReport({
     [selectedPeriod],
   );
   const selectedPeriodOverall = selectedPeriod?.period?.overall || null;
-  const selectedPeriodStars = selectedPeriod?.lifeStage?.stars || selectedPeriodOverall?.stars || null;
-  const selectedPeriodSummary = selectedPeriod?.lifeStage?.summary || cellSummary(selectedPeriodOverall, '');
+  const selectedPeriodStars = selectedPeriodOverall?.stars || selectedPeriod?.lifeStage?.stars || null;
+  const selectedPeriodSummary = cellSummary(selectedPeriodOverall, '') || selectedPeriod?.lifeStage?.summary || '';
 
   const allMiniKeys = useMemo(() => {
     const keys = [];
@@ -519,23 +524,43 @@ function CombiedNamingReport({
   const selectPeriod = (periodKey) => {
     setSelectedPeriodKey(periodKey);
     setActiveDetail(null);
-    setActiveExpertTags([]);
+    expertTagRequestRef.current += 1;
+    setExpertTagState({ status: 'idle', tags: [] });
+    setIsDetailOpen(true);
+  };
+
+  const closeCategoryDetail = () => {
+    setActiveDetail(null);
+    expertTagRequestRef.current += 1;
+    setExpertTagState({ status: 'idle', tags: [] });
     setIsDetailOpen(true);
   };
 
   const openCategoryDetail = (periodOption, categoryItem) => {
     if (!periodOption || !categoryItem?.cell) return;
     const key = `${periodOption.key}:${categoryItem.id}`;
+    const detailSummary = cellSummary(categoryItem.cell, '');
     setActiveDetail({
       key,
       periodLabel: periodOption.periodLabel || periodOption.label,
       periodSubtitle: periodOption.period?.periodLabel || '',
       categoryTitle: categoryItem.title,
       categorySubtitle: categoryItem.subtitle,
+      summary: detailSummary,
       cell: categoryItem.cell,
+      isMatrixPeriod: Boolean(periodOption.isMatrixPeriod),
       lifeStage: periodOption.lifeStage || null,
     });
-    setActiveExpertTags(collectExpertTags(categoryItem.cell, fortuneReport?.tieredMatrix?.glossary));
+    setExpertTagState({ status: 'loading', tags: [] });
+    const requestId = expertTagRequestRef.current + 1;
+    expertTagRequestRef.current = requestId;
+    window.setTimeout(() => {
+      if (expertTagRequestRef.current !== requestId) return;
+      setExpertTagState({
+        status: 'ready',
+        tags: collectExpertTags(categoryItem.cell, fortuneReport?.tieredMatrix?.glossary),
+      });
+    }, 0);
     setIsDetailOpen(true);
   };
 
@@ -681,7 +706,7 @@ function CombiedNamingReport({
                 })}
               </div>
 
-              {selectedPeriod ? (
+              {selectedPeriod && !activeDetail ? (
                 <div className="rounded-xl border border-[var(--ns-border)] bg-[var(--ns-surface)]/20 px-3 py-2">
                   <div className="flex flex-wrap items-center justify-between gap-2">
                     <div>
@@ -696,42 +721,35 @@ function CombiedNamingReport({
                 </div>
               ) : null}
 
-              <div className="grid grid-cols-1 md:grid-cols-2 gap-2">
-                {selectedCategoryItems.map((item) => {
-                  const isActive = activeDetail?.key === item.key;
-                  return (
-                    <button
-                      key={item.key}
-                      type="button"
-                      onClick={() => openCategoryDetail(selectedPeriod, item)}
-                      className={`rounded-xl border px-3 py-2.5 text-left transition-colors ${isActive ? 'border-[var(--ns-tone-warn-border)] bg-[var(--ns-tone-warn-bg)]/40' : `${getNestedMiniCardClass(item.tone)} hover:bg-[var(--ns-surface-soft)]/30`}`}
-                    >
-                      <span className="flex items-start justify-between gap-2">
-                        <span className="min-w-0">
-                          <span className="block text-sm font-black text-[var(--ns-accent-text)]">{item.title}</span>
-                          <span className="mt-0.5 block text-[11px] text-[var(--ns-muted)]">{item.subtitle}</span>
-                        </span>
-                        {item.cell?.stars ? <StarRating score={toStars(item.cell.stars)} /> : null}
-                      </span>
-                      <span className="mt-2 block text-sm font-semibold leading-relaxed text-[var(--ns-text)] break-keep whitespace-normal">{item.summary}</span>
-                      <span className="mt-2 inline-flex text-[11px] font-black text-[var(--ns-muted)]">상세 보기</span>
-                    </button>
-                  );
-                })}
-              </div>
-
               {activeDetail ? (
                 <section className="rounded-xl border border-[var(--ns-tone-info-border)] bg-[var(--ns-tone-info-bg)]/20 overflow-hidden">
+                  <div className="px-3 py-2.5 border-b border-[var(--ns-tone-info-border)]">
+                    <div className="flex flex-wrap items-start justify-between gap-2">
+                      <div className="min-w-0">
+                        <p className="text-xs font-black text-[var(--ns-tone-info-text)]">{activeDetail.periodLabel}</p>
+                        <div className="mt-0.5 flex flex-wrap items-center gap-2">
+                          <h3 className="text-base font-black text-[var(--ns-accent-text)]">{activeDetail.categoryTitle}</h3>
+                          {activeDetail.cell?.stars ? <StarRating score={toStars(activeDetail.cell.stars)} /> : null}
+                        </div>
+                        <p className="mt-1 text-sm font-semibold leading-relaxed text-[var(--ns-text)] break-keep whitespace-normal">{activeDetail.summary}</p>
+                        <p className="mt-0.5 text-xs text-[var(--ns-muted)]">{activeDetail.categorySubtitle}</p>
+                      </div>
+                      <button
+                        type="button"
+                        onClick={closeCategoryDetail}
+                        className="shrink-0 rounded-lg border border-[var(--ns-border)] bg-[var(--ns-surface)]/30 px-2.5 py-1.5 text-xs font-black text-[var(--ns-accent-text)] hover:bg-[var(--ns-surface-soft)]/30 transition-colors"
+                      >
+                        분야 목록
+                      </button>
+                    </div>
+                  </div>
+
                   <button
                     type="button"
                     onClick={() => setIsDetailOpen((prev) => !prev)}
                     className="w-full flex items-center justify-between gap-3 px-3 py-2.5 text-left"
                   >
-                    <span className="min-w-0">
-                      <span className="block text-xs font-black text-[var(--ns-tone-info-text)]">{activeDetail.periodLabel}</span>
-                      <span className="block text-base font-black text-[var(--ns-accent-text)]">{activeDetail.categoryTitle}</span>
-                      <span className="mt-0.5 block text-xs text-[var(--ns-muted)]">{activeDetail.categorySubtitle}</span>
-                    </span>
+                    <span className="text-sm font-black text-[var(--ns-accent-text)]">상세 내용</span>
                     <span className="shrink-0 inline-flex h-7 w-7 items-center justify-center rounded-full border border-[var(--ns-border)] bg-[var(--ns-surface)]">
                       <svg
                         viewBox="0 0 20 20"
@@ -747,7 +765,6 @@ function CombiedNamingReport({
                   {isDetailOpen ? (
                     <div className="px-3 pb-3 space-y-2.5">
                       <div className="rounded-lg border border-[var(--ns-border)] bg-[var(--ns-surface)]/20 px-2.5 py-2 space-y-1.5">
-                        <p className="text-xs font-black text-[var(--ns-muted)]">상세 내용</p>
                         {cellDetailParagraphs(activeDetail.cell).map((paragraph, index) => (
                           <p key={`detail-paragraph-${activeDetail.key}-${index}`} className="text-sm leading-relaxed font-semibold text-[var(--ns-text)] break-keep whitespace-normal">{paragraph}</p>
                         ))}
@@ -775,7 +792,7 @@ function CombiedNamingReport({
                         </div>
                       ) : null}
 
-                      {activeDetail.lifeStage?.highlights?.length ? (
+                      {!activeDetail.isMatrixPeriod && activeDetail.lifeStage?.highlights?.length ? (
                         <div className="rounded-lg border border-[var(--ns-border)] bg-[var(--ns-surface)]/20 px-2.5 py-2">
                           <p className="text-xs font-black text-[var(--ns-muted)]">선택한 생애시기 참고</p>
                           {asArray(activeDetail.lifeStage.highlights).map((line, index) => (
@@ -786,9 +803,11 @@ function CombiedNamingReport({
 
                       <div className="rounded-lg border border-[var(--ns-tone-indigo-border)] bg-[var(--ns-tone-indigo-bg)]/20 px-2.5 py-2">
                         <p className="text-xs font-black text-[var(--ns-tone-indigo-text)]">전문태그</p>
-                        {activeExpertTags.length ? (
+                        {expertTagState.status === 'loading' ? (
+                          <p className="mt-1 text-sm font-semibold text-[var(--ns-muted)]">전문태그를 불러오는 중입니다.</p>
+                        ) : expertTagState.tags.length ? (
                           <div className="mt-2 flex flex-wrap gap-1.5">
-                            {activeExpertTags.map((tag) => (
+                            {expertTagState.tags.map((tag) => (
                               <span key={`${activeDetail.key}-${tag.id}`} className="inline-flex items-center rounded-full border border-[var(--ns-tone-indigo-border)] bg-[var(--ns-surface)]/40 px-2 py-1 text-xs font-black text-[var(--ns-accent-text)]">
                                 {tag.label}
                               </span>
@@ -801,7 +820,28 @@ function CombiedNamingReport({
                     </div>
                   ) : null}
                 </section>
-              ) : null}
+              ) : (
+                <div className="grid grid-cols-1 md:grid-cols-2 gap-2">
+                  {selectedCategoryItems.map((item) => (
+                    <button
+                      key={item.key}
+                      type="button"
+                      onClick={() => openCategoryDetail(selectedPeriod, item)}
+                      className={`rounded-xl border px-3 py-2.5 text-left transition-colors ${getNestedMiniCardClass(item.tone)} hover:bg-[var(--ns-surface-soft)]/30`}
+                    >
+                      <span className="flex items-start justify-between gap-2">
+                        <span className="min-w-0">
+                          <span className="block text-xs font-black text-[var(--ns-muted)]">{item.title}</span>
+                          <span className="mt-0.5 block text-[11px] text-[var(--ns-muted)]">{item.subtitle}</span>
+                        </span>
+                        {item.cell?.stars ? <StarRating score={toStars(item.cell.stars)} /> : null}
+                      </span>
+                      <span className="mt-2 block text-sm font-black leading-relaxed text-[var(--ns-accent-text)] break-keep whitespace-normal">{item.summary}</span>
+                      <span className="mt-2 inline-flex text-[11px] font-black text-[var(--ns-muted)]">상세 보기</span>
+                    </button>
+                  ))}
+                </div>
+              )}
             </div>
           </div>
         </CollapsibleCard>

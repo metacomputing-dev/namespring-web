@@ -16,14 +16,17 @@ import { normalizeRenderedText } from './template-engine.js';
 
 declare global {
   interface ImportMeta {
-    glob?: (pattern: string, options?: { eager?: boolean }) => Record<string, unknown>;
+    glob: (pattern: string, options?: { eager?: boolean }) => Record<string, unknown>;
   }
 }
 
-const browserGlossaryModules =
-  typeof import.meta.glob === 'function'
-    ? import.meta.glob('../../../data/narrative/_glossary/*.json', { eager: true })
-    : {};
+const browserGlossaryModules = (() => {
+  try {
+    return import.meta.glob('../../../data/narrative/_glossary/*.json', { eager: true });
+  } catch {
+    return {};
+  }
+})();
 
 interface GlossaryBundle {
   schemaVersion: 'spring-ts.glossary-bundle.v1';
@@ -31,8 +34,12 @@ interface GlossaryBundle {
   entries: GlossaryEntry[];
 }
 
+function isBrowserRuntime(): boolean {
+  return typeof window !== 'undefined' && typeof document !== 'undefined';
+}
+
 function isNodeRuntime(): boolean {
-  return typeof process !== 'undefined' && Boolean(process.versions?.node);
+  return !isBrowserRuntime() && typeof process !== 'undefined' && Boolean(process.versions?.node);
 }
 
 const nodeBuiltins = isNodeRuntime()

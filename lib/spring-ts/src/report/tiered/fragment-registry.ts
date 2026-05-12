@@ -15,14 +15,17 @@ import type {
 
 declare global {
   interface ImportMeta {
-    glob?: (pattern: string, options?: { eager?: boolean }) => Record<string, unknown>;
+    glob: (pattern: string, options?: { eager?: boolean }) => Record<string, unknown>;
   }
 }
 
-const browserFragmentModules =
-  typeof import.meta.glob === 'function'
-    ? import.meta.glob('../../../data/narrative/**/*.fragments.json', { eager: true })
-    : {};
+const browserFragmentModules = (() => {
+  try {
+    return import.meta.glob('../../../data/narrative/**/*.fragments.json', { eager: true });
+  } catch {
+    return {};
+  }
+})();
 
 export interface FragmentToken {
   readonly kind: 'text' | 'slot' | 'tag';
@@ -91,8 +94,12 @@ function cellKey(cat: string, period: string, depth: string): CellKey {
   return `${cat}|${period}|${depth}`;
 }
 
+function isBrowserRuntime(): boolean {
+  return typeof window !== 'undefined' && typeof document !== 'undefined';
+}
+
 function isNodeRuntime(): boolean {
-  return typeof process !== 'undefined' && Boolean(process.versions?.node);
+  return !isBrowserRuntime() && typeof process !== 'undefined' && Boolean(process.versions?.node);
 }
 
 const nodeBuiltins = isNodeRuntime()
