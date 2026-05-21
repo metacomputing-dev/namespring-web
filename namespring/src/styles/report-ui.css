@@ -276,6 +276,150 @@ textarea:focus-visible {
   padding: var(--space-lg);
 }
 
+.ns-menu-card {
+  --menu-card-accent: var(--color-accent);
+  --menu-card-line: var(--color-rule);
+  --menu-card-soft: var(--color-paper-3);
+  display: grid;
+  min-height: 15rem;
+  width: 100%;
+  grid-template-rows: auto minmax(0, 1fr) auto;
+  gap: var(--space-lg);
+  border: var(--rule-thin) solid var(--menu-card-line);
+  border-radius: var(--radius-card-lg);
+  background: color-mix(in oklch, var(--color-paper-2) 94%, var(--menu-card-soft));
+  padding: var(--space-lg);
+  color: var(--color-ink);
+  text-align: left;
+  box-shadow: var(--shadow-1);
+  transition:
+    background-color var(--dur-base) var(--ease-out),
+    border-color var(--dur-base) var(--ease-out),
+    transform var(--dur-fast) var(--ease-out);
+}
+
+.ns-menu-card--wood {
+  --menu-card-accent: var(--color-wood);
+  --menu-card-line: var(--color-wood-line);
+  --menu-card-soft: var(--color-wood-bg);
+}
+
+.ns-menu-card--indigo {
+  --menu-card-accent: var(--color-indigo);
+  --menu-card-line: var(--color-indigo-line);
+  --menu-card-soft: var(--color-indigo-bg);
+}
+
+.ns-menu-card--earth {
+  --menu-card-accent: var(--color-earth);
+  --menu-card-line: var(--color-earth-line);
+  --menu-card-soft: var(--color-earth-bg);
+}
+
+.ns-menu-card--neutral {
+  --menu-card-accent: var(--color-neutral);
+  --menu-card-line: var(--color-neutral-line);
+  --menu-card-soft: var(--color-neutral-bg);
+}
+
+.ns-menu-card--disabled {
+  cursor: default;
+  border-color: var(--color-rule);
+  background: color-mix(in oklch, var(--color-paper-2) 96%, var(--color-disabled-bg));
+}
+
+.ns-menu-card__top {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  gap: var(--space-sm);
+}
+
+.ns-menu-card__number {
+  display: inline-flex;
+  min-height: 1.75rem;
+  align-items: center;
+  border: var(--rule-thin) solid var(--menu-card-line);
+  border-radius: var(--radius-chip);
+  background: color-mix(in oklch, var(--color-paper) 82%, var(--menu-card-soft));
+  color: var(--menu-card-accent);
+  padding-inline: var(--space-2xs);
+  font-size: var(--text-xs);
+  font-weight: 800;
+  white-space: nowrap;
+}
+
+.ns-menu-card__icon {
+  display: inline-grid;
+  place-items: center;
+  flex: 0 0 auto;
+}
+
+.ib-menu-icon {
+  display: block;
+  width: 4.25rem;
+  height: 4.25rem;
+}
+
+.ns-menu-card--disabled .ib-menu-icon {
+  --color-menu-icon-bg: var(--color-disabled-bg);
+  --color-menu-icon-border: var(--color-rule);
+  --color-menu-icon-mark: var(--color-disabled-ink);
+}
+
+.ns-menu-card__content {
+  display: grid;
+  align-content: end;
+  gap: var(--space-2xs);
+  min-width: 0;
+}
+
+.ns-menu-card__subtitle {
+  color: var(--menu-card-accent);
+  font-size: var(--text-xs);
+  font-weight: 800;
+  line-height: 1.45;
+  word-break: keep-all;
+}
+
+.ns-menu-card__title {
+  color: var(--color-ink);
+  font-family: var(--font-display);
+  font-size: var(--text-xl);
+  font-weight: 700;
+  line-height: 1.28;
+  word-break: keep-all;
+}
+
+.ns-menu-card__description {
+  color: var(--color-ink-2);
+  font-size: var(--text-sm);
+  font-weight: 600;
+  line-height: 1.72;
+  word-break: keep-all;
+}
+
+.ns-menu-card__action {
+  display: inline-flex;
+  width: fit-content;
+  align-items: center;
+  gap: var(--space-2xs);
+  color: var(--menu-card-accent);
+  font-size: var(--text-sm);
+  font-weight: 800;
+  white-space: nowrap;
+}
+
+.ns-menu-card__arrow {
+  transition: transform var(--dur-fast) var(--ease-out);
+}
+
+.ns-menu-card--disabled .ns-menu-card__number,
+.ns-menu-card--disabled .ns-menu-card__subtitle,
+.ns-menu-card--disabled .ns-menu-card__action {
+  color: var(--color-disabled-ink);
+}
+
 .ns-card__head {
   display: flex;
   align-items: flex-start;
@@ -549,6 +693,16 @@ textarea:focus-visible {
 
   .ns-primary-button:hover {
     background: color-mix(in oklch, var(--color-accent) 88%, var(--color-ink));
+  }
+
+  button.ns-menu-card:hover {
+    border-color: var(--menu-card-accent);
+    background: color-mix(in oklch, var(--color-paper-2) 88%, var(--menu-card-soft));
+    transform: translateY(-2px);
+  }
+
+  button.ns-menu-card:hover .ns-menu-card__arrow {
+    transform: translateX(2px);
   }
 }
 

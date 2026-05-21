@@ -1,7 +1,12 @@
 import React, { useEffect, useMemo, useState } from 'react';
 import ReportShell from './components/report/ReportShell';
 import {
-  DocumentIcon,
+  MenuCoffeeIcon,
+  MenuInfoIcon,
+  MenuNamingIcon,
+  MenuReportIcon,
+} from './components/icons/IreumBomMenuIcons';
+import {
   EditIcon,
   InfoList,
   LeafMark,
@@ -54,24 +59,6 @@ const BRANCH_ELEMENT_BY_CODE = {
   SUL: 'EARTH',
   HAE: 'WATER',
 };
-
-function CoffeeIcon({ className = 'h-8 w-8' }) {
-  return (
-    <svg viewBox="0 0 20 20" fill="none" className={className} aria-hidden="true">
-      <path d="M4.4 7.1h8.3v4.6A4.1 4.1 0 0 1 8.6 15.8 4.1 4.1 0 0 1 4.4 11.7V7.1Z" stroke="currentColor" strokeWidth="1.5" strokeLinejoin="round" />
-      <path d="M12.7 8.5h1.1a1.7 1.7 0 0 1 0 3.4h-1.1M5.1 17h8.1M6.2 3.2c-.8.7-.8 1.4 0 2.1M9 3.2c-.8.7-.8 1.4 0 2.1" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" />
-    </svg>
-  );
-}
-
-function LockIcon({ className = 'h-8 w-8' }) {
-  return (
-    <svg viewBox="0 0 20 20" fill="none" className={className} aria-hidden="true">
-      <rect x="4.4" y="8.5" width="11.2" height="7.7" rx="1.7" stroke="currentColor" strokeWidth="1.5" />
-      <path d="M7.1 8.5V6.8A2.9 2.9 0 0 1 10 3.8a2.9 2.9 0 0 1 2.9 3v1.7M10 11.5v1.7" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" />
-    </svg>
-  );
-}
 
 function normalizeElement(value) {
   const raw = String(value ?? '').trim();
@@ -172,39 +159,35 @@ function getBalanceScore(metrics) {
 function HomeTile({ item, onClick }) {
   const isClickable = typeof onClick === 'function';
   const Component = isClickable ? 'button' : 'div';
+  const Icon = item.icon;
 
   return (
     <Component
       type={isClickable ? 'button' : undefined}
       onClick={onClick}
       className={cx(
-        'ns-card ns-card--large group grid min-h-[14rem] text-left transition-transform duration-200',
-        item.toneClass,
-        isClickable ? 'hover:-translate-y-0.5' : '',
+        'ns-menu-card group',
+        item.tone ? `ns-menu-card--${item.tone}` : '',
+        !isClickable ? 'ns-menu-card--disabled' : '',
       )}
       aria-label={isClickable ? item.title : undefined}
+      aria-disabled={!isClickable ? 'true' : undefined}
     >
-      <div className="flex h-full flex-col justify-between gap-5">
-        <div className="flex items-start justify-between gap-4">
-          <span className="ns-chip">{item.number}</span>
-          <span className="grid h-14 w-14 place-items-center rounded-[var(--radius-pill)] border border-current bg-[color-mix(in_oklch,currentColor_8%,transparent)] text-current">
-            {item.icon}
-          </span>
-        </div>
-        <div className="space-y-2">
-          <p className="ns-kicker text-xs">{item.subtitle}</p>
-          <h2 className="font-[var(--font-display)] text-[1.35rem] font-bold leading-tight text-[var(--color-ink)] break-keep">
-            {item.title}
-          </h2>
-          <p className="text-sm font-semibold leading-relaxed text-[var(--color-ink-2)] break-keep">
-            {item.description}
-          </p>
-        </div>
-        <span className="inline-flex items-center gap-2 text-sm font-extrabold text-[var(--color-accent)]">
-          {isClickable ? '열기' : '준비 중'}
-          <span aria-hidden="true" className="transition-transform group-hover:translate-x-0.5">→</span>
+      <div className="ns-menu-card__top">
+        <span className="ns-menu-card__number">{item.number}</span>
+        <span className="ns-menu-card__icon" aria-hidden="true">
+          <Icon locked={!isClickable} />
         </span>
       </div>
+      <div className="ns-menu-card__content">
+        <p className="ns-menu-card__subtitle">{item.subtitle}</p>
+        <h2 className="ns-menu-card__title">{item.title}</h2>
+        <p className="ns-menu-card__description">{item.description}</p>
+      </div>
+      <span className="ns-menu-card__action">
+        {isClickable ? '열기' : '준비 중'}
+        <span aria-hidden="true" className="ns-menu-card__arrow">→</span>
+      </span>
     </Component>
   );
 }
@@ -298,8 +281,8 @@ function HomePage({ entryUserInfo, onLoadSajuReport, onOpenCombinedReport, onOpe
       title: '통합 평가 보고서',
       subtitle: '사주 + 성명학 종합',
       description: '이름 평가와 사주 평가를 함께 묶어 핵심 판단을 한 번에 확인합니다.',
-      icon: <DocumentIcon className="h-8 w-8" />,
-      toneClass: 'ns-tone-wood',
+      icon: MenuReportIcon,
+      tone: 'wood',
       onClick: onOpenCombinedReport,
     },
     {
@@ -307,8 +290,8 @@ function HomePage({ entryUserInfo, onLoadSajuReport, onOpenCombinedReport, onOpe
       title: '작명하기',
       subtitle: '맞춤 이름 추천',
       description: '사주에 부족한 성분을 보완하는 이름 후보를 차분하게 비교합니다.',
-      icon: <EditIcon className="h-8 w-8" />,
-      toneClass: 'ns-tone-indigo',
+      icon: MenuNamingIcon,
+      tone: 'indigo',
       onClick: onOpenNamingCandidates,
     },
     {
@@ -316,8 +299,8 @@ function HomePage({ entryUserInfo, onLoadSajuReport, onOpenCombinedReport, onOpe
       title: '개발자에게 커피 한 잔',
       subtitle: '응원 결제',
       description: '단건 900원 결제로 이름봄의 지속적인 개선을 응원합니다.',
-      icon: <CoffeeIcon />,
-      toneClass: 'ns-tone-earth',
+      icon: MenuCoffeeIcon,
+      tone: 'earth',
       onClick: onOpenSupport,
     },
     {
@@ -325,8 +308,8 @@ function HomePage({ entryUserInfo, onLoadSajuReport, onOpenCombinedReport, onOpe
       title: '이름봄 정보',
       subtitle: '브랜드 가이드',
       description: '이름봄이 지키는 분석 원칙과 이름을 바라보는 관점을 안내합니다.',
-      icon: <LockIcon />,
-      toneClass: 'ns-tone-neutral',
+      icon: MenuInfoIcon,
+      tone: 'neutral',
       onClick: null,
     },
   ]), [onOpenCombinedReport, onOpenNamingCandidates, onOpenSupport]);

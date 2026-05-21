@@ -20,6 +20,11 @@
   --color-leaf-faint: oklch(0.745 0.028 128 / 0.24);
   --color-focus: oklch(0.515 0.150 142);
   --color-ripple: oklch(0.230 0.024 145 / 0.12);
+  --color-menu-icon-bg: oklch(0.720 0.160 148);
+  --color-menu-icon-border: oklch(0.650 0.125 148);
+  --color-menu-icon-mark: oklch(0.982 0.010 108);
+  --color-menu-icon-lock-bg: oklch(0.235 0.024 145);
+  --color-menu-icon-lock-mark: oklch(0.982 0.010 108);
 
   --color-success: oklch(0.520 0.100 152);
   --color-success-bg: oklch(0.955 0.040 152);
@@ -187,6 +192,11 @@
     --color-leaf-faint: oklch(0.760 0.030 132 / 0.18);
     --color-focus: oklch(0.800 0.130 138);
     --color-ripple: oklch(0.940 0.012 108 / 0.20);
+    --color-menu-icon-bg: oklch(0.700 0.120 148);
+    --color-menu-icon-border: oklch(0.780 0.095 148);
+    --color-menu-icon-mark: oklch(0.982 0.010 108);
+    --color-menu-icon-lock-bg: oklch(0.165 0.020 148);
+    --color-menu-icon-lock-mark: oklch(0.940 0.012 108);
 
     --color-success: oklch(0.760 0.090 150);
     --color-success-bg: oklch(0.245 0.045 152);
