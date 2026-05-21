@@ -1,6 +1,6 @@
 import React, { useEffect, useMemo, useState } from 'react';
 import ReportShell from './components/report/ReportShell';
-import { PageHeading, SearchIcon } from './components/report/ReportPrimitives';
+import { MetricStrip, PageHeading, SearchIcon } from './components/report/ReportPrimitives';
 import {
   NAMING_CANDIDATES_CARD_THEME,
   buildReportCardStyle,
@@ -276,31 +276,6 @@ function NamingCandidatesPage({ entryUserInfo, onRecommendAsync, onLoadCurrentSp
     return Number.isFinite(rank) && rank > 0 ? `${Math.round(rank).toLocaleString()}위` : '-';
   }, [currentSpringReport]);
 
-  const compareCardStyle = useMemo(
-    () => buildReportCardStyle(NAMING_CANDIDATES_CARD_THEME.compare),
-    []
-  );
-  const summaryCardStyle = useMemo(
-    () => buildReportCardStyle(NAMING_CANDIDATES_CARD_THEME.summary),
-    []
-  );
-  const loadingCardStyle = useMemo(
-    () => buildReportCardStyle(NAMING_CANDIDATES_CARD_THEME.loading),
-    []
-  );
-  const errorCardStyle = useMemo(
-    () => buildReportCardStyle(NAMING_CANDIDATES_CARD_THEME.error),
-    []
-  );
-  const compareMiniStyle = useMemo(
-    () => buildTintedBoxStyle(NAMING_CANDIDATES_CARD_THEME.compare, { bgAlpha: 0.26 }),
-    []
-  );
-  const summaryMiniStyle = useMemo(
-    () => buildTintedBoxStyle(NAMING_CANDIDATES_CARD_THEME.summary, { bgAlpha: 0.26 }),
-    []
-  );
-
   return (
     <ReportShell activeNav="naming" onHome={onBackHome} size="wide">
       <PageHeading
@@ -308,11 +283,11 @@ function NamingCandidatesPage({ entryUserInfo, onRecommendAsync, onLoadCurrentSp
         title="이름을 추천드려요"
         description="현재 이름과 비교하면서 점수, 인기도, 즐겨찾기를 한 화면에서 정리합니다."
       />
-      <div className="grid gap-4">
+      <div className="ns-section-stack ns-section-stack--loose">
 
-        <section className="space-y-3">
-          <div className="rounded-xl border p-3" style={compareCardStyle}>
-            <p className="text-xs font-black text-[var(--ns-muted)] mb-2">현재 이름 비교 기준</p>
+        <section className="grid gap-3 lg:grid-cols-[minmax(0,0.9fr)_minmax(0,1.1fr)]">
+          <div className="ns-report-surface p-4">
+            <p className="text-xs font-black text-[var(--ns-muted)]">현재 이름 비교 기준</p>
             <div className="flex flex-wrap items-center justify-between gap-2">
               <p className="text-sm font-black text-[var(--ns-accent-text)] break-keep whitespace-normal">
                 {currentSpringReport?.namingReport?.name?.fullHangul || '-'}
@@ -324,51 +299,47 @@ function NamingCandidatesPage({ entryUserInfo, onRecommendAsync, onLoadCurrentSp
                 <span className="text-xs font-semibold text-[var(--ns-muted)]">기준 정보를 계산 중...</span>
               ) : null}
             </div>
-            <div className="grid grid-cols-1 md:grid-cols-2 gap-2 mt-2">
-              <div className="rounded-lg border bg-[var(--ns-surface)] px-3 py-2" style={compareMiniStyle}>
-                <p className="text-[11px] font-black text-[var(--ns-muted)]">현재 이름 총점</p>
-                <p className="text-sm font-black text-[var(--ns-accent-text)]">{currentTotalScoreText}</p>
-              </div>
-              <div className="rounded-lg border bg-[var(--ns-surface)] px-3 py-2" style={compareMiniStyle}>
-                <p className="text-[11px] font-black text-[var(--ns-muted)]">현재 이름 인기도</p>
-                <p className="text-sm font-black text-[var(--ns-accent-text)]">{currentPopularityText}</p>
-              </div>
-            </div>
+            <MetricStrip
+              className="mt-3"
+              items={[
+                { label: '현재 이름 총점', value: currentTotalScoreText },
+                { label: '현재 이름 인기도', value: currentPopularityText },
+              ]}
+            />
           </div>
 
-          <div className="rounded-xl border p-3" style={summaryCardStyle}>
-            <p className="text-xs font-black text-[var(--ns-muted)] mb-2">추천 이름 요약</p>
-            <div className="grid grid-cols-2 gap-2">
-              <div className="rounded-lg border bg-[var(--ns-surface)] px-3 py-2" style={summaryMiniStyle}>
-                <p className="text-[11px] font-black text-[var(--ns-muted)]">총점 범위</p>
-                <p className="text-sm font-black text-[var(--ns-accent-text)] break-keep whitespace-normal">{scoreRangeText}</p>
-              </div>
-              <div className="rounded-lg border bg-[var(--ns-surface)] px-3 py-2" style={summaryMiniStyle}>
-                <p className="text-[11px] font-black text-[var(--ns-muted)]">인기도 범위 (전체 {TOTAL_NAME_STATS_COUNT})</p>
-                <p className="text-sm font-black text-[var(--ns-accent-text)] break-keep whitespace-normal">{popularityRangeText}</p>
-              </div>
-            </div>
+          <div className="ns-report-surface p-4">
+            <p className="text-xs font-black text-[var(--ns-muted)]">추천 이름 요약</p>
+            <MetricStrip
+              className="mt-3"
+              items={[
+                { label: '총점 범위', value: scoreRangeText },
+                { label: `인기도 범위 (전체 ${TOTAL_NAME_STATS_COUNT.toLocaleString()})`, value: popularityRangeText },
+              ]}
+            />
           </div>
+        </section>
 
-          <div className="flex items-center justify-between gap-3">
+        <section className="ns-report-surface p-3 md:p-4">
+          <div className="ns-split-row">
             <p className="text-sm font-black text-[var(--ns-muted)]">
               총 {sortedCandidates.length}개의 추천 이름을 찾았어요.
             </p>
-            <div className="flex items-center gap-2">
+            <div className="flex flex-wrap items-center gap-2">
               <button
                 type="button"
                 onClick={() => setShowFavoriteOnly((prev) => !prev)}
-                className={`px-3 py-2 rounded-xl border text-xs font-black transition-colors ${showFavoriteOnly ? 'border-amber-300 bg-amber-100/90 text-amber-800' : 'border-[var(--ns-border)] bg-[var(--ns-surface-soft)] text-[var(--ns-muted)]'}`}
+                className={`${showFavoriteOnly ? 'ns-primary-button' : 'ns-secondary-button'} min-h-10 text-xs`}
               >
-                즐겨찾기★
+                즐겨찾기만
               </button>
-              <div className="ml-2 flex items-center gap-2">
+              <div className="flex items-center gap-2">
                 <label htmlFor="candidate-sort" className="text-xs font-black text-[var(--ns-muted)]">정렬</label>
                 <select
                   id="candidate-sort"
                   value={sortMode}
                   onChange={(e) => setSortMode(e.target.value)}
-                  className="px-3 py-2 rounded-xl border border-[var(--ns-border)] bg-[var(--ns-surface-soft)] text-sm font-bold text-[var(--ns-text)]"
+                  className="ns-input min-h-10 w-auto bg-[var(--ns-surface-soft)] text-sm font-bold"
                 >
                   <option value="recommended">추천순</option>
                   <option value="score">점수순</option>
@@ -377,32 +348,32 @@ function NamingCandidatesPage({ entryUserInfo, onRecommendAsync, onLoadCurrentSp
               </div>
             </div>
           </div>
-          <div className="flex items-center gap-2 rounded-xl border border-[var(--ns-border)] bg-[var(--ns-surface-soft)] p-2.5">
+          <div className="mt-3 flex items-center gap-2 rounded-xl border border-[var(--ns-border)] bg-[var(--ns-surface-soft)] p-2">
             <SearchIcon className="h-4 w-4 shrink-0 text-[var(--ns-muted)]" />
             <input
               type="text"
               value={searchKeyword}
               onChange={(event) => setSearchKeyword(event.target.value)}
               placeholder="추천 이름 검색 (초성 검색 지원: 예) ㄱㅁㅎ"
-              className="w-full min-w-0 rounded-lg border border-[var(--ns-border)] bg-[var(--ns-surface)] px-3 py-2 text-sm font-semibold text-[var(--ns-text)] placeholder:text-[var(--ns-muted)]"
+              className="ns-input min-h-10 w-full min-w-0 bg-[var(--ns-surface)] text-sm font-semibold"
             />
           </div>
 
           {isLoading && (
-            <div className="h-40 rounded-xl border flex flex-col items-center justify-center gap-3" style={loadingCardStyle}>
+            <div className="mt-3 h-40 rounded-xl border border-[var(--ns-border)] bg-[var(--ns-surface-soft)] flex flex-col items-center justify-center gap-3">
               <div className="h-12 w-12 rounded-full border-4 border-[var(--ns-primary)] border-t-transparent animate-spin" />
               <p className="text-sm font-bold text-[var(--ns-muted)]">작명 중입니다. 잠시만 기다려주세요.</p>
             </div>
           )}
 
           {!isLoading && error && (
-            <div className="h-24 rounded-xl border flex items-center justify-center px-4" style={errorCardStyle}>
+            <div className="mt-3 h-24 rounded-xl border border-[var(--ns-tone-warn-border)] bg-[var(--ns-tone-warn-bg)] flex items-center justify-center px-4">
               <p className="text-sm font-bold text-[var(--ns-muted)] text-center">{error}</p>
             </div>
           )}
 
           {!isLoading && !error && (
-            <ul className="max-h-[66vh] overflow-y-auto space-y-2 pr-1">
+            <ul className="mt-3 grid gap-2">
               {sortedCandidates.map((candidate, index) => {
                 const popularityRank = getPopularityRank(candidate);
                 const candidateKey = getCandidateKey(candidate);
@@ -414,14 +385,14 @@ function NamingCandidatesPage({ entryUserInfo, onRecommendAsync, onLoadCurrentSp
                 return (
                   <li
                     key={`${candidate?.rank ?? index}-${candidate?.fullHanja ?? candidate?.namingReport?.name?.fullHanja ?? index}`}
-                    className="rounded-xl border border-[var(--ns-border)]"
+                    className="rounded-xl border border-[var(--ns-border)] shadow-[var(--shadow-inset-soft)]"
                     style={cardStyle}
                   >
                     <div className="flex items-start gap-2 px-2.5 py-2.5">
                       <button
                         type="button"
                         onClick={() => onOpenCombinedReport?.(candidate)}
-                        className="flex-1 min-w-0 text-left rounded-lg px-2 py-1 transition-all hover:brightness-[1.015]"
+                        className="flex-1 min-w-0 text-left rounded-lg px-2 py-1 transition-colors hover:bg-[var(--ns-surface)]/20"
                       >
                         <div className="flex flex-wrap items-center justify-between gap-2">
                           <p className="text-sm md:text-base font-black text-[var(--ns-accent-text)] break-keep whitespace-normal">
@@ -448,7 +419,7 @@ function NamingCandidatesPage({ entryUserInfo, onRecommendAsync, onLoadCurrentSp
                         title={isFavorite ? '즐겨찾기 해제' : '즐겨찾기'}
                         className="shrink-0 mt-1 w-9 h-9 rounded-lg border border-[var(--ns-border)] bg-[var(--ns-surface)]/80 hover:bg-[var(--ns-surface)] text-[var(--ns-muted)] inline-flex items-center justify-center"
                       >
-                        <svg viewBox="0 0 20 20" className={`w-5 h-5 ${isFavorite ? 'text-amber-400' : 'text-[var(--ns-muted)]/60'}`} aria-hidden="true">
+                        <svg viewBox="0 0 20 20" className={`w-5 h-5 ${isFavorite ? 'text-[var(--ns-tone-warn-text)]' : 'text-[var(--ns-muted)]/60'}`} aria-hidden="true">
                           <path
                             d="M10 1.7L12.6 6.9L18.3 7.7L14.1 11.8L15.1 17.5L10 14.8L4.9 17.5L5.9 11.8L1.7 7.7L7.4 6.9L10 1.7Z"
                             fill={isFavorite ? 'currentColor' : 'none'}
@@ -465,7 +436,7 @@ function NamingCandidatesPage({ entryUserInfo, onRecommendAsync, onLoadCurrentSp
             </ul>
           )}
           {!isLoading && !error && !sortedCandidates.length && (
-            <div className="h-24 rounded-xl border border-[var(--ns-border)] bg-[var(--ns-surface-soft)] flex items-center justify-center px-4">
+            <div className="mt-3 h-24 rounded-xl border border-[var(--ns-border)] bg-[var(--ns-surface-soft)] flex items-center justify-center px-4">
               <p className="text-sm font-bold text-[var(--ns-muted)] text-center">검색/즐겨찾기 조건에 맞는 후보가 없습니다.</p>
             </div>
           )}
