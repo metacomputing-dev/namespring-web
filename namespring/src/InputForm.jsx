@@ -762,8 +762,8 @@ function InputForm({
 
   return (
     <>
-      <div className="space-y-4 md:space-y-8 animate-in fade-in duration-500">
-        <section className="space-y-3 md:space-y-6 bg-[var(--ns-surface-soft)] border border-[var(--ns-border)] rounded-3xl p-3 md:p-6">
+      <div className="ns-section-stack ns-section-stack--loose animate-in fade-in duration-500">
+        <section className="ns-report-panel ns-report-panel--sunken space-y-3 md:space-y-5">
           <h3 className="text-base font-black text-[var(--ns-accent-text)]">당신의 이름을 알려주세요.</h3>
 
           <div className="grid grid-cols-1 md:grid-cols-3 gap-2 md:gap-4">
@@ -773,7 +773,7 @@ function InputForm({
                 type="text"
                 value={surnameInput}
                 onChange={(e) => setSurnameInput(limitLength(e.target.value.replace(/\s/g, ''), 2))}
-                className="w-full p-2.5 md:p-4 bg-[var(--ns-surface)] border border-[var(--ns-border)] rounded-2xl text-2xl font-black text-center text-[var(--ns-text)]"
+                className="ns-input min-h-14 text-center text-2xl font-black"
                 maxLength={2}
                 placeholder="성"
               />
@@ -785,7 +785,7 @@ function InputForm({
                 type="text"
                 value={givenNameInput}
                 onChange={(e) => setGivenNameInput(limitLength(e.target.value.replace(/\s/g, ''), 4))}
-                className="w-full p-2.5 md:p-4 bg-[var(--ns-surface)] border border-[var(--ns-border)] rounded-2xl text-2xl font-black text-center tracking-widest text-[var(--ns-text)]"
+                className="ns-input min-h-14 text-center text-2xl font-black tracking-widest"
                 maxLength={4}
                 placeholder="이름"
               />
@@ -803,7 +803,7 @@ function InputForm({
                         <button
                           key={`${char}-${i}`}
                           onClick={() => searchHanja(char, 'last', i)}
-                          className="flex-1 border-2 border-dashed border-[var(--ns-border)] rounded-2xl flex flex-col items-center justify-center hover:border-[var(--ns-primary)] bg-[var(--ns-surface)]"
+                          className="flex-1 rounded-xl border border-dashed border-[var(--ns-border)] bg-[var(--ns-surface)] flex flex-col items-center justify-center transition-colors hover:border-[var(--ns-primary)]"
                         >
                           {selectedSurnameEntries[i]
                             ? <span className="text-2xl font-serif font-black text-[var(--ns-text)]">{selectedSurnameEntries[i].hanja}</span>
@@ -822,7 +822,7 @@ function InputForm({
                         <button
                           key={`${char}-${i}`}
                           onClick={() => searchHanja(char, 'first', i)}
-                          className="h-14 md:h-20 border-2 border-dashed border-[var(--ns-border)] rounded-2xl flex items-center justify-center hover:border-[var(--ns-primary)] bg-[var(--ns-surface)]"
+                          className="h-14 md:h-20 rounded-xl border border-dashed border-[var(--ns-border)] bg-[var(--ns-surface)] flex items-center justify-center transition-colors hover:border-[var(--ns-primary)]"
                         >
                           {selectedGivenNameEntries[i]
                             ? <span className="text-3xl font-serif font-black text-[var(--ns-text)]">{selectedGivenNameEntries[i].hanja}</span>
@@ -848,14 +848,14 @@ function InputForm({
         </section>
 
         {isNameSelectionDone && (
-          <section ref={birthStepRef} className="space-y-2 md:space-y-4 bg-[var(--ns-surface-soft)] border border-[var(--ns-border)] rounded-3xl p-3 md:p-6 animate-in fade-in duration-300">
+          <section ref={birthStepRef} className="ns-report-panel ns-report-panel--sunken space-y-2 md:space-y-4 animate-in fade-in duration-300">
             <h3 className="text-base font-black text-[var(--ns-accent-text)]">{`${surnameHangul}${givenNameHangul}`}님이 언제 태어났는지 알고싶어요.</h3>
             <label className="text-[11px] font-black text-[var(--ns-muted)] block">생년월일시분</label>
             <div className="space-y-2 md:space-y-3">
               <button
                 type="button"
                 onClick={openBirthPicker}
-                className="w-full p-2.5 md:p-4 bg-[var(--ns-surface)] border border-[var(--ns-border)] rounded-2xl font-bold text-left text-[var(--ns-text)] flex items-center justify-between"
+                className="w-full min-h-12 rounded-xl border border-[var(--ns-border)] bg-[var(--ns-surface)] px-3 py-2.5 font-bold text-left text-[var(--ns-text)] flex items-center justify-between gap-3"
               >
                 <span>{formatBirthDateTimeForDisplay(birthDate, birthTime, isBirthTimeUnknown, isSolarCalendar)}</span>
                 <span className="text-xs font-black text-[var(--ns-muted)]">선택</span>
@@ -901,7 +901,7 @@ function InputForm({
         )}
 
         {isBirthDateTimeValid && !isBirthTimeUnknown && (
-          <section className="space-y-2 md:space-y-3 bg-[var(--ns-surface-soft)] border border-[var(--ns-border)] rounded-3xl p-3 md:p-6 animate-in fade-in duration-300">
+          <section className="ns-report-panel ns-report-panel--sunken space-y-2 md:space-y-3 animate-in fade-in duration-300">
             <h3 className="text-base font-black text-[var(--ns-accent-text)]">당신의 사주를 계산할 때 참고할게요</h3>
             <p className="text-[11px] font-semibold text-[var(--ns-muted)]">잘 모를 때는 그대로 두셔도 좋아요.</p>
             <div className="space-y-2 md:space-y-2.5">
@@ -945,7 +945,7 @@ function InputForm({
                   <select
                     value={birthLongitudeOption}
                     onChange={(e) => setBirthLongitudeOption(e.target.value)}
-                    className="ml-auto min-w-[92px] p-2 bg-[var(--ns-surface)] border border-[var(--ns-border)] rounded-xl text-xs font-semibold text-[var(--ns-text)]"
+                    className="ml-auto min-w-[92px] rounded-xl border border-[var(--ns-border)] bg-[var(--ns-surface)] p-2 text-xs font-semibold text-[var(--ns-text)]"
                   >
                     {BIRTH_REGION_OPTIONS.map((regionLabel) => (
                       <option key={`birth-region-${regionLabel}`} value={regionLabel}>
@@ -967,20 +967,20 @@ function InputForm({
         )}
 
         {isBirthDateTimeValid && (
-          <section ref={genderStepRef} className="bg-[var(--ns-surface-soft)] border border-[var(--ns-border)] rounded-3xl p-3 md:p-6 animate-in fade-in duration-300">
+          <section ref={genderStepRef} className="ns-report-panel ns-report-panel--sunken animate-in fade-in duration-300">
             <h3 className="text-base font-black text-[var(--ns-accent-text)] mb-2 md:mb-3">성별은요?</h3>
             <div className="grid grid-cols-2 gap-2 md:gap-3">
               <button
                 type="button"
                 onClick={() => setGender('female')}
-                className={`py-2 md:py-3 rounded-2xl font-black text-sm border ${gender === 'female' ? 'bg-[var(--ns-primary)] text-[var(--ns-accent-text)] border-[var(--ns-primary)]' : 'bg-[var(--ns-surface)] text-[var(--ns-muted)] border-[var(--ns-border)]'}`}
+                className={`${gender === 'female' ? 'ns-primary-button' : 'ns-secondary-button'} w-full`}
               >
                 여성
               </button>
               <button
                 type="button"
                 onClick={() => setGender('male')}
-                className={`py-2 md:py-3 rounded-2xl font-black text-sm border ${gender === 'male' ? 'bg-[var(--ns-primary)] text-[var(--ns-accent-text)] border-[var(--ns-primary)]' : 'bg-[var(--ns-surface)] text-[var(--ns-muted)] border-[var(--ns-border)]'}`}
+                className={`${gender === 'male' ? 'ns-primary-button' : 'ns-secondary-button'} w-full`}
               >
                 남성
               </button>
@@ -993,7 +993,7 @@ function InputForm({
             ref={submitStepRef}
             onClick={handleSubmit}
             disabled={!isDbReady}
-            className="w-full py-3 md:py-6 bg-[var(--ns-primary)] text-[var(--ns-accent-text)] rounded-[2rem] font-black text-base md:text-lg hover:brightness-95 transition-all disabled:opacity-60 disabled:cursor-not-allowed animate-in fade-in duration-300"
+            className="ns-primary-button w-full min-h-14 animate-in fade-in duration-300 disabled:opacity-60 disabled:cursor-not-allowed"
           >
             {submitLabel}
           </button>
