@@ -276,6 +276,14 @@ textarea:focus-visible {
   padding: var(--space-lg);
 }
 
+.ns-saju-visual {
+  min-height: 12.5rem;
+  height: clamp(12.5rem, 24vw, 18rem);
+  overflow: hidden;
+  border-radius: var(--radius-card-lg);
+  box-shadow: var(--shadow-1);
+}
+
 .ns-menu-card {
   --menu-card-accent: var(--color-accent);
   --menu-card-line: var(--color-rule);

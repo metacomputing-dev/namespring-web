@@ -1,5 +1,6 @@
 import React, { useEffect, useMemo, useState } from 'react';
 import ReportShell from './components/report/ReportShell';
+import NamingResultRenderer from './NamingResultRenderer';
 import {
   MenuCoffeeIcon,
   MenuInfoIcon,
@@ -233,35 +234,46 @@ function SajuPreviewCard({ entryUserInfo, report, metrics, isLoading, error }) {
       title={`${fullName} 사주 요약`}
       subtitle="입력한 생년월일을 기준으로 원국의 큰 흐름을 먼저 정리했습니다."
       className="ns-card--soft"
-      bodyClassName="grid gap-5 lg:grid-cols-[minmax(0,0.92fr)_minmax(0,1.5fr)]"
+      bodyClassName="grid gap-5"
     >
-      <div className="grid gap-4">
-        <div className="flex items-center justify-between gap-4 rounded-[var(--radius-card)] border border-[var(--color-rule)] bg-[var(--color-paper)] p-4">
-          <ScoreRing value={balanceScore} label="균형 지표" />
-          <div className="min-w-0 text-right">
-            <p className="ns-kicker">오늘의 기준</p>
-            <p className="mt-2 font-[var(--font-display)] text-2xl font-bold text-[var(--color-ink)]">사주 원국</p>
-            <p className="mt-2 text-sm font-semibold leading-relaxed text-[var(--color-ink-2)] break-keep">
-              오행의 분포와 음양 흐름을 바탕으로 이름 평가의 기준점을 잡습니다.
-            </p>
-          </div>
-        </div>
-        <InfoList items={infoItems} />
+      <div className="ns-saju-visual">
+        <NamingResultRenderer
+          renderMetrics={metrics}
+          birthDateTime={entryUserInfo?.birthDateTime}
+          gender={entryUserInfo?.gender}
+          isSolarCalendar={entryUserInfo?.isSolarCalendar}
+          isBirthTimeUnknown={entryUserInfo?.isBirthTimeUnknown}
+        />
       </div>
-      <div className="grid gap-3">
-        <PillarTable columns={PILLAR_COLUMNS} rows={buildPillarRows(report)} />
-        <div className="grid gap-3 sm:grid-cols-3">
-          <div className="ns-card ns-card--padded">
-            <p className="ns-kicker text-xs">일간</p>
-            <p className="mt-1 text-lg font-extrabold text-[var(--color-ink)]">{report?.dayMaster?.stem || '-'}</p>
+      <div className="grid gap-5 lg:grid-cols-[minmax(0,0.92fr)_minmax(0,1.5fr)]">
+        <div className="grid gap-4">
+          <div className="flex items-center justify-between gap-4 rounded-[var(--radius-card)] border border-[var(--color-rule)] bg-[var(--color-paper)] p-4">
+            <ScoreRing value={balanceScore} label="균형 지표" />
+            <div className="min-w-0 text-right">
+              <p className="ns-kicker">오늘의 기준</p>
+              <p className="mt-2 font-[var(--font-display)] text-2xl font-bold text-[var(--color-ink)]">사주 원국</p>
+              <p className="mt-2 text-sm font-semibold leading-relaxed text-[var(--color-ink-2)] break-keep">
+                오행의 분포와 음양 흐름을 바탕으로 이름 평가의 기준점을 잡습니다.
+              </p>
+            </div>
           </div>
-          <div className="ns-card ns-card--padded">
-            <p className="ns-kicker text-xs">오행</p>
-            <p className="mt-1 text-lg font-extrabold text-[var(--color-ink)]">{elementLabel(report?.dayMaster?.element)}</p>
-          </div>
-          <div className="ns-card ns-card--padded">
-            <p className="ns-kicker text-xs">음양</p>
-            <p className="mt-1 text-lg font-extrabold text-[var(--color-ink)]">{report?.dayMaster?.polarity || '-'}</p>
+          <InfoList items={infoItems} />
+        </div>
+        <div className="grid gap-3">
+          <PillarTable columns={PILLAR_COLUMNS} rows={buildPillarRows(report)} />
+          <div className="grid gap-3 sm:grid-cols-3">
+            <div className="ns-card ns-card--padded">
+              <p className="ns-kicker text-xs">일간</p>
+              <p className="mt-1 text-lg font-extrabold text-[var(--color-ink)]">{report?.dayMaster?.stem || '-'}</p>
+            </div>
+            <div className="ns-card ns-card--padded">
+              <p className="ns-kicker text-xs">오행</p>
+              <p className="mt-1 text-lg font-extrabold text-[var(--color-ink)]">{elementLabel(report?.dayMaster?.element)}</p>
+            </div>
+            <div className="ns-card ns-card--padded">
+              <p className="ns-kicker text-xs">음양</p>
+              <p className="mt-1 text-lg font-extrabold text-[var(--color-ink)]">{report?.dayMaster?.polarity || '-'}</p>
+            </div>
           </div>
         </div>
       </div>
