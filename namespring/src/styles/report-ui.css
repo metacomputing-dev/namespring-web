@@ -250,6 +250,12 @@ textarea:focus-visible {
   font-size: clamp(1.65rem, 4vw, 2.6rem);
 }
 
+.ns-page-heading--compact .ns-title {
+  font-size: clamp(1.55rem, 5.8vw, 3rem);
+  overflow-wrap: break-word;
+  word-break: keep-all;
+}
+
 .ns-copy {
   max-width: 42rem;
   color: var(--color-ink-2);
