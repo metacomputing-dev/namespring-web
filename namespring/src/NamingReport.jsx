@@ -357,7 +357,7 @@ function GenderRatioPie({ maleRatio, femaleRatio, maleBirths, femaleBirths }) {
   const malePercent = Math.round((maleRatio || 0) * 1000) / 10;
   const femalePercent = Math.round((femaleRatio || 0) * 1000) / 10;
   const pieStyle = {
-    background: `conic-gradient(#3b82f6 0 ${(maleRatio || 0) * 360}deg, #ec4899 ${(maleRatio || 0) * 360}deg 360deg)`,
+    background: `conic-gradient(var(--ns-tone-info-text) 0 ${(maleRatio || 0) * 360}deg, var(--color-danger) ${(maleRatio || 0) * 360}deg 360deg)`,
   };
 
   return (
@@ -373,7 +373,7 @@ function GenderRatioPie({ maleRatio, femaleRatio, maleBirths, femaleBirths }) {
           </div>
           <div className="space-y-1 text-sm text-center">
             <p className="font-black text-[var(--ns-tone-info-text)]">남성 {malePercent.toFixed(1)}% ({maleBirths.toLocaleString()}명)</p>
-            <p className="font-black text-pink-700">여성 {femalePercent.toFixed(1)}% ({femaleBirths.toLocaleString()}명)</p>
+            <p className="font-black text-[var(--color-danger)]">여성 {femalePercent.toFixed(1)}% ({femaleBirths.toLocaleString()}명)</p>
           </div>
         </div>
       ) : (
