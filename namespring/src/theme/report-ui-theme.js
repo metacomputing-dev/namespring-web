@@ -31,15 +31,15 @@ export const REPORT_THEME_PALETTE = {
 };
 
 export const REPORT_PAGE_CLASS = {
-  outer: 'min-h-screen flex flex-col items-center p-3 font-sans text-[var(--ns-text)]',
-  container: 'bg-[var(--ns-surface)] p-5 rounded-[2rem] shadow-2xl border border-[var(--ns-border)] w-full max-w-2xl overflow-hidden',
-  headerTitle: 'text-3xl font-black text-[var(--ns-accent-text)]',
-  homeButton: 'w-10 h-10 rounded-2xl border border-[var(--ns-border)] bg-[var(--ns-surface-soft)] text-[var(--ns-muted)] font-bold inline-flex items-center justify-center',
-  loadingCard: 'h-40 rounded-xl border border-[var(--ns-border)] bg-[var(--ns-surface-soft)] flex flex-col items-center justify-center gap-3',
-  loadingText: 'text-sm font-bold text-[var(--ns-muted)]',
-  errorCard: 'rounded-xl border border-[var(--ns-border)] bg-[var(--ns-surface-soft)] px-4 py-4',
-  errorText: 'text-sm font-bold text-[var(--ns-muted)] text-center',
-  primaryButton: 'w-full py-3 bg-[var(--ns-share-btn-bg)] text-[var(--ns-share-btn-text)] border border-[var(--ns-share-btn-border)] rounded-2xl font-black',
+  outer: 'ns-page-main ns-page-main--wide',
+  container: 'grid gap-4',
+  headerTitle: 'ns-title ns-title--small',
+  homeButton: 'ns-icon-button',
+  loadingCard: 'ns-card ns-card--large flex flex-col items-center justify-center gap-3 min-h-40',
+  loadingText: 'text-sm font-bold text-[var(--color-ink-2)]',
+  errorCard: 'ns-card ns-card--padded ns-tone-neutral',
+  errorText: 'text-sm font-bold text-current text-center',
+  primaryButton: 'ns-primary-button w-full',
 };
 
 export function getElementToneClass(key) {
