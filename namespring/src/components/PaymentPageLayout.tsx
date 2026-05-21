@@ -17,6 +17,7 @@ export default function PaymentPageLayout({ title, subtitle, children }: Payment
         kicker="Support"
         title={title}
         description={subtitle}
+        className="ns-page-heading--compact"
       />
       <div className="ns-card ns-card--large ns-card--surface">
         <div className="grid gap-4">
