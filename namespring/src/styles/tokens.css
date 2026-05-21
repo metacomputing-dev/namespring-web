@@ -1,0 +1,230 @@
+/* Hallmark - pre-emit critique: P5 H4 E4 S4 R5 V4
+ * Natural report system: paper, ink, moss, leaf, quiet motion.
+ */
+:root {
+  color-scheme: light dark;
+
+  --color-paper: oklch(0.982 0.010 108);
+  --color-paper-2: oklch(0.970 0.012 108);
+  --color-paper-3: oklch(0.942 0.016 106);
+  --color-paper-sunken: oklch(0.912 0.018 108);
+  --color-ink: oklch(0.235 0.024 145);
+  --color-ink-2: oklch(0.430 0.020 138);
+  --color-ink-3: oklch(0.575 0.016 132);
+  --color-rule: oklch(0.875 0.018 110);
+  --color-rule-strong: oklch(0.790 0.024 112);
+  --color-accent: oklch(0.430 0.082 148);
+  --color-accent-ink: oklch(0.982 0.010 108);
+  --color-accent-soft: oklch(0.620 0.070 142);
+  --color-accent-quiet: oklch(0.884 0.044 138);
+  --color-leaf-faint: oklch(0.745 0.028 128 / 0.24);
+  --color-focus: oklch(0.515 0.150 142);
+  --color-ripple: oklch(0.230 0.024 145 / 0.12);
+
+  --color-success: oklch(0.520 0.100 152);
+  --color-success-bg: oklch(0.955 0.040 152);
+  --color-success-line: oklch(0.870 0.060 150);
+  --color-warn: oklch(0.555 0.110 78);
+  --color-warn-bg: oklch(0.965 0.045 90);
+  --color-warn-line: oklch(0.870 0.070 85);
+  --color-danger: oklch(0.520 0.140 25);
+  --color-danger-bg: oklch(0.965 0.040 25);
+  --color-danger-line: oklch(0.870 0.070 25);
+  --color-info: oklch(0.510 0.090 220);
+  --color-info-bg: oklch(0.955 0.035 220);
+  --color-info-line: oklch(0.870 0.055 220);
+  --color-indigo: oklch(0.440 0.130 280);
+  --color-indigo-bg: oklch(0.945 0.040 280);
+  --color-indigo-line: oklch(0.860 0.065 280);
+  --color-cyan: oklch(0.440 0.075 215);
+  --color-cyan-bg: oklch(0.955 0.045 210);
+  --color-cyan-line: oklch(0.870 0.060 210);
+  --color-neutral: oklch(0.420 0.018 130);
+  --color-neutral-bg: oklch(0.935 0.012 108);
+  --color-neutral-line: oklch(0.860 0.016 108);
+
+  --color-wood: oklch(0.420 0.080 148);
+  --color-wood-bg: oklch(0.955 0.045 150);
+  --color-wood-line: oklch(0.870 0.065 148);
+  --color-fire: oklch(0.495 0.120 28);
+  --color-fire-bg: oklch(0.955 0.038 30);
+  --color-fire-line: oklch(0.870 0.055 28);
+  --color-earth: oklch(0.500 0.090 70);
+  --color-earth-bg: oklch(0.960 0.038 78);
+  --color-earth-line: oklch(0.880 0.060 78);
+  --color-metal: oklch(0.440 0.018 220);
+  --color-metal-bg: oklch(0.955 0.010 220);
+  --color-metal-line: oklch(0.870 0.014 220);
+  --color-water: oklch(0.430 0.110 235);
+  --color-water-bg: oklch(0.945 0.038 235);
+  --color-water-line: oklch(0.865 0.055 235);
+
+  --color-chart-line-a: oklch(0.480 0.105 148);
+  --color-chart-area-a: oklch(0.480 0.105 148 / 0.18);
+  --color-chart-line-b: oklch(0.560 0.105 78);
+  --color-chart-area-b: oklch(0.560 0.105 78 / 0.18);
+  --color-disabled-bg: oklch(0.910 0.012 108);
+  --color-disabled-ink: oklch(0.660 0.014 130);
+
+  --font-display: "Noto Serif KR", "Source Han Serif KR", "Nanum Myeongjo", "Apple SD Gothic Neo", serif;
+  --font-body: "Pretendard", "Noto Sans KR", "Apple SD Gothic Neo", system-ui, sans-serif;
+  --font-mono: "SFMono-Regular", "Cascadia Mono", "Consolas", monospace;
+
+  --space-3xs: 0.25rem;
+  --space-2xs: 0.5rem;
+  --space-xs: 0.75rem;
+  --space-sm: 1rem;
+  --space-md: 1.5rem;
+  --space-lg: 2rem;
+  --space-xl: 3rem;
+  --space-2xl: 4.5rem;
+  --space-3xl: 7rem;
+
+  --text-xs: 0.75rem;
+  --text-sm: 0.875rem;
+  --text-md: 1rem;
+  --text-lg: 1.125rem;
+  --text-xl: 1.375rem;
+  --text-2xl: 1.75rem;
+  --text-3xl: 2.25rem;
+  --text-display-s: clamp(2rem, 5vw, 3.5rem);
+  --text-display: clamp(2.5rem, 7vw, 5rem);
+
+  --rule-thin: 1px;
+  --radius-input: 10px;
+  --radius-chip: 6px;
+  --radius-card: 18px;
+  --radius-card-lg: 24px;
+  --radius-panel: 28px;
+  --radius-pill: 999px;
+
+  --shadow-1: 0 1px 2px oklch(0.230 0.024 145 / 0.06);
+  --shadow-2: 0 4px 14px oklch(0.230 0.024 145 / 0.08);
+  --shadow-card: 0 10px 28px oklch(0.230 0.024 145 / 0.07);
+  --shadow-fab: 0 12px 32px oklch(0.230 0.024 145 / 0.18);
+
+  --ease-out: cubic-bezier(0.16, 1, 0.3, 1);
+  --ease-in: cubic-bezier(0.7, 0, 0.84, 0);
+  --ease-in-out: cubic-bezier(0.45, 0, 0.55, 1);
+  --dur-fast: 120ms;
+  --dur-base: 220ms;
+  --dur-slow: 360ms;
+
+  --ns-primary: var(--color-accent-quiet);
+  --ns-secondary: var(--color-earth-bg);
+  --ns-bg: var(--color-paper);
+  --ns-background: var(--color-paper);
+  --ns-text: var(--color-ink);
+  --ns-surface: var(--color-paper-2);
+  --ns-surface-soft: var(--color-paper-3);
+  --ns-border: var(--color-rule);
+  --ns-muted: var(--color-ink-3);
+  --ns-accent-text: var(--color-accent);
+  --ns-ripple: var(--color-ripple);
+  --ns-share-btn-bg: var(--color-accent);
+  --ns-share-btn-text: var(--color-accent-ink);
+  --ns-share-btn-border: var(--color-accent);
+  --ns-fade-duration: var(--dur-slow);
+  --ns-report-grad-end: var(--color-paper-2);
+
+  --ns-tone-wood-bg: var(--color-wood-bg);
+  --ns-tone-wood-border: var(--color-wood-line);
+  --ns-tone-wood-text: var(--color-wood);
+  --ns-tone-fire-bg: var(--color-fire-bg);
+  --ns-tone-fire-border: var(--color-fire-line);
+  --ns-tone-fire-text: var(--color-fire);
+  --ns-tone-earth-bg: var(--color-earth-bg);
+  --ns-tone-earth-border: var(--color-earth-line);
+  --ns-tone-earth-text: var(--color-earth);
+  --ns-tone-metal-bg: var(--color-metal-bg);
+  --ns-tone-metal-border: var(--color-metal-line);
+  --ns-tone-metal-text: var(--color-metal);
+  --ns-tone-water-bg: var(--color-water-bg);
+  --ns-tone-water-border: var(--color-water-line);
+  --ns-tone-water-text: var(--color-water);
+  --ns-tone-success-bg: var(--color-success-bg);
+  --ns-tone-success-border: var(--color-success-line);
+  --ns-tone-success-text: var(--color-success);
+  --ns-tone-warn-bg: var(--color-warn-bg);
+  --ns-tone-warn-border: var(--color-warn-line);
+  --ns-tone-warn-text: var(--color-warn);
+  --ns-tone-info-bg: var(--color-info-bg);
+  --ns-tone-info-border: var(--color-info-line);
+  --ns-tone-info-text: var(--color-info);
+  --ns-tone-danger-bg: var(--color-danger-bg);
+  --ns-tone-danger-border: var(--color-danger-line);
+  --ns-tone-danger-text: var(--color-danger);
+  --ns-tone-indigo-bg: var(--color-indigo-bg);
+  --ns-tone-indigo-border: var(--color-indigo-line);
+  --ns-tone-indigo-text: var(--color-indigo);
+  --ns-tone-cyan-bg: var(--color-cyan-bg);
+  --ns-tone-cyan-border: var(--color-cyan-line);
+  --ns-tone-cyan-text: var(--color-cyan);
+  --ns-tone-neutral-bg: var(--color-neutral-bg);
+  --ns-tone-neutral-border: var(--color-neutral-line);
+  --ns-tone-neutral-text: var(--color-neutral);
+  --ns-tone-indigo-line: var(--color-chart-line-b);
+  --ns-tone-indigo-area: var(--color-chart-area-b);
+  --ns-tone-amber-line: var(--color-chart-line-b);
+  --ns-tone-amber-area: var(--color-chart-area-b);
+}
+
+@media (prefers-color-scheme: dark) {
+  :root {
+    --color-paper: oklch(0.165 0.020 148);
+    --color-paper-2: oklch(0.205 0.022 146);
+    --color-paper-3: oklch(0.245 0.024 144);
+    --color-paper-sunken: oklch(0.280 0.024 144);
+    --color-ink: oklch(0.940 0.012 108);
+    --color-ink-2: oklch(0.760 0.022 132);
+    --color-ink-3: oklch(0.620 0.020 130);
+    --color-rule: oklch(0.305 0.024 144);
+    --color-rule-strong: oklch(0.385 0.026 142);
+    --color-accent: oklch(0.760 0.085 142);
+    --color-accent-ink: oklch(0.180 0.020 148);
+    --color-accent-soft: oklch(0.620 0.070 140);
+    --color-accent-quiet: oklch(0.345 0.040 142);
+    --color-leaf-faint: oklch(0.760 0.030 132 / 0.18);
+    --color-focus: oklch(0.800 0.130 138);
+    --color-ripple: oklch(0.940 0.012 108 / 0.20);
+
+    --color-success: oklch(0.760 0.090 150);
+    --color-success-bg: oklch(0.245 0.045 152);
+    --color-success-line: oklch(0.360 0.060 150);
+    --color-warn: oklch(0.790 0.090 80);
+    --color-warn-bg: oklch(0.255 0.040 80);
+    --color-warn-line: oklch(0.370 0.060 80);
+    --color-danger: oklch(0.740 0.115 25);
+    --color-danger-bg: oklch(0.260 0.055 25);
+    --color-danger-line: oklch(0.380 0.080 25);
+    --color-info: oklch(0.760 0.075 220);
+    --color-info-bg: oklch(0.250 0.045 220);
+    --color-info-line: oklch(0.360 0.065 220);
+
+    --color-wood: oklch(0.760 0.090 150);
+    --color-wood-bg: oklch(0.245 0.045 152);
+    --color-wood-line: oklch(0.360 0.060 150);
+    --color-fire: oklch(0.740 0.115 25);
+    --color-fire-bg: oklch(0.260 0.055 25);
+    --color-fire-line: oklch(0.380 0.080 25);
+    --color-earth: oklch(0.790 0.090 80);
+    --color-earth-bg: oklch(0.255 0.040 80);
+    --color-earth-line: oklch(0.370 0.060 80);
+    --color-metal: oklch(0.760 0.022 220);
+    --color-metal-bg: oklch(0.250 0.018 220);
+    --color-metal-line: oklch(0.360 0.025 220);
+    --color-water: oklch(0.760 0.075 220);
+    --color-water-bg: oklch(0.250 0.045 220);
+    --color-water-line: oklch(0.360 0.065 220);
+    --color-chart-line-a: oklch(0.800 0.100 148);
+    --color-chart-area-a: oklch(0.800 0.100 148 / 0.24);
+    --color-chart-line-b: oklch(0.820 0.090 80);
+    --color-chart-area-b: oklch(0.820 0.090 80 / 0.22);
+    --color-disabled-bg: oklch(0.270 0.020 130);
+    --color-disabled-ink: oklch(0.540 0.020 130);
+    --shadow-1: 0 1px 2px oklch(0.040 0.010 148 / 0.45);
+    --shadow-2: 0 4px 14px oklch(0.040 0.010 148 / 0.42);
+    --shadow-card: 0 12px 30px oklch(0.040 0.010 148 / 0.44);
+    --shadow-fab: 0 12px 32px oklch(0.040 0.010 148 / 0.55);
+  }
+}
