@@ -602,27 +602,26 @@ const NamingReport = ({ result, shareUserInfo = null }) => {
 
   return (
     <>
-    <div ref={reportRootRef} data-pdf-root="true" className="mt-4 space-y-3 animate-in fade-in slide-in-from-bottom-6 duration-700">
+    <div ref={reportRootRef} data-pdf-root="true" className="mt-4 ns-section-stack ns-section-stack--loose animate-in fade-in slide-in-from-bottom-6 duration-700">
       <section
         data-pdf-force-foreign-object="true"
-        className="rounded-[2.4rem] p-4 md:p-5 border shadow-xl relative overflow-hidden"
+        className="ns-report-surface p-4 md:p-5 relative overflow-hidden"
         style={SUMMARY_CARD_STYLE}
       >
-        <div className="absolute -right-20 -top-20 w-64 h-64 bg-[var(--ns-tone-success-bg)]/20 rounded-full blur-3xl" />
-        <div className="relative z-10 flex flex-col md:flex-row md:items-end md:justify-between gap-3">
+        <div className="relative z-10 ns-split-row md:items-end">
           <div>
             <p className="text-[11px] tracking-[0.22em] text-[var(--ns-muted)] font-black mb-3">이름 평가 요약</p>
-            <h2 className="text-4xl md:text-5xl font-black text-[var(--ns-accent-text)]">{fullNameHangul}</h2>
-            <p className="text-xl md:text-2xl text-[var(--ns-muted)] font-semibold mt-1">{fullNameHanja}</p>
+            <h2 className="text-3xl md:text-4xl font-black text-[var(--ns-accent-text)] break-keep whitespace-normal">{fullNameHangul}</h2>
+            <p className="text-lg md:text-xl text-[var(--ns-muted)] font-semibold mt-1 break-keep whitespace-normal">{fullNameHanja}</p>
           </div>
           <div className="text-left md:text-right">
             <p className="text-sm text-[var(--ns-muted)] font-bold mb-1">종합 점수</p>
-            <div className="text-6xl md:text-7xl font-black text-[var(--ns-accent-text)] leading-none">{scoreText}</div>
+            <div className="text-5xl md:text-6xl font-black text-[var(--ns-accent-text)] leading-none">{scoreText}</div>
             <p className="text-sm text-[var(--ns-muted)] font-semibold mt-2">{getScoreGrade(score)}</p>
           </div>
         </div>
         <div
-          className="relative z-10 mt-4 h-44 md:h-52 rounded-[1.6rem] overflow-hidden border shadow-md"
+          className="ns-saju-visual relative z-10 mt-4 h-44 md:h-52 border"
           style={SUMMARY_INNER_BORDER_STYLE}
         >
         <NamingResultRenderer
