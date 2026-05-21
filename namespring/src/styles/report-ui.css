@@ -203,6 +203,10 @@ textarea:focus-visible {
   width: min(100%, 78rem);
 }
 
+.ns-home-main {
+  width: min(100%, 92rem);
+}
+
 .ns-page-heading {
   display: grid;
   gap: var(--space-xs);
