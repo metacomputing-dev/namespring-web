@@ -18,7 +18,7 @@ export default function PaymentPageLayout({ title, subtitle, children }: Payment
         title={title}
         description={subtitle}
       />
-      <div className="ns-card ns-card--large">
+      <div className="ns-card ns-card--large ns-card--surface">
         <div className="grid gap-4">
           {children}
 

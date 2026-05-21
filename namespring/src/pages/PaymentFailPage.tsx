@@ -44,25 +44,29 @@ export default function PaymentFailPage() {
 
   return (
     <PaymentPageLayout title="결제 실패" subtitle="결제가 완료되지 않았습니다.">
-      <div className="grid gap-3">
-        <p className="text-sm font-semibold leading-relaxed text-[var(--color-ink-2)]">
-          후원 페이지에서 다시 시도해 주세요.
-        </p>
+      <div className="ns-section-stack">
+        <div className="ns-report-panel ns-report-panel--sunken">
+          <p className="text-sm font-semibold leading-relaxed text-[var(--color-ink-2)]">
+            후원 페이지에서 다시 시도해 주세요.
+          </p>
+        </div>
 
         {failInfo.orderId ? (
-          <p className="text-xs font-semibold text-[var(--color-ink-3)]">
+          <p className="ns-report-panel text-xs font-semibold text-[var(--color-ink-3)]">
             주문번호: <span className="font-bold text-[var(--color-accent)] break-all">{failInfo.orderId}</span>
           </p>
         ) : null}
 
         {failInfo.code ? (
-          <p className="text-xs font-semibold text-[var(--color-danger)]">
+          <p className="ns-report-panel border-[var(--color-danger-line)] bg-[var(--color-danger-bg)] text-xs font-semibold text-[var(--color-danger)]">
             오류 코드: <span className="font-bold">{failInfo.code}</span>
           </p>
         ) : null}
 
         {failInfo.message ? (
-          <p className="break-words text-xs font-semibold text-[var(--color-danger)]">{failInfo.message}</p>
+          <p className="ns-report-panel break-words border-[var(--color-danger-line)] bg-[var(--color-danger-bg)] text-xs font-semibold text-[var(--color-danger)]">
+            {failInfo.message}
+          </p>
         ) : null}
       </div>
     </PaymentPageLayout>
