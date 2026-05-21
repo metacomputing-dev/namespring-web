@@ -3,8 +3,8 @@ import logoSvg from './assets/logo.svg';
 
 function MainPage({ onEnter }) {
   return (
-    <div className="min-h-screen flex items-center justify-center p-6 font-sans text-[var(--ns-text)]">
-      <div className="bg-[var(--ns-surface)] p-5 rounded-[3rem] shadow-2xl border border-[var(--ns-border)] w-full max-w-2xl overflow-hidden text-center">
+    <div className="min-h-screen flex items-center justify-center p-4 font-sans text-[var(--ns-text)]">
+      <div className="ns-card ns-card--large ns-card--surface w-full max-w-2xl overflow-hidden text-center">
         <img
           src={logoSvg}
           alt="이름봄 로고"
@@ -15,7 +15,7 @@ function MainPage({ onEnter }) {
         <p className="text-[var(--ns-muted)] font-semibold mb-10">새로운 인생의 시작</p>
         <button
           onClick={onEnter}
-          className="w-full py-5 bg-[var(--ns-primary)] text-[var(--ns-accent-text)] rounded-[2rem] font-black text-lg hover:brightness-95 transition-all"
+          className="ns-primary-button w-full min-h-14"
         >
           입장하기
         </button>

@@ -11,6 +11,7 @@ import {
   EditIcon,
   InfoList,
   LeafMark,
+  PageHeading,
   PillarTable,
   ReportCard,
   ScoreRing,
@@ -233,7 +234,7 @@ function SajuPreviewCard({ entryUserInfo, report, metrics, isLoading, error }) {
     <ReportCard
       title={`${fullName} 사주 요약`}
       subtitle="입력한 생년월일을 기준으로 원국의 큰 흐름을 먼저 정리했습니다."
-      className="ns-card--soft"
+      className="ns-card--surface"
       bodyClassName="grid gap-5"
     >
       <div className="ns-saju-visual">
@@ -247,7 +248,7 @@ function SajuPreviewCard({ entryUserInfo, report, metrics, isLoading, error }) {
       </div>
       <div className="grid gap-5 lg:grid-cols-[minmax(0,0.92fr)_minmax(0,1.5fr)]">
         <div className="grid gap-4">
-          <div className="flex items-center justify-between gap-4 rounded-[var(--radius-card)] border border-[var(--color-rule)] bg-[var(--color-paper)] p-4">
+          <div className="ns-report-panel ns-report-panel--sunken flex items-center justify-between gap-4">
             <ScoreRing value={balanceScore} label="균형 지표" />
             <div className="min-w-0 text-right">
               <p className="ns-kicker">오늘의 기준</p>
@@ -262,15 +263,15 @@ function SajuPreviewCard({ entryUserInfo, report, metrics, isLoading, error }) {
         <div className="grid gap-3">
           <PillarTable columns={PILLAR_COLUMNS} rows={buildPillarRows(report)} />
           <div className="grid gap-3 sm:grid-cols-3">
-            <div className="ns-card ns-card--padded">
+            <div className="ns-report-panel">
               <p className="ns-kicker text-xs">일간</p>
               <p className="mt-1 text-lg font-extrabold text-[var(--color-ink)]">{report?.dayMaster?.stem || '-'}</p>
             </div>
-            <div className="ns-card ns-card--padded">
+            <div className="ns-report-panel">
               <p className="ns-kicker text-xs">오행</p>
               <p className="mt-1 text-lg font-extrabold text-[var(--color-ink)]">{elementLabel(report?.dayMaster?.element)}</p>
             </div>
-            <div className="ns-card ns-card--padded">
+            <div className="ns-report-panel">
               <p className="ns-kicker text-xs">음양</p>
               <p className="mt-1 text-lg font-extrabold text-[var(--color-ink)]">{report?.dayMaster?.polarity || '-'}</p>
             </div>
@@ -370,7 +371,12 @@ function HomePage({ entryUserInfo, onLoadSajuReport, onOpenCombinedReport, onOpe
       size="wide"
       contentClassName="ns-home-main"
     >
-      <div className="space-y-6">
+      <div className="ns-section-stack ns-section-stack--loose">
+        <PageHeading
+          kicker="Preview"
+          title="사주 흐름을 먼저 확인하세요"
+          description="입력한 정보를 기준으로 오늘의 원국과 다음 작업을 정리했습니다."
+        />
         <SajuPreviewCard
           entryUserInfo={entryUserInfo}
           report={previewReport}

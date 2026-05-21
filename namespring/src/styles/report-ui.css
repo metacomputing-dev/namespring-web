@@ -226,6 +226,10 @@ textarea:focus-visible {
   margin-block-end: var(--space-lg);
 }
 
+.ns-page-heading.text-center .ns-copy {
+  margin-inline: auto;
+}
+
 .ns-kicker {
   color: var(--color-accent);
   font-size: var(--text-sm);
