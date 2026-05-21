@@ -113,7 +113,7 @@ function resolvePillarPartElement(part, partType) {
 
 function InfoCard({ title, value }) {
   return (
-    <div className="rounded-xl border border-[var(--ns-border)] bg-[var(--ns-surface-soft)]/20 px-3 py-2.5">
+    <div className="ns-report-panel ns-report-panel--sunken">
       <p className="text-[11px] font-black text-[var(--ns-muted)] mb-1">{title}</p>
       <p className="text-sm text-[var(--ns-text)] break-keep whitespace-normal">{value || '-'}</p>
     </div>
@@ -256,9 +256,9 @@ function SajuReport({ report, shareUserInfo = null }) {
 
   return (
     <>
-    <div ref={reportRootRef} data-pdf-root="true" className="space-y-4">
-      <section className="rounded-[2rem] border border-[var(--ns-border)] bg-[var(--ns-surface-soft)]/20 p-3 md:p-4">
-        <div className="flex flex-wrap items-start justify-between gap-3">
+    <div ref={reportRootRef} data-pdf-root="true" className="ns-section-stack ns-section-stack--loose">
+      <section className="ns-report-surface p-4 md:p-5">
+        <div className="ns-split-row">
           <div>
             <h2 className="text-2xl font-black text-[var(--ns-accent-text)]">사주 핵심 요약</h2>
             <p className="text-sm text-[var(--ns-muted)] mt-1 break-keep whitespace-normal">
@@ -274,7 +274,7 @@ function SajuReport({ report, shareUserInfo = null }) {
             </p>
           </div>
         </div>
-        <div className="mt-3 grid grid-cols-1 md:grid-cols-3 gap-2">
+        <div className="mt-4 grid grid-cols-1 md:grid-cols-3 gap-2">
           <InfoCard title="일간 코드" value={report?.dayMaster?.stem || '-'} />
           <InfoCard title="일간 오행" value={`${elementLabel(report?.dayMaster?.element)} (${report?.dayMaster?.element || '-'})`} />
           <InfoCard title="일간 음양" value={report?.dayMaster?.polarity || '-'} />
@@ -282,7 +282,7 @@ function SajuReport({ report, shareUserInfo = null }) {
           <InfoCard title="격국" value={`${report?.gyeokguk?.type || '-'} / ${report?.gyeokguk?.category || '-'}`} />
           <InfoCard title="용신" value={`${elementLabel(report?.yongshin?.element)} (${report?.yongshin?.element || '-'})`} />
         </div>
-        <div className="mt-3 h-44 md:h-52 rounded-[1.6rem] overflow-hidden border border-[var(--ns-border)] shadow-md">
+        <div className="ns-saju-visual mt-4 h-44 md:h-52 border border-[var(--ns-border)]">
           <NamingResultRenderer
             renderMetrics={sajuRenderMetrics}
             birthDateTime={shareUserInfo?.birthDateTime ?? null}
