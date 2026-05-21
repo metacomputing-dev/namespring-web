@@ -14,6 +14,8 @@ import InputForm from './InputForm';
 import NamingCandidatesPage from './NamingCandidatesPage';
 import CombinedReportPage from './CombinedReportPage';
 import SajuReportPage from './SajuReportPage';
+import ReportShell from './components/report/ReportShell';
+import { PageHeading, StatusPanel } from './components/report/ReportPrimitives';
 import { SHARE_QUERY_KEY, parseShareEntryUserInfoToken } from './share-entry-user-info';
 import { useNavigate } from 'react-router-dom';
 import { getFrontRuntimeConfig } from './lib/runtime';
@@ -473,12 +475,11 @@ function App() {
         key: 'loading',
         node: (
           <AppBackground>
-            <div className="min-h-screen flex items-center justify-center font-sans">
-              <div className="text-center animate-pulse">
-                <div className="w-16 h-16 bg-[var(--ns-primary)] rounded-full mb-4 mx-auto shadow-xl"></div>
-                <p className="text-[var(--ns-muted)] font-black tracking-widest text-[10px] uppercase">Loading Engine...</p>
-              </div>
-            </div>
+            <ReportShell size="narrow" showNav={false}>
+              <StatusPanel tone="neutral" title="분석 엔진을 준비하고 있습니다.">
+                Loading engine...
+              </StatusPanel>
+            </ReportShell>
           </AppBackground>
         ),
       };
@@ -489,12 +490,13 @@ function App() {
         key: 'entry',
         node: (
           <AppBackground>
-            <div className="min-h-screen flex flex-col items-center p-6 font-sans text-[var(--ns-text)]">
-              <div className="bg-[var(--ns-surface)] p-5 rounded-[3rem] shadow-2xl border border-[var(--ns-border)] w-full max-w-2xl overflow-hidden">
-                <header className="mb-8 text-center">
-                  <h1 className="text-3xl font-black text-[var(--ns-accent-text)]">이름봄</h1>
-                  <p className="text-[var(--ns-muted)] text-sm font-semibold">당신의 인생과 함께하는 이름</p>
-                </header>
+            <ReportShell activeNav="naming" size="narrow" showNav={false}>
+              <PageHeading
+                kicker="Name intake"
+                title="이름봄"
+                description="작명과 사주 분석에 필요한 정보를 차분하게 입력하세요."
+              />
+              <div className="ns-card ns-card--large">
                 <InputForm
                   hanjaRepo={hanjaRepo}
                   isDbReady={isDbReady}
@@ -510,7 +512,7 @@ function App() {
                   submitLabel="시작하기"
                 />
               </div>
-            </div>
+            </ReportShell>
           </AppBackground>
         ),
       };

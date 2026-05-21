@@ -13,7 +13,7 @@ export default function OptionalEmailInput({
 }: OptionalEmailInputProps) {
   return (
     <div className="space-y-2">
-      <label htmlFor="support-email" className="block text-sm font-semibold text-[var(--ns-accent-text)]">
+      <label htmlFor="support-email" className="block text-sm font-bold text-[var(--color-accent)]">
         Email (optional)
       </label>
       <input
@@ -22,7 +22,7 @@ export default function OptionalEmailInput({
         inputMode="email"
         placeholder="you@example.com"
         className={[
-          "w-full rounded-xl border px-4 py-3 text-sm bg-white",
+          "ns-input",
           errorMessage ? "border-red-500" : "border-[var(--ns-border)]",
           disabled ? "opacity-60 cursor-not-allowed" : "",
         ].join(" ")}
@@ -31,7 +31,7 @@ export default function OptionalEmailInput({
         disabled={disabled}
         autoComplete="email"
       />
-      {errorMessage ? <p className="text-xs text-red-600">{errorMessage}</p> : null}
+      {errorMessage ? <p className="text-xs font-semibold text-[var(--color-danger)]">{errorMessage}</p> : null}
     </div>
   );
 }

@@ -33,7 +33,7 @@ export default function PaymentSuccessPage() {
     const amount = parseAmount(searchParams.get("amount"));
 
     if (!paymentKey || !orderId || amount === null) {
-      setState({ type: "error", message: "Missing payment confirmation query parameters." });
+      setState({ type: "error", message: "결제 확인에 필요한 정보가 없습니다." });
       return;
     }
 
@@ -46,7 +46,7 @@ export default function PaymentSuccessPage() {
         });
         setState({ type: "success", data: confirmed });
       } catch (error) {
-        const message = error instanceof Error ? error.message : "Payment confirmation failed.";
+        const message = error instanceof Error ? error.message : "결제 확인에 실패했습니다.";
         setState({ type: "error", message });
       }
     })();
@@ -54,29 +54,29 @@ export default function PaymentSuccessPage() {
 
   if (state.type === "loading") {
     return (
-      <PaymentPageLayout title="Payment Confirmation" subtitle="Finalizing payment with server approval.">
-        <p className="text-sm text-[var(--ns-muted)]">Confirming payment...</p>
+      <PaymentPageLayout title="결제 확인" subtitle="서버 승인 결과를 확인하고 있습니다.">
+        <p className="text-sm font-semibold text-[var(--color-ink-2)]">결제를 확인하고 있습니다.</p>
       </PaymentPageLayout>
     );
   }
 
   if (state.type === "error") {
     return (
-      <PaymentPageLayout title="Payment Confirmation Failed" subtitle="The payment could not be confirmed.">
-        <p className="text-sm text-red-600">{state.message}</p>
+      <PaymentPageLayout title="결제 확인 실패" subtitle="결제를 승인할 수 없습니다.">
+        <p className="text-sm font-semibold text-[var(--color-danger)]">{state.message}</p>
       </PaymentPageLayout>
     );
   }
 
   return (
-    <PaymentPageLayout title="Thank You" subtitle="Your support has been received.">
-      <div className="space-y-4">
-        <p className="text-sm text-[var(--ns-muted)]">
-          Thank you for your support. No additional reward is provided for this payment.
+    <PaymentPageLayout title="감사합니다" subtitle="후원이 정상적으로 접수되었습니다.">
+      <div className="grid gap-4">
+        <p className="text-sm font-semibold leading-relaxed text-[var(--color-ink-2)]">
+          결제에 따른 별도 보상은 제공되지 않지만, 서비스 개선에 큰 도움이 됩니다.
         </p>
-        <div className="rounded-xl border border-[var(--ns-border)] bg-[var(--ns-surface-soft)] p-4">
-          <p className="text-xs font-semibold text-[var(--ns-muted)]">Order Number</p>
-          <p className="mt-1 text-sm font-bold text-[var(--ns-accent-text)] break-all">{state.data.orderId}</p>
+        <div className="ns-card ns-card--padded ns-card--soft">
+          <p className="text-xs font-bold text-[var(--color-ink-3)]">주문번호</p>
+          <p className="mt-1 break-all text-sm font-bold text-[var(--color-accent)]">{state.data.orderId}</p>
         </div>
       </div>
     </PaymentPageLayout>
