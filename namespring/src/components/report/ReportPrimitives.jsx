@@ -121,7 +121,7 @@ export function ScoreRing({ value = 0, max = 100, label, className = '' }) {
   return (
     <div className={cx('inline-grid justify-items-center gap-2', className)}>
       <div className="ns-score-ring" style={{ '--score': score }}>
-        <div className="text-center">
+        <div className="ns-score-ring__content">
           <span className="ns-score-ring__value">{displayValue}</span>
           <span className="ns-score-ring__max">/{safeMax}</span>
         </div>
