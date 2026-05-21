@@ -373,6 +373,7 @@ function HomePage({ entryUserInfo, onLoadSajuReport, onOpenCombinedReport, onOpe
       activeNav="preview"
       onEdit={typeof onOpenEntry === 'function' ? () => onOpenEntry(entryUserInfo) : null}
       size="wide"
+      contentClassName="ns-home-main"
     >
       <div className="space-y-6">
         <SajuPreviewCard

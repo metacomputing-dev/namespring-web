@@ -62,13 +62,15 @@ CSS is added.
 ## Per-Page Allowances
 
 - Home may use preview and task tiles.
-- Entry and candidate pages may use dense controls.
+- Entry may use the original centered intake surface so the long form stays
+  focused.
+- Candidate pages may use dense controls.
 - Report pages may use wide document layouts.
 - Payment pages must stay narrow and transactional.
 
 ## What Pages Must Share
 
-- Wordmark and masthead.
+- Wordmark, and masthead on post-entry app pages.
 - Accent placement below 5 percent of the viewport.
 - Display and body font roles.
 - Tokenized colors and spacing.
