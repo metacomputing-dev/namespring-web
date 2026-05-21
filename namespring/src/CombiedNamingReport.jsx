@@ -11,7 +11,6 @@ import {
   CollapsibleMiniCard,
   REPORT_HOME_CARD_TONE_MAP,
   StarRating,
-  getNestedGradientClass,
   getNestedMiniCardClass,
 } from './report-modules-ui';
 import { getElementToneClass } from './theme/report-ui-theme';
@@ -606,7 +605,7 @@ function CombiedNamingReport({
 
   return (
     <>
-      <div ref={reportRootRef} data-pdf-root="true" className="space-y-4">
+      <div ref={reportRootRef} data-pdf-root="true" className="ns-section-stack ns-section-stack--loose">
         <CollapsibleCard
           title="이름 적합도 평가"
           subtitle="사주와 성명학을 함께 고려한 결과 카드입니다."
@@ -615,8 +614,8 @@ function CombiedNamingReport({
           tone="fit"
           toneMap={CARD_TONE}
         >
-          <div className="rounded-2xl border border-[var(--ns-tone-success-border)] bg-gradient-to-r from-[var(--ns-tone-success-bg)] via-[var(--ns-surface-soft)] to-[var(--ns-report-grad-end)] p-4">
-            <div className="flex flex-wrap items-start justify-between gap-3">
+          <div className="ns-report-surface p-4">
+            <div className="ns-split-row">
               <div>
                 <p className="text-xs font-black text-[var(--ns-tone-success-text)]">이름 적합도 결과</p>
                 <h2 className="mt-1 text-2xl font-black text-[var(--ns-accent-text)] break-keep whitespace-normal">{nameLabel}</h2>
@@ -627,15 +626,15 @@ function CombiedNamingReport({
               </div>
             </div>
             <div className="mt-3 grid grid-cols-1 md:grid-cols-3 gap-2 text-sm">
-              <div className="rounded-xl border border-[var(--ns-border)] bg-[var(--ns-surface)]/20 px-3 py-2">
+              <div className="ns-report-panel">
                 <p className="text-[11px] font-black text-[var(--ns-muted)]">한 줄 결론</p>
                 <p className="font-semibold text-[var(--ns-text)]">{nameCompatibility?.summary || '이름 적합도 분석 결과를 준비 중입니다.'}</p>
               </div>
-              <div className="rounded-xl border border-[var(--ns-border)] bg-[var(--ns-surface)]/20 px-3 py-2">
+              <div className="ns-report-panel">
                 <p className="text-[11px] font-black text-[var(--ns-muted)]">핵심 점수</p>
                 <p className="font-semibold text-[var(--ns-text)]">{`종합 ${Math.round(Number(nameCompatibility?.overallScore) || 0)} / 사주 ${Math.round(Number(nameCompatibility?.sajuCompatibilityScore) || 0)} / 이름 ${Math.round(Number(nameCompatibility?.nameAnalysisScore) || 0)}`}</p>
               </div>
-              <div className="rounded-xl border border-[var(--ns-border)] bg-[var(--ns-surface)]/20 px-3 py-2">
+              <div className="ns-report-panel">
                 <p className="text-[11px] font-black text-[var(--ns-muted)]">조언 이유</p>
                 <p className="font-semibold text-[var(--ns-text)]">{asArray(nameCompatibility?.details)[0] || '세부 설명이 준비 중입니다.'}</p>
               </div>
@@ -658,7 +657,7 @@ function CombiedNamingReport({
           tone="summary"
           toneMap={CARD_TONE}
         >
-          <div className={`space-y-2.5 rounded-2xl border border-[var(--ns-tone-info-border)] ${getNestedGradientClass('info')} p-2`}>
+          <div className="ns-report-panel ns-report-panel--sunken ns-section-stack">
             {summaryCards.map((item, summaryIndex) => {
               const key = buildMiniKey('summary', item.key);
               return (
@@ -685,7 +684,7 @@ function CombiedNamingReport({
           tone="periods"
           toneMap={CARD_TONE}
         >
-          <div className={`space-y-2.5 rounded-2xl border border-[var(--ns-tone-warn-border)] ${getNestedGradientClass('warn')} p-2`}>
+          <div className="ns-report-panel ns-report-panel--sunken ns-section-stack">
             <div className="space-y-2">
               <div className="grid grid-cols-2 md:grid-cols-4 gap-2">
                 {periodOptions.map((periodOption) => {
@@ -707,7 +706,7 @@ function CombiedNamingReport({
               </div>
 
               {selectedPeriod && !activeDetail ? (
-                <div className="rounded-xl border border-[var(--ns-border)] bg-[var(--ns-surface)]/20 px-3 py-2">
+                <div className="ns-report-panel">
                   <div className="flex flex-wrap items-center justify-between gap-2">
                     <div>
                       <p className="text-xs font-black text-[var(--ns-tone-warn-text)]">선택 기간</p>
@@ -722,7 +721,7 @@ function CombiedNamingReport({
               ) : null}
 
               {activeDetail ? (
-                <section className="rounded-xl border border-[var(--ns-tone-info-border)] bg-[var(--ns-tone-info-bg)]/20 overflow-hidden">
+                <section className="ns-report-surface overflow-hidden">
                   <div className="px-3 py-2.5 border-b border-[var(--ns-tone-info-border)]">
                     <div className="flex flex-wrap items-start justify-between gap-2">
                       <div className="min-w-0">
@@ -764,7 +763,7 @@ function CombiedNamingReport({
 
                   {isDetailOpen ? (
                     <div className="px-3 pb-3 space-y-2.5">
-                      <div className="rounded-lg border border-[var(--ns-border)] bg-[var(--ns-surface)]/20 px-2.5 py-2 space-y-1.5">
+                      <div className="ns-report-panel ns-report-panel--sunken space-y-1.5">
                         {cellDetailParagraphs(activeDetail.cell).map((paragraph, index) => (
                           <p key={`detail-paragraph-${activeDetail.key}-${index}`} className="text-sm leading-relaxed font-semibold text-[var(--ns-text)] break-keep whitespace-normal">{paragraph}</p>
                         ))}
@@ -846,13 +845,13 @@ function CombiedNamingReport({
           </div>
         </CollapsibleCard>
 
-        <section className="rounded-2xl border border-[var(--ns-tone-info-border)] bg-gradient-to-r from-[var(--ns-tone-info-bg)] via-[var(--ns-surface-soft)] to-[var(--ns-report-grad-end)] px-3 py-3">
+        <section className="ns-report-surface p-3">
           <p className="text-sm font-black text-[var(--ns-accent-text)]">다른 보고서 보기</p>
           <div className="mt-2 grid grid-cols-2 gap-2">
             <button
               type="button"
               onClick={onOpenNamingReport}
-              className="w-full rounded-xl border border-[var(--ns-border)] bg-[var(--ns-surface)]/20 px-3 py-3 text-left hover:bg-[var(--ns-surface-soft)]/20 transition-colors"
+              className="ns-report-panel w-full text-left transition-colors hover:bg-[var(--ns-surface-soft)]/30"
             >
               <span className="inline-flex items-center gap-1.5 text-sm font-black text-[var(--ns-accent-text)]">이름 평가 보고서</span>
               <span className="mt-1 block text-[11px] leading-relaxed font-semibold text-[var(--ns-muted)]">성명학 중심 상세 결과를 확인합니다.</span>
@@ -860,7 +859,7 @@ function CombiedNamingReport({
             <button
               type="button"
               onClick={onOpenSajuReport}
-              className="w-full rounded-xl border border-[var(--ns-border)] bg-[var(--ns-surface)]/20 px-3 py-3 text-left hover:bg-[var(--ns-surface-soft)]/20 transition-colors"
+              className="ns-report-panel w-full text-left transition-colors hover:bg-[var(--ns-surface-soft)]/30"
             >
               <span className="inline-flex items-center gap-1.5 text-sm font-black text-[var(--ns-accent-text)]">사주 평가 보고서</span>
               <span className="mt-1 block text-[11px] leading-relaxed font-semibold text-[var(--ns-muted)]">사주 중심 상세 결과를 확인합니다.</span>

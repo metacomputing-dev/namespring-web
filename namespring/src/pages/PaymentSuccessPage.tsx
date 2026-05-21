@@ -55,7 +55,9 @@ export default function PaymentSuccessPage() {
   if (state.type === "loading") {
     return (
       <PaymentPageLayout title="결제 확인" subtitle="서버 승인 결과를 확인하고 있습니다.">
-        <p className="text-sm font-semibold text-[var(--color-ink-2)]">결제를 확인하고 있습니다.</p>
+        <div className="ns-report-panel ns-report-panel--sunken">
+          <p className="text-sm font-semibold text-[var(--color-ink-2)]">결제를 확인하고 있습니다.</p>
+        </div>
       </PaymentPageLayout>
     );
   }
@@ -63,18 +65,22 @@ export default function PaymentSuccessPage() {
   if (state.type === "error") {
     return (
       <PaymentPageLayout title="결제 확인 실패" subtitle="결제를 승인할 수 없습니다.">
-        <p className="text-sm font-semibold text-[var(--color-danger)]">{state.message}</p>
+        <div className="ns-report-panel border-[var(--color-danger-line)] bg-[var(--color-danger-bg)]">
+          <p className="text-sm font-semibold text-[var(--color-danger)]">{state.message}</p>
+        </div>
       </PaymentPageLayout>
     );
   }
 
   return (
     <PaymentPageLayout title="감사합니다" subtitle="후원이 정상적으로 접수되었습니다.">
-      <div className="grid gap-4">
-        <p className="text-sm font-semibold leading-relaxed text-[var(--color-ink-2)]">
-          결제에 따른 별도 보상은 제공되지 않지만, 서비스 개선에 큰 도움이 됩니다.
-        </p>
-        <div className="ns-card ns-card--padded ns-card--soft">
+      <div className="ns-section-stack">
+        <div className="ns-report-panel ns-report-panel--sunken">
+          <p className="text-sm font-semibold leading-relaxed text-[var(--color-ink-2)]">
+            결제에 따른 별도 보상은 제공되지 않지만, 서비스 개선에 큰 도움이 됩니다.
+          </p>
+        </div>
+        <div className="ns-report-surface p-4">
           <p className="text-xs font-bold text-[var(--color-ink-3)]">주문번호</p>
           <p className="mt-1 break-all text-sm font-bold text-[var(--color-accent)]">{state.data.orderId}</p>
         </div>
