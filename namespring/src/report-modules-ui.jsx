@@ -112,7 +112,7 @@ export function CollapsibleMiniCard({
 }) {
   if (hideToggle) {
     return (
-      <article className={`rounded-xl border ${getNestedMiniCardClass('surface')} shadow-[inset_0_1px_0_rgba(255,255,255,0.14)] ${className}`}>
+      <article className={`rounded-xl border ${getNestedMiniCardClass('surface')} shadow-[var(--shadow-inset-soft)] ${className}`}>
         {(title || subtitle) ? (
           <div className="px-3 pt-2.5">
             {title ? <p className="text-sm font-black text-[var(--ns-accent-text)]">{title}</p> : null}
@@ -125,7 +125,7 @@ export function CollapsibleMiniCard({
   }
 
   return (
-    <article className={`rounded-xl border ${getNestedMiniCardClass('surface')} shadow-[inset_0_1px_0_rgba(255,255,255,0.14)] ${className}`}>
+    <article className={`rounded-xl border ${getNestedMiniCardClass('surface')} shadow-[var(--shadow-inset-soft)] ${className}`}>
       <button
         type="button"
         onClick={onToggle}
