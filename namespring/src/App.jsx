@@ -490,28 +490,42 @@ function App() {
         key: 'entry',
         node: (
           <AppBackground>
-            <ReportShell size="narrow" showNav={false}>
-              <div className="ns-card ns-card--large ns-card--surface">
-                <PageHeading
-                  kicker="NameSpring"
-                  title="이름봄"
-                  description="이름과 생년월일을 입력하면 사주 흐름과 이름 분석을 한 화면에서 이어서 볼 수 있습니다."
-                  className="mb-6 text-center"
-                />
-                <InputForm
-                  hanjaRepo={hanjaRepo}
-                  isDbReady={isDbReady}
-                  initialUserInfo={entryUserInfo}
-                  onEnter={(userInfo) => {
-                    const normalized = normalizeEntryUserInfo(userInfo);
-                    setEntryUserInfo(normalized);
-                    try {
-                      sessionStorage.setItem(ENTRY_STORAGE_KEY, JSON.stringify(normalized));
-                    } catch {}
-                    navigateToPage('home', { hasEntryUserInfo: Boolean(normalized) });
-                  }}
-                  submitLabel="시작하기"
-                />
+            <ReportShell size="wide" showNav={false} contentClassName="ns-entry-main">
+              <div className="ns-entry-layout">
+                <section className="ns-entry-intro" aria-label="이름봄 시작">
+                  <p className="ns-kicker">NameSpring</p>
+                  <h1 className="ns-entry-title">이름봄</h1>
+                  <p className="ns-entry-copy">
+                    이름과 태어난 시간을 차분히 정리한 뒤, 사주 흐름과 이름 분석을 이어서 확인합니다.
+                  </p>
+                  <div className="ns-entry-steps" aria-label="입력 순서">
+                    <span>이름</span>
+                    <span>생년월일</span>
+                    <span>성별</span>
+                  </div>
+                </section>
+                <div className="ns-card ns-card--large ns-card--surface ns-entry-card">
+                  <PageHeading
+                    kicker="Start"
+                    title="기본 정보 입력"
+                    description="분석에 필요한 최소 정보만 먼저 입력해 주세요."
+                    className="mb-6 ns-page-heading--compact"
+                  />
+                  <InputForm
+                    hanjaRepo={hanjaRepo}
+                    isDbReady={isDbReady}
+                    initialUserInfo={entryUserInfo}
+                    onEnter={(userInfo) => {
+                      const normalized = normalizeEntryUserInfo(userInfo);
+                      setEntryUserInfo(normalized);
+                      try {
+                        sessionStorage.setItem(ENTRY_STORAGE_KEY, JSON.stringify(normalized));
+                      } catch {}
+                      navigateToPage('home', { hasEntryUserInfo: Boolean(normalized) });
+                    }}
+                    submitLabel="시작하기"
+                  />
+                </div>
               </div>
             </ReportShell>
           </AppBackground>
