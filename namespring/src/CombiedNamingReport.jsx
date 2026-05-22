@@ -6,6 +6,7 @@ import {
   ReportShareDialog,
   useReportActions,
 } from './report-common-ui';
+import NamingResultRenderer from './NamingResultRenderer';
 import {
   StarRating,
 } from './report-modules-ui';
@@ -138,6 +139,74 @@ function buildPillarColumns(pillars) {
 function elementClassSuffix(elementKey) {
   const value = normalizeElementKey(elementKey).toLowerCase();
   return value || 'neutral';
+}
+
+function toRendererElementKey(value) {
+  const key = normalizeElementKey(value);
+  if (key === 'WOOD') return 'Wood';
+  if (key === 'FIRE') return 'Fire';
+  if (key === 'EARTH') return 'Earth';
+  if (key === 'METAL') return 'Metal';
+  if (key === 'WATER') return 'Water';
+  return '';
+}
+
+const STEM_POLARITY = {
+  갑: 'yang',
+  병: 'yang',
+  무: 'yang',
+  경: 'yang',
+  임: 'yang',
+  을: 'yin',
+  정: 'yin',
+  기: 'yin',
+  신: 'yin',
+  계: 'yin',
+};
+
+const BRANCH_POLARITY = {
+  자: 'yang',
+  인: 'yang',
+  진: 'yang',
+  오: 'yang',
+  신: 'yang',
+  술: 'yang',
+  축: 'yin',
+  묘: 'yin',
+  사: 'yin',
+  미: 'yin',
+  유: 'yin',
+  해: 'yin',
+};
+
+function buildCombinedSajuRenderMetrics(overview, shareUserInfo, nameCompatibility) {
+  const elementCounts = { Wood: 0, Fire: 0, Earth: 0, Metal: 0, Water: 0 };
+  let positiveCount = 0;
+  let negativeCount = 0;
+
+  asArray(overview?.pillars).forEach((pillar) => {
+    const { stemElement, branchElement } = splitPillarElements(pillar?.element);
+    [stemElement, branchElement].forEach((element) => {
+      const key = toRendererElementKey(element);
+      if (key) elementCounts[key] += 1;
+    });
+
+    const stemPolarity = STEM_POLARITY[String(pillar?.stem ?? '').trim()];
+    const branchPolarity = BRANCH_POLARITY[String(pillar?.branch ?? '').trim()];
+    if (stemPolarity === 'yang') positiveCount += 1;
+    if (stemPolarity === 'yin') negativeCount += 1;
+    if (branchPolarity === 'yang') positiveCount += 1;
+    if (branchPolarity === 'yin') negativeCount += 1;
+  });
+
+  return {
+    elementCounts,
+    positiveCount,
+    negativeCount,
+    score: nameCompatibility?.overallScore ?? '',
+    displayHangul: `${joinNameText(shareUserInfo?.lastName, 'hangul')}${joinNameText(shareUserInfo?.firstName, 'hangul')}`,
+    displayHanja: `${joinNameText(shareUserInfo?.lastName, 'hanja')}${joinNameText(shareUserInfo?.firstName, 'hanja')}`,
+  };
 }
 
 function buildSummaryItems(fortuneReport, nameCompatibility) {
@@ -550,6 +619,20 @@ function SajuPillarsGrid({ pillars = [], compact = false }) {
   );
 }
 
+function SajuIllustrationPanel({ renderMetrics, shareUserInfo }) {
+  return (
+    <div className="cr-saju-illustration" aria-label="사주 흐름 일러스트">
+      <NamingResultRenderer
+        renderMetrics={renderMetrics}
+        birthDateTime={shareUserInfo?.birthDateTime ?? null}
+        gender={shareUserInfo?.gender}
+        isSolarCalendar={shareUserInfo?.isSolarCalendar}
+        isBirthTimeUnknown={shareUserInfo?.isBirthTimeUnknown}
+      />
+    </div>
+  );
+}
+
 function SummaryRail({ nameParts, birthLabel, genderLabel, nameCompatibility, pillars }) {
   const overallScore = scoreNumber(nameCompatibility?.overallScore);
   const sajuScore = scoreNumber(nameCompatibility?.sajuCompatibilityScore);
@@ -681,6 +764,10 @@ function CombiedNamingReport({
   const birthLabel = useMemo(() => formatBirthDateTimeLabel(shareUserInfo), [shareUserInfo]);
   const genderLabel = useMemo(() => formatGenderLabel(shareUserInfo?.gender), [shareUserInfo]);
   const overview = fortuneReport?.overviewSummary || {};
+  const sajuRenderMetrics = useMemo(
+    () => buildCombinedSajuRenderMetrics(overview, shareUserInfo, nameCompatibility),
+    [overview, shareUserInfo, nameCompatibility],
+  );
   const summaryItems = useMemo(
     () => buildSummaryItems(fortuneReport, nameCompatibility),
     [fortuneReport, nameCompatibility],
@@ -830,6 +917,7 @@ function CombiedNamingReport({
               title="사주 평가"
               description="사주팔자와 성향, 강점, 주의점을 한 문서 안에서 이어서 봅니다."
             >
+              <SajuIllustrationPanel renderMetrics={sajuRenderMetrics} shareUserInfo={shareUserInfo} />
               <SajuPillarsGrid pillars={overview?.pillars} />
               <div className="cr-text-block">
                 <h3>사주팔자 요약</h3>

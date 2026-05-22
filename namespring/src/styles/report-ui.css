@@ -731,6 +731,10 @@ textarea:focus-visible {
   border-inline-end: 0;
 }
 
+.ns-metric-strip--candidate-summary {
+  grid-template-columns: minmax(0, 0.74fr) minmax(0, 1.26fr);
+}
+
 .ns-metric__label {
   color: var(--color-ink-3);
   font-size: var(--text-xs);
@@ -1176,6 +1180,16 @@ textarea:focus-visible {
   gap: var(--space-sm);
 }
 
+.cr-saju-illustration {
+  min-height: 13rem;
+  height: clamp(13rem, 26vw, 18rem);
+  overflow: hidden;
+  border: var(--rule-thin) solid var(--color-rule);
+  border-radius: var(--radius-card);
+  background: var(--color-paper-2);
+  box-shadow: var(--shadow-1);
+}
+
 .cr-pillars {
   overflow: hidden;
   border: var(--rule-thin) solid var(--color-rule);
@@ -1503,6 +1517,10 @@ textarea:focus-visible {
 
   .ns-metric-strip {
     grid-template-columns: repeat(3, minmax(0, 1fr));
+  }
+
+  .ns-metric-strip--candidate-summary {
+    grid-template-columns: minmax(0, 0.74fr) minmax(0, 1.26fr);
   }
 
   .cr-hero__main {
