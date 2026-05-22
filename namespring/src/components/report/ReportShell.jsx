@@ -1,6 +1,7 @@
 import React from 'react';
 import { withBasePath } from '../../lib/paths';
-import { cx, EditIcon, HomeIcon, LeafMark } from './ReportPrimitives';
+import logoSvg from '../../assets/logo.svg';
+import { cx, EditIcon, HomeIcon } from './ReportPrimitives';
 
 const NAV_ITEMS = [
   { key: 'preview', label: '사주 미리보기' },
@@ -13,7 +14,7 @@ const NAV_ITEMS = [
 function Wordmark({ onHome }) {
   const content = (
     <>
-      <LeafMark className="ns-wordmark__leaf" />
+      <img src={logoSvg} alt="" className="ns-wordmark__logo" draggable="false" />
       <span>이름봄</span>
     </>
   );
@@ -62,7 +63,7 @@ export default function ReportShell({
   size = 'default',
   className = '',
   contentClassName = '',
-  showNav = true,
+  showNav = false,
 }) {
   const sizeClass = size === 'narrow'
     ? 'ns-page-main--narrow'

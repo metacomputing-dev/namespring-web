@@ -633,45 +633,6 @@ function SajuIllustrationPanel({ renderMetrics, shareUserInfo }) {
   );
 }
 
-function SummaryRail({ nameParts, birthLabel, genderLabel, nameCompatibility, pillars }) {
-  const overallScore = scoreNumber(nameCompatibility?.overallScore);
-  const sajuScore = scoreNumber(nameCompatibility?.sajuCompatibilityScore);
-  const nameScore = scoreNumber(nameCompatibility?.nameAnalysisScore);
-
-  return (
-    <aside className="cr-summary-rail" aria-label="통합 보고서 요약">
-      <section className="cr-rail-card">
-        <p className="cr-rail-card__label">이름</p>
-        <h2 className="cr-rail-card__name">{nameParts.hangul}</h2>
-        {nameParts.hanja ? <p className="cr-rail-card__hanja">{nameParts.hanja}</p> : null}
-        <p className="cr-rail-card__meta">{birthLabel}</p>
-        <p className="cr-rail-card__meta">{genderLabel}</p>
-      </section>
-
-      <section className="cr-rail-card">
-        <p className="cr-rail-card__label">사주팔자</p>
-        <SajuPillarsGrid pillars={pillars} compact />
-      </section>
-
-      <section className="cr-rail-card">
-        <p className="cr-rail-card__label">핵심 점수</p>
-        <div className="cr-rail-scores">
-          <span>종합 <strong>{overallScore}</strong></span>
-          <span>사주 <strong>{sajuScore}</strong></span>
-          <span>이름 <strong>{nameScore}</strong></span>
-        </div>
-      </section>
-
-      <nav className="cr-rail-nav" aria-label="통합 보고서 빠른 이동">
-        <a href="#combined-name">이름 평가</a>
-        <a href="#combined-saju">사주 요약</a>
-        <a href="#combined-summary">총평</a>
-        <a href="#combined-periods">기간별 운세</a>
-      </nav>
-    </aside>
-  );
-}
-
 function LifeFlowChart({ points, onSelect }) {
   const width = 640;
   const height = 180;
@@ -864,15 +825,7 @@ function CombiedNamingReport({
           nameCompatibility={nameCompatibility}
         />
 
-        <div className="cr-document-grid">
-          <SummaryRail
-            nameParts={nameParts}
-            birthLabel={birthLabel}
-            genderLabel={genderLabel}
-            nameCompatibility={nameCompatibility}
-            pillars={overview?.pillars}
-          />
-
+        <div className="cr-document-grid cr-document-grid--single">
           <main className="cr-main-content" aria-label="통합 평가 본문">
             <ReportSection
               id="combined-summary"
