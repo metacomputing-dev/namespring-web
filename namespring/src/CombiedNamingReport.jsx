@@ -619,9 +619,13 @@ function SajuPillarsGrid({ pillars = [], compact = false }) {
   );
 }
 
-function SajuIllustrationPanel({ renderMetrics, shareUserInfo }) {
+function SajuIllustrationPanel({ renderMetrics, shareUserInfo, variant = '' }) {
+  const className = variant === 'top'
+    ? 'cr-saju-illustration cr-saju-illustration--top'
+    : 'cr-saju-illustration';
+
   return (
-    <div className="cr-saju-illustration" aria-label="사주 흐름 일러스트">
+    <div className={className} aria-label="사주 흐름 일러스트">
       <NamingResultRenderer
         renderMetrics={renderMetrics}
         birthDateTime={shareUserInfo?.birthDateTime ?? null}
@@ -818,6 +822,12 @@ function CombiedNamingReport({
   return (
     <>
       <div ref={reportRootRef} data-pdf-root="true" className="combined-report">
+        <SajuIllustrationPanel
+          renderMetrics={sajuRenderMetrics}
+          shareUserInfo={shareUserInfo}
+          variant="top"
+        />
+
         <ReportHero
           nameParts={nameParts}
           birthLabel={birthLabel}
@@ -870,7 +880,6 @@ function CombiedNamingReport({
               title="사주 평가"
               description="사주팔자와 성향, 강점, 주의점을 한 문서 안에서 이어서 봅니다."
             >
-              <SajuIllustrationPanel renderMetrics={sajuRenderMetrics} shareUserInfo={shareUserInfo} />
               <SajuPillarsGrid pillars={overview?.pillars} />
               <div className="cr-text-block">
                 <h3>사주팔자 요약</h3>

@@ -1205,6 +1205,10 @@ textarea:focus-visible {
   box-shadow: var(--shadow-1);
 }
 
+.cr-saju-illustration--top {
+  height: clamp(14rem, 24vw, 20rem);
+}
+
 .cr-pillars {
   overflow: hidden;
   border: var(--rule-thin) solid var(--color-rule);
