@@ -7,27 +7,8 @@ import {
   useReportActions,
 } from './report-common-ui';
 import {
-  CollapsibleCard,
-  CollapsibleMiniCard,
-  REPORT_HOME_CARD_TONE_MAP,
   StarRating,
-  getNestedMiniCardClass,
 } from './report-modules-ui';
-import { getElementToneClass } from './theme/report-ui-theme';
-
-const CARD_TONE = {
-  fit: REPORT_HOME_CARD_TONE_MAP.report,
-  summary: REPORT_HOME_CARD_TONE_MAP.info,
-  periods: REPORT_HOME_CARD_TONE_MAP.gratitude,
-};
-
-const SUMMARY_MINI_CARD_CLASSES = [
-  getNestedMiniCardClass('info'),
-  getNestedMiniCardClass('success'),
-  getNestedMiniCardClass('cyan'),
-  getNestedMiniCardClass('warn'),
-  getNestedMiniCardClass('danger'),
-];
 
 const TIERED_PERIOD_OPTIONS = [
   { key: 'today', periodKind: 'today', label: '오늘' },
@@ -85,8 +66,129 @@ function getNameLabelFromUserInfo(shareUserInfo) {
   return `${fullHangul || '-'}${fullHanja ? ` (${fullHanja})` : ''}`;
 }
 
-function buildMiniKey(section, key) {
-  return `${section}:${key}`;
+function getNamePartsFromUserInfo(shareUserInfo) {
+  const hangul = `${joinNameText(shareUserInfo?.lastName, 'hangul')}${joinNameText(shareUserInfo?.firstName, 'hangul')}`;
+  const hanja = `${joinNameText(shareUserInfo?.lastName, 'hanja')}${joinNameText(shareUserInfo?.firstName, 'hanja')}`;
+  return {
+    hangul: hangul || '이름 정보 없음',
+    hanja,
+    label: getNameLabelFromUserInfo(shareUserInfo),
+  };
+}
+
+function formatGenderLabel(gender) {
+  if (gender === 'female') return '여성';
+  if (gender === 'male') return '남성';
+  return '성별 정보 없음';
+}
+
+function formatBirthDateTimeLabel(shareUserInfo) {
+  const birth = shareUserInfo?.birthDateTime;
+  const year = Number(birth?.year);
+  const month = Number(birth?.month);
+  const day = Number(birth?.day);
+  const hour = Number(birth?.hour);
+  const minute = Number(birth?.minute);
+  if (!Number.isInteger(year) || !Number.isInteger(month) || !Number.isInteger(day)) {
+    return '생년월일 정보 없음';
+  }
+  const date = `${year}.${String(month).padStart(2, '0')}.${String(day).padStart(2, '0')}`;
+  const calendar = shareUserInfo?.isSolarCalendar === false ? '음력' : '양력';
+  if (shareUserInfo?.isBirthTimeUnknown) return `${date} · 시각 미상 · ${calendar}`;
+  if (!Number.isInteger(hour) || !Number.isInteger(minute)) return `${date} · ${calendar}`;
+  return `${date} ${String(hour).padStart(2, '0')}:${String(minute).padStart(2, '0')} · ${calendar}`;
+}
+
+function scoreNumber(value) {
+  return Math.max(0, Math.min(100, Math.round(Number(value) || 0)));
+}
+
+function scoreStateLabel(score) {
+  const safeScore = scoreNumber(score);
+  if (safeScore >= 85) return '강한 조화';
+  if (safeScore >= 70) return '좋은 조화';
+  if (safeScore >= 55) return '균형형';
+  if (safeScore > 0) return '보완 필요';
+  return '분석 대기';
+}
+
+function compactText(value, fallback = '-') {
+  return firstSentence(value) || fallback;
+}
+
+function buildPillarColumns(pillars) {
+  const labels = ['년주', '월주', '일주', '시주'];
+  const list = asArray(pillars).slice(0, 4);
+  while (list.length < 4) list.push(null);
+  return list.map((pillar, index) => {
+    const { stemElement, branchElement } = splitPillarElements(pillar?.element);
+    return {
+      key: `pillar-${index}`,
+      label: pillar?.position || labels[index],
+      stem: pillar?.stem || '-',
+      branch: pillar?.branch || '-',
+      stemElement: stemElement || '-',
+      branchElement: branchElement || '-',
+      stemElementKey: normalizeElementKey(stemElement),
+      branchElementKey: normalizeElementKey(branchElement),
+    };
+  });
+}
+
+function elementClassSuffix(elementKey) {
+  const value = normalizeElementKey(elementKey).toLowerCase();
+  return value || 'neutral';
+}
+
+function buildSummaryItems(fortuneReport, nameCompatibility) {
+  const overview = fortuneReport?.overviewSummary;
+  const personality = fortuneReport?.personality;
+  const strengths = fortuneReport?.strengthsWeaknesses;
+  const cautions = fortuneReport?.cautions;
+  const firstCaution = asArray(cautions?.cautions)[0];
+  const firstStrength = asArray(strengths?.strengths)[0];
+
+  return [
+    {
+      key: 'saju-flow',
+      number: '01',
+      title: '사주 흐름',
+      body: compactText(overview?.overallSummary, '사주 흐름 요약을 준비 중입니다.'),
+    },
+    {
+      key: 'name-harmony',
+      number: '02',
+      title: '이름과의 조화',
+      body: compactText(nameCompatibility?.summary, '이름과 사주의 조화 분석을 준비 중입니다.'),
+    },
+    {
+      key: 'watch-point',
+      number: '03',
+      title: firstStrength?.text ? '살려볼 점' : '살펴볼 점',
+      body: compactText(firstStrength?.reason || firstCaution?.response || personality?.summary, '보완할 흐름을 차분히 살펴보면 좋습니다.'),
+    },
+  ];
+}
+
+function buildLifeFlowPoints(periodOptions) {
+  const lifePeriods = asArray(periodOptions).filter((item) => item?.isLifeStage).slice(0, 10);
+  if (!lifePeriods.length) {
+    return TIERED_PERIOD_OPTIONS.map((item, index) => ({
+      key: item.key,
+      label: item.label,
+      value: 55 + index * 4,
+      isSelected: false,
+    }));
+  }
+  return lifePeriods.map((item) => {
+    const value = scoreNumber((Number(item?.lifeStage?.stars || item?.period?.overall?.stars || 3) / 5) * 100);
+    return {
+      key: item.key,
+      label: item.label.replace('세', ''),
+      value: value || 50,
+      isSelected: false,
+    };
+  });
 }
 
 function splitPillarElements(elementText) {
@@ -104,47 +206,6 @@ function normalizeElementKey(value) {
   if (raw === 'METAL' || raw.includes('금') || raw.includes('쇠')) return 'METAL';
   if (raw === 'WATER' || raw.includes('수') || raw.includes('물')) return 'WATER';
   return '';
-}
-
-function getPillarElementCardClass(elementKey) {
-  return getElementToneClass(elementKey || '');
-}
-
-function buildEightPillarComponents(pillars) {
-  const list = asArray(pillars);
-  const rows = [];
-
-  list.forEach((pillar, index) => {
-    const position = pillar?.position || `기둥 ${index + 1}`;
-    const { stemElement, branchElement } = splitPillarElements(pillar?.element);
-    rows.push({
-      key: `stem-${index}`,
-      label: `${position} 천간`,
-      value: pillar?.stem || '-',
-      element: stemElement || '-',
-      elementKey: normalizeElementKey(stemElement),
-    });
-    rows.push({
-      key: `branch-${index}`,
-      label: `${position} 지지`,
-      value: pillar?.branch || '-',
-      element: branchElement || '-',
-      elementKey: normalizeElementKey(branchElement),
-    });
-  });
-
-  while (rows.length < 8) {
-    const idx = rows.length + 1;
-    rows.push({
-      key: `empty-${idx}`,
-      label: `성분 ${idx}`,
-      value: '-',
-      element: '-',
-      elementKey: '',
-    });
-  }
-
-  return rows.slice(0, 8);
 }
 
 function normalizeText(value) {
@@ -367,6 +428,228 @@ function collectExpertTags(cell, glossary) {
   return tags.slice(0, DETAIL_TAG_LIMIT);
 }
 
+function ScoreMetricCard({ label, value, caption }) {
+  return (
+    <div className="cr-metric-card">
+      <p className="cr-metric-card__label">{label}</p>
+      <p className="cr-metric-card__value">{value}</p>
+      {caption ? <p className="cr-metric-card__caption">{caption}</p> : null}
+    </div>
+  );
+}
+
+function ReportHero({ nameParts, birthLabel, genderLabel, nameCompatibility }) {
+  const overallScore = scoreNumber(nameCompatibility?.overallScore);
+  const sajuScore = scoreNumber(nameCompatibility?.sajuCompatibilityScore);
+  const nameScore = scoreNumber(nameCompatibility?.nameAnalysisScore);
+  const summary = compactText(nameCompatibility?.summary, '이름 적합도 분석 결과를 준비 중입니다.');
+
+  return (
+    <section className="cr-hero" aria-labelledby="combined-report-hero-title">
+      <div className="cr-hero__main">
+        <div className="cr-hero__identity">
+          <p className="cr-eyebrow">이름 적합도 평가</p>
+          <h2 id="combined-report-hero-title" className="cr-hero__name">
+            {nameParts.hangul}
+            {nameParts.hanja ? <span>{` (${nameParts.hanja})`}</span> : null}
+          </h2>
+          <p className="cr-hero__summary">{summary}</p>
+          <dl className="cr-hero__meta">
+            <div>
+              <dt>생년월일</dt>
+              <dd>{birthLabel}</dd>
+            </div>
+            <div>
+              <dt>성별</dt>
+              <dd>{genderLabel}</dd>
+            </div>
+          </dl>
+        </div>
+        <div className="cr-hero__score" aria-label={`종합 점수 ${overallScore}점, ${scoreStateLabel(overallScore)}`}>
+          <p className="cr-score-label">종합 점수</p>
+          <p className="cr-score-value">{overallScore}</p>
+          <p className="cr-score-caption">{scoreStateLabel(overallScore)}</p>
+          <div className="cr-score-stars">
+            <StarRating score={toStars(nameCompatibility?.overallStars || 3)} />
+          </div>
+        </div>
+      </div>
+      <div className="cr-hero__metrics">
+        <ScoreMetricCard label="종합" value={overallScore} caption="전체 조화" />
+        <ScoreMetricCard label="사주" value={sajuScore} caption="사주 궁합" />
+        <ScoreMetricCard label="이름" value={nameScore} caption="성명학 분석" />
+      </div>
+    </section>
+  );
+}
+
+function ReportSection({ id, eyebrow, title, description, children, className = '' }) {
+  return (
+    <section id={id} className={`cr-section ${className}`}>
+      <div className="cr-section__head">
+        {eyebrow ? <p className="cr-eyebrow">{eyebrow}</p> : null}
+        <h2 className="cr-section__title">{title}</h2>
+        {description ? <p className="cr-section__description">{description}</p> : null}
+      </div>
+      <div className="cr-section__body">{children}</div>
+    </section>
+  );
+}
+
+function SummaryItem({ number, title, body }) {
+  return (
+    <article className="cr-summary-item">
+      <span className="cr-summary-item__number" aria-hidden="true">{number}</span>
+      <div>
+        <h3>{title}</h3>
+        <p>{body}</p>
+      </div>
+    </article>
+  );
+}
+
+function SajuPillarsGrid({ pillars = [], compact = false }) {
+  const columns = buildPillarColumns(pillars);
+  return (
+    <div className={compact ? 'cr-pillars cr-pillars--compact' : 'cr-pillars'}>
+      <table className="cr-pillars__table" aria-label="사주팔자 4기둥">
+        <thead>
+          <tr>
+            <th scope="col">구분</th>
+            {columns.map((pillar) => (
+              <th key={`${pillar.key}-head`} scope="col">{pillar.label}</th>
+            ))}
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <th scope="row">천간</th>
+            {columns.map((pillar) => (
+              <td key={`${pillar.key}-stem`}>
+                <span className="cr-pillars__symbol">{pillar.stem}</span>
+                <span className={`cr-element-chip cr-element-chip--${elementClassSuffix(pillar.stemElementKey)}`}>
+                  {pillar.stemElement}
+                </span>
+              </td>
+            ))}
+          </tr>
+          <tr>
+            <th scope="row">지지</th>
+            {columns.map((pillar) => (
+              <td key={`${pillar.key}-branch`}>
+                <span className="cr-pillars__symbol">{pillar.branch}</span>
+                <span className={`cr-element-chip cr-element-chip--${elementClassSuffix(pillar.branchElementKey)}`}>
+                  {pillar.branchElement}
+                </span>
+              </td>
+            ))}
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  );
+}
+
+function SummaryRail({ nameParts, birthLabel, genderLabel, nameCompatibility, pillars }) {
+  const overallScore = scoreNumber(nameCompatibility?.overallScore);
+  const sajuScore = scoreNumber(nameCompatibility?.sajuCompatibilityScore);
+  const nameScore = scoreNumber(nameCompatibility?.nameAnalysisScore);
+
+  return (
+    <aside className="cr-summary-rail" aria-label="통합 보고서 요약">
+      <section className="cr-rail-card">
+        <p className="cr-rail-card__label">이름</p>
+        <h2 className="cr-rail-card__name">{nameParts.hangul}</h2>
+        {nameParts.hanja ? <p className="cr-rail-card__hanja">{nameParts.hanja}</p> : null}
+        <p className="cr-rail-card__meta">{birthLabel}</p>
+        <p className="cr-rail-card__meta">{genderLabel}</p>
+      </section>
+
+      <section className="cr-rail-card">
+        <p className="cr-rail-card__label">사주팔자</p>
+        <SajuPillarsGrid pillars={pillars} compact />
+      </section>
+
+      <section className="cr-rail-card">
+        <p className="cr-rail-card__label">핵심 점수</p>
+        <div className="cr-rail-scores">
+          <span>종합 <strong>{overallScore}</strong></span>
+          <span>사주 <strong>{sajuScore}</strong></span>
+          <span>이름 <strong>{nameScore}</strong></span>
+        </div>
+      </section>
+
+      <nav className="cr-rail-nav" aria-label="통합 보고서 빠른 이동">
+        <a href="#combined-name">이름 평가</a>
+        <a href="#combined-saju">사주 요약</a>
+        <a href="#combined-summary">총평</a>
+        <a href="#combined-periods">기간별 운세</a>
+      </nav>
+    </aside>
+  );
+}
+
+function LifeFlowChart({ points, onSelect }) {
+  const width = 640;
+  const height = 180;
+  const padX = 26;
+  const top = 26;
+  const bottom = 42;
+  const safePoints = asArray(points).length ? points : [{ key: 'empty', label: '-', value: 50 }];
+  const values = safePoints.map((point) => Number(point.value) || 0);
+  const min = Math.min(...values);
+  const max = Math.max(...values);
+  const range = max - min || 1;
+  const coords = safePoints.map((point, index) => {
+    const x = padX + (index / Math.max(1, safePoints.length - 1)) * (width - padX * 2);
+    const ratio = ((Number(point.value) || 0) - min) / range;
+    const y = height - bottom - ratio * (height - top - bottom);
+    return { ...point, x, y };
+  });
+  const path = coords.reduce((result, point, index) => {
+    if (index === 0) return `M ${point.x.toFixed(1)} ${point.y.toFixed(1)}`;
+    const previous = coords[index - 1];
+    const cx = (previous.x + point.x) / 2;
+    return `${result} C ${cx.toFixed(1)} ${previous.y.toFixed(1)}, ${cx.toFixed(1)} ${point.y.toFixed(1)}, ${point.x.toFixed(1)} ${point.y.toFixed(1)}`;
+  }, '');
+
+  return (
+    <div className="cr-life-chart">
+      <svg viewBox={`0 0 ${width} ${height}`} role="img" aria-label="나이대별 운의 흐름 그래프">
+        <path d={path} fill="none" stroke="var(--color-wood)" strokeWidth="3" strokeLinecap="round" />
+        {coords.map((point) => (
+          <g
+            key={point.key}
+            role="button"
+            tabIndex={0}
+            aria-label={`${point.label} 운의 흐름 ${point.value}`}
+            onClick={() => onSelect?.(point.key)}
+            onKeyDown={(event) => {
+              if (event.key === 'Enter' || event.key === ' ') {
+                event.preventDefault();
+                onSelect?.(point.key);
+              }
+            }}
+            className="cr-life-chart__point"
+          >
+            <circle
+              cx={point.x}
+              cy={point.y}
+              r={point.isSelected ? 8 : 5}
+              fill={point.isSelected ? 'var(--color-accent)' : 'var(--color-paper-2)'}
+              stroke="var(--color-wood)"
+              strokeWidth="2"
+            />
+            <text x={point.x} y={height - 12} textAnchor="middle" fill="var(--color-ink-3)" fontSize="12" fontWeight="800">
+              {point.label}
+            </text>
+          </g>
+        ))}
+      </svg>
+    </div>
+  );
+}
+
 function CombiedNamingReport({
   fortuneReport,
   onOpenNamingReport,
@@ -374,138 +657,18 @@ function CombiedNamingReport({
   shareUserInfo = null,
 }) {
   const reportRootRef = useRef(null);
-  const [openSections, setOpenSections] = useState({
-    fit: false,
-    summary: false,
-    periods: false,
-  });
-  const [openMini, setOpenMini] = useState({});
   const [selectedPeriodKey, setSelectedPeriodKey] = useState('today');
   const [activeDetail, setActiveDetail] = useState(null);
   const [isDetailOpen, setIsDetailOpen] = useState(true);
   const [expertTagState, setExpertTagState] = useState({ status: 'idle', tags: [] });
   const expertTagRequestRef = useRef(0);
 
-  const toggleSection = (key) => {
-    setOpenSections((prev) => ({ ...prev, [key]: !prev[key] }));
-  };
-
-  const toggleMini = (key) => {
-    setOpenMini((prev) => ({ ...prev, [key]: !prev[key] }));
-  };
-
-  const summaryCards = useMemo(() => {
-    const overview = fortuneReport?.overviewSummary;
-    const life = fortuneReport?.lifeFortuneOverview;
-    const personality = fortuneReport?.personality;
-    const strengths = fortuneReport?.strengthsWeaknesses;
-    const cautions = fortuneReport?.cautions;
-
-    return [
-      {
-        key: 'saju-card',
-        title: '사주팔자 카드',
-        subtitle: '핵심 구조 요약',
-        body: (
-          <div className="space-y-2">
-            <p className="text-sm font-semibold text-[var(--ns-text)]">{overview?.overallSummary || '-'}</p>
-            <div className="grid grid-cols-2 md:grid-cols-4 gap-2 text-xs">
-              {buildEightPillarComponents(overview?.pillars).map((item) => (
-                <div key={item.key} className={`rounded-xl border px-2 py-2 ${getPillarElementCardClass(item.elementKey)}`}>
-                  <p className="text-[10px] font-black opacity-80">{item.label}</p>
-                  <p className="text-sm leading-tight font-black mt-0.5">{item.value}</p>
-                  <p className="text-[10px] font-black mt-1">{item.element}</p>
-                </div>
-              ))}
-            </div>
-          </div>
-        ),
-      },
-      {
-        key: 'life-summary',
-        title: '인생 운세 총평',
-        subtitle: life?.title || '장기 흐름',
-        body: (
-          <div className="space-y-2">
-            <StarRating score={toStars(life?.stars)} />
-            <p className="text-sm font-semibold text-[var(--ns-text)]">{life?.summary || '-'}</p>
-            {asArray(life?.highlights).length ? (
-              <div className="space-y-1">
-                {asArray(life?.highlights).map((line, index) => (
-                  <p key={`life-highlight-${index}`} className="text-xs text-[var(--ns-muted)]">{`- ${line}`}</p>
-                ))}
-              </div>
-            ) : null}
-          </div>
-        ),
-      },
-      {
-        key: 'tendency',
-        title: '나의 성향',
-        subtitle: '핵심 특성',
-        body: (
-          <div className="space-y-2">
-            <p className="text-sm font-semibold text-[var(--ns-text)]">{personality?.summary || '-'}</p>
-            <div className="space-y-1.5">
-              {asArray(personality?.traits).map((trait, index) => (
-                <div key={`trait-${index}`} className="rounded-lg border border-[var(--ns-border)] bg-[var(--ns-surface)]/20 px-2.5 py-2">
-                  <p className="text-xs font-black text-[var(--ns-accent-text)]">{trait?.trait || '-'}</p>
-                  <p className="text-sm font-semibold text-[var(--ns-text)]">{trait?.description || '-'}</p>
-                  <p className="text-[11px] text-[var(--ns-muted)]">근거: {trait?.source || '-'}</p>
-                </div>
-              ))}
-            </div>
-          </div>
-        ),
-      },
-      {
-        key: 'strength-weakness',
-        title: '나의 장/단점',
-        subtitle: '강점과 보완점',
-        body: (
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-2">
-            <div className="rounded-lg border border-[var(--ns-tone-success-border)] bg-[var(--ns-tone-success-bg)]/20 px-2.5 py-2 space-y-1.5">
-              <p className="text-xs font-black text-[var(--ns-tone-success-text)]">강점</p>
-              {asArray(strengths?.strengths).map((item, index) => (
-                <div key={`strength-${index}`}>
-                  <p className="text-sm font-semibold text-[var(--ns-text)]">{item?.text || '-'}</p>
-                  <p className="text-[11px] text-[var(--ns-muted)]">이유: {item?.reason || '-'}</p>
-                </div>
-              ))}
-            </div>
-            <div className="rounded-lg border border-[var(--ns-tone-danger-border)] bg-[var(--ns-tone-danger-bg)]/20 px-2.5 py-2 space-y-1.5">
-              <p className="text-xs font-black text-[var(--ns-tone-danger-text)]">보완점</p>
-              {asArray(strengths?.weaknesses).map((item, index) => (
-                <div key={`weakness-${index}`}>
-                  <p className="text-sm font-semibold text-[var(--ns-text)]">{item?.text || '-'}</p>
-                  <p className="text-[11px] text-[var(--ns-muted)]">이유: {item?.reason || '-'}</p>
-                </div>
-              ))}
-            </div>
-          </div>
-        ),
-      },
-      {
-        key: 'caution',
-        title: '유의점',
-        subtitle: '주의 신호와 대응',
-        body: (
-          <div className="space-y-1.5">
-            {asArray(cautions?.cautions).map((item, index) => (
-              <div key={`caution-${index}`} className="rounded-lg border border-[var(--ns-tone-warn-border)] bg-[var(--ns-tone-warn-bg)]/20 px-2.5 py-2">
-                <p className="text-sm font-semibold text-[var(--ns-text)]">신호: {item?.signal || '-'}</p>
-                <p className="text-sm text-[var(--ns-text)]">대응: {item?.response || '-'}</p>
-                <p className="text-[11px] text-[var(--ns-muted)]">이유: {item?.reason || '-'}</p>
-              </div>
-            ))}
-          </div>
-        ),
-      },
-    ];
-  }, [fortuneReport]);
-
   const periodOptions = useMemo(() => buildPeriodOptions(fortuneReport), [fortuneReport]);
   const selectedPeriod = periodOptions.find((item) => item.key === selectedPeriodKey) || periodOptions[0] || null;
+  const primaryPeriodOptions = useMemo(
+    () => periodOptions.filter((item) => !item.isLifeStage).slice(0, 4),
+    [periodOptions],
+  );
   const selectedCategoryItems = useMemo(
     () => buildCategoryItems(selectedPeriod),
     [selectedPeriod],
@@ -513,12 +676,26 @@ function CombiedNamingReport({
   const selectedPeriodOverall = selectedPeriod?.period?.overall || null;
   const selectedPeriodStars = selectedPeriodOverall?.stars || selectedPeriod?.lifeStage?.stars || null;
   const selectedPeriodSummary = cellSummary(selectedPeriodOverall, '') || selectedPeriod?.lifeStage?.summary || '';
-
-  const allMiniKeys = useMemo(() => {
-    const keys = [];
-    summaryCards.forEach((item) => keys.push(buildMiniKey('summary', item.key)));
-    return keys;
-  }, [summaryCards]);
+  const nameCompatibility = fortuneReport?.nameCompatibility;
+  const nameParts = useMemo(() => getNamePartsFromUserInfo(shareUserInfo), [shareUserInfo]);
+  const birthLabel = useMemo(() => formatBirthDateTimeLabel(shareUserInfo), [shareUserInfo]);
+  const genderLabel = useMemo(() => formatGenderLabel(shareUserInfo?.gender), [shareUserInfo]);
+  const overview = fortuneReport?.overviewSummary || {};
+  const summaryItems = useMemo(
+    () => buildSummaryItems(fortuneReport, nameCompatibility),
+    [fortuneReport, nameCompatibility],
+  );
+  const lifeFlowPoints = useMemo(() => {
+    return buildLifeFlowPoints(periodOptions).map((point) => ({
+      ...point,
+      isSelected: point.key === selectedPeriodKey,
+    }));
+  }, [periodOptions, selectedPeriodKey]);
+  const nameDetails = asArray(nameCompatibility?.details).filter(Boolean);
+  const personality = fortuneReport?.personality || {};
+  const strengths = asArray(fortuneReport?.strengthsWeaknesses?.strengths);
+  const weaknesses = asArray(fortuneReport?.strengthsWeaknesses?.weaknesses);
+  const cautions = asArray(fortuneReport?.cautions?.cautions);
 
   const selectPeriod = (periodKey) => {
     setSelectedPeriodKey(periodKey);
@@ -564,23 +741,14 @@ function CombiedNamingReport({
   };
 
   const prepareBeforePrint = useCallback(() => {
-    const previousOpenSections = { ...openSections };
-    const previousOpenMini = { ...openMini };
-    setOpenSections({ fit: true, summary: true, periods: true });
-
-    const expandedMini = {};
-    allMiniKeys.forEach((key) => {
-      expandedMini[key] = true;
-    });
-    setOpenMini(expandedMini);
-
-    return { previousOpenSections, previousOpenMini };
-  }, [allMiniKeys, openMini, openSections]);
+    const previousIsDetailOpen = isDetailOpen;
+    setIsDetailOpen(true);
+    return { previousIsDetailOpen };
+  }, [isDetailOpen]);
 
   const restoreAfterPrint = useCallback((payload) => {
     if (!payload) return;
-    setOpenSections(payload.previousOpenSections || { fit: false, summary: false, periods: false });
-    setOpenMini(payload.previousOpenMini || {});
+    setIsDetailOpen(payload.previousIsDetailOpen ?? true);
   }, []);
 
   const {
@@ -599,273 +767,240 @@ function CombiedNamingReport({
     restoreAfterPrint,
   });
 
-  const nameLabel = useMemo(() => getNameLabelFromUserInfo(shareUserInfo), [shareUserInfo]);
-
-  const nameCompatibility = fortuneReport?.nameCompatibility;
-
   return (
     <>
-      <div ref={reportRootRef} data-pdf-root="true" className="ns-section-stack ns-section-stack--loose">
-        <CollapsibleCard
-          title="이름 적합도 평가"
-          subtitle="사주와 성명학을 함께 고려한 결과 카드입니다."
-          open={openSections.fit}
-          onToggle={() => toggleSection('fit')}
-          tone="fit"
-          toneMap={CARD_TONE}
-        >
-          <div className="ns-report-surface p-4">
-            <div className="ns-split-row">
-              <div>
-                <p className="text-xs font-black text-[var(--ns-tone-success-text)]">이름 적합도 결과</p>
-                <h2 className="mt-1 text-2xl font-black text-[var(--ns-accent-text)] break-keep whitespace-normal">{nameLabel}</h2>
-              </div>
-              <div className="text-right">
-                <p className="text-xs font-black text-[var(--ns-tone-success-text)]">종합 별점</p>
-                <StarRating score={toStars(nameCompatibility?.overallStars || 3)} />
-              </div>
-            </div>
-            <div className="mt-3 grid grid-cols-1 md:grid-cols-3 gap-2 text-sm">
-              <div className="ns-report-panel">
-                <p className="text-[11px] font-black text-[var(--ns-muted)]">한 줄 결론</p>
-                <p className="font-semibold text-[var(--ns-text)]">{nameCompatibility?.summary || '이름 적합도 분석 결과를 준비 중입니다.'}</p>
-              </div>
-              <div className="ns-report-panel">
-                <p className="text-[11px] font-black text-[var(--ns-muted)]">핵심 점수</p>
-                <p className="font-semibold text-[var(--ns-text)]">{`종합 ${Math.round(Number(nameCompatibility?.overallScore) || 0)} / 사주 ${Math.round(Number(nameCompatibility?.sajuCompatibilityScore) || 0)} / 이름 ${Math.round(Number(nameCompatibility?.nameAnalysisScore) || 0)}`}</p>
-              </div>
-              <div className="ns-report-panel">
-                <p className="text-[11px] font-black text-[var(--ns-muted)]">조언 이유</p>
-                <p className="font-semibold text-[var(--ns-text)]">{asArray(nameCompatibility?.details)[0] || '세부 설명이 준비 중입니다.'}</p>
-              </div>
-            </div>
-            {asArray(nameCompatibility?.details).length > 1 ? (
-              <div className="mt-2 space-y-1">
-                {asArray(nameCompatibility?.details).slice(1).map((line, index) => (
-                  <p key={`name-detail-${index}`} className="text-xs text-[var(--ns-muted)]">{`- ${line}`}</p>
+      <div ref={reportRootRef} data-pdf-root="true" className="combined-report">
+        <ReportHero
+          nameParts={nameParts}
+          birthLabel={birthLabel}
+          genderLabel={genderLabel}
+          nameCompatibility={nameCompatibility}
+        />
+
+        <div className="cr-document-grid">
+          <SummaryRail
+            nameParts={nameParts}
+            birthLabel={birthLabel}
+            genderLabel={genderLabel}
+            nameCompatibility={nameCompatibility}
+            pillars={overview?.pillars}
+          />
+
+          <main className="cr-main-content" aria-label="통합 평가 본문">
+            <ReportSection
+              id="combined-summary"
+              eyebrow="Summary"
+              title="총평 요약"
+              description="분석 결과를 바로 읽을 수 있도록 핵심 흐름만 먼저 정리했습니다."
+            >
+              <div className="cr-summary-list">
+                {summaryItems.map((item) => (
+                  <SummaryItem key={item.key} number={item.number} title={item.title} body={item.body} />
                 ))}
               </div>
-            ) : null}
-          </div>
-        </CollapsibleCard>
+            </ReportSection>
 
-        <CollapsibleCard
-          title="총평 요약"
-          subtitle="전문 용어를 줄이고, 이해하기 쉬운 핵심만 모았습니다."
-          open={openSections.summary}
-          onToggle={() => toggleSection('summary')}
-          tone="summary"
-          toneMap={CARD_TONE}
-        >
-          <div className="ns-report-panel ns-report-panel--sunken ns-section-stack">
-            {summaryCards.map((item, summaryIndex) => {
-              const key = buildMiniKey('summary', item.key);
-              return (
-                <CollapsibleMiniCard
-                  key={key}
-                  title={item.title}
-                  subtitle={item.subtitle}
-                  open={Boolean(openMini[key])}
-                  onToggle={() => toggleMini(key)}
-                  className={SUMMARY_MINI_CARD_CLASSES[summaryIndex % SUMMARY_MINI_CARD_CLASSES.length]}
-                >
-                  {item.body}
-                </CollapsibleMiniCard>
-              );
-            })}
-          </div>
-        </CollapsibleCard>
+            <ReportSection
+              id="combined-name"
+              eyebrow="Name"
+              title="이름 평가"
+              description="성명학 결과와 사주 흐름이 이름과 만나는 지점을 분리해서 봅니다."
+            >
+              <div className="cr-text-block">
+                <h3>이름 적합도 결과</h3>
+                <p>{compactText(nameCompatibility?.summary, '이름 적합도 분석 결과를 준비 중입니다.')}</p>
+              </div>
+              <div className="cr-evidence-grid">
+                <ScoreMetricCard label="종합" value={scoreNumber(nameCompatibility?.overallScore)} caption={scoreStateLabel(nameCompatibility?.overallScore)} />
+                <ScoreMetricCard label="사주 궁합" value={scoreNumber(nameCompatibility?.sajuCompatibilityScore)} caption="사주와의 연결" />
+                <ScoreMetricCard label="이름 분석" value={scoreNumber(nameCompatibility?.nameAnalysisScore)} caption="성명학 기준" />
+              </div>
+              {nameDetails.length ? (
+                <div className="cr-note-list" aria-label="이름 평가 상세 근거">
+                  {nameDetails.slice(0, 4).map((line, index) => (
+                    <p key={`name-detail-${index}`}>{line}</p>
+                  ))}
+                </div>
+              ) : null}
+            </ReportSection>
 
-        <CollapsibleCard
-          title="기간 별 운세"
-          subtitle="기간을 고른 뒤, 해당 기간의 분야별 흐름을 확인하세요."
-          open={openSections.periods}
-          onToggle={() => toggleSection('periods')}
-          tone="periods"
-          toneMap={CARD_TONE}
-        >
-          <div className="ns-report-panel ns-report-panel--sunken ns-section-stack">
-            <div className="space-y-2">
-              <div className="grid grid-cols-2 md:grid-cols-4 gap-2">
-                {periodOptions.map((periodOption) => {
+            <ReportSection
+              id="combined-saju"
+              eyebrow="Saju"
+              title="사주 평가"
+              description="사주팔자와 성향, 강점, 주의점을 한 문서 안에서 이어서 봅니다."
+            >
+              <SajuPillarsGrid pillars={overview?.pillars} />
+              <div className="cr-text-block">
+                <h3>사주팔자 요약</h3>
+                <p>{compactText(overview?.overallSummary, '사주팔자 요약을 준비 중입니다.')}</p>
+              </div>
+              <div className="cr-two-column">
+                <div className="cr-text-block">
+                  <h3>성격과 강점</h3>
+                  <p>{compactText(personality?.summary, '성향 분석을 준비 중입니다.')}</p>
+                  {strengths.slice(0, 2).map((item, index) => (
+                    <p key={`strength-${index}`} className="cr-inline-note">{item?.text || item?.reason || '-'}</p>
+                  ))}
+                </div>
+                <div className="cr-text-block">
+                  <h3>보완과 주의</h3>
+                  {(weaknesses.length ? weaknesses : cautions).slice(0, 2).map((item, index) => (
+                    <p key={`watch-${index}`} className="cr-inline-note">
+                      {item?.text || item?.signal || item?.response || '-'}
+                    </p>
+                  ))}
+                </div>
+              </div>
+            </ReportSection>
+
+            <ReportSection
+              id="combined-periods"
+              eyebrow="Fortune"
+              title="기간별 운세"
+              description="기간과 분야를 선택하면 해당 흐름의 핵심과 상세 근거를 확인할 수 있습니다."
+              className="cr-section--periods"
+            >
+              <div className="cr-period-tabs" role="tablist" aria-label="기간 선택">
+                {primaryPeriodOptions.map((periodOption) => {
                   const isSelected = selectedPeriod?.key === periodOption.key;
                   return (
                     <button
                       key={periodOption.key}
                       type="button"
+                      role="tab"
+                      aria-selected={isSelected}
                       onClick={() => selectPeriod(periodOption.key)}
-                      className={`rounded-xl border px-2.5 py-2 text-left transition-colors ${isSelected ? 'border-[var(--ns-tone-warn-border)] bg-[var(--ns-tone-warn-bg)]/40' : 'border-[var(--ns-border)] bg-[var(--ns-surface)]/20 hover:bg-[var(--ns-surface-soft)]/30'}`}
+                      className="cr-period-tab"
                     >
-                      <span className="block text-sm font-black text-[var(--ns-accent-text)]">{periodOption.label}</span>
-                      <span className="mt-0.5 block text-[11px] leading-snug text-[var(--ns-muted)] break-keep whitespace-normal">
-                        {periodOption.isLifeStage ? '생애시기' : periodOption.periodLabel}
-                      </span>
+                      <span>{periodOption.label}</span>
+                      <small>{periodOption.periodLabel}</small>
                     </button>
                   );
                 })}
               </div>
 
-              {selectedPeriod && !activeDetail ? (
-                <div className="ns-report-panel">
-                  <div className="flex flex-wrap items-center justify-between gap-2">
-                    <div>
-                      <p className="text-xs font-black text-[var(--ns-tone-warn-text)]">선택 기간</p>
-                      <p className="text-base font-black text-[var(--ns-accent-text)]">{selectedPeriod.periodLabel || selectedPeriod.label}</p>
-                    </div>
-                    {selectedPeriodStars ? <StarRating score={toStars(selectedPeriodStars)} /> : null}
+              <div className="cr-life-flow">
+                <div>
+                  <h3>나이대별 운의 흐름</h3>
+                  <p>그래프의 포인트를 선택하면 해당 나이대 흐름으로 전환됩니다.</p>
+                </div>
+                <LifeFlowChart points={lifeFlowPoints} onSelect={selectPeriod} />
+              </div>
+
+              {selectedPeriod ? (
+                <div className="cr-period-summary">
+                  <div>
+                    <p className="cr-eyebrow">선택 기간</p>
+                    <h3>{selectedPeriod.periodLabel || selectedPeriod.label}</h3>
+                    {selectedPeriodSummary ? <p>{selectedPeriodSummary}</p> : null}
                   </div>
-                  {selectedPeriodSummary ? (
-                    <p className="mt-2 text-sm font-semibold text-[var(--ns-text)]">{selectedPeriodSummary}</p>
-                  ) : null}
+                  {selectedPeriodStars ? <StarRating score={toStars(selectedPeriodStars)} /> : null}
                 </div>
               ) : null}
 
-              {activeDetail ? (
-                <section className="ns-report-surface overflow-hidden">
-                  <div className="px-3 py-2.5 border-b border-[var(--ns-tone-info-border)]">
-                    <div className="flex flex-wrap items-start justify-between gap-2">
-                      <div className="min-w-0">
-                        <p className="text-xs font-black text-[var(--ns-tone-info-text)]">{activeDetail.periodLabel}</p>
-                        <div className="mt-0.5 flex flex-wrap items-center gap-2">
-                          <h3 className="text-base font-black text-[var(--ns-accent-text)]">{activeDetail.categoryTitle}</h3>
-                          {activeDetail.cell?.stars ? <StarRating score={toStars(activeDetail.cell.stars)} /> : null}
-                        </div>
-                        <p className="mt-1 text-sm font-semibold leading-relaxed text-[var(--ns-text)] break-keep whitespace-normal">{activeDetail.summary}</p>
-                        <p className="mt-0.5 text-xs text-[var(--ns-muted)]">{activeDetail.categorySubtitle}</p>
-                      </div>
-                      <button
-                        type="button"
-                        onClick={closeCategoryDetail}
-                        className="shrink-0 rounded-lg border border-[var(--ns-border)] bg-[var(--ns-surface)]/30 px-2.5 py-1.5 text-xs font-black text-[var(--ns-accent-text)] hover:bg-[var(--ns-surface-soft)]/30 transition-colors"
-                      >
-                        분야 목록
-                      </button>
-                    </div>
-                  </div>
-
-                  <button
-                    type="button"
-                    onClick={() => setIsDetailOpen((prev) => !prev)}
-                    className="w-full flex items-center justify-between gap-3 px-3 py-2.5 text-left"
-                  >
-                    <span className="text-sm font-black text-[var(--ns-accent-text)]">상세 내용</span>
-                    <span className="shrink-0 inline-flex h-7 w-7 items-center justify-center rounded-full border border-[var(--ns-border)] bg-[var(--ns-surface)]">
-                      <svg
-                        viewBox="0 0 20 20"
-                        fill="none"
-                        className={`w-4 h-4 text-[var(--ns-muted)] transition-transform duration-200 ${isDetailOpen ? 'rotate-180' : ''}`}
-                        aria-hidden="true"
-                      >
-                        <path d="M5 8L10 13L15 8" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" />
-                      </svg>
-                    </span>
-                  </button>
-
-                  {isDetailOpen ? (
-                    <div className="px-3 pb-3 space-y-2.5">
-                      <div className="ns-report-panel ns-report-panel--sunken space-y-1.5">
-                        {cellDetailParagraphs(activeDetail.cell).map((paragraph, index) => (
-                          <p key={`detail-paragraph-${activeDetail.key}-${index}`} className="text-sm leading-relaxed font-semibold text-[var(--ns-text)] break-keep whitespace-normal">{paragraph}</p>
-                        ))}
-                      </div>
-
-                      {cellLivingTips(activeDetail.cell).length ? (
-                        <div className="rounded-lg border border-[var(--ns-tone-success-border)] bg-[var(--ns-tone-success-bg)]/20 px-2.5 py-2">
-                          <p className="text-xs font-black text-[var(--ns-tone-success-text)]">도움 되는 행동</p>
-                          <div className="mt-1 space-y-1">
-                            {cellLivingTips(activeDetail.cell).map((tip, index) => (
-                              <p key={`living-tip-${activeDetail.key}-${index}`} className="text-sm font-semibold text-[var(--ns-text)]">{`- ${tip}`}</p>
-                            ))}
-                          </div>
-                        </div>
-                      ) : null}
-
-                      {cellCautions(activeDetail.cell).length ? (
-                        <div className="rounded-lg border border-[var(--ns-tone-warn-border)] bg-[var(--ns-tone-warn-bg)]/20 px-2.5 py-2">
-                          <p className="text-xs font-black text-[var(--ns-tone-warn-text)]">주의할 점</p>
-                          <div className="mt-1 space-y-1">
-                            {cellCautions(activeDetail.cell).map((caution, index) => (
-                              <p key={`caution-${activeDetail.key}-${index}`} className="text-sm font-semibold text-[var(--ns-text)]">{`- ${caution}`}</p>
-                            ))}
-                          </div>
-                        </div>
-                      ) : null}
-
-                      {!activeDetail.isMatrixPeriod && activeDetail.lifeStage?.highlights?.length ? (
-                        <div className="rounded-lg border border-[var(--ns-border)] bg-[var(--ns-surface)]/20 px-2.5 py-2">
-                          <p className="text-xs font-black text-[var(--ns-muted)]">선택한 생애시기 참고</p>
-                          {asArray(activeDetail.lifeStage.highlights).map((line, index) => (
-                            <p key={`life-stage-highlight-${activeDetail.key}-${index}`} className="mt-1 text-sm font-semibold text-[var(--ns-text)]">{`- ${line}`}</p>
-                          ))}
-                        </div>
-                      ) : null}
-
-                      <div className="rounded-lg border border-[var(--ns-tone-indigo-border)] bg-[var(--ns-tone-indigo-bg)]/20 px-2.5 py-2">
-                        <p className="text-xs font-black text-[var(--ns-tone-indigo-text)]">전문태그</p>
-                        {expertTagState.status === 'loading' ? (
-                          <p className="mt-1 text-sm font-semibold text-[var(--ns-muted)]">전문태그를 불러오는 중입니다.</p>
-                        ) : expertTagState.tags.length ? (
-                          <div className="mt-2 flex flex-wrap gap-1.5">
-                            {expertTagState.tags.map((tag) => (
-                              <span key={`${activeDetail.key}-${tag.id}`} className="inline-flex items-center rounded-full border border-[var(--ns-tone-indigo-border)] bg-[var(--ns-surface)]/40 px-2 py-1 text-xs font-black text-[var(--ns-accent-text)]">
-                                {tag.label}
-                              </span>
-                            ))}
-                          </div>
-                        ) : (
-                          <p className="mt-1 text-sm font-semibold text-[var(--ns-muted)]">이 상세 항목에는 붙일 전문태그가 없어요.</p>
-                        )}
-                      </div>
-                    </div>
-                  ) : null}
-                </section>
-              ) : (
-                <div className="grid grid-cols-1 md:grid-cols-2 gap-2">
+              {!activeDetail ? (
+                <div className="cr-category-grid">
                   {selectedCategoryItems.map((item) => (
                     <button
                       key={item.key}
                       type="button"
                       onClick={() => openCategoryDetail(selectedPeriod, item)}
-                      className={`rounded-xl border px-3 py-2.5 text-left transition-colors ${getNestedMiniCardClass(item.tone)} hover:bg-[var(--ns-surface-soft)]/30`}
+                      className={`cr-category-card cr-category-card--${item.tone}`}
                     >
-                      <span className="flex items-start justify-between gap-2">
-                        <span className="min-w-0">
-                          <span className="block text-xs font-black text-[var(--ns-muted)]">{item.title}</span>
-                          <span className="mt-0.5 block text-[11px] text-[var(--ns-muted)]">{item.subtitle}</span>
+                      <span className="cr-category-card__head">
+                        <span>
+                          <strong>{item.title}</strong>
+                          <small>{item.subtitle}</small>
                         </span>
                         {item.cell?.stars ? <StarRating score={toStars(item.cell.stars)} /> : null}
                       </span>
-                      <span className="mt-2 block text-sm font-black leading-relaxed text-[var(--ns-accent-text)] break-keep whitespace-normal">{item.summary}</span>
-                      <span className="mt-2 inline-flex text-[11px] font-black text-[var(--ns-muted)]">상세 보기</span>
+                      <span className="cr-category-card__summary">{item.summary}</span>
+                      <span className="cr-category-card__action">상세 보기</span>
                     </button>
                   ))}
                 </div>
-              )}
-            </div>
-          </div>
-        </CollapsibleCard>
+              ) : (
+                <article className="cr-detail-panel" id="combined-period-detail">
+                  <div className="cr-detail-panel__head">
+                    <div>
+                      <p className="cr-eyebrow">{activeDetail.periodLabel}</p>
+                      <h3>{activeDetail.categoryTitle}</h3>
+                      <p>{activeDetail.summary}</p>
+                    </div>
+                    <button type="button" onClick={closeCategoryDetail} className="ns-secondary-button">
+                      분야 목록
+                    </button>
+                  </div>
 
-        <section className="ns-report-surface p-3">
-          <p className="text-sm font-black text-[var(--ns-accent-text)]">다른 보고서 보기</p>
-          <div className="mt-2 grid grid-cols-2 gap-2">
-            <button
-              type="button"
-              onClick={onOpenNamingReport}
-              className="ns-report-panel w-full text-left transition-colors hover:bg-[var(--ns-surface-soft)]/30"
-            >
-              <span className="inline-flex items-center gap-1.5 text-sm font-black text-[var(--ns-accent-text)]">이름 평가 보고서</span>
-              <span className="mt-1 block text-[11px] leading-relaxed font-semibold text-[var(--ns-muted)]">성명학 중심 상세 결과를 확인합니다.</span>
-            </button>
-            <button
-              type="button"
-              onClick={onOpenSajuReport}
-              className="ns-report-panel w-full text-left transition-colors hover:bg-[var(--ns-surface-soft)]/30"
-            >
-              <span className="inline-flex items-center gap-1.5 text-sm font-black text-[var(--ns-accent-text)]">사주 평가 보고서</span>
-              <span className="mt-1 block text-[11px] leading-relaxed font-semibold text-[var(--ns-muted)]">사주 중심 상세 결과를 확인합니다.</span>
-            </button>
-          </div>
-        </section>
+                  <button
+                    type="button"
+                    onClick={() => setIsDetailOpen((prev) => !prev)}
+                    className="cr-disclosure"
+                    aria-expanded={isDetailOpen}
+                    aria-controls="combined-period-detail-body"
+                  >
+                    <span>상세 근거</span>
+                    <span aria-hidden="true">{isDetailOpen ? '접기' : '펼치기'}</span>
+                  </button>
+
+                  {isDetailOpen ? (
+                    <div id="combined-period-detail-body" className="cr-detail-panel__body">
+                      <div className="cr-note-list">
+                        {cellDetailParagraphs(activeDetail.cell).map((paragraph, index) => (
+                          <p key={`detail-paragraph-${activeDetail.key}-${index}`}>{paragraph}</p>
+                        ))}
+                      </div>
+                      <div className="cr-two-column">
+                        {cellLivingTips(activeDetail.cell).length ? (
+                          <div className="cr-text-block cr-text-block--success">
+                            <h3>도움 되는 행동</h3>
+                            {cellLivingTips(activeDetail.cell).map((tip, index) => (
+                              <p key={`living-tip-${activeDetail.key}-${index}`}>{tip}</p>
+                            ))}
+                          </div>
+                        ) : null}
+                        {cellCautions(activeDetail.cell).length ? (
+                          <div className="cr-text-block cr-text-block--warn">
+                            <h3>주의할 점</h3>
+                            {cellCautions(activeDetail.cell).map((caution, index) => (
+                              <p key={`caution-${activeDetail.key}-${index}`}>{caution}</p>
+                            ))}
+                          </div>
+                        ) : null}
+                      </div>
+                      {expertTagState.status === 'loading' || expertTagState.tags.length ? (
+                        <div className="cr-tag-panel">
+                          <p>전문태그</p>
+                          {expertTagState.status === 'loading' ? (
+                            <span>전문태그를 불러오는 중입니다.</span>
+                          ) : (
+                            <div>
+                              {expertTagState.tags.map((tag) => (
+                                <span key={`${activeDetail.key}-${tag.id}`}>{tag.label}</span>
+                              ))}
+                            </div>
+                          )}
+                        </div>
+                      ) : null}
+                    </div>
+                  ) : null}
+                </article>
+              )}
+            </ReportSection>
+
+            <section className="cr-related-reports" aria-label="다른 보고서 보기">
+              <button type="button" onClick={onOpenNamingReport}>
+                <strong>이름 평가 보고서</strong>
+                <span>성명학 중심 상세 결과를 확인합니다.</span>
+              </button>
+              <button type="button" onClick={onOpenSajuReport}>
+                <strong>사주 평가 보고서</strong>
+                <span>사주 중심 상세 결과를 확인합니다.</span>
+              </button>
+            </section>
+          </main>
+        </div>
 
         <ReportActionButtons
           isPdfSaving={isPdfSaving}

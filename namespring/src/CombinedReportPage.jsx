@@ -57,9 +57,20 @@ function CombinedReportPage({
   return (
     <ReportShell activeNav="report" onHome={onBackHome} size="wide">
       <PageHeading
-        kicker="Combined report"
-        title="통합 보고서"
-        description="사주 흐름과 이름 평가를 한 화면에서 비교합니다."
+        kicker="보고서 · 통합"
+        title="통합 평가 보고서"
+        description="사주 평가와 성명학 평가를 함께 묶은 종합 보고서입니다."
+        className="ns-page-heading--compact"
+        action={(
+          <button
+            type="button"
+            onClick={onBackHome}
+            className="ns-secondary-button"
+            aria-label="홈으로"
+          >
+            홈으로
+          </button>
+        )}
       />
       <div className={REPORT_PAGE_CLASS.container}>
 
