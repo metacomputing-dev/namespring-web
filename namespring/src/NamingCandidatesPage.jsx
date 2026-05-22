@@ -311,7 +311,7 @@ function NamingCandidatesPage({ entryUserInfo, onRecommendAsync, onLoadCurrentSp
           <div className="ns-report-surface p-4">
             <p className="text-xs font-black text-[var(--ns-muted)]">추천 이름 요약</p>
             <MetricStrip
-              className="mt-3"
+              className="mt-3 ns-metric-strip--candidate-summary"
               items={[
                 { label: '총점 범위', value: scoreRangeText },
                 { label: `인기도 범위 (전체 ${TOTAL_NAME_STATS_COUNT.toLocaleString()})`, value: popularityRangeText },
