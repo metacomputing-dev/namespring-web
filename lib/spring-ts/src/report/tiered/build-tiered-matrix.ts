@@ -12,6 +12,7 @@
 import type { SajuSummary, BirthInfo, NamingReport, NamingReportFrame } from '../../types.js';
 import type {
   AgeBandScopedFortunes,
+  ElementCode,
   FortuneTieredMatrix,
   PeriodScopedFortunes,
   TieredCategoryId,
@@ -34,17 +35,40 @@ import { buildFeatureVector, buildFeatureVectorForAge, type FeatureVector } from
 import { loadFragmentRegistry, type FragmentRegistry, type NarrativeFragment } from './fragment-registry.js';
 import { selectFragment, buildSelectionSeed, type SelectionContext } from './fragment-selector.js';
 import { normalizeRenderedText, renderFragment, renderFragmentParagraphs, type RenderContext } from './template-engine.js';
-import { gradeCell } from './cell-grader.js';
+import { gradeCell, gradeToStars } from './cell-grader.js';
 import { buildPeriodMeta, periodFortuneElement } from './period-meta-builder.js';
 import { loadGlossary } from './glossary-loader.js';
 import { buildTagGlossary } from './tag-inliner.js';
 import { resolveNumericalEvidence, type NumericalEvidenceContext } from './numerical-evidence.js';
+import {
+  BRANCH_BY_CODE,
+  ELEMENT_CONTROLLED_BY,
+  ELEMENT_CONTROLS,
+  ELEMENT_GENERATED_BY,
+  ELEMENT_GENERATES,
+  getElementRelation,
+  STEM_BY_CODE,
+} from '../common/elementMaps.js';
 
 const PERIOD_ORDER: readonly TieredPeriodKind[] = ['life', 'today', 'thisWeek', 'thisMonth', 'thisYear'];
 const CATEGORY_ORDER: readonly TieredCategoryId[] = [
   'wealth', 'health', 'academic', 'romance', 'family',
   'career', 'study_document', 'expression_children', 'health_stress', 'movement',
 ];
+
+type CellGrade = ReturnType<typeof gradeCell>;
+
+interface CategoryElements {
+  readonly primary: ElementCode;
+  readonly secondary?: ElementCode | null;
+}
+
+interface DaeunPillarLike {
+  readonly stem: string;
+  readonly branch: string;
+  readonly startAge: number;
+  readonly endAge: number;
+}
 
 interface LifeStageBandSpec {
   readonly key: TieredLifeStageBand;
@@ -86,6 +110,119 @@ const CATEGORY_LABEL: Record<'overall' | TieredCategoryId, string> = {
   health_stress: '긴장과 회복',
   movement: '이동과 변화',
 };
+
+function categoryElements(category: TieredCategoryId, dayMasterElement: ElementCode | null): CategoryElements | null {
+  if (!dayMasterElement) return null;
+
+  const wealth = ELEMENT_CONTROLS[dayMasterElement];
+  const resource = ELEMENT_GENERATED_BY[dayMasterElement];
+  const output = ELEMENT_GENERATES[dayMasterElement];
+  const authority = ELEMENT_CONTROLLED_BY[dayMasterElement];
+
+  switch (category) {
+    case 'wealth':
+      return { primary: wealth };
+    case 'health':
+      return { primary: resource };
+    case 'academic':
+      return { primary: output, secondary: resource };
+    case 'romance':
+      return { primary: wealth, secondary: authority };
+    case 'family':
+      return { primary: resource, secondary: dayMasterElement };
+    case 'career':
+      return { primary: authority, secondary: wealth };
+    case 'study_document':
+      return { primary: resource, secondary: output };
+    case 'expression_children':
+      return { primary: output };
+    case 'health_stress':
+      return { primary: resource, secondary: authority };
+    case 'movement':
+      return { primary: output, secondary: dayMasterElement };
+  }
+}
+
+function relationGrade(fortuneElement: ElementCode, targetElement: ElementCode): number {
+  const relation = getElementRelation(fortuneElement, targetElement);
+  if (relation === 'same') return 5;
+  if (relation === 'generates') return 4;
+  if (relation === 'generated_by') return 3;
+  if (relation === 'controls') return 2;
+  if (relation === 'controlled_by') return 1;
+  return 3;
+}
+
+function categoryAlignmentGrade(fortuneElement: ElementCode, elements: CategoryElements): number {
+  const grades = [relationGrade(fortuneElement, elements.primary)];
+  if (elements.secondary) grades.push(relationGrade(fortuneElement, elements.secondary));
+  return grades.reduce((sum, grade) => sum + grade, 0) / grades.length;
+}
+
+function gradeCategoryCell(
+  category: TieredCategoryId,
+  fortuneElement: ElementCode | null,
+  feature: FeatureVector,
+): CellGrade {
+  const baseGrade = gradeCell(
+    fortuneElement,
+    feature.yongshinElement,
+    feature.heeshinElement,
+    feature.gishinElement,
+  );
+  const elements = categoryElements(category, feature.dayMasterElement);
+  if (!fortuneElement || !elements || baseGrade.stars === null) return baseGrade;
+
+  const categoryGrade = categoryAlignmentGrade(fortuneElement, elements);
+  const blendedGrade = (categoryGrade * 0.6) + (baseGrade.grade * 0.4);
+  const roundedGrade = Math.max(1, Math.min(5, Math.round(blendedGrade)));
+
+  return {
+    grade: blendedGrade,
+    stars: gradeToStars(roundedGrade),
+    meaningfulness: roundedGrade === 3 ? 'limited' : 'meaningful',
+  };
+}
+
+function extractDaeunPillars(saju: SajuSummary): readonly DaeunPillarLike[] {
+  const raw = (saju as Record<string, unknown>).daeunInfo;
+  if (!raw || typeof raw !== 'object') return [];
+  const pillars = (raw as Record<string, unknown>).pillars;
+  if (!Array.isArray(pillars)) return [];
+
+  return pillars
+    .map((pillar): DaeunPillarLike | null => {
+      if (!pillar || typeof pillar !== 'object') return null;
+      const data = pillar as Record<string, unknown>;
+      const stem = typeof data.stem === 'string' ? data.stem : '';
+      const branch = typeof data.branch === 'string' ? data.branch : '';
+      const startAge = typeof data.startAge === 'number' ? data.startAge : Number(data.startAge);
+      const endAge = typeof data.endAge === 'number' ? data.endAge : Number(data.endAge);
+      if (!stem || !branch || !Number.isFinite(startAge) || !Number.isFinite(endAge)) return null;
+      return { stem, branch, startAge, endAge };
+    })
+    .filter((pillar): pillar is DaeunPillarLike => Boolean(pillar))
+    .sort((a, b) => a.startAge - b.startAge);
+}
+
+function elementFromStemOrBranch(stem: string, branch: string): ElementCode | null {
+  const stemCode = stem.trim().toUpperCase();
+  const branchCode = branch.trim().toUpperCase();
+  return STEM_BY_CODE[stemCode]?.element
+    ?? BRANCH_BY_CODE[branchCode]?.element
+    ?? null;
+}
+
+function lifeFortuneElementForAge(saju: SajuSummary, representativeAge: number): ElementCode | null {
+  const pillars = extractDaeunPillars(saju);
+  if (!pillars.length) return null;
+
+  const matched = pillars.find((pillar) => (
+    representativeAge >= pillar.startAge && representativeAge <= pillar.endAge
+  )) ?? pillars.find((pillar) => representativeAge <= pillar.endAge) ?? pillars[pillars.length - 1];
+
+  return matched ? elementFromStemOrBranch(matched.stem, matched.branch) : null;
+}
 
 const MINOR_STANDARD_LIMITED_PARAGRAPH: TaggedParagraph = Object.freeze({
   tokens: [
@@ -343,12 +480,13 @@ function buildCell(
   gishin: FeatureVector['gishinElement'],
   fortuneElement: FeatureVector['dayMasterElement'],
   fragmentSelection?: Pick<SelectionContext, 'preferGatingDimensions'>,
+  gradeOverride?: CellGrade,
 ): TieredFortune {
   const ctx: RenderContext = { seedKey, periodLabel, feature };
   const selectionCtx: SelectionContext = fragmentSelection?.preferGatingDimensions?.length
     ? { seedKey, preferGatingDimensions: fragmentSelection.preferGatingDimensions }
     : { seedKey };
-  const grade = gradeCell(fortuneElement, yongshin, heeshin, gishin);
+  const grade = gradeOverride ?? gradeCell(fortuneElement, yongshin, heeshin, gishin);
 
   // P22-A1: previously a `MINOR_LIMITED_CATEGORIES` early-return forced
   // wealth/romance/study_document into `buildMinorFallbackCell` for
@@ -415,12 +553,18 @@ function buildPeriodScoped(
   targetDate: Date,
   periodLabelOverride?: string,
   fragmentSelection?: Pick<SelectionContext, 'preferGatingDimensions'>,
+  fortuneElementOverride?: ElementCode | null,
 ): PeriodScopedFortunes {
   const meta = buildPeriodMeta(period, targetDate);
   const periodLabel = periodLabelOverride ?? meta.label;
-  const fortuneElement = period === 'life'
-    ? feature.dayMasterElement
-    : periodFortuneElement(period, targetDate);
+  const fortuneElement = fortuneElementOverride
+    ?? (period === 'life' ? feature.dayMasterElement : periodFortuneElement(period, targetDate));
+  const overallGrade = gradeCell(
+    fortuneElement,
+    feature.yongshinElement,
+    feature.heeshinElement,
+    feature.gishinElement,
+  );
 
   const overall = buildCell(
     'overall',
@@ -434,10 +578,12 @@ function buildPeriodScoped(
     feature.gishinElement,
     fortuneElement,
     fragmentSelection,
+    overallGrade,
   );
 
   const byCategory = {} as Record<TieredCategoryId, TieredFortune>;
   for (const cat of CATEGORY_ORDER) {
+    const categoryGrade = gradeCategoryCell(cat, fortuneElement, feature);
     byCategory[cat] = buildCell(
       cat,
       period,
@@ -450,6 +596,7 @@ function buildPeriodScoped(
       feature.gishinElement,
       fortuneElement,
       fragmentSelection,
+      categoryGrade,
     );
   }
 
@@ -463,12 +610,14 @@ function buildPeriodScoped(
 }
 
 function buildAgeBandScoped(
+  saju: SajuSummary,
   band: LifeStageBandSpec,
   registry: FragmentRegistry,
   feature: FeatureVector,
   seedKey: string,
   targetDate: Date,
 ): AgeBandScopedFortunes {
+  const fortuneElement = lifeFortuneElementForAge(saju, band.representativeAge) ?? feature.dayMasterElement;
   const scoped = buildPeriodScoped(
     'life',
     registry,
@@ -477,6 +626,7 @@ function buildAgeBandScoped(
     targetDate,
     band.label,
     { preferGatingDimensions: ['agePhase', 'ageBand'] },
+    fortuneElement,
   );
   return {
     ...scoped,
@@ -499,7 +649,7 @@ function buildLifeByAgeBand(
   const byAgeBand = {} as Record<TieredLifeStageBand, AgeBandScopedFortunes>;
   for (const band of LIFE_STAGE_BANDS) {
     const feature = buildFeatureVectorForAge(saju, birth, targetDate, band.representativeAge);
-    byAgeBand[band.key] = buildAgeBandScoped(band, registry, feature, seedKey, targetDate);
+    byAgeBand[band.key] = buildAgeBandScoped(saju, band, registry, feature, seedKey, targetDate);
   }
   return byAgeBand;
 }
